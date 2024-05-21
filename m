@@ -4,49 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62858C25B74
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 15:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0676DC25B74
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 15:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CAC510E452;
-	Tue, 21 May 2024 15:56:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1840A10E50E;
+	Tue, 21 May 2024 15:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qUYMhR9e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jZ1CACG1";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22D3010E429;
- Tue, 21 May 2024 15:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=GDNuJga51pGTo2RftM9ydGBivel+0kcxb28rX0scxeM=; b=qUYMhR9e5HoNW5+o0fosRNpjIL
- l/ldChz+gxHFhybNDD7ufgEc1/sHJRmzBk/TUiemzriUze+j6VJ/BuOwK4VN/pMt9WFGeFHkZDNtZ
- RDPFx3p2mCGjwIR1zrAY4n1W0Bv4Q6mc/55XI5oD4x4yhfPL1XHAhvxAWOnY+SsilP9nuWgz2FGs5
- 5VHzhCgIJO97lQgW/bhvmwYC3pFP2gfUBTNFRUrjMJa98QwQ6hEaGCKbjy0RxPRFMFF7nwcxJZest
- lhWc+/ioDCkxTAymMk927MnhXgZqyAzTsr06RXFlNpc8ClFP8nWIBhp5rpR0rt4fKPx9Igyzm8ANx
- 5PabeIfA==;
-Received: from [192.168.13.219] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1s9RqQ-00AiOA-Lr; Tue, 21 May 2024 17:56:06 +0200
-Date: Tue, 21 May 2024 17:55:55 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>
-Subject: Re: [RFC PATCH v4 31/42] drm/amd/display: Add support for sRGB EOTF
- in DEGAM block
-Message-ID: <7uq56gktwrdctjiceztykimxhhhbctal3i44e6boi6pjynkgh3@7dkc7ama75pf>
-References: <20240226211100.100108-1-harry.wentland@amd.com>
- <20240226211100.100108-32-harry.wentland@amd.com>
- <irl6ryufwrzapa4beqqixx33bedzsev35spj6rh2ln54vhi25f@haapi627kfyl>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062.outbound.protection.outlook.com [40.107.236.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3E710E50E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 May 2024 15:57:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lGy6vrn2lYhJFENFd2xUJQ/XQNOUomOC27N4vRvDC7K5Gjk5sCtmiM52LW1mOC67WaBRMEJzWkBAImv88qQdppEkWi5RGmwcssL/a3wh65CdIT9bVFzz1WDyfDMWuURh9m0sedi9aIVVqNkoFoy2gACEGryNIQrs45YGlHmZghze8DrQW3ZX7phhkJNlWGrYUJdi85xZHR/t5Cqhaml8v1knvDD3GYSwOCrVzapABVfEcRZY235tYpUUPY4AXqcPMhGVvzQPmaz9Qql//23UiGEKbN/DPuC9Z9qUZPhe+u8diHmNCrhxEDHaW7Luuxr3jou20G8iBZ5HIFtCcQO0GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dMcmF+KicnMU+FFbtlGhc43+rTNyrSnx/bvFwgo2n+0=;
+ b=Zn+l38ECwNwIhn9Ri4VBALBngKG4OqD5bHQgYCb4kuYOxWkc6WQexdJEfK2xumbvRbCc7xMlW4j/S1C7tiTBmBvpqpg8K+55HjQW7g2A8hj6sR0lbrflWecR7Tor3VoRfrKbY0Jl8tvArKX8ifyuzT5mSxe6uixBajwzfr/3RhFcyGbDBvXHn3OQg6VgN4Arl/t7zsXd5yTnBYNW+Rk9tVeVI4zm8v9RFGFRg7zNpi44IQ1xLnVxjvFneA4hFwKOJCJurfIdyDvfdya49koXM1uVTXbNPQ0dxkxiKtlkRlehr6Ubdies8QoxYo22dA/RZxubgs9MWeNhOhGmgUqZsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dMcmF+KicnMU+FFbtlGhc43+rTNyrSnx/bvFwgo2n+0=;
+ b=jZ1CACG1g4rMTBdN/Qp3JjezbXlnBf+fyHrWuLmImIgBhpH32OibexcpKavgOVwweaYKUEcU7J1PDfhOIOLrg251TDvsatN/yKLccZMy6HSaX6T9tbvCAE3vmgautr1dBox3EcAWDjq9ScPKAn/9aSi6CI3M88Iz/wYQ7KIcvaU=
+Received: from BL1PR12MB5192.namprd12.prod.outlook.com (2603:10b6:208:311::16)
+ by DM6PR12MB4372.namprd12.prod.outlook.com (2603:10b6:5:2af::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Tue, 21 May
+ 2024 15:56:53 +0000
+Received: from BL1PR12MB5192.namprd12.prod.outlook.com
+ ([fe80::1827:386f:7b23:dca3]) by BL1PR12MB5192.namprd12.prod.outlook.com
+ ([fe80::1827:386f:7b23:dca3%6]) with mapi id 15.20.7587.035; Tue, 21 May 2024
+ 15:56:53 +0000
+From: "Liu, Wenjing" <Wenjing.Liu@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Pillai, Aurabindo"
+ <Aurabindo.Pillai@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>, "Zhuo, Lillian" <Qingqing.Zhuo@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Lee, Alvin"
+ <Alvin.Lee2@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Wu, Hersen"
+ <hersenxs.wu@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>
+Subject: RE: [PATCH v3] drm/amd/display: Refactor construct_phy function in
+ dc/link/link_factory.c
+Thread-Topic: [PATCH v3] drm/amd/display: Refactor construct_phy function in
+ dc/link/link_factory.c
+Thread-Index: AQHaosKU6t/9hg8ei0iQsMxdvah1GrGh4rHQ
+Date: Tue, 21 May 2024 15:56:53 +0000
+Message-ID: <BL1PR12MB5192AF4361CDF16265822CD4F5EA2@BL1PR12MB5192.namprd12.prod.outlook.com>
+References: <20240429083038.232958-1-srinivasan.shanmugam@amd.com>
+ <20240510101205.1913092-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240510101205.1913092-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US, en-CA
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=29e8fa6d-52fa-425a-97c7-14397bddf00e;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-21T15:32:35Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5192:EE_|DM6PR12MB4372:EE_
+x-ms-office365-filtering-correlation-id: ef1e8593-50ae-43d6-a586-08dc79aea276
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|366007|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?utf-8?B?blVTZzMxY2Z2cVphSTJEVWRNRWNXb29PRWJrcGJJdm44V3JHdkxrNHlla01m?=
+ =?utf-8?B?M2RmcnBrS2hyVVlySURhUVZKSlZQNzRNQXVYWllUY2pOaEV4emdjNlRwckEx?=
+ =?utf-8?B?RGp6MVY5T3BzdDhGeDIwVExzbHdzdkZYaXdlNlFidTVFTklva0Q3NWdYa2Z6?=
+ =?utf-8?B?aCtrQldoaXFvQUZjQTlkbGR0VmovSjJLNDBuMDY5R0V4K0xCM2VnZjBrblJB?=
+ =?utf-8?B?elFMSGJmSXZUaEU3eHkyQS9RUldaMWZLWno3QVpSbFR0eExRekdGMmp6RjJw?=
+ =?utf-8?B?Y29pVHN3eVlsMzc5YVdjejFoVWt2Tzl1RWM3bjI4L0NsU1VIUXM3M0wvTGJD?=
+ =?utf-8?B?ZytGRm5sUlVtVnRiZjU1RTcyNWljdC9jbStIVHdHUEZLZjE1ek16cFBRZ2Ry?=
+ =?utf-8?B?d0VXQ2o2UkRjcy9zZGRhZHIxWWIzaWRlN2NtV2hZeXlwZnZqQmtVQ0tybG5H?=
+ =?utf-8?B?T3F4TDdwTlhwWVAwVXg3bjNWTWhFY3dtcTZVRW1CMWpNQmVuZ0xPRnVHMHJR?=
+ =?utf-8?B?blkxTEkvVFB5L1l6Sk8wKy8xNm9nU1RySkRaMEdISVlRNDVKVmtEdlVWWnRB?=
+ =?utf-8?B?b3k5ZlcyOUtuaDdjd211azZDWExwL0FwVk9CWUxWT3VXaXFadXh4dysrcWgr?=
+ =?utf-8?B?dWNja2pWdmJhUGR5OG82RE04WTFhMjdGbHZtYTArQXM5Z1FnQmRIV3ZWNUxa?=
+ =?utf-8?B?R3U4ckNHVXRSNTU1SjRnTDdpMmVFSWNBcCtBWDZMWTBFeExpejAzNGZjNDNj?=
+ =?utf-8?B?dnA2aFNNaUZRUDFYT3ZaMzA2T3g0amRMajVTUmlqTTBvNDdNQnh0SVhqdVcz?=
+ =?utf-8?B?VnF3YlB6ZGtNekd5QWFwV0JUSTlHemRYRW1jQ2pWOW93RG5pSTZJTm5tbVVU?=
+ =?utf-8?B?UlRCNk42dE9VOU0vNXRFdjFQZVg1eXZWZUJNMFRsVjIyQzlYOWI3VU5kczBJ?=
+ =?utf-8?B?Q0VudUtwVkRlaFpqZHRaOVpZR2FIRDR5MUJpZEVNbXJhME1TM3EwTkxiazJs?=
+ =?utf-8?B?eTZWVGF3azlwN2h3RElYMExROSs5QURUQ2lFQkxrdGRUdmEySlIrR3B4RlhC?=
+ =?utf-8?B?bFVYcGJWNlp4UVJlSTIxVkpjbUdzN2ZmZHUySHBPZmlEMTZXSHdYS3orMVk3?=
+ =?utf-8?B?aUMxLzVRV1ZxWGFQYTZiRTBjTTNyREw5dUE3ZEQ0OGd3WlFqQTB3V0RjM0hY?=
+ =?utf-8?B?OW5xS2JBYVFraFNHM0FodWEvQkNlUVBMQmcva3R6SkhGQmMwWkpaUytKRUti?=
+ =?utf-8?B?N09RMW5VVDJhbW5DaFNwNG1scWVOMENKZkY3bWptSnZreFVXbEdpc0VCREFu?=
+ =?utf-8?B?ZjNUalhBMWh0eTRheTYyYmU1T0JOK0lEMHRGNThObWl2eS9BczlGTDJMYkx2?=
+ =?utf-8?B?c0w5ZVhJY1A4K2NYL2FzeFZRVjlTWndwZFMvTXF3cG4wM1BRRjJGK3FuNGlo?=
+ =?utf-8?B?ZGMwK0Z6OVJaMStiMUx3S29XVzRZNVJObm16OUd0NUtic3ArRFBFcUtaUmRR?=
+ =?utf-8?B?YnN2VjVjVlB4UzJCYWo5WUY2OTgrT3UvOUZ5bEJBSjdnRXBCSjd4cUdMcmxR?=
+ =?utf-8?B?MlhDdnkwQ3NmNEIyUHR6c0dxTW4yQnZlY2FSRmJRYlUzam92Vis1VDRGWFc2?=
+ =?utf-8?B?NVg4b3gwam9YVndyWTAxazZMcFJXMUE4clV5NkFpdmo2VERFQ1huTUpoWEpw?=
+ =?utf-8?B?QjhPU1NPRzhWWTlqOFZhZUtha2ZjWkJjWStFQkZUZjFrMStBQkgzcUtjSDFQ?=
+ =?utf-8?B?RTF1Zi8vNEZZWVg0Nkw0NmtwL29uNjdLbTV5RlluaG5GMkVkMElacExucG9w?=
+ =?utf-8?B?M2doNml3cFZuelhMQ0lNQT09?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RnRnWDVqUXF3VzU2cEZnWVFOY3RFUk5oWWNwVGZPd2JOVjAxbGg5OG44M1Rx?=
+ =?utf-8?B?VTZnSFBXdmRwa2IvZ3hZSFQyRTZRRW43UnBoU0lPbE45ZTNNenJhWDJ0TmFa?=
+ =?utf-8?B?ZnhWcVRhcGJCZVkybGcvMXBDRENnQW1HOFA3cyszSVh3SW5hOHN1VkhQTk10?=
+ =?utf-8?B?MU5HKytnSndSY1ZvSUsxMk1FcFQxSC9tNDZJcGlnWmE4dDdmZnVLQVU4blI0?=
+ =?utf-8?B?UUtCRCtaVjRMeDI4NG5Ka0doQUN5K3AzQ0RyUlBkUjZ3MmlqUXpUdFZMWGIx?=
+ =?utf-8?B?MlBmZ0I1RnpLVDBSMEE0UTlpYU9ENVdJUktpenlkMGRRamxWVndrWDZuWUtO?=
+ =?utf-8?B?QlZ6V3BlaUFLYXVOTlJlMy9lVlhKSVc5dmx2c0J0anFEYWRqWjAwbmxGY3VI?=
+ =?utf-8?B?NjdTSTg3OXc2NXV4TitUc1NONGxvRlZDbHJCN08yd2NDTmROQzBKYzJIYjV3?=
+ =?utf-8?B?OGt5Q1Z1ODZHL1Z2TzY2c1VUaWxGYmtZL2lLbmN1eEYwWCs2bFNSVFlTbVhJ?=
+ =?utf-8?B?TlMrRjJaRityUmNNVHR5bzc1RklIYW5ORFNvTlNYLzJiSXJ5ZE0xemFPMkk5?=
+ =?utf-8?B?RWVabGxhVVFiR3VkOU9IQzhUSytiWW01TDZWZmRib0lkQW5jUTY4NlpWdFUw?=
+ =?utf-8?B?c3kvWWFVWFYwOHgyWVBwSGQrNzM0UXBwSFpvcnBuMlBRVFlxam92dC81UzNV?=
+ =?utf-8?B?NUxpL1lPMmJ1NEJSQWxDMmNzQmhNdnN0T2Y0VGkyQ0V4RmtSVWt2Ry9KaURP?=
+ =?utf-8?B?OXdBc1Q3TUFQY2Z2cmp3UDQ3czZ2UlcrcG8xODlXMFVYeXZUOER0S1BCRzZK?=
+ =?utf-8?B?VVhSZm9LcGtlbTAxNWhJN2Qyd3gzeFZoanFvR0NJdm1nc1pyMDIxYUhoNURx?=
+ =?utf-8?B?ZWV5djZYN25RMlBCUmZ6RVVabnhFTkdRcm9ZSW1ycmpEdkRLdlpTU09nSWUy?=
+ =?utf-8?B?QlFnOU1GREJNL212ZXBjK2hpb2F2NUFhamc1bTlNWnBGVjZZaEFEWGdwQ1Y2?=
+ =?utf-8?B?U3JuY3pldWhibzhVZHV2MlBLb1d0YXdJaDkyWjdvTk5HeUtUNEJub2dXRkxl?=
+ =?utf-8?B?ZnVaenpkZjh2TVZ3S01ma3hCOWhZTlFPalJJOXQ0NnU2RCtYcXpJenc0L3ZL?=
+ =?utf-8?B?aE5NVkhXc0hSWXhDN3E1T091YjNXZVl5L3Azczc1ZFNaeVN4WWpSUmxtN2Vw?=
+ =?utf-8?B?ZER5VEtmanFVZEREZHFYak9CQUJkK2U1RHpDZXdZVXdUb0piV3Y4VE9OeFY2?=
+ =?utf-8?B?M0plaC9XbGtUbEtFdStjOGRrUW92RUhuVGN3L2F2WXY5OW91QlhkY01HZDJY?=
+ =?utf-8?B?dUdWaUpqOGl4NjdtSDBGRVNZS0tpQmRaZDhpYW1vZzBTeENNODR1OS9Dajg3?=
+ =?utf-8?B?bUlVNzZ6RktNOVRuaXo5VERTMUx3bnpUbG1wYWl4aGk1dDVEN3lFMVlLM2tk?=
+ =?utf-8?B?VWR1cmZjdjYwLzZ4Uk15WS8vcE1pUkxxMnZWRHFXemhLWm1MZFk5RDQ4QUhp?=
+ =?utf-8?B?djFuZzFKN2dXK2kwVktGSWxJUldEeldMWStpd3Z3YS9MTi9hOG5yeWhsaUQv?=
+ =?utf-8?B?S1JjYXlSa3VaT1FGM1laZnJ4Z0tBVVdwUmlON2owZnBzZ1R6NlJnL1RIN1FG?=
+ =?utf-8?B?bzRjMjFlVVlLMmJCMDNidW0wYzBjaVJDQ3VKdlpUMHk2TVQxVXdIenpmSWE4?=
+ =?utf-8?B?bFZOZ2F4TUdidXc1cVpXZnc1WUluMEZWdzRaTmp1dFF5SXBGanJVMU1lVXlE?=
+ =?utf-8?B?d000emd5K1RWSXQ4aXlJRStoSDZOQUhidHEzdzRReThXMTFIYzZXT1JKK3hh?=
+ =?utf-8?B?ZnNQWW9LWW1uelo3am5CYUowYUhnWXM1dGQ4bHNEWDZDME9XZXNDaXJWNXZR?=
+ =?utf-8?B?WVg0ZXF0YmZHbzJiVEVWK3NwS0djVmJJVDdFamhKOFdxdlJ1Z0swWWQvbS9O?=
+ =?utf-8?B?MjFiV2dqV0Vib3hhd0tuaFk4Z0RqdjFUVWl2Z3NlRU9PdUZ1dURXOG82Znh0?=
+ =?utf-8?B?ckFpM0xZNTJadnJ4RXpVdHBmZFVOdCttSlZkZ2ZBQVpuV29TcWhGSDh6SXhD?=
+ =?utf-8?B?Y29xMzd2Q29qaDczRGpFalF0KzBqRGRuTG9OMUhLd2N1UUlCbHdKSnV1OWNO?=
+ =?utf-8?Q?vyGs=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <irl6ryufwrzapa4beqqixx33bedzsev35spj6rh2ln54vhi25f@haapi627kfyl>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef1e8593-50ae-43d6-a586-08dc79aea276
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2024 15:56:53.6367 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gdkS1pR8NgqfKRUrPwiLg4vV+qCx0ZbKKEfeMjYUfKEOx8tGEy4o/uKCBbdYcLvt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4372
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,310 +177,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 05/21, Melissa Wen wrote:
-> On 02/26, Harry Wentland wrote:
-> > From: Alex Hung <alex.hung@amd.com>
-> > 
-> > Expose one 1D curve colorop with support for
-> > DRM_COLOROP_1D_CURVE_SRGB_EOTF and program HW to perform
-> > the sRGB transform when the colorop is not in bypass.
-> > 
-> > With this change the following IGT test passes:
-> > kms_colorop --run plane-XR30-XR30-srgb_eotf
-> > 
-> > The color pipeline now consists of a single colorop:
-> > 1. 1D curve colorop w/ sRGB EOTF
-> > 
-> > Signed-off-by: Alex Hung <alex.hung@amd.com>
-> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |  3 +-
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 88 +++++++++++++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 58 ++++++++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h | 34 +++++++
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 10 +++
-> >  5 files changed, 192 insertions(+), 1 deletion(-)
-> >  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> >  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> > index ab2a97e354da..46158d67ab12 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> > @@ -38,7 +38,8 @@ AMDGPUDM = \
-> >  	amdgpu_dm_pp_smu.o \
-> >  	amdgpu_dm_psr.o \
-> >  	amdgpu_dm_replay.o \
-> > -	amdgpu_dm_wb.o
-> > +	amdgpu_dm_wb.o \
-> > +	amdgpu_dm_colorop.o
-> >  
-> >  ifdef CONFIG_DRM_AMD_DC_FP
-> >  AMDGPUDM += dc_fpu.o
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > index 9b527bffe11a..3ec759934669 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > @@ -668,6 +668,19 @@ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf)
-> >  	}
-> >  }
-> >  
-> > +static enum dc_transfer_func_predefined
-> > +amdgpu_colorop_tf_to_dc_tf(enum drm_colorop_curve_1d_type tf)
-> > +{
-> > +	switch (tf)
-> > +	{
-> > +	case DRM_COLOROP_1D_CURVE_SRGB_EOTF:
-> > +	case DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
-> > +		return TRANSFER_FUNCTION_SRGB;
-> > +	default:
-> > +		return TRANSFER_FUNCTION_LINEAR;;
-Nitpick: double `;` 
-
-> > +	}
-> > +}
-> > +
-> >  static void __to_dc_lut3d_color(struct dc_rgb *rgb,
-> >  				const struct drm_color_lut lut,
-> >  				int bit_precision)
-> > @@ -1137,6 +1150,59 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
-> >  	return 0;
-> >  }
-> >  
-> > +static int
-> > +__set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
-> > +		       struct drm_colorop_state *colorop_state)
-> > +{
-> > +	struct dc_transfer_func *tf = dc_plane_state->in_transfer_func;
-> 
-> For this patch and the next two, it ^ should be:
-> `&dc_plane_state->in_transfer_func` (same for shape and blend), right?
-> 
-> > +	struct drm_colorop *colorop = colorop_state->colorop;
-> > +	struct drm_device *drm = colorop->dev;
-> > +
-> > +	if (colorop->type != DRM_COLOROP_1D_CURVE &&
-> > +	    colorop_state->curve_1d_type != DRM_COLOROP_1D_CURVE_SRGB_EOTF)
-> > +		return -EINVAL;
-> > +
-> > +	if (colorop_state->bypass) {
-> > +		tf->type = TF_TYPE_BYPASS;
-> > +		tf->tf = TRANSFER_FUNCTION_LINEAR;
-> > +		return 0;
-> > +	}
-> > +
-> > +	drm_dbg(drm, "Degamma colorop with ID: %d\n", colorop->base.id);
-> > +
-> > +	tf->type = TF_TYPE_PREDEFINED;
-> > +	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int
-> > +__set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
-> > +			       struct dc_plane_state *dc_plane_state,
-> > +			       struct drm_colorop *colorop)
-> > +{
-> > +	struct drm_colorop *old_colorop;
-> > +	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> > +	struct drm_atomic_state *state = plane_state->state;
-> > +	int i = 0;
-> > +
-> > +	old_colorop = colorop;
-> > +
-> > +	/* 1st op: 1d curve - degamma */
-> > +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> > +		if (new_colorop_state->colorop == old_colorop &&
-> > +		    new_colorop_state->curve_1d_type == DRM_COLOROP_1D_CURVE_SRGB_EOTF) {
-> > +			colorop_state = new_colorop_state;
-> > +			break;
-> > +		}
-> > +	}
-> > +
-> > +	if (!colorop_state)
-> > +		return -EINVAL;
-> > +
-> > +	return __set_colorop_in_tf_1d_curve(dc_plane_state, colorop_state);
-> > +}
-> > +
-> >  static int
-> >  amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
-> >  				     struct dc_plane_state *dc_plane_state)
-> > @@ -1187,6 +1253,25 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
-> >  	return 0;
-> >  }
-> >  
-> > +static int
-> > +amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
-> > +		       struct dc_plane_state *dc_plane_state)
-> > +{
-> > +	struct drm_colorop *colorop = plane_state->color_pipeline;
-> > +	int ret;
-> > +
-> > +	/* 1D Curve - DEGAM TF */
-> > +	if (!colorop) {
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	ret = __set_dm_plane_colorop_degamma(plane_state, dc_plane_state, colorop);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  /**
-> >   * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC plane.
-> >   * @crtc: amdgpu_dm crtc state
-> > @@ -1283,5 +1368,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> >  		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-> >  	}
-> >  
-> > +	if (!amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state))
-> > +		return 0;
-> > +
-> >  	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> > new file mode 100644
-> > index 000000000000..e8b7fc8bb0f1
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> > @@ -0,0 +1,58 @@
-> > +// SPDX-License-Identifier: MIT
-> > +/*
-> > + * Copyright 2023 Advanced Micro Devices, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaining a
-> > + * copy of this software and associated documentation files (the "Software"),
-> > + * to deal in the Software without restriction, including without limitation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> > + * and/or sell copies of the Software, and to permit persons to whom the
-> > + * Software is furnished to do so, subject to the following conditions:
-> > + *
-> > + * The above copyright notice and this permission notice shall be included in
-> > + * all copies or substantial portions of the Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> > + * OTHER DEALINGS IN THE SOFTWARE.
-> > + *
-> > + * Authors: AMD
-> > + *
-> > + */
-> > +
-> > +#include <drm/drm_print.h>
-> > +#include <drm/drm_plane.h>
-> > +#include <drm/drm_property.h>
-> > +#include <drm/drm_colorop.h>
-> > +
-> > +#include "amdgpu_dm_colorop.h"
-> > +
-> > +const u64 amdgpu_dm_supported_degam_tfs =
-> > +	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF);
-> > +
-> > +int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
-> > +{
-> > +	struct drm_colorop *op;
-> > +	struct drm_device *dev = plane->dev;
-> > +	int ret;
-> > +
-> > +	/* 1D curve - DEGAM TF */
-> > +	op = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-> > +	if (!op) {
-> > +		DRM_ERROR("KMS: Failed to allocate colorop\n");
-> > +		return -ENOMEM;
-> > +	}
-> > +
-> > +	ret = drm_colorop_curve_1d_init(dev, op, plane, amdgpu_dm_supported_degam_tfs);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	list->type = op->base.id;
-> > +	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", op->base.id);
-> > +
-> > +	return 0;
-> > +}
-> > \ No newline at end of file
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-> > new file mode 100644
-> > index 000000000000..f16de6a9fbde
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-> > @@ -0,0 +1,34 @@
-> > +// SPDX-License-Identifier: MIT
-> > +/*
-> > + * Copyright 2023 Advanced Micro Devices, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaining a
-> > + * copy of this software and associated documentation files (the "Software"),
-> > + * to deal in the Software without restriction, including without limitation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> > + * and/or sell copies of the Software, and to permit persons to whom the
-> > + * Software is furnished to do so, subject to the following conditions:
-> > + *
-> > + * The above copyright notice and this permission notice shall be included in
-> > + * all copies or substantial portions of the Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> > + * OTHER DEALINGS IN THE SOFTWARE.
-> > + *
-> > + * Authors: AMD
-> > + *
-> > + */
-> > +
-> > +#ifndef __AMDGPU_DM_COLOROP_H__
-> > +#define __AMDGPU_DM_COLOROP_H__
-> > +
-> > +extern const u64 amdgpu_dm_supported_degam_tfs;
-> > +
-> > +int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
-> > +
-> > +#endif /* __AMDGPU_DM_COLOROP_H__*/
-> > \ No newline at end of file
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > index d3f64f586243..3adab18332d8 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > @@ -35,6 +35,7 @@
-> >  #include "amdgpu_display.h"
-> >  #include "amdgpu_dm_trace.h"
-> >  #include "amdgpu_dm_plane.h"
-> > +#include "amdgpu_dm_colorop.h"
-> >  #include "gc/gc_11_0_0_offset.h"
-> >  #include "gc/gc_11_0_0_sh_mask.h"
-> >  
-> > @@ -1658,10 +1659,19 @@ dm_plane_init_colorops(struct drm_plane *plane)
-> >  {
-> >  	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES];
-> >  	int len = 0;
-> > +	int ret;
-> >  
-> >  	if (plane->type == DRM_PLANE_TYPE_CURSOR)
-> >  		return 0;
-> >  
-> > +	/* initialize default pipeline */
-> > +	ret = amdgpu_dm_initialize_default_pipeline(plane, &(pipelines[len]));
-> > +	if (ret) {
-> > +		DRM_ERROR("Failed to create color pipeline for plane %d: %d\n", plane->base.id, ret);
-> > +		return ret;
-> > +	}
-> > +	len++;
-> > +
-> >  	/* Create COLOR_PIPELINE property and attach */
-> >  	drm_plane_create_color_pipeline_property(plane, pipelines, len);
-> >  
-> > -- 
-> > 2.44.0
-> > 
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KUmV2aWV3ZWQtYnk6IFdlbmppbmcgTGl1IDx3ZW5qaW5nLmxpdUBhbWQuY29tPg0KDQotLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogU0hBTk1VR0FNLCBTUklOSVZBU0FOIDxTUklO
+SVZBU0FOLlNIQU5NVUdBTUBhbWQuY29tPg0KU2VudDogRnJpZGF5LCBNYXkgMTAsIDIwMjQgNjox
+MiBBTQ0KVG86IExpdSwgV2VuamluZyA8V2VuamluZy5MaXVAYW1kLmNvbT47IFNpcXVlaXJhLCBS
+b2RyaWdvIDxSb2RyaWdvLlNpcXVlaXJhQGFtZC5jb20+OyBQaWxsYWksIEF1cmFiaW5kbyA8QXVy
+YWJpbmRvLlBpbGxhaUBhbWQuY29tPg0KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+OyBTSEFOTVVHQU0sIFNSSU5JVkFTQU4gPFNSSU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+OyBa
+dW8sIEplcnJ5IDxKZXJyeS5adW9AYW1kLmNvbT47IFpodW8sIExpbGxpYW4gPFFpbmdxaW5nLlpo
+dW9AYW1kLmNvbT47IENodW5nLCBDaGlhSHN1YW4gKFRvbSkgPENoaWFIc3Vhbi5DaHVuZ0BhbWQu
+Y29tPjsgTGVlLCBBbHZpbiA8QWx2aW4uTGVlMkBhbWQuY29tPjsgTGksIFJvbWFuIDxSb21hbi5M
+aUBhbWQuY29tPjsgV3UsIEhlcnNlbiA8aGVyc2VueHMud3VAYW1kLmNvbT47IEh1bmcsIEFsZXgg
+PEFsZXguSHVuZ0BhbWQuY29tPjsgV2VudGxhbmQsIEhhcnJ5IDxIYXJyeS5XZW50bGFuZEBhbWQu
+Y29tPg0KU3ViamVjdDogW1BBVENIIHYzXSBkcm0vYW1kL2Rpc3BsYXk6IFJlZmFjdG9yIGNvbnN0
+cnVjdF9waHkgZnVuY3Rpb24gaW4gZGMvbGluay9saW5rX2ZhY3RvcnkuYw0KDQpUaGlzIGNvbW1p
+dCBtb2RpZmllcyB0aGUgY29uc3RydWN0X3BoeSBmdW5jdGlvbiB0byBoYW5kbGUgdGhlIGNhc2Ug
+d2hlcmUgYGJpb3MtPmludGVncmF0ZWRfaW5mb2AgaXMgTlVMTCBhbmQgdG8gYWRkcmVzcyBhIGNv
+bXBpbGVyIHdhcm5pbmcgYWJvdXQgYSBsYXJnZSBzdGFjayBhbGxvY2F0aW9uLg0KDQpVcG9uIGV4
+YW1pbmF0aW9uLCBpdCB3YXMgZm91bmQgdGhhdCB0aGUgbG9jYWwgYGludGVncmF0ZWRfaW5mb2Ag
+c3RydWN0dXJlIHdhcyBqdXN0IHVzZWQgdG8gY29weSB2YWx1ZXMgd2hpY2ggaXMgbGFyZ2UgYW5k
+IHdhcyBiZWluZyBkZWNsYXJlZCBkaXJlY3RseSBvbiB0aGUgc3RhY2sgd2hpY2ggY291bGQgcG90
+ZW50aWFsbHkgbGVhZCB0byBwZXJmb3JtYW5jZSBpc3N1ZXMuIFRoaXMgY29tbWl0IGNoYW5nZXMg
+dGhlIGNvZGUgdG8gdXNlIGBiaW9zLT5pbnRlZ3JhdGVkX2luZm9gIGRpcmVjdGx5LCB3aGljaCBh
+dm9pZHMgdGhlIG5lZWQgZm9yIGEgbGFyZ2Ugc3RhY2sgYWxsb2NhdGlvbi4NCg0KVGhlIGZ1bmN0
+aW9uIG5vdyBjaGVja3MgaWYgYGJpb3MtPmludGVncmF0ZWRfaW5mb2AgaXMgTlVMTCBiZWZvcmUg
+ZW50ZXJpbmcgYSBmb3IgbG9vcCB0aGF0IHVzZXMgaXQuIElmIGBiaW9zLT5pbnRlZ3JhdGVkX2lu
+Zm9gIGlzIE5VTEwsIHRoZSBmdW5jdGlvbiBza2lwcyB0aGUgZm9yIGxvb3AgYW5kIGNvbnRpbnVl
+cyBleGVjdXRpbmcgdGhlIHJlc3Qgb2YgdGhlIGNvZGUuIFRoaXMgZW5zdXJlcyB0aGF0IHRoZSBm
+dW5jdGlvbiBiZWhhdmVzIGNvcnJlY3RseSB3aGVuIGBiaW9zLT5pbnRlZ3JhdGVkX2luZm9gIGlz
+IE5VTEwgYW5kIGltcHJvdmVzIGNvbXBhdGliaWxpdHkgd2l0aCBkR1BVcy4NCg0KRml4ZXMgdGhl
+IGJlbG93IHdpdGggZ2NjIFc9MToNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3Bs
+YXkvZGMvbGluay9saW5rX2ZhY3RvcnkuYzogSW4gZnVuY3Rpb24g4oCYY29uc3RydWN0X3BoeeKA
+mToNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvbGluay9saW5rX2Zh
+Y3RvcnkuYzo3NDM6MTogd2FybmluZzogdGhlIGZyYW1lIHNpemUgb2YgMTA1NiBieXRlcyBpcyBs
+YXJnZXIgdGhhbiAxMDI0IGJ5dGVzIFstV2ZyYW1lLWxhcmdlci10aGFuPV0NCg0KQ2M6IFdlbmpp
+bmcgTGl1IDx3ZW5qaW5nLmxpdUBhbWQuY29tPg0KQ2M6IEplcnJ5IFp1byA8amVycnkuenVvQGFt
+ZC5jb20+DQpDYzogUWluZ3FpbmcgWmh1byA8cWluZ3Fpbmcuemh1b0BhbWQuY29tPg0KQ2M6IFRv
+bSBDaHVuZyA8Y2hpYWhzdWFuLmNodW5nQGFtZC5jb20+DQpDYzogQWx2aW4gTGVlIDxhbHZpbi5s
+ZWUyQGFtZC5jb20+DQpDYzogUm9kcmlnbyBTaXF1ZWlyYSA8Um9kcmlnby5TaXF1ZWlyYUBhbWQu
+Y29tPg0KQ2M6IFJvbWFuIExpIDxyb21hbi5saUBhbWQuY29tPg0KQ2M6IEhlcnNlbiBXdSA8aGVy
+c2VueHMud3VAYW1kLmNvbT4NCkNjOiBBbGV4IEh1bmcgPGFsZXguaHVuZ0BhbWQuY29tPg0KQ2M6
+IEF1cmFiaW5kbyBQaWxsYWkgPGF1cmFiaW5kby5waWxsYWlAYW1kLmNvbT4NCkNjOiBIYXJyeSBX
+ZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NClNpZ25lZC1vZmYtYnk6IFNyaW5pdmFz
+YW4gU2hhbm11Z2FtIDxzcmluaXZhc2FuLnNoYW5tdWdhbUBhbWQuY29tPg0KU3VnZ2VzdGVkLWJ5
+OiBXZW5qaW5nIExpdSA8d2VuamluZy5saXVAYW1kLmNvbT4NCi0tLQ0KdjM6DQogLSBEaXJlY3Rs
+eSB1c2VkIGJpb3MtPmludGVncmF0ZWRfaW5mbyBpbnN0ZWFkIG9mIGludGVncmF0ZWRfaW5mbyB0
+bw0KICAgYXZvaWQgbGFyZ2UgY29weWluZyAoV2VuamluZykNCg0KIC4uLi9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvbGluay9saW5rX2ZhY3RvcnkuYyAgICB8IDY3ICsrKysrKysrKystLS0tLS0tLS0NCiAx
+IGZpbGUgY2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMzMgZGVsZXRpb25zKC0pDQoNCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvbGluay9saW5rX2ZhY3Rvcnku
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9saW5rL2xpbmtfZmFjdG9yeS5jDQpp
+bmRleCAyYzNmNWQ2NjIyODUuLjgwNzNmZGFlOWNiMSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9saW5rL2xpbmtfZmFjdG9yeS5jDQorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvbGluay9saW5rX2ZhY3RvcnkuYw0KQEAgLTQ1Niw3ICs0NTYs
+NiBAQCBzdGF0aWMgYm9vbCBjb25zdHJ1Y3RfcGh5KHN0cnVjdCBkY19saW5rICpsaW5rLA0KICAg
+ICAgICBzdHJ1Y3QgZGNfY29udGV4dCAqZGNfY3R4ID0gaW5pdF9wYXJhbXMtPmN0eDsNCiAgICAg
+ICAgc3RydWN0IGVuY29kZXJfaW5pdF9kYXRhIGVuY19pbml0X2RhdGEgPSB7IDAgfTsNCiAgICAg
+ICAgc3RydWN0IHBhbmVsX2NudGxfaW5pdF9kYXRhIHBhbmVsX2NudGxfaW5pdF9kYXRhID0geyAw
+IH07DQotICAgICAgIHN0cnVjdCBpbnRlZ3JhdGVkX2luZm8gaW5mbyA9IHsgMCB9Ow0KICAgICAg
+ICBzdHJ1Y3QgZGNfYmlvcyAqYmlvcyA9IGluaXRfcGFyYW1zLT5kYy0+Y3R4LT5kY19iaW9zOw0K
+ICAgICAgICBjb25zdCBzdHJ1Y3QgZGNfdmJpb3NfZnVuY3MgKmJwX2Z1bmNzID0gYmlvcy0+ZnVu
+Y3M7DQogICAgICAgIHN0cnVjdCBicF9kaXNwX2Nvbm5lY3Rvcl9jYXBzX2luZm8gZGlzcF9jb25u
+ZWN0X2NhcHNfaW5mbyA9IHsgMCB9OyBAQCAtNjcxLDQyICs2NzAsNDQgQEAgc3RhdGljIGJvb2wg
+Y29uc3RydWN0X3BoeShzdHJ1Y3QgZGNfbGluayAqbGluaywNCiAgICAgICAgICAgICAgICBicmVh
+azsNCiAgICAgICAgfQ0KDQotICAgICAgIGlmIChiaW9zLT5pbnRlZ3JhdGVkX2luZm8pDQotICAg
+ICAgICAgICAgICAgaW5mbyA9ICpiaW9zLT5pbnRlZ3JhdGVkX2luZm87DQotDQotICAgICAgIC8q
+IExvb2sgZm9yIGNoYW5uZWwgbWFwcGluZyBjb3JyZXNwb25kaW5nIHRvIGNvbm5lY3RvciBhbmQg
+ZGV2aWNlIHRhZyAqLw0KLSAgICAgICBmb3IgKGkgPSAwOyBpIDwgTUFYX05VTUJFUl9PRl9FWFRf
+RElTUExBWV9QQVRIOyBpKyspIHsNCi0gICAgICAgICAgICAgICBzdHJ1Y3QgZXh0ZXJuYWxfZGlz
+cGxheV9wYXRoICpwYXRoID0NCi0gICAgICAgICAgICAgICAgICAgICAgICZpbmZvLmV4dF9kaXNw
+X2Nvbm5faW5mby5wYXRoW2ldOw0KLQ0KLSAgICAgICAgICAgICAgIGlmIChwYXRoLT5kZXZpY2Vf
+Y29ubmVjdG9yX2lkLmVudW1faWQgPT0gbGluay0+bGlua19pZC5lbnVtX2lkICYmDQotICAgICAg
+ICAgICAgICAgICAgIHBhdGgtPmRldmljZV9jb25uZWN0b3JfaWQuaWQgPT0gbGluay0+bGlua19p
+ZC5pZCAmJg0KLSAgICAgICAgICAgICAgICAgICBwYXRoLT5kZXZpY2VfY29ubmVjdG9yX2lkLnR5
+cGUgPT0gbGluay0+bGlua19pZC50eXBlKSB7DQotICAgICAgICAgICAgICAgICAgICAgICBpZiAo
+bGluay0+ZGV2aWNlX3RhZy5hY3BpX2RldmljZSAhPSAwICYmDQotICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGF0aC0+ZGV2aWNlX2FjcGlfZW51bSA9PSBsaW5rLT5kZXZpY2VfdGFnLmFjcGlf
+ZGV2aWNlKSB7DQotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxpbmstPmRkaV9jaGFu
+bmVsX21hcHBpbmcgPSBwYXRoLT5jaGFubmVsX21hcHBpbmc7DQotICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGxpbmstPmNoaXBfY2FwcyA9IHBhdGgtPmNhcHM7DQotICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIERDX0xPR19EQygiQklPUyBvYmplY3QgdGFibGUgLSBkZGlfY2hh
+bm5lbF9tYXBwaW5nOiAweCUwNFgiLCBsaW5rLT5kZGlfY2hhbm5lbF9tYXBwaW5nLnJhdyk7DQot
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERDX0xPR19EQygiQklPUyBvYmplY3QgdGFi
+bGUgLSBjaGlwX2NhcHM6ICVkIiwgbGluay0+Y2hpcF9jYXBzKTsNCi0gICAgICAgICAgICAgICAg
+ICAgICAgIH0gZWxzZSBpZiAocGF0aC0+ZGV2aWNlX3RhZyA9PQ0KLSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBsaW5rLT5kZXZpY2VfdGFnLmRldl9pZC5yYXdfZGV2aWNlX3RhZykg
+ew0KLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaW5rLT5kZGlfY2hhbm5lbF9tYXBw
+aW5nID0gcGF0aC0+Y2hhbm5lbF9tYXBwaW5nOw0KLSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBsaW5rLT5jaGlwX2NhcHMgPSBwYXRoLT5jYXBzOw0KLSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBEQ19MT0dfREMoIkJJT1Mgb2JqZWN0IHRhYmxlIC0gZGRpX2NoYW5uZWxfbWFw
+cGluZzogMHglMDRYIiwgbGluay0+ZGRpX2NoYW5uZWxfbWFwcGluZy5yYXcpOw0KLSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBEQ19MT0dfREMoIkJJT1Mgb2JqZWN0IHRhYmxlIC0gY2hp
+cF9jYXBzOiAlZCIsIGxpbmstPmNoaXBfY2Fwcyk7DQotICAgICAgICAgICAgICAgICAgICAgICB9
+DQorICAgICAgIGlmIChiaW9zLT5pbnRlZ3JhdGVkX2luZm8pIHsNCisgICAgICAgICAgICAgICAv
+KiBMb29rIGZvciBjaGFubmVsIG1hcHBpbmcgY29ycmVzcG9uZGluZyB0byBjb25uZWN0b3IgYW5k
+IGRldmljZSB0YWcgKi8NCisgICAgICAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgTUFYX05VTUJF
+Ul9PRl9FWFRfRElTUExBWV9QQVRIOyBpKyspIHsNCisgICAgICAgICAgICAgICAgICAgICAgIHN0
+cnVjdCBleHRlcm5hbF9kaXNwbGF5X3BhdGggKnBhdGggPQ0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAmYmlvcy0+aW50ZWdyYXRlZF9pbmZvLT5leHRfZGlzcF9jb25uX2luZm8ucGF0
+aFtpXTsNCisNCisgICAgICAgICAgICAgICAgICAgICAgIGlmIChwYXRoLT5kZXZpY2VfY29ubmVj
+dG9yX2lkLmVudW1faWQgPT0gbGluay0+bGlua19pZC5lbnVtX2lkICYmDQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGF0aC0+ZGV2aWNlX2Nvbm5lY3Rvcl9pZC5pZCA9PSBsaW5rLT5saW5r
+X2lkLmlkICYmDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgcGF0aC0+ZGV2aWNlX2Nvbm5l
+Y3Rvcl9pZC50eXBlID09IGxpbmstPmxpbmtfaWQudHlwZSkgew0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBpZiAobGluay0+ZGV2aWNlX3RhZy5hY3BpX2RldmljZSAhPSAwICYmDQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXRoLT5kZXZpY2VfYWNwaV9lbnVt
+ID09IGxpbmstPmRldmljZV90YWcuYWNwaV9kZXZpY2UpIHsNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBsaW5rLT5kZGlfY2hhbm5lbF9tYXBwaW5nID0gcGF0aC0+Y2hh
+bm5lbF9tYXBwaW5nOw0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxp
+bmstPmNoaXBfY2FwcyA9IHBhdGgtPmNhcHM7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgRENfTE9HX0RDKCJCSU9TIG9iamVjdCB0YWJsZSAtIGRkaV9jaGFubmVsX21h
+cHBpbmc6IDB4JTA0WCIsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGxpbmstPmRkaV9jaGFubmVsX21hcHBpbmcucmF3KTsNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBEQ19MT0dfREMoIkJJT1Mgb2JqZWN0IHRhYmxlIC0g
+Y2hpcF9jYXBzOiAlZCIsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGxpbmstPmNoaXBfY2Fwcyk7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIH0gZWxzZSBpZiAocGF0aC0+ZGV2aWNlX3RhZyA9PQ0KKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGxpbmstPmRldmljZV90YWcuZGV2X2lkLnJhd19kZXZpY2Vf
+dGFnKSB7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGluay0+ZGRp
+X2NoYW5uZWxfbWFwcGluZyA9IHBhdGgtPmNoYW5uZWxfbWFwcGluZzsNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBsaW5rLT5jaGlwX2NhcHMgPSBwYXRoLT5jYXBzOw0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERDX0xPR19EQygiQklPUyBv
+YmplY3QgdGFibGUgLSBkZGlfY2hhbm5lbF9tYXBwaW5nOiAweCUwNFgiLA0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaW5rLT5kZGlfY2hhbm5lbF9t
+YXBwaW5nLnJhdyk7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRENf
+TE9HX0RDKCJCSU9TIG9iamVjdCB0YWJsZSAtIGNoaXBfY2FwczogJWQiLA0KKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaW5rLT5jaGlwX2NhcHMpOw0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9DQorDQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGlmIChsaW5rLT5jaGlwX2NhcHMgJiBFWFRfRElTUExBWV9QQVRIX0NBUFNf
+X0RQX0ZJWEVEX1ZTX0VOKSB7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgbGluay0+Ymlvc19mb3JjZWRfZHJpdmVfc2V0dGluZ3MuVk9MVEFHRV9TV0lORyA9DQorICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoYmlvcy0+aW50ZWdy
+YXRlZF9pbmZvLT5leHRfZGlzcF9jb25uX2luZm8uZml4ZHB2b2x0YWdlc3dpbmcgJiAweDMpOw0K
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxpbmstPmJpb3NfZm9yY2Vk
+X2RyaXZlX3NldHRpbmdzLlBSRV9FTVBIQVNJUyA9DQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoKGJpb3MtPmludGVncmF0ZWRfaW5mby0+ZXh0X2Rpc3Bf
+Y29ubl9pbmZvLmZpeGRwdm9sdGFnZXN3aW5nID4+IDIpICYgMHgzKTsNCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgfQ0KDQotICAgICAgICAgICAgICAgICAgICAgICBpZiAobGluay0+
+Y2hpcF9jYXBzICYgRVhUX0RJU1BMQVlfUEFUSF9DQVBTX19EUF9GSVhFRF9WU19FTikgew0KLSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaW5rLT5iaW9zX2ZvcmNlZF9kcml2ZV9zZXR0
+aW5ncy5WT0xUQUdFX1NXSU5HID0NCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIChpbmZvLmV4dF9kaXNwX2Nvbm5faW5mby5maXhkcHZvbHRhZ2Vzd2luZyAm
+IDB4Myk7DQotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxpbmstPmJpb3NfZm9yY2Vk
+X2RyaXZlX3NldHRpbmdzLlBSRV9FTVBIQVNJUyA9DQotICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAoKGluZm8uZXh0X2Rpc3BfY29ubl9pbmZvLmZpeGRwdm9s
+dGFnZXN3aW5nID4+IDIpICYgMHgzKTsNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+YnJlYWs7DQogICAgICAgICAgICAgICAgICAgICAgICB9DQotDQotICAgICAgICAgICAgICAgICAg
+ICAgICBicmVhazsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgIH0NCi0NCiAgICAgICAgaWYg
+KGJpb3MtPmZ1bmNzLT5nZXRfYXRvbV9kY19nb2xkZW5fdGFibGUpDQogICAgICAgICAgICAgICAg
+Ymlvcy0+ZnVuY3MtPmdldF9hdG9tX2RjX2dvbGRlbl90YWJsZShiaW9zKTsNCg0KLS0NCjIuMzQu
+MQ0KDQo=
