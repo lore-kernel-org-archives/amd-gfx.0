@@ -4,82 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68B16C25B7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 16:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E7CAC25B74
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 16:21:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC30F10E126;
-	Tue, 21 May 2024 16:12:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B638110E273;
+	Tue, 21 May 2024 16:21:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eRXQGHFw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kB5CE4Dr";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A994D89D7F;
- Tue, 21 May 2024 16:12:48 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-5f415fd71f8so478977a12.3; 
- Tue, 21 May 2024 09:12:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716307968; x=1716912768; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CCvtAT9yL4bsyunfEMr4mUSenqzklzI9+JXqeALbOyQ=;
- b=eRXQGHFwb86Oaj0T29EtKcSU4uW880AH0ISYNJWHrwOkJgejuUr1DAPMppjOouip6v
- JnKiQOipxT+zf+3rnpylLxlnj98zQYwbArlnVLgONq3t8y6fvkfA+ZaFZL7Yx3IJaeD9
- e9X2n8hOkIfBJfq8PTdOQBATHDPB4dnoauMNSxDYrkmkpaq3/L8bMzV2G/xfvClkDOiI
- rlOZ3HT4PDGA28LpSWeCOpbZFJkAAjkfYR8ZXv1VRxg+W0ctWJJG8ckpVHUgn30v1kvN
- VfJ8Hnz/wmFXb4i29QzNdDwjltAmerSoauDGgyQruljtek/rEIoxK58fer+rJoN25NcE
- kD5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716307968; x=1716912768;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CCvtAT9yL4bsyunfEMr4mUSenqzklzI9+JXqeALbOyQ=;
- b=MbFzJpXY4LWeJTWNbwFw3FdPLT4AJcWTJ+WEisnHuvtd1kNebn5HFrki4q4XOIdoQU
- XUr54ML4UjuwspQv6wxz4iOH25hwNgxqy+kFvOvnlPr4qrzGxzWd2PIWrTBv6CE5/2Y0
- VNljyJoojgKIVCMsGrcD3rHjoTWCBynZp/IHggjptjtjfrBe16q/+eqstpAtkAwW/W/w
- vMQWnGEgeh96F/mvpbjUIY6nsTEluqxSKO5Qh4Xka36vMqU/fbkTOxFRd5C1AGE8pK7C
- 2V2dhqTUmmpBv7zxKZHgAF6t0UG7GAA2qaQpZPDX8slAxktPow+y6IRZ23a5S89fCsM1
- tsUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVz1Se5QPTpU3hFfDPfNUHxAfUUgJLfOc7gfTnc/KTTOkK9EghfOvixVUHr4M6Dov74wSgbp/Ro8/ORPengk3RLicJBikqGYkqYl7V94eHTVveJ/8IPMpV4KZTF3EuloppQA+82c7A1XKxFHMi4wnNvU5H4q1q5fsHowwx0yRbKN8chzkrnbUz1bR0Cl6ajWA==
-X-Gm-Message-State: AOJu0YwrNdNi7eEd87MtN4urKooU65IS6ZHlvYY6BrolrRTxyKzwAm+H
- PsBFDUS/g4CSfIZNMBjO9/HJu5GY4kOBV2KoPlHNYviihcew6ZFky71D8mT9LNPQ6XA93DXq5xj
- KWj4zB961IJ82q6eq2H1uSnCqmOk=
-X-Google-Smtp-Source: AGHT+IHAP3KDnJJS0O7SkGfKIP7uk1EKp+f8X1mluB24KubBN9tLU3rOHMtfN8y0ky6xkTXQo2yflL/anOYUpzKLWLA=
-X-Received: by 2002:a17:90a:eb07:b0:2a3:10d3:239d with SMTP id
- 98e67ed59e1d1-2b6ccd6bbbdmr28841420a91.32.1716307967824; Tue, 21 May 2024
- 09:12:47 -0700 (PDT)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF7610E193;
+ Tue, 21 May 2024 16:21:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hI/IwBkmU9t/1mUhu3zMlL5QET3v4lBm56kRbO3X83B6f47bE6wDyOBgGN1gFposhgOECDPhWWU3yozsd9ryN/fszkBrN4XaCOr3Yxz38y0mDIc5GgJySTcAMwVZo5KhUZEE5nYv/+iwDzs/RV8nruxyya0L4CknP3h1iJu9jtIMwhO771ul1tZGKVzwnALGjSXkXfmsVqwAHAN2bHSnxLJ86nN6feaMbAwYBQXuDRGAIBC7mwNGjJxqKjWCQvkNwTmDATpBB3WiCf2tOrWsEFBODVA1HkQOXQCkzvUbhHOqeuQVMvZkQRBGlZ41hYzBaVksR5LS2YKjmsJtzbuQVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KSv8Gw2r9/yFV4YRjin0ir/YeqmqqJe0ZIxeKGnB4Ro=;
+ b=IsYoNOWAD3OFMxoSnavf9pM2dmzpFyqli7IT0ks3p6IVYZU2D+P1kBl2QI5I4+EImbeUYmg4/fW1Pz2wRecUoiLTwGgiu2y9MLjHHE9LxA/QesGByXpjle4/rWxJtkGjUQHS2etBsrEU4qZyZIUR3TKXNVFCXEpcuEXMoQ8QTTHQKuvjqGJ9RRdHYmIEe+BA1yvXRz1ETZEHQc1bVeY4YgwSgZwslsztLuDNwZAJf8wbOPX+ZKaLGW7CFtB+CuvHHdShQ6HqudM1arCCL44P9xXpXKwhzzerWLMw6vVIy8udnFsBTxYyTsdy2kgPLLL6R1M9QCDtqRHt4lMtOF4w9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KSv8Gw2r9/yFV4YRjin0ir/YeqmqqJe0ZIxeKGnB4Ro=;
+ b=kB5CE4DraID0BGY+cxVVjMa6p+ea6yFJvF/ANSWNhGkicUg3U4PQiXzt2t+zFyvx8Pikj1KQlB8bygiPUG/UiDS4dXCoq097ayzApck26Jp6DP04UWBXNdyTvBLWVCq+N1ee7GBM+q5t5Y4RRTCp52f6u/ZNhDgB+Iif34EVcXQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by MN6PR12MB8590.namprd12.prod.outlook.com (2603:10b6:208:47c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Tue, 21 May
+ 2024 16:21:11 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.7587.035; Tue, 21 May 2024
+ 16:21:11 +0000
+Message-ID: <a35f2f5b-024f-42ed-9d59-48efcf4516a8@amd.com>
+Date: Tue, 21 May 2024 11:21:08 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Add support for Panel Power Savings property
+To: Xaver Hugl <xaver.hugl@gmail.com>
+Cc: Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org,
+ Harry.Wentland@amd.com, dri-devel@lists.freedesktop.org
+References: <20240519130610.7773-1-mario.limonciello@amd.com>
+ <-KAO9zJq5vTiesgtw-PMO0lDkSH1tuV271WNqlVuh3ZSkMzKWB9JQJce68-X-GwhD57QilHIBnLxN9k03I3-CMeYQm30NJMLizfyUUxTqHA=@emersion.fr>
+ <e3a4331a-307e-4377-a349-8699024f8459@amd.com>
+ <CAFZQkGyupsydjSEfv6OgMqPmHm9kMy4HQs7aNvzn77omSN+ZhQ@mail.gmail.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CAFZQkGyupsydjSEfv6OgMqPmHm9kMy4HQs7aNvzn77omSN+ZhQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR06CA0009.namprd06.prod.outlook.com
+ (2603:10b6:5:120::22) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-References: <20240307062957.2323620-1-Wayne.Lin@amd.com>
- <0847dc03-c7db-47d7-998b-bda2e82ed442@amd.com>
- <41b87510-7abf-47e8-b28a-9ccc91bbd3c1@leemhuis.info>
- <177cfae4-b2b5-4e2c-9f1e-9ebe262ce48c@amd.com>
- <CO6PR12MB5489FA9307280A4442BAD51DFCE72@CO6PR12MB5489.namprd12.prod.outlook.com>
- <87wmo2hver.fsf@intel.com> <6f66e479-2f5a-477a-9705-dca4a3606760@amd.com>
- <83df4e94-e1ec-42f6-8a15-6439ef4a25b7@leemhuis.info>
-In-Reply-To: <83df4e94-e1ec-42f6-8a15-6439ef4a25b7@leemhuis.info>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 May 2024 12:12:36 -0400
-Message-ID: <CADnq5_P+WsL8B6B2vK5ENe8VWdvheoHyxoUfgF3Oex8Gvp7Lbg@mail.gmail.com>
-Subject: Re: [PATCH] drm/mst: Fix NULL pointer dereference at
- drm_dp_add_payload_part2
-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: "Limonciello, Mario" <mario.limonciello@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- "Lin, Wayne" <Wayne.Lin@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, 
- "lyude@redhat.com" <lyude@redhat.com>,
- "imre.deak@intel.com" <imre.deak@intel.com>, 
- =?UTF-8?Q?Leon_Wei=C3=9F?= <leon.weiss@ruhr-uni-bochum.de>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN6PR12MB8590:EE_
+X-MS-Office365-Filtering-Correlation-Id: 879a4a4a-04ca-4627-aadd-08dc79b206f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MkdQN3FNOXJvRmhoZXdrbXVnSVhtaEpHcm4wOFR5QzVKQ2Y3dW5QWFBUSndD?=
+ =?utf-8?B?OE1RUDBTRGoyTFNVOWFzRE9YdzQ0NG1MMUdpbWJ6Y2dIMENrdklKUUlzUFh4?=
+ =?utf-8?B?VGZraG4wTFR0ZXg0Mkc2V3NYb1IzR3VOcmloSVdYWVoybDVsS21XcGpnUStm?=
+ =?utf-8?B?SWFDSFRKYjhyNEtmcmd0TVRFaG9IUUpNRUczTUlvUjJYVTlCdlM4RG5GY0kv?=
+ =?utf-8?B?Ty9tUE95eEJucDk4TVUra2IyTXBYV1NlK2ZGUnMzUzZicisxSVI5dDFQS3dS?=
+ =?utf-8?B?RVU3NHV1NzZuUEJVVDRLb0FIMWR6TU1TMTRTRU1pZWl0NWhjcmJkMXNTMEdQ?=
+ =?utf-8?B?dWEvaERxYkhaNnVEaUx4WWhSK3dYSHdEaWFpWnM1V1lzV09rZmFJNGhwejJ6?=
+ =?utf-8?B?TVd3emRhUmh6dUlSd0ZkODNrTnkzZnJ0RUh4aDlodjZjWXp6UVJ5SWJaR1kr?=
+ =?utf-8?B?RFhRN0dMZWJGV21NRGpwZHJ4OXBPTVBnMWdiOEt4UG8rZ2VTSDlhbEk2WXYr?=
+ =?utf-8?B?QzhTSEJveUluQUxSL0h0Rm9JWEtKdlpMUWM2VzVudmpKbFBrMWx4TC94VVQv?=
+ =?utf-8?B?NFNEZWo3eEJWemVuK1B4MEplQ214WTRVU2tUWkFUSnlIeGllMkswbE42cG5k?=
+ =?utf-8?B?THVWRVpxSk82RGR6ODdiQ0lrRWIyNUhpck1NWUIyd002dmg1OFA5NW01VUMz?=
+ =?utf-8?B?SVZZVW1xRDhsaDg4TGJvQ3M4NXhnQzUvbFV6VUxNQUp5YnMxMUU3b3hoNGZG?=
+ =?utf-8?B?T2VDaHlqQlR1UFp6UDU0bFc4S3Y0L2dMUmlKamdDSGcxYlFET1VtNXd4c3dt?=
+ =?utf-8?B?aGh2TmVYWUdqbWl6UlZUZ1FkUjJYYm1pc2V1UWs0NmN5eU4rQWVGNW5iTmdi?=
+ =?utf-8?B?Z2IzNnpObDcwc21iTlRsUDBVYkNJbkYrWnF3cTBINCs5VjkrMDZlWU12UjAz?=
+ =?utf-8?B?d05qaEhLRERMK1Q2QU56TnQ5SkJIQlRQWk1zT2EvMzRCNytya1BTcjRCbzdN?=
+ =?utf-8?B?Mm1WWVdaNW9iZ0d3WUx2dUVnYXlxRHR3VVhocE5Ccjh6TjE0bzYyTTF6Nk9U?=
+ =?utf-8?B?Z1lYS3E5ZEVDMnFuVkVtN3hudDV0NGlxSCtFWkRHKzVaOG02TkhPR0tqZkpU?=
+ =?utf-8?B?SXg3Zzdqb0V3R0x2QzFNck5kVzNTSDNqcEN3dDE1eTFqcm9yR01XQ2Z0azRv?=
+ =?utf-8?B?MXRKZ3J0VW1NODNJTUpuUUJOUEN1YmF1NGE2S0NES1hack9sczJUU1NkTnpI?=
+ =?utf-8?B?aFV3U1IxVVZ4bUNwak1oMUc0Q0xzelVIdEtsOGl0SGY0K0hrT3hubGo4eCtZ?=
+ =?utf-8?B?TUptbXhEYUpzbE1QcWg4R0RucHdoNDhuUnJSWUV0L2dreG5sSkF0ZU9idnli?=
+ =?utf-8?B?SzBEREQ0VTZGVUhsWGhFKzRVNXQ2aFl6ZDR1S3FscFpJNGUvOUdqYzRITU96?=
+ =?utf-8?B?VDhPNmtzTHNFSmZGTEtLWkNEdVJVbWxoSVdTK2lIZHBpR1I2a2Zaakc5UHFi?=
+ =?utf-8?B?VFgvRU01NEZjRFdxTWdlSDE2Rmc3VmR2eGJWQlpxL21YU1BySUh3ZWNDQVlZ?=
+ =?utf-8?B?Q2d0dTJReDJNN29QNGpOVXNTWlBhWjdUbWRURzU2Zy9RRkhFQlhEb1hEMVVS?=
+ =?utf-8?B?RjdYc0hXakdDc05FTXQzZVpCWFFEN1lNSVFiUWtDcFF3QWJQNVBsUDlPNVBQ?=
+ =?utf-8?B?UVdaam1ScEwzMTNWN2dIUFNNTFc2cUNHV0hrYUxZbGpTMzQ3d09EK1V3PT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2NrekFvOVUwUFg2bkcxRW9lQUhTU1BCaHV6aC9FT2p1U2FYQ2RJeXpEakVp?=
+ =?utf-8?B?ZXpaS3BHYmhIVnoxSk9hbUhRR3M2WWdrdnc0RlZxMzdZc1hEcUZEM0szSkxk?=
+ =?utf-8?B?TmtaaFJLWGhiUUZQK3BjWFA4QVlINTdla3B4QTFCcWoxNmVaS1VHdlBmSWI0?=
+ =?utf-8?B?R3RDVkNtb2hvek8yV0JRS29TUG5HSHM3ZjR0NnRQclRlNi9XYTRyZUFGOGR1?=
+ =?utf-8?B?SUxFZ0dHTGNicWMrajNtR2w4ZUUyMVVjZitIQlArRi9VZGJZZjJkdzQ4cDNl?=
+ =?utf-8?B?SkJZRGlReDJvUDhlb29ub2gxdisxeEhDVnVZenhFWG5UWTdUbkQxeXhXVm5j?=
+ =?utf-8?B?MnJVQW9XQVQ3N0svdTM3WVRKdmJTaFNHQnQwS3JPWkdXZzJGV2RxMHZoaCtF?=
+ =?utf-8?B?T2RkdENxaXEzdmNhSHpaL2FYQkNMQitlYmI5VUNzTXFvVXJ6UWN2VkoyTUZJ?=
+ =?utf-8?B?TFd3cjZ2N1BkM3B5bHdjQzR4Q1ZrNjFNL0NmRjcxWm5uMjJyTUlTU0UwNFF2?=
+ =?utf-8?B?eE16Qk9mZURJdnZUM3RZN2dpNEQ5L2VRYnA0OStFM2Z3WHl6NXRWeGQwWktI?=
+ =?utf-8?B?bW1QZkR6T0NuNTBybnQ1Y0JzZ3ArZEVkN1BGY09lTnVxR1pZZHlla3JLWUgz?=
+ =?utf-8?B?QnAxdzhncEhNME1NWWpCaWpQcXlsRmtmdmliNEVtT29PUThpc09TZkR0dTl4?=
+ =?utf-8?B?SGU4MVV2VGc5N0t1aWRpS1M3M2Z3ektzWmV1Z2h2eEVJdkVsdDhoMVoybHk4?=
+ =?utf-8?B?T213Y1FRNWx2Vy9rcE9zV2x5Y3g2QUdLcStHbTh1SUluUWRPY2lRS2NVVllu?=
+ =?utf-8?B?Q25LRVZWa09RaGN4VmpuVDd1RHVQcVNmZFgxeGpxbUNoM2pCck4xT0xqcGtS?=
+ =?utf-8?B?MForOTJTZFpZcnpkU3crUGErYzRPK3laNCtmekFvZkJhaWZvMHVuMXQ1QTc0?=
+ =?utf-8?B?NWgrWWdCSEVER3VQdTFORkFZeVVZK3Myb1FZUFovZTU2eTZXQUF3amVLc0lo?=
+ =?utf-8?B?L3ZmUVIvL3Z1MFByMC9zRUNKWkU1WmZ3WFRIWDJpc1ZNVHhxcmF4akhEc1VF?=
+ =?utf-8?B?M0krWExhR2ltdW9penJTQ1g5dTg0L1RCVlZJQ1Ztam16NmxBVWtKSFlWV0dD?=
+ =?utf-8?B?RkwxZk9EWnhjMWlQR0dmbkJ6WWp5V3kwWDVRNzBBT2tUUVg3VlZkcnVkT3V2?=
+ =?utf-8?B?aUJEV2FDOTVDeFNEL3ZTTjhJUHJjQUlyTVp1VXA2UTBQdGcxUm5zMmJJYkxX?=
+ =?utf-8?B?dWp1SE1vclpGZ2tOZjIrd1hpQit4bVhza05PZitKOFV4cXRPM1dsOUhTM1J1?=
+ =?utf-8?B?bnpqYXA3WUE1dlJ4bzZkbm9IQ0lvZHZGSTMyckFBMVpST3dDa1hIeFo5WllS?=
+ =?utf-8?B?K096OGpOQVpmcU0rZUs5dTVkVkxPWXBKUW85QUdRR1JxeDJ1M2J5U0diM1ll?=
+ =?utf-8?B?cUFBUXNlVENtYWR1Y1VKTWU4RC9WMGpER0FTUWkzS3JFMW9oczJpTVo3d0Zo?=
+ =?utf-8?B?MHFjKzNzbytTbGs5MzUwSDVDNXlpUHBtRzFnUlZVWUVYVVBTSmQ1K3FHcEFZ?=
+ =?utf-8?B?dW8veTF3VEZvbTVSR2d1Zk1GWkdVOFozT1dWTGEvUnA5alppbFFXWHBoY09L?=
+ =?utf-8?B?Wk5CUDN0UTFRay84S09jQjVkYmc5RGN0eWIwRXVRdTdLRS9BQ1NrVFlSOFJt?=
+ =?utf-8?B?cG4rZVNsZnFiZXV5V2c5SU93LzhnVzVJVzFXTmczckpSNUtENGV4RytHekM3?=
+ =?utf-8?B?NXFVeGx6S0xvOTZ1ZWRZWFZHZTJwTEgyMGkvblBCZ2JnMFFQMTRLZ051aFpm?=
+ =?utf-8?B?ZURjeWNCazJOOVc5Wmo4SVQzdWhwUzZYMkp2ekZsbkhaSDlLcTZIK2JicEFm?=
+ =?utf-8?B?Mm1HVmlIUXhjdGJ6cFdEdTNtUTBNVHE3MnYyMCtETGlXbGt3dkxuQ01sZHl0?=
+ =?utf-8?B?a2hTZmJzVSsyRXZOMTUyb1BuSEkvZTE1WHpvbThYNE96a015dm11RWR5OUI2?=
+ =?utf-8?B?ZlJaalpsM25YNkkwNThXeVN6YTJJQTl3aVp4L0k2Unp1OG1QbHdESlQ1R1ZK?=
+ =?utf-8?B?WmxtNkF4QVorNWo2amRLRnFYM3JhajUvUkZGNi9xNzhHK3JKTzF3YkN6dzlV?=
+ =?utf-8?Q?0b5NB4VxVGUp997cCqNnA8QKH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 879a4a4a-04ca-4627-aadd-08dc79b206f0
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 16:21:11.0050 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oe5qn8tGk8f3nEGr+cxCwjeIK1u2mT8sFT+KmaIsoZvMkOcyRwnpwC+FZcuwBS5dgEClD5VrymkjUblL7jj6Kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8590
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,106 +160,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I've got it teed up.  Is drm-misc-fixes the right branch since we are
-in the merge window?
+On 5/21/2024 11:14, Xaver Hugl wrote:
+> Am Di., 21. Mai 2024 um 16:00 Uhr schrieb Mario Limonciello
+> <mario.limonciello@amd.com>:
+>>
+>> On 5/21/2024 08:43, Simon Ser wrote:
+>>> This makes sense to me in general. I like the fact that it's simple and
+>>> vendor-neutral.
+>>>
+>>> Do we want to hardcode "panel" in the name? Are we sure that this will
+>>> ever only apply to panels?
+>>>
+>>> Do we want to use a name which reflects the intent, rather than the
+>>> mechanism? In other words, something like "color fidelity" = "preferred"
+>>> maybe? (I don't know, just throwing ideas around.)
+>>
+>> In that vein, how about:
+>>
+>> "power saving policy"
+>> --> "power saving"
+>> --> "color fidelity"
+> 
+> It's not just about colors though, is it? The compositor might want to
+> disable it to increase the backlight brightness in bright
+> environments, so "color fidelity" doesn't really sound right
 
-Alex
+Either of these better?
 
-On Tue, May 21, 2024 at 7:20=E2=80=AFAM Linux regression tracking (Thorsten
-Leemhuis) <regressions@leemhuis.info> wrote:
->
-> Hi, Thorsten here, the Linux kernel's regression tracker. Top-posting
-> for once, to make this easily accessible to everyone.
->
-> Hmm, from here it looks like the patch now that it was reviewed more
-> that a week ago is still not even in -next. Is there a reason?
->
-> I know, we are in the merge window. But at the same time this is a fix
-> (that already lingered on the lists for way too long before it was
-> reviewed) for a regression in a somewhat recent kernel, so it in Linus
-> own words should be "expedited"[1].
->
-> Or are we again just missing a right person for the job in the CC?
-> Adding Dave and Sima just in case.
->
-> Ciao, Thorsten
->
-> [1]
-> https://lore.kernel.org/all/CAHk-=3Dwis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6=
-SRUwQUBQ@mail.gmail.com/
->
-> On 12.05.24 18:11, Limonciello, Mario wrote:
-> > On 5/10/2024 4:24 AM, Jani Nikula wrote:
-> >> On Fri, 10 May 2024, "Lin, Wayne" <Wayne.Lin@amd.com> wrote:
-> >>>> -----Original Message-----
-> >>>> From: Limonciello, Mario <Mario.Limonciello@amd.com>
-> >>>> Sent: Friday, May 10, 2024 3:18 AM
-> >>>> To: Linux regressions mailing list <regressions@lists.linux.dev>;
-> >>>> Wentland, Harry
-> >>>> <Harry.Wentland@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>
-> >>>> Cc: lyude@redhat.com; imre.deak@intel.com; Leon Wei=C3=9F
-> >>>> <leon.weiss@ruhr-uni-
-> >>>> bochum.de>; stable@vger.kernel.org; dri-devel@lists.freedesktop.org;
-> >>>> amd-
-> >>>> gfx@lists.freedesktop.org; intel-gfx@lists.freedesktop.org
-> >>>> Subject: Re: [PATCH] drm/mst: Fix NULL pointer dereference at
-> >>>> drm_dp_add_payload_part2
-> >>>>
-> >>>> On 5/9/2024 07:43, Linux regression tracking (Thorsten Leemhuis) wro=
-te:
-> >>>>> On 18.04.24 21:43, Harry Wentland wrote:
-> >>>>>> On 2024-03-07 01:29, Wayne Lin wrote:
-> >>>>>>> [Why]
-> >>>>>>> Commit:
-> >>>>>>> - commit 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload
-> >>>>>>> allocation/removement") accidently overwrite the commit
-> >>>>>>> - commit 54d217406afe ("drm: use mgr->dev in drm_dbg_kms in
-> >>>>>>> drm_dp_add_payload_part2") which cause regression.
-> >>>>>>>
-> >>>>>>> [How]
-> >>>>>>> Recover the original NULL fix and remove the unnecessary input
-> >>>>>>> parameter 'state' for drm_dp_add_payload_part2().
-> >>>>>>>
-> >>>>>>> Fixes: 5aa1dfcdf0a4 ("drm/mst: Refactor the flow for payload
-> >>>>>>> allocation/removement")
-> >>>>>>> Reported-by: Leon Wei=C3=9F <leon.weiss@ruhr-uni-bochum.de>
-> >>>>>>> Link:
-> >>>>>>> https://lore.kernel.org/r/38c253ea42072cc825dc969ac4e6b9b600371cc=
-8.c
-> >>>>>>> amel@ruhr-uni-bochum.de/
-> >>>>>>> Cc: lyude@redhat.com
-> >>>>>>> Cc: imre.deak@intel.com
-> >>>>>>> Cc: stable@vger.kernel.org
-> >>>>>>> Cc: regressions@lists.linux.dev
-> >>>>>>> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> >>>>>>
-> >>>>>> I haven't been deep in MST code in a while but this all looks pret=
-ty
-> >>>>>> straightforward and good.
-> >>>>>>
-> >>>>>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> >>>>>
-> >>>>> Hmmm, that was three weeks ago, but it seems since then nothing
-> >>>>> happened to fix the linked regression through this or some other
-> >>>>> patch. Is there a reason? The build failure report from the CI mayb=
-e?
-> >>>>
-> >>>> It touches files outside of amd but only has an ack from AMD.  I
-> >>>> think we
-> >>>> /probably/ want an ack from i915 and nouveau to take it through.
-> >>>
-> >>> Thanks, Mario!
-> >>>
-> >>> Hi Thorsten,
-> >>> Yeah, like what Mario said. Would also like to have ack from i915 and
-> >>> nouveau.
-> >>
-> >> It usually works better if you Cc the folks you want an ack from! ;)
-> >>
-> >> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> >>
-> >
-> > Thanks! Can someone with commit permissions take this to drm-misc?
-> >
-> >
-> >
+"power saving policy"
+--> "power saving"
+--> "accuracy"
+
+"power saving policy"
+--> "allowed"
+--> "forbidden"
+
+Or any other idea?
+
+> 
+>>>
+>>> Would be nice to add documentation for the property in the "standard
+>>> connector properties" section.
+>>
+>> Ack.
+>>
+
