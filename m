@@ -4,81 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC644C25B74
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 07:12:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C6CC25B74
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 May 2024 07:15:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D65710E269;
-	Tue, 21 May 2024 07:12:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98A2A10E023;
+	Tue, 21 May 2024 07:15:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jhFn0KxQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mRT9yg12";
 	dkim-atps=neutral
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEE1310E8CF;
- Mon, 20 May 2024 21:10:02 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2e67dc957b7so2713831fa.3; 
- Mon, 20 May 2024 14:10:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716239400; x=1716844200; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=53034YuVpVfciE/wvZdryAxloQYpHQ6ctFzAU7LweAw=;
- b=jhFn0KxQpHh2NGzuFfMhJh6AnPYHKe4Bm5In4Gj8D4um9XD8tP5go/lSowwJ8Kzvzf
- L+wyLvt6iUQ33TtEfei/0bk3DD3CRLllMYUw5eL7PdAFwsiqZsqseEsDnaf3gGx6k8o/
- 5+5Gi0CEd2s3hYcdRa/DjnCqZHjIG7egRacYex3LB4+xzAsPuhqUabkrGLRXSEsf5nvk
- pJqiG/DWTAeb7crqXkG4mKLDJdz36iBcH+z7Y0fjTYJl+AKxaGk4Rs10ReJqmqYwVHF/
- OaHxe2Sh7lJvX+kc+tbMIqFUUf89ONh5blLK2r44Dt0UxGAs7/0DdUn+Kg9awE7nkKwY
- ht7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716239400; x=1716844200;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=53034YuVpVfciE/wvZdryAxloQYpHQ6ctFzAU7LweAw=;
- b=h499ww4hJeFJDoP7w5aYS56ahfWb/7KqirTe7nM1f5HfT04S3mcDpY8LjoZIwxvUxo
- 7dvgwfyoFCT87oocrK3Rw5HlWXXmo/XAl670+e6sHhRJUISN7U/78DzqmXECoOkabGKE
- EsEGYdkcolx7F/qHhlPsNjt/XvqP9yI1VOPoHhSEsw+ccboQysvovhSWpvZZSRASHsvA
- n6/mTNGp2JX5LTA8cylvcWJYPoBHev9g/OMp0Zbr9LjVDX2eQWasiBmHJqMvp2sQ1dU2
- 61yT4z7Yf7FBdl8j26mwzRA95efmgpCj0YftiHJwGxIeVByFwcVc0eUvFspNmr5oKdeI
- jM0g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXxeL5O3TOXIr3PKnGxMWgqEP5Kh70k+T8eaL9RQTYSRv6fIaE9/BVWLccCRg1Hgp0HI4X34RXbJbas0s6h3pjZvsJMi69aTqh4xZhV2aEYPKRk8HZeSSmcjx5/h1EV1fPhs3yTwfyKLST+/8pLzw==
-X-Gm-Message-State: AOJu0YwpQxFwyXQPsFeYHgdQxjOdjyGvfmoW2eJUR/RebIIG+OOzvzoK
- ePZj/ydbkUxpPh7qgnH3c/JC8DfwEetpdetXX4hKzUE5ytTbs6Tw
-X-Google-Smtp-Source: AGHT+IGuVINOVLSuTvcBYbUGI0Y+rtIxJJEd/lKhqREuXLWhoprXeoQAz5Txnnw7cn6iVWuH+a2Q0w==
-X-Received: by 2002:a2e:b985:0:b0:2da:320a:6739 with SMTP id
- 38308e7fff4ca-2e51fd2d098mr142671251fa.1.1716239400333; 
- Mon, 20 May 2024 14:10:00 -0700 (PDT)
-Received: from workstation.localdomain ([2001:4647:930d:0:6cc8:8362:4e13:c7e4])
- by smtp.googlemail.com with ESMTPSA id
- 38308e7fff4ca-2e4d0bbcc5fsm34781781fa.20.2024.05.20.14.09.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 May 2024 14:09:59 -0700 (PDT)
-From: Rino Andre Johnsen <rinoandrejohnsen@gmail.com>
-To: alexander.deucher@amd.com
-Cc: Rino Andre Johnsen <rinoandrejohnsen@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Wayne Lin <wayne.lin@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Add pixel encoding info to debugfs
-Date: Mon, 20 May 2024 23:07:29 +0200
-Message-ID: <20240520210817.9943-1-rinoandrejohnsen@gmail.com>
-X-Mailer: git-send-email 2.45.1
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2066.outbound.protection.outlook.com [40.107.96.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD6B410E023
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 May 2024 07:14:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nueIaWYb/8D+WrrRmN6DJoMSIpEej6Z1IFWEs/jABOE8LxkuTyI6DojmR9ffdkt/SWFWvOzE81CyBW5GEC14CNFcV6I1mwa3CWSiP1QDD9U3kA784eW8OW4GcEtXgCSZfpN0bZWLOnMsBW4qfGb2HHtGu9MO2SqcyYM+enliLgVzLpMdtv35olCwWyswAVJsBR/0eQ8Uqdy2PQDQmM0J5NxqjPF6M4iJskDmkyKZ4IjTWLCo2ki6ouJnWqLBAmCRHv5q+hpCpmOkeHZANrXZWLkS2BK4IKdunQH/y3sY0Z//z8lpDLADnCTx3OgqWGD2AFvh4RXvC6ot84dt+3GRlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c8/HegC4GH/+szfeNAU0+T24BMHoDuh1+pSjgatFsKU=;
+ b=FORt/SGDsVYkuFH6HBUiUEATdojTvfVKlpv7y0dKnlrNnOFl43ur3uM7Aqt7IROS+fVVoqbHlVD9Bv7x+JIDj2a5s+zGn6dULLv1hXvDiKMn5gXtZWnPHnbAK5G6Njr6oQT6PFXvYFzLYqhBB8kQns8tqFoNjzdNM/mOAKObw2H9CtQIaby4t18+8pCDEf0fRX0WgzffH+U77OIxgdyl8KfrvIwoCck5PpW4rsvdiXBk+Qtpd+L+cWEapT25D8fcHfX9Wvxsh8b7xFn2WFW/dinPaHJs5fseECUzkYxl33b9kb8SkM+757jXTLqD6hPJ80C2x2HJG3DPXymyA5PGsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c8/HegC4GH/+szfeNAU0+T24BMHoDuh1+pSjgatFsKU=;
+ b=mRT9yg12dt8YzS+hZCoU31hfq2r2Xo5lhLTKmKWk07orcAAtakNwxck9QK7PtWt1fmqrilDSCqMhnoLFlMuNmItFcz0D1h9vWc7ThyfsVN8Y+z0keReB5FxQQYfXBJJ6Q+HSarvs53zldOIdf+eCkNUuZ/DLPNfSkQaM/sVDAIE=
+Received: from BL0PR05CA0030.namprd05.prod.outlook.com (2603:10b6:208:91::40)
+ by MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Tue, 21 May
+ 2024 07:14:53 +0000
+Received: from BL6PEPF0001AB4F.namprd04.prod.outlook.com
+ (2603:10b6:208:91:cafe::53) by BL0PR05CA0030.outlook.office365.com
+ (2603:10b6:208:91::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.17 via Frontend
+ Transport; Tue, 21 May 2024 07:14:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4F.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7611.14 via Frontend Transport; Tue, 21 May 2024 07:14:52 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 May
+ 2024 02:14:48 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
+ <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>, kernel test robot
+ <lkp@intel.com>
+Subject: [PATCH] drm/amdgpu: Add CRC16 selection in config
+Date: Tue, 21 May 2024 12:44:30 +0530
+Message-ID: <20240521071430.750167-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 21 May 2024 07:12:26 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4F:EE_|MW5PR12MB5684:EE_
+X-MS-Office365-Filtering-Correlation-Id: 226dc596-8bf8-436b-da77-08dc7965b5c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|82310400017|1800799015|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?aaV90Lv5qw0hYk8TD+tYBS38HC1CsBSzIrh6UrzWUR8QXbXDlsGjXygOMPg1?=
+ =?us-ascii?Q?R07RJ2AX0jY4OkQIsPT6J3Z/SPLaSDStib4dIq/KscIQoC3Q4S3PYYKMUzih?=
+ =?us-ascii?Q?PDzUeuppUz54H7XpUF5hc5DHW0Vr9picrZlbM94k0OTRFlV3P6xJ/nk5Mlqb?=
+ =?us-ascii?Q?0OiX5T7x3fFNPIy4YlL7TYFnSDXjsRajOZ2EpfC5jmfAqWDfRUqKMTXSDyUD?=
+ =?us-ascii?Q?jbS40axhvIfAaq4PIJ915h5UMoTwK8ayeMmplGxHEsqoYOoQFUelfnZ7HT/a?=
+ =?us-ascii?Q?rOlYB6RVS81eLWcfFj69dBYMloaHNePXNvCftjqTbjm1+4XmSSxhu0OZ/b9/?=
+ =?us-ascii?Q?xYXl/gDbXNep+ZN5412zptNRsMaeta1HaSh5tPw3Fhvc0aHoj882G8qm1Thl?=
+ =?us-ascii?Q?UAmk5vZy2pTwymNvsvQrbQRHbg91w7t5REdOeje0LKTpnfW56kFLmTHl0xUa?=
+ =?us-ascii?Q?p30Mxr6Y9v9iVAHBRJ0G2YBmsZoZEUvaXOJDsGGsd9ksIQmu4/o+oc4whKEm?=
+ =?us-ascii?Q?Ul1rEdpvpGlBMs/lMr5a7oBESjtV/s9c8F7/bVnouO5QO+XBedqWsGx/oKdG?=
+ =?us-ascii?Q?3vA2AXNZVLIFkmACnyDCkhHu2s8YvXuA6T5lp6rDkWK6UGunxqgMlHM+AseW?=
+ =?us-ascii?Q?3S/eJt/cYNWfTAMlZ2QVOt0UVhGkTxS82IyKbnEd+WEaLWptmRC/Fr2L4iMf?=
+ =?us-ascii?Q?ddRgEDhyZDXPMF31Vj8q0aloD27GmTCd9rvDkZOhPmoYWdgs3Hwpo0oRtpbF?=
+ =?us-ascii?Q?kNfc80EiL5VI+r/tDia739CQ+xM0ZKLmUijqJV4DgZfVtX5CzmaHFQS0WFer?=
+ =?us-ascii?Q?yESki9HtEs2rTKyIc8tFhuF/z32CplYzD1iRHPC158g9wJSwEx9pagR12SLt?=
+ =?us-ascii?Q?DL6J0tRvyrOYWSgevgbIZMirsmVUlmvpKiZQVPv0Pv+RNb7JS/MExEk8uAFp?=
+ =?us-ascii?Q?ss5r1+z1mFGclLUQRtDSVhpqZVq8wJkZ2mT6j1+RBEt5NqJtbc1s5+srs7CY?=
+ =?us-ascii?Q?b574wqpR1xy+l73T26zPeTvWs46YUADrOT2a4JhyBjLY8Zrw+zeCAM3VERAe?=
+ =?us-ascii?Q?3fuESOlnoiOJ2n7OBau+FIlqvUVuJq/HMzY7f7QyqnVThhNHJRSF9MRWHYnb?=
+ =?us-ascii?Q?aN66+WDkHpyd3r0jcZT1U3An1dvUsLR4g84U2kXj3l+nP0SqyyTeOrvMRuHN?=
+ =?us-ascii?Q?UGuCVL6GfliUV6hvVa8rgHdak06zbNSs/a/kP3E1/2PyuEVgT/ZpVQEg/yH9?=
+ =?us-ascii?Q?5xN/2DmfDJfu2cWiMhLlAi5ZskW1TV+N/QGH4WdF99t9YTFyxGvYsbSEgiVj?=
+ =?us-ascii?Q?MdQ1X1l9DxbhD8w7HxxvN3zB?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(82310400017)(1800799015)(36860700004); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2024 07:14:52.7624 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 226dc596-8bf8-436b-da77-08dc7965b5c3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5684
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,83 +129,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-For debugging and testing purposes.
+KFD uses crc16 for gpu_id generation.
 
-[How]
-Create amdgpu_current_pixelencoding debugfs entry.
-Usage: cat /sys/kernel/debug/dri/1/crtc-0/amdgpu_current_pixelencoding
+Fixes: 6dbc6469ab0b ("drm/amdkfd: Ensure gpu_id is unique")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202405211405.TidTWIBX-lkp@intel.com/
 
-Signed-off-by: Rino Andre Johnsen <rinoandrejohnsen@gmail.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 27d5c6077630..d275e5522335 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -1160,6 +1160,51 @@ static int amdgpu_current_colorspace_show(struct seq_file *m, void *data)
- }
- DEFINE_SHOW_ATTRIBUTE(amdgpu_current_colorspace);
- 
-+/*
-+ * Returns the current pixelencoding for the crtc.
-+ * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/amdgpu_current_pixelencoding
-+ */
-+static int amdgpu_current_pixelencoding_show(struct seq_file *m, void *data)
-+{
-+	struct drm_crtc *crtc = m->private;
-+	struct drm_device *dev = crtc->dev;
-+	struct dm_crtc_state *dm_crtc_state = NULL;
-+	int res = -ENODEV;
-+
-+	mutex_lock(&dev->mode_config.mutex);
-+	drm_modeset_lock(&crtc->mutex, NULL);
-+	if (crtc->state == NULL)
-+		goto unlock;
-+
-+	dm_crtc_state = to_dm_crtc_state(crtc->state);
-+	if (dm_crtc_state->stream == NULL)
-+		goto unlock;
-+
-+	switch (dm_crtc_state->stream->timing.pixel_encoding) {
-+	case PIXEL_ENCODING_RGB:
-+		seq_puts(m, "RGB");
-+		break;
-+	case PIXEL_ENCODING_YCBCR422:
-+		seq_puts(m, "YCBCR422");
-+		break;
-+	case PIXEL_ENCODING_YCBCR444:
-+		seq_puts(m, "YCBCR444");
-+		break;
-+	case PIXEL_ENCODING_YCBCR420:
-+		seq_puts(m, "YCBCR420");
-+		break;
-+	default:
-+		goto unlock;
-+	}
-+	res = 0;
-+
-+unlock:
-+	drm_modeset_unlock(&crtc->mutex);
-+	mutex_unlock(&dev->mode_config.mutex);
-+
-+	return res;
-+}
-+DEFINE_SHOW_ATTRIBUTE(amdgpu_current_pixelencoding);
- 
- /*
-  * Example usage:
-@@ -3688,6 +3733,8 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
- 			    crtc, &amdgpu_current_bpc_fops);
- 	debugfs_create_file("amdgpu_current_colorspace", 0644, crtc->debugfs_entry,
- 			    crtc, &amdgpu_current_colorspace_fops);
-+	debugfs_create_file("amdgpu_current_pixelencoding", 0644, crtc->debugfs_entry,
-+			    crtc, &amdgpu_current_pixelencoding_fops);
- }
- 
- /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 0cd9d2939407..0051fb1b437f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -17,6 +17,7 @@ config DRM_AMDGPU
+ 	select HWMON
+ 	select I2C
+ 	select I2C_ALGOBIT
++	select CRC16
+ 	select BACKLIGHT_CLASS_DEVICE
+ 	select INTERVAL_TREE
+ 	select DRM_BUDDY
 -- 
-2.45.1
+2.25.1
 
