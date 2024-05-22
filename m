@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F8E3C25B77
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B31A9C25B7D
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A607E10EE15;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E598310F401;
 	Wed, 22 May 2024 07:30:32 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE64A10F3C5
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 07:30:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7828510E868
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 07:30:24 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 44M7UJv4009419; Wed, 22 May 2024 13:00:19 +0530
+ 44M7UJlr009409; Wed, 22 May 2024 13:00:19 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 44M7UJqf009418;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 44M7UJib009408;
  Wed, 22 May 2024 13:00:19 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 06/10] drm/amdgpu: Add missing offsets in gc_11_0_0_offset.h
-Date: Wed, 22 May 2024 12:59:46 +0530
-Message-Id: <20240522072950.9162-7-sunil.khatri@amd.com>
+Subject: [PATCH v1 04/10] drm/amdgpu: add prints while ip register dump
+Date: Wed, 22 May 2024 12:59:44 +0530
+Message-Id: <20240522072950.9162-5-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240522072950.9162-1-sunil.khatri@amd.com>
 References: <20240522072950.9162-1-sunil.khatri@amd.com>
@@ -44,54 +44,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-IB1 registers:
-regCP_IB1_CMD_BUFSZ
-regCP_IB1_BASE_LO
-regCP_IB1_BASE_HI
-regCP_IB1_BUFSZ
-regCP_MES_DEBUG_INTERRUPT_INSTR_PNTR
-
-Above registers are part of the asic but not of
-the offset file for gc_11_0_0_offset.h and hence
-adding them.
+add prints before and after ip registers are
+dump. It avoids user to think of system being
+stuck/hung as register dump takes time after a
+gpu hang.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- .../gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-index 4bff1ef8a9a6..a3bcdf632066 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-@@ -7085,10 +7085,18 @@
- #define regCP_GE_MSINVOC_COUNT_LO_BASE_IDX                                                              1
- #define regCP_GE_MSINVOC_COUNT_HI                                                                       0x20a7
- #define regCP_GE_MSINVOC_COUNT_HI_BASE_IDX                                                              1
-+#define regCP_IB1_CMD_BUFSZ                                                                             0x20c0
-+#define regCP_IB1_CMD_BUFSZ_BASE_IDX                                                                    1
- #define regCP_IB2_CMD_BUFSZ                                                                             0x20c1
- #define regCP_IB2_CMD_BUFSZ_BASE_IDX                                                                    1
- #define regCP_ST_CMD_BUFSZ                                                                              0x20c2
- #define regCP_ST_CMD_BUFSZ_BASE_IDX                                                                     1
-+#define regCP_IB1_BASE_LO                                                                               0x20cc
-+#define regCP_IB1_BASE_LO_BASE_IDX                                                                      1
-+#define regCP_IB1_BASE_HI                                                                               0x20cd
-+#define regCP_IB1_BASE_HI_BASE_IDX                                                                      1
-+#define regCP_IB1_BUFSZ                                                                                 0x20ce
-+#define regCP_IB1_BUFSZ_BASE_IDX                                                                        1
- #define regCP_IB2_BASE_LO                                                                               0x20cf
- #define regCP_IB2_BASE_LO_BASE_IDX                                                                      1
- #define regCP_IB2_BASE_HI                                                                               0x20d0
-@@ -7541,6 +7549,8 @@
- #define regCP_MES_DOORBELL_CONTROL5_BASE_IDX                                                            1
- #define regCP_MES_DOORBELL_CONTROL6                                                                     0x2841
- #define regCP_MES_DOORBELL_CONTROL6_BASE_IDX                                                            1
-+#define regCP_MES_DEBUG_INTERRUPT_INSTR_PNTR                                                            0x2842
-+#define regCP_MES_DEBUG_INTERRUPT_INSTR_PNTR_BASE_IDX                                                   1
- #define regCP_MES_GP0_LO                                                                                0x2843
- #define regCP_MES_GP0_LO_BASE_IDX                                                                       1
- #define regCP_MES_GP0_HI                                                                                0x2844
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index e72e774d17e6..844dbb3d43c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5373,11 +5373,13 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 	if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
+ 		amdgpu_reset_reg_dumps(tmp_adev);
+ 
++		dev_info(tmp_adev->dev, "Dumping IP Registers\n");
+ 		/* Trigger ip dump before we reset the asic */
+ 		for (i = 0; i < tmp_adev->num_ip_blocks; i++)
+ 			if (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
+ 				tmp_adev->ip_blocks[i].version->funcs
+ 				->dump_ip_state((void *)tmp_adev);
++		dev_info(tmp_adev->dev, "Dumping IP Registers Completed\n");
+ 	}
+ 
+ 	reset_context->reset_device_list = device_list_handle;
 -- 
 2.34.1
 
