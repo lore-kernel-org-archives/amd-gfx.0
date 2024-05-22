@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCCA8C25B7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 13:22:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31DAC25B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 13:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051A410F570;
-	Wed, 22 May 2024 13:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D73A010E009;
+	Wed, 22 May 2024 13:22:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cBxYPQ2r";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hXQh52zr";
 	dkim-atps=neutral
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87E3410F571
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 13:22:20 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a59e4136010so1045048966b.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 06:22:20 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F6E10E009
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 13:22:50 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-52232d0e5ceso6679022e87.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 06:22:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716384138; x=1716988938; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716384168; x=1716988968; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=9bKLL5XIAHEVLvDN5YrC/ZHxoZSNxD9MKEhKk6FUBOU=;
- b=cBxYPQ2rtFP1NSFC3KcArvToHBdx8RKCoU/gfZN0HyBPhavt4+f+EftMVriWV+pmiy
- /9ySwBMHsR3E6oMbDaWB46/vLvDFteuKfeyrU+7EOJ3oI6mtYjOUrkb/e87r3toDcE36
- XkpnJdZOd45tV7zQ9sGxIiRlh6+dlYzkOzneF5bBUSZmNXaLOHkZUinhGWM1qsw5ifdX
- veoukoqlxpGzpC5qyTxOM1tX3+RVu1/pJCeOWKU8O+CHdQbvGFLb7yejO4n1qmW4S2SW
- US22I4ExYzI9JBFzlEG7/fK1EWicWkTOybgB+fx5axp1RWOX68qd13hr4lAdpRgDJOA5
- pf5g==
+ :reply-to; bh=SIQhe+tMA9rQZRm9Mwh+CFPQmYiZHvqL/eBWhNaMzk4=;
+ b=hXQh52zrUhIC1xs8BfnlFg1ISJVTTcq7YcvkiOdNM5FzMc6I3Rq1bfwJbgQB1sZEal
+ NrUTsnmHzEXsC6vV20hMUoDRXtGVJbldN6Qox+Q09OCP3kNUaFL0Lcd2EM2L5NIadzju
+ DlzC7FcZ1Nql9VAJ0V/e8JCyMOPigPb4cAOCIqOgnLx4lzBSVpHifeu9v2R8oeYqD76v
+ HUXxhZ4IWyA5SfOVSd4jFKGn72ug+ywsOTjslBtIm4ECSjyTVc+8lTGkoBcqGhfDRhqr
+ aulSEbVE7Ls/lpeHb8lfGX8r/2etWgzNsGwNXKKtfBukA2h/23Ze70O/8nGBAY7Iaeo5
+ fSmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716384138; x=1716988938;
+ d=1e100.net; s=20230601; t=1716384168; x=1716988968;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=9bKLL5XIAHEVLvDN5YrC/ZHxoZSNxD9MKEhKk6FUBOU=;
- b=hQuLEvhPf3koL4XYszLNQscPFCFZJyy8Q3/palOazt22nXkbzfv3LirAk5zalwSx1k
- FbfnPH4P2dZx0AJVznKOdsz6MPEIQS3zbaEb2SkxLV2aIIw/U8gLkjPe5Aq28BYuyp3s
- ywp5R+f2twwOR4jy8UiU+qAdKQ5NbgcEE9Xh4Bz0zu0HkSkTUTBlEi91EtqZhYwHUqJ0
- o0dHodP7i09o1N5e5x/ID5+lAE7dsDGb92BLii4miWbN4XDrzbG8jFmEkdLV7sW8nKcv
- kI5MGl+I4haVg1c6y8GSh/RUlBHa5GKyomTNvsyCcdqRGaEz0xwNLFDGb6u3rsVFZPZz
- Uimw==
+ bh=SIQhe+tMA9rQZRm9Mwh+CFPQmYiZHvqL/eBWhNaMzk4=;
+ b=Z84w4lbBXImBvRD0zn0Qvp7R1xmd0YqMr6cR8iRXO5PZgPNfpxNLbiUrMOmw4pT0/S
+ 0L79fuPk1mVUrZeXhULvegycEuyAGuB0g5Vu7mY+9U/gfWnpCDwKGFXk72fdyu0PGtWu
+ BSrXYzauFJW5x3OTvXRxwDomQLUGSUGnCSOigMk6CQDn6cUYIzK8mx+QkdzTSk4HSMvr
+ 7Bj91oKctBnWabOeEvsrhZD7yCr3ytezeGBw0sxvhzs+Qy2dj/I905EntroF7zeQvbU6
+ z6pk9I3XDkPy32y7jYG27j4YEkVzYBrQh0teXouuIjUKAB9TbTxUFDxSg651/iDKDYxJ
+ 4mwQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV15RnFbBQl5lCyAQpqcaejkxgqyhI2AGgi0BQ+BLDxl+zcfBJ0tRQoKJMpY0afSEtEXrdYy8H9JIaqUxwA144D23WYufEeiF77JeZxiQ==
-X-Gm-Message-State: AOJu0YyrTmei44npNYZo4LBIvJrhsNEE7ROj72GzqbPV0Uxck7dQw1/p
- DfDPrZBCjfUc2PU0iXkjCCYUSKtLyPLkiVLZ79dR0bTZ/15be5WwaOtc1uMno9A=
-X-Google-Smtp-Source: AGHT+IEm0saGodh7RpUehh6ch8U1BxsILC9cvXZJ83PFyYVR48QbRteA8MXQzFg1qIXy7mSDgn8IiQ==
-X-Received: by 2002:a17:906:f28e:b0:a59:a857:85ce with SMTP id
- a640c23a62f3a-a62281c9fa6mr123890766b.52.1716384138369; 
- Wed, 22 May 2024 06:22:18 -0700 (PDT)
+ AJvYcCVs6NDMykut1ribMnVMlVx9Zx7GW5NQru0MTnAVGmHHkzgFbXYYpAipJrKxFyjwPlp3kqj/6paA4wAwIN56wx6iHMPrrmXB79AbFoQ40A==
+X-Gm-Message-State: AOJu0YxJWUIUlyo+qlMbsmT6y92voVwRuYHNRcF2/HTz46s4g2vm5OmR
+ B9NKkWxLNJCTzQ1XpkuItJPXNhzKrM3mb+A4pjQtIjp+1BJ7AN+VLNeLeVOYquI=
+X-Google-Smtp-Source: AGHT+IEJ1RiNW8YrnORaBDNfPmmtG7Bn1EKHBtoqVKkkH/thyN4HZM7d5vLvLSrdVzne35J8DxG+nw==
+X-Received: by 2002:a05:6512:3458:b0:523:b7ec:a218 with SMTP id
+ 2adb3069b0e04-526bf35cad3mr1272832e87.21.1716384168467; 
+ Wed, 22 May 2024 06:22:48 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:982:cbb0:8b9d:52bd:4757:6b10?
  ([2a01:e0a:982:cbb0:8b9d:52bd:4757:6b10])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a17b01932sm1770472566b.168.2024.05.22.06.22.16
+ a640c23a62f3a-a5a17b17844sm1776943566b.190.2024.05.22.06.22.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 May 2024 06:22:17 -0700 (PDT)
-Message-ID: <4221943d-b0cf-4b78-992a-b2226589b745@linaro.org>
-Date: Wed, 22 May 2024 15:22:15 +0200
+ Wed, 22 May 2024 06:22:47 -0700 (PDT)
+Message-ID: <c9c8aa2f-38c8-4362-8b08-9fbc0821ae0c@linaro.org>
+Date: Wed, 22 May 2024 15:22:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 3/3] drm/panel/lg-sw43408: mark sw43408_backlight_ops
- as static
+Subject: Re: [PATCH v3 2/3] drm/panel/lg-sw43408: select
+ CONFIG_DRM_DISPLAY_DP_HELPER
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -86,7 +86,7 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  kernel test robot <lkp@intel.com>
 References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
- <20240522-panel-sw43408-fix-v3-3-6902285adcc0@linaro.org>
+ <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -113,7 +113,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20240522-panel-sw43408-fix-v3-3-6902285adcc0@linaro.org>
+In-Reply-To: <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -132,31 +132,31 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 22/05/2024 08:25, Dmitry Baryshkov wrote:
-> Fix sparse warning regarding symbol 'sw43408_backlight_ops' not being
-> declared.
+> This panel driver uses DSC PPS functions and as such depends on the
+> DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
+> available to the driver.
 > 
 > Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202404200739.hbWZvOhR-lkp@intel.com/
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
 > Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/panel/panel-lg-sw43408.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/panel/Kconfig | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> index 115f4702d59f..2b3a73696dce 100644
-> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> @@ -182,7 +182,7 @@ static int sw43408_backlight_update_status(struct backlight_device *bl)
->   	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
->   }
->   
-> -const struct backlight_ops sw43408_backlight_ops = {
-> +static const struct backlight_ops sw43408_backlight_ops = {
->   	.update_status = sw43408_backlight_update_status,
->   };
->   
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 4a2f621433ef..3e3f63479544 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
+>   	depends on OF
+>   	depends on DRM_MIPI_DSI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_DSC_HELPER
+> +	select DRM_DISPLAY_HELPER
+>   	help
+>   	  Say Y here if you want to enable support for LG sw43408 panel.
+>   	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
