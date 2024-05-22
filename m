@@ -4,62 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B80D7C25B7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 13:40:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9BCC25B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 13:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8405C10EE9A;
-	Wed, 22 May 2024 13:40:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A020F10F34D;
+	Wed, 22 May 2024 13:51:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="yvIGFZrS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TSbYvMoz";
 	dkim-atps=neutral
-X-Greylist: delayed 86251 seconds by postgrey-1.36 at gabe;
- Wed, 22 May 2024 13:40:46 UTC
-Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
- [51.77.79.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A41CE10EA87
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 13:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail3; t=1716385240; x=1716644440;
- bh=wtv5GehB0RNRrwKNMSpWWR1rBRSVtWsYLFCegIScuU4=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=yvIGFZrSL3iRU85LAzfwzh+uq0jLCjADU6LMEGnjMcGt++u5/NLIlJG88CSeTIRcf
- GPHdN9aBbDdIBmDReF13JTw6whWLxrYdcN0y0DLD7b2XyIHFcoIZu112gaPWkTiop9
- 9N/28V7OxshKIW5zjoaUo7dYNXP58prPUvRtEW7bF2Byi1O5XQxLpTE7v+vsMmhMsj
- S37g+lawcenjPzcgC6vZF2FwovTw1QBhHXJfxIhw+z3hFV3y2SxlBqrYoipBcVUhNg
- OI0R4GzDpatz7CDja0Q6bd8q7alaWZx2gzFAzSx0rMeyvVOMOJdesZW+WO+q2m2yRg
- cCT7AA126qLgA==
-Date: Wed, 22 May 2024 13:40:36 +0000
-To: Mario Limonciello <mario.limonciello@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: =?utf-8?Q?Rino_Andr=C3=A9_Johnsen?= <rinoandrejohnsen@gmail.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Wayne Lin <wayne.lin@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/amd/display: Add pixel encoding info to debugfs
-Message-ID: <1XiLpoWd2E_COrHNl9BYkmCXkUKK6Bv1wibdFxiw3Vi6AQOPAIhrIMPNEZmmKAp9yxC8Er4DEMqOqjshMgRqtpV3UkS7MN2OjCsDjllvdRE=@emersion.fr>
-In-Reply-To: <666e36b7-5379-46ef-a16b-00ec499fb42c@amd.com>
-References: <fa885eca-d7e6-415a-8a08-9103b002c6bb@amd.com>
- <20240521051140.30509-1-rinoandrejohnsen@gmail.com>
- <17782a6e-db84-4c20-874a-342b9655ffc5@amd.com>
- <CAACkh=-B-jH6g7KY7Nn_7Y_+gHPQ7G5Z5AZ0=a=_ifjcmsorcw@mail.gmail.com>
- <86410711-9b88-448c-9148-109f81b1ca55@amd.com>
- <CAACkh=9hY7eg_uuH7Psm=XJfSzwQTvzs8bvOXQ=wwkMPrC44SA@mail.gmail.com>
- <666e36b7-5379-46ef-a16b-00ec499fb42c@amd.com>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: b585325d54e6bc294fd23a41f27306f095acabbc
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 004E510EE76
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 13:51:51 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2ba1a0947cbso2084989a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 06:51:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1716385911; x=1716990711; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zvA7N/ndkBe36ThDd3bl1ajpCU8sLBmcFnJFbqUO8Z8=;
+ b=TSbYvMozBP1ie6taVhI0z/BtSOYnchLKlLblg4RdjDBnaVWJJFNkMTbWIHDNJ8EoX7
+ /8z+q1i479JeR+KIl6SscPAm5D36PEcI1C55vrOLG+nmECE4aKrCJlDn6upr2PD9VWSN
+ /aEr4Ay2Ebj44CNPYlTl/mLON6fwXWJKsgd4fK8n+OT1aBBRmii+heeLbDLVoMH/jovU
+ 0jDu6aoiGAkZkjvgf+fTguj9jyOmQVKMtakfOrv5s1h+oApnsyokCpqE7qEG128fmlrD
+ OX2PaJgNMmKam8GO20M9e5xpyk+85+66p615nQXDWgNt2/fqrkO3gzP4Ks0Uq4XA+G5e
+ Ii1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716385911; x=1716990711;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zvA7N/ndkBe36ThDd3bl1ajpCU8sLBmcFnJFbqUO8Z8=;
+ b=oofTLgIyIhDsZS3tKW3uo82aaCMsmI5sHyggbnIlWZRlljf0QFLKUw5UHCspNB8Cf6
+ D7FmXIysdGiETKEz3QAhettg7yDvkXKp8ixQ9edPTfI9sy8CAx+ogCdsrL3oMedbTbDc
+ Mu5FPWUOSEp4MmLf8O2x3PA8Nk50F8HxPEQPmvLV/E+/C2LfZ4q2J9sDAz67MwfDauRZ
+ fsZFZ55L4bKLEDQBCT2eaA6vrQx7zhUfXwHmgXNMvukMnmMgE9B2jzwQ0WI1bgJUFA3/
+ M7F4B/GTkFKADuv88I9bmjOjeYEgY1bC9Av/bbOfZT2sjdNIg5lX0eDA1PgjK25D+AxW
+ px9g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV2UKdjceOlBNPlElpjFGd39I937ftbvSMJ4jOst4DhDEK3spr1znEhr2rlXaI6gXq/ih2qk3r2s/7lpUk1hRvN5ToaHuELY+9z+Fmzjw==
+X-Gm-Message-State: AOJu0YzlleIgK9P8D4EMkDkODKj4eX7HmvL86fb+WOket4bjEYkbVQ9/
+ mU8Ixi6m7Hv/3DidAuAptxqrarDTBFo+HEMWkl34W3NilfBP7rQNt2rEcopV2tcQJNhQFC2jChj
+ JZC3h24qHKU4S2BKqdRVulohytNE=
+X-Google-Smtp-Source: AGHT+IGQx6eWjFvoahyRRyVJQsW6QhTBSGrPRhCQxVSm434F0GswmfmZZd57dGOUj956J4nzSeysk00Ro6pabvZaF3Q=
+X-Received: by 2002:a17:90a:1048:b0:2bd:7610:e6ae with SMTP id
+ 98e67ed59e1d1-2bd9f46a199mr2188456a91.5.1716385911322; Wed, 22 May 2024
+ 06:51:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20240522072950.9162-1-sunil.khatri@amd.com>
+ <20240522072950.9162-5-sunil.khatri@amd.com>
+In-Reply-To: <20240522072950.9162-5-sunil.khatri@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 22 May 2024 09:51:39 -0400
+Message-ID: <CADnq5_NT0Y7PSBwC7bk2yspTuU+qZS68PpuKs8cYTJWymCd+Ug@mail.gmail.com>
+Subject: Re: [PATCH v1 04/10] drm/amdgpu: add prints while ip register dump
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,20 +80,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, May 22nd, 2024 at 15:36, Mario Limonciello <mario.limonciello=
-@amd.com> wrote:
+On Wed, May 22, 2024 at 3:30=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
+ wrote:
+>
+> add prints before and after ip registers are
+> dump. It avoids user to think of system being
+> stuck/hung as register dump takes time after a
+> gpu hang.
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index e72e774d17e6..844dbb3d43c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5373,11 +5373,13 @@ int amdgpu_do_asic_reset(struct list_head *device=
+_list_handle,
+>         if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
+>                 amdgpu_reset_reg_dumps(tmp_adev);
+>
+> +               dev_info(tmp_adev->dev, "Dumping IP Registers\n");
 
-> > To be perfectly honest with you, I haven't given that much though. I
-> > used the 'bpc' and 'colorspace' property in debugfs, since I could not
-> > find that information anywhere else. And since I also needed to verify
-> > the pixel encoding being used, I added it where those other values
-> > were. That made for a simple and easy addition for this property.
-> >=20
-> > If you want me to do this differently, let me know. And please point
-> > me to the standardized DRM property where I should expose the values.
+Maybe say "Dumping IP state" since this could also contain
+non-register state in the future.
 
-FWIW, there is a patch from Andri to add a similar (?) property:
-https://lore.kernel.org/dri-devel/20240115160554.720247-1-andri@yngvason.is=
-/
+>                 /* Trigger ip dump before we reset the asic */
+>                 for (i =3D 0; i < tmp_adev->num_ip_blocks; i++)
+>                         if (tmp_adev->ip_blocks[i].version->funcs->dump_i=
+p_state)
+>                                 tmp_adev->ip_blocks[i].version->funcs
+>                                 ->dump_ip_state((void *)tmp_adev);
+> +               dev_info(tmp_adev->dev, "Dumping IP Registers Completed\n=
+");
 
-The patch also allows user-space to set the "pixel encoding".
+Same here.  WIth that fixed, this patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+>         }
+>
+>         reset_context->reset_device_list =3D device_list_handle;
+> --
+> 2.34.1
+>
