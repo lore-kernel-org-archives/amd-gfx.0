@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26879C25B78
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 22:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AA5CC25B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 22:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDD710EC59;
-	Wed, 22 May 2024 22:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E10510EA7B;
+	Wed, 22 May 2024 22:09:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xJuArExu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sLR3+Sag";
 	dkim-atps=neutral
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCEAB10EB5D;
- Wed, 22 May 2024 22:09:20 +0000 (UTC)
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41A4510EC59;
+ Wed, 22 May 2024 22:09:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CctIkchQS0zOt/+RMGDjTVtab5MtABwH+ZkXiPe8qwfm0zyE7bKZap2wTSmLnYkZGGLUIobxK5O/9BCyPV2Gh0O203WWW220fPDNp2cNhEOTD0kSbuVzGAwjQpXQx3HBh8fNo0H0CbGS3JJHvw+ldIMu2HYR6VQ+pGLrR66/GN44bv6xM8UWUC6PjLDzh2gCEUOEi8vZIarh42pR9FVWGLkaxdJ104L8syLmyuZfINHfR2HfgdJeeqgnEc4WkYvhAndqFbUB9duBnvrUo0ATzuVFOyJoWEjDtlxfPsZ+cBV2HT7XogPFDq2xrybMN3WNNlwAvDHE1JUPfD/PmO0DFQ==
+ b=jlJhrnNimYux+bxnKSauylwxYksTjPsG2RMTACLEJ6blWFE10B06ScljB99qIMKCIUWu4du7SsBdkKMijKNHma9fFnn4vSItgeNR2Wug9e/usNbOvSoOAkAbT5kQop3x+qGQrPIWb+BvI/iFpUK5w7E8fUKz3iOe0fsysYFSYeqUN22ILfOYPNJx51ePXpOuTDpvF7dsNNPXNxH2+W2vd2tUpiSWa+3R5jCGtzkAcDybvwC9TYXJXJ4Zjo1Si+Nf4x9uDnkxidsZGFjFG/8L+4VL+PthARbBLkzm3a+lqIYAWmH1qVbC29hXVe3HikUo905fM3tNFnG2BdP7sRsk2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W5t5nnJXOIJS97m8Vz+8mkhhPiUJyV4OYIgNCKCDOlI=;
- b=FhUrUquz2BfMhLL8JDSzy5FolHYdR9fw6jrOYtJNztrKGuk4GIZJdRsvYoIE6Q6e7t44eCABzgvm2oWc4o5+2/hrybbhKsPnpOmHiV90Nf2iGr4LhgRpbkcrmMfRpwzWW7Z4ZmI9awxRLFAmi5mDdw3CrGDhc/qZ8CrcEwMGBmMlLdoSEIafsRYKVgGnT5SChoZmYlgcPoTRLw0NAyAj1Ip0brDWQBJj6ccKo0kSp4Z5h08tENpVCwS6pqIfaFgxUPrZnO+BIf5LkdgITN07EZUpynITkKqaiiWGtN1HFxeISCKLM/YAkjqUguZRwZrPmq9KBJucg9Eda6p09qAPsg==
+ bh=wjHZankrXsOb4Mrmxh40iDmZf7PJnyV2Xlb3To3csDU=;
+ b=VCapy8+/CurtQwh0V5TW4o0xcss+gKxpMyfA4R6LhfRe/UytuXJ5WC1quCqjIYHotM/ogLbPQWwN4mf6hOGY72mATjp3cDUdFS0KBQzxIJUVaYQwKlN67SaTIPuhGLB0hhiRuljpLb3cRnD2dC2Fm5eoj/jI4FkwhkZ8ca7MGNgFpf+2eMOBsU046+hsTKx+w44wmBsLSUWVpKeNxephtPLhAbq/7xsvtT/BSmNtsy6uznEQ53hGUtJUkB9r708uFDdKnrRsJFQ0eh2zFzrmqKWGzlKQRzeONj9KVGEljxR68WzmDpzHKIW+W1ILXd5jAjHfYX+G6rbqzcfKUT/WBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W5t5nnJXOIJS97m8Vz+8mkhhPiUJyV4OYIgNCKCDOlI=;
- b=xJuArExuK9pV7HZ943qYwxc7Ma1uOkzEWKti4gpRdyLevEFzvvWl4ZTu56SEPVZYwP2TL7JTz6m7PZ7cBpLDslm58EtVkTRySlbbLaOKhzBmBQBxwU/gJxb48q1Bq0O4KsG/JhSNbjIeuQOhgbNRgelGDGqHNDNuMzD6c7JPJDg=
-Received: from LV3P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::14)
- by SN7PR12MB8818.namprd12.prod.outlook.com (2603:10b6:806:34b::15)
+ bh=wjHZankrXsOb4Mrmxh40iDmZf7PJnyV2Xlb3To3csDU=;
+ b=sLR3+SagKcPsYiRwJlsYWmey9LBRQjGbmmOtcPl5puxQte6LGexOE0RShbR6gZWNnOL4GPxkRbCkbGwPOpaCH+6uigXbwZClCsNuo9dFXpGbfJ52fiu1JZQwv9Uvhywh49Tq3vU7ZXjky+dBgOHsGHt4r6thAVEWZ/REksiKgVI=
+Received: from LV3P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::19)
+ by CH2PR12MB4054.namprd12.prod.outlook.com (2603:10b6:610:a6::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19; Wed, 22 May
- 2024 22:09:16 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Wed, 22 May
+ 2024 22:09:15 +0000
 Received: from BL6PEPF0001AB4B.namprd04.prod.outlook.com
- (2603:10b6:408:234:cafe::e) by LV3P220CA0014.outlook.office365.com
- (2603:10b6:408:234::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:234:cafe::59) by LV3P220CA0018.outlook.office365.com
+ (2603:10b6:408:234::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.20 via Frontend
- Transport; Wed, 22 May 2024 22:09:16 +0000
+ Transport; Wed, 22 May 2024 22:09:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF0001AB4B.mail.protection.outlook.com (10.167.242.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7611.14 via Frontend Transport; Wed, 22 May 2024 22:09:16 +0000
+ 15.20.7611.14 via Frontend Transport; Wed, 22 May 2024 22:09:12 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 22 May
- 2024 17:09:10 -0500
+ 2024 17:09:08 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Simon Ser <contact@emersion.fr>
 CC: Harry Wentland <Harry.Wentland@amd.com>, Xaver Hugl
  <xaver.hugl@gmail.com>, <dri-devel@lists.freedesktop.org>, Leo Li
  <sunpeng.li@amd.com>, Sean Paul <seanpaul@google.com>, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: [PATCH v2 4/4] tests/amdgpu/amd_psr: Add support for `power saving
- policy` property
-Date: Wed, 22 May 2024 17:08:49 -0500
-Message-ID: <20240522220849.33343-5-mario.limonciello@amd.com>
+ <superm1@ubuntu.com>, Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v2 2/4] tests/amdgpu/amd_abm: Make set_abm_level return type
+ int
+Date: Wed, 22 May 2024 17:08:47 -0500
+Message-ID: <20240522220849.33343-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240522220849.33343-1-mario.limonciello@amd.com>
 References: <20240522220849.33343-1-mario.limonciello@amd.com>
@@ -76,50 +76,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4B:EE_|SN7PR12MB8818:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57c53f9b-5b5e-4a8a-df32-08dc7aabd1fa
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4B:EE_|CH2PR12MB4054:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f0913a1-b2bb-4aba-0d22-08dc7aabcfc1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|1800799015|36860700004|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HVDdK0XTbiEdqPpZgJJIfg+26eB7S7phxK6iITE6flu/Bx1T4hsGIcoXh78f?=
- =?us-ascii?Q?rWrnLqqCZP2KktiHMiZYjowpGtpXhdtNA2E5k7A8XVy5qfEzc/AJFSOLWAby?=
- =?us-ascii?Q?50pdxxIZaakorJoiOsBKnUvOSy5Yaynv5pPz5atd+MuofmGo+3ert9g+C+pV?=
- =?us-ascii?Q?73vZbI+k1KA//f9gO+wQuHM53smQiBF8kAql1QuZY0rsB4S5NBhKEivqc+gK?=
- =?us-ascii?Q?uGll7ywG8c4qwtPR3BCsPUcpejF1h3M3P6bwT5NgJbeEHLnwKLLfEWzEl8Rw?=
- =?us-ascii?Q?3u569mnDa7S1jFzywKAnByORKztfpsotHqUiWHW5d3QVn3c6Qdufq3WB+Qb2?=
- =?us-ascii?Q?MW7smq6TzcNghGCHciH87Iqv+dOqJQwr6YC2bX77oSAQTsgWI2lldXJvOcJ2?=
- =?us-ascii?Q?dlvcDF0T3dz43pHqAcMeWAIcbuRD4J0sN9Ap9n6CV4Ib3lZn9IJRSfOge5QO?=
- =?us-ascii?Q?CydvRjL1Po/CFm8OXwKOsmdPTeTbJaYXhteuDXln2Ja3Wl0L61NO7p/z47LK?=
- =?us-ascii?Q?YYiVPnIr/IFwoNiR+tRetwKMXFADvyRby0YVSD6qMVIhvrv8/4RgdlRGCciR?=
- =?us-ascii?Q?pL+YNgqARYoLz8EjtkPCLqL34SZNe1GWNY/zjWz7cw4xtrVU01+XRRZ3/CFj?=
- =?us-ascii?Q?cC+N9jo8PI2WA1n6Dey9Cn2PRvmB4l1l0T/XtLEgHxHZQfadAMShuWENTL+8?=
- =?us-ascii?Q?tPcFpql9SDO0LUcKcAEvsYEZgs1sFWSoIkst7wi+LeXVz1SJQHCLVJL4Nme0?=
- =?us-ascii?Q?/98Uk8k97b9M3VvO79XElc5fZM6400MH0rr2sQpXgbyuBiuNho6WVastEMm8?=
- =?us-ascii?Q?M2zP4+hH1C9l4MYfedq11Tu6c+WBrywuELig7ciU384Qi2DLn5tbh64lB4IM?=
- =?us-ascii?Q?OYRJd6yegvcs6geRPOFGOEAAP1GC8Wjf/KIzqM4h6blyFykdFYSoWBry4xbr?=
- =?us-ascii?Q?q9M+h5L9o/O5BkFw9N1L8FF/9WyDdlAfhU+eOD8dfNeo4h/FbjKmrOH7rbrz?=
- =?us-ascii?Q?2kg0NyYops3p5UT6PZepkMNjfe18exzaFj1LuHsF6wpofNBkgShh5q17NUF7?=
- =?us-ascii?Q?I80RpH5VJOYyrIzbsHdNK+Dk2odfmSjMBmcdRXFunO9n0BIn5kSXMgfcYjxG?=
- =?us-ascii?Q?v+vjGtK8ajXe4sVKW7wUvIE3Mx+Us4iKYGtqudDNZh8hvJhY7lmjCHYTAH2Q?=
- =?us-ascii?Q?ZDO2OI3GlD4XZSITB00doh7b4wzAnL0/u6jfrV6i+PbvjUoVPAB0WcaQd3uV?=
- =?us-ascii?Q?clUHEeaJvzfRFAoN+eoECgirqOWxN3PtPOB4l8hvPI9Wz0aoptgQXsf1/XHi?=
- =?us-ascii?Q?qONEsfnDe2OtYU+GngItHRuVi6zZVvU92ZaWPeJv2I0I2uJZN6Uo4twxP3yc?=
- =?us-ascii?Q?brEdPs1HrHfOQ8OtSjKK0vh7AfZU?=
+ ARA:13230031|1800799015|36860700004|376005|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pq217k0yRhT/3pEjwQGYX68BnC7BhnfNmkIfEvYhxpYW6cY64jptzYWNu0KC?=
+ =?us-ascii?Q?tJp0K2TKk6rb/XW1ev+BuZD9qNeeGU1B3iKFsD3RpNk+waYdiFieVWFVd8IW?=
+ =?us-ascii?Q?+krBCE0uqSz6/9QVIa1XCrVhU5CLqCFPp+cOZ2rJ6pcwbz0yvOCssgGkrbOG?=
+ =?us-ascii?Q?odRCSPL+bLSUVDMoy2g/WfT1f/76VwfBo9Z5hBaeIRgCXb0neiCJTYklIX12?=
+ =?us-ascii?Q?opnCdp0xFNkQIeUnEA3NqS6Z3lcg6e5EA6ueQ15GcA2yoRtcL90NfxCZccYB?=
+ =?us-ascii?Q?v4IBkttvO1JxcinTvwLFhaVbGEV4DSPwuXXnWDoeTKQJP/LWuumeeNwivMbu?=
+ =?us-ascii?Q?GiFJrRYwVVEhELHixa7PeUN05uU7YDAIRUjL781B//XBgfN1WFbsYJe3//lQ?=
+ =?us-ascii?Q?dDaVY6jNUmR3j0u04ioZBnx2quNVVxWXnecgmR0/pDJ2q37eIPEcJBkekHRY?=
+ =?us-ascii?Q?jOvJ54VYsOYrI+aU9OvTIKJXxbYPyJScKCdcwFhaFIl85GfGjk/9CxmYHEtn?=
+ =?us-ascii?Q?B/JG7JlZKCCRYU+jNd2Y95E3pbKpquA/lcIGEjFyBcc80oVTda0j5xwzhH33?=
+ =?us-ascii?Q?saLnHCObyPNmC74OGmAqzNNSAY0dFnHhl4h7bsFP2A4yXURbcuRMAkRH+n07?=
+ =?us-ascii?Q?k9bP2YpSCVvEg3baoEXw0jQUEnoqCaSqGgBHEnUM5APayxX7cGQsapY/8tsC?=
+ =?us-ascii?Q?D+6paVCo74njTdMDbFxkIx8XbsHqnDvg4d8Kf+6G9+3rHH6Bjz2CY64YPeHT?=
+ =?us-ascii?Q?HX1qy83pezp3LQO3bmijhys3QK4toFtRljxUiy27F1AfEVGdUxnqrt4ekX+l?=
+ =?us-ascii?Q?N/Qijw1HS53ixEk6U29cuaE03ejZ7tZngScAxFOWlw0RikuAa/+3/3nVxw0e?=
+ =?us-ascii?Q?3EKYFnruSrx93vc6JHctdvnGHzQDcGv3s9BgdGFgbmNUmEUsAAgj+xTlzwFr?=
+ =?us-ascii?Q?jDMijT7hgQaVdO2rkz2ERj4TsTumunzHmEGJTKuWD4pVeubsMInB0JbAK+rY?=
+ =?us-ascii?Q?EEVEfont2W3X+Wqoncfy+Ik7GIPieKVN3tjN/+4o92g0obHPZ6y26w/TmXYe?=
+ =?us-ascii?Q?WbOJFhpR6yWTbNI/Ws5OLURpBSMfv2k13PV5kNsahj4SYK6LoWAfA/foN8U7?=
+ =?us-ascii?Q?lHu91kz8Ldp2Ea0GgMv7BwxAeyO0lD+i8gjjI2B1YBQYtWryOKeN9ud014An?=
+ =?us-ascii?Q?QPtKwWEv2TKL//6iNMlgNnmzOQ3T7BDQcLDdiUWGjPsTVQSOvgy43RC1KGJb?=
+ =?us-ascii?Q?9LQ8v+P7Hih52ivnOpF9BOwDKYG3RjWl3jBrpEUJtNq9EQRv58MEL3JMfXVC?=
+ =?us-ascii?Q?xsC2RtyZv2XmWM661O3niZD8TnLD/PY+C5QcOblGb7qbZqGsDtTC8+yIGzGG?=
+ =?us-ascii?Q?csb9TP7mTBuez+Jw6BDpMY41cDgm?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(1800799015)(36860700004)(376005); DIR:OUT;
+ SFS:(13230031)(1800799015)(36860700004)(376005)(82310400017); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 22:09:16.0330 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57c53f9b-5b5e-4a8a-df32-08dc7aabd1fa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 22:09:12.2987 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f0913a1-b2bb-4aba-0d22-08dc7aabcfc1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8818
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,103 +134,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Verify that the property has disabled PSR
----
- tests/amdgpu/amd_psr.c | 74 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+From: Mario Limonciello <superm1@ubuntu.com>
 
-diff --git a/tests/amdgpu/amd_psr.c b/tests/amdgpu/amd_psr.c
-index 9da161a09..a9f4a6aa5 100644
---- a/tests/amdgpu/amd_psr.c
-+++ b/tests/amdgpu/amd_psr.c
-@@ -338,6 +338,78 @@ static void run_check_psr(data_t *data, bool test_null_crtc) {
- 	test_fini(data);
+In order to bubble of cases of expeted errors on set_abm_level()
+change the return type to int.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ tests/amdgpu/amd_abm.c | 33 +++++++++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
+
+diff --git a/tests/amdgpu/amd_abm.c b/tests/amdgpu/amd_abm.c
+index 2882c2c18..f74c3012c 100644
+--- a/tests/amdgpu/amd_abm.c
++++ b/tests/amdgpu/amd_abm.c
+@@ -104,10 +104,11 @@ static int backlight_write_brightness(int value)
+ 	return 0;
  }
  
-+static void psr_forbidden(data_t *data)
-+{
-+	int edp_idx, ret, i, psr_state;
-+	igt_fb_t ref_fb, ref_fb2;
-+	igt_fb_t *flip_fb;
-+	igt_output_t *output;
-+
-+	test_init(data);
-+
-+	edp_idx = check_conn_type(data, DRM_MODE_CONNECTOR_eDP);
-+	igt_skip_on_f(edp_idx == -1, "no eDP connector found\n");
-+
-+	/* check if eDP support PSR1, PSR-SU.
-+	 */
-+	igt_skip_on(!psr_mode_supported(data, PSR_MODE_1) && !psr_mode_supported(data, PSR_MODE_2));
-+	for_each_connected_output(&data->display, output) {
-+
-+		if (output->config.connector->connector_type != DRM_MODE_CONNECTOR_eDP)
-+			continue;
-+		ret = clear_power_saving_policy(data->fd, output);
-+		if (ret == -ENODEV) {
-+			igt_skip("No power saving policy prop\n");
-+			return;
-+		}
-+		igt_require(ret == 0);
-+
-+		/* try to engage PSR */
-+		ret = set_panel_power_saving_policy(data->fd, output, DRM_MODE_REQUIRE_LOW_LATENCY);
-+		igt_assert_eq(ret, 0);
-+
-+		igt_create_color_fb(data->fd, data->mode->hdisplay,
-+				    data->mode->vdisplay, DRM_FORMAT_XRGB8888, 0, 1.0,
-+				    0.0, 0.0, &ref_fb);
-+		igt_create_color_fb(data->fd, data->mode->hdisplay,
-+				    data->mode->vdisplay, DRM_FORMAT_XRGB8888, 0, 0.0,
-+				    1.0, 0.0, &ref_fb2);
-+
-+		igt_plane_set_fb(data->primary, &ref_fb);
-+
-+		igt_display_commit_atomic(&data->display, DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
-+
-+		for (i = 0; i < N_FLIPS; i++) {
-+			if (i % 2 == 0)
-+				flip_fb = &ref_fb2;
-+			else
-+				flip_fb = &ref_fb;
-+
-+			ret = drmModePageFlip(data->fd, output->config.crtc->crtc_id,
-+					      flip_fb->fb_id, DRM_MODE_PAGE_FLIP_EVENT, NULL);
-+			igt_require(ret == 0);
-+			kmstest_wait_for_pageflip(data->fd);
-+		}
-+
-+		/* PSR state takes some time to settle its value on static screen */
-+		sleep(PSR_SETTLE_DELAY);
-+
-+		psr_state =  igt_amd_read_psr_state(data->fd, output->name);
-+		igt_require(psr_state == PSR_STATE3);
-+
-+		igt_remove_fb(data->fd, &ref_fb);
-+		igt_remove_fb(data->fd, &ref_fb2);
-+
-+		ret = clear_power_saving_policy(data->fd, output);
-+		if (ret == -ENODEV) {
-+			igt_skip("No power saving policy prop\n");
-+			return;
-+		}
-+		igt_require(ret == 0);
-+
-+	}
-+}
-+
- static void run_check_psr_su_mpo(data_t *data, bool scaling, float scaling_ratio)
+-static void set_abm_level(data_t *data, igt_output_t *output, int level)
++static int set_abm_level(data_t *data, igt_output_t *output, int level)
  {
- 	int edp_idx = check_conn_type(data, DRM_MODE_CONNECTOR_eDP);
-@@ -756,6 +828,8 @@ igt_main_args("", long_options, help_str, opt_handler, NULL)
- 	igt_describe("Test to validate PSR SU enablement with Visual Confirm "
- 		     "and to validate PSR SU disable/re-enable w/ primary scaling ratio 0.75");
- 	igt_subtest("psr_su_mpo_scaling_0_75") run_check_psr_su_mpo(&data, true, .75);
-+	igt_describe("Test whether PSR can be forbidden");
-+	igt_subtest("psr_forbidden") psr_forbidden(&data);
+ 	char buf[PATH_MAX];
+ 	int fd;
++	int ret;
  
- 	igt_fixture
- 	{
+ 	igt_assert(snprintf(buf, PATH_MAX, PANEL_POWER_SAVINGS_PATH,
+ 			    output->name) < PATH_MAX);
+@@ -116,8 +117,12 @@ static void set_abm_level(data_t *data, igt_output_t *output, int level)
+ 
+ 	igt_assert(fd != -1);
+ 
+-	igt_assert_eq(snprintf(buf, sizeof(buf), "%d", level),
+-		      write(fd, buf, 1));
++	snprintf(buf, sizeof(buf), "%d", level);
++	ret = write(fd, buf, 1);
++	if (ret < 0) {
++		close(fd);
++		return ret;
++	}
+ 
+ 	igt_assert_eq(close(fd), 0);
+ 
+@@ -129,6 +134,7 @@ static void set_abm_level(data_t *data, igt_output_t *output, int level)
+ 			 DRM_MODE_DPMS_OFF);
+ 	kmstest_set_connector_dpms(data->drm_fd, output->config.connector,
+ 			 DRM_MODE_DPMS_ON);
++	return 0;
+ }
+ 
+ static int backlight_read_max_brightness(int *result)
+@@ -192,7 +198,8 @@ static void backlight_dpms_cycle(data_t *data)
+ 		ret = backlight_read_max_brightness(&max_brightness);
+ 		igt_assert_eq(ret, 0);
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness / 2);
+ 		usleep(100000);
+ 		pwm_1 = read_target_backlight_pwm(data->drm_fd, output->name);
+@@ -223,7 +230,8 @@ static void backlight_monotonic_basic(data_t *data)
+ 
+ 		brightness_step = max_brightness / 10;
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness);
+ 		usleep(100000);
+ 		prev_pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+@@ -257,7 +265,8 @@ static void backlight_monotonic_abm(data_t *data)
+ 
+ 		brightness_step = max_brightness / 10;
+ 		for (i = 1; i < 5; i++) {
+-			set_abm_level(data, output, 0);
++			ret = set_abm_level(data, output, 0);
++			igt_assert_eq(ret, 0);
+ 			backlight_write_brightness(max_brightness);
+ 			usleep(100000);
+ 			prev_pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+@@ -289,14 +298,16 @@ static void abm_enabled(data_t *data)
+ 		ret = backlight_read_max_brightness(&max_brightness);
+ 		igt_assert_eq(ret, 0);
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness);
+ 		usleep(100000);
+ 		prev_pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+ 		pwm_without_abm = prev_pwm;
+ 
+ 		for (i = 1; i < 5; i++) {
+-			set_abm_level(data, output, i);
++			ret = set_abm_level(data, output, i);
++			igt_assert_eq(ret, 0);
+ 			usleep(100000);
+ 			pwm = read_target_backlight_pwm(data->drm_fd, output->name);
+ 			igt_assert(pwm <= prev_pwm);
+@@ -323,7 +334,8 @@ static void abm_gradual(data_t *data)
+ 
+ 		igt_assert_eq(ret, 0);
+ 
+-		set_abm_level(data, output, 0);
++		ret = set_abm_level(data, output, 0);
++		igt_assert_eq(ret, 0);
+ 		backlight_write_brightness(max_brightness);
+ 
+ 		sleep(convergence_delay);
+@@ -331,7 +343,8 @@ static void abm_gradual(data_t *data)
+ 		curr = read_current_backlight_pwm(data->drm_fd, output->name);
+ 
+ 		igt_assert_eq(prev_pwm, curr);
+-		set_abm_level(data, output, 4);
++		ret = set_abm_level(data, output, 4);
++		igt_assert_eq(ret, 0);
+ 		for (i = 0; i < 10; i++) {
+ 			usleep(100000);
+ 			pwm = read_current_backlight_pwm(data->drm_fd, output->name);
 -- 
 2.43.0
 
