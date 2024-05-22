@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF0BC25B77
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:30:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A13C25B79
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 07:30:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E39510F410;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D51510F411;
 	Wed, 22 May 2024 07:30:42 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4992F10E701
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 07:30:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7A1C10F3E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 07:30:25 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 44M7UKIB009445; Wed, 22 May 2024 13:00:20 +0530
+ 44M7UJnC009394; Wed, 22 May 2024 13:00:19 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 44M7UKuO009444;
- Wed, 22 May 2024 13:00:20 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 44M7UJuZ009393;
+ Wed, 22 May 2024 13:00:19 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 10/10] drm/amdgpu: add gfx queue support for gfx11 ipdump
-Date: Wed, 22 May 2024 12:59:50 +0530
-Message-Id: <20240522072950.9162-11-sunil.khatri@amd.com>
+Subject: [PATCH v1 01/10] drm/amdgpu: rename the ip_dump to ip_dump_core
+Date: Wed, 22 May 2024 12:59:41 +0530
+Message-Id: <20240522072950.9162-2-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240522072950.9162-1-sunil.khatri@amd.com>
 References: <20240522072950.9162-1-sunil.khatri@amd.com>
@@ -44,145 +44,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support of all the CP GFX queues for gfx11 ipdump
-to be used by devcoredump.
+Rename the memory pointer from ip_dump to ip_dump_core
+to make it specific to core registers and rest other
+registers to be dumped in their respective memories.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 92 ++++++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index fbdb928bb790..aba0a51be960 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -209,6 +209,35 @@ static const struct amdgpu_hwip_reg_entry gc_cp_reg_list_11[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_DEQUEUE_STATUS)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 109f471ff315..a28462643b00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -435,7 +435,7 @@ struct amdgpu_gfx {
+ 	bool				mcbp; /* mid command buffer preemption */
+ 
+ 	/* IP reg dump */
+-	uint32_t			*ip_dump;
++	uint32_t			*ip_dump_core;
  };
  
-+static const struct amdgpu_hwip_reg_entry gc_gfx_queue_reg_list_11[] = {
-+	/* gfx queue registers */
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_ACTIVE),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_VMID),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_QUEUE_PRIORITY),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_QUANTUM),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_BASE),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_BASE_HI),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_OFFSET),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_CNTL),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_CSMD_RPTR),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_WPTR),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_WPTR_HI),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_DEQUEUE_REQUEST),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_MAPPED),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_QUE_MGR_CONTROL),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_HQ_CONTROL0),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_HQ_STATUS0),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_MQD_BASE_ADDR),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_MQD_BASE_ADDR_HI),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR_POLL_ADDR_LO),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR_POLL_ADDR_HI),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_RPTR),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_LO),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_HI),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_CMD_BUFSZ),
-+	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BUFSZ)
-+};
-+
- static const struct soc15_reg_golden golden_settings_gc_11_0[] = {
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, regTCP_CNTL, 0x20000000, 0x20000000)
- };
-@@ -1472,6 +1501,19 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
+ struct amdgpu_gfx_ras_reg_entry {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 1f516466ac13..73149150fe2e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4603,9 +4603,9 @@ static void gfx_v10_0_alloc_dump_mem(struct amdgpu_device *adev)
+ 	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
+ 	if (ptr == NULL) {
+ 		DRM_ERROR("Failed to allocate memory for IP Dump\n");
+-		adev->gfx.ip_dump = NULL;
++		adev->gfx.ip_dump_core = NULL;
  	} else {
- 		adev->gfx.ip_dump_cp_queues = ptr;
+-		adev->gfx.ip_dump = ptr;
++		adev->gfx.ip_dump_core = ptr;
  	}
-+
-+	/* Allocate memory for gfx queue registers for all the instances */
-+	reg_count = ARRAY_SIZE(gc_gfx_queue_reg_list_11);
-+	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
-+		adev->gfx.me.num_queue_per_pipe;
-+
-+	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	if (ptr == NULL) {
-+		DRM_ERROR("Failed to allocate memory for GFX CP IP Dump\n");
-+		adev->gfx.ip_dump_gfx_queues = NULL;
-+	} else {
-+		adev->gfx.ip_dump_gfx_queues = ptr;
-+	}
  }
  
- static int gfx_v11_0_sw_init(void *handle)
-@@ -1691,6 +1733,7 @@ static int gfx_v11_0_sw_fini(void *handle)
+@@ -4815,7 +4815,7 @@ static int gfx_v10_0_sw_fini(void *handle)
  
- 	kfree(adev->gfx.ip_dump_core);
- 	kfree(adev->gfx.ip_dump_cp_queues);
-+	kfree(adev->gfx.ip_dump_gfx_queues);
+ 	gfx_v10_0_free_microcode(adev);
+ 
+-	kfree(adev->gfx.ip_dump);
++	kfree(adev->gfx.ip_dump_core);
  
  	return 0;
  }
-@@ -6343,6 +6386,30 @@ static void gfx_v11_ip_print(void *handle, struct drm_printer *p)
- 			}
- 		}
- 	}
-+
-+	/* print gfx queue registers for all instances */
-+	if (!adev->gfx.ip_dump_gfx_queues)
-+		return;
-+
-+	reg_count = ARRAY_SIZE(gc_gfx_queue_reg_list_11);
-+	drm_printf(p, "\nnum_me: %d num_pipe: %d num_queue: %d\n",
-+		   adev->gfx.me.num_me,
-+		   adev->gfx.me.num_pipe_per_me,
-+		   adev->gfx.me.num_queue_per_pipe);
-+
-+	for (i = 0; i < adev->gfx.me.num_me; i++) {
-+		for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
-+			for (k = 0; k < adev->gfx.me.num_queue_per_pipe; k++) {
-+				drm_printf(p, "\nme %d, pipe %d, queue %d\n", i, j, k);
-+				for (reg = 0; reg < reg_count; reg++) {
-+					drm_printf(p, "%-50s \t 0x%08x\n",
-+						   gc_gfx_queue_reg_list_11[reg].reg_name,
-+						   adev->gfx.ip_dump_gfx_queues[index + reg]);
-+				}
-+				index += reg_count;
-+			}
-+		}
-+	}
+@@ -9292,13 +9292,13 @@ static void gfx_v10_ip_print(void *handle, struct drm_printer *p)
+ 	uint32_t i;
+ 	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
+ 
+-	if (!adev->gfx.ip_dump)
++	if (!adev->gfx.ip_dump_core)
+ 		return;
+ 
+ 	for (i = 0; i < reg_count; i++)
+ 		drm_printf(p, "%-50s \t 0x%08x\n",
+ 			   gc_reg_list_10_1[i].reg_name,
+-			   adev->gfx.ip_dump[i]);
++			   adev->gfx.ip_dump_core[i]);
  }
  
- static void gfx_v11_ip_dump(void *handle)
-@@ -6383,6 +6450,31 @@ static void gfx_v11_ip_dump(void *handle)
- 	soc21_grbm_select(adev, 0, 0, 0, 0);
- 	mutex_unlock(&adev->srbm_mutex);
+ static void gfx_v10_ip_dump(void *handle)
+@@ -9307,12 +9307,12 @@ static void gfx_v10_ip_dump(void *handle)
+ 	uint32_t i;
+ 	uint32_t reg_count = ARRAY_SIZE(gc_reg_list_10_1);
+ 
+-	if (!adev->gfx.ip_dump)
++	if (!adev->gfx.ip_dump_core)
+ 		return;
+ 
+ 	amdgpu_gfx_off_ctrl(adev, false);
+ 	for (i = 0; i < reg_count; i++)
+-		adev->gfx.ip_dump[i] = RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
++		adev->gfx.ip_dump_core[i] = RREG32(SOC15_REG_ENTRY_OFFSET(gc_reg_list_10_1[i]));
  	amdgpu_gfx_off_ctrl(adev, true);
-+
-+	/* dump gfx queue registers for all instances */
-+	if (!adev->gfx.ip_dump_gfx_queues)
-+		return;
-+
-+	reg_count = ARRAY_SIZE(gc_gfx_queue_reg_list_11);
-+	amdgpu_gfx_off_ctrl(adev, false);
-+	mutex_lock(&adev->srbm_mutex);
-+	for (i = 0; i < adev->gfx.me.num_me; i++) {
-+		for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
-+			for (k = 0; k < adev->gfx.me.num_queue_per_pipe; k++) {
-+				soc21_grbm_select(adev, i, j, k, 0);
-+
-+				for (reg = 0; reg < reg_count; reg++) {
-+					adev->gfx.ip_dump_gfx_queues[index + reg] =
-+						RREG32(SOC15_REG_ENTRY_OFFSET(
-+							gc_gfx_queue_reg_list_11[reg]));
-+				}
-+				index += reg_count;
-+			}
-+		}
-+	}
-+	soc21_grbm_select(adev, 0, 0, 0, 0);
-+	mutex_unlock(&adev->srbm_mutex);
-+	amdgpu_gfx_off_ctrl(adev, true);
  }
  
- static const struct amd_ip_funcs gfx_v11_0_ip_funcs = {
 -- 
 2.34.1
 
