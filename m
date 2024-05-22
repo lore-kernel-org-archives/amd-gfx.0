@@ -4,99 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B77C25B79
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 06:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 973B8C25B77
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 May 2024 06:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54F0210F382;
-	Wed, 22 May 2024 06:26:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F84E10E622;
+	Wed, 22 May 2024 06:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dqIXdmr5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XhptJfKz";
 	dkim-atps=neutral
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D63B10E562
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 06:26:00 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-51f45104ef0so5935351e87.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 May 2024 23:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716359158; x=1716963958; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=NAWjwCLmat0Pt42wss/KcevTPw7T7NPDEdWBIi4Ib0k=;
- b=dqIXdmr5Zz/3jon78qS+wfyU1lnoG1LrarT5dks1x/Tix3iDNNeIOS1uuvhpsA+yUq
- Ym1gQHXN4MjwKdDp2WewGPSf7hxwEuuEBk/Cw8H3THU5nHZXiKCx/DYzU7cjVNDNdGKe
- bZP/4rq0M43kr6v/bK35avumlTyFPCkuuf9ew2JHaZ2e/pmU0zHCEpOeWX4EGIv1sXpU
- UNZDVYfmLDinfgCF/7XGHO4c+2Vk+hEGHdGFDxbi2CVBU3wK+4yxQBTtXvOvdy9t5q2y
- c9pCjETG0OpQmSg5nqgweRYlCcY3XSWB3/Ge/bvuQAnrrc1aZnbR6hIH4dAbj0r7NWV1
- NZHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716359158; x=1716963958;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NAWjwCLmat0Pt42wss/KcevTPw7T7NPDEdWBIi4Ib0k=;
- b=wln6zmUSF+R6VaxRd+RaRFzikxTzGJk2d1M6mJYKYUcDNXjOxwb+apZyNhJiyJfQSU
- 53fQ+VGj3xqraOETwd0e9c5YysB+DVVJDuuO6nYWjcBXEMY38llzirazmtfd6sG3ER81
- Two8S3fT6HhtMQBOHe8N7KXRCvjKJJPGPoGH2bhadHexleLI/C1eBiOAJbe7zrpwODNC
- S0JRbrq9EAmFDokzAHekf4TzrjlchMPki6z48LiL4SBu+ccodV66FGBUK2595JtDa3y0
- 2gHeHGejcYViooBWfsNKvC1Rbx5bi9ElNApl4QnmjHuUdXIRWM1otFGUNphNXzoc/jbm
- LKxA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJAY6d7BQzbknODT8UGRpoX/7fPbT0vgKbOzz7IhdkaQTyHu997zXEs8+0Bjcb4kd3UAb/+I8Gu/NTlsZdLOlPbiZ/0a7ArztZuQs2pA==
-X-Gm-Message-State: AOJu0YyMaE+udelaj/v8uifid3Is/mm7+jyek/SAHjXhoepYFDTjX1/l
- 2MMtiaSBOfzgSKD5AXzY0SNWm6iDKq8aw+BKD3g0JolWbBNGCRREn2ti/2YR/0U=
-X-Google-Smtp-Source: AGHT+IEW+S3+sVgdb7Ioh3lWeKabvLfqA+b3mZ7ScIiWLt3n37PheAoJ6ahbaI04M7Q2NlUrqW9u/g==
-X-Received: by 2002:ac2:43a4:0:b0:519:5e81:276d with SMTP id
- 2adb3069b0e04-526bf35cademr539325e87.31.1716359158307; 
- Tue, 21 May 2024 23:25:58 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f35ad4d0sm4910023e87.49.2024.05.21.23.25.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 May 2024 23:25:57 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 22 May 2024 09:25:55 +0300
-Subject: [PATCH v3 3/3] drm/panel/lg-sw43408: mark sw43408_backlight_ops as
- static
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2050.outbound.protection.outlook.com [40.107.95.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C7310E5D1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 06:31:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NJB3UUjok1JT5+si9DIUtbdpKG/unwczUhluuLk7uPN2ajNaUBcpAeIksPPe036p+Z1wqa+If3BEvDMlAOcqtz8X52GZd9ReqkgiQpf/62OO1Qte1Ux/uUgrkev73iS+WBWdfaIUw1yZhKo4PtSKQ3uo7iJCImA1gj+ZYZo1qZSaH3VwQpkX29rVlmVGx4UR7a1bzEjNMHSM8I/5t0kjuA35uKnjYYPHP2nCTN24GztDVWSX8hPjQodSgK1ibWQUptK0tEtN72c5tll9OkGFAlwTtXBNQZ/a1hK46xY6or5GuRJq2oJDeVQGEy5gX0l6i/QIb2UQRUT0++MaYWYAMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xaE0qctz4QcACD2bW6y8KFa81HmUnU6hkcN1YkLhSoA=;
+ b=IHfslC+qphGYJ6gZijWG3fZDyzCKIMrNu3KnAn7hSTwhO0sCNVliklROPv7nClNAQE9qUXOTvIMFRRcu4qe5JMeEMYqRQdMRFjv9MFHgqmYJeRcYtfBKyMIemUubNpspdtC8lt8BHGdv5vLUsQeXf3II3LBg7nc/uUpRxZCE4gAEYmckBxKysCJ7LkUw0PN7XfGXzqyLmDjzpEpKQwFSHbCNv+ixKh6IX9WcDxWCuJ8G69ShCwWUbixlBPBqOKMkpHOzEoXwOfWBDzeDLFi4cLwQy8oPZFSaMbG9ylMtd4PI2odno0kZbcFcYcjykBdXLzYdlVn5zd8S04NysEZHiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xaE0qctz4QcACD2bW6y8KFa81HmUnU6hkcN1YkLhSoA=;
+ b=XhptJfKzgDQPGkQg1ZyiKo1EglXUQa2otofRmMSYgbw6ZbQo3GYj2H6uBiCKYMyoVG5u/ZoNg+gCc4A7M8QD/TlUfa7KWzh+k0xOyJ4vfmuc2VmjMQOz7SyPneFIKDPd5dOaynDWpRRb5H3Hwptu1dSBcWHEXNBnO/aM7NEN2vw=
+Received: from BL1PR13CA0230.namprd13.prod.outlook.com (2603:10b6:208:2bf::25)
+ by SN7PR12MB6887.namprd12.prod.outlook.com (2603:10b6:806:261::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19; Wed, 22 May
+ 2024 06:31:01 +0000
+Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
+ (2603:10b6:208:2bf:cafe::f9) by BL1PR13CA0230.outlook.office365.com
+ (2603:10b6:208:2bf::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.19 via Frontend
+ Transport; Wed, 22 May 2024 06:30:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7611.14 via Frontend Transport; Wed, 22 May 2024 06:30:55 +0000
+Received: from jenkins-mali-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 22 May
+ 2024 01:30:53 -0500
+From: Li Ma <li.ma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <yifan1.zhang@amd.com>, Basavaraj Natikar
+ <Basavaraj.Natikar@amd.com>, Akshata MukundShetty
+ <akshata.mukundshetty@amd.com>, Jiri Kosina <jkosina@suse.com>
+Subject: [PATCH 1/6] HID: amd_sfh: Increase sensor command timeout
+Date: Wed, 22 May 2024 14:29:12 +0800
+Message-ID: <20240522062916.705147-1-li.ma@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240522-panel-sw43408-fix-v3-3-6902285adcc0@linaro.org>
-References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
-In-Reply-To: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1104;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=0ZNKdxQ3JQtZLj0Gm+s5zrogyXn00ZSW+UEFR2j6wX0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmTY/yjvD9VQu7L2gIRW8vekBVTwOXaxbDR2pMu
- FPr9Zp7kVKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZk2P8gAKCRCLPIo+Aiko
- 1Q+kB/45cboCZ7/CfpexfH4y1ofxb4sjLn89zKrylAAgkFqw4wtjybX5pUvHhR2h0TJVS3hPsqe
- O4qvHD/4C3vZTPQcnCZUOAx1QEtRPUMCg+vF4aw925FhwDUGrg2vqpJJpbaEYNzEvoncyan8fwv
- m2INUzUrPYiwj7C/kO6GFKMfXOOP62ANl50Aeno+vO0ZlYpzqZdu+dgP8t8zvDt7r8qPgU6+EIa
- 2r4WjEeCRcH9ydw6/GabNsTVdbCWo2FlwNwrByNoZEZi5c+GGCPnyEHnvwxMYCBntEuV9eCEHwy
- oQ3vg6J5dglMkju2nNaXnoHtewp2IeYb7vLJVmRWTFjzkuD4
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|SN7PR12MB6887:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63b4f484-1d25-4ef4-5774-08dc7a28bc60
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|376005|1800799015|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6rTcRUEnEb82Ucy9bPT4uTVehAp7pqARN2/KoG067SYrQ9VE3gwcwL2XQl91?=
+ =?us-ascii?Q?Nkl5/vOD+1ctEozbmfkRpDDXzw+8NK9AccOYn8I65gXWB1tEOQopt1uOfbUU?=
+ =?us-ascii?Q?WJRp+Eux0WUoMvH1xV+f78m7JJEojGimMF6g4hyeAWFSpt1J3uT4GVKlBxR+?=
+ =?us-ascii?Q?RWi7kJG39AQxlwOfnNnVvBi0v6ghG7mf6WAlSNJF3AHOQrznVmX+LlLFMqej?=
+ =?us-ascii?Q?IaUJ89QE2RC60h4sua2GRqiSJTsElDXEdx0K2L/t27/+S0rHgLmkiYeQVp1Z?=
+ =?us-ascii?Q?bm1jLpRY78GuSbPfj4aEPk9BlsF6h+cost05O7770ZH/SYCIXK22yUDuAUkb?=
+ =?us-ascii?Q?FXE56WYtSOmDkXlO55T7A8DudTZ03Tke3ocZO8HR/fvHvZmCSeOaWtwMjcWH?=
+ =?us-ascii?Q?sqj5ZOWzvBxwfBHnJPiWtIgfSnnJ8lCRTlJ7o+MbUzS/G5KMRCGUftkNePx2?=
+ =?us-ascii?Q?4ohb6NU4xX7Cej+8NyuUurZvagIo5F1ajvtZIGfTR9btvGd8IxGgxGMoJC8i?=
+ =?us-ascii?Q?ET6PQIvtIf4+l62YKqPYxcZkBcfZo2pD9K2i4S/7OJBOKugF6Ykjn/MlwwBE?=
+ =?us-ascii?Q?ZXHq4V19C5JTdRI1wIll7ADytDU59/zrzbE7NuW8sK/3QwmC74sa8xf0BYzy?=
+ =?us-ascii?Q?9Qwm19umH5/sBH7MLUwdN4x/Zll/NMqFOD5JoqTh0eHF2GPKW9SOGFy1jr+i?=
+ =?us-ascii?Q?MN+DXLmXe1U00CQMlvb+RHwV6aDudaGOV3/I1pidMiVJHEg8VwRw9oYjPQvR?=
+ =?us-ascii?Q?BlMX5eCq60DVFWjzTA6AyWUlChdlEBGZXjthl6m74bOA28K12Aqs7uimGmft?=
+ =?us-ascii?Q?0hg4j6sXetZ+XMZjSkPvSGosRVWakDqbXWfuhWQbsIeTVaE7YQ9K/8Z/4M0y?=
+ =?us-ascii?Q?nOU2RSIwsZJTMMvHomM2cGpnFLhDcXnZvc0XmCs6/m2VupvFrkyx+E8NxAb8?=
+ =?us-ascii?Q?Rjj9BSd7/I68Lwu2CoUHpCgiMmgj0NsQxIUmhLYfLboCT8eyPMm37c5wXKoz?=
+ =?us-ascii?Q?iOSORUg3euWJ02R1/olvYbupG7NTIMK4JcX5hg0QIVSBLcxpW3BCVO3H+fvm?=
+ =?us-ascii?Q?z+9hV+gIO3CIAwHKlWIiLoJ/e5GR0DVWFGTBZ+7qWQE54G0KpjuMq5HPRJhE?=
+ =?us-ascii?Q?Bk31Nx4P4R37OseplxkRvwd1/i8uNgQ+B9uyGcS76qp1coDxlU7WwRYleN7/?=
+ =?us-ascii?Q?6G9RWwxncA6Sa3m8qOO0v39mxtwn4eNNEy9kfnWX5Hl/QmBCj5nSL9F5BYW5?=
+ =?us-ascii?Q?BC6UXfElpxvBsZSDdwCyPGuiJRwmaWeoWah4WH1sXM7XeuGmHGsm61hRm5a+?=
+ =?us-ascii?Q?nnz1FP9Yt1mv6BIgNBvZ7/l8FJMqs25boSw/gka9qwc5oPIVRo0zPQlSRifX?=
+ =?us-ascii?Q?56s1to7mat9bcA6StklhsjEyMV7d?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2024 06:30:55.7010 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63b4f484-1d25-4ef4-5774-08dc7a28bc60
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6887
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,32 +130,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix sparse warning regarding symbol 'sw43408_backlight_ops' not being
-declared.
+From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202404200739.hbWZvOhR-lkp@intel.com/
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+During the initialization sensors may take some time to respond. Hence,
+increase the sensor command timeouts in order to obtain status responses
+within a maximum timeout.
+(Li: backport for s0ix issue, these patches have landed on 6.9)
+Co-developed-by: Akshata MukundShetty <akshata.mukundshetty@amd.com>
+Signed-off-by: Akshata MukundShetty <akshata.mukundshetty@amd.com>
+Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+(cherry picked from commit 333861f4cca6d2c959ca2876587c42767853dccc)
 ---
- drivers/gpu/drm/panel/panel-lg-sw43408.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hid/amd-sfh-hid/amd_sfh_pcie.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index 115f4702d59f..2b3a73696dce 100644
---- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-@@ -182,7 +182,7 @@ static int sw43408_backlight_update_status(struct backlight_device *bl)
- 	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
- }
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+index 2530fa98b568..8a4cd793d021 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+@@ -39,11 +39,11 @@ static int amd_sfh_wait_response_v2(struct amd_mp2_dev *mp2, u8 sid, u32 sensor_
+ {
+ 	union cmd_response cmd_resp;
  
--const struct backlight_ops sw43408_backlight_ops = {
-+static const struct backlight_ops sw43408_backlight_ops = {
- 	.update_status = sw43408_backlight_update_status,
- };
+-	/* Get response with status within a max of 1600 ms timeout */
++	/* Get response with status within a max of 10 seconds timeout */
+ 	if (!readl_poll_timeout(mp2->mmio + AMD_P2C_MSG(0), cmd_resp.resp,
+ 				(cmd_resp.response_v2.response == sensor_sts &&
+ 				cmd_resp.response_v2.status == 0 && (sid == 0xff ||
+-				cmd_resp.response_v2.sensor_id == sid)), 500, 1600000))
++				cmd_resp.response_v2.sensor_id == sid)), 500, 10000000))
+ 		return cmd_resp.response_v2.response;
  
-
+ 	return SENSOR_DISABLED;
 -- 
-2.39.2
+2.25.1
 
