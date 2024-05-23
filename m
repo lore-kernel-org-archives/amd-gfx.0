@@ -4,43 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8F28C25B74
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 389C9C25B79
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4CF010E063;
-	Fri, 24 May 2024 09:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F35D10E2F0;
+	Fri, 24 May 2024 09:16:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="EqDofpJM";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="OZEMrSjp";
 	dkim-atps=neutral
-Received: from out30-100.freemail.mail.aliyun.com
- (out30-100.freemail.mail.aliyun.com [115.124.30.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED04610E12C;
- Fri, 24 May 2024 02:19:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1716517173; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=94kUBT2aVe0wVa4KACbP+/C6frYVHrHe3SSopoWJigE=;
- b=EqDofpJMCHtpjwOjKn3PHFZKKtjj9ws6SpmRsed0BRtMt2DfUL4/qctGL55zxwk2UTMdfxemyRbIx8h9HWdHjsWV74bYSYlnzLy85C6a6pki0QOL2AAlQI5LWgIwE1F9+y7Oa5RXbYiyBnw4/MTP5IWjIxF8Kzh0km3dhRI5gVo=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R251e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033068173054;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0W74Oeos_1716517162; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0W74Oeos_1716517162) by smtp.aliyun-inc.com;
- Fri, 24 May 2024 10:19:32 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH] drm/amd/display: clean up some inconsistent indenting
-Date: Fri, 24 May 2024 10:19:20 +0800
-Message-Id: <20240524021920.95328-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042AF10EF95;
+ Thu, 23 May 2024 17:30:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1716485453; x=1717090253; i=w_armin@gmx.de;
+ bh=ml1OIk1ADGSN0Bv7BhxFFCfB6DaSzESeZqgOlINQEik=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
+ MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=OZEMrSjpRCpZNHtDzlmr0mM8Z76qBOA47wRnpJmk2+GZMBHSY6dP+E6IS3bEoTr2
+ cs+oUuQy6G/5SvY5rTw8Y4m4iXXGV6BByaWCGWeZc1RDfIyYW60ml8hUXkBJuuWbR
+ 2eN02l2UPaMHeIxBNBZdsLPCIBXuqaDAa44rc9aHt1ZvsYQQ+BwwG3DCLd9GCm5Pm
+ /uxmdfHru1oAYwc2U0wyv1Ncu0C9Ob3cogxQe9ivAHrnSuP1JrV4+STZBeD5jkpdm
+ Z9fIYxGnB6mkMUrCADchMsYPBnFJG/ZcZeXjzw5ZT1cphv1sTax4iraSdQLg3pNO+
+ /nzBoUi8mnC8osS14w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from mx-amd-b650.users.agdsn.de ([141.30.226.129]) by mail.gmx.net
+ (mrgmx105 [212.227.17.168]) with ESMTPSA (Nemesis) id
+ 1MMXQF-1rqbKE2jRP-00Jbrc; Thu, 23 May 2024 19:30:53 +0200
+From: Armin Wolf <W_Armin@gmx.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ gregkh@linuxfoundation.org, sashal@kernel.org
+Cc: stable@vger.kernel.org, bkauler@gmail.com, yifan1.zhang@amd.com,
+ Prike.Liang@amd.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/amdgpu: init iommu after amdkfd device init"
+Date: Thu, 23 May 2024 19:30:31 +0200
+Message-Id: <20240523173031.4212-1-W_Armin@gmx.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:0V9lwu73H77PqAdjA+YQOQLM2+3KzTTl9zrsb6I30uhUOPxiA1p
+ JLJxYqkyMKgStNVIay7ID6KI216ZNz3ubM8XYpSGnu66EzUxT8sXLASfudxjjdwKULpb7VC
+ +Y+O7sbY7kIa+IPrB1Bw1Am+litWkoWWTdhMITaXxEbvfBMPo2yyoGSwkhR1eikF9FRkxYj
+ COK97gWxEtIP+rgPugzrw==
+UI-OutboundReport: notjunk:1;M01:P0:MEiYmEz3rHs=;s9mwmp1yHhBowpawx+LtT7SZ6Xc
+ Ns4RuJiZEs1nwVj7+WoUd9e+kWZr+Q0o40l2gyQyVx+Pl2AhW7RyQm/C0NZkNySFBi16uJnV/
+ BemqPt4r78N5j8CraYadRR6IObRjM6HL2dE8/YKrMW+CklnchL769R8NeiXfL2iXv+rCx2r+Y
+ XTVhHXx8okDrATK3JQ3OC3H/roKRKle+RiTf1okUL6bVDnpHel803nNn1ICSfmdIWhT321T0B
+ XA2ml4Ju8vSBABVVh1Gwglv9bKYenJQO8bJmG5ysh25OG7bHVeAEdrrYSVEjESKfjZhs7Nq1n
+ sPlYgVJva9HRzdjlHxWUWpOjdoqBIYq8KiWPznMcS3Ter+lVQZxW6kUBL9lTbcilBF1R/f/J4
+ HCv6Ju9Kxt2jADK6R6SiBLGaN2H2oKuSWJLDdG0nSrWRuNt6eiJKETz9CANksjBxd9FFeXNA/
+ PodgJ2iVj4FG6GPNapewroNC/tnPTe/aMOVQ9w+eol7juR8TRHXQpkUl9bQ8hgdoIJdUGa58v
+ 9mOxJkLta5cIil4bx4+1UcJn7ECpCDU8yes3PgS77R+aCbyOdD2cJjBMEdf7tJuDstRUkcmz5
+ Uodv4dP8MOVzqailVNOE/Ho92XCj8tq6f3szvD0/vl29vB55RvqEiONdDAE1DOMpCZNKgoUq8
+ zjqbjpkAoU8KZSpZgVJrT4a09iftR3uezi6AZwgO3s5I7lpelCfl8MQ4mjS+h30cN0kT7P+8P
+ dNTWt0CfmaiIJX0Kf7BbjwEGtAD5/cYSl1pE2k7K+m0VJe5ofQkupObwyW33SuVq3VqdJVIhe
+ eX3Ipoz8hnS2ekmUIwv8izc9Jv9clbiX5TyCloDiFll7g=
 X-Mailman-Approved-At: Fri, 24 May 2024 09:16:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,32 +76,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functional modification involved.
+This reverts commit 56b522f4668167096a50c39446d6263c96219f5f.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:5200 dc_power_down_on_boot() warn: inconsistent indenting.
+A user reported that this commit breaks the integrated gpu of his
+notebook, causing a black screen. He was able to bisect the problematic
+commit and verified that by reverting it the notebook works again.
+He also confirmed that kernel 6.8.1 also works on his device, so the
+upstream commit itself seems to be ok.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9166
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+An amdgpu developer (Alex Deucher) confirmed that this patch should
+have never been ported to 5.15 in the first place, so revert this
+commit from the 5.15 stable series.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 3a2101b052ea..4612c60edebd 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -5194,9 +5194,7 @@ void dc_power_down_on_boot(struct dc *dc)
- 	}
- }
- 
--void dc_set_power_state(
--	struct dc *dc,
--	enum dc_acpi_cm_power_state power_state)
-+void dc_set_power_state(struct dc *dc, enum dc_acpi_cm_power_state power_state)
- {
- 	if (!dc->current_state)
- 		return;
--- 
-2.20.1.7.g153144c
+Reported-by: Barry Kauler <bkauler@gmail.com>
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+=2D--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_device.c
+index 222a1d9ecf16..5f6c32ec674d 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2487,6 +2487,10 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
+ce *adev)
+ 	if (r)
+ 		goto init_failed;
+
++	r =3D amdgpu_amdkfd_resume_iommu(adev);
++	if (r)
++		goto init_failed;
++
+ 	r =3D amdgpu_device_ip_hw_init_phase1(adev);
+ 	if (r)
+ 		goto init_failed;
+@@ -2525,10 +2529,6 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
+ce *adev)
+ 	if (!adev->gmc.xgmi.pending_reset)
+ 		amdgpu_amdkfd_device_init(adev);
+
+-	r =3D amdgpu_amdkfd_resume_iommu(adev);
+-	if (r)
+-		goto init_failed;
+-
+ 	amdgpu_fru_get_product_info(adev);
+
+ init_failed:
+=2D-
+2.39.2
 
