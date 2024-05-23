@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF98DC25B7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 18:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E50CC25B75
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 18:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1720110E7DB;
-	Thu, 23 May 2024 18:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C566D10E7F8;
+	Thu, 23 May 2024 18:45:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gs3tvqdK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpYrMBOS";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC7210E7DB
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 18:44:59 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-6f8e819a540so137488b3a.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 11:44:59 -0700 (PDT)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5269C10E7F8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 18:45:26 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-681907aebebso67105a12.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 11:45:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716489899; x=1717094699; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1716489925; x=1717094725; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TUL4IHMC8icb/6U6wnQ5jEo8TkSOmmKiKqNypd/iXmo=;
- b=gs3tvqdKt5G6VEC/d8BXHw/xqFUsFIwmwRYtSj7q0OImdOnmcE1myMxt1vnByU3es2
- WbjOKmi8SHfu9aHnZRqZKMSYcObc4k6Zy3UZZ9WKkmdi/D+PusOO2HQ1puPLh1F0ohs0
- yjBSraYY4Cavo89Q7eKla3Tce9i0FzsWwtdlIQmXDGzB6dO06ZKi2Me1d0Eir+JeTlhM
- oYVcM0OBxvcMZJBLnhlhANCUoLpKivhXb+UDdIebXuzGjG+pCP7jedaS4DVmo/FIvPSI
- +4nkAfP00Qo+abH7NtDVhATyZvQYgcyf5sgl+YBycXu0nTzKHv/LDHIZb7XKyRbXO7eH
- 5WUQ==
+ bh=GWxAcSiZX2XLOMYw8TeqkHmIf09eBTUKagaxwSUUJII=;
+ b=kpYrMBOSa3+mAi3YQV4Se4CUPsNp4xvn2bjNoJqp07Skbgv0gCwQ78foT4OAKIIQqs
+ HxYt+9UrDgvuPrztbIUaJz2vwfFeo2/hzdUUvtBUYl5sVwcabdJQoCEgbRr5TZMM/0GP
+ D0qLLdcpbuQ3gpRv+1E/T90J5Z6zPXcdtBvwhK72stqQANXM+PUvAqCCAS1IKoY2aJRH
+ ow2tr6s2S3JOkI7JTgN69h0GOgnegt4pRWSMbSG4fve31E8IygrvIfeM3kHDJCt+uYLm
+ BPA5VzVVpVvv1Ef1ujZBPqKD9mWhps2EPdr9NYm8piGK0yjKWmUjr8e7Ao3NQ0J6wNLE
+ bBVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716489899; x=1717094699;
+ d=1e100.net; s=20230601; t=1716489925; x=1717094725;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TUL4IHMC8icb/6U6wnQ5jEo8TkSOmmKiKqNypd/iXmo=;
- b=o/McK31QYN1Fv+SIC/Ugrl9/vATtWh/kLvDJfKLmbV5fSKtAsbu3U4VRNa5/RrxuME
- 7hjIjTPcKQT8CREY5pOTBjqhCIMLaxoR7bLymAW/W6isuqA+X1R9ESWBhcxjdK+EfOIW
- 4uzgeMIEzCFze+ABcWn/9lXbihG6R2/gCB4i6Z/rb1sOjL5lENzMQxvvzPERPYPmexz1
- zAS92aMgoW4GT4K5+KtSpdHb9W/HNQQnpfeaVbO8VhCEnKU+N+lpa6nBfiJUlJ5NpqEs
- g4iXylmgaevNqOjeHierkXBaKo77A0n3PVr1Qy2epVaCLPnucc9/kanBj54Lsya3aJfl
- Zz8A==
-X-Gm-Message-State: AOJu0YyEbWREYZryezRGj9rJoWNfITyzr5swb4yVUPbWk29eI7ukR74c
- cM91rbPyo7O0wxiFGCSxJMD1GYUOEllmoSewKKVml8iTil0eLlV8aeUaWpKSm5b9evR5vk7iOj3
- ytysFB7FHFRF/A7RrXF3KK3/UmZM=
-X-Google-Smtp-Source: AGHT+IEG3lZEGfcUhS98cYPSKm5TwCIIyDpo+i3vdVc2EQRAvdbh3BMH5Nn50gWFGtNCRZnPYDq1XnAW2x8uPIcCzpQ=
-X-Received: by 2002:a17:903:1c8:b0:1f3:61c:30a2 with SMTP id
- d9443c01a7336-1f4486d4ffamr2155145ad.2.1716489898656; Thu, 23 May 2024
- 11:44:58 -0700 (PDT)
+ bh=GWxAcSiZX2XLOMYw8TeqkHmIf09eBTUKagaxwSUUJII=;
+ b=bgFWvbLD51oKh3z55OTETB2CNBVOQaaEEtz6y4bOwe4cAwjw7pfdhwWtUt39xoCpVK
+ arAT0OdLlTX2j7Lh5cGicblIVFxzdYNhkrP2ov0PetvZzDxlnYMkjXWfJ9AgRn1PE4jX
+ oDbDA0OMzUNUWsBLq5t898e2UlOruYIP2WkenwB/QK9y/GLxyDEQDLD6UWjMDSJNOx+0
+ FdezIObkkrXw5EvWCTyXOEN/ooRNvbyo7XWEVe3hSAjSflaLLT4zjoxvvbSVU69OTgPa
+ z/Rl22+lPTNELbW1EyX4nhi0Lg8rDGRrM9F9woLzPOB4kaG6GJz2EeaZl4nhBEBnRKbf
+ MlYg==
+X-Gm-Message-State: AOJu0Yyy/j1nwl97euoL+N2XaBjl1UW2Rl4CjjdJ3y+bdG8O3hllGscz
+ vKBO0eZZSBX8j3TEpge27ki5fZedBoYzNdvs1km6CWnPTJosuW4OFM5fc9NaA7a98qq/LHHsBEF
+ 1DKanIn5pjU/0uJCr32apseEZ73AC3g==
+X-Google-Smtp-Source: AGHT+IFVy9jdI7/pXpo77bhsc7c+30F6ZR6x54JOrVUMqPl4PY4NNZXG/308qaCWA/CikayGcGa7Oyvpv5B8Z7AjpcE=
+X-Received: by 2002:a17:90b:3593:b0:2b9:e3:3561 with SMTP id
+ 98e67ed59e1d1-2bf5ee24d2cmr4325a91.43.1716489925517; Thu, 23 May 2024
+ 11:45:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240516135501.2214792-1-alexander.deucher@amd.com>
-In-Reply-To: <20240516135501.2214792-1-alexander.deucher@amd.com>
+References: <20240513202514.141828-1-alexander.deucher@amd.com>
+In-Reply-To: <20240513202514.141828-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 May 2024 14:44:47 -0400
-Message-ID: <CADnq5_MwxfE+Hsgksn+QWiV8Jf7F5Je+dOJZ1yVOVmWis8e9MQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: silence UBSAN warning
+Date: Thu, 23 May 2024 14:45:13 -0400
+Message-ID: <CADnq5_NXvdP0xfvMRP+APu5a6eVXaiLYcCqQ3ajMLEPNbXryTw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu/gfx11: select HDP ref/mask according to
+ gfx ring pipe
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -75,34 +76,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Ping on this series?
 
-On Thu, May 16, 2024 at 10:32=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
+Alex
+
+On Mon, May 13, 2024 at 4:32=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-> Convert a variable sized array from [1] to [].
+> Use correct ref/mask for differnent gfx ring pipe. Ported from
+> ZhenGuo's patch for gfx10.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/include/atomfirmware.h | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
-/amd/include/atomfirmware.h
-> index af3eebb4c9bcb..f732182218330 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -3540,7 +3540,7 @@ struct atom_gpio_voltage_object_v4
->     uint8_t  phase_delay_us;                      // phase delay in unit =
-of micro second
->     uint8_t  reserved;
->     uint32_t gpio_mask_val;                         // GPIO Mask value
-> -   struct atom_voltage_gpio_map_lut voltage_gpio_lut[1];
-> +   struct atom_voltage_gpio_map_lut voltage_gpio_lut[] __counted_by(gpio=
-_entry_num);
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index c87943f6c4436..c8c055ef2f3c2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -5294,7 +5294,7 @@ static void gfx_v11_0_ring_emit_hdp_flush(struct am=
+dgpu_ring *ring)
+>                 }
+>                 reg_mem_engine =3D 0;
+>         } else {
+> -               ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0;
+> +               ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->p=
+ipe;
+>                 reg_mem_engine =3D 1; /* pfp */
+>         }
 >
->  struct  atom_svid2_voltage_object_v4
 > --
 > 2.45.0
 >
