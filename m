@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C5CC25B7F
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 16:10:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A212AC25B7C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 16:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9C710EE82;
-	Thu, 23 May 2024 16:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26AF810EE8D;
+	Thu, 23 May 2024 16:10:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LGXAzZyw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fS2zRy8j";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3537210E934;
- Thu, 23 May 2024 15:51:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB0E10E6FC;
+ Thu, 23 May 2024 13:37:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716479481; x=1748015481;
+ t=1716471445; x=1748007445;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KFEqUVe6krk9OGtuAsBTyaSZZ/QIyp0OxOs/kRFPd2Q=;
- b=LGXAzZywLjnC6S83i0AuWSkF1EZL5j+WkxEmdZUiYUHOiHce/cJnnIVt
- EhCjYd76V9BDs5LsJTPq++9uMugtpBWWSRAQ8UNF5q63jjMsS1xRD5F5Q
- blECR/qL5DBZZlsTkMoHdrWhFdyBHpFDKmLgjEzNVG6NIvUiI5Wfez8TO
- wkFiZo4HLH1h2+usVU48fAXcJGBAMYkKDwQzj6Ngo7eXJlmeyjRHLM4xI
- lhVDJehB6DDUhtX/hVLswvbhgmGkeMK1Yhq6w7zoRNsbKvDtySx3feqqb
- B4imbPtmi9pDrFqTHIzxaegQ8Kzf4MebdND0yhMQMoypF+dLWEaU5J9HE g==;
-X-CSE-ConnectionGUID: tu27MIc/S7KI9R4Pwdgd8w==
-X-CSE-MsgGUID: 8PkIA6tZS3qidM5yuK965Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="12982295"
-X-IronPort-AV: E=Sophos;i="6.08,183,1712646000"; d="scan'208";a="12982295"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 08:51:21 -0700
-X-CSE-ConnectionGUID: hNSDpPw8Q12d8KM0nWxpHQ==
-X-CSE-MsgGUID: GDJ3T2FGRTuYefEhWUQ1eg==
+ bh=f1spVWQvtw4puPgckIsKEtwq2Cvu72mpdoIBib3JaBg=;
+ b=fS2zRy8jPMA/V3nCUbyLWs8+mXROyFfNRX2ueM8AW/HKIrd79XCc31FL
+ N2v+JrI3no+wIlyKcUY4/XmuBWSBpNB1zbU9GTNB5bwGfFcXIXPGiX05W
+ 4mZOuuQRdB2PhSyOj7rDzeIXFVKdMHVIoj+8vKXJJ7/TZWtjqVbSaVwWG
+ nWKEHoPx7UHFDiVxRgXcayjtpSqhmXg3dfgimgOCWXBAK9zmcyfron37D
+ ej0rCMPWWrY5Xf7zTvjuMjX3fKh1+a54MSkRdJiiFaL+QJf3LCsqX5q2R
+ x65P8/IMAaysJ+Zbx2vA+a7uccVyNUl2PSVsRt9/xuXgDMnzBot7LETkA A==;
+X-CSE-ConnectionGUID: BybOfs3/RdSppToWqe4hxg==
+X-CSE-MsgGUID: /3FXgFRjSWq2FyaQW9PTQw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="12662713"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="12662713"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:37:24 -0700
+X-CSE-ConnectionGUID: VhxTs2ISS1u9LwTSKk3VCQ==
+X-CSE-MsgGUID: /PaEyZTsQBabBsjo0RI+rQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,183,1712646000"; d="scan'208";a="38556335"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="34210017"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 08:51:19 -0700
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:37:20 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com, Alex Deucher <alexander.deucher@amd.com>,
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>
-Subject: [PATCH 1/4] drm/amdgpu: fix -Wformat-truncation warning in
- amdgpu_gfx_kiq_init_ring()
-Date: Thu, 23 May 2024 18:51:06 +0300
-Message-Id: <4b9ca4a1bd8e77f2d9b912b4af5d4fbdec13e801.1716479340.git.jani.nikula@intel.com>
+ Pan Xinhui <Xinhui.Pan@amd.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, jani.nikula@intel.com
+Subject: [PATCH 1/3] drm/i915: drop redundant W=1 warnings from Makefile
+Date: Thu, 23 May 2024 16:37:05 +0300
+Message-Id: <490931748fa9a1dbac2bceda0c4b778240b10b58.1716471145.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1716479340.git.jani.nikula@intel.com>
-References: <cover.1716479340.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1716471145.git.jani.nikula@intel.com>
+References: <cover.1716471145.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 May 2024 16:10:45 +0000
@@ -73,53 +76,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enabling -Wformat-truncation yields the following warning:
+Since commit a61ddb4393ad ("drm: enable (most) W=1 warnings by default
+across the subsystem"), most of the extra warnings in the driver
+Makefile are redundant. Remove them.
 
-../drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function ‘amdgpu_gfx_kiq_init_ring’:
-../drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:332:61: error: ‘%d’ directive output may be truncated writing between 1 and 10 bytes into a region of size between 0 and 8 [-Werror=format-truncation=]
-  332 |         snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-      |                                                             ^~
-../drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:332:50: note: directive argument in the range [0, 2147483647]
-  332 |         snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-      |                                                  ^~~~~~~~~~~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:332:9: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 16
-  332 |         snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  333 |                  xcc_id, ring->me, ring->pipe, ring->queue);
-      |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Silence the warning by checking the snprintf() return value.
+Note that -Wmissing-declarations and -Wmissing-prototypes are always
+enabled by default in scripts/Makefile.extrawarn.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
 ---
+ drivers/gpu/drm/i915/Makefile | 25 +------------------------
+ 1 file changed, 1 insertion(+), 24 deletions(-)
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 1d955652f3ba..92744d0d2c10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -329,8 +329,10 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev, int xcc_id)
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 7cad944b825c..a70d95a8fd7a 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -3,31 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
  
- 	ring->eop_gpu_addr = kiq->eop_gpu_addr;
- 	ring->no_scheduler = true;
--	snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
--		 xcc_id, ring->me, ring->pipe, ring->queue);
-+	r = snprintf(ring->name, sizeof(ring->name), "kiq_%d.%d.%d.%d",
-+		     xcc_id, ring->me, ring->pipe, ring->queue);
-+	if (r >= sizeof(ring->name))
-+		dev_warn(adev->dev, "kiq ring name truncated\n");
- 	r = amdgpu_ring_init(adev, ring, 1024, irq, AMDGPU_CP_KIQ_IRQ_DRIVER0,
- 			     AMDGPU_RING_PRIO_DEFAULT, NULL);
- 	if (r)
+-# Unconditionally enable W=1 warnings locally
+-# --- begin copy-paste W=1 warnings from scripts/Makefile.extrawarn
+-subdir-ccflags-y += -Wextra -Wunused -Wno-unused-parameter
+-subdir-ccflags-y += -Wmissing-declarations
+-subdir-ccflags-y += $(call cc-option, -Wrestrict)
+-subdir-ccflags-y += -Wmissing-format-attribute
+-subdir-ccflags-y += -Wmissing-prototypes
+-subdir-ccflags-y += -Wold-style-definition
+-subdir-ccflags-y += -Wmissing-include-dirs
+-subdir-ccflags-y += $(call cc-option, -Wunused-but-set-variable)
+-subdir-ccflags-y += $(call cc-option, -Wunused-const-variable)
+-subdir-ccflags-y += $(call cc-option, -Wpacked-not-aligned)
+-subdir-ccflags-y += $(call cc-option, -Wformat-overflow)
++# Enable W=1 warnings not enabled in drm subsystem Makefile
+ subdir-ccflags-y += $(call cc-option, -Wformat-truncation)
+-subdir-ccflags-y += $(call cc-option, -Wstringop-truncation)
+-# The following turn off the warnings enabled by -Wextra
+-ifeq ($(findstring 2, $(KBUILD_EXTRA_WARN)),)
+-subdir-ccflags-y += -Wno-missing-field-initializers
+-subdir-ccflags-y += -Wno-type-limits
+-subdir-ccflags-y += -Wno-shift-negative-value
+-endif
+-ifeq ($(findstring 3, $(KBUILD_EXTRA_WARN)),)
+-subdir-ccflags-y += -Wno-sign-compare
+-endif
+-# --- end copy-paste
+ 
+ # Enable -Werror in CI and development
+ subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
 -- 
 2.39.2
 
