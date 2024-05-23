@@ -4,160 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F287CC25B75
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 16:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D21C25B75
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 17:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566A710E19A;
-	Thu, 23 May 2024 16:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC29A10F123;
+	Thu, 23 May 2024 17:11:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OIi5YWk5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XSO0bmK9";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7461810E19A
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 16:58:16 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0770310E9EB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 17:11:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jVWSW7ZRCuhIZHYvYkDG8bWgk/pbGZe/Lm0DvtEqvMKsyjEOkrs9P3WF2QXEAaEZmD4qyfNmiSRAKj8J/41ISX0eO5kHTqYsb8pP0T/ybhfWnpecQn5m8xBCTLVki2BnXAHxGWIBAy0Xk6P0cFFhFUlXgc3jBt9LsrJuw6qVVi+OVSiQFS0z8E4Wq1+hdTT4WiRO+2xIgqn6SGFPoN6bWjxbPC400gY0q3cIj3f48N3Wo2HuTFgN1IcBjMlwAgIMbyejfcUT4De7X1ZB4jp0/3PZHpFastP6nk0sXzOwLKoMqJPWwSjRTlkcEBMox9IeOmJKNHlLyixC+C30unDyxA==
+ b=DR9EOiO6EH41ZCdI3ApfoIMV7Wd52xLPj3ve0ywf1TiknT7vO7zD5CK/vGaMgxh1Pf1pT5AlZ+yBoTjLj7ePlOJc8jMyYROzHU3vozUHYnh6NFk7Dj9MuwiQUsWLTJuy9FfYdQi9pPf+fnQ8vXeDjZrbPys5ySpk9YnB0DP1h5Xmc6Aaov02XFqQsqbFsB/jizo1WdeMlNa9fxwAki5PDzIJ2buwKlFaRLSlgPmV+r3/hjjwaMyVWN2SqlFF2efigIpi4Cd61cWr4tgMFn8PKA/Poj11LTzMfXoP9GhTnGVZYcejjlRcB6j4AeCmyoyT9bvQdsMllWuYcb+bRTEN6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UH8jFCVefovLi5C5a+p2zQ6yn2CRr3qSqwMixBJpfzU=;
- b=cgUpR/+HWENKNV6T3fhTnxfiSNhq9lIzvagxICTvX013sw4lbL+irnhP7aaxb6x9Xdz4b6ydHzhzibF1xLyrjt+onpVTMCoNUP7d2mGV4IMDPXLsKe9wKO6XuRT8wL4kVKAHUalib7J5d79RowAHIJY3egAPuggUunwVliA+zlHAHAvm0/f7+5GzhbdV39x8cTKY95Yt8HqhqLC1M6xFysqEDzLaxMF3CRBgfo183A7R8gp+AM7Q6Docu7zLG18Z54xVCP7bY7mlRO6EaSwtMsetIYWnEocuOwTe3XcLTnJDs5BI5goeCWERubVMVwQz1Qt+y16sv05w2mthbAOujg==
+ bh=1GkuglytAUNax+2IJ0qGPOJQnCgJdSwXJinvwVfimvI=;
+ b=BL8aKoXMLUmUVrgQwQ/fBanZ+hLoa3npPLrdivKBsOoVVmVaM5NP7hcKWvV4x7+8lL1qIUknKamDfBVdwnQRkSB5Z1oboF+0cmP+5EaXJowhDR3scejrpqyGPZ6Azbvp7I933TuBggjg4PaXND1xutWGC4Vp5YJla3Uigal0DMJ5D7sIalKbOVqLuzd5ff36zJbB60JgtwUBGrmSFWqwZJ29BJU6ku825DEcuucBAAmPXVgcZSLaQ7UwtKToKa3a9Np4MW7A2CvbtQUYaPgZpu3iFp1PQ+fPZkoX2xV1nd/QBRBAKMsZ5IJJikneDMRJFMRGioW/p8ggawSlBf2c5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UH8jFCVefovLi5C5a+p2zQ6yn2CRr3qSqwMixBJpfzU=;
- b=OIi5YWk5lttJtaH+uLkK0r2s8HBp5W8J0B+awjmBi6uAVUBzYDMdzMw3znI3mCK3rsECDqp4smaIfVxLnrsPJw94qEy3OFooJTaQ2+RMSgGaU7m9eCrEAlHDkqkRQ07eYeGgRwljm/DRQJEY8TnITAq2Kv6v7IToKSK9YkT8xTk=
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12)
- by DS7PR12MB6047.namprd12.prod.outlook.com (2603:10b6:8:84::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.22; Thu, 23 May
- 2024 16:58:10 +0000
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::df0b:3ee0:7884:c6a9]) by SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::df0b:3ee0:7884:c6a9%3]) with mapi id 15.20.7587.030; Thu, 23 May 2024
- 16:58:10 +0000
-From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
-To: "Wu, David" <David.Wu3@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
+ bh=1GkuglytAUNax+2IJ0qGPOJQnCgJdSwXJinvwVfimvI=;
+ b=XSO0bmK98TqqH5YHc9pmLsOoSQFSm+FheX4ovBSDShmtXf65XH8kx9SqoQjlf2GI85pokdGsGEkqMD840d8/Z3LTxjqN1r94l9Us5BMbMORmrHVK9+jD+cRlCX8n7xeIMsLpena+T93duD+oeLF/0ULOrqDec9PxgqPYr6mhy+I=
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by MW6PR12MB8733.namprd12.prod.outlook.com (2603:10b6:303:24c::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.36; Thu, 23 May
+ 2024 17:11:07 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::daf7:af35:c454:4c1a]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::daf7:af35:c454:4c1a%4]) with mapi id 15.20.7611.016; Thu, 23 May 2024
+ 17:11:07 +0000
+From: "Jiang, Sonny" <Sonny.Jiang@amd.com>
+To: "Dong, Ruijing" <Ruijing.Dong@amd.com>, "Wu, David" <David.Wu3@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu, Leo"
- <Leo.Liu@amd.com>, "Jiang, Sonny" <Sonny.Jiang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop some kernel messages in VCN code
+ <Leo.Liu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: drop some kernel messages in VCN code
 Thread-Topic: [PATCH] drm/amdgpu: drop some kernel messages in VCN code
-Thread-Index: AQHarSKQOzx61bnDt0yx+t8TgYSFMbGk+sEwgAAOy4CAAACuwA==
-Date: Thu, 23 May 2024 16:58:10 +0000
-Message-ID: <SJ1PR12MB61942426002C44CC636AD5C295F42@SJ1PR12MB6194.namprd12.prod.outlook.com>
+Thread-Index: AQHarSKQ50Pf5jMajk2UNMWHtN5i1LGk+w8AgAAOfYCAAAD3AIAAAyEH
+Date: Thu, 23 May 2024 17:11:07 +0000
+Message-ID: <BL1PR12MB51263D2BC502E2FCF5C7123DFDF42@BL1PR12MB5126.namprd12.prod.outlook.com>
 References: <20240523150439.3274992-1-David.Wu3@amd.com>
  <SJ1PR12MB6194DBE65CF492DA12ED5BE795F42@SJ1PR12MB6194.namprd12.prod.outlook.com>
  <47f0ac94-d6cb-4632-9960-0f94832857be@amd.com>
-In-Reply-To: <47f0ac94-d6cb-4632-9960-0f94832857be@amd.com>
+ <SJ1PR12MB61942426002C44CC636AD5C295F42@SJ1PR12MB6194.namprd12.prod.outlook.com>
+In-Reply-To: <SJ1PR12MB61942426002C44CC636AD5C295F42@SJ1PR12MB6194.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=fe915213-18bd-4ec2-b3f3-8255593abfd1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-23T16:57:09Z;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-23T17:11:06.754Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR12MB6194:EE_|DS7PR12MB6047:EE_
-x-ms-office365-filtering-correlation-id: b12f10e6-9158-4095-85b4-08dc7b4986a1
+x-ms-traffictypediagnostic: BL1PR12MB5126:EE_|MW6PR12MB8733:EE_
+x-ms-office365-filtering-correlation-id: 9fd16f0d-b815-41fa-083d-08dc7b4b55be
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|366007|1800799015|376005|38070700009;
-x-microsoft-antispam-message-info: =?utf-8?B?Z1FhQTdwOEVUVlNkdXhLMmJOK1p5ckZoSllNMjV3MXhpL2N2ZFpxdXc3eE1O?=
- =?utf-8?B?czYyTll3d1RLZ1k1S0IrdzJabnltSXFmd3pjYmxlMm5jendwT3A1d1BhWXdm?=
- =?utf-8?B?b3RwaGtxSENDQjFjSHRGc0p1WUlOSHNKSXU1YXk3ekRucjgrTFZMQTBJbDZV?=
- =?utf-8?B?MDBaRVpMT1oyOTVMYjFmMGhwbGZqUUk0R0NBTDQ0V2tPVFE3WWRuOGhlMkFn?=
- =?utf-8?B?QXBoeGtiY1lPRVQwem84M1hOVWFtbFZsN0EzTlpmRkRuYzdMTkNuNjdZQlRJ?=
- =?utf-8?B?NVBRakhoTE9ZUlFsRTJLa2F3Um5WV2RvbjZadlpRNFlZUXRNelNYOVpERkZ3?=
- =?utf-8?B?NXFTSm8xT0xWYmV3Q2ExVW9KdUJDbGZJVGNIaDM4UlpzVCtTdkkwZGN4cmN0?=
- =?utf-8?B?TFhMa2NyZnh2UG5YT3g4di9WM25iWjQ1b1pJd1lsdUxpU1FwaHptVzZXK3BV?=
- =?utf-8?B?a0IvQnB2N1NNUTh4ZmFocmRURDB0d3dkOXdGd3FVV2RRa1hoUnpuYW5RM2FY?=
- =?utf-8?B?MmJFQTN2WUtqZkN5Nk1aanVoOFZkclM5bnBhNDlXeDlYODJkMUNWNEdhR1No?=
- =?utf-8?B?bXI4QjltTW1vcDBXS0oxcFBWZlNSN0lQaGxIcnFKWklTVTN3K3owLzJENXhS?=
- =?utf-8?B?VHdsVDJRQ1pCdlZjdlJRdnIvdWJIS3U2elc5akVWMzAzdHAwbm9ManpJWlpq?=
- =?utf-8?B?WDh1WGlHejZOc0dUd1RpRHhDSHhmd0ZLMWpNWngzU2YwWDJmc2oxRFRpc3BD?=
- =?utf-8?B?eWRtdnE3ZHBLZzFlSndPRTlpcVAwMEFPa1hEZEVQVHVWZ1RrcXYwT2k2YXFG?=
- =?utf-8?B?MGlsZlI3cWNLTXlqZTFRakdYdmFMaVM0Y1BQR3hRQU9KaWJDYWhjYUJmcElU?=
- =?utf-8?B?NzQyTjlhSTBaUlhKY2d2RmpwbWVpRkN6VlBoaHdNLzBBb1ZUaEphTy8yOEsv?=
- =?utf-8?B?emFRcUx4cDVmcmdCVnJadXBKZW0wWGs0QVUzd2xVZ1lDMTlhOGFJOFVRZmFl?=
- =?utf-8?B?Y1dUMzZlK0w3VGVYV0x5VGd6c0l1d0hVTWhuMndJcGY2ejFjWmtJV25ZN0FK?=
- =?utf-8?B?cWdRNUI0Y2cwVXI2eTRYUzVzNFY1MFN3LzZ4amJRZHVEMUJ5UXJ2NUhkWTVN?=
- =?utf-8?B?dlhjUm9nM0VmMlNiY3lrMkR1dEdqYVpnUU5Ed0J5b09sWDZBMGlrb2VOSlZh?=
- =?utf-8?B?VXdIb3A5RTZWNDNJZzZaZFhOME9WL0VGNzh3NllUaUdrZ3F5U2tNTUJwVWJN?=
- =?utf-8?B?c1VvZWIxVE9ZbUgwbE5UNVFXaDJORlBTYmJHbGlTb1FEM1NYR0ZYd3BRWUcr?=
- =?utf-8?B?cjdCYlR1Q1pZeUxCamtETXNzb0psOUo1eTZIV0l3TWc4aVJzR09oaEVlejc1?=
- =?utf-8?B?MWlHOWFrcjBVRXlxUkJQS0xNMGQ2alhWQ2c0WkxyMmpQNHMyY3NiZlk4NlQr?=
- =?utf-8?B?RzhOanppcnU0REtxNkFYWklPUjJTSTlpbUFxYmhKaG12MHJ2S2RiRkJGdGtw?=
- =?utf-8?B?ZGNjNlYrMzYwQWUyWUdUU2o0a0V0WmRmQUY0WXFoUm9obkl4Y3BUbG9GRk1G?=
- =?utf-8?B?V1c1RUt4by9LdEx5VUJCVGJ0R2lkY0lKaHBaRm5MZ1dNSjZSVUNhaXVvTkNl?=
- =?utf-8?B?UHg5QUtldE10c1dvTzNtN2JDa2M4SmU5cDRyNGI0K1Z2M3BLdjk3Wm9UWjVy?=
- =?utf-8?B?b0x4RUd1bytMYktpcmZMSFpTTkphV0ZXZGgrSXlxVFFiR2lLeDJVeXgxNW8x?=
- =?utf-8?B?NHZOSm1WbVFlUkFSKzEwSUZ5Uko3NjFVeEtQZmxwQm91aWJlYUJvOGFjVEw2?=
- =?utf-8?B?OWhmaURqMnROck5zWXhiUT09?=
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|366007|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?O/8eBZJrDRDYEbg9Z+nT84Wm48EjQZ2ck6qumcb0LnxbdlmJnBEw4Us67qYn?=
+ =?us-ascii?Q?WbzKyUh05m/M1FewiLtlNn+Crs2mnuhHcswMEUi3rJyLn4/b4ACcK4izVGdH?=
+ =?us-ascii?Q?jNu8FeKYapPTv+DrzYFOmzfMIHEd4UJQZqMlWxvV6/xRfUi6ckCBt77SlDKK?=
+ =?us-ascii?Q?SWQXTqtBt81wKpEHJR6WEs6rIgscc4gl/ScLiZ5Dr3fLAKY33Yz8MvFV/KIP?=
+ =?us-ascii?Q?CJZWDncX4hJQDaKkyDybFSn9o5FsQuPRGsWA6ZBddWTvm7acYEuUWq+4XwQD?=
+ =?us-ascii?Q?YVkwYx01Nym8rkHHiQl8e8Ign1NHFQjra34V2hiFNTM44q/mYlVWX8ULPXF7?=
+ =?us-ascii?Q?zV3d12NVpB2AqzsfhBtEK+xX2qWRDGeRsJN+stbIJAbql3IZWWxcY3uzFPdE?=
+ =?us-ascii?Q?1bHQpaYhmNiFDGxo98tkeHEmQlFbsYIHPD0Ff3CVGTWxeAt5PjkAT9LqcynM?=
+ =?us-ascii?Q?TmFYZyNd6OMeIe78hhITBnpWEeSoHxPSqBGXWlZEmbVfk9OdAy5bE9hoQKxm?=
+ =?us-ascii?Q?Xyq+c3+YWSsMpPGCw+ehlGufmfOEgd3wPczrvf3H3THZXBvKeDS9fca6kYRH?=
+ =?us-ascii?Q?XwBPlfcmi6ulmU6BdH/MYMcdyH4BeNWyRQfkbubLYMf0DzTWIFcen/MuCubI?=
+ =?us-ascii?Q?/Ah+DX0bXJHXxyFKFSodWPw0ZRcs+XLSiJRZogx3wyKR/i4gQwYSW/SL28Ds?=
+ =?us-ascii?Q?6wPvNwBsO/z9rrpn4Ng053U8EBwc26lSRoFxYDbud2BXGUh2MVdGgBXWQ7QS?=
+ =?us-ascii?Q?pJVlo4PWaj+tBlWXEjI4XvNgU5OVfeNHay8TV8fsQt6JLmA+jbRADkzNIiWN?=
+ =?us-ascii?Q?fejufaDegeF1xlqxShevYZ4yZSFG/B2DoJ5Wu4h8u+FZrB0+/Px0We1hL9o2?=
+ =?us-ascii?Q?5yaHRgVuM8FxKBBH6b4W2tkrkmNpqNlJDsEn/Dwrvmk5u2qM+YGmOmwAW8wL?=
+ =?us-ascii?Q?0zO6hFnSYq1kff29SECWzt3MHBmiCUTSwatMbUp2473ZkCZ0/3hQ/M3pS957?=
+ =?us-ascii?Q?xbcBPzi0PASWwffH4BzfAhdg2oyUQrljhzkSfcOQzaIRiBoIf+4N5cwc3Cmg?=
+ =?us-ascii?Q?0FS9MRu7iEyZW+3brow6y2e48slwVWTEKyRtHxWOiz5kcDcEj1bZq0aCmJW4?=
+ =?us-ascii?Q?+OROHWO6rXrqaPCUigrmOQUTW9u91hHSvbd9q2UTYtH1sj55DNBGcDqh5AZy?=
+ =?us-ascii?Q?z00A/ri7sNXGJVuPFWz9wDqwsOII5eGYX2XVBrZzMbaJvJ0BV99gAQGo47X6?=
+ =?us-ascii?Q?iF1qRh1Q13r9g66wCDq/Ob/490+/C3UxS6gJpDBuGauIP2DKLracT+clCK2Z?=
+ =?us-ascii?Q?3LvRywnxhKYcZF9D3QPtg0mxl2t8UIt/RoGFRB0ZlQb+Kw=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005)(38070700009); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K1Z6bERBOUZvNXp0bWcyNXJaRHhyc21FcXFhWlA1L3JYMDhKUlNpNzJ0RlU5?=
- =?utf-8?B?UmFTRFpYdFNqeTVFZWpKZDd1eDhTWWNXUFg4OVFqL1UwNzFrTllKV1RNYkg4?=
- =?utf-8?B?MEpVQmdORHl4czlaWldDajlDeVJWUnE2N2VCNjNrU0o2TkJoa0VOU3dWWnFF?=
- =?utf-8?B?dGxZR3dEakZqNWVONlJJY3B4cWxkaUg2YmpGR3E2eHJjUkxJSTN5U293aXNW?=
- =?utf-8?B?dWR1UmtIMDJzNVJVMERqRk9ZRzU2dXh0WkVVbDcwS3QxUkswYU5Sb1cxYWNQ?=
- =?utf-8?B?VCt5aEdLNXhzSTJ0U042QzhHd0dlbFVSV3VkaWg2Y3FueExrUG5WQlJTbGpC?=
- =?utf-8?B?NHdkdytWdVR0TkFIYzROem9nWWlocU5EZnducXhXcm1JLzhFbWJuSW1zdXlO?=
- =?utf-8?B?eTVWbFRyVUJFUk9hMmRBb3o1QTRqaWUrQS96VTRGNS9aU20vMWFiNGt6bzVw?=
- =?utf-8?B?K0VOR1U3Y1p0c2pKODQ5aVFERklkZUk1SzM1bDMreklBOXJ1bXBncDUrNjRJ?=
- =?utf-8?B?RlVHcWZCcFg4b1l0TERjTHU4a3QydStXWk1Qdk9xeFFvcVhNOWtlQnRVaU9k?=
- =?utf-8?B?akF4Q1kzQ1hSVmJMWU5Zc2ZsQzRTTkpEbU5YTDkxZGY0bHFaTzBnblFuUU5m?=
- =?utf-8?B?bEhuQU01OUcwTkc0Q2thYk1wbUp0NDBvOERiUFhsNzQ4Ynp3dGV3QUhicHdh?=
- =?utf-8?B?ZG5wdHpnbWxMeTZaaWg5SW02NTlqcXJzQy9SN3RMNkorZHZxZUl2a2l3TWhZ?=
- =?utf-8?B?bnM0Tk5oSnVmdVd0cWhtOHlvQ25ZblpTbUVsRWVFT0toRTBlcmVmZW9NblBQ?=
- =?utf-8?B?T1J0SVJ3RklOdStadlBDL3Z4VVVaUU9zZ3k0NlpUOUtJV01FaE0xSS85dklq?=
- =?utf-8?B?bFZUWG0wdkhJZnNFTnZrTnVldG9VVFRRcFZ1TXdFUDRZUitaL0tSWFp0Zlh3?=
- =?utf-8?B?YTJLQ3NkbWlvaU5JY3U5ejhaL05uWUVjRnRsUUpicXBvYkRqQk1kNGIvWGVF?=
- =?utf-8?B?bkdieU9YOUVHWjdYbkFHSlVQamQ4Y1F6T2VtUytScm9mci9OUEg1U0JkdkRU?=
- =?utf-8?B?b3k0cGtUZmJ6alhHb1BCcTZGK0IySXhndmNMTnQ0QnlwWnZyUDQ3M1dPN25z?=
- =?utf-8?B?T01ZZEtBeXlPaGdONmMxbU9ra25rU01CVmw4S3VvSGhWbW9VaE8raGY5cEpz?=
- =?utf-8?B?VEhqZjlocFNkTTNiZHFmQUtLMTF1SDhtTjh3OThwYWdTVlNiMlA1VmpRRlhZ?=
- =?utf-8?B?c3J3U2RDOGF5Z2N6WmJLWi9kTzZCTWdWWFVUWVd6cnV0TFBQaWJUbXNjbWMr?=
- =?utf-8?B?dTVVQVdkVEZyTEcyS3dia2I5NWVuaUcxbFBhV05BYTJtc1AzRVFBL1p2QzQx?=
- =?utf-8?B?KzZacnlIY3NuTjRDWUlvNE1sQll6dzN5TzI0UTh0UU1FWlFubWNVWGNOMWVT?=
- =?utf-8?B?eVkzeDFtNFhvbjRvVjRqeno4OFZMZkpHdlgzTjUwL0I5LzRka0ZiMHV3SlNM?=
- =?utf-8?B?Q211QnB6b2tyVlBDU0FpQU1ta1dxbHc1QTNHSy9TVlFKZFFoQUtQZjZ5WVg4?=
- =?utf-8?B?VWZYQndReWhDSk80WGlpYTZzZldNYjZib3c5dWhiRXdsNVNUdUdER2Z6Sk5B?=
- =?utf-8?B?RFFQYmdkZXNuMUdDNHNoMDh4cWpZeFh3V1dWSEQ5OGJvZU8xM2dnTEhjVWRS?=
- =?utf-8?B?UHpKaVZIUDFIUWpsSlF1cTczdjZZUzdZdDJia0xERzQ4MEY0eERMeTQ5bTU3?=
- =?utf-8?B?OGJvcGs2NW9PcmszR0Y4eWNZR1B1c251N0ErTlM5bzNON1BTNWdrS2FxbkhJ?=
- =?utf-8?B?UEV2WWFhbW9YeTV3eEFEcWpBOGNjenBtY3RUU2MrQ3d5STUvTFJSRlZjT0pW?=
- =?utf-8?B?YW1mRFBSTE9GZ1QwczZieEZVRWlhbWVwMmF1SHRZNnFSL2YvR3o2dllIWGs3?=
- =?utf-8?B?d3NkT0lSK25sL3NtZVVUK0pJSmhTdUVwaGZxTnlLYkRvWUF1VXk2dmhzdFRY?=
- =?utf-8?B?ZURoUUNoTXlMRk5ScFV3ZHgxYktYTmRsUUl2TWh1eWlpQzNycUx4cXZHTkV4?=
- =?utf-8?B?VkRuQ3I1a3FEKzZDYmthWUxPY0w3ZWdtcE9HdHF0dDkzU3dDdGFGaUlnZ1Fz?=
- =?utf-8?Q?kWps=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4hvfdLhc3QobQ0eMv+7yqO6OigxtkUV0VQZvGg7Gu17NxDSVZY7LNcA2gzZL?=
+ =?us-ascii?Q?iSXOoDaLSwmZ3ntWm3cyhNgcs0yHO3GYdIjiiKpwbyc0T6DqLk4pMlfg375Q?=
+ =?us-ascii?Q?cdSPPv3h4/+DL37c8f1CjwNiH70UOdJ1elrLO1+w7DNga7Mau6Kcq/U+22sn?=
+ =?us-ascii?Q?UTaGEgExx2ezeoB7f8R6YXIyNhdVTA5x62Nb9GiMBbQQvRiGYwH/dEu9hSO7?=
+ =?us-ascii?Q?7BfvAhWI3M5tCYryYGa457meKPe9xkZWDOTNga3ySDX66QObsz+enaHWtNf1?=
+ =?us-ascii?Q?PJmqCOSIj2ALBlVpQ34a4NAU2UGoLJY871XD2vfagb5krN9nZJUKxG7scS/m?=
+ =?us-ascii?Q?TCmW/u70ELF5H9EjcEMlsWqz468BokmDnDSJe87T3C1/cQW913bHC0jVYeLR?=
+ =?us-ascii?Q?wzd2/66YvlzR9BY+Jf6Ry6JkpvIiGLZa3LcKyGhx5+O24qHyuMd7bnNp/mKS?=
+ =?us-ascii?Q?4LYFmnPB8sGgU+hhBoyaTGaYoD9gAQWlPGJsiT60bfH7GOq7Buhh8D0k/XV1?=
+ =?us-ascii?Q?DfZpThx0AnjxJiYQ68DGdhjlETk/wQ5qurENRgZqs4oJwN2ODGOFSgQsR9Zu?=
+ =?us-ascii?Q?XHoGDyHLvetTa2EVVs5mlNXz2hZHdNBqvnvgh/glI7v4C5pumWbM4szI51+V?=
+ =?us-ascii?Q?dUhbKMG3/mn3Y4OrnltvW2mHCSSw7UAcjV9KEQXMXobfKmE8jGOFI5ZLFqON?=
+ =?us-ascii?Q?l3twtYsMM5dNHfHBGyLUJlp+G7dtBfTmIhfzNQsMZb+b++kstl7kRhIqoZjc?=
+ =?us-ascii?Q?M84HAhSeuCu+UT5FwKjcPC6AFPwaEmspKRxgSb7C/3/rp1szo9mmJL7wY5HF?=
+ =?us-ascii?Q?rDXjQgKxs2Z39NNmed0jXhOoKQnuL9bE1tqF9HCUh+j4Xdk5eLCwpazzONuc?=
+ =?us-ascii?Q?9sYjYhKQR77g4o5DT00EaK9KJI9x45XklowiNJjD3Q+1087RLrrgqwplhthH?=
+ =?us-ascii?Q?KDainWrX1wa9rqea+yMPOrm6DKvZtlk5Ojp+2John/SzFmQkdsYm3fUy2y9q?=
+ =?us-ascii?Q?fWpMF12aP8Pgg/jBhQyq3amN5G3ZIGgLnfrQy4HQ61VMljVAHrNZcutnw4+E?=
+ =?us-ascii?Q?i16uuEjDa0QL93lvDZV0evDtCardlmgPpttAwvkj08pYNAF845Oez2jXTISi?=
+ =?us-ascii?Q?dx3NslRKbnWn2HYkjhtTiJX/NGZhMip5nAu4K/CQNZ3V6oj2ibEQEopW1+Xa?=
+ =?us-ascii?Q?nc9kyQdBGMoJuhd2aUooDdMI4EdsV9duXMSYAY7YAd/OmLUuU4/hzjz9Gihy?=
+ =?us-ascii?Q?EqcvqAcn0deBxzkik829OuF49tx9ywAGwVHpW8wdMe8w86XggD6MQde+JivT?=
+ =?us-ascii?Q?4CuJAA43iWhMIZ8w0EXKRhy5t9ALPhjY/X3og8483BbiH0GhtbsFvSLT+D54?=
+ =?us-ascii?Q?P3UBfDlweGZlEpJg7w+ZwYrNJbVLo2LcWjrirkUHjpjEfWWfNpwR8GqHCpKQ?=
+ =?us-ascii?Q?iT5HctvqEeTRUnEIW9VqT2uL94ZzB4D7ZjM1TUqykRpK42qRZBpwn6WkvDUl?=
+ =?us-ascii?Q?OlsfrdYmCAIGgngkv1aCufPy/a3MVL3sSR4/lrbyTF1JKgo04dDd4RPufjc/?=
+ =?us-ascii?Q?3/aZQD2CwUGThRgHAmo=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51263D2BC502E2FCF5C7123DFDF42BL1PR12MB5126namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6194.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b12f10e6-9158-4095-85b4-08dc7b4986a1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2024 16:58:10.0952 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fd16f0d-b815-41fa-083d-08dc7b4b55be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2024 17:11:07.0625 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TqZMqZqmVLXnsm0dLeAk4Rj297+6BXDE0+8OHaapbKrHr6kTB/cB4f/1E8SDeWhM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6047
+X-MS-Exchange-CrossTenant-userprincipalname: oWTQbGEw0XZuQgX8cYtxrO1PT1FW/LDnHZkKwWo4j7ugip09sgsJo0yIHnKmcpGU72q8MIRuzb3OtywHW3uf3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8733
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,82 +155,377 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KVGhhbmtzIGZvciB0aGUgcmVzcG9uc2UsIGFuZCBpdCBsb29rcyBnb29kIHRvIG1lLg0KDQpS
-dWlqaW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBXdSwgRGF2aWQgPERh
-dmlkLld1M0BhbWQuY29tPg0KU2VudDogVGh1cnNkYXksIE1heSAyMywgMjAyNCAxMjo1NSBQTQ0K
-VG86IERvbmcsIFJ1aWppbmcgPFJ1aWppbmcuRG9uZ0BhbWQuY29tPjsgV3UsIERhdmlkIDxEYXZp
-ZC5XdTNAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBLb2VuaWcsIENo
-cmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KQ2M6IERldWNoZXIsIEFsZXhhbmRl
-ciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IExpdSwgTGVvIDxMZW8uTGl1QGFtZC5jb20+
-OyBKaWFuZywgU29ubnkgPFNvbm55LkppYW5nQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENI
-XSBkcm0vYW1kZ3B1OiBkcm9wIHNvbWUga2VybmVsIG1lc3NhZ2VzIGluIFZDTiBjb2RlDQoNCnBs
-ZWFzZSBzZWUgaW4gbGluZS4NCg0KT24gMjAyNC0wNS0yMyAxMjowMiwgRG9uZywgUnVpamluZyB3
-cm90ZToNCj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRp
-b24gT25seV0NCj4NCj4gUGxlYXNlIHNlZSBteSBxdWVzdGlvbiBpbmxpbmUgYmVsb3cuDQo+DQo+
-IFRoYW5rcywNCj4gUnVpamluZw0KPg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBG
-cm9tOiBXdSwgRGF2aWQgPERhdmlkLld1M0BhbWQuY29tPg0KPiBTZW50OiBUaHVyc2RheSwgTWF5
-IDIzLCAyMDI0IDExOjA1IEFNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsg
-S29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NCj4gQ2M6IERl
-dWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IExpdSwgTGVvDQo+
-IDxMZW8uTGl1QGFtZC5jb20+OyBKaWFuZywgU29ubnkgPFNvbm55LkppYW5nQGFtZC5jb20+OyBE
-b25nLCBSdWlqaW5nDQo+IDxSdWlqaW5nLkRvbmdAYW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1OiBkcm9wIHNvbWUga2VybmVsIG1lc3NhZ2VzIGluIFZDTiBjb2RlDQo+DQo+
-IFdlIGhhdmUgbWVzc2FnZXMgd2hlbiB0aGUgVkNOIGZhaWxzIHRvIGluaXRpYWxpemUgYW5kIHRo
-ZXJlIGlzIG5vIG5lZWQgdG8gcmVwb3J0IG9uIHN1Y2Nlc3MuDQo+IEFsc28gUFNQIGxvYWRpbmcg
-RldzIGlzIHRoZSBkZWZhdWx0IGZvciBwcm9kdWN0aW9uLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBE
-YXZpZCAoTWluZyBRaWFuZykgV3UgPERhdmlkLld1M0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmMgIHwgIDEgLSAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvanBlZ192NV8wXzAuYyB8ICAzIC0tLSAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvdmNuX3Y1XzBfMC5jICB8IDEwICstLS0tLS0tLS0NCj4gICAzIGZpbGVzIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCAxMyBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYw0KPiBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYw0KPiBpbmRleCBiODk2MDViNDAwYzAuLjVlMmI3YzM0
-MDcyNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zj
-bi5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYw0KPiBA
-QCAtMTA3OCw3ICsxMDc4LDYgQEAgdm9pZCBhbWRncHVfdmNuX3NldHVwX3Vjb2RlKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQ0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIElQX1ZF
-UlNJT04oNCwgMCwgMykpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
-Ow0KPiAgICAgICAgICAgICAgICAgIH0NCj4gLSAgICAgICAgICAgICAgIGRldl9pbmZvKGFkZXYt
-PmRldiwgIldpbGwgdXNlIFBTUCB0byBsb2FkIFZDTiBmaXJtd2FyZVxuIik7DQo+ICAgICAgICAg
-IH0NCj4gICB9DQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9q
-cGVnX3Y1XzBfMC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvanBlZ192NV8wXzAu
-Yw0KPiBpbmRleCA2NGM4NTZiZmUwY2IuLjY4ZWYyOWJjNzBlMiAxMDA2NDQNCj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvanBlZ192NV8wXzAuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9qcGVnX3Y1XzBfMC5jDQo+IEBAIC0xNDUsOCArMTQ1LDYgQEAgc3Rh
-dGljIGludCBqcGVnX3Y1XzBfMF9od19pbml0KHZvaWQgKmhhbmRsZSkNCj4gICAgICAgICAgaWYg
-KHIpDQo+ICAgICAgICAgICAgICAgICAgcmV0dXJuIHI7DQo+DQo+IC0gICAgICAgRFJNX0RFVl9J
-TkZPKGFkZXYtPmRldiwgIkpQRUcgZGVjb2RlIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS5cbiIp
-Ow0KPiAtDQo+ICAgICAgICAgIHJldHVybiAwOw0KPiAgIH0NCj4NCj4gQEAgLTU0OSw3ICs1NDcs
-NiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGpwZWdfdjVfMF8wX2Rl
-Y19yaW5nX3ZtX2Z1bmNzID0geyAgc3RhdGljIHZvaWQganBlZ192NV8wXzBfc2V0X2RlY19yaW5n
-X2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSAgew0KPiAgICAgICAgICBhZGV2LT5q
-cGVnLmluc3QtPnJpbmdfZGVjLT5mdW5jcyA9ICZqcGVnX3Y1XzBfMF9kZWNfcmluZ192bV9mdW5j
-czsNCj4gLSAgICAgICBEUk1fREVWX0lORk8oYWRldi0+ZGV2LCAiSlBFRyBkZWNvZGUgaXMgZW5h
-YmxlZCBpbiBWTSBtb2RlXG4iKTsNCj4gICB9DQo+DQo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBh
-bWRncHVfaXJxX3NyY19mdW5jcyBqcGVnX3Y1XzBfMF9pcnFfZnVuY3MgPSB7DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjVfMF8wLmMNCj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjVfMF8wLmMNCj4gaW5kZXggMzZkNGNhNjQ1YzU2Li4w
-NzBiNTY2MTBjN2QgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zj
-bl92NV8wXzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjVfMF8w
-LmMNCj4gQEAgLTIwMCwxNiArMjAwLDEwIEBAIHN0YXRpYyBpbnQgdmNuX3Y1XzBfMF9od19pbml0
-KHZvaWQgKmhhbmRsZSkNCj4NCj4gICAgICAgICAgICAgICAgICByID0gYW1kZ3B1X3JpbmdfdGVz
-dF9oZWxwZXIocmluZyk7DQo+ICAgICAgICAgICAgICAgICAgaWYgKHIpDQo+IC0gICAgICAgICAg
-ICAgICAgICAgICAgIGdvdG8gZG9uZTsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IHI7DQo+ICAgICAgICAgIH0NCj4gICBbUnVpamluZ10gQXJlIHdlIGFzc3VtaW5nIHRoZSBodyBp
-bml0IHByb2Nlc3MgYWx3YXlzIGJlIHN1Y2Nlc3NmdWw/DQoNCk5vIC0gaXQgY291bGQgZmFpbCB3
-aXRoIGVycm9ycyBhbmQgaW4gdGhpcyBjYXNlIHRoZSB0b3AgbGV2ZWwgd2lsbCByZXBvcnQgZXJy
-b3IuIE90aGVyd2lzZSBpdCB3aWxsIHN1Y2NlZWQoYW5kIG5vIG5lZWQgdG8gcmVwb3J0IHN1Y2Nl
-c3NmdWwgbWVzc2FnZSkuDQoNCkRhdmlkDQoNCj4gICAgICAgICAgcmV0dXJuIDA7DQo+IC1kb25l
-Og0KPiAtICAgICAgIGlmICghcikNCj4gLSAgICAgICAgICAgICAgIERSTV9JTkZPKCJWQ04gZGVj
-b2RlIGFuZCBlbmNvZGUgaW5pdGlhbGl6ZWQgc3VjY2Vzc2Z1bGx5KHVuZGVyICVzKS5cbiIsDQo+
-IC0gICAgICAgICAgICAgICAgICAgICAgIChhZGV2LT5wZ19mbGFncyAmIEFNRF9QR19TVVBQT1JU
-X1ZDTl9EUEcpPyJEUEcgTW9kZSI6IlNQRyBNb2RlIik7DQo+IC0NCj4gLSAgICAgICByZXR1cm4g
-cjsNCj4gICB9DQo+DQo+ICAgLyoqDQo+IEBAIC0xMTIyLDggKzExMTYsNiBAQCBzdGF0aWMgdm9p
-ZA0KPiB2Y25fdjVfMF8wX3NldF91bmlmaWVkX3JpbmdfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpDQo+DQo+ICAgICAgICAgICAgICAgICAgYWRldi0+dmNuLmluc3RbaV0ucmluZ19l
-bmNbMF0uZnVuY3MgPSAmdmNuX3Y1XzBfMF91bmlmaWVkX3Jpbmdfdm1fZnVuY3M7DQo+ICAgICAg
-ICAgICAgICAgICAgYWRldi0+dmNuLmluc3RbaV0ucmluZ19lbmNbMF0ubWUgPSBpOw0KPiAtDQo+
-IC0gICAgICAgICAgICAgICBEUk1fSU5GTygiVkNOKCVkKSBlbmNvZGUvZGVjb2RlIGFyZSBlbmFi
-bGVkIGluIFZNIG1vZGVcbiIsIGkpOw0KPiAgICAgICAgICB9DQo+ICAgfQ0KPg0KPiAtLQ0KPiAy
-LjM0LjENCj4NCg==
+--_000_BL1PR12MB51263D2BC502E2FCF5C7123DFDF42BL1PR12MB5126namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+The patch is Reviewed-by: Sonny Jiang <sonjiang@amd.com>
+
+Thanks,
+Sonny
+
+________________________________
+From: Dong, Ruijing <Ruijing.Dong@amd.com>
+Sent: Thursday, May 23, 2024 12:58 PM
+To: Wu, David <David.Wu3@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@l=
+ists.freedesktop.org>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.c=
+om>; Jiang, Sonny <Sonny.Jiang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: drop some kernel messages in VCN code
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Thanks for the response, and it looks good to me.
+
+Ruijing
+
+-----Original Message-----
+From: Wu, David <David.Wu3@amd.com>
+Sent: Thursday, May 23, 2024 12:55 PM
+To: Dong, Ruijing <Ruijing.Dong@amd.com>; Wu, David <David.Wu3@amd.com>; am=
+d-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.c=
+om>; Jiang, Sonny <Sonny.Jiang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: drop some kernel messages in VCN code
+
+please see in line.
+
+On 2024-05-23 12:02, Dong, Ruijing wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Please see my question inline below.
+>
+> Thanks,
+> Ruijing
+>
+> -----Original Message-----
+> From: Wu, David <David.Wu3@amd.com>
+> Sent: Thursday, May 23, 2024 11:05 AM
+> To: amd-gfx@lists.freedesktop.org; Koenig, Christian
+> <Christian.Koenig@amd.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Leo
+> <Leo.Liu@amd.com>; Jiang, Sonny <Sonny.Jiang@amd.com>; Dong, Ruijing
+> <Ruijing.Dong@amd.com>
+> Subject: [PATCH] drm/amdgpu: drop some kernel messages in VCN code
+>
+> We have messages when the VCN fails to initialize and there is no need to=
+ report on success.
+> Also PSP loading FWs is the default for production.
+>
+> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  |  1 -  drivers/gpu/drm/amd/am=
+dgpu/jpeg_v5_0_0.c |  3 ---  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  | 10 =
++---------
+>   3 files changed, 1 insertion(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index b89605b400c0..5e2b7c340724 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -1078,7 +1078,6 @@ void amdgpu_vcn_setup_ucode(struct amdgpu_device *a=
+dev)
+>                              IP_VERSION(4, 0, 3))
+>                                  break;
+>                  }
+> -               dev_info(adev->dev, "Will use PSP to load VCN firmware\n"=
+);
+>          }
+>   }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> index 64c856bfe0cb..68ef29bc70e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> @@ -145,8 +145,6 @@ static int jpeg_v5_0_0_hw_init(void *handle)
+>          if (r)
+>                  return r;
+>
+> -       DRM_DEV_INFO(adev->dev, "JPEG decode initialized successfully.\n"=
+);
+> -
+>          return 0;
+>   }
+>
+> @@ -549,7 +547,6 @@ static const struct amdgpu_ring_funcs jpeg_v5_0_0_dec=
+_ring_vm_funcs =3D {  static void jpeg_v5_0_0_set_dec_ring_funcs(struct amd=
+gpu_device *adev)  {
+>          adev->jpeg.inst->ring_dec->funcs =3D &jpeg_v5_0_0_dec_ring_vm_fu=
+ncs;
+> -       DRM_DEV_INFO(adev->dev, "JPEG decode is enabled in VM mode\n");
+>   }
+>
+>   static const struct amdgpu_irq_src_funcs jpeg_v5_0_0_irq_funcs =3D {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> index 36d4ca645c56..070b56610c7d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> @@ -200,16 +200,10 @@ static int vcn_v5_0_0_hw_init(void *handle)
+>
+>                  r =3D amdgpu_ring_test_helper(ring);
+>                  if (r)
+> -                       goto done;
+> +                       return r;
+>          }
+>   [Ruijing] Are we assuming the hw init process always be successful?
+
+No - it could fail with errors and in this case the top level will report e=
+rror. Otherwise it will succeed(and no need to report successful message).
+
+David
+
+>          return 0;
+> -done:
+> -       if (!r)
+> -               DRM_INFO("VCN decode and encode initialized successfully(=
+under %s).\n",
+> -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mo=
+de":"SPG Mode");
+> -
+> -       return r;
+>   }
+>
+>   /**
+> @@ -1122,8 +1116,6 @@ static void
+> vcn_v5_0_0_set_unified_ring_funcs(struct amdgpu_device *adev)
+>
+>                  adev->vcn.inst[i].ring_enc[0].funcs =3D &vcn_v5_0_0_unif=
+ied_ring_vm_funcs;
+>                  adev->vcn.inst[i].ring_enc[0].me =3D i;
+> -
+> -               DRM_INFO("VCN(%d) encode/decode are enabled in VM mode\n"=
+, i);
+>          }
+>   }
+>
+> --
+> 2.34.1
+>
+
+--_000_BL1PR12MB51263D2BC502E2FCF5C7123DFDF42BL1PR12MB5126namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+The patch is Reviewed-by: Sonny Jiang &lt;sonjiang@amd.com&gt;</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Sonny</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dong, Ruijing &lt;Rui=
+jing.Dong@amd.com&gt;<br>
+<b>Sent:</b> Thursday, May 23, 2024 12:58 PM<br>
+<b>To:</b> Wu, David &lt;David.Wu3@amd.com&gt;; amd-gfx@lists.freedesktop.o=
+rg &lt;amd-gfx@lists.freedesktop.org&gt;; Koenig, Christian &lt;Christian.K=
+oenig@amd.com&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liu, Leo &=
+lt;Leo.Liu@amd.com&gt;; Jiang, Sonny &lt;Sonny.Jiang@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: drop some kernel messages in VCN co=
+de</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
+ style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
+<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
+y - AMD Internal Distribution Only]<br>
+<br>
+Thanks for the response, and it looks good to me.<br>
+<br>
+Ruijing<br>
+<br>
+-----Original Message-----<br>
+From: Wu, David &lt;David.Wu3@amd.com&gt;<br>
+Sent: Thursday, May 23, 2024 12:55 PM<br>
+To: Dong, Ruijing &lt;Ruijing.Dong@amd.com&gt;; Wu, David &lt;David.Wu3@amd=
+.com&gt;; amd-gfx@lists.freedesktop.org; Koenig, Christian &lt;Christian.Ko=
+enig@amd.com&gt;<br>
+Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liu, Leo &lt;Leo.=
+Liu@amd.com&gt;; Jiang, Sonny &lt;Sonny.Jiang@amd.com&gt;<br>
+Subject: Re: [PATCH] drm/amdgpu: drop some kernel messages in VCN code<br>
+<br>
+please see in line.<br>
+<br>
+On 2024-05-23 12:02, Dong, Ruijing wrote:<br>
+&gt; [AMD Official Use Only - AMD Internal Distribution Only]<br>
+&gt;<br>
+&gt; Please see my question inline below.<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt; Ruijing<br>
+&gt;<br>
+&gt; -----Original Message-----<br>
+&gt; From: Wu, David &lt;David.Wu3@amd.com&gt;<br>
+&gt; Sent: Thursday, May 23, 2024 11:05 AM<br>
+&gt; To: amd-gfx@lists.freedesktop.org; Koenig, Christian<br>
+&gt; &lt;Christian.Koenig@amd.com&gt;<br>
+&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liu, Leo<br>
+&gt; &lt;Leo.Liu@amd.com&gt;; Jiang, Sonny &lt;Sonny.Jiang@amd.com&gt;; Don=
+g, Ruijing<br>
+&gt; &lt;Ruijing.Dong@amd.com&gt;<br>
+&gt; Subject: [PATCH] drm/amdgpu: drop some kernel messages in VCN code<br>
+&gt;<br>
+&gt; We have messages when the VCN fails to initialize and there is no need=
+ to report on success.<br>
+&gt; Also PSP loading FWs is the default for production.<br>
+&gt;<br>
+&gt; Signed-off-by: David (Ming Qiang) Wu &lt;David.Wu3@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c&nbsp; |&nbsp; 1 -&=
+nbsp; drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |&nbsp; 3 ---&nbsp; drivers/=
+gpu/drm/amd/amdgpu/vcn_v5_0_0.c&nbsp; | 10 +---------<br>
+&gt;&nbsp;&nbsp; 3 files changed, 1 insertion(+), 13 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; index b89605b400c0..5e2b7c340724 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; @@ -1078,7 +1078,6 @@ void amdgpu_vcn_setup_ucode(struct amdgpu_device=
+ *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; IP_VERSION(4, 0, 3))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;Will use PSP to load VCN firmw=
+are\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c<br>
+&gt; index 64c856bfe0cb..68ef29bc70e2 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c<br>
+&gt; @@ -145,8 +145,6 @@ static int jpeg_v5_0_0_hw_init(void *handle)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEV_INFO(adev-&gt;dev, &quot=
+;JPEG decode initialized successfully.\n&quot;);<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt; @@ -549,7 +547,6 @@ static const struct amdgpu_ring_funcs jpeg_v5_0_0_=
+dec_ring_vm_funcs =3D {&nbsp; static void jpeg_v5_0_0_set_dec_ring_funcs(st=
+ruct amdgpu_device *adev)&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;jpeg.in=
+st-&gt;ring_dec-&gt;funcs =3D &amp;jpeg_v5_0_0_dec_ring_vm_funcs;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEV_INFO(adev-&gt;dev, &quot=
+;JPEG decode is enabled in VM mode\n&quot;);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; static const struct amdgpu_irq_src_funcs jpeg_v5_0_0_irq_f=
+uncs =3D {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c<br>
+&gt; index 36d4ca645c56..070b56610c7d 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c<br>
+&gt; @@ -200,16 +200,10 @@ static int vcn_v5_0_0_hw_init(void *handle)<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_test_helper(ring);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto done;<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; [Ruijing] Are we assuming the hw init process always be su=
+ccessful?<br>
+<br>
+No - it could fail with errors and in this case the top level will report e=
+rror. Otherwise it will succeed(and no need to report successful message).<=
+br>
+<br>
+David<br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -done:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; DRM_INFO(&quot;VCN decode and encode initialized successful=
+ly(under %s).\n&quot;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;p=
+g_flags &amp; AMD_PG_SUPPORT_VCN_DPG)?&quot;DPG Mode&quot;:&quot;SPG Mode&q=
+uot;);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; /**<br>
+&gt; @@ -1122,8 +1116,6 @@ static void<br>
+&gt; vcn_v5_0_0_set_unified_ring_funcs(struct amdgpu_device *adev)<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;vcn.inst[i].ring_enc[0].funcs =3D =
+&amp;vcn_v5_0_0_unified_ring_vm_funcs;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;vcn.inst[i].ring_enc[0].me =3D i;<=
+br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; DRM_INFO(&quot;VCN(%d) encode/decode are enabled in VM mode=
+\n&quot;, i);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt; --<br>
+&gt; 2.34.1<br>
+&gt;<br>
+</span></font></div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB51263D2BC502E2FCF5C7123DFDF42BL1PR12MB5126namp_--
