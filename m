@@ -4,53 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99DB5C25B7C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 16:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F5D6C25B75
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 16:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D715810EEAC;
-	Thu, 23 May 2024 16:10:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACCC10EE7D;
+	Thu, 23 May 2024 16:10:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PuHSclrF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L6gws5i8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37C110E7B0;
- Thu, 23 May 2024 15:51:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD1589FF9;
+ Thu, 23 May 2024 13:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716479475; x=1748015475;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=MLcJyGKBQhPZDL6wKgOceQVS3NoUzz+ipqtM9LhBHuE=;
- b=PuHSclrFe9VfTwB6lo4EDrTGJi7mwPmJtoaanlPn5OFlWAVOLnR16CdN
- KvFRFqJvN7tPZIYa3Hnc1NSJcyIVcljkba2byYgfVmCeCzTvI0m0LP7yb
- WGIlzBB5XRToFuA7+OaZl6nvcKo80gQu1/2eKfEx6SKfwE/JJAqOop+u6
- CpKTFrT7cUY0bkQ+GOqkyNLVvUBPnfFoO2udj5UpynoRe03biKNxRDT9R
- u2Y+vpLXCe+QKpV9qbtvoR1giMbAI56ANcpPXWCIvgUTqjKZqrof7GeRC
- qLhQMtyKGtPfS94yNsGP2uV/sVWYsIJDS4HGeaP2BFrRip9k3EpstqFe6 w==;
-X-CSE-ConnectionGUID: mNflUd43Q2eUD5V5Ma0hAw==
-X-CSE-MsgGUID: 0baExm9JTl2s8ONwwl8UOg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="16644234"
-X-IronPort-AV: E=Sophos;i="6.08,183,1712646000"; d="scan'208";a="16644234"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 08:51:14 -0700
-X-CSE-ConnectionGUID: UbujlJOOTdunzCRUwcWlNA==
-X-CSE-MsgGUID: Z2dtz4gLQiyahF37x9OuOA==
+ t=1716471460; x=1748007460;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=uNICsZF713AwJhVTdusy9Z58n5VqxDT9PsS4btSsXQI=;
+ b=L6gws5i8RW+jvLMHvpdloWHK8gj4cOEgeOxJpyiTZCvvCnuXl8EQn+im
+ tKGMg50DcG91xuadomhHUHDekq1qaN/ymxq1uUL3t7RIcfE5hi4DbkCqi
+ 3ZjTpQkDgX+9nDC5Y3yda/MSJUuQuBhoNeEX30JDTjf/+AitiEj0UDkII
+ ZWcjozjw4+73+d+Aeaf7718wzhkKqT4+1jCEJfCQhRaLH7JCGukj2lubk
+ Kctxq6dX+Xmw9oDMj10Vle8HhFiCLS9JGhenN0jw3KK49saHkicbd0DRp
+ I419U70n/yAWGAybDe3hEAN39IsdfGM9FhZr7sQxwd407L92ZmO3lHU61 w==;
+X-CSE-ConnectionGUID: jMwK70AxSIaC5XVSsVi4Mw==
+X-CSE-MsgGUID: 9tVKYQAKQZashVajQBjJuw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="12662771"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="12662771"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:37:39 -0700
+X-CSE-ConnectionGUID: yltDQQKEQo+NqfOxCzfDgw==
+X-CSE-MsgGUID: CehU8C5JTI+nfQP6cABkaQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,183,1712646000"; d="scan'208";a="34324832"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="34210085"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 08:51:13 -0700
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:37:35 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 0/4] drm: enable -Wformat-truncation
-Date: Thu, 23 May 2024 18:51:05 +0300
-Message-Id: <cover.1716479340.git.jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, jani.nikula@intel.com
+Subject: [PATCH 3/3] drm/amdgpu: drop redundant W=1 warnings from Makefile
+Date: Thu, 23 May 2024 16:37:07 +0300
+Message-Id: <c7dffe59c8abe6beaef70ea1f726a6598c9dad77.1716471145.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1716471145.git.jani.nikula@intel.com>
+References: <cover.1716471145.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 May 2024 16:10:45 +0000
@@ -68,20 +76,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Jani Nikula (4):
-  drm/amdgpu: fix -Wformat-truncation warning in
-    amdgpu_gfx_kiq_init_ring()
-  drm/nouveau: fix -Wformat-truncation warning in
-    nouveau_backlight_init()
-  drm/imx: fix -Wformat-truncation warning in imx_ldb_probe()
-  drm: enable -Wformat-truncation across the subsystem
+Since commit a61ddb4393ad ("drm: enable (most) W=1 warnings by default
+across the subsystem"), most of the extra warnings in the driver
+Makefile are redundant. Remove them.
 
- drivers/gpu/drm/Makefile                    | 3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     | 6 ++++--
- drivers/gpu/drm/imx/ipuv3/imx-ldb.c         | 6 +++++-
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 9 +++++++--
- 4 files changed, 17 insertions(+), 7 deletions(-)
+Note that -Wmissing-declarations and -Wmissing-prototypes are always
+enabled by default in scripts/Makefile.extrawarn.
 
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile | 18 +-----------------
+ 1 file changed, 1 insertion(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 1f6b56ec99f6..9508d0b5708e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -39,23 +39,7 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
+ 	-I$(FULL_AMD_DISPLAY_PATH)/amdgpu_dm \
+ 	-I$(FULL_AMD_PATH)/amdkfd
+ 
+-subdir-ccflags-y := -Wextra
+-subdir-ccflags-y += -Wunused
+-subdir-ccflags-y += -Wmissing-prototypes
+-subdir-ccflags-y += -Wmissing-declarations
+-subdir-ccflags-y += -Wmissing-include-dirs
+-subdir-ccflags-y += -Wold-style-definition
+-subdir-ccflags-y += -Wmissing-format-attribute
+-# Need this to avoid recursive variable evaluation issues
+-cond-flags := $(call cc-option, -Wunused-but-set-variable) \
+-	$(call cc-option, -Wunused-const-variable) \
+-	$(call cc-option, -Wstringop-truncation) \
+-	$(call cc-option, -Wpacked-not-aligned)
+-subdir-ccflags-y += $(cond-flags)
+-subdir-ccflags-y += -Wno-unused-parameter
+-subdir-ccflags-y += -Wno-type-limits
+-subdir-ccflags-y += -Wno-sign-compare
+-subdir-ccflags-y += -Wno-missing-field-initializers
++# Locally disable W=1 warnings enabled in drm subsystem Makefile
+ subdir-ccflags-y += -Wno-override-init
+ subdir-ccflags-$(CONFIG_DRM_AMDGPU_WERROR) += -Werror
+ 
 -- 
 2.39.2
 
