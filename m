@@ -4,70 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 105A6C25B74
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 08:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C988C25B79
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46FF010E3AA;
-	Fri, 24 May 2024 08:07:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E417410E179;
+	Fri, 24 May 2024 09:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TPoHnhxe";
+	dkim=pass (2048-bit key; unprotected) header.d=kroah.com header.i=@kroah.com header.b="yPwGgC1t";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="kk5B4uKn";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C58310E432
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 08:07:24 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-52905ff2a9eso1078456e87.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 01:07:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716538042; x=1717142842; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=M0qy0i3Xh6W3V0n/BvwR4LDTsNlNm+uF2veBkQHgDrk=;
- b=TPoHnhxe2L7KZ6qmG6LiEsWrLevuJ2DiWcGILl552AsiRH544/wvVRxWJ0ISR37c+N
- DaiSkckjcP5pNY5uUDl7+I4k8rVvVxWy4l//M0KW88AWkGYlHAHb1vNaWWWZzRoSa+RH
- UJHekjIzJ5INKUc/EcvRMvXHLUDCw8EpYVv1kT3HZ7Wx2SgNvsWlSfACcQeojK4D08hX
- VKdpPTyyP/B1P2CAGzK5dMnVu+GERDrT9KtuEIL8Tpx+paClouZ2kqA8Mr7k0FnGUIgY
- QKtxFaPcX3cc1P9xckbKxIqwU6RWk2DtaJnRXiqUT+zjTv/gN7bicZWsCeFF3h0ya+jl
- hXug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716538042; x=1717142842;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=M0qy0i3Xh6W3V0n/BvwR4LDTsNlNm+uF2veBkQHgDrk=;
- b=cWa21w/cRZU0xSC93DOB8QfnzmoS3c2cOohbJiDD64xh1HvPBmPx5JkKiuI+enX+k1
- lS9PE98l/US/+IrJpOJ5ZjSsq+UTkQwY8HWRtQRwNNay6muYg26K7j3QO+5NlKlyq8mD
- UPKEvoYyRsIj9ReyKdmRwnaFnLNGPoeegE62ApPqxzSiYQsJ5OKKH3GPcHazzKtUNjU8
- p9d9XD5aq8CVpH/PP5y83CWzapG9C/sc3/vQw5lMdsc8NyXBG5Po+4eJE1L6+Ze01VZ+
- cR1e1Ed3daHnOPb4Y6aRvgQlSsZ5WGzlLsnLPNcul+Ww0jebB/w0Ax/+zzVOOh68niUO
- 9kqg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWoL+8YKyuWZGAQeAuuvMKjGwGPsCg52hPtF5u5QQPFPWPaF6fuYY7hyVTfUiI9wsyckzVMr+HtJtVuIxwGmU3PG8pxICD+O2QcjyOHfw==
-X-Gm-Message-State: AOJu0YxdARKPxheol1KSl1mD9CGoM6yLIk5dwMNax2+CIIPcU4zSROqP
- wYHJF6n7HedYUg8LW6eVgggPPDPOc1qoOAYOhsSjL+lwhfPQPwda
-X-Google-Smtp-Source: AGHT+IEXFTsr94cI3w6h414gxaF62nGUlJ2qmRWMlINgTYciNb95dzdKwoc2yOxy9IsAbKOheIrxqw==
-X-Received: by 2002:a05:6512:52f:b0:523:dab3:39 with SMTP id
- 2adb3069b0e04-529664dae29mr732318e87.55.1716538041942; 
- Fri, 24 May 2024 01:07:21 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-421089b041bsm13441785e9.37.2024.05.24.01.07.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 May 2024 01:07:21 -0700 (PDT)
-Message-ID: <4c0073c0-1e57-4db6-8901-2a377cd3fb5f@gmail.com>
-Date: Fri, 24 May 2024 10:07:20 +0200
+X-Greylist: delayed 384 seconds by postgrey-1.36 at gabe;
+ Thu, 23 May 2024 16:36:27 UTC
+Received: from fhigh7-smtp.messagingengine.com
+ (fhigh7-smtp.messagingengine.com [103.168.172.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEF7710ED15;
+ Thu, 23 May 2024 16:36:27 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id 9C7AE1140165;
+ Thu, 23 May 2024 12:30:02 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 23 May 2024 12:30:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1716481802;
+ x=1716568202; bh=0rtgH1k/GZ8ZzTPeUqIg0pYzXgjqHH6dowOaWTTT9qM=; b=
+ yPwGgC1tEShZcPvVD73ZEDburC7gwDZUI6P5w0RippXcGdZmfuPC0+19xSDajN/J
+ hUSpE/v9/Yav44A1rqf7Lm9/V9EdMzt3ZKcKfEqCRnpW3H9QNa0T9eDmcQX//ZOF
+ O1g+rBAtiKjYVjG6YbxPir6qb19gM3CS4yo7IRs6pBM89Mx9j5QqUPqmRiWE8pok
+ 52oapbn6OTdLGXahKKh5m42Ud2BBO9e0H89OR2Qj5mV8X2ZDpaU6Z9lkVv8l+z54
+ afEQ4oKn1VXGHZ1DZd/x5GOnmnEovpB5myAHBYZWzpxP1aOu2Y3YI6w34rm80Ro6
+ IGCq6YCfmZw67A+Bz71Rxw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1716481802; x=
+ 1716568202; bh=0rtgH1k/GZ8ZzTPeUqIg0pYzXgjqHH6dowOaWTTT9qM=; b=k
+ k5B4uKnSVwD+M1Um13gWHRQrgwxuRbO4Whsw/CahTsgOBbL3Elt3iTHK0K2FIGvY
+ 2waTFftvr5sPQ+N6XLfuGsf+7r3DDut34SKbMb4t4/bhhed08QjxS1lZhGoDhjZg
+ NreQQaty7NhWW/kOkz3Fl8Zj8ivx9+crIDMg7hSEQZwuo3ynFxzMPd9YpiEOCagS
+ zEUJXxY30Ka6UN0et+sh15mgZApilfPMT3YY0LiriFckMaxeunKGhuW3jeMrJ+9L
+ A7sMF7yo0M7Lgvy7G64X6szNbkG/AQGWtgMJM+Gim6pdGK8vh6jrzFTBdb0BnQFx
+ UjY1UrOAR30TJ7Oj8zbig==
+X-ME-Sender: <xms:Cm9PZmAnyHyu7EEuv-6VZiGgTa_5Av_wx4vPFVql-GXZIc5lXNHP6w>
+ <xme:Cm9PZgggD8n_F471LAmfOwJRM7ZVFayz2iBD-2q4zpsS_y0PfjHcpExDSqvhCGwl1
+ X3MQS7FMUDz5w>
+X-ME-Received: <xmr:Cm9PZpkr-KDHcHdld1oH4CHL_OmILTWoWFIATcpafaCPOHTI7sqVjTU1OpRhux3IehShXQidh-Xi9IvftnVBCWVSqiIKjZHxn1s6Sg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdeiiedguddttdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtjeenucfhrhhomhepifhr
+ vghgucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepgf
+ ekffeifeeiveekleetjedvtedvtdeludfgvdfhteejjeeiudeltdefffefvdeinecuvehl
+ uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrh
+ horghhrdgtohhm
+X-ME-Proxy: <xmx:Cm9PZkxyxaROPbkaVf_3wygNhFkPVnkTuQ0_DfbHeTUpkzgx_iU9-g>
+ <xmx:Cm9PZrS2FQ9O9zCfsDeoSSCm_tmG0zefFUk3VXqVkrrPegs25NmsGw>
+ <xmx:Cm9PZvYeO_W4J8fG7QDXiijUfok6U8oGrQ5WTXvrro8cGvF5WW5oFA>
+ <xmx:Cm9PZkTEYtlaDabZcuRBdFp_Nlp8e-s6g-C9bpqevXRV9iYsn2AwRQ>
+ <xmx:Cm9PZsBhPh2ixU81MJvT2Oe0gPHZ33zEbVyaomcE0qd_lA2x9K3oCelv>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 23 May 2024 12:30:01 -0400 (EDT)
+Date: Thu, 23 May 2024 18:29:58 +0200
+From: Greg KH <greg@kroah.com>
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: Barry Kauler <bkauler@gmail.com>, Alex Deucher <alexdeucher@gmail.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Subject: Re: Kernel 5.15.150 black screen with AMD Raven/Picasso GPU
+Message-ID: <2024052321-revolver-timid-3056@gregkh>
+References: <CABWT5yiejGABNXicsS7u-daKnBBjK6YTDVgaQOqwGYn8P20D8Q@mail.gmail.com>
+ <6580c2d4-b084-470f-80a0-aa09f1ab880d@gmx.de>
+ <CABWT5yiD110qmJcRsoGVMevULAVmYpyiW4w9MtmNjp7E0rDQ8A@mail.gmail.com>
+ <CABWT5yg5jG7eMiDp7QN2yhFj6983qF9zN7eHOprH4eEjwQJLBQ@mail.gmail.com>
+ <c3205455-7ad2-487e-8954-52102754e154@gmx.de>
+ <CADnq5_PM_FuBE4913Z4bxiMTDYtRS+VJgLW6gfDU1qnQQ=FDzA@mail.gmail.com>
+ <d04105ea-0f8a-4f0b-b4f2-bc8407d37c73@gmx.de>
+ <CABWT5yibc52CTUWeCWxYQb4ooi4dsbvBWxJAJCDrG+8405RPTg@mail.gmail.com>
+ <7ec6faf8-d9c1-436b-98c8-473e7ff395b3@gmx.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: silence UBSAN warning
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240516135501.2214792-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240516135501.2214792-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7ec6faf8-d9c1-436b-98c8-473e7ff395b3@gmx.de>
+X-Mailman-Approved-At: Fri, 24 May 2024 09:16:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,28 +106,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.05.24 um 15:55 schrieb Alex Deucher:
-> Convert a variable sized array from [1] to [].
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On Thu, May 23, 2024 at 05:59:39PM +0200, Armin Wolf wrote:
+> Am 23.05.24 um 15:13 schrieb Barry Kauler:
+> 
+> > On Wed, May 22, 2024 at 12:58 AM Armin Wolf <W_Armin@gmx.de> wrote:
+> > > Am 20.05.24 um 18:22 schrieb Alex Deucher:
+> > > 
+> > > > On Sat, May 18, 2024 at 8:17 PM Armin Wolf <W_Armin@gmx.de> wrote:
+> > > > > Am 17.05.24 um 03:30 schrieb Barry Kauler:
+> > > > > 
+> > > > > > Armin, Yifan, Prike,
+> > > > > > I will top-post, so you don't have to scroll down.
+> > > > > > After identifying the commit that causes black screen with my gpu, I
+> > > > > > posted the result to you guys, on May 9.
+> > > > > > It is now May 17 and no reply.
+> > > > > > OK, I have now created a patch that reverts Yifan's commit, compiled
+> > > > > > 5.15.158, and my gpu now works.
+> > > > > > Note, the radeon module is not loaded, so it is not a factor.
+> > > > > > I'm not a kernel developer. I have identified the culprit and it is up
+> > > > > > to you guys to fix it, Yifan especially, as you are the person who has
+> > > > > > created the regression.
+> > > > > > I will attach my patch.
+> > > > > > Regards,
+> > > > > > Barry Kauler
+> > > > > Hi,
+> > > > > 
+> > > > > sorry for not responding to your findings. I normally do not work with GPU drivers,
+> > > > > so i hoped one of the amdgpu developers would handle this.
+> > > > > 
+> > > > > I CCeddri-devel@lists.freedesktop.org  and amd-gfx@lists.freedesktop.org so that other
+> > > > > amdgpu developers hear from this issue.
+> > > > > 
+> > > > > Thanks you for you persistence in finding the offending commit.
+> > > > Likely this patch should not have been ported to 5.15 in the first
+> > > > place.  The IOMMU requirements have been dropped from the driver for
+> > > > the last few kernel versions so it is no longer relevant on newer
+> > > > kernels.
+> > > > 
+> > > > Alex
+> > > Barry, can you verify that the latest upstream kernel works on you device?
+> > > If yes, then the commit itself is ok and just the backporting itself was wrong.
+> > > 
+> > > Thanks,
+> > > Armin Wolf
+> > Armin,
+> > The unmodified 6.8.1 kernel works ok.
+> > I presume that patch was applied long before 6.8.1 got released and
+> > only got backported to 5.15.x recently.
+> > 
+> > Regards,
+> > Barry
+> > 
+> Great to hear, that means we only have to revert commit 56b522f46681 ("drm/amdgpu: init iommu after amdkfd device init")
+> from the 5.15.y series.
+> 
+> I CCed the stable mailing list so that they can revert the offending commit.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Please submit the patch/revert that you wish to have applied to the tree
+so we can have the correct information in it.  I have no idea what to do
+here with this deep response thread as-is, sorry.
 
-> ---
->   drivers/gpu/drm/amd/include/atomfirmware.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-> index af3eebb4c9bcb..f732182218330 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -3540,7 +3540,7 @@ struct atom_gpio_voltage_object_v4
->      uint8_t  phase_delay_us;                      // phase delay in unit of micro second
->      uint8_t  reserved;
->      uint32_t gpio_mask_val;                         // GPIO Mask value
-> -   struct atom_voltage_gpio_map_lut voltage_gpio_lut[1];
-> +   struct atom_voltage_gpio_map_lut voltage_gpio_lut[] __counted_by(gpio_entry_num);
->   };
->   
->   struct  atom_svid2_voltage_object_v4
+thanks,
 
+greg k-h
