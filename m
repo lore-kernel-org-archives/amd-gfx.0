@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45192C25B7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2FC3C25B75
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 16:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A198E10EE8B;
-	Thu, 23 May 2024 16:10:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B80110EE9B;
+	Thu, 23 May 2024 16:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WEEHZqTM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VyRs39AQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6F710E335;
- Thu, 23 May 2024 13:37:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D88F10E941;
+ Thu, 23 May 2024 15:51:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716471440; x=1748007440;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=nwUlt7tgledmNyzRkC58TMJbyUeme2oy4ipdEbM0yC8=;
- b=WEEHZqTMv6kG+BYv1e0AL559AHHEwM/v6RKDatgKgOE6VIrA4fhoo1oB
- 2by7NJuLH7Y75fgPhi6HiBqRuUCIBKPZxPBJue8L01vOxMmQZbBsx/6h/
- 2bLeX4WZXnNO1Ab2B2HXRGNygSKqIHPmq/Zpx7E+OsX37LaXBBM1/NJow
- FNuCJJli+dHb9mvHUTUdEdQraJzd1hgDl1xT47IsAgeyDZFEoCkU/kbPV
- MluvseKTJ2tyGno5ozGan0Ev3RNXzy3oOu5VjG1827Kt+AuPapLvYnrTA
- BLgGgexgRsiItQCO8YMEi7msU+1D+Giy7HIx6tcBG3gWC6/m4vZYKvKMV A==;
-X-CSE-ConnectionGUID: By1YHvEgTFueeWJHSdS5jg==
-X-CSE-MsgGUID: ofZw2Q67TUyU/zAgywgQrA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="12971689"
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="12971689"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:37:18 -0700
-X-CSE-ConnectionGUID: BuJdhoPQROOrhR+HAGlkUA==
-X-CSE-MsgGUID: cYAiUGr7Q7W+B8MsXVN91g==
+ t=1716479487; x=1748015487;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=LWxOpwsQKaJr2wkzuXxKCrV6aG4OKNoCsg0wjE3wLWw=;
+ b=VyRs39AQlmEpVfxx7D+T/PPrZnI3+g9VGYT9ec5fPXcZTPybbYutJHE6
+ klxO/H9W592m+jZeWUsRT1FUG+oMW9z+i2oPA+7mLR6x3jrN8r7XFrSyM
+ YYL8XuvnewDGnkJXIOUy+RcOtVapV86vnn5337C8CQxjCqLDVQ4qWaOEU
+ Y2L4zsvdjzuczotBnzMaTmfoaZE1np2BSnYjzCyqUJJiIB7aBIWTQgXCm
+ eZEEU7wCdBY9/HT0ExaLDEDTzFsxdqe3Hnr+gGr5XQ05w5Erjf8D9CXl0
+ YoHLsovOjK5ZaiA4OQ0f+ZRgGt0Qxuf5NQ7R8CInzEsPDcqX9C00S7bHY Q==;
+X-CSE-ConnectionGUID: 4dBmi3qaSgmKF7otBgjmUQ==
+X-CSE-MsgGUID: yNYIPyuUR6WMcDtN1xt2nQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="16644266"
+X-IronPort-AV: E=Sophos;i="6.08,183,1712646000"; d="scan'208";a="16644266"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 08:51:27 -0700
+X-CSE-ConnectionGUID: 1zN68PPiQrS29sCHwNf1+Q==
+X-CSE-MsgGUID: Zr6Hen4NSbeQqED/WtlVTg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="34141543"
+X-IronPort-AV: E=Sophos;i="6.08,183,1712646000"; d="scan'208";a="34324920"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2024 06:37:14 -0700
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 08:51:24 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, jani.nikula@intel.com
-Subject: [PATCH 0/3] amd, i915,
- xe: drop redundant warnings from driver makefiles
-Date: Thu, 23 May 2024 16:37:04 +0300
-Message-Id: <cover.1716471145.git.jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>
+Subject: [PATCH 2/4] drm/nouveau: fix -Wformat-truncation warning in
+ nouveau_backlight_init()
+Date: Thu, 23 May 2024 18:51:07 +0300
+Message-Id: <de3297edb7f22cfc0654ee15aa0f774fbe607133.1716479340.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1716479340.git.jani.nikula@intel.com>
+References: <cover.1716479340.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 May 2024 16:10:45 +0000
@@ -75,22 +72,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I'm sending these together, as they're related, and almost identical,
-but I expect them to be merged individually to each driver.
+Enabling -Wformat-truncation yields the following warning:
 
-BR,
-Jani.
+../drivers/gpu/drm/nouveau/nouveau_backlight.c: In function ‘nouveau_backlight_init’:
+../drivers/gpu/drm/nouveau/nouveau_backlight.c:56:69: error: ‘%d’ directive output may be truncated writing between 1 and 10 bytes into a region of size 3 [-Werror=format-truncation=]
+   56 |                 snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight%d", nb);
+      |                                                                     ^~
+In function ‘nouveau_get_backlight_name’,
+    inlined from ‘nouveau_backlight_init’ at ../drivers/gpu/drm/nouveau/nouveau_backlight.c:351:7:
+../drivers/gpu/drm/nouveau/nouveau_backlight.c:56:56: note: directive argument in the range [1, 2147483647]
+   56 |                 snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight%d", nb);
+      |                                                        ^~~~~~~~~~~~~~~~
+../drivers/gpu/drm/nouveau/nouveau_backlight.c:56:17: note: ‘snprintf’ output between 14 and 23 bytes into a destination of size 15
+   56 |                 snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight%d", nb);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Jani Nikula (3):
-  drm/i915: drop redundant W=1 warnings from Makefile
-  drm/xe: drop redundant W=1 warnings from Makefile
-  drm/amdgpu: drop redundant W=1 warnings from Makefile
+Silence the warning by checking the snprintf() return value.
 
- drivers/gpu/drm/amd/amdgpu/Makefile | 18 +-----------------
- drivers/gpu/drm/i915/Makefile       | 25 +------------------------
- drivers/gpu/drm/xe/Makefile         | 25 +------------------------
- 3 files changed, 3 insertions(+), 65 deletions(-)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
+---
+
+Cc: Karol Herbst <kherbst@redhat.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+---
+ drivers/gpu/drm/nouveau/nouveau_backlight.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+index d47442125fa1..1d77a5f280c5 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
++++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
+@@ -49,13 +49,18 @@ nouveau_get_backlight_name(char backlight_name[BL_NAME_SIZE],
+ 			   struct nouveau_backlight *bl)
+ {
+ 	const int nb = ida_alloc_max(&bl_ida, 99, GFP_KERNEL);
++	int ret;
+ 
+ 	if (nb < 0)
+ 		return false;
+ 	if (nb > 0)
+-		snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight%d", nb);
++		ret = snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight%d", nb);
+ 	else
+-		snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight");
++		ret = snprintf(backlight_name, BL_NAME_SIZE, "nv_backlight");
++
++	if (ret >= BL_NAME_SIZE)
++		return false;
++
+ 	bl->id = nb;
+ 	return true;
+ }
 -- 
 2.39.2
 
