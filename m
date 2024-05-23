@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3668C25B7D
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD17C25B75
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 13:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 958DA10E69B;
-	Thu, 23 May 2024 13:04:48 +0000 (UTC)
-X-Greylist: delayed 416 seconds by postgrey-1.36 at gabe;
- Wed, 22 May 2024 13:58:31 UTC
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA2810EECA
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 May 2024 13:58:31 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 57C2F4081E;
- Wed, 22 May 2024 15:51:31 +0200 (CEST)
-Date: Wed, 22 May 2024 15:51:29 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Vinod Koul <vkoul@kernel.org>, 
- Caleb Connolly <caleb@connolly.tech>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v3 2/3] drm/panel/lg-sw43408: select
- CONFIG_DRM_DISPLAY_DP_HELPER
-Message-ID: <lpguauybi5xs5hy7vglqvaloy4yykgejdhreeqp6fioeuelav6@pj2ap6eat3cy>
-References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
- <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC79C10E6CB;
+	Thu, 23 May 2024 13:04:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TbCgUTo/";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 888BF10E5A9;
+ Thu, 23 May 2024 13:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1716469296; x=1748005296;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=YU1eMOQnQRxm5I/RuAMauYfwdnrzT9WMuumUW9BoYIo=;
+ b=TbCgUTo/hFqX2Pso70Xqj0BmIf/yrsUdAlTbVv1OIzNU4or3sqi6be8e
+ 7sFfsX7m0xhKRS8Jr6GmIjGlBfh2d7n0sgtzPy9cSjBRikkjGTAI2fy0O
+ 1miUtXoOo0A4WF56j6UtWGL7Wej/gZpTMxylHJfRz7tUa+tOs0exheDIH
+ jU+SIfudTsDasKxSO1Jnp1JyT40XvGnVsuJUIEwnRVMgY53lfAo/2yy5d
+ HFutRVQPLXRalHQOvLyFuntS0PTSyD0LpaOAavkddXKB5L0ZWqzzwpNcQ
+ 6J3sWLoHTJiHk4kUAi/6jvkRyNVH3EUdgLjk6Jew83Tm0dBhckxLvaulv Q==;
+X-CSE-ConnectionGUID: 0p7vi8DWROeHcwju04C0Zg==
+X-CSE-MsgGUID: JKzUnCzLRb2/1sx6FaEehA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="23393870"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="23393870"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:01:26 -0700
+X-CSE-ConnectionGUID: NyWIvjEIREWR++c9XhDcYg==
+X-CSE-MsgGUID: CNGwPIEJQJynh5+mfp0LMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000"; d="scan'208";a="56890382"
+Received: from unknown (HELO localhost) ([10.237.66.160])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:01:02 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [RESEND 0/6] drm, nouveau/radeon/amdpgu: edid_blob_ptr cleanups
+In-Reply-To: <CADnq5_N75R4G-w=TXz0-kPNseomSK+s4OB8OMyng_tAeGkU+=g@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1715353572.git.jani.nikula@intel.com>
+ <CADnq5_OMOuz_T-OUZ4jVELEAL1FfFdqoFukKdvZA0eSoPQExLg@mail.gmail.com>
+ <87seylewf5.fsf@intel.com>
+ <CADnq5_N75R4G-w=TXz0-kPNseomSK+s4OB8OMyng_tAeGkU+=g@mail.gmail.com>
+Date: Thu, 23 May 2024 16:00:59 +0300
+Message-ID: <878r00ptro.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
-X-Mailman-Approved-At: Thu, 23 May 2024 13:04:44 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 23 May 2024 13:04:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +72,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-05-22 09:25:54, Dmitry Baryshkov wrote:
-> This panel driver uses DSC PPS functions and as such depends on the
-> DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
+On Mon, 13 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
+> On Mon, May 13, 2024 at 8:20=E2=80=AFAM Jani Nikula <jani.nikula@intel.co=
+m> wrote:
+>>
+>> On Fri, 10 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
+>> > On Fri, May 10, 2024 at 11:17=E2=80=AFAM Jani Nikula <jani.nikula@inte=
+l.com> wrote:
+>> > Series is:
+>> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>
+>> Thanks, do you want to pick these up via your tree? And do you expect a
+>> proper R-b before merging?
+>
+> Feel free to take them via drm-misc if you'd prefer to land the whole
+> set together, otherwise, I can pick up the radeon/amdgpu patches.
 
-Here and in the title: maybe this is a remnant from v2, but you split out a
-DRM_DISPLAY_DSC_HELPER and shouldn't be enabling DP for a DSI panel now.
+Thanks, merged everything to drm-misc-next.
 
-- Marijn
+BR,
+Jani.
 
-> available to the driver.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
-> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/panel/Kconfig | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 4a2f621433ef..3e3f63479544 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
->  	depends on OF
->  	depends on DRM_MIPI_DSI
->  	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_DISPLAY_DSC_HELPER
-> +	select DRM_DISPLAY_HELPER
->  	help
->  	  Say Y here if you want to enable support for LG sw43408 panel.
->  	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
-> 
-> -- 
-> 2.39.2
-> 
+--=20
+Jani Nikula, Intel
