@@ -4,70 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A991C25B75
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 18:15:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48CB7C25B75
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 May 2024 18:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AACAC10E125;
-	Thu, 23 May 2024 18:15:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 579A710F212;
+	Thu, 23 May 2024 18:27:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kObxPAoK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RD7Q1Slf";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD2CD10E125
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 18:15:00 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-6818811cb8aso46372a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 11:15:00 -0700 (PDT)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49B1110F212
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 18:27:29 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1f304533064so17213925ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 11:27:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716488100; x=1717092900; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1716488848; x=1717093648; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HgKqByU7iBjPUSGCJuxEqNypmyT8ednvHoTtn98SBKw=;
- b=kObxPAoK+C+nuSwszre9SUfds/e/8Dr6KMdLINTT7A5PCSa8tbnSMt8H0IQPurn5TG
- nAm3fPimxOGShJZEsXPz8yZrj6YLJr1EGLDL/R4eRYF++5rGJ6sYBmSw60gWGDHOCZNc
- oy0IVfJ6dq/RMg886jWgcrKvd9HJ3OfqAUjnpwiPHv/jYwkqvnTHHpCgDek/Rms/655g
- 4Zow5viCrOYIdTvQSswKFqCPVx+NNQEuDb6Q0KpYNBp4ITJxfuyubRUYtqp9llPUiFYe
- 6Ys1KQQEOUu6PDl0HprMPnj+AEBvbSs2QgQMWSDy7wlhicETle6YfetKH8CvEs4uaYlB
- aHjg==
+ bh=BC+vwTQ/eOliTFp+wFlfiIPnmqaXj84aed77oWby5X4=;
+ b=RD7Q1Slfc1zt06VQU/jtkVCj9auGNK26GqfJAEwDDejU5x5oZtwY9yVHW44ZbINzAx
+ EGEvvdpVxJdco8JxtXJYPJdhsVZd8cmHcbrR6fYJfKWL7QT3qMl86Cl2YGV4AtxLdydg
+ EuVxhEKGXdvAWSlX/ZbiVkBh8BCc8wQ7uY7Vlb/aiCb6GA778ljWDecI8kEGiLZLa+sx
+ O9P8D8rUsGYdA7wKM6xU3sYs6ShOySHQPJf7xAS4uHPFeTl9y1EGcfabWg9X5OvmLnVV
+ iRzCbiHKltc7Lsjz2hdYclmKLE2OHC4713i/b3E7zYnOLGQaQAxkBqkxluFSyhqCC6EE
+ FVmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716488100; x=1717092900;
+ d=1e100.net; s=20230601; t=1716488848; x=1717093648;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HgKqByU7iBjPUSGCJuxEqNypmyT8ednvHoTtn98SBKw=;
- b=XHMqG6B5x1v3fqWAQ5sNtJZoXDyQ55qb/89HZ7DDnho5fFMO+KJIYeUT+pwI8z78i6
- Sljj0+AicCLIHZhhE6OQpBW0n08iEEYCABiMoAr8YP4oXl0OTTMSU3IwOVXhaiHN36Nj
- nUuIr0FggbB3xusE+jiXWrSSLC/6TdVbze7wuFUOGkzrgpXurgjdih5oKbFIdOo4Tcxi
- rSaYSMWXqd0tpfUUkr287uUNHUWXWng/SFJoeBPasUKCcV8NyEPs1gpFGksJhfyppa86
- JkHigXj1l28gcaOTTdlqqa0yz07wcNc/8zgMQFjah/4aQIXE7TOKX8ikH0P5SLp+TMLF
- 0xqw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVmUaq8dQowTlh0v7pTId4dAZi6/DeBAOrY+WgROAHcZ+8bQVCYmZ9CNNRPl/Xh1KCI+rv+AXUOhul3lxnr1elisMaolErZJgjGPiQmqA==
-X-Gm-Message-State: AOJu0YzvoeKQLzHdqu1LO4sfPToZj4Y1t9PHfc4xk+Z6YFa6/ycZpae4
- gWl0ZcuBqy7seprJqM00oxW6Tt8OZNZcyCfA54L5ZLApxz3THs5OnKk8E4284fXqP3c0Nwm07hx
- r2eDQxNkJCzWPdfy9i7l5QggysEk=
-X-Google-Smtp-Source: AGHT+IEhNgo/3czwTfowf+qqhQpxkSTr7noiCKz4uVROGDpm71gODl85J1sNfrL32VjMPapa6n/lQ8SIG2u0HJwh2pA=
-X-Received: by 2002:a17:90a:51e5:b0:2a0:86b6:2e9 with SMTP id
- 98e67ed59e1d1-2bd9f4895acmr5379717a91.12.1716488100140; Thu, 23 May 2024
- 11:15:00 -0700 (PDT)
+ bh=BC+vwTQ/eOliTFp+wFlfiIPnmqaXj84aed77oWby5X4=;
+ b=pnzeKvYBpvRB5uwQRpf/+/nXkFjuDsWrGtsenBnOAsvkD6ctn1tvnIa416w1E134uR
+ G5WpSgLWGfkofxA24xMlV0g9aVcXu15P4oQkdbRhfLM/D1LmDzHFpqrzdOaf0yyUtDtv
+ 3cumNzwzdQTjeanVRHQ1l6NsCfwDY9+sbvT0ZGD5QZUrnjaegzSUso7IRAsetH6ZqLzu
+ qWjKISfaiQSZfnbQAQUrpLRjWZ2frZhQ09e7f+bWvJfmhci14ZSQSIfFXHfx9J1BbJkd
+ T66sAiKHbr60gQrl1WmMFwx+cre2y3igNXUDx4nKIVSYY10u+CoxEJJNXldQ7KuCxDqG
+ pW7g==
+X-Gm-Message-State: AOJu0YwBKlST/XXNIZs8ufaggoCGaIRIsDvWVKZCs3LBC4epO5vpX4zm
+ A6/8wjSi0ykqr/CAsQp+tr2Pq4knVHDNkp5+tnHaPHHCt1yFukq53VDqrDmofaDo37COPWsZFCD
+ w06jdNdNa6DJX5LvdyU8hUKDZ8uo=
+X-Google-Smtp-Source: AGHT+IGQN/0d4KJayGfSsH7HdSkrbwoFhlOjCLC9VBmmel5RFKD4XTGqbOOn/xYYZoFNrXnJJ0xPFqQRdX1jtOZagAs=
+X-Received: by 2002:a17:902:c948:b0:1f2:f817:4d12 with SMTP id
+ d9443c01a7336-1f339f60396mr42499395ad.34.1716488848557; Thu, 23 May 2024
+ 11:27:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240522172721.14085-1-Yunxiang.Li@amd.com>
- <20240522172721.14085-4-Yunxiang.Li@amd.com>
- <5025dc06-8471-4f74-affc-1070fc7e6dca@amd.com>
- <SA1PR12MB8599116F019C2EFFF427C50AEDF42@SA1PR12MB8599.namprd12.prod.outlook.com>
- <38598dc3-c815-4328-afa5-6eaa9997c755@amd.com>
-In-Reply-To: <38598dc3-c815-4328-afa5-6eaa9997c755@amd.com>
+References: <20240523140809.1135226-1-jay.cornwall@amd.com>
+In-Reply-To: <20240523140809.1135226-1-jay.cornwall@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 May 2024 14:14:48 -0400
-Message-ID: <CADnq5_PLJo-Ha1ZN3A5AEqCqB6kSHyhEyiBFrMoiXCB+m5UfnA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: prevent gpu access during reset recovery
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Gao,
- Likun" <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Date: Thu, 23 May 2024 14:27:16 -0400
+Message-ID: <CADnq5_PkRjc1uqmEFKDf8m1BRKuAEyDyM4DhWf6uyphPKMdRxA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdkfd: Sync trap handler binary with source
+To: Jay Cornwall <jay.cornwall@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Lancelot Six <lancelot.six@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,124 +75,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 23, 2024 at 11:32=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 23.05.24 um 13:36 schrieb Li, Yunxiang (Teddy):
-> > [AMD Official Use Only - AMD Internal Distribution Only]
-> >
-> >>> +void amdgpu_lock_hw_access(struct amdgpu_device *adev); void
-> >>> +amdgpu_unlock_hw_access(struct amdgpu_device *adev); int
-> >>> +amdgpu_begin_hw_access(struct amdgpu_device *adev); void
-> >>> +amdgpu_end_hw_access(struct amdgpu_device *adev);
-> >> Don't add anything to amdgpu.h. We are slowly decomposing that file.
-> > Where would be a better place? I just wanted to have them next to amdgp=
-u_in_reset
->
-> amdgpu_reset.h if you have time feel free to move amdgpu_in_reset() over
-> there as well.
->
-> >
-> >>> @@ -5816,6 +5816,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_dev=
-ice *adev,
-> >>>              goto skip_hw_reset;
-> >>>      }
-> >>>
-> >>> +   amdgpu_lock_hw_access(adev);
-> >> That should already be locked here. So this will most likely deadlock.
-> >>
-> >>>    retry:    /* Rest of adevs pre asic reset from XGMI hive. */
-> >>>      list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-> >>>              r =3D amdgpu_device_pre_asic_reset(tmp_adev, reset_conte=
-xt); @@
-> >>> -5852,6 +5853,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device=
- *adev,
-> >>>               */
-> >>>              amdgpu_device_stop_pending_resets(tmp_adev);
-> >>>      }
-> >>> +   amdgpu_unlock_hw_access(adev);
-> >>>
-> >>>    skip_hw_reset:
-> >> Don't add helpers for that, especially not with that name.
-> >>
-> >> We don't block HW access, but just prevent concurrent resets.
-> > Here is taking a different lock than the reset_domain->sem. It is a sep=
-erate reset_domain->gpu_sem that is only locked when we will actuall do res=
-et, it is not taken in the skip_hw_reset path.
->
-> Exactly that is what you should *not* do. Please don't add any new lock
-> to the code. This is already complicated enough.
->
-> If you think that adding wrappers for reset lock makes sense then we can
-> probably do that, bot don't add any lock for hw access.
->
->
-> >
-> >>>      uint32_t seq;
-> >>>
-> >>> -   if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
-> >>> -       !down_read_trylock(&adev->reset_domain->sem)) {
-> >>> +   /*
-> >>> +   * A GPU reset should flush all TLBs anyway, so no need to do
-> >>> +   * this while one is ongoing.
-> >>> +   */
-> >>> +   if (!amdgpu_begin_hw_access(adev))
-> >>> +           return 0;
-> >>>
-> >>> +   if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
-> >>> +       amdgpu_in_reset(adev)) {
-> >> That check doesn't makes sense now any more.
-> > same here, the two checks are for different scope, although I wasn't su=
-re if the original check is correct or not, is there a possibility that !ad=
-ev->gmc.flush_pasid_uses_kiq and !ring->sched.ready are false but amdgpu_in=
-_reset(adev) is true? and to we want to take this branch when that happens?
->
-> amdgpu_in_reset() in used incorrect in quite a lot of places. It should
-> only be used inside the HW backend code to distinct between initial load
-> and reset.
->
-> All other use cases especially the ones in the IOCTL front end functions
-> as well as here in the midlayer which isn't used by GPU reset are incorre=
-ct.
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-FWIW, I started to clean this up earlier this year, but never got
-around to finishing up the patches:
-https://lists.freedesktop.org/archives/amd-gfx/2024-February/104582.html
-
-Alex
-
+On Thu, May 23, 2024 at 10:27=E2=80=AFAM Jay Cornwall <jay.cornwall@amd.com=
+> wrote:
 >
-> >
-> >>> @@ -684,12 +684,18 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgp=
-u_device *adev, uint16_t pasid,
-> >>>      struct amdgpu_ring *ring =3D &adev->gfx.kiq[inst].ring;
-> >>>      struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[inst];
-> >>>      unsigned int ndw;
-> >>> -   signed long r;
-> >>> +   signed long r =3D 0;
-> >> Please don't initialize local variables if it isn't necessary.
-> >>
-> >>>              if (adev->gmc.flush_tlb_needs_extra_type_2)
-> >>>                      adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, p=
-asid,
-> >>>                                                               2, all_=
-hub,
-> >>> @@ -703,46 +709,42 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgp=
-u_device *adev, uint16_t pasid,
-> >>>              adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
-> >>>                                                       flush_type, all=
-_hub,
-> >>>                                                       inst);
-> >>> -           return 0;
-> >>> -   }
-> >>> +   } else {
-> >> That the locking is missing here should be a separate bug fix independ=
-ent of other changes.
-> > I will split this off into a seperate patch, initializing r is needed b=
-ecause I consolidated the return paths to drop the read lock.
+> Source and binary have become mismatched during branch activity.
 >
-> In that case better set r when it's not initialized in some path.
+> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+> Cc: Lancelot Six <lancelot.six@amd.com>
+> ---
+>  .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 57 ++++++++-----------
+>  1 file changed, 24 insertions(+), 33 deletions(-)
 >
-> Regards,
-> Christian.
+> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu=
+/drm/amd/amdkfd/cwsr_trap_handler.h
+> index 73d3772cdb76..11d076eb770c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+> @@ -718,12 +718,12 @@ static const uint32_t cwsr_trap_nv1x_hex[] =3D {
+>         0xf4051ebd, 0xfa000008,
+>         0xbf8cc07f, 0x87ee6e6e,
+>         0xbf840001, 0xbe80206e,
+> -       0x876eff6d, 0x01ff0000,
+> -       0xbf850005, 0x8878ff78,
+> -       0x00002000, 0x80ec886c,
+> -       0x82ed806d, 0xbf820005,
+> -       0x876eff6d, 0x01000000,
+> -       0xbf850002, 0x806c846c,
+> +       0x876eff6d, 0x00ff0000,
+> +       0xbf850008, 0x876eff6d,
+> +       0x01000000, 0xbf850007,
+> +       0x8878ff78, 0x00002000,
+> +       0x80ec886c, 0x82ed806d,
+> +       0xbf820002, 0x806c846c,
+>         0x826d806d, 0x876dff6d,
+>         0x0000ffff, 0x907a8977,
+>         0x877bff7a, 0x003f8000,
+> @@ -1136,7 +1136,7 @@ static const uint32_t cwsr_trap_nv1x_hex[] =3D {
+>         0xe0704000, 0x705d0000,
+>         0x807c817c, 0x8070ff70,
+>         0x00000080, 0xbf0a7b7c,
+> -       0xbf85fff8, 0xbf820144,
+> +       0xbf85fff8, 0xbf82013e,
+>         0xbef4037e, 0x8775ff7f,
+>         0x0000ffff, 0x8875ff75,
+>         0x00040000, 0xbef60380,
+> @@ -1276,10 +1276,7 @@ static const uint32_t cwsr_trap_nv1x_hex[] =3D {
+>         0x80788478, 0xbf8cc07f,
+>         0xb9eef815, 0xbefc036f,
+>         0xbefe0370, 0xbeff0371,
+> -       0x876f7bff, 0x000003ff,
+> -       0xb9ef4803, 0xb9f9f816,
+> -       0x876f7bff, 0xfffff800,
+> -       0x906f8b6f, 0xb9efa2c3,
+> +       0xb9f9f816, 0xb9fbf803,
+>         0xb9f3f801, 0xb96e3a05,
+>         0x806e816e, 0xbf0d9972,
+>         0xbf850002, 0x8f6e896e,
+> @@ -2309,12 +2306,12 @@ static const uint32_t cwsr_trap_gfx10_hex[] =3D {
+>         0xf4051ebd, 0xfa000008,
+>         0xbf8cc07f, 0x87ee6e6e,
+>         0xbf840001, 0xbe80206e,
+> -       0x876eff6d, 0x01ff0000,
+> -       0xbf850005, 0x8878ff78,
+> -       0x00002000, 0x80ec886c,
+> -       0x82ed806d, 0xbf820005,
+> -       0x876eff6d, 0x01000000,
+> -       0xbf850002, 0x806c846c,
+> +       0x876eff6d, 0x00ff0000,
+> +       0xbf850008, 0x876eff6d,
+> +       0x01000000, 0xbf850007,
+> +       0x8878ff78, 0x00002000,
+> +       0x80ec886c, 0x82ed806d,
+> +       0xbf820002, 0x806c846c,
+>         0x826d806d, 0x876dff6d,
+>         0x0000ffff, 0x87fe7e7e,
+>         0x87ea6a6a, 0xb9f8f802,
+> @@ -2549,7 +2546,7 @@ static const uint32_t cwsr_trap_gfx10_hex[] =3D {
+>         0x705d0000, 0x807c817c,
+>         0x8070ff70, 0x00000080,
+>         0xbf0a7b7c, 0xbf85fff8,
+> -       0xbf82013b, 0xbef4037e,
+> +       0xbf820135, 0xbef4037e,
+>         0x8775ff7f, 0x0000ffff,
+>         0x8875ff75, 0x00040000,
+>         0xbef60380, 0xbef703ff,
+> @@ -2688,10 +2685,7 @@ static const uint32_t cwsr_trap_gfx10_hex[] =3D {
+>         0xf0000000, 0x80788478,
+>         0xbf8cc07f, 0xb9eef815,
+>         0xbefc036f, 0xbefe0370,
+> -       0xbeff0371, 0x876f7bff,
+> -       0x000003ff, 0xb9ef4803,
+> -       0x876f7bff, 0xfffff800,
+> -       0x906f8b6f, 0xb9efa2c3,
+> +       0xbeff0371, 0xb9fbf803,
+>         0xb9f3f801, 0xb96e3a05,
+>         0x806e816e, 0xbf0d9972,
+>         0xbf850002, 0x8f6e896e,
+> @@ -2749,11 +2743,11 @@ static const uint32_t cwsr_trap_gfx11_hex[] =3D {
+>         0xf8000008, 0xbf89fc07,
+>         0x8bee6e6e, 0xbfa10001,
+>         0xbe80486e, 0x8b6eff6d,
+> -       0x01ff0000, 0xbfa20005,
+> -       0x8c78ff78, 0x00002000,
+> -       0x80ec886c, 0x82ed806d,
+> -       0xbfa00005, 0x8b6eff6d,
+> -       0x01000000, 0xbfa20002,
+> +       0x00ff0000, 0xbfa20008,
+> +       0x8b6eff6d, 0x01000000,
+> +       0xbfa20007, 0x8c78ff78,
+> +       0x00002000, 0x80ec886c,
+> +       0x82ed806d, 0xbfa00002,
+>         0x806c846c, 0x826d806d,
+>         0x8b6dff6d, 0x0000ffff,
+>         0x8bfe7e7e, 0x8bea6a6a,
+> @@ -2988,7 +2982,7 @@ static const uint32_t cwsr_trap_gfx11_hex[] =3D {
+>         0x701d0000, 0x807d817d,
+>         0x8070ff70, 0x00000080,
+>         0xbf0a7b7d, 0xbfa2fff8,
+> -       0xbfa00146, 0xbef4007e,
+> +       0xbfa00140, 0xbef4007e,
+>         0x8b75ff7f, 0x0000ffff,
+>         0x8c75ff75, 0x00040000,
+>         0xbef60080, 0xbef700ff,
+> @@ -3130,10 +3124,7 @@ static const uint32_t cwsr_trap_gfx11_hex[] =3D {
+>         0xf0000000, 0x80788478,
+>         0xbf89fc07, 0xb96ef815,
+>         0xbefd006f, 0xbefe0070,
+> -       0xbeff0071, 0x8b6f7bff,
+> -       0x000003ff, 0xb96f4803,
+> -       0x8b6f7bff, 0xfffff800,
+> -       0x856f8b6f, 0xb96fa2c3,
+> +       0xbeff0071, 0xb97bf803,
+>         0xb973f801, 0xb8ee3b05,
+>         0x806e816e, 0xbf0d9972,
+>         0xbfa20002, 0x846e896e,
+> @@ -4119,7 +4110,7 @@ static const uint32_t cwsr_trap_gfx12_hex[] =3D {
+>         0x8b6dff6d, 0x0000ffff,
+>         0x8bfe7e7e, 0x8bea6a6a,
+>         0xb97af804, 0xbe804a6c,
+> -       0xbfb00000, 0xbf9f0000,
+> +       0xbfb10000, 0xbf9f0000,
+>         0xbf9f0000, 0xbf9f0000,
+>         0xbf9f0000, 0xbf9f0000,
+>  };
+> --
+> 2.34.1
 >
