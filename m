@@ -4,63 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 389C9C25B79
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90706C25B74
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F35D10E2F0;
-	Fri, 24 May 2024 09:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9657610E443;
+	Fri, 24 May 2024 09:16:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="OZEMrSjp";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QrpF3xvy";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042AF10EF95;
- Thu, 23 May 2024 17:30:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1716485453; x=1717090253; i=w_armin@gmx.de;
- bh=ml1OIk1ADGSN0Bv7BhxFFCfB6DaSzESeZqgOlINQEik=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
- MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=OZEMrSjpRCpZNHtDzlmr0mM8Z76qBOA47wRnpJmk2+GZMBHSY6dP+E6IS3bEoTr2
- cs+oUuQy6G/5SvY5rTw8Y4m4iXXGV6BByaWCGWeZc1RDfIyYW60ml8hUXkBJuuWbR
- 2eN02l2UPaMHeIxBNBZdsLPCIBXuqaDAa44rc9aHt1ZvsYQQ+BwwG3DCLd9GCm5Pm
- /uxmdfHru1oAYwc2U0wyv1Ncu0C9Ob3cogxQe9ivAHrnSuP1JrV4+STZBeD5jkpdm
- Z9fIYxGnB6mkMUrCADchMsYPBnFJG/ZcZeXjzw5ZT1cphv1sTax4iraSdQLg3pNO+
- /nzBoUi8mnC8osS14w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from mx-amd-b650.users.agdsn.de ([141.30.226.129]) by mail.gmx.net
- (mrgmx105 [212.227.17.168]) with ESMTPSA (Nemesis) id
- 1MMXQF-1rqbKE2jRP-00Jbrc; Thu, 23 May 2024 19:30:53 +0200
-From: Armin Wolf <W_Armin@gmx.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- gregkh@linuxfoundation.org, sashal@kernel.org
-Cc: stable@vger.kernel.org, bkauler@gmail.com, yifan1.zhang@amd.com,
- Prike.Liang@amd.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH] Revert "drm/amdgpu: init iommu after amdkfd device init"
-Date: Thu, 23 May 2024 19:30:31 +0200
-Message-Id: <20240523173031.4212-1-W_Armin@gmx.de>
-X-Mailer: git-send-email 2.39.2
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D84310E03E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 04:50:44 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1f44b594deeso3110865ad.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 May 2024 21:50:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1716526243; x=1717131043; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=OIptIV19IdFhks5FxO4qOze6Xd4kuAo9MJ+XTfG/tCk=;
+ b=QrpF3xvy3gNcxr6zYFNDPx4onQnWv3QeY4J7JJexf2cTUloPUOEeJc32c5TD9OoIVq
+ IAa3IYQNY6i7ygqsUa7y3ZIHGoxJNqks3z/DyTE2p4J9xCQ8vIYDTaWPB/ZF6ULqDUsn
+ VcchkuaI/67aDXmlckSaCY0PcSlDYJEJriqtWj9L0CzJO4ZPBty7blfk/L67OdkyLQzT
+ cvwPQGO/1H9mHK8AeUKlAWA8m32SJEa8ZGkBMpnugQovv/tC/Wy5vhCrl6/mSa7dzw4D
+ aUQJjbn2Hm+5c7S4Jb1yJhkRCsp4qwzfQisaPJfo+zqg59sBDkcbX2Do2oPVy0QJzGAG
+ LpgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716526243; x=1717131043;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OIptIV19IdFhks5FxO4qOze6Xd4kuAo9MJ+XTfG/tCk=;
+ b=lGG5dzqpSAJB8nka4MLie9gCK5uPpns5aaWfEwYYGLFNeMVNPsmFxtg5WGRtZYBhqy
+ nf1GzKIvY/OSNSUd5a+jDCg9XQ+UeYennZKWa1UIqKxAARzJvISZpEsFXplOoTAFLJLJ
+ 9FpcQjXXBOSF/aKvDXL2bEblhaC97j14UGlBFQmUSUL60op+rAuiinbswh5zIUmE9flo
+ zDkEA9hhA+8b7JYABZfvb4M5BtbEmZlYaIi9k2fj8mkjY0jraaGVJ/E0BYytBnnD5np8
+ vk7QV+XTVgl37z1oOplRsY/E9vz2MctlC99kinSCF6JuNamTa1wzb5GP5Txzx+AeVcek
+ wVUQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXabLXI86nowSyssKB3pOD+oKCQ8DjfhAoFi6yRiHs0KzVZm+GcywFDO1NlVkGfPqhPRULm1jURZMtECT3bS7s4ks2PdFDoStGy/JgBuA==
+X-Gm-Message-State: AOJu0Yw0O/0f61aAazy74cLqw6JK1yrcUSd1ZfDcRQhsD6Dl3K+mcGYo
+ 6l/s88k1L2RrxgLI9w7O6v6dWQ6Td6qc94AyzjRUkOmDbnpQM31+
+X-Google-Smtp-Source: AGHT+IGph2ngJGkIc2ZoYCJl38SlsP/yXGoytXnEgHL9Q+wVYFcQgbKU4AH+MCEZUe8DoMBNd28k3w==
+X-Received: by 2002:a17:902:64d7:b0:1f3:3f33:2873 with SMTP id
+ d9443c01a7336-1f4486ed8afmr11797375ad.25.1716526243411; 
+ Thu, 23 May 2024 21:50:43 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f44c7ab7fasm4449235ad.81.2024.05.23.21.50.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 May 2024 21:50:42 -0700 (PDT)
+Date: Thu, 23 May 2024 21:50:40 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Samuel Holland <samuel.holland@sifive.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+Message-ID: <eeffaec3-df63-4e55-ab7a-064a65c00efa@roeck-us.net>
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
+ <20240329072441.591471-14-samuel.holland@sifive.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:0V9lwu73H77PqAdjA+YQOQLM2+3KzTTl9zrsb6I30uhUOPxiA1p
- JLJxYqkyMKgStNVIay7ID6KI216ZNz3ubM8XYpSGnu66EzUxT8sXLASfudxjjdwKULpb7VC
- +Y+O7sbY7kIa+IPrB1Bw1Am+litWkoWWTdhMITaXxEbvfBMPo2yyoGSwkhR1eikF9FRkxYj
- COK97gWxEtIP+rgPugzrw==
-UI-OutboundReport: notjunk:1;M01:P0:MEiYmEz3rHs=;s9mwmp1yHhBowpawx+LtT7SZ6Xc
- Ns4RuJiZEs1nwVj7+WoUd9e+kWZr+Q0o40l2gyQyVx+Pl2AhW7RyQm/C0NZkNySFBi16uJnV/
- BemqPt4r78N5j8CraYadRR6IObRjM6HL2dE8/YKrMW+CklnchL769R8NeiXfL2iXv+rCx2r+Y
- XTVhHXx8okDrATK3JQ3OC3H/roKRKle+RiTf1okUL6bVDnpHel803nNn1ICSfmdIWhT321T0B
- XA2ml4Ju8vSBABVVh1Gwglv9bKYenJQO8bJmG5ysh25OG7bHVeAEdrrYSVEjESKfjZhs7Nq1n
- sPlYgVJva9HRzdjlHxWUWpOjdoqBIYq8KiWPznMcS3Ter+lVQZxW6kUBL9lTbcilBF1R/f/J4
- HCv6Ju9Kxt2jADK6R6SiBLGaN2H2oKuSWJLDdG0nSrWRuNt6eiJKETz9CANksjBxd9FFeXNA/
- PodgJ2iVj4FG6GPNapewroNC/tnPTe/aMOVQ9w+eol7juR8TRHXQpkUl9bQ8hgdoIJdUGa58v
- 9mOxJkLta5cIil4bx4+1UcJn7ECpCDU8yes3PgS77R+aCbyOdD2cJjBMEdf7tJuDstRUkcmz5
- Uodv4dP8MOVzqailVNOE/Ho92XCj8tq6f3szvD0/vl29vB55RvqEiONdDAE1DOMpCZNKgoUq8
- zjqbjpkAoU8KZSpZgVJrT4a09iftR3uezi6AZwgO3s5I7lpelCfl8MQ4mjS+h30cN0kT7P+8P
- dNTWt0CfmaiIJX0Kf7BbjwEGtAD5/cYSl1pE2k7K+m0VJe5ofQkupObwyW33SuVq3VqdJVIhe
- eX3Ipoz8hnS2ekmUIwv8izc9Jv9clbiX5TyCloDiFll7g=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240329072441.591471-14-samuel.holland@sifive.com>
 X-Mailman-Approved-At: Fri, 24 May 2024 09:16:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,53 +87,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 56b522f4668167096a50c39446d6263c96219f5f.
+Hi,
 
-A user reported that this commit breaks the integrated gpu of his
-notebook, causing a black screen. He was able to bisect the problematic
-commit and verified that by reverting it the notebook works again.
-He also confirmed that kernel 6.8.1 also works on his device, so the
-upstream commit itself seems to be ok.
+On Fri, Mar 29, 2024 at 12:18:28AM -0700, Samuel Holland wrote:
+> Now that all previously-supported architectures select
+> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
+> of the existing list of architectures. It can also take advantage of the
+> common kernel-mode FPU API and method of adjusting CFLAGS.
+> 
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 
-An amdgpu developer (Alex Deucher) confirmed that this patch should
-have never been ported to 5.15 in the first place, so revert this
-commit from the 5.15 stable series.
+With this patch in the mainline kernel, I get the following build error
+when trying to build powerpc:ppc32_allmodconfig.
 
-Reported-by: Barry Kauler <bkauler@gmail.com>
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-=2D--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+powerpc64-linux-ld: drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o uses hard float, drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.o uses soft float
+powerpc64-linux-ld: failed to merge target specific data of file drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_device.c
-index 222a1d9ecf16..5f6c32ec674d 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2487,6 +2487,10 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
-ce *adev)
- 	if (r)
- 		goto init_failed;
+[ repeated many times ]
 
-+	r =3D amdgpu_amdkfd_resume_iommu(adev);
-+	if (r)
-+		goto init_failed;
-+
- 	r =3D amdgpu_device_ip_hw_init_phase1(adev);
- 	if (r)
- 		goto init_failed;
-@@ -2525,10 +2529,6 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
-ce *adev)
- 	if (!adev->gmc.xgmi.pending_reset)
- 		amdgpu_amdkfd_device_init(adev);
+The problem is no longer seen after reverting this patch.
 
--	r =3D amdgpu_amdkfd_resume_iommu(adev);
--	if (r)
--		goto init_failed;
--
- 	amdgpu_fru_get_product_info(adev);
-
- init_failed:
-=2D-
-2.39.2
-
+Guenter
