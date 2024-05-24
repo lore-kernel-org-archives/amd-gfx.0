@@ -4,93 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C988C25B79
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8F28C25B74
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 May 2024 09:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E417410E179;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CF010E063;
 	Fri, 24 May 2024 09:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kroah.com header.i=@kroah.com header.b="yPwGgC1t";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="kk5B4uKn";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="EqDofpJM";
 	dkim-atps=neutral
-X-Greylist: delayed 384 seconds by postgrey-1.36 at gabe;
- Thu, 23 May 2024 16:36:27 UTC
-Received: from fhigh7-smtp.messagingengine.com
- (fhigh7-smtp.messagingengine.com [103.168.172.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEF7710ED15;
- Thu, 23 May 2024 16:36:27 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 9C7AE1140165;
- Thu, 23 May 2024 12:30:02 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 23 May 2024 12:30:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1716481802;
- x=1716568202; bh=0rtgH1k/GZ8ZzTPeUqIg0pYzXgjqHH6dowOaWTTT9qM=; b=
- yPwGgC1tEShZcPvVD73ZEDburC7gwDZUI6P5w0RippXcGdZmfuPC0+19xSDajN/J
- hUSpE/v9/Yav44A1rqf7Lm9/V9EdMzt3ZKcKfEqCRnpW3H9QNa0T9eDmcQX//ZOF
- O1g+rBAtiKjYVjG6YbxPir6qb19gM3CS4yo7IRs6pBM89Mx9j5QqUPqmRiWE8pok
- 52oapbn6OTdLGXahKKh5m42Ud2BBO9e0H89OR2Qj5mV8X2ZDpaU6Z9lkVv8l+z54
- afEQ4oKn1VXGHZ1DZd/x5GOnmnEovpB5myAHBYZWzpxP1aOu2Y3YI6w34rm80Ro6
- IGCq6YCfmZw67A+Bz71Rxw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1716481802; x=
- 1716568202; bh=0rtgH1k/GZ8ZzTPeUqIg0pYzXgjqHH6dowOaWTTT9qM=; b=k
- k5B4uKnSVwD+M1Um13gWHRQrgwxuRbO4Whsw/CahTsgOBbL3Elt3iTHK0K2FIGvY
- 2waTFftvr5sPQ+N6XLfuGsf+7r3DDut34SKbMb4t4/bhhed08QjxS1lZhGoDhjZg
- NreQQaty7NhWW/kOkz3Fl8Zj8ivx9+crIDMg7hSEQZwuo3ynFxzMPd9YpiEOCagS
- zEUJXxY30Ka6UN0et+sh15mgZApilfPMT3YY0LiriFckMaxeunKGhuW3jeMrJ+9L
- A7sMF7yo0M7Lgvy7G64X6szNbkG/AQGWtgMJM+Gim6pdGK8vh6jrzFTBdb0BnQFx
- UjY1UrOAR30TJ7Oj8zbig==
-X-ME-Sender: <xms:Cm9PZmAnyHyu7EEuv-6VZiGgTa_5Av_wx4vPFVql-GXZIc5lXNHP6w>
- <xme:Cm9PZgggD8n_F471LAmfOwJRM7ZVFayz2iBD-2q4zpsS_y0PfjHcpExDSqvhCGwl1
- X3MQS7FMUDz5w>
-X-ME-Received: <xmr:Cm9PZpkr-KDHcHdld1oH4CHL_OmILTWoWFIATcpafaCPOHTI7sqVjTU1OpRhux3IehShXQidh-Xi9IvftnVBCWVSqiIKjZHxn1s6Sg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdeiiedguddttdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtjeenucfhrhhomhepifhr
- vghgucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepgf
- ekffeifeeiveekleetjedvtedvtdeludfgvdfhteejjeeiudeltdefffefvdeinecuvehl
- uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrh
- horghhrdgtohhm
-X-ME-Proxy: <xmx:Cm9PZkxyxaROPbkaVf_3wygNhFkPVnkTuQ0_DfbHeTUpkzgx_iU9-g>
- <xmx:Cm9PZrS2FQ9O9zCfsDeoSSCm_tmG0zefFUk3VXqVkrrPegs25NmsGw>
- <xmx:Cm9PZvYeO_W4J8fG7QDXiijUfok6U8oGrQ5WTXvrro8cGvF5WW5oFA>
- <xmx:Cm9PZkTEYtlaDabZcuRBdFp_Nlp8e-s6g-C9bpqevXRV9iYsn2AwRQ>
- <xmx:Cm9PZsBhPh2ixU81MJvT2Oe0gPHZ33zEbVyaomcE0qd_lA2x9K3oCelv>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 May 2024 12:30:01 -0400 (EDT)
-Date: Thu, 23 May 2024 18:29:58 +0200
-From: Greg KH <greg@kroah.com>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Barry Kauler <bkauler@gmail.com>, Alex Deucher <alexdeucher@gmail.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: Kernel 5.15.150 black screen with AMD Raven/Picasso GPU
-Message-ID: <2024052321-revolver-timid-3056@gregkh>
-References: <CABWT5yiejGABNXicsS7u-daKnBBjK6YTDVgaQOqwGYn8P20D8Q@mail.gmail.com>
- <6580c2d4-b084-470f-80a0-aa09f1ab880d@gmx.de>
- <CABWT5yiD110qmJcRsoGVMevULAVmYpyiW4w9MtmNjp7E0rDQ8A@mail.gmail.com>
- <CABWT5yg5jG7eMiDp7QN2yhFj6983qF9zN7eHOprH4eEjwQJLBQ@mail.gmail.com>
- <c3205455-7ad2-487e-8954-52102754e154@gmx.de>
- <CADnq5_PM_FuBE4913Z4bxiMTDYtRS+VJgLW6gfDU1qnQQ=FDzA@mail.gmail.com>
- <d04105ea-0f8a-4f0b-b4f2-bc8407d37c73@gmx.de>
- <CABWT5yibc52CTUWeCWxYQb4ooi4dsbvBWxJAJCDrG+8405RPTg@mail.gmail.com>
- <7ec6faf8-d9c1-436b-98c8-473e7ff395b3@gmx.de>
+Received: from out30-100.freemail.mail.aliyun.com
+ (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED04610E12C;
+ Fri, 24 May 2024 02:19:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1716517173; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=94kUBT2aVe0wVa4KACbP+/C6frYVHrHe3SSopoWJigE=;
+ b=EqDofpJMCHtpjwOjKn3PHFZKKtjj9ws6SpmRsed0BRtMt2DfUL4/qctGL55zxwk2UTMdfxemyRbIx8h9HWdHjsWV74bYSYlnzLy85C6a6pki0QOL2AAlQI5LWgIwE1F9+y7Oa5RXbYiyBnw4/MTP5IWjIxF8Kzh0km3dhRI5gVo=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R251e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033068173054;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0W74Oeos_1716517162; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0W74Oeos_1716517162) by smtp.aliyun-inc.com;
+ Fri, 24 May 2024 10:19:32 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH] drm/amd/display: clean up some inconsistent indenting
+Date: Fri, 24 May 2024 10:19:20 +0800
+Message-Id: <20240524021920.95328-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7ec6faf8-d9c1-436b-98c8-473e7ff395b3@gmx.de>
 X-Mailman-Approved-At: Fri, 24 May 2024 09:16:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,66 +56,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 23, 2024 at 05:59:39PM +0200, Armin Wolf wrote:
-> Am 23.05.24 um 15:13 schrieb Barry Kauler:
-> 
-> > On Wed, May 22, 2024 at 12:58 AM Armin Wolf <W_Armin@gmx.de> wrote:
-> > > Am 20.05.24 um 18:22 schrieb Alex Deucher:
-> > > 
-> > > > On Sat, May 18, 2024 at 8:17 PM Armin Wolf <W_Armin@gmx.de> wrote:
-> > > > > Am 17.05.24 um 03:30 schrieb Barry Kauler:
-> > > > > 
-> > > > > > Armin, Yifan, Prike,
-> > > > > > I will top-post, so you don't have to scroll down.
-> > > > > > After identifying the commit that causes black screen with my gpu, I
-> > > > > > posted the result to you guys, on May 9.
-> > > > > > It is now May 17 and no reply.
-> > > > > > OK, I have now created a patch that reverts Yifan's commit, compiled
-> > > > > > 5.15.158, and my gpu now works.
-> > > > > > Note, the radeon module is not loaded, so it is not a factor.
-> > > > > > I'm not a kernel developer. I have identified the culprit and it is up
-> > > > > > to you guys to fix it, Yifan especially, as you are the person who has
-> > > > > > created the regression.
-> > > > > > I will attach my patch.
-> > > > > > Regards,
-> > > > > > Barry Kauler
-> > > > > Hi,
-> > > > > 
-> > > > > sorry for not responding to your findings. I normally do not work with GPU drivers,
-> > > > > so i hoped one of the amdgpu developers would handle this.
-> > > > > 
-> > > > > I CCeddri-devel@lists.freedesktop.org  and amd-gfx@lists.freedesktop.org so that other
-> > > > > amdgpu developers hear from this issue.
-> > > > > 
-> > > > > Thanks you for you persistence in finding the offending commit.
-> > > > Likely this patch should not have been ported to 5.15 in the first
-> > > > place.  The IOMMU requirements have been dropped from the driver for
-> > > > the last few kernel versions so it is no longer relevant on newer
-> > > > kernels.
-> > > > 
-> > > > Alex
-> > > Barry, can you verify that the latest upstream kernel works on you device?
-> > > If yes, then the commit itself is ok and just the backporting itself was wrong.
-> > > 
-> > > Thanks,
-> > > Armin Wolf
-> > Armin,
-> > The unmodified 6.8.1 kernel works ok.
-> > I presume that patch was applied long before 6.8.1 got released and
-> > only got backported to 5.15.x recently.
-> > 
-> > Regards,
-> > Barry
-> > 
-> Great to hear, that means we only have to revert commit 56b522f46681 ("drm/amdgpu: init iommu after amdkfd device init")
-> from the 5.15.y series.
-> 
-> I CCed the stable mailing list so that they can revert the offending commit.
+No functional modification involved.
 
-Please submit the patch/revert that you wish to have applied to the tree
-so we can have the correct information in it.  I have no idea what to do
-here with this deep response thread as-is, sorry.
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:5200 dc_power_down_on_boot() warn: inconsistent indenting.
 
-thanks,
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9166
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-greg k-h
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 3a2101b052ea..4612c60edebd 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5194,9 +5194,7 @@ void dc_power_down_on_boot(struct dc *dc)
+ 	}
+ }
+ 
+-void dc_set_power_state(
+-	struct dc *dc,
+-	enum dc_acpi_cm_power_state power_state)
++void dc_set_power_state(struct dc *dc, enum dc_acpi_cm_power_state power_state)
+ {
+ 	if (!dc->current_state)
+ 		return;
+-- 
+2.20.1.7.g153144c
+
