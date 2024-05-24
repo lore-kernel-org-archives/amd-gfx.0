@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C29DC25B74
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 May 2024 14:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E94C25B7D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 May 2024 14:40:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4110F10E2AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5124710E307;
 	Mon, 27 May 2024 14:40:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ku8G6LNi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l70K8lHz";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F19310F1FC
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 13:43:23 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-68187b5d3fcso608224a12.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 06:43:23 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1346710E0FB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 18:23:54 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-6f4603237e0so2464766b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 11:23:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716558203; x=1717163003; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1716575034; x=1717179834; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=0yupO8dUYCF+0G9tTYKlxkVq1DaGE31KehgEMMUSJG4=;
- b=Ku8G6LNiBevaf51TWkNWDEqKwH3/NiGMWz52F/x9LhQFnoG82rIuzUDW046TpMBgv6
- SpEX275gE+jtbsPYSdt3O4vtujQo8NJLyoiKDOImQo9EN//ZiN5WQBGR5E8xzDqvQLK2
- AfYGzjgW0Gm3P9STUTfRqfu5yWzkne9RG9emeWEpbflKCbQi46Yf8pTxE7DDhMqlqtYU
- 6Yk1Zm8asipVh8qjNq8GicFN4222tp++J+cqlrbhevG/X/dtcEfoqvk0N1HzXhq/yYUi
- 5C3nQ5IltadfIghsDWF0XHL1Yz0ImnRAcfxKHsshmoKOl7cSJzIZlnvbPMzPBZeX+Tgu
- vGjA==
+ bh=iI5LPX8LqaFaVw1d3o/h8cFH5sAtkGM2Qf4ljWkA8MA=;
+ b=l70K8lHzlhLJXjzolICYUvccRa0z0j9xFgwUBLt6qnxXZld+j9QCMhkQcFQzVjXKxO
+ dSRiU86H6lMdlx7JZqABkAyMQP3GD+rdSgTu/cDBPdplKQ9HWBE3wPETq6rUXzDB0RXe
+ 6vf/o4S32psDyx9qRzwNzhWV2qfWzRX5gwxcTre1wAUpHVtCbIOsWviZrFVUOA2zvxuO
+ GnAhc1ctBWKAOlYVNGB11AKXHD+WhYRq5EQt1yWgvrfI4ULGABgLAc8wr0xr05hqD9+C
+ 2cHd+qs/AeWGV1gSoGqKw2hXPdJb2V5KTTC+uNcEjOa6QK6IuBTnTudApZRahecgOijN
+ mmIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716558203; x=1717163003;
+ d=1e100.net; s=20230601; t=1716575034; x=1717179834;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:sender:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0yupO8dUYCF+0G9tTYKlxkVq1DaGE31KehgEMMUSJG4=;
- b=nNjHnwMRXW4Sbsy9uzHI0OGzt8R9w3h9FzuYANKJtGT8S/TXE5ixZizq2eHVeJKtDZ
- McPsUbVlx/ZxvQ4f/dcX+RKz2sh2Dwwf9XiTxkqK3KeZ5IyI63TyxKGoE1mrI0DZ0aNs
- Wdo/auFZ2WYT/ykYW5W3qE/y0zE32p+ItL5hW3z12WviQ9D8qLRuWWuE9lhDM8PkXqpp
- zCgEgc8KYd3eha4OVPPY3FqwpdmXzjwZFc4TFVYdq/F9pUiXD6JyC0A4Kz6AHM7C4Fmm
- 5/ZV/DPxfqLjvR6Cj9zIQTAcELDyRoI3MRT/3XOVvj0g1RjFXhmqLbLmTR9fOa1MqG7t
- OriA==
+ bh=iI5LPX8LqaFaVw1d3o/h8cFH5sAtkGM2Qf4ljWkA8MA=;
+ b=PlP+fMto9QoByn9T2HYCseY2pWGOYPRMmNHaPrKzBl8HHQgv0F5PegxPpTI0gqZhUG
+ yzqIu4fC7jT3bkAAT8/jzPB0ZUk3hxRfBBRjCLi2nR/geFlAuXjMW4hHLXQeSj47kSak
+ pEXELRFBiuNJ7jUupwOerp0UJjpj2w4QcgbJjueUgRyNscSJGcTw0MH9nNjGZhc/KkOK
+ PHNw5u0Cs0hZ7rpSBN9wzms0nOftOSk5xR5C+RSpjeZeHeM0odyPIOd8rVz3QJiacCa0
+ vYKnfQ6bYbSdJFPN46rGlami7Ju6ejzlIt4AU/AsFi1t0wR/1wapDcS/7nP6NQsErQHI
+ 0UDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVc6xv7hBTK7A3jWtiVTjS9cfziUFvzggh6pN6R+DkhCVxEZi3CgE6sv2H+JnTe21f09gTCpz1D1qNP7x6PQd4d4ZlrP/QEQaHYAfS0ng==
-X-Gm-Message-State: AOJu0Yw3NW9LsnN/PE7Zk4Jd0QzSCpiPh+mabULcLdbD/JVhu3zuvbXd
- c6Sxw67PFQnUmE2B+zD6pCizxrCL+V/iZfmr0SVeXqL57rIlKYhz
-X-Google-Smtp-Source: AGHT+IFP+60RswKtT3v6VqYC0kcSrnoN8GHpqIEwAiQOpkJYbmvZ32zTc+S4LaqCEySlMq+zyLYErA==
-X-Received: by 2002:a17:90a:43c5:b0:2be:b2:c7fa with SMTP id
- 98e67ed59e1d1-2bf5e94444cmr2298605a91.6.1716558203317; 
- Fri, 24 May 2024 06:43:23 -0700 (PDT)
+ AJvYcCVTgDXHxKkvxHm5pH1RIkjf06LPKrer365dHP04XIVCg7td89F+9yckcMnBjDG4Jhf1ib2XCalTopXwTvD/rMOAxgVelmKrkN+mv+eONg==
+X-Gm-Message-State: AOJu0YxjMvnysVpwtetUt6z/Amx58IELAbMgZFZnjwKLsopQWZ4dfz/1
+ xSfb/an1Ya83x+mKW71h/DfAz9V4KndMziHzEbuCrrN4Kwz6JFYw
+X-Google-Smtp-Source: AGHT+IH//vXEXAhD3qyq1mbG3Je7Zm2Y0dCg4naEt61T/ZQzNbWK9jkI1Mcj32VrYkt82OjplHe7Ng==
+X-Received: by 2002:aa7:8218:0:b0:6ed:21d5:fbdb with SMTP id
+ d2e1a72fcca58-6f7726f5c79mr7083282b3a.8.1716575034173; 
+ Fri, 24 May 2024 11:23:54 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
  ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2bdd9ef08b5sm3278876a91.14.2024.05.24.06.43.21
+ d2e1a72fcca58-6f8fbf2cfd1sm1388575b3a.3.2024.05.24.11.23.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 May 2024 06:43:22 -0700 (PDT)
-Message-ID: <1e088782-418d-41e2-843f-b3d6cd3ab4f7@roeck-us.net>
-Date: Fri, 24 May 2024 06:43:20 -0700
+ Fri, 24 May 2024 11:23:53 -0700 (PDT)
+Message-ID: <b89b2e50-54c6-4ff8-ab52-c8f370ff9e4c@roeck-us.net>
+Date: Fri, 24 May 2024 11:23:51 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
@@ -124,7 +124,7 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
 In-Reply-To: <CADnq5_Ndzw5Gre=yyPKyFNX5yFWjTCMg2xqrn6tEj6h8t-nAYg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 27 May 2024 14:40:35 +0000
+X-Mailman-Approved-At: Mon, 27 May 2024 14:40:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,7 +174,21 @@ On 5/24/24 06:18, Alex Deucher wrote:
 > Nevermind, this is something else.
 > 
 
-Yes, CONFIG_DRM_AMD_DC_FP is enabled in that configuration.
+mdgpu_dm_helpers.o is built with -msoft-float, display_mode_lib.o is built
+with -mhard-float.
+
+-msoft-float is from
+
+arch/powerpc/Makefile:KBUILD_CFLAGS     += $(CC_FLAGS_NO_FPU)
+
+-mhard-float is from
+
+drivers/gpu/drm/amd/display/dc/dml/Makefile:dml_ccflags := $(CC_FLAGS_FPU)
+drivers/gpu/drm/amd/display/dc/dml/Makefile:dml_rcflags := $(CC_FLAGS_NO_FPU)
+drivers/gpu/drm/amd/display/dc/dml2/Makefile:dml2_ccflags := $(CC_FLAGS_FPU)
+drivers/gpu/drm/amd/display/dc/dml2/Makefile:dml2_rcflags := $(CC_FLAGS_NO_FPU)
+
+Unfortunately I have no idea know how to resolve this.
 
 Guenter
 
