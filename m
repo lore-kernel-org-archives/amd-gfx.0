@@ -4,121 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A39C25B74
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 May 2024 14:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C29DC25B74
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 May 2024 14:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFEA710EE48;
-	Mon, 27 May 2024 14:23:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4110F10E2AA;
+	Mon, 27 May 2024 14:40:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2qNMAeQj";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ku8G6LNi";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA9810ED0D;
- Mon, 27 May 2024 14:23:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B7uorN/ISrpSUwgDQwvvnuVAEWU2p+tP8ay3HDkCxqET/NNA6bQrcb+2qqTnVWwHd3CY+RrXgA+6RRXLyIkd0FvTaFtYaLPlueSO1PJa+Kh+Hna9gBazyVkVb902QbL0IWq7Ug3Ojw1BH29nECww2UUEWglHFMC7HcG8LHuDVG49XKn19jeXqQd3FRksAs885I1NarpWwQgd5uCIN64PdW7XPA3w8rRQcmls4c185lDQJdRZsrAezokzPQeUN34kz37sDX6D1BPAGki9jEYqgzffRXcMgENNTGbW7sbaVhHQyjiLfDIX/GjJgGUCKSJhZCiWE5Iu82NRXm0pWYl5YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=phMXJe+DHK3g7n6LlPjha+ZNbJvzU2d8pm1P7DmcJaU=;
- b=GrgaLY2sneYDSeyzjrN+g4aEQaqPYefwftmeK76NFw58tWIgoe3dckXJ+6SFT2cNcEZPvWsv+Xp9jBEotjEM4SFgYaPncsVnMVWfR1UaqRE8SaxxrBElm5wJfnbK9OpJpqhmaUl0cDgs7Z+yLgtVo8tRyJxs990v3mK94WhMEKVRqRItEIftAzgnE84g5DYDfLrJVx0UqWilIpN6DxfxVkp0oa0tkWTdUQf5+/gwohTe4BWES7LVPGHkTxaJiDoUeJ+h560tzOBwUArcBUenaRVuVz5KMm+RaQaNSvkC1jcQQy9lvr9lmvIPto8ijFujPDKgxO7utoUUSEEzpu180g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17)
- smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=phMXJe+DHK3g7n6LlPjha+ZNbJvzU2d8pm1P7DmcJaU=;
- b=2qNMAeQjpuiHBT6YRYKUKoQsGCUZUwENAwHNeHpsF8gTLHopSvFYFI1IpwuE+w/pVoCTS0zaoiPovmUaeRPD36Dlj2ALgk9bQSbfWRBZ5oeoWhMP5o7w87MxZo1xZsRcbdrNKvmm6jlmUA8TMaMx4RxuBOoUp9ETU+hwzaE2FjM=
-Received: from BY5PR13CA0024.namprd13.prod.outlook.com (2603:10b6:a03:180::37)
- by BY5PR12MB4228.namprd12.prod.outlook.com (2603:10b6:a03:20b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30; Mon, 27 May
- 2024 14:23:30 +0000
-Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:a03:180:cafe::5b) by BY5PR13CA0024.outlook.office365.com
- (2603:10b6:a03:180::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.16 via Frontend
- Transport; Mon, 27 May 2024 14:23:30 +0000
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Mon, 27 May 2024 14:23:29 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 27 May
- 2024 09:23:27 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-CC: <linux-kernel@vger.kernel.org>, Mario Limonciello
- <mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Chris
- Bainbridge" <chris.bainbridge@gmail.com>
-Subject: [PATCH] drm/client: Detect when ACPI lid is closed during
- initialization
-Date: Mon, 27 May 2024 09:23:11 -0500
-Message-ID: <20240527142311.3053-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F19310F1FC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 13:43:23 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-68187b5d3fcso608224a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 May 2024 06:43:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1716558203; x=1717163003; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=0yupO8dUYCF+0G9tTYKlxkVq1DaGE31KehgEMMUSJG4=;
+ b=Ku8G6LNiBevaf51TWkNWDEqKwH3/NiGMWz52F/x9LhQFnoG82rIuzUDW046TpMBgv6
+ SpEX275gE+jtbsPYSdt3O4vtujQo8NJLyoiKDOImQo9EN//ZiN5WQBGR5E8xzDqvQLK2
+ AfYGzjgW0Gm3P9STUTfRqfu5yWzkne9RG9emeWEpbflKCbQi46Yf8pTxE7DDhMqlqtYU
+ 6Yk1Zm8asipVh8qjNq8GicFN4222tp++J+cqlrbhevG/X/dtcEfoqvk0N1HzXhq/yYUi
+ 5C3nQ5IltadfIghsDWF0XHL1Yz0ImnRAcfxKHsshmoKOl7cSJzIZlnvbPMzPBZeX+Tgu
+ vGjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716558203; x=1717163003;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:sender:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0yupO8dUYCF+0G9tTYKlxkVq1DaGE31KehgEMMUSJG4=;
+ b=nNjHnwMRXW4Sbsy9uzHI0OGzt8R9w3h9FzuYANKJtGT8S/TXE5ixZizq2eHVeJKtDZ
+ McPsUbVlx/ZxvQ4f/dcX+RKz2sh2Dwwf9XiTxkqK3KeZ5IyI63TyxKGoE1mrI0DZ0aNs
+ Wdo/auFZ2WYT/ykYW5W3qE/y0zE32p+ItL5hW3z12WviQ9D8qLRuWWuE9lhDM8PkXqpp
+ zCgEgc8KYd3eha4OVPPY3FqwpdmXzjwZFc4TFVYdq/F9pUiXD6JyC0A4Kz6AHM7C4Fmm
+ 5/ZV/DPxfqLjvR6Cj9zIQTAcELDyRoI3MRT/3XOVvj0g1RjFXhmqLbLmTR9fOa1MqG7t
+ OriA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVc6xv7hBTK7A3jWtiVTjS9cfziUFvzggh6pN6R+DkhCVxEZi3CgE6sv2H+JnTe21f09gTCpz1D1qNP7x6PQd4d4ZlrP/QEQaHYAfS0ng==
+X-Gm-Message-State: AOJu0Yw3NW9LsnN/PE7Zk4Jd0QzSCpiPh+mabULcLdbD/JVhu3zuvbXd
+ c6Sxw67PFQnUmE2B+zD6pCizxrCL+V/iZfmr0SVeXqL57rIlKYhz
+X-Google-Smtp-Source: AGHT+IFP+60RswKtT3v6VqYC0kcSrnoN8GHpqIEwAiQOpkJYbmvZ32zTc+S4LaqCEySlMq+zyLYErA==
+X-Received: by 2002:a17:90a:43c5:b0:2be:b2:c7fa with SMTP id
+ 98e67ed59e1d1-2bf5e94444cmr2298605a91.6.1716558203317; 
+ Fri, 24 May 2024 06:43:23 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2bdd9ef08b5sm3278876a91.14.2024.05.24.06.43.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 May 2024 06:43:22 -0700 (PDT)
+Message-ID: <1e088782-418d-41e2-843f-b3d6cd3ab4f7@roeck-us.net>
+Date: Fri, 24 May 2024 06:43:20 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 13/15] drm/amd/display: Use ARCH_HAS_KERNEL_FPU_SUPPORT
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Samuel Holland <samuel.holland@sifive.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ Christoph Hellwig <hch@lst.de>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+References: <20240329072441.591471-1-samuel.holland@sifive.com>
+ <20240329072441.591471-14-samuel.holland@sifive.com>
+ <eeffaec3-df63-4e55-ab7a-064a65c00efa@roeck-us.net>
+ <CADnq5_NmKyTBbE6=V+XdEKStnjcyYSHyHqdkgBen4UhPnVKimQ@mail.gmail.com>
+ <CADnq5_Ndzw5Gre=yyPKyFNX5yFWjTCMg2xqrn6tEj6h8t-nAYg@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
+In-Reply-To: <CADnq5_Ndzw5Gre=yyPKyFNX5yFWjTCMg2xqrn6tEj6h8t-nAYg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|BY5PR12MB4228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61704e10-a7bd-4a3d-5dce-08dc7e5894e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|376005|82310400017|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tztx4y1ickvl4tjpOt27ld5+/szlep+iKC13uDGobgcjqLm4Ojy19/9ROWuY?=
- =?us-ascii?Q?0U0ZiXFKoEuWyExehVvbtt9kNq1MHArsvg8evkinflqwVfRBqr9f8ahRObEK?=
- =?us-ascii?Q?nJ/cmEZGA2Z58O6kUr7ddNIl9jFElvVCs+L6xLVoiHR9aX8CNc2GQVJCPRnO?=
- =?us-ascii?Q?8a5nVnk/6752WcTrfsc+0svksEVOQviFy2ggjN+WCprqKubJHBzzTPVBZ35R?=
- =?us-ascii?Q?uSzGf6QZLQmCekGtB+FXCcsrz2PKuUqkOE9Se777FeJaKMUWnxyVZABICisR?=
- =?us-ascii?Q?TXCiRe59VoG86YRhPhAihspULXdYtVXA+WvWxP8AtCT1YBiZmb+iS5WEWytw?=
- =?us-ascii?Q?iuKCJUMXtlhQ6m0xj0k0hZJkPIftJrmolPm+J7f6zQmNK/Hm+nLwtWChj49I?=
- =?us-ascii?Q?nmDPpIEmwRla4Pyq0ifVd3999J7QMkO1IY8FmOCOM6sCjNnAM2oKEC/UtxIp?=
- =?us-ascii?Q?XjtLuDqTLjeOVcjQeBTwZwHosLdMGvjmWg3rPdfxovps10x9isiqdqnIqfCQ?=
- =?us-ascii?Q?O1xtKeuEfy2Z90brcX/31GR/V+grJQdE1x1XjIgDdzl03V+uxsaqKjbTvWYx?=
- =?us-ascii?Q?MJPtR4DM1l7wwsEVNHbUuNW2ObAgDjh5zBp6QXlvOOwgTBBcklMcxoouC/GY?=
- =?us-ascii?Q?F8nu8FKalI7aYJms/HSxVLl+d8MRU+Q8qACMHEggl7DvtBJs6fX+m6DULnfr?=
- =?us-ascii?Q?ogu9gtci6BDD4KPSUEiNAtdbPB1bOudUmPPODTfUTaEjCIrhgSMnRkxtVaJI?=
- =?us-ascii?Q?Q9ClpVd/GdbtaheBLbPPQmOR1swanp0esmZlVhxR+USNKdJqg//shqmKzM60?=
- =?us-ascii?Q?wwvKA7FmfJz0lq8nSYUEIl9DrmupRhb1nyq62G1L1iPIUipvvErKLL9Jj1rp?=
- =?us-ascii?Q?guTN3dG43mgvAzW/OgNrcLmOxwExRtVHd0gDXiTOF7SLI0rPe46QBRHCAeeo?=
- =?us-ascii?Q?NuP4P9aEkezbsjz7MfcWeCTcwkFT6qdzoJy+cAGnmRvKXU1opITlWaBbrbYd?=
- =?us-ascii?Q?H5JblxC9dfk8Vvin4SZUEonzNo7/v0p9h+bFka3C5ubbUPPfgVIN1tIdt0Wb?=
- =?us-ascii?Q?m6RizSkvH5UmURKzVONRBpDdGQjOaVroMQ/N5eokGTRpjfdDJVn089+wVtVR?=
- =?us-ascii?Q?KSPSMOj9bk9RP3CxHd7Z31j4zyhZBOi4edcqNH7RIiXVayjM7zKLdySdA6Nj?=
- =?us-ascii?Q?rep9K0FsNvN70CT3fWqNeM++TAkgkqdcS+YzTHlht+3Zd0Ti8dInq2UL0010?=
- =?us-ascii?Q?poVv0Aatk/r8fyr7M6i9iBtvbgr0lTtggvjTorWqKTNrSbsqpsPmzB2XoRX6?=
- =?us-ascii?Q?9l6m+mVGHpjYwtcj1yI1EKsD?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(376005)(82310400017)(1800799015); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2024 14:23:29.8668 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61704e10-a7bd-4a3d-5dce-08dc7e5894e3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4228
+X-Mailman-Approved-At: Mon, 27 May 2024 14:40:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,69 +139,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If the lid on a laptop is closed when eDP connectors are populated
-then it remains enabled when the initial framebuffer configuration
-is built.
+On 5/24/24 06:18, Alex Deucher wrote:
+> On Fri, May 24, 2024 at 9:17 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> On Fri, May 24, 2024 at 5:16 AM Guenter Roeck <linux@roeck-us.net> wrote:
+>>>
+>>> Hi,
+>>>
+>>> On Fri, Mar 29, 2024 at 12:18:28AM -0700, Samuel Holland wrote:
+>>>> Now that all previously-supported architectures select
+>>>> ARCH_HAS_KERNEL_FPU_SUPPORT, this code can depend on that symbol instead
+>>>> of the existing list of architectures. It can also take advantage of the
+>>>> common kernel-mode FPU API and method of adjusting CFLAGS.
+>>>>
+>>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>>> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>>>> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+>>>
+>>> With this patch in the mainline kernel, I get the following build error
+>>> when trying to build powerpc:ppc32_allmodconfig.
+>>>
+>>> powerpc64-linux-ld: drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o uses hard float, drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.o uses soft float
+>>> powerpc64-linux-ld: failed to merge target specific data of file drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.o
+>>>
+>>> [ repeated many times ]
+>>>
+>>> The problem is no longer seen after reverting this patch.
+>>
+>> Should be fixed with this patch:
+>> https://gitlab.freedesktop.org/agd5f/linux/-/commit/5f56be33f33dd1d50b9433f842c879a20dc00f5b
+>> Will pull it into my -fixes branch.
+>>
+> 
+> Nevermind, this is something else.
+> 
 
-When creating the initial framebuffer configuration detect the ACPI
-lid status and if it's closed disable any eDP connectors.
+Yes, CONFIG_DRM_AMD_DC_FP is enabled in that configuration.
 
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Reported-by: Chris Bainbridge <chris.bainbridge@gmail.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3349
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/drm_client_modeset.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 31af5cf37a09..b76438c31761 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include "drm/drm_modeset_lock.h"
-+#include <acpi/button.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/slab.h>
-@@ -257,6 +258,27 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
- 		enabled[i] = drm_connector_enabled(connectors[i], false);
- }
- 
-+static void drm_client_match_edp_lid(struct drm_device *dev,
-+				     struct drm_connector **connectors,
-+				     unsigned int connector_count,
-+				     bool *enabled)
-+{
-+	int i;
-+
-+	for (i = 0; i < connector_count; i++) {
-+		struct drm_connector *connector = connectors[i];
-+
-+		if (connector->connector_type != DRM_MODE_CONNECTOR_eDP || !enabled[i])
-+			continue;
-+
-+		if (!acpi_lid_open()) {
-+			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
-+				    connector->base.id, connector->name);
-+			enabled[i] = false;
-+		}
-+	}
-+}
-+
- static bool drm_client_target_cloned(struct drm_device *dev,
- 				     struct drm_connector **connectors,
- 				     unsigned int connector_count,
-@@ -844,6 +866,7 @@ int drm_client_modeset_probe(struct drm_client_dev *client, unsigned int width,
- 		memset(crtcs, 0, connector_count * sizeof(*crtcs));
- 		memset(offsets, 0, connector_count * sizeof(*offsets));
- 
-+		drm_client_match_edp_lid(dev, connectors, connector_count, enabled);
- 		if (!drm_client_target_cloned(dev, connectors, connector_count, modes,
- 					      offsets, enabled, width, height) &&
- 		    !drm_client_target_preferred(dev, connectors, connector_count, modes,
--- 
-2.43.0
+Guenter
 
