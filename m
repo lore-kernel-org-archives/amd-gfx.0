@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B16C25B78
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 May 2024 15:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4297DC25B74
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 May 2024 15:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DDF410FB56;
-	Mon, 27 May 2024 15:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9739D10FB9C;
+	Mon, 27 May 2024 15:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mWZJop5f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EF4fXxGR";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4E110FB56;
- Mon, 27 May 2024 15:55:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81BCA10FB9C;
+ Mon, 27 May 2024 15:57:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E5501CE0F88;
- Mon, 27 May 2024 15:55:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19341C2BBFC;
- Mon, 27 May 2024 15:55:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id DBBD561A77;
+ Mon, 27 May 2024 15:57:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E935C2BBFC;
+ Mon, 27 May 2024 15:57:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1716825356;
- bh=X5KGBxxFXxnv3x0Ob+GF5Asew3YBonDrWe3a4Pa7rZs=;
+ s=k20201202; t=1716825444;
+ bh=Bx1v8vw994CWMzcge9Pp+GPABdpFSNEB2dedqwadJYI=;
  h=From:To:Cc:Subject:Date:From;
- b=mWZJop5f02s9g4AdvJz4aBnDG4v2ErKeuaj04t7Tbx0XszynOzN4s5E6ww6oWK2ho
- kcACIRUvAtnRBGE7Q5zUMV0XoOqhIagrHWfyOOwfnS4uJHwo/+gyA52mwH8NPHL6St
- Bnc8iMQpBbA+1kAbYauIoJj1Z3mtD9RLUBoqSosFR00QUMc6X2PX2X26PrDxdUdSQk
- AHl3JRDEbxOEJUekMfwfZu/ObzVgCZo3G3fcDP/03T3qgnq1f1PgG2Rmo+zTvtcoIs
- g10B4gpF6eeLn4+P+H911lRdhW7fqGWeWC/oduC2ZqPTR9fMTjFixppf6WODLaYwmH
- 0yFq7DMrUXMsw==
+ b=EF4fXxGRi6pvsxyEvqna0BLa0EUN51gyXvlDsEwcq4dfbJBDp/f3sReVRUtdzwHU0
+ D0lZLOvFLCEec2y/14TT2vYSBnnPsadONl1a9r2zLprM5SmKPNsAcplXBdnytRtBnm
+ Oa+q6FzlcV2exllZDWJM8QcfhWcJtbS/Xuti7jEbFxamDHWpSVFRr5EVRawUk/jha5
+ PkF+0F06GdjUQiejvcnWgQJZle7o/0GzuYp5rT2PB60aXMrf7FNrLjDS+bmjlkVRgh
+ 5CfeIls/+8VA7B5YjHuYL5Ve/an519a4/UrSGY39nzbX41bT9QnUcWvP73LZjygPs3
+ LUDHkS7/oxfRA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -40,17 +40,17 @@ Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>, Sasha Levin <sashal@kernel.org>,
  harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, wayne.lin@amd.com, martin.leung@amd.com,
+ daniel@ffwll.ch, martin.leung@amd.com, wayne.lin@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 01/16] drm/amd/display: Exit idle optimizations
+Subject: [PATCH AUTOSEL 6.1 01/11] drm/amd/display: Exit idle optimizations
  before HDCP execution
-Date: Mon, 27 May 2024 11:54:52 -0400
-Message-ID: <20240527155541.3865428-1-sashal@kernel.org>
+Date: Mon, 27 May 2024 11:56:38 -0400
+Message-ID: <20240527155710.3865826-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.32
+X-stable-base: Linux 6.1.92
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,10 +121,10 @@ index 5e01c6e24cbc8..9a5a1726acaf8 100644
  	exec_status = execution(hdcp, &event_ctx, &hdcp->auth.trans_input);
  	trans_status = transition(
 diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-index a4d344a4db9e1..cdb17b093f2b8 100644
+index 3348bb97ef81a..dfa8168e51890 100644
 --- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
 +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-@@ -156,6 +156,13 @@ struct mod_hdcp_ddc {
+@@ -155,6 +155,13 @@ struct mod_hdcp_ddc {
  	} funcs;
  };
  
@@ -138,7 +138,7 @@ index a4d344a4db9e1..cdb17b093f2b8 100644
  struct mod_hdcp_psp {
  	void *handle;
  	void *funcs;
-@@ -272,6 +279,7 @@ struct mod_hdcp_display_query {
+@@ -271,6 +278,7 @@ struct mod_hdcp_display_query {
  struct mod_hdcp_config {
  	struct mod_hdcp_psp psp;
  	struct mod_hdcp_ddc ddc;
