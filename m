@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59751C27C4F
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9D47C27C50
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BED9C10EFA6;
-	Tue, 28 May 2024 19:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E39E710F071;
+	Tue, 28 May 2024 19:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LmG+roZO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fneL0q85";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D59210E13B
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 19:39:23 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5295f201979so1362860e87.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 12:39:23 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B65810EA23
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 19:39:24 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5295ae273c8so1530161e87.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 12:39:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716925161; x=1717529961; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716925163; x=1717529963; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=OMzDrUPXBetRBxhwNhxvFwAUk90y+ybpda/UwhIo+Wg=;
- b=LmG+roZOpcODjqVXa1u52MuFIoiR44074wbnhYgSIhepbDM4/WQM3AF/aipPpqY/KH
- 7wg5cJ0OjiyoK5HfeO9UTMrmqPM89B95GhZx79ofkLlBjEhTqta2aflkpEorHuVArxM/
- IsbjXrB+ERAdrXH5O7/DDwpufLnKf1Y32KHQSycmMBqMAQDl6VEJB+df3oxyq9S3Kwyn
- tsxDhD+D6P+G4dhxCiMhNqsY5dDKhgGiiZd2e2ImzGLGq39fZIsk2p628oMYjIq9lHT8
- PO5H9EsOUY1YD+5cxPLC9SL5e9qQSMed6yaieSA62Dmbc0svi7S2e9SqaD6YAxxXbOKq
- 8EFA==
+ :reply-to; bh=dQZO5S8pgY4BnNrxpgnMhoHNDTox+OXu9IzRX/Zms64=;
+ b=fneL0q8595e2cUFa43Lh4Lt4vdKeeRRZovlsf5Ekqskar6Sc/UtI+mVZj71pqYkrGN
+ lTjxDvESyH0Z9bYpOyO1VERyoMANxHq24cid7Q31H5WAzSKGcsyOSvMQySyU6YU2eTgQ
+ cPcAb04W812UvBUmh3mKcRMHPCJMTbkm9WVY+iyMyn6eKLAbNhRMoRM7SlGnp06riGcG
+ 5o+7lXpCY92N0D9V/GNPIVsF0znfQfg49O2fyAYeZx0p0ZQzWlcD3Q+qqJY620LpPoif
+ OB6HICBPOgjzmS/aEZQuPlrNkQ0N9cCk67nAvSzjrYjwkpJtFUTSAZixZZuMyko3frJm
+ kc9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716925161; x=1717529961;
+ d=1e100.net; s=20230601; t=1716925163; x=1717529963;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OMzDrUPXBetRBxhwNhxvFwAUk90y+ybpda/UwhIo+Wg=;
- b=UNj1bLc2VFYyFAoZleIr+uOAY3ZqwB2kUuPjucudxvReQfDFaoMxXGvYkQOOjPAj8f
- aH7+T0FKIMedILfWRcU4K8F17CAFlUZ+w4/vVCpeHOBMflwvP0GbAUm3VLbHPv8dPcpj
- 5Mn9wD+Fy3kNn++3mErmm/9p2gZQrxHru9xBmdSVXVPe8IcvtlOPVJztyMk4QuFN24ZJ
- +pZ3zK4Z4y6kutcRR6PrWHS/r/gSu7WmlWCa0ZxC+3va1ooD4TaD2m/kzE0nBXI9Gmnx
- VrIC4IW6paHon0tz/4Us1+Z2xX+pTNCzG3GePywttG0RfbArBnQR33ZrVzSAnW/3YY9R
- 7pLQ==
+ bh=dQZO5S8pgY4BnNrxpgnMhoHNDTox+OXu9IzRX/Zms64=;
+ b=DLoVFdZm2F3DbR5HEpxa5bufy95oKKwoRTkegzC2xytUAFaAkB7PwJwL614n7Uxz4P
+ DEeaAHPTgrfqD5gJlL6jnzPmZ3adIud5EYqPY9ceSkhf9stCcUjk23OK1lHN9ehn1cMz
+ bXHm8SXA1WfJ9kCD9gU+4auZ+vHlul4YV5VmGYXLLL+4qFRHoiWuIHPeRDtWT+V+fzhX
+ eUQR4/tLvKUnm0/p3KVPG1fwrTJChVEA5aPHSNne4HIbecCFuD0gxCQWIU13HQfNJqIx
+ kX3j5pYfWDsvUqHyjDGr6fPiLMGZ/g4EU2HFbiZ1vUKQrNzwJ9UKL26jEX0JGObQzgob
+ YIZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7tDcrrIyQIGTr7YUyd4xxB3hbt3HDBn+7O3H5O7tvUzW/a78pZYqLwGhRdifJt8MhWsPRohIpez390TD6pkTDsiyIWq6MyTDITRprvw==
-X-Gm-Message-State: AOJu0YzfaYKLSqx/CwUkgyxo4PIb8AtpjsDXd1et3QlY6ZBc2CUeizcT
- KAIXwxUF99VLhDcdrpeZjmJMa6wLuCszx3duOwdgGjjU/zUTEifcO/TC6N74nFo=
-X-Google-Smtp-Source: AGHT+IErWuce9aRTgzYsOItaSivJAYEUeHJGEILEAjjDTx4aWbFd8+75S49CKu4CNqVt+Ys3JPc30Q==
-X-Received: by 2002:ac2:561c:0:b0:523:88aa:237 with SMTP id
- 2adb3069b0e04-52964caab7cmr7869500e87.33.1716925161160; 
- Tue, 28 May 2024 12:39:21 -0700 (PDT)
+ AJvYcCVnbo+LcHDtPhpKkej5mq8kqYZctTYFJ+2glGlPlX+BKsgTOpc4JRQxoZ+3Wq9aUnrRik27depvv2IKXCcZKEljLRzGFyzkDLTZgadV/Q==
+X-Gm-Message-State: AOJu0YzhZWlAvYdisFqw3dFz2oWu18TVnwZKgDIMZ79E0Q4zShTJcvlC
+ 0PnE7EziTkqRyyHlaazcWLlpOnIS/OBZ4MurAuSHQeqN22QVxW5RxjDdHDO5VTY=
+X-Google-Smtp-Source: AGHT+IFzVkivM0pRCEKZghv4XGnWwGA0mQiuvUyi6E1/QDpYYlIClbXtlMaW/XW9dA6Jnk5pUgBkZQ==
+X-Received: by 2002:a05:6512:388b:b0:523:aac1:b559 with SMTP id
+ 2adb3069b0e04-529663e6304mr8034729e87.44.1716925162743; 
+ Tue, 28 May 2024 12:39:22 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-529711f96c9sm1045234e87.245.2024.05.28.12.39.20
+ 2adb3069b0e04-529711f96c9sm1045234e87.245.2024.05.28.12.39.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 12:39:20 -0700 (PDT)
+ Tue, 28 May 2024 12:39:22 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 28 May 2024 22:39:18 +0300
-Subject: [PATCH v4 1/3] drm/panel/lg-sw43408: select
- CONFIG_DRM_DISPLAY_DP_HELPER
+Date: Tue, 28 May 2024 22:39:20 +0300
+Subject: [PATCH v4 3/3] drm/display: split DSC helpers from DP helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240528-panel-sw43408-fix-v4-1-330b42445bcc@linaro.org>
+Message-Id: <20240528-panel-sw43408-fix-v4-3-330b42445bcc@linaro.org>
 References: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
 In-Reply-To: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -82,19 +81,18 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- kernel test robot <lkp@intel.com>
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1108;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4246;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=JpBownv2A/v5s9u+r2T7bmswrFK7bcF3CJY4XHaV/rs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmVjLm9PT4rgSufs1N1DQ9nR+ydH1+hIK4hVb0O
- UFdMizG9E6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlYy5gAKCRCLPIo+Aiko
- 1WTGB/9oJhsxnoP8SaNvbslvwO4vwB8P5YM1pgHeTK4f5awBy1BrzWHcn24PItaIkNG3cJQ9C6G
- Aq5N0gZ+eFpDMlgog7O6er+IxajzglH+FexACjtnCGhtaLUCCEXIYcxfO759My0X2E7HlKY3Ytb
- S7Ba3tcWJMb1w0kWduqhEKFVogO0HzdB8tpoLvGVdtS2tkTnGFy5sHGgFZbGfdABLI8ifeddA9D
- SuArUCPBtWwPNypPH9qgK2zNjOase6dyf2pswXwVuUbrIUPZ5frqzOQSGmqcizEZS7GbM32Z8DN
- it0a1IQmiGb7yAC3rakxmf03wLnnLWjvrp3WUKIoeZs+0Tra
+ bh=++B7C+LJPjhNPbyQwixveMzfLgpLwRSPYkfF+FF6az0=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1qY0fPHnO5xiWeEW+I+fDaU8Na0PvviwqHK8n3TTG7K+
+ VmWdYp1MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAiyoIcDHNiYj7J+75/vG5v
+ yAX1ddUtC3avmR0c/0zV/vPzSr+r+VxSi9k6v3dXzX2WaXYlw67ZzmZpd5Ok2xuNUo8XJkGG+sF
+ 6/qZv/luu2m0eX5bR1DFhcgHDe+OT+4rrp2TwTexMs6oTOFjo7cFbrXqC5ZzN2kM+iyQ3Tl25Pf
+ r5GymFiea9b52273zBsnhj1EquOrlzLF0a74RuS5smXUnpDShefPJ6zfkHbzMmRTNc3r7IVccmg
+ TP7IrdrX0rg1+rVp0v8Lvkqc7imMz19Hc7uwsrvvXDnYbulvJeC2Lc6tO/+FfD0tn+euf0EcUmN
+ c/O+cJ97M1FMqy735ImQFslQ47otxb/Xii28zW1lNZcDAA==
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -111,32 +109,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This panel driver uses DSC PPS functions and as such depends on the
-DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
-available to the driver.
+Currently the DRM DSC functions are selected by the
+DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
+code (both panel and host drivers) end up selecting the seemingly
+irrelevant DP helpers. Split the DSC code to be guarded by the separate
+DRM_DISPLAY_DSC_HELPER Kconfig symbol.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
-Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/panel/Kconfig | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
+ drivers/gpu/drm/display/Kconfig    | 6 ++++++
+ drivers/gpu/drm/display/Makefile   | 3 ++-
+ drivers/gpu/drm/i915/Kconfig       | 1 +
+ drivers/gpu/drm/msm/Kconfig        | 1 +
+ drivers/gpu/drm/panel/Kconfig      | 6 +++---
+ 6 files changed, 14 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 4232ab27f990..5933ca8c6b96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -6,6 +6,7 @@ config DRM_AMDGPU
+ 	depends on !UML
+ 	select FW_LOADER
+ 	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HDMI_HELPER
+ 	select DRM_DISPLAY_HDCP_HELPER
+ 	select DRM_DISPLAY_HELPER
+diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
+index 864a6488bfdf..f524cf95dec3 100644
+--- a/drivers/gpu/drm/display/Kconfig
++++ b/drivers/gpu/drm/display/Kconfig
+@@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+ 
+ 	  If in doubt, say "N".
+ 
++config DRM_DISPLAY_DSC_HELPER
++	bool
++	depends on DRM_DISPLAY_HELPER
++	help
++	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
++
+ config DRM_DISPLAY_HDCP_HELPER
+ 	bool
+ 	depends on DRM_DISPLAY_HELPER
+diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
+index 17d2cc73ff56..2ec71e15c3cb 100644
+--- a/drivers/gpu/drm/display/Makefile
++++ b/drivers/gpu/drm/display/Makefile
+@@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
+ drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
+ 	drm_dp_dual_mode_helper.o \
+ 	drm_dp_helper.o \
+-	drm_dp_mst_topology.o \
++	drm_dp_mst_topology.o
++drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
+ 	drm_dsc_helper.o
+ drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
+ 	drm_dp_tunnel.o
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 5932024f8f95..117b84260b1c 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -11,6 +11,7 @@ config DRM_I915
+ 	select SHMEM
+ 	select TMPFS
+ 	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HDCP_HELPER
+ 	select DRM_DISPLAY_HDMI_HELPER
+ 	select DRM_DISPLAY_HELPER
+diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+index 1931ecf73e32..6dcd26180611 100644
+--- a/drivers/gpu/drm/msm/Kconfig
++++ b/drivers/gpu/drm/msm/Kconfig
+@@ -111,6 +111,7 @@ config DRM_MSM_DSI
+ 	depends on DRM_MSM
+ 	select DRM_PANEL
+ 	select DRM_MIPI_DSI
++	select DRM_DISPLAY_DSC_HELPER
+ 	default y
+ 	help
+ 	  Choose this option if you have a need for MIPI DSI connector
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 982324ef5a41..2ae0eb0638f3 100644
+index 2ae0eb0638f3..3e3f63479544 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
-@@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
+@@ -340,7 +340,7 @@ config DRM_PANEL_LG_SW43408
  	depends on OF
  	depends on DRM_MIPI_DSI
  	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_HELPER
+-	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HELPER
  	help
  	  Say Y here if you want to enable support for LG sw43408 panel.
- 	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
+@@ -549,7 +549,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+-	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HELPER
+ 	help
+ 	  Say Y here if you want to enable support for Raydium RM692E5-based
+@@ -907,7 +907,7 @@ config DRM_PANEL_VISIONOX_R66451
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+-	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HELPER
+ 	help
+ 	  Say Y here if you want to enable support for Visionox
 
 -- 
 2.39.2
