@@ -4,120 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B7C0C25B78
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 17:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4A4C25B78
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 18:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5BF311246B;
-	Tue, 28 May 2024 17:24:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBBA210E5C6;
+	Tue, 28 May 2024 18:15:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E310lKxN";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kGqkzwuL";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 095B210FD7F
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 17:24:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CClyC0ymXC/uL+R27AixTnq8d4pZpm43PWgTJ8pMd1YLjxl+y71gdjQE4nAfUXU63d/8mD6Nl+v4bHeKfp8fxNHS2plecQrBNIGDfuvYQK62ZowjwSgRaIwxcZDAkXmFNlkl5t4k7hgNx9+iQG+iTewQfmGDnVDC/+dssd2zytPEfADjVi3UUOSUy89Skn/8OXT4IZ2uE6ofGif9V2ryIvuv6UhFsCi4n1KakKuEdTiLHz1Otw7MOvtKh80V/9BE6Qe8Tq0rYblbhbumpxPHVZL3jOowBVyK9KOwzIuickLaJvG8Sp/ZPsju88zGEn6F2pNqsQ6udx4SvOXPH6tkzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WGrBCkcE/M3+CyY1f4XovGwlhMhZ2VS49hOypuuNUg0=;
- b=kD1jcSgF03SlSpbQnpSHIoCf4DGqNEOSbKFYFHrMoz8gWzjB2rF3HtDMMMq32Ngl+vrRCKkF3hG63BJmQV3Eb8Zd5bTO8r0C0QPEJMNpU+bRjdswzQ5VIq/DTeg5obsAoVFOMJf6gfz7rtifw6JEDUrp3bIe/SFBJ8e/xIOFEnekwKaKeZuCuSu0iLkBHnIJtgQHjwLynUVp1BwjVALk5zmKV/SYjMHMoLIUmrqCYKUwH2iRENsGwCjCLrLTG/F4Z032mccQatEROXeVN46UY97/Zogwpizvl187OAI9o6U6GhaX04K8whQ+C76dXVtEqt720cSe50zWp4FFYOkFUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WGrBCkcE/M3+CyY1f4XovGwlhMhZ2VS49hOypuuNUg0=;
- b=E310lKxN3t2kqz7BEkjmUSbiqsHdYMCeZGe3RZq5lka2vY3onM32/TRXC2RMnqvf5s2yg3+35SgYznoWLyElwDUZIFa0Vo3nVgJShsOWk4i/45vB7d74PvNfcL4yirgGCWe0VeJ2UmXQ1dnqqR/XjmJLxomnEyYey8CM8YBWmVA=
-Received: from PH1PEPF000132F4.NAMP220.PROD.OUTLOOK.COM (2603:10b6:518:1::39)
- by BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.29; Tue, 28 May
- 2024 17:24:19 +0000
-Received: from CY4PEPF0000E9D0.namprd03.prod.outlook.com
- (2a01:111:f403:c802::) by PH1PEPF000132F4.outlook.office365.com
- (2603:1036:903:47::3) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30 via Frontend
- Transport; Tue, 28 May 2024 17:24:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D0.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Tue, 28 May 2024 17:24:18 +0000
-Received: from MKM-L10-YUNXIA9.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 28 May
- 2024 12:24:14 -0500
-From: Yunxiang Li <Yunxiang.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
- <Likun.Gao@amd.com>, <Hawking.Zhang@amd.com>, Yunxiang Li
- <Yunxiang.Li@amd.com>
-Subject: [PATCH v2 09/10] drm/amdgpu: fix missing reset domain locks
-Date: Tue, 28 May 2024 13:23:39 -0400
-Message-ID: <20240528172340.34517-10-Yunxiang.Li@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240528172340.34517-1-Yunxiang.Li@amd.com>
-References: <20240528172340.34517-1-Yunxiang.Li@amd.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A71D10E056;
+ Tue, 28 May 2024 18:15:20 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44SB0CUe018067;
+ Tue, 28 May 2024 18:14:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ NSohPjO+aHSrdO1H9ukl+Zfhzj2AbJc55gRsHXpRQeI=; b=kGqkzwuLTMG8wl9B
+ sBcqBi7dfyUDzgOPIEOwU8QwbttsOIy75cF0z4K8mRNImwO3fEJKjfqxJEaMGkj8
+ XIxI7nL/8jxPBLGAYD/9jtoPHkNsBQ+cmmaRO6BQpt+2TXDDB9tkU2+QTPPHr/S3
+ TShJL1KA1V9tpv7RIPWof842OQdCYEHn9fc6lquJNPrzfSIyIDPto4ydum8Se977
+ I1X8aJyYpTtFjZGoEm/DnjnTvVYhXdgdU/bRIb+dUP7Lxf/HS1hh/KH8wtqvlNg5
+ H8FtvlUCsyh/1wig2inooJJYE0OGCR84XQXqNlH40QmKx6mdIh1OuophXapJhi/i
+ 4uNADw==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2neyv6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 May 2024 18:14:58 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44SIEpjp031733
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 May 2024 18:14:51 GMT
+Received: from [10.71.108.229] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 28 May
+ 2024 11:14:50 -0700
+Message-ID: <5324b1d0-5aee-420c-a6a6-edf5262772b8@quicinc.com>
+Date: Tue, 28 May 2024 11:14:49 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D0:EE_|BL1PR12MB5753:EE_
-X-MS-Office365-Filtering-Correlation-Id: 971d94a7-5d2a-4602-0dfa-08dc7f3b0186
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|376005|1800799015|36860700004; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CtcRnRKB97CBLffgUrR1Ik4sGUQlcDt7smf6y5sjEV3V0kcp/X8w7WSL3pS6?=
- =?us-ascii?Q?TWxg1HiRNeHMNZ3sd0KGynRcugmfjnN+UdI7Y/I8OU+jdgBzVZE3YEUpm3Jc?=
- =?us-ascii?Q?t6lMpfMToca0oTHJNSo/CyC+fWH3+YogJ9wuvWZFNHNDoycmt31wdIGA0FL8?=
- =?us-ascii?Q?oiVTqGN4O5EAf+vB8jkIg0fV21JoV7WbnBB91C8lo8mEujsRskPad2/zBJUn?=
- =?us-ascii?Q?dR1E2qXbRHbCEdLdXfGYFyAReZtkLy5f7xoh7h5DDuyDhkRrw1q6h9ZLesZD?=
- =?us-ascii?Q?8X/W48zDkBXCYNSJG457tFtgdjF+n+50Vy0WebP8yUCpUewBRMuOrqWYad4J?=
- =?us-ascii?Q?qKbp4Mr3w6hVaWSS3x9IRVA8TSAlmZrBH6kFVyOLoFmTix+Hgw5HIypyMCnT?=
- =?us-ascii?Q?NW5mgiXQUPt73v9f2Chrtgv7D2+2aNsEjAImWfpwY0u/hJFTP8OCw1uTJiPg?=
- =?us-ascii?Q?f/kqJJScBwN35tOonJmADw51ccVlWpZi3+UtHbl/9+YdjLlDsB3m2G9PhRk4?=
- =?us-ascii?Q?iwCSpF+cG4D+VdJM46YDkJ9cWDRZgtX1oJQuGa9eoNKqM8F9qLNEANRa459n?=
- =?us-ascii?Q?HYi2pUOWQ7oASgXZc8CrprJqyiYSgf5zlTLcIASzcZnoLe5Zw+/4bPm/IGeI?=
- =?us-ascii?Q?afP7XP0dDbhBvh//Rau8w6mwCErkQn938eJCVyT5f9+coXo7l+oEn4Iuo9nr?=
- =?us-ascii?Q?sPJD8ch6DgaosW64/cFGpNR/l6DHEwty0eS3ssl6ZxtmJ6EFHnShFvxG9GnX?=
- =?us-ascii?Q?TPyXn22tscWpvbEdHz4IC1dnL4KlxGh2icT49n5Eepljm76i8TiPgOT9lwr+?=
- =?us-ascii?Q?H0bT06buHGwHEp7ymyUCzOzfT0fe324PEa5srr9Rm7EPWCi+23IFmWvZnh6Q?=
- =?us-ascii?Q?huINosaFQ5H6kU0Kd3tQp4H6O0G54bOy662QCCivqZ3AjBAwQ7YkqOeDt4KR?=
- =?us-ascii?Q?OazzZe9y7BmFgrV1vNEVUHm4zLvA19iAdDi5M4dHGVy7tczsLrNUkcIJRC2i?=
- =?us-ascii?Q?voZS5JIpCDVO8HTQUXwPx/NV7s8N96xlhLSZvgYY4jOnY3Nf0wTHV977/peX?=
- =?us-ascii?Q?nVo4jkAa9ECKIM3uPYucJCY3Fmsz/SPEDThsowj0nAcDMjVq15TFzQQY91T/?=
- =?us-ascii?Q?1/VllImfzbCvCSdF19rp1BEhls/+xWLpymAF3uGm6A3NTTGe825RijKGzNZ9?=
- =?us-ascii?Q?36wzfRgjhBbimR0MsAAY9tfP+G2T1T3UlIQXr9ZpjCbjjdAhh3eGMVsb/zvO?=
- =?us-ascii?Q?ToERncdsp7kRmyVWWCcJp6cl1YcEvBw7EQC2RKO67Gn25qZmVE+yAZ7jKzPt?=
- =?us-ascii?Q?V72aaEn2YnpXeHsLwf0sWS1nv8SHJGdvoW8/S876iylk2j+X7PwfP2WGDMN+?=
- =?us-ascii?Q?Zj00b50=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(376005)(1800799015)(36860700004); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2024 17:24:18.4190 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 971d94a7-5d2a-4602-0dfa-08dc7f3b0186
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5753
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] drm/display: split DSC helpers from DP helpers
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Caleb Connolly <caleb.connolly@linaro.org>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>
+References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
+ <20240522-panel-sw43408-fix-v3-1-6902285adcc0@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20240522-panel-sw43408-fix-v3-1-6902285adcc0@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: KJj3kZhDHKb5JVjOHiO3rB0-tT27BD6_
+X-Proofpoint-GUID: KJj3kZhDHKb5JVjOHiO3rB0-tT27BD6_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-28_12,2024-05-28_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 spamscore=0
+ phishscore=0 suspectscore=0 mlxlogscore=999 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 mlxscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
+ definitions=main-2405280136
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,89 +103,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These functions are missing the lock for reset domain.
 
-Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c               | 4 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c                | 8 ++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 9 +++++++--
- 3 files changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index eb172388d99e..ddc5e9972da8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -34,6 +34,7 @@
- #include <asm/set_memory.h>
- #endif
- #include "amdgpu.h"
-+#include "amdgpu_reset.h"
- #include <drm/drm_drv.h>
- #include <drm/ttm/ttm_tt.h>
- 
-@@ -401,13 +402,14 @@ void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev)
- {
- 	int i;
- 
--	if (!adev->gart.ptr)
-+	if (!adev->gart.ptr || !down_read_trylock(&adev->reset_domain->sem))
- 		return;
- 
- 	mb();
- 	amdgpu_device_flush_hdp(adev, NULL);
- 	for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
- 		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
-+	up_read(&adev->reset_domain->sem);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index e4742b65032d..52a3170d15b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -307,8 +307,12 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
- 		dev_dbg(adev->dev, "Skip scheduling IBs in ring(%s)",
- 			ring->name);
- 	} else {
--		r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs, job,
--				       &fence);
-+		r = -ETIME;
-+		if (down_read_trylock(&adev->reset_domain->sem)) {
-+			r = amdgpu_ib_schedule(ring, job->num_ibs, job->ibs,
-+					       job, &fence);
-+			up_read(&adev->reset_domain->sem);
-+		}
- 		if (r)
- 			dev_err(adev->dev,
- 				"Error scheduling IBs (%d) in ring(%s)", r,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 86ea610b16f3..21f5a1fb3bf8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -28,6 +28,7 @@
- #include "kfd_priv.h"
- #include "kfd_kernel_queue.h"
- #include "amdgpu_amdkfd.h"
-+#include "amdgpu_reset.h"
- 
- static inline struct process_queue_node *get_queue_by_qid(
- 			struct process_queue_manager *pqm, unsigned int qid)
-@@ -87,8 +88,12 @@ void kfd_process_dequeue_from_device(struct kfd_process_device *pdd)
- 		return;
- 
- 	dev->dqm->ops.process_termination(dev->dqm, &pdd->qpd);
--	if (dev->kfd->shared_resources.enable_mes)
--		amdgpu_mes_flush_shader_debugger(dev->adev, pdd->proc_ctx_gpu_addr);
-+	if (dev->kfd->shared_resources.enable_mes &&
-+	    down_read_trylock(&dev->adev->reset_domain->sem)) {
-+		amdgpu_mes_flush_shader_debugger(dev->adev,
-+						 pdd->proc_ctx_gpu_addr);
-+		up_read(&dev->adev->reset_domain->sem);
-+	}
- 	pdd->already_dequeued = true;
- }
- 
--- 
-2.34.1
+On 5/21/2024 11:25 PM, Dmitry Baryshkov wrote:
+> Currently the DRM DSC functions are selected by the
+> DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
+> code (both panel and host drivers) end up selecting the seemingly
+> irrelevant DP helpers. Split the DSC code to be guarded by the separate
+> DRM_DISPLAY_DSC_HELPER Kconfig symbol.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+Hi Dmitry,
+
+LGTM
+
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+
+Thanks,
+
+Jessica Zhang
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
+>   drivers/gpu/drm/display/Kconfig    | 6 ++++++
+>   drivers/gpu/drm/display/Makefile   | 3 ++-
+>   drivers/gpu/drm/i915/Kconfig       | 1 +
+>   drivers/gpu/drm/msm/Kconfig        | 1 +
+>   drivers/gpu/drm/panel/Kconfig      | 4 ++--
+>   6 files changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 22d88f8ef527..b69d5c4a5367 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_AMDGPU
+>   	depends on !UML
+>   	select FW_LOADER
+>   	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HDMI_HELPER
+>   	select DRM_DISPLAY_HDCP_HELPER
+>   	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
+> index 864a6488bfdf..f524cf95dec3 100644
+> --- a/drivers/gpu/drm/display/Kconfig
+> +++ b/drivers/gpu/drm/display/Kconfig
+> @@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+>   
+>   	  If in doubt, say "N".
+>   
+> +config DRM_DISPLAY_DSC_HELPER
+> +	bool
+> +	depends on DRM_DISPLAY_HELPER
+> +	help
+> +	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
+> +
+>   config DRM_DISPLAY_HDCP_HELPER
+>   	bool
+>   	depends on DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
+> index 17d2cc73ff56..2ec71e15c3cb 100644
+> --- a/drivers/gpu/drm/display/Makefile
+> +++ b/drivers/gpu/drm/display/Makefile
+> @@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
+>   drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
+>   	drm_dp_dual_mode_helper.o \
+>   	drm_dp_helper.o \
+> -	drm_dp_mst_topology.o \
+> +	drm_dp_mst_topology.o
+> +drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
+>   	drm_dsc_helper.o
+>   drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
+>   	drm_dp_tunnel.o
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index 5932024f8f95..117b84260b1c 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -11,6 +11,7 @@ config DRM_I915
+>   	select SHMEM
+>   	select TMPFS
+>   	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HDCP_HELPER
+>   	select DRM_DISPLAY_HDMI_HELPER
+>   	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index 1931ecf73e32..6dcd26180611 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -111,6 +111,7 @@ config DRM_MSM_DSI
+>   	depends on DRM_MSM
+>   	select DRM_PANEL
+>   	select DRM_MIPI_DSI
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	default y
+>   	help
+>   	  Choose this option if you have a need for MIPI DSI connector
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 982324ef5a41..4a2f621433ef 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -547,7 +547,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
+>   	depends on OF
+>   	depends on DRM_MIPI_DSI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HELPER
+>   	help
+>   	  Say Y here if you want to enable support for Raydium RM692E5-based
+> @@ -905,7 +905,7 @@ config DRM_PANEL_VISIONOX_R66451
+>   	depends on OF
+>   	depends on DRM_MIPI_DSI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HELPER
+>   	help
+>   	  Say Y here if you want to enable support for Visionox
+> 
+> -- 
+> 2.39.2
+> 
