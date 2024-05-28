@@ -4,72 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52941C25B78
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 14:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70BA7C25B7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 15:23:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F77C10E3BA;
-	Tue, 28 May 2024 14:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A427810E1C8;
+	Tue, 28 May 2024 15:23:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FADIOzvk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HCvBDtlM";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F139410E3BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 14:54:24 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-35507dfe221so583825f8f.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 07:54:24 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5797E10E1C8;
+ Tue, 28 May 2024 15:23:48 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-1f4a6a54416so6580055ad.0; 
+ Tue, 28 May 2024 08:23:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716908063; x=1717512863; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=8NUg5Db3UrQWg5VRhF2MNRbVisH8zKd6IDESz/FGOoQ=;
- b=FADIOzvkzuY76wsQYbVpnOF23DRSDMfDJolucoURdG7Z5yR9NAUmopZbuBsE2whFXl
- ZjlVWSx8nLsCWM+2F+P2rwwA2fVXkpPYDypsee59jNiF78dYqCUebRyDAbtV0JgK82W0
- 6/L3rDqGcllLSbeI7gJWFe98pUXwueVTY0Vnwd7P6VpywilHuzCebhePs/QO0XqZJwzF
- EQi7gMeO2la2fopim0vLUJ3fYmvBDtO3QvTzE1Y3E28H0CddplHnPGQGz1hCxsQ9y18E
- 7dFmTrfivr6zqfzkNl13NZGzem/mUv65fFAjDOcYTy6xeV7S6UEeYbC+esARUt0t9Jo2
- 5kQA==
+ d=gmail.com; s=20230601; t=1716909828; x=1717514628; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9GZ82+6X/m8/WJiwoeD4lBp/SWA2880Fz0PinrORm+A=;
+ b=HCvBDtlMrgVcms5cNJqfZx9y8LxNyJ6Xb5gYZaza4hcn2djnbc95Y7VpciahfOrxqA
+ jlOcqOmbS3UcUwmN5Y/J2NbgE7UvYFcg5muIiwRMnMDswytkTvjt1LxKmfXZAXznNhow
+ xnE6xQCfaauK4a9c29uaNgzVOgXyX7id8PMtG++c3Qc+JNTJPDawsEcyf9hzSwL+1N9e
+ H9oWoNLqHkB8wnzOoYvMADXCin5rPdnQpx7dfJ+JSQ383UYpkNOK/DLQrpUrW+DNJh5J
+ CVVmqyOiYrefBK8cN25aK+7+3A6RkPbGG2JbY4/V4zKpARbhNKZEKBO2isv4oPwd3vGB
+ gG9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716908063; x=1717512863;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8NUg5Db3UrQWg5VRhF2MNRbVisH8zKd6IDESz/FGOoQ=;
- b=AcoHKiM+0vsRfzIVBFS6hO6iXQ4Ji9bQ0X4KUuyv2joVqq7pv77cQG7X2z8oY7DPQo
- o+ifM37s/Hf8HJTeQQO3plWkWdeWC/ftQg9OBRM/7ALe8jEKvs/JM4aa68j/3Ld03b0n
- 0uR/YvuZUdP94/W9n3GHiKHxTVEFyhjbTFNyeROT/3NsojCV7+wUbW4wEWnXWMx4SxjE
- W7cZus/RCnISaq6HsAuDS16wrBRM+7gE1PFaUMx92tsrXpKL8/hZ2QYQjTG73oTxs1HO
- a8QfOP7tFU3VXbLO1hBfbC+HIYJQOOP+nCqKeBupA0SiRmY0//p30chzjKG737KBWCKy
- kmJQ==
+ d=1e100.net; s=20230601; t=1716909828; x=1717514628;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9GZ82+6X/m8/WJiwoeD4lBp/SWA2880Fz0PinrORm+A=;
+ b=tAJa+56vChpdb0vWJTOLrQ0rWq+bDTL1iop4fw04gL9UyVfwxOsvFzxbZNZtZZ7bP+
+ aHBTSjwb2yXQSypzEIKCYtmQvvcmdt8VKlGgLFYv3Vj+UkNagXdg5yCJvRJ72d2mTA6q
+ 4m+cTdbMXLr2h8zmilj25dfB1nkBkiCTWne/cICxEU2BMKN3HTfVetCrkcpO22yKg3iE
+ FNSlu6hIHSOKOCFyHpYOFwycXjYcNVgq8xvXL8g+BWnINKVe0k9EF7LEdfmQtMz8xZA0
+ lQGvdEMdJPONN5xbaXdseFaj8nuTm6fRvvnlOZ9BKYekR0oLh7l+VxeDPdO4k9M9S474
+ xGsg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQgNDwGv1pBEAFkEXHBY7fV2ulY30GLvYAM1AgyChokiQ9ThMPfnDnWrMxOzumyebIWY0523gV5Sij8RaonSboIBD+TDE1ZAqhGcTpbA==
-X-Gm-Message-State: AOJu0YwGtu7PoAiSte3JAUz7JXGkSOo3Qe9JqvcYcC59Or10gC8j03mx
- BQ+uq+DrY6Imv+TjWQ6VS09j1y1EEWvkuoqQeJ4QakR+BA7ND8O7RaPqsZUC
-X-Google-Smtp-Source: AGHT+IGvZqx2jA1/BffVM2Q3QToIUpn0DaH9X8MdJOk9QGYkdb+P9TyL3GH9n5/EmmUZ93JOcKdaKg==
-X-Received: by 2002:a5d:698c:0:b0:354:fa7d:dcfe with SMTP id
- ffacd0b85a97d-35526c272b4mr14136482f8f.23.1716908062823; 
- Tue, 28 May 2024 07:54:22 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3557dcf03e3sm11954228f8f.101.2024.05.28.07.54.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 May 2024 07:54:22 -0700 (PDT)
-Message-ID: <d561a604-623e-4aac-b2ec-a53609c886d1@gmail.com>
-Date: Tue, 28 May 2024 16:54:18 +0200
+ AJvYcCVf94p3KJLdT9hROktGNBB6AdhSg3cg5uny5rHmOeCeCHTG5wiVx1rVjrt3tv8/KLnEcLr0etmEB2Ibbt5uPHm4bw1tW78i4mIapsxc9duQW6MJwS7AwV5j5DuhJnxqQ8XSqn3kvsWWJ5tml3IweA==
+X-Gm-Message-State: AOJu0YzCpyNLLLVjw10/ovjSk87ds40zZLVf2ahz3V/RVMb8zQqmNhVi
+ H8ndrcRfm5uL6xFXAuY3HYcPId2QjhAl+g93TDcQGbi+S99Y7icRe0VXe5Ze+c/R7iDdpT/KNqr
+ PLsqRS69QoWxBVEvy+JMVOd/fxmY=
+X-Google-Smtp-Source: AGHT+IFzNXDUZW+UVGdJz4b1hVU9pW6xiuihea/LYhjhoIqtktFL6NfYLHOdq4dJm9ZXLqpgwzKoRhQLsCdMWo/5mfY=
+X-Received: by 2002:a17:902:e5cd:b0:1f4:913d:7257 with SMTP id
+ d9443c01a7336-1f4913d8295mr96471125ad.8.1716909827697; Tue, 28 May 2024
+ 08:23:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Add lock around VF RLCG interface
-To: Victor Skvortsov <victor.skvortsov@amd.com>,
- amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, lijo.lazar@amd.com,
- zhigang.luo@amd.com
-References: <20240527201907.470066-1-victor.skvortsov@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240527201907.470066-1-victor.skvortsov@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240528131026.214773-1-brunolevilevi@usp.br>
+ <20240528131026.214773-3-brunolevilevi@usp.br>
+In-Reply-To: <20240528131026.214773-3-brunolevilevi@usp.br>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 28 May 2024 11:23:36 -0400
+Message-ID: <CADnq5_PrP7jVyyJ85TZyRnpFVb5rVzPJ2vY78ZZp+YVSoneJZQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drivers/gpu: Fix misalignment in comment block
+To: Bruno Rocha Levi <brunolevilevi@usp.br>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, 
+ Lucas Antonio <lucasantonio.santos@usp.br>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,74 +81,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.05.24 um 22:19 schrieb Victor Skvortsov:
-> flush_gpu_tlb may be called from another thread while
-> device_gpu_recover is running.
+Applied.  Thanks!
 
-No, that would be illegal. Where do you see that?
+Alex
 
-Regards,
-Christian.
-
+On Tue, May 28, 2024 at 10:47=E2=80=AFAM Bruno Rocha Levi <brunolevilevi@us=
+p.br> wrote:
 >
-> Both of these threads access registers through the VF
-> RLCG interface during VF Full Access. Add a lock around this interface
-> to prevent race conditions between these threads.
+> This patch fixes a warning from checkpatch by ensuring the trailing */ is
+> aligned with the rest of the *, improving readability.
 >
-> Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+> Co-developed-by: Lucas Antonio <lucasantonio.santos@usp.br>
+> Signed-off-by: Lucas Antonio <lucasantonio.santos@usp.br>
+> Signed-off-by: Bruno Rocha Levi <brunolevilevi@usp.br>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 6 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   | 2 ++
->   3 files changed, 9 insertions(+)
+>  drivers/gpu/drm/amd/acp/include/acp_gfx_if.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index f5168b4c3b03..6711836054f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4049,6 +4049,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	mutex_init(&adev->grbm_idx_mutex);
->   	mutex_init(&adev->mn_lock);
->   	mutex_init(&adev->virt.vf_errors.lock);
-> +	mutex_init(&adev->virt.rlcg_reg_lock);
->   	hash_init(adev->mn_hash);
->   	mutex_init(&adev->psp.mutex);
->   	mutex_init(&adev->notifier_lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 3d5f58e76f2d..a72683f83390 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -982,6 +982,9 @@ u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v, u32 f
->   	scratch_reg1 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg1;
->   	scratch_reg2 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg2;
->   	scratch_reg3 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg3;
-> +
-> +	mutex_lock(&adev->virt.rlcg_reg_lock);
-> +
->   	if (reg_access_ctrl->spare_int)
->   		spare_int = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->spare_int;
->   
-> @@ -1038,6 +1041,9 @@ u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v, u32 f
->   	}
->   
->   	ret = readl(scratch_reg0);
-> +
-> +	mutex_unlock(&adev->virt.rlcg_reg_lock);
-> +
->   	return ret;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index 642f1fd287d8..0ec246c74570 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -272,6 +272,8 @@ struct amdgpu_virt {
->   
->   	/* the ucode id to signal the autoload */
->   	uint32_t autoload_ucode_id;
-> +
-> +	struct mutex rlcg_reg_lock;
->   };
->   
->   struct amdgpu_video_codec_info;
-
+> diff --git a/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h b/drivers/gpu/d=
+rm/amd/acp/include/acp_gfx_if.h
+> index feab8eb7f..b26710cae 100644
+> --- a/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h
+> +++ b/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h
+> @@ -19,7 +19,7 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+> -*/
+> + */
+>
+>  #ifndef _ACP_GFX_IF_H
+>  #define _ACP_GFX_IF_H
+> --
+> 2.45.1
+>
