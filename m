@@ -4,60 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7ECEC25B7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 13:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5310C25B78
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 13:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB08B10E2A9;
-	Tue, 28 May 2024 13:03:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E81112292;
+	Tue, 28 May 2024 13:51:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="xLYc97HZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O8pb9ABN";
 	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C124710FFFB;
- Tue, 28 May 2024 06:46:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=Om+3DdDNz34eTk9PGG2WbSavGEIpa9Fm2b7xW+H1qWQ=;
- t=1716878796; x=1717310796; b=xLYc97HZ1/a987w9u1HjNlURGoUAlHCrPZudu2MRN2DFeSB
- 0Rs23nuHi/z9o77/Qhjya9Hg3ulI0lHYAggY/F8b3K/umGYbsrfEBir/ZHlbWw4I5NJLWY+OuoBzv
- I9XJFO+ZOhltkVjLxtbZVFtMnoWi4Mmhx8aT0Uy3BMuzz4eWipafspjFgcLV3aPCXz/orUMUZF06+
- Ucpb3xJnrWmgY8HAFhhU8/slIovXsrU13J0ZykAI4I2/krAPmcTUBs+oQqLVLYBWnR8PewnqAA7kP
- PCccfbUTWAouaFNP2tu0uZB6Ytbepr1B2qv9BB30D2DtYb3t3UZsBtM0lwhmnDTA==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1sBqbP-0007a4-SQ; Tue, 28 May 2024 08:46:31 +0200
-Message-ID: <de703fe7-1cf8-4f51-a282-bdca4a3c6634@leemhuis.info>
-Date: Tue, 28 May 2024 08:46:31 +0200
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ECF7112292
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 13:51:52 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-42017f8de7aso6080035e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 06:51:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1716904310; x=1717509110; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wlEcvxWVmeilIqIhgiWx0ujSlE6QJyR1R67RNMH55Cg=;
+ b=O8pb9ABNNuTFGJ9p70WvlMjp6PS3kPiAFMDfeiXNQc2L/8nPd/5f5GLHNCoKTGndZI
+ p9/5zf5dBy0ScPV3MhjalLq7XhJJ+eP1oqInYVzXhsWhOwTPhz4061WM0EjsFdxZk1pe
+ 7oFkUO4nv4jkA354tLklgoqYDXDo5erVk3w5oQd5K/nPqTzU6Dr2o2CeoWlqyiodDVUk
+ TLpHfsdtx4y3SYUN4f7MeZ6irVKrlQnA6aAn2+EUOfEr/6qQVQ50LEUB6sf9l7rz9NqT
+ 8xLAkWyT3RzuHGQPR8CBRXCdcferdslgb7Uh03GvNNFC0YEmgS6BMYtAXQQJLGLI+dDJ
+ 4WPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716904310; x=1717509110;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wlEcvxWVmeilIqIhgiWx0ujSlE6QJyR1R67RNMH55Cg=;
+ b=l8Uy8BERzbEJjx9v567Cz57xW3VD+DEPYhqS8hLe8RGiKLxmua+cVOWkiC4hyu2LCg
+ Qudyz0qnu5pjRA0bClGFAClnRvNj5XW+kUXp71Q3EMcUZS0WZj/CCjJrrFGXMszTJgzG
+ qdVO17u/71Phnjr3u219j5JqWI+1KVEoI9BHCMrTRyGIvrMW+mkjcZhfTm1h3gvm3FyH
+ QjcJE4WZNXBPMEYB2Gsk4pAHP6/KrrSGWToeQj46t2nYKQbtvx5CwSLghRxC5YGCEUYu
+ EWi28dwuyQcIAmRL3SQ2QzNomPKOhcDT/QQc1P9M7F3+wN9ynY8WSNKLgmtHQFbNh0+X
+ v0Lw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU1/kOLoIzUpGnHQoJbo3Pj2Vrp0W1sj377eTQx3JUe8UstaSiGeGvTZgAVJwSgBqX1oxspfoBT7cgZ/DFqam++Bwlf4qZDMWu3ilY5vA==
+X-Gm-Message-State: AOJu0Ywf5rhgwANSCYZAoRZ74JCPTbdEFYjuZmF3Ji9tSu9SFRVJ3RAc
+ nW3VswmzwTQ6+TFV643A/HgMTaQYNzEBn+4yOmVs6nS85Dn0aOEX
+X-Google-Smtp-Source: AGHT+IG9LeCJa6UqNkdC1YyWd/yGOOljuYzGtWxVvKw1GTDKn3DZ0WNkXhxkJAge2hESrpFruS6rEg==
+X-Received: by 2002:a05:600c:1d27:b0:421:21a8:fd77 with SMTP id
+ 5b1f17b1804b1-42121a8ffedmr965505e9.8.1716904309864; 
+ Tue, 28 May 2024 06:51:49 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4210897bbd2sm145453675e9.21.2024.05.28.06.51.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 May 2024 06:51:49 -0700 (PDT)
+Message-ID: <31066020-28b8-49cf-b86f-c8acc28b8c92@gmail.com>
+Date: Tue, 28 May 2024 15:51:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: 6.10/regression/bisected commit c4cb23111103 causes sleeping
- function called from invalid context at kernel/locking/mutex.c:585
-To: Chris Bainbridge <chris.bainbridge@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: regressions@lists.linux.dev, vasant.hegde@amd.com,
- suravee.suthikulpanit@amd.com, jgg@nvidia.com, jroedel@suse.de,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- Borislav Petkov <bp@alien8.de>
-References: <CABXGCsN1z2gj99zSdhQWynpTXBymrqHejDfF8axxxoiZ_0g_-g@mail.gmail.com>
- <Zk5hJrY_lGmuW1G9@debian.local>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Content-Language: en-US, de-DE
-In-Reply-To: <Zk5hJrY_lGmuW1G9@debian.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1716878796;
- 3bfcac6a; 
-X-HE-SMSGID: 1sBqbP-0007a4-SQ
-X-Mailman-Approved-At: Tue, 28 May 2024 13:03:32 +0000
+Subject: Re: [PATCH] drm/amdgpu: Add flags to distinguish vf/pf/pt mode
+To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: lijo.lazar@amd.com, hawking.zhang@amd.com, le.ma@amd.com,
+ shiwu.zhang@amd.com, donald.cheung@amd.com, sepehr.khatir@amd.com,
+ daniel.oliveira@amd.com, charis.poag@amd.com, Shuzhou.Liu@amd.com
+References: <20240527162839.259865-1-asad.kamal@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240527162839.259865-1-asad.kamal@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,28 +82,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 22.05.24 23:18, Chris Bainbridge wrote:
-> On Tue, May 21, 2024 at 02:39:06PM +0500, Mikhail Gavrilov wrote:
->> Yesterday on the fresh kernel snapshot
->> I spotted a new bug message with follow stacktrace:
->> [    4.307097] BUG: sleeping function called from invalid context at
->> kernel/locking/mutex.c:585
-> I am also getting this error on every boot. Decoded stacktrace:
+Am 27.05.24 um 18:28 schrieb Asad Kamal:
+> Add extra flag definition for ids_flag field to distinguish
+> between vf/pf/pt modes
+>
+> v2: Updated kms driver minor version & removed pf check as default is 0
+>
+> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
-TWIMC & for the record: Boris also reported this; Vasant Hegde replied
-and said a fix is in the works:
+Acked-by: Christian König <christian.koenig@amd.com>
 
-https://lore.kernel.org/all/898d356d-ec7d-41de-82d8-3ed4dc5598b3@amd.com/
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  9 +++++++++
+>   include/uapi/drm/amdgpu_drm.h           | 10 ++++++++++
+>   3 files changed, 21 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 2da76fadf6ea..60d5758939ae 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -116,9 +116,10 @@
+>    * - 3.55.0 - Add AMDGPU_INFO_GPUVM_FAULT query
+>    * - 3.56.0 - Update IB start address and size alignment for decode and encode
+>    * - 3.57.0 - Compute tunneling on GFX10+
+> + * - 3.58.0 - Add AMDGPU_IDS_FLAGS_MODE_PF, AMDGPU_IDS_FLAGS_MODE_VF & AMDGPU_IDS_FLAGS_MODE_PT
+>    */
+>   #define KMS_DRIVER_MAJOR	3
+> -#define KMS_DRIVER_MINOR	57
+> +#define KMS_DRIVER_MINOR	58
+>   #define KMS_DRIVER_PATCHLEVEL	0
+>   
+>   /*
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 66782be5917b..260cd0ad286d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -869,6 +869,15 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>   		if (adev->gfx.config.ta_cntl2_truncate_coord_mode)
+>   			dev_info->ids_flags |= AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD;
+>   
+> +		if (amdgpu_passthrough(adev))
+> +			dev_info->ids_flags |= (AMDGPU_IDS_FLAGS_MODE_PT <<
+> +						AMDGPU_IDS_FLAGS_MODE_SHIFT) &
+> +						AMDGPU_IDS_FLAGS_MODE_MASK;
+> +		else if (amdgpu_sriov_vf(adev))
+> +			dev_info->ids_flags |= (AMDGPU_IDS_FLAGS_MODE_VF <<
+> +						AMDGPU_IDS_FLAGS_MODE_SHIFT) &
+> +						AMDGPU_IDS_FLAGS_MODE_MASK;
+> +
+>   		vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
+>   		vm_size -= AMDGPU_VA_RESERVED_TOP;
+>   
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 5b6c0055cfcf..ae3f4e275f20 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -754,6 +754,16 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+>   #define AMDGPU_IDS_FLAGS_TMZ            0x4
+>   #define AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD 0x8
+>   
+> +/*
+> + *  Query h/w info: Flag identifying VF/PF/PT mode
+> + *
+> + */
+> +#define AMDGPU_IDS_FLAGS_MODE_MASK      0x300
+> +#define AMDGPU_IDS_FLAGS_MODE_SHIFT     0x8
+> +#define AMDGPU_IDS_FLAGS_MODE_PF        0x0
+> +#define AMDGPU_IDS_FLAGS_MODE_VF        0x1
+> +#define AMDGPU_IDS_FLAGS_MODE_PT        0x2
+> +
+>   /* indicate if acceleration can be working */
+>   #define AMDGPU_INFO_ACCEL_WORKING		0x00
+>   /* get the crtc_id from the mode object id? */
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
-
-#regzbot dup:
-https://lore.kernel.org/all/CABXGCsN1z2gj99zSdhQWynpTXBymrqHejDfF8axxxoiZ_0g_-g@mail.gmail.com/
