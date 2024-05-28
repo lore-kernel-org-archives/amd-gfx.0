@@ -4,50 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B08DC25B7E
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E43FC25B7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1746510E28F;
-	Tue, 28 May 2024 19:09:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28B6010E362;
+	Tue, 28 May 2024 19:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AmoNzAPG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="O1SyDtJG";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D4D10E224;
- Tue, 28 May 2024 19:09:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id ABE186232C;
- Tue, 28 May 2024 19:09:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94BEC3277B;
- Tue, 28 May 2024 19:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1716923369;
- bh=TXpIOoXYGmt2pBtqg047ViZFwCKWKQ4ykKIKvnN77vU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=AmoNzAPG5OwWLUnUTGJZOanCQpM32jwGBiGV4Kj4DqPwhtvLBjX7A3wqKxlxsCTWE
- 4YlTKJUUMXV5uh6+0WPRfwCkH273a1cf0bd5KJpsqdkMUyjI6Vgtfz1tnOzv9bb0IH
- pMIQ8j+lj9q4gKVtxV33VbBEs7s44f0JV+UutHCBHJeOxjqLgUm1R9HpH/wGhKV05q
- Tr3TqW24CFEenXZNnu4wZ5SQQw1yk33QrWKJC/VFE/kzwHVqEjPvoMDBH3Bh/1I71B
- V7tsnBW37DNfRz4Y/6LLe430oK/3rEAzLFnvf7ROuluDFMibMDvOjr8B9MyGzvce2H
- RwlYJMYFmJ7FQ==
-Date: Tue, 28 May 2024 12:09:28 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: kernel test robot <lkp@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Linux Memory Management List
- <linux-mm@kvack.org>, amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 6dc544b66971c7f9909ff038b62149105272d26a
-Message-ID: <20240528120928.633cca9d@kernel.org>
-In-Reply-To: <202405290242.YsJ4ENkU-lkp@intel.com>
-References: <202405290242.YsJ4ENkU-lkp@intel.com>
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6322910E21A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 19:39:22 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-52a54d664e3so72903e87.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 12:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716925160; x=1717529960; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GsvN+JKnRavl5QSzlBkV48YEdvFno7OOnb/yOsGADHU=;
+ b=O1SyDtJGpK2KhT/WjeL6bxM5IjHKJN1tR5zccbzeqcCkxAWdteZMtxadcGyQA3+yvy
+ yQFaFngRrwJ6kxUImixiKKoDz/20tn5lrNwI3QDdOG1AHX5O315H7gsTzN2jhnvGE1AL
+ sSMXGBapQ6f2aJq2nC2kdV9SyOQkskMIkhzOynb0+RXwRFrb+K8ZY7mLvHgjtkj+Gg0C
+ qUhqsitPJBQcUTY/+1Z32s03Oki+ifZ1uUEio5WfuF7odLZuOWpmCx83Oc88pxYR2O5d
+ ryxCgAP2Tl9nBwl/Y+KorCP1Z1CoPZ8qvOQdHkydgM/YyIbvyAAFuC8ZoNB77xN7ANR7
+ MULw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716925160; x=1717529960;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GsvN+JKnRavl5QSzlBkV48YEdvFno7OOnb/yOsGADHU=;
+ b=MMzpyVmWuOBx7irEyww1jixMo5u20bgY3NcaSU5DmUrSzerU0OWx6VlJPUNE4HpeVl
+ KEySiCkapgUKvGP6KjXLIsFdhshOKNlFaBfniFQbtkHCNeKq1DbJ5KREccY83r50+cjx
+ 4GHSfKoENS4wxITgVNvTEKUBJQqGAOS6NTBKVmh78iDktmxwEMv2Up5YNsSilvigeTVw
+ Nz0pxypwZ8qmrmx/27MuptVYH9ElpsYAvFI0bKI5xt2Iszr7dYp8kxtbMr0L4NxBUWjO
+ S4TWP5sD9/uiBvdhWKRGI5SKaigLY72rutnOAjtiwWHziDrGfxEaST5sILW39n6djQLh
+ kBew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgmbDnI4buiHvPtBqEUnJhQ30FmzJR80eqb6gbFrZ/84SeIIim7CCNHPJW70kg7ncup7DkwH95bPWAG3nRMqLH00jo6iF3qPoqAjg95w==
+X-Gm-Message-State: AOJu0Yzbr+gejG3aF7jhjNzzhMLQc+4pChp3LPIttc5GJj+P/FiNLbvC
+ P19Ecy7Ch6eIaKG7g0zF9dYkhE8dGdbqPS37JsPiZm2Ymq5xZVA4vug9Ut/d5TA=
+X-Google-Smtp-Source: AGHT+IG4Bg7IjMdNadZXXn/36zsu8ZDorgbs/IEsWcGO+A4iZozCmrOizaHidaPk9MqyT8DHXEBeFg==
+X-Received: by 2002:a05:6512:4004:b0:529:a55d:8d7 with SMTP id
+ 2adb3069b0e04-529a55d0bbfmr6389655e87.14.1716925160173; 
+ Tue, 28 May 2024 12:39:20 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-529711f96c9sm1045234e87.245.2024.05.28.12.39.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 May 2024 12:39:19 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v4 0/3] drm/panel: two fixes for lg-sw43408
+Date: Tue, 28 May 2024 22:39:17 +0300
+Message-Id: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOUyVmYC/33NTQ6CMBCG4auQrq3pDOXPlfcwLqBMoQlpSWtQQ
+ 7i7hY0aicv3S+aZmQXyhgI7JTPzNJlgnI0hDwlTfW074qaNzVCgFBIFH2tLAw93mUpRcm0eXOs
+ 8k5UChIZYvBs9xXkzL9fYvQk355/biwnW9Z82ARe8wRK1LjBDiefB2Nq7o/MdW7kJ30QGuwRGo
+ gXSFRBBU7Q/RPpBIO4RaSTySiCWWd0qJb6IZVlermC2JjkBAAA=
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Caleb Connolly <caleb.connolly@linaro.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1552;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=onL8Mw3fVTnsVXTG9+UAfGyF9JpZXOhojGn8QWOqrnA=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmVjLmMvog05l/rjjZInaoUZ1R3/bqphbSLBIfW
+ aq0YIVDkQWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlYy5gAKCRCLPIo+Aiko
+ 1QNTB/4zOPgYNZ7IwjqDIlZP52hwwALdFOgW40rNUxQK3Bt6S4RFuv5WnMmuoCt5j9FHXYdykoC
+ CtUjUijy6ejoLZM0sEpqMUpxzMcvLjY+XONRDuCJQPUx5/4G7PUOxkVwafCxCoKm1DGagx0jEYO
+ VnSsUqRcNqmx+em7fuef89wv+7WQIENkqTGMF7hJ/5tiSzTlYcr29p+NkYF1uR+GC5qS5+Up4kt
+ ifjq01NFjn4Jp6VqjQJLB8sXMZZurnY0uP/k8i4DCW2HyvFfA8EVqXn/dwwBiUBy9J2l366rpiI
+ ypKLjqXG3bsSObFF8OvQitHTwmnrEEcD1LlWNloeahJPpj6N
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,7 +112,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 29 May 2024 02:19:47 +0800 kernel test robot wrote:
-> |   `-- net-ipv6-route.c-rt6_fill_node()-error:we-previously-assumed-dst-could-be-null-(see-line-)
+Fix two issues with the panel-lg-sw43408 driver reported by the kernel
+test robot.
 
-Is there a way for us to mark this as false positive?
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v4:
+- Reoder patches so that fixes come first, to be able to land them to
+  drm-misc-fixes
+- Link to v3: https://lore.kernel.org/r/20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org
+
+Changes in v3:
+- Split DRM_DISPLAY_DSC_HELPER from DRM_DISPLAY_DP_HELPER
+- Added missing Fixes tags
+- Link to v2: https://lore.kernel.org/r/20240510-panel-sw43408-fix-v2-0-d1ef91ee1b7d@linaro.org
+
+Changes in v2:
+- use SELECT instead of DEPEND to follow the reverted Kconfig changes
+- Link to v1: https://lore.kernel.org/r/20240420-panel-sw43408-fix-v1-0-b282ff725242@linaro.org
+
+---
+Dmitry Baryshkov (3):
+      drm/panel/lg-sw43408: select CONFIG_DRM_DISPLAY_DP_HELPER
+      drm/panel/lg-sw43408: mark sw43408_backlight_ops as static
+      drm/display: split DSC helpers from DP helpers
+
+ drivers/gpu/drm/amd/amdgpu/Kconfig       | 1 +
+ drivers/gpu/drm/display/Kconfig          | 6 ++++++
+ drivers/gpu/drm/display/Makefile         | 3 ++-
+ drivers/gpu/drm/i915/Kconfig             | 1 +
+ drivers/gpu/drm/msm/Kconfig              | 1 +
+ drivers/gpu/drm/panel/Kconfig            | 6 ++++--
+ drivers/gpu/drm/panel/panel-lg-sw43408.c | 2 +-
+ 7 files changed, 16 insertions(+), 4 deletions(-)
+---
+base-commit: 6dc544b66971c7f9909ff038b62149105272d26a
+change-id: 20240420-panel-sw43408-fix-ff6549c121be
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
