@@ -4,71 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ABE1C27C44
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 13:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7ECEC25B7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 13:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2004C10E271;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB08B10E2A9;
 	Tue, 28 May 2024 13:03:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XDD+ekOp";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="xLYc97HZ";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A13710E11C;
- Tue, 28 May 2024 01:45:15 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2bfb6668ad5so224323a91.0; 
- Mon, 27 May 2024 18:45:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716860715; x=1717465515; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4WZuzBn8quBWeOsvE1Lk2Z6AJ5TaLj0Zv5xeM9jkRkY=;
- b=XDD+ekOp4G2XgFUMnsbpR4Zekn+8g1m67e6ta6xEiHhfDSrMby7mGyrVLR5U0OtcPm
- L/ZdlSHyl7Q9myK66TKQaHv0n7hfwqd2gI6QzO4oFmkN5XuYIYFX9wKhjwk8ThoZYFV7
- yVMzkVL6EJCduyauPcrzdaPZ8L0dbF+1Fq4pfTiHuvL7+a4uVSvN7+4xZgEk0CHj0emS
- Qzpro84yBvxBCD72Q4YyUtH+Ekofyfw20Dd7rkRgl1TMjZw6rkg85yTSoP5mqsYCm7u1
- OlXcMQHRS4g2xNjOJ1n2UQBdSrKZSVrYiVvXU4AxMmNRsBlq45Hr8b/fWcg9FiQk3Lfz
- zsAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716860715; x=1717465515;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4WZuzBn8quBWeOsvE1Lk2Z6AJ5TaLj0Zv5xeM9jkRkY=;
- b=KK/nBdBAMnbbG/IryWuynYwHD2cYs5hNcajTp417pvYBSHqvQUVDnVFo7swu0VyCch
- FA8TktD3aqrj/ojAMKEmRHO0x9chplozYiZ9qHa1nlneDUAoXX+ZBGFHYA8ZRgAo70j7
- dWMaaymHJBLFiNHAjDWb6JSfbHPDOrkXEvZ9zaA96fu9aZO1w2snj6yQlCYh+RlfRd0E
- oTsNNHyVCk8O/Qb4FdOW8w3tt09bVsboOSZqzodgY0qffjS9g4HJ8Efzr+iGlqJbULey
- L128auZgwmo/qGoCnejmNJQlm4/35Rq6YU+vFW27PLatkTlaQXdUY0H5PUPcnJMOgM0x
- Y8Tg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWv8hcObo51qqJX6A+0yw9xcjbl5DkN/AGY9NufmwxyiWAKkR74+vD5O9KE0ozyBx+4nBhJYrYPqfHIPUFGu2jtqVPlHB7h6gLHKockE/eMdm4hN83/2prvliF5pioOhLklHcaJF1N7vAbsNccYsw==
-X-Gm-Message-State: AOJu0YxWiCdcwPKqZbEz97Q5cLFi+maSjbA2Ztr6ONEIl28FsUQPAcoE
- 8cCDM+Oy0uFA6zkXFf97dh1hLA/6q1fhM/QR0zd1bIdupkIPJqPpA1z0Txj8g1xIIidc5Mti9Qg
- eeOBd7Qv07DXwXhxmVkn1mNGFjGw=
-X-Google-Smtp-Source: AGHT+IEoeAZtpR1+qNz/hWhSApB41CTHGMkY3r79faQLS6aa7Fl88PJ9rRkoYAH6sEGDE6IKTR44tV1Bv0/gNTmoUn0=
-X-Received: by 2002:a17:90a:bc85:b0:2b2:6ede:5ce0 with SMTP id
- 98e67ed59e1d1-2bf5f70f2d7mr9067767a91.39.1716860714620; Mon, 27 May 2024
- 18:45:14 -0700 (PDT)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C124710FFFB;
+ Tue, 28 May 2024 06:46:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ In-Reply-To:References; bh=Om+3DdDNz34eTk9PGG2WbSavGEIpa9Fm2b7xW+H1qWQ=;
+ t=1716878796; x=1717310796; b=xLYc97HZ1/a987w9u1HjNlURGoUAlHCrPZudu2MRN2DFeSB
+ 0Rs23nuHi/z9o77/Qhjya9Hg3ulI0lHYAggY/F8b3K/umGYbsrfEBir/ZHlbWw4I5NJLWY+OuoBzv
+ I9XJFO+ZOhltkVjLxtbZVFtMnoWi4Mmhx8aT0Uy3BMuzz4eWipafspjFgcLV3aPCXz/orUMUZF06+
+ Ucpb3xJnrWmgY8HAFhhU8/slIovXsrU13J0ZykAI4I2/krAPmcTUBs+oQqLVLYBWnR8PewnqAA7kP
+ PCccfbUTWAouaFNP2tu0uZB6Ytbepr1B2qv9BB30D2DtYb3t3UZsBtM0lwhmnDTA==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1sBqbP-0007a4-SQ; Tue, 28 May 2024 08:46:31 +0200
+Message-ID: <de703fe7-1cf8-4f51-a282-bdca4a3c6634@leemhuis.info>
+Date: Tue, 28 May 2024 08:46:31 +0200
 MIME-Version: 1.0
-References: <20240527012018.351223-1-zhouzhouyi@gmail.com>
- <c60b572e-12a8-49b1-a75a-b8a7b7ed674b@amd.com>
- <CAABZP2zGfhcYrn6UOhmkXEgtCAPLcN7bgCdbzAi1r+aNrToHKQ@mail.gmail.com>
-In-Reply-To: <CAABZP2zGfhcYrn6UOhmkXEgtCAPLcN7bgCdbzAi1r+aNrToHKQ@mail.gmail.com>
-From: Zhouyi Zhou <zhouzhouyi@gmail.com>
-Date: Tue, 28 May 2024 09:45:03 +0800
-Message-ID: <CAABZP2ximP0kiSSXSw51fhrt0EuZMLUHeonzS2VGSUwm-QEF3w@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon/r100: enhance error handling in
- r100_cp_init_microcode
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
- daniel@ffwll.ch, chris@chrisdown.name, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, lance@osuosl.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: 6.10/regression/bisected commit c4cb23111103 causes sleeping
+ function called from invalid context at kernel/locking/mutex.c:585
+To: Chris Bainbridge <chris.bainbridge@gmail.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: regressions@lists.linux.dev, vasant.hegde@amd.com,
+ suravee.suthikulpanit@amd.com, jgg@nvidia.com, jroedel@suse.de,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ Borislav Petkov <bp@alien8.de>
+References: <CABXGCsN1z2gj99zSdhQWynpTXBymrqHejDfF8axxxoiZ_0g_-g@mail.gmail.com>
+ <Zk5hJrY_lGmuW1G9@debian.local>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Content-Language: en-US, de-DE
+In-Reply-To: <Zk5hJrY_lGmuW1G9@debian.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1716878796;
+ 3bfcac6a; 
+X-HE-SMSGID: 1sBqbP-0007a4-SQ
 X-Mailman-Approved-At: Tue, 28 May 2024 13:03:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,111 +69,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix some error in my previous email
+On 22.05.24 23:18, Chris Bainbridge wrote:
+> On Tue, May 21, 2024 at 02:39:06PM +0500, Mikhail Gavrilov wrote:
+>> Yesterday on the fresh kernel snapshot
+>> I spotted a new bug message with follow stacktrace:
+>> [    4.307097] BUG: sleeping function called from invalid context at
+>> kernel/locking/mutex.c:585
+> I am also getting this error on every boot. Decoded stacktrace:
 
-On Tue, May 28, 2024 at 9:36=E2=80=AFAM Zhouyi Zhou <zhouzhouyi@gmail.com> =
-wrote:
->
-> Thanks for reviewing the patch
->
-> On Mon, May 27, 2024 at 3:58=E2=80=AFPM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> >
-> > Am 27.05.24 um 03:20 schrieb Zhouyi Zhou:
-> > > In r100_cp_init_microcode, if rdev->family don't match any of
-> > > if statement,  fw_name will be NULL, which will cause
-> > > gcc (11.4.0 powerpc64le-linux-gnu) complain:
-> > >
-> > > In function =E2=80=98r100_cp_init_microcode=E2=80=99,
-> > >      inlined from =E2=80=98r100_cp_init=E2=80=99 at drivers/gpu/drm/r=
-adeon/r100.c:1136:7:
-> > > ./include/linux/printk.h:457:44: warning: =E2=80=98%s=E2=80=99 direct=
-ive argument is null [-Wformat-overflow=3D]
-> > >    457 | #define printk(fmt, ...) printk_index_wrap(_printk, fmt, ##_=
-_VA_ARGS__)
-> > >
-> > > Above warning is emitted during the rcutorture test in
-> > > in PPC VM of Opensource Lab of Oregon State Univerisity.
-> > >
-> > > Enhance error handling in r100_cp_init_microcode, let r100_cp_init_mi=
-crocode
-> > > return with -EINVAL when none of chip families is matched.
-> > >
-> > > Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
-> >
-> > > ---
-> > >   drivers/gpu/drm/radeon/r100.c | 7 +++++++
-> > >   1 file changed, 7 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r=
-100.c
-> > > index 0b1e19345f43..4f8a1bdd9365 100644
-> > > --- a/drivers/gpu/drm/radeon/r100.c
-> > > +++ b/drivers/gpu/drm/radeon/r100.c
-> > > @@ -1055,6 +1055,11 @@ static int r100_cp_init_microcode(struct radeo=
-n_device *rdev)
-> > >                  (rdev->family =3D=3D CHIP_RV570)) {
-> > >               DRM_INFO("Loading R500 Microcode\n");
-> > >               fw_name =3D FIRMWARE_R520;
-> > > +     } else {
-> > > +             pr_err("radeon_cp: Failed to load firmware \"%d\"\n",
-> > > +                     rdev->family);
-> > > +             err =3D -EINVAL;
-> > > +             goto out;
-> > >       }
-> > >
-> > >       err =3D request_firmware(&rdev->me_fw, fw_name, rdev->dev);
-> > > @@ -1067,6 +1072,8 @@ static int r100_cp_init_microcode(struct radeon=
-_device *rdev)
-> > >               release_firmware(rdev->me_fw);
-> > >               rdev->me_fw =3D NULL;
-> > >       }
-> > > +
-> > > +out:
-> >
-> > That looks superfluous, just return -EINVAL directly in the else case a=
-bove.
-> >
-> > Apart from that this is for ~15year old hardware. I'm a bit reluctant
-> > adding code for something that old even when this change here looks
-> > harmless.
-> >
-> > Is there a plan to complain about that in an automated checker? If yes
-> > then the change is probably justified, if no then I would rather not do=
- it.
-> The warning is emitted when I invoke following commands in ubuntu
-> 22.04 (ppc64le)
-> linux$make allmodconfig
-> linux$make drivers/gpu/drm/radeon/r100.o (a quick alternative to 'make -j=
-$nproc)
-the command should be make -j(number of CPUs in my machine), please don't i=
-nvoke
-'make -j$nproc' which is my mistake, this command is very dangerous,
-and make my machine hung ;-(
+TWIMC & for the record: Boris also reported this; Vasant Hegde replied
+and said a fix is in the works:
 
-Sorry for the trouble
-Thanks again
-Zhouyi
-> But everything is OK when I invoke following commands in ubuntu 22.04 (pp=
-c64le)
-> linux$make allmodconfig LLVM=3D1
-> linux$make drivers/gpu/drm/radeon/r100.o LLVM=3D1
->
-> And I can't reproduce the warning in the x86 environment, so I guess
-> this phenomenon
-> is toolchain related ;-)
->
-> Thanks again
-> Regards,
-> Zhouyi
-> >
-> > Regards,
-> > Christian.
-> >
-> > >       return err;
-> > >   }
-> > >
-> >
+https://lore.kernel.org/all/898d356d-ec7d-41de-82d8-3ed4dc5598b3@amd.com/
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
+
+#regzbot dup:
+https://lore.kernel.org/all/CABXGCsN1z2gj99zSdhQWynpTXBymrqHejDfF8axxxoiZ_0g_-g@mail.gmail.com/
