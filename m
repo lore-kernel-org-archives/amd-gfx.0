@@ -4,97 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9D47C27C50
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 19:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF87C25B78
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 21:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E39E710F071;
-	Tue, 28 May 2024 19:39:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23A9C88DE5;
+	Tue, 28 May 2024 21:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fneL0q85";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lKIjxef1";
 	dkim-atps=neutral
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B65810EA23
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 19:39:24 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5295ae273c8so1530161e87.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 12:39:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716925163; x=1717529963; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=dQZO5S8pgY4BnNrxpgnMhoHNDTox+OXu9IzRX/Zms64=;
- b=fneL0q8595e2cUFa43Lh4Lt4vdKeeRRZovlsf5Ekqskar6Sc/UtI+mVZj71pqYkrGN
- lTjxDvESyH0Z9bYpOyO1VERyoMANxHq24cid7Q31H5WAzSKGcsyOSvMQySyU6YU2eTgQ
- cPcAb04W812UvBUmh3mKcRMHPCJMTbkm9WVY+iyMyn6eKLAbNhRMoRM7SlGnp06riGcG
- 5o+7lXpCY92N0D9V/GNPIVsF0znfQfg49O2fyAYeZx0p0ZQzWlcD3Q+qqJY620LpPoif
- OB6HICBPOgjzmS/aEZQuPlrNkQ0N9cCk67nAvSzjrYjwkpJtFUTSAZixZZuMyko3frJm
- kc9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716925163; x=1717529963;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dQZO5S8pgY4BnNrxpgnMhoHNDTox+OXu9IzRX/Zms64=;
- b=DLoVFdZm2F3DbR5HEpxa5bufy95oKKwoRTkegzC2xytUAFaAkB7PwJwL614n7Uxz4P
- DEeaAHPTgrfqD5gJlL6jnzPmZ3adIud5EYqPY9ceSkhf9stCcUjk23OK1lHN9ehn1cMz
- bXHm8SXA1WfJ9kCD9gU+4auZ+vHlul4YV5VmGYXLLL+4qFRHoiWuIHPeRDtWT+V+fzhX
- eUQR4/tLvKUnm0/p3KVPG1fwrTJChVEA5aPHSNne4HIbecCFuD0gxCQWIU13HQfNJqIx
- kX3j5pYfWDsvUqHyjDGr6fPiLMGZ/g4EU2HFbiZ1vUKQrNzwJ9UKL26jEX0JGObQzgob
- YIZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVnbo+LcHDtPhpKkej5mq8kqYZctTYFJ+2glGlPlX+BKsgTOpc4JRQxoZ+3Wq9aUnrRik27depvv2IKXCcZKEljLRzGFyzkDLTZgadV/Q==
-X-Gm-Message-State: AOJu0YzhZWlAvYdisFqw3dFz2oWu18TVnwZKgDIMZ79E0Q4zShTJcvlC
- 0PnE7EziTkqRyyHlaazcWLlpOnIS/OBZ4MurAuSHQeqN22QVxW5RxjDdHDO5VTY=
-X-Google-Smtp-Source: AGHT+IFzVkivM0pRCEKZghv4XGnWwGA0mQiuvUyi6E1/QDpYYlIClbXtlMaW/XW9dA6Jnk5pUgBkZQ==
-X-Received: by 2002:a05:6512:388b:b0:523:aac1:b559 with SMTP id
- 2adb3069b0e04-529663e6304mr8034729e87.44.1716925162743; 
- Tue, 28 May 2024 12:39:22 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-529711f96c9sm1045234e87.245.2024.05.28.12.39.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 12:39:22 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 28 May 2024 22:39:20 +0300
-Subject: [PATCH v4 3/3] drm/display: split DSC helpers from DP helpers
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2074.outbound.protection.outlook.com [40.107.212.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0692588DE5;
+ Tue, 28 May 2024 21:03:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L4/uOwnI+WKu2ZrxKXa/WapuD9ZoXh4KdCDomb5kyPYxfzxcSCm6gI5duJHbfkgPtru6Z0Ew/vf96uyJORd7rgdoEbPLBswxsg4zB7r1IeXjLH1Kv5HJPfhcgCZ8CLd1p7KBNPImW3NZq9b18BagFaIY6Y/nTdl7I62ztwASae2VpRi1w5BmoWAfZZD+0pbQN1ycuXrOYPoloSfAKgyBTdTbeyV+8Np8zFNGvgtZ1URBrDfr/BRHu9TPob0CUcIYcquYGwAJqZI5hKNmj6b9D4wdt34Wdn7rmVVND+j2NLEyVJogrm6HH82P7sXtgD7jn+LcdIlJlrsWa0Ck6Gp3jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TrFwAPgvpKPYzfFe7KPvO+P4TVBNHndb1Jvx1pbos6w=;
+ b=Lr8nBJyzL6AClT1yYsBy/aep/M/Bj6HkH4GgwvrhzNP++tMB6adSvieNiFuqAe5vFw2ET1kFps62yezSaVIwo+JytMv+M3U/8pgBHI5soNeMh9sjiHHcR9a2MCf1gpnOUWd86dLbJn9k4RLcB829ZUue1EODYkkt8jh78cz0ugwDxqy0oTBYvEVthiF0M5bZoIuoipn7P9F6T7n7lNoY89UsKod8bh26CiU60CzG4hQc9bZw55KQGXhR2lcoxdpfhp+kK6Am9PqaHYjU/w49sa7aIoc8kOt8n7XiwrGBqS9Ez5hkhHwUHP8asC0mtYOVuQwITW8zvp7sekaxZ8onQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TrFwAPgvpKPYzfFe7KPvO+P4TVBNHndb1Jvx1pbos6w=;
+ b=lKIjxef1t7grUYWW24QZ0o3ehqARq8zT2ovL6xPj85MNUSvzkEva1QWmgcVnKox5Ks0Dzn97RiP/NktxuTctH1bhvckKlQBgPkvTgYCjIAPKHp/lycA8HqFwVblNeXy0xKtKCS/6a3f/g+MgyNNXKw/stQ3ZCHO+G0z6msym8uc=
+Received: from DS7PR05CA0050.namprd05.prod.outlook.com (2603:10b6:8:2f::9) by
+ CH2PR12MB4103.namprd12.prod.outlook.com (2603:10b6:610:7e::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7611.30; Tue, 28 May 2024 21:03:30 +0000
+Received: from DS1PEPF0001709B.namprd05.prod.outlook.com
+ (2603:10b6:8:2f:cafe::68) by DS7PR05CA0050.outlook.office365.com
+ (2603:10b6:8:2f::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.18 via Frontend
+ Transport; Tue, 28 May 2024 21:03:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001709B.mail.protection.outlook.com (10.167.18.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7633.15 via Frontend Transport; Tue, 28 May 2024 21:03:30 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 28 May
+ 2024 16:03:29 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: <linux-kernel@vger.kernel.org>, Mario Limonciello
+ <mario.limonciello@amd.com>, Chris Bainbridge <chris.bainbridge@gmail.com>,
+ <hughsient@gmail.com>
+Subject: [PATCH v2] drm/client: Detect when ACPI lid is closed during
+ initialization
+Date: Tue, 28 May 2024 16:03:19 -0500
+Message-ID: <20240528210319.1242-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240528-panel-sw43408-fix-v4-3-330b42445bcc@linaro.org>
-References: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
-In-Reply-To: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4246;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=++B7C+LJPjhNPbyQwixveMzfLgpLwRSPYkfF+FF6az0=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1qY0fPHnO5xiWeEW+I+fDaU8Na0PvviwqHK8n3TTG7K+
- VmWdYp1MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAiyoIcDHNiYj7J+75/vG5v
- yAX1ddUtC3avmR0c/0zV/vPzSr+r+VxSi9k6v3dXzX2WaXYlw67ZzmZpd5Ok2xuNUo8XJkGG+sF
- 6/qZv/luu2m0eX5bR1DFhcgHDe+OT+4rrp2TwTexMs6oTOFjo7cFbrXqC5ZzN2kM+iyQ3Tl25Pf
- r5GymFiea9b52273zBsnhj1EquOrlzLF0a74RuS5smXUnpDShefPJ6zfkHbzMmRTNc3r7IVccmg
- TP7IrdrX0rg1+rVp0v8Lvkqc7imMz19Hc7uwsrvvXDnYbulvJeC2Lc6tO/+FfD0tn+euf0EcUmN
- c/O+cJ97M1FMqy735ImQFslQ47otxb/Xii28zW1lNZcDAA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709B:EE_|CH2PR12MB4103:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d0a1bf7-17b5-44cc-bb58-08dc7f59a07e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|36860700004|7416005|376005|82310400017|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Q8GDRQJXUS7ftPLMh+dM7LE0gNwteXqRJqtWkEXn/LmgJMr4AIGgdLoUVm34?=
+ =?us-ascii?Q?3Pa1VrUJpqK2vuWVRbZISf5sIpBGWgi4RHkxhbzgqEfC2NcCq+sii01QRsbW?=
+ =?us-ascii?Q?7gBYtwuSUDFwqPVvT3i8ixyDKGWfjFwO9mp26ECVlZJTUmUvogLwIb4TO62t?=
+ =?us-ascii?Q?GiYVUBUiySOPs6QqC1AfdwuzpJYn3RkWwNwllu6Lksu7kJdKn7clWaLEuNGn?=
+ =?us-ascii?Q?dXkIeALHD4FvnC8KhxcUcXYo7QnQkv6idWLtPqhyatdf7wPH26QJY+j7w+P9?=
+ =?us-ascii?Q?5oKL7nmkRk6+BkAGllxugxy0PqQVajAODv4YUqMtnhSJGbhO9yGpY1wFIFTI?=
+ =?us-ascii?Q?2b+2AnEDdSpiqDsiCU1xuQiTM58H65gpzWZEB7mO2sQGPJyGdCZwSKFmNzab?=
+ =?us-ascii?Q?yX8ZlPp/fiXnYpApmA2NwoQNKe15sDwpsSL9qDE7eXR2vFd4lbueMFe7pjjN?=
+ =?us-ascii?Q?lHF4EDTfDkhlcmh8tbeE/fhbBYfBO5fxMd0sn/28oCNIkAiQ6f4tSABzXF+2?=
+ =?us-ascii?Q?8f9xOT/XJ/6vP3166yKafnGJMTGl6e+WpaLIfkVSJxw9TSHf0SW6EGLVi3Tp?=
+ =?us-ascii?Q?9vg/2ZsGPoPWb1Nkthm0Pv44Or5o1oLEEnJU+vs6QVEhGF7TgCkongdSwWol?=
+ =?us-ascii?Q?8MNpY7teixR8maOMVBqenINzXb06rSM4ns0b749h0agADceaLd2BJbVTw1xs?=
+ =?us-ascii?Q?BQUN76dVoUxb188o7DFBnHb8pKM8WKy3dQdVQQC1DrSZ4t8hPAsyws22f7YR?=
+ =?us-ascii?Q?n7T7QRk4/hGQQ/WFrnxWH/1Fh0bAjfk7LHlBcSZNkqMxiH9lYQHKzGSafzKo?=
+ =?us-ascii?Q?07S9ZqnU0bS8stwwO/pfWU/D2JOeIxpSPQsgC3l5SuGKCqRn4YaaJ7d8Jzbe?=
+ =?us-ascii?Q?Y/O1Ap+VtQpyGrMFHW64wlJW4i4p589PvoSsPRsuQk+/GQQQVxXy5nODZV+Z?=
+ =?us-ascii?Q?XxUVNNokQhpMtLZmWK4RA/Qkrk1F/8Vm/pQ2eVCV0XXWHKvrqENi6fDKN55A?=
+ =?us-ascii?Q?bvJ3NAS959G+JP+1rotkS+C22Xa5khH32/6JeqH0WiCkWuDFx/FyHOxeR5BI?=
+ =?us-ascii?Q?iMtwecPJaj68unkEcQCoZhka6o3rSfFiw48hkCR0rSng1w5seRjRFKRlZ6+i?=
+ =?us-ascii?Q?06QW0x6AWytG05cz4w1B1gcniJ4i1NtucuaS2Yvp8qKCHAH4ne16P2wz8vcR?=
+ =?us-ascii?Q?gJTkrPZwnh9jvixyREsQTxZd/qJd+AtQDnVyGkzfd/bgwOpLMdvDOWRNRSNk?=
+ =?us-ascii?Q?Pr2Twmeb0ggFmFh3/mrexrJHoiGtL0MWVG5idakQq1bHm11RhW8zyCezLNtv?=
+ =?us-ascii?Q?W38BU4bsceKZfk7rvOVN4Xvh?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(7416005)(376005)(82310400017)(1800799015); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2024 21:03:30.0464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d0a1bf7-17b5-44cc-bb58-08dc7f59a07e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4103
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,122 +133,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently the DRM DSC functions are selected by the
-DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
-code (both panel and host drivers) end up selecting the seemingly
-irrelevant DP helpers. Split the DSC code to be guarded by the separate
-DRM_DISPLAY_DSC_HELPER Kconfig symbol.
+If the lid on a laptop is closed when eDP connectors are populated
+then it remains enabled when the initial framebuffer configuration
+is built.
 
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+When creating the initial framebuffer configuration detect the ACPI
+lid status and if it's closed disable any eDP connectors.
+
+Reported-by: Chris Bainbridge <chris.bainbridge@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3349
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
- drivers/gpu/drm/display/Kconfig    | 6 ++++++
- drivers/gpu/drm/display/Makefile   | 3 ++-
- drivers/gpu/drm/i915/Kconfig       | 1 +
- drivers/gpu/drm/msm/Kconfig        | 1 +
- drivers/gpu/drm/panel/Kconfig      | 6 +++---
- 6 files changed, 14 insertions(+), 4 deletions(-)
+Cc: hughsient@gmail.com
+v1->v2:
+ * Match LVDS as well
+---
+ drivers/gpu/drm/drm_client_modeset.c | 30 ++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 4232ab27f990..5933ca8c6b96 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -6,6 +6,7 @@ config DRM_AMDGPU
- 	depends on !UML
- 	select FW_LOADER
- 	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_DSC_HELPER
- 	select DRM_DISPLAY_HDMI_HELPER
- 	select DRM_DISPLAY_HDCP_HELPER
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
-index 864a6488bfdf..f524cf95dec3 100644
---- a/drivers/gpu/drm/display/Kconfig
-+++ b/drivers/gpu/drm/display/Kconfig
-@@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+index 31af5cf37a09..0b0411086e76 100644
+--- a/drivers/gpu/drm/drm_client_modeset.c
++++ b/drivers/gpu/drm/drm_client_modeset.c
+@@ -8,6 +8,7 @@
+  */
  
- 	  If in doubt, say "N".
+ #include "drm/drm_modeset_lock.h"
++#include <acpi/button.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/slab.h>
+@@ -257,6 +258,34 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
+ 		enabled[i] = drm_connector_enabled(connectors[i], false);
+ }
  
-+config DRM_DISPLAY_DSC_HELPER
-+	bool
-+	depends on DRM_DISPLAY_HELPER
-+	help
-+	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
++static void drm_client_match_edp_lid(struct drm_device *dev,
++				     struct drm_connector **connectors,
++				     unsigned int connector_count,
++				     bool *enabled)
++{
++	int i;
 +
- config DRM_DISPLAY_HDCP_HELPER
- 	bool
- 	depends on DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
-index 17d2cc73ff56..2ec71e15c3cb 100644
---- a/drivers/gpu/drm/display/Makefile
-+++ b/drivers/gpu/drm/display/Makefile
-@@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
- drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
- 	drm_dp_dual_mode_helper.o \
- 	drm_dp_helper.o \
--	drm_dp_mst_topology.o \
-+	drm_dp_mst_topology.o
-+drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
- 	drm_dsc_helper.o
- drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
- 	drm_dp_tunnel.o
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 5932024f8f95..117b84260b1c 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -11,6 +11,7 @@ config DRM_I915
- 	select SHMEM
- 	select TMPFS
- 	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_DSC_HELPER
- 	select DRM_DISPLAY_HDCP_HELPER
- 	select DRM_DISPLAY_HDMI_HELPER
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 1931ecf73e32..6dcd26180611 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -111,6 +111,7 @@ config DRM_MSM_DSI
- 	depends on DRM_MSM
- 	select DRM_PANEL
- 	select DRM_MIPI_DSI
-+	select DRM_DISPLAY_DSC_HELPER
- 	default y
- 	help
- 	  Choose this option if you have a need for MIPI DSI connector
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 2ae0eb0638f3..3e3f63479544 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -340,7 +340,7 @@ config DRM_PANEL_LG_SW43408
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
--	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_DSC_HELPER
- 	select DRM_DISPLAY_HELPER
- 	help
- 	  Say Y here if you want to enable support for LG sw43408 panel.
-@@ -549,7 +549,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
--	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_DSC_HELPER
- 	select DRM_DISPLAY_HELPER
- 	help
- 	  Say Y here if you want to enable support for Raydium RM692E5-based
-@@ -907,7 +907,7 @@ config DRM_PANEL_VISIONOX_R66451
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
--	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_DSC_HELPER
- 	select DRM_DISPLAY_HELPER
- 	help
- 	  Say Y here if you want to enable support for Visionox
-
++	for (i = 0; i < connector_count; i++) {
++		struct drm_connector *connector = connectors[i];
++
++		switch (connector->connector_type) {
++		case DRM_MODE_CONNECTOR_LVDS:
++		case DRM_MODE_CONNECTOR_eDP:
++			if (!enabled[i])
++				continue;
++			break;
++		default:
++			continue;
++		}
++
++		if (!acpi_lid_open()) {
++			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
++				    connector->base.id, connector->name);
++			enabled[i] = false;
++		}
++	}
++}
++
+ static bool drm_client_target_cloned(struct drm_device *dev,
+ 				     struct drm_connector **connectors,
+ 				     unsigned int connector_count,
+@@ -844,6 +873,7 @@ int drm_client_modeset_probe(struct drm_client_dev *client, unsigned int width,
+ 		memset(crtcs, 0, connector_count * sizeof(*crtcs));
+ 		memset(offsets, 0, connector_count * sizeof(*offsets));
+ 
++		drm_client_match_edp_lid(dev, connectors, connector_count, enabled);
+ 		if (!drm_client_target_cloned(dev, connectors, connector_count, modes,
+ 					      offsets, enabled, width, height) &&
+ 		    !drm_client_target_preferred(dev, connectors, connector_count, modes,
 -- 
-2.39.2
+2.43.0
 
