@@ -4,149 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EFCC25B78
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 12:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED822C25B78
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 May 2024 12:57:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA0211226B;
-	Tue, 28 May 2024 12:40:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5931D112286;
+	Tue, 28 May 2024 12:57:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="afXj/rzm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lV6kztwc";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2045.outbound.protection.outlook.com [40.107.100.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF7411226F;
- Tue, 28 May 2024 12:40:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QUYG7+YWw9dfRL2i5JDHs/ObjrU/1q/lTAoCMLSdchoyWBARF2BZen6MPBFGERqQKUSGgnKesUIoj/hKuILbxZ9y8lTgkaxmrVu815P5wFMJ3VJsLU54C8kuiw3PRKpGcFLpPQvJpfjmgbsIuv6afTK+NSrvpPPHR2LZrt+N7vKyUZrT5T38c3DZetYt7nqQk6wJphoP/qejSHldOhRqcmQeXE3k1eJA52x0Ix8/SzJVE81BRhkKvboPbbO8e59D0IpHAIC2iU5aa8GusNXiLzZwZWtRmrwQhTv7A2GmNVZrrHvEgRCI0JJZV3k6YCAe9wwaDvEq3EBQ38Y1LgD5ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2jQpNfX1SrUVJzJfxjbFzWhHCjtrdV0lSYqgud9qHcg=;
- b=TBq+kYgvYZUXZhoDTD4yjTcnsesNTSCIT+xM6sSdrepdwpS5uBzhfFC3bAOHETBt33DIO9BLWHfrqO/qVIBRZhhcNPEzHDp19ly1PavcAAVhLv7944AkO8oyGpzvtbr3HWuuUG7BRsZq+MOpz4RnVLov+0pWFAJ/unP5zpX36KyT6l3NWqLexf3yGiLh3VvKkPiP1Yo7MKH5CoaHx2K46Qa6FMwVJjhat9Vnle84a2Gco4Ln7d+0MepKIxIgR15eK2MANtEX0tH+B/5ZTn5Da5g1qXEsDoIWBJ7b9vJ8Rw8n6rNrhWja79yc7FcmzmbE+wP5IkIncF5O7NcUNaWYBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2jQpNfX1SrUVJzJfxjbFzWhHCjtrdV0lSYqgud9qHcg=;
- b=afXj/rzmR+TaK/5LD/iM0C8Ou/JZCD/MGma3zb46J5i4tG8KWk/UhPvHyU1ZX2VbWWtLqQEm4fTx8IzQ54iKxL8/R1RS6QF6lY+IyrVUlmL9KyPxhDKfaAIxZUdGcbB4AVZhGcnvsDhmQuHJKOD1Q2aKgMyqhi1vIoOBDNt7dsI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- CY5PR12MB6035.namprd12.prod.outlook.com (2603:10b6:930:2d::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7611.30; Tue, 28 May 2024 12:40:16 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.7633.017; Tue, 28 May 2024
- 12:40:16 +0000
-Message-ID: <70b0c2dc-0ec7-4b04-9742-e54b6e56e6bb@amd.com>
-Date: Tue, 28 May 2024 18:10:05 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: select CONFIG_CRC16
-To: Arnd Bergmann <arnd@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240528115050.2831206-1-arnd@kernel.org>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240528115050.2831206-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0214.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:ea::9) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AB44112282
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 12:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=JHpFZF+YRsOWhH/j3iVlgmQt0sc9FurbFV9z9AdOfBE=; b=lV6kztwcH07ZDBlzv0ulxbc8Qy
+ 0QqIWj0yAoJd5r47o/N1rRijW/mJwMC6W8XSlgWXwKgrndg+wW0z1amY81IbLb3WhDHHhb+nWisq6
+ vYkKEIbc44HI4j8aGETOEnD8kKDCCrzIQXYR/DnMd68HLiuTZN5a+8zjubZIoyL4QJX9S9MKERkMd
+ QkeJx4bEIm2m8pzBHPqFvHbzHeLCexr3z0+RN2tzajeFaCPCuXXeInNV0q//kjrqCLoZDieviNa75
+ ELflyad8Kisbyeh0LRREkOwpk8k8E4mLXxrY/5SZoEruWwGbj3huc5XGfi61LexCAeS8UPl4E8y3a
+ FO9eB8Og==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1sBwOD-00DWj2-HV; Tue, 28 May 2024 14:57:17 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH] drm/amd/display: Convert some legacy DRM debug macros into
+ appropriate categories
+Date: Tue, 28 May 2024 13:57:11 +0100
+Message-ID: <20240528125711.86488-1-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CY5PR12MB6035:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32cbecf1-4edc-4933-a662-08dc7f13538f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|366007|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eHA5N0kzRzMxZ3BvSW5XY3BGOVl2V21abThTL0hKdEM4TVZBN2dHNTFEbmJM?=
- =?utf-8?B?TEVKejNVMThtaUo2RlpKRDgrakJtRHdVYTBtc1pVSkRJY0NPblJvazhtdDZj?=
- =?utf-8?B?QWZ0bldCWkdRemVZekttRE91OEtpSU5sVmxSNG1HaExoUXk5akJKZlo2SVBB?=
- =?utf-8?B?by9ROUdJWXNZbUlUbXgvTThLeEFKOE5BbktMNVZsa0Q1a0dycWRBVmN6NGJZ?=
- =?utf-8?B?RnZkNTgxOE82TXNJZ2JjWkVFd1pCeUd3SzIxUHViYVR5WXR5NzNTMkk2SHJz?=
- =?utf-8?B?aklOMjhybXJ5RWdEZzlHejFJQ3ltc000Z1BMWU1YcVA4VVZzOFpyNG41aEFS?=
- =?utf-8?B?VXR4UFhFOUc4Qmg0bWxHSlFVZnFiRUFZclNaTkF1MDBJSUhkbFd4ME5kSVBm?=
- =?utf-8?B?VVd3UmI3U21NVE9BaC81VWtSYkw5RTlnWlVTL043OExBQU8yWHNQRGhPN3Y0?=
- =?utf-8?B?TTAxUzZKR1Flc3BmaFdhTFJaek01ZHVFSk1FMUx5R3RIc1gxZjVtaGJhaHJq?=
- =?utf-8?B?M1Q4L1J4WGVNQk9QV3Z4aGFHNkNZUGQ3ZWxHQ0Q4RGVFbHY1cGxRTGtXRDJL?=
- =?utf-8?B?ZU83emRRRHpFQjRKWVVQVURob0lwemY2SGorRTBqVk04NWpXK091OTc0OFdT?=
- =?utf-8?B?MDhRdXJrNFBYVmxtV2VKK0QrMzYyVjJWUW5LVHcxUkgwRExNb1lvRlBmZksx?=
- =?utf-8?B?c0VadlZKNXdUalVpdUkrU2gvN0pLdkp3bExnMi9ETXJnNWo4NmU4dVRDeHBL?=
- =?utf-8?B?ampUR1djajJvRy9wc1p1Sk5ML2xsbnk5MzVoZzJjVWowLyswZFRPWU9vcFgx?=
- =?utf-8?B?bDdYd1NTTU1QM3dVdURCUVBxdlVtZ2hqQWxsSjBQV09rbnJVQ09Fc0VsYXpw?=
- =?utf-8?B?QnlVSEpoVzFjblZpaDlRUWhIS0xwM0hielhiRGVMcHo4UFlESjZkdlhFUzhF?=
- =?utf-8?B?TE5HUjNzcndJRlpxbkpSRUdjdFpZMWN3TTk3TDZ3amRIbmNnSnN4bzBHQzFB?=
- =?utf-8?B?d09KclFCeUNVV1lEK3hzNkJVczlDQjl5aDlaTE5wTGZkK3NRUy9lMzE0dGVn?=
- =?utf-8?B?RlM1RHdZK0ZTamY4V0cxSk5UUU5ObUQ3L2t6eXEvV0pGbEd2S1llcTA2eXMv?=
- =?utf-8?B?TkFhSktsMGcyUyt4VWlEd280UW1Ib0VmUUpDNGFYMHRFeFcrdnNad2pqbFRn?=
- =?utf-8?B?MDlJbHAycDZKZ204KzBrVFZORmtPRjY0ektTNXd2Z1RGMGEvZ2lyaWtiM3Fh?=
- =?utf-8?B?RTZpVGk5alYraGViM25sbVR0S2dnNFdvUUxTdExPUkc4SW1oWnlDcXpoVmwy?=
- =?utf-8?B?K1laOVJlWjFhQVRBMUhRVmR4S053Mkw3SElEbEtZQm83cVF6ZjRUdmdPbGd1?=
- =?utf-8?B?NnNoL2lTWTZDQVRNQXNlcTlOYWY5cW1qT2NrZlBZRDBldHNsb0Z5OVpsKzhP?=
- =?utf-8?B?WUhPaWgzdHpMU2RQTzQ0ZnM3b0tyQzlKUEQxSmY5dmcwaXpLUkVoT1c4N05Y?=
- =?utf-8?B?bUR2bXhuQ0JURDVqRHBOZHFMOFY1eHg1Sk1zKzRmZjVYK2tRcFNQVXIzOU0v?=
- =?utf-8?B?MkdhTFA2VlpXM2tPelpWV3JNaFZzeHZwOEFIcFR3NXlpRk9LOTY0ZW5wTFM5?=
- =?utf-8?Q?a+0bE9DKzoWUkh6J3DAesCjzDpkWqr4+pqqoJra905zo=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QStYWVluVThNNW9GejNaaTd0cmFhT3lOMFBBUEhnTmo2S0pBU055b25qcTJx?=
- =?utf-8?B?K09sd2hUTkkxSk5OWmtieERsYU45YUs1SFI1eW0xaTZoRm8rQ1ZjZURoRUcr?=
- =?utf-8?B?RFExeStVT3A1cEt5OG1QdW54by9uRmdRQmZhZzZNS1hJZmpOeDd6cW10NUhQ?=
- =?utf-8?B?VVFaWE8yNFpRSXZzc2ZGd3BPWWhobEl1MjhFWG9mMzlISDhGOEdZLzZlSXhx?=
- =?utf-8?B?ZXNRbElvVG5pWU9aV1dXb0d2aGhGTFcvZGtqMDl0NkN0OCtPaUduZURqSFlX?=
- =?utf-8?B?MWN1YlhzL0NxTTBXYURBbW93Y2dhaDlmRk95WjJNKzZQVTI4UEdGd2JaZ0c2?=
- =?utf-8?B?Yll6RmRJV0czMno2OCs4anB6aWplTzNmM0ZERm1qVStHYy9LdS92VTJ4allw?=
- =?utf-8?B?cUR5c3FCbkpBL0RxN0ZyWlF1M1RzT1owQTlqSXFsSk8vd3lVblkrb3hvdjV2?=
- =?utf-8?B?OG5zU2JmaUdkUmovTzhjUWlrbU56MzVIWEI2YmN1eEhLU0FTVDRuditoUml0?=
- =?utf-8?B?eEhTY0I5YlEwdDBNQU1xUlVLRHVFUXpYQWxuWW1JQ002dFgwUm9HU05CSDdF?=
- =?utf-8?B?Zkd3QUtOc2NscWJ1VG5PbWFBYnBJMi9VSk1uY2xZZGVPVndqYm16UFZ4a0Ji?=
- =?utf-8?B?TmNWV1BQNTgrUHpyOFJhVDNWbjlWRlhaYjJxeTJ0WEdRc0ZoLytMNlNEQ2p0?=
- =?utf-8?B?SVoraTNLNU1yN09uSlVVYjFJandya1BPblFNUnp4cHNGNjdLY1FCMHdvOVdW?=
- =?utf-8?B?bXlnSmc0TWRqL2ErWm0rdlMyNnFwOXYzMldJbFFWdmtUb05ZS0RhcmQ1RVNX?=
- =?utf-8?B?c01hdVN0VEJiSEpEUHdUVFVLREVwK09UOWxubjVPTVNGZExjb3FSSlBKMjQr?=
- =?utf-8?B?dTZpaTFqUVlndDBEMFpMemFlYWN3cUc1QmxLSm94VmVuNWNYMmpiOEM3bGZF?=
- =?utf-8?B?YTZkNFJEMHJDM01qdW9JTlZSWnMwK0dUbmp4TE1lSGtJMUYwM09yYWVKb3JL?=
- =?utf-8?B?a3FGTVZtSmZMKzVSY2dQN2orOGV0ZlBlTnBId0tMZ3dKUzJGZ0c1Q1REWFJv?=
- =?utf-8?B?NTU3UlhSQ2lGNmlpWHpTT09WcjdReUxpUVdYZEZTZy9CSlR5dEc5dzdZQVZM?=
- =?utf-8?B?QmNkbko2OWlKZDVJd2k2bGJhbXJDTU0zelY2ZnkzcEhnT1M0RzQrMWRuNDdw?=
- =?utf-8?B?UVpXRGwxYzF3TVRhNnVFSDNMYzU0TXBtamw0QlFoTHUvcWREbjZDdTdGd01x?=
- =?utf-8?B?NUovcjNTbU9IYWhIVDhsWGZMalB4bzk0ak1hVER3UGhTRStHZFdDaUxIaTlq?=
- =?utf-8?B?b3AwNXc1TnBiTWhIdDhlazRjZHk1b2owZ1ZYdDNYVG1iMHRhUmtLL0tSdk9z?=
- =?utf-8?B?UEkrT0htcjJnZElpWU9rYlFCVjZUbkxkL3pKRm9xUzJ1QWV6ekVsL0o4aWtG?=
- =?utf-8?B?SXRGUHhGbm5DTEtjWmtWTEhmOWJMVG51QzFNRHBxK0NFQU1xUG9iY05Ycmxq?=
- =?utf-8?B?WlNKQWdkaEZacE56MTBWUkhxVWdzMWV0NlcxNTl6Ty9QdnZQTytQSGRpRE1o?=
- =?utf-8?B?ajhWODA1SWJwTmRjOExhV0tLbjFGUDU0cUYxY2dxSGMvekswWWVzOEtya3Vl?=
- =?utf-8?B?U2ZCSmhmWUdLVUQzcHdwOHM1cWFHOEZQOFVpVFhSU1NsTzFGKzA2aHdxcUwx?=
- =?utf-8?B?RjNtMnU0SnNMMW95QUVxMkN3OXNIdGIvSFBiWE0wWmZNV0poMDU3MGovRW5y?=
- =?utf-8?B?YVZycm5wMUFvbXBHMExiWVFDYjlsNmE4MHNXOFQ4citWSGhPUkxaYWZTdmtN?=
- =?utf-8?B?WlZidmRDN2FQdVNzMURHMnZJdnlHWFd2djB6Tmdmei9SMDZxN3FTeXIzNHlX?=
- =?utf-8?B?a2tsMG41YW9OYWcrOEllTEVnT1pLak5pRy9oS2M2MkdOMGhBamVhMndBMnY0?=
- =?utf-8?B?MGsreDc0WTVNbDdiakdCNTJtQXJMWE9RNU5JdFFLc24rR3pTSERjOXg0WFRI?=
- =?utf-8?B?Z2ZSeXVLL1dPTVRqMHE3cUlOcTlTZVJCSDRVWklHcE5YNVdLbmZBL0gvMERs?=
- =?utf-8?B?WG1NamkzNVFRd1R3UUhodTVZejB3b2QzR2ViVFdXampTVG5NZmNoNjN1UmZo?=
- =?utf-8?Q?kGDOC6ijASLF6eXu3mSkuLE63?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32cbecf1-4edc-4933-a662-08dc7f13538f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2024 12:40:16.6808 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q9m64DHDtOnFFGGWpxAJ9ElXmAkUqAfLXEEr422XAMkn/DlSChkHoZVygNXFteM3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6035
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,40 +57,294 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
+Currently when one enables driver debugging dmesg gets spammed, at I
+suspect vblank rate, with messages like:
 
-On 5/28/2024 5:20 PM, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> The amdkfd support fails to link when CONFIG_CRC16 is disabled:
-> 
-> aarch64-linux-ld: drivers/gpu/drm/amd/amdkfd/kfd_topology.o: in function `kfd_topology_add_device':
-> kfd_topology.c:(.text+0x3a4c): undefined reference to `crc16'
-> 
-> This is a library module that needs to be selected from every user.
-> 
-> Fixes: 3ed181b8ff43 ("drm/amdkfd: Ensure gpu_id is unique")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+ [drm:amdgpu_dm_atomic_check [amdgpu]] MPO enablement requested on crtc:[00000000f073c3bb]
 
-Thanks for the patch; this is already addressed with -
-https://patchwork.freedesktop.org/patch/594816/
+Fix if by converting some logging from deprecated and incorrect
+DRM_DEBUG_DRIVER to drm_dbg_atomic. Plus some localized drive-by changes
+to drm_dbg_kms.
 
-Thanks,
-Lijo
+By no means an exhaustive conversion but at least it allows turning on
+driver debug selectively.
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
-> index d3c3d3ab7225..f82595af34bf 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
-> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
-> @@ -6,6 +6,7 @@
->  config HSA_AMD
->  	bool "HSA kernel driver for AMD GPU devices"
->  	depends on DRM_AMDGPU && (X86_64 || ARM64 || PPC64)
-> +	select CRC16
->  	select HMM_MIRROR
->  	select MMU_NOTIFIER
->  	select DRM_AMDGPU_USERPTR
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 ++++++++++---------
+ 1 file changed, 39 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 975feb1c69b8..bf9db488eee6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2363,13 +2363,13 @@ static int detect_mst_link_for_all_connectors(struct drm_device *dev)
+ 		aconnector = to_amdgpu_dm_connector(connector);
+ 		if (aconnector->dc_link->type == dc_connection_mst_branch &&
+ 		    aconnector->mst_mgr.aux) {
+-			DRM_DEBUG_DRIVER("DM_MST: starting TM on aconnector: %p [id: %d]\n",
++			drm_dbg_kms(dev, "DM_MST: starting TM on aconnector: %p [id: %d]\n",
+ 					 aconnector,
+ 					 aconnector->base.base.id);
+ 
+ 			ret = drm_dp_mst_topology_mgr_set_mst(&aconnector->mst_mgr, true);
+ 			if (ret < 0) {
+-				DRM_ERROR("DM_MST: Failed to start MST\n");
++				drm_err(dev, "DM_MST: Failed to start MST\n");
+ 				aconnector->dc_link->type =
+ 					dc_connection_single;
+ 				ret = dm_helpers_dp_mst_stop_top_mgr(aconnector->dc_link->ctx,
+@@ -3298,15 +3298,15 @@ void amdgpu_dm_update_connector_after_detect(
+ 		 * We got a DP short pulse (Link Loss, DP CTS, etc...).
+ 		 * Do nothing!!
+ 		 */
+-		DRM_DEBUG_DRIVER("DCHPD: connector_id=%d: dc_sink didn't change.\n",
+-				aconnector->connector_id);
++		drm_dbg_kms(dev, "DCHPD: connector_id=%d: dc_sink didn't change.\n",
++				 aconnector->connector_id);
+ 		if (sink)
+ 			dc_sink_release(sink);
+ 		return;
+ 	}
+ 
+-	DRM_DEBUG_DRIVER("DCHPD: connector_id=%d: Old sink=%p New sink=%p\n",
+-		aconnector->connector_id, aconnector->dc_sink, sink);
++	drm_dbg_kms(dev, "DCHPD: connector_id=%d: Old sink=%p New sink=%p\n",
++		    aconnector->connector_id, aconnector->dc_sink, sink);
+ 
+ 	mutex_lock(&dev->mode_config.mutex);
+ 
+@@ -9191,7 +9191,9 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 
+ 		if (amdgpu_dm_crtc_modeset_required(new_crtc_state, dm_new_crtc_state->stream, dm_old_crtc_state->stream)) {
+ 
+-			DRM_DEBUG_ATOMIC("Atomic commit: SET crtc id %d: [%p]\n", acrtc->crtc_id, acrtc);
++			drm_dbg_atomic(dev,
++				       "Atomic commit: SET crtc id %d: [%p]\n",
++				       acrtc->crtc_id, acrtc);
+ 
+ 			if (!dm_new_crtc_state->stream) {
+ 				/*
+@@ -9209,8 +9211,9 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 				 * have a sink to keep the pipe running so that
+ 				 * hw state is consistent with the sw state
+ 				 */
+-				DRM_DEBUG_DRIVER("%s: Failed to create new stream for crtc %d\n",
+-						__func__, acrtc->base.base.id);
++				drm_dbg_atomic(dev,
++					       "Failed to create new stream for crtc %d\n",
++						acrtc->base.base.id);
+ 				continue;
+ 			}
+ 
+@@ -9224,7 +9227,9 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 			crtc->hwmode = new_crtc_state->mode;
+ 			mode_set_reset_required = true;
+ 		} else if (modereset_required(new_crtc_state)) {
+-			DRM_DEBUG_ATOMIC("Atomic commit: RESET. crtc id %d:[%p]\n", acrtc->crtc_id, acrtc);
++			drm_dbg_atomic(dev,
++				       "Atomic commit: RESET. crtc id %d:[%p]\n",
++				       acrtc->crtc_id, acrtc);
+ 			/* i.e. reset mode */
+ 			if (dm_old_crtc_state->stream)
+ 				remove_stream(adev, acrtc, dm_old_crtc_state->stream);
+@@ -9679,7 +9684,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ #endif
+ 				if (amdgpu_dm_crtc_configure_crc_source(
+ 					crtc, dm_new_crtc_state, cur_crc_src))
+-					DRM_DEBUG_DRIVER("Failed to configure crc source");
++					drm_dbg_atomic(dev, "Failed to configure crc source");
+ 			}
+ 		}
+ #endif
+@@ -10851,7 +10856,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 	ret = drm_atomic_helper_check_modeset(dev, state);
+ 	if (ret) {
+-		DRM_DEBUG_DRIVER("drm_atomic_helper_check_modeset() failed\n");
++		drm_dbg_atomic(dev, "drm_atomic_helper_check_modeset() failed\n");
+ 		goto fail;
+ 	}
+ 
+@@ -10866,7 +10871,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 		new_crtc_state = drm_atomic_get_crtc_state(state, new_con_state->crtc);
+ 		if (IS_ERR(new_crtc_state)) {
+-			DRM_DEBUG_DRIVER("drm_atomic_get_crtc_state() failed\n");
++			drm_dbg_atomic(dev, "drm_atomic_get_crtc_state() failed\n");
+ 			ret = PTR_ERR(new_crtc_state);
+ 			goto fail;
+ 		}
+@@ -10881,7 +10886,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+ 				ret = add_affected_mst_dsc_crtcs(state, crtc);
+ 				if (ret) {
+-					DRM_DEBUG_DRIVER("add_affected_mst_dsc_crtcs() failed\n");
++					drm_dbg_atomic(dev, "add_affected_mst_dsc_crtcs() failed\n");
+ 					goto fail;
+ 				}
+ 			}
+@@ -10898,7 +10903,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 		ret = amdgpu_dm_verify_lut_sizes(new_crtc_state);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("amdgpu_dm_verify_lut_sizes() failed\n");
++			drm_dbg_atomic(dev, "amdgpu_dm_verify_lut_sizes() failed\n");
+ 			goto fail;
+ 		}
+ 
+@@ -10907,13 +10912,13 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 		ret = drm_atomic_add_affected_connectors(state, crtc);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("drm_atomic_add_affected_connectors() failed\n");
++			drm_dbg_atomic(dev, "drm_atomic_add_affected_connectors() failed\n");
+ 			goto fail;
+ 		}
+ 
+ 		ret = drm_atomic_add_affected_planes(state, crtc);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("drm_atomic_add_affected_planes() failed\n");
++			drm_dbg_atomic(dev, "drm_atomic_add_affected_planes() failed\n");
+ 			goto fail;
+ 		}
+ 
+@@ -10952,7 +10957,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 			if (IS_ERR(new_plane_state)) {
+ 				ret = PTR_ERR(new_plane_state);
+-				DRM_DEBUG_DRIVER("new_plane_state is BAD\n");
++				drm_dbg_atomic(dev, "new_plane_state is BAD\n");
+ 				goto fail;
+ 			}
+ 		}
+@@ -10984,7 +10989,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					    &lock_and_validation_needed,
+ 					    &is_top_most_overlay);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("dm_update_plane_state() failed\n");
++			drm_dbg_atomic(dev, "dm_update_plane_state() failed\n");
+ 			goto fail;
+ 		}
+ 	}
+@@ -10997,7 +11002,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					   false,
+ 					   &lock_and_validation_needed);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("DISABLE: dm_update_crtc_state() failed\n");
++			drm_dbg_atomic(dev, "DISABLE: dm_update_crtc_state() failed\n");
+ 			goto fail;
+ 		}
+ 	}
+@@ -11010,7 +11015,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					   true,
+ 					   &lock_and_validation_needed);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("ENABLE: dm_update_crtc_state() failed\n");
++			drm_dbg_atomic(dev, "ENABLE: dm_update_crtc_state() failed\n");
+ 			goto fail;
+ 		}
+ 	}
+@@ -11024,7 +11029,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					    &lock_and_validation_needed,
+ 					    &is_top_most_overlay);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("dm_update_plane_state() failed\n");
++			drm_dbg_atomic(dev, "dm_update_plane_state() failed\n");
+ 			goto fail;
+ 		}
+ 	}
+@@ -11040,21 +11045,21 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	/* Run this here since we want to validate the streams we created */
+ 	ret = drm_atomic_helper_check_planes(dev, state);
+ 	if (ret) {
+-		DRM_DEBUG_DRIVER("drm_atomic_helper_check_planes() failed\n");
++		drm_dbg_atomic(dev, "drm_atomic_helper_check_planes() failed\n");
+ 		goto fail;
+ 	}
+ 
+ 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 		if (dm_new_crtc_state->mpo_requested)
+-			DRM_DEBUG_DRIVER("MPO enablement requested on crtc:[%p]\n", crtc);
++			drm_dbg_atomic(dev, "MPO enablement requested on crtc:[%p]\n", crtc);
+ 	}
+ 
+ 	/* Check cursor planes scaling */
+ 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+ 		ret = dm_check_crtc_cursor(state, crtc, new_crtc_state);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("dm_check_crtc_cursor() failed\n");
++			drm_dbg_atomic(dev, "dm_check_crtc_cursor() failed\n");
+ 			goto fail;
+ 		}
+ 	}
+@@ -11137,13 +11142,13 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	if (lock_and_validation_needed) {
+ 		ret = dm_atomic_get_state(state, &dm_state);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("dm_atomic_get_state() failed\n");
++			drm_dbg_atomic(dev, "dm_atomic_get_state() failed\n");
+ 			goto fail;
+ 		}
+ 
+ 		ret = do_aquire_global_lock(dev, state);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("do_aquire_global_lock() failed\n");
++			drm_dbg_atomic(dev, "do_aquire_global_lock() failed\n");
+ 			goto fail;
+ 		}
+ 
+@@ -11151,7 +11156,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 		if (dc_resource_is_dsc_encoding_supported(dc)) {
+ 			ret = compute_mst_dsc_configs_for_state(state, dm_state->context, vars);
+ 			if (ret) {
+-				DRM_DEBUG_DRIVER("compute_mst_dsc_configs_for_state() failed\n");
++				drm_dbg_atomic(dev, "compute_mst_dsc_configs_for_state() failed\n");
+ 				ret = -EINVAL;
+ 				goto fail;
+ 			}
+@@ -11160,7 +11165,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 		ret = dm_update_mst_vcpi_slots_for_dsc(state, dm_state->context, vars);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("dm_update_mst_vcpi_slots_for_dsc() failed\n");
++			drm_dbg_atomic(dev, "dm_update_mst_vcpi_slots_for_dsc() failed\n");
+ 			goto fail;
+ 		}
+ 
+@@ -11172,12 +11177,12 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 		 */
+ 		ret = drm_dp_mst_atomic_check(state);
+ 		if (ret) {
+-			DRM_DEBUG_DRIVER("drm_dp_mst_atomic_check() failed\n");
++			drm_dbg_atomic(dev, "drm_dp_mst_atomic_check() failed\n");
+ 			goto fail;
+ 		}
+ 		status = dc_validate_global_state(dc, dm_state->context, true);
+ 		if (status != DC_OK) {
+-			DRM_DEBUG_DRIVER("DC global validation failure: %s (%d)",
++			drm_dbg_atomic(dev, "DC global validation failure: %s (%d)",
+ 				       dc_status_to_str(status), status);
+ 			ret = -EINVAL;
+ 			goto fail;
+@@ -11255,11 +11260,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ fail:
+ 	if (ret == -EDEADLK)
+-		DRM_DEBUG_DRIVER("Atomic check stopped to avoid deadlock.\n");
++		drm_dbg_atomic(dev, "Atomic check stopped to avoid deadlock.\n");
+ 	else if (ret == -EINTR || ret == -EAGAIN || ret == -ERESTARTSYS)
+-		DRM_DEBUG_DRIVER("Atomic check stopped due to signal.\n");
++		drm_dbg_atomic(dev, "Atomic check stopped due to signal.\n");
+ 	else
+-		DRM_DEBUG_DRIVER("Atomic check failed with err: %d\n", ret);
++		drm_dbg_atomic(dev, "Atomic check failed with err: %d\n", ret);
+ 
+ 	trace_amdgpu_dm_atomic_check_finish(state, ret);
+ 
+-- 
+2.44.0
+
