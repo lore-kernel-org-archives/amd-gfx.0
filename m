@@ -4,46 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 556FAC25B74
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 May 2024 13:02:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B0B4C27C44
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 May 2024 13:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46DC911BEE2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 216BB11BEB8;
 	Thu, 30 May 2024 13:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=devnull.tasossah.com header.i=@devnull.tasossah.com header.b="VVUcjEeK";
+	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="JWOEY5Fe";
 	dkim-atps=neutral
-X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
- Thu, 30 May 2024 10:36:37 UTC
-Received: from devnull.tasossah.com (devnull.tasossah.com [91.121.165.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5590110E00D
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 May 2024 10:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=devnull.tasossah.com; s=vps; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jehkgjsS75YvkuNGPSG2iqWlxgF/EISe7OE3u3S4EA0=; b=VVUcjEeKm+RTq5W+KlNr66y0MQ
- rpbQ3OssHS6xTR+F2k9eFD0DdINeYwYObwcYePgEImpxlpWziInEsY5Z3HqvkJYtI1HkIOrHGeeLl
- pj9kPqoXmY77bT5f0eGsMXzCZ/54OuhsnazfQqc3MzR7ipZLoGLhpiRIEtBSJ8Sy5j4E=;
-Received: from tatokis by devnull.tasossah.com with local (Exim 4.93)
- (envelope-from <tatokis@devnull.tasossah.com>)
- id 1sCd3v-003u4M-H8; Thu, 30 May 2024 13:31:11 +0300
-Date: Thu, 30 May 2024 13:31:11 +0300
-From: Tasos Sahanidis <tasos@tasossah.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/amdgpu/pptable: Fix UBSAN array-index-out-of-bounds
-Message-ID: <20240530103111.GA930046@devnull.tasossah.com>
-References: <20240523071637.1114898-1-tasos@tasossah.com>
- <CADnq5_MAPCEO4mNouRHnPMy5-OPXyN1cjy4Ub_xVip4m8x4OZQ@mail.gmail.com>
- <d064e35f-4990-485b-9426-a4f5ab9f3375@tasossah.com>
- <CADnq5_OX52-0Enb6E1qDhDZ-G-Sd3cgGF5hUouofgkq7VzK1_Q@mail.gmail.com>
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B62B1135DD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 14:27:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=wlla
+ ugfLH4XOoxwomJKK6MPaqTtVsABW1UD4EEKk+4c=; b=JWOEY5FeWD44RFriaKFC
+ Y/mqXRSe3P2VUVAqOZnYS6e541cu40MbqDwXjAH10ViFZ8+8N2fkUDvp2u5R8fTH
+ mOHeklMKaUvylxN5MBwvmw58lfi5+uyB96Ob8MwCNTxDYlihvcc2ZMSj0UO2sV2/
+ TY6QcNeRPZm8YsA/wMK6SNgTfxN3OpxLRbvUIWpKr/fCb3M2ErnWvMcEba0V5KXv
+ 6jKZN09LMxmpWrwBVpwfBukjQ491dnuJJobNdngrsKdzLMAsAmxr21QXL86oVXCI
+ eILZfrm3aqIBneI1K7VlfYdlZwSU3OfsuCnteWLXxqcjACdSWEdeFrmV2zMESLsa
+ 8Q==
+Received: (qmail 601684 invoked from network); 29 May 2024 16:27:46 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 29 May 2024 16:27:46 +0200
+X-UD-Smtp-Session: l3s3148p1@+AbhjZgZFLNehhYM
+Date: Wed, 29 May 2024 16:27:45 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Ma, Jun" <Jun.Ma2@amd.com>,
+ Evan Quan <quanliangl@hotmail.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] MAINTAINERS: update email for Evan Quan
+Message-ID: <fhhtkw24ntbf7ahdtmt67stvuevi2sa7gg6sxyxezrrn3p3nn7@2ryodpxsm5ed>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Ma, Jun" <Jun.Ma2@amd.com>,
+ Evan Quan <quanliangl@hotmail.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20240529114621.11795-2-wsa+renesas@sang-engineering.com>
+ <BL1PR12MB51449A1977FA06BACE4FF306F7F22@BL1PR12MB5144.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="j2otqm2jcsamjrln"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADnq5_OX52-0Enb6E1qDhDZ-G-Sd3cgGF5hUouofgkq7VzK1_Q@mail.gmail.com>
+In-Reply-To: <BL1PR12MB51449A1977FA06BACE4FF306F7F22@BL1PR12MB5144.namprd12.prod.outlook.com>
 X-Mailman-Approved-At: Thu, 30 May 2024 13:02:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,73 +66,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 27, 2024 at 10:47:39AM -0400, Alex Deucher wrote:
-> On Mon, May 27, 2024 at 5:42 AM Tasos Sahanidis <tasos@tasossah.com> wrote:
-> >
-> > On 2024-05-23 17:52, Alex Deucher wrote:
-> > > On Thu, May 23, 2024 at 9:05 AM Tasos Sahanidis <tasos@tasossah.com> wrote:
-> > >>
-> > >> Dyanmically sized arrays used [1] instead of []. Replacing the former
-> > >> with the latter resolves multiple warnings observed on boot with a
-> > >> BONAIRE card.
-> > >>
-> > >> Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
-> > >> ---
-> > >>  drivers/gpu/drm/amd/include/pptable.h | 24 ++++++++++++------------
-> > >>  1 file changed, 12 insertions(+), 12 deletions(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/include/pptable.h
-> > >> index 2e8e6c9875f6..d1dec880d2d6 100644
-> > >> --- a/drivers/gpu/drm/amd/include/pptable.h
-> > >> +++ b/drivers/gpu/drm/amd/include/pptable.h
-> > >> @@ -480,7 +480,7 @@ typedef struct _StateArray{
-> > >>      //how many states we have
-> > >>      UCHAR ucNumEntries;
-> > >>
-> > >> -    ATOM_PPLIB_STATE_V2 states[1];
-> > >> +    ATOM_PPLIB_STATE_V2 states[];
-> > >
-> > > Can you add __counted_by(ucNumEntries) to the end of the line? E.g.,
-> > >
-> > > ATOM_PPLIB_STATE_V2 states[] __counted_by(ucNumEntries);
-> > >
-> > > Same comment for the other changes below.
-> > >
-> > > Alex
-> >
 
-Apologies for the delay. I realised my compiler actually didn't support
-the attribute, so I had to install clang 19 from git.
+--j2otqm2jcsamjrln
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-After doing so, I saw this warning about ATOM_PPLIB_STATE_V2.
 
-drivers/gpu/drm/amd/amdgpu/../include/pptable.h:483:5: warning: 'counted_by' should not be applied to an array with element of unknown size because 'ATOM_PPLIB_STATE_V2'
- (aka 'struct _ATOM_PPLIB_STATE_V2') is a struct type with a flexible array member. This will be an error in a future compiler version [-Wbounds-safety-counted-by-elt-type-unknown-size]
-  483 |     ATOM_PPLIB_STATE_V2 states[] __counted_by(ucNumEntries);
-      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> Evan no longer maintains the SWSMU code, it should be changed to Kenneth and Jun (CCed).
 
-Thus I'll remove the __counted_by() from that one.
+Thanks for the heads up! Kenneth, Jun, will you send a patch or shall I?
+If you send one, please add:
 
-> >  }NonClockInfoArray;
-> >
-> >  typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Record
-> >  {
-> >      USHORT usClockLow;
-> >      UCHAR  ucClockHigh;
-> >      USHORT usVoltage;
-> >
-> > All the other ones are UCHAR, so __counted_by can not be used on them.
-> 
-> I'm not following.  Why not?
-> 
-> Alex
+Reported-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-If I'm not mistaken, for a UCHAR flexible array such as clockInfo[],
-we would then need to multiply the count by the size, which results in:
 
-drivers/gpu/drm/amd/amdgpu/../include/pptable.h:494:36: error: 'counted_by' argument must be a simple declaration reference
-  494 |     UCHAR clockInfo[] __counted_by(ucEntrySize * ucNumEntries);
-      |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~
-./include/linux/compiler_attributes.h:105:62: note: expanded from macro '__counted_by'
-  105 | # define __counted_by(member)           __attribute__((__counted_by__(member)))
-      |                                                                       ^~~~~~
+--j2otqm2jcsamjrln
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmZXO10ACgkQFA3kzBSg
+KbZHlg/9F+2c1F9o7iMtBCsbFoqlmiMCPU1elLljAwccCfdgR+XSvuE7E7E/yRy9
+EZhJ8IeaE8WmHWLNKoQkjwpLoCV6RtFeIaL+sHL3sDOwGPrN78zVTDAdbPC/09v3
+KsYmxGdftAPxiebSQ30Fqysp9lPt3P8f5BRAP1CFKj4j39p1mK/XiXliErVDgfw1
+hTOm/hA1xRa1w/7bxFiHz+kXXxW8K7sznyZUQvJKIisLbfYB4cgIc+VuWtlTlL9F
+/cvmmn03BpBHhd5Y5RzhjYBmmjurpxEFMnAUqadpLOSoQdhL4XnCs9d7LwYYNQJV
+MG+ccCYUNPZoYPUZ0whEx0booaXdK+o3eMmUvA1AAVnRSMWValopfRfFnnNSpO58
+vcrXUVe2yac/pphd86CAfgnL9iFkTsGCfoDfbPTOjBYYS/xXujbWzCLrpJlnSFwY
+sxJ7ZSf4iHewBB4ZafRQFQrplZL93l0fdMYou/wCtQU6QGDk2gKAurtuFLzTkJZ7
+salS1TNdA1vA9CJi69qQe4nOyR97FVcw10yn+ylBBtlZkYgE3m/fERMhM2Eht9z1
+1KGNUP7+heXTY9zd3db9jnhZaoXg+1Xv2H49PIKO2NT3i8yEq96QhkKUgnU72+ub
+m+QuzLTAaaQD93S4jwB4iWuBS5cNlXsggG1XMTQ0y4ZTz9mvd20=
+=VtWZ
+-----END PGP SIGNATURE-----
+
+--j2otqm2jcsamjrln--
