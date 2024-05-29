@@ -4,71 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092FEC25B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 08:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4952C25B75
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 09:48:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 859DF1128DD;
-	Wed, 29 May 2024 08:55:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD3110E76D;
+	Wed, 29 May 2024 09:48:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XSioYxAh";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="McsTEN60";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 225701128DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 08:54:58 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4201986d60aso14465735e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 01:54:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716972896; x=1717577696; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rxLOB9Xau18b97ZtO5VA5+IEOnQ56ULmPxb+x+2vz+o=;
- b=XSioYxAhQbn3JCEMtUABs7HMNlfDuq/00KPgoU8KSFTMcGXBErL+abikNxAG4JJIKk
- 8kczz6HyLmZb9A8I5Sa333tZ6Sn9OJhmLlq3tpKLvpCrtS0LwIRJNuh8TSVtL4pniAg4
- SvyOb9M20vyk1ZtmnTtNActjxxIocJ/jFmpNEg0vfryYovXVDi5D5ZHqRDzilAu5Bnwi
- eSe5M8rw1OOYeBJAa6erwx7buzTOdjLTWQSLZHjCM0OMjW9ts6wkWU+EjiMq+lJ+SvX/
- bJV7qwvn0zIX1KGvDiv2ie9VFOKrfNkGl68dU4ohgkzvh3oyGqYXHcpeBAhtQCv3N++5
- NniQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716972896; x=1717577696;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rxLOB9Xau18b97ZtO5VA5+IEOnQ56ULmPxb+x+2vz+o=;
- b=Fy24FYNBw7kzaPBHA/oZyO6vV7KjAjK+qHXo/w4+SkmY39m7+jcm1xzU6EsvaiZeYu
- LsdyjpxfoRhb23R9+Th5DaitRWsFjESew5h7wXemehgLALvXdwDZu8tgsH1TTovIkeG5
- vQmaaM/NPG3ZBHtc9Af7Ze5f+hd7wf+CXOV9iD8zA8zu6y2R4ZP/XMTapRCKITmQnlkz
- zDADnKW6DaJna/eCNH2ElpFypVpY5hKCg+snQ5EahDHJZDyA0ktp1VRPbTgvbbZPV3FR
- R4lsTXtq0599EtMBO4+NgLlX3kMgSD5+7zjiAUXP1CWqROpKF89z36+j7AmOUiAZGkCK
- h+KA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVE2va+6S1x2nbFIckdpZRJ1DxmDIC7b6wsFvkLTfjRwLN2oKFAozkAsZzrhlOuJpRgYsTVXoFd61FIOqrtevS/2jghldZmOIyNPOJcpA==
-X-Gm-Message-State: AOJu0YyTJHRTgeT6w/0yJcMHwDwRiTU3MSuX8XcldsKwqr0NyJE6ysEE
- 6BOMkTdu2nmTICQZYUs6oy95EdKP/Be87s8EBaVufNbRww4Ej8yLepRjaUod
-X-Google-Smtp-Source: AGHT+IHobuDA5KEyEToERh2AWhSDP0rm4e8dtdUmboXtQYTS7olns60cf/Q+sAUYzTuBel6ibH+0Mg==
-X-Received: by 2002:a05:600c:568d:b0:420:139e:9eda with SMTP id
- 5b1f17b1804b1-421089d3318mr114078845e9.12.1716972896348; 
- Wed, 29 May 2024 01:54:56 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-421252b6e66sm5898565e9.26.2024.05.29.01.54.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 01:54:55 -0700 (PDT)
-Message-ID: <11c8a300-b262-49e7-983e-6b9ecff0e3d5@gmail.com>
-Date: Wed, 29 May 2024 10:54:53 +0200
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBF710E76D;
+ Wed, 29 May 2024 09:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1716976108;
+ bh=qf6ymj3RFfkiiaCFpxQKjdAF3Bl843ub+B+34Y8z/as=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=McsTEN60Vjt8NdHBol50pxTr9PPR0mANAwkso+KggPtbLZ96gx6WFt39jPm6RaST2
+ 9WqjTcIfbEqEMhdoXNljZZnOeUD6j0Y4bb4lPy08ZQ3TCXVOmmqJSvKdPGkTUDWURP
+ VXfmKfgIig01ItkT2gCBlOaVsCXhP8ScrJn91p4t5ICU3QWERtAcUqalqq35HiaG4h
+ 0q5we2lYK1Ihh8muJAvwG+jH9RT1I3ZRltKrUpY80G3rY4+t/ccXt201Zkg9R2Oz77
+ FaIYlc7dSvWos34mvwzBQejHsnFwEeLUGa2WrJvFiFAgKvkFZSmJrJh+6Z7HPjYq7C
+ Dvhq2jHBKWPTQ==
+Received: from [100.66.96.193] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 86B76378205D;
+ Wed, 29 May 2024 09:48:24 +0000 (UTC)
+Message-ID: <12f14064-fd1c-4e9c-94ee-ba7d492a4056@collabora.com>
+Date: Wed, 29 May 2024 15:18:22 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/14] drm/amdgpu: add nbio set_reg_remap helper
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-References: <20240506184539.1669157-1-alexander.deucher@amd.com>
+Subject: Re: [PATCH v3 4/6] drm/ci: uprev IGT
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240506184539.1669157-1-alexander.deucher@amd.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, david.heidelberg@collabora.com,
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ mcanal@igalia.com, linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-kernel@vger.kernel.org
+References: <20240529024049.356327-1-vignesh.raman@collabora.com>
+ <20240529024049.356327-5-vignesh.raman@collabora.com>
+ <bj6mpegmxo6i5o34xyxwiytdaokv2u6p5iu4eoek3ctqimwviy@jbo5aw7gy4ue>
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <bj6mpegmxo6i5o34xyxwiytdaokv2u6p5iu4eoek3ctqimwviy@jbo5aw7gy4ue>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,29 +69,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Christian König <christian.koenig@amd.com> for the whole series.
+Hi Dmitry,
 
+On 29/05/24 13:39, Dmitry Baryshkov wrote:
+> On Wed, May 29, 2024 at 08:10:47AM +0530, Vignesh Raman wrote:
+>> test-list.txt and test-list-full.txt are not generated for
+>> cross-builds and they are required by drm-ci for testing
+>> arm32 targets. This is fixed in igt-gpu-tools. So uprev
+>> IGT to include the commit which fixes this issue. Also
+>> disable building xe driver tests for non-intel platforms.
+>>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+>> ---
+>>
+>> v2:
+>>    - Split IGT uprev to seperate patch.
+>>
+>> v3:
+>>    - No changes.
+>>
+>> ---
+>>   drivers/gpu/drm/ci/build-igt.sh  | 4 ++++
+>>   drivers/gpu/drm/ci/gitlab-ci.yml | 2 +-
+>>   2 files changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/ci/build-igt.sh b/drivers/gpu/drm/ci/build-igt.sh
+>> index b7d2a49a6db3..eddb5f782a5e 100644
+>> --- a/drivers/gpu/drm/ci/build-igt.sh
+>> +++ b/drivers/gpu/drm/ci/build-igt.sh
+>> @@ -45,6 +45,10 @@ MESON_OPTIONS="-Doverlay=disabled                    \
+>>                  -Dlibunwind=enabled                   \
+>>                  -Dprefix=/igt"
+>>   
+>> +if [[ "$KERNEL_ARCH" = "arm64" ]] || [[ "$KERNEL_ARCH" = "arm" ]]; then
+>> +    MESON_OPTIONS="$MESON_OPTIONS -Dxe_driver=disabled"
+>> +fi
+>> +
+>>   mkdir -p /igt
+>>   meson build $MESON_OPTIONS $EXTRA_MESON_ARGS
+>>   ninja -C build -j${FDO_CI_CONCURRENT:-4} || ninja -C build -j 1
+>> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
+>> index 8f32de63d92e..1b29c3b6406b 100644
+>> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
+>> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+>> @@ -5,7 +5,7 @@ variables:
+>>     UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
+>>     TARGET_BRANCH: drm-next
+>>   
+>> -  IGT_VERSION: d2af13d9f5be5ce23d996e4afd3e45990f5ab977
+>> +  IGT_VERSION: 0df7b9b97f9da0e364f5ee30fe331004b8c86b56
+> 
+> Let's land this, then I'll ask to uprev to
+> dc2d7fb4f978048b87707ea9ec32da748b01b378, which fixes an issue with the
+> writeback tests on MSM devices.
 
-Am 06.05.24 um 20:45 schrieb Alex Deucher:
-> Will be used to consolidate reg remap settings and fix HDP
-> flushes on systems with non-4K pages.
->
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-> index 7b8c03be1d9e7..f61d117b0cafe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-> @@ -102,6 +102,7 @@ struct amdgpu_nbio_funcs {
->   	u32 (*get_memory_partition_mode)(struct amdgpu_device *adev,
->   					 u32 *supp_modes);
->   	u64 (*get_pcie_replay_count)(struct amdgpu_device *adev);
-> +	void (*set_reg_remap)(struct amdgpu_device *adev);
->   };
->   
->   struct amdgpu_nbio {
+Sure. Once this is merged, we can uprev to the latest IGT.
 
+Regards,
+Vignesh
+
+> 
+>>   
+>>     DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/anholt/deqp-runner.git
+>>     DEQP_RUNNER_GIT_TAG: v0.15.0
+>> -- 
+>> 2.40.1
+>>
+> 
