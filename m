@@ -4,53 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F4BC27C43
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 May 2024 13:02:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D37C25B74
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 May 2024 13:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C8E11BEA5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B759211BEB7;
 	Thu, 30 May 2024 13:02:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FNbTwb5X";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 354CE10F3F4;
- Thu, 30 May 2024 10:20:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sLdU/tIt5df6auYEPd7Hr6AQoR3QWX1lnpDiwu7qoy4=; b=FNbTwb5Xy89xbREyrkUnxdsRze
- dSXKLdwddlw3oCC9Z8XJk0riaqE0P05IzJ9IS/F93pxSBRI+AuQQlQjocZioxpcW3m1BYHIMXycei
- snJoc4+5kE57jvqOgaQ3Q6yiAooadbPLeZbXnrJhY+a0zWshNf6mwmw+eU/HxphLhwpPXAETaaSR0
- rWceH+1XP+N8NvnQhXm+h6FoCX+JrgGOXraflhel/i0cexN+QxLJpj3xz+sZb/wtU7eE6Bd+59JLO
- ce4y9tGIJjCA6xGRCgj/pjRqvYoEP79IQZJz+osQwbAQKaA5gxAn+uSHTgRgyOYEn/jeNMQN68y3o
- z2MDa0SA==;
-Received: from [84.69.19.168] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1sCcth-00EIpG-1q; Thu, 30 May 2024 12:20:37 +0200
-Message-ID: <4194a56c-d2eb-4992-be0c-8a03cfeafefb@igalia.com>
-Date: Thu, 30 May 2024 11:20:36 +0100
+Received: from smtp232.sjtu.edu.cn (smtp232.sjtu.edu.cn [202.120.2.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8635F10E626
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 21:42:57 +0000 (UTC)
+Received: from proxy188.sjtu.edu.cn (smtp188.sjtu.edu.cn [202.120.2.188])
+ by smtp232.sjtu.edu.cn (Postfix) with ESMTPS id DA06610087B46;
+ Thu, 30 May 2024 05:42:49 +0800 (CST)
+Received: from [192.168.1.120] (unknown [59.78.30.29])
+ by proxy188.sjtu.edu.cn (Postfix) with ESMTPSA id E0DFE37C91F;
+ Thu, 30 May 2024 05:42:43 +0800 (CST)
+Message-ID: <3dd9d2f2fc773609fdd82f7ad5f32ece8761cb58.camel@sjtu.edu.cn>
+Subject: Re: [bug report] drm/amdgpu: amdgpu crash on playing videos, linux
+ 6.10-rc
+From: Wang Yunchen <mac-wang@sjtu.edu.cn>
+To: Alex Deucher <alexdeucher@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Xinhui.Pan@amd.com, 
+ alexander.deucher@amd.com, Felix.Kuehling@amd.com, "Liu, Leo"
+ <Leo.Liu@amd.com>
+Date: Thu, 30 May 2024 05:42:42 +0800
+In-Reply-To: <CADnq5_MT-h2AfG1VxTXAOU+FTdDYogO9xt=udYw11fuTawY3Uw@mail.gmail.com>
+References: <ebb3b35e631169041e70eb0a7efd6cecef609833.camel@sjtu.edu.cn>
+ <6ad1e363-5f22-46ac-b9de-9e4e87a59e9c@amd.com>
+ <CADnq5_MT-h2AfG1VxTXAOU+FTdDYogO9xt=udYw11fuTawY3Uw@mail.gmail.com>
+Organization: Shanghai Jiao Tong University
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use drm_print_memory_stats helper from
- fdinfo
-Content-Language: en-GB
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>
-References: <20240520111338.10110-1-tursulin@igalia.com>
- <20240520111338.10110-2-tursulin@igalia.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20240520111338.10110-2-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 30 May 2024 13:02:23 +0000
+X-Mailman-Approved-At: Thu, 30 May 2024 13:02:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,427 +52,851 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Cristian and Alex, two things to clarify:
 
-Hi,
+First is that I didn't update Mesa for a week or so. The problem disappears=
+ when I switch back to a 6.9 kernel.
 
-On 20/05/2024 12:13, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> Convert fdinfo memory stats to use the common drm_print_memory_stats
-> helper.
-> 
-> This achieves alignment with the common keys as documented in
-> drm-usage-stats.rst, adding specifically drm-total- key the driver was
-> missing until now.
-> 
-> Additionally I made the code stop skipping total size for objects which
-> currently do not have a backing store, and I added resident, active and
-> purgeable reporting.
-> 
-> Legacy keys have been preserved, with the outlook of only potentially
-> removing only the drm-memory- when the time gets right.
-> 
-> The example output now looks like this:
-> 
->   pos:	0
->   flags:	02100002
->   mnt_id:	24
->   ino:	1239
->   drm-driver:	amdgpu
->   drm-client-id:	4
->   drm-pdev:	0000:04:00.0
->   pasid:	32771
->   drm-total-cpu:	0
->   drm-shared-cpu:	0
->   drm-active-cpu:	0
->   drm-resident-cpu:	0
->   drm-purgeable-cpu:	0
->   drm-total-gtt:	2392 KiB
->   drm-shared-gtt:	0
->   drm-active-gtt:	0
->   drm-resident-gtt:	2392 KiB
->   drm-purgeable-gtt:	0
->   drm-total-vram:	44564 KiB
->   drm-shared-vram:	31952 KiB
->   drm-active-vram:	0
->   drm-resident-vram:	44564 KiB
->   drm-purgeable-vram:	0
->   drm-memory-vram:	44564 KiB
->   drm-memory-gtt: 	2392 KiB
->   drm-memory-cpu: 	0 KiB
->   amd-memory-visible-vram:	44564 KiB
->   amd-evicted-vram:	0 KiB
->   amd-evicted-visible-vram:	0 KiB
->   amd-requested-vram:	44564 KiB
->   amd-requested-visible-vram:	11952 KiB
->   amd-requested-gtt:	2392 KiB
->   drm-engine-compute:	46464671 ns
-> 
-> v2:
->   * Track purgeable via AMDGPU_GEM_CREATE_DISCARDABLE.
+Second is that sorry I couldn't bisect the troublesome commit. The problem =
+takes some time to reproduce, there were
+just too many of the commits, and my laptop is performance limited. Even wi=
+th the help of ccache and reconfiguring a
+minimal kernel I could only bisect 6 steps during the whole night.
 
-Any interest on this work from AMD side? As a summary it adds active and 
-purgeable reporting and converts to using the drm_print_memory_stats 
-helper for outputting all the fields as documented in drm-usage-stats.rst.
+Nevertheless I managed to get a (somewhat) more detailed crash log:
 
-Regards,
+May 30 00:54:48 kernel: gmc_v11_0_process_interrupt: 968153 callbacks suppr=
+essed
+May 30 00:54:48 kernel: (mmhub page faults omitted)
+......
+May 30 00:54:48 kernel: rcu: INFO: rcu_preempt detected stalls on CPUs/task=
+s:
+May 30 00:54:48 kernel: rcu:       2-...0: (1 GPs behind) idle=3Dc41c/1/0x4=
+000000000000002 softirq=3D14625/14626 fqs=3D3542
+May 30 00:54:48 kernel: rcu:         (detected by 15, t=3D18003 jiffies, g=
+=3D22213, q=3D1880 ncpus=3D16)
+May 30 00:54:48 kernel: Sending NMI from CPU 15 to CPUs 2:
+May 30 00:54:48 kernel: NMI backtrace for cpu 2
+May 30 00:54:48 kernel: CPU: 2 PID: 0 Comm: swapper/2 Tainted: G        W  =
+        6.10.0-rc1-g1613e604df0c #1
+3500dba526772e025a7ded6753ccaffa9601f40c
+May 30 00:54:48 kernel: Hardware name: WUJIE 14/WUJIE 14, BIOS 2.26 12/12/2=
+023
+May 30 00:54:48 kernel: RIP: 0010:amdgpu_device_rreg+0x99/0x100 [amdgpu]
+May 30 00:54:48 kernel: Code: 18 e8 bb 56 10 d5 eb 22 4d 8b 9e 28 09 00 00 =
+4c 89 f7 44 89 fe 41 ff d3 0f 1f 00 89 c5
+eb 0b 49 8b 86 e8 08 00 00 42 8b 2c 38 <49> 8b 46 08 0f b7 70 3e 66 90 89 e=
+8 5b 41 5e 41 5f 5d e9 2b 25 0b
+May 30 00:54:48 kernel: RSP: 0018:ffffb861c02a8e48 EFLAGS: 00000046
+May 30 00:54:48 kernel: RAX: ffffb861c9780000 RBX: 000000000001a70c RCX: ff=
+ff9e5ac5201800
+May 30 00:54:48 kernel: RDX: 0000000000000000 RSI: 000000000001a70c RDI: ff=
+ff9e5adb180000
+May 30 00:54:48 kernel: RBP: 0000000000000000 R08: 0000000000000012 R09: 00=
+00000000000000
+May 30 00:54:48 kernel: R10: 0000000000008009 R11: ffffffffc092c960 R12: 00=
+00000000000280
+May 30 00:54:48 kernel: R13: 0000000000000008 R14: ffff9e5adb180000 R15: 00=
+00000000069c30
+May 30 00:54:48 kernel: FS:  0000000000000000(0000) GS:ffff9e5dae300000(000=
+0) knlGS:0000000000000000
+May 30 00:54:48 kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+May 30 00:54:48 kernel: CR2: 00007f0362390000 CR3: 000000010511c000 CR4: 00=
+00000000f50ef0
+May 30 00:54:48 kernel: PKRU: 55555554
+May 30 00:54:48 kernel: Call Trace:
+May 30 00:54:48 kernel:  <NMI>
+May 30 00:54:48 kernel:  ? nmi_cpu_backtrace+0xd8/0x100
+May 30 00:54:48 kernel:  ? nmi_cpu_backtrace_handler+0x11/0x20
+May 30 00:54:48 kernel:  ? nmi_handle+0x68/0x160
+May 30 00:54:48 kernel:  ? amdgpu_device_rreg+0x99/0x100 [amdgpu fc50d11d95=
+4da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  ? default_do_nmi+0x41/0x100
+May 30 00:54:48 kernel:  ? exc_nmi+0x106/0x190
+May 30 00:54:48 kernel:  ? end_repeat_nmi+0xf/0x53
+May 30 00:54:48 kernel:  ? __pfx_gmc_v11_0_process_interrupt+0x10/0x10 [amd=
+gpu
+fc50d11d954da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  ? amdgpu_device_rreg+0x99/0x100 [amdgpu fc50d11d95=
+4da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  ? amdgpu_device_rreg+0x99/0x100 [amdgpu fc50d11d95=
+4da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  ? amdgpu_device_rreg+0x99/0x100 [amdgpu fc50d11d95=
+4da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  </NMI>
+May 30 00:54:48 kernel:  <IRQ>
+May 30 00:54:48 kernel:  gmc_v11_0_process_interrupt+0x95/0x1d0 [amdgpu fc5=
+0d11d954da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  amdgpu_irq_dispatch+0x124/0x230 [amdgpu fc50d11d95=
+4da0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  amdgpu_ih_process+0xd0/0x100 [amdgpu fc50d11d954da=
+0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  amdgpu_irq_handler+0x23/0x50 [amdgpu fc50d11d954da=
+0d1786cd1c90214e275728ba9ae]
+May 30 00:54:48 kernel:  __handle_irq_event_percpu+0x65/0x1c0
+May 30 00:54:48 kernel:  handle_irq_event+0x38/0x80
+May 30 00:54:48 kernel:  handle_edge_irq+0xdf/0x230
+May 30 00:54:48 kernel:  __common_interrupt+0x42/0xb0
+May 30 00:54:48 kernel:  common_interrupt+0x81/0xa0
+May 30 00:54:48 kernel:  </IRQ>
+May 30 00:54:48 kernel:  <TASK>
+May 30 00:54:48 kernel:  asm_common_interrupt+0x26/0x40
+May 30 00:54:48 kernel: RIP: 0010:cpuidle_enter_state+0x127/0x230
+May 30 00:54:48 kernel: Code: f1 ff ff 49 89 c4 8b 73 04 bf ff ff ff ff e8 =
+60 5b cf ff 31 ff e8 29 7b 29 ff 45 84 ed
+74 05 e8 bf 5b cf ff fb 0f 1f 44 00 00 <85> ed 78 58 89 e9 48 6b f1 68 49 8=
+b 54 36 48 4c 2b 24 24 4c 89 63
+May 30 00:54:48 kernel: RSP: 0018:ffffb861c01cfe98 EFLAGS: 00000246
+May 30 00:54:48 kernel: RAX: ffff9e5dae300000 RBX: ffff9e5ac1caa000 RCX: 00=
+00001b69a639e4
+May 30 00:54:48 kernel: RDX: 000000000000000f RSI: 0000000000000002 RDI: 00=
+00000000000000
+May 30 00:54:48 kernel: RBP: 0000000000000001 R08: 0000000000000002 R09: 00=
+00000000000002
+May 30 00:54:48 kernel: R10: 0000000000000014 R11: ffffffff9669f910 R12: 00=
+00001b69a639e4
+May 30 00:54:48 kernel: R13: 0000000000000000 R14: ffffffff9794eb68 R15: 00=
+00000000000001
+May 30 00:54:48 kernel:  ? __pfx_acpi_idle_enter+0x10/0x10
+May 30 00:54:48 kernel:  ? cpuidle_enter_state+0x117/0x230
+May 30 00:54:48 kernel:  cpuidle_enter+0x2c/0x40
+May 30 00:54:48 kernel:  do_idle+0x1ba/0x260
+May 30 00:54:48 kernel:  cpu_startup_entry+0x2a/0x30
+May 30 00:54:48 kernel:  start_secondary+0x9c/0xa0
+May 30 00:54:48 kernel:  common_startup_64+0x13e/0x140
+May 30 00:54:48 kernel:  </TASK>
+May 30 00:54:48 kernel: INFO: NMI handler (nmi_cpu_backtrace_handler) took =
+too long to run: 1.154 msecs
 
-Tvrtko
+This time the GPU couldn't brought itself back and the system hangs complet=
+ely.
 
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 48 +++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 96 +++++++++++++++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 35 +++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 20 +++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  3 +-
->   6 files changed, 122 insertions(+), 81 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> index c7df7fa3459f..00a4ab082459 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> @@ -59,18 +59,21 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->   	struct amdgpu_fpriv *fpriv = file->driver_priv;
->   	struct amdgpu_vm *vm = &fpriv->vm;
->   
-> -	struct amdgpu_mem_stats stats;
-> +	struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST + 1] = { };
->   	ktime_t usage[AMDGPU_HW_IP_NUM];
-> -	unsigned int hw_ip;
-> +	const char *pl_name[] = {
-> +		[TTM_PL_VRAM] = "vram",
-> +		[TTM_PL_TT] = "gtt",
-> +		[TTM_PL_SYSTEM] = "cpu",
-> +	};
-> +	unsigned int hw_ip, i;
->   	int ret;
->   
-> -	memset(&stats, 0, sizeof(stats));
-> -
->   	ret = amdgpu_bo_reserve(vm->root.bo, false);
->   	if (ret)
->   		return;
->   
-> -	amdgpu_vm_get_memory(vm, &stats);
-> +	amdgpu_vm_get_memory(vm, stats, ARRAY_SIZE(stats));
->   	amdgpu_bo_unreserve(vm->root.bo);
->   
->   	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
-> @@ -82,24 +85,35 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->   	 */
->   
->   	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
-> -	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", stats.vram/1024UL);
-> -	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", stats.gtt/1024UL);
-> -	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", stats.cpu/1024UL);
-> +
-> +	for (i = 0; i < TTM_PL_PRIV; i++)
-> +		drm_print_memory_stats(p,
-> +				       &stats[i].drm,
-> +				       DRM_GEM_OBJECT_RESIDENT |
-> +				       DRM_GEM_OBJECT_PURGEABLE,
-> +				       pl_name[i]);
-> +
-> +	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
-> +	drm_printf(p, "drm-memory-vram:\t%llu KiB\n",
-> +		   stats[TTM_PL_VRAM].total/1024UL);
-> +	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n",
-> +		   stats[TTM_PL_TT].total/1024UL);
-> +	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n",
-> +		   stats[TTM_PL_SYSTEM].total/1024UL);
-> +
-> +	/* Amdgpu specific memory accounting keys: */
->   	drm_printf(p, "amd-memory-visible-vram:\t%llu KiB\n",
-> -		   stats.visible_vram/1024UL);
-> +		   stats[TTM_PL_VRAM].visible/1024UL);
->   	drm_printf(p, "amd-evicted-vram:\t%llu KiB\n",
-> -		   stats.evicted_vram/1024UL);
-> +		   stats[TTM_PL_VRAM].evicted/1024UL);
->   	drm_printf(p, "amd-evicted-visible-vram:\t%llu KiB\n",
-> -		   stats.evicted_visible_vram/1024UL);
-> +		   stats[TTM_PL_VRAM].evicted_visible/1024UL);
->   	drm_printf(p, "amd-requested-vram:\t%llu KiB\n",
-> -		   stats.requested_vram/1024UL);
-> +		   stats[TTM_PL_VRAM].requested/1024UL);
->   	drm_printf(p, "amd-requested-visible-vram:\t%llu KiB\n",
-> -		   stats.requested_visible_vram/1024UL);
-> +		   stats[TTM_PL_VRAM].requested_visible/1024UL);
->   	drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
-> -		   stats.requested_gtt/1024UL);
-> -	drm_printf(p, "drm-shared-vram:\t%llu KiB\n", stats.vram_shared/1024UL);
-> -	drm_printf(p, "drm-shared-gtt:\t%llu KiB\n", stats.gtt_shared/1024UL);
-> -	drm_printf(p, "drm-shared-cpu:\t%llu KiB\n", stats.cpu_shared/1024UL);
-> +		   stats[TTM_PL_TT].requested/1024UL);
->   
->   	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
->   		if (!usage[hw_ip])
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index e44db1ee9c1d..9fd1f1a0e99c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1286,54 +1286,92 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
->   }
->   
->   void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
-> -			  struct amdgpu_mem_stats *stats)
-> +			  struct amdgpu_mem_stats *stats,
-> +			  unsigned int sz)
->   {
-> +	const unsigned int domain_to_pl[] = {
-> +		[ilog2(AMDGPU_GEM_DOMAIN_CPU)]	    = TTM_PL_SYSTEM,
-> +		[ilog2(AMDGPU_GEM_DOMAIN_GTT)]	    = TTM_PL_TT,
-> +		[ilog2(AMDGPU_GEM_DOMAIN_VRAM)]	    = TTM_PL_VRAM,
-> +		[ilog2(AMDGPU_GEM_DOMAIN_GDS)]	    = AMDGPU_PL_GDS,
-> +		[ilog2(AMDGPU_GEM_DOMAIN_GWS)]	    = AMDGPU_PL_GWS,
-> +		[ilog2(AMDGPU_GEM_DOMAIN_OA)]	    = AMDGPU_PL_OA,
-> +		[ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] = AMDGPU_PL_DOORBELL,
-> +	};
->   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->   	struct ttm_resource *res = bo->tbo.resource;
-> +	struct drm_gem_object *obj = &bo->tbo.base;
->   	uint64_t size = amdgpu_bo_size(bo);
-> -	struct drm_gem_object *obj;
-> -	bool shared;
-> +	unsigned int type;
->   
-> -	/* Abort if the BO doesn't currently have a backing store */
-> -	if (!res)
-> -		return;
-> +	if (!res) {
-> +		/*
-> +		 * If no backing store use one of the preferred domain for basic
-> +		 * stats. We take the MSB since that should give a reasonable
-> +		 * view.
-> +		 */
-> +		BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT ||
-> +			     TTM_PL_VRAM < TTM_PL_SYSTEM);
-> +		type = fls(bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK);
-> +		if (!type)
-> +			return;
-> +		type--;
-> +		if (drm_WARN_ON_ONCE(&adev->ddev,
-> +				     type >= ARRAY_SIZE(domain_to_pl)))
-> +			return;
-> +		type = domain_to_pl[type];
-> +	} else {
-> +		type = res->mem_type;
-> +	}
->   
-> -	obj = &bo->tbo.base;
-> -	shared = drm_gem_object_is_shared_for_memory_stats(obj);
-> -
-> -	switch (res->mem_type) {
-> +	/* Squash some into 'cpu' to keep the legacy userspace view. */
-> +	switch (type) {
->   	case TTM_PL_VRAM:
-> -		stats->vram += size;
-> -		if (amdgpu_res_cpu_visible(adev, res))
-> -			stats->visible_vram += size;
-> -		if (shared)
-> -			stats->vram_shared += size;
-> -		break;
->   	case TTM_PL_TT:
-> -		stats->gtt += size;
-> -		if (shared)
-> -			stats->gtt_shared += size;
-> -		break;
->   	case TTM_PL_SYSTEM:
-> +		break;
->   	default:
-> -		stats->cpu += size;
-> -		if (shared)
-> -			stats->cpu_shared += size;
-> +		type = TTM_PL_SYSTEM;
->   		break;
->   	}
->   
-> +	if (drm_WARN_ON_ONCE(&adev->ddev, type >= sz))
-> +		return;
-> +
-> +	/* DRM stats common fields: */
-> +
-> +	stats[type].total += size;
-> +	if (drm_gem_object_is_shared_for_memory_stats(obj))
-> +		stats[type].drm.shared += size;
-> +	else
-> +		stats[type].drm.private += size;
-> +
-> +	if (res) {
-> +		stats[type].drm.resident += size;
-> +
-> +		if (!dma_resv_test_signaled(obj->resv, DMA_RESV_USAGE_BOOKKEEP))
-> +			stats[type].drm.active += size;
-> +		else if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
-> +			stats[type].drm.purgeable += size;
-> +
-> +		if (type == TTM_PL_VRAM && amdgpu_res_cpu_visible(adev, res))
-> +			stats[type].visible += size;
-> +	}
-> +
-> +	/* amdgpu specific stats: */
-> +
->   	if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
-> -		stats->requested_vram += size;
-> +		stats[TTM_PL_VRAM].requested += size;
->   		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
-> -			stats->requested_visible_vram += size;
-> +			stats[TTM_PL_VRAM].requested_visible += size;
->   
-> -		if (res->mem_type != TTM_PL_VRAM) {
-> -			stats->evicted_vram += size;
-> +		if (type != TTM_PL_VRAM) {
-> +			stats[TTM_PL_VRAM].evicted += size;
->   			if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
-> -				stats->evicted_visible_vram += size;
-> +				stats[TTM_PL_VRAM].evicted_visible += size;
->   		}
->   	} else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
-> -		stats->requested_gtt += size;
-> +		stats[TTM_PL_TT].requested += size;
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index bc42ccbde659..44774584a29f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -136,30 +136,14 @@ struct amdgpu_bo_vm {
->   };
->   
->   struct amdgpu_mem_stats {
-> -	/* current VRAM usage, includes visible VRAM */
-> -	uint64_t vram;
-> -	/* current shared VRAM usage, includes visible VRAM */
-> -	uint64_t vram_shared;
-> -	/* current visible VRAM usage */
-> -	uint64_t visible_vram;
-> -	/* current GTT usage */
-> -	uint64_t gtt;
-> -	/* current shared GTT usage */
-> -	uint64_t gtt_shared;
-> -	/* current system memory usage */
-> -	uint64_t cpu;
-> -	/* current shared system memory usage */
-> -	uint64_t cpu_shared;
-> -	/* sum of evicted buffers, includes visible VRAM */
-> -	uint64_t evicted_vram;
-> -	/* sum of evicted buffers due to CPU access */
-> -	uint64_t evicted_visible_vram;
-> -	/* how much userspace asked for, includes vis.VRAM */
-> -	uint64_t requested_vram;
-> -	/* how much userspace asked for */
-> -	uint64_t requested_visible_vram;
-> -	/* how much userspace asked for */
-> -	uint64_t requested_gtt;
-> +	struct drm_memory_stats drm;
-> +
-> +	uint64_t total;
-> +	uint64_t visible;
-> +	uint64_t evicted;
-> +	uint64_t evicted_visible;
-> +	uint64_t requested;
-> +	uint64_t requested_visible;
->   };
->   
->   static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
-> @@ -342,7 +326,8 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
->   u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
->   u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
->   void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
-> -			  struct amdgpu_mem_stats *stats);
-> +			  struct amdgpu_mem_stats *stats,
-> +			  unsigned int size);
->   void amdgpu_bo_add_to_shadow_list(struct amdgpu_bo_vm *vmbo);
->   int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,
->   			     struct dma_fence **fence);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 53d5a5990c31..b856506d1497 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -34,6 +34,7 @@
->   #define AMDGPU_PL_OA		(TTM_PL_PRIV + 2)
->   #define AMDGPU_PL_PREEMPT	(TTM_PL_PRIV + 3)
->   #define AMDGPU_PL_DOORBELL	(TTM_PL_PRIV + 4)
-> +#define __AMDGPU_PL_LAST	(TTM_PL_PRIV + 4)
->   
->   #define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
->   #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 3abfa66d72a2..3e0a0ece9e7c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1089,7 +1089,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   }
->   
->   static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
-> -				    struct amdgpu_mem_stats *stats)
-> +				    struct amdgpu_mem_stats *stats,
-> +				    unsigned int size)
->   {
->   	struct amdgpu_vm *vm = bo_va->base.vm;
->   	struct amdgpu_bo *bo = bo_va->base.bo;
-> @@ -1105,34 +1106,35 @@ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
->   	    !dma_resv_trylock(bo->tbo.base.resv))
->   		return;
->   
-> -	amdgpu_bo_get_memory(bo, stats);
-> +	amdgpu_bo_get_memory(bo, stats, size);
->   	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
->   		dma_resv_unlock(bo->tbo.base.resv);
->   }
->   
->   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
-> -			  struct amdgpu_mem_stats *stats)
-> +			  struct amdgpu_mem_stats *stats,
-> +			  unsigned int size)
->   {
->   	struct amdgpu_bo_va *bo_va, *tmp;
->   
->   	spin_lock(&vm->status_lock);
->   	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status)
-> -		amdgpu_vm_bo_get_memory(bo_va, stats);
-> +		amdgpu_vm_bo_get_memory(bo_va, stats, size);
->   
->   	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status)
-> -		amdgpu_vm_bo_get_memory(bo_va, stats);
-> +		amdgpu_vm_bo_get_memory(bo_va, stats, size);
->   
->   	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status)
-> -		amdgpu_vm_bo_get_memory(bo_va, stats);
-> +		amdgpu_vm_bo_get_memory(bo_va, stats, size);
->   
->   	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status)
-> -		amdgpu_vm_bo_get_memory(bo_va, stats);
-> +		amdgpu_vm_bo_get_memory(bo_va, stats, size);
->   
->   	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status)
-> -		amdgpu_vm_bo_get_memory(bo_va, stats);
-> +		amdgpu_vm_bo_get_memory(bo_va, stats, size);
->   
->   	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status)
-> -		amdgpu_vm_bo_get_memory(bo_va, stats);
-> +		amdgpu_vm_bo_get_memory(bo_va, stats, size);
->   	spin_unlock(&vm->status_lock);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 312a408b80d3..478a158ae171 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -556,7 +556,8 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
->   void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
->   				struct amdgpu_vm *vm);
->   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
-> -			  struct amdgpu_mem_stats *stats);
-> +			  struct amdgpu_mem_stats *stats,
-> +			  unsigned int size);
->   
->   int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   		       struct amdgpu_bo_vm *vmbo, bool immediate);
+Again, if you need a kdump or a process dump please contact me.
+
+On Wed, 2024-05-29 at 09:48 -0400, Alex Deucher wrote:
+> DId you also update mesa?=C2=A0 There could be a UMD change that causes t=
+he
+> page faults.
+>=20
+> Alex
+>=20
+> On Wed, May 29, 2024 at 3:37=E2=80=AFAM Christian K=C3=B6nig
+> <christian.koenig@amd.com> wrote:
+> >=20
+> > Hi,
+> >=20
+> > when the issue is easy to reproduce I suggest to bisect the changes
+> > between 6.9 and 6.10-rc1.
+> >=20
+> > On the other hand it's not unlikely that we have a known bug in -rc1
+> > which will be fixed by -rc2.
+> >=20
+> > Anyway added Leo to the mail thread since he is the one responsible for
+> > the video decoding engines.
+> >=20
+> > Regards,
+> > Christian.
+> >=20
+> > Am 29.05.24 um 06:05 schrieb Wang Yunchen:
+> > > Hello,
+> > >=20
+> > > After upgrading to Linux 6.10-rc1 (Mesa is left untouched) I identifi=
+ed a strange bug that could cause the GPU
+> > > to
+> > > crash and reset while playing videos online with VA-API. The screen w=
+ould first start to jitter, then flicker
+> > > once or
+> > > twice, but the desktop session couldn't be brought back. After a rebo=
+ot I find the following messages in system
+> > > logs:
+> > >=20
+> > > 10:13:05 kernel: gmc_v11_0_process_interrupt: 52 callbacks suppressed
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b05000 from client 18
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b00000 from client 18
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be8000 from client 18
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:05 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be8000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b05000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b00000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b01000 from client 18
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:06 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:10 kernel: gmc_v11_0_process_interrupt: 222971 callbacks suppre=
+ssed
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b05000 from client 18
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:10 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b00000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be8000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b05000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b00000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b01000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b01000 from client 18
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:11 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:15 kernel: gmc_v11_0_process_interrupt: 236783 callbacks suppre=
+ssed
+> > > 10:13:15 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b05000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00103A11
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: unknown (0x1d)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x1
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x1
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b00000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be8000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b05000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b01000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b00000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103be6000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: [mmhub] page fault (src=
+_id:0 ring:8 vmid:1 pasid:32777)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0 in process RDD Pr=
+ocess pid 2857 thread firefox:cs0 pid 2909)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0 in page sta=
+rting at address 0x0000800103b01000 from client 18
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: MMVM_L2_PROTECTION_FAUL=
+T_STATUS:0x00000000
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Faulty UTCL2 client ID: VMC (0x0)
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MORE_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WALKER_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PERMISSION_FAULTS: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MAPPING_ERROR: 0x0
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu:=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RW: 0x0
+> > > 10:13:16 kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring vcn_=
+unified_0 timeout, signaled seq=3D5197,
+> > > emitted
+> > > seq=3D5200
+> > > 10:13:16 kernel: [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process i=
+nformation: process RDD Process pid 2857
+> > > thread
+> > > firefox:cs0 pid 2909
+> > > 10:13:16 kernel: amdgpu 0000:03:00.0: amdgpu: GPU reset begin!
+> > > 10:13:16 kernel: [drm] Register(0) [regUVD_POWER_STATUS] failed to re=
+ach value 0x00000001 !=3D 0x00000002n
+> > > 10:13:17 kernel: [drm] Register(0) [regUVD_RB_RPTR] failed to reach v=
+alue 0x00000340 !=3D 0x000002c0n
+> > > 10:13:17 kernel: [drm] Register(0) [regUVD_POWER_STATUS] failed to re=
+ach value 0x00000001 !=3D 0x00000002n
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: MODE2 reset
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: GPU reset succeeded, tr=
+ying to resume
+> > > 10:13:17 kernel: [drm] PCIE GART of 512M enabled (table at 0x00000080=
+1FD00000).
+> > > 10:13:17 kernel: [drm] VRAM is lost due to GPU reset!
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: SMU is resumed successf=
+ully!
+> > > 10:13:17 kernel: [drm] DMUB hardware initialized: version=3D0x08003A0=
+0
+> > > 10:13:17 kernel: [drm] kiq ring mec 3 pipe 1 q 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: [drm:jpeg_v4_0_hw_init [amdgpu]=
+] JPEG decode initialized successfully.
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM =
+inv eng 0 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM=
+ inv eng 1 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM=
+ inv eng 4 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM=
+ inv eng 6 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM=
+ inv eng 7 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM=
+ inv eng 8 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM=
+ inv eng 9 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM=
+ inv eng 10 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM=
+ inv eng 11 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv =
+eng 12 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring vcn_unified_0 uses=
+ VM inv eng 0 on hub 8
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM i=
+nv eng 1 on hub 8
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: ring mes_kiq_3.1.0 uses=
+ VM inv eng 13 on hub 0
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: recover vram bo from sh=
+adow start
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: recover vram bo from sh=
+adow done
+> > > 10:13:17 kernel: amdgpu 0000:03:00.0: amdgpu: GPU reset(1) succeeded!
+> > > 10:13:17 kernel: [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to ini=
+tialize parser -125!
+> > >=20
+> > > A crash of the program playing video (Firefox) is then triggered. It =
+could happen any moment while playing
+> > > videos. The
+> > > problem is not observed in Linux 6.9, it appeared only after upgradin=
+g to 6.10-rc1.
+> > >=20
+> > > I'm new to amdgpu and I've peeked into source codes but couldn't find=
+ a call chain for the error reporting code.
+> > > I've
+> > > also went through drm-next commit logs, and from my understanding the=
+ updates introduced to 6.10 are many and I
+> > > couldn't bisect them all. However, I'm happy to provide you with a kd=
+ump or a process dump if you request so.
+> > > Please
+> > > also allow me to know how I can provide you with more information.
+> > >=20
+> > > My system information: Ryzen 7840 HS, 512MB dedicated VRAM configured=
+, Mesa 24.0.8, kernel 6.10-rc1.
+> > >=20
+> > > Hoping to hear from you soon.
+> > >=20
+> >=20
