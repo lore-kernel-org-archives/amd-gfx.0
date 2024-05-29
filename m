@@ -4,64 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DFFC25B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 13:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD757C25B75
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 13:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB630113B1F;
-	Wed, 29 May 2024 13:51:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4442610E0A0;
+	Wed, 29 May 2024 13:54:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BYLSbycw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G6nq/Wsq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CBBC113B1F;
- Wed, 29 May 2024 13:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716990692; x=1748526692;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=4qG4dad29dPTvZyqQLXRikddg2y7NmdD+VTC9hKpIPE=;
- b=BYLSbycwjVncgClmsRzXsnhBInZ9R/CQlc4+YDZIZp6b9Jarw3RrCiwj
- Ayn25G+v4Jobl2bGMxkjAKAnJTN3P9Sq1u276Mf37n8IE6eKwfRqDdoey
- F38I+lLLxDBUluOBk6jaxjy9uSelSwQsFekkrzTv1TA634ZLRJTS7W+Ne
- K4nlRfBgjYPsO8GAgSi6fKNy+S2sa+cookUT3JZ8W+EGDvGJTUkaYFqdI
- +k4JcXUzDT2+83KodN8xhnYCanT1JqSZIdZDrT7zEmBDV00WMAhdJOWHs
- Uk8tY5uNhKjl4yTQir2E8JdZhVCrX0hip9EF1jx0CAN7D6GmQRC3ObuM6 A==;
-X-CSE-ConnectionGUID: EWZGcBvWTceAEBNu+6peLA==
-X-CSE-MsgGUID: lqwK8S36TxWyJttFypMSFQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11087"; a="13558544"
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="13558544"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 06:51:31 -0700
-X-CSE-ConnectionGUID: aFSTnD87RZ2C1kyGZFNVww==
-X-CSE-MsgGUID: QENQtQuSRL+hs1haaaXu0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="35390243"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.86])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 06:51:26 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Mario Limonciello
- <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-kernel@vger.kernel.org, Chris Bainbridge
- <chris.bainbridge@gmail.com>, hughsient@gmail.com
-Subject: Re: [PATCH v2] drm/client: Detect when ACPI lid is closed during
- initialization
-In-Reply-To: <CADnq5_OzPT1MVnsqXs2vjr1L2_6jeM6x7jgs4ZtYpNzdDHM6uA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240528210319.1242-1-mario.limonciello@amd.com>
- <CADnq5_OzPT1MVnsqXs2vjr1L2_6jeM6x7jgs4ZtYpNzdDHM6uA@mail.gmail.com>
-Date: Wed, 29 May 2024 16:51:35 +0300
-Message-ID: <87r0dkiv4o.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE62B10E0A0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 13:54:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TJyep9qJxDBbYZIdVEPios97m4yivUVI5zS+BpCs7kwg8PfFP0Lzw6lhciRzD37SALi7TSdE99PpUphdBYYiYn6GTlKdFxSHR1pbDgFRbDxIponriVpoblizR/iD0HoggSJbquAJQRoXVlMhIT9oTrVcvrNFACDzjBeJ6N7yBTBsKSzN09gaT9Ct6q9E6IN7ZZ6KEYhnszASh3REe27jcwtenlh9AQnilV5fPyhPhcbxGgiWWRGOEYvnVFQCqSgQwtA4BYjDIa3wGNetOtjn/aPgpzgyp45uf/QoEbtN2vUwzt+syoKRHdwX5y7jIkY62vLfFshHMw+KIVHTBeSR6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pxFUVLsWAaEskTBzKKHY1nywwnuiYdLW21f/ORgFrr0=;
+ b=EPLBz24Vcf+OF+69Yp/OY4HkIYAayn1yvo0QcvAvnajh6MAlpOtt1NwS67MTW2/CLl5tPpFyfAKUrsDGPmb8K5D5rrqfaPh0C5HzS7fs/BFGmJ8qiomkfo3yUAYcBCagpGzKDRKA+y63L7kmaA0UjQAwGYfcbHxUDlsNqhIVkOjZ4INTKKGgy1h25TtfLvvzwE6GuVK4m25sZ1Sjz8u9+OOfuiCMKRYu41ODk60T2ekOCsSk8BaBitDpvjt8JiU3Ixzcm4ENY1xx2i4BWuaiKNle92ooLc5XMZRmKJm0qorMPLWuUOmc9aTQ+8JxN6N0S1gHFH8vvelxX/vaBZU3EA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pxFUVLsWAaEskTBzKKHY1nywwnuiYdLW21f/ORgFrr0=;
+ b=G6nq/WsqbLF9Z6dcJIVENl3CRsIHjbVp1Bna1a9ywO0B6ZZMFnZkXu0M4rSPwxRb3/7Vaa7omqFzPR/dpexor316tiRUDH1GqNlZGSXN0a7VsavAqft4VSi7rUUkxj/jCyGJ0nZ+r+mz9VVoqrQUvgGBrsuHF2+J5/BCCBu708w=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by PH7PR12MB7020.namprd12.prod.outlook.com (2603:10b6:510:1ba::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.31; Wed, 29 May
+ 2024 13:54:25 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%7]) with mapi id 15.20.7633.017; Wed, 29 May 2024
+ 13:54:25 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Feng,
+ Kenneth" <Kenneth.Feng@amd.com>, "Ma, Jun" <Jun.Ma2@amd.com>
+CC: Evan Quan <quanliangl@hotmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] MAINTAINERS: update email for Evan Quan
+Thread-Topic: [PATCH] MAINTAINERS: update email for Evan Quan
+Thread-Index: AQHascuLV49pwrA7CkO/aF72jGzTg7GuO1WQ
+Date: Wed, 29 May 2024 13:54:25 +0000
+Message-ID: <BL1PR12MB51449A1977FA06BACE4FF306F7F22@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240529114621.11795-2-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20240529114621.11795-2-wsa+renesas@sang-engineering.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=bd98857b-6104-4cb0-b492-3e5926516051;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-05-29T13:52:57Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|PH7PR12MB7020:EE_
+x-ms-office365-filtering-correlation-id: 42bcdee2-f65a-450e-da6f-08dc7fe6da03
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?g52COfK4L3awr0n4bf9DozWzgP9D+8YrH0lZ94D04G17nWbIIuCUOLM36Nbw?=
+ =?us-ascii?Q?E0mYsOHSDtOp9QBoirK2WQ1lzZB7kKZXpVkzYUjDvfpfMrSpUjvcHroaflz1?=
+ =?us-ascii?Q?QoIL3CsOAnkzxa0TstXJ76cGubjmv3czsRekhROgZyYqK8hgG3D3df6QTLdh?=
+ =?us-ascii?Q?NMATXaVdgdO9Wofd0OsUP+1PUgq7UHBZo8TBdQ/e7bCIKQq+pl7+X82SyXkx?=
+ =?us-ascii?Q?xoXaY7ZY5BJY6gapCcsV8u/KLs5U5JmJukMB0cq04tgdHrBr/wt8P6K2nXHH?=
+ =?us-ascii?Q?mD+dDQNLTYmDLZ34v9czTaeB/22feBMSTbEXW+1mD6pmHKO43N/eR4Njn1zj?=
+ =?us-ascii?Q?NAEbbTpJH59eoK1fW+GMoB69DGBgBszI60mWZSZF2co99askcLpCk3gucqkx?=
+ =?us-ascii?Q?fBgilIQ7Q3Wprvs2zAjPCHrajo5srCu9h1//pDLi8xbuBenPIisf/XS7npgL?=
+ =?us-ascii?Q?BaODUo0G5Ok3f8rO1lXNBI6tDsxdcw5NsqQ8damEap0IDi7a3uxEOXuUiqHG?=
+ =?us-ascii?Q?dLEQ1hriaVSksjQe8YJT7c8gJFrWJrr9Z5IQFejl44g6axpZ0RfLOfa9v4TG?=
+ =?us-ascii?Q?NjLELPXpFxASlL4nn3HquMT0ONFhOx1QnY2HBWG7E4E2En3TnN8RvZCMtryT?=
+ =?us-ascii?Q?mWE5JBBDhrtIYi20/0384+CoXR4mQ5RB4KBhJvy7oeEGtxdX936wWfrN7EUj?=
+ =?us-ascii?Q?O0g2hc9yIC8v6KsqHrD+xpNuf4RvR1PmXyPSf/5JTzh8YgJgjlctHqJCHDbQ?=
+ =?us-ascii?Q?0F9sBZq2rUc+KA6dHO67ulF9u0OdrpZ/LV5b8mPir46b6HErtVGSWRgvH0ps?=
+ =?us-ascii?Q?kG5hk6FoUFbohjrr4MopRO0t+l9gT79n3lbagTws791yU2w8lWdgEHKeA+SW?=
+ =?us-ascii?Q?D7KcpX7HIGIBwesMABlIZ0kieGNAEzbyP2yLMoDhdaqmqxUT9KoBt7wEh/Wt?=
+ =?us-ascii?Q?mmIaI7dmZ65r3dKLOAmyGhMJCIqQEJyXJ5DL1nVmY8GeLGh8zvVc8p3lb/TI?=
+ =?us-ascii?Q?PY8JskfzrmDTrIL3Yo/LDgKTFnY/4VpOkDST1kvFb0M9jQS4IhGK9t2I0oxh?=
+ =?us-ascii?Q?tDe/R9LNKLNnoasWSGW0NrFxNj71OkAcYqdb8L0tV9B+cTOiX1Ew6M+fC1bc?=
+ =?us-ascii?Q?QNg5OgPFH7KsLLupQXCzHfIeihU1z6gOq5yDyt+iVJMUqRewPrOCmC1yDpZ3?=
+ =?us-ascii?Q?HzmDAHqeaPBVg+Q6+wbCmHq4p98gMnX3Tw23DTx1/PQo6RFBi8kS+9xsBpII?=
+ =?us-ascii?Q?fTTr1+1ObLyJlelJL2DxP1o7E15sutK/z6LOGITqDw=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zcdhCUxjtNtgsirgDhGR/lkrWfhGI0cBN9i1jKoF34zg1KskFVf3+cZTmXka?=
+ =?us-ascii?Q?kUJcApo+CKCOD9cjXYIEgdWVZGhQD/OC5avQWsy729gzA4OjAwspoQRm5YUc?=
+ =?us-ascii?Q?rV45GiDRWOhcw4OJ1UzK7JhuQisEclfvJLlFMod4Zm/tXEJZZQwXQv+SNujA?=
+ =?us-ascii?Q?Oyx5GKKCOYcrx1CRiWR3nZB/D3aeU4cMOfSszOpaRHsvBKeZnorkMhU05wSe?=
+ =?us-ascii?Q?DqWvhFMuuuiVfYXfRomqAEW1QMgl4Xf/ZNt6t2tBIERTc/bpsiNQnWo1r4El?=
+ =?us-ascii?Q?UDswh85qgQyKIMp293Q5pC+nyiEPQwzuqk5tDwNSQZWEGg0Gn2g8lHMCsT1v?=
+ =?us-ascii?Q?UBXxg2FzfxkDeUEVt7ObiZDyYgWqo4Jrpyzet2owQ08Pk1hxOY1OWXjPRBtn?=
+ =?us-ascii?Q?4WL2ANBIcIwQC1GVqCgnpxaR2fYEbeuIVsw3MzT5smxjAI1Ln8EG9MJIL3vi?=
+ =?us-ascii?Q?lZW66i0jMG81UWJsHjOooRvuh5cwlSwmGNVRyBT0Wl7iC686UiF3Mq2SEEka?=
+ =?us-ascii?Q?tFJeodWQ7C+RxxRWtQz9sK3o+VYb5B7oUcYFk4pZ2rb1Ivbd4m+wH9HKJMAP?=
+ =?us-ascii?Q?TPstbsOG5BytvAnmLCGa6oGG9dei8pz6Z7/63Ij6dFwZa7ceBWarCNte1nDN?=
+ =?us-ascii?Q?MOwu/piEt/dEA4v+AthF6WaHKEhrg1HATFKBZFnTH1fIYdYTsqvrlfh8wC/e?=
+ =?us-ascii?Q?61OCYv7xeUv7KEQyQOGwbydEskaW44vvVh7gYOnmtRjbosuy/J31GPFKdTB1?=
+ =?us-ascii?Q?XP63mZ0q7ySFL4qPfVIvCZSHsBzFoyzXtbteQ0cOTRwffiuRNyGTpkUy3CR9?=
+ =?us-ascii?Q?ibCqp4ziDD5AOaqAEAf3VgknEu450RjkOsGSDRYcO1UZloPmFNuOgLBlQyuu?=
+ =?us-ascii?Q?iD7Kh/zWBQADWMEMxv2qDMhMoLjbJrO4tFGLtxrzxa/4DfCJH87LhRhgKhjI?=
+ =?us-ascii?Q?e3YZm9D++ovtAaXUaX5fgpfVsW21eVfhpc5jDcLyfRozSZ3OZNsw42Hj5KhQ?=
+ =?us-ascii?Q?eZkg2hWYTF+UH5x9LajHjVBmZKOur0q/beuaQUM3leTYmCNlCRU5cgX3Mi4h?=
+ =?us-ascii?Q?B7v80yHsijPEM5KrPn0muJZSY+hmfZUDnU2dMco+lfDBc7GfUETcn4PZDN1f?=
+ =?us-ascii?Q?90VjhuG0xC8DCL5me5RqzxwSfSbP/D9MY9lYkZCC6lKc6DxwMFlWmQmb4iQh?=
+ =?us-ascii?Q?y1LjMimPs/7h1jCDVTFmUnmr49cCoaZu9rs8+yRnjFNRnEQAb0Evzpikl7Jw?=
+ =?us-ascii?Q?LXRuPSst4eKZ1ZaSYNLq9DU1iy20586DIAwFwNPh5lmVZAcyNvfKwnFPovHP?=
+ =?us-ascii?Q?yTlzcyNtnPr5nYIYO5/M7sbK9JxglNpVUDYnH/5U6Vb7d3bohlUx70qlrCJl?=
+ =?us-ascii?Q?ss988W4YxZ32VLM/ImF+3/3KxbykoEa5Z0kPiH0Lro+RCMITozmvnaF3ihM9?=
+ =?us-ascii?Q?/rXjzccrCPYlctwpS222hKHMeoKB6PJcxztwG92qn/BZPEXX4UdOGq/u1ykF?=
+ =?us-ascii?Q?VltK6pvjYGEsklupeoC/RvC4T/YF4sedWGkPKZ6zXBtZv8Rr4V6QVB2Veblg?=
+ =?us-ascii?Q?2rXq76VmR7HY7zd4dE0=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42bcdee2-f65a-450e-da6f-08dc7fe6da03
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2024 13:54:25.6265 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eTAj9BtDOFepZBguNBkIWwnRs2Ik5AwRy07uWd97T73B12tETJ8S2L/kVYoZldofPO+4S+IPopil4SNIUm1Jxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7020
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,109 +151,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 29 May 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
-> On Tue, May 28, 2024 at 5:03=E2=80=AFPM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
->>
->> If the lid on a laptop is closed when eDP connectors are populated
->> then it remains enabled when the initial framebuffer configuration
->> is built.
->>
->> When creating the initial framebuffer configuration detect the ACPI
->> lid status and if it's closed disable any eDP connectors.
->>
->> Reported-by: Chris Bainbridge <chris.bainbridge@gmail.com>
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3349
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Do you have drm-misc access or do you need someone to apply this for you?
+[Public]
 
-I've bounced this to intel-gfx and intel-xe lists to get CI testing. I'd
-appreciate holding off on merging until we have results.
-
-Thanks,
-Jani.
-
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Wolfram Sang
+> Sent: Wednesday, May 29, 2024 7:46 AM
+> To: linux-kernel@vger.kernel.org
+> Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>; Evan Quan
+> <quanliangl@hotmail.com>; amd-gfx@lists.freedesktop.org
+> Subject: [PATCH] MAINTAINERS: update email for Evan Quan
 >
-> Alex
+> The old email address bounced. I found the newer one in recent git histor=
+y,
+> update MAINTAINERS accordingly.
 >
->> ---
->> Cc: hughsient@gmail.com
->> v1->v2:
->>  * Match LVDS as well
->> ---
->>  drivers/gpu/drm/drm_client_modeset.c | 30 ++++++++++++++++++++++++++++
->>  1 file changed, 30 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_=
-client_modeset.c
->> index 31af5cf37a09..0b0411086e76 100644
->> --- a/drivers/gpu/drm/drm_client_modeset.c
->> +++ b/drivers/gpu/drm/drm_client_modeset.c
->> @@ -8,6 +8,7 @@
->>   */
->>
->>  #include "drm/drm_modeset_lock.h"
->> +#include <acpi/button.h>
->>  #include <linux/module.h>
->>  #include <linux/mutex.h>
->>  #include <linux/slab.h>
->> @@ -257,6 +258,34 @@ static void drm_client_connectors_enabled(struct dr=
-m_connector **connectors,
->>                 enabled[i] =3D drm_connector_enabled(connectors[i], fals=
-e);
->>  }
->>
->> +static void drm_client_match_edp_lid(struct drm_device *dev,
->> +                                    struct drm_connector **connectors,
->> +                                    unsigned int connector_count,
->> +                                    bool *enabled)
->> +{
->> +       int i;
->> +
->> +       for (i =3D 0; i < connector_count; i++) {
->> +               struct drm_connector *connector =3D connectors[i];
->> +
->> +               switch (connector->connector_type) {
->> +               case DRM_MODE_CONNECTOR_LVDS:
->> +               case DRM_MODE_CONNECTOR_eDP:
->> +                       if (!enabled[i])
->> +                               continue;
->> +                       break;
->> +               default:
->> +                       continue;
->> +               }
->> +
->> +               if (!acpi_lid_open()) {
->> +                       drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is close=
-d, disabling\n",
->> +                                   connector->base.id, connector->name);
->> +                       enabled[i] =3D false;
->> +               }
->> +       }
->> +}
->> +
->>  static bool drm_client_target_cloned(struct drm_device *dev,
->>                                      struct drm_connector **connectors,
->>                                      unsigned int connector_count,
->> @@ -844,6 +873,7 @@ int drm_client_modeset_probe(struct drm_client_dev *=
-client, unsigned int width,
->>                 memset(crtcs, 0, connector_count * sizeof(*crtcs));
->>                 memset(offsets, 0, connector_count * sizeof(*offsets));
->>
->> +               drm_client_match_edp_lid(dev, connectors, connector_coun=
-t, enabled);
->>                 if (!drm_client_target_cloned(dev, connectors, connector=
-_count, modes,
->>                                               offsets, enabled, width, h=
-eight) &&
->>                     !drm_client_target_preferred(dev, connectors, connec=
-tor_count, modes,
->> --
->> 2.43.0
->>
+> Cc: Evan Quan <quanliangl@hotmail.com>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
---=20
-Jani Nikula, Intel
+Evan no longer maintains the SWSMU code, it should be changed to Kenneth an=
+d Jun (CCed).
+
+Thanks!
+
+Alex
+
+> ---
+>
+> Against v6.10-rc1. Still needs ack from Evan Quan
+>
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d6c90161c7bf..b2fd2a19277e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1092,7 +1092,7 @@ F:      Documentation/ABI/testing/sysfs-amd-pmf
+>  F:   drivers/platform/x86/amd/pmf/
+>
+>  AMD POWERPLAY AND SWSMU
+> -M:   Evan Quan <evan.quan@amd.com>
+> +M:   Evan Quan <quanliangl@hotmail.com>
+>  L:   amd-gfx@lists.freedesktop.org
+>  S:   Supported
+>  T:   git https://gitlab.freedesktop.org/agd5f/linux.git
+> --
+> 2.43.0
+
