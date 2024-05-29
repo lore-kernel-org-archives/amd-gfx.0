@@ -4,73 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6733C27C43
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6884C27C44
 	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 13:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D73AB10E8FF;
-	Wed, 29 May 2024 13:24:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="RVwg7ihT";
-	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E610110E570
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 13:11:38 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-6f8e9870e72so602958b3a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 May 2024 06:11:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1716901898; x=1717506698; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QoaTOCmlXkenptztn+mDC2rLsS4IERfQPTeSACgx6t4=;
- b=RVwg7ihTEw9z4dvaRXMgla7IIp3H4X6rq/TENhjsL0Dc05Y1FZGmWCPQFAAGTMRFFB
- XY6XnSYpySkgvaQjP17UeCtLwBdkRI6XkoaQK11qNvc9gXJ5x45SMl8IplfT+dfTyxyC
- Ktl0QdZTWuARcVPc+BZox9jP402bvygqed/BvwB9HOX8SQmoTUXlqDh6eg0vFEKSalTY
- 5uTBYWhw+HP0BbbR9O9eTKgKIGsMZIT4vETQqWGDbWOChOQ5SHs7TjWcnh8m+rQTDIBe
- 3s5jy5xSBBko34yu5rKf2/1qsHpw53WvosIlwk+HeAMz+D1Z9VGUuPgM8Qi8PPpTOs+R
- SUwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716901898; x=1717506698;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QoaTOCmlXkenptztn+mDC2rLsS4IERfQPTeSACgx6t4=;
- b=h9lX6czcKxxFyrCXvE94pXVBEcL6EXS/MJ2tx209P8JLgXvca+ny2CJZN5mDBhTnb8
- KDtx51QxIo6V42fi+t7wJ0Sw3ASS22gxymPpG5d0tkyMk7FbPDLv5t/AanJbqd0/2gDx
- OS5XMFZZ2NJzdwFaQ2knOummwjqtPkI1MIIfL+A+BSvwO3ymc3khPTsCAQUf1EMHyEwg
- 4jpwcQs36GtXVdupK8RiUfulKOhckEC2K9j4RJ4f9VL3K8Pvb7d1LxYb6L5koBKIM0Vo
- /C/n5uqEAZOr4M4O3s6m40mdSiHGmJo2rOE8lUErKjlJ0YRJdkP2cCNz29W6dPjNKFUl
- SOBg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWof/pI1lvv3rJNnUdo8mF3UKwOdej3BedaYn5YXLkHZVo4NlAOymlmjrD5b/fVlMsCQeGJDO0nWPHf7+YIYcbhQjNt598zVxaJkDTZiQ==
-X-Gm-Message-State: AOJu0YwU7Q+dr98ZmofjBuvlpKJEkkOPVp2ylT/mn0n/Pio5AcQ0aJ5a
- yO2yKn3uQa27cYbUooKgfbsYl3qD2wpDTof3bpB3GtKYANvRNweGcFqTH1Yd1zc=
-X-Google-Smtp-Source: AGHT+IHPZoHe+5AtTnRZyrDiZBI1RraIlifONBLBScJQgU8Dwsc/BwuyckzD6ggcJxPHoRaMZ0SMIw==
-X-Received: by 2002:a05:6a20:5b03:b0:1af:881c:e924 with SMTP id
- adf61e73a8af0-1b212e91384mr11340139637.62.1716901898281; 
- Tue, 28 May 2024 06:11:38 -0700 (PDT)
-Received: from ccsl-Inspiron-7472.semfio.usp.br ([143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-682226fc4dcsm7507164a12.42.2024.05.28.06.11.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 06:11:37 -0700 (PDT)
-From: Bruno Rocha Levi <brunolevilevi@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: Bruno Rocha Levi <brunolevilevi@usp.br>,
- Lucas Antonio <lucasantonio.santos@usp.br>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drivers/gpu: Fix misalignment in comment block
-Date: Tue, 28 May 2024 10:08:04 -0300
-Message-ID: <20240528131026.214773-3-brunolevilevi@usp.br>
-X-Mailer: git-send-email 2.45.1
-In-Reply-To: <20240528131026.214773-1-brunolevilevi@usp.br>
-References: <20240528131026.214773-1-brunolevilevi@usp.br>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8F9E10E97B;
+	Wed, 29 May 2024 13:24:24 +0000 (UTC)
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7053A10E637
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 07:31:56 +0000 (UTC)
+Received: from SoMainline.org
+ (2a02-a420-77-cc79-164f-8aff-fee4-5930.mobile6.kpn.net
+ [IPv6:2a02:a420:77:cc79:164f:8aff:fee4:5930])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 013031F8E2;
+ Wed, 29 May 2024 09:31:52 +0200 (CEST)
+Date: Wed, 29 May 2024 09:31:51 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Caleb Connolly <caleb.connolly@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Vinod Koul <vkoul@kernel.org>, 
+ Caleb Connolly <caleb@connolly.tech>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v4 3/3] drm/display: split DSC helpers from DP helpers
+Message-ID: <nfo5qbqwuq6zlywayt5pt2xh63wvg6eofjusz2wlelzi76busf@tuj5kaubcznl>
+References: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
+ <20240528-panel-sw43408-fix-v4-3-330b42445bcc@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 29 May 2024 13:24:11 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240528-panel-sw43408-fix-v4-3-330b42445bcc@linaro.org>
+X-Mailman-Approved-At: Wed, 29 May 2024 13:24:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,29 +65,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch fixes a warning from checkpatch by ensuring the trailing */ is
-aligned with the rest of the *, improving readability.
+On 2024-05-28 22:39:20, Dmitry Baryshkov wrote:
+> Currently the DRM DSC functions are selected by the
+> DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
+> code (both panel and host drivers) end up selecting the seemingly
+> irrelevant DP helpers. Split the DSC code to be guarded by the separate
+> DRM_DISPLAY_DSC_HELPER Kconfig symbol.
+> 
+> Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Co-developed-by: Lucas Antonio <lucasantonio.santos@usp.br>
-Signed-off-by: Lucas Antonio <lucasantonio.santos@usp.br>
-Signed-off-by: Bruno Rocha Levi <brunolevilevi@usp.br>
----
- drivers/gpu/drm/amd/acp/include/acp_gfx_if.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-diff --git a/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h b/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h
-index feab8eb7f..b26710cae 100644
---- a/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h
-+++ b/drivers/gpu/drm/amd/acp/include/acp_gfx_if.h
-@@ -19,7 +19,7 @@
-  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-  * OTHER DEALINGS IN THE SOFTWARE.
-  *
--*/
-+ */
- 
- #ifndef _ACP_GFX_IF_H
- #define _ACP_GFX_IF_H
--- 
-2.45.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
+>  drivers/gpu/drm/display/Kconfig    | 6 ++++++
+>  drivers/gpu/drm/display/Makefile   | 3 ++-
+>  drivers/gpu/drm/i915/Kconfig       | 1 +
+>  drivers/gpu/drm/msm/Kconfig        | 1 +
+>  drivers/gpu/drm/panel/Kconfig      | 6 +++---
+>  6 files changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 4232ab27f990..5933ca8c6b96 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_AMDGPU
+>  	depends on !UML
+>  	select FW_LOADER
+>  	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HDMI_HELPER
+>  	select DRM_DISPLAY_HDCP_HELPER
+>  	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
+> index 864a6488bfdf..f524cf95dec3 100644
+> --- a/drivers/gpu/drm/display/Kconfig
+> +++ b/drivers/gpu/drm/display/Kconfig
+> @@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+>  
+>  	  If in doubt, say "N".
+>  
+> +config DRM_DISPLAY_DSC_HELPER
+> +	bool
+> +	depends on DRM_DISPLAY_HELPER
+> +	help
+> +	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
+> +
+>  config DRM_DISPLAY_HDCP_HELPER
+>  	bool
+>  	depends on DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
+> index 17d2cc73ff56..2ec71e15c3cb 100644
+> --- a/drivers/gpu/drm/display/Makefile
+> +++ b/drivers/gpu/drm/display/Makefile
+> @@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
+>  drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
+>  	drm_dp_dual_mode_helper.o \
+>  	drm_dp_helper.o \
+> -	drm_dp_mst_topology.o \
+> +	drm_dp_mst_topology.o
+> +drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
+>  	drm_dsc_helper.o
+>  drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
+>  	drm_dp_tunnel.o
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index 5932024f8f95..117b84260b1c 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -11,6 +11,7 @@ config DRM_I915
+>  	select SHMEM
+>  	select TMPFS
+>  	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HDCP_HELPER
+>  	select DRM_DISPLAY_HDMI_HELPER
+>  	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index 1931ecf73e32..6dcd26180611 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -111,6 +111,7 @@ config DRM_MSM_DSI
+>  	depends on DRM_MSM
+>  	select DRM_PANEL
+>  	select DRM_MIPI_DSI
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	default y
+>  	help
+>  	  Choose this option if you have a need for MIPI DSI connector
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 2ae0eb0638f3..3e3f63479544 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -340,7 +340,7 @@ config DRM_PANEL_LG_SW43408
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Say Y here if you want to enable support for LG sw43408 panel.
+> @@ -549,7 +549,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Say Y here if you want to enable support for Raydium RM692E5-based
+> @@ -907,7 +907,7 @@ config DRM_PANEL_VISIONOX_R66451
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Say Y here if you want to enable support for Visionox
+> 
+> -- 
+> 2.39.2
+> 
