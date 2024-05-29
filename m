@@ -4,81 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FACBC25B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 15:19:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B45C25B7E
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 15:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F85510E15C;
-	Wed, 29 May 2024 15:19:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4034610E31E;
+	Wed, 29 May 2024 15:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iq2a7W7S";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OfHDOC7/";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9271210E15C
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 15:19:25 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4202c1d19d5so19350255e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 08:19:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1716995964; x=1717600764; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=xc27XGK8QAAFDFHs5M2vJqmodHKvjvZyhmMjUqqGbKA=;
- b=iq2a7W7SMrsg9VgEGghNoNgN5B+UzduwJieqeB+H9FGdeH3HwJw/Km9HuMVflGoX1z
- WLnpvzi3tzYs4nau3f2qZ5Z81s5s/StztVUEqYw42lkDYS94Dp3xZWF8PoajuDwT7Gts
- NU3ZTU504dlEeqaVYw82VlPLPQlUv0Vcjuu2LnC5FPUSwC37MiA31YNGZSRIA9L+lfug
- EPlzD6TKszFZhlcNaGgNXbA/1c9bVw9Vzu6Ja2KwjUSQJjdtVSSSjLesMpweeYBoFrGi
- /1ZwEDAE7ZRrdtbOsSvL/RYI7mOK6yHvuHmDlV8rud/wVIrUHUATpR/n7fKDA8H6kIXq
- l8KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716995964; x=1717600764;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xc27XGK8QAAFDFHs5M2vJqmodHKvjvZyhmMjUqqGbKA=;
- b=Dz7vDlMH+6fah514+lw+TXdK6E5Qd6HZH4zra4R8tIMN2qrM/n5GVa11VyCnC0fMII
- KObuTij1Ik5vcm2hhnXlUaSX2kraJjNM+B4QOFxkBuNSKLRFG2aN2oXZwwDNp9iL7uhy
- ltblIwi7F0BxSVHNqQ2hhZo81lj1WIstfQArmBQJNwxxI44+J3+vzHwZ16rGBNQmkkvw
- 4G1HtPQ12m0JRa5dAtna3WmKz+FygeOFxrdwG3AM2wdAhcNnvPDnTYPDW7zLPqbhmcBH
- GGOhoiMR3JA30wIIPxr1/9UMmlna0oYdBFcjLokfXzVYqS4DAZsxDWa3eP65EpJmguf5
- CWKw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUcMdncxMlH7e2Q6hnhS4neTxcBCoxQ2ryxpMsbcrX6xiCvcZWstqR4OMkZuM17YFlEkQvwybSxwX0vi237+2wIW+lXN0ltCUJwskqx6Q==
-X-Gm-Message-State: AOJu0YyHzmiO6h8VvvBM3CA/+oX95RH9v8yDQBEDSWL1lYR7K+avBedG
- ntQE1BlJcgu7XGL6/UeCA/mCyeiJyoI5nk/MxgGi1V4rmpcrsVUM
-X-Google-Smtp-Source: AGHT+IEvSJJpwIcF81Xq+sBm/ZmHNdw3S6eBffkqR4xZ2vCNHlY2Qfy1TGq9yfgEEPoZz01oQAUSNQ==
-X-Received: by 2002:a05:600c:1c03:b0:41f:e3b0:83ee with SMTP id
- 5b1f17b1804b1-421089b1b29mr127205045e9.3.1716995963615; 
- Wed, 29 May 2024 08:19:23 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42100fb9042sm217253395e9.39.2024.05.29.08.19.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 08:19:23 -0700 (PDT)
-Message-ID: <ab92ab3e-b96b-480e-8089-b3949f453bd3@gmail.com>
-Date: Wed, 29 May 2024 17:19:20 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 380A510E31E;
+ Wed, 29 May 2024 15:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1716997166; x=1748533166;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=e8LQcNcc3AEDHWS/nnMWgpljz4Z9RaTLNp7fyN5hGww=;
+ b=OfHDOC7/o27T3rzmU0bUEWwqDh5EFDyGBXJJF2b9xTRhCTiP8c92Ur3H
+ MMoAWt+GYvXMjWZOznoJB7w4SAFMA7jGcsWpnx7XJhvhfl95ZPfOEbHGD
+ GmG7H5GnAcAmBe5o27DLMGOhsoyZC3eEbAmGu30pIfI0Ul04p6jP72vdI
+ aDGcfiitKTV62gJK+vPl2xkhBfzXrwUd50UTrkkfxSzvPPlynKkzC6EEm
+ 3jEW4xKgmyow+CXvD/G6SHqztXrU64bkZ1j+N715Zn0dRFijVmZ1ChMQz
+ cKMaNGoub5YXY14iT02yhtiN8EVpger89i76dI4j3GxGD8bJHnkI7kn1U g==;
+X-CSE-ConnectionGUID: DkEO5BXYSIG3dwkyMsGEpQ==
+X-CSE-MsgGUID: W1HkuHx9SNKI6tzl/nat+Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11087"; a="13361456"
+X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="13361456"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2024 08:39:25 -0700
+X-CSE-ConnectionGUID: KVlOEYYNRHi42GMY8d74Jg==
+X-CSE-MsgGUID: swQ38J9XTGKPuzKtr3+jwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,198,1712646000"; d="scan'208";a="35445669"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
+ by fmviesa008.fm.intel.com with SMTP; 29 May 2024 08:39:22 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 29 May 2024 18:39:21 +0300
+Date: Wed, 29 May 2024 18:39:21 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ Chris Bainbridge <chris.bainbridge@gmail.com>, hughsient@gmail.com
+Subject: Re: [PATCH v2] drm/client: Detect when ACPI lid is closed during
+ initialization
+Message-ID: <ZldMKZ1MzSDXOheJ@intel.com>
+References: <20240528210319.1242-1-mario.limonciello@amd.com>
+ <Zlc4V1goFvU2antl@intel.com>
+ <197d195f-9206-41dd-8ff1-f4bb4988fb9b@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/10] drm/amdgpu: abort fence poll if reset is started
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20240528172340.34517-1-Yunxiang.Li@amd.com>
- <20240528172340.34517-4-Yunxiang.Li@amd.com>
- <32ab9756-ca28-4ec0-919a-1d1df950aee7@amd.com>
- <SA1PR12MB8599F850C7BD44B5F66D80E8EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
- <a1e40066-f980-4490-a0b9-d8f3be34ad8f@amd.com>
- <SA1PR12MB85996538350B30F80330C0EAEDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
- <b646408e-9b50-4e2a-b2b1-ab1ff9f4b366@amd.com>
- <SA1PR12MB859960F8F2B9B22E726EF6D2EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
- <b35b5556-9919-4806-bea7-f7ed94844a04@amd.com>
- <SA1PR12MB8599AB4284E5B4415D92FF14EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <SA1PR12MB8599AB4284E5B4415D92FF14EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <197d195f-9206-41dd-8ff1-f4bb4988fb9b@amd.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,24 +78,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.05.24 um 16:48 schrieb Li, Yunxiang (Teddy):
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->> Yeah, I know. That's one of the reason I've pointed out on the patch adding
->> that that this behavior is actually completely broken.
->>
->> If you run into issues with the MES because of this then please suggest a
->> revert of that patch.
-> I think it just need to be improved to allow this force-signal behavior. The current behavior is slow/inconvenient, but the old behavior is wrong. Since MES will continue process submissions even when one submission failed. So with just one fence location there's no way to tell if a command failed or not.
+On Wed, May 29, 2024 at 09:45:55AM -0500, Mario Limonciello wrote:
+> On 5/29/2024 09:14, Ville Syrjälä wrote:
+> > On Tue, May 28, 2024 at 04:03:19PM -0500, Mario Limonciello wrote:
+> >> If the lid on a laptop is closed when eDP connectors are populated
+> >> then it remains enabled when the initial framebuffer configuration
+> >> is built.
+> >>
+> >> When creating the initial framebuffer configuration detect the ACPI
+> >> lid status and if it's closed disable any eDP connectors.
+> >>
+> >> Reported-by: Chris Bainbridge <chris.bainbridge@gmail.com>
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3349
+> >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >> ---
+> >> Cc: hughsient@gmail.com
+> >> v1->v2:
+> >>   * Match LVDS as well
+> >> ---
+> >>   drivers/gpu/drm/drm_client_modeset.c | 30 ++++++++++++++++++++++++++++
+> >>   1 file changed, 30 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+> >> index 31af5cf37a09..0b0411086e76 100644
+> >> --- a/drivers/gpu/drm/drm_client_modeset.c
+> >> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> >> @@ -8,6 +8,7 @@
+> >>    */
+> >>   
+> >>   #include "drm/drm_modeset_lock.h"
+> >> +#include <acpi/button.h>
+> >>   #include <linux/module.h>
+> >>   #include <linux/mutex.h>
+> >>   #include <linux/slab.h>
+> >> @@ -257,6 +258,34 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
+> >>   		enabled[i] = drm_connector_enabled(connectors[i], false);
+> >>   }
+> >>   
+> >> +static void drm_client_match_edp_lid(struct drm_device *dev,
+> >> +				     struct drm_connector **connectors,
+> >> +				     unsigned int connector_count,
+> >> +				     bool *enabled)
+> >> +{
+> >> +	int i;
+> >> +
+> >> +	for (i = 0; i < connector_count; i++) {
+> >> +		struct drm_connector *connector = connectors[i];
+> >> +
+> >> +		switch (connector->connector_type) {
+> >> +		case DRM_MODE_CONNECTOR_LVDS:
+> >> +		case DRM_MODE_CONNECTOR_eDP:
+> >> +			if (!enabled[i])
+> >> +				continue;
+> >> +			break;
+> >> +		default:
+> >> +			continue;
+> >> +		}
+> >> +
+> >> +		if (!acpi_lid_open()) {
+> >> +			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
+> >> +				    connector->base.id, connector->name);
+> >> +			enabled[i] = false;
+> >> +		}
+> >> +	}
+> >> +}
+> > 
+> > If you don't hook into some lid notify event how is one supposed to get
+> > the display back to life after opening the lid?
+> 
+> I guess in my mind it's a tangential to the "initial modeset".  The DRM 
+> master can issue a modeset to enable the combination as desired.
 
-No the MES behavior is broken. When a submission failed it should stop 
-processing or signal that the operation didn't completed through some 
-other mechanism.
+This code is run whenever there's a hotplug/etc. Not sure why you're
+only thinking about the initial modeset.
 
-Just not writing the fence and continuing results in tons of problems, 
-from the TLB fence all the way to the ring buffer and reset handling.
+> 
+> When I tested I did confirm that with mutter such an event is received 
+> and it does the modeset to enable the eDP when lid is opened.
 
-This is a hard requirement and really can't be changed.
+This code isn't relevant when you have a userspace drm master
+calling the shots.
 
-Regards,
-Christian.
+> 
+> Let me ask this - what happens if no DRM master running and you hotplug 
+> a DP cable?  Does a "new" clone configuration get done?
+
+Yes, this code reprobes the displays and comes up with a new
+config to suit the new situation.
+
+The other potential issue here is whether acpi_lid_open() is actually
+trustworthy. Some kms drivers have/had some lid handling in their own
+code, and I'm pretty sure those have often needed quirks/modparams
+to actually do sensible things on certain machines.
+
+FWIW I ripped out all the lid crap from i915 long ago since it was
+half backed, mostly broken, and ugly, and I'm not looking to add it
+back there. But I do think handling that in drm_client does seem
+somewhat sane, as that should more or less match what userspace
+clients would do. Just a question of how bad the quirk situation
+will get...
+
+
+Also a direct acpi_lid_open() call seems a bit iffy. But I guess if
+someone needs this to work on non-ACPI system they get to figure out
+how to abstract it better. acpi_lid_open() does seem to return != 0
+when ACPI is not supported, so at least it would err on the side
+of enabling everything.
+
+-- 
+Ville Syrjälä
+Intel
