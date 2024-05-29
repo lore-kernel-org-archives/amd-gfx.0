@@ -4,52 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7827C27C50
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 02:42:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C20A4C25B75
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 May 2024 06:36:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2589A112EB8;
-	Wed, 29 May 2024 02:42:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E773810FDBE;
+	Wed, 29 May 2024 06:36:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="s7GtwMcz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xKdguAH9";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D67E112EAC;
- Wed, 29 May 2024 02:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1716950521;
- bh=FbGtRsAhSJxQzXd2gStTghEYNFX2gPeqeD6lXFa+nIg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=s7GtwMczyYHLkRxVqw40c6loypiPNBctZOjSC844eN5hApJwZLD5Q99jFThIXRrI9
- TUCXEeRXeHjcxhMhONmlSinj84u/rOo/w9f8/tVs5koy717TCVB7kN4ugCb0Qdw/Zx
- z/NDqhmb5SrzIfEHWadlC43pE7oeOQbmrd/ul9prlGzeEeaWUnKdez77pjQPVZl6V5
- ZoyGcArzCQKccNA8TeIbYaz9RqWZbUqpswpjBVSqniuwO1Unvz4MaUxMiCa6o4m2rg
- n4jmbhP29v+Ktnne6BhUdypJkAZnh/6ChLRIsFNNbWWV/8u14HQVmvKFmCfvA58N3V
- VMngQTcwwS07g==
-Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 303383782160;
- Wed, 29 May 2024 02:41:56 +0000 (UTC)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.koike@collabora.com, airlied@gmail.com,
- daniel@ffwll.ch, robdclark@gmail.com, david.heidelberg@collabora.com,
- guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
- dmitry.baryshkov@linaro.org, mcanal@igalia.com,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/6] drm/ci: skip driver specific tests
-Date: Wed, 29 May 2024 08:10:48 +0530
-Message-Id: <20240529024049.356327-6-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240529024049.356327-1-vignesh.raman@collabora.com>
-References: <20240529024049.356327-1-vignesh.raman@collabora.com>
-MIME-Version: 1.0
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2084.outbound.protection.outlook.com [40.107.212.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2365510FDBE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 May 2024 06:36:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MoMMfAG5MDzdWUgF+xHLMhjshJBHRf//ktDGhi8GfBl6iaajJzJGhIm83v99YW73v4yoya+A1PzBCM/jqcrppCWhOcRebX0oG/j1ig9r+cdkl4ISwPic/4BAorVbkQEvJPsCEg/U6bPt9ZR3lUfKcbNsuBl5JMZA+XYzFScqCTZiY7yPE7TYVQpT1jSTeHOT4TPaWFgin8YtJuO5Sah0W9rzp79BdQiqwjbtf5A11Sz3W4mKHNQj0Yc3lrMxXRMONltpw8MwDfGCcnw1TOd6O0Z4LDEFcuF2WiymTvel1fnFHv5JvxIGfYDDw1plppEfc1SQ4xpk6/eCE2nad458jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZvIzfB9RYHS6t5b164QkH28zE1+FSxVABGjd4PH4IvM=;
+ b=nQz0qUZZ6410CFlErwjE+5+xUhQkvYyvcN0/XOM3on8YOHM9VcvXdeAY+OiuD3kxVk34ZU1IGxOq8DNlklSQdYb8VE/zS2f27Le/v9nV0xYVClKi/ptf9Uj6cfeC/ko/dIZylq35Qzp6eAsP6NWfkMq2nOHVULBuhPFajQH6LOnHMZxZkC0JRmbz/I3M5abDbT85Sr7lO2ekdidl4qqoelbzwge/AXxS9Vx90+3x/2MqJRoOvLhi6AgBhWYV4GCjrMcQLaVI85bikp+g32n1Id7aeoyyCvkNKh6gnTaMc3W24ba79fFpKqvvvHJtPq8EJqR5gQDBDMuTuPiizaIECA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZvIzfB9RYHS6t5b164QkH28zE1+FSxVABGjd4PH4IvM=;
+ b=xKdguAH9m32LogbXHakxw6OfG75VLxUnZHhBfMoydeXquWbWPcMQLawl7Zi9uxcWOMGa7to813DSrhqNzhBm2ahD+9eWQABZcroyrxwfZG67nYD06mN6hxG8/KNUmZr+XL/xp2+1kEvE91YwglRsFRsP7ldRcXnlAYe8juhi6vs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7785.namprd12.prod.outlook.com (2603:10b6:806:346::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30; Wed, 29 May
+ 2024 06:36:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7633.017; Wed, 29 May 2024
+ 06:36:06 +0000
+Message-ID: <42e3e38d-fa69-46d9-a649-1564838745c4@amd.com>
+Date: Wed, 29 May 2024 08:36:00 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/10] drm/amdgpu: add skip_hw_access checks for sriov
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Likun.Gao@amd.com, Hawking.Zhang@amd.com
+References: <20240528172340.34517-1-Yunxiang.Li@amd.com>
+ <20240528172340.34517-2-Yunxiang.Li@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240528172340.34517-2-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0075.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7785:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b0e9aaf-ade4-487c-6f13-08dc7fa99e53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|366007|376005;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MldEN2ZwQlErWFh6T2tGWTVBaXRONit4bHZYMUJJZDBxQmsveEVmdHViWlpx?=
+ =?utf-8?B?L2w2Qys1b1dyOXdpekZ6endMM01mODF4cm5JUUVYeEdGYjNzVlpJeEJsanAz?=
+ =?utf-8?B?SjRHK3dNUHQydnNLcDFXZTlvdlkrOE9QMmFROHdYZy9KelpLeFdmMXF5ZHlP?=
+ =?utf-8?B?UWtLRnlZTndBem1vMFViVTdwdEE0cUtZcC95RVExSmp3TGV2RkFnQmxvQ1JZ?=
+ =?utf-8?B?NDFUd2JTMExtbTlneFhnMk1FM0phRHVxMU1rY3MyVnRiVFpmS0J5bjVydUFV?=
+ =?utf-8?B?TTdMUHVJR2Jia2NjWmQvNW9CcFFiZEFVY0FCb0dTd0Evd0RVRENTL1VqRFZs?=
+ =?utf-8?B?STNLaTg1elNMYnp2RElkYjlSLzMwRWcveW03NU5RM290ODBqRnZBRmFxdTBH?=
+ =?utf-8?B?eFphaDcwREZhTnFhclV6YW15UTVxcFR3eDZaakxtL2kwbk1wNTRQb3RFVXky?=
+ =?utf-8?B?RWJ6eFV3MzNGc1FmU1gxZTRJTm94WStjbExSV25GeGFUZ0V2V1Z2aytuN2Js?=
+ =?utf-8?B?LzRoV3FDSW9jbk8wQlJYNEZ0TjJWNjJ0N1pSa2JOWExJMUUrQlUvTm9XaHNn?=
+ =?utf-8?B?NzB5NVNsb1I5UVpSWTNSZ3hGVzdBTTRHOVlNS2h4VU1ia011SHY5VXRSOWpM?=
+ =?utf-8?B?aXVPcHVSYTUwNFVCalA1dUE1cmJLMzNXVEpzSjFtWXcrL2ltN2hBcjRNaXZP?=
+ =?utf-8?B?ajhadG43ZnZXRjFGOXNyV2daV28xVStNQXlyRXV6bll4bG1VSjM2UEg5Q1R4?=
+ =?utf-8?B?d0kvRjVXa0pLTWZpUmtkNXppbXBiVDUrTkFITjNxZFJha1liR3REN0tPeTlO?=
+ =?utf-8?B?K1lvNGlPNStlQVM1d0ZqeXNVTS94OUovR01vZHpEdHA1aGQwbWpnZlU0YVdy?=
+ =?utf-8?B?NWtzblVnZFIzbkpJc1paTGYxWHZtMUtOdGRrOHcyTmpxKy9rL0k3RWFuUVli?=
+ =?utf-8?B?MG5EOVVqSVNaWXBPdDRuczJOR3hZVFMreHJMMHdQZHg5SmFtU2t4YWhIU2ov?=
+ =?utf-8?B?L0hJWDVxekhDeUlVeW9NVC9Jazc5RGNOcE1scVZmbjlmN0tYOVQ0N0ZvN1FM?=
+ =?utf-8?B?d0RxYlFjL2NnYVRaaXEvY0VTRTN4VE0reVVmSk01azlLZlg0VmcxbVY2MU01?=
+ =?utf-8?B?QlYxajVPU1dvZzFyZlptU2FRSE1KazNKSDhFVmZ5YnhvTms3YUNNaWVXanN2?=
+ =?utf-8?B?Qlh4QmI3THI1d2kyakVOdVhjbWpHbFozWDFvZVhGRGloTWRQdXRiRlI3V3FG?=
+ =?utf-8?B?WEo1ZGZkYU9NWm5CM3BMcGtwTFR2RWcxOHNWSlpVYkxlWGtVMFo5MHpwcHZo?=
+ =?utf-8?B?czMrZTYyeXJIVUZxaVNDc001VjcyN01leHEvT1pGRkkwb0lmUDhFemtZRVpo?=
+ =?utf-8?B?SXNqdXZPMDdTeHM0d01xRHdpRm1yM3hDSHR2OUVBWldVRWwzeDU0SDhZT2ZD?=
+ =?utf-8?B?aVA5M0c2ZGRPaWwrR1Z3RDJ0VDUydWVKcmoyek56WG1Rc1JyM3JPNjY2VkhK?=
+ =?utf-8?B?MHN6aFdRWlMwVUFqVTZqV3RjL01RWVVrcklGTENGUVdqazhobS9uWEZ6RWQ2?=
+ =?utf-8?B?TDhWa2wwZzNqTXZsTENKeGI1WVZGYU5DSnRkT2IzZ2tZTGxMR1gveU02TGFF?=
+ =?utf-8?B?dFUyV1RLOG50QTRnZlhRZVViUGVRL0hHcGRaZTBLUmJuYWFWZGpFSlppbFU4?=
+ =?utf-8?B?NmFveHRxL1lRS1B2V29wbnlQU1EzOWkxYVRzWG5aU3BaejN1RFAwNnJnPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(366007)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STRIUkxCMnNQUldCWjUyN3VueXE4WmlGUDBvUzBFYXBKazhPd3c3NllNTmNB?=
+ =?utf-8?B?N2psTmNNTWw2b1dqeHhPcTUxeE5oUUxhU0IxdjlOazhoU1RxRGFRQ1RIbHhi?=
+ =?utf-8?B?bkk4ZXpnSW5TQno3bzJOMnhZb0VpckdGRFJyeHNhS29KOWdvdmtsbzF1d1FR?=
+ =?utf-8?B?dG9XN0hqektYZ1BQWUVmQ1JDeHlNVEkzeUdpazJZSWdKcC9aQXplV2VYaXZv?=
+ =?utf-8?B?NFkwN0F2YzFGQVFrdDZ6U0puUjFPNysyZXBoQm0rQ0tVTk1RWmZlOSs3ckdF?=
+ =?utf-8?B?aklSOUQ5ZUswUnZ4T1greDJ2amxHS1BEeEtYRWxGQ2pmcW5EMmVEQTM2cHBV?=
+ =?utf-8?B?aW9UR3NFMm1sQjNSOGU2WE5Wa2hid0dTdXR0eGNYcjY3aE9PRHZHd0JaWkVS?=
+ =?utf-8?B?alNlZ3dOUzYrRE5BNHlMczNXUFEyZHdoTWtzc3BVV2Rub0JMODlFZ1JLUW5o?=
+ =?utf-8?B?akxBcVA4T3pQTXUvank5bjZMdnZDY1c3QStwMjlZdVRFQmNXVGd0a0d2UnJX?=
+ =?utf-8?B?SDd1TmZ5emlBRlJHZDV4Z3JkVHFEaFl2QXI4VlZyaFZTRVRIVjl4L2xPbDNX?=
+ =?utf-8?B?STBzMDVHbmdiSnU0Vi82K0tHOU5oRUVMelJ0aG0wMDcvTWdhMGZrY3MyL3VO?=
+ =?utf-8?B?SHFUVTJ4NGhOT1ZsNjlQeXRNR2s5VDZDa2s5VEszb1FNQjlvSlVTUXlPNTRC?=
+ =?utf-8?B?eXlvdWhHd25XbmJmQWZYS08vcWNWcERBUmc1amNBb0ZwQ3E1N1l4ZlJsYTZ1?=
+ =?utf-8?B?MkdUS1pBSjhIaTFwYWl1cGkxUGtyd2k0aWljUEtZMExPd0VRamw2Wnk1V09N?=
+ =?utf-8?B?UFJXaGVXakpyczhxOFVKMmZOVVlJTUpUSThEbmszejJoT2wxY2wrSXg1eWVh?=
+ =?utf-8?B?Wi9XdTF6WUdXRVVkcXl1K0dxTWF0QVB1M2tSTExuL0Q2ZHczR3RoVStZSFY4?=
+ =?utf-8?B?a1N0TmRKVS9Kc2gweVdVZXRESmpFUGpyNG92WjB4YUE5TUhYRzVBMUVCcW80?=
+ =?utf-8?B?MERybGtCTmUrZzJiTGd3QlI1VmRYbHQybnVmOXJqQTFodkNzOXcyQ245S0sz?=
+ =?utf-8?B?QXlIY1F2Ykp5b3poU0ZUNEhUU2F2MmtGbHZCTEl5V3Zzai96dklGaUx2ZlZF?=
+ =?utf-8?B?QjR4RTV3WVVabTVXUXhpbFREem0wMlhRdjkrRzVEdmJxUnpQVllVT0NXNWM1?=
+ =?utf-8?B?ejRmY25XYVVEb2dQQkMveFVuaTd4V3pMaXYvODJSWjdpY25kSGJJRzdMVmxG?=
+ =?utf-8?B?RVh3ZVgvZHpPaThjR2t5Q0Y0T3liVWtWUzllRm1acXpKcHUzWTFzaXlLZGgw?=
+ =?utf-8?B?di9pU3NadTh6b3RIRTZrMzhWTldGMi9xdTFta3lxaWtrSzJiSWpkZjFWRzJ0?=
+ =?utf-8?B?VUNDVlQ3U2VhUnptOHoxOGptaWs1QVJHazNkTDd5aWtISWxHU1k2SWJMRXlZ?=
+ =?utf-8?B?NUh6UkFsNHVDUnZtbGNRUllRSTdVeWk4WmlWOUNCcmNDK0lDV0ZFaFBGY2ZY?=
+ =?utf-8?B?WkhqbjBPb0FoUUdaMmJZb0E1STlDYityMXpHZ0l5T041TUZrZzhxME5LOCtC?=
+ =?utf-8?B?UHp3NGs5dFZrMHpBbUxWam5ZZXFzWTBLWEhXalE1MHkzRU1FRzd0YUtPbGhD?=
+ =?utf-8?B?M3czOEJ5SDVia3B4YkpaV21yckxZVG80cTVPVUtzS2o4K1F4bnJ0Ykk3eVRn?=
+ =?utf-8?B?YVgyRnA3WnB2ZkpadTR4QmJPOUtKUjBBdHlCT3VYUXY3ZTYzbzE0Z09tUHp1?=
+ =?utf-8?B?SHlNbkhQQXFLU0lmcmh0WGdNdEFxa3V5MmpYcEpRbEIwRmpYRUd3b1RiMFRt?=
+ =?utf-8?B?a1BBQThaSkFob0NmaG80bzRhTS93MFVYZS92aWNrOG5za3BiTWdpRjFlOG1S?=
+ =?utf-8?B?c3dNdDFtVnh5VGJ0VitXYlJ0RmpuY0NrVzY4blRTZERqMzZSV3o4djNwekpU?=
+ =?utf-8?B?dDVlbXp3eFZYbkR5bzhKYzlKbEs3aVdQZW5PL1FZazFNWFlKMzhWSXd3YnRO?=
+ =?utf-8?B?NWVUazFicTRxTit5RUVBaFZrN09pazRheVhLRC82dDcxUzdhS3F3UCtaekpI?=
+ =?utf-8?B?cS9mR3VqN0lYaXNsb3A0MWtSc2w0dEh5QkR2d3V4bzZvQUh4b09iSi90eGc0?=
+ =?utf-8?Q?/yw9i+zEkuvYWKP6BK+HOtPxh?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b0e9aaf-ade4-487c-6f13-08dc7fa99e53
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2024 06:36:06.5058 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y3CF1ejnKxjpir7+Qb51ByiHTRxkV/1XOoeM9plIawQV7pJC6Nwtuedt4SGBRGQ4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7785
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,429 +157,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Skip driver specific tests and skip kms tests for
-panfrost driver since it is not a kms driver.
+Am 28.05.24 um 19:23 schrieb Yunxiang Li:
+> Accessing registers via host is missing the check for skip_hw_access and
+> the lockdep check that comes with it.
+>
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 3d5f58e76f2d..3cf8416f8cb0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -977,6 +977,9 @@ u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v, u32 f
+>   		return 0;
+>   	}
+>   
+> +	if (amdgpu_device_skip_hw_access(adev))
+> +		return 0;
+> +
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
----
+The only other caller of this function is amdgpu_device_xcc_rreg() and 
+that one has the amdgpu_device_skip_hw_access() call already. So it 
+could be that this one is duplicated.
 
-v2:
-  - Skip xe tests for amdgpu and virtio.
+On the other hand an extra check doesn't really hurt us.
 
-v3:
-  - No changes.
+So either way the patch is Reviewed-by: Christian König 
+<christian.koenig@amd.com>
 
----
- .../gpu/drm/ci/xfails/amdgpu-stoney-skips.txt   | 15 ++++++++++++++-
- drivers/gpu/drm/ci/xfails/i915-amly-skips.txt   | 11 ++++++++++-
- drivers/gpu/drm/ci/xfails/i915-apl-skips.txt    | 11 ++++++++++-
- drivers/gpu/drm/ci/xfails/i915-cml-skips.txt    |  9 +++++++++
- drivers/gpu/drm/ci/xfails/i915-glk-skips.txt    | 11 ++++++++++-
- drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt    | 11 ++++++++++-
- drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt    | 11 ++++++++++-
- drivers/gpu/drm/ci/xfails/i915-whl-skips.txt    | 11 ++++++++++-
- .../gpu/drm/ci/xfails/mediatek-mt8173-skips.txt | 12 ++++++++++++
- .../gpu/drm/ci/xfails/mediatek-mt8183-skips.txt | 14 ++++++++++++++
- drivers/gpu/drm/ci/xfails/meson-g12b-skips.txt  | 14 ++++++++++++++
- drivers/gpu/drm/ci/xfails/msm-apq8016-skips.txt | 11 +++++++++++
- drivers/gpu/drm/ci/xfails/msm-apq8096-skips.txt | 14 +++++++++++++-
- .../msm-sc7180-trogdor-kingoftown-skips.txt     | 12 ++++++++++++
- .../msm-sc7180-trogdor-lazor-limozeen-skips.txt | 12 ++++++++++++
- drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt  | 12 ++++++++++++
- .../gpu/drm/ci/xfails/rockchip-rk3288-skips.txt | 17 ++++++++++++++++-
- .../gpu/drm/ci/xfails/rockchip-rk3399-skips.txt | 15 +++++++++++++++
- .../gpu/drm/ci/xfails/virtio_gpu-none-skips.txt | 16 +++++++++++++++-
- 19 files changed, 229 insertions(+), 10 deletions(-)
- create mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8173-skips.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/mediatek-mt8183-skips.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/meson-g12b-skips.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/msm-apq8016-skips.txt
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt
-index e2c538a0f954..21d26d5e67c2 100644
---- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-skips.txt
-@@ -1,2 +1,15 @@
- # Suspend to RAM seems to be broken on this machine
--.*suspend.*
-\ No newline at end of file
-+.*suspend.*
-+
-+# Skip driver specific tests
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+xe_.*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-amly-skips.txt b/drivers/gpu/drm/ci/xfails/i915-amly-skips.txt
-index fe55540a3f9a..1e80987cf584 100644
---- a/drivers/gpu/drm/ci/xfails/i915-amly-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-amly-skips.txt
-@@ -1,4 +1,13 @@
- # Suspend to RAM seems to be broken on this machine
- .*suspend.*
- # This is generating kernel oops with divide error
--kms_plane_scaling@invalid-parameters
-\ No newline at end of file
-+kms_plane_scaling@invalid-parameters
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-apl-skips.txt b/drivers/gpu/drm/ci/xfails/i915-apl-skips.txt
-index 3430b215c06e..0104f2ffa8ba 100644
---- a/drivers/gpu/drm/ci/xfails/i915-apl-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-apl-skips.txt
-@@ -3,4 +3,13 @@
- # This is generating kernel oops with divide error
- kms_plane_scaling@invalid-parameters
- # This is cascading issues
--kms_3d
-\ No newline at end of file
-+kms_3d
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-cml-skips.txt b/drivers/gpu/drm/ci/xfails/i915-cml-skips.txt
-index 6d3d7ddc377f..398ebe163ad0 100644
---- a/drivers/gpu/drm/ci/xfails/i915-cml-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-cml-skips.txt
-@@ -1,2 +1,11 @@
- # This is generating kernel oops with divide error
- kms_plane_scaling@invalid-parameters
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-glk-skips.txt b/drivers/gpu/drm/ci/xfails/i915-glk-skips.txt
-index 4c7d00ce14bc..4f5419d62170 100644
---- a/drivers/gpu/drm/ci/xfails/i915-glk-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-glk-skips.txt
-@@ -2,4 +2,13 @@
- .*suspend.*
- 
- # This is generating kernel oops with divide error
--kms_plane_scaling@invalid-parameters
-\ No newline at end of file
-+kms_plane_scaling@invalid-parameters
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt b/drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt
-index 4c7d00ce14bc..4f5419d62170 100644
---- a/drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt
-@@ -2,4 +2,13 @@
- .*suspend.*
- 
- # This is generating kernel oops with divide error
--kms_plane_scaling@invalid-parameters
-\ No newline at end of file
-+kms_plane_scaling@invalid-parameters
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt b/drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt
-index 1d0621750b14..b0372c239b93 100644
---- a/drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt
-@@ -8,4 +8,13 @@ gem_eio.*
- kms_flip@absolute-wf_vblank@a-edp1
- 
- # This is generating kernel oops with divide error
--kms_plane_scaling@invalid-parameters
-\ No newline at end of file
-+kms_plane_scaling@invalid-parameters
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/i915-whl-skips.txt b/drivers/gpu/drm/ci/xfails/i915-whl-skips.txt
-index f3be0888a214..398ebe163ad0 100644
---- a/drivers/gpu/drm/ci/xfails/i915-whl-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/i915-whl-skips.txt
-@@ -1,2 +1,11 @@
- # This is generating kernel oops with divide error
--kms_plane_scaling@invalid-parameters
-\ No newline at end of file
-+kms_plane_scaling@invalid-parameters
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8173-skips.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8173-skips.txt
-new file mode 100644
-index 000000000000..db0c9dbbeb61
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8173-skips.txt
-@@ -0,0 +1,12 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-skips.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-skips.txt
-new file mode 100644
-index 000000000000..7a1c8be89e5b
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-skips.txt
-@@ -0,0 +1,14 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+
-+# Panfrost is not a KMS driver, so skip the KMS tests
-+kms_.*
-diff --git a/drivers/gpu/drm/ci/xfails/meson-g12b-skips.txt b/drivers/gpu/drm/ci/xfails/meson-g12b-skips.txt
-new file mode 100644
-index 000000000000..7a1c8be89e5b
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/meson-g12b-skips.txt
-@@ -0,0 +1,14 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+
-+# Panfrost is not a KMS driver, so skip the KMS tests
-+kms_.*
-diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-skips.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-skips.txt
-new file mode 100644
-index 000000000000..7fea49ec6b8f
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-skips.txt
-@@ -0,0 +1,11 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8096-skips.txt b/drivers/gpu/drm/ci/xfails/msm-apq8096-skips.txt
-index cd49c8ce2059..9ab2177df1ab 100644
---- a/drivers/gpu/drm/ci/xfails/msm-apq8096-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-apq8096-skips.txt
-@@ -1,2 +1,14 @@
- # Whole machine hangs
--kms_cursor_legacy@all-pipes-torture-move
-\ No newline at end of file
-+kms_cursor_legacy@all-pipes-torture-move
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt
-index 327039f70252..edf64057f866 100644
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt
-@@ -1,2 +1,14 @@
- # Suspend to RAM seems to be broken on this machine
- .*suspend.*
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt
-index 327039f70252..edf64057f866 100644
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-skips.txt
-@@ -1,2 +1,14 @@
- # Suspend to RAM seems to be broken on this machine
- .*suspend.*
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt
-index 618e3a3a7277..dd24dc190db0 100644
---- a/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt
-@@ -5,3 +5,15 @@ kms_bw.*
- # https://gitlab.freedesktop.org/gfx-ci/linux/-/commit/4b49f902ec6f2bb382cbbf489870573f4b43371e
- # https://gitlab.freedesktop.org/gfx-ci/linux/-/commit/38cdf4c5559771e2474ae0fecef8469f65147bc1
- msm_mapping@*
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt
-index f20c3574b75a..c33dc95b7fc1 100644
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-skips.txt
-@@ -49,4 +49,19 @@ kms_plane_lowres@pipe-F-tiling-y
- kms_cursor_crc.*
- 
- # Machine is hanging in this test, so skip it
--kms_pipe_crc_basic@disable-crc-after-crtc
-\ No newline at end of file
-+kms_pipe_crc_basic@disable-crc-after-crtc
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+
-+# Panfrost is not a KMS driver, so skip the KMS tests
-+kms_.*
-diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt
-index 10c3d81a919a..8a7c9464b30d 100644
---- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-skips.txt
-@@ -3,3 +3,18 @@
- 
- # Too unstable, machine ends up hanging after lots of Oopses
- kms_cursor_legacy.*
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+
-+# Panfrost is not a KMS driver, so skip the KMS tests
-+kms_.*
-diff --git a/drivers/gpu/drm/ci/xfails/virtio_gpu-none-skips.txt b/drivers/gpu/drm/ci/xfails/virtio_gpu-none-skips.txt
-index 78be18174012..59d390d6856f 100644
---- a/drivers/gpu/drm/ci/xfails/virtio_gpu-none-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/virtio_gpu-none-skips.txt
-@@ -3,4 +3,18 @@
- kms_cursor_legacy.*
- 
- # Job just hangs without any output
--kms_flip@flip-vs-suspend.*
-\ No newline at end of file
-+kms_flip@flip-vs-suspend.*
-+
-+# Skip driver specific tests
-+^amdgpu.*
-+msm_.*
-+nouveau_.*
-+panfrost_.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+xe_.*
--- 
-2.40.1
+
+>   	reg_access_ctrl = &adev->gfx.rlc.reg_access_ctrl[xcc_id];
+>   	scratch_reg0 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg0;
+>   	scratch_reg1 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg1;
+> @@ -1047,6 +1050,9 @@ void amdgpu_sriov_wreg(struct amdgpu_device *adev,
+>   {
+>   	u32 rlcg_flag;
+>   
+> +	if (amdgpu_device_skip_hw_access(adev))
+> +		return;
+> +
+>   	if (!amdgpu_sriov_runtime(adev) &&
+>   		amdgpu_virt_get_rlcg_reg_access_flag(adev, acc_flags, hwip, true, &rlcg_flag)) {
+>   		amdgpu_virt_rlcg_reg_rw(adev, offset, value, rlcg_flag, xcc_id);
+> @@ -1064,6 +1070,9 @@ u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
+>   {
+>   	u32 rlcg_flag;
+>   
+> +	if (amdgpu_device_skip_hw_access(adev))
+> +		return 0;
+> +
+>   	if (!amdgpu_sriov_runtime(adev) &&
+>   		amdgpu_virt_get_rlcg_reg_access_flag(adev, acc_flags, hwip, false, &rlcg_flag))
+>   		return amdgpu_virt_rlcg_reg_rw(adev, offset, 0, rlcg_flag, xcc_id);
 
