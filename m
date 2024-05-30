@@ -4,60 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 817AAC25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 13:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 649A5C27C4F
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 13:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5FDB10E355;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA00710E42B;
 	Fri, 31 May 2024 13:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JUb8fw6w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZU3WJDGJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA9B10E5FB;
- Fri, 31 May 2024 12:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717156859; x=1748692859;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=lDcs9Jm2G2+qFaU8M6G4gKlFJEEMAh2YAbmNmj2oa6E=;
- b=JUb8fw6wlNcvEbyRPcaxngmwjbvnQH5JKAgtRclbidbdMtO4p2pqsPQs
- tZGWC6PBfs5/AxiJnZfUfLUTBSgbQ+w7l7aAV4lvbjLg7wFLsDkzCjiKR
- x85Ts0nCX1wJiyehYoU07aqW9PxC2IyqSGifI7vTEMxF+QV4WPME6TsJO
- PcL8kPsJHP5CXoeC6XRzD0zwFWh6uGmA9oiSHAYWQHgiZY6SbwORMtUgo
- gqJTfm1HGvi1TjeIBy4YnJpyysEME48RpbAEJ6HvMwnXPN6ur7z3zuZ17
- eahumR1tXL0QdyBvOuXzsi6Pl/dyzOoKF14RM6IROOw4I7SOasATnR0bc g==;
-X-CSE-ConnectionGUID: 5Ax9KE1bT06o9ckLpRJp4g==
-X-CSE-MsgGUID: b2XJJ1eSRGqrKn2wnvqLRg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="31223876"
-X-IronPort-AV: E=Sophos;i="6.08,204,1712646000"; d="scan'208";a="31223876"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 05:00:59 -0700
-X-CSE-ConnectionGUID: 7TFy1CyUT6KcBQYl5mWsmw==
-X-CSE-MsgGUID: ZU7afWMFS+idfHnOP81gfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,204,1712646000"; d="scan'208";a="36076213"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.190])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 05:00:55 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, jani.nikula@intel.com
-Subject: [PATCH 3/3] drm/amd/display: switch to guid_gen() to generate valid
- GUIDs
-Date: Fri, 31 May 2024 15:00:33 +0300
-Message-Id: <4ef8a2a1985599389b89ee5828df029e5e9725d8.1717156602.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1717156601.git.jani.nikula@intel.com>
-References: <cover.1717156601.git.jani.nikula@intel.com>
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9878810EBD4;
+ Thu, 30 May 2024 20:44:11 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-70244776719so78479b3a.2; 
+ Thu, 30 May 2024 13:44:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1717101851; x=1717706651; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=X1/q38ajc2cigpnUWtYXKrDTQJnogN5TA72dnoPxc4w=;
+ b=ZU3WJDGJ1ixKKkVGarg8q6F3YDYIFJU50dpDWgDkC2pWE85C82IkJwH7AUrW7lMYMm
+ 835AoBq8vCQTF9t9ihMDPDYpUDxfJ610+TPHLkkgyRE4suwD9xDk+SIw0b1OWPapZ5wK
+ +e+IX0BX93ZGMz5Tn/0tq/3/CbzrVET6RWWeun9DFAW1t53oTdqVozxFNOUJEUfGkUVX
+ 4wFenzowrGFj9OXwM0SoDDS/UduHv9LGShVAvapwXC8BFHkqJMnqMxnLbsWlNTgHFBk1
+ nx/wvrY0OYVY9Fao+swGxDRl5+DyCkSmm1Z9Fwl3MHEbNZwLOfmwXfQBtXh83E8Plmtx
+ K0WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717101851; x=1717706651;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=X1/q38ajc2cigpnUWtYXKrDTQJnogN5TA72dnoPxc4w=;
+ b=HJAB/zGXaZ2n3KNPCc7NijxgZJMNj8oYx457jRE48vDAhH5ioGjcSC1XXjdNjBRX4z
+ GKNUFaD1kRvxUwuTUyM9bSS9Y4xuGelcJX86/CKBRbKBIh6CP/7seNhaiW3X9M2cIKk6
+ 2BqyJiTPJbeLtKwypwIHIS3P6Vc9Mxw0qmketVEkMxYjtmssVVIWCgXIQhU9yoURSMrb
+ TPPYmdzsV0ZR/2wigML3R43O2J3FPxhR/WpB8HOWTBYrJfDonaN4jaechMRi+lXn4qt/
+ XPBX97fZVQ7VhveDcSXMpUhB/Gj40iYWS0fvLyLNBVFUrzZGVdQKyDw5KfKX0UGDIbOx
+ spuw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWn0WSsl+OcfE/OySlptfOFgZKwLn/PBJpPzSv5w4z3bghY6xss4www+e8WTlJsLsd/8OFolu2VFveduX7Rg3lTIZDpqCQ+F0zk2IpUQqqUuT8A5z9Q+05/8OUvSsgv7RRfGZ4zhmBM82RNN9KSRw==
+X-Gm-Message-State: AOJu0YxgKlBdMIW/ZualPCa8oqUIiA6z5dJvFoYuMvJHysVCFGvwdJQT
+ 5uZyLuhuzCl1qSyYqx2TnrEkqCJ9x1v+3/lqTnWyq2GPifafYJvQMVP0iw==
+X-Google-Smtp-Source: AGHT+IHj8j/zqaOBcjIT/XxOQNe1B+xo2dkm5mX/TzMHOSAr352c3GTLXoqD+H9hb7VWqXR5OoAM0g==
+X-Received: by 2002:a05:6a20:3206:b0:1af:dae8:5eac with SMTP id
+ adf61e73a8af0-1b26f23d501mr82943637.46.1717101850942; 
+ Thu, 30 May 2024 13:44:10 -0700 (PDT)
+Received: from google.com ([2620:15c:9d:2:509f:4b2e:3586:eb1])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-702423cb359sm146595b3a.5.2024.05.30.13.44.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 May 2024 13:44:10 -0700 (PDT)
+Date: Thu, 30 May 2024 13:44:07 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: "Limonciello, Mario" <mario.limonciello@amd.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ Chris Bainbridge <chris.bainbridge@gmail.com>, hughsient@gmail.com,
+ linux-input@vger.kernel.org
+Subject: Re: [PATCH v2] drm/client: Detect when ACPI lid is closed during
+ initialization
+Message-ID: <ZljlF1fE5ypKWoGk@google.com>
+References: <20240528210319.1242-1-mario.limonciello@amd.com>
+ <Zlc4V1goFvU2antl@intel.com>
+ <197d195f-9206-41dd-8ff1-f4bb4988fb9b@amd.com>
+ <ZldMKZ1MzSDXOheJ@intel.com>
+ <g34f3sdk22grheq2vaaonkl543dtk7nb5sffqgmkl5ywtj5skk@p5ht5ug33q4z>
+ <873b7a7b-139d-498e-89da-098cb3d7599d@amd.com>
+ <CAA8EJpqODpGX-RthQ8qu3oU80qXp8a-N1Chz-dcQXjKYoDfEgw@mail.gmail.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA8EJpqODpGX-RthQ8qu3oU80qXp8a-N1Chz-dcQXjKYoDfEgw@mail.gmail.com>
 X-Mailman-Approved-At: Fri, 31 May 2024 13:36:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,72 +97,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of just smashing jiffies into a GUID, use guid_gen() to generate
-RFC 4122 compliant GUIDs.
+On Thu, May 30, 2024 at 11:07:53AM +0300, Dmitry Baryshkov wrote:
+> On Thu, 30 May 2024 at 07:41, Limonciello, Mario
+> <mario.limonciello@amd.com> wrote:
+> >
+> >
+> > >> Also a direct acpi_lid_open() call seems a bit iffy. But I guess if
+> > >> someone needs this to work on non-ACPI system they get to figure out
+> > >> how to abstract it better. acpi_lid_open() does seem to return != 0
+> > >> when ACPI is not supported, so at least it would err on the side
+> > >> of enabling everything.
+> > >
+> > > Thanks. I was going to comment, but you got it first. I think a proper
+> > > implementation should check for SW_LID input device instead of simply
+> > > using acpi_lid_open(). This will handle the issue for other,
+> > > non-ACPI-based laptops.
+> > >
+> >
+> > Can you suggest how this would actually work?  AFAICT the only way to
+> > discover if input devices support SW_LID would be to iterate all the
+> > input devices in the kernel and look for whether ->swbit has SW_LID set.
+> >
+> > This then turns into a dependency problem of whether any myriad of
+> > drivers have started to report SW_LID.  It's also a state machine
+> > problem because other drivers can be unloaded at will.
+> >
+> > And then what do you if more than one sets SW_LID?
+> 
+> It might be easier to handle this in the input subsystem. For example
+> by using a refcount-like variable which handles all the LIDs and
+> counts if all of them are closed. Or if any of the LIDs is closed.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Yes, install an input handler matching on EV_SW/SW_LID so you will get
+notified when input devices capable of reporting SW_LID appear and
+disappear and also when SW_LID event is being generated, and handle as
+you wish. Something like
 
----
+https://chromium.googlesource.com/chromiumos/third_party/kernel/+/40e9f6a991856ee7d504ac1ccd587e435775cfc4%5E%21/#F0
 
-Side note, it baffles me why amdgpu has a copy of this instead of
-plumbing it into drm mst code.
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++---------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+In practice I think it is pretty safe to assume only 1 lid for a
+laptop/device.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 65ebc01dc90f..a1bd847857b8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2403,9 +2403,9 @@ static int dm_late_init(void *handle)
- 
- static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
- {
-+	u8 buf[UUID_SIZE];
-+	guid_t guid;
- 	int ret;
--	u8 guid[16];
--	u64 tmp64;
- 
- 	mutex_lock(&mgr->lock);
- 	if (!mgr->mst_primary)
-@@ -2426,26 +2426,27 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
- 	}
- 
- 	/* Some hubs forget their guids after they resume */
--	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
--	if (ret != 16) {
-+	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
-+	if (ret != sizeof(buf)) {
- 		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
- 		goto out_fail;
- 	}
- 
--	if (memchr_inv(guid, 0, 16) == NULL) {
--		tmp64 = get_jiffies_64();
--		memcpy(&guid[0], &tmp64, sizeof(u64));
--		memcpy(&guid[8], &tmp64, sizeof(u64));
-+	import_guid(&guid, buf);
- 
--		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, guid, 16);
-+	if (guid_is_null(&guid)) {
-+		guid_gen(&guid);
-+		export_guid(buf, &guid);
- 
--		if (ret != 16) {
-+		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, buf, sizeof(buf));
-+
-+		if (ret != sizeof(buf)) {
- 			drm_dbg_kms(mgr->dev, "check mstb guid failed - undocked during suspend?\n");
- 			goto out_fail;
- 		}
- 	}
- 
--	import_guid(&mgr->mst_primary->guid, guid);
-+	guid_copy(&mgr->mst_primary->guid, &guid);
- 
- out_fail:
- 	mutex_unlock(&mgr->lock);
+Thanks.
+
 -- 
-2.39.2
-
+Dmitry
