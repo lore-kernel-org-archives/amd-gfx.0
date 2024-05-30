@@ -4,84 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 649A5C27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 13:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22ABCC25B75
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 13:36:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA00710E42B;
-	Fri, 31 May 2024 13:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A41B10E611;
+	Fri, 31 May 2024 13:36:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZU3WJDGJ";
+	dkim=pass (2048-bit key; unprotected) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="2DIovAax";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9878810EBD4;
- Thu, 30 May 2024 20:44:11 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-70244776719so78479b3a.2; 
- Thu, 30 May 2024 13:44:11 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7D6A10F0AE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 May 2024 14:58:45 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-1f62fae8c1aso620395ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 May 2024 07:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717101851; x=1717706651; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=X1/q38ajc2cigpnUWtYXKrDTQJnogN5TA72dnoPxc4w=;
- b=ZU3WJDGJ1ixKKkVGarg8q6F3YDYIFJU50dpDWgDkC2pWE85C82IkJwH7AUrW7lMYMm
- 835AoBq8vCQTF9t9ihMDPDYpUDxfJ610+TPHLkkgyRE4suwD9xDk+SIw0b1OWPapZ5wK
- +e+IX0BX93ZGMz5Tn/0tq/3/CbzrVET6RWWeun9DFAW1t53oTdqVozxFNOUJEUfGkUVX
- 4wFenzowrGFj9OXwM0SoDDS/UduHv9LGShVAvapwXC8BFHkqJMnqMxnLbsWlNTgHFBk1
- nx/wvrY0OYVY9Fao+swGxDRl5+DyCkSmm1Z9Fwl3MHEbNZwLOfmwXfQBtXh83E8Plmtx
- K0WQ==
+ d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1717081125; x=1717685925;
+ darn=lists.freedesktop.org; 
+ h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:to:cc:subject:date:message-id:reply-to;
+ bh=l5khecYMdKDHw89iJpsW1yiXKEfGunwm3+6Z9OsK0so=;
+ b=2DIovAaxXcJxRMtoXLypgyNj/JUBbTFUv3kkF5ToH74UPXxP2PiA5wlyZXAjvYPsZC
+ 9is7ToVyyDiGVc0jcpvG8/PFEMhR8cNrtrSi7K9LDse6wi4Ikv7Y2l1sMCZg/uBK3Ti8
+ WRWqABouoFyneJz9Gj8bW/i3zK9Cv2t9oepQGWaIqf7JrSHLgfyUBa2knA5XxvVp1zWy
+ lBrpTkI7KuWu0VovPss5tlEghp5uVrgDh0i3oSg7sDnJgI4HTIxtVqBx8t4kfbLr/P9D
+ G+Yl+CHYr40+xzfeiPsRM7JaNFDsjBUGfkgutZUhAonsR4cgzprUR+4p3KkgNA8gp8WB
+ yEwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717101851; x=1717706651;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X1/q38ajc2cigpnUWtYXKrDTQJnogN5TA72dnoPxc4w=;
- b=HJAB/zGXaZ2n3KNPCc7NijxgZJMNj8oYx457jRE48vDAhH5ioGjcSC1XXjdNjBRX4z
- GKNUFaD1kRvxUwuTUyM9bSS9Y4xuGelcJX86/CKBRbKBIh6CP/7seNhaiW3X9M2cIKk6
- 2BqyJiTPJbeLtKwypwIHIS3P6Vc9Mxw0qmketVEkMxYjtmssVVIWCgXIQhU9yoURSMrb
- TPPYmdzsV0ZR/2wigML3R43O2J3FPxhR/WpB8HOWTBYrJfDonaN4jaechMRi+lXn4qt/
- XPBX97fZVQ7VhveDcSXMpUhB/Gj40iYWS0fvLyLNBVFUrzZGVdQKyDw5KfKX0UGDIbOx
- spuw==
+ d=1e100.net; s=20230601; t=1717081125; x=1717685925;
+ h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+ :subject:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l5khecYMdKDHw89iJpsW1yiXKEfGunwm3+6Z9OsK0so=;
+ b=amKTb6FjhaTcUW+pw+qDcV9lhojEInxOu3YW6hmOprFg308BYsikEMIuPbU6L4WxOt
+ qSRd2OH5ogOwRj1UdrbjJutEIHuphqMmDm4DUozJ6UX3zxgXC8+4TFm1JsOLdf+gewmv
+ PeMtj+AW4mPuDWhNshMU0wT/o+G8qHH02HiE694PUOP7uR5I7EQlLotFHXgK4bpTAxWO
+ a2JprihrPx2Vpb06mH45aOU3tE26NWBf2FR0i+K70M44MSa8jlzwGRYIR3VOFdErCmYs
+ OKd2sUmoKNxl1aHX4TQD//D1jBjiZ4XCE7G6nG0b4vlEsdkA1jleXx8uCu079AZgirpd
+ KEBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWn0WSsl+OcfE/OySlptfOFgZKwLn/PBJpPzSv5w4z3bghY6xss4www+e8WTlJsLsd/8OFolu2VFveduX7Rg3lTIZDpqCQ+F0zk2IpUQqqUuT8A5z9Q+05/8OUvSsgv7RRfGZ4zhmBM82RNN9KSRw==
-X-Gm-Message-State: AOJu0YxgKlBdMIW/ZualPCa8oqUIiA6z5dJvFoYuMvJHysVCFGvwdJQT
- 5uZyLuhuzCl1qSyYqx2TnrEkqCJ9x1v+3/lqTnWyq2GPifafYJvQMVP0iw==
-X-Google-Smtp-Source: AGHT+IHj8j/zqaOBcjIT/XxOQNe1B+xo2dkm5mX/TzMHOSAr352c3GTLXoqD+H9hb7VWqXR5OoAM0g==
-X-Received: by 2002:a05:6a20:3206:b0:1af:dae8:5eac with SMTP id
- adf61e73a8af0-1b26f23d501mr82943637.46.1717101850942; 
- Thu, 30 May 2024 13:44:10 -0700 (PDT)
-Received: from google.com ([2620:15c:9d:2:509f:4b2e:3586:eb1])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-702423cb359sm146595b3a.5.2024.05.30.13.44.09
+ AJvYcCV3LFTSHXooRBYVlBbGULQRD3MfKcQoF+KegQnK5zaxHsghsqBbkvIW7jGsnzaJZexTxT+OrBAxyWzdGS2UeZq03C3yAu/wZqE7f3EKhQ==
+X-Gm-Message-State: AOJu0Yyjd84pgfaKVf+erha02TZoi2WBu9yPVa6EKZoivZYUroxI4YQ/
+ lesqzXriSTmcYsq5j0cQ55Z0CwyKNccrVSOQtbLYvi8phG27SsIuAuQoXBYt9LA=
+X-Google-Smtp-Source: AGHT+IEKvEjoLbbrN4JdqK6X02tKZ1Vg/fjeNLYXxvvVYtupVhUWAkZyf5sli6+XANrywg1P87S/sw==
+X-Received: by 2002:a17:902:ea0b:b0:1f4:8190:33a5 with SMTP id
+ d9443c01a7336-1f61a3dd9ebmr24276305ad.56.1717081124823; 
+ Thu, 30 May 2024 07:58:44 -0700 (PDT)
+Received: from localhost ([50.145.13.30]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f44c967975sm119659155ad.152.2024.05.30.07.58.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 13:44:10 -0700 (PDT)
-Date: Thu, 30 May 2024 13:44:07 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: "Limonciello, Mario" <mario.limonciello@amd.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-kernel@vger.kernel.org,
- Chris Bainbridge <chris.bainbridge@gmail.com>, hughsient@gmail.com,
- linux-input@vger.kernel.org
-Subject: Re: [PATCH v2] drm/client: Detect when ACPI lid is closed during
- initialization
-Message-ID: <ZljlF1fE5ypKWoGk@google.com>
-References: <20240528210319.1242-1-mario.limonciello@amd.com>
- <Zlc4V1goFvU2antl@intel.com>
- <197d195f-9206-41dd-8ff1-f4bb4988fb9b@amd.com>
- <ZldMKZ1MzSDXOheJ@intel.com>
- <g34f3sdk22grheq2vaaonkl543dtk7nb5sffqgmkl5ywtj5skk@p5ht5ug33q4z>
- <873b7a7b-139d-498e-89da-098cb3d7599d@amd.com>
- <CAA8EJpqODpGX-RthQ8qu3oU80qXp8a-N1Chz-dcQXjKYoDfEgw@mail.gmail.com>
+ Thu, 30 May 2024 07:58:44 -0700 (PDT)
+Subject: [PATCH] drm/amd/display: Increase frame-larger-than warning limit
+Date: Thu, 30 May 2024 07:57:42 -0700
+Message-ID: <20240530145741.7506-2-palmer@rivosinc.com>
+X-Mailer: git-send-email 2.45.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpqODpGX-RthQ8qu3oU80qXp8a-N1Chz-dcQXjKYoDfEgw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Qingqing.Zhuo@amd.com, 
+ nathan@kernel.org, Palmer Dabbelt <palmer@rivosinc.com>, hamza.mahfooz@amd.com,
+ chenhuacai@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+From: Palmer Dabbelt <palmer@rivosinc.com>
+To: alexander.deucher@amd.com
 X-Mailman-Approved-At: Fri, 31 May 2024 13:36:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,48 +84,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 30, 2024 at 11:07:53AM +0300, Dmitry Baryshkov wrote:
-> On Thu, 30 May 2024 at 07:41, Limonciello, Mario
-> <mario.limonciello@amd.com> wrote:
-> >
-> >
-> > >> Also a direct acpi_lid_open() call seems a bit iffy. But I guess if
-> > >> someone needs this to work on non-ACPI system they get to figure out
-> > >> how to abstract it better. acpi_lid_open() does seem to return != 0
-> > >> when ACPI is not supported, so at least it would err on the side
-> > >> of enabling everything.
-> > >
-> > > Thanks. I was going to comment, but you got it first. I think a proper
-> > > implementation should check for SW_LID input device instead of simply
-> > > using acpi_lid_open(). This will handle the issue for other,
-> > > non-ACPI-based laptops.
-> > >
-> >
-> > Can you suggest how this would actually work?  AFAICT the only way to
-> > discover if input devices support SW_LID would be to iterate all the
-> > input devices in the kernel and look for whether ->swbit has SW_LID set.
-> >
-> > This then turns into a dependency problem of whether any myriad of
-> > drivers have started to report SW_LID.  It's also a state machine
-> > problem because other drivers can be unloaded at will.
-> >
-> > And then what do you if more than one sets SW_LID?
-> 
-> It might be easier to handle this in the input subsystem. For example
-> by using a refcount-like variable which handles all the LIDs and
-> counts if all of them are closed. Or if any of the LIDs is closed.
+From: Palmer Dabbelt <palmer@rivosinc.com>
 
-Yes, install an input handler matching on EV_SW/SW_LID so you will get
-notified when input devices capable of reporting SW_LID appear and
-disappear and also when SW_LID event is being generated, and handle as
-you wish. Something like
+I get a handful of build errors along the lines of
 
-https://chromium.googlesource.com/chromiumos/third_party/kernel/+/40e9f6a991856ee7d504ac1ccd587e435775cfc4%5E%21/#F0
+    linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:58:13: error: stack frame size (2352) exceeds limit (2048) in 'DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation' [-Werror,-Wframe-larger-than]
+    static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation(
+                ^
+    linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_32.c:1724:6: error: stack frame size (2096) exceeds limit (2048) in 'dml32_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+    void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+         ^
 
-In practice I think it is pretty safe to assume only 1 lid for a
-laptop/device.
+as of 6.10-rc1.
 
-Thanks.
+Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index c4a5efd2dda5..b2bd72e63734 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -62,9 +62,9 @@ endif
+ 
+ ifneq ($(CONFIG_FRAME_WARN),0)
+ ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
+-frame_warn_flag := -Wframe-larger-than=3072
++frame_warn_flag := -Wframe-larger-than=4096
+ else
+-frame_warn_flag := -Wframe-larger-than=2048
++frame_warn_flag := -Wframe-larger-than=3072
+ endif
+ endif
+ 
 -- 
-Dmitry
+2.45.1
+
