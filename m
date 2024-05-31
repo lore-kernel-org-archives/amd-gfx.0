@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D16C25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 06:54:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D79C25B75
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 07:01:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A240210FB99;
-	Fri, 31 May 2024 06:54:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F09A310F3AC;
+	Fri, 31 May 2024 07:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0SIQh6mz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F30bUgnf";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3EC81132B8
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 06:53:35 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2084.outbound.protection.outlook.com [40.107.96.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ADB810F3AC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 07:01:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k9aSW8d2F7tjTO7ooz4poBaDNeK5KslSZj+F3yIaOqslf1G6qZPF9GPCXD/3Ej5DpZeoWysvQ20zeB61Z4f0gEPVyCMT1CRw4A/kxYT5ucEjAd+r3MQyDMA17AN2IlrYbEqPk4uq0i6wtW80HBJiNfbdksbWQad34McHey4YbqVdZMMZ7mucpk38xXc3yj1/3r7LobZrv4PhpClft3Fdhx5s+pimOePdcPuKwg1D5DCQKu2F4fEWmJj6w8E15RlgYlTv8NdhyLwnK0C/XjzG5shp3LIMvZcjNbdLhhOtW2Whb3+irKBqtcpU0kI7+fumQzlStwYiVmC6SuM0ln/09A==
+ b=OZNC9E6M2C+nby8D5E+JM3OQiJ5JpsArPnXFrRNm9/3p6lrkvVt8iA9Xsj88P1z7xeQa1GC2KYJIt8Ze91e8KuGlaIx3LUzSwMtHwS2RfB11OLg7tRuUSFjNFfbtUa87vaWOspfMIAigdaMSZranmUHyoBdkOySrPDNyS/B3lAYP1UD4oK66kHLIsTJO7O63bMbTVcvPKW8mjPe2LEWn2/0ghrXLx9dhKOtacpn+AaZd5U2toghs68QYpvEXFko8dklNAcCe0Z0lO164pNoBeDdcJ/I35euJkmKNakqo/cLqRWO4vNWAgp9cWll8qf3eeDgix8MX47Qk4XBS6ixndQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=viZg8SI8wF7xKy4CjlbkuGCyNi0jrPD5z8xmHTrwmnk=;
- b=VrUITmksZDB6k5gsaZxowQ/lH0/9hvHSMFN4Cqz6tds/oLexfIcYZcZjj7ILaLuvP7FiIGSMF+Fk1mlk4/cDOeUEzK+DnelGUfRYzG99AlwUZTijHOW/LCI4OhMiaRq+kETZaifEZHzz5roqXqHm1K6az/hl3jhMlx2+Iji9h9CkDpOZrNlYAOEyAfa3J794MFA7a/NwxofLtRpLyBu3wTNn6phCVljnfku2hYrunPo4dco0kCrnKBH8mU6JZZkk/l5xiWjB4KzVF60giDqlWzyL+GUeI+LhOq5zwqyRGrSZ8UfEUA1uWXEkZt3lCN1+Izu5e69pD0xIOEz2rXCQ6Q==
+ bh=ViLM3XkmycxKIlynzSCcTe2cRenL2FUX/1GUH+FVpmc=;
+ b=nrs8GpEE/8y5nzd6jm2eDbel8/665YHyQpt4NjlxvvbXkp5Nteqh+dtJwMvk8Jj57kqIfRnjkXwc8qM/V3kjEUgLz/FvFm6bmyZjKiMiDz1yx1P6WwqxoIV01LhRY03VbKQlYUiRZpiJN/MTV0cKAIqibG8x3fXwhnZo01WB2jPZI03+rLOnUm6Dl4gF8scOBOpmNGgrzxniHXSWFv07zSzvOElumtKwBFYZuNd0S5MldnV8FPwElLReETE2UOv/0S8y+mguR9LANs9KADg0NFTitW6pv8Q0fVUJblZS31+qZ+Ah5smNdQedLGQ3uFi5GUVFzPjldTR/jagmqRVMfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=viZg8SI8wF7xKy4CjlbkuGCyNi0jrPD5z8xmHTrwmnk=;
- b=0SIQh6mzJUbcJYN8Fd22JYVrAPubqZSVA6j7nxjM1qvayyVrUxZoTwNbx42Ol5BPAo/PxyJnUJUaqXTmiFv0oWcBm+hiOyuccCBeW7M9taOQjeX2YJts2PeRX/3mjeWs+pQDZbqCfBiVHcIJ/Bo1k/8b10+TwUuAnN+askmvVRw=
-Received: from DM6PR02CA0084.namprd02.prod.outlook.com (2603:10b6:5:1f4::25)
- by SJ2PR12MB9238.namprd12.prod.outlook.com (2603:10b6:a03:55d::16) with
+ bh=ViLM3XkmycxKIlynzSCcTe2cRenL2FUX/1GUH+FVpmc=;
+ b=F30bUgnfDUwQ2U1cSHLtaeBCqS+9UKQ1/GPuLzynogZQHRkUWMRWp7MchzJYPy78spPNMcbNK3tnAsFmAzB2HesEOe3SUW2YxQ/HwACUDZy/pWuxLf7TzizgGXw6vSuymdD4FjrdwexsGxNBOzkgJZahBt0s2BoAR5Sa38ZMM4A=
+Received: from DS7PR07CA0005.namprd07.prod.outlook.com (2603:10b6:5:3af::15)
+ by DS0PR12MB8248.namprd12.prod.outlook.com (2603:10b6:8:f3::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Fri, 31 May
- 2024 06:53:29 +0000
-Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
- (2603:10b6:5:1f4:cafe::ea) by DM6PR02CA0084.outlook.office365.com
- (2603:10b6:5:1f4::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.24 via Frontend
- Transport; Fri, 31 May 2024 06:53:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25; Fri, 31 May
+ 2024 07:01:26 +0000
+Received: from DS3PEPF0000C37A.namprd04.prod.outlook.com
+ (2603:10b6:5:3af:cafe::7e) by DS7PR07CA0005.outlook.office365.com
+ (2603:10b6:5:3af::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.37 via Frontend
+ Transport; Fri, 31 May 2024 07:01:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,74 +48,78 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 06:53:29 +0000
-Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ DS3PEPF0000C37A.mail.protection.outlook.com (10.167.23.4) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 07:01:26 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 01:53:27 -0500
-From: Yang Wang <kevinyang.wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 18/18] drm/amdgpu: refine gfx12 firmware loading
-Date: Fri, 31 May 2024 14:52:49 +0800
-Message-ID: <20240531065249.1746350-18-kevinyang.wang@amd.com>
+ 2024 02:01:25 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
+ 2024 02:01:25 -0500
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Fri, 31 May 2024 02:01:23 -0500
+From: Bob Zhou <bob.zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Tim.Huang@amd.com>, <jesse.zhang@amd.com>
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>, Bob Zhou
+ <bob.zhou@amd.com>
+Subject: [PATCH v3] drm/amd/pm: Fix the null pointer dereference for
+ vega10_hwmgr
+Date: Fri, 31 May 2024 15:01:22 +0800
+Message-ID: <20240531070122.18431-1-bob.zhou@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240531065249.1746350-1-kevinyang.wang@amd.com>
-References: <20240531065249.1746350-1-kevinyang.wang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|SJ2PR12MB9238:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5c8094b-b5e0-425f-7ab4-08dc813e60df
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37A:EE_|DS0PR12MB8248:EE_
+X-MS-Office365-Filtering-Correlation-Id: abdc03ea-0db2-4d10-8214-08dc813f7d6b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230031|1800799015|82310400017|36860700004|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PboWtqK5DuT4WnC5kBmJSah86PGm5Y6A86zlRQjwcniCdpOmoMnc+tS+MvJJ?=
- =?us-ascii?Q?2H+kNDUzeYJ0KoOk1XAVrp0w3p6TVH8qasOBcsMp0zMRhDPUqaUvxO584cfY?=
- =?us-ascii?Q?2bOor65AP/HViHDtYxU9whkRW6htkdFfYis62nK/J2x3D7anBSoN53uEEHSz?=
- =?us-ascii?Q?3cAAQRVrxRqHKuwLyl89AdlSicGPp/SvWTZ1cTtHmDte4iiowQYDVXqwndxO?=
- =?us-ascii?Q?QQP6UR6jlv34zB9t0I7f1DEQ/s7oSTbd+q8c+/mECvg0QQwJK9zx2Gx4p1Sw?=
- =?us-ascii?Q?sisY7k8Ik1sD+7aoKcW+hTzWs1+PaY6Bh7N07GURCROMe0SsDSHWZgNPnM29?=
- =?us-ascii?Q?mGL0pkcjgHH5GjOp22GtmK2/FrYfVG+z7hU7OcZFpFloqvOHfyIbfv/g9qyJ?=
- =?us-ascii?Q?xJ6FR8YxkCMEr0VMy6wWXhaSvttOliHmvDutVA2odqAW8gQk01Tx7ShzhtFN?=
- =?us-ascii?Q?rXC/Zjl9ebluq37k+EiFCOuzPjefuqJdhJfCuHtlOiYn+XWGIhHEK2SQDM9I?=
- =?us-ascii?Q?S6pq7SRSzZAziWkvPnZoikDSB3AbQAsl5xfA6pC7uWzyTAG5BWyq/eRjGIZv?=
- =?us-ascii?Q?LM0xxlr4ut6X0dVEmfCOxGnIqT7aAqSUTyP7bwfmqM9vmyRtnJndV0Dh6Mzh?=
- =?us-ascii?Q?j2h1YxaTAOFDsjmbkQi6wWurY72WYfBFgxTn+JcwnKrulEB8lBzTzEsScInK?=
- =?us-ascii?Q?bRaindx7ts/xllVFcu4ZZc8Uj3RDSF1lnQplS21ezSeWXj50yBJ2BGDdSPNY?=
- =?us-ascii?Q?qv6cfZ9NzosX7jQ8xgq45IETNbFzBTx6K5UIk60HgKCDJIknFwwb0ibX/VS7?=
- =?us-ascii?Q?SJc8ZNrOZVDovGrgEBiWSTc/u9/4ExqXsYnjRHlITayQ5dBSCHj/boZAjHSp?=
- =?us-ascii?Q?VuwjTqSV3njQ1K1oKnAuTZ64DuL/WHkvE/XrMY0SKHrr+QTHdIY3acpAGibI?=
- =?us-ascii?Q?7rIuwWYiif7xgoOI4PygPHqF2u7Pto8RY8gj6OFKe7HHRCm8YcGcb+UumB1F?=
- =?us-ascii?Q?bu3yt5qSwxRPp9jbwO+C7lGtjr3xaZUNjmNh6CA+27UADQEq60or/ua7A9ej?=
- =?us-ascii?Q?4Y1aV+4+/fzD0ylpGh89lJXxhCX6nQo07rhINH/KPrT7s1gRGmtgM6JZr/T4?=
- =?us-ascii?Q?ltDRbj029pPhfwO6L2yWhMAqY/o1nJ/RfeRsjzpFDlRn9BA5OXoyowznnknZ?=
- =?us-ascii?Q?0Tk08f3tF4enSwuHn1lmJOLxe3dMMq1nsG3UOadJmzx9HjpdYubVjSPE1bbt?=
- =?us-ascii?Q?w/FKwY83QW0xsAQQs5mIjESQ6TKIZn9Mdinvb2cP08fDHewFqMY56qEIZKjv?=
- =?us-ascii?Q?sqHa2ciQKlA1P/pGqqBNHMWGWU24fmrSiuAnKoVxafiQifEcPyXlPr2UhA7I?=
- =?us-ascii?Q?yiHvmMg=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CbJHMGwftCFBj8f9W/9n1xnjUJ6NwDxqsBbWiuLBMB2UhLxBA1U2auN4kIBx?=
+ =?us-ascii?Q?69YYqV7dcqn7JxeMIyzzR0f2XIq5BiotXLubOKBKP6gw2gxCBcxiHKK8FPCB?=
+ =?us-ascii?Q?gdvqYzAKHbt6i5jBdIOHljDrTqkDr+llNaSKRVSS51NY4RpnlpBAo7ppL4K6?=
+ =?us-ascii?Q?S4RirCVyKCgzSzXBpf7Bf5I6dXDc9FZEqOz4aLQR1YLFyLp5maSB6DV9sUzI?=
+ =?us-ascii?Q?Ep9+UdFhOe6+4PtwvMTwSgWZ7HnwI2jiVX6O65poIxqfeQRNkzKQA2lm08P2?=
+ =?us-ascii?Q?tg09VAnid7Wm8jIFhxDHOPt7FmO2vIlruGDS6QotnZTpNVkC0KYEmRqEI/lz?=
+ =?us-ascii?Q?SOqJn+f3/zBElzOzAccMjDD5CcNfj/stGRV3BI4cZWLLlfB6bzHoxr+ZEQeG?=
+ =?us-ascii?Q?MkEwvc9miW/OwUxpH1Rl00Nm70fgCICYIpachCtcMT1rWnzQlId1KtkwCOZo?=
+ =?us-ascii?Q?R0NKVgn37wiUM6if09PjUKjRLy4QsbWr0xnGwwRu357+PJozqTVE9r09hqax?=
+ =?us-ascii?Q?zIymfTzmYNUTXq059LWsx2xOJj8CR1B7IUHrDHs+RsmnPwJl/lL9edVXNgcE?=
+ =?us-ascii?Q?bk8DboKYzHu9E6b48LBjxpGPCxqPs0Vg5j90frIISMzGoK8W75AAqCkUH/3L?=
+ =?us-ascii?Q?YIBnyzYPyEyQx6RNW9pO0fDUgBhoLP4CJVtZy2KUHMHYb2oDMCAXPnHsC17R?=
+ =?us-ascii?Q?dP6U3aUVC8Bs/578JRvYVV6Sx1gn1GTbghu4GQXFSuV2rv2PPonZopxNMGeD?=
+ =?us-ascii?Q?cwpuQPi1FBDImhrZipFbkXyDk0WGvztX1TIetTxcdtSGe3BlfgbRzGxbJGQ5?=
+ =?us-ascii?Q?sPZ7O5Ocagpc0z/josWATOF60LIeocoUwrUtQRuR50+eLFsk0GbjTGbbHVko?=
+ =?us-ascii?Q?/HFIndtjLs89TH+IaDX0MPMVCnAaxjLIfnrK4zfptSNYz17IMpZs6Mh0zxbE?=
+ =?us-ascii?Q?zTwLuWaYxXFQN+lkACjb7tPuR6vlRdLr8zuzAAtYZJzRQZAUmObPglOL0a+D?=
+ =?us-ascii?Q?uIcuq5cuq0jJsVSqwo9mu5P8FhWUiibRGfPfkjyUnZ+HCF0p5M9Mbd00EQIn?=
+ =?us-ascii?Q?YXYD3fUxMeZ7BXb1MsomqLfQkRifBFjTsMrHDgMDWxOl7Dlux8JrIW2xPNk+?=
+ =?us-ascii?Q?v2O5K8n6zk+glOM/kmMkJUrUhk6HRNsJS4JhDvKfFbwO9HoIc8b3l1JMmww/?=
+ =?us-ascii?Q?NOS7OBUyhehoTZ37BGTfXYZ4/IpKNaff4ziB+XivI5VoILUtl61ZCu1oys5a?=
+ =?us-ascii?Q?M7pMuDrBS1blDXbW9St9Vq5lUvU0MTyiu1TR4RC1f7jnhC52mSzlR/svext0?=
+ =?us-ascii?Q?u95ojNbJruWsSAFZdAlR7p0584x7DoyhZc+CV2a7AlelEYfq3ShKUrxI3FPX?=
+ =?us-ascii?Q?V8Hp44oVSnlQu05PxS6F8uvN2YfS?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(1800799015)(82310400017)(36860700004)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 06:53:29.1888 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5c8094b-b5e0-425f-7ab4-08dc813e60df
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 07:01:26.6106 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abdc03ea-0db2-4d10-8214-08dc813f7d6b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9238
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8248
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,79 +134,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-refine gfx12 firmware loading
+Check return value and conduct null pointer handling to avoid null pointer dereference.
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Bob Zhou <bob.zhou@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 29 ++++++++++++++++---
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 6419f98e32b6..f37cfa4bfb22 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -386,10 +386,9 @@ static int gfx_v12_0_init_toc_microcode(struct amdgpu_device *adev, const char *
- {
- 	const struct psp_firmware_header_v1_0 *toc_hdr;
- 	int err = 0;
--	char fw_name[40];
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 6524d99e5cab..6e717ddbb029 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -3439,13 +3439,17 @@ static int vega10_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwmgr, co
+ 	const struct vega10_power_state *vega10_ps =
+ 			cast_const_phw_vega10_power_state(states->pnew_state);
+ 	struct vega10_single_dpm_table *sclk_table = &(data->dpm_table.gfx_table);
+-	uint32_t sclk = vega10_ps->performance_levels
+-			[vega10_ps->performance_level_count - 1].gfx_clock;
+ 	struct vega10_single_dpm_table *mclk_table = &(data->dpm_table.mem_table);
+-	uint32_t mclk = vega10_ps->performance_levels
+-			[vega10_ps->performance_level_count - 1].mem_clock;
++	uint32_t sclk, mclk;
+ 	uint32_t i;
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_toc.bin", ucode_prefix);
--	err = amdgpu_ucode_request(adev, &adev->psp.toc_fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->psp.toc_fw,
-+				   "amdgpu/%s_toc.bin", ucode_prefix);
- 	if (err)
- 		goto out;
++	if (vega10_ps == NULL)
++		return -EINVAL;
++	sclk = vega10_ps->performance_levels
++			[vega10_ps->performance_level_count - 1].gfx_clock;
++	mclk = vega10_ps->performance_levels
++			[vega10_ps->performance_level_count - 1].mem_clock;
++
+ 	for (i = 0; i < sclk_table->count; i++) {
+ 		if (sclk == sclk_table->dpm_levels[i].value)
+ 			break;
+@@ -3752,6 +3756,9 @@ static int vega10_generate_dpm_level_enable_mask(
+ 			cast_const_phw_vega10_power_state(states->pnew_state);
+ 	int i;
  
-@@ -407,7 +406,6 @@ static int gfx_v12_0_init_toc_microcode(struct amdgpu_device *adev, const char *
++	if (vega10_ps == NULL)
++		return -EINVAL;
++
+ 	PP_ASSERT_WITH_CODE(!vega10_trim_dpm_states(hwmgr, vega10_ps),
+ 			"Attempt to Trim DPM States Failed!",
+ 			return -1);
+@@ -5035,6 +5042,8 @@ static int vega10_check_states_equal(struct pp_hwmgr *hwmgr,
  
- static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
- {
--	char fw_name[40];
- 	char ucode_prefix[15];
- 	int err;
- 	const struct rlc_firmware_header_v2_0 *rlc_hdr;
-@@ -418,23 +416,23 @@ static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
+ 	vega10_psa = cast_const_phw_vega10_power_state(pstate1);
+ 	vega10_psb = cast_const_phw_vega10_power_state(pstate2);
++	if (vega10_psa == NULL || vega10_psb == NULL)
++		return -EINVAL;
  
- 	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
+ 	/* If the two states don't even have the same number of performance levels
+ 	 * they cannot be the same state.
+@@ -5168,6 +5177,8 @@ static int vega10_set_sclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
+ 		return -EINVAL;
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", ucode_prefix);
--	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-+				   "amdgpu/%s_pfp.bin", ucode_prefix);
- 	if (err)
- 		goto out;
- 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_RS64_PFP);
- 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_RS64_PFP_P0_STACK);
+ 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
++	if (vega10_ps == NULL)
++		return -EINVAL;
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", ucode_prefix);
--	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-+				   "amdgpu/%s_me.bin", ucode_prefix);
- 	if (err)
- 		goto out;
- 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_RS64_ME);
- 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_RS64_ME_P0_STACK);
+ 	vega10_ps->performance_levels
+ 	[vega10_ps->performance_level_count - 1].gfx_clock =
+@@ -5219,6 +5230,8 @@ static int vega10_set_mclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
+ 		return -EINVAL;
  
- 	if (!amdgpu_sriov_vf(adev)) {
--		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
--		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw, fw_name);
-+		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-+					   "amdgpu/%s_rlc.bin", ucode_prefix);
- 		if (err)
- 			goto out;
- 		rlc_hdr = (const struct rlc_firmware_header_v2_0 *)adev->gfx.rlc_fw->data;
-@@ -445,8 +443,8 @@ static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
- 			goto out;
- 	}
+ 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
++	if (vega10_ps == NULL)
++		return -EINVAL;
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", ucode_prefix);
--	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-+				   "amdgpu/%s_mec.bin", ucode_prefix);
- 	if (err)
- 		goto out;
- 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_RS64_MEC);
+ 	vega10_ps->performance_levels
+ 	[vega10_ps->performance_level_count - 1].mem_clock =
+@@ -5460,6 +5473,9 @@ static void vega10_odn_update_power_state(struct pp_hwmgr *hwmgr)
+ 		return;
+ 
+ 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
++	if (vega10_ps == NULL)
++		return;
++
+ 	max_level = vega10_ps->performance_level_count - 1;
+ 
+ 	if (vega10_ps->performance_levels[max_level].gfx_clock !=
+@@ -5482,6 +5498,9 @@ static void vega10_odn_update_power_state(struct pp_hwmgr *hwmgr)
+ 
+ 	ps = (struct pp_power_state *)((unsigned long)(hwmgr->ps) + hwmgr->ps_size * (hwmgr->num_ps - 1));
+ 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
++	if (vega10_ps == NULL)
++		return;
++
+ 	max_level = vega10_ps->performance_level_count - 1;
+ 
+ 	if (vega10_ps->performance_levels[max_level].gfx_clock !=
+@@ -5672,6 +5691,8 @@ static int vega10_get_performance_level(struct pp_hwmgr *hwmgr, const struct pp_
+ 		return -EINVAL;
+ 
+ 	vega10_ps = cast_const_phw_vega10_power_state(state);
++	if (vega10_ps == NULL)
++		return -EINVAL;
+ 
+ 	i = index > vega10_ps->performance_level_count - 1 ?
+ 			vega10_ps->performance_level_count - 1 : index;
 -- 
 2.34.1
 
