@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB9AC27C53
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 16:53:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3726EC27C52
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 16:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AB9910E602;
-	Fri, 31 May 2024 16:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6E010E3E8;
+	Fri, 31 May 2024 16:53:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bm3IsDKW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m5VA0KxF";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80EB510E57F
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D30210E4F3
  for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 16:52:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CU1qgl1ExhKizSie02Nz6Cacz6nyJ7yN3Lja3R2wMVDHX7Qh20EEQwZ6eDcAoz7RQet3Oyk2YtXLXiy7zN+uzU/xkLKiKedJuwmn99VMxyrcJ1Y8mWF5VP0uLxpGVldhMm2iIjztoNwnks+HrO1ynCLs0U0xtDCjHO722claX2M4/EbyfRD9SotBk38VS6ARdKzbJaNGPwO2i7LDT//1vma35hdjXEwbYOu9qGKnjsslAbjnwXVEKIJ8TjUXTha/0KJYnE9OeEemlzUCgTXyMSJFkVsRpRI3shsT/bHaabaG2eAK3ysyEvFCKcLdP04u8YalGVEL2FH3Eo+jYVd3jQ==
+ b=B7zMhKv7HicJ5UUu4Weo4xTe+kucYha1eyVfXJu3/72uy1ATXPW5mysG2xHuxLTpQGpMRG5FtN+8o+zY32QFCSzNqOixipJPG1Zr5YMejLq0TDPx82/dIipl/kaDIXJ7ULtwTl6DBrFFQ5Lt2oOXxUd/c5f9XdggkmbXq+KOC4b4mXNs2uDHYXzReI8wgChgOCWJt4itdY0B4SNmboyVCl2Mslv1VlWUrniPMJq53RKpXrpX2yMPT5Z7I44bpcb2K1ZN2r1GjFjzPK8YGcSkLGf2JVjYfLQ4+NRaXp/J9ffoFj4cGxndlm3/TI4tcmVuM48GR1Q01D4gzO6Tyzf4NQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RYtw1NgfsINe/AKWI8977W9XZC744K019VJ/K+TCNZE=;
- b=TaY6zsO1w8fLOWI29mdUlXx+lB1Y6to91IZxP5hflFOAlIUvHgRNPFE223oFwQ4qpTrIbe4Or9huLyCSq6sTVggwmWQgPIlQ28FDJCea0tChW25KFwNRmLtbt3UoF8hu/NtcrIw8YBWdiyhRGphmtbcw9p0RAeEGHKv9HVkNEzehm8Pd1bB/HmXNIeqMtMwpICW/SlqVvxgwNG9X82gR8qVzy5Akfr015C1N8D78kdpxrH6IPaQzuWn5EJyotRZEqqlDH9ZizgEqEly8EsESv6W2Ngm3FsGI2Ji7W4OP3eGuiA+SACBmWcQdplO9Il8mAV3c0v8RCNzd8Cb3hu2NIA==
+ bh=1wk9u1GgVK9Ux2VRoMVtshnIRBHocWwV8EGJUqh2yEI=;
+ b=IlN9s4EgHEEagwpEvgH/LIJRaRyf+g+e8frPh+UpUinByu9HDi479p1jWBSDC3fXWu0PvN2oenJbuW3wChBoXmJNLFpVh39+OpV/Es/PNbuEuiQ5wO5bJQJpXYeoJ4RCiL0pXaJ8dG1p29cgpLj6MyF7XWdQPevypkz+bEAPmabz6ST0/+XUWyqh8B6OkJx2eXbcMY4PPLVaxqoaZ551/cRgsr8+ZDnZQ4KqempIGjRhiInQuzQxMvG+aRj9jZ/U89GYVSrRz63sWptf/yoNyqmB+tR4rNwx8qPtDioU2dFypQxi17bu8HQuanQ0Mr946wsLYioTbdauX4qGgyVGRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RYtw1NgfsINe/AKWI8977W9XZC744K019VJ/K+TCNZE=;
- b=Bm3IsDKWrFDILNkb4/oIdR7tLOMadFYwUAlBKnyGnjnOhrhqs76hPNkDiT6pohbmYcKtIjZjeq+2f5VySKJiBafu5M+FpXSrdJzxUf+eE7mMGykvvDqac4E2YLJgLa2VSB5U27kXVD3t6O3QdW2NGbyzaqJUly0JEz/GQTpiG6Y=
-Received: from PH7PR10CA0003.namprd10.prod.outlook.com (2603:10b6:510:23d::24)
- by DM6PR12MB4298.namprd12.prod.outlook.com (2603:10b6:5:21e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25; Fri, 31 May
- 2024 16:52:55 +0000
+ bh=1wk9u1GgVK9Ux2VRoMVtshnIRBHocWwV8EGJUqh2yEI=;
+ b=m5VA0KxFJHvL1deZvYGNHChATPM1xRxiJlzP2NSiJLQv4r0bwK5nTQz6KMoznY+nf2EQcY7dMe9PC8tvJs87zzI3hWsRpaR6vHrtC9PxJnhNfIdThDOUWUWBkCJ0m1AdFCo1b6r5ZxwWp5GryA11NKtTexEGa6sf5SwuoV96omg=
+Received: from PH7PR10CA0022.namprd10.prod.outlook.com (2603:10b6:510:23d::6)
+ by IA0PR12MB8350.namprd12.prod.outlook.com (2603:10b6:208:40d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22; Fri, 31 May
+ 2024 16:52:54 +0000
 Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
- (2603:10b6:510:23d:cafe::5b) by PH7PR10CA0003.outlook.office365.com
- (2603:10b6:510:23d::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25 via Frontend
+ (2603:10b6:510:23d:cafe::34) by PH7PR10CA0022.outlook.office365.com
+ (2603:10b6:510:23d::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22 via Frontend
  Transport; Fri, 31 May 2024 16:52:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -50,21 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 16:52:54 +0000
+ 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 16:52:53 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 11:52:49 -0500
+ 2024 11:52:48 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Alex Hung <alex.hung@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>
-Subject: [PATCH 30/32] drm/amd/display: Increase MAX_LINKS by 2
-Date: Fri, 31 May 2024 12:51:43 -0400
-Message-ID: <20240531165145.1874966-31-zaeem.mohamed@amd.com>
+ <jerry.zuo@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, "Sung
+ joon Kim" <sungjoon.kim@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>
+Subject: [PATCH 29/32] drm/amd/display: Guard reading 3DLUT registers for
+ dcn32/dcn35
+Date: Fri, 31 May 2024 12:51:42 -0400
+Message-ID: <20240531165145.1874966-30-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531165145.1874966-1-zaeem.mohamed@amd.com>
 References: <20240531165145.1874966-1-zaeem.mohamed@amd.com>
@@ -76,50 +77,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|DM6PR12MB4298:EE_
-X-MS-Office365-Filtering-Correlation-Id: 833d4c23-b586-4586-b062-08dc81921df5
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|IA0PR12MB8350:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10532e62-12ee-4548-f115-08dc81921d74
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|376005|1800799015|82310400017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?G8SSRiQ/r/zVdKnjO/rHLUekHhEGxXZ/qlRPCToSU1rZ+AEgml7qu1oUCiOD?=
- =?us-ascii?Q?yoZJAHSds0Pch/iyht4RqMspTr2fZuwRI2m+8J2/zW+6/THDIMQFlNhVqz7B?=
- =?us-ascii?Q?5PVrFC6KdBhWOrsoKF7vU2BSN7eMwgNaE+rpmbmNkGekBqkNka70480AonGD?=
- =?us-ascii?Q?sioODKoEEx6GJKSlVUrJGB9LKL/KqodIdmFdJWmk7HM/49nEI4koi/cbNi6n?=
- =?us-ascii?Q?6itxL/0adESY/yQgB9pefQdJpZN8m+z/GI7U6R6w4ZwbPIci3/HyBbzQLKdN?=
- =?us-ascii?Q?JLIpR4O6BNLITHXewXGfzxV3SEKG4V90Wj7e9/G2kK6701vdo6vX6rDw03JF?=
- =?us-ascii?Q?o8r232+cH6FQGT+cC2pH1ZnM2aHdUbzZoonjPPPXCqZ9pJ99Gg0QQaUSp4wB?=
- =?us-ascii?Q?EBC7iIJ+fOMEZs5M4OE6t2Dzvk2RA1L1K1e5svHycct3FrR364Mw5TIoUSDW?=
- =?us-ascii?Q?tvYhbSxugdCy88Bm6PT1aJj4jQYyqBDymm3VVyNeISWxX5A9/LFL+fLEZbBZ?=
- =?us-ascii?Q?YrXDpj7nCtMmcgr5yEthGz696BQ+P9jXo1100TGJlRWrxZUr6mROM8Jfsk8T?=
- =?us-ascii?Q?iGwfbpjZtcZyYg5Q9hpErNyb0SeWTBuIyWdbyRA0S8qfJ0umQQQ/D3JovqkS?=
- =?us-ascii?Q?hEolsVZgpKgiavbKs4LPO3xzmL1NEWUkBBLSCmtAMqYDnEBk8VTRSjXp6dO7?=
- =?us-ascii?Q?eGDHe8WyLpGQ1UXnMMZvO4IlewYTZrcbiJtoaM/0EWxgTQLLBQ60oq/Sz1vD?=
- =?us-ascii?Q?FKYdJKj0fScOU4Zf1PNlDI2iR/CaEaC7yvyyCWaVmMQRULS2pr16+NNOojeO?=
- =?us-ascii?Q?NQGdLG0SA00dtYQT3WJFlxp02qysju+YnXtntgrDUuwYyC5mUemO+rq4rYD8?=
- =?us-ascii?Q?uc/doJTn52F3NQdulQLdSNhw/LHn2Ig0GEU7b3Cs2bByxb6IhkDJE7hfnIdD?=
- =?us-ascii?Q?GWAe7Kst0kt2rmXKg9ToOyq2SHaI0zv7T7KUR4mMmWMK1Ek/qjyFjbW8zQFw?=
- =?us-ascii?Q?unvADbqKWJUQCrm73rSUaBDudBzEItENXlUJ87aqA1CuB5BnQ+KxG9BMNJXX?=
- =?us-ascii?Q?yX88a54Je4IsRVzV2e53wCNmEjEhLcVxl3yfr72UIr5fK7UeUzx8Y+ndcUz+?=
- =?us-ascii?Q?IaiIM4RhSSH2UjOLLzdUxxuKk4bkLN4MoC5DlrRnaJB+Nzygr7y5bOiSzdYb?=
- =?us-ascii?Q?jkA41BAGncdQ1/hd9o/P164dW4zcn2z4QqlXrGIMheMlx3/pvaYl1Qqar7+w?=
- =?us-ascii?Q?5mnQj7VazouqMqfKd52YKFX5QHKTDNNLfuai29sq8hheWAiIhvPd/H4f9FaD?=
- =?us-ascii?Q?8IBvZOWCrjTH6Z+i5NcHStCEh/jRZWQGoFWEzWw3FoO0xQkQvuZvbZCDpVTL?=
- =?us-ascii?Q?ADDtoB/PAQ8xW7cbusyzHxjJnG8I?=
+ ARA:13230031|1800799015|376005|82310400017|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BDGEr05UrlVSwwPk6/JBuB3FgvVfjevV3nQJ9fHJjjiRXpnebO9qYCLbVhsi?=
+ =?us-ascii?Q?xfOXdV1s3DN/aGwK3oJc3T3069d8uJO0ANcOqohRKOSGKxiIwjreaTP490Bp?=
+ =?us-ascii?Q?UbQQCO+Gm55WQdA/YBSmqGLkz04nNjuUuXD+3cG+htrzgLyvhqwQJQAgZjfi?=
+ =?us-ascii?Q?z3/6Dg7Feugo5/vkYtyVTIYd1Z7zlluziatJFUh16/pX52lQdzJ9grlH3alu?=
+ =?us-ascii?Q?pI4RQGveYNE4TYzGv6AJ3KHgaveAaWYGsepsExNT3t62ujIydd8IV04paDs7?=
+ =?us-ascii?Q?tLXNXrB5utsQLVZhO9QGZj4NoZvs+4nt8516uAoin0akqH+ae3aZfz0b8G4l?=
+ =?us-ascii?Q?526g1JHrOxnMOmqVDVC7R4oGnFeHfBwzPvDlmd3xghZmHowZ3JktIGH/Xvr8?=
+ =?us-ascii?Q?oznrXzcU6sA1qjkV5McEMRwA4HIV5kCukKytWl0w31CRWOjeZAOxb8OT0xgr?=
+ =?us-ascii?Q?2aFBPLFyMmK3auEmr/1YkDIWKAKcxzX4BIDmVFNyIuI5d4V9fPcHt8gPdfug?=
+ =?us-ascii?Q?kLXOe6+vcPg2DdpmuFlVSR2BzHXvZ+0P22Ravq0nNWLuqdWgtf2p7MsM/an+?=
+ =?us-ascii?Q?1WSPoleSbzDyC/knfJoecSnHL4pkOKS+NAONl0vMIUuKdTbmRi+2yk4FLVV/?=
+ =?us-ascii?Q?J35ar9ct+VMkIAITOIN5cxMccVXdP8sIEzEGzwv3n/bScSJWA+zLL3glEeWN?=
+ =?us-ascii?Q?CChBjpAQoSm2/W0gnqeVvqRXeqtcF461STvIG+fFkKQWLh3udHeMdnUokvqc?=
+ =?us-ascii?Q?qS26JS4ynH+ykSASyGtZZdgr4j0paFDQvSL9NWa2pt32nnEJsz4zeLUeWH6f?=
+ =?us-ascii?Q?G21dtycIJR1t0RzIM0bFyWH8aHDkeK44sZh1/JCYIyVz4AZA/n69rdWmqD4G?=
+ =?us-ascii?Q?1aXUxQoii4V8DNg1HW1eiYy+fOgsreGW5pHQW76wErcytiRPqFUpwRrqBzKt?=
+ =?us-ascii?Q?74VeOXJWcjECntlRBwzUAKyHemaFHwU+sa3B6umRFMBgF0ipDk5YX3TMD+20?=
+ =?us-ascii?Q?DvtVTIxaAe1rH5PwxTdTXL9KwkwqWgCi0viaNtu+IuoY4xXfVGKKBA8DmuJf?=
+ =?us-ascii?Q?Py1Phv+IHRRo5WIl34k/foxFOrEJzX8dmrVCBEEmrGZj/bPP9CNGbkZXEhu+?=
+ =?us-ascii?Q?CXjTRObxAbTTBzF3O9kKYkuweptuybtMoUPcb4tHygtY2v4f2R5VNUoEgu3H?=
+ =?us-ascii?Q?Zr/O6QB/q3CwvGUY4n/jFxL8gEAgR5EnaVj3bf2j0w9UZDs4Ozup/sTw1D2I?=
+ =?us-ascii?Q?ivemqQYahinI1IB2tkKPI4F70xVZmuVK6DndrnRbgV/UHnftGuTTZ1cE8el5?=
+ =?us-ascii?Q?C61TpkdqE+4M7708BtTKrwYG19RMssBZryBmS3vdYHIRqDjuWU0T+YmTlC6W?=
+ =?us-ascii?Q?SyBMYI8=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(376005)(1800799015)(82310400017); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 16:52:54.6523 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 833d4c23-b586-4586-b062-08dc81921df5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 16:52:53.8241 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10532e62-12ee-4548-f115-08dc81921d74
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4298
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8350
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,31 +135,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Two additional virtual links are created and thus increasing size
-for dc->links by two.
+[Why]
+3DLUT is not part of the DPP on DCN32/DCN35 ASIC and these registers
+now exist in MCM state.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+[How]
+Add guards when reading DPP state based on whether the register has a
+valid offset.
+
+Reviewed-by: Sung joon Kim <sungjoon.kim@amd.com>
 Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  | 29 ++++++++++---------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-index c80ebb407add..27bba47186e9 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-@@ -44,7 +44,7 @@
-  */
- #define MAX_PIPES 6
- #define MAX_PHANTOM_PIPES (MAX_PIPES / 2)
--#define MAX_LINKS (MAX_PIPES * 2)
-+#define MAX_LINKS (MAX_PIPES * 2 +2)
- #define MAX_DIG_LINK_ENCODERS 7
- #define MAX_DWB_PIPES	1
- #define MAX_HPO_DP2_ENCODERS	4
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+index f8c0cee34080..7c05fa20078c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+@@ -64,22 +64,23 @@ void dpp30_read_state(struct dpp *dpp_base, struct dcn_dpp_state *s)
+ 	}
+ 
+ 	// Shaper LUT (RAM), 3D LUT (mode, bit-depth, size)
+-	REG_GET(CM_SHAPER_CONTROL,
+-		CM_SHAPER_LUT_MODE, &s->shaper_lut_mode);
+-	REG_GET(CM_3DLUT_MODE,
+-		CM_3DLUT_MODE_CURRENT, &s->lut3d_mode);
+-	REG_GET(CM_3DLUT_READ_WRITE_CONTROL,
+-		CM_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
+-	REG_GET(CM_3DLUT_MODE,
+-		CM_3DLUT_SIZE, &s->lut3d_size);
++	if (REG(CM_SHAPER_CONTROL))
++		REG_GET(CM_SHAPER_CONTROL, CM_SHAPER_LUT_MODE, &s->shaper_lut_mode);
++	if (REG(CM_3DLUT_MODE))
++		REG_GET(CM_3DLUT_MODE, CM_3DLUT_MODE_CURRENT, &s->lut3d_mode);
++	if (REG(CM_3DLUT_READ_WRITE_CONTROL))
++		REG_GET(CM_3DLUT_READ_WRITE_CONTROL, CM_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
++	if (REG(CM_3DLUT_MODE))
++		REG_GET(CM_3DLUT_MODE, CM_3DLUT_SIZE, &s->lut3d_size);
+ 
+ 	// Blend/Out Gamma (RAM)
+-	REG_GET(CM_BLNDGAM_CONTROL,
+-		CM_BLNDGAM_MODE_CURRENT, &s->rgam_lut_mode);
+-	if (s->rgam_lut_mode){
+-		REG_GET(CM_BLNDGAM_CONTROL, CM_BLNDGAM_SELECT_CURRENT, &rgam_lut_mode);
+-		if (!rgam_lut_mode)
+-			s->rgam_lut_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
++	if (REG(CM_BLNDGAM_CONTROL)) {
++		REG_GET(CM_BLNDGAM_CONTROL, CM_BLNDGAM_MODE_CURRENT, &s->rgam_lut_mode);
++		if (s->rgam_lut_mode){
++			REG_GET(CM_BLNDGAM_CONTROL, CM_BLNDGAM_SELECT_CURRENT, &rgam_lut_mode);
++			if (!rgam_lut_mode)
++				s->rgam_lut_mode = LUT_RAM_A; // Otherwise, LUT_RAM_B
++		}
+ 	}
+ }
+ 
 -- 
 2.34.1
 
