@@ -4,75 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5303CC25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 09:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC05C27C44
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 10:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5721910E209;
-	Fri, 31 May 2024 09:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DAD10E2BC;
+	Fri, 31 May 2024 10:17:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gt/Otg4X";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="apSlFf++";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE12E10E19D;
- Fri, 31 May 2024 09:12:18 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-35dcff36522so821552f8f.1; 
- Fri, 31 May 2024 02:12:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717146737; x=1717751537; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CAisdGkVjiY+zTim1HeKneK2aR6c95AqSfk99w//tUg=;
- b=gt/Otg4Xo4WHpoYj3HrCtiDOUSG/SZbEdTE3MPvMub7UbKLV53ieIFY0OOkt1uflnZ
- t7VlkZvC+bSvW1I2gnmzXcMT1eceVmWpuLPIJCg463LsGHepquK4XFDotmjvR7ZaN7P1
- S1rXBeEXxWZIP9Ihl4DCO+clPBwuu+LNUx8f4cPoYEetYfl8P8NBAldylZazVW9sVsLP
- gK3Kj0HttDdppMkhcY16xxBN/pWm9UhOu32Heij0wySM9RtTmaDQ8uBDgz3YJt2LBZb4
- uNmWpepbModXFXnkZ75Jy9UCQ+TDxM9JfVrUcSWk/IrGzyh109JTRJ5x+reBwGDSxhtA
- pK/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717146737; x=1717751537;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CAisdGkVjiY+zTim1HeKneK2aR6c95AqSfk99w//tUg=;
- b=Er5Q0jT0lAG1MD+kntcKAmLY05qYRWJmFiZUtmldTNc2qfC/qiEnB7aV/QC/BXBp7B
- mHQr17VSGMEGU4QFQ+ziN2XtrlHPw+XhijAED0Fnj/vbFscFByHSdNZsYxz7lsmC2ukf
- 8BSZ+cqOnF7gSo6DuZblNH1M7kTLsCeugxT45XWi3EWcN/tbni1a/WGGT0y4aBKtRsh/
- 5IYyYAlm3m7XdScBwUYxnQiDzdlF8oyYTFOCBJt+bjU383yQ6CH0768jLc8S7sHUTEte
- sl7aTXZtVik6M4odWpKHMPyYPiSpJPs9h7x6iSHW6cnZvINZRfL2IXVqIwNy/m7sIsy9
- LbwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXxrdivqqvPrg0m0stCvFKWlTRwkGp0abZ3Wyk4oKSw4O3PHXew1ko+ObZ9RaMfri8qUPKKrGF3RvsqKn89ul59DFyn1Fy9q9oV0v++R1Hl
-X-Gm-Message-State: AOJu0YwjLVqmPhx4SCtdhJS/lNT9dHyfgO6oDbYrbMZJYQxVhO+nwt9v
- krwoZLMjLktSFLjvhZ93HuFB3ctqSpSmZZ4fwXaALB4nwbsYnJpW
-X-Google-Smtp-Source: AGHT+IHdUyzpVaYaryp6byJTrVZ1E5WKPaIPQ/7VJ3BCYNfe3MOMtHWasSEEBSV8ZpB1CiMpjGNNSQ==
-X-Received: by 2002:adf:f3c6:0:b0:354:f2a7:97d6 with SMTP id
- ffacd0b85a97d-35e0f285b04mr912447f8f.30.1717146736866; 
- Fri, 31 May 2024 02:12:16 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35dd04e845bsm1384959f8f.65.2024.05.31.02.12.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 May 2024 02:12:16 -0700 (PDT)
-Message-ID: <bd1d46ca-044b-468b-9458-4e9e43472930@gmail.com>
-Date: Fri, 31 May 2024 11:12:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 0/2] Discussion around eviction improvements
-To: Alex Deucher <alexdeucher@gmail.com>, Tvrtko Ursulin <tursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>
-References: <20240516121822.19036-1-tursulin@igalia.com>
- <CADnq5_PhZ5bqEJKQ+bPQAeXihMfZrFVqLN-+nd69+zZooBT6BA@mail.gmail.com>
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D365C10E2BC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 10:17:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JDGJAsLytoe3Cz901EYWgBHx18ryFGmZJ+xfmCka9T26uT9WOWmILC2EVkzkqlHXBrIhpWphurpkveyOk8poKEedGzJWfr2u+Osd6TmLhip3qS9esMHGKffMzAJo73dSBmbao/RjJSHnF2/lkw6vZmROu2vXENE0jn2pjy7gJmSHpU5VfhyAVYD/81Dai6Ex2k7sP7GcWBaUv+cs4T1xz1MC0eR3K0CYMIM5yPlJB/LBGz7MvZU/SthKbGl3zpes8g/hdGhHpUQRVbnM4Bdof27j76crw0Tdi5NmiWxl48MmUkH1J8z+ut+A9iDCW4ld5svTOS4FrC4b3XB2I1nG1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mGpbrw8pDZyk4sMtM/MGJQm8PbGAZP31YTaPxhBAkbc=;
+ b=UvGNowuETBK3+O7/O/RJnB0GvqDWwKDBg/fzPr9z5CLXe09gftj7b4w8QaUCkkBf3sx7T9S1BzNxQDY3q4F2RWg0d6oAikffMq+4pducSxr5m5KHUZ5pauXKzIQb8VCM8yfoIk+IrEZJbf1Sau4keqEYps8KmFVz3L8cKMqMTZaIJYtQQ45uVmwjwEdUvbeR5B2UHTkC/InA66wNrcs2J7du6v4ygKqqvQ2u/Dj3ajZ8b48Mg69V/Lr8Y2QRzuRkcmQjVc3JjOVSkK1Yp91W/RbIHJxLCHGMdkrc+9L628gf01GEV1GX6VbFi4raTkxk+e5dJp1++RdQClAtrBnt5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mGpbrw8pDZyk4sMtM/MGJQm8PbGAZP31YTaPxhBAkbc=;
+ b=apSlFf++R8CCG8hiXMJa0zMKMSWSg4yunawRxGskiTsarZiF1Vm1j3+yHCrVLTDg4wlkR/928YWlcKqKm5rTAQ6WO/e+RxevWmnD7bJ5kkIpt7/w0iOZSA6iF0nUqOxWCsqlE1eOnQTJu481VvLVNLHUIjYY9JupoOgiozGzLx4=
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
+ by MW3PR12MB4459.namprd12.prod.outlook.com (2603:10b6:303:56::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.24; Fri, 31 May
+ 2024 10:17:18 +0000
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::c5da:9b53:9d77:c708]) by PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::c5da:9b53:9d77:c708%5]) with mapi id 15.20.7611.031; Fri, 31 May 2024
+ 10:17:18 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Zhou, Bob" <Bob.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Huang, Tim" <Tim.Huang@amd.com>, "Zhang,
+ Jesse(Jie)" <Jesse.Zhang@amd.com>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Zhou, Bob" <Bob.Zhou@amd.com>
+Subject: RE: [PATCH v2] drm/amd/pm: add missing error handling in function
+ smu_v13_0_6_allocate_dpm_context
+Thread-Topic: [PATCH v2] drm/amd/pm: add missing error handling in function
+ smu_v13_0_6_allocate_dpm_context
+Thread-Index: AQHaszOWNSgy7BOV60qE1m1g0+JhQbGxIOJg
+Date: Fri, 31 May 2024 10:17:17 +0000
+Message-ID: <PH7PR12MB5997B7739A5ED69C9060716582FC2@PH7PR12MB5997.namprd12.prod.outlook.com>
+References: <20240531082145.24027-1-bob.zhou@amd.com>
+In-Reply-To: <20240531082145.24027-1-bob.zhou@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_PhZ5bqEJKQ+bPQAeXihMfZrFVqLN-+nd69+zZooBT6BA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=57b86b84-31be-4828-b52c-8b6b10cdeb6a;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-05-31T10:16:46Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|MW3PR12MB4459:EE_
+x-ms-office365-filtering-correlation-id: cd48f2f0-a771-40c1-7775-08dc815ad9b9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|366007|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?hOwRk6yoq0ZFvnjufTlNE6v034wCtCUyxo1SkarXEy1MLzOgpYqh30+p+LZk?=
+ =?us-ascii?Q?9ZqLih9AhwuYMXZqUFhI0G30fh/OzrtANsZyq7Is2iPo8zymXeifqesn+SRG?=
+ =?us-ascii?Q?If+PknpJ+SRwWTZcPkubGmX6JzegncQD13SPrfKWZDheZt63SVDA+xTUGzK6?=
+ =?us-ascii?Q?BbcRB+867Mv3Sp6hLP3RXVKEgyeKVu5Z80noALAk6Hm4B29QREIm+La0wNGw?=
+ =?us-ascii?Q?FkGKALQQnjuCu8N+o1skZUxekoSYwQwGiS2FTwjO/WSTtCk4pkFBuntX+SOS?=
+ =?us-ascii?Q?zG5vRZXfYOpVmgTpwALKSmv+oxqmXWxNHasHxW6T/nRcz5DhnSplc3YEbB98?=
+ =?us-ascii?Q?iMmf48Y7K7uq/Ni8UVBpsIrHKlXf5J+gaMWcZz3mnuxhJ5mxsfq2HAnLXFPa?=
+ =?us-ascii?Q?Ea3VglKS/6PGJwTO8ibMycuQtZ8R3lmlNU66qhOJCXxsB+4O9rcwTJ6ytDRl?=
+ =?us-ascii?Q?SzfpKtZCNcGcjrzBD/Jlam1tx4UaoydKo5HJsbj7FEeeCWqBBuWh+rVLNLLW?=
+ =?us-ascii?Q?GvMalgp91uhynH1nGgm6xynTemWNzT7+nJENAG+8i96C2zdecr19QrTEX3eM?=
+ =?us-ascii?Q?33FnPL7M3p1m6yQRU6k0gULWWtINirTLFstL1mMhdoRGEc2dYZXZ2ZmCCr/p?=
+ =?us-ascii?Q?MG8w3XRKTUmN43tMMLQPFToPcsYPCm2WRN//FsMpRjqXxxKz9d5vcnqDeIe2?=
+ =?us-ascii?Q?Xpop35l7wXD7pv+rlGrPuxHA1RZd1Tb5WU6MK9BSRUieGddApajywE7SBz4D?=
+ =?us-ascii?Q?xlt7BdJQX2ui+RwLAXkkH8KBXNGi994vI3ZqL+eAuWP78RbQxF/iEebkgHZb?=
+ =?us-ascii?Q?22YC/fNOUaGRRsRAH7GUKCt295ODyXt7/LtXLu+gCUUDAaNSAuCk9zFm1hiz?=
+ =?us-ascii?Q?UtdWptcGQwaZtJhZqAaJgdgOs3T+h3DZvlMplDK/i5oVLfZ+7MH8Ufya7aEV?=
+ =?us-ascii?Q?25y2Mvslfuh3K8+VgArUkiEHi1YZ5xeXy3xcIdss3dzuqA2YuMVbzKlxRtYA?=
+ =?us-ascii?Q?E9nLuMOJbHX0SQlQvVoqmTfV2DlwLPCE7T48e91WJlmFYwrhO6foPJt67BEr?=
+ =?us-ascii?Q?rdlZgw8PHJufEkw9BCiatjnU285oIBlPwlptpLJ2nH1etwVg1Dt6IMGGIKuG?=
+ =?us-ascii?Q?hwFH1dCGHBnuYEeW3Qq1AMJd3+VdeAvrTpQWknLxfTouYetHLth7TUSi3GeI?=
+ =?us-ascii?Q?F+9Bh5rkTfmyyLZ5oFYnEBRwmAgt3wyqaFu89MndRhdl1rdMv5AxPp/Odlqm?=
+ =?us-ascii?Q?doxQ4kj+w5cyArKYgAvjHvNFBsfHPPA21lfw77SsZ+iOtkfUZfDkgrf/6+hg?=
+ =?us-ascii?Q?V5jyOve3tmnFav6XGofOux3c+ry4WPsQf2VwcEyu03+jPw=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(366007)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XEbrTvGamaJPLMqDZsHUyLtBY06FeycbrH7Iov8hbFj8FzV3r09rewS2AnL1?=
+ =?us-ascii?Q?iKdl9E8MjUe4AknXQmYRbi7SH3f5ECrKDAynb1MMCu+buHeUzOc7z5M7IWOX?=
+ =?us-ascii?Q?Rv88kLmCLEShPIGVKdVrBh+/I5w4pihnGQ3dOZqxZe8oYUlpkwzGOAzT4nxD?=
+ =?us-ascii?Q?vzL2H7idwOR5bDo7pfjq4zraBQHxdNA1YPbCaVFggB+yuK9lr3oibPN7hI5D?=
+ =?us-ascii?Q?aqM9UbrmAGHmdszoVRBduFZxHox0pzHH4UJMMURADQCsUznKameFfUXvOnJP?=
+ =?us-ascii?Q?a0EIAClMGJ8cvs32vl490wcC61Hx6iunu3az1S+EgCDU0MQBWM2izzl6z73+?=
+ =?us-ascii?Q?OzISUFe8eL+HWIJlzVSpXvrJBBVhrmyiMnp4QNTj7AgP2NBPBA15T0l1lTRJ?=
+ =?us-ascii?Q?9hxAq+529RoJLNfSgz3y65YeyVfaWsGwdDzXnCf0FGEjRIU9yrRRDpPTQSjf?=
+ =?us-ascii?Q?L4VA7dpc5ENQRIIUlklKu4zTZDDuu811wwfZhccTgtQK98guScSBpuWPSwB0?=
+ =?us-ascii?Q?b3bBa8KgZnkHYZz0GtLttD04mDP4RsUaR4LtSkkcwietM8bZv6gm1BZo1/8T?=
+ =?us-ascii?Q?XnCZyMDzAP2n0KsqciGjUXutrtjJM48jPVoAl9yVEIFyC8+43VwDOxJZE8sw?=
+ =?us-ascii?Q?6s2f5VbEbwrYyurWcpPz7LfM0SJsvpSOzHohAR6kYbPkNzg5p5yBxzNB57ck?=
+ =?us-ascii?Q?IIkDa9TTfluXNICQ1WURptk5SKRTWfJmTMjZ8uojvrF9NIP1w++3bhgIjf45?=
+ =?us-ascii?Q?g27XtC/6ATLHbaDDy91HJCtlLTjacF6bnCrhPh7c2v0avvLqJ+UKtxbyMuCP?=
+ =?us-ascii?Q?DOJQ4trqV0SmN34CAyK/6fbQShgWAwQL33VrjgQ1HQGV54n09pyqd0zaFPwi?=
+ =?us-ascii?Q?1OZKrMK5l+5lTWVJHXMGu6O7eBndQ6m/WaRdrFug/mjrH1WsrR2rD5HM1SHx?=
+ =?us-ascii?Q?qJavocM0/pXeF6Bq2d+Llscgf5XR3leZroUlLtex5oyXwsPTpH7RXqdkvetH?=
+ =?us-ascii?Q?uY0FmLLa4Z3BZbycDEnyjhiXRzeKBdkqEKXPFiYj5fJHAvMDGoed6V4+1Ekj?=
+ =?us-ascii?Q?rHv7XTGFbdAfFjI8mj2fcILzL9CewLUt4st7jfsksAqx1UsQQmJy7x5U0dkD?=
+ =?us-ascii?Q?acrRJbvHdPRbwt42FwuSN2Y/YDXZ3tygJC1QXQMUumq7b8y8fQA1QWYiDBoD?=
+ =?us-ascii?Q?0gtRHcPsoPEmLyAV/U0dGT3gh/3cGiWfxju3cLojRgw92cUjDE9DU3UYpA8l?=
+ =?us-ascii?Q?s7uhp+gDbxYTFvAAJVtyIkWUVYn4rC6vnaOOMBWmgox9VZQcQZHZFxuVjUqw?=
+ =?us-ascii?Q?H1yc0c4XLysLMEAPZ9SVMgwECUmkH1S1Ywgzq9EzEJVJzDzkV3NWKPo6PmlK?=
+ =?us-ascii?Q?V5+yJYtzllNW7zEfIPsncxSKDa1lNoiTEv9qVb/jN+NEEC0qtoxtM8TWWhhJ?=
+ =?us-ascii?Q?xLiRLRZ19mWNgt26wYOLiTL1Qi/rg5wizSqJdAOro2vhsDR2Qf+WUTKQeXH4?=
+ =?us-ascii?Q?WXgTVXBllI4A/rYfppPzTAFLmRi0pT7R9NofqQnfqNITLZCW2PTVCHUnXIaS?=
+ =?us-ascii?Q?a8G8gVOEXwxVKrrM1Dk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd48f2f0-a771-40c1-7775-08dc815ad9b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2024 10:17:17.9542 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1RP0kICbKyueyZZ5KcdAQfOOfjC1ezboJBhOXAinCfLdqzz1si5HIbh0YDR3eVLE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,69 +155,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.05.24 um 21:21 schrieb Alex Deucher:
-> On Thu, May 16, 2024 at 8:18 AM Tvrtko Ursulin <tursulin@igalia.com> wrote:
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> Reduced re-spin of my previous series after Christian corrected a few
->> misconceptions that I had. So lets see if what remains makes sense or is still
->> misguided.
->>
->> To summarise, the series address the following two issues:
->>
->>   * Migration rate limiting does not work, at least not for the common case
->>     where userspace configures VRAM+GTT. It thinks it can stop migration attempts
->>     by playing with bo->allowed_domains vs bo->preferred domains but, both from
->>     the code, and from empirical experiments, I see that not working at all. When
->>     both masks are identical fiddling with them achieves nothing. Even when they
->>     are not identical allowed has a fallback GTT placement which means that when
->>     over the migration budget ttm_bo_validate with bo->allowed_domains can cause
->>     migration from GTT to VRAM.
->>
->>   * Driver thinks it will be re-validating evicted buffers on the next submission
->>     but it does not for the very common case of VRAM+GTT because it only checks
->>     if current placement is *none* of the preferred placements.
-> For APUs at least, we should never migrate because GTT and VRAM are
-> both system memory so are effectively equal performance-wise.  Maybe
-> this regressed when Christian reworked ttm to better handle migrating
-> buffers back to VRAM after suspend on dGPUs?
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Yeah, that's quite likely. I'm already looking into this.
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 
-Regards,
-Christian.
+Best Regards,
+Kevin
 
->
-> Alex
->
->> These two patches appear to have a positive result for a memory intensive game
->> like Assassin's Creed Valhalla. On an APU like Steam Deck the game has a working
->> set around 5 GiB, while the VRAM is configured to 1 GiB. Correctly respecting
->> the migration budget appears to keep buffer blits at bay and improves the
->> minimum frame rate, ie. makes things smoother.
->>
->>  From the game's built-in benchmark, average of three runs each:
->>
->>                                                  FPS
->>                  migrated KiB    min     avg     max     min-1%  min-0.1%
->>    because          20784781     10.00  37.00   89.67    22.00    12.33
->>    patched           4227688     13.67  37.00   81.33    23.33    15.00
->>
->> Disclaimers that I have is that more runs would be needed to be more confident
->> about the results. And more games. And APU versus discrete.
->>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>
->> Tvrtko Ursulin (2):
->>    drm/amdgpu: Re-validate evicted buffers
->>    drm/amdgpu: Actually respect buffer migration budget
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 112 +++++++++++++++++++------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  21 ++++-
->>   2 files changed, 103 insertions(+), 30 deletions(-)
->>
->> --
->> 2.44.0
->>
+-----Original Message-----
+From: Bob Zhou <bob.zhou@amd.com>
+Sent: Friday, May 31, 2024 4:22 PM
+To: amd-gfx@lists.freedesktop.org; Wang, Yang(Kevin) <KevinYang.Wang@amd.co=
+m>; Huang, Tim <Tim.Huang@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Zhou, Bob <Bob.Zhou@amd.com>
+Subject: [PATCH v2] drm/amd/pm: add missing error handling in function smu_=
+v13_0_6_allocate_dpm_context
+
+Check return value to avoid null pointer dereference.
+
+Signed-off-by: Bob Zhou <bob.zhou@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 15c0aa0ad443..6b8decaf6427 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -451,6 +451,11 @@ static int smu_v13_0_6_allocate_dpm_context(struct smu=
+_context *smu)
+
+        smu_dpm->dpm_policies =3D
+                kzalloc(sizeof(struct smu_dpm_policy_ctxt), GFP_KERNEL);
++       if (!smu_dpm->dpm_policies) {
++               kfree(smu_dpm->dpm_context);
++               return -ENOMEM;
++       }
++
+        if (!(smu->adev->flags & AMD_IS_APU)) {
+                policy =3D &(smu_dpm->dpm_policies->policies[0]);
+
+--
+2.34.1
 
