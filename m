@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321AEC25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 13:36:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C387C25B75
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 13:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9A310E3CA;
-	Fri, 31 May 2024 13:36:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96EE010E179;
+	Fri, 31 May 2024 13:51:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VBw/Yiis";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NA5iwfFv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FDEB10E047;
- Fri, 31 May 2024 08:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717145831; x=1748681831;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=RMhOq0e80xkHIOos311ef0InQ1+OuX+zK7Yy4hvNt5I=;
- b=VBw/YiisbFl9FSKzgNr9+GyQ6MH8xst3qMt/aQjlhneoWcWSoCgoT0Qg
- HlJmfjHf+1RUFnvDjHqHS60vvbYtrkZxy4s1lsmAW/UOh8ORe0sW2/qlf
- NOzAgBNpOGPWbUr6oqI4eN8X14EIO4h0hlPJhQ8kqd2a29j9OzdNmTfPX
- 8+6WeGk+Yr5TAFNDDZOto7ts0111zm4DbR6q2MOev0GIJbJ/wI6WXj0KH
- gMiloh4phzvUUATpX+3hmoQXN8AnYWB8WBFKcP0L+ITIdNHFqgLvRyvrh
- bqHndx4JlyjhQdF0dOhJlqVNzeyhVphatsot/4O0hemNAXKqVD8sxOTws g==;
-X-CSE-ConnectionGUID: J2JS9qgZR9OEDchqkOV+Qw==
-X-CSE-MsgGUID: zgNQsYCoTRy76JEpQ71clw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="24802617"
-X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="24802617"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 01:57:10 -0700
-X-CSE-ConnectionGUID: zlNN3HCQRCO/ESfZhJtDKA==
-X-CSE-MsgGUID: um8Yq5J8TUGDJ2jy96E4GQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,203,1712646000"; d="scan'208";a="36583456"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 01:57:07 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.97)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1sCy4O-0000000CQFP-07an; Fri, 31 May 2024 11:57:04 +0300
-Date: Fri, 31 May 2024 11:57:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Chia-I Wu <olvaffe@gmail.com>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, alexander.deucher@amd.com,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kernel/resource: optimize find_next_iomem_res
-Message-ID: <ZlmQ3_wcL3cgp4Hb@smile.fi.intel.com>
-References: <20240531053704.2009827-1-olvaffe@gmail.com>
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7650010E179
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 13:51:48 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-1f4a52b9413so17121385ad.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 06:51:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1717163508; x=1717768308; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mxCiFJnFHZ3smgKyqZ0O3pNrkuNx41KW3yjuZtgcyVM=;
+ b=NA5iwfFvvvKZoJRhpR1xBC90IKDK8TJUjm7RX5TreLJ6vYPi3WuY9skwQYm00I/MVH
+ gQvpCuj/n2RzhNdLnxJTQT6jtz8FUWuAX+m5zIWHYiuF7eMCZcrsXa5MVkvWzqqny8zt
+ W+pxRIypshRet/kc1DhsUcOZ/MBgydSN6OG/MSzstUcPyMwrppJrxw9iHyv82nWe6E+a
+ NOoHbdnlEI+Ibhr8ACFwbvrbchvROOHziLOi3o1ERIy3BR1gInPrd7pdisYpOumYcNGm
+ rDfCl4/2j4+1svra7EfKbOIwJL3KjcnI4VsM6lDSLt4WfWtjegaU/+lWuSwnhkcjk1p3
+ x6jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717163508; x=1717768308;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mxCiFJnFHZ3smgKyqZ0O3pNrkuNx41KW3yjuZtgcyVM=;
+ b=OAMFQ6ICc3sm7xme9Qhmk0/jO2CDgSIDK8FkmUt9+lx8SGoON+YjyChH7jC8a5qEYk
+ ElH0C618nNd52vK/Kh/FUrWhUA8OArNDZFKPoa/qwuu2yspATrKLvf3EAxx3Fg5QjYZI
+ BrfIq6xzfOfaML1RqWVlSivHFvXfNa/SS3y5ZD52uPHapQ71h04uIK/9vhol1958jrQE
+ j+YDFGkJmegReAFHOKEptV8tpBpdp+ctKGDxyjUFpMKUSzU8I1JNWW9i8S2YNvDqdIq/
+ vxcr6Gfv25iigYvrpOjZhGu46+mL+rsyE8iD3yrXu6MiW7vxZhHkILOl0XxHjdHYnern
+ Y88g==
+X-Gm-Message-State: AOJu0YxqKAhpCnCTQvQeFAvYO7Mrobxe01LURRSx1lIGodWdLDpqqgLy
+ ubq4TjfjiepYyzh7UROMGpB9lYjod/WAQTKLQAd/3e0EOqv/vpWToZH0UdJwabwqlDGoaHwiAcd
+ KrxdTVbpVxlb6q95owh+Y+aqTtUn/Hw==
+X-Google-Smtp-Source: AGHT+IHGqlicKN4uL4btk9Ptn3u0SA/UOMUFbDIoFb/sFxteFZ3gZI4Uzjh0bZOz0Dz2cvuAge+4DzQg/hzC/6FdOF8=
+X-Received: by 2002:a17:903:22c1:b0:1f6:1778:7f1b with SMTP id
+ d9443c01a7336-1f636fd9d3dmr19219965ad.1.1717163507727; Fri, 31 May 2024
+ 06:51:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240531053704.2009827-1-olvaffe@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Mailman-Approved-At: Fri, 31 May 2024 13:36:13 +0000
+References: <20240531102447.168073-1-lincao12@amd.com>
+In-Reply-To: <20240531102447.168073-1-lincao12@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 31 May 2024 09:51:36 -0400
+Message-ID: <CADnq5_PUROn+em6N7hn=HC2YMf3h8X8HPaRCBx3fXXrVQX8UfQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix failure mapping legacy queue when FLR
+To: "Lin.Cao" <lincao12@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, jingwen.chen2@amd.com, horace.chen@amd.com, 
+ jack.xiao@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,47 +76,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 30, 2024 at 10:36:57PM -0700, Chia-I Wu wrote:
-> We can skip children resources when the parent resource does not cover
-> the range.
-> 
-> This should help vmf_insert_* users on x86, such as several DRM drivers.
-> On my AMD Ryzen 5 7520C, when streaming data from cpu memory into amdgpu
-> bo, the throughput goes from 5.1GB/s to 6.6GB/s.  perf report says
-> 
->   34.69%--__do_fault
->   34.60%--amdgpu_gem_fault
->   34.00%--ttm_bo_vm_fault_reserved
->   32.95%--vmf_insert_pfn_prot
->   25.89%--track_pfn_insert
->   24.35%--lookup_memtype
->   21.77%--pat_pagerange_is_ram
->   20.80%--walk_system_ram_range
->   17.42%--find_next_iomem_res
-> 
-> before this change, and
-> 
->   26.67%--__do_fault
->   26.57%--amdgpu_gem_fault
->   25.83%--ttm_bo_vm_fault_reserved
->   24.40%--vmf_insert_pfn_prot
->   14.30%--track_pfn_insert
->   12.20%--lookup_memtype
->   9.34%--pat_pagerange_is_ram
->   8.22%--walk_system_ram_range
->   5.09%--find_next_iomem_res
-> 
-> after.
+On Fri, May 31, 2024 at 6:32=E2=80=AFAM Lin.Cao <lincao12@amd.com> wrote:
+>
+> Flag "mes.ring.shced.ready" will be set as true after mes hw init and set
+> as false when mes hw fini to avoid duplicate initialization. But hw fini
+> will not be called when function level reset, which will cause mes hw
+> init be skipped during FLR, which will leads to mapping legacy queue
+> fail. Set this flag as false when post reset will fix this issue.
+>
+> Signed-off-by: Lin.Cao <lincao12@amd.com>
 
-Is there any documentation that explicitly says that the children resources
-must not overlap parent's one? Do we have some test cases? (Either way they
-needs to be added / expanded).
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-P.S> I'm not so sure about this change. It needs a thoroughly testing, esp.
-in PCI case. Cc'ing to Ilpo.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index a72683f83390..b56d243c53ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -822,6 +822,8 @@ void amdgpu_virt_post_reset(struct amdgpu_device *ade=
+v)
+>                  */
+>                 adev->gfx.is_poweron =3D false;
+>         }
+> +
+> +       adev->mes.ring.sched.ready =3D false;
+>  }
+>
+>  bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev, uint32_t=
+ ucode_id)
+> --
+> 2.25.1
+>
