@@ -4,63 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219D6C25B75
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 12:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDA0C25B75
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 12:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A8110E381;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 328A110E37D;
 	Mon,  3 Jun 2024 12:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G2gDK9AD";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="mB1YfGVF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2703810E2D6;
- Mon,  3 Jun 2024 07:24:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717399488; x=1748935488;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=CFw0jXkCJ2C0wlfWJK24i5rMaTVUzDmZPVQIJxPWnQA=;
- b=G2gDK9AD0dULbtSNRWzbN1bDwIVT3gGumBWwcNDY2OpXPiz+u778KJZ1
- yAs7UOeCwVf+xwRfezMf2jPEfHwBOtoWskk2J3hE4okwG+Q7RraD0DBZV
- JRJUMtPNWVC+1wJ/5gfIOxtQbk7ifSfQA1M9sJ57ZqO8BP2S90/Cxf0jJ
- 53wIOvY8Az5d358a+sL0Ya822RCkn8st//h9B+yYAA4wudGaYpKGoXUER
- ENYVFDKq6gRlWahUxrz27bgS52AZ4owgfuA1H3eoO3sqRKsrFCbBfGakh
- GK+19g0gTFgrUkkgVi4zJZVQ8ilLEqy2s3+1xLlMhMyleurbGe64ga8Aj Q==;
-X-CSE-ConnectionGUID: l7v9qsZgQzmBgtXWzJUPIw==
-X-CSE-MsgGUID: PDwZJob8S4GhQESgxX0oFw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="13824952"
-X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="13824952"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 00:24:47 -0700
-X-CSE-ConnectionGUID: kxqd9paxTmyZfVioFUTnCg==
-X-CSE-MsgGUID: wgn4h+pnQIKznB3X/28G+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="36875565"
-Received: from ijarvine-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.247.161])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 00:24:44 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 3 Jun 2024 10:24:39 +0300 (EEST)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-cc: Chia-I Wu <olvaffe@gmail.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
- alexander.deucher@amd.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Alison Schofield <alison.schofield@intel.com>, 
- Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>, 
- LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] kernel/resource: optimize find_next_iomem_res
-In-Reply-To: <Zlw1_n20oqchAYxH@smile.fi.intel.com>
-Message-ID: <783e9d9a-e408-c6f0-9a4b-050e1979b919@linux.intel.com>
-References: <20240531053704.2009827-1-olvaffe@gmail.com>
- <ZlmQ3_wcL3cgp4Hb@smile.fi.intel.com>
- <CAPaKu7SsD+X7KAO=3vEYU_7YGM_f+7k1fdC9nEK=-NaJw8oYaA@mail.gmail.com>
- <Zlw1_n20oqchAYxH@smile.fi.intel.com>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CEE110E10C;
+ Fri, 31 May 2024 15:37:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=BK0lac02MNaStyn+3Zy8cAwlufhllQe54r3zrUsXI1M=; b=mB1YfGVFyFVWCtPAGvOyLQLQUA
+ ZQXOmYELgdul8Go9nJYOtWA4sAYG5BCcfKcultVk7arYl4pkXCwXblTWNEFoRhJjNUH61cbdKT8qm
+ yk5XfX/j6Prz0MtAFaWDmSbeuJIDXp7ZnREJvAMaFBsBwo6oGFaSoUVcTLQmr0sL0UsIIgAh3gJ0o
+ kufgW6LN1Vk1F3AbP3/XD5L/RwHidE6lONY0rGfp7H+hgoG9nebL2Pt/jk0DOB8cqPKA8lsinrZPa
+ KZE0CNKo8njhBwTe5yqghny425aB9ft+O4NKAaQ4wSxDHqssWwiU3ZGg5LeaR+29tEGkdJokDpHZs
+ Y4jKFG7Q==;
+Received: from [50.53.4.147] (helo=[192.168.254.15])
+ by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1sD4KA-0000000AiH7-3OIG; Fri, 31 May 2024 15:37:47 +0000
+Message-ID: <833fac2c-91f9-4e9a-9b9e-da2db955a488@infradead.org>
+Date: Fri, 31 May 2024 08:37:45 -0700
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-947370823-1717399436=:1529"
-Content-ID: <ac58b535-760b-99ee-4936-892d3e4f1ed9@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH][next] drm/amd/display: Fix a handful of spelling mistakes
+To: Colin Ian King <colin.i.king@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20240531093211.498880-1-colin.i.king@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20240531093211.498880-1-colin.i.king@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 03 Jun 2024 12:52:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,47 +64,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323328-947370823-1717399436=:1529
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <9a23e7b3-9da0-cdcd-f514-8f55036748af@linux.intel.com>
 
-On Sun, 2 Jun 2024, Andy Shevchenko wrote:
+On 5/31/24 2:32 AM, Colin Ian King wrote:
+> There are a few spelling mistakes in dml2_printf messages. Fix them.
+> 
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-> On Fri, May 31, 2024 at 02:31:45PM -0700, Chia-I Wu wrote:
-> > On Fri, May 31, 2024 at 1:57=E2=80=AFAM Andy Shevchenko <
-> > andriy.shevchenko@linux.intel.com> wrote:
-> > > On Thu, May 30, 2024 at 10:36:57PM -0700, Chia-I Wu wrote:
->=20
-> ...
->=20
-> > > P.S> I'm not so sure about this change. It needs a thoroughly testing=
-, esp.
-> > > in PCI case. Cc'ing to Ilpo.
->=20
-> > What's special about PCI?
->=20
-> PCI, due to its nature, may rebuild resources either by shrinking or expa=
-nding
-> of the entire subtree after the PCI bridge in question. And this may happ=
-en at
-> run-time due to hotplug support. But I'm not a deep expert in this area, =
-Ilpo
-> knows much more than me.
 
-There is code which clearly tries to do expanding resource but that=20
-usually fails to work as intended because of a parent resource whose size=
-=20
-is fixed because it's already assigned.
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
 
-Some other code might block shrinking too under certain conditions.
+Thanks.
 
-This area would need to be reworked in PCI core but it's massive and=20
-scary looking change.
+> ---
+>  .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c      | 6 +++---
+>  .../display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c  | 6 +++---
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+> index 8062144a5a6d..e7e6751f4477 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+> @@ -5731,7 +5731,7 @@ static bool CalculatePrefetchSchedule(struct dml2_core_internal_scratch *scratch
+>  		dml2_printf("DML: Tvm: %fus - time to fetch vm\n", s->TimeForFetchingVM);
+>  		dml2_printf("DML: Tr0: %fus - time to fetch first row of data pagetables\n", s->TimeForFetchingRowInVBlank);
+>  		dml2_printf("DML: Tsw: %fus = time to fetch enough pixel data and cursor data to feed the scalers init position and detile\n", (double)s->LinesToRequestPrefetchPixelData * s->LineTime);
+> -		dml2_printf("DML: To: %fus - time for propogation from scaler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (double)p->myPipe->HTotal)) * s->LineTime);
+> +		dml2_printf("DML: To: %fus - time for propagation from scaler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (double)p->myPipe->HTotal)) * s->LineTime);
+>  		dml2_printf("DML: Tvstartup - TSetup - Tcalc - TWait - Tpre - To > 0\n");
+>  		dml2_printf("DML: Tslack(pre): %fus - time left over in schedule\n", p->VStartup * s->LineTime - s->TimeForFetchingVM - 2 * s->TimeForFetchingRowInVBlank - (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (double)p->myPipe->HTotal)) * s->LineTime - p->TWait - p->TCalc - *p->TSetup);
+>  		dml2_printf("DML: row_bytes = dpte_row_bytes (per_pipe) = PixelPTEBytesPerRow = : %u\n", p->PixelPTEBytesPerRow);
+> @@ -8268,7 +8268,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+>  	dml2_printf("DML::%s: mode_lib->ms.DCFCLK = %f\n", __func__, mode_lib->ms.DCFCLK);
+>  	dml2_printf("DML::%s: mode_lib->ms.FabricClock = %f\n", __func__, mode_lib->ms.FabricClock);
+>  	dml2_printf("DML::%s: mode_lib->ms.uclk_freq_mhz = %f\n", __func__, mode_lib->ms.uclk_freq_mhz);
+> -	dml2_printf("DML::%s: urgent latency tolarance = %f\n", __func__, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kbytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)));
+> +	dml2_printf("DML::%s: urgent latency tolerance = %f\n", __func__, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kbytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)));
+>  #endif
+>  
+>  	mode_lib->ms.support.OutstandingRequestsSupport = true;
+> @@ -11089,7 +11089,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+>  				if (display_cfg->plane_descriptors[k].immediate_flip && mode_lib->mp.ImmediateFlipSupportedForPipe[k] == false) {
+>  					mode_lib->mp.ImmediateFlipSupported = false;
+>  #ifdef __DML_VBA_DEBUG__
+> -					dml2_printf("DML::%s: Pipe %0d not supporing iflip!\n", __func__, k);
+> +					dml2_printf("DML::%s: Pipe %0d not supporting iflip!\n", __func__, k);
+>  #endif
+>  				}
+>  			}
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+> index f2e2250d28d3..6eb3fec87ec1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+> @@ -1988,7 +1988,7 @@ bool dml2_core_shared_mode_support(struct dml2_core_calcs_mode_support_ex *in_ou
+>  	dml2_printf("DML::%s: mode_lib->ms.FabricClock = %f\n", __func__, mode_lib->ms.FabricClock);
+>  	dml2_printf("DML::%s: mode_lib->ms.uclk_freq_mhz = %f\n", __func__, mode_lib->ms.uclk_freq_mhz);
+>  	dml2_printf("DML::%s: max_urgent_latency_us = %f\n", __func__, mode_lib->ms.support.max_urgent_latency_us);
+> -	dml2_printf("DML::%s: urgent latency tolarance = %f\n", __func__, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kbytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)));
+> +	dml2_printf("DML::%s: urgent latency tolerance = %f\n", __func__, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kbytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)));
+>  #endif
+>  
+>  	mode_lib->ms.support.OutstandingRequestsSupport = true;
+> @@ -8131,7 +8131,7 @@ static bool CalculatePrefetchSchedule(struct dml2_core_internal_scratch *scratch
+>  		dml2_printf("DML: Tvm: %fus - time to fetch vm\n", s->TimeForFetchingVM);
+>  		dml2_printf("DML: Tr0: %fus - time to fetch first row of data pagetables\n", s->TimeForFetchingRowInVBlank);
+>  		dml2_printf("DML: Tsw: %fus = time to fetch enough pixel data and cursor data to feed the scalers init position and detile\n", (double)s->LinesToRequestPrefetchPixelData * s->LineTime);
+> -		dml2_printf("DML: To: %fus - time for propogation from scaler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (double)p->myPipe->HTotal)) * s->LineTime);
+> +		dml2_printf("DML: To: %fus - time for propagation from scaler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (double)p->myPipe->HTotal)) * s->LineTime);
+>  		dml2_printf("DML: Tvstartup - TSetup - Tcalc - TWait - Tpre - To > 0\n");
+>  		dml2_printf("DML: Tslack(pre): %fus - time left over in schedule\n", p->VStartup * s->LineTime - s->TimeForFetchingVM - 2 * s->TimeForFetchingRowInVBlank - (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (double)p->myPipe->HTotal)) * s->LineTime - p->TWait - p->TCalc - *p->TSetup);
+>  		dml2_printf("DML: row_bytes = dpte_row_bytes (per_pipe) = PixelPTEBytesPerRow = : %u\n", p->PixelPTEBytesPerRow);
+> @@ -10959,7 +10959,7 @@ bool dml2_core_shared_mode_programming(struct dml2_core_calcs_mode_programming_e
+>  				if (display_cfg->plane_descriptors[k].immediate_flip && mode_lib->mp.ImmediateFlipSupportedForPipe[k] == false) {
+>  					mode_lib->mp.ImmediateFlipSupported = false;
+>  #ifdef __DML_VBA_DEBUG__
+> -					dml2_printf("DML::%s: Pipe %0d not supporing iflip!\n", __func__, k);
+> +					dml2_printf("DML::%s: Pipe %0d not supporting iflip!\n", __func__, k);
+>  #endif
+>  				}
+>  			}
 
---=20
- i.
---8323328-947370823-1717399436=:1529--
+-- 
+#Randy
+https://people.kernel.org/tglx/notes-about-netiquette
+https://subspace.kernel.org/etiquette.html
