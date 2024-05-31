@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2992BC27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 16:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA4C3C25B7E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 16:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 679FE10E1D8;
-	Fri, 31 May 2024 16:52:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1958D10E255;
+	Fri, 31 May 2024 16:52:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hpvhtWs0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OPpZRhZR";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 693C510E111
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 16:52:27 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2044.outbound.protection.outlook.com [40.107.100.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 832B510E255
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 16:52:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W6awGIvOehtK/NQNZ7V/iQREZ03QQREopIk/99HE0TxBFQatxNVlMlz+vVmQGAkZXenw3IyOmnb9C2WMImcZcJNx9gqQYlyG4FEx+vxxb2UXHyjzIUug+/HDmIECy66a6HsOfAICRecx4103hpOTMqIGvrKKgSU+jAshkpMt/RlMsurCTRP3QAKe2dMptv9XKfIi7xxZr8eYlTZZcktMqCsryqulc1AsUStdaQSjENm71lGTEHzVDTu8PJtWFqcywhz6vWukYNYVYc6DjOVjZdlTvd7/Rdq0CnF01GbkcZSOlF4nyeQkiOKXYtBcHAF24b1kI4eLM8PXTkw9eS3+bQ==
+ b=ofjD0zAwTaUEXlw7V9tZfDv4vZOHFvfnSiteQyyFPbn9R0WMYXgUWOwc4jyMhfn4ojiIvamW8SiZgozbaZXksCFAt+PF/a+U2plaNFAyOf7ENee1hLCC8HqQFbl8eSVJA48CWHd6iNcgFYT0Xg+f3bUCZFJbWLw0QK7M7r4PJRyT4ZFBLZsAo/gEi8YzX3p8o4fjPXdkiTQxj2t+/XhIbtQno37ABA2DAvlG2dtQNi2AhymfDbXKQ4e6MmP9TQLxWuZfo/zDKfSqsJmZzCTXFs/5bfy7/ywaOvAAMFE7fWygRAI2yIMSQP1qivodhAPR0k/edJuiRNAXm+7TY1TK3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tD1YX0jjJalRJyCrKb8k33rZGdeRAamQMzuhL664S0w=;
- b=ijYeOkuvd8XUWY2OAFe9nH8Cy8VkEv2w3+UziOpIv3vxCj/2UFRs+ngcTM5LusOibFWdEmiLXApWztOT68itDyBqbIvwZxVPniglhxyiOklWtex0ndxJ0RIhqxdqtZqHMw0grUnkJUpSJBuZbXlryNm76wrHvYZpgS0dKqaTqbfzHSnFySvyEbiE/Dy7Pc+q0QRDTMo4TjmQRb93sTTUx2+aYXSTOk1x38lKaklYCveayc7DB50Tnlh02xy3T9PQob9q09GB27yECXmAXVw9iMkcyhfxHqfVsNdxejmNoBZDkSJFxbh/Uz2xBte9Qt/r1tcj9ZAv6WVTTm0cbXJr0w==
+ bh=C2RHJy8WFgTaNDkL49o2oSl+JA0uUT6hh3zBX6AUUbQ=;
+ b=cG8yexMEbMwLgdbfS6DIKTnNEP5jtTDKSNQ33FoiidorJSn7losQrnzphi4KRah8jP7IpD432rGh3sUIMwlt3aLbfBuLC3GSqM4CfZu66ycHHeSPz2uexpe3IfWWxCijEA+d7mMjiz3c4X5bzHKZ2d9IckkIiPhT6IFuR/985C1P3MY48U7fcyHEqB5Q9t8AF0JLBdwk70wm5B9evwrtmC2CfJHA6lOTDDfvxyB1JMDyOqcDxurMg7d8yQ7mI9hIpJI6W7W2vLmRgWFRF7bz50hUMD7OrBbQtAMQQe0tN8KSSnDMiHuWBjpCJq8/k6LtEOPF+3jVxylc4KAAdCJSBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tD1YX0jjJalRJyCrKb8k33rZGdeRAamQMzuhL664S0w=;
- b=hpvhtWs0URlT8fNbt2oeO4/QVI1m221Zy3nm4Js61msvqgCPhb63J/O5HFv9BnW+hSH+rRltuZHvhTBLo6vyRlOANoAutnVKl7S3HI/oA7wsXxPSrbiMlLhld5A5RjshZMR6AfhvkNbd0BSpC6+zDFVRwfVkCl9s0NECEdPdJhs=
-Received: from PH7PR10CA0005.namprd10.prod.outlook.com (2603:10b6:510:23d::11)
- by MW4PR12MB7216.namprd12.prod.outlook.com (2603:10b6:303:226::20)
+ bh=C2RHJy8WFgTaNDkL49o2oSl+JA0uUT6hh3zBX6AUUbQ=;
+ b=OPpZRhZRM1YUIFB3KrigqrQlaANLojtJeG9w/MLJ78JkjhkPvjGHfJOoy8lY8dZ+ev6XXWycM+5b0dfkST9DAG108hfvr+l4puZ6PiJkIoyjh6oTKVMeGAzM9L6djKRZOlqnRoii6yLeGkJrueubgtOwCgf6H14QVjsK9o58b3I=
+Received: from PH7PR10CA0010.namprd10.prod.outlook.com (2603:10b6:510:23d::19)
+ by SA1PR12MB6872.namprd12.prod.outlook.com (2603:10b6:806:24c::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.19; Fri, 31 May
- 2024 16:52:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.24; Fri, 31 May
+ 2024 16:52:25 +0000
 Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
- (2603:10b6:510:23d:cafe::1a) by PH7PR10CA0005.outlook.office365.com
- (2603:10b6:510:23d::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21 via Frontend
- Transport; Fri, 31 May 2024 16:52:23 +0000
+ (2603:10b6:510:23d:cafe::ff) by PH7PR10CA0010.outlook.office365.com
+ (2603:10b6:510:23d::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.19 via Frontend
+ Transport; Fri, 31 May 2024 16:52:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,22 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 16:52:23 +0000
+ 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 16:52:24 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 11:52:21 -0500
+ 2024 11:52:22 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, yi-lchen <yi-lchen@amd.com>, Jun Lei <jun.lei@amd.com>,
- Zaeem Mohamed <zaeem.mohamed@amd.com>
-Subject: [PATCH 01/32] drm/amd/display: Keep VBios pixel rate div setting
- until next mode set
-Date: Fri, 31 May 2024 12:51:14 -0400
-Message-ID: <20240531165145.1874966-2-zaeem.mohamed@amd.com>
+ <jerry.zuo@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>
+Subject: [PATCH 02/32] drm/amd/display: turn on symclk for dio virtual stream
+ in dpms sequence
+Date: Fri, 31 May 2024 12:51:15 -0400
+Message-ID: <20240531165145.1874966-3-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531165145.1874966-1-zaeem.mohamed@amd.com>
 References: <20240531165145.1874966-1-zaeem.mohamed@amd.com>
@@ -77,50 +77,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|MW4PR12MB7216:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d2c6486-3609-4a50-f35d-08dc81920b71
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|SA1PR12MB6872:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcb74b96-d7ce-4538-ebef-08dc81920c0c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|376005|82310400017|36860700004; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?La/q4Ewj4EnXRPNH0onxu07W3KwXu03p4YXax3uDMfWs+XATlXlcNDBo/eqf?=
- =?us-ascii?Q?pRwtqnvuRb8oadRt0GvFyxDst4e3/kb2PtquFoUcq1ifMYqVnGn+Qu/gECUc?=
- =?us-ascii?Q?mE8bHeyMRYWwfJeezLy5RtaKZ7cQTDFoNoQhcmp75BATgKLOBGXocaurf/yk?=
- =?us-ascii?Q?WolCp5O+Gv5DktTHvaqtYPU70H8neTTgaMlbB9ZUPlqmdavyhKna59v+2Yh2?=
- =?us-ascii?Q?cgEjKdgflK9/HiKu7Mx0W+pGfPr+AQhdoK2vWSYlv2H43vv3z9nfjkiFLFji?=
- =?us-ascii?Q?uzBIZcIMZYP54XC00ot6aAR+LL8L2s4O1vOsOmRaN5iUE50OBKULKHGyGk1T?=
- =?us-ascii?Q?TVeqE7wjL1kIZ184FtYNl7mG04NfboQ2yNcifNmhLD6uJ1EI4og0Jc83WsLl?=
- =?us-ascii?Q?2LtoRMTyYDgEHosimwqw9cDOh5lGo9ObkWkW89x8cCbHiiT8VB0u0kCGMbHr?=
- =?us-ascii?Q?iyfdF3CksHR2inALfQkmN1Oe6Bia9aUJHyrm9FLzIgFMASM3q0sLby/+uySO?=
- =?us-ascii?Q?xut1EfU+cPfUOYEY/AgF5I6Tdo8+v728Vh893d5ms9VeGe1h3x/IK8rcByRU?=
- =?us-ascii?Q?r2pA1DWWeBeNq9EpsCrdnq96Xx2u05ngzLkkKkEruKHY7i0yklAcINCHu0RP?=
- =?us-ascii?Q?VDR3BHUJ1usWpHBBXO/T08qs/L9iOdKQI3l53BKaivGmd/EXbMjeerYslWzc?=
- =?us-ascii?Q?ZgU/W0QmxA6QFZKnvDURSURBu+pYG1zMceBWeyZWIwiEGDnGKOs9q+cZP8C3?=
- =?us-ascii?Q?RW2Z4kfqT9qReOQw19L5MpF8R4AO9rg1EUixb6g3PfHuD4r7702hVIzPjkgY?=
- =?us-ascii?Q?UC7uFtfYgrlWTPiLOON5r5nQDkTv1v/3tCuFfabTOSUgjjYyycN8JULdiG8u?=
- =?us-ascii?Q?/g4nQUFAVhN7b+YOvHCQ91PdAgPa05WIcqtomkrZQDjbSvUpV/u813qqZxiU?=
- =?us-ascii?Q?2poSn6OQeDLJlW0I/agY7tUgHGhyHOdA6bpswrPt2cEv52r4pPgRBkoSSKGv?=
- =?us-ascii?Q?xdQAvDqup+WdKR+TeYZlDb7ASRZLDCPsSwUp1w5tS9Imr9BI+ew+K2+yWqYD?=
- =?us-ascii?Q?OJ5pqcHq1rQ2r4EjoN303KLw2g0Wp+OQSk11ktSuFT6kPQ3zmNcyFTycPhIN?=
- =?us-ascii?Q?DdrrimA81W83737YlHgqxDazgbRtqkZGwjjgFovKIi3ZQE4r4BXmmtKb9F9O?=
- =?us-ascii?Q?wYufdd7rE24bKUXQUYlElBNzlJg2+wj2UnFQtX7jRPBGgnYurgc4L0zxMYwn?=
- =?us-ascii?Q?G4KLigJNYCf9RAQYwAVXdIQNJrVishEI/iXGyWMnvP3CINw3uro5MU0TZfSW?=
- =?us-ascii?Q?maNE4J4MpMIc1p000eWqEks5YK5TQgUd1EjA6DUEKtH4zvUZyPEJNtnYtA2G?=
- =?us-ascii?Q?bjQE9y0if4h8q9mEYxCoDj8EBpI/?=
+ ARA:13230031|82310400017|36860700004|376005|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bIqcDngoAiA4bkiefhW3a3VY/1hP4KGNIHQ/8bLlxBqyhgq0aIJAHm8Dyt5+?=
+ =?us-ascii?Q?LKnwVy+dR3Ji4SXtWi7uV/p4ljbCY0FANUO0+rb3wD+1c7oUYSrrnfkEPPZN?=
+ =?us-ascii?Q?4SH1uWBFqwbgMGyQlpoO6lUB4vPfw49vH6wu/Nt9wcLTkCmnmg1BFCLtbA7e?=
+ =?us-ascii?Q?KgabJzDwB+DE62yGjo8FzK4Wrk2CM1UzFz5Nac1aXxykoPdYN4GlTSAdI8np?=
+ =?us-ascii?Q?LEHcIKk7XkB2RaGQEhNEv/8TbEynzpmle1uu4Iz+WfsyWHeG00o5XIs2sodh?=
+ =?us-ascii?Q?/1baylALwnpBQf7olVt6FdhEKWI+XGn5I6LYCQ+xSiLv2oIZit0ZAiAdFcnm?=
+ =?us-ascii?Q?c8AWUqI0mTuQGUKcxE9YVsk+kTELQ7CYGD/leETuCBVSomWHWwzhvznxkWLn?=
+ =?us-ascii?Q?q327DEeskfxTEqMd4o/6eFgKb6QAapn9KDRuDZF/HoPNYqKyBv3t9Bb8ePUg?=
+ =?us-ascii?Q?iOBuI8bGinlmW4jQcnCoZLP2qbE0bRbKfH0l+7voTO68r6wp7haUc9VBc9OY?=
+ =?us-ascii?Q?qvk65JFFjvkC1SnyL/EmJii1nsWapIC/lpZfaya9LkDfV0RT2LLHPSITXrbR?=
+ =?us-ascii?Q?KpwWW6Y4QIqzawwDcEn0GvsG/Elemm4e2JzvnhjhZL5/4+13dAx0aq579IUd?=
+ =?us-ascii?Q?BddZly/RzyRrZhVNZj3X6kWC0C+lIztrETgLPiMOzpqRwUkN299sBVlptm5I?=
+ =?us-ascii?Q?KqJFD64yRRv3IELmEk80MAjhiT/e9e02Bi+l6XeKmPMANtfg+1HCssYkdOgg?=
+ =?us-ascii?Q?6Gywj74RTeJekLeB8ZiIY/kzK6dE/U6pElj+oMP1SkDKcKBTgayKS0XnG/1H?=
+ =?us-ascii?Q?qmokWn6ExStliayVarF4euabZtopyQaTfH/JGcqmWFRP1QtlhhwW9wkKzIHq?=
+ =?us-ascii?Q?fC95t7znqTnUe12KaiQ0uWwNwnPOmwZm4SYmaHhJwrRBHR1wXshs9T/I9db5?=
+ =?us-ascii?Q?K8+fiJmrv4D+SLIIGg8Ptt0Rfbnrl69ZyJsh726wYJjMx5lCHRAM/mnyNJUY?=
+ =?us-ascii?Q?WpV/5uvBzOvrQ4T1t+3Uk+tAcUYIrlW33XkPE3rYWEi5LWUgtmgXFP+g1gL8?=
+ =?us-ascii?Q?7QWaKgFe2KXZgJOyTDIno17gte4XXdB9r51UCNV5CcHQtOYEd5ea0w5at0lo?=
+ =?us-ascii?Q?wnM79XNoxcarkUXWt2Z0y3E/f3TdVb7KEIFH8F652LOdyxxeY4L7yB98hhrM?=
+ =?us-ascii?Q?4BcI44issWhufTkkWTOZ7t4JjTstmNxVuvxqIZ64Z5S6Pa+zE2h0BZVoN3kJ?=
+ =?us-ascii?Q?CdJuemsSWenIfSXBeTillo8w1hw3UxJTPEdf3s8mnbcngsS+jf9ruDdy5pzD?=
+ =?us-ascii?Q?NUTX04iUESNgTdkytBtHzd20o1QR5J4bHLqo6RRUNzufddC/L+Y3vuuiRIcm?=
+ =?us-ascii?Q?qGAKdZJz4GLaOcjJ/JE3LHcRaIIc?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(82310400017)(36860700004); DIR:OUT;
+ SFS:(13230031)(82310400017)(36860700004)(376005)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 16:52:23.6055 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2c6486-3609-4a50-f35d-08dc81920b71
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 16:52:24.6212 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcb74b96-d7ce-4538-ebef-08dc81920c0c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7216
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6872
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,688 +135,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: yi-lchen <yi-lchen@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
 [why]
-Vbios & Driver have difference pixel rate div policy.
-When enabling fast boot & performing blank & unblank w/o timing setting,
-pixel clock & pixel rate dividor are not match.
-It would cause too high pixel reate and eDP would be black screen.
+In order to support glitchless display clock ramping for virtual stream,
+we must
+turn on symclk for stream encoder. The code will power on phy and enable
+symclk
+for dio encoder during virtual stream dpms sequence.
 
-[How]
-We would keep pixel rate div setting by Vbios until next timing setting.
-
-Reviewed-by: Jun Lei <jun.lei@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-Signed-off-by: yi-lchen <yi-lchen@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  6 +++
- .../amd/display/dc/dccg/dcn314/dcn314_dccg.c  | 12 +++---
- .../amd/display/dc/dccg/dcn32/dcn32_dccg.c    | 12 +++---
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 13 +++---
- .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  5 ++-
- .../dc/dcn32/dcn32_dio_stream_encoder.c       | 40 ++-----------------
- .../dc/dcn35/dcn35_dio_stream_encoder.c       | 36 +----------------
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 24 +++++++++--
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 23 +++++------
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 21 ++++++++++
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.h |  2 +
- .../amd/display/dc/hwss/dcn314/dcn314_init.c  |  1 +
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 33 ++++++++++++---
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.h   |  2 +
- .../amd/display/dc/hwss/dcn32/dcn32_init.c    |  1 +
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |  1 +
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |  1 +
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  3 ++
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  6 +++
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  5 +++
- 20 files changed, 136 insertions(+), 111 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  6 ++--
+ .../dc/dcn35/dcn35_dio_stream_encoder.c       |  3 +-
+ .../dc/dcn401/dcn401_dio_stream_encoder.c     |  3 +-
+ .../amd/display/dc/inc/hw/stream_encoder.h    |  2 +-
+ .../amd/display/dc/link/hwss/link_hwss_dio.c  |  7 ++++-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   | 31 ++++++++++---------
+ .../dc/link/protocols/link_dp_capability.c    |  3 ++
+ 7 files changed, 34 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index beca40f8694f..dc236264d9b3 100644
+index dc236264d9b3..234236c43d21 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -3969,6 +3969,12 @@ enum dc_status dc_validate_with_context(struct dc *dc,
- 
- 	res = dc_validate_global_state(dc, context, fast_validate);
- 
-+	/* calculate pixel rate divider after deciding pxiel clock & odm combine  */
-+	if ((dc->hwss.calculate_pix_rate_divider) && (res == DC_OK)) {
-+		for (i = 0; i < add_streams_count; i++)
-+			dc->hwss.calculate_pix_rate_divider(dc, context, add_streams[i]);
-+	}
-+
- fail:
- 	if (res != DC_OK)
- 		DC_LOG_WARNING("%s:resource validation failed, dc_status:%d\n",
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c
-index 17a1174b8d80..8f6edd8e9beb 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c
-@@ -58,8 +58,8 @@ static void dccg314_trigger_dio_fifo_resync(
- static void dccg314_get_pixel_rate_div(
- 		struct dccg *dccg,
- 		uint32_t otg_inst,
--		enum pixel_rate_div *k1,
--		enum pixel_rate_div *k2)
-+		uint32_t *k1,
-+		uint32_t *k2)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 	uint32_t val_k1 = PIXEL_RATE_DIV_NA, val_k2 = PIXEL_RATE_DIV_NA;
-@@ -93,8 +93,8 @@ static void dccg314_get_pixel_rate_div(
- 		return;
- 	}
- 
--	*k1 = (enum pixel_rate_div)val_k1;
--	*k2 = (enum pixel_rate_div)val_k2;
-+	*k1 = val_k1;
-+	*k2 = val_k2;
- }
- 
- static void dccg314_set_pixel_rate_div(
-@@ -104,7 +104,8 @@ static void dccg314_set_pixel_rate_div(
- 		enum pixel_rate_div k2)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
--	enum pixel_rate_div cur_k1 = PIXEL_RATE_DIV_NA, cur_k2 = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_k1 = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_k2 = PIXEL_RATE_DIV_NA;
- 
- 	// Don't program 0xF into the register field. Not valid since
- 	// K1 / K2 field is only 1 / 2 bits wide
-@@ -373,6 +374,7 @@ static const struct dccg_funcs dccg314_funcs = {
- 	.disable_dsc = dccg31_disable_dscclk,
- 	.enable_dsc = dccg31_enable_dscclk,
- 	.set_pixel_rate_div = dccg314_set_pixel_rate_div,
-+	.get_pixel_rate_div = dccg314_get_pixel_rate_div,
- 	.trigger_dio_fifo_resync = dccg314_trigger_dio_fifo_resync,
- 	.set_valid_pixel_rate = dccg314_set_valid_pixel_rate,
- 	.set_dtbclk_p_src = dccg314_set_dtbclk_p_src
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c
-index 56385cede113..21a6ca5ca192 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c
-@@ -58,8 +58,8 @@ static void dccg32_trigger_dio_fifo_resync(
- static void dccg32_get_pixel_rate_div(
- 		struct dccg *dccg,
- 		uint32_t otg_inst,
--		enum pixel_rate_div *k1,
--		enum pixel_rate_div *k2)
-+		uint32_t *k1,
-+		uint32_t *k2)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 	uint32_t val_k1 = PIXEL_RATE_DIV_NA, val_k2 = PIXEL_RATE_DIV_NA;
-@@ -93,8 +93,8 @@ static void dccg32_get_pixel_rate_div(
- 		return;
- 	}
- 
--	*k1 = (enum pixel_rate_div)val_k1;
--	*k2 = (enum pixel_rate_div)val_k2;
-+	*k1 = val_k1;
-+	*k2 = val_k2;
- }
- 
- static void dccg32_set_pixel_rate_div(
-@@ -104,7 +104,8 @@ static void dccg32_set_pixel_rate_div(
- 		enum pixel_rate_div k2)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
--	enum pixel_rate_div cur_k1 = PIXEL_RATE_DIV_NA, cur_k2 = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_k1 = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_k2 = PIXEL_RATE_DIV_NA;
- 
- 	// Don't program 0xF into the register field. Not valid since
- 	// K1 / K2 field is only 1 / 2 bits wide
-@@ -343,6 +344,7 @@ static const struct dccg_funcs dccg32_funcs = {
- 	.otg_add_pixel = dccg32_otg_add_pixel,
- 	.otg_drop_pixel = dccg32_otg_drop_pixel,
- 	.set_pixel_rate_div = dccg32_set_pixel_rate_div,
-+	.get_pixel_rate_div = dccg32_get_pixel_rate_div,
- 	.trigger_dio_fifo_resync = dccg32_trigger_dio_fifo_resync,
- 	.set_dtbclk_p_src = dccg32_set_dtbclk_p_src,
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-index 1fc3aa2b507b..68cd3258f4a9 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-@@ -146,8 +146,8 @@ static void dccg35_set_dppclk_root_clock_gating(struct dccg *dccg,
- static void dccg35_get_pixel_rate_div(
- 		struct dccg *dccg,
- 		uint32_t otg_inst,
--		enum pixel_rate_div *k1,
--		enum pixel_rate_div *k2)
-+		uint32_t *k1,
-+		uint32_t *k2)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 	uint32_t val_k1 = PIXEL_RATE_DIV_NA, val_k2 = PIXEL_RATE_DIV_NA;
-@@ -181,8 +181,8 @@ static void dccg35_get_pixel_rate_div(
- 		return;
- 	}
- 
--	*k1 = (enum pixel_rate_div)val_k1;
--	*k2 = (enum pixel_rate_div)val_k2;
-+	*k1 = val_k1;
-+	*k2 = val_k2;
- }
- 
- static void dccg35_set_pixel_rate_div(
-@@ -192,7 +192,9 @@ static void dccg35_set_pixel_rate_div(
- 		enum pixel_rate_div k2)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
--	enum pixel_rate_div cur_k1 = PIXEL_RATE_DIV_NA, cur_k2 = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_k1 = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_k2 = PIXEL_RATE_DIV_NA;
-+
- 
- 	// Don't program 0xF into the register field. Not valid since
- 	// K1 / K2 field is only 1 / 2 bits wide
-@@ -1018,6 +1020,7 @@ static const struct dccg_funcs dccg35_funcs = {
- 	.disable_dsc = dccg35_disable_dscclk,
- 	.enable_dsc = dccg35_enable_dscclk,
- 	.set_pixel_rate_div = dccg35_set_pixel_rate_div,
-+	.get_pixel_rate_div = dccg35_get_pixel_rate_div,
- 	.trigger_dio_fifo_resync = dccg35_trigger_dio_fifo_resync,
- 	.set_valid_pixel_rate = dccg35_set_valid_pixel_rate,
- 	.enable_symclk_se = dccg35_enable_symclk_se,
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-index a496a250f892..3538e190f217 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-@@ -119,7 +119,7 @@ static void dccg401_wait_for_dentist_change_done(
- static void dccg401_get_pixel_rate_div(
- 		struct dccg *dccg,
- 		uint32_t otg_inst,
--		enum pixel_rate_div *tmds_div,
-+		uint32_t *tmds_div,
- 		uint32_t *dp_dto_int)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-@@ -161,7 +161,7 @@ static void dccg401_set_pixel_rate_div(
- 		enum pixel_rate_div unused)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
--	enum pixel_rate_div cur_tmds_div = PIXEL_RATE_DIV_NA;
-+	uint32_t cur_tmds_div = PIXEL_RATE_DIV_NA;
- 	uint32_t dp_dto_int;
- 	uint32_t reg_val;
- 
-@@ -962,6 +962,7 @@ static const struct dccg_funcs dccg401_funcs = {
- 	.otg_add_pixel = dccg401_otg_add_pixel,
- 	.otg_drop_pixel = dccg401_otg_drop_pixel,
- 	.set_pixel_rate_div = dccg401_set_pixel_rate_div,
-+	.get_pixel_rate_div = dccg401_get_pixel_rate_div,
- 	.set_dp_dto = dccg401_set_dp_dto,
- 	.enable_symclk_se = dccg401_enable_symclk_se,
- 	.disable_symclk_se = dccg401_disable_symclk_se,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
-index 2fef1419ae91..1a9bb614c41e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
-@@ -52,11 +52,11 @@
- 
- static void enc32_dp_set_odm_combine(
- 	struct stream_encoder *enc,
--	bool odm_combine)
-+	bool two_pixel_per_cyle)
- {
- 	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
- 
--	REG_UPDATE(DP_PIXEL_FORMAT, DP_PIXEL_PER_CYCLE_PROCESSING_MODE, odm_combine ? 1 : 0);
-+	REG_UPDATE(DP_PIXEL_FORMAT, DP_PIXEL_PER_CYCLE_PROCESSING_MODE, two_pixel_per_cyle ? 1 : 0);
- }
- 
- /* setup stream encoder in dvi mode */
-@@ -241,46 +241,12 @@ static bool is_two_pixels_per_containter(const struct dc_crtc_timing *timing)
- 	return two_pix;
- }
- 
--static bool is_h_timing_divisible_by_2(const struct dc_crtc_timing *timing)
--{
--	/* math borrowed from function of same name in inc/resource
--	 * checks if h_timing is divisible by 2
--	 */
--
--	bool divisible = false;
--	uint16_t h_blank_start = 0;
--	uint16_t h_blank_end = 0;
--
--	if (timing) {
--		h_blank_start = timing->h_total - timing->h_front_porch;
--		h_blank_end = h_blank_start - timing->h_addressable;
--
--		/* HTOTAL, Hblank start/end, and Hsync start/end all must be
--		 * divisible by 2 in order for the horizontal timing params
--		 * to be considered divisible by 2. Hsync start is always 0.
--		 */
--		divisible = (timing->h_total % 2 == 0) &&
--				(h_blank_start % 2 == 0) &&
--				(h_blank_end % 2 == 0) &&
--				(timing->h_sync_width % 2 == 0);
--	}
--	return divisible;
--}
--
--static bool is_dp_dig_pixel_rate_div_policy(struct dc *dc, const struct dc_crtc_timing *timing)
--{
--	/* should be functionally the same as dcn32_is_dp_dig_pixel_rate_div_policy for DP encoders*/
--	return is_h_timing_divisible_by_2(timing) &&
--		dc->debug.enable_dp_dig_pixel_rate_div_policy;
--}
--
- void enc32_stream_encoder_dp_unblank(
- 	struct dc_link *link,
- 	struct stream_encoder *enc,
- 	const struct encoder_unblank_param *param)
- {
- 	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
--	struct dc *dc = enc->ctx->dc;
- 
- 	if (param->link_settings.link_rate != LINK_RATE_UNKNOWN) {
- 		uint32_t n_vid = 0x8000;
-@@ -291,7 +257,7 @@ void enc32_stream_encoder_dp_unblank(
- 
- 		/* YCbCr 4:2:0 : Computed VID_M will be 2X the input rate */
- 		if (is_two_pixels_per_containter(&param->timing) || param->opp_cnt > 1
--			|| is_dp_dig_pixel_rate_div_policy(dc, &param->timing)) {
-+			|| param->pix_per_cycle > 1) {
- 			/*this logic should be the same in get_pixel_clock_parameters() */
- 			n_multiply = 1;
- 			pix_per_cycle = 1;
+@@ -3648,8 +3648,10 @@ enum dc_status resource_map_pool_resources(
+ 	/* Allocate DP HPO Stream Encoder based on signal, hw capabilities
+ 	 * and link settings
+ 	 */
+-	if (dc_is_dp_signal(stream->signal)) {
+-		if (!dc->link_srv->dp_decide_link_settings(stream, &pipe_ctx->link_config.dp_link_settings))
++	if (dc_is_dp_signal(stream->signal) ||
++			dc_is_virtual_signal(stream->signal)) {
++		if (!dc->link_srv->dp_decide_link_settings(stream,
++				&pipe_ctx->link_config.dp_link_settings))
+ 			return DC_FAIL_DP_LINK_BANDWIDTH;
+ 		if (dc->link_srv->dp_get_encoding_format(
+ 				&pipe_ctx->link_config.dp_link_settings) == DP_128b_132b_ENCODING) {
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_stream_encoder.c
-index 62a8f0b56006..2595cbef5942 100644
+index 2595cbef5942..1325db3a4ed0 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_stream_encoder.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_dio_stream_encoder.c
-@@ -273,46 +273,12 @@ static bool is_two_pixels_per_containter(const struct dc_crtc_timing *timing)
- 	return two_pix;
- }
+@@ -254,6 +254,7 @@ static void enc35_stream_encoder_enable(
+ 			break;
+ 		case SIGNAL_TYPE_EDP:
+ 		case SIGNAL_TYPE_DISPLAY_PORT:
++		case SIGNAL_TYPE_VIRTUAL:
+ 			/* DP SST */
+ 			REG_UPDATE(DIG_FE_CLK_CNTL, DIG_FE_MODE, 0);
+ 			break;
+@@ -459,7 +460,7 @@ static const struct stream_encoder_funcs dcn35_str_enc_funcs = {
+ 	.dp_set_dsc_pps_info_packet = enc3_dp_set_dsc_pps_info_packet,
+ 	.set_dynamic_metadata = enc2_set_dynamic_metadata,
+ 	.hdmi_reset_stream_attribute = enc1_reset_hdmi_stream_attribute,
+-	.dig_stream_enable = enc35_stream_encoder_enable,
++	.enable_stream = enc35_stream_encoder_enable,
  
--static bool is_h_timing_divisible_by_2(const struct dc_crtc_timing *timing)
--{
--	/* math borrowed from function of same name in inc/resource
--	 * checks if h_timing is divisible by 2
--	 */
--
--	bool divisible = false;
--	uint16_t h_blank_start = 0;
--	uint16_t h_blank_end = 0;
--
--	if (timing) {
--		h_blank_start = timing->h_total - timing->h_front_porch;
--		h_blank_end = h_blank_start - timing->h_addressable;
--
--		/* HTOTAL, Hblank start/end, and Hsync start/end all must be
--		 * divisible by 2 in order for the horizontal timing params
--		 * to be considered divisible by 2. Hsync start is always 0.
--		 */
--		divisible = (timing->h_total % 2 == 0) &&
--				(h_blank_start % 2 == 0) &&
--				(h_blank_end % 2 == 0) &&
--				(timing->h_sync_width % 2 == 0);
--	}
--	return divisible;
--}
--
--static bool is_dp_dig_pixel_rate_div_policy(struct dc *dc, const struct dc_crtc_timing *timing)
--{
--	/* should be functionally the same as dcn32_is_dp_dig_pixel_rate_div_policy for DP encoders*/
--	return is_h_timing_divisible_by_2(timing) &&
--		dc->debug.enable_dp_dig_pixel_rate_div_policy;
--}
--
- static void enc35_stream_encoder_dp_unblank(
- 		struct dc_link *link,
+ 	.set_input_mode = enc314_set_dig_input_mode,
+ 	.enable_fifo = enc35_enable_fifo,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c
+index 090288305609..2ebfca4769aa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn401/dcn401_dio_stream_encoder.c
+@@ -416,6 +416,7 @@ static void enc401_stream_encoder_enable(
+ 			break;
+ 		case SIGNAL_TYPE_EDP:
+ 		case SIGNAL_TYPE_DISPLAY_PORT:
++		case SIGNAL_TYPE_VIRTUAL:
+ 			/* DP SST */
+ 			REG_UPDATE(DIG_FE_CLK_CNTL, DIG_FE_MODE, 0);
+ 			break;
+@@ -760,7 +761,7 @@ static const struct stream_encoder_funcs dcn401_str_enc_funcs = {
+ 	.dp_set_dsc_pps_info_packet = enc3_dp_set_dsc_pps_info_packet,
+ 	.set_dynamic_metadata = enc401_set_dynamic_metadata,
+ 	.hdmi_reset_stream_attribute = enc1_reset_hdmi_stream_attribute,
+-	.dig_stream_enable = enc401_stream_encoder_enable,
++	.enable_stream = enc401_stream_encoder_enable,
+ 
+ 	.set_input_mode = enc401_set_dig_input_mode,
+ 	.enable_fifo = enc32_enable_fifo,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+index 60228f5de4d7..e5e11c84e9e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+@@ -223,7 +223,7 @@ struct stream_encoder_funcs {
  		struct stream_encoder *enc,
- 		const struct encoder_unblank_param *param)
+ 		int tg_inst);
+ 
+-	void (*dig_stream_enable)(
++	void (*enable_stream)(
+ 		struct stream_encoder *enc,
+ 		enum signal_type signal,
+ 		bool enable);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+index afe4614e0087..50459d7a0f85 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
++++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+@@ -46,6 +46,9 @@ void setup_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ 	if (dc_is_dp_signal(pipe_ctx->stream->signal))
+ 		pipe_ctx->stream->ctx->dc->link_srv->dp_trace_source_sequence(pipe_ctx->stream->link,
+ 				DPCD_SOURCE_SEQ_AFTER_CONNECT_DIG_FE_BE);
++	if (stream_enc->funcs->enable_stream)
++		stream_enc->funcs->enable_stream(stream_enc,
++				pipe_ctx->stream->signal, true);
+ 	if (stream_enc->funcs->map_stream_to_link)
+ 		stream_enc->funcs->map_stream_to_link(stream_enc,
+ 				stream_enc->stream_enc_inst, link_enc->transmitter - TRANSMITTER_UNIPHY_A);
+@@ -65,7 +68,9 @@ void reset_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ 		stream_enc->funcs->disable_fifo(stream_enc);
+ 	if (stream_enc->funcs->set_input_mode)
+ 		stream_enc->funcs->set_input_mode(stream_enc, 0);
+-
++	if (stream_enc->funcs->enable_stream)
++		stream_enc->funcs->enable_stream(stream_enc,
++				pipe_ctx->stream->signal, false);
+ 	link_enc->funcs->connect_dig_be_to_fe(
+ 			link_enc,
+ 			pipe_ctx->stream_res.stream_enc->id,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 955c720fb565..a9ddbe12142f 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -1907,7 +1907,9 @@ static void disable_link(struct dc_link *link,
  {
- 	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
--	struct dc *dc = enc->ctx->dc;
- 
- 	if (param->link_settings.link_rate != LINK_RATE_UNKNOWN) {
- 		uint32_t n_vid = 0x8000;
-@@ -323,7 +289,7 @@ static void enc35_stream_encoder_dp_unblank(
- 
- 		/* YCbCr 4:2:0 : Computed VID_M will be 2X the input rate */
- 		if (is_two_pixels_per_containter(&param->timing) || param->opp_cnt > 1
--			|| is_dp_dig_pixel_rate_div_policy(dc, &param->timing)) {
-+			|| param->pix_per_cycle > 1) {
- 			/*this logic should be the same in get_pixel_clock_parameters() */
- 			n_multiply = 1;
- 			pix_per_cycle = 1;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index da6507f5f202..f489371a3bc6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1779,6 +1779,7 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
- 	struct dc_stream_state *edp_streams[MAX_NUM_EDP];
- 	struct dc_link *edp_link_with_sink = NULL;
- 	struct dc_link *edp_link = NULL;
-+	struct pipe_ctx *pipe_ctx = NULL;
- 	struct dce_hwseq *hws = dc->hwseq;
- 	int edp_with_sink_num;
- 	int edp_num;
-@@ -1815,9 +1816,26 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
- 				can_apply_edp_fast_boot = dc_validate_boot_timing(dc,
- 					edp_stream->sink, &edp_stream->timing);
- 				edp_stream->apply_edp_fast_boot_optimization = can_apply_edp_fast_boot;
--				if (can_apply_edp_fast_boot)
--					DC_LOG_EVENT_LINK_TRAINING("eDP fast boot disabled to optimize link rate\n");
--
-+				if (can_apply_edp_fast_boot) {
-+					DC_LOG_EVENT_LINK_TRAINING("eDP fast boot Enable\n");
-+
-+					// Vbios & Driver support different pixel rate div policy.
-+					pipe_ctx = resource_get_otg_master_for_stream(&context->res_ctx, edp_stream);
-+					if (pipe_ctx &&
-+						hws->funcs.is_dp_dig_pixel_rate_div_policy &&
-+						hws->funcs.is_dp_dig_pixel_rate_div_policy(pipe_ctx)) {
-+						// Get Vbios div factor from register
-+						dc->res_pool->dccg->funcs->get_pixel_rate_div(
-+							dc->res_pool->dccg,
-+							pipe_ctx->stream_res.tg->inst,
-+							&pipe_ctx->pixel_rate_divider.div_factor1,
-+							&pipe_ctx->pixel_rate_divider.div_factor2);
-+
-+						// VBios doesn't support pixel rate div, so force it.
-+						// If VBios supports it, we check it from reigster or other flags.
-+						pipe_ctx->stream_res.pix_clk_params.dio_se_pix_per_cycle = 1;
-+					}
-+				}
- 				break;
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 42c3c440ed89..0d58c9d439c6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -829,20 +829,17 @@ enum dc_status dcn20_enable_stream_timing(
- 	bool is_two_pixels_per_container =
- 			pipe_ctx->stream_res.tg->funcs->is_two_pixels_per_container(&stream->timing);
- 	bool rate_control_2x_pclk = (interlace || is_two_pixels_per_container);
--	unsigned int k1_div = PIXEL_RATE_DIV_NA;
--	unsigned int k2_div = PIXEL_RATE_DIV_NA;
- 	int odm_slice_width;
- 	int last_odm_slice_width;
- 	struct pipe_ctx *opp_heads[MAX_PIPES];
- 
--	if (hws->funcs.calculate_dccg_k1_k2_values && dc->res_pool->dccg->funcs->set_pixel_rate_div) {
--		hws->funcs.calculate_dccg_k1_k2_values(pipe_ctx, &k1_div, &k2_div);
--
-+	if (dc->res_pool->dccg->funcs->set_pixel_rate_div)
- 		dc->res_pool->dccg->funcs->set_pixel_rate_div(
- 			dc->res_pool->dccg,
- 			pipe_ctx->stream_res.tg->inst,
--			k1_div, k2_div);
--	}
-+			pipe_ctx->pixel_rate_divider.div_factor1,
-+			pipe_ctx->pixel_rate_divider.div_factor2);
-+
- 	/* by upper caller loop, pipe0 is parent pipe and be called first.
- 	 * back end is set up by for pipe0. Other children pipe share back end
- 	 * with pipe 0. No program is needed.
-@@ -2685,6 +2682,7 @@ void dcn20_unblank_stream(struct pipe_ctx *pipe_ctx,
- 			pipe_ctx->stream_res.tg->funcs->is_two_pixels_per_container(&stream->timing);
- 
- 	params.opp_cnt = 1;
-+
- 	for (odm_pipe = pipe_ctx->next_odm_pipe; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe) {
- 		params.opp_cnt++;
+ 	if (dc_is_dp_signal(signal)) {
+ 		disable_link_dp(link, link_res, signal);
+-	} else if (signal != SIGNAL_TYPE_VIRTUAL) {
++	} else if (signal == SIGNAL_TYPE_VIRTUAL) {
++		link->dc->hwss.disable_link_output(link, link_res, SIGNAL_TYPE_DISPLAY_PORT);
++	} else {
+ 		link->dc->hwss.disable_link_output(link, link_res, signal);
  	}
-@@ -2940,9 +2938,7 @@ void dcn20_enable_stream(struct pipe_ctx *pipe_ctx)
- 	struct dccg *dccg = dc->res_pool->dccg;
- 	enum phyd32clk_clock_source phyd32clk;
- 	int dp_hpo_inst;
--	struct dce_hwseq *hws = dc->hwseq;
--	unsigned int k1_div = PIXEL_RATE_DIV_NA;
--	unsigned int k2_div = PIXEL_RATE_DIV_NA;
-+
- 	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
- 	struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
  
-@@ -2963,14 +2959,13 @@ void dcn20_enable_stream(struct pipe_ctx *pipe_ctx)
- 			dccg->funcs->enable_symclk_se(dccg, stream_enc->stream_enc_inst,
- 						      link_enc->transmitter - TRANSMITTER_UNIPHY_A);
- 	}
--	if (hws->funcs.calculate_dccg_k1_k2_values && dc->res_pool->dccg->funcs->set_pixel_rate_div) {
--		hws->funcs.calculate_dccg_k1_k2_values(pipe_ctx, &k1_div, &k2_div);
- 
-+	if (dc->res_pool->dccg->funcs->set_pixel_rate_div)
- 		dc->res_pool->dccg->funcs->set_pixel_rate_div(
- 			dc->res_pool->dccg,
- 			pipe_ctx->stream_res.tg->inst,
--			k1_div, k2_div);
--	}
-+			pipe_ctx->pixel_rate_divider.div_factor1,
-+			pipe_ctx->pixel_rate_divider.div_factor2);
- 
- 	link_hwss->setup_stream_encoder(pipe_ctx);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-index 1d853241ca32..8e68e05e3b72 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-@@ -334,6 +334,27 @@ unsigned int dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsig
- 	return odm_combine_factor;
+@@ -2154,6 +2156,18 @@ static enum dc_status enable_link_dp_mst(
+ 	return enable_link_dp(state, pipe_ctx);
  }
  
-+void dcn314_calculate_pix_rate_divider(
-+		struct dc *dc,
-+		struct dc_state *context,
-+		const struct dc_stream_state *stream)
++static enum dc_status enable_link_virtual(struct pipe_ctx *pipe_ctx)
 +{
-+	struct dce_hwseq *hws = dc->hwseq;
-+	struct pipe_ctx *pipe_ctx = NULL;
-+	unsigned int k1_div = PIXEL_RATE_DIV_NA;
-+	unsigned int k2_div = PIXEL_RATE_DIV_NA;
++	struct dc_link *link = pipe_ctx->stream->link;
 +
-+	pipe_ctx = resource_get_otg_master_for_stream(&context->res_ctx, stream);
-+
-+	if (pipe_ctx) {
-+		if (hws->funcs.calculate_dccg_k1_k2_values)
-+			hws->funcs.calculate_dccg_k1_k2_values(pipe_ctx, &k1_div, &k2_div);
-+
-+		pipe_ctx->pixel_rate_divider.div_factor1 = k1_div;
-+		pipe_ctx->pixel_rate_divider.div_factor2 = k2_div;
-+	}
++	link->dc->hwss.enable_dp_link_output(link,
++			&pipe_ctx->link_res,
++			SIGNAL_TYPE_DISPLAY_PORT,
++			pipe_ctx->clock_source->id,
++			&pipe_ctx->link_config.dp_link_settings);
++	return DC_OK;
 +}
 +
- void dcn314_resync_fifo_dccg_dio(struct dce_hwseq *hws, struct dc *dc, struct dc_state *context)
- {
- 	unsigned int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.h
-index f4613d96e013..fb4f90f61b22 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.h
-@@ -39,6 +39,8 @@ void dcn314_enable_power_gating_plane(struct dce_hwseq *hws, bool enable);
+ static enum dc_status enable_link(
+ 		struct dc_state *state,
+ 		struct pipe_ctx *pipe_ctx)
+@@ -2193,7 +2207,7 @@ static enum dc_status enable_link(
+ 		status = DC_OK;
+ 		break;
+ 	case SIGNAL_TYPE_VIRTUAL:
+-		status = DC_OK;
++		status = enable_link_virtual(pipe_ctx);
+ 		break;
+ 	default:
+ 		break;
+@@ -2437,17 +2451,10 @@ void link_set_dpms_on(
  
- unsigned int dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div);
- 
-+void dcn314_calculate_pix_rate_divider(struct dc *dc, struct dc_state *context, const struct dc_stream_state *stream);
-+
- void dcn314_resync_fifo_dccg_dio(struct dce_hwseq *hws, struct dc *dc, struct dc_state *context);
- 
- void dcn314_dpp_root_clock_control(struct dce_hwseq *hws, unsigned int dpp_inst, bool clock_on);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-index 9c46b6a7b4dc..7a8db4b81471 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-@@ -114,6 +114,7 @@ static const struct hw_sequencer_funcs dcn314_funcs = {
- 	.optimize_pwr_state = dcn21_optimize_pwr_state,
- 	.exit_optimized_pwr_state = dcn21_exit_optimized_pwr_state,
- 	.update_visual_confirm_color = dcn10_update_visual_confirm_color,
-+	.calculate_pix_rate_divider = dcn314_calculate_pix_rate_divider,
- };
- 
- static const struct hwseq_private_funcs dcn314_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index 7aaef3709baa..7330f9d79600 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -1164,6 +1164,28 @@ unsigned int dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsign
- 	return odm_combine_factor;
- }
- 
-+void dcn32_calculate_pix_rate_divider(
-+		struct dc *dc,
-+		struct dc_state *context,
-+		const struct dc_stream_state *stream)
-+{
-+	struct dce_hwseq *hws = dc->hwseq;
-+	struct pipe_ctx *pipe_ctx = NULL;
-+	unsigned int k1_div = PIXEL_RATE_DIV_NA;
-+	unsigned int k2_div = PIXEL_RATE_DIV_NA;
-+
-+	pipe_ctx = resource_get_otg_master_for_stream(&context->res_ctx, stream);
-+
-+	if (pipe_ctx) {
-+
-+		if (hws->funcs.calculate_dccg_k1_k2_values)
-+			hws->funcs.calculate_dccg_k1_k2_values(pipe_ctx, &k1_div, &k2_div);
-+
-+		pipe_ctx->pixel_rate_divider.div_factor1 = k1_div;
-+		pipe_ctx->pixel_rate_divider.div_factor2 = k2_div;
-+	}
-+}
-+
- void dcn32_resync_fifo_dccg_dio(struct dce_hwseq *hws, struct dc *dc, struct dc_state *context)
- {
- 	unsigned int i;
-@@ -1202,9 +1224,10 @@ void dcn32_unblank_stream(struct pipe_ctx *pipe_ctx,
- 	struct dc_link *link = stream->link;
- 	struct dce_hwseq *hws = link->dc->hwseq;
- 	struct pipe_ctx *odm_pipe;
--	uint32_t pix_per_cycle = 1;
- 
- 	params.opp_cnt = 1;
-+	params.pix_per_cycle = pipe_ctx->stream_res.pix_clk_params.dio_se_pix_per_cycle;
-+
- 	for (odm_pipe = pipe_ctx->next_odm_pipe; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe)
- 		params.opp_cnt++;
- 
-@@ -1219,13 +1242,13 @@ void dcn32_unblank_stream(struct pipe_ctx *pipe_ctx,
- 				pipe_ctx->stream_res.hpo_dp_stream_enc,
- 				pipe_ctx->stream_res.tg->inst);
- 	} else if (dc_is_dp_signal(pipe_ctx->stream->signal)) {
--		if (pipe_ctx->stream_res.tg->funcs->is_two_pixels_per_container(&stream->timing) || params.opp_cnt > 1
--			|| dcn32_is_dp_dig_pixel_rate_div_policy(pipe_ctx)) {
-+		if (pipe_ctx->stream_res.tg->funcs->is_two_pixels_per_container(&stream->timing) ||
-+			params.opp_cnt > 1) {
- 			params.timing.pix_clk_100hz /= 2;
--			pix_per_cycle = 2;
-+			params.pix_per_cycle = 2;
- 		}
- 		pipe_ctx->stream_res.stream_enc->funcs->dp_set_odm_combine(
--				pipe_ctx->stream_res.stream_enc, pix_per_cycle > 1);
-+				pipe_ctx->stream_res.stream_enc, params.pix_per_cycle > 1);
- 		pipe_ctx->stream_res.stream_enc->funcs->dp_unblank(link, pipe_ctx->stream_res.stream_enc, &params);
+ 	if (!dc_is_virtual_signal(pipe_ctx->stream->signal)
+ 			&& !dp_is_128b_132b_signal(pipe_ctx)) {
+-		struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
+-
+ 		if (link_enc)
+ 			link_enc->funcs->setup(
+ 				link_enc,
+ 				pipe_ctx->stream->signal);
+-
+-		if (stream_enc && stream_enc->funcs->dig_stream_enable)
+-			stream_enc->funcs->dig_stream_enable(
+-				stream_enc,
+-				pipe_ctx->stream->signal, 1);
  	}
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
-index 4621163b4b98..db562e45d6ff 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.h
-@@ -91,6 +91,8 @@ void dcn32_unblank_stream(struct pipe_ctx *pipe_ctx,
+ 	pipe_ctx->stream->link->link_state_valid = true;
+@@ -2547,18 +2554,12 @@ void link_set_dpms_on(
+ 	 */
+ 	if (!(dc_is_virtual_signal(pipe_ctx->stream->signal) ||
+ 			dp_is_128b_132b_signal(pipe_ctx))) {
+-			struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
  
- bool dcn32_is_dp_dig_pixel_rate_div_policy(struct pipe_ctx *pipe_ctx);
+ 			if (link_enc)
+ 				link_enc->funcs->setup(
+ 					link_enc,
+ 					pipe_ctx->stream->signal);
  
-+void dcn32_calculate_pix_rate_divider(struct dc *dc, struct dc_state *context, const struct dc_stream_state *stream);
-+
- void dcn32_disable_link_output(struct dc_link *link,
- 		const struct link_resource *link_res,
- 		enum signal_type signal);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-index 10d2ae99c118..5c50458b12cb 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-@@ -119,6 +119,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.apply_update_flags_for_phantom = dcn32_apply_update_flags_for_phantom,
- 	.blank_phantom = dcn32_blank_phantom,
- 	.is_pipe_topology_transition_seamless = dcn32_is_pipe_topology_transition_seamless,
-+	.calculate_pix_rate_divider = dcn32_calculate_pix_rate_divider,
- };
+-			if (stream_enc && stream_enc->funcs->dig_stream_enable)
+-				stream_enc->funcs->dig_stream_enable(
+-					stream_enc,
+-					pipe_ctx->stream->signal, 1);
+-
+ 		}
  
- static const struct hwseq_private_funcs dcn32_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-index 663bacd1fafd..30e6a6398839 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-@@ -123,6 +123,7 @@ static const struct hw_sequencer_funcs dcn35_funcs = {
- 	.hw_block_power_down = dcn35_hw_block_power_down,
- 	.root_clock_control = dcn35_root_clock_control,
- 	.set_long_vtotal = dcn35_set_long_vblank,
-+	.calculate_pix_rate_divider = dcn32_calculate_pix_rate_divider,
- };
- 
- static const struct hwseq_private_funcs dcn35_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-index d8de1c6a84e8..55e791552bca 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-@@ -122,6 +122,7 @@ static const struct hw_sequencer_funcs dcn351_funcs = {
- 	.hw_block_power_down = dcn351_hw_block_power_down,
- 	.root_clock_control = dcn35_root_clock_control,
- 	.set_long_vtotal = dcn35_set_long_vblank,
-+	.calculate_pix_rate_divider = dcn32_calculate_pix_rate_divider,
- };
- 
- static const struct hwseq_private_funcs dcn351_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index a9f2b7ee9dd8..e9b85884edce 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -339,6 +339,9 @@ struct hw_sequencer_funcs {
- 			struct dc_state *context);
- 	void (*exit_optimized_pwr_state)(const struct dc *dc,
- 			struct dc_state *context);
-+	void (*calculate_pix_rate_divider)(struct dc *dc,
-+			struct dc_state *context,
-+			const struct dc_stream_state *stream);
- 
- 	/* Audio Related */
- 	void (*enable_audio_stream)(struct pipe_ctx *pipe_ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 286f3219b77e..f58c27ad8b3e 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -399,6 +399,11 @@ union pipe_update_flags {
- 	uint32_t raw;
- };
- 
-+struct pixel_rate_divider {
-+	uint32_t div_factor1;
-+	uint32_t div_factor2;
-+};
-+
- enum p_state_switch_method {
- 	P_STATE_UNKNOWN						= 0,
- 	P_STATE_V_BLANK						= 1,
-@@ -464,6 +469,7 @@ struct pipe_ctx {
- 	bool has_vactive_margin;
- 	/* subvp_index: only valid if the pipe is a SUBVP_MAIN*/
- 	uint8_t subvp_index;
-+	struct pixel_rate_divider pixel_rate_divider;
- };
- 
- /* Data used for dynamic link encoder assignment.
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-index 867bc67aabfa..4fb1aacee894 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h
-@@ -176,6 +176,11 @@ struct dccg_funcs {
- 			enum pixel_rate_div k1,
- 			enum pixel_rate_div k2);
- 
-+	void (*get_pixel_rate_div)(struct dccg *dccg,
-+			uint32_t otg_inst,
-+			uint32_t *div_factor1,
-+			uint32_t *div_factor2);
-+
- 	void (*set_valid_pixel_rate)(
- 			struct dccg *dccg,
- 			int ref_dtbclk_khz,
+ 	dc->hwss.enable_stream(pipe_ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index 766116ec627d..964abccebdc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -955,6 +955,9 @@ bool link_decide_link_settings(struct dc_stream_state *stream,
+ 		} else {
+ 			edp_decide_link_settings(link, link_setting, req_bw);
+ 		}
++	} else if (stream->signal == SIGNAL_TYPE_VIRTUAL) {
++		link_setting->lane_count = LANE_COUNT_FOUR;
++		link_setting->link_rate = LINK_RATE_HIGH3;
+ 	} else {
+ 		decide_dp_link_settings(link, link_setting, req_bw);
+ 	}
 -- 
 2.34.1
 
