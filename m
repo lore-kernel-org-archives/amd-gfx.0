@@ -4,73 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEB5FC25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 18:20:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6291FC25B75
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 18:26:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B4A10E1E0;
-	Fri, 31 May 2024 18:20:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C764510E134;
+	Fri, 31 May 2024 18:26:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KByvOkge";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BHv03bV2";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0FD10E1E0;
- Fri, 31 May 2024 18:20:42 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-1f48b825d8cso18802385ad.2; 
- Fri, 31 May 2024 11:20:42 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1AF10E272
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 18:26:10 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-1f480624d04so20399135ad.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 11:26:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717179641; x=1717784441; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1717179970; x=1717784770; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6doFFCcSTAte6ymfy+Igul1WrbfPbryjlzogNwwZ8rc=;
- b=KByvOkgelkyTTjr13iphr0LyK/pQJzkOZ64UqfiaGZ34c251dbkJjAfA0RscNlhG3B
- BeTass4/qx5pUFnqbe1DieHDvwfZwJpnIvMSSgUq9BgjTYId3vBIPgrGdHsDcS7lrqxv
- q/49R535+i/YZEL1uQpnA3BbL5szmhYERLxlKHZo78VOCSmJPjPAE5swHmgI10teC0sW
- wif4ptBWoSq+NL8IAh62CpqdRPkLvEcvtq9swd+OJUYJETC53+/3mHxmlt5lqdIoY0ce
- wUlSgFMOxE3aYE7jlQshYoJRfi3aZEdSOuP39QJPfi7l57K+7bCvZQcv2lAlYGV7+Kew
- NmPQ==
+ bh=/Qxdo/c/Mv/KtbzPGCbECZpdhhGuUksV5uAa7Xtif80=;
+ b=BHv03bV29CVKDM6cMOC8sMphrhfBwnZLJqe2dPYJQYmhczot6fxZ8BruzqxFQD3QhS
+ FJZ9410SvzlkbU5U5QNxOD1sQ0kjb+gXSyejaT51h9Zjx3i+/FNKbwadjuBRUW9oHETU
+ tMwxOwQ5iPrmNLBfCsgMySe3TDD3MBv7rxtz+XEySi6RbVe03fJG0haiZd2XBM+6Uiek
+ 5dnXIrienFE3Gdfbe/nDy5DBvcoT54iHY5H891fDRo13huVJI10IwVp74dRkIklLzM8q
+ NKiblvifPceSy/55I6eCuTadYmJqzOKZ2GvAYFttk8I8oK9ffY1iQMDMP0BMe61kg7O9
+ 66vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717179641; x=1717784441;
+ d=1e100.net; s=20230601; t=1717179970; x=1717784770;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6doFFCcSTAte6ymfy+Igul1WrbfPbryjlzogNwwZ8rc=;
- b=xCcEnE4RwxP/29HAHXBCjjbB7MMFYMuMUqzTKCaRnHLoqdduci5OVU8oFYwojCjoRf
- F0mzGEUK0j//ma9lu2LNV3qBEOtyoYzv7jjYeOEcUPzlCdVeQ6UkqqMJtjkwta/MY0Iz
- QPj1ua6pn9bLU7bfl3yFFNBMq7ukMyyg2o8j+znu8oo2LjEfT5Q4/McuNBqFrwHa0ZiW
- 2Yt7Ynlf6d/RDIqwFlds79gjf2E1Eq/4mEed804GTaMKa4uwyoXjB2xQ6fFl41hnu49e
- RuOASCMXx+wHP9pCP78Hg3GnXAu2zg0TITYzdIfnZOl1QIlpKFWDMq1Ple9SehWIti8+
- PpFw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVyp9fxtOWjqkUjzDq+edXy1syZbolm7TcLLUDomb6TWJDecxXGonFaWksTCxeYT6o5UBr2QW/R/t/wufs6lu44mGQ73kPgtU/eIUEGZxm74gEnJfFQsnLzU2HMlC1O9F/LnAQFZBaXb641cfovsw==
-X-Gm-Message-State: AOJu0YwCQ5v78/lMCQXJfz0lBKzmJNmcyt/6r02Sat3NDmIVaTNeijEO
- H3wCkr9OSFhqCY70BwQbQukSIX445CfI89AWnOcu0mjmQqAXhLmY7pyJXo8JgTjl5mtUUEi9pRr
- pjF2HFWf4VR8vFReH/k0RcI6OogsNdw==
-X-Google-Smtp-Source: AGHT+IFm/2TDsh9LMWk94O1lQr2/13xsjHvxYZ/V/XYrcs9yi3UE8PDmZqtliFdCgZmSTEh5hgjlk0ut9L+Hwo3E9co=
-X-Received: by 2002:a17:902:f7c5:b0:1f4:8363:a6fc with SMTP id
- d9443c01a7336-1f6370203aemr24549975ad.25.1717179641457; Fri, 31 May 2024
- 11:20:41 -0700 (PDT)
+ bh=/Qxdo/c/Mv/KtbzPGCbECZpdhhGuUksV5uAa7Xtif80=;
+ b=WhHKLXg5HxCcxyV6hwdcSCa55deAyW6HkYIj2rQcJ/+XYKZJCsvamsBjnMDOJHeQ53
+ 6h/v3oTRrMTQsrwMASOQ+MNlX8xGJidWpZe2YapLWremGCSOan6YG1EQSPchP0l6R6M1
+ uAx5sALcxJSSs2mVap2VZbwueR0SkGA5EGNua1BtULA83hQ7yXD5VAyEhMTeJNh7o4Ei
+ vjoZUnIfksa0StpZ/yEVTLJ11gpuRcAK7sf4SD1CgcsNRQdYjH87tdTRxyUUoiGDMvIY
+ zDv+Lh1xv00jwpQOJ3nbHhx393gPGnBwusNtsWeHJpXU18ATS3Z5x4gL74iSPsfF4fhj
+ Z0kA==
+X-Gm-Message-State: AOJu0Yw0mx3mMe+M1+xhigDdcmji8zAqOaV4iK8TUZxEd5pSua6QUo8Y
+ jBlEmezDRKNVpA79i+98Z8XKuEbxciNmNuBJPGjmUKKisYtxLgxtlqtj7cirAaHGpBsI7QU0OeS
+ pxV1QoJ57bt4OC5Tz5ePZYUlJN4qcWw==
+X-Google-Smtp-Source: AGHT+IF0w1DYeVmaSH9lRsw1GtXVRu+geEAQUgmhyUc2tu8mpUL9f+oKZ8iiVMZds9ze6ewGi8qswKoRUL4GA+HwK/I=
+X-Received: by 2002:a17:902:6547:b0:1f6:1c5f:e089 with SMTP id
+ d9443c01a7336-1f6370baf04mr24561765ad.60.1717179969488; Fri, 31 May 2024
+ 11:26:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240531093211.498880-1-colin.i.king@gmail.com>
- <833fac2c-91f9-4e9a-9b9e-da2db955a488@infradead.org>
-In-Reply-To: <833fac2c-91f9-4e9a-9b9e-da2db955a488@infradead.org>
+References: <20240531162329.1343167-1-tasos@tasossah.com>
+In-Reply-To: <20240531162329.1343167-1-tasos@tasossah.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 31 May 2024 14:20:29 -0400
-Message-ID: <CADnq5_NCA31yex7Ye=hoVbMkpCzbgpBJvGrGub+AQ1jQBcCeCA@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: Fix a handful of spelling mistakes
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Colin Ian King <colin.i.king@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+Date: Fri, 31 May 2024 14:25:58 -0400
+Message-ID: <CADnq5_NtLyPdZaKAMLFF6b34TSXdaw=JJeLJsfg616wyVOdwzw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/pptable: Fix UBSAN array-index-out-of-bounds
+To: Tasos Sahanidis <tasos@tasossah.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,162 +77,247 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Fri, May 31, 2024 at 11:37=E2=80=AFAM Randy Dunlap <rdunlap@infradead.or=
-g> wrote:
+On Fri, May 31, 2024 at 12:31=E2=80=AFPM Tasos Sahanidis <tasos@tasossah.co=
+m> wrote:
+>
+> Flexible arrays used [1] instead of []. Replace the former with the latte=
+r
+> to resolve multiple UBSAN warnings observed on boot with a BONAIRE card.
+>
+> In addition, use the __counted_by attribute where possible to hint the
+> length of the arrays to the compiler and any sanitizers.
+>
+> Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
+> ---
+> V1 -> V2: Added the __counted_by attribute where possible and reworded
+>           the commit message.
+>
+>  drivers/gpu/drm/amd/include/pptable.h | 91 ++++++++++++++-------------
+>  1 file changed, 49 insertions(+), 42 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/=
+include/pptable.h
+> index 2e8e6c9875f6..f83ace2d7ec3 100644
+> --- a/drivers/gpu/drm/amd/include/pptable.h
+> +++ b/drivers/gpu/drm/amd/include/pptable.h
+> @@ -477,31 +477,30 @@ typedef struct _ATOM_PPLIB_STATE_V2
+>  } ATOM_PPLIB_STATE_V2;
+>
+>  typedef struct _StateArray{
+> -    //how many states we have
+> -    UCHAR ucNumEntries;
+> -
+> -    ATOM_PPLIB_STATE_V2 states[1];
+> +       //how many states we have
+> +       UCHAR ucNumEntries;
+> +
+> +       ATOM_PPLIB_STATE_V2 states[] /* __counted_by(ucNumEntries) */;
+>  }StateArray;
 >
 >
+>  typedef struct _ClockInfoArray{
+> -    //how many clock levels we have
+> -    UCHAR ucNumEntries;
+> -
+> -    //sizeof(ATOM_PPLIB_CLOCK_INFO)
+> -    UCHAR ucEntrySize;
+> -
+> -    UCHAR clockInfo[];
+> +       //how many clock levels we have
+> +       UCHAR ucNumEntries;
+> +
+> +       //sizeof(ATOM_PPLIB_CLOCK_INFO)
+> +       UCHAR ucEntrySize;
+> +
+> +       UCHAR clockInfo[];
+>  }ClockInfoArray;
 >
-> On 5/31/24 2:32 AM, Colin Ian King wrote:
-> > There are a few spelling mistakes in dml2_printf messages. Fix them.
-> >
-> > Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+>  typedef struct _NonClockInfoArray{
+> +       //how many non-clock levels we have. normally should be same as n=
+umber of states
+> +       UCHAR ucNumEntries;
+> +       //sizeof(ATOM_PPLIB_NONCLOCK_INFO)
+> +       UCHAR ucEntrySize;
+>
+> -    //how many non-clock levels we have. normally should be same as numb=
+er of states
+> -    UCHAR ucNumEntries;
+> -    //sizeof(ATOM_PPLIB_NONCLOCK_INFO)
+> -    UCHAR ucEntrySize;
+> -
+> -    ATOM_PPLIB_NONCLOCK_INFO nonClockInfo[];
+> +       ATOM_PPLIB_NONCLOCK_INFO nonClockInfo[] __counted_by(ucNumEntries=
+);
+>  }NonClockInfoArray;
+>
+>  typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Record
+> @@ -513,8 +512,10 @@ typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_=
+Record
+>
+>  typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Table
+>  {
+> -    UCHAR ucNumEntries;                                                /=
+/ Number of entries.
+> -    ATOM_PPLIB_Clock_Voltage_Dependency_Record entries[1];             /=
+/ Dynamically allocate entries.
+> +       // Number of entries.
+> +       UCHAR ucNumEntries;
+> +       // Dynamically allocate entries.
+> +       ATOM_PPLIB_Clock_Voltage_Dependency_Record entries[] __counted_by=
+(ucNumEntries);
+>  }ATOM_PPLIB_Clock_Voltage_Dependency_Table;
+>
+>  typedef struct _ATOM_PPLIB_Clock_Voltage_Limit_Record
+> @@ -529,8 +530,10 @@ typedef struct _ATOM_PPLIB_Clock_Voltage_Limit_Recor=
+d
+>
+>  typedef struct _ATOM_PPLIB_Clock_Voltage_Limit_Table
+>  {
+> -    UCHAR ucNumEntries;                                                /=
+/ Number of entries.
+> -    ATOM_PPLIB_Clock_Voltage_Limit_Record entries[1];                  /=
+/ Dynamically allocate entries.
+> +       // Number of entries.
+> +       UCHAR ucNumEntries;
+> +       // Dynamically allocate entries.
+> +       ATOM_PPLIB_Clock_Voltage_Limit_Record entries[] __counted_by(ucNu=
+mEntries);
+>  }ATOM_PPLIB_Clock_Voltage_Limit_Table;
+>
+>  union _ATOM_PPLIB_CAC_Leakage_Record
+> @@ -553,8 +556,10 @@ typedef union _ATOM_PPLIB_CAC_Leakage_Record ATOM_PP=
+LIB_CAC_Leakage_Record;
+>
+>  typedef struct _ATOM_PPLIB_CAC_Leakage_Table
+>  {
+> -    UCHAR ucNumEntries;                                                 =
+// Number of entries.
+> -    ATOM_PPLIB_CAC_Leakage_Record entries[1];                           =
+// Dynamically allocate entries.
+> +       // Number of entries.
+> +       UCHAR ucNumEntries;
+> +       // Dynamically allocate entries.
+> +       ATOM_PPLIB_CAC_Leakage_Record entries[] __counted_by(ucNumEntries=
+);
+>  }ATOM_PPLIB_CAC_Leakage_Table;
+>
+>  typedef struct _ATOM_PPLIB_PhaseSheddingLimits_Record
+> @@ -568,8 +573,10 @@ typedef struct _ATOM_PPLIB_PhaseSheddingLimits_Recor=
+d
+>
+>  typedef struct _ATOM_PPLIB_PhaseSheddingLimits_Table
+>  {
+> -    UCHAR ucNumEntries;                                                 =
+// Number of entries.
+> -    ATOM_PPLIB_PhaseSheddingLimits_Record entries[1];                   =
+// Dynamically allocate entries.
+> +       // Number of entries.
+> +       UCHAR ucNumEntries;
+> +       // Dynamically allocate entries.
+> +       ATOM_PPLIB_PhaseSheddingLimits_Record entries[] __counted_by(ucNu=
+mEntries);
+>  }ATOM_PPLIB_PhaseSheddingLimits_Table;
+>
+>  typedef struct _VCEClockInfo{
+> @@ -580,8 +587,8 @@ typedef struct _VCEClockInfo{
+>  }VCEClockInfo;
+>
+>  typedef struct _VCEClockInfoArray{
+> -    UCHAR ucNumEntries;
+> -    VCEClockInfo entries[1];
+> +       UCHAR ucNumEntries;
+> +       VCEClockInfo entries[] __counted_by(ucNumEntries);
+>  }VCEClockInfoArray;
+>
+>  typedef struct _ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record
+> @@ -592,8 +599,8 @@ typedef struct _ATOM_PPLIB_VCE_Clock_Voltage_Limit_Re=
+cord
+>
+>  typedef struct _ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table
+>  {
+> -    UCHAR numEntries;
+> -    ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record entries[1];
+> +       UCHAR numEntries;
+> +       ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record entries[] __counted_by(=
+numEntries);
+>  }ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table;
+>
+>  typedef struct _ATOM_PPLIB_VCE_State_Record
+> @@ -604,8 +611,8 @@ typedef struct _ATOM_PPLIB_VCE_State_Record
+>
+>  typedef struct _ATOM_PPLIB_VCE_State_Table
+>  {
+> -    UCHAR numEntries;
+> -    ATOM_PPLIB_VCE_State_Record entries[1];
+> +       UCHAR numEntries;
+> +       ATOM_PPLIB_VCE_State_Record entries[] __counted_by(numEntries);
+>  }ATOM_PPLIB_VCE_State_Table;
 >
 >
-> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+> @@ -626,8 +633,8 @@ typedef struct _UVDClockInfo{
+>  }UVDClockInfo;
 >
-> Thanks.
+>  typedef struct _UVDClockInfoArray{
+> -    UCHAR ucNumEntries;
+> -    UVDClockInfo entries[1];
+> +       UCHAR ucNumEntries;
+> +       UVDClockInfo entries[] __counted_by(ucNumEntries);
+>  }UVDClockInfoArray;
 >
-> > ---
-> >  .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c      | 6 +++---
-> >  .../display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c  | 6 +++---
-> >  2 files changed, 6 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dm=
-l2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_c=
-ore/dml2_core_dcn4_calcs.c
-> > index 8062144a5a6d..e7e6751f4477 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core=
-_dcn4_calcs.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core=
-_dcn4_calcs.c
-> > @@ -5731,7 +5731,7 @@ static bool CalculatePrefetchSchedule(struct dml2=
-_core_internal_scratch *scratch
-> >               dml2_printf("DML: Tvm: %fus - time to fetch vm\n", s->Tim=
-eForFetchingVM);
-> >               dml2_printf("DML: Tr0: %fus - time to fetch first row of =
-data pagetables\n", s->TimeForFetchingRowInVBlank);
-> >               dml2_printf("DML: Tsw: %fus =3D time to fetch enough pixe=
-l data and cursor data to feed the scalers init position and detile\n", (do=
-uble)s->LinesToRequestPrefetchPixelData * s->LineTime);
-> > -             dml2_printf("DML: To: %fus - time for propogation from sc=
-aler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (d=
-ouble)p->myPipe->HTotal)) * s->LineTime);
-> > +             dml2_printf("DML: To: %fus - time for propagation from sc=
-aler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (d=
-ouble)p->myPipe->HTotal)) * s->LineTime);
-> >               dml2_printf("DML: Tvstartup - TSetup - Tcalc - TWait - Tp=
-re - To > 0\n");
-> >               dml2_printf("DML: Tslack(pre): %fus - time left over in s=
-chedule\n", p->VStartup * s->LineTime - s->TimeForFetchingVM - 2 * s->TimeF=
-orFetchingRowInVBlank - (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScale=
-r) / (double)p->myPipe->HTotal)) * s->LineTime - p->TWait - p->TCalc - *p->=
-TSetup);
-> >               dml2_printf("DML: row_bytes =3D dpte_row_bytes (per_pipe)=
- =3D PixelPTEBytesPerRow =3D : %u\n", p->PixelPTEBytesPerRow);
-> > @@ -8268,7 +8268,7 @@ static bool dml_core_mode_support(struct dml2_cor=
-e_calcs_mode_support_ex *in_out
-> >       dml2_printf("DML::%s: mode_lib->ms.DCFCLK =3D %f\n", __func__, mo=
-de_lib->ms.DCFCLK);
-> >       dml2_printf("DML::%s: mode_lib->ms.FabricClock =3D %f\n", __func_=
-_, mode_lib->ms.FabricClock);
-> >       dml2_printf("DML::%s: mode_lib->ms.uclk_freq_mhz =3D %f\n", __fun=
-c__, mode_lib->ms.uclk_freq_mhz);
-> > -     dml2_printf("DML::%s: urgent latency tolarance =3D %f\n", __func_=
-_, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kb=
-ytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)=
-));
-> > +     dml2_printf("DML::%s: urgent latency tolerance =3D %f\n", __func_=
-_, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kb=
-ytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)=
-));
-> >  #endif
-> >
-> >       mode_lib->ms.support.OutstandingRequestsSupport =3D true;
-> > @@ -11089,7 +11089,7 @@ static bool dml_core_mode_programming(struct dm=
-l2_core_calcs_mode_programming_ex
-> >                               if (display_cfg->plane_descriptors[k].imm=
-ediate_flip && mode_lib->mp.ImmediateFlipSupportedForPipe[k] =3D=3D false) =
-{
-> >                                       mode_lib->mp.ImmediateFlipSupport=
-ed =3D false;
-> >  #ifdef __DML_VBA_DEBUG__
-> > -                                     dml2_printf("DML::%s: Pipe %0d no=
-t supporing iflip!\n", __func__, k);
-> > +                                     dml2_printf("DML::%s: Pipe %0d no=
-t supporting iflip!\n", __func__, k);
-> >  #endif
-> >                               }
-> >                       }
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dm=
-l2_core_shared.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/=
-dml2_core_shared.c
-> > index f2e2250d28d3..6eb3fec87ec1 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core=
-_shared.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core=
-_shared.c
-> > @@ -1988,7 +1988,7 @@ bool dml2_core_shared_mode_support(struct dml2_co=
-re_calcs_mode_support_ex *in_ou
-> >       dml2_printf("DML::%s: mode_lib->ms.FabricClock =3D %f\n", __func_=
-_, mode_lib->ms.FabricClock);
-> >       dml2_printf("DML::%s: mode_lib->ms.uclk_freq_mhz =3D %f\n", __fun=
-c__, mode_lib->ms.uclk_freq_mhz);
-> >       dml2_printf("DML::%s: max_urgent_latency_us =3D %f\n", __func__, =
-mode_lib->ms.support.max_urgent_latency_us);
-> > -     dml2_printf("DML::%s: urgent latency tolarance =3D %f\n", __func_=
-_, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kb=
-ytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)=
-));
-> > +     dml2_printf("DML::%s: urgent latency tolerance =3D %f\n", __func_=
-_, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kb=
-ytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)=
-));
-> >  #endif
-> >
-> >       mode_lib->ms.support.OutstandingRequestsSupport =3D true;
-> > @@ -8131,7 +8131,7 @@ static bool CalculatePrefetchSchedule(struct dml2=
-_core_internal_scratch *scratch
-> >               dml2_printf("DML: Tvm: %fus - time to fetch vm\n", s->Tim=
-eForFetchingVM);
-> >               dml2_printf("DML: Tr0: %fus - time to fetch first row of =
-data pagetables\n", s->TimeForFetchingRowInVBlank);
-> >               dml2_printf("DML: Tsw: %fus =3D time to fetch enough pixe=
-l data and cursor data to feed the scalers init position and detile\n", (do=
-uble)s->LinesToRequestPrefetchPixelData * s->LineTime);
-> > -             dml2_printf("DML: To: %fus - time for propogation from sc=
-aler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (d=
-ouble)p->myPipe->HTotal)) * s->LineTime);
-> > +             dml2_printf("DML: To: %fus - time for propagation from sc=
-aler to optc\n", (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScaler) / (d=
-ouble)p->myPipe->HTotal)) * s->LineTime);
-> >               dml2_printf("DML: Tvstartup - TSetup - Tcalc - TWait - Tp=
-re - To > 0\n");
-> >               dml2_printf("DML: Tslack(pre): %fus - time left over in s=
-chedule\n", p->VStartup * s->LineTime - s->TimeForFetchingVM - 2 * s->TimeF=
-orFetchingRowInVBlank - (*p->DSTYAfterScaler + ((double)(*p->DSTXAfterScale=
-r) / (double)p->myPipe->HTotal)) * s->LineTime - p->TWait - p->TCalc - *p->=
-TSetup);
-> >               dml2_printf("DML: row_bytes =3D dpte_row_bytes (per_pipe)=
- =3D PixelPTEBytesPerRow =3D : %u\n", p->PixelPTEBytesPerRow);
-> > @@ -10959,7 +10959,7 @@ bool dml2_core_shared_mode_programming(struct d=
-ml2_core_calcs_mode_programming_e
-> >                               if (display_cfg->plane_descriptors[k].imm=
-ediate_flip && mode_lib->mp.ImmediateFlipSupportedForPipe[k] =3D=3D false) =
-{
-> >                                       mode_lib->mp.ImmediateFlipSupport=
-ed =3D false;
-> >  #ifdef __DML_VBA_DEBUG__
-> > -                                     dml2_printf("DML::%s: Pipe %0d no=
-t supporing iflip!\n", __func__, k);
-> > +                                     dml2_printf("DML::%s: Pipe %0d no=
-t supporting iflip!\n", __func__, k);
-> >  #endif
-> >                               }
-> >                       }
+>  typedef struct _ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record
+> @@ -638,8 +645,8 @@ typedef struct _ATOM_PPLIB_UVD_Clock_Voltage_Limit_Re=
+cord
 >
+>  typedef struct _ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table
+>  {
+> -    UCHAR numEntries;
+> -    ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record entries[1];
+> +       UCHAR numEntries;
+> +       ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record entries[] __counted_by(=
+numEntries);
+>  }ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table;
+>
+>  typedef struct _ATOM_PPLIB_UVD_Table
+> @@ -657,8 +664,8 @@ typedef struct _ATOM_PPLIB_SAMClk_Voltage_Limit_Recor=
+d
+>  }ATOM_PPLIB_SAMClk_Voltage_Limit_Record;
+>
+>  typedef struct _ATOM_PPLIB_SAMClk_Voltage_Limit_Table{
+> -    UCHAR numEntries;
+> -    ATOM_PPLIB_SAMClk_Voltage_Limit_Record entries[];
+> +       UCHAR numEntries;
+> +       ATOM_PPLIB_SAMClk_Voltage_Limit_Record entries[] __counted_by(num=
+Entries);
+>  }ATOM_PPLIB_SAMClk_Voltage_Limit_Table;
+>
+>  typedef struct _ATOM_PPLIB_SAMU_Table
+> @@ -675,8 +682,8 @@ typedef struct _ATOM_PPLIB_ACPClk_Voltage_Limit_Recor=
+d
+>  }ATOM_PPLIB_ACPClk_Voltage_Limit_Record;
+>
+>  typedef struct _ATOM_PPLIB_ACPClk_Voltage_Limit_Table{
+> -    UCHAR numEntries;
+> -    ATOM_PPLIB_ACPClk_Voltage_Limit_Record entries[1];
+> +       UCHAR numEntries;
+> +       ATOM_PPLIB_ACPClk_Voltage_Limit_Record entries[] __counted_by(num=
+Entries);
+>  }ATOM_PPLIB_ACPClk_Voltage_Limit_Table;
+>
+>  typedef struct _ATOM_PPLIB_ACP_Table
+> @@ -743,9 +750,9 @@ typedef struct ATOM_PPLIB_VQ_Budgeting_Record{
+>  } ATOM_PPLIB_VQ_Budgeting_Record;
+>
+>  typedef struct ATOM_PPLIB_VQ_Budgeting_Table {
+> -    UCHAR revid;
+> -    UCHAR numEntries;
+> -    ATOM_PPLIB_VQ_Budgeting_Record         entries[1];
+> +       UCHAR revid;
+> +       UCHAR numEntries;
+> +       ATOM_PPLIB_VQ_Budgeting_Record entries[] __counted_by(numEntries)=
+;
+>  } ATOM_PPLIB_VQ_Budgeting_Table;
+>
+>  #pragma pack()
 > --
-> #Randy
-> https://people.kernel.org/tglx/notes-about-netiquette
-> https://subspace.kernel.org/etiquette.html
+> 2.25.1
+>
