@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1CAC25B7E
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 16:52:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF59C27C4F
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 16:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA8010E3A6;
-	Fri, 31 May 2024 16:52:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5AB810E50A;
+	Fri, 31 May 2024 16:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2yDCwNgR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IQZTv4oo";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E86010E255
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 16:52:36 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2088.outbound.protection.outlook.com [40.107.95.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E565C10E3AE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 16:52:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=luEVvY3tILLFFWL1L2DaJzxTx/BBFNMJfX+EuaKkWDFPgfmhyjeun9xR4h4YpZfa3Bh4VcjdlGsci7oi8GMQ4DAaVgJVm86eh4S5yWgVuf4ll5nzKWVOYAxYlqfU2B1GNAH7gTeeV515uvv1cldq5Xgq5SAh90zCthCU9hX2I5QyyAdpA5zNyVHmZY+Ss8/6O75Aohp2dLQg9Gj8J1+6moXCyi+4UCej4/pyOaed0tTvuSHhOd8XtfwIzznHiF9rRn+n1KXedw9HwpB6yPswrf6DeXIioVN02Anrp5dVZvnqUgrve3btYxz5pagm0nnkN/JNT4dsOo6y4pdN1sZSlA==
+ b=TC/HSp63ckXpr/SkB60i0/Sa+LWCOvYsA8hGW5V6YAnBLC9eeaegOl9437rjKy6oUEnT0vpbf3UsTvKgBC+ojml+0lQDm2FLbkgTN96Zx8SRlIhhSNETO0+53Zwtzd+Vm4edt43bbwUgHl7zxW1CbDxYzm0Gix59ijLVWG73xoOllK/TNEMbOP5fzNwPTlRdQSxl/R3POTCpzb7mB3DYydujiI2xwRKSZ0SGzhzDP7WIJY3Fx1qPeb3u0HyRFRJDoPQ/tHr9AQxJTKsu4Ick09+lCnsh3s38oxkKVzkTKrlKbbTarHuSwUZaqM/H98yCIYPTa8vafj4mEZgDxX56vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PU3UCs/XOqeDenGlTKkBddE2iefeM69BSWA+RtaibyY=;
- b=e2++nbmlFdZuvJ37bYo6/TSpOJeBrxN7RgD3jzQiVS9Gfwy7tb7LE4znOIiZuzignFE5BQZIBgZaKqxjHiBHgFUQ+i1WG5FG4wlUamBaTYVNJNpzj7GoN68EH0JIFxCVm0g13PKyUsJK1GMSMOAijoX/ON0n2lh5GZO9sGPPh0oibsi9x4zXGRQ4RBJpeuk0pg94BDF21sK01OMKJ+JZtY0WWNGYvmwKdj4Ji7PtDcdeTzUdfi0CIprvZ6EpwhsSCPpDFM0Ih+WnMGA32rslLmWAb4j/bNQFR1AkEHtrPszzAps9/7Tgh1x7Nk2VEzuuVWGpx99IuM0gi2mXct1wqA==
+ bh=OKTdQa4Grcm4fkcR18rSZS4BWV/dXlGsEpwqqWvzCSY=;
+ b=OIkigPx0IyeSmmu3Wy9ewgdnBu4iYHOHZMmnWcZ1t0L+2hA7YCuqbRpOcPxNQNoWj48UsTXQ8cXeVcScKXLdzTINglWod/rnOUyyzjnAhdVAddtKR3JlQI2yL31fp+G3URtP2DRzgi3jtLzVNi1adu65kkCoQpO/+RNhMRyc2jxLNzZ6qQTyWHeumdcM/KiSS2l6XEzlk6rCSQIyEZVq11lURVmj6f7BFdemkuJuhw1Lyercwv6S2jQDvueutxtmTp5Eug01SXEWWZa5OldPB5JXbD0LPGUfenZO188HyoY+iq2quKAdgAoC532/pfxcVvauQy3gKjODVRlK0pEVXg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PU3UCs/XOqeDenGlTKkBddE2iefeM69BSWA+RtaibyY=;
- b=2yDCwNgR3rFmbx+/eP6qgDxRRgdGdWUHa+NzSRumRo2w6obkznNkBAdahAC9Uv7Jg6yWmFFolLwjc9cqn7senVbx/LhAXLdslObxtpivQe58SR3uqFEuBPhdkhda2TFpcO+cRcsb17omME/8tWL6H+BucnjbgHQYpAuJ3NbS/4Y=
-Received: from PH7PR10CA0013.namprd10.prod.outlook.com (2603:10b6:510:23d::9)
- by PH8PR12MB6745.namprd12.prod.outlook.com (2603:10b6:510:1c0::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.24; Fri, 31 May
- 2024 16:52:33 +0000
+ bh=OKTdQa4Grcm4fkcR18rSZS4BWV/dXlGsEpwqqWvzCSY=;
+ b=IQZTv4ooHtqmV86bQMFQrU9A+4v23IYtV457eAvBbqamDZp/8mF45jfYPMTfwHOSpSgUKM7EWro2rn/u6I0RnkiahtwLVymD06wgKTIgfVIhiAQaTS63bD6mFj6gBGELAyrnUpjbAQnfkcWOO8GeX5avmctQs27JYuP9TQynYoA=
+Received: from PH7PR10CA0020.namprd10.prod.outlook.com (2603:10b6:510:23d::18)
+ by DM6PR12MB4337.namprd12.prod.outlook.com (2603:10b6:5:2a9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25; Fri, 31 May
+ 2024 16:52:42 +0000
 Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
- (2603:10b6:510:23d:cafe::5a) by PH7PR10CA0013.outlook.office365.com
- (2603:10b6:510:23d::9) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:510:23d:cafe::4b) by PH7PR10CA0020.outlook.office365.com
+ (2603:10b6:510:23d::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21 via Frontend
- Transport; Fri, 31 May 2024 16:52:33 +0000
+ Transport; Fri, 31 May 2024 16:52:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,23 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 16:52:32 +0000
+ 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 16:52:42 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 11:52:26 -0500
+ 2024 11:52:38 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Joshua Aberback <joshua.aberback@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Zaeem Mohamed
- <zaeem.mohamed@amd.com>
-Subject: [PATCH 06/32] drm/amd/display: workaround for oled eDP not lighting
- up on DCN401
-Date: Fri, 31 May 2024 12:51:19 -0400
-Message-ID: <20240531165145.1874966-7-zaeem.mohamed@amd.com>
+ <jerry.zuo@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Duncan Ma <duncan.ma@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>
+Subject: [PATCH 18/32] drm/amd/display: Add outbox notification support for
+ HPD redetect
+Date: Fri, 31 May 2024 12:51:31 -0400
+Message-ID: <20240531165145.1874966-19-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531165145.1874966-1-zaeem.mohamed@amd.com>
 References: <20240531165145.1874966-1-zaeem.mohamed@amd.com>
@@ -78,50 +77,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|PH8PR12MB6745:EE_
-X-MS-Office365-Filtering-Correlation-Id: c82db0c5-e201-448c-260a-08dc819210fa
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|DM6PR12MB4337:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5217f500-9f6a-471e-a8bf-08dc81921671
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|1800799015|376005|36860700004|82310400017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FirjUsQvX9P942AypivB37mYN2ZIbFLl0G86dj2sx0RD4v3MEmNZBaCzrvo4?=
- =?us-ascii?Q?1v5x2HWk7/lzY3jOyIZb2Al0iUWgqoKGU0OOK6n2k6kro8zh0jNvzmQBaim1?=
- =?us-ascii?Q?q03zQGoDDNuLB2WWo4JWwHM8iIOH97qUzAaI5o9HbRFeChv3qOmvqnbziYHF?=
- =?us-ascii?Q?eY9mkhvfaIJ8BB4PIhCrTExPZHZS6O5LEttZJ8bBTXXo7d2X7dFSXQVF3B3u?=
- =?us-ascii?Q?1HfcggnL09ue8pIlZSc1+1jlBYSN/AV46yk+4m7jnJF5bdGcSKxKw1Jm/jxL?=
- =?us-ascii?Q?E9TIz5o70uZvfed2YstWsFB8d0qE3+o+Bz4jc1CGzG24tncrOk+PR2o4DWNl?=
- =?us-ascii?Q?GK7fnZzkbNMdUf2qr70xpFPnP74irrustupBDcfiBY9SuVoxo0c0u5KmNDqp?=
- =?us-ascii?Q?+2PcbtrzB0bSmZ+mXS/Uz1TRRL9sSMtjknuEpfTj50ZgwISibfY7ojLR2MSf?=
- =?us-ascii?Q?uHh4P9FTpG4WwPPkPbvkoFa4aS4LBeTccZU7vncWq9/FnmH92VWJ90AbIADY?=
- =?us-ascii?Q?TTZqyTJCL1IboAVJ9nSov8peBk7vkxexiBxKKKtrqyBfAtbyvk/nUbZx1w46?=
- =?us-ascii?Q?sPYbmZ9bjfC9HA9NePwBPhcUGe6vzGBbEZz0WKLEW2cr8Z21sFlgc9U6A4Gc?=
- =?us-ascii?Q?8Y6dyhJ6E2NpCESj0a7hg/KUB/uOqmeXQISzPT+MlYEUEQ9N4J5qPRUsvIIq?=
- =?us-ascii?Q?8au4zcYUzaV0m5UE5xfqbf4D2Oefwl0c0E0HZvu8VHaSZ0DGdyO31HcCAFQE?=
- =?us-ascii?Q?wGPFdNDyveHLWKqj4uCNg3jXtVQ1PNKRsS9uKqDEfM/jdnisTvTEHhw0ptXw?=
- =?us-ascii?Q?0UIcrKz7iM+5jR9hdOxC470sIP9uWX/SlLLfj0mC37wyS7JgzuwC0/y7/Ap2?=
- =?us-ascii?Q?cto5LjUExEh/6domq+CXVo6M41JcDYVVz0o51Yr7IyWzPsP3+pSeBXDxqq/S?=
- =?us-ascii?Q?P3ZregUNFJxsxEwZfJTFIUwuJra7e18LbvKaEqNrOWmJPjy0aYEZQHS2RS6U?=
- =?us-ascii?Q?YC7Aiak1+rzKsOc6rjmvC3KIzeaZzpQhRR8mojKc9QLTe229bN0UwkzSJHjA?=
- =?us-ascii?Q?Q1UecY45OCgvcjdYIRRHjSmzJOSG3OG1xzyKeTHCdC/97lh7K9bsMR1xcaxw?=
- =?us-ascii?Q?BpcLS0NAaGRlGBskOqgVRtrfEyN5K0jlJ1Lp7KtULaI8vECkOZHzICKZ/OYd?=
- =?us-ascii?Q?QzuhnwmfGYsYr9bfGm7rxg7XS4GEFQOyic3LjaqEA9CZ9WI5VHr4VizGZ06C?=
- =?us-ascii?Q?CfY0+823mUF2Qlt0WIs/sBwGZG6UOc74JsFc+7YB8FMVA/3ClNIdox3xOS4S?=
- =?us-ascii?Q?py8WEHaezpKEPvU5AHK2KVzlS6UaHiz8IFFR6/TkmFmkW3zZPy0YsPX8PE6S?=
- =?us-ascii?Q?YNw5Rdk=3D?=
+ ARA:13230031|36860700004|1800799015|376005|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?06sAna+iLjsr8iPXsJi8jl3+18gczWomlQscDl9/FVqJLEOSDNtx1UVaNCA4?=
+ =?us-ascii?Q?/YpLuaQUn4ur9eTrUAASNfTovCcFJ+kCD8eWiECKi6/JQZI+hyXwhrJ3sOEp?=
+ =?us-ascii?Q?aj3eVmTos00a/2mrTPJvtQJmtEUNGtEVVp8Ng3bJ1laaLuHG6UViL+Cn2kl2?=
+ =?us-ascii?Q?6K7HkiGlGzkK87xCN2X6WUXKNHHLqXTb6x0DzFeY6aKsdFn8it3X9OMK5mhc?=
+ =?us-ascii?Q?zFZu4ApRny61++cgiTLEXzQKrwfNxKA1gDmr8P1B4qBcRQ7Gt5OOV8Y455bY?=
+ =?us-ascii?Q?S8CzKuO9zwGcEuW2jC4bXu33igwTWyBYbrNwNxGI5aT51skGzz5vRQWI76Mo?=
+ =?us-ascii?Q?jNlHN+ZbW2zzeC87N7PXiiMkyDR4skZB3F1gCH+GjQRK3ds1ZeI1tkqPhavy?=
+ =?us-ascii?Q?huyVt9WwoZm6M1kDq5gcxJ9WyhLMfBLRIJXSTA5T+eQttHVOHuM+mKHhDf6a?=
+ =?us-ascii?Q?rIuCgVK7XCjNdeOcVKgDyg7UZ+fZM+Dg1r9USA9dEqrZNtet/vmLT59xqUbm?=
+ =?us-ascii?Q?+IISK3KAKz1nGl+zSgzqJsobCAcGBFE5U021VbpVUHliRDb4hn8sJIBPpSDG?=
+ =?us-ascii?Q?dStr/X9X7GzzTe+Jr/478Wpp2VDPE4XgXILU76sK3jBVX/9dhHzzfbDb2BVq?=
+ =?us-ascii?Q?tZH46hmRHONYK/igTNqsWgr+a1UXztwBVWTMPfkrGhnFbrtDZXZDHefNR2Td?=
+ =?us-ascii?Q?bVepzS1d+ObkAotAhS0CSMlkxHh5JxhtbfoypXp4HMK3/SDeyWWYOywGpYU3?=
+ =?us-ascii?Q?alVIM43b6CnznGoEZOXbfbWJ6DkB5YbcZpS+dn6tv0zRgEpgUqnjV6ZPfDmW?=
+ =?us-ascii?Q?M7blMKCgzeUHLUjQr8svZFTVxahsWQPr49Sy9g+w/m4H2XE3Ymjlgbxdg2yR?=
+ =?us-ascii?Q?PDXnyUE4qZKljxIGOLvE2aKFFYCSt0HsPjnxQIl5N1XhqNvhFfQEVjICI+iz?=
+ =?us-ascii?Q?Q9zVErkrvVUxEDM3cM9KtjKRUf9+CSafIKPuYNvxDtml5EkSPYZoXsEhd5rw?=
+ =?us-ascii?Q?By69mc7Rif6Hvsti8Fwd9CIywzYBh229wVpGWN5EB1h4dC3FpiaLXtPY2N58?=
+ =?us-ascii?Q?CU6KxS8UjebgI5e6ZXObxbJVSxmVOMo51gs9761b0tCNvtdZJsruyLxWv7K4?=
+ =?us-ascii?Q?eTzyN9aAgi/8ZvjBxef3xNio66uRD881w8ESsIq0CMtKoc41kYpPLHQHhGBe?=
+ =?us-ascii?Q?vYG05XlxV4j/xX7NakO5jC0/eN3gLQT7DfGSrStdUh4XIUILKMRoJsX5hygu?=
+ =?us-ascii?Q?q/wGcSJw+AyOgPYDgvmrmXAuohTKEJqvKA2ey0Luc8ydWbicr62E+4G9fcu9?=
+ =?us-ascii?Q?wrbpo4vzhHhQHHi8VWfrHPrRFM4pFbQ00U+xBf3PH4UQK07r/6GJmxzsS32S?=
+ =?us-ascii?Q?kDfcQfGZ1Bgud8HdQtieMDWCFRw/?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017); DIR:OUT;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 16:52:32.8867 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c82db0c5-e201-448c-260a-08dc819210fa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 16:52:42.0429 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5217f500-9f6a-471e-a8bf-08dc81921671
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6745
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4337
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,65 +135,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Aberback <joshua.aberback@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-Currently there's an issue on DCN401 that prevents oled eDP panels from
-being lit up that is still under investigation. To unblock dev work
-while investigating, we can work around the issue by skipping toggling
-the enablement of the backlight.
+HPD sense changes can occur during low power states and need to be
+notified from firmware to driver. Upon notification the hotplug
+redetection routines should execute.
 
 [How]
- - new debug bit that will skip touching backlight enable DPCD for oled
+Add Support in DMUB srv and DMUB srv stat for receiving these
+notifications. DM can hook them up and process the HPD redetection
+once received.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Duncan Ma <duncan.ma@amd.com>
 Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-Signed-off-by: Joshua Aberback <joshua.aberback@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                            | 1 +
- .../drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 3 +++
- .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c   | 1 +
- 3 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  2 ++
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 24 +++++++++++++++++++
+ .../drm/amd/display/dmub/src/dmub_srv_stat.c  |  6 +++++
+ 3 files changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d0ed01ac460d..a06015165a61 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1042,6 +1042,7 @@ struct dc_debug_options {
- 	unsigned int force_easf;
- 	unsigned int force_sharpness;
- 	unsigned int force_lls;
-+	bool edp_oled_no_backlight_enable;
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index cd51c91a822b..85dcf6b4fe92 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -137,6 +137,7 @@ enum dmub_notification_type {
+ 	DMUB_NOTIFICATION_HPD_IRQ,
+ 	DMUB_NOTIFICATION_SET_CONFIG_REPLY,
+ 	DMUB_NOTIFICATION_DPIA_NOTIFICATION,
++	DMUB_NOTIFICATION_HPD_SENSE_NOTIFY,
+ 	DMUB_NOTIFICATION_MAX
  };
  
+@@ -560,6 +561,7 @@ struct dmub_notification {
+ 		 * DPIA notification command.
+ 		 */
+ 		struct dmub_rb_cmd_dpia_notification dpia_notification;
++		struct dmub_rb_cmd_hpd_sense_notify_data hpd_sense_notify;
+ 	};
+ };
  
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index ad9aca790dd7..89f66d88c3b0 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -248,6 +248,9 @@ bool edp_backlight_enable_aux(struct dc_link *link, bool enable)
- 		link->connector_signal != SIGNAL_TYPE_DISPLAY_PORT))
- 		return false;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 4db4c5ad5169..7f08e95140ef 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1285,6 +1285,10 @@ enum dmub_out_cmd_type {
+ 	 * Command type used for USB4 DPIA notification
+ 	 */
+ 	DMUB_OUT_CMD__DPIA_NOTIFICATION = 5,
++	/**
++	 * Command type used for HPD redetect notification
++	 */
++	DMUB_OUT_CMD__HPD_SENSE_NOTIFY = 6,
+ };
  
-+	if (link->dc->debug.edp_oled_no_backlight_enable && link->dpcd_sink_ext_caps.bits.oled)
-+		return true;
+ /* DMUB_CMD__DPIA command sub-types. */
+@@ -2468,6 +2472,22 @@ struct dmub_rb_cmd_query_hpd_state {
+ 	struct dmub_cmd_hpd_state_query_data data;
+ };
+ 
++/**
++ * struct dmub_rb_cmd_hpd_sense_notify - HPD sense notification data.
++ */
++struct dmub_rb_cmd_hpd_sense_notify_data {
++	uint32_t old_hpd_sense_mask; /**< Old HPD sense mask */
++	uint32_t new_hpd_sense_mask; /**< New HPD sense mask */
++};
 +
- 	if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_ENABLE,
- 		&backlight_enable, 1) != DC_OK)
- 		return false;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index 247bac177d1b..92206b69b2f7 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -732,6 +732,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	},
- 	.force_cositing = CHROMA_COSITING_TOPLEFT + 1,
- 	.disable_idle_power_optimizations = true,
-+	.edp_oled_no_backlight_enable = true,
++/**
++ * struct dmub_rb_cmd_hpd_sense_notify - DMUB_OUT_CMD__HPD_SENSE_NOTIFY command.
++ */
++struct dmub_rb_cmd_hpd_sense_notify {
++	struct dmub_cmd_header header; /**< header */
++	struct dmub_rb_cmd_hpd_sense_notify_data data; /**< payload */
++};
++
+ /*
+  * Command IDs should be treated as stable ABI.
+  * Do not reuse or modify IDs.
+@@ -5204,6 +5224,10 @@ union dmub_rb_out_cmd {
+ 	 * DPIA notification command.
+ 	 */
+ 	struct dmub_rb_cmd_dpia_notification dpia_notification;
++	/**
++	 * HPD sense notification command.
++	 */
++	struct dmub_rb_cmd_hpd_sense_notify hpd_sense_notify;
  };
+ #pragma pack(pop)
  
- static struct dce_aux *dcn401_aux_engine_create(
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
+index 74189102eaec..cce887cefc01 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv_stat.c
+@@ -113,6 +113,12 @@ enum dmub_status dmub_srv_stat_get_notification(struct dmub_srv *dmub,
+ 				notify->result = DPIA_BW_ALLOC_CAPS_CHANGED;
+ 		}
+ 		break;
++	case DMUB_OUT_CMD__HPD_SENSE_NOTIFY:
++		notify->type = DMUB_NOTIFICATION_HPD_SENSE_NOTIFY;
++		dmub_memcpy(&notify->hpd_sense_notify,
++			    &cmd.hpd_sense_notify.data,
++			    sizeof(cmd.hpd_sense_notify.data));
++		break;
+ 	default:
+ 		notify->type = DMUB_NOTIFICATION_NO_DATA;
+ 		break;
 -- 
 2.34.1
 
