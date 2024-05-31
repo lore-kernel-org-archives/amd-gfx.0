@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 133C4C25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 06:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1330C27C44
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 06:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3402711268E;
-	Fri, 31 May 2024 06:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E933310E092;
+	Fri, 31 May 2024 06:53:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oWN20bnH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G9SR11B5";
 	dkim-atps=neutral
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2089.outbound.protection.outlook.com [40.107.212.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46B4410E7CC
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 06:53:17 +0000 (UTC)
+ (mail-bn1nam02on2080.outbound.protection.outlook.com [40.107.212.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35DDA11268E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 May 2024 06:53:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S9jBPc6ijd89j6dYfEbMH42rwEznRx6/HQPYgIAAKp+NhTJcPOmvHVTluLm3rkNfiqdvN/eMHAWUyVRnlwQpQLJmI2XEu066rxrcVkFlu7wdkzkr0PXAv0UAwoxRIsech6mkSfUyJ+53FDe1M1uKG/WnWrNx0wWNmGcXm8wfXVIMVMIvRjnFSvTw7ONZKLFbBUqcUeTJUkx27OqNl5nRObY7lO4qjp/KsoDJOEF/ioQ78MeORXByAo1rs9dcBX7Lc9HA2MMJ+2RUsHgfpSddmUR/3nz4GrwO+PbFXQrWlXkL1XShDNHfhdGvMsb8SRQyaM34DNYG+22vm6W15LuH/A==
+ b=mW/9o1XJooJ+Xfg7F8sEkUdULIXeR5utmDafkvTf7XUzIYri3pmzOx4W2VfUIZ5EOlQHDSP7NEI5UItcS86a4+KKQ4cwTSiKWks/tT7u3JkZAQw2KNNA+qXIiG4bK3dU8L9Y3FcxlomKR+qhPWzIq/ICNiAYhZ9DB0/M4/90DRqcJEQa9iSvtFs0XRVseqbi1/xTW9TIX9Dqu0HRncyalozlp+IoIOQvJpjljlJVywM82QrXXH8SlK/mIuCPHnbkywI7XqiAKqV+pdiT3nptLLSmLY0MTqkH5Am5BzHCeFbpkptTjUjlWiOSindgEnwPdynHEcpHkod3i26otNjo5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nUcshEzg4T9B2uMR8I3IF9PyC6+rqBGj77H1hXAB4kY=;
- b=nMa9bqLWrgzm7DHk+OMhPyjTrvCh1VoBVHinqklDvBb5f3eaSwu2wzAicD7VmK5MYE6kko5zUH8ms2nk7v/gy9tLK51N3KjxDgS8Q7rx+Qg+8YzCQWb3t2jjzomVivN8Mt/ihgDj6spXPFNk/q+cA1k4TfssseGyG/E1F+Qs3IDDkD/ON+hVtMdpDOsEXFHmugwm8CEUARX0tOp16tFwcozf/JFk3OJDLRE61+BfCn4X7nNOJzWW3R20NA1s4oXjamG2hwl37/pPgNEf/LB0uE3m4ZG0SncSCobIUiWB0+Fhy5mL8N+KvYoyCXzjTJ4BkwGvYArameYiHWQO/XSRBA==
+ bh=KY92CfpX9ld68msDKRU/+87487q5tG/TzroMJvlbk+o=;
+ b=lqLs0IyuPlN19yWBOFBgfFbxG7NoXm9N3P6+xqONKenGyPIWqLDD5nubdvLUabC3MKnTVm6eZYfn0/50X+f5pU3Cx+GCkc9vHUbBG5ujvPJCsB5z3vLeNqXtnYJtNtS+oHb9P0hoeTpHFFmqUSJ6pbzDgQ1ZDDw9acr0OgnkyK268vl6ri/BiVWFXV5U/5zLDVaq4BeL7A0GZPj5BGQBvLTFFo3H0YEoGaIPEs7lOdFHhvdUa+VSj9XACF0XKwvnxKPdPDWu1e9Y7j7lFm5A3+CxNuC5AmAL1EodK1F5XwKwGYllFnFv811Cp4BZW5COs5cSwoyi1ys34fLmW2ipmQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nUcshEzg4T9B2uMR8I3IF9PyC6+rqBGj77H1hXAB4kY=;
- b=oWN20bnHWjv8W86+Y4mgLJOT5xCWSY3ZrKcGPu1Uty5Wb5j/+QwTE3AC7f5ySG6IMCetJnHCigQprYzTjJWsh8Gl3ZBDQOH4PrMNelj/wJ/tvtj7qaNcSfkV7c1c6z6/fFk9UJIJ2CpSc48nDA9T37CJ1ZMTSamSn36I+jbxbm8=
-Received: from SJ0PR03CA0092.namprd03.prod.outlook.com (2603:10b6:a03:333::7)
- by PH7PR12MB5951.namprd12.prod.outlook.com (2603:10b6:510:1da::16)
+ bh=KY92CfpX9ld68msDKRU/+87487q5tG/TzroMJvlbk+o=;
+ b=G9SR11B50+oqOfIb6AzyhsmZNXT+w6i8VaPcvvAPUptO1i8+ABCeoML/16J0F4TYN9FBpNYqggiqqGXBvlZ4Y2VMWM991jLj3X9NiK9Dj3Sm1TGt3p6IEG5KOUka8f+4rlD2mI4Zy9zPw2PbLeqGIS+eBLlwX5yERd6S39Z5P9Y=
+Received: from BY5PR17CA0005.namprd17.prod.outlook.com (2603:10b6:a03:1b8::18)
+ by SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Fri, 31 May
- 2024 06:53:13 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10b6:a03:333:cafe::ef) by SJ0PR03CA0092.outlook.office365.com
- (2603:10b6:a03:333::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.29 via Frontend
- Transport; Fri, 31 May 2024 06:53:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25; Fri, 31 May
+ 2024 06:53:11 +0000
+Received: from SJ1PEPF00001CDC.namprd05.prod.outlook.com
+ (2603:10b6:a03:1b8:cafe::a5) by BY5PR17CA0005.outlook.office365.com
+ (2603:10b6:a03:1b8::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21 via Frontend
+ Transport; Fri, 31 May 2024 06:53:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,19 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ SJ1PEPF00001CDC.mail.protection.outlook.com (10.167.242.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 06:53:13 +0000
+ 15.20.7633.15 via Frontend Transport; Fri, 31 May 2024 06:53:10 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 01:53:11 -0500
+ 2024 01:53:08 -0500
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 09/18] drm/amdgpu: refine gmc firmware loading
-Date: Fri, 31 May 2024 14:52:40 +0800
-Message-ID: <20240531065249.1746350-9-kevinyang.wang@amd.com>
+Subject: [PATCH 07/18] drm/amdgpu: refine imu firmware loading
+Date: Fri, 31 May 2024 14:52:38 +0800
+Message-ID: <20240531065249.1746350-7-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531065249.1746350-1-kevinyang.wang@amd.com>
 References: <20240531065249.1746350-1-kevinyang.wang@amd.com>
@@ -72,50 +72,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|PH7PR12MB5951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98b95cbb-89b2-474b-4e72-08dc813e576d
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDC:EE_|SA0PR12MB7091:EE_
+X-MS-Office365-Filtering-Correlation-Id: 631ffbd1-0e02-4e7d-9a1d-08dc813e55e1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|82310400017|1800799015|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ojq94v4jHcd9mbxAI9H5xrjKp9i252ryQuf/jTAsT+GiiAbyMFOp96XajzuQ?=
- =?us-ascii?Q?uySbZv057GUQmsGV8BJx/9uCzQxnahctP6oHTFma8IPIc+M0+af2aehbVu95?=
- =?us-ascii?Q?fbG6dFM0xaUmQ5nah494vfEHN+SGmT+o245mjftMV/LGZfHLRrD2lOc6wzth?=
- =?us-ascii?Q?9GiNCju+F0CO08ILdsLDX19PIAls2i9Ztll5/Yw68ojmqhAVlO9zU6MyHA/I?=
- =?us-ascii?Q?alLpMqu9e/rrHRMiXA5DjZaBMzIcec7HS7HWWpWnPMDGexBmQPMzZMPfJAAS?=
- =?us-ascii?Q?wJJDpE3c2MYMRAe1zVbNT5Sb1E4xYvy3YyCm+Df9kG4DIVneDNEbWiZBGZiS?=
- =?us-ascii?Q?r1acpnqAiMDZUzixecP0GQGZudUsdK00wlMEgFxJ4NvAxuM88CaAh+7A0XaS?=
- =?us-ascii?Q?eR7UM1pZdHivZVFn4CuFDGB5xARC+w2gugy1z772iyyExRgdSq2B2vcHOyUB?=
- =?us-ascii?Q?oSvqhEH4BC0vp+Du3iZgh4FCmMO+m4zmu+vG6xcfwuBY4D9wwZCPtk5QFkRC?=
- =?us-ascii?Q?3gB4E0+U2k3Omfe4z2b5IYkrnEPtCChQ+5gDDcfYlSrJNjVtuJME6UWQbOij?=
- =?us-ascii?Q?5WolWIxknwl2G1tx7M6ozh3q+iru5mp78HdLphcs618WQFd4CHJ3A0ua0/59?=
- =?us-ascii?Q?GUR311qhPHJ2q/nO91Nx2xqM0JpnqJVqG6Qeo4F7OuYWM4kVzkN7WP3CylfI?=
- =?us-ascii?Q?1ShcE4OLCcwl5wbFARj3TZWvQLV9X1seh6Z/9OW6ZlG5dykH0NWSvQ4PjHW/?=
- =?us-ascii?Q?KnAKBk1H8aepHpsyG6Oj99Qki6wEyd3ZYSogCpcPanHJu8gNgPGIppqMXeNP?=
- =?us-ascii?Q?Tf/cakOTOAfqAMqDagYupdj1I84Ql55v1KkpMl5PdSpNlsA7lS+KH2q6h+j9?=
- =?us-ascii?Q?T8JI85ylOXw+FEIHHNWDURUPZNpXuxFkxmCQR8bKzrwsLO77JcLndgUOvXsN?=
- =?us-ascii?Q?hDhrT/VNSy/F52l6Tf510svxfTFfQT5pwYiBkFpVLsbx5RRkqKel6qGH1de1?=
- =?us-ascii?Q?hKY9AqHwAvHwwJKWOC6uXNoPUB/pvd8zlIWH+kuL/n7WedBtH4rOIYKivvuS?=
- =?us-ascii?Q?U50cYnoMydXi1AKqvNiMB17mmvLLMzU5XnqFAUQyXgSP32UZH5JDKMPvQc2T?=
- =?us-ascii?Q?fhdYA/bOpP9KIbX1LsGdHuDUnETnpYT6Z/pwUM9KSaROdAs6aiG9YrQA4lAU?=
- =?us-ascii?Q?eVpPEIST6tjcgbIxU5bplmMVoKLJgeXZQSvnvSBZOpecYXiiahlVrt25DzzG?=
- =?us-ascii?Q?x4isSu3EPLROn13Hd133oZrJzfKvRi6yK+vFisqCSrQBt93apQfPV+H7RjeM?=
- =?us-ascii?Q?gZM3X1Q5rlOXHh/7ARmpYr6dFK6K1DVouOoA7IMt3eJT9RXBhAPlTFKx29HT?=
- =?us-ascii?Q?7mKEf0+6+wUmPlIy5c83esjw2aP9?=
+ ARA:13230031|82310400017|1800799015|376005|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5U/S65jRPiASnYM0lvCKBiFt9Ay2AzXw2/Gc6O+Jmn4cLIhWwqEz+cXN22Ea?=
+ =?us-ascii?Q?0rm2BzApUbqUBNWVTqVHQPIPmdDXuVUHEic3vAcntNx35yxycOpZzXB+XMmH?=
+ =?us-ascii?Q?aTGQw9srC+723UJZ2eYh14vviEYKWWrSG1giJiEmPhTJT3Ux3DfG+9xRRaNl?=
+ =?us-ascii?Q?kOsnAi7P0bQznsbgp+PtxHUW5+013VPyKkOD8MHXNWKv+dF96Ie1eJWqrAmp?=
+ =?us-ascii?Q?6QtOeKhMFtlhHc2RvyxiNPCHpeL1cjDeRFFQVd5rbAEPPVukKvA7LO9bvqlV?=
+ =?us-ascii?Q?Jg8Smmjkj4KXrOguOm6QS25ujkmNW0kgyjJEQcVIzBR6WhWmeiITh+6I+PUW?=
+ =?us-ascii?Q?C/2w8fzf9K649M56tAbRI9OP1DWpRLI2lFgB7AH45OxFaIt5CCRy5IWpUbPE?=
+ =?us-ascii?Q?r2dbx0DogcaD81kLJZeH9Hls4kf80IOq/SiK4krz0mCl7ewR8kb8TDPN+SfE?=
+ =?us-ascii?Q?shYM80LEJkqJDK1vTYF0yV0rfEwy7tRPFkWPtyYFuEfY6ZB/XxsYlwgqMDsx?=
+ =?us-ascii?Q?4G3qeC4DA3pxVSHozFzIGkqmkV2rRAQb5LoXTgSARrGfFWoAc4Jg9KKOLv9N?=
+ =?us-ascii?Q?ZQpUrI/ayPyaGcuwRCgSLQsvm0WaAg5DPei0ULiT4oMQXvvWHKmh4h9Zheel?=
+ =?us-ascii?Q?V2tDvlG2Z3DRrR0PKORbTFywnUWrNgPkpAh0Emf9FG0kmpfKTpDQpB6DdFj1?=
+ =?us-ascii?Q?EQ2egImp3pX8+tMeDGgI/wPwqYJJptHYRKJLfm8O6kPClsv9C9sLQhyZLO3o?=
+ =?us-ascii?Q?+tB5Yug5NnnJp5s/z4jGIX5hv/rQ/uyT/PTHHA7yJy1FVX4Wg5/NXWauXlkR?=
+ =?us-ascii?Q?SpgZUCcltkJSCI+JK3DoWGw1YVEjiYQKjKLZq4s5XtBBm5XunW0xPy8ySe7J?=
+ =?us-ascii?Q?fQV4zfoEqP/XtSWgDpV+kL0ivL228bWWFv+Bd4DSMqX1nppMSCNpns91uczw?=
+ =?us-ascii?Q?UaCwdsKY6BXgDMn3ame/pSxZgolEQUkvq/PR8lZmlDJbxLS0uw52DsD01wEU?=
+ =?us-ascii?Q?IhZT1wIKv67ZF8TIbVYScZr6qyfR7htfjS6yeDSHgRoxXAGCOY+0R/n+xIgy?=
+ =?us-ascii?Q?ctu9BXTTygFej5hm83tH1vccepDjf+bBaBUyTTZYXj3LdM7pEknkwEMMxdKH?=
+ =?us-ascii?Q?B04ex1Lj+sNDeevJVHFVJJFZTXkkbRfeT7B/dMuE9B51owv0uXwUqauGPNU8?=
+ =?us-ascii?Q?0UBNKNWPUJNDQBGNK8EJmM2D8D4f7sw5WZDxRJujOwSa95JchfezXUXFjZ/E?=
+ =?us-ascii?Q?rNw436nh3aZP6/YVp8jBaXn/SIDhHEYmF4Z0HEz3Ttz3+OxJ4+2I8Ic/GZDl?=
+ =?us-ascii?Q?/o8zWlDwjiXj0gO82MAV8VyVoAUW0dqF9NzMDQ8y2OWUQGOYngU0zVq0X9jn?=
+ =?us-ascii?Q?f32gZ2BDKbhDgHSd5hkq6wLVHTPr?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400017)(1800799015)(376005); DIR:OUT;
+ SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 06:53:13.3098 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98b95cbb-89b2-474b-4e72-08dc813e576d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2024 06:53:10.7165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 631ffbd1-0e02-4e7d-9a1d-08dc813e55e1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5951
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7091
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,102 +130,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-refine gmc firmware loading
+refine imu firmware loading
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 14 ++++----------
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c |  7 ++-----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c |  6 ++----
- 3 files changed, 8 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/imu_v11_0.c | 10 ++++------
+ drivers/gpu/drm/amd/amdgpu/imu_v12_0.c | 10 ++++------
+ 2 files changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 3e38d8bfcb69..d36725666b54 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -98,9 +98,7 @@ static void gmc_v6_0_mc_resume(struct amdgpu_device *adev)
- static int gmc_v6_0_init_microcode(struct amdgpu_device *adev)
- {
- 	const char *chip_name;
--	char fw_name[30];
- 	int err;
--	bool is_58_fw = false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+index 3e91a8e42c21..a9f5d9e4610d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+@@ -41,7 +41,6 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_1_imu.bin");
  
+ static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
+ {
+-	char fw_name[45];
+ 	char ucode_prefix[30];
+ 	int err;
+ 	const struct imu_firmware_header_v1_0 *imu_hdr;
+@@ -50,11 +49,10 @@ static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
  	DRM_DEBUG("\n");
  
-@@ -126,17 +124,13 @@ static int gmc_v6_0_init_microcode(struct amdgpu_device *adev)
- 
- 	/* this memory configuration requires special firmware */
- 	if (((RREG32(mmMC_SEQ_MISC0) & 0xff000000) >> 24) == 0x58)
--		is_58_fw = true;
-+		chip_name = "si58";
- 
--	if (is_58_fw)
--		snprintf(fw_name, sizeof(fw_name), "amdgpu/si58_mc.bin");
--	else
--		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mc.bin", chip_name);
--	err = amdgpu_ucode_request(adev, &adev->gmc.fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->gmc.fw, "amdgpu/%s_mc.bin", chip_name);
+ 	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
+-
+-	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_imu.bin", ucode_prefix);
+-	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, fw_name);
++	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, "amdgpu/%s_imu.bin", ucode_prefix);
+ 	if (err)
+ 		goto out;
++
+ 	imu_hdr = (const struct imu_firmware_header_v1_0 *)adev->gfx.imu_fw->data;
+ 	//adev->gfx.imu_feature_version = le32_to_cpu(imu_hdr->ucode_feature_version);
+ 	
+@@ -75,8 +73,8 @@ static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
+ out:
  	if (err) {
  		dev_err(adev->dev,
--		       "si_mc: Failed to load firmware \"%s\"\n",
--		       fw_name);
-+		       "si_mc: Failed to load firmware \"%s_mc.bin\"\n",
-+		       chip_name);
- 		amdgpu_ucode_release(&adev->gmc.fw);
+-			"gfx11: Failed to load firmware \"%s\"\n",
+-			fw_name);
++			"gfx11: Failed to load firmware \"%s_imu.bin\"\n",
++			ucode_prefix);
+ 		amdgpu_ucode_release(&adev->gfx.imu_fw);
  	}
- 	return err;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 85df8fc81065..994432fb57ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -130,7 +130,6 @@ static void gmc_v7_0_mc_resume(struct amdgpu_device *adev)
- static int gmc_v7_0_init_microcode(struct amdgpu_device *adev)
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c
+index 0c8ef908d112..41b88ec26a20 100644
+--- a/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c
+@@ -39,7 +39,6 @@ MODULE_FIRMWARE("amdgpu/gc_12_0_1_imu.bin");
+ 
+ static int imu_v12_0_init_microcode(struct amdgpu_device *adev)
  {
- 	const char *chip_name;
--	char fw_name[30];
+-	char fw_name[40];
+ 	char ucode_prefix[15];
  	int err;
- 
+ 	const struct imu_firmware_header_v1_0 *imu_hdr;
+@@ -48,11 +47,10 @@ static int imu_v12_0_init_microcode(struct amdgpu_device *adev)
  	DRM_DEBUG("\n");
-@@ -153,11 +152,9 @@ static int gmc_v7_0_init_microcode(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mc.bin", chip_name);
+ 	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
 -
--	err = amdgpu_ucode_request(adev, &adev->gmc.fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->gmc.fw, "amdgpu/%s_mc.bin", chip_name);
- 	if (err) {
--		pr_err("cik_mc: Failed to load firmware \"%s\"\n", fw_name);
-+		pr_err("cik_mc: Failed to load firmware \"%s_mc.bin\"\n", chip_name);
- 		amdgpu_ucode_release(&adev->gmc.fw);
- 	}
- 	return err;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index fc97757e33d9..86488c052f82 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -212,7 +212,6 @@ static void gmc_v8_0_mc_resume(struct amdgpu_device *adev)
- static int gmc_v8_0_init_microcode(struct amdgpu_device *adev)
- {
- 	const char *chip_name;
--	char fw_name[30];
- 	int err;
+-	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_imu.bin", ucode_prefix);
+-	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, fw_name);
++	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, "amdgpu/%s_imu.bin", ucode_prefix);
+ 	if (err)
+ 		goto out;
++
+ 	imu_hdr = (const struct imu_firmware_header_v1_0 *)adev->gfx.imu_fw->data;
+ 	adev->gfx.imu_fw_version = le32_to_cpu(imu_hdr->header.ucode_version);
  
- 	DRM_DEBUG("\n");
-@@ -255,10 +254,9 @@ static int gmc_v8_0_init_microcode(struct amdgpu_device *adev)
- 		return -EINVAL;
+@@ -72,8 +70,8 @@ static int imu_v12_0_init_microcode(struct amdgpu_device *adev)
+ out:
+ 	if (err) {
+ 		dev_err(adev->dev,
+-			"gfx12: Failed to load firmware \"%s\"\n",
+-			fw_name);
++			"gfx12: Failed to load firmware \"%s_imu.bin\"\n",
++			ucode_prefix);
+ 		amdgpu_ucode_release(&adev->gfx.imu_fw);
  	}
  
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mc.bin", chip_name);
--	err = amdgpu_ucode_request(adev, &adev->gmc.fw, fw_name);
-+	err = amdgpu_ucode_request(adev, &adev->gmc.fw, "amdgpu/%s_mc.bin", chip_name);
- 	if (err) {
--		pr_err("mc: Failed to load firmware \"%s\"\n", fw_name);
-+		pr_err("mc: Failed to load firmware \"%s_mc.bin\"\n", chip_name);
- 		amdgpu_ucode_release(&adev->gmc.fw);
- 	}
- 	return err;
 -- 
 2.34.1
 
