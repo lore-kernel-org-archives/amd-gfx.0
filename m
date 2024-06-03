@@ -4,60 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284F0C41513
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219D6C25B75
 	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 12:53:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED3110E37E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A8110E381;
 	Mon,  3 Jun 2024 12:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U9Rs4twq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G2gDK9AD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71CE610E010;
- Sun,  2 Jun 2024 14:21:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2703810E2D6;
+ Mon,  3 Jun 2024 07:24:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717338077; x=1748874077;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=oadUV7GI47XB1/5yBXbfmigyApPprinWQqP+x7Kl/Hk=;
- b=U9Rs4twqpddq6X072IOOag3mkFc2UVl2gAwITmdcvc3z59ThQW9xqlw9
- kd7iAN6p57oDf4cW3t7YZ3Uw+xnBHPctMNthTX0gvk3euDdZ0nfQbqb8i
- 9xt5wro/q9T9fjTtDRRFDIGcprpurehSPiTUrvbdXkBH1hDsGTSQOuJ7I
- ZhwFeaExxRV7JjmhzyEUDAg1naRGVf7eZxxbeqhiN/zT8reC67vbTzL1j
- KfxqYFIEDApen41Kblf/5rvU0hDsgmoUCpjmye6WwFYLvM6AczIdiKDvV
- tR3TSnC0UXR5E2QXoNY9IGYnUCxIUUBpP0WDGb7pcbxTEXFBRTWD1Ie2Q A==;
-X-CSE-ConnectionGUID: FqH1Dg0nSEmo+EWKDY7Sng==
-X-CSE-MsgGUID: IYNuKEcYTgyeSyGvJdlEgQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="25238384"
-X-IronPort-AV: E=Sophos;i="6.08,209,1712646000"; d="scan'208";a="25238384"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2024 07:21:12 -0700
-X-CSE-ConnectionGUID: x7cBwlDkQniQF7ZWg474Ag==
-X-CSE-MsgGUID: 9l107NcSSH+Iotuu6PVigA==
+ t=1717399488; x=1748935488;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=CFw0jXkCJ2C0wlfWJK24i5rMaTVUzDmZPVQIJxPWnQA=;
+ b=G2gDK9AD0dULbtSNRWzbN1bDwIVT3gGumBWwcNDY2OpXPiz+u778KJZ1
+ yAs7UOeCwVf+xwRfezMf2jPEfHwBOtoWskk2J3hE4okwG+Q7RraD0DBZV
+ JRJUMtPNWVC+1wJ/5gfIOxtQbk7ifSfQA1M9sJ57ZqO8BP2S90/Cxf0jJ
+ 53wIOvY8Az5d358a+sL0Ya822RCkn8st//h9B+yYAA4wudGaYpKGoXUER
+ ENYVFDKq6gRlWahUxrz27bgS52AZ4owgfuA1H3eoO3sqRKsrFCbBfGakh
+ GK+19g0gTFgrUkkgVi4zJZVQ8ilLEqy2s3+1xLlMhMyleurbGe64ga8Aj Q==;
+X-CSE-ConnectionGUID: l7v9qsZgQzmBgtXWzJUPIw==
+X-CSE-MsgGUID: PDwZJob8S4GhQESgxX0oFw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="13824952"
+X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="13824952"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2024 00:24:47 -0700
+X-CSE-ConnectionGUID: kxqd9paxTmyZfVioFUTnCg==
+X-CSE-MsgGUID: wgn4h+pnQIKznB3X/28G+A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,209,1712646000"; d="scan'208";a="59808440"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmviesa002.fm.intel.com with ESMTP; 02 Jun 2024 07:21:09 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id EF6921CB; Sun, 02 Jun 2024 17:21:07 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Lewis Huang <lewis.huang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 1/1] drm/amd/display: Fix too big frame size
-Date: Sun,  2 Jun 2024 17:21:03 +0300
-Message-ID: <20240602142103.3259613-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.43.0.rc1.1336.g36b5255a03ac
+X-IronPort-AV: E=Sophos;i="6.08,210,1712646000"; d="scan'208";a="36875565"
+Received: from ijarvine-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.247.161])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2024 00:24:44 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 3 Jun 2024 10:24:39 +0300 (EEST)
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+cc: Chia-I Wu <olvaffe@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
+ alexander.deucher@amd.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Alison Schofield <alison.schofield@intel.com>, 
+ Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>, 
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] kernel/resource: optimize find_next_iomem_res
+In-Reply-To: <Zlw1_n20oqchAYxH@smile.fi.intel.com>
+Message-ID: <783e9d9a-e408-c6f0-9a4b-050e1979b919@linux.intel.com>
+References: <20240531053704.2009827-1-olvaffe@gmail.com>
+ <ZlmQ3_wcL3cgp4Hb@smile.fi.intel.com>
+ <CAPaKu7SsD+X7KAO=3vEYU_7YGM_f+7k1fdC9nEK=-NaJw8oYaA@mail.gmail.com>
+ <Zlw1_n20oqchAYxH@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323328-947370823-1717399436=:1529"
+Content-ID: <ac58b535-760b-99ee-4936-892d3e4f1ed9@linux.intel.com>
 X-Mailman-Approved-At: Mon, 03 Jun 2024 12:52:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,70 +76,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Compilation fails on arm with:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-  link_factory.c:743:1: error: the frame size of 1032 bytes is larger than 1024 bytes [-Werror=frame-larger-than=]
+--8323328-947370823-1717399436=:1529
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <9a23e7b3-9da0-cdcd-f514-8f55036748af@linux.intel.com>
 
-Fix the frame size by allocation one of the big structures.
+On Sun, 2 Jun 2024, Andy Shevchenko wrote:
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- .../gpu/drm/amd/display/dc/link/link_factory.c    | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+> On Fri, May 31, 2024 at 02:31:45PM -0700, Chia-I Wu wrote:
+> > On Fri, May 31, 2024 at 1:57=E2=80=AFAM Andy Shevchenko <
+> > andriy.shevchenko@linux.intel.com> wrote:
+> > > On Thu, May 30, 2024 at 10:36:57PM -0700, Chia-I Wu wrote:
+>=20
+> ...
+>=20
+> > > P.S> I'm not so sure about this change. It needs a thoroughly testing=
+, esp.
+> > > in PCI case. Cc'ing to Ilpo.
+>=20
+> > What's special about PCI?
+>=20
+> PCI, due to its nature, may rebuild resources either by shrinking or expa=
+nding
+> of the entire subtree after the PCI bridge in question. And this may happ=
+en at
+> run-time due to hotplug support. But I'm not a deep expert in this area, =
+Ilpo
+> knows much more than me.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index cf22b8f28ba6..78f1b2102839 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -456,10 +456,10 @@ static bool construct_phy(struct dc_link *link,
- 	struct dc_context *dc_ctx = init_params->ctx;
- 	struct encoder_init_data enc_init_data = { 0 };
- 	struct panel_cntl_init_data panel_cntl_init_data = { 0 };
--	struct integrated_info info = { 0 };
- 	struct dc_bios *bios = init_params->dc->ctx->dc_bios;
- 	const struct dc_vbios_funcs *bp_funcs = bios->funcs;
- 	struct bp_disp_connector_caps_info disp_connect_caps_info = { 0 };
-+	struct integrated_info *info;
- 
- 	DC_LOGGER_INIT(dc_ctx->logger);
- 
-@@ -672,12 +672,16 @@ static bool construct_phy(struct dc_link *link,
- 	}
- 
- 	if (bios->integrated_info)
--		info = *bios->integrated_info;
-+		info = kmemdup(bios->integrated_info, sizeof(*info), GFP_KERNEL);
-+	else
-+		info = kzalloc(sizeof(*info), GFP_KERNEL);
-+	if (!info)
-+		goto device_tag_fail;
- 
- 	/* Look for channel mapping corresponding to connector and device tag */
- 	for (i = 0; i < MAX_NUMBER_OF_EXT_DISPLAY_PATH; i++) {
- 		struct external_display_path *path =
--			&info.ext_disp_conn_info.path[i];
-+			&info->ext_disp_conn_info.path[i];
- 
- 		if (path->device_connector_id.enum_id == link->link_id.enum_id &&
- 		    path->device_connector_id.id == link->link_id.id &&
-@@ -698,14 +702,15 @@ static bool construct_phy(struct dc_link *link,
- 
- 			if (link->chip_caps & EXT_DISPLAY_PATH_CAPS__DP_FIXED_VS_EN) {
- 				link->bios_forced_drive_settings.VOLTAGE_SWING =
--						(info.ext_disp_conn_info.fixdpvoltageswing & 0x3);
-+						info->ext_disp_conn_info.fixdpvoltageswing & 0x3;
- 				link->bios_forced_drive_settings.PRE_EMPHASIS =
--						((info.ext_disp_conn_info.fixdpvoltageswing >> 2) & 0x3);
-+						(info->ext_disp_conn_info.fixdpvoltageswing >> 2) & 0x3;
- 			}
- 
- 			break;
- 		}
- 	}
-+	kfree(info);
- 
- 	if (bios->funcs->get_atom_dc_golden_table)
- 		bios->funcs->get_atom_dc_golden_table(bios);
--- 
-2.43.0.rc1.1336.g36b5255a03ac
+There is code which clearly tries to do expanding resource but that=20
+usually fails to work as intended because of a parent resource whose size=
+=20
+is fixed because it's already assigned.
 
+Some other code might block shrinking too under certain conditions.
+
+This area would need to be reworked in PCI core but it's massive and=20
+scary looking change.
+
+--=20
+ i.
+--8323328-947370823-1717399436=:1529--
