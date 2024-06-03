@@ -4,70 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92548C25B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 May 2024 21:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE04C25B74
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 01:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 085A710E0C7;
-	Fri, 31 May 2024 21:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD3F10E048;
+	Mon,  3 Jun 2024 01:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iSkZ9Yff";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3F84MJ2z";
 	dkim-atps=neutral
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
- [209.85.219.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C36DC10E074;
- Fri, 31 May 2024 21:31:57 +0000 (UTC)
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-dfa7f3176d6so69838276.1; 
- Fri, 31 May 2024 14:31:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717191116; x=1717795916; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hpzU718toH8t7qDT1H6MGfAgV9Y70dHLXdOCxSff0Kw=;
- b=iSkZ9Yff4NYwzvUG5RS8qn0i8uZUOWi3Cku7VkMhSa5+EaeVExJ5TZ6N79oopFIbbD
- fJbwm//rETOlCAggzCEGyuBTPLWA1iVSLjabvtP0n3CAGrFId3BSFSVHPtWNKBFDhC8u
- QAsp7Tlpw8e93Ay/bMB0LoTGGNLltvCh2dy0rx9xvM/VjRZG9emFMajJdlCU60bvo4iq
- Wu2cpRvMsVMEf+xmbSmBQXUohDNDkIHMruiN4j7/C5CWjDGf/CheqJN3HJjL9kCSeKQv
- igEZRl/ngX+OiXl3Ly97IcEUOK7gMuc4nrtCgOwvBTzhWeLY2W3mPAgg4NVbiEdiof2B
- ym1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717191116; x=1717795916;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hpzU718toH8t7qDT1H6MGfAgV9Y70dHLXdOCxSff0Kw=;
- b=CpFGQCRW1emElGJxfFqKOEr5srB0olayTdNacTmGba/yKDnY5RH7mwAkSfl4YsqCce
- ycXpofp6NJt5BnRDbQYBe9TxNv63gxWVhPXVa/ujm4LaHVW7wMhOsvRk8mbDjS7QAOIy
- XErBL3n7lbW23PzyttcfLCLH9KY9IfIjEXzwPZuQ5IkpzAJfRSlbUp4A1U0jgjglOxgZ
- zBg6cFEHQMYvOo0rUypGOjRMve7pi/hcAlmfyaft1WrHzcMbet8w39gLVrEGxZXTksDq
- 9x5zzZYjlkhdLpuf01fLAt5LGMp9kqrqABDBWSxQmvckGbEfMrntHr7krJQP7fXgGowZ
- WmZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXFLzfhX1I9IVPNt2tYPDwDiWBL1HwtZuv+DXqnnqfyDBWo7k/PDl3dKBeVPAnci75xb+ByqX1LBHocwCL8hvGMMhCqY5q1WFaRQRJIq6oI9H8O7vQh7iS4zfcoIpTGo42EpCz9P/TU9P0UVRQLYQ==
-X-Gm-Message-State: AOJu0Yz28y+RcPmRQg3kw+zXM7Kw6skQdQDfxELQc3tPbAWd4en/RNBm
- 0EP8rXJGcx72DYkb5OPwu1hUoAvPgwNQZhxSFJ7+O9zaC3/DC3rvKjqRvm0c7i2nDQosnAXMIRa
- Hp2kMuXCmunndqC0DJvDEPvz6zYk=
-X-Google-Smtp-Source: AGHT+IFhmDcP2xwjMV83P5kwuf/Ei6k7VOsm/LeK83KsKoVGpHpmudzwqmp4Z4Cl78ci9PLaAAbghxVVt8ScyStNGNw=
-X-Received: by 2002:a05:6902:220e:b0:dfa:70a5:e3fa with SMTP id
- 3f1490d57ef6-dfa72ec9826mr2639967276.0.1717191116512; Fri, 31 May 2024
- 14:31:56 -0700 (PDT)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2046.outbound.protection.outlook.com [40.107.212.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1450510E1B9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 01:42:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gN6zrCpiMKKre08/OmcM66tHXXmM9XUGxP/OV/YsDsjl6xsZj0n51sjgiskpfimExShF4wY1IxqiZZ478sQKk6ZwrawHA30F06bmp0SusXeRxrkulcZ4BMq5x/+Ew+DHOc52T4Rbk6JXgVv4yfP7giXOSqS9dsj9BSaiChLoGGZnVYB6mzmVHfTXPWNmCTSqCOljnk0701o2u8Q+BRo9BYQJQc7iS8Pm6d1I5kkJQln+JiTb1XuNKUetFWLonCuXqgeidx07y03CDSShMoCnZ8M9Aq2AsfDrrgS31xEqpH2Z6fPw7Yk4u/bAAftsBupAUYAc9JD4bp8J/h5woVJ5cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UUNX449iSsoM+1IH/fDl97WrY4B/MzCZuR0SvwqVhQg=;
+ b=nYUbiSbDtNtqrr22K1FzSu0wWnCTYdv3wPEgl+2OLpVx4x/ThuuXmQsaF53px9+COep3Ah0gNmU/3ETMG7/AE/0dLY7PLVkjR/a10s+fleIVZRiXUp3MNQyEccL2JH6wRfufkHEAm8SVtqj2y6/g6vh/zGVQG030gpnpiJ+o+DeJo6qeaXREC61H8B1nheABEoph5qbhsGPYwm7SWoi/K471m4s2Qgid65Hy25jz5nsPggtJw//PRyxpJ+vy6A2KCAKKUrKgFGJrR6eBpXylUe/KJMgDXk53aqV85PqRkOX6K4QEgvU2QhINQj2JP1RrkmrQvjBLffTsv4id+DyfkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UUNX449iSsoM+1IH/fDl97WrY4B/MzCZuR0SvwqVhQg=;
+ b=3F84MJ2zsjcwmrLcI8SQ9m1dRsJOHFaJwGyul70y8hkahBT14lofVRfV7ylsGVMvveb2/nKgyf5R/Fmn8hYEYrH41BdGhKlpjzKi/IJ0+fX/tWp5OoQPOUbVi385+Z77npRD+gaIdYp/IdEp/X6nA/vspXU5m6U823WRZOTLXDk=
+Received: from BYAPR02CA0062.namprd02.prod.outlook.com (2603:10b6:a03:54::39)
+ by DS0PR12MB8413.namprd12.prod.outlook.com (2603:10b6:8:f9::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7633.21; Mon, 3 Jun 2024 01:42:43 +0000
+Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
+ (2603:10b6:a03:54:cafe::14) by BYAPR02CA0062.outlook.office365.com
+ (2603:10b6:a03:54::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.30 via Frontend
+ Transport; Mon, 3 Jun 2024 01:42:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7633.15 via Frontend Transport; Mon, 3 Jun 2024 01:42:42 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 2 Jun
+ 2024 20:42:41 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>
+Subject: [PATCH 02/18] drm/amdgpu: refine gpu_info firmware loading
+Date: Mon, 3 Jun 2024 09:41:56 +0800
+Message-ID: <20240603014212.1969546-3-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240603014212.1969546-1-kevinyang.wang@amd.com>
+References: <20240603014212.1969546-1-kevinyang.wang@amd.com>
 MIME-Version: 1.0
-References: <20240531053704.2009827-1-olvaffe@gmail.com>
- <ZlmQ3_wcL3cgp4Hb@smile.fi.intel.com>
-In-Reply-To: <ZlmQ3_wcL3cgp4Hb@smile.fi.intel.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Fri, 31 May 2024 14:31:45 -0700
-Message-ID: <CAPaKu7SsD+X7KAO=3vEYU_7YGM_f+7k1fdC9nEK=-NaJw8oYaA@mail.gmail.com>
-Subject: Re: [PATCH] kernel/resource: optimize find_next_iomem_res
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- christian.koenig@amd.com, alexander.deucher@amd.com, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alison Schofield <alison.schofield@intel.com>, 
- Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>,
- linux-kernel@vger.kernel.org
-Content-Type: multipart/alternative; boundary="00000000000082e3d40619c6b61a"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|DS0PR12MB8413:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2891c6c1-a2b0-426f-a9d7-08dc836e75fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400017|1800799015|36860700004|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?x9juaEtQxld6eaL9bZTxwPHMVO5QfT899NuJ4/yJptjC9qfryrNBxS0baIkm?=
+ =?us-ascii?Q?fr2br637tRquu69AMiLajDgRGv6wkBOGcSDUnexfbphh84EwYehg5k4IcJcQ?=
+ =?us-ascii?Q?uBm0/i3VTrfwR0ktFfXP9KlEsJjtkLo05K58MqGnhSTATgXT/rUhvMkNNwRd?=
+ =?us-ascii?Q?UvoieE2Z04Cq6k4sDoWIcUjA1LPWkv99p30D1UmqGVlNdZCHoaX1Zxa5jSV8?=
+ =?us-ascii?Q?OeDeF3hmL1zCMNEcnql0Z+fOZ8gBtivHKLg5LBVofM1KLbyMPSSTQPm6Um0h?=
+ =?us-ascii?Q?21k2EA4l+LXG6aTkX3hvmwts6APlq7qn8ucWOmjk+6dQCILq/ZBnQq6fZ6Yv?=
+ =?us-ascii?Q?xxqZhaJraHvzexkiOrdZA0kbTE7U0MJ5Gyz+r9Ne/nYbg7Im8jR+K9yodl3J?=
+ =?us-ascii?Q?eUqEdO8DuNUeKQYJwbOfEC4TgY9Od3xVcWj5d9jqtYWSIApeBgojMu32KzVb?=
+ =?us-ascii?Q?50yu9UNcqtZTwveGWogA9SzSKCR1tTtQkCiPv0zqq1G1gmOetH3xU77wwSRF?=
+ =?us-ascii?Q?om2Gzfx2kdTETt32BiiNsGMHdLpUgPbfjC5W26kmtRgAk24hrxrluIGJwd2x?=
+ =?us-ascii?Q?7OZclh2bJbRdnS4GlLhBsBZg+x0Va4MMJsjGs1+DxGxOrLn7KVZG78k/abDt?=
+ =?us-ascii?Q?x0xx7BfU0OyKkN3/TNLDqWpoEjXJ7PY7SHmk4QfDULEi3gNZ8/afR57/Zk6N?=
+ =?us-ascii?Q?g/UxBz4KGX94TOsia79PXjolOshRoGTRoonRjzKR//47QO9z7O7OtercnFtI?=
+ =?us-ascii?Q?ZgYRL2Fl/62bkvdriVaFrEE3E2hDfP2eB0iVxLPnZqxoY404tQyne3oSLLeX?=
+ =?us-ascii?Q?5Uv+uuXBAmQbNTNfke28NdhEw0C698gC4Fjt3T5MVtmWpiNA7GsYZxaLSkmm?=
+ =?us-ascii?Q?905V9HYRUX0aiW+Eh40kofblNT/0/Qfxf5jP/U7uzLyHkc699a59WlSID6bj?=
+ =?us-ascii?Q?7dSoOmbWYapqd5s5iSZ87ONFXwUvzb5k+S8gnL+W47IcwfqJcCuf2cai8VPf?=
+ =?us-ascii?Q?tO5y533xHGNi7jKLuhh42wIvxtX7xAIuxG2NzwCK8/OWp/KW+R5Cj64KOBak?=
+ =?us-ascii?Q?JjQN6k0w2u0hx62+Hc5sxfA75Zb4Kr+7WSCPVoPUFPKENVsXGJ0+UJo0EivY?=
+ =?us-ascii?Q?H9cvqaT6dYmN89c4SgVvBm+woA6+r9q0oH17Ke5Yd74h9nSHgTZogwWOJOlD?=
+ =?us-ascii?Q?5K6HF8EGDZpUeKzCHkH2cZ+lqzTCOYZL3BhlAkflfERxgYtT+y+eIYj7AQr3?=
+ =?us-ascii?Q?/kYAlHr9NKUGl2+QYJQTM3B5FGHGmwrwgt4yM8V8MyRYzCOMapy4oheIV/N+?=
+ =?us-ascii?Q?0Lt16mZb2egp21ZYPfQjaSPmC0tnnMJrspsQI/tlZN8danbEVn9f1OYdTn1E?=
+ =?us-ascii?Q?pd3JjOMrBzI6EzEC/jyLZor693EV?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400017)(1800799015)(36860700004)(376005); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2024 01:42:42.7782 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2891c6c1-a2b0-426f-a9d7-08dc836e75fe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8413
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,149 +130,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000082e3d40619c6b61a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+refine gpu_info firmware loading
 
-On Fri, May 31, 2024 at 1:57=E2=80=AFAM Andy Shevchenko <
-andriy.shevchenko@linux.intel.com> wrote:
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-> On Thu, May 30, 2024 at 10:36:57PM -0700, Chia-I Wu wrote:
-> > We can skip children resources when the parent resource does not cover
-> > the range.
-> >
-> > This should help vmf_insert_* users on x86, such as several DRM drivers=
-.
-> > On my AMD Ryzen 5 7520C, when streaming data from cpu memory into amdgp=
-u
-> > bo, the throughput goes from 5.1GB/s to 6.6GB/s.  perf report says
-> >
-> >   34.69%--__do_fault
-> >   34.60%--amdgpu_gem_fault
-> >   34.00%--ttm_bo_vm_fault_reserved
-> >   32.95%--vmf_insert_pfn_prot
-> >   25.89%--track_pfn_insert
-> >   24.35%--lookup_memtype
-> >   21.77%--pat_pagerange_is_ram
-> >   20.80%--walk_system_ram_range
-> >   17.42%--find_next_iomem_res
-> >
-> > before this change, and
-> >
-> >   26.67%--__do_fault
-> >   26.57%--amdgpu_gem_fault
-> >   25.83%--ttm_bo_vm_fault_reserved
-> >   24.40%--vmf_insert_pfn_prot
-> >   14.30%--track_pfn_insert
-> >   12.20%--lookup_memtype
-> >   9.34%--pat_pagerange_is_ram
-> >   8.22%--walk_system_ram_range
-> >   5.09%--find_next_iomem_res
-> >
-> > after.
->
-> Is there any documentation that explicitly says that the children resourc=
-es
-> must not overlap parent's one? Do we have some test cases? (Either way th=
-ey
-> needs to be added / expanded).
->
-I think it's the opposite.  The assumption here is that a child is always a
-subset of its parent.  Thus, if the range to be checked is not covered by a
-parent, we can skip the children.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 6711836054f9..a6af15fb203c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2350,7 +2350,6 @@ void amdgpu_device_set_sriov_virtual_display(struct amdgpu_device *adev)
+ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ {
+ 	const char *chip_name;
+-	char fw_name[40];
+ 	int err;
+ 	const struct gpu_info_firmware_header_v1_0 *hdr;
+ 
+@@ -2384,12 +2383,12 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
+-	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_gpu_info.bin", chip_name);
+-	err = amdgpu_ucode_request(adev, &adev->firmware.gpu_info_fw, fw_name);
++	err = amdgpu_ucode_request(adev, &adev->firmware.gpu_info_fw,
++				   "amdgpu/%s_gpu_info.bin", chip_name);
+ 	if (err) {
+ 		dev_err(adev->dev,
+-			"Failed to get gpu_info firmware \"%s\"\n",
+-			fw_name);
++			"Failed to get gpu_info firmware \"%s_gpu_info.bin\"\n",
++			chip_name);
+ 		goto out;
+ 	}
+ 
+-- 
+2.34.1
 
-That's guaranteed by __request_resource.  I am less sure
-about __insert_resource but it appears to be the case too.  FWIW,
-resource_is_exclusive has the same assumption already.
-
-It looks like I need to do some refactoring to add tests.
-
-
-> P.S> I'm not so sure about this change. It needs a thoroughly testing, es=
-p.
-> in PCI case. Cc'ing to Ilpo.
->
-What's special about PCI?
-
---=20
-> With Best Regards,
-> Andy Shevchenko
->
->
->
-
---00000000000082e3d40619c6b61a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 31, 2024 at 1:57=E2=80=AF=
-AM Andy Shevchenko &lt;<a href=3D"mailto:andriy.shevchenko@linux.intel.com"=
->andriy.shevchenko@linux.intel.com</a>&gt; wrote:<br></div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">On Thu, May 30, 2024 at 10:36:57PM -0700,=
- Chia-I Wu wrote:<br>
-&gt; We can skip children resources when the parent resource does not cover=
-<br>
-&gt; the range.<br>
-&gt; <br>
-&gt; This should help vmf_insert_* users on x86, such as several DRM driver=
-s.<br>
-&gt; On my AMD Ryzen 5 7520C, when streaming data from cpu memory into amdg=
-pu<br>
-&gt; bo, the throughput goes from 5.1GB/s to 6.6GB/s.=C2=A0 perf report say=
-s<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A034.69%--__do_fault<br>
-&gt;=C2=A0 =C2=A034.60%--amdgpu_gem_fault<br>
-&gt;=C2=A0 =C2=A034.00%--ttm_bo_vm_fault_reserved<br>
-&gt;=C2=A0 =C2=A032.95%--vmf_insert_pfn_prot<br>
-&gt;=C2=A0 =C2=A025.89%--track_pfn_insert<br>
-&gt;=C2=A0 =C2=A024.35%--lookup_memtype<br>
-&gt;=C2=A0 =C2=A021.77%--pat_pagerange_is_ram<br>
-&gt;=C2=A0 =C2=A020.80%--walk_system_ram_range<br>
-&gt;=C2=A0 =C2=A017.42%--find_next_iomem_res<br>
-&gt; <br>
-&gt; before this change, and<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A026.67%--__do_fault<br>
-&gt;=C2=A0 =C2=A026.57%--amdgpu_gem_fault<br>
-&gt;=C2=A0 =C2=A025.83%--ttm_bo_vm_fault_reserved<br>
-&gt;=C2=A0 =C2=A024.40%--vmf_insert_pfn_prot<br>
-&gt;=C2=A0 =C2=A014.30%--track_pfn_insert<br>
-&gt;=C2=A0 =C2=A012.20%--lookup_memtype<br>
-&gt;=C2=A0 =C2=A09.34%--pat_pagerange_is_ram<br>
-&gt;=C2=A0 =C2=A08.22%--walk_system_ram_range<br>
-&gt;=C2=A0 =C2=A05.09%--find_next_iomem_res<br>
-&gt; <br>
-&gt; after.<br>
-<br>
-Is there any documentation that explicitly says that the children resources=
-<br>
-must not overlap parent&#39;s one? Do we have some test cases? (Either way =
-they<br>
-needs to be added / expanded).<br></blockquote><div>I think it&#39;s the op=
-posite.=C2=A0 The assumption here is that a child=C2=A0is always a subset o=
-f its parent.=C2=A0 Thus, if the range to be checked is not covered by a pa=
-rent, we can skip the children.</div><div><br></div><div>That&#39;s guarant=
-eed by=C2=A0__request_resource.=C2=A0 I am less sure about=C2=A0__insert_re=
-source but it appears to be the case too.=C2=A0 FWIW, resource_is_exclusive=
- has the same assumption already.</div><div>=C2=A0<br></div><div>It looks l=
-ike I need to do some refactoring to add tests.<br></div><div><br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-P.S&gt; I&#39;m not so sure about this change. It needs a thoroughly testin=
-g, esp.<br>
-in PCI case. Cc&#39;ing to Ilpo.<br></blockquote><div>What&#39;s special ab=
-out PCI?</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">
--- <br>
-With Best Regards,<br>
-Andy Shevchenko<br>
-<br>
-<br>
-</blockquote></div></div>
-
---00000000000082e3d40619c6b61a--
