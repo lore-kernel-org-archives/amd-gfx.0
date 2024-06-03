@@ -4,72 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45A24C25B76
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 18:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B9FC25B75
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 18:13:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A784189A86;
-	Mon,  3 Jun 2024 18:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0747610E1D7;
+	Mon,  3 Jun 2024 18:13:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QQg6IZBb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Xjd2C8mO";
 	dkim-atps=neutral
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE19A89A86
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 18:09:08 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2e78fe9fc2bso66551731fa.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Jun 2024 11:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717438147; x=1718042947; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7RtkoTgGHv/tY1Yvmq6E1/Gukht1kWuUv9uWbeoJo34=;
- b=QQg6IZBbUC1ecg/Y0XU0u/EMZYfYyy3Ad+Tb1T5Mk9ER7PrXCAefshhFmhzaykum4E
- KyUBVxK2x0+RuQanhdidCKVVmVOxPxhMiyhQAm+OnCoFmFZnGv8+4CJuyRISd3kxYOk0
- B2FpUzJMlbdgdUfYThy/P+2N5TbHahWPujo+lw+gJQ1S7OKWoc9Ms5Rb5JP5ckbJ6g1e
- fki+qjMvBYrX76QipYSmS+HHrYUnW2patWyA9hyNJOvTZvA8LHcbwKeTZ5ATap2os5iL
- tabbHF+R3cdwlKqMH7TgUOhLMPMUgFp1DfC0BlPYYDdO4cpx2U8q4iBGkTgGVWbtxdL1
- Gh6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717438147; x=1718042947;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7RtkoTgGHv/tY1Yvmq6E1/Gukht1kWuUv9uWbeoJo34=;
- b=WmeEqOUq/YO76KT2ecJG8YqKTsfAyUf65K2cyHT3qjYx06X2mDuLn1HCDy146/Ti4a
- 05GwPAMstU1fEI+2UU/V2ZfdcO55vlthKKcehW2L96YU/C3rlLFZacy8HydAx/08Kmqv
- NzWbF0aMpIwYBfX96sp7pFPdhuln+OZxGMb+nOv9aPbFCUjUIGbTYeqyRmgNxjdTj1ZA
- h7+zkF6RZ8lOk1qETvhsXmZcHwwdRa+IaCw6xH+M6L9iWKf2Q4Yh3GzQLgCBuxRHpCVb
- dW2fN6MQB+Lc7+I5QEPVkD33icpb0RcHHiK4dwmEB96CLNk2DLhEGkZA4+Foo6/1suVx
- 8MMQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXhcwtVzWjNwWUl076G5BW67E5I4o0N3bvYPCwag/W6FOk6LJi4bSDXA++D7NxW/vLJmk+zOkueMwmlShQi3rftQY6CuPzKc6tvSmwqXg==
-X-Gm-Message-State: AOJu0YwAAj9fgDrodLlDAgi3UrO8t2re27YLs+sH8XpS7aJR7y3s5oy1
- ZkPDn+iE60RJC47DOgijQcloQy7TlVvo0G+0CpQJx1KyixsQAvzHYhmIy7O9
-X-Google-Smtp-Source: AGHT+IH5fD8s7bCwxVa4eF4yevYlftqEdj6cy98EjNp/mu/JT1Gi1C4qFbYF2+Rg/4RihoqOAatVeQ==
-X-Received: by 2002:a2e:9796:0:b0:2ea:7a0b:7935 with SMTP id
- 38308e7fff4ca-2ea9515f4bcmr65176081fa.24.1717438146323; 
- Mon, 03 Jun 2024 11:09:06 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35dd062edbcsm9403860f8f.84.2024.06.03.11.09.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jun 2024 11:09:05 -0700 (PDT)
-Message-ID: <29d354ec-2cbf-4249-8769-031e93183cb5@gmail.com>
-Date: Mon, 3 Jun 2024 20:09:03 +0200
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 729C810E1D7
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 18:13:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=R28pzDbJe1+rZ00bYYzlTuTsx26g5SmRsZr5fuNHnC7A2meedFHIA+gjrczVzMXo7C/E4mGWrJRaq0KbY4VKqusXvia+AEtGBVOJh4GHNW0slSKejNcxsg+fZ05jESpwFUCo33j4LXa5ezVkdjnGnYOXPMyzZSmuR8r0w57LL2ip4lPv5YigmlOmhTbXJrTZp1x0VZdjoXhAaO+jlEiZvpyFcsEuWO1NXjyJnVpP+6JvbTA+MBJ0r3YsHPvWthwEsf1GXZvbzg6VAdjbaFDSxr0ydXGiBThmznA57UhqFbP0Uu7WtWTftdd0MOYQFvMYyE/SMAMantELxQYfaN2nRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eTxpyFMFzrGWR2zbOCbfsWMNDqQySYJUroCTOOdv0aE=;
+ b=ZeHFWrY1Vj47b/YSQpm92Q1GdQLVZgqD3MEjWoZ5Ln4hB3tEpXu2qjGvGT37ftq5wr+/P+dkYir/jQORJF76OjXeWn21Zsqwdyw+BBkDmAS88xfvanxf/DZ8zM4B5lwGNsBuTyzg7YR2mm6SP+3TRMyfrb/CEPCdhYOdgrYPd9NnOJQKgL0Zzv9mLgkH+STQF1aL0y76PRVrpMKGVznhZlQwPB+/oYDV52if/V7TzhfWhH1E5ztQD35u2OrgtJPzQDiA4zXED6hGCeFR4kXFGXi3sF2eUydGUCqBWeK3DGT2w7AzlFxPUeeXJscUIuhS9LaZxfeMqwx2BrTcf9pkWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eTxpyFMFzrGWR2zbOCbfsWMNDqQySYJUroCTOOdv0aE=;
+ b=Xjd2C8mOX90nfY1WUp2BaYeeslwbJP/9UvtinU5vSS3iw17k7OrKOJJYjw7zB5kS0qY7TH2m/SeRWWJ7D0fJmQTcCfV8F3M2SLxddIKq7pnsSUBlSg7B+DoCMDiusfy/toXlFwX5+Xh18I21ipOaQlIlpdPMcs+7ZzB+St00Yj8=
+Received: from BYAPR05CA0078.namprd05.prod.outlook.com (2603:10b6:a03:e0::19)
+ by SJ0PR12MB7068.namprd12.prod.outlook.com (2603:10b6:a03:4ae::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27; Mon, 3 Jun
+ 2024 18:13:23 +0000
+Received: from SJ1PEPF00002313.namprd03.prod.outlook.com
+ (2603:10b6:a03:e0:cafe::f) by BYAPR05CA0078.outlook.office365.com
+ (2603:10b6:a03:e0::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.14 via Frontend
+ Transport; Mon, 3 Jun 2024 18:13:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002313.mail.protection.outlook.com (10.167.242.167) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7633.15 via Frontend Transport; Mon, 3 Jun 2024 18:13:23 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Mon, 3 Jun 2024 13:13:21 -0500
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Lijo.Lazar@amd.com>, <Harish.Kasiviswanathan@amd.com>, Eric Huang
+ <jinhuieric.huang@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: add reset sources in gpu reset context
+Date: Mon, 3 Jun 2024 14:12:57 -0400
+Message-ID: <20240603181258.170580-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: use local xcc write to flush tlb
-To: Yiqing Yao <YiQing.Yao@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- haijun.chang@amd.com, horace.chen@amd.com
-References: <20240603114607.4143848-1-YiQing.Yao@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240603114607.4143848-1-YiQing.Yao@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002313:EE_|SJ0PR12MB7068:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65a1a73a-c5ff-4bac-9f9e-08dc83f8db77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|36860700004|1800799015|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?K2mD+6v+A5g73KUiEbgj61o9pTuyaSpfGMZcvArST0VsWX3jbh4fsQMv5VZ3?=
+ =?us-ascii?Q?AqB4thwLwa2LaY7i3cyByX4KblZO3/ySM+OamCtwH9kEamODrbWg+m99Dxu8?=
+ =?us-ascii?Q?m+0WjI6+Q2gfenfMcWXoIy25LR2n8J6JpTZymvzzv7tIUjDgXAP809u0yVYh?=
+ =?us-ascii?Q?ZVEPm33/wVs6nEJZmSQJGeO/rjns0huarJHjdNPgql1fd8ftzeKfN4oQKO+d?=
+ =?us-ascii?Q?tpPeWaIl3Kait6PkG5k65aTb9wKkSMepgX/8PF6RNRw8VFr0tZLTLr2brXt8?=
+ =?us-ascii?Q?188XNZnB/UjX64txcaVBs6B/+BQmyI2bawfF3HxZG0L6oq1BNMXnzfz42Qdz?=
+ =?us-ascii?Q?h2XSUP1ZlpP3x2LpnjFLbj0Es31TfXm8y5gIyVCsWu1JJUaMzaQC6/rGSCJg?=
+ =?us-ascii?Q?G9vp6rI16KGGf4rj0KuzgBbe4D0/NbgZbTXOJEhF5vVFzr7uhtc9E2F+8FUW?=
+ =?us-ascii?Q?gjtZIqx4goVfEBwqrM7gUmXDoBCvBTQdmCFgrRGH/VpX0wNFDzK2ve4MP5ne?=
+ =?us-ascii?Q?8v3SG4Xm8eAOOx96r9i+y/3iQ3NXcGjovufkMM1rKtAB5BdjVHvltJ/vgW3o?=
+ =?us-ascii?Q?dtSW7HZ5AaDAzkvl5NDz+jlF6maaMicXYn7I1TWWstfZv+lCfgUabN/rsa7w?=
+ =?us-ascii?Q?g9N/NefowQbdWtwkzYnDPguFM87CO0RR4F0AlrpwI9pqGwPduXOiB1PmVcvq?=
+ =?us-ascii?Q?hq3sDuU1CRbvkKpTrUfqsgtMQwlDC+7kDASGNPqSGiHIWC4zAkB6MXnvzqm3?=
+ =?us-ascii?Q?oQ+ORH9cBiRM5AH5AlC5FHygyjmnAocsEK99e8DupeNHbf/Oz8WLNwrXjXdp?=
+ =?us-ascii?Q?INsjD7JwZCG8f9VgD44p0Gt9/TxmgDefxvHl3hEQk/7vnBy3JpExyjvH7Ct4?=
+ =?us-ascii?Q?fyOiD6JhoU50y6s9hAJnBUFE7rjv+zqzx4hpAPQvX+YxW3kLtwufrzyYoiyy?=
+ =?us-ascii?Q?fOll5HkRvRt21bXllFfcmirwutMP6r4alLdh2Q/53LtLcLrDpSluWXjM0eDg?=
+ =?us-ascii?Q?gl5dqiLBfiUSaEP4U6wna7E/Bb5XWTxMRag9WE+W4GV9eSs8gQKibS67NEai?=
+ =?us-ascii?Q?iJ+EjlQ5EJz8A8HYL6T4cP4lV65DZ8Kea6x/dh3zJzZSRNCVWxgfO4dSsLDQ?=
+ =?us-ascii?Q?+hoeTst878SMj+RFLKrkDuqHAPu7ADRgDVYYeTwGYOMPJDmhZQORwnCuoB9H?=
+ =?us-ascii?Q?4xb4Q9GtCR8pkealY2aLQXbMUTTJW4LIvj/pufkf0bpHS7ghd0oSU05Li/dc?=
+ =?us-ascii?Q?412DDcdsShm2ZOlh9iUmVNFpc8wttsY/0o+3/LO6K0tuBMcruHGdu9fnr/ls?=
+ =?us-ascii?Q?63Vse/NfkSxPrPH1hXOQ8jJ/2dUTmeWFMqjCKPR+9pC8O7ncXibJ3Mk0ZqRB?=
+ =?us-ascii?Q?yw3CPmSOwGjlOI9LtCT3NmeT3nVI?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(36860700004)(1800799015)(82310400017); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2024 18:13:23.5695 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65a1a73a-c5ff-4bac-9f9e-08dc83f8db77
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002313.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7068
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,44 +129,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.06.24 um 13:46 schrieb Yiqing Yao:
-> When flushing gpu tlb using kiq from gfxhub, kiq ring is always
-> local as xcc instance is selected for it. Thus using lower 18 bits
-> to access mmregs inside local xcc instead of full address used
-> when accessing regs outside of local xcc.
->
-> Remove redundent code.
->
-> Signed-off-by: Yiqing Yao <YiQing.Yao@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 350f6b6676f1..864fea31c354 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -853,8 +853,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->   	 */
->   	if (adev->gfx.kiq[inst].ring.sched.ready &&
->   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-> -		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
-> -		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
-> +
-> +		/* Select lower 18 bits to write in local xcc */
-> +		if (vmhub < AMDGPU_MMHUB0(0))
-> +			req = req & 0x3ffff;
+reset source or reset cause is very useful info
+for reset context, it will be used by events API.
 
-A bit more explanation would be good here, e.g. what you have in the 
-commit message.
+Suggested-by: Lijo Lazar <Lijo.Lazar@amd.com>
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 34 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h | 13 +++++++++
+ 2 files changed, 47 insertions(+)
 
-Apart from that why do we need that in the first place? Isn't the KIQ 
-able to access the register anyway?
-
-Regards,
-Christian.
-
->   
->   		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
->   						 1 << vmid, inst);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index bfdde772b7ee..f07f0fb9f827 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -160,3 +160,37 @@ void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain)
+ 	atomic_set(&reset_domain->in_gpu_reset, 0);
+ 	up_write(&reset_domain->sem);
+ }
++
++void amdgpu_reset_get_desc(struct amdgpu_reset_context *rst_ctxt, char *buf,
++			     size_t len)
++{
++	struct amdgpu_ring *ring;
++
++	if (!buf || !len)
++		return;
++
++	switch (rst_ctxt->src) {
++	case AMDGPU_RESET_SRC_JOB:
++		if (rst_ctxt->job) {
++			ring = amdgpu_job_ring(rst_ctxt->job);
++			snprintf(buf, len, "job hang on ring:%s", ring->name);
++		} else {
++			strscpy(buf, "job hang", len);
++		}
++		break;
++	case AMDGPU_RESET_SRC_RAS:
++		strscpy(buf, "RAS error", len);
++		break;
++	case AMDGPU_RESET_SRC_MES:
++		strscpy(buf, "MES hang", len);
++		break;
++	case AMDGPU_RESET_SRC_HWS:
++		strscpy(buf, "HWS hang", len);
++		break;
++	case AMDGPU_RESET_SRC_USER:
++		strscpy(buf, "user trigger", len);
++		break;
++	default:
++		strscpy(buf, "unknown", len);
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+index 5a9cc043b858..9de8e4157a4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+@@ -36,6 +36,15 @@ enum AMDGPU_RESET_FLAGS {
+ 	AMDGPU_HOST_FLR = 3,
+ };
+ 
++enum AMDGPU_RESET_SRCS {
++	AMDGPU_RESET_SRC_UNKNOWN,
++	AMDGPU_RESET_SRC_JOB,
++	AMDGPU_RESET_SRC_RAS,
++	AMDGPU_RESET_SRC_MES,
++	AMDGPU_RESET_SRC_HWS,
++	AMDGPU_RESET_SRC_USER,
++};
++
+ struct amdgpu_reset_context {
+ 	enum amd_reset_method method;
+ 	struct amdgpu_device *reset_req_dev;
+@@ -43,6 +52,7 @@ struct amdgpu_reset_context {
+ 	struct amdgpu_hive_info *hive;
+ 	struct list_head *reset_device_list;
+ 	unsigned long flags;
++	enum AMDGPU_RESET_SRCS src;
+ };
+ 
+ struct amdgpu_reset_handler {
+@@ -130,6 +140,9 @@ void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain);
+ 
+ void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain);
+ 
++void amdgpu_reset_get_desc(struct amdgpu_reset_context *rst_ctxt, char *buf,
++			     size_t len);
++
+ #define for_each_handler(i, handler, reset_ctl)                  \
+ 	for (i = 0; (i < AMDGPU_RESET_MAX_HANDLERS) &&           \
+ 		    (handler = (*reset_ctl->reset_handlers)[i]); \
+-- 
+2.34.1
 
