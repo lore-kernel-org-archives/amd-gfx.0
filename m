@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A14C25B74
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 01:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D227C27C44
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jun 2024 01:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C5610E1C8;
-	Mon,  3 Jun 2024 01:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6480010E1DE;
+	Mon,  3 Jun 2024 01:42:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p8y5gRfT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J+IugXox";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0B1210E0D1
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 01:42:44 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1605710E1B9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jun 2024 01:42:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ngjxcRJOSyKKz+tmeaUFIfTnn3lNloxNSW05MNxYndhIOE9XQubqQ+ayJAIp+AsguCF0HKHKWJ+eFGmtyuKZ3kumFgSJ6hM0Y6VPJvHVY/DAK0fwd1SrW8gTX8lPBnzLpZ+b3qkye/+EUXGtXSjheyhrYoUtfx364qFZbT/ghD6cqh4tJOMzgFi8OFkiHpEPtu/a+B44M7JDHbFff5eix97ospRBfLU1UhfGWjj1ZQp/KdqI1IHZJFvY8m4/pm7jpSbPydQ2TmmFivZKv+DfSVdYtg/5j5TYuEw82JAmm1Q+Knr08D+m9nbPMfSGrtzkC5dTm3Rz0nmrvQF3H88Ppg==
+ b=mS75DJalsEiQD510tk0ab0hGWC2nKz2Yfw8AUbkeiPIp2qY0tLlwReVOA9PPRoTI+dCaJ6jV84LHpXPj7WQYtwQPIqXhJJ7y9wmmCgSzLmAYURbhOAy/fPfc4dO3kV0H6EoXKZnt9WNLO2FTFVQqTgVnV6HoC7E+Og5sL1A20EDgFVKHwDxwmZ/sFUxGvB1rqQOlHUdqOhYMfPzvrMxBcGZZvlmKwa6SJwsbMW2SofScEBhx3gxbkGt3Buh7laLtov8ES6NUFLzVKHs1S//jGYS18QFpdJQOM9nPejpbb85IBomuvK2TOqP5060jlnS3G/vR8y9opGoV7tv7crmSmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DJDfLknjyD6SHaThwK7PmYxKscn5TLmfLqihKgYrPro=;
- b=eSLrPbpB7Rga9fJz/hjFOlxU+rYX4dNSnpiRKe6LnNIah4hzq65SkFMGWlLVrcJ4r3zUfnlkvkf96jbEY1NRyXUWxfHNkzqPiPbnLGtm1ZXsOtVvn+7n/sFPDd+MvLEwSd8aVm7OD6Sv+LoabAQQ5at02MH0F29K0o7yG7vVayNUuUuMWJXpvA4tgMxTcFL0zrKjSCBBiX9E33dIYY930kFNf+Wm2TJGcYzN4lFQ8nBokAiuZQMNA8QvoHzIm2QIbMQzg0oHR1cBJ6eoZB1yx2hS1LbIdpBWp/k4EtH/YDRNZRQwpBckwtiVU1+3HKbAuyvdFGpsMA29b8kuwzVQyg==
+ bh=LfuEgt7sy+V62aq2Sii76qtSeeEumBtCCs9/SownSMo=;
+ b=cNL3G55gIsWFn789lczgIEYLYqrcEbs50vsStZ81LBblKdjWdIO+re4yb+lGTtfiKAjhn3jEL1cyO2I3uBp00Rkitfsajbq4rsZT6V8vUVev5O2RudIqe6+4VXMUlqZVrLb4jRbZDFT1JYN3HnDqQ40Tll7CSz+3qM5PosYW6057CpSyfKccTLql1oTMvdb9E3De8FyA+sa9EQr26tBjLsG342dhYvMh7rTuUoM8pwEXtYnF4pjYvyD74kzRFyTJQDOiT3+dQVBUIhjFm6oA65NjyEKY/MOQkNtmzTL4b51vElsnoWL3McVORSw//A5TgvMY2IBms4lRU/VB6LJGzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DJDfLknjyD6SHaThwK7PmYxKscn5TLmfLqihKgYrPro=;
- b=p8y5gRfTILCNvK6OaoR1SB8rMXFCPAv7/VZ50pULLd35hpb1rWcTl+7ByFDZzN+Fp8a/og2CkGkCoQ8NjsvQrZRoGHUPQtmTCB/xdfAHmO0in7iVZSF74oxOSaCZW3hS/2RU9uqQxvxBK+aKSIRa6jtMWoh0/gIfMd+/obV4t9s=
-Received: from BYAPR02CA0039.namprd02.prod.outlook.com (2603:10b6:a03:54::16)
- by PH8PR12MB7351.namprd12.prod.outlook.com (2603:10b6:510:215::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.30; Mon, 3 Jun
- 2024 01:42:42 +0000
-Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
- (2603:10b6:a03:54:cafe::92) by BYAPR02CA0039.outlook.office365.com
- (2603:10b6:a03:54::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.29 via Frontend
- Transport; Mon, 3 Jun 2024 01:42:42 +0000
+ bh=LfuEgt7sy+V62aq2Sii76qtSeeEumBtCCs9/SownSMo=;
+ b=J+IugXoxeuLbt9C9XHutGnA1oF7XdnsnuKDMx4O2PfpewwjNrnZFhZmR1pgL6J2a9QpTYQgMyH/kTGXTrwSGrLkQH8j0uTS82b3sif/M45G5QiCki34HBYSLq5xrOBc74br6DOjKq0TgQU8Tskn40yRSLmpKrXK4UaBV9w9ac+E=
+Received: from PH0PR07CA0035.namprd07.prod.outlook.com (2603:10b6:510:e::10)
+ by IA0PR12MB8256.namprd12.prod.outlook.com (2603:10b6:208:407::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Mon, 3 Jun
+ 2024 01:42:44 +0000
+Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
+ (2603:10b6:510:e:cafe::54) by PH0PR07CA0035.outlook.office365.com
+ (2603:10b6:510:e::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27 via Frontend
+ Transport; Mon, 3 Jun 2024 01:42:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
+ SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Mon, 3 Jun 2024 01:42:42 +0000
+ 15.20.7633.15 via Frontend Transport; Mon, 3 Jun 2024 01:42:44 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Sun, 2 Jun
- 2024 20:42:39 -0500
+ 2024 20:42:42 -0500
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 01/18] drm/amdgpu: enhance amdgpu_ucode_request() function
- flexibility
-Date: Mon, 3 Jun 2024 09:41:55 +0800
-Message-ID: <20240603014212.1969546-2-kevinyang.wang@amd.com>
+Subject: [PATCH 03/18] drm/amdgpu: refine isp firmware loading
+Date: Mon, 3 Jun 2024 09:41:57 +0800
+Message-ID: <20240603014212.1969546-4-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240603014212.1969546-1-kevinyang.wang@amd.com>
 References: <20240603014212.1969546-1-kevinyang.wang@amd.com>
@@ -73,50 +72,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|PH8PR12MB7351:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05567d65-16f1-42cf-5ffd-08dc836e7593
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|IA0PR12MB8256:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57b080d4-225b-4440-f9f0-08dc836e7704
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|376005|36860700004|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1V2E2dmZcOPhdJSwbnlCkdOCqYIuCt1iJui+C1/vQOq3VPHfG56YPny6m8tr?=
- =?us-ascii?Q?mj4Za/f+PICfWyeumPdrYushvyojUM2OB0tdK9oj7nwqx/DdrdQmtlkfndk5?=
- =?us-ascii?Q?4eO62To60bZX8LRaSRrnP1r8YJNrrTny8njq+FEvUxKEqxLcy+U1w7UqRS6f?=
- =?us-ascii?Q?APM0rzU/hZt5w4h9Gj9TyvXUcKI5aEHsUTHzaOI+yA+jh47fM6NfTrtsN8N/?=
- =?us-ascii?Q?aNxndqP1JquaC4BRosZ43vgmn81rKplEHODMDs5zUB/xACFs/qBNOCYzhppz?=
- =?us-ascii?Q?KP7qoce00mfaNgQg05kbsGVQJx1rzIk2qF4XYWW1xjW87OB2tjRbh1mUADJe?=
- =?us-ascii?Q?1smRf8ta56hXC8X3DFsA0yjEG89p7cKj/S5j9OhyAo+oD4GAqyqeV80WtHVi?=
- =?us-ascii?Q?lHgsQmg/U5UXjZ39m+tYV1bvYERbcRz1LqHVK3RJoCBVIhHPN4RLsKtaqNo7?=
- =?us-ascii?Q?5afxvuEkschF8xF+7ebkXgbCLTgYUkRuD5eJLRY57QFJs3d6mjxKyhEGTaCk?=
- =?us-ascii?Q?ODHx0eDaqYo3hVkC6LUS2B1xdmT80PICTMUWgQpHLjWxfSgoAbY6MVtOBInU?=
- =?us-ascii?Q?QXs37fBnsHTMSF1/HBSgbhO5bW0Z7A7jV1JCCgWJra00dWcfoO22cGCgwyPo?=
- =?us-ascii?Q?2gPjHxMopmhfLZPk4sDZuLzbbCssi1mZ0qacWnIp/YoMO+9xhq53vCaGGvHz?=
- =?us-ascii?Q?jzy9BdXcBMKHsdrZiq0xjLC5lS/s79Qu1KN1Ad7WN/9l/0AOsJt8h6+tAfjR?=
- =?us-ascii?Q?VcXbFfNjHjKISp2bkCJbZ7CRZZeK4I1VaTmSfEjDpc+jgd5hu+9RwSVUJ71C?=
- =?us-ascii?Q?9gzMHA1UJHucalrzN+VmkBkMxQjZ2Js7/0M3tgncPKWk3CrOucq2RIMuID+0?=
- =?us-ascii?Q?ftmaenE5t70yti3KuhZ0oH0Q/6oMETPTXFXIKolG8ezdbIr7c5de49QYilo6?=
- =?us-ascii?Q?D1bZ3rC8onbcaC+P4UHc7W+mP714RPZw9blJnCRz/g06a0IE3JI2C4sm+ZbY?=
- =?us-ascii?Q?M9NQnByDiENeMjbjc9DHBrXksV0QZ7GUSjYvEvQ4A1ovPZv1ovMGLHOCoR2G?=
- =?us-ascii?Q?NWTM7Tp3cx0oxXgtd49hYvEPSSp5loMe2qGxuRNLfRrtXejLcijuCuG+pcLR?=
- =?us-ascii?Q?Tz1SqFjc14HpkgB3HMMVGjYfMdvCwysg00xK162iAEGHGO8NJL7z3HYmfC6b?=
- =?us-ascii?Q?aQv6fvIdG3mda4Q2WQaKvLILrMkICrBLjb0A0pW55gI2i0kVHqABwHEAL0dA?=
- =?us-ascii?Q?IOZUegJCiepoc+/HPPRXmonvCtL0areL2NeQh03U2RypcfKpZtaqZ9smvAlb?=
- =?us-ascii?Q?J1Qu1YM2uOe+gaNLk5j4wpFaaq8PRo0C9pE9hd8YokZ4GDeWcOhiiWFWTFqa?=
- =?us-ascii?Q?H/+Gfrk=3D?=
+ ARA:13230031|82310400017|36860700004|376005|1800799015; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ktEBTS+7lsKzKixssugaGX1OV+nUEGZqopU/T7FWwkMqQd3cnu/JQwe8gml4?=
+ =?us-ascii?Q?tkVbhJOskmXkS39tqJxX/PQcakGkgps+RZsPBpKaNezRs8mV+5212YUOvv9B?=
+ =?us-ascii?Q?zNzFQcB1MZ+2SgOaYUR/OsGfUi0dqJOnRl3o8+nvMtqLlWswvopXtaminWro?=
+ =?us-ascii?Q?iuxAKodHasOUOy/H0D2j3ey+k+h6z2Kr8aeW3unyGTzHxPeV9DZVfwzKdC7i?=
+ =?us-ascii?Q?MyHNWQrebUPqNoP00j2m54Bn6vPGjRD3JLrsb0+psiF/wAbez83IhHv4W44j?=
+ =?us-ascii?Q?1ufuuMGOSLI9CiOT9eCijOxc8Zqwn2NhJlfjLKg9ohXVhJUjgW4pgGjHmmeA?=
+ =?us-ascii?Q?7HhxH9UFv4KabAVTGaluItzBgmz+aKMxUucaOIN6XKlA5azRaaWBD0HwcifO?=
+ =?us-ascii?Q?eRprXlWb+/52IHkadejshkINvfDfQmVE2ytgADp+QpG22tX1jUkfCt6NGuRp?=
+ =?us-ascii?Q?4XI9YTwSDr97/U6UGOuWsAt0OVkaCDp7anCihn49oPlwipZr9ddnZh4nGHk7?=
+ =?us-ascii?Q?fSecmFuqweJX7G8a7FzH2/oEg6Ev/xeqk30ABEP7FtwRXqn4yENXTX0MFO5N?=
+ =?us-ascii?Q?BSZFQf53wYci3tbjHsBSfAjNUx2djtTxlYfqouh5k1/WlHRcsY225gqK6X2Q?=
+ =?us-ascii?Q?0Ls56wm+k60j5GCK7CqKtn3L+TJMl0BKgE4lkhFyjUOcwLKGpX7On/LaPd8h?=
+ =?us-ascii?Q?Wc5e5T/1AfbtWZxNIg7RvQepN1MxvxzSjCO/sQ+8us1OlMUIC/mf0rtBmMy/?=
+ =?us-ascii?Q?OjKq182ahfPZ/UKUl0HzxbsorjW6VNKnCdCj1KDZQGXD8R1Llq1VuBL/tZzF?=
+ =?us-ascii?Q?rXGzYIUeUMA5CYykhY1hB0PjJRGv0s4S94qGNbhNrvtYv9xSAzAbEzUN1hAF?=
+ =?us-ascii?Q?YE3EUDz9U4nOcnJdwWjXZKBitBiQ9kIF+rmSIQeAA24QKezBykaCqjEQYZOV?=
+ =?us-ascii?Q?Z8msEeqS1hmnKg8TjxXNkT4uhxRdtTjgJaKh0E9QeSxaDlQGrUy+lBV3wt1A?=
+ =?us-ascii?Q?rhFy1KQnOcdfB+HNS9sxliMj7uAcTzNCFmAvDg6Y2jFgWEz8WMie0AvH91c6?=
+ =?us-ascii?Q?nmjgiI0ILRZmgEiwKIWviyGe8nhIx6prNuSHs1AVVq6rvMqaG4Y/MT+unil8?=
+ =?us-ascii?Q?tskE1ylkE5YDrZAzeUdngKsoMPiHXAQUahwsXMTYr7wrVuoh1j0GEjcaX6HT?=
+ =?us-ascii?Q?aQ9TnA7yHcYQSmKMKw9XX/+qYvuuSRUCGYOvuj0syKwfbtaBhXBk9IBwVTCj?=
+ =?us-ascii?Q?25688ERxmW6z73w474EnSUrWPAdJX7XIS1MS1sKnX14GHi5MdXkl6ZXurdTJ?=
+ =?us-ascii?Q?vGv7yf8OCmkJbXAqwH2QNNNvP8C/hvYjvRZ6bJk+CYJCV8spR/N73JuEEgkk?=
+ =?us-ascii?Q?77OxpV6+dnSA2klkoi1D9FSQEM3z?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(376005)(36860700004)(1800799015); DIR:OUT;
+ SFS:(13230031)(82310400017)(36860700004)(376005)(1800799015); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2024 01:42:42.0907 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05567d65-16f1-42cf-5ffd-08dc836e7593
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2024 01:42:44.5130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57b080d4-225b-4440-f9f0-08dc836e7704
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7351
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,91 +130,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adding formatting string feature to improve function flexibility.
+refine isp firmware loading
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 30 +++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  3 ++-
- 2 files changed, 24 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index a9de78bb96e2..a452d9b6afdb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -28,6 +28,8 @@
- #include "amdgpu.h"
- #include "amdgpu_ucode.h"
- 
-+#define AMDGPU_MAX_FW_NAME_LEN		(128)
-+
- static void amdgpu_ucode_print_common_hdr(const struct common_firmware_header *hdr)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+index 2a3f4668cb9b..215bae809153 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+@@ -97,16 +97,14 @@ static int isp_load_fw_by_psp(struct amdgpu_device *adev)
  {
- 	DRM_DEBUG("size_bytes: %u\n", le32_to_cpu(hdr->size_bytes));
-@@ -1432,28 +1434,40 @@ void amdgpu_ucode_ip_version_decode(struct amdgpu_device *adev, int block_type,
-  *
-  * @adev: amdgpu device
-  * @fw: pointer to load firmware to
-- * @fw_name: firmware to load
-+ * @fmt: firmware name format string
-+ * @...: variable arguments
-  *
-  * This is a helper that will use request_firmware and amdgpu_ucode_validate
-  * to load and run basic validation on firmware. If the load fails, remap
-  * the error code to -ENODEV, so that early_init functions will fail to load.
-  */
- int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
--			 const char *fw_name)
-+			 const char *fmt, ...)
- {
--	int err = request_firmware(fw, fw_name, adev->dev);
-+	char fname[AMDGPU_MAX_FW_NAME_LEN];
-+	va_list ap;
-+	int r;
-+
-+	va_start(ap, fmt);
-+	r = vsnprintf(fname, sizeof(fname), fmt, ap);
-+	va_end(ap);
-+	if (r == sizeof(fname)) {
-+		dev_warn(adev->dev, "amdgpu firmware name buffer overflow\n");
-+		return -EOVERFLOW;
-+	}
+ 	const struct common_firmware_header *hdr;
+ 	char ucode_prefix[10];
+-	char fw_name[40];
+ 	int r = 0;
  
--	if (err)
-+	r = request_firmware(fw, fname, adev->dev);
-+	if (r)
- 		return -ENODEV;
+ 	/* get isp fw binary name and path */
+ 	amdgpu_ucode_ip_version_decode(adev, ISP_HWIP, ucode_prefix,
+ 				       sizeof(ucode_prefix));
+-	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s.bin", ucode_prefix);
  
--	err = amdgpu_ucode_validate(*fw);
--	if (err) {
--		dev_dbg(adev->dev, "\"%s\" failed to validate\n", fw_name);
-+	r = amdgpu_ucode_validate(*fw);
-+	if (r) {
-+		dev_dbg(adev->dev, "\"%s\" failed to validate\n", fname);
- 		release_firmware(*fw);
- 		*fw = NULL;
- 	}
- 
--	return err;
-+	return r;
- }
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index db745ab7b0c8..5bc37acd3981 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -594,8 +594,9 @@ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr);
- void amdgpu_ucode_print_sdma_hdr(const struct common_firmware_header *hdr);
- void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header *hdr);
- void amdgpu_ucode_print_gpu_info_hdr(const struct common_firmware_header *hdr);
-+__printf(3, 4)
- int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
--			 const char *fw_name);
-+			 const char *fmt, ...);
- void amdgpu_ucode_release(const struct firmware **fw);
- bool amdgpu_ucode_hdr_version(union amdgpu_firmware_header *hdr,
- 				uint16_t hdr_major, uint16_t hdr_minor);
+ 	/* read isp fw */
+-	r = amdgpu_ucode_request(adev, &adev->isp.fw, fw_name);
++	r = amdgpu_ucode_request(adev, &adev->isp.fw, "amdgpu/%s.bin", ucode_prefix);
+ 	if (r) {
+ 		amdgpu_ucode_release(&adev->isp.fw);
+ 		return r;
 -- 
 2.34.1
 
