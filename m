@@ -4,145 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF09C25B7E
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 07:26:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A86AC27C52
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 08:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48E2310E2AE;
-	Tue,  4 Jun 2024 07:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22C2010E42C;
+	Tue,  4 Jun 2024 08:07:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3EKZkVkK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EYiI+X9c";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2086.outbound.protection.outlook.com [40.107.95.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1A3610E2AE
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 07:26:34 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 769FB10E42C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 08:07:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m3WqIkimceNNWCXf1KmRX4fJSo6y19lXrDPJAeG7a4ii3ieoBADWYVimZQbm6cTjZt8Vreto/vzNAF9g5jhTjlpBIqgTXQek0lmTr+VI22JCUowMMUtnNwX+FfgdKdlJOaDdrJ/hjjehkY3sAOI/P61+oicsFERPMb4BYX6tvVOVqbajQbGhtMpw39WE2VTHKLKz2ayLI03HgOAjTGfBVyOolwq3GIW2pHEfG6G6JFYKnYFqVZjE12Nz+jArE2RdjbQvDIlAWF4A6P7HcO87A+fk6+RWbuS5hDNXpI70MWFThYADc3IuLlA8iSM2FPNd/6JtUxYPg471JM2763E3vw==
+ b=HuVS4Mz3T6iMvcDsdTpRc98aGZxSQ8o/o0p5lKfEKmR0ylpdvkmU6prz6SC94QUd3VilkbI0GrDyoG1gmqq3WP5SDnlkfCgDadU09NzS3o/thy8QBO3KwMqtJMovnjNiGChWTfx1ua42OqGQhCwlkxMYqOO1r7bAGIkbeRIJX4Rmr36e44YgpKh4NOBQIuiWoPnmahCZOt6WYutiISG148IKakVYJZ2X6D49E/hX0rQy08tS2EopR9g6UwMkJ0YLJupO7/odKS+G3+yBQ6nBzZ8XobRvsNYRxr6XWekV+kMP2/QyfF0NOq48zG6vbsVOxpqumaNtFtC34gm6PkA9Ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFJHxk9UsKFuJTBGfxd2lqync6QlxNZPb6ZRSU3pxRg=;
- b=ZYBK8i6UoxGxuSRYmBApHxlTW1yLOcR1bDcsoLmTqWfubuLpzfoXXvEuzTCpOX1KnX3+lfmlcCW5kci07j7M7ZUaZ/bNV5TxY00DWxDA+JdME0driSFll+nejnzEmuk6tc9CYGY49J82GDg6CCDsDiz13G9pZdDdGnLSnVUQKQIV91k7hdt9wNTS/9IOd52OnIy83GyeVk9yFUSDIcZVeSE6L3kdm7MxxhRz3m6p5ERvsEOH5uIk/KtJFep/eGRhQrsllOwH6ZTWJU6BTgdCMzPuPKnPZyWeh9kRUy6f6jTDq1KOIkM/PMhxyGSBqToOUdM5sZGIPKeWcBBb+kayCQ==
+ bh=nipisv5EdleGADvniudCaPFN/zZzzgbzWlQN+KFHK+s=;
+ b=Fk7T8HqSa/Y9Q5OKT4S8Qe4u0uD3VcDYRWakNBlp/z3q5XyQBGsd6+P6yrrgb0g5P+UJFQEPOMNcoQnOTPR+Lv58iULomc7G+ocQYoBJz68iKCSOGqICCEehp62ah0ALtShKaLdb5rfhI6ed/M9UTtgQV8Tut5JGcR0nPmxm3a08+N/dhPKc43EosG+aZK3VFkqMqsmPGhnttXcmY2SSWUwwXSal/jdaw2vc/cdpuqhNBNdLoe6rLlBjHu3MZNW3DnawV4l20uWs6Yz5/5/Ft4eqCEah1/V9a9F1BE0h/pD0zmxGnr2WdeEv1Gk32J0FnHno4nFSpN+o11tlGPfqOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFJHxk9UsKFuJTBGfxd2lqync6QlxNZPb6ZRSU3pxRg=;
- b=3EKZkVkKc7jm8Jc6b5XkzIiR5pG2Y/L7OLvsEWVu5XqoQbcYrgSHE7F3PKDMEC7vPDtVIuy0Jmzwb/T5ntYC+uGc2oSUPt6D5DGwO3Cxoa81Gj9NJvE4wvCY8/GT+Ct9gp4N3IYNBgsye0koBdEq8GczvSbosmSHa7jL5eE0KeM=
+ bh=nipisv5EdleGADvniudCaPFN/zZzzgbzWlQN+KFHK+s=;
+ b=EYiI+X9chz6MomfKq//iPMQCGpfAt5fO5TeuzGpeQOgB63al+/d0hCSWpG6w5yR2ssbhYerxRCHwDdCfa5WrBisfZLImCRZ5NUwmLw+iTmGvgdHyWKr6tPGhuvlaJdLUKpbcd/hz5ynuvfMwMQHw1ulg4V8LIPT5lnUtyps4DiU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22; Tue, 4 Jun
- 2024 07:26:28 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.7633.017; Tue, 4 Jun 2024
- 07:26:28 +0000
-Message-ID: <21fe0149-188b-4510-99b4-35a54805401f@amd.com>
-Date: Tue, 4 Jun 2024 12:56:17 +0530
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB8308.namprd12.prod.outlook.com (2603:10b6:610:131::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27; Tue, 4 Jun
+ 2024 08:07:24 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7633.017; Tue, 4 Jun 2024
+ 08:07:24 +0000
+Message-ID: <a33dd3d0-c615-443b-8b97-bb08f176136a@amd.com>
+Date: Tue, 4 Jun 2024 10:07:18 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdkfd: add reset cause in gpu pre-reset smi event
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harish.Kasiviswanathan@amd.com
-References: <20240603181258.170580-1-jinhuieric.huang@amd.com>
- <20240603181258.170580-2-jinhuieric.huang@amd.com>
+Subject: Re: [PATCH v2 03/10] drm/amdgpu: abort fence poll if reset is started
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Xiao, Hua" <Hua.Xiao@amd.com>
+References: <20240528172340.34517-1-Yunxiang.Li@amd.com>
+ <20240528172340.34517-4-Yunxiang.Li@amd.com>
+ <32ab9756-ca28-4ec0-919a-1d1df950aee7@amd.com>
+ <SA1PR12MB8599F850C7BD44B5F66D80E8EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
+ <a1e40066-f980-4490-a0b9-d8f3be34ad8f@amd.com>
+ <SA1PR12MB85996538350B30F80330C0EAEDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
+ <b646408e-9b50-4e2a-b2b1-ab1ff9f4b366@amd.com>
+ <SA1PR12MB859960F8F2B9B22E726EF6D2EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
+ <b35b5556-9919-4806-bea7-f7ed94844a04@amd.com>
+ <SA1PR12MB8599AB4284E5B4415D92FF14EDF22@SA1PR12MB8599.namprd12.prod.outlook.com>
+ <ab92ab3e-b96b-480e-8089-b3949f453bd3@gmail.com>
+ <CH0PR12MB53721A7C3403982035E48639F4FC2@CH0PR12MB5372.namprd12.prod.outlook.com>
+ <380c4bd1-ab50-4f42-bb50-69dc0fbd28fe@amd.com>
+ <CH0PR12MB53721EB64869BF3260CE095DF4FF2@CH0PR12MB5372.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240603181258.170580-2-jinhuieric.huang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0149.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:c8::22) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CH0PR12MB53721EB64869BF3260CE095DF4FF2@CH0PR12MB5372.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0113.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB6810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 062bde4e-95b0-4acd-d89c-08dc8467a634
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8308:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17a045ff-859d-4158-006a-08dc846d5df3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|376005|366007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0IybXovQlNyek8zTHk0NWo4Wnp0UUU3dDFFQVN2MkEzWVdWckxZOUptRW94?=
- =?utf-8?B?MFBIdTJhRGFzc0dlMDNnUmhZV2tnMk9lWGE4WUZ3cEZLdDJXbk93L1ZxRlN0?=
- =?utf-8?B?N2xRanN5eGxvM1pmMHEybzh1bDdVRi9yc0lydjVSN0lKbTVXWkVZLzVUZFcw?=
- =?utf-8?B?MWtjYW9oaGF6T2ZmZkxmOXd6aVZKd0daTWY2TFozcHFnclRxL2w5aS9PUFNa?=
- =?utf-8?B?eHRYN3hLUmM1R08vbmtnMmVhRUUyMHJ0V1NhTTIrODByM2xiM2ttK08xYmFz?=
- =?utf-8?B?MWo2SzdMb1dURllkVHd2ajhuTzVRdUlXVk9yN2lhd2ZYNS93c1UybDJHQnFB?=
- =?utf-8?B?VVBxOHJGSjdwZ2swcG9zT3pSMW5SY1BZMHJwTTh0ZnIrcUV3R0YwT1FVbU9Y?=
- =?utf-8?B?bUlBaElMS3ZoRzBMZUdYMExYcjFjUVRyNHp0WWtvU2Z1V0NVWEVnM0tGOXpR?=
- =?utf-8?B?TXZkQVJsVWYyWjZQR09DZFN0YVlVRVFEdVBRMkUwZG1VUDFPc0w2U1YrMnBJ?=
- =?utf-8?B?aDU5TDFmS1Y4OUEwUjRmUlFzZmxaVFBVZTA0dlZhQ3hrSjBiM0lpd3FGRmNB?=
- =?utf-8?B?OUZwdmF1VVFXWHNLUXdNbnEzcVc5RHlBZjZwWXBXR0dMYWl1WlB2T08raWtP?=
- =?utf-8?B?Wkt1bDlHRmcrUFhUSkR4NndUNzAwMUpObFd1MG9VY0l1YldNNGhZTVhtYk94?=
- =?utf-8?B?ZGF3S3h4d1VBV2lOMnNZU1lNL3VQdXdUUjN2NStDVzkwdHgveHMwb0JNanF5?=
- =?utf-8?B?RDNOYUdIdFliK2x4WGdIVTBWUWpTeDQwOSs1aHgvb0oyTjZWMXlqZ1BQd0hK?=
- =?utf-8?B?YXlWVU9BZ1hNY2crZW5hditwcWQrcGZ5VEp6UzlneHdHOVhzUjE0QVBuOGd5?=
- =?utf-8?B?d2RKR203V1pXcjFNSHQwbHZsU0txT1FISFNQbFAwWi9ZMWwwbkg0bXdNcDI0?=
- =?utf-8?B?c1pWTnFSVXlrOHdkU3RBUnROMkJjcUdOcEdXbGhpNkUycHlqU0NRWFd5amxW?=
- =?utf-8?B?bnZXWG5xeTlCZE9jTW9IUm1jR2NRSm9SczU2YzhwVjV6cUwvK3FWZ0o3R2RL?=
- =?utf-8?B?SFE2eFJpN3Y1RGVJUHhjd1RrM2M5UUhHb29Lcmp4OEc1ZU9wSGRRa1pvb2xB?=
- =?utf-8?B?RTUxNndoeTBqaGRMeTcxWHNLUzROaWZsUmpFSkd0UThpUVp3Q2dFNEJUNzhk?=
- =?utf-8?B?QXFmYVRjMFFZUlJDWkFIeE9nWDhrRFB2MjFJUVRoRXFRUFp5a1RsalJOVHRx?=
- =?utf-8?B?bkdnNHpaYUZCUFFrTU44N2Fva0ZyelF0Y2lLRnBZREJLcmJPdWd3S3kxYlNR?=
- =?utf-8?B?TFlBakFTTjI1Q1RCQXpQcnBEeS9iVUxhampuS1E1SFRkZFZyMnZFRU02Q1JL?=
- =?utf-8?B?RmkxT09QZUpmRVFHYzI1MjRjdjRReWIrLzhOMGUzbC84MGlVWUIwMDB3Q1N2?=
- =?utf-8?B?ZVl6R3JVZzBiN25wWnJnTmtIY1orSTU0SFBudm1lR2JIY1F6b09DTG5nRlYz?=
- =?utf-8?B?NWpGMU5mVU5XbDhiWHVoVGRBT2NTOXM5Nk1jOGNqUU9qeDk4cXhOWVJVdTJh?=
- =?utf-8?B?Yk5TY2tMaTlBT1dFU2tIejBjUitOTUdYYVRqcU9BdFhTQUFHWkxyU0djN1A5?=
- =?utf-8?B?RDNQU3pXNmFqNFFBVDFwU2hQV1NjYTZqUTRnT1VQV2hQRXBDQjhEbEh4cXRn?=
- =?utf-8?B?MzVyaW9iSnNrMUxFeWlZSG5PWThPTTgxcUxyL3RVY1A1V1R4VjdFbWdRPT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|376005|366007|921011;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eVYyK2xlMmtjWGhqcFVSSGtmVE5SK3AwaDVJeTlpb0xpa3Z3MHBVSTBCNGNK?=
+ =?utf-8?B?U1l5UFVmbnZBZVFuQzVRTkxVeWJtZGhFUnVtamJTVXBiOFgxb25nTUVJVDl2?=
+ =?utf-8?B?Z29VOWtsWTQydVprTllhSXRCOWFRS0FqalFGREZvR0tMMllpTE4xamdWOGc0?=
+ =?utf-8?B?aFhzSi8zemFJT3JsY1RhNllSQ2ZvdlJIa3NURStaQjJzelBoalc0MVFETmRQ?=
+ =?utf-8?B?VUZLSm9tZzNKUmpHT3Fyd1ZTUkpMekdqUFZDME1HK2dyZDJybEhUdjFTYkNL?=
+ =?utf-8?B?OVFxZ2s5aThmVThvSGp4TG5Nc0dIa0pVc3VMTE9oa3JLTjdweUhtM2JXaWRI?=
+ =?utf-8?B?b2EzejBXQi9rNERLR1U4d29oS3pyb09pQVE0TTR5YjJnNzJOWU94V1h0Nkho?=
+ =?utf-8?B?b2xjTC9UZlh4YmtiWGtNQ2xWZGFOWGRIb1lFbWdHSEpZcHYreEp4bnR1RVZ5?=
+ =?utf-8?B?WmJYSGdkaVFjVXVaSXh6UXMwcFdVdDlLYTZnb0k2bEpQZWJjZlZYTXlUaWkx?=
+ =?utf-8?B?WjB6WWZHSjUwNmxJbDF2WkN6ZzdaeWVjSW9XN3c4ZS80ZUx3b3VzSWw4d3U4?=
+ =?utf-8?B?cmpMeU85eXk1a2o0Vi9YUmV6YkREOEJSS1dzczJ6QzY3RkwwRGVWUVFGVm5z?=
+ =?utf-8?B?cmhVOXJtS0krSUNHcDNBV1hVQk1YMGpZYjhsQnJmOE1Belc1R1NORmsvcHcx?=
+ =?utf-8?B?WjcrM28rYzR4aC9kQnduUzVzanlWSVpHcXZjbjZDYllqc0FQMkZrVGJxWEJv?=
+ =?utf-8?B?dXZxbEcyTE1UaU1wQ1p2SzZXbUp4bThvaWJuNEZBM0ZHUGhNOStWMmNUeUpi?=
+ =?utf-8?B?ODRZdWc3VnRib0svRTM2ZUk3VysxWlcycWlsck1pL0RpK3dqazE0RnV3emQ5?=
+ =?utf-8?B?RlhxTkprbmpjdjZpVk5mMHhvbVcwdTRMZXlUSVdLdjhmY2Z1WXFJYWpqSVdo?=
+ =?utf-8?B?VllpbVBCdlR5M3BjeStOQStyWnVkOFZuRmZ0OVBDVkR0bDFWUXh3T3ljUmxO?=
+ =?utf-8?B?ZURpRDdWS0NqMkdkSjRuSE8va0ZCMlB5M2pNM0paNXhCbjQ5LzMvMEhkbWpw?=
+ =?utf-8?B?bDJTWWFOM2dqc0ZIMDlHWkpURmo4QkdJS3AwWUN3U0NseVhCNXZiZGhHa0w2?=
+ =?utf-8?B?blNrUWRERDh0L1VVZjcwUHNFemNBcUdRV3dYZDdhMjdZaGRDb2RuKzBHVE0x?=
+ =?utf-8?B?UHJZemdtRXhrZW5CZ09YRVZWQ09rUEtERHFJbHFnYzBKdC8rNC93Z2pONGVU?=
+ =?utf-8?B?TGltejVxamFBNGlOSWVqbGUvc2tkdTlnN2RmVmxWSEpvcFZlRWl3TmllTzhF?=
+ =?utf-8?B?bmtXNS90Q3pkZ1J4dHR2Q3VXN2NsaDhrTFNHRXpVSmZNZEwzbGVsNjJXa2xj?=
+ =?utf-8?B?YVJFeHc1dDhvaG5HSnlWcDlkdkpzdklKaVZiT2ZuSmJUQ3lLRTV0cEExMEhG?=
+ =?utf-8?B?UjNhQW1RNjV3OGZKditHdHVLR1lpcVB5Y1BFSHYzMEhiZ1V4VG1ZbThFSDB1?=
+ =?utf-8?B?MDByR1BtVVc4dlNHL0Y4a3FzTGNJY3lCbEdhaGh3cUJqQkxTbWxGRllpUFRo?=
+ =?utf-8?B?aDZLMDhueGwvZ2tVVURkSXZGWUViSWF0V0tpd2djVjZjbVNEU0pvRU0ybVBJ?=
+ =?utf-8?B?RUdqdnJRQnRkMG5TYTViTjgyOWY4UFZkS3ZpamZGYUZZRVJ2WkE3KzFScGdW?=
+ =?utf-8?B?bkwzelhlUmFLNkZSQmwrZEM0a2RIS1cwUTZ5SGRKbnozWWttbTZiR1dTaXBz?=
+ =?utf-8?Q?g5VXchxFApPi4JUJ6vF83PCr4KADfbKHrj76NYi?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(366007); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(1800799015)(376005)(366007)(921011); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YkhkMis2VTNvUnd6YzBTRzZKN3ZYdnlxL095MlFNUEJGajlYRWNiMDVpQk05?=
- =?utf-8?B?RHpwRVVabEdrM0l4VUlnYjJBMzZpbjRKZWFOR0JEblMxdXV5SXdNcFdtbUhw?=
- =?utf-8?B?U3dvS3pWZXFJQXR3VmRIMVZWemx3VU5sZVpWV0UxOGZIbUczQWZBdnE4TU1u?=
- =?utf-8?B?ZVcvbW56WVJ0UGhlUU8yUXZuN2VObGRXMHZEcEthUGY2QVF2QU53STNDQlhB?=
- =?utf-8?B?SUVUZG5UeUVWaWR4N1k4bmF3dVltRkdBVGcxbjBqeWhxNVhtT2VVSzQ5ZGpC?=
- =?utf-8?B?eUtrd0RFQWhkSWFJM1BnQkZNYnUvVzFtNnVKVG1GSzZQQ0pLWE5OQTJ1NVBt?=
- =?utf-8?B?cmxNdVFlWmlVWHVLcjM2RXJ3R0YzdWRrOHYveDIwVGFtaFJHMjExeDQ4VURD?=
- =?utf-8?B?QmtwYzUxeUIwMVMyejE0cmM5T2FSSGhZbUp5RFJ6NzFSZGROV3dmRE1lZEF4?=
- =?utf-8?B?TnF5cXZaSHd5bnZKSjg3YnlPMHRFaExYU3A3ZDZuclhuY0wwaHl5Q210cFJo?=
- =?utf-8?B?WHpxMVZBZktkVkVvZFNvcnh2T0RKQzJLdnZDS1ZpODh4cHBGMVI4Q2duOUdR?=
- =?utf-8?B?MFFyZjZxYlFlS1VjakdFT2h4a051em1OSlo3TFR3VFh0NzVzVWxLY2hVckh2?=
- =?utf-8?B?MThGaEFzMnRlT2t6bVZiNklVUjlNeERpK2FQNEpxWWp2WGF4eVdUZEZPallS?=
- =?utf-8?B?TGdKc3lTZlEzS3lTSTBybi9mb1ZTQk80R1lwYVp4cWVrZWxyTFF4amxFNHh4?=
- =?utf-8?B?YWhESzFuQXVzdzIyS1lrR2tnSE1jRXpJcUIwT0c2bmFLMllPMlJiWEZQamov?=
- =?utf-8?B?bHVkaFNmRktlc1ZYcmwyZFI0YlJWMnVkOGpiM3Q2QkxZeXlCL2JmejF5RVMw?=
- =?utf-8?B?V0VTTjdNQVA0TGdwVk01ek0vdVZ1a3Z2M3h6MlhuYXdkVHhpMEVtSHROaS9y?=
- =?utf-8?B?WGI0Uy9COExPT0oyaVF2b0E1OG5DWFVKTHArdnVhT3J0cDVnVlpQQ3VNUW5W?=
- =?utf-8?B?R3oweTViRGoyeFNsVUpqNUU2VTN2TXJWcEV5bzlHRTYxQlBOd3hhMy93UUxv?=
- =?utf-8?B?aUJ1cWh1YTBlc01JYlJIMmo1djVpUElPNXBGd0JoYXFDb2F6Z3dsNTVxeUNV?=
- =?utf-8?B?c2lLcDlNOFM3REorNDVLQXZpMHRhUkN1R3JmWHlhUm5uT3lRMW9oMDc2eHls?=
- =?utf-8?B?MHdCVGRHcFphYmJuVWZoUHNjWG02VVBOYVVXblFVeHZKZk55TmwvOVpvbXNj?=
- =?utf-8?B?R0RVVHo4Yy9jVnB5US9QL2xUTS9CK282bVZCbnh3ZzBzTGpqdUVYYjUxV1FR?=
- =?utf-8?B?VDE2RXNyNGNCUThoK3YzMjBXbWhDZmVFWEsyYzd5VDE0WHRmRkRvNmFoYU5x?=
- =?utf-8?B?aFpXZExDSFVaSGkrK3pzSkROVXVOS0Vqb0tjbjNOejhqN2F5aGVwMnBYbGlJ?=
- =?utf-8?B?Ym00eFNSaW1lL2lPakJmdlFTU2krKzd6SnYrb3REZ1NJYXhjNlJBdzM1QWly?=
- =?utf-8?B?TkhaN1A0ZXIwQldvbk1pK2haMW1NMCtkZnVpUHFmSHJLT09iZjVLY2dEa3JR?=
- =?utf-8?B?a0JoQ3dMRFJjMzNDS0JodXREUlVHRUFKRThRQnlKZVVPMWs4Z2U2MzdIUVlW?=
- =?utf-8?B?UWV4N1JPMGJMYkg0ZEFJZE9OMTVPRzhvUVkxU3kyenpqMmd0N1B1ZER2V0th?=
- =?utf-8?B?ZERTRFpRYnIvUTdsTDNaQU5hYUsvbkg0YzZZSmp0clVvU01oNUY4aDlZV1c5?=
- =?utf-8?B?NWxDdmdRZFlsM2xhNm5xYTgwOFJrNkl1OTZMT0VrbEtTdzRhbnFrRDZRakVn?=
- =?utf-8?B?RVFoWENzaXVoRGtYMnVrN1QzVDh3Zlo4TFVvb2dXaXlIQ3VXWXNKZFZFWStY?=
- =?utf-8?B?dUtLVTBCKzkwQ2tZQlRRaHIrY2Y3ayswY3U1M0N6NXl3MmdzVUQ0MWNRdGRu?=
- =?utf-8?B?bUtRS2lqV0V3Rlh5TS93Z2kybFM0ME1RajdnMzRUNEdERFMvdVE4QXhUZCt2?=
- =?utf-8?B?VFAzekFBM2ZpVUlnMjc1SzRiemFlQUxSRmZvTGdjUjJBMnZEd2tHN0xXeFJn?=
- =?utf-8?B?aUFyWkh0R2Z5dlFPelhDbWxXVEVrb09CajBwVDFKaFplSmlORDZWbUhGZndj?=
- =?utf-8?Q?tR0NCQEJrTqIIlz8lbtvDXG9m?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmE2NmtNMHdiQ0FmeGNqaVdnMWNGNFcrUWFaamhzMUxEVnBZTTZMOCs0VjBo?=
+ =?utf-8?B?MEY4MHFwVHJDalYrbkwwcXRhRmtRYXpqRDVBbFR1WCtPVXpGdE42QTgzbUlY?=
+ =?utf-8?B?YzU3YTR2SGZMNzZQTDJCZVBydXBBdUR0c2lyRDd5UlVyZTNjWG1wWTJDZ0I2?=
+ =?utf-8?B?VjlLSEQ3b0hWZ1JPRHRlRkZuNUx2a2RxKzJUeDFmSUF2YmxTUHNaaXQ4RWhk?=
+ =?utf-8?B?MVJaQlI0YithSktnTkRsTmJzL2FVWWxtbjFhMGRINEZ2bS9PbEVFdFJKSzlK?=
+ =?utf-8?B?SWZrYVpXTzJSbkpzTVZwRFNWeGNtUzVCZ2NjRXhBb1N0UWNHZFhlSEg5WWZT?=
+ =?utf-8?B?RU15Mld1cjR0NFpSV1B3RUFrT2laNm5zTG5FL0NmL3RBa21mUTk0dHRjS01j?=
+ =?utf-8?B?OTloY2VPVi9vVjNabG9LL1YwS3ZSU0UrMU9aV2xETVRVWlJPZ1ZuTGdzcHlG?=
+ =?utf-8?B?bnJxaXFHbHdXVUdhR041Lzg3NVZiQW5YNHZjaDhQWlNIaE05VVNNU2lJdE1p?=
+ =?utf-8?B?VFVNKzNFQzlIa2V5ZUp0bC9wWWtsN25jaDNjMHVWcDRyY1grM29nYUwzb1V6?=
+ =?utf-8?B?bjM5cEloOTI1eW9JWm82bUNZQWRqK3ZRQzRkVXFwMHNYQkh4QlMyTjZlV0JG?=
+ =?utf-8?B?OTNlZDg1MXR1aFNNVUtqT3d2N1JDWjA0ZlNkSjlObEsySjBJUFNVeTFGK2VO?=
+ =?utf-8?B?L3dNeDVlZFNOZU9BaHViaDF0SmlxMnorVDZaZ3hzSWdrblA0emNDQWpMM2dQ?=
+ =?utf-8?B?SVhySkdCdVhtZllDNTRmaEVXSVhpZUdmT3BPZGN0UXoyRWR1UUdUYXFZVUQy?=
+ =?utf-8?B?WTBHNjNMbUJaaFMzQzhvVWp1dnNNNGJXWGJTcHFOWFF0RHpLNFlGREY5Tnd3?=
+ =?utf-8?B?M3pyMGdJTXlsd1lvWk00dTZONXY4eklBdzZSTERXY0lDL21GREpVaVZHMjUr?=
+ =?utf-8?B?dTdoZzZLaE51VktRMzlFTno1RnBHNm1oc3FGdmIzWlRZQjBYenAxeVBDaTRB?=
+ =?utf-8?B?Q1JDNzhEcVFKMC9nMVN3Q1ozV2p1TEZDVHN6dzlwZXQvL3dxeU1vT01la3VJ?=
+ =?utf-8?B?U3ZpNE1EUzdYa1JVVWpuU1hDeVJDaXVMQlVrQjhWbjliRG1Qckx0QkM0WkJF?=
+ =?utf-8?B?ajRZc1RSWjZqOGZsbGp4UGplMmNmU3ZOWnUwNkEwbU8rRU1iVmMzVXFzREdr?=
+ =?utf-8?B?NmJYNDdyZEwzRGtaYkFYWUJtclo3OE5wcDN6Y3ZreFF4UlFVb090Zi9YQjZ1?=
+ =?utf-8?B?dTVhUDh4dTdOTUtnSWM4YjdFbzEzUnBXeEdvUG5lMlV0YUlhOHN4WVh4dXRN?=
+ =?utf-8?B?ZjBiNWFWTDB4eGc5QTVGRUdsMk43SGhYdzd5L1NYMXJyYk00Y2NaamV2bDZQ?=
+ =?utf-8?B?bDgySC9sL2JzVC8wTlpGMmhRdHU0OVhueTcydFM5WDZQekVZTmtQcyt2UTJx?=
+ =?utf-8?B?c2t2N3ZMZTZUb1BuQ1gvWVJ5MDJYbGVwVWZRNS9vM2wzM0xzL3dGdzVwc2Mx?=
+ =?utf-8?B?UzE2aXRzZS9GTEhtU3AvRUxyMVN3RG91QSs3aXVLd3pvQTFCalpXMDl6TkUy?=
+ =?utf-8?B?K1ZXZVFLUGJkTEpXQUFBalVDNzJ3dktnTzREV2lTdjllanFjN3RuSnM1elBh?=
+ =?utf-8?B?ZHZzOTlzRW5wVit1KzJsTElKS204Wk1Qa2dWT3BPR1RKeDgxRHUzSmwyaWdF?=
+ =?utf-8?B?Ui9mNWRuZzZ3TDk2UlV0Slh3U2ZlQmxwRFlrTlhyT0xVMVU3N2w3Tk8xeEc5?=
+ =?utf-8?B?NGNGOUZLUjUzellEREt4QXpQMFNnU2k5ZFBISlYyQ3FVUXNRNUxrWDJPcjBa?=
+ =?utf-8?B?UWc1VWpqWFB0NkMwVVBhMDhZakhDbFZaSkh4d2YxSU5zTU1lRW5BV1ZRWDdm?=
+ =?utf-8?B?T2VWRVFsbUZhWTEyMlptaVVxR0JBVVMwZXR0NE8vcjRiOG4xZHlKU3d4Znd0?=
+ =?utf-8?B?OW5UT0hDSEUxUmUyK1V5V2pSNjIyWGR1MlpNRUJsckdEQUhyRWpUNXptZVJH?=
+ =?utf-8?B?TkEyZHJ1a3pOZko3NHJwVTJJaEh1RjhVbWVmY1B4RHR6M1R6QkRPb2drREtr?=
+ =?utf-8?B?TnNHRUtxcTFpM3F2cnVyS0psT1E2QnAxZUc3cS91Nlo0RHh1aVg3SmxIL001?=
+ =?utf-8?Q?8K8AH0OTPRnNM21CVJte9WaUZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 062bde4e-95b0-4acd-d89c-08dc8467a634
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17a045ff-859d-4158-006a-08dc846d5df3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 07:26:28.8487 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 08:07:24.3549 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BQsGq69MaBQYyIcq5nfomkhtvH2fmnmBKErjsXGiIIc2fkefceI0u59NT+z2il6b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
+X-MS-Exchange-CrossTenant-UserPrincipalName: RdYsp5vtuqrgCFM+Vcd9INzZMwDkZMHjqkQGG8swkdN88tI3OnAa4EKkGOGij+pF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,194 +174,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Shaoyun,
 
+see inline.
 
-On 6/3/2024 11:42 PM, Eric Huang wrote:
-> reset cause is requested by customer as additional
-> info for gpu reset smi event.
-> 
-> v2: integerate reset sources suggested by Lijo Lazar
-> 
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Am 03.06.24 um 20:28 schrieb Liu, Shaoyun:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Thanks Christian for the detail explanation.
+> I checked your patch , you try to use query_scheduler_status package  to check the command completion . It  may not work as expected since this API query the status is for MES itself , so mes can update the fence address with  the expected seq value, but the  command  itself (ex .remove_queue for mes and  then  mes send the  unmap_queue to kiq internally)  still fails.
 
-This series is
-	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+And that is exactly the desired behavior.
 
-I think SMI needs to get all reset cause descriptions. Are you planning
-to fill reset source at other places also?
+See the fence value is for ring buffer processing and getting feedback 
+in the case of a reset for example if the MES has processed the commands.
 
-Thanks,
-Lijo
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |  3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h  | 10 +++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c     |  7 ++++---
->  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 16 ++++++++++++++--
->  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |  5 ++++-
->  6 files changed, 33 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index e3738d417245..eb601b41d9d5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -133,6 +133,9 @@ static void amdgpu_amdkfd_reset_work(struct work_struct *work)
->  
->  	reset_context.method = AMD_RESET_METHOD_NONE;
->  	reset_context.reset_req_dev = adev;
-> +	reset_context.src = adev->enable_mes ?
-> +			    AMDGPU_RESET_SRC_MES :
-> +			    AMDGPU_RESET_SRC_HWS;
->  	clear_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
->  
->  	amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 1de021ebdd46..7e945a4790bb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -47,6 +47,7 @@ enum TLB_FLUSH_TYPE {
->  };
->  
->  struct amdgpu_device;
-> +struct amdgpu_reset_context;
->  
->  enum kfd_mem_attachment_type {
->  	KFD_MEM_ATT_SHARED,	/* Share kgd_mem->bo or another attachment's */
-> @@ -170,7 +171,8 @@ bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_device *adev);
->  
->  bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
->  
-> -int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev);
-> +int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev,
-> +			    struct amdgpu_reset_context *reset_context);
->  
->  int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev);
->  
-> @@ -416,7 +418,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->  void kgd2kfd_device_exit(struct kfd_dev *kfd);
->  void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm);
->  int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm);
-> -int kgd2kfd_pre_reset(struct kfd_dev *kfd);
-> +int kgd2kfd_pre_reset(struct kfd_dev *kfd,
-> +		      struct amdgpu_reset_context *reset_context);
->  int kgd2kfd_post_reset(struct kfd_dev *kfd);
->  void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry);
->  void kgd2kfd_set_sram_ecc_flag(struct kfd_dev *kfd);
-> @@ -459,7 +462,8 @@ static inline int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
->  	return 0;
->  }
->  
-> -static inline int kgd2kfd_pre_reset(struct kfd_dev *kfd)
-> +static inline int kgd2kfd_pre_reset(struct kfd_dev *kfd,
-> +				struct amdgpu_reset_context *reset_context)
->  {
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 6711836054f9..4096cb3e937e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5775,7 +5775,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  
->  		cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
->  
-> -		amdgpu_amdkfd_pre_reset(tmp_adev);
-> +		amdgpu_amdkfd_pre_reset(tmp_adev, reset_context);
->  
->  		/*
->  		 * Mark these ASICs to be reseted as untracked first
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index fba9b9a258a5..52be4e340fb1 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -924,7 +924,8 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
->  	kfree(kfd);
->  }
->  
-> -int kgd2kfd_pre_reset(struct kfd_dev *kfd)
-> +int kgd2kfd_pre_reset(struct kfd_dev *kfd,
-> +		      struct amdgpu_reset_context *reset_context)
->  {
->  	struct kfd_node *node;
->  	int i;
-> @@ -934,7 +935,7 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
->  
->  	for (i = 0; i < kfd->num_nodes; i++) {
->  		node = kfd->nodes[i];
-> -		kfd_smi_event_update_gpu_reset(node, false);
-> +		kfd_smi_event_update_gpu_reset(node, false, reset_context);
->  		node->dqm->ops.pre_reset(node->dqm);
->  	}
->  
-> @@ -974,7 +975,7 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
->  	for (i = 0; i < kfd->num_nodes; i++) {
->  		node = kfd->nodes[i];
->  		atomic_set(&node->sram_ecc_flag, 0);
-> -		kfd_smi_event_update_gpu_reset(node, true);
-> +		kfd_smi_event_update_gpu_reset(node, true, NULL);
->  	}
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> index 06ac835190f9..ea6a8e43bd5b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -29,6 +29,7 @@
->  #include "amdgpu_vm.h"
->  #include "kfd_priv.h"
->  #include "kfd_smi_events.h"
-> +#include "amdgpu_reset.h"
->  
->  struct kfd_smi_client {
->  	struct list_head list;
-> @@ -215,9 +216,11 @@ static void kfd_smi_event_add(pid_t pid, struct kfd_node *dev,
->  	add_event_to_kfifo(pid, dev, event, fifo_in, len);
->  }
->  
-> -void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset)
-> +void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
-> +				    struct amdgpu_reset_context *reset_context)
->  {
->  	unsigned int event;
-> +	char reset_cause[64];
->  
->  	if (post_reset) {
->  		event = KFD_SMI_EVENT_GPU_POST_RESET;
-> @@ -225,7 +228,16 @@ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset)
->  		event = KFD_SMI_EVENT_GPU_PRE_RESET;
->  		++(dev->reset_seq_num);
->  	}
-> -	kfd_smi_event_add(0, dev, event, "%x\n", dev->reset_seq_num);
-> +
-> +	memset(reset_cause, 0, sizeof(reset_cause));
-> +
-> +	if (reset_context)
-> +		amdgpu_reset_get_desc(reset_context, reset_cause,
-> +				      sizeof(reset_cause));
-> +
-> +	kfd_smi_event_add(0, dev, event, "%x %s\n",
-> +			  dev->reset_seq_num,
-> +			  reset_cause);
->  }
->  
->  void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> index fa95c2dfd587..85010b8307f8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-> @@ -24,11 +24,14 @@
->  #ifndef KFD_SMI_EVENTS_H_INCLUDED
->  #define KFD_SMI_EVENTS_H_INCLUDED
->  
-> +struct amdgpu_reset_context;
-> +
->  int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd);
->  void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid);
->  void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
->  					     uint64_t throttle_bitmask);
-> -void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset);
-> +void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
-> +				    struct amdgpu_reset_context *reset_context);
->  void kfd_smi_event_page_fault_start(struct kfd_node *node, pid_t pid,
->  				    unsigned long address, bool write_fault,
->  				    ktime_t ts);
+If that processing is successfully or not *must* be completely 
+irrelevant for writing the fence value.
+
+> For mes , driver always poll for the command completion
+
+No, exactly that's what we want to avoid as much as possible.
+
+Polling means that we throw away tons of CPU cycles and especially on 
+fault handling and TLB flushing that is an absolutely in-acceptable 
+performance loss.
+
+>   ,  do you think it's an acceptable solution that MES set a specific failure value(ex , -1)  in the fence address to indicate the failure of the  operation ?  But that should be similar to let driver poll the completion till timeout .  MES internally also need to wait for a timeout on some  command that it sent  to CP (ex.  2 seconds for unmap_queue command).
+
+No, what we should really do is to separate the fence and the result 
+values. And then give an input dependency on each operation.
+
+> I'm actually a little bit confused here , has driver use the lock to ensure there is only one submission into MES at any time ?
+
+No, exactly that's what we try to avoid. Othertwise we don't need a ring 
+buffer in the first place.
+
+>   MES can also trigger the interrupt on the failure if driver side require us to do so , the  payload will have the seq number to indicate which submission cause the failure , that might requires more code change from   driver side .Please let me what's preferred from driver side.
+
+I can come up with a more detailed explanation of the driver 
+requirements when I'm back from sick leave.
+
+Regards,
+Christian.
+
+>
+> Regards
+> Shaoyun.liu
+>
+> -----Original Message-----
+> From: Koenig, Christian <Christian.Koenig@amd.com>
+> Sent: Monday, June 3, 2024 6:59 AM
+> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Christian König <ckoenig.leichtzumerken@gmail.com>; Li, Yunxiang (Teddy) <Yunxiang.Li@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Xiao, Hua <Hua.Xiao@amd.com>
+> Subject: Re: [PATCH v2 03/10] drm/amdgpu: abort fence poll if reset is started
+>
+> Hi Shaoyun,
+>
+> yes my thinking goes into the same direction. The basic problem here is that we are trying to stuff two different information into the same variable.
+>
+> The first information is if the commands haven been read by the MES from the ring buffer. This information is necessary for the normal ring buffer and reset handling, e.g. prevents ring buffer overflow, ordering of command, lockups during reset etc...
+>
+> The second information is if a certain operation was successfully or not. For example this is necessary to get signaled back if y queue map/unmap operation has been successfully or if the CP not responding or any other error has happened etc...
+>
+> Another issue is that while it is in general a good idea to have the firmware work in a way where errors are reported instead of completely stopping all processing, here we run into trouble because the driver usually assumes that work can be scheduled on the ring buffer and a subsequent work is processed only when everything previously submitted has completed successfully.
+>
+> So as initial fix for the issue we see I've send Alex a patch on Friday to partially revert his change to use an individual writeback for each submission. Instead we will submit an addition QUERY_STATUS command after the real command and let that one write fence value. This way the fence value is always written, independent of the result of the operation.
+>
+> Additional to that we need to insert something like a dependency between submissions, e.g. when you have commands A, B and C on the ring and C can only execute when A was successfully then we need to somehow tell that the MES. Only other alternative is to not scheduler commands behind each other on the ring and that in turn is a bad idea from the performance point of view.
+>
+> Regards,
+> Christian.
+>
+> Am 31.05.24 um 16:44 schrieb Liu, Shaoyun:
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>> Hi, Christian
+>>
+>> I think we have a discussion about this before . Alex also have a change that allow driver to use different write back address for the fence for each submission for the  original issue .
+>>   From MES  point of view ,  MES will update the fence when the API can be complete successfully, so if the  API (ex . remove_queue) fails  due to  other component issue (ex , CP hang), the  MES will not update the fence In this situation , but  MES itself still works and can respond to other commands (ex ,,read_reg)  .  Alex's change allow driver to check the fence for each API without mess around them  .  If you expect MES to stop responding  to further commands  after one API fails , that will introduce combability issue since this design already exist on products for customer and MES also need to works for windows .  Also MES  always need to respond to  some commands like  RESET  etc  that might make things worse if we need to change the logic .
+>>
+>> One possible solution is MES can  trigger an Interrupt  to indicate which submission has failed with the seq number . In this case driver can get the  failure of the  submission to MES in time and  make its own decision for what to do next , What do you think about this ?
+>>
+>> Regards
+>> Shaoyun.liu
+>>
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+>> Christian König
+>> Sent: Wednesday, May 29, 2024 11:19 AM
+>> To: Li, Yunxiang (Teddy) <Yunxiang.Li@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH v2 03/10] drm/amdgpu: abort fence poll if reset is
+>> started
+>>
+>> Am 29.05.24 um 16:48 schrieb Li, Yunxiang (Teddy):
+>>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>>
+>>>> Yeah, I know. That's one of the reason I've pointed out on the patch
+>>>> adding that that this behavior is actually completely broken.
+>>>>
+>>>> If you run into issues with the MES because of this then please
+>>>> suggest a revert of that patch.
+>>> I think it just need to be improved to allow this force-signal behavior. The current behavior is slow/inconvenient, but the old behavior is wrong. Since MES will continue process submissions even when one submission failed. So with just one fence location there's no way to tell if a command failed or not.
+>> No the MES behavior is broken. When a submission failed it should stop processing or signal that the operation didn't completed through some other mechanism.
+>>
+>> Just not writing the fence and continuing results in tons of problems, from the TLB fence all the way to the ring buffer and reset handling.
+>>
+>> This is a hard requirement and really can't be changed.
+>>
+>> Regards,
+>> Christian.
+
