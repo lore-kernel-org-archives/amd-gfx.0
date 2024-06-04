@@ -4,41 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE327C27C50
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 12:48:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A753C25B78
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 12:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD2910E47A;
-	Tue,  4 Jun 2024 12:48:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99DB010E47C;
+	Tue,  4 Jun 2024 12:52:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="HnB1dqAs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5IfzY0SA";
 	dkim-atps=neutral
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63ADC10E0E6
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 02:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=CuvIJAs/rMor6MVjY7M7zEwy7LNwWt2bysowxjqLdnk=; b=HnB1dqAspFeokFHDpJ6iowJwqC
- f8l6XWeb3L0PyyhxQ4p8sNtVe+0Mkh2gAa1iHDkaQqUQQ9EuXc1HfJJ0Gz5K1GUQXneWD+AfaR3Uf
- 0J83vLxSZR7y0ElouhccJzbSH18YS1YPYcdwS8+ICG3WZn/qKw8Yld0sRAYXBp2epfgpX/tUNc1kg
- DN1E+LakHzn07ydwLXk3jAShOxSQeCCtkw1mO4TmJL0tV5C25AaT0ypswb0grtf2GIRipjbLIqxIE
- BooGTFlv08JsqmkNYZlpmReKJ4patXBlmxEMzcGgwAuaiVJZbRoA+a9Nm/C2rRtFnLLWTXKiFxcqx
- 6XNQRfrA==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1sEJhQ-00CoVl-0D; Tue, 04 Jun 2024 02:14:56 +0000
-Date: Tue, 4 Jun 2024 03:14:56 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: amd-gfx@lists.freedesktop.org
-Cc: linux-fsdevel@vger.kernel.org
-Subject: [PATCH 2/2][RFC] amdkfd CRIU fixes
-Message-ID: <20240604021456.GB3053943@ZenIV>
-References: <20240604021255.GO1629371@ZenIV>
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2051.outbound.protection.outlook.com [40.107.102.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8188510E47C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 12:52:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=itc4k/FyswnVI3tcxsyvWA7tD0vPP6Lc1qQQgtWmLQ7Ued/IpPXr1UmcbyV0Mqa8zejnx3EaPGdtu+7iKy48+uUWU88L2lVg2OHaC71Nw2FcXqrG0OPcP5d5gDjJ8+8tCNcrnHj1r/9BqP/FOEKHQNCOVxtbdBUo+eoJaaCMiPEdicqT9VJFP7wx6Dz48Oe+JBz9v+vPHTawH/0t9C+/bgIfuDW1hzmbiiZThN3kuetx1aggFIZ7oqBfEbsfs4H/hEwQwFGflYx/RYJ/qYP3bDphN11A8tIGBR+iXmtlSSxyfMcR9v9UI3gikaA/VEQ++S0LHVNjSz7NwNUdWgM9Cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VnKvUXlxXK+bh9SfyG2oU0abV5ff+Ib4ykMNPyL+4i0=;
+ b=Kiupa+XfoU+Ir63GLjeNd+uQHsEOX9m8a//0iOItR068XVqUst27fcEIWWyV0VjwAx6AH6+hzT7jaDUGts1m7E4mi9XojuC214XFKTWJ6CBo49Ck6AhAFWHDlCySAbbVDvh/FdU53xDfjH92VohEV2EAGtRvXMVouZuqAcJM2QHVSekzuZ1Lbn59YrkmBdUIyRa4FgdodFXI9/+kmknd4U6zdshn+LhCnHO/06pjSjU0VLUnqX872FZHCQGHMzhP1vnFMzDD/pANgJQFfEzoKsW0fHBMTX2yQKxqImDIt90eYt4LZvQPNzGjdh1xcpXuKgAQ3G0NKymJIV8Y6GUiag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VnKvUXlxXK+bh9SfyG2oU0abV5ff+Ib4ykMNPyL+4i0=;
+ b=5IfzY0SAiJ3t5sa7Ac4AL/C6rkScvMlZ2i06AlThUQMpI76PjVBVqBvPgylhOVmc/7lUQxu/6VsrszRrHdVi84Pu1TBmMQNVYDiSVLP7Y1V64lNKg4GlRDxuUnQVxit6R0Z3AGDFj3QXRDMg8BlMZ6a7eXX7y13NWEbQxkIbuDI=
+Received: from SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
+ by IA0PR12MB7776.namprd12.prod.outlook.com (2603:10b6:208:430::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.37; Tue, 4 Jun
+ 2024 12:52:39 +0000
+Received: from SA1PR12MB8599.namprd12.prod.outlook.com
+ ([fe80::25da:4b98:9743:616b]) by SA1PR12MB8599.namprd12.prod.outlook.com
+ ([fe80::25da:4b98:9743:616b%4]) with mapi id 15.20.7633.021; Tue, 4 Jun 2024
+ 12:52:39 +0000
+From: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Gao, Likun"
+ <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH v2 09/10] drm/amdgpu: fix missing reset domain locks
+Thread-Topic: [PATCH v2 09/10] drm/amdgpu: fix missing reset domain locks
+Thread-Index: AQHasSPnfnkU4y0qpE+6/oMQ8ECeVrGwV7mAgACUEoCAAJWtgIAGFumA
+Date: Tue, 4 Jun 2024 12:52:39 +0000
+Message-ID: <SA1PR12MB8599D4E6A88DC5729FE9FFC4EDF82@SA1PR12MB8599.namprd12.prod.outlook.com>
+References: <20240528172340.34517-1-Yunxiang.Li@amd.com>
+ <20240528172340.34517-10-Yunxiang.Li@amd.com>
+ <29490f15-eb5f-4438-bfd7-ffdebff6e678@amd.com>
+ <c848dcc1-0816-4c2b-bc87-8d5918046cd7@amd.com>
+ <4758e38d-09af-495c-b10b-d54ed908514f@amd.com>
+In-Reply-To: <4758e38d-09af-495c-b10b-d54ed908514f@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=4d04c5a3-56e8-4e16-bf99-2ce8ca75d3a1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-04T12:47:16Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR12MB8599:EE_|IA0PR12MB7776:EE_
+x-ms-office365-filtering-correlation-id: f1119dd6-8a5f-412c-d102-08dc84953779
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|1800799015|366007|38070700009;
+x-microsoft-antispam-message-info: =?utf-8?B?TUlRNzc5UDhVWjZ4elNDMklUYW4xalpLZXliYmZZeXFBV0JwbGRvdUp6SGNS?=
+ =?utf-8?B?QmFiWnUyNGlFU3oyVG5sZURyRm90SGY1ZVFzZHh4Rjd3UFhVVDFoUytRb3Bi?=
+ =?utf-8?B?bW9lbTBhbnhleUQ3KzMrYmhZSlFheFZ1OTZtb2JUcSt6a2dNTkhKTlRaQzlS?=
+ =?utf-8?B?Vmp2ZDZYWlhGVTZVckRlQWt4YzFJUEJaRmJ5ekdhaG1xaW5oZE1QeHhXSGhX?=
+ =?utf-8?B?RnJpbGFld0gydngzUVQ5dlVQc2p3ZUxERHpsRUM0bGl1K1V2UlYralVGR1J4?=
+ =?utf-8?B?TXBhSkRMNHIxMTFwOVoxbmtqMitIMlJVQklRVGRnbnVvdXd6a0xuYmlBZHlO?=
+ =?utf-8?B?SHpkZEpaRDRlbXc0YlFrMmE2cmhRTTY3OUljbmZ2SDVvNmJXNFF0d1Vjd2tj?=
+ =?utf-8?B?Q1Izb0E3eEFZN1ZJUzcrMUd4OG16S2U1SUZYbEEvRDA2SG9JTDkweFB0b0wz?=
+ =?utf-8?B?QkRLZGtXV1ZVZEFQdlEwdEtVR2tuczNtMVJWQlVSZVB2YjZaN0hhTDUrMFFO?=
+ =?utf-8?B?YlhjSTQ2YktJSThjMFZCazh0M3hzVWlrRDlOcGhuaW5rSVZLMlR4V3k1dGho?=
+ =?utf-8?B?Z1R0bC9tNktmeWNyRUc5MjBnUDZnR1poNHNORmhwdEMxS3RpTW80bjY4OHAw?=
+ =?utf-8?B?cEpQbHdLT0JYbnVvMDVwY2Q0UmU0L0ViNGtRekRoYm1nTVZKZTlmRC9KemxJ?=
+ =?utf-8?B?OCt2SjI3clFrYm9jMjR6YlZubGZHaVc2MEJnL3NRVm9PUE1jRysyTzF0MEM2?=
+ =?utf-8?B?TkRQZ1hQTVBOaitEUlNPRlkramo5MXM3amdLTVEvQVJwMm1GRDBaVkFCYTZP?=
+ =?utf-8?B?TlV1UktMcDR4NDRudGpQNFZzU1lNSGN5MWZYNThuM0FUSHFjWjVSelVtWUdz?=
+ =?utf-8?B?bjFqS2RhWGhWQWhHeFJaeGI2eTZ5azdEMjBIc2RZSDRLQWxGK3Z2Y2tLM0k3?=
+ =?utf-8?B?TGg4aWFzd202SnNWdFZoNTdPMENsZWZkbnBlbzlXdlltYkw5ZVFMdVhjWkh1?=
+ =?utf-8?B?VXlLeGU2VncxWjdCZVRtTVJGaldQQk5yelNoaWgwY21tRXJRd3poZWNIMVVj?=
+ =?utf-8?B?eGJxeFdDbHUyTHoxTXI3bnRPbWs0UUhsTjRlZUZvNEpOaDcrSHFPaEhwWm96?=
+ =?utf-8?B?OU16S05BNjhqRTZZV3Q0UDhXRzhpaFlIVUZoNHRIeW9HekxLeTlzRitoQkNE?=
+ =?utf-8?B?Y3VyMmhOS1JVdjh5NmhEbnI4UXd6NFdrcEhZYlNmdytSb1d1Vm5wNG1Ma3Ix?=
+ =?utf-8?B?SmVzMTJORnNPUnhlNTFoSDVlQ01aSWJyOWs1a2NJOEhDSU92Y3llZStrWHRM?=
+ =?utf-8?B?SEZMclJHWmYwbjYyV2VjdFVJdGMyWFNVZDZOK2YxUGZoaWNLaVhKZXJLdjIy?=
+ =?utf-8?B?RDBibnIzblc1RXVLRUdoYjBpRkl4MjVmSHV5ZG14T1N3c3FqWmEvOHhqb2NC?=
+ =?utf-8?B?U0cvZDFoTlRYaGN6MVBCcG52T3phQ2o3WjJFTUMxOUNhcFFFNEU2VHc2T3NZ?=
+ =?utf-8?B?MlFJRFpsNkdTOGlYNnpIeUhIU0xaOU91TlNzMVVabXh1Z09TVDBoblNhRjBy?=
+ =?utf-8?B?VTViaGlVanhUbnA0SHRKZmdNS0N5UWV2TW9ZUWMzV2luWmRmZWROY3dXdUtj?=
+ =?utf-8?B?WUU4b3lZTkpnQ0VabDhTMFJYZUZBM1FxcFZaSG84ck1DRStySDVFSWNTZmZu?=
+ =?utf-8?B?TFFhYWdiUENLQXhlRk1TK2NlRFFKbTkwb1g4NWIzSTk4ckxGNTE2dkJLdU5t?=
+ =?utf-8?B?M0lMUXlreHF4OThGUDlKSlExdmYyRUVDQ0FMRlVDOG5rNXd2aW9FWDlIQnJ5?=
+ =?utf-8?Q?YCg0DlmgqLvegkGBbmBqCU/+WZA1yslQPCvg8=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB8599.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ajdzdU50SVBleEJPMTdUeXdhVlRqMlhYQXlZYkFnMk9DTjdVZyttTzlIMjc2?=
+ =?utf-8?B?TTNscEpreUlQMGd0eitLYjFaUHBxTXBHODRCejJ1VjlCTG15U0wwVXAvUnMy?=
+ =?utf-8?B?NXFycjdEU3RPdldieWJPSzRRZ0U0a01NeDJEejB4eXVveGR2blBhNkJZbXIz?=
+ =?utf-8?B?enJERS8zU052ejQyN1llSkhTSkpocjRFU2kwMDBtWXMrZnpUVllURFNEd1hP?=
+ =?utf-8?B?Qjk1Uk42YzcxZzd6aFpjZmlBZExzSjVFSFArT3pnd0s2WGpzT3J1bVpYdDho?=
+ =?utf-8?B?dkdzekJGVVFJSFBkSUlXN1praUJZMkxJV3ZmVzRWOU1HOE01Z29PVlpKYTc1?=
+ =?utf-8?B?azNtSDJzeTFZbXVsRmFkSmpqV3FuVFNXbjZsRjZvMEdQZkZhc0lJQXBYYzAr?=
+ =?utf-8?B?WVlaVUFwdnFacDdGR2VVaDBnWHpHTjhHSUhMZHZsZjM3L2pHaEhnOXpxRncy?=
+ =?utf-8?B?MS8vUm02aUMrS3l6QVRNbWs5dm40ZjBER2dmdlRVcmpZa1A4Z1gvdmlaTnNE?=
+ =?utf-8?B?eUdFYVZCdStYWlMvUk5kTzlCeUYrdld6QjdBWTNReVZJeEFtZVZVRjNvNzlL?=
+ =?utf-8?B?TWpMaE5FR0phMnpESk1zbVk0cmo5bWgyeFovSTVKNElWNGd3a1Y5enpwUlRm?=
+ =?utf-8?B?L1ZDU0hocEN1Y1JlUWptMDhiOXJTa0JtQ2llempJeXhqckxKMjZFNzhTeW1n?=
+ =?utf-8?B?Vk5CNWxKOXVWRmc4WVpHL1dXalpSSG5MTU04Z2hvVzVmMC8xZVQvVFhEd0ZY?=
+ =?utf-8?B?TmlVNHJGbGpXOVJUbHhDZGlGU2d6Y0t5MWtCTVR1WkhKUGFiV2dWdjhDVnNT?=
+ =?utf-8?B?VWxIMStOSVhzRlJZeG8xZ3dKcU5sbmUzdzhHOXZraFl2c1BodzRTbXIvVjNI?=
+ =?utf-8?B?ZUt2bk9DZ242YjJSeUtRY0d3SnpzWkptL2VyaXpKUmwyMlpRd0pKRWtVKzd1?=
+ =?utf-8?B?cy8xSW9lVktHcGRkWjBjYzZYZzBTQjdScVVmOFp4Mm52TER3T2xFbERsUzNE?=
+ =?utf-8?B?TFVWSUFuZnNZbXp5NWpScnpJVzljUHpWK2p2UjYwdWVtM0g1QnJ5TWE5dzZI?=
+ =?utf-8?B?ek9KUndDZm9WdlBEd1RuZ3pUQVZzMC9GMzVtcjdFQzhhaDYvd0tuSFRWYjNC?=
+ =?utf-8?B?WERzUXhtSWttbERLLzVKcjl3UGUzSjU1QWVDL0g3Z2t5elNNWTlDL3NxcHJx?=
+ =?utf-8?B?SnMzb1RvR1JjdHFSVU55SzRRMXpiU0VQODlpNm9zQjRxTHNnblNuNFJmQ1du?=
+ =?utf-8?B?R3piUit6dWEraHZ2U2lzekhVT2lGWlUwUFhQV3NtcERsQ2xGS0s5RTBwR3R2?=
+ =?utf-8?B?Q3VDTlVsMXpyNDY4MWI2VUo4S3BqNFFKdEVPcTRBeXlJVjRJUzJyUFNTWWJt?=
+ =?utf-8?B?eGp3WFBvNjBiRW9TeGxEMVRBNlRTbjB6MkFNRm16YzY0MU15TUwrOEkzZzJJ?=
+ =?utf-8?B?SmttQ0tCV0ZRV3IzOTRaT0RuVEdmMXdwRzNhRElCQlprb1ErU3RONlhBdjc3?=
+ =?utf-8?B?Ky91cmZpbWh5TDMrRXM5S1RmTGk2eHliNTVJSXA2MFdGZHJlWjFHaW53N2Nj?=
+ =?utf-8?B?OXNXaEFuU2hHcGtVUVFOUVRTcU1kNWF4cVowQWxraERPMld4NVZIWmtzWUxs?=
+ =?utf-8?B?RTNiNkQ5Rnp3eXdyNW43RkZlRXQ3TFFqaUZmWXo5N3ZXSm9OUVo1WDJDWEJK?=
+ =?utf-8?B?UFJSeFNsOW1NTVpwNlc5ZGhJSWdVSkl6TXhlVFlqWDlPcDJTZFNqR0M4TUVR?=
+ =?utf-8?B?bHdQM2JUUnVBdC9XblZXb0VtRXJucEJFQlViOXN4QUhPWlFFYnlVZXJxMEZ0?=
+ =?utf-8?B?eHRKeTZrMXEzOUErVWp4THZpVS9PWkNhTURMY1VyclpzcG80TmR6TG9hWGNx?=
+ =?utf-8?B?S1d2Mzc2QXZaL3EvdnZ1YmZESmdGRW9tckhMYVMrb0RoWGlEbFptaHFrY2J4?=
+ =?utf-8?B?b1F0UDlPWUI1cGlVdmJGVk5KVUd3NDJPS0o4TkViaTZsTVlhZThRTGc0TXho?=
+ =?utf-8?B?cS9SbHQ0b3pkaVk2djVmaFFwWWt6NEpBVGd0N0JkaUhETWhvb3JQZVBQaGpp?=
+ =?utf-8?B?TEpqMTBpa09mWkQ4UFdUdTQ2WDZVenpweldIeUR6clU2RlNLRjJsSmh1Q283?=
+ =?utf-8?Q?Ptg4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240604021255.GO1629371@ZenIV>
-X-Mailman-Approved-At: Tue, 04 Jun 2024 12:47:57 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8599.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1119dd6-8a5f-412c-d102-08dc84953779
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2024 12:52:39.5206 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X3HE1AZ6OUy5TSPrCmCDLpUKQ0DcLQkkBF/l6VBT9L3zyBt0/3vEzFWpJZ4I9rrezFlUsskENY4jT4SjX/S6BA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7776
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,185 +174,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of trying to use close_fd() on failure exits, just have
-criu_get_prime_handle() store the file reference without inserting
-it into descriptor table.
-
-Then, once the callers are past the last failure exit, they can go
-and either insert all those file references into the corresponding
-slots of descriptor table, or drop all those file references and
-free the unused descriptors.
-
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
----
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index fdf171ad4a3c..3f129e1c0daa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -36,7 +36,6 @@
- #include <linux/mman.h>
- #include <linux/ptrace.h>
- #include <linux/dma-buf.h>
--#include <linux/fdtable.h>
- #include <linux/processor.h>
- #include "kfd_priv.h"
- #include "kfd_device_queue_manager.h"
-@@ -1857,7 +1856,8 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
- }
- 
- static int criu_get_prime_handle(struct kgd_mem *mem,
--				 int flags, u32 *shared_fd)
-+				 int flags, u32 *shared_fd,
-+				 struct file **file)
- {
- 	struct dma_buf *dmabuf;
- 	int ret;
-@@ -1868,13 +1868,14 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
- 		return ret;
- 	}
- 
--	ret = dma_buf_fd(dmabuf, flags);
-+	ret = get_unused_fd_flags(flags);
- 	if (ret < 0) {
- 		pr_err("dmabuf create fd failed, ret:%d\n", ret);
- 		goto out_free_dmabuf;
- 	}
- 
- 	*shared_fd = ret;
-+	*file = dmabuf->file;
- 	return 0;
- 
- out_free_dmabuf:
-@@ -1882,6 +1883,24 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
- 	return ret;
- }
- 
-+static void commit_files(struct file **files,
-+			 struct kfd_criu_bo_bucket *bo_buckets,
-+			 unsigned int count,
-+			 int err)
-+{
-+	while (count--) {
-+		struct file *file = files[count];
-+		if (!file)
-+			continue;
-+		if (err) {
-+			fput(file);
-+			put_unused_fd(bo_buckets[count].dmabuf_fd);
-+		} else {
-+			fd_install(bo_buckets[count].dmabuf_fd, file);
-+		}
-+	}
-+}
-+
- static int criu_checkpoint_bos(struct kfd_process *p,
- 			       uint32_t num_bos,
- 			       uint8_t __user *user_bos,
-@@ -1890,6 +1909,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets;
- 	struct kfd_criu_bo_priv_data *bo_privs;
-+	struct file **files = NULL;
- 	int ret = 0, pdd_index, bo_index = 0, id;
- 	void *mem;
- 
-@@ -1903,6 +1923,12 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 		goto exit;
- 	}
- 
-+	files = kvzalloc(num_bos * sizeof(struct file *), GFP_KERNEL);
-+	if (!files) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
-+
- 	for (pdd_index = 0; pdd_index < p->n_pdds; pdd_index++) {
- 		struct kfd_process_device *pdd = p->pdds[pdd_index];
- 		struct amdgpu_bo *dumper_bo;
-@@ -1950,7 +1976,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 				ret = criu_get_prime_handle(kgd_mem,
- 						bo_bucket->alloc_flags &
- 						KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ? DRM_RDWR : 0,
--						&bo_bucket->dmabuf_fd);
-+						&bo_bucket->dmabuf_fd, &files[bo_index]);
- 				if (ret)
- 					goto exit;
- 			} else {
-@@ -2001,12 +2027,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 	*priv_offset += num_bos * sizeof(*bo_privs);
- 
- exit:
--	while (ret && bo_index--) {
--		if (bo_buckets[bo_index].alloc_flags
--		    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
--			close_fd(bo_buckets[bo_index].dmabuf_fd);
--	}
--
-+	commit_files(files, bo_buckets, bo_index, ret);
-+	kvfree(files);
- 	kvfree(bo_buckets);
- 	kvfree(bo_privs);
- 	return ret;
-@@ -2358,7 +2380,8 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
- 
- static int criu_restore_bo(struct kfd_process *p,
- 			   struct kfd_criu_bo_bucket *bo_bucket,
--			   struct kfd_criu_bo_priv_data *bo_priv)
-+			   struct kfd_criu_bo_priv_data *bo_priv,
-+			   struct file **file)
- {
- 	struct kfd_process_device *pdd;
- 	struct kgd_mem *kgd_mem;
-@@ -2410,7 +2433,7 @@ static int criu_restore_bo(struct kfd_process *p,
- 	if (bo_bucket->alloc_flags
- 	    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT)) {
- 		ret = criu_get_prime_handle(kgd_mem, DRM_RDWR,
--					    &bo_bucket->dmabuf_fd);
-+					    &bo_bucket->dmabuf_fd, file);
- 		if (ret)
- 			return ret;
- 	} else {
-@@ -2427,6 +2450,7 @@ static int criu_restore_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets = NULL;
- 	struct kfd_criu_bo_priv_data *bo_privs = NULL;
-+	struct file **files = NULL;
- 	int ret = 0;
- 	uint32_t i = 0;
- 
-@@ -2440,6 +2464,12 @@ static int criu_restore_bos(struct kfd_process *p,
- 	if (!bo_buckets)
- 		return -ENOMEM;
- 
-+	files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
-+	if (!files) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
-+
- 	ret = copy_from_user(bo_buckets, (void __user *)args->bos,
- 			     args->num_bos * sizeof(*bo_buckets));
- 	if (ret) {
-@@ -2465,7 +2495,7 @@ static int criu_restore_bos(struct kfd_process *p,
- 
- 	/* Create and map new BOs */
- 	for (; i < args->num_bos; i++) {
--		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i]);
-+		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
- 		if (ret) {
- 			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
- 			goto exit;
-@@ -2480,11 +2510,8 @@ static int criu_restore_bos(struct kfd_process *p,
- 		ret = -EFAULT;
- 
- exit:
--	while (ret && i--) {
--		if (bo_buckets[i].alloc_flags
--		   & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
--			close_fd(bo_buckets[i].dmabuf_fd);
--	}
-+	commit_files(files, bo_buckets, i, ret);
-+	kvfree(files);
- 	kvfree(bo_buckets);
- 	kvfree(bo_privs);
- 	return ret;
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KVGhlIHRyb3VibGUgd2l0aCB0YWtpbmcgdGhlIHJlYWQgc2lkZSBsb2NrIGluIHRoZSBNRVMg
+aGVscGVyIGZ1bmN0aW9ucyBpcyB0aGF0IHdlIHVzZSBhIGxvdCBvZiB0aGVtIGR1cmluZyByZXNl
+dCB1bmRlciB0aGUgd3JpdGUgbG9jay4gU28gZWl0aGVyIHdlIG5lZWQgdG8gZHVwbGljYXRlIHRo
+ZSBoZWxwZXIgZnVuY3Rpb25zIG9yIHdlIHdpbGwgZ2V0IGluY29uc2lzdGVuY2llcyB3aGVyZSBh
+IHJhbmRvbSBzdWJzZXQgb2YgdGhlIGhlbHBlciBmdW5jdGlvbnMgdGFrZXMgdGhlIGxvY2sgdGhl
+bXNlbHZlcyBidXQgdGhlIG90aGVyIGhlbHBlciBmdW5jdGlvbnMgeW91IG5lZWQgdG8gdGFrZSB0
+aGUgbG9jayBvdXRzaWRlLiAiQWx3YXlzIG5lZWQgdG8gdGFrZSB0aGUgbG9jayBiZWZvcmUgYWNj
+ZXNzaW5nIE1FUyIgc2VlbXMgdG8gYmUgdGhlIGxlYXN0IGJhZCBvcHRpb24uDQoNClRlZGR5DQo=
