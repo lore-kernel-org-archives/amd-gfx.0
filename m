@@ -4,146 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB10C25B78
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 18:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F354C25B78
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jun 2024 18:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBE810E5A8;
-	Tue,  4 Jun 2024 18:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BD510E5B0;
+	Tue,  4 Jun 2024 18:16:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Eco1G3IJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="263BkwPj";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B64910E5A9;
- Tue,  4 Jun 2024 18:08:47 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3669D10E5B0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jun 2024 18:16:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S6weXxTbZuJlkIy4x7XMGoJefebBp88zj5t5uZDlGG8rJcEKzAvaEM7ydsuIcVNmkzBlRHW5xFwFR6s42nizjAr1I7QlI9VU/b6Ca7frIZ8GxJWzhuO87CPITE0MuSv8c0n8isv1Ee33NDGzQClDh3XH+VJzJUI9mbkkV81yRyO0E92ighBHTIeen8rtUxeBBwpJPwgHgET4rqSGc32Txf1zpofH5jNvpsOMUeCHBRRF84OdakjqlU3yN+EHHYJ2Jkbm+1DmLc/aT8BzEfaK1YJi6+BZfhZxdKhL41Mlb2plAXEdFqYhgm43hS+un8XO/szHN5r1Tz5fwxOBAplouQ==
+ b=DPwlqDcJ3ndWuvcY7Ot8p+UvxRstIlXFBBvy/W1x6VDvS4j4YvqX29zo6ROMesioGMFl9o5U0Wr+gvUbuznNpGp7yEOZZJfz+CdLntmdHs+a98/aliItj0LXXzgzxbB4xRgJjmJw1mEErEROCGyvqTw+9EVbiomQ3SQU8Gjnsxl9dGKNjMcpU8dr3S0e+gmS9v5VnuDINHIMVXWKnkdl5g//NcgNu4mEVbj43Xbp1H8N8BwgajS8eHXKPrrzHBfuhVn9Qk9LpcKsDYUIx9dV+323U8haHEYtp47oaLP8MYBQMNAVLor8B/CfuEDJW5RQ6H8q1EcLZaZN9zibVNai2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TplAcE29SeQUdNlXuixICfmVhUT9xyZSLNWyW6IHp8A=;
- b=Nf3mxpT/yd8dTdBbHY7h9cymZYQ/95kH2oPn1IOENBEuxRASMlu/5JJ/MPC7tCpYupmtRVMRfVIHxxGRM4EygRV3II8YAOwEjdZLh3h7qc25rA8oHVdSaQzGrYCRmAZcd1H8SGIemu7fvE2x87AJKEE8yC2UC86wWKbNwlPnVGY+guc2T7cVm9LY2YCke3Vkzi7FGilEdPSUj6oalYzUSRuZMfAm0ycrjBo7SjzVxV9g8dORgKt55AFRKndcFO3sENqfkPXt4jgOvQ7qxpYpxjB7cFgcfBDQZGdvJoPdW2S64BPnOh6CbqkU2Pj/kNTek5IlE4QqSt+rf8lzuq0OdA==
+ bh=7yCXmF4tbfp33VfNnM3li3S9QksWFL4Ur6mjeIaFm08=;
+ b=eNXyZtmAmrcmMOYQs17012I/fCBQxyfTp36MXuAz9z+l3xS86Wyt0E7RaMowx53V0FYhLW8KG+ZoNNpM9mIt/Dn093K7EZyxyDKm+T1ungKKl2cvzwPjIU2TrHzlFGwphrJ+6mLzpNflzcOSVdrOfdbEbRsahS98cEd4CUe9bYeR3e9RaNpt40o9YbA7yeYlC7EY54RhlWF8EcX1jkLnTi7CkFTXT7l5zfYg8/k75D++ov84N9UEDob7TSj8a1jlyEeEgrUqS3atZajMg34hNmu+wBvjnMu0A6g3taF2pid2bShJPCw6HjeVV09PSrsJRXfDgWM0JVRQZtwOF3estQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TplAcE29SeQUdNlXuixICfmVhUT9xyZSLNWyW6IHp8A=;
- b=Eco1G3IJjQ1L6mZqnjxY3EWtKhciw6YwXVNFWyRN/Llu4N8Qqxq2SFvreZC3ONHHGyCENRlaPnbnkAA5WTaKkOHvPA3oS4Y1zXyXZW2tmeyYjjzXeN0HEHIKU9Zn7AqYYILFSXhHU66nOQjgzGYKXasGSHSK7/LWm2UaI/7UciE=
+ bh=7yCXmF4tbfp33VfNnM3li3S9QksWFL4Ur6mjeIaFm08=;
+ b=263BkwPjUPhHNQ5z03RWlDt96xQGeWFNx8RKmSCzkfVZ2uc/OrQFHbXbxPfpXMbBiGdiEsDYgBvfDaRTwg9te1aizmLrXxR/0n1hqBLt9J4vnPboESpdqCCIKONDccPuPKFiVbnK9iLeFxDbg2w6halq4wggUB1c+BRcwQ0npOs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS7PR12MB5789.namprd12.prod.outlook.com (2603:10b6:8:74::21) with
+ by DS0PR12MB8342.namprd12.prod.outlook.com (2603:10b6:8:f9::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31; Tue, 4 Jun
- 2024 18:08:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22; Tue, 4 Jun
+ 2024 18:16:02 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.7633.021; Tue, 4 Jun 2024
- 18:08:32 +0000
-Message-ID: <611b4f6e-e91b-4759-a170-fb43819000ce@amd.com>
-Date: Tue, 4 Jun 2024 14:08:30 -0400
+ 18:16:02 +0000
+Message-ID: <1cd7980e-1cfa-4470-b712-48d9d2658435@amd.com>
+Date: Tue, 4 Jun 2024 14:16:00 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2][RFC] amdgpu: fix a race in kfd_mem_export_dmabuf()
+Subject: Re: [PATCH 2/2][RFC] amdkfd CRIU fixes
 To: Al Viro <viro@zeniv.linux.org.uk>, amd-gfx@lists.freedesktop.org,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Cc: linux-fsdevel@vger.kernel.org
-References: <20240604021255.GO1629371@ZenIV> <20240604021354.GA3053943@ZenIV>
+References: <20240604021255.GO1629371@ZenIV> <20240604021456.GB3053943@ZenIV>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20240604021354.GA3053943@ZenIV>
+In-Reply-To: <20240604021456.GB3053943@ZenIV>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:15::37) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0131.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d5::28) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB5789:EE_
-X-MS-Office365-Filtering-Correlation-Id: be5a6863-5276-4eb5-8d07-08dc84c15868
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB8342:EE_
+X-MS-Office365-Filtering-Correlation-Id: e63fb2fc-4a5c-4b38-fbdd-08dc84c2642a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OG13dDM0YTZNSU9JM1dEOVJmTGR2dDgybDZKSUkrNWJxMzR1Ri9KelpUcEJ2?=
- =?utf-8?B?RnhYWEhlZkM3cGVuZFJob2g3aENqOWU5TU81ci9ldllpSmZEVzNFMFRyeE9w?=
- =?utf-8?B?SXQ0S1N0VVNSclZocGNQeGtBdGdxM0pJYU5CWVdLbzBXZWJka1p6WTJNS3dy?=
- =?utf-8?B?cXVYOGdVMVlaSC9IaWlDY2o4a1BCU2ZuTUFnUmlVRUxUMzhnNDE4cW54dVR0?=
- =?utf-8?B?WXBqR0dOSlQxYlNFRUUwWWRTRDZGek5hVVUzYUJiZGxkek9OQlcxb3cxWlJF?=
- =?utf-8?B?ZlhWS29MdWVVRUppei9oMEI5aWJIa1hwNjBWMnRtZkNkSmgzc0FuK1JxRkUx?=
- =?utf-8?B?NXkveTF6VUtGY1Y2UjdNREFiMTRwNW9FS21kNENlTm4yL05VaDNtOExYeGhD?=
- =?utf-8?B?WTZ5MWhwdjVNbEIvYlAwbkZoazZkTjAyazEycVErTXJaOXpTZ3JMejNCTWZQ?=
- =?utf-8?B?djRyUFVKNXBhMHJWdFZuOWtJUGNEN2VCbGxnUS94V0pib0JrOWNWRnZoNUYr?=
- =?utf-8?B?bGVPTEdIU1ZIemFRMDloZnYwcTVmbHhzYksyWnlFS2hSSDU1S1p2Sm1NRnFQ?=
- =?utf-8?B?NmN6dVFrc1FndVRzSTQ0eVhZRHRUUU1HYm9wNzhUTUduRHh2U2VrZUlKT1No?=
- =?utf-8?B?VURkbkRFMGVtSzB4ZWhiTXZxTjlEcXlvNk00NVl4UDVwUVFzV2pZZDVXL0g4?=
- =?utf-8?B?aENIM2pLWFI1SDJoa1JrK0o1cTBpNUJNWGZNYnN4TGxjK0ZiNWY4dVhjRHY1?=
- =?utf-8?B?V2NWNEw2QXYzM2xZSnVhN0xqTFlORllUWWZZb1R0TkVhb3psNXprMk91ZGR3?=
- =?utf-8?B?ODR5MFZTVXJCRUN3aURWOG1nSTVWSDl1YlpwZHRRTXRqalVlUWdPUzZwL1dW?=
- =?utf-8?B?QVB0cVlDMjNrVlcyS3d1ekVSYnJkZE40RjRPQVBFbFJVYVJYRzNNRFVPa09i?=
- =?utf-8?B?aUUzUW5hOUR4c2FSREt0dmJ3SHkvdEl0bVBQQ3M2eDQyWERNanFnaWNad1dp?=
- =?utf-8?B?RjZtc3FON3BzNFVYclRRLzZST2syN3ZScmNyajQ3ZTNlQzB4MytvTEpLYUpH?=
- =?utf-8?B?MUxibEpvZWhYL3M1YnlvdjdGY2JxamxReElRaGIvQnV0OENNdi9pUWo3L3Vn?=
- =?utf-8?B?dDQ3bHcwWnVDYVVpOXlkS0Y3YnROM1lxT0JveEcvaHRiKzB4d3hVam5mdzI0?=
- =?utf-8?B?U0t5NWd0UmdqMDVJcUZjeEJpV0dpamV5VmlYbFJrQWtnaUswK09QRnNoc3or?=
- =?utf-8?B?aGR3U0xER29yS2dJSk81NjhVQnBScVFlTlV0YkRzVEkrUzltait6dEkzUXVC?=
- =?utf-8?B?OENPYTJxWXoyY2hyVytjY1AxRy9qbUtyNlJtRk5PRnlNWW52SWszbVVwNWJE?=
- =?utf-8?B?NkVMdXY5enhLL2VWY09TZXZGb3QvR1luNTVsdEsyRWw1Tm9ISE5xRnowRERw?=
- =?utf-8?B?WHpIRk5jSDhGaHdKdmxFdDNFSCszaHNnYU56eS9wMGxSaGZtN2NtcktnSG5w?=
- =?utf-8?B?M3JNZXNqYm4yaXZMMklnZ2dxdkhyaVVIRjNmdktPWlZzYmlIcDJSUE01c0Z5?=
- =?utf-8?B?Z2hMbzAycGh4SFFkaWpWbEN1UW5FV3djSXJXYnFOenJCN3o5dXkvczA0c215?=
- =?utf-8?B?QStCeWtLdFVTTjduNDhUNUJ6MHd6QlFMblozMVd5QURReFRrc3dRUHc2Wncy?=
- =?utf-8?B?VEI2aFhQRDVDL2RmQTVDRFh3dzNKbTlkU3RIWEdiWjdoTEpob1NEK3lBPT0=?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RGdtUWVwakhCVmpsZEdaSDgydGFJMlg5TWt6ZXhNYU1BakpzVEh1Vy9KaGpS?=
+ =?utf-8?B?UVlSS09wZlF2SitRcDFRejlsaUZZQWlpZzJ6UEFkSjBQeVYxcURFK3NDT2FJ?=
+ =?utf-8?B?SzRxTFFqMlRua0JaVFJERUcvMkRxT2R1UWhMRmsvNGhnR0ducTFYWWpRdVFG?=
+ =?utf-8?B?RFBwNVQyT1ZtWEpvVEpWTUxkMzdnNXZ1bFNUWVRHTFhQRWQzL0paUm8ya01u?=
+ =?utf-8?B?UTZoWnh6UVVvd1dBbXc1anNyWkZkSDVVaG5teTVVQ3FZZUFUMjc2cFp3RzRs?=
+ =?utf-8?B?NDZiRnZhUDRudTdHTnVYQkVRNXJ3dHZ4YkVFM2Z0eGpwUmw1QURHV3FMOTMw?=
+ =?utf-8?B?YUhUSiswRzc3ZTRpZlNOOUhzVm8xMTNmdmJJMXlKcnZHNGpsNWlyZElWRkdo?=
+ =?utf-8?B?VjlaMUs3REJaaTlXMUhCdE4zZzk2dXFwTVREcVdOMWpVbFBnb2ZEdDI1WTQ5?=
+ =?utf-8?B?TUliT2VhY21PbXJ3eUFJZVU3Sk1UbU1mQXVqR1gxRkZvQnM3UnE1V1BTeTZD?=
+ =?utf-8?B?OTVmcHEvUkFwV01mUmV5b09yVlpwTXNtUEpKa2ZKUmNXRnNyMlE0emJrMi9M?=
+ =?utf-8?B?WmNiOHB4YWFEdEpRRHExT05xa3VyNERxZTBWdkI3NVVCbU5PT3Q3a0xUL01a?=
+ =?utf-8?B?Kzd2cFI2bStXL29hTGpYYk51SGZEcjN2Y0xRRi9OdnpBMjdhTHQzNE5kWDZI?=
+ =?utf-8?B?d0xPdDk3UjVGMmc1YVpVd2JVZVdhTWhsSDJMTHNBZEZmNGEwejlzUy9mdHQw?=
+ =?utf-8?B?MkJORWtRKzlhODRTQ1E2WktwRlpRV0FyalJHczVVTUMvTXlrT1NlMWhSbmpR?=
+ =?utf-8?B?U3JtUHIvdG5jNko4a2h1anh0T1BTZysreHZyR3JqenhlNDg0bGxrNUtkNFB2?=
+ =?utf-8?B?ZFJlZGVUYUJTYkhjOVNFeTBOWWJTeHhtOUtYckMxdFRubXZ6Kzd6SjdUd1dH?=
+ =?utf-8?B?U0gzWlpWSEdZZXRLT0VpV2IwNmlHZm5abnNsRlpTWndpVU5XSG9iRU04U2cr?=
+ =?utf-8?B?K3U3KzgvUGttb2dzdFRJQlUzb3djYWdNcDkxVWR6NEdHcE8xem9kZzc2YlhZ?=
+ =?utf-8?B?dm8wUkdCQWxxRFN5cDlqUWtvUlVuZHpJejRGaUYyV3RxazJuMWRaYVhrS0Iw?=
+ =?utf-8?B?QkNocEhSVEpPTFdzMlNGemRYRUlmd1lHZWY3YWdXdEdSSWt3Zkh2WW5vY2lF?=
+ =?utf-8?B?VE5odkVjRGVlRkkzZXNGbWZBOHppZCtEL1p5NjFrVjJrUlg1b1JaSTdyckZk?=
+ =?utf-8?B?ejM0NjB4Z1lkcU9JSW5uaFpPYzRDaEhJTmtNS1N0RTdTSEt2WmRMcWdtMG5w?=
+ =?utf-8?B?S3ZsQ2NVbDE2cUVGTm51VExJdlRHYmFFamk1SFRybTVHZmovSXZ3K3RjNU90?=
+ =?utf-8?B?cUp2VEZtMkhselhnRk85NUFUSXNSVW4yREJZYyszdTZSOUNKL2VPQUorMTlI?=
+ =?utf-8?B?cUNhbnhrSkJSWEozUE04ZzRmQWRPYWg2Tkl6NG43R3dnT3dYZVJ2UmRUWmpX?=
+ =?utf-8?B?eFJjSHdHM3laYzJQWGI1ZkYvVGhvV3Q4VTArb1d0NmQ4Slk0VUNZOFQ2aTZX?=
+ =?utf-8?B?SnhWbmhqTkVKVnpZVWJVYUZDc2ZTalVwUHhidWdFSElSSFpndHJoa1RLQXdH?=
+ =?utf-8?B?SVRRSytsWVBnOW12WGNEOUxCamZDcnh1NDJyb2JlM3NJczlhMHUyRk52NTBB?=
+ =?utf-8?B?d1N0b2NzN1hkQ0E4OHhrcFZ2c1ExUldWUG1admMvclNRMy9YUk0rK3VRPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(366007)(376005)(1800799015); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDdySE94UVRNOTFCb0xtZ2tQVDA1Y3lMY0FybnRlN3J3YXNTUnNDclV3OWtD?=
- =?utf-8?B?SklBa1hCOTN2VDA0bGQvaDdaTlhCbW4rbnM1ckhyLzhHMEtpTHBHalMwSlRL?=
- =?utf-8?B?a04vb1h1ZnRNendsWTdDbGZpckY1aUV1dXIzUXBjR0h1dzJXMU9ET1piYWU2?=
- =?utf-8?B?d0hpei9wTG9TZjZQMVVNcHRyQmQrTjNGaWVQZVROYllSVEVJeFBIUkpBdnNL?=
- =?utf-8?B?bjlETk02WEE2YkxmV2tsV0s5ZDdLR0Y4dk9LcWI0clJnS21zZjNsdENRNjda?=
- =?utf-8?B?bXB2ZkdFNCtTQWtiT2tDSlJ5UWwveExXcFFZVWkrRnBTeW1SeTFGU0w4TzVB?=
- =?utf-8?B?YjQzQmpMaEV3OFVpNEJ2dmM0b21ibFQ5Mm80djhJNjlIbWZRT1Nrby9HVjhs?=
- =?utf-8?B?eW1NcGVjdk04SW1QTE5neVM5U3ZrM2hCandsRjZ5TlRZZFhOeVdVL09Wek9x?=
- =?utf-8?B?ZjBKN1I3aTNTc1FQNW1mcEg5K3B4UDlZMW9SWFdqeUYya2JSSDhhYUJzQndU?=
- =?utf-8?B?aU5TTVU4SDN0bmJxdE93TUwrV1pueXVoeW1aYW1TOWl2VE12MGlqSEk4WERG?=
- =?utf-8?B?Q1J3OVJESnJOcy9wVm56cVBBVmNmeUl3cnRyQjg4ck1XcThsU1ptL1I1c3ZD?=
- =?utf-8?B?aENCN3JlNm05ZFo1aWxtdGY4V1JLay9GNTdhalNtd0NtY0htZUlucmdXcEdR?=
- =?utf-8?B?YVdiUzZLSFRoZkJwNmtUZHBKc09kcTVyQlZqdlFhcHdYSUJWeDlSSHNsZzQ3?=
- =?utf-8?B?c01uUzdiaWloUUhWN0tBSmdZREpqZWVkRUg3YlBFSXM2VmRmZVJoakZTUjFu?=
- =?utf-8?B?MVNmcllrK1lGVnR4cFJabGNTOUFEanZBbFB4TnFzYlFiODNWZGtUbWUzTjIy?=
- =?utf-8?B?eTBUOE9uWlNLZWxJL1MxMUhKKzBLeFJVYXc3emJhQUJHNmFQN2tta25FRXBN?=
- =?utf-8?B?VjJrQU53KzFqM0xxT1FlYm5VMXBZWmhqZ3VsSUxiVG9DMDRzOWtnSXBPY3F3?=
- =?utf-8?B?cGV4L2JxOU1ZQXpLN3JQbjNGTGJENmxkdnNERVZ0OVBFaHRCbnQzUXlLUFd5?=
- =?utf-8?B?cnJCaWxOOWVzb3pWODBUcHdkSy92SEZ4U1ZoUHI2dGJGdUo1VzRyNkRkTzg3?=
- =?utf-8?B?MHJYQkhMT09yRTNnY1g1dEVpYWRwWWhtSEZiRVBXNkdpbzF0S3N5UEt6aXd6?=
- =?utf-8?B?bm96VHVxM1N5QjJ2UksyN2VHZkFKZDlxRjZSb1A5QUVhSCtjMzN2bmIvcG1m?=
- =?utf-8?B?SWVETlkrN24zT3pVbGNuS2hybHYwbmNENWpLRDFVaHl6OS9KVkVSQmpPSEhF?=
- =?utf-8?B?Q3dxbW9ZN01iWE1taUNWeGxqZm5oUkZjREgrSnFzZWFpT2o3VDI5ZzNUZDBw?=
- =?utf-8?B?QStRN2l4cENJRHBMVHNrVDRrL0x0Yi83UjlMa29PSnUzSlhHL0xHNWdTQWsx?=
- =?utf-8?B?b2JHRGd3U0lsV081MkZpNnBrUE1rS0NUWG8wMG5KRU5qemw1QVhnZ2lROHIz?=
- =?utf-8?B?cW84NzZlbzFnUGE4VG1HQkFxcXh2TmJ4ajJaUE1qY09UbzRUU0FBTDRidXVl?=
- =?utf-8?B?ZDI4S01XL3MzMS9ncnp6bHJhYThBRENPdUFzcWx5Uzl0TWpWbHFpbXJPRGhP?=
- =?utf-8?B?QjlGRGF1VHpHUXZEVjB1Qy9VbVZ1R0IxSEVGN3haQU0yY3hQaTQwM08weXlQ?=
- =?utf-8?B?eU41R0pjWk9BeTBqQ2dYaDhIanZqOE5EcGtBRHk3UFhOcUF2emhMTnlTbnVF?=
- =?utf-8?B?T05NSmRKZ3dpOWpFb2FHd211bGFmZ1J2ZHEyeFJZYVMvbEgvY0s2dkt4UE81?=
- =?utf-8?B?TTN5cmt5WnZnVnpGSWRVSDY0VC93UXVXTG10cVRlaEpGa1U5cEI1T1J1akRO?=
- =?utf-8?B?S1I3cy8xV09zZUoyRGo3YW9qQUNlSXowdUVKNEZkNnV2TDl6TEQ4REFpbGhl?=
- =?utf-8?B?ZEpITVJuVm1pYTU3bFpaUyt0My84dGZjTlpmKys0SXpCTkE2WFcycnJSQ05a?=
- =?utf-8?B?TUVXOXVBT2VvVjZPMlJRNHZoOHdLblA3dHpaMENTeWdURmpnM0RlSW8vbnRu?=
- =?utf-8?B?VGFzUTZ5Yk9XSGFmMkhOTnVBRERqSVBoTWpFbFdXQ2YwTEJKVVhWRkYvWjd4?=
- =?utf-8?Q?TaWHTAOi/Qv+drhqpCb6dWBzI?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHc0N2U4TzdId3RxbWVudlFya01XUGEzZEVJMFhxS0kwNDRhNTZpcGZ6UVBO?=
+ =?utf-8?B?bjI4ZW54UzJlQmJLRlg2VFUzRlpLSUc3eW9jd1BGejMzeloyd1VQa0tFYmM5?=
+ =?utf-8?B?aktETE0wWlJLY0h4cFVMNkdWVFM3ZzQ4eWRKdi9hZ3prZkVNV0dtNnBZMUhB?=
+ =?utf-8?B?VXptbjFoOU9Ic1NKQzZTNjAwQW15b2ZqcjUwdmVxQWRvR1lmOGVGejFoMFVK?=
+ =?utf-8?B?Y0FKMk9tT0QyQ3ZzK0FPSTBrS2ZWazU1ZnZJdXZqZnlzNEpSdjdNNDQ4aEdC?=
+ =?utf-8?B?MnpNaDB3S29kT21mWFBrTjljVzJWQzJoemhkSkpJWjFXWmptNDJ3S3A3SHhR?=
+ =?utf-8?B?cllYV0VMcHlkMUQ0RGZZLzRuNzZyZHc1OG05ODkrK09ud04wRDZSbFNtU1Ni?=
+ =?utf-8?B?S1g1VURhbG9peUJyRkk5SGdPRmEyQTRmVHJlL3dvWFQyelBwOUR4UUhwZVlu?=
+ =?utf-8?B?L0VKeUtlR2NIeHlqVzE4UXFVYk5nODRDUE9GczFva2RpZFQ2K0RKZlhVeS93?=
+ =?utf-8?B?eWR1SERJaTgrSmV5L3ZkTXdSRERQam0rbytGOXg2STFlM0dGbEdXSW5zK1pC?=
+ =?utf-8?B?SVBjTXhiang2ZzNjajcreVQxaFg1SHA0K2ZOY0RSa202aEgxaEo2VDljOHBq?=
+ =?utf-8?B?ZHY2S2FtOVozd2l3Z2ZPcW9kd2hzdklWSS9DNld5dXU5VTNwYzRoNkZ6TUJt?=
+ =?utf-8?B?QWpwZFplekhVVXVxdjAwY3ptWWo3MUxjU3JkT0tqbmhzclNrWVVMU3hNZ2cv?=
+ =?utf-8?B?MWloTHpuenNPRHlsYTVPYjhQYUZkVlRVY0R3bmlXZmg4NGdBb2FFcXdzVzV0?=
+ =?utf-8?B?cng2YnExbXVuKzR0SDY5cHorRk1GRlllcnVObGFBQ0svTTlDdlpsK1lQdkRp?=
+ =?utf-8?B?ekRzWDV1OTJWREVTbC9EQ0h2dG5oQ0I2Q2lwYTlTcis4Ymh6eEZiV2JkWm1w?=
+ =?utf-8?B?bnRSV1lmTmttYXdjd2h3TFF2b1Bwb05CSEVybmx2OCtyUUZvL3BobUZxM0tH?=
+ =?utf-8?B?bERZck5YamsxazUxVFFZdnlRK21BdGdQT3VJSEgvK3R5Z2pwd3NJaS81bTJa?=
+ =?utf-8?B?L3J4RWRqL2ljVE5LVVlGTEt2clF4ZHpoQjNLUWJGS0thMzQyNER2WlBVQU9P?=
+ =?utf-8?B?dlZiZEw1aFN1RDlMUmt3eW15ODl4elFmVndwb0ZGaUs1UXRKaGtrZFJBNlRY?=
+ =?utf-8?B?aU1COFcvUWtyeXVmakVjeVFvUEFJS1MvMTEzMXZDZUJhZk41L0Y4NHpXWDBX?=
+ =?utf-8?B?VmwzWElqOExqVE1LZ2xuK1dMVURNQUEranRqeTBEQlI5MGRkc1Vtc0ZaU3FQ?=
+ =?utf-8?B?bDRmVVhwYzZVZk01RzBTbTU5S0lveVNhd2hyYWZUYjR5RFQySnQ1L3ZDaHpO?=
+ =?utf-8?B?enhWTzJXVmlCeEJ4SUJEbXZoRGFIa2FPM0NqM0dwNGwxUGJqMTljUENTUmsy?=
+ =?utf-8?B?bWU3WTgyenRxRktGYjdPeXlGZ090ZkF6NDdzTVJCclNoMUlWdlJUODJ6R1JL?=
+ =?utf-8?B?ZVEwZXZtM0JEUHRqakkrVGJYWEFUbjcyU0RmaS9hbXR3VmxTREJ5UkgzUDF4?=
+ =?utf-8?B?dnliZFgrYzZBOGQxMGFnelcxN25XUlY1WTR0NFlkNzU2emFWOE1tOWR5Y2N5?=
+ =?utf-8?B?Z3E1QlFuVDhVUDhnUjRCNU1UUElORTNmeFl2WTZFNVlYR3dkUmE4ME9RZGxm?=
+ =?utf-8?B?eTlvY1ArV2t6MTBublBDRGk2Q1c4OHAxaFQ4SzBnZEF6eFV1YUV6b2dVQU9p?=
+ =?utf-8?B?a2htRjZRMnRtN0hrMkRnZm5GbWoxK0g2ampvRzVmUnBETVEwbmhzZ2xaWXZD?=
+ =?utf-8?B?NWZOdVZ5ZFFsTjhvNFVHSVNxTHFhVTBnbEpra1ZUbnFhZU5oS2wvRzRJWW5W?=
+ =?utf-8?B?K1hNQ2lzbFAxME9aNklWQUtESXpjcmNRc3JjeUVxNnVCdUhwcUJxWDBsZVBi?=
+ =?utf-8?B?bnB5eDlvenNvd0dOSXdkNkxXRUMwbEZxTGJkWmMzVWIybExMVUVDTUtaMUVK?=
+ =?utf-8?B?ai92RzNoS05qeHN3a1IwdG1mVGNKNXFCL3JnOURjckwzQmhzMU9iTm5zcUxy?=
+ =?utf-8?B?RSt6c3d2Yms5cFFUMVBUS3dFQ0x3aHJxbXRYZWdVOUhaanZmUkRJUTFwTkQz?=
+ =?utf-8?Q?buJkzfrIiY/Fcp4Jvb4/DbCkJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be5a6863-5276-4eb5-8d07-08dc84c15868
+X-MS-Exchange-CrossTenant-Network-Message-Id: e63fb2fc-4a5c-4b38-fbdd-08dc84c2642a
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 18:08:32.7541 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2024 18:16:01.9802 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vFJQyah3cFJo3B61ZJGSzSKTN/feH4dEJrHTh461vajz3qEvgM8RmP9gEOh1BC854PW9wMhI4pU0UXK0Ky9vrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5789
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0biws+NYtgbWWMfNVLjNz68aruNqwZai2XB9xcooS2uZ9fRk2wfQJHgxe7QAMo03+NiUB9FqnMLmzzkqWZOXdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8342
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,201 +159,204 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2024-06-03 22:13, Al Viro wrote:
-> Using drm_gem_prime_handle_to_fd() to set dmabuf up and insert it into
-> descriptor table, only to have it looked up by file descriptor and
-> remove it from descriptor table is not just too convoluted - it's
-> racy; another thread might have modified the descriptor table while
-> we'd been going through that song and dance.
+On 2024-06-03 22:14, Al Viro wrote:
+> Instead of trying to use close_fd() on failure exits, just have
+> criu_get_prime_handle() store the file reference without inserting
+> it into descriptor table.
 >
-> It's not hard to fix - turn drm_gem_prime_handle_to_fd()
-> into a wrapper for a new helper that would simply return the
-> dmabuf, without messing with descriptor table.
->
-> Then kfd_mem_export_dmabuf() would simply use that new helper
-> and leave the descriptor table alone.
+> Then, once the callers are past the last failure exit, they can go
+> and either insert all those file references into the corresponding
+> slots of descriptor table, or drop all those file references and
+> free the unused descriptors.
 >
 > Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
 
-This patch looks good to me on the amdgpu side. For the DRM side I'm 
-adding dri-devel.
+Thank you for the patches and the explanation. One minor nit-pick 
+inline. With that fixed, this patch is
 
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+
+I can apply this patch to amd-staging-drm-next, if you want. See one 
+comment inline ...
 
 
 > ---
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 8975cf41a91a..793780bb819c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -25,7 +25,6 @@
->   #include <linux/pagemap.h>
->   #include <linux/sched/mm.h>
->   #include <linux/sched/task.h>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index fdf171ad4a3c..3f129e1c0daa 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -36,7 +36,6 @@
+>   #include <linux/mman.h>
+>   #include <linux/ptrace.h>
+>   #include <linux/dma-buf.h>
 > -#include <linux/fdtable.h>
->   #include <drm/ttm/ttm_tt.h>
->   
->   #include <drm/drm_exec.h>
-> @@ -812,18 +811,13 @@ static int kfd_mem_export_dmabuf(struct kgd_mem *mem)
->   	if (!mem->dmabuf) {
->   		struct amdgpu_device *bo_adev;
->   		struct dma_buf *dmabuf;
-> -		int r, fd;
->   
->   		bo_adev = amdgpu_ttm_adev(mem->bo->tbo.bdev);
-> -		r = drm_gem_prime_handle_to_fd(&bo_adev->ddev, bo_adev->kfd.client.file,
-> +		dmabuf = drm_gem_prime_handle_to_dmabuf(&bo_adev->ddev, bo_adev->kfd.client.file,
->   					       mem->gem_handle,
->   			mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
-> -					       DRM_RDWR : 0, &fd);
-> -		if (r)
-> -			return r;
-> -		dmabuf = dma_buf_get(fd);
-> -		close_fd(fd);
-> -		if (WARN_ON_ONCE(IS_ERR(dmabuf)))
-> +					       DRM_RDWR : 0);
-> +		if (IS_ERR(dmabuf))
->   			return PTR_ERR(dmabuf);
->   		mem->dmabuf = dmabuf;
->   	}
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 03bd3c7bd0dc..622c51d3fe18 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -409,23 +409,9 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
->   	return dmabuf;
+>   #include <linux/processor.h>
+>   #include "kfd_priv.h"
+>   #include "kfd_device_queue_manager.h"
+> @@ -1857,7 +1856,8 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
 >   }
 >   
-> -/**
-> - * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-> - * @dev: dev to export the buffer from
-> - * @file_priv: drm file-private structure
-> - * @handle: buffer handle to export
-> - * @flags: flags like DRM_CLOEXEC
-> - * @prime_fd: pointer to storage for the fd id of the create dma-buf
-> - *
-> - * This is the PRIME export function which must be used mandatorily by GEM
-> - * drivers to ensure correct lifetime management of the underlying GEM object.
-> - * The actual exporting from GEM object to a dma-buf is done through the
-> - * &drm_gem_object_funcs.export callback.
-> - */
-> -int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> +struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
->   			       struct drm_file *file_priv, uint32_t handle,
-> -			       uint32_t flags,
-> -			       int *prime_fd)
-> +			       uint32_t flags)
+>   static int criu_get_prime_handle(struct kgd_mem *mem,
+> -				 int flags, u32 *shared_fd)
+> +				 int flags, u32 *shared_fd,
+> +				 struct file **file)
 >   {
->   	struct drm_gem_object *obj;
->   	int ret = 0;
-> @@ -434,14 +420,14 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   	mutex_lock(&file_priv->prime.lock);
->   	obj = drm_gem_object_lookup(file_priv, handle);
->   	if (!obj)  {
-> -		ret = -ENOENT;
-> +		dmabuf = ERR_PTR(-ENOENT);
->   		goto out_unlock;
+>   	struct dma_buf *dmabuf;
+>   	int ret;
+> @@ -1868,13 +1868,14 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
+>   		return ret;
 >   	}
 >   
->   	dmabuf = drm_prime_lookup_buf_by_handle(&file_priv->prime, handle);
->   	if (dmabuf) {
->   		get_dma_buf(dmabuf);
-> -		goto out_have_handle;
-> +		goto out;
->   	}
->   
->   	mutex_lock(&dev->object_name_lock);
-> @@ -463,7 +449,6 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   		/* normally the created dma-buf takes ownership of the ref,
->   		 * but if that fails then drop the ref
->   		 */
-> -		ret = PTR_ERR(dmabuf);
->   		mutex_unlock(&dev->object_name_lock);
->   		goto out;
->   	}
-> @@ -478,34 +463,49 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   	ret = drm_prime_add_buf_handle(&file_priv->prime,
->   				       dmabuf, handle);
->   	mutex_unlock(&dev->object_name_lock);
-> -	if (ret)
-> -		goto fail_put_dmabuf;
-> -
-> -out_have_handle:
 > -	ret = dma_buf_fd(dmabuf, flags);
-> -	/*
-> -	 * We must _not_ remove the buffer from the handle cache since the newly
-> -	 * created dma buf is already linked in the global obj->dma_buf pointer,
-> -	 * and that is invariant as long as a userspace gem handle exists.
-> -	 * Closing the handle will clean out the cache anyway, so we don't leak.
-> -	 */
-> -	if (ret < 0) {
-> -		goto fail_put_dmabuf;
-> -	} else {
-> -		*prime_fd = ret;
-> -		ret = 0;
-> +	if (ret) {
-> +		dma_buf_put(dmabuf);
-> +		dmabuf = ERR_PTR(ret);
+> +	ret = get_unused_fd_flags(flags);
+>   	if (ret < 0) {
+>   		pr_err("dmabuf create fd failed, ret:%d\n", ret);
+>   		goto out_free_dmabuf;
 >   	}
-> -
-> -	goto out;
-> -
-> -fail_put_dmabuf:
-> -	dma_buf_put(dmabuf);
->   out:
->   	drm_gem_object_put(obj);
->   out_unlock:
->   	mutex_unlock(&file_priv->prime.lock);
-> +	return dmabuf;
-> +}
-> +EXPORT_SYMBOL(drm_gem_prime_handle_to_dmabuf);
 >   
-> -	return ret;
-> +/**
-> + * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-> + * @dev: dev to export the buffer from
-> + * @file_priv: drm file-private structure
-> + * @handle: buffer handle to export
-> + * @flags: flags like DRM_CLOEXEC
-> + * @prime_fd: pointer to storage for the fd id of the create dma-buf
-> + *
-> + * This is the PRIME export function which must be used mandatorily by GEM
-> + * drivers to ensure correct lifetime management of the underlying GEM object.
-> + * The actual exporting from GEM object to a dma-buf is done through the
-> + * &drm_gem_object_funcs.export callback.
-> + */
-> +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> +			       struct drm_file *file_priv, uint32_t handle,
-> +			       uint32_t flags,
-> +			       int *prime_fd)
-> +{
-> +	struct dma_buf *dmabuf;
-> +	int fd = get_unused_fd_flags(flags);
-> +
-> +	if (fd < 0)
-> +		return fd;
-> +
-> +	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
-> +	if (IS_ERR(dmabuf))
-> +		return PTR_ERR(dmabuf);
-> +
-> +	fd_install(fd, dmabuf->file);
-> +	*prime_fd = fd;
-> +	return 0;
+>   	*shared_fd = ret;
+> +	*file = dmabuf->file;
+>   	return 0;
+>   
+>   out_free_dmabuf:
+> @@ -1882,6 +1883,24 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
+>   	return ret;
 >   }
->   EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
 >   
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index 2a1d01e5b56b..fa085c44d4ca 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -69,6 +69,9 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
+> +static void commit_files(struct file **files,
+> +			 struct kfd_criu_bo_bucket *bo_buckets,
+> +			 unsigned int count,
+> +			 int err)
+> +{
+> +	while (count--) {
+> +		struct file *file = files[count];
+> +		if (!file)
+
+checkpatch.pl would complain here without an empty line after the 
+variable definition.
+
+Regards,
+   Felix
+
+
+> +			continue;
+> +		if (err) {
+> +			fput(file);
+> +			put_unused_fd(bo_buckets[count].dmabuf_fd);
+> +		} else {
+> +			fd_install(bo_buckets[count].dmabuf_fd, file);
+> +		}
+> +	}
+> +}
+> +
+>   static int criu_checkpoint_bos(struct kfd_process *p,
+>   			       uint32_t num_bos,
+>   			       uint8_t __user *user_bos,
+> @@ -1890,6 +1909,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+>   {
+>   	struct kfd_criu_bo_bucket *bo_buckets;
+>   	struct kfd_criu_bo_priv_data *bo_privs;
+> +	struct file **files = NULL;
+>   	int ret = 0, pdd_index, bo_index = 0, id;
+>   	void *mem;
 >   
->   int drm_gem_prime_fd_to_handle(struct drm_device *dev,
->   			       struct drm_file *file_priv, int prime_fd, uint32_t *handle);
-> +struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
-> +			       struct drm_file *file_priv, uint32_t handle,
-> +			       uint32_t flags);
->   int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   			       struct drm_file *file_priv, uint32_t handle, uint32_t flags,
->   			       int *prime_fd);
+> @@ -1903,6 +1923,12 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+>   		goto exit;
+>   	}
+>   
+> +	files = kvzalloc(num_bos * sizeof(struct file *), GFP_KERNEL);
+> +	if (!files) {
+> +		ret = -ENOMEM;
+> +		goto exit;
+> +	}
+> +
+>   	for (pdd_index = 0; pdd_index < p->n_pdds; pdd_index++) {
+>   		struct kfd_process_device *pdd = p->pdds[pdd_index];
+>   		struct amdgpu_bo *dumper_bo;
+> @@ -1950,7 +1976,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+>   				ret = criu_get_prime_handle(kgd_mem,
+>   						bo_bucket->alloc_flags &
+>   						KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ? DRM_RDWR : 0,
+> -						&bo_bucket->dmabuf_fd);
+> +						&bo_bucket->dmabuf_fd, &files[bo_index]);
+>   				if (ret)
+>   					goto exit;
+>   			} else {
+> @@ -2001,12 +2027,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+>   	*priv_offset += num_bos * sizeof(*bo_privs);
+>   
+>   exit:
+> -	while (ret && bo_index--) {
+> -		if (bo_buckets[bo_index].alloc_flags
+> -		    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
+> -			close_fd(bo_buckets[bo_index].dmabuf_fd);
+> -	}
+> -
+> +	commit_files(files, bo_buckets, bo_index, ret);
+> +	kvfree(files);
+>   	kvfree(bo_buckets);
+>   	kvfree(bo_privs);
+>   	return ret;
+> @@ -2358,7 +2380,8 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
+>   
+>   static int criu_restore_bo(struct kfd_process *p,
+>   			   struct kfd_criu_bo_bucket *bo_bucket,
+> -			   struct kfd_criu_bo_priv_data *bo_priv)
+> +			   struct kfd_criu_bo_priv_data *bo_priv,
+> +			   struct file **file)
+>   {
+>   	struct kfd_process_device *pdd;
+>   	struct kgd_mem *kgd_mem;
+> @@ -2410,7 +2433,7 @@ static int criu_restore_bo(struct kfd_process *p,
+>   	if (bo_bucket->alloc_flags
+>   	    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT)) {
+>   		ret = criu_get_prime_handle(kgd_mem, DRM_RDWR,
+> -					    &bo_bucket->dmabuf_fd);
+> +					    &bo_bucket->dmabuf_fd, file);
+>   		if (ret)
+>   			return ret;
+>   	} else {
+> @@ -2427,6 +2450,7 @@ static int criu_restore_bos(struct kfd_process *p,
+>   {
+>   	struct kfd_criu_bo_bucket *bo_buckets = NULL;
+>   	struct kfd_criu_bo_priv_data *bo_privs = NULL;
+> +	struct file **files = NULL;
+>   	int ret = 0;
+>   	uint32_t i = 0;
+>   
+> @@ -2440,6 +2464,12 @@ static int criu_restore_bos(struct kfd_process *p,
+>   	if (!bo_buckets)
+>   		return -ENOMEM;
+>   
+> +	files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
+> +	if (!files) {
+> +		ret = -ENOMEM;
+> +		goto exit;
+> +	}
+> +
+>   	ret = copy_from_user(bo_buckets, (void __user *)args->bos,
+>   			     args->num_bos * sizeof(*bo_buckets));
+>   	if (ret) {
+> @@ -2465,7 +2495,7 @@ static int criu_restore_bos(struct kfd_process *p,
+>   
+>   	/* Create and map new BOs */
+>   	for (; i < args->num_bos; i++) {
+> -		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i]);
+> +		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
+>   		if (ret) {
+>   			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
+>   			goto exit;
+> @@ -2480,11 +2510,8 @@ static int criu_restore_bos(struct kfd_process *p,
+>   		ret = -EFAULT;
+>   
+>   exit:
+> -	while (ret && i--) {
+> -		if (bo_buckets[i].alloc_flags
+> -		   & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
+> -			close_fd(bo_buckets[i].dmabuf_fd);
+> -	}
+> +	commit_files(files, bo_buckets, i, ret);
+> +	kvfree(files);
+>   	kvfree(bo_buckets);
+>   	kvfree(bo_privs);
+>   	return ret;
