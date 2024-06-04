@@ -4,63 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F691C25B76
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7688C27C53
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A084410E7CA;
-	Wed,  5 Jun 2024 12:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDFB810E7C2;
+	Wed,  5 Jun 2024 12:57:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ehSnSHzm";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QFYHrfR2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4225F10E5DB;
- Wed,  5 Jun 2024 12:36:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1717590976; x=1749126976;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=+YclYx0u1dt3KvnTUzDYgRHDIhFjiX1Hok5YG51qfsE=;
- b=ehSnSHzmHhJYU90LYsI4FydDDsLllI9n2hTduAhi7grjoCeHasNoUMdU
- U6Oig/jpkWUvnjpz8sbvy9ZFTLwxD2gxRgdV0U9eJ/9b74HwoEg4LhEoP
- e7lhIXUIAbPKRPJDRGhfa3AXnbHX0+ryVXaMlO5NqTVKMpsYtxj3400t8
- QbyK4kVw47Z5mYPRuAkLyqWioVF4QcF0oYmus+BhJvNvKuROSir+pDmRr
- 20XdCJzzv6h10I6HTznfI3MjbNwJF49Fknjm6BYnyCEUw9hSsC5SxkE7g
- FQj4RcPFi4kAqb4qgNM0+EZ3LXhfqOyH478Rsoxihh7cycCwNYSlXikRH w==;
-X-CSE-ConnectionGUID: l3pTT1kVSmWTLlIYv5ZhAg==
-X-CSE-MsgGUID: 8Uxl6ttVQpyIJY03AO+2EQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14377308"
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="14377308"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 05:36:15 -0700
-X-CSE-ConnectionGUID: Lx6z27YWT7OSx6GJGc5JZg==
-X-CSE-MsgGUID: 4BlE4sM/RKqGf9fTKsM1oQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,216,1712646000"; d="scan'208";a="37683913"
-Received: from sbutnari-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.204])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 05:36:11 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
- =?utf-8?Q?ig?=
- <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 1/3] drm/i915: drop redundant W=1 warnings from Makefile
-In-Reply-To: <490931748fa9a1dbac2bceda0c4b778240b10b58.1716471145.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1716471145.git.jani.nikula@intel.com>
- <490931748fa9a1dbac2bceda0c4b778240b10b58.1716471145.git.jani.nikula@intel.com>
-Date: Wed, 05 Jun 2024 15:36:06 +0300
-Message-ID: <87sexrbm89.fsf@intel.com>
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55E3210E52D;
+ Tue,  4 Jun 2024 15:41:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id CC8FFCE0D92;
+ Tue,  4 Jun 2024 15:41:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419ADC2BBFC;
+ Tue,  4 Jun 2024 15:41:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1717515705;
+ bh=MkqW4oRMkhNEdYOvDU8SXsza2MZUGZIzZNiOeC/dQY8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QFYHrfR2wBDLSr/NAUq7a4NDJajg6kry2t9DxkVnMJNuCwbyEticVZz7z2cXgWxSV
+ W/tFV8bzudGtOLJnKhHl1GTe7pvxoBR5+Kc53ItMaFHBUJT0bjGH7NoEruB+u04AF/
+ QvjXc0tth8Ny884yL9+o4j1zEe6gYh2NE+pGVcfU=
+Date: Tue, 4 Jun 2024 17:31:50 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Chia-I Wu <olvaffe@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ christian.koenig@amd.com, alexander.deucher@amd.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kernel/resource: optimize find_next_iomem_res
+Message-ID: <2024060427-upstairs-jackal-b10a@gregkh>
+References: <20240531053704.2009827-1-olvaffe@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240531053704.2009827-1-olvaffe@gmail.com>
 X-Mailman-Approved-At: Wed, 05 Jun 2024 12:57:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,62 +58,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 23 May 2024, Jani Nikula <jani.nikula@intel.com> wrote:
-> Since commit a61ddb4393ad ("drm: enable (most) W=1 warnings by default
-> across the subsystem"), most of the extra warnings in the driver
-> Makefile are redundant. Remove them.
->
-> Note that -Wmissing-declarations and -Wmissing-prototypes are always
-> enabled by default in scripts/Makefile.extrawarn.
->
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Thu, May 30, 2024 at 10:36:57PM -0700, Chia-I Wu wrote:
+> We can skip children resources when the parent resource does not cover
+> the range.
+> 
+> This should help vmf_insert_* users on x86, such as several DRM drivers.
+> On my AMD Ryzen 5 7520C, when streaming data from cpu memory into amdgpu
+> bo, the throughput goes from 5.1GB/s to 6.6GB/s.  perf report says
+> 
+>   34.69%--__do_fault
+>   34.60%--amdgpu_gem_fault
+>   34.00%--ttm_bo_vm_fault_reserved
+>   32.95%--vmf_insert_pfn_prot
+>   25.89%--track_pfn_insert
+>   24.35%--lookup_memtype
+>   21.77%--pat_pagerange_is_ram
+>   20.80%--walk_system_ram_range
+>   17.42%--find_next_iomem_res
+> 
+> before this change, and
+> 
+>   26.67%--__do_fault
+>   26.57%--amdgpu_gem_fault
+>   25.83%--ttm_bo_vm_fault_reserved
+>   24.40%--vmf_insert_pfn_prot
+>   14.30%--track_pfn_insert
+>   12.20%--lookup_memtype
+>   9.34%--pat_pagerange_is_ram
+>   8.22%--walk_system_ram_range
+>   5.09%--find_next_iomem_res
+> 
+> after.
 
-Pushed this patch to drm-intel-next with Lucas' irc ack.
+That's great, but why is walk_system_ram_range() being called so often?
 
-BR,
-Jani.
+Shouldn't that be a "set up the device" only type of thing?  Why hammer
+on "lookup_memtype" when you know the memtype, you just did the same
+thing for the previous frame.
 
-> ---
->  drivers/gpu/drm/i915/Makefile | 25 +------------------------
->  1 file changed, 1 insertion(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-> index 7cad944b825c..a70d95a8fd7a 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -3,31 +3,8 @@
->  # Makefile for the drm device driver.  This driver provides support for the
->  # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
->  
-> -# Unconditionally enable W=1 warnings locally
-> -# --- begin copy-paste W=1 warnings from scripts/Makefile.extrawarn
-> -subdir-ccflags-y += -Wextra -Wunused -Wno-unused-parameter
-> -subdir-ccflags-y += -Wmissing-declarations
-> -subdir-ccflags-y += $(call cc-option, -Wrestrict)
-> -subdir-ccflags-y += -Wmissing-format-attribute
-> -subdir-ccflags-y += -Wmissing-prototypes
-> -subdir-ccflags-y += -Wold-style-definition
-> -subdir-ccflags-y += -Wmissing-include-dirs
-> -subdir-ccflags-y += $(call cc-option, -Wunused-but-set-variable)
-> -subdir-ccflags-y += $(call cc-option, -Wunused-const-variable)
-> -subdir-ccflags-y += $(call cc-option, -Wpacked-not-aligned)
-> -subdir-ccflags-y += $(call cc-option, -Wformat-overflow)
-> +# Enable W=1 warnings not enabled in drm subsystem Makefile
->  subdir-ccflags-y += $(call cc-option, -Wformat-truncation)
-> -subdir-ccflags-y += $(call cc-option, -Wstringop-truncation)
-> -# The following turn off the warnings enabled by -Wextra
-> -ifeq ($(findstring 2, $(KBUILD_EXTRA_WARN)),)
-> -subdir-ccflags-y += -Wno-missing-field-initializers
-> -subdir-ccflags-y += -Wno-type-limits
-> -subdir-ccflags-y += -Wno-shift-negative-value
-> -endif
-> -ifeq ($(findstring 3, $(KBUILD_EXTRA_WARN)),)
-> -subdir-ccflags-y += -Wno-sign-compare
-> -endif
-> -# --- end copy-paste
->  
->  # Enable -Werror in CI and development
->  subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
+This feels like it could be optimized to just "don't call these things"
+which would make it go faster, right?
 
--- 
-Jani Nikula, Intel
+What am I missing here, why does this always have to be calculated all
+the time?  Resource mapping changes are rare, if at all, over the
+lifetime of a system uptime.  Constantly calculating something that
+never changes feels odd to me.
+
+thanks,
+
+greg k-h
