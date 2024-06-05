@@ -4,141 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26EBC25B76
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 09:46:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03CF1C25B76
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 10:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02E910E023;
-	Wed,  5 Jun 2024 09:46:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD81310E4A5;
+	Wed,  5 Jun 2024 10:05:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4kFjFbXy";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="T5Lvnqyw";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BE6410E023
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 09:45:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gM03wh5ixV9tjnwRMMeZKL42tNV3MuhE9mgA/ggngMNg2oHwFSxT4lRpLHSLMJJmv80ka0eFTBqTHG+t5qDHWAmEokrJjPo8Y10ASl71Gi5VmFU/NLhCb6l0bpCx0HZzwqziL5ELvZzEs+ZckKXFMEnAJElECMKRMzbM0jeAgOTovJa+RfFakaDyABV2z0mbjHnosNaMuWIxbGBS0t6/mronRqKGpfeNtMBKB8O+djyCjxRnr76oFYWNlh8SqYRlNMWByi+DfoY0BzWPT8TOHLEFzDn/ZTsPJ4WGJMMwIB+zj/emhy49mEhIvDPL6S9cBVW5Un5JH8o/m+/46HD10g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Po9pdEO1DVKe1mcyLGMLpkdzMQKLfIbvPQxw8VrPu+Y=;
- b=hcyKE43UASdJORgOWsywLeBZ2tNKAjCohiztvAd31ZTtM+4Wm3MRqN/iIiEZOIQwFOOdWT0tsTlUdF/vygTwOfvc0gOCychZd7Lb25jTwqUZocFgPuQ69M8SZdJrUtHlB+9u0BIIbsARMcSib5y5DypL4p3h7TNCbEjgR+h3EE4CUFYZw0UCirlS/r/ZAjHb01erSouSNJTm0mDkDMwUHho1OrvsKJktwX1jVnUeAK+75NmIu8IAlSYnKhi4k56pS8Z3CxuoTUhBbYAd69sqxALpAAfo7Wq4++425zZRbgNn6WK4adpe5rv1DrhgU4AVf/Dbs7u3cy0iqtWL7PD5UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Po9pdEO1DVKe1mcyLGMLpkdzMQKLfIbvPQxw8VrPu+Y=;
- b=4kFjFbXyT2HNRKS/2hW2VjvnvnUFtrmpqcaxK0VQhc7xF1mHfjvm9wcLIlAMCxJKu+SP+8RgL/EmnbCWHrwtlry1/c7XXAFe9JNEZMSdpbvPPgOC25MFic9YpUwGGtEhQXuWZf1LURO5HBZvg6cMv83bPCS6LFUpUipGvXN25tw=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by SA3PR12MB9106.namprd12.prod.outlook.com (2603:10b6:806:37e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31; Wed, 5 Jun
- 2024 09:45:53 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%4]) with mapi id 15.20.7633.021; Wed, 5 Jun 2024
- 09:45:53 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: move some aca/mca init functions into
- ras_init() stage
-Thread-Topic: [PATCH] drm/amdgpu: move some aca/mca init functions into
- ras_init() stage
-Thread-Index: AQHatysux+JmOEfMOE6jEFs+39johbG46/JA
-Date: Wed, 5 Jun 2024 09:45:53 +0000
-Message-ID: <PH7PR12MB8796BCC45E981D30A6BEC91DB0F92@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20240605093130.3045812-1-kevinyang.wang@amd.com>
-In-Reply-To: <20240605093130.3045812-1-kevinyang.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=bc9b74eb-3e95-4c6d-aa0d-857e62f25f62;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-05T09:45:47Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|SA3PR12MB9106:EE_
-x-ms-office365-filtering-correlation-id: 4f37706c-cc57-4891-fd3c-08dc85444ab8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|366007|376005|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?Srq2U8EQo+1hQRtSVcDuyIQza9yJa2gtyCd7u0qStJG1uNzOapnw7VMhvFPX?=
- =?us-ascii?Q?EUQtao1tJWtEOefgzy5MoTtXMTAO52HyFbo3+o7POQhMmrvIdFYQ7ZqNuO5l?=
- =?us-ascii?Q?Ovwr/ORWw68Mvk+d4WkY+tqGd76o9Iiok6xtpnLsbMrk6ogR4z3OwclgQEMu?=
- =?us-ascii?Q?hoSKbWPzY9+uMVhAVtyMIFGBK7bEh5+X1fOUn7rh/n0EnoXHBlCh8bReNYxi?=
- =?us-ascii?Q?xOAXPeeG2yvGbXLQw2vwDCAfjda3LQOH77Rz9KSXpJKf6d+gjKtyKee+uoKg?=
- =?us-ascii?Q?txBg7yWIZO4M+I1NYJstR9xknzoO+xQwyZx8G/+JlpruoMM7RKGZF3l82MCk?=
- =?us-ascii?Q?/1323EMZNbI3RR81QGZa6ygzQZk1Zd4sN3FfOpXalowphfjFU4pXShWhzORe?=
- =?us-ascii?Q?Hx7c6ArhPjfzg+lSKBoEZHvYVAkvOnA0C+YmgkmTf/hxpgWc8H++QKMufo57?=
- =?us-ascii?Q?BUGQzbs1Hfr7KlVDgZxzjvRfyvZligfWZCa+xNF9GIiZZozlj2z6dSrHZqDw?=
- =?us-ascii?Q?gIDTbqoqz8VTple8w58M651jUTNz5Ar04uTCl7/gfSs1GP6sHj7HDWxiWhVM?=
- =?us-ascii?Q?TdHW510Zp/4gPS7Zw7hkhBKTwg5sFq1LhqHpyeHiHISdWvdFNt8L9/Onyx9e?=
- =?us-ascii?Q?VYklH7uZqSIJsA0B6He48nlqHYO4RMfhtxLRga1yXA9A/FuY3iCdRyNd7ctj?=
- =?us-ascii?Q?xx1GRlu53/2Ls9KPY5LSXZpBlEBw+TRud+oKdYdLmejFjCYA/KfVRLXFT5vN?=
- =?us-ascii?Q?yK+PYzo1iXzz/Q8ZZBRicariROhvldY/wpAJkCIyjlhuzdjO72Zta1d8oTLn?=
- =?us-ascii?Q?yLA8VUHIngz1HM+TDhEM7yv1tcgpa+lxgKHLNxTh0O4WcbyoZ4MpYabC4t9W?=
- =?us-ascii?Q?e/XLuqy1tNSMWD9U3IAHORiwBLq2ygdOGcvFp9J2CZZjE6S33c8F8VXWbCIQ?=
- =?us-ascii?Q?xzig7ObyCrsT8vqL56OO0gUALjam0IDE4HJR1ABJq6FP8IS5LOLsUPipVW/T?=
- =?us-ascii?Q?sL9aFlVi1SBsW3/b7rWMnvsjlS+AnWwu3rKZTDbJQmObMA+EwrCosp9u8KrF?=
- =?us-ascii?Q?oiSFzLuGKjGq/W3gFbWGkHWM7PZnVz9RGPqH7q/wVMPfRSsrR7wgeHg2R1zb?=
- =?us-ascii?Q?RtuCobFyCOqw16eOro1m6EnAMkmVEpuMD7kkqLqPqTCW19sIlXkYSVnmAmNB?=
- =?us-ascii?Q?J5jIyR9+LeEpg5HRFL1m5LbAi4MpXqOdlWW0N1VnV+2f9/U8JfgOxn1O1DSQ?=
- =?us-ascii?Q?OuGo6HVWXv13p/gO/8aPnTiMhXl7/VBe6GtqATAzo2+rnTosDrPZec6+cM9F?=
- =?us-ascii?Q?oAbKlXXsxwMLKgEFSQNEVJUhw0rX2wIkamP//cJsDK/i6A=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?34DZ3U+CqvPiEd7w+mzxOOrQfr+zBTVyB3G+tH8YESIeN0nZkqh9Og3sONGI?=
- =?us-ascii?Q?kizL5vBxFI47HECqDnnzfq/zQlHt3FjPDnUlJJP3yPVF8i2Gx7A7xymPqWTh?=
- =?us-ascii?Q?eyJIhxDsq8mfU8JL0K2UzMEhivBd3wC/bTJWsrYto+OZHl0+eW7/QtOzfmj+?=
- =?us-ascii?Q?IVgBV5YEDCXWG47a1q2K5XxtZzd8LwtZlyT456MYQTnRDUF3u8pmTcnaJBqI?=
- =?us-ascii?Q?KpOUwTjVXVk6V+gRA5vXn0M+DrQLKMyv9zEzocFlGLKGUEJ4UAANqlGJ7sz9?=
- =?us-ascii?Q?Oa4fmaDuibUwoYrE/n5PEvy1/2dN7Uuv4AcT8n6uKX1U4LKrjtwH5e1AYOl5?=
- =?us-ascii?Q?nfBlVDkbEF0q3cwfu38oLgJfxS6xLj6jpQRxs9yI3mjGonZPk+Y26naJKQ4G?=
- =?us-ascii?Q?T2LMP5iOdKsogVyiEGQb+NR753UVAvKVxNSsw636L+M5oCTBQJcIo0aBi4N3?=
- =?us-ascii?Q?u/0TJtlSH2TlecZu4LziyfTur13nROBKQdx1apuD9FGmP1MzZmdeP//QD+1w?=
- =?us-ascii?Q?LvtXB2WrIqyYMAA8+OC3ksUiA3SvPs53CMp8jre0wSRfmDL8ZAqXAf9WBHn6?=
- =?us-ascii?Q?3FimAPFtRCaa6MUEPU9Bcl3vZv9qJsh7YlEg+ipa152kmbovAUf5TkHTfy8q?=
- =?us-ascii?Q?ybQYGv1aGzaxZ7ok8wRgZ0tyMk/NDv10QVfzpWxqbsMBOqIAnDO6qJ7PI8iM?=
- =?us-ascii?Q?+2kxGQRn7m04q3jweoB6wL9EFY25UyDtVLrb0rSkDpy0tJasXEHOSd6sUM79?=
- =?us-ascii?Q?iplHXOCQRxXzk12Hw1LxR+ycgl0GHrp0oNTUbVtOXWMGns8pdy5NOs09VRm+?=
- =?us-ascii?Q?7RZkcx8gLJ8hzaTQZPRY0pn0puHOgs1ZkT9BZgNo2oDnYFPjWvOvDMnuONvj?=
- =?us-ascii?Q?Hx/m883sRo9XQfPWB4485/JbZDc3yaKZx7K7RRMS0TDxCkZMWe7rgvU+jGkb?=
- =?us-ascii?Q?Sl7YNPNmW5j4I9fTN6Pa1duYVxcTEynZqL1/3oA0izswroaiyNFjQEIJ2k8w?=
- =?us-ascii?Q?Tc5yaHJRrEjdqv8+IDQ4g1LHSGEj8KoZesmhLUOFW/plkQlNhUzPT5L2Vkev?=
- =?us-ascii?Q?dSYiNr1BF1k3RzzkpF77OEWPrHaPjvpUIFNfI4p10uU9MMldX/1jM0f507xt?=
- =?us-ascii?Q?lTSz5hWwmTouNcYq8OvCbpW02tGUF4y4qJEkrVau9aaL2+nA0h0kMaXaU13L?=
- =?us-ascii?Q?F7lJcwTxWQODxYD//fC8u2cOXTjRK/7w/vqrFbliBM149JjBXTtIyGuO3JRi?=
- =?us-ascii?Q?dToqnAjZjWsuLxij0VkSyInzK2h9IwT57/ZoDRDNs5qCQcaJlsaKLrkW9Gr5?=
- =?us-ascii?Q?k/plpGH4Dyf0mida39sCXnmXV7QtIOGE3hiVC994iIC7BwpJxWuG3c+ialze?=
- =?us-ascii?Q?/KhmIlhaldb2Hre2hgFYC4caNcSVT6DNhzYTQY5UAkpFySu4qNfLGIFU72GN?=
- =?us-ascii?Q?ZEmlGZI9psLT1yG4oU6PwOwxjETK4eweFbFxyVmybLFCJLnmLRDOuo/QovCR?=
- =?us-ascii?Q?5bqIcbc+vSkyUbr8WYz4ZD57lkfFy051QZ0dh52s39sP3v1IC6Y+Ga9kPNrZ?=
- =?us-ascii?Q?zT7LVwSxvZXD92XaqIg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3096A10E1DF;
+ Wed,  5 Jun 2024 10:05:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=8syffF8IiHfMdZnPUed/8hiQ/FwAmYLM/8KU9mWfhoM=; b=T5LvnqywF192e9TNfW9aLtAaw3
+ NddMN+aLLbdBhxRNqZ8YlTQPr/CrLZwGDChppicT+FFwON5dsc/pi1A+85wxXwtCd1DrRL5vyLr0f
+ 3q2z61+QPB8XGIJ/C8nidDnZdWH37fOFiCP+vSajzPMUj/dsCwQvkjY7gAyzNlNCNqtQvbkbzTL+A
+ LUDGRc+B0gXia7aRDScrE/2330jhgbYV2kFy1QpShWG+X/HwFk02YbHjZ1Yd7XkAqsi384i5VYRq/
+ LRv09o86UcMWRNlAm0NyKAYdv8+tTxrOrzzcGaBqoU677yzWLTXVhYDQlowJXV0syalLFGOHAhCo1
+ xFjCgNHQ==;
+Received: from [192.168.12.190] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1sEnWC-00HCfR-U2; Wed, 05 Jun 2024 12:05:20 +0200
+Date: Wed, 5 Jun 2024 12:04:52 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Jonas =?utf-8?B?w4VkYWhs?= <jadahl@redhat.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>, Alexander Goins <agoins@nvidia.com>,
+ Joshua Ashton <joshua@froggi.es>,
+ Michel =?utf-8?Q?D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Aleix Pol <aleixpol@kde.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
+ Victoria Brekenfeld <victoria@system76.com>, Sima <daniel@ffwll.ch>,
+ Uma Shankar <uma.shankar@intel.com>, 
+ Naseer Ahmed <quic_naseer@quicinc.com>,
+ Christopher Braga <quic_cbraga@quicinc.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Arthur Grillo <arthurgrillo@riseup.net>, 
+ Hector Martin <marcan@marcan.st>, Liviu Dudau <Liviu.Dudau@arm.com>, 
+ Sasha McIntosh <sashamcintosh@google.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Subject: Re: [RFC PATCH v4 00/42] Color Pipeline API w/ VKMS
+Message-ID: <rkkkrh5epzdxfiknvolzxfoctdnoxfi2nvljmivu6ohmtcc5lg@r3y2x5aug6a4>
+References: <20240226211100.100108-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f37706c-cc57-4891-fd3c-08dc85444ab8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2024 09:45:53.7433 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XVJO3wNeeW2O2pM1paaek1LRSLmcXmJpzSodu7Pl5HNwWccHmeTejTf+tFgm934a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9106
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240226211100.100108-1-harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,82 +76,322 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On 02/26, Harry Wentland wrote:
+> This is an RFC set for a color pipeline API, along with a sample
+> implementation in VKMS. All the key API bits are here. VKMS now
+> supports two named transfer function colorops and two matrix
+> colorops. We have IGT tests that check all four of these colorops
+> with a pixel-by-pixel comparison that checks that these colorops
+> do what we expect them to do with a +/- 1 8 bpc code point margin.
+> 
+> The big new change with v4 is the addition of an amdgpu color
+> pipeline, for all AMD GPUs with DCN 3 and newer. Amdgpu now support
+> the following:
+> 
+> 1. 1D Curve EOTF
+> 2. 3x4 CTM
+> 3. Multiplier
+> 4. 1D Curve Inverse EOTF
+> 5. 1D LUT
+> 6. 1D Curve EOTF
+> 7. 1D LUT
+> 
+> The supported curves for the 1D Curve type are:
+> - sRGB EOTF and its inverse
+> - PQ EOTF, scaled to [0.0, 125.0] and its inverse
+> - BT.2020/BT.709 OETF and its inverse
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+So, as we talked in the 2024 Linux Display Next Hackfest, I hacked
+`drm_info` to show the KMS color pipeline properties. You can find the
+experimental-and-ugly code here:
+- https://gitlab.freedesktop.org/mwen/drm_info/-/merge_requests/1
+It depends on updating libdrm [1] and you will only see something if you
+use a custom kernel with this series applied.
 
-> -----Original Message-----
-> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Sent: Wednesday, June 5, 2024 5:32 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>
-> Subject: [PATCH] drm/amdgpu: move some aca/mca init functions into ras_in=
-it()
-> stage
->
-> adjust the function position to better match aca/mca fini code in ras_fin=
-i().
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 28 ++++++++++++++-----------
->  1 file changed, 16 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 8dbfdb767f94..3258feb753ca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -3428,6 +3428,13 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
->               goto release_con;
->       }
->
-> +     if (amdgpu_aca_is_enabled(adev))
-> +             r =3D amdgpu_aca_init(adev);
-> +     else
-> +             r =3D amdgpu_mca_init(adev);
-> +     if (r)
-> +             goto release_con;
-> +
->       dev_info(adev->dev, "RAS INFO: ras initialized successfully, "
->                "hardware ability[%x] ras_mask[%x]\n",
->                adev->ras_hw_enabled, adev->ras_enabled); @@ -3636,25
-> +3643,22 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
->
->       amdgpu_ras_event_mgr_init(adev);
->
-> -     if (amdgpu_aca_is_enabled(adev)) {
-> -             if (!amdgpu_in_reset(adev)) {
-> -                     r =3D amdgpu_aca_init(adev);
-> +     if (amdgpu_in_reset(adev)) {
-> +             if (!amdgpu_aca_is_enabled(adev)) {
-> +                     r =3D amdgpu_mca_reset(adev);
->                       if (r)
->                               return r;
->               }
-> +     }
->
-> -             if (!amdgpu_sriov_vf(adev))
-> -                     amdgpu_ras_set_aca_debug_mode(adev, false);
-> -     } else {
-> -             if (amdgpu_in_reset(adev))
-> -                     r =3D amdgpu_mca_reset(adev);
-> +     if (!amdgpu_sriov_vf(adev)) {
-> +             if (amdgpu_aca_is_enabled(adev))
-> +                     r =3D amdgpu_ras_set_aca_debug_mode(adev, false);
->               else
-> -                     r =3D amdgpu_mca_init(adev);
-> +                     r =3D amdgpu_ras_set_mca_debug_mode(adev, false);
-> +
->               if (r)
->                       return r;
-> -
-> -             if (!amdgpu_sriov_vf(adev))
-> -                     amdgpu_ras_set_mca_debug_mode(adev, false);
->       }
->
->       /* Guest side doesn't need init ras feature */
+After checking the output, I missed a kind of Default or "Identity"
+curve for the `CURVE_1D_TYPE` enum. I understand that if the color
+operation is set bypass, we can ignore all property values, but I didn't
+find a similar approach on plane properties, so it looks weird to me:
+
+└───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, BT.2020 OETF, PQ 125 Inverse EOTF} = invalid (0)
+
+Another thing that caught my attention was the size property for 1D
+Curve Custom LUT, that I expected a similar setup to CRTC 1D LUTs:
+
+└───"GAMMA_LUT_SIZE" (immutable): range [0, UINT32_MAX] = 4096
+
+But I got:
+
+├───"SIZE" (atomic): range [4096, 4096] = 4096
+
+Any thoughts?
+
+Anyway, see below an example of `drm_info` output on AMD DCN301 for a
+given Overlay/Primary plane without userspace usage of the properties:
+
+    │       └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 265} = Bypass
+    │           ├───Bypass
+    │           └───Color Pipeline 265
+    │               ├───Color Operation 265
+    │               │   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = 1D Curve
+    │               │   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │               │   └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, BT.2020 Inverse OETF, PQ 125 EOTF} = sRGB EOTF
+    │               ├───Color Operation 270
+    │               │   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = 3x4 Matrix
+    │               │   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │               │   └───"DATA" (atomic): blob = 0
+    │               ├───Color Operation 275
+    │               │   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = Multiplier
+    │               │   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │               │   └───"MULTIPLIER" (atomic): range [0, UINT64_MAX] = 0
+    │               ├───Color Operation 280
+    │               │   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = 1D Curve
+    │               │   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │               │   └───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, BT.2020 OETF, PQ 125 Inverse EOTF} = invalid (0)
+    │               ├───Color Operation 285
+    │               │   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = 1D Curve Custom LUT
+    │               │   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │               │   ├───"SIZE" (atomic): range [4096, 4096] = 4096
+    │               │   └───"DATA" (atomic): blob = 0
+    │               ├───Color Operation 291
+    │               │   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = 1D Curve
+    │               │   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │               │   └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, BT.2020 Inverse OETF, PQ 125 EOTF} = sRGB EOTF
+    │               └───Color Operation 296
+    │                   ├───"TYPE" (immutable): enum {1D Curve, 1D Curve Custom LUT, 3x4 Matrix, Multiplier} = 1D Curve Custom LUT
+    │                   ├───"BYPASS" (atomic): range [0, 1] = 1
+    │                   ├───"SIZE" (atomic): range [4096, 4096] = 4096
+    │                   └───"DATA" (atomic): blob = 0
+
+It's a WIP and the output still needs to be reviewed. So feel free to
+point out any mistake.
+
+BR,
+
+Melissa
+
+> 
+> Note that the 1st and 5th colorops take the EOTF or Inverse
+> OETF while the 3rd colorop takes the Inverse EOTF or OETF.
+> 
+> We are working on two more ops for amdgpu, the HDR multiplier
+> and the 3DLUT, which will give us this:
+> 
+> 1. 1D Curve EOTF
+> 2. 3x4 CTM
+> 3. HDR Multiplier
+> 4. 1D Curve Inverse EOTF
+> 5. 1D LUT
+> 6. 3D LUT
+> 7. 1D Curve EOTF
+> 8. 1D LUT
+> 
+> This, essentially mirrors the color pipeline used by gamescope
+> and presented by Melissa Wen, with the exception of the DEGAM
+> LUT, which is not currently used. See
+> [1] https://indico.freedesktop.org/event/4/contributions/186/attachments/138/218/xdc2023-TheRainbowTreasureMap-MelissaWen.pdf
+> 
+> After this we'd like to also add the following ops:
+> - Scaler (Informational only)
+> - Color Encoding, to replace drm_plane's COLOR_ENCODING
+> - Color Range, to replace drm_plane's COLOR_RANGE
+> 
+> This patchset is grouped as follows:
+>  - Patches 1-3: couple general patches/fixes
+>  - Patches 4-7: introduce kunit to VKMS
+>  - Patch 7: description of motivation and details behind the
+>             Color Pipeline API. If you're reading nothing else
+>             but are interested in the topic I highly recommend
+>             you take a look at this.
+>  - Patches 7-27: DRM core and VKMS changes for color pipeline API
+>  - Patches 28-40: DRM core and amdgpu changes for color pipeline API
+> 
+> VKMS patches could still be improved in a few ways, though the
+> payoff might be limited and I would rather focus on other work
+> at the moment. The most obvious thing to improve would be to
+> eliminate the hard-coded LUTs for identity, and sRGB, and replace
+> them with fixed-point math instead.
+> 
+> There are plenty of things that I would like to see here but
+> haven't had a chance to look at. These will (hopefully) be
+> addressed in future iterations, either in VKMS or amdgpu:
+>  - Clear documentation for each drm_colorop_type
+>  - Add custom LUT colorops to VKMS
+>  - Add pre-blending 3DLUT
+>  - How to support HW which can't bypass entire pipeline?
+>  - Add ability to create colorops that don't have BYPASS
+>  - Can we do a LOAD / COMMIT model for LUTs (and other properties)?
+>  - read-only scaling colorop which defines scaling taps and position
+>  - read-only color format colorop to define supported color formats
+>    for a pipeline
+>  - named matrices, for things like converting YUV to RGB
+> 
+> IGT tests can be found at
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/merge_requests/1
+> 
+> IGT patches are also being sent to the igt-dev mailing list.
+> 
+> If you prefer a gitlab MR for review you can find it at
+> https://gitlab.freedesktop.org/hwentland/linux/-/merge_requests/5
+> 
+> v4:
+>  - Add amdgpu color pipeline (WIP)
+>  - Don't block setting of deprecated properties, instead pass client cap
+>    to atomic check so drivers can ignore these props
+>  - Drop IOCTL definitions (Pekka)
+>  - Use enum property for colorop TYPE (Pekka)
+>  - A few cleanups to the docs (Pekka)
+>  - Rework the TYPE enum to name relation to avoid code duplication (Pekka)
+>  - Add missing function declarations (Chaitanya Kumar Borah)
+>  - Allow setting of NEXT property to NULL in _set_ function (Chaitanya Kumar Borah)
+>  - Add helper for creation of pipeline drm_plane property (Pekka)
+>  - Always create Bypass pipeline (Pekka)
+>  - A bunch of changes to VKMS kunit tests (Pekka)
+>  - Fix index in CTM doc (Pekka)
+> 
+> v3:
+>  - Abandon IOCTLs and discover colorops as clients iterate the pipeline
+>  - Remove need for libdrm
+>  - Add color_pipeline client cap and make mutually exclusive with
+>    COLOR_RANGE and COLOR_ENCODING properties
+>  - add CTM colorop to VKMS
+>  - Use include way for kunit testing static functions (Arthur)
+>  - Make TYPE a range property
+>  - Move enum drm_colorop_type to uapi header
+>  - and a bunch of smaller bits that are highlighted in the relevant commit
+>    description
+> 
+> v2:
+>  - Rebased on drm-misc-next
+>  - Introduce a VKMS Kunit so we can test LUT functionality in vkms_composer
+>  - Incorporate feedback in color_pipeline.rst doc
+>  - Add support for sRGB inverse EOTF
+>  - Add 2nd enumerated TF colorop to VKMS
+>  - Fix LUTs and some issues with applying LUTs in VKMS
+> 
+> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Cc: Simon Ser <contact@emersion.fr>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Jonas Ådahl <jadahl@redhat.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Shashank Sharma <shashank.sharma@amd.com>
+> Cc: Alexander Goins <agoins@nvidia.com>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: Michel Dänzer <mdaenzer@redhat.com>
+> Cc: Aleix Pol <aleixpol@kde.org>
+> Cc: Xaver Hugl <xaver.hugl@gmail.com>
+> Cc: Victoria Brekenfeld <victoria@system76.com>
+> Cc: Sima <daniel@ffwll.ch>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Naseer Ahmed <quic_naseer@quicinc.com>
+> Cc: Christopher Braga <quic_cbraga@quicinc.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Arthur Grillo <arthurgrillo@riseup.net>
+> Cc: Hector Martin <marcan@marcan.st>
+> Cc: Liviu Dudau <Liviu.Dudau@arm.com>
+> Cc: Sasha McIntosh <sashamcintosh@google.com>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> 
+> Alex Hung (10):
+>   drm/colorop: define a new macro for_each_new_colorop_in_state
+>   drm/amd/display: Skip color pipeline initialization for cursor plane
+>   drm/amd/display: Add support for sRGB EOTF in DEGAM block
+>   drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
+>   drm/amd/display: Add support for sRGB EOTF in BLND block
+>   drm/colorop: Add 1D Curve Custom LUT type
+>   drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT
+>   drm/amd/display: add 3x4 matrix colorop
+>   drm/colorop: Add mutliplier type
+>   drm/amd/display: add multiplier colorop
+> 
+> Harry Wentland (32):
+>   drm: Don't treat 0 as -1 in drm_fixp2int_ceil
+>   drm: Add helper for conversion from signed-magnitude
+>   drm: Correctly round for fixp2int_round
+>   drm/vkms: Round fixp2int conversion in lerp_u16
+>   drm/vkms: Create separate Kconfig file for VKMS
+>   drm/vkms: Add kunit tests for VKMS LUT handling
+>   drm/vkms: Avoid reading beyond LUT array
+>   drm/doc/rfc: Describe why prescriptive color pipeline is needed
+>   drm/colorop: Introduce new drm_colorop mode object
+>   drm/colorop: Add TYPE property
+>   drm/colorop: Add 1D Curve subtype
+>   drm/colorop: Add BYPASS property
+>   drm/colorop: Add NEXT property
+>   drm/colorop: Add atomic state print for drm_colorop
+>   drm/plane: Add COLOR PIPELINE property
+>   drm/colorop: Add NEXT to colorop state print
+>   drm/vkms: Add enumerated 1D curve colorop
+>   drm/vkms: Add kunit tests for linear and sRGB LUTs
+>   drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+>   drm/colorop: Add 3x4 CTM type
+>   drm/vkms: Pull apply_colorop out of pre_blend_color_transform
+>   drm/vkms: Use s32 for internal color pipeline precision
+>   drm/vkms: add 3x4 matrix in color pipeline
+>   drm/tests: Add a few tests around drm_fixed.h
+>   drm/vkms: Add tests for CTM handling
+>   drm/colorop: pass plane_color_pipeline client cap to atomic check
+>   drm/amd/display: Ignore deprecated props when plane_color_pipeline set
+>   drm/amd/display: Add bypass COLOR PIPELINE
+>   drm/colorop: Add PQ 125 EOTF and its inverse
+>   drm/amd/display: Enable support for PQ 125 EOTF and Inverse
+>   drm/colorop: add BT2020/BT709 OETF and Inverse OETF
+>   drm/amd/display: Add support for BT.709 and BT.2020 TFs
+> 
+>  Documentation/gpu/rfc/color_pipeline.rst      | 360 ++++++++
+>  drivers/gpu/drm/Kconfig                       |  14 +-
+>  drivers/gpu/drm/Makefile                      |   1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 352 ++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 160 ++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  36 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  32 +
+>  drivers/gpu/drm/drm_atomic.c                  | 161 +++-
+>  drivers/gpu/drm/drm_atomic_helper.c           |  12 +
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |   5 +
+>  drivers/gpu/drm/drm_atomic_uapi.c             | 158 ++++
+>  drivers/gpu/drm/drm_colorop.c                 | 411 +++++++++
+>  drivers/gpu/drm/drm_ioctl.c                   |   7 +
+>  drivers/gpu/drm/drm_mode_config.c             |   7 +
+>  drivers/gpu/drm/drm_plane.c                   |  52 ++
+>  drivers/gpu/drm/tests/Makefile                |   3 +-
+>  drivers/gpu/drm/tests/drm_fixp_test.c         |  69 ++
+>  drivers/gpu/drm/vkms/Kconfig                  |  20 +
+>  drivers/gpu/drm/vkms/Makefile                 |   4 +-
+>  drivers/gpu/drm/vkms/tests/.kunitconfig       |   4 +
+>  drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 449 ++++++++++
+>  drivers/gpu/drm/vkms/vkms_colorop.c           | 100 +++
+>  drivers/gpu/drm/vkms/vkms_composer.c          | 135 ++-
+>  drivers/gpu/drm/vkms/vkms_drv.h               |   8 +
+>  drivers/gpu/drm/vkms/vkms_luts.c              | 802 ++++++++++++++++++
+>  drivers/gpu/drm/vkms/vkms_luts.h              |  12 +
+>  drivers/gpu/drm/vkms/vkms_plane.c             |   2 +
+>  include/drm/drm_atomic.h                      | 122 +++
+>  include/drm/drm_atomic_uapi.h                 |   3 +
+>  include/drm/drm_colorop.h                     | 301 +++++++
+>  include/drm/drm_file.h                        |   7 +
+>  include/drm/drm_fixed.h                       |  35 +-
+>  include/drm/drm_mode_config.h                 |  18 +
+>  include/drm/drm_plane.h                       |  13 +
+>  include/uapi/drm/drm.h                        |  16 +
+>  include/uapi/drm/drm_mode.h                   |  14 +
+>  38 files changed, 3882 insertions(+), 30 deletions(-)
+>  create mode 100644 Documentation/gpu/rfc/color_pipeline.rst
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>  create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
+>  create mode 100644 drivers/gpu/drm/drm_colorop.c
+>  create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
+>  create mode 100644 drivers/gpu/drm/vkms/Kconfig
+>  create mode 100644 drivers/gpu/drm/vkms/tests/.kunitconfig
+>  create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
+>  create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
+>  create mode 100644 include/drm/drm_colorop.h
+> 
 > --
-> 2.34.1
-
+> 2.44.0
+> 
