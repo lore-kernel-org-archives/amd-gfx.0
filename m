@@ -4,143 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F241EC25B78
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 01:12:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 173D5C25B78
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 01:13:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 553DF10E65B;
-	Wed,  5 Jun 2024 01:12:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0EB10E663;
+	Wed,  5 Jun 2024 01:13:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qU7YqCIa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e8grtWJ6";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7095110E65B
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 01:12:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=goJ3I0NYFLxPogxQh6hXZGW0GnwVWw7YG1q9mB571wdILQGY3X7RphFeMxpUjTYTGRRSsNrSgVa1hEO4qnorU20Em8vWVUHtqfwbXl3JhSVGVh1H/Jfp2s8S/dilLmghspgvZPZAu9uXBiYCM6BDPcYFwzHJN5M5T2dXbj8KVQOSg0ZhTv1KvyfThmIPe6UvoIjL1JunFxI0RE712hD2+ZhwYrPhX5L9yGVMP7pMIxKKDEWrp+8EhPhbLmnPBjMf6BU6g1etJXvdKXUjtL60tRF6nKxsLScal4EHG/ga546iVlDJesxSVstRdtWnoAJduhXR6cVUw+U4VywOqUQo6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lT4dY9IkB0wLIE6XcOft8K0CN7cBwpt7HGFKoMg7Qq0=;
- b=aIZ8MllpjNMeEJuDQz6qfjBwn98IZGFVGXUDuFAMKB+mlBsYbkprk1Jvm16kAW7uQjfW24q25E6EgL2EvZJFJttaW7dqa/+xho7LztLtRzyUhU1NfFKc8Gku/igyA0/EMFW1hV0H0HdCptiXAWG4z+Xogkh0JJA59zL9DYCEuOwtGm9hHnoTP8a2vE1VCDg/8HrC3sA6o9kyXNdj/SeAIGFOI61DND7t/ietA/c2N2LRz4GLMLUvTZQS6R5n4ob0PlgQKcRhmkjZm8pKEna7AGjJasiGEvrB3CJ2uggXek+1BNOWEl7y7YqsFifUKLVfgHYID4sqq71rmLpMjcWJmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lT4dY9IkB0wLIE6XcOft8K0CN7cBwpt7HGFKoMg7Qq0=;
- b=qU7YqCIadfOkNnEEGVkXdPf4aDep4UMnawCasbK6/87HagQIVtBsQ3rjR+lhc6wLdvhfz440XPnTpo+wE/zYzzCX+ItBBCiT5Q3PYRH25ZaQ3YdpXWsbUAWDXDdX/CY32YZl+x6g1OdGe7i0rhbCB+vGiq/Uu6rG2iz/rigMjeg=
-Received: from PH0PR12MB5417.namprd12.prod.outlook.com (2603:10b6:510:e1::10)
- by IA1PR12MB7759.namprd12.prod.outlook.com (2603:10b6:208:420::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.28; Wed, 5 Jun
- 2024 01:12:03 +0000
-Received: from PH0PR12MB5417.namprd12.prod.outlook.com
- ([fe80::de07:ec43:e847:2f50]) by PH0PR12MB5417.namprd12.prod.outlook.com
- ([fe80::de07:ec43:e847:2f50%4]) with mapi id 15.20.7633.021; Wed, 5 Jun 2024
- 01:12:03 +0000
-From: "Deng, Emily" <Emily.Deng@amd.com>
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Chang, HaiJun" <HaiJun.Chang@amd.com>
-Subject: RE: [PATCH v3 2/8] drm/amdgpu: fix sriov host flr handler
-Thread-Topic: [PATCH v3 2/8] drm/amdgpu: fix sriov host flr handler
-Thread-Index: AQHastsb4tMEKsjR5UmPBo+3POQkGLG4ZKuw
-Date: Wed, 5 Jun 2024 01:12:03 +0000
-Message-ID: <PH0PR12MB54171F075093F78F4A6BA4FD8FF92@PH0PR12MB5417.namprd12.prod.outlook.com>
-References: <20240528172340.34517-1-Yunxiang.Li@amd.com>
- <20240530214805.40970-1-Yunxiang.Li@amd.com>
- <20240530214805.40970-3-Yunxiang.Li@amd.com>
-In-Reply-To: <20240530214805.40970-3-Yunxiang.Li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=7a451d0d-a2c9-457a-adb9-0493ab095c31;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-05T01:10:44Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB5417:EE_|IA1PR12MB7759:EE_
-x-ms-office365-filtering-correlation-id: 3c474928-f7ed-4ef2-2a7f-08dc84fc82a1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|376005|366007|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?oLBvVjv9p9xRLaPmt633EroUMy1z/CbraaqUnG9hAOfRS6Ibci7HLLr6JMqF?=
- =?us-ascii?Q?mfRV/H60sAuLkjb3rt9Oexq7w34LreaFfz5zbFTTESKei9ES7TEeZBqVhd/n?=
- =?us-ascii?Q?rfG+lOD6W8zG3OuqohRPrKAfsIhGkUs0FDSacjqVk5s9CV9Td6zFj+AGxAXS?=
- =?us-ascii?Q?RyzOEqVhPRre2GI7EnXqr0skOfrhycyJURJxATqTLLvl5wzPNvtLa2+ttlP3?=
- =?us-ascii?Q?a4naAp9+3kVV9wnQ3xVz1w2MVn4NcvUKLnSKC8os+o/A8LV1ElzEAHOmbWZ+?=
- =?us-ascii?Q?M15RrYHDwJRpoAM03IeCCRr0PJoApuxLhIyxDYpXCT3fb8tfnWMz9USGCxbP?=
- =?us-ascii?Q?gPLnx94YAQBke08QwBVMDLcmBJksdE1FjduKs+Biz4F1vxwlC3dtd4rZeSTZ?=
- =?us-ascii?Q?ub7XN5Jei1p7Dm/t+qCBVMPkgjXvKTDoZ1/UdExLPSMJUjIQ3YkfPgiAZcA3?=
- =?us-ascii?Q?IMNFJT55uXcZ9PLod2pTxM3KwCljP5XIN58EvlHmbqjn+fmprtGtLWr+IEZ6?=
- =?us-ascii?Q?T6l09pR0KnTXpPdSdq2fx6ekH6dUwWIYYttcardLJt5uMJAAEUimVwgVxRC8?=
- =?us-ascii?Q?PJmu9AtkFaXO31D7pbMXDO1nZF4Yos7J83YiBO7x0xa1yLfZXwHt6hK9dZ2v?=
- =?us-ascii?Q?PHZkvPF/rqjma/CaUHuAI/7L9SQLPrnLi+SAPrrfsx7+25nGuUULBcBo5zlG?=
- =?us-ascii?Q?yz+ml7ROyBkwgnLj3d3OahuJN9e7qEA1PT7v3jD1RHIVG/AbgfWG1XB293hk?=
- =?us-ascii?Q?1VoBD+M7NfOGotbohB3smjELGMxN8RfqPv5PeKC5p+juV0vKGRz5/30KSOuB?=
- =?us-ascii?Q?Xl9n+9sei68uT+O2LdnydFyN7GzJd3JshE+swVASsc/57/QHWvZOpWh2sgV8?=
- =?us-ascii?Q?FNOlE4IBr+h2qjfUkkg+cByhPmIULI396USEcWI/2WaO2IDqn4cksGHhLfFj?=
- =?us-ascii?Q?T6pkiSBC3jcz0SwTrk+uOLGk6MDC8cJo13zjzgyIv5GIdZHWz/DF48tiWVFm?=
- =?us-ascii?Q?YJKFT/xUdqA38qkty27hNId4S2epbpAmrMZAKNdDzimVmGVqDUWPG5duQnOq?=
- =?us-ascii?Q?6XeNIgt7LYL5n1umhU7tj+/m6W2h9igmlAR3FKL4ztgMwEAgeDGAbrVH0jsO?=
- =?us-ascii?Q?JqUdDZ5mk56N/SvZMQ2GZOFflR7yQy401c+QMa7SAtBjgzgEVkQOPnIsB90r?=
- =?us-ascii?Q?Sl3SLxSmm1G1JLj1XK6xFyzBQ0eHs1dXD1JRwSFBvKvzjBpRTMU77XvOOFCi?=
- =?us-ascii?Q?brzx+LgTs2dec3elzQafYdXIzHhK7ruNcGD/3B9v+NK8Qfhib2JJetYTeCy9?=
- =?us-ascii?Q?Plx+s4VWR8YScgtD0h9ed+VchrXf9tY1nJqXlcmJJ8fc2KLUL1JoFMlO3GPB?=
- =?us-ascii?Q?I3yg69U=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR12MB5417.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(376005)(366007)(38070700009); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nFvNcLMNLDhExX5CalEI6jM6chE1zLqB0DSzKLfpfxob16XnBJZEwV69fhsd?=
- =?us-ascii?Q?KxEUPCX2XBpzNzMM/5WA876hmnzWvCDJy4XQmp4WWg7jJHaNsLLHPdHjdeWE?=
- =?us-ascii?Q?2OFcTnv8CZLACoeD3IrgRQG74PLN7rd5LlFB1eG9ER3Z2YnEtkLHcsgcnyiR?=
- =?us-ascii?Q?fKXISlyN2NYEakwMU0pDUUxM8wRVwVC0BjqXDsunGzoT0X/s9sIV3POr704J?=
- =?us-ascii?Q?Q+U34nEG+x2zcr2cY7vUrAo9aR7fKinyO62xrBWSfeAvqyEccG/nU7SUxkMe?=
- =?us-ascii?Q?AzjWjSRnc/JoUXtOTFSrnMvmmTwUXGhxe3/n8vT3PdTkJi8GPahqABW2Jd5U?=
- =?us-ascii?Q?RR16MUuodtr2proc+umvRNAVqsjnlccwvPu4OAptett+J9ZK7fVJ8PnsLFIK?=
- =?us-ascii?Q?xsA9Dp2i9O7mW44UVGom96joUwA8kkqP2bjaE1Sv+KsfMnixvRY2DwjYZ1Ze?=
- =?us-ascii?Q?8HybDeNWod5pdKyxhXamPBOM99vHKKfR7AhP+ll3m2oGMAGJTbOd15N5i5eS?=
- =?us-ascii?Q?1aK0nX52ftZt4/hL8Juome6OJqEO8rPu5gA2qjnR4YiZjhvF2Ou8jQlKM9++?=
- =?us-ascii?Q?5UiAQIofR7sm+viZLSQaEI2vbJaXxj0for1a5oZ1ph+9jf50wdMc+cryUp3e?=
- =?us-ascii?Q?JWphmxQl1rjv4oANNdCe6VsbA9zv+1qj2K9qmC8nBmotCDXCAyB9FL4BUSsz?=
- =?us-ascii?Q?RoEI8Aor+3S6OpR74UEIPNH5PQhN2NBSUVYoG4qTLchuL/Q+x8nDeXAaLE7o?=
- =?us-ascii?Q?UEHRtTbj6wOjPY5GlxOYCRKexf/gv+TVBGXrNP4OlH5R2HQUc2hHH8w0/MLH?=
- =?us-ascii?Q?ISSS5kZYeCqHbrTo/Rjl1q9y71tZnShP4Fk0/Rxs1NiVsCAOpkgcVY50HVKB?=
- =?us-ascii?Q?M9CX0pdvvNFgwsExyqq3z6/tSrvLRfiYttmOIe2fBVo48pfOrDs63uTb9uhC?=
- =?us-ascii?Q?bdciK4NBzKc5imbvphaXkEnLidOOWetLWttDho6uPrixOP0nQVPTRbOAU5PV?=
- =?us-ascii?Q?T1+JBksyfmjBCAK/11xJ8w7p01ZP6siWWPf6X15DJUVJ+wE+ysoWu6naCgkY?=
- =?us-ascii?Q?P55ZwSsVAvHYqzu+4NeAFBk1A9aLlxzoPYeLs6f9yrVcVZoolw7EZT7Qpo2M?=
- =?us-ascii?Q?r/NU23PVfelN9wJjYcDER2u+7WYoJ4pePfzhHI9mwof7KALyFysu+D6NQWgb?=
- =?us-ascii?Q?Q04HqZrEkfRNL560/PwnF5hmCKRFu01nH3TbtIU++bd4c2JcajkotUtIGx2t?=
- =?us-ascii?Q?FXlmAlpUmhNrg1/IYZ1iHM5FLndVgH/j/dsgznqLwN05rDCoJR4DviCMgpHm?=
- =?us-ascii?Q?VPYxfJFdFTr7c/K3uVG0j2fdYjO50PhJHn2IVjRItzUt/Yez2ibhvKzhkPYu?=
- =?us-ascii?Q?VOEFNnAvXiNEyU1eM2RHNN9wY2s1IT9018lpMoSXJ/J1ckKKjFTVNEeGYNIv?=
- =?us-ascii?Q?1ijQX/g3xNswc9KbF50sIbkpIhfEROZ5Dz/o8mCfCs0jQXhpqFNH1nYuL8fX?=
- =?us-ascii?Q?zHOtvHB6WxIk4yUIzLjeyHaYt4Dpde0VaNbnaLm9JRhf9xSkSTUPPBa9xs3l?=
- =?us-ascii?Q?L+3soj6kM8Gu/4wbgJQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 635D510E65D;
+ Wed,  5 Jun 2024 01:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1717550001; x=1749086001;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=T3ZDGwdqdDGp+1ZnxuOf0BPc6Dwctzf0S9oxqd2XOq8=;
+ b=e8grtWJ6hx+Za7QNA/PDKkabAL1aXAKzcoP9/Ut1EmU6YoW/6Uf2qoMy
+ //Vo0hDVpKiIhZTjPC+wmN7BL6Ge4ed8U5kqa2mKbcOYvMUud/mif8CTb
+ TqNopBFi6jtl36hL3WnlHpUUFjIMP1bRpSJ9UQaRz7YhpiD58+JuvyawF
+ qe3oIrnngaYzm9j8qgtvkes0XGAxbHZTXuhT2AlEHVx6PAfxaYTqJKM9W
+ P+87NSDi3vFYCR1kh3FR2ugJQqfiAHvMfvGtU/KQlT7eSALV+jQU/njg9
+ PkFGmqHJfRTsVHhyoj24VFIDn08UIf24MKSCZ5dkILYtx0jwBS09RlHE5 g==;
+X-CSE-ConnectionGUID: 7dwgpkAoRJ24hcMR/YiZHQ==
+X-CSE-MsgGUID: dvchM8MvSEaAcDnjDaEJcQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="13972683"
+X-IronPort-AV: E=Sophos;i="6.08,215,1712646000"; d="scan'208";a="13972683"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 18:13:20 -0700
+X-CSE-ConnectionGUID: Mv8tXKlzSiCJcQkwBBb6IA==
+X-CSE-MsgGUID: 7Rw3lQwPTsOCLUk0+KwTlQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,215,1712646000"; d="scan'208";a="42363944"
+Received: from unknown (HELO 0610945e7d16) ([10.239.97.151])
+ by orviesa005.jf.intel.com with ESMTP; 04 Jun 2024 18:13:18 -0700
+Received: from kbuild by 0610945e7d16 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sEfDH-0000jy-0b;
+ Wed, 05 Jun 2024 01:13:15 +0000
+Date: Wed, 5 Jun 2024 09:12:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ tursulin@ursulin.net, friedrich.vock@gmx.de
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/6] drm/ttm: add TTM_PL_FLAG_TRESHOLD
+Message-ID: <202406050819.et54U72l-lkp@intel.com>
+References: <20240604160503.43359-3-christian.koenig@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5417.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c474928-f7ed-4ef2-2a7f-08dc84fc82a1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2024 01:12:03.7411 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TzkFkspV8IM3oJu44k4uilHabOfnW2Oll8h94kzgh8VqWi+ehCVCbpFIgPKNz9H/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7759
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240604160503.43359-3-christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,280 +71,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi Christian,
 
-Review-by: Emily Deng <Emily.Deng@amd.com>
+kernel test robot noticed the following build warnings:
 
->-----Original Message-----
->From: Li, Yunxiang (Teddy) <Yunxiang.Li@amd.com>
->Sent: Friday, May 31, 2024 5:48 AM
->To: amd-gfx@lists.freedesktop.org
->Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-><Christian.Koenig@amd.com>; Li, Yunxiang (Teddy) <Yunxiang.Li@amd.com>;
->Chang, HaiJun <HaiJun.Chang@amd.com>; Deng, Emily
-><Emily.Deng@amd.com>
->Subject: [PATCH v3 2/8] drm/amdgpu: fix sriov host flr handler
->
->We send back the ready to reset message before we stop anything. This is
->wrong. Move it to when we are actually ready for the FLR to happen.
->
->In the current state since we take tens of seconds to stop everything, it =
-is
->very likely that host would give up waiting and reset the GPU before we se=
-nd
->ready, so it would be the same as before. But this gets rid of the hack wi=
-th
->reset_domain locking and also let us know how slow the reset actually is o=
-n
->the host. The pre-reset speed can thus be improved later.
->
->Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
->---
->v3: still call amdgpu_virt_fini_data_exchange right away, it could take
->    awhile for the reset to grab it's lock and call this function in
->    pre_reset so during this time the thread will read garbage.
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 ++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 14 ++++++++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  2 ++
-> drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      | 39 +++++++++-------------
-> drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      | 39 +++++++++-------------
-> drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c      |  6 ----
-> 6 files changed, 50 insertions(+), 52 deletions(-)
->
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->index bf1a6593dc5e..eb77b4ec3cb4 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->@@ -5069,6 +5069,8 @@ static int amdgpu_device_reset_sriov(struct
->amdgpu_device *adev,
->       struct amdgpu_hive_info *hive =3D NULL;
->
->       if (test_bit(AMDGPU_HOST_FLR, &reset_context->flags)) {
->+              amdgpu_virt_ready_to_reset(adev);
->+              amdgpu_virt_wait_reset(adev);
->               clear_bit(AMDGPU_HOST_FLR, &reset_context->flags);
->               r =3D amdgpu_virt_request_full_gpu(adev, true);
->       } else {
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->index 3cf8416f8cb0..44450507c140 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->@@ -152,6 +152,20 @@ void amdgpu_virt_request_init_data(struct
->amdgpu_device *adev)
->               DRM_WARN("host doesn't support REQ_INIT_DATA
->handshake\n");  }
->
->+/**
->+ * amdgpu_virt_ready_to_reset() - send ready to reset to host
->+ * @adev:     amdgpu device.
->+ * Send ready to reset message to GPU hypervisor to signal we have
->+stopped GPU
->+ * activity and is ready for host FLR
->+ */
->+void amdgpu_virt_ready_to_reset(struct amdgpu_device *adev) {
->+      struct amdgpu_virt *virt =3D &adev->virt;
->+
->+      if (virt->ops && virt->ops->reset_gpu)
->+              virt->ops->ready_to_reset(adev);
->+}
->+
-> /**
->  * amdgpu_virt_wait_reset() - wait for reset gpu completed
->  * @adev:     amdgpu device.
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->index 642f1fd287d8..66de5380d9a1 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->@@ -88,6 +88,7 @@ struct amdgpu_virt_ops {
->       int (*rel_full_gpu)(struct amdgpu_device *adev, bool init);
->       int (*req_init_data)(struct amdgpu_device *adev);
->       int (*reset_gpu)(struct amdgpu_device *adev);
->+      void (*ready_to_reset)(struct amdgpu_device *adev);
->       int (*wait_reset)(struct amdgpu_device *adev);
->       void (*trans_msg)(struct amdgpu_device *adev, enum idh_request
->req,
->                         u32 data1, u32 data2, u32 data3);
->@@ -345,6 +346,7 @@ int amdgpu_virt_request_full_gpu(struct
->amdgpu_device *adev, bool init);  int amdgpu_virt_release_full_gpu(struct
->amdgpu_device *adev, bool init);  int amdgpu_virt_reset_gpu(struct
->amdgpu_device *adev);  void amdgpu_virt_request_init_data(struct
->amdgpu_device *adev);
->+void amdgpu_virt_ready_to_reset(struct amdgpu_device *adev);
-> int amdgpu_virt_wait_reset(struct amdgpu_device *adev);  int
->amdgpu_virt_alloc_mm_table(struct amdgpu_device *adev);  void
->amdgpu_virt_free_mm_table(struct amdgpu_device *adev); diff --git
->a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->index f4c47492e0cd..6b71ee85ee65 100644
->--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->@@ -249,38 +249,30 @@ static int xgpu_ai_set_mailbox_ack_irq(struct
->amdgpu_device *adev,
->       return 0;
-> }
->
->-static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
->+static void xgpu_ai_ready_to_reset(struct amdgpu_device *adev)
-> {
->-      struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,
->flr_work);
->-      struct amdgpu_device *adev =3D container_of(virt, struct
->amdgpu_device, virt);
->-      int timeout =3D AI_MAILBOX_POLL_FLR_TIMEDOUT;
->-
->-      /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
->-       * otherwise the mailbox msg will be ruined/reseted by
->-       * the VF FLR.
->-       */
->-      if (atomic_cmpxchg(&adev->reset_domain->in_gpu_reset, 0, 1) !=3D 0)
->-              return;
->-
->-      down_write(&adev->reset_domain->sem);
->-
->-      amdgpu_virt_fini_data_exchange(adev);
->-
->       xgpu_ai_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
->+}
->
->+static int xgpu_ai_wait_reset(struct amdgpu_device *adev) {
->+      int timeout =3D AI_MAILBOX_POLL_FLR_TIMEDOUT;
->       do {
->               if (xgpu_ai_mailbox_peek_msg(adev) =3D=3D
->IDH_FLR_NOTIFICATION_CMPL)
->-                      goto flr_done;
->-
->+                      return 0;
->               msleep(10);
->               timeout -=3D 10;
->       } while (timeout > 1);
->-
->       dev_warn(adev->dev, "waiting IDH_FLR_NOTIFICATION_CMPL
->timeout\n");
->+      return -ETIME;
->+}
->
->-flr_done:
->-      atomic_set(&adev->reset_domain->in_gpu_reset, 0);
->-      up_write(&adev->reset_domain->sem);
->+static void xgpu_ai_mailbox_flr_work(struct work_struct *work) {
->+      struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,
->flr_work);
->+      struct amdgpu_device *adev =3D container_of(virt, struct
->amdgpu_device,
->+virt);
->+
->+      amdgpu_virt_fini_data_exchange(adev);
->
->       /* Trigger recovery for world switch failure if no TDR */
->       if (amdgpu_device_should_recover_gpu(adev)
->@@ -417,7 +409,8 @@ const struct amdgpu_virt_ops xgpu_ai_virt_ops =3D {
->       .req_full_gpu   =3D xgpu_ai_request_full_gpu_access,
->       .rel_full_gpu   =3D xgpu_ai_release_full_gpu_access,
->       .reset_gpu =3D xgpu_ai_request_reset,
->-      .wait_reset =3D NULL,
->+      .ready_to_reset =3D xgpu_ai_ready_to_reset,
->+      .wait_reset =3D xgpu_ai_wait_reset,
->       .trans_msg =3D xgpu_ai_mailbox_trans_msg,
->       .req_init_data  =3D xgpu_ai_request_init_data,
->       .ras_poison_handler =3D xgpu_ai_ras_poison_handler, diff --git
->a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->index 37b49a5ed2a1..22af30a15a5f 100644
->--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->@@ -282,38 +282,30 @@ static int xgpu_nv_set_mailbox_ack_irq(struct
->amdgpu_device *adev,
->       return 0;
-> }
->
->-static void xgpu_nv_mailbox_flr_work(struct work_struct *work)
->+static void xgpu_nv_ready_to_reset(struct amdgpu_device *adev)
-> {
->-      struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,
->flr_work);
->-      struct amdgpu_device *adev =3D container_of(virt, struct
->amdgpu_device, virt);
->-      int timeout =3D NV_MAILBOX_POLL_FLR_TIMEDOUT;
->-
->-      /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
->-       * otherwise the mailbox msg will be ruined/reseted by
->-       * the VF FLR.
->-       */
->-      if (atomic_cmpxchg(&adev->reset_domain->in_gpu_reset, 0, 1) !=3D 0)
->-              return;
->-
->-      down_write(&adev->reset_domain->sem);
->-
->-      amdgpu_virt_fini_data_exchange(adev);
->-
->       xgpu_nv_mailbox_trans_msg(adev, IDH_READY_TO_RESET, 0, 0, 0);
->+}
->
->+static int xgpu_nv_wait_reset(struct amdgpu_device *adev) {
->+      int timeout =3D NV_MAILBOX_POLL_FLR_TIMEDOUT;
->       do {
->               if (xgpu_nv_mailbox_peek_msg(adev) =3D=3D
->IDH_FLR_NOTIFICATION_CMPL)
->-                      goto flr_done;
->-
->+                      return 0;
->               msleep(10);
->               timeout -=3D 10;
->       } while (timeout > 1);
->-
->       dev_warn(adev->dev, "waiting IDH_FLR_NOTIFICATION_CMPL
->timeout\n");
->+      return -ETIME;
->+}
->
->-flr_done:
->-      atomic_set(&adev->reset_domain->in_gpu_reset, 0);
->-      up_write(&adev->reset_domain->sem);
->+static void xgpu_nv_mailbox_flr_work(struct work_struct *work) {
->+      struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,
->flr_work);
->+      struct amdgpu_device *adev =3D container_of(virt, struct
->amdgpu_device,
->+virt);
->+
->+      amdgpu_virt_fini_data_exchange(adev);
->
->       /* Trigger recovery for world switch failure if no TDR */
->       if (amdgpu_device_should_recover_gpu(adev)
->@@ -455,7 +447,8 @@ const struct amdgpu_virt_ops xgpu_nv_virt_ops =3D {
->       .rel_full_gpu   =3D xgpu_nv_release_full_gpu_access,
->       .req_init_data  =3D xgpu_nv_request_init_data,
->       .reset_gpu =3D xgpu_nv_request_reset,
->-      .wait_reset =3D NULL,
->+      .ready_to_reset =3D xgpu_nv_ready_to_reset,
->+      .wait_reset =3D xgpu_nv_wait_reset,
->       .trans_msg =3D xgpu_nv_mailbox_trans_msg,
->       .ras_poison_handler =3D xgpu_nv_ras_poison_handler,  }; diff --git
->a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->index 78cd07744ebe..e1d63bed84bf 100644
->--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
->@@ -515,12 +515,6 @@ static void xgpu_vi_mailbox_flr_work(struct
->work_struct *work)
->       struct amdgpu_virt *virt =3D container_of(work, struct amdgpu_virt,
->flr_work);
->       struct amdgpu_device *adev =3D container_of(virt, struct
->amdgpu_device, virt);
->
->-      /* wait until RCV_MSG become 3 */
->-      if (xgpu_vi_poll_msg(adev, IDH_FLR_NOTIFICATION_CMPL)) {
->-              pr_err("failed to receive FLR_CMPL\n");
->-              return;
->-      }
->-
->       /* Trigger recovery due to world switch failure */
->       if (amdgpu_device_should_recover_gpu(adev)) {
->               struct amdgpu_reset_context reset_context;
->--
->2.34.1
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.10-rc2 next-20240604]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Christian-K-nig/drm-ttm-add-TTM_PL_FLAG_TRESHOLD/20240605-040913
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+patch link:    https://lore.kernel.org/r/20240604160503.43359-3-christian.koenig%40amd.com
+patch subject: [PATCH 2/6] drm/ttm: add TTM_PL_FLAG_TRESHOLD
+config: parisc-defconfig (https://download.01.org/0day-ci/archive/20240605/202406050819.et54U72l-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240605/202406050819.et54U72l-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406050819.et54U72l-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/ttm/ttm_resource.c:339: warning: Function parameter or struct member 'ctx' not described in 'ttm_resource_compatible'
+
+
+vim +339 drivers/gpu/drm/ttm/ttm_resource.c
+
+46299051794a9c Christian König          2024-06-04  325  
+544432703b2fe7 Arunpravin Paneer Selvam 2022-08-20  326  /**
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  327   * ttm_resource_compatible - check if resource is compatible with placement
+544432703b2fe7 Arunpravin Paneer Selvam 2022-08-20  328   *
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  329   * @res: the resource to check
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  330   * @placement: the placement to check against
+cc941c70df3927 Christian König          2023-12-06  331   * @evicting: true if the caller is doing evictions
+544432703b2fe7 Arunpravin Paneer Selvam 2022-08-20  332   *
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  333   * Returns true if the placement is compatible.
+544432703b2fe7 Arunpravin Paneer Selvam 2022-08-20  334   */
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  335  bool ttm_resource_compatible(struct ttm_resource *res,
+cc941c70df3927 Christian König          2023-12-06  336  			     struct ttm_placement *placement,
+46299051794a9c Christian König          2024-06-04  337  			     struct ttm_operation_ctx *ctx,
+cc941c70df3927 Christian König          2023-12-06  338  			     bool evicting)
+98cca519df6da6 Christian König          2021-08-30 @339  {
+544432703b2fe7 Arunpravin Paneer Selvam 2022-08-20  340  	struct ttm_buffer_object *bo = res->bo;
+544432703b2fe7 Arunpravin Paneer Selvam 2022-08-20  341  	struct ttm_device *bdev = bo->bdev;
+98cca519df6da6 Christian König          2021-08-30  342  	unsigned i;
+98cca519df6da6 Christian König          2021-08-30  343  
+98cca519df6da6 Christian König          2021-08-30  344  	if (res->placement & TTM_PL_FLAG_TEMPORARY)
+98cca519df6da6 Christian König          2021-08-30  345  		return false;
+98cca519df6da6 Christian König          2021-08-30  346  
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  347  	for (i = 0; i < placement->num_placement; i++) {
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  348  		const struct ttm_place *place = &placement->placement[i];
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  349  		struct ttm_resource_manager *man;
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  350  
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  351  		if (res->mem_type != place->mem_type)
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  352  			continue;
+98cca519df6da6 Christian König          2021-08-30  353  
+46299051794a9c Christian König          2024-06-04  354  		if (!ttm_place_applicable(place, ctx, evicting))
+cc941c70df3927 Christian König          2023-12-06  355  			continue;
+cc941c70df3927 Christian König          2023-12-06  356  
+cc941c70df3927 Christian König          2023-12-06  357  		if (place->flags & TTM_PL_FLAG_CONTIGUOUS &&
+cc941c70df3927 Christian König          2023-12-06  358  		    !(res->placement & TTM_PL_FLAG_CONTIGUOUS))
+cc941c70df3927 Christian König          2023-12-06  359  			continue;
+cc941c70df3927 Christian König          2023-12-06  360  
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  361  		man = ttm_manager_type(bdev, res->mem_type);
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  362  		if (man->func->compatible &&
+a78a8da51b36c7 Somalapuram Amaranath    2023-11-13  363  		    !man->func->compatible(man, res, place, bo->base.size))
+98cca519df6da6 Christian König          2021-08-30  364  			continue;
+98cca519df6da6 Christian König          2021-08-30  365  
+98cca519df6da6 Christian König          2021-08-30  366  		return true;
+98cca519df6da6 Christian König          2021-08-30  367  	}
+98cca519df6da6 Christian König          2021-08-30  368  	return false;
+98cca519df6da6 Christian König          2021-08-30  369  }
+98cca519df6da6 Christian König          2021-08-30  370  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
