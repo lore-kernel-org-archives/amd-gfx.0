@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E571FC25B76
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:18:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C251DC25B76
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 641F810E075;
-	Wed,  5 Jun 2024 12:18:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32B8A10E26D;
+	Wed,  5 Jun 2024 12:19:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qpmhaQ3/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V0bKxffA";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2041.outbound.protection.outlook.com [40.107.93.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61EF410E075
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 12:17:59 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1335210E26D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 12:19:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iqbqSudLn7NI4rwB2g9J/85wK/2HSIs3/ciQ1bWYGKpnUMLO4qxStbYwNY1UxyWBURIlIXEiSyPti0XJqt3XV3ygPIqiMY2sM0tZ5HAd+1hlu1vLaenUmmHpcEqJldcd9U7TgQRj3FRUxQYlkxo9pA5THmqwIv8DL/sb4ZTw/IPa19BAJ4D8rUoZ4icQg7Fq2gFyaQZgf//yrTACnq9RV9M1WEsIwjVfhsZpqgsAKnYQ1u3m/pQPbxxurP8ujIdsffeRB5vyqtFecthJF6zmoE0H2KJ/3aIfZmZbCZ9RDjApec2ywEqDY9r2I4g4kOKzVdAAdFaSBkwumGXL1EfbEw==
+ b=ClQ+88U7bzgM+AEhq5CLej/E/y3j9bYgZZ35GxI9eAhK549EElq/dP8Eng0Mw57d656Fxh+P3h/64GkaCFAJYvbDBL/tC+kKEzJcvNqn4orgxyiAi2NkRE6NeURnn4XGR32rlSh48z1HcKYSJ/HVgxEroLHAKrSY08hjoYXaNJZDmCpJfLXUKA9tCBMV74NaHFjRnjVRo9PLkzbfYcpXTxtx6wCvtMNr4lDKwA6NMuUb+ZO3kmb55bw8vHVBfgWKL+2HgwKQeiuLR4wlh6mumejcWSui/MgoltFOa7AEFlzHU9wepX2EXPGtkFT8dpZtSdKLbxBOYIpQTV9+LScnAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wz0AS3XOQRNW4V7Yz0xpowuBgsz6X6Oba3JYDbOJo8E=;
- b=NCNSgz+kEp2CQYbKsY0hY7kXgY1vXtdhpoImYZ6i0N4mOqgXhSlZOmtahAG9H2bgDqykLTZCqwabV+Zgzea8RWkicadxcwAKI0A984APKGZZgK2R7iHEhnAhc7L+NK31TSAGMoKhuAyUmOG8aILjwTnyEhugd9bktqcHghBrj9ezQP6SL6ZFeA8XOG+v42kIcdorL7lGPE9cTtvTYWNqVPWg1P9EV3E1eeQts6hOXuICVujOH+QWO4+gXlD4PhwUPZ6lHdyt5Hgadk5puKYir/ccRl2Jl/aflyPf23dmGbEtIw30aCuQRSxyQoBO0Ld3LfRbLfZ0a75Yh2gqkjmjVA==
+ bh=aNFRdvUnIIuQFo8q+HgjgQ0ltcSlkqMH+QuNvI23wbo=;
+ b=RBPpqVTFyihO3heMnq6JhYx4/2LfENKnjnv/FN9C7bOLTwJt9gkwvkvK//ZGGKDakFFbRyO8ciVGSneCRyM/PSFx5Y0mdDE77vckvaV0oa2pwDrCxT872CWeiCRKOHcsuNEgw0biaKFdfK2zUvZWAjy9TKn9TNFRjSQ30lOcNSseGdybznOlOXhpWYzCvRXenGkOHF9FYMv4JivJUlBMr6+45OcSyF7muw/pBz3NAaloOpxD5dwJHt7R+BeCwi4/qBbIBPV7i2qYSecPVH6SdzppCFJAzYJg6QRHXGwNsL2DJWMhF1StsReDkp+XA9oEc7R34ngkQUg40el55EHEQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wz0AS3XOQRNW4V7Yz0xpowuBgsz6X6Oba3JYDbOJo8E=;
- b=qpmhaQ3/eBQyTup3qhCQtHU5W+FICI8B4UIPNQ53j8ldQHbVhUG2MAz3Ajq9OwjdHcRcCtVeUpIbJFeXQHLp3csaLw2A4Bc57duUN6/dxpSe4H6TY/H7OkMt5umYH7kNvIE4a5J6ykTRSdHE+o4hEyoLZVXcirv/1RXaaAMGO9Y=
+ bh=aNFRdvUnIIuQFo8q+HgjgQ0ltcSlkqMH+QuNvI23wbo=;
+ b=V0bKxffAQ2B1ZihTUzp2kOxzNgyEW/n1zklZAyhsPpA7F+WOJb1xqd/5XcXsXI9Z0UfifCGbwNKzTiEgwqztN1rIR4tqksALN90SOMRwAWUdOizdK36zf9BbZVQYfUoeRWy7D+s8ry6s/bU0t9EdBohCZU9se7XQPJXdM83rV+g=
 Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by IA0PR12MB9011.namprd12.prod.outlook.com (2603:10b6:208:488::8)
+ by CY5PR12MB6299.namprd12.prod.outlook.com (2603:10b6:930:20::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27; Wed, 5 Jun
- 2024 12:17:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.25; Wed, 5 Jun
+ 2024 12:18:58 +0000
 Received: from CH0PR12MB5284.namprd12.prod.outlook.com
  ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
  ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.7633.021; Wed, 5 Jun 2024
- 12:17:55 +0000
+ 12:18:57 +0000
 From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "Zhang, George" <George.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH] drm/amd/display: use pre-allocated temp structure for
- bounding box
-Thread-Topic: [PATCH] drm/amd/display: use pre-allocated temp structure for
- bounding box
-Thread-Index: AQHatpb9oVhmMImF/UOBeahTT7r6MbG30RuAgAFGK50=
-Date: Wed, 5 Jun 2024 12:17:55 +0000
-Message-ID: <CH0PR12MB5284AB4DA3FEB753DCBF77F48BF92@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20240604155027.542271-1-alexander.deucher@amd.com>
- <CY8PR12MB7415814E1314E87EA7F1D23C94F82@CY8PR12MB7415.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB7415814E1314E87EA7F1D23C94F82@CY8PR12MB7415.namprd12.prod.outlook.com>
+CC: "arnd@arndb.de" <arnd@arndb.de>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Zuo, Jerry"
+ <Jerry.Zuo@amd.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: avoid large on-stack structures"
+Thread-Topic: [PATCH] Revert "drm/amd/display: avoid large on-stack structures"
+Thread-Index: AQHatqbyN5fPCRkMLkGAesXcx1cyy7G34haAgAE1mQo=
+Date: Wed, 5 Jun 2024 12:18:57 +0000
+Message-ID: <CH0PR12MB528494CB174C07542018D24B8BF92@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20240604174504.725893-1-aurabindo.pillai@amd.com>
+ <36c75f1e-49f1-4e0f-b363-d5e09b21c16d@amd.com>
+In-Reply-To: <36c75f1e-49f1-4e0f-b363-d5e09b21c16d@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-05T12:17:55.163Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-05T12:18:57.347Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution
  Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
@@ -70,79 +68,77 @@ msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|IA0PR12MB9011:EE_
-x-ms-office365-filtering-correlation-id: 70e265be-5d33-416f-e35d-08dc855987b2
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|CY5PR12MB6299:EE_
+x-ms-office365-filtering-correlation-id: 35b5126e-fd68-4f79-1258-08dc8559aca5
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230031|1800799015|366007|376005|38070700009;
-x-microsoft-antispam-message-info: =?us-ascii?Q?7bBC8Gzk9974UpTIzPZRX1SP3pEWq+S/6R3vE3nl6iWHCWlBwBBSeMW6JZOq?=
- =?us-ascii?Q?COXFJsxevGiuEqsGPy6SOdNmVM6mPK7/qLOYxE1P3rBjgayFkLkKyzXy07gT?=
- =?us-ascii?Q?kIW25I2bogZvVE1pTcf8aaUKMhAziYWb/M11bJ6+FDcid+jYVS7Y9W/c793K?=
- =?us-ascii?Q?V+appMfRPko238zYStPg9I9zKfhyoX1kg7GVfNsb+bB4O/TF9KBOgJo40O+e?=
- =?us-ascii?Q?3wcPv8uHFwYJ15SsAL5sBYcV3JyjnlhrT/ebSYl497Hl9S4PvPt2dCpw/lzh?=
- =?us-ascii?Q?dpjxt7G2JY6cWdGPLtctUquvEq7096I60lKPga86jrmsMkonbivuZNlLhFJF?=
- =?us-ascii?Q?QLyPufpuIoveMOkFFCmETMSbLHWp5UI/mN/3KzH0xH3IeL1ekKQ/pu578M9p?=
- =?us-ascii?Q?lFeIzClE0A/j+jntmY0jJkDKVuKdT6DUTSFIYXgx6+Fxa3g17Yxy6yPI2eW+?=
- =?us-ascii?Q?hjwkIW/uIWiY2RIG7wUhClqWGcwFWjSos+2zRj1Arn97FY2pLlM/LwFzKeFA?=
- =?us-ascii?Q?Wy4pHARq0U8k0mNJFqqV+sPKJEEoA/2WjyqGUIGKeTgxeL4NK3LwxcpoRTuS?=
- =?us-ascii?Q?eyYsrNzihH9f16BiNPVI8oiRjlhY4vc2goCIfRsamsCrIGqqlq9Q9Mb75AEE?=
- =?us-ascii?Q?acBUqhocYd+KmF2I2el8iDHAkoI2SBNYIOhNL3hWV4scfwTla9sOJUEHrl6C?=
- =?us-ascii?Q?tNzgcqWazXafUt+Sgoj+ormM3X0jqdgsI2sihMn1o+G8jbqitUlKyP3UhoDw?=
- =?us-ascii?Q?asMaTs4XAGqLnbxR1ZsHgfxaeTAr8kJzcoKTXZ/2Mv/MuX3Cux5/ETMxUhtv?=
- =?us-ascii?Q?hawolQ/mzoHeJwL3T0pOUYLLJMQcpkUuem34i6y1/EGT18jfGB6JtKM39C3p?=
- =?us-ascii?Q?o8FOIJ6eDGOGlNwvrsSVM4ZtWO/ljy0u3znjW04WsWwakPW6zqhWPMOFdPxg?=
- =?us-ascii?Q?GOE1Hd581dbwPGF7WTsoqdunrdcOzMBf//ytrtzZF9YQqhDxs4HIr6sdK8dg?=
- =?us-ascii?Q?7wWvJSA4lgsqR5LQ6Da+CHelFwWAYfxh7SyAXZqEHQtLEP6bo8+PiL5Ci1td?=
- =?us-ascii?Q?jz7tsk14Lu7LWnZEZ12JEIwbWgVnSbEvRuU9zvfOJxQrZGZ0tscAjmtbyUW8?=
- =?us-ascii?Q?q9GDz/7JzE0bZ3gpvER11trNFr/KbYqXWlevch22BBJDaY+SIjnA5YE1ZG7K?=
- =?us-ascii?Q?4Opy306P6PBffF+7Og5RJE0GVfyOTlMduYlW/GzQCIrX5VekDtgBHpPwLpJl?=
- =?us-ascii?Q?bbIj/ElQLkXn5qQoLQl2EsggKfZwz73QcnTxv+5nXzMHCj3Shi+FPaoslLbL?=
- =?us-ascii?Q?AK+ghkCK60NMjaHuj7JMyRlyCBVryqdjlHleAhtTJsWAF/oNQewlpW+rlb02?=
- =?us-ascii?Q?80ixu0s=3D?=
+x-microsoft-antispam: BCL:0; ARA:13230031|366007|376005|1800799015|38070700009;
+x-microsoft-antispam-message-info: =?us-ascii?Q?qRylYA+gAIS8y/h9+PkfCC9pnVFRnrtw4+ikb3BlFiwZ7UMlz54F8vxBwLsu?=
+ =?us-ascii?Q?QrM/1YmHxu4zVdEzUW6XdSgBoobcA/J2yl5Lx4zaZUn5I9+TMI/wRAU9GBWE?=
+ =?us-ascii?Q?CXvp1BAfID8dL2fOVsbGHgyGqeAt+W4J4J1O5eBM3pbdOvYzpVN6N/4AEZJZ?=
+ =?us-ascii?Q?PF1r3k7ide2B1s41n4J4eAmug1tzFOnRaBp0gj1BInJR9HshdcUu+KWJ6u31?=
+ =?us-ascii?Q?YeCdMZgmWv7qMHZJnmM2bPVTgrKEwbvFxur4Kxe5BoG1hpeqUf/J5gjiI8Z2?=
+ =?us-ascii?Q?pfHSihjO6azaflh9d5GvZj2YOn64DCV9L9BbxYAxAPVqDi6NLRnUyvSPCF78?=
+ =?us-ascii?Q?ZMTGyQ83VIs3rdqhD3i9bU57bRfNZ6Bql8fKLSRoUPuoDDcEnXPXnCuDPE3x?=
+ =?us-ascii?Q?0KrsAvK7aoXmx4UUP6Y5Ljp/KWMpdupRXs3pR4DHFJwP1pxyGdb5/7QZw4G1?=
+ =?us-ascii?Q?R7BVVWsgENwuH6jm/dRUnGFlyAYE62v2DkrRjxPx9f8uxFlJxeBFI3x4Q5+n?=
+ =?us-ascii?Q?etoxT25Cd/fwFcSn8j5tHFMJSU6NfZQg0l1v7anHPgXZ17TPk+yF2KEY8QE4?=
+ =?us-ascii?Q?/na/EiwyodypDTVb3z/H/xGUAUUGdRBfifbuE9AAu6i3OMubwIu5Y8QcEtcl?=
+ =?us-ascii?Q?KBdxsUKpzAxwvUI8Flo3E/dht2CZCSCBT9Czyf4WKezq2jnoavm1g70CMOEH?=
+ =?us-ascii?Q?BpUODlRPgcUH+9U8TFaqvM99qoJgeLyjQL6zfVBZnHiKgEY5mfFISwujkN0J?=
+ =?us-ascii?Q?ervzIVdRz8EcOUiOFVJnFeLa1TtWErLsj4Gu2BYuzrk8tgylg1Bav6Uq3lok?=
+ =?us-ascii?Q?wBW5rGBbpQwNxiKxqFcXXygxJTGbrLX5G5HV5IlmxQJYJU2g10e5bvyvHE6S?=
+ =?us-ascii?Q?NVP+6HHTGVFh7Pwdd+b/bMq0Rx6xH9Pp1y2LMdkiPiO+WvddCcvM1uWNMQkC?=
+ =?us-ascii?Q?zTwf49RdGhkHM2lcMv3R+Yt5L67OAkxGKBZ70ocrmMvBuhtexYnCgEcOkLWd?=
+ =?us-ascii?Q?6Cy39dENDaGL4QP7LTbvS1pMF15g95T2NCUrPuQ16lq1mijjvMdpJdicDfVy?=
+ =?us-ascii?Q?BtkRdNGjZHUE9FFpkvg7e46uefvWK9wLP8kSvqkpIfCH6g3gF+iDeSWkAOgz?=
+ =?us-ascii?Q?azWkP9fcjJEhbaS0wPRfsQiGFd+Vldvfd3WQO90s9Ac0l5W3BnblcUK6n/eJ?=
+ =?us-ascii?Q?/C+2MW7RtROs/T1pcqKlV5q/D5F1hH4TW8DZ1ulwXRQ6Zkeuk5pVhxmAu5C9?=
+ =?us-ascii?Q?9ZeYUNDgjh2QmokhgtRrb1T123f90rLBd4bki9VGsg=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005)(38070700009); DIR:OUT; SFP:1101; 
+ SFS:(13230031)(366007)(376005)(1800799015)(38070700009); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DioswsM1mzOrZnWqgMiQ+pU9+g4ZHcjPmVqQJa3Xi+jUH9cgiuVreMra0SGE?=
- =?us-ascii?Q?LEcIMaY1E/GGai2Oj8gE8l/BnGVbhVV4EnVDhDGMzuQi2vUzYWp0hcNfeYJn?=
- =?us-ascii?Q?E4fnoyFsmJr7XLvfeIwjdvaklzYcgk0UtlePqgt+htkR7x1QE5pUKhY7A8fZ?=
- =?us-ascii?Q?WWmWZcyJZRNh/2u57CK1xrUYAHSxdI74hcWW1UfkW8Ol5S6bEySouixIs/Wf?=
- =?us-ascii?Q?jukr99ckwFWEVOH1evyDrCO65C8MQhlH6/0Z08/lzPUdnlWbGNyPUULrCMsg?=
- =?us-ascii?Q?neE+htng03JjhKtUPqqiX+4SaaxW90+5vNvXNn3tWgp/wGvhENQ6NW1cLbIH?=
- =?us-ascii?Q?QO2ArZEh7QKhyp4mgrS1cnR/YZOpbvGbHPVgmu69njdaWbeRZLF7M91QUsGh?=
- =?us-ascii?Q?JO7D1Vh3OzgchEl3q9JG9/sSTprJu3IG7Hllz6kAV0Dl4mqff93IjkkGxtnk?=
- =?us-ascii?Q?EzJ5gdhwhveYWYw3Xd6NEI+e6RJA/T4PwoI+gjetSnbTsjgBXOZBzLzdkG26?=
- =?us-ascii?Q?Ws6YtKnQ2L8Dv4jxUHZm23z36RJVy8jE0iGsiG3yUZd89+JunDqgFfOLs3E2?=
- =?us-ascii?Q?0szAPMTTpD/y49MB2ok0R4XAYy+553+vBaEPcGVFXCfw8LQlUVYQB6fTG4tk?=
- =?us-ascii?Q?K1wKQPYh4VI7yR2vJaWJMrtjFppB4V9DzNy5Bdv9as2W0Sfs56Vv8/jjWgc+?=
- =?us-ascii?Q?C2ry80iAVcS5EZqlVHNix4OWD0TNQDBrM3thPjqYdaJi6viLP6oQ9z5o18hu?=
- =?us-ascii?Q?B08/Au8pHQHBXzKGOBIm470CikY2LWbwSH8vPycHHojB97kWcQRT/sJe+dhS?=
- =?us-ascii?Q?B7lMTSF0brucfho9bKaB0A2wlgJEpwG0FM9sG0NZKQTY8+MyJPjYGXQf1dOB?=
- =?us-ascii?Q?7qI3nVb8JyioXEdggCe6DdzAjv1tMFsyxzHaKJkIUPWcXAR5gNU92dTNZhNA?=
- =?us-ascii?Q?UqRTOQ5+2bYchOehhmDY3Wwt0yqTbVMmddpjauqCC2NbSmSBtkVgvtzD/+FD?=
- =?us-ascii?Q?UKeWgB5uasKvsgHYpJ1226NWBw62HGGmROkJfO4Dv9f1i9CpxLw5QobtPpgK?=
- =?us-ascii?Q?IP9eonx+Qn9novmYBis/GEe/mNJtlxMTZ8RactzAKcXyQuE9JJP2XycbmOgu?=
- =?us-ascii?Q?XoM2tMRRor0HyBaQDNMpNrvYKVPZ2uNKelZIeu0Bw60DdRYcC3CtEJf9pSUw?=
- =?us-ascii?Q?cySwSxnfxuNi2tIx9Tj8vhe0p5PFqjmYbONdTGd6uorp1nqHqDFoFnXtVWOa?=
- =?us-ascii?Q?8kxkZuf+gD7XubBkygUnHVJYNjpijh3mivRz48qMrhLCihN4bhEIybsN5L/+?=
- =?us-ascii?Q?7HtaalJYph5V0qnDjNIBWKRIzUhYMKU7jE95y9taoJSWsfa97qpVmVjrffhC?=
- =?us-ascii?Q?qXzR9bGoa/kW6Z3qAQgsVT5aesb9P4mfMkQz/Kr8LCdNPSVjtYUT0PKWKoXR?=
- =?us-ascii?Q?xbw4VZlB2KCyWcfNvGhI2Cp1f6bS9Yi/ddDRgky24UHzJLGW/JTHjaH4kSE6?=
- =?us-ascii?Q?j/lSgj9JwV/8Xz62rXzgh77aFL6+LLPbicTP9lJCm9yTsilNl2F4nVM5NcUa?=
- =?us-ascii?Q?+m6CoU1yqyIUXerJ5xA=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zApVI8dfNeT0pgIxmJEBNDBSjfSIK5tJkpIpeEb64AdhQN80sulX2i98MPPZ?=
+ =?us-ascii?Q?qz4E7aetDga2mLx549gp/SyzLSWj1aiggReYLo6YOtkFvr3yYJSePSIZZUCi?=
+ =?us-ascii?Q?t8sYXqLCAGLxyBHm1I9SPEey3RAYhVAUqD3vHjD+Nr+HVK7kFcQu04XcH35+?=
+ =?us-ascii?Q?1v/WUYowWEuDlQjhhcVF6IvcV6FbwE70RIDAPj5A4FV7zeKOGSQjS9Amvgph?=
+ =?us-ascii?Q?+zzDUkdiPyUo5gU4p/9FLhnZPZMB1X+6CWegs9he7eL8n0INthhgqm+q3p80?=
+ =?us-ascii?Q?BWNQ/aUp2wn2ek0js//p6U2gs3Tpx+jRWCo4yRriSyHrduF8JbexrLLTdE+M?=
+ =?us-ascii?Q?xnKfM2m8pq+iyos2E/WKlCMDbLiAROCuK/7lGDcrZzNU1kmWkg+OK034EdJ0?=
+ =?us-ascii?Q?1kVfjYIWJ7KxHyfecdmbcMCo5hZONxogsqigFxRd8fjMCFbvU5gKgWPOFM3y?=
+ =?us-ascii?Q?0KKXdp9Jz9rua08hd7TdxC27pvSoVMviPKivAqf9p1ZsuP4c/UIvH6EByijT?=
+ =?us-ascii?Q?+zjbLXjgHhMQ23oVTZk8SzCSe/O9IXNPKIMvecidCoON/s4eSq85JJuZ8xpy?=
+ =?us-ascii?Q?ku3KvXVeHCV7UbG0jVQXVJItSUI7eAqQ2TBe900btcrM1hIEhhign2aAcDEl?=
+ =?us-ascii?Q?I+M37qVNUl/l/gy+M0wCw+67zYIXD05UV38h+N5GmjsrTrJFquD8KXRa5cUv?=
+ =?us-ascii?Q?Y85KwVz0We4pFKlYDPPPRiEoHa8XtCB5CTFVQ53407n690OXdU0NtNIIfr5q?=
+ =?us-ascii?Q?EgttuIPBg54fBZQulX1oBWcPt9ShGYItRPDsmsWwmi94Xl6RyFy5fx5wrjNu?=
+ =?us-ascii?Q?F4GMZORjVdD4+w+MS5PbavpDqHD7O47VXIVrkfDq/nE45gZGKL9UgdZFlHaE?=
+ =?us-ascii?Q?VSkP+W7wIP1uOTwZZkrwCqSu8B8nhH4qtRuhdhvxOS765+018UggA+VuOn/Z?=
+ =?us-ascii?Q?EKmrWWZz6bdGf3dWnF3tKsxYNO4zKIIiaKR0xLbSU9LR8SEaxpq8gH37c0Qo?=
+ =?us-ascii?Q?OtybQTktCaFf0Mlx9OLDI5U8dEakgaQoAFImhIAbR9Jo3W3BNs+PrHhucOAt?=
+ =?us-ascii?Q?yg7ns78FeJGpOI2FxrkdtCdQ3NhNSC32BLU/B5bg9Bbo0NVHmckTlBYlZYqA?=
+ =?us-ascii?Q?5PXTPkioIJzZtILAgwC+a/V/KOwnTs/xcUmpG+AOHWiUzM6jW7Oev0IQRhm6?=
+ =?us-ascii?Q?2g4raMEWaAOqUcQLXhiIWwu7pr/lgX24vjjGxjC57L4tkFm171cKJTE1nBfg?=
+ =?us-ascii?Q?CPBExjTSIhbQHbwDKmnUKOHcs3pj6naj2O9RYy77oEn42QT/sekwM3RYUj9u?=
+ =?us-ascii?Q?39+rSZoLCyMxZqVeBidg/lJeUIu3chRg4FIR6KoWHJD+iVMfG65fQgK91aiZ?=
+ =?us-ascii?Q?SEeGQrjUyChF0Xpz7LU9LZb7KsglGQ9ALqFvjl//rPMQPLbiS4P9oRKzqP4z?=
+ =?us-ascii?Q?YwSngkR3b2LLSRc760dRCqGIhlj8F3nMA5B+uZAapZqeeanaXWzc7Nb+sonl?=
+ =?us-ascii?Q?vpNlzhGBh6dL4zgptg6Uu4cW4/fp0QTUEFulaUIrBpxQ7Frk6ri4RqzcBBk3?=
+ =?us-ascii?Q?xftTPXcGI/naU5MaXOs=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB5284AB4DA3FEB753DCBF77F48BF92CH0PR12MB5284namp_"
+ boundary="_000_CH0PR12MB528494CB174C07542018D24B8BF92CH0PR12MB5284namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70e265be-5d33-416f-e35d-08dc855987b2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2024 12:17:55.4472 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35b5126e-fd68-4f79-1258-08dc8559aca5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2024 12:18:57.4636 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RA9QpLTMvhNc6Lgjwi3X/KB5rYJESbSoaHsDNt66OKQKMh6jeDqe9+2t+fhG+VVN/LbnxgaFQWk00GAbiWvCcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9011
+X-MS-Exchange-CrossTenant-userprincipalname: CXuq8sncWjWQGViUm+N7lnRcvwuSjlYqtGqcI3QiPFQ1adCWcV9cJX7RyVbbFeMaQTmB7QZ9HG/eTnJ9YGfEsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6299
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,165 +153,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB5284AB4DA3FEB753DCBF77F48BF92CH0PR12MB5284namp_
+--_000_CH0PR12MB528494CB174C07542018D24B8BF92CH0PR12MB5284namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Hi Alex,
-
-I'll a hunk for fixing DCN401 as well to this and resend it later today.
-
+Thanks for the heads up!
 
 --
 
 Regards,
 Jay
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Zhang, G=
-eorge <George.Zhang@amd.com>
-Sent: Tuesday, June 4, 2024 12:49 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedeskt=
-op.org <amd-gfx@lists.freedesktop.org>
-Cc: Mahfooz, Hamza <Hamza.Mahfooz@amd.com>; Arnd Bergmann <arnd@arndb.de>; =
-Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@am=
-d.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
-Subject: RE: [PATCH] drm/amd/display: use pre-allocated temp structure for =
-bounding box
+From: Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
+Sent: Tuesday, June 4, 2024 1:50 PM
+To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; amd-gfx@lists.freedesktop=
+.org <amd-gfx@lists.freedesktop.org>
+Cc: arnd@arndb.de <arnd@arndb.de>; Deucher, Alexander <Alexander.Deucher@am=
+d.com>; Wentland, Harry <Harry.Wentland@amd.com>; Siqueira, Rodrigo <Rodrig=
+o.Siqueira@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: avoid large on-stack structur=
+es"
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On 6/4/24 13:45, Aurabindo Pillai wrote:
+> This reverts commit 44069f0f9b1fe577c5d4f05fa9eb02db8c618adc since
+> the code path is called from FPU context, and triggers error like:
+>
+> [   26.924055] BUG: sleeping function called from invalid context at incl=
+ude/linux/sched/mm.h:306
+> [   26.924060] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 102=
+2, name: modprobe
+> [   26.924063] preempt_count: 2, expected: 0
+> [   26.924064] RCU nest depth: 0, expected: 0
+> [   26.924066] Preemption disabled at:
+> [   26.924067] [<ffffffffc089e5e0>] dc_fpu_begin+0x30/0xd0 [amdgpu]
+> [   26.924322] CPU: 9 PID: 1022 Comm: modprobe Not tainted 6.8.0+ #20
+> [   26.924325] Hardware name: System manufacturer System Product Name/CRO=
+SSHAIR VI HERO, BIOS 6302 10/23/2018
+> [   26.924326] Call Trace:
+> [   26.924327]  <TASK>
+> [   26.924329]  dump_stack_lvl+0x37/0x50
+> [   26.924333]  ? dc_fpu_begin+0x30/0xd0 [amdgpu]
+> [   26.924589]  dump_stack+0x10/0x20
+> [   26.924592]  __might_resched+0x16a/0x1c0
+> [   26.924596]  __might_sleep+0x42/0x70
+> [   26.924598]  __kmalloc_node_track_caller+0x2ad/0x4b0
+> [   26.924601]  ? dm_helpers_allocate_gpu_mem+0x12/0x20 [amdgpu]
+> [   26.924855]  ? dcn401_update_bw_bounding_box+0x2a/0xf0 [amdgpu]
+> [   26.925122]  kmemdup+0x20/0x50
+> [   26.925124]  ? kernel_fpu_begin_mask+0x6b/0xe0
+> [   26.925127]  ? kmemdup+0x20/0x50
+> [   26.925129]  dcn401_update_bw_bounding_box+0x2a/0xf0 [amdgpu]
+> [   26.925393]  dc_create+0x311/0x670 [amdgpu]
+> [   26.925649]  amdgpu_dm_init+0x2aa/0x1fa0 [amdgpu]
+> [   26.925903]  ? irq_work_queue+0x38/0x50
+> [   26.925907]  ? vprintk_emit+0x1e7/0x270
+> [   26.925910]  ? dev_printk_emit+0x83/0xb0
+> [   26.925914]  ? amdgpu_device_rreg+0x17/0x20 [amdgpu]
+> [   26.926133]  dm_hw_init+0x14/0x30 [amdgpu]
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc_state.c   | 16 +++++-----------
+>   .../display/dc/resource/dcn401/dcn401_resource.c | 16 +++++-----------
+>   2 files changed, 10 insertions(+), 22 deletions(-)
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+You probably want something like
+https://patchwork.freedesktop.org/patch/597044/ instead.
 
-Tested-by: George Zhang <George.zhang@amd.com>
-
-Thanks,
-George
------Original Message-----
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Tuesday, June 4, 2024 11:50 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Mahfooz, Hamza <Hamza.M=
-ahfooz@amd.com>; Zhang, George <George.Zhang@amd.com>; Arnd Bergmann <arnd@=
-arndb.de>; Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Su=
-npeng.Li@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amd/display: use pre-allocated temp structure for boun=
-ding box
-
-This mirrors what the driver does for older DCN generations.
-
-Should fix:
-
-BUG: sleeping function called from invalid context at include/linux/sched/m=
-m.h:306
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 449, name: kworker/u=
-64:8
-preempt_count: 2, expected: 0
-RCU nest depth: 0, expected: 0
-Preemption disabled at:
-ffffffffc0ce1580>] dc_fpu_begin+0x30/0xd0 [amdgpu]
-CPU: 5 PID: 449 Comm: kworker/u64:8 Tainted: G        W          6.8.0+ #35
-Hardware name: System manufacturer System Product Name/ROG STRIX X570-E GAM=
-ING WIFI II, BIOS 4204 02/24/2022
-Workqueue: events_unbound async_run_entry_fn
-
-Fixes: 88c61827cedc ("drm/amd/display: dynamically allocate dml2_configurat=
-ion_options structures")
-Suggested-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: George Zhang <george.zhang@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com
-Cc: Rodrigo.Siqueira@amd.com
----
- drivers/gpu/drm/amd/display/dc/dc.h                       | 1 +
- .../drm/amd/display/dc/resource/dcn32/dcn32_resource.c    | 8 +++-----
- .../drm/amd/display/dc/resource/dcn321/dcn321_resource.c  | 8 +++-----
- 3 files changed, 7 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/disp=
-lay/dc/dc.h
-index d0ed01ac460d..d843933ad731 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1444,6 +1444,7 @@ struct dc {
-        } scratch;
-
-        struct dml2_configuration_options dml2_options;
-+       struct dml2_configuration_options dml2_tmp;
-        enum dc_acpi_cm_power_state power_state;
-
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c=
- b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 0f11d7c8791c..7a8aa9396dea 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -2007,11 +2007,9 @@ void dcn32_calculate_wm_and_dlg(struct dc *dc, struc=
-t dc_state *context,
-
- static void dcn32_update_bw_bounding_box(struct dc *dc, struct clk_bw_para=
-ms *bw_params)
- {
--       struct dml2_configuration_options *dml2_opt;
-+       struct dml2_configuration_options *dml2_opt =3D &dc->dml2_tmp;
-
--       dml2_opt =3D kmemdup(&dc->dml2_options, sizeof(dc->dml2_options), G=
-FP_KERNEL);
--       if (!dml2_opt)
--               return;
-+       memcpy(dml2_opt, &dc->dml2_options, sizeof(dc->dml2_options));
-
-        DC_FP_START();
-
-@@ -2027,7 +2025,7 @@ static void dcn32_update_bw_bounding_box(struct dc *d=
-c, struct clk_bw_params *bw
-
-        DC_FP_END();
-
--       kfree(dml2_opt);
-+       memcpy(&dc->dml2_options, dml2_opt, sizeof(dc->dml2_options));
- }
-
- static struct resource_funcs dcn32_res_pool_funcs =3D {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-index 07ca6f58447d..ef30e8632607 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-@@ -1581,11 +1581,9 @@ static struct dc_cap_funcs cap_funcs =3D {
-
- static void dcn321_update_bw_bounding_box(struct dc *dc, struct clk_bw_par=
-ams *bw_params)
- {
--       struct dml2_configuration_options *dml2_opt;
-+       struct dml2_configuration_options *dml2_opt =3D &dc->dml2_tmp;
-
--       dml2_opt =3D kmemdup(&dc->dml2_options, sizeof(dc->dml2_options), G=
-FP_KERNEL);
--       if (!dml2_opt)
--               return;
-+       memcpy(dml2_opt, &dc->dml2_options, sizeof(dc->dml2_options));
-
-        DC_FP_START();
-
-@@ -1601,7 +1599,7 @@ static void dcn321_update_bw_bounding_box(struct dc *=
-dc, struct clk_bw_params *b
-
-        DC_FP_END();
-
--       kfree(dml2_opt);
-+       memcpy(&dc->dml2_options, dml2_opt, sizeof(dc->dml2_options));
- }
-
- static struct resource_funcs dcn321_res_pool_funcs =3D {
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu=
+/drm/amd/display/dc/core/dc_state.c
+> index 8ea9391c60b7..70928223b642 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> @@ -193,11 +193,7 @@ static void init_state(struct dc *dc, struct dc_stat=
+e *state)
+>   struct dc_state *dc_state_create(struct dc *dc, struct dc_state_create_=
+params *params)
+>   {
+>   #ifdef CONFIG_DRM_AMD_DC_FP
+> -     struct dml2_configuration_options *dml2_opt;
+> -
+> -     dml2_opt =3D kmemdup(&dc->dml2_options, sizeof(*dml2_opt), GFP_KERN=
+EL);
+> -     if (!dml2_opt)
+> -             return NULL;
+> +     struct dml2_configuration_options dml2_opt =3D dc->dml2_options;
+>   #endif
+>        struct dc_state *state =3D kvzalloc(sizeof(struct dc_state),
+>                        GFP_KERNEL);
+> @@ -211,14 +207,12 @@ struct dc_state *dc_state_create(struct dc *dc, str=
+uct dc_state_create_params *p
+>
+>   #ifdef CONFIG_DRM_AMD_DC_FP
+>        if (dc->debug.using_dml2) {
+> -             dml2_opt->use_clock_dc_limits =3D false;
+> -             dml2_create(dc, dml2_opt, &state->bw_ctx.dml2);
+> +             dml2_opt.use_clock_dc_limits =3D false;
+> +             dml2_create(dc, &dml2_opt, &state->bw_ctx.dml2);
+>
+> -             dml2_opt->use_clock_dc_limits =3D true;
+> -             dml2_create(dc, dml2_opt, &state->bw_ctx.dml2_dc_power_sour=
+ce);
+> +             dml2_opt.use_clock_dc_limits =3D true;
+> +             dml2_create(dc, &dml2_opt, &state->bw_ctx.dml2_dc_power_sou=
+rce);
+>        }
+> -
+> -     kfree(dml2_opt);
+>   #endif
+>
+>        kref_init(&state->refcount);
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resour=
+ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+> index 8dfb0a3d21cb..247bac177d1b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+> @@ -1581,27 +1581,21 @@ static struct dc_cap_funcs cap_funcs =3D {
+>
+>   static void dcn401_update_bw_bounding_box(struct dc *dc, struct clk_bw_=
+params *bw_params)
+>   {
+> -     struct dml2_configuration_options *dml2_opt;
+> -
+> -     dml2_opt =3D kmemdup(&dc->dml2_options, sizeof(*dml2_opt), GFP_KERN=
+EL);
+> -     if (!dml2_opt)
+> -             return;
+> +     struct dml2_configuration_options dml2_opt =3D dc->dml2_options;
+>
+>        DC_FP_START();
+>
+>        dcn401_update_bw_bounding_box_fpu(dc, bw_params);
+>
+> -     dml2_opt->use_clock_dc_limits =3D false;
+> +     dml2_opt.use_clock_dc_limits =3D false;
+>        if (dc->debug.using_dml2 && dc->current_state && dc->current_state=
+->bw_ctx.dml2)
+> -             dml2_reinit(dc, dml2_opt, &dc->current_state->bw_ctx.dml2);
+> +             dml2_reinit(dc, &dml2_opt, &dc->current_state->bw_ctx.dml2)=
+;
+>
+> -     dml2_opt->use_clock_dc_limits =3D true;
+> +     dml2_opt.use_clock_dc_limits =3D true;
+>        if (dc->debug.using_dml2 && dc->current_state && dc->current_state=
+->bw_ctx.dml2_dc_power_source)
+> -             dml2_reinit(dc, dml2_opt, &dc->current_state->bw_ctx.dml2_d=
+c_power_source);
+> +             dml2_reinit(dc, &dml2_opt, &dc->current_state->bw_ctx.dml2_=
+dc_power_source);
+>
+>        DC_FP_END();
+> -
+> -     kfree(dml2_opt);
+>   }
+>
+>   enum dc_status dcn401_patch_unknown_plane_state(struct dc_plane_state *=
+plane_state)
 --
-2.45.1
+Hamza
 
 
---_000_CH0PR12MB5284AB4DA3FEB753DCBF77F48BF92CH0PR12MB5284namp_
+--_000_CH0PR12MB528494CB174C07542018D24B8BF92CH0PR12MB5284namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -336,19 +335,7 @@ t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 <div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
 nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
 olor: rgb(0, 0, 0);">
-Hi Alex,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-I'll a hunk for fixing DCN401 as well to this and resend it later today.<br=
->
-<br>
-</div>
+Thanks for the heads up!</div>
 <div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
 nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
 olor: rgb(0, 0, 0);">
@@ -373,172 +360,200 @@ Jay<br>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Zhang, George &lt;George.Zhan=
-g@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, June 4, 2024 12:49 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; amd-gfx@li=
-sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Mahfooz, Hamza &lt;Hamza.Mahfooz@amd.com&gt;; Arnd Bergmann &lt;=
-arnd@arndb.de&gt;; Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun =
-peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siquei=
-ra@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/display: use pre-allocated temp structu=
-re for bounding box</font>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Mahfooz, Hamza &lt;Ha=
+mza.Mahfooz@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, June 4, 2024 1:50 PM<br>
+<b>To:</b> Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; amd-gfx@list=
+s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> arnd@arndb.de &lt;arnd@arndb.de&gt;; Deucher, Alexander &lt;Alex=
+ander.Deucher@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; =
+Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;; Zuo, Jerry &lt;Jerry.Zu=
+o@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] Revert &quot;drm/amd/display: avoid large on-st=
+ack structures&quot;</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">[AMD Official Use Only - AMD Internal Distribution=
- Only]<br>
+<div class=3D"PlainText">On 6/4/24 13:45, Aurabindo Pillai wrote:<br>
+&gt; This reverts commit 44069f0f9b1fe577c5d4f05fa9eb02db8c618adc since<br>
+&gt; the code path is called from FPU context, and triggers error like:<br>
+&gt; <br>
+&gt; [&nbsp;&nbsp; 26.924055] BUG: sleeping function called from invalid co=
+ntext at include/linux/sched/mm.h:306<br>
+&gt; [&nbsp;&nbsp; 26.924060] in_atomic(): 1, irqs_disabled(): 0, non_block=
+: 0, pid: 1022, name: modprobe<br>
+&gt; [&nbsp;&nbsp; 26.924063] preempt_count: 2, expected: 0<br>
+&gt; [&nbsp;&nbsp; 26.924064] RCU nest depth: 0, expected: 0<br>
+&gt; [&nbsp;&nbsp; 26.924066] Preemption disabled at:<br>
+&gt; [&nbsp;&nbsp; 26.924067] [&lt;ffffffffc089e5e0&gt;] dc_fpu_begin+0x30/=
+0xd0 [amdgpu]<br>
+&gt; [&nbsp;&nbsp; 26.924322] CPU: 9 PID: 1022 Comm: modprobe Not tainted 6=
+.8.0+ #20<br>
+&gt; [&nbsp;&nbsp; 26.924325] Hardware name: System manufacturer System Pro=
+duct Name/CROSSHAIR VI HERO, BIOS 6302 10/23/2018<br>
+&gt; [&nbsp;&nbsp; 26.924326] Call Trace:<br>
+&gt; [&nbsp;&nbsp; 26.924327]&nbsp; &lt;TASK&gt;<br>
+&gt; [&nbsp;&nbsp; 26.924329]&nbsp; dump_stack_lvl+0x37/0x50<br>
+&gt; [&nbsp;&nbsp; 26.924333]&nbsp; ? dc_fpu_begin+0x30/0xd0 [amdgpu]<br>
+&gt; [&nbsp;&nbsp; 26.924589]&nbsp; dump_stack+0x10/0x20<br>
+&gt; [&nbsp;&nbsp; 26.924592]&nbsp; __might_resched+0x16a/0x1c0<br>
+&gt; [&nbsp;&nbsp; 26.924596]&nbsp; __might_sleep+0x42/0x70<br>
+&gt; [&nbsp;&nbsp; 26.924598]&nbsp; __kmalloc_node_track_caller+0x2ad/0x4b0=
 <br>
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
+&gt; [&nbsp;&nbsp; 26.924601]&nbsp; ? dm_helpers_allocate_gpu_mem+0x12/0x20=
+ [amdgpu]<br>
+&gt; [&nbsp;&nbsp; 26.924855]&nbsp; ? dcn401_update_bw_bounding_box+0x2a/0x=
+f0 [amdgpu]<br>
+&gt; [&nbsp;&nbsp; 26.925122]&nbsp; kmemdup+0x20/0x50<br>
+&gt; [&nbsp;&nbsp; 26.925124]&nbsp; ? kernel_fpu_begin_mask+0x6b/0xe0<br>
+&gt; [&nbsp;&nbsp; 26.925127]&nbsp; ? kmemdup+0x20/0x50<br>
+&gt; [&nbsp;&nbsp; 26.925129]&nbsp; dcn401_update_bw_bounding_box+0x2a/0xf0=
+ [amdgpu]<br>
+&gt; [&nbsp;&nbsp; 26.925393]&nbsp; dc_create+0x311/0x670 [amdgpu]<br>
+&gt; [&nbsp;&nbsp; 26.925649]&nbsp; amdgpu_dm_init+0x2aa/0x1fa0 [amdgpu]<br=
+>
+&gt; [&nbsp;&nbsp; 26.925903]&nbsp; ? irq_work_queue+0x38/0x50<br>
+&gt; [&nbsp;&nbsp; 26.925907]&nbsp; ? vprintk_emit+0x1e7/0x270<br>
+&gt; [&nbsp;&nbsp; 26.925910]&nbsp; ? dev_printk_emit+0x83/0xb0<br>
+&gt; [&nbsp;&nbsp; 26.925914]&nbsp; ? amdgpu_device_rreg+0x17/0x20 [amdgpu]=
 <br>
-Tested-by: George Zhang &lt;George.zhang@amd.com&gt;<br>
+&gt; [&nbsp;&nbsp; 26.926133]&nbsp; dm_hw_init+0x14/0x30 [amdgpu]<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/display/dc/core/dc_state.c&nbsp;&nbsp;=
+ | 16 +++++-----------<br>
+&gt;&nbsp;&nbsp; .../display/dc/resource/dcn401/dcn401_resource.c | 16 ++++=
++-----------<br>
+&gt;&nbsp;&nbsp; 2 files changed, 10 insertions(+), 22 deletions(-)<br>
 <br>
-Thanks,<br>
-George<br>
------Original Message-----<br>
-From: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-Sent: Tuesday, June 4, 2024 11:50 AM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Mahfooz, Hamza &l=
-t;Hamza.Mahfooz@amd.com&gt;; Zhang, George &lt;George.Zhang@amd.com&gt;; Ar=
-nd Bergmann &lt;arnd@arndb.de&gt;; Wentland, Harry &lt;Harry.Wentland@amd.c=
-om&gt;; Li, Sun peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; Siqueira, Rodrigo
- &lt;Rodrigo.Siqueira@amd.com&gt;<br>
-Subject: [PATCH] drm/amd/display: use pre-allocated temp structure for boun=
-ding box<br>
+You probably want something like<br>
+<a href=3D"https://patchwork.freedesktop.org/patch/597044/">https://patchwo=
+rk.freedesktop.org/patch/597044/</a> instead.<br>
 <br>
-This mirrors what the driver does for older DCN generations.<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/=
+gpu/drm/amd/display/dc/core/dc_state.c<br>
+&gt; index 8ea9391c60b7..70928223b642 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c<br>
+&gt; @@ -193,11 +193,7 @@ static void init_state(struct dc *dc, struct dc_s=
+tate *state)<br>
+&gt;&nbsp;&nbsp; struct dc_state *dc_state_create(struct dc *dc, struct dc_=
+state_create_params *params)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp; #ifdef CONFIG_DRM_AMD_DC_FP<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options *dml2_opt;=
 <br>
-Should fix:<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt =3D kmemdup(&amp;dc-&gt;dml2_option=
+s, sizeof(*dml2_opt), GFP_KERNEL);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!dml2_opt)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return NULL;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options dml2_opt =
+=3D dc-&gt;dml2_options;<br>
+&gt;&nbsp;&nbsp; #endif<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dc_state *state =3D k=
+vzalloc(sizeof(struct dc_state),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GFP_KER=
+NEL);<br>
+&gt; @@ -211,14 +207,12 @@ struct dc_state *dc_state_create(struct dc *dc, =
+struct dc_state_create_params *p<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; #ifdef CONFIG_DRM_AMD_DC_FP<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc-&gt;debug.using_dml2)=
+ {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_opt-&gt;use_clock_dc_limits =3D false;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_create(dc, dml2_opt, &amp;state-&gt;bw_ctx.dml2);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_opt.use_clock_dc_limits =3D false;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_create(dc, &amp;dml2_opt, &amp;state-&gt;bw_ctx.dml2);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_opt-&gt;use_clock_dc_limits =3D true;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_create(dc, dml2_opt, &amp;state-&gt;bw_ctx.dml2_dc_power_source);<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_opt.use_clock_dc_limits =3D true;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_create(dc, &amp;dml2_opt, &amp;state-&gt;bw_ctx.dml2_dc_power_sour=
+ce);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2_opt);<br>
+&gt;&nbsp;&nbsp; #endif<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_init(&amp;state-&gt;ref=
+count);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_res=
+ource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c<=
+br>
+&gt; index 8dfb0a3d21cb..247bac177d1b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c=
 <br>
-BUG: sleeping function called from invalid context at include/linux/sched/m=
-m.h:306<br>
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 449, name: kworker/u=
-64:8<br>
-preempt_count: 2, expected: 0<br>
-RCU nest depth: 0, expected: 0<br>
-Preemption disabled at:<br>
-ffffffffc0ce1580&gt;] dc_fpu_begin+0x30/0xd0 [amdgpu]<br>
-CPU: 5 PID: 449 Comm: kworker/u64:8 Tainted: G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.8.0=
-+ #35<br>
-Hardware name: System manufacturer System Product Name/ROG STRIX X570-E GAM=
-ING WIFI II, BIOS 4204 02/24/2022<br>
-Workqueue: events_unbound async_run_entry_fn<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c=
 <br>
-Fixes: 88c61827cedc (&quot;drm/amd/display: dynamically allocate dml2_confi=
-guration_options structures&quot;)<br>
-Suggested-by: Hamza Mahfooz &lt;hamza.mahfooz@amd.com&gt;<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-Cc: George Zhang &lt;george.zhang@amd.com&gt;<br>
-Cc: Arnd Bergmann &lt;arnd@arndb.de&gt;<br>
-Cc: harry.wentland@amd.com<br>
-Cc: sunpeng.li@amd.com<br>
-Cc: Rodrigo.Siqueira@amd.com<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dc.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; | 1 +<br>
-&nbsp;.../drm/amd/display/dc/resource/dcn32/dcn32_resource.c&nbsp;&nbsp;&nb=
-sp; | 8 +++-----<br>
-&nbsp;.../drm/amd/display/dc/resource/dcn321/dcn321_resource.c&nbsp; | 8 ++=
-+-----<br>
-&nbsp;3 files changed, 7 insertions(+), 10 deletions(-)<br>
+&gt; @@ -1581,27 +1581,21 @@ static struct dc_cap_funcs cap_funcs =3D {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static void dcn401_update_bw_bounding_box(struct dc *dc, s=
+truct clk_bw_params *bw_params)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options *dml2_opt;=
 <br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/disp=
-lay/dc/dc.h<br>
-index d0ed01ac460d..d843933ad731 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dc.h<br>
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h<br>
-@@ -1444,6 +1444,7 @@ struct dc {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } scratch;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_option=
-s dml2_options;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options dml=
-2_tmp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dc_acpi_cm_power_state powe=
-r_state;<br>
-<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c=
- b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c<br>
-index 0f11d7c8791c..7a8aa9396dea 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c<br>
-@@ -2007,11 +2007,9 @@ void dcn32_calculate_wm_and_dlg(struct dc *dc, struc=
-t dc_state *context,<br>
-<br>
-&nbsp;static void dcn32_update_bw_bounding_box(struct dc *dc, struct clk_bw=
-_params *bw_params)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options *dm=
-l2_opt;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options *dm=
-l2_opt =3D &amp;dc-&gt;dml2_tmp;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt =3D kmemdup(&amp;dc-&gt;dml2=
-_options, sizeof(dc-&gt;dml2_options), GFP_KERNEL);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dml2_opt)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(dml2_opt, &amp;dc-&gt;dml2_opt=
-ions, sizeof(dc-&gt;dml2_options));<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_START();<br>
-<br>
-@@ -2027,7 +2025,7 @@ static void dcn32_update_bw_bounding_box(struct dc *d=
-c, struct clk_bw_params *bw<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_END();<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2_opt);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;dc-&gt;dml2_options, dml2=
-_opt, sizeof(dc-&gt;dml2_options));<br>
-&nbsp;}<br>
-<br>
-&nbsp;static struct resource_funcs dcn32_res_pool_funcs =3D {<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c<br>
-index 07ca6f58447d..ef30e8632607 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c<br>
-@@ -1581,11 +1581,9 @@ static struct dc_cap_funcs cap_funcs =3D {<br>
-<br>
-&nbsp;static void dcn321_update_bw_bounding_box(struct dc *dc, struct clk_b=
-w_params *bw_params)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options *dm=
-l2_opt;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options *dm=
-l2_opt =3D &amp;dc-&gt;dml2_tmp;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt =3D kmemdup(&amp;dc-&gt;dml2=
-_options, sizeof(dc-&gt;dml2_options), GFP_KERNEL);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dml2_opt)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(dml2_opt, &amp;dc-&gt;dml2_opt=
-ions, sizeof(dc-&gt;dml2_options));<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_START();<br>
-<br>
-@@ -1601,7 +1599,7 @@ static void dcn321_update_bw_bounding_box(struct dc *=
-dc, struct clk_bw_params *b<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_END();<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2_opt);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;dc-&gt;dml2_options, dml2=
-_opt, sizeof(dc-&gt;dml2_options));<br>
-&nbsp;}<br>
-<br>
-&nbsp;static struct resource_funcs dcn321_res_pool_funcs =3D {<br>
---<br>
-2.45.1<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt =3D kmemdup(&amp;dc-&gt;dml2_option=
+s, sizeof(*dml2_opt), GFP_KERNEL);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!dml2_opt)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct dml2_configuration_options dml2_opt =
+=3D dc-&gt;dml2_options;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_START();<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn401_update_bw_bounding_bo=
+x_fpu(dc, bw_params);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt-&gt;use_clock_dc_limits =3D false;<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt.use_clock_dc_limits =3D false;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc-&gt;debug.using_dml2 =
+&amp;&amp; dc-&gt;current_state &amp;&amp; dc-&gt;current_state-&gt;bw_ctx.=
+dml2)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_reinit(dc, dml2_opt, &amp;dc-&gt;current_state-&gt;bw_ctx.dml2);<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_reinit(dc, &amp;dml2_opt, &amp;dc-&gt;current_state-&gt;bw_ctx.dml=
+2);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt-&gt;use_clock_dc_limits =3D true;<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; dml2_opt.use_clock_dc_limits =3D true;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc-&gt;debug.using_dml2 =
+&amp;&amp; dc-&gt;current_state &amp;&amp; dc-&gt;current_state-&gt;bw_ctx.=
+dml2_dc_power_source)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_reinit(dc, dml2_opt, &amp;dc-&gt;current_state-&gt;bw_ctx.dml2_dc_=
+power_source);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dml2_reinit(dc, &amp;dml2_opt, &amp;dc-&gt;current_state-&gt;bw_ctx.dml=
+2_dc_power_source);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_FP_END();<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kfree(dml2_opt);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; enum dc_status dcn401_patch_unknown_plane_state(struct dc_=
+plane_state *plane_state)<br>
+-- <br>
+Hamza<br>
 <br>
 </div>
 </span></font></div>
@@ -546,4 +561,4 @@ _opt, sizeof(dc-&gt;dml2_options));<br>
 </body>
 </html>
 
---_000_CH0PR12MB5284AB4DA3FEB753DCBF77F48BF92CH0PR12MB5284namp_--
+--_000_CH0PR12MB528494CB174C07542018D24B8BF92CH0PR12MB5284namp_--
