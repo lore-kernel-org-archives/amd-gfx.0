@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B609C25B76
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3193C27C5E
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 12:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF3C010E1C4;
-	Wed,  5 Jun 2024 12:02:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F4A210E4D7;
+	Wed,  5 Jun 2024 12:03:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lpoiUwcE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MkGDEzT0";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 703C210E332;
- Wed,  5 Jun 2024 12:02:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5E710E636;
+ Wed,  5 Jun 2024 12:03:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B7E1061879;
- Wed,  5 Jun 2024 12:02:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A11C4AF0C;
- Wed,  5 Jun 2024 12:02:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 351DD61265;
+ Wed,  5 Jun 2024 12:03:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15166C32786;
+ Wed,  5 Jun 2024 12:02:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1717588948;
- bh=FgrilCR7PCWlydzFzxiRwvpWlP3ziGuP2hn1K1zPjP4=;
+ s=k20201202; t=1717588980;
+ bh=uVevTPR/osKWsOEkjvF98Wwcb8jPDMSg6NxJx8m/h4I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lpoiUwcEd3QeCvbo8sxWtAv5NfjYRdhX9HvmGnZFBcOETw0+xrXYG378UOpv342/g
- z4KsaYyQknH5rt4W4Q1H8ze8jfFcQV5nl/jP4UORQWKD6VQMEbrqGnm8P9FDoZGOSn
- 2pF05AolCec/aqAuAvSUHnBSkoNb9DcJRbYUH4myZBbkx/dvEOHy1Ge8f7N9owrse2
- mHGGs0CulGFg0+hO1KLU3+GmMMKEupZKw1QUybQkoQ683fYNuhFEHc5qyqr/FzroNW
- zvwq+3elyqSUGfpeEa9WWgo8lvn1bTVjs12llcycK6bwr4GM3hzkGDScP+mW45/R+I
- a444d9XOfAzSQ==
+ b=MkGDEzT0Uq/9hnhNq09/lTP+spFUndLatikNyVRZqN/CvGZGgVI/SRyk7q4ERaTBo
+ wjJaPws6RiWCh9SsAKUq1jFgWssvH2/t6GJmukRQidHnS5rOWHRp4t9hBHpuACEtRM
+ QY6mBd3olYesiJS8/mCihz/7ocr3Mxk3J2dSdM5FI9C/Xf7knCVCb8M1VSbN29PiDr
+ rcXPSZK1kXXjqb3xvPJ0aG9vj/cIjoGvAQfxDJdRYWpqYo7s6oGD+TW8GLYwAXni2q
+ fK8TdvdepyoYXKFGC+1hVKq3zPNjEMISIJFNwa/WytoLsZKFVVvVR2r4CWf5DRWkK1
+ Qh7XOlAHM5qiA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, YiPeng.Chai@amd.com, kevinyang.wang@amd.com,
- lijo.lazar@amd.com, lee@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.9 03/23] drm/amdgpu: correct hbm field in boot status
-Date: Wed,  5 Jun 2024 08:01:46 -0400
-Message-ID: <20240605120220.2966127-3-sashal@kernel.org>
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ Felix.Kuehling@amd.com, shashank.sharma@amd.com, Philip.Yang@amd.com,
+ guchun.chen@amd.com, mukul.joshi@amd.com, xiaogang.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.9 20/23] drm/amdgpu: fix dereference null return
+ value for the function amdgpu_vm_pt_parent
+Date: Wed,  5 Jun 2024 08:02:03 -0400
+Message-ID: <20240605120220.2966127-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240605120220.2966127-1-sashal@kernel.org>
 References: <20240605120220.2966127-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.9.3
@@ -64,33 +67,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Jesse Zhang <jesse.zhang@amd.com>
 
-[ Upstream commit ec58991054e899c9d86f7e3c8a96cb602d4b5938 ]
+[ Upstream commit a0cf36546cc24ae1c95d72253c7795d4d2fc77aa ]
 
-hbm filed takes bit 13 and bit 14 in boot status.
+The pointer parent may be NULLed by the function amdgpu_vm_pt_parent.
+To make the code more robust, check the pointer parent.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index e0f8ce9d84406..db9cb2b4e9823 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -43,7 +43,7 @@ struct amdgpu_iv_entry;
- #define AMDGPU_RAS_GPU_ERR_HBM_BIST_TEST(x)		AMDGPU_GET_REG_FIELD(x, 7, 7)
- #define AMDGPU_RAS_GPU_ERR_SOCKET_ID(x)			AMDGPU_GET_REG_FIELD(x, 10, 8)
- #define AMDGPU_RAS_GPU_ERR_AID_ID(x)			AMDGPU_GET_REG_FIELD(x, 12, 11)
--#define AMDGPU_RAS_GPU_ERR_HBM_ID(x)			AMDGPU_GET_REG_FIELD(x, 13, 13)
-+#define AMDGPU_RAS_GPU_ERR_HBM_ID(x)			AMDGPU_GET_REG_FIELD(x, 14, 13)
- #define AMDGPU_RAS_GPU_ERR_BOOT_STATUS(x)		AMDGPU_GET_REG_FIELD(x, 31, 31)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 124389a6bf481..512b42225003f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -682,11 +682,15 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
+ 			 struct amdgpu_vm_bo_base *entry)
+ {
+ 	struct amdgpu_vm_bo_base *parent = amdgpu_vm_pt_parent(entry);
+-	struct amdgpu_bo *bo = parent->bo, *pbo;
++	struct amdgpu_bo *bo, *pbo;
+ 	struct amdgpu_vm *vm = params->vm;
+ 	uint64_t pde, pt, flags;
+ 	unsigned int level;
  
- #define AMDGPU_RAS_BOOT_STATUS_POLLING_LIMIT	1000
++	if (WARN_ON(!parent))
++		return -EINVAL;
++
++	bo = parent->bo;
+ 	for (level = 0, pbo = bo->parent; pbo; ++level)
+ 		pbo = pbo->parent;
+ 
 -- 
 2.43.0
 
