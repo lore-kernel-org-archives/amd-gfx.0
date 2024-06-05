@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4817C25B78
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 01:33:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10CB0C27C54
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 01:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43A5E10E66B;
-	Wed,  5 Jun 2024 01:33:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5090B10E674;
+	Wed,  5 Jun 2024 01:33:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kDIbe4G8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1erp9ohv";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2067.outbound.protection.outlook.com [40.107.237.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80BEC10E66B
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 01:33:52 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2058.outbound.protection.outlook.com [40.107.101.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCA210E670
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 01:33:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IM5SPp9iu8KaRrdPTSyxV5I1HEHP6F4chmoysshQJg91/DsKcoYxX/EVqIs2reIi/oLVWsyK7NYtjVVYFFF1sgQerVxIwRLtmdWXOFsVZT+Ns0uTPD3KMdQ4AiZrVZydOcz0kjwZARZmgTmkPLHG6CvoiejsuLCdOtVJxkIiLOSpGfSqDdoygDa0RhQVPHcEoQByZBoe2UDepO6IARRc17R6rNLDP6aTOsm7O/nPkHBd8/cqE+hOiQMHev5ShvXeZQ83TWm89LMirESGAFYZ3tQpPPINwHRvzeyLinHZXxek+F1bwJ6hOUcZTcYcRJ/+kxbRLE/x1W9V0dRuWw3WuQ==
+ b=W8xAltF8OEjWXSTXhXzLIu+mQZ2wnoutj/VvHsvbQMdr6CGGWHhLoiE8iyGWbGjrBWy9W+rkByPJbiwILBEKhhIBkgz2C3XFX9zVFkMqAt99Y+kkUbR0+VWiLkhQAP6UJaew4H4THNwCjH5/1D3S7SqsaI57xUccbgC5sEOGMBqhVut0FerHdm5mTeQgCbF6DHyI1X0ILFj33k6dBhgLDs5HFER5zc1d2bimCTH4cCxtZZfndd6SDwoP7wgbhNl5xgpiDtN5C6OgIzxlwRVOhDDMd+HDBfba7qqZTnOY3J4b9m6ljc41fCyHm/RjWWGRTd1TquEwL1jDnZZFUOmUTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=634kHyhT9mnOtHboM53X0ZD4Jpv9076KEFmToFL8//U=;
- b=Q3OnYQ80C2O6IbgtYH/1fCK56Mrn29BwLEhAuDv2PazfN6bJIuUJGzV44aJZd+Phnwvsxk0/bVvzwFZQAoGuwT20H+e7GQ8AKGDyJJX/lCE0UiKgn1q8sYr6o9Xs6VtDHfwR/12la8/yTfSa8B7d5Yxzbbr2aeD1xXBuIap/h7tUs+CKCfKy9SWp0IaAgecyqHBQP8kaaZeRWSodq3+jktjRGCluYkltcLbjeBLfIHkj4o+gQeZ1ZXavYKoT48Xl5MonwrPsO/pDqsvyuNDXxNURygx9GrTcsmZ9jvgV5AnaOK01eJ5IzJ3waqMV9Be2F5HRph9GuE5X4iTwfelIeg==
+ bh=p60p6NUKH+g1fVUouFr6se1cpRATgLTqebzLE4eGImE=;
+ b=N/Wgv/mO5GIpN9QAD8wqQbXWK7mxz7zSz4xGpV0ivB7SGa3M9itOzkDluuxR529Uuio1zwf8VXs0CE31QSP8opMyYtiwYlpfcN9k5dfYVdpzoiQ/EPPBCrg7DXCapGUkQbf42efY4/w8ODZ4sqZsq80XEItuJ6QHGGWqpqIsQQukTbv8MWFXMGkYVw98XEXMb39kw5hZJVejTfX7v8bbqMFnzWyqGLIm3aXlmwMbpFz+HBT3BDBz5x+S4zBYajrjELBeaM90gqv0c95r5KWzIyduxcs95rQsomslwFzi6krAgGCWozuBsWsW7nYZ8m9sqqCNqKLN/rGEdqA+bu84Hg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=634kHyhT9mnOtHboM53X0ZD4Jpv9076KEFmToFL8//U=;
- b=kDIbe4G8M3HnJf2CuYehMw5KKsOZqlZb+tdAt7Kjl4himgi6fz2r18iXwPubvT4pmionjL6sfLNwL4Uoq5NYToV9ppIg0xo55vqr8WnxBGCx4uC9eHNYuwdgZZ/AgjJ1Y1Bxocb8iddGjMXFeLcbXLXNT0d6W4ZJTbdlIq8j5Tk=
-Received: from BN0PR03CA0009.namprd03.prod.outlook.com (2603:10b6:408:e6::14)
- by DM4PR12MB8572.namprd12.prod.outlook.com (2603:10b6:8:17d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.30; Wed, 5 Jun
- 2024 01:33:50 +0000
+ bh=p60p6NUKH+g1fVUouFr6se1cpRATgLTqebzLE4eGImE=;
+ b=1erp9ohvXz0ApdIAp8cun0l8aEw6I3UGno/FknK0uYx+ItKAJ4/9svWKcBOAsgdJy4465IaE/XwWsmzVYI9dJvzQ8pta+pLacCjDlkmXaYUOkYXbmz+Djhfd4mjyNzYiP+K8Ylqqnzs5E5MeGRfMdIwXiulE/aZS83EakGjqVKY=
+Received: from BN0PR03CA0030.namprd03.prod.outlook.com (2603:10b6:408:e6::35)
+ by BY5PR12MB4196.namprd12.prod.outlook.com (2603:10b6:a03:205::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31; Wed, 5 Jun
+ 2024 01:33:51 +0000
 Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
- (2603:10b6:408:e6:cafe::90) by BN0PR03CA0009.outlook.office365.com
- (2603:10b6:408:e6::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27 via Frontend
- Transport; Wed, 5 Jun 2024 01:33:49 +0000
+ (2603:10b6:408:e6:cafe::ed) by BN0PR03CA0030.outlook.office365.com
+ (2603:10b6:408:e6::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.28 via Frontend
+ Transport; Wed, 5 Jun 2024 01:33:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Wed, 5 Jun 2024 01:33:49 +0000
+ 15.20.7633.15 via Frontend Transport; Wed, 5 Jun 2024 01:33:50 +0000
 Received: from MKM-L10-YUNXIA9.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 4 Jun
- 2024 20:33:46 -0500
+ 2024 20:33:47 -0500
 From: Yunxiang Li <Yunxiang.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>, Yunxiang Li
  <Yunxiang.Li@amd.com>
-Subject: [PATCH v4 0/9] drm/amdgpu: prevent concurrent GPU access during reset
-Date: Tue, 4 Jun 2024 21:33:09 -0400
-Message-ID: <20240605013318.11260-1-Yunxiang.Li@amd.com>
+Subject: [PATCH v4 1/9] drm/amdgpu: add skip_hw_access checks for sriov
+Date: Tue, 4 Jun 2024 21:33:10 -0400
+Message-ID: <20240605013318.11260-2-Yunxiang.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240605013318.11260-1-Yunxiang.Li@amd.com>
+References: <20240605013318.11260-1-Yunxiang.Li@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -71,58 +73,58 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|DM4PR12MB8572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f9c6050-f4c7-49da-f185-08dc84ff8cef
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|BY5PR12MB4196:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69adfdfd-194c-401c-4e3f-08dc84ff8d6e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|36860700004|82310400017|376005|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UGhja0l5OGo0V0R3UUdJM2k0T0FZejQ3Z1lMcXYxMmFRVlVEYmpMMW1jMWI5?=
- =?utf-8?B?RlM1K3BVVzhzYUtTR3piU2tUUDA4alE4QnNyK1ZxZWpIbkZ3MGhUYmRET0Y4?=
- =?utf-8?B?b0Y5Rk9GellMUGljU3BQZ0pOSGRuYmFLSDQvelRtYTVnODVrTnFSd1YzaHln?=
- =?utf-8?B?MjB6WWEwbDZ2NTJuaS9xeG5PT2FqZjRGeHVtOVMweTFKbDRnYVF4azVkdWxv?=
- =?utf-8?B?V3BJZlVjQTIvTXlpRitPMFNGL2EvdjV3NytZM1VoK05yb29Kbmt5T2syWUZy?=
- =?utf-8?B?MVRoQ0lFY285NVBVdy9EZnZEUzc4cmtwMlhmWEI2bU9CSm9GL0NOMnBBK0xm?=
- =?utf-8?B?bG5md0NISElQMk5xODFLRW1ENVl1Z1RsUDNKL3Z5ZFZrMnZmbjNPZ3ErVERo?=
- =?utf-8?B?VUV1NnVaQmtUQ0d3Mjl3b3dIMGU3K2hFenlTQTRsS3l1TkxXZWVyc0xGWCtt?=
- =?utf-8?B?SG5YNG9UNEFNWTI3Q0FxVms2RmhLYjFORmRNME9CVFV4bFBCWEVyUy9QZFhy?=
- =?utf-8?B?V2svOWh1cHZLZHJEZFczcU9xN2FoSW9YNjRQZFl2aXJmUU1yRWE4NmFMZE4x?=
- =?utf-8?B?YkdLdHh3aWhZcWIvSlFLcTZkVHhBUnBybkc3SnZ6RmFVbFVna052NmFGQXF6?=
- =?utf-8?B?TVJ1UkZPdE1YNVF1MmFMamhGRm9ZK2ZycVA4TGFmVk9zR1dFVjh0QjdIK3BZ?=
- =?utf-8?B?NHRsTHk3SGpNT096VCtGQU1aN1c2b3JyVTJjUHNaZjY2MEtla1YydzFaQ05J?=
- =?utf-8?B?bmxRL0lmWmpIS0xkWjhFWjFoc2RJbzNlWkZObE1Ta2hMRENjK1FJNXVkUlRk?=
- =?utf-8?B?dDZXbE9ZRWNTY0c2UjlTYVE1Vk9JSHh2UVJibS9zektTcHpiYzNzM0JadG8v?=
- =?utf-8?B?ZVVrVzJTYkVZRWFVK0dzNTg2WVhjQ0VEak55S1VkbEl4T1VMNVZrSHdjcGFL?=
- =?utf-8?B?MTBQUUJDcVhIZitRUU9zYktTZ0Q2bHpRcW03TVl4L203V2wzZlBwVXZxdGh0?=
- =?utf-8?B?Q040Yi9pQlh5d254b0llMTVPWTk3dFg3bzdYNUtrNzgvWEd4ZFlIbjNlcTdn?=
- =?utf-8?B?MEE0WE5FYks3cUNKekd4MUZpdjIyektEd1Q5d3c3aUFyUm9BdjZzbHVxSE8x?=
- =?utf-8?B?SVJEWjZLV0dnamExWnprTFpKUmZ0aXZFZEEzem5BanF3VnlwenBmcFBxaXVQ?=
- =?utf-8?B?UFhIK1lESUJVRVRVV0lPN3g4U0JSTGIzdXkvSWNpUXNTaEdsamhZbE9jWm5C?=
- =?utf-8?B?STBvQnUvQmxjUjF6WS9LMFZHTW5JQnZTbVJ6QWFyMEtuK1MrRWhWUUdhR2x0?=
- =?utf-8?B?eXc4bWhXSEltdk9NSDcvTkVQQjBxTUlaaUZPVEtFeW1IVHBnb0d1NFc3K2U3?=
- =?utf-8?B?dDdpTDJkYVloSXJmd0t0TldRN1hLUHhROGtIVElHV0dNOGtQeVpVa0NDSHJ2?=
- =?utf-8?B?ZTJLRkFhSnNhbDdlcG5DNmMyeHhwU1RoaU44N1dLai8zVGtoVGJjcFdjZFJ3?=
- =?utf-8?B?cHdOQS9lWERvZXh1WHl6c0VQSkFYVEhYVUtJRUoyclVpWitiZytMZUlQMkVk?=
- =?utf-8?B?djV3NkJ1YjJzSkpjcTJOdGhIbUFnajRMK0VjYUhyR3R1NmdBckxpMlljdHdC?=
- =?utf-8?B?eDQ3R1c4OVdxbUVPeVNyWGlXQnVabUU3NnE0R1kyOTdyQ0tjdmJ2dlNINGI5?=
- =?utf-8?B?amJGdWxZK1FLQUFUM0xsWU1IZ0V5ZUVKMzBPU0ZJdEt1emF1NHZxTlVIUHpS?=
- =?utf-8?B?OW1ORFpKR3FyQlBITVdLQktWTmpsVXJlOUpNUkRiZngrV1E3N09oR2JkWW1G?=
- =?utf-8?B?cGE4eWtJYnppSDVpbDhzMnl5VStoYVdrc1JUU1Z6QXVYQ2ZLMjVWdGRXWlYy?=
- =?utf-8?B?U2NiVjh3N2wvYXZzQStmMmtWejQxa09tVXV2VWxsNnhscmc9PQ==?=
+ ARA:13230031|36860700004|1800799015|376005|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SFdpMjlOSWFDT3RrK0NOQjE3R2RvMjhsVi81SUlhY2E5VlZhT3lOKzc0Yjhs?=
+ =?utf-8?B?Z2E0ejFnbUNKaHZZU2x1T3llMmFMM1FjeXkydnU2UVN1RVBpeE9SSWRPLzJK?=
+ =?utf-8?B?RmEyU3FxODlJd0FTWlZ1RjkwT2QvQWZVR1VNV2pCdlFhZDlKRVVrZVBITmtW?=
+ =?utf-8?B?NXVTNkRvQ3ZvT0NNQjFNMGZMaEdZQS9NZzZZSGovWGdaZFR0K0Z3RGo0dkRx?=
+ =?utf-8?B?WTdTYXRZcEMrY0x3UCtDbEtuNzg4WWJSVDhMQ2o2bmNVN3FqS3dEOXpWWmtx?=
+ =?utf-8?B?M3hhb1pIWERKSE92TVVBUHg0NjZNaVRjN2pKM0xhVEw0NXlaaFVrb3lENkMy?=
+ =?utf-8?B?blYwOVl1Rk9wM3VmeWdveVYzZUR5aGp5Yjl5SkhMc2NhV1c0VDJZZm93bVN0?=
+ =?utf-8?B?dmNNNW1QWmdpM0Q1b2w4MzdkT3o3TzA1UkNUdlArNXdhNWR0dGFLcnhPcmZZ?=
+ =?utf-8?B?b3UxR0R5WkNkWGx6UU5WNHlEdlRxZHUwR3A2LzRTK0g4SldzZ2xoOENUR1pW?=
+ =?utf-8?B?TlR1Uml0ZTNYYUVwRUJ5ZUhzTzYrbGw5Y09vZHhnOGpIYUJDWFlPZzd6dlo0?=
+ =?utf-8?B?UUNtYUV0UUhaSUdZSldaQkovUUV4ellrcnR2eTRMc2ROUVhzQ2o3SWVsOW9i?=
+ =?utf-8?B?alQzbHVMTWhYaFJiNW9yaGJJQ29BNVBpOXZsK1llZzZwUzNOUFNjRGxhRXRj?=
+ =?utf-8?B?OHpYUUhjeW96Y0ZST29TZlNocjlSWVFoZnpLUWlrclF6NGlRaTdEVXNrRjdt?=
+ =?utf-8?B?ZEdFU2RMaTdubzF3ZTF1ODd6NHhJcVV1M2tPZW5zdGpuRzdaS08vZmpFUzMx?=
+ =?utf-8?B?N0hiVFd6Z3dQUFV4KzBhaGl4ZUdBeFlJdzE4dW5QRExsS2lhK05ud1RQNFUz?=
+ =?utf-8?B?MTliOFNlOW0yTjRUOXQ0akhyRVZyRjczM3krQ1VyaldnUGx1Z0kwWk1sdEMr?=
+ =?utf-8?B?dHdqRG5sS2lKTmNPZndPampGRjQ3OGJuQ3N3ZHNMWnFPejI5VDdHZERoOWpC?=
+ =?utf-8?B?SldsdXlnWE1GWldjTktyQ21JMDA0eEY0dzJWTkN5K2c5b2dyS1kyQWVNRGRr?=
+ =?utf-8?B?N29UZVI2Y1cxY1lPOXZuWktBVlFPZTlJMkZ1eGl2NzYvL0VZYnJzKy8rVTN6?=
+ =?utf-8?B?Qnlhd2psWHVHUGVuTWdGSy9uemFYMWdOZ2hCdlFEUjlJQTZwNTU5c0c4dDVt?=
+ =?utf-8?B?OHpndFJ0WkFQYVNqaVptOUlEMTZORnFoTnozOUxoNElvUkRFV1hzeWYxZEZN?=
+ =?utf-8?B?YTJ5MzFGWlZrUHFpdzBnT0pvTDl6RGhRZjc1aEJBckd0U0E5L1hqRlpyajhJ?=
+ =?utf-8?B?Z1g1M09iZkRyMVRPN0pHMlJBWHBHQ0Myak1CQlJwenZiKzZwS1I1WmxJejBZ?=
+ =?utf-8?B?czd0MUQzcmR3VVFNYllOQjdXN0dxM3ZRUmJZQXA0bm9GRkFrcWNmQlJMOUxV?=
+ =?utf-8?B?NHRiVUJpa0Z3SGxDRGpWUTdybjJpSUxkeUh3dGlkdDNhN1Jma3dPTTFxRnVZ?=
+ =?utf-8?B?S2VYQXpveDR6S3p1TVNrZnZoZUdScFpzN011K2srZWpQMmVvUTZsSUQvR3A5?=
+ =?utf-8?B?WTFBZDVMdnZXYWFkWDRTRkFEY1Yvc1dZZ1dSZVc3MzNsK1luNjA3UldOYi9B?=
+ =?utf-8?B?cGRvczVuMktiRnliV2JlNHRnSjZOWnRMOEJLR2U0MFo2STdIWlZNdW8yVWZw?=
+ =?utf-8?B?WkFjTzJ4SDI5dDl2MGZTcmJIQkJydEdydjM1M3YwR1hxcllVSU1ZVEdYNWFw?=
+ =?utf-8?B?dHYwbnNXV3loL1JxRU9LMzNJVGcvbkVYSjdTbm44bTdSd3lPQzVlemgwTzhX?=
+ =?utf-8?B?SjJDOVloMnphc004RzlsUThPRjBEMzAyUVlUMHo5SWd1TWplcGFYZFdqZEc5?=
+ =?utf-8?B?dlcxMjFxMEdtMWpsYmFaRTh5T292QmxNZU1WUFM3aHdhRFE9PQ==?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(82310400017)(376005)(1800799015); DIR:OUT;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2024 01:33:49.5048 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f9c6050-f4c7-49da-f185-08dc84ff8cef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2024 01:33:50.3329 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69adfdfd-194c-401c-4e3f-08dc84ff8d6e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8572
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,64 +139,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If another thread accesses the gpu while the GPU is being reset, the
-reset could fail. This is especially problematic on SRIOV since host
-may reset the GPU even if guest is not yet ready.
+Accessing registers via host is missing the check for skip_hw_access and
+the lockdep check that comes with it.
 
-There are code in place that tries to prevent stray access, but over
-time bugs have crept in making it not reliable. This series hopes to
-address these bugs.
+Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-v4: From testing, it seem that removing the flush from gart enable
-    sometimes causes the gart to not be flushed at all. So dropping
-      drm/amd/amdgpu: remove unnecessary flush when enable gart
-    and replace with this patch instead
-      drm/amdgpu: call flush_gpu_tlb directly in gfxhub enable
-
-    Splitting 
-      drm/amdgpu: fix missing reset domain locks
-    into multiple commits
-      drm/amdgpu: add lock in amdgpu_gart_invalidate_tlb
-      drm/amdgpu: add lock in kfd_process_dequeue_from_device
-
-v3: dropped:
-      drm/amdgpu: abort fence poll if reset is started
-      Revert "drm/amdgpu: Queue KFD reset workitem in VF FED"
-    updated:
-      drm/amdgpu: fix sriov host flr handler
-      drm/amdgpu: fix missing reset domain locks
-     
-Yunxiang Li (9):
-  drm/amdgpu: add skip_hw_access checks for sriov
-  drm/amdgpu: fix sriov host flr handler
-  drm/amdgpu/kfd: remove is_hws_hang and is_resetting
-  drm/amdgpu: remove tlb flush in amdgpu_gtt_mgr_recover
-  drm/amdgpu: use helper in amdgpu_gart_unbind
-  drm/amdgpu: call flush_gpu_tlb directly in gfxhub enable
-  drm/amdgpu: fix locking scope when flushing tlb
-  drm/amdgpu: add lock in amdgpu_gart_invalidate_tlb
-  drm/amdgpu: add lock in kfd_process_dequeue_from_device
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 11 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 70 ++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c   |  2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      | 23 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h      |  2 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c         | 39 ++++-----
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c         | 39 ++++-----
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c         |  6 --
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  1 -
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 79 ++++++++-----------
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 11 ++-
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  4 +-
- .../amd/amdkfd/kfd_process_queue_manager.c    | 13 ++-
- 18 files changed, 154 insertions(+), 157 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 3d5f58e76f2d..3cf8416f8cb0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -977,6 +977,9 @@ u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v, u32 f
+ 		return 0;
+ 	}
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
++
+ 	reg_access_ctrl = &adev->gfx.rlc.reg_access_ctrl[xcc_id];
+ 	scratch_reg0 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg0;
+ 	scratch_reg1 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg1;
+@@ -1047,6 +1050,9 @@ void amdgpu_sriov_wreg(struct amdgpu_device *adev,
+ {
+ 	u32 rlcg_flag;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return;
++
+ 	if (!amdgpu_sriov_runtime(adev) &&
+ 		amdgpu_virt_get_rlcg_reg_access_flag(adev, acc_flags, hwip, true, &rlcg_flag)) {
+ 		amdgpu_virt_rlcg_reg_rw(adev, offset, value, rlcg_flag, xcc_id);
+@@ -1064,6 +1070,9 @@ u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
+ {
+ 	u32 rlcg_flag;
+ 
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
++
+ 	if (!amdgpu_sriov_runtime(adev) &&
+ 		amdgpu_virt_get_rlcg_reg_access_flag(adev, acc_flags, hwip, false, &rlcg_flag))
+ 		return amdgpu_virt_rlcg_reg_rw(adev, offset, 0, rlcg_flag, xcc_id);
 -- 
 2.34.1
 
