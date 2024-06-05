@@ -4,78 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC7F7C27C52
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 17:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9866C25B76
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jun 2024 17:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E05A510E008;
-	Wed,  5 Jun 2024 17:22:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41D7210E2D5;
+	Wed,  5 Jun 2024 17:22:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QPOFr4t0";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="iTQDgsUs";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="EVBWFUl7";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A09710E1E9;
- Wed,  5 Jun 2024 15:08:40 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4214f803606so17436835e9.0; 
- Wed, 05 Jun 2024 08:08:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717600118; x=1718204918; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6erns6P7m66pg24yXk3vygFkTJngHmTZFzrZV+/TSUs=;
- b=QPOFr4t0SPqHUfju3JbX+Jk7GyOT8IdDAsPKzSTwl/QO77d+Oyk//FpY9A4NIpSnz6
- whnSbhpsvaYQ0osUf8sqFpqpYIeBGMmo5VEzgXl4rtMsYUBPrKP+TGTBqlI5VfHL2GeY
- 8J38hutLDYn261SjZQ0ZLZiiFsSHYVBW5LnJAyrtQ304wsMV7QuMrzKm+Siv9MhstSYT
- XuxUnFGSZeK0XUSU+2RWkjfaW+kfprP77pV8JEBDCe8Hox5YSZDIR15UH5cahKx9Qfzb
- H7AVuqcLduwi6FxVsndhOdtzqrCmzevr58+Eihc+/gXKbe/j4x9PbbdMqZA8wnF70XvV
- vvYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717600118; x=1718204918;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6erns6P7m66pg24yXk3vygFkTJngHmTZFzrZV+/TSUs=;
- b=ZerXyHkWoWERz5xyMJkf6vOz2gVEx+kAk5v5bXGFxOEM80wzZPRoTyylsvevpiM+dd
- SzMUhQZPdzJdGhsVx8kQnoco9UcuzX3Srb17NI7apFF7a8gOmBKvk5/8lWk2yGleR1/H
- ppiL20LvmBd71VxreUVSpq7kyq8Jf+7VqQ4BgiLXioIeC8kR5KJKJTwydGh4ERX+EBwJ
- CudJOuFH637A1W0gLNJmVjdvpqqgnnqadg0iLsLArYlM4VHdljm27MevSeTPK8MRd2r2
- oDYXYXsV583mciukMPCk69XHRbMxsFhSDI3dWcH7AQkNjoNmR/2WIM2hD9TAMbXBTDpz
- ex9g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVQQ2R2LxftI6sB9MYIMqLqXI9vUcdAA08APmC2zSXrpJc4s88UKJewXEh/McH43+XXaX0uUQnFBXkfDM526hbjqKR0ECzm4iReQht4gL8QlizDjNZx0aWeWKxU+SYWRoTdLWTyhaq4ph/PA4dZZg==
-X-Gm-Message-State: AOJu0YwK3c1jo0W3ugJLsi7SkTYCdtbaIfwioc5oOxvDnrYI0IxwoOB3
- alDu4o3EteiwhjHnUUC7kdVC2Cz3dIs/pP3iNm4+MTrs+vhB0QTL
-X-Google-Smtp-Source: AGHT+IEFu8ys0OL+E2LRlq1NQiHBA4qS5m34VFEk2S56/hrWXMWplj2HkecNf8oldUnJapE8tT/jLg==
-X-Received: by 2002:a05:600c:1554:b0:41a:2044:1b3e with SMTP id
- 5b1f17b1804b1-4215633812fmr22794165e9.32.1717600118154; 
- Wed, 05 Jun 2024 08:08:38 -0700 (PDT)
-Received: from debian.local (host-92-13-19-4.as13285.net. [92.13.19.4])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42158148f91sm26280455e9.30.2024.06.05.08.08.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Jun 2024 08:08:37 -0700 (PDT)
-Date: Wed, 5 Jun 2024 16:08:34 +0100
-From: Chris Bainbridge <chris.bainbridge@gmail.com>
-To: kernel test robot <lkp@intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- hughsient@gmail.com
-Subject: Re: [PATCH v2] drm/client: Detect when ACPI lid is closed during
- initialization
-Message-ID: <ZmB_cs-7GU-m3GXX@debian.local>
-References: <20240528210319.1242-1-mario.limonciello@amd.com>
- <202406040928.Eu1gRIWv-lkp@intel.com>
+Received: from fout3-smtp.messagingengine.com (fout3-smtp.messagingengine.com
+ [103.168.172.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50AF289FC9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jun 2024 17:14:58 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 3DEA51380134;
+ Wed,  5 Jun 2024 13:14:57 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute5.internal (MEProxy); Wed, 05 Jun 2024 13:14:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm3; t=1717607697; x=1717694097; bh=OGEMODQa8x
+ tmjCFv3nbYX3sVDyyltE15+4FSbvNobPw=; b=iTQDgsUs8ctuM8O87XWZ+9BuY7
+ F2HU4qjlLxbV0VIehJZiCZ1O1bZDWGzYevoJbKPDbYfB/ZLIrMMl25YcRc/b68Hv
+ TYKY8xGBHjHWDyAVSl7vSPnk41rpDaLLApLcz9MCfFNFXmQrmqNyGreHcOohg4RC
+ ER45slZKhn/5H98IIs8MF+Fmc5iSp2dv/N2cEcIJhWe3/v5JqEcqQs17hn5mHlUR
+ O1pw2sbuK5GEfej95Rr/ESPCXm2ctlDEXjOg17sawQw7O4WLbIsK6gEFb7ttNTTx
+ flRTwVTVZxlqS6pPdIMDoB3SaMCjVjfUYKjXt10cj6i0keQiXTzOrxLeW6Sw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; t=1717607697; x=1717694097; bh=OGEMODQa8xtmjCFv3nbYX3sVDyyl
+ tE15+4FSbvNobPw=; b=EVBWFUl7qm4YGCkpsvwlRJC76kQsULNC/A6UWEmIyn6k
+ s0c1FQAKRFYV8FCMyw/H9I+8XJJC/O8vca3lBZEG1QuCTFb5Q6GNClVF/D1d9O9g
+ /Sp5OQjBA5CnJPyaaGlNKrxknWt9usPZV2IxBYx8y1l4TE/yQVqUArZT7SdUre1z
+ jyBTbIo531j6wDjsAaAzse+erq4GjYBYeAwWBBrkzB+x2qdlIRuRSGrpaWRjfA9O
+ 91d4k4R/ESL3SL8bizyRUZub6MHztQYPrSePmB4MQaEHT79nBcjZEPRC2g7gEe36
+ FfgfVcySPVj/Vw0bPjpX5tM2dwfg4iCoh8XgQz5teA==
+X-ME-Sender: <xms:EZ1gZs9atgshJTXTHcGMRHgK_yWq5YhY5VsVCVwyL1qA3nU-9DTyyA>
+ <xme:EZ1gZkvABFOhL17hIcj0OMZZBxEFXOjGwQjemJBxVL46y6zjetxPj3FkP3D3cRlmg
+ QnrscJFr2Gx4UaNMNA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrvdeliedgudduvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdet
+ rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
+ htthgvrhhnpeffheeugeetiefhgeethfejgfdtuefggeejleehjeeutefhfeeggefhkedt
+ keetffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grrhhnugesrghrnhgusgdruggv
+X-ME-Proxy: <xmx:EZ1gZiCaTeQqhWTZsrSyQ8xArhqtQ2c98wppTFhT1eW55ZSWBIEzxA>
+ <xmx:EZ1gZsfL5gd8BB2ZLiTnRQzlu1Cc088ke9N8yBjKJ3zjp3_l-OoBfw>
+ <xmx:EZ1gZhNSEWLrUgEa8XmB8UXRzyciGM3NJ6NDxXqkFJefoTFwYGWIHQ>
+ <xmx:EZ1gZmmgh_UF06sA13-wzEUkYuS9GrU9WnalQLnRd_flsj1TeEMAXg>
+ <xmx:EZ1gZtARPNdgm8NMO2qOtweNBbs5UKrSa0k8vDBqahF7CshTbezcUCcR>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id E6D35B6008F; Wed,  5 Jun 2024 13:14:56 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.11.0-alpha0-497-g97f96844c-fm-20240526.001-g97f96844
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202406040928.Eu1gRIWv-lkp@intel.com>
-X-Mailman-Approved-At: Wed, 05 Jun 2024 17:22:55 +0000
+Message-Id: <c09a3015-21df-4c3f-93af-96708369cd2a@app.fastmail.com>
+In-Reply-To: <20240604202606.697979-2-alexander.deucher@amd.com>
+References: <20240604202606.697979-1-alexander.deucher@amd.com>
+ <20240604202606.697979-2-alexander.deucher@amd.com>
+Date: Wed, 05 Jun 2024 19:14:36 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Alex Deucher" <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: "Hamza Mahfooz" <hamza.mahfooz@amd.com>,
+ "George Zhang" <george.zhang@amd.com>,
+ "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>,
+ "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH V2 2/2] drm/amd/display/dcn401: use pre-allocated temp
+ structure for bounding box
+Content-Type: text/plain
+X-Mailman-Approved-At: Wed, 05 Jun 2024 17:22:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,89 +95,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 04, 2024 at 10:02:29AM +0800, kernel test robot wrote:
-> Hi Mario,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on drm-misc/drm-misc-next]
-> [also build test ERROR on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.10-rc2 next-20240603]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-client-Detect-when-ACPI-lid-is-closed-during-initialization/20240529-050440
-> base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-> patch link:    https://lore.kernel.org/r/20240528210319.1242-1-mario.limonciello%40amd.com
-> patch subject: [PATCH v2] drm/client: Detect when ACPI lid is closed during initialization
-> config: i386-randconfig-053-20240604 (https://download.01.org/0day-ci/archive/20240604/202406040928.Eu1gRIWv-lkp@intel.com/config)
-> compiler: gcc-9 (Ubuntu 9.5.0-4ubuntu2) 9.5.0
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240604/202406040928.Eu1gRIWv-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202406040928.Eu1gRIWv-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
->    ld: drivers/gpu/drm/drm_client_modeset.o: in function `drm_client_match_edp_lid':
-> >> drivers/gpu/drm/drm_client_modeset.c:281:(.text+0x221b): undefined reference to `acpi_lid_open'
-> 
-> 
-> vim +281 drivers/gpu/drm/drm_client_modeset.c
-> 
->    260	
->    261	static void drm_client_match_edp_lid(struct drm_device *dev,
->    262					     struct drm_connector **connectors,
->    263					     unsigned int connector_count,
->    264					     bool *enabled)
->    265	{
->    266		int i;
->    267	
->    268		for (i = 0; i < connector_count; i++) {
->    269			struct drm_connector *connector = connectors[i];
->    270	
->    271			switch (connector->connector_type) {
->    272			case DRM_MODE_CONNECTOR_LVDS:
->    273			case DRM_MODE_CONNECTOR_eDP:
->    274				if (!enabled[i])
->    275					continue;
->    276				break;
->    277			default:
->    278				continue;
->    279			}
->    280	
->  > 281			if (!acpi_lid_open()) {
->    282				drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
->    283					    connector->base.id, connector->name);
->    284				enabled[i] = false;
->    285			}
->    286		}
->    287	}
->    288	
-> 
-> -- 
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+On Tue, Jun 4, 2024, at 22:26, Alex Deucher wrote:
+> Fixes: 669d6b078ed8 ("drm/amd/display: avoid large on-stack structures")
+> Suggested-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: George Zhang <george.zhang@amd.com>
+> Cc: Arnd Bergmann <arnd@arndb.de>
 
-The failed config has CONFIG_ACPI_BUTTON=m. The build failure can be
-fixed with:
-
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index b76438c31761..0271e66f44f8 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -271,11 +271,13 @@ static void drm_client_match_edp_lid(struct drm_device *dev,
-                if (connector->connector_type != DRM_MODE_CONNECTOR_eDP || !enabled[i])
-                        continue;
-
-+#if defined(CONFIG_ACPI_BUTTON)
-                if (!acpi_lid_open()) {
-                        drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
-                                    connector->base.id, connector->name);
-                        enabled[i] = false;
-                }
-+#endif
-        }
- }
+Acked-by: Arnd Bergmann <arnd@arndb.de>
