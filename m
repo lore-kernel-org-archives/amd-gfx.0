@@ -4,67 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9F7C27C6E
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jun 2024 13:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2761C27C53
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jun 2024 13:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8F210EC57;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48F8E10EC56;
 	Fri,  7 Jun 2024 13:46:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EWBYApEd";
-	dkim-atps=neutral
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C6910E284
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jun 2024 01:57:39 +0000 (UTC)
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-6ae0adfba9cso8681916d6.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Jun 2024 18:57:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717725458; x=1718330258; darn=lists.freedesktop.org;
- h=mime-version:to:from:importance:subject:date:savedfromemail
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=ApNTmtHveiZjchKgdyua6C+qMcpNaEeGcBk9BNztyok=;
- b=EWBYApEdqIuG5BNTt8WmCvZ0vXYFWPAOguehF+l4WR+Mo2hRP70Pndx/Ac/UwR0HeJ
- waOzu2R6qGOHBL2RgqtC5z5EAbX65be8+jj7YsgucCJm5jUtuzySh6E6EpjEhnUWf/s2
- qC3e+34e7j8a2egyLJQfNgRUUWmEWbwGhgt0fJTPfGF3nYXbTiQSTsiGynK5rio4mnkJ
- nJpHA+BEg4PWdlcVfGum67VFF3V1xBhbQTXbJKkPtFHIO+37Sexa4OjLjS1zf42jiYxs
- /xb+hDZRhnp4rb6tWNdEFd2m7H2NBIK+wFCMGk29mrNAaHhA6MGsqrkGYGFltNPl3qZw
- FHPQ==
+Received: from mail-io1-f79.google.com (mail-io1-f79.google.com
+ [209.85.166.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD68610E97A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 14:39:31 +0000 (UTC)
+Received: by mail-io1-f79.google.com with SMTP id
+ ca18e2360f4ac-7ea8fc6bd4dso115026539f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Jun 2024 07:39:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717725458; x=1718330258;
- h=mime-version:to:from:importance:subject:date:savedfromemail
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ApNTmtHveiZjchKgdyua6C+qMcpNaEeGcBk9BNztyok=;
- b=K6GUXhZQO+oXGZW/k+Qm0KLnEduycAKOSbeEjSbg4NEC6F2D+haXPV3MlvR/xVLzJK
- Qa1ac1fjHKjnrc4LlCdjc1zmzfz4y4/2hAot1t2QXGylEdSXeIKzRn61OzXL7riEE+UU
- t+7f4CdcDhaqd7W52trdTy0vVLZllKP9CPs7E5yF8JRLEKthW1wPhFi0jg2NSVKCw6j6
- daUnldRf+l/QnhGlhxKLhbcVFEvTrER+Rwi92H+7fB48dUinSJzzDFWfwd+lYHcbqJ+V
- Jhi+BtAZUeI9hlJ6tNK+Eip+SP7EzS2R5dX/GWWwkO1d2DmoS9vy65Wqf6KaZwk7P++D
- 78uw==
-X-Gm-Message-State: AOJu0YxDTE9xjrvnXz/Z47ALi+Bfus33dOAq1lv9F5Y27hs7/T/SlTZq
- /txLSnKhnzv3BOPSzR37IRMIKqvVcq8tch3ZMgHUroPa881hvhlqnVYbLQ==
-X-Google-Smtp-Source: AGHT+IF6q4P8J5B7Ye7Y8JI2nSkvufwE7pebNXXia3Qesj35ppCzYm/p6mBCvfmrfhPo/1COr3vjCw==
-X-Received: by 2002:a05:6214:3f83:b0:6a9:8226:266c with SMTP id
- 6a1803df08f44-6b059b73b95mr15353286d6.15.1717725457386; 
- Thu, 06 Jun 2024 18:57:37 -0700 (PDT)
-Received: from ?IPv6:2607:fb91:2137:4ff3:3815:90dd:2e1d:2679?
- ([2607:fb91:2137:4ff3:3815:90dd:2e1d:2679])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b04f7406a8sm11828786d6.65.2024.06.06.18.57.36
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jun 2024 18:57:36 -0700 (PDT)
-Message-ID: <66626910.050a0220.24aff9.5431@mx.google.com>
-SavedFromEmail: svicenty@gmail.com
-Date: Thu, 06 Jun 2024 21:57:26 -0400
-Subject: Re: Page fault storms and IH ring overflow
-Importance: normal
-From: svicenty <svicenty@gmail.com>
-To: amd-gfx@lists.freedesktop.org
+ d=1e100.net; s=20230601; t=1717684770; x=1718289570;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zNjFQrtwTKaWBte4tJrnqffbmDU+f1M7PL3F7OYz3Hg=;
+ b=I4tnX3fNZoyyEP+6Dnm1gmTWZaw74gq4NX8PLl9l1hxV/IIvfUAI+FztzUe5rXsBTb
+ kdXXLtimwqG2sfIGmbtXXXwbOLN0MSHVQlB4aOYf5ZmvP9Ecxa5vMhbn72cIa/1tGLB2
+ uDkazf8bp+Bn19RBQ/IiKnsB9+e6XPGBzTlLgMy9dIMzEefCDXI/H/Br+fIEl8+NFUDs
+ sn5Ji3lq0xKpRvS/L11HaSheQUlfhfpxrNcHJYcCGCXgoVxjaO8S//Ggq3Ws2pfqnd+j
+ pbtdULyldYsLxOgpTJj4FIjHhsB2FOxA7BJswyCyNveo8sIVHzhwNzBRaDUaos1jlioj
+ 3RtQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUP5Dh9TGZpt3oLYYAI5066B9L3aDemzZXSA4TnMzDr5zRj7dheY8LG/MM3pV/yWyHn4clWS0wTdjlBEoE/mXY6w80t37jE4rddyIgcAg==
+X-Gm-Message-State: AOJu0YwUTq0w7OLTRQ3K0q3kZCICCL1F1uyZynJXciyXJsEFi/wl/Pr8
+ 7BbiSliUPSnj55MmRkEj9zMC8zCZRcxAXC4EV0RgCLpRnAf39xNbe7jjsxBfo49FnbhldNct5KF
+ VCCb9CrW/JMRU1TxHvSNnQAM4xvYrHAT/kl+o4DbGMFMInngaOfge/jE=
+X-Google-Smtp-Source: AGHT+IFIPjUi6WEYAJixMlNNBzpSNLHiIstWGXkkrLSgheRHg7OUK5Sf5r0nZt1aVPWD8p7VlDX4yyWaVmpw6Y6EPCRNmi0SKY5c
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="--_com.samsung.android.email_3050885707480940"
+X-Received: by 2002:a05:6e02:156d:b0:36c:5c1b:2051 with SMTP id
+ e9e14a558f8ab-374b1f84326mr3805595ab.6.1717684770736; Thu, 06 Jun 2024
+ 07:39:30 -0700 (PDT)
+Date: Thu, 06 Jun 2024 07:39:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000989d2a061a39a667@google.com>
+Subject: [syzbot] [mm?] general protection fault in
+ dequeue_hugetlb_folio_nodemask
+From: syzbot <syzbot+c019f68a83ef9b456444@syzkaller.appspotmail.com>
+To: Tim.Huang@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
+ akpm@linux-foundation.org, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, daniel@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, evan.quan@amd.com, lijo.lazar@amd.com, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, mario.limonciello@amd.com, 
+ muchun.song@linux.dev, syzkaller-bugs@googlegroups.com, yifan1.zhang@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 07 Jun 2024 13:46:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,23 +66,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-----_com.samsung.android.email_3050885707480940
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+Hello,
 
-QW1kIHVwZGF0ZcKgU2VudCBmcm9tIG15IFQtTW9iaWxlIDVHIERldmljZQ==
+syzbot found the following issue on:
 
-----_com.samsung.android.email_3050885707480940
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+HEAD commit:    0e1980c40b6e Add linux-next specific files for 20240531
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=166086f2980000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d9c3ca4e54577b88
+dashboard link: https://syzkaller.appspot.com/bug?extid=c019f68a83ef9b456444
+compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12f4094a980000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15e1e432980000
 
-PGh0bWw+PGhlYWQ+PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0
-L2h0bWw7IGNoYXJzZXQ9VVRGLTgiPjwvaGVhZD48Ym9keSBkaXI9ImF1dG8iPjxkaXYgZGlyPSJh
-dXRvIj5BbWQgdXBkYXRlJm5ic3A7PC9kaXY+PGRpdiBkaXI9ImF1dG8iPjxicj48L2Rpdj48ZGl2
-IGRpcj0iYXV0byI+PGJyPjwvZGl2PjxkaXYgZGlyPSJhdXRvIj48YnI+PC9kaXY+PGRpdiBpZD0i
-Y29tcG9zZXJfc2lnbmF0dXJlIiBkaXI9ImF1dG8iPjxkaXYgc3R5bGU9ImZvbnQtc2l6ZToxMnB4
-O2NvbG9yOiM1NzU3NTciIGRpcj0iYXV0byI+U2VudCBmcm9tIG15IFQtTW9iaWxlIDVHIERldmlj
-ZTwvZGl2PjwvZGl2PjxkaXYgZGlyPSJhdXRvIj48YnI+PC9kaXY+PC9ib2R5PjwvaHRtbD4=
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/44fb1d8b5978/disk-0e1980c4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a66ce5caf0b2/vmlinux-0e1980c4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/8992fc8fe046/bzImage-0e1980c4.xz
 
-----_com.samsung.android.email_3050885707480940--
+The issue was bisected to:
 
+commit cd94d1b182d2986378550c9087571991bfee01d4
+Author: Mario Limonciello <mario.limonciello@amd.com>
+Date:   Thu May 2 18:32:17 2024 +0000
+
+    dm/amd/pm: Fix problems with reboot/shutdown for some SMU 13.0.4/13.0.11 users
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=176121c2980000
+console output: https://syzkaller.appspot.com/x/log.txt?x=10e121c2980000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c019f68a83ef9b456444@syzkaller.appspotmail.com
+Fixes: cd94d1b182d2 ("dm/amd/pm: Fix problems with reboot/shutdown for some SMU 13.0.4/13.0.11 users")
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000489: 0000 [#1] PREEMPT SMP KASAN PTI
+KASAN: probably user-memory-access in range [0x0000000000002448-0x000000000000244f]
+CPU: 1 PID: 5089 Comm: syz-executor257 Not tainted 6.10.0-rc1-next-20240531-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/02/2024
+RIP: 0010:zonelist_zone_idx include/linux/mmzone.h:1613 [inline]
+RIP: 0010:next_zones_zonelist include/linux/mmzone.h:1644 [inline]
+RIP: 0010:first_zones_zonelist include/linux/mmzone.h:1670 [inline]
+RIP: 0010:dequeue_hugetlb_folio_nodemask+0x193/0xe40 mm/hugetlb.c:1362
+Code: 13 9b a0 ff c7 44 24 14 00 00 00 00 83 7c 24 40 00 0f 85 97 0c 00 00 48 83 7c 24 20 00 0f 85 45 09 00 00 48 89 d8 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85 58 09 00 00 44 8b 33 44 89 f7 8b 5c 24
+RSP: 0018:ffffc900035ef720 EFLAGS: 00010002
+RAX: 0000000000000489 RBX: 0000000000002448 RCX: ffff888026ef0000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffc900035ef858 R08: ffffffff81f5e070 R09: fffff520006bdee8
+R10: dffffc0000000000 R11: fffff520006bdee8 R12: 00000000ffffffff
+R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000000
+FS:  0000555564010380(0000) GS:ffff8880b9500000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000005fdeb8 CR3: 000000007bd96000 CR4: 00000000003506f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ alloc_hugetlb_folio_nodemask+0xae/0x3f0 mm/hugetlb.c:2603
+ memfd_alloc_folio+0x15e/0x390 mm/memfd.c:75
+ memfd_pin_folios+0x1066/0x1720 mm/gup.c:3864
+ udmabuf_create+0x658/0x11c0 drivers/dma-buf/udmabuf.c:353
+ udmabuf_ioctl_create drivers/dma-buf/udmabuf.c:420 [inline]
+ udmabuf_ioctl+0x304/0x4f0 drivers/dma-buf/udmabuf.c:451
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:907 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:893
+ do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+ do_syscall_64+0xf3/0x230 arch/x86/entry/common.c:83
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5151a7a369
+Code: 48 83 c4 28 c3 e8 37 17 00 00 0f 1f 80 00 00 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd962ee9e8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007ffd962eebb8 RCX: 00007f5151a7a369
+RDX: 00000000200002c0 RSI: 0000000040187542 RDI: 0000000000000003
+RBP: 00007f5151aed610 R08: 00007ffd962eebb8 R09: 00007ffd962eebb8
+R10: 00007ffd962eebb8 R11: 0000000000000246 R12: 0000000000000001
+R13: 00007ffd962eeba8 R14: 0000000000000001 R15: 0000000000000001
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:zonelist_zone_idx include/linux/mmzone.h:1613 [inline]
+RIP: 0010:next_zones_zonelist include/linux/mmzone.h:1644 [inline]
+RIP: 0010:first_zones_zonelist include/linux/mmzone.h:1670 [inline]
+RIP: 0010:dequeue_hugetlb_folio_nodemask+0x193/0xe40 mm/hugetlb.c:1362
+Code: 13 9b a0 ff c7 44 24 14 00 00 00 00 83 7c 24 40 00 0f 85 97 0c 00 00 48 83 7c 24 20 00 0f 85 45 09 00 00 48 89 d8 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85 58 09 00 00 44 8b 33 44 89 f7 8b 5c 24
+RSP: 0018:ffffc900035ef720 EFLAGS: 00010002
+RAX: 0000000000000489 RBX: 0000000000002448 RCX: ffff888026ef0000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: ffffc900035ef858 R08: ffffffff81f5e070 R09: fffff520006bdee8
+R10: dffffc0000000000 R11: fffff520006bdee8 R12: 00000000ffffffff
+R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000000
+FS:  0000555564010380(0000) GS:ffff8880b9500000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000005fdeb8 CR3: 000000007bd96000 CR4: 00000000003506f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+----------------
+Code disassembly (best guess):
+   0:	13 9b a0 ff c7 44    	adc    0x44c7ffa0(%rbx),%ebx
+   6:	24 14                	and    $0x14,%al
+   8:	00 00                	add    %al,(%rax)
+   a:	00 00                	add    %al,(%rax)
+   c:	83 7c 24 40 00       	cmpl   $0x0,0x40(%rsp)
+  11:	0f 85 97 0c 00 00    	jne    0xcae
+  17:	48 83 7c 24 20 00    	cmpq   $0x0,0x20(%rsp)
+  1d:	0f 85 45 09 00 00    	jne    0x968
+  23:	48 89 d8             	mov    %rbx,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 0f b6 04 28       	movzbl (%rax,%r13,1),%eax <-- trapping instruction
+  2f:	84 c0                	test   %al,%al
+  31:	0f 85 58 09 00 00    	jne    0x98f
+  37:	44 8b 33             	mov    (%rbx),%r14d
+  3a:	44 89 f7             	mov    %r14d,%edi
+  3d:	8b                   	.byte 0x8b
+  3e:	5c                   	pop    %rsp
+  3f:	24                   	.byte 0x24
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
