@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7888C27C55
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 21:02:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB9CC27C54
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 21:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3209E10EAA8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C880F10EAA6;
 	Thu,  6 Jun 2024 21:02:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IgKO3I6R";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GBLxNpIU";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1845110EAA6
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 21:02:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B8810EAA6
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 21:02:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gMV/Q/S5+Uk5Ljmd6GfIgucbN2s+P71qKEy9IeJYim/5qSBJQzkxhFngdRfv21TPT9w53sJhbWVr8aGX9+6yJX1zBGDuCE/ROUhftqUNV7glLVj8cTDF5HFTZk5PvnJMxLrbx1NdkMw9JdPp4nVgl9OjCosA6HdNA4KJQ81gKHGqKfQfXGktzy3RnKW6sDzGXtvcwts+fs3w4i+zTmrv6VE63WUmba8vSndR73jjWwRkt2Co4Ex61i4HIP6vsZYkcUwCMfbmPpGOLdTgHklGM80RPS8FcgoC+hoogCIzfcJLAImD5rP7Ea0rDu3fvFEZBfPxWXfFlMWxML8u0D892Q==
+ b=WuA7XwLpngjuM81ualo7JJSyU4w2IbCJ54hEBGUiqy27Q0bG18ZLuvqo8PS8k4OzofWcfKYIXd+9piNyEMauJn4KVOMC5ypPwdfXdzOKa7Ga2gyz9LSCMCM9JJq8jyfJRAZWJec6XfUwYvYmqRVXeLTERn1+qKxBu0wAKvdXk4+yMnWxTDipG1fs5Lgg78tVZKfujLfgTdLZdFB0A3uPXJa1aKIuojhwIN2FIOvODskUInrpMcI75nRXIUSVUg2RjzVLom9eHL5uI6A3YrNdWzAIN83jUFvFYSpBQA4srCkWrIcBsIKhuu56qHbcdKlIPrOzKwrZViRrFBQtBPkASQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0pW7hhQRq5tDxpsA3R+cmolHjBMvp+zU8OHzvgTZbLw=;
- b=XVnwdxEDp+CiCrMSWESqWiB8cqwNk2zJgb02SPx2+VBHopCgcNh7/T6hF8jAGPqvoejMBG90T/kgMKyIa4Wjjuc/0oZdE05P6mSebpOJ0RXkRyR3F6KXWVvVLPBfdHjtzWVJfmh2SV+Oqgm/k2Fa442av0Vf934CFMkLmCrHLxIjdCMOd004zLRGl7FpUWOXQ4vy0m0HY+hO1vMps4O5vga2qkCnSAr5KyFnAk6hmSGyY93MH4gT3fgjA2YOUrLLio40FYkBzPuy1cH4xpDQ8p6gn1XrKgbMwXUTfQ+t+4KeJxQrQTIEK/9r1YNkJZFDMto9GU11S4lRoOXLiiqUDw==
+ bh=dfYfFvP4KYoQ3DbnvTxVzoaizYQkUYII7JOhubN/fj0=;
+ b=JJDJg9qZn/xvHnpm+XE3MVhXro/B/b0p+lze0pQCDE4zOszyHjQMF+2NLGhhlch/nu36A8q7zkweKTl4QtDy7kDk9huf4jBvjZmfmfeD3nVyHpQSfVcXgv0Cg9An7SmTm7gFBaMt8zjv0LKUXG9dTpcQ+/HkpUKUWOMX5lzsq/wjXhrZENODuCDuKjbKSr2UUMcTJftTjqKOVrKRaiQrO6W3bpOQVrOb9dOO5XtORfIn5VkUSI97tylAHt7ZYjOlagUgLI1sB/UFq1EzyEpWWJJezy/EEkxJUetGxqGH/XHOTnhcF7mFpYzjb56jyfNd+VgwEHrLFPf/hLZv09APHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0pW7hhQRq5tDxpsA3R+cmolHjBMvp+zU8OHzvgTZbLw=;
- b=IgKO3I6Rdy0YJVcpp9/OoljknQivWg9WCXRuenYVYx4+y2+1rBbKEn5E/70ErHOBRWpxq1OFw9EzfnUVHnH7wQdHKt6YuUA7oJctkcxSwxxn3ge+vkT2Jswhw6EeP/PE4uUcNMwpbhRrU4XVHWOeyV5MhRwDFuBpCEjK/ZMWIsA=
-Received: from SA9PR13CA0011.namprd13.prod.outlook.com (2603:10b6:806:21::16)
- by DM4PR12MB5988.namprd12.prod.outlook.com (2603:10b6:8:6b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.27; Thu, 6 Jun
- 2024 21:01:55 +0000
-Received: from SA2PEPF00001504.namprd04.prod.outlook.com
- (2603:10b6:806:21:cafe::fe) by SA9PR13CA0011.outlook.office365.com
- (2603:10b6:806:21::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.16 via Frontend
- Transport; Thu, 6 Jun 2024 21:01:55 +0000
+ bh=dfYfFvP4KYoQ3DbnvTxVzoaizYQkUYII7JOhubN/fj0=;
+ b=GBLxNpIUAWp2lariWYjiGoFzrKJw0NGtQTpwCE/JnV9GA0bKRBHVeqSR2mmc7DYQ1Hg/e/PfaKTTCiI4awwk16DaVxvo6yQgJdmcvKyk6DGr1M7I6Yqp00Nz639dNcDdNHcwCWSAh1zFqaIncW3FFCKQRmYVSwhHRXFW36ebKbw=
+Received: from SN7PR04CA0044.namprd04.prod.outlook.com (2603:10b6:806:120::19)
+ by PH7PR12MB7380.namprd12.prod.outlook.com (2603:10b6:510:20f::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.21; Thu, 6 Jun
+ 2024 21:02:02 +0000
+Received: from SA2PEPF0000150A.namprd04.prod.outlook.com
+ (2603:10b6:806:120:cafe::3c) by SN7PR04CA0044.outlook.office365.com
+ (2603:10b6:806:120::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.20 via Frontend
+ Transport; Thu, 6 Jun 2024 21:02:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001504.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SA2PEPF0000150A.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 21:01:55 +0000
+ 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 21:02:02 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 6 Jun
- 2024 16:01:53 -0500
+ 2024 16:01:58 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, ChunTao Tso <ChunTao.Tso@amd.com>
-Subject: [PATCH 02/67] drm/amd/display: Replay low hz
-Date: Thu, 6 Jun 2024 16:58:23 -0400
-Message-ID: <20240606205928.4050859-3-zaeem.mohamed@amd.com>
+ <jerry.zuo@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 06/67] drm/amd/display: use even ODM slice width for two
+ pixels per container
+Date: Thu, 6 Jun 2024 16:58:27 -0400
+Message-ID: <20240606205928.4050859-7-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240606205928.4050859-1-zaeem.mohamed@amd.com>
 References: <20240606205928.4050859-1-zaeem.mohamed@amd.com>
@@ -75,50 +76,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001504:EE_|DM4PR12MB5988:EE_
-X-MS-Office365-Filtering-Correlation-Id: e200207e-f5d4-400d-a4f2-08dc866be5b8
+X-MS-TrafficTypeDiagnostic: SA2PEPF0000150A:EE_|PH7PR12MB7380:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36108de1-9c1c-468a-dc01-08dc866be9f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|376005|36860700004|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pP1g9gytDB8+iliv6P3DmGg5H/S8LxJfeC0JJ31dVH6nBgFIzXp5Ax3svHJI?=
- =?us-ascii?Q?d64nAHCdjYdn1NDe8CjZGY8Zfsk1u3eI5VghaIyGGPPh6gDkrodPNXW6G5Vk?=
- =?us-ascii?Q?7iKwguXcXjb0jW6jTitEDITgmmigexzoMCB+2G0LHVmkME4qKIrJuIqkLrGh?=
- =?us-ascii?Q?pNiH1zVoEivEOrbemIMzus3GOUqOUdaHAZfwhdmK5PiQnQk0fXIMpyY9NO9S?=
- =?us-ascii?Q?B3rexuHgxvu57yPsCc58h6bvcLc3LlRKR2oJ7cnPPlja+z0WIlL8UqO8boJH?=
- =?us-ascii?Q?ulY1vyYJaT/Qzg8WMTNCrnABfzGTpkwcmUO6brFBdDo+Ml3ixj7VJmAt1Cej?=
- =?us-ascii?Q?39LapXwNezAJ/6VQepFMhKiPaB5oAlcKJESDiNPOFQ8AZSGb12xlxtJVmL1z?=
- =?us-ascii?Q?WSOZ4NuyS0RomAyy+THibEPTdThmSVbbkQwallCp0WWeuLVI21/hx9lYcpr8?=
- =?us-ascii?Q?+EQKLfM/0qdL/pH9f7lErMdwgB+ET5rtwf8avSslZY78DRFrf61uu1lCZwZ2?=
- =?us-ascii?Q?GJh1W/uJM5DW4Bij2XzmvHXLgnWRtBhgP0Bqhyx8all1FTkhHg52iLpC/dPz?=
- =?us-ascii?Q?ASuN8+w8+K1oRcT/FuMV7uSLNtt3brd4/qX4u8UUOc+wQ4Ql4511Zj1o+f8f?=
- =?us-ascii?Q?chFdAh0z+5bXDCZJlmvPmqlTDZaCVQvBQgf09V3nATpHIyKJiYgqPhAjJ993?=
- =?us-ascii?Q?KlT4N8ueR3n4Z4s9pMFtxA7J+llxnstziGF7BZLIhGpin7qHmOssPtWmGRZG?=
- =?us-ascii?Q?EEXewFnrFapcTyW2shY5xNQnhgBoDPltQbCMXWlSmDXRL7w8Y+4M9jUGnHuF?=
- =?us-ascii?Q?LPnWEBRMDavz4+BvN1sGLGq1YmQeeDJz+plvCobmsKJ45Ri4sDXkmB3vdxPc?=
- =?us-ascii?Q?l7qTu6IUddq74eN6CA2GC1BtWZpQoAIGpHIOBU6xZWmN12H5YKDYvYDhTI/I?=
- =?us-ascii?Q?hov0fHpnELgKgUfJ6Sin9COBd/XWc2PpDUn5gS0MMdgE1KjTPBNT18am7hr9?=
- =?us-ascii?Q?lbexx9mN3/6e5lSMHfkSmHObhZZWSJWmZ/+csRIDPDzEujKtdNZVvhasRG1+?=
- =?us-ascii?Q?N+eRVeuwvyeBqngIUAWgctf9R50v1C2qHeq7hdAs9S27m0qIRkrgiIC8UAtt?=
- =?us-ascii?Q?K90Lcx0ROvKqgpNZG3eKSgPJLCjITrxNYoalzDeIaJDWhOjsd/qmAaEa+/oN?=
- =?us-ascii?Q?ms4xa+zlneWxvY3hZmc6A/RmsX0m+gZFmyAWOmmfWKxbz+rKS+5xeVYvnX3G?=
- =?us-ascii?Q?dzDLKKaaDXoxXnm+3AWvhi3U6QZpkuDGXG5ZOC7ghMVcmGrOQRbVbW7vwEFW?=
- =?us-ascii?Q?RYK0MK4khhkbZH4mL+XkCZROyRJNNQS0MpMU6Ti7+HJAyEmY32l/cGrd0vfB?=
- =?us-ascii?Q?xcf/N6nAyMAD+7hCpO2623vLT1kbD6yV5Nk4a+uFD+91mliacQ=3D=3D?=
+ ARA:13230031|1800799015|82310400017|36860700004|376005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0vsedgiQm+Q8xWZy9qmwC7r8sWjFnynjknc+mJF1k5plokUOCD5dOmdR+TAw?=
+ =?us-ascii?Q?eAvaCwCPy2fiKQXZHawVTn9HaqljjmOgcuIyMXoSXJxDSC1v50TmWPiphgkb?=
+ =?us-ascii?Q?3iEtg3lfYJB6EV0/M/7eUe9cZZqa7p7jP80zmLId9oX82JXK4GOoBAmOUZ+t?=
+ =?us-ascii?Q?NWzbhQPbrs4R9BsWaZsiIEAFi4Vm0OJ3pD7YbbcsG50tZrba+Bf6zyS7v4Xy?=
+ =?us-ascii?Q?4sJDjCWSfzj5tfS0zybr7YIZ8wows0r3+eWb9ur8qEQbKcmhH1lgdzqKkZ34?=
+ =?us-ascii?Q?nyJ9bO/aW2rLy4Ps/HsaZoMn3RA83HoG0VJNmAUUSgRrH/eElHFO2kbOFSjg?=
+ =?us-ascii?Q?EZAdUoIe2vfNPl8EU1qSS7iagM4arMkZ9x/grwUpgX8Hq8bz9R1QYaGx16dB?=
+ =?us-ascii?Q?PWBdAw0pYzcYJR4+urbI45c81b+RLg5FilI09ARCuGotKr5o9YmnIA+IteqN?=
+ =?us-ascii?Q?/C/9ywvTZuLBiGFGHo6XhuX3M1kgfHXc9UQ1YMVR5uCwwAaC3koINJ6aq5+3?=
+ =?us-ascii?Q?2agV7Qupr8TPKgaU8KfVFgd/7Bc+jlYnhaIJNxpHT7RyrUKnPFzqoXg0XMYC?=
+ =?us-ascii?Q?iOpckfvPqPBTen0dllNcq/Q03Ogp2qAnKq5kxkUOWdSTecMeLm8SYEsZFIi4?=
+ =?us-ascii?Q?gK/wcpKspIKxq0HH9UM71n6/0I40xpV6WpzM6SM0+ODJ6azwVU8U6u2XnZl5?=
+ =?us-ascii?Q?lrIvpCjPmLSDFiCTlYiepFJPZYfS1OwSznPqiAdSjgsOnG2ueSUrtjJguxhY?=
+ =?us-ascii?Q?vuBqQI2D1CjPYxWfhTHHO5MZ9TMosGz7asGwVpS1C6twZQHP+pEB1/uW5bWl?=
+ =?us-ascii?Q?5KQODLM6F4HXak17pJ3c93EVO8pMqz3EvJhcijdg2RWQbGKXuJqIZkee8IyF?=
+ =?us-ascii?Q?aQ466BFGdxQWBXSWQuIDfGCVuVU34yUgVtBbOxPWGAhByDB0FBKJ8F7Ym/hQ?=
+ =?us-ascii?Q?bxH9/Fy0nHXL10ur9O323jVdDLZfbiqBjIFaORyKmzhCV+AP8VFxTvokIZnh?=
+ =?us-ascii?Q?LejhS/OhP+sOCNIuOq++VLok6UtQdlFMh3cJYavEOQVJFLqJNYufDJoy2/NQ?=
+ =?us-ascii?Q?IXdnoRY+1Wfa7DpY2xZ2qx6iWVgFOG/dBWVQIhPjcbzSBnDsJaxB6uQz6Mfv?=
+ =?us-ascii?Q?Uhr6Z2uX15AYMLXITGRH3PeAttOJCQrL3sfhpIc5DTZrmZ/46A4ZcE3WptU3?=
+ =?us-ascii?Q?3/SdaClf0wO9j075eFcRxYCkhOJDAeQcKYoDgqM7EUo0801IvkeItEWNAV7A?=
+ =?us-ascii?Q?2BEG+kRnFSEPFAmdqm3kssolsBoQiOZzp6cg1kzw9+dZrrPXiVj1eWYqKvN7?=
+ =?us-ascii?Q?CF2uohWoE4B32VkLLSBbAjxszBR++BHqCxlmHeVJflzT/mrM5c29QNAYoxC3?=
+ =?us-ascii?Q?7mZsAJdvyTmPj6gQ2ASz3MH178cRA5KKBwFCeKVhbL0yhiIB+g=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(376005)(36860700004)(1800799015); DIR:OUT;
+ SFS:(13230031)(1800799015)(82310400017)(36860700004)(376005); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 21:01:55.2692 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e200207e-f5d4-400d-a4f2-08dc866be5b8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 21:02:02.3747 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36108de1-9c1c-468a-dc01-08dc866be9f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001504.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF0000150A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5988
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7380
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,124 +134,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: ChunTao Tso <ChunTao.Tso@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why]
-The original coasting vtotal is 2 bytes, and it need to be amended to 4
-bytes because low hz case.
+[why]
+When optc uses two pixel per container, each ODM slice width must be an
+even number.
 
-[How]
-Amend coasting vtotal from 2 bytes to 4 bytes.
+[how]
+If ODM slice width is odd number increase it by 1.
 
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: ChunTao Tso <ChunTao.Tso@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dce/dmub_replay.c  | 34 +++++++++++--------
- .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |  4 +--
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  8 +++++
- 3 files changed, 30 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c       | 3 +++
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-index b9769181269d..fd91445d4d8e 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-@@ -216,17 +216,21 @@ static bool dmub_replay_copy_settings(struct dmub_replay *dmub,
-  * Set coasting vtotal.
-  */
- static void dmub_replay_set_coasting_vtotal(struct dmub_replay *dmub,
--		uint16_t coasting_vtotal,
-+		uint32_t coasting_vtotal,
- 		uint8_t panel_inst)
- {
- 	union dmub_rb_cmd cmd;
- 	struct dc_context *dc = dmub->ctx;
-+	struct dmub_rb_cmd_replay_set_coasting_vtotal *pCmd = NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+index 2836f28fa3af..9c6171e90163 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+@@ -173,6 +173,9 @@ static struct spl_rect calculate_odm_slice_in_timing_active(struct spl_in *spl_i
+ 	int odm_slice_width = h_active / odm_slice_count;
+ 	struct spl_rect odm_rec;
+ 
++	if (spl_in->basic_out.use_two_pixels_per_container && (odm_slice_width % 2))
++		odm_slice_width++;
 +
-+	pCmd = &(cmd.replay_set_coasting_vtotal);
- 
- 	memset(&cmd, 0, sizeof(cmd));
--	cmd.replay_set_coasting_vtotal.header.type = DMUB_CMD__REPLAY;
--	cmd.replay_set_coasting_vtotal.header.sub_type = DMUB_CMD__REPLAY_SET_COASTING_VTOTAL;
--	cmd.replay_set_coasting_vtotal.header.payload_bytes = sizeof(struct dmub_cmd_replay_set_coasting_vtotal_data);
--	cmd.replay_set_coasting_vtotal.replay_set_coasting_vtotal_data.coasting_vtotal = coasting_vtotal;
-+	pCmd->header.type = DMUB_CMD__REPLAY;
-+	pCmd->header.sub_type = DMUB_CMD__REPLAY_SET_COASTING_VTOTAL;
-+	pCmd->header.payload_bytes = sizeof(struct dmub_cmd_replay_set_coasting_vtotal_data);
-+	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal = (coasting_vtotal & 0xFFFF);
-+	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal_high = (coasting_vtotal & 0xFFFF0000) >> 16;
- 
- 	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
- }
-@@ -259,20 +263,22 @@ static void dmub_replay_residency(struct dmub_replay *dmub, uint8_t panel_inst,
-  * Set REPLAY power optimization flags and coasting vtotal.
-  */
- static void dmub_replay_set_power_opt_and_coasting_vtotal(struct dmub_replay *dmub,
--		unsigned int power_opt, uint8_t panel_inst, uint16_t coasting_vtotal)
-+		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal)
- {
- 	union dmub_rb_cmd cmd;
- 	struct dc_context *dc = dmub->ctx;
-+	struct dmub_rb_cmd_replay_set_power_opt_and_coasting_vtotal *pCmd = NULL;
-+
-+	pCmd = &(cmd.replay_set_power_opt_and_coasting_vtotal);
- 
- 	memset(&cmd, 0, sizeof(cmd));
--	cmd.replay_set_power_opt_and_coasting_vtotal.header.type = DMUB_CMD__REPLAY;
--	cmd.replay_set_power_opt_and_coasting_vtotal.header.sub_type =
--		DMUB_CMD__REPLAY_SET_POWER_OPT_AND_COASTING_VTOTAL;
--	cmd.replay_set_power_opt_and_coasting_vtotal.header.payload_bytes =
--		sizeof(struct dmub_rb_cmd_replay_set_power_opt_and_coasting_vtotal);
--	cmd.replay_set_power_opt_and_coasting_vtotal.replay_set_power_opt_data.power_opt = power_opt;
--	cmd.replay_set_power_opt_and_coasting_vtotal.replay_set_power_opt_data.panel_inst = panel_inst;
--	cmd.replay_set_power_opt_and_coasting_vtotal.replay_set_coasting_vtotal_data.coasting_vtotal = coasting_vtotal;
-+	pCmd->header.type = DMUB_CMD__REPLAY;
-+	pCmd->header.sub_type = DMUB_CMD__REPLAY_SET_POWER_OPT_AND_COASTING_VTOTAL;
-+	pCmd->header.payload_bytes = sizeof(struct dmub_rb_cmd_replay_set_power_opt_and_coasting_vtotal);
-+	pCmd->replay_set_power_opt_data.power_opt = power_opt;
-+	pCmd->replay_set_power_opt_data.panel_inst = panel_inst;
-+	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal = (coasting_vtotal & 0xFFFF);
-+	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal_high = (coasting_vtotal & 0xFFFF0000) >> 16;
- 
- 	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-index 3613aff994d7..d090ec900c08 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-@@ -47,12 +47,12 @@ struct dmub_replay_funcs {
- 		uint8_t panel_inst);
- 	void (*replay_send_cmd)(struct dmub_replay *dmub,
- 		enum replay_FW_Message_type msg, union dmub_replay_cmd_set *cmd_element);
--	void (*replay_set_coasting_vtotal)(struct dmub_replay *dmub, uint16_t coasting_vtotal,
-+	void (*replay_set_coasting_vtotal)(struct dmub_replay *dmub, uint32_t coasting_vtotal,
- 		uint8_t panel_inst);
- 	void (*replay_residency)(struct dmub_replay *dmub,
- 		uint8_t panel_inst, uint32_t *residency, const bool is_start, const bool is_alpm);
- 	void (*replay_set_power_opt_and_coasting_vtotal)(struct dmub_replay *dmub,
--		unsigned int power_opt, uint8_t panel_inst, uint16_t coasting_vtotal);
-+		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal);
+ 	odm_rec.x = odm_slice_width * odm_slice_idx;
+ 	odm_rec.width = is_last_odm_slice ?
+ 			/* last slice width is the reminder of h_active */
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
+index a8f7fccfa16b..49c866a558f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
+@@ -441,6 +441,7 @@ struct basic_out {
+ 	bool always_scale;	// Is always scale enabled? Required for getting SCL_MODE
+ 	int max_downscale_src_width; // Required to get optimal no of taps
+ 	bool alpha_en;
++	bool use_two_pixels_per_container;
  };
- 
- struct dmub_replay *dmub_replay_create(struct dc_context *ctx);
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 36c15ae43616..fe529b67369e 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -3004,6 +3004,14 @@ struct dmub_cmd_update_dirty_rect_data {
- 	 * Currently the support is only for 0 or 1
- 	 */
- 	uint8_t panel_inst;
-+	/**
-+	 * 16-bit value dicated by driver that indicates the coasting vtotal high byte part.
-+	 */
-+	uint16_t coasting_vtotal_high;
-+	/**
-+	 * Explicit padding to 4 byte boundary.
-+	 */
-+	uint8_t pad[2];
- };
- 
- /**
+ enum explicit_sharpness	{
+ 	SHARPNESS_LOW = 0,
 -- 
 2.34.1
 
