@@ -4,61 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A3AC25B75
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 13:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E875C27C54
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 13:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA39C10E944;
-	Thu,  6 Jun 2024 13:05:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA69910E94B;
+	Thu,  6 Jun 2024 13:20:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FYsu0oOk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cSvy6nsB";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57FA10E944
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 13:05:48 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-1f6342c5fa8so9138265ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Jun 2024 06:05:48 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4777B10E94B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 13:20:56 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-1f6ab88dfaeso8563465ad.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Jun 2024 06:20:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717679148; x=1718283948; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1717680055; x=1718284855; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NX2yPr7KXyWQDruLPR/zLtfyzq2a+JAq4CwQzmJP/3g=;
- b=FYsu0oOkGTdh8JO/iOSVICUJZLkUx5xjrD9NLl9Lyz9QJE6qDfzYOYsFl1M0iMXdw1
- qRNGs6C26CdN32KyUWCZDwLF6PRx+4eM1iAfp8ZqTz9t3qQCcGri2SinCkGtUx7UZzpj
- NFTMZ9LdEeJ49cXECsRGXsh4f/rGaYa2WYJBFFVY75w1RqLWLlkH8FWAq0r8TiRDYq+h
- 3A6+Lsi5MvouyeBNYaoqOAapPEYrsrimOHff8bw6p0RLlgNvaWNgBHKPm2z9Iz9GVlLb
- HPYNELUsYsZWMbcFbM+C0K/KYvF2GVhx2hjT2xMa+9sb/ocl+FyMWs8KVLQ9RkHqQJNm
- smeA==
+ bh=HklvSwROZYQb79U+tnWErAJqo2xBQdkA3DTa+SWuw8g=;
+ b=cSvy6nsB0HRnErf1/dks9T+lqA7w5g9vhBqcFQQ+yyfhtlIo3qWApBC7p0sMMSrISN
+ HRxRn1eqIBkYrYCuG/HAurDGNH5IAm29yCZT02/SkLOwy/bq4UqaZrueF2UQTt7nDlcX
+ XiGTewcvgZ7v8lWdcN+30W9mafqKUMtOBGtjvuOHqaU2RjcJA+R00iDzym5cppge2es1
+ Rn2hXh1jU3s0Y1nNWA1RZ0WX15nmPKJ4rZ+AhwcAEfgvDW8Rq+TtQtElCGG6uRKjaZ6O
+ sKqnHmfeQfKICcOuW45RFcn/DJzYLm9qzwyaPin+FZOyHPzvbzTFtildXSNNVZjePq27
+ anGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717679148; x=1718283948;
+ d=1e100.net; s=20230601; t=1717680055; x=1718284855;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NX2yPr7KXyWQDruLPR/zLtfyzq2a+JAq4CwQzmJP/3g=;
- b=tH4487U8tBVSAmLyhevJPwco/0Ah52ScX4jcwo4o6qaz1SBVPAd49KkTcJbNvIo9xL
- PRNy9wbK2K0lwax5FnstKqvHpQ3qjriJ3ZI/Q+6IH6/pXIFQmWf89NVk4dwXCBC+x4sH
- +vUk0HVerDN0jjNMGWQk2tAUQVGXrH3JJieEA2rPwEF3JAB10vR4FZ4slHYrTGoF0mQC
- 8U6h0hl1elCl09k0EUlmoWi2f4UiHYnDwITiGKiGydTYt23Nn7Ff6GbsU1KS9cAppHQu
- eK3685JdRbyXeeMaDF958Wfc3ZQIs/xLGgmZk9cmH8JaUdN5QB62TMg2E7w4TfQW1o5Q
- ZAWA==
-X-Gm-Message-State: AOJu0YzG7EUinfDurELVKx7i5s5Cz01elRjgrJrHn6du4uJ3J+1UBPbz
- MncCBYPqWUBu/cp9wePCOLihy/LBzS2ehrhC5BgUH4vVpETzqGTKYThggHZgUslpW6AQHm2ROov
- 4iFI64tIipNwlED8iIBMSCoEq7ZsT2w==
-X-Google-Smtp-Source: AGHT+IFhM6jETbvlFUmGi1tOJt/6xzNCxjRHfbM8n4zvecDdlZ2Spe+c8gsIWsNcN7lLUc1G0TwYdK96NKs4De0IWdo=
-X-Received: by 2002:a17:90a:fe04:b0:2c1:ea2e:20b2 with SMTP id
- 98e67ed59e1d1-2c27db57d16mr5387517a91.30.1717679147765; Thu, 06 Jun 2024
- 06:05:47 -0700 (PDT)
+ bh=HklvSwROZYQb79U+tnWErAJqo2xBQdkA3DTa+SWuw8g=;
+ b=SlTHVtkBr2W30h3adjMC97Nq1TWw5oF4x4AQpci204unqsN59RygWQ1QrL1fKk3j8p
+ zZv5XC2+fq9vB2s0Yuja/ii3jl0m+LoPzJxMwG+2DBdXTvp6RWC3HsheHB7rSsi5KInC
+ EX0mk/xNfFOJD5AKqsMcQYphCXpc0bgsIFpgUsdXAZHuslDr6uBQ9TOf23mJRlhR1p+l
+ nvE1EVdHI0zMXrSEHP0MH510yX05NcMYgZqb/XLpc0djIEojLVxHN/oKK63ES2NHfZPA
+ VGdFLno3cHw4c3vIOhOPK0OfW9Bjp6M0xBu1ZBgoWuAVZAr9jEHWH0+qhxNTyE4DYLQe
+ Mqbw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW38AMayK6wesk5kC3gp+WeXMspOcyyE6LySXcZvDUm8n6Jp0gooOV+ooLilKsCUwG5eq7qaPQgs8QaeN4AgLwUF306k3MjNr9HEQzOAg==
+X-Gm-Message-State: AOJu0YxsqtKvsFNiI/ys/g9eidxYiHwL6K/nvpGwe8LknLPJ2WX4ls18
+ 3kqyObNl9zYetxqNeFV2y/6KNVoaCZGSx3YV5Lta0otqcjx9GCNLSQ7g5xfixwPooLiegZpyRIO
+ 6/CTaybFhsGtZrOeSwd4X4fxnx7HI4Q==
+X-Google-Smtp-Source: AGHT+IEvgqIv5SDAdxIqHtkUIcQWoZcGPH2tBu0OPOiGANy8W89ylKU+RcIPyxV1dsDWQ5ER8Vo8OB8phWVLgFSvHaA=
+X-Received: by 2002:a17:903:183:b0:1f6:ad7f:62a5 with SMTP id
+ d9443c01a7336-1f6ad7f6377mr39107305ad.63.1717680055457; Thu, 06 Jun 2024
+ 06:20:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240605231654.6374-1-jay.cornwall@amd.com>
-In-Reply-To: <20240605231654.6374-1-jay.cornwall@amd.com>
+References: <20240605123159.90950-1-christian.koenig@amd.com>
+ <CADnq5_Pq4jh7VrageBKPX4Qp1sGWPHTte2s_pxL20iQiosjUyA@mail.gmail.com>
+ <0e63d585-cba0-4941-ae9f-4de91ab15e67@amd.com>
+In-Reply-To: <0e63d585-cba0-4941-ae9f-4de91ab15e67@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Jun 2024 09:05:35 -0400
-Message-ID: <CADnq5_Ows0SumX7hAdtNyDm55xebFBQXngOT61rbrCt-QG4BKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Extend gfx12 trap handler fix to gfx10/11
-To: Jay Cornwall <jay.cornwall@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Lancelot Six <lancelot.six@amd.com>
+Date: Thu, 6 Jun 2024 09:20:43 -0400
+Message-ID: <CADnq5_PN6k+QwHVoMMU3+v6rwiMUt3dO2=ng4CKJCtPM24SYGg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: revert "take runtime pm reference when we
+ attach a buffer"
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: shashank.sharma@amd.com, Pierre.Jabbour@amd.com, 
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,220 +81,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 5, 2024 at 7:27=E2=80=AFPM Jay Cornwall <jay.cornwall@amd.com> =
-wrote:
+On Thu, Jun 6, 2024 at 2:19=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
 >
-> In commit 6d1878882d2d
-> ("drm/amdkfd: gfx12 context save/restore trap handler fixes") the
-> following fix was introduced but incorrectly restricted to gfx12.
-> The same issue and a corresponding fix apply to gfx10 and gfx11.
+> Am 05.06.24 um 15:20 schrieb Alex Deucher:
 >
-> Do not overwrite TRAPSTS.{SAVECTX,HOST_TRAP} when restoring this
-> register. Both of these fields can assert while the wavefront is
-> running the trap handler.
+> On Wed, Jun 5, 2024 at 8:32=E2=80=AFAM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-> Cc: Lancelot Six <lancelot.six@amd.com>
+> This reverts commit b8c415e3bf989be1b749409951debe6b36f5c78c and
+> commit 425285d39afddaf4a9dab36045b816af0cc3e400.
+>
+> Taking a runtime pm reference for DMA-buf is actually completely
+> unnecessary.
+>
+> When the buffer is in GTT it is still accessible even when the GPU
+> is powered down and when it is in VRAM the buffer gets migrated to
+> GTT before powering down.
+>
+> Won't that kind of defeat the purpose of P2P DMA?  I guess it's a
+> trade off between performance and power savings.
+>
+>
+> Not really. P2P is useful because ti avoids the extra bounce through syst=
+em memory.
+>
+> But when the ASIC is powered down and not producing any new data there re=
+ally is no extra bounce.
+>
+> The only use case which would make it mandatory to keep the runtime
+> pm reference would be if we pin the buffer into VRAM, and that's not
+> something we currently do.
+>
+> We'll need to bring this back if we ever support that?  I think we'll
+> want that for P2P DMA with RDMA NICs that don't support ODP.  That's
+> one of the big blockers for a lot of ROCm customers to migrate to the
+> in box drivers.
+>
+>
+> Yeah, but we need a completely different approach in that case.
+>
+> The problem is that calling pm_runtime_get_sync() from the DMA-buf callba=
+cks is illegal in the first place because we have the reservation lock take=
+n here which is also taken during resume.
+>
+> So this here never triggered or otherwise we would have seen a deadlock (=
+I should probably mention that in the commit message).
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Thanks.  With that added to the commit message, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+>
+> Christian.
+>
+>
+> Alex
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > ---
->  .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 16 +++++---
->  .../amd/amdkfd/cwsr_trap_handler_gfx10.asm    | 38 ++++++++++++++-----
->  2 files changed, 38 insertions(+), 16 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 33 ---------------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   |  2 --
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h   | 15 ----------
+>  3 files changed, 50 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu=
-/drm/amd/amdkfd/cwsr_trap_handler.h
-> index 665122d1bbbd..02f7ba8c93cd 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> @@ -1136,7 +1136,7 @@ static const uint32_t cwsr_trap_nv1x_hex[] =3D {
->         0x705d0000, 0x807c817c,
->         0x8070ff70, 0x00000080,
->         0xbf0a7b7c, 0xbf85fff8,
-> -       0xbf82013d, 0xbef4037e,
-> +       0xbf82013f, 0xbef4037e,
->         0x8775ff7f, 0x0000ffff,
->         0x8875ff75, 0x00040000,
->         0xbef60380, 0xbef703ff,
-> @@ -1275,7 +1275,8 @@ static const uint32_t cwsr_trap_nv1x_hex[] =3D {
->         0x80788478, 0xbf8c0000,
->         0xb9eef815, 0xbefc036f,
->         0xbefe0370, 0xbeff0371,
-> -       0xb9f9f816, 0xb9fbf803,
-> +       0xb9f9f816, 0xb9fb4803,
-> +       0x907b8b7b, 0xb9fba2c3,
->         0xb9f3f801, 0xb96e3a05,
->         0x806e816e, 0xbf0d9972,
->         0xbf850002, 0x8f6e896e,
-> @@ -2544,7 +2545,7 @@ static const uint32_t cwsr_trap_gfx10_hex[] =3D {
->         0xe0704000, 0x705d0000,
->         0x807c817c, 0x8070ff70,
->         0x00000080, 0xbf0a7b7c,
-> -       0xbf85fff8, 0xbf820134,
-> +       0xbf85fff8, 0xbf820136,
->         0xbef4037e, 0x8775ff7f,
->         0x0000ffff, 0x8875ff75,
->         0x00040000, 0xbef60380,
-> @@ -2683,7 +2684,8 @@ static const uint32_t cwsr_trap_gfx10_hex[] =3D {
->         0xf0000000, 0x80788478,
->         0xbf8c0000, 0xb9eef815,
->         0xbefc036f, 0xbefe0370,
-> -       0xbeff0371, 0xb9fbf803,
-> +       0xbeff0371, 0xb9fb4803,
-> +       0x907b8b7b, 0xb9fba2c3,
->         0xb9f3f801, 0xb96e3a05,
->         0x806e816e, 0xbf0d9972,
->         0xbf850002, 0x8f6e896e,
-> @@ -2981,7 +2983,7 @@ static const uint32_t cwsr_trap_gfx11_hex[] =3D {
->         0x701d0000, 0x807d817d,
->         0x8070ff70, 0x00000080,
->         0xbf0a7b7d, 0xbfa2fff8,
-> -       0xbfa0013f, 0xbef4007e,
-> +       0xbfa00143, 0xbef4007e,
->         0x8b75ff7f, 0x0000ffff,
->         0x8c75ff75, 0x00040000,
->         0xbef60080, 0xbef700ff,
-> @@ -3123,7 +3125,9 @@ static const uint32_t cwsr_trap_gfx11_hex[] =3D {
->         0x80788478, 0xbf890000,
->         0xb96ef815, 0xbefd006f,
->         0xbefe0070, 0xbeff0071,
-> -       0xb97bf803, 0xb973f801,
-> +       0xb97b4803, 0x857b8b7b,
-> +       0xb97b22c3, 0x857b867b,
-> +       0xb97b7443, 0xb973f801,
->         0xb8ee3b05, 0x806e816e,
->         0xbf0d9972, 0xbfa20002,
->         0x846e896e, 0xbfa00001,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm b/dri=
-vers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-> index ac3702b8e3c4..44772eec9ef4 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
-> @@ -119,9 +119,12 @@ var SQ_WAVE_TRAPSTS_ADDR_WATCH_SHIFT               =
-=3D 7
->  var SQ_WAVE_TRAPSTS_MEM_VIOL_MASK              =3D 0x100
->  var SQ_WAVE_TRAPSTS_MEM_VIOL_SHIFT             =3D 8
->  var SQ_WAVE_TRAPSTS_ILLEGAL_INST_MASK          =3D 0x800
-> +var SQ_WAVE_TRAPSTS_ILLEGAL_INST_SHIFT         =3D 11
->  var SQ_WAVE_TRAPSTS_EXCP_HI_MASK               =3D 0x7000
->  #if ASIC_FAMILY >=3D CHIP_PLUM_BONITO
-> +var SQ_WAVE_TRAPSTS_HOST_TRAP_SHIFT            =3D 16
->  var SQ_WAVE_TRAPSTS_WAVE_START_MASK            =3D 0x20000
-> +var SQ_WAVE_TRAPSTS_WAVE_START_SHIFT           =3D 17
->  var SQ_WAVE_TRAPSTS_WAVE_END_MASK              =3D 0x40000
->  var SQ_WAVE_TRAPSTS_TRAP_AFTER_INST_MASK       =3D 0x100000
->  #endif
-> @@ -137,14 +140,23 @@ var SQ_WAVE_IB_STS_RCNT_FIRST_REPLAY_MASK =3D 0x003=
-F8000
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_dma_buf.c
+> index 0b3b10d21952..ab848047204c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -41,8 +41,6 @@
+>  #include <linux/dma-buf.h>
+>  #include <linux/dma-fence-array.h>
+>  #include <linux/pci-p2pdma.h>
+> -#include <linux/pm_runtime.h>
+> -#include "amdgpu_trace.h"
 >
->  var SQ_WAVE_MODE_DEBUG_EN_MASK                 =3D 0x800
+>  /**
+>   * amdgpu_dma_buf_attach - &dma_buf_ops.attach implementation
+> @@ -63,37 +61,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabu=
+f,
+>         if (pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+>                 attach->peer2peer =3D false;
 >
-> +var S_TRAPSTS_RESTORE_PART_1_SIZE              =3D SQ_WAVE_TRAPSTS_SAVEC=
-TX_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_2_SHIFT             =3D SQ_WAVE_TRAPSTS_ILLEG=
-AL_INST_SHIFT
-> +
->  #if ASIC_FAMILY < CHIP_PLUM_BONITO
->  var S_TRAPSTS_NON_MASKABLE_EXCP_MASK           =3D SQ_WAVE_TRAPSTS_MEM_V=
-IOL_MASK|SQ_WAVE_TRAPSTS_ILLEGAL_INST_MASK
-> +var S_TRAPSTS_RESTORE_PART_2_SIZE              =3D 32 - S_TRAPSTS_RESTOR=
-E_PART_2_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_3_SHIFT             =3D 0
-> +var S_TRAPSTS_RESTORE_PART_3_SIZE              =3D 0
->  #else
->  var S_TRAPSTS_NON_MASKABLE_EXCP_MASK           =3D SQ_WAVE_TRAPSTS_MEM_V=
-IOL_MASK         |\
->                                                   SQ_WAVE_TRAPSTS_ILLEGAL=
-_INST_MASK     |\
->                                                   SQ_WAVE_TRAPSTS_WAVE_ST=
-ART_MASK       |\
->                                                   SQ_WAVE_TRAPSTS_WAVE_EN=
-D_MASK         |\
->                                                   SQ_WAVE_TRAPSTS_TRAP_AF=
-TER_INST_MASK
-> +var S_TRAPSTS_RESTORE_PART_2_SIZE              =3D SQ_WAVE_TRAPSTS_HOST_=
-TRAP_SHIFT - SQ_WAVE_TRAPSTS_ILLEGAL_INST_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_3_SHIFT             =3D SQ_WAVE_TRAPSTS_WAVE_=
-START_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_3_SIZE              =3D 32 - S_TRAPSTS_RESTOR=
-E_PART_3_SHIFT
->  #endif
->  var S_TRAPSTS_HWREG                            =3D HW_REG_TRAPSTS
->  var S_TRAPSTS_SAVE_CONTEXT_MASK                        =3D SQ_WAVE_TRAPS=
-TS_SAVECTX_MASK
-> @@ -157,6 +169,7 @@ var SQ_WAVE_EXCP_FLAG_PRIV_SAVE_CONTEXT_MASK        =
-=3D 0x20
->  var SQ_WAVE_EXCP_FLAG_PRIV_ILLEGAL_INST_MASK   =3D 0x40
->  var SQ_WAVE_EXCP_FLAG_PRIV_ILLEGAL_INST_SHIFT  =3D 6
->  var SQ_WAVE_EXCP_FLAG_PRIV_HOST_TRAP_MASK      =3D 0x80
-> +var SQ_WAVE_EXCP_FLAG_PRIV_HOST_TRAP_SHIFT     =3D 7
->  var SQ_WAVE_EXCP_FLAG_PRIV_WAVE_START_MASK     =3D 0x100
->  var SQ_WAVE_EXCP_FLAG_PRIV_WAVE_START_SHIFT    =3D 8
->  var SQ_WAVE_EXCP_FLAG_PRIV_WAVE_END_MASK       =3D 0x200
-> @@ -173,6 +186,11 @@ var S_TRAPSTS_NON_MASKABLE_EXCP_MASK               =
-=3D SQ_WAVE_EXCP_FLAG_PRIV_MEM_VIOL_MASK          |\
->                                                   SQ_WAVE_EXCP_FLAG_PRIV_=
-WAVE_START_MASK        |\
->                                                   SQ_WAVE_EXCP_FLAG_PRIV_=
-WAVE_END_MASK          |\
->                                                   SQ_WAVE_EXCP_FLAG_PRIV_=
-TRAP_AFTER_INST_MASK
-> +var S_TRAPSTS_RESTORE_PART_1_SIZE              =3D SQ_WAVE_EXCP_FLAG_PRI=
-V_SAVE_CONTEXT_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_2_SHIFT             =3D SQ_WAVE_EXCP_FLAG_PRI=
-V_ILLEGAL_INST_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_2_SIZE              =3D SQ_WAVE_EXCP_FLAG_PRI=
-V_HOST_TRAP_SHIFT - SQ_WAVE_EXCP_FLAG_PRIV_ILLEGAL_INST_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_3_SHIFT             =3D SQ_WAVE_EXCP_FLAG_PRI=
-V_WAVE_START_SHIFT
-> +var S_TRAPSTS_RESTORE_PART_3_SIZE              =3D 32 - S_TRAPSTS_RESTOR=
-E_PART_3_SHIFT
->  var BARRIER_STATE_SIGNAL_OFFSET                        =3D 16
->  var BARRIER_STATE_VALID_OFFSET                 =3D 0
->  #endif
-> @@ -1386,17 +1404,17 @@ L_SKIP_BARRIER_RESTORE:
->         s_setreg_b32    hwreg(HW_REG_SHADER_XNACK_MASK), s_restore_xnack_=
-mask
+> -       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> -       trace_amdgpu_runpm_reference_dumps(1, __func__);
+> -       if (r < 0)
+> -               goto out;
+> -
+>         return 0;
+> -
+> -out:
+> -       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> -       trace_amdgpu_runpm_reference_dumps(0, __func__);
+> -       return r;
+> -}
+> -
+> -/**
+> - * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
+> - *
+> - * @dmabuf: DMA-buf where we remove the attachment from
+> - * @attach: the attachment to remove
+> - *
+> - * Called when an attachment is removed from the DMA-buf.
+> - */
+> -static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
+> -                                 struct dma_buf_attachment *attach)
+> -{
+> -       struct drm_gem_object *obj =3D dmabuf->priv;
+> -       struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+> -       struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
+> -
+> -       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> -       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> -       trace_amdgpu_runpm_reference_dumps(0, __func__);
+>  }
+>
+>  /**
+> @@ -266,7 +234,6 @@ static int amdgpu_dma_buf_begin_cpu_access(struct dma=
+_buf *dma_buf,
+>
+>  const struct dma_buf_ops amdgpu_dmabuf_ops =3D {
+>         .attach =3D amdgpu_dma_buf_attach,
+> -       .detach =3D amdgpu_dma_buf_detach,
+>         .pin =3D amdgpu_dma_buf_pin,
+>         .unpin =3D amdgpu_dma_buf_unpin,
+>         .map_dma_buf =3D amdgpu_dma_buf_map,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index 10832b470448..bc3ac73b6b8d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -181,7 +181,6 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struc=
+t dma_fence **f, struct amd
+>         amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+>                                seq, flags | AMDGPU_FENCE_FLAG_INT);
+>         pm_runtime_get_noresume(adev_to_drm(adev)->dev);
+> -       trace_amdgpu_runpm_reference_dumps(1, __func__);
+>         ptr =3D &ring->fence_drv.fences[seq & ring->fence_drv.num_fences_=
+mask];
+>         if (unlikely(rcu_dereference_protected(*ptr, 1))) {
+>                 struct dma_fence *old;
+> @@ -309,7 +308,6 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
+>                 dma_fence_put(fence);
+>                 pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+>                 pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> -               trace_amdgpu_runpm_reference_dumps(0, __func__);
+>         } while (last_seq !=3D seq);
+>
+>         return true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_trace.h
+> index f539b1d00234..2fd1bfb35916 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> @@ -554,21 +554,6 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
+>                       __entry->value)
+>  );
+>
+> -TRACE_EVENT(amdgpu_runpm_reference_dumps,
+> -           TP_PROTO(uint32_t index, const char *func),
+> -           TP_ARGS(index, func),
+> -           TP_STRUCT__entry(
+> -                            __field(uint32_t, index)
+> -                            __string(func, func)
+> -                            ),
+> -           TP_fast_assign(
+> -                          __entry->index =3D index;
+> -                          __assign_str(func, func);
+> -                          ),
+> -           TP_printk("amdgpu runpm reference dump 0x%x: 0x%s\n",
+> -                     __entry->index,
+> -                     __get_str(func))
+> -);
+>  #undef AMDGPU_JOB_GET_TIMELINE_NAME
 >  #endif
 >
-> -#if ASIC_FAMILY < CHIP_GFX12
-> -       s_setreg_b32    hwreg(S_TRAPSTS_HWREG), s_restore_trapsts
-> -#else
-> -       // EXCP_FLAG_PRIV.SAVE_CONTEXT and HOST_TRAP may have changed.
-> +       // {TRAPSTS/EXCP_FLAG_PRIV}.SAVE_CONTEXT and HOST_TRAP may have c=
-hanged.
->         // Only restore the other fields to avoid clobbering them.
-> -       s_setreg_b32    hwreg(S_TRAPSTS_HWREG, 0, SQ_WAVE_EXCP_FLAG_PRIV_=
-SAVE_CONTEXT_SHIFT), s_restore_trapsts
-> -       s_lshr_b32      s_restore_trapsts, s_restore_trapsts, SQ_WAVE_EXC=
-P_FLAG_PRIV_ILLEGAL_INST_SHIFT
-> -       s_setreg_b32    hwreg(S_TRAPSTS_HWREG, SQ_WAVE_EXCP_FLAG_PRIV_ILL=
-EGAL_INST_SHIFT, 1), s_restore_trapsts
-> -       s_lshr_b32      s_restore_trapsts, s_restore_trapsts, SQ_WAVE_EXC=
-P_FLAG_PRIV_WAVE_START_SHIFT - SQ_WAVE_EXCP_FLAG_PRIV_ILLEGAL_INST_SHIFT
-> -       s_setreg_b32    hwreg(S_TRAPSTS_HWREG, SQ_WAVE_EXCP_FLAG_PRIV_WAV=
-E_START_SHIFT, 32 - SQ_WAVE_EXCP_FLAG_PRIV_WAVE_START_SHIFT), s_restore_tra=
-psts
-> -#endif
-> +       s_setreg_b32    hwreg(S_TRAPSTS_HWREG, 0, S_TRAPSTS_RESTORE_PART_=
-1_SIZE), s_restore_trapsts
-> +       s_lshr_b32      s_restore_trapsts, s_restore_trapsts, S_TRAPSTS_R=
-ESTORE_PART_2_SHIFT
-> +       s_setreg_b32    hwreg(S_TRAPSTS_HWREG, S_TRAPSTS_RESTORE_PART_2_S=
-HIFT, S_TRAPSTS_RESTORE_PART_2_SIZE), s_restore_trapsts
-> +
-> +if S_TRAPSTS_RESTORE_PART_3_SIZE > 0
-> +       s_lshr_b32      s_restore_trapsts, s_restore_trapsts, S_TRAPSTS_R=
-ESTORE_PART_3_SHIFT - S_TRAPSTS_RESTORE_PART_2_SHIFT
-> +       s_setreg_b32    hwreg(S_TRAPSTS_HWREG, S_TRAPSTS_RESTORE_PART_3_S=
-HIFT, S_TRAPSTS_RESTORE_PART_3_SIZE), s_restore_trapsts
-> +end
-> +
->         s_setreg_b32    hwreg(HW_REG_MODE), s_restore_mode
->
->         // Restore trap temporaries 4-11, 13 initialized by SPI debug dis=
-patch logic
 > --
 > 2.34.1
+>
 >
