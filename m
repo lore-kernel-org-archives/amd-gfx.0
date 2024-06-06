@@ -4,148 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDA99C25B75
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 06:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BF4CC25B75
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 06:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCD410E268;
-	Thu,  6 Jun 2024 06:22:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D7BB10E0FC;
+	Thu,  6 Jun 2024 06:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5raOJlPf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t47j8JDz";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEEF10E268
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 06:22:32 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E46310E0FC
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 06:52:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S3eaC8uuovMfGtmTzmN3Ygk7rdeMHKF8kMW0zI10rNSm+wzOP6Dh6up35cm4Y7fUA2dK2SdEomiWWCCJbXfWYDq6HBw3ghKZM7hkwXCrHWv9rKMuAvHaufjTfesKlGIrH0mgxZTP7VCPXCLmgoQUjfcFlRfpKAihDuH2RkTtBNnSCOOgFZeeM7Idt35L6VZTb4/9HYAIrnDxkGfb2SyU5MT+Avs23Ovv+FrnTaGqJKag8di6ZBkBjXYKJveBFkX3KnxtYTLjyHdxUR+qO3zl8Zspkj1AMt5sKQ6kFn6LulRZIVnYxvffde9fYrbGQ5VJEdFmuL+GjBmH1CKLb5dA/g==
+ b=cMoGB7gxfuMYRlA4TCq3UHhJMAaBvhMv0xtouMdyyKpzLnat2q4DfR2okPrSJbZml6uPFg5jdrU6QrcvXvXIzdNauzjowUE0pW+o5n+qf8xxn38eVcvLAeqqts1q35Ux9uzmgbxDBnjHTjbzseyZzF9r1PUgWnz1CpBXoB5D30zpLnsxqqDQlyMsLlxqPlCnBjLDSqUPGAEq7DwqxCa7W0N9kcQs1Bq3ljJQJfmqyUjl5pLnX/9RzCkWo8U7m1SmHhZxO1Vny3t3eFEOk8+mwmSMZfQGsHXO2AhgQWvGZy0cldf/K1arA+WbymNH2TJi+/yvxb8xnLS4PsPcA+v3/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lla6cRBS9eKAmw5bHg/waQ+YFryUAIJqOYFNsXdnCPI=;
- b=PGsDGF0uEKHahimigNCL2ehc8b11Pp0zBWXo0+ILb88DbeG/OMO1b+a7LGvoIm3ZXLaIAb5G5/m2h4gdWVXiryZTjS0fQEVGKmvblftkvPNJ9/iZXLxcHiJZSHUfXBNyMU/Tk4LmZzqCVLfHOfjbByf5aPv3FgDZWn+fUOpempFq31kxnVlZZC3bl2Inzi5yaYwYQmvYNPRidy0n90Ilu1JtKMwJjsn1b8Uh3197VMcjfgmZ3hRc1pnfiikYa+DpMKaBng/TnJiPHkr1bY36UQnI/izi2xEzR/dXLTA6MH6w99SeGkPrz6yvj+RYiWaqpS7R4nISF6+TN0zLQafRJA==
+ bh=SP4FGEaTFJ3QmeExsTH6XNaur4zQ52ulO/o6JpatYRw=;
+ b=SCzwxBkSmZ1Ol79BabcImmu4G0lWQ2Kwxqu4xUd+XYlfdGCwRZpVqWGevAL+JsY+TNq8kQ6L5QYak40RPtqvgzL+yO7vj6t4ez1Jacqv5X3Rftiqln6frzkHiS4uTUaSryd7SCdzaC3hACRR9++tg9gtkmZYwQx2gTcsfN+6nWwmsCQCLZPWpavvDixvy8eak+tLLe8ftL6gKq742FCcih21lXNmkEMvT5CUCZFgddC2i2opWVm2fU1Q7niVRYBqUM7rylEjrLQ43xH+QO6i/EC3wYUtO9QeSl+nCtQ9vPAeA3ys4fd7DN3cwN/RjR1uoBQ/l+3JxrfZOW5Zp0mY6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lla6cRBS9eKAmw5bHg/waQ+YFryUAIJqOYFNsXdnCPI=;
- b=5raOJlPfunkDt2irLam3l71YTWX7UrnorHEoxaGuxDGbA5NZDo6zb57PRWT2mUEMEIJXsDVu3Uw3yPeFLsb/gpW1wlzdptF61Bgzf9sMNog5vN9jloMzH2v7lUSUkqMm+9wDbc14Oaz/znxlLB/G/U8kKRGM+MECxXdEvigBups=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6953.namprd12.prod.outlook.com (2603:10b6:510:1ac::21)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=SP4FGEaTFJ3QmeExsTH6XNaur4zQ52ulO/o6JpatYRw=;
+ b=t47j8JDzH2UzfQ/mj4jY4o9kepRmdWPxi88wgbnxrJ5YA9Q12dQVgexNVxNG6nf555qT1mZVtQthf9a+59mN8D0P1mBCrc4TYNmUSJ0vZZUxY2NP/4u1EIPccI5/gtDrAABr/aXfxinPpkPYx6/UTFoasaOpMQ+n/zNxKILcNOg=
+Received: from DM8PR12MB5431.namprd12.prod.outlook.com (2603:10b6:8:34::8) by
+ LV3PR12MB9214.namprd12.prod.outlook.com (2603:10b6:408:1a4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.33; Thu, 6 Jun
- 2024 06:19:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7633.021; Thu, 6 Jun 2024
- 06:19:27 +0000
-Content-Type: multipart/alternative;
- boundary="------------E7JDn7L56MiS6cLgnfgEmcAm"
-Message-ID: <0e63d585-cba0-4941-ae9f-4de91ab15e67@amd.com>
-Date: Thu, 6 Jun 2024 08:19:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: revert "take runtime pm reference when we
- attach a buffer"
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: shashank.sharma@amd.com, Pierre.Jabbour@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20240605123159.90950-1-christian.koenig@amd.com>
- <CADnq5_Pq4jh7VrageBKPX4Qp1sGWPHTte2s_pxL20iQiosjUyA@mail.gmail.com>
+ 2024 06:52:12 +0000
+Received: from DM8PR12MB5431.namprd12.prod.outlook.com
+ ([fe80::6cd6:bbdf:298b:7d20]) by DM8PR12MB5431.namprd12.prod.outlook.com
+ ([fe80::6cd6:bbdf:298b:7d20%6]) with mapi id 15.20.7633.033; Thu, 6 Jun 2024
+ 06:52:12 +0000
+From: "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] amdgpu: add the amdgpu_vm ptr in the vm_bo_map/unmap
+ events
+Thread-Topic: [PATCH 1/2] amdgpu: add the amdgpu_vm ptr in the vm_bo_map/unmap
+ events
+Thread-Index: AQHatZK7rpKtuXReLUOI2+HtbUUpV7G1zfoAgAAf3ICAACcngIAEO1HP
+Date: Thu, 6 Jun 2024 06:52:12 +0000
+Message-ID: <DM8PR12MB54312493D65D96DAD273D65F8DFA2@DM8PR12MB5431.namprd12.prod.outlook.com>
+References: <20240603084729.15135-1-pierre-eric.pelloux-prayer@amd.com>
+ <beb3e657-3834-4c80-b854-cdb5ba4ca534@amd.com>
+ <011928f3-ae86-4506-a9a5-1ced96032f34@damsy.net>
+ <4e1ae4fb-472a-40a6-a26d-7f9aff709057@gmail.com>
+In-Reply-To: <4e1ae4fb-472a-40a6-a26d-7f9aff709057@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADnq5_Pq4jh7VrageBKPX4Qp1sGWPHTte2s_pxL20iQiosjUyA@mail.gmail.com>
-X-ClientProxiedBy: FR0P281CA0190.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ab::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-06T06:52:12.070Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM8PR12MB5431:EE_|LV3PR12MB9214:EE_
+x-ms-office365-filtering-correlation-id: 7e28a559-e2c0-4e81-6d9b-08dc85f53194
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230031|376005|1800799015|366007|38070700009;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?B1zPFe+0WZzFKqAS/aLpP5ftXpmiEdE+b+9uDg3NJ/8Td4zaP65UjV6RkD?=
+ =?iso-8859-1?Q?xCk/z8F82B04jxkgJuLqXk5D0tkngV8AW/QFzs2in6VP2fT1L1rNA0ok5u?=
+ =?iso-8859-1?Q?CKMI2c8YJ1RwgddLpfAGLbVAh9AbNL0CBs5r3/6RMM2lHZOt4VTJ56zTdK?=
+ =?iso-8859-1?Q?JHvRl7gtg+AwCfPMlNEYgs55JFxMLNd7rAexOMesA7E99/Oon8/TOD1JO4?=
+ =?iso-8859-1?Q?Sja5Qp6Unn7i5WbHomO3cJzJfdP5uuRm4Bnagg6hY/DnfxGmxC9FFGEgg2?=
+ =?iso-8859-1?Q?w/DR8Tck8DBPWJKEzP1YkY58iEpfntclZZe3VNyXS8eM7UAPmRUlkV8DIH?=
+ =?iso-8859-1?Q?c+c/C5BqREOErgal4hsHA40LDm5CijCRMaWXBsoCSYczrtzcDOTHjAcXSK?=
+ =?iso-8859-1?Q?Y+cCZLRsm8TWiQqrmV7sijqa0KE56RsdaCfzxC9o8lwR+awDPb0xW8+Fxq?=
+ =?iso-8859-1?Q?p1mTrDzKp4foWDivadWSb+osMMaFMlZFcMQqGUegIgNe4pP17WADUimEdd?=
+ =?iso-8859-1?Q?xDoMzE7/1QPdxIiYn6nPc4tWhLAsWX7TK/4nsyLRvODcAMZgLlWp/8m+A2?=
+ =?iso-8859-1?Q?d53AO4COzhyhH7k71kUFENvEXp0e2PED8ud81jGeCw48LU1eQztKZxSroC?=
+ =?iso-8859-1?Q?M+4bKEfTKrTPAA6zZBHfY96NNW/tM+gG8CyKKQFNOKo9Rv5sG96nKw6G//?=
+ =?iso-8859-1?Q?zGZg8rs+89/LYsFwpW9Ayeqa6LKdMkfS4tOejioXkais7ipSrWlq0hw5sd?=
+ =?iso-8859-1?Q?BaiVaEr4gWc3kUyfEV78KSk4X0cLeEUc5edschj89SpUmBHU7esDk9be+j?=
+ =?iso-8859-1?Q?mwGNzCa2bdWCQj4k5gNIixk9hLhPybq/aF/oQ+Jpr6jk55CpVj7rI3F0hp?=
+ =?iso-8859-1?Q?jzCSw6uv6V8mcvuVSZsNbpRtw23q/Jj8+8Ys+E/g0i5rnQQK3kI8v1+rZr?=
+ =?iso-8859-1?Q?Ah92nnNzifk/e/869tNxSDDszvUiYPXMI/5tR0raRh2TX6fyL8EPy0TlNA?=
+ =?iso-8859-1?Q?O7/79k4aJJUJ8OVKnYsFBxT2WvYHsUmi0/ieYks/asFjdHkLAjg6bFtUYP?=
+ =?iso-8859-1?Q?+s5ScX7DrpN+Zl6CQ+Ea8bpQ8TloUtTqiUR4XXLfXB+9PeR7uvP505WRf/?=
+ =?iso-8859-1?Q?FCf0Jd7yW1nlfSKrZY47LA/3EyS6o9iTsNFwiGa2T6XMgEyIhtFxmhYol3?=
+ =?iso-8859-1?Q?T9yF51R2arQFNihgTuuVYlVohxC8HcoV/RkUGBdDX8prmcml6k+QrbXTXe?=
+ =?iso-8859-1?Q?WSaPZXVzgxNygi+Hg7cIGIXAun9QuBxvq2ccKPPuc+xJRB3a9KXJjOSxsk?=
+ =?iso-8859-1?Q?YssekMBl+LHDIPAjBTbILFqYpUZyN65IcyE6iuCLwe7s3BSQFrb+4ZQNIW?=
+ =?iso-8859-1?Q?u+ibqLig9VT8YpCJFhAjPmIm9Q/NmmOim/+kyxU6/JmfdmhM0E4x4=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5431.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(366007)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?FYvkcmJ3FMazaROlZuDA+unpvrTwhOUr5Xptw2afXxBlhg91yHGwMqDvhG?=
+ =?iso-8859-1?Q?0sHQBS4O+lrms6sr3By7p+k9SQOocekWbfA9YsVO9YUr+gQWCTKDaAhe0k?=
+ =?iso-8859-1?Q?Smg1IdOmiwJYpOBz9gv/w2EMK5wuAL19UscSUjt8bHwQFXxv/oDxVm+jqO?=
+ =?iso-8859-1?Q?Yt8n14lqAumYI9l6XXEnoiH9dlCj+2LyzERCTU85OE2gpfiFGOD553dc8T?=
+ =?iso-8859-1?Q?NLq4uzOmU5102qAhzi5f6s9YbIuBie0l2KKLB6fFFcSFf+ypSUV58BxgRy?=
+ =?iso-8859-1?Q?/aauzhmnSny8bfmh6YGvXS9uNIRiFFZGKA7py6VWvjq6/0M7VwYYP1KD5P?=
+ =?iso-8859-1?Q?Uqi6mQl853AMvMhQThDmotC0IVFxiJ0gwtZbAAS6esSqqR8nUX8pLF28w7?=
+ =?iso-8859-1?Q?20TV5n1b+54Pwr11/pnZ5Q9XAz4DYL5en589tLIUCuQfhpgpVyAqAoWZ6w?=
+ =?iso-8859-1?Q?m2lN+CUyrnHJCaL2uZyIzH7ee2ZYem38em413g3OeoaYIZEoPU1+9avhwG?=
+ =?iso-8859-1?Q?4BgneEiXGXm9Y8LWRuygvjXV4/h2rt5bmSbJF9p87AGy5i0FSDDjlFkC+i?=
+ =?iso-8859-1?Q?5dbQPTdK0OCWZPdK2Pz7Mp3cNViAGqShApWwpa7Mlfq8hi1Xf6QoqC2su1?=
+ =?iso-8859-1?Q?iZCPjE9/POgG6zvBCBcTLHHtwfGCO4cV248osAS74wCLX3eqyBd70V6Wv4?=
+ =?iso-8859-1?Q?tQApP3J1dyo53cl8RXorfWiXhjmxmIO8LXs9JGvHYEnv3/J9RtDE95can5?=
+ =?iso-8859-1?Q?hKWEh5H+nuvgNzduKK6HqivmkAtLXmojgHrOSi9SwBt0UiVuRK/rchmB/3?=
+ =?iso-8859-1?Q?ZjKXEJ5ZY4G04oOEZ4aTU/iqi7rraCWRWICghDNX20B3N9BO48R4w2haTG?=
+ =?iso-8859-1?Q?/58Bf50juJWrqcJAXKBcOS42OFGqRmYBdt9zWPEO0JFC1GA+9jZpqXHbhU?=
+ =?iso-8859-1?Q?DvEgo51uFZH2J9A/1T8ql/gtjp4E7BSZwUvmZNQ/RJZhFybt7azuSoPOlc?=
+ =?iso-8859-1?Q?opJO3l2l62csmsrqn347KJwRD7Zjcsv4jkL/wS6TxsDPIihXk+soIqsCfW?=
+ =?iso-8859-1?Q?g809ckBmVkcrGNQpm40IHvhs6GmmKEa8LsiOt9jPvz73V+ZisGROOG7CO4?=
+ =?iso-8859-1?Q?tEw+fUl00UzQT5+BwwL0OYOW5CS/e1gsf8wihHbRUqlSBSjPbXwOfk4LtI?=
+ =?iso-8859-1?Q?f76U9W9GT0wh6WIeql+TfG5Jv2hOFa6x87ADgUqvwmOoLq6jYMEDul+5AL?=
+ =?iso-8859-1?Q?5JS07qpV9pidC2iDOA0P8YLcaYAzYxkL2frH0knKevYGjJZ+6EahOsbgWL?=
+ =?iso-8859-1?Q?tUzKXucKQX/UEMI3Y0eKav9hOJ7zcg4TUdSJ5u5uPEBydHgRcpv45VN9+g?=
+ =?iso-8859-1?Q?DQtGm5+qGVSp9yvelb6gi1+cMzBuvwr49XAXukwl0HlUE0Zzs/8Ril3tL3?=
+ =?iso-8859-1?Q?AUMsUCnjtC+jYQzLgd7o2CTWIZVXgS6YITjR1XGTsDTyoO/2PfF6tgmxs0?=
+ =?iso-8859-1?Q?bLfVPvGQFxCPbnmgf5Kslqm71x+nmHtTBfxCwsmoFumU9BAypI6x2gSXde?=
+ =?iso-8859-1?Q?gqbvuvgovk1ZkP9pObkBrk9yCRtaWpVC/oqxOq6e3KZzl162CuXyiuWick?=
+ =?iso-8859-1?Q?R6jSBIwTvExmU=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM8PR12MB54312493D65D96DAD273D65F8DFA2DM8PR12MB5431namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6953:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca6387d6-e1d4-41b3-13bf-08dc85f09de7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|1800799015|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cjI5QzlPNEluMGdBeHFYTHRsekQwT1BwOVI5bnZKNVdhb3JpeUhjMzFMWTVG?=
- =?utf-8?B?TzJmUkNBV3djbm1PT1NwbzEyaGlyeEJWMDI4Yk5yRHQzdkFjVGRHaFZ1ZGdk?=
- =?utf-8?B?SFFpMFNRVHlYT3hYY0JBQmdqanJLb1IrMjNHWFVKZ0VvT0tSVUU3Y2pVdGhR?=
- =?utf-8?B?ZWtMUFZzbGJUci9IK3NmLzlpOTE0dnNJL3pPLzg4RXd2R3RrYThzRnNYYnYy?=
- =?utf-8?B?TkNZRkt4M2FvaVdZY2NRNVJmQWk4dCtaYmJUYVc5aE9zSjJVQ2RVMUhZckVS?=
- =?utf-8?B?ZytxYUNFZCsrVVFJRXVpYWxEZHk2RlozSkxZb2pQaWFRVHVFRlF6Y3NJZ2VQ?=
- =?utf-8?B?UnViaEp5S281N0NqTnhGR2FVZmtKSmpVeWJXSnFIUkZVamIrWHF1b3J5NURH?=
- =?utf-8?B?cDFvZjNTRXplWTBNd3l5akdTWXRmRXlwUVJrc3BpRks0WnJsQWdDQVlPK3Rh?=
- =?utf-8?B?NHFhMWdQZnJPd2UxT1FBa0UxcXI0QjhuaVo2cVZBY21zZWJWNzg5WXNUZHJS?=
- =?utf-8?B?MU5vbEFqaFpaY3ZUd1U2UFJ2TURxaVdZWlA0ZzQ1NlZ5RXNmbG1GY0pOcSsv?=
- =?utf-8?B?dVdIVmVldUVDU0JBYWd3RFRJV0xyTmRLVmt4SVhicFVLRnBtNXNxWnpkUmtV?=
- =?utf-8?B?dytsVzJSU3JQS2kyZ0pOUU5wTE1NSHEwV2dwWnRiWkVBSjRZT0JGWTZBdm1o?=
- =?utf-8?B?Z1dKWVVpUjJTWlRXZC9GZGkwT0JrR0F4cXB5SlNJazMzWTIycjdNbDVOWDRN?=
- =?utf-8?B?d2hQR0RmQVBYc1dVY0QwYlZ3R1FMRG85c0Q3bmcxL3daR3hCT1FBdlBXd3Ra?=
- =?utf-8?B?OXNISXlZdlpVUityRS90VnVkRFdPZzcvNEc2Y21kYUpDekhsT0Y5bDZQU0pv?=
- =?utf-8?B?NitmbHU2Z3lQdTZvSzhFRGxiditGZlZHeCtleXpMWTJHNkM4T1RqUjArSE1K?=
- =?utf-8?B?WlJMajhXd0o4TXlic1hIczFMRFNpMlNLNTY3Y25CZSs2cHBFWVJhWG5NTVdy?=
- =?utf-8?B?dE12MURoWE5kWFdzQ1FFSnpDVWtjWDZXTmVLMk9ZU2ExU1pqcGZpWjJZV3Fo?=
- =?utf-8?B?dUJHaVdxWVBRYkk0Yk5iWElkaFpMWGR4ME4wdVhaZTB3TGNDakdSQTJHK3Ix?=
- =?utf-8?B?dWJvSnAxdS9zeHJlelp6eVlQNFl4Q3hHWGhnRmcwZk1yTTJtZEhBV2xqQXNU?=
- =?utf-8?B?cUpoQzNESGE3OFJhZzYxaU9qWWRWUmlWSGlvT3JoNm1RbnV3b1N5bWVhOEdO?=
- =?utf-8?B?RWV4eHV4amgxNC9LTmlyNzVOc2ptTS9kbFRUdjhHRUowaGJMRFUzTEZuSFV0?=
- =?utf-8?B?SkFub0Z0amdRT1Nqa2ttM2Z1TWVJOWhVMVdCUlFQbHFDZVUvU1BkeVZCbjF5?=
- =?utf-8?B?WklKc3YrNjRYUmU2bnpBWWNuV08wRzBoMjNoTHE3MkxQR3l5QklQaTQxNk52?=
- =?utf-8?B?RjZ1Ky9lZ2V5Y2hVb28zNHFPN1NkaWs4aVJ6SDNTUkhLWjBCWWhjd0FJSmJB?=
- =?utf-8?B?VnVoTG9QTkZhSStwWXJxaC9lM3F6ckJ2SWdrRVc1ME5OcU9TNTEvRlQvcSth?=
- =?utf-8?B?WTdoNDB0UlNHbXc5V0padnFUaHZoaVM5aEJFTnFMVmZQcXIwMk1PN29DSk1Z?=
- =?utf-8?B?TTUzVnZnRElRdjJUWTRDb0hBRGRKY3NtSVlBbzZsaVBKbHVxOTU5cVNCRG9h?=
- =?utf-8?B?ZVhHSmlnYXhuNUJDN2lPOXhlVVRESWY5cVZZUzZhZVZHbzYvQ0JrVll2Rjhr?=
- =?utf-8?Q?4kXtP7iqL+pluvbGWE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlNjTW9mT3NyaW93NFdZVW1FNUpHeFIxRm0rV2NOY3c3a3BLeXNaMWNRdTF6?=
- =?utf-8?B?a3FBNTZBQnRSdFpBS2lWekR5R2ZoZjRQcXNBcjhBK0ZnR1hBOHdrSndwU3Mv?=
- =?utf-8?B?TzNOeGFwKzFuWmpzSURtRjRodmpJUUlFM2g2R3piTTNFc29yazhhbGxaNmpi?=
- =?utf-8?B?QmM5b2RmTUZ2RU9qQ3UrK3IzMlFyTmFidHF3WEh4dXV5Uk8vYzRYS2pxSURp?=
- =?utf-8?B?UFRucVBEcjhFYzN4UHZSQ01ZQWg5dk9pQXQ0TTVUajVxM3M4SzFSdXpZQTVs?=
- =?utf-8?B?M1FVSTdUdHpPeVBhZ0ViNW56bk5yU25JZUxPdTdyR0R2NXY0ZGJLSURMKzlx?=
- =?utf-8?B?M1pJQjVvRGEvMHVlZ1AweTRGNGhkd2JtRll3RldBYytkQjhjUWNhTDhkek05?=
- =?utf-8?B?akpHdkoxUVpPcTF4dlNITDcrUXZ0V2ZxQW1yMXFiSmIzbDJVai9TZWJvNXVs?=
- =?utf-8?B?Q0hyaGRZNmZOTjlBbnRDUjIwakY0ZGtreUV2eFljQzBYN2laaUdMVVBMZVB3?=
- =?utf-8?B?ZCtxMlNkTlI3bDJ1TEVUc1lycEpOVmFrbDlLSXF5MTFFVk9paXZob0Nrb3lD?=
- =?utf-8?B?NnBnWE1rdTJ0ZnlseFNycUlyWVN0QVhEMXdQNVBCOUpwLzZhcjVqS1ZqT0ps?=
- =?utf-8?B?akJVNFRVbjMrRjR0TW9Md3lvMVlCZ3J2d1hhK0R3YkhicWk5ZzdTaEhHcGxr?=
- =?utf-8?B?cUEyK3NsNHQ2WCs2Q0ZFRWhERnBYREV6NTdvYnNFRm9iZHZUU2EvTEk4eGNZ?=
- =?utf-8?B?UmZMSGl0dldCdDJWUklIbWFZdjRIbkFEc0lmV25wTklVcjF0cW5yNTZFOXdQ?=
- =?utf-8?B?MUxxOEg5YWR6L1l1L29xbTJXNDVoUGo2WGhSUkpWYmQ1RUtvcjhiNHpabG5n?=
- =?utf-8?B?NXcyRWNlUUdrWHRiSVRBeG82MjQ1S2hNWHRxT0cyNUxrOUZOamc5MndrK01G?=
- =?utf-8?B?bE5ZODRxUVRWTkdOWEpHalFpc3Q2WWhwM1hrMWtIUUhrMllWbTVTMUUwUVFj?=
- =?utf-8?B?YXBoUWE4OERaMnFCTDBxdW1LZGVQend6TVl6bExtcXRzb1BvSDkvQ01rMEdJ?=
- =?utf-8?B?cmc3QzZ2TS9xZ29zWlgzMXROeDZYL0VkVVhpMEducVU1a2dqZVUrcXZsTThs?=
- =?utf-8?B?SmlkR3lsc202T2M0K1o0cUxHb3owd1Yxa0JiMDFCMWtMZ3ZBcGd1a1RVa20v?=
- =?utf-8?B?Z3hGdlBCaXQ1VGp3c1UxelZhL09UaXJoKzNaQTNObGlVeFhkbG1MdXF3bFVC?=
- =?utf-8?B?UUo5MkJsRkpqUk1jSFNISFVSM296R0krYzh4ZUYxQ1o5TnRsakxqSzFHMEd5?=
- =?utf-8?B?K2tmRTlGbFpYVkJ0bU1EMFFCbGNHTjZWUW5Td2xpK0ZGU3VZejZMaFNDM1pO?=
- =?utf-8?B?QzEvZlIxRGZ1VkkzRG5tL1ZqKzkxYkxWeWhuNWk5V3Q3SG50UG51elZIbHBO?=
- =?utf-8?B?K01GMXdSZnBvODdrd0o3QW1iUnFJbW4vbEdXRmNUVnZ1cnZiazB6WXhFTXlN?=
- =?utf-8?B?bUh3M2NBU2txbXdDT1pyV1FHNmRWZGJ1cDUrbzY4ZjFDV2JqcDNhRStSUXkr?=
- =?utf-8?B?ZWc5dzZRcnI1S1NDSXVVTTE1UGkvTW9yb3lkb3pTSloxelVnVnozOW9NRGJ0?=
- =?utf-8?B?aXhVa3BScFp4TVNoc2hFVDJXOG13andJVFM0SXdmK1R0UUh1cEJ5bnB5c3Zx?=
- =?utf-8?B?WG0yTVorMkUvbHlVWTlVNGdaejVsSXdjVExQTTZOL050UUsxNCsvRlFsRWZF?=
- =?utf-8?B?QW9JSHZlNEsyeUtlOVIxODFIY3JOdWhIeUhDdjFpalArUXFRdGRmaVlVc3FT?=
- =?utf-8?B?SmJReGVBOU5KRVRqTEx0K3E1eTFSYUdGTjcyWFBERW94ay96d0gySUJuaDhu?=
- =?utf-8?B?K0hObFlNOWtPRURLTFQza3JwUHBSNXJleWhaWFF4ZnYxMU5CZklFOVFodW1w?=
- =?utf-8?B?NEp4eDYrNkZ2TnpLYlV5QjhiS3FwYWZuT0dCK21JVWFNTWVoUUdaeitmNVB5?=
- =?utf-8?B?c2t0VjNGMUVUWkJicmRuV1hmTmFPN1FJWmM4MnBCT3FMQWl6a0lyWTc4QTQv?=
- =?utf-8?B?KzQ3OUFqbVRQb1RqL3UxeWVkLzZ4dmdEZTdnK2xpcDZmZmtuQlNjRVlPMnEr?=
- =?utf-8?Q?jFPfdWshl9OImURL0dDDyKc8V?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca6387d6-e1d4-41b3-13bf-08dc85f09de7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 06:19:26.9538 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SQuWQkyYTOWUruvJmotFul1R4NZWjPSzLLnPabnfdPltrN91ima9WigfhHh/RHUK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6953
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5431.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e28a559-e2c0-4e81-6d9b-08dc85f53194
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jun 2024 06:52:12.4732 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yTWQchq/maKK/pSwCwTKpBqEvkLXaICXoAAPALkgMAfxUjbFr6kd9uyjrb0rH9q66jKt+Os9syLWsDp7d5ZARg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,363 +158,481 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------E7JDn7L56MiS6cLgnfgEmcAm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_DM8PR12MB54312493D65D96DAD273D65F8DFA2DM8PR12MB5431namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Am 05.06.24 um 15:20 schrieb Alex Deucher:
-> On Wed, Jun 5, 2024 at 8:32 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com>  wrote:
->> This reverts commit b8c415e3bf989be1b749409951debe6b36f5c78c and
->> commit 425285d39afddaf4a9dab36045b816af0cc3e400.
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Let's drop this patch: the amdgpu_vm_*_ptes events already contain all the =
+info I need.
+
+Thanks,
+Pierre-Eric
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Monday, June 3, 2024 4:12 PM
+To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>; Koenig, Christian <=
+Christian.Koenig@amd.com>; Pelloux-Prayer, Pierre-Eric <Pierre-eric.Pelloux=
+-prayer@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@l=
+ists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] amdgpu: add the amdgpu_vm ptr in the vm_bo_map/unm=
+ap events
+
+Am 03.06.24 um 13:52 schrieb Pierre-Eric Pelloux-Prayer:
+> Hi Christia,
+>
+> Le 03/06/2024 =E0 11:58, Christian K=F6nig a =E9crit :
+>> Am 03.06.24 um 10:46 schrieb Pierre-Eric Pelloux-Prayer:
+>>> These 2 traces events are tied to a specific VM so in order for them
+>>> to be useful for a tool we need to trace the amdgpu_vm as well.
 >>
->> Taking a runtime pm reference for DMA-buf is actually completely
->> unnecessary.
+>> The bo_va already contains the VM pointer the map/unmap operation
+>> belongs to.
 >>
->> When the buffer is in GTT it is still accessible even when the GPU
->> is powered down and when it is in VRAM the buffer gets migrated to
->> GTT before powering down.
+>
+> Indeed, I've missed that. I'll fix that in v2.
+>
+>>>
+>>> Signed-off-by: Pierre-Eric Pelloux-Prayer
+>>> <pierre-eric.pelloux-prayer@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 20 ++++++++++++--------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  8 ++++----
+>>>   2 files changed, 16 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> index f539b1d00234..c84050d318d6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> @@ -243,10 +243,11 @@ TRACE_EVENT(amdgpu_vm_grab_id,
+>>>   );
+>>>   TRACE_EVENT(amdgpu_vm_bo_map,
+>>> -        TP_PROTO(struct amdgpu_bo_va *bo_va,
+>>> +        TP_PROTO(struct amdgpu_vm *vm, struct amdgpu_bo_va *bo_va,
+>>>                struct amdgpu_bo_va_mapping *mapping),
+>>> -        TP_ARGS(bo_va, mapping),
+>>> +        TP_ARGS(vm, bo_va, mapping),
+>>>           TP_STRUCT__entry(
+>>> +                 __field(struct amdgpu_vm *, vm)
+>>>                    __field(struct amdgpu_bo *, bo)
+>>>                    __field(long, start)
+>>>                    __field(long, last)
+>>> @@ -255,22 +256,24 @@ TRACE_EVENT(amdgpu_vm_bo_map,
+>>>                    ),
+>>>           TP_fast_assign(
+>>> +               __entry->vm =3D vm;
+>>>                  __entry->bo =3D bo_va ? bo_va->base.bo : NULL;
+>>>                  __entry->start =3D mapping->start;
+>>>                  __entry->last =3D mapping->last;
+>>>                  __entry->offset =3D mapping->offset;
+>>>                  __entry->flags =3D mapping->flags;
+>>>                  ),
+>>> -        TP_printk("bo=3D%p, start=3D%lx, last=3D%lx, offset=3D%010llx,
+>>> flags=3D%llx",
+>>> -              __entry->bo, __entry->start, __entry->last,
+>>> +        TP_printk("vm=3D%p bo=3D%p, start=3D%lx, last=3D%lx,
+>>> offset=3D%010llx, flags=3D%llx",
+>>> +              __entry->vm, __entry->bo, __entry->start, __entry->last,
+>>>                 __entry->offset, __entry->flags)
+>>>   );
+>>>   TRACE_EVENT(amdgpu_vm_bo_unmap,
+>>> -        TP_PROTO(struct amdgpu_bo_va *bo_va,
+>>> +        TP_PROTO(struct amdgpu_vm *vm, struct amdgpu_bo_va *bo_va,
+>>>                struct amdgpu_bo_va_mapping *mapping),
+>>> -        TP_ARGS(bo_va, mapping),
+>>> +        TP_ARGS(vm, bo_va, mapping),
+>>>           TP_STRUCT__entry(
+>>> +                 __field(struct amdgpu_vm *, vm)
+>>>                    __field(struct amdgpu_bo *, bo)
+>>>                    __field(long, start)
+>>>                    __field(long, last)
+>>> @@ -279,14 +282,15 @@ TRACE_EVENT(amdgpu_vm_bo_unmap,
+>>>                    ),
+>>>           TP_fast_assign(
+>>> +               __entry->vm =3D vm;
+>>>                  __entry->bo =3D bo_va ? bo_va->base.bo : NULL;
+>>>                  __entry->start =3D mapping->start;
+>>>                  __entry->last =3D mapping->last;
+>>>                  __entry->offset =3D mapping->offset;
+>>>                  __entry->flags =3D mapping->flags;
+>>>                  ),
+>>> -        TP_printk("bo=3D%p, start=3D%lx, last=3D%lx, offset=3D%010llx,
+>>> flags=3D%llx",
+>>> -              __entry->bo, __entry->start, __entry->last,
+>>> +        TP_printk("vm=3D%p bo=3D%p, start=3D%lx, last=3D%lx,
+>>> offset=3D%010llx, flags=3D%llx",
+>>> +              __entry->vm, __entry->bo, __entry->start, __entry->last,
+>>>                 __entry->offset, __entry->flags)
+>>>   );
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index 3abfa66d72a2..e04928d2e26a 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -1642,7 +1642,7 @@ static void amdgpu_vm_bo_insert_map(struct
+>>> amdgpu_device *adev,
+>>>       if (amdgpu_vm_is_bo_always_valid(vm, bo) && !bo_va->base.moved)
+>>>           amdgpu_vm_bo_moved(&bo_va->base);
+>>> -    trace_amdgpu_vm_bo_map(bo_va, mapping);
+>>> +    trace_amdgpu_vm_bo_map(vm, bo_va, mapping);
+>>>   }
+>>>   /* Validate operation parameters to prevent potential abuse */
+>>> @@ -1834,7 +1834,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device
+>>> *adev,
+>>>       list_del(&mapping->list);
+>>>       amdgpu_vm_it_remove(mapping, &vm->va);
+>>>       mapping->bo_va =3D NULL;
+>>> -    trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+>>> +    trace_amdgpu_vm_bo_unmap(vm, bo_va, mapping);
+>>>       if (valid)
+>>>           list_add(&mapping->list, &vm->freed);
+>>> @@ -1929,7 +1929,7 @@ int amdgpu_vm_bo_clear_mappings(struct
+>>> amdgpu_device *adev,
+>>>           tmp->bo_va =3D NULL;
+>>>           list_add(&tmp->list, &vm->freed);
+>>> -        trace_amdgpu_vm_bo_unmap(NULL, tmp);
+>>> +        trace_amdgpu_vm_bo_unmap(vm, NULL, tmp);
 >>
-> Won't that kind of defeat the purpose of P2P DMA?  I guess it's a
-> trade off between performance and power savings.
+>> That bo_va is NULL here is probably a bug and should be fixed.
+>
+> Would something like this work?
+>
+>     trace_amdgpu_vm_bo_unmap(tmp->bo_va, tmp);
+>     tmp->bo_va =3D NULL;
+>     list_add(&tmp->list, &vm->freed);
 
-Not really. P2P is useful because ti avoids the extra bounce through 
-system memory.
+It's not 100% accurate because only parts of the mapping is unmapped,
+but yes I think that should work.
 
-But when the ASIC is powered down and not producing any new data there 
-really is no extra bounce.
-
->> The only use case which would make it mandatory to keep the runtime
->> pm reference would be if we pin the buffer into VRAM, and that's not
->> something we currently do.
-> We'll need to bring this back if we ever support that?  I think we'll
-> want that for P2P DMA with RDMA NICs that don't support ODP.  That's
-> one of the big blockers for a lot of ROCm customers to migrate to the
-> in box drivers.
-
-Yeah, but we need a completely different approach in that case.
-
-The problem is that calling pm_runtime_get_sync() from the DMA-buf 
-callbacks is illegal in the first place because we have the reservation 
-lock taken here which is also taken during resume.
-
-So this here never triggered or otherwise we would have seen a deadlock 
-(I should probably mention that in the commit message).
-
+Regards,
 Christian.
 
 >
-> Alex
+> Thanks,
+> Pierre-Eric
 >
->> Signed-off-by: Christian König<christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 33 ---------------------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   |  2 --
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h   | 15 ----------
->>   3 files changed, 50 deletions(-)
+>
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->> index 0b3b10d21952..ab848047204c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->> @@ -41,8 +41,6 @@
->>   #include <linux/dma-buf.h>
->>   #include <linux/dma-fence-array.h>
->>   #include <linux/pci-p2pdma.h>
->> -#include <linux/pm_runtime.h>
->> -#include "amdgpu_trace.h"
+>> Regards,
+>> Christian.
 >>
->>   /**
->>    * amdgpu_dma_buf_attach - &dma_buf_ops.attach implementation
->> @@ -63,37 +61,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
->>          if (pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
->>                  attach->peer2peer = false;
->>
->> -       r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->> -       trace_amdgpu_runpm_reference_dumps(1, __func__);
->> -       if (r < 0)
->> -               goto out;
->> -
->>          return 0;
->> -
->> -out:
->> -       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->> -       trace_amdgpu_runpm_reference_dumps(0, __func__);
->> -       return r;
->> -}
->> -
->> -/**
->> - * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
->> - *
->> - * @dmabuf: DMA-buf where we remove the attachment from
->> - * @attach: the attachment to remove
->> - *
->> - * Called when an attachment is removed from the DMA-buf.
->> - */
->> -static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
->> -                                 struct dma_buf_attachment *attach)
->> -{
->> -       struct drm_gem_object *obj = dmabuf->priv;
->> -       struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
->> -       struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->> -
->> -       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->> -       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->> -       trace_amdgpu_runpm_reference_dumps(0, __func__);
->>   }
->>
->>   /**
->> @@ -266,7 +234,6 @@ static int amdgpu_dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
->>
->>   const struct dma_buf_ops amdgpu_dmabuf_ops = {
->>          .attach = amdgpu_dma_buf_attach,
->> -       .detach = amdgpu_dma_buf_detach,
->>          .pin = amdgpu_dma_buf_pin,
->>          .unpin = amdgpu_dma_buf_unpin,
->>          .map_dma_buf = amdgpu_dma_buf_map,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> index 10832b470448..bc3ac73b6b8d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> @@ -181,7 +181,6 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
->>          amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
->>                                 seq, flags | AMDGPU_FENCE_FLAG_INT);
->>          pm_runtime_get_noresume(adev_to_drm(adev)->dev);
->> -       trace_amdgpu_runpm_reference_dumps(1, __func__);
->>          ptr = &ring->fence_drv.fences[seq & ring->fence_drv.num_fences_mask];
->>          if (unlikely(rcu_dereference_protected(*ptr, 1))) {
->>                  struct dma_fence *old;
->> @@ -309,7 +308,6 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
->>                  dma_fence_put(fence);
->>                  pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>                  pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->> -               trace_amdgpu_runpm_reference_dumps(0, __func__);
->>          } while (last_seq != seq);
->>
->>          return true;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> index f539b1d00234..2fd1bfb35916 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> @@ -554,21 +554,6 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
->>                        __entry->value)
->>   );
->>
->> -TRACE_EVENT(amdgpu_runpm_reference_dumps,
->> -           TP_PROTO(uint32_t index, const char *func),
->> -           TP_ARGS(index, func),
->> -           TP_STRUCT__entry(
->> -                            __field(uint32_t, index)
->> -                            __string(func, func)
->> -                            ),
->> -           TP_fast_assign(
->> -                          __entry->index = index;
->> -                          __assign_str(func, func);
->> -                          ),
->> -           TP_printk("amdgpu runpm reference dump 0x%x: 0x%s\n",
->> -                     __entry->index,
->> -                     __get_str(func))
->> -);
->>   #undef AMDGPU_JOB_GET_TIMELINE_NAME
->>   #endif
->>
->> --
->> 2.34.1
->>
+>>>       }
+>>>       /* Insert partial mapping before the range */
+>>> @@ -2056,7 +2056,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>>>           list_del(&mapping->list);
+>>>           amdgpu_vm_it_remove(mapping, &vm->va);
+>>>           mapping->bo_va =3D NULL;
+>>> -        trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+>>> +        trace_amdgpu_vm_bo_unmap(vm, bo_va, mapping);
+>>>           list_add(&mapping->list, &vm->freed);
+>>>       }
+>>>       list_for_each_entry_safe(mapping, next, &bo_va->invalids, list) {
 
---------------E7JDn7L56MiS6cLgnfgEmcAm
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 05.06.24 um 15:20 schrieb Alex Deucher:<br>
-    <blockquote type="cite" cite="mid:CADnq5_Pq4jh7VrageBKPX4Qp1sGWPHTte2s_pxL20iQiosjUyA@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">On Wed, Jun 5, 2024 at 8:32 AM Christian König
-<a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-This reverts commit b8c415e3bf989be1b749409951debe6b36f5c78c and
-commit 425285d39afddaf4a9dab36045b816af0cc3e400.
+--_000_DM8PR12MB54312493D65D96DAD273D65F8DFA2DM8PR12MB5431namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Taking a runtime pm reference for DMA-buf is actually completely
-unnecessary.
-
-When the buffer is in GTT it is still accessible even when the GPU
-is powered down and when it is in VRAM the buffer gets migrated to
-GTT before powering down.
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Won't that kind of defeat the purpose of P2P DMA?  I guess it's a
-trade off between performance and power savings.</pre>
-    </blockquote>
-    <br>
-    Not really. P2P is useful because ti avoids the extra bounce through
-    system memory.<br>
-    <br>
-    But when the ASIC is powered down and not producing any new data
-    there really is no extra bounce.<br>
-    <br>
-    <span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite" cite="mid:CADnq5_Pq4jh7VrageBKPX4Qp1sGWPHTte2s_pxL20iQiosjUyA@mail.gmail.com">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">The only use case which would make it mandatory to keep the runtime
-pm reference would be if we pin the buffer into VRAM, and that's not
-something we currently do.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-We'll need to bring this back if we ever support that?  I think we'll
-want that for P2P DMA with RDMA NICs that don't support ODP.  That's
-one of the big blockers for a lot of ROCm customers to migrate to the
-in box drivers.</pre>
-    </blockquote>
-    <br>
-    Yeah, but we need a completely different approach in that case.<br>
-    <br>
-    The problem is that calling pm_runtime_get_sync() from the DMA-buf
-    callbacks is illegal in the first place because we have the
-    reservation lock taken here which is also taken during resume.<br>
-    <br>
-    So this here never triggered or otherwise we would have seen a
-    deadlock (I should probably mention that in the commit message).<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:CADnq5_Pq4jh7VrageBKPX4Qp1sGWPHTte2s_pxL20iQiosjUyA@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Alex
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 33 ---------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h   | 15 ----------
- 3 files changed, 50 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 0b3b10d21952..ab848047204c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -41,8 +41,6 @@
- #include &lt;linux/dma-buf.h&gt;
- #include &lt;linux/dma-fence-array.h&gt;
- #include &lt;linux/pci-p2pdma.h&gt;
--#include &lt;linux/pm_runtime.h&gt;
--#include &quot;amdgpu_trace.h&quot;
-
- /**
-  * amdgpu_dma_buf_attach - &amp;dma_buf_ops.attach implementation
-@@ -63,37 +61,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
-        if (pci_p2pdma_distance(adev-&gt;pdev, attach-&gt;dev, false) &lt; 0)
-                attach-&gt;peer2peer = false;
-
--       r = pm_runtime_get_sync(adev_to_drm(adev)-&gt;dev);
--       trace_amdgpu_runpm_reference_dumps(1, __func__);
--       if (r &lt; 0)
--               goto out;
--
-        return 0;
--
--out:
--       pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;dev);
--       trace_amdgpu_runpm_reference_dumps(0, __func__);
--       return r;
--}
--
--/**
-- * amdgpu_dma_buf_detach - &amp;dma_buf_ops.detach implementation
-- *
-- * @dmabuf: DMA-buf where we remove the attachment from
-- * @attach: the attachment to remove
-- *
-- * Called when an attachment is removed from the DMA-buf.
-- */
--static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
--                                 struct dma_buf_attachment *attach)
--{
--       struct drm_gem_object *obj = dmabuf-&gt;priv;
--       struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
--       struct amdgpu_device *adev = amdgpu_ttm_adev(bo-&gt;tbo.bdev);
--
--       pm_runtime_mark_last_busy(adev_to_drm(adev)-&gt;dev);
--       pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;dev);
--       trace_amdgpu_runpm_reference_dumps(0, __func__);
- }
-
- /**
-@@ -266,7 +234,6 @@ static int amdgpu_dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
-
- const struct dma_buf_ops amdgpu_dmabuf_ops = {
-        .attach = amdgpu_dma_buf_attach,
--       .detach = amdgpu_dma_buf_detach,
-        .pin = amdgpu_dma_buf_pin,
-        .unpin = amdgpu_dma_buf_unpin,
-        .map_dma_buf = amdgpu_dma_buf_map,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 10832b470448..bc3ac73b6b8d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -181,7 +181,6 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f, struct amd
-        amdgpu_ring_emit_fence(ring, ring-&gt;fence_drv.gpu_addr,
-                               seq, flags | AMDGPU_FENCE_FLAG_INT);
-        pm_runtime_get_noresume(adev_to_drm(adev)-&gt;dev);
--       trace_amdgpu_runpm_reference_dumps(1, __func__);
-        ptr = &amp;ring-&gt;fence_drv.fences[seq &amp; ring-&gt;fence_drv.num_fences_mask];
-        if (unlikely(rcu_dereference_protected(*ptr, 1))) {
-                struct dma_fence *old;
-@@ -309,7 +308,6 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
-                dma_fence_put(fence);
-                pm_runtime_mark_last_busy(adev_to_drm(adev)-&gt;dev);
-                pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;dev);
--               trace_amdgpu_runpm_reference_dumps(0, __func__);
-        } while (last_seq != seq);
-
-        return true;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index f539b1d00234..2fd1bfb35916 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -554,21 +554,6 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
-                      __entry-&gt;value)
- );
-
--TRACE_EVENT(amdgpu_runpm_reference_dumps,
--           TP_PROTO(uint32_t index, const char *func),
--           TP_ARGS(index, func),
--           TP_STRUCT__entry(
--                            __field(uint32_t, index)
--                            __string(func, func)
--                            ),
--           TP_fast_assign(
--                          __entry-&gt;index = index;
--                          __assign_str(func, func);
--                          ),
--           TP_printk(&quot;amdgpu runpm reference dump 0x%x: 0x%s\n&quot;,
--                     __entry-&gt;index,
--                     __get_str(func))
--);
- #undef AMDGPU_JOB_GET_TIMELINE_NAME
- #endif
-
---
-2.34.1
-
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Let's drop this patch: the amdgpu_vm_*_ptes events already contain all the =
+info I need.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Pierre-Eric</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Monday, June 3, 2024 4:12 PM<br>
+<b>To:</b> Pierre-Eric Pelloux-Prayer &lt;pierre-eric@damsy.net&gt;; Koenig=
+, Christian &lt;Christian.Koenig@amd.com&gt;; Pelloux-Prayer, Pierre-Eric &=
+lt;Pierre-eric.Pelloux-prayer@amd.com&gt;; Deucher, Alexander &lt;Alexander=
+.Deucher@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freed=
+esktop.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 1/2] amdgpu: add the amdgpu_vm ptr in the vm_bo_=
+map/unmap events</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 03.06.24 um 13:52 schrieb Pierre-Eric Pelloux-P=
+rayer:<br>
+&gt; Hi Christia,<br>
+&gt;<br>
+&gt; Le 03/06/2024 =E0 11:58, Christian K=F6nig a =E9crit&nbsp;:<br>
+&gt;&gt; Am 03.06.24 um 10:46 schrieb Pierre-Eric Pelloux-Prayer:<br>
+&gt;&gt;&gt; These 2 traces events are tied to a specific VM so in order fo=
+r them<br>
+&gt;&gt;&gt; to be useful for a tool we need to trace the amdgpu_vm as well=
+.<br>
+&gt;&gt;<br>
+&gt;&gt; The bo_va already contains the VM pointer the map/unmap operation =
+<br>
+&gt;&gt; belongs to.<br>
+&gt;&gt;<br>
+&gt;<br>
+&gt; Indeed, I've missed that. I'll fix that in v2.<br>
+&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Pierre-Eric Pelloux-Prayer <br>
+&gt;&gt;&gt; &lt;pierre-eric.pelloux-prayer@amd.com&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 20 ++++++++=
+++++--------<br>
+&gt;&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp;&nbsp;&nbsp=
+; |&nbsp; 8 ++++----<br>
+&gt;&gt;&gt; &nbsp; 2 files changed, 16 insertions(+), 12 deletions(-)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h <br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&gt;&gt;&gt; index f539b1d00234..c84050d318d6 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&gt;&gt;&gt; @@ -243,10 +243,11 @@ TRACE_EVENT(amdgpu_vm_grab_id,<br>
+&gt;&gt;&gt; &nbsp; );<br>
+&gt;&gt;&gt; &nbsp; TRACE_EVENT(amdgpu_vm_bo_map,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_PROTO(struct am=
+dgpu_bo_va *bo_va,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_PROTO(struct am=
+dgpu_vm *vm, struct amdgpu_bo_va *bo_va,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va_mapping *mapping),<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(bo_va, map=
+ping),<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(vm, bo_va,=
+ mapping),<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_STRU=
+CT__entry(<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(struct amdgpu_vm *, vm)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(struct amdgpu_bo *, =
+bo)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(long, start)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(long, last)<br>
+&gt;&gt;&gt; @@ -255,22 +256,24 @@ TRACE_EVENT(amdgpu_vm_bo_map,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_fast=
+_assign(<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;vm =3D vm;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;bo =3D bo_va ? bo_va-&gt;bas=
+e.bo : NULL;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;start =3D mapping-&gt;start;=
+<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;last =3D mapping-&gt;last;<b=
+r>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;offset =3D mapping-&gt;offse=
+t;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;flags =3D mapping-&gt;flags;=
+<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_printk(&quot;bo=
+=3D%p, start=3D%lx, last=3D%lx, offset=3D%010llx, <br>
+&gt;&gt;&gt; flags=3D%llx&quot;,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __entry-&gt;bo, __entry-&gt;start, __entry-&gt;last,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_printk(&quot;vm=
+=3D%p bo=3D%p, start=3D%lx, last=3D%lx, <br>
+&gt;&gt;&gt; offset=3D%010llx, flags=3D%llx&quot;,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __entry-&gt;vm, __entry-&gt;bo, __entry-&gt;start, __entr=
+y-&gt;last,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;offset, __entry-&gt;flags)<br>
+&gt;&gt;&gt; &nbsp; );<br>
+&gt;&gt;&gt; &nbsp; TRACE_EVENT(amdgpu_vm_bo_unmap,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_PROTO(struct am=
+dgpu_bo_va *bo_va,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_PROTO(struct am=
+dgpu_vm *vm, struct amdgpu_bo_va *bo_va,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va_mapping *mapping),<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(bo_va, map=
+ping),<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_ARGS(vm, bo_va,=
+ mapping),<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_STRU=
+CT__entry(<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(struct amdgpu_vm *, vm)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(struct amdgpu_bo *, =
+bo)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(long, start)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __field(long, last)<br>
+&gt;&gt;&gt; @@ -279,14 +282,15 @@ TRACE_EVENT(amdgpu_vm_bo_unmap,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_fast=
+_assign(<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;vm =3D vm;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;bo =3D bo_va ? bo_va-&gt;bas=
+e.bo : NULL;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;start =3D mapping-&gt;start;=
+<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;last =3D mapping-&gt;last;<b=
+r>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;offset =3D mapping-&gt;offse=
+t;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;flags =3D mapping-&gt;flags;=
+<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_printk(&quot;bo=
+=3D%p, start=3D%lx, last=3D%lx, offset=3D%010llx, <br>
+&gt;&gt;&gt; flags=3D%llx&quot;,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __entry-&gt;bo, __entry-&gt;start, __entry-&gt;last,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP_printk(&quot;vm=
+=3D%p bo=3D%p, start=3D%lx, last=3D%lx, <br>
+&gt;&gt;&gt; offset=3D%010llx, flags=3D%llx&quot;,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __entry-&gt;vm, __entry-&gt;bo, __entry-&gt;start, __entr=
+y-&gt;last,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;offset, __entry-&gt;flags)<br>
+&gt;&gt;&gt; &nbsp; );<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c <br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt;&gt; index 3abfa66d72a2..e04928d2e26a 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt;&gt; @@ -1642,7 +1642,7 @@ static void amdgpu_vm_bo_insert_map(stru=
+ct <br>
+&gt;&gt;&gt; amdgpu_device *adev,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_vm_is_bo_always_vali=
+d(vm, bo) &amp;&amp; !bo_va-&gt;base.moved)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+vm_bo_moved(&amp;bo_va-&gt;base);<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo_map(bo_va, mapping);<br=
+>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo_map(vm, bo_va, mapping)=
+;<br>
+&gt;&gt;&gt; &nbsp; }<br>
+&gt;&gt;&gt; &nbsp; /* Validate operation parameters to prevent potential a=
+buse */<br>
+&gt;&gt;&gt; @@ -1834,7 +1834,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_dev=
+ice <br>
+&gt;&gt;&gt; *adev,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del(&amp;mapping-&gt;list)=
+;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_it_remove(mapping, &a=
+mp;vm-&gt;va);<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping-&gt;bo_va =3D NULL;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo_unmap(bo_va, mapping);<=
+br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo_unmap(vm, bo_va, mappin=
+g);<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (valid)<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_ad=
+d(&amp;mapping-&gt;list, &amp;vm-&gt;freed);<br>
+&gt;&gt;&gt; @@ -1929,7 +1929,7 @@ int amdgpu_vm_bo_clear_mappings(struct <=
+br>
+&gt;&gt;&gt; amdgpu_device *adev,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp-&gt=
+;bo_va =3D NULL;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_ad=
+d(&amp;tmp-&gt;list, &amp;vm-&gt;freed);<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo=
+_unmap(NULL, tmp);<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo=
+_unmap(vm, NULL, tmp);<br>
+&gt;&gt;<br>
+&gt;&gt; That bo_va is NULL here is probably a bug and should be fixed.<br>
+&gt;<br>
+&gt; Would something like this work?<br>
+&gt;<br>
+&gt; &nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo_unmap(tmp-&gt;bo_va, tmp);<br>
+&gt; &nbsp;&nbsp;&nbsp; tmp-&gt;bo_va =3D NULL;<br>
+&gt; &nbsp;&nbsp;&nbsp; list_add(&amp;tmp-&gt;list, &amp;vm-&gt;freed);<br>
+<br>
+It's not 100% accurate because only parts of the mapping is unmapped, <br>
+but yes I think that should work.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt; Pierre-Eric<br>
+&gt;<br>
+&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Insert partial mapping befor=
+e the range */<br>
+&gt;&gt;&gt; @@ -2056,7 +2056,7 @@ void amdgpu_vm_bo_del(struct amdgpu_devi=
+ce *adev,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_de=
+l(&amp;mapping-&gt;list);<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+vm_it_remove(mapping, &amp;vm-&gt;va);<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping=
+-&gt;bo_va =3D NULL;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo=
+_unmap(bo_va, mapping);<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace_amdgpu_vm_bo=
+_unmap(vm, bo_va, mapping);<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_ad=
+d(&amp;mapping-&gt;list, &amp;vm-&gt;freed);<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry_safe(mappin=
+g, next, &amp;bo_va-&gt;invalids, list) {<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
 </html>
 
---------------E7JDn7L56MiS6cLgnfgEmcAm--
+--_000_DM8PR12MB54312493D65D96DAD273D65F8DFA2DM8PR12MB5431namp_--
