@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D22C27C54
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 21:57:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 429C9C27C52
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 21:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCFBA10EACD;
-	Thu,  6 Jun 2024 21:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2AF10EACE;
+	Thu,  6 Jun 2024 21:57:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ef/LO3OR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QZsKdrMa";
 	dkim-atps=neutral
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF41410EACA
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 21:57:04 +0000 (UTC)
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7594010EACA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 21:57:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X7KJXP/xtbPL+Z5X3LfoivsvTi2hE8UDq7+dC9q30qa/daO0vtwJ0fn19zWkaI8TDpjp965Gu6YOznd+nF22ttlBu2pXMfq9DJT1ZbyINMEQbrIcLcoP4YZOEVDvqfHGhNdP6HbrneEaon9+BOTOnzgLAeVM18HjuS1Bk672YiXJ5ZThqKBY41FF3ZQflx+T0XhwfZwbqDUSryFzIPk5pjH/2JmTQx7ozDIHzxXvvwkXS1TGKqnJl6h1goDDvz4lnEAGd+yRNiCDQIR0ciyRjbpA0nhebjd3zGe50SfJtIv8cgObV1QLFvLE8yEC54W7qNQqtAkc8BworS+NMyyk4w==
+ b=hUbdMCYxR7o0rew0OW6CI98EF8TCzbP0T7sNIIiwA99PLPH92scBiZVrfVVe5JiAV5Qj6lXQ+vKHdLWuU0XoBv2tuYcxJPxpyg9wR1Zh98a2Wl7+okIemrpG8QHU69QZOByZzHzwksFbIn4VDpKyIhqDFJXPNblGPBC+YpXw7H0/nRihMr0m6iL5DLK6g8/S+IRwD4lRloeEq3S4QJUGBrxx7OOMJPlmoePNZBkYr9qTowbLFzuUsBnlleljdbruuehW1chqhaFmqfObX4j45wjyY2u40vhOAAK01U8Pzh/49ejLsr8nSEIlL1I9tFdKyb3TvABG9ccZ9PdKs4PsJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GhwieTqQQkSY+rUh4k9d+8+zY5klkmYNm9LBwG+mQSw=;
- b=gpZS1/P4uY37FO0KhVSci67td11w2xZNHm5dQmJae9qUV4AGgyU92i+cJTTwlAd7m/+uEo1/QnyWzTPxVAZ7k+AfjcNsHbpnYcCMvt26af4akV8/f5ZoHfQsvAW4Y/gRWIJxsepWOqsxNwuVEbYweHOPRF1o0wT9Ma//5w5qderf5QpqK9Ywudv3HmLAhgvDl+1NQHDsrcOvWzxN3Wj7bSfC6F3ejRhSC5f1N/ua+j9EePUPK7Cac1088dMJd8pj3OXHupApbtrrGJ94iePtOB+efzC92DPbpb38hZQjoz3e5k8jthvRe9S+FZLlRgJ6TevWFCEApR48Rk7Gn7uKRQ==
+ bh=r02KKUZ6BklxQwDg3bT3+f0qD85cG/iWiE5ffTXYynw=;
+ b=Ui2QqtJRA5uEIsUNXOs64IyoQ3XgA9QeIzuD07WnnUYdt2RNgLENI77hsEeJNBG8cGqqT8hz67Tbm3wdfkPEfrpg4k4emIYZ423o/HUUcl2DnjO/l0fMKI5S72JPKyDObTS2hC7Ks0ZQ0EVCVAbCb0NfsdETata50oWfRdWKrFX2vcNEP42dupVml2VE/j/b9Kflql6oVia3PAorRuW75qjaZjQQdQHK0KRJfML26ZTThQrLIdG+ma8FrLBdfGgk6PEY0UxF2MgbKboWQidRPD/LZH8rUm7PecJmBtOiv/qOAHonEBAZmfmKqRjM4V/IKpO9hqx7BxA0FKYsDMxJ/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GhwieTqQQkSY+rUh4k9d+8+zY5klkmYNm9LBwG+mQSw=;
- b=Ef/LO3ORObD7/J+VnkOYi/6HA5vRNAWe1fIWuSW1O19HXpt2VZr4kXiSHTTvVwFC2wQYjJ29MXRc1O90ma6B8hIhO2QyXPl3y+svcB49rZaxKAyazgXNzz5oOTODsNqRQ6ya8ARvVqeTxxt5oeH92hINhdS08AKndMHaI/iOf6k=
-Received: from MN2PR15CA0054.namprd15.prod.outlook.com (2603:10b6:208:237::23)
- by MN0PR12MB5956.namprd12.prod.outlook.com (2603:10b6:208:37f::16)
+ bh=r02KKUZ6BklxQwDg3bT3+f0qD85cG/iWiE5ffTXYynw=;
+ b=QZsKdrMa3ENKhyPgifLCqUooHQMCxdY+ah1N6kAjGTQGx6ZOMjKndeQ1BbU+ESjg79tKiPvB1s3w0vK85WuEU+GYlXqWuA7HypbXpyKvyGkgyBWFrZtQKTIGFsEyeNeRUannVxrapT4FqgmhHsPmgkA+kP0Il/I9njlFiHwlvN4=
+Received: from MN2PR20CA0016.namprd20.prod.outlook.com (2603:10b6:208:e8::29)
+ by BY5PR12MB4242.namprd12.prod.outlook.com (2603:10b6:a03:203::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.22; Thu, 6 Jun
- 2024 21:56:59 +0000
-Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
- (2603:10b6:208:237:cafe::55) by MN2PR15CA0054.outlook.office365.com
- (2603:10b6:208:237::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.19 via Frontend
- Transport; Thu, 6 Jun 2024 21:56:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.33; Thu, 6 Jun
+ 2024 21:56:58 +0000
+Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
+ (2603:10b6:208:e8:cafe::8d) by MN2PR20CA0016.outlook.office365.com
+ (2603:10b6:208:e8::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.17 via Frontend
+ Transport; Thu, 6 Jun 2024 21:56:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 21:56:59 +0000
+ 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 21:56:57 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 6 Jun
- 2024 16:56:58 -0500
+ 2024 16:56:56 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
-Subject: [PATCH 07/67] drm/amd/display: add odm_slice_rect parameter in spl_in
-Date: Thu, 6 Jun 2024 17:55:32 -0400
-Message-ID: <20240606215632.4061204-8-zaeem.mohamed@amd.com>
+ <jerry.zuo@amd.com>, Dennis Chan <dennis.chan@amd.com>
+Subject: [PATCH 05/67] drm/amd/display: Fix Replay Desync Error Test
+Date: Thu, 6 Jun 2024 17:55:30 -0400
+Message-ID: <20240606215632.4061204-6-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240606215632.4061204-1-zaeem.mohamed@amd.com>
 References: <20240606215632.4061204-1-zaeem.mohamed@amd.com>
@@ -75,50 +75,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|MN0PR12MB5956:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e485189-aa9e-41c3-0ef6-08dc8673972c
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|BY5PR12MB4242:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67934dd9-69b2-4f13-fdd1-08dc8673962d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|82310400017|36860700004|1800799015|376005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jQMfEQo6dvsfFy93/KI0Mlp/sTab9XuPI3rYLNSkKaQrtKHK3YcLfMr7GMGT?=
- =?us-ascii?Q?Zq4l/h+ValCZwDrYZxOGXPas7WDQ0jwi7xcjm534SkhEDQnhPAn1sDI1/1rV?=
- =?us-ascii?Q?Dekg5x/jBceczUJoefTNou4qBSrbPGsOJp/tnm6zryEGZW6M2elcZxuK6N+W?=
- =?us-ascii?Q?YNYDyXAStn7Kp0h4ZtRelLhDPzo3rsoGSNQbH8rQhdC6blHqo0dVod4q7lU0?=
- =?us-ascii?Q?BERMZEv0wB15Gje7aRnCBVdNnMsGgEpvPUSmE/ycubg41pv0gBrcqBtMpEu+?=
- =?us-ascii?Q?L2mK4JS62s5lWGrd2Rcp6s4VcO4etKObVWwMXkKWe6Yi7c/2dF6dBbt5zhNE?=
- =?us-ascii?Q?eZhpZmip+Xm2FzK7+zQYX74PGzj2yLIk8m8I7Cbwz/OYhba4B6fMjW/WhBdH?=
- =?us-ascii?Q?trPU6ew5/DM0AHzSbGTm7MXBjhWGe+LwXIeUVgAOqooaAvqfujZyYK9R1DDo?=
- =?us-ascii?Q?yn6xSbbhmdw+QwguS9Lni8WOvHoBwErwKgzu9BQpMDYcscEnvC4YPQsoflrQ?=
- =?us-ascii?Q?JA2EURwaHx6CVp8RmD9RUsczCUuVz3dH2IxN9k8KPXzNOZoc+ZF3+W1oFSbR?=
- =?us-ascii?Q?D61sWQZb0EOvQA1R9w4LM9tKtERCIZD0DVhI4/oWC8UknAKhlpK6gyKhv9GN?=
- =?us-ascii?Q?0qswEyee9nhoE8gRdFcuhHJAQ/SBO7J0d1Nl5kUClmyRX/eGV4T4u9Ec5jFN?=
- =?us-ascii?Q?q7QUxT6989akd23yXi+0pew6ZrfQ7X3jWikOuC3TJFA9okZSGcXHny//K63j?=
- =?us-ascii?Q?e6G3e+rUy/br9I+onWFQG15jifVMmvUA4MIV6Ss0DLkGwuIdGBoQJpCF+Jbf?=
- =?us-ascii?Q?wDdMzFT6bqnklZJDjLPmNwgMP/ujpnc8fzVfQ+zMKdeNnjh0j/k21AZ4b74R?=
- =?us-ascii?Q?9t+Bgf1fBnEaiwn7I9kZssbqfcRy0N4YYgmPwBGIcr6J5dquvYynI9czyExz?=
- =?us-ascii?Q?FAwNvaPUcMTrqWgNz9zWxzbfcTHoQbmx7lGN/gx1bqNOU5RxnmJZS1Ip0Det?=
- =?us-ascii?Q?88eBf82S+QfAjyY/u5D7czpzhPt1qOxC5kwEOEJDdq9z9ct9fm7MfCW0469e?=
- =?us-ascii?Q?4lyULwMld1FQ5RkLkKBYQyL16Rn70YaSXsnCY8drRKmwJit6ltWESLSjxsso?=
- =?us-ascii?Q?sWzj/wA3siFt+xOl/2umYHIeyFIDbG69DuQiWhTUkB1XpfRunw8hJEr08sFK?=
- =?us-ascii?Q?M9/4i0SymS27YQJroR1bolDa8TuahtH7/rXzfMSAcZEBvEbk2TOsTrRrbiWL?=
- =?us-ascii?Q?WPsKgQ0Ofk+VWJvlvQ1MVi47kXJfJRue6WM1zUwRewpUPS0qSUxnQ5E1uljL?=
- =?us-ascii?Q?q55N2YpLHXlb/3yKmaZQ6w7xIWLwybEPeo8poHGggyA9B0VN4K+pzuhHJhTB?=
- =?us-ascii?Q?WEK9rgSsfCj6CR7RNz+POAZMlKtv+zDkLMXQpNNEm8B6SBYOaA=3D=3D?=
+ ARA:13230031|1800799015|376005|36860700004|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?byiHKOqugnmKflot47ij8IYFj2T/y4SxiJI3TZFxJUHjvqvwVSXAgNbWG6de?=
+ =?us-ascii?Q?xF3PUHytdw5HjCBCyB5TnTO+PU6+N9EmtSmHEbJl3qeRjxd27USEXA6K2k3s?=
+ =?us-ascii?Q?B4uW8TvordDWOC4zKikCY/06TRfdizaVwXNXR7d8pR6MzcUWTZAlUQhDcoq8?=
+ =?us-ascii?Q?5vC5mLcjhZYfpNUbrXcnezkaqHGGTDFsOi8f9TvRjtVQjKhnlyRrQtsSB6QX?=
+ =?us-ascii?Q?9tDKxATRZcC7aJ6/z3ZL89rafYciPXVBIWzDSf0yoCg/cthKaif4OKBdZX8C?=
+ =?us-ascii?Q?LlCDVkosrKAFwLE9cywUFI7bjlpTDnBrD9LP1AEIvaJxjXuC23Usbln59eoE?=
+ =?us-ascii?Q?dAzMmS+hcBCpj6SdSoeZNBFgkxq1wI6/NWOjdUhga76+XYh81QMQWazKmHeb?=
+ =?us-ascii?Q?5l+aXUXdxtU88MiLWfNWR/ekd+5wJki5Z0JrIKP2Q0E6n2lCiNMfoGJtGLSs?=
+ =?us-ascii?Q?2XiI9YfNz1RopnJp53vmvUHDmNQRGO+QUm8b39wCryZcfCcGhVQnNleE2TbY?=
+ =?us-ascii?Q?3vlLewehQGFBdhaDk2kpy/kBKjLVQOgVOrAggIZfAvGbhbiJgX+0c/3U73k6?=
+ =?us-ascii?Q?5Wjshi8LaAgWYFs6lMuMkECaXCNRTFkumF1ziaeb7qYrAKt7jlsntkMZkOQw?=
+ =?us-ascii?Q?YIeYhF513kN2MVXH4xBI1eROCQASmBLyGvjaZTvRjK8zuIQYko7EaqThf+cC?=
+ =?us-ascii?Q?RzQe0m+8l7IArQ5KV2pC4HUlhc1PJjcu1dw7DdsoHXMdZJgSU5Uxx3Ry7TAI?=
+ =?us-ascii?Q?etwVHLO2n9jazkv4SIAAINT0RoNuAvmPnRvsuc6pHisAP779NrSEhCqbwCuM?=
+ =?us-ascii?Q?+Fqssr+L1N4v7rBDv+QsArFi9qp3XAevvOXT1aXh18EXYBhNANp16UJs9L0W?=
+ =?us-ascii?Q?RRSH1rlQetCd1DdbkhmOTAEP7bBpV1Z8Ks5CkoDN1+zGotrSAuGVs31jijlB?=
+ =?us-ascii?Q?ZrgUNoh+wbuxRNfBoOHqJLoEuSQM69sGZysXrjz15gF0xEjRYhaMKhqkq93C?=
+ =?us-ascii?Q?GIdurh9L9OLo83EqDC3+JdrmOnwUUvj8zQ4sqqEPbRHyOUKlCpHnD/yS3ERS?=
+ =?us-ascii?Q?8EBhhrOfksNxTmPHwNrGiJ1m8Cx5m3MXUe8Kg69G83Ww5OLxUEn2CCD0ZNE7?=
+ =?us-ascii?Q?L1t4A+BG4fQcm025XV2GWO45cu4IcPfDr9BDZxnky060N4pjRNMTjASseZIE?=
+ =?us-ascii?Q?sZkQWS51vzluA2X7NEHkMT4+3QcCuaT3qFDdqDr+wfnKsXEc9mww83bszTO7?=
+ =?us-ascii?Q?UpGK+8a0DegEJFRIWD65VQJTijvC4KoXT9a4flOTbd6jRiDtwZ6b4/TFTToH?=
+ =?us-ascii?Q?7Y+q7M/uaIB2djH1/Mpm2NsPgCfcwQi5XXs/Ns3Ar/ME/wA7AJPVDhBfUKT5?=
+ =?us-ascii?Q?/t0DE0O87ROCqcDD836W37vmwcma2kbDMvKVjU5OmDwHrdFQ6g=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(82310400017)(36860700004)(1800799015)(376005); DIR:OUT;
+ SFS:(13230031)(1800799015)(376005)(36860700004)(82310400017); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 21:56:59.4750 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e485189-aa9e-41c3-0ef6-08dc8673972c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 21:56:57.7944 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67934dd9-69b2-4f13-fdd1-08dc8673962d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB54.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5956
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4242
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,111 +133,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Dennis Chan <dennis.chan@amd.com>
 
-[why]
-OPP input rect aka odm slice rect is a hardware dependent parameter that
-can't be determined by SPL software logic. Therefore we need to
-explicitly pass odm slice rect in. So ODM slice rect calculation is
-moved out of SPL.
-
-[how]
-add odm_slice_rect parameter in spl_in
+When PHY power off, the DP_SEC_CNTL cannot be configured and cause
+disable Adaptive sync SDP failed. Regarding the issue, the driver will
+disabled AS-SDP in replay state machine.
 
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Dennis Chan <dennis.chan@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dc_spl_translate.c |  5 ++-
- drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   | 35 ++++++++++++-------
- .../gpu/drm/amd/display/dc/spl/dc_spl_types.h |  3 +-
- 3 files changed, 28 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-index bc760448a378..582606319764 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-@@ -70,6 +70,8 @@ void translate_SPL_in_params_from_pipe_ctx(struct pipe_ctx *pipe_ctx, struct spl
- {
- 	const struct dc_plane_state *plane_state = pipe_ctx->plane_state;
- 	const struct dc_stream_state *stream = pipe_ctx->stream;
-+	struct rect odm_slice_src = resource_get_odm_slice_src_rect(pipe_ctx);
-+
- 	// Assign the function to calculate the number of partitions in the line buffer
- 	// This is used to determine the vtap support
- 	switch (plane_state->ctx->dce_version)	{
-@@ -112,7 +114,8 @@ void translate_SPL_in_params_from_pipe_ctx(struct pipe_ctx *pipe_ctx, struct spl
- 	else
- 		spl_in->basic_in.mpc_combine_v = resource_get_mpc_slice_index(pipe_ctx);
- 
--	spl_in->basic_out.odm_combine_factor = resource_get_odm_slice_count(pipe_ctx);
-+	populate_splrect_from_rect(&spl_in->basic_out.odm_slice_rect, &odm_slice_src);
-+	spl_in->basic_out.odm_combine_factor = 0;
- 	spl_in->odm_slice_index = resource_get_odm_slice_index(pipe_ctx);
- 	// Make spl input basic out info output_size width point to stream h active
- 	spl_in->basic_out.output_size.width =
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-index 9c6171e90163..ac58991eebbc 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-@@ -170,22 +170,31 @@ static struct spl_rect calculate_odm_slice_in_timing_active(struct spl_in *spl_i
- 	bool is_last_odm_slice = (odm_slice_idx + 1) == odm_slice_count;
- 	int h_active = spl_in->basic_out.output_size.width;
- 	int v_active = spl_in->basic_out.output_size.height;
--	int odm_slice_width = h_active / odm_slice_count;
-+	int odm_slice_width;
- 	struct spl_rect odm_rec;
- 
--	if (spl_in->basic_out.use_two_pixels_per_container && (odm_slice_width % 2))
--		odm_slice_width++;
--
--	odm_rec.x = odm_slice_width * odm_slice_idx;
--	odm_rec.width = is_last_odm_slice ?
--			/* last slice width is the reminder of h_active */
--			h_active - odm_slice_width * (odm_slice_count - 1) :
--			/* odm slice width is the floor of h_active / count */
--			odm_slice_width;
--	odm_rec.y = 0;
--	odm_rec.height = v_active;
-+	if (spl_in->basic_out.odm_combine_factor > 0) {
-+		odm_slice_width = h_active / odm_slice_count;
-+		/*
-+		 * deprecated, caller must pass in odm slice rect i.e OPP input
-+		 * rect in timing active for the new interface.
-+		 */
-+		if (spl_in->basic_out.use_two_pixels_per_container && (odm_slice_width % 2))
-+			odm_slice_width++;
-+
-+		odm_rec.x = odm_slice_width * odm_slice_idx;
-+		odm_rec.width = is_last_odm_slice ?
-+				/* last slice width is the reminder of h_active */
-+				h_active - odm_slice_width * (odm_slice_count - 1) :
-+				/* odm slice width is the floor of h_active / count */
-+				odm_slice_width;
-+		odm_rec.y = 0;
-+		odm_rec.height = v_active;
-+
-+		return odm_rec;
-+	}
- 
--	return odm_rec;
-+	return spl_in->basic_out.odm_slice_rect;
- }
- 
- static void spl_calculate_recout(struct spl_in *spl_in, struct spl_out *spl_out)
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-index 49c866a558f6..201201d3f55b 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-@@ -436,7 +436,8 @@ struct basic_out {
- 	struct spl_size output_size; // Output Size
- 	struct spl_rect dst_rect;	// Destination Rect
- 	struct spl_rect src_rect;	// Source rect
--	int odm_combine_factor;	// ODM Combine Factor determine by get_odm_splits
-+	int odm_combine_factor;	// deprecated
-+	struct spl_rect odm_slice_rect; // OPP input rect in timing active
- 	enum spl_view_3d view_format;	// TODO: View format Check if it is chroma subsampling
- 	bool always_scale;	// Is always scale enabled? Required for getting SCL_MODE
- 	int max_downscale_src_width; // Required to get optimal no of taps
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+index 958a927d0cea..62e03fdf813b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+@@ -362,6 +362,18 @@ static void dmub_replay_send_cmd(struct dmub_replay *dmub,
+ 		cmd.replay_set_pseudo_vtotal.data.vtotal =
+ 			cmd_element->pseudo_vtotal_data.vtotal;
+ 		break;
++	case Replay_Disabled_Adaptive_Sync_SDP:
++		//Header
++		cmd.replay_disabled_adaptive_sync_sdp.header.sub_type =
++			DMUB_CMD__REPLAY_DISABLED_ADAPTIVE_SYNC_SDP;
++		cmd.replay_disabled_adaptive_sync_sdp.header.payload_bytes =
++			sizeof(struct dmub_rb_cmd_replay_set_pseudo_vtotal);
++		//Cmd Body
++		cmd.replay_disabled_adaptive_sync_sdp.data.panel_inst =
++			cmd_element->disabled_adaptive_sync_sdp_data.panel_inst;
++		cmd.replay_disabled_adaptive_sync_sdp.data.force_disabled =
++			cmd_element->disabled_adaptive_sync_sdp_data.force_disabled;
++		break;
+ 	case Replay_Msg_Not_Support:
+ 	default:
+ 		return;
 -- 
 2.34.1
 
