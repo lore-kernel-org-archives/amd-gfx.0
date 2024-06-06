@@ -4,74 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 244CCC25B75
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 07:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 259C6C25B75
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 07:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B477510E1AA;
-	Thu,  6 Jun 2024 07:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B65B10E848;
+	Thu,  6 Jun 2024 07:21:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KwAZ8Tgz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BcqQ0nRX";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8537910E1AA
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 07:14:09 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-35dc04717a1so448415f8f.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Jun 2024 00:14:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717658047; x=1718262847; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WfypkI0pzT42yS2Q9g7SCsGGaWy8S15KlVB/w9dfYWk=;
- b=KwAZ8TgzX//yD6oH8AkJ/49ZU4dNpZn6TOMAMXZCPV+fs7tZNkXR/8pNVp10RSVv6l
- 2CGcoDD91Tjra4eAACPZA9hSp58cb9gjAy31vwjuh3wkAdoOW/YLQd9P9h84HCbw7SRR
- gTU/wuKpBKNLOAMZWDyIxEMRV6RuyUzukXOoM5ZuWXHE3xCdp/B/bzQZYuEcwJjNj9R3
- MuJjSnFbaWDmFENTi2O4S47MjlUohkV5Q4onQ5CyH0nFhcYju0KjUsscM8spkw6oao+3
- cYeDfby2amNB3VNgP/f59P5VJL4qHT4ThcbXA+5iCbLoF5JipVvA54Z/EwsluuDteBp8
- TpvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717658047; x=1718262847;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WfypkI0pzT42yS2Q9g7SCsGGaWy8S15KlVB/w9dfYWk=;
- b=oWjotn05R5iIATZj2o70b2+tZza+Elw0VOQBN1wkG+VqBfLFxuVkdLP2Q4b8f/DPK2
- IiVJi8dS+3w1QRc486ltkGLvobeq12vUKqS2aJXQn4wt+902R0IHpnrDBIs1vTXWB4lF
- ETV5rrsClsB6D5eJO9+73/y+oSOAL9Tz+OjEa6LNxJ4QHszOEqePZ0qIGDeQhG9sgtas
- Ui/YjGRs/aYkI2Akyr/Nzx+Nm1cZt9O3XwGH0TIEjlgWs+vixpsS72Nlh2hVJiFSB32H
- eeL59Gln+tl9q+HHavJdHpZ9A2gVL7+6ykL+aF7DFS7yUjYa7tsz1XH/RDgJD+Y2jhmS
- Kspg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWbMi7xpEC3Kz/mDoR8wG4h9SRs8wcTpYiry4Ujsc7xASwg49sLBAhEuR2dI0p5o6KvcROe0EOFKRUsJD2A3G4ImBYmef+siyxUTEo8LA==
-X-Gm-Message-State: AOJu0YwB9NIg6yyI9+0afwZrvPzA2Z2uRMYLiTfY5RDLHgTNKOQjDvdx
- bq5J1lXLOs3Zln3YFATVn3wdDQXB2tAN9SKUlcQl5PjYuht/945xvYaOg2dG
-X-Google-Smtp-Source: AGHT+IHmPozTJ7PbxDt9kEQrmLdkyiO5IGC78z+BqzOHayQEj2JRz6ABit6NSLYmfLYTCbTdeHnopQ==
-X-Received: by 2002:a05:6000:b82:b0:354:f474:6f68 with SMTP id
- ffacd0b85a97d-35e8ef8fe88mr4023943f8f.54.1717658047295; 
- Thu, 06 Jun 2024 00:14:07 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35ef5d29abdsm766036f8f.20.2024.06.06.00.14.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jun 2024 00:14:06 -0700 (PDT)
-Message-ID: <28e46920-df2b-4b0b-b67c-b3750195f2d7@gmail.com>
-Date: Thu, 6 Jun 2024 09:14:05 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B52610E848;
+ Thu,  6 Jun 2024 07:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1717658475; x=1749194475;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=QD4Dh8MLYOkud3AMPflq2aHwK8HUP7fobAgy/H0UKDA=;
+ b=BcqQ0nRXN3UAaO9qo0VPfA2KsOWeVHlICYIqwd54oYo+eleSDegNwMJR
+ +wP2hiBwT6aJVnFebrXMcnTldiTL+Zl/fAIuCnksEvSYSk1W8ndpZGlY0
+ 3Z8iNPgWppeAXZCbayuuXmh3t7PuJQ2bCYOSx7eTP2mvCeT387672ymBQ
+ PJeTCaH6iad9jaRfPi8N57OS40qiCLkVjXEDh/vj6BKxSYZvv+8PuJxav
+ D8hXulxfsN56znX+9K7zqtgvDCe9tWa3TazSui9bkNG8nKz2oA0tDj7Nf
+ c2lP6xtgSP5u648EixLgjlG7gHeG6cCfGaLYw2VWmJpVq6KDDyTEdYQ0T w==;
+X-CSE-ConnectionGUID: dHA8hGtdTh+SAW7B2LypOA==
+X-CSE-MsgGUID: AS7ViU6ZRECGw9KBOLZ43Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="14147841"
+X-IronPort-AV: E=Sophos;i="6.08,218,1712646000"; d="scan'208";a="14147841"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2024 00:21:14 -0700
+X-CSE-ConnectionGUID: v/EJ7GX4RJOkNXeZvA21Fg==
+X-CSE-MsgGUID: dO3Tae8ZQJKIx4SLwrVfQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,218,1712646000"; d="scan'208";a="42794382"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.9])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2024 00:21:10 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Chris Bainbridge <chris.bainbridge@gmail.com>, kernel test robot
+ <lkp@intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ hughsient@gmail.com
+Subject: Re: [PATCH v2] drm/client: Detect when ACPI lid is closed during
+ initialization
+In-Reply-To: <ZmB_cs-7GU-m3GXX@debian.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240528210319.1242-1-mario.limonciello@amd.com>
+ <202406040928.Eu1gRIWv-lkp@intel.com> <ZmB_cs-7GU-m3GXX@debian.local>
+Date: Thu, 06 Jun 2024 10:21:07 +0300
+Message-ID: <87h6e6bkpo.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] amdgpu: don't dereference a NULL resource in sysfs
- code
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20240603084729.15135-1-pierre-eric.pelloux-prayer@amd.com>
- <20240603084729.15135-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240603084729.15135-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,96 +76,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.06.24 um 10:46 schrieb Pierre-Eric Pelloux-Prayer:
-> dma_resv_trylock being successful doesn't guarantee that bo->tbo.base.resv
-> is not NULL, so check its validity before using it.
+On Wed, 05 Jun 2024, Chris Bainbridge <chris.bainbridge@gmail.com> wrote:
+> On Tue, Jun 04, 2024 at 10:02:29AM +0800, kernel test robot wrote:
+>> Hi Mario,
+>> 
+>> kernel test robot noticed the following build errors:
+>> 
+>> [auto build test ERROR on drm-misc/drm-misc-next]
+>> [also build test ERROR on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.10-rc2 next-20240603]
+>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>> And when submitting patch, we suggest to use '--base' as documented in
+>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>> 
+>> url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-client-Detect-when-ACPI-lid-is-closed-during-initialization/20240529-050440
+>> base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+>> patch link:    https://lore.kernel.org/r/20240528210319.1242-1-mario.limonciello%40amd.com
+>> patch subject: [PATCH v2] drm/client: Detect when ACPI lid is closed during initialization
+>> config: i386-randconfig-053-20240604 (https://download.01.org/0day-ci/archive/20240604/202406040928.Eu1gRIWv-lkp@intel.com/config)
+>> compiler: gcc-9 (Ubuntu 9.5.0-4ubuntu2) 9.5.0
+>> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240604/202406040928.Eu1gRIWv-lkp@intel.com/reproduce)
+>> 
+>> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+>> the same patch/commit), kindly add following tags
+>> | Reported-by: kernel test robot <lkp@intel.com>
+>> | Closes: https://lore.kernel.org/oe-kbuild-all/202406040928.Eu1gRIWv-lkp@intel.com/
+>> 
+>> All errors (new ones prefixed by >>):
+>> 
+>>    ld: drivers/gpu/drm/drm_client_modeset.o: in function `drm_client_match_edp_lid':
+>> >> drivers/gpu/drm/drm_client_modeset.c:281:(.text+0x221b): undefined reference to `acpi_lid_open'
+>> 
+>> 
+>> vim +281 drivers/gpu/drm/drm_client_modeset.c
+>> 
+>>    260	
+>>    261	static void drm_client_match_edp_lid(struct drm_device *dev,
+>>    262					     struct drm_connector **connectors,
+>>    263					     unsigned int connector_count,
+>>    264					     bool *enabled)
+>>    265	{
+>>    266		int i;
+>>    267	
+>>    268		for (i = 0; i < connector_count; i++) {
+>>    269			struct drm_connector *connector = connectors[i];
+>>    270	
+>>    271			switch (connector->connector_type) {
+>>    272			case DRM_MODE_CONNECTOR_LVDS:
+>>    273			case DRM_MODE_CONNECTOR_eDP:
+>>    274				if (!enabled[i])
+>>    275					continue;
+>>    276				break;
+>>    277			default:
+>>    278				continue;
+>>    279			}
+>>    280	
+>>  > 281			if (!acpi_lid_open()) {
+>>    282				drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
+>>    283					    connector->base.id, connector->name);
+>>    284				enabled[i] = false;
+>>    285			}
+>>    286		}
+>>    287	}
+>>    288	
+>> 
+>> -- 
+>> 0-DAY CI Kernel Test Service
+>> https://github.com/intel/lkp-tests/wiki
 >
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-
-Please make sure that checkpatch doesn't complain about anything.
-
-With that done the patch is Reviewed-by: Christian König 
-<christian.koenig@amd.com>
-
-Regards,
-Christian.
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 63 +++++++++++-----------
->   1 file changed, 33 insertions(+), 30 deletions(-)
+> The failed config has CONFIG_ACPI_BUTTON=m. The build failure can be
+> fixed with:
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 1eadcad1856d..6faeb9e4a572 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1594,36 +1594,39 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
->   	u64 size;
->   
->   	if (dma_resv_trylock(bo->tbo.base.resv)) {
-> -
-> -		switch (bo->tbo.resource->mem_type) {
-> -		case TTM_PL_VRAM:
-> -			if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
-> -				placement = "VRAM VISIBLE";
-> -			else
-> -				placement = "VRAM";
-> -			break;
-> -		case TTM_PL_TT:
-> -			placement = "GTT";
-> -			break;
-> -		case AMDGPU_PL_GDS:
-> -			placement = "GDS";
-> -			break;
-> -		case AMDGPU_PL_GWS:
-> -			placement = "GWS";
-> -			break;
-> -		case AMDGPU_PL_OA:
-> -			placement = "OA";
-> -			break;
-> -		case AMDGPU_PL_PREEMPT:
-> -			placement = "PREEMPTIBLE";
-> -			break;
-> -		case AMDGPU_PL_DOORBELL:
-> -			placement = "DOORBELL";
-> -			break;
-> -		case TTM_PL_SYSTEM:
-> -		default:
-> -			placement = "CPU";
-> -			break;
-> +		if (!bo->tbo.resource) {
-> +			placement = "NONE";
-> +		} else {
-> +			switch (bo->tbo.resource->mem_type) {
-> +			case TTM_PL_VRAM:
-> +				if (amdgpu_res_cpu_visible(adev, bo->tbo.resource))
-> +					placement = "VRAM VISIBLE";
-> +				else
-> +					placement = "VRAM";
-> +				break;
-> +			case TTM_PL_TT:
-> +				placement = "GTT";
-> +				break;
-> +			case AMDGPU_PL_GDS:
-> +				placement = "GDS";
-> +				break;
-> +			case AMDGPU_PL_GWS:
-> +				placement = "GWS";
-> +				break;
-> +			case AMDGPU_PL_OA:
-> +				placement = "OA";
-> +				break;
-> +			case AMDGPU_PL_PREEMPT:
-> +				placement = "PREEMPTIBLE";
-> +				break;
-> +			case AMDGPU_PL_DOORBELL:
-> +				placement = "DOORBELL";
-> +				break;
-> +			case TTM_PL_SYSTEM:
-> +			default:
-> +				placement = "CPU";
-> +				break;
-> +			}
->   		}
->   		dma_resv_unlock(bo->tbo.base.resv);
->   	} else {
+> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+> index b76438c31761..0271e66f44f8 100644
+> --- a/drivers/gpu/drm/drm_client_modeset.c
+> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> @@ -271,11 +271,13 @@ static void drm_client_match_edp_lid(struct drm_device *dev,
+>                 if (connector->connector_type != DRM_MODE_CONNECTOR_eDP || !enabled[i])
+>                         continue;
+>
+> +#if defined(CONFIG_ACPI_BUTTON)
+>                 if (!acpi_lid_open()) {
+>                         drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
+>                                     connector->base.id, connector->name);
+>                         enabled[i] = false;
+>                 }
+> +#endif
+>         }
+>  }
 
+No. This is because
+
+CONFIG_DRM=y
+CONFIG_ACPI_BUTTON=m
+
+The pedantically correct fix is probably having DRM
+
+	depends on ACPI_BUTTON || ACPI_BUTTON=n
+
+but seeing how i915 and xe just
+
+	select ACPI_BUTTON if ACPI
+
+and nouveau basically uses acpi_lid_open() it if it's reachable with no
+regard to kconfig, it's anyone's guess what will work.
+
+
+BR,
+Jani.
+
+
+
+-- 
+Jani Nikula, Intel
