@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9780C25B75
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 10:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A9CCC25B75
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jun 2024 12:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D06B10E8B9;
-	Thu,  6 Jun 2024 10:06:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1724E10E91B;
+	Thu,  6 Jun 2024 12:03:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t7PXoHTN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xCTYHl7h";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8382010E8B9
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 10:06:06 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8582110E91B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jun 2024 12:03:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AEau4KXVW/9hZqz0ekf9sZqVD6cRXs744wIILtnMFJwaXFV8kchqvRPbC6kc3ho/XkG+d+dJKRS8Up41lRmvArUy+NCAiHaaS9b60IujNFkF1NJgnRPs8rjWLTN09U+fOHKDlDVnhQagdw7rJZxYjwaC0p54NcLHcUEBE5QyE3Gijqdpl4B1wkaE58j7BRRvhJ45uyM6kJjouOQfmtkNpCOXVabA4cVXPDOHdpBn+3q8TAqPqDimk3s7OAbpbqqJKnXO97g7spAXk/6L7zqGi+cgIoJQb1tBlZbTD/Z/QmXteDK6dd5J1+LCV2zuYHx8tNHjHzA1gdGNQdCrw5vJcg==
+ b=Hp7reVTrQw6TBTC64yuB4to/rOhFy/L8X+6+rxD6X+5/GApPCu5cwpvjeFOnS5H3UqKudr9GilTse+ExyFL/frUf0MdSc3ysui2A5gtk/9HsT/Z1TQj5d8pDRqpVKebvIhv0ukapRQucF9q6k/j6Jtog3LjXSloqA1UBTRZxERM4J0YL9z5kE2qktZPNol0u6blb3KLqxnviG0+KPhi5kd5Jf1bbAi4xy58SF1fa/l36nOR81uxIkVpwRPVhOotxwIOlMkfy6PwCfh6CJ6o/umWyGSlyduZC/vsrGMt/GCEv13hOyrFh2iN5JIawyCgWzy5vmqDw2zgFGFX62shEOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Te4huNxWAgq/l8qle3NA7HwEcZhEOiGz2QZWCe0RH8M=;
- b=lSg3BX3D7UbQ03y8jouBdP9bXBSQUnXAk2X2/SRRoiCLIgxOTaUgOVoFuAsZUe0sz9Mc6oUhU6id/x9v9NxVCbdWcvPM5S7iMbIbBbB2VfkGAIuZiQj0eYVwhiYWT7WyniLuUQxN7YVZH5jA2vJr8QgLf5AtXR28AK9PLxBNfH8RrB8A9miF0EeWaptSzrY+r9ZAC4wfOPQUXt63C7iOBTbLKipXDOJizSs43E8Ly0cPR9T8f2D4FtleEyZT5yJlynK6wXNBzEyMcD7rg8b8w1pxeaUpFNYXCJPpGsZ3No0y7juhPnq77q22mIesputPOUppD4LeYbfrmhQzcptFfQ==
+ bh=BQOWMIuTPDv1hBYgOsTLiV8dpi/Nv2CBH1vhP8EV+TQ=;
+ b=Ol3cfpf2eD0ewS9bvhR4eOmo1aHvnKSheqBluUhZJprfSm7XJyNOxZ3gMu4rWtW9E7U5ASQ51b4ABG58op1suMWvfaUWANlPkqJnDUYqHrp6Dq+InXrYNBtQ7zSJobJlnrXn5vVa5Nxq1P1H30w0jM5oQdPoeFIg3ZUE5eaKxDNWW2N/izR4eiwDO2S7VDGaV40Nc/SnpxNl7BFbR/fVCuTNk3CDUs8zfIDR6z8cLLpR+bWaClz+z0exsT8nnJ66Cm7yqAy9PtYlIPcTU52SxO1Y389CpDfSO0MCfvQde7fu9qAfmP0nQtBMpx7RBSHgADvKOHxGrLvPUf/7I3ICeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Te4huNxWAgq/l8qle3NA7HwEcZhEOiGz2QZWCe0RH8M=;
- b=t7PXoHTNTA2/TNzSqD0joeMf/Cn4sKij1EF3zzumpY2DGmyBsBEbAmYZz3Avu5qJh2voBAzEdd5RBrzUYNv4Cw5eX9jB2Dxtl7hY80vc87F2G98GsK8wqojHTVnHiYEXq8fo4AGPR/C+gytVzNoBsEYjdgcs1rt3nmD6ucGfzdA=
-Received: from BLAPR03CA0027.namprd03.prod.outlook.com (2603:10b6:208:32b::32)
- by IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
+ bh=BQOWMIuTPDv1hBYgOsTLiV8dpi/Nv2CBH1vhP8EV+TQ=;
+ b=xCTYHl7h+PPJXpPijTET/AoxaQQdLCSR9pHcurAZ+1pwdPK2tstNw52nNUkxKYM2LBp/0tVgii2gEbk/IrO40PzxuGY7AzG+9dS7NenwoAZAWMlTpVrzyBE1QLdJ9ytQe/l4DSgNHjAXr+sysvuE9VG6qL4Oy6cRBsgW5oEDACw=
+Received: from SJ0P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::24)
+ by PH8PR12MB6819.namprd12.prod.outlook.com (2603:10b6:510:1ca::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31; Thu, 6 Jun
- 2024 10:06:03 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:208:32b:cafe::a9) by BLAPR03CA0027.outlook.office365.com
- (2603:10b6:208:32b::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.31 via Frontend
- Transport; Thu, 6 Jun 2024 10:06:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.34; Thu, 6 Jun
+ 2024 12:03:51 +0000
+Received: from SJ5PEPF000001CB.namprd05.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::38) by SJ0P220CA0012.outlook.office365.com
+ (2603:10b6:a03:41b::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.16 via Frontend
+ Transport; Thu, 6 Jun 2024 12:03:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
+ SJ5PEPF000001CB.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 10:06:03 +0000
-Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 6 Jun
- 2024 05:06:01 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
+ 15.20.7633.15 via Frontend Transport; Thu, 6 Jun 2024 12:03:50 +0000
+Received: from harish-base-compute.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Thu, 6 Jun 2024 07:03:49 -0500
+From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: update check condition for SMU mode1 reset
-Date: Thu, 6 Jun 2024 18:05:47 +0800
-Message-ID: <20240606100547.22269-2-tao.zhou1@amd.com>
+CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Indicate CU havest info to CP
+Date: Thu, 6 Jun 2024 08:03:37 -0400
+Message-ID: <20240606120337.435058-1-Harish.Kasiviswanathan@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240606100547.22269-1-tao.zhou1@amd.com>
-References: <20240606100547.22269-1-tao.zhou1@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,50 +70,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|IA1PR12MB6435:EE_
-X-MS-Office365-Filtering-Correlation-Id: be8761aa-439b-4db6-6bb4-08dc8610466d
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CB:EE_|PH8PR12MB6819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08d84670-876c-4ee3-485b-08dc8620babd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230031|376005|36860700004|82310400017|1800799015; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0VP8G4gewIoltuHUxvuz2F4J0DN8JLtYWPnZuZUTkF4v5OG95meGde8PYIDL?=
- =?us-ascii?Q?5V2bkgZYIpMz1iFixX7A+waS6KaVFglt60c5tXlZngpHSxJV6cSO7/6RDXt0?=
- =?us-ascii?Q?txDC7+v/nA+agRwxDEkvRlvQJ3kkvKSrQgy7AkJUfwpmJY3cBXjiGaGZz+I+?=
- =?us-ascii?Q?WnCy39j8ilvrWqvC4xtZJ5snUkr2Hz06lKQRYFR/9PZZcDwhvup9SqMdCUBU?=
- =?us-ascii?Q?SMpHf2eWE6MnY71RCVcpinRla+coeKHZsneKCIrlelCuGOYozz6vuWvkT0tu?=
- =?us-ascii?Q?7W07nYlw1EYzJIJ7w07hDkuVVODlS5fHMTZ02SsrtO39lJyaaqHn2NmTI7Ez?=
- =?us-ascii?Q?NEYnUEauBZHgcbDShtwcQkYYXYPIXGI0fMpMLz0u2ofRUNGWZFHG4e4MDz4x?=
- =?us-ascii?Q?CFBgdS37iTAiLDkoxKcm1fLTP0kN9OaWf/DrFXGqGCdVcBlEluL9UAi2FzKF?=
- =?us-ascii?Q?br9Mt9nhSIgEl2pDZptaDmsF5BBYnhyLhhS2RIvIIX2YCwJeof1U6PHUDJGs?=
- =?us-ascii?Q?cmhWVRNM1W6FvVX1ib1G3nZqgMRUwKOpX/3D00lv7CfwR3npkxvvk6M6mrbz?=
- =?us-ascii?Q?VQnWpMET7cufW9Lg/z7mPgM8GI6Pm/kD5GPtJyry6ii7mMFpB+Yf+cLHefrg?=
- =?us-ascii?Q?D5t7HwJKuavTnS4oZR5oCLNxTo4jQgGhq63+W4jJUX06bBK+gOm4x4uTah4o?=
- =?us-ascii?Q?uBMxfAibguGyQkAmxdmkRIo6k7JzLNl4jsmP7wP0UKerxkMfXTTBiQT0r14+?=
- =?us-ascii?Q?6CoExr9i7RuQDUPhJno2SgGfer6OZQQd3aR0x39UmuEguLHZcPV9PwE87R20?=
- =?us-ascii?Q?Sm6q3BjcARtV6a5fehwFe/b0eaXbLbI0VXvH92p6dmg6Q0reoIURrrjmLOwy?=
- =?us-ascii?Q?fD4VkDwiZJreGz8buBTeZjcJJovHSUFx82PmIBOhcpmOuD6ox7C5HYdLVRLp?=
- =?us-ascii?Q?Q0dceP1ywemrDTHH8CJev06BCQ83UkefNaXgESq0GgF09hegof/o4jPwCkD5?=
- =?us-ascii?Q?4vzXemFTGNNiEu0vvwUSm+8f1/ypwX4gPyd6y/PUNi+hFiE+mI4c3QKkVal2?=
- =?us-ascii?Q?yxP/peSPmmeSGr3jmZ/eeb9eAjoZHAtvDoj2kNbv68Km+SgVxr1PWTXCVKWh?=
- =?us-ascii?Q?gKt8fEkWDyQ/axu1NCqbz/asJSbuW8TevfLL27QU8I5pkOFDH8e7Ouh+8yFC?=
- =?us-ascii?Q?WUpE6vGb/6w68aULHYziwSW7inRtydZ32PPKH140WW/DiLcjSTWs7BRoRziy?=
- =?us-ascii?Q?Q/itzPcfE5SXut1Du2AWPQZwxB5lUzrYtqokjRC+TUOqsKtl1mNCZ6n4PE18?=
- =?us-ascii?Q?5b6JxpncNqi3HFnrJ1psyV/p9pBlsh9lXlFuGm1jqWrM0+v1p20dOxV4dE0I?=
- =?us-ascii?Q?EhC+vTigSjAZUh7MkNEQF+f2zyMPT5hNrcSSNAioHlCfR9I5cA=3D=3D?=
+ ARA:13230031|36860700004|1800799015|376005|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?teSz6aHfko0bEAykXHIGjA8zy/+0tjL0xPLEqY+/t0aozaYGWl76j45L7lcu?=
+ =?us-ascii?Q?3lxDWu/gmYbIt41krqCMCGIb2yWwgnGNhAI0bnH2oyyeSsWN1sEOvYxF8rOr?=
+ =?us-ascii?Q?nbonA47GyfTdVMS2ldYLJqsI5ys6oj9/gIVEPLfF+CzUlKgWLbPkAZIgPgSe?=
+ =?us-ascii?Q?M3HHBuJK7T6YlSzRbK+zlXycVxbhZ9K/LDegoOfcUdQeIBPzEHF+2JFRFo7n?=
+ =?us-ascii?Q?nt8bRbcwKaog+HiLtnjeXem84Ecwk3i3f86jcSqdnZXbKXUtH7u31cp+7Y3/?=
+ =?us-ascii?Q?6KwpWjJAZ/lUF8N5S/SoYOz3yksPnlA2puz3Y0PLwfnakgyFQ8HUmxUsbmB9?=
+ =?us-ascii?Q?jzzdSOUi00LchrdF8fK2dIlmhQi0xgKTOA/TBk8zXkao++RQ9rPpUYNbeMn1?=
+ =?us-ascii?Q?raxCFEo0C+Q0xI0GS1a3BXVbSmb8xdlsWxpZj+zPTGQqtcHAJjSw6tFQFr0l?=
+ =?us-ascii?Q?YXEj6/A3uLqUqXFJLRycKT3kinIYkq/MfOeCtFfSGJ1g8BGTuKTSYdnVzc3e?=
+ =?us-ascii?Q?J3a0gZNnY0OWAtZDQDiTEOG6O1U/oZakDK2gadoMxKz4IayXSUY0LxpLxC+3?=
+ =?us-ascii?Q?hXcMjkRNTubobQ8oIS4qc/ynvvk82dLdOOQRm+e9ZJu0fJTRk26k0KFpdXg1?=
+ =?us-ascii?Q?CvyJOfj5wkcb1XQ97k7T2Ra4yHkvPo6AS+VcmPnLsixR36Bs6ojEioIehxtv?=
+ =?us-ascii?Q?TKl1c474IFNVboeoJ1ES0TEhKA4HhfkNEJI0hMR1rYMg8LPPzpl9gPZ8GWto?=
+ =?us-ascii?Q?L5C7z2iPwy2JBQ+b0Lsfxv+1xDr0s0N1fsnjWjc2CpNrlvGwMwbnGjilxvIP?=
+ =?us-ascii?Q?T9zObmWhRnauvl+CDfAkS4izDtFUd3CF0WQOeKFkuP+V8T4UmyLHJyn9iXCy?=
+ =?us-ascii?Q?0TDfOWPHy41lIDiIx3eUrDFnGeX/LWokiSqEuS1CTt/+qN4yUedfPkbY/7ti?=
+ =?us-ascii?Q?xiW7jh7/rp4l0+X6HKlUcSWV2Rr9t2pLLqwoFULciKHVPsj4w+08QlpPXS4M?=
+ =?us-ascii?Q?f0Bw78C10hNVlNTC0urwn7qlcAsVI61cLbkH8e9C8YRIyJ813EeWkEjOoO/W?=
+ =?us-ascii?Q?IZhvIzv6RIF4s+LLIRBJV/I8FEevC7RJHErSeJzUJPpE55lJzUnPaEBp4X9F?=
+ =?us-ascii?Q?ddFRY5qbl3zPvqnN1mTZEOeM0u8t4OpVkcxTUCxXvMOFLm8+yvKij6SNU1Lj?=
+ =?us-ascii?Q?eW1x+V2bUFOvPT5nzV2X/bz22nYl/jU907szjj/+ImYUgDr0Gsvet9wm6P4O?=
+ =?us-ascii?Q?mOyVZFrUDcoBN7gIGlj4YzVY0cdus65dcmDcwNHpuaQBVuuA7fFmYSx7YWxE?=
+ =?us-ascii?Q?5BaH1F/ZBcE6pfakA5SGtZVTY7hChUJq1cXLwqGyNO56LHhkbhw3fe7yJ3D9?=
+ =?us-ascii?Q?eerzK40/PRVJwUVB6KSXsQ+oPIZ5fNbpxd7qy4bdmZmC4b/EwQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(376005)(36860700004)(82310400017)(1800799015); DIR:OUT;
+ SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 10:06:03.8317 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be8761aa-439b-4db6-6bb4-08dc8610466d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2024 12:03:50.8247 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08d84670-876c-4ee3-485b-08dc8620babd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6435
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,54 +128,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fed status does indicate RAS fatal error.
+To achieve full occupancy CP hardware needs to know if CUs in SE are
+symmetrically or asymmetrically harvested
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+v2: Reset is_symmetric_cus for each loop
+
+Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c   | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 04533f99f1e3..2c35eb31475a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -1876,7 +1876,7 @@ static int aldebaran_mode1_reset(struct smu_context *smu)
- 		/* fatal error triggered by ras, PMFW supports the flag
- 		   from 68.44.0 */
- 		if ((smu->smc_fw_version >= 0x00442c00) &&
--		    amdgpu_ras_in_recovery(adev))
-+		    amdgpu_ras_get_fed_status(adev))
- 			fatal_err = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index aecc2bcea145..d50dd6f4472a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -4203,9 +4203,10 @@ static u32 gfx_v9_4_3_get_cu_active_bitmap(struct amdgpu_device *adev, int xcc_i
+ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
+ 				 struct amdgpu_cu_info *cu_info)
+ {
+-	int i, j, k, counter, xcc_id, active_cu_number = 0;
+-	u32 mask, bitmap, ao_bitmap, ao_cu_mask = 0;
++	int i, j, k, prev_counter, counter, xcc_id, active_cu_number = 0;
++	u32 mask, bitmap, ao_bitmap, ao_cu_mask = 0, tmp;
+ 	unsigned disable_masks[4 * 4];
++	bool is_symmetric_cus;
  
- 		param |= (fatal_err << 16);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index d1766a603bb9..c9639141792f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2788,7 +2788,7 @@ static void smu_v13_0_0_set_mode1_reset_param(struct smu_context *smu,
- 	struct amdgpu_device *adev = smu->adev;
+ 	if (!adev || !cu_info)
+ 		return -EINVAL;
+@@ -4223,6 +4224,7 @@ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
  
- 	if ((smu->smc_fw_version >= supported_version) &&
--	    amdgpu_ras_in_recovery(adev))
-+	    amdgpu_ras_get_fed_status(adev))
- 		/* Set RAS fatal error reset flag */
- 		*param = 1 << 16;
- 	else
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index c1d7528a6dc8..7fda7196fa7c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -2580,7 +2580,7 @@ static int smu_v13_0_6_mode1_reset(struct smu_context *smu)
- 	param = SMU_RESET_MODE_1;
- 
- 	/* fatal error triggered by ras, PMFW supports the flag */
--	if (amdgpu_ras_in_recovery(adev))
-+	if (amdgpu_ras_get_fed_status(adev))
- 		fatal_err = 1;
- 
- 	param |= (fatal_err << 16);
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (xcc_id = 0; xcc_id < NUM_XCC(adev->gfx.xcc_mask); xcc_id++) {
++		is_symmetric_cus = true;
+ 		for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+ 			for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
+ 				mask = 1;
+@@ -4250,6 +4252,15 @@ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
+ 					ao_cu_mask |= (ao_bitmap << (i * 16 + j * 8));
+ 				cu_info->ao_cu_bitmap[i][j] = ao_bitmap;
+ 			}
++			if (i && is_symmetric_cus && prev_counter != counter)
++				is_symmetric_cus = false;
++			prev_counter = counter;
++		}
++		if (is_symmetric_cus) {
++			tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_DEBUG);
++			tmp = REG_SET_FIELD(tmp, CP_CPC_DEBUG, CPC_HARVESTING_RELAUNCH_DISABLE, 1);
++			tmp = REG_SET_FIELD(tmp, CP_CPC_DEBUG, CPC_HARVESTING_DISPATCH_DISABLE, 1);
++			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_DEBUG, tmp);
+ 		}
+ 		gfx_v9_4_3_xcc_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff,
+ 					    xcc_id);
 -- 
 2.34.1
 
