@@ -4,149 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F1A0C27C53
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jun 2024 08:10:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70C49C27C53
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jun 2024 08:33:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14F2B10E29C;
-	Fri,  7 Jun 2024 08:10:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14EBE10E0C1;
+	Fri,  7 Jun 2024 08:33:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ShVi+VJh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y2RJ/L8U";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2051.outbound.protection.outlook.com [40.107.95.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE66C10E29C
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jun 2024 08:10:35 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA27210E0C1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jun 2024 08:33:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LGmI66x2Al0sAsitrNB/xJXSJnJYMM3ih6ImKWZiDchIkNBRnRZKAXangpRkUiXx1uyHDS25BBWFWK66o+9FEAlEBqqNds2u5HMMcLvPzulK6rqhD7GLDNUZg09lueAlsz0VG1rEeDkVG9Z23CnoWnaILd/Y4ig3HCuubrbS3rjY1DxX6vXP1YgF7gKTcKvxIlEIYOKOtQK4TWA16R5d/ELXKEZThnXW6w2fJJ+7207gY9Szh9RE17fDw1djhDiLdVH+hfQN+us95GS9qF/hlx40AdI2QUbn+BF5OegOloJxzEkNaoNZMpo23QkQCX/AiUFGjjxfavmTWK8wwzYycg==
+ b=VOF+rRWWUt/LOfhsfakinNDjnhnTJwBTocgCEXRB0/ueRkSOtQa8tD4ite50bFuGdVz+Znsm11bWNc2+3dzqOS8FrrVRjhR2Jx8btKn9jf5TvpBG9zKZqwHkfMEE4co/9p6Gq+pmU3HeQvc7H+cFUr5wevxosQa1c23O64SpnjyrmbowtgDTV+wuf7pw2+VFV/hJzhWzzlfAvkwx6svV7dM9R/evF2wkrs+6b1h509Uaub4s85O1VqqdZ+xNbJKTvxhQKQmkdoSEk69yOsKAC0qQVUL4zwblOi1dWpbTUih2Sisecjk0tqQG5Amawcwl5kdtHIkHjN9815WmpWZ6/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LQddRWt26tD032imnbVdTOdhVTJpbp2Rjd9t5QLRXzs=;
- b=LYrlSnNK9EMhhWDPYSajvER9aiIiGb6Uo/lgdR9/hlFQB4eEHq/wzZ0FjgWOG0KqU3PLUzYkJgO1U5p3rZv1u+Yj6h2+npiTXGIlfPR/wdmtR4Iwz17d7YCuAgkVSOmUuRgWbgmWT3mEqNgaOpo5lNYH32SrGKd3QQ2V/w68iL7cnRD53H78OJU5SkcYXV8YrZVluUI287FSO6a4Ayjgq8pqntp6bqZog/aXS2tXRarW5JugyxtLF9486qQ1RmiAAWZdX3k7+ube0lubJp8ZbJwuhaQvbNATyO5SkfNGvi9qddryT8JlEuZN5Q5iR4ax0sORj4k8Wc3Fzf+gmPurbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=qZFLpBbfiOJe1UdGknJYqOmUHoInPp22Vzb6/l59xFI=;
+ b=QPIHWXzXQoRxHXCo9ULJTE4pw9wRyTA44DfLm/9hZy46WWHXshDvWP8vjicrWpwwRL6mw/i2AHg7nQmZEz7qzKATmKyex9P+d7HblSlp7HhTNASw/eE1nY4U7nBASEIFHCmTw9yp9tne1sTQUX33tzH1elYCHbF3REGBwZ3OE1f5aZdyFwZzZ6eWWdxQrNqj0Ai1f9T+gxfA8v83wf0x8OZkf/vv3PeOUIGJ5rFmb3PYQVtJoSaNswSE0MqLLDmLffNIN6mYDdWm2pYFS741go5Q/MUlQ1AcPTZhQjZcju+0k3ReYxG5KTw4m5mv/bmDsfEymekVGZl5si8wJ34BCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LQddRWt26tD032imnbVdTOdhVTJpbp2Rjd9t5QLRXzs=;
- b=ShVi+VJhtxN4bYoIRXrMTiVNQ041zPVQPt1n7xE0D7phsx72OQpOfaRMO+vCrJwDQzJ3qSK/4APgDg6r7aPHXATO+3NrgDj7PNHNvEPjdwfIcoPJhl5YZT+K/cYPKvimRF8WvF6+UxzOI+5+u+wLcMJ+oQb15njln3fSO1lH7zo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB6485.namprd12.prod.outlook.com (2603:10b6:8:c6::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7633.21; Fri, 7 Jun 2024 08:10:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7633.021; Fri, 7 Jun 2024
- 08:10:31 +0000
-Message-ID: <c0c030a2-e9ae-4d1f-8181-337e54631677@amd.com>
-Date: Fri, 7 Jun 2024 10:10:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Fix the BO release clear memory warning
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, tvrtko.ursulin@igalia.com,
- stable@vger.kernel.org
-References: <20240606200425.2895-1-Arunpravin.PaneerSelvam@amd.com>
- <a1c9e7f7-fd1d-4e48-abbe-0afea6c4c10b@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a1c9e7f7-fd1d-4e48-abbe-0afea6c4c10b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0390.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=qZFLpBbfiOJe1UdGknJYqOmUHoInPp22Vzb6/l59xFI=;
+ b=Y2RJ/L8UsWgaljA/i8JA/nPNemW4KBibhJpYGYJf55nqragitHDCUb2zWzf5vass/vp1Ls4qv7kTlEV0fhz9bhfHe4x0mQ/VHFHblWNgeR1ZZNSgnKZCL8Zzl21TAYY20itgydtDsPLjuDkcsng6q6ZB+UXbV2IrsspNk0LpgbA=
+Received: from CH2PR08CA0022.namprd08.prod.outlook.com (2603:10b6:610:5a::32)
+ by MW6PR12MB8706.namprd12.prod.outlook.com (2603:10b6:303:249::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.34; Fri, 7 Jun
+ 2024 08:33:40 +0000
+Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
+ (2603:10b6:610:5a:cafe::57) by CH2PR08CA0022.outlook.office365.com
+ (2603:10b6:610:5a::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.21 via Frontend
+ Transport; Fri, 7 Jun 2024 08:33:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Fri, 7 Jun 2024 08:33:39 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 7 Jun
+ 2024 03:33:39 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 7 Jun
+ 2024 03:33:38 -0500
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Fri, 7 Jun 2024 03:33:37 -0500
+From: Bob Zhou <bob.zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Tim.Huang@amd.com>, <jesse.zhang@amd.com>
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>, Bob Zhou
+ <bob.zhou@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: fix overflowed constant warning in
+ mmhub_set_clockgating()
+Date: Fri, 7 Jun 2024 16:33:35 +0800
+Message-ID: <20240607083336.65752-1-bob.zhou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB6485:EE_
-X-MS-Office365-Filtering-Correlation-Id: 146d4654-b16f-4102-cf2e-08dc86c94c66
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|MW6PR12MB8706:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f591bbd-81a9-4bf6-7ea9-08dc86cc8870
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|366007|376005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OXpTMzM0T0J2VWJjTGh6M2VhRWl5WmtFc1lCMHVQUi8vbmpPSU9oOWJ6aWV0?=
- =?utf-8?B?YVVvaFg0cmZubHdUV3dHOEw2dWNuaythdi9nL0NSYndDWUJDYkdYT21kcC9E?=
- =?utf-8?B?UHI3ODRsOU5xRld3bndXaC9Ka0dJSHpPWGZqdW1sNXIxKzlDd1dMNlBUQnl6?=
- =?utf-8?B?dVI2NkdYWTg2UVN3RGVORWExODFsSGtOb1RaQXgwZldONXVjUXMxQ3hZYnIv?=
- =?utf-8?B?T1lCbkFPQ3Q4UkpUd2draFVJV0d1dFdVMnBodlhLZXVPcnF1dWVnd0Exa3FT?=
- =?utf-8?B?eDFRT0padHpvbzhZY2oyNUQ0Vlc4UDdqOWYwajJhNnQzSWhtT3dzTDdVdVNE?=
- =?utf-8?B?M3pJUERyUm1aNjFiNk14RjAvLzJuRk0vVmVCLzdQaThpS1RhWXNlRk92SUJu?=
- =?utf-8?B?SHZONnVJSzBzZ0JYWDhoaUcyMmszNitTQkVXYk84K3J2OEd3T2w2VFZaM3p6?=
- =?utf-8?B?ZksyRHFHOEc4T0F5T0tWaUcxQ1NmZXBic1UvcmI2eTEzT0xXSlgrRFoyNG42?=
- =?utf-8?B?dW5jSWg4SUhIekpPcDdMMmp4UThwWUZBbWUrQVNDcDIwZ0FiZTZmMU1mMlFR?=
- =?utf-8?B?RndESVNqOHNKUGhhZkt2YlNuZ3BHTkp4WGhTVlZ4M0FjSC9vM1hMSTNoMXRW?=
- =?utf-8?B?U25ydm1abHZQenRTR0pVTDRhWFBvVElBRFNyYkFhNy9XNW5JRFdZM0pEOWwy?=
- =?utf-8?B?aFRFV2JVSUN3bGlCeWFpK2RXUExyOWdIRURCK3JxSHRqaHZzLzRTRCtza0F0?=
- =?utf-8?B?bVUyTUl5ejRzM3o5TUt3ekg0S1M5blUrMm1DdXVtZDBwUGxtWkduZFhUK096?=
- =?utf-8?B?eEZQZUFzbFp4YjMwcHU3YjdZOFVVdTBTT1hJQ1FjOHlFRU9EQTdRWVl5b0NW?=
- =?utf-8?B?UkRkZi96cXRvZElEYnIxM0Z1SFR2NmMvbyt5K3VTaTQrQXhXanZnditBSnVP?=
- =?utf-8?B?SVdJUHdMbHRzcTd0ZlpnWnFWUkVKTlNxeHRPajgzN3hCdGtqWFB2dGxhWWw3?=
- =?utf-8?B?VlpRanppRkV1MmN5UWlrR2g1ek5lWGVRS1oxSFBud1RxaERJS1M1UGlTcElK?=
- =?utf-8?B?clpPSDlyMlAxOElFd0UzKy9aZ3ZwN2svTEpIdFp4RjhSb1dMY1FxZitJdUJQ?=
- =?utf-8?B?TmVIaTdQbUcvTUg1dis4TWdCMHAwRk9JdENpOXB0cXVkWXptRGZFbG5FSk93?=
- =?utf-8?B?TXVVcXNNbzN2MU5oVGdoOWJGVm9ZekVIQU9QdXRnMzFyY1AzRWMxbjhCcFNh?=
- =?utf-8?B?R2hEMCsxZHV5YXJ3RVlabDdZM05oc1FzdmkzMVQ5K0V4WGtDK2hJTTdVdXV1?=
- =?utf-8?B?N0RyM1Z5bWkwNkg1UVNSdGJ0ajRac1FUS0ZnREs1QkZ1RVFBZlh3NkdRSkhv?=
- =?utf-8?B?anNuRUhKMGUxSUZlR0hIZGVQMFBUQ3RHT1hVbmRjVUp4cHV2ME5zdk5lY3pr?=
- =?utf-8?B?blpuZnh5QWNKekJJY2prdkh3N0RNT3dCd1FsV2NJaVRCK2oxb3ZZVnJQTUFm?=
- =?utf-8?B?TFA5Unl1QzQ2ZGl4Tmxyc0E3b3QyT2tXS2FJWXFPNkpHN3RTZUhBTlZXZzhV?=
- =?utf-8?B?MHpWdDFkckhWc0hlcWRPMGE0bnlOVWdCWjRUWnYwdjBZTGpQN0d2Y1JLVnJK?=
- =?utf-8?B?ZFNjS2Nab2N1aXBQMHBWM2YxNHQyckN0aDRpRTh6UzRZdUw0NUhOSmtjZjJu?=
- =?utf-8?B?emQ4M1ZJSVh4QmNoSmxXMGczck5jWVQvbm9UeG9hamhqV3FROGEyNGFvT2Jv?=
- =?utf-8?Q?dlBN0inxXgc07901NJep4ng+h23cx4qt497URJs?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(1800799015)(366007)(376005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmJvaEN6SXNCemlIR1l2ME9DOFI1TEN2dG50ZjFGRnFnM3pQWnlGbHJRU1cx?=
- =?utf-8?B?bk5lZ1NuUG5sSTBxb2U5d2dlWExycyt2MTdnV09HZnc2R04vNlBNQXZ6ZUZQ?=
- =?utf-8?B?bVc3bFZjWFZtRFRRTSttWVo4ODA5cTYwN24wN0d1Z3pNSzdQa1BhRUNBS3g5?=
- =?utf-8?B?Wk1IalRsSjlscit3UmpEeXljY1dZTUV4bm9tdkF0SnV5WUpiRG1zcDJZSks1?=
- =?utf-8?B?NmdCbXlnbTM1TTVRc25qNFd1bXJ0clZDMnNGd2xVVVEvTTJCNjdFU2hEYTRy?=
- =?utf-8?B?ajIvUDN4cVJnMmhjNE1DbWtCRVZZajR4REdTY1oyMWhxQVVqdWJOOGFObFBB?=
- =?utf-8?B?YjMvK0VQNFY5QTk5UUJWSTdwbUNKbG9GRnpjc0J6ei9rOWllWlZCY25WUWgr?=
- =?utf-8?B?L1FkelhxaDRjZkVhUzVXR1dvSmlPTW81clV0dXM0cWdHQWhOSjJJKzNzdXlK?=
- =?utf-8?B?Qm41ZzZaNGxHV25abElqL3Vtc0ovbm10YVRYYW5idjdWSXZQZ1lWVkdIT2xx?=
- =?utf-8?B?RzFGdjFtdDZTQ0VEVENMWHBiYVI5Z2I1WEhEUHRUcVhobDdJT0dFdVZIUWh6?=
- =?utf-8?B?eTBxSlowS3JKQVl2dUo4dGRQVm9LVmlxQ2toQnFZR3F6dldWZEtHRDJTUmxL?=
- =?utf-8?B?Q2ZKdGx2ZlczNlN0S3o1dnpMS3d5ZHFBNktBYlkwUE1mTnUzbHhmZjlrS09V?=
- =?utf-8?B?aXozbWFHU0ltUlJiWWhCL1FpQk5XeWVkNFhrdmNFOSsxdE5RUDdEWjgyQjJD?=
- =?utf-8?B?aTgxUUpMeGY4Y1ErUnQrdE44TFJMSzFvNGNLUkZGcDRWYVRQSjhweTkyamFs?=
- =?utf-8?B?SnRQbTNwSDZxNWgwVkx4S1krN3hhL3lVcjdOZlAvRE0xMmpvM2VDVVZoeEg4?=
- =?utf-8?B?SEU0anpYV0lMMEg4a0pPUjFvekNIaXBFUkhsMXliQUJraEYrMDkrK2VSdG85?=
- =?utf-8?B?RG0yTTllcTVIL1M3M25VZGxEOHdoUFR5eFRieGt3SGRlbldSZEF5eHFyOFNm?=
- =?utf-8?B?TUlwcmtRc0FxQXVtSzJVemRSWGlGaW5BSjVQdzdBU2szL0ZpWnZQUHU5TlF3?=
- =?utf-8?B?YVZoV2hRaWRYL2RyYnFzY1V6Z2xzQVNqWCsxT01yZ05ZTyt6Y3cycitRKzcv?=
- =?utf-8?B?QTRNQU9IWlQzbHE0V2VxbE9BSmVoaWpkZ09VTitkMjZLUVk1aVIrNzZPUFF2?=
- =?utf-8?B?dkVzVE1pRy9hNFZWQnB2ZVU1OWV3dWd5RkxQUHV1S1RmZnY5OTJHRU1aMmNv?=
- =?utf-8?B?MHRHQTZnRHZHRW1NSk4vTXA2bXRMUmR0d0htTW1jempqeHpPZWswcVZSSE5R?=
- =?utf-8?B?aDlsY2FFVXJvZUtpeHRXa1pZeFV1aTFYSk9ydFhhT1RuK1J4ejR4SjBhR25H?=
- =?utf-8?B?aC8rdzRkczlUU0NBSjFaeTNUTzI5L1NEWFRBZmxGRjFaY2YxRFMzbER5UHVN?=
- =?utf-8?B?cVlMNXd0WGZzMlZEUnZRdy92dFZvWDF5Tk9NVlpvQitMVFdlQi9KU3NES0FY?=
- =?utf-8?B?N2RhRERDR3MwSXo3QVVvL0o4ZG9UWmFkTkI2eHVVTmtuWmpxNnlGaXNIUW9h?=
- =?utf-8?B?ZHBsZXlzNE0vZ2phTFd2VFhuY2QwWGtsMzRMRmNoaUprcHFVQVAzdm1jZGxU?=
- =?utf-8?B?UlU2Zmc1THFtdkJhY3FHb01pQ2gvdXJ0bDlwNi9aMlJZaysxREluVFRqaElQ?=
- =?utf-8?B?SytJZ3dWeGdrWnhLYldPenR2SnpZVUp2Mjl5VVJ4Qkg1NCtNYmVXQThCQW9i?=
- =?utf-8?B?YjlabFlqcGFrTWZiSDJBTmY4amkvRFFpWnpyVmt0VjZHS1luZjRTRzhTZmdw?=
- =?utf-8?B?M1FLdW9DeGpQblRUVUhGWXREV3FnMWdUVlVXQlpSWWZ6T1dRbm1XQlpkNi8v?=
- =?utf-8?B?QXN1M3Q4WkdCQ0N5eUVxNW5VS3doQmpieXptOXgrUzBoek5oVWg0U0ZqTkVD?=
- =?utf-8?B?SEFyVjFOVE5sV2UrR29YTUNaZzdBZnJrRS9yQXo2MXRhZUpwYWlNalFObUxs?=
- =?utf-8?B?MXBBY3J6TFlFNFhhWXVRT0cyNnVIUXJGQUEvUGdmZnd2amV6MGdTN3JaY2cz?=
- =?utf-8?B?cFlzcnUxU0dhOHgyRHlWaXg3TzdMNlNWLytEMTYzbTZwRzRXdHQ0WTVlR1VR?=
- =?utf-8?Q?FqQ8Ff2FaFpR7wB5EjxEOcTlz?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|82310400017|1800799015|376005|36860700004; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Mog02fLXgVdgZw2raDd7DyPlWCdABr4PiE9CPAwUHBPH4HTSL8DrSYTxp8bb?=
+ =?us-ascii?Q?QyL8B7y1XycR/AUEwrM/HnAaO2ECpp/pqlkzqlm3wLVFxPTJoVy84T4vIoTc?=
+ =?us-ascii?Q?S8osvf7acedoaVloq73zjERewX3VUI7GYlz4QOqaj/igc17+LbK1IFvGcgsl?=
+ =?us-ascii?Q?dvFRngLTB4IjCIOuccTy961CMgJ+j8t2LxWFQjhsQpnLNJa0GNumAeTUF4sl?=
+ =?us-ascii?Q?vxgvAjkx7FawOx/RjLT3q3RRbVQ/mNd2NuoHXx/3Vw+Vsr/PxvZG82bKTK5C?=
+ =?us-ascii?Q?Xt8zOFzieH0k1dPVeuJ3JPaE2Gi/gIaMW8zuWaTIuOZ4+XgfE3kcxsP/ZJTR?=
+ =?us-ascii?Q?FdBSBlNo5XSXD2IN7VJ5XkKcpgmQ+SwrlqJLwx2TvDblqY1aDrT+BW56sKw7?=
+ =?us-ascii?Q?374IVYUzhyHNsDQMVBI3vhzvfgt0WkfaU8ujegUKgaHG+Z6hPeRhP+8g257/?=
+ =?us-ascii?Q?EU25j9jDbhIIi/B2hjk6o66j7cj55C49PyG14b3LoFA28ZsVBMId+ZkDk9g3?=
+ =?us-ascii?Q?KSBMJ4DxgRv/PlftnWZnnDakZ8CoEWcD+/88szpT2BaQ+DsMe7OG2uZAI8k+?=
+ =?us-ascii?Q?JrYSZhTBkIClBUZZvIV/NrgyF0axAy6v4KkYkFpRdvU6LnnmwR7G6jHStTH4?=
+ =?us-ascii?Q?a9wTyQz69sDUf/e6gt22TQQMi4niBXSi6IRJoiFTL+mFoLJT4M8NC+RiceBs?=
+ =?us-ascii?Q?+HRx0HWms4qTO9fRowDP632awFGDr0Wctkn1Os+biU7cShcqapUzAXnMPC2x?=
+ =?us-ascii?Q?6vvqBWrrzqLaHXEKnmzT71Xt5hzZngzJVgxj3WUzfIOTMWcrWB9cdHMa26bY?=
+ =?us-ascii?Q?zaHABnD9+MvLDth0bRrCQ+Rwk/Gqaud7vybDAAOaDEInM7IcNcYKN4Utr0vZ?=
+ =?us-ascii?Q?uTQxIKHybNnNEp4/ceT9aIfyzA8AF8FgS4bhVD64W33PSO5NHE/GNC9OnZ7S?=
+ =?us-ascii?Q?mrUiwKTAl39VCuG8eHu4rgvZ8Eo5ptxM7dx7MPnzH1cHB/pIQN1IvThCoSR5?=
+ =?us-ascii?Q?LZFooVhFM2QV+lP68Ngm8yQSrbuu6sn8Fj9cXtTJPuhyCFcKg88rhuw+5l5X?=
+ =?us-ascii?Q?uU2r2+YTRf8yRE8FvaNw/uw8gUKZP7y3aRbqZPwVSnn/ofsPB776pZZAVQWX?=
+ =?us-ascii?Q?58Xap6rBF79+9y+PkWZgLkoH7lDycEIZGpD5zrhBkGHUVbcEhMBUGmMs14LK?=
+ =?us-ascii?Q?ykZARLWPDFZ3Xr2w8J7nQ1dCQD4Q0JA6fIBsiCc3KthqwonraeFd1a2eWVSB?=
+ =?us-ascii?Q?QC1J/qC/1wEOS0UCrXrCNB9A/ZKHpgVuxpowlevFZueNiElK+BdGaJMqbj3/?=
+ =?us-ascii?Q?TOoAAIgYlnLBBaBwUveJr6puuwPEJljgIPhtj8fX/SheTo1wDxEQthFi2sxs?=
+ =?us-ascii?Q?9cHe01Bpm8hGtyOlA30Ozq8AS3uE51tDFzjdveE0XNbeOFGCxw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(82310400017)(1800799015)(376005)(36860700004); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 146d4654-b16f-4102-cf2e-08dc86c94c66
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2024 08:10:31.0598 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2024 08:33:39.9354 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f591bbd-81a9-4bf6-7ea9-08dc86cc8870
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W/V2KBVcBv0BrWQjMfaWut5hclSFzJbCbR+mnEtfEghz+yKoY7PefGZqbemPgo5F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6485
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8706
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,190 +134,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.06.24 um 22:19 schrieb Mario Limonciello:
-> On 6/6/2024 15:04, Arunpravin Paneer Selvam wrote:
->> This happens when the amdgpu_bo_release_notify running
->> before amdgpu_ttm_set_buffer_funcs_status set the buffer
->> funcs to enabled.
->>
->> check the buffer funcs enablement before calling the fill
->> buffer memory.
->>
->> v2:(Christian)
->>    - Apply it only for GEM buffers and since GEM buffers are only
->>      allocated/freed while the driver is loaded we never run into
->>      the issue to clear with buffer funcs disabled.
->>
->> Log snip:
->> [    6.036477] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to 
->> clear memory with ring turned off.
->> [    6.036667] ------------[ cut here ]------------
->> [    6.036668] WARNING: CPU: 3 PID: 370 at 
->> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1355 
->> amdgpu_bo_release_notify+0x201/0x220 [amdgpu]
->> [    6.036767] Modules linked in: hid_generic amdgpu(+) amdxcp 
->> drm_exec gpu_sched drm_buddy i2c_algo_bit usbhid drm_suballoc_helper 
->> drm_display_helper hid sd_mod cec rc_core drm_ttm_helper ahci ttm 
->> nvme libahci drm_kms_helper nvme_core r8169 xhci_pci libata t10_pi 
->> xhci_hcd realtek crc32_pclmul crc64_rocksoft mdio_devres crc64 drm 
->> crc32c_intel scsi_mod usbcore thunderbolt crc_t10dif i2c_piix4 libphy 
->> crct10dif_generic crct10dif_pclmul crct10dif_common scsi_common 
->> usb_common video wmi gpio_amdpt gpio_generic button
->> [    6.036793] CPU: 3 PID: 370 Comm: (udev-worker) Not tainted 
->> 6.8.7-dirty #1
->> [    6.036795] Hardware name: ASRock X670E Taichi/X670E Taichi, BIOS 
->> 2.10 03/26/2024
->> [    6.036796] RIP: 0010:amdgpu_bo_release_notify+0x201/0x220 [amdgpu]
->> [    6.036891] Code: 0b e9 af fe ff ff 48 ba ff ff ff ff ff ff ff 7f 
->> 31 f6 4c 89 e7 e8 7f 2f 7a d8 eb 98 e8 18 28 7a d8 eb b2 0f 0b e9 58 
->> fe ff ff <0f> 0b eb a7 be 03 00 00 00 e8 e1 89 4e d8 eb 9b e8 aa 4d 
->> ad d8 66
->> [    6.036892] RSP: 0018:ffffbbe140d1f638 EFLAGS: 00010282
->> [    6.036894] RAX: 00000000ffffffea RBX: ffff90cba9e4e858 RCX: 
->> ffff90dabde38c28
->> [    6.036895] RDX: 0000000000000000 RSI: 00000000ffffdfff RDI: 
->> 0000000000000001
->> [    6.036896] RBP: ffff90cba980ef40 R08: 0000000000000000 R09: 
->> ffffbbe140d1f3c0
->> [    6.036896] R10: ffffbbe140d1f3b8 R11: 0000000000000003 R12: 
->> ffff90cba9e4e800
->> [    6.036897] R13: ffff90cba9e4e958 R14: ffff90cba980ef40 R15: 
->> 0000000000000258
->> [    6.036898] FS:  00007f2bd1679d00(0000) GS:ffff90da7e2c0000(0000) 
->> knlGS:0000000000000000
->> [    6.036899] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [    6.036900] CR2: 000055a9b0f7299d CR3: 000000011bb6e000 CR4: 
->> 0000000000750ef0
->> [    6.036901] PKRU: 55555554
->> [    6.036901] Call Trace:
->> [    6.036903]  <TASK>
->> [    6.036904]  ? amdgpu_bo_release_notify+0x201/0x220 [amdgpu]
->> [    6.036998]  ? __warn+0x81/0x130
->> [    6.037002]  ? amdgpu_bo_release_notify+0x201/0x220 [amdgpu]
->> [    6.037095]  ? report_bug+0x171/0x1a0
->> [    6.037099]  ? handle_bug+0x3c/0x80
->> [    6.037101]  ? exc_invalid_op+0x17/0x70
->> [    6.037103]  ? asm_exc_invalid_op+0x1a/0x20
->> [    6.037107]  ? amdgpu_bo_release_notify+0x201/0x220 [amdgpu]
->> [    6.037199]  ? amdgpu_bo_release_notify+0x14a/0x220 [amdgpu]
->> [    6.037292]  ttm_bo_release+0xff/0x2e0 [ttm]
->> [    6.037297]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.037299]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.037301]  ? ttm_resource_move_to_lru_tail+0x140/0x1e0 [ttm]
->> [    6.037306]  amdgpu_bo_free_kernel+0xcb/0x120 [amdgpu]
->> [    6.037399]  dm_helpers_free_gpu_mem+0x41/0x80 [amdgpu]
->> [    6.037544]  dcn315_clk_mgr_construct+0x198/0x7e0 [amdgpu]
->> [    6.037692]  dc_clk_mgr_create+0x16e/0x5f0 [amdgpu]
->> [    6.037826]  dc_create+0x28a/0x650 [amdgpu]
->> [    6.037958]  amdgpu_dm_init.isra.0+0x2d5/0x1ec0 [amdgpu]
->> [    6.038085]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038087]  ? prb_read_valid+0x1b/0x30
->> [    6.038089]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038090]  ? console_unlock+0x78/0x120
->> [    6.038092]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038094]  ? vprintk_emit+0x175/0x2c0
->> [    6.038095]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038097]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038098]  ? dev_printk_emit+0xa5/0xd0
->> [    6.038104]  dm_hw_init+0x12/0x30 [amdgpu]
->> [    6.038209]  amdgpu_device_init+0x1e50/0x2500 [amdgpu]
->> [    6.038308]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038310]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038313]  amdgpu_driver_load_kms+0x19/0x190 [amdgpu]
->> [    6.038409]  amdgpu_pci_probe+0x18b/0x510 [amdgpu]
->> [    6.038505]  local_pci_probe+0x42/0xa0
->> [    6.038508]  pci_device_probe+0xc7/0x240
->> [    6.038510]  really_probe+0x19b/0x3e0
->> [    6.038513]  ? __pfx___driver_attach+0x10/0x10
->> [    6.038514]  __driver_probe_device+0x78/0x160
->> [    6.038516]  driver_probe_device+0x1f/0x90
->> [    6.038517]  __driver_attach+0xd2/0x1c0
->> [    6.038519]  bus_for_each_dev+0x85/0xd0
->> [    6.038521]  bus_add_driver+0x116/0x220
->> [    6.038523]  driver_register+0x59/0x100
->> [    6.038525]  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
->> [    6.038618]  do_one_initcall+0x58/0x320
->> [    6.038621]  do_init_module+0x60/0x230
->> [    6.038624]  init_module_from_file+0x89/0xe0
->> [    6.038628]  idempotent_init_module+0x120/0x2b0
->> [    6.038630]  __x64_sys_finit_module+0x5e/0xb0
->> [    6.038632]  do_syscall_64+0x84/0x1a0
->> [    6.038634]  ? do_syscall_64+0x90/0x1a0
->> [    6.038635]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038637]  ? do_syscall_64+0x90/0x1a0
->> [    6.038638]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038639]  ? do_syscall_64+0x90/0x1a0
->> [    6.038640]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038642]  ? srso_alias_return_thunk+0x5/0xfbef5
->> [    6.038644]  entry_SYSCALL_64_after_hwframe+0x78/0x80
->> [    6.038645] RIP: 0033:0x7f2bd1e9d059
->> [    6.038647] Code: 08 89 e8 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 
->> 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 
->> 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 8f 1d 0d 00 f7 d8 64 
->> 89 01 48
->> [    6.038648] RSP: 002b:00007fffaf804878 EFLAGS: 00000246 ORIG_RAX: 
->> 0000000000000139
->> [    6.038650] RAX: ffffffffffffffda RBX: 000055a9b2328d60 RCX: 
->> 00007f2bd1e9d059
->> [    6.038650] RDX: 0000000000000000 RSI: 00007f2bd1fd0509 RDI: 
->> 0000000000000024
->> [    6.038651] RBP: 0000000000000000 R08: 0000000000000040 R09: 
->> 000055a9b23000a0
->> [    6.038652] R10: 0000000000000038 R11: 0000000000000246 R12: 
->> 00007f2bd1fd0509
->> [    6.038652] R13: 0000000000020000 R14: 000055a9b2326f90 R15: 
->> 0000000000000000
->> [    6.038655]  </TASK>
->> [    6.038656] ---[ end trace 0000000000000000 ]---
->>
->> Cc: <stable@vger.kernel.org> # 6.10+
->
-> I think the stable tag really won't be needed and could be dropped 
-> when this is committed.  This will presumably go into a -fixes PR for 
-> 6.10.
+To fix potential overflowed constant warning, modify the variables to u32
+for getting the return value of RREG32_SOC15().
 
-Yeah agree. Just make sure that you push this into drm-misc-fixes to be 
-sure the patch makes it into 6.10.
+Signed-off-by: Bob Zhou <bob.zhou@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-Feel free to add Reviewed-by: Christian König <christian.koenig@amd.com>.
-
-Regards,
-Christian.
-
->
->> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 1 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 --
->>   2 files changed, 1 insertion(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 67c234bcf89f..3adaa4670103 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -108,6 +108,7 @@ int amdgpu_gem_object_create(struct amdgpu_device 
->> *adev, unsigned long size,
->>         memset(&bp, 0, sizeof(bp));
->>       *obj = NULL;
->> +    flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->>         bp.size = size;
->>       bp.byte_align = alignment;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 8d8c39be6129..c556c8b653fa 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -604,8 +604,6 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->>       if (!amdgpu_bo_support_uswc(bo->flags))
->>           bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
->>   -    bo->flags |= AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
->> -
->>       bo->tbo.bdev = &adev->mman.bdev;
->>       if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
->>                 AMDGPU_GEM_DOMAIN_GDS))
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+index 92432cd2c0c7..9689e2b5d4e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+@@ -544,7 +544,7 @@ static int mmhub_v1_7_set_clockgating(struct amdgpu_device *adev,
+ 
+ static void mmhub_v1_7_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+-	int data, data1;
++	u32 data, data1;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+index 02fd45261399..a0cc8e218ca1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+@@ -671,7 +671,7 @@ static int mmhub_v2_0_set_clockgating(struct amdgpu_device *adev,
+ 
+ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+-	int data, data1;
++	u32 data, data1;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
+index 8928f9160822..b4ce3375d3fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
+@@ -613,7 +613,7 @@ static int mmhub_v3_3_set_clockgating(struct amdgpu_device *adev,
+ 
+ static void mmhub_v3_3_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+-	int data;
++	u32 data;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+index 1b7da4aff2b8..ff1b58e44689 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+@@ -657,7 +657,7 @@ static int mmhub_v9_4_set_clockgating(struct amdgpu_device *adev,
+ 
+ static void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u64 *flags)
+ {
+-	int data, data1;
++	u32 data, data1;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
+-- 
+2.34.1
 
