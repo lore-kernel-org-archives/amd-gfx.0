@@ -4,70 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1817C27C5E
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 09:37:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212FAC27C5E
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jun 2024 14:56:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F4B010E3FB;
-	Mon, 10 Jun 2024 09:37:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6889110E3CE;
+	Mon, 10 Jun 2024 14:56:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IhBjuGDN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OjTlCWH4";
 	dkim-atps=neutral
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DB6810E3FB
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 09:37:37 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-52bbf73f334so2483304e87.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 02:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718012255; x=1718617055; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=2wJXnIgW9bIQoKoJwN0ytu/ss2Q2jPLdNZjykSElPj4=;
- b=IhBjuGDNIHoRmpJ3Bvqx8LCJR46ixiu885rZhyQCZG3SC6sbYvQNYwdpNmmMDLFJo5
- JsQeN8POjOsDzCdGms5ZCBGiG27kcuj/n/aWXUD5DkoRTHEYyFiQpBvm27f1seruehg6
- J83DR3u0URvzh4JWBiq2iRWAxVDJ+JRJgbsyh2zJ1v/AdUsdFC2mrrM5n17Auj7jwGB9
- Pltr7wCjGnU9ZLyeRJuWRbxjnC95mGkI11/8QQqNUWuEKLhXu8/Oo+UXTSrM3Gz113yG
- TQ9htbeOqrmbj2sT4iNd+3NUSHotwWAsX2na7pfumCWM5rqKmFQ38WzeriygICo9f1AL
- NDGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718012255; x=1718617055;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2wJXnIgW9bIQoKoJwN0ytu/ss2Q2jPLdNZjykSElPj4=;
- b=MmAb+Bk16AJ75/xX8VJRXxHi3apNVDa27XaYoRhEnDpCFiVR5pxvpFHZz+pIii7JbK
- rXwvsm/bCPDWeKZODyz8ftO0XbmKUNlaMwqsz8ZmMiMg1uwmbaEzBOiOr1sJ2RSrw0Qo
- 2YlLzlzGLK8manwRXNK6pf1a2OAC5B8t4fA576U+GNXfFSfy8HT4iLPR7myc+jjnWkHE
- bk19PlxzyzkJlDE1Pm/rb31UGjwSiqIwuWR0VvSbWR4Eo/TU6JdtgYiIfWTloNJo1R0u
- sGQm4JxnUoGc2rqNwDd0SlWtIt3BL9lyNuOYcnbZ/v+//3lpIWoVNJvpUAT0av5iOzeu
- emcg==
-X-Gm-Message-State: AOJu0YwtCJbgUlpQ3g+kjbS41FwDVMQLgYnJYRr2nro+WfDh4xbhqx56
- eOkIWRvzBph6WQRs/bhla6WlBI7pvyDhOiA0Wm0pg835pggHRAwr
-X-Google-Smtp-Source: AGHT+IHQPrM9cSLj6BqkKHp8KYWnVz2wwh4VaAaCzQ3y5/tCZLS+sXoPiCQUIo0qwghhlKxIalfyDA==
-X-Received: by 2002:a05:6512:12c4:b0:52c:8a12:3d3b with SMTP id
- 2adb3069b0e04-52c8a123eacmr1856006e87.56.1718012254612; 
- Mon, 10 Jun 2024 02:37:34 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4215c1aa2f7sm134421525e9.14.2024.06.10.02.37.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jun 2024 02:37:34 -0700 (PDT)
-Message-ID: <6e6acab2-2f6f-4104-8d65-081c7a206409@gmail.com>
-Date: Mon, 10 Jun 2024 11:37:30 +0200
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2042.outbound.protection.outlook.com [40.107.212.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB1DA10E3CE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jun 2024 14:56:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jO9y0YEOrv9zIyVLOJiGfcZpoRsRgqJS+G/bOm2bIGzZWK25EO6N6rbpwqu5FIBB/lH60Ih6sdeMoT1EWZqDSwzG7b7/kpD6sFtkL1QvClT3Tg7+aE8gUc53I/EZrhU8zykUR1exQYvIkE8rJKlxWT88e7QAqJISGyQMWLWRll2S6qXnFlVvSRdgove3j+EvSy6T/03ujIAHMp/GOv1xKu4CAo3u++Xxkxs25cZPU5wXeENmTrdn5CLZE75uIzlbo6pbd4Z3L2dVCwJSJ0Sm+gTr2ObLNTeWk2VjpSciB4LsH8YBBqO6jgR/r4CztxPheRhYSH9TN1y5Ti3j7Iif0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dvp5523r6aI2q0PYjKP8cvAJ/7T7dmzDQ4rAzhnx4tA=;
+ b=XPG5uKJ6ZK2cpXFCSouvd1PtnES0uswh+Zog8lGBK0Nw/kJ/rxvRfRCO+vaLI1xBIn7jBWDj2nSNZenUZzTJYJW/we1KJIbzuVmjsJrufPkkgDIeZ97nJWpXlCckeZ36S7uU/FGastiIKaoK7QecybYNqPT21qXhBTQ2qJ2n0u5VIfMYlxj5mc1VuRPyHUoDaD+wRZpbUlzTzOHacxZF6dknj89/SV0ia5ynPW6tvDnTg43yBGXLDKhu36QpqOO4huaK7G+ZIwMWuzzSkJCvb4HT7tE7Q1wUTyd5D7cmkG2Z/zMlOH8cwDrc85aBljqG/SH+pIGRWvtA8D4UTRtGoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dvp5523r6aI2q0PYjKP8cvAJ/7T7dmzDQ4rAzhnx4tA=;
+ b=OjTlCWH4G1eEBdDYX6Ux7MZ7Q47B2GGeeC0zPjiDcRi4LgFzn5U5e+w7cJ2ojH8ChKA25NVH+0Yj8JbPG4dgkcF3SaI8FbVluRVUXKNd+CLSHbU/YeNypsMh15KFcVnTj3H1tTHmhrdmfmqFvIG4xpw04NwTGr01C06LwbwmsQI=
+Received: from BY3PR04CA0013.namprd04.prod.outlook.com (2603:10b6:a03:217::18)
+ by CY8PR12MB7243.namprd12.prod.outlook.com (2603:10b6:930:58::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.36; Mon, 10 Jun
+ 2024 14:56:22 +0000
+Received: from SJ5PEPF000001D7.namprd05.prod.outlook.com
+ (2603:10b6:a03:217:cafe::46) by BY3PR04CA0013.outlook.office365.com
+ (2603:10b6:a03:217::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.25 via Frontend
+ Transport; Mon, 10 Jun 2024 14:56:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001D7.mail.protection.outlook.com (10.167.242.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Mon, 10 Jun 2024 14:56:22 +0000
+Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Jun
+ 2024 09:56:21 -0500
+From: <sunpeng.li@amd.com>
+To: <mario.limonciello@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, <Harry.Wentland@amd.com>,
+ <alexdeucher@gmail.com>, Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH] drm/amd/display: Guard ACPI calls with CONFIG_ACPI
+Date: Mon, 10 Jun 2024 10:55:59 -0400
+Message-ID: <20240610145559.66546-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.45.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] drm/amdgpu: explicitely set the
- AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS flag
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: pierre-eric.pelloux-prayer@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20240610092611.2894-1-christian.koenig@amd.com>
-Content-Language: en-US
-In-Reply-To: <20240610092611.2894-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D7:EE_|CY8PR12MB7243:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4ab9df3-c7ac-485d-7f61-08dc895d7e86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|1800799015|36860700004|82310400017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?e+33RTGUDIjR3PmvDB6lxy4tmEBgEstmqCP0a2RI7cOwBku/EZkOAHsd2N0W?=
+ =?us-ascii?Q?cY727NoDtrrxWmuGtyMlDfSV0p/8Un7W/uWJB2MSXyEK5do6tOmQF0PMKP18?=
+ =?us-ascii?Q?eEcB26AR0KQUG4L+cjvUiFAONCs5xc5x8WDwU1pPKBAWa8+HPkhfCMVnFeeo?=
+ =?us-ascii?Q?Zwg+y6YdKoJra7WMlpz5IqrmH3LUrc23TOYL32DUztvA76fjJe1eVjKwJRwZ?=
+ =?us-ascii?Q?GsFPahIiY3qydDenps43x7Y0gosRgzp+tsRcEB++Wn+L2PJAJHiTP98Q9DBr?=
+ =?us-ascii?Q?IXxruAVAHllCQuJzhvgvuROUdoNqyXjG7kA8YHa90/zXZQFOo9O4zdJW9uRa?=
+ =?us-ascii?Q?qZMSfnFXCuwxEa9JG4SwNKcgur2Go/XLypCq+0S075mDpXw5C6/pTGtDbuln?=
+ =?us-ascii?Q?YxgdvkjiaG7rTRBe8d+m9TOCu1uLGZrkcbc6FIG6725sC6xO7ApiHATW7Mcw?=
+ =?us-ascii?Q?Qy6B8t2F2fFVVz12mSywtPBHbYRdM2rNMRmdGsgFAi6ikgL7+jGFsYwX44rJ?=
+ =?us-ascii?Q?zaXghDL6C0jAbp4zZ90aqEXejjRznni8XlEvOqA+epTho0W9LYGH5cMzUXB6?=
+ =?us-ascii?Q?5dbv7xa4/T367nvyviUkcuR7CsNje/xQMVkhw4AwNZ1SpMKbBT/0pFSdtpFy?=
+ =?us-ascii?Q?6DrUzybQhhtqdFHernW4XkTdgvSYs6pQRZu/9DY65mlMHec0l10dZxSpvvJf?=
+ =?us-ascii?Q?vvInp0PKodPuqPjlVD8ifpNSuhDT70sD6Jz7zu1NHeUre1GLcKxzFUhxUxzd?=
+ =?us-ascii?Q?Lx/CqbyDYdcr1N8zAUQxkAiAyt9LJsynxkjTH5nIygXYbexpAdUVutwZgLj+?=
+ =?us-ascii?Q?hvJ5x1eVmJg49uVJVG1Cw+UuFNeJLSMtccr3XXlHKtTHRpptgyVD9NTM5lBR?=
+ =?us-ascii?Q?SDiZcxVe5x9FQeodsfjn7UXtcdLlLAVCXBWeYm8dVXceMjme3r+IREAL+i5W?=
+ =?us-ascii?Q?x8Q0bqWTPWW7eLD1IDlOGM8/R8RMcUeuh/Q1MzCE0FHhtzFaQGTEky0lRn1a?=
+ =?us-ascii?Q?Ug05jQW8oqpWMaoOyVNz0BfTNOXLpBjUNL73crR5WzKAxBJi33ZXvOpVod3e?=
+ =?us-ascii?Q?zfA0qnMWrEqJq/F22dwHM0j5v7lElhl/grDKYJhWhJERVLOOTVG0xf6ESQE4?=
+ =?us-ascii?Q?OcYV/zZGQR8hM1tkOEN31KeCyfJNedMnYRG/cV/y3y/xBoWoCEJyMsFAmHRP?=
+ =?us-ascii?Q?Lf6FI0ZAlQSzy3gbqx4KZSHtN1Rw11n8zJRj3hZd269CVxye9Dcjd8RxCVAT?=
+ =?us-ascii?Q?KLbprzkOwp0jqgLeLog0h/0BknjfbWYOcYLTfA7J2xNrZ5a38RCsNgMl9Ns0?=
+ =?us-ascii?Q?CM9QvTqQ5eL46IghnugceqW1tf2z2/YMw4/0gR5fW/v9XWEdnIFYs4JTFd23?=
+ =?us-ascii?Q?J5KIch0eth9jVdXO8Nxn+lqAK+Lm2Lhvum19GKo/kkxcIOgLwg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(36860700004)(82310400017); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2024 14:56:22.6069 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4ab9df3-c7ac-485d-7f61-08dc895d7e86
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7243
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,177 +129,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just FYI: This is a completed untested set of WIP patches.
+From: Leo Li <sunpeng.li@amd.com>
 
-But it might get you a step closer of avoiding grabbing the runtime PM 
-references.
+To fix CONFIG_ACPI disabled build error.
 
-Regards,
-Christian.
+Fixes: ec6f30c776ad ("drm/amd/display: Set default brightness according to ACPI")
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Am 10.06.24 um 11:26 schrieb Christian König:
-> Instead of having that in the amdgpu_bo_pin() function applied for all
-> pinned BOs.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c             | 2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c              | 1 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c                | 1 +
->   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c                  | 2 ++
->   drivers/gpu/drm/amd/amdgpu/dce_v11_0.c                  | 2 ++
->   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c                   | 2 ++
->   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c                   | 2 ++
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 1 +
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c    | 1 +
->   9 files changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index cfec85563bc6..7ef518d888dc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -233,6 +233,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
->   	}
->   
->   	if (!adev->enable_virtual_display) {
-> +		new_abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   		r = amdgpu_bo_pin(new_abo,
->   				  amdgpu_display_supported_domains(adev, new_abo->flags));
->   		if (unlikely(r != 0)) {
-> @@ -1739,6 +1740,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
->   
->   			r = amdgpu_bo_reserve(aobj, true);
->   			if (r == 0) {
-> +				aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   				r = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
->   				if (r != 0)
->   					dev_err(adev->dev, "Failed to pin cursor BO (%d)\n", r);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 1eadcad1856d..f5a33178651e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1003,7 +1003,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
->    */
->   int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
->   {
-> -	bo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	return amdgpu_bo_pin_restricted(bo, domain, 0, 0);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> index e30eecd02ae1..2ce99ab63e4c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -335,6 +335,7 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *plane,
->   	else
->   		domain = AMDGPU_GEM_DOMAIN_VRAM;
->   
-> +	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	r = amdgpu_bo_pin(rbo, domain);
->   	if (unlikely(r != 0)) {
->   		if (r != -ERESTARTSYS)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index b44fce44c066..ff99475f7225 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -1881,6 +1881,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_crtc *crtc,
->   		return r;
->   
->   	if (!atomic) {
-> +		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
->   		if (unlikely(r != 0)) {
->   			amdgpu_bo_unreserve(abo);
-> @@ -2401,6 +2402,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   		return ret;
->   	}
->   
-> +	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> index 80b2e7f79acf..bae0d5ea4a4b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -1931,6 +1931,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
->   		return r;
->   
->   	if (!atomic) {
-> +		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
->   		if (unlikely(r != 0)) {
->   			amdgpu_bo_unreserve(abo);
-> @@ -2485,6 +2486,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   		return ret;
->   	}
->   
-> +	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index db20012600f5..ac4271a84cc8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -1861,6 +1861,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crtc *crtc,
->   		return r;
->   
->   	if (!atomic) {
-> +		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
->   		if (unlikely(r != 0)) {
->   			amdgpu_bo_unreserve(abo);
-> @@ -2321,6 +2322,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   		return ret;
->   	}
->   
-> +	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index 5b56100ec902..29bbf083c5d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -1828,6 +1828,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crtc *crtc,
->   		return r;
->   
->   	if (!atomic) {
-> +		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
->   		if (unlikely(r != 0)) {
->   			amdgpu_bo_unreserve(abo);
-> @@ -2320,6 +2321,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   		return ret;
->   	}
->   
-> +	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index b339642b86c0..81e87c079624 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -890,6 +890,7 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
->   	else
->   		domain = AMDGPU_GEM_DOMAIN_VRAM;
->   
-> +	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	r = amdgpu_bo_pin(rbo, domain);
->   	if (unlikely(r != 0)) {
->   		if (r != -ERESTARTSYS)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> index 08c494a7a21b..0d5fefb0f591 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> @@ -114,6 +114,7 @@ static int amdgpu_dm_wb_prepare_job(struct drm_writeback_connector *wb_connector
->   
->   	domain = amdgpu_display_supported_domains(adev, rbo->flags);
->   
-> +	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->   	r = amdgpu_bo_pin(rbo, domain);
->   	if (unlikely(r != 0)) {
->   		if (r != -ERESTARTSYS)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a2c098f1b07c..6b3634db4c15 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4572,7 +4572,9 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+ 	struct drm_device *drm = aconnector->base.dev;
+ 	struct amdgpu_display_manager *dm = &drm_to_adev(drm)->dm;
+ 	struct backlight_properties props = { 0 };
++#if defined(CONFIG_ACPI)
+ 	struct amdgpu_dm_backlight_caps caps = { 0 };
++#endif
+ 	char bl_name[16];
+ 
+ 	if (aconnector->bl_idx == -1)
+@@ -4585,6 +4587,7 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+ 		return;
+ 	}
+ 
++#if defined(CONFIG_ACPI)
+ 	amdgpu_acpi_get_backlight_caps(&caps);
+ 	if (caps.caps_valid) {
+ 		if (power_supply_is_system_supplied() > 0)
+@@ -4593,6 +4596,9 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+ 			props.brightness = caps.dc_level;
+ 	} else
+ 		props.brightness = AMDGPU_MAX_BL_LEVEL;
++#else
++	props.brightness = AMDGPU_MAX_BL_LEVEL;
++#endif
+ 
+ 	props.max_brightness = AMDGPU_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
+-- 
+2.45.1
 
