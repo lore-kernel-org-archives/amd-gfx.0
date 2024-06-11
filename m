@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCC3C27C65
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jun 2024 16:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4952C27C65
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jun 2024 16:53:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D17110E6E0;
-	Tue, 11 Jun 2024 16:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD4AD10E6DF;
+	Tue, 11 Jun 2024 16:53:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N4s/uNV/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="usP7UCkp";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C32D610E6DE
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jun 2024 16:52:59 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDBFD10E6D5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jun 2024 16:52:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WH1dT9XDbOQNUs+3/JSNHgFmJ3mj55R88mg2/K9HXFCdQj8t/w0BLbRTEKR5TsgrlgAstnxSiWLrLxvPcGJSgNJ5VcSSkvHqNQGVX9Tck8abxTKkTz0TZ+qL8lLa5E1s0un5xIjeqkWgi8UKpmjF+Ln5X3aBxCSll0d8/AtvOSLdOfGnTpraSbKOa/ZWutUM3XHEDC9IKvEzUAKF8D4gz46Vp6z+vMudF/RhIv59f0wy3VI0gKioI5WeJN5y2sb2QYfiqo0spj51CopGJX3PIscaiZm7pBrwQ8TreTS6SgaosLWK2gWRi1/McMHo8sRqu5y8HP17WSrRdLOdHO8Hkw==
+ b=hA9wdLgt4Dc0nuPJZjViw/LTDFDioLccCaatNY41zbsVh8ZagpSWYZlWsxkFOAKQt91/nghwVnxIuEExheR+VO4ZNRGjoTgVZMfIztPCJgNrT+AAyYF6W8f+gaJS8dsuzhRr/T71M1SEa4D3PKihJ40vPxkhTkMYa6ofdS578kW8nz/4RU5T5stMuHeBau8Abj8h9pihLoErBnKuWc51VNUzy2mU/dauDXwIpj6EIjh7UtWnBj2K4cfjrSTlQBUY8fIkn53KUBHKl3J6NSZGHaF6+PY6RZSLfnL83XMeqE786rvGBFJ2JGmYGe5tHn4ko9+mb0BMG5C4OBS1dOeurg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n3D7FFwk0Pf/OmHp2VpGydYpo5vCNTc8BuUaYEBYTd0=;
- b=XwCtQ4JAhVZyLdkQdp8h7Sf6LcIvpT+K0IQ79ywC9DoLR1bdjp3brmH2PoXyXEcor1qClRD2khN3R5Y8hD7kugmKorVyoRlU2Nz4HjIy5IPaQs23vDze5B9uwVoufbYRLUkbHMknJwL0A4vu3yJfqpqErh6vdFgXgKwA4vyLo9UmPw0LzoCoWU48zhYeF6y+N5hdGBsni8Od3Nki469OVMPcvu6uh1tt2A405aNS+3yKwIbdOaDr70n6qQESwPbGgr21eSPyyY6aiOvb0zcOy2hQ+93XoEyXd1dQRX7xc8ohz9BGyp/XpkL7BSCTXXJLIu/A2LKkOXf0lVA6u9PCtQ==
+ bh=omiT9qQ5FK+i8C/ijbhx9oOTASeIiJMu4fJdkfGjBOk=;
+ b=UjisvQtFVjrCk5WyFCHPR2LQGI+ToVumeh06jxG8Ep6siDJk8ej4AHwH3+67NOTxB4Izb6n/51NudqtB1/MDYZxmQBNWsBWyIN4IkKm08xrRDd52HWMwrVBUTx4AVdZURG365Jxc0gEnUl4s9l8sr8OZJt25atY0bfmVqU6oZmBzmt1rN0w/ljC1E+ZaNVfsfWwu1obmu++UbNBVwsV9+ribqScIDWVVHCtDefqvGB/pgc5OE/9HxKygTuEKdWeoh8YQD9mSCz71oioJsT9PozWNGMhARLR9kBAOoEl8wDKKp8nfloc9YbKWzzqE3fSeN2860G45yrOPwNy5QEFNbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n3D7FFwk0Pf/OmHp2VpGydYpo5vCNTc8BuUaYEBYTd0=;
- b=N4s/uNV/1kpzGFNQVCAADcjRvsFQVxOhU6qPh+J/S/geoQ2eWFNcVCBVt9qakb13IMZVpqyVkPqzizoJqYJ4mzAzqgYC0pCLUojwh5D0/BHa5kQ0yov8vjkV95eN6EC2JawI8jj/f8wLZ3k+zMX7aDUoYn4w4OrXUpTV4mfLxlM=
-Received: from BN8PR07CA0028.namprd07.prod.outlook.com (2603:10b6:408:ac::41)
- by PH8PR12MB8431.namprd12.prod.outlook.com (2603:10b6:510:25a::9)
+ bh=omiT9qQ5FK+i8C/ijbhx9oOTASeIiJMu4fJdkfGjBOk=;
+ b=usP7UCkpsVvcMpQps/QznQGoanaSwyw5jS5ccXQpEQtXHWZRKjO6nyoNZtQ0Y04R2Qqbo3sKyLwx3gylNaHlw7MPrKoc+bN6vGQ8VZJ8ORDElR3LKwyxqb4Exo368hVJGt0oThQVR17eJ9aDrmaX+7oTBASi8gXb3ypudLYcfyQ=
+Received: from BN8PR07CA0034.namprd07.prod.outlook.com (2603:10b6:408:ac::47)
+ by SA3PR12MB7952.namprd12.prod.outlook.com (2603:10b6:806:316::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.36; Tue, 11 Jun
- 2024 16:52:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.37; Tue, 11 Jun
+ 2024 16:52:38 +0000
 Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:408:ac:cafe::46) by BN8PR07CA0028.outlook.office365.com
- (2603:10b6:408:ac::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.19 via Frontend
- Transport; Tue, 11 Jun 2024 16:52:47 +0000
+ (2603:10b6:408:ac:cafe::f) by BN8PR07CA0034.outlook.office365.com
+ (2603:10b6:408:ac::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.25 via Frontend
+ Transport; Tue, 11 Jun 2024 16:52:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Tue, 11 Jun 2024 16:52:47 +0000
+ 15.20.7677.15 via Frontend Transport; Tue, 11 Jun 2024 16:52:38 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Jun
- 2024 11:52:45 -0500
+ 2024 11:52:34 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Daniel Wheeler <daniel.wheeler@amd.com>, <Harry.Wentland@amd.com>,
@@ -64,10 +64,9 @@ CC: Daniel Wheeler <daniel.wheeler@amd.com>, <Harry.Wentland@amd.com>,
  <solomon.chiu@amd.com>, <agustin.gutierrez@amd.com>, <jerry.zuo@amd.com>,
  <hamza.mahfooz@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
  <harry.wentland@amd.com>
-Subject: [PATCH 28/36] drm/amd/display: Remove redundant checks for
- ctx->dc_bios
-Date: Tue, 11 Jun 2024 12:51:31 -0400
-Message-ID: <20240611165204.195093-29-hamza.mahfooz@amd.com>
+Subject: [PATCH 17/36] drm/amd/display: Add null checker before access structs
+Date: Tue, 11 Jun 2024 12:51:20 -0400
+Message-ID: <20240611165204.195093-18-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.45.1
 In-Reply-To: <20240611165204.195093-1-hamza.mahfooz@amd.com>
 References: <20240611165204.195093-1-hamza.mahfooz@amd.com>
@@ -79,50 +78,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|PH8PR12MB8431:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e946e47-43ea-47c0-a1bd-08dc8a36ec03
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|SA3PR12MB7952:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fcc62b3-223f-4e57-cc6f-08dc8a36e6da
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230032|82310400018|36860700005|376006|1800799016; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?w4uAIUBY1Ht6rIy6DTqjlQhGVlrWL+d31pfaKQrnxEJFYokVkm6xoHw6YnN2?=
- =?us-ascii?Q?CXkjdYHYSuDMcNg9qBsR1g//FptqJh89Zgu2pcSa9t9NHVzOSiBFVIg7AFBd?=
- =?us-ascii?Q?rbkpu5yK16F4AfGxlkPz4fVUPwUcnXFqiNYWjkqCaX1cHNP+QJnmUaprw9uZ?=
- =?us-ascii?Q?VBuj557PGCz/O5oUacGkJE/0VWMEzmwQ4BJtzdASlyZVA0uReMq9Y6iQ1VxX?=
- =?us-ascii?Q?V5rBOnVbSTGv8Qu4LFF+fTuOLl33y9SDfmXXSYYA8qkEwN1Og9gZk7CqtIPt?=
- =?us-ascii?Q?wv2PLeuPIQH9B2ng5sxpw5eHFxw0/s3tFv3hU+MF+Y7jRcR6qfvs7iYbxEiI?=
- =?us-ascii?Q?ofpVFZehfm7YW24nTIJ23VFZakKqSz3JiPSdHdqZZ5xfUygoEw9Yfloy3LDY?=
- =?us-ascii?Q?dOG0EA1ZcKakf0zsxEOLlEsrPTpOeHBzvlzjY2Jv7Dxa63pqIWtwReIY4F5T?=
- =?us-ascii?Q?mw9Qf3+9tTQ9SSd28Dsk5drINzRcIZNCT35jcTZ0Sn24eCHP0ByilR3NUaa9?=
- =?us-ascii?Q?aPlcF7KxF7oN9MqVzdW4amSJOyiGOxH1Dh1+XKdD63HE9hBJKI89lTdXI+7Q?=
- =?us-ascii?Q?KqRWMKMRVfPSUHVDWh8I7BXSz2nDMHvE7VNEPr6IkO8bkLcu39Ldt6axIu5D?=
- =?us-ascii?Q?wnYRDyw/Ez4x9haUx/SGibDpY2IQcN4gl3929aZKWroOiTIgZo2NQWvi90JX?=
- =?us-ascii?Q?iJAi+Ul3L4YQpmHGqbmrnD5hedOc8EjYKdpfOJBPqwOE0yX5fsAQULUpLZHw?=
- =?us-ascii?Q?6ep8I4csN5w3Dlt+n+bJVm8wQmtKEXS2pgTplFQ3FEU6Sg0DodxU+ll4Fg8D?=
- =?us-ascii?Q?b8iRzDUayjIbo99CqH01AoRv9ceaWe5aGLqUp+9yKZDjJG4Fa04WGwuI5Arc?=
- =?us-ascii?Q?WD1ACxl3gDXSBGREQIKksl+IwmxN6rUqJDxZl7LspSsRPyEj0khMz73HQbnZ?=
- =?us-ascii?Q?l6CjX3vtsUrhXEGZDE2ubCPsem8llatXn+qRQATSsT/DZBs5IZlgBnGcXgVW?=
- =?us-ascii?Q?7B+crxJygw37Arfxi5mnciOeJfjSDOLSlBIUHlzgW1eXF1AlWAdYpK/Mw/tP?=
- =?us-ascii?Q?NowzCp0Q7s9owkbV9sdChDIZYZ+BmpRkIm6n3vjpiYOMz0TEjghvO/M3r+bo?=
- =?us-ascii?Q?9sXLajWnHJk5DOGTO0OfiZ5nFZ2YM/w2hTFd0SC9LTDhsbqPqZGPlz6vGglR?=
- =?us-ascii?Q?rY9gNY4iGkM1kj3ZE+UJjkEXJ15IjMYERibxK7qCh/UEtKx85axUrFfy9ZN0?=
- =?us-ascii?Q?g10pxoadJ29gIuOZRg6hZdNAvV/Ktg0VXNp1AaRj094J+OY8yBwjJqstk6ui?=
- =?us-ascii?Q?vVMDGRH7pKqofHEr5zD5vMV9zD5W6BaEXzGmRa2B0HEzmKmrlnq+ye8UmIyO?=
- =?us-ascii?Q?9f1QKUMRKa0zb6HLzfEQWNyN1cA5X67csUBBuoLsHJrWkcPZ4w=3D=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?58Xzf3jqa2MrX/FQxGBIM/CYPBc39m62Qws9b4LKUgwl14iRCuMiSNw9BRsO?=
+ =?us-ascii?Q?N/DTTheI/kDy2fAkX7QnRPL6kckwa9Prvy924PzuYxmc8WHEWFHJwZIsgYyE?=
+ =?us-ascii?Q?S2ASTjae/L/zqvKDicGOHvdwb7twBqI7eYoJp4yLWY57OBztnYc/ZEwBNAP3?=
+ =?us-ascii?Q?KRso15Q9JUzmOZxi6+WV2rYPfKCyA8GZve6GbtkjgidJb9q40Pb6N9KGXoUt?=
+ =?us-ascii?Q?12TpdRTAoZkiwf3Reu/SMEes9t9c6O+Xjw6mMV4WtKDosZY4n/IQhLkpBAtm?=
+ =?us-ascii?Q?MTQdlxi7Z84Sf6ubiYcLOMnIQHGpVHV39qd4gCPBacgjNiRec2bYeNLdbqqK?=
+ =?us-ascii?Q?XI/qfevkVevRpy3ZFInSUi6J65zcpld7uAbykkpi50FfmA3rks26PPStgOUd?=
+ =?us-ascii?Q?zXfsykDZGGaia332EQ9SswkmoltqCb+ioVjcajVufj6ZNWDOXW28beGo7zsQ?=
+ =?us-ascii?Q?OWZ70dKUMqOsYjnf+Gvo0DENlWu/ozeBxS1hd33AbTXojUphPVctB/NGVfTb?=
+ =?us-ascii?Q?kpBsV5v4QcrPdFBHXZx688Rlkts+T8RxtIZ7/8ar5eCYyUVV2UcJglAMctW7?=
+ =?us-ascii?Q?TyE7F4gxS5oZ6bj0r/c3THEPy3yWStA9pzzExOE+O0NKqtwOisbwI/pZsCVu?=
+ =?us-ascii?Q?RRiD0RuV/6EsHcNsvdAy5KaJFV6d7MLtQIH9VXEPwo8COSbhADyWiWiE5zN2?=
+ =?us-ascii?Q?Ov5PDNyinsCCtML5rxdXUHSMJ7bnSaDYUhRsv3Vra1UCyrn7KqDTvZ+kD8aF?=
+ =?us-ascii?Q?HH8JvFMwgcVjDRxiezUD25gInHZKrD5bTm/SUTxvFyolkVBx4KdTAO+9Cj+S?=
+ =?us-ascii?Q?MUBBw9dvnQbxGfA7+CszM7/M2wagUhHUEyM9O0Rov3Zc17V5AiB9OgeQzRI0?=
+ =?us-ascii?Q?OMmwJtXaYPcxgVpt1r1D4kyP7wcv2l7xs/SRPlJ8xT4++eTaV0CcXSUklrLz?=
+ =?us-ascii?Q?uL7Iz9yXCgPyq6Rbq0jo7/EOBuYtJaO+2qCxaDEcQX/L58Pjl/Sq98EFhqE2?=
+ =?us-ascii?Q?ry9dr6pdbzkQiioXes+tQoq679FxF9pfaoiYPMdZOpT27Ed8C6D+Z7w1mlKg?=
+ =?us-ascii?Q?2bJHrip4NuG6lztoflVyqb8tm4d5lrPEiFfO2btc6U0bdnTeht5tYn7TC0aE?=
+ =?us-ascii?Q?OaRcqZtVbQj3X2PA2ClojWyIOygCpYV7L48lPU2jwH1mYTXLFYbT0W7aBluk?=
+ =?us-ascii?Q?3b1oxL+1VF+X6Yuz0ufmpKL75Hd2hKvO0u19CR6g/3qPxPDqKmuyK1oRESw+?=
+ =?us-ascii?Q?1NnCUD1dsTEbLugjnnxIuCmwbo4bUtleHni5kwlo0wXgw2qhBv++aLngl1lc?=
+ =?us-ascii?Q?1Hi3wIcv+10lpD7vp4d32B2gscrz4QtF09qT86zD80SwfLx9XRsm6pYskoAk?=
+ =?us-ascii?Q?2/11fiAe7FAzaobkg2fvAhrcleattMLm+C756er8sVPOhcZVyA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230032)(82310400018)(36860700005)(376006)(1800799016); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 16:52:47.1670 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e946e47-43ea-47c0-a1bd-08dc8a36ec03
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 16:52:38.3077 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fcc62b3-223f-4e57-cc6f-08dc8a36e6da
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8431
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7952
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,116 +138,87 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-The null checks for ctx->dc_bios are redundant as it was already
-dereferenced previously, as reported by Coverity; therefore the
-null checks are removed.
+Checks null pointer before accessing various structs.
 
-This fixes 7 REVERSE_INULL issues reported by Coverity.
+This fixes 5 NULL_RETURNS issues reported by Coverity.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c      | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c     | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c | 2 +-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c      | 2 ++
+ .../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c | 5 +++++
+ .../gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c   | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c | 4 +++-
+ 4 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index a650a9877097..e18097f82091 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -772,7 +772,7 @@ void rn_clk_mgr_construct(
- 		status = pp_smu->rn_funcs.get_dpm_clock_table(&pp_smu->rn_funcs.pp_smu, &clock_table);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c
+index 4166332b5b89..b97d9abfdbc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c
+@@ -360,6 +360,8 @@ static struct dc_plane_state *dml21_add_phantom_plane(struct dml2_context *dml_c
+ 	struct dc_plane_state *phantom_plane;
  
- 		if (status == PP_SMU_RESULT_OK &&
--		    ctx->dc_bios && ctx->dc_bios->integrated_info) {
-+		    ctx->dc_bios->integrated_info) {
- 			rn_clk_mgr_helper_populate_bw_params (clk_mgr->base.bw_params, &clock_table, ctx->dc_bios->integrated_info);
- 			/* treat memory config as single channel if memory is asymmetrics. */
- 			if (ctx->dc->config.is_asymmetric_memory)
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-index 148a0e4cdea2..9e2ef0e724fc 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-@@ -731,7 +731,7 @@ void vg_clk_mgr_construct(
- 	clk_mgr->base.base.bw_params = &vg_bw_params;
+ 	phantom_plane = dml_ctx->config.svp_pstate.callbacks.create_phantom_plane(dc, context, main_plane);
++	if (!phantom_plane)
++		return NULL;
  
- 	vg_get_dpm_table_from_smu(&clk_mgr->base, &smu_dpm_clks);
--	if (ctx->dc_bios && ctx->dc_bios->integrated_info) {
-+	if (ctx->dc_bios->integrated_info) {
- 		vg_clk_mgr_helper_populate_bw_params(
- 				&clk_mgr->base,
- 				ctx->dc_bios->integrated_info,
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-index 12a7752758b8..e93df3d6222e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-@@ -785,7 +785,7 @@ void dcn31_clk_mgr_construct(
- 					   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].MemClk,
- 					   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].Voltage);
- 		}
--		if (ctx->dc_bios && ctx->dc_bios->integrated_info) {
-+		if (ctx->dc_bios->integrated_info) {
- 			dcn31_clk_mgr_helper_populate_bw_params(
- 					&clk_mgr->base,
- 					ctx->dc_bios->integrated_info,
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-index a84f1e376dee..29eff386505a 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-@@ -896,7 +896,7 @@ void dcn314_clk_mgr_construct(
- 					   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].Voltage);
- 		}
+ 	phantom_plane->format = main_plane->format;
+ 	phantom_plane->rotation = main_plane->rotation;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
+index 7272a04b9d1d..00fedc00a735 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
+@@ -1082,12 +1082,17 @@ static bool is_timing_group_schedulable(
  
--		if (ctx->dc_bios && ctx->dc_bios->integrated_info && ctx->dc->config.use_default_clock_table == false) {
-+		if (ctx->dc_bios->integrated_info && ctx->dc->config.use_default_clock_table == false) {
- 			dcn314_clk_mgr_helper_populate_bw_params(
- 					&clk_mgr->base,
- 					ctx->dc_bios->integrated_info,
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index 5506cf9b3672..a0fb4481d2f1 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -712,7 +712,7 @@ void dcn315_clk_mgr_construct(
- 					   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].Voltage);
- 		}
+ 	/* init allow start and end lines for timing group */
+ 	stream_method_fams2_meta = get_per_method_common_meta(pmo, per_stream_pstate_strategy[base_stream_idx], base_stream_idx);
++	if (!stream_method_fams2_meta)
++		return false;
++
+ 	group_fams2_meta->allow_start_otg_vline = stream_method_fams2_meta->allow_start_otg_vline;
+ 	group_fams2_meta->allow_end_otg_vline = stream_method_fams2_meta->allow_end_otg_vline;
+ 	group_fams2_meta->period_us = stream_method_fams2_meta->period_us;
+ 	for (i = base_stream_idx + 1; i < display_cfg->display_config.num_streams; i++) {
+ 		if (is_bit_set_in_bitfield(pmo->scratch.pmo_dcn4.synchronized_timing_group_masks[timing_group_idx], i)) {
+ 			stream_method_fams2_meta = get_per_method_common_meta(pmo, per_stream_pstate_strategy[i], i);
++			if (!stream_method_fams2_meta)
++				continue;
  
--		if (ctx->dc_bios && ctx->dc_bios->integrated_info) {
-+		if (ctx->dc_bios->integrated_info) {
- 			dcn315_clk_mgr_helper_populate_bw_params(
- 					&clk_mgr->base,
- 					ctx->dc_bios->integrated_info,
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-index 20ca7afa9cb4..c3e50c3aaa60 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-@@ -652,7 +652,7 @@ void dcn316_clk_mgr_construct(
- 	if (clk_mgr->base.base.ctx->dc->debug.pstate_enabled) {
- 		dcn316_get_dpm_table_from_smu(&clk_mgr->base, &smu_dpm_clks);
+ 			if (group_fams2_meta->allow_start_otg_vline < stream_method_fams2_meta->allow_start_otg_vline) {
+ 				/* set group allow start to larger otg vline */
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+index f93853d434d2..e783afbbb397 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+@@ -2628,7 +2628,7 @@ static bool dcn20_resource_construct(
+ 		ranges.writer_wm_sets[0].max_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MAX;
  
--		if (ctx->dc_bios && ctx->dc_bios->integrated_info) {
-+		if (ctx->dc_bios->integrated_info) {
- 			dcn316_clk_mgr_helper_populate_bw_params(
- 					&clk_mgr->base,
- 					ctx->dc_bios->integrated_info,
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 9a414f49f15a..5691714f738d 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -1182,7 +1182,7 @@ void dcn35_clk_mgr_construct(
- 					   i, smu_dpm_clks.dpm_clks->MemPstateTable[i].Voltage);
- 		}
+ 		/* Notify PP Lib/SMU which Watermarks to use for which clock ranges */
+-		if (pool->base.pp_smu->nv_funcs.set_wm_ranges)
++		if (pool->base.pp_smu && pool->base.pp_smu->nv_funcs.set_wm_ranges)
+ 			pool->base.pp_smu->nv_funcs.set_wm_ranges(&pool->base.pp_smu->nv_funcs.pp_smu, &ranges);
+ 	}
  
--		if (ctx->dc_bios && ctx->dc_bios->integrated_info && ctx->dc->config.use_default_clock_table == false) {
-+		if (ctx->dc_bios->integrated_info && ctx->dc->config.use_default_clock_table == false) {
- 			dcn35_clk_mgr_helper_populate_bw_params(
- 					&clk_mgr->base,
- 					ctx->dc_bios->integrated_info,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
+index 070a4efb308b..131d98025bd4 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
+@@ -795,11 +795,13 @@ static struct link_encoder *dcn201_link_encoder_create(
+ {
+ 	struct dcn20_link_encoder *enc20 =
+ 		kzalloc(sizeof(struct dcn20_link_encoder), GFP_ATOMIC);
+-	struct dcn10_link_encoder *enc10 = &enc20->enc10;
++	struct dcn10_link_encoder *enc10;
+ 
+ 	if (!enc20)
+ 		return NULL;
+ 
++	enc10 = &enc20->enc10;
++
+ 	dcn201_link_encoder_construct(enc20,
+ 			enc_init_data,
+ 			&link_enc_feature,
 -- 
 2.45.1
 
