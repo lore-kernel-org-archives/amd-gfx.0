@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC017C41513
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jun 2024 16:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E856C27C65
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jun 2024 16:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 228F810E6EB;
-	Tue, 11 Jun 2024 16:53:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0DC10E6E3;
+	Tue, 11 Jun 2024 16:53:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EhIIMyMr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e+25Dem4";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2073.outbound.protection.outlook.com [40.107.96.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 053F310E6D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jun 2024 16:52:49 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE4810E6DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jun 2024 16:52:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jMrPXDHPiKcG8h7AdauSzpDlJ33nZPKLJcx0oSUPRVIQZn3qpMcHly8hPAieofEAbCpUaXpM85c40OJgKesa6gv78EfAh0OPWN4U3lykAqSUH238QqdFO6XhNRpIusbuM7BZ8TxkGUppo/4Un9u4LYAn9wc3jh8xPQQxzFvaG3WQMD6WLDQj8f2HCT5ax9xwHy6vxhKQy3UskB3RugbkVJ8xlyQofzOQIcHnwsB0/uivokeHBJqLs25/B5aBDey5BO1iFC7DhbHK6yCyMtIGcirbGG+szBtk5le9Q5PLZB8rbmVeHs7v1bQ4nvY+r4XVawL+I/neCX256vF5HCQNdg==
+ b=GFhlKl027/rNuivsLUffq6zOSt5cUgLCp7NJpIImNt25nhx8RqKXFTvcumg7r67l59kGarxSfVjNx73JX3ijmRZIOa/hXCOUPQaov5hAJI2NlDNFBQY11ovAZpWxxWoXGh7ON4gDU6k44WSjPla72fDcBJItoypHh7d9GUbaz92j3rAOrefPCWPn/Rr6+7hjWgtZFTC5RbGOUQaMehHMYnFw2YsdHej2o5QjrNsmohZ+F7CQjBI91gzbDMIRVOD0dAa8hRPsczdcL34yON6eSsUHrVkAcxXLe1xJbqMNkncbaOwBPG5mu3Vw23B9XeV0i9EXJ2TvPiuIc+xcRu5m7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XhZw/SgZZN03UMapOkZRnGeiPsADZxQBoqRK0ifzMhk=;
- b=Br6kVqucbkTtYUftNKAcMvFPSHIJGPmxHTnRfm4enLCHhPHjPJL2e1jMvz7uKYnI7whsPs4qNL+XkjLUPYq8jhCGACETesj1wKVl17oBoePwWIKMKTtp++E586dLrYbOsPfVNjsj+LrxH5SnfwyJGfcVCJr2NpgYDykbbircSEr+V69NIAEaux86gHXqmJ/BjQHxJcwk6urwwNcywCyrC1xiAPKu1c1qW+5+9THn5RyR6arf1H3RkOWXoPYnUK3NEt8O1V1TDODZ4ecCs/1PzVWShNTHVnIMnQjceNCCdjglyw+M8F3F/1M/nCpTBrM6rtJ3C1XT0anAlcPisCQjBQ==
+ bh=DewGSR7clWeGOSCL0KPy+mSGcX98nwd5r4L/GFve6Kg=;
+ b=W2Vq+i0LubtQRDoWVQkEFyDZSLei5QMnRw1hxgZiSA7rLOqYwLZmlIj8NhIwmaywtxP5+4R+qHegFdWD5O1HMQvTrgcWhq9P93i4VNFSIaizqaH7XSOFm8lWK+77s17jReTPxDVOMh9ZamqxYs++Uoe91zFGHBISx/7LBM5F8PyKUxZCy0ErEWXtXpFBUzplCvQqK20WoaHwunGWkHgrpRjaAhuYtqDBHTC8mWJSIAuhX1XUN6XUqIzR4zgLNliRngWOb1d6/X0ifZputwmYNozOncvndi1Xor3L/JwyqLsRMWRy/E+nHYoZTQGQjid9jJzM/QFCGbgM6bVIDQ3MAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XhZw/SgZZN03UMapOkZRnGeiPsADZxQBoqRK0ifzMhk=;
- b=EhIIMyMrOV2Xo2CdSJBpKtiaWi1CHnQUkr1Ocf+8eZgVit0TZEffPgEi99tQh40tLjiCcFgYR8UREQsuZzLDMWvWFYAN3K6hg7DimH0C33/oMM7fHD2XyQCiiuFzPnjRs5ZaS226bDEyfU3SW/AJKV3M3SNhVwlNKR1nFV4rKdI=
-Received: from BLAPR03CA0022.namprd03.prod.outlook.com (2603:10b6:208:32b::27)
- by SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=DewGSR7clWeGOSCL0KPy+mSGcX98nwd5r4L/GFve6Kg=;
+ b=e+25Dem4H5crs4tvXHLLJ7mcDca6cn71jfo9+A+JQ3sTQGZiDLXLiiYgUZp9jqXlH3R3qDt88a3iClWPipcD7KnhOGvh2E3mBKK3BXtYYYGi1xtV+Kq5bFAn3zP6dY7E+KtmNQ8s5+67MJ5D3KXDv3NX+Qcy1pJ8qVkJrI7Wne0=
+Received: from BLAPR03CA0025.namprd03.prod.outlook.com (2603:10b6:208:32b::30)
+ by DS0PR12MB6536.namprd12.prod.outlook.com (2603:10b6:8:d3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.36; Tue, 11 Jun
- 2024 16:52:46 +0000
+ 2024 16:52:45 +0000
 Received: from MN1PEPF0000ECD7.namprd02.prod.outlook.com
- (2603:10b6:208:32b:cafe::1e) by BLAPR03CA0022.outlook.office365.com
- (2603:10b6:208:32b::27) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:32b:cafe::c7) by BLAPR03CA0025.outlook.office365.com
+ (2603:10b6:208:32b::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.25 via Frontend
- Transport; Tue, 11 Jun 2024 16:52:46 +0000
+ Transport; Tue, 11 Jun 2024 16:52:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000ECD7.mail.protection.outlook.com (10.167.242.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Tue, 11 Jun 2024 16:52:46 +0000
+ 15.20.7677.15 via Frontend Transport; Tue, 11 Jun 2024 16:52:45 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Jun
- 2024 11:52:44 -0500
+ 2024 11:52:42 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Daniel Wheeler <daniel.wheeler@amd.com>, <Harry.Wentland@amd.com>,
@@ -62,12 +62,12 @@ CC: Daniel Wheeler <daniel.wheeler@amd.com>, <Harry.Wentland@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>,
  <qingqing.zhuo@amd.com>, <roman.li@amd.com>, <wayne.lin@amd.com>,
  <solomon.chiu@amd.com>, <agustin.gutierrez@amd.com>, <jerry.zuo@amd.com>,
- <hamza.mahfooz@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
- <harry.wentland@amd.com>
-Subject: [PATCH 27/36] drm/amd/display: Remove redundant checks for
- res_pool->dccg
-Date: Tue, 11 Jun 2024 12:51:30 -0400
-Message-ID: <20240611165204.195093-28-hamza.mahfooz@amd.com>
+ <hamza.mahfooz@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ "Wenjing Liu" <wenjing.liu@amd.com>
+Subject: [PATCH 25/36] drm/amd/display: Fix warning caused by an attempt to
+ configure a non-otg master
+Date: Tue, 11 Jun 2024 12:51:28 -0400
+Message-ID: <20240611165204.195093-26-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.45.1
 In-Reply-To: <20240611165204.195093-1-hamza.mahfooz@amd.com>
 References: <20240611165204.195093-1-hamza.mahfooz@amd.com>
@@ -79,50 +79,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|SJ1PR12MB6121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a5ae689-0dda-4eb9-d9ed-08dc8a36eb5c
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|DS0PR12MB6536:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb39fafc-8536-401c-2ad5-08dc8a36eb2d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230032|82310400018|36860700005|376006|1800799016; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NLqlftxJpAUMa1SYjU4I5qwWTs3skRCBlOQyDvAiO843VvzNqpxmkKlmdydw?=
- =?us-ascii?Q?VNQ0D7C89fpaINqDXU9Arqs7/pgQ4cSq3Cwf9TbEOIzYqey49nFM69GRPHUR?=
- =?us-ascii?Q?CkQCEk+962KL6CE3XcWZ5keqzI0oNOhtbHIUwN4ObThyTIxcRwsfdBYnAlpV?=
- =?us-ascii?Q?TWPSeo0d07W6ZxK12z24tkT2eOnpDgv/lJdlPERI1Gp2HeVxDUXPsI0RqCek?=
- =?us-ascii?Q?ZFVuglKwlT60sQtx6Fel0gF7lRb195WnwzHYsbQOjd16wXhb6Fa7cTeWqnPV?=
- =?us-ascii?Q?pkhBMV9Sk/pxbkIdUbw8kmJbdHRR5IXsk6b5zjgAq4xyJS1pksyDFAP1p36B?=
- =?us-ascii?Q?7JDmvMU5KkxcPSRBIPZixaIa9mvzo4T1eV4fczKaS0bkhjLVV7hjX86TGpUK?=
- =?us-ascii?Q?AfbCnQaQQE5AZlR0hMonFf+/TWnwDbuGNrP/Ku5+QgAizRl8jW/GzorMPR/W?=
- =?us-ascii?Q?6hmYybp4oC/EU/SBkd96DJ1Fpa3IKCkrYZT4Tpmodzn4Drp3nlz1T9v8DJ4Z?=
- =?us-ascii?Q?n1RIVZSUBnRwAkt0iuk1fqQ98FqBVW8HDwhzdDG9Zjnp+8y6EWj9c4vnkT6u?=
- =?us-ascii?Q?B+JovVWlf9OuWO5d33gwa0cpohNoTAYIkcfRq0SEqsbHRQBwxYvqWf26Q+wS?=
- =?us-ascii?Q?hbt8B87dkzWMFpt5CPnDYh0usc7twhsDNaWSgLSQSccy5206KAtShzDHfiUG?=
- =?us-ascii?Q?Qyut+tpUY2crIktCt0lVW8ykRmq707h7phYfw4kGHSCNiuetIlruEaAJSr0Y?=
- =?us-ascii?Q?2f/1k2PAj9GdglWqvhLpeo/9omJzKO2Agkh9pL/Ympw8sxCVmstSxphL125J?=
- =?us-ascii?Q?sdKxbOrgXOcByYNxXtak7iSP1IDyWHvp9zo/FyYENyl5hW8wCP7DAwMHC4mS?=
- =?us-ascii?Q?UCnUu41LmMsuF8v9lFopqUjk4MpNG+BFuMxRkod3xZrtGKHeEvB7xZibzytV?=
- =?us-ascii?Q?V3BWFR2KEe+3PX2C6oRh4E9JVVNX1oHgH559y8/s54KfsXVpe05+cIqvYYEA?=
- =?us-ascii?Q?NV6EYU5+spqauAU2GwxVennO6sKvHooz/YWsR3C816wj4EbOv3+vH/HpMM4x?=
- =?us-ascii?Q?fEYPkxlTj4qTAf0BoZLtAhoesPWVihZHb6zcIXozKiNxsvkn5zmL5mZB/uqN?=
- =?us-ascii?Q?wXz1aEWgEi1XZ9JWRj0GNMhC1LinkGJMJR8L7MGjbA5yt5Ap1Fkn+3Ttve2a?=
- =?us-ascii?Q?3piaIPsEATHv9ZHlyxc5nQ/ONYMsNlWujMD8wfXXcXNa73onnQhOpj3SSRQb?=
- =?us-ascii?Q?pEqLaTkb2W+HWm2sfkSjs3gmGoqY+YXzc62b6awD1CkHXvHVU0quYbCihdJz?=
- =?us-ascii?Q?bauJGqRSdRenlYqUf35gippNuJpaK8UWdofbOt9kPAYSvMDf2qVa0Jh59Yqr?=
- =?us-ascii?Q?O45vY8Xp8tvv2hJjPxaW+dVOqk7yfXaXX6wozB2SKVn4fhO6+Q=3D=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HsElcAuJTy/Jao5y1azHbyX8L2BhTo8gM+47esXSkwqxtWppFCJtmtNmN5Vp?=
+ =?us-ascii?Q?uJmQO1VAik4FTGI3CUJ5I6TZ67OGtYdqkgSsc24iiSELhthN93+fpf6BrAbb?=
+ =?us-ascii?Q?sxw+2zDDH2FdI/W9GVe7FsK43d/r22F1K/rHRKhB1dE8RFLisqzyr4Ujq84Z?=
+ =?us-ascii?Q?unfyk643qJ4nz411fuheAa2SoNIYdNcp+Mz+fG4AXw6Pp+rgPaZN6ovPzyY6?=
+ =?us-ascii?Q?rXnJnqf0nrT4WZ3GffEYguh0ZnjxmpY6KcCx3WUdsXZp2vWACISVpo3F1tT3?=
+ =?us-ascii?Q?8AdaBrtZNuNhO/xZz1KZfcBsVWLIc3SqgjPpITj4jsUUy4kALPbbbnU+befV?=
+ =?us-ascii?Q?8Ot7SQ0PfPX1tALYF0t8iXs9venjeUM2nqPlLSVGjz8wLACLkPtgmNQbKd4a?=
+ =?us-ascii?Q?CMcLiuOzS5Twquoco9phXTh+AvD9YKLY5ErL8oyEv8fiKdWxFgEl4fIojfYj?=
+ =?us-ascii?Q?WCtMln1UUqYLOB+7Sd0q4l1h6/oHueNjjqghdDo+jetp1Xyix+DsM2oNsUxS?=
+ =?us-ascii?Q?ygrpQCTOxjS77iXpppjnG/9u/63tPS/kZAwJCInvJt3898FKuTW4Fwg2KZLV?=
+ =?us-ascii?Q?cTQlcg/5793A1A8mwAfQI206puMNyxrv0PbY3R66IUi41zzVkKqjo1+zKa1P?=
+ =?us-ascii?Q?fQjlSYgcpIUfC4J+h4C4DjNQwogrAqeX1QBRwmjzNcr+o2y5RyiFwSoVyf0b?=
+ =?us-ascii?Q?YWQ+iRE7h88+hm6moXYaH3Wpme5zunsGucdWStAN5TA8FTjEwe6YZszwmRE9?=
+ =?us-ascii?Q?IIlVuMdAInLUUpr+ItSID37CgCrzNkgeI/rcpwD0+LY028Om+ewBHdKWC+U3?=
+ =?us-ascii?Q?9sJZLFQIEgnBJBjknI6sjrpwdiSq0/Hkq2oMIpFSZh3E50fkj0+n6zAfKg6c?=
+ =?us-ascii?Q?u77xLjgPeAsy5kI7BmPxM/Q4SB9WJXnYuM28HshFuxLZ7X0M8XrJPr6pNxPl?=
+ =?us-ascii?Q?m6VWDO56ttTeCWP0TPTpfINS87df9uQgF/2MQOO3U0MWzvQkdv4oJJBOCHy3?=
+ =?us-ascii?Q?h+U6UJOXZo+VI6F/zJcRF11pviDss+5GR+MlSpRWLGnVmXjVHFeDYZd1uw4i?=
+ =?us-ascii?Q?btxG0i7m1WpfwuOzh/Qj0HcshjAJXG9+uEZ/j2BMFmh/dkL6q+6veATDor2O?=
+ =?us-ascii?Q?kK/EsABXNIlJ8KUW4oyz2jgxHyzUHjPFEIbM9poKuY062gYrjhu13/1ern11?=
+ =?us-ascii?Q?zFn0UG60rsghQPwF89D9SOC1QbXoT0BG+1D1rt2cMWbhDzHeDGdomLmisOLZ?=
+ =?us-ascii?Q?/n4LStYfqEg+H3bPQvW+/Kkg2EPqWfHyJxxKo03DXl4o5KnU0NqwKROlVk2I?=
+ =?us-ascii?Q?6rq0noPQcHkfPtXXf1Cdw+ErBPZ5MCpk154aVp6FEy53mtpMsmtIbIHIB9u6?=
+ =?us-ascii?Q?ZAAr9w/mZDEt5TjG21HQHe7zQKFfZ61HnmBTGbW0bNMre/DUGg=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230032)(82310400018)(36860700005)(376006)(1800799016); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 16:52:46.0740 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a5ae689-0dda-4eb9-d9ed-08dc8a36eb5c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2024 16:52:45.7459 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb39fafc-8536-401c-2ad5-08dc8a36eb2d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD7.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6121
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6536
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,104 +137,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 
-The null checks for res_pool->dccg are redundant as it was already
-dereferenced previously, as reported by Coverity; therefore the
-null checks are removed.
+When booting the system with DCN401, the driver adds the following dmesg
+warning:
 
-This fixes 6 REVERSE_INULL issues reported by Coverity.
+WARNING: CPU: 8 PID: 175 at
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_resource.c:1923
+resource_get_opp_heads_for_otg_master+0x13/0x70 [amdgpu]
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Modules linked in: amdgpu(+) hid_generic amdxcp i2c_algo_bit
+drm_ttm_helper ttm drm_exec gpu_sched drm_suballoc_helper drm_buddy
+drm_display_helper drm_kms_helper usbhid hid drm i2c_piix4 ahci igc
+libahci video wmi
+
+CPU: 8 PID: 175 Comm: systemd-udevd Not tainted 6.8.0-EXTRA-PROMO-MAY-29+ #66
+Hardware name: ASUS System Product Name/TUF GAMING X570-PRO (WI-FI),
+BIOS 4021 08/10/2021
+
+RIP: 0010:resource_get_opp_heads_for_otg_master+0x13/0x70 [amdgpu]
+Code: 8b 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
+90 0f 1f 44 00 00 55 48 83 bf f8 07 00 00 00 48 89 e5 74 0c <0f> 0b 31
+f6 89 f0 5d e9 0c 65 01 e5 48 83 bf e0 07 00 00 00 75 ea
+
+RSP: 0018:ffffa5f000816ed8 EFLAGS: 00010246
+[...]
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ ? show_regs+0x65/0x70
+ ? __warn+0x85/0x160
+ ? resource_get_opp_heads_for_otg_master+0x13/0x70 [amdgpu]
+ ? report_bug+0x192/0x1c0
+ ? handle_bug+0x44/0x90
+ ? exc_invalid_op+0x18/0x70
+[...]
+
+This warning is triggered by a check in the function
+resource_get_opp_heads_for_otg_master that validates if the request
+operation is in a master OTG pipe; if not, the warning above is
+displayed. In other words, another part of the code might be calling
+this function in a non-OTG master pipe context, resulting in the log
+message.
+
+The reason the ASSERT was triggered is that the current state wasn't
+updated after applying the context to the hardware. This means that the
+update_dsc_for_odm_change might be called from a non-OTG-MASTER. To
+prevent this, it's crucial to check if the current reference is pointing
+to an OTG master before operate in the old OTG master reference. If it's
+not, the function must set the old OTG reference to NULL and avoid
+calling resource_get_opp_heads_for_otg_master before the context is
+updated.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Co-developed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 24 ++++++++++++++-----
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-index 86d871cc74c7..f96adc689055 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-@@ -240,7 +240,7 @@ void dcn201_init_hw(struct dc *dc)
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
- 			dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
- 
--		if (res_pool->dccg && res_pool->hubbub) {
-+		if (res_pool->hubbub) {
- 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
- 					dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
- 					&res_pool->ref_clocks.dccg_ref_clock_inKhz);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-index 9ef38a3759b1..567300c3acaa 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-@@ -656,7 +656,7 @@ void dcn30_init_hw(struct dc *dc)
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
- 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
- 
--		if (res_pool->dccg && res_pool->hubbub) {
-+		if (res_pool->hubbub) {
- 
- 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
- 					dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index 1c8abb417b6e..746c522adf84 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -132,7 +132,7 @@ void dcn31_init_hw(struct dc *dc)
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
- 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
- 
--		if (res_pool->dccg && res_pool->hubbub) {
-+		if (res_pool->hubbub) {
- 
- 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
- 					dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index 33b8df995869..a597b2342472 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -806,7 +806,7 @@ void dcn32_init_hw(struct dc *dc)
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
- 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
- 
--		if (res_pool->dccg && res_pool->hubbub) {
-+		if (res_pool->hubbub) {
- 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
- 					dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
- 					&res_pool->ref_clocks.dccg_ref_clock_inKhz);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index d894c52bfdaf..a1e1f76bfde7 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -188,7 +188,7 @@ void dcn35_init_hw(struct dc *dc)
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
- 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
- 
--		if (res_pool->dccg && res_pool->hubbub) {
-+		if (res_pool->hubbub) {
- 
- 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
- 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
 diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index cb8e417fb032..6ba2e1cd20c7 100644
+index 0fafbec442b1..cb8e417fb032 100644
 --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
 +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -259,7 +259,7 @@ void dcn401_init_hw(struct dc *dc)
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
- 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
+@@ -1561,16 +1561,28 @@ static void update_dsc_for_odm_change(struct dc *dc, struct dc_state *context,
+ 	struct pipe_ctx *new_pipe;
+ 	struct pipe_ctx *old_opp_heads[MAX_PIPES];
+ 	struct dccg *dccg = dc->res_pool->dccg;
+-	struct pipe_ctx *old_otg_master =
+-			&dc->current_state->res_ctx.pipe_ctx[otg_master->pipe_idx];
+-	int old_opp_head_count = resource_get_opp_heads_for_otg_master(
+-			old_otg_master, &dc->current_state->res_ctx,
+-			old_opp_heads);
++	struct pipe_ctx *old_otg_master;
++	int old_opp_head_count = 0;
++
++	old_otg_master = &dc->current_state->res_ctx.pipe_ctx[otg_master->pipe_idx];
++
++	if (resource_is_pipe_type(old_otg_master, OTG_MASTER)) {
++		old_opp_head_count = resource_get_opp_heads_for_otg_master(old_otg_master,
++									   &dc->current_state->res_ctx,
++									   old_opp_heads);
++	} else {
++		// DC cannot assume that the current state and the new state
++		// share the same OTG pipe since this is not true when called
++		// in the context of a commit stream not checked. Hence, set
++		// old_otg_master to NULL to skip the DSC configuration.
++		old_otg_master = NULL;
++	}
++
  
--		if (res_pool->dccg && res_pool->hubbub) {
-+		if (res_pool->hubbub) {
- 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
- 					dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
- 					&res_pool->ref_clocks.dccg_ref_clock_inKhz);
+ 	if (otg_master->stream_res.dsc)
+ 		dcn32_update_dsc_on_stream(otg_master,
+ 				otg_master->stream->timing.flags.DSC);
+-	if (old_otg_master->stream_res.dsc) {
++	if (old_otg_master && old_otg_master->stream_res.dsc) {
+ 		for (i = 0; i < old_opp_head_count; i++) {
+ 			old_pipe = old_opp_heads[i];
+ 			new_pipe = &context->res_ctx.pipe_ctx[old_pipe->pipe_idx];
 -- 
 2.45.1
 
