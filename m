@@ -4,81 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D8DC27C75
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 20:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB76C27C53
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 22:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3B210E1ED;
-	Wed, 12 Jun 2024 20:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0341810E927;
+	Wed, 12 Jun 2024 22:24:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PvNkLHP0";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="YEdXR2k/";
 	dkim-atps=neutral
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACAFA10E8FE
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 20:45:04 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2ebe6495aedso2370681fa.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 13:45:04 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF27A10E927
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 22:24:43 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-1f6fada63a6so3228095ad.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 15:24:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718225102; x=1718829902; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=SEA70tBJ4PwBkoOMmWe3ULbP4tpxOmjC5IUbkfsrBUs=;
- b=PvNkLHP0fFkU15p6qNkki/dKXRDhCrJgtpsUc14fMYYKn2astgSmiP4ETTSt9yRUrR
- GdFNlKph4Xk4jvXHzxLOI3nEYmB8MgoPYQf2auGaXWadWA5LiXt/WMGtJHpEhl2Pg8J/
- FU09ARf05/NX39+1aM91DmByGRTw1g9PYf4F+SNVTLrGwgOU/3pv3vmSAe0mCT4hKC7c
- nfo3dTAl7InGkHq1EAuckCuEId/uVdvW0b1bGUtnZqKVpKDvY0Vfoj/D5Bs8U7fUdpFe
- veXEv4P+cbdZOFOtuzxw2Ks+WdAWTB3q0xct4YIJRRCEeVaZS6CLDYm5FV0upshYIZJE
- 1WPg==
+ d=chromium.org; s=google; t=1718231083; x=1718835883;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hvJdqdXbOsMsvfolWLIhz5jKfl0lZRFyGewDbo4ybFE=;
+ b=YEdXR2k/r39kcrdtnR0P6FGWAq4svalvmuvg4acywWG16xmHTt5WhnJ19hsFbxQSi+
+ MVMMLjoOsXE7O3iFoSeRrNV8an/tsRRPkEaHICa4qX7rkRcvyax+/W2z+pbvex7Y1kWm
+ uyX0KI3MIKTKdD4yj4xTreHqOPYWNuru1yw/w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718225102; x=1718829902;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SEA70tBJ4PwBkoOMmWe3ULbP4tpxOmjC5IUbkfsrBUs=;
- b=vI6fdzQLTQY0okw6N/YAjz+eXUEHGRpboyt4xHFG53WxtpGNp2nc/raeix6ELO2FXf
- zcT5WGcp5B9LKGtXJC0iHGbZoghtX/plRc9AnxF3ByHBNRjegCCYhbYguZPHAzb+i9Z1
- YBUwJ9hgZ8VpFMJOKhQzFmT0JhtDzUq0q5Rf6l8117muFj0DN90MHawLA4EdXSec26sx
- BDwzHm/dAYkaMLHnWPlfSxUA76GOztVhwRXiEsGWUyghh9OCKVtvhCeWy9w7AMYEbB9n
- W1AB7EPn/vHaprO02EA3I1ApPD1/A0Yve3JVK0DtsMPmhdjTY5gX+rvEqIiiXftT5Hrd
- WKWQ==
+ d=1e100.net; s=20230601; t=1718231083; x=1718835883;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hvJdqdXbOsMsvfolWLIhz5jKfl0lZRFyGewDbo4ybFE=;
+ b=NjhS2AtGoUudBJRpC9+kJW4q1tCHc1+CobatzXYWH9OsZp64nDmtYK8gZjT0O09Hq2
+ SlwtgbZPfRIuxDtoqRudGJK6Y5evnhsbevGtpKmcUnCKq81tTaBg2HqPkh8La66fssKY
+ t41+hgQpKRp4E73AI0M7fTlpnl00VSz4/EcYGnL3wpDacHBg5T/Zfq6CiZrohyRvIe2Z
+ MHBwFlfhTgPOlHvVP8U8GzuHsqqR9ydBOwSSJW9FkTh52d2cUk4WwhDVD4c+VjVzzFVu
+ dqcuBgjBK5TPKw3wyWqUo9RrX33nnDyhSl6sBAbC8joXl7Wild25hTHTpSZFKbi/KMCZ
+ k17g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUFlEGKKmLeXaXz55GntNd+TKmEUd8kLLLNirYp8H0fVGlOIirCMyjdvDX7+QxemSHXG2vsMJd6GCXkKR7Il9M6F0fJvRb4h34eh8CjAA==
-X-Gm-Message-State: AOJu0YzEIOeJFD1heGT2FMhsIJdRZ+3cFMxnBBzwrihv56dLovnmNd21
- uvf2HFN+9goZQYnaJ7ZUCQ6+T9rzUxaBs7zLjit0gvEd6neNJ0J1yf2Yg4wV/ro=
-X-Google-Smtp-Source: AGHT+IGVRVhHEiIlwITe9DlEo5WfJ4Eof41I9EM1LQ/eq9af4QfavH0OfsPqZ0JOdpEI84p8RNKzSw==
-X-Received: by 2002:a2e:9ed1:0:b0:2eb:e840:4a1b with SMTP id
- 38308e7fff4ca-2ebfc8feb43mr16792821fa.7.1718225102385; 
- Wed, 12 Jun 2024 13:45:02 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCX7ZWOQwATGv0rFe1Tjid6yoHRYbjW4M2yvwQDi6yPnOK9EAW6pGXGRaEk+YyNQH0GPzNSVQ302PXMnvlgdbH9sPWm5WTAY/BRdd1ruIg==
+X-Gm-Message-State: AOJu0Yw5gu1/yljkEIfaQcdG5Dj7+cDqUUTveKgCaaTV8KubxAlJPaXU
+ EnfICMp4aNIqTNB5TuNnHQAyIP2S2NTMkhvtdI13RU6fUElpQtRFLqXkrCYmZg==
+X-Google-Smtp-Source: AGHT+IFAyr/OLXB4J5n0QdHaEa3zXIRNItrD8acC+tRkbc51QXKJOk4EcFMZStf7hJ6gv4GGb6OcUA==
+X-Received: by 2002:a17:902:e851:b0:1f6:65d3:296 with SMTP id
+ d9443c01a7336-1f83b637bdcmr34717685ad.29.1718231083000; 
+ Wed, 12 Jun 2024 15:24:43 -0700 (PDT)
+Received: from dianders.sjc.corp.google.com
+ ([2620:15c:9d:2:2816:6a42:9074:18cc])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ebe4169b35sm16912301fa.135.2024.06.12.13.45.01
+ d9443c01a7336-1f6f30acda9sm87914105ad.198.2024.06.12.15.24.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jun 2024 13:45:01 -0700 (PDT)
-Date: Wed, 12 Jun 2024 23:45:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Simon Ser <contact@emersion.fr>, 
- Pekka Paalanen <ppaalanen@gmail.com>, daniel@ffwll.ch,
- Daniel Stone <daniel@fooishbar.org>, 
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com, 
- Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>, 
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH v5 2/3] drm: Allow drivers to choose plane types to async
- flip
-Message-ID: <pu4nawhvy52imqgpib4lx3s5lsbatmfrq3e7aa4zxfmewt6xrn@ki7woraegakt>
-References: <20240612193713.167448-1-andrealmeid@igalia.com>
- <20240612193713.167448-3-andrealmeid@igalia.com>
+ Wed, 12 Jun 2024 15:24:42 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: dri-devel@lists.freedesktop.org,
+	Maxime Ripard <mripard@kernel.org>
+Cc: Douglas Anderson <dianders@chromium.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Candice Li <candice.li@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Danilo Krummrich <dakr@redhat.com>, David Airlie <airlied@gmail.com>,
+ Edmund Dea <edmund.j.dea@intel.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Karol Herbst <kherbst@redhat.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Le Ma <le.ma@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Lyude Paul <lyude@redhat.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Orson Zhai <orsonzhai@gmail.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Herring <robh@kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Steven Price <steven.price@arm.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org,
+ chenxuebing <chenxb_99091@126.com>, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, nouveau@lists.freedesktop.org
+Subject: [PATCH v2 0/8] drm: make leftover drivers call
+ drm_atomic_helper_shutdown() at the right times
+Date: Wed, 12 Jun 2024 15:23:40 -0700
+Message-ID: <20240612222435.3188234-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.45.2.505.gda0bf45e8d-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240612193713.167448-3-andrealmeid@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,37 +110,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 12, 2024 at 04:37:12PM -0300, André Almeida wrote:
-> Different planes may have different capabilities of doing async flips,
-> so create a field to let drivers allow async flip per plane type.
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
->  drivers/gpu/drm/drm_atomic_uapi.c | 4 ++--
->  drivers/gpu/drm/drm_plane.c       | 3 +++
->  include/drm/drm_plane.h           | 5 +++++
->  3 files changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-> index 57662a1fd345..bbcec3940636 100644
-> --- a/drivers/gpu/drm/drm_plane.c
-> +++ b/drivers/gpu/drm/drm_plane.c
-> @@ -385,6 +385,9 @@ static int __drm_universal_plane_init(struct drm_device *dev,
->  
->  	drm_modeset_lock_init(&plane->mutex);
->  
-> +	if (type == DRM_PLANE_TYPE_PRIMARY)
-> +		plane->async_flip = true;
-> +
 
-Why? Also note that the commit message writes about adding the field,
-not about enabling it for the primary planes.
+This patch series is the leftovers of a patch series sent in September
+2023 [1] in an attempt to get some of the patches landed finally.
 
->  	plane->base.properties = &plane->properties;
->  	plane->dev = dev;
->  	plane->funcs = funcs;
+This patch series originally came about after a _long_ discussion
+between me and Maxime Ripard in response to a different patch I sent
+out [2]. As part of that discussion, we realized that it would be good
+if DRM drivers consistently called drm_atomic_helper_shutdown()
+properly at shutdown and driver remove time as it's documented that
+they should do. The eventual goal of this would be to enable removing
+some hacky code from panel drivers where they had to hook into
+shutdown themselves because the DRM driver wasn't calling them.
 
+It turns out that quite a lot of drivers seemed to be missing
+drm_atomic_helper_shutdown() in one or both places that it was
+supposed to be. This patch series attempts to fix all the drivers that
+I was able to identify.
+
+NOTE: fixing this wasn't exactly cookie cutter. Each driver has its
+own unique way of setting itself up and tearing itself down. Some
+drivers also use the component model, which adds extra fun. I've made
+my best guess at solving this and I've run a bunch of compile tests
+(specifically, allmodconfig for amd64, arm64, and powerpc). That being
+said, these code changes are not totally trivial and I've done zero
+real testing on them. Making these patches was also a little mind
+numbing and I'm certain my eyes glazed over at several points when
+writing them. What I'm trying to say is to please double-check that I
+didn't do anything too silly, like cast your driver's drvdata to the
+wrong type. Even better, test these patches!
+
+Apparently most of these drivers now land through drm-misc [3], so
+hopefully they can land. The two that don't (amdgpu and radeon) are
+the ones I'm most ucertain about anyway so I've stuck them at the end.
+If I've totally buggered those up feel free to take my patch as a bug
+report and submit your own proper fix. ...or if there's some reason
+that we don't need to do anything for those drivers then let me know
+and we can drop them.
+
+I'd like to call out a few drivers that I _didn't_ fix in this series
+and why. If any of these drivers should be fixed then please yell.
+- DRM drivers backed by usb_driver (like gud, gm12u320, udl): I didn't
+  add the call to drm_atomic_helper_shutdown() at shutdown time
+  because there's no ".shutdown" callback for them USB drivers. Given
+  that USB is hotpluggable, I'm assuming that they are robust against
+  this and the special shutdown callback isn't needed.
+- ofdrm and simpledrm: These didn't have drm_atomic_helper_shutdown()
+  in either shutdown or remove, but I didn't add it. I think that's OK
+  since they're sorta special and not really directly controlling
+  hardware power sequencing.
+- virtio, vkms, vmwgfx, xen: I believe these are all virtual (thus
+  they wouldn't directly drive a panel) and adding the shutdown
+  didn't look straightforward, so I skipped them.
+
+I've let each patch in the series get CCed straight from
+get_maintainer. That means not everyone will have received every patch
+but everyone should be on the cover letter. I know some people dislike
+this but when touching this many drivers there's not much
+choice. dri-devel and lkml have been CCed and lore/lei exist, so
+hopefully that's enough for folks. I'm happy to add people to the
+whole series for future posts.
+
+[1] https://lore.kernel.org/r/20230901234202.566951-1-dianders@chromium.org
+[2] https://lore.kernel.org/r/20230804140605.RFC.4.I930069a32baab6faf46d6b234f89613b5cec0f14@changeid
+[3] https://lore.kernel.org/r/Zmm6_27GikpmT3HQ@phenom.ffwll.local
+
+Changes in v2:
+- Gathered whatever hadn't landed, rebased, and reposted.
+
+Douglas Anderson (8):
+  drm/kmb: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/nouveau: Call drm_atomic_helper_shutdown() or equiv at shutdown
+    time
+  drm/tegra: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/arcpgu: Call drm_atomic_helper_shutdown() at shutdown time
+  drm/sprd: Call drm_atomic_helper_shutdown() at remove time
+  drm/gma500: Call drm_helper_force_disable_all() at shutdown/remove
+    time
+  drm/radeon: Call drm_helper_force_disable_all() at shutdown/remove
+    time
+  drm/amdgpu: Call drm_atomic_helper_shutdown() at shutdown time
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 ++
+ drivers/gpu/drm/gma500/psb_drv.c           |  8 ++++++++
+ drivers/gpu/drm/kmb/kmb_drv.c              |  6 ++++++
+ drivers/gpu/drm/nouveau/nouveau_display.c  |  9 +++++++++
+ drivers/gpu/drm/nouveau/nouveau_display.h  |  1 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c      | 13 +++++++++++++
+ drivers/gpu/drm/nouveau/nouveau_drv.h      |  1 +
+ drivers/gpu/drm/nouveau/nouveau_platform.c |  6 ++++++
+ drivers/gpu/drm/radeon/radeon_drv.c        |  7 ++++++-
+ drivers/gpu/drm/sprd/sprd_drm.c            |  4 +++-
+ drivers/gpu/drm/tegra/drm.c                |  6 ++++++
+ drivers/gpu/drm/tiny/arcpgu.c              |  6 ++++++
+ 14 files changed, 78 insertions(+), 2 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.45.2.505.gda0bf45e8d-goog
+
