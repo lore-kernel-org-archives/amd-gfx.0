@@ -4,86 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35DB4C27C53
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 22:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51931C27C53
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 23:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B32210E939;
-	Wed, 12 Jun 2024 22:28:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B63010E06E;
+	Wed, 12 Jun 2024 23:50:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="EQx5pIkx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OStsSiKN";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4B0410E938
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 22:28:47 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2c2dee9d9a1so240502a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 15:28:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1718231327; x=1718836127;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GlLfBbnX9FblBpW76gVStblANR7z9T1g0t5a6w4/nbU=;
- b=EQx5pIkxaXnqtqd014VLlG8nY4grJ4Spq51gJ5tWUY+pSXDgHHZi2V395ArAC07g0J
- f4+qQhfSeY/dR0PjGoKatta5IGTQyoegPeYEboOEjaWSGQs6Kg85Oxe8vM8A8UJV5XxM
- WEFw3zTEuRu115iqA9u4hHu+GBMWko6jKgntk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718231327; x=1718836127;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GlLfBbnX9FblBpW76gVStblANR7z9T1g0t5a6w4/nbU=;
- b=ozZ46dO73Mi1Or3gmPDl9n9IS09wqN1C9/rPvZsLXD1O+nowH8sCqv6Uqaty46Kt88
- 9qXAq1KgrKvVR+ssSAnpchT1cwi8NVoiDgvLL4pt8xlYF7dBMLlult4izJiY7VVpf2y3
- YZFwPvuypIaSPRNYnwVuyk29oRXuuIAEP12pHzME+ufpj9grgtCBI7IsLuEIzfhCGpEU
- 9hwXWmGsRf6DugbyQoWNn59/ejJe7Yuwcf8LoSeTjAotCZKX7pEoxzYOMflyzpX4b799
- KFfq7emz/aPSbZw7n1VfojzUDc86xfkEny0Bmw3Rk+Mt6guePe9Wf3Y4Qw2AE8sCVY+S
- Py0g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVGBB62Ed/IM9QZupzUAIoJoSgoDDj0kChd5Q1fz3KFU+YopzJnV7YkVvsALIPYjRuZPsKXCE8acu9rUs6eTvO+ZqaxSkUdw+7vGodqyw==
-X-Gm-Message-State: AOJu0YxR02xrz4F1VS5XzoFjmdMUdTGHrq4cxstZ8oAJz1w2nmXzOw/K
- 0O0Ydyu0BubRiiraI2cQdxozlnqYAC70pLuRz+HscFbzmKFlaAtCPbLjgSeXSw==
-X-Google-Smtp-Source: AGHT+IHPZkmR/uiNsfI6yDfoiz6DjupPzvyE09FKeunOtYBdIdMpSm5jxkYUgJB/lptf93zhOTJSfQ==
-X-Received: by 2002:a17:90b:4ad2:b0:2c4:ab32:b723 with SMTP id
- 98e67ed59e1d1-2c4ab32b8c3mr2926957a91.29.1718231327185; 
- Wed, 12 Jun 2024 15:28:47 -0700 (PDT)
-Received: from dianders.sjc.corp.google.com
- ([2620:15c:9d:2:2816:6a42:9074:18cc])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f6f336d172sm87788575ad.247.2024.06.12.15.28.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jun 2024 15:28:46 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org,
-	Maxime Ripard <mripard@kernel.org>
-Cc: Douglas Anderson <dianders@chromium.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Candice Li <candice.li@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org,
- chenxuebing <chenxb_99091@126.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 8/8] drm/amdgpu: Call drm_atomic_helper_shutdown() at
- shutdown time
-Date: Wed, 12 Jun 2024 15:28:04 -0700
-Message-ID: <20240612152752.v2.8.I27914059cc822b52db9bf72b4013b525b60e06fd@changeid>
-X-Mailer: git-send-email 2.45.2.505.gda0bf45e8d-goog
-In-Reply-To: <20240612222435.3188234-1-dianders@chromium.org>
-References: <20240612222435.3188234-1-dianders@chromium.org>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F178610E06E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 23:49:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Uov3GHvA8+rmokL+cFWZIk//msMxq8KIo9nv2GPOIb195Tp0exnORIhgVXM+D2qnfJU30OY3MUi4J33o4cZsjvaM362mdsiEj0khenEUP0m5CTGibWE0XDJOOAOyt6jHUf86WrcWnUGhegA67LGfFL1SWgKS6v8vJrU7NyxOOdWX9OhZ1jTpbCYRtwFUCW5ZVyXXraXdpr99qYJyi5/HSD69q9Wbk6hIeSkAqCLoJIh/eKK5tZf/3zYCwouhypgXed1MdMhtn49EAteomXhtAKZnmoYLO73FEeHLdzzA/gg3vuKZBe2vBsng1MH6fBVK87USsIS1vLLrK6UEXb+WyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qxqPQN/bZG1LEjwjIwf7q/t3g7+WXmJ+xn82S/MVyoY=;
+ b=d8CpGsKkR2RcnvIN8Jqr8gg+jgH38fcq/DA/zVc4gh2jZfvJKpCxawoDw3Oj6AEPkHQeWvRqvipfLvbVMPgQu4/ZaEdZXHmobBVf5F9YaCoCwHhtVWX0c1sEYa0hcrXlS6PSaF5hq+Vm7By07ZZv36MA5nDGejLRK3oHzI0KguVR37nVNsoU/Do6ditMirG93ZvrcS7ZQ97RH9VZBVuvO8qFZfsacOIWo6SnK6vw3oxJdeue9lD5Fqvscy2INtbDs0PHA+4cjc+8ezwOhrOkCWVYlGadDNWysBESX8cTrQKqOZnh+vjOR0A1Llh+aLu2d2Z3yyu4sowydeiPUl9QIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qxqPQN/bZG1LEjwjIwf7q/t3g7+WXmJ+xn82S/MVyoY=;
+ b=OStsSiKNAXcLe+4co1MvA9uHsXF91Q0euywzl2lkjfoKliCMDp9Ov8iQb9hrm0uisxqLoSoDt2FgXI4wl7UE+J4HCq3N5YcGUqqBZFxYx2aB1iTzGWbMrqNxb4XSLiIZWY1mdUpyNy5KMXAJoSStMGNljTy/yldKI5IDQRRDicI=
+Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
+ PH0PR12MB8008.namprd12.prod.outlook.com (2603:10b6:510:26f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.20; Wed, 12 Jun
+ 2024 23:49:49 +0000
+Received: from DM4PR12MB5165.namprd12.prod.outlook.com
+ ([fe80::db2e:f082:bb80:d1a4]) by DM4PR12MB5165.namprd12.prod.outlook.com
+ ([fe80::db2e:f082:bb80:d1a4%6]) with mapi id 15.20.7677.019; Wed, 12 Jun 2024
+ 23:49:49 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+Subject: RE: [PATCH] drm/amd/display: Enable idle optimizations on DCN401
+Thread-Topic: [PATCH] drm/amd/display: Enable idle optimizations on DCN401
+Thread-Index: AQHavDTgJsJMNKpCoUG+flHmtCXuGbHEzccQ
+Date: Wed, 12 Jun 2024 23:49:49 +0000
+Message-ID: <DM4PR12MB516564255A30BEB2896FEADC8EC02@DM4PR12MB5165.namprd12.prod.outlook.com>
+References: <20240611192329.1983538-1-aurabindo.pillai@amd.com>
+In-Reply-To: <20240611192329.1983538-1-aurabindo.pillai@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=fc886a23-0893-4618-b8c9-e28a7af24bf6;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-12T23:48:59Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5165:EE_|PH0PR12MB8008:EE_
+x-ms-office365-filtering-correlation-id: 27300ebc-d610-4976-cc74-08dc8b3a58bc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230034|376008|1800799018|366010|38070700012;
+x-microsoft-antispam-message-info: =?us-ascii?Q?kH9sC1Zp5usiHyGd+Y1zsRkcFmLHId8KbHas4781IhWo+rIOoACMrtCNz1Us?=
+ =?us-ascii?Q?WulJKIO04T4OFrmfKKL5ZqUemyDe96eHQLsKbweQWurgQzUBxo5i2GCO77n4?=
+ =?us-ascii?Q?PRed/KNPtBWShic5dVsOK4/moiYI/sxPmqJOuCDxkkfxa5jARDHEXgsw9nF2?=
+ =?us-ascii?Q?gGyuT6RyEBonJtte6FmPSCNRaCmt5SlRP6HYM4Ldw0IrEb1dNCAqfajn/Mg7?=
+ =?us-ascii?Q?nL6HBxuSUbzFuWFKBib1yf1eAykzBZgIggPKjAbELsF7++IuVp/6jZtycuTL?=
+ =?us-ascii?Q?Os1MhAUUfc7nCo+wzlv2iq1RdYadcYxRGRuyX5DfKakkPC1AjthukpwzfJ+a?=
+ =?us-ascii?Q?L6pK+009jgmNyPBgWlEMJd0GuH3nSlTt84CQV73CfNOzIJJY2ydpBn+tCRFt?=
+ =?us-ascii?Q?xRt2PB9S7zpAI0XWy/72bLTFAprfY1Vd8x1pqH10HLbVvirXxQ7oPo4lHgNq?=
+ =?us-ascii?Q?+i8hgZxMu8Faffiss9b9/h5Tc3XT/6baDqnmjDZzOdoPxgI9ANjBPM6zPb4j?=
+ =?us-ascii?Q?IIDfzk8ZieNVUYHqS8zzXAAipLWitxTsgnsWVL3X9TqrxPizPPUiK+SyWXV6?=
+ =?us-ascii?Q?H9wGEbCRyZlbpVgY3lhdXLVu6VblJl0lE/fMmZ07aqgxhaV1Hqsh9WtKpzio?=
+ =?us-ascii?Q?zURQINUTpy9Rix6MHiQJrRfwEwvF3vM5t9wPWV+EC3MZhS59DHdPQENz8sIU?=
+ =?us-ascii?Q?IJo/1nnDStT+JuR5HEOF//fv4/8EAR0RQH6PGCvPpoCHv1stP9fURVytcVpQ?=
+ =?us-ascii?Q?/tQwGw/eTerDrwSLK1x6+j08Rd/T+ZC+B3/aZH4+xkiUaY+4un1v0JPpkju1?=
+ =?us-ascii?Q?F2nfertXLGhk/8Dwn8Berl5EbmGBdaPRdNqil8DORgjNhOfyQek47STF7OyP?=
+ =?us-ascii?Q?h0kaaQzRqo5pDhG7Rpg8oZ0SiQalHkCu+RIhws51UkjPhs1+itoeRgnI8cbg?=
+ =?us-ascii?Q?+8jnoaT3NCTgVCGb8nJRESsrT4Eyg8jhbdPCWZk8necbeBtwTekfCLdYcLrO?=
+ =?us-ascii?Q?/uO2iTP73TS/zxc1ZrqTO8WgeEZaJEG4Kz804WsADKDaHnK67MH61/2tmmOe?=
+ =?us-ascii?Q?gaRv86t54KZeGfWmHT9wLdlfe+WLxc/qMCim7d56ZfEywo1/GchQ0R+9YAxq?=
+ =?us-ascii?Q?65krOExhA8AECQm+t2tvz7ecR1DVCMbuH9zpWfn+1N63b3KDhdvo+AEDnEZO?=
+ =?us-ascii?Q?bez7KnNsE/kKXcEyMfqjbtgrMOdACSzacNvDTGMEnDNwt3jUwQ+9+hWrjgkq?=
+ =?us-ascii?Q?ydZCKsUuP06IcJV02CgkrAv4wilDAmgxbQVEPsQe/aLv9CEBVV5utJnbyOME?=
+ =?us-ascii?Q?3pLy19u/JP/N7X/xKAl2SgRWbu+qw8vXpfX+fFsSKWY1fZ5pUUlelkCXnjn2?=
+ =?us-ascii?Q?AdnU4Vc=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230034)(376008)(1800799018)(366010)(38070700012); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RKV+NsVXIE4sn4IHWjVxX02AYw1js/atYtG6Z6mEYrq/1xmDgBAvDIDU9HSl?=
+ =?us-ascii?Q?b4LeBGvcqQtnDKwa4xH83iMqPToARxV5sKRkPTowhPkyf06MXNu7/+YvyqvI?=
+ =?us-ascii?Q?0RS5rz87HWwlX44EAAzmv+egsuEqwqWMbL8JzG4hiEEsAjUUaAHPX4efhAYa?=
+ =?us-ascii?Q?AYsGhTiVU/dAu37tlSZVYX/uIeleLVPijraL0PvUPxXcm94SBYjOvDn/4TWN?=
+ =?us-ascii?Q?8jJ5ElDEa9m1Y4ibBpydH+hDFTuzvneYUMxtqBacPxzffy2D1jP0HG2CQSbA?=
+ =?us-ascii?Q?EeDWZYKNTdXbqNyfammRQNvfoGSkFVNRN9CPadMVPvsn4bOwJcBxIEh5jHlQ?=
+ =?us-ascii?Q?gvUGAY6SEV/pvwkMUCdGoCjsHUeAHhrfIE8EVvczlmcimBLHMdmqb2pFxTT8?=
+ =?us-ascii?Q?GnpjI09uxGA1kREToeSB97xswYUsWRs0vTuFSNSRdQWIAHe+JWXBZBjxPgNb?=
+ =?us-ascii?Q?fxPvoa4GSKG3JzJrghkktNanic1b8nMyg30j4cDhFDhK8DBIl6AesV+AFKsO?=
+ =?us-ascii?Q?BkMu9SzB2tcN8pfoykS52U34QqIlAcXhe+NS7EKqI9LKkWLpMM0T8AJbggty?=
+ =?us-ascii?Q?id2zBhYPP+OsUko8Bq8z/WLvQg3G2i3aPjwZn6DIFf2GqQnIwr3nMJ8cdBpi?=
+ =?us-ascii?Q?Sy9MYZBLW0f0JgUiwv1yM/yDlOO34aMAXTcQEaCWShElEj+SmSjfJJNCukPX?=
+ =?us-ascii?Q?JMmV3CE8j0FyxMO8P1sgEP8jIapj0shfc5+8mUq7hkRX+stBRyuRbJJohLra?=
+ =?us-ascii?Q?EIwGt1I8HWMqXGevG2gy4oTQzsr8pCAlrja1/s2RacSum5naWviMcqfu7cc0?=
+ =?us-ascii?Q?t0VkWTfRHwYxiPPMvTOH1TUUiZuPvPkHbOs9Lh8HFQGSAZr5vTpsEtjVGHSK?=
+ =?us-ascii?Q?VpldK1tJ1vQHSnItaJp/4KzUPPSo6zSQsomsWegA9D/RZ4cAjIOb4X7TAMRj?=
+ =?us-ascii?Q?dScnnuOeT92RWSd3UqEHEzGHS9pd2DKQw6OlN8ZX3YLdJtpcXSy7+h/DYJ0S?=
+ =?us-ascii?Q?ShJ1DcAEg3cR632HcG6StKl22kwmEPBp0F2802R46k2VgnAffemcp2zACe9v?=
+ =?us-ascii?Q?cT6pe8eZX0/YxlG5IqZsPQVE8iwIwZD7tpPeLhdKgv7NhJ+Nu6+cklFDczaP?=
+ =?us-ascii?Q?FAigo+NPVOrRVlofcRNOr1Bo5rJncDL5w5ig3A0Ik++DXeBJfZMi34Xsr6Py?=
+ =?us-ascii?Q?/a6staqtW6//uA10xW668L92Bdka+gteWHzpRuLHgE2ChaNL/iJ8wmWLLbLK?=
+ =?us-ascii?Q?BT+i9oyDFS8TfrQyduFZ4vbpzA141FjRTPyOiHRBdeCtIMWqOTg+b0MSznJg?=
+ =?us-ascii?Q?cuCfAFnP6IowI6hhw1iMD743m+qrT+tlv1QSTvBnIHayXanR0IBaDyt47eRn?=
+ =?us-ascii?Q?Bq4iz5SNc9YhJC95LdEauTLRMMl96GpwP9zhh2Mfhh9n0Dus94QVwu4Y2Npp?=
+ =?us-ascii?Q?b87FyBrItpQagG15fCbHxRazDETMOOvW855BNiH6uPpjb6DKAjqJrUy82nFK?=
+ =?us-ascii?Q?QdCx6ulJkyODJZq6+88h9IK8KaTdpHpOxDRkinHxlRqLd+ssWKXyFIx926ZR?=
+ =?us-ascii?Q?KerDOU8amx1UiPeGN90=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27300ebc-d610-4976-cc74-08dc8b3a58bc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2024 23:49:49.2711 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: W6EUb0bMyB/EoxDp6bt/w5KjRh6p4kSFG9sfGPq8iOUCnwPTuU9GIfu0pQSrnKho
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8008
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,83 +154,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on grepping through the source code this driver appears to be
-missing a call to drm_atomic_helper_shutdown() at system shutdown
-time. Among other things, this means that if a panel is in use that it
-won't be cleanly powered off at system shutdown time.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-The fact that we should call drm_atomic_helper_shutdown() in the case
-of OS shutdown/restart comes straight out of the kernel doc "driver
-instance overview" in drm_drv.c.
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
-Suggested-by: Maxime Ripard <mripard@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Aurabind=
+o Pillai
+Sent: Wednesday, June 12, 2024 3:23 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Wentland, Harry <Harry.We=
+ntland@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Pillai, Au=
+rabindo <Aurabindo.Pillai@amd.com>
+Subject: [PATCH] drm/amd/display: Enable idle optimizations on DCN401
+
+Caution: This message originated from an External Source. Use proper cautio=
+n when opening attachments, clicking links, or responding.
+
+
+Idle optimizations were disabled due to some bugs which are now fixed in DM=
+CUB and PM firwmare. Enable these the optimizations back.
+
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
-This commit is only compile-time tested.
+ .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c    | 2 --
+ 1 file changed, 2 deletions(-)
 
-...and further, I'd say that this patch is more of a plea for help
-than a patch I think is actually right. I'm _fairly_ certain that
-drm/amdgpu needs this call at shutdown time but the logic is a bit
-hard for me to follow. I'd appreciate if anyone who actually knows
-what this should look like could illuminate me, or perhaps even just
-post a patch themselves!
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource=
+.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index ea803df8645e..d78dc63f82fd 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -731,9 +731,7 @@ static const struct dc_debug_options debug_defaults_drv=
+ =3D {
+                }
+        },
+        .force_cositing =3D CHROMA_COSITING_TOPLEFT + 1,
+-       .disable_idle_power_optimizations =3D true,
+        .edp_oled_no_backlight_enable =3D true,
+-       .disable_boot_optimizations =3D true,
+ };
 
-(no changes since v1)
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 ++
- 3 files changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index f87d53e183c3..c202a1d5ff5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1197,6 +1197,7 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_device *bdev)
- int amdgpu_device_init(struct amdgpu_device *adev,
- 		       uint32_t flags);
- void amdgpu_device_fini_hw(struct amdgpu_device *adev);
-+void amdgpu_device_shutdown_hw(struct amdgpu_device *adev);
- void amdgpu_device_fini_sw(struct amdgpu_device *adev);
- 
- int amdgpu_gpu_wait_for_idle(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 861ccff78af9..a8c4b8412e04 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4531,6 +4531,16 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 
- }
- 
-+void amdgpu_device_shutdown_hw(struct amdgpu_device *adev)
-+{
-+	if (adev->mode_info.mode_config_initialized) {
-+		if (!drm_drv_uses_atomic_modeset(adev_to_drm(adev)))
-+			drm_helper_force_disable_all(adev_to_drm(adev));
-+		else
-+			drm_atomic_helper_shutdown(adev_to_drm(adev));
-+	}
-+}
-+
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- {
- 	int idx;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ea14f1c8f430..b34bf9259d5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2409,6 +2409,8 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
- 	struct drm_device *dev = pci_get_drvdata(pdev);
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 
-+	amdgpu_device_shutdown_hw(adev);
-+
- 	if (amdgpu_ras_intr_triggered())
- 		return;
- 
--- 
-2.45.2.505.gda0bf45e8d-goog
+ static struct dce_aux *dcn401_aux_engine_create(
+--
+2.45.2
 
