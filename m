@@ -4,95 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB76C27C53
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 22:24:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DCC4C27C53
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 22:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0341810E927;
-	Wed, 12 Jun 2024 22:24:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D055610E931;
+	Wed, 12 Jun 2024 22:28:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="YEdXR2k/";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="CL1Sdwc7";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF27A10E927
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 22:24:43 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-1f6fada63a6so3228095ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 15:24:43 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6BD110E931
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 22:28:42 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-1f44b45d6abso3470415ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 15:28:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1718231083; x=1718835883;
+ d=chromium.org; s=google; t=1718231322; x=1718836122;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=hvJdqdXbOsMsvfolWLIhz5jKfl0lZRFyGewDbo4ybFE=;
- b=YEdXR2k/r39kcrdtnR0P6FGWAq4svalvmuvg4acywWG16xmHTt5WhnJ19hsFbxQSi+
- MVMMLjoOsXE7O3iFoSeRrNV8an/tsRRPkEaHICa4qX7rkRcvyax+/W2z+pbvex7Y1kWm
- uyX0KI3MIKTKdD4yj4xTreHqOPYWNuru1yw/w=
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L/jWWU1pq804c3ou2ews3riGNTGElQFQ1wAS5cHqZxA=;
+ b=CL1Sdwc7x4iD/dvwaI/nUYtWyd5Sek3vn6LCVQ84wzWJXrgKpC47jEvoNgjAcqJoA2
+ xAHjnyMc+zeDzoPn2sWaJanppASjpRkvjdLhGSLwIbJWk+UsPPozmenE5YlV74/sx0hh
+ 1UnqiL1b0KNcvmso3Gt/V3W8/zGoWwjBbyUkQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718231083; x=1718835883;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hvJdqdXbOsMsvfolWLIhz5jKfl0lZRFyGewDbo4ybFE=;
- b=NjhS2AtGoUudBJRpC9+kJW4q1tCHc1+CobatzXYWH9OsZp64nDmtYK8gZjT0O09Hq2
- SlwtgbZPfRIuxDtoqRudGJK6Y5evnhsbevGtpKmcUnCKq81tTaBg2HqPkh8La66fssKY
- t41+hgQpKRp4E73AI0M7fTlpnl00VSz4/EcYGnL3wpDacHBg5T/Zfq6CiZrohyRvIe2Z
- MHBwFlfhTgPOlHvVP8U8GzuHsqqR9ydBOwSSJW9FkTh52d2cUk4WwhDVD4c+VjVzzFVu
- dqcuBgjBK5TPKw3wyWqUo9RrX33nnDyhSl6sBAbC8joXl7Wild25hTHTpSZFKbi/KMCZ
- k17g==
+ d=1e100.net; s=20230601; t=1718231322; x=1718836122;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=L/jWWU1pq804c3ou2ews3riGNTGElQFQ1wAS5cHqZxA=;
+ b=FckiHpdzpfcEyxR5VQ7dvHV8iCPksMn0nQ5TiQPfSS5NZUxbGQRhavNP7exmA/esa8
+ jvgTs9VBSkDstt0WgizApv36LyTXlxZrJIlUOzhsjNQNJN7vTedvturEdJOcfmV++M/P
+ YJKwJd/KiaLJbrm4lpLn7+kHzd6lSjRWlKy4EDJkHMPxZfQ6zALl7fufRCVo2nVR5pxu
+ B4zs5lO7nxFftjt1ZNuw78QS4rWIj5gZJJKAP/EkYocMn1XXnd8wsDvN41iYS/jrivyQ
+ H2rWDkqGvlC2QjGaAHqoSagnoL5sVNMlVklFCLOmqIzugaFsNcEFM8OJ3iqBNz6TZRHV
+ CN+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7ZWOQwATGv0rFe1Tjid6yoHRYbjW4M2yvwQDi6yPnOK9EAW6pGXGRaEk+YyNQH0GPzNSVQ302PXMnvlgdbH9sPWm5WTAY/BRdd1ruIg==
-X-Gm-Message-State: AOJu0Yw5gu1/yljkEIfaQcdG5Dj7+cDqUUTveKgCaaTV8KubxAlJPaXU
- EnfICMp4aNIqTNB5TuNnHQAyIP2S2NTMkhvtdI13RU6fUElpQtRFLqXkrCYmZg==
-X-Google-Smtp-Source: AGHT+IFAyr/OLXB4J5n0QdHaEa3zXIRNItrD8acC+tRkbc51QXKJOk4EcFMZStf7hJ6gv4GGb6OcUA==
-X-Received: by 2002:a17:902:e851:b0:1f6:65d3:296 with SMTP id
- d9443c01a7336-1f83b637bdcmr34717685ad.29.1718231083000; 
- Wed, 12 Jun 2024 15:24:43 -0700 (PDT)
+ AJvYcCWnQ8ydrR3N1OIHLO1KaQK5TVm8CxhCA4i7NIfGjiZrJUsb7uAO0OnC7z92MHnoLOVvoA0gK5kf/CRIAJQiefuWnothABZl5f2+wgKr+Q==
+X-Gm-Message-State: AOJu0YxfUJ1kLPMOsuyF0IbRLkwr0oxXLM4w+KQrtb4+qMO9+i6cNd/2
+ 9tRtWYjqXYA5ZnfgIW5qFHfLI+zI1m7s+FfiIHGvBpiKHscVmE1ZvwIkPPiXUw==
+X-Google-Smtp-Source: AGHT+IF/TlcvLXIfZfu54yCkggfRcKPb4J9ZvGiYz9EXPf3MwPKKQhOCuUiLPrDC9MOJJ/dvVbiIOQ==
+X-Received: by 2002:a17:903:234a:b0:1f7:187f:cb5b with SMTP id
+ d9443c01a7336-1f83b7f5871mr39623195ad.64.1718231321795; 
+ Wed, 12 Jun 2024 15:28:41 -0700 (PDT)
 Received: from dianders.sjc.corp.google.com
  ([2620:15c:9d:2:2816:6a42:9074:18cc])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f6f30acda9sm87914105ad.198.2024.06.12.15.24.40
+ d9443c01a7336-1f6f336d172sm87788575ad.247.2024.06.12.15.28.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jun 2024 15:24:42 -0700 (PDT)
+ Wed, 12 Jun 2024 15:28:41 -0700 (PDT)
 From: Douglas Anderson <dianders@chromium.org>
 To: dri-devel@lists.freedesktop.org,
 	Maxime Ripard <mripard@kernel.org>
 Cc: Douglas Anderson <dianders@chromium.org>,
  Alex Deucher <alexander.deucher@amd.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Candice Li <candice.li@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Danilo Krummrich <dakr@redhat.com>, David Airlie <airlied@gmail.com>,
- Edmund Dea <edmund.j.dea@intel.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Karol Herbst <kherbst@redhat.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Le Ma <le.ma@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Lyude Paul <lyude@redhat.com>, Ma Jun <Jun.Ma2@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Orson Zhai <orsonzhai@gmail.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Herring <robh@kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Steven Price <steven.price@arm.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org,
- chenxuebing <chenxb_99091@126.com>, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, nouveau@lists.freedesktop.org
-Subject: [PATCH v2 0/8] drm: make leftover drivers call
- drm_atomic_helper_shutdown() at the right times
-Date: Wed, 12 Jun 2024 15:23:40 -0700
-Message-ID: <20240612222435.3188234-1-dianders@chromium.org>
+ Xinhui Pan <Xinhui.Pan@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 7/8] drm/radeon: Call drm_helper_force_disable_all() at
+ shutdown/remove time
+Date: Wed, 12 Jun 2024 15:28:03 -0700
+Message-ID: <20240612152752.v2.7.I022cfc2dcd30e77d4f7005a2d912dd7ab76c0338@changeid>
 X-Mailer: git-send-email 2.45.2.505.gda0bf45e8d-goog
+In-Reply-To: <20240612222435.3188234-1-dianders@chromium.org>
+References: <20240612222435.3188234-1-dianders@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -110,103 +88,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Based on grepping through the source code, this driver appears to be
+missing a call to drm_atomic_helper_shutdown(), or in this case the
+non-atomic equivalent drm_helper_force_disable_all(), at system
+shutdown time and at driver remove time. This is important because
+drm_helper_force_disable_all() will cause panels to get disabled
+cleanly which may be important for their power sequencing. Future
+changes will remove any custom powering off in individual panel
+drivers so the DRM drivers need to start getting this right.
 
-This patch series is the leftovers of a patch series sent in September
-2023 [1] in an attempt to get some of the patches landed finally.
+The fact that we should call drm_atomic_helper_shutdown(), or in this
+case the non-atomic equivalent drm_helper_force_disable_all(), in the
+case of OS shutdown/restart comes straight out of the kernel doc
+"driver instance overview" in drm_drv.c.
 
-This patch series originally came about after a _long_ discussion
-between me and Maxime Ripard in response to a different patch I sent
-out [2]. As part of that discussion, we realized that it would be good
-if DRM drivers consistently called drm_atomic_helper_shutdown()
-properly at shutdown and driver remove time as it's documented that
-they should do. The eventual goal of this would be to enable removing
-some hacky code from panel drivers where they had to hook into
-shutdown themselves because the DRM driver wasn't calling them.
+NOTE: in order to get things inserted in the right place, I had to
+replace the old/deprecated drm_put_dev() function with the equivalent
+new calls.
 
-It turns out that quite a lot of drivers seemed to be missing
-drm_atomic_helper_shutdown() in one or both places that it was
-supposed to be. This patch series attempts to fix all the drivers that
-I was able to identify.
+Suggested-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
+I honestly have no idea if I got this patch right. The shutdown()
+function already had some special case logic for PPC, Loongson, and
+VMs and I don't 100% for sure know how this interacts with
+those. Everything here is just compile tested.
 
-NOTE: fixing this wasn't exactly cookie cutter. Each driver has its
-own unique way of setting itself up and tearing itself down. Some
-drivers also use the component model, which adds extra fun. I've made
-my best guess at solving this and I've run a bunch of compile tests
-(specifically, allmodconfig for amd64, arm64, and powerpc). That being
-said, these code changes are not totally trivial and I've done zero
-real testing on them. Making these patches was also a little mind
-numbing and I'm certain my eyes glazed over at several points when
-writing them. What I'm trying to say is to please double-check that I
-didn't do anything too silly, like cast your driver's drvdata to the
-wrong type. Even better, test these patches!
+(no changes since v1)
 
-Apparently most of these drivers now land through drm-misc [3], so
-hopefully they can land. The two that don't (amdgpu and radeon) are
-the ones I'm most ucertain about anyway so I've stuck them at the end.
-If I've totally buggered those up feel free to take my patch as a bug
-report and submit your own proper fix. ...or if there's some reason
-that we don't need to do anything for those drivers then let me know
-and we can drop them.
+ drivers/gpu/drm/radeon/radeon_drv.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-I'd like to call out a few drivers that I _didn't_ fix in this series
-and why. If any of these drivers should be fixed then please yell.
-- DRM drivers backed by usb_driver (like gud, gm12u320, udl): I didn't
-  add the call to drm_atomic_helper_shutdown() at shutdown time
-  because there's no ".shutdown" callback for them USB drivers. Given
-  that USB is hotpluggable, I'm assuming that they are robust against
-  this and the special shutdown callback isn't needed.
-- ofdrm and simpledrm: These didn't have drm_atomic_helper_shutdown()
-  in either shutdown or remove, but I didn't add it. I think that's OK
-  since they're sorta special and not really directly controlling
-  hardware power sequencing.
-- virtio, vkms, vmwgfx, xen: I believe these are all virtual (thus
-  they wouldn't directly drive a panel) and adding the shutdown
-  didn't look straightforward, so I skipped them.
-
-I've let each patch in the series get CCed straight from
-get_maintainer. That means not everyone will have received every patch
-but everyone should be on the cover letter. I know some people dislike
-this but when touching this many drivers there's not much
-choice. dri-devel and lkml have been CCed and lore/lei exist, so
-hopefully that's enough for folks. I'm happy to add people to the
-whole series for future posts.
-
-[1] https://lore.kernel.org/r/20230901234202.566951-1-dianders@chromium.org
-[2] https://lore.kernel.org/r/20230804140605.RFC.4.I930069a32baab6faf46d6b234f89613b5cec0f14@changeid
-[3] https://lore.kernel.org/r/Zmm6_27GikpmT3HQ@phenom.ffwll.local
-
-Changes in v2:
-- Gathered whatever hadn't landed, rebased, and reposted.
-
-Douglas Anderson (8):
-  drm/kmb: Call drm_atomic_helper_shutdown() at shutdown time
-  drm/nouveau: Call drm_atomic_helper_shutdown() or equiv at shutdown
-    time
-  drm/tegra: Call drm_atomic_helper_shutdown() at shutdown time
-  drm/arcpgu: Call drm_atomic_helper_shutdown() at shutdown time
-  drm/sprd: Call drm_atomic_helper_shutdown() at remove time
-  drm/gma500: Call drm_helper_force_disable_all() at shutdown/remove
-    time
-  drm/radeon: Call drm_helper_force_disable_all() at shutdown/remove
-    time
-  drm/amdgpu: Call drm_atomic_helper_shutdown() at shutdown time
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 ++
- drivers/gpu/drm/gma500/psb_drv.c           |  8 ++++++++
- drivers/gpu/drm/kmb/kmb_drv.c              |  6 ++++++
- drivers/gpu/drm/nouveau/nouveau_display.c  |  9 +++++++++
- drivers/gpu/drm/nouveau/nouveau_display.h  |  1 +
- drivers/gpu/drm/nouveau/nouveau_drm.c      | 13 +++++++++++++
- drivers/gpu/drm/nouveau/nouveau_drv.h      |  1 +
- drivers/gpu/drm/nouveau/nouveau_platform.c |  6 ++++++
- drivers/gpu/drm/radeon/radeon_drv.c        |  7 ++++++-
- drivers/gpu/drm/sprd/sprd_drm.c            |  4 +++-
- drivers/gpu/drm/tegra/drm.c                |  6 ++++++
- drivers/gpu/drm/tiny/arcpgu.c              |  6 ++++++
- 14 files changed, 78 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 7bf08164140e..9ea7f163a731 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -38,6 +38,7 @@
+ #include <linux/pci.h>
+ 
+ #include <drm/drm_aperture.h>
++#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+@@ -330,7 +331,9 @@ radeon_pci_remove(struct pci_dev *pdev)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 
+-	drm_put_dev(dev);
++	drm_dev_unregister(dev);
++	drm_helper_force_disable_all(dev);
++	drm_dev_put(dev);
+ }
+ 
+ static void
+@@ -341,6 +344,8 @@ radeon_pci_shutdown(struct pci_dev *pdev)
+ 	 */
+ 	if (radeon_device_is_virtual())
+ 		radeon_pci_remove(pdev);
++	else
++		drm_helper_force_disable_all(pci_get_drvdata(pdev));
+ 
+ #if defined(CONFIG_PPC64) || defined(CONFIG_MACH_LOONGSON64)
+ 	/*
 -- 
 2.45.2.505.gda0bf45e8d-goog
 
