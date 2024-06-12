@@ -4,71 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F78C2BA15
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 15:56:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55F64C27C53
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jun 2024 19:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBCD110E8AE;
-	Wed, 12 Jun 2024 15:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A25B910E8DE;
+	Wed, 12 Jun 2024 19:37:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kYWVzenO";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lVUUBpWF";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3DB10E8A7;
- Wed, 12 Jun 2024 15:55:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id ADF7F614E9;
- Wed, 12 Jun 2024 15:55:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AEC7C4DDE4;
- Wed, 12 Jun 2024 15:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718207757;
- bh=OGohKvk0MjWf9+Q8+mvrBX+1BAlKKRyUXLbfH75xyb4=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=kYWVzenO6v46dav7m+6VeeBQvWtkfZ2ijSROLzZNF2xhVox8NT4g6D7nEQ7Yr1CvD
- QbMqbzoNwKvtHxN4oOUSJGsdzFSOiqxLCA02gKqMCQ7TCsZzzusBONx5M/RWdCVpV3
- EiLccKqgRHfAnZUsG10WiKCsIr5ffuOoIqg1qhcsU6IhDG8FGsX5pkowWNVMy10FlC
- cn2EJB/8N7UtSBq02dCqRuSQs3PZ1MDiLAg7XtxdpzyjShLg11I47hWenlonizyvmL
- MeVPPNyid+I2VhiIZBpPj5WbK56sRWz78MH6UY8PKtaaCMSFrdgOOixPo+5vEX+bSG
- 8/iqEXeUVgsUQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 61107C43618; Wed, 12 Jun 2024 15:55:57 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C49610E1D3;
+ Wed, 12 Jun 2024 19:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=IoIedJhtd8jVuc+UJluRtTNuNTSW0KI62AWD3MB81eQ=; b=lVUUBpWFqGBHwEjx3P2DuTZteT
+ gHqtCj/eLyz6hwlWKxkQSA9OgXvOg1+RrrWhxOg+OP90UWr4U+nugCcJMZz6klcYK8LbyUafegAXa
+ TCzZ+WQDBP319uGm+hd7fyEUKu/A4K+fUI+0WPdRJUu+hvQrpvRq9caBaUflthlZPbGjieaOZVYr7
+ IF0l0IVKSUbj90imKNB6mOuftjHIi6oZ0V4aHrRh9eqbo4jErC1O6VidtAGR5sr7PLEq+6YKW6R41
+ IER4xm1uLi3OwxhCLcIM1KiYxUtfaYTkAZorDlIyzC5WVKoQDTkuQht/fD2OKYxQc1q9q5UjpCAyc
+ 8iZ/HuMA==;
+Received: from [191.204.194.169] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1sHTmc-002RtF-5P; Wed, 12 Jun 2024 21:37:22 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>,
+ daniel@ffwll.ch, Daniel Stone <daniel@fooishbar.org>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v5 0/3] drm/atomic: Allow drivers to write their own plane
+ check for async
+Date: Wed, 12 Jun 2024 16:37:10 -0300
+Message-ID: <20240612193713.167448-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] tracing/treewide: Remove second parameter of
- __assign_str()
-From: patchwork-bot+f2fs@kernel.org
-Message-Id: <171820775738.32393.13116890369510221266.git-patchwork-notify@kernel.org>
-Date: Wed, 12 Jun 2024 15:55:57 +0000
-References: <20240516133454.681ba6a0@rorschach.local.home>
-In-Reply-To: <20240516133454.681ba6a0@rorschach.local.home>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ath10k@lists.infradead.org,
- Julia.Lawall@inria.fr, linux-s390@vger.kernel.org, dev@openvswitch.org,
- linux-cifs@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- io-uring@vger.kernel.org, torvalds@linux-foundation.org,
- iommu@lists.linux.dev, ath11k@lists.infradead.org,
- linux-media@vger.kernel.org, linux-wpan@vger.kernel.org,
- linux-pm@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-erofs@lists.ozlabs.org, virtualization@lists.linux.dev,
- linux-sound@vger.kernel.org, linux-block@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, mathieu.desnoyers@efficios.com,
- linux-cxl@vger.kernel.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, linux-edac@vger.kernel.org,
- linux-hwmon@vger.kernel.org, brcm80211-dev-list.pdl@broadcom.com,
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- ath12k@lists.infradead.org, tipc-discussion@lists.sourceforge.net,
- mhiramat@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-btrfs@vger.kernel.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,29 +65,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello:
+Hi,
 
-This patch was applied to jaegeuk/f2fs.git (dev)
-by Steven Rostedt (Google) <rostedt@goodmis.org>:
+AMD hardware can do async flips with overlay planes, so this patchset does a
+small redesign to allow drivers to choose per plane type if they can or cannot
+do async flips.
 
-On Thu, 16 May 2024 13:34:54 -0400 you wrote:
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> [
->    This is a treewide change. I will likely re-create this patch again in
->    the second week of the merge window of v6.10 and submit it then. Hoping
->    to keep the conflicts that it will cause to a minimum.
-> ]
-> 
-> [...]
+It also allows async commits with IN_FENCE_ID in any driver.
 
-Here is the summary with links:
-  - [f2fs-dev] tracing/treewide: Remove second parameter of __assign_str()
-    https://git.kernel.org/jaegeuk/f2fs/c/2c92ca849fcc
+Changes from v4:
+- Rebased on top current drm-misc/drm-misc-next
 
-You are awesome, thank you!
+Changes from v3:
+- Major patchset redesign 
+v3: https://lore.kernel.org/lkml/20240128212515.630345-1-andrealmeid@igalia.com/
+
+Changes from v2:
+ - Allow IN_FENCE_ID for any driver
+ - Allow overlay planes again
+v2: https://lore.kernel.org/lkml/20240119181235.255060-1-andrealmeid@igalia.com/
+
+Changes from v1:
+ - Drop overlay planes option for now
+v1: https://lore.kernel.org/dri-devel/20240116045159.1015510-1-andrealmeid@igalia.com/
+
+André Almeida (3):
+  drm/atomic: Allow userspace to use explicit sync with atomic async
+    flips
+  drm: Allow drivers to choose plane types to async flip
+  drm/amdgpu: Make it possible to async flip overlay planes
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 1 +
+ drivers/gpu/drm/drm_atomic_uapi.c                       | 4 +++-
+ include/drm/drm_plane.h                                 | 5 +++++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.45.2
 
