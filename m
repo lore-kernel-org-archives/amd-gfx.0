@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8CC0C27C6E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 02:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67507C27C4F
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 05:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A2C010E95E;
-	Thu, 13 Jun 2024 02:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD07610E0BA;
+	Thu, 13 Jun 2024 05:17:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="klmFQ+6H";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ucDcYjpx";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD9BE10E95D
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jun 2024 02:27:11 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAA310E0BA;
+ Thu, 13 Jun 2024 05:17:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I7weAyo7Kq004OC+v8/kgknVWKrA4oXNiJP3+J/87XDkxADqiXjFNur7qYV6gDY/MXmm2rBgkEGBnORh/jP+O0+PE1TLMLIq7d2XzGnaSBnBAn1c4owyCjgNAj9MskHOvW5lNavaN95v+Ve7uERN6hWMMKyr+Dba5+UaUVSnKJXAGJxpf3HbO8ovnPj1ZJHLaUVjos8zO5WIIgonYQckY8WNRVs0rfE4GOHM5ZOIs8hDd+awBAgO+4k151s99hgBQuXsxAt2uiBJxqDJEzs4SNLLObeA44ff2LafBXL2r+bvIAFeSUh9canbETOGXXbQELzTNacnqlVLEYaRh18dXQ==
+ b=I9p8Dw+13AuTz9yHzSVMSR9SLFCouOg611j8iDv77tjwqmTS4Lza1avzbBY5LLtbKcv2uM0c1Iv4qujbjwYf2AxlNJ0LPSqgZ5WqYNxbWLUrIL0S6WFRQd506iqm7lF8mkpgiEi7qcLcoi8MC3tr/58t1pAJWw1eEs16b2fjkRKMB3HXIbhhSCxdcRA7ueiAG8fF3Grka9TV+qi2eLO/VOho8KZmpySdL2EKsXlff1VfsJuk1Gr4aZ6POss22UY6CW+Xrkx7dXot9lAWaiUrzOcmFkYDGAphQ8+oinWqBz3+KATI9/fL+8iSt6iH5AITJ7TGPGfsqnlGez3JRTZsEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vvcVDBhYUVoFCdhBKZojOEY6Mv8M+NOrRSZJQ9OpJzY=;
- b=iOEJhhR7T0RyFYmtV8Yw0g5cBTQYMZwbGukELcEBt51hLx8aLL8NxYCzRmZNG7QrD5qGjW+mjzBDeXD5gMoiBfhz22QOhRvtUkbH9hkxMC3QTRJ/wG0KLzz8Okb/asH6mCdqYX7ka1AEeJhpd1KcmoozB80I1w5jGqYDMoI4pvmzTzaxY3zZqiJm2YGYc4cePES3Z8HVtP5UII9Oc5PQeOXCSrp6WtQ1BdyZXlqgNxEr26d+pa+8YevZ7b+7Twg9ubEqm2s05eGwuLTuxFOymmhDf/OdwSuTw6CXkhbWBf76gF2ZXhnUM6gj0AIFFxZBLaROS2lV0so7DXIl7dfIZg==
+ bh=EMvm6nbDjNmwPXbvJXXXrdZ7TbNzOzfrmPbL6J4eS50=;
+ b=gHXcErgxQ6XXlefEYeZceLmDR8PegNWTOUUJPmUhRwVxsqxB4OGm9UOaWABMU7z7AkKx+DAC9MBj5Y+jVaBwsp1o52duzvf3o2J877bRwOyhLhg4AG657WfLEwjFp9mE6On0KkGlGzRNHyx03Fw/w+a1xCnQEMI1VUJRtAMY24CRk28S3oBfNqk88/NcfKGs9vmaUUKFF3uRdkSfta+F5N7EmX5DtPwnDdLDVP0kg/bDn6cTt97MHz8ObasjabprON1Vdz5q8lFGMn3o9zo2OF6wG6aenibuYpyDxK293KjPNeR7uB2pGXRBxW97JKgJEritZH6s1ZdICxh93zh5VQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vvcVDBhYUVoFCdhBKZojOEY6Mv8M+NOrRSZJQ9OpJzY=;
- b=klmFQ+6Hpw3fdT4GLd+lJXbSQ7ObdMg0PxxNC4wD8HYLRPnCBC/FyqMcrHdOzJZhS+wvtXNvIlylKRVD1wNTkL1VwfW6f3gPXRVhtbt5VfzL2nfZVsQhiNI81MAe0yVQmjPTvVzYIXIFnOLW5zW+9dktJjVzcQgsbDmP1jcddFg=
-Received: from CY5PR17CA0032.namprd17.prod.outlook.com (2603:10b6:930:12::28)
- by BL1PR12MB5778.namprd12.prod.outlook.com (2603:10b6:208:391::22)
+ bh=EMvm6nbDjNmwPXbvJXXXrdZ7TbNzOzfrmPbL6J4eS50=;
+ b=ucDcYjpxBfyVZVzqLTPdy0xEisUDNFy15QYPjZ7xdz+BTx0/maVBqXdYcbGzX/xF1awSDkgJcEbuKHxVH31or12wi14B5XYWb40YkosHJPBPvMadT5QbLbLaS8v3+ZavfTD2fmuJC851mHIiC5qAD9SPOEM+JLM5HrkQSqSyozM=
+Received: from BN8PR03CA0028.namprd03.prod.outlook.com (2603:10b6:408:94::41)
+ by CH3PR12MB8581.namprd12.prod.outlook.com (2603:10b6:610:15d::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.37; Thu, 13 Jun
- 2024 02:27:08 +0000
-Received: from CY4PEPF0000E9D3.namprd03.prod.outlook.com
- (2603:10b6:930:12:cafe::8c) by CY5PR17CA0032.outlook.office365.com
- (2603:10b6:930:12::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.21 via Frontend
- Transport; Thu, 13 Jun 2024 02:27:08 +0000
+ 2024 05:17:23 +0000
+Received: from BN3PEPF0000B370.namprd21.prod.outlook.com
+ (2603:10b6:408:94:cafe::d0) by BN8PR03CA0028.outlook.office365.com
+ (2603:10b6:408:94::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.24 via Frontend
+ Transport; Thu, 13 Jun 2024 05:17:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D3.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ BN3PEPF0000B370.mail.protection.outlook.com (10.167.243.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Thu, 13 Jun 2024 02:27:07 +0000
-Received: from amd-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7677.0 via Frontend Transport; Thu, 13 Jun 2024 05:17:22 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Jun
- 2024 21:27:04 -0500
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
- <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, YiPeng Chai
- <YiPeng.Chai@amd.com>
-Subject: [PATCH 5/5] drm/amdgpu: add gpu reset check before page retirement
- thread runs
-Date: Thu, 13 Jun 2024 10:25:04 +0800
-Message-ID: <20240613022504.81787-5-YiPeng.Chai@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Jun
+ 2024 00:17:20 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+CC: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "open
+ list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, "Mario
+ Limonciello" <mario.limonciello@amd.com>, Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>, Chris Bainbridge <chris.bainbridge@gmail.com>
+Subject: [PATCH v3] drm/fb-helper: Detect when lid is closed during
+ initialization
+Date: Thu, 13 Jun 2024 00:17:00 -0500
+Message-ID: <20240613051700.1112-1-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240613022504.81787-1-YiPeng.Chai@amd.com>
-References: <20240613022504.81787-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,50 +76,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D3:EE_|BL1PR12MB5778:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62b4ea60-144e-4c45-41be-08dc8b5052d0
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B370:EE_|CH3PR12MB8581:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd670ecc-8785-4625-64c7-08dc8b681b1c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230034|376008|1800799018|82310400020|36860700007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jnMtNnfUAdz3696j0g9kCYA36xHIS8dpvpxjRSNdggju0sVZBgOsZmCdkoSL?=
- =?us-ascii?Q?GTEhvBrnMnVhHoCzpQL6WEN2GcqIsPXS5HkphAq4jyrp4fbye4Z0i+PUwdAN?=
- =?us-ascii?Q?szB3Yo7Jlb+OjTV9qABt60T3tkBgRmyUVqPLFqp9f7NrnIZat2mLCvAlSUiw?=
- =?us-ascii?Q?/T4MvlFB0iJS+AQc6LGckI4SPGO5sLROadf/bF2W6STGVTH/0PdinFpXlNpE?=
- =?us-ascii?Q?LzZdH68OAUHAksizF6ds9N39wHhBftQG8oiQhx+gblumjGHShpCmP2wvDz5g?=
- =?us-ascii?Q?XzvV7tzcmPyA43IxVculRXF8brHAG+YJ2lVOIF8F5uanpUgKmjGXwJ1L25jo?=
- =?us-ascii?Q?IE8iox4VaqS1rnpE0lXqZFNqgQEBcBr3+BuRsqDOl/8euH8GChZ1g7EunewH?=
- =?us-ascii?Q?3verOyNCWoz+CR9HBYkQdNgI2V15EZC0id6q+eUdFlZIQtxyFu9jwDHh4SKk?=
- =?us-ascii?Q?uESONzI2r7jj7ceogmZK4zpYbH+O7sZHW2OZSyObCbMLs625v6Qpy9Kcf2DI?=
- =?us-ascii?Q?sWlw1ueN2DR3EvAVWek+f+RxAmMomO11cbfnYRShGpWJYx8qz/YJtG7SFhS4?=
- =?us-ascii?Q?6gQYujjBOwgLFYSij6JaqiZlx7sMw+MRwCXWmFqOANMMWN+u9/K2hdBJor8C?=
- =?us-ascii?Q?MCc+hyVBDM+jYnG3qixc79/GeW4y9F13RnmK8HbaMmRHAw7zIDhhD0d0k+UP?=
- =?us-ascii?Q?Sx71xTO3ZrXqLnEJxfcdGSi9srW1Q6WWhHpnaZSY7YDoeUrNNtRlAzdl/aRG?=
- =?us-ascii?Q?pbOBD+LHPPakCkRum9UAaO/H0MIUnVrzX7db9gSkJdKa5ecxvZ7hK+NWfP12?=
- =?us-ascii?Q?ANBtUODHXPd7RXEcDPXS4qA3gSnMPVKL5ruAaqk4lS4hnHMpsmOdKdzT295L?=
- =?us-ascii?Q?gT8z7h7den/HjHWlMokAzSLKSQVXXg2q2WwhzCpoJpO/S5FcA58CQVwFH7kW?=
- =?us-ascii?Q?tTZ6R6gC0AZcwDKMc6GpMHiPkhNoZdgtD3s4GxX9VL3GD2YGBOpqnUqCBODu?=
- =?us-ascii?Q?YqK+CUChzblTQ7OvzxAApoax86hqMcFPIg0TuPpLnZbdomdxWASk4C/M+shk?=
- =?us-ascii?Q?K0bn3lKhu2nIVv0+sD+EnjleSPnGHPKuUc5Ufcpilfs9KU+v5Ea9dyZWJ0Rx?=
- =?us-ascii?Q?lhywCgFHwdzUvBmG1fmIdKxzMcWxzOV0H6GYAG7pEgXDq724CheO8bhKhWPQ?=
- =?us-ascii?Q?XlIO8QbT3c3fKgPIHsg/vORmYynq/GCbb3F9e0Hi6h1Sd5ij2XKXUiR8K2jK?=
- =?us-ascii?Q?1EgnlL/C6Ysej39cFy+7LtBF4HxRhQLzA0LRm5DTOjRqvW/SihfPlL8GGD6/?=
- =?us-ascii?Q?UKqmWY1kPlOATY5fr7OmsirbnSpvMZx0nDBGYSLxfJ+sluugsb0laoO3VVnm?=
- =?us-ascii?Q?CHE5aTriYrMgIJIs83QXqoqe3gMcqsan3XmBwDawS87Yz7tObw=3D=3D?=
+ ARA:13230034|36860700007|7416008|376008|82310400020|1800799018; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kX/GgTHEUmWiWviSBysSUsnUQofdP3jtity8BXqmJ5X4vszLWYS0F7+UGuw4?=
+ =?us-ascii?Q?oENZnsbNajgau2HL29fedZ7LyawAox0H4jlVW3LjYHrAM8FFtNCUOcFqd8Ei?=
+ =?us-ascii?Q?mWA0mmGCc2slJqtnYUe2OJSt/ykj4Ux8+lAoCG6WNsWGe9IK60FxZ5eOfc5T?=
+ =?us-ascii?Q?sKwZ01c5N6g0gLTCOlDuzD27XOU0zMPb+YX9HxQKqFm21FICWdhRH/ZMEELl?=
+ =?us-ascii?Q?t2ubz5A5c9OCiKv5RiofQTvkEAh+cCsVL61jCxCNIp4RMJPpvL9EMErkqxfV?=
+ =?us-ascii?Q?cxbMWhMqt5gYsEnE6iHbb5TMiFx74yq1ylHUGZ9zEK7tGylfssr+off6fMFC?=
+ =?us-ascii?Q?Z4mKv3Dz8D7HH0vM5RErtEcrt1waABUiWkZAp7jou2Bc/c81PMAPmkjxkNiF?=
+ =?us-ascii?Q?WmUvo6ur6YPBoMgCgQfop91JUH8lpOfStbYny5PxPWRyXZpCfOLmxI9GKnAY?=
+ =?us-ascii?Q?qhS9rzyRJisff63ucM0aDfGeOmY+kGyk+CVzhNfXGbxf+C6uV/51k18qACRf?=
+ =?us-ascii?Q?8+oNkQmCFuJTNR4itFTSYx94jnnQPw5SniDEys7uiAUFHFJeCFP0fnvr3t+J?=
+ =?us-ascii?Q?rVMJEV+0tdsKPWEQoe0hWM+szHwYjmcA+dDgnXPvLMK+cYZCIfWn2d463q6m?=
+ =?us-ascii?Q?5PI97tfzPMcGqau6se+Y2bjJJwx49dE2N6rhcaCV8Czctaj5mc+PrFjuMcg4?=
+ =?us-ascii?Q?etj8cMhRkDLs/g4zla46l2iJPQlmNjZwWBw4YLxt2PSomKbsEZmxFf8XzWw7?=
+ =?us-ascii?Q?lFF4nRj/SPaYEWEMXFKPhcYjTZcHpRSAmPeVTHWbPvMfKgWLg3TCzurMW44p?=
+ =?us-ascii?Q?BDaWZOVwbe9ybUmSErBEYboba6NVffxuTBEuE21i4mSMt0NphOQgUc5d5+CA?=
+ =?us-ascii?Q?W7ypj/SyjdcJSjg4Ox+bus16Bj9XhBxyja4Kb+TpzXVDSaNlm6Dwh1NjOJoI?=
+ =?us-ascii?Q?Eh94Mg2eKlnNz11wg+P5jcXtbbIkZ8CeTAoCB/OJMmgHqrBXux7jFuqJam/2?=
+ =?us-ascii?Q?SIIrrTr7sVvpGLioCJmwtih81jHycDN1Kcb5xKExwMbQO9X6hbRMPjEzAFbk?=
+ =?us-ascii?Q?KWhJyRQI158WlZhtgxVtVkINVns924C6Pw5tD906EbTESRNHlOVj/w/RDwt2?=
+ =?us-ascii?Q?04iFC+nYSmuwBudJUl+W0+ZLFg0aST8xKFbeZJL3YMjCFQmeg9VSQoGdCMEC?=
+ =?us-ascii?Q?aTV+w0NZAJF1PBzRbF51TZxi7u5374+mZ6ND1K6Vk9n0p15I3eq+o8Y4CFAC?=
+ =?us-ascii?Q?/uysY/f4BGIyrePkDJro08YQZ9/QO46tcWJyPJl5AL21Q5Gr7rQGlf8HuTy4?=
+ =?us-ascii?Q?DHCPdJtKidQ3rukW0PxNpZxPVmtfs+pUtOkZ+94c8cLutXiCBulOtoIjEabD?=
+ =?us-ascii?Q?z7lYa7Q=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230034)(376008)(1800799018)(82310400020)(36860700007); DIR:OUT;
+ SFS:(13230034)(36860700007)(7416008)(376008)(82310400020)(1800799018); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2024 02:27:07.9823 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62b4ea60-144e-4c45-41be-08dc8b5052d0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2024 05:17:22.4816 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd670ecc-8785-4625-64c7-08dc8b681b1c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B370.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5778
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8581
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,37 +134,278 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If gpu is recovering, clear all message reset flags
-in fifo and wait for gpu to complete recovery.
+If the lid on a laptop is closed when eDP connectors are populated
+then it remains enabled when the initial framebuffer configuration
+is built.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+When creating the initial framebuffer configuration detect the
+lid status and if it's closed disable any eDP connectors.
+
+Also set up a workqueue to monitor for any future lid events.
+
+Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Reported-by: Chris Bainbridge <chris.bainbridge@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3349
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+v2->v3:
+ * Use input device instead of ACPI device
+ * Detect lid open/close events
+---
+ drivers/gpu/drm/drm_client_modeset.c |  29 ++++++
+ drivers/gpu/drm/drm_fb_helper.c      | 132 +++++++++++++++++++++++++++
+ include/drm/drm_device.h             |   6 ++
+ include/drm/drm_fb_helper.h          |   2 +
+ 4 files changed, 169 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 341c9bd0d1a4..bf4f8d439ebe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2982,6 +2982,18 @@ static int amdgpu_ras_page_retirement_thread(void *param)
+diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+index 31af5cf37a09..b8adfe87334b 100644
+--- a/drivers/gpu/drm/drm_client_modeset.c
++++ b/drivers/gpu/drm/drm_client_modeset.c
+@@ -257,6 +257,34 @@ static void drm_client_connectors_enabled(struct drm_connector **connectors,
+ 		enabled[i] = drm_connector_enabled(connectors[i], false);
+ }
  
- 		atomic_dec(&con->page_retirement_req_cnt);
- 
-+		reinit_completion(&con->gpu_reset_completion);
++static void drm_client_match_edp_lid(struct drm_device *dev,
++				     struct drm_connector **connectors,
++				     unsigned int connector_count,
++				     bool *enabled)
++{
++	int i;
 +
-+		if (amdgpu_in_reset(adev) || atomic_read(&con->in_recovery)) {
-+			uint32_t reset;
++	for (i = 0; i < connector_count; i++) {
++		struct drm_connector *connector = connectors[i];
 +
-+			amdgpu_ras_clear_poison_fifo_msg_reset_flag(adev, &reset);
-+
-+			if (!wait_for_completion_timeout(&con->gpu_reset_completion,
-+				msecs_to_jiffies(MAX_GPU_RESET_COMPLETION_TIME)))
-+				dev_err(adev->dev, "Waiting for GPU to complete reset timeout!\n");
++		switch (connector->connector_type) {
++		case DRM_MODE_CONNECTOR_LVDS:
++		case DRM_MODE_CONNECTOR_eDP:
++			if (!enabled[i])
++				continue;
++			break;
++		default:
++			continue;
 +		}
 +
- #ifdef HAVE_KFIFO_PUT_NON_POINTER
- 		if (!amdgpu_ras_get_poison_req(adev, &poison_msg))
- 			continue;
++		if (dev->lid_closed) {
++			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, disabling\n",
++				    connector->base.id, connector->name);
++			enabled[i] = false;
++		}
++	}
++}
++
+ static bool drm_client_target_cloned(struct drm_device *dev,
+ 				     struct drm_connector **connectors,
+ 				     unsigned int connector_count,
+@@ -844,6 +872,7 @@ int drm_client_modeset_probe(struct drm_client_dev *client, unsigned int width,
+ 		memset(crtcs, 0, connector_count * sizeof(*crtcs));
+ 		memset(offsets, 0, connector_count * sizeof(*offsets));
+ 
++		drm_client_match_edp_lid(dev, connectors, connector_count, enabled);
+ 		if (!drm_client_target_cloned(dev, connectors, connector_count, modes,
+ 					      offsets, enabled, width, height) &&
+ 		    !drm_client_target_preferred(dev, connectors, connector_count, modes,
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index d612133e2cf7..41dd5887599a 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -30,6 +30,8 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/console.h>
++#include <linux/input.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/pci.h>
+ #include <linux/sysrq.h>
+ #include <linux/vga_switcheroo.h>
+@@ -413,6 +415,128 @@ static void drm_fb_helper_damage_work(struct work_struct *work)
+ 	drm_fb_helper_fb_dirty(helper);
+ }
+ 
++static void drm_fb_helper_lid_event(struct input_handle *handle, unsigned int type,
++				    unsigned int code, int value)
++{
++	if (type == EV_SW && code == SW_LID) {
++		struct drm_fb_helper *fb_helper = handle->handler->private;
++
++		if (value != fb_helper->dev->lid_closed) {
++			fb_helper->dev->lid_closed = value;
++			queue_work(fb_helper->input_wq, &fb_helper->lid_work);
++		}
++	}
++}
++
++struct drm_fb_lid {
++	struct input_handle handle;
++};
++
++static int drm_fb_helper_lid_connect(struct input_handler *handler,
++				     struct input_dev *dev,
++				     const struct input_device_id *id)
++{
++	struct drm_fb_helper *fb_helper = handler->private;
++	struct drm_fb_lid *lid;
++	char *name;
++	int error;
++
++	lid = kzalloc(sizeof(*lid), GFP_KERNEL);
++	if (!lid)
++		return -ENOMEM;
++
++	name = kasprintf(GFP_KERNEL, "drm-fb-helper-lid-%s", dev_name(&dev->dev));
++	if (!name) {
++		error = -ENOMEM;
++		goto err_free_lid;
++	}
++
++	lid->handle.dev = dev;
++	lid->handle.handler = handler;
++	lid->handle.name = name;
++	lid->handle.private = lid;
++
++	error = input_register_handle(&lid->handle);
++	if (error)
++		goto err_free_name;
++
++	error = input_open_device(&lid->handle);
++	if (error)
++		goto err_unregister_handle;
++
++	fb_helper->dev->lid_closed = dev->sw[SW_LID];
++	drm_dbg_kms(fb_helper->dev, "initial lid state is set to %d\n", fb_helper->dev->lid_closed);
++
++	return 0;
++
++err_unregister_handle:
++	input_unregister_handle(&lid->handle);
++err_free_name:
++	kfree(name);
++err_free_lid:
++	kfree(lid);
++	return error;
++}
++
++static void drm_fb_helper_lid_disconnect(struct input_handle *handle)
++{
++	struct drm_fb_lid *lid = handle->private;
++
++	input_close_device(handle);
++	input_unregister_handle(handle);
++
++	kfree(handle->name);
++	kfree(lid);
++}
++
++static const struct input_device_id drm_fb_helper_lid_ids[] = {
++	{
++		.flags = INPUT_DEVICE_ID_MATCH_EVBIT | INPUT_DEVICE_ID_MATCH_SWBIT,
++		.evbit = { BIT_MASK(EV_SW) },
++		.swbit = { [BIT_WORD(SW_LID)] = BIT_MASK(SW_LID) },
++	},
++	{ },
++};
++
++static struct input_handler drm_fb_helper_lid_handler = {
++	.event =	drm_fb_helper_lid_event,
++	.connect =	drm_fb_helper_lid_connect,
++	.disconnect =	drm_fb_helper_lid_disconnect,
++	.name =		"drm-fb-helper-lid",
++	.id_table =	drm_fb_helper_lid_ids,
++};
++
++static void drm_fb_helper_lid_work(struct work_struct *work)
++{
++	struct drm_fb_helper *fb_helper = container_of(work, struct drm_fb_helper,
++						       lid_work);
++	drm_fb_helper_hotplug_event(fb_helper);
++}
++
++static int drm_fb_helper_create_lid_handler(struct drm_fb_helper *fb_helper)
++{
++	int ret = 0;
++
++	if (fb_helper->deferred_setup)
++		return 0;
++
++	fb_helper->input_wq = create_singlethread_workqueue("drm-fb-lid");
++	if (fb_helper->input_wq == NULL)
++		return -ENOMEM;
++
++	drm_fb_helper_lid_handler.private = fb_helper;
++	ret = input_register_handler(&drm_fb_helper_lid_handler);
++	if (ret)
++		goto remove_wq;
++
++	return 0;
++
++remove_wq:
++	destroy_workqueue(fb_helper->input_wq);
++	fb_helper->input_wq = NULL;
++	return ret;
++}
++
+ /**
+  * drm_fb_helper_prepare - setup a drm_fb_helper structure
+  * @dev: DRM device
+@@ -445,6 +569,7 @@ void drm_fb_helper_prepare(struct drm_device *dev, struct drm_fb_helper *helper,
+ 	spin_lock_init(&helper->damage_lock);
+ 	INIT_WORK(&helper->resume_work, drm_fb_helper_resume_worker);
+ 	INIT_WORK(&helper->damage_work, drm_fb_helper_damage_work);
++	INIT_WORK(&helper->lid_work, drm_fb_helper_lid_work);
+ 	helper->damage_clip.x1 = helper->damage_clip.y1 = ~0;
+ 	mutex_init(&helper->lock);
+ 	helper->funcs = funcs;
+@@ -593,6 +718,9 @@ void drm_fb_helper_fini(struct drm_fb_helper *fb_helper)
+ 	if (!drm_fbdev_emulation)
+ 		return;
+ 
++	input_unregister_handler(&drm_fb_helper_lid_handler);
++	destroy_workqueue(fb_helper->input_wq);
++
+ 	cancel_work_sync(&fb_helper->resume_work);
+ 	cancel_work_sync(&fb_helper->damage_work);
+ 
+@@ -1842,6 +1970,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
+ 	width = dev->mode_config.max_width;
+ 	height = dev->mode_config.max_height;
+ 
++	ret = drm_fb_helper_create_lid_handler(fb_helper);
++	if (ret)
++		return ret;
++
+ 	drm_client_modeset_probe(&fb_helper->client, width, height);
+ 	ret = drm_fb_helper_single_fb_probe(fb_helper);
+ 	if (ret < 0) {
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index 63767cf24371..619af597784c 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -316,6 +316,12 @@ struct drm_device {
+ 	 * Root directory for debugfs files.
+ 	 */
+ 	struct dentry *debugfs_root;
++
++	/**
++	 * @lid_closed: Flag to tell the lid switch state
++	 */
++	bool lid_closed;
++
+ };
+ 
+ #endif
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index 375737fd6c36..7fb36c10299d 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -143,6 +143,8 @@ struct drm_fb_helper {
+ 	spinlock_t damage_lock;
+ 	struct work_struct damage_work;
+ 	struct work_struct resume_work;
++	struct work_struct lid_work;
++	struct workqueue_struct *input_wq;
+ 
+ 	/**
+ 	 * @lock:
 -- 
-2.34.1
+2.43.0
 
