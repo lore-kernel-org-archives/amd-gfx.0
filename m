@@ -4,70 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C13EC27C4F
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 06:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8FE9C27C4F
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 06:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C209610E0F1;
-	Thu, 13 Jun 2024 06:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42F7B10E924;
+	Thu, 13 Jun 2024 06:57:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="joHcNikW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nCXyVWCo";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDAD510E0F1;
- Thu, 13 Jun 2024 06:00:46 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-a6f1dc06298so71727366b.1; 
- Wed, 12 Jun 2024 23:00:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718258445; x=1718863245; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XkETNg3TjLcuapc1XDVyMeEIgeH7D2BgDPYHR4M0i+0=;
- b=joHcNikWO43nwdf1ENFF+1Ffs6nG/looefl/I5PFhVqvTnWA2BZDuKQBu6rT1rnxRS
- Fnmjr6VmkeW+lH1XShMAHvpCMvcNBJMAjJ7mOvy7c8/TFkQhONfB2lEdOq4nTMTGw+YY
- xVagF1v3wxo8S3GdZ23s831OG/cdZUQKvvVWqmdPaSz4hvDw9a+mPc3zcUgDDe2REDRm
- uNgx26ApLqMqFFuIX2cb3CrZlDhkPreUXz7hMnjmr7KQsGgItx9bQwJ165ZJSY64mbzI
- NyXBsIEtXVU0BQK2BZNR1+TUK3rrE6+xi45up6z8rh8UW6SQhoiPinYl7kM2+bNdgbb7
- s6HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718258445; x=1718863245;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XkETNg3TjLcuapc1XDVyMeEIgeH7D2BgDPYHR4M0i+0=;
- b=Inw+YfQhFktBL7gW/p59cDG2mfJZMnDpvwon2Zo/DzTDXHmVSFvysDEUGNAod8i8a7
- P6v+pDKu9B643qP6CcTMkcfwN1GMKNIJk5zK78LNnt3MJa244Ks+rFNyBFLGeDPp08Xt
- n5A2rzcvtl7gATHu9SLMkLED1Zfoj9Uy1KVMdMlvHubEzLCyMxr5XswcQEPM5uBhjB8Z
- wDQ8FpUJGweBVihKQGZQv+VgrgxBeQPkHSlBJDmToZL/4Oypl7moQTsrM0Oittw0fsA/
- fSIVZbcmzrKpf0rOK4XAioxXWMIyKhji4pi5/tjSpypKERj+MZ3o+HD+ptqwJt6t8Epq
- LFcA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWrlDP0GrcII0GaE0Cj0n5B2OnVWIPCEPSCqb7lfyb3GDR7qona+KP6PSNzBPiNXacoEmZdKYITQ/WM9SQBWBX9HZ76+jkmQurh0eqDDp06qb5nNY/8gnB7uww5f/4DqOxjMf3DqWCGWw9AzxYAcA==
-X-Gm-Message-State: AOJu0YxhwQl+Ax+ZbvITu84sa+PG4VydokCtvZP4KM9KDZBJXZOWFeQR
- Oyjc9EaRc9KTeysrcNrKThKRiT1sPreTt41XVxjWoW7ZxkK0xNDs4HxjKjae/JZZqPXQl0aLmJL
- yIFJ0wybyJNjGpihcHNEXozUanHI=
-X-Google-Smtp-Source: AGHT+IGIz+nb7tUNhdmga5GH1WElCJmXV8gUV8SSU4YVGdNxpcJjnzYBS4s5RvopRuwx1geXDPCUSm7imojIvYBukaQ=
-X-Received: by 2002:a17:907:7e96:b0:a69:d82c:167f with SMTP id
- a640c23a62f3a-a6f47c7d729mr285424366b.15.1718258444884; Wed, 12 Jun 2024
- 23:00:44 -0700 (PDT)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D1210E924
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jun 2024 06:57:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DfGv5aQcUFmEuQTufWbgLRFP7ANTEyzItdC84a45d4vnwMgROvKowNQUm9zdTSkq3kBW9KYm55mc+Xmk8vbfEAwyV1V72qI3I4JW3/IgcWJ+JYuR0E/fQWbjegq4lhc8mkQTBwaosD0J0K4MsFzfBpEGVoTcWmXlUrhWydbpwXuvONnhGhgM8DMxjXcP70PUnGChF1AdsroJ0R8+ijVttmzhxOFu23W+RUkClxmTc7JPQ6szxYEyhylCowbBY6T3jcP61XA7fHtc35c1i32GIVp+eiSb8m4Fi8/CSZleoBIn2DeTy33zyC0SAFhobgf1q5cgWyygX+y+NpKJiVnbIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZVTYV+SaLfY/IOCwjZl/2vbFsucwqC+NbxLlO+Ha7V8=;
+ b=EmoFKjnxrl0j3DRf7nbDtfiMYBKIXhMmOUkcXYdQeD03Ho9ImjmnSfSAIeWcLjUrTq4iilGYWEjV6c0bUTqhIg2nH0yKtSjkdS57vGMY089EFPUV8a4xBOscBP2gB3BDczdUFhYwI9tb29Eqhp5DtGltptbTDPVwPniBh8Le/WKIKNHmgm+eTVjZOShElGJM52P2g4PxWy6Xa5hLG5awOv+rTTZIc9uUIhKIi8qoidTpCaJ8/Ak+VnMAkpGfUenOZip8IZGshEBBnEKsb6eRjpSGXqpkpifLSSd7HxrVNsIzMPO7zPrFfMfHdtzggRL4O1ll0Rya6R1o+aPHT2PKsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZVTYV+SaLfY/IOCwjZl/2vbFsucwqC+NbxLlO+Ha7V8=;
+ b=nCXyVWCoiiultH0KHs6ndFpYd/SBWdCZzjFBVS+CB5atkI32/119l5qI7SE5Gmilst2eneoJcdks8k7auccs4ch4cJzkUnd8bn+a2wV6dlOgil74hVKBdSrliayvAmn6pZ7Ku+rxjv9znX8/TXWzCoySN/4iznusW5WwSQOFNjM=
+Received: from BN9PR03CA0636.namprd03.prod.outlook.com (2603:10b6:408:13b::11)
+ by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.23; Thu, 13 Jun
+ 2024 06:57:38 +0000
+Received: from BL6PEPF0002256E.namprd02.prod.outlook.com
+ (2603:10b6:408:13b:cafe::d9) by BN9PR03CA0636.outlook.office365.com
+ (2603:10b6:408:13b::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.24 via Frontend
+ Transport; Thu, 13 Jun 2024 06:57:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0002256E.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Thu, 13 Jun 2024 06:57:37 +0000
+Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 13 Jun
+ 2024 01:57:35 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Tao Zhou <tao.zhou1@amd.com>
+Subject: [PATCH] drm/amdkfd: use mode1 reset for RAS poison consumption
+Date: Thu, 13 Jun 2024 14:57:26 +0800
+Message-ID: <20240613065726.30129-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAAxE2A7qK1-b5g1RR-GJ+QTLEr_OxEr9vcZGEOkZY9yLOFLb5w@mail.gmail.com>
-In-Reply-To: <CAAxE2A7qK1-b5g1RR-GJ+QTLEr_OxEr9vcZGEOkZY9yLOFLb5w@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 13 Jun 2024 02:00:08 -0400
-Message-ID: <CAAxE2A6971oJ3r-8UWhL0BUZBiYxq4K0-Q39MJnb7ZozX3da-A@mail.gmail.com>
-Subject: Re: "firmware/sysfb: Set firmware-framebuffer parent device" breaks
- lightdm on Ubuntu 22.04 using amdgpu
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- pjones@redhat.com, 
- deller@gmx.de, ardb@kernel.org, dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-fbdev@vger.kernel.org, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256E:EE_|SJ2PR12MB8133:EE_
+X-MS-Office365-Filtering-Correlation-Id: 846c4db1-5a59-4a63-c019-08dc8b761c62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230034|36860700007|1800799018|82310400020|376008; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?U6/Th1pkCEboApP/tOhf1CPF/Eh7ObupixMjpZA2hW3pxYrbXCZXkRc0oqgt?=
+ =?us-ascii?Q?eHiSMtBF/U6ykbATxxI1wQ379AYpd2fVxhJTXuXmhWCvZrQq1Zl570c91Uq6?=
+ =?us-ascii?Q?ouOS496CYcQ6ckLrzkpAnHDruGf+T1Fyru5W5XvpINBEM0py+32MTyIk610n?=
+ =?us-ascii?Q?zJf+pEm78vnDj9LvGFLLLOCEM0DQMfR1nzB6mp9SzQ332/74GIvdkAOAjaHg?=
+ =?us-ascii?Q?ITRSVAlLsSoQu7dUvZMccmkP9ThIc2oYEu8RM4mSmHKVkyQUA76oIszu2Wqc?=
+ =?us-ascii?Q?M7CAsEF0uFg41XgkxQE76kWqEQtVJ9kZqmreDrjup812494rKZhC1w9ueTQV?=
+ =?us-ascii?Q?zkMXqMqgmIfSYFuvQvW5Picdgy6TZhWN5mZSDrG5K1tf9kYj5j4BAolB19zP?=
+ =?us-ascii?Q?x2tI40HYbRr1+gBYix3k8LabyIxKHGAgEDcY3tocdGRy6iomK3iFbHgb5UGG?=
+ =?us-ascii?Q?NuSHMaXgou441a+hDE0ueQJ9deASBi/XJveTKpIV3IztD58ZmSSxntKlsz3x?=
+ =?us-ascii?Q?4hJUmXzC0txeyaR9JJMy7zV/DrgyJle64WvYSZS1pyvk0aM880gLGxSWvJcl?=
+ =?us-ascii?Q?NHxkUnmh+WU08vPrmmnuZe12VMbK49AywUeEvfbdINMKoTHkPycpAB7JT76N?=
+ =?us-ascii?Q?EutGQMzhfiuzvZaOrO3yXLSVIDgM6nxHATxkGxAdeXxJRfA6s7Rf2JgDS02O?=
+ =?us-ascii?Q?0MZScAzg44LuwAcLuGQxQ4rnEePsWrxcsYI6Ym2gJvf2mklSaHQH/kSDLPfe?=
+ =?us-ascii?Q?hOFSF8vYgvU6Q4lpXJ0yJ0fkL4BDVHWrH8V/nbEVsXoMgd3iFXlj2/NZGIFH?=
+ =?us-ascii?Q?qUhoaUaAYLYiHWZ/5gHJ6pfkb0l/z+l+kyK4Iin8TRifpqJFlLDnoG31K2bw?=
+ =?us-ascii?Q?u3lCThh24KF4JvPtNJAHeJQqg0UaZeOW2WuTSgJsykY/QHolS0sxHUAM5OZO?=
+ =?us-ascii?Q?sZK+61+oUbFWJyMkZ5o55vqPeJ/HR5HEIFQ4rj1/RIMuut/LRr/JoKIgh8BQ?=
+ =?us-ascii?Q?glbHQxjggiVxAruIldHc+QvEXoNkaN+c87sXR4b9MtR7rdN/RrORvl+8aUWz?=
+ =?us-ascii?Q?UxBekxFWnLgF+GIVl/07wXBvhzaYsk+u+FN8avfmIIVUECUB6a3snt+Hybr1?=
+ =?us-ascii?Q?OVIhQKmbaC78Y1+kBom+uF7mdqZx/Ne8mHzyPdynk4Hy/6pSDP15aCuOWq22?=
+ =?us-ascii?Q?zbZH14v9AcO7ofuYqvwvtZDZpstpwlzv/YCwqYr8IZwZjJoywyPRH8xewz3f?=
+ =?us-ascii?Q?79D+/zaKxraI4fJ4OthSbFlIlOgp5BolX46VgBESaEAcAgo/HvSg0CoC5Jcc?=
+ =?us-ascii?Q?jXPsdx6CZKDtYrLusdWjTAaEMG6DRg3K9V7VBYlj2YHrpVmrUU5Lf7nSTVjt?=
+ =?us-ascii?Q?NoBvkZi+E7csY3ZBQpUmQLJdzEOHWzSfjLmcsXy6/duGfR8xOg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230034)(36860700007)(1800799018)(82310400020)(376008); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2024 06:57:37.5903 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 846c4db1-5a59-4a63-c019-08dc8b761c62
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,21 +128,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+amd-gfx
+Per FW requirement, replace mode2 with mode1.
 
-On Thu, Jun 13, 2024 at 1:59=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
-.com> wrote:
->
-> Hi Thomas,
->
-> Commit 9eac534db0013aff9b9124985dab114600df9081 as per the title
-> breaks (crashes?) lightdm (login screen) such that all I get is the
-> terminal. It's also reproducible with tag v6.9 where the commit is
-> present.
->
-> Reverting the commit fixes lightdm. A workaround is to bypass lightdm
-> by triggering auto-login. This is a bug report.
->
-> (For AMD folks: It's also reproducible with amd-staging-drm-next.)
->
-> Marek
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index e1c21d250611..78dde62fb04a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -164,7 +164,7 @@ static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
+ 	case SOC15_IH_CLIENTID_SE3SH:
+ 	case SOC15_IH_CLIENTID_UTCL2:
+ 		block = AMDGPU_RAS_BLOCK__GFX;
+-		reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+ 		break;
+ 	case SOC15_IH_CLIENTID_VMC:
+ 	case SOC15_IH_CLIENTID_VMC1:
+@@ -177,7 +177,7 @@ static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
+ 	case SOC15_IH_CLIENTID_SDMA3:
+ 	case SOC15_IH_CLIENTID_SDMA4:
+ 		block = AMDGPU_RAS_BLOCK__SDMA;
+-		reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+ 		break;
+ 	default:
+ 		dev_warn(dev->adev->dev,
+-- 
+2.34.1
+
