@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D28C27C4F
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 09:28:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF6FC27C75
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jun 2024 09:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D028F89654;
-	Thu, 13 Jun 2024 09:28:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40F4810E9AE;
+	Thu, 13 Jun 2024 09:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kMN+F0n0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c41XnPCJ";
 	dkim-atps=neutral
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2326410E013
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jun 2024 01:11:35 +0000 (UTC)
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-24cbb884377so241119fac.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 18:11:35 -0700 (PDT)
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F89C10E0E8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jun 2024 00:17:53 +0000 (UTC)
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-25488f4e55aso145702fac.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jun 2024 17:17:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718241094; x=1718845894; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1718237872; x=1718842672; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=61GYr5waVTXm6+8r1WwaARi2cMhG4OHeK9X6I8pjKWg=;
- b=kMN+F0n02mL0F2fjoUFzUUyZRM2+Io5mYOx0G4XtHAfSds4uEfzmRR3z1aYajUk1Bj
- aCtNGQDMhRE+FreTp/7JvIBq0pLVC69rFCpXMpC6vpePW524cEPlU0grYzbmS5EQqmAH
- INtElb+cca/eEPVx1Ap3q674K9lsjEJD8+jXc+g117juU05y62CMG+vwmasvBa2OIRlu
- lWqsNjonpZLDoBvHe/yvnDVePFaXWEFZSYBJqPv79SeXvHp8+iMPmI7YMUMatx9ZMORL
- HFXVliprtEwkdiYFdU7gTqwe++EeMgN6pOYhZu5sSCQz2WDC3CsthUPNRNSWmNgJ7Seu
- XaAA==
+ bh=lSoJWHvUA0MxBM4dBpTvlZVMaXvPJG14GngXn8bXELs=;
+ b=c41XnPCJrwjUWG/GARM5Z2j1YooNqt2+FvBCfMZLDEV7gsch8z7FdiRa3jHtabw8fy
+ lsg4O5ZJaNwba2aax44iQ2JRbz2tgT4Rdwib7IUXHv1i9cYRYGkYhzV35d/JciLcJ4uq
+ zKHJgH26kDZKQGOxgO2U/yl3Kkjslb9XXAew8EVD684o0Su9zbyzpWembQUgKohIdXnn
+ XPDFh92abD/dtAXlNUSIXGLXY3D2+c0gapeugfUvna5rJOpocgGzBQaggL/e/wJ0SA9M
+ vBB+freuZhLy5qTcq/qxbEggSsIDIdPZ6eu5vznUQedQCFpRgVB7gLh29/YAI9w2ddQz
+ u48A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718241094; x=1718845894;
+ d=1e100.net; s=20230601; t=1718237872; x=1718842672;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=61GYr5waVTXm6+8r1WwaARi2cMhG4OHeK9X6I8pjKWg=;
- b=OYcokB7+gPPQuFOQRB7hSJ80V9y9ijWC+Jfhc+4o4gMrLOml/aKO7w3Zr6UXKtaN/T
- w4UT6jnkl0lPMO71evFIPZYCrXIuq6VERenO5zV9DqpKT9GkczbOQAsXud6NHIImeSvt
- 25XhNEgx2yXwq6q41vLnOnfASVnH53dJV1y/CI3YkG79RpeHRmZvXD1N3pTlbt/sONrd
- apqoDiSTfeuAYwazAjYRQXzx5a8uCdbY3Z6a8Q5jjdZhTb7e38nNTVkpWP3ntzfG8Otw
- 9r5QiE9qIzK59o6VNN9pTFE05DYskDfgIviwvU8fz8vOJg8CXpMmozYYfxO8Oaf08vaZ
- pPZg==
+ bh=lSoJWHvUA0MxBM4dBpTvlZVMaXvPJG14GngXn8bXELs=;
+ b=JocrwUyySmw/MoYUwn5QupYBFFNSuH3SLgkJA44Thii7wi+TUy79nAp1UkifDaSJdf
+ XGnE6tKCbgkXy2d6Zbb0M6cXzAf0r6YCHTSo8uwG1DMzePJO4ohXsqnhL/8cK6tJJh2R
+ yItxDZNUUobE7khctp492EpfKERke8xJ5eaSoZKVbsyXfZTmOmKepSejeSXyC+fpjqdq
+ Wrr3D0mmqcMJWxoouFQsO1p52aHBg4rktrlkgXJapjoJng3M2e0dZTYx+Fud8cbG0U0w
+ vwgqSj5Skgr8RgCqEw26lN5d99sAg3b2KGqRSwF788+bkjbP6BJfkqRsaJN+ojvWvb8d
+ AAWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEhk0Nly0CG67odi+fBqScvPVCtaDc2c+m2JRsI5u29oNCHB51e3aSos8GLIsGJcgUlZwXhYg9198AbJI9Ir7yq1LIT473s1Q2XelzMQ==
-X-Gm-Message-State: AOJu0YyyIIUWKAp1h+wRTe27aLCzTF0+rtufCEEM2uDlgTG7xLtectgr
- MF74X57/ChVTJgphcyfDUoC1ew735tdqLu6O/Hh14NLBD+StVDbPTzF3hXbhwzSyLbY3EaYD3bs
- ulgWtSWMafLt46L/JCvC77psyE98=
-X-Google-Smtp-Source: AGHT+IGst40a5jS9cYwScGgqae1s0qQfW9I46j8iR+JHszwrdCkmu4kBbs83J8oR4xQylvpJ1cxy3cpt7hZalR/ORLs=
-X-Received: by 2002:a05:6870:9344:b0:24f:f45e:5541 with SMTP id
- 586e51a60fabf-25514c473e5mr3590300fac.24.1718241093051; Wed, 12 Jun 2024
- 18:11:33 -0700 (PDT)
+ AJvYcCWf5uKH5qiom0luQlRJfLPySs2rmwGymOpnhiI8Fr9xoZSS/S7KshYBTX1Jo/5EDv/GrYloNIb8x34lVXgryx9YrQvsXuRqkLfE1UJDwg==
+X-Gm-Message-State: AOJu0Yz3kszLMm+ovurmWkAALRbSSCuoXp0kgar4Mpyc4ftQFtlmKDqs
+ GW85/Ui8bHhkbTudTBn2V0uvPZe6teB/vh2G9c7qaqe/iUZ1muRc7OYXhfXY4HUdJJjgQaEcYpy
+ 1/8dGX2l2K+9leC4TDXu6w2qXhkU=
+X-Google-Smtp-Source: AGHT+IGRX8ExRYc+4VZq3vs0WX0pk2sWRIZxWFzw5D7jl7PTc4pSR3MgL1g4pfBF2CyS8KVu5el5ICai4tjMv9Sw6yo=
+X-Received: by 2002:a05:6870:b013:b0:250:8141:9210 with SMTP id
+ 586e51a60fabf-25514b35bb3mr3637876fac.9.1718237872034; Wed, 12 Jun 2024
+ 17:17:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAMOvFfkQscju1spNKHmEC_Rut+2=qfhKGZSvGhCk_nd5VhuDkg@mail.gmail.com>
  <4ce90767-7d85-47b0-9187-4eb8d257e7e0@leemhuis.info>
  <44dc1df5f5a1b740b76d1efbf607c49f9d50dda0.camel@sjtu.edu.cn>
 In-Reply-To: <44dc1df5f5a1b740b76d1efbf607c49f9d50dda0.camel@sjtu.edu.cn>
 From: Winston Ma <winstonhyypia@gmail.com>
-Date: Thu, 13 Jun 2024 09:11:19 +0800
-Message-ID: <CAMOvFfkgsbez6fyqUWS9nA=1XubS7_PbjTJ9YzVyZ_MLsetC0Q@mail.gmail.com>
+Date: Thu, 13 Jun 2024 08:17:40 +0800
+Message-ID: <CAMOvFfmjOntu8amyRb8MNoDkw1x-HmrwSkgRy4_BgPy0Yfr6uw@mail.gmail.com>
 Subject: Re: [bug report] drm/amdgpu: amdgpu crash on playing videos,
  linux 6.10-rc
-To: Wang Yunchen <mac-wang@sjtu.edu.cn>, 
- Linux regressions mailing list <regressions@lists.linux.dev>
+To: mac-wang@sjtu.edu.cn, regressions@lists.linux.dev
 Cc: Felix.Kuehling@amd.com, Xinhui.Pan@amd.com, alexander.deucher@amd.com, 
  amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: multipart/alternative; boundary="000000000000fd7231061abb2d63"
+ linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="00000000000000a05e061aba6e71"
 X-Mailman-Approved-At: Thu, 13 Jun 2024 09:28:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,29 +81,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000fd7231061abb2d63
+--00000000000000a05e061aba6e71
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
 Hi Thorsten,
 
-Just send this again as my previous email got rejected. Pls ignore it if
-you already read it.
 
 I come to kernel 6.10 because I would like to run stable diffusion on my
-APU, which should related to the following commit: Let VRAM allocations go
-to GTT domain on small APUs (
-https://www.spinics.net/lists/amd-gfx/msg106897.html).
-
-Coincidentally Yunchen and I use APU machines (7840 HS and 6800U), so just
-wonder if video playing issue happen on a dedicated AMD graphic card?
-
-Thanks and Regards,
-Winston
+APU, which should related to the following commit:
 
 
-On Thu, Jun 13, 2024 at 12:55=E2=80=AFAM Wang Yunchen <mac-wang@sjtu.edu.cn=
-> wrote:
+Handle memory limitations on small APUs
+
+
+https://lore.kernel.org/dri-devel/CAPM=9txzvSpHASKuse2VFjbdVKftTfWNtPP8Jibck6jC_n_c1Q@mail.gmail.com/
+
+
+Coincidentally Yunchen and I use APU machine, so just wonder if video
+playing issue happens on dedicated AMD graphic card?
+
+On Thu, Jun 13, 2024, 12:55 AM Wang Yunchen <mac-wang@sjtu.edu.cn> wrote:
 
 > On Wed, 2024-06-12 at 15:14 +0200, Linux regression tracking (Thorsten
 > Leemhuis) wrote:
@@ -123,15 +119,13 @@ On Thu, Jun 13, 2024 at 12:55=E2=80=AFAM Wang Yunchen <mac-wang@sjtu.edu.cn=
 > > Hmm, seems nothing happened here for a while. Could you maybe try to
 > > bisect this
 > > (
-> https://docs.kernel.org/admin-guide/verify-bugs-and-bisect-regressions.ht=
-ml
+> https://docs.kernel.org/admin-guide/verify-bugs-and-bisect-regressions.html
 > > )?
 > >
 > > @amd-gfx devs: Or is this unneeded, as the cause found or maybe even
 > > fixed meanwhile?
 > >
-> > Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat=
-)
+> > Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 > > --
 > > Everything you wanna know about Linux kernel regression tracking:
 > > https://linux-regtracking.leemhuis.info/about/#tldr
@@ -237,7 +231,7 @@ ml
 > amdgpu:        RW: 0x0
 > > > 2024-06-06T10:26:51.094991+08:00 kernel: [drm:amdgpu_job_timedout
 > [amdgpu]] *ERROR* ring vcn_dec_0 timeout,
-> > > signaled seq=3D24897, emitted seq=3D24898
+> > > signaled seq=24897, emitted seq=24898
 > > > 2024-06-06T10:26:51.095023+08:00 kernel: [drm:amdgpu_job_timedout
 > [amdgpu]] *ERROR* Process information: process
 > > > RDD Process pid 39524 thread firefox-bi:cs0 pid 40342
@@ -245,21 +239,20 @@ ml
 > GPU reset begin!
 > > > 2024-06-06T10:26:52.305509+08:00 kernel: [drm] Register(0)
 > [mmUVD_POWER_STATUS] failed to reach value 0x00000001
-> > > !=3D 0x00000002n
+> > > != 0x00000002n
 > > > 2024-06-06T10:26:52.586019+08:00 kernel: [drm] Register(0)
-> [mmUVD_RBC_RB_RPTR] failed to reach value 0x000003c0 !=3D
+> [mmUVD_RBC_RB_RPTR] failed to reach value 0x000003c0 !=
 > > > 0x00000360n
 > > > 2024-06-06T10:26:52.639506+08:00 kernel: [drm] Register(0)
 > [mmUVD_POWER_STATUS] failed to reach value 0x00000001
-> > > !=3D 0x00000002n
+> > > != 0x00000002n
 > > > 2024-06-06T10:26:52.639521+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > MODE2 reset
 > > > 2024-06-06T10:26:52.650614+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > GPU reset succeeded, trying to resume
 > > > 2024-06-06T10:26:52.650633+08:00 kernel: [drm] PCIE GART of 1024M
 > enabled (table at 0x000000F41FC00000).
-> > > 2024-06-06T10:26:52.650637+08:00 kernel: [drm] VRAM is lost due to GP=
-U
+> > > 2024-06-06T10:26:52.650637+08:00 kernel: [drm] VRAM is lost due to GPU
 > reset!
 > > > 2024-06-06T10:26:52.650641+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > PSP is resuming...
@@ -278,9 +271,8 @@ U
 > > > 2024-06-06T10:26:53.016519+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > SMU is resumed successfully!
 > > > 2024-06-06T10:26:53.017502+08:00 kernel: [drm] DMUB hardware
-> initialized: version=3D0x04000044
-> > > 2024-06-06T10:26:53.677511+08:00 kernel: [drm] kiq ring mec 2 pipe 1 =
-q
+> initialized: version=0x04000044
+> > > 2024-06-06T10:26:53.677511+08:00 kernel: [drm] kiq ring mec 2 pipe 1 q
 > 0
 > > > 2024-06-06T10:26:53.958512+08:00 kernel: amdgpu 0000:03:00.0:
 > [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring
@@ -291,21 +283,21 @@ q
 > > > 2024-06-06T10:26:53.958539+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > GPU reset(1) failed
 > > > 2024-06-06T10:26:53.958541+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
-> GPU reset end with ret =3D -110
+> GPU reset end with ret = -110
 > > > 2024-06-06T10:26:53.959180+08:00 kernel: [drm:amdgpu_job_timedout
 > [amdgpu]] *ERROR* GPU Recovery Failed: -110
 > > > 2024-06-06T10:26:55.261509+08:00 kernel: [drm] Register(0)
 > [mmUVD_POWER_STATUS] failed to reach value 0x00000001
-> > > !=3D 0x00000002n
+> > > != 0x00000002n
 > > > 2024-06-06T10:26:55.540507+08:00 kernel: [drm] Register(0)
-> [mmUVD_RBC_RB_RPTR] failed to reach value 0x00000010 !=3D
+> [mmUVD_RBC_RB_RPTR] failed to reach value 0x00000010 !=
 > > > 0x00000000n
 > > > 2024-06-06T10:27:04.407149+08:00 kernel: [drm] Register(0)
 > [mmUVD_POWER_STATUS] failed to reach value 0x00000001
-> > > !=3D 0x00000002n
+> > > != 0x00000002n
 > > > 2024-06-06T10:27:04.407252+08:00 kernel: [drm:amdgpu_job_timedout
 > [amdgpu]] *ERROR* ring vcn_dec_0 timeout,
-> > > signaled seq=3D24898, emitted seq=3D24898
+> > > signaled seq=24898, emitted seq=24898
 > > > 2024-06-06T10:27:04.407257+08:00 kernel: [drm:amdgpu_job_timedout
 > [amdgpu]] *ERROR* Process information: process
 > > > RDD Process pid 39524 thread firefox-bi:cs0 pid 40342
@@ -313,16 +305,14 @@ q
 > GPU reset begin!
 > > > 2024-06-06T10:27:05.033745+08:00 kernel: ------------[ cut here
 > ]------------
-> > > 2024-06-06T10:27:05.033773+08:00 kernel: WARNING: CPU: 8 PID: 47039 a=
-t
+> > > 2024-06-06T10:27:05.033773+08:00 kernel: WARNING: CPU: 8 PID: 47039 at
 > drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:630
 > > > amdgpu_irq_put+0x9c/0xb0 [amdgpu]
 > > > 2024-06-06T10:27:05.033777+08:00 kernel: Modules linked in:
 > nft_reject_inet nf_reject_ipv4 nf_reject_ipv6
 > > > nft_reject xt_conntrack nft_chain_nat xt_MASQUERADE nf_nat
 > nf_conntrack_netlink nf_conntrack nf_defrag_ipv6
-> > > nf_defrag_ipv4 xt_addrtype nft_compat nf_tables libcrc32c br_netfilte=
-r
+> > > nf_defrag_ipv4 xt_addrtype nft_compat nf_tables libcrc32c br_netfilter
 > bridge stp llc hid_logitech_hidpp usbhid
 > > > xfrm_interface xfrm6_tunnel tunnel4 tunnel6 xfrm_user xfrm_algo uhid
 > rfcomm snd_seq_dummy snd_hrtimer cmac
@@ -343,8 +333,7 @@ r
 > snd_ctl_led snd_intel_dspcfg snd_compress
 > > > snd_intel_sdw_acpi amdxcp snd_seq_midi ac97_bus crct10dif_pclmul
 > drm_exec snd_hda_codec polyval_clmulni
-> > > snd_pcm_dmaengine snd_seq_midi_event gpu_sched polyval_generic iwlwif=
-i
+> > > snd_pcm_dmaengine snd_seq_midi_event gpu_sched polyval_generic iwlwifi
 > ghash_clmulni_intel snd_rpl_pci_acp6x
 > > > drm_buddy sha256_ssse3 snd_hda_core snd_rawmidi snd_acp_pci
 > drm_suballoc_helper snd_hda_scodec_cs35l41_i2c
@@ -374,11 +363,9 @@ i
 > drm_sched_job_timedout [gpu_sched]
 > > > 2024-06-06T10:27:05.033789+08:00 kernel: RIP:
 > 0010:amdgpu_irq_put+0x9c/0xb0 [amdgpu]
-> > > 2024-06-06T10:27:05.033790+08:00 kernel: Code: 31 f6 31 ff e9 c0 05 2=
-f
+> > > 2024-06-06T10:27:05.033790+08:00 kernel: Code: 31 f6 31 ff e9 c0 05 2f
 > e6 44 89 e2 48 89 de 4c 89 f7 e8 97 fc ff
-> > > ff 5b 41 5c 41 5d 41 5e 5d 31 d2 31 f6 31 ff e9 9f 05 2f e6 <0f> 0b b=
-8
+> > > ff 5b 41 5c 41 5d 41 5e 5d 31 d2 31 f6 31 ff e9 9f 05 2f e6 <0f> 0b b8
 > ea ff ff ff eb c3 b8 fe ff ff ff eb bc 0f
 > > > 1f 40 00 90 90
 > > > 2024-06-06T10:27:05.033791+08:00 kernel: RSP: 0018:ffffb65847227c18
@@ -432,8 +419,7 @@ f
 > amdgpu_job_timedout+0x141/0x200 [amdgpu]
 > > > 2024-06-06T10:27:05.036550+08:00 kernel:
 > drm_sched_job_timedout+0x70/0x110 [gpu_sched]
-> > > 2024-06-06T10:27:05.036551+08:00 kernel:  process_one_work+0x186/0x3e=
-0
+> > > 2024-06-06T10:27:05.036551+08:00 kernel:  process_one_work+0x186/0x3e0
 > > > 2024-06-06T10:27:05.036552+08:00 kernel:  worker_thread+0x304/0x440
 > > > 2024-06-06T10:27:05.036554+08:00 kernel:  ?
 > srso_alias_return_thunk+0x5/0xfbef5
@@ -455,8 +441,7 @@ f
 > GPU reset succeeded, trying to resume
 > > > 2024-06-06T10:27:05.047516+08:00 kernel: [drm] PCIE GART of 1024M
 > enabled (table at 0x000000F41FC00000).
-> > > 2024-06-06T10:27:05.047533+08:00 kernel: [drm] VRAM is lost due to GP=
-U
+> > > 2024-06-06T10:27:05.047533+08:00 kernel: [drm] VRAM is lost due to GPU
 > reset!
 > > > 2024-06-06T10:27:05.047538+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > PSP is resuming...
@@ -475,9 +460,8 @@ U
 > > > 2024-06-06T10:27:05.411482+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > SMU is resumed successfully!
 > > > 2024-06-06T10:27:05.413504+08:00 kernel: [drm] DMUB hardware
-> initialized: version=3D0x04000044
-> > > 2024-06-06T10:27:06.055474+08:00 kernel: [drm] kiq ring mec 2 pipe 1 =
-q
+> initialized: version=0x04000044
+> > > 2024-06-06T10:27:06.055474+08:00 kernel: [drm] kiq ring mec 2 pipe 1 q
 > 0
 > > > 2024-06-06T10:27:06.335476+08:00 kernel: amdgpu 0000:03:00.0:
 > [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring
@@ -488,7 +472,7 @@ q
 > > > 2024-06-06T10:27:06.335498+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
 > GPU reset(2) failed
 > > > 2024-06-06T10:27:06.335499+08:00 kernel: amdgpu 0000:03:00.0: amdgpu:
-> GPU reset end with ret =3D -110
+> GPU reset end with ret = -110
 > > > 2024-06-06T10:27:06.335631+08:00 kernel: [drm:amdgpu_job_timedout
 > [amdgpu]] *ERROR* GPU Recovery Failed: -110
 > > >
@@ -497,28 +481,29 @@ q
 > It seems that the issue persists on 6.10 rc3.
 >
 
---000000000000fd7231061abb2d63
+--00000000000000a05e061aba6e71
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div dir=3D"auto"><p dir=3D"ltr">Hi=C2=A0Thorsten,</p=
-><p>Just send this again as my previous email got rejected. Pls ignore it i=
-f you already read it.<br></p><p dir=3D"ltr">I come to kernel 6.10 because =
-I would like to run stable diffusion on my APU, which should related to the=
- following commit: Let VRAM allocations go to GTT domain on small APUs (<a =
-href=3D"https://www.spinics.net/lists/amd-gfx/msg106897.html" target=3D"_bl=
-ank">https://www.spinics.net/lists/amd-gfx/msg106897.html</a>).<br></p><p d=
-ir=3D"ltr">Coincidentally Yunchen and I use APU machines (7840 HS and 6800U=
-), so just wonder if video playing issue happen on a dedicated AMD graphic =
-card? <br></p></div></div><div><br></div><div><div dir=3D"ltr" class=3D"gma=
-il_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Thanks an=
-d Regards,<br>Winston</div></div></div><br></div><br><div class=3D"gmail_qu=
-ote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jun 13, 2024 at 12:55=E2=
-=80=AFAM Wang Yunchen &lt;<a href=3D"mailto:mac-wang@sjtu.edu.cn" target=3D=
-"_blank">mac-wang@sjtu.edu.cn</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">On Wed, 2024-06-12 at 15:14 +0200, Linux regre=
-ssion tracking (Thorsten Leemhuis) wrote:<br>
+<div dir=3D"auto"><p dir=3D"ltr">Hi=C2=A0Thorsten,</p><p dir=3D"ltr"><br></=
+p><p dir=3D"ltr">I come to kernel 6.10 because I would like to run stable d=
+iffusion on my APU, which should related to the following commit:</p><pre><=
+br></pre><pre>Handle memory limitations on small APUs
+
+</pre><p dir=3D"ltr"><a href=3D"https://lore.kernel.org/dri-devel/CAPM=3D9t=
+xzvSpHASKuse2VFjbdVKftTfWNtPP8Jibck6jC_n_c1Q@mail.gmail.com/" rel=3D"norefe=
+rrer noreferrer noreferrer" target=3D"_blank">https://lore.kernel.org/dri-d=
+evel/CAPM=3D9txzvSpHASKuse2VFjbdVKftTfWNtPP8Jibck6jC_n_c1Q@mail.gmail.com/<=
+/a><br></p><p dir=3D"ltr"><br></p><p dir=3D"ltr">Coincidentally Yunchen and=
+ I use APU machine, so just wonder if video playing issue happens on dedica=
+ted AMD graphic card?=C2=A0</p></div>
+<br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu=
+, Jun 13, 2024, 12:55 AM Wang Yunchen &lt;<a href=3D"mailto:mac-wang@sjtu.e=
+du.cn" rel=3D"noreferrer noreferrer noreferrer noreferrer noreferrer" targe=
+t=3D"_blank">mac-wang@sjtu.edu.cn</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex">On Wed, 2024-06-12 at 15:14 +0200, Linux regression tracking =
+(Thorsten Leemhuis) wrote:<br>
 &gt; On 06.06.24 05:06, Winston Ma wrote:<br>
 &gt; &gt; Hi I got the same problem on Linux Kernel 6.10-rc2. I got the pro=
 blem by<br>
@@ -538,8 +523,9 @@ e method.<br>
 r>
 &gt; bisect this<br>
 &gt; (<a href=3D"https://docs.kernel.org/admin-guide/verify-bugs-and-bisect=
--regressions.html" rel=3D"noreferrer" target=3D"_blank">https://docs.kernel=
-.org/admin-guide/verify-bugs-and-bisect-regressions.html</a><br>
+-regressions.html" rel=3D"noreferrer noreferrer noreferrer noreferrer noref=
+errer noreferrer noreferrer" target=3D"_blank">https://docs.kernel.org/admi=
+n-guide/verify-bugs-and-bisect-regressions.html</a><br>
 &gt; )?<br>
 &gt; <br>
 &gt; @amd-gfx devs: Or is this unneeded, as the cause found or maybe even<b=
@@ -551,8 +537,9 @@ cker&#39; hat)<br>
 &gt; --<br>
 &gt; Everything you wanna know about Linux kernel regression tracking:<br>
 &gt; <a href=3D"https://linux-regtracking.leemhuis.info/about/#tldr" rel=3D=
-"noreferrer" target=3D"_blank">https://linux-regtracking.leemhuis.info/abou=
-t/#tldr</a><br>
+"noreferrer noreferrer noreferrer noreferrer noreferrer noreferrer noreferr=
+er" target=3D"_blank">https://linux-regtracking.leemhuis.info/about/#tldr</=
+a><br>
 &gt; If I did something stupid, please tell me, as explained on that page.<=
 br>
 &gt; <br>
@@ -920,4 +907,4 @@ Hi Thorsten,<br>
 It seems that the issue persists on 6.10 rc3.<br>
 </blockquote></div>
 
---000000000000fd7231061abb2d63--
+--00000000000000a05e061aba6e71--
