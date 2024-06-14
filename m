@@ -4,145 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC4BC27C6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 11:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72A08C27C79
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 13:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EEBB10ECFE;
-	Fri, 14 Jun 2024 11:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E5810ED3D;
+	Fri, 14 Jun 2024 13:48:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2EZJhrfL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MAyqcIPi";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05CB310ECFE
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 11:50:32 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3479A10ED1F;
+ Fri, 14 Jun 2024 13:47:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dnTg6JI2BtfGMDpa97wttZDCfXtoFyJSFDgbFnpnPo45Nis5OFP5K9HP2eTJvJxsFrI/xoCSFuW/RdjiyhnkgJKYM4EBiGqRmOLSv2X3teVkNjxzOnZWPR7Pm9AQdYW1k+ytXmn2bnIhvGla1+XYs8Ppdbq1T6fVHlZXdLfPLSEV+wWn0Xj798hMkZvVOyzXRtZin7IeNubJREHpMufRX2x73UuXSN3ab6opE4M38Q3k6p+PXJrMf9iG4s2vYHHUwoh2d0q7Hpm4KACKdvmMwXNgYLuNDEjUXWzlPLgmPMzDHHq971f6B7WsgBge8pVEmRJxeqGuuDiHZJTXGDeHVg==
+ b=Equc2P2/Unm2T2T1cQ+oIvlxidraQBS+ciSMkt2yrVFkcjIMvywTH10VgxgeTYSKGKrXL2FqKN5CMeW7GY1qrZ2OviKPa+o53YQwjRGG52yA9YIRYY4KsFTTa509HYyB1R2ha9nbk2pj9BAdut9ZHB35Gl6A3t7Fl2yfR2/X3G+qxaBtqPlSwlNi2+O29DkyT8QLzm//4dyCV3bO7drZUl2QqmFuxtsPlH4lzTzzKhwDTHBHYCTsPSY4ZTrmBve5b1cwnt3poOH7Z8CrdE+NyoVGil6rFTPaPqrV+FhL71o6SJeknjvf+63lti3gK1GoWZscwl9x1cT8Kqpzlun5vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E7vvqc1CExPCGnP16S/kYsICsXz1RU8Na4NRQE3ItGI=;
- b=aysrik52HdH9LIKqloVDoqBbfChQEY7bB6APZ3DwLZuhcHP8i/cJklcGo0gFMvYkUo8TINzQFDkOUKetpTlNsIBH/RCtq3aD/HdG8k7G7rn+yEEQSwJLrOPPcRJmnssCS6IPgdM+wn7svs/L/rQRe++8W2LqJ244cPPiZLyy8pb8ftEZwZcys+gu4CEN9XPT3CuCvriEOdzX2CiS1Dz6wNEsrABNLJpViW7Q9/0/w4bA/fd4ZlljG8WMJ972H/Rgcn19srMfOX7XqneTO95x1JfaeDvCnWtF288qcWseO30RZjH5Ct8mADMHFjcxFjAfMbRcRdNxHLXWnBVZJwsr5w==
+ bh=Hs2+TNAN87LKCrjBo446uWR/XK3vgDLDtWfVcT+omOE=;
+ b=kl6Tr4RKYXQkTSQWbZmknd/JT3Ze9aCPoj7FCo64mzJMx0YqeTIeG75dvrAWOoxA2HEdKXjH1vk4jj4QthIsY7ksLjXs/7zsInpqKiWLqHwsgN/sj2EV100XKfFtdLve2A8HFutwR0UwQXu2XfcEV6OLUyK9zxPPtYzdkMLIV4kEBmIs1gow+107wTqR15D6fmKr5+uvbaMAHbj3JEE6RbdMtjlcbAo9s/NpUsPuEsfhE6nOprJzKQ7Jk8V8NdcmurS+I4oTlAu8f8xfdgoY/FoqIum+dF9snWgQaAQKsNkU70/1ZcY10yYcnO1Fw+iglkp13NE25A7qICpcYB8ytw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7vvqc1CExPCGnP16S/kYsICsXz1RU8Na4NRQE3ItGI=;
- b=2EZJhrfLM0bXcZURyiASZ7ilbb6AriZ413O83EYpKg06dnggEp8OKwbm6U+TU+S+W+uHo58d4aLS5AFlkwylB/Rx9x/SI3l4qTrdbmrZxCtPGASl2vaO+D+EPcETvv9gW3pmv9YJfgTsS5hF4hvTYXSPB4SRj/4o9J3LEbyxRmQ=
+ bh=Hs2+TNAN87LKCrjBo446uWR/XK3vgDLDtWfVcT+omOE=;
+ b=MAyqcIPiN+tVhhacAhkV4z5X1w7paFpypEjc7cnx5zQWPomJD4Rf6utfk+tVH/a7LFks8ujP1CViq49UBpXAwPdoXBlzTTdisPP0xK0Kxz/uZkFtA7D4FrizNhIIevKXSBDz7xPtHW+TwMx9RiWWaWFUqj/mKAurg5qDmHs9uLU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- CY8PR12MB7122.namprd12.prod.outlook.com (2603:10b6:930:61::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7677.21; Fri, 14 Jun 2024 11:50:30 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.7677.021; Fri, 14 Jun 2024
- 11:50:30 +0000
-Message-ID: <2bf881e2-9db1-47f8-b8ec-dee5dd7a295e@amd.com>
-Date: Fri, 14 Jun 2024 17:20:20 +0530
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by SA1PR12MB6821.namprd12.prod.outlook.com (2603:10b6:806:25c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.24; Fri, 14 Jun
+ 2024 13:47:53 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.7677.024; Fri, 14 Jun 2024
+ 13:47:53 +0000
+Message-ID: <df7dc942-4e65-4e3a-8b10-6f4f0d1ef602@amd.com>
+Date: Fri, 14 Jun 2024 08:47:51 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: keep init xcc0 for all xccs under sriov
-To: Jane Jian <Jane.Jian@amd.com>, Haijun.Chang@amd.com, Victor.Zhao@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20240614111022.236072-1-Jane.Jian@amd.com>
+Subject: Re: [PATCH v3] drm/fb-helper: Detect when lid is closed during
+ initialization
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Chris Bainbridge <chris.bainbridge@gmail.com>
+References: <20240613051700.1112-1-mario.limonciello@amd.com>
+ <f5485db8-9e1d-4b95-a0ec-25ee8551795d@suse.de>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240614111022.236072-1-Jane.Jian@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0067.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::7) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <f5485db8-9e1d-4b95-a0ec-25ee8551795d@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0194.namprd04.prod.outlook.com
+ (2603:10b6:806:126::19) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CY8PR12MB7122:EE_
-X-MS-Office365-Filtering-Correlation-Id: 568db997-547b-4c5e-b772-08dc8c68307b
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SA1PR12MB6821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0355a6cc-e8b8-470d-630f-08dc8c7896e9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230037|366013|376011|1800799021;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?U2RKMElTeVFmYnZLMVBrSUVKeGVOcXZsZU9GbVlnS0xTTnc2d0FHaFZNY2RU?=
- =?utf-8?B?ZHorRG5FTWtLOThXSW5xakIreTF3eDNVMDhsek9ScHVOWXJBZVZNOGsrMEY2?=
- =?utf-8?B?eU5aYjB5V1NKNTk3YXlLdjN3cTllUWJXQnE3MFcwRXJ1cmtVYmhreENPdjBs?=
- =?utf-8?B?TTFDUDFJUlhIZkdkcXhqVzNJNjFtb0N1Rk15bnRNRkVUenVseVNmMUVGMTZq?=
- =?utf-8?B?RjdSRlU5bHpaeUVDTFdRTWtjd2lTK0RnZU12K1RTMkxzYTdhVTBxbWFEdFNl?=
- =?utf-8?B?WjUwUXJ0T2doUlJkam9LMDBQazRRN1ZpWmxwTHQ3RThjUnhxbnhKT3ZJYUpU?=
- =?utf-8?B?eFJaS296L3RPTzJNRmsrUzJDU1FPbFFwZFNOMm9KcTVtSnA1L1h1NGVadVRm?=
- =?utf-8?B?WmRwaVRPUlYzVE9vOVJrSGltUDVLQUNXK0pJN2RsdEhuek5TMlJTTjRJY09s?=
- =?utf-8?B?Y2hMclRjbGpmK1J5VTVEeCtKN1d3NVcxZTUwVHV4WVhtbEtLR2tEYmdSTWg1?=
- =?utf-8?B?aGIrME5LNTg0Q0NnM1I2VmNvbTA3VFZPL0pvd2lZMmVobmFocFpZMDJLRWs5?=
- =?utf-8?B?YWIvQzlkVWNucDIrYzNEZUt1aDRuTkNDMnJwcTVmOEs0S3h5YW1EdnFkVFpl?=
- =?utf-8?B?U1MyY2U0NElKa0R2bTgrdnRSZmIyTVhCZU1kZTl1TzQ4T1dxU21CU3dSeHdU?=
- =?utf-8?B?TGE1NEsrUGhXNXhadmF5czZBOFRBLzlmUWpLelJjZ0c1SXJkKzFCa2V5T0lM?=
- =?utf-8?B?RmRKaTlTUXZCSzh6YTMzMmwzcjBVcHlQNnI4OFgrUzNxTWJ4Qlg3TjNVY3Np?=
- =?utf-8?B?SFpkcFlLUmVHRjVBbkptTVprOEJLaHhzVk94L3BMcVloUkx5Z3c5WkU2QTNv?=
- =?utf-8?B?RDVVNzZTYi91VmQwTTdzL3FVU3ZyWmNybmZzRGlhK2xneUZZTWxab05aZm5i?=
- =?utf-8?B?aGNQQmg4cEpZQlh6N3loaldOR3NUUGVWcGdpZ2tFTUh4bElpaUNJUGtCZGxU?=
- =?utf-8?B?elJXaU8ySUljWENZWWgvSEwwUnc2ZGQvaDFkcFNEQjFkY1kxYVZvWFI3OTQ1?=
- =?utf-8?B?UzBEVWcrZlI0SjRueVVYNlNiNWF6bkZrNngyR3IvV3R1R3FSaE5xamFVRmQ0?=
- =?utf-8?B?dk4raTJ2bXFmR2lCSVFvY0NLMEE0WC9JRkFySHUxdGVnV2J1cVF3YWRjQlVz?=
- =?utf-8?B?a2I1Q2VzY01ESmZZZHQ3SklySjNpZllUNThBd3AxK1JSZ3FuM1ZLRXZLNjQx?=
- =?utf-8?B?c0ozdTVlaGlxMVF5L1l0WkRTZ3A3T21UVGRVS1o1T0FnZUxxM2RCVUR5a1Bk?=
- =?utf-8?B?QldxWGw0VDg2RDQxUzVVcko4c0hsbERjYmQ0b1pHU01tWm9ZMmJwM2szMGd4?=
- =?utf-8?B?TGFIZTgrc3MySHNhNExzajhPQ0dYd0NCL1pBVHRYa203THhFbHZ1aktZckZK?=
- =?utf-8?B?c0ErZk92UVNzQmRMRzAxenR1UVA4U2d0Y1NHellibldtQmlxYThST3NaNzVT?=
- =?utf-8?B?TGZzZW8xSDVBOWtkZTFqTDlpNXFWOVJWWlYzVzVwRzlvd0x3bkRBNlF5eXZE?=
- =?utf-8?B?NGFYcXdUbWFVUmtONEpBSWpjemRlZjBRU09BclMwUTAxdTJlRTdsWWpZaUlr?=
- =?utf-8?B?VUlvWlpHWnZGSnlGNkJ0TjhmRlQrNStQNFcycUJXSWg3c0QweS9uN1VzcnI0?=
- =?utf-8?B?cFg5THNDYmlIZWhFcHdLdEJPL1o0NEZsL0ovUTVvVDRGbGg5Q3l2djU5N01R?=
- =?utf-8?Q?PxmgZMSzjOPpij0tFaJ8m2ThhbMg7lCPE6QDCyP?=
+X-Microsoft-Antispam: BCL:0;ARA:13230037|366013|376011|7416011|1800799021;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RzhmbXR3Y0tPVGNTTDh2eEhzWGs0RG8wcjJCQkI2cXdRWFdoelhVRU1sMjJr?=
+ =?utf-8?B?QzJ5NzZRZXpHTVlHNllTWUNwUm55S3IwUnJiazllSFQ3eDZyUnM0WkxxNmxh?=
+ =?utf-8?B?eWwyOUFXeWdSUmpEZWt4cVYvbng4U3BGYzVxNDhXV21wUFd0d2xoYWNxWTlE?=
+ =?utf-8?B?eGNhMkkwT01mWFNrUnVtcWhYR2plemZncm8xKzdMUXRpSjVJL002SCtGNzUx?=
+ =?utf-8?B?VFRvelBNYU8yNzcxMGJ6MHh0aUcwV0s0a045dnhBMmRlMnFqdDI0ZDRaNTFI?=
+ =?utf-8?B?KzZSY2htNXIvYkFlRmtwcEtOQ0RkZWNEQ0ZEb2huS0RPdllwTHZ0eWlaM2Fv?=
+ =?utf-8?B?Rng0SEZwYTA0KzlOOW5kSUpVaDg0MDRKK3Jab0J5S00rZ3hLemppK1ZZR0U0?=
+ =?utf-8?B?OElrV0l6b25oZ1pEbUk2dGgwU0pNcmRhQVN1ZWJyRVVORndsSUh3M0xtR0Zq?=
+ =?utf-8?B?MFYrVEg4azIrKzUxN3MrYUpZS0JXYXRScGgxb2NISVVNcE0wM0lyTTVZMkFI?=
+ =?utf-8?B?akQ5RjlJSm82aHlmMlRVMzFyQ0g2d0NpUjJINGYwU3B2ZVFtZmw4WTFOZEZs?=
+ =?utf-8?B?Vjl5ZHE1MjlhR1B3dkVJaUVNd0hvNGpmU3lYbmZXMHEyRHczQ3JRSVo5bTYx?=
+ =?utf-8?B?d1JiM3lBTlkzYStTSGg4dE5QOHBuUTQrR2FIQ0RkZjNBVmpVZHpGYTh5c1k4?=
+ =?utf-8?B?Q2xHZ0hBSE5sV09zU1p0alRpL2NnWGVGQlNZT0E2RXlMV3ZEclJYU01QZ1V3?=
+ =?utf-8?B?eDBIVG1TeW9MYiswa3ZKeUNvd1E4Y2FKamVUbFdjdVZEdThUbkY4aVlqRFBq?=
+ =?utf-8?B?dlF6d2o2YlBNVStYcHJzZHJaekxUZGxsaHFJQ1JDb3Q3WWVWOG5aRjRscHNW?=
+ =?utf-8?B?VVExT002eEdKZkhuVTFIK296c0owdTYxZ0tBMkw5bFl5R3ZWWFpOcW1Od2FP?=
+ =?utf-8?B?eUZqMnk2b1JJSHY1RmNxQlFUQlZnL1k0ZzFVd2hoY2trWUFNUEtjR1NnY2hw?=
+ =?utf-8?B?TVdsUmlVcHBGSzhuVk5JYytTZ1cxODNKMHBGUXMyK0hCbWg2bmFyTDBCWnFx?=
+ =?utf-8?B?NlZDSWFrWHp0K1I3REhHT212ZGFGMXVPMitTWFRRMFpSTnVHR2UzcGdSUUhT?=
+ =?utf-8?B?TTlqV292ZW1RcWxGc2dobXZkMUFsSEhGbkhJYmFQMGVIbDhqUitZQnR3R0JK?=
+ =?utf-8?B?cGJmQXhmQlVOalhnZzQrM1FXUjdYUlEvUmpLSGNmV01sOTgxQUxXNEZ1WGZL?=
+ =?utf-8?B?ZWs1Kzhpc3lvMjFXNiszM05oczV5NGZuTWdacXdVUG1qckhnYWR1NG9rZ2Yy?=
+ =?utf-8?B?Y3gyUEZ0SWx5cVRDN1R0ek1JQ1NqeDhyM1JMRkRxR2gvWW12UlRSaU5YV1Q1?=
+ =?utf-8?B?UmcvT2svd2MybWJheTI1UnhzNkQyendFaTJsQ1luS1hMUHgwT2NjSW9IOVd4?=
+ =?utf-8?B?OU1QWlBqdXFjM0tpaGErNkZpZm1VNEZaeFJFYW53MGNSeVJnSHBNUU5IVmIw?=
+ =?utf-8?B?cG1JZG9vMlorOC9sS0JlVkFldWF6cVVkQlZoTXE5QzJ3ODh4bE9MUE93TGhD?=
+ =?utf-8?B?cWN0ZmFlMEVvSjFDNVFrK3N6WkRpN3FzVzJMYWt1MnVZM3dwRG5ac2lpMXZL?=
+ =?utf-8?B?SG1wRXVNSjFOYlNReTMxMXhqS0tjMHN4ODltVU0xby9tUS9Zc0oxeHBDT2sw?=
+ =?utf-8?Q?T8gwf87KCKH26gOJy/e3?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230037)(366013)(376011)(1800799021); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230037)(366013)(376011)(7416011)(1800799021); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnNOdGppVU95REI3dmdXRXZzbTMyU0xNTXgzV3ZBY21pTC9TaXE3NkRpTmdU?=
- =?utf-8?B?Smg3OG5KRk5RM2N0V2h4QW9pd2RFejFLMUxNbnFHR1RkNExhTEhqR3dZUVp4?=
- =?utf-8?B?Rzl2YUZyeEgvMlQ2R0pVTW1sdW43cXBYSk41WHRLZlhqMGxEMXFhYktGN3Rq?=
- =?utf-8?B?alJjTmQ0SjNmZkVXbmEyWnE3eS9GaHVMMEFZT2lrS1QxTUxaSklXMUFBR1BC?=
- =?utf-8?B?TTl1S1U1WmtwbmhwcTFaZ3VQLzJjUzVmckxRYVVxMUN4TUFqVmU3L3F4S0dn?=
- =?utf-8?B?NzMwSVExc1grYy81M2hPazlxOVdyK3NqRk9FZW9zb3FBaldPSk0zcjFTcS9Z?=
- =?utf-8?B?WmdBQzNPWDBmdFlkMU5JRXBLT0JycHV6SGxXeWVGTjZReGdNTnRaNnkrYjd5?=
- =?utf-8?B?KzIyUlJpVzFMY2tpc3RFN1hXdm80WlBabVhobFVNU0NjQlp1and5RXlhTDVp?=
- =?utf-8?B?ZmJtMGwreDhKVFZSL0M2UU1NajVWL0h5N3BiZzhPaWpROEdCRFJOelRqbWFw?=
- =?utf-8?B?RmIzSCtiN3RhaUpyK0RXRXZWOWxma3BCUkVBbDQ5N2VISnJYQ0xZRVNBanRD?=
- =?utf-8?B?N1k4ZUhQcEZBTkRualN5VnJoaHcwTjRQejh4NlZydlR1RXJpakd5TERZNDla?=
- =?utf-8?B?aW93SmtjVmcwTVg1SU1tU2U0MldjMXBrdW1jQ0xtMjMyQityY1hCaEJCamNh?=
- =?utf-8?B?Nk96OFJCT0lra2N4cnZ1LzFkL3grek5nRzIxZHQ3MlR6RVpsRW5OWHVUU0NS?=
- =?utf-8?B?S1ZZM2V1aTVhaHBLTnkrczg1K1pmV2JCQ3N3Zm1mNFFkUFdGeXQ0bWhTNyt3?=
- =?utf-8?B?dnFYT1lFanZYNEVjblVhQU1oVitxRDgxT2VyandqREYya0hjbGR4eWcvUjc1?=
- =?utf-8?B?dDVzQko5aVRKUW8yVlhueFMzNVdVNm5xd09NUnluVEtXZEtGSUtiNE83OFQ4?=
- =?utf-8?B?NjhpMis5YjBwclAyeDJ2VWdBK055eXpnOEJWbWJLdmV5dnBLbTJRL05zbEJn?=
- =?utf-8?B?UFZYWFE4T1ZZaWNyaFJQakx3c05vQWY1MHYrL2JwWmdWQjBqU2FwbGFTNUJJ?=
- =?utf-8?B?UVdqUHRlZjhYTENrMEcrUWlid2MwWjhtaGFBaUJRb3JBUU9NOVZndWJQY2pn?=
- =?utf-8?B?ZzVmd1YybEluN3Y5YUExaWRzbVQ0YWVNR1RLOEdZczZLM3VWL1VsSmVXUGJ0?=
- =?utf-8?B?bjViZ0RIMWxHSk82SEZWUkg3WVBtNmp0dndYcGpiK1R5ck1IQWw1MTJCN3N5?=
- =?utf-8?B?NnNDSHdDaDlnL01xNkV0NFFrZlMyQTRtbnhnUHBFUnU4NU5RUWhYc1dqbnR0?=
- =?utf-8?B?OGdFSUlyNVQ1alJYZkJrSi8vSXd6SUlGa1gyNDBuUTNWRS9qOXVPRitJSWNZ?=
- =?utf-8?B?SmJpZWExVHlVYmVjYk5mZ016SFMyamU5TkRDU2VjZk9NSW1vL0NvelZjbW85?=
- =?utf-8?B?ZEtZaWxLYWlvT1IyWmNabnFqZEpxd1U4VnNoODNqZG1LamRocS92M0lzdTZV?=
- =?utf-8?B?a09OOWt5TTY0SkhsUmxRMDIveldNOUFBV1ZLZS9tdnNrRGlVUzNYUlQ0cGY3?=
- =?utf-8?B?SDF6ME1qRTIveXJ3ZHlQSXU0RS9sNEFPdjRRYVE5Rkxaamx0TDZFN3B0em1o?=
- =?utf-8?B?aDAwbVU4dFpoNThCVzc3TTliaHg1NExXWXdramdtRHoxcEgxK2RQNDQwMHNh?=
- =?utf-8?B?SHRvdHVEWWpDTkdzVDNvTEpHL0lSRm1BQk9pQkRobmx6THB2NWw1N2N0WVUr?=
- =?utf-8?B?VTIxZGdIVGJkb3plOEJUZ0RKWHM3amR3dStmSTFybExNZGZEajNweFo2OWJX?=
- =?utf-8?B?WmhrdThTZU1ERVVkMGpDRlIydUpMZzBTZHJ3d2ZLNm9uMnd2LzllcHJra1hS?=
- =?utf-8?B?U3c1aC9JTkYzN3I3b1RRd2tzaGVLMSs2VmoyU3BJa1ByOEYxM1BqY3dKV0M1?=
- =?utf-8?B?aEZrellqQWZ2Yk5kTzFQeTFlTHYyZ2ZBYkptWi84L3EzWEFnYk05WlNlbVVz?=
- =?utf-8?B?RzJENDQ3SUtEanZ5UDNlT2pqelR3NGUwQVNCWTA5bzNscm1qeXdsOWRwNGNr?=
- =?utf-8?B?c0cxalBBUGxqT2xOTmdZZk5JVmY3T0JQK29leU9KYWFtdXpKRVJaQ09pbm45?=
- =?utf-8?Q?FYfyW3eHsV3kIU1hPVRVUuz8i?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OW8waDVUYllGRlAyWjBUOTR2dUU4SEloTHk3bTZSYVhNY2pFUHVRNTR2ZXF1?=
+ =?utf-8?B?SEl3R3ZPZzhzYURTOUNIUUo5RkFrVUtIMzJ6aGQ5OEh3S1hUVVFVckhhU21a?=
+ =?utf-8?B?aWdCREovNnovakhHSnNOcFA3NVhSRFRSdzlGYnZIMVRoU1NhMStiQ1ZFWVNJ?=
+ =?utf-8?B?L25sTEc4WTYxb3I1S2UxdzAySVZLTUhpUmIxdWVQS2I2dHBBMDVYVDBUWnIz?=
+ =?utf-8?B?Yk94ZEJJR0ZVemtaSWdpczEvTC9yVTZBSWdRTnNjb2ZSYjZBQzZna0V5YVkx?=
+ =?utf-8?B?K3QvL1loWlpzMDliWk5PWDFFYllkamdPQXFpVE81bzB4Q0lkbFYvVDNVTlhk?=
+ =?utf-8?B?b3ZDNUFJT0l1L2NjSEY3MFl4MGtNa0xhNXZPcEtBamJyT1lxdDZGK0JTR1p6?=
+ =?utf-8?B?L00rTDJYbjRCTERRT0tjMjhReDFTQXdCNVlid1ZLZWc2OCtsYmIwWHRzaTda?=
+ =?utf-8?B?QUdpcC85SHZ3bHN1SzdTL0x3WXJWa1k0Mm1HRzdmVjlSbE10MXA4NnVkTUw2?=
+ =?utf-8?B?UjJzUGlIaGpBa2ZYeXBMekZzUFBELzIzSnRpL2xZbVc1Z3NsMmprcTdkVFNp?=
+ =?utf-8?B?REhhL1lEempaY1IwWXZOU1dtbnFxRGlTS1ppdGpkT2hrOGFETW9LSitqYytY?=
+ =?utf-8?B?WUJLRVB6VHIxS2xoN1NCK0NKLzQxalU4L0UxSDArMDg4V0JRVjY0czRxK1l6?=
+ =?utf-8?B?QmU2KzZGcXlRUUk1RzZuQ0NLeUwrMllpR0c4OTFySlY3TjJkRTZoMVNyUUV6?=
+ =?utf-8?B?TFJFcUozdmc0RVlvMzBWZ0p4VWFkQ21kd3g2MVo1M1l1b2dkVWZiUjFLZjEw?=
+ =?utf-8?B?cWYxaXdYMGRRTlBXb1JxZXlUQVdvcWpDdjBmSy8wOENoaWJ0THlZbGQ1VkJI?=
+ =?utf-8?B?NUpkMjNERWtFdmlOTzRNM1kzUHA0VjhCOWd6bWg1OE82SngwL2FCME40TDZO?=
+ =?utf-8?B?Z1Q2N0tlbmJkNEF6N1VRN3dOYVhHZXlEekdxdlhWSW92d3lvUXk5MHAxL3lX?=
+ =?utf-8?B?Q25UaE9CeDE2RThjeUx1RFFLZ0pPc3RhTGhnWnlzSkwrM041VFRQMVpDOTZP?=
+ =?utf-8?B?UHBPN09kVEw4eGFXL1hweTJvTXBZR0R1cWp0ZlJNNHpYbU5TdUJkNG9semx6?=
+ =?utf-8?B?Z3hLaTJvcWtkUTY4YVoxcmEvWVJyRTM1b3o1TUI1QjcxQ0tMZ2d0SHJyMlJU?=
+ =?utf-8?B?UEdSRUxuckI2TlB2M05YYXArMUQ4eVVzWmxicTNyQnZLalRNNVRodFJWYjZm?=
+ =?utf-8?B?ZjhUR0JPMUttWEZzV0tPK1M5TWJFOXM5SmpmMExrRnlVcFBlWnE1ZklVQ0lm?=
+ =?utf-8?B?UnMvQ2N3YTlOeDJxeXlXUll1UGVLY0VZTWpHS0hVVm1aMXVwYVhleWVoRldx?=
+ =?utf-8?B?ZmxTTVZCeG9Pa2RlTkpiWGx0Q0RSamRkemp3UEZhbFlmQXBOeUtzanUzSGdG?=
+ =?utf-8?B?V1Z1TU1vOXJsWHc0bDJLUS9TSk1mbFhLek15dkNYbDljZFFwWDhPRSswOHhN?=
+ =?utf-8?B?bEYzYVVnKzBhUzd6VXhnRnlub004NTBYVVhnSW1tRGJVUElyOWpSUFBvSGNB?=
+ =?utf-8?B?ZVJaZWRCOHVnaWlhd3A1T1pxSk5idHg0dFBJM3RTOGpnQy85dWlqemRjU21h?=
+ =?utf-8?B?RUMvOXYxa1dlL0JSYmdVZ3NaakZGSDB1cnVDVUpTRHFTWDRRTHFSZ1lGWWFS?=
+ =?utf-8?B?V01Nekp2QW1PcGRySEtDTTk5Y3duUGsvWkh5cXorQkRIYjJicXU2and4U2hN?=
+ =?utf-8?B?ajBoTVI0bVNySGFzY0k1Vk5HZXgrRzJZcXpXQnhldzI1WnAyTWpxdlJ1THBS?=
+ =?utf-8?B?TllidG5DR1EzSWgwcjc4VWpvUmNPTzdPOUc5MHZGRmdnOUpyWTZOdXBpSFlr?=
+ =?utf-8?B?WnBWT0g5NkQxek1QTW0xNWxXeTdUMWE5Rnd4czY1U0dHM1pPaXhycGQ2UEND?=
+ =?utf-8?B?dHBzVVBJaHoyeVN3OEpHQ1lNbUN2MUVCUDFyQmZzdEdaV09hOWxlYkw5SVp2?=
+ =?utf-8?B?N012akJBYmlERlNRa1dueUVKS1NWTkhDOFpTSGFtdUYrd05hRVhXUmR6SllC?=
+ =?utf-8?B?RXFqajdQaDhqUTZYcVlTRTNaZlZPZ3gzM3ozZHdBREgwZVordzFOTXY4WGxV?=
+ =?utf-8?Q?X9ZrXUruUg98VIkVMLKQRCJhj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 568db997-547b-4c5e-b772-08dc8c68307b
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0355a6cc-e8b8-470d-630f-08dc8c7896e9
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2024 11:50:30.2268 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2024 13:47:53.6887 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xPP9H1A72xqxvTx8YO/Y8O3w4TZ7fFGq4MlLD2W7BR9+ffCwuStmmQCmmoJv/EKE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7122
+X-MS-Exchange-CrossTenant-UserPrincipalName: /zaEwMOy/kqq/xphjo3Os1BI3Gwvo5fG7qGxTBS9h+BgujXVOLqYwkBCZ1XlPpmaSpBqhfoWUTsn3iIxDNNpMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6821
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,77 +164,316 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 6/14/2024 4:40 PM, Jane Jian wrote:
-> [WHY]
-> sriov has the higher bit violation when flushing tlb
+On 6/14/2024 03:15, Thomas Zimmermann wrote:
+> Hi Mario
 > 
-> [HOW]
-> for sriov only init XCC0(lower 16-bit) for all XCCs to avoid higher bit violation
-> since kiq ring is always local, local address without XCC ID is enough to be sent to the XCC KIQ
+> Am 13.06.24 um 07:17 schrieb Mario Limonciello:
+>> If the lid on a laptop is closed when eDP connectors are populated
+>> then it remains enabled when the initial framebuffer configuration
+>> is built.
+>>
+>> When creating the initial framebuffer configuration detect the
+>> lid status and if it's closed disable any eDP connectors.
+>>
+>> Also set up a workqueue to monitor for any future lid events.
+> 
+> After reading through this patchset, I think fbdev emulation is not the 
+> right place for this code, as lid state is global.
+> 
+> You could put this into drm_client_modeset.c and track lid state per 
+> client. drm_fb_helper_lid_work() would call the client's hotplug 
+> callback. But preferable, lid state should be tracked per DRM device in 
+> struct drm_mode_config and call drm_client_dev_hotplug() on each 
+> lid-state event. Thoughts? Best regards Thomas
+
+This is pretty similar to what I first did when moving from ACPI over to 
+generic input switch.
+
+It works for the initial configuration.  But I don't believe it makes 
+sense for the lid switch events because not all DRM clients will "want" 
+to respond to the lid switch events.  By leaving it up to the client for 
+everything except fbdev emulation they can also track the lid switch and 
+decide the policy.
+
+I also worry about what happens if the kernel does a hotplug callback on 
+lid events as well at the client choosing to do it.  Don't we end up 
+with two modesets?  So then I would think you need a handshake of some 
+sort to decide whether to do it for a given client where fbdev emulation 
+would opt in and then all other clients can choose to opt in or not.
+
+>>
+>> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+>> Reported-by: Chris Bainbridge <chris.bainbridge@gmail.com>
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3349
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>> v2->v3:
+>>   * Use input device instead of ACPI device
+>>   * Detect lid open/close events
+>> ---
+>>   drivers/gpu/drm/drm_client_modeset.c |  29 ++++++
+>>   drivers/gpu/drm/drm_fb_helper.c      | 132 +++++++++++++++++++++++++++
+>>   include/drm/drm_device.h             |   6 ++
+>>   include/drm/drm_fb_helper.h          |   2 +
+>>   4 files changed, 169 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_client_modeset.c 
+>> b/drivers/gpu/drm/drm_client_modeset.c
+>> index 31af5cf37a09..b8adfe87334b 100644
+>> --- a/drivers/gpu/drm/drm_client_modeset.c
+>> +++ b/drivers/gpu/drm/drm_client_modeset.c
+>> @@ -257,6 +257,34 @@ static void drm_client_connectors_enabled(struct 
+>> drm_connector **connectors,
+>>           enabled[i] = drm_connector_enabled(connectors[i], false);
+>>   }
+>> +static void drm_client_match_edp_lid(struct drm_device *dev,
+>> +                     struct drm_connector **connectors,
+>> +                     unsigned int connector_count,
+>> +                     bool *enabled)
+>> +{
+>> +    int i;
+>> +
+>> +    for (i = 0; i < connector_count; i++) {
+>> +        struct drm_connector *connector = connectors[i];
+>> +
+>> +        switch (connector->connector_type) {
+>> +        case DRM_MODE_CONNECTOR_LVDS:
+>> +        case DRM_MODE_CONNECTOR_eDP:
+>> +            if (!enabled[i])
+>> +                continue;
+>> +            break;
+>> +        default:
+>> +            continue;
+>> +        }
+>> +
+>> +        if (dev->lid_closed) {
+>> +            drm_dbg_kms(dev, "[CONNECTOR:%d:%s] lid is closed, 
+>> disabling\n",
+>> +                    connector->base.id, connector->name);
+>> +            enabled[i] = false;
+>> +        }
+>> +    }
+>> +}
+>> +
+>>   static bool drm_client_target_cloned(struct drm_device *dev,
+>>                        struct drm_connector **connectors,
+>>                        unsigned int connector_count,
+>> @@ -844,6 +872,7 @@ int drm_client_modeset_probe(struct drm_client_dev 
+>> *client, unsigned int width,
+>>           memset(crtcs, 0, connector_count * sizeof(*crtcs));
+>>           memset(offsets, 0, connector_count * sizeof(*offsets));
+>> +        drm_client_match_edp_lid(dev, connectors, connector_count, 
+>> enabled);
+>>           if (!drm_client_target_cloned(dev, connectors, 
+>> connector_count, modes,
+>>                             offsets, enabled, width, height) &&
+>>               !drm_client_target_preferred(dev, connectors, 
+>> connector_count, modes,
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c 
+>> b/drivers/gpu/drm/drm_fb_helper.c
+>> index d612133e2cf7..41dd5887599a 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -30,6 +30,8 @@
+>>   #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+>>   #include <linux/console.h>
+>> +#include <linux/input.h>
+>> +#include <linux/mod_devicetable.h>
+>>   #include <linux/pci.h>
+>>   #include <linux/sysrq.h>
+>>   #include <linux/vga_switcheroo.h>
+>> @@ -413,6 +415,128 @@ static void drm_fb_helper_damage_work(struct 
+>> work_struct *work)
+>>       drm_fb_helper_fb_dirty(helper);
+>>   }
+>> +static void drm_fb_helper_lid_event(struct input_handle *handle, 
+>> unsigned int type,
+>> +                    unsigned int code, int value)
+>> +{
+>> +    if (type == EV_SW && code == SW_LID) {
+>> +        struct drm_fb_helper *fb_helper = handle->handler->private;
+>> +
+>> +        if (value != fb_helper->dev->lid_closed) {
+>> +            fb_helper->dev->lid_closed = value;
+>> +            queue_work(fb_helper->input_wq, &fb_helper->lid_work);
+>> +        }
+>> +    }
+>> +}
+>> +
+>> +struct drm_fb_lid {
+>> +    struct input_handle handle;
+>> +};
+>> +
+>> +static int drm_fb_helper_lid_connect(struct input_handler *handler,
+>> +                     struct input_dev *dev,
+>> +                     const struct input_device_id *id)
+>> +{
+>> +    struct drm_fb_helper *fb_helper = handler->private;
+>> +    struct drm_fb_lid *lid;
+>> +    char *name;
+>> +    int error;
+>> +
+>> +    lid = kzalloc(sizeof(*lid), GFP_KERNEL);
+>> +    if (!lid)
+>> +        return -ENOMEM;
+>> +
+>> +    name = kasprintf(GFP_KERNEL, "drm-fb-helper-lid-%s", 
+>> dev_name(&dev->dev));
+>> +    if (!name) {
+>> +        error = -ENOMEM;
+>> +        goto err_free_lid;
+>> +    }
+>> +
+>> +    lid->handle.dev = dev;
+>> +    lid->handle.handler = handler;
+>> +    lid->handle.name = name;
+>> +    lid->handle.private = lid;
+>> +
+>> +    error = input_register_handle(&lid->handle);
+>> +    if (error)
+>> +        goto err_free_name;
+>> +
+>> +    error = input_open_device(&lid->handle);
+>> +    if (error)
+>> +        goto err_unregister_handle;
+>> +
+>> +    fb_helper->dev->lid_closed = dev->sw[SW_LID];
+>> +    drm_dbg_kms(fb_helper->dev, "initial lid state is set to %d\n", 
+>> fb_helper->dev->lid_closed);
+>> +
+>> +    return 0;
+>> +
+>> +err_unregister_handle:
+>> +    input_unregister_handle(&lid->handle);
+>> +err_free_name:
+>> +    kfree(name);
+>> +err_free_lid:
+>> +    kfree(lid);
+>> +    return error;
+>> +}
+>> +
+>> +static void drm_fb_helper_lid_disconnect(struct input_handle *handle)
+>> +{
+>> +    struct drm_fb_lid *lid = handle->private;
+>> +
+>> +    input_close_device(handle);
+>> +    input_unregister_handle(handle);
+>> +
+>> +    kfree(handle->name);
+>> +    kfree(lid);
+>> +}
+>> +
+>> +static const struct input_device_id drm_fb_helper_lid_ids[] = {
+>> +    {
+>> +        .flags = INPUT_DEVICE_ID_MATCH_EVBIT | 
+>> INPUT_DEVICE_ID_MATCH_SWBIT,
+>> +        .evbit = { BIT_MASK(EV_SW) },
+>> +        .swbit = { [BIT_WORD(SW_LID)] = BIT_MASK(SW_LID) },
+>> +    },
+>> +    { },
+>> +};
+>> +
+>> +static struct input_handler drm_fb_helper_lid_handler = {
+>> +    .event =    drm_fb_helper_lid_event,
+>> +    .connect =    drm_fb_helper_lid_connect,
+>> +    .disconnect =    drm_fb_helper_lid_disconnect,
+>> +    .name =        "drm-fb-helper-lid",
+>> +    .id_table =    drm_fb_helper_lid_ids,
+>> +};
+>> +
+>> +static void drm_fb_helper_lid_work(struct work_struct *work)
+>> +{
+>> +    struct drm_fb_helper *fb_helper = container_of(work, struct 
+>> drm_fb_helper,
+>> +                               lid_work);
+>> +    drm_fb_helper_hotplug_event(fb_helper);
+>> +}
+>> +
+>> +static int drm_fb_helper_create_lid_handler(struct drm_fb_helper 
+>> *fb_helper)
+>> +{
+>> +    int ret = 0;
+>> +
+>> +    if (fb_helper->deferred_setup)
+>> +        return 0;
+>> +
+>> +    fb_helper->input_wq = create_singlethread_workqueue("drm-fb-lid");
+>> +    if (fb_helper->input_wq == NULL)
+>> +        return -ENOMEM;
+>> +
+>> +    drm_fb_helper_lid_handler.private = fb_helper;
+>> +    ret = input_register_handler(&drm_fb_helper_lid_handler);
+>> +    if (ret)
+>> +        goto remove_wq;
+>> +
+>> +    return 0;
+>> +
+>> +remove_wq:
+>> +    destroy_workqueue(fb_helper->input_wq);
+>> +    fb_helper->input_wq = NULL;
+>> +    return ret;
+>> +}
+>> +
+>>   /**
+>>    * drm_fb_helper_prepare - setup a drm_fb_helper structure
+>>    * @dev: DRM device
+>> @@ -445,6 +569,7 @@ void drm_fb_helper_prepare(struct drm_device *dev, 
+>> struct drm_fb_helper *helper,
+>>       spin_lock_init(&helper->damage_lock);
+>>       INIT_WORK(&helper->resume_work, drm_fb_helper_resume_worker);
+>>       INIT_WORK(&helper->damage_work, drm_fb_helper_damage_work);
+>> +    INIT_WORK(&helper->lid_work, drm_fb_helper_lid_work);
+>>       helper->damage_clip.x1 = helper->damage_clip.y1 = ~0;
+>>       mutex_init(&helper->lock);
+>>       helper->funcs = funcs;
+>> @@ -593,6 +718,9 @@ void drm_fb_helper_fini(struct drm_fb_helper 
+>> *fb_helper)
+>>       if (!drm_fbdev_emulation)
+>>           return;
+>> +    input_unregister_handler(&drm_fb_helper_lid_handler);
+>> +    destroy_workqueue(fb_helper->input_wq);
+>> +
+>>       cancel_work_sync(&fb_helper->resume_work);
+>>       cancel_work_sync(&fb_helper->damage_work);
+>> @@ -1842,6 +1970,10 @@ 
+>> __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper 
+>> *fb_helper)
+>>       width = dev->mode_config.max_width;
+>>       height = dev->mode_config.max_height;
+>> +    ret = drm_fb_helper_create_lid_handler(fb_helper);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>>       drm_client_modeset_probe(&fb_helper->client, width, height);
+>>       ret = drm_fb_helper_single_fb_probe(fb_helper);
+>>       if (ret < 0) {
+>> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+>> index 63767cf24371..619af597784c 100644
+>> --- a/include/drm/drm_device.h
+>> +++ b/include/drm/drm_device.h
+>> @@ -316,6 +316,12 @@ struct drm_device {
+>>        * Root directory for debugfs files.
+>>        */
+>>       struct dentry *debugfs_root;
+>> +
+>> +    /**
+>> +     * @lid_closed: Flag to tell the lid switch state
+>> +     */
+>> +    bool lid_closed;
+>> +
+>>   };
+>>   #endif
+>> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+>> index 375737fd6c36..7fb36c10299d 100644
+>> --- a/include/drm/drm_fb_helper.h
+>> +++ b/include/drm/drm_fb_helper.h
+>> @@ -143,6 +143,8 @@ struct drm_fb_helper {
+>>       spinlock_t damage_lock;
+>>       struct work_struct damage_work;
+>>       struct work_struct resume_work;
+>> +    struct work_struct lid_work;
+>> +    struct workqueue_struct *input_wq;
+>>       /**
+>>        * @lock:
 > 
 
-The description is incorrect.
-
-Bits 18:20 represent xcc id. To guarantee all paths pass a local
-address, you should just strip bits 18:20 in kiq/rlcg read/write
-functions rather than here.
-
-Thanks,
-Lijo
-
-> Signed-off-by: Jane Jian <Jane.Jian@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c | 23 +++++++++++++++--------
->  1 file changed, 15 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> index e14acab5cceb..4e38a66a52f4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> @@ -537,29 +537,36 @@ static void gfxhub_v1_2_xcc_init(struct amdgpu_device *adev, uint32_t xcc_mask)
->  {
->  	struct amdgpu_vmhub *hub;
->  	int i;
-> +	uint32_t gc_index;
->  
->  	for_each_inst(i, xcc_mask) {
->  		hub = &adev->vmhub[AMDGPU_GFXHUB(i)];
->  
-> +		/* for sriov only init XCC0(lower 16-bit) to avoid higher bit violation */
-> +		if (amdgpu_sriov_vf(adev))
-> +			gc_index = 0;
-> +		else
-> +			gc_index = GET_INST(GC, i);
-> +
->  		hub->ctx0_ptb_addr_lo32 =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i),
-> +			SOC15_REG_OFFSET(GC, gc_index,
->  				regVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32);
->  		hub->ctx0_ptb_addr_hi32 =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i),
-> +			SOC15_REG_OFFSET(GC, gc_index,
->  				regVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32);
->  		hub->vm_inv_eng0_sem =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i), regVM_INVALIDATE_ENG0_SEM);
-> +			SOC15_REG_OFFSET(GC, gc_index, regVM_INVALIDATE_ENG0_SEM);
->  		hub->vm_inv_eng0_req =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i), regVM_INVALIDATE_ENG0_REQ);
-> +			SOC15_REG_OFFSET(GC, gc_index, regVM_INVALIDATE_ENG0_REQ);
->  		hub->vm_inv_eng0_ack =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i), regVM_INVALIDATE_ENG0_ACK);
-> +			SOC15_REG_OFFSET(GC, gc_index, regVM_INVALIDATE_ENG0_ACK);
->  		hub->vm_context0_cntl =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i), regVM_CONTEXT0_CNTL);
-> +			SOC15_REG_OFFSET(GC, gc_index, regVM_CONTEXT0_CNTL);
->  		hub->vm_l2_pro_fault_status =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i),
-> +			SOC15_REG_OFFSET(GC, gc_index,
->  				regVM_L2_PROTECTION_FAULT_STATUS);
->  		hub->vm_l2_pro_fault_cntl =
-> -			SOC15_REG_OFFSET(GC, GET_INST(GC, i), regVM_L2_PROTECTION_FAULT_CNTL);
-> +			SOC15_REG_OFFSET(GC, gc_index, regVM_L2_PROTECTION_FAULT_CNTL);
->  
->  		hub->ctx_distance = regVM_CONTEXT1_CNTL -
->  				regVM_CONTEXT0_CNTL;
