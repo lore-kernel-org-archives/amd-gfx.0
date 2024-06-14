@@ -4,72 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 563C2C27C7B
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 07:26:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2D48C27C77
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 07:29:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C50010EC5C;
-	Fri, 14 Jun 2024 07:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B68D410EC72;
+	Fri, 14 Jun 2024 07:29:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="AwnqxlJJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n0+NBMFJ";
 	dkim-atps=neutral
-X-Greylist: delayed 320 seconds by postgrey-1.36 at gabe;
- Thu, 13 Jun 2024 23:12:30 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 471D910E02A;
- Thu, 13 Jun 2024 23:12:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1718320348; x=1718925148; i=w_armin@gmx.de;
- bh=juoPd/6jKYp/yJ2p2QijR/8Aum3Igi5t+8Igz/AZfmI=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=AwnqxlJJ89soTkFgO8VzYK9Wt5yW0ssA79PDbKZjhL+b6iZE1T38bpgvFugnj7li
- 8ObUkHr9XQxjSiaXTwxNJqoH3nnIhxDqaIoufVa0Z+BTnM1HktL/TjvdGr/nuR3ws
- sjJdszvREDuLbCQ612cux0WeNHikzlOx3AuCIcluF/hIm9Cc29tFGuWVQRPsozVtP
- n0xjhyW+NcTjG1Mcd49r/pPWRodDh6gKJ0vgmagnDrdBFu/xRB3+jErf9umisN19z
- TjBqmvvUDcSOtE4W/mISlely8Lu17qFGRnac/64zqxZjGUMhzPRkCpclNtzf1xYL3
- 6b4s5Oakr0ELuqty5A==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [141.30.226.129] ([141.30.226.129]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N6sn1-1sTB7n0VlX-015A7F; Fri, 14
- Jun 2024 01:07:04 +0200
-Message-ID: <6f08d226-da23-4633-a562-3d5ab53f7e42@gmx.de>
-Date: Fri, 14 Jun 2024 01:07:03 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D296110EC73;
+ Fri, 14 Jun 2024 07:28:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1718350127; x=1749886127;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0BWvOiSEx29uPnXKNvRZm08d4PO/OZEmvPGS6vF3An8=;
+ b=n0+NBMFJbhZmgmezdCHtVOpOVv/DTjNOVb+I0JTbS9b1G0APB8KIhEOP
+ 3Jbv6P86KpOegtF6eHefNtCfreZQLQWSG+joAsdu9pyfN8/tr4TP9wYCj
+ 6nBBTlsxy/yIhW7Wy38Sf5UE/n1yuXubVR/+wlyG4dYN6a4NmDElD5ctf
+ YbD2zHBWqc8+0G6/MeMG8rKo6F7JdsFSRH2FOukVYz2GSB9vqL2zSCD9w
+ av9kt7GbNhpNwMxS31u0bEOczw5FCMYYqd2Cz9s0ZzJit5UDMi8TBwdox
+ gKqY4BICeFfACBGQTXNcLz1KMDj/NOLzQcIaggWM6erxTbmnpvPM1OUXU w==;
+X-CSE-ConnectionGUID: S9xhI2GRS/O8sl+qmCSaLQ==
+X-CSE-MsgGUID: s6NADn8nTEGzEHVjOFaR3A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11102"; a="15452536"
+X-IronPort-AV: E=Sophos;i="6.08,237,1712646000"; d="scan'208";a="15452536"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2024 00:28:46 -0700
+X-CSE-ConnectionGUID: LGuqLpu+T2eERVzKhty47Q==
+X-CSE-MsgGUID: VWKNX+soR5mvpXkuGIXnsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,237,1712646000"; d="scan'208";a="71618472"
+Received: from lkp-server01.sh.intel.com (HELO 9e3ee4e9e062) ([10.239.97.150])
+ by fmviesa001.fm.intel.com with ESMTP; 14 Jun 2024 00:28:43 -0700
+Received: from kbuild by 9e3ee4e9e062 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sI1MX-0000yV-0E;
+ Fri, 14 Jun 2024 07:28:41 +0000
+Date: Fri, 14 Jun 2024 15:28:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: oe-kbuild-all@lists.linux.dev, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Chris Bainbridge <chris.bainbridge@gmail.com>
+Subject: Re: [PATCH v3] drm/fb-helper: Detect when lid is closed during
+ initialization
+Message-ID: <202406141545.9xBa6XY4-lkp@intel.com>
+References: <20240613051700.1112-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Patch "Revert "drm/amdgpu: init iommu after amdkfd device init""
- has been added to the 5.15-stable tree
-To: gregkh@linuxfoundation.org, Prike.Liang@amd.com, Xinhui.Pan@amd.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, bkauler@gmail.com,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- sashal@kernel.org, yifan1.zhang@amd.com
-Cc: stable-commits@vger.kernel.org
-References: <2024061239-rehydrate-flyable-343e@gregkh>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <2024061239-rehydrate-flyable-343e@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:zMaco9iewpE4zM+dt6BwutPJJkrVJs55lZY3om1O/bvuDckdDBl
- KmmpQ2i54giYMPjvH4y6XVHod812HHrP77wWyjk/Q/rluORgPbAlZooig+BXd4PnY66Ug/q
- hcElXlYJ9JP2mVsgC4aighU4p/rg3shWNsiGWspc5sbD2QTgK9dfQ0UMvY4t+hfQPvkBXba
- 3dCdSAXafyDvKPi/pnZQA==
-UI-OutboundReport: notjunk:1;M01:P0:5YTQ3bE2RBk=;BoRcY+gypO+tpju/SmjId8uEeuL
- JIWEmcPdtuUOFyds84if9n3b4Juf5/dU4ZC5fRXJGVu1afPbQqf4wPMHFuET1NWSEssnEMpr9
- lZTS7oQV4YwRgLqKyxFRoWVWqooSi+M1+3H3Nr/TO5p6rihH9SUpBNa24KLeqwYImGYbeBTco
- mDzWk7phoYoqGIBM+06ozMKdglW/Z6ZOLdUM7ZdB1yO085rtgGkBVHAu2W754OvhtW1wyNdeU
- BqLztRl0zBGEm8qYVS4lD0lp7TPpWIe0fAi2IdUgleZMC127bGSQB6s9sif9uzoY/8GXIT9Ab
- WUkoVfsP1clW46Z3UdwIdLoch0SRMZRrhRTTgC0a6FpBqe03LqXzS26RyjEsEdxRHBZEfRTq1
- lM0XS9Ao0B4IKPw67Z+UuggpzM7Kae/GCjqhobXhAd9Juw02DTjhV1jYCCsjnnPmG/yBQ4flN
- AHiVVItJmBHPROcIMtjFkulqJlYTyr1jbAOQLg7ck0mqOGP6P6OYcHuAVuLPy/NbODG/GeHFF
- /dY60hv6K8VEJwDohbW4X2LCLzP+FzqN9G9vJYQLJGW2RNd4E0JGy666eLp8UTsu+QGZL4ubG
- jDLQA+Rb8ZDbT0Zbr3qdO3SbCCQWRaWVDRt22spj/kzWGcYY+w2svvkL+rTkKrysInlXVWF6q
- NC3Gs3ZEkUabZJQeRhFn3cJK1moriS7wPRf05yD5785eKQL6dzPodmsoXe4nxNDx0IhCEb7ff
- iO2oqHIUbJJX/ndfS+MfGow6MxuOrlyKuQxm2q6gkCb9c2SZUlyTqPJElMeQgzQ4l0vTbYGsY
- Xz01AfNN/IJavQMvtDh6N+7mekr7laOsksR+v1GSyd3vI=
-X-Mailman-Approved-At: Fri, 14 Jun 2024 07:25:58 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240613051700.1112-1-mario.limonciello@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,86 +77,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.06.24 um 14:45 schrieb gregkh@linuxfoundation.org:
+Hi Mario,
 
-> This is a note to let you know that I've just added the patch titled
->
->      Revert "drm/amdgpu: init iommu after amdkfd device init"
->
-> to the 5.15-stable tree which can be found at:
->      http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue=
-.git;a=3Dsummary
->
-> The filename of the patch is:
->       revert-drm-amdgpu-init-iommu-after-amdkfd-device-init.patch
-> and it can be found in the queue-5.15 subdirectory.
+kernel test robot noticed the following build errors:
 
-Thank you :)
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.10-rc3 next-20240613]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
->
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
->
->
->  From W_Armin@gmx.de  Wed Jun 12 14:43:21 2024
-> From: Armin Wolf <W_Armin@gmx.de>
-> Date: Thu, 23 May 2024 19:30:31 +0200
-> Subject: Revert "drm/amdgpu: init iommu after amdkfd device init"
-> To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.=
-com, gregkh@linuxfoundation.org, sashal@kernel.org
-> Cc: stable@vger.kernel.org, bkauler@gmail.com, yifan1.zhang@amd.com, Pri=
-ke.Liang@amd.com, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedeskt=
-op.org
-> Message-ID: <20240523173031.4212-1-W_Armin@gmx.de>
->
-> From: Armin Wolf <W_Armin@gmx.de>
->
-> This reverts commit 56b522f4668167096a50c39446d6263c96219f5f.
->
-> A user reported that this commit breaks the integrated gpu of his
-> notebook, causing a black screen. He was able to bisect the problematic
-> commit and verified that by reverting it the notebook works again.
-> He also confirmed that kernel 6.8.1 also works on his device, so the
-> upstream commit itself seems to be ok.
->
-> An amdgpu developer (Alex Deucher) confirmed that this patch should
-> have never been ported to 5.15 in the first place, so revert this
-> commit from the 5.15 stable series.
->
-> Reported-by: Barry Kauler <bkauler@gmail.com>
-> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-> Link: https://lore.kernel.org/r/20240523173031.4212-1-W_Armin@gmx.de
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |    8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
->
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2487,6 +2487,10 @@ static int amdgpu_device_ip_init(struct
->   	if (r)
->   		goto init_failed;
->
-> +	r =3D amdgpu_amdkfd_resume_iommu(adev);
-> +	if (r)
-> +		goto init_failed;
-> +
->   	r =3D amdgpu_device_ip_hw_init_phase1(adev);
->   	if (r)
->   		goto init_failed;
-> @@ -2525,10 +2529,6 @@ static int amdgpu_device_ip_init(struct
->   	if (!adev->gmc.xgmi.pending_reset)
->   		amdgpu_amdkfd_device_init(adev);
->
-> -	r =3D amdgpu_amdkfd_resume_iommu(adev);
-> -	if (r)
-> -		goto init_failed;
-> -
->   	amdgpu_fru_get_product_info(adev);
->
->   init_failed:
->
->
-> Patches currently in stable-queue which might be from W_Armin@gmx.de are
->
-> queue-5.15/revert-drm-amdgpu-init-iommu-after-amdkfd-device-init.patch
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-fb-helper-Detect-when-lid-is-closed-during-initialization/20240613-132009
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20240613051700.1112-1-mario.limonciello%40amd.com
+patch subject: [PATCH v3] drm/fb-helper: Detect when lid is closed during initialization
+config: sparc-randconfig-001-20240614 (https://download.01.org/0day-ci/archive/20240614/202406141545.9xBa6XY4-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240614/202406141545.9xBa6XY4-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406141545.9xBa6XY4-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   sparc64-linux-ld: drivers/gpu/drm/drm_fb_helper.o: in function `drm_fb_helper_lid_disconnect':
+>> drm_fb_helper.c:(.text+0x76c): undefined reference to `input_close_device'
+>> sparc64-linux-ld: drm_fb_helper.c:(.text+0x774): undefined reference to `input_unregister_handle'
+   sparc64-linux-ld: drivers/gpu/drm/drm_fb_helper.o: in function `drm_fb_helper_lid_connect':
+>> drm_fb_helper.c:(.text+0xed8): undefined reference to `input_register_handle'
+>> sparc64-linux-ld: drm_fb_helper.c:(.text+0xf24): undefined reference to `input_open_device'
+   sparc64-linux-ld: drm_fb_helper.c:(.text+0xf9c): undefined reference to `input_unregister_handle'
+   sparc64-linux-ld: drivers/gpu/drm/drm_fb_helper.o: in function `__drm_fb_helper_initial_config_and_unlock':
+>> drm_fb_helper.c:(.text+0x1d2c): undefined reference to `input_register_handler'
+   sparc64-linux-ld: drivers/gpu/drm/drm_fb_helper.o: in function `drm_fb_helper_fini':
+>> drm_fb_helper.c:(.text+0x2ce4): undefined reference to `input_unregister_handler'
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
