@@ -4,92 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9178AC27C6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8363C27C6E
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE0CE10EDFC;
-	Fri, 14 Jun 2024 17:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 157C110EE00;
+	Fri, 14 Jun 2024 17:46:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qbtMJw70";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ql14oL8B";
 	dkim-atps=neutral
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 943D010EDFE
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:33:03 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-2eaafda3b5cso28724321fa.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 10:33:03 -0700 (PDT)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A53B010EE00
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:46:42 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-7042cb2abc8so1859465b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 10:46:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718386381; x=1718991181; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=6A2ldgCGRbiaAOg5pCXVmpJrxkciuNJ03uPiR1OSrWk=;
- b=qbtMJw708B2SfznQojpV/8Pw0VuMTdB9NvJlO9lzWJvCTL3NevWEcBM38qLyVswziU
- kHs+vnOwfAax5bBeOx1Fte94e/asA0Yceij9X3VHjHw08oD6k5GEE2snM0FxK9UlMxZN
- tzNYUQAzOvwBlX0TJKTlisBIE3pm9h/jLwquVAnk/PIhyxeTm13mnYoh40mwmxOyRds8
- rKXzRpVqBPJTN1QpRFz9iiwBccBvZTMgn3VxNNng66o6ZdY4oRBjk1nUq46NfgW4m5Fl
- 5H7N5y7PHUhI9oe8hxnzZbIo5JDKr0gzzB/9Lu4CY07IPtr2RT5JyN8RdeiQ0Lw0uAjW
- BQhQ==
+ d=gmail.com; s=20230601; t=1718387202; x=1718992002; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AmH5Cvwmby9+Mvat7NnqtFzQcJXwwBRRfru0RupO8ng=;
+ b=Ql14oL8B5EH2J62a5LJz0G2c7IKwT3YsL3C0fbSYyHoawhdrEfOhQxCCOSHUK69yrm
+ +k7L7deUHL39QoZsaBDXyzsNTNm2VTb6OTiy6ixl9meWbPmeKUfqGQnyVQPkrEgeiCaR
+ wCUStWm9THKVnykUeyYNJY9oKLam7RIaN6jkzu3+2BkYylG/LlCB7rpeyk3kVdmGfqzr
+ Js268xH1iLVMNQhTR1fL3qOq45tDDnmW2+yTwsbTZG/RvFqqVoCcsTcaboQlBwDnZjq1
+ GdRFZNSUZjlT0VO5dKXEi6FhLOnGhgIVqum4xGEzKbjk+q6FKMdgXM8S0dN9PGtUGCA6
+ gRYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718386381; x=1718991181;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6A2ldgCGRbiaAOg5pCXVmpJrxkciuNJ03uPiR1OSrWk=;
- b=dt6q8B4iTRM69TwA4IcHBqgm7FEYfUCUMK3ksF4+Yaunbhbg76dbmpWjHNQiqYg1jn
- Pmk8BsDRpPBo/44LATxMulNpOMPANHcGWcdSk94ti5pUCd5VGMZlsvH3a4MHCBs8ksNI
- gkrbI6tjnFQdn5FTJmafxwDJEFBmk+awzN+kJjwqj06l/LDS9WGOqec1/RFjBUtKfHvk
- V0+3+ej/YZICU74Vtl9/rK5pwY1C3yKekCBfHes/G6kXzr6uU8iY2dnjhWGjCBHMbKfR
- pakhN7ZQo6RFBQoHblrahLR38nQAMY+rhtOiR5GbvvcPN/2E3R+f/kbIt1cSPenA3CKP
- xrXw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVe0huuKN4LWtLCkLhZZ6UkxP5aL/iyilBTMPAXM2i+k2MTIqxL9WFWgrlKZF2C/KgyJoI0RoFBsoxuv/E527aZRsNNvGlulQitvh6Oeg==
-X-Gm-Message-State: AOJu0YyJMRswZ0bxKLqnweLZM4Wu62sXUFvzBFPXG3DucXIA9GfryBPL
- YZY82xmPvdL6lZaXiQlyGvOqvyJl6+V/E2V1+2NETXl81KdTDgIi453rL/JsXQU=
-X-Google-Smtp-Source: AGHT+IGGflvW9k9jMoe4a2j7bLc5DjsbVsi5TuTQwGN5Sq94prukV63YQPojspKpGvkvTN5wWda3rw==
-X-Received: by 2002:a05:651c:220b:b0:2ec:165a:2250 with SMTP id
- 38308e7fff4ca-2ec165a2453mr18905411fa.6.1718386381498; 
- Fri, 14 Jun 2024 10:33:01 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec05c06fecsm5894881fa.49.2024.06.14.10.33.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jun 2024 10:33:01 -0700 (PDT)
-Date: Fri, 14 Jun 2024 20:32:59 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, 
- Melissa Wen <mwen@igalia.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, 
- Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>,
- daniel@ffwll.ch, Daniel Stone <daniel@fooishbar.org>,
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>, 
- Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com,
- Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>,
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Sam Ravnborg <sam@ravnborg.org>, Boris Brezillon <bbrezillon@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH v6 0/8] drm: Support per-plane async flip configuration
-Message-ID: <lxfxqbax6azdpeamwm2qqv2tulgxrb7y3qzb4ir4myt6x5sqez@imd3yd5mbk7u>
-References: <20240614153535.351689-1-andrealmeid@igalia.com>
+ d=1e100.net; s=20230601; t=1718387202; x=1718992002;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AmH5Cvwmby9+Mvat7NnqtFzQcJXwwBRRfru0RupO8ng=;
+ b=vPB4l5qJ77pOOsT4AYKB+YXN1XTanJoUl74GSBzgS/UU8lRBsQlRX5oYMdRA3GAGFB
+ piR7HRKrL+Nw2Hi08qpmVUaRO0X0k248R7rIr7smsORaIk5D0cMevp7+ECEH0EkFLFvA
+ 2NjzmLw8AAeOc2RgXdYosmi4hCGLtXjTwYx7sIKVXgqQ2Y0t7gat7D0ucOh7QLrtEBDK
+ CehJmq14xa+8QBTywWOCbeNVyGMmVG+cemFwX31A+3V+gOOqCoFheG6Z6xd65DZVevAf
+ z3CJBJ9LlTbA1ud/I4umvb5LEyCdyEiBvldz6PMeLAYvzd0sb89jxEHkripRTsFNQ4WS
+ q3mQ==
+X-Gm-Message-State: AOJu0YzNKtRKakAzNAqdPF9hfWJZLn3wfw3PZbrXCZxrnhLtRIsrVm+B
+ DDdKWtzsv6dt4YE9xTE74Tb/fp+rap4hCl5B+Jw82q80RrgY3j/FSy0Q1g+FRDZnHOveB53gBUw
+ N09rxgOuvC1KxFf4C6Bwn95w3jAVVmw==
+X-Google-Smtp-Source: AGHT+IEdd3E+V/ouKodTYbUiMKTaZPVJxeaEJPEULuKqy+8ZpWKLGHtMg3VuHDLjL0GfYNezzm+r+/TKGoHMOPD5cEQ=
+X-Received: by 2002:a05:6a20:3c87:b0:1b8:8ddd:fe32 with SMTP id
+ adf61e73a8af0-1bae7f008f4mr4037419637.25.1718387201820; Fri, 14 Jun 2024
+ 10:46:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240614153535.351689-1-andrealmeid@igalia.com>
+References: <20240614170551.6195-1-mario.limonciello@amd.com>
+ <20240614170551.6195-2-mario.limonciello@amd.com>
+In-Reply-To: <20240614170551.6195-2-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 14 Jun 2024 13:46:30 -0400
+Message-ID: <CADnq5_MFTnW-=i-TBiT3N2+k_cTVofaZRuhLNV8Cg=cOKh-T7w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: powerplay: Add `__counted_by` attribute
+ for flexible arrays
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,55 +77,288 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 14, 2024 at 12:35:27PM GMT, André Almeida wrote:
-> AMD hardware can do async flips with overlay planes, but currently there's no
-> easy way to enable that in DRM. To solve that, this patchset creates a new
-> drm_plane field, bool async_flip, that allows drivers to choose which plane can
-> or cannot do async flips. This is latter used on drm_atomic_set_property when
-> users want to do async flips.
-> 
-> Patch 1 allows async commits with IN_FENCE_ID in any driver.
-> 
-> Patches 2 to 7 have no function change. As per current code, every driver that
-> allows async page flips using the atomic API, allows doing it only in the
-> primary plane. Those patches then enable it for every driver.
-> 
-> Patch 8 finally enables async flip on overlay planes for amdgpu.
-> 
-> Changes from v5:
-> - Instead of enabling plane->async_flip in the common code, move it to driver
-> code.
-> - Enable primary plane async flip on every driver
-> https://lore.kernel.org/dri-devel/20240612193713.167448-1-andrealmeid@igalia.com/
-> 
-> André Almeida (8):
->   drm/atomic: Allow userspace to use explicit sync with atomic async
->     flips
->   drm: Support per-plane async flip configuration
->   drm/amdgpu: Enable async flips on the primary plane
->   drm: atmel-hlcdc: Enable async flips on the primary plane
->   drm/i915: Enable async flips on the primary plane
->   drm/nouveau: Enable async flips on the primary plane
->   drm/vc4: Enable async flips on the primary plane
->   drm/amdgpu: Make it possible to async flip overlay planes
-> 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 2 ++
->  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c         | 3 +++
->  drivers/gpu/drm/drm_atomic_uapi.c                       | 8 +++++---
->  drivers/gpu/drm/i915/display/i9xx_plane.c               | 3 +++
->  drivers/gpu/drm/nouveau/dispnv04/crtc.c                 | 4 ++++
->  drivers/gpu/drm/nouveau/dispnv50/wndw.c                 | 4 ++++
->  drivers/gpu/drm/vc4/vc4_plane.c                         | 4 +++-
+On Fri, Jun 14, 2024 at 1:42=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> This attribute is used to hint the length of flexible arrays to
+> compiler and sanitizers.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-The main question is why only these drivers were updated.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
->  include/drm/drm_plane.h                                 | 5 +++++
->  8 files changed, 29 insertions(+), 4 deletions(-)
-> 
-> -- 
-> 2.45.2
-> 
-
--- 
-With best wishes
-Dmitry
+> ---
+>  .../drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h | 36 +++++++++---------
+>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  | 38 +++++++++----------
+>  2 files changed, 37 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/driv=
+ers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+> index 2cf2a7b12623..7711e892c31f 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+> @@ -163,8 +163,8 @@ typedef struct _ATOM_Tonga_State {
+>
+>  typedef struct _ATOM_Tonga_State_Array {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;             /* Number of entries. */
+> -       ATOM_Tonga_State entries[];     /* Dynamically allocate entries. =
+*/
+> +       UCHAR ucNumEntries;
+> +       ATOM_Tonga_State entries[] __counted_by(ucNumEntries);
+>  } ATOM_Tonga_State_Array;
+>
+>  typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
+> @@ -178,8 +178,8 @@ typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
+>
+>  typedef struct _ATOM_Tonga_MCLK_Dependency_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                              =
+                               /* Number of entries. */
+> -       ATOM_Tonga_MCLK_Dependency_Record entries[];                     =
+       /* Dynamically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Tonga_MCLK_Dependency_Record entries[] __counted_by(ucNumEnt=
+ries);
+>  } ATOM_Tonga_MCLK_Dependency_Table;
+>
+>  typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
+> @@ -193,8 +193,8 @@ typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
+>
+>  typedef struct _ATOM_Tonga_SCLK_Dependency_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                              =
+                               /* Number of entries. */
+> -       ATOM_Tonga_SCLK_Dependency_Record entries[];                     =
+        /* Dynamically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Tonga_SCLK_Dependency_Record entries[] __counted_by(ucNumEnt=
+ries);
+>  } ATOM_Tonga_SCLK_Dependency_Table;
+>
+>  typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
+> @@ -209,8 +209,8 @@ typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
+>
+>  typedef struct _ATOM_Polaris_SCLK_Dependency_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                              =
+       /* Number of entries. */
+> -       ATOM_Polaris_SCLK_Dependency_Record entries[];                   =
+        /* Dynamically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Polaris_SCLK_Dependency_Record entries[] __counted_by(ucNumE=
+ntries);
+>  } ATOM_Polaris_SCLK_Dependency_Table;
+>
+>  typedef struct _ATOM_Tonga_PCIE_Record {
+> @@ -221,8 +221,8 @@ typedef struct _ATOM_Tonga_PCIE_Record {
+>
+>  typedef struct _ATOM_Tonga_PCIE_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                              =
+                               /* Number of entries. */
+> -       ATOM_Tonga_PCIE_Record entries[];                                =
+                       /* Dynamically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Tonga_PCIE_Record entries[] __counted_by(ucNumEntries);
+>  } ATOM_Tonga_PCIE_Table;
+>
+>  typedef struct _ATOM_Polaris10_PCIE_Record {
+> @@ -234,8 +234,8 @@ typedef struct _ATOM_Polaris10_PCIE_Record {
+>
+>  typedef struct _ATOM_Polaris10_PCIE_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                         /* Nu=
+mber of entries. */
+> -       ATOM_Polaris10_PCIE_Record entries[];                      /* Dyn=
+amically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Polaris10_PCIE_Record entries[] __counted_by(ucNumEntries);
+>  } ATOM_Polaris10_PCIE_Table;
+>
+>
+> @@ -251,8 +251,8 @@ typedef struct _ATOM_Tonga_MM_Dependency_Record {
+>
+>  typedef struct _ATOM_Tonga_MM_Dependency_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                              =
+                               /* Number of entries. */
+> -       ATOM_Tonga_MM_Dependency_Record entries[];                       =
+  /* Dynamically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Tonga_MM_Dependency_Record entries[] __counted_by(ucNumEntri=
+es);
+>  } ATOM_Tonga_MM_Dependency_Table;
+>
+>  typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
+> @@ -264,8 +264,8 @@ typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
+>
+>  typedef struct _ATOM_Tonga_Voltage_Lookup_Table {
+>         UCHAR ucRevId;
+> -       UCHAR ucNumEntries;                                              =
+                               /* Number of entries. */
+> -       ATOM_Tonga_Voltage_Lookup_Record entries[];                      =
+       /* Dynamically allocate entries. */
+> +       UCHAR ucNumEntries;
+> +       ATOM_Tonga_Voltage_Lookup_Record entries[] __counted_by(ucNumEntr=
+ies);
+>  } ATOM_Tonga_Voltage_Lookup_Table;
+>
+>  typedef struct _ATOM_Tonga_Fan_Table {
+> @@ -367,7 +367,7 @@ typedef struct _ATOM_Tonga_VCE_State_Record {
+>  typedef struct _ATOM_Tonga_VCE_State_Table {
+>         UCHAR ucRevId;
+>         UCHAR ucNumEntries;
+> -       ATOM_Tonga_VCE_State_Record entries[];
+> +       ATOM_Tonga_VCE_State_Record entries[] __counted_by(ucNumEntries);
+>  } ATOM_Tonga_VCE_State_Table;
+>
+>  typedef struct _ATOM_Tonga_PowerTune_Table {
+> @@ -481,7 +481,7 @@ typedef struct _ATOM_Tonga_Hard_Limit_Record {
+>  typedef struct _ATOM_Tonga_Hard_Limit_Table {
+>         UCHAR ucRevId;
+>         UCHAR ucNumEntries;
+> -       ATOM_Tonga_Hard_Limit_Record entries[];
+> +       ATOM_Tonga_Hard_Limit_Record entries[] __counted_by(ucNumEntries)=
+;
+>  } ATOM_Tonga_Hard_Limit_Table;
+>
+>  typedef struct _ATOM_Tonga_GPIO_Table {
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/d=
+rm/amd/pm/powerplay/inc/hwmgr.h
+> index 69928a4a074b..9118fcddbf11 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> @@ -60,7 +60,7 @@ struct vi_dpm_level {
+>
+>  struct vi_dpm_table {
+>         uint32_t count;
+> -       struct vi_dpm_level dpm_level[];
+> +       struct vi_dpm_level dpm_level[] __counted_by(count);
+>  };
+>
+>  #define PCIE_PERF_REQ_REMOVE_REGISTRY   0
+> @@ -91,7 +91,7 @@ struct phm_set_power_state_input {
+>
+>  struct phm_clock_array {
+>         uint32_t count;
+> -       uint32_t values[];
+> +       uint32_t values[] __counted_by(count);
+>  };
+>
+>  struct phm_clock_voltage_dependency_record {
+> @@ -122,8 +122,8 @@ struct phm_acpclock_voltage_dependency_record {
+>  };
+>
+>  struct phm_clock_voltage_dependency_table {
+> -       uint32_t count;                                                 /=
+* Number of entries. */
+> -       struct phm_clock_voltage_dependency_record entries[];           /=
+* Dynamically allocate count entries. */
+> +       uint32_t count;
+> +       struct phm_clock_voltage_dependency_record entries[] __counted_by=
+(count);
+>  };
+>
+>  struct phm_phase_shedding_limits_record {
+> @@ -140,7 +140,7 @@ struct phm_uvd_clock_voltage_dependency_record {
+>
+>  struct phm_uvd_clock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_uvd_clock_voltage_dependency_record entries[];
+> +       struct phm_uvd_clock_voltage_dependency_record entries[] __counte=
+d_by(count);
+>  };
+>
+>  struct phm_acp_clock_voltage_dependency_record {
+> @@ -150,7 +150,7 @@ struct phm_acp_clock_voltage_dependency_record {
+>
+>  struct phm_acp_clock_voltage_dependency_table {
+>         uint32_t count;
+> -       struct phm_acp_clock_voltage_dependency_record entries[];
+> +       struct phm_acp_clock_voltage_dependency_record entries[] __counte=
+d_by(count);
+>  };
+>
+>  struct phm_vce_clock_voltage_dependency_record {
+> @@ -160,33 +160,33 @@ struct phm_vce_clock_voltage_dependency_record {
+>  };
+>
+>  struct phm_phase_shedding_limits_table {
+> -       uint32_t                           count;
+> -       struct phm_phase_shedding_limits_record  entries[];
+> +       uint32_t count;
+> +       struct phm_phase_shedding_limits_record  entries[] __counted_by(c=
+ount);
+>  };
+>
+>  struct phm_vceclock_voltage_dependency_table {
+> -       uint8_t count;                                    /* Number of en=
+tries. */
+> -       struct phm_vceclock_voltage_dependency_record entries[1]; /* Dyna=
+mically allocate count entries. */
+> +       uint8_t count;
+> +       struct phm_vceclock_voltage_dependency_record entries[] __counted=
+_by(count);
+>  };
+>
+>  struct phm_uvdclock_voltage_dependency_table {
+> -       uint8_t count;                                    /* Number of en=
+tries. */
+> -       struct phm_uvdclock_voltage_dependency_record entries[1]; /* Dyna=
+mically allocate count entries. */
+> +       uint8_t count;
+> +       struct phm_uvdclock_voltage_dependency_record entries[] __counted=
+_by(count);
+>  };
+>
+>  struct phm_samuclock_voltage_dependency_table {
+> -       uint8_t count;                                    /* Number of en=
+tries. */
+> -       struct phm_samuclock_voltage_dependency_record entries[1]; /* Dyn=
+amically allocate count entries. */
+> +       uint8_t count;
+> +       struct phm_samuclock_voltage_dependency_record entries[] __counte=
+d_by(count);
+>  };
+>
+>  struct phm_acpclock_voltage_dependency_table {
+> -       uint32_t count;                                    /* Number of e=
+ntries. */
+> -       struct phm_acpclock_voltage_dependency_record entries[1]; /* Dyna=
+mically allocate count entries. */
+> +       uint32_t count;
+> +       struct phm_acpclock_voltage_dependency_record entries[] __counted=
+_by(count);
+>  };
+>
+>  struct phm_vce_clock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_vce_clock_voltage_dependency_record entries[];
+> +       struct phm_vce_clock_voltage_dependency_record entries[] __counte=
+d_by(count);
+>  };
+>
+>
+> @@ -393,7 +393,7 @@ union phm_cac_leakage_record {
+>
+>  struct phm_cac_leakage_table {
+>         uint32_t count;
+> -       union phm_cac_leakage_record entries[];
+> +       union phm_cac_leakage_record entries[] __counted_by(count);
+>  };
+>
+>  struct phm_samu_clock_voltage_dependency_record {
+> @@ -404,7 +404,7 @@ struct phm_samu_clock_voltage_dependency_record {
+>
+>  struct phm_samu_clock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_samu_clock_voltage_dependency_record entries[];
+> +       struct phm_samu_clock_voltage_dependency_record entries[] __count=
+ed_by(count);
+>  };
+>
+>  struct phm_cac_tdp_table {
+> --
+> 2.43.0
+>
