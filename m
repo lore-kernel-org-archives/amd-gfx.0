@@ -4,76 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35692C27C6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 16:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D969C27C79
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E6110EDC2;
-	Fri, 14 Jun 2024 16:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 986D510EDF4;
+	Fri, 14 Jun 2024 17:06:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="jIkYU4zx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tce8X+6U";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC28610EDC2
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 16:06:34 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-42172ed3487so18600275e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 09:06:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1718381193; x=1718985993;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=i+JqHug5d7cot4iJgD07g9m5oxp0jggG1AjOq9pmgcY=;
- b=jIkYU4zx5J/SwOsTYVQJxBY6NhtPM52FOoFNGsnGkGyRjD/m/2mtMs1tmPY/6o+89f
- OcAiJ0WvMlAuMpenoGyAEbHr4GYOvQutCUOr6E33dn/H2ojTHZvLPrywz0bitUGObOMX
- +f7UVj8LbuQxvGlSLTodEY1BM5XxddntNrwbUL+p5e5znkKWjIVUxqveohlt4yRGkcvd
- xoRz/ZhNwJJp4lvTEKUjIcsBrLHc3pJYpKeI+plxPO4FgR5FtmTwcoTdltNpZfLxLOeA
- t5nDzdfSLP4OFC3pCW+szqf7TMqK10VNpxZdJ7P8/FwuFzuKnbDLJPx60+FOwOb3zqcF
- 9ewg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718381193; x=1718985993;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=i+JqHug5d7cot4iJgD07g9m5oxp0jggG1AjOq9pmgcY=;
- b=sVQIC5dNeuG1bcR5PnnEdjMsajngn8y3D7czzQ77dgYz+jubL3HZpircYcCEhVeU1y
- E0l54a1lBK9hboxBlzQKCwN0HKmPU0NUpsLZVzwC6kVfhgyOYgK3JqI8mCsGvgy7I86Q
- tvVbnuI/YNO6L3bMJsXs8N93t7tN6qo8P0O7C078sntddPCjUrltozFz+mkk7FHntR9A
- V49R8uafQ9r+41hkxjx/WzITYmRWvxy+AkY+lMNVwHyS3YTkSTloFtF5kCQU9VfERVst
- CYxjY2K6siKBMN7nYkvJExMzYzO4mcRgshy7D1YXnf1wSoDhu5KbLrwpwbcyaEX3Whlb
- zBEA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUffxk8xtfE6PxomBn7kzAtJJPTqD5JEVqJkx5kiGAFwouU8Wl3xcv8kXVfE4V8RY7VL4xGwdvuDopvgpocIbkV13gbyoIgfNyAviYrGA==
-X-Gm-Message-State: AOJu0YycX+VT8axGEudALXFd76DaFC279D0oSeQ6hhmsttBPwCIjslQx
- lvH7eMmg36uR/lQ542ch4YKnLSHIha2wuB1Xf4KSOSRJOZTWG6+PpBzhGzMxb4U=
-X-Google-Smtp-Source: AGHT+IGxRMUEL5uB9SAgOwtITRQjCB3vvTNtoX5puaJVgbaww8t1MUmtvxA44iZIEfM3On0iZwlslQ==
-X-Received: by 2002:a05:600c:444f:b0:422:5b78:1c8f with SMTP id
- 5b1f17b1804b1-42304811928mr27715555e9.8.1718381192678; 
- Fri, 14 Jun 2024 09:06:32 -0700 (PDT)
-Received: from [192.168.0.101] ([84.69.19.168])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-422874de653sm109841455e9.32.2024.06.14.09.06.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jun 2024 09:06:32 -0700 (PDT)
-Message-ID: <fb6cc99c-74ad-468e-80ad-a1a938d1dc52@ursulin.net>
-Date: Fri, 14 Jun 2024 17:06:31 +0100
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC2610EDF4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:06:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WrCLo3SQBj8pDRM5Wngog2SYO5r8eGl6Kk7rEbfFiFdQ2nGQPzPWS/tzmkIvE97yaY0Ezxv3/Gc1ucpo3hH73j4LvShtytid3v3RXIpxWwMsmvYgR+dGWv8ADWESlGEGb1yoQmuR3Ow0QpIQjEDlIyrbymSPEwMs45+C+5Rd2ChQ0C3MkWfqZ6Cro2JQ+Y1i7SMd8f5FU2ozaj0w/Vr4HOgQgtFgp6Hkalg+8kavACCQX37Y3k3cQpHBhSfpDOyMGrrWYFBeS2vek0GD7uKG3oIeDhwy9mcpceQ9xOrwh28MJQ/JRPKbonfbBO8aYBGsJqa9DHryX1joD2D2hUKhVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=33KHdaJKG4WHNSGgcjcHEgTq3068CZExlFAqIK+juCI=;
+ b=UzOMF6r+gArHElxDQ0569+7oSGQp6q5/1wFf8FqbUhSbGNVh3RF7WY9EAO5vW/dN9VSopp8rQ1oljmyc1+0lMs1amdqFgb+mcJlrMVv7UsykIrWcKEqmhleJTihxYtMHNGzMTA9aw1dtHMwgHLbdyPp8SMHK3/LVgmnK2nI1DxJis1UEOMuH+it7+4et1Msv/LBhATTsMErEPhv1mKkHri2eSlE1psxKGHHhxPXcHvwDxALasmVIfOEnfFUAT8Kck22qt1IhnBfwT/RiWYQDBl7fMeAjiMIBYuYiqILfAfl30vceiuCTwGqCJAQGW8WIwtnGAMrW7qVQjJ+jHj1Pjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=33KHdaJKG4WHNSGgcjcHEgTq3068CZExlFAqIK+juCI=;
+ b=tce8X+6UdoHqxHGmL0fNZEiowVwFuq51FrPhykmKt/mDKPBD5QywLcOq9Ux/EL45PiM6Vv3O40IFH3YXACSlHw6A0Pf4MNwuBMuiPF9tA08qWCKGwqcQJr5/zu6WQKRcx0xNebQmqcISghqxfJ1B+uEGjUo694skkxNCE/aMizc=
+Received: from SJ0PR13CA0062.namprd13.prod.outlook.com (2603:10b6:a03:2c4::7)
+ by MW6PR12MB8913.namprd12.prod.outlook.com (2603:10b6:303:247::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.34; Fri, 14 Jun
+ 2024 17:06:02 +0000
+Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::b2) by SJ0PR13CA0062.outlook.office365.com
+ (2603:10b6:a03:2c4::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.21 via Frontend
+ Transport; Fri, 14 Jun 2024 17:06:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Fri, 14 Jun 2024 17:06:01 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Jun
+ 2024 12:06:00 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>, Tasos Sahanidis
+ <tasos@tasossah.com>
+Subject: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
+Date: Fri, 14 Jun 2024 12:05:50 -0500
+Message-ID: <20240614170551.6195-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] drm/amdgpu: always enable move threshold for BOs
-Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- friedrich.vock@gmx.de
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20240604160503.43359-1-christian.koenig@amd.com>
- <20240604160503.43359-6-christian.koenig@amd.com>
- <b2c68930-b165-4d78-84d5-52415923e648@ursulin.net>
- <2ccb8b25-2351-4107-bd30-3ceee1e11645@gmail.com>
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <2ccb8b25-2351-4107-bd30-3ceee1e11645@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|MW6PR12MB8913:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1de85571-6dd9-43a9-7602-08dc8c9444f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|1800799021|82310400023|36860700010|376011; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZJEeuM44pBlVSRixA9pUWdxMezM+fe0FqEkPlcjqY3XT7HDfP3+jQd4t6YeT?=
+ =?us-ascii?Q?3ueUGVhgy+8EEVuzf3mImcy2DOvvPiUhFxmYN211Jzxpk7sSEC3dtYKMwt2p?=
+ =?us-ascii?Q?TmAH2Sz03Ajpagzy7JyHLmw04X1/67nGFRjoNx/iUrlu4s4C1YMso9Dk+ds3?=
+ =?us-ascii?Q?s+YD1popguzDhy60NIvsaL/SzwZJoIt8/3wskzlzoTq9QQ20l2FWSiyhFZkB?=
+ =?us-ascii?Q?0X7Vp9PG/CuTLO+3/hjVeNSco3Ysc34iOJh1ZYGuFOM0NDM5OKLnumbPDWLc?=
+ =?us-ascii?Q?hmwnHa6n3XxhoNye4Ty9FUkFlg8PitI30IVcI/9OK6I8N6EG36Vy1DJuaVtB?=
+ =?us-ascii?Q?gBqaqwTaYUxWs7ob5Dnc9tIVHz7KTdqNdUtyXo+C2oV5+PSE9TLyCPKZqgWk?=
+ =?us-ascii?Q?1wWnyHQz6T1WEvQC6pBr8Hn0OUTOUbbZW1+oFL1AFdDjR2RgLLzm6Pc62cd6?=
+ =?us-ascii?Q?+UnnpBcvuYgew7mS9QTgKNPXRYY1n9ABE9/P8q0Npqnqc9dPWqyfUkeM3UWi?=
+ =?us-ascii?Q?M9ODajvX8SjlF+u04+cLPoj/r4fMyEjBiwJP1yY3pxw3wXMaSLSlMkEupeoP?=
+ =?us-ascii?Q?GrkrGmjeV0BeXoFBiHCltH84uNTDtnUDu0jrOW9iwwiAQ3NsbKRNniihsnHG?=
+ =?us-ascii?Q?5MQeMfhCRQys4Z7Alwt2vw0NUdRoApMpQ5F5gzqtiFSEFeDKwfD34T1MBQsm?=
+ =?us-ascii?Q?FhA641OmCVtEWdZANNS9QeINZi8SCRq9jEgsWiDxHXxgkcHuSpJht6cWydX7?=
+ =?us-ascii?Q?70kZHP2u0/QnW2QjKX+DkivKbHelWjypCQ5PHxu9Z+YkwFJ+NZUzX1FVQLqG?=
+ =?us-ascii?Q?uCrxzjriYx+zz1mkY7wnWtjKhUr/9iUk/0uW0JSOCJqfm8n7FYSrbSwThM5L?=
+ =?us-ascii?Q?cmsgxFAFw0ubICtlCT+j6opcA/C5KL5NeVGt9yfXsD1k3E8rlau+e88GXthA?=
+ =?us-ascii?Q?fVqRRYPfSoEeJTrBS4e2WEDkjlqpqb/1EqzOQ6x/ojvmkXGFHa5y0f14zJm4?=
+ =?us-ascii?Q?EikzoW2hwWvwCDx45aFfPj/TpnD2cpHQQKgP1s/B3IKkVBMazwFmwYl2rLhq?=
+ =?us-ascii?Q?u38rq08PPwH2wRYkJDJuVgOhaiat9Yn3hlk2u8nYYIxZa82V4f3sLb2GFX2h?=
+ =?us-ascii?Q?xBv0//O9ZoKZ36Q9LYC7mKXg7PPZs0mkelKfOx+DtSVq3x8VgDEXM9Vgsb9E?=
+ =?us-ascii?Q?wYY+mAWRWwrhAIqB+IhiLRmSXtms7UXfVpVeUWayXIA5JaGYG3vjDdqhLJjw?=
+ =?us-ascii?Q?Zgvlv2ymnCkQVPlwKakm8BtP9iZ8B493Xot19zfs2PhGF+B8Ub1QuaxlutL4?=
+ =?us-ascii?Q?FNNf/Imb8RzU3BnSsIgA27Xsa8JH83N46MBedtZt6pbRBDS3R6HOpuo8T3cX?=
+ =?us-ascii?Q?shpLqLd25/XxaDYZMHB6JVFo8vSvXyc/17QGJ03hw3quQxUOfA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230037)(1800799021)(82310400023)(36860700010)(376011); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2024 17:06:01.6890 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1de85571-6dd9-43a9-7602-08dc8c9444f9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,134 +129,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The attribute is not helpful if commented out.
 
-On 14/06/2024 10:53, Christian König wrote:
-> 
->>>           if (domain & abo->preferred_domains & 
->>> AMDGPU_GEM_DOMAIN_VRAM &&
->>> -            !(adev->flags & AMD_IS_APU))
->>> -            places[c].flags |= TTM_PL_FLAG_FALLBACK;
->>> +            !(adev->flags & AMD_IS_APU)) {
->>> +            /*
->>> +             * When GTT is just an alternative to VRAM make sure 
->>> that we
->>> +             * only use it as fallback and still try to fill up VRAM 
->>> first.
->>> +            */
->>> +            if (abo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT)
->>> +                places[c].flags |= TTM_PL_FLAG_FALLBACK;
->>> +
->>> +            /*
->>> +             * Enable GTT when the threshold of moved bytes is
->>> +             * reached. This prevents any non essential buffer move
->>> +             * when the links are already saturated.
->>> +             */
->>> +            places[c].flags |= TTM_PL_FLAG_MOVE_THRESHOLD;
->>> +        }
->>
->> For the APU case I *think* this works, but for discrete I am not sure 
->> yet.
-> 
-> Agree, APUs are basically already fine as they are. VRAM is just used so 
-> that it isn't wasted there.
+Cc: Tasos Sahanidis <tasos@tasossah.com>
+Fixes: c6c4dd540125 ("drm/amdgpu/pptable: Fix UBSAN array-index-out-of-bounds")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/include/pptable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Well yeah it works, but because re-validation is broken so it cannot hit 
-the broken migration budget. ;)
+diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/include/pptable.h
+index f83ace2d7ec3..984770d0eb4c 100644
+--- a/drivers/gpu/drm/amd/include/pptable.h
++++ b/drivers/gpu/drm/amd/include/pptable.h
+@@ -480,7 +480,7 @@ typedef struct _StateArray{
+ 	//how many states we have
+ 	UCHAR ucNumEntries;
+ 
+-	ATOM_PPLIB_STATE_V2 states[] /* __counted_by(ucNumEntries) */;
++	ATOM_PPLIB_STATE_V2 states[] __counted_by(ucNumEntries);
+ }StateArray;
+ 
+ 
+-- 
+2.43.0
 
->> As a side note and disclaimer, the TTM "resource compatible" logic has 
->> a half-life of about one week in my brain until I need to almost 
->> re-figure it all out. I don't know if it just me, but I find it really 
->> non-intuitive and almost like double, triple, or even quadruple 
->> negation way of thinking about things.
-> 
-> Yeah I was also going back and forth between the different approaches 
-> multiple times and just ended up in this implementation because it 
-> seemed to do what I wanted to have.
-> 
-> It's certainly not very intuitive what's going on here.
-> 
->>
->> It is not helping that with this proposal you set threshold on just 
->> one of the possible object placements which further increases the 
->> asymmetry. For me intuitive thing would be that thresholds apply to 
->> the act of changing the current placement directly. Not indirectly via 
->> playing with one of the placement flags dynamically.
-> 
-> Interesting idea, how would the handling then be? Currently we have only 
-> the stages - 'don't evict' and 'evict'. Should we make it something more 
-> like 'don't move', 'move', 'evict' ?
-
-Intuitively I would think "don't move" aligns with the "out of migration 
-budget" concept.
-
-Since in this patch you add move_threshold to ttm_operation_context 
-could it simply be used as the overall criteria if it is set?
-
-In a way like:
-
-  1. If the current placement is from the list of userspace supplied 
-valid ones, and
-  2. Migration limit has been set, and
-  3. It is spent.
-
--> Then just don't migrate, return "all is good" from ttm_bo_validate.
-
-Though I am not sure at the moment how that would interact with the 
-amdgpu_evict_flags and placements userspace did not specify.
-
->> Anyway, lets see.. So you set TTM_PL_FLAG_MOVE_THRESHOLD and 
->> TTM_PL_FLAG_FALLBACK on the GTT placement, with the logic that it will 
->> be considered compatible while under the migration budget?
->>
->> (Side note, the fact both flags are set I also find very difficult to 
->> mentally model.)
->>
->> Say a buffer was evicted to GTT already. What then brings it back to 
->> VRAM?
->>
->> The first subsequent ttm_bo_validate pass (!evicting) says GTT is fine 
->> (applicable) while ctx->bytes_moved < ctx->move_threshold, no? Isn't 
->> that the opposite of what would be required and causes nothing to be 
->> migrated back in? What am I missing?
-> 
-> The flag says that GTT is fine when ctx->bytes_moved >= 
-> ctx->move_threshold. The logic is exactly inverted to what you described.
-> 
-> This way a BO will be moved back into VRAM as long as bytes moved 
-> doesn't exceed the threshold.
-
-I'm afraid I need to sketch it out... If buffer is currently in GTT and 
-placements are VRAM+GTT.
-
-ttm_bo_validate(evicting=false)
-
-1st iteration:
-res=GTT != place=VRAM
-    continue
-
-2nd iteration:
-res=GTT == place=GTT+FALLBACK+THRESHOLD
-
-ttm_place_applicable(GTT)
-   moved < threshold
-     return true
-
-Buffer stays in GTT while under migration budget -> wrong, no? Or am I 
-still confused?
-
-Regards,
-
-Tvrtko
-
-> Setting both flags has the effect of saying: It's ok that the BO stays 
-> in GTT when you either above the move threshold or would have to evict 
-> something.
-> 
-> Regards,
-> Christian.
-> 
->>
->> Regards,
->>
->> Tvrtko
-> 
