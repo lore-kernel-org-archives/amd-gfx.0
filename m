@@ -4,119 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C913C27C77
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:06:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A2DAC27C77
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:27:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1CDE10EDF5;
-	Fri, 14 Jun 2024 17:06:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5011910E16C;
+	Fri, 14 Jun 2024 17:27:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4G8QJJ0n";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZsfWOpUW";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2059.outbound.protection.outlook.com [40.107.212.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 935DF10EDF5
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:06:06 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0237910E18C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:27:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a6QpFqOUM8FFXhhz78j+ttaJhkVVHatPRXYuM0KPMSgwnJXX8PPKKkZTmb28qvUgSldPTCXXLl7HF4V+3i8BqAOWtMu1G7fO+PQQ0R6gI7xprzHeLHSFW1AFg/XcH8JaGMcrbmCmFanZemLqh5rB7wFMYptEafgp9ViGvs2BckwxSbybDZq9YuPX2o9py1IkG8zlEwKx14204m5Q4/B8GEpCSXV64na961bQ2ClWcCMpOEi96wduDWnxsfz5nHMwjNXo7jjFu3mtCD/3WoGqNzWKivN9fpLLRkgKi3EpvAhFULjP2b3pzbHfCrRvb6jjm1ePlEZpwypoLOzbnLNZOg==
+ b=lVreFmUzepQIXWox4YLmfOh2tL90pnjhFWUnB0VDma5gKURH2mlpptYj/DwuPlTx+g4NdJZcrN95gm4gqGAxAPlOhWqf8tTBL3Y8kYjMepx+TFVa3IAow8xsdxhmkKkqzi9u2StGbpYcaUJo2JueNgKdQruLcPRCerADZ9JlTt1OtbiHq0YoFLLw8tXeaTf8AIazo2r4P8K44v44fm3QCQvJr60rNDlbKmthgHGDHQ05sYMJfFJXZIfSTt6kI9EsY2IGBT/TJ61Co/JnuNc1rlyYzTymZLL8XUiQVb058nDycZR9DKyc/BCMpYFFTtldzjsl6gHbBbNZdDwpPqDxLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qafqegoDU0q+QRNf41r7O4PQ2cWxQrHGyV7wCWutZtk=;
- b=MYK+dGPVHW8ny8kxDxPEDjc22i+OTTvRJfmSMVqYwZ+2fiGVYNt0vov/X9JR4R40DPMdI34nJOJ/y9XVvI6cawUhVSBgcCZRGWZpomNpihCH7ymP9xWVHE0ItIaA4ko9IUAw60+JyCWJVAgTgN8MaWT3/oQlD16mbSUOZnoe1vX8hZOV33o2cVteDVJDf2cvD5aT5ZBLndzg7ivQNrzMuFbfwcmjC9fVdKqoagfDvXjBheqqduuvx2X1J2SfCj0CIOg06EWkAmHi5q4gfgfTISmF2UNY2wo5MIQyzV3/c0zQYH8Lt8gS2w183cVXRyfCg0zYXWSc6XuGSUid8UCFUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=eqJls/GdU0Cpm7p77Az+hlSrvNv+4jcXRiON5y8Kt3I=;
+ b=Q3lqyN9jgjaq7gQVOYubJFflwx3FfZuVNjVYTJ0ZOOPeWbDYFC6wQjBbIoLgRpDYvfiip1sYOmoa1uX8PEZ8OB+pEUlO4oIXkTIrGeB9EOvYka4E+C5Lkkprn3He72hnUbVathBFmtpYINzYgNklDnX1UHdV+dui7rMdiDs62LiiBjCserOtAtLXms5eePmDJxPm+ayXQrpCD/kNpRjH6HnD3Kwg1vIcG/9l67Vi1KDEtNWRqJIM4PAXXj0+8sL8YsbAsTcToN1gMascAWvOEhUSya3T+vx0rH1VnfhPwdRoOAE2XJ40zJ7ItzAPWJIzhkPVTRn42lQVey5S59E75g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qafqegoDU0q+QRNf41r7O4PQ2cWxQrHGyV7wCWutZtk=;
- b=4G8QJJ0nSrzXahtQL7ODMZH8fgEU0uwgax3LEXbGmdxe0ITvAUqN4Umcqb/ChguJDfdE610DiJ/71bIKIHiKDcKbei8xcHzQGp2h2W8tk9vlryjkQGwb78wUXINzjgWqGaO6Q1x4IeANrUdgP3QksO+lhcQA5xs4lEp+aQMYmks=
-Received: from SJ0PR13CA0073.namprd13.prod.outlook.com (2603:10b6:a03:2c4::18)
- by BY5PR12MB4164.namprd12.prod.outlook.com (2603:10b6:a03:207::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.25; Fri, 14 Jun
- 2024 17:06:03 +0000
-Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::9f) by SJ0PR13CA0073.outlook.office365.com
- (2603:10b6:a03:2c4::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.26 via Frontend
- Transport; Fri, 14 Jun 2024 17:06:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Fri, 14 Jun 2024 17:06:03 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Jun
- 2024 12:06:01 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: powerplay: Add `__counted_by` attribute for
- flexible arrays
-Date: Fri, 14 Jun 2024 12:05:51 -0500
-Message-ID: <20240614170551.6195-2-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240614170551.6195-1-mario.limonciello@amd.com>
+ bh=eqJls/GdU0Cpm7p77Az+hlSrvNv+4jcXRiON5y8Kt3I=;
+ b=ZsfWOpUWYf63xnUsipC8tlAVUqXz8SGfJtWOdgYvCs6Qx/dtRE2Cmw4JhbJ3nhc70el97RKvYtwQzXCE+Jp9XgHhGan9gEF6DP+i9rWMVAHSaWq5Sp5FmGRb+SfT8a8a1mOrLlEZzt0+uvgC1NOyRi1D8tpAj389u14cMNZec0k=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DS0PR12MB8070.namprd12.prod.outlook.com (2603:10b6:8:dc::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.20; Fri, 14 Jun
+ 2024 17:27:30 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.7677.026; Fri, 14 Jun 2024
+ 17:27:30 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Limonciello, Mario" <Mario.Limonciello@amd.com>, Tasos Sahanidis
+ <tasos@tasossah.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
+Thread-Topic: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
+Thread-Index: AQHavn0qHmZTm415GEmB6YE+OQi25LHHgX0Q
+Date: Fri, 14 Jun 2024 17:27:30 +0000
+Message-ID: <BL1PR12MB5144E39613C41A0A1E79BBEAF7C22@BL1PR12MB5144.namprd12.prod.outlook.com>
 References: <20240614170551.6195-1-mario.limonciello@amd.com>
+In-Reply-To: <20240614170551.6195-1-mario.limonciello@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=46f15737-2730-4c0f-a7b6-e9ef3812c848;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-06-14T17:21:12Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DS0PR12MB8070:EE_
+x-ms-office365-filtering-correlation-id: 1699abcf-b9ed-471e-d786-08dc8c974520
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230037|1800799021|366013|376011|38070700015;
+x-microsoft-antispam-message-info: =?us-ascii?Q?Ov2a8/k+NgfmjMWZlnZItnFToDQk4PfvFFFij3RUyox7+dzOkNasvEf1VZDp?=
+ =?us-ascii?Q?mwVxxnQkhsMiEsAb5g8TYFFflT7lqzWg6/qyR89aMC5GGXu4IpxZp+Za7m5c?=
+ =?us-ascii?Q?iFdKYgasby4V52PhdqpGsN6H7qfVelqoy54mRw6YiwsltJeGEN/7sBijLYuP?=
+ =?us-ascii?Q?BkpDGUEPhTc5mLtVIZ6oB4BKsDOHqcDyI/E1TMUT/dZAcOIioMiXTZUKhiHI?=
+ =?us-ascii?Q?N40ePw3xI4pTLUzpOhZ9LfxukuqO3/+vOim+3xei8NbDA5ucPzRQVYPQ/4ji?=
+ =?us-ascii?Q?HIkbAO6q7kV17QQYGGVzrvsRmeGVIsKTEH1hLY12FoMPXQsGSokPBpsPDCA3?=
+ =?us-ascii?Q?pRiRfJjWOvJuJHfHpanBBjj4qPC8vWpFPZ1dEiyeG95EFITvMuopm61r6yW3?=
+ =?us-ascii?Q?/Qm1RknLS/wy8VaEobVm7g2Ugt58dSkyfffFK55GGKlCCE84cZhhf87wdH4j?=
+ =?us-ascii?Q?evzsC2s4wEyaRWvQ6SxKic8lMoRd3jnJvPD8gFA3tbyIVEqelaz4ATUTZYmu?=
+ =?us-ascii?Q?40l3/pew84NHINCVD9zfm0kzxJSB3rxd8z1m/Pk/3JzOKxtk2elK8N5Hioqk?=
+ =?us-ascii?Q?NgETHMwvYdxPi7uG7t2nssjIVv6WpqNwXazWqfU5DyTLCYKolbOb+OrMEf3r?=
+ =?us-ascii?Q?py0QG/Ipoax5Zmv7C4d5mo+yiRp/uBs7Nwww1q85rlUKG3ZQhQ41L0BNd1zb?=
+ =?us-ascii?Q?rijnGmJ/l4w/sDoWuyhwXfaxlXm52elE3o0+qZw+FuMvTjetEcHk0oIIW6f+?=
+ =?us-ascii?Q?A1V9v8F5knS30FXUJgdOBQymUDkP2ECezxuQYmdrT61EmLQrrKuPSWfOEqqW?=
+ =?us-ascii?Q?t4PQEnnMoQKOLylw1oY2qPspRImkBD4r9C525oBaR2UID2CBr8Lkm8A6mYJX?=
+ =?us-ascii?Q?hnk0xLUQRtrCzFbBa9MPC8WsEYARcb3vIAbpSwbgRFyZLeal+p4n/yKu6dMy?=
+ =?us-ascii?Q?R5YdRjbXBwnThv2gw0Ud90BKNkXM/ocsQkt/S3C5o9KthT5EE3OKjm3Awwr+?=
+ =?us-ascii?Q?ft80carG3Wc7koU0WUqSoeGT1dml00liv1UP4jTCrruOHoItnv43prM4GByj?=
+ =?us-ascii?Q?vDnOOvxTWnoJn3eHWKm29K/4An8vY2uKUsXtozodmkyf+4Nu3T0t8I2n/a5a?=
+ =?us-ascii?Q?G+V8xfGZzJlVnsH+wfDu/HEdgWUf55bbv9qwb4FbFcxr6TnW/Crb7fOrgrI7?=
+ =?us-ascii?Q?ucyBYWfaD+KwgILUHRRlaoP9qnj0uNs5apfS9uS/Wtg05K+6LbHxD1MvR3w1?=
+ =?us-ascii?Q?BRpd8RQ7XjQYyDGXrfWkc81gztWTqrG7KNxX4cpXknc6N8yG3i2e/oQXcE3y?=
+ =?us-ascii?Q?iCQSkmabcaF0O0LnmDCJ3ntx?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230037)(1800799021)(366013)(376011)(38070700015); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Hl5MJadquKIhRAFaaT/VupT/2RYts0Vy/Ed8ZTLsqa3sT9+4uiBtvcL5ZWte?=
+ =?us-ascii?Q?q6HX9gMSuv66zSAlFdd1V4e9GBtNXRYAzlJUsVXAvq77Y8w/qraKjUrdE0Ed?=
+ =?us-ascii?Q?xFyAE1zsttsNcxGBWOi9tiardwsIVC9VfjZal7XHWYskVd/04OxBou5NV6sJ?=
+ =?us-ascii?Q?YNi3RPKu5Zbe2aiiC4XgqMCZuvgDfr7X3gaqmJlwMBjXvB3RKfYBySl8zcEw?=
+ =?us-ascii?Q?n9Ifd2etMrQZe1rqfJRijmmiG0K6Y78/TqNePNQrfcfgQfLJrR+q9tEF2Rbg?=
+ =?us-ascii?Q?2Efj3BwPcWa25p2Ko5xI89UPt/WoqDZ2tnwPIj2cZFwxHVFS9eMMF5FoNUjN?=
+ =?us-ascii?Q?y0g2joqJiQfz5CJzW873j9EHV2Y7C+EoegBpykobL6y0GXnSA5Xx6s6CrwCm?=
+ =?us-ascii?Q?SLtAVcskxyF04BUflELgaHL0aLRsFy+YZU68MbkHV6insRe6xhdSLXfuVuKy?=
+ =?us-ascii?Q?M4nWyuVnxmtp2B9eqTO1gez6qgqQn+r59EzoNS4mIu4D3iffrJC5yyY3JLIn?=
+ =?us-ascii?Q?JKSyOmTqJU37vfU8mqlLUwsou/Egd/+UXIjpjcXI8bpUtxS70AciPHX3aoI0?=
+ =?us-ascii?Q?UFmE4zYi9bYV32ueHCM3GtB7DSV1ELqUcZnoUum+bNBOPoxRrv6Zgp3ZbZEK?=
+ =?us-ascii?Q?S1Dp0AOHus+8hG7SbeJS8ZqIAJJ96pygUEE+OJaZcZug0azav7mgqmpKlYt9?=
+ =?us-ascii?Q?8wi8QU8v3ps2uy6gOY5R0BgZFxW9ULlCU1mHTsQ8X+IMcq/xl8qJxmpJFGS/?=
+ =?us-ascii?Q?dRJYIZcqaXV1lahadE/mFhgv+Mii+HRRKfET62WRVfghVQ7lVZfvTPhPJQrq?=
+ =?us-ascii?Q?PFfrXxUfpF7qvqy0vY2aSUJT2kXknkOHUrnzgXNMT6hwIEQCW5Sp8vXTjc41?=
+ =?us-ascii?Q?8SL8w3Bzd90vppge3f4uTVWm/zFM8FsFLORP2OWmSQ3aTjb6oYQwts4lVOsZ?=
+ =?us-ascii?Q?t9yn/B82k5hkQTISaDIU3mAcjNanzbWcFS7tqphd7uveZQH4OClSionK/pX6?=
+ =?us-ascii?Q?N0oCkrXyyMJuPJMueTDQf5yshgw1Ym+EH6/2s1Vkpl0xCJFAMJ6aFlwW1zna?=
+ =?us-ascii?Q?FucThQY34sIdmHLctY6aNLv7dzr5RU2OaxQBwPgiNMxy1roPzJCNFSxI1+xH?=
+ =?us-ascii?Q?kSvT19VHCudl6TTaYNXVo6Ohkp5ICEQAKm+0/crM8HpRudWzAs/W7mI5znFH?=
+ =?us-ascii?Q?xKB1rzXTT2GtTrgT7r/d+YQmYlW+WUV9fy/DEplHTqqTVTrkqu8vFdkBrWVY?=
+ =?us-ascii?Q?MDQDTRL77M3xrwomA1yTtRSZa9F1XgFuwe0BaqLUnf57/95TnSERsNC8r6qB?=
+ =?us-ascii?Q?c3NQjQnknfWrlVVdtNkG4cNKP3DNFOuzhsiDvebhMHYoM7DEHaC6M2Cp0749?=
+ =?us-ascii?Q?3s74+MSaPN9pAOrw+S906ovltF9zuzxG/sLXpN0/+ScDvK7gobNrh9BQw7e+?=
+ =?us-ascii?Q?zO+XBw3fQngR2jm6LXAWgRKizGciROtP/Fr0du2f140y3L1LLjUHu2kQzwFu?=
+ =?us-ascii?Q?AN66ljNaiYMcItiwAPV+59fpLN87iH1BR5vLrifDyuhjBuYTJmitQs1hobqo?=
+ =?us-ascii?Q?3ILCMUZcLjd99WCVU3o=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|BY5PR12MB4164:EE_
-X-MS-Office365-Filtering-Correlation-Id: c14a0907-0409-4223-6a4d-08dc8c9445f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230037|1800799021|82310400023|36860700010|376011; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DbEd25afrnGo6sIH0g48VBmi0CscVJSgpptAAP2/PsaopRNVP0TQFo3EP+8b?=
- =?us-ascii?Q?7/sjPeloKBcfDlfQkdBo09/AjuYWJPRrH6AuIh/USqwwhkF9WcLIAhUYH2VX?=
- =?us-ascii?Q?/dNYy22jNtgV6iKxDLqkr0cRwxSmkKmGiFz7fqcemCS9Q0E/yTj+dN5tSy0A?=
- =?us-ascii?Q?DMq7Cjwa6v5myLP1H3BIEyKRMXuLYLFQOD4U0qlM1q3LCMHlqDfUt1aYaBob?=
- =?us-ascii?Q?HmaIdupBJq9h0/fjWOmB1ZeoZC8Mfha6jwCWUlYDfC3zps+Rgofj5+fy8OP/?=
- =?us-ascii?Q?52z7j/xWgMIN8Q7sAq1P02MUXuviaxpgtMYwmcOzhG9Wnin5zJ5KRoL+AU5j?=
- =?us-ascii?Q?dd0HA7knDTrByukLP9etJdZw79CZMq9D+Kq5d4HO9S7Sb7VFgQSmMvuAWA63?=
- =?us-ascii?Q?8/sDMfy9H235axyX3PiAbyB8ZBIcIrvUFsGHvFMO87Xh698AeCtE40hOAUCf?=
- =?us-ascii?Q?FJRu34FjyAsqJO5ftgPp2f81PKZ+etdEF902P4eiHNW/DSHBLtYd3nXJ2UNk?=
- =?us-ascii?Q?+jfUBqcpRjRypM3ziBILTGts864zzQU9TuL0GUA9cqw1oqmbTD0IP33L1VSM?=
- =?us-ascii?Q?jtIfb3kc+aGiAEpHO9fnYU0sGNd6FK7dX8qBcqUiVDyaTcDyA4e6gy/swv5v?=
- =?us-ascii?Q?TzHA6c+n3PMecRbmHzBs4pLZraa9XuuAaV1rvrWfyUDXu9s21azPUMf6Inf5?=
- =?us-ascii?Q?fj0RQooYgh4u7LE2d2yXRmrczjfWdkDUAE6Xlw3x7J40u+URcFwKuD10o6wt?=
- =?us-ascii?Q?J95lFkLvgFqYQy6JNo1M7z9UtQmBE0KxktL1kMeNm4jptEfGIGs7XDK6Pdr+?=
- =?us-ascii?Q?NnHnzK7ECxpaMbLDiqx1BusJSF6fVVdLqXbfytjhRMdRDRhBYJFjz9LaLomX?=
- =?us-ascii?Q?2+wGSTMfkPUQS/+DRt58aPdk2fDv0zzYdZur6p3gxDXIEFu+KcLGVA99wQyi?=
- =?us-ascii?Q?gFs1jVvjEeV/Ui3gMONME5KSkQUz2jbAYh5tJDcRC/wf/aIJmED/8r4XC6wi?=
- =?us-ascii?Q?qiM4CVXFCqx/kEwHRh20XLHcePXBztPsqyifvdEiZkuGXfQVxFumbQXcLGLM?=
- =?us-ascii?Q?rALB7EZI9a+6ZZLNuH4IBlElqSn1wwa3EfkiZy0LHFoJ0sJGcLoN1LS+wUid?=
- =?us-ascii?Q?oGFlyz0tBawpaQtG96jhfYaVIkvjokX81wBwpcs7N5bzjMS/SrXI0tmsdSDe?=
- =?us-ascii?Q?Eidug2XpbwbjeTvSjycfNl4MpmJ6cIRvaa+8J8H3XIwfNvXxf7Q2Y9Kf3qzs?=
- =?us-ascii?Q?kodyaOfn8jkHOJOLFGaZhvRgiVymWLdjqaDLICAkVD0IccEgGmsNUCG1Z0J8?=
- =?us-ascii?Q?zZS3vB5vgJlWy7NuHHKmXOeeCeL+TU4MARVWQhUgY7eX03fW5bwg6GFf468o?=
- =?us-ascii?Q?FNkiWWvks4UXsuSYRYdUvRwzEpr7eRDeDtkg34G0tTsWElYvdA=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(1800799021)(82310400023)(36860700010)(376011); DIR:OUT;
- SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2024 17:06:03.2828 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c14a0907-0409-4223-6a4d-08dc8c9445f1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4164
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1699abcf-b9ed-471e-d786-08dc8c974520
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jun 2024 17:27:30.7314 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rOVDX8UnzIak0EcVdxbJizkDKM8JVCxqakclL3S+JEj3AeRXVNhKFmKyjS58EX9PC87N7np1qFjFCuKkpKEDHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,239 +151,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This attribute is used to hint the length of flexible arrays to
-compiler and sanitizers.
+[Public]
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- .../drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h | 36 +++++++++---------
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  | 38 +++++++++----------
- 2 files changed, 37 insertions(+), 37 deletions(-)
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
+> Limonciello
+> Sent: Friday, June 14, 2024 1:06 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Tasos Sahanidis
+> <tasos@tasossah.com>
+> Subject: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
+>
+> The attribute is not helpful if commented out.
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-index 2cf2a7b12623..7711e892c31f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
-@@ -163,8 +163,8 @@ typedef struct _ATOM_Tonga_State {
- 
- typedef struct _ATOM_Tonga_State_Array {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries;		/* Number of entries. */
--	ATOM_Tonga_State entries[];	/* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Tonga_State entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_State_Array;
- 
- typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
-@@ -178,8 +178,8 @@ typedef struct _ATOM_Tonga_MCLK_Dependency_Record {
- 
- typedef struct _ATOM_Tonga_MCLK_Dependency_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_MCLK_Dependency_Record entries[];				/* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Tonga_MCLK_Dependency_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_MCLK_Dependency_Table;
- 
- typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
-@@ -193,8 +193,8 @@ typedef struct _ATOM_Tonga_SCLK_Dependency_Record {
- 
- typedef struct _ATOM_Tonga_SCLK_Dependency_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_SCLK_Dependency_Record entries[];				 /* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Tonga_SCLK_Dependency_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_SCLK_Dependency_Table;
- 
- typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
-@@ -209,8 +209,8 @@ typedef struct _ATOM_Polaris_SCLK_Dependency_Record {
- 
- typedef struct _ATOM_Polaris_SCLK_Dependency_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries;							/* Number of entries. */
--	ATOM_Polaris_SCLK_Dependency_Record entries[];				 /* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Polaris_SCLK_Dependency_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Polaris_SCLK_Dependency_Table;
- 
- typedef struct _ATOM_Tonga_PCIE_Record {
-@@ -221,8 +221,8 @@ typedef struct _ATOM_Tonga_PCIE_Record {
- 
- typedef struct _ATOM_Tonga_PCIE_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_PCIE_Record entries[];							/* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Tonga_PCIE_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_PCIE_Table;
- 
- typedef struct _ATOM_Polaris10_PCIE_Record {
-@@ -234,8 +234,8 @@ typedef struct _ATOM_Polaris10_PCIE_Record {
- 
- typedef struct _ATOM_Polaris10_PCIE_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries;                                         /* Number of entries. */
--	ATOM_Polaris10_PCIE_Record entries[];                      /* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Polaris10_PCIE_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Polaris10_PCIE_Table;
- 
- 
-@@ -251,8 +251,8 @@ typedef struct _ATOM_Tonga_MM_Dependency_Record {
- 
- typedef struct _ATOM_Tonga_MM_Dependency_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_MM_Dependency_Record entries[]; 			   /* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Tonga_MM_Dependency_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_MM_Dependency_Table;
- 
- typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
-@@ -264,8 +264,8 @@ typedef struct _ATOM_Tonga_Voltage_Lookup_Record {
- 
- typedef struct _ATOM_Tonga_Voltage_Lookup_Table {
- 	UCHAR ucRevId;
--	UCHAR ucNumEntries; 										/* Number of entries. */
--	ATOM_Tonga_Voltage_Lookup_Record entries[];				/* Dynamically allocate entries. */
-+	UCHAR ucNumEntries;
-+	ATOM_Tonga_Voltage_Lookup_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_Voltage_Lookup_Table;
- 
- typedef struct _ATOM_Tonga_Fan_Table {
-@@ -367,7 +367,7 @@ typedef struct _ATOM_Tonga_VCE_State_Record {
- typedef struct _ATOM_Tonga_VCE_State_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries;
--	ATOM_Tonga_VCE_State_Record entries[];
-+	ATOM_Tonga_VCE_State_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_VCE_State_Table;
- 
- typedef struct _ATOM_Tonga_PowerTune_Table {
-@@ -481,7 +481,7 @@ typedef struct _ATOM_Tonga_Hard_Limit_Record {
- typedef struct _ATOM_Tonga_Hard_Limit_Table {
- 	UCHAR ucRevId;
- 	UCHAR ucNumEntries;
--	ATOM_Tonga_Hard_Limit_Record entries[];
-+	ATOM_Tonga_Hard_Limit_Record entries[] __counted_by(ucNumEntries);
- } ATOM_Tonga_Hard_Limit_Table;
- 
- typedef struct _ATOM_Tonga_GPIO_Table {
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index 69928a4a074b..9118fcddbf11 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -60,7 +60,7 @@ struct vi_dpm_level {
- 
- struct vi_dpm_table {
- 	uint32_t count;
--	struct vi_dpm_level dpm_level[];
-+	struct vi_dpm_level dpm_level[] __counted_by(count);
- };
- 
- #define PCIE_PERF_REQ_REMOVE_REGISTRY   0
-@@ -91,7 +91,7 @@ struct phm_set_power_state_input {
- 
- struct phm_clock_array {
- 	uint32_t count;
--	uint32_t values[];
-+	uint32_t values[] __counted_by(count);
- };
- 
- struct phm_clock_voltage_dependency_record {
-@@ -122,8 +122,8 @@ struct phm_acpclock_voltage_dependency_record {
- };
- 
- struct phm_clock_voltage_dependency_table {
--	uint32_t count;							/* Number of entries. */
--	struct phm_clock_voltage_dependency_record entries[];		/* Dynamically allocate count entries. */
-+	uint32_t count;
-+	struct phm_clock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_phase_shedding_limits_record {
-@@ -140,7 +140,7 @@ struct phm_uvd_clock_voltage_dependency_record {
- 
- struct phm_uvd_clock_voltage_dependency_table {
- 	uint8_t count;
--	struct phm_uvd_clock_voltage_dependency_record entries[];
-+	struct phm_uvd_clock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_acp_clock_voltage_dependency_record {
-@@ -150,7 +150,7 @@ struct phm_acp_clock_voltage_dependency_record {
- 
- struct phm_acp_clock_voltage_dependency_table {
- 	uint32_t count;
--	struct phm_acp_clock_voltage_dependency_record entries[];
-+	struct phm_acp_clock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_vce_clock_voltage_dependency_record {
-@@ -160,33 +160,33 @@ struct phm_vce_clock_voltage_dependency_record {
- };
- 
- struct phm_phase_shedding_limits_table {
--	uint32_t                           count;
--	struct phm_phase_shedding_limits_record  entries[];
-+	uint32_t count;
-+	struct phm_phase_shedding_limits_record  entries[] __counted_by(count);
- };
- 
- struct phm_vceclock_voltage_dependency_table {
--	uint8_t count;                                    /* Number of entries. */
--	struct phm_vceclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
-+	uint8_t count;
-+	struct phm_vceclock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_uvdclock_voltage_dependency_table {
--	uint8_t count;                                    /* Number of entries. */
--	struct phm_uvdclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
-+	uint8_t count;
-+	struct phm_uvdclock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_samuclock_voltage_dependency_table {
--	uint8_t count;                                    /* Number of entries. */
--	struct phm_samuclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
-+	uint8_t count;
-+	struct phm_samuclock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_acpclock_voltage_dependency_table {
--	uint32_t count;                                    /* Number of entries. */
--	struct phm_acpclock_voltage_dependency_record entries[1]; /* Dynamically allocate count entries. */
-+	uint32_t count;
-+	struct phm_acpclock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_vce_clock_voltage_dependency_table {
- 	uint8_t count;
--	struct phm_vce_clock_voltage_dependency_record entries[];
-+	struct phm_vce_clock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- 
-@@ -393,7 +393,7 @@ union phm_cac_leakage_record {
- 
- struct phm_cac_leakage_table {
- 	uint32_t count;
--	union phm_cac_leakage_record entries[];
-+	union phm_cac_leakage_record entries[] __counted_by(count);
- };
- 
- struct phm_samu_clock_voltage_dependency_record {
-@@ -404,7 +404,7 @@ struct phm_samu_clock_voltage_dependency_record {
- 
- struct phm_samu_clock_voltage_dependency_table {
- 	uint8_t count;
--	struct phm_samu_clock_voltage_dependency_record entries[];
-+	struct phm_samu_clock_voltage_dependency_record entries[] __counted_by(count);
- };
- 
- struct phm_cac_tdp_table {
--- 
-2.43.0
+It's commented out on purpose because it breaks clang 19.  See:
+https://lists.freedesktop.org/archives/amd-gfx/2024-May/109223.html
+
+Alex
+
+>
+> Cc: Tasos Sahanidis <tasos@tasossah.com>
+> Fixes: c6c4dd540125 ("drm/amdgpu/pptable: Fix UBSAN array-index-out-of-
+> bounds")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/include/pptable.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/pptable.h
+> b/drivers/gpu/drm/amd/include/pptable.h
+> index f83ace2d7ec3..984770d0eb4c 100644
+> --- a/drivers/gpu/drm/amd/include/pptable.h
+> +++ b/drivers/gpu/drm/amd/include/pptable.h
+> @@ -480,7 +480,7 @@ typedef struct _StateArray{
+>       //how many states we have
+>       UCHAR ucNumEntries;
+>
+> -     ATOM_PPLIB_STATE_V2 states[] /* __counted_by(ucNumEntries) */;
+> +     ATOM_PPLIB_STATE_V2 states[] __counted_by(ucNumEntries);
+>  }StateArray;
+>
+>
+> --
+> 2.43.0
 
