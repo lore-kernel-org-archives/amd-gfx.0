@@ -4,139 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A2DAC27C77
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:27:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79F5DC27C77
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 17:32:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5011910E16C;
-	Fri, 14 Jun 2024 17:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9680010EDF7;
+	Fri, 14 Jun 2024 17:32:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZsfWOpUW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iD5Gveq4";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0237910E18C
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:27:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lVreFmUzepQIXWox4YLmfOh2tL90pnjhFWUnB0VDma5gKURH2mlpptYj/DwuPlTx+g4NdJZcrN95gm4gqGAxAPlOhWqf8tTBL3Y8kYjMepx+TFVa3IAow8xsdxhmkKkqzi9u2StGbpYcaUJo2JueNgKdQruLcPRCerADZ9JlTt1OtbiHq0YoFLLw8tXeaTf8AIazo2r4P8K44v44fm3QCQvJr60rNDlbKmthgHGDHQ05sYMJfFJXZIfSTt6kI9EsY2IGBT/TJ61Co/JnuNc1rlyYzTymZLL8XUiQVb058nDycZR9DKyc/BCMpYFFTtldzjsl6gHbBbNZdDwpPqDxLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eqJls/GdU0Cpm7p77Az+hlSrvNv+4jcXRiON5y8Kt3I=;
- b=Q3lqyN9jgjaq7gQVOYubJFflwx3FfZuVNjVYTJ0ZOOPeWbDYFC6wQjBbIoLgRpDYvfiip1sYOmoa1uX8PEZ8OB+pEUlO4oIXkTIrGeB9EOvYka4E+C5Lkkprn3He72hnUbVathBFmtpYINzYgNklDnX1UHdV+dui7rMdiDs62LiiBjCserOtAtLXms5eePmDJxPm+ayXQrpCD/kNpRjH6HnD3Kwg1vIcG/9l67Vi1KDEtNWRqJIM4PAXXj0+8sL8YsbAsTcToN1gMascAWvOEhUSya3T+vx0rH1VnfhPwdRoOAE2XJ40zJ7ItzAPWJIzhkPVTRn42lQVey5S59E75g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eqJls/GdU0Cpm7p77Az+hlSrvNv+4jcXRiON5y8Kt3I=;
- b=ZsfWOpUWYf63xnUsipC8tlAVUqXz8SGfJtWOdgYvCs6Qx/dtRE2Cmw4JhbJ3nhc70el97RKvYtwQzXCE+Jp9XgHhGan9gEF6DP+i9rWMVAHSaWq5Sp5FmGRb+SfT8a8a1mOrLlEZzt0+uvgC1NOyRi1D8tpAj389u14cMNZec0k=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DS0PR12MB8070.namprd12.prod.outlook.com (2603:10b6:8:dc::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.20; Fri, 14 Jun
- 2024 17:27:30 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.7677.026; Fri, 14 Jun 2024
- 17:27:30 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Limonciello, Mario" <Mario.Limonciello@amd.com>, Tasos Sahanidis
- <tasos@tasossah.com>
-Subject: RE: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
-Thread-Topic: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
-Thread-Index: AQHavn0qHmZTm415GEmB6YE+OQi25LHHgX0Q
-Date: Fri, 14 Jun 2024 17:27:30 +0000
-Message-ID: <BL1PR12MB5144E39613C41A0A1E79BBEAF7C22@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20240614170551.6195-1-mario.limonciello@amd.com>
-In-Reply-To: <20240614170551.6195-1-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=46f15737-2730-4c0f-a7b6-e9ef3812c848;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-06-14T17:21:12Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DS0PR12MB8070:EE_
-x-ms-office365-filtering-correlation-id: 1699abcf-b9ed-471e-d786-08dc8c974520
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230037|1800799021|366013|376011|38070700015;
-x-microsoft-antispam-message-info: =?us-ascii?Q?Ov2a8/k+NgfmjMWZlnZItnFToDQk4PfvFFFij3RUyox7+dzOkNasvEf1VZDp?=
- =?us-ascii?Q?mwVxxnQkhsMiEsAb5g8TYFFflT7lqzWg6/qyR89aMC5GGXu4IpxZp+Za7m5c?=
- =?us-ascii?Q?iFdKYgasby4V52PhdqpGsN6H7qfVelqoy54mRw6YiwsltJeGEN/7sBijLYuP?=
- =?us-ascii?Q?BkpDGUEPhTc5mLtVIZ6oB4BKsDOHqcDyI/E1TMUT/dZAcOIioMiXTZUKhiHI?=
- =?us-ascii?Q?N40ePw3xI4pTLUzpOhZ9LfxukuqO3/+vOim+3xei8NbDA5ucPzRQVYPQ/4ji?=
- =?us-ascii?Q?HIkbAO6q7kV17QQYGGVzrvsRmeGVIsKTEH1hLY12FoMPXQsGSokPBpsPDCA3?=
- =?us-ascii?Q?pRiRfJjWOvJuJHfHpanBBjj4qPC8vWpFPZ1dEiyeG95EFITvMuopm61r6yW3?=
- =?us-ascii?Q?/Qm1RknLS/wy8VaEobVm7g2Ugt58dSkyfffFK55GGKlCCE84cZhhf87wdH4j?=
- =?us-ascii?Q?evzsC2s4wEyaRWvQ6SxKic8lMoRd3jnJvPD8gFA3tbyIVEqelaz4ATUTZYmu?=
- =?us-ascii?Q?40l3/pew84NHINCVD9zfm0kzxJSB3rxd8z1m/Pk/3JzOKxtk2elK8N5Hioqk?=
- =?us-ascii?Q?NgETHMwvYdxPi7uG7t2nssjIVv6WpqNwXazWqfU5DyTLCYKolbOb+OrMEf3r?=
- =?us-ascii?Q?py0QG/Ipoax5Zmv7C4d5mo+yiRp/uBs7Nwww1q85rlUKG3ZQhQ41L0BNd1zb?=
- =?us-ascii?Q?rijnGmJ/l4w/sDoWuyhwXfaxlXm52elE3o0+qZw+FuMvTjetEcHk0oIIW6f+?=
- =?us-ascii?Q?A1V9v8F5knS30FXUJgdOBQymUDkP2ECezxuQYmdrT61EmLQrrKuPSWfOEqqW?=
- =?us-ascii?Q?t4PQEnnMoQKOLylw1oY2qPspRImkBD4r9C525oBaR2UID2CBr8Lkm8A6mYJX?=
- =?us-ascii?Q?hnk0xLUQRtrCzFbBa9MPC8WsEYARcb3vIAbpSwbgRFyZLeal+p4n/yKu6dMy?=
- =?us-ascii?Q?R5YdRjbXBwnThv2gw0Ud90BKNkXM/ocsQkt/S3C5o9KthT5EE3OKjm3Awwr+?=
- =?us-ascii?Q?ft80carG3Wc7koU0WUqSoeGT1dml00liv1UP4jTCrruOHoItnv43prM4GByj?=
- =?us-ascii?Q?vDnOOvxTWnoJn3eHWKm29K/4An8vY2uKUsXtozodmkyf+4Nu3T0t8I2n/a5a?=
- =?us-ascii?Q?G+V8xfGZzJlVnsH+wfDu/HEdgWUf55bbv9qwb4FbFcxr6TnW/Crb7fOrgrI7?=
- =?us-ascii?Q?ucyBYWfaD+KwgILUHRRlaoP9qnj0uNs5apfS9uS/Wtg05K+6LbHxD1MvR3w1?=
- =?us-ascii?Q?BRpd8RQ7XjQYyDGXrfWkc81gztWTqrG7KNxX4cpXknc6N8yG3i2e/oQXcE3y?=
- =?us-ascii?Q?iCQSkmabcaF0O0LnmDCJ3ntx?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230037)(1800799021)(366013)(376011)(38070700015); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Hl5MJadquKIhRAFaaT/VupT/2RYts0Vy/Ed8ZTLsqa3sT9+4uiBtvcL5ZWte?=
- =?us-ascii?Q?q6HX9gMSuv66zSAlFdd1V4e9GBtNXRYAzlJUsVXAvq77Y8w/qraKjUrdE0Ed?=
- =?us-ascii?Q?xFyAE1zsttsNcxGBWOi9tiardwsIVC9VfjZal7XHWYskVd/04OxBou5NV6sJ?=
- =?us-ascii?Q?YNi3RPKu5Zbe2aiiC4XgqMCZuvgDfr7X3gaqmJlwMBjXvB3RKfYBySl8zcEw?=
- =?us-ascii?Q?n9Ifd2etMrQZe1rqfJRijmmiG0K6Y78/TqNePNQrfcfgQfLJrR+q9tEF2Rbg?=
- =?us-ascii?Q?2Efj3BwPcWa25p2Ko5xI89UPt/WoqDZ2tnwPIj2cZFwxHVFS9eMMF5FoNUjN?=
- =?us-ascii?Q?y0g2joqJiQfz5CJzW873j9EHV2Y7C+EoegBpykobL6y0GXnSA5Xx6s6CrwCm?=
- =?us-ascii?Q?SLtAVcskxyF04BUflELgaHL0aLRsFy+YZU68MbkHV6insRe6xhdSLXfuVuKy?=
- =?us-ascii?Q?M4nWyuVnxmtp2B9eqTO1gez6qgqQn+r59EzoNS4mIu4D3iffrJC5yyY3JLIn?=
- =?us-ascii?Q?JKSyOmTqJU37vfU8mqlLUwsou/Egd/+UXIjpjcXI8bpUtxS70AciPHX3aoI0?=
- =?us-ascii?Q?UFmE4zYi9bYV32ueHCM3GtB7DSV1ELqUcZnoUum+bNBOPoxRrv6Zgp3ZbZEK?=
- =?us-ascii?Q?S1Dp0AOHus+8hG7SbeJS8ZqIAJJ96pygUEE+OJaZcZug0azav7mgqmpKlYt9?=
- =?us-ascii?Q?8wi8QU8v3ps2uy6gOY5R0BgZFxW9ULlCU1mHTsQ8X+IMcq/xl8qJxmpJFGS/?=
- =?us-ascii?Q?dRJYIZcqaXV1lahadE/mFhgv+Mii+HRRKfET62WRVfghVQ7lVZfvTPhPJQrq?=
- =?us-ascii?Q?PFfrXxUfpF7qvqy0vY2aSUJT2kXknkOHUrnzgXNMT6hwIEQCW5Sp8vXTjc41?=
- =?us-ascii?Q?8SL8w3Bzd90vppge3f4uTVWm/zFM8FsFLORP2OWmSQ3aTjb6oYQwts4lVOsZ?=
- =?us-ascii?Q?t9yn/B82k5hkQTISaDIU3mAcjNanzbWcFS7tqphd7uveZQH4OClSionK/pX6?=
- =?us-ascii?Q?N0oCkrXyyMJuPJMueTDQf5yshgw1Ym+EH6/2s1Vkpl0xCJFAMJ6aFlwW1zna?=
- =?us-ascii?Q?FucThQY34sIdmHLctY6aNLv7dzr5RU2OaxQBwPgiNMxy1roPzJCNFSxI1+xH?=
- =?us-ascii?Q?kSvT19VHCudl6TTaYNXVo6Ohkp5ICEQAKm+0/crM8HpRudWzAs/W7mI5znFH?=
- =?us-ascii?Q?xKB1rzXTT2GtTrgT7r/d+YQmYlW+WUV9fy/DEplHTqqTVTrkqu8vFdkBrWVY?=
- =?us-ascii?Q?MDQDTRL77M3xrwomA1yTtRSZa9F1XgFuwe0BaqLUnf57/95TnSERsNC8r6qB?=
- =?us-ascii?Q?c3NQjQnknfWrlVVdtNkG4cNKP3DNFOuzhsiDvebhMHYoM7DEHaC6M2Cp0749?=
- =?us-ascii?Q?3s74+MSaPN9pAOrw+S906ovltF9zuzxG/sLXpN0/+ScDvK7gobNrh9BQw7e+?=
- =?us-ascii?Q?zO+XBw3fQngR2jm6LXAWgRKizGciROtP/Fr0du2f140y3L1LLjUHu2kQzwFu?=
- =?us-ascii?Q?AN66ljNaiYMcItiwAPV+59fpLN87iH1BR5vLrifDyuhjBuYTJmitQs1hobqo?=
- =?us-ascii?Q?3ILCMUZcLjd99WCVU3o=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E912C10E18C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 17:32:31 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2ec002caf3eso40268281fa.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jun 2024 10:32:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718386350; x=1718991150; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=aesDOEiRaG9Aa3dzWhXp6jZ8a3i1f0OGXi6kYr7Lp3g=;
+ b=iD5Gveq4izPNzTlEStzjXuoxLzHpTF8egbOnxo8swyejW+RBEho3hhhH5tkElQJiOU
+ qINPcvdJ7FrJjlDnku/8tyRCYvk3MUY1hxIolK0K7FcL3EmpQacO3dfwP+m+zUYO3Yxw
+ 9ADQJ1hXwiOLS2HeKhwNvSyY5eEaV+Zy89tl/PL3TkAhmc2DdtpBs3ahLDabyJWPdivS
+ zuLgGfe5ikuQt6+sdJV/N/zhMsHSkX530RoN+2NNelthsof2tkUOzatiiXwxbtR0nPDT
+ EuXp0sKI58pdoh02lrQ78N/nDCoIALWL9hI5mVS9EUEBimgnqpdr63c794f8+X1tF1ZO
+ Q+0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718386350; x=1718991150;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aesDOEiRaG9Aa3dzWhXp6jZ8a3i1f0OGXi6kYr7Lp3g=;
+ b=Dwfhytc5M24pTfuIGz/uFd8PxXtr22oyRuP6TLmST/GgITK8apJ8m39um0pjYTLoB3
+ wfgepxqtvjugL2zXeGhpPKfJlgZQ4bBfideGIDzhBNrAqdrSscTGOMVUJYup9uXmhans
+ CsgZEAOoPv0bVQpq84/uUQfhtb20YiKLvikmSU7Uj1DZx+In8phLrNyglmqVn2j+H4mP
+ QEucsMNgE2k5mN67qN++tkxOiluJtGx2zKRE50bRUeaRP13uNCB2cYHz/gFeCsCE8TRK
+ B5p4+4XlCvByoTrovoFUbxJes5jClX4b6X/c2wxh9sMGfYx6d6uu1WzHWr/IKDwocmRy
+ BN1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/YGBVG+aK7CtGpDssAZ1wrPKbP+KS58QrCIyRrxrR+SXTYkR7+ypgsI2irW9/krk/h9elXfY81rmeV+CMZEcKHRuv0i4puImSZI5kvQ==
+X-Gm-Message-State: AOJu0YwdogTrg2yjAwswzeVgFvb6CLdp/Tt/fHbgZPlk79E6GyXxCgMi
+ H0HdumC/Mz3w5S5R9bikxL61Ro4hTo/LW0iytN9RUkn4PqFdxrlah8bvn5w9cDA=
+X-Google-Smtp-Source: AGHT+IGLrcrZDaWk6pfDosOul/t/KBqIO2jt9kIWRmffUF1VJ4nmfE1a3L0RBgRcNwyxpKBRaxNgSA==
+X-Received: by 2002:a2e:8681:0:b0:2ec:18bc:c455 with SMTP id
+ 38308e7fff4ca-2ec18bcc6a3mr19931571fa.10.1718386349908; 
+ Fri, 14 Jun 2024 10:32:29 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ec05d08470sm5669821fa.60.2024.06.14.10.32.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Jun 2024 10:32:29 -0700 (PDT)
+Date: Fri, 14 Jun 2024 20:32:27 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, 
+ Melissa Wen <mwen@igalia.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, 
+ Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>,
+ daniel@ffwll.ch, Daniel Stone <daniel@fooishbar.org>,
+ 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>, 
+ Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>,
+ Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Sam Ravnborg <sam@ravnborg.org>, Boris Brezillon <bbrezillon@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>
+Subject: Re: [PATCH v6 2/8] drm: Support per-plane async flip configuration
+Message-ID: <ycgax5ulfcdho2ocrqhzwuvrtwjkwuzi4ghnutl72e5ye3wkxf@ajirwgg7ozwp>
+References: <20240614153535.351689-1-andrealmeid@igalia.com>
+ <20240614153535.351689-3-andrealmeid@igalia.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1699abcf-b9ed-471e-d786-08dc8c974520
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jun 2024 17:27:30.7314 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rOVDX8UnzIak0EcVdxbJizkDKM8JVCxqakclL3S+JEj3AeRXVNhKFmKyjS58EX9PC87N7np1qFjFCuKkpKEDHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8070
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240614153535.351689-3-andrealmeid@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,47 +105,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
-> Limonciello
-> Sent: Friday, June 14, 2024 1:06 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>; Tasos Sahanidis
-> <tasos@tasossah.com>
-> Subject: [PATCH 1/2] drm/amdgpu/pptable: Fix __counted_by attribute
->
-> The attribute is not helpful if commented out.
-
-It's commented out on purpose because it breaks clang 19.  See:
-https://lists.freedesktop.org/archives/amd-gfx/2024-May/109223.html
-
-Alex
-
->
-> Cc: Tasos Sahanidis <tasos@tasossah.com>
-> Fixes: c6c4dd540125 ("drm/amdgpu/pptable: Fix UBSAN array-index-out-of-
-> bounds")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+On Fri, Jun 14, 2024 at 12:35:29PM GMT, André Almeida wrote:
+> Drivers have different capabilities on what plane types they can or
+> cannot perform async flips. Create a plane::async_flip field so each
+> driver can choose which planes they allow doing async flips.
+> 
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
 > ---
->  drivers/gpu/drm/amd/include/pptable.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/pptable.h
-> b/drivers/gpu/drm/amd/include/pptable.h
-> index f83ace2d7ec3..984770d0eb4c 100644
-> --- a/drivers/gpu/drm/amd/include/pptable.h
-> +++ b/drivers/gpu/drm/amd/include/pptable.h
-> @@ -480,7 +480,7 @@ typedef struct _StateArray{
->       //how many states we have
->       UCHAR ucNumEntries;
->
-> -     ATOM_PPLIB_STATE_V2 states[] /* __counted_by(ucNumEntries) */;
-> +     ATOM_PPLIB_STATE_V2 states[] __counted_by(ucNumEntries);
->  }StateArray;
->
->
-> --
-> 2.43.0
+>  drivers/gpu/drm/drm_atomic_uapi.c | 4 ++--
+>  include/drm/drm_plane.h           | 5 +++++
+>  2 files changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 2e1d9391febe..ed1af3455477 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1079,9 +1079,9 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+>  			break;
+>  		}
+>  
+> -		if (async_flip && plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY) {
+> +		if (async_flip && !plane->async_flip) {
 
+So, after this patch async flips becomes disabled until the driver
+enables that manually. Whether that's desired or not is a separate
+topic, but this definitely should be explicitly mentioned in the commit
+message.
+
+>  			drm_dbg_atomic(prop->dev,
+> -				       "[OBJECT:%d] Only primary planes can be changed during async flip\n",
+> +				       "[PLANE:%d] does not support async flips\n",
+>  				       obj->id);
+>  			ret = -EINVAL;
+>  			break;
+> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+> index 9507542121fa..0bebc72af5c3 100644
+> --- a/include/drm/drm_plane.h
+> +++ b/include/drm/drm_plane.h
+> @@ -786,6 +786,11 @@ struct drm_plane {
+>  	 * @kmsg_panic: Used to register a panic notifier for this plane
+>  	 */
+>  	struct kmsg_dumper kmsg_panic;
+> +
+> +	/**
+> +	 * @async_flip: indicates if a plane can do async flips
+> +	 */
+> +	bool async_flip;
+>  };
+>  
+>  #define obj_to_plane(x) container_of(x, struct drm_plane, base)
+> -- 
+> 2.45.2
+> 
+
+-- 
+With best wishes
+Dmitry
