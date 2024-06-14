@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30269C27C77
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 15:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C21D4C27C77
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jun 2024 15:36:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4BE610EDAF;
-	Fri, 14 Jun 2024 15:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0FE810ED9B;
+	Fri, 14 Jun 2024 15:36:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aFh82x5B";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gtCN9fMK";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7941410ED9B;
- Fri, 14 Jun 2024 15:36:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A343210EDB1;
+ Fri, 14 Jun 2024 15:36:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=kmzOSqTKJaH0dvCeP0l9yACALP9ZDMY12Vpbbl/oZpo=; b=aFh82x5B16HfjMQDExiRAYOAAm
- f+p+YESYJxmGdkjJJFXxIDhcYx424j/smaqMdz5/3/77aQOwxYLMkU3TAiDIHnWA3uZbeVh+KJ3sG
- fZLfCLiAazI7zvQfh3PgDOBn3lC7zkMFUX+1P8dETPjZUtjjT5je5ozkwzmWO9uQJAV+1B3FVqHfj
- fJrMwntYMkrFJS+a0THptww0VlUiKdUlXTqyKCVNZGDmYVMBgCC4mvFPLMDCih6mtCipLYaOqMxhV
- C/BP6hP0UqoVg8a0V6OfZJyi5xnvMZNwv7vZ6GOHhLn6EpJuxPcmnoF3Hd+lUHHJNBUD5cfKaV8Po
- phSrk10g==;
+ bh=BAKaAobYFUntrejEJZZwpK2PmNSiy7/4l9aRDDrVOhI=; b=gtCN9fMKRnOmGRz3sWltUWir12
+ OQWrlw1tdqxYq7cGWZAPF/OyYugN6y9DJ6Be+avuIpiQAx/BME0kxqnXkBrt1Xyc1SlBgATI8BZQx
+ bef/kQ26YVQA/U+D9+/oyeC366w4pLz3Hh03eS6Tl+NMrYYFZwyB6WD/bxfTK7rWilPSLB7WNkFXT
+ Cz2XRf4Eyva+f6JnPsqSJo7DzoHLv5Ti0tVprTXd+F2eYk0/ghIQKfjtKoZUVq66Pj8kjOTaCYyJF
+ a1jCuGz2PM30L7I7KMxG4tEucrWOV8DdqNZTw6QXY0+4zN5Y5uSG1kpIEpqcSZrQoa8BTptX1R32O
+ FuQ4jkyA==;
 Received: from [179.118.191.115] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sI8yA-003B8v-5N; Fri, 14 Jun 2024 17:36:02 +0200
+ id 1sI8yP-003B8v-TK; Fri, 14 Jun 2024 17:36:18 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -55,9 +55,10 @@ Cc: kernel-dev@igalia.com, Melissa Wen <mwen@igalia.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Karol Herbst <kherbst@redhat.com>,
  Lyude Paul <lyude@redhat.com>,
  =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v6 2/8] drm: Support per-plane async flip configuration
-Date: Fri, 14 Jun 2024 12:35:29 -0300
-Message-ID: <20240614153535.351689-3-andrealmeid@igalia.com>
+Subject: [PATCH v6 4/8] drm: atmel-hlcdc: Enable async flips on the primary
+ plane
+Date: Fri, 14 Jun 2024 12:35:31 -0300
+Message-ID: <20240614153535.351689-5-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240614153535.351689-1-andrealmeid@igalia.com>
 References: <20240614153535.351689-1-andrealmeid@igalia.com>
@@ -78,48 +79,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drivers have different capabilities on what plane types they can or
-cannot perform async flips. Create a plane::async_flip field so each
-driver can choose which planes they allow doing async flips.
+This driver can perfom async flips on primary planes, so enable it.
 
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 4 ++--
- include/drm/drm_plane.h           | 5 +++++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 2e1d9391febe..ed1af3455477 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1079,9 +1079,9 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 			break;
- 		}
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
+index 4a7ba0918eca..22b8a5c888ef 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
+@@ -1227,6 +1227,9 @@ static int atmel_hlcdc_plane_create(struct drm_device *dev,
+ 	if (ret)
+ 		return ret;
  
--		if (async_flip && plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY) {
-+		if (async_flip && !plane->async_flip) {
- 			drm_dbg_atomic(prop->dev,
--				       "[OBJECT:%d] Only primary planes can be changed during async flip\n",
-+				       "[PLANE:%d] does not support async flips\n",
- 				       obj->id);
- 			ret = -EINVAL;
- 			break;
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index 9507542121fa..0bebc72af5c3 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -786,6 +786,11 @@ struct drm_plane {
- 	 * @kmsg_panic: Used to register a panic notifier for this plane
- 	 */
- 	struct kmsg_dumper kmsg_panic;
++	if (type == DRM_PLANE_TYPE_PRIMARY)
++		plane->base.async_flip = true;
 +
-+	/**
-+	 * @async_flip: indicates if a plane can do async flips
-+	 */
-+	bool async_flip;
- };
+ 	drm_plane_helper_add(&plane->base,
+ 			     &atmel_hlcdc_layer_plane_helper_funcs);
  
- #define obj_to_plane(x) container_of(x, struct drm_plane, base)
 -- 
 2.45.2
 
