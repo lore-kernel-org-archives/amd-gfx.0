@@ -4,68 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18EDAC27C79
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 16:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55763C2BA1A
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 19:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADCE10E44F;
-	Mon, 17 Jun 2024 16:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBA2510E4C6;
+	Mon, 17 Jun 2024 19:14:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="MlTNJ5yA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Pdf6L9bY";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A17910E44F;
- Mon, 17 Jun 2024 16:09:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1718640590; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=T6VNZZTKWK98m6wccXRvPpXuMDfzjfZN4jNQRp06Zj4knWM00LZC1ppA1GIo5o8q1A0aJIAhw0N2w1jDDWYV9Q1ZPAfiL13j9FpBOtYw/kfylpCAJ16qlgkcKplLlus1PJXDEQyaCegwmCHh+uTf6N1+9iAI1iCzYSW1QHYeYfM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1718640590;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=qvtQkXAV7hbFm6WNqefq/KR9Y+kAopnxCYfCiEGoiio=; 
- b=hoF1Que5YDTWB6IUAJpOLqkpo1SUg+oCelLmRs9ZQmYcK/FrODo+jzteJlsfpD4DDNpxbtxztpRV0Wlh4nkfe43RU+pToR3xfDm83FfRoMt+FrZm7BB/MI2TX+HauQIJpGaYZfpgNGe9tjQo5vFH7HqRC0cC14lX9TSdPUiUFKI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1718640590; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=qvtQkXAV7hbFm6WNqefq/KR9Y+kAopnxCYfCiEGoiio=;
- b=MlTNJ5yAB+DkFWstBJJdGy6nDxJb7C7QxD+/TBmUDH9UPPHA4ai95ABjzYarajr6
- aBOi4Qz2pQxy2iAAicvGYTvOzOn3uco+SmhTBTvSfLfMj9FOquP8/OnsOUtqhVfstp7
- 2OYd82Usu2MSc4rYjTvKRAxmLuH9NhRrYgbabf/NfgjbRAOUayxAa9vok7o+rW5PeRt
- AAKSKbxcpemAubkz7UX+Ps0FdsyeVXFsc2t1QcYSzB4y0EHog/9ajDiAgU8Fn0zJw9V
- JGHtYWrV19Vrg/WXl5SonZ84E6+QvVMdTqKrtON8xB/q2yROBFmJgI/jU3E1gFsS5ea
- +Aal/Gci4g==
-Received: by mx.zohomail.com with SMTPS id 1718640587690600.9970315357476;
- Mon, 17 Jun 2024 09:09:47 -0700 (PDT)
-Message-ID: <73597116d4f004c5f75cf4f13da1af405ea8da8b.camel@icenowy.me>
-Subject: Re: [PATCH 1/2] drm/amdgpu: make duplicated EOP packet for GFX7/8
- have real content
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, David
- Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Pierre-Eric
- Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Huacai Chen
- <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev
-Date: Tue, 18 Jun 2024 00:09:42 +0800
-In-Reply-To: <d44651a7-0c07-4b84-8828-f1d405359aeb@amd.com>
-References: <20240617105846.1516006-1-uwu@icenowy.me>
- <20240617105846.1516006-2-uwu@icenowy.me>
- <88337509-3ad7-47aa-b70f-5294f7f1e486@amd.com>
- <b4ebdbce2f44c06806a650e72b1b6eb9a16dffe6.camel@icenowy.me>
- <09fbcd1f-c7b1-47e3-9146-17f8189978a8@amd.com>
- <e88d4722fa3bbd7104b140debdd85cb212628944.camel@icenowy.me>
- <d44651a7-0c07-4b84-8828-f1d405359aeb@amd.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51BEC10E4C5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jun 2024 19:14:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fhUoP9EhPOXY+tknEq7T9n7BSdrepleW4THibu0AYN+kFD/Vh68A5mnVKLaF/x1gsRenneAp9wvhcDSy79pH9k1g2USoWskt0rcFJILV44rARF3nXN4KuazNurF6oz5e+MhsZ/XDZo+t5xe4hBfW0+ODr8iocN7ij41s1+E4j5g3vHLAnzi3RCBbL64DdR5CE8Ijiae9yDElJLWb13l7cVBffu/aRNZyTqOp6iBGHPj7nPUJqqi8VLm+RFDHD7C/QyOFkmEJkSMkoC8+6j710x7cX+/lCqEOBCst0Kzto9bn+KDShWFrg+SMHTwhp4FADe7wn4gePn5LHzHQP99cKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3D0QZZFx/ZV6eiTBmtVPDLbdJuCV8YZK8UjLiNbfsCE=;
+ b=SgDi7J2dKYj86AK9bNbvhjQh+yy6w89sf2KnHvlZ9ilOn0eplCbeR65iBJfFtNf+MBJbf1COE4m+ev8+FoVA2sueA5vJdH56rFstX/hoSpYsQ6CLhByszeMeYFU0i+SjVI8wZJYzc+PX0f9bb84JdnUwqhTpyADz9F9mCThp9JWuDbzdiZIVIefyzvWmEdfJBDFmh1XFGk28L86WIQmX95e/R/7Y3mERnw53STaUaIVrOVqbDcB9oLMDli5VFUnldJWkQwB0EUANB2GnJAcPqyg+FqG/8M/cyp+iTItyiVUmrHMDLCGXxQUhGDHekDMGoa/0r/KW7H8yu3V7Q3o5qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3D0QZZFx/ZV6eiTBmtVPDLbdJuCV8YZK8UjLiNbfsCE=;
+ b=Pdf6L9bYb4tXqfYrMx1gt27blwu1TgLi+Dv4EXcpB0rxlOiVbUdjqwEFpVKoBEuTa/txHKcO+ae/VGN2TXoU3qLLLEtv0rbhIhwZq2MbU0FGUH3kthTP9+iPWZpRdMDgUl8Uy7EB4jG4WI2pUzMQ5E+6zYbpc7u1YkznBsnVsHI=
+Received: from SA0PR11CA0138.namprd11.prod.outlook.com (2603:10b6:806:131::23)
+ by DM6PR12MB4218.namprd12.prod.outlook.com (2603:10b6:5:21b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.25; Mon, 17 Jun
+ 2024 19:14:36 +0000
+Received: from SA2PEPF000015CD.namprd03.prod.outlook.com
+ (2603:10b6:806:131:cafe::41) by SA0PR11CA0138.outlook.office365.com
+ (2603:10b6:806:131::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31 via Frontend
+ Transport; Mon, 17 Jun 2024 19:14:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CD.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Mon, 17 Jun 2024 19:14:34 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Jun
+ 2024 14:14:33 -0500
+Received: from aaurabin-suse.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 17 Jun 2024 14:14:28 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>, <likun.gao@amd.com>, 
+ <aurabindo.pillai@amd.com>, Likun Gao <Likun.Gao@amd.com>
+Subject: [PATCH] drm/amdgpu: init TA fw for psp v14
+Date: Mon, 17 Jun 2024 15:14:28 -0400
+Message-ID: <20240617191428.3039656-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|DM6PR12MB4218:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5dee493-ed5e-4ae2-944f-08dc8f01b945
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|36860700010|376011|1800799021|82310400023; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?n5pDV+KecDK+fzTKJ3QPqY5siILo+vFJTJiDxju0vl6Z/r7hWMmC5d7AfHTR?=
+ =?us-ascii?Q?uSVQrAGU3uUwjtprPzOu2TBihsHdZvkU5iD9JqMvzgi/wbP5Xlk4X4yuzLJc?=
+ =?us-ascii?Q?tuuukUirQ8NoCPWInhlkqCPnbh3rKL0BX5SVQ9/ty4zjNKZWGVSRVuk26bkD?=
+ =?us-ascii?Q?cy+2BVQI+IiYzC4bjn/fMKIu/d20AE51Nzxt8q7aVmyZTXL2GzYwNz4bHNlC?=
+ =?us-ascii?Q?L2L698ZKBQgP6GZgEPk193505R51+bvTalUGkRWRl61ozYjelJZNKQQf0WuT?=
+ =?us-ascii?Q?bzcpHffqaRhx+xGOijUGZwELiijitZaz2GHlovhJZAKDrbLXBXpcMbmGx7xA?=
+ =?us-ascii?Q?DWUd/JccJyz2N6N4WVS1kV03KRpu93NAdhPEOgmMRCrkRrLMk4aLyvD/ZkdW?=
+ =?us-ascii?Q?vH9doPF5KlOjMUlJUOWhtlY50qJDSkaAjueotYf1+fGGvG7+0kDPgb2TSWtD?=
+ =?us-ascii?Q?S4jFydbPS2fllTIPu+tiyWpDxZNfB+yRBooSBJEdrVVYXH9v3pwY433Do+yU?=
+ =?us-ascii?Q?mJY8JtwKu91+H7itXBPnO9PA1TH83Fll/GAgBe6xvjmWzDn8K81wxjebIHcf?=
+ =?us-ascii?Q?1Tfu7B75zAk3RFZIoMiKwAJ2YVs1Lilw/jkEhd20E5o1XnKST0SXBm+qhsoV?=
+ =?us-ascii?Q?D1RJvdN/+XZL/se305MwF7j0RikGb49bz5YE/jfYPWTtabm7e5a5nZR6U56m?=
+ =?us-ascii?Q?JfRv8XoZUqQQPcm8Pl5saIfmNlQsWLs1o+PbxdXSVpQ/ZEFMKEw5ycWQqPfT?=
+ =?us-ascii?Q?xSWIkH7nj8B8xF121VXGHJFP4i72I+fz9eqRDtHOgKOEm3EnW5mPbEP0d6yq?=
+ =?us-ascii?Q?AsTkYSt651pHWrGfDHXZfwGGEf2GbKPIFeD8NYIdGrVhktm6PdT2wtJ12uSH?=
+ =?us-ascii?Q?ROuJ/uVfrd46YW8XeGsZW9A95sD3hmmxAKqMnYwNP8OgCZYrAdhwZphZwcnt?=
+ =?us-ascii?Q?BnLJjvQ+ZC/+H0BxaBBxH3vzVovy1C0au4CuZBLnZWD8Jy311NUGY0aPS5+Z?=
+ =?us-ascii?Q?2Px7iH73AJLO0ouY39FAyXfzbZSAmTDaQjH85+PSDw7rcXw0lwVoFhRpaPbz?=
+ =?us-ascii?Q?9mYRPV0rOXI51OssUlR+0fll3CRFQTIKMUAfb88dHyC2Ddkg6mtZs0ItnAN8?=
+ =?us-ascii?Q?+YMPtXx25s+klZCnaXwBsDFkeaiYrP6iihAkEuMeNkgoOFAW0/0wjddvK4zB?=
+ =?us-ascii?Q?OCrBPfj9ZcPY+dLdpv2IolnrarNCMvl0iqwVBdDepUTk1zmSRsJS3CbsOTEz?=
+ =?us-ascii?Q?lz5sST2Ga+H6ZCQEZB4BiQer/Y0pn0gMHu/chTUhmZVNJZERlpIDnv+3oQ6/?=
+ =?us-ascii?Q?iEIzJ3VYN5/Tdde9f3xtMwQ4BWfBwcm6BKfqukUZ5Bhtner0uUv+0nJw8pJq?=
+ =?us-ascii?Q?+10LdjhT2oy9+2Bm2NPRjUjVL/FEaBs6RJPETZUD6D9y7H973A=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230037)(36860700010)(376011)(1800799021)(82310400023); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2024 19:14:34.4914 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5dee493-ed5e-4ae2-944f-08dc8f01b945
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,292 +131,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2024-06-17=E6=98=9F=E6=9C=9F=E4=B8=80=E7=9A=84 15:59 +0200=EF=BC=
-=8CChristian K=C3=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> Am 17.06.24 um 15:43 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2024-06-17=E6=98=9F=E6=9C=9F=E4=B8=80=E7=9A=84 15:09 +0200=EF=
-=BC=8CChristian K=C3=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> > > Am 17.06.24 um 15:03 schrieb Icenowy Zheng:
-> > > > =E5=9C=A8 2024-06-17=E6=98=9F=E6=9C=9F=E4=B8=80=E7=9A=84 14:35 +020=
-0=EF=BC=8CChristian K=C3=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > Am 17.06.24 um 12:58 schrieb Icenowy Zheng:
-> > > > > > The duplication of EOP packets for GFX7/8, with the former
-> > > > > > one
-> > > > > > have
-> > > > > > seq-1 written and the latter one have seq written, seems to
-> > > > > > confuse
-> > > > > > some
-> > > > > > hardware platform (e.g. Loongson 7A series PCIe
-> > > > > > controllers).
-> > > > > >=20
-> > > > > > Make the content of the duplicated EOP packet the same with
-> > > > > > the
-> > > > > > real
-> > > > > > one, only masking any possible interrupts.
-> > > > > Well completely NAK to that, exactly that disables the
-> > > > > workaround.
-> > > > >=20
-> > > > > The CPU needs to see two different values written here.
-> > > > Why do the CPU need to see two different values here? Only the
-> > > > second
-> > > > packet will raise an interrupt before and after applying this
-> > > > patch,
-> > > > and the first packet's result should just be overriden on
-> > > > ordinary
-> > > > platforms. The CPU won't see the first one, until it's polling
-> > > > for
-> > > > the
-> > > > address for a very short interval, so short that the GPU CP
-> > > > couldn't
-> > > > execute 2 commands.
-> > > Yes exactly that. We need to make two writes, one with the old
-> > > value
-> > > (seq - 1) and a second with the real value (seq).
-> > >=20
-> > > Otherwise it is possible that a polling CPU would see the
-> > > sequence
-> > > before the second EOP is issued with results in incoherent view
-> > > of
-> > > memory.
-> > In this case shouldn't we write seq-1 before any work, and then
-> > write
-> > seq after work, like what is done in Mesa?
->=20
-> No. This hw workaround requires that two consecutive write operations
-> happen directly behind each other on the PCIe bus with two different
-> values.
->=20
-> To make the software logic around that work without any changes we
-> use=20
-> the values seq - 1 and seq because those are guaranteed to be
-> different=20
-> and not trigger any unwanted software behavior.
->=20
-> Only then we can guarantee that we have a coherent view of system
-> memory.
+From: Likun Gao <Likun.Gao@amd.com>
 
-BTW is there any operation that could be taken to examine this specific
-workaround?
+Add support to init TA firmware for psp v14.
 
-Is there any case possible to reproduce?
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v14_0.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
->=20
-> > As what I see, Mesa uses another command buffer to emit a
-> > EVENT_WRITE_EOP writing 0, and commit this command buffer before
-> > the
-> > real command buffer.
-> >=20
-> > > > Or do you mean the GPU needs to see two different values being
-> > > > written,
-> > > > or they will be merged into only one write request?
-> > > >=20
-> > > > Please give out more information about this workaround,
-> > > > otherwise
-> > > > the
-> > > > GPU hang problem on Loongson platforms will persist.
-> > > Well if Loongson can't handle two consecutive write operations to
-> > > the
-> > > same address with different values then you have a massive
-> > > platform
-> > > bug.
-> > I think the issue is triggered when two consecutive write
-> > operations
-> > and one IRQ is present, which is exactly the case of this function.
->=20
-> Well then you have a massive platform bug.
->=20
-> Two consecutive writes to the same bus address are perfectly legal
-> from=20
-> the PCIe specification and can happen all the time, even without this
-> specific hw workaround.
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > > That is something which can happen all the time throughout the
-> > > operation.
-> > >=20
-> > > Regards,
-> > > Christian.
-> > >=20
-> > > > > Regards,
-> > > > > Christian.
-> > > > >=20
-> > > > > > Fixes: bf26da927a1c ("drm/amdgpu: add cache flush
-> > > > > > workaround to
-> > > > > > gfx8 emit_fence")
-> > > > > > Fixes: a2e73f56fa62 ("drm/amdgpu: Add support for CIK
-> > > > > > parts")
-> > > > > > Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
-> > > > > > ---
-> > > > > > =C2=A0=C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 12 +=
-++++-------
-> > > > > > =C2=A0=C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 12 +=
-+++--------
-> > > > > > =C2=A0=C2=A0=C2=A0 2 files changed, 9 insertions(+), 15 deletio=
-ns(-)
-> > > > > >=20
-> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > > > > index 541dbd70d8c75..778f27f1a34fe 100644
-> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > > > > @@ -2117,9 +2117,8 @@ static void
-> > > > > > gfx_v7_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
-> > > > > > addr,
-> > > > > > =C2=A0=C2=A0=C2=A0 {
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0boo=
-l write64bit =3D flags &
-> > > > > > AMDGPU_FENCE_FLAG_64BIT;
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0boo=
-l int_sel =3D flags & AMDGPU_FENCE_FLAG_INT;
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for ca=
-che flush problems. First send
-> > > > > > a
-> > > > > > dummy
-> > > > > > EOP
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * event down the pi=
-pe with seq one below.
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > > > > > +
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for ca=
-che flush problems, send EOP
-> > > > > > twice.
-> > > > > > */
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring,
-> > > > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
-> > > > > > 4));
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, (EOP_TCL1_ACTION_EN |
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_A=
-CTION_EN |
-> > > > > > @@ -2127,11 +2126,10 @@ static void
-> > > > > > gfx_v7_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
-> > > > > > addr,
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EVENT_IN=
-DEX(5)));
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, addr & 0xfffffffc);
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, (upper_32_bits(addr) &
-> > > > > > 0xffff)
-> > > > > > >=20
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DATA_SEL(1) | INT_SEL(0)=
-);
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, lower_32_bits(seq - 1));
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, upper_32_bits(seq - 1));
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DATA_SEL(write64bit ? 2 =
-:
-> > > > > > 1) |
-> > > > > > INT_SEL(0));
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, lower_32_bits(seq));
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, upper_32_bits(seq));
-> > > > > > =C2=A0=C2=A0=C2=A0=20
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Then send the rea=
-l EOP event down the pipe. */
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring,
-> > > > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
-> > > > > > 4));
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, (EOP_TCL1_ACTION_EN |
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_A=
-CTION_EN |
-> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > > > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > > > > > index 2f0e72caee1af..39a7d60f1fd69 100644
-> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > > > > > @@ -6153,9 +6153,7 @@ static void
-> > > > > > gfx_v8_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
-> > > > > > addr,
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0boo=
-l write64bit =3D flags &
-> > > > > > AMDGPU_FENCE_FLAG_64BIT;
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0boo=
-l int_sel =3D flags & AMDGPU_FENCE_FLAG_INT;
-> > > > > > =C2=A0=C2=A0=C2=A0=20
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for ca=
-che flush problems. First send
-> > > > > > a
-> > > > > > dummy
-> > > > > > EOP
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * event down the pi=
-pe with seq one below.
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for ca=
-che flush problems, send EOP
-> > > > > > twice.
-> > > > > > */
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring,
-> > > > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
-> > > > > > 4));
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, (EOP_TCL1_ACTION_EN |
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_A=
-CTION_EN |
-> > > > > > @@ -6164,12 +6162,10 @@ static void
-> > > > > > gfx_v8_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
-> > > > > > addr,
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EVENT_IN=
-DEX(5)));
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, addr & 0xfffffffc);
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, (upper_32_bits(addr) &
-> > > > > > 0xffff)
-> > > > > > >=20
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DATA_SEL(1) | INT_SEL(0)=
-);
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, lower_32_bits(seq - 1));
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, upper_32_bits(seq - 1));
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 DATA_SEL(write64bit ? 2 : 1) |
-> > > > > > INT_SEL(0));
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, lower_32_bits(seq));
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ri=
-ng, upper_32_bits(seq));
-> > > > > > =C2=A0=C2=A0=C2=A0=20
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Then send the rea=
-l EOP event down the pipe:
-> > > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * EVENT_WRITE_EOP -=
- flush caches, send int */
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring,
-> > > > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
-> > > > > > 4));
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amd=
-gpu_ring_write(ring, (EOP_TCL1_ACTION_EN |
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_A=
-CTION_EN |
->=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+index cc0248efa6b6..4d33c95a5116 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+@@ -32,7 +32,9 @@
+ #include "mp/mp_14_0_2_sh_mask.h"
+ 
+ MODULE_FIRMWARE("amdgpu/psp_14_0_2_sos.bin");
++MODULE_FIRMWARE("amdgpu/psp_14_0_2_ta.bin");
+ MODULE_FIRMWARE("amdgpu/psp_14_0_3_sos.bin");
++MODULE_FIRMWARE("amdgpu/psp_14_0_3_ta.bin");
+ 
+ /* For large FW files the time to complete can be very long */
+ #define USBC_PD_POLLING_LIMIT_S 240
+@@ -64,6 +66,9 @@ static int psp_v14_0_init_microcode(struct psp_context *psp)
+ 	case IP_VERSION(14, 0, 2):
+ 	case IP_VERSION(14, 0, 3):
+ 		err = psp_init_sos_microcode(psp, ucode_prefix);
++		if (err)
++			return err;
++		err = psp_init_ta_microcode(psp, ucode_prefix);
+ 		if (err)
+ 			return err;
+ 		break;
+-- 
+2.45.2
 
