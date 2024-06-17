@@ -4,53 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD33BC2BA15
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 13:22:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85B1DC27C79
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 13:43:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5091710E3AE;
-	Mon, 17 Jun 2024 13:22:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA8DB10E3CC;
+	Mon, 17 Jun 2024 13:43:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nlu/2Sgx";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="MhZhQSod";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABBD510E175;
- Mon, 17 Jun 2024 13:22:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 03D9F60EBA;
- Mon, 17 Jun 2024 13:22:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB13C4AF1C;
- Mon, 17 Jun 2024 13:22:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718630539;
- bh=X0tAiBJPBMS2Sym2Di+jZS/UBuaLHIAG8Kf/jbT6/5g=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nlu/2SgxW1TGsZ7q9g59jzW89dsJpI83p4UULa/f6jZdwUAqGDgCXNtcs/lZl/EoO
- GPGBo2DHLWvOveWUJxXUlkFNH0rQIUibM5Zn9vvvFO6lxdPZYC5o2uB/GsJUZg9nzI
- wwSU780nys6YYFXG6JNKiY0fLepeMje4hnV4+cXQuNgCFMGuiJkqszEuPCXFqQLSEE
- MxNnmFBREhgwJSd8EHEcjQIeUJu06JnsoTSXitHRyhu+h7sLMbPR4kv/IH6cjvLRa8
- h9wkwD/qvGkOgud1vEB0bTcx/DoJLAPIZyaCB9GUwrkkGSxZh/ScamHutZk8hCbLKx
- 7o5hvA1jg880Q==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Tasos Sahanidis <tasos@tasossah.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, mario.limonciello@amd.com, lijo.lazar@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hardening@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.9 38/44] drm/amdgpu/pptable: Fix UBSAN
- array-index-out-of-bounds
-Date: Mon, 17 Jun 2024 09:19:51 -0400
-Message-ID: <20240617132046.2587008-38-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240617132046.2587008-1-sashal@kernel.org>
-References: <20240617132046.2587008-1-sashal@kernel.org>
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F2210E3CF;
+ Mon, 17 Jun 2024 13:43:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1718631796; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Hokgeck+Y8PouhlrlJ4mIrhR0wChdzLv1Tn3iKLa2QeUgeI/3ij+hqsQFiEStPjWqBFsT+LZRD/r5ubZpGFN9WG4OMHnAGWZqLeWcSaJecefvTBgyEHcDdivgMGctiqYCP5j2baOA3hIEau4SPngxRUkgGuztxEzJ6APxDexfG4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1718631796;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=c1E9WBMtpBHWD0CIJK7m5aHMGnrQFnw/g0UX/IVKAuk=; 
+ b=YWPfDz34xWwrGHwqJEkIi8FN4QENpZj8WRDrU9j9O3HaFsVc2liixk8GaZX70QhhMAyQwiZNgPZ4AtgE3acfIRH6EyFLtOKUNrbGxWG+ikq8SPmLwEadiVSeBHehvi3wg4OPi+WsGEgXowxLzNYxZV2J37xDZGFE0LkTAbmu+v0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1718631796; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=c1E9WBMtpBHWD0CIJK7m5aHMGnrQFnw/g0UX/IVKAuk=;
+ b=MhZhQSodKoduTW+7fwvyLqLSoTySqeH1oNRkj2hDaMwXVYxzW1eiPy+wd21sforu
+ CqT5Svuevqs8B0ZqG+D8nemWSjGEsieCLyE7YPXUA0rWDWczBuyl3xriRzIBLzIs5ax
+ MtgiM2uVGrA2qMOVd4/3orR8nw/QExLcGr8FFsoFWNOzRuQrhpbHlYMZD1+TDXPIQux
+ 6q3plFohBTVAAlzAWxxHCbYHfboTIt1fv3+LyuQN+Qb0DZbHTq58oMGPNT+0ox/T5vx
+ TlT+23b79pAx+wr1fSebwce4u5hCV2sZHxJQkR9NBXV4gpxCvmFPhC8Ulh+jTG0LQL8
+ O2sufHV9ZA==
+Received: by mx.zohomail.com with SMTPS id 1718631794981796.3743031204694;
+ Mon, 17 Jun 2024 06:43:14 -0700 (PDT)
+Message-ID: <e88d4722fa3bbd7104b140debdd85cb212628944.camel@icenowy.me>
+Subject: Re: [PATCH 1/2] drm/amdgpu: make duplicated EOP packet for GFX7/8
+ have real content
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, David
+ Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Pierre-Eric
+ Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Huacai Chen
+ <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev
+Date: Mon, 17 Jun 2024 21:43:08 +0800
+In-Reply-To: <09fbcd1f-c7b1-47e3-9146-17f8189978a8@amd.com>
+References: <20240617105846.1516006-1-uwu@icenowy.me>
+ <20240617105846.1516006-2-uwu@icenowy.me>
+ <88337509-3ad7-47aa-b70f-5294f7f1e486@amd.com>
+ <b4ebdbce2f44c06806a650e72b1b6eb9a16dffe6.camel@icenowy.me>
+ <09fbcd1f-c7b1-47e3-9146-17f8189978a8@amd.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4 
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.9.5
-Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,217 +78,235 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tasos Sahanidis <tasos@tasossah.com>
+=E5=9C=A8 2024-06-17=E6=98=9F=E6=9C=9F=E4=B8=80=E7=9A=84 15:09 +0200=EF=BC=
+=8CChristian K=C3=B6nig=E5=86=99=E9=81=93=EF=BC=9A
+> Am 17.06.24 um 15:03 schrieb Icenowy Zheng:
+> > =E5=9C=A8 2024-06-17=E6=98=9F=E6=9C=9F=E4=B8=80=E7=9A=84 14:35 +0200=EF=
+=BC=8CChristian K=C3=B6nig=E5=86=99=E9=81=93=EF=BC=9A
+> > > Am 17.06.24 um 12:58 schrieb Icenowy Zheng:
+> > > > The duplication of EOP packets for GFX7/8, with the former one
+> > > > have
+> > > > seq-1 written and the latter one have seq written, seems to
+> > > > confuse
+> > > > some
+> > > > hardware platform (e.g. Loongson 7A series PCIe controllers).
+> > > >=20
+> > > > Make the content of the duplicated EOP packet the same with the
+> > > > real
+> > > > one, only masking any possible interrupts.
+> > > Well completely NAK to that, exactly that disables the
+> > > workaround.
+> > >=20
+> > > The CPU needs to see two different values written here.
+> > Why do the CPU need to see two different values here? Only the
+> > second
+> > packet will raise an interrupt before and after applying this
+> > patch,
+> > and the first packet's result should just be overriden on ordinary
+> > platforms. The CPU won't see the first one, until it's polling for
+> > the
+> > address for a very short interval, so short that the GPU CP
+> > couldn't
+> > execute 2 commands.
+>=20
+> Yes exactly that. We need to make two writes, one with the old value=20
+> (seq - 1) and a second with the real value (seq).
+>=20
+> Otherwise it is possible that a polling CPU would see the sequence=20
+> before the second EOP is issued with results in incoherent view of
+> memory.
 
-[ Upstream commit c6c4dd54012551cce5cde408b35468f2c62b0cce ]
+In this case shouldn't we write seq-1 before any work, and then write
+seq after work, like what is done in Mesa?
 
-Flexible arrays used [1] instead of []. Replace the former with the latter
-to resolve multiple UBSAN warnings observed on boot with a BONAIRE card.
+As what I see, Mesa uses another command buffer to emit a
+EVENT_WRITE_EOP writing 0, and commit this command buffer before the
+real command buffer.
 
-In addition, use the __counted_by attribute where possible to hint the
-length of the arrays to the compiler and any sanitizers.
+>=20
+> > Or do you mean the GPU needs to see two different values being
+> > written,
+> > or they will be merged into only one write request?
+> >=20
+> > Please give out more information about this workaround, otherwise
+> > the
+> > GPU hang problem on Loongson platforms will persist.
+>=20
+> Well if Loongson can't handle two consecutive write operations to the
+> same address with different values then you have a massive platform
+> bug.
 
-Signed-off-by: Tasos Sahanidis <tasos@tasossah.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/include/pptable.h | 91 ++++++++++++++-------------
- 1 file changed, 49 insertions(+), 42 deletions(-)
+I think the issue is triggered when two consecutive write operations
+and one IRQ is present, which is exactly the case of this function.
 
-diff --git a/drivers/gpu/drm/amd/include/pptable.h b/drivers/gpu/drm/amd/include/pptable.h
-index 2e8e6c9875f6c..f83ace2d7ec30 100644
---- a/drivers/gpu/drm/amd/include/pptable.h
-+++ b/drivers/gpu/drm/amd/include/pptable.h
-@@ -477,31 +477,30 @@ typedef struct _ATOM_PPLIB_STATE_V2
- } ATOM_PPLIB_STATE_V2;
- 
- typedef struct _StateArray{
--    //how many states we have 
--    UCHAR ucNumEntries;
--    
--    ATOM_PPLIB_STATE_V2 states[1];
-+	//how many states we have
-+	UCHAR ucNumEntries;
-+
-+	ATOM_PPLIB_STATE_V2 states[] /* __counted_by(ucNumEntries) */;
- }StateArray;
- 
- 
- typedef struct _ClockInfoArray{
--    //how many clock levels we have
--    UCHAR ucNumEntries;
--    
--    //sizeof(ATOM_PPLIB_CLOCK_INFO)
--    UCHAR ucEntrySize;
--    
--    UCHAR clockInfo[];
-+	//how many clock levels we have
-+	UCHAR ucNumEntries;
-+
-+	//sizeof(ATOM_PPLIB_CLOCK_INFO)
-+	UCHAR ucEntrySize;
-+
-+	UCHAR clockInfo[];
- }ClockInfoArray;
- 
- typedef struct _NonClockInfoArray{
-+	//how many non-clock levels we have. normally should be same as number of states
-+	UCHAR ucNumEntries;
-+	//sizeof(ATOM_PPLIB_NONCLOCK_INFO)
-+	UCHAR ucEntrySize;
- 
--    //how many non-clock levels we have. normally should be same as number of states
--    UCHAR ucNumEntries;
--    //sizeof(ATOM_PPLIB_NONCLOCK_INFO)
--    UCHAR ucEntrySize;
--    
--    ATOM_PPLIB_NONCLOCK_INFO nonClockInfo[];
-+	ATOM_PPLIB_NONCLOCK_INFO nonClockInfo[] __counted_by(ucNumEntries);
- }NonClockInfoArray;
- 
- typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Record
-@@ -513,8 +512,10 @@ typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Record
- 
- typedef struct _ATOM_PPLIB_Clock_Voltage_Dependency_Table
- {
--    UCHAR ucNumEntries;                                                // Number of entries.
--    ATOM_PPLIB_Clock_Voltage_Dependency_Record entries[1];             // Dynamically allocate entries.
-+	// Number of entries.
-+	UCHAR ucNumEntries;
-+	// Dynamically allocate entries.
-+	ATOM_PPLIB_Clock_Voltage_Dependency_Record entries[] __counted_by(ucNumEntries);
- }ATOM_PPLIB_Clock_Voltage_Dependency_Table;
- 
- typedef struct _ATOM_PPLIB_Clock_Voltage_Limit_Record
-@@ -529,8 +530,10 @@ typedef struct _ATOM_PPLIB_Clock_Voltage_Limit_Record
- 
- typedef struct _ATOM_PPLIB_Clock_Voltage_Limit_Table
- {
--    UCHAR ucNumEntries;                                                // Number of entries.
--    ATOM_PPLIB_Clock_Voltage_Limit_Record entries[1];                  // Dynamically allocate entries.
-+	// Number of entries.
-+	UCHAR ucNumEntries;
-+	// Dynamically allocate entries.
-+	ATOM_PPLIB_Clock_Voltage_Limit_Record entries[] __counted_by(ucNumEntries);
- }ATOM_PPLIB_Clock_Voltage_Limit_Table;
- 
- union _ATOM_PPLIB_CAC_Leakage_Record
-@@ -553,8 +556,10 @@ typedef union _ATOM_PPLIB_CAC_Leakage_Record ATOM_PPLIB_CAC_Leakage_Record;
- 
- typedef struct _ATOM_PPLIB_CAC_Leakage_Table
- {
--    UCHAR ucNumEntries;                                                 // Number of entries.
--    ATOM_PPLIB_CAC_Leakage_Record entries[1];                           // Dynamically allocate entries.
-+	// Number of entries.
-+	UCHAR ucNumEntries;
-+	// Dynamically allocate entries.
-+	ATOM_PPLIB_CAC_Leakage_Record entries[] __counted_by(ucNumEntries);
- }ATOM_PPLIB_CAC_Leakage_Table;
- 
- typedef struct _ATOM_PPLIB_PhaseSheddingLimits_Record
-@@ -568,8 +573,10 @@ typedef struct _ATOM_PPLIB_PhaseSheddingLimits_Record
- 
- typedef struct _ATOM_PPLIB_PhaseSheddingLimits_Table
- {
--    UCHAR ucNumEntries;                                                 // Number of entries.
--    ATOM_PPLIB_PhaseSheddingLimits_Record entries[1];                   // Dynamically allocate entries.
-+	// Number of entries.
-+	UCHAR ucNumEntries;
-+	// Dynamically allocate entries.
-+	ATOM_PPLIB_PhaseSheddingLimits_Record entries[] __counted_by(ucNumEntries);
- }ATOM_PPLIB_PhaseSheddingLimits_Table;
- 
- typedef struct _VCEClockInfo{
-@@ -580,8 +587,8 @@ typedef struct _VCEClockInfo{
- }VCEClockInfo;
- 
- typedef struct _VCEClockInfoArray{
--    UCHAR ucNumEntries;
--    VCEClockInfo entries[1];
-+	UCHAR ucNumEntries;
-+	VCEClockInfo entries[] __counted_by(ucNumEntries);
- }VCEClockInfoArray;
- 
- typedef struct _ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record
-@@ -592,8 +599,8 @@ typedef struct _ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record
- 
- typedef struct _ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table
- {
--    UCHAR numEntries;
--    ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record entries[1];
-+	UCHAR numEntries;
-+	ATOM_PPLIB_VCE_Clock_Voltage_Limit_Record entries[] __counted_by(numEntries);
- }ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table;
- 
- typedef struct _ATOM_PPLIB_VCE_State_Record
-@@ -604,8 +611,8 @@ typedef struct _ATOM_PPLIB_VCE_State_Record
- 
- typedef struct _ATOM_PPLIB_VCE_State_Table
- {
--    UCHAR numEntries;
--    ATOM_PPLIB_VCE_State_Record entries[1];
-+	UCHAR numEntries;
-+	ATOM_PPLIB_VCE_State_Record entries[] __counted_by(numEntries);
- }ATOM_PPLIB_VCE_State_Table;
- 
- 
-@@ -626,8 +633,8 @@ typedef struct _UVDClockInfo{
- }UVDClockInfo;
- 
- typedef struct _UVDClockInfoArray{
--    UCHAR ucNumEntries;
--    UVDClockInfo entries[1];
-+	UCHAR ucNumEntries;
-+	UVDClockInfo entries[] __counted_by(ucNumEntries);
- }UVDClockInfoArray;
- 
- typedef struct _ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record
-@@ -638,8 +645,8 @@ typedef struct _ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record
- 
- typedef struct _ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table
- {
--    UCHAR numEntries;
--    ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record entries[1];
-+	UCHAR numEntries;
-+	ATOM_PPLIB_UVD_Clock_Voltage_Limit_Record entries[] __counted_by(numEntries);
- }ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table;
- 
- typedef struct _ATOM_PPLIB_UVD_Table
-@@ -657,8 +664,8 @@ typedef struct _ATOM_PPLIB_SAMClk_Voltage_Limit_Record
- }ATOM_PPLIB_SAMClk_Voltage_Limit_Record;
- 
- typedef struct _ATOM_PPLIB_SAMClk_Voltage_Limit_Table{
--    UCHAR numEntries;
--    ATOM_PPLIB_SAMClk_Voltage_Limit_Record entries[];
-+	UCHAR numEntries;
-+	ATOM_PPLIB_SAMClk_Voltage_Limit_Record entries[] __counted_by(numEntries);
- }ATOM_PPLIB_SAMClk_Voltage_Limit_Table;
- 
- typedef struct _ATOM_PPLIB_SAMU_Table
-@@ -675,8 +682,8 @@ typedef struct _ATOM_PPLIB_ACPClk_Voltage_Limit_Record
- }ATOM_PPLIB_ACPClk_Voltage_Limit_Record;
- 
- typedef struct _ATOM_PPLIB_ACPClk_Voltage_Limit_Table{
--    UCHAR numEntries;
--    ATOM_PPLIB_ACPClk_Voltage_Limit_Record entries[1];
-+	UCHAR numEntries;
-+	ATOM_PPLIB_ACPClk_Voltage_Limit_Record entries[] __counted_by(numEntries);
- }ATOM_PPLIB_ACPClk_Voltage_Limit_Table;
- 
- typedef struct _ATOM_PPLIB_ACP_Table
-@@ -743,9 +750,9 @@ typedef struct ATOM_PPLIB_VQ_Budgeting_Record{
- } ATOM_PPLIB_VQ_Budgeting_Record;
- 
- typedef struct ATOM_PPLIB_VQ_Budgeting_Table {
--    UCHAR revid;
--    UCHAR numEntries;
--    ATOM_PPLIB_VQ_Budgeting_Record         entries[1];
-+	UCHAR revid;
-+	UCHAR numEntries;
-+	ATOM_PPLIB_VQ_Budgeting_Record entries[] __counted_by(numEntries);
- } ATOM_PPLIB_VQ_Budgeting_Table;
- 
- #pragma pack()
--- 
-2.43.0
+>=20
+> That is something which can happen all the time throughout the
+> operation.
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > > Regards,
+> > > Christian.
+> > >=20
+> > > > Fixes: bf26da927a1c ("drm/amdgpu: add cache flush workaround to
+> > > > gfx8 emit_fence")
+> > > > Fixes: a2e73f56fa62 ("drm/amdgpu: Add support for CIK parts")
+> > > > Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
+> > > > ---
+> > > > =C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 12 +++++------=
+-
+> > > > =C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 12 ++++-------=
+-
+> > > > =C2=A0=C2=A0 2 files changed, 9 insertions(+), 15 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > > index 541dbd70d8c75..778f27f1a34fe 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > > @@ -2117,9 +2117,8 @@ static void
+> > > > gfx_v7_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
+> > > > addr,
+> > > > =C2=A0=C2=A0 {
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bool write64b=
+it =3D flags & AMDGPU_FENCE_FLAG_64BIT;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bool int_sel =
+=3D flags & AMDGPU_FENCE_FLAG_INT;
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for cache =
+flush problems. First send a
+> > > > dummy
+> > > > EOP
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * event down the pipe w=
+ith seq one below.
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for cache =
+flush problems, send EOP twice.
+> > > > */
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring,
+> > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
+> > > > 4));
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, (EOP_TCL1_ACTION_EN |
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_ACTION_EN =
+|
+> > > > @@ -2127,11 +2126,10 @@ static void
+> > > > gfx_v7_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
+> > > > addr,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EVENT_INDEX(5)));
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, addr & 0xfffffffc);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, (upper_32_bits(addr) & 0xffff)
+> > > > |
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DATA_SEL(1) | INT_SEL(0));
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+lower_32_bits(seq - 1));
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+upper_32_bits(seq - 1));
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DATA_SEL(write64bit ? 2 : 1) |
+> > > > INT_SEL(0));
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+lower_32_bits(seq));
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+upper_32_bits(seq));
+> > > > =C2=A0=C2=A0=20
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Then send the real EO=
+P event down the pipe. */
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring,
+> > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
+> > > > 4));
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, (EOP_TCL1_ACTION_EN |
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_ACTION_EN =
+|
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > > > index 2f0e72caee1af..39a7d60f1fd69 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > > > @@ -6153,9 +6153,7 @@ static void
+> > > > gfx_v8_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
+> > > > addr,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bool write64b=
+it =3D flags & AMDGPU_FENCE_FLAG_64BIT;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bool int_sel =
+=3D flags & AMDGPU_FENCE_FLAG_INT;
+> > > > =C2=A0=C2=A0=20
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for cache =
+flush problems. First send a
+> > > > dummy
+> > > > EOP
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * event down the pipe w=
+ith seq one below.
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Workaround for cache =
+flush problems, send EOP twice.
+> > > > */
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring,
+> > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
+> > > > 4));
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, (EOP_TCL1_ACTION_EN |
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_ACTION_EN =
+|
+> > > > @@ -6164,12 +6162,10 @@ static void
+> > > > gfx_v8_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64
+> > > > addr,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EVENT_INDEX(5)));
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, addr & 0xfffffffc);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, (upper_32_bits(addr) & 0xffff)
+> > > > |
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DATA_SEL(1) | INT_SEL(0));
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+lower_32_bits(seq - 1));
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+upper_32_bits(seq - 1));
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 DATA_SEL(write64bit ? 2 : 1) |
+> > > > INT_SEL(0));
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+lower_32_bits(seq));
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_write(ring, =
+upper_32_bits(seq));
+> > > > =C2=A0=C2=A0=20
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Then send the real EO=
+P event down the pipe:
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * EVENT_WRITE_EOP - flu=
+sh caches, send int */
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring,
+> > > > PACKET3(PACKET3_EVENT_WRITE_EOP,
+> > > > 4));
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0amdgpu_ring_w=
+rite(ring, (EOP_TCL1_ACTION_EN |
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 EOP_TC_ACTION_EN =
+|
+>=20
 
