@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 044ACC27C79
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 15:07:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A91FC2BA15
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jun 2024 15:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 910F110E416;
-	Mon, 17 Jun 2024 15:07:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D953410E43C;
+	Mon, 17 Jun 2024 15:53:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zxR+k8K9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AU2zDsLl";
 	dkim-atps=neutral
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01DE910E416;
- Mon, 17 Jun 2024 15:07:27 +0000 (UTC)
+ (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A52E10E43C;
+ Mon, 17 Jun 2024 15:53:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ReiNx4xdbYcQVflo+PooaN7ynmYHEKe12LZbZbeYCj/LpalA0Fu7dwbJrq96Ke9jlq95k0n6l+EmfSQwf8wvx0p51S088fUcYMf58jISNxhh/6x2nGuv6LgIoE+QDoJgOyhqGKTV/orEGbJkd5eqS2VOJ6iMQfaUIdY6DC69eedOZ7Y429r6qCGz3229Ox1znGotTBEHB4kfTVN1Koldp4IUj4futIDEd9akk2uWxMk9TprRI1E8l1/prCqX2xQKGBCB0HRLDhTzOSfgC9p1fi5KTLoa71aoITp5mVTYlHYPClXwG2n8avlM6tVlj3rhitDiC0ODphBF6U7MZ6Tz0Q==
+ b=lofwb4RM0D8gepbJHX11EYuMcss8woyp2KPgOcpj5DkWqXScafdVOWDxG83AvZs4/DXcDxD6RzUhy4oUSkJ/S93F0fdJcnJdORZxc/ONPsm59Ni7wOhbRiXksCopO8xIbWEL2HmgouLGUBrns5uLWHvi7Uo3VeKhHzJYarR1FEVfI+v6harZEcwxwuozGMgMajfXoJ5R2txurCuJVQB3l5n3YAwCpoJa14yMcBdB5l+M68r/bpvj+2j+pkSA7yfgpKLnywpzhZJ6JgAfertLfe3kZ4p8OFRXkNOOTXVSGgqAoTMcTuagmAM2Uq5QfHA8aNPkx6xbGHz8rHMoRsRHJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RhzOVY0LB96+WJdew0kihpRjDf40KdHOY4lZ8np2ZYA=;
- b=n2IEVDkeowZj7QjcL2pDageXLp3AJ1w7TOe26BVeyfff8gQutPk0ZvpzAT7CC2LEvdKuIvVokzs3dB0PF+ctaBtZRyYroDYVvZsmBCHETDBr6cLhzpePsbesewVmNRdRDRJlcKpKG4mM0j6/BoK5wlchyPPAFPa9IcFFXd/fxDEjmkzxBqXuRKXssdqpOgVx5bue5hBQh49WVfs3V5dqfO6ZSbbipxvlhLN1G4QOD8/rIQe7khFft5wsaGC4emSh8NsIKB9N/9WIWDahbPh5u5AJc1b25hjIblB5yNReYbYAm4rjqOX/0fRFbeKdaalt2x9MnYO20I8RTe0dG25r8g==
+ bh=K5HdZlcHo6hngi3X8CFVVNKmQsUrbeoUpmDduDJS/WY=;
+ b=f2GUKqq6Dzs/5bZ1ptz+8iA4FHiG9sNmRssIPHJjlpbHM/EybDaEy+YVsOacA2E/eDOGRpcYGrzyRXlqKqKv9lcke0btwQhEHrK3OzI74l+Ebr9IPE+xoDNWUopCaXOeEUAmKbtzDF1+AgTSsAOeJpDv+0E/hUzGiVnw2v9GfVKWqXyOdJx1eaHIm2/FQ7iganJr1MnaOk/h+gS7EUDtkTjpFrs4Bl+mPWgOdaybyip8SHhlpg5omLgslYrYz8n6MJDiidNyNPkyda9NcFSRXJcD0LkP7HMkU9iy28jNR10FhGZk3+4tLWfffqFso8qIB3yIoPKHeSEP7+6i9rRYxQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RhzOVY0LB96+WJdew0kihpRjDf40KdHOY4lZ8np2ZYA=;
- b=zxR+k8K9WF58pjyfZ+6D4a7oNReBCMLdFgNy/27Lv334H0wibu5jyQz9zjQTu2kkD6VqN9W7D7GCdJLq/bASZokGzSI11168xZkJwSxPvLfyo4cx4yisYW85aMuefxM9FAqdMLA2bAzqGQVHnp0Lkg4EPRZc4EoCOv12MHiW84o=
+ bh=K5HdZlcHo6hngi3X8CFVVNKmQsUrbeoUpmDduDJS/WY=;
+ b=AU2zDsLlFq7IL08soiTknyk+R3I88MhdhSTqnpgCy45A7IJbsCY337KM2cwxtPmFBkl/jHFkIxsSIoMrc7K+ZxgxE7lRHF1rKurNy7Y/4JeeT47tZ6/aqjku510qdKyaW1hiq4F6A7G27iFdG3LRIR1rM05wL6CTZidIv56BOgo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21)
- by SA1PR12MB6678.namprd12.prod.outlook.com (2603:10b6:806:251::12)
+ by IA0PR12MB8982.namprd12.prod.outlook.com (2603:10b6:208:481::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.36; Mon, 17 Jun
- 2024 15:07:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Mon, 17 Jun
+ 2024 15:53:29 +0000
 Received: from MW5PR12MB5684.namprd12.prod.outlook.com
  ([fe80::9eac:1160:c373:f105]) by MW5PR12MB5684.namprd12.prod.outlook.com
  ([fe80::9eac:1160:c373:f105%6]) with mapi id 15.20.7677.030; Mon, 17 Jun 2024
- 15:07:24 +0000
-Content-Type: multipart/alternative;
- boundary="------------qvbOhFODDNcpXYgDTfS4S77y"
-Message-ID: <50573575-31a1-4ba6-8064-64399a5eac0f@amd.com>
-Date: Mon, 17 Jun 2024 17:07:14 +0200
+ 15:53:29 +0000
+Message-ID: <3cc0d360-8f51-4cdd-90fd-1fa0a199c2ba@amd.com>
+Date: Mon, 17 Jun 2024 17:53:21 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/2] drm/amdgpu: make duplicated EOP packet for GFX7/8
  have real content
-To: Icenowy Zheng <uwu@icenowy.me>, Alex Deucher <alexander.deucher@amd.com>, 
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+To: Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <uwu@icenowy.me>,
+ Alex Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
@@ -63,101 +61,102 @@ References: <20240617105846.1516006-1-uwu@icenowy.me>
  <e88d4722fa3bbd7104b140debdd85cb212628944.camel@icenowy.me>
  <d44651a7-0c07-4b84-8828-f1d405359aeb@amd.com>
  <1e5f86991635b9045e91fab6397cda87555f85ff.camel@icenowy.me>
- <e7a814fc-7b1a-4e32-8868-292be004f920@amd.com>
- <977af3daf5f7eb048eed0310bc93a321728b6106.camel@icenowy.me>
+ <e27a5acebe5c7d1e09edbc9dc49f52b672d72988.camel@xry111.site>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <977af3daf5f7eb048eed0310bc93a321728b6106.camel@icenowy.me>
-X-ClientProxiedBy: FR3P281CA0058.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::19) To MW5PR12MB5684.namprd12.prod.outlook.com
+In-Reply-To: <e27a5acebe5c7d1e09edbc9dc49f52b672d72988.camel@xry111.site>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0170.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::18) To MW5PR12MB5684.namprd12.prod.outlook.com
  (2603:10b6:303:1a1::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW5PR12MB5684:EE_|SA1PR12MB6678:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef7138be-6ea3-41dd-9031-08dc8edf315d
+X-MS-TrafficTypeDiagnostic: MW5PR12MB5684:EE_|IA0PR12MB8982:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e85fa5f-ba9e-400f-c756-08dc8ee5a1b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230037|376011|1800799021|366013;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZmVjWlJSZnNoazZ5a3l0OEl5bWxvVWwzME40Y0JCQUhFTFYyVGlKWXliSGI1?=
- =?utf-8?B?Z2lwMjJxS0RBcUJCTElhMm9mTzVYVVJIN3RYWkNHUFhRMGlSWVJsbDRGWmlk?=
- =?utf-8?B?U0p1Rk1PcWhXVjIwZGhyZHppZGQ0MVN3em93d3pzMzVoYXpXTkJPNDVTckcw?=
- =?utf-8?B?dGQrSjlFK1phdnlTK3hFWC92ZGVqbkxscUs1cEU3STRneEFJM1JGQndtaVNt?=
- =?utf-8?B?eFlnVHQwWEd3NXdIRkNWT2tRYWJ1M1NhWjdnclBOTE1wWllOc3pnUHc5UlBp?=
- =?utf-8?B?Vkl1U1VuSTZKZEJKdkhROGNTMEhaM3RTWjU4UGswVmhyeDEwQUtKcmZ0MnpV?=
- =?utf-8?B?UkNMcUVOUWRnMTFXcEJEWnU0TVdKVTNKNXVUQ2lVM1NJdEZrMXdGaURIVTVG?=
- =?utf-8?B?Nk1oOGlGcXpzVzMyMlUyUHJoWVNDcGozREF1L2t4YjM3aURJQm5wbFI2NUNX?=
- =?utf-8?B?VGVNTFQ5a0xBcVhNZmhOWHM4V29FUnlrZzdjODhIQUpHYnZWUGpkc0JtRkhw?=
- =?utf-8?B?cFY2eWtGNGl0NTlobkxHWG5qVVY0T3pNd2trVXFqSGQ4bGxiN0x6Q290RHls?=
- =?utf-8?B?QmNsU0FNd000RWp1S2FYOGNpZHNQdWtkR0c5NERzZ01tSWY2ZTdXaDZqSDNs?=
- =?utf-8?B?M3VIdmgzSVUyZzkzdkJyRTZCaS95M0ppU2V1Vlp0WThud1BrT0NLaDcxdGYv?=
- =?utf-8?B?RDNPQ1RMREZneUdyY2lvbVRreWxadkE0WGFlSG9xQ2ZjUVlaeDhKTDVxWkwv?=
- =?utf-8?B?NGVEYW8xZE5tejhYZDNDYnVkTHRNTGJscVJzV2E1RzJxYU1TZkhwTzN1ZE9V?=
- =?utf-8?B?aXdiUDNlaHlJSnpkUU5DY0tNNlhTZ01Zc2d4TVczYlpnSVlHN3FWbjc3bWhS?=
- =?utf-8?B?MXhBL2NOWUFGSENUQXcyNVpjRDl2REFKdGRBd0pLaG9ydThzbW5OZ05Wa21O?=
- =?utf-8?B?blEvUVhmUTQxUjBObU5qYkpCM0JCZ3AzdjJWK0ZYdklLVXRnM0N3ZWh5d0pN?=
- =?utf-8?B?RnFEcjZ6blB4TDdoeFlnN283M2xTSGlRQnJnZVVsRjRuT21XVFpqdkNEYlEz?=
- =?utf-8?B?TUU3d280YjFIb1dhZmRNc3ZOSitHUkw4V1ZFMGp6S3NENitKbExCWnZtL0FJ?=
- =?utf-8?B?N0pMSnp5czJ6LzJtektjTnk5SjJpQy9JSHBRSHdDNlpuTHlKVlIwcjF3RWRx?=
- =?utf-8?B?VVVzNFVwNy83bTZEVlVHd0tzMUd1RENSZElWZllRbk54dG4xdjEyMGhLL3hr?=
- =?utf-8?B?L0VhWlMycDRTeTlQNUNGYUtmN3ZrWi9EbnpQMHVCbThJVnZKRTl5eUQxaGZX?=
- =?utf-8?B?eHpzeXBWWnd1dmpZNXlUQXE3MHhOUXBMcENCaEM1ZjlZNjR2M1BDVXVlbXRn?=
- =?utf-8?B?RXd5Vmk0ZkVURm80UzFkSUZGU0JFbWRxOVk4MVVGa3JOeCtodWpIb0U5VjlB?=
- =?utf-8?B?dzNQRWVsTWNvdDRTNjlTdndhRzAxVXl2cDMyZVBQR3czUmtPYzBjUVNabFZG?=
- =?utf-8?B?ZVl0RlVuU2YwYTJMVzBacTJyeitJdjhHUGtmUjVHR3FuL2RvMVNxY1BaOVd5?=
- =?utf-8?B?Q294TXJ2MitJd2pyR0k3QlhnWk8zUk9GcS9HNk1wZ2NRRnZ2aVpxbEJ2SkM5?=
- =?utf-8?B?ZGhhWnByNGltM2EwZ2dPQ2I0b083bmtrcFV6MTB4T1FlampabFAzWm11YU9J?=
- =?utf-8?B?bXhHM1g5SVRnbW14QVdrN1hDNlVOVUJVUFhsanh2OUNVVGl1Y2lTZmE0bWxo?=
- =?utf-8?Q?Gf6t27G6t8JqPIfqvU=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230037|7416011|376011|1800799021|366013;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WE5MR3c1a04vY1pJT3VIZng5NHB0cDVPVi95dWtaTGdhcnQ4S1Bwb1VsaVVL?=
+ =?utf-8?B?cmYzWXFXbFYrVStoNGNUUGViTmZ0d2R6dGVVK1hyVThQL3A2bXQ5TWpXN0VV?=
+ =?utf-8?B?cGgrQnVwSCtDQzIveFZVRkZuQTdTNjNGNUhEaUVFN3U3VkJhdnZtVGthc0ha?=
+ =?utf-8?B?Nk51eEpOa1RJdUhWQ29vM0FUcnYveVkvM3NWcHhRb0FXWVlVNDFXYk9pQnZ5?=
+ =?utf-8?B?QVExamV3di8wNHAwbUpKR2l4cUZTZUFKVTZNTEdKMGMxRFAzOFhSaFUwRHJV?=
+ =?utf-8?B?TXlZR2ErVzBFR215UjJLUVJVbmd3RU9pOUtqK0dIYXYxbGVQNEZHcUJPRDlo?=
+ =?utf-8?B?UllxbC85UnduUXAvMzVaUWpNUmpjd3k0RldvTDlWdDBmbU1jWlRWUFJxMVAw?=
+ =?utf-8?B?VldYb2J4ODhZd3h3WCtvdmxKMGUxMEhmd05hb1RoSGhXVFlqeGFBaGlKU3ZE?=
+ =?utf-8?B?VzdiV3hpb0hqOGE2c28zSnhMUVlJSm12Z0Mycm00aWtKSDdEUlZDM0ZjeXZv?=
+ =?utf-8?B?a3dGS1ltczdkRFQ0NkJNd1dJcHVrWHZZdXZ5bGh5eVdGYUZnMHZGS3FlZjFo?=
+ =?utf-8?B?dDNrcGZXTVR2UXJ0TjBDdkY3WmZRTk5UajErS3hpSUhXOHV0eHpnOTBWVjQ4?=
+ =?utf-8?B?cU1RS1VsRitkM2JQcEJEQ09DRkRrdnVVSkJvbU53OUMxYkZFdjFMekFhQzdJ?=
+ =?utf-8?B?S2NocWowYUlLdFZoejRJK29BVVVlRnB6Z2g0dDVzYWVQQlJrZDZWVG43YmRL?=
+ =?utf-8?B?blF3eDk3RlpycWlha09aN0JzbFU1YnQ1REdLbG52ZThmV2ZKNHpSL1ZyYUxj?=
+ =?utf-8?B?RVA5d2kvYURsSWxlaVBmRXQxL0YxMStkLzEwMHRrR212cUlZNXZodHQwbnFu?=
+ =?utf-8?B?M1pVTEhNS1NSV0NOMklPSGxRR2Y4c0Rmbzh6N21mUDVoQ2hHQkp4UGFJWTVV?=
+ =?utf-8?B?MHNXVEZPWnZ2blJobzc1bHVLWTJhbTc1WjVPYmZKN2U0WnY3bzNOZThHdlc1?=
+ =?utf-8?B?QW1oYU9QMkNPeE16K1M3TDdrK0ZiNmJuNGpra0pOWXB2YjBvaXFZK2d4bkhC?=
+ =?utf-8?B?R0dXUlVTUkVaaGRCeVNVbmV4b3R0eENqb3RZZGdyVzZJUE92b3F3dERHL0th?=
+ =?utf-8?B?aDJTbWMrSG5jVDRZSWNqZnlrN1JWU1FaTE9ydE1vV3JCMkJhMTlCMnhOa2NV?=
+ =?utf-8?B?VmtyVjFsejROMHdKeW11MjhuSTZGTTBrOUJKM3J5VVJkUUFQTlpUZmZLem5k?=
+ =?utf-8?B?UlV5MmE0ditBMDIxamZTQUNnUDFPK0k0dTNDSVlya0lUQnB6MU94RjhJSWFS?=
+ =?utf-8?B?STRaejRtTkZGUll6VjVYN0NDbWRXQzd3REIzaTEvTjM0eUc1ZEN2bUhnM1Jz?=
+ =?utf-8?B?TG1EUHN5NWlkRE8yUG4weHA5NmtFQzByWFlTSlQ4amorWVg2T2lBZmd2QWRM?=
+ =?utf-8?B?YWR3WmhwVW5oYktUcXVWdCtTdTNIOXl4K1Y4aklHQjVHelJKRC9hZHJhSDN0?=
+ =?utf-8?B?Uno3WHJmaHlkenpSYm9FcEx3QWdwTW1TRTdHM3l6UmhMcWorSVRnN0pGYnkx?=
+ =?utf-8?B?VmF4UXdMSVhpOEFGd0dMZ2JKRmVXT3lpV0VnemtRQTBmRHJDWHloZmVkZkVq?=
+ =?utf-8?B?UmJwWFFzeWRRTm8wMEQ2N2xZZEIrZHpWUTU3ZXp1ZVlqR3VNanlqRko0a0px?=
+ =?utf-8?B?cTV4SXAveUtncDRiSys1QnJQQ0tTRXZpMHNBUUZUbFRhWStZVVlnVVYxMWlJ?=
+ =?utf-8?Q?3JLB9CsJCuVcV6xUY2y8Kr6q2jtYQTgJeZk35Vd?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW5PR12MB5684.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230037)(376011)(1800799021)(366013); DIR:OUT; SFP:1101; 
+ SFS:(13230037)(7416011)(376011)(1800799021)(366013); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2QrN1lZNU9UMnVaNytySWZMTU9hUTZlTmxKM0NsVlZMcHFoQ2QrUytZMWFu?=
- =?utf-8?B?Tk01c2gxMlZ3VHVBZnZETVZzYjRnVS9FL0RmaEtqd0pOTmNhaGVyVDEreENW?=
- =?utf-8?B?T2dXSEgyaFgzWGVhVENXb0xkcGRSc0w0c3BoV201cWxHanIwVjhkc0kycFd5?=
- =?utf-8?B?L2xYYkhrc0lSZzRDZEVBbGFsdUthVkMxUEVzUE1wcFRXV05QSG9lQU40aEkw?=
- =?utf-8?B?U0QwN29haWlJS1pZSHpOYng4YWlKckNuMkx5bnFGamsrbnd2eGxzTnYyY3ZY?=
- =?utf-8?B?UDk5NUFZMXh4cnRuT2tHS1hhQmhyQ3hrSHE4Y2N4c0VrcnpwMnc3a1lEM1Uz?=
- =?utf-8?B?cTQ5azBwdVM4bW8vSWUzeVpLUE52M20rRmRpM0xzbWhhNDY5cTBRcWRVZFFz?=
- =?utf-8?B?TTdKeFIrZDJoNUREeGRkMnIyMTlDRzYyK2thN2k3MnhZR1dsamRxSVErdnB3?=
- =?utf-8?B?MVQ5c0dLSnRxV3V1UUxKSHljZlpUcUYxczRwaUo1cHVqYmxMSEZWRk9sbVVT?=
- =?utf-8?B?TGp6TG5ETFJubG50SjJIOTZPaXlZZjVHVXRHL2xJM2VsaUdXV1dhNG40S3BU?=
- =?utf-8?B?L0I4bExPaGs5c1ZranZyTXRhOE5lQlFPY3cwc0xhNUJ1VGd6bHFsK2dhUGFk?=
- =?utf-8?B?L0NtOVBZTmJKRWMvMTV5YUs1NFd0Qlp6UTdsWFhmMGJmQll4RVRxTHhNNUo0?=
- =?utf-8?B?SFMzYzI4cUIrZUhkdWFUdmF6VFZIcDZtbHFzQ3d0ZlNuSE9oY1hUMERtS1VZ?=
- =?utf-8?B?RnBLTUZML00zL3JsZmt5SnVKa08rTitkMnU0cE9HOUFYMTFYaG91SnVJMG55?=
- =?utf-8?B?TmhNZGdkMnBCMGh3dnlOY3ZsRmUwM3BGcTlWVjdSMUt4SDV1cUFmLytrOVN1?=
- =?utf-8?B?aTkrcGFzUFZVbTFtMnVhckNsN2pERFhhWXAycTVmSFRCeWIrUzQ0anNkVUc5?=
- =?utf-8?B?WFAyWDRkY0VjTSttc2hNdjhaclRqMGJXM3BZcW4xNzdUMkFYYVNCRG5zalpu?=
- =?utf-8?B?RTg3S1o4TmVDMXJndXlZaVl2MXNlZlhJeVBucE12eU5wMzdhNEIzbU9JQ00x?=
- =?utf-8?B?RVBVQlU0VFd4eEViYkhhaWlDeDN5eVhkQzVkS2hQM2YzaWZsQ1JybUQ3Rndo?=
- =?utf-8?B?WEJKcFR3K0xzSWU5VUVvWmppbzYrRTYyeFJrWFliamhaZVdXMThxek9FcEZv?=
- =?utf-8?B?VnZaY2Q0ZDhGRlVnczc4T1NXeUxBZnpEa1NxVER0eUs0SkIrNnNBajVmNVhj?=
- =?utf-8?B?UUFKbTFyYUl2SXk2RUx4cTVYUXZiS0VqdzZ0STFjeUVNRXJSWHFkdHE4R3RT?=
- =?utf-8?B?WkNvZE9TM2lLOFhkWVREZXhEdVE3U3FjV3VaZDFlYlZHOGw2b1dYYmdZYVRu?=
- =?utf-8?B?bXc4bjhqaUtkV01xR1BvQ282aGFMSmI4TS95MFFsc3l5c3lrN1BJSVA2dXZD?=
- =?utf-8?B?OGxtZ0M1QWs0bFdrWVdHL0dMQWxhRXgxU2RaVndERXY5aExpaHdwOFVWTTN6?=
- =?utf-8?B?aFUrS3htdFh6U0FvVzgyVjRFdnhMWG1BK0FyRWJBQVdxWjFXUkIzVk1uSHlz?=
- =?utf-8?B?d2dJSGxuSThqSk0zc1d3UFdnblBIaGhBQ1VNajdxenpEMUlPc0xHZWQxNGlu?=
- =?utf-8?B?MmJPd21NY1l2akxNY2pOUTRTUW5GZTUzUC95ckI1VGowTWVuLzBnN3oxOXNG?=
- =?utf-8?B?MkFQWDFWR2hqTC91bTdCMlovZi9yWlkwc0hmTDgyc083bStNOW8vRllyVHZX?=
- =?utf-8?B?NDhzZkN4angvVVQ1aGFGSE1TajBOMVdwYllyUFFtNFV3Z29WZEl2bWROQjQ2?=
- =?utf-8?B?OHY0NXo4akUrRU1odDRwenlUV1BmcHowaC9qYmY5MmozV0FEdThpaFdGMUhv?=
- =?utf-8?B?aWpYSHFuWTdqTG1IQ2NXWHFQN294UVcyOUVFdmJPakMvSjFjK203Tkh4eFlN?=
- =?utf-8?B?bm5aTFByUnZPam5BWFk5SE5yaDMzVDdjL0xCajBuNUk5Si9PcEFtQXhOMHp1?=
- =?utf-8?B?K2ovM2lQdXZyTmdoV2lsb3JBazdWeUpyQzFOSEhVS1BFYm1LczVFMDZ3bjg4?=
- =?utf-8?B?UThvK1I4S2RzOHpPZ2pZdjJIQVRTQWRaTzZOMy9EQnlFUkVDSHFRNXZoc0Nq?=
- =?utf-8?Q?mva2adBOpEDuBTCXssDw542hc?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UElBSENrd01aellrRjcxN0ZzeTVZbFBMRGNqdmhrdlBJR1llVnRRREhxWTBr?=
+ =?utf-8?B?cTFzQWQvRTFJMEVNbXZRQ28zVU5UM293OTVXNk0zVHAyTDVlOWNnZ3VmZlBK?=
+ =?utf-8?B?cGlTK0p0czhDaEU5MTZ1K0diMkErV3pNNXlCZ0xLa1h3TDl2TkFPL1VtNW1D?=
+ =?utf-8?B?UGFkRkd4T25TQmNGOTd3aGRCazQ2ZXhsbUNpbjFOTklsWmdmdy9sNm9zeXFZ?=
+ =?utf-8?B?UGdpNFdFek4xL1A0c3JOZjhmV3dkUHcwOHZGZDFpM3lBclprS2NYeGhmQ2Yz?=
+ =?utf-8?B?TTVvU3BGTkNpaEEydmlvUzE0Mk5GNE5JUUZBNkhVWm93L0xsaGdrVS9PU1g1?=
+ =?utf-8?B?T1lwQUlhaFIvR1NYQ3FRYk1VMmZtTTJaUGdrVDJuaCtuVWJ6VXpRYUZQMG91?=
+ =?utf-8?B?TGc1UFpDUmc4ckZQRjlBR3dhZ3c5SUprbEFveWFoNUhLZXVkYlFadHB6MDQ5?=
+ =?utf-8?B?SGpSdUlvYjh3QkFqVVVQcWl1UWlRN1RLR1NvMGxMRlE4N21iZGdVaWRwbEpl?=
+ =?utf-8?B?bU5DeHhzQW1VQzEyemY4WVpRVGxlanRiOS96dFRXSDB3b1NlQzZER2FxWncv?=
+ =?utf-8?B?eXFJd29YRUFOdVdDaW8xVkRzNWtNNUxZbkpPaDBVcy9sZ0pnQmtDdVBHcUpU?=
+ =?utf-8?B?elk2WDl0T2NlekNFZUV6VUR0aUFhU0RwL1p6UHpNZGI3YzhwU205VW5ZNFZx?=
+ =?utf-8?B?VDhjMUc5Wll4bzFkQU9OenZMVUtYazdWL2I2dXhoVHZEVkN1R3hQZld0YXV0?=
+ =?utf-8?B?dDNvOHI0Lzc4K0s0dU5JSDRBMmdoVEdBck41alFZc2t6cWtpbHRFNkxSTWU0?=
+ =?utf-8?B?NkdUWk1uZWxtSUNKZ1BvM3ZxRDQyczZURGxDUmJMZWt4SnBTcXZpQlRoR0RZ?=
+ =?utf-8?B?TTkyNk1QblorVjJxMFNLdTdMcUUzQ0J2dGpGTkJXdXlLV0hWZE1xdkc3U2pC?=
+ =?utf-8?B?QnRtMUx4MkJOR0J0MGNsWjlRdlNTUXcyUTQ3RlBRK1htbzZTeE14d0l5a3RQ?=
+ =?utf-8?B?MHk1MFJWSUlGbFlmQXVnc1lJYTRua0sydWl0OTk5ZUJtbFZoY3laZnBEbzJj?=
+ =?utf-8?B?SzFQQW5lSUdVREwvaFJkM1lpSTdTSTd6OUxtM1lqdkdxaVZVOXZ4SlgyU1k1?=
+ =?utf-8?B?S2R4YkhsOE1seXZSbThOMVpCZnlMakE4bEYyMWlHdThEUnZJRG1vbFVZa29V?=
+ =?utf-8?B?dnJIUjFvK0NrdndkWldMbGlrb2U4bkQ2OXZldGhuWFoycTkwNEx1b3pScnBa?=
+ =?utf-8?B?ZHZQZVRHN05McWx5bi9HMDRXTC9oQXY0MElQK2hvK2VNb2kveVVxQmdYdzdW?=
+ =?utf-8?B?enVUeDk3UnhFaXZWY1pBZHZEWDgvV1Jxc0FSWVJwWDdDRHc4Z2x6cGE4Tjgv?=
+ =?utf-8?B?MWltRlQwZWowd2J4YWFUZjZsWDRqRzhrcVJadGpYdk9Eb3dZS3BZYVVmbGFR?=
+ =?utf-8?B?am9JWitDWDhZNnF6TlJBcEVZMXVHdkZjTFY1Ui9KbmNNWXVrMXpFTTNwaWh5?=
+ =?utf-8?B?NVBoM1pjV3lKUmVXVlhIZjc1NndQOU1qTkZmdU9jbVRKUWU3NlRqMzAydGVD?=
+ =?utf-8?B?V0RoUXJoSDVZaG1pY2ZyaC94RkE4bmxraGp4ZzdWMi92K3dRTm5KNGNCNzZT?=
+ =?utf-8?B?TG5ka0pZMTEwaStyc21iSjBNSHRSOVp3eFlta1hoVUhMRXI3cFhRZ29GdGJM?=
+ =?utf-8?B?b2Q2VkExekt5YlV2QnZZNU9JbTZsZTIvc25QWWxuUnlyZS9BcTRwTE9ibHow?=
+ =?utf-8?B?TWNBaVpYUVlsbGdTMFIzMGFacXQxS1B4N2RFbzRlbjNBT1NYbjlJcVZOSkhN?=
+ =?utf-8?B?dVVBZ3FXL3NtL3BrQXcrZmdYWlJzSHN2YWxqZWg0UFNpdnBYcmtxWWVlejRj?=
+ =?utf-8?B?Z2p1OHJGa0lUR2FYVkk4VmRhVWVxZUhhOFFKRmQwakxvWVFlNC80QVA5Q3pp?=
+ =?utf-8?B?REJIK2c0RHhlR2ZmR1hBS05CTVBCd2k2U1JEQlBvVzJGNHdnSnlIVmxsNmpY?=
+ =?utf-8?B?QmFXdHU0Zjhja0srUFNJV0lxWStiNWxmTE5QWHFCUmhKNFJGY1kvV3lXTkY2?=
+ =?utf-8?B?T1lzelNWMlZUKzQ1UzNJOFJhczY3ZE9EZHhsWk5yb3A0SjhOcU9EeWxqSkt5?=
+ =?utf-8?Q?MLyx+TEcgGwW9K9PROV/MFZ3X?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef7138be-6ea3-41dd-9031-08dc8edf315d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e85fa5f-ba9e-400f-c756-08dc8ee5a1b2
 X-MS-Exchange-CrossTenant-AuthSource: MW5PR12MB5684.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2024 15:07:23.9558 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2024 15:53:29.2649 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ylT9ofRnk8fgg+5qBCr8JeNKebBPLte1/z/MRgTyYawcXu0uz6ezCQenyoPNDfwL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6678
+X-MS-Exchange-CrossTenant-UserPrincipalName: UlH4MTf3RbZGnkVBpOy2v6ScSqEI9ZDevr7dXyZ7GTumDlyBHoD85P17/xKMV2Ol
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8982
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,234 +171,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------qvbOhFODDNcpXYgDTfS4S77y
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Am 17.06.24 um 17:35 schrieb Xi Ruoyao:
+> On Mon, 2024-06-17 at 22:30 +0800, Icenowy Zheng wrote:
+>>> Two consecutive writes to the same bus address are perfectly legal
+>>> from
+>>> the PCIe specification and can happen all the time, even without this
+>>> specific hw workaround.
+>> Yes I know it, and I am not from Loongson, just some user trying to
+>> mess around it.
+> There are some purposed "workarounds" like reducing the link speed (from
+> x16 to x8), tweaking the power management setting, etc.  Someone even
+> claims improving the heat sink of the LS7A chip can help to work around
+> this issue but I'm really skeptical...
 
-Am 17.06.24 um 16:57 schrieb Icenowy Zheng:
-> 在 2024-06-17星期一的 16:42 +0200，Christian König写道：
->> Am 17.06.24 um 16:30 schrieb Icenowy Zheng:
->>> 在 2024-06-17星期一的 15:59 +0200，Christian König写道：
->>>> Am 17.06.24 um 15:43 schrieb Icenowy Zheng:
->>>>> 在 2024-06-17星期一的 15:09 +0200，Christian König写道：
->>>>>> ...
->>>>> In this case shouldn't we write seq-1 before any work, and then
->>>>> write
->>>>> seq after work, like what is done in Mesa?
->>>> No. This hw workaround requires that two consecutive write
->>>> operations
->>>> happen directly behind each other on the PCIe bus with two
->>>> different
->>>> values.
->>> Well to be honest the workaround code in Mesa seems to not be
->>> working
->>> in this way ...
->> Mesa doesn't have any workaround for that hw issue, the code there
->> uses
->> a quite different approach.
-> Ah? Commit bf26da927a1c ("drm/amdgpu: add cache flush workaround to
-> gfx8 emit_fence") says "Both PAL and Mesa use it for gfx8 too, so port
-> this commit to gfx_v8_0_ring_emit_fence_gfx", so maybe the workaround
-> should just be not necessary here?
+Well when it's an ordering problem between writes and interrupts then 
+nothing else than getting the order right will fix this. Otherwise it 
+can always be that the CPU doesn't see coherent results from PCIe devices.
 
-What I meant was that Mesa doesn't have a hack like writing seq - 1 and 
-then seq.
+In other words if the CPU gets an interrupt but doesn't sees the fence 
+value written it will assume the work is not done. But since the 
+hardware won't trigger a second interrupt the CPU will then keep waiting 
+for the operation to finish forever.
 
-I haven't checked the code, but it uses a different approach with 64bit 
-values as far as I know.
-
->>>> To make the software logic around that work without any changes
->>>> we
->>>> use
->>>> the values seq - 1 and seq because those are guaranteed to be
->>>> different
->>>> and not trigger any unwanted software behavior.
->>>>
->>>> Only then we can guarantee that we have a coherent view of system
->>>> memory.
->>> Any more details about it?
->> No, sorry. All I know is that it's a bug in the cache flush logic
->> which
->> can be worked around by issuing two write behind each other to the
->> same
->> location.
-> So the issue is that the first EOP write does not properly flush the
-> cache? Could EVENT_WRITE be used instead of EVENT_WRITE_EOP in this
-> workaround to properly flush it without hurting the fence value?
-
-No, EVENT_WRITE is executed at a different time in the pipeline.
-
->>> ...
->> Well to be honest on a platform where even two consecutive writes to
->> the
->> same location doesn't work I would have strong doubts that it is
->> stable
->> in general.
-> Well I think the current situation is that the IRQ triggered by the
-> second EOP packet arrives before the second write is finished, not the
-> second write is totally dropped.
-
-Well that sounds like the usual re-ordering problems we have seen 
-patches for on Loongson multiple times now.
-
-And I can only repeat what I've wrote before: We don't accept 
-workarounds in drivers for problems cause by severely platform issues.
-
-Especially when that is clearly against any PCIe specification.
+This is not limited to GPUs, but will potentially happen with network or 
+disk I/O as well.
 
 Regards,
 Christian.
-
->
->> Regards,
->> Christian.
-
---------------qvbOhFODDNcpXYgDTfS4S77y
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 17.06.24 um 16:57 schrieb Icenowy Zheng:<br>
-    <blockquote type="cite" cite="mid:977af3daf5f7eb048eed0310bc93a321728b6106.camel@icenowy.me">
-      <pre class="moz-quote-pre" wrap="">在 2024-06-17星期一的 16:42 +0200，Christian König写道：
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Am 17.06.24 um 16:30 schrieb Icenowy Zheng:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">在 2024-06-17星期一的 15:59 +0200，Christian König写道：
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Am 17.06.24 um 15:43 schrieb Icenowy Zheng:
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">在 2024-06-17星期一的 15:09 +0200，Christian König写道：
-</pre>
-              <blockquote type="cite">...<span style="white-space: pre-wrap">
-</span></blockquote>
-              <pre class="moz-quote-pre" wrap="">In this case shouldn't we write seq-1 before any work, and then
-write
-seq after work, like what is done in Mesa?
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">No. This hw workaround requires that two consecutive write
-operations
-happen directly behind each other on the PCIe bus with two
-different
-values.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Well to be honest the workaround code in Mesa seems to not be
-working
-in this way ...
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Mesa doesn't have any workaround for that hw issue, the code there
-uses 
-a quite different approach.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Ah? Commit bf26da927a1c (&quot;drm/amdgpu: add cache flush workaround to
-gfx8 emit_fence&quot;) says &quot;Both PAL and Mesa use it for gfx8 too, so port
-this commit to gfx_v8_0_ring_emit_fence_gfx&quot;, so maybe the workaround
-should just be not necessary here?</pre>
-    </blockquote>
-    <br>
-    What I meant was that Mesa doesn't have a hack like writing seq - 1
-    and then seq.<br>
-    <br>
-    I haven't checked the code, but it uses a different approach with
-    64bit values as far as I know.<br>
-    <br>
-    <span style="white-space: pre-wrap">
-</span><span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite" cite="mid:977af3daf5f7eb048eed0310bc93a321728b6106.camel@icenowy.me">
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">To make the software logic around that work without any changes
-we
-use
-the values seq - 1 and seq because those are guaranteed to be
-different
-and not trigger any unwanted software behavior.
-
-Only then we can guarantee that we have a coherent view of system
-memory.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Any more details about it?
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-No, sorry. All I know is that it's a bug in the cache flush logic
-which 
-can be worked around by issuing two write behind each other to the
-same 
-location.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-So the issue is that the first EOP write does not properly flush the
-cache? Could EVENT_WRITE be used instead of EVENT_WRITE_EOP in this
-workaround to properly flush it without hurting the fence value?</pre>
-    </blockquote>
-    <br>
-    No, EVENT_WRITE is executed at a different time in the pipeline.<br>
-    <br>
-    <span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite" cite="mid:977af3daf5f7eb048eed0310bc93a321728b6106.camel@icenowy.me">
-      <blockquote type="cite">
-        <blockquote type="cite">...<span style="white-space: pre-wrap">
-</span></blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Well to be honest on a platform where even two consecutive writes to
-the 
-same location doesn't work I would have strong doubts that it is
-stable 
-in general.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Well I think the current situation is that the IRQ triggered by the
-second EOP packet arrives before the second write is finished, not the
-second write is totally dropped.</pre>
-    </blockquote>
-    <br>
-    Well that sounds like the usual re-ordering problems we have seen
-    patches for on Loongson multiple times now.<br>
-    <br>
-    And I can only repeat what I've wrote before: We don't accept
-    workarounds in drivers for problems cause by severely platform
-    issues.<br>
-    <br>
-    Especially when that is clearly against any PCIe specification.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:977af3daf5f7eb048eed0310bc93a321728b6106.camel@icenowy.me">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Regards,
-Christian.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------qvbOhFODDNcpXYgDTfS4S77y--
