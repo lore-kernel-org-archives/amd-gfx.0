@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC68EC2BB85
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 15:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A59C27C4F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 15:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5979410E6E8;
-	Tue, 18 Jun 2024 15:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF7910E6F0;
+	Tue, 18 Jun 2024 15:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0hVA3C/l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E5DwJ21K";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77F9A10E6E8
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 15:30:55 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 913DA10E6F0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 15:30:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ICV85J2TPg2qiBtL9XiABxL0ZRRWpmDcYdzWgaRhklrQKTT8E+7C2UdD3AqWeER1XrNobkvGmNXVLpaXup6SUGMHI4o3WmY04lAhor5SkGbCVPgUPzE5yI3y/xcxwLF3mwkijhoOLwT+ER8Aa/6HEksQEgR3TrwUHdvp+StwLJqSdE/SkLcDQvYNl+1qXTJ99LimbWCe1kAXabq5ie37CzWD+Bi8JiJKwBJ2mQja3tdMlbTTRgVJBIP787NjFaaFk756CRw76W54ER5Dv+Y2Zy2YCAkETtk3CdfrMOw4+jpncus4EVeca6KtUggi7P7pfffQIlFTmKwQ6hBswv3OpA==
+ b=ezI0KH3j5Tcj7S5qEyPjK/dHVWMeVSuiT+e+ARovqvViY/G7bEDs+PQIyPHThFhm3HGVe9r+SBN2i2alxg4qDt7+u0dbUx+wUL7aAg265Fnft64uSjiSpR/6bownHsA8pzaYqGggepC+dK09bHdUX0NV4npI+RG5ydOKv/Ssn8XKgaiMDlvEf0fwVvHqcLo0GMiYOFXZZVfv9mNWKVyz+jYq55hTB/8X0yARZWvuWb9/WKn/QSNBqsQ+CEXCbfnFQb5uyaLfRxnXlE59qgIBIQdXgu5NfRPNZ8loaGsdQqPaBGSWtaX0zktZD/vr+Cl2lINI6jQxzRlaWj866O1UGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asI2GJGHjvx89vOfwXVJ99V/qdL8epUzMKVz9hAEIpY=;
- b=eCTtZ7RAm5/m2DVsLiQwyFBppTAsfu+lSh0Lp7ZJ4qhtx0DgpVXOEhDFldAoFi1Nu7miu483WCE/mdXwsdVFl0lJQLw4R2KRKmJsAojUoH8/G1KcmWOQgpHjv9PbT+5rbgk5vr14Vjw/W2hm9XndQAezAffV8WxwQN9gr0sP895MC6gxic4KiW3mS4cxZDsmPjsIqyUhTb5TIVyyDeFXmNa7jQoXf0TxXEPP1EifTjBOinpUkDbJQXF0F/mRvm1zDYqJxnMkf+Kx05uBE5NVaYuqRvob2tnKYuCgeLTF2E0t5MgghRaHJTRf4kHI8s0H4Vs0XSBFAFNnFW0hFKf6+w==
+ bh=dccipPhsfyVZdyqaX9cQdXg5vVuFIpTxdIsJ3x6/3P8=;
+ b=S3nXEdCEp3Pg2ohDsm+7wyexvokgm3tp7Zdr0Zv3UsSCl/HhLHqzffRCnYPkWctSKUOev6VAvR/V4kZTizKuUqpoFXOKYgCCauz9lRKXb9WuXon+TrPwoItFa09Hi/Avpfb6i9RKHF7nlyrlEWBsj9i+TZQ9YMGeFLVt0vfZcv+MjjRdsBG9lQK2PnkHpiCfsW9NjdoiJDM070bU6K3QN6peCfY35+u16UgMSxOjtik176hRrPJVufKrOVAJU13XOH1/WfH3omjJf1wt6QTewAlXkWDl5FcC7vHETlNYEQAXaKDvtGJUAY9/7gwzllThaTXTbFO4vZHnGoVgPwwQsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=asI2GJGHjvx89vOfwXVJ99V/qdL8epUzMKVz9hAEIpY=;
- b=0hVA3C/lJGDlMIQCdUMzKncnv3A31tsFophqzV8IxtE82DgnXJTSg1JEgXFnMaXRo1OKNn+g1bzgZf5agPSixg6Fvkqc0fDkYCrSIpAVDBsZzWZPs5olqFYSgt2Ds/UOCZpBCp1paW4GG1+sOf9jxq/rykx6oAPTFckCrZ6L8u8=
-Received: from PH7P220CA0107.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::13)
- by SA1PR12MB8945.namprd12.prod.outlook.com (2603:10b6:806:375::14)
+ bh=dccipPhsfyVZdyqaX9cQdXg5vVuFIpTxdIsJ3x6/3P8=;
+ b=E5DwJ21Kfm1btl52cFei9Xso2p7n4lnoNuYNJyEcuKt0RV3LER0YNBGjouPE48FZg7cm5QNEJH7Xs17MU80Ax7UyI9gu5i89AHJb/dqFIQTYig0GF8eRX5pJq56Kv2hEkoTV+z4XxjXFwAaWXFGkuPkBtdhvkBPD6j8SzlZqKiA=
+Received: from MW4PR03CA0287.namprd03.prod.outlook.com (2603:10b6:303:b5::22)
+ by SA1PR12MB6948.namprd12.prod.outlook.com (2603:10b6:806:24f::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Tue, 18 Jun
- 2024 15:30:53 +0000
-Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
- (2603:10b6:510:32d:cafe::9) by PH7P220CA0107.outlook.office365.com
- (2603:10b6:510:32d::13) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 15:30:51 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:303:b5:cafe::8) by MW4PR03CA0287.outlook.office365.com
+ (2603:10b6:303:b5::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31 via Frontend
- Transport; Tue, 18 Jun 2024 15:30:53 +0000
+ Transport; Tue, 18 Jun 2024 15:30:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Tue, 18 Jun 2024 15:30:52 +0000
+ 15.20.7677.15 via Frontend Transport; Tue, 18 Jun 2024 15:30:50 +0000
 Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Jun
- 2024 10:30:50 -0500
+ 2024 10:30:48 -0500
 From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>
 CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH 6/6] drm/amdgpu: resume the device from amdgpu_gem_fault
-Date: Tue, 18 Jun 2024 17:23:27 +0200
-Message-ID: <20240618153003.146168-7-pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH 5/6] drm/amdgpu: cache mclk/sclk min/max values
+Date: Tue, 18 Jun 2024 17:23:26 +0200
+Message-ID: <20240618153003.146168-6-pierre-eric.pelloux-prayer@amd.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com>
 References: <20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com>
@@ -73,50 +73,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|SA1PR12MB8945:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1bb13ea-276f-43b4-4beb-08dc8faba3ba
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|SA1PR12MB6948:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3784146-1325-4217-c543-08dc8faba24e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230037|36860700010|1800799021|376011|82310400023; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TZQ8qYQMPBSNaQD9vaeh2NInnQG6/Lz7qB3sQkHB/SzeS5z/TUc13G6NI8iw?=
- =?us-ascii?Q?adKmJydG8iom1DXNL0zFA6dWV4vbtCQzcAVkxLe3MTDBv886KyqxtAuoKSwc?=
- =?us-ascii?Q?4ZetJaTdI8gyePlblRFFRk5b/GDmYtvB1+qSA0G4pfi2clPm3BuDxwprTkoG?=
- =?us-ascii?Q?NxyKxJp8MXNZYFkdETYwMICrviUCOywUMlFit9NxQlhdh+s4UwwFJgr+pxV5?=
- =?us-ascii?Q?w9cOWjAx8Bkn2s4N9czs/DV+BtJEfAS2+KYrYBW0q00INEnVJs2bikJtfRj2?=
- =?us-ascii?Q?blhgRpCwBR/t9TNIdrx3ef0UPfkbLiyu6XpN1oGpR+1rGDThxeK+5VNb2wgs?=
- =?us-ascii?Q?41WLxSZtZVJBHbPcsY5EeNKQv2ekl/nAWnRQiQTECAu2FQ7l83i65WozpotX?=
- =?us-ascii?Q?dDmzRlThkVEt+6vVIH0xF7raxUe/CRGNpsgR543LWUwUDJhVEne2lDugwRbF?=
- =?us-ascii?Q?bY+vc5erhPiyR2rQbuSRs8bjqfkYNR+2a0OagMdNWbDq3wqEJBpPUOX9iSnr?=
- =?us-ascii?Q?tJHS9lMVLqPhJJl4Arzzu9CBbYTGa83fZAKDaJ6XW0HbCdobxtQp0t34/+/h?=
- =?us-ascii?Q?4f47JA7HPYwdKAiq0DnM/m7oAJL0zyXrzlLzGY1UCORB2RcgKYbKWGKJSYzQ?=
- =?us-ascii?Q?Z3fRCOVXJ2lyjVQCWEQ9PdAE8MbTNwfpQ05u6JqSL2wzR8eFvCBokNtW51om?=
- =?us-ascii?Q?0KG01iZ+R7Vu2EDDozE6GCVElCBqJZ9OZp1VCGP+6w/yhRYMsCrZOzmlNI4G?=
- =?us-ascii?Q?Szj0brmiVOkgZXoxuL0JtGQXogj0jqRjbEFMMceqMFZmH/QG0njaRTXRT53U?=
- =?us-ascii?Q?Wq5d4l/LXBHG6C+zQiU2oIEDmb5x/AzlvGY00X7iePgCNPq3F+fKgTF6MssN?=
- =?us-ascii?Q?PhMH+aZZMkv43XYbegGrWfjx/sfT+GzB0rrQ8t8VrwLn+mYDcrje//LQu+vf?=
- =?us-ascii?Q?mOZ907/c+wz4lyZ6FUAjp3Qc3SFo5gBPo1qxYU107fv4LOOS/ezRgyze4xZl?=
- =?us-ascii?Q?CnLSTDlIMRoMTyYBznakh5XEgX2EfldxvDpTt8CjPNzQhd4h+UFpPbDXg2nj?=
- =?us-ascii?Q?Rm3hm+L+BUOXhTulnyK7TCvypSmOe/7YUe4p+Cg//M7Hqt1Lk/+CG+wFi6Ok?=
- =?us-ascii?Q?sVgTsGCZ+JDAtnQc+wiAIETAdK1h9XH35JE/eVVZN1JeK1jFAxxq6dUInce7?=
- =?us-ascii?Q?oy3Jcdof/ZxZi6nw0O0BPXfXbNCbpJPFPQKWy7ddRXlhNHJTFsTxlrYVxmpF?=
- =?us-ascii?Q?gP76CCun4zReYisoT6gfJOZw3MJ4frWp2qN8fN5iMxCzxwMv9fYzlYHFdgvQ?=
- =?us-ascii?Q?W+6cC5VdjbLFhiGxdm6sOoFc/ao1DnANU7wfX7vdmGMpVr+6kBdvVqdGMLR/?=
- =?us-ascii?Q?DuYS2NkWL12Wom0LsklRyGJn8sg6VVFKiKlCbPpwY7JmT+rbyA=3D=3D?=
+ ARA:13230037|376011|36860700010|1800799021|82310400023; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?aycbtIjSBxzSeIbuxQ41cTtooHZH6oxzE1dHdJVar6Xj92b0GSKaJd2Q8e4e?=
+ =?us-ascii?Q?mT6nesYb6WBc6nDMO6SoQ6MEuU62WhSoeO8Y/HNqdjgHIOnOannm5ROxzks5?=
+ =?us-ascii?Q?XNUzwtbNi0YLfcuiMh5nZmYTTGSaFmLPRypsAQL522gzWf1dRjcsdUSw+qHS?=
+ =?us-ascii?Q?63CIbAnG7MA5L3Na+jXAwxXmfV/OuUfxb1ShpJA2iae5wKqMYIB4DvEE29qY?=
+ =?us-ascii?Q?Cl6yDXnPvJBrq1CjXYGiofM6LYC+lJI+FP90jfwehDvj3JePU40/HZyMX5gO?=
+ =?us-ascii?Q?eIvy2h1S+dBWy8jlvD1Q8ZrOXoPQ2oF4QX5t48iLyXOtO4Xfsnbiy42pzOta?=
+ =?us-ascii?Q?9eYy5m4d/MRYkaVkxJ9cNF8V2H7qojy9JncOW53dC49KL07ufwQt9PqSlU+s?=
+ =?us-ascii?Q?zmG2LOXE2HUy4HVWW1B3hzJa5jQP7pHGAoPvc3/biKP5IalGJOv1DRNXKSqr?=
+ =?us-ascii?Q?ocsAGuJiwuWvfyPAM26Ow7zCJMcrkXLy7oLOCweq677S+85uOQ33cR1GxYuy?=
+ =?us-ascii?Q?jbCsQgdQAuXVGATMFvEAGc4UzJrtPuh1vXBrdGYuj/FVuw2tH682PaT/3KgB?=
+ =?us-ascii?Q?P5D+r+qAMJsa5ChgmWOvO58VEQh1j1kYRTZ1rgu70QB4FT08DCWQyfq0xCtN?=
+ =?us-ascii?Q?zH2gDI6cuDL3abT7yimpo+fehF0nys/B7XUfPSmdr+Ody4SKdWPz5iv23J2V?=
+ =?us-ascii?Q?ukd4diULWH9poGDeFnTiyOnK9kInokxNVWIyfeGxOYmw4/XlswPFPu6peLkY?=
+ =?us-ascii?Q?dU5KurnIST+f51rU1MpM5rI5gCsDeFHEE31D3fRHgtDZstcGtyU4SuMzhvCg?=
+ =?us-ascii?Q?PmpWCnQPM5cYofAxPLtbYbBsNkzyzyzdx5h8iD3eou8WJv40kFrmFvp0hy7T?=
+ =?us-ascii?Q?MBaD0P2hTmtEisZ7AGcc4P4YecYCJRBd0++etiMDcl0a+HiENtwXLz1/KcbJ?=
+ =?us-ascii?Q?Tix1z+kKit9DhK9a8aEH1Tg2j3HR3cRbYc6Nsg1Yz14hGwjE35Uwo4RNdUCP?=
+ =?us-ascii?Q?7ZTXx16HK2ZqHyRK5jxlnm1h/Qt1fGZ03kiNn2ZYHiwRY0fbhuVvgBogwBPs?=
+ =?us-ascii?Q?wpsDdWyqzfOXmn4XrSkjZQlMZ1++odecNUNlcIVq1Ed/wZEI1SLzmji2WyLw?=
+ =?us-ascii?Q?vayenRYlGqzbPo+Rsw0VFASxWZjnPzQldjjHy8ZyXNilJQLq9zyeEcE4Z7ER?=
+ =?us-ascii?Q?lFwwAYwMEAI84TM9JhyKPEy7n+FKcpwaoIkxUGcK4StDxh14IyOlDyEZSco7?=
+ =?us-ascii?Q?jOE881WdG76ijIJlY7zj+ZBp8vs3aI0hOBUjLx84+GN96PYM3z5+o1encNSZ?=
+ =?us-ascii?Q?/l9BC3KuhL2Ml8Ms45BwWJ4qPCkUzktFmC++RWkoIHrBAr3xEwSsYqIMN/cq?=
+ =?us-ascii?Q?mM21M1r/DkX/GblWLBMVTi9SAfJUjg9lxr+Td1aJrQsVrDssxA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(36860700010)(1800799021)(376011)(82310400023); DIR:OUT;
+ SFS:(13230037)(376011)(36860700010)(1800799021)(82310400023); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2024 15:30:52.7280 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1bb13ea-276f-43b4-4beb-08dc8faba3ba
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2024 15:30:50.2831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3784146-1325-4217-c543-08dc8faba24e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8945
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6948
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,60 +131,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fault handler may push some work to the GPU through amdgpu_bo_move
-so use the pm_runtime functions before that.
-
-Since we're in an interrupt context, we can't use the sync version,
-so pm_runtime_get is called.
+This way these values can be returned directly when using
+AMDGPU_INFO_DEV_INFO, without waking up the GPU.
 
 Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 12 ++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  8 ++++----
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 19 +++++--------------
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  8 ++++----
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 12 ++++++------
+ 7 files changed, 40 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 1f22b4208729..ec120e33536d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -30,6 +30,7 @@
- #include <linux/pagemap.h>
- #include <linux/pci.h>
- #include <linux/dma-buf.h>
-+#include <linux/pm_runtime.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 083f353cff6e..75db8eba73d9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -418,8 +418,16 @@ struct amdgpu_clock {
+ 	struct amdgpu_pll spll;
+ 	struct amdgpu_pll mpll;
+ 	/* 10 Khz units */
+-	uint32_t default_mclk;
+-	uint32_t default_sclk;
++	struct {
++		uint32_t min;
++		uint32_t max;
++		uint32_t def;
++	} mclk;
++	struct {
++		uint32_t min;
++		uint32_t max;
++		uint32_t def;
++	} sclk;
+ 	uint32_t default_dispclk;
+ 	uint32_t current_dispclk;
+ 	uint32_t dp_extclk;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 7dc102f0bc1d..f2c2b05233f0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -658,9 +658,9 @@ int amdgpu_atombios_get_clock_info(struct amdgpu_device *adev)
+ 		mpll->pll_in_max =
+ 		    le16_to_cpu(firmware_info->info.usMaxMemoryClockPLL_Input);
  
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_drv.h>
-@@ -52,9 +53,13 @@ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
- 	vm_fault_t ret;
- 	int idx;
+-		adev->clock.default_sclk =
++		adev->clock.sclk.def = adev->clock.sclk.min = adev->clock.sclk.max =
+ 		    le32_to_cpu(firmware_info->info.ulDefaultEngineClock);
+-		adev->clock.default_mclk =
++		adev->clock.mclk.def = adev->clock.mclk.min = adev->clock.mclk.max =
+ 		    le32_to_cpu(firmware_info->info.ulDefaultMemoryClock);
  
-+	ret = pm_runtime_get(ddev->dev);
-+	if (ret < 0)
-+		return ret;
-+
- 	ret = ttm_bo_vm_reserve(bo, vmf);
- 	if (ret)
--		return ret;
-+		goto put_pm;
- 
- 	if (drm_dev_enter(ddev, &idx)) {
- 		ret = amdgpu_bo_fault_reserve_notify(bo);
-@@ -71,10 +76,14 @@ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
- 		ret = ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
+ 		mpll->min_post_div = 1;
+@@ -699,8 +699,8 @@ int amdgpu_atombios_get_clock_info(struct amdgpu_device *adev)
+ 		ret = 0;
  	}
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
--		return ret;
-+		goto put_pm;
  
- unlock:
- 	dma_resv_unlock(bo->base.resv);
-+put_pm:
-+	pm_runtime_mark_last_busy(ddev->dev);
-+	pm_runtime_put_autosuspend(ddev->dev);
-+
+-	adev->pm.current_sclk = adev->clock.default_sclk;
+-	adev->pm.current_mclk = adev->clock.default_mclk;
++	adev->pm.current_sclk = adev->clock.sclk.def;
++	adev->pm.current_mclk = adev->clock.mclk.def;
+ 
  	return ret;
  }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index f932bec6e534..6eb125b1bd08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -719,13 +719,13 @@ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev)
+ 			(union firmware_info *)(mode_info->atom_context->bios +
+ 						data_offset);
  
+-		adev->clock.default_sclk =
++		adev->clock.sclk.def = adev->clock.sclk.min = adev->clock.sclk.max =
+ 			le32_to_cpu(firmware_info->v31.bootup_sclk_in10khz);
+-		adev->clock.default_mclk =
++		adev->clock.mclk.def = adev->clock.mclk.min = adev->clock.mclk.max =
+ 			le32_to_cpu(firmware_info->v31.bootup_mclk_in10khz);
+ 
+-		adev->pm.current_sclk = adev->clock.default_sclk;
+-		adev->pm.current_mclk = adev->clock.default_mclk;
++		adev->pm.current_sclk = adev->clock.sclk.def;
++		adev->pm.current_mclk = adev->clock.mclk.def;
+ 
+ 		ret = 0;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 3fb02f5b91c9..03417e7e8961 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4422,6 +4422,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	amdgpu_device_check_iommu_direct_map(adev);
+ 
++	if (adev->pm.dpm_enabled) {
++		adev->clock.sclk.min = amdgpu_dpm_get_sclk(adev, true);
++		adev->clock.sclk.max = amdgpu_dpm_get_sclk(adev, false);
++		adev->clock.mclk.min = amdgpu_dpm_get_mclk(adev, true);
++		adev->clock.mclk.max = amdgpu_dpm_get_mclk(adev, false);
++	}
++
+ 	return 0;
+ 
+ release_ras_con:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index dbb05d51682b..781851cf8dc9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -827,19 +827,10 @@ static int amdgpu_info(struct drm_device *dev, void *data, struct drm_file *filp
+ 		dev_info->num_shader_arrays_per_engine = adev->gfx.config.max_sh_per_se;
+ 		/* return all clocks in KHz */
+ 		dev_info->gpu_counter_freq = amdgpu_asic_get_xclk(adev) * 10;
+-		if (adev->pm.dpm_enabled) {
+-			dev_info->max_engine_clock = amdgpu_dpm_get_sclk(adev, false) * 10;
+-			dev_info->max_memory_clock = amdgpu_dpm_get_mclk(adev, false) * 10;
+-			dev_info->min_engine_clock = amdgpu_dpm_get_sclk(adev, true) * 10;
+-			dev_info->min_memory_clock = amdgpu_dpm_get_mclk(adev, true) * 10;
+-		} else {
+-			dev_info->max_engine_clock =
+-				dev_info->min_engine_clock =
+-					adev->clock.default_sclk * 10;
+-			dev_info->max_memory_clock =
+-				dev_info->min_memory_clock =
+-					adev->clock.default_mclk * 10;
+-		}
++		dev_info->min_engine_clock = adev->clock.sclk.min * 10;
++		dev_info->max_engine_clock = adev->clock.sclk.max * 10;
++		dev_info->min_memory_clock = adev->clock.mclk.min * 10;
++		dev_info->max_memory_clock = adev->clock.mclk.max * 10;
+ 		dev_info->enabled_rb_pipes_mask = adev->gfx.config.backend_enable_mask;
+ 		dev_info->num_rb_pipes = adev->gfx.config.max_backends_per_se *
+ 			adev->gfx.config.max_shader_engines;
+@@ -1315,12 +1306,12 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	case AMDGPU_INFO_MAX_IBS:
+ 	case AMDGPU_INFO_GPUVM_FAULT:
+ 	case AMDGPU_INFO_GB_ADDR_CONFIG:
++	case AMDGPU_INFO_DEV_INFO:
+ 		need_runtime_pm = false;
+ 		break;
+ 
+ 	case AMDGPU_INFO_TIMESTAMP:
+ 	case AMDGPU_INFO_READ_MMR_REG:
+-	case AMDGPU_INFO_DEV_INFO:
+ 	case AMDGPU_INFO_SENSOR:
+ 		need_runtime_pm = true;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+index 6bb42d04b247..75c262acb704 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+@@ -2996,10 +2996,10 @@ static int kv_dpm_sw_init(void *handle)
+ 	adev->pm.dpm.state = POWER_STATE_TYPE_BALANCED;
+ 	adev->pm.dpm.user_state = POWER_STATE_TYPE_BALANCED;
+ 	adev->pm.dpm.forced_level = AMD_DPM_FORCED_LEVEL_AUTO;
+-	adev->pm.default_sclk = adev->clock.default_sclk;
+-	adev->pm.default_mclk = adev->clock.default_mclk;
+-	adev->pm.current_sclk = adev->clock.default_sclk;
+-	adev->pm.current_mclk = adev->clock.default_mclk;
++	adev->pm.default_sclk = adev->clock.sclk.def;
++	adev->pm.default_mclk = adev->clock.mclk.def;
++	adev->pm.current_sclk = adev->clock.sclk.def;
++	adev->pm.current_mclk = adev->clock.mclk.def;
+ 	adev->pm.int_thermal_type = THERMAL_TYPE_NONE;
+ 
+ 	if (amdgpu_dpm == 0)
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index a1baa13ab2c2..e72eb59af6a5 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7232,8 +7232,8 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
+ 	if (rps->class & ATOM_PPLIB_CLASSIFICATION_BOOT) {
+ 		u16 vddc, vddci, mvdd;
+ 		amdgpu_atombios_get_default_voltages(adev, &vddc, &vddci, &mvdd);
+-		pl->mclk = adev->clock.default_mclk;
+-		pl->sclk = adev->clock.default_sclk;
++		pl->mclk = adev->clock.mclk.def;
++		pl->sclk = adev->clock.sclk.def;
+ 		pl->vddc = vddc;
+ 		pl->vddci = vddci;
+ 		si_pi->mvdd_bootup_value = mvdd;
+@@ -7733,10 +7733,10 @@ static int si_dpm_sw_init(void *handle)
+ 	adev->pm.dpm.state = POWER_STATE_TYPE_BALANCED;
+ 	adev->pm.dpm.user_state = POWER_STATE_TYPE_BALANCED;
+ 	adev->pm.dpm.forced_level = AMD_DPM_FORCED_LEVEL_AUTO;
+-	adev->pm.default_sclk = adev->clock.default_sclk;
+-	adev->pm.default_mclk = adev->clock.default_mclk;
+-	adev->pm.current_sclk = adev->clock.default_sclk;
+-	adev->pm.current_mclk = adev->clock.default_mclk;
++	adev->pm.default_sclk = adev->clock.sclk.def;
++	adev->pm.default_mclk = adev->clock.mclk.def;
++	adev->pm.current_sclk = adev->clock.sclk.def;
++	adev->pm.current_mclk = adev->clock.mclk.def;
+ 	adev->pm.int_thermal_type = THERMAL_TYPE_NONE;
+ 
+ 	if (amdgpu_dpm == 0)
 -- 
 2.40.1
 
