@@ -4,82 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F1A8C27C4F
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 22:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D32FEC27C4F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 22:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 554B510E7DA;
-	Tue, 18 Jun 2024 21:59:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61ABA10E7DB;
+	Tue, 18 Jun 2024 22:07:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tx7WrC8p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Quga+WqQ";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAE0410E7D7;
- Tue, 18 Jun 2024 21:59:55 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-6bfd4b88608so4277389a12.1; 
- Tue, 18 Jun 2024 14:59:55 -0700 (PDT)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 045A010E7DB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 22:07:13 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-2c3051aee3fso4924732a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 15:07:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718747995; x=1719352795; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1718748433; x=1719353233; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EU04kyl3dHWSxH/GsSb9jqBAdB+bRNmG9gEcHnqB7Kc=;
- b=Tx7WrC8p0lzm1ZqsHX7xis8PHBYBs3RhkuhhTDwWj0mftxvGPgoEFTaxUrHW34XNmc
- 74aJGUnKLVomCJuXA1JS/6skaGwjka7b4/btgzYZJ0KZiBM8jdkkU+Nbsj/ePov6gl9E
- XgeWHJD9xup9HKU3HUewP4Acxfg6DuihZklvnNuZEe8sOVDZi5FwGp4Jwr3Uf2m8uCO1
- MgbFpRLTjtjln39+APiONd6JZbBdLBwW7onfIf/cjxjX9dDTrje/FfDNvvhu85dIoNTR
- wAeStNs5eObs05NJG0hc0xFIzGFHmgAWwU0NEijOYXPl5MPkfp31RUa3Dzp/R02um7dt
- tQqg==
+ bh=GR7zXs0PHqzWuzN8g6oyR90A4T87/JZIy8yCqH66Pu4=;
+ b=Quga+WqQ+KEjt9YVYhGT1/O51HRHYy6nZL2j08zXOUQ5ewmlGDjnuWzHOvDwsemiWg
+ aTEywHkXe/Yzh+3ZPlKzxH1HYk1lm9Yk3IoomsqE9R7EAck4BtoHPXCwOc6x0Fb+p60w
+ 0bO+BGRMM9C4UIMbiL0dlKz9feRFfWfVvI3NxjN/5rS0GoqtwOlH5cdiPza0ZErifdZA
+ n3Gq5i3d/KSshhTNKW1Xou8GK5dkmS2+Qqa//Z0w9+B9bEcMBbTWBmpDXsbouJU3AgMB
+ E/oQdjvgUxWFNeqrg4W3/AC01TjN7sLl0ltNeXD3dQz1Awtih71T0zVtGJvlpQ1N5z4I
+ LunQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718747995; x=1719352795;
+ d=1e100.net; s=20230601; t=1718748433; x=1719353233;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EU04kyl3dHWSxH/GsSb9jqBAdB+bRNmG9gEcHnqB7Kc=;
- b=pt9Hby+oqBB7CMLKkyvuW1lmR4wkU5Uvw6GgpT/BzYAEBUD8Qp+0zJeCt88iFSkjvU
- niwLIkWqHu8fJqh4dKilo6SIpo942IZNvH7I8SD5nDlvep9Kw6Sdu30osehjd7VbSfb3
- 2IfnmHGi6HSP0sLiTvkG+nosc7sUm8WZOFf2rRNbi2o696iGGoto6kPytijSFAoRHH2k
- 51J67QrVVeq8+XSzhPuN71dGlb1ZxNcPkwEPzqdQQFQ/wNQd2YTAoOGDXqX7qaAw5Q5C
- xBadB3fhbjSp1SdHPU0zvccV0wP0jmeMchK4RgN4oasaCQdpApqbLwt1HVwjZHFn/yJs
- n7OA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU7Xga2DsxE/zgSySBsTG4nFVf+qSS+1rvj+UqE3mg+KPTPtN84UhuT9IkKIBfZ0TofH6qB2aYcEJTGfN/8UsNaXcHlvmfdq2Ksr7JXig==
-X-Gm-Message-State: AOJu0YyZguqI9+HYerblLYffT/JWqeF9egePYX7H0GeQf4vlOhfV2P4l
- U9MJZ30RH4Gm/1UTUzmB/Z+ivlpT/jK78slU1oqw5/wIFy7zVAlljK1H01rnra1mywWbNpKuPqt
- NAhgcqqtbGb/44oJWBKZetvXBZDc=
-X-Google-Smtp-Source: AGHT+IGUaN7fpnj3ApZQ62pMjYcLw04OWKvr2yhL4FC1FgiK4tzz22/Z/RNOhLM8SD08NUIzF7HXcASRVABBvHBJOJA=
-X-Received: by 2002:a17:90a:d484:b0:2c2:c799:eb20 with SMTP id
- 98e67ed59e1d1-2c7b5c982demr1066657a91.23.1718747994883; Tue, 18 Jun 2024
- 14:59:54 -0700 (PDT)
+ bh=GR7zXs0PHqzWuzN8g6oyR90A4T87/JZIy8yCqH66Pu4=;
+ b=Axgt9jcLec0Ro4htOc6/AA3IofLQPtQSXRt42xn5SElD/hRK3GDLpCcp/fSblDbCRA
+ g9sixo7b/yS7ygGARzvivEH2dZCmPwp6lDRxK4TrctVO+CVKtyedHBrXyXb4+rDB76Hl
+ QHIAj+bRHW9nXzZHlGpcJUTz7kHg4NhAn2dhx5w7JRh1YP3ybqYamMbuIc51PgHBDw8k
+ OBjIWQHis+ZOgImmoUNPjx8Ye6wNdf6sSUt9h61AFVNpy5tpxQyUvo2wWJSh9oGstdMb
+ 82+WaZ6URElyvjY+SSS2aeSTX2n/w2H8EG3JB06CXmtZX1vGDbjlwdKKVtXstLcrGmpr
+ p5vQ==
+X-Gm-Message-State: AOJu0Yz7vUQUDn+em48aK2HVqq/sLlsxPERtbCwsM5ZtM+SOngX4N1M3
+ e2wNbQq3mgmmM8FrHxw4v6RIYkom1Z9fAdYj3w6XR/av1HNFewj0NSATEWoHCfBA1n3HvcIE/Nh
+ BP1NOgCwni/y8R3ZlRQEvuFM6iK7u8A==
+X-Google-Smtp-Source: AGHT+IELZdU+AitsOd+pvip8GLUgNWGcdrNDWWzMiCb+t4uHpH5UHA+JZL3C8W0LcXy93Y6lmSZ4IWsghZ59ZiqqcTQ=
+X-Received: by 2002:a17:90a:db43:b0:2c7:6305:990b with SMTP id
+ 98e67ed59e1d1-2c7b59fa96amr1057531a91.9.1718748433358; Tue, 18 Jun 2024
+ 15:07:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240612222435.3188234-1-dianders@chromium.org>
- <20240612152752.v2.8.I27914059cc822b52db9bf72b4013b525b60e06fd@changeid>
- <CADnq5_PbqE0E2pP26mGD94cdc=tLZZsF10e7ZZWeC5AU-LS8vw@mail.gmail.com>
- <CAD=FV=XJAiVGFn_Tqs_JNo1fQKFys3m=hH9MwmMot93gkdg=Qw@mail.gmail.com>
-In-Reply-To: <CAD=FV=XJAiVGFn_Tqs_JNo1fQKFys3m=hH9MwmMot93gkdg=Qw@mail.gmail.com>
+References: <20240614175458.459062-1-alexander.deucher@amd.com>
+In-Reply-To: <20240614175458.459062-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Jun 2024 17:59:42 -0400
-Message-ID: <CADnq5_M+H_h1Me_O3u=R3q52PgYcCwwY9Mr8_R1eX0G7HvBp2w@mail.gmail.com>
-Subject: Re: [PATCH v2 8/8] drm/amdgpu: Call drm_atomic_helper_shutdown() at
- shutdown time
-To: Doug Anderson <dianders@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Candice Li <candice.li@amd.com>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Le Ma <le.ma@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Victor Lu <victorchengchi.lu@amd.com>, amd-gfx@lists.freedesktop.org, 
- chenxuebing <chenxb_99091@126.com>, linux-kernel@vger.kernel.org
+Date: Tue, 18 Jun 2024 18:07:01 -0400
+Message-ID: <CADnq5_NBA0M=xdDHgZ_g5n+-WRu2rxx-mGm_HAo9+aHJVunnvQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/atomfirmware: fix parsing of vram_info
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -96,77 +75,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 18, 2024 at 5:40=E2=80=AFPM Doug Anderson <dianders@chromium.or=
-g> wrote:
->
-> Hi,
->
->
-> On Mon, Jun 17, 2024 at 8:01=E2=80=AFAM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
-> >
-> > On Wed, Jun 12, 2024 at 6:37=E2=80=AFPM Douglas Anderson <dianders@chro=
-mium.org> wrote:
-> > >
-> > > Based on grepping through the source code this driver appears to be
-> > > missing a call to drm_atomic_helper_shutdown() at system shutdown
-> > > time. Among other things, this means that if a panel is in use that i=
-t
-> > > won't be cleanly powered off at system shutdown time.
-> > >
-> > > The fact that we should call drm_atomic_helper_shutdown() in the case
-> > > of OS shutdown/restart comes straight out of the kernel doc "driver
-> > > instance overview" in drm_drv.c.
-> > >
-> > > Suggested-by: Maxime Ripard <mripard@kernel.org>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > ---
-> > > This commit is only compile-time tested.
-> > >
-> > > ...and further, I'd say that this patch is more of a plea for help
-> > > than a patch I think is actually right. I'm _fairly_ certain that
-> > > drm/amdgpu needs this call at shutdown time but the logic is a bit
-> > > hard for me to follow. I'd appreciate if anyone who actually knows
-> > > what this should look like could illuminate me, or perhaps even just
-> > > post a patch themselves!
-> >
-> > I'm not sure this patch makes sense or not.  The driver doesn't really
-> > do a formal tear down in its shutdown routine, it just quiesces the
-> > hardware.  What are the actual requirements of the shutdown function?
-> > In the past when we did a full driver tear down in shutdown, it
-> > delayed the shutdown sequence and users complained.
->
-> The "inspiration" for this patch is to handle panels properly.
-> Specifically, panels often have several power/enable signals going to
-> them and often have requirements that these signals are powered off in
-> the proper order with the proper delays between them. While we can't
-> always do so when the system crashes / reboots in an uncontrolled way,
-> panel manufacturers / HW Engineers get upset if we don't power things
-> off properly during an orderly shutdown/reboot. When panels are
-> powered off badly it can cause garbage on the screen and, so I've been
-> told, can even cause long term damage to the panels over time.
->
-> In Linux, some panel drivers have tried to ensure a proper poweroff of
-> the panel by handling the shutdown() call themselves. However, this is
-> ugly and panel maintainers want panel drivers to stop doing it. We
-> have removed the code doing this from most panels now [1]. Instead the
-> assumption is that the DRM modeset drivers should be calling
-> drm_atomic_helper_shutdown() which will make sure panels get an
-> orderly shutdown.
->
-> For a lot more details, see the cover letter [2] which then contains
-> links to even more discussions about the topic.
->
-> [1] https://lore.kernel.org/r/20240605002401.2848541-1-dianders@chromium.=
-org
-> [2] https://lore.kernel.org/r/20240612222435.3188234-1-dianders@chromium.=
-org
-
-I don't think it's an issue.  We quiesce the hardware as if we were
-about to suspend the system (e.g., S3).  For the display hardware we
-call drm_atomic_helper_suspend() as part of that sequence.
+Ping?
 
 Alex
+
+On Fri, Jun 14, 2024 at 2:12=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> v3.x changed the how vram width was encoded.  The previous
+> implementation actually worked correctly for most boards.
+> Fix the implementation to work correctly everywhere.
+>
+> This fixes the vram width reported in the kernel log on
+> some boards.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> index f932bec6e534..f873dd3cae16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> @@ -433,7 +433,7 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_devic=
+e *adev,
+>                                                 mem_channel_number =3D vr=
+am_info->v30.channel_num;
+>                                                 mem_channel_width =3D vra=
+m_info->v30.channel_width;
+>                                                 if (vram_width)
+> -                                                       *vram_width =3D m=
+em_channel_number * (1 << mem_channel_width);
+> +                                                       *vram_width =3D m=
+em_channel_number * 16;
+>                                                 break;
+>                                         default:
+>                                                 return -EINVAL;
+> --
+> 2.45.1
+>
