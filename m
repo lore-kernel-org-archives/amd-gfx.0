@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE63C2BA18
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 18:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E0BDC27C4F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 18:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02568984C;
-	Tue, 18 Jun 2024 18:07:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72CF710E1C1;
+	Tue, 18 Jun 2024 18:11:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DKGOWTZL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eFGEg2st";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC39010E217
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 18:07:45 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2bfff08fc29so4773402a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 11:07:45 -0700 (PDT)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 957D510E22C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 18:11:11 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-70b2421471aso1681996a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 11:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718734065; x=1719338865; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1718734271; x=1719339071; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KDXcheXNa9dT6T8H8FsDJ7+GMieel5CIsbdW1uOFApM=;
- b=DKGOWTZLRl8OWT6ktD1CEBI0u9n8CCKz2qNtrE+euX2E4w35hGsvzlx7UVjSSNuDsH
- nY/7Pa04LehtG4zN6gj9IO1sF6Hs8fKsaq6/kDfVnGYx+nqDocrYp4ZNJycQNzytw3Gw
- zFpMiAGr0cLR/bmewTVUTuvZM88Pcls0hxdBejjcuTf66N6SpTqZvcre4noUYfcshrfQ
- ZXowuuBRvGk2kR0smKCbBzX6bUYHUMYlmiv4fiTvdpm/0+UKDUvaoPmOTUcSY96DNAaW
- dEsJH9FErmPAY0GsREP4y91UqRye6fqdoNW3PPulxBkQT/lmj9cGE+25p/WxGhxHLnkr
- AiRw==
+ bh=orK2hQoEn+sTVLQo+4lDpKY04Bc16zKzhu8s0ct/Tr4=;
+ b=eFGEg2stdTKMHz08bZKQiYiWlAbvEiVsasmN/JmVoESfZZfUaUk7ywy/4AZaxSSpMR
+ yOz3bxa1LZUn0x41lr5Bnuigfb/feZ6tkUMMtCHO4ne+5OXz4CLZwSE71r9GZ/4xG24n
+ WG2oobecXfhv1CC4iwD4h52imrsGzK5ItagrjEJ5N19V3YvkocvQ8pQT7vYXumyYZUfo
+ IROamrX2HWtmCFZtAqKXwu1FZNcsGdh1VrXT+n55TbIwhyAkpKKqxuSjScJbMWGQgBlP
+ 7Bv3cpzCw79TAYjO13wOXWUzvKIbUzHKYTx3H3EJbuPS2ocWgJDXmxHLKCUR23H0nMo2
+ Pusw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718734065; x=1719338865;
+ d=1e100.net; s=20230601; t=1718734271; x=1719339071;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KDXcheXNa9dT6T8H8FsDJ7+GMieel5CIsbdW1uOFApM=;
- b=n7xb8P83HoTsBwfOXHDjOGOgHHxULRO/0wBoJX0tpQu6kSXeb9Zo9804o237dMtSzd
- n9L60t4KGnmjpKMyh2jp4LazIXSb7dgFZNu9p0w/Wuxu6nI1XyE2o7Ua/KgDU/DChBwI
- AA2So80R2JZctedw6AqRArv7zCrmkPE4UvdvZp01+fRf9L2n3lP/OXuiNEjvC518oD7G
- MVlgKieC/we4FijQ43Qi0zIRl0uulqwtZ1bRTPtFlQS7J14yVkVrtwgLCYKLXhcj9N7I
- R5Nh440gRTa6ILACjErsimPtdXkmoIJFCT9okh0/Mb4V58u9jyDpfS8+IFhTrru5V2UH
- DSvw==
-X-Gm-Message-State: AOJu0Yw0E8MKCt7KgiP8ssvQR+6DNRDCnGK8hwzxHNk0cNslA7wNc8AI
- iPsxGUWk3WsajDWXvm2BrSC62EBY0JH33hw63rbW1amFv5VbNP0aPjvm/C47C/OhBmLpxywI1Fn
- 2NVlnN03IO7tnDGSxvOCdkTUQd6M=
-X-Google-Smtp-Source: AGHT+IEganNeyN3r6cd8lG45UnwJ2SFXscptn5PbGIOl9hyrhRA0Pw1cAT8bAedY0X32Ak8A15CF0xWoJ6W5+c/0N+I=
-X-Received: by 2002:a17:90b:3717:b0:2bf:f248:3506 with SMTP id
- 98e67ed59e1d1-2c7b5b7aa9cmr442932a91.12.1718734065250; Tue, 18 Jun 2024
- 11:07:45 -0700 (PDT)
+ bh=orK2hQoEn+sTVLQo+4lDpKY04Bc16zKzhu8s0ct/Tr4=;
+ b=Rhi1mKxz2YolOZl544k0kHWxV10ZIiMt0Lw3A9uRAUKzHNnmY7EHWrubRYl6gzkh5+
+ EcS1M4UzlsM5HfeQsvL7m0AdmPrGjelyS7pa7GwYkDV1Dv60WBcCaJcXRdSSbSH0eI1q
+ YmBD7l5AukoD+04OMdnZ2pCQIvoiztJ/LKaqcK9fByWHs2FzCi7JV7qnSzaTNdTX3xND
+ waHeguCPUOaRfjjxd+LDGV6wgQMnqrITzVzOEux9H42BbPcRYI6mZwQH9OWobGCKx6ZK
+ 3yOk4BxIF1dG4lDblRDv3/jwh/0f00gfReMNZfvpMWA2z6PBUfutoeR4ifCncXgs0TS+
+ D3Vg==
+X-Gm-Message-State: AOJu0YyxjRsY0h/fm+ui+VftBZj/FOf31iS52WAP6GhYulQJlKM9keln
+ IvZbZFycY+L5T5cGmLzbAQ+ZcR9IME+MurB7qqOcEFx5a2GxzaeRTmKazzJCE4DH0wvPyXUlhj2
+ d1giNKYiiotysZcWcDoipAVR5N0JVdw==
+X-Google-Smtp-Source: AGHT+IEwmtGGCDP2g7Ac3GHfQxJsNPi06m4STuarNhzMmcuM/WNL2gfzzY12XEsgQbQRh7DiabP4y9JHBFGL6S+xeAg=
+X-Received: by 2002:a17:90b:104c:b0:2c4:caa1:5e3c with SMTP id
+ 98e67ed59e1d1-2c7b57f3271mr536295a91.9.1718734271020; Tue, 18 Jun 2024
+ 11:11:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240618163953.699473-1-sonny.jiang@amd.com>
-In-Reply-To: <20240618163953.699473-1-sonny.jiang@amd.com>
+References: <20240618164305.24221-1-mario.limonciello@amd.com>
+In-Reply-To: <20240618164305.24221-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Jun 2024 14:07:33 -0400
-Message-ID: <CADnq5_Odu6ev-uFuNkPexmXBy0O+a149Sfbo0zh1tbX5CE26dA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/jpeg5: reprogram doorbell setting after power
- up for each playback
-To: Sonny Jiang <sonny.jiang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sonny Jiang <sonjiang@amd.com>
+Date: Tue, 18 Jun 2024 14:10:58 -0400
+Message-ID: <CADnq5_PoAJ9R-aa1VXAoWk2D74h1fxta2PYb7p2bt4o2S9O9oQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Don't initialize ISP hardware without FW
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Pratap Nirujogi <pratap.nirujogi@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,51 +75,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 18, 2024 at 1:17=E2=80=AFPM Sonny Jiang <sonny.jiang@amd.com> w=
-rote:
+On Tue, Jun 18, 2024 at 2:02=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> From: Sonny Jiang <sonjiang@amd.com>
+> Although designs may contain an ISP IP block, the camera might be a USB
+> camera. Because of this the ISP firmware is considered optional from
+> amdgpu.  However if the firmware doesn't get loaded the hardware should
+> not be initialized.
 >
-> Doorbell needs to be configured after power up during each playback
+> Adjust the return code for early init to ensure the IP block doesn't go
+> through the other init and fini sequences. Also decrease the message
+> about firmware load failure to debug so it's not as alarming to users.
 >
-> Signed-off-by: Sonny Jiang <sonjiang@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_0_0.c
-> index 68ef29bc70e2..e766b9463759 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> @@ -137,10 +137,6 @@ static int jpeg_v5_0_0_hw_init(void *handle)
->         adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
->                         (adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_isp.c
+> index 215bae809153..4766e99dd98f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+> @@ -142,8 +142,8 @@ static int isp_early_init(void *handle)
+>         isp->parent =3D adev->dev;
 >
-> -       WREG32_SOC15(VCN, 0, regVCN_JPEG_DB_CTRL,
-> -                       ring->doorbell_index << VCN_JPEG_DB_CTRL__OFFSET_=
-_SHIFT |
-> -                       VCN_JPEG_DB_CTRL__EN_MASK);
-> -
->         r =3D amdgpu_ring_test_helper(ring);
->         if (r)
->                 return r;
-> @@ -314,6 +310,10 @@ static int jpeg_v5_0_0_start(struct amdgpu_device *a=
-dev)
->                 JPEG_SYS_INT_EN__DJRBC0_MASK,
->                 ~JPEG_SYS_INT_EN__DJRBC0_MASK);
+>         if (isp_load_fw_by_psp(adev)) {
+> -               DRM_WARN("%s: isp fw load failed\n", __func__);
+> -               return 0;
+> +               DRM_DEBUG_DRIVER("%s: isp fw load failed\n", __func__);
+> +               return -ENOENT;
+>         }
 >
-> +       WREG32_SOC15(VCN, 0, regVCN_JPEG_DB_CTRL,
-> +               ring->doorbell_index << VCN_JPEG_DB_CTRL__OFFSET__SHIFT |
-> +               VCN_JPEG_DB_CTRL__EN_MASK);
-> +
->         WREG32_SOC15(JPEG, 0, regUVD_LMI_JRBC_RB_VMID, 0);
->         WREG32_SOC15(JPEG, 0, regUVD_JRBC_RB_CNTL, (0x00000001L | 0x00000=
-002L));
->         WREG32_SOC15(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_LOW,
+>         return 0;
 > --
-> 2.45.1
+> 2.34.1
 >
