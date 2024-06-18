@@ -4,51 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A959BC27C4F
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 07:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CDFC2BA1A
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 07:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2549110E2A4;
-	Tue, 18 Jun 2024 07:32:08 +0000 (UTC)
-X-Greylist: delayed 410 seconds by postgrey-1.36 at gabe;
- Mon, 17 Jun 2024 21:55:14 UTC
-Received: from domac.alu.hr (domac.alu.hr [161.53.235.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCAF310E131;
- Mon, 17 Jun 2024 21:55:14 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by domac.alu.hr (Postfix) with ESMTP id 9F8976018F;
- Mon, 17 Jun 2024 23:48:21 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at domac.alu.hr
-Received: from domac.alu.hr ([127.0.0.1])
- by localhost (domac.alu.hr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id OW_G-Ho5VqqT; Mon, 17 Jun 2024 23:48:19 +0200 (CEST)
-Received: from [192.168.178.20] (dh207-41-66.xnet.hr [88.207.41.66])
- by domac.alu.hr (Postfix) with ESMTPSA id 76D6260173;
- Mon, 17 Jun 2024 23:48:18 +0200 (CEST)
-Message-ID: <838a42ea-b61d-4aee-96cb-bac544794349@gmail.com>
-Date: Mon, 17 Jun 2024 23:48:11 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3050510E222;
+	Tue, 18 Jun 2024 07:48:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EGEsuMe0";
+	dkim-atps=neutral
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6B6C10E5B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 07:48:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=f+gqYkwWK9Z1Y28wGwrtWxbE9K6rJXrEif6IQzWY/SbG4yLpoJSExQzmiZzifjWSmB+Eg70SXPSBw/vt5lSDrrLcYlC8xnH85Sg7/uaQ19weyurFgrV8XX5UFaQD/j8d2mLl0zZxtbJGeg9XhodNNey0lJWd+mhk8Rnv4evmouefzMew2RGA4XG+vwGWW+/CQWbpRukAW9yevdezsh2nr+7/s8h8WbXeF/6lOYJxyS0kEidBIH1M96lEQdjDZVbfRL4FCqzYCb1YSL/NkXfAFyBBbzArgIRNNl2IiNcZML35FLrQxgoMEMXlWAOUI8K8SSvH+Ba2vFQ21w8rv7xAIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oD3EMdJPYLypOx3mHXltLl58TAG7QUenZgSmptYxlSE=;
+ b=lVmGC+rA3b7/jb1TKMveKGkZQYMjhYY0z3Wdw8WFWcG+K1bE2Qq9XBkH3rIds4s/xOvxPOhho1FOutYG2mRLHiD6Bb2y8YTs9f66R1zVnvGYU3sZ/933bUpWbdyjr+Ckvw+UkWZDOOeDrbJcRWbQlVt6NXoqNO2AnfuHs74uOLTVCXXC0EwsvizY9hQJ+cuh5nd5b1MV2hlYsHC6RFozwcaeCkkaNrUj0ABpj6/NE/vRbsJuKCSYCnc/i3nHYdb1Dy1QPPZOnT8r7riWa6yoe1ZBot+8E3nTuYgD41tpie311o3a1CrJ+5nCEL2lm/xplH85KD1vHqmhkkaBlocFtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oD3EMdJPYLypOx3mHXltLl58TAG7QUenZgSmptYxlSE=;
+ b=EGEsuMe0GIlzO2bEwTHLSqxQZiXX0KWUqYV0L/lSEJp7lw+mVr4N3D8p0mJ6RwBM99Asns0pyIYciGp8aD5jmVwv95nDwzC1NCfnkImVi9vTMowPWyytNhkBB9pFuLggV35pzpV7r/qaD+ZgaNgrGNkH5DJDN8i6R58x0aVrmsw=
+Received: from SJ0PR03CA0025.namprd03.prod.outlook.com (2603:10b6:a03:33a::30)
+ by SA1PR12MB7320.namprd12.prod.outlook.com (2603:10b6:806:2b7::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31; Tue, 18 Jun
+ 2024 07:48:51 +0000
+Received: from MWH0EPF000971E9.namprd02.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::93) by SJ0PR03CA0025.outlook.office365.com
+ (2603:10b6:a03:33a::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31 via Frontend
+ Transport; Tue, 18 Jun 2024 07:48:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E9.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Tue, 18 Jun 2024 07:48:50 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Jun
+ 2024 02:48:47 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <tao.zhou1@amd.com>, <yipechai@amd.com>
+Subject: [PATCH 2/2] Revert "drm/amdgpu: change aca bank error lock type to
+ spinlock"
+Date: Tue, 18 Jun 2024 15:48:35 +0800
+Message-ID: <20240618074835.1439008-2-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240618074835.1439008-1-kevinyang.wang@amd.com>
+References: <20240618074835.1439008-1-kevinyang.wang@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Mirsad Todorovac <mtodorovac69@gmail.com>
-Subject: Re: [BUG] 6.10-rc3 [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying
- to clear memory with ring turned off [DUPLICATE]
-To: linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Le Ma <le.ma@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Ma Jun
- <Jun.Ma2@amd.com>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <4b7fd2f2-7ab2-412c-a65c-db172c819200@gmail.com>
-Content-Language: en-US
-In-Reply-To: <4b7fd2f2-7ab2-412c-a65c-db172c819200@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 18 Jun 2024 07:32:03 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E9:EE_|SA1PR12MB7320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bbbdfa6-f54e-4557-0bf0-08dc8f6b17f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|36860700010|376011|82310400023|1800799021; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?QJuUsZCPUxe873tfqoFgKoCw3KInPQ59YDa2NHu1AuvEc5ZBKaa1UOJwuIzt?=
+ =?us-ascii?Q?rH4iegqAwuxhHNzBqi1gazZEMlgXPtS1R7+qiNJhoqwCSRb7sIB8pxlD/46U?=
+ =?us-ascii?Q?iLKcK+X5BZiiDkdP63EN9/S/Ti88a2C7bp6UCRhwTLyIBL0P2EF9zbEM969I?=
+ =?us-ascii?Q?bqUytejyC7HHkG+hsRon5B7UyTYqIc466zNcCY2lIFI3JoF7mjBcWEyFPuGV?=
+ =?us-ascii?Q?fvcYCv+m7kdK6+aD7diOQpSXQO594x2M+cJeHijwrPvWOnK4jyRr3wQnT9Fv?=
+ =?us-ascii?Q?5hlybUO6tX0gkPuxZdP2gtFdR/yl263tYz1f0eAeRy58qmLGKIfYhLdgAY5M?=
+ =?us-ascii?Q?FQOayfXlFkyHpZUODZQ+VQdPwp1JfrdCFQCfqc0Pbdiljnaf3UVjsPYmANId?=
+ =?us-ascii?Q?GW5oVM/LNrSOtYuLjTJ/TntrFWA6rt2+prVpCuO7qrZD2qR3IgNlrwm878Uf?=
+ =?us-ascii?Q?OiMBiSyLjn7OOs7TxSSRJlqv7P40R5Ro2qdocKFLTAZEDO3dDkCdgi3BC1GD?=
+ =?us-ascii?Q?Ewf6sVSPFRC4kE01qgFrlK9w4GqvasEhIm9qT7E8qBl6PTcTu+azwXjobpv2?=
+ =?us-ascii?Q?qB6L8xui7+da1cA7BygKTtyziEPv2+5w3WZKhJS2u9afh9Rud07/VvQhQuW8?=
+ =?us-ascii?Q?Jgtr7pjsq08dowbdIgNp/O2IzWkrbi7v/roKHT3gqGbvOVh7QSYdIQuKSQzF?=
+ =?us-ascii?Q?fuyznuvEPU0FZ9YaMEMOYkH21f/kK+oSEj7W9STYL9165Ujz6/I3CQ12E1fw?=
+ =?us-ascii?Q?6FL0tojzkUpxxEksECmhSylp8V6KhhEiq+BTfAhA5gzdctz1AM99RRm9aYNx?=
+ =?us-ascii?Q?UqRMRLccJvm62jW1JCTJXS3M7Xwij5znpy4xhVV2KGcDillLif5zwFUcq6Uv?=
+ =?us-ascii?Q?ApucNmXgQ6+L+BAqtkKfh/GuqyAkMDTSN2+TRSWinHW7vNHm8ON0VzMsQ8y+?=
+ =?us-ascii?Q?yB6Oe0PiZVbGXax1bnqZGK6s4nVC+7v9j0vOIkYTGSP9XDbJihlzBLqa9VNV?=
+ =?us-ascii?Q?N/BHFQlbxsPcN4nM6x/jlgHicrqhYVuIBWlviyeM9butQo5i5jyRmgU7lgjm?=
+ =?us-ascii?Q?wtKplQU0NeCRJOcW0P0c+gL9We6uZySvb0hS4lGDfJq7lgvWLTUEvyb/QEQi?=
+ =?us-ascii?Q?fmxSeOcWHKc3p5+qD4Hg+WQIUxQH7kiJ4Cebn+ksFmDX3KuBfj+m9EcLnn9h?=
+ =?us-ascii?Q?94BtylM1n5KfWJ9AHxFz3iv4WJD0OiCU+rSsb3H1+uJwzOk1GqfRrTVyfqYa?=
+ =?us-ascii?Q?SBSQPdQzgPVh7RTfUMfmsVYH1mhAhSV2DWJaBrL2TK72nd+l853mWvc894hQ?=
+ =?us-ascii?Q?goCZV9pwER0q3EGFQSWE6TrUaeaSf042XNgKaF1Ab5UyFRyhmi9++w3ZI1Hf?=
+ =?us-ascii?Q?lawHhGmjn55MU28QbJyK4ew4ee3gnYrt3D86WC8dWEoqbHbPFw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230037)(36860700010)(376011)(82310400023)(1800799021); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2024 07:48:50.4519 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bbbdfa6-f54e-4557-0bf0-08dc8f6b17f9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7320
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,191 +131,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/12/24 21:15, Mirsad Todorovac wrote:
-> Hi, all!
-> 
-> Running the vanilla torvalds tree kernel 6.10-rc3, there occurred an error in boot with
-> amdgpu.
-> 
-> Here is the complete output:
-> 
-> kernel: [    8.704024] WARNING: CPU: 24 PID: 689 at drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1379 amdgpu_bo_release_notify (drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1382 (discriminator 1)) amdgpu
-> kernel: [    8.704146] Modules linked in: binfmt_misc amd_atl intel_rapl_msr intel_rapl_common edac_mce_amd kvm_amd kvm snd_hda_codec_realtek snd_hda_codec_generic amdgpu(+) crct10dif_pclmul nls_iso8859_1 snd_hda_scodec_component polyval_clmulni snd_hda_codec_hdmi polyval_generic ghash_clmulni_intel snd_hda_intel sha256_ssse3 sha1_ssse3 snd_intel_dspcfg snd_intel_sdw_acpi aesni_intel snd_hda_codec crypto_simd cryptd snd_seq_midi amdxcp snd_seq_midi_event snd_hda_core drm_exec gpu_sched joydev snd_rawmidi snd_hwdep rapl drm_buddy input_leds drm_suballoc_helper snd_seq drm_ttm_helper wmi_bmof snd_pcm snd_seq_device ttm k10temp ccp snd_timer drm_display_helper snd drm_kms_helper i2c_algo_bit soundcore mac_hid tcp_bbr sch_fq msr parport_pc ppdev lp parport efi_pstore drm ip_tables x_tables autofs4 btrfs blake2b_generic xor raid6_pq libcrc32c hid_generic usbhid hid nvme crc32_pclmul ahci i2c_piix4 nvme_core r8169 xhci_pci libahci xhci_pci_renesas realtek video wmi gpio_amdpt
-> kernel: [    8.704200] CPU: 24 PID: 689 Comm: systemd-udevd Not tainted 6.10.0-rc1-next-20240528 #1
-> kernel: [    8.704202] Hardware name: ASRock X670E PG Lightning/X670E PG Lightning, BIOS 1.21 04/26/2023
-> kernel: [    8.704203] RIP: 0010:amdgpu_bo_release_notify (drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1382 (discriminator 1)) amdgpu
-> kernel: [ 8.704324] Code: 0b e9 a3 fe ff ff 48 ba ff ff ff ff ff ff ff 7f 31 f6 4c 89 ef e8 c2 c4 dc ee eb 99 e8 eb bc dc ee eb b2 0f 0b e9 3c fe ff ff <0f> 0b eb a7 be 03 00 00 00 e8 b4 4b a1 ee eb 9b e8 4d 5c 36 ef 66
-> All code
-> ========
->    0:	0b e9                	or     %ecx,%ebp
->    2:	a3 fe ff ff 48 ba ff 	movabs %eax,0xffffffba48fffffe
->    9:	ff ff 
->    b:	ff                   	(bad)  
->    c:	ff                   	(bad)  
->    d:	ff                   	(bad)  
->    e:	ff                   	(bad)  
->    f:	7f 31                	jg     0x42
->   11:	f6 4c 89 ef e8       	testb  $0xe8,-0x11(%rcx,%rcx,4)
->   16:	c2 c4 dc             	ret    $0xdcc4
->   19:	ee                   	out    %al,(%dx)
->   1a:	eb 99                	jmp    0xffffffffffffffb5
->   1c:	e8 eb bc dc ee       	call   0xffffffffeedcbd0c
->   21:	eb b2                	jmp    0xffffffffffffffd5
->   23:	0f 0b                	ud2    
->   25:	e9 3c fe ff ff       	jmp    0xfffffffffffffe66
->   2a:*	0f 0b                	ud2    		<-- trapping instruction
->   2c:	eb a7                	jmp    0xffffffffffffffd5
->   2e:	be 03 00 00 00       	mov    $0x3,%esi
->   33:	e8 b4 4b a1 ee       	call   0xffffffffeea14bec
->   38:	eb 9b                	jmp    0xffffffffffffffd5
->   3a:	e8 4d 5c 36 ef       	call   0xffffffffef365c8c
->   3f:	66                   	data16
-> 
-> Code starting with the faulting instruction
-> ===========================================
->    0:	0f 0b                	ud2    
->    2:	eb a7                	jmp    0xffffffffffffffab
->    4:	be 03 00 00 00       	mov    $0x3,%esi
->    9:	e8 b4 4b a1 ee       	call   0xffffffffeea14bc2
->    e:	eb 9b                	jmp    0xffffffffffffffab
->   10:	e8 4d 5c 36 ef       	call   0xffffffffef365c62
->   15:	66                   	data16
-> kernel: [    8.704325] RSP: 0018:ffffb74b014d3380 EFLAGS: 00010282
-> kernel: [    8.704327] RAX: 00000000ffffffea RBX: ffff940781ec5c48 RCX: 0000000000000000
-> kernel: [    8.704328] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> kernel: [    8.704329] RBP: ffffb74b014d33b8 R08: 0000000000000000 R09: 0000000000000000
-> kernel: [    8.704330] R10: 0000000000000000 R11: 0000000000000000 R12: ffff9407dc80ef58
-> kernel: [    8.704330] R13: ffff940781ec5c00 R14: 0000000000000000 R15: 0000000000000000
-> kernel: [    8.704331] FS:  0000783805ca28c0(0000) GS:ffff941698600000(0000) knlGS:0000000000000000
-> kernel: [    8.704333] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> kernel: [    8.704334] CR2: 00007ec7be572000 CR3: 000000010f7e4000 CR4: 0000000000750ef0
-> kernel: [    8.704335] PKRU: 55555554
-> kernel: [    8.704335] Call Trace:
-> kernel: [    8.704337]  <TASK>
-> kernel: [    8.704339] ? show_regs+0x71/0x90 
-> kernel: [    8.704344] ? __warn+0x88/0x140 
-> kernel: [    8.704347] ? amdgpu_bo_release_notify (drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1382 (discriminator 1)) amdgpu
-> kernel: [    8.704464] ? report_bug+0x1ab/0x1c0 
-> kernel: [    8.704468] ? handle_bug+0x46/0x90 
-> kernel: [    8.704471] ? exc_invalid_op+0x19/0x80 
-> kernel: [    8.704473] ? asm_exc_invalid_op+0x1b/0x20 
-> kernel: [    8.704478] ? amdgpu_bo_release_notify (drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1382 (discriminator 1)) amdgpu
-> kernel: [    8.704595] ttm_bo_release (drivers/gpu/drm/ttm/ttm_bo.c:341) ttm
-> kernel: [    8.704601] ttm_bo_put (drivers/gpu/drm/ttm/ttm_bo.c:401) ttm
-> kernel: [    8.704604] amdgpu_bo_free_kernel (drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:875 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:459) amdgpu
-> kernel: [    8.704721] dm_helpers_free_gpu_mem (./include/linux/list.h:218 ./include/linux/list.h:229 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:1085) amdgpu
-> kernel: [    8.704915] dcn315_clk_mgr_construct (drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c:655) amdgpu
-> kernel: [    8.705113] dc_clk_mgr_create (drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/clk_mgr.c:267) amdgpu
-> kernel: [    8.705302] dc_create (drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1068 drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1427) amdgpu
-> kernel: [    8.705468] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705470] ? dmi_matches+0xa0/0x230 
-> kernel: [    8.705474] amdgpu_dm_init+0x2b3/0x2c30 amdgpu
-> kernel: [    8.705643] ? prb_read_valid+0x1c/0x30 
-> kernel: [    8.705646] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705647] ? console_unlock+0x77/0x120 
-> kernel: [    8.705649] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705650] ? __wake_up_klogd.part.0+0x40/0x70 
-> kernel: [    8.705652] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705653] ? dev_printk_emit+0x86/0xc0 
-> kernel: [    8.705656] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705661] dm_hw_init (drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2572) amdgpu
-> kernel: [    8.705806] amdgpu_device_init (drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:2653 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:2870 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4303) amdgpu
-> kernel: [    8.705925] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705927] ? pci_read_config_word+0x29/0x60 
-> kernel: [    8.705929] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.705930] ? do_pci_enable_device+0xe3/0x110 
-> kernel: [    8.705934] amdgpu_driver_load_kms (drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:146) amdgpu
-> kernel: [    8.706050] amdgpu_pci_probe (drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2291) amdgpu
-> kernel: [    8.706165] local_pci_probe+0x48/0xb0 
-> kernel: [    8.706167] pci_device_probe+0xc8/0x290 
-> kernel: [    8.706170] really_probe+0xf4/0x3b0 
-> kernel: [    8.706173] __driver_probe_device+0x8a/0x180 
-> kernel: [    8.706175] driver_probe_device+0x23/0xd0 
-> kernel: [    8.706177] __driver_attach+0x10f/0x220 
-> kernel: [    8.706178] ? __pfx___driver_attach+0x10/0x10 
-> kernel: [    8.706180] bus_for_each_dev+0x7a/0xe0 
-> kernel: [    8.706182] driver_attach+0x1e/0x30 
-> kernel: [    8.706184] bus_add_driver+0x11f/0x260 
-> kernel: [    8.706185] driver_register+0x64/0x140 
-> kernel: [    8.706188] ? __pfx_amdgpu_init (drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2525) amdgpu
-> kernel: [    8.706301] __pci_register_driver+0x61/0x70 
-> kernel: [    8.706303] amdgpu_init (drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2836) amdgpu
-> kernel: [    8.706416] do_one_initcall+0x46/0x330 
-> kernel: [    8.706419] ? kmalloc_trace_noprof+0x115/0x340 
-> kernel: [    8.706423] do_init_module+0x6a/0x270 
-> kernel: [    8.706426] load_module+0x21e9/0x22b0 
-> kernel: [    8.706431] init_module_from_file+0x9c/0xf0 
-> kernel: [    8.706433] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.706434] ? init_module_from_file+0x9c/0xf0 
-> kernel: [    8.706437] idempotent_init_module+0x184/0x240 
-> kernel: [    8.706440] __x64_sys_finit_module+0x64/0xd0 
-> kernel: [    8.706442] x64_sys_call+0x1903/0x26f0 
-> kernel: [    8.706444] do_syscall_64+0x70/0x130 
-> kernel: [    8.706446] ? srso_alias_return_thunk+0x5/0xfbef5 
-> kernel: [    8.706447] ? do_syscall_64+0x7c/0x130 
-> kernel: [    8.706449] entry_SYSCALL_64_after_hwframe+0x76/0x7e 
-> kernel: [    8.706451] RIP: 0033:0x783805b1e88d
-> kernel: [ 8.706452] Code: 5b 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 73 b5 0f 00 f7 d8 64 89 01 48
-> All code
-> ========
->    0:	5b                   	pop    %rbx
->    1:	41 5c                	pop    %r12
->    3:	c3                   	ret    
->    4:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
->    b:	00 00 
->    d:	f3 0f 1e fa          	endbr64 
->   11:	48 89 f8             	mov    %rdi,%rax
->   14:	48 89 f7             	mov    %rsi,%rdi
->   17:	48 89 d6             	mov    %rdx,%rsi
->   1a:	48 89 ca             	mov    %rcx,%rdx
->   1d:	4d 89 c2             	mov    %r8,%r10
->   20:	4d 89 c8             	mov    %r9,%r8
->   23:	4c 8b 4c 24 08       	mov    0x8(%rsp),%r9
->   28:	0f 05                	syscall 
->   2a:*	48 3d 01 f0 ff ff    	cmp    $0xfffffffffffff001,%rax		<-- trapping instruction
->   30:	73 01                	jae    0x33
->   32:	c3                   	ret    
->   33:	48 8b 0d 73 b5 0f 00 	mov    0xfb573(%rip),%rcx        # 0xfb5ad
->   3a:	f7 d8                	neg    %eax
->   3c:	64 89 01             	mov    %eax,%fs:(%rcx)
->   3f:	48                   	rex.W
-> 
-> Code starting with the faulting instruction
-> ===========================================
->    0:	48 3d 01 f0 ff ff    	cmp    $0xfffffffffffff001,%rax
->    6:	73 01                	jae    0x9
->    8:	c3                   	ret    
->    9:	48 8b 0d 73 b5 0f 00 	mov    0xfb573(%rip),%rcx        # 0xfb583
->   10:	f7 d8                	neg    %eax
->   12:	64 89 01             	mov    %eax,%fs:(%rcx)
->   15:	48                   	rex.W
-> kernel: [    8.706453] RSP: 002b:00007ffc702d1148 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-> kernel: [    8.706455] RAX: ffffffffffffffda RBX: 0000594fe0ca0410 RCX: 0000783805b1e88d
-> kernel: [    8.706456] RDX: 0000000000000000 RSI: 0000594fe0e08280 RDI: 0000000000000018
-> kernel: [    8.706456] RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000002
-> kernel: [    8.706457] R10: 0000000000000018 R11: 0000000000000246 R12: 0000594fe0e08280
-> kernel: [    8.706458] R13: 0000594fe0df04e0 R14: 0000000000000000 R15: 0000594fe0e005f0
-> kernel: [    8.706461]  </TASK>
-> kernel: [    8.706462] ---[ end trace 0000000000000000 ]---
-> 
-> Hope this helps.
-> 
-> Best regards,
-> Mirsad Todorovac
+This reverts commit 354436e7905d166011f2aa26dccd9fa04b20940e.
 
-This is apparently a duplicate of <CABXGCsN6j9GMTx+f_pYShOpLKL5b6kmJ3w-FeYHHw9nUWYjyHg@mail.gmail.com>
-from 2024-05-17.
+Revert this patch to modify lock type back to 'mutex' to avoid kernel
+calltrace issue.
 
-However, 6.10-rc3 from Jun 09 was still affected.
+[  602.668806] Workqueue: amdgpu-reset-dev amdgpu_ras_do_recovery [amdgpu]
+[  602.668939] Call Trace:
+[  602.668940]  <TASK>
+[  602.668941]  dump_stack_lvl+0x4c/0x70
+[  602.668945]  dump_stack+0x14/0x20
+[  602.668946]  __schedule_bug+0x5a/0x70
+[  602.668950]  __schedule+0x940/0xb30
+[  602.668952]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.668955]  ? hrtimer_reprogram+0x77/0xb0
+[  602.668957]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.668959]  ? hrtimer_start_range_ns+0x126/0x370
+[  602.668961]  schedule+0x39/0xe0
+[  602.668962]  schedule_hrtimeout_range_clock+0xb1/0x140
+[  602.668964]  ? __pfx_hrtimer_wakeup+0x10/0x10
+[  602.668966]  schedule_hrtimeout_range+0x17/0x20
+[  602.668967]  usleep_range_state+0x69/0x90
+[  602.668970]  psp_cmd_submit_buf+0x132/0x570 [amdgpu]
+[  602.669066]  psp_ras_invoke+0x75/0x1a0 [amdgpu]
+[  602.669156]  psp_ras_query_address+0x9c/0x120 [amdgpu]
+[  602.669245]  umc_v12_0_update_ecc_status+0x16d/0x520 [amdgpu]
+[  602.669337]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.669339]  ? stack_depot_save+0x12/0x20
+[  602.669342]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.669343]  ? set_track_prepare+0x52/0x70
+[  602.669346]  ? kmemleak_alloc+0x4f/0x90
+[  602.669348]  ? __kmalloc_node+0x34b/0x450
+[  602.669352]  amdgpu_umc_update_ecc_status+0x23/0x40 [amdgpu]
+[  602.669438]  mca_umc_mca_get_err_count+0x85/0xc0 [amdgpu]
+[  602.669554]  mca_smu_parse_mca_error_count+0x120/0x1d0 [amdgpu]
+[  602.669655]  amdgpu_mca_dispatch_mca_set.part.0+0x141/0x250 [amdgpu]
+[  602.669743]  ? kmemleak_free+0x36/0x60
+[  602.669745]  ? kvfree+0x32/0x40
+[  602.669747]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.669749]  ? kfree+0x15d/0x2a0
+[  602.669752]  amdgpu_mca_smu_log_ras_error+0x1f6/0x210 [amdgpu]
+[  602.669839]  amdgpu_ras_query_error_status_helper+0x2ad/0x390 [amdgpu]
+[  602.669924]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.669925]  ? __call_rcu_common.constprop.0+0xa6/0x2b0
+[  602.669929]  amdgpu_ras_query_error_status+0xf3/0x620 [amdgpu]
+[  602.670014]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  602.670017]  amdgpu_ras_log_on_err_counter+0xe1/0x170 [amdgpu]
+[  602.670103]  amdgpu_ras_do_recovery+0xd2/0x2c0 [amdgpu]
+[  602.670187]  ? srso_alias_return_thunk+0x5/0
 
-6.10-rc4 is clear of this msg.
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 19 ++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h |  3 +--
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
-Hope this helps.
-
-Best regards,
-Mirsad Todorovac
-
-
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index 04515c1c7241..7945173321a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -222,9 +222,9 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
+ 	INIT_LIST_HEAD(&bank_error->node);
+ 	memcpy(&bank_error->info, info, sizeof(*info));
+ 
+-	spin_lock(&aerr->lock);
++	mutex_lock(&aerr->lock);
+ 	list_add_tail(&bank_error->node, &aerr->list);
+-	spin_unlock(&aerr->lock);
++	mutex_unlock(&aerr->lock);
+ 
+ 	return bank_error;
+ }
+@@ -235,7 +235,7 @@ static struct aca_bank_error *find_bank_error(struct aca_error *aerr, struct aca
+ 	struct aca_bank_info *tmp_info;
+ 	bool found = false;
+ 
+-	spin_lock(&aerr->lock);
++	mutex_lock(&aerr->lock);
+ 	list_for_each_entry(bank_error, &aerr->list, node) {
+ 		tmp_info = &bank_error->info;
+ 		if (tmp_info->socket_id == info->socket_id &&
+@@ -246,7 +246,7 @@ static struct aca_bank_error *find_bank_error(struct aca_error *aerr, struct aca
+ 	}
+ 
+ out_unlock:
+-	spin_unlock(&aerr->lock);
++	mutex_unlock(&aerr->lock);
+ 
+ 	return found ? bank_error : NULL;
+ }
+@@ -474,7 +474,7 @@ static int aca_log_aca_error(struct aca_handle *handle, enum aca_error_type type
+ 	struct aca_error *aerr = &error_cache->errors[type];
+ 	struct aca_bank_error *bank_error, *tmp;
+ 
+-	spin_lock(&aerr->lock);
++	mutex_lock(&aerr->lock);
+ 
+ 	if (list_empty(&aerr->list))
+ 		goto out_unlock;
+@@ -485,7 +485,7 @@ static int aca_log_aca_error(struct aca_handle *handle, enum aca_error_type type
+ 	}
+ 
+ out_unlock:
+-	spin_unlock(&aerr->lock);
++	mutex_unlock(&aerr->lock);
+ 
+ 	return 0;
+ }
+@@ -542,7 +542,7 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
+ 
+ static void aca_error_init(struct aca_error *aerr, enum aca_error_type type)
+ {
+-	spin_lock_init(&aerr->lock);
++	mutex_init(&aerr->lock);
+ 	INIT_LIST_HEAD(&aerr->list);
+ 	aerr->type = type;
+ 	aerr->nr_errors = 0;
+@@ -561,10 +561,11 @@ static void aca_error_fini(struct aca_error *aerr)
+ {
+ 	struct aca_bank_error *bank_error, *tmp;
+ 
+-	spin_lock(&aerr->lock);
++	mutex_lock(&aerr->lock);
+ 	list_for_each_entry_safe(bank_error, tmp, &aerr->list, node)
+ 		aca_bank_error_remove(aerr, bank_error);
+-	spin_unlock(&aerr->lock);
++
++	mutex_destroy(&aerr->lock);
+ }
+ 
+ static void aca_fini_error_cache(struct aca_handle *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
+index ba724c2a997d..5ef6b745f222 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
+@@ -25,7 +25,6 @@
+ #define __AMDGPU_ACA_H__
+ 
+ #include <linux/list.h>
+-#include <linux/spinlock.h>
+ 
+ struct ras_err_data;
+ struct ras_query_context;
+@@ -134,7 +133,7 @@ struct aca_bank_error {
+ 
+ struct aca_error {
+ 	struct list_head list;
+-	spinlock_t lock;
++	struct mutex lock;
+ 	enum aca_error_type type;
+ 	int nr_errors;
+ };
+-- 
+2.34.1
 
