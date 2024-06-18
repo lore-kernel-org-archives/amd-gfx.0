@@ -4,95 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CDC1C2BA18
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 17:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49885C27C4F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jun 2024 17:56:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B39B110E750;
-	Tue, 18 Jun 2024 17:43:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D282F10E084;
+	Tue, 18 Jun 2024 17:56:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Oz/XvZ3a";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wEB0dp5l";
 	dkim-atps=neutral
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD3510E75A
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 17:43:35 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2eaea28868dso78551521fa.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 10:43:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718732613; x=1719337413; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=UW3m3IVDCbgoGWkqOyhGrTXzXIbL2Q1j7KVjTgGLhLg=;
- b=Oz/XvZ3aaLhCHtRh2L0NhJI6Fpt/TcNB7jvIaDZWEg/r9T5kSCJapISHcIZ2YYiYXN
- hqt6AB7gyyO5BdGCZgDKlrEdcpMOUosJQXTFefWpXN9a/JnnaCoNmnWvyKVxnDyfbOCN
- cCu8s+JJz4lMx641EnJbQaqnrIFkV0KApsNnFwCStakEVMAxU760Sdr7NNzjhHza0eKZ
- 00CFP/u0c4jf0F90VpzLLLiReOCoBSRsOgapXTJgt9de6tGq6KXvzgmiNvmSqWOUyo/C
- 1xy4Rk4lgqhMXHridyY6FcrzBqXdv4Ll2PPNecLe8hBuSIMwFMSIFtrB2P2ltRc0uo1p
- IBZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718732613; x=1719337413;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UW3m3IVDCbgoGWkqOyhGrTXzXIbL2Q1j7KVjTgGLhLg=;
- b=RXAK4JR2esOQkzZITNouCIuT7zSYvzvfXxtX+yd17ztbu4L6M2blKYbfmFZ6k+u33+
- uUKqcelQIvsq+l4dbNDroA9VK/aUanUpQa33mhbtuJIHECn14ZBG02Wc/STG3XfLGVxn
- 0AeX3KTjMJKXcdDXA9itEXN4scPUxZF0Nx2CxsGpouYyq7Wcw9OqXLnR6yV8+tYjYuU6
- AZs0k3AEv+oWt8x6eQQG4rEZrlODSIqpsQVAWw9la4Lt2EwBUzPwE7QqDyFmo8OgkbPu
- hi/eMQ5IwAmHGeQ3m/K7awpu17SVx94I7J7p9J9mSqDtloBVnbxLQse2F0rezFO/Zyf4
- d2jg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlY4St7LPjYh4qeDNtSf5nuxoKTsIAwd/gOIy23jTKOIYNNWdLiSXTCQMS2AcTtFpm1LWqZk7gXVrLNM49Twbqzo7bjClXj7G7S5HtMQ==
-X-Gm-Message-State: AOJu0Ywhk+S/g1xxQyxZziJfPv4uTz7Fwy/tn/Frc5hAkSeempOF3IwF
- cVYng7vJO65YNSHefkyd2Nb4B5SbVJSlZl1LzMrmjxZouPdHwu7mzL5Q+LEZlXI=
-X-Google-Smtp-Source: AGHT+IHqgDsYBrSMyIeMIZAipBnP2CCm4mOxj6zvMMUSinXZl5+Bwzr+RzB97A5TqXTmpBeosa9Onw==
-X-Received: by 2002:ac2:59db:0:b0:51d:9f10:71b7 with SMTP id
- 2adb3069b0e04-52ccaa33e25mr244374e87.28.1718732611978; 
- Tue, 18 Jun 2024 10:43:31 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca2884064sm1619765e87.242.2024.06.18.10.43.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jun 2024 10:43:31 -0700 (PDT)
-Date: Tue, 18 Jun 2024 20:43:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, 
- kernel-dev@igalia.com, Melissa Wen <mwen@igalia.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Simon Ser <contact@emersion.fr>, 
- Pekka Paalanen <ppaalanen@gmail.com>, daniel@ffwll.ch,
- Daniel Stone <daniel@fooishbar.org>, 
- Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com, 
- Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>, 
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Sam Ravnborg <sam@ravnborg.org>, Boris Brezillon <bbrezillon@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH v7 2/9] drm: Support per-plane async flip configuration
-Message-ID: <aflfggx2dc2p3y2a76yecjgmahozmbpnkk2qpekrnkpvviih6i@g2uuxeubozbo>
-References: <20240618030024.500532-1-andrealmeid@igalia.com>
- <20240618030024.500532-3-andrealmeid@igalia.com>
- <878qz2h9pp.fsf@intel.com>
- <CAA8EJpqM4iaG3PKM5c0Op7Y7c1SRDrOCk_oOnwG8YfdCxC8w6g@mail.gmail.com>
- <fc67b552-6f61-4f30-9e34-dd6b2364d155@igalia.com>
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10DF610E1C1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Jun 2024 17:56:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SPOTU/OrdyGxnp0J/mYxDPMomx28TVquR1o2LnTv53WkTigZCQ16eGztSM9Lwh4zfBq9bfytSjvxr5+1Yo6vZDbdiYz1Y/YHfBXgacJrB3kxWYUV+NYU05TKMOIbeoIlYVUPTpmKj9RhHRh3A/cu7m391FmLyAG2gzoYzWovmvFW8tNKE5VARDJyos2+57wjQadEuEfHRDaaxElxj2/wiXEQjI2UEUyvqmaYzTaoxQ14m/oPzFuOUJ1L2xFroC4rEcFfeaUHIbbixejUl8EOjdwYPthYdf+KlpR1KtF08rzFAeimlkKRYf93hk6P/vJKyyHPNipZPgn4TncoHYRdgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=To3TDml00wzRQGZLkTzxQPVdel5/MYa4VpRQYcNMh2g=;
+ b=Ye9ndz4OiAmE2TfRaaZlKSTykoKzOgp4jSgL+y4ToH49bdEzxVsVuM6RqbZldG1RgyPv+PxY/NOP3/zLXSRNPvt4ix+2jLIxioS4Qzu/2FkT37a4FMuEy4wndQ6jxPmwWsSFoQhqxkWYHmTqB6D6f0HfS+uhW/7QQ2BXIyHKU4fVqoUnLQJDEWnAFoYYei7Mui6gghZS2Tx///g1iT8wuIo/tNLLL5Hnz3CJaYz8ET/qrdDR8ACQOzLzX9YEsUgVuE3baqCiyZUa7mSVXbPk6jVuf6pw6ywhC7H2aXgIlWX7IZVtpRfnuFWvMvwfvExocWEhoQu00G1XBs+NXBD56w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=To3TDml00wzRQGZLkTzxQPVdel5/MYa4VpRQYcNMh2g=;
+ b=wEB0dp5luyo3144kU6DtK6NXdRnjl/HMQzdJNJSFGGLgBnCcYccZseWKlMUATvhVgIE4jGi2jVDyIZSNbT2kuUQcmM1CwsycNmwdv1wvSzAVxitwtNQAJI4DJIMlmmkgOJYZfP1Z8Q2+/9DQk9bCz0QQFBGr5RU9ucKxWn6V6bQ=
+Received: from CY5PR12MB6429.namprd12.prod.outlook.com (2603:10b6:930:3b::16)
+ by DM4PR12MB5843.namprd12.prod.outlook.com (2603:10b6:8:66::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Tue, 18 Jun
+ 2024 17:55:54 +0000
+Received: from CY5PR12MB6429.namprd12.prod.outlook.com
+ ([fe80::1b40:2f7f:a826:3fa0]) by CY5PR12MB6429.namprd12.prod.outlook.com
+ ([fe80::1b40:2f7f:a826:3fa0%6]) with mapi id 15.20.7677.030; Tue, 18 Jun 2024
+ 17:55:51 +0000
+From: "Nirujogi, Pratap" <Pratap.Nirujogi@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd: Don't initialize ISP hardware without FW
+Thread-Topic: [PATCH] drm/amd: Don't initialize ISP hardware without FW
+Thread-Index: AQHawZ6/prV8gclzUkiMIkfBTgbdF7HNzXLA
+Date: Tue, 18 Jun 2024 17:55:51 +0000
+Message-ID: <CY5PR12MB642948F84E07531E584FC00AFECE2@CY5PR12MB6429.namprd12.prod.outlook.com>
+References: <20240618164305.24221-1-mario.limonciello@amd.com>
+In-Reply-To: <20240618164305.24221-1-mario.limonciello@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=2d17c8b0-853e-492d-aa13-65d49e1f7197;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-18T17:52:53Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR12MB6429:EE_|DM4PR12MB5843:EE_
+x-ms-office365-filtering-correlation-id: 3b57c9eb-b812-4112-5791-08dc8fbfe4b4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230037|1800799021|376011|366013|38070700015;
+x-microsoft-antispam-message-info: =?us-ascii?Q?kradXA/RTNNlwtUjVUUWErzxn8v9xYU/QNGfwrBz/TyXG5JsQPbg6+238RMR?=
+ =?us-ascii?Q?KqDb3bO6Y42/cTzSr0fAWPCWZIsZZAyJDtBu7PuW7yAFzdubmJW5J4ri8eiH?=
+ =?us-ascii?Q?j/2uBmHZGp4t5AcUBJK06UNhtLUUHOF1+INOrdhmsU53uVwC3YtfErEVy5IB?=
+ =?us-ascii?Q?j93/Q3c1/AdeQzdLl/by2ywfIukPRcUYKxgoMnq7qkMZzGKcTkvvtiOH5DCf?=
+ =?us-ascii?Q?xw6BJv3L8XoKUc0MLGYhK3UkHG2cXRI1BDtU/DTYuABMRRFoN8O0neoE3DI0?=
+ =?us-ascii?Q?4DIbjS4slWaEBzMxHfq3a3Or1/WIHct82Y6CCrrsewCTO7W809WSnLqfiZ5J?=
+ =?us-ascii?Q?TFoLL7rP28t2ujg7gn9rVdlT83qqoInIhlwVD5uqKUVWN+DD/0FmRD1f61+o?=
+ =?us-ascii?Q?bsVU5ByIvt6kG469lWjaB1Iwk1Pp0GhrbcQTMmmNrNty3l/rI11n9xE2kUhR?=
+ =?us-ascii?Q?+vNMIpGQFG0Owz6+LvQzKUJV+ebvHJMNm3+6Y1BLIbpwgxwxX6hq8eeOMlvJ?=
+ =?us-ascii?Q?zTAzqNmAkqDJN9EFYf6OHWCXZ+/ueSMXiXFLSlH7s/CI2QPtZ8pUUlwaY0yO?=
+ =?us-ascii?Q?5wz/QTmbaycgcPFIhqhkr5vJC/tz4ztJjw4SxSHSVNsqRXAMFU/jJDpGMaPl?=
+ =?us-ascii?Q?ijTN8fMhn9G1FxwN2pZm2j+Z9SdWZyrOmOPPooOuMCwIBSLQEWLDaU86XvWT?=
+ =?us-ascii?Q?DvU69/1wbHTqOOyD6mP/+LcO6f7a73OK06DXQurV/GA2vW0Thcs0PBrFsBem?=
+ =?us-ascii?Q?Ct+EZZgftX2P9ZDA6UsYr6WojOUT4hjdhIa5jxMs3c1mjDjcPlyD71JKKilc?=
+ =?us-ascii?Q?OqT02nwKdnpT2DDRLSSiegXCXfWqfR3okdJmdyqs0VqfDpVeG4pc7SmrMHAe?=
+ =?us-ascii?Q?ufWiHgYbfU30ZOr/eBDnJRMgWVw5tSrwrbjNr5c+xRW13C0B1fhVW9VybUlO?=
+ =?us-ascii?Q?ZhPf7GXjbwiS6/NiGZW9nEWjejosAtCnU29UbpI9bWYsYIRZUvClWw+7EHlF?=
+ =?us-ascii?Q?NQm3a6xxDOeB6O8retWsm769xvYjAkatgu8Yx9uKdzkM2ATtIEjT+xFhZ6yh?=
+ =?us-ascii?Q?PjjHwleh0UWV25TDKcVfibyN5QASmfZGJowyPqht9hs9i0FMVNEpwN5/VCyd?=
+ =?us-ascii?Q?Nn5sHb3w10EjbIBiIeftDrxk6s7tXLIdXZ20mcflQkBveLgA8IHMsjRWr9K2?=
+ =?us-ascii?Q?gKaAWQDqx9qs1E1odpHnBMzwciblx67tyeRc1nsfmc3WL1rPbuTViROf6jt0?=
+ =?us-ascii?Q?1XfozRqW0BqJh0sgJ09VMvtTZh2jAZkcmURG45yQld9uHBdfIs5xMy/eWsqX?=
+ =?us-ascii?Q?bTzE84aY+2dpqgDYoErsn8MB3B68J/4czTwlFGFIT4Q2SVWNwbb+reeYmb+t?=
+ =?us-ascii?Q?qR8pTkA=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6429.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230037)(1800799021)(376011)(366013)(38070700015); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GxGsFeRYqZ/7skBtOVuU6fI5IEBuw2+TzM+Io9dzH2ELtVPVbDAX02x3QJz2?=
+ =?us-ascii?Q?qDFQ3hhYD/i8sfkXyVtiSYm0hKTRhIZ3F1JpsJhgxxXaKh04EPHMzS1Kj5dA?=
+ =?us-ascii?Q?LAxlQqhjBPGZQqyLdvMozI1BSnxPKffKuEJrYfpljdD6WAxvmWt0yr8Zn+lC?=
+ =?us-ascii?Q?JQLt0fx4c1tArfIpceZEeAGgQI98shfb4Kygbis8kfXki9PYTJX0Pl7bFv6/?=
+ =?us-ascii?Q?oUFN764n44C8BjI+/tUqoHgeGJEeDhlbhGfEkXzTZ/OexMj5I0pVx6bEZniS?=
+ =?us-ascii?Q?GM5WLN/0BCLLXpCq+feD47oMtHyw45h+SSospzijW8/W9Sc1Y2chzUlPllx4?=
+ =?us-ascii?Q?G1+Ap+Y4nwAEdlLig8pAxC4Pls5WF5yHPSVJvjo4XUXmow6L77GLGDr3IUk/?=
+ =?us-ascii?Q?ROmd491M4UeZpMvt1hGvaqFc3D/nYZMPL82m79lxFUooObxmAfLJovF43fkO?=
+ =?us-ascii?Q?KQrNLKzRkHPO7A+XXC3jdDxyrFn8KGaVGIsOVrzhikTdJ9e/HeuzpouVUzvc?=
+ =?us-ascii?Q?3XeG1QA36ffdX4GuiTrgB9H31DnJ8MKfMhFuwB9UxTpFmqYalx3BO8Z5lIWX?=
+ =?us-ascii?Q?JJBWguiXaddFs0RUdehKkglfNsdUsKH+QWTFr9sA/QAi28nggmZali9G/EFO?=
+ =?us-ascii?Q?IDhLPtA0+P1A/YCIttEIeTDzTfk7fUuEShxvwq4X3QhcUcddnTD76L0YihNx?=
+ =?us-ascii?Q?VQjVoWXOmWhMqK/BBlTv2btGuEwVeeI0TkZRs63oFh7g0Nss0EwoSPXK75yD?=
+ =?us-ascii?Q?eDx5mx+CRsoC2e3jThkmQVYnoRpmP/LexSuBEMa9aOi21a4bZzrZOpEHbb1t?=
+ =?us-ascii?Q?5z64HmbnThHDMsp264sf2RAHUH7RvZSVZR8iR2BzHi1x5S7JzKbMJ3ZulwL8?=
+ =?us-ascii?Q?9gejyrWGj4RdgSs+GNCd5bnr97LFKXIP7AlJw8rAmtzAgm9oU+aorqm0UgdZ?=
+ =?us-ascii?Q?uyJ81JY+bgO1nkx3Jq81QYzxZ/kZdJ3ZeQl8MM1j5/UE6jj0tq9uKUJUm1BJ?=
+ =?us-ascii?Q?4FgAEbdLpwAaJ12TV51Ox92DjL6n1i3wNGT2yfGfpuJ6vopP7VB+if1ybpaA?=
+ =?us-ascii?Q?D+oKEzcyEVzkwyj2toK9+CthSlVxLk+6nNvUF+wtIAux7WTmto4F/pMO6iRh?=
+ =?us-ascii?Q?xyL1yRLADU3vrdTZbh423KPAAWdh6FYJ8gyJMy9cX5QczhKxMDVkOXaIYeC+?=
+ =?us-ascii?Q?V+QfwU00I6tLmAYW1uzPvkzmeWw7yA6w8FD8/ye4eColHGFz3mKco7lOgJ40?=
+ =?us-ascii?Q?gQeADaXw5YI0SqV18gcLD+YGLzCcuHgulQhrwOLm62YHg3MbO05FrrbDHpzL?=
+ =?us-ascii?Q?0qZlHVQ1pywx6/giXi4fBdSBrn9M1M+B2yYqdhdA+k6dcZgnVKA53vKJOkCa?=
+ =?us-ascii?Q?FtermDru/TmFbIzoB3+/9Ju4ep29BgsW7cXCdIZtYy12RQSgjlArqgrvDHJH?=
+ =?us-ascii?Q?o0t0G9M3bZ8iv6nN2UvfPmdSdL7XC9b4414zO+FiWWIpMTKt7Lb5WWD0ikZI?=
+ =?us-ascii?Q?jyV/Mg8wvpCu7VQp/eZCL9O5BkPhZK8z9IbAZs3oKZ1ynLxjkmOzaZBQ69Vd?=
+ =?us-ascii?Q?aW57iyiaus3sLPxtc6Y=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fc67b552-6f61-4f30-9e34-dd6b2364d155@igalia.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6429.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b57c9eb-b812-4112-5791-08dc8fbfe4b4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2024 17:55:51.7698 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: d8mZtvVinCwo6w4YNeVoS5ugsJxxqIhnoFV+gPM8qQ2aCpRAmeGXTCZ2NV4lIlSkRUe/UXI/fnCepXe0K/rvVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5843
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,70 +151,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 18, 2024 at 01:18:10PM GMT, André Almeida wrote:
-> Em 18/06/2024 07:07, Dmitry Baryshkov escreveu:
-> > On Tue, 18 Jun 2024 at 12:38, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> > > 
-> > > On Tue, 18 Jun 2024, André Almeida <andrealmeid@igalia.com> wrote:
-> > > > Drivers have different capabilities on what plane types they can or
-> > > > cannot perform async flips. Create a plane::async_flip field so each
-> > > > driver can choose which planes they allow doing async flips.
-> > > > 
-> > > > Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> > > > ---
-> > > >   include/drm/drm_plane.h | 5 +++++
-> > > >   1 file changed, 5 insertions(+)
-> > > > 
-> > > > diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> > > > index 9507542121fa..0bebc72af5c3 100644
-> > > > --- a/include/drm/drm_plane.h
-> > > > +++ b/include/drm/drm_plane.h
-> > > > @@ -786,6 +786,11 @@ struct drm_plane {
-> > > >         * @kmsg_panic: Used to register a panic notifier for this plane
-> > > >         */
-> > > >        struct kmsg_dumper kmsg_panic;
-> > > > +
-> > > > +     /**
-> > > > +      * @async_flip: indicates if a plane can do async flips
-> > > > +      */
-> > > 
-> > > When is it okay to set or change the value of this member?
-> > > 
-> > > If you don't document it, people will find creative uses for this.
-> > 
-> > Maybe it's better to have a callback instead of a static field? This
-> > way it becomes clear that it's only relevant at the time of the
-> > atomic_check().
-> > 
-> 
-> So we would have something like bool (*async_flip) for struct
-> drm_plane_funcs I suppose. Then each driver will implement this function and
-> check on runtime if it should flip or not, right?
-> 
-> I agree that it makes more clear, but as far as I can see this is not
-> something that is subject to being changed at runtime at all, so it seems a
-> bit overkill to me to encapsulate a static information like that. I prefer
-> to improve the documentation on the struct member to see if this solves the
-> problem. What do you think of the following comment:
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-It looks like I keep on mixing async_flips as handled via the
-DRM_MODE_PAGE_FLIP_ASYNC and the plane flips that are governed by
-.atomic_async_check / .atomic_async_update / drm_atomic_helper_check()
-and which end up being used just for legacy cursor updates.
+LGTM, thank you.
 
-So, yes, those are two different code paths, but with your changes I
-think it becomes even easier to get confused between
-atomic_async_check() and .async_flip member.
+-----Original Message-----
+From: Limonciello, Mario <Mario.Limonciello@amd.com>
+Sent: Tuesday, June 18, 2024 12:43 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Nirujogi, Pratap <Pratap.Nirujogi@amd.com>; Limonciello, Mario <Mario.L=
+imonciello@amd.com>
+Subject: [PATCH] drm/amd: Don't initialize ISP hardware without FW
 
+Although designs may contain an ISP IP block, the camera might be a USB cam=
+era. Because of this the ISP firmware is considered optional from amdgpu.  =
+However if the firmware doesn't get loaded the hardware should not be initi=
+alized.
 
-> /**
->  * @async_flip: indicates if a plane can perform async flips. The
->  * driver should set this true only for planes that the hardware
->  * supports flipping asynchronously. It may not be changed during
->  * runtime. This field is checked inside drm_mode_atomic_ioctl() to
->  * allow only the correct planes to go with DRM_MODE_PAGE_FLIP_ASYNC.
->  */
+Adjust the return code for early init to ensure the IP block doesn't go thr=
+ough the other init and fini sequences. Also decrease the message about fir=
+mware load failure to debug so it's not as alarming to users.
 
--- 
-With best wishes
-Dmitry
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_isp.c
+index 215bae809153..4766e99dd98f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+@@ -142,8 +142,8 @@ static int isp_early_init(void *handle)
+        isp->parent =3D adev->dev;
+
+        if (isp_load_fw_by_psp(adev)) {
+-               DRM_WARN("%s: isp fw load failed\n", __func__);
+-               return 0;
++               DRM_DEBUG_DRIVER("%s: isp fw load failed\n", __func__);
++               return -ENOENT;
+        }
+
+        return 0;
+--
+2.34.1
+
