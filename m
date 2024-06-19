@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8418BC27C53
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jun 2024 13:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41532C27C53
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jun 2024 13:53:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2506610E2B6;
-	Wed, 19 Jun 2024 13:50:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D26A610E252;
+	Wed, 19 Jun 2024 13:53:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Np+IrezL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KkL9ObhB";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A86CC10E735;
- Wed, 19 Jun 2024 13:50:18 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2c31144881eso5366313a91.1; 
- Wed, 19 Jun 2024 06:50:18 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5DF10E252;
+ Wed, 19 Jun 2024 13:53:24 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-70109d34a16so5836133b3a.2; 
+ Wed, 19 Jun 2024 06:53:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718805018; x=1719409818; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1718805204; x=1719410004; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2ZTQnv09PBqGC+05GHEbv1DDrULxaj/6Q8hEp1369So=;
- b=Np+IrezLtiEf/h43Fynf6qDMO3Z9caqw7o8c8mVnlMy6PeL7UDFePTjPFZCO2h640i
- NydIzXvgSD1QWVe2RqRjgaUKUDCWbhh7IgTSkxuN6yOQwYGbsCCNiQ6ZUlTyB//unFh4
- Cjb1p71pLDeyGtdYBoX8hRV5lB1Mrn3ETY28YckPlyQ+/j1ppsOyd6IoNBGA/EQUIS7S
- kqT7gv0EuT1nJFIs3dRVZDzdEyt8rMzGo/1y7Lcd1YSjGC2IEZrVtwIqg5KFqV8huJT/
- mCrmtEOAwF6D+q+OdpR8cCpH+BduMlNL0RfpP47MPgiI5AoRYxGKmRqnvAa92D6wBHsI
- UC6Q==
+ bh=raeXeI6lwsevNLvXbd1wYh1qsMJosT/xi6mC5/F+he0=;
+ b=KkL9ObhBoJHJIuNhP6wzfWuxCTN0phh4VUiYKPGXYhp14G/KIYYU5LWwZYYEL4oTbK
+ CfbHlCvve/vkagwBAsPYUenxocIITkZMkvl1nl1KyIBR4xUBzVxroxdWo+yYs/6uzeAm
+ qCm81GFd5aMEMmAQafMY7OPvvD3XrOX6ZgL7KUS6luMDzoOTxCNJBTV9lQwv8i/ua9Gh
+ DLHSwIAeN9xWedZfFNJAMzxKGK+MZCbDjjbbNJ2mDfl/3Gvmyw3gyQBylBWPlrYfEV+c
+ ygRW+36Uy9QkviHc+Cm1JjXCJq0ONdZKAWAnYWlNYoM0FqHNSnZvaoVFcX+/8muFhqB7
+ jecQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718805018; x=1719409818;
+ d=1e100.net; s=20230601; t=1718805204; x=1719410004;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2ZTQnv09PBqGC+05GHEbv1DDrULxaj/6Q8hEp1369So=;
- b=KCHti9H8eDZjMEwHtkifCVC3836cqhTM+nDhFzF3kMGnTX8JsHeW9TD0fWqoXfPdFL
- znpyhtsPl3ReGckoo3TYBNxsOoFPDIuVXkeF4s8x20pvwxkvZq9IWjyNK0uLybVWtugd
- +2hPu5ajFuxkmZGlLNMJ0vyrzJercqgbnzDjZXxKeqRar8UXGAK1hq+PqHU8C1OiNDX9
- XdQYyJW9N6lSipx8l5WVc4AXifxkAARaVQedwmnOk7O5yp6KOaRWH8OFNkUtDXje78ai
- ODEOYg3TXAvIG9+VRwKBcZblj3oJkydr/1FrDUScqr3PAyw2GVRpT9SIor256mzdMW/i
- V7xw==
+ bh=raeXeI6lwsevNLvXbd1wYh1qsMJosT/xi6mC5/F+he0=;
+ b=FT36JwsgTLnjD6yDIxLhrdIzlX6IK13jrl5va5SuCPBDkOVsfLjIjTaRLTq5kb0K6V
+ mKlK3Bt81+/ankhy56iCj183ZId7iRAoneYJUEkhCQ2dtJjQv0JzlA/KX0TXWpyI/zsI
+ OZf3wD6A9ZgXTIVJCBcgmWcVD6t+tFx2p0uojH/sFjsT9ZJLbD02JttOXAaoakTQL5Od
+ 2AOzivmY32TVNgl61va2ELaSv4K9dpd+jzkNmtj1F3opIJsniflayEomVN0hH16WiP2m
+ k3XsmIzTzXsih1to0/b+Wy7lec5mc+Be2cjBPqWAvipvlErIVA194M2X7XTp9s5030Q0
+ BAvA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWaQOl60x39xzYbM4ndaZNtouHlKiSYu9ByzfQz0jy7wWB0W13a0jGcIFjNvJwV9ybUWvlNsWjSXZa2zO5R4G6YLqKxVXljiS7VW7jgyQ==
-X-Gm-Message-State: AOJu0YxPU2xwI86ERETH9k0KLR6EUo3H0QQAnB66/3mVIzCu6YBYFKU2
- vS0pFt9+TJEGKIL00pEWa6T/xWi62pmSG6EPUXr2CgfssXpPsIEEmBWsVLHULmuK1HfzFsdxXma
- kyFhWcgc7bIimgitFxhI7UaQuCa0=
-X-Google-Smtp-Source: AGHT+IG+EvjSwtHF5waL+ZwqlIuQEUJpqivfp1yeEtKYVKZW125eUYnfAcDvUfWdFV1Joj5SA9tawyCp/iqpv6kF8T0=
-X-Received: by 2002:a17:90a:c70e:b0:2c3:1234:8bbb with SMTP id
- 98e67ed59e1d1-2c7b5d7bfaamr2652814a91.38.1718805017816; Wed, 19 Jun 2024
- 06:50:17 -0700 (PDT)
+ AJvYcCXTnqk643fw8iCKYnrq2pIn0lKacw98UVn/G+WIO/k0TQz0zAuu46O+qwjBOF1HgqS0925wuLEFDdemc9TEYWxeBJUcAx+A0WblDhMlQg==
+X-Gm-Message-State: AOJu0Yx6vFx9RHxnGNUXc2z1uHLxXRQm6WReBKEjp8QRJ4DHAqMPUx5w
+ dNiDOe2t5JqBmbVr/GpKsIOrvpChLA6RVIX+L53Ot8ak3IMumwtPJ9enkNBxPwxDRM4BKTB8trN
+ g/WlrXyP9JRs2xDQFQ3Jt+gbUKDA=
+X-Google-Smtp-Source: AGHT+IGfmLwqL/WkyQUnXfiuN9AiOOQ44qs6v6SXVcDXsEMS0iiTxBl8WlPuS7Nozytf9SFo6IkiWknJVQCz/uGDszY=
+X-Received: by 2002:a05:6a20:9313:b0:1b8:5c3c:794f with SMTP id
+ adf61e73a8af0-1bcbb3a0026mr2432960637.10.1718805203901; Wed, 19 Jun 2024
+ 06:53:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240612222435.3188234-1-dianders@chromium.org>
  <20240612152752.v2.8.I27914059cc822b52db9bf72b4013b525b60e06fd@changeid>
@@ -59,10 +59,11 @@ References: <20240612222435.3188234-1-dianders@chromium.org>
  <CAD=FV=XJAiVGFn_Tqs_JNo1fQKFys3m=hH9MwmMot93gkdg=Qw@mail.gmail.com>
  <CADnq5_M+H_h1Me_O3u=R3q52PgYcCwwY9Mr8_R1eX0G7HvBp2w@mail.gmail.com>
  <CAD=FV=X=9PV+zbmd2S-TBBxq+yQZ2D+-cCHjFX-gm-f+DyXXiQ@mail.gmail.com>
-In-Reply-To: <CAD=FV=X=9PV+zbmd2S-TBBxq+yQZ2D+-cCHjFX-gm-f+DyXXiQ@mail.gmail.com>
+ <CADnq5_OXUKj=bfK0NOAhOzmhYCSnQXbxHbwLOaBQ6wFX033Wgw@mail.gmail.com>
+In-Reply-To: <CADnq5_OXUKj=bfK0NOAhOzmhYCSnQXbxHbwLOaBQ6wFX033Wgw@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Jun 2024 09:50:05 -0400
-Message-ID: <CADnq5_OXUKj=bfK0NOAhOzmhYCSnQXbxHbwLOaBQ6wFX033Wgw@mail.gmail.com>
+Date: Wed, 19 Jun 2024 09:53:12 -0400
+Message-ID: <CADnq5_O1EGj-_xx7LuiXSVY7MSmfS7_1-hqShFk6Deu1wsBwOA@mail.gmail.com>
 Subject: Re: [PATCH v2 8/8] drm/amdgpu: Call drm_atomic_helper_shutdown() at
  shutdown time
 To: Doug Anderson <dianders@chromium.org>
@@ -98,127 +99,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 18, 2024 at 7:53=E2=80=AFPM Doug Anderson <dianders@chromium.or=
-g> wrote:
+On Wed, Jun 19, 2024 at 9:50=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 >
-> Hi,
->
-> On Tue, Jun 18, 2024 at 3:00=E2=80=AFPM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
+> On Tue, Jun 18, 2024 at 7:53=E2=80=AFPM Doug Anderson <dianders@chromium.=
+org> wrote:
 > >
-> > On Tue, Jun 18, 2024 at 5:40=E2=80=AFPM Doug Anderson <dianders@chromiu=
-m.org> wrote:
+> > Hi,
+> >
+> > On Tue, Jun 18, 2024 at 3:00=E2=80=AFPM Alex Deucher <alexdeucher@gmail=
+.com> wrote:
 > > >
-> > > Hi,
-> > >
-> > >
-> > > On Mon, Jun 17, 2024 at 8:01=E2=80=AFAM Alex Deucher <alexdeucher@gma=
-il.com> wrote:
+> > > On Tue, Jun 18, 2024 at 5:40=E2=80=AFPM Doug Anderson <dianders@chrom=
+ium.org> wrote:
 > > > >
-> > > > On Wed, Jun 12, 2024 at 6:37=E2=80=AFPM Douglas Anderson <dianders@=
-chromium.org> wrote:
+> > > > Hi,
+> > > >
+> > > >
+> > > > On Mon, Jun 17, 2024 at 8:01=E2=80=AFAM Alex Deucher <alexdeucher@g=
+mail.com> wrote:
 > > > > >
-> > > > > Based on grepping through the source code this driver appears to =
-be
-> > > > > missing a call to drm_atomic_helper_shutdown() at system shutdown
-> > > > > time. Among other things, this means that if a panel is in use th=
-at it
-> > > > > won't be cleanly powered off at system shutdown time.
+> > > > > On Wed, Jun 12, 2024 at 6:37=E2=80=AFPM Douglas Anderson <diander=
+s@chromium.org> wrote:
+> > > > > >
+> > > > > > Based on grepping through the source code this driver appears t=
+o be
+> > > > > > missing a call to drm_atomic_helper_shutdown() at system shutdo=
+wn
+> > > > > > time. Among other things, this means that if a panel is in use =
+that it
+> > > > > > won't be cleanly powered off at system shutdown time.
+> > > > > >
+> > > > > > The fact that we should call drm_atomic_helper_shutdown() in th=
+e case
+> > > > > > of OS shutdown/restart comes straight out of the kernel doc "dr=
+iver
+> > > > > > instance overview" in drm_drv.c.
+> > > > > >
+> > > > > > Suggested-by: Maxime Ripard <mripard@kernel.org>
+> > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+> > > > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > > > > > ---
+> > > > > > This commit is only compile-time tested.
+> > > > > >
+> > > > > > ...and further, I'd say that this patch is more of a plea for h=
+elp
+> > > > > > than a patch I think is actually right. I'm _fairly_ certain th=
+at
+> > > > > > drm/amdgpu needs this call at shutdown time but the logic is a =
+bit
+> > > > > > hard for me to follow. I'd appreciate if anyone who actually kn=
+ows
+> > > > > > what this should look like could illuminate me, or perhaps even=
+ just
+> > > > > > post a patch themselves!
 > > > > >
-> > > > > The fact that we should call drm_atomic_helper_shutdown() in the =
-case
-> > > > > of OS shutdown/restart comes straight out of the kernel doc "driv=
-er
-> > > > > instance overview" in drm_drv.c.
-> > > > >
-> > > > > Suggested-by: Maxime Ripard <mripard@kernel.org>
-> > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > > Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-> > > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > > > ---
-> > > > > This commit is only compile-time tested.
-> > > > >
-> > > > > ...and further, I'd say that this patch is more of a plea for hel=
-p
-> > > > > than a patch I think is actually right. I'm _fairly_ certain that
-> > > > > drm/amdgpu needs this call at shutdown time but the logic is a bi=
+> > > > > I'm not sure this patch makes sense or not.  The driver doesn't r=
+eally
+> > > > > do a formal tear down in its shutdown routine, it just quiesces t=
+he
+> > > > > hardware.  What are the actual requirements of the shutdown funct=
+ion?
+> > > > > In the past when we did a full driver tear down in shutdown, it
+> > > > > delayed the shutdown sequence and users complained.
+> > > >
+> > > > The "inspiration" for this patch is to handle panels properly.
+> > > > Specifically, panels often have several power/enable signals going =
+to
+> > > > them and often have requirements that these signals are powered off=
+ in
+> > > > the proper order with the proper delays between them. While we can'=
 t
-> > > > > hard for me to follow. I'd appreciate if anyone who actually know=
-s
-> > > > > what this should look like could illuminate me, or perhaps even j=
-ust
-> > > > > post a patch themselves!
+> > > > always do so when the system crashes / reboots in an uncontrolled w=
+ay,
+> > > > panel manufacturers / HW Engineers get upset if we don't power thin=
+gs
+> > > > off properly during an orderly shutdown/reboot. When panels are
+> > > > powered off badly it can cause garbage on the screen and, so I've b=
+een
+> > > > told, can even cause long term damage to the panels over time.
 > > > >
-> > > > I'm not sure this patch makes sense or not.  The driver doesn't rea=
-lly
-> > > > do a formal tear down in its shutdown routine, it just quiesces the
-> > > > hardware.  What are the actual requirements of the shutdown functio=
-n?
-> > > > In the past when we did a full driver tear down in shutdown, it
-> > > > delayed the shutdown sequence and users complained.
-> > >
-> > > The "inspiration" for this patch is to handle panels properly.
-> > > Specifically, panels often have several power/enable signals going to
-> > > them and often have requirements that these signals are powered off i=
-n
-> > > the proper order with the proper delays between them. While we can't
-> > > always do so when the system crashes / reboots in an uncontrolled way=
-,
-> > > panel manufacturers / HW Engineers get upset if we don't power things
-> > > off properly during an orderly shutdown/reboot. When panels are
-> > > powered off badly it can cause garbage on the screen and, so I've bee=
-n
-> > > told, can even cause long term damage to the panels over time.
-> > >
-> > > In Linux, some panel drivers have tried to ensure a proper poweroff o=
-f
-> > > the panel by handling the shutdown() call themselves. However, this i=
+> > > > In Linux, some panel drivers have tried to ensure a proper poweroff=
+ of
+> > > > the panel by handling the shutdown() call themselves. However, this=
+ is
+> > > > ugly and panel maintainers want panel drivers to stop doing it. We
+> > > > have removed the code doing this from most panels now [1]. Instead =
+the
+> > > > assumption is that the DRM modeset drivers should be calling
+> > > > drm_atomic_helper_shutdown() which will make sure panels get an
+> > > > orderly shutdown.
+> > > >
+> > > > For a lot more details, see the cover letter [2] which then contain=
 s
-> > > ugly and panel maintainers want panel drivers to stop doing it. We
-> > > have removed the code doing this from most panels now [1]. Instead th=
-e
-> > > assumption is that the DRM modeset drivers should be calling
-> > > drm_atomic_helper_shutdown() which will make sure panels get an
-> > > orderly shutdown.
+> > > > links to even more discussions about the topic.
+> > > >
+> > > > [1] https://lore.kernel.org/r/20240605002401.2848541-1-dianders@chr=
+omium.org
+> > > > [2] https://lore.kernel.org/r/20240612222435.3188234-1-dianders@chr=
+omium.org
 > > >
-> > > For a lot more details, see the cover letter [2] which then contains
-> > > links to even more discussions about the topic.
-> > >
-> > > [1] https://lore.kernel.org/r/20240605002401.2848541-1-dianders@chrom=
-ium.org
-> > > [2] https://lore.kernel.org/r/20240612222435.3188234-1-dianders@chrom=
-ium.org
+> > > I don't think it's an issue.  We quiesce the hardware as if we were
+> > > about to suspend the system (e.g., S3).  For the display hardware we
+> > > call drm_atomic_helper_suspend() as part of that sequence.
 > >
-> > I don't think it's an issue.  We quiesce the hardware as if we were
-> > about to suspend the system (e.g., S3).  For the display hardware we
-> > call drm_atomic_helper_suspend() as part of that sequence.
+> > OK. It's no skin off my teeth and we can drop this patch if you're
+> > convinced it's not needed. From the point of view of someone who has
+> > no experience with this driver it seems weird to me that it would use
+> > drm_atomic_helper_suspend() at shutdown time instead of the documented
+> > drm_atomic_helper_shutdown(), but if it works for everyone then I'm
+> > not gonna complain.
 >
-> OK. It's no skin off my teeth and we can drop this patch if you're
-> convinced it's not needed. From the point of view of someone who has
-> no experience with this driver it seems weird to me that it would use
-> drm_atomic_helper_suspend() at shutdown time instead of the documented
-> drm_atomic_helper_shutdown(), but if it works for everyone then I'm
-> not gonna complain.
+> I think the problem is that it is not clear exactly what the
+> expectations are around the PCI shutdown callback.  The documentation
+> says:
+>
+> "Hook into reboot_notifier_list (kernel/sys.c). Intended to stop any
+> idling DMA operations. Useful for enabling wake-on-lan (NIC) or
+> changing the power state of a device before reboot. e.g.
+> drivers/net/e100.c."
 
-I think the problem is that it is not clear exactly what the
-expectations are around the PCI shutdown callback.  The documentation
-says:
-
-"Hook into reboot_notifier_list (kernel/sys.c). Intended to stop any
-idling DMA operations. Useful for enabling wake-on-lan (NIC) or
-changing the power state of a device before reboot. e.g.
-drivers/net/e100.c."
-
-We tried a full driver teardown in the shutdown callback and it added
-a lot of latency that really wasn't needed since the system was just
-going into a reboot or power down.  The best middle ground was to just
-leverage our hw level suspend code to quiesce the hardware.  Adding
-complexity to call drm_atomic_helper_suspend() vs
-drm_atomic_helper_shutdown() doesn't seem worth it since the functions
-do pretty much the same thing (both call
-drm_atomic_helper_disable_all()).  Maybe it's better to update the
-documentation to recommend drm_atomic_helper_suspend() if drivers want
-to leverage their suspend code?
+Arguably, there is no requirement to even touch the display hardware
+at all.  In theory you could just leave the display hardware as is in
+the current state.  The system will either be rebooting or powering
+down anyway.
 
 Alex
+
+>
+> We tried a full driver teardown in the shutdown callback and it added
+> a lot of latency that really wasn't needed since the system was just
+> going into a reboot or power down.  The best middle ground was to just
+> leverage our hw level suspend code to quiesce the hardware.  Adding
+> complexity to call drm_atomic_helper_suspend() vs
+> drm_atomic_helper_shutdown() doesn't seem worth it since the functions
+> do pretty much the same thing (both call
+> drm_atomic_helper_disable_all()).  Maybe it's better to update the
+> documentation to recommend drm_atomic_helper_suspend() if drivers want
+> to leverage their suspend code?
+>
+> Alex
