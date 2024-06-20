@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54E08C2BA18
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 13:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2422C27C79
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 13:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A75A510E9C1;
-	Thu, 20 Jun 2024 13:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40D5F10E9C2;
+	Thu, 20 Jun 2024 13:07:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="h8Z/91Pd";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="URTK9x2C";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="K/sKH87e";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="83Z5I+Of";
 	dkim-atps=neutral
 Received: from bunu.damsy.net (bunu.damsy.net [51.159.160.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F2B10E9C1
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 13:06:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B65B10E9C2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 13:07:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; s=202404r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1718888772;
- bh=B8db4QMptL2lrBZhDBghPm9
- t1MPqkQYVOQoxBMIZpNw=; b=h8Z/91PdsFxYh4KqdxEjNp3xs8R5HWhwrHFCa/M3/VHxsT3aTp
- XhlGsWozP9hMeVfgfVdI2nQWF50AO8DjHZP1xz9PcajafyOuasetpCPLeOvdtDYb3WgEHkUxbBN
- VZOyOfjHRUGm2pNDq6dNvzWHphwFBIpTFZkryvbG1VWmIikwXjio/9JQQbKtG8LBNbI0G8hzeFY
- JDMUZCSgBTsH/ICKSQswJWRmCE/mBxkOXGefnfX7GzMI+uEYWd5HtmDYRaHjgf39rmhucFUVwlk
- MzUMpMSqUylAdEGpnrWe1loDFMaN2i/PTAqGw2CeIS2qmabzTzjGbzpbGqjiC7+LzQA==;
+ h=From:To:Subject:Date:Message-ID; t=1718888843;
+ bh=VRjgbaJvXiQu57FaBme/ybK
+ YQ8/6jVTS2rK9wIrZwCw=; b=K/sKH87eh+BBW1/Bu9hblJ0RbuO/XtE9QEu5jIYLPuD0rUFcPI
+ y3BCCaFg8YOCIX0iSATr39nx9p8nbTHwIlbFHfoAqG4DLtk2chAPqZaQbj6E6/RovTxzoOc3XsG
+ +F7qx55858I09a64IVmu1HcGDQmL2KRsSGYEXZ5/z76VV1/fVI09v2NfN+x1IJfXS3h9cbO2X29
+ OgrNJbzLRreyYf/orDO8Ye4qlUoeJQa2k/OzH2Z15dBJ4TT+Ek243MMAaQLbD8j1OfJXkWh7szE
+ XoX2swJqMsYViI11Qkf5gC5bQPhzTDhKvGulk65+dQ2Ba/PsIXokfoHUtLXLAOxf8iQ==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202404e; d=damsy.net;
  c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1718888772; bh=B8db4QMptL2lrBZhDBghPm9
- t1MPqkQYVOQoxBMIZpNw=; b=URTK9x2CEb8cbXMFn7aQUEsRMlETnHqY2KwoZCYHhL9HsJCCDd
- P2O9l43FihmR5m2Hd9JDcTkxMA7ThZmcJzDg==;
-Message-ID: <d2eefecf-656e-4c9c-96b3-717756581cc1@damsy.net>
-Date: Thu, 20 Jun 2024 15:06:12 +0200
+ h=From:To:Subject:Date:Message-ID; t=1718888843; bh=VRjgbaJvXiQu57FaBme/ybK
+ YQ8/6jVTS2rK9wIrZwCw=; b=83Z5I+Ofg/0vv19rFln/Re20gpNPIaeZbMNPVu6AogtWsK+qxq
+ D822/1K7OulPIR28LLq1m2B3dq/1kJ4thnDg==;
+Message-ID: <13cb8811-4b42-4bfb-a5cf-04046dcdb070@damsy.net>
+Date: Thu, 20 Jun 2024 15:07:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] drm/amdgpu: allow ioctls to opt-out of runtime pm
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+Subject: Re: [PATCH 4/6] drm/amdgpu: add AMDGPU_INFO_GB_ADDR_CONFIG query
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
 References: <20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com>
- <20240618153003.146168-2-pierre-eric.pelloux-prayer@amd.com>
- <c45283a1-98d2-43a2-a73c-71896464c7f9@amd.com>
+ <20240618153003.146168-5-pierre-eric.pelloux-prayer@amd.com>
+ <CAAxE2A6sQrU94uisM00kZs=P2pguTcQJjEtUX_Gum_vPjZ2J+g@mail.gmail.com>
+ <bbe4d387-ca6a-44a5-a143-dae794d23312@amd.com>
+ <CAAxE2A5CNoErNMU_qOS+OK7yGSoMUGwpLL2kRVF_bAqnyhj4Lg@mail.gmail.com>
 Content-Language: en-US
 From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <c45283a1-98d2-43a2-a73c-71896464c7f9@amd.com>
+In-Reply-To: <CAAxE2A5CNoErNMU_qOS+OK7yGSoMUGwpLL2kRVF_bAqnyhj4Lg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,80 +62,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Le 19/06/2024 à 11:26, Christian König a écrit :
-> Am 18.06.24 um 17:23 schrieb Pierre-Eric Pelloux-Prayer:
->> Waking up a device can take multiple seconds, so if it's not
->> going to be used we might as well not resume it.
->>
->> The safest default behavior for all ioctls is to resume the GPU,
->> so this change allows specific ioctls to opt-out of generic
->> runtime pm.
-> 
-> I'm really wondering if we shouldn't put that into the IOCTL description.
-> 
-> See amdgpu_ioctls_kms and DRM_IOCTL_DEF_DRV() for what I mean.
-
-Are you suggesting to add a new entry in enum drm_ioctl_flags to 
-indicate ioctls which need the device to be awake?
-
-Something like: "DRM_NO_DEVICE = BIT(6)" and then use it for both
-core and amdgpu ioctls?
+Both versions are fine by me, so I'll update the code to match whatever 
+you agree on.
 
 Pierre-Eric
 
-
-
-
+Le 19/06/2024 à 20:44, Marek Olšák a écrit :
+> The INFO ioctl was designed to allow increasing the sizes of all info
+> structures. GB_ADDR_CONFIG isn't that special to justify a separate
+> query.
 > 
-> Regards,
-> Christian.
+> Marek
 > 
+> On Wed, Jun 19, 2024 at 5:31 AM Christian König
+> <christian.koenig@amd.com> wrote:
 >>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer 
->> <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25 ++++++++++++++++++++-----
->>   1 file changed, 20 insertions(+), 5 deletions(-)
+>> I would try to avoid that.
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 60d5758939ae..a9831b243bfc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -2855,18 +2855,33 @@ long amdgpu_drm_ioctl(struct file *filp,
->>   {
->>       struct drm_file *file_priv = filp->private_data;
->>       struct drm_device *dev;
->> +    bool needs_device;
->>       long ret;
->>       dev = file_priv->minor->dev;
->> -    ret = pm_runtime_get_sync(dev->dev);
->> -    if (ret < 0)
->> -        goto out;
->> +
->> +    /* Some ioctl can opt-out of powermanagement handling
->> +     * if they don't require the device to be resumed.
->> +     */
->> +    switch (cmd) {
->> +    default:
->> +        needs_device = true;
->> +    }
->> +
->> +    if (needs_device) {
->> +        ret = pm_runtime_get_sync(dev->dev);
->> +        if (ret < 0)
->> +            goto out;
->> +    }
->>       ret = drm_ioctl(filp, cmd, arg);
->> -    pm_runtime_mark_last_busy(dev->dev);
->>   out:
->> -    pm_runtime_put_autosuspend(dev->dev);
->> +    if (needs_device) {
->> +        pm_runtime_mark_last_busy(dev->dev);
->> +        pm_runtime_put_autosuspend(dev->dev);
->> +    }
->> +
->>       return ret;
->>   }
+>> Putting everything into amdgpu_info_device was a mistake only done
+>> because people assumed that IOCTLs on Linux are to expensive to query
+>> all information separately.
+>>
+>> We should rather have distinct IOCTLs for each value because that is way
+>> more flexible and we won't find later that we have to deprecate fields
+>> and work around issues because of legacy hw.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 19.06.24 um 02:34 schrieb Marek Olšák:
+>>> I would put this into drm_amdgpu_info_device. That structure can grow in size.
+>>>
+>>> Marek
+>>>
+>>> On Tue, Jun 18, 2024 at 11:30 AM Pierre-Eric Pelloux-Prayer
+>>> <pierre-eric.pelloux-prayer@amd.com> wrote:
+>>>> libdrm_amdgpu uses AMDGPU_INFO_READ_MMR_REG to fill the dev->info.gb_addr_cfg
+>>>> value.
+>>>> Since this value is already known by the kernel, this commit implements a new
+>>>> query to return it.
+>>>>
+>>>> The libdrm MR to use this query is:
+>>>>      https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/368
+>>>>
+>>>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 5 +++++
+>>>>    include/uapi/drm/amdgpu_drm.h           | 2 ++
+>>>>    3 files changed, 9 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> index f51f121d804e..403add7f05af 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> @@ -117,9 +117,10 @@
+>>>>     * - 3.56.0 - Update IB start address and size alignment for decode and encode
+>>>>     * - 3.57.0 - Compute tunneling on GFX10+
+>>>>     * - 3.58.0 - Add AMDGPU_IDS_FLAGS_MODE_PF, AMDGPU_IDS_FLAGS_MODE_VF & AMDGPU_IDS_FLAGS_MODE_PT
+>>>> + * - 3.59.0 - Add AMDGPU_INFO_GB_ADDR_CONFIG support
+>>>>     */
+>>>>    #define KMS_DRIVER_MAJOR       3
+>>>> -#define KMS_DRIVER_MINOR       58
+>>>> +#define KMS_DRIVER_MINOR       59
+>>>>    #define KMS_DRIVER_PATCHLEVEL  0
+>>>>
+>>>>    /*
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>>> index b32ff6e1baaf..dbb05d51682b 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>>> @@ -1256,6 +1256,10 @@ static int amdgpu_info(struct drm_device *dev, void *data, struct drm_file *filp
+>>>>                   return copy_to_user(out, &gpuvm_fault,
+>>>>                                       min((size_t)size, sizeof(gpuvm_fault))) ? -EFAULT : 0;
+>>>>           }
+>>>> +       case AMDGPU_INFO_GB_ADDR_CONFIG: {
+>>>> +               ui32 = adev->gfx.config.gb_addr_config;
+>>>> +               return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
+>>>> +       }
+>>>>           default:
+>>>>                   DRM_DEBUG_KMS("Invalid request %d\n", info->query);
+>>>>                   return -EINVAL;
+>>>> @@ -1310,6 +1314,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>>>           case AMDGPU_INFO_VIDEO_CAPS:
+>>>>           case AMDGPU_INFO_MAX_IBS:
+>>>>           case AMDGPU_INFO_GPUVM_FAULT:
+>>>> +       case AMDGPU_INFO_GB_ADDR_CONFIG:
+>>>>                   need_runtime_pm = false;
+>>>>                   break;
+>>>>
+>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>>>> index 3e488b0119eb..680492cd73d8 100644
+>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>> @@ -933,6 +933,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+>>>>    #define AMDGPU_INFO_MAX_IBS                    0x22
+>>>>    /* query last page fault info */
+>>>>    #define AMDGPU_INFO_GPUVM_FAULT                        0x23
+>>>> +/* Query GB_ADDR_CONFIG */
+>>>> +#define AMDGPU_INFO_GB_ADDR_CONFIG             0x24
+>>>>
+>>>>    #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
+>>>>    #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
+>>>> --
+>>>> 2.40.1
+>>>>
+>>
