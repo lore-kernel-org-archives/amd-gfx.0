@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD1BC2BA1A
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D0ECC2BB85
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0445710EB19;
-	Thu, 20 Jun 2024 16:19:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9454410EB34;
+	Thu, 20 Jun 2024 16:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="heAlpHvy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lgDLEbKs";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7CED10EB19
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:18:59 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23DC810EB21
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:19:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N40s4V/OjFiVb/11t+4bCJTwr48zJRMd/IVT39awx5kS3zMJ+A/iUJ1W1Zi8IxS7kTLDlYX23sU5CkXAwecxQ9VH8oZG3+0Jrqsqj2W8fGmZM4LWpuxKB5uIB4GMZb80hmyWtVAGCmNM6ZEHeEXCqYVtCPbqp2iopnYIk2WgjXOCYhBbOGAJAFaTr1N0Oti8JD+e5R2dQ5t+JIH6S+80uxtaHUwsaMW6O3dFD5PrXDFfvA4xxT42vUrSj1O7yspWgvQSO6HV07J3MPJVHfdr8PPlPrx2mDKZ9kX+SYwZdThC8uW/aMOyKwrn3WTsfO8UHK1E2q0MEO0E/ZuQDEdPVQ==
+ b=TbKZM02XRyaPM0Ug4eb4XMppq6C7xJwxlVVelfMnewlHd9hcr1JJnRKWUUWkUr7si/BxPGeIej7pnKrjaWD/eQI7RloL8v5J5/SL9Y1bh44Kll/N/Xdg6E5bXkB9WKyjWXssp5nH37wYI+tDdmCVrxXaK7FY5/Sa0r+yoCo0U5ZP45qc7N3QV/cEjg2WAVIeIih6VR0l1r9V2PNsRYlziuRMOAp/Y50iLgD69j8FqwEPbkFH6Jfcwasg6HNR9qR3LxgPN3H021aH+apuA+p4j7hH1R2Z01j0PGpNuxnXw0GOw1cmOPz4CeG5HUzArwsoV6GvMovTXk/rbiGBSffIKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F3fM7NqYDbagThrMYKGMvdlApqDruibbSHBRdEaNplg=;
- b=cW66dnWSuXfz5ntGpThD2SoPcJs5UB1ir6gunGJIO4n1i477L3Oc8moz3Elnd5ziZGE+H9gTqElAD0hyxi75+NX6OIGRCGVM+kdR8A3QPGHqJeJRgK+xbUdunyBi3HUF68rONetSf60LW1tB9gMhR5J3vqMFMOgSPb6rwzvR3+KYCLDk43x1mZpWILjW39VlQRQA/vK+Wyv04WyLRMLtZqSvW1v4ZlzLQHcjpZbqCp6zUoeIs3dZ39mH/ZjKqs4G0Au3jPSLugFkiR4jHHxy/luKRFDIrK2PPBEspAcDHoKLhcT06OnEyiR1pgoNfUdnqQi982YJxqFChwt1hd+cNg==
+ bh=lRgBTeuvRup+tLnvUXVzUujDoJ8EioOb1a/Ecgn5tsY=;
+ b=G5bn7eR/ZQZghFxaPdNKpC01CqwPqD5/vafFWJVx3HLQEjo0OaitaDWjV6Nrq8JE6ir687Phn9Ukeo4xQcOIQesgKntp++TtzQcMrMpdyYHDaVHftTn4WScF8+2tY/U4x4WuUomG0PqqdzqHtNBJNLfE/aRucDQmMe/7L0N0t6Zw/DdHbUbE4azgmvaU2qGxQUirQK7FUBu/AmO66Y0qvopbAnCdv8Cu1x0HQBHPCWJ2ztUH3DvxObG9NenDbACXnv2ofFPYaL8HODxMeDfxhZuuRNgU7x5XCUu5eWAN9GUPb74Gclrwte1oNsjoHJ3t0io6jKzA5EqLzPi+reiHIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F3fM7NqYDbagThrMYKGMvdlApqDruibbSHBRdEaNplg=;
- b=heAlpHvy3oo4zUE2W9Oyrn4nHTFEEJUUWUAnJOWZlXyNs2SpNhsrHOHT+hicDbXBeOBXFmY00Iw9niZczEfeAeHPbFRzvWB1kQwNpsz1U9Z1G06LhgD5Ji+zfq8qR90gMcc570FCd8f+BOoLwVUNkbRsv3y2EO/lZPZjLtnRnU8=
-Received: from CH5PR03CA0001.namprd03.prod.outlook.com (2603:10b6:610:1f1::29)
- by IA0PR12MB8837.namprd12.prod.outlook.com (2603:10b6:208:491::18)
+ bh=lRgBTeuvRup+tLnvUXVzUujDoJ8EioOb1a/Ecgn5tsY=;
+ b=lgDLEbKsXaXolp12aePaQvY9YGcTvIciN9VaDlXVOrhNt8F55QY1508f85RDI2H0VyoDeFqeWHl8fEVklX2zmjfGkbw0dKSULo/zZ8IYosyVe4BRdc0XjG0HdI/JG2PkTXQQNnKjOnAu1uSEGPM9WzCUsVzVK1Durqyxi8O2d7Q=
+Received: from CH5P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::25)
+ by CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Thu, 20 Jun
- 2024 16:18:56 +0000
-Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
- (2603:10b6:610:1f1:cafe::6c) by CH5PR03CA0001.outlook.office365.com
- (2603:10b6:610:1f1::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31; Thu, 20 Jun
+ 2024 16:19:11 +0000
+Received: from CH2PEPF0000009C.namprd02.prod.outlook.com
+ (2603:10b6:610:1ee:cafe::50) by CH5P222CA0009.outlook.office365.com
+ (2603:10b6:610:1ee::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.33 via Frontend
- Transport; Thu, 20 Jun 2024 16:18:56 +0000
+ Transport; Thu, 20 Jun 2024 16:19:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
+ CH2PEPF0000009C.mail.protection.outlook.com (10.167.244.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:18:56 +0000
+ 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:19:10 +0000
 Received: from 10.254.92.128.in-addr.arpa (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 20 Jun 2024 11:18:53 -0500
+ 15.1.2507.39; Thu, 20 Jun 2024 11:19:07 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Ryan Seto <ryanseto@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 28/39] drm/amd/display: Add HW cursor visual confirm
-Date: Thu, 20 Jun 2024 10:11:34 -0600
-Message-ID: <20240620161145.2489774-29-alex.hung@amd.com>
+ <jerry.zuo@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Rodrigo Siqueira
+ <rodrigo.siqueira@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 29/39] drm/amd/display: Remove a redundant check in
+ authenticated_dp
+Date: Thu, 20 Jun 2024 10:11:35 -0600
+Message-ID: <20240620161145.2489774-30-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240620161145.2489774-1-alex.hung@amd.com>
 References: <20240620161145.2489774-1-alex.hung@amd.com>
@@ -78,50 +77,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|IA0PR12MB8837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93b581a6-1e4c-4598-9ebf-08dc9144af36
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009C:EE_|CH3PR12MB8659:EE_
+X-MS-Office365-Filtering-Correlation-Id: b432f4b0-65ee-41c0-9fce-08dc9144b7a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230037|376011|1800799021|82310400023|36860700010; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0qYJvbXShkZ3VMCeiM+OTdNToc0SlqFE1Q+XmRW1wMMkBhOJkCH4vTRAvIt9?=
- =?us-ascii?Q?5ISoXd3A1jCkKu/owP0kMAH21hh8Pv4E/xbsUt2gAjVJ8ffyUX5idjaw2uCD?=
- =?us-ascii?Q?2RO7VipH6/D5VxW+vDAKqhTYdcFY7cpB9sikBSCWxkyTeitCDsSvZ3T43Uwc?=
- =?us-ascii?Q?5LZQVxC5oy+hupkWVtdIgDyng99m9xlNVT07+lQ2UWle+42rbCx8Mi8sBawr?=
- =?us-ascii?Q?8/gki3h9ToYmlmVEiLfCKiO/VsEGrcPNKMPsCcvUQQwFRfn9lYOnIySJeoUq?=
- =?us-ascii?Q?mGIqoFzLBhB5i/JPMhMRGRF87M9mMrESwuXl+G5Eh+a+B3roPtKin6pThji1?=
- =?us-ascii?Q?0kEsniuQIjZm5ZcPKJcIGNQDh+7F9mnoo1TQzojzCcTWs0HvgCgKf1NMmNmr?=
- =?us-ascii?Q?FBaUmrcJQ8rRumuEAO1yBnMEkaK5lsZmnfRENyHK5KL42sDIrHV8lx+i6a/O?=
- =?us-ascii?Q?x2AeJ9gv5+NYHvlT+1VA6uXGB1/77vhoH/Wk2gGzo44f9hxb04O9JlxUlUBl?=
- =?us-ascii?Q?k60zH1sMeJXe8r0E5vStzr+xGwB/2+/tKCPRmJd2DoIrahmU3KOrSRCTx3oH?=
- =?us-ascii?Q?xuD/7PUAyLUOYJdM61dk9sQGpcl5nknNKxWBR6HooxO8ebt/awtwWGDDee4S?=
- =?us-ascii?Q?15zfLN7w/MF7zP7hZPmzXKoAz20vYGb9COEXB8kOfONN1kUfcGEPsIa4WPJf?=
- =?us-ascii?Q?zwrPkfUZkDArd6UwH4ivQu5PihWqAmILaC96PKrlo0aQlcoa8AWC8sWShhXX?=
- =?us-ascii?Q?64DLW17zrABRixjZA9q2VLTcMAhhV1+UHSpp0pA/1v1w+4b4fTs5Ouq84Mhk?=
- =?us-ascii?Q?k/h0FLeZlFioAW4pnCJYXEbYHiwiEdT/UM9m5yvx4Jg5DuAfHFAPgSHX7D8t?=
- =?us-ascii?Q?7qUz3WvsOFsGLfBdFMUHTtSxnucs5vWgo3CFX1+hVSf+Of5GbzRoGrICQLmu?=
- =?us-ascii?Q?HnMptsveb+6eEJN/2ihnsngSrrbH8T7ALWJhhc+BNAm7UpCgiE5+6i/tfaDK?=
- =?us-ascii?Q?gEvp6g3M1i3fn75RViEe/Gt7exOcrBkPzWCbbF8DngxEiuo3kt3/HDwy9dnk?=
- =?us-ascii?Q?OgWV1rrhvGwaNshqrDn4nKUdAJPVApbC37fyBnziSzpaSzaUamGv96HLZ39h?=
- =?us-ascii?Q?f6jzJbJqCzHuoJXvyH/DJXbHzJnisIJI68w5JX8d+q0mbt9M4MkWzv7kIQBB?=
- =?us-ascii?Q?AYOiawTPaACU386yos21Jf4+QAHHf6vRM+Dv7c3M3O9R2m1L2vo4KEJ2vyGy?=
- =?us-ascii?Q?hpBwef/v/qOSSDEjMC8m+tEFJ9sT8NO+BL0EtffjKVNIL+WuufQTIJWKAxB9?=
- =?us-ascii?Q?9lRUIrBOnMtLgMA8/UbcHwhhXgGJ/eORVMTWBnVz/lRpYU3MrHYcUWMCTXRF?=
- =?us-ascii?Q?ZTf6E2RGvDjE2rUZOeUT3CpXNlrGdZ6q/ciVy9Hlvuc+zul/2Q=3D=3D?=
+ ARA:13230037|36860700010|376011|1800799021|82310400023; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Td4ETIGofFlb4KEGd95IVD3OzxeoDDvprWcYzl8Up6B3F8g0N24fiISgAbrz?=
+ =?us-ascii?Q?TL6Kr6v4kQb2lsRMv4A1uRcNnHI4jfBVZRBbW+Wij/Cnuq6qJm7CG40GzpLP?=
+ =?us-ascii?Q?+Iyay2aqQ2YkMBnhRTW6art7dsUsWpSRAc9oz1F8oMnRXbLM9LcuVGytR/IM?=
+ =?us-ascii?Q?32Y9Q+NwoyOfLclMuCpUw7CC+J8kWKTgW8DHwvH+6P6HifnCS4u5BxM3ZKzm?=
+ =?us-ascii?Q?K1pm6mEcNT4w1Qjuls9RfD3xLHMxm8st095TEfA/ykLg9trTEjNtXXET9MAA?=
+ =?us-ascii?Q?N+QCxZRUlGpu3xW30Hg3W5q7VokAr/GMgPESpZHuDfMrraKQBs3O/UmyQS9Z?=
+ =?us-ascii?Q?249Ywbb1NcMQtDDkOI7AT9M0rNyiBkXQ9JURvC9uy4u3VkZB0g+dVAOwiLm1?=
+ =?us-ascii?Q?4dgTB6UlpVJUXzFGMyVz0GqHTIgk/IiwoYLFtU03t8mSTSaPnxhDRDc2Sk6z?=
+ =?us-ascii?Q?l8JMk+iPQLiy4v1Y6EZ6naWIBGpxGIjVbAWpHx+syOZx72a0itOIU24Uk/M4?=
+ =?us-ascii?Q?8nCwyghQYdzcm1EvjQKXOfTJzOlCYGjYPj6R0XANdRFRwKOdiwhVzbKR7gK6?=
+ =?us-ascii?Q?EaK9cleKIne8JTRrl9fMbSjJJBS0/M46HgTSw8S+59GIyjvsGgVFs4maQavJ?=
+ =?us-ascii?Q?PmDFIozIzPrWNof8rhzQpVMN3y0GxpIISBJunwKUzB5GHspZCHlo6czAkoFZ?=
+ =?us-ascii?Q?Hsi/qRWZ9Prr4dN8Hh7R0smFneXKuPn9iE3m3RZOmhxeBD83KZboqVPYRp/Y?=
+ =?us-ascii?Q?20CiLwhclBCXmxidOhGRBX5/noXUajdhOHhhOmSORJnNNjpb3XVtlqPfvGSZ?=
+ =?us-ascii?Q?AOLD7MS/jDUVuL0nZjofA/AYD52cy7xZi1sk/GOTZ8YRXAYXU6og/0uqukNV?=
+ =?us-ascii?Q?wXJYeKAiWbmb3RCCWeym7TU6OwK+Up5QvZAOWqv9aHz1JfL79WJLWHYF98Bi?=
+ =?us-ascii?Q?5bKvaEF4J6rFm3vFB5m1fz5urvKXQCc6GndPHlT6fS2/IrQR3k37Z+jp0Zeg?=
+ =?us-ascii?Q?tqIvb2Zum++vveF6KRZEFLjkHBu0XCX6t3oR2Fqxgl7FsCbaUy37ZKPs9Hzl?=
+ =?us-ascii?Q?w9prfQGzSItzRjYYtT6rxAMGcUNIYy5F9xahcV6xb7Btb4fvvhlbb4D8j02P?=
+ =?us-ascii?Q?GJC8e8UtCmmro+easTdvbF1K6AihdS/CW3BeGhTrU3/bW3peOgJRlVsUaxtv?=
+ =?us-ascii?Q?qKPM/OycMqVBuKf64yQ6MpeYOENfZFRLhUgMhxgAC4pqULHB8Umckri8bp7r?=
+ =?us-ascii?Q?Os3PxagJ4XiXjnLSvrIK8uiG8knfh554OO99O8w1vet7FUy+Sjy2gZivvGbG?=
+ =?us-ascii?Q?n+2vvdk7rpgDCvNUcew+YdGWeuPONzZoMEVsoUXC26ZTapV68lRzbfFvi/6Z?=
+ =?us-ascii?Q?jIw1BFhHISWJ9FG/3kXfTv/3MNU9iLWeZh52tF6aokLJrzwP2g=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(376011)(1800799021)(82310400023)(36860700010); DIR:OUT;
+ SFS:(13230037)(36860700010)(376011)(1800799021)(82310400023); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:18:56.2382 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93b581a6-1e4c-4598-9ebf-08dc9144af36
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:19:10.3391 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b432f4b0-65ee-41c0-9fce-08dc9144b7a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8837
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8659
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,78 +135,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ryan Seto <ryanseto@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
 [WHY]
-Added HW cursor visual confirm
+mod_hdcp_execute_and_set returns (*status == MOD_HDCP_STATUS_SUCCESS).
+When it return 0, it is guaranteed that status == MOD_HDCP_STATUS_SUCCESS
+will be evaluated as false. Since now we are using goto out already, all 3
+if (status == MOD_HDCP_STATUS_SUCCESS) clauses are guaranteed to enter.
+Therefore we are removing the if statements due to redundancy.
 
-[HOW]
-Added visual confirm logic when programming cursor positions.
-HW is programmed on cursor updates since cursor can change without flips.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
+Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Ryan Seto <ryanseto@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_stream.c   | 29 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- 2 files changed, 30 insertions(+)
+ .../display/modules/hdcp/hdcp1_execution.c    | 27 +++++++++----------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 9b24f448ce50..de0633f98158 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -416,6 +416,35 @@ bool dc_stream_program_cursor_position(
- 		if (reset_idle_optimizations && !dc->debug.disable_dmub_reallow_idle)
- 			dc_allow_idle_optimizations(dc, true);
- 
-+		/* apply/update visual confirm */
-+		if (dc->debug.visual_confirm == VISUAL_CONFIRM_HW_CURSOR) {
-+			/* update software state */
-+			uint32_t color_value = MAX_TG_COLOR_VALUE;
-+			int i;
-+
-+			for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+				struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
-+
-+				/* adjust visual confirm color for all pipes with current stream */
-+				if (stream == pipe_ctx->stream) {
-+					if (stream->cursor_position.enable) {
-+						pipe_ctx->visual_confirm_color.color_r_cr = color_value;
-+						pipe_ctx->visual_confirm_color.color_g_y = 0;
-+						pipe_ctx->visual_confirm_color.color_b_cb = 0;
-+					} else {
-+						pipe_ctx->visual_confirm_color.color_r_cr = 0;
-+						pipe_ctx->visual_confirm_color.color_g_y = 0;
-+						pipe_ctx->visual_confirm_color.color_b_cb = color_value;
-+					}
-+
-+					/* programming hardware */
-+					if (pipe_ctx->plane_state)
-+						dc->hwss.update_visual_confirm_color(dc, pipe_ctx,
-+								pipe_ctx->plane_res.hubp->mpcc_id);
-+				}
-+			}
-+		}
-+
- 		return true;
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+index d77836cef563..1e495e884484 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+@@ -432,21 +432,18 @@ static enum mod_hdcp_status authenticated_dp(struct mod_hdcp *hdcp,
+ 		goto out;
  	}
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index e0334b573f2d..64241de70f15 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -476,6 +476,7 @@ enum visual_confirm {
- 	VISUAL_CONFIRM_SUBVP = 14,
- 	VISUAL_CONFIRM_MCLK_SWITCH = 16,
- 	VISUAL_CONFIRM_FAMS2 = 19,
-+	VISUAL_CONFIRM_HW_CURSOR = 20,
- };
- 
- enum dc_psr_power_opts {
+-	if (status == MOD_HDCP_STATUS_SUCCESS)
+-		if (!mod_hdcp_execute_and_set(mod_hdcp_read_bstatus,
+-				&input->bstatus_read, &status,
+-				hdcp, "bstatus_read"))
+-			goto out;
+-	if (status == MOD_HDCP_STATUS_SUCCESS)
+-		if (!mod_hdcp_execute_and_set(check_link_integrity_dp,
+-				&input->link_integrity_check, &status,
+-				hdcp, "link_integrity_check"))
+-			goto out;
+-	if (status == MOD_HDCP_STATUS_SUCCESS)
+-		if (!mod_hdcp_execute_and_set(check_no_reauthentication_request_dp,
+-				&input->reauth_request_check, &status,
+-				hdcp, "reauth_request_check"))
+-			goto out;
++	if (!mod_hdcp_execute_and_set(mod_hdcp_read_bstatus,
++			&input->bstatus_read, &status,
++			hdcp, "bstatus_read"))
++		goto out;
++	if (!mod_hdcp_execute_and_set(check_link_integrity_dp,
++			&input->link_integrity_check, &status,
++			hdcp, "link_integrity_check"))
++		goto out;
++	if (!mod_hdcp_execute_and_set(check_no_reauthentication_request_dp,
++			&input->reauth_request_check, &status,
++			hdcp, "reauth_request_check"))
++		goto out;
+ out:
+ 	return status;
+ }
 -- 
 2.34.1
 
