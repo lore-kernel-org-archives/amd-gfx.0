@@ -4,149 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1502C27C79
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 13:36:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE43BC27C79
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 13:41:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4359410E9F4;
-	Thu, 20 Jun 2024 13:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28FB710E9EC;
+	Thu, 20 Jun 2024 13:41:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fyzKczpe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NiW36YQL";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2059.outbound.protection.outlook.com [40.107.94.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91FD210E9EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 13:36:22 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B142F10E9EC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 13:41:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fH16YQKgP+TRw1CX13dnxeHqtjCpuu0c0usXudyYkA7okSixgmndrhuHOMtAjyExzpPpTYj1cDO9cPa4NcZDO1dybLalRXQXZj6HkZrIm+mMkTHOpJpSRwC7nNA8L2QLQG9TFxyFyK5SongQmAz1XH2uPKQBJZYKvILCv+vz05jAStpVssgmYOgEXrCoClIZkC+t7fRg8fPFPLfLflCdRMj6cK5+ph8oos8952DpFlYf3QE9t2Skg3H4hbpFmQfcMlZwiV0ymsI6FD26N8/uiRZRwF2yCCp6/9hk+zdp3OFPfbbuvgOIhwjdJdPz/B8tWeqfPBxyIfuiZubyhFdy6A==
+ b=bryoEd7drL3qMl8QsttFBWE4J+Mhx/UJ4mJhohdJbjIpllndAqUxeYcWRJYtOBQJ6tvfmQGnW/HUFKYPFSlX4H9Y3tpMxd1ukH0RvRNjDTEKfqaB1jgZYAzsJxGVCA0WeLP0iN/AB4xQCjH4Hp1WMNO2mQ5Tj0Bkag/Y2CvB1ThBI/vSesxi0niBNErj/GglGh1iMewAl/BF982jKqqHvi7wTJA/h9oTRy/NwDIcqQYKpryAgMVYHzEu1gabwHFaltbPyJGgLRxFxT8MQ37CE9oWQLWO62BqZ/EMcCAucaUtPHDr49CVN+PRhMrFscO1Mr5G2whshdgnNfDiSGsNng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F34Y0ZQpmqHk57ZNyJ0FOdPblnUAnN4sSpbDIDXPkjs=;
- b=DNYYw2XwVU+nfYnhop+6YxIJV+taHXxpcJSzvsebAiVn/vFFQLa7nJPGBniuO7Xt1I+ehySHhP1oFjtbb1pQQG7UybrZZFGazB1jTuvH2DG6AVtPi4pPsDv9mtlNuiRG5tWpaQOOyNVM09cWS3636sxUdrlY+DrtRvx70Dfc6+dCGDX81Zzf2MJ/WLghzk+FxQeAbvDEi5W0EEqP0o3UMN9PseEjiKVlFvvmkGX6LaGiM1YjDbbPxzSfXXxWDxVPUPZt0W2fK0bk4kLJMBgb5nAzcDW5FI93DPX+DegeqoYOkn/+C5kKgbotQtQOKg4lz+7lQMr5jAehp40Q9Im4NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=+Vptk9YT5aRPr3IU00JQg9A7+UCZUN0tXmf+iZtKvwg=;
+ b=X8OJ4lND1uYoCKy0HztVNlDQUmY8Dtx+wzk4LWJVS9bhScS1GA03FdBDuKzDmANRI2gg6/CEzosvDD3HDpokFMsTIQkl2wHpKuG/KsGSjIDshQ005Y86/b4Cj36PjAcvRe9tEJLl2Mur9jXjVeJn9Jp0oJJcHcPy2X/YU6rgNiovvyJ3vtcptHua3Z/zPey6gdI0SKwAJc110BUACfC6GwNHGcHKdI3noSzGZWDLm6wb9UfIiHBeIW6pQXJJNd4kyuxdwWZ1zUr3JU9vny8aGHbQseqeAkpDFvTuzVUJXR54+yCLqoIFBJzYqebD2TS+yQvA1sozfU/HotfE/PwuKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F34Y0ZQpmqHk57ZNyJ0FOdPblnUAnN4sSpbDIDXPkjs=;
- b=fyzKczpedDkFV/zjjJoW2U6/va+ZVzeIJwns/w/NfwTPEEe8VM5/eNiyroBc+QGFGv2BsrSH2S6vYwiiABnv/HNrtAZrt39W3Vg4m6MwXb4C9sspw+3L3i4AEvbT7c4OTbh66GLjJLow9XZ0JSJ+ulZUKYbF7EziFdJ4HlOxwAA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY5PR12MB4244.namprd12.prod.outlook.com (2603:10b6:a03:204::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.25; Thu, 20 Jun
- 2024 13:36:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.7698.017; Thu, 20 Jun 2024
- 13:36:18 +0000
-Message-ID: <bcca41dc-8f75-4ca0-a843-62fa63636262@amd.com>
-Date: Thu, 20 Jun 2024 15:36:13 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] drm/amdgpu: allow ioctls to opt-out of runtime pm
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com>
- <20240618153003.146168-2-pierre-eric.pelloux-prayer@amd.com>
- <c45283a1-98d2-43a2-a73c-71896464c7f9@amd.com>
- <d2eefecf-656e-4c9c-96b3-717756581cc1@damsy.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d2eefecf-656e-4c9c-96b3-717756581cc1@damsy.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0134.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b9::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=+Vptk9YT5aRPr3IU00JQg9A7+UCZUN0tXmf+iZtKvwg=;
+ b=NiW36YQL/r9YQ29fHBrzphgGpuq/+C5LM9hI7mzVFqlru61N8xPvXthx+dtbbzDh+qqu88LDUFtxSNLLcp/w2DqRwrwOf17PpMqYxNM5cbHnlzPjIlDIimtulfNXwgHCJqG8kfr7l/TzfEx7PK9Eh1j9mZ2VSKPatVixl34ViHI=
+Received: from BN9PR03CA0650.namprd03.prod.outlook.com (2603:10b6:408:13b::25)
+ by MW3PR12MB4345.namprd12.prod.outlook.com (2603:10b6:303:59::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.21; Thu, 20 Jun
+ 2024 13:41:35 +0000
+Received: from BN3PEPF0000B372.namprd21.prod.outlook.com
+ (2603:10b6:408:13b:cafe::c7) by BN9PR03CA0650.outlook.office365.com
+ (2603:10b6:408:13b::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.33 via Frontend
+ Transport; Thu, 20 Jun 2024 13:41:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B372.mail.protection.outlook.com (10.167.243.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7719.0 via Frontend Transport; Thu, 20 Jun 2024 13:41:35 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Jun
+ 2024 08:41:34 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Jun
+ 2024 08:41:34 -0500
+Received: from jane-sm-stand.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 20 Jun 2024 08:41:32 -0500
+From: Jane Jian <Jane.Jian@amd.com>
+To: <Lijo.Lazar@amd.com>, <Haijun.Chang@amd.com>, <Victor.Zhao@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Jane Jian <Jane.Jian@amd.com>
+Subject: [PATCH] drm/amdgpu: normalize registers as local xcc to read/write
+ under sriov in TLB flush
+Date: Thu, 20 Jun 2024 21:41:32 +0800
+Message-ID: <20240620134132.1736532-1-Jane.Jian@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4244:EE_
-X-MS-Office365-Filtering-Correlation-Id: fefef214-5b45-4f8f-81bb-08dc912df6dd
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B372:EE_|MW3PR12MB4345:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4e5a594-f28a-431c-4d24-08dc912eb3e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230037|376011|366013|1800799021;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b0hHSnROWHZZUy9hYms1dm9TblNvbzlWdmk1V3lFK0VvdEtjUE80bXNpQkJw?=
- =?utf-8?B?dHA0K0lGSWhVdGVHQWRxN1NXU0dpSC9QNEVsYWVpUEdDdTEwVDdneVBUbEha?=
- =?utf-8?B?SjVUREdXMmpOZURYaHE3bEtVMThCLzU0b1NZYkpMT2lZejJtTWRTY25aeXpF?=
- =?utf-8?B?MUdUakNUQzlEZE5rKys2QkRBODVZVG1RQkhUR2l6eDNsNWljTkE2UDNBK3dD?=
- =?utf-8?B?U3BKRFJQMjFDdjBOZDFlRERSSExISzFVc0hnMjE0d3B2bVBiV2NDNTVHMXht?=
- =?utf-8?B?dVp1RzJ0Rmo5RVR0T2h6UVk1b0haM1JiNkVicFNoOFJJckZURUNZempNY0Vm?=
- =?utf-8?B?ZjVQTDM2c2U1bitBV1J1SmZLZzhOTzBIcndHMnBxZ3M5bElWU2FjamJnVUJz?=
- =?utf-8?B?MHdKY3Q4Tm8rNHdVd0FkajNzYUFIa3RZWjJSdGN3ZGJxL1V5NmZWeDAwb1d4?=
- =?utf-8?B?UDVLcC9xcjNXYWRrWmdYcTdMZGpIbzFacTl5ZFR5ZEx5UTFNODJ3ZlVXWEsx?=
- =?utf-8?B?eHlabXBia0dMYW5lKy9GYnE1WmhXYTI0M2tOeHQyU1h5Q1FtUGlIMFkzazVV?=
- =?utf-8?B?TWdBQ3RhQng4MGpQYVBKQjByNG15SThET1hyNjBpeGQrM2lhQkxETUl2Y2Vo?=
- =?utf-8?B?ckJNRE1DV1ZTTnNrQU5Nc3Jtc3NuaVJjZThVUU9jdXV3WGU4bVRQRzA2cXpN?=
- =?utf-8?B?dnRFS2NKZEJIZ0EzUWp2QmxkK3JMVC9vVjNYLzR2aUJVdnJyVkNtSnJNNzE4?=
- =?utf-8?B?RUxUZXhnWTdzaXZKRkhWUFM2UUZ1dzJwaWdWbDZsT2QzN3dWbXE5Mmo1VjZQ?=
- =?utf-8?B?QWxDZXpDdFdpc1lvZ081dFEybm5RTUoyckVIdHlGS2lTc0p4YzRnY2NnQW9N?=
- =?utf-8?B?aFNZSVIrQnhQOFVpenJ6aitHQWJVWjJZUDdBMVdINjlLNFJILy93bVNTQVVK?=
- =?utf-8?B?OENZTmNpZXhtVG9ucUk3cmJGYWM5d1lNeFJMNjVZTHNtT2JmZWdEUzI4Ryt6?=
- =?utf-8?B?Ym94QkwvRFVxZGprUHZCdGUrMkhaeXJDTmpPNHp1MHRMbVRlenBHdkxVUUhO?=
- =?utf-8?B?Vk0rek1pb2M5aGpZYnEyaVNGOEdCWUlWejhkTFlvUGNTTkRXRFFSOHdTMU9a?=
- =?utf-8?B?SDFEbDQ0ZmtEL1djbGd1TGhBclA3Q3h4VzNWY1BkdituQlFpTE5lT3d3SG93?=
- =?utf-8?B?YWxPTDVOaDl1bUdISHFxZENQc0k3KzBCYzVLVG9sbTdIa00yaTJaaXZ0VERV?=
- =?utf-8?B?MUp2ckVtdzgxT05iQjlod0dZb2g5eTQrWjd1TDhYTStBTlNNR2dVSkZsSnZv?=
- =?utf-8?B?RVpOVzJsU3U1ZGp0Uzcra2JFOFF3WmJWS3Nma1pQdkV0UGN4cCt3TWFQbnpX?=
- =?utf-8?B?b0U1VGNtMlE1SDFIaUprL09CV1QrczYwTlNyTE5aMFRaUC9URWtic2ZNZFp2?=
- =?utf-8?B?V09KZ2ZZZm91UUhZdy9hVHFKYVloQWxYOSs5Wm96QnI4NWhSUzhDd3ZCcFhr?=
- =?utf-8?B?T1Z0UTJMdTFpdkE0NWdEQ3JJTXRFbW9uVDdCSlFENDQrWmlVK09FdHhEalE2?=
- =?utf-8?B?Y0lDalNzVE9aMElxSHdVQi96MmFrYlNpdUVyUlJFVnRhWlhMMGR2M2MvMDVI?=
- =?utf-8?B?Zm5MaXdtUmRZZEQyZTM3TFpDZksxc1hjK1I3c0xPQXVqRHBNb0s2dkUzcUdz?=
- =?utf-8?B?NkpXV1ovVGpCaG0xRGJ5NUJCSWQ2YWtHMGh3THR6aWRXTGE4OXJCeXVuRHhU?=
- =?utf-8?Q?e4VsCN4MNY/76PsqVi2jq1W+A9Gro9Bg78GFINK?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230037)(376011)(366013)(1800799021); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bTZjWlNRY3R5bVJNSnJkQXhKaE0xdE9oS0FWT1ViZ3hrSUN3cGZxSmprUkIy?=
- =?utf-8?B?ZEhUc2szQnM3UEZ1eHA2NUVWQU8wSnVVS2p2R0tCRU1ZalhwSW5wWm9OMEhs?=
- =?utf-8?B?eWgvb0p4UFV2VVZydlZnd1ovUTZvMUxxdFFvb3NMVjFabm1hRG9yb25aTG1h?=
- =?utf-8?B?MHZqSjZJOUhGUUdxWHNLaGhhRzBUZHlBM1FRRTJCVW1obkpHTi9nWnlZckta?=
- =?utf-8?B?aHZ0eE83ZVF2MEVJY01IbXJ1T25kMzVTamFrTENBSjhubmh6L3BmV0ZpeTBV?=
- =?utf-8?B?L1pTZ2YwOE9wK0JVNTZKK0hWcGtudXkzWnVJMHdFRlpxbFJRUVo4OTA5ekpI?=
- =?utf-8?B?OU90anJQdnZHczY5SWc3VXBWL0xGVE5iQnlQTkRLU1c1dnlvRmJmTFozdFpI?=
- =?utf-8?B?eFFBNVRRcFA3Qkk1azZ5WDRsckhGdTliWmwrc2lJL2NGdU9tNjNwQ0MyWjNq?=
- =?utf-8?B?TUxuUGo2TnYza2sxdTZZYVVGZnNoakFRRDduT2tpUEd5dFg1Q1JwQmZUcjRz?=
- =?utf-8?B?dUc4dlFueFFrNkU5eWpXMVM0TnpkV0hKcW5mUTJ6NVcyTko5WTBtQUV3T0w3?=
- =?utf-8?B?dHgrWnAxY2RZTlBCNmVSaFhIKzRsdlIxTzZ4clZQdTBmZHJWSUxFeG9HTXJY?=
- =?utf-8?B?My9MdDEzeFcwQktiUG9BYi9BVUZMM2FDRVhTanI0eUVTMTFNV0c1dWtRTDl0?=
- =?utf-8?B?YjUwQmdWRXNaR0lNdHhFalM4ZVlVRVBna1VBb1lWcEFVUHUrSmIvelM3M2xO?=
- =?utf-8?B?bDR1MVUzREJBQTE0Szcrc2RpdVUyVFJyU2YyS2gxQ012c2tYenFHQ2FURGtZ?=
- =?utf-8?B?eDk1b09hYjBuUHA4Ulo1eCtOS1JYcGplTFl4VGc3aUptOWYyQVlHRjRiSDdE?=
- =?utf-8?B?aTNlczc4OWU4U0duVHRxbkhwcXZweUtUMlZpMEI5NjZBbnBHUkg3VUowTkkv?=
- =?utf-8?B?Wkk1dXdqZWwxREYvV0l3czNNZmVJM0dGZk1wVVBHSUY1cW9mRFRQWHNkSGo0?=
- =?utf-8?B?aVk5MmIxZHUwYytBRFdrQkJ5ajhYQ0lnWENGMWY3VjhiWWsxMWtFVWxyeldH?=
- =?utf-8?B?dFdKMTRpZ1dHbW1xSlR1RUdsekhCV01tdFExQUxnRU4zUWZScFAxZmFINDJM?=
- =?utf-8?B?ZWxCWmE3TU5WeS9zWjMxQ1k4L1BjVnphQlBBOThReHBrdm9uMkZwcVA4dXNS?=
- =?utf-8?B?b0VoekhxUEFLUVorM0d5bmI2NVFuaVdmTktDS0FHSFVIanAvUy9CVjBCWTRO?=
- =?utf-8?B?QUJiUFgxaEM5ZEFUNW9TS1Uvems1aVNUekUreG91d1QxeEd0bW56SWFidEVI?=
- =?utf-8?B?aW9GOExEWFRvcURUUkl5R3lXM2NFNmZFNmgwczRGVjg2UkQwSWhuRmNvbml6?=
- =?utf-8?B?V2pGVjRycEpIeGdQcnU3UmFLamw3SUxuVmpCQUFKRzdXbjRmcDh2TEEvUDVw?=
- =?utf-8?B?VXNMMjhiUGhpcC9rcHU5SGdpaFpUZXRSaFdMRFlDMU9KSk1oZFhWU2JKRnhW?=
- =?utf-8?B?ZHpsYmxBNGhHWEJsYjBpZUtHRmJyRS9KQVpIU0Q0LzNYN2xNaUtQWHhkdzlN?=
- =?utf-8?B?SnkrRHdVVWc5OTZxeWhKdy82Wkt1SUNZNnRHOXRLUmFuRkpkTHlmU0tDYlIr?=
- =?utf-8?B?L2JxbWpYY0hzcW8wNnpHMS9ETkd5cEJQTnBRQWNCUWNkWThNRmJuWGpSQTRn?=
- =?utf-8?B?RFhCOFg3dGw3OUV6WjVFRGZKVjEvUXhzZFUzVDVsUkUwUjNWRmdkOTI1K0h0?=
- =?utf-8?B?MmJndVNUZ1U3UVo0aHl3M1RBMUZpeTNBVVJ4ZG1tRWx6aGFJc09qdENLNnd6?=
- =?utf-8?B?bkNvZ3lTUmg4UmhtalV4eU85NTd3NTBjWUhyTy9EODRJOThVRHUzcFZLRTJZ?=
- =?utf-8?B?S3Jyeko5blAxU0RLcktWYkpSMXVYc2pvNTRMK0swQUh3bHhidlRnZllRSmYy?=
- =?utf-8?B?R0JxRGNwK2dzcUFVWmFqTGRPaFhhazRCaWJBaUowRkV0SFJ5UkdnVDJXQTJm?=
- =?utf-8?B?WkhNa0pNK21GU1BuM0R4bHlZSnFXZy9hVG1VSmowelMyemlqMmJYV1Q5WWNn?=
- =?utf-8?B?WVBLNGdWa1J6eW9MRjdNUDJISnVEckR0UmRNcGZGWE90Y29Oa3lLWGFZREVu?=
- =?utf-8?Q?mcPF9j84hZ0k1SX6lPn/+LHqY?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|82310400023|1800799021|376011|36860700010; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gRzX6FNh+njw0yWswrLK7cA2Swhf6SI70j99N/uNvpGu4sOZbEPPusDIuC1n?=
+ =?us-ascii?Q?GhDlT1QNtHZEpa3jyXICVUQS0vb19WlYjoYc3UsJmpMs/RyJnJkQEZtdbs6Z?=
+ =?us-ascii?Q?tTS/IL+Kj6Gbu+MeNR9S4cdCuiENHbLxww7r1af1NpVbybSVzztJNWmJsX0r?=
+ =?us-ascii?Q?nhS6KUh5+IQQwuCbata7D+HpV1iSQi0zWUwoeNdr6QjwVyFTtvf006A4MD0Y?=
+ =?us-ascii?Q?Hn4XuvATHoddo87iEn7mld8lBcvDQTOqf80yXiGj9iWHfPzjIit/lBzwHBJB?=
+ =?us-ascii?Q?T5kSs1ivHVcQxBw/0eR6qEQOZ+de3caDkctlO1AtR4JAiqxldBZwFdpMwBGE?=
+ =?us-ascii?Q?tqUUo1KmPfFUqWhgxLgVOQ4nvyaAUAjsL2C9PY9kwc8HKqm+vXiomFuCwOJz?=
+ =?us-ascii?Q?KFt1g7f5qwudoIze2ViePe8YpzJFrdSzAwtUSgXp+2i09GIKHah0jPGl9f78?=
+ =?us-ascii?Q?DI4ytZGadzKHhLZd/8qRR8IMnwpLwn5Um6rzU6i7nwocurUXBHI2zHeKhhwV?=
+ =?us-ascii?Q?oSIk6PjKJ/7wxQV28aZJnqJ8OnMFmWmbBI6Ci+SWaqs9L2UdcLdjqTqTAH0N?=
+ =?us-ascii?Q?lXwrR4vPT25Awn0DrhdiQdiXpK5Y4pOIHhBenaqY51IJzjQKDpvSn7Uh6TA1?=
+ =?us-ascii?Q?MPneUOBfnhWALZCiYfxvpVfxPm4zQ/2vLt3jn6YCOBsLHvUE7Q58EWxS2rPH?=
+ =?us-ascii?Q?frEe+q4KY8FqrIqWwugF3sOcuWCoplsYV9KSGPq2pX69/eohSy2NCn06BgkD?=
+ =?us-ascii?Q?4wLSbQNHIOP6pVyP4rs3uP12yeXJBnnnG48McIcAJklYk6HnaJsx1gtdqKFP?=
+ =?us-ascii?Q?5PmQS7SZtiLRfNTjjCgYxLBLEAB8S19iQZC9ZhLRtT/B/FKOQhRMjaQOTjtJ?=
+ =?us-ascii?Q?PKWac6rL1haf5ub7zIA/ZPYsJqx5N5fqaI/7uVmxZqH72dBJbfNRrxaOc24+?=
+ =?us-ascii?Q?c3rqp2SFm9O+r2ZQMeUcmIr7GUiFm3KuHTVdCqUxrUp7zuFMG8T+WxnOTHfK?=
+ =?us-ascii?Q?I8MfnRYHC5g6TjiQbSDo0K93d+1taXqLHqtFSZ2g2Pkdv1yDshkhOqUGpzfy?=
+ =?us-ascii?Q?/eaBq1SAzPXbQr7P94jHgnUjGYhJixvlBul2HwlXnVNIvTJpLns6c8OCVyRo?=
+ =?us-ascii?Q?K5xJJrY9UN2BHZgRbTF1ph+/WOg8eXmL8ZhoBUEY036N1KU2/sVTrmEWFzUV?=
+ =?us-ascii?Q?JwG/SUqHVdK3ljjJeshI7g9frMOeR66Macv/duwVKpAkICJsOnYkCPfvEnlI?=
+ =?us-ascii?Q?0vAaEAbswh07sd37pZgqI1GG2NQNfIqwuq21JZ6P12NsdWgzJBEJBcc97Tio?=
+ =?us-ascii?Q?JCfN8eXp7pD0W1FAQM7s7dOuKwHMRbX77iDNTGTD3zWg2iC7GTzT5glX4fov?=
+ =?us-ascii?Q?HbdbIMZzKdnv/iOt52r47UEcluaELYNpPNB1GY7wayOoKTEYRg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230037)(82310400023)(1800799021)(376011)(36860700010); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fefef214-5b45-4f8f-81bb-08dc912df6dd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 13:36:18.4105 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 13:41:35.1855 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4e5a594-f28a-431c-4d24-08dc912eb3e8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M+X9GPCAGBhuSRE5ssD3nuRoMmxnViZyD54TO7unBLcxwZxNrzMd/RXqmNYMUYDg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4244
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B372.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4345
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,88 +133,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.06.24 um 15:06 schrieb Pierre-Eric Pelloux-Prayer:
-> Le 19/06/2024 à 11:26, Christian König a écrit :
->> Am 18.06.24 um 17:23 schrieb Pierre-Eric Pelloux-Prayer:
->>> Waking up a device can take multiple seconds, so if it's not
->>> going to be used we might as well not resume it.
->>>
->>> The safest default behavior for all ioctls is to resume the GPU,
->>> so this change allows specific ioctls to opt-out of generic
->>> runtime pm.
->>
->> I'm really wondering if we shouldn't put that into the IOCTL 
->> description.
->>
->> See amdgpu_ioctls_kms and DRM_IOCTL_DEF_DRV() for what I mean.
->
-> Are you suggesting to add a new entry in enum drm_ioctl_flags to 
-> indicate ioctls which need the device to be awake?
->
-> Something like: "DRM_NO_DEVICE = BIT(6)" and then use it for both
-> core and amdgpu ioctls?
+[WHY]
+sriov has the higher bit violation when flushing tlb
 
-Yeah something like that. Maybe name that DRM_SW_ONLY or something like 
-that.
+[HOW]
+normalize the registers to keep lower 16-bit(dword aligned) to aviod higher bit violation
+RLCG will mask xcd out and always assume it's accessing its own xcd
 
-Christian.
+[TODO]
+later will add the normalization in sriovw/rreg after fixing bugs
 
->
-> Pierre-Eric
->
->
->
->
->>
->> Regards,
->> Christian.
->>
->>>
->>> Signed-off-by: Pierre-Eric Pelloux-Prayer 
->>> <pierre-eric.pelloux-prayer@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25 
->>> ++++++++++++++++++++-----
->>>   1 file changed, 20 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index 60d5758939ae..a9831b243bfc 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -2855,18 +2855,33 @@ long amdgpu_drm_ioctl(struct file *filp,
->>>   {
->>>       struct drm_file *file_priv = filp->private_data;
->>>       struct drm_device *dev;
->>> +    bool needs_device;
->>>       long ret;
->>>       dev = file_priv->minor->dev;
->>> -    ret = pm_runtime_get_sync(dev->dev);
->>> -    if (ret < 0)
->>> -        goto out;
->>> +
->>> +    /* Some ioctl can opt-out of powermanagement handling
->>> +     * if they don't require the device to be resumed.
->>> +     */
->>> +    switch (cmd) {
->>> +    default:
->>> +        needs_device = true;
->>> +    }
->>> +
->>> +    if (needs_device) {
->>> +        ret = pm_runtime_get_sync(dev->dev);
->>> +        if (ret < 0)
->>> +            goto out;
->>> +    }
->>>       ret = drm_ioctl(filp, cmd, arg);
->>> -    pm_runtime_mark_last_busy(dev->dev);
->>>   out:
->>> -    pm_runtime_put_autosuspend(dev->dev);
->>> +    if (needs_device) {
->>> +        pm_runtime_mark_last_busy(dev->dev);
->>> +        pm_runtime_put_autosuspend(dev->dev);
->>> +    }
->>> +
->>>       return ret;
->>>   }
+v2
+rename the normalized macro, add ip block type for further use
+move asics func declaration after ip block type since new func
+refers ip block type
+
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+---
+ amdgpu.h        | 112 +++++++++++----------
+ aqua_vanjaram.c |  16 +++
+ gmc_v9_0.c      |   8 +-
+ soc15.c         |   1 +
+ soc15.h         |   1 +
+ soc15_common.h  |   5 +-
+ 6 files changed, 85 insertions(+), 58 deletions(-)
+
+diff --git a/amdgpu.h b/amdgpu.h
+index 083f353cff6e..070fd9e601fe 100644
+--- a/amdgpu.h
++++ b/amdgpu.h
+@@ -583,61 +583,6 @@ struct amdgpu_video_codecs {
+ 	const struct amdgpu_video_codec_info *codec_array;
+ };
+ 
+-/*
+- * ASIC specific functions.
+- */
+-struct amdgpu_asic_funcs {
+-	bool (*read_disabled_bios)(struct amdgpu_device *adev);
+-	bool (*read_bios_from_rom)(struct amdgpu_device *adev,
+-				   u8 *bios, u32 length_bytes);
+-	int (*read_register)(struct amdgpu_device *adev, u32 se_num,
+-			     u32 sh_num, u32 reg_offset, u32 *value);
+-	void (*set_vga_state)(struct amdgpu_device *adev, bool state);
+-	int (*reset)(struct amdgpu_device *adev);
+-	enum amd_reset_method (*reset_method)(struct amdgpu_device *adev);
+-	/* get the reference clock */
+-	u32 (*get_xclk)(struct amdgpu_device *adev);
+-	/* MM block clocks */
+-	int (*set_uvd_clocks)(struct amdgpu_device *adev, u32 vclk, u32 dclk);
+-	int (*set_vce_clocks)(struct amdgpu_device *adev, u32 evclk, u32 ecclk);
+-	/* static power management */
+-	int (*get_pcie_lanes)(struct amdgpu_device *adev);
+-	void (*set_pcie_lanes)(struct amdgpu_device *adev, int lanes);
+-	/* get config memsize register */
+-	u32 (*get_config_memsize)(struct amdgpu_device *adev);
+-	/* flush hdp write queue */
+-	void (*flush_hdp)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
+-	/* invalidate hdp read cache */
+-	void (*invalidate_hdp)(struct amdgpu_device *adev,
+-			       struct amdgpu_ring *ring);
+-	/* check if the asic needs a full reset of if soft reset will work */
+-	bool (*need_full_reset)(struct amdgpu_device *adev);
+-	/* initialize doorbell layout for specific asic*/
+-	void (*init_doorbell_index)(struct amdgpu_device *adev);
+-	/* PCIe bandwidth usage */
+-	void (*get_pcie_usage)(struct amdgpu_device *adev, uint64_t *count0,
+-			       uint64_t *count1);
+-	/* do we need to reset the asic at init time (e.g., kexec) */
+-	bool (*need_reset_on_init)(struct amdgpu_device *adev);
+-	/* PCIe replay counter */
+-	uint64_t (*get_pcie_replay_count)(struct amdgpu_device *adev);
+-	/* device supports BACO */
+-	int (*supports_baco)(struct amdgpu_device *adev);
+-	/* pre asic_init quirks */
+-	void (*pre_asic_init)(struct amdgpu_device *adev);
+-	/* enter/exit umd stable pstate */
+-	int (*update_umd_stable_pstate)(struct amdgpu_device *adev, bool enter);
+-	/* query video codecs */
+-	int (*query_video_codecs)(struct amdgpu_device *adev, bool encode,
+-				  const struct amdgpu_video_codecs **codecs);
+-	/* encode "> 32bits" smn addressing */
+-	u64 (*encode_ext_smn_addressing)(int ext_id);
+-
+-	ssize_t (*get_reg_state)(struct amdgpu_device *adev,
+-				 enum amdgpu_reg_state reg_state, void *buf,
+-				 size_t max_size);
+-};
+-
+ /*
+  * IOCTL.
+  */
+@@ -728,6 +673,63 @@ enum amd_hw_ip_block_type {
+ 	MAX_HWIP
+ };
+ 
++/*
++ * ASIC specific functions.
++ */
++struct amdgpu_asic_funcs {
++	bool (*read_disabled_bios)(struct amdgpu_device *adev);
++	bool (*read_bios_from_rom)(struct amdgpu_device *adev,
++				   u8 *bios, u32 length_bytes);
++	int (*read_register)(struct amdgpu_device *adev, u32 se_num,
++			     u32 sh_num, u32 reg_offset, u32 *value);
++	void (*set_vga_state)(struct amdgpu_device *adev, bool state);
++	int (*reset)(struct amdgpu_device *adev);
++	enum amd_reset_method (*reset_method)(struct amdgpu_device *adev);
++	/* get the reference clock */
++	u32 (*get_xclk)(struct amdgpu_device *adev);
++	/* MM block clocks */
++	int (*set_uvd_clocks)(struct amdgpu_device *adev, u32 vclk, u32 dclk);
++	int (*set_vce_clocks)(struct amdgpu_device *adev, u32 evclk, u32 ecclk);
++	/* static power management */
++	int (*get_pcie_lanes)(struct amdgpu_device *adev);
++	void (*set_pcie_lanes)(struct amdgpu_device *adev, int lanes);
++	/* get config memsize register */
++	u32 (*get_config_memsize)(struct amdgpu_device *adev);
++	/* flush hdp write queue */
++	void (*flush_hdp)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
++	/* invalidate hdp read cache */
++	void (*invalidate_hdp)(struct amdgpu_device *adev,
++			       struct amdgpu_ring *ring);
++	/* check if the asic needs a full reset of if soft reset will work */
++	bool (*need_full_reset)(struct amdgpu_device *adev);
++	/* initialize doorbell layout for specific asic*/
++	void (*init_doorbell_index)(struct amdgpu_device *adev);
++	/* PCIe bandwidth usage */
++	void (*get_pcie_usage)(struct amdgpu_device *adev, uint64_t *count0,
++			       uint64_t *count1);
++	/* do we need to reset the asic at init time (e.g., kexec) */
++	bool (*need_reset_on_init)(struct amdgpu_device *adev);
++	/* PCIe replay counter */
++	uint64_t (*get_pcie_replay_count)(struct amdgpu_device *adev);
++	/* device supports BACO */
++	int (*supports_baco)(struct amdgpu_device *adev);
++	/* pre asic_init quirks */
++	void (*pre_asic_init)(struct amdgpu_device *adev);
++	/* enter/exit umd stable pstate */
++	int (*update_umd_stable_pstate)(struct amdgpu_device *adev, bool enter);
++	/* query video codecs */
++	int (*query_video_codecs)(struct amdgpu_device *adev, bool encode,
++				  const struct amdgpu_video_codecs **codecs);
++	/* encode "> 32bits" smn addressing */
++	u64 (*encode_ext_smn_addressing)(int ext_id);
++
++	ssize_t (*get_reg_state)(struct amdgpu_device *adev,
++				 enum amdgpu_reg_state reg_state, void *buf,
++				 size_t max_size);
++	/* normalize offset to keep in lower 16-bit */
++	u32 (*normalize_reg_offset)(enum amd_hw_ip_block_type hwip, u32 offset);
++};
++
+ #define HWIP_MAX_INSTANCE	44
+ 
+ #define HW_ID_MAX		300
+diff --git a/aqua_vanjaram.c b/aqua_vanjaram.c
+index 2c9a0aa41e2d..98b00c0e522f 100644
+--- a/aqua_vanjaram.c
++++ b/aqua_vanjaram.c
+@@ -1085,3 +1085,19 @@ ssize_t aqua_vanjaram_get_reg_state(struct amdgpu_device *adev,
+ 
+ 	return size;
+ }
++
++u32 aqua_vanjaram_normalize_reg_offset(enum amd_hw_ip_block_type hwip, u32 offset)
++{
++	u32 normalized_offset;
++
++	switch (hwip) {
++	case GC_HWIP:
++		normalized_offset = offset & 0xffff;
++		break;
++	default:
++		normalized_offset = offset;
++		break;
++	}
++
++	return normalized_offset;
++}
+diff --git a/gmc_v9_0.c b/gmc_v9_0.c
+index 88b4644f8e96..66fd229c196a 100644
+--- a/gmc_v9_0.c
++++ b/gmc_v9_0.c
+@@ -853,8 +853,12 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	 */
+ 	if (adev->gfx.kiq[inst].ring.sched.ready &&
+ 	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+-		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+-		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
++
++		/* Select lower 16 bits to write in local xcc */
++		if (AMDGPU_IS_GFXHUB(vmhub)) {
++			req = NORMALIZE_XCC_REG_OFFSET(GC, req);
++			ack = NORMALIZE_XCC_REG_OFFSET(GC, ack);
++		}
+ 
+ 		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
+ 						 1 << vmid, inst);
+diff --git a/soc15.c b/soc15.c
+index 8d16dacdc172..e6e61fc77080 100644
+--- a/soc15.c
++++ b/soc15.c
+@@ -927,6 +927,7 @@ static const struct amdgpu_asic_funcs aqua_vanjaram_asic_funcs =
+ 	.query_video_codecs = &soc15_query_video_codecs,
+ 	.encode_ext_smn_addressing = &aqua_vanjaram_encode_ext_smn_addressing,
+ 	.get_reg_state = &aqua_vanjaram_get_reg_state,
++	.normalize_reg_offset = &aqua_vanjaram_normalize_reg_offset,
+ };
+ 
+ static int soc15_common_early_init(void *handle)
+diff --git a/soc15.h b/soc15.h
+index 282584a48be0..f1e974604e3e 100644
+--- a/soc15.h
++++ b/soc15.h
+@@ -124,4 +124,5 @@ ssize_t aqua_vanjaram_get_reg_state(struct amdgpu_device *adev,
+ void vega10_doorbell_index_init(struct amdgpu_device *adev);
+ void vega20_doorbell_index_init(struct amdgpu_device *adev);
+ void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev);
++u32 aqua_vanjaram_normalize_reg_offset(u32 hwip, u32 offset);
+ #endif
+diff --git a/soc15_common.h b/soc15_common.h
+index 242b24f73c17..ddf0aad51821 100644
+--- a/soc15_common.h
++++ b/soc15_common.h
+@@ -210,4 +210,7 @@
+ #define WREG64_MCA(ext, mca_base, idx, val) \
+ 	WREG64_PCIE_EXT(adev->asic_funcs->encode_ext_smn_addressing(ext) + mca_base + (idx * 8), val)
+ 
+-#endif
++#define NORMALIZE_XCC_REG_OFFSET(ip, offset) \
++	((amdgpu_sriov_vf(adev) && adev->asic_funcs->normalize_reg_offset) ? \
++	adev->asic_funcs->normalize_reg_offset(ip##_HWIP, offset) : offset)
++#endif
+\ No newline at end of file
+-- 
+2.34.1
 
