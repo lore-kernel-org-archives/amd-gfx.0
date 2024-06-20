@@ -4,69 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59862C2BA1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 07:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 180ECC2D0CF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 07:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D1210EAE1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE3E10EAEC;
 	Fri, 21 Jun 2024 07:13:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PLwe8E1I";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x2s4mr0Z";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C170B10E5E4;
- Thu, 20 Jun 2024 20:23:09 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-52c82101407so2102600e87.3; 
- Thu, 20 Jun 2024 13:23:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718914988; x=1719519788; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=buQG3hA8H+059YuPFLgH0tUJpQ/ZzbYiX070xYIXO0A=;
- b=PLwe8E1IKslo79Czzist0ax68fr5JL8IHnS5LoDYy9xPuUXUdmgXIo3sK/tsiRKp1/
- VHFh29zq7kswcix+IAdyV0B6bmV7TtnDPAOp1BZoNjZkVTQGhJIx4Yv2/4Y/vjSRkX1/
- vkJChBqipPfFtNslBY8P2eN/62BlG2NWStLbuAUPCX9P2D5lujhZVpcX+et3SdUuUwaa
- VvkBJECsANswJ7AYLBqHt7bkbuh3B/1WGd8Qc9e1+pDojZK0qp9xYAuwm1YGpRjYZNv5
- 08KGaEuswEyjaAVcgei9hpF95AVujSr1GYEf+/xBA3xIFO+PHnET1h7bIP3xeWXkYtHE
- QH5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718914988; x=1719519788;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=buQG3hA8H+059YuPFLgH0tUJpQ/ZzbYiX070xYIXO0A=;
- b=D14OqTHBHP8FWpfbsC5eIYQFUWW/Wz6TsaOZFu//psjC/59GUGwiqPi+M2g7mP7xt/
- Ji9A74bwxowibLK1Vflkjc7byDywhjRnqcGn0rv+sJr0iNSqNqPu7JOvPRB3f6+jONLe
- siz5HapRJGw7fAb3PQ6OPTCe1RxjnwL1J2k5SdmkWYLn72eKa/WdWu7mXI9i80O50Vhx
- B3lDr7yMkpyJRkIV5i860TITi22npatmA8i1v47RrRT0KlPn77z8gTTttoQIIRSfCPJO
- /D0mtneMiIDH3C+teWr9Q0EpBLswO0GF6xOdt/2JxmmSqC4i/lmmWnhhfwg/YdGzXDz9
- LZlw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzka3LAuHEJ7UPfmiBF3Na2zk76342gNe/xyh4Ygt6x9nZ4f/yHwScO3VgD9/fxlS5y8qcVjqkX/swTC3Zv+X0mGObOvpP9ZDUU7aVCCiXWY1iQKYl7/dnbz928gAz/GNbFTGdIATfqw+9KTz58Q==
-X-Gm-Message-State: AOJu0YwydyQz1HAmXy3CKvh/zb2/KbJMz1OWEqUJWzlujX0uWY0+REHM
- pwzZ8m6jxkZ8hlEcJONxLhVjivfFmL8FroplcvqdyEJxTnIGUeKfQx5dI/kLapnsa7llt4dSdqH
- d2jXbxHE0TFitH+LT5XV5hgK6Sr3L2Q==
-X-Google-Smtp-Source: AGHT+IFXwVlI3EsVogn6ni914pK5hMdWkVREDnd4EoVjE5Nt2vZNmLYWOmKYYD+QWjXFaAp1hWgSg5Qq67Rtp8onQho=
-X-Received: by 2002:ac2:4308:0:b0:52c:c97:b591 with SMTP id
- 2adb3069b0e04-52ccaa3695dmr4557854e87.32.1718914987566; Thu, 20 Jun 2024
- 13:23:07 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 284AC10EB31
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:37:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7E4DF621F3;
+ Thu, 20 Jun 2024 16:36:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A20DC2BD10;
+ Thu, 20 Jun 2024 16:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1718901419;
+ bh=DcaboQ7B3JmHo97botsQRQ+5atQTWcS0b/XRS7eC+xg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=x2s4mr0Z10Rgkos3+lh1fUBgwioOxg0KhpBgZRPsSWdrSptRvjvUizResDrTE18Mb
+ 1o3j1xiTy/8gd9S2+50r/x6avrxjDWZXDSVY8u6d2hlH6aSpE1O3yp6ZESL2fp5gVL
+ pHE9f9RpOl+F/I3J+CaR42J6ecULHm4SyVGhyvVw=
+Date: Thu, 20 Jun 2024 18:36:56 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry.Wentland@amd.com,
+ Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com,
+ Aurabindo.Pillai@amd.com, roman.li@amd.com, wayne.lin@amd.com,
+ agustin.gutierrez@amd.com, chiahsuan.chung@amd.com,
+ jerry.zuo@amd.com, Dillon Varone <dillon.varone@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 21/39] drm/amd/display: Make DML2.1 P-State method force
+ per stream
+Message-ID: <2024062032-emoticon-nifty-337d@gregkh>
+References: <20240620161145.2489774-1-alex.hung@amd.com>
+ <20240620161145.2489774-22-alex.hung@amd.com>
 MIME-Version: 1.0
-References: <20240606020404.210989-1-mario.limonciello@amd.com>
- <20240606020404.210989-3-mario.limonciello@amd.com>
- <bc1d81ef-d9d0-4440-b63f-ecfb735ef783@amd.com>
- <d637d3c2-34f7-42f8-acbb-6a1730d3fc3c@amd.com>
-In-Reply-To: <d637d3c2-34f7-42f8-acbb-6a1730d3fc3c@amd.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Thu, 20 Jun 2024 22:22:55 +0200
-Message-ID: <CAFZQkGy0xuuUw73HQvS8Ce92sUi2rVrRnX25pi1KdNmyQbtBZA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/amd: Add power_saving_policy drm property to
- eDP connectors
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org, 
- Simon Ser <contact@emersion.fr>, Harry Wentland <Harry.Wentland@amd.com>, 
- dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240620161145.2489774-22-alex.hung@amd.com>
 X-Mailman-Approved-At: Fri, 21 Jun 2024 07:13:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,14 +62,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Mi., 19. Juni 2024 um 06:08 Uhr schrieb Mario Limonciello
-<mario.limonciello@amd.com>
-> Thanks!  I don't have permissions, so can you (or someone else) please
-> apply to drm-misc-next for me?
->
-> After it's merged I'll rebase and work on the feedback for the new IGT
-> tests.
+On Thu, Jun 20, 2024 at 10:11:27AM -0600, Alex Hung wrote:
+> From: Dillon Varone <dillon.varone@amd.com>
+> 
+> [WHY & HOW]
+> Currently the force only works for a single display, make it so it can
+> be forced per stream.
+> 
+> Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Acked-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Dillon Varone <dillon.varone@amd.com>
 
-Merging can only happen once a real world userspace application has
-implemented support for it. I'll try to do that sometime next week in
-KWin
+When submitting patches from others, you too have to sign-off on the
+patch.  Read the DCO in the documentation for details.
+
+thanks,
+
+greg k-h
