@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB1BC27C79
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:20:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04312C2BA1A
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1D4210EB25;
-	Thu, 20 Jun 2024 16:20:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E65B10EB2B;
+	Thu, 20 Jun 2024 16:21:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MnCshCuy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A0rV1hmG";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2947110EB25
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:20:51 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6332F10EB2B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:21:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c5IIKgTRoRh9bVbmrqmjM/ODkU/edcPVhCzE8zHhOBc+/h/edBqvPZT2kguFlKcj1QRByAKCD5ZnY8EWsJ4O2vikMgluL4IjtOpOyPa+ngiqVhqLQs67jkN4WMf+G/5fPv+1ncPyIjlff6Q28QaRe6C77SsNzXk99KAJZrqVPxsRzzHOETNHEIg5EXxnzY5O/vFZVPcPZvUIcflZIDKhilAwKExeW0p42n1tAirT8x4qVAAyh3AOPoJkNa12Rar1S3YydYo0c8/PGb7XWQh4fr4BL5RJGo13SLBp3kkT0gtVP4C40zNO0BpDVsp3Twdz7d0j11EKZQL4ZpsAaFG7fA==
+ b=M9P4zH2a/RLxbZDhzCwl6ooInX5e8/cazNdvy7fBWByO5gpxFoxYO6CT1Il3XnY/K9vbpstGmcs5zisGFpDfiIIwV0ZmQl/wun31yb3Ck0LMeVtOzfmTCXOg6NYeaAXXDVDbGcckp9LznmUefr9+xlTRta5+zz3wU4tamVYiX1Aqcl1Fm+yhgi0drz7LOyylrTOAQvPO/9PDL8BWJS/alldzrFdn9YPdqu9DW9uHRQ6rT7OmBNepHMHxTVqQo+M7Sg/xbbVXRL3HpJ55ywuDOJyLP1nSFM5JBtItgoGm09CiKbqEIIx3MEhgT4cyvSpz6nwm2XYYb8Kv0rxrP9Twyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hjeaAu980NNF/NXI0GfCyrV8sxY3dasgdkNCjpB+h7U=;
- b=BF4qbKoji/yaw5Y0n402eEhV5o2P+/4Lm2HSiY018vxtID/caliw0pRtU6jn6Bhp7gizZ39mWLUgCrXp77UdcQpZAwQs2ZG45VCTMPPAXlerV2M/jOtCZ5FH0RmfJKb6fJSoW60Z2CdpQlopswe9cDoJv4OGlkHjb4Pz87U6UNzM1tSYxt/mmyq1p+s5SlAvmmxPJutRe5SImTrWW9j8QFX4wBano2/bpaTR87fYnBHz3RJmpA0TGoapOzLg3LKl/X8ohJSDZK9D91lg6IJk0TJdslzuH9GXEVGAD/54SWZndy859F5YsEl2mwCIbPb1Tz5/DhoAMcbEvsE9Ip8kVg==
+ bh=ioUv/5/JNqtg/9YiI3TYT3PWrTMEHZjxWL5uDF2cZX8=;
+ b=YkAz7m/7I1AvaO/Zdedd86g8X+TKsQc3Q5KfXZ6PsuaVYctFGaX0L5rSjK28libDPaYTBcP6MkjXR1YiIrWZ6fbQwFhnnW+fMFGUpCUwtVyOPLNHcLnxh4Pxew5EI8DEoaMTK7Bge9iMiH99RQBhfubuDuibTWytUK6zor98Q+FqdOcOVg3H3eqCygDLfpRC5ABUOV83DCYhYANZVoCtkBudA/w1u8kr/1HV1t2rewgoWCdvNPEC6Zxeo9c/06z1NvmavoF8aia4q/JyywWJj8lxAGUhAMK+yETE6jSM6PujEdxXkE2nBQng0camKpt3o6ritm1pMwymDKxb6Y66kw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hjeaAu980NNF/NXI0GfCyrV8sxY3dasgdkNCjpB+h7U=;
- b=MnCshCuyoOFRfHEVWKADkleMHXlBMBAgt0T+3k46deEuR5kvXX7p7cy1mXoEKir4izWtcdGKu1xTaAe+Lr6HMn7mf7hdu2Scqq1QID8779moT80rm8TaO/CyhVf4QQOIV2aFnSjCADo7NKh7lF5+u1ONTf7GDMZSxzZhRmkMeXA=
-Received: from CH5P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::14)
- by CY5PR12MB6035.namprd12.prod.outlook.com (2603:10b6:930:2d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31; Thu, 20 Jun
- 2024 16:20:46 +0000
-Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
- (2603:10b6:610:1ef:cafe::3b) by CH5P220CA0010.outlook.office365.com
- (2603:10b6:610:1ef::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.34 via Frontend
- Transport; Thu, 20 Jun 2024 16:20:46 +0000
+ bh=ioUv/5/JNqtg/9YiI3TYT3PWrTMEHZjxWL5uDF2cZX8=;
+ b=A0rV1hmG3PT+AJcym5gbskWIXjEJvQeuXwwoGaQLb+7Oo0b/3Dox//K4W1fTRx9v70/jTUkoDZIcFJQmugKDbbN/w4uFL+3AIDj2QabX+Wl6TmgU4IU+5sWPjaTMH1QGasIINJUc1gGkPpE6dFFLR9ayly9/wnwa/m+APFwP8hE=
+Received: from CH5P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::16)
+ by MW4PR12MB7165.namprd12.prod.outlook.com (2603:10b6:303:21b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.21; Thu, 20 Jun
+ 2024 16:21:00 +0000
+Received: from CH2PEPF0000009C.namprd02.prod.outlook.com
+ (2603:10b6:610:1ee:cafe::70) by CH5P222CA0005.outlook.office365.com
+ (2603:10b6:610:1ee::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.33 via Frontend
+ Transport; Thu, 20 Jun 2024 16:21:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
+ CH2PEPF0000009C.mail.protection.outlook.com (10.167.244.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:20:45 +0000
+ 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:20:59 +0000
 Received: from 10.254.92.128.in-addr.arpa (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 20 Jun 2024 11:20:43 -0500
+ 15.1.2507.39; Thu, 20 Jun 2024 11:20:57 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira
- <rodrigo.siqueira@amd.com>
-Subject: [PATCH 36/39] drm/amd/display: Remove duplicate null check
-Date: Thu, 20 Jun 2024 10:11:42 -0600
-Message-ID: <20240620161145.2489774-37-alex.hung@amd.com>
+ <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, "Rodrigo
+ Siqueira" <rodrigo.siqueira@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 37/39] drm/amd: Add reg definitions for DCN401 DCC
+Date: Thu, 20 Jun 2024 10:11:43 -0600
+Message-ID: <20240620161145.2489774-38-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240620161145.2489774-1-alex.hung@amd.com>
 References: <20240620161145.2489774-1-alex.hung@amd.com>
@@ -76,50 +76,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|CY5PR12MB6035:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae8dcd26-5425-4246-0cba-08dc9144f081
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009C:EE_|MW4PR12MB7165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8672403a-d57a-4d9e-13fd-08dc9144f8d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230037|82310400023|1800799021|36860700010|376011; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?exuOu14ymiIU2qoINHLopp3EBSdE51K2w4JwdEwaRVwv901eexG7q9/f2d0h?=
- =?us-ascii?Q?S92zMUGbJRObi4P8RYyC/+nZhp9fl4IMf+83JRvluUBqGTkbiOhrZ0OKCGq0?=
- =?us-ascii?Q?qPNoI4/GGoHPbt4DHib94jJKKYlDwqC1YnhQLdJbaDEBrxy+zQuNBoWVJOUb?=
- =?us-ascii?Q?mcYglShTT/4t8fDPb2f+mhDuJHcvIsDprEfcy/Romag1OsLHldOy9ur4ef18?=
- =?us-ascii?Q?M8PmKjMDfbJFofG/2FAZ6IwWDnf7ZCDbOgKzcLRImuuBabEslRYqAC1zlqoV?=
- =?us-ascii?Q?9mCcgZi9IYiaylUgxQcVyXzCqpKVDugyBVhL0dDopwPuXJpLqYxMkxswVbu8?=
- =?us-ascii?Q?DDF+A9BnAkdpsGfu074zjZshCAbYwnSAW9uoXYNKnMprsMFyCuQ5m/HQXWtv?=
- =?us-ascii?Q?hbVPRRHFLId7UTxsvUqh3VGXoMIPXRpn7YPqiK9of7y2uPsI+H/1bxaZciY5?=
- =?us-ascii?Q?oG4YursVdizPT5GESXCEUHO9kwsml5Y44meIlYiNU0mG7Z9i05op2jigX9Xn?=
- =?us-ascii?Q?WEH+tWgHD5cuMHCbLBJIQZsYCOgor9LHMhXDVT7P2NbyZZ4x0Hj8iv14VIYB?=
- =?us-ascii?Q?b2hkWI72vLZJ/EOPs70PhpmVCXya6xuKQa86Y9GciX6SsC1SiTtXrtiDGK4f?=
- =?us-ascii?Q?EMl6Kv1fs9r2eenVtBeNqyiy26t2QeXYSjxYY7+6WGpFWZYfVYci4yeqBV4v?=
- =?us-ascii?Q?Dgf3IQjqh2DYXuREsWZHvM0M/OxX5teWWOdWCvb1MFndZN4HIWDTe9pT6Ijm?=
- =?us-ascii?Q?zvxVpzLRioyKGGtf61emuzRjKisny7OKKnYWsJt0VjmB+A4t19x1F6paBLBj?=
- =?us-ascii?Q?bBF2coZrNlV1kRP9PoXpVrC6EnuZ5KgoPiyWoPrlLkzBUHLfOunAPQk1peZh?=
- =?us-ascii?Q?RY8nUHMEzC9i0ccrZgVycPfeuO4pchOeAZJgnoDhN7hVoxnhJC7y7qbE6FUt?=
- =?us-ascii?Q?tdh6lJm1rp6VkTuZCHE5RhiQM2SUDTpEkXF3fWXfJS2A0EFWQ5N6M9eFHrDT?=
- =?us-ascii?Q?aEt/q/QnjHnf3ZR05XtZyYnCgnihkQ/vlg/YxJLALy3E3eT83wJIK4QCxxEi?=
- =?us-ascii?Q?w2V6iDYTwvYIX7l/2qcCadvopxlRMpJulFQKbqLjcUwE1HMQeqX1qiRA8tsh?=
- =?us-ascii?Q?gzq6gRpyw4CG04yQgRdzxbGoEAnZ9gzNMBwjdLDnbVe3487jm4Kk4sLONudz?=
- =?us-ascii?Q?MUWH0Pgp+tqgBuOX6ceSW6ohBWJpVcGJMBJsmtfvkobtLtLYAKpHQFp+QHa5?=
- =?us-ascii?Q?N4P8xhmwHANBAaOhRYadq9WOHxxQtoDz7MVfu0z3nxFWSDVCqhW7vr+KmnAI?=
- =?us-ascii?Q?2wtFkVRjKoh+JJ/mufnQVAWdBOzlZRhdzzzf1F8OdChIMmmQyq8LupikoAp2?=
- =?us-ascii?Q?cDPbuWwq5BQDIUScMhejNZvG+6xRBi9iql5rWBgVBKcJ7ihpZw=3D=3D?=
+ ARA:13230037|36860700010|376011|1800799021|82310400023; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?otevfMPsIEJXe2oY2ABwSezmnmVH7dhsz+yVEr3+PviqM6Qb8pe6GvncdmJj?=
+ =?us-ascii?Q?KsBgJ43ZLkVG/BAOiRdq4rzVBJhvhlkezYcACTWz4VudrLdM/lSQr18nefSb?=
+ =?us-ascii?Q?T0OjfYcgEcxb81fa2qEF6LY84JRn7KerbHTqQIZny6KXGT7jyUuH5CUpBcsZ?=
+ =?us-ascii?Q?nYkOEriOP+81L/dkH9py6D/DHUoExIt/ZIKEXQknX+54DTQAhSaQE+KyzRbX?=
+ =?us-ascii?Q?pS5JM2zFMaNLaH9TE8nq7P9V7RKPLV4OW+Z+O1LdHN4Hj6fdQVGKh3FtdaeQ?=
+ =?us-ascii?Q?bgWEuZ+TmSRhVXe3DPEniKPLhJP64Z97GOnLcnstud0cA66WYTDPqVel+gZm?=
+ =?us-ascii?Q?vnNCUeFGYezAxixbaWPASXhE9NZhSGQ0GU/oYwRlHnKAZ4YVrtRxsbyZGTlw?=
+ =?us-ascii?Q?UD65oq+R3RfqFK+wK1oxepSKGg55XaiOTIUe7gCyLuRduS0RD7Q5apxsyevD?=
+ =?us-ascii?Q?hC1ABAx9ui5HHnnOBtN9E8NTdwnEvWoFnw2rpjmOrBBxZbg4SaLVeZzXWMT5?=
+ =?us-ascii?Q?n/wIlAP6LoORp03894hMHUheFjHcSp72Ghh1dMfmqTavs/K4Pmbs95PMBUL8?=
+ =?us-ascii?Q?mmPA46Dlp5LipphoG3knw+Xd3fqpa1TTTgbHgIgt7Z6UHWU6WX2BXbEurTqm?=
+ =?us-ascii?Q?J55h6LPe5xUs1sBaHbqzCziPXUWa1Lz6Bb31hYRj9t8KCOtXYHicbvtF9RKQ?=
+ =?us-ascii?Q?hyTt7TGn5DfDs5hqwOD/2eaaO6FVfj1a+q8hXpjwQDph+oQtaC+6Qo8+6WlF?=
+ =?us-ascii?Q?IhNGuuEBetgGcTyQhKQv6LmETf4bFWDYbrwHOz8P4rWDM6WUARYPVMsDardx?=
+ =?us-ascii?Q?ln7aJX3qwMS2X8OfrgilQeDNeeCwJnH+/L1moM50ao18KwYCzjBnvP13iwQQ?=
+ =?us-ascii?Q?2EJWvm77jB+uvlgmRx4lDub1aLtErhIzwWhj9hUDNIa1M+IyRKJHMMT076qB?=
+ =?us-ascii?Q?DStk0wZmRePJbsD5HU6s5pE2dlJmLeOmAd/MGxkgRpjd/rmNK3SJAbwyOVUr?=
+ =?us-ascii?Q?FQj/1i7cmk7d8pKlDqEDdXnnEmnbWYxTIqUBOZqA/8Ziq2GSR5AjHtEmrj9f?=
+ =?us-ascii?Q?AsrJFCp7GIGtkLvUszKm2enylPiZnkcmU8wPxwgA3JBuw9K6rXS/7m750GQh?=
+ =?us-ascii?Q?A9+MlleHrh/jeZYhYE593k6pKdkrfF7kR8yMS3EDPdoRdf/8CHc6MH+QDKgs?=
+ =?us-ascii?Q?/CiTgOgvh+Fyp6LCgkTK0ylODrfAfMAsS1tZtouk5oCg9M1fuaD1ETV52IGf?=
+ =?us-ascii?Q?Lr2X8tyxvpZBj6o0zVI+bSZr8LV/e5R9CUaTBqdszqRBJ1bzV/fBc1iOmfgK?=
+ =?us-ascii?Q?Aa73xigo2GNVyQ0GATM76J5yklyxDNojiPZr+CPEBiQZLdJPY5Wvem7YXOB6?=
+ =?us-ascii?Q?bUwXLAAvTyQBSENA/IEcafBbZGoQFB7ZyarF5JXQvMifNgctXw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(82310400023)(1800799021)(36860700010)(376011); DIR:OUT;
+ SFS:(13230037)(36860700010)(376011)(1800799021)(82310400023); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:20:45.7779 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae8dcd26-5425-4246-0cba-08dc9144f081
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:20:59.7307 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8672403a-d57a-4d9e-13fd-08dc9144f8d2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6035
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,32 +134,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHAT & HOW]
-The same display null check was a few lines above.
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-This fixes 1 DEADCODE issue reported by Coverity.
+[WHAT]
+Add the necessary register definitions to enable DCC on DCN4x
 
 Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 3 ---
- 1 file changed, 3 deletions(-)
+ .../include/asic_reg/dcn/dcn_4_1_0_sh_mask.h  | 110 ++++++++++++++++++
+ 1 file changed, 110 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-index 7c9805705fd3..8c137d7c032e 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-@@ -513,9 +513,6 @@ enum mod_hdcp_status mod_hdcp_hdcp2_create_session(struct mod_hdcp *hdcp)
- 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.context.mem_context.shared_buf;
- 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_1_0_sh_mask.h
+index 0c68f5d818bb..f42a276499cd 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_1_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_1_0_sh_mask.h
+@@ -6430,6 +6430,28 @@
+ //DCHUBBUB_SDPIF_MEM_PWR_STATUS
+ #define DCHUBBUB_SDPIF_MEM_PWR_STATUS__DCHUBBUB_SDPIF_MEM_PWR_STATE__SHIFT                                    0x0
+ #define DCHUBBUB_SDPIF_MEM_PWR_STATUS__DCHUBBUB_SDPIF_MEM_PWR_STATE_MASK                                      0x00000003L
++//DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE0__SHIFT                 0x0
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE1__SHIFT                 0x1
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE2__SHIFT                 0x2
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE3__SHIFT                 0x3
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE0__SHIFT            0xc
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE1__SHIFT            0xd
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE2__SHIFT            0xe
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE3__SHIFT            0xf
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_ENABLE__SHIFT                 0x1c
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_VREADY_MODE__SHIFT                0x1f
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE0_MASK                   0x00000001L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE1_MASK                   0x00000002L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE2_MASK                   0x00000004L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_FLIP_AWAY_MISSING_PIPE3_MASK                   0x00000008L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE0_MASK              0x00001000L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE1_MASK              0x00002000L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE2_MASK              0x00004000L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_CLEAR_PIPE3_MASK              0x00008000L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_ERR_ENABLE_MASK                   0x10000000L
++#define DCHUBBUB_SDPIF_MCACHE_INVALIDATION_CTL__DCHUBBUB_SDPIF_MCACHEID_INV_VREADY_MODE_MASK                  0x80000000L
++
  
--	if (!display)
--		return MOD_HDCP_STATUS_DISPLAY_NOT_FOUND;
--
- 	hdcp_cmd->in_msg.hdcp2_create_session_v2.display_handle = display->index;
  
- 	if (hdcp->connection.link.adjust.hdcp2.force_type == MOD_HDCP_FORCE_TYPE_0)
+ // addressBlock: dcn_dcec_dchubbubl_hubbub_ret_path_dispdec
+@@ -7084,6 +7106,11 @@
+ #define HUBP0_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START__SHIFT                                          0x10
+ #define HUBP0_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_X_START_MASK                                            0x0000FFFFL
+ #define HUBP0_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START_MASK                                            0xFFFF0000L
++//HUBP0_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE
++#define HUBP0_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE__SHIFT                0x0
++#define HUBP0_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C__SHIFT              0x10
++#define HUBP0_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_MASK                  0x0000FFFFL
++#define HUBP0_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C_MASK                0xFFFF0000L
+ //HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION
+ #define HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_WIDTH__SHIFT                                        0x0
+ #define HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_HEIGHT__SHIFT                                       0x10
+@@ -7244,6 +7271,23 @@
+ #define HUBP0_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1__SHIFT                                               0xc
+ #define HUBP0_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_CURR_S1_MASK                                                 0x00000FFFL
+ #define HUBP0_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1_MASK                                                 0x00FFF000L
++//HUBP0_DCHUBP_MCACHEID_CONFIG
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0__SHIFT                                          0x0
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0__SHIFT                                          0x4
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1__SHIFT                                          0x8
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1__SHIFT                                          0xc
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0__SHIFT                                         0x10
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0__SHIFT                                         0x14
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1__SHIFT                                         0x18
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1__SHIFT                                         0x1c
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0_MASK                                            0x0000000FL
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0_MASK                                            0x000000F0L
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1_MASK                                            0x00000F00L
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1_MASK                                            0x0000F000L
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0_MASK                                           0x000F0000L
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0_MASK                                           0x00F00000L
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1_MASK                                           0x0F000000L
++#define HUBP0_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1_MASK                                           0xF0000000L
+ //HUBP0_HUBP_MEASURE_WIN_CTRL_DCFCLK
+ #define HUBP0_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_EN_DCFCLK__SHIFT                                 0x0
+ #define HUBP0_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_PERIOD_M1_DCFCLK__SHIFT                          0x4
+@@ -8013,6 +8057,11 @@
+ #define HUBP1_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START__SHIFT                                          0x10
+ #define HUBP1_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_X_START_MASK                                            0x0000FFFFL
+ #define HUBP1_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START_MASK                                            0xFFFF0000L
++//HUBP1_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE
++#define HUBP1_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE__SHIFT                0x0
++#define HUBP1_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C__SHIFT              0x10
++#define HUBP1_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_MASK                  0x0000FFFFL
++#define HUBP1_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C_MASK                0xFFFF0000L
+ //HUBP1_DCSURF_PRI_VIEWPORT_DIMENSION
+ #define HUBP1_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_WIDTH__SHIFT                                        0x0
+ #define HUBP1_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_HEIGHT__SHIFT                                       0x10
+@@ -8173,6 +8222,23 @@
+ #define HUBP1_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1__SHIFT                                               0xc
+ #define HUBP1_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_CURR_S1_MASK                                                 0x00000FFFL
+ #define HUBP1_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1_MASK                                                 0x00FFF000L
++//HUBP1_DCHUBP_MCACHEID_CONFIG
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0__SHIFT                                          0x0
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0__SHIFT                                          0x4
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1__SHIFT                                          0x8
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1__SHIFT                                          0xc
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0__SHIFT                                         0x10
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0__SHIFT                                         0x14
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1__SHIFT                                         0x18
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1__SHIFT                                         0x1c
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0_MASK                                            0x0000000FL
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0_MASK                                            0x000000F0L
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1_MASK                                            0x00000F00L
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1_MASK                                            0x0000F000L
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0_MASK                                           0x000F0000L
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0_MASK                                           0x00F00000L
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1_MASK                                           0x0F000000L
++#define HUBP1_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1_MASK                                           0xF0000000L
+ //HUBP1_HUBP_MEASURE_WIN_CTRL_DCFCLK
+ #define HUBP1_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_EN_DCFCLK__SHIFT                                 0x0
+ #define HUBP1_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_PERIOD_M1_DCFCLK__SHIFT                          0x4
+@@ -8942,6 +9008,11 @@
+ #define HUBP2_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START__SHIFT                                          0x10
+ #define HUBP2_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_X_START_MASK                                            0x0000FFFFL
+ #define HUBP2_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START_MASK                                            0xFFFF0000L
++//HUBP2_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE
++#define HUBP2_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE__SHIFT                0x0
++#define HUBP2_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C__SHIFT              0x10
++#define HUBP2_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_MASK                  0x0000FFFFL
++#define HUBP2_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C_MASK                0xFFFF0000L
+ //HUBP2_DCSURF_PRI_VIEWPORT_DIMENSION
+ #define HUBP2_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_WIDTH__SHIFT                                        0x0
+ #define HUBP2_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_HEIGHT__SHIFT                                       0x10
+@@ -9102,6 +9173,23 @@
+ #define HUBP2_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1__SHIFT                                               0xc
+ #define HUBP2_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_CURR_S1_MASK                                                 0x00000FFFL
+ #define HUBP2_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1_MASK                                                 0x00FFF000L
++//HUBP2_DCHUBP_MCACHEID_CONFIG
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0__SHIFT                                          0x0
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0__SHIFT                                          0x4
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1__SHIFT                                          0x8
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1__SHIFT                                          0xc
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0__SHIFT                                         0x10
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0__SHIFT                                         0x14
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1__SHIFT                                         0x18
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1__SHIFT                                         0x1c
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0_MASK                                            0x0000000FL
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0_MASK                                            0x000000F0L
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1_MASK                                            0x00000F00L
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1_MASK                                            0x0000F000L
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0_MASK                                           0x000F0000L
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0_MASK                                           0x00F00000L
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1_MASK                                           0x0F000000L
++#define HUBP2_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1_MASK                                           0xF0000000L
+ //HUBP2_HUBP_MEASURE_WIN_CTRL_DCFCLK
+ #define HUBP2_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_EN_DCFCLK__SHIFT                                 0x0
+ #define HUBP2_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_PERIOD_M1_DCFCLK__SHIFT                          0x4
+@@ -9871,6 +9959,11 @@
+ #define HUBP3_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START__SHIFT                                          0x10
+ #define HUBP3_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_X_START_MASK                                            0x0000FFFFL
+ #define HUBP3_DCSURF_PRI_VIEWPORT_START__PRI_VIEWPORT_Y_START_MASK                                            0xFFFF0000L
++//HUBP3_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE
++#define HUBP3_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE__SHIFT                0x0
++#define HUBP3_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C__SHIFT              0x10
++#define HUBP3_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_MASK                  0x0000FFFFL
++#define HUBP3_DCSURF_VIEWPORT_MCACHE_SPLIT_COORDINATE__VIEWPORT_MCACHE_SPLIT_COORDINATE_C_MASK                0xFFFF0000L
+ //HUBP3_DCSURF_PRI_VIEWPORT_DIMENSION
+ #define HUBP3_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_WIDTH__SHIFT                                        0x0
+ #define HUBP3_DCSURF_PRI_VIEWPORT_DIMENSION__PRI_VIEWPORT_HEIGHT__SHIFT                                       0x10
+@@ -10031,6 +10124,23 @@
+ #define HUBP3_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1__SHIFT                                               0xc
+ #define HUBP3_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_CURR_S1_MASK                                                 0x00000FFFL
+ #define HUBP3_DCHUBP_MALL_SUB_VP2__SUB_VP_HEIGHT_NEXT_S1_MASK                                                 0x00FFF000L
++//HUBP3_DCHUBP_MCACHEID_CONFIG
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0__SHIFT                                          0x0
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0__SHIFT                                          0x4
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1__SHIFT                                          0x8
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1__SHIFT                                          0xc
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0__SHIFT                                         0x10
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0__SHIFT                                         0x14
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1__SHIFT                                         0x18
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1__SHIFT                                         0x1c
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P0_MASK                                            0x0000000FL
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P0_MASK                                            0x000000F0L
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_1H_P1_MASK                                            0x00000F00L
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_REG_READ_2H_P1_MASK                                            0x0000F000L
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P0_MASK                                           0x000F0000L
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P0_MASK                                           0x00F00000L
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_1H_P1_MASK                                           0x0F000000L
++#define HUBP3_DCHUBP_MCACHEID_CONFIG__MCACHEID_MALL_PREF_2H_P1_MASK                                           0xF0000000L
+ //HUBP3_HUBP_MEASURE_WIN_CTRL_DCFCLK
+ #define HUBP3_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_EN_DCFCLK__SHIFT                                 0x0
+ #define HUBP3_HUBP_MEASURE_WIN_CTRL_DCFCLK__HUBP_MEASURE_WIN_PERIOD_M1_DCFCLK__SHIFT                          0x4
 -- 
 2.34.1
 
