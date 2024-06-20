@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B21EC2BA1A
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:15:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90983C2BA1A
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E23D710EAFA;
-	Thu, 20 Jun 2024 16:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0792E10EAFF;
+	Thu, 20 Jun 2024 16:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4Dtyg77F";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f0e/C2Aj";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2042.outbound.protection.outlook.com [40.107.237.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C06C10EAFA
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:15:45 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0EDC10EB00
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:16:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ggVZUJ4dPNznu3wFBBV7DDnxCmsXYl/qH+21qSaTzmH2IrdOTY5Dh1WIKymr15IRC5jVKDB5YVrXGQWf342TsCCqcDtFnR3lgsf2vmTqs3zr0G9EcsBfGABY2Ui1tSEF2CwhR1LISODW+eQ7jCM8jr0pbvqA7w0aSrKWtCAZdNQTwRgMuciWcnTxszniKILKgFG2jA+IaZKz2jhZOOfJZHlOp/aKUhl1qQu/rcrxbR+G9TYDR2o665EwTOy5ktQ0ZFqHHZCdSw6CXxsYc+8/t3pwWn+o8tpllzVG7CyVGd+NF1HNHSCPn3N0s1XI5jkZOd34vavPReXzRypUFmFdow==
+ b=Jbp5sbnIU2WZCRAL1S2B5mx2STq6lS6Ks11ePN1ZweLVriv89KTFW6Wzl51Eb4J1+nkuDtxsRp4qp5wlKPr7F7j/8SPZ04iXp4zj/tlpCu4kqXRJzS34rZlCWCz1RrKwUgl4uMigd7sG9R7sEbN5Bnl9C+akIt8cBn18389jePWcExsji/WkO76/BPkjInMgrvQETBAoYVUNmVPh/UaovlcOPd74jDCBABgDZDsYNghYwNax/DS0x3odLSFWGUfP+5181hWlUwFhgq9YvdPFIUvGy3V58320XJovf3r7669T1WNlnDePhYE1U6JFLoQ/Z6qWO4/NQFCYQgkxALCPqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3vAAsITd1rMykMF5taPjJYXcaGiih/0kx5u/tKgaSsI=;
- b=PVqHcLJpBJCRl8f61QQ/sz0uHiTfnP5oHNxk8+cwtPtuaKxVKpw+AF7rzb12LdUVxnKzMUeC+5Rg6leG0x3+pb7sx55Zz093Bb9+7Wn/ZV7+gCGSNDafg1vMJISnIMYMps4BcoOzBHaLu1R09rIt51ml56CiZBA8M9r1iFW/mAaydDYweJYutZCCzRvcmfgYbX/ZnH1YlRuU6sAm13RsunukrLZWrUAaYmRNjPln6OCyZK5r1z0Ohki4rduDkVd637E49V9ryDOk0yzPb0FL/xoDC+LAY2xjd6YznbYqQ0K7KJ2jtMPWTy4BwKoycqGHLwwuAa9kWuO93bD9eO3YSA==
+ bh=l3uoBTv3v0l81Witt9O4tQ/wQGwUy88QVP/ZA50OVpc=;
+ b=fbSBLfPaDgOPbaJRBILNI9UgfEwTgcgID1zcsg1YfkTj5el4QoxEa+Hlu8ddp5cQjcBSPTVVyRfbQgrKl/jkgAgzfTioXbZ5BDuNkpXRVqmUkM+YGcQ7oEGtTRLx8OLZYLTW/457jnUWFqiZDFXYkHBKPqDqIUV/OIaoVzfyjKFhQySEiAHjPc5+qw9U9FU4xTknZFkQUDTer2s1opXbCeYZTu7LcMusa9D5sZYPy4BOnbDPsOQKavTQTxU7ljIYilTDPylzp/TEm6vWlv2RB8Z/rOJljD6/4tIMsEii9libvAJ/lvap0wBoodTzPbw7ZCJddDcMhKLlQ+k5UsP75g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3vAAsITd1rMykMF5taPjJYXcaGiih/0kx5u/tKgaSsI=;
- b=4Dtyg77FCP3zdcfBcbLgTZRHlxASzPmd7ku/wdZimMmfo137EIS6lon4FAC/ZuiWc7bllxtvp8xb1eRWqjPOlIpF/8u33cAY9tmVVXO+QX+m8HN2nQ3oPeGfYJjg0OYGv6dz5WVtZZ1XvxKDihJMPjYSWe2BhAcUpOuomRSTklU=
-Received: from CY8PR19CA0011.namprd19.prod.outlook.com (2603:10b6:930:44::23)
- by CH0PR12MB8487.namprd12.prod.outlook.com (2603:10b6:610:18c::17)
+ bh=l3uoBTv3v0l81Witt9O4tQ/wQGwUy88QVP/ZA50OVpc=;
+ b=f0e/C2AjhNpsSSeOfl5Byg61PGfzjV8+P4P+mJl+CY8e61HPBU9L64zS1KZPR0m+glbRoFgyHx9f668wLOjIgSUTtjUnBHwAOfe/ehyokV7eHhqyUqSFdxNLISwzLXKlWZPNvEHZpOpLb/lGeRUnzG8rWkc1PmMWoiJrLWIZLC4=
+Received: from CY8PR19CA0001.namprd19.prod.outlook.com (2603:10b6:930:44::22)
+ by SA3PR12MB8764.namprd12.prod.outlook.com (2603:10b6:806:317::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.18; Thu, 20 Jun
- 2024 16:15:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.20; Thu, 20 Jun
+ 2024 16:15:56 +0000
 Received: from CY4PEPF0000E9DB.namprd05.prod.outlook.com
- (2603:10b6:930:44:cafe::63) by CY8PR19CA0011.outlook.office365.com
- (2603:10b6:930:44::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.33 via Frontend
- Transport; Thu, 20 Jun 2024 16:15:42 +0000
+ (2603:10b6:930:44:cafe::4) by CY8PR19CA0001.outlook.office365.com
+ (2603:10b6:930:44::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.34 via Frontend
+ Transport; Thu, 20 Jun 2024 16:15:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000E9DB.mail.protection.outlook.com (10.167.241.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:15:41 +0000
+ 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:15:56 +0000
 Received: from 10.254.92.128.in-addr.arpa (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 20 Jun 2024 11:15:39 -0500
+ 15.1.2507.39; Thu, 20 Jun 2024 11:15:53 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Joan Lee <joan.lee@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: [PATCH 15/39] drm/amd/display: Add Replay general cmd
-Date: Thu, 20 Jun 2024 10:11:21 -0600
-Message-ID: <20240620161145.2489774-16-alex.hung@amd.com>
+ <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, Sun peng Li
+ <sunpeng.li@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>, "Mario
+ Limonciello" <mario.limonciello@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Alex Hung
+ <alex.hung@amd.com>
+Subject: [PATCH 16/39] drm/amd/display: Use sw cursor for DCN401 with rotation
+Date: Thu, 20 Jun 2024 10:11:22 -0600
+Message-ID: <20240620161145.2489774-17-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240620161145.2489774-1-alex.hung@amd.com>
 References: <20240620161145.2489774-1-alex.hung@amd.com>
@@ -76,50 +79,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DB:EE_|CH0PR12MB8487:EE_
-X-MS-Office365-Filtering-Correlation-Id: f391045f-3bb8-4566-b17a-08dc91443b5c
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DB:EE_|SA3PR12MB8764:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0cdb541-8969-474f-4866-08dc91444433
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230037|36860700010|376011|82310400023|1800799021; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?rJWXa3Kp4XeUsJCUuGVbQCVGx8kA9TBlXxDgb/ntsIGGXgoSYCK+CMiyCPpO?=
- =?us-ascii?Q?RJNFiEivNOUpF3me5G2ZYYOqaLOiYNvEWGeAUHtQ73VGxCkA0J9AIaq9yfZ1?=
- =?us-ascii?Q?gA5LVUYGEU8PvnUsagX9PUZqJNQlRC7Gm74rmaRvf1Y84sHmUIFDhUvgNNEa?=
- =?us-ascii?Q?EZJcljwWrfTXdkuWy+0uidHd+4Uf2iQeiRllOWN4o7jVquhCHeoEKq4KWYJ0?=
- =?us-ascii?Q?JPvvuOvCFijIo3MB8enSCRzIAyHBtx4P7NXjjsD4X+EZdznCe8Qczm/CPgo7?=
- =?us-ascii?Q?im6kxLidMEhaR1t2RoabuFcjeTl7XNhkOqD8FGR5u3r6qQOwDgeoj0nnOMH6?=
- =?us-ascii?Q?aujyDcBvh6HK4FzS0Yo6la4LRGCk2dqAy9suDWqCqmDhYsodpsGmoMLInmuH?=
- =?us-ascii?Q?w9lD/42MIjxinrawPzaUBAcG+JREgX6GmjJH3r9Fo828EOwnpg011qob2Qbr?=
- =?us-ascii?Q?g+D0iyQ7k91FHbRHgndrdG/PW+KamSr7qrJ9OXm4mYTNBipRjE5BB8AmzOlW?=
- =?us-ascii?Q?/hbwS6bPwCX0CGyMNRHiLpK1AKz3h1a3iM2dqxEbiEss7P2xBgMBtwqJ0/CP?=
- =?us-ascii?Q?tVMQnDabSOtO8/J0h2XIih2u1oKmnhhLItMqSCufU5IGcCYB3WjsONOfmCgx?=
- =?us-ascii?Q?ZyWJInXv55mz83msY9CVe6Ejb5UAsiRZ1C2X4WvpNlUJ7e1q8mo0VVYgESdq?=
- =?us-ascii?Q?T/s0Hzb7f+5vJ/KZgltNcqlXggyX3Ll/K0qJm2KlFi1rz0F0MzZuu5U3VYz2?=
- =?us-ascii?Q?XsUNAz+ZaxDCUKQhUo0OxrLepA1s1HACKTqLdovKywtuoGU1NsucEWO9Gelo?=
- =?us-ascii?Q?F49Odmr8r8rf3ez0sEfeRDkQvDxGdSA5MuIvz6brfpdM+gZFf9cQSmMi/D3+?=
- =?us-ascii?Q?kn98acU3oqH6w3+LhjApEJ9SgLXX3of15DD6FF3Mw3FlRaXCN/L1/CNwdQNO?=
- =?us-ascii?Q?5J7oAIQ6TA7Px/gg56vZClb5fPKI65hDsciTseQhzUhSECS5oS80VkiGGJhA?=
- =?us-ascii?Q?YYhGhaerTJhhIqK1K5Y4ke2csUCjYqKUteBKUaKrcw50ToIKw7tb9I2IGETK?=
- =?us-ascii?Q?HCEog3NAGXQasDGEoPFHEFHbdeRX8C0q5WW9qCpnixovnYp++a5cl5w2NLSh?=
- =?us-ascii?Q?/Q/zYjPoW4JitTdsLvDWdzX5RG6ObZP/JWzKGL+9AXWYh+lvDuRt3m56F5tX?=
- =?us-ascii?Q?RMcK6LZ3wiJgI6J20HNexOEDf7VhmOAlI6JSFIPHFwbHUVnyD8cIqx2aU0xh?=
- =?us-ascii?Q?9w+G1FcjbLsGEUN1eef9869M1DsXGUWOHDhM7oZXoRIV1q2OCqXVIlcvZLUm?=
- =?us-ascii?Q?Ccx0B9TXL/bkBjWGrGitT0+5XSHGr5raZBVeIqfMUdkSS61NPlmjv/Ih79wp?=
- =?us-ascii?Q?r393KWj0NrbCvxw9C+Eh3jlr4Zzb48huvHMOB3LCG76AeLDf3Q=3D=3D?=
+ ARA:13230037|1800799021|376011|82310400023|36860700010; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/0keOZokXPsytRQH7nLJmKhokerRvCeALPQfi5ae5gVFvDQl4nPrS+0cnMZ0?=
+ =?us-ascii?Q?1aMKz49uLloJ3b1nu4tDt47nNIrjMEE1l8Vi4dj42t5sc7l3k8Nl6miTzdbw?=
+ =?us-ascii?Q?FguF+S8DOsps8NFnEa6bFzsDSial69XWOyKjS7cUL4V3XkvmRjue/RnGTgqz?=
+ =?us-ascii?Q?Rffh7JFmdSgBH3MLOwHE0jETVr/dLq0ss5jRB9szBE3rcfOEajvxk+AHeZDr?=
+ =?us-ascii?Q?NghejP6BEkbBXn9hx0ktJUPwQmDPURqOWKNI9/7FgX8otUs0rqXRCBsF9FqH?=
+ =?us-ascii?Q?+iSsZ5a8AOuj65x/LbLenMpJcDdg+ZuIBG2FmDHNQEBOHzFYUdU38CdTuGVE?=
+ =?us-ascii?Q?Gj0+gYn1LwvRko0uX8wvTVn3XoLGsXayFizeOmzb16RWssRvDot3QZOQGD2G?=
+ =?us-ascii?Q?sU5Ctl5dXrsOGKloSxzClkboVOKYbl7xlGuG77uy8GcUdlHmxzLM0oMLyC+E?=
+ =?us-ascii?Q?rAKMZZj9VQHdEhr1TFJ3bimE3kNVEwuMHBbFaVk7lhJRk17HKXhU42ZtBGlp?=
+ =?us-ascii?Q?pDfqxBiqOpvYs2bgZDjEgujMzb6pTJu+COkVoxHMMUMw6BWHgY3fmUE/mu/o?=
+ =?us-ascii?Q?6fWjZW3zNYYZHq1N8QoY5fLsmQw9yGJVb6skPm4CX6IMaSTazyt02tzyerlU?=
+ =?us-ascii?Q?vjgKh1dgiTw+CuE+rFU990XsRV0Qds5MrCE6SY0A558yr+4ARoLS/KeY8oKb?=
+ =?us-ascii?Q?vGvBlISqC0wLN/D0FWipP1ahgcyN4+dc+iL9cr62JWY1wsF5sBHgQ+70PtKv?=
+ =?us-ascii?Q?qCF6uYZkbZ14bGurTXjRBRLNUFXdUnULZ0BpPvO1mzzkOyxVsnmlTE7WaSQr?=
+ =?us-ascii?Q?VS3PrKPQffzF+coK2MmOXbq6tpFCX4Tb5wDGjan3iHbiPdZkI1CK8oZqA4FO?=
+ =?us-ascii?Q?8tQnF9oh6iZGqA7Zu8+VeGZR3nQjMHC17deD5OmaMxZ3b+Oa15mChPbgfT6h?=
+ =?us-ascii?Q?YgfKkoU9DMzkbb0coAj++QF3Fkc4PDeLYbveVsaD9gZy64Mkr/cxRLPEnbIb?=
+ =?us-ascii?Q?Ts8wWiYfVnvm8YppYAxRZb5WY3RTROwU1VRzQAZBpPcY6ncIvFPtA+hm8BzO?=
+ =?us-ascii?Q?+StFd6TU7uoP5cgk27AtHe3ND7laa5vO0mpEi01NnZdKi4r12ROmyP1/tI5L?=
+ =?us-ascii?Q?nsFiOP8fx++adOH4xNWjx5+t4N55aqWzsAVI9h3Yp+S+fgE05Ha6ED38WFS/?=
+ =?us-ascii?Q?D5MfDIOBoXMurq+WTmZWxjXaE+UGU4ke0+ucNk0hvlWyNnXZegTcP7IIirjO?=
+ =?us-ascii?Q?RdcGoK0vIJ4+q/OiQrbeqrFrhZyJcXr+aL70gVLNFwIHJjVV/UDoe4PtWYvE?=
+ =?us-ascii?Q?9Mle1R0sGpnLUgIV+BvaFbjozSklfeN51ZpIF/E1m/0ggs56MNRJjz0evP2N?=
+ =?us-ascii?Q?kWnCvA5CsSbABlGAp12uzNg0CgxW3eey7a2mqVjGPZ3zEx+ovQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(36860700010)(376011)(82310400023)(1800799021); DIR:OUT;
+ SFS:(13230037)(1800799021)(376011)(82310400023)(36860700010); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:15:41.8095 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f391045f-3bb8-4566-b17a-08dc91443b5c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:15:56.6689 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0cdb541-8969-474f-4866-08dc91444433
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8487
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8764
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,68 +137,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joan Lee <joan.lee@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[WHY & HOW]
-Driver side adding replay general cmd interface.
-Replay general command will config at most two uint_32 parameters,
-with a replay general command subtype to set relative configurations.
+[WHAT & HOW]
+On DCN401, the cursor composition to the plane happens after scaler.
+So the cursor isn't stretched with the rest of the surface. Temporarily
+disable hardware cursor in case when hardware rotation is enabled
+such that userspace falls back to software cursor.
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
+Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Joan Lee <joan.lee@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_types.h      |  1 +
- .../gpu/drm/amd/display/dc/dce/dmub_replay.c   | 18 +++++++++++++++++-
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 34 ++++++++++++++++---
+ 1 file changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 21f4af9ab096..c550e8997033 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -1036,6 +1036,7 @@ enum replay_FW_Message_type {
- 	Replay_Set_Residency_Frameupdate_Timer,
- 	Replay_Set_Pseudo_VTotal,
- 	Replay_Disabled_Adaptive_Sync_SDP,
-+	Replay_Set_General_Cmd,
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 590e899ae3d0..89e371f870b8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11093,8 +11093,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
+ 	int cursor_scale_w, cursor_scale_h;
+ 	int i;
  
- union replay_error_status {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-index 5437ebd8bc21..2a21bcf5224f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-@@ -346,13 +346,29 @@ static void dmub_replay_send_cmd(struct dmub_replay *dmub,
- 		cmd.replay_disabled_adaptive_sync_sdp.header.sub_type =
- 			DMUB_CMD__REPLAY_DISABLED_ADAPTIVE_SYNC_SDP;
- 		cmd.replay_disabled_adaptive_sync_sdp.header.payload_bytes =
--			sizeof(struct dmub_rb_cmd_replay_set_pseudo_vtotal);
-+			sizeof(struct dmub_rb_cmd_replay_disabled_adaptive_sync_sdp);
- 		//Cmd Body
- 		cmd.replay_disabled_adaptive_sync_sdp.data.panel_inst =
- 			cmd_element->disabled_adaptive_sync_sdp_data.panel_inst;
- 		cmd.replay_disabled_adaptive_sync_sdp.data.force_disabled =
- 			cmd_element->disabled_adaptive_sync_sdp_data.force_disabled;
- 		break;
-+	case Replay_Set_General_Cmd:
-+		//Header
-+		cmd.replay_set_general_cmd.header.sub_type =
-+			DMUB_CMD__REPLAY_SET_GENERAL_CMD;
-+		cmd.replay_set_general_cmd.header.payload_bytes =
-+			sizeof(struct dmub_rb_cmd_replay_set_general_cmd);
-+		//Cmd Body
-+		cmd.replay_set_general_cmd.data.panel_inst =
-+			cmd_element->set_general_cmd_data.panel_inst;
-+		cmd.replay_set_general_cmd.data.subtype =
-+			cmd_element->set_general_cmd_data.subtype;
-+		cmd.replay_set_general_cmd.data.param1 =
-+			cmd_element->set_general_cmd_data.param1;
-+		cmd.replay_set_general_cmd.data.param2 =
-+			cmd_element->set_general_cmd_data.param2;
-+		break;
- 	case Replay_Msg_Not_Support:
- 	default:
- 		return;
+-	/* Overlay cursor not supported on HW before DCN */
+-	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0) {
++	/* Overlay cursor not supported on HW before DCN
++	 * DCN401 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
++	 * as previous DCN generations, so enable native mode on DCN401 in addition to DCE
++	 */
++	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0 ||
++	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1)) {
+ 		*cursor_mode = DM_CURSOR_NATIVE_MODE;
+ 		return 0;
+ 	}
+@@ -11237,7 +11241,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+ 	struct drm_plane *plane;
+-	struct drm_plane_state *old_plane_state, *new_plane_state;
++	struct drm_plane_state *old_plane_state, *new_plane_state, *new_cursor_state;
+ 	enum dc_status status;
+ 	int ret, i;
+ 	bool lock_and_validation_needed = false;
+@@ -11465,19 +11469,39 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			drm_dbg_atomic(dev, "MPO enablement requested on crtc:[%p]\n", crtc);
+ 	}
+ 
+-	/* Check cursor planes restrictions */
++	/* Check cursor restrictions */
+ 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+ 		enum amdgpu_dm_cursor_mode required_cursor_mode;
++		int is_rotated, is_scaled;
+ 
+ 		/* Overlay cusor not subject to native cursor restrictions */
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 		if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
+ 			continue;
+ 
++		/* Check if rotation or scaling is enabled on DCN401 */
++		if ((drm_plane_mask(crtc->cursor) & new_crtc_state->plane_mask) &&
++		    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1)) {
++			new_cursor_state = drm_atomic_get_new_plane_state(state, crtc->cursor);
++
++			is_rotated = new_cursor_state &&
++				((new_cursor_state->rotation & DRM_MODE_ROTATE_MASK) != DRM_MODE_ROTATE_0);
++			is_scaled = new_cursor_state && ((new_cursor_state->src_w >> 16 != new_cursor_state->crtc_w) ||
++				(new_cursor_state->src_h >> 16 != new_cursor_state->crtc_h));
++
++			if (is_rotated || is_scaled) {
++				drm_dbg_driver(
++					crtc->dev,
++					"[CRTC:%d:%s] cannot enable hardware cursor due to rotation/scaling\n",
++					crtc->base.id, crtc->name);
++				ret = -EINVAL;
++				goto fail;
++			}
++		}
++
+ 		/* If HW can only do native cursor, check restrictions again */
+ 		ret = dm_crtc_get_cursor_mode(adev, state, dm_new_crtc_state,
+ 					      &required_cursor_mode);
+-
+ 		if (ret) {
+ 			drm_dbg_driver(crtc->dev,
+ 				       "[CRTC:%d:%s] Checking cursor mode failed\n",
 -- 
 2.34.1
 
