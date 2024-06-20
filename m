@@ -4,110 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40AFCC27C79
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 14:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AA4C2BB85
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 14:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7782210EA60;
-	Thu, 20 Jun 2024 14:52:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BC310E0C5;
+	Thu, 20 Jun 2024 14:59:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JoXin4bp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BRO0QXTH";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JoXin4bp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BRO0QXTH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m4Ypr3X1";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69F6810EA5B;
- Thu, 20 Jun 2024 14:52:45 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C6B641F8B5;
- Thu, 20 Jun 2024 14:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1718895163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mx6HmBHzLfcx++306iP7fMkmUJFXGoHm1hzxVMoqV84=;
- b=JoXin4bpREZza0SkpYaSLaTjH83D+uZQNYFdLgKiBf4z+ShHmZjq/BmJQAD4BM0KGfMPxL
- 7rieET1f8ADKy386D94SsI+fuUO2820Lp6xkUBmN0EDxR9MGFxTxRjR0LT+FgjDJntA3IK
- JLYLKOvwCoq8UWD2Pm915U5aRuwC5LY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1718895163;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mx6HmBHzLfcx++306iP7fMkmUJFXGoHm1hzxVMoqV84=;
- b=BRO0QXTHABR6n33du7fO9DtmGb0T1EEQdzq3J4cMcVG1g8F3kgqkRmeT9zgC1ceJaAtEKX
- XTWGpUe2X8O2OtBQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JoXin4bp;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BRO0QXTH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1718895163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mx6HmBHzLfcx++306iP7fMkmUJFXGoHm1hzxVMoqV84=;
- b=JoXin4bpREZza0SkpYaSLaTjH83D+uZQNYFdLgKiBf4z+ShHmZjq/BmJQAD4BM0KGfMPxL
- 7rieET1f8ADKy386D94SsI+fuUO2820Lp6xkUBmN0EDxR9MGFxTxRjR0LT+FgjDJntA3IK
- JLYLKOvwCoq8UWD2Pm915U5aRuwC5LY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1718895163;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mx6HmBHzLfcx++306iP7fMkmUJFXGoHm1hzxVMoqV84=;
- b=BRO0QXTHABR6n33du7fO9DtmGb0T1EEQdzq3J4cMcVG1g8F3kgqkRmeT9zgC1ceJaAtEKX
- XTWGpUe2X8O2OtBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 854E313ACA;
- Thu, 20 Jun 2024 14:52:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iBk/HztCdGZ+aQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Jun 2024 14:52:43 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, felix.kuehling@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 1/2] drm/amdgpu: Unmap BO memory before calling
- amdgpu_bo_unref()
-Date: Thu, 20 Jun 2024 16:44:40 +0200
-Message-ID: <20240620145238.25295-2-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240620145238.25295-1-tzimmermann@suse.de>
-References: <20240620145238.25295-1-tzimmermann@suse.de>
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 051DA10EA67
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 14:59:26 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2c7fe2dcdf6so408837a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 07:59:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1718895566; x=1719500366; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qPXcVfUr1j+fLb6lIJUVnoCOekS7kyqi+VwHKDiK3x0=;
+ b=m4Ypr3X1N5Gfj4SoHm/xby4Wpf5y6Qhl34PusFkWK9Yzm5GLPD/XzcZMml6k4QyjrY
+ HmDQDld7oN9PkkN88cqv0+t1nZBmXKqsYdBZUJ07MuD6vdERn6jZfeI3jX/TZ2mUOqGo
+ 93Sh8PebmU1QEYF9o9H01BDuyIOSWuz5Hl1geLsgs5gmxfrFpenRtF1oe1B76qBpFN4e
+ FsjNRjl6xDrOCt0JOEmn/iPpTf6Y3NSJmDWDntEa+S9R1Cw7YOqqrC8Xgdh3yW+Bd6Xm
+ 1f2TG60P4v+PGBJ9tjYjsM8qpw6mxk9K+d5IHCrl99tkuHSpwuAkSf/rVVaWXTZdsG0m
+ 3nNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718895566; x=1719500366;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qPXcVfUr1j+fLb6lIJUVnoCOekS7kyqi+VwHKDiK3x0=;
+ b=ew7vKhb5LlVP8GPxyl+sdmn+9BDfdZlmbKJkPQQQNRxrFRR/+DoDYUpslkLA9P/FA8
+ /pe+ZNHV06Y4tLowzjRv40DykoYJqLU2NrDi2HShz6XWVxNUUjYmTfa75AwEkGlT0459
+ Y/8X6emzzl1Q2pTRsREMm5nVp79tpYq4Ll+NJoJEwQqKNmhymD3Kw0hGG8cPyne/Qsvs
+ kRKd0GQKxrBZ9HAhbgNQyOEJYngHGOYWJLqDAT/QBVTef1iwRWGJV3kXfhut8fADZBjz
+ 6k8yXw6mBL+06P4gq2ddiAnzyLZ5/vAUM3NZ+lu3bPBe6q3QrImIIsozpjgL72f5cGyz
+ mRjQ==
+X-Gm-Message-State: AOJu0Yw2BaFuYkpRJCLqQw8uqndjiG50PKWkPx8GUDpyS8blXpFJvP4y
+ XXxTBt5R/dXvX3c8tsxObFWrv9ZGlHYj8BZnGauamO/7SmB0bwT6zi6jkG+DmC+M+e+UMWijjdj
+ Xbv9+8miDMFTyZbiSUTIQu1qSmt0=
+X-Google-Smtp-Source: AGHT+IGH69BRCAuM9TDln05OzQ0yrx8tJJFn8WYrLBCFTQdkcH5qgS1nEVyUGCTtAFapYf776EDqv4CZB4ASjPymrxE=
+X-Received: by 2002:a17:90b:fc1:b0:2c4:f357:b7b8 with SMTP id
+ 98e67ed59e1d1-2c7b5dca901mr5374311a91.43.1718895566329; Thu, 20 Jun 2024
+ 07:59:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.90 / 50.00]; BAYES_HAM(-2.89)[99.54%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch];
- FUZZY_BLOCKED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[9]; RCVD_COUNT_TWO(0.00)[2];
- DKIM_TRACE(0.00)[suse.de:+]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C6B641F8B5
+References: <20240620074006.11922-1-bob.zhou@amd.com>
+In-Reply-To: <20240620074006.11922-1-bob.zhou@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 20 Jun 2024 10:59:13 -0400
+Message-ID: <CADnq5_Oz3cBte-8R3aEYcay5bTrbm6X9qV391e-aFUSdmiViRw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add missing error handling in function
+ amdgpu_gmc_flush_gpu_tlb_pasid
+To: Bob Zhou <bob.zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Tim.Huang@amd.com, jesse.zhang@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,46 +77,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepares for using ttm_bo_vmap() and ttm_bo_vunmap() in amdgpu. Both
-require the caller to hold the GEM reservation lock, which is not the
-case while releasing a buffer object. Hence, push a possible call to
-unmap out from the buffer-object release code. Warn if a buffer object
-with mapped pages is supposed to be released.
+On Thu, Jun 20, 2024 at 3:47=E2=80=AFAM Bob Zhou <bob.zhou@amd.com> wrote:
+>
+> Fix the unchecked return value warning by warning reported by
+> Coverity, so add error handling.
+>
+> Signed-off-by: Bob Zhou <bob.zhou@amd.com>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+Looks like there are a few other places in the driver where
+amdgpu_ring_alloc() is not checked.  Can you fix those up too?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index a1b7438c43dc8..d58b11ea0ead5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -58,7 +58,12 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
- {
- 	struct amdgpu_bo *bo = ttm_to_amdgpu_bo(tbo);
- 
--	amdgpu_bo_kunmap(bo);
-+	/*
-+	 * BO memory pages should be unmapped at this point. Call
-+	 * amdgpu_bo_kunmap() before releasing the BO.
-+	 */
-+	if (drm_WARN_ON_ONCE(bo->tbo.base.dev, bo->kmap.bo))
-+		amdgpu_bo_kunmap(bo);
- 
- 	if (bo->tbo.base.import_attach)
- 		drm_prime_gem_destroy(&bo->tbo.base, bo->tbo.sg);
-@@ -450,9 +455,7 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
- 	WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend);
- 
- 	if (likely(amdgpu_bo_reserve(*bo, true) == 0)) {
--		if (cpu_addr)
--			amdgpu_bo_kunmap(*bo);
--
-+		amdgpu_bo_kunmap(*bo);
- 		amdgpu_bo_unpin(*bo);
- 		amdgpu_bo_unreserve(*bo);
- 	}
--- 
-2.45.2
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.c
+> index 322b8ff67cde..3a7622611916 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -718,7 +718,11 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_dev=
+ice *adev, uint16_t pasid,
+>                         ndw +=3D kiq->pmf->invalidate_tlbs_size;
+>
+>                 spin_lock(&adev->gfx.kiq[inst].ring_lock);
+> -               amdgpu_ring_alloc(ring, ndw);
+> +               r =3D amdgpu_ring_alloc(ring, ndw);
+> +               if (r) {
+> +                       spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+> +                       goto error_unlock_reset;
+> +               }
+>                 if (adev->gmc.flush_tlb_needs_extra_type_2)
+>                         kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all=
+_hub);
+>
+> --
+> 2.34.1
+>
