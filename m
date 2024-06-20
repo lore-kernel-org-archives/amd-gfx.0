@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E34FC27C79
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:19:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95F2FC27C79
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 16:19:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24A3610EB16;
-	Thu, 20 Jun 2024 16:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0601410EB1B;
+	Thu, 20 Jun 2024 16:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oZdAGjRl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p2k/ucA5";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75B6910EB16
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:19:28 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9644610EB1A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 16:19:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OdgRqKQQ95FRpx/dvP+7wI3TWA+Gn4OPBF+X50+UyxctyUof0HsbicPg0OosRxAfx/Uv1R8sssiavgQWDmzuEAK/nqYo8O/m4fL73CAucAB1d7vpGGU45l4IzUR2CD3Dn3qwUPur7fmnuPpichwBlGvBf4P+ymKhF7s7GNoYiTldCUHWnkB168klmxnMaDhUYqsKrSDi8sDl+WDlWeecD+oWJwgHlGb3N6So1VmzHFPSSqtOgiC7X/oD2R1m0wBDaDpUjKqDJtKJk6Ka3e8K7aBgjbOdmZCn/ait2wBpE3czuFubaGHJU3TEIPUj6QwOqc1Vj0sEPgqEaSkPsqzKIg==
+ b=DXa+mFqtwbuBzbA6q6ZJo/R08BWjNTTAYFHit5Qaf8eI6KHL2/vPSGcr2hgNVk4Ujhr1gUXcVrRqcOzrFxenqrcxXq1UYiKxFCmb7y9LHH4MqEDelCItDSXTUdGDDRvTYpsXa+ongWOE6y6Qlt/sSqETWvfON1G2mVvaL3Y//k0Ev7cMupf9F5ZHHIQ/jYjjI5ZcmfVAaQHsxZPVWg3yNunTiaMPlR/q3g8beSt3zJqPtlf4BbZ5p6nd9LrXV0kpvd0azxWtBgPAEdZUENs2ShC0JLrq6zalSvw+HHozF91WC1oUf/v8vi17IXPIlubB2Ne0K7ilocrQMVYo6pO3Pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OwGWGWQvf2ALOHAreucA3jauWAh3vY6NAoI1/DMeih4=;
- b=iml4a/Xm921WxEzIlh7ddVqWVLkOCSLRNRWhXtDmAbOkXbNbd9qql00zAcgom5WfiN4/24XTFfyMnYswkuyIQXGybsI2I6liW+XYTApZ5qeEgRRHhVVwnH5T0uW5619SJNDK45+DGuC7la5RtmnfILhUlYz0RMIhuZE1qz73va8WAFiAEblmukLjjDExI9ZLjnsrwe4KSIU0GvV6nre9mtz1p1haAEMZxcZi6GmYK/YMv8nnaLT6t1Ho1bwfoOv/wIFB8ideVNgrXLGaPZkadrq8urEyAff7gkGZMbJDf181XZ3RB4Vl8zVxEqu1EmG3ElSjmoMwEEa4QE7rluUclA==
+ bh=dnXUgeOSF0JivaiRg5TfJSeICSk4lQ71cEPFRhQ+nEk=;
+ b=XAW32KkquQu7vLksRGCqrjKK7ChIT/DAncjEa0tV5CU5iJh2dvd3M6UGUUTHbxGd2vLYJkRBd8wtOVSWRI0hUku0DG+I2r4Ut04b85imwAcOkRKxRhwDkSjPfRFEY8/l4LtAQHmFQRciFc/Zsix7e3roNUSmkirX3yHbEVJsElCaJLt2ZBVRmrqCXfYv6cad3irI1aoACQf9h1ioZ8rKDExkzltTTsCPRHkpV+ep7cwB1omGdGpoCsPVc5+gMxdmuHIxGmElxQwuiW2BUw1dG9r19oltoy88T7FGwIje9fCyScrvFCSTn+3ZWqM0StDCCZGb7O2Ri3XmoD7RQlBaJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OwGWGWQvf2ALOHAreucA3jauWAh3vY6NAoI1/DMeih4=;
- b=oZdAGjRlqy2+fidwNTDj8TWcGtuyaL3EB0ANv9XV6xAyYuxUnNvk0AEESjTjNrexy8ITua8BzFNeZoivuvc7apIpAR1l3t/BzsGCTj+CnY9SF4xVOKRBCFYkQenqwd8n+tjub3SFtt/tTdfX7GxL7jW/BJxY18ByZRwo3jifiTI=
-Received: from CH0PR07CA0028.namprd07.prod.outlook.com (2603:10b6:610:32::33)
- by DM6PR12MB4188.namprd12.prod.outlook.com (2603:10b6:5:215::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.19; Thu, 20 Jun
- 2024 16:19:24 +0000
-Received: from CH2PEPF0000009D.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::db) by CH0PR07CA0028.outlook.office365.com
- (2603:10b6:610:32::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.34 via Frontend
- Transport; Thu, 20 Jun 2024 16:19:24 +0000
+ bh=dnXUgeOSF0JivaiRg5TfJSeICSk4lQ71cEPFRhQ+nEk=;
+ b=p2k/ucA5uxmoHr5os3AMHMWQYq2uZty7jHxyWRMCDOloFTf7ijOeZVRUEU1Hi4vUBq/+472fGhzO+lX9/cCWzoi/eFGjcosCP4zmlZCJ02A4iIGbVCjM7yiAEWZq5lcDBCtN77G+ANhk9IdfoTxsOdhuF7LvwmdexObaNuG8dJU=
+Received: from CH5PR03CA0013.namprd03.prod.outlook.com (2603:10b6:610:1f1::11)
+ by SJ2PR12MB7919.namprd12.prod.outlook.com (2603:10b6:a03:4cc::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Thu, 20 Jun
+ 2024 16:19:38 +0000
+Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::b9) by CH5PR03CA0013.outlook.office365.com
+ (2603:10b6:610:1f1::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.33 via Frontend
+ Transport; Thu, 20 Jun 2024 16:19:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,26 +48,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000009D.mail.protection.outlook.com (10.167.244.25) with Microsoft
+ CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:19:23 +0000
+ 15.20.7677.15 via Frontend Transport; Thu, 20 Jun 2024 16:19:37 +0000
 Received: from 10.254.92.128.in-addr.arpa (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 20 Jun 2024 11:19:21 -0500
+ 15.1.2507.39; Thu, 20 Jun 2024 11:19:35 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Ryan Seto <ryanseto@amd.com>, Wenjing Liu
- <wenjing.liu@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
+ <jerry.zuo@amd.com>, Relja Vojvodic <relja.vojvodic@amd.com>, Ilya Bakoulin
+ <ilya.bakoulin@amd.co>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Alex Hung
  <alex.hung@amd.com>
-Subject: [PATCH 30/39] drm/amd/display: Adjust reg field for DSC wait for
- disconnect
-Date: Thu, 20 Jun 2024 10:11:36 -0600
-Message-ID: <20240620161145.2489774-31-alex.hung@amd.com>
+Subject: [PATCH 31/39] drm/amd/display: Fix 1DLUT setting for NL SDR blending
+Date: Thu, 20 Jun 2024 10:11:37 -0600
+Message-ID: <20240620161145.2489774-32-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240620161145.2489774-1-alex.hung@amd.com>
 References: <20240620161145.2489774-1-alex.hung@amd.com>
@@ -79,50 +78,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|DM6PR12MB4188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24e9f371-9d43-4189-3254-08dc9144bfbf
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|SJ2PR12MB7919:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1548bac3-054c-4952-6994-08dc9144c7f5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230037|36860700010|82310400023|376011|1800799021; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+0kHofnMbcvx5SNe7GFis+pDQbKPdG2EOWafZbVcCh2t6aKxtt2WhZvCwY0f?=
- =?us-ascii?Q?vLn9FwFPQDqeEWHUxgjveRo5/rQXU8vUHd/RjQyd7ggQITliN0QYOyj+VLYD?=
- =?us-ascii?Q?IEMGtFbPJtF3Jg5SB8nlk9pB9m591T1ZoHrvaqnvZ9aM40GNx85rEBy0lZNo?=
- =?us-ascii?Q?17FqOEUj96liEIQeImySbBbVD/eb1OIsU5AlhkuEQFeUB6dOJSgI6IS19DqW?=
- =?us-ascii?Q?kLTa8EeZFnppBiy2q+kcXPIdQT76Wt17dAYETmPvR+aMjK1eJ0kIdl1YsO62?=
- =?us-ascii?Q?5buV0hcUXU2OCHvlFWhE6cr9Tgk8kDv+lzc0m/PYfqqt2kx/Sqme2OIwVuPp?=
- =?us-ascii?Q?imxxxOUxHpcv2iANQ17P1xT/BwwMOzrhvDhrFfTW4ss0Y16m88zUZPaVsVPy?=
- =?us-ascii?Q?vVjDp+LI/g/G3cZcDnHcsjBAuKz/8mSv+CGbunLuuPV4Zb7s6HrKUtnAUPGu?=
- =?us-ascii?Q?eLYQcg7rtBuUcAhZTTnduX2VJ1okooeS17Oc2ctsPeOsUHSiEyhJtEDOFHg8?=
- =?us-ascii?Q?fMhoPTZcrRwtB/RcCAFd5GAqAX4f3cr+NbFBzQfDq5aVi01g7DOQgGaO9pz8?=
- =?us-ascii?Q?twLh/n2Tcnwem+Ji+/Gn84ZJPwefRM1VYi9JbigfGJDENSLpeXy9pqci9m4P?=
- =?us-ascii?Q?l+rOomG3Vlog+o1Rw3ozgDIDmudiD6pzXc2ps0HcKz/lDp7nAoJgfO/SrFzh?=
- =?us-ascii?Q?c5EYuoBU8a5K0mWn25sMF+rmeF6mcKX9ycczFBfvhHP8Ie76/nosAbmnhNoK?=
- =?us-ascii?Q?Qpo208VeEKn0zCCswg0EF+7BmwWKR2J5huE5CIsTJuOo+Pagq6hds1LK0fIC?=
- =?us-ascii?Q?fRaWMeKpW6pWW7K7PCEnsNvzXon/4+u9P46QbThQvCc7pwweu3B+VFPO4aYK?=
- =?us-ascii?Q?DPH9ucHY0odK0kE1BnEHvj2tNqsl1IlJC6YksAI3p4K5E1BTi5h+lVcl71hw?=
- =?us-ascii?Q?327otcFM3a6jb/iR0E/SELF8fe+4S/+cxPO+YPz9fJItL8T+DxFTwwVorhv1?=
- =?us-ascii?Q?jUIRr9x8oFgOJHptqKfiv9KlQ/ShQv1BGgK9+HTeool4LGRgYPkXrexUbSWC?=
- =?us-ascii?Q?ShCtQsGOnZ6hF4bnPrXWG131bFIZ7WEDzeLykEdo+gNEqkGPKruahHzMWrkz?=
- =?us-ascii?Q?xEuG9BJInJtvmdXEhcf/Xqcbfg3BpNH226sk1mRONcpkyVe66FLcA6OPqTLC?=
- =?us-ascii?Q?XPQTWneGjxvAzHclKev3dDtINMPKgFZ/f3voWNsSudTyACSUKiVgQRJpRsDO?=
- =?us-ascii?Q?2WPwgr1F+HUzim4N0WL6Q3lVVvOmBIk/s+rg0sT3O/GvrNrfishAOj9rsW7K?=
- =?us-ascii?Q?EkbsVtwRzkfqKZKScZo3moOvfweC7uX3j5ds3WtftWOcJbzL5DDjLr669bZv?=
- =?us-ascii?Q?vc9vJtVUuuiWdMeSrjDqBzKa6qd7opL3W3nYpFT+pxBHOfvxfQ=3D=3D?=
+ ARA:13230037|1800799021|36860700010|376011|82310400023; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BS1ecctwnwCjo44ljDHMDMc/pIpQLcrLaO9QTiz+Ehg0z0gHlJgThQ/v4XWL?=
+ =?us-ascii?Q?1PUcCyNiHEYNUueur4DLqm4T4mDam/6CCXVJiG7rPcPE1AqBy6TFNNSJMJUK?=
+ =?us-ascii?Q?fIueAP/W9a0ruaz/hQbTY6gNSGUisLACBZw8J4U/8IqMvATrIwuBQUx8om7h?=
+ =?us-ascii?Q?up9+eL1wvLDS5UAFqohKOsJo0PAGLZ/Lp0TMXkf3t3YDFJEmiXvESXovf2K8?=
+ =?us-ascii?Q?Epm+Ph4Ux8F130ggM/3W5K+g4hg0Ei7IVqDvzrIOnxU9dl+L92lxT+tejoBf?=
+ =?us-ascii?Q?GDTOiQDgjhy9OQxrc3erdVzsmAJE1gsW+H2w6qtXGNIxhnkIV7K7MxmB9wsM?=
+ =?us-ascii?Q?QfMiOuqXRn2ym2eGJOHf1uze8wQ6k+Eq8Mq8gCo5bTkqnkLvY8KQ2cDBCsWq?=
+ =?us-ascii?Q?dO1Jt8Dm0YLzRP/UFyJkCl0HDV2i1fsfxVtbefduAepqyY0fxAoVqrpfEpdw?=
+ =?us-ascii?Q?xqAShWVEUD/lbgn2RyJPHgqD6MgX2cWTyS12hPj+Cj0EFz3MMIaPSAUkB/pn?=
+ =?us-ascii?Q?8U+7I2JhphTCmqhsWmOdC68Yt3C+Jx05b30LbYP6+ks5UC3OjBkqGLgz8d94?=
+ =?us-ascii?Q?h7jfJGlGCKGFoTJTNRuu/PaJbgzFapTTuoznsYBUM7lsyAHQjxqSFGiihy6q?=
+ =?us-ascii?Q?TDp4AXSvbmmpsAc6Fx/U5psJutDq8FO1EuTwRPIoEPAoV/tctNYHsL/FlmDf?=
+ =?us-ascii?Q?acUqsc4PWia0FDwxy7NOi/8SnLHxaEeu22IAiUALDLRud08ZMsyRcHPaAtye?=
+ =?us-ascii?Q?+JF5U0IDyYoAY7ycymis6MpjXSllqNF9a4PQXcVlvtPLbdwkdnTVOyLpPbaV?=
+ =?us-ascii?Q?HP5oV8oi2LZ7/RddyFMCLyKVX7IvhdUxeXOWlQtE7lXLArdkun6EcDQR0pi0?=
+ =?us-ascii?Q?a/r/mkvdMZN2xpCqlroTCuu1VU/vzztXDQBMrJYB6wVnjEWBVcL+wEeCTeLZ?=
+ =?us-ascii?Q?42T5iyo99YUTgxt98n2GCYMv6qIvdIFZGZ/SX3MvKXAfrxahbLXNXw74ICBi?=
+ =?us-ascii?Q?6V/E98t4d02ZKmBeZzV/zdZsQ3kn0VZqcP9LwhZDzMJu+StK1TFLg1g5nVjQ?=
+ =?us-ascii?Q?Hjh53D7p9KzrWCfUWjoUgvu4x1aC9RTkztheJ0oomAuyagJO0hjyGkktz+d2?=
+ =?us-ascii?Q?VwnRisbO0ULs7TGoMAydin/J9XjvZ0WbqFmX9ASWqZLroCSUIb1fx9HAcvzQ?=
+ =?us-ascii?Q?ohru96TZgRLrja9tmlQkhyNpjgkC3X3fu082HGSy0kHCxxGUX1i8RPeDx0a0?=
+ =?us-ascii?Q?E4T76NvZ9QgvD1qaU6V5v1Rc27NZKWfQgni2phX6efhsFFjhcbvToo19SNbS?=
+ =?us-ascii?Q?h9MGJLmGovfyc9SPmc/mVzgGIV9ERqwy/F4BX7Yi3nPRJZZPBqHTIiCYU/qv?=
+ =?us-ascii?Q?GwekmvLCEVuqkkZVwCW6Nq9YoduaYQG2pAE+pHaCOxG8FqTfYw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(36860700010)(82310400023)(376011)(1800799021); DIR:OUT;
+ SFS:(13230037)(1800799021)(36860700010)(376011)(82310400023); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:19:23.9612 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24e9f371-9d43-4189-3254-08dc9144bfbf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2024 16:19:37.7383 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1548bac3-054c-4952-6994-08dc9144c7f5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4188
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7919
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,68 +136,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ryan Seto <ryanseto@amd.com>
+From: Relja Vojvodic <relja.vojvodic@amd.com>
 
 [WHY]
-DSC was waiting for the wrong field to disconnect cleanly.
+Enabling NL SDR blending caused the 1D LUTs to be set/populated in two
+different functions. This caused flickering as the LUT was set differently
+by the two functions, one of which should only have been modifying the 1D
+LUT if 3D LUT was enabled.
 
 [HOW]
-Changed field the DSC disconnect was waiting on.
+Added check to only modify the 1D LUT in populate_mcm if 3D LUT was
+enabled.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Added blend_tf function update for non-main planes if the 3D LUT path
+was taken.
+
+Reviewed-by: Ilya Bakoulin <ilya.bakoulin@amd.co>
 Cc: Mario Limonciello <mario.limonciello@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Ryan Seto <ryanseto@amd.com>
+Signed-off-by: Relja Vojvodic <relja.vojvodic@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.h   | 4 +++-
- drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.h | 3 ++-
- 3 files changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.h b/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.h
-index a23308a785bc..1fb90b52b814 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.h
-@@ -454,7 +454,9 @@
- 	type DSCCIF_UPDATE_TAKEN_ACK; \
- 	type DSCRM_DSC_FORWARD_EN; \
- 	type DSCRM_DSC_OPP_PIPE_SOURCE; \
--	type DSCRM_DSC_DOUBLE_BUFFER_REG_UPDATE_PENDING
-+	type DSCRM_DSC_DOUBLE_BUFFER_REG_UPDATE_PENDING; \
-+	type DSCRM_DSC_FORWARD_EN_STATUS
-+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 5306c8c170c5..b5a02a8fc9d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -502,7 +502,7 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+ 	dcn401_get_mcm_lut_xable_from_pipe_ctx(dc, pipe_ctx, &shaper_xable, &lut3d_xable, &lut1d_xable);
  
- struct dcn20_dsc_registers {
- 	uint32_t DSC_TOP_CONTROL;
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
-index 52f23bb554af..6acb6699f146 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
-@@ -208,7 +208,7 @@ static void dsc401_wait_disconnect_pending_clear(struct display_stream_compresso
- {
- 	struct dcn401_dsc *dsc401 = TO_DCN401_DSC(dsc);
- 
--	REG_WAIT(DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_DOUBLE_BUFFER_REG_UPDATE_PENDING, 0, 2, 50000);
-+	REG_WAIT(DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_FORWARD_EN_STATUS, 0, 2, 50000);
- }
- 
- static void dsc401_disconnect(struct display_stream_compressor *dsc)
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.h b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.h
-index 2143e81ca22a..3c9fa8988974 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.h
-@@ -196,7 +196,8 @@
- 	DSC2_SF(DSCCIF0, DSCCIF_CONFIG0__BITS_PER_COMPONENT, mask_sh), \
- 	DSC_SF(DSCCIF0_DSCCIF_CONFIG0, DOUBLE_BUFFER_REG_UPDATE_PENDING, mask_sh), \
- 	DSC_SF(DSCRM0_DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_FORWARD_EN, mask_sh), \
--	DSC_SF(DSCRM0_DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_OPP_PIPE_SOURCE, mask_sh)
-+	DSC_SF(DSCRM0_DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_OPP_PIPE_SOURCE, mask_sh), \
-+	DSC_SF(DSCRM0_DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_FORWARD_EN_STATUS, mask_sh)
- 
- struct dcn401_dsc_registers {
- 	uint32_t DSC_TOP_CONTROL;
+ 	/* 1D LUT */
+-	if (mcm_luts.lut1d_func) {
++	if (mcm_luts.lut1d_func && lut3d_xable != MCM_LUT_DISABLE) {
+ 		memset(&m_lut_params, 0, sizeof(m_lut_params));
+ 		if (mcm_luts.lut1d_func->type == TF_TYPE_HWPWL)
+ 			m_lut_params.pwl = &mcm_luts.lut1d_func->pwl;
+@@ -674,7 +674,7 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+ 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
+ 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
+ 	// 1D LUT
+-	if (!plane_state->mcm_lut1d_enable) {
++	if (plane_state->mcm_shaper_3dlut_setting == DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL) {
+ 		if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+ 			lut_params = &plane_state->blend_tf.pwl;
+ 		else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
 -- 
 2.34.1
 
