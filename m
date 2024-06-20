@@ -4,63 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AA4C2BB85
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 14:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C97C2BA1A
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jun 2024 15:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BC310E0C5;
-	Thu, 20 Jun 2024 14:59:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7745210E14E;
+	Thu, 20 Jun 2024 15:37:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m4Ypr3X1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KagBT8lK";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 051DA10EA67
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 14:59:26 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2c7fe2dcdf6so408837a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jun 2024 07:59:26 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2A610E0BC;
+ Thu, 20 Jun 2024 15:37:19 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2c8062f9097so325121a91.3; 
+ Thu, 20 Jun 2024 08:37:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718895566; x=1719500366; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1718897838; x=1719502638; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qPXcVfUr1j+fLb6lIJUVnoCOekS7kyqi+VwHKDiK3x0=;
- b=m4Ypr3X1N5Gfj4SoHm/xby4Wpf5y6Qhl34PusFkWK9Yzm5GLPD/XzcZMml6k4QyjrY
- HmDQDld7oN9PkkN88cqv0+t1nZBmXKqsYdBZUJ07MuD6vdERn6jZfeI3jX/TZ2mUOqGo
- 93Sh8PebmU1QEYF9o9H01BDuyIOSWuz5Hl1geLsgs5gmxfrFpenRtF1oe1B76qBpFN4e
- FsjNRjl6xDrOCt0JOEmn/iPpTf6Y3NSJmDWDntEa+S9R1Cw7YOqqrC8Xgdh3yW+Bd6Xm
- 1f2TG60P4v+PGBJ9tjYjsM8qpw6mxk9K+d5IHCrl99tkuHSpwuAkSf/rVVaWXTZdsG0m
- 3nNQ==
+ bh=7uAJa9cd+U3ByOgDIj6AuFYi+T/LG4WllhhWOF2SAZo=;
+ b=KagBT8lKlLv4SygVrNgEz7+HxMKv7O5sCinkg8a51q+iXv1yLy5Ey61lQDzy2/jhki
+ bKUe+4dVK1c1pdr9MHE76aMoeI7Ab+DG1/n6tXGIYLzd7otN87MFoCCPUsUtDYfGjl60
+ RBzCwK2cPIPlJmUEvn23WPfy8uQjoAbWqPiDfoaRwgWMDxZkHQ/vwYp/HfaQ97Atrw32
+ fj0k+uEFr3di241y9f8DeuHKmpbIu9LOpAqxbB+6jGZ/oyvPscvhetL639MK3PEra2ho
+ 2ztFkT8kKzz9DeEzUAO/k308TBqf0KFAO6FJBvOnp2dPfYKJABzusWmapmcpPbslKgXt
+ XnTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718895566; x=1719500366;
+ d=1e100.net; s=20230601; t=1718897838; x=1719502638;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qPXcVfUr1j+fLb6lIJUVnoCOekS7kyqi+VwHKDiK3x0=;
- b=ew7vKhb5LlVP8GPxyl+sdmn+9BDfdZlmbKJkPQQQNRxrFRR/+DoDYUpslkLA9P/FA8
- /pe+ZNHV06Y4tLowzjRv40DykoYJqLU2NrDi2HShz6XWVxNUUjYmTfa75AwEkGlT0459
- Y/8X6emzzl1Q2pTRsREMm5nVp79tpYq4Ll+NJoJEwQqKNmhymD3Kw0hGG8cPyne/Qsvs
- kRKd0GQKxrBZ9HAhbgNQyOEJYngHGOYWJLqDAT/QBVTef1iwRWGJV3kXfhut8fADZBjz
- 6k8yXw6mBL+06P4gq2ddiAnzyLZ5/vAUM3NZ+lu3bPBe6q3QrImIIsozpjgL72f5cGyz
- mRjQ==
-X-Gm-Message-State: AOJu0Yw2BaFuYkpRJCLqQw8uqndjiG50PKWkPx8GUDpyS8blXpFJvP4y
- XXxTBt5R/dXvX3c8tsxObFWrv9ZGlHYj8BZnGauamO/7SmB0bwT6zi6jkG+DmC+M+e+UMWijjdj
- Xbv9+8miDMFTyZbiSUTIQu1qSmt0=
-X-Google-Smtp-Source: AGHT+IGH69BRCAuM9TDln05OzQ0yrx8tJJFn8WYrLBCFTQdkcH5qgS1nEVyUGCTtAFapYf776EDqv4CZB4ASjPymrxE=
-X-Received: by 2002:a17:90b:fc1:b0:2c4:f357:b7b8 with SMTP id
- 98e67ed59e1d1-2c7b5dca901mr5374311a91.43.1718895566329; Thu, 20 Jun 2024
- 07:59:26 -0700 (PDT)
+ bh=7uAJa9cd+U3ByOgDIj6AuFYi+T/LG4WllhhWOF2SAZo=;
+ b=mtzo3vNsZy0T94jvlxAflvrl504Pz2PiYo+P17D7JvVrLdys2f2mdJ3nGMsfWkbkzn
+ OI/gmQ8kvFFPEbViR3LroqeFstyN7CUts7CB8fAmNtLhwUplj2V1KgCQmCxX9ACUS0Hw
+ 8xD4qUcdyfv9jGY6HPznekHoQ6bxe8IJkDoDmUTxEHb53BuCr5Us0aDZ5+rJwplPSUcq
+ gFueLGVeMKoFVxyjiZsgiQcWW+o7IDGqtceDV7HtSmXjexLA8/VjF0UMmzJrEIAnarPa
+ C7ptJoofTjAm3E/204NeYjZpgLHIUw+tc3LLDxt5I3xijKl/7v8Ha4vehZGjwlAQvgWp
+ 4pTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXPTz6hLFxci3IInAjWTWJE+m8FrCpxo2x5d3srx6a2o1uRTTsbCqfn45S0+JzkC74p+Za8uGXnU0P335+jV+XadL3NL324QIkCIkC4+Femw+26jhC5Mjh5/Ot3nQcVcBphltPz/pydtxyzyljDAA==
+X-Gm-Message-State: AOJu0Yw1w3GLX6E5oLyUHXLTH6kjv4vAQ9eUghd6nqsDTydRhTBXCFTW
+ yVpyBTxWwDKWxw8ZH9Ea1M0hfiXzFuSxai0elNV3QwUqfX8Q28xThJXjjhTJxVa3Hs91hb/Yi1x
+ be0x3T2Ui31jC/WLyDeEByiK8fis=
+X-Google-Smtp-Source: AGHT+IHSa5FQ71JMRXYJyNnf8Gm4yVBhH8IUXZ/P53BWbl/sQt3VuXb0a7WwZrfoKndyPecNdx8rJ7qCoEk/iEFq384=
+X-Received: by 2002:a17:90a:2f45:b0:2c7:aafb:8e3c with SMTP id
+ 98e67ed59e1d1-2c7b5afc252mr6219918a91.18.1718897838148; Thu, 20 Jun 2024
+ 08:37:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240620074006.11922-1-bob.zhou@amd.com>
-In-Reply-To: <20240620074006.11922-1-bob.zhou@amd.com>
+References: <a57a9d8f-40bb-4cfa-9dad-4f93a1f33303@moroto.mountain>
+In-Reply-To: <a57a9d8f-40bb-4cfa-9dad-4f93a1f33303@moroto.mountain>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Jun 2024 10:59:13 -0400
-Message-ID: <CADnq5_Oz3cBte-8R3aEYcay5bTrbm6X9qV391e-aFUSdmiViRw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add missing error handling in function
- amdgpu_gmc_flush_gpu_tlb_pasid
-To: Bob Zhou <bob.zhou@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Tim.Huang@amd.com, jesse.zhang@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com
+Date: Thu, 20 Jun 2024 11:37:06 -0400
+Message-ID: <CADnq5_OeVWwL2UfR0a5eE5TYaQo4QySvTennYJdGQ9r-ajDwWw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Clean up indenting in
+ dm_dp_mst_is_port_support_mode()
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, 
+ Agustin Gutierrez <agustin.gutierrez@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Hersen Wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel-janitors@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,42 +90,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 20, 2024 at 3:47=E2=80=AFAM Bob Zhou <bob.zhou@amd.com> wrote:
+Applied.  Thanks!
+
+Alex
+
+On Thu, Jun 20, 2024 at 4:49=E2=80=AFAM Dan Carpenter <dan.carpenter@linaro=
+.org> wrote:
 >
-> Fix the unchecked return value warning by warning reported by
-> Coverity, so add error handling.
+> This code works, but it's not aligned correctly.  Add a couple missing
+> tabs.
 >
-> Signed-off-by: Bob Zhou <bob.zhou@amd.com>
-
-Looks like there are a few other places in the driver where
-amdgpu_ring_alloc() is not checked.  Can you fix those up too?
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index 322b8ff67cde..3a7622611916 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -718,7 +718,11 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_dev=
-ice *adev, uint16_t pasid,
->                         ndw +=3D kiq->pmf->invalidate_tlbs_size;
->
->                 spin_lock(&adev->gfx.kiq[inst].ring_lock);
-> -               amdgpu_ring_alloc(ring, ndw);
-> +               r =3D amdgpu_ring_alloc(ring, ndw);
-> +               if (r) {
-> +                       spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> +                       goto error_unlock_reset;
-> +               }
->                 if (adev->gmc.flush_tlb_needs_extra_type_2)
->                         kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all=
-_hub);
->
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 48118447c8d9..5d4f831b1e55 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -1691,7 +1691,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+>                 if (aconnector->mst_output_port->passthrough_aux) {
+>                         if (bw_range.min_kbps > end_to_end_bw_in_kbps) {
+>                                 DRM_DEBUG_DRIVER("DSC passthrough. Max ds=
+c compression can't fit into end-to-end bw\n");
+> -                       return DC_FAIL_BANDWIDTH_VALIDATE;
+> +                               return DC_FAIL_BANDWIDTH_VALIDATE;
+>                         }
+>                 } else {
+>                         /*dsc bitstream decoded at the dp last link*/
+> @@ -1756,7 +1756,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+>                 if (branch_max_throughput_mps !=3D 0 &&
+>                         ((stream->timing.pix_clk_100hz / 10) >  branch_ma=
+x_throughput_mps * 1000)) {
+>                         DRM_DEBUG_DRIVER("DSC is required but max through=
+put mps fails");
+> -               return DC_FAIL_BANDWIDTH_VALIDATE;
+> +                       return DC_FAIL_BANDWIDTH_VALIDATE;
+>                 }
+>         } else {
+>                 DRM_DEBUG_DRIVER("DSC is required but can't find common d=
+sc config.");
 > --
-> 2.34.1
+> 2.43.0
 >
