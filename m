@@ -4,143 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E40E4C27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 06:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C56C27C4F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 06:38:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8F310E9E9;
-	Fri, 21 Jun 2024 06:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F44110E9EB;
+	Fri, 21 Jun 2024 06:38:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PMskQvOv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e6yT7NzC";
 	dkim-atps=neutral
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E00B410E9E9
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jun 2024 06:37:31 +0000 (UTC)
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3379310E9EB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jun 2024 06:38:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y84/atHnC9ycW70Ge0UvD5IIXpm18OmnvB8u6s3wvUTnKMEJL5YVhn8cq/MLFMO1iJzy8KOsiuOImB6oFGgslfSHdg+s18s+u3HRjZFa3jOhYSjzfEDdLBBo9z/tHYVdW7nv8/M1KHyKeBsiunazqllyKvlPhD63rBPTws4ilpethsWwTLj+vsw2wkgnOmH57zjgQTG/5IO/h0k++vnpsiS9f8JO+crOYFKRqF7blf6mpRfNoFUrTuA/VFNam0/sqQd3GEgIMEZAFSX2eke4XKurF7kcjehRekagjEIgZixRx6ukCU3rhLi168C5SBc3qjyJkx+6n6HHe4YJAzwqug==
+ b=Hvildv9WWengnSFQeZp2sbTCm8gVkrVaiq1kMORLkbFVFg4XKHlFkzw91IaCnWp8Enn/MMdcifc3acNj0KC1O0dpFMUhZYEGG95sauGbYabTtJe53fvkDcj8/cfuZJwG1Tiq0d4tw4d8OltkKnTWEkxIsmFSZP9+if9kxmZuwGk7HSoVErBu00QOzX2bw6O+2r+Xg7DHITgubSl8xlZBaVqm/HapbyQs2sfEhcxdFHV05MGJfneXXhnICmE0cYyuPg3ui3UYxjNDoQu23IwMn3nrgxOm1lMoBvlI+9o8MHz5wgzpxn2S1XmZpP1m6mWfUaj5xjVvPbLx96eU34WooQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z4GI4BvQD3e/cdB/DM/mP+5pbGaot0R4S5wuiCQoEGA=;
- b=jjoSLGHoZ33LNf5Ur7CNtGcm6fEyxLLt0C6bBMbdCl2jXRjysBew+ISzR1dCUDhTcBQnTf9TS6XpeJrShVtN4xc4HO8jV8AYQi7tOE1PtQ+0h0qp7v7PQfIcMWDlQF+5T5V+w+s+XSx9bnzAEqgwwOPzOMFkE9vPFzbdxUKdZUVxm2ixdAFSecwGBDy49xDVA8bhKhFE19t6eBR40kxLQFS0UCuuGoGrtWUfDTi9LTt7qreaQqH9drPSY2TGnVmQlU8xylsexczihIWHxoxElM66e94I8//aiECwtBOhBiW7p6C+E1bWyHXxzQoOPJDJbVjSfrtvtDvI5Batr/YqxQ==
+ bh=xcAPrSqmpx2LHCfHZvHfI6GQOWZGr+BX1/Qpsof+I4M=;
+ b=IepzsZnn4NBzoIYYVe1ND86AbNfyDiBpLmdhdqK+YjvVeEDZc+CUSB3QqJFhXk+xeFqmO5fGL9evUUDGDtUbHglygOkDLC9zxS6h3kmPm0hzk67aX7X9OPsnyukDhcBbANxb+UVczN04e+vRKXoEt3oOvN+I/CFAw4A6V03Cbg+n7OL+bs4+vI+M1mXj1NgZCXn6KOU0bsViUdBdV5cvYndZySx1fxrwuX5mrzzkUQNv993YU6cp3b7qmmACUyoIYIGt/2d2FxfPGSpXc/Un5uybDNSy95SgJDRMTdWOsRkmCjpIx7LxsiF7uCTqK+QrugcOYRrzw7bIlom9FYvJ8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z4GI4BvQD3e/cdB/DM/mP+5pbGaot0R4S5wuiCQoEGA=;
- b=PMskQvOvDkSEUPE7SzCDPBiiLpS44C7RUttz7MDSpxQ7aJalrdPXnrWBiFwReaIXFmsdSZlIH0O0zgRBFC7kqjBimlYJtW4iBJlpkeipa5K6nZOPTzfiWA6RSHWpTYfOavVjQImOhpORZ3vrVRVyjDfkdjsWmwhIodwWaWMYlrU=
+ bh=xcAPrSqmpx2LHCfHZvHfI6GQOWZGr+BX1/Qpsof+I4M=;
+ b=e6yT7NzCEih7Kd3M3O/h2PoOwHewbsZcQueQDX8X7OBDnof8/wkoUvybrQgjFB8zy84EIq7tjYY1HwMIAocTSjdk/OUt/eNazraqwQCTTK8eU1RSuSaYevbFlT+ZC6zP2njjs+PwExRXvIpyWc1Fl39q1sxGOPnrCpZ4ntlu7u0=
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
  by DS0PR12MB8366.namprd12.prod.outlook.com (2603:10b6:8:f9::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Fri, 21 Jun
- 2024 06:37:29 +0000
+ 2024 06:38:28 +0000
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::c593:f43d:c798:e009%6]) with mapi id 15.20.7698.020; Fri, 21 Jun 2024
- 06:37:28 +0000
+ 06:38:28 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Li, Candice" <Candice.Li@amd.com>,
  "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Yang, Stanley"
  <Stanley.Yang@amd.com>
-Subject: RE: [PATCH V2 1/4] drm/amdgpu: add variable to record the deferred
- error number read by driver
-Thread-Topic: [PATCH V2 1/4] drm/amdgpu: add variable to record the deferred
- error number read by driver
-Thread-Index: AQHawtR8caHy+o/JoUK/da9TQiHZK7HRxRsA
-Date: Fri, 21 Jun 2024 06:37:28 +0000
-Message-ID: <BN9PR12MB52576C871E3B6131A3B580ABFCC92@BN9PR12MB5257.namprd12.prod.outlook.com>
+Subject: RE: [PATCH V2 4/4] drm/amdgpu: add gpu reset check and exception
+ handling
+Thread-Topic: [PATCH V2 4/4] drm/amdgpu: add gpu reset check and exception
+ handling
+Thread-Index: AQHawtSAMkJQ6MJY4kSNxwWc+cjk5rHRxYTw
+Date: Fri, 21 Jun 2024 06:38:28 +0000
+Message-ID: <BN9PR12MB5257C08646703BBCC79BCD2BFCC92@BN9PR12MB5257.namprd12.prod.outlook.com>
 References: <20240620054020.434523-1-YiPeng.Chai@amd.com>
-In-Reply-To: <20240620054020.434523-1-YiPeng.Chai@amd.com>
+ <20240620054020.434523-4-YiPeng.Chai@amd.com>
+In-Reply-To: <20240620054020.434523-4-YiPeng.Chai@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c6c4203b-9593-408c-8a2f-287a2051c6a5;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=58791ef1-41fe-4d07-af6c-5401b122891e;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-21T06:36:44Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-21T06:38:13Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DS0PR12MB8366:EE_
-x-ms-office365-filtering-correlation-id: b7e61ac7-bdde-4ff0-a1a6-08dc91bc9f10
+x-ms-office365-filtering-correlation-id: e1c7aa14-5fa8-428a-b04f-08dc91bcc2a6
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0; ARA:13230037|366013|376011|1800799021|38070700015;
-x-microsoft-antispam-message-info: =?us-ascii?Q?wg8XDLDve41X9d0SAyoXfeMUZjxo2QgujJQlQSyoGALM6sXexq9qAaD8DNmB?=
- =?us-ascii?Q?UbJFdneR6T0L15zO2R7W3x2+syxxD+8okW1iWh8obA2ICMSavqFbsc+auMWI?=
- =?us-ascii?Q?prvzdvBMB2uK+4pcvZte5NaOnmHts5MbTQMcJoR7MxKTaGl65f1guk7qEx+K?=
- =?us-ascii?Q?96GbBpYoCw1S9cR/VGJAHo3TjJzeqwl/HpBDoyD6/PDkhwCeLIIekApj+0bx?=
- =?us-ascii?Q?3bvhbyTSUZgXFacfuVbgsw4D1FW/zInbOQSw1MU8z+tH8fhsOLZ9ItAG8Jgg?=
- =?us-ascii?Q?6XSpNv8i8N8Wb7lSG+EVfPFC0GZ/Ro+TINs5N8DE7vjauQOXHyeSGJ2iQ+WC?=
- =?us-ascii?Q?W3wtHv1bkNLnIyzwbEv0L2UqyGsCFjdOrWhVeG+eChgnAUZFk2yAsjz9XAxj?=
- =?us-ascii?Q?UDviVi/QuwwLMfbbdauIv73U80y3x3levRpICC7r5Wik+jXjrwdGTzSD3LfZ?=
- =?us-ascii?Q?ld7mDueVw8H3xXNIzFywaJ99r0BwjqRhf5b9+UQI+d3l6r5oSJXvY0ae5AY2?=
- =?us-ascii?Q?QHMJEsTAFiDuh3VnYgC/YQVNO7alhz/+3WQR1YlGSZuQ13vNQ1vhKFrwpWKl?=
- =?us-ascii?Q?GiqUkT4sCd2zzI0dc3afZfvC0zE5eosseNDqwHhnjK8qTpNgpOSqVkuTuF71?=
- =?us-ascii?Q?dARPSOZuVGxH3VJ7XRDuP6lvtGC3GDy/qJqmcTmvYthUR2FNE/LIx/UclZuy?=
- =?us-ascii?Q?1pN96MNEAdWum2JS6E8F2z8rQEYuyKuWkcE66z/7QxcXh8M7bQUcU5JtI7Az?=
- =?us-ascii?Q?Kp7ZQLNPFqm/SIQbiZGVfltWWJCWvB8B2cKjtzz402H0Rx+8ONeEjIjiS7MG?=
- =?us-ascii?Q?Nmr0pVsZiGa5Se8HW3dDQSHe02BPzhhG4ArXWSzAEZ11JThOgAR0iOR8w9Us?=
- =?us-ascii?Q?YLKny20n7Irh6DUvKiKb8Vvq2qxozE2cE9VuN4HptRdNtwQHi0MnbWved0vr?=
- =?us-ascii?Q?8pID9cJe6GlmJ1l3jpMaEaB+ovnJlklUt9p/683/XBHGYJvLmu00MFaq551v?=
- =?us-ascii?Q?E15j/XpzgeGihC05XhzVK456gFYaIIATp5tmKPS4/unosg+6xQyFsbfnEBe9?=
- =?us-ascii?Q?pc7fp/cRPBOYw+QaiNJU9speA9lZgr0EeYmHpTanq/ZNzD83l6/lfGJ02HAy?=
- =?us-ascii?Q?YTG3bVvELCgemvk9IfKinrF148PUIJioBRk+nfEqzWhpiXhHIClZrLsY/qWY?=
- =?us-ascii?Q?UmDFKOcbrvGUDC3eWbkC0B+a2LyulcCiBzW/XqJkF5Ym1vZKFYfh33SbKmYE?=
- =?us-ascii?Q?jR+UpoSnDK5PPDVYrm7xxcqTieHgksLJge3i4gSUFV3c+hiX3kD1YLkzlL4h?=
- =?us-ascii?Q?dUT7JZxaRxHHEDCpkzBL9aayLqL81EYh0G9PEfZZNXzA4oXRexzz/kSTT7hl?=
- =?us-ascii?Q?JKoRXM4=3D?=
+x-microsoft-antispam-message-info: =?us-ascii?Q?G1MYx8UBUhSUoyFbmI3tqwH9ZE7FpjaSsTzUuHrXCfxvePIeifax2zErrAxU?=
+ =?us-ascii?Q?LSgdTqq79w2wp9TV0S5F02mEMeJ0U6ybIWl9yzfFXS/w86jUl9w+u3MVKmEg?=
+ =?us-ascii?Q?jcYianuI27Z5AcMwngIVqEb+Vy19Bx0kjpklMxuC8nacVp2cw7v6ZeoM20Xe?=
+ =?us-ascii?Q?JH75v2+2dWgsITu7TRffj7VuuZbgrMxFUIkpudUmGEXXbxuEQiwXwxBfLD33?=
+ =?us-ascii?Q?8e7GCjBmAj06w0bozhyy/EAqXMho8gadIKXFF4o9x5OwSGxtd4r9A6DB1N1y?=
+ =?us-ascii?Q?f8unHu5OSJChkf10TCRX4uwvwJ/YJmRNdmgTQ2KHef2tmdG8Kh4V+WsKHjkG?=
+ =?us-ascii?Q?INZZ+XzuU6Cf0TzY+W5RGB7//0ORRRY1rKhTS2HZj5NhJ9oTkobxkItkr5Iu?=
+ =?us-ascii?Q?LObeO260FQn/c0p13fZc/FI+OSytmgwwdoXXz6ZJ+2nU6JLfjuiYqHaYEUui?=
+ =?us-ascii?Q?GmqoKVqSaqxDgd9g4BVlYlx5kZgKo4VdVMrg04sqNBDxbI8XW6eKtZaa0GOQ?=
+ =?us-ascii?Q?/2MlewNjANh0uCeXrSnzKSXAvX1Mi/fmz5AAviRT2ztNT9m5hCj2Q5TWb/HW?=
+ =?us-ascii?Q?bk5hJabra+TIM/WUtaSccT2AgV58xCf2hLVDhdr5Il9A6F4s1nEDZ8yMqLhf?=
+ =?us-ascii?Q?R8Rc3YaHIHJh7C8Ked9+Ij3J93tmV+Hn1/CcuBMk8afRSJbXJ3c/kqGT6C2I?=
+ =?us-ascii?Q?PhhVKxHp2xeY86sgJ/cv8hk22LKKbAAVse13O7S87tC9NWOZQFHu8M/ZRboz?=
+ =?us-ascii?Q?sGNgyyn4jHhgk1KP3kEXA8DpdKN6NxCTWByYwA3q8QKOkPqzw5fqZwO6KiLC?=
+ =?us-ascii?Q?JSlA7A3l3jrOwpbVUdmDF/59xKgkcnA0Xy4Z1vCTC7hzuJGqqI3AkhsAxpsW?=
+ =?us-ascii?Q?4EhvgX7xZQTf0ZPbM7rRAYxj1DzrgOjuZTC7t4TPOGVVsdteUp7OIVgv0NOa?=
+ =?us-ascii?Q?Gcd5J9mQT4PDdl3k6EYnfeCWlJ7z1YaenrWdIt/ywrb7+WduwG97X05YVoZG?=
+ =?us-ascii?Q?biYFE06AVL3i5gVlRP9k557k/xzt9mlWIlGWQlHG0g4hEVfWmIH5OdyIRVpw?=
+ =?us-ascii?Q?Ve2ynmNhhkkjvsryD2p/l1ZGzA2Fuw/FSYaBbHRkIimw2rlLteXlI/qZBizw?=
+ =?us-ascii?Q?oQDf0QAn1HQqqi1+tom5c9MupHjzdnNX0I19JHC//DZd0eKdQdL6OuOlNQfu?=
+ =?us-ascii?Q?l2PbiJFiBTkTOmsmEvBzViF+R2V/XtfM3ZwYx5RObY4OaJIsNbfCHvUd4T7g?=
+ =?us-ascii?Q?EaBsu4cF4Sl4vjN0t67m++ZsSihH5nEHd5R3bHunNWThs260/hR3/6BpI3zI?=
+ =?us-ascii?Q?HapXH8eH3aDBjFbXnALnt2rNUtnE2q0br28TDrDih6pR6lx5nmzqK6EM1OhC?=
+ =?us-ascii?Q?bgdOIss=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230037)(366013)(376011)(1800799021)(38070700015); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kcXLmd8CCLztXG71bHqb/iDBYH0MTbnNv8z3SdAC8zHjwko7QaPCFtFT5Pxm?=
- =?us-ascii?Q?3+qVHkPOHRpNQH6b5Ygv92J3lHMCSGjU3FQK7Fsm7pzzZDqs21NuJxCVdXFa?=
- =?us-ascii?Q?p3C86z9ZSBK7Z7upwv/UBqOgtnClMBXH9HexpUaLNqtCDTiHdrOrqQd/1guH?=
- =?us-ascii?Q?AsmfASLXwceyk8xGdL6nDedH/3ffFfrf58vdjTV+AjMEGhh+1DJrrNxPA5sl?=
- =?us-ascii?Q?rXQ4FutTUr/xxEBGC5lCvRsFPLQDqBnIGBQiGTcepG3oR7OWOSTv9+OpKNgz?=
- =?us-ascii?Q?pmrssEHuDY5TFQ1VLpK2fgTDaVJxkbqR0SxnNgtxazOgzqs0gBE9GjBhaeQR?=
- =?us-ascii?Q?uBXkiec0jmpAm9z+LKMJs/YX0DubIGsgQpaKjLCY+Atsji0dUATjgCjVZwHx?=
- =?us-ascii?Q?+PU9Vnr8TgyN4WOSfV5KP43Hf5R/yZaH5WoAMK2geXWd3/PEu7b5wXCWEsOI?=
- =?us-ascii?Q?qn1h3V/RjAJFszLwQDN8JrRUV9Fi2/rUSXED28ToJll9OmZ8exFijMTVXWUW?=
- =?us-ascii?Q?7ai2zoOVyL4L/GfuNfZ4+g4bdL1idwICnlM8EiR6MBlwt8SkMOqI9I2FzRix?=
- =?us-ascii?Q?Xid7sBFVnTDdQ3sbyG+at6DRIAzQgcVJxyxpdd7RnVxqz6T/huuvvKpI0FvN?=
- =?us-ascii?Q?25sJEwo0t3JsFM55y/HuHiO+QnEhlOQu2ZckS4OMHIl7ZBRcOqQxloFxbx81?=
- =?us-ascii?Q?jR+7YkNgNmEQJB4n4AcvhUnDOHlA/au0w99dXTVb3rCiGloUP0WVnf9MuhO2?=
- =?us-ascii?Q?vixsU7cseHI4kLk8zzDxubIOd5+lokATv/Zu3X8PFGxRQ8CYa3RrArxUmNbZ?=
- =?us-ascii?Q?Okddndn7Y5dLWbPZhYw/TU9yKOkPqoAoN9BC7grrhp7YY5oNB8okAjMnDn6D?=
- =?us-ascii?Q?BtUDQ9FI+K3hXK7Pve9mOT76ysElspkK85hVyGljJuLTqhGa9fnt7bqzoQI0?=
- =?us-ascii?Q?5ARsKh5ZHMKJlMSyBScrvsdXzl40JaeahWxRmAhX6L0rE+mnGBjx7cr7T6Gy?=
- =?us-ascii?Q?Fhjiav35ab9tQ/HQvCtER2JwnR6ORtBcxMqKFA280UrmkoV27HqmUh8e6Cdv?=
- =?us-ascii?Q?frPqd/UyMVM5xK/hJxhl0vC+l2psrZ1JNT50OEOcCw145YeVCamD9wUVY7J5?=
- =?us-ascii?Q?OKaZstgkoH+8ad1BxhWtOqSzpQR48rCH7Vh01scIo32CnLxVqsw/kLAmtg3m?=
- =?us-ascii?Q?ky4AJ72v9tmfedHREKrc6Nq6gsTG3fePdJ25/GrXJGZgY6pDcm8gf/GoyWe4?=
- =?us-ascii?Q?Sucr+LTQDU7c/uA2B+GXNWvusjVFALrtyjU3Ehj96UEMC3FSeY2xl5W7CKHr?=
- =?us-ascii?Q?mYm1U4QsynirmOlb9ckzwvodVxY+FNKOEbutsE0gSvOYwtymjSizyxSv5qp9?=
- =?us-ascii?Q?rOEv05p9BXw9PWOICRLzz4Py+kbbIvHiMbgjuNUn/U7dqbGphUA1QP5nkZ9I?=
- =?us-ascii?Q?6sb3/guqscSJ1RpJHlv/jBz8RJ5ZXvMuFSDogXu1Y97eUYxeZcJR6P7/44Hf?=
- =?us-ascii?Q?dM9dREdaINfx27kDxOTtnK/Zo8M0SaUNE+DIEOCR4Eriq6IPr2ZLTBc7SyS0?=
- =?us-ascii?Q?q5k+wohc4Epy12gcYH05HVbEqaNpTwPRqk5E6kjj?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PfraCa1h329Q93T9+m8gUFYiPAUns6hXovzRtBZltsiU/calmtvmMJCWWiCz?=
+ =?us-ascii?Q?pO+Mhol9rc/Djzl/tI2WxRvwtBjdV4wLwq2n6wHFVR2GGBy+37CpFuqzNHb2?=
+ =?us-ascii?Q?WXBsNAjqlD1Hyqko1e34J7GCaIxh8ZMyZjbQmd52zZHRnkwnRkjhb2o8U2I9?=
+ =?us-ascii?Q?rQtW9vl1O7xlGq+GdeXrfkgW70k1cOh3x+QNCpAzDZGDrfhCR6g7++LGFweR?=
+ =?us-ascii?Q?pwCOIcSvE8prsFRbrGk3UW8k8ZL49PMCUBRitEM2GOB1IMqcRwtZS3PDLmyb?=
+ =?us-ascii?Q?E8Hvybs93QB6lALWAklQlL9DlJXln1FIH6o4Xj33dO6DxMAHjxdlpS56hdKn?=
+ =?us-ascii?Q?Au3fCKhlbjwgh/jWF0cuIfnLM2rY+jb5HiQfkkcrvKDUdcexjfHKC+Cz6Pad?=
+ =?us-ascii?Q?zjsvQUok9TqeeBRmKUuj8c7BsRN2nMf8UJmfL/XEeXCBgqO447X+lyibUNEu?=
+ =?us-ascii?Q?1zEzDgTsw70eazFaWlZksbQ6eV7mC8z44jPmLCKy4mhACs69RnngJltHbmyc?=
+ =?us-ascii?Q?bfj0fWYo5KPxDQTCOVKPbfjz6kspTHnVvGGaOc6btihm7cacrYfLLnoMb9nU?=
+ =?us-ascii?Q?Twf8WNkgwDO4vrJ5mmiagIRYMCchD/8TAaskDwKvqWg+uiQFSHbB4Mp41u5o?=
+ =?us-ascii?Q?DjejBc/tlKtDICxwuWgVPMwugc04R4hWKA6THCBEP1ViIN4ZUzjbSTMDUoUx?=
+ =?us-ascii?Q?OlBxyH9f8okZrqtvrejNsw5EkoxOxVAqsU8Am8H77Y4JBDgwg0XyjBJBr+ks?=
+ =?us-ascii?Q?KQbxqAbw0XxYA/4fDS6w31M6UF9S+xWd/JNTU7brLbNUqSVR+W4Vxy8WjOwg?=
+ =?us-ascii?Q?kpkoWff4tovx4QHT6OO8BXYeLTRNBZHlSrWNQUb2fM4pgImkiu2pTchmaq9r?=
+ =?us-ascii?Q?7nwdiZ3sCFEiBgFxGweTtdacXhpORoVX38psIJ0h0kTHJK3gdcdQ5JryhN+/?=
+ =?us-ascii?Q?We5Zw16B6sowA857kjmFbMUv7vgY59SncRV/cJWfksFlRSZV3AAbS5Rpv/vq?=
+ =?us-ascii?Q?6U9pTnUA917uIZe2/RBvN/1C4J9Vnl488feFuCRuOEudlAl6bNMClVHdNoJF?=
+ =?us-ascii?Q?9D+MwESYvc9QyI+K0sHP6dymPtlHII9bvV1s/fO4OUAn36GVS08NdWelkAnX?=
+ =?us-ascii?Q?uyp3N8JssWW3g93ymTCTHg1+aIicCtyvip2wENhKYPiFF+6D6BZRSOrRwLxq?=
+ =?us-ascii?Q?kq7sjz9/3K7ypIWusDus4IlNLHD+vSSEzBd9NoWLtkNaD5DANE/iH3o1Yiqv?=
+ =?us-ascii?Q?XFrs30EWweFVy2E7tboQOVN5SmANYJeqSePbikqgg4tVOUKhT34V4w3b18hN?=
+ =?us-ascii?Q?ngV/KDkxXX5fIjWb0EGGyvsX23RIUgNLPpzLVy0oNgV0YUPvdYerGoxf6T23?=
+ =?us-ascii?Q?u8I25apRw+XIN+tK8Uf/G79G8ggVFQZdIo5arWHce+bTFUei9WGQRVaSYhig?=
+ =?us-ascii?Q?UVfiLI9v0m13mZlcwpCa7JkWft7irW5n6HerKI9FvXV17Z45Yk2Fx4UGwcx0?=
+ =?us-ascii?Q?Qe1jRyBD5XgznjsCHP972K4rZmrfkKxunolmUOzmM1MY+9X1IDhYqbMNkm0t?=
+ =?us-ascii?Q?LsUEoaHfmuIoolZPjdDjQ5EEkc3Y4Ct+3Eoz96v8?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7e61ac7-bdde-4ff0-a1a6-08dc91bc9f10
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2024 06:37:28.8268 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1c7aa14-5fa8-428a-b04f-08dc91bcc2a6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2024 06:38:28.5070 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rNkb42VAICHqXoUcrkOiyVKcoqHAQV4M/bhF3JKEf+x7ciC80VMdKJXvOHWRCgNEh0pDfbwoTctu64U2tyJiTw==
+X-MS-Exchange-CrossTenant-userprincipalname: QWok34zXOtyPpcgTWeyIExR5H1xmUS6MG6f5Yev8xE2AaR6pPcMlbXV1DmRhhTeZi2smmLWhnBoDhWPDJ4JF7A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8366
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -158,12 +159,10 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Shall we make pre_de_queried_count to be local variable? Others look good t=
-o me
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
 Hawking
-
 -----Original Message-----
 From: Chai, Thomas <YiPeng.Chai@amd.com>
 Sent: Thursday, June 20, 2024 13:40
@@ -172,183 +171,126 @@ Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
  Li, Candice <Candice.Li@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.co=
 m>; Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com=
 >
-Subject: [PATCH V2 1/4] drm/amdgpu: add variable to record the deferred err=
-or number read by driver
+Subject: [PATCH V2 4/4] drm/amdgpu: add gpu reset check and exception handl=
+ing
 
-Add variable to record the deferred error number read by driver.
+Add gpu reset check and exception handling for page retirement.
+
+v2:
+  Clear poison consumption messages cached in fifo after non mode-1 reset.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 62 ++++++++++++++++++-------  dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  3 +-  drivers/gpu/drm/amd/amdgpu/u=
-mc_v12_0.c  |  4 +-
- 3 files changed, 48 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 52 +++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
 amdgpu/amdgpu_ras.c
-index 86cb97d2155b..f674e34037b6 100644
+index a4030dc12a1c..ce7c7723e626 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -120,7 +120,7 @@ const char *get_ras_block_str(struct ras_common_if *ras=
-_block)
- /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
- #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
-
--#define MAX_UMC_POISON_POLLING_TIME_ASYNC  100  //ms
-+#define MAX_UMC_POISON_POLLING_TIME_ASYNC  300  //ms
-
- #define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
-
-@@ -2804,7 +2804,8 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_lo=
-g_info *ecc_log)
-        memset(&ecc_log->ecc_key, 0xad, sizeof(ecc_log->ecc_key));
-
-        INIT_RADIX_TREE(&ecc_log->de_page_tree, GFP_KERNEL);
--       ecc_log->de_updated =3D false;
-+       ecc_log->de_queried_count =3D 0;
-+       ecc_log->prev_de_queried_count =3D 0;
- }
-
- static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log) @@ -=
-2823,7 +2824,8 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_in=
-fo *ecc_log)
-        mutex_unlock(&ecc_log->lock);
-
-        mutex_destroy(&ecc_log->lock);
--       ecc_log->de_updated =3D false;
-+       ecc_log->de_queried_count =3D 0;
-+       ecc_log->prev_de_queried_count =3D 0;
- }
- #endif
-
-@@ -2856,40 +2858,64 @@ static void amdgpu_ras_do_page_retirement(struct wo=
-rk_struct *work)
-        mutex_unlock(&con->umc_ecc_log.lock);
- }
-
--static void amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
--                               uint32_t timeout_ms)
-+static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
-+                               uint32_t poison_creation_count)
- {
-        int ret =3D 0;
-        struct ras_ecc_log_info *ecc_log;
-        struct ras_query_if info;
--       uint32_t timeout =3D timeout_ms;
-+       uint32_t timeout =3D 0;
-        struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
-+       uint64_t de_queried_count;
-+       uint32_t new_detect_count, total_detect_count;
-+       uint32_t need_query_count =3D poison_creation_count;
-+       bool query_data_timeout =3D false;
-
-        memset(&info, 0, sizeof(info));
-        info.head.block =3D AMDGPU_RAS_BLOCK__UMC;
-
-        ecc_log =3D &ras->umc_ecc_log;
--       ecc_log->de_updated =3D false;
-+       total_detect_count =3D 0;
-        do {
-                ret =3D amdgpu_ras_query_error_status(adev, &info);
--               if (ret) {
--                       dev_err(adev->dev, "Failed to query ras error! ret:=
-%d\n", ret);
--                       return;
-+               if (ret)
-+                       return ret;
+@@ -1384,10 +1384,15 @@ int amdgpu_ras_query_error_status(struct amdgpu_dev=
+ice *adev, struct ras_query_i
+        memset(&qctx, 0, sizeof(qctx));
+        qctx.event_id =3D amdgpu_ras_acquire_event_id(adev, amdgpu_ras_intr=
+_triggered() ?
+                                                   RAS_EVENT_TYPE_ISR : RAS=
+_EVENT_TYPE_INVALID);
 +
-+               de_queried_count =3D ecc_log->de_queried_count;
-+               if (de_queried_count > ecc_log->prev_de_queried_count) {
-+                       new_detect_count =3D de_queried_count - ecc_log->pr=
-ev_de_queried_count;
-+                       ecc_log->prev_de_queried_count =3D de_queried_count=
-;
-+                       timeout =3D 0;
-+               } else {
-+                       new_detect_count =3D 0;
-                }
-
--               if (timeout && !ecc_log->de_updated) {
--                       msleep(1);
--                       timeout--;
-+               if (new_detect_count) {
-+                       total_detect_count +=3D new_detect_count;
-+               } else {
-+                       if (!timeout && need_query_count)
-+                               timeout =3D MAX_UMC_POISON_POLLING_TIME_ASY=
-NC;
++       if (!down_read_trylock(&adev->reset_domain->sem))
++               return -EIO;
 +
-+                       if (timeout) {
-+                               if (!--timeout) {
-+                                       query_data_timeout =3D true;
-+                                       break;
-+                               }
-+                               msleep(1);
-+                       }
-                }
--       } while (timeout && !ecc_log->de_updated);
-+       } while (total_detect_count < need_query_count);
+        ret =3D amdgpu_ras_query_error_status_helper(adev, info,
+                                                   &err_data,
+                                                   &qctx,
+                                                   error_query_mode);
++       up_read(&adev->reset_domain->sem);
+        if (ret)
+                goto out_fini_err_data;
 
--       if (timeout_ms && !timeout) {
--               dev_warn(adev->dev, "Can't find deferred error\n");
--               return;
-+       if (query_data_timeout) {
-+               dev_warn(adev->dev, "Can't find deferred error! count: %u\n=
-",
-+                       (need_query_count - total_detect_count));
-+               return -ENOENT;
-        }
-
--       if (!ret)
-+       if (total_detect_count)
-                schedule_delayed_work(&ras->page_retirement_dwork, 0);
-+
-+       return 0;
- }
-
- static int amdgpu_ras_poison_consumption_handler(struct amdgpu_device *ade=
-v, diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ras.h
-index 83437fef9df5..748bbac666e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -469,7 +469,8 @@ struct ras_ecc_log_info {
-        struct mutex lock;
-        siphash_key_t ecc_key;
-        struct radix_tree_root de_page_tree;
--       bool    de_updated;
-+       uint64_t        de_queried_count;
-+       uint64_t        prev_de_queried_count;
- };
-
- struct amdgpu_ras {
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.c
-index 6d6350f220b0..0faa21d8a7b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -557,7 +557,7 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_de=
-vice *adev,
-        ret =3D amdgpu_umc_logs_ecc_err(adev, &con->umc_ecc_log.de_page_tre=
-e, ecc_err);
-        if (ret) {
-                if (ret =3D=3D -EEXIST)
--                       con->umc_ecc_log.de_updated =3D true;
-+                       con->umc_ecc_log.de_queried_count++;
-                else
-                        dev_err(adev->dev, "Fail to log ecc error! ret:%d\n=
-", ret);
-
-@@ -566,7 +566,7 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_de=
-vice *adev,
-                return ret;
-        }
-
--       con->umc_ecc_log.de_updated =3D true;
-+       con->umc_ecc_log.de_queried_count++;
-
+@@ -2916,6 +2921,14 @@ static int amdgpu_ras_poison_creation_handler(struct=
+ amdgpu_device *adev,
         return 0;
  }
+
++static void amdgpu_ras_clear_poison_fifo(struct amdgpu_device *adev) {
++       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
++       struct ras_poison_msg msg;
++
++       while (kfifo_get(&con->poison_fifo, &msg)); }
++
+ static int amdgpu_ras_poison_consumption_handler(struct amdgpu_device *ade=
+v,
+                        uint32_t msg_count, uint32_t *gpu_reset)  { @@ -294=
+6,12 +2959,20 @@ static int amdgpu_ras_poison_consumption_handler(struct am=
+dgpu_device *adev,
+                else
+                        reset =3D reset_flags;
+
++               /* If gpu reset is ongoing, not need to reset gpu again */
++               if (!down_read_trylock(&adev->reset_domain->sem))
++                       return -EIO;
++               up_read(&adev->reset_domain->sem);
++
+                flush_delayed_work(&con->page_retirement_dwork);
+
+                con->gpu_reset_flags |=3D reset;
+                amdgpu_ras_reset_gpu(adev);
+
+                *gpu_reset =3D reset;
++
++               /* Wait for gpu recovery to complete */
++               flush_work(&con->recovery_work);
+        }
+
+        return 0;
+@@ -3000,6 +3021,37 @@ static int amdgpu_ras_page_retirement_thread(void *p=
+aram)
+                        }
+                }
+
++               if ((ret =3D=3D -EIO) || (gpu_reset =3D=3D AMDGPU_RAS_GPU_R=
+ESET_MODE1_RESET)) {
++                       /* gpu mode-1 reset is ongoing or just completed ra=
+s mode-1 reset */
++                       /* Clear poison creation request */
++                       atomic_set(&con->poison_creation_count, 0);
++
++                       /* Clear poison fifo */
++                       amdgpu_ras_clear_poison_fifo(adev);
++
++                       /* Clear all poison requests*/
++                       atomic_set(&con->page_retirement_req_cnt, 0);
++
++                       if (ret =3D=3D -EIO) {
++                               /* Wait for mode-1 reset to complete */
++                               down_read(&adev->reset_domain->sem);
++                               up_read(&adev->reset_domain->sem);
++                       }
++
++                       /* Wake up work to save bad pages to eeprom */
++                       schedule_delayed_work(&con->page_retirement_dwork, =
+0);
++               } else if (gpu_reset) {
++                       /* gpu just completed mode-2 reset or other reset *=
+/
++                       /* Clear poison consumption messages cached in fifo=
+ */
++                       msg_count =3D kfifo_len(&con->poison_fifo);
++                       if (msg_count) {
++                               amdgpu_ras_clear_poison_fifo(adev);
++                               atomic_sub(msg_count, &con->page_retirement=
+_req_cnt);
++                       }
++
++                       /* Wake up work to save bad pages to eeprom */
++                       schedule_delayed_work(&con->page_retirement_dwork, =
+0);
++               }
+ #else
+         dev_info(adev->dev, "Start processing page retirement. request:%d\=
+n",
+                     atomic_read(&con->page_retirement_req_cnt));
 --
 2.34.1
 
