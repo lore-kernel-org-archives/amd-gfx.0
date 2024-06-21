@@ -4,58 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90616C27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 16:06:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD3A0C27C4F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 17:26:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD5A10F2A1;
-	Fri, 21 Jun 2024 16:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 720AE10EFB3;
+	Fri, 21 Jun 2024 17:26:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OtiqxUr5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VXY3/ZHN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4002010F2A1;
- Fri, 21 Jun 2024 16:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718985995; x=1750521995;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=lhVLrxV8fqEKBguecDtyTVRfIS4719nPBQuhGAfIh3g=;
- b=OtiqxUr5QMFSt1dVYXlnSG+YmqAxgFXadcQvAo23psuepnJRI9+JrExz
- OFITJRFE7FH9dNS9p/N6MkoCr+/Zy2f2ZDqoF9OQeTPtq2LY3MN6tODIC
- gNwb+xIsa5DWXCxX7RyWMRuINTthCYL1Xc3Owcwo9FINPCvnz/PSUX871
- thFJgNQHnAc886l/i1mPavaTaCjuZ63wYONZR2yPo0RWIF6MiMFCYaQlg
- BMxyLXTXVQ2CordAxaANPiK49bNeiysgwOj/hwxO95XaDe8eYSR336Js6
- FPkSzMMR7foXiW1Afp6nRkv8DH0PrNZkWE6ARVACmqhcVNTCmygStleVh Q==;
-X-CSE-ConnectionGUID: C8D6glxzS3+vRLSfShnaWA==
-X-CSE-MsgGUID: 2n0k0rEvT9OOmw5rxWRDGw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="15903499"
-X-IronPort-AV: E=Sophos;i="6.08,255,1712646000"; d="scan'208";a="15903499"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2024 09:06:35 -0700
-X-CSE-ConnectionGUID: YYZtwhz0QjSKXbQOPh44Aw==
-X-CSE-MsgGUID: xpUIo+dbS2m3gNXXXVZN1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,255,1712646000"; d="scan'208";a="47079352"
-Received: from johunt-mobl9.ger.corp.intel.com (HELO [10.245.244.53])
- ([10.245.244.53])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2024 09:06:33 -0700
-Message-ID: <124e374f-7e98-428b-8ad6-f9a038840cb7@intel.com>
-Date: Fri, 21 Jun 2024 17:06:31 +0100
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A115D10EFB3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jun 2024 17:26:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WBRFpYPSdzfow7vw1/g5FCLWsBzp9Gfj4Uw2TziMfm9rQ++na4OBWDvQY++WdizlolVeieIEiZiZvGysl7FjQiWjspnGPzLcwEDhRzlY5wHlAoS/pJvKxLipf6Q6ZSfc0GbgIYxDQ8HaXvvuJNQ8Eom6NLVQ5duB7BKD18deuwWFjVDxqTX4HpNDn1+k40KuPCsInWiqAmu5BZ94lRTQ/GWqN78deakAjVRisU2YSBr4fXJiKatYP1Zw4KtVIEPX3mQXYFZIeFS0nYsCPZ9gdAgOnPUajwW+q4n9nMeaXa08PJnUmDA6wyySpdkWlDdJvi/Q2mIqGs8mgEiRX7biwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OFkrWoDtMFaL8Rsjn5zy6HtKz6ZDZHxq69ypULx8B2I=;
+ b=Z4hHduTQU6Upv9aaYMIx+n35ijbBb4IpxbrLC/M73UHnMn686vM0xd0OmqUaK3FoP2v6yualldm5KYNwWRrs5YJRmfdbaAHom5ApjsV8SGMuv5nw0t5dBfYQtY9XG6sk8a4Mo2X7h3gKcBTjLJyZi5WODPEBvxsHh5uFBzrhcS4kA8aExDAqbGmfSqyL0DzMVdxqSVPODaGL6sFno1ZIHsq77nGgn4TxSZOU4oZS19hPxnSJhY3KSgV14AAiiQGXYYHgUjN4SHtCFju1m7eid0txQXuiRFlkmeu5q6vSyM5IpTyCPTzG/aqNDxyFxyILewX3yuAUMd1hzDH/Jg8vfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OFkrWoDtMFaL8Rsjn5zy6HtKz6ZDZHxq69ypULx8B2I=;
+ b=VXY3/ZHNiBus3fEZuXoX+lf1FwN21Mcdcw6bogjhVObC6aLyBElGUM6FRi6bDH0DaqTn2uetpIJ3jQoVS96BH7Chdl/zZlRG2fuURdbi0xgfKyygIS+SthcvLAy+9QYOAnVdsqB/mIS5sanP2lSps4DTX1Nn6NoTH20BkXE+X2w=
+Received: from BN9PR03CA0091.namprd03.prod.outlook.com (2603:10b6:408:fd::6)
+ by CH3PR12MB9194.namprd12.prod.outlook.com (2603:10b6:610:19f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.21; Fri, 21 Jun
+ 2024 17:26:19 +0000
+Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
+ (2603:10b6:408:fd:cafe::13) by BN9PR03CA0091.outlook.office365.com
+ (2603:10b6:408:fd::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.36 via Frontend
+ Transport; Fri, 21 Jun 2024 17:26:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Fri, 21 Jun 2024 17:26:19 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Jun
+ 2024 12:26:18 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Jun
+ 2024 12:26:18 -0500
+Received: from Xiaogang-ROCM-Dev.attlocal.net (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Fri, 21 Jun 2024 12:26:13 -0500
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <Philip.Yang@amd.com>, Xiaogang Chen
+ <xiaogang.chen@amd.com>, Xiaogang Chen <Xiaogang.Chen@amd.com>
+Subject: [PATCH] drm/amdkfd: Correct svm prange overlapping handling at
+ svm_range_set_attr ioctl
+Date: Fri, 21 Jun 2024 12:28:23 -0500
+Message-ID: <20240621172823.168595-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/buddy: Add start address support to trim function
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com
-References: <20240621052909.450539-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20240621052909.450539-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: xiaogang.chen@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|CH3PR12MB9194:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcda5717-20ee-45f1-c85c-08dc92174378
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|376011|36860700010|82310400023|1800799021; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZTxIIk1nU9c1vVFKzJJbXj6BYSEikKXWAFEsOeSGsqU+V3Jk6enoQqddaIs6?=
+ =?us-ascii?Q?opRD/sLWKndawctutep7jZlgajtovmYiJqsAUculVSArRBz4xfk/bTRid9qL?=
+ =?us-ascii?Q?eOUfdOIIhz2QebEwq0/YdYeJwWirkIBUaP1Uf+ead4CHpD4kuKCXx6KLg6q9?=
+ =?us-ascii?Q?IGB8bDmHxCp3Jsw5IvhAxs8OWWNMzguyh1FHea8sy5vOh2A93q37lP0NrYAF?=
+ =?us-ascii?Q?qA2qeyO6zgTA3tWlCdEwmGPAmFUMuMTjS68G1ZMD0QjcHwFDB6KjzgrHodN9?=
+ =?us-ascii?Q?5+4Twp3mfJVrEDTzhl7rzHRTT1mfDK1Aw5mcjs0FmWu55cWIjwpKzmFYhjeG?=
+ =?us-ascii?Q?xTzQoZHlySSTad0JRg08ZHoZYCNboSms3IcoS62Wf90XYszdcMJVXVZN8M1V?=
+ =?us-ascii?Q?AdEhS4A6oQSbjKal6WIrwKXRay89lnPV5jE1igh06lrkknfja+obgWpypiyb?=
+ =?us-ascii?Q?1nJWW8rhIKwtfbDGiXWTF+eVfxhdsHkqjyHAQjo8EDf9KkMum1vbGW3bbYDz?=
+ =?us-ascii?Q?SHvUptLWHdyGVcVLMN9XRQrnSG4ieHLQGKqGCJ383cO9o7ElVC49JtP/V2Df?=
+ =?us-ascii?Q?5Gcb6MVOMOBk4vThi6Qz7xrmRRyOVKwzuyY0LWf8OMt8Wyl6/pK2FNtK+NBE?=
+ =?us-ascii?Q?/u1rCy7heEma9GhaOrafTgHdVVd4lgsHQmrW7eWxjojektkKC5Mr6OFoHuso?=
+ =?us-ascii?Q?HSlvEolXmDxozT696M7FCyPUalb74EvSAHp1t0FbTchr36n+xeXaagSMJ+Fv?=
+ =?us-ascii?Q?hdhrYr1uos64yJLaNzfVh2q8OEtLi6s66SvyqWSyOyxnjNGr6QaofbozYAJV?=
+ =?us-ascii?Q?EbrFKi2NzUoG1/ypudCXy4GI1384kRDTiE1lKZxgKEvt7TCKulznq8XnFdiG?=
+ =?us-ascii?Q?cxVpp415LfGCKN55pBAVzXc6BPvQLgbEflQMnaOvcpYsc8lq3xBaWLEqOUTE?=
+ =?us-ascii?Q?ZuyBDNt4rmlKw4VW5nkeYAEFJmzfaZq4eOQn9ymIxt5AHOs1b2iZwbPzJgUe?=
+ =?us-ascii?Q?AUr0Ny0kY9qNWSJzWCLXcaNrlP54NU1fwZ4NNLalGH9qpWVBl1jq5u/iYftJ?=
+ =?us-ascii?Q?vRN8IBpHObns2eTVUim28AWY0zy/QjF20OTqYCkmH5leMXlAikHlT6G3RBV8?=
+ =?us-ascii?Q?hzy7Ao8ZwqL2ktzGBJKLkIJxjnzWLvNg9JapyHxC6gnpcSBFagk04TDPU9UD?=
+ =?us-ascii?Q?4KN3fwZEGw9vM9t7jw97gOTI+UfpOC/Zm+2IahkfBnX26kmaXHc2/yuNgP5C?=
+ =?us-ascii?Q?5cYXIhldWdMKdPYmi5z/OQUS21JSWbZvzq8ObKInGDIjmUMhSiPRqv35d0w/?=
+ =?us-ascii?Q?jhzH0HDCUT4DFn0GGEl9yLnPUe5XxXgeklP5obRcLeIrfGZ3vACV2MZe57cA?=
+ =?us-ascii?Q?SB1LMETv2b/b03Ko/R4VWvYx30JjsM6MiEquGwyu8WM1YLbfJA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230037)(376011)(36860700010)(82310400023)(1800799021); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2024 17:26:19.3034 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcda5717-20ee-45f1-c85c-08dc92174378
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9194
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,149 +136,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-On 21/06/2024 06:29, Arunpravin Paneer Selvam wrote:
-> - Add a new start parameter in trim function to specify exact
->    address from where to start the trimming. This would help us
->    in situations like if drivers would like to do address alignment
->    for specific requirements.
-> 
-> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
->    flag to disable the allocator trimming part. This patch enables
->    the drivers control trimming and they can do it themselves
->    based on the application requirements.
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/drm/drm_buddy.c          | 22 ++++++++++++++++++++--
->   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
->   include/drm/drm_buddy.h              |  2 ++
->   3 files changed, 23 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 6a8e45e9d0ec..287b6acb1637 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->    * drm_buddy_block_trim - free unused pages
->    *
->    * @mm: DRM buddy manager
-> + * @start: start address to begin the trimming.
->    * @new_size: original size requested
->    * @blocks: Input and output list of allocated blocks.
->    * MUST contain single block as input to be trimmed.
-> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->    * 0 on success, error code on failure.
->    */
->   int drm_buddy_block_trim(struct drm_buddy *mm,
-> +			 u64 *start,
+When user adds new vm range that has overlapping with existing svm pranges
+current kfd clones new prange and remove existing pranges including all data
+associate with it. It is not necessary. We can handle the overlapping on
+existing pranges directly that would simplify kfd code. And, when remove a
+existing prange the locks from it will get destroyed. This may cause issue if
+code still use these locks. And locks from cloned prange do not inherit
+context of locks that got removed.
 
-I guess just wondering if this should be offset within or address. If it 
-offset then zero be the valid default giving the existing behaviour. But 
-hard to say without seeing the user for this. Are there some more 
-patches to give some context for this usecase?
+This patch does not remove existing pranges or clone new pranges, keeps locks
+of pranges alive.
 
->   			 u64 new_size,
->   			 struct list_head *blocks)
->   {
->   	struct drm_buddy_block *parent;
->   	struct drm_buddy_block *block;
-> +	u64 block_start, block_end;
->   	LIST_HEAD(dfs);
->   	u64 new_start;
->   	int err;
-> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   				 struct drm_buddy_block,
->   				 link);
->   
-> +	block_start = drm_buddy_block_offset(block);
-> +	block_end = block_start + drm_buddy_block_size(mm, block) - 1;
-> +
->   	if (WARN_ON(!drm_buddy_block_is_allocated(block)))
->   		return -EINVAL;
->   
-> @@ -894,6 +900,17 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   	if (new_size == drm_buddy_block_size(mm, block))
->   		return 0;
->   
-> +	new_start = block_start;
-> +	if (start) {
-> +		new_start = *start;
-> +
-> +		if (new_start < block_start)
-> +			return -EINVAL;
+Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 89 ++++------------------------
+ 1 file changed, 12 insertions(+), 77 deletions(-)
 
-In addition should check that the alignment of new_start is at least 
-compatible with the min chunk_size. Otherwise I think bad stuff can happen.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 407636a68814..a8fcace6f9a2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -904,23 +904,6 @@ svm_range_copy_array(void *psrc, size_t size, uint64_t num_elements,
+ 	return (void *)dst;
+ }
+ 
+-static int
+-svm_range_copy_dma_addrs(struct svm_range *dst, struct svm_range *src)
+-{
+-	int i;
+-
+-	for (i = 0; i < MAX_GPU_INSTANCE; i++) {
+-		if (!src->dma_addr[i])
+-			continue;
+-		dst->dma_addr[i] = svm_range_copy_array(src->dma_addr[i],
+-					sizeof(*src->dma_addr[i]), src->npages, 0, NULL);
+-		if (!dst->dma_addr[i])
+-			return -ENOMEM;
+-	}
+-
+-	return 0;
+-}
+-
+ static int
+ svm_range_split_array(void *ppnew, void *ppold, size_t size,
+ 		      uint64_t old_start, uint64_t old_n,
+@@ -1967,38 +1950,6 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
+ 	return r;
+ }
+ 
+-static struct svm_range *svm_range_clone(struct svm_range *old)
+-{
+-	struct svm_range *new;
+-
+-	new = svm_range_new(old->svms, old->start, old->last, false);
+-	if (!new)
+-		return NULL;
+-	if (svm_range_copy_dma_addrs(new, old)) {
+-		svm_range_free(new, false);
+-		return NULL;
+-	}
+-	if (old->svm_bo) {
+-		new->ttm_res = old->ttm_res;
+-		new->offset = old->offset;
+-		new->svm_bo = svm_range_bo_ref(old->svm_bo);
+-		spin_lock(&new->svm_bo->list_lock);
+-		list_add(&new->svm_bo_list, &new->svm_bo->range_list);
+-		spin_unlock(&new->svm_bo->list_lock);
+-	}
+-	new->flags = old->flags;
+-	new->preferred_loc = old->preferred_loc;
+-	new->prefetch_loc = old->prefetch_loc;
+-	new->actual_loc = old->actual_loc;
+-	new->granularity = old->granularity;
+-	new->mapped_to_gpu = old->mapped_to_gpu;
+-	new->vram_pages = old->vram_pages;
+-	bitmap_copy(new->bitmap_access, old->bitmap_access, MAX_GPU_INSTANCE);
+-	bitmap_copy(new->bitmap_aip, old->bitmap_aip, MAX_GPU_INSTANCE);
+-
+-	return new;
+-}
+-
+ void svm_range_set_max_pages(struct amdgpu_device *adev)
+ {
+ 	uint64_t max_pages;
+@@ -2057,7 +2008,6 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
+  * @attrs: array of attributes
+  * @update_list: output, the ranges need validate and update GPU mapping
+  * @insert_list: output, the ranges need insert to svms
+- * @remove_list: output, the ranges are replaced and need remove from svms
+  * @remap_list: output, remap unaligned svm ranges
+  *
+  * Check if the virtual address range has overlap with any existing ranges,
+@@ -2082,7 +2032,7 @@ static int
+ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 	      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
+ 	      struct list_head *update_list, struct list_head *insert_list,
+-	      struct list_head *remove_list, struct list_head *remap_list)
++	      struct list_head *remap_list)
+ {
+ 	unsigned long last = start + size - 1UL;
+ 	struct svm_range_list *svms = &p->svms;
+@@ -2096,7 +2046,6 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 
+ 	INIT_LIST_HEAD(update_list);
+ 	INIT_LIST_HEAD(insert_list);
+-	INIT_LIST_HEAD(remove_list);
+ 	INIT_LIST_HEAD(&new_list);
+ 	INIT_LIST_HEAD(remap_list);
+ 
+@@ -2117,20 +2066,11 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 			/* nothing to do */
+ 		} else if (node->start < start || node->last > last) {
+ 			/* node intersects the update range and its attributes
+-			 * will change. Clone and split it, apply updates only
++			 * will change. Split it, apply updates only
+ 			 * to the overlapping part
+ 			 */
+-			struct svm_range *old = prange;
+-
+-			prange = svm_range_clone(old);
+-			if (!prange) {
+-				r = -ENOMEM;
+-				goto out;
+-			}
+-
+-			list_add(&old->update_list, remove_list);
+-			list_add(&prange->list, insert_list);
+-			list_add(&prange->update_list, update_list);
++			list_move_tail(&prange->list, insert_list);
++			list_move_tail(&prange->update_list, update_list);
+ 
+ 			if (node->start < start) {
+ 				pr_debug("change old range start\n");
+@@ -3533,7 +3473,6 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	struct amdkfd_process_info *process_info = p->kgd_process_info;
+ 	struct list_head update_list;
+ 	struct list_head insert_list;
+-	struct list_head remove_list;
+ 	struct list_head remap_list;
+ 	struct svm_range_list *svms;
+ 	struct svm_range *prange;
+@@ -3563,10 +3502,9 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	}
+ 
+ 	mutex_lock(&svms->lock);
+-
+ 	/* Add new range and split existing ranges as needed */
+ 	r = svm_range_add(p, start, size, nattr, attrs, &update_list,
+-			  &insert_list, &remove_list, &remap_list);
++			  &insert_list, &remap_list);
+ 	if (r) {
+ 		mutex_unlock(&svms->lock);
+ 		mmap_write_unlock(mm);
+@@ -3574,21 +3512,18 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	}
+ 	/* Apply changes as a transaction */
+ 	list_for_each_entry_safe(prange, next, &insert_list, list) {
+-		svm_range_add_to_svms(prange);
+-		svm_range_add_notifier_locked(mm, prange);
++		/* prange can be new or old range, put it at svms->list */
++		list_move_tail(&prange->list, &prange->svms->list);
++		/* update prange at interval trees: svms->objects and
++		 * mm interval notifier tree
++		 */
++		svm_range_update_notifier_and_interval_tree(mm, prange);
+ 	}
++
+ 	list_for_each_entry(prange, &update_list, update_list) {
+ 		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
+ 		/* TODO: unmap ranges from GPU that lost access */
+ 	}
+-	list_for_each_entry_safe(prange, next, &remove_list, update_list) {
+-		pr_debug("unlink old 0x%p prange 0x%p [0x%lx 0x%lx]\n",
+-			 prange->svms, prange, prange->start,
+-			 prange->last);
+-		svm_range_unlink(prange);
+-		svm_range_remove_notifier(prange);
+-		svm_range_free(prange, false);
+-	}
+ 
+ 	mmap_write_downgrade(mm);
+ 	/* Trigger migrations and revalidate and map to GPUs as needed. If
+-- 
+2.25.1
 
-> +
-> +		if ((new_start + new_size) > block_end)
-
-range_overflows() ?
-
-> +			return -EINVAL;
-> +	}
-> +
->   	list_del(&block->link);
->   	mark_free(mm, block);
->   	mm->avail += drm_buddy_block_size(mm, block);
-> @@ -904,7 +921,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   	parent = block->parent;
->   	block->parent = NULL;
->   
-> -	new_start = drm_buddy_block_offset(block);
->   	list_add(&block->tmp_link, &dfs);
->   	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
->   	if (err) {
-> @@ -1066,7 +1082,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   	} while (1);
->   
->   	/* Trim the allocated block to the required size */
-> -	if (original_size != size) {
-> +	if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
-> +	    original_size != size) {
->   		struct list_head *trim_list;
->   		LIST_HEAD(temp);
->   		u64 trim_size;
-> @@ -1083,6 +1100,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   		}
->   
->   		drm_buddy_block_trim(mm,
-> +				     NULL,
->   				     trim_size,
->   				     trim_list);
->   
-> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> index fe3779fdba2c..423b261ea743 100644
-> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct ttm_resource_manager *man,
->   	} while (remaining_size);
->   
->   	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-> -		if (!drm_buddy_block_trim(mm, vres->base.size, &vres->blocks))
-> +		if (!drm_buddy_block_trim(mm, NULL, vres->base.size, &vres->blocks))
->   			size = vres->base.size;
->   	}
->   
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 2a74fa9d0ce5..9689a7c5dd36 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -27,6 +27,7 @@
->   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
->   #define DRM_BUDDY_CLEAR_ALLOCATION		BIT(3)
->   #define DRM_BUDDY_CLEARED			BIT(4)
-> +#define DRM_BUDDY_TRIM_DISABLE			BIT(5)
->   
->   struct drm_buddy_block {
->   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
-> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   			   unsigned long flags);
->   
->   int drm_buddy_block_trim(struct drm_buddy *mm,
-> +			 u64 *start,
->   			 u64 new_size,
->   			 struct list_head *blocks);
->   
