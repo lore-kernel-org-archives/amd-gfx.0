@@ -4,73 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB640C27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 10:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E306DC27C4F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 13:21:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51CDE10F155;
-	Fri, 21 Jun 2024 10:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3998610F189;
+	Fri, 21 Jun 2024 13:21:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l0HLLOLQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="v4izR6Vw";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 316B910F14F;
- Fri, 21 Jun 2024 10:45:10 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-6b4f980ac7aso2077876d6.1; 
- Fri, 21 Jun 2024 03:45:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718966709; x=1719571509; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vCzKBkI0EOlIaIsyEt1Ho+UPCJV1SGzIjta1R/xOqyo=;
- b=l0HLLOLQ+NsI0p9Ygau8vnXT5AvjlUZnGYyMZsaaHFiV2wJeWKMNSkzeFG0QX+uNt3
- jTT81VnuEJefUkHLwfNMvtljvXRD33ZJJg1NN4QfdtiIb0d3AVNHM8h2nkI4B4BmEDqm
- kTCQw0uuEG64BF9M3a1YDkZdej6As3XpxdFNjjopEQlqlomZhslfv2oE86S8s9ouMyxI
- eQxPscCIU1KsGNv0WNQ9qZuKXWqWiKYcvkFsBmoahq3vd7HIy6iOBwJJLBGhX8ReLQDG
- Ft0l9/3lSC4u/+fB+V56P+wc5y8oVySfHU5X+4cibNNopIC0Xa/MfgPRcy6PiXENOO2x
- it1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718966709; x=1719571509;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vCzKBkI0EOlIaIsyEt1Ho+UPCJV1SGzIjta1R/xOqyo=;
- b=Iw7l+8TQNOFhAaWbFRRpw/YnZaVzK6hNSpIaXqB9UNpRHbKLeCW0qLT14y6gtfhrIE
- 1IzkVOgzdvxFKnMH67R8RBciJHkpqowwBysrdzcynzoNkFL5cvnkxjZvbufJia3fEOtV
- /qqfCZk/dML2qxx7JB+86WgnChE30hlzm/cNQNp2qKzt0Eq3tZlYvRLK7LeRlgC74pJg
- oLTVTWrwpYVjkG/ztsj15aD1l/0Sx6azopvBOojua5U2sWjVnl5ynsfUEoNlte9+PhVF
- HLHLlhnmX95X6lwjtNOklgV+ARz18G4FDelq9BXMNRXC8RyxkDs3SLUQveTHc2+GBH7b
- oCIg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUG9QGyDz6EgME8byEP4d3Ti8enYFC+RUhbF+nlQJyPq7lmNoxrN6dFmIEZEed/SFCVp8pWmQEEsWtFlFnWFbM7U1mxGBFgs8IQewoZhGlu6ISrFHNSpXPVuqPcqNEpzjJRpROH/WOJSkPvKvPQ4g==
-X-Gm-Message-State: AOJu0Yyo9FWDqqMRHgsnGEGkc4WDJiJ3mWP/EqTCSnzvE26YUny/5UNw
- lYXnWaLq6xlNjfRCiD3dAWW/W0lQ3uH/Uvry7QSZRGnasf8fU+dA5Xbj6ndHUOOvcXlwouqV0ZP
- KTPoC6Ri2SAn2cQ0Wam+FBKo/wzo=
-X-Google-Smtp-Source: AGHT+IGI1lyNp+TbE3ThRp8In7N425hvlee/0+RjTWRu6FiUFfFtrbG1ST8pJQ2n45IwF01JbVb46PDQIa50lhYgPS4=
-X-Received: by 2002:a05:6214:c8b:b0:6b2:af02:28d6 with SMTP id
- 6a1803df08f44-6b501d261e4mr83907056d6.0.1718966708856; Fri, 21 Jun 2024
- 03:45:08 -0700 (PDT)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C13BE10EE57;
+ Fri, 21 Jun 2024 07:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ In-Reply-To:References; bh=EGT5e8L1pNhD0BVhYlvh53zXiul0Yh6rVbmqVvfwN2M=;
+ t=1718956584; x=1719388584; b=v4izR6VwdX7WcFq0sBqNkoLtZFS2vmsbmxz3RjZWAietfwr
+ pkiTPCgQJKkVTpys8gY26mKRuCwnp8utRgm14uY06DUDDM3nO1Xy5TTbMSdmtGvLREPSAavxdR3nr
+ ySvYggBZzZzrOu3wjHL8BsWCF2HMz+g8vWQE5d0gQbFn6xzsTsABeIsl59TQ9RdRRSFzGFX079cm5
+ C3sj21Rw5CStBLBwWTenelB6/3U98Jp8nZ6XybXA+7QYsPbL70o5ZKF/4chKihMH3M11qT6c0Gcrn
+ k87cl+zStGf2DmKw/dtQ6q+xQOTCFiAVpJIGMCza+e5hga6Kyo9AexrtCC9PVa0Q==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1sKZ8A-0007Fh-7F; Fri, 21 Jun 2024 09:56:22 +0200
+Message-ID: <b6c440ca-e63e-429b-af41-5f27d4b8b2a2@leemhuis.info>
+Date: Fri, 21 Jun 2024 09:56:21 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: 6.10/bisected/regression - commits bc87d666c05 and 6d4279cb99ac
+ cause appearing green flashing bar on top of screen on Radeon 6900XT and
+ 120Hz
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>, Rodrigo.Siqueira@amd.com,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ Linux regressions mailing list <regressions@lists.linux.dev>
 References: <CABXGCsNptxsQO=5=qi-JYiFX=rX8Ok5inK80Gn0qrUFWbtBGng@mail.gmail.com>
  <CADnq5_PDxJ8O1JUQ9RBYRFB9G1WZJos05ZAM4jUKuPBwPxjNkA@mail.gmail.com>
  <CABXGCsNN9LwHc2x2AAEH=5UNwpvkWkBqRYz3OP8MZ6Woy+HDXA@mail.gmail.com>
- <b6c440ca-e63e-429b-af41-5f27d4b8b2a2@leemhuis.info>
-In-Reply-To: <b6c440ca-e63e-429b-af41-5f27d4b8b2a2@leemhuis.info>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Fri, 21 Jun 2024 15:44:58 +0500
-Message-ID: <CABXGCsNoFfMn7LaqqFgEPg-ECyUPN=f=SXVrFi=GZk6c69-Gqw@mail.gmail.com>
-Subject: Re: 6.10/bisected/regression - commits bc87d666c05 and 6d4279cb99ac
- cause appearing green flashing bar on top of screen on Radeon 6900XT and 120Hz
-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Rodrigo.Siqueira@amd.com, "Deucher, Alexander" <alexander.deucher@amd.com>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Content-Language: en-US, de-DE
+In-Reply-To: <CABXGCsNN9LwHc2x2AAEH=5UNwpvkWkBqRYz3OP8MZ6Woy+HDXA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1718956584;
+ 5e20c670; 
+X-HE-SMSGID: 1sKZ8A-0007Fh-7F
+X-Mailman-Approved-At: Fri, 21 Jun 2024 13:21:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,22 +70,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 21, 2024 at 12:56=E2=80=AFPM Linux regression tracking (Thorste=
-n
-Leemhuis) <regressions@leemhuis.info> wrote:
-> Hmmm, I might have missed something, but it looks like nothing happened
-> here since then. What's the status? Is the issue still happening?
+On 09.06.24 23:19, Mikhail Gavrilov wrote:
+> On Fri, Jun 7, 2024 at 6:39 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
+>> @@ -944,7 +944,7 @@ void optc1_set_drr(
+>>                                 OTG_V_TOTAL_MAX_SEL, 1,
+>>                                 OTG_FORCE_LOCK_ON_EVENT, 0,
+>>                                 OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
+>> -                               OTG_SET_V_TOTAL_MIN_MASK, 0);
+>> +                               OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
+>>
+>>                 // Setup manual flow control for EOF via TRIG_A
+>>                 optc->funcs->setup_manual_trigger(optc);
+> 
+> Thanks, Alex.
+> I applied this patch on top of 771ed66105de and unfortunately the
+> issue is not fixed.
+> I saw a green flashing bar on top of the screen again.
 
-Yes. Tested on e5b3efbe1ab1.
+Hmmm, I might have missed something, but it looks like nothing happened
+here since then. What's the status? Is the issue still happening? Any
+solution in sight?
 
-I spotted that the problem disappears after forcing the TV to sleep
-(activate screensaver <Super> + <L>) and then wake it up by pressing
-any button and entering a password.
-Hope this information can't help figure out how to fix it.
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
 
---=20
-Best Regards,
-Mike Gavrilov.
+#regzbot poke
+
