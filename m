@@ -4,140 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24081C27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 08:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3519C2BB85
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 08:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89B8210F064;
-	Fri, 21 Jun 2024 08:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 371D910F0A7;
+	Fri, 21 Jun 2024 08:42:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3m9ur+Q5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fEsfXgdp";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2054.outbound.protection.outlook.com [40.107.101.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7D0310F064
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jun 2024 08:34:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ypnj3vjzxgR9WsUTX22PhDFxG5kFCG6+t2qbWMDYEWI+yRdP53EOGKl5p3QKPGpK0YXZKHvvJKF/DdpltMS15wQYSJx+Z0QkBEvQbXOo+UyUdowsaeVewnd+Jgb8HEnGE3pKmFVn9wZkngvlLyltG/yxSEVgrzOt7UL7xNBVGnSF54/hcb55MiKkuBKn7I3fOId5Qyf7uv5cLfXY2uFiFKe3hEYGzny9U4flBTFiRDNZhBTa4BXZ3YK7XVSFWB/IkC4ibGIGePjEpirqunIdUoqeVRPK6bOIaBr9LtmzUzf2wRgYqmP9UVH0HuZ6jijl5EFKRMI12wHB5ot+ln8cmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E7wRz0mqQSAEHoiYjlARZg7UxpHcg8Xs4Q+Nmrorp3c=;
- b=G1+wmZ7nqupmNS3UxDVeU6cKGX/Ofd3PGB8fMeBqBfE62JsRNrX/tWmp1h46i7biMUKSKaQ2bG2EcJ/E1/Xchfuj2prRTr40aGnaza+bFyhp3WjQoV/8wdOI+0FrdAFROXXNtwyE0Xkkk5ObkmWAudXQDqCJWLLGX/BdTGYzTD0uWKKdBqDA0sEmIunXojK8m2fAWn0Etd9/pfh2cpy2K4yJQ9MZYUo6SlwEo0bFqQ2EkMbNhwWGIlXrYob5k0AQKofYggJx93dXp00tYjDiKXszZ4tq5qj3q2DAXfGoRKi3hiGo7TXocsKaHbM0pa3flb4FUhpTGKK7KhY6Ce3CNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7wRz0mqQSAEHoiYjlARZg7UxpHcg8Xs4Q+Nmrorp3c=;
- b=3m9ur+Q5zN+KOIsYVCcuBVOkltX/LQkARVoaumZcNo5Z+VUg/VkpyYDiw/jNE9NHBI1XL3xXjzflpb6Y0CVQJrEMVyOGdq0SjdrQLuajZbBCeY+BZlsG3yqhpvVwbYvSsS8lcYU6hsar68nRthHTUSUwQUsRz+wUBfMMi8Mehfs=
-Received: from DM4PR12MB5181.namprd12.prod.outlook.com (2603:10b6:5:394::22)
- by LV8PR12MB9153.namprd12.prod.outlook.com (2603:10b6:408:185::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31; Fri, 21 Jun
- 2024 08:34:50 +0000
-Received: from DM4PR12MB5181.namprd12.prod.outlook.com
- ([fe80::b1fc:750e:c91c:6d7c]) by DM4PR12MB5181.namprd12.prod.outlook.com
- ([fe80::b1fc:750e:c91c:6d7c%6]) with mapi id 15.20.7698.020; Fri, 21 Jun 2024
- 08:34:50 +0000
-From: "Gao, Likun" <Likun.Gao@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Min, Frank" <Frank.Min@amd.com>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Fix smatch static checker warning
-Thread-Topic: [PATCH] drm/amdgpu: Fix smatch static checker warning
-Thread-Index: AQHaw7CMSEwnMCZSPUy7qvcQ/2j76LHR4r+A
-Date: Fri, 21 Jun 2024 08:34:50 +0000
-Message-ID: <DM4PR12MB51811F4B16BD0D6A7F103604EFC92@DM4PR12MB5181.namprd12.prod.outlook.com>
-References: <20240621075629.27060-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20240621075629.27060-1-Hawking.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=9940a3ee-9d2b-4b25-a5bc-7eb47433b69c;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-06-21T08:28:58Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5181:EE_|LV8PR12MB9153:EE_
-x-ms-office365-filtering-correlation-id: 52ec2451-fe34-4f2b-b392-08dc91cd0442
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230037|1800799021|376011|366013|38070700015;
-x-microsoft-antispam-message-info: =?us-ascii?Q?63pgU/ozWhgGQv7mqZHRBEwvu/k5m4d/k0a9Mpv446SZ1a6N7WXiY46hjILh?=
- =?us-ascii?Q?Y3XO/ObxxdkH4qmTovQjbId9+JPQbsAXgU+mzYUKynTZQnlIIAwMOCu1WJvs?=
- =?us-ascii?Q?rK/dARXpP0n/Ol4hg6f0rK+Xe1byDqnMOp7+pXDEdaPQwqnAnLK9COZcE/FU?=
- =?us-ascii?Q?RfYwnwYfnFsqAFDQvM6GERR89Mfwdm84aogGzSYwNywblIDzWLbFou3KER0l?=
- =?us-ascii?Q?mDd5mSejf7ykomG8jAwGyOm6gAM6tV1yRdboMJtCmO46l3kYlfxRTJIN/TV3?=
- =?us-ascii?Q?PEjqtQsQZFUse9Akya3xtBmt9jSpczT8CLpSXzS2kKXAcdog+YDqQD3/Elv9?=
- =?us-ascii?Q?VidLuXLeyOKa209WrPIw9vvqW5Idg4RHJHISMokUaI98e7EidE0QVuXSC4ku?=
- =?us-ascii?Q?V3P+mKE3gMLwa0IomiWadPm1PPN/HCjT55X9auLs98mX40ZtbQLpHS5nMmAq?=
- =?us-ascii?Q?G79ViMAR3TyJZ7ouG9j87RVOn6aky2IS+PwHCx+VqavAZOYBxM0kg+ZrFCTz?=
- =?us-ascii?Q?75kjJwUnYUGOOwO/Z77+Fa+R6hZRI+mNV0fpWCYjMMiB8KlacwnUVOCdOFCj?=
- =?us-ascii?Q?ax4THrmwEWmkWPEYvg/C9jmyf9P3rd96bJpW2FjWT3FBwgkoVk4mngqsk20J?=
- =?us-ascii?Q?Y9iMf80x3V0klubg5GQYDmh4pgyU5ji4AMkDJdCVglEggTNU7KQUR1LCti/R?=
- =?us-ascii?Q?43nPEDs+axD5wzhj5CnnYndfO/VOpqq9kOaCxlNlRi1wa8CY0jZKxRbbCSo/?=
- =?us-ascii?Q?KcfSc6aYU7Ymh/Gq2jYk2kXdn4f0hww7OhD8vkr5oaZe6vE46P3Mq72cSg3S?=
- =?us-ascii?Q?MoxQMR0+6bLMrnieojk7jWfhvdm++GfpcKdwA8X8u8DbXTFC86XQ5H8iDuOu?=
- =?us-ascii?Q?CUE9Qy2cWd0bflDjzBqSQ5dnlwnJbsT/bGSg/2wNVWuksuQHq9ImW0FCOX6J?=
- =?us-ascii?Q?m3mKy2fCrnpF7BdtuFDTA25Ka0XGMsvL1YV95cHSYOIeGPRP8Mp6jUzFLwxg?=
- =?us-ascii?Q?/B24GyCPOWH/jitrT6qQtObGNgDJeYmJlAS/ZdjlkWfiwpDcDV14lYT/6CU7?=
- =?us-ascii?Q?3CDiCp3fWDO7r0riSVASj/MMF5yq6XRfa5GScLWX/KmPNmXRbEvrSp6oX3lq?=
- =?us-ascii?Q?YSfBvScTkbKKY9Xy67iPlMn06otGT0NyY9Ed0yEer1wGfPq5PnRgV+/Ij6rt?=
- =?us-ascii?Q?T+lXvFaqxahpht+i8aqaZ9k0m3cT/5OlPT9nTPDo+lMPF3IRYR4zHnt2mkRz?=
- =?us-ascii?Q?v7vCm9jMXUiKvj49X8HDxJz12fqB73wzmqrRtKxfnpnsroFIwjAr964W9EUh?=
- =?us-ascii?Q?zsatj/s8zVcdcYEtGPWXjrqxM6pTd3Rny3bcelXSu6YVkmhdYYCvu0PW/08Q?=
- =?us-ascii?Q?fGEtoQA=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5181.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230037)(1800799021)(376011)(366013)(38070700015); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9gd+uAf5XnnkiPHRZRxU9TDLQctgHJE74AYVkdi+xfOXqjoYFjf+mdig1OeT?=
- =?us-ascii?Q?4vZ5Ns9oz52i0KTDMhWOAM1kctvHi7GQoXjWe+BjH7gZJgXa+qJopT0osEgf?=
- =?us-ascii?Q?9+LHg/kMaBKIs60Gz9o2Bnv4bYj5ZFC2PeNXg2Ee/Xp6MMmU3bnJ80fjLOsh?=
- =?us-ascii?Q?ZQc4G25wBunXZWPSrZW+NarWdDYaS+Xa5u0t5CGRLY9EhstfONGJh45V1D5K?=
- =?us-ascii?Q?syQmVTWGGTeaxq/H41NhpQYGuUbDmgsO89HQjB03OiXl3i01OD74om1B7Fv7?=
- =?us-ascii?Q?gU7lF70yR/JUp5sXISM//LT1LjJ9X4gNeVl34+lUDPwAQZqDgEBTnxMfsFLJ?=
- =?us-ascii?Q?GNDmDZrLj9enWeICjOHvXTZV/QnhlU34p4QPRYItq/Wk0kokVqYxzOh6yw1r?=
- =?us-ascii?Q?wy0WavvwCacEgjujC6Bmn6ErXGpJtUDDpCLFTxzrEaP3yOrudgMIVXhIPNBi?=
- =?us-ascii?Q?5ywkztPxaRKAb9JytCj9M1I8m+W3THT3DkE8sCbrQ0WJEpdwuVhbXH6GvdVz?=
- =?us-ascii?Q?Lvc11X+B/s/9OKJXJGea4i3Kmmm/viejv6X6hVQGlESjHksWsDGF6iCMpiWa?=
- =?us-ascii?Q?li8hqWhiw3hestjr8UrUF+r7vWPiOri+kgbEaBSo+N9sVzJWqyaIe7ncufc+?=
- =?us-ascii?Q?0Ys4P3p108WRIFCffnMR0kzXoat5pZ28qiNEZT1tXysdZ7L1fRN9Tou+FaT4?=
- =?us-ascii?Q?PK8B2YF1vho4FN+wX6FVsQaYoO03+RWAJMDuiQ1W3+X6hIy45D2qKz6Svme1?=
- =?us-ascii?Q?Skkbij2wk+ZJfNCRx03E1T5mATE/IPiFkJBD9vyLUTJ82+yChZGAekuoYWtm?=
- =?us-ascii?Q?QzyCsTpB5zL0ionKbyFAqML5Nv5bxSAxPSJcDaXjNIvlL+/8y05pu+oBFrGr?=
- =?us-ascii?Q?QRrP2f+9gE+ZCTra05x+Gir8c3HB0pMpSR++l8H/6F7YlH272yvqZ3MXc66A?=
- =?us-ascii?Q?hTVMYU9lBlyYKhk1LO/EDdwECs06590fc8jxPCZDmivsATSbZ8sGGLa2I6RV?=
- =?us-ascii?Q?uTQ86U8LsAtJ4OozBvCIieKuh0yWUvundMY6QLyjnfzCC8wHekiXYgkkoG/n?=
- =?us-ascii?Q?gtyNKERF4CmhKEEUBX4LV/W3XQDBBn0Z2i+TgjarVZlxcod2LTFhGKtDklIa?=
- =?us-ascii?Q?ing4rLYpVEfupY07YOYXKO4IdvkYKZ0wqkmmD5NkaWIn/8rrua8PTQPABT/+?=
- =?us-ascii?Q?5YnR6gEXRxUU08J2ckW6Ycn7z9xK0Xe6xFdQIxZGLhhRNWNv7BPCseMxPSdi?=
- =?us-ascii?Q?2euvJj5LriW4eOaO5jzgVBmmLQuxpt8J/0nT97go3C70ejg3a8s3ugISsxmx?=
- =?us-ascii?Q?VgRd2GSYxZRZhi2klhrJ6sp70OREkNW5CF94625Opucyvtp/V3LqL7b3Ey3y?=
- =?us-ascii?Q?L6/NT8Rb98+ngN66JLNcoye9oiaPSzyCtGpTS2fmAnzmkLNmGeD2FvsBU7xY?=
- =?us-ascii?Q?rBauMKJyl5bwO6KrWDtPnElF0BTz6Lea75/c8D9MUs4cEQjL/1jdeoVfjouh?=
- =?us-ascii?Q?KT60WswClTBvDN5v+7PmdQRHQmdukpMfEe7RepMEV68qnDytsEkpfnwd9JlS?=
- =?us-ascii?Q?voyHMPxWbwJWvhMANW8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABDD910F0A5;
+ Fri, 21 Jun 2024 08:42:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 231A2622BD;
+ Fri, 21 Jun 2024 08:42:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB14C2BBFC;
+ Fri, 21 Jun 2024 08:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718959362;
+ bh=uZrZCpJHyb7XqYBHsx21rQwle1LUXwCjnR5FTxqq/PE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fEsfXgdpRP/fn8yT6QOCWWrMiDNHhEZm0S+idy0Z/R8T+3WmAEsfBUaqjrpr+dv2P
+ X+O9jnhavj2q/seWvXiLWreaUL7+dxIK3vRrwKOHAhJebZciRuSmYHBBmpWj2XJg3i
+ C0QpPvZ4uUmWpUf7ovVL7LVcwuGAeABkMDFSHjRfX1tv8l86BjnEQdQ2db+uQuT9iu
+ ci9+/VDLwDIJHEA2oq7PCrQAc1JN4scvwrdM5y/N48r75ySznazS4dIjFN4mwOTA1i
+ 7tRMMrB5NzUsu+wrPzfJelKX7FRlsuZ4tFYaTxYvl3XSuLlaNWF6Vm3OJ8XdJDh+kC
+ 5s8f/ljkR2m1A==
+Date: Fri, 21 Jun 2024 10:42:40 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Doug Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>,
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Candice Li <candice.li@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ David Airlie <airlied@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, 
+ Ma Jun <Jun.Ma2@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Victor Lu <victorchengchi.lu@amd.com>,
+ amd-gfx@lists.freedesktop.org, chenxuebing <chenxb_99091@126.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 8/8] drm/amdgpu: Call drm_atomic_helper_shutdown() at
+ shutdown time
+Message-ID: <20240621-nimble-roaring-ibis-fbda90@houat>
+References: <20240612222435.3188234-1-dianders@chromium.org>
+ <20240612152752.v2.8.I27914059cc822b52db9bf72b4013b525b60e06fd@changeid>
+ <CADnq5_PbqE0E2pP26mGD94cdc=tLZZsF10e7ZZWeC5AU-LS8vw@mail.gmail.com>
+ <CAD=FV=XJAiVGFn_Tqs_JNo1fQKFys3m=hH9MwmMot93gkdg=Qw@mail.gmail.com>
+ <CADnq5_M+H_h1Me_O3u=R3q52PgYcCwwY9Mr8_R1eX0G7HvBp2w@mail.gmail.com>
+ <CAD=FV=X=9PV+zbmd2S-TBBxq+yQZ2D+-cCHjFX-gm-f+DyXXiQ@mail.gmail.com>
+ <CADnq5_OXUKj=bfK0NOAhOzmhYCSnQXbxHbwLOaBQ6wFX033Wgw@mail.gmail.com>
+ <CADnq5_O1EGj-_xx7LuiXSVY7MSmfS7_1-hqShFk6Deu1wsBwOA@mail.gmail.com>
+ <20240620-puzzling-hopping-griffin-e43ba6@houat>
+ <CADnq5_PwE0n39hPuEfasGLrwe+rzzzisaKfwz9a9bbpR+RDgqQ@mail.gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5181.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52ec2451-fe34-4f2b-b392-08dc91cd0442
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2024 08:34:50.5320 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tMfNDg7NrB5U9PUczQpoRaO6D/zpd6yt2aLLoD8HsckeDop0hfrIZu5iJtpB8WLe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9153
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="a5f5e7eoh2tcinh3"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_PwE0n39hPuEfasGLrwe+rzzzisaKfwz9a9bbpR+RDgqQ@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,75 +81,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Seems only need to deal with this on gfx v11, for gfx v12, it will judgemen=
-t whether (adev->gfx.imu.funcs && (amdgpu_dpm > 0)) before use imu funcs on=
- gfx_v12_0_rlc_backdoor_autoload_enable.
+--a5f5e7eoh2tcinh3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Likun
+On Thu, Jun 20, 2024 at 09:00:23AM GMT, Alex Deucher wrote:
+> On Thu, Jun 20, 2024 at 3:10=E2=80=AFAM Maxime Ripard <mripard@kernel.org=
+> wrote:
+> >
+> > Hi,
+> >
+> > On Wed, Jun 19, 2024 at 09:53:12AM GMT, Alex Deucher wrote:
+> > > On Wed, Jun 19, 2024 at 9:50=E2=80=AFAM Alex Deucher <alexdeucher@gma=
+il.com> wrote:
+> > > >
+> > > > On Tue, Jun 18, 2024 at 7:53=E2=80=AFPM Doug Anderson <dianders@chr=
+omium.org> wrote:
+> > > > >
+> > > > > Hi,
+> > > > >
+> > > > > On Tue, Jun 18, 2024 at 3:00=E2=80=AFPM Alex Deucher <alexdeucher=
+@gmail.com> wrote:
+> > > > > >
+> > > > > > On Tue, Jun 18, 2024 at 5:40=E2=80=AFPM Doug Anderson <dianders=
+@chromium.org> wrote:
+> > > > > > >
+> > > > > > > Hi,
+> > > > > > >
+> > > > > > >
+> > > > > > > On Mon, Jun 17, 2024 at 8:01=E2=80=AFAM Alex Deucher <alexdeu=
+cher@gmail.com> wrote:
+> > > > > > > >
+> > > > > > > > On Wed, Jun 12, 2024 at 6:37=E2=80=AFPM Douglas Anderson <d=
+ianders@chromium.org> wrote:
+> > > > > > > > >
+> > > > > > > > > Based on grepping through the source code this driver app=
+ears to be
+> > > > > > > > > missing a call to drm_atomic_helper_shutdown() at system =
+shutdown
+> > > > > > > > > time. Among other things, this means that if a panel is i=
+n use that it
+> > > > > > > > > won't be cleanly powered off at system shutdown time.
+> > > > > > > > >
+> > > > > > > > > The fact that we should call drm_atomic_helper_shutdown()=
+ in the case
+> > > > > > > > > of OS shutdown/restart comes straight out of the kernel d=
+oc "driver
+> > > > > > > > > instance overview" in drm_drv.c.
+> > > > > > > > >
+> > > > > > > > > Suggested-by: Maxime Ripard <mripard@kernel.org>
+> > > > > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > > > > Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+> > > > > > > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > > > > > > > > ---
+> > > > > > > > > This commit is only compile-time tested.
+> > > > > > > > >
+> > > > > > > > > ...and further, I'd say that this patch is more of a plea=
+ for help
+> > > > > > > > > than a patch I think is actually right. I'm _fairly_ cert=
+ain that
+> > > > > > > > > drm/amdgpu needs this call at shutdown time but the logic=
+ is a bit
+> > > > > > > > > hard for me to follow. I'd appreciate if anyone who actua=
+lly knows
+> > > > > > > > > what this should look like could illuminate me, or perhap=
+s even just
+> > > > > > > > > post a patch themselves!
+> > > > > > > >
+> > > > > > > > I'm not sure this patch makes sense or not.  The driver doe=
+sn't really
+> > > > > > > > do a formal tear down in its shutdown routine, it just quie=
+sces the
+> > > > > > > > hardware.  What are the actual requirements of the shutdown=
+ function?
+> > > > > > > > In the past when we did a full driver tear down in shutdown=
+, it
+> > > > > > > > delayed the shutdown sequence and users complained.
+> > > > > > >
+> > > > > > > The "inspiration" for this patch is to handle panels properly.
+> > > > > > > Specifically, panels often have several power/enable signals =
+going to
+> > > > > > > them and often have requirements that these signals are power=
+ed off in
+> > > > > > > the proper order with the proper delays between them. While w=
+e can't
+> > > > > > > always do so when the system crashes / reboots in an uncontro=
+lled way,
+> > > > > > > panel manufacturers / HW Engineers get upset if we don't powe=
+r things
+> > > > > > > off properly during an orderly shutdown/reboot. When panels a=
+re
+> > > > > > > powered off badly it can cause garbage on the screen and, so =
+I've been
+> > > > > > > told, can even cause long term damage to the panels over time.
+> > > > > > >
+> > > > > > > In Linux, some panel drivers have tried to ensure a proper po=
+weroff of
+> > > > > > > the panel by handling the shutdown() call themselves. However=
+, this is
+> > > > > > > ugly and panel maintainers want panel drivers to stop doing i=
+t. We
+> > > > > > > have removed the code doing this from most panels now [1]. In=
+stead the
+> > > > > > > assumption is that the DRM modeset drivers should be calling
+> > > > > > > drm_atomic_helper_shutdown() which will make sure panels get =
+an
+> > > > > > > orderly shutdown.
+> > > > > > >
+> > > > > > > For a lot more details, see the cover letter [2] which then c=
+ontains
+> > > > > > > links to even more discussions about the topic.
+> > > > > > >
+> > > > > > > [1] https://lore.kernel.org/r/20240605002401.2848541-1-diande=
+rs@chromium.org
+> > > > > > > [2] https://lore.kernel.org/r/20240612222435.3188234-1-diande=
+rs@chromium.org
+> > > > > >
+> > > > > > I don't think it's an issue.  We quiesce the hardware as if we =
+were
+> > > > > > about to suspend the system (e.g., S3).  For the display hardwa=
+re we
+> > > > > > call drm_atomic_helper_suspend() as part of that sequence.
+> > > > >
+> > > > > OK. It's no skin off my teeth and we can drop this patch if you're
+> > > > > convinced it's not needed. From the point of view of someone who =
+has
+> > > > > no experience with this driver it seems weird to me that it would=
+ use
+> > > > > drm_atomic_helper_suspend() at shutdown time instead of the docum=
+ented
+> > > > > drm_atomic_helper_shutdown(), but if it works for everyone then I=
+'m
+> > > > > not gonna complain.
+> > > >
+> > > > I think the problem is that it is not clear exactly what the
+> > > > expectations are around the PCI shutdown callback.  The documentati=
+on
+> > > > says:
+> > > >
+> > > > "Hook into reboot_notifier_list (kernel/sys.c). Intended to stop any
+> > > > idling DMA operations. Useful for enabling wake-on-lan (NIC) or
+> > > > changing the power state of a device before reboot. e.g.
+> > > > drivers/net/e100.c."
+> > >
+> > > Arguably, there is no requirement to even touch the display hardware
+> > > at all.  In theory you could just leave the display hardware as is in
+> > > the current state.  The system will either be rebooting or powering
+> > > down anyway.
+> >
+> > I think it mostly boils down to a cultural mismatch :)
+> >
+> > Doug works on panel for ARM systems, where devices need (and need to
+> > handle) much more resources than what's typical on a system with an AMD
+> > GPU.
+> >
+> > So, for the kind of hardware Doug usually deals with, we definitely need
+> > the shutdown hook to make sure the regulators, GPIOs, etc. supplying the
+> > panel are properly shutdown.
+> >
+> > And panels usually tied to AMD GPUs probably don't need any of that.
+>=20
+> Makes sense.  I think drm_atomic_helper_suspend() is a viable
+> alternative if drivers want to leverage their existing suspend code.
+> I could write up a doc patch unless there is reason to prefer the
+> shutdown variant.
 
------Original Message-----
-From: Hawking Zhang <Hawking.Zhang@amd.com>
-Sent: Friday, June 21, 2024 3:56 PM
-To: amd-gfx@lists.freedesktop.org; Gao, Likun <Likun.Gao@amd.com>; Min, Fra=
-nk <Frank.Min@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix smatch static checker warning
+It could be worth adding that mention in the _shutdown() doc indeed, but
+I'm not sure we need to enforce anything at this point. I'd rather have
+either, at the driver's authors discretion.
 
-adev->gfx.imu.funcs could be NULL.
+Maxime
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 8 ++++----  drivers/gpu/drm/amd/a=
-mdgpu/gfx_v12_0.c | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
+--a5f5e7eoh2tcinh3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-index b4575765d7a8..5c17409439f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -4498,11 +4498,11 @@ static int gfx_v11_0_hw_init(void *handle)
-                        /* RLC autoload sequence 1: Program rlc ram */
-                        if (adev->gfx.imu.funcs->program_rlc_ram)
-                                adev->gfx.imu.funcs->program_rlc_ram(adev);
-+                       /* rlc autoload firmware */
-+                       r =3D gfx_v11_0_rlc_backdoor_autoload_enable(adev);
-+                       if (r)
-+                               return r;
-                }
--               /* rlc autoload firmware */
--               r =3D gfx_v11_0_rlc_backdoor_autoload_enable(adev);
--               if (r)
--                       return r;
-        } else {
-                if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_DIRECT) =
-{
-                        if (adev->gfx.imu.funcs && (amdgpu_dpm > 0)) { diff=
- --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgp=
-u/gfx_v12_0.c
-index 460bf33a22b1..16fc5c5b15f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -3258,11 +3258,11 @@ static int gfx_v12_0_hw_init(void *handle)
-                        /* RLC autoload sequence 1: Program rlc ram */
-                        if (adev->gfx.imu.funcs->program_rlc_ram)
-                                adev->gfx.imu.funcs->program_rlc_ram(adev);
-+                       /* rlc autoload firmware */
-+                       r =3D gfx_v12_0_rlc_backdoor_autoload_enable(adev);
-+                       if (r)
-+                               return r;
-                }
--               /* rlc autoload firmware */
--               r =3D gfx_v12_0_rlc_backdoor_autoload_enable(adev);
--               if (r)
--                       return r;
-        } else {
-                if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_DIRECT) =
-{
-                        if (adev->gfx.imu.funcs && (amdgpu_dpm > 0)) {
---
-2.17.1
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZnU8/wAKCRDj7w1vZxhR
+xVpPAP47y/HB3Fexh5PbMWnorykQz3Ag2b52AxxdXh02osSdvAD9FsW5cTVmwAD6
+lscl3XAVezknK5j7PwB7r1wuzc2X0w8=
+=D7JB
+-----END PGP SIGNATURE-----
+
+--a5f5e7eoh2tcinh3--
