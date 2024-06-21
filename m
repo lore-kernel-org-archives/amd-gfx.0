@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E306DC27C4F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 13:21:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90616C27C4F
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jun 2024 16:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3998610F189;
-	Fri, 21 Jun 2024 13:21:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD5A10F2A1;
+	Fri, 21 Jun 2024 16:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="v4izR6Vw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OtiqxUr5";
 	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13BE10EE57;
- Fri, 21 Jun 2024 07:56:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=EGT5e8L1pNhD0BVhYlvh53zXiul0Yh6rVbmqVvfwN2M=;
- t=1718956584; x=1719388584; b=v4izR6VwdX7WcFq0sBqNkoLtZFS2vmsbmxz3RjZWAietfwr
- pkiTPCgQJKkVTpys8gY26mKRuCwnp8utRgm14uY06DUDDM3nO1Xy5TTbMSdmtGvLREPSAavxdR3nr
- ySvYggBZzZzrOu3wjHL8BsWCF2HMz+g8vWQE5d0gQbFn6xzsTsABeIsl59TQ9RdRRSFzGFX079cm5
- C3sj21Rw5CStBLBwWTenelB6/3U98Jp8nZ6XybXA+7QYsPbL70o5ZKF/4chKihMH3M11qT6c0Gcrn
- k87cl+zStGf2DmKw/dtQ6q+xQOTCFiAVpJIGMCza+e5hga6Kyo9AexrtCC9PVa0Q==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1sKZ8A-0007Fh-7F; Fri, 21 Jun 2024 09:56:22 +0200
-Message-ID: <b6c440ca-e63e-429b-af41-5f27d4b8b2a2@leemhuis.info>
-Date: Fri, 21 Jun 2024 09:56:21 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4002010F2A1;
+ Fri, 21 Jun 2024 16:06:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1718985995; x=1750521995;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=lhVLrxV8fqEKBguecDtyTVRfIS4719nPBQuhGAfIh3g=;
+ b=OtiqxUr5QMFSt1dVYXlnSG+YmqAxgFXadcQvAo23psuepnJRI9+JrExz
+ OFITJRFE7FH9dNS9p/N6MkoCr+/Zy2f2ZDqoF9OQeTPtq2LY3MN6tODIC
+ gNwb+xIsa5DWXCxX7RyWMRuINTthCYL1Xc3Owcwo9FINPCvnz/PSUX871
+ thFJgNQHnAc886l/i1mPavaTaCjuZ63wYONZR2yPo0RWIF6MiMFCYaQlg
+ BMxyLXTXVQ2CordAxaANPiK49bNeiysgwOj/hwxO95XaDe8eYSR336Js6
+ FPkSzMMR7foXiW1Afp6nRkv8DH0PrNZkWE6ARVACmqhcVNTCmygStleVh Q==;
+X-CSE-ConnectionGUID: C8D6glxzS3+vRLSfShnaWA==
+X-CSE-MsgGUID: 2n0k0rEvT9OOmw5rxWRDGw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11110"; a="15903499"
+X-IronPort-AV: E=Sophos;i="6.08,255,1712646000"; d="scan'208";a="15903499"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2024 09:06:35 -0700
+X-CSE-ConnectionGUID: YYZtwhz0QjSKXbQOPh44Aw==
+X-CSE-MsgGUID: xpUIo+dbS2m3gNXXXVZN1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,255,1712646000"; d="scan'208";a="47079352"
+Received: from johunt-mobl9.ger.corp.intel.com (HELO [10.245.244.53])
+ ([10.245.244.53])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2024 09:06:33 -0700
+Message-ID: <124e374f-7e98-428b-8ad6-f9a038840cb7@intel.com>
+Date: Fri, 21 Jun 2024 17:06:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: 6.10/bisected/regression - commits bc87d666c05 and 6d4279cb99ac
- cause appearing green flashing bar on top of screen on Radeon 6900XT and
- 120Hz
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>, Rodrigo.Siqueira@amd.com,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- Linux regressions mailing list <regressions@lists.linux.dev>
-References: <CABXGCsNptxsQO=5=qi-JYiFX=rX8Ok5inK80Gn0qrUFWbtBGng@mail.gmail.com>
- <CADnq5_PDxJ8O1JUQ9RBYRFB9G1WZJos05ZAM4jUKuPBwPxjNkA@mail.gmail.com>
- <CABXGCsNN9LwHc2x2AAEH=5UNwpvkWkBqRYz3OP8MZ6Woy+HDXA@mail.gmail.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Content-Language: en-US, de-DE
-In-Reply-To: <CABXGCsNN9LwHc2x2AAEH=5UNwpvkWkBqRYz3OP8MZ6Woy+HDXA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1718956584;
- 5e20c670; 
-X-HE-SMSGID: 1sKZ8A-0007Fh-7F
-X-Mailman-Approved-At: Fri, 21 Jun 2024 13:21:39 +0000
+Subject: Re: [PATCH] drm/buddy: Add start address support to trim function
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com
+References: <20240621052909.450539-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20240621052909.450539-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,39 +67,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 09.06.24 23:19, Mikhail Gavrilov wrote:
-> On Fri, Jun 7, 2024 at 6:39 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>
->> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
->> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
->> @@ -944,7 +944,7 @@ void optc1_set_drr(
->>                                 OTG_V_TOTAL_MAX_SEL, 1,
->>                                 OTG_FORCE_LOCK_ON_EVENT, 0,
->>                                 OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
->> -                               OTG_SET_V_TOTAL_MIN_MASK, 0);
->> +                               OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
->>
->>                 // Setup manual flow control for EOF via TRIG_A
->>                 optc->funcs->setup_manual_trigger(optc);
+Hi,
+
+On 21/06/2024 06:29, Arunpravin Paneer Selvam wrote:
+> - Add a new start parameter in trim function to specify exact
+>    address from where to start the trimming. This would help us
+>    in situations like if drivers would like to do address alignment
+>    for specific requirements.
 > 
-> Thanks, Alex.
-> I applied this patch on top of 771ed66105de and unfortunately the
-> issue is not fixed.
-> I saw a green flashing bar on top of the screen again.
+> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
+>    flag to disable the allocator trimming part. This patch enables
+>    the drivers control trimming and they can do it themselves
+>    based on the application requirements.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/drm/drm_buddy.c          | 22 ++++++++++++++++++++--
+>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
+>   include/drm/drm_buddy.h              |  2 ++
+>   3 files changed, 23 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 6a8e45e9d0ec..287b6acb1637 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+>    * drm_buddy_block_trim - free unused pages
+>    *
+>    * @mm: DRM buddy manager
+> + * @start: start address to begin the trimming.
+>    * @new_size: original size requested
+>    * @blocks: Input and output list of allocated blocks.
+>    * MUST contain single block as input to be trimmed.
+> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
+>    * 0 on success, error code on failure.
+>    */
+>   int drm_buddy_block_trim(struct drm_buddy *mm,
+> +			 u64 *start,
 
-Hmmm, I might have missed something, but it looks like nothing happened
-here since then. What's the status? Is the issue still happening? Any
-solution in sight?
+I guess just wondering if this should be offset within or address. If it 
+offset then zero be the valid default giving the existing behaviour. But 
+hard to say without seeing the user for this. Are there some more 
+patches to give some context for this usecase?
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+>   			 u64 new_size,
+>   			 struct list_head *blocks)
+>   {
+>   	struct drm_buddy_block *parent;
+>   	struct drm_buddy_block *block;
+> +	u64 block_start, block_end;
+>   	LIST_HEAD(dfs);
+>   	u64 new_start;
+>   	int err;
+> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   				 struct drm_buddy_block,
+>   				 link);
+>   
+> +	block_start = drm_buddy_block_offset(block);
+> +	block_end = block_start + drm_buddy_block_size(mm, block) - 1;
+> +
+>   	if (WARN_ON(!drm_buddy_block_is_allocated(block)))
+>   		return -EINVAL;
+>   
+> @@ -894,6 +900,17 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   	if (new_size == drm_buddy_block_size(mm, block))
+>   		return 0;
+>   
+> +	new_start = block_start;
+> +	if (start) {
+> +		new_start = *start;
+> +
+> +		if (new_start < block_start)
+> +			return -EINVAL;
 
-#regzbot poke
+In addition should check that the alignment of new_start is at least 
+compatible with the min chunk_size. Otherwise I think bad stuff can happen.
 
+> +
+> +		if ((new_start + new_size) > block_end)
+
+range_overflows() ?
+
+> +			return -EINVAL;
+> +	}
+> +
+>   	list_del(&block->link);
+>   	mark_free(mm, block);
+>   	mm->avail += drm_buddy_block_size(mm, block);
+> @@ -904,7 +921,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>   	parent = block->parent;
+>   	block->parent = NULL;
+>   
+> -	new_start = drm_buddy_block_offset(block);
+>   	list_add(&block->tmp_link, &dfs);
+>   	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
+>   	if (err) {
+> @@ -1066,7 +1082,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   	} while (1);
+>   
+>   	/* Trim the allocated block to the required size */
+> -	if (original_size != size) {
+> +	if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
+> +	    original_size != size) {
+>   		struct list_head *trim_list;
+>   		LIST_HEAD(temp);
+>   		u64 trim_size;
+> @@ -1083,6 +1100,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   		}
+>   
+>   		drm_buddy_block_trim(mm,
+> +				     NULL,
+>   				     trim_size,
+>   				     trim_list);
+>   
+> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> index fe3779fdba2c..423b261ea743 100644
+> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct ttm_resource_manager *man,
+>   	} while (remaining_size);
+>   
+>   	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+> -		if (!drm_buddy_block_trim(mm, vres->base.size, &vres->blocks))
+> +		if (!drm_buddy_block_trim(mm, NULL, vres->base.size, &vres->blocks))
+>   			size = vres->base.size;
+>   	}
+>   
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index 2a74fa9d0ce5..9689a7c5dd36 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -27,6 +27,7 @@
+>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
+>   #define DRM_BUDDY_CLEAR_ALLOCATION		BIT(3)
+>   #define DRM_BUDDY_CLEARED			BIT(4)
+> +#define DRM_BUDDY_TRIM_DISABLE			BIT(5)
+>   
+>   struct drm_buddy_block {
+>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   			   unsigned long flags);
+>   
+>   int drm_buddy_block_trim(struct drm_buddy *mm,
+> +			 u64 *start,
+>   			 u64 new_size,
+>   			 struct list_head *blocks);
+>   
