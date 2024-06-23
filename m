@@ -4,94 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 529E4C2D0D1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6747C2BD05
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 792F910E393;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2533710E391;
 	Mon, 24 Jun 2024 07:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NF3lzuwC";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="EPVuytmQ";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F6B10E180
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jun 2024 20:55:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1719176149;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ycGA0qob45Gs1RubeX/VV0b+q84aeVVnPxRQS1lp6wk=;
- b=NF3lzuwC0a5E1GEP0q/stZloIb06I+UzCCEBVc59/OHn8suMGZRYCBZnEczew+qAfxQi2h
- PBEMHizD1+PDgJOhReBpdRsZ8k3rwQWDwxaLkWiGJKS3qN3xft4fKd6wPeMwhLMHCXZl8C
- YvAFwSB7pUdaf/jq/yDt5ky+xc/DV1I=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-111-871enEQJNga68Wy-KJyhYw-1; Sun, 23 Jun 2024 16:55:47 -0400
-X-MC-Unique: 871enEQJNga68Wy-KJyhYw-1
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-52cd8c15ce5so1532248e87.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jun 2024 13:55:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719176146; x=1719780946;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ycGA0qob45Gs1RubeX/VV0b+q84aeVVnPxRQS1lp6wk=;
- b=pf2YA2TAJTx/PiUv5waNFzNHHkebFBKUyrNwoKLzUkcSBg/EWYBrbTgWAmbO2uloXH
- 79xtp3OM5Cpb+pjBmTR9SMUec/QVu3idcmykocWjxNNDXMEjRWiMtgRbAV4JtHlELMZz
- a0QYvzgyzmAUJroUlSvU+xwQxg1FOFakW+2TeQChayCRrkYYnfAGvcOe5cXjhXq3HSxa
- qPIUeBTt2fTqB34G7kyKRi03U1C51w6jsJzzf9RKnx1T9AVeBBdIrYyImJXHBG0NKYkM
- AdNGgHKSTvFlblNYzXtmrWRZdgmJTLiip4fEGEO8cI8qwOqEhDY31yb1fOOjlEGncUho
- 8VGQ==
-X-Gm-Message-State: AOJu0YzxqDdsPag9//CfpBznaS+PLOD/bn5PHZBtR3jav6EqKCW+iuGK
- oxPIY0PMpqhw7VVfURn1nwZEuh2YYi3BYpZp6DaY1GEC8Y4F8zU7isuKNIJHVmTZPE4Hj6AURJZ
- fYL1P8IVn2fA+IGTIFIhq89QgTGDf5YVlPhlCNPgs02q3yiGRMtdXsot8f54BKWo=
-X-Received: by 2002:ac2:4197:0:b0:52c:d76f:7f61 with SMTP id
- 2adb3069b0e04-52ce186148amr1641200e87.56.1719176145979; 
- Sun, 23 Jun 2024 13:55:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHULZezCOzaC6cUPhJ8LIzccLuS/UbKNm+jMLcGXD6TlSFd2ofykFgOEvn07ITPHKbvfB3HbQ==
-X-Received: by 2002:ac2:4197:0:b0:52c:d76f:7f61 with SMTP id
- 2adb3069b0e04-52ce186148amr1641192e87.56.1719176145491; 
- Sun, 23 Jun 2024 13:55:45 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a72554a5d94sm33680166b.196.2024.06.23.13.55.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 23 Jun 2024 13:55:44 -0700 (PDT)
-Message-ID: <ad5d7ff3-e013-46d0-9ddb-5b0afc3dc870@redhat.com>
-Date: Sun, 23 Jun 2024 22:55:43 +0200
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1AB710E1DE;
+ Sun, 23 Jun 2024 08:51:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1719132689;
+ bh=zB2lHe/cxmaq3sEJTX39vzQps5Xljraxg3sewiB+Xv4=;
+ h=From:Subject:Date:To:Cc:From;
+ b=EPVuytmQawb4QbbtMpIwLUtd1BUdP0idrchVzD9gAehNsFqyCWCq8p6jeuAIf5LtI
+ Oszh/kVYFO031J5jQHlU7hRtfepvzrlfcyYKeAjIHSmyH5XmMEaP13KcN6EFyA7g3/
+ BeKkxckBNBpat78/zwLluNhRRrzCP9bRB2OsX34g=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Subject: [PATCH v2 0/3] drm: backlight quirk infrastructure and lower
+ minimum for Framework AMD 13
+Date: Sun, 23 Jun 2024 10:51:26 +0200
+Message-Id: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm: Add panel backlight quirks
-To: Mario Limonciello <mario.limonciello@amd.com>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>,
- Matthew Anderson <ruinairas1992@gmail.com>,
- "Derek J. Clark" <derkejohn.clark@gmail.com>
-References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
- <20240623-amdgpu-min-backlight-quirk-v2-1-cecf7f49da9b@weissschuh.net>
- <efc9165d-856a-44a1-a93f-e7467cd2cceb@amd.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <efc9165d-856a-44a1-a93f-e7467cd2cceb@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAA7id2YC/43NQQ6CMBCF4auQrh3TVkBg5T0MiwIDnSAFO4Aaw
+ t2tnMDl/xbf2wSjJ2RRRJvwuBLT6ELoUyRqa1yHQE1ooaWOZaokmKHppgUGclCZun9QZ2d4LuR
+ 7yGKp2ybD6yU1IgCTx5beB34vQ1viefSf42tVv/UvdlWggp3kWZ6YpNLm9kJi5tou9uxwFuW+7
+ 184PZHbyQAAAA==
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Hans de Goede <hdegoede@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1719132688; l=2496;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=zB2lHe/cxmaq3sEJTX39vzQps5Xljraxg3sewiB+Xv4=;
+ b=0x05OrASCwGcIIhqmTXoV+ChUICWHrXM8Z9UIIYNcCruuieBg6vTjCBfs6mo2eNPXUpI5W4k5
+ Oemc98k/a8gCFqs5lAvZneIj1AHRCPlDTahSWgqSjSbzKCuwz0HJqaY
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 24 Jun 2024 07:42:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,183 +70,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+The value of "min_input_signal" returned from ATIF on a Framework AMD 13
+is "12". This leads to a fairly bright minimum display backlight.
 
-On 6/23/24 10:20 PM, Mario Limonciello wrote:
-> On 6/23/2024 03:51, Thomas Weißschuh wrote:
->> Panels using a PWM-controlled backlight source without an do not have a
->> standard way to communicate their valid PWM ranges.
->> On x86 the ranges are read from ACPI through driver-specific tables.
->> The built-in ranges are not necessarily correct, or may grow stale if an
->> older device can be retrofitted with newer panels.
->>
->> Add a quirk infrastructure with which the valid backlight ranges can be
->> maintained as part of the kernel.
->>
-> 
-> So I was just talking to some folks in the Linux handheld gaming community (added to CC) about an issue they have where they need to know the correct panel orientation.  Due to reuse of panels across vendors the orientation on one might not be appropriate on another.  The trick is then to detect the combo of both the panel and the DMI data.
-> 
-> It's the same "kind" of problem where something advertised in the firmware should be ignored but only on a panel + SMBIOS combination.
-> 
-> So I am wondering if what you're proposing here could be more generalized.  IE "drm_panel_quirks.c" instead?
-> 
-> Thoughts?
+Add a generic quirk infrastructure for backlight configuration to
+override the settings provided by the firmware.
+Also add amdgpu as a user of that infrastructure and a quirk for the
+Framework 13 matte panel.
+Most likely this will also work for the glossy panel, but I can't test
+that.
 
-Note we already have a quirk mechanism for non upright mounted lcd-panels:
+One solution would be a fixed firmware version, but given that the
+problem exists since the release of the hardware, it has been known for
+a month that the hardware can go lower and there was no acknowledgment
+from Framework in any way, I'd like to explore this alternative
+way forward.
 
-drivers/gpu/drm/drm_panel_orientation_quirks.c
+Notes:
 
-note that the info here is shared with the simpledrm and
-efifb drivers, so if the chose is made to extend this then
-that needs to be taken into account.
+* Should the quirk infrastructure be part of drm_edid.c?
+* The current allocation of struct drm_edid in amdgpu is bad.
+  But it is done the same way in other parts of amdgpu.
+  I do have patches migrating amdgpu to proper usage of struct drm_edid [0]
 
-Regards,
+Mario:
 
-Hans
+I intentionally left out the consideration of the firmware version.
+The quirk will stay correct even if the firmware starts reporting
+correct values.
+If there are strong opinions it would be easy to add, though.
 
+Based on amdgpu/drm-next.
 
+[0] https://lore.kernel.org/lkml/20240616-amdgpu-edid-bios-v1-1-2874f212b365@weissschuh.net/
 
+---
+Changes in v2:
+- Introduce proper drm backlight quirk infrastructure
+- Quirk by EDID and DMI instead of only DMI
+- Limit quirk to only single Framework 13 matte panel
+- Link to v1: https://lore.kernel.org/r/20240610-amdgpu-min-backlight-quirk-v1-1-8459895a5b2a@weissschuh.net
 
+---
+Thomas Weißschuh (3):
+      drm: Add panel backlight quirks
+      drm: panel-backlight-quirks: Add Framework 13 matte panel
+      drm/amd/display: Add support backlight quirks
 
->> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
->> ---
->>   Documentation/gpu/drm-kms-helpers.rst        |  3 ++
->>   drivers/gpu/drm/Kconfig                      |  4 ++
->>   drivers/gpu/drm/Makefile                     |  1 +
->>   drivers/gpu/drm/drm_panel_backlight_quirks.c | 67 ++++++++++++++++++++++++++++
->>   include/drm/drm_utils.h                      | 11 +++++
->>   5 files changed, 86 insertions(+)
->>
->> diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
->> index 59cfe8a7a8ba..1998a2675210 100644
->> --- a/Documentation/gpu/drm-kms-helpers.rst
->> +++ b/Documentation/gpu/drm-kms-helpers.rst
->> @@ -224,6 +224,9 @@ Panel Helper Reference
->>   .. kernel-doc:: drivers/gpu/drm/drm_panel_orientation_quirks.c
->>      :export:
->>   +.. kernel-doc:: drivers/gpu/drm/drm_panel_backlight_quirks.c
->> +   :export:
->> +
->>   Panel Self Refresh Helper Reference
->>   ===================================
->>   diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
->> index 959b19a04101..50ccb43315bf 100644
->> --- a/drivers/gpu/drm/Kconfig
->> +++ b/drivers/gpu/drm/Kconfig
->> @@ -443,6 +443,10 @@ config DRM_EXPORT_FOR_TESTS
->>   config DRM_PANEL_ORIENTATION_QUIRKS
->>       tristate
->>   +# Separate option as not all DRM drivers use it
->> +config DRM_PANEL_BACKLIGHT_QUIRKS
->> +    tristate
->> +
->>   config DRM_LIB_RANDOM
->>       bool
->>       default n
->> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
->> index f9ca4f8fa6c5..6669913b907e 100644
->> --- a/drivers/gpu/drm/Makefile
->> +++ b/drivers/gpu/drm/Makefile
->> @@ -92,6 +92,7 @@ drm-$(CONFIG_DRM_PANIC) += drm_panic.o
->>   obj-$(CONFIG_DRM)    += drm.o
->>     obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
->> +obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) += drm_panel_backlight_quirks.o
->>     #
->>   # Memory-management helpers
->> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
->> new file mode 100644
->> index 000000000000..a89b5fd1940e
->> --- /dev/null
->> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
->> @@ -0,0 +1,67 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +#include <linux/array_size.h>
->> +#include <linux/dmi.h>
->> +#include <linux/mod_devicetable.h>
->> +#include <linux/module.h>
->> +#include <drm/drm_connector.h>
->> +#include <drm/drm_utils.h>
->> +
->> +struct drm_panel_backlight_entry {
->> +    struct {
->> +        enum dmi_field field;
->> +        const char * const value;
->> +    } dmi_match;
->> +    struct drm_edid_ident ident;
->> +    struct drm_panel_backlight_quirk quirk;
->> +};
->> +
->> +static const struct drm_panel_backlight_entry drm_panel_backlight_entries[] = {
->> +};
->> +
->> +static bool drm_panel_backlight_entry_matches(const struct drm_panel_backlight_entry *entry,
->> +                          const struct drm_edid *edid)
->> +{
->> +    if (!dmi_match(entry->dmi_match.field, entry->dmi_match.value))
->> +        return false;
->> +
->> +    if (!drm_edid_match(edid, &entry->ident))
->> +        return false;
->> +
->> +    return true;
->> +}
->> +
->> +/**
->> + * drm_get_panel_panel_quirk - Check for panel backlight quirks
->> + * @edid: EDID of the panel to check
->> + *
->> + * This function checks for platform specific (e.g. DMI based) quirks
->> + * providing info on backlight control for systems where this cannot be
->> + * probed from the hard-/firm-ware.
->> + *
->> + * Returns:
->> + * A struct drm_panel_backlight_quirk if a quirk is found or NULL otherwise.
->> + */
->> +const struct drm_panel_backlight_quirk *drm_get_panel_backlight_quirk(const struct drm_edid *edid)
->> +{
->> +    const struct drm_panel_backlight_entry *entry;
->> +    size_t i;
->> +
->> +    if (!IS_ENABLED(CONFIG_DMI))
->> +        return NULL;
->> +
->> +    if (!edid)
->> +        return NULL;
->> +
->> +    for (i = 0; i < ARRAY_SIZE(drm_panel_backlight_entries); i++) {
->> +        entry = &drm_panel_backlight_entries[i];
->> +
->> +        if (drm_panel_backlight_entry_matches(entry, edid))
->> +            return &entry->quirk;
->> +    }
->> +
->> +    return NULL;
->> +}
->> +EXPORT_SYMBOL(drm_get_panel_backlight_quirk);
->> +
->> +MODULE_LICENSE("GPL");
->> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
->> index 70775748d243..37cc6de1a01a 100644
->> --- a/include/drm/drm_utils.h
->> +++ b/include/drm/drm_utils.h
->> @@ -11,9 +11,20 @@
->>   #define __DRM_UTILS_H__
->>     #include <linux/types.h>
->> +#include <drm/drm_edid.h>
->> +
->> +struct drm_panel_backlight_quirk {
->> +    struct {
->> +        bool pwm_min_brightness:1;
->> +    } overrides;
->> +
->> +    u8 pwm_min_brightness; /* min_brightness/255 of max */
->> +};
->>     int drm_get_panel_orientation_quirk(int width, int height);
->>   +const struct drm_panel_backlight_quirk *drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->> +
->>   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
->>     #endif
->>
-> 
+ Documentation/gpu/drm-kms-helpers.rst             |  3 +
+ drivers/gpu/drm/Kconfig                           |  4 ++
+ drivers/gpu/drm/Makefile                          |  1 +
+ drivers/gpu/drm/amd/amdgpu/Kconfig                |  1 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++
+ drivers/gpu/drm/drm_panel_backlight_quirks.c      | 76 +++++++++++++++++++++++
+ include/drm/drm_utils.h                           | 11 ++++
+ 7 files changed, 124 insertions(+)
+---
+base-commit: 1ecef5589320fd56af599b624d59c355d162ac7b
+change-id: 20240610-amdgpu-min-backlight-quirk-8402fd8e736a
+
+Best regards,
+-- 
+Thomas Weißschuh <linux@weissschuh.net>
 
