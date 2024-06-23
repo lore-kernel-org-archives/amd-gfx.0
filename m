@@ -4,141 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D46A7C2D0D1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:23:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 529E4C2D0D1
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1928B10E383;
-	Mon, 24 Jun 2024 07:23:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 792F910E393;
+	Mon, 24 Jun 2024 07:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="MM5jglMP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+YZLq6/y";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MM5jglMP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+YZLq6/y";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NF3lzuwC";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B795910E383;
- Mon, 24 Jun 2024 07:23:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 54404219B3;
- Mon, 24 Jun 2024 07:22:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719213778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F6B10E180
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jun 2024 20:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1719176149;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fgSDJ0z94oZbJGJHnBFcznbCTngzO26B2p3hIxsS10s=;
- b=MM5jglMPd4AphcM325LFaEGFKUPtm6gHmrh80YZ4rundjP76oMEYmc9HtU6OZWIZd5JgwT
- 6DZeqAHtaMKdGAMm+iFnHUARqjrYWjzpUQOrknVjWeLGREr4PLJjOsrIHx9EjHuizqs3qr
- a11OGgoSqpHMVho87QV78C2hVVSjCi8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719213778;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fgSDJ0z94oZbJGJHnBFcznbCTngzO26B2p3hIxsS10s=;
- b=+YZLq6/ypqGE8pnCMKvRCWexi8l8Xi2oHnXKyys98G3DgoNl4ttTAffHzZD5C8o1ufJRRS
- /+trlsmeYSpiU/CA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MM5jglMP;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="+YZLq6/y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719213778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fgSDJ0z94oZbJGJHnBFcznbCTngzO26B2p3hIxsS10s=;
- b=MM5jglMPd4AphcM325LFaEGFKUPtm6gHmrh80YZ4rundjP76oMEYmc9HtU6OZWIZd5JgwT
- 6DZeqAHtaMKdGAMm+iFnHUARqjrYWjzpUQOrknVjWeLGREr4PLJjOsrIHx9EjHuizqs3qr
- a11OGgoSqpHMVho87QV78C2hVVSjCi8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719213778;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fgSDJ0z94oZbJGJHnBFcznbCTngzO26B2p3hIxsS10s=;
- b=+YZLq6/ypqGE8pnCMKvRCWexi8l8Xi2oHnXKyys98G3DgoNl4ttTAffHzZD5C8o1ufJRRS
- /+trlsmeYSpiU/CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12A1E13ACD;
- Mon, 24 Jun 2024 07:22:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ulMyA9IeeWaIewAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Jun 2024 07:22:58 +0000
-Message-ID: <dd5ec9e5-14c1-4bd3-b210-fdba2766dfd7@suse.de>
-Date: Mon, 24 Jun 2024 09:22:57 +0200
+ in-reply-to:in-reply-to:references:references;
+ bh=ycGA0qob45Gs1RubeX/VV0b+q84aeVVnPxRQS1lp6wk=;
+ b=NF3lzuwC0a5E1GEP0q/stZloIb06I+UzCCEBVc59/OHn8suMGZRYCBZnEczew+qAfxQi2h
+ PBEMHizD1+PDgJOhReBpdRsZ8k3rwQWDwxaLkWiGJKS3qN3xft4fKd6wPeMwhLMHCXZl8C
+ YvAFwSB7pUdaf/jq/yDt5ky+xc/DV1I=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-111-871enEQJNga68Wy-KJyhYw-1; Sun, 23 Jun 2024 16:55:47 -0400
+X-MC-Unique: 871enEQJNga68Wy-KJyhYw-1
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-52cd8c15ce5so1532248e87.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jun 2024 13:55:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719176146; x=1719780946;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ycGA0qob45Gs1RubeX/VV0b+q84aeVVnPxRQS1lp6wk=;
+ b=pf2YA2TAJTx/PiUv5waNFzNHHkebFBKUyrNwoKLzUkcSBg/EWYBrbTgWAmbO2uloXH
+ 79xtp3OM5Cpb+pjBmTR9SMUec/QVu3idcmykocWjxNNDXMEjRWiMtgRbAV4JtHlELMZz
+ a0QYvzgyzmAUJroUlSvU+xwQxg1FOFakW+2TeQChayCRrkYYnfAGvcOe5cXjhXq3HSxa
+ qPIUeBTt2fTqB34G7kyKRi03U1C51w6jsJzzf9RKnx1T9AVeBBdIrYyImJXHBG0NKYkM
+ AdNGgHKSTvFlblNYzXtmrWRZdgmJTLiip4fEGEO8cI8qwOqEhDY31yb1fOOjlEGncUho
+ 8VGQ==
+X-Gm-Message-State: AOJu0YzxqDdsPag9//CfpBznaS+PLOD/bn5PHZBtR3jav6EqKCW+iuGK
+ oxPIY0PMpqhw7VVfURn1nwZEuh2YYi3BYpZp6DaY1GEC8Y4F8zU7isuKNIJHVmTZPE4Hj6AURJZ
+ fYL1P8IVn2fA+IGTIFIhq89QgTGDf5YVlPhlCNPgs02q3yiGRMtdXsot8f54BKWo=
+X-Received: by 2002:ac2:4197:0:b0:52c:d76f:7f61 with SMTP id
+ 2adb3069b0e04-52ce186148amr1641200e87.56.1719176145979; 
+ Sun, 23 Jun 2024 13:55:45 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHULZezCOzaC6cUPhJ8LIzccLuS/UbKNm+jMLcGXD6TlSFd2ofykFgOEvn07ITPHKbvfB3HbQ==
+X-Received: by 2002:ac2:4197:0:b0:52c:d76f:7f61 with SMTP id
+ 2adb3069b0e04-52ce186148amr1641192e87.56.1719176145491; 
+ Sun, 23 Jun 2024 13:55:45 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a72554a5d94sm33680166b.196.2024.06.23.13.55.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 23 Jun 2024 13:55:44 -0700 (PDT)
+Message-ID: <ad5d7ff3-e013-46d0-9ddb-5b0afc3dc870@redhat.com>
+Date: Sun, 23 Jun 2024 22:55:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] drm/radeon: remove load callback
-To: Wu Hoi Pok <wuhoipok@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Subject: Re: [PATCH v2 1/3] drm: Add panel backlight quirks
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20240621141544.19817-1-wuhoipok@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20240621141544.19817-1-wuhoipok@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 54404219B3
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- XM_UA_NO_VERSION(0.01)[]; TO_DN_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FREEMAIL_TO(0.00)[gmail.com];
- ARC_NA(0.00)[];
- FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>,
+ Matthew Anderson <ruinairas1992@gmail.com>,
+ "Derek J. Clark" <derkejohn.clark@gmail.com>
+References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
+ <20240623-amdgpu-min-backlight-quirk-v2-1-cecf7f49da9b@weissschuh.net>
+ <efc9165d-856a-44a1-a93f-e7467cd2cceb@amd.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <efc9165d-856a-44a1-a93f-e7467cd2cceb@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 24 Jun 2024 07:42:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,218 +107,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Hi,
 
-Am 21.06.24 um 16:15 schrieb Wu Hoi Pok:
-> This is "drm/radeon: remove load callback" v2, the only changes
-> were made are adding "ddev->dev_private = rdev;", right after
-> the allocation of "struct radeon_device". Patch v2 2-7 mostly
-> describes simple "rdev->ddev" to "rdev_to_drm(rdev)" to suit
-> Patch v2 1/7.
->
-> Please be aware that these 7 patches depends on each other.
+On 6/23/24 10:20 PM, Mario Limonciello wrote:
+> On 6/23/2024 03:51, Thomas Weißschuh wrote:
+>> Panels using a PWM-controlled backlight source without an do not have a
+>> standard way to communicate their valid PWM ranges.
+>> On x86 the ranges are read from ACPI through driver-specific tables.
+>> The built-in ranges are not necessarily correct, or may grow stale if an
+>> older device can be retrofitted with newer panels.
+>>
+>> Add a quirk infrastructure with which the valid backlight ranges can be
+>> maintained as part of the kernel.
+>>
+> 
+> So I was just talking to some folks in the Linux handheld gaming community (added to CC) about an issue they have where they need to know the correct panel orientation.  Due to reuse of panels across vendors the orientation on one might not be appropriate on another.  The trick is then to detect the combo of both the panel and the DMI data.
+> 
+> It's the same "kind" of problem where something advertised in the firmware should be ignored but only on a panel + SMBIOS combination.
+> 
+> So I am wondering if what you're proposing here could be more generalized.  IE "drm_panel_quirks.c" instead?
+> 
+> Thoughts?
 
-Thanks for the update. In the current form, it's not reviewable, or 
-trackable in patchwork 
-(https://patchwork.freedesktop.org/project/dri-devel/series/).
+Note we already have a quirk mechanism for non upright mounted lcd-panels:
 
-For sending patch series, please use 'git send-email' with the 
---cover-letter option. This will provide you with a single email for 
-describing the patchset as a whole, and create all actual patch mails as 
-replies to the cover letter.
+drivers/gpu/drm/drm_panel_orientation_quirks.c
 
-Maybe test this first with your local email account and then please 
-resubmit to the mailing list.
+note that the info here is shared with the simpledrm and
+efifb drivers, so if the chose is made to extend this then
+that needs to be taken into account.
 
-Best regards
-Thomas
+Regards,
 
->
-> Thank you.
->
-> Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
-> ---
->   drivers/gpu/drm/radeon/radeon.h     | 11 ++++++++---
->   drivers/gpu/drm/radeon/radeon_drv.c | 27 ++++++++++++++++++---------
->   drivers/gpu/drm/radeon/radeon_drv.h |  1 -
->   drivers/gpu/drm/radeon/radeon_kms.c | 18 ++++++------------
->   4 files changed, 32 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-> index 0999c8eaae94..69bb30ced189 100644
-> --- a/drivers/gpu/drm/radeon/radeon.h
-> +++ b/drivers/gpu/drm/radeon/radeon.h
-> @@ -2297,7 +2297,7 @@ typedef void (*radeon_wreg_t)(struct radeon_device*, uint32_t, uint32_t);
->   
->   struct radeon_device {
->   	struct device			*dev;
-> -	struct drm_device		*ddev;
-> +	struct drm_device		ddev;
->   	struct pci_dev			*pdev;
->   #ifdef __alpha__
->   	struct pci_controller		*hose;
-> @@ -2440,10 +2440,13 @@ struct radeon_device {
->   	u64 gart_pin_size;
->   };
->   
-> +static inline struct drm_device *rdev_to_drm(struct radeon_device *rdev)
-> +{
-> +	return &rdev->ddev;
-> +}
-> +
->   bool radeon_is_px(struct drm_device *dev);
->   int radeon_device_init(struct radeon_device *rdev,
-> -		       struct drm_device *ddev,
-> -		       struct pci_dev *pdev,
->   		       uint32_t flags);
->   void radeon_device_fini(struct radeon_device *rdev);
->   int radeon_gpu_wait_for_idle(struct radeon_device *rdev);
-> @@ -2818,6 +2821,8 @@ struct radeon_device *radeon_get_rdev(struct ttm_device *bdev);
->   
->   /* KMS */
->   
-> +int radeon_driver_load_kms(struct radeon_device *dev, unsigned long flags);
-> +
->   u32 radeon_get_vblank_counter_kms(struct drm_crtc *crtc);
->   int radeon_enable_vblank_kms(struct drm_crtc *crtc);
->   void radeon_disable_vblank_kms(struct drm_crtc *crtc);
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index 7bf08164140e..ae9cadceba83 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -259,7 +259,8 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->   			    const struct pci_device_id *ent)
->   {
->   	unsigned long flags = 0;
-> -	struct drm_device *dev;
-> +	struct drm_device *ddev;
-> +	struct radeon_device *rdev;
->   	int ret;
->   
->   	if (!ent)
-> @@ -300,28 +301,37 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->   	if (ret)
->   		return ret;
->   
-> -	dev = drm_dev_alloc(&kms_driver, &pdev->dev);
-> -	if (IS_ERR(dev))
-> -		return PTR_ERR(dev);
-> +	rdev = devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*rdev), ddev);
-> +	if (IS_ERR(rdev))
-> +		return PTR_ERR(rdev);
-> +
-> +	rdev->dev  = &pdev->dev;
-> +	rdev->pdev = pdev;
-> +	ddev = rdev_to_drm(rdev);
-> +	ddev->dev_private = rdev;
->   
->   	ret = pci_enable_device(pdev);
->   	if (ret)
->   		goto err_free;
->   
-> -	pci_set_drvdata(pdev, dev);
-> +	pci_set_drvdata(pdev, ddev);
-> +
-> +	ret = radeon_driver_load_kms(rdev, flags);
-> +	if (ret)
-> +		goto err_agp;
->   
-> -	ret = drm_dev_register(dev, ent->driver_data);
-> +	ret = drm_dev_register(ddev, flags);
->   	if (ret)
->   		goto err_agp;
->   
-> -	radeon_fbdev_setup(dev->dev_private);
-> +	radeon_fbdev_setup(ddev->dev_private);
->   
->   	return 0;
->   
->   err_agp:
->   	pci_disable_device(pdev);
->   err_free:
-> -	drm_dev_put(dev);
-> +	drm_dev_put(ddev);
->   	return ret;
->   }
->   
-> @@ -569,7 +579,6 @@ static const struct drm_ioctl_desc radeon_ioctls_kms[] = {
->   static const struct drm_driver kms_driver = {
->   	.driver_features =
->   	    DRIVER_GEM | DRIVER_RENDER | DRIVER_MODESET,
-> -	.load = radeon_driver_load_kms,
->   	.open = radeon_driver_open_kms,
->   	.postclose = radeon_driver_postclose_kms,
->   	.unload = radeon_driver_unload_kms,
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.h b/drivers/gpu/drm/radeon/radeon_drv.h
-> index 02a65971d140..6c1eb75a951b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.h
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.h
-> @@ -117,7 +117,6 @@
->   long radeon_drm_ioctl(struct file *filp,
->   		      unsigned int cmd, unsigned long arg);
->   
-> -int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags);
->   void radeon_driver_unload_kms(struct drm_device *dev);
->   int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
->   void radeon_driver_postclose_kms(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-> index a16590c6247f..d2df194393af 100644
-> --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> @@ -91,7 +91,7 @@ void radeon_driver_unload_kms(struct drm_device *dev)
->   /**
->    * radeon_driver_load_kms - Main load function for KMS.
->    *
-> - * @dev: drm dev pointer
-> + * @rdev: radeon dev pointer
->    * @flags: device flags
->    *
->    * This is the main load function for KMS (all asics).
-> @@ -101,24 +101,18 @@ void radeon_driver_unload_kms(struct drm_device *dev)
->    * (crtcs, encoders, hotplug detect, etc.).
->    * Returns 0 on success, error on failure.
->    */
-> -int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
-> +int radeon_driver_load_kms(struct radeon_device *rdev, unsigned long flags)
->   {
-> -	struct pci_dev *pdev = to_pci_dev(dev->dev);
-> -	struct radeon_device *rdev;
-> +	struct pci_dev *pdev = rdev->pdev;
-> +	struct drm_device *dev = rdev_to_drm(rdev);
->   	int r, acpi_status;
->   
-> -	rdev = kzalloc(sizeof(struct radeon_device), GFP_KERNEL);
-> -	if (rdev == NULL) {
-> -		return -ENOMEM;
-> -	}
-> -	dev->dev_private = (void *)rdev;
-> -
->   #ifdef __alpha__
->   	rdev->hose = pdev->sysdata;
->   #endif
->   
->   	if (pci_find_capability(pdev, PCI_CAP_ID_AGP))
-> -		rdev->agp = radeon_agp_head_init(dev);
-> +		rdev->agp = radeon_agp_head_init(rdev_to_drm(rdev));
->   	if (rdev->agp) {
->   		rdev->agp->agp_mtrr = arch_phys_wc_add(
->   			rdev->agp->agp_info.aper_base,
-> @@ -147,7 +141,7 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
->   	 * properly initialize the GPU MC controller and permit
->   	 * VRAM allocation
->   	 */
-> -	r = radeon_device_init(rdev, dev, pdev, flags);
-> +	r = radeon_device_init(rdev, flags);
->   	if (r) {
->   		dev_err(dev->dev, "Fatal error during GPU init\n");
->   		goto out;
+Hans
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+
+
+
+
+>> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+>> ---
+>>   Documentation/gpu/drm-kms-helpers.rst        |  3 ++
+>>   drivers/gpu/drm/Kconfig                      |  4 ++
+>>   drivers/gpu/drm/Makefile                     |  1 +
+>>   drivers/gpu/drm/drm_panel_backlight_quirks.c | 67 ++++++++++++++++++++++++++++
+>>   include/drm/drm_utils.h                      | 11 +++++
+>>   5 files changed, 86 insertions(+)
+>>
+>> diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+>> index 59cfe8a7a8ba..1998a2675210 100644
+>> --- a/Documentation/gpu/drm-kms-helpers.rst
+>> +++ b/Documentation/gpu/drm-kms-helpers.rst
+>> @@ -224,6 +224,9 @@ Panel Helper Reference
+>>   .. kernel-doc:: drivers/gpu/drm/drm_panel_orientation_quirks.c
+>>      :export:
+>>   +.. kernel-doc:: drivers/gpu/drm/drm_panel_backlight_quirks.c
+>> +   :export:
+>> +
+>>   Panel Self Refresh Helper Reference
+>>   ===================================
+>>   diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+>> index 959b19a04101..50ccb43315bf 100644
+>> --- a/drivers/gpu/drm/Kconfig
+>> +++ b/drivers/gpu/drm/Kconfig
+>> @@ -443,6 +443,10 @@ config DRM_EXPORT_FOR_TESTS
+>>   config DRM_PANEL_ORIENTATION_QUIRKS
+>>       tristate
+>>   +# Separate option as not all DRM drivers use it
+>> +config DRM_PANEL_BACKLIGHT_QUIRKS
+>> +    tristate
+>> +
+>>   config DRM_LIB_RANDOM
+>>       bool
+>>       default n
+>> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+>> index f9ca4f8fa6c5..6669913b907e 100644
+>> --- a/drivers/gpu/drm/Makefile
+>> +++ b/drivers/gpu/drm/Makefile
+>> @@ -92,6 +92,7 @@ drm-$(CONFIG_DRM_PANIC) += drm_panic.o
+>>   obj-$(CONFIG_DRM)    += drm.o
+>>     obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
+>> +obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) += drm_panel_backlight_quirks.o
+>>     #
+>>   # Memory-management helpers
+>> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+>> new file mode 100644
+>> index 000000000000..a89b5fd1940e
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+>> @@ -0,0 +1,67 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +
+>> +#include <linux/array_size.h>
+>> +#include <linux/dmi.h>
+>> +#include <linux/mod_devicetable.h>
+>> +#include <linux/module.h>
+>> +#include <drm/drm_connector.h>
+>> +#include <drm/drm_utils.h>
+>> +
+>> +struct drm_panel_backlight_entry {
+>> +    struct {
+>> +        enum dmi_field field;
+>> +        const char * const value;
+>> +    } dmi_match;
+>> +    struct drm_edid_ident ident;
+>> +    struct drm_panel_backlight_quirk quirk;
+>> +};
+>> +
+>> +static const struct drm_panel_backlight_entry drm_panel_backlight_entries[] = {
+>> +};
+>> +
+>> +static bool drm_panel_backlight_entry_matches(const struct drm_panel_backlight_entry *entry,
+>> +                          const struct drm_edid *edid)
+>> +{
+>> +    if (!dmi_match(entry->dmi_match.field, entry->dmi_match.value))
+>> +        return false;
+>> +
+>> +    if (!drm_edid_match(edid, &entry->ident))
+>> +        return false;
+>> +
+>> +    return true;
+>> +}
+>> +
+>> +/**
+>> + * drm_get_panel_panel_quirk - Check for panel backlight quirks
+>> + * @edid: EDID of the panel to check
+>> + *
+>> + * This function checks for platform specific (e.g. DMI based) quirks
+>> + * providing info on backlight control for systems where this cannot be
+>> + * probed from the hard-/firm-ware.
+>> + *
+>> + * Returns:
+>> + * A struct drm_panel_backlight_quirk if a quirk is found or NULL otherwise.
+>> + */
+>> +const struct drm_panel_backlight_quirk *drm_get_panel_backlight_quirk(const struct drm_edid *edid)
+>> +{
+>> +    const struct drm_panel_backlight_entry *entry;
+>> +    size_t i;
+>> +
+>> +    if (!IS_ENABLED(CONFIG_DMI))
+>> +        return NULL;
+>> +
+>> +    if (!edid)
+>> +        return NULL;
+>> +
+>> +    for (i = 0; i < ARRAY_SIZE(drm_panel_backlight_entries); i++) {
+>> +        entry = &drm_panel_backlight_entries[i];
+>> +
+>> +        if (drm_panel_backlight_entry_matches(entry, edid))
+>> +            return &entry->quirk;
+>> +    }
+>> +
+>> +    return NULL;
+>> +}
+>> +EXPORT_SYMBOL(drm_get_panel_backlight_quirk);
+>> +
+>> +MODULE_LICENSE("GPL");
+>> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+>> index 70775748d243..37cc6de1a01a 100644
+>> --- a/include/drm/drm_utils.h
+>> +++ b/include/drm/drm_utils.h
+>> @@ -11,9 +11,20 @@
+>>   #define __DRM_UTILS_H__
+>>     #include <linux/types.h>
+>> +#include <drm/drm_edid.h>
+>> +
+>> +struct drm_panel_backlight_quirk {
+>> +    struct {
+>> +        bool pwm_min_brightness:1;
+>> +    } overrides;
+>> +
+>> +    u8 pwm_min_brightness; /* min_brightness/255 of max */
+>> +};
+>>     int drm_get_panel_orientation_quirk(int width, int height);
+>>   +const struct drm_panel_backlight_quirk *drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>> +
+>>   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+>>     #endif
+>>
+> 
 
