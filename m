@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B53C2BD05
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A55C2D0D1
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D826B10E39D;
-	Mon, 24 Jun 2024 07:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5393010E3A0;
+	Mon, 24 Jun 2024 07:42:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w0VQq05d";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="p88ZX1vK";
 	dkim-atps=neutral
-Received: from out30-111.freemail.mail.aliyun.com
- (out30-111.freemail.mail.aliyun.com [115.124.30.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06B3610E13B;
- Mon, 24 Jun 2024 01:57:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1719194239; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=kEmEdnA6MmtMya8ZtsQJGZHyWERAexbeV4W5aGUBu08=;
- b=w0VQq05dMCbB45n9A3HNmIUhU5xvZKEozjBK83f+itEOyjSi7QpWRXoWuQZcapO9gk66l8YylHNnjR7RxnldEtl/cLUSMfpEzqJ08oBzeDd2lKRJRbwcwrSmKUapqj9855Be38/mYLRayii5yYAg9V7Jb4XV5ROs9KHnMfhVuUg=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045046011;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0W90odGI_1719194229; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0W90odGI_1719194229) by smtp.aliyun-inc.com;
- Mon, 24 Jun 2024 09:57:18 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH] drm/amd/display: use swap() in is_config_schedulable()
-Date: Mon, 24 Jun 2024 09:57:07 +0800
-Message-Id: <20240624015707.121287-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3DC010E1ED;
+ Sun, 23 Jun 2024 08:51:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1719132689;
+ bh=w+SrR5E2JH9+hXfgQFtUFlkQAtNtXTw/JtvQbmbDgI4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=p88ZX1vK0LXjzMv9Cuf3tt6aYObE6RfqxXtI4UUCWNhDlS/8pUHs6gt6TGIhBRyII
+ piUqw4EzgSC5SJzS2SVOXyf+0NvY93HZQ7oeEaMX7hbKY4XRz8tJQPU3qihyA660ls
+ KnFOZBO4EQlpluBZmv5c9qrXmxOo6WA4YYudn7+s=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Sun, 23 Jun 2024 10:51:28 +0200
+Subject: [PATCH v2 2/3] drm: panel-backlight-quirks: Add Framework 13 matte
+ panel
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20240623-amdgpu-min-backlight-quirk-v2-2-cecf7f49da9b@weissschuh.net>
+References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
+In-Reply-To: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Hans de Goede <hdegoede@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1719132688; l=1413;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=w+SrR5E2JH9+hXfgQFtUFlkQAtNtXTw/JtvQbmbDgI4=;
+ b=kObTJ0lXuxpRUDitaTT79l1LZGQynamMmqQkggT8nuu6Lxxyrp77H8ph0Vgw7YJBGZJoCCeqI
+ HXJSPX3GUlCBx1Sh4goeIhsBO9tJ0ZcrMWYhTazIoelLw/0UaJwaF/U
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 24 Jun 2024 07:42:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,54 +68,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use existing swap() function rather than duplicating its implementation.
+The value of "min_input_signal" returned from ATIF on a Framework AMD 13
+is "12". This leads to a fairly bright minimum display backlight.
 
-./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c:1171:103-104: WARNING opportunity for swap().
-./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c:1231:99-100: WARNING opportunity for swap().
+Add a quirk to override that the minimum backlight PWM to "0" which
+leads to a much lower minimum brightness, which is still visible.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9400
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Tested on a Framework AMD 13 BIOS 3.05 with the matte panel.
+
+Link: https://community.frame.work/t/25711/9
+Link: https://community.frame.work/t/47036
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- .../dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-index 7272a04b9d1d..926d45496e79 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-@@ -1158,7 +1158,6 @@ static bool is_config_schedulable(
- 	schedulable = true;
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index a89b5fd1940e..e7671b1ba885 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -17,6 +17,15 @@ struct drm_panel_backlight_entry {
+ };
  
- 	/* sort disallow times from greatest to least */
--	unsigned int temp;
- 	for (i = 0; i < s->pmo_dcn4.num_timing_groups; i++) {
- 		bool swapped = false;
+ static const struct drm_panel_backlight_entry drm_panel_backlight_entries[] = {
++	/* 13 inch matte panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0bca),
++		.ident.name = "NE135FBM-N41",
++		.quirk.overrides.pwm_min_brightness = true,
++		.quirk.pwm_min_brightness = 0,
++	},
+ };
  
-@@ -1167,9 +1166,8 @@ static bool is_config_schedulable(
- 			double jp1_disallow_us = s->pmo_dcn4.group_common_fams2_meta[s->pmo_dcn4.sorted_group_gtl_disallow_index[j + 1]].disallow_time_us;
- 			if (j_disallow_us < jp1_disallow_us) {
- 				/* swap as A < B */
--				temp = s->pmo_dcn4.sorted_group_gtl_disallow_index[j];
--				s->pmo_dcn4.sorted_group_gtl_disallow_index[j] = s->pmo_dcn4.sorted_group_gtl_disallow_index[j + 1];
--				s->pmo_dcn4.sorted_group_gtl_disallow_index[j + 1] = temp;
-+				swap(s->pmo_dcn4.sorted_group_gtl_disallow_index[j],
-+				     s->pmo_dcn4.sorted_group_gtl_disallow_index[j+1]);
- 				swapped = true;
- 			}
- 		}
-@@ -1227,9 +1225,8 @@ static bool is_config_schedulable(
- 			double jp1_period_us = s->pmo_dcn4.group_common_fams2_meta[s->pmo_dcn4.sorted_group_gtl_period_index[j + 1]].period_us;
- 			if (j_period_us < jp1_period_us) {
- 				/* swap as A < B */
--				temp = s->pmo_dcn4.sorted_group_gtl_period_index[j];
--				s->pmo_dcn4.sorted_group_gtl_period_index[j] = s->pmo_dcn4.sorted_group_gtl_period_index[j + 1];
--				s->pmo_dcn4.sorted_group_gtl_period_index[j + 1] = temp;
-+				swap(s->pmo_dcn4.sorted_group_gtl_period_index[j],
-+				     s->pmo_dcn4.sorted_group_gtl_period_index[j+1]);
- 				swapped = true;
- 			}
- 		}
+ static bool drm_panel_backlight_entry_matches(const struct drm_panel_backlight_entry *entry,
+
 -- 
-2.20.1.7.g153144c
+2.45.2
 
