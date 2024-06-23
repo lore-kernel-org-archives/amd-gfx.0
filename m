@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE0D6C2D0D1
-	for <amd-gfx@archiver.kernel.org>; Sat, 22 Jun 2024 23:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3D1C27C4F
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Jun 2024 09:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2802310E514;
-	Sat, 22 Jun 2024 23:12:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D4310E1ED;
+	Sun, 23 Jun 2024 09:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kgSITK26";
+	dkim=pass (1024-bit key; unprotected) header.d=froggi.es header.i=joshua@froggi.es header.b="dp462EXw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5400A10E513;
- Sat, 22 Jun 2024 23:12:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719097932; x=1750633932;
- h=date:from:to:cc:subject:message-id;
- bh=F6FyhjxDwrnRfFKQwRZEXEyXdQXVBW4MdI4AGIrkByc=;
- b=kgSITK26Yg21dEw7lQj7PYJaW3mEY+DNiwwCYBQzD3VWV8qMuXeoMYjV
- wdXdbOty79ml71/+2C8e7JLWlnKGIMpzy9ttRp+qBHLANcXoNpbmt9jD/
- DcKjSzF+vk6E+YJAVHUcN2PPkpc4wF4+kW5IYOOVbk4CFEJiQ8Fh70V91
- v51Ve9ddAlHzep/7TbAD7AlEnRvv64xqlYCQmVRSOWGTjxoyKTySpc51c
- l+7vMsgcdtOA8bAUI1i8bWl7i2ErTOaWoBt2DfzJH1hMEE4IFRFIE/a3E
- BfZTeT9wONjz1j5UQPyRwyUNRsgB/DeG3Ve8O0Fp8K/ZyZxR7aEDOPt/6 w==;
-X-CSE-ConnectionGUID: BBhTGj4cTHSQtmN+fTokIA==
-X-CSE-MsgGUID: 3S2UEmGdRbebc4CtIdA7Wg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11111"; a="15934183"
-X-IronPort-AV: E=Sophos;i="6.08,258,1712646000"; d="scan'208";a="15934183"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2024 16:12:11 -0700
-X-CSE-ConnectionGUID: aM+jftoRTP2XdYmg/fZGOQ==
-X-CSE-MsgGUID: HUt80JxiQ3CKAsQIRkmCHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,258,1712646000"; d="scan'208";a="73669129"
-Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
- by orviesa002.jf.intel.com with ESMTP; 22 Jun 2024 16:12:08 -0700
-Received: from kbuild by 68891e0c336b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sL9tt-000A4o-0V;
- Sat, 22 Jun 2024 23:12:05 +0000
-Date: Sun, 23 Jun 2024 07:11:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, imx@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-mtd@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-Subject: [linux-next:master] BUILD REGRESSION
- f76698bd9a8ca01d3581236082d786e9a6b72bb7
-Message-ID: <202406230716.DQbMBKh0-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+X-Greylist: delayed 905 seconds by postgrey-1.36 at gabe;
+ Sun, 23 Jun 2024 09:36:12 UTC
+Received: from sender4-op-o10.zoho.com (sender4-op-o10.zoho.com
+ [136.143.188.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3025010E01F;
+ Sun, 23 Jun 2024 09:36:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1719134464; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=jg4pz1J7JxCUsIJ4NLlfVPom93hsXUjUUklYldn77UlW1J7vITR63f340Zjj7dP7VhhD/BbgdI7NJk+baaWW37SEBOUcb26sxcFXo1NMqwiDD2THPvLf9kyzvgbHvBaEWfaTcpF0qLQd6+Im1MRVNvX1FmZjZgHAD6wz3WGMN8o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1719134464;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=IDRH7REOOmEJVw8zchCha1EpfhlNdrhZ3hVqEhf5ZDA=; 
+ b=MsSiiiNraGuq7rO7jSAE5pvPrbAbhQ+RGkq8aDHqYxv4hkC4zD2iiFSyBlwR8ITo3C+F2CD7ZI+NW+eAXIC3Ma1Mv6tQ5agPMAtysLYKSk7v8ZqYfLnN+bjgE6b1tBL6JWV2RTl1t9sP4HGFL6q+LnYK4JJurS4Y8ML3Fm7Dlz4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=froggi.es;
+ spf=pass  smtp.mailfrom=joshua@froggi.es;
+ dmarc=pass header.from=<joshua@froggi.es>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1719134464; 
+ s=mail; d=froggi.es; i=joshua@froggi.es;
+ h=Date:Date:From:From:To:To:CC:Subject:Subject:In-Reply-To:References:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=IDRH7REOOmEJVw8zchCha1EpfhlNdrhZ3hVqEhf5ZDA=;
+ b=dp462EXwNpqN6bQk4NBsK7Y0qJQyW20U4EEY4OPuoFpZSSz17grCq5Ih0dxMkIlW
+ bskDHbsJFp5QPIJ3M2boxH7yxEQ5yoRSFxGVtq4Q4Bztg3Ns/Qo6niPZr6H+1KMjTtS
+ +Nll8F0KM6XmbJwuZb8gZDeTX9/0JEAH5FC8jJCw=
+Received: by mx.zohomail.com with SMTPS id 1719134462217433.4917300655152;
+ Sun, 23 Jun 2024 02:21:02 -0700 (PDT)
+Date: Sun, 23 Jun 2024 10:20:57 +0100
+From: Joshua Ashton <joshua@froggi.es>
+To: amd-gfx@lists.freedesktop.org, Ma Ke <make24@iscas.ac.cn>,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, srinivasan.shanmugam@amd.com,
+ aurabindo.pillai@amd.com, make24@iscas.ac.cn, guchun.chen@amd.com,
+ chenjiahao16@huawei.com
+CC: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: fix a possible null pointer dereference
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20240622082219.1876200-1-make24@iscas.ac.cn>
+References: <20240622082219.1876200-1-make24@iscas.ac.cn>
+Message-ID: <C5F9411A-0396-4B7F-B6D8-38F2C067283E@froggi.es>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-ZohoMailClient: External
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,245 +71,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: f76698bd9a8ca01d3581236082d786e9a6b72bb7  Add linux-next specific files for 20240621
+Are you planning on submitting a bogus CVE for this patch too?
 
-Error/Warning reports:
+- Joshie =F0=9F=90=B8=E2=9C=A8
 
-https://lore.kernel.org/oe-kbuild-all/202406220536.JnAncjqz-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202406220754.evK8Hrjw-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-drivers/soc/qcom/smsm.c:(.text.qcom_smsm_remove+0x70): undefined reference to `mbox_free_channel'
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-include/linux/container_of.h:20:54: error: invalid use of undefined type 'struct thpsize'
-include/linux/list.h:645:25: error: invalid use of undefined type 'struct thpsize'
-include/linux/stddef.h:16:33: error: invalid use of undefined type 'struct thpsize'
-mm/huge_memory.c:455:21: error: implicit declaration of function 'to_thpsize'; did you mean 'thp_size'? [-Werror=implicit-function-declaration]
-mm/huge_memory.c:455:37: error: invalid type argument of '->' (have 'int')
-mm/huge_memory.c:558:35: error: 'MTHP_STAT_FILE_ALLOC' undeclared (first use in this function); did you mean 'THP_FILE_ALLOC'?
-mm/huge_memory.c:559:38: error: 'MTHP_STAT_FILE_FALLBACK' undeclared (first use in this function); did you mean 'THP_FILE_FALLBACK'?
-mm/huge_memory.c:560:45: error: 'MTHP_STAT_FILE_FALLBACK_CHARGE' undeclared (first use in this function); did you mean 'THP_FILE_FALLBACK_CHARGE'?
-mm/huge_memory.c:579:17: warning: assignment to 'struct thpsize *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-mm/huge_memory.c:579:33: error: invalid application of 'sizeof' to incomplete type 'struct thpsize'
-mm/huge_memory.c:583:44: error: invalid use of undefined type 'struct thpsize'
-mm/huge_memory.c:608:15: warning: passing argument 1 of 'kfree' makes pointer from integer without a cast [-Wint-conversion]
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arm64-defconfig
-|   `-- arch-arm64-boot-dts-ti-k3-am62p-j722s-common-main.dtsi.-.:Warning-(graph_child_address):bus-f0000-usb-f900000-usb:graph-node-has-single-child-node-port-address-cells-size-cells-are-not-necessary
-|-- arm64-randconfig-051-20240622
-|   |-- arch-arm64-boot-dts-mediatek-mt8188-evb.dtb:power-controller:power-domain:power-domain:power-domain:power-domain:Unevaluated-properties-are-not-allowed-(-power-domain-power-domain-were-unexpected)
-|   |-- arch-arm64-boot-dts-mediatek-mt8390-genio-evk.dtb:mailbox:clock-names-is-a-required-property
-|   |-- arch-arm64-boot-dts-mediatek-mt8390-genio-evk.dtb:power-controller:power-domain:power-domain:power-domain:power-domain:Unevaluated-properties-are-not-allowed-(-power-domain-power-domain-were-unexpecte
-|   |-- arch-arm64-boot-dts-qcom-ipq5018-tplink-archer-ax55-v1.dtb:usb-8af8800:interrupt-names:hs_phy_irq-is-too-short
-|   |-- arch-arm64-boot-dts-qcom-ipq5018-tplink-archer-ax55-v1.dtb:usb-8af8800:interrupt-names:pwr_event-was-expected
-|   `-- arch-arm64-boot-dts-qcom-ipq5018-tplink-archer-ax55-v1.dtb:usb-8af8800:interrupts:is-too-short
-|-- arm64-randconfig-r131-20240622
-|   `-- arch-arm64-boot-dts-ti-k3-am62p-j722s-common-main.dtsi.-.:Warning-(graph_child_address):bus-f0000-usb-f900000-usb:graph-node-has-single-child-node-port-address-cells-size-cells-are-not-necessary
-|-- csky-randconfig-r111-20240622
-|   `-- drivers-clk-imx-clk-composite-7ulp.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-|-- loongarch-randconfig-r121-20240622
-|   |-- drivers-gpu-drm-xe-xe_oa.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-unsigned-long-long-const-noderef-__user-got-unsigned-long-long-usertype-ptr
-|   `-- drivers-gpu-drm-xe-xe_oa.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-unsigned-long-long-usertype-ptr-got-void-noderef-__user
-|-- mips-randconfig-r023-20221012
-|   `-- drivers-soc-qcom-smsm.c:(.text.qcom_smsm_remove):undefined-reference-to-mbox_free_channel
-|-- sparc-randconfig-r111-20240622
-|   |-- drivers-mtd-nand-raw-mxc_nand.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-buf-got-void-noderef-__iomem
-|   `-- drivers-mtd-nand-raw-mxc_nand.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-unsigned-short-noderef-usertype-__iomem-t-got-void-buf
-|-- x86_64-randconfig-014-20240202
-|   |-- include-linux-container_of.h:error:invalid-use-of-undefined-type-struct-thpsize
-|   |-- include-linux-list.h:error:invalid-use-of-undefined-type-struct-thpsize
-|   |-- include-linux-stddef.h:error:invalid-use-of-undefined-type-struct-thpsize
-|   |-- mm-huge_memory.c:error:MTHP_STAT_FILE_ALLOC-undeclared-(first-use-in-this-function)
-|   |-- mm-huge_memory.c:error:MTHP_STAT_FILE_FALLBACK-undeclared-(first-use-in-this-function)
-|   |-- mm-huge_memory.c:error:MTHP_STAT_FILE_FALLBACK_CHARGE-undeclared-(first-use-in-this-function)
-|   |-- mm-huge_memory.c:error:implicit-declaration-of-function-to_thpsize
-|   |-- mm-huge_memory.c:error:invalid-application-of-sizeof-to-incomplete-type-struct-thpsize
-|   |-- mm-huge_memory.c:error:invalid-type-argument-of-(have-int-)
-|   |-- mm-huge_memory.c:error:invalid-use-of-undefined-type-struct-thpsize
-|   |-- mm-huge_memory.c:warning:assignment-to-struct-thpsize-from-int-makes-pointer-from-integer-without-a-cast
-|   `-- mm-huge_memory.c:warning:passing-argument-of-kfree-makes-pointer-from-integer-without-a-cast
-`-- x86_64-randconfig-072-20240622
-    |-- drivers-input-touchscreen-wacom_w8001.c:warning:Finger-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-    `-- drivers-input-touchscreen-wacom_w8001.c:warning:Pen-directive-output-may-be-truncated-writing-bytes-into-a-region-of-size-between-and
-clang_recent_errors
-|-- i386-randconfig-062-20240622
-|   |-- drivers-gpu-drm-xe-xe_oa.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-volatile-noderef-__user-ptr-got-unsigned-long-long-usertype-ptr
-|   |-- drivers-gpu-drm-xe-xe_oa.c:sparse:sparse:incorrect-type-in-initializer-(different-address-spaces)-expected-unsigned-long-long-usertype-ptr-got-void-noderef-__user
-|   |-- net-l2tp-l2tp_core.c:sparse:sparse:cast-removes-address-space-__rcu-of-expression
-|   |-- net-l2tp-l2tp_core.c:sparse:sparse:dereference-of-noderef-expression
-|   |-- net-l2tp-l2tp_core.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-list_head-const-list-got-struct-list_head-noderef-__rcu-pos
-|   |-- net-l2tp-l2tp_core.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-list_head-noderef-__rcu-pos-got-struct-list_head-assigned-tmp
-|   `-- net-l2tp-l2tp_core.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-list_head-noderef-__rcu-pos-got-struct-list_head-next
-|-- x86_64-randconfig-121-20240622
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-resource-dcn32-dcn32_resource_helpers.c:sparse:sparse:Using-plain-integer-as-NULL-pointer
-`-- x86_64-randconfig-123-20240622
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-B-got-struct-ftrace_hash-noderef-__rcu-filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-B-got-struct-ftrace_hash-noderef-__rcu-notrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-new_hash-got-struct-ftrace_hash-noderef-__rcu-filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-new_hash1-got-struct-ftrace_hash-noderef-__rcu-filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-new_hash2-got-struct-ftrace_hash-noderef-__rcu-filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-new_hash2-got-struct-ftrace_hash-noderef-__rcu-notrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-orig_hash-got-struct-ftrace_hash-noderef-__rcu
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-src-got-struct-ftrace_hash-noderef-__rcu-filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-ftrace_hash-src-got-struct-ftrace_hash-noderef-__rcu-notrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-noderef-__rcu-filter_hash-got-struct-ftrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-noderef-__rcu-filter_hash-got-struct-ftrace_hash-assigned-filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-noderef-__rcu-filter_hash-got-struct-ftrace_hash-save_filter_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-noderef-__rcu-notrace_hash-got-struct-ftrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-noderef-__rcu-notrace_hash-got-struct-ftrace_hash-assigned-notrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-noderef-__rcu-notrace_hash-got-struct-ftrace_hash-save_notrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-notrace_hash-got-struct-ftrace_hash-noderef-__rcu-notrace_hash
-    |-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-save_filter_hash-got-struct-ftrace_hash-noderef-__rcu-filter_hash
-    `-- kernel-trace-ftrace.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-ftrace_hash-save_notrace_hash-got-struct-ftrace_hash-noderef-__rcu-notrace_hash
-
-elapsed time: 1700m
-
-configs tested: 134
-configs skipped: 2
-
-tested configs:
-alpha                             allnoconfig   gcc-13.2.0
-alpha                               defconfig   gcc-13.2.0
-arc                               allnoconfig   gcc-13.2.0
-arc                                 defconfig   gcc-13.2.0
-arc                   randconfig-001-20240622   gcc-13.2.0
-arc                   randconfig-002-20240622   gcc-13.2.0
-arm                               allnoconfig   clang-19
-arm                                 defconfig   clang-14
-arm                          pxa168_defconfig   clang-19
-arm                   randconfig-001-20240622   gcc-13.2.0
-arm                   randconfig-002-20240622   clang-19
-arm                   randconfig-003-20240622   clang-14
-arm                   randconfig-004-20240622   gcc-13.2.0
-arm                         wpcm450_defconfig   gcc-13.2.0
-arm64                             allnoconfig   gcc-13.2.0
-arm64                               defconfig   gcc-13.2.0
-arm64                 randconfig-001-20240622   clang-19
-arm64                 randconfig-002-20240622   clang-14
-arm64                 randconfig-003-20240622   gcc-13.2.0
-arm64                 randconfig-004-20240622   clang-19
-csky                             alldefconfig   gcc-13.2.0
-csky                              allnoconfig   gcc-13.2.0
-csky                                defconfig   gcc-13.2.0
-csky                  randconfig-001-20240622   gcc-13.2.0
-csky                  randconfig-002-20240622   gcc-13.2.0
-hexagon                           allnoconfig   clang-19
-hexagon                             defconfig   clang-19
-hexagon               randconfig-001-20240622   clang-19
-hexagon               randconfig-002-20240622   clang-19
-i386         buildonly-randconfig-001-20240622   gcc-13
-i386         buildonly-randconfig-002-20240622   clang-18
-i386         buildonly-randconfig-003-20240622   clang-18
-i386         buildonly-randconfig-004-20240622   gcc-13
-i386         buildonly-randconfig-005-20240622   gcc-13
-i386         buildonly-randconfig-006-20240622   clang-18
-i386                  randconfig-001-20240622   gcc-10
-i386                  randconfig-002-20240622   clang-18
-i386                  randconfig-003-20240622   gcc-13
-i386                  randconfig-004-20240622   gcc-13
-i386                  randconfig-005-20240622   clang-18
-i386                  randconfig-006-20240622   gcc-13
-i386                  randconfig-011-20240622   gcc-9
-i386                  randconfig-012-20240622   gcc-7
-i386                  randconfig-013-20240622   clang-18
-i386                  randconfig-014-20240622   clang-18
-i386                  randconfig-015-20240622   clang-18
-i386                  randconfig-016-20240622   clang-18
-loongarch                         allnoconfig   gcc-13.2.0
-loongarch                           defconfig   gcc-13.2.0
-loongarch                 loongson3_defconfig   gcc-13.2.0
-loongarch             randconfig-001-20240622   gcc-13.2.0
-loongarch             randconfig-002-20240622   gcc-13.2.0
-m68k                              allnoconfig   gcc-13.2.0
-m68k                                defconfig   gcc-13.2.0
-microblaze                        allnoconfig   gcc-13.2.0
-microblaze                          defconfig   gcc-13.2.0
-mips                              allnoconfig   gcc-13.2.0
-nios2                             allnoconfig   gcc-13.2.0
-nios2                               defconfig   gcc-13.2.0
-nios2                 randconfig-001-20240622   gcc-13.2.0
-nios2                 randconfig-002-20240622   gcc-13.2.0
-openrisc                          allnoconfig   gcc-13.2.0
-openrisc                            defconfig   gcc-13.2.0
-parisc                            allnoconfig   gcc-13.2.0
-parisc                              defconfig   gcc-13.2.0
-parisc                randconfig-001-20240622   gcc-13.2.0
-parisc                randconfig-002-20240622   gcc-13.2.0
-parisc64                            defconfig   gcc-13.2.0
-powerpc                           allnoconfig   gcc-13.2.0
-powerpc                      chrp32_defconfig   clang-19
-powerpc                      cm5200_defconfig   clang-19
-powerpc                   currituck_defconfig   clang-19
-powerpc                      mgcoge_defconfig   clang-19
-powerpc                     mpc5200_defconfig   clang-14
-powerpc                      pasemi_defconfig   clang-19
-powerpc               randconfig-001-20240622   gcc-13.2.0
-powerpc               randconfig-002-20240622   gcc-13.2.0
-powerpc               randconfig-003-20240622   clang-19
-powerpc                      walnut_defconfig   gcc-13.2.0
-powerpc64             randconfig-001-20240622   gcc-13.2.0
-powerpc64             randconfig-002-20240622   gcc-13.2.0
-powerpc64             randconfig-003-20240622   gcc-13.2.0
-riscv                             allnoconfig   gcc-13.2.0
-riscv                               defconfig   clang-19
-riscv                 randconfig-001-20240622   gcc-13.2.0
-riscv                 randconfig-002-20240622   gcc-13.2.0
-s390                              allnoconfig   clang-19
-s390                                defconfig   clang-19
-s390                  randconfig-001-20240622   clang-19
-s390                  randconfig-002-20240622   clang-15
-sh                                allnoconfig   gcc-13.2.0
-sh                                  defconfig   gcc-13.2.0
-sh                 kfr2r09-romimage_defconfig   gcc-13.2.0
-sh                    randconfig-001-20240622   gcc-13.2.0
-sh                    randconfig-002-20240622   gcc-13.2.0
-sh                           sh2007_defconfig   gcc-13.2.0
-sparc                             allnoconfig   gcc-13.2.0
-sparc                               defconfig   gcc-13.2.0
-sparc64                             defconfig   gcc-13.2.0
-sparc64               randconfig-001-20240622   gcc-13.2.0
-sparc64               randconfig-002-20240622   gcc-13.2.0
-um                                allnoconfig   clang-17
-um                                  defconfig   clang-19
-um                             i386_defconfig   gcc-13
-um                    randconfig-001-20240622   gcc-10
-um                    randconfig-002-20240622   clang-19
-um                           x86_64_defconfig   clang-15
-x86_64       buildonly-randconfig-001-20240622   gcc-8
-x86_64       buildonly-randconfig-002-20240622   clang-18
-x86_64       buildonly-randconfig-003-20240622   gcc-12
-x86_64       buildonly-randconfig-004-20240622   gcc-13
-x86_64       buildonly-randconfig-005-20240622   clang-18
-x86_64       buildonly-randconfig-006-20240622   gcc-13
-x86_64                randconfig-001-20240622   clang-18
-x86_64                randconfig-002-20240622   clang-18
-x86_64                randconfig-003-20240622   clang-18
-x86_64                randconfig-004-20240622   clang-18
-x86_64                randconfig-005-20240622   clang-18
-x86_64                randconfig-006-20240622   clang-18
-x86_64                randconfig-011-20240622   gcc-12
-x86_64                randconfig-012-20240622   gcc-8
-x86_64                randconfig-013-20240622   clang-18
-x86_64                randconfig-014-20240622   gcc-8
-x86_64                randconfig-015-20240622   clang-18
-x86_64                randconfig-016-20240622   gcc-12
-x86_64                randconfig-071-20240622   clang-18
-x86_64                randconfig-072-20240622   gcc-8
-x86_64                randconfig-073-20240622   clang-18
-x86_64                randconfig-074-20240622   gcc-12
-x86_64                randconfig-075-20240622   gcc-13
-x86_64                randconfig-076-20240622   gcc-10
-xtensa                            allnoconfig   gcc-13.2.0
-xtensa                randconfig-001-20240622   gcc-13.2.0
-xtensa                randconfig-002-20240622   gcc-13.2.0
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On June 22, 2024 9:22:19 AM GMT+01:00, Ma Ke <make24@iscas=2Eac=2Ecn> wrot=
+e:
+>In amdgpu_connector_add_common_modes(), the return value of drm_cvt_mode(=
+)
+>is assigned to mode, which will lead to a NULL pointer dereference on
+>failure of drm_cvt_mode()=2E Add a check to avoid npd=2E
+>
+>Signed-off-by: Ma Ke <make24@iscas=2Eac=2Ecn>
+>---
+> drivers/gpu/drm/amd/amdgpu/amdgpu_connectors=2Ec | 2 ++
+> 1 file changed, 2 insertions(+)
+>
+>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors=2Ec b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_connectors=2Ec
+>index 9caba10315a8=2E=2E6cf946adb6fe 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors=2Ec
+>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors=2Ec
+>@@ -458,6 +458,8 @@ static void amdgpu_connector_add_common_modes(struct =
+drm_encoder *encoder,
+> 			continue;
+>=20
+> 		mode =3D drm_cvt_mode(dev, common_modes[i]=2Ew, common_modes[i]=2Eh, 6=
+0, false, false, false);
+>+		if (!mode)
+>+			continue;
+> 		drm_mode_probed_add(connector, mode);
+> 	}
+> }
