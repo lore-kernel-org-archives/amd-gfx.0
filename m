@@ -4,73 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F53C41513
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 221CDC2BBCA
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:06:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7DB710E133;
-	Tue, 25 Jun 2024 07:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 143B910E296;
+	Tue, 25 Jun 2024 07:06:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ixsOEK67";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZFYvTTq/";
 	dkim-atps=neutral
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A6910E49C;
- Mon, 24 Jun 2024 15:13:03 +0000 (UTC)
-Received: by mail-qk1-f172.google.com with SMTP id
- af79cd13be357-795524bb6d9so283843985a.0; 
- Mon, 24 Jun 2024 08:13:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719241983; x=1719846783; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UMpMM3VMXw3Pt2FtK4Aaxt1tlk2OfNvq+GBMyg4jRHU=;
- b=ixsOEK67XijY1AZbHq8GTT1GaPdvU5zONNOii0O+uedJRgzmxhjaEcARaBlJaIAjp5
- LXQoTXZt9qrHYWqE14o7p6mQPxGXAtsTeWKf0LWaSLlKNCUWMv98FD6eG+hTmJanvqVO
- La1JlWzTSB1TyRiyxSJh/h99Op2iPu3rGrZr/QdcAa0gckx3Oe3YdTDkDXpQEQ+fATQU
- mmDqmP77KJO+D31m1FjaBiW+KSE8pj40QzJCma480Qk+ptywBetd61gnWz5CdR+0vPbk
- Npvfy6w1GZGcE+7Xp+etDECaap8XeW/l4gg/oqEN1kHaM6uf2DpcMBOChgjOfd3sQfjI
- 4wDQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB3310E3B9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 09:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1719219650;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qwzmRUQPsKQBeShL2OB+EDS/R27ivaae/oICxqvSPpk=;
+ b=ZFYvTTq/N3ssEVmiu4Jh53DxjSIyvGPcJr2OeUlsdFdZEIzLvVL0OCDU8gO84cs0TfzDNN
+ rtNUt4ENrKytqV9v/Zoit/NV7sowWwB9Vg2TgRaehfp2TzK+OBDb2C5cu39nYZAHpJVImd
+ RZQ+OfemD1cfcg6wixIv6/cipOJSFz4=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-533-k_iek2KPPUGVMOfx0TeaQw-1; Mon, 24 Jun 2024 05:00:48 -0400
+X-MC-Unique: k_iek2KPPUGVMOfx0TeaQw-1
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-a7244d1b086so92951866b.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 02:00:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719241983; x=1719846783;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UMpMM3VMXw3Pt2FtK4Aaxt1tlk2OfNvq+GBMyg4jRHU=;
- b=U+UH3gxCatJsMjDA9s6FRPMqB21a1xwxhgD8uUwhskB+ddt4cc/BUdNUQ7dwatZwIc
- mnVhlZrf+1AfM/MMAvxkKAhJ3kAEWVkAz0VCi/5nsYEvkHV1Sn31IivhzjO51dnyi6K/
- XO2ECXzvcO0TCJZd3u0qLrsrX95NLg6WTyWORJse/vgBE4tvtA+zh2+I0XMFB53Tn6tn
- ujLARMB0fdZpAP7D/6XY2HfvhyV94NAfstCd63W7dlG9dF+AQukQZAsTelzlk7Dp+ecf
- 9G2wsF56nmciH3eotOTsjcxHbAxaYDzTx336EJERrDoWZTRpH35SuwBNmfR9Px/puFGl
- 9OMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVX0ZQ+alF/RE7gI+Wowdd7dPmLP+wQRmkfrdD++DjfSV17n+xuHxMYvueOkTtf8LB/GLA1lziga/8dTz6Eic275HRAyyvzdmakGZ4Y+kPyRAnUJPezErI+0ihbSa9LXJm16JjNLgVFrrfya2gaLw==
-X-Gm-Message-State: AOJu0Yxp37WaQG6CDAKQsBJKWfL0oZvAMNkI5CpdtU0+/hK6mzRk+slk
- hdXb/ZAG9KrLoFnXiJwJkdFO14oFZeOFnmAOrBy5KNgTCbvFLhRu
-X-Google-Smtp-Source: AGHT+IFMVmdeX14jN4dWDHaBXFZ14U2ROwwMKJgHg1KAQgkmU+44jh2hW2HjmSWq5/Aio0upbqp3qg==
-X-Received: by 2002:a0c:f013:0:b0:6b5:4fbc:4c4a with SMTP id
- 6a1803df08f44-6b54fbc4edfmr32286396d6.2.1719241982809; 
- Mon, 24 Jun 2024 08:13:02 -0700 (PDT)
-Received: from localhost.localdomain ([142.198.217.108])
+ d=1e100.net; s=20230601; t=1719219647; x=1719824447;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qwzmRUQPsKQBeShL2OB+EDS/R27ivaae/oICxqvSPpk=;
+ b=jGYMSGmKZJQcrNZKsJ2xml8fZ7CjpPcKLKw2MW981klnO2hYlI9ueHv2gX9DRZvDOk
+ PVM7EJIIk0yB5/5uTW4TdFyd/XWpXemx5XkKV1EmTDyoCOQ2oZXosP+FmPKmzIoYQu92
+ CzFFxl4xIQxZm3DVtJagHA8tNMrxgSRFz34XF/aonXqeloOHG9jcMlBk4hpoOcdCuhY5
+ BH33pzuToAoqaBZimwb7aurC0ehdcJJZAwEWC5fWn9ueyUEaTHhXD1mBKFD7ikIqXTyH
+ WF6KSxv3SK1uXw+dF1UcTx5v8C6sIVmdsy5hOVeffm23y0g7/DYkFyIdxPEOq3sghBUz
+ kIxQ==
+X-Gm-Message-State: AOJu0Yzwc54xXOUFf/rz9ISCXNBCwAI3x+fdIYZ3Hn16aO49wg299vr2
+ 3uR5GDzHmu/RU4LJumYKmR/mFqQVuPhk+dssvYGsDoCwi2tXqgmh249C6fnEgOdTl9b6m49y2Ir
+ qZU4PJA7W1PXpmh72p1uGxBVMDSPT5QZgCBtIqh0h9FWHoSNssrmKG5ezCV629V0=
+X-Received: by 2002:a17:906:150d:b0:a6f:f1bc:21ce with SMTP id
+ a640c23a62f3a-a7245c4837emr240508566b.47.1719219647542; 
+ Mon, 24 Jun 2024 02:00:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHuFDg4vMl4mXJj0YJkOY4Yu0h9QNLUUllyhO25TzJD0zz4pk3MzzNyFs/gus8N4uz64OpOug==
+X-Received: by 2002:a17:906:150d:b0:a6f:f1bc:21ce with SMTP id
+ a640c23a62f3a-a7245c4837emr240505366b.47.1719219647050; 
+ Mon, 24 Jun 2024 02:00:47 -0700 (PDT)
+Received: from [10.40.98.157] ([78.108.130.194])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b529eb3decsm27243976d6.12.2024.06.24.08.13.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 08:13:02 -0700 (PDT)
-From: Wu Hoi Pok <wuhoipok@gmail.com>
-To: 
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Wu Hoi Pok <wuhoipok@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/7] drm/radeon: rdev->ddev to rdev_to_drm(rdev) 3
-Date: Mon, 24 Jun 2024 11:10:48 -0400
-Message-ID: <20240624151122.23724-5-wuhoipok@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240624151122.23724-1-wuhoipok@gmail.com>
-References: <20240624151122.23724-1-wuhoipok@gmail.com>
+ a640c23a62f3a-a7250010f77sm125328266b.181.2024.06.24.02.00.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jun 2024 02:00:46 -0700 (PDT)
+Message-ID: <cee2effc-8295-4d96-b544-e225cd0d73fb@redhat.com>
+Date: Mon, 24 Jun 2024 11:00:45 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] drm: Add panel backlight quirks
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>
+References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
+ <20240623-amdgpu-min-backlight-quirk-v2-1-cecf7f49da9b@weissschuh.net>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20240623-amdgpu-min-backlight-quirk-v2-1-cecf7f49da9b@weissschuh.net>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Jun 2024 07:06:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,166 +102,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Please refer to patch 1.
+Hi Thomas,
 
-Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
----
- drivers/gpu/drm/radeon/r600_hdmi.c       |  2 +-
- drivers/gpu/drm/radeon/radeon_acpi.c     | 10 +++++-----
- drivers/gpu/drm/radeon/radeon_agp.c      |  2 +-
- drivers/gpu/drm/radeon/radeon_atombios.c |  2 +-
- drivers/gpu/drm/radeon/radeon_audio.c    |  4 ++--
- drivers/gpu/drm/radeon/radeon_combios.c  | 12 ++++++------
- 6 files changed, 16 insertions(+), 16 deletions(-)
+On 6/23/24 10:51 AM, Thomas Weißschuh wrote:
+> Panels using a PWM-controlled backlight source without an do not have a
+> standard way to communicate their valid PWM ranges.
+> On x86 the ranges are read from ACPI through driver-specific tables.
+> The built-in ranges are not necessarily correct, or may grow stale if an
+> older device can be retrofitted with newer panels.
+> 
+> Add a quirk infrastructure with which the valid backlight ranges can be
+> maintained as part of the kernel.
+> 
+> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+> ---
+>  Documentation/gpu/drm-kms-helpers.rst        |  3 ++
+>  drivers/gpu/drm/Kconfig                      |  4 ++
+>  drivers/gpu/drm/Makefile                     |  1 +
+>  drivers/gpu/drm/drm_panel_backlight_quirks.c | 67 ++++++++++++++++++++++++++++
+>  include/drm/drm_utils.h                      | 11 +++++
+>  5 files changed, 86 insertions(+)
+> 
+> diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+> index 59cfe8a7a8ba..1998a2675210 100644
+> --- a/Documentation/gpu/drm-kms-helpers.rst
+> +++ b/Documentation/gpu/drm-kms-helpers.rst
+> @@ -224,6 +224,9 @@ Panel Helper Reference
+>  .. kernel-doc:: drivers/gpu/drm/drm_panel_orientation_quirks.c
+>     :export:
+>  
+> +.. kernel-doc:: drivers/gpu/drm/drm_panel_backlight_quirks.c
+> +   :export:
+> +
+>  Panel Self Refresh Helper Reference
+>  ===================================
+>  
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 959b19a04101..50ccb43315bf 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -443,6 +443,10 @@ config DRM_EXPORT_FOR_TESTS
+>  config DRM_PANEL_ORIENTATION_QUIRKS
+>  	tristate
+>  
+> +# Separate option as not all DRM drivers use it
+> +config DRM_PANEL_BACKLIGHT_QUIRKS
+> +	tristate
+> +
+>  config DRM_LIB_RANDOM
+>  	bool
+>  	default n
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index f9ca4f8fa6c5..6669913b907e 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -92,6 +92,7 @@ drm-$(CONFIG_DRM_PANIC) += drm_panic.o
+>  obj-$(CONFIG_DRM)	+= drm.o
+>  
+>  obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
+> +obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) += drm_panel_backlight_quirks.o
+>  
+>  #
+>  # Memory-management helpers
+> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+> new file mode 100644
+> index 000000000000..a89b5fd1940e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+> @@ -0,0 +1,67 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/dmi.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <drm/drm_connector.h>
+> +#include <drm/drm_utils.h>
+> +
+> +struct drm_panel_backlight_entry {
+> +	struct {
+> +		enum dmi_field field;
+> +		const char * const value;
+> +	} dmi_match;
 
-diff --git a/drivers/gpu/drm/radeon/r600_hdmi.c b/drivers/gpu/drm/radeon/r600_hdmi.c
-index f3551ebaa2f0..661f374f5f27 100644
---- a/drivers/gpu/drm/radeon/r600_hdmi.c
-+++ b/drivers/gpu/drm/radeon/r600_hdmi.c
-@@ -116,7 +116,7 @@ void r600_audio_update_hdmi(struct work_struct *work)
- {
- 	struct radeon_device *rdev = container_of(work, struct radeon_device,
- 						  audio_work);
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	struct r600_audio_pin audio_status = r600_audio_status(rdev);
- 	struct drm_encoder *encoder;
- 	bool changed = false;
-diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeon/radeon_acpi.c
-index 603a78e41ba5..22ce61bdfc06 100644
---- a/drivers/gpu/drm/radeon/radeon_acpi.c
-+++ b/drivers/gpu/drm/radeon/radeon_acpi.c
-@@ -405,11 +405,11 @@ static int radeon_atif_handler(struct radeon_device *rdev,
- 	if (req.pending & ATIF_DGPU_DISPLAY_EVENT) {
- 		if ((rdev->flags & RADEON_IS_PX) &&
- 		    radeon_atpx_dgpu_req_power_for_displays()) {
--			pm_runtime_get_sync(rdev->ddev->dev);
-+			pm_runtime_get_sync(rdev_to_drm(rdev)->dev);
- 			/* Just fire off a uevent and let userspace tell us what to do */
--			drm_helper_hpd_irq_event(rdev->ddev);
--			pm_runtime_mark_last_busy(rdev->ddev->dev);
--			pm_runtime_put_autosuspend(rdev->ddev->dev);
-+			drm_helper_hpd_irq_event(rdev_to_drm(rdev));
-+			pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
-+			pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
- 		}
- 	}
- 	/* TODO: check other events */
-@@ -736,7 +736,7 @@ int radeon_acpi_init(struct radeon_device *rdev)
- 		struct radeon_encoder *target = NULL;
- 
- 		/* Find the encoder controlling the brightness */
--		list_for_each_entry(tmp, &rdev->ddev->mode_config.encoder_list,
-+		list_for_each_entry(tmp, &rdev_to_drm(rdev)->mode_config.encoder_list,
- 				head) {
- 			struct radeon_encoder *enc = to_radeon_encoder(tmp);
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_agp.c b/drivers/gpu/drm/radeon/radeon_agp.c
-index a3d749e350f9..89d7b0e9e79f 100644
---- a/drivers/gpu/drm/radeon/radeon_agp.c
-+++ b/drivers/gpu/drm/radeon/radeon_agp.c
-@@ -161,7 +161,7 @@ struct radeon_agp_head *radeon_agp_head_init(struct drm_device *dev)
- 
- static int radeon_agp_head_acquire(struct radeon_device *rdev)
- {
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 
- 	if (!rdev->agp)
-diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-index 10793a433bf5..97c4e10d0550 100644
---- a/drivers/gpu/drm/radeon/radeon_atombios.c
-+++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-@@ -187,7 +187,7 @@ void radeon_atombios_i2c_init(struct radeon_device *rdev)
- 
- 			if (i2c.valid) {
- 				sprintf(stmp, "0x%x", i2c.i2c_id);
--				rdev->i2c_bus[i] = radeon_i2c_create(rdev->ddev, &i2c, stmp);
-+				rdev->i2c_bus[i] = radeon_i2c_create(rdev_to_drm(rdev), &i2c, stmp);
- 			}
- 			gpio = (ATOM_GPIO_I2C_ASSIGMENT *)
- 				((u8 *)gpio + sizeof(ATOM_GPIO_I2C_ASSIGMENT));
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index 0bcd767b9f47..47aa06a9a942 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -196,7 +196,7 @@ static void radeon_audio_enable(struct radeon_device *rdev,
- 		return;
- 
- 	if (rdev->mode_info.mode_config_initialized) {
--		list_for_each_entry(encoder, &rdev->ddev->mode_config.encoder_list, head) {
-+		list_for_each_entry(encoder, &rdev_to_drm(rdev)->mode_config.encoder_list, head) {
- 			if (radeon_encoder_is_digital(encoder)) {
- 				radeon_encoder = to_radeon_encoder(encoder);
- 				dig = radeon_encoder->enc_priv;
-@@ -760,7 +760,7 @@ static int radeon_audio_component_get_eld(struct device *kdev, int port,
- 	if (!rdev->audio.enabled || !rdev->mode_info.mode_config_initialized)
- 		return 0;
- 
--	list_for_each_entry(encoder, &rdev->ddev->mode_config.encoder_list, head) {
-+	list_for_each_entry(encoder, &rdev_to_drm(rdev)->mode_config.encoder_list, head) {
- 		if (!radeon_encoder_is_digital(encoder))
- 			continue;
- 		radeon_encoder = to_radeon_encoder(encoder);
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index 6952b1273b0f..41ddc576f8f8 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -372,7 +372,7 @@ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
- 	int edid_info, size;
- 	struct edid *edid;
- 	unsigned char *raw;
--	edid_info = combios_get_table_offset(rdev->ddev, COMBIOS_HARDCODED_EDID_TABLE);
-+	edid_info = combios_get_table_offset(rdev_to_drm(rdev), COMBIOS_HARDCODED_EDID_TABLE);
- 	if (!edid_info)
- 		return false;
- 
-@@ -642,7 +642,7 @@ static struct radeon_i2c_bus_rec combios_setup_i2c_bus(struct radeon_device *rde
- 
- static struct radeon_i2c_bus_rec radeon_combios_get_i2c_info_from_table(struct radeon_device *rdev)
- {
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	struct radeon_i2c_bus_rec i2c;
- 	u16 offset;
- 	u8 id, blocks, clk, data;
-@@ -670,7 +670,7 @@ static struct radeon_i2c_bus_rec radeon_combios_get_i2c_info_from_table(struct r
- 
- void radeon_combios_i2c_init(struct radeon_device *rdev)
- {
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	struct radeon_i2c_bus_rec i2c;
- 
- 	/* actual hw pads
-@@ -812,7 +812,7 @@ bool radeon_combios_get_clock_info(struct drm_device *dev)
- 
- bool radeon_combios_sideport_present(struct radeon_device *rdev)
- {
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	u16 igp_info;
- 
- 	/* sideport is AMD only */
-@@ -915,7 +915,7 @@ struct radeon_encoder_primary_dac *radeon_combios_get_primary_dac_info(struct
- enum radeon_tv_std
- radeon_combios_get_tv_info(struct radeon_device *rdev)
- {
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	uint16_t tv_info;
- 	enum radeon_tv_std tv_std = TV_STD_NTSC;
- 
-@@ -2637,7 +2637,7 @@ static const char *thermal_controller_names[] = {
- 
- void radeon_combios_get_power_modes(struct radeon_device *rdev)
- {
--	struct drm_device *dev = rdev->ddev;
-+	struct drm_device *dev = rdev_to_drm(rdev);
- 	u16 offset, misc, misc2 = 0;
- 	u8 rev, tmp;
- 	int state_index = 0;
--- 
-2.45.2
+Matching on a single DMI string is not always enough to uniquely identify
+a machine. I would change this to a dmi_system_id struct and then add
+an array with 2 dmi_system_id structs in drm_panel_backlight_entry_matches()
+and copy the struct to the first array entry + zero out the second entry
+(terminator) and then use dmi_check_system().
+
+> +	struct drm_edid_ident ident;
+
+Hmm, what about DSI panels? These do not (always) have EDID info AFAIK.
+
+drivers/gpu/drm/drm_panel_orientation_quirks.c is using a resolution match
+so as to hopefully not match external screens, but that is also so that it can
+be used from efifb / simpledrm and here you really do want to differentiate
+between different panels by panel model.
+
+So I guess that the EDId match is fine and if we ever need to match DSI panels
+without EDID we figure something out then.
+
+Thinking more about this I have a question about the approach as a whole though,
+I'll reply to the cover-letter with this.
+
+Regards,
+
+Hans
+
+
+
+> +	struct drm_panel_backlight_quirk quirk;
+> +};
+> +
+> +static const struct drm_panel_backlight_entry drm_panel_backlight_entries[] = {
+> +};
+> +
+> +static bool drm_panel_backlight_entry_matches(const struct drm_panel_backlight_entry *entry,
+> +					      const struct drm_edid *edid)
+> +{
+> +	if (!dmi_match(entry->dmi_match.field, entry->dmi_match.value))
+> +		return false;
+> +
+> +	if (!drm_edid_match(edid, &entry->ident))
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+> +/**
+> + * drm_get_panel_panel_quirk - Check for panel backlight quirks
+> + * @edid: EDID of the panel to check
+> + *
+> + * This function checks for platform specific (e.g. DMI based) quirks
+> + * providing info on backlight control for systems where this cannot be
+> + * probed from the hard-/firm-ware.
+> + *
+> + * Returns:
+> + * A struct drm_panel_backlight_quirk if a quirk is found or NULL otherwise.
+> + */
+> +const struct drm_panel_backlight_quirk *drm_get_panel_backlight_quirk(const struct drm_edid *edid)
+> +{
+> +	const struct drm_panel_backlight_entry *entry;
+> +	size_t i;
+> +
+> +	if (!IS_ENABLED(CONFIG_DMI))
+> +		return NULL;
+> +
+> +	if (!edid)
+> +		return NULL;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(drm_panel_backlight_entries); i++) {
+> +		entry = &drm_panel_backlight_entries[i];
+> +
+> +		if (drm_panel_backlight_entry_matches(entry, edid))
+> +			return &entry->quirk;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +EXPORT_SYMBOL(drm_get_panel_backlight_quirk);
+> +
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 70775748d243..37cc6de1a01a 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -11,9 +11,20 @@
+>  #define __DRM_UTILS_H__
+>  
+>  #include <linux/types.h>
+> +#include <drm/drm_edid.h>
+> +
+> +struct drm_panel_backlight_quirk {
+> +	struct {
+> +		bool pwm_min_brightness:1;
+> +	} overrides;
+> +
+> +	u8 pwm_min_brightness; /* min_brightness/255 of max */
+> +};
+>  
+>  int drm_get_panel_orientation_quirk(int width, int height);
+>  
+> +const struct drm_panel_backlight_quirk *drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+> +
+>  signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+>  
+>  #endif
+> 
 
