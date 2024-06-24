@@ -4,150 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DC6C2BD05
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 11:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9436CC2BD05
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 11:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 243F910E17D;
-	Mon, 24 Jun 2024 11:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFDD10E400;
+	Mon, 24 Jun 2024 11:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zj35swdp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fO1TINHJ";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7088110E17D
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 11:57:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wa2hV2g+Ev8eQ6Jtjx7iBM0qlTgiV5rBXGpycPFSeKeTZQKaNlqBLfDySOwUQ62IKClbaHOfnWzB+8VxyAk/mF665SM9Hp4w08G/ZOvfFtnEqbtaRlyikaHHNYq+Mexovx/mibxCtgV0w4NfMeu3ZA8+hHMsK8MaR7KWhpyzb1MVA8p9gm+Qqwv205b1szj47ltA+F+SEn39c2pUeBH9c4chgHQ4Jk4p3MjjIiZ+shof/dTkdN0ef1MLUq+VA1ABU9gl9zD/L775YkMNouu4t18YgHwIsqGKS6pviG5p2XetF5kFA7ze5WLha+2mCxrBxFBAs+rCpHAGWPb7C5PKqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aqHb5n8c6asaELxuwsFcHegF0Y2uBn1+yGxwuy2UGMw=;
- b=XVWhU+E2JCtwQn9SifAdBC4qeVluRMAmeaVJ238jamEQWEBOF55EIBetHffOCOzNXNv8/Etx3MKV8NlSHVl05vO5Sl4CwTWh61LYVt8rRaA+ujna+fnIjndPcOIdrdcf2W8llNGe8FHl59Z6VbSuYZg60Lvt9Q/JzJDHRu+QXmfbs31XJL5pqYjh/LNtdaJ1UxMsGExIzZkZM8AwTPSnOLvbqhSsXo1yA4DwvqmexDxxmZ0s3KNxpqWBB3oS5LuA2a5ED6el4Bm1Wa/6QhvUtubkkwsB11NFGIFn29UdzxVjKD2z/vjQ84aLC45uCta14cv5n0NwgDko77dz/VUPyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aqHb5n8c6asaELxuwsFcHegF0Y2uBn1+yGxwuy2UGMw=;
- b=zj35swdp3yBCPgHLDuZefsr8okWiTjFZE+epGo0jRwROXraAUQlr2E8gAql1IzwT0X4ii9HpNXFeuVVaLSOvuW82GdXzwOCUQqKPDXZJy+BfpSB6PJ5+lbmTQny25hmWezAaqOKpikFX46HjqSgyU0nsKcK6S3EHbBLxErnMCRI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- DM6PR12MB4417.namprd12.prod.outlook.com (2603:10b6:5:2a4::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7698.26; Mon, 24 Jun 2024 11:57:09 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%6]) with mapi id 15.20.7698.025; Mon, 24 Jun 2024
- 11:57:09 +0000
-Message-ID: <fae5960b-b782-4f7f-b8b2-64a1af62f61f@amd.com>
-Date: Mon, 24 Jun 2024 17:27:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: drop kiq access while in reset
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Vignesh Chander <Vignesh.Chander@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: jeffrey.chan@amd.com, zhigang.luo@amd.com
-References: <20240624063109.655690-1-Vignesh.Chander@amd.com>
- <6f21496a-282c-428e-b66d-92edb82b21d8@amd.com>
- <5d63de6b-0d46-422f-bc6e-6f59fce6104a@gmail.com>
- <ddc93078-bebc-4414-b6c9-07e01d663838@amd.com>
- <543fd667-6e91-4efb-b3e2-49d0c9a5c467@gmail.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <543fd667-6e91-4efb-b3e2-49d0c9a5c467@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0043.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:81::14) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC4B10E400
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 11:57:38 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-366df217347so1750131f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 04:57:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1719230256; x=1719835056; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=G6XGu4Pev8zY7umAugJtpJV+gIO1oLEC2FNKwtw2oA8=;
+ b=fO1TINHJG7fcUZ6oiuFt0vSAIJrH2dgLzNk4d5j9BHNNnruoIRJjc6S3+V/TLHKaOS
+ IIeaXxMDK9CVDJWSOQU+NZW4S3mFj0BorPUIGo3hNGLLXlB9qBxNPX2yErlaYksNEkjv
+ NdNfFZ6Hr+c/a50yzPKmD3Zv1l0f/xFK7D9lYVru99J9WwXGOa/5wc3djKyt9BN6JCy6
+ Owda9XDaqvSA9GVqoLskjnGmgBJVkdPCe4r7kN6FpAgOm4eoARH4/UEmEkDgaqgsCgAB
+ Ae/FxS6PDewPTv+IWZE06CVzIPN+9oc/N+wJkjlrFnieQ+XtcCsB9mO3rR9fQT1mvZU2
+ ndNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719230256; x=1719835056;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=G6XGu4Pev8zY7umAugJtpJV+gIO1oLEC2FNKwtw2oA8=;
+ b=RZXpaiNss9W4sNFsp1K/z8ElDvLDTjo8XT1SdsWImA19CXUXl6WlVVibPkIBxsO3Or
+ CC0JH0mGUNSsJ5aGrHlqKFykOcTAC7SxpJnkjGJJsCImuPE/yu6yMJHOUwrgDVJEFkTL
+ fX0yD1gzb1y14m8Iq5Q4CZgFV+978vESYKpmE/F4Yi+l9ZDWEZHxD+a54e7gUaXB1kT/
+ 7vCv6loQ2u9AAkVSfvSWR6T/wEYSj8gMHDDhoL+lZg2Izoe4tkpCJtSBbPv9lQjQEi5d
+ 4mefWpKOxcLWa5O9FTnA3nCG2ZhCQQjt7DSeSdmmJj2S9qBEPHEA30E5to1BFOZatZNN
+ Rx2Q==
+X-Gm-Message-State: AOJu0Yz+yGolKCHUu1XdQtfvtLW2r+cTEkPbYIX3V/pJPHLeVcDPm2gj
+ 1aWmf5YEia73XLnyPNGkuZmMAeHHk4Al+F4RdPvWjucdSjYmIwux
+X-Google-Smtp-Source: AGHT+IGu3fXWcbALud87sYla/cPr3wyQGFpAiw1dK7zUANKJcTIKQTHlb/LDJoQVA9aOvS6lGbbSxw==
+X-Received: by 2002:a5d:5f8e:0:b0:366:ebd1:3bbf with SMTP id
+ ffacd0b85a97d-366ebd13c07mr3253046f8f.2.1719230255696; 
+ Mon, 24 Jun 2024 04:57:35 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36638d9bfd5sm9919559f8f.54.2024.06.24.04.57.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jun 2024 04:57:35 -0700 (PDT)
+Message-ID: <0cf4b8a0-d36c-4cbd-ad33-f74c2d1eff29@gmail.com>
+Date: Mon, 24 Jun 2024 13:57:34 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DM6PR12MB4417:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17623d27-9214-46c2-36b3-08dc9444c6ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230037|366013|1800799021|376011;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bnp4T01Ocm1sU0p0QmJkMWxncWE0QU5ydDVDWE1iWkFUNTFVWHo0Q3JpcE4v?=
- =?utf-8?B?bmVQaGZFNVNlZUtVSExXUURNems4RWpOeFpFY3BpU1BseDBOWjZjWS9kMXlm?=
- =?utf-8?B?N1R6emsrV21neDFTNE9oRitUUE1iNVdhVXUzTVlmZnBIVmZxWlg2aVIwZ3E0?=
- =?utf-8?B?cnpvRVlGYWhkNHpJcXNpMDRhdllvbzB6MkYrOTlDVXk3bUxiN0JoNzBEKzhL?=
- =?utf-8?B?cEw4U3IxYi81RDNjaEVHU3BVaUtHU2VlTnZCRDFoYzQ3Q0ZpUGtVLzZlbFZN?=
- =?utf-8?B?cDVrQXJoWkp0aDEzV3lqL3c1UlYvK0FVZTFUeGFTMTF3dkRYM2psMXoyMWJk?=
- =?utf-8?B?VnRZSFYrYVJzdytyNnB6eEFha3FGbG11N3RGRnlaS0l1YXNHUEdBT09rejBN?=
- =?utf-8?B?YTVORkFIVG9SVStvK1I2K3FEeXRpTjhCTGFqWC9qV1VzclF0NmRwY056aktN?=
- =?utf-8?B?cm1QR0o5TWJlR1dnLzM4QXZkLzVraXl2YlJEdHZhTWtXQlpLeDQ1ck5yWkh3?=
- =?utf-8?B?b0tLUi9vMzV2cVlsZWplSmkwM3BBNkozei9vRnhLR2dZTlZrUFNlUS91RDBy?=
- =?utf-8?B?VHRHSkNENzNON3k0enl5ZSswT0F1YzlMN2Fham9jMDFCb254ZHpNRktvVEFh?=
- =?utf-8?B?NHhKdEFQQVVsdnZWdmdlczdFWlVqdFJPenBGZWNOeFh4LzJ0RzZqcnBEMG5K?=
- =?utf-8?B?VTJzK2lMMWhHZHA1R1oxNURKV01yMVd5aFFVK2J2eC9pdmRUcjBNZFgwTGsz?=
- =?utf-8?B?c2RUNnIwRFlkQTNFb2M4OFFoM09DWTlJN0F2TWJQeDI4TkJsTS9VRGE0bGxy?=
- =?utf-8?B?UkRlMngwK3lhdUlFQUw5VVIzQkpKZDBvT1UrcHZDckJaMitJR0JWUGpBcnpS?=
- =?utf-8?B?dDN4cWUyZXdGTy9GWStxK1NHMU5EWU13YUF3SGR3OStSckR3a3lDeitKbzQw?=
- =?utf-8?B?eVFLV3FSUndiTnl4UUp4cjlPT0ZXMENUZzI1UUxVNjNhTTJkU2xqbmM2M0hq?=
- =?utf-8?B?TW4zSitkZG5TNXRlV1lIY2FwaEdIdjZiQmFWVCszbUVrNHpLb01LUk1wdkJP?=
- =?utf-8?B?WWdXdXhiMUJoNnhNSm9PU2dHdDBEbFdpRDUxZWkzYmRsTEZuT1RlV3pwSWFY?=
- =?utf-8?B?NUEwMEVHMzFBa0Q4NlR1cXlwS2k5SUx2YUthOXZWTFl2V01uMWR2cnZsOXNp?=
- =?utf-8?B?bXVRc3pvT3NJcjNnNVZSa2xCS0VSSWY4c2E5bVUwelF2ZE9GdkhJUXE1eHdD?=
- =?utf-8?B?b0F3Y0oybDRtN0FwM29wUzlRZjhYdzdFQ29Jem5mbnBJTzkzeURIVHBVSEpG?=
- =?utf-8?B?VTRXUHdtekk4QUNGYnUvcTRFTENRNi8zdzJGeFpoRTJNakpMbVFsUEN4ZXBp?=
- =?utf-8?B?Ujl0Zk5kOU14MGRVcDJWczcwZ2dycU0xWHJMQWJPeWVhRThvc2tiUjAybTYx?=
- =?utf-8?B?SWxISXNPRVhSU0p1SWpGV1VNZ2JjOFBBRVBFQ3FxRHArbk5TaWxwYnJJOVlY?=
- =?utf-8?B?dkY0WFdzbDNPNkRZRlg5NTFjUUx3QTNSZ3p1RldQUnkvejJXVnRJUVU3bXNk?=
- =?utf-8?B?M3BXOTZYR20vMmZRUjI2c1hmdnVzMXJBcFI1V1czN04yQjVMSWszTTFYV3Vr?=
- =?utf-8?B?RlBzRTRNaHVVMzU1MStwVFZXN2s4UkFtT3hBcEs3ZlJDTW5QQ0ZxdTZBN240?=
- =?utf-8?B?YmNNbjJHbUlIRGtheVgvRDh5eXVISkpKbzROVGJ2b2ZHUytsamFOaHlRR1RK?=
- =?utf-8?Q?g0iUbv7C7X67EnMb7ujai+bvatS/08I/q1TIsDM?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230037)(366013)(1800799021)(376011); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDNsVXFqdENNYnh0c0tYOFlXTDNrRHo1YUtseFJ2bkFpYnVBNVgzYXplUWdz?=
- =?utf-8?B?dFY3d3R5VllKdVU0dHlkK1AvVXprVmV2MlZkUWpWd0svcG5ZT0pHc1BKV3dU?=
- =?utf-8?B?V09sTTY1V3ZRc29ueFpkYUwvYUtvL0Z4TU9XeG1IT1ZSQm1PTHpJbEZVLzlD?=
- =?utf-8?B?Z0M4c1czMnNKTElZL0JIbkFwVnVyNjhNVVFnTHZJRndidjZHSFhKbDV1VC9Y?=
- =?utf-8?B?TGVld3luVmtwd3JaRUdiNktQMTgwaDNFWHBUQ0daNkpWUlFOdlVWL1VLekRj?=
- =?utf-8?B?NHMzRFFGYnFheWoxS1BXWW9wUGZIWjJya3JZZVBsamYrbFVEVUR3YXVaSmJE?=
- =?utf-8?B?RDc2a1hvNEM4Z2p3a3NpU0psd2pmbko0VTd5d0xjQTF0VDB2bWIvNmI0MWV4?=
- =?utf-8?B?aCtBRXJVQkFPSXhYMVJmZklaZVlPNlZjZG5PcHJqVTN2NGEyanRvTityVkd1?=
- =?utf-8?B?NGgvWDZ5eFdDMmRIMzU5bFdtUUJNTjZSQXQ2eUJ3TWdDUnllaUFubVJvQkpr?=
- =?utf-8?B?SmJaRW53UEhVbk1zMllaM1RIbWJYL2J2WG80N1Y3Qm8xYXZHa3hHUC9mN1dS?=
- =?utf-8?B?U2NNNy9FMTFDdXQxTXRoTisyemovNjhiOUp1VXVGazNKZ1dxWjVVOVUwc0hX?=
- =?utf-8?B?YUtJL3JjeUcwTTM0cU1nb0dPWTI1aTF3ek5CYkpmVTRNd3NtT1JlbmV0V0hE?=
- =?utf-8?B?dWZaeHpyNXNtZ0tiSTFIaFJUZ09Wa0ZZZGdJWWxSR3NnbHMrMzNPcGVmSW01?=
- =?utf-8?B?TW1WeWN6dEV3QUtid0xLOFhCdVpCdGpiVVg5QnJQZ25RSndVQXdoejB4c2lU?=
- =?utf-8?B?STd2eHh5a0UxalgvcnBTKzJ4NlpVcFNhbGxOWkg2SzRmVTNObk82SG5hUERE?=
- =?utf-8?B?T2VDbFFVUVA5VHIwaWlETThmMTJuTlFBQ01iMmFxU0ZqUVpoTUQ1KytRZHB2?=
- =?utf-8?B?djhmQWJBbXRKdisrSUdyOHRjVE5FMkFMaW1zeFB6ZUNLaEhLSW9JQmFENlFv?=
- =?utf-8?B?elN4S1A3N2dVS3Z4ZU9hVHF6Ym0zZVd5anR6ZkdrR0JMVXVsMWlvTHErM2Zr?=
- =?utf-8?B?eUJUYzJtT1dsaEtiZUgyVXhiN2Y0RTVpTFZOQlg3b0R5YWVaRHFCUXRiTGxD?=
- =?utf-8?B?MmZYeGR3SnA4NUVVdHozMUZqa3VSaDBnNUVGdTNMNk8xNzBXY1M4RWxKNVhE?=
- =?utf-8?B?UU9pbXVQTm1KRU5ySkw4c211ZWxaUStFVDlIMUEvZllxakxtVEs0cjM1M0R1?=
- =?utf-8?B?dlR5YXF5SkxidWM3eFFtZU9pNUVSRWZvUitTalFQWWJuSURsOFVYL0h4WFdF?=
- =?utf-8?B?b1M5YlpRaEkrT0NsY1dXRFRzaFRqbFphb2pxNnZsYjZuVzZhd2pTUVErUlBh?=
- =?utf-8?B?aEdjajJ4VDJVL0lYYU9aR0ExNG1UYkdnbE44N3FoMWF3cmYvQ3EzWnEwMjFK?=
- =?utf-8?B?RnhuajVRc1ZVMDQydytCNW9GdjdLZThSWnFSbFhPL2srOGd3cE5mTUFPRUVm?=
- =?utf-8?B?SU1aRzVwT1NTY0VNeFA3bGk3OGF5aVRvRWNzTHNqYlNOcHk4YXgwbUl2anNi?=
- =?utf-8?B?b0tSUk9pOVVEZWpobHN4RTJOM2hVQWx6Z21ERzdYM3dCT2ZiazlxRE54Y0l2?=
- =?utf-8?B?dFFrZUMwOFJ5MDl5M2NwNXpiaW9KQmhjbFBRS3pORHcxVHdLaGpOeUNWaWs3?=
- =?utf-8?B?Q1pPYm82ZVJ6NTFGenloTHlnUzA5Vmx5UWlKNmlCV3hjb2lCL1kwdjRINTVu?=
- =?utf-8?B?Y0xlMk1qdGd6ajJTWDJTaitDS2c1K0pYanZxRTZLZGdFZnE1MzFtd2FBV1dH?=
- =?utf-8?B?UWhhekpORmpRSjhRSkdIcTk3YXI1SmE2UkV3UUFaaFBidmpvdytPMlBtS0tz?=
- =?utf-8?B?aytSdTdsTFJWSmcrSE9Gcng0RXhJZGd5ZkwwRHpPalJETHpZR0xIZUxEM3VQ?=
- =?utf-8?B?cWU5T1l1VkRIY25NUFRtSFJYaC82NjlOdTZwZnhpTkVHQmhhUU1URDdNSDBX?=
- =?utf-8?B?RFNhcEM3Vk9YajlGZy8wdmtxSERKVTZ1UFVjblhSMHBXZStxaGFKZ2E3Y0M4?=
- =?utf-8?B?N2QyUWVvRlNpb0FVSjR4RThiaUJwVTJ1S2VuT05qZXpHTzh2NjF6dlNvYWRk?=
- =?utf-8?Q?YLzITUXsqdMWkDSUsbieQCsP+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17623d27-9214-46c2-36b3-08dc9444c6ab
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2024 11:57:09.5455 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U79s/upYgJzCzH0IE0uESVDOvJ3laR8Shz3Qxhjj4rGkQJFIFjnhDREl5Cuhltzu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4417
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: normalize registers as local xcc to
+ read/write under sriov in TLB flush
+To: Jane Jian <Jane.Jian@amd.com>, Lijo.Lazar@amd.com, Haijun.Chang@amd.com,
+ Victor.Zhao@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240624091318.2487733-1-Jane.Jian@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240624091318.2487733-1-Jane.Jian@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,129 +83,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 24.06.24 um 11:13 schrieb Jane Jian:
+> [WHY]
+> sriov has the higher bit violation when flushing tlb
+>
+> [HOW]
+> normalize the registers to keep lower 16-bit(dword aligned) to aviod higher bit violation
+> RLCG will mask xcd out and always assume it's accessing its own xcd
+>
+> [TODO]
+> later will add the normalization in sriovw/rreg after fixing bugs
+>
+> v2
+> rename the normalized macro, add ip block type for further use
+> move asics func declaration after ip block type since new func refers ip block type
+> add normalization in emit flush tlb as well
+>
+> v3
+> declare the new func in the asic specific header
+>
+> Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 112 +++++++++++----------
+>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c |  17 ++++
+>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.h |  28 ++++++
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  32 ++++--
+>   drivers/gpu/drm/amd/amdgpu/soc15.c         |   2 +
+>   drivers/gpu/drm/amd/amdgpu/soc15_common.h  |   5 +-
+>   6 files changed, 130 insertions(+), 66 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 083f353cff6e..070fd9e601fe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -583,61 +583,6 @@ struct amdgpu_video_codecs {
+>   	const struct amdgpu_video_codec_info *codec_array;
+>   };
+>   
+> -/*
+> - * ASIC specific functions.
+> - */
+> -struct amdgpu_asic_funcs {
+> -	bool (*read_disabled_bios)(struct amdgpu_device *adev);
+> -	bool (*read_bios_from_rom)(struct amdgpu_device *adev,
+> -				   u8 *bios, u32 length_bytes);
+> -	int (*read_register)(struct amdgpu_device *adev, u32 se_num,
+> -			     u32 sh_num, u32 reg_offset, u32 *value);
+> -	void (*set_vga_state)(struct amdgpu_device *adev, bool state);
+> -	int (*reset)(struct amdgpu_device *adev);
+> -	enum amd_reset_method (*reset_method)(struct amdgpu_device *adev);
+> -	/* get the reference clock */
+> -	u32 (*get_xclk)(struct amdgpu_device *adev);
+> -	/* MM block clocks */
+> -	int (*set_uvd_clocks)(struct amdgpu_device *adev, u32 vclk, u32 dclk);
+> -	int (*set_vce_clocks)(struct amdgpu_device *adev, u32 evclk, u32 ecclk);
+> -	/* static power management */
+> -	int (*get_pcie_lanes)(struct amdgpu_device *adev);
+> -	void (*set_pcie_lanes)(struct amdgpu_device *adev, int lanes);
+> -	/* get config memsize register */
+> -	u32 (*get_config_memsize)(struct amdgpu_device *adev);
+> -	/* flush hdp write queue */
+> -	void (*flush_hdp)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
+> -	/* invalidate hdp read cache */
+> -	void (*invalidate_hdp)(struct amdgpu_device *adev,
+> -			       struct amdgpu_ring *ring);
+> -	/* check if the asic needs a full reset of if soft reset will work */
+> -	bool (*need_full_reset)(struct amdgpu_device *adev);
+> -	/* initialize doorbell layout for specific asic*/
+> -	void (*init_doorbell_index)(struct amdgpu_device *adev);
+> -	/* PCIe bandwidth usage */
+> -	void (*get_pcie_usage)(struct amdgpu_device *adev, uint64_t *count0,
+> -			       uint64_t *count1);
+> -	/* do we need to reset the asic at init time (e.g., kexec) */
+> -	bool (*need_reset_on_init)(struct amdgpu_device *adev);
+> -	/* PCIe replay counter */
+> -	uint64_t (*get_pcie_replay_count)(struct amdgpu_device *adev);
+> -	/* device supports BACO */
+> -	int (*supports_baco)(struct amdgpu_device *adev);
+> -	/* pre asic_init quirks */
+> -	void (*pre_asic_init)(struct amdgpu_device *adev);
+> -	/* enter/exit umd stable pstate */
+> -	int (*update_umd_stable_pstate)(struct amdgpu_device *adev, bool enter);
+> -	/* query video codecs */
+> -	int (*query_video_codecs)(struct amdgpu_device *adev, bool encode,
+> -				  const struct amdgpu_video_codecs **codecs);
+> -	/* encode "> 32bits" smn addressing */
+> -	u64 (*encode_ext_smn_addressing)(int ext_id);
+> -
+> -	ssize_t (*get_reg_state)(struct amdgpu_device *adev,
+> -				 enum amdgpu_reg_state reg_state, void *buf,
+> -				 size_t max_size);
+> -};
+> -
+>   /*
+>    * IOCTL.
+>    */
+> @@ -728,6 +673,63 @@ enum amd_hw_ip_block_type {
+>   	MAX_HWIP
+>   };
+>   
+> +/*
+> + * ASIC specific functions.
+> + */
+> +struct amdgpu_asic_funcs {
+> +	bool (*read_disabled_bios)(struct amdgpu_device *adev);
+> +	bool (*read_bios_from_rom)(struct amdgpu_device *adev,
+> +				   u8 *bios, u32 length_bytes);
+> +	int (*read_register)(struct amdgpu_device *adev, u32 se_num,
+> +			     u32 sh_num, u32 reg_offset, u32 *value);
+> +	void (*set_vga_state)(struct amdgpu_device *adev, bool state);
+> +	int (*reset)(struct amdgpu_device *adev);
+> +	enum amd_reset_method (*reset_method)(struct amdgpu_device *adev);
+> +	/* get the reference clock */
+> +	u32 (*get_xclk)(struct amdgpu_device *adev);
+> +	/* MM block clocks */
+> +	int (*set_uvd_clocks)(struct amdgpu_device *adev, u32 vclk, u32 dclk);
+> +	int (*set_vce_clocks)(struct amdgpu_device *adev, u32 evclk, u32 ecclk);
+> +	/* static power management */
+> +	int (*get_pcie_lanes)(struct amdgpu_device *adev);
+> +	void (*set_pcie_lanes)(struct amdgpu_device *adev, int lanes);
+> +	/* get config memsize register */
+> +	u32 (*get_config_memsize)(struct amdgpu_device *adev);
+> +	/* flush hdp write queue */
+> +	void (*flush_hdp)(struct amdgpu_device *adev, struct amdgpu_ring *ring);
+> +	/* invalidate hdp read cache */
+> +	void (*invalidate_hdp)(struct amdgpu_device *adev,
+> +			       struct amdgpu_ring *ring);
+> +	/* check if the asic needs a full reset of if soft reset will work */
+> +	bool (*need_full_reset)(struct amdgpu_device *adev);
+> +	/* initialize doorbell layout for specific asic*/
+> +	void (*init_doorbell_index)(struct amdgpu_device *adev);
+> +	/* PCIe bandwidth usage */
+> +	void (*get_pcie_usage)(struct amdgpu_device *adev, uint64_t *count0,
+> +			       uint64_t *count1);
+> +	/* do we need to reset the asic at init time (e.g., kexec) */
+> +	bool (*need_reset_on_init)(struct amdgpu_device *adev);
+> +	/* PCIe replay counter */
+> +	uint64_t (*get_pcie_replay_count)(struct amdgpu_device *adev);
+> +	/* device supports BACO */
+> +	int (*supports_baco)(struct amdgpu_device *adev);
+> +	/* pre asic_init quirks */
+> +	void (*pre_asic_init)(struct amdgpu_device *adev);
+> +	/* enter/exit umd stable pstate */
+> +	int (*update_umd_stable_pstate)(struct amdgpu_device *adev, bool enter);
+> +	/* query video codecs */
+> +	int (*query_video_codecs)(struct amdgpu_device *adev, bool encode,
+> +				  const struct amdgpu_video_codecs **codecs);
+> +	/* encode "> 32bits" smn addressing */
+> +	u64 (*encode_ext_smn_addressing)(int ext_id);
+> +
+> +	ssize_t (*get_reg_state)(struct amdgpu_device *adev,
+> +				 enum amdgpu_reg_state reg_state, void *buf,
+> +				 size_t max_size);
+> +	/* normalize offset to keep in lower 16-bit */
+> +	u32 (*normalize_reg_offset)(enum amd_hw_ip_block_type hwip, u32 offset);
+> +};
+> +
+>   #define HWIP_MAX_INSTANCE	44
+>   
+>   #define HW_ID_MAX		300
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> index 2c9a0aa41e2d..7cdd4b9d08ba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> @@ -29,6 +29,7 @@
+>   #include "gfx_v9_4_3.h"
+>   #include "gfxhub_v1_2.h"
+>   #include "sdma_v4_4_2.h"
+> +#include "aqua_vanjaram.h"
+>   
+>   #define XCP_INST_MASK(num_inst, xcp_id)                                        \
+>   	(num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * num_inst) : 0)
+> @@ -1085,3 +1086,19 @@ ssize_t aqua_vanjaram_get_reg_state(struct amdgpu_device *adev,
+>   
+>   	return size;
+>   }
+> +
+> +u32 aqua_vanjaram_normalize_reg_offset(enum amd_hw_ip_block_type hwip, u32 offset)
+> +{
+> +	u32 normalized_offset;
+> +
+> +	switch (hwip) {
+> +	case GC_HWIP:
+> +		normalized_offset = offset & 0xffff;
+> +		break;
+> +	default:
+> +		normalized_offset = offset;
+> +		break;
+> +	}
+> +
+> +	return normalized_offset;
+> +}
 
+Please completely drop that approach. This is KIQ specific and should be 
+handled inside the KIQ code and not here.
 
-On 6/24/2024 5:19 PM, Christian König wrote:
-> Am 24.06.24 um 11:52 schrieb Lazar, Lijo:
->>
->> On 6/24/2024 3:08 PM, Christian König wrote:
->>> Am 24.06.24 um 08:34 schrieb Lazar, Lijo:
->>>> On 6/24/2024 12:01 PM, Vignesh Chander wrote:
->>>>> correctly handle the case when trylock fails when gpu is
->>>>> about to be reset by dropping the request instead of using mmio
->>>>>
->>>>> Signed-off-by: Vignesh Chander <Vignesh.Chander@amd.com>
->>>> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
->>>>
->>>> Thanks,
->>>> Lijo
->>>>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 38
->>>>> ++++++++++++----------
->>>>>    1 file changed, 21 insertions(+), 17 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> index a7ce8280b17ce7..3cfd24699d691d 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>> @@ -613,10 +613,11 @@ uint32_t amdgpu_device_rreg(struct
->>>>> amdgpu_device *adev,
->>>>>          if ((reg * 4) < adev->rmmio_size) {
->>>>>            if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
->>>>> -            amdgpu_sriov_runtime(adev) &&
->>>>> -            down_read_trylock(&adev->reset_domain->sem)) {
->>>>> -            ret = amdgpu_kiq_rreg(adev, reg, 0);
->>>>> -            up_read(&adev->reset_domain->sem);
->>>>> +            amdgpu_sriov_runtime(adev) {
->>>>> +            if (down_read_trylock(&adev->reset_domain->sem)) {
->>>>> +                ret = amdgpu_kiq_rreg(adev, reg, 0);
->>>>> +                up_read(&adev->reset_domain->sem);
->>>>> +            }
->>> What has actually changed here? As far as I can see that isn't
->>> functionally different to the existing code.
->>>
->> In earlier logic, if it fails to get the lock, it takes the 'else' path.
->> The 'else' path is not meant for sriov/vf.
-> 
-> Yeah, but the read or write is then just silently dropped.
-> 
-> That can't be correct either.
-> 
+Regards,
+Christian.
 
-These are void funcs. Moreover, the drops will happen if there is
-concurrent access from another thread while a reset is going on. That is
-expected and those accesses during a reset won't help anyway.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.h b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.h
+> new file mode 100644
+> index 000000000000..8d1b7a89cb71
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.h
+> @@ -0,0 +1,28 @@
+> +/*
+> + * Copyright 2024 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +#ifndef __AQUA_VANJARAM_H__
+> +#define __AQUA_VANJARAM_H__
+> +
+> +u32 aqua_vanjaram_normalize_reg_offset(enum amd_hw_ip_block_type hwip, u32 offset);
+> +
+> +#endif
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 88b4644f8e96..19e4429db37c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -853,8 +853,12 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	 */
+>   	if (adev->gfx.kiq[inst].ring.sched.ready &&
+>   	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+> -		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+> -		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+> +
+> +		/* Select lower 16 bits to write in local xcc */
+> +		if (AMDGPU_IS_GFXHUB(vmhub)) {
+> +			req = NORMALIZE_XCC_REG_OFFSET(req);
+> +			ack = NORMALIZE_XCC_REG_OFFSET(ack);
+> +		}
+>   
+>   		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
+>   						 1 << vmid, inst);
+> @@ -979,6 +983,7 @@ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+>   	struct amdgpu_vmhub *hub = &adev->vmhub[ring->vm_hub];
+>   	uint32_t req = gmc_v9_0_get_invalidate_req(vmid, 0);
+>   	unsigned int eng = ring->vm_inv_eng;
+> +	u32 low_distance, high_distance, req_offset, ack;
+>   
+>   	/*
+>   	 * It may lose gpuvm invalidate acknowldege state across power-gating
+> @@ -986,7 +991,18 @@ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+>   	 * release after invalidation to avoid entering power gated state
+>   	 * to WA the Issue
+>   	 */
+> +	low_distance = hub->ctx0_ptb_addr_lo32 + (hub->ctx_addr_distance * vmid);
+> +	high_distance = hub->ctx0_ptb_addr_hi32 + (hub->ctx_addr_distance * vmid);
+> +	req_offset = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+> +	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>   
+> +	/* Select lower 16 bits to write in local xcc */
+> +	if (AMDGPU_IS_GFXHUB(ring->vm_hub)) {
+> +		low_distance = NORMALIZE_XCC_REG_OFFSET(low_distance);
+> +		high_distance = NORMALIZE_XCC_REG_OFFSET(high_distance);
+> +		req_offset = NORMALIZE_XCC_REG_OFFSET(req_offset);
+> +		ack = NORMALIZE_XCC_REG_OFFSET(ack);
+> +	}
+>   	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
+>   	if (use_semaphore)
+>   		/* a read return value of 1 means semaphore acuqire */
+> @@ -994,18 +1010,14 @@ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+>   					  hub->vm_inv_eng0_sem +
+>   					  hub->eng_distance * eng, 0x1, 0x1);
+>   
+> -	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 +
+> -			      (hub->ctx_addr_distance * vmid),
+> +	amdgpu_ring_emit_wreg(ring, low_distance,
+>   			      lower_32_bits(pd_addr));
+>   
+> -	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_hi32 +
+> -			      (hub->ctx_addr_distance * vmid),
+> +	amdgpu_ring_emit_wreg(ring, high_distance,
+>   			      upper_32_bits(pd_addr));
+>   
+> -	amdgpu_ring_emit_reg_write_reg_wait(ring, hub->vm_inv_eng0_req +
+> -					    hub->eng_distance * eng,
+> -					    hub->vm_inv_eng0_ack +
+> -					    hub->eng_distance * eng,
+> +	amdgpu_ring_emit_reg_write_reg_wait(ring, req_offset,
+> +					    ack,
+>   					    req, 1 << vmid);
+>   
+>   	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index 8d16dacdc172..3a1fa2797f02 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -78,6 +78,7 @@
+>   #include "mxgpu_ai.h"
+>   #include "amdgpu_ras.h"
+>   #include "amdgpu_xgmi.h"
+> +#include "aqua_vanjaram.h"
+>   #include <uapi/linux/kfd_ioctl.h>
+>   
+>   #define mmMP0_MISC_CGTT_CTRL0                                                                   0x01b9
+> @@ -927,6 +928,7 @@ static const struct amdgpu_asic_funcs aqua_vanjaram_asic_funcs =
+>   	.query_video_codecs = &soc15_query_video_codecs,
+>   	.encode_ext_smn_addressing = &aqua_vanjaram_encode_ext_smn_addressing,
+>   	.get_reg_state = &aqua_vanjaram_get_reg_state,
+> +	.normalize_reg_offset = &aqua_vanjaram_normalize_reg_offset,
+>   };
+>   
+>   static int soc15_common_early_init(void *handle)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> index 242b24f73c17..01afd1a24e8b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+> @@ -210,4 +210,7 @@
+>   #define WREG64_MCA(ext, mca_base, idx, val) \
+>   	WREG64_PCIE_EXT(adev->asic_funcs->encode_ext_smn_addressing(ext) + mca_base + (idx * 8), val)
+>   
+> -#endif
+> +#define NORMALIZE_XCC_REG_OFFSET(offset) \
+> +	((amdgpu_sriov_vf(adev) && adev->asic_funcs->normalize_reg_offset) ? \
+> +	adev->asic_funcs->normalize_reg_offset(GC_HWIP, offset) : offset)
+> +#endif
+> \ No newline at end of file
 
-Thanks,
-Lijo
-
-> Regards,
-> Christian.
-> 
->>
->> Thanks,
->> Lijo
->>
->>> Regards,
->>> Christian.
->>>
->>>>>            } else {
->>>>>                ret = readl(((void __iomem *)adev->rmmio) + (reg * 4));
->>>>>            }
->>>>> @@ -681,10 +682,11 @@ uint32_t amdgpu_device_xcc_rreg(struct
->>>>> amdgpu_device *adev,
->>>>>                                 &rlcg_flag)) {
->>>>>                ret = amdgpu_virt_rlcg_reg_rw(adev, reg, 0, rlcg_flag,
->>>>> GET_INST(GC, xcc_id));
->>>>>            } else if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
->>>>> -            amdgpu_sriov_runtime(adev) &&
->>>>> -            down_read_trylock(&adev->reset_domain->sem)) {
->>>>> -            ret = amdgpu_kiq_rreg(adev, reg, xcc_id);
->>>>> -            up_read(&adev->reset_domain->sem);
->>>>> +            amdgpu_sriov_runtime(adev) {
->>>>> +            if (down_read_trylock(&adev->reset_domain->sem)) {
->>>>> +                ret = amdgpu_kiq_rreg(adev, reg, xcc_id);
->>>>> +                up_read(&adev->reset_domain->sem);
->>>>> +            }
->>>>>            } else {
->>>>>                ret = readl(((void __iomem *)adev->rmmio) + (reg * 4));
->>>>>            }
->>>>> @@ -740,10 +742,11 @@ void amdgpu_device_wreg(struct amdgpu_device
->>>>> *adev,
->>>>>          if ((reg * 4) < adev->rmmio_size) {
->>>>>            if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
->>>>> -            amdgpu_sriov_runtime(adev) &&
->>>>> -            down_read_trylock(&adev->reset_domain->sem)) {
->>>>> -            amdgpu_kiq_wreg(adev, reg, v, 0);
->>>>> -            up_read(&adev->reset_domain->sem);
->>>>> +            amdgpu_sriov_runtime(adev) {
->>>>> +            if (down_read_trylock(&adev->reset_domain->sem)) {
->>>>> +                amdgpu_kiq_wreg(adev, reg, v, 0);
->>>>> +                up_read(&adev->reset_domain->sem);
->>>>> +            }
->>>>>            } else {
->>>>>                writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
->>>>>            }
->>>>> @@ -812,11 +815,12 @@ void amdgpu_device_xcc_wreg(struct
->>>>> amdgpu_device *adev,
->>>>>                                 &rlcg_flag)) {
->>>>>                amdgpu_virt_rlcg_reg_rw(adev, reg, v, rlcg_flag,
->>>>> GET_INST(GC, xcc_id));
->>>>>            } else if (!(acc_flags & AMDGPU_REGS_NO_KIQ) &&
->>>>> -            amdgpu_sriov_runtime(adev) &&
->>>>> -            down_read_trylock(&adev->reset_domain->sem)) {
->>>>> -            amdgpu_kiq_wreg(adev, reg, v, xcc_id);
->>>>> -            up_read(&adev->reset_domain->sem);
->>>>> -        } else {
->>>>> +            amdgpu_sriov_runtime(adev) {
->>>>> +            if (down_read_trylock(&adev->reset_domain->sem)) {
->>>>> +                amdgpu_kiq_wreg(adev, reg, v, xcc_id);
->>>>> +                up_read(&adev->reset_domain->sem);
->>>>> +            }
->>>>> +            } else {
->>>>>                writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
->>>>>            }
->>>>>        } else {
-> 
