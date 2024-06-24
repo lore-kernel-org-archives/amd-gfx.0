@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA60C3065B
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:06:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4BD3C3065F
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E920610E344;
-	Tue, 25 Jun 2024 07:06:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7989810E449;
+	Tue, 25 Jun 2024 07:06:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tm9kVRTC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d2LwZaZy";
 	dkim-atps=neutral
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
- [209.85.219.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E34D410E49C;
- Mon, 24 Jun 2024 15:12:42 +0000 (UTC)
-Received: by mail-qv1-f50.google.com with SMTP id
- 6a1803df08f44-6b50a68b0b3so41979156d6.0; 
- Mon, 24 Jun 2024 08:12:42 -0700 (PDT)
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
+ [209.85.219.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4656F10E49B;
+ Mon, 24 Jun 2024 15:12:58 +0000 (UTC)
+Received: by mail-qv1-f53.google.com with SMTP id
+ 6a1803df08f44-6adc63c2ee0so14988176d6.3; 
+ Mon, 24 Jun 2024 08:12:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719241962; x=1719846762; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719241977; x=1719846777; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1GABY2nvouUZjfeGwOTIxOkPVykOPUX3bq4LbbVyRoM=;
- b=Tm9kVRTCvcksPnBsaZF0jECrApYW/k318dqoqFu7PBo+kig84+VGaFboOj6RQWrTT1
- qxkcQqEiHuH50kvVu88snCCPtyBk+INJXPI0nnwDGi79Visknl1xHd3a+lMZb3aTydml
- Q90yTd4kW91zedZk+U4gZr6dKfT5Dn24/EAB0UNlL6cQ+pJuihaydQ+cLtLGQbGG4GTD
- 7M/a3DLfC5G2rZP/Jn8yk93bxQKOHa6fx3r3ipCUKT+dqo2YxajRd3xiilZsKCq4msZb
- 12MR+EPMULDK/ZBbJ4nozqapZUMBxtZFU22Gm8ojAGDu3uvHxEAb7GbmKEG+NGPrKVW8
- pQbg==
+ bh=PLmHj2pUu5XP8F0s810g8Xhldx4Sthnl+H5OURakYZM=;
+ b=d2LwZaZy5ECsuCLqjIH16okSy6NdGUK0XQXEUppekoTNC/exeqpAO/JMnqdRhlg3E+
+ zwUO5N+uHNrsbBb35wCSI272OEgGNwJfjY5I2zH0y6o55vcqkByA6cbBpVjEJkZUfuI+
+ 1YiAGc1cQDN4w0HA9Or+o+3FDL+rFqnBV9PPpAxTsWDhX+xCJT0OG6YXcWWabVb+O/Yi
+ Qe7EE1YZGD/ySe8vH4uA/eyu9qLbVf+O59NSFFiaqn4MXxMbHZVAmMW/pUPp6IflqxVM
+ H6McDFULwHBRdWTCrpSJ24gJgsKl3EMqkRnaG2mS4JEFxOtGfzzS+30satZ7crlGMXs8
+ kYPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719241962; x=1719846762;
+ d=1e100.net; s=20230601; t=1719241977; x=1719846777;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1GABY2nvouUZjfeGwOTIxOkPVykOPUX3bq4LbbVyRoM=;
- b=U33iYG9ONrWuZFzAe4S9QlRAXE0cly5pYP+zTe205GCe3AwixbqixXMYx8Hc2MUdhu
- 0Y/o/GTCWx9FTtcSpoVboWnuCtFRjfM7vndFRJs8g65t3So8aLzpCLRn8n6R33QWsS6R
- SsSyFTTJJtXjZv/fVm5bkINvausLaTe/FrtCZazGqN239M+j64fWvFZgpJQfTfl/DSX7
- uaM+BUJBL4Mc61+6HmzKetXYxkTMhqPL5qxYYlvE23FYlRhqz2KgRz3kVn0m6oQEt7QO
- aWjW/USsbIY+6DGDrs8gr3e1U+5LFxl/aUvp+eEEHkLUSvdSzNf4E/VY8aHMYvLNBfgQ
- K/4A==
+ bh=PLmHj2pUu5XP8F0s810g8Xhldx4Sthnl+H5OURakYZM=;
+ b=hpxaXS1nzNQ/x5JOKu7rxHTNH6XCDmy2PqIxjyWRNLxHXou80b9bqRV/lqmx2YegHu
+ X+iilTCbM9YYlHYFRaZCjMTU8g72CDjPtEPHQkE7x0T9MQ7ufAt+i2i0OvYVpxbw/pup
+ eTutBLolA5z68XL1TfQBDSf/OVtssv2ytOZ2/XFkCQq4C/cQcWkLkpBhoaJLxEa1EfGa
+ YyBHo/ezyfkchYL7sGBymqe+X2eo7d5wwGMia/8jb8e/3gS1bzU9OJs1tqK8sl0Fx7Ny
+ K0AVhGVP+duad3fgAujHVBMUeeMHfTwjJjtt44kKNVgn9DlK4sCaXMyuFgvEfYLjtVm/
+ g4SA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWC6/7kCGNNHoGM4klDUMo8LlKs7eLTvqqXWcfolfJEH6OTCA/I7qSL3kdXie3h3MkRufxcWurunWY+fL+PAs0L8s3IB63+fec1jEVuO0Kmw9T5TqB9qr0U9gR3ZhEhDZZDH6r2NVjiwgXyVOF8og==
-X-Gm-Message-State: AOJu0YxXJjrm2qgrjTBs9w7nK5vYt0iy2dm8baUC1XwHppjXcxB6LvCb
- a8NQGeVTJbNpxf3v4FazkGUYdrn3gsK8TAiM9PsYhb/eALThStDs
-X-Google-Smtp-Source: AGHT+IFuVCQIMxGLsEodTOfH3eyC8ePGTJrcOWZgS2npTRXBH4SIi8n4cZ2nFvHwh8J8UOMRC8+4tg==
-X-Received: by 2002:ad4:418d:0:b0:6b5:2f57:1a63 with SMTP id
- 6a1803df08f44-6b56360996amr12300036d6.21.1719241961650; 
- Mon, 24 Jun 2024 08:12:41 -0700 (PDT)
+ AJvYcCUkesB6E9rcqsj1Ks/EM1qwUqhvs6BjGrf081v2LlTbHoJDtNmRfaok0FEpg5rMo5KK5NM4wHShCkM+z/bR+nsrtA3AKDC798r8PvOR5a3pqJ4n/N1DblKeOby5S6pN6Yalo7b21J9pvlNjRaufWg==
+X-Gm-Message-State: AOJu0YyAM54aoWo08O8yinIWOhwsqaZA3VnllkiUeUl/r+EbLgqXJ++9
+ I0if/BAPewGzd6Nx1EgDOJvBCqW21UJ5CjQEGasZXlAp++Nvo8QujHG6LsYX
+X-Google-Smtp-Source: AGHT+IFUfBd/+3kNGqHk10Aqjryw//X8bb+Dpk6x3wTmMH4jNZ1dE5lkgBKeoVI4kYI4H8zisQYpbw==
+X-Received: by 2002:a05:6214:e89:b0:6b4:fe1a:eeee with SMTP id
+ 6a1803df08f44-6b540a96127mr64169856d6.46.1719241977035; 
+ Mon, 24 Jun 2024 08:12:57 -0700 (PDT)
 Received: from localhost.localdomain ([142.198.217.108])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b529eb3decsm27243976d6.12.2024.06.24.08.12.39
+ 6a1803df08f44-6b529eb3decsm27243976d6.12.2024.06.24.08.12.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 08:12:41 -0700 (PDT)
+ Mon, 24 Jun 2024 08:12:56 -0700 (PDT)
 From: Wu Hoi Pok <wuhoipok@gmail.com>
 To: 
 Cc: Thomas Zimmermann <tzimmermann@suse.de>, Wu Hoi Pok <wuhoipok@gmail.com>,
@@ -64,15 +64,15 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>, Wu Hoi Pok <wuhoipok@gmail.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/7] drm/radeon: remove load callback
-Date: Mon, 24 Jun 2024 11:10:45 -0400
-Message-ID: <20240624151122.23724-2-wuhoipok@gmail.com>
+Subject: [PATCH v3 3/7] drm/radeon: rdev->ddev to rdev_to_drm(rdev) 2
+Date: Mon, 24 Jun 2024 11:10:47 -0400
+Message-ID: <20240624151122.23724-4-wuhoipok@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240624151122.23724-1-wuhoipok@gmail.com>
 References: <20240624151122.23724-1-wuhoipok@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 25 Jun 2024 07:06:20 +0000
+X-Mailman-Approved-At: Tue, 25 Jun 2024 07:06:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,187 +87,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove ".load" callback form "kms_driver", and move "struct drm_device"
-into radeon_device. Patch 2 to 7 follows up with changing the way of
-accessing drm_device, from "rdev->ddev" to "rdev_to_drm(rdev)" which is
-"&rdev->ddev".
+Please refer to patch 1.
 
 Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon.h     | 11 ++++++++---
- drivers/gpu/drm/radeon/radeon_drv.c | 27 ++++++++++++++++++---------
- drivers/gpu/drm/radeon/radeon_drv.h |  1 -
- drivers/gpu/drm/radeon/radeon_kms.c | 18 ++++++------------
- 4 files changed, 32 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/radeon/r300.c     |  6 +++---
+ drivers/gpu/drm/radeon/r420.c     |  6 +++---
+ drivers/gpu/drm/radeon/r520.c     |  2 +-
+ drivers/gpu/drm/radeon/r600.c     | 12 ++++++------
+ drivers/gpu/drm/radeon/r600_cs.c  |  2 +-
+ drivers/gpu/drm/radeon/r600_dpm.c |  4 ++--
+ 6 files changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-index 0999c8eaae94..69bb30ced189 100644
---- a/drivers/gpu/drm/radeon/radeon.h
-+++ b/drivers/gpu/drm/radeon/radeon.h
-@@ -2297,7 +2297,7 @@ typedef void (*radeon_wreg_t)(struct radeon_device*, uint32_t, uint32_t);
- 
- struct radeon_device {
- 	struct device			*dev;
--	struct drm_device		*ddev;
-+	struct drm_device		ddev;
- 	struct pci_dev			*pdev;
- #ifdef __alpha__
- 	struct pci_controller		*hose;
-@@ -2440,10 +2440,13 @@ struct radeon_device {
- 	u64 gart_pin_size;
- };
- 
-+static inline struct drm_device *rdev_to_drm(struct radeon_device *rdev)
-+{
-+	return &rdev->ddev;
-+}
-+
- bool radeon_is_px(struct drm_device *dev);
- int radeon_device_init(struct radeon_device *rdev,
--		       struct drm_device *ddev,
--		       struct pci_dev *pdev,
- 		       uint32_t flags);
- void radeon_device_fini(struct radeon_device *rdev);
- int radeon_gpu_wait_for_idle(struct radeon_device *rdev);
-@@ -2818,6 +2821,8 @@ struct radeon_device *radeon_get_rdev(struct ttm_device *bdev);
- 
- /* KMS */
- 
-+int radeon_driver_load_kms(struct radeon_device *dev, unsigned long flags);
-+
- u32 radeon_get_vblank_counter_kms(struct drm_crtc *crtc);
- int radeon_enable_vblank_kms(struct drm_crtc *crtc);
- void radeon_disable_vblank_kms(struct drm_crtc *crtc);
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 7bf08164140e..ae9cadceba83 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -259,7 +259,8 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- 			    const struct pci_device_id *ent)
+diff --git a/drivers/gpu/drm/radeon/r300.c b/drivers/gpu/drm/radeon/r300.c
+index 1620f534f55f..05c13102a8cb 100644
+--- a/drivers/gpu/drm/radeon/r300.c
++++ b/drivers/gpu/drm/radeon/r300.c
+@@ -616,7 +616,7 @@ DEFINE_SHOW_ATTRIBUTE(rv370_debugfs_pcie_gart_info);
+ static void rv370_debugfs_pcie_gart_info_init(struct radeon_device *rdev)
  {
- 	unsigned long flags = 0;
--	struct drm_device *dev;
-+	struct drm_device *ddev;
-+	struct radeon_device *rdev;
- 	int ret;
+ #if defined(CONFIG_DEBUG_FS)
+-	struct dentry *root = rdev->ddev->primary->debugfs_root;
++	struct dentry *root = rdev_to_drm(rdev)->primary->debugfs_root;
  
- 	if (!ent)
-@@ -300,28 +301,37 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- 	if (ret)
- 		return ret;
+ 	debugfs_create_file("rv370_pcie_gart_info", 0444, root, rdev,
+ 			    &rv370_debugfs_pcie_gart_info_fops);
+@@ -1452,7 +1452,7 @@ int r300_resume(struct radeon_device *rdev)
+ 			RREG32(R_0007C0_CP_STAT));
+ 	}
+ 	/* post */
+-	radeon_combios_asic_init(rdev->ddev);
++	radeon_combios_asic_init(rdev_to_drm(rdev));
+ 	/* Resume clock after posting */
+ 	r300_clock_startup(rdev);
+ 	/* Initialize surface registers */
+@@ -1538,7 +1538,7 @@ int r300_init(struct radeon_device *rdev)
+ 	/* Set asic errata */
+ 	r300_errata(rdev);
+ 	/* Initialize clocks */
+-	radeon_get_clock_info(rdev->ddev);
++	radeon_get_clock_info(rdev_to_drm(rdev));
+ 	/* initialize AGP */
+ 	if (rdev->flags & RADEON_IS_AGP) {
+ 		r = radeon_agp_init(rdev);
+diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
+index a979662eaa73..9a31cdec6415 100644
+--- a/drivers/gpu/drm/radeon/r420.c
++++ b/drivers/gpu/drm/radeon/r420.c
+@@ -322,7 +322,7 @@ int r420_resume(struct radeon_device *rdev)
+ 	if (rdev->is_atom_bios) {
+ 		atom_asic_init(rdev->mode_info.atom_context);
+ 	} else {
+-		radeon_combios_asic_init(rdev->ddev);
++		radeon_combios_asic_init(rdev_to_drm(rdev));
+ 	}
+ 	/* Resume clock after posting */
+ 	r420_clock_resume(rdev);
+@@ -414,7 +414,7 @@ int r420_init(struct radeon_device *rdev)
+ 		return -EINVAL;
  
--	dev = drm_dev_alloc(&kms_driver, &pdev->dev);
--	if (IS_ERR(dev))
--		return PTR_ERR(dev);
-+	rdev = devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*rdev), ddev);
-+	if (IS_ERR(rdev))
-+		return PTR_ERR(rdev);
-+
-+	rdev->dev  = &pdev->dev;
-+	rdev->pdev = pdev;
-+	ddev = rdev_to_drm(rdev);
-+	ddev->dev_private = rdev;
- 
- 	ret = pci_enable_device(pdev);
- 	if (ret)
- 		goto err_free;
- 
--	pci_set_drvdata(pdev, dev);
-+	pci_set_drvdata(pdev, ddev);
-+
-+	ret = radeon_driver_load_kms(rdev, flags);
-+	if (ret)
-+		goto err_agp;
- 
--	ret = drm_dev_register(dev, ent->driver_data);
-+	ret = drm_dev_register(ddev, flags);
- 	if (ret)
- 		goto err_agp;
- 
--	radeon_fbdev_setup(dev->dev_private);
-+	radeon_fbdev_setup(ddev->dev_private);
- 
- 	return 0;
- 
- err_agp:
- 	pci_disable_device(pdev);
- err_free:
--	drm_dev_put(dev);
-+	drm_dev_put(ddev);
- 	return ret;
- }
- 
-@@ -569,7 +579,6 @@ static const struct drm_ioctl_desc radeon_ioctls_kms[] = {
- static const struct drm_driver kms_driver = {
- 	.driver_features =
- 	    DRIVER_GEM | DRIVER_RENDER | DRIVER_MODESET,
--	.load = radeon_driver_load_kms,
- 	.open = radeon_driver_open_kms,
- 	.postclose = radeon_driver_postclose_kms,
- 	.unload = radeon_driver_unload_kms,
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.h b/drivers/gpu/drm/radeon/radeon_drv.h
-index 02a65971d140..6c1eb75a951b 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.h
-+++ b/drivers/gpu/drm/radeon/radeon_drv.h
-@@ -117,7 +117,6 @@
- long radeon_drm_ioctl(struct file *filp,
- 		      unsigned int cmd, unsigned long arg);
- 
--int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags);
- void radeon_driver_unload_kms(struct drm_device *dev);
- int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
- void radeon_driver_postclose_kms(struct drm_device *dev,
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index a16590c6247f..d2df194393af 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -91,7 +91,7 @@ void radeon_driver_unload_kms(struct drm_device *dev)
- /**
-  * radeon_driver_load_kms - Main load function for KMS.
-  *
-- * @dev: drm dev pointer
-+ * @rdev: radeon dev pointer
-  * @flags: device flags
-  *
-  * This is the main load function for KMS (all asics).
-@@ -101,24 +101,18 @@ void radeon_driver_unload_kms(struct drm_device *dev)
-  * (crtcs, encoders, hotplug detect, etc.).
-  * Returns 0 on success, error on failure.
-  */
--int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
-+int radeon_driver_load_kms(struct radeon_device *rdev, unsigned long flags)
+ 	/* Initialize clocks */
+-	radeon_get_clock_info(rdev->ddev);
++	radeon_get_clock_info(rdev_to_drm(rdev));
+ 	/* initialize AGP */
+ 	if (rdev->flags & RADEON_IS_AGP) {
+ 		r = radeon_agp_init(rdev);
+@@ -493,7 +493,7 @@ DEFINE_SHOW_ATTRIBUTE(r420_debugfs_pipes_info);
+ void r420_debugfs_pipes_info_init(struct radeon_device *rdev)
  {
--	struct pci_dev *pdev = to_pci_dev(dev->dev);
--	struct radeon_device *rdev;
-+	struct pci_dev *pdev = rdev->pdev;
+ #if defined(CONFIG_DEBUG_FS)
+-	struct dentry *root = rdev->ddev->primary->debugfs_root;
++	struct dentry *root = rdev_to_drm(rdev)->primary->debugfs_root;
+ 
+ 	debugfs_create_file("r420_pipes_info", 0444, root, rdev,
+ 			    &r420_debugfs_pipes_info_fops);
+diff --git a/drivers/gpu/drm/radeon/r520.c b/drivers/gpu/drm/radeon/r520.c
+index 6cbcaa845192..08e127b3249a 100644
+--- a/drivers/gpu/drm/radeon/r520.c
++++ b/drivers/gpu/drm/radeon/r520.c
+@@ -287,7 +287,7 @@ int r520_init(struct radeon_device *rdev)
+ 		atom_asic_init(rdev->mode_info.atom_context);
+ 	}
+ 	/* Initialize clocks */
+-	radeon_get_clock_info(rdev->ddev);
++	radeon_get_clock_info(rdev_to_drm(rdev));
+ 	/* initialize AGP */
+ 	if (rdev->flags & RADEON_IS_AGP) {
+ 		r = radeon_agp_init(rdev);
+diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
+index 087d41e370fd..8b62f7faa5b9 100644
+--- a/drivers/gpu/drm/radeon/r600.c
++++ b/drivers/gpu/drm/radeon/r600.c
+@@ -950,7 +950,7 @@ void r600_hpd_set_polarity(struct radeon_device *rdev,
+ 
+ void r600_hpd_init(struct radeon_device *rdev)
+ {
+-	struct drm_device *dev = rdev->ddev;
 +	struct drm_device *dev = rdev_to_drm(rdev);
- 	int r, acpi_status;
+ 	struct drm_connector *connector;
+ 	unsigned enable = 0;
  
--	rdev = kzalloc(sizeof(struct radeon_device), GFP_KERNEL);
--	if (rdev == NULL) {
--		return -ENOMEM;
--	}
--	dev->dev_private = (void *)rdev;
--
- #ifdef __alpha__
- 	rdev->hose = pdev->sysdata;
- #endif
+@@ -1017,7 +1017,7 @@ void r600_hpd_init(struct radeon_device *rdev)
  
- 	if (pci_find_capability(pdev, PCI_CAP_ID_AGP))
--		rdev->agp = radeon_agp_head_init(dev);
-+		rdev->agp = radeon_agp_head_init(rdev_to_drm(rdev));
- 	if (rdev->agp) {
- 		rdev->agp->agp_mtrr = arch_phys_wc_add(
- 			rdev->agp->agp_info.aper_base,
-@@ -147,7 +141,7 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
- 	 * properly initialize the GPU MC controller and permit
- 	 * VRAM allocation
- 	 */
--	r = radeon_device_init(rdev, dev, pdev, flags);
-+	r = radeon_device_init(rdev, flags);
- 	if (r) {
- 		dev_err(dev->dev, "Fatal error during GPU init\n");
- 		goto out;
+ void r600_hpd_fini(struct radeon_device *rdev)
+ {
+-	struct drm_device *dev = rdev->ddev;
++	struct drm_device *dev = rdev_to_drm(rdev);
+ 	struct drm_connector *connector;
+ 	unsigned disable = 0;
+ 
+@@ -3280,7 +3280,7 @@ int r600_init(struct radeon_device *rdev)
+ 	/* Initialize surface registers */
+ 	radeon_surface_init(rdev);
+ 	/* Initialize clocks */
+-	radeon_get_clock_info(rdev->ddev);
++	radeon_get_clock_info(rdev_to_drm(rdev));
+ 	/* Fence driver */
+ 	radeon_fence_driver_init(rdev);
+ 	if (rdev->flags & RADEON_IS_AGP) {
+@@ -4136,7 +4136,7 @@ int r600_irq_process(struct radeon_device *rdev)
+ 					DRM_DEBUG("IH: D1 vblank - IH event w/o asserted irq bit?\n");
+ 
+ 				if (rdev->irq.crtc_vblank_int[0]) {
+-					drm_handle_vblank(rdev->ddev, 0);
++					drm_handle_vblank(rdev_to_drm(rdev), 0);
+ 					rdev->pm.vblank_sync = true;
+ 					wake_up(&rdev->irq.vblank_queue);
+ 				}
+@@ -4166,7 +4166,7 @@ int r600_irq_process(struct radeon_device *rdev)
+ 					DRM_DEBUG("IH: D2 vblank - IH event w/o asserted irq bit?\n");
+ 
+ 				if (rdev->irq.crtc_vblank_int[1]) {
+-					drm_handle_vblank(rdev->ddev, 1);
++					drm_handle_vblank(rdev_to_drm(rdev), 1);
+ 					rdev->pm.vblank_sync = true;
+ 					wake_up(&rdev->irq.vblank_queue);
+ 				}
+@@ -4358,7 +4358,7 @@ DEFINE_SHOW_ATTRIBUTE(r600_debugfs_mc_info);
+ static void r600_debugfs_mc_info_init(struct radeon_device *rdev)
+ {
+ #if defined(CONFIG_DEBUG_FS)
+-	struct dentry *root = rdev->ddev->primary->debugfs_root;
++	struct dentry *root = rdev_to_drm(rdev)->primary->debugfs_root;
+ 
+ 	debugfs_create_file("r600_mc_info", 0444, root, rdev,
+ 			    &r600_debugfs_mc_info_fops);
+diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+index 6cf54a747749..1b2d31c4d77c 100644
+--- a/drivers/gpu/drm/radeon/r600_cs.c
++++ b/drivers/gpu/drm/radeon/r600_cs.c
+@@ -884,7 +884,7 @@ int r600_cs_common_vline_parse(struct radeon_cs_parser *p,
+ 	crtc_id = radeon_get_ib_value(p, h_idx + 2 + 7 + 1);
+ 	reg = R600_CP_PACKET0_GET_REG(header);
+ 
+-	crtc = drm_crtc_find(p->rdev->ddev, p->filp, crtc_id);
++	crtc = drm_crtc_find(rdev_to_drm(p->rdev), p->filp, crtc_id);
+ 	if (!crtc) {
+ 		DRM_ERROR("cannot find crtc %d\n", crtc_id);
+ 		return -ENOENT;
+diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
+index 64980a61d38a..81d58ef667dd 100644
+--- a/drivers/gpu/drm/radeon/r600_dpm.c
++++ b/drivers/gpu/drm/radeon/r600_dpm.c
+@@ -153,7 +153,7 @@ void r600_dpm_print_ps_status(struct radeon_device *rdev,
+ 
+ u32 r600_dpm_get_vblank_time(struct radeon_device *rdev)
+ {
+-	struct drm_device *dev = rdev->ddev;
++	struct drm_device *dev = rdev_to_drm(rdev);
+ 	struct drm_crtc *crtc;
+ 	struct radeon_crtc *radeon_crtc;
+ 	u32 vblank_in_pixels;
+@@ -180,7 +180,7 @@ u32 r600_dpm_get_vblank_time(struct radeon_device *rdev)
+ 
+ u32 r600_dpm_get_vrefresh(struct radeon_device *rdev)
+ {
+-	struct drm_device *dev = rdev->ddev;
++	struct drm_device *dev = rdev_to_drm(rdev);
+ 	struct drm_crtc *crtc;
+ 	struct radeon_crtc *radeon_crtc;
+ 	u32 vrefresh = 0;
 -- 
 2.45.2
 
