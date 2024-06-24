@@ -4,54 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71CFDC2BD09
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6B9C30653
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B57C810E398;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D115710E39A;
 	Mon, 24 Jun 2024 07:42:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="T49NgJZI";
-	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF96610E1C0;
- Sun, 23 Jun 2024 08:51:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1719132689;
- bh=rczzmpjjlHlCtAKyfdbQlMnDUcEam5QWSyl/gkZmeUI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=T49NgJZIev0c63fiplfhzGkAuWQ/paHKXJ9+oa1374Ic3GcSGWJf5myt32dEIH1qi
- 3I/tomzIA9tRVYXA27wN9cxEZb+ye1RpFrC6JixWbFOOf0XIEaIE6+rSkbQ/x9dB2f
- BrUeKV4j2V9HgBpogKmho4NFjOqmPiJ9jCdr2/vc=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 23 Jun 2024 10:51:29 +0200
-Subject: [PATCH v2 3/3] drm/amd/display: Add support backlight quirks
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4375610E046;
+ Mon, 24 Jun 2024 02:48:51 +0000 (UTC)
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
+ by APP-03 (Coremail) with SMTP id rQCowAC31ySF3nhmBYYkEg--.51914S2;
+ Mon, 24 Jun 2024 10:48:48 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, wenjing.liu@amd.com, jun.lei@amd.com,
+ hamza.mahfooz@amd.com, alex.hung@amd.com, alvin.lee2@amd.com,
+ george.shen@amd.com, dillon.varone@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ma Ke <make24@iscas.ac.cn>
+Subject: [PATCH] drm/amd/display: Check pipe_ctx before it is used
+Date: Mon, 24 Jun 2024 10:48:35 +0800
+Message-Id: <20240624024835.2278651-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240623-amdgpu-min-backlight-quirk-v2-3-cecf7f49da9b@weissschuh.net>
-References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
-In-Reply-To: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
- Hans de Goede <hdegoede@redhat.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1719132688; l=2788;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=rczzmpjjlHlCtAKyfdbQlMnDUcEam5QWSyl/gkZmeUI=;
- b=91+X03/aUODL2GDH3ZqzK48/y08D6dI+XwyYt1sZeGqua4CMOayPkJrOzc+4B24uRR0caZ7vY
- ikjqi1dxeVRA9O1UNQHhVY4kjP/r2qXpoz/32Jsw8BJnXBbylFYY6tY
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+X-CM-TRANSID: rQCowAC31ySF3nhmBYYkEg--.51914S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtry7XrWUur15AryfXryxZrb_yoWDZwb_KF
+ 429r95JF47AF1DAa4jyr4ru3ySya1kurWkWasFvayS9r17Xry8Z342qrs8Wr1UZFnrJa4D
+ Aa4DKFyru3sxGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUba8FF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6r106r1rM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+ 0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+ Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+ W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
+ 0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+ Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+ x4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+ 1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+ JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+ sGvfC2KfnxnUUI43ZEXa7VUby8BUUUUUU==
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 X-Mailman-Approved-At: Mon, 24 Jun 2024 07:42:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,82 +63,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Not all platforms provide correct PWM backlight capabilities through ATIF.
-Use the generic drm backlight quirk infrastructure to override the
-capabilities where necessary.
+resource_get_otg_master_for_stream() could return NULL, we
+should check the return value of 'otg_master' before it is
+used in resource_log_pipe_for_stream().
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/Kconfig                |  1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +++++++++++++++++++++++
- 2 files changed, 29 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 692fa7cf8fd2..4fe0e8e74bb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -25,6 +25,7 @@ config DRM_AMDGPU
- 	select DRM_BUDDY
- 	select DRM_SUBALLOC_HELPER
- 	select DRM_EXEC
-+	select DRM_PANEL_BACKLIGHT_QUIRKS
- 	# amdgpu depends on ACPI_VIDEO when ACPI is enabled, for select to work
- 	# ACPI_VIDEO's dependencies must also be selected.
- 	select INPUT if ACPI
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 60404385d4d0..2d8a6d875170 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -93,6 +93,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
-+#include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -3329,6 +3330,31 @@ static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfuncs = {
- 	.atomic_commit_setup = drm_dp_mst_atomic_setup_commit,
- };
- 
-+static void amdgpu_dm_apply_backlight_quirks(struct amdgpu_dm_connector *aconnector,
-+					     struct amdgpu_dm_backlight_caps *caps)
-+{
-+	const struct drm_panel_backlight_quirk *quirk;
-+	const struct drm_edid *edid;
-+
-+	edid = drm_edid_alloc(aconnector->edid, EDID_LENGTH * (aconnector->edid->extensions + 1));
-+	if (!edid)
-+		return;
-+
-+	quirk = drm_get_panel_backlight_quirk(edid);
-+
-+	drm_edid_free(edid);
-+
-+	if (!quirk)
-+		return;
-+
-+	if (quirk->overrides.pwm_min_brightness &&
-+	    caps->min_input_signal != quirk->pwm_min_brightness) {
-+		drm_info(aconnector->base.dev,
-+			 "Quirk: backlight min_input_signal=%d\n", quirk->pwm_min_brightness);
-+		caps->min_input_signal = quirk->pwm_min_brightness;
-+	}
-+}
-+
- static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- {
- 	struct amdgpu_dm_backlight_caps *caps;
-@@ -3369,6 +3395,8 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		caps->aux_min_input_signal = 0;
- 		caps->aux_max_input_signal = 512;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 15819416a2f3..597ca9f369c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2279,6 +2279,8 @@ void resource_log_pipe_topology_update(struct dc *dc, struct dc_state *state)
+ 					state->stream_status[stream_idx].mall_stream_config.paired_stream);
+ 			otg_master = resource_get_otg_master_for_stream(
+ 					&state->res_ctx, state->streams[phantom_stream_idx]);
++			if (!otg_master)
++				continue;
+ 			resource_log_pipe_for_stream(dc, state, otg_master, stream_idx);
+ 		}
  	}
-+
-+	amdgpu_dm_apply_backlight_quirks(aconnector, caps);
- }
- 
- void amdgpu_dm_update_connector_after_detect(
-
 -- 
-2.45.2
+2.25.1
 
