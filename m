@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B6DC30658
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A518C3065D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADF110E2F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C10B10E306;
 	Tue, 25 Jun 2024 07:06:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="gF7CDuFF";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="DJxRIWYL";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1386E10E56D;
- Mon, 24 Jun 2024 19:27:29 +0000 (UTC)
+X-Greylist: delayed 318 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Jun 2024 17:22:16 UTC
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954BD10E088
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jun 2024 17:22:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1719257235; x=1719862035; i=markus.elfring@web.de;
- bh=aPrgENly1DR9PH/wdtIbg/hUadyOA+qJD/H7Iz6sMP0=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
- Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ s=s29768273; t=1719249734; x=1719854534; i=markus.elfring@web.de;
+ bh=GMEQP3jd8WRb2V1nPNUL0HSascCCaN0HsToYXwfFS2k=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
  cc:content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=gF7CDuFFsPMkq55gL++PZQnaBvPNfrsLcFDaC5Gn6ETiz9h1NCfMbw1kS1cjDAFL
- 4roaIiv0lQU4VNam3oWBGaq1rNRQudAxstQFKSl6eQMHXzBKJ3Gvg0oCDS8OQGMZk
- iPuwDclIMKq/N82kjzh33YZOcWB/wStExXYqk7eiOC/brFUpC2ziZjiCyTO8xgu2m
- JQOeyR68hH4R78gRclgjehaj2260/FnRDLLaZ1maEMpFkzPIiCeFs4kxPS25LIjRK
- ShL5QDaIbp+5qlbC3nS2yzW2isjgEgRoy0YwpOy0qfvPvx+ye6Fo/+f5oyxy9puE6
- SkwZRwOi1hyq95aEtg==
+ b=DJxRIWYL2kmFx5Bsz+6lcZS+NJ5F/U4BtddRx8S0NFQAm6MV+w64zRta5yRQ42tF
+ YFEhI2Tma8hI17kZeYXmY07jPg9L4ju7uSq0PtTlrInTe2oqYVAO1y3t52eWdxCFP
+ /kP5qZRl9lSM+9IldbuDXAAyVKzaxKZSldlpRPUHrQ1zfl1dDuXnW9o6DsfcnG5OI
+ YEA5lJL793NDx92efgkrrtDGUUSbzXfLTZ8dwALcIYJOAL4N+l+ecJh8kp5BZytwD
+ UrtU6oRCP40q1RYHA7oQ0W9nC1ENRn5GZZv19oz56BAEgOcGIg088quoa8z96s5D4
+ 6/CKKR/iBd9zPP5Vsw==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MC0LJ-1sBgTe0HC1-001mBe; Mon, 24
- Jun 2024 21:27:15 +0200
-Message-ID: <b3492198-5345-4bb6-ba89-5efed7ee2440@web.de>
-Date: Mon, 24 Jun 2024 21:26:50 +0200
+Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MdwNg-1swVhd2Q90-00mAhP; Mon, 24
+ Jun 2024 19:16:43 +0200
+Message-ID: <8d9791ba-14cf-481f-8964-341880865a0a@web.de>
+Date: Mon, 24 Jun 2024 19:16:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Check pipe_ctx before it is used
-From: Markus Elfring <Markus.Elfring@web.de>
 To: Ma Ke <make24@iscas.ac.cn>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Alex Hung <alex.hung@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
@@ -49,33 +49,33 @@ To: Ma Ke <make24@iscas.ac.cn>, amd-gfx@lists.freedesktop.org,
  Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Wenjing Liu <wenjing.liu@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
 Cc: LKML <linux-kernel@vger.kernel.org>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Hersen Wu
- <hersenxs.wu@amd.com>, Natanel Roizenman <natanel.roizenman@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Natanel Roizenman <natanel.roizenman@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 References: <20240624024835.2278651-1-make24@iscas.ac.cn>
- <8d9791ba-14cf-481f-8964-341880865a0a@web.de>
+Subject: Re: [PATCH] drm/amd/display: Check pipe_ctx before it is used
 Content-Language: en-GB
-In-Reply-To: <8d9791ba-14cf-481f-8964-341880865a0a@web.de>
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20240624024835.2278651-1-make24@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:QsoC4SXldUzuk375Wc2WXmE91WuMdOt4J165MAo1T/Xm4WI8sDt
- UkA4C/GmyyhBo/SKIBS9z1TwoSbHvJAxi+X86SGr2txUMITQrkUGi/UMa7HA/z4s9RE7kKV
- kUzBUHz8aPd/H5w/C1UoLAeLcefnWp00R43lS8UC+sUjR9hNeAFetTmL8psYtT44BbS4M0E
- 1VxnGZ6svJM3C2cRjgoEg==
-UI-OutboundReport: notjunk:1;M01:P0:Js37ALAPEAk=;yne6aFhk+Z7F/RX1fsfiZBHhWLF
- HFyvXBX4LgW2UjswFYv6nrBC+5q3DRepStb137Z0h01MG15wDNLJkpMzBexoYTosFHDIPwr/K
- hR67oFGyTo3pNZFNVBT+A+veLGbMxw/c00AtHgm9wzz7mwwbCJN5bIo90iA1bnaCBTKGYRKWh
- O/JT37JysiO98iYXC2JuTyqEPZxNneG0/vgFiZrtH038Le5uvvifif2s+iZBps8KmO7yZ10aT
- 4QzQGkf3k1F5BjwUeHacmA8Izzn83Q1mmUcQYBc8rNdI3+i+MhFGLy4vQp9saa1lw4CFXi72A
- rDbrVBnWxfoLEXQ6HI52yNJDgcXJuq8On4uEF1UhSp4qyy/P6bxc5KwyD0zWJJ9TBIf5dsjTn
- 4yzYRDbswggBHnEzqy057B560PTQHXPOgD7Mu2wBTqMFC3yVpTTfKXnTxvJtjJi2iYHkt6kEK
- OYl/rti+o0wx02VIIy0AmoSv2a0+X7tHo0JOy17LQDqeBAnpTm4nvBKPRx8V/E4z4UkF+rrW7
- 3HfkKK17zO52uMrHP60Ta/gbBm3pVHfHtHahPL7lAi8c3b+gW69+BMJ9W3wDzPDBUNdDND2LU
- i0XfUkd8KJly6YXFOCZBGvV3Sypj1/D5Ehv+Y0tPxiS5H7qxqX1FCYO+R32/IA3pQoRnNDW6X
- eQIhn5kTiKaKCnC6hZrM1kiacz46gCO4L+ngCS6zo4dHCgomrMJnHJSEpt+5eSb8OVZftNW15
- IdLl23Pdz8Lt71q/Hi61PUv2ksuc69D46DMEXcia/X+PMIs0mju8EwjrN3cQCfSuKw+P87bOU
- kZRPWCYoVFjnIVbHHLgdndT6RdGn9lH6T1iiIDv6o1x68=
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:iYOxbUd/7f3wK5ncEyBEN/Q53syMelXlMbVXqlZkEbL8mvcBZ6k
+ ZrOms3leP2hoDMYqxo0dms8w44Dmr/iNZZ7w692BEhxfOZiYi+xgqiYUU6IK2zdnwpbyops
+ xRSRpnX319A30gWC1+zvcpJpP+cu0n0yvD4xhJv0mOp98jFlyb8ILsG8sDVsR3Ax31U7R62
+ mxwISQHFqPAKYd/Oj/OfQ==
+UI-OutboundReport: notjunk:1;M01:P0:TGsZbDtJVfE=;k6WS4SHfr1KjSrRIO2njWeHeNR1
+ T2pl72xOB7nkAIBOWwIglmEAtZCKuBVQX9jxayODEZJ9ntCBU5Vew6uDE2nZX4z3cDMYdgwiX
+ oK2iDBf3GZkChVQOhgB0EhlCKCZc/FVqRxvqUGIM6skssfonjHDzVcw49npbthQTDqe8Q749F
+ gshfXBQEvQGIhL1StRHz6DwTi66HBbDIZXg1E+Yb5aiGYHo/u6FN/YHWI/b8d9WfB/YSpkyiZ
+ exXG/Jg/3D6GgUajEnFlXRkd8Y47jD1fb6MtKVjcuJDuY7ot9j/lUzVFmVf8KOYDfWt9Gbb/t
+ qcAR4AB4k0v1vhJBjOPFri4tIuFVUIJ2VodK9dp1WJ7q/ahMdN8wBTG+9w4rQbj7CUXjDlMn8
+ B040U9jERA1XMttEb6t0tMPbL1uIDvoQFI7v/q0NpHcETUApFAILa+lSpIh72BD95kyHITq2F
+ PpjVpSLAeCB7oIQt4YWoJG4Wn8TeZJ3pzpcFcbr+jiTcmihvNl5Jwlj1gszA6tBblbWk4fnHt
+ eSDu+FU2lDHPXpzFhJ6iRIFajGUKosfAySevF2aC3L4d/NTAqGdJ1XRygu4bx0v93m+N9OK9t
+ IeaEPFWVhgShbFmqcnQ6F1pEr8p40BhQxwUNeXba+D2z5O+L0WbkFMx3HHYfqgT3FLMtpTYM5
+ +OwrmNVtG0eOyvZkENxQ6/u7n4hQ5r/PIXVX2Q+AEyZtEb8Dgm6yEj6HPW56WlyCkg+Qr57Ng
+ boBtqrx57AL/CLO8sRyZY7ShAFh1i+0jThyXwzZifI1fh6qMSh887d66nFQb5HsC7yBZSSZXQ
+ xeA8l4KMWOnR0JsGIDf5fsBFNumRJAPAKAUXKwmUO7+0w=
 X-Mailman-Approved-At: Tue, 25 Jun 2024 07:06:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,29 +91,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
->> resource_get_otg_master_for_stream() could return NULL, we
->> should check the return value of 'otg_master' before it is
->> used in resource_log_pipe_for_stream().
->
-> A similar fix was integrated already according to a contribution
-> by Natanel Roizenman.
-> From which Linux version did you take source files for your static code =
-analyses?
->
-> Please take another look at the corresponding software update.
-> [PATCH 16/37] drm/amd/display: Add null check in resource_log_pipe_topol=
-ogy_update
-> https://lore.kernel.org/amd-gfx/20240422152817.2765349-17-aurabindo.pill=
-ai@amd.com/
+> resource_get_otg_master_for_stream() could return NULL, we
+> should check the return value of 'otg_master' before it is
+> used in resource_log_pipe_for_stream().
 
-How =E2=80=9Cinteresting=E2=80=9D is it that a similar source code correct=
-ion needed
-to be repeated by Hersen Wu?
+A similar fix was integrated already according to a contribution
+by Natanel Roizenman.
+From which Linux version did you take source files for your static code analyses?
 
-drm/amd/display: Add otg_master NULL check within resource_log_pipe_topolo=
-gy_update
-https://lore.kernel.org/amd-gfx/20240501071651.3541919-31-chiahsuan.chung@=
-amd.com/
+Please take another look at the corresponding software update.
+[PATCH 16/37] drm/amd/display: Add null check in resource_log_pipe_topology_update
+https://lore.kernel.org/amd-gfx/20240422152817.2765349-17-aurabindo.pillai@amd.com/
 
 Regards,
 Markus
