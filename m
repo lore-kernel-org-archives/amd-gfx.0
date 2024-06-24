@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0E8C30658
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6B69C2D0D1
 	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jun 2024 07:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 872E910E395;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F219010E39B;
 	Mon, 24 Jun 2024 07:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vIfJJrs7";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="V5g7F1yN";
 	dkim-atps=neutral
-Received: from out30-100.freemail.mail.aliyun.com
- (out30-100.freemail.mail.aliyun.com [115.124.30.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E15710E046;
- Mon, 24 Jun 2024 03:12:05 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDB310E1E2;
+ Mon, 24 Jun 2024 02:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1719198723; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=h/k/C2qs1pKcv+sRC2nv2zMOr9MwmxizBcFEz86gVOo=;
- b=vIfJJrs74daCYzuJYPBgBtiXpu2034gGcur61/mfBsFVk5JSUll2YwbhphqVmymVbLMiDp18CU9E0L6QMZtgTAOLofGBXl8G2YkwWvyXryxGC7JY06UA2+xPGO6Aiq/kfb39RLmkXA6oUsRsTsad4jYgn34zMoG28n2ZZshKUjU=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R211e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045075189;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0W916qKp_1719198719; 
+ t=1719195756; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=4oEKDf6ktKNvNm2YhLgJ2R/X0teHz21rhJGCnMtpSVo=;
+ b=V5g7F1yNeV15jSjRPEoaUld2zKeulaCaf7Lu7iaSgOcSo8p3Jl17yctn6SycMov8UEUbXa3eZF6N2tNErV6Y2eS1jNfAhrfufAXsjbuzTMToQO814h+ExWe6k2ir/5kWhfZ/8gKxbH8K9jar9SGC6NfhJr5kbQyN8sfiKK7LdeA=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037067110;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0W90xIIb_1719195747; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0W916qKp_1719198719) by smtp.aliyun-inc.com;
- Mon, 24 Jun 2024 11:12:02 +0800
+ fp:SMTPD_---0W90xIIb_1719195747) by smtp.aliyun-inc.com;
+ Mon, 24 Jun 2024 10:22:35 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+To: alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
  Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH] drm/amd/display: Use ARRAY_SIZE for array length
-Date: Mon, 24 Jun 2024 11:11:58 +0800
-Message-Id: <20240624031158.98502-1-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH] drm/amd/display: Remove unused function reverse_planes_order
+Date: Mon, 24 Jun 2024 10:22:25 +0800
+Message-Id: <20240624022225.28655-1-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -57,65 +56,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use of macro ARRAY_SIZE to calculate array size minimizes
-the redundant code and improves code reusability.
+The function are defined in the amdgpu_dm.c file, but not called
+anywhere, so delete the unused function.
 
-./drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c:164:45-46: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c:183:47-48: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c:237:45-46: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c:257:47-48: WARNING: Use ARRAY_SIZE.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:371:20: warning: unused function 'reverse_planes_order'.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9405
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9402
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-index 1b2df97226a3..7ecf76aea950 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-@@ -161,8 +161,7 @@ static enum mod_hdcp_status read(struct mod_hdcp *hdcp,
- 		return MOD_HDCP_STATUS_DDC_FAILURE;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4b86b30eddc4..1e0e33b565f1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -368,15 +368,6 @@ static inline bool is_dc_timing_adjust_needed(struct dm_crtc_state *old_state,
+ 		return false;
+ }
  
- 	if (is_dp_hdcp(hdcp)) {
--		int num_dpcd_addrs = sizeof(hdcp_dpcd_addrs) /
--			sizeof(hdcp_dpcd_addrs[0]);
-+		int num_dpcd_addrs = ARRAY_SIZE(hdcp_dpcd_addrs);
- 		if (msg_id >= num_dpcd_addrs)
- 			return MOD_HDCP_STATUS_DDC_FAILURE;
- 
-@@ -180,8 +179,7 @@ static enum mod_hdcp_status read(struct mod_hdcp *hdcp,
- 			data_offset += cur_size;
- 		}
- 	} else {
--		int num_i2c_offsets = sizeof(hdcp_i2c_offsets) /
--			sizeof(hdcp_i2c_offsets[0]);
-+		int num_i2c_offsets = ARRAY_SIZE(hdcp_i2c_offsets);
- 		if (msg_id >= num_i2c_offsets)
- 			return MOD_HDCP_STATUS_DDC_FAILURE;
- 
-@@ -234,8 +232,7 @@ static enum mod_hdcp_status write(struct mod_hdcp *hdcp,
- 		return MOD_HDCP_STATUS_DDC_FAILURE;
- 
- 	if (is_dp_hdcp(hdcp)) {
--		int num_dpcd_addrs = sizeof(hdcp_dpcd_addrs) /
--			sizeof(hdcp_dpcd_addrs[0]);
-+		int num_dpcd_addrs = ARRAY_SIZE(hdcp_dpcd_addrs);
- 		if (msg_id >= num_dpcd_addrs)
- 			return MOD_HDCP_STATUS_DDC_FAILURE;
- 
-@@ -254,8 +251,7 @@ static enum mod_hdcp_status write(struct mod_hdcp *hdcp,
- 			data_offset += cur_size;
- 		}
- 	} else {
--		int num_i2c_offsets = sizeof(hdcp_i2c_offsets) /
--			sizeof(hdcp_i2c_offsets[0]);
-+		int num_i2c_offsets = ARRAY_SIZE(hdcp_i2c_offsets);
- 		if (msg_id >= num_i2c_offsets)
- 			return MOD_HDCP_STATUS_DDC_FAILURE;
- 
+-static inline void reverse_planes_order(struct dc_surface_update *array_of_surface_update,
+-					int planes_count)
+-{
+-	int i, j;
+-
+-	for (i = 0, j = planes_count - 1; i < j; i++, j--)
+-		swap(array_of_surface_update[i], array_of_surface_update[j]);
+-}
+-
+ /*
+  * DC will program planes with their z-order determined by their ordering
+  * in the dc_surface_updates array. This comparator is used to sort them
 -- 
 2.20.1.7.g153144c
 
