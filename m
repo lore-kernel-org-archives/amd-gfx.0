@@ -4,50 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88444C2BBCA
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 07:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA05C2BBCA
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 12:43:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1595910E43E;
-	Tue, 25 Jun 2024 07:07:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8147210E642;
+	Tue, 25 Jun 2024 12:43:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="HD10R5U/";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="ONpvQvFJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GmrHF17Y";
 	dkim-atps=neutral
-Received: from bunu.damsy.net (bunu.damsy.net [51.159.160.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D194B10E43E;
- Tue, 25 Jun 2024 07:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202404r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1719299233;
- bh=q2vLeUkveR0tnb+z7Vog04U
- kSwvNv7OGBJH/W+R2mXc=; b=HD10R5U/wSV2pF8ydlVGW6O/qlw2lDWHyHGEYD9/Pvrvxj0nzI
- nZOEE3vfVOwv1pVR/oDo3h81U9wNEx2F+gDlClLO98km0l72aBrTnCt+tS1xjzp+55YeSiho003
- tP7RxGcGch4xz/OsREI9M7tu4mzR2/IgIydl2ne0waVYgE+L90L5Yhu8GMnk26nsSShB77voD00
- cfvMx0JfFeiHro6Z29NatIPqiauXkEBV5F+ECdYO/BAAT5JbpxNo6pHJuIv+FENGhhGUgbqBm7a
- IHdpoNYuYg5K9ch1BL6mWbt/PBnH9shnL3Pai9dQukg4GrRGbMUG9O0xaHQztUfi75w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202404e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1719299233; bh=q2vLeUkveR0tnb+z7Vog04U
- kSwvNv7OGBJH/W+R2mXc=; b=ONpvQvFJljRA3VDJ7/ib4hwus24oi5p1JCWorlgbTQrE+T7Dk+
- 7/v57mMlxtAT3PPhkZoGkDXZYOqBPy+AOzCw==;
-Message-ID: <188b82b3-c600-4920-84c7-ceb072b8e9d6@damsy.net>
-Date: Tue, 25 Jun 2024 09:07:12 +0200
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0BA10E0C6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jun 2024 12:43:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=C4khH/qY1k8UkupTA7ZQk9p+d8S1BYFDDoMB6Am6y2wCnvoFVW4XqjmT8naE5oRikawAWt6gYsI3TqBHc6q/IA82/EIbr39YbCI7S3Kl2PDP4+15BN8jDat/+wbPGruviih/nFI9wh0TlldOTKeBG57JZdZ1LtNW+gNTtfm7GCQ/bbDpWi5cMy0+gr44vW6QZRKwqHtk0YJ9mlEsGtBXia/FUmrgQhw2DFfkVAgaYdf3+YGRLwt0ENJKrxAJ28QrCKy5JpR/gsLwvgD6v8Oa6DiqTdKxDAoi8P48Rnx/63MluQ36aPquWQYIAGxOTnTtgcjlF3UkhSPRo+LmSWkMag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mZtMjz58naD8Kw2SsBujnksB+P9tZPwz4zDTH1I8mrI=;
+ b=KmGo2/NO8/q2PlwhRUE5cZJzvygWnDDFSUvnzGNxlXXqenk3oxdLGCnde+4mOzOMbZxCWK96x9F/geCHaa5gGYgIm7kkU6p4gQRtybYQpNucu/wy2ZBRjwYHgdM15kpwoy+GMQ7l/ycWZ9Cuy/GyZ/IVGqnGNK2QMtCMoFA/QJCqNqsfHOgZ2znOtUVrnAXgvRq5Ksm8wszjubDmJr5k+E1qWOIH3YEUMxiRPpcW4NKdLS7UsgmkbbwsQeyJnh36kk00HMmLn0OI5OLFTUzP9ElFKJDultsY8iQLT0dCYwPuWmUgiaok6eWCzI2bHg2lkoBNXIaUkGSQpK7MFo2/+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mZtMjz58naD8Kw2SsBujnksB+P9tZPwz4zDTH1I8mrI=;
+ b=GmrHF17YqqOQyorEP/V8HWG4ISHcIoD2DElXd4wB2Qe8JQjMlqpnjra1D1HYfQ2XFtGh6EPkttwxxOrYrFYm6YchbfliTTzyYPxOD2cuunxdSaQmjrP7pAY93OpH7QCVjcRi9CTAmpH61QgsVd5DvjK2YmFLe246/OR9m7CS6zk=
+Received: from MW4PR02CA0006.namprd02.prod.outlook.com (2603:10b6:303:16d::12)
+ by LV3PR12MB9260.namprd12.prod.outlook.com (2603:10b6:408:1b4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.30; Tue, 25 Jun
+ 2024 12:43:36 +0000
+Received: from CO1PEPF000044FD.namprd21.prod.outlook.com
+ (2603:10b6:303:16d:cafe::d5) by MW4PR02CA0006.outlook.office365.com
+ (2603:10b6:303:16d::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.38 via Frontend
+ Transport; Tue, 25 Jun 2024 12:43:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044FD.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7741.0 via Frontend Transport; Tue, 25 Jun 2024 12:43:35 +0000
+Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Jun
+ 2024 07:43:33 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <alexander.deucher@amd.com>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH] drm/radeon: check bo_va->bo is non-NULL before using it
+Date: Tue, 25 Jun 2024 14:41:59 +0200
+Message-ID: <20240625124211.132100-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] drm/amdgpu: allow ioctls to opt-out of runtime pm
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
-References: <20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com>
- <20240618153003.146168-2-pierre-eric.pelloux-prayer@amd.com>
- <c45283a1-98d2-43a2-a73c-71896464c7f9@amd.com>
- <d2eefecf-656e-4c9c-96b3-717756581cc1@damsy.net>
- <bcca41dc-8f75-4ca0-a843-62fa63636262@amd.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <bcca41dc-8f75-4ca0-a843-62fa63636262@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FD:EE_|LV3PR12MB9260:EE_
+X-MS-Office365-Filtering-Correlation-Id: 773f4835-ca35-483d-fe62-08dc95146e1c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|82310400023|36860700010|1800799021|376011; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MMAikSxinXopRXGGq5QnNIwMTv1Wf8xR5Qy7pFDbDo/P0aCNwhXVwOgmo+Xf?=
+ =?us-ascii?Q?JzpctMO+nlq2bLqDfjJmlDyJSCZdT+8yhMObXet/Ff6smDaIYs0f1smsLyXO?=
+ =?us-ascii?Q?8laTGNgdKyrru6VFz5hmT/HJu6ijG+5wkSRRSeGBk4s2rxeHVblhZPLovnuo?=
+ =?us-ascii?Q?bkVRHiRTNLY9A+0CVbuIM0A0+osTbgD6oA4SS7JQc2hbOunPV0SOcF6c6c2h?=
+ =?us-ascii?Q?b1dPu9FJq2rLPdUnIYplsvpD+vHr0N6ndyE6j3u6nr1/a8b51sfUo84TOFdO?=
+ =?us-ascii?Q?6UqJh82Yx38TEQ6zbd3B7KgVce8FJMeo9ahpyJGtZ++1eNg25vr6UMBU0kIc?=
+ =?us-ascii?Q?FensYTTmhqA/dLim2atDJP1jnl+KZ8RPRXN3ng+dL5vO+JRG6e67se86ik1h?=
+ =?us-ascii?Q?vfC/aLNPnhfVpVXYhWWb+/UbU9VtrtRRBq8PY1CppSAUMPg5HtxClaIAksOI?=
+ =?us-ascii?Q?XdWuSc48VmRzWyZtXVc0UdJac1bxk0o595dLuCGZBViJySvFcyE9EECobF1a?=
+ =?us-ascii?Q?zYWCQoY34J58eA8fF8hKtyWVGP8jL9yW5lWD7vdJltIRRkqYNeuaB17SWwKv?=
+ =?us-ascii?Q?YiFQChjnEMTRhH4ujch2DBIt66HWpf+9wF9XIYdWpnWOsFTUgIHjxfWn8tDj?=
+ =?us-ascii?Q?g2HpnoLoeMYfcDTLfZErJ8HlrehlEgf6jgyFBsyP1xgFKSwt6c0yWQp6MEhe?=
+ =?us-ascii?Q?GndHg9KS2bDIiOTyxj2dd4SB5+a8AsSG9NaNl7OwId9p4KBi9kpce/InFQMA?=
+ =?us-ascii?Q?/BN5nZo1hdgBwbsJ6XWY7GMBAyypBbY/ryhwGxAd1LLJK2St8HV4Tqzq34vj?=
+ =?us-ascii?Q?Bf2BifN5hE41zIBux+zQRJvWgOLv/dz4CYODpE4H1a+uERYDg2avGMC6GkvT?=
+ =?us-ascii?Q?WYngBEodBw6+QJL9o1wuyC2DXXq3onsQZmHfEGG0b0R9XlmYATf6bq9Aw4Pe?=
+ =?us-ascii?Q?VdIRp24sEKD4VgLvoAxJo0QzmgDl/2jgW70rjj0mD0ob8/ocT1t+vME3N/4t?=
+ =?us-ascii?Q?Ktvq1TDvzGWnUl6YmAMfh3LtPCi2BisQQ/Dmeky3XemTajh3CUtej6+/2wyE?=
+ =?us-ascii?Q?TNy1IdJ8pWStMJ9l7hFUqu08cTOEk5v7ENmbL2XBDpS3uWuspcowu5PEqT3k?=
+ =?us-ascii?Q?uQaswt968j+BSZuD+TGR+3ZIxmnu7uFpX/a9bChTvY1suMn5whX9y6T12ztQ?=
+ =?us-ascii?Q?04EisDrKhZnEmJNFVH/A6Prk269NqDpnROwPuUJlL8+8H+nWdViJ5MAIKkrT?=
+ =?us-ascii?Q?WTsw3arumWBplvf/N5TozEg55QIwdb7u3HccbfJ/zLtSE+hQhv3fOYsF9FfQ?=
+ =?us-ascii?Q?bGriksBq+OLUGzQfPv3AvEMAC0k3lSXzKnW6W5q4K320R2nf3DG7eVupMz6D?=
+ =?us-ascii?Q?SOgkqLUkxo9GFIQhZFqAYo72u+u6hrqinUXPXiplSY30ixabwA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230037)(82310400023)(36860700010)(1800799021)(376011); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2024 12:43:35.7171 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 773f4835-ca35-483d-fe62-08dc95146e1c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FD.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9260
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,96 +129,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The call to radeon_vm_clear_freed might clear bo_va->bo, so
+we have to check it before dereferencing it.
 
-Le 20/06/2024 à 15:36, Christian König a écrit :
-> Am 20.06.24 um 15:06 schrieb Pierre-Eric Pelloux-Prayer:
->> Le 19/06/2024 à 11:26, Christian König a écrit :
->>> Am 18.06.24 um 17:23 schrieb Pierre-Eric Pelloux-Prayer:
->>>> Waking up a device can take multiple seconds, so if it's not
->>>> going to be used we might as well not resume it.
->>>>
->>>> The safest default behavior for all ioctls is to resume the GPU,
->>>> so this change allows specific ioctls to opt-out of generic
->>>> runtime pm.
->>>
->>> I'm really wondering if we shouldn't put that into the IOCTL 
->>> description.
->>>
->>> See amdgpu_ioctls_kms and DRM_IOCTL_DEF_DRV() for what I mean.
->>
->> Are you suggesting to add a new entry in enum drm_ioctl_flags to 
->> indicate ioctls which need the device to be awake?
->>
->> Something like: "DRM_NO_DEVICE = BIT(6)" and then use it for both
->> core and amdgpu ioctls?
-> 
-> Yeah something like that. Maybe name that DRM_SW_ONLY or something like 
-> that.
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+---
+ drivers/gpu/drm/radeon/radeon_gem.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-+ dri-devel to gauge interest in adding such a flag in shared code.
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index 3fec3acdaf28..0cf1a72091b7 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -641,8 +641,17 @@ static void radeon_gem_va_update_vm(struct radeon_device *rdev,
+ 	if (r)
+ 		goto error_unlock;
+ 
+-	if (bo_va->it.start)
++	if (bo_va->it.start) {
++		if (bo_va->bo == NULL) {
++			/* Buggy userspace can try to use RADEON_VA_UNMAP after
++			 * closing the BO. In this case, radeon_vm_clear_freed
++			 * will unset bo_va->bo.
++			 */
++			r = -ENOENT;
++			goto error_unlock;
++		}
+ 		r = radeon_vm_bo_update(rdev, bo_va, bo_va->bo->tbo.resource);
++	}
+ 
+ error_unlock:
+ 	mutex_unlock(&bo_va->vm->mutex);
+-- 
+2.45.2
 
-Pierre-Eric
-
-
-
-> 
-> Christian.
-> 
->>
->> Pierre-Eric
->>
->>
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Signed-off-by: Pierre-Eric Pelloux-Prayer 
->>>> <pierre-eric.pelloux-prayer@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25 
->>>> ++++++++++++++++++++-----
->>>>   1 file changed, 20 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 60d5758939ae..a9831b243bfc 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -2855,18 +2855,33 @@ long amdgpu_drm_ioctl(struct file *filp,
->>>>   {
->>>>       struct drm_file *file_priv = filp->private_data;
->>>>       struct drm_device *dev;
->>>> +    bool needs_device;
->>>>       long ret;
->>>>       dev = file_priv->minor->dev;
->>>> -    ret = pm_runtime_get_sync(dev->dev);
->>>> -    if (ret < 0)
->>>> -        goto out;
->>>> +
->>>> +    /* Some ioctl can opt-out of powermanagement handling
->>>> +     * if they don't require the device to be resumed.
->>>> +     */
->>>> +    switch (cmd) {
->>>> +    default:
->>>> +        needs_device = true;
->>>> +    }
->>>> +
->>>> +    if (needs_device) {
->>>> +        ret = pm_runtime_get_sync(dev->dev);
->>>> +        if (ret < 0)
->>>> +            goto out;
->>>> +    }
->>>>       ret = drm_ioctl(filp, cmd, arg);
->>>> -    pm_runtime_mark_last_busy(dev->dev);
->>>>   out:
->>>> -    pm_runtime_put_autosuspend(dev->dev);
->>>> +    if (needs_device) {
->>>> +        pm_runtime_mark_last_busy(dev->dev);
->>>> +        pm_runtime_put_autosuspend(dev->dev);
->>>> +    }
->>>> +
->>>>       return ret;
->>>>   }
