@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB28EC3064D
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 13:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E9ADC2BBCA
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jun 2024 14:25:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F29410E1D2;
-	Tue, 25 Jun 2024 13:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60DA310E66B;
+	Tue, 25 Jun 2024 14:25:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r3YMoZI+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1i+xIwRL";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2066.outbound.protection.outlook.com [40.107.223.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE62F10E1D2
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jun 2024 13:56:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C145410E66B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jun 2024 14:25:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nGAibUhVrP8FmtvS45+VJI0DWD2GmPAgFfUMiZqNyREY4UrwheLWggxw8z7qx4zoNzKYR7iQ2BBrzxFlgkgcds22Z1GPwpCCfz+YH70rAA0QdcbNtXz0AJGgiobKpVXqEs58rC+RXcsQ5ZE4SAT+McxRRmpvPit+Yt53mb4J7L3zlaQfZwFjfbXBOEo5pkYikXCZV4p+E/Mydy9/ZVVBWJbkiJvxZq4DMYOAf6ComWAu73lqFeBZG4jKyEuMp0oQ/i1Wun7J67G+bz+79AlBVYCwqIwibn7eF1F7lyFGb+iYB22dMCFLIYpGXYO2A/mkO/Lcg3AxXcoridM5u5xs2A==
+ b=EbIxPy6jMA92Nrt/LfHVnbXEpjGqbZIyMlcqOZDtjkySRD3E4yJtZQAW2tVtp2siNv3H2Yk4HhSL4Yfc5AeZ2kwpVb1ejwlkBGIwrb6Kct4/vUbzinCjhxCP6CEAOlCcSBAjx/0K7ykEWrajAWc/2vVwxgYoMf+dcrZMnMK+hQBTMyTmBajSCu1q+25+DFgOmv0U6qAmkdwq+uLjyfEYdWdqSWIfcQ0X0a7jOqeEX1XZjMrXgAKuyNh7p9D9lQYjz+VpYoMAYtQWot4SevMnVMew10K7N6JneeBj18YGIPTh6T6/DgTrXwn+C8KqyXYX92o21iHnxSNiAc5eousL6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=muQiyvUBKRooW7mA8wjZt/NYA+NTDk04wZjwj70dLQU=;
- b=j5N4PQxiEcOccNhuez1dwSs9Z7Yxg9tvRKwkOEXVPH/awdvmhRHSSPYpQ/jlc9DK/seBfCqDF9ozLt3ajqXRj18sMufp/rX3DQjh4AzJuOkIKcO99cqxQ6yDyEb8+D7t0O3Dv0GODFV/5MLTw3kFZ7PsCj5ohGdWHOgDxeC6S51xdfZah9+mRZasd1zk7qE3Gue3uA3P5rdmnzNfYuRjMnac8tuPqOO1sY/ZuMsUGibip79tK3qYdLmaA+VJoPj5sbooYE4qQdMImgKJxB0LJb/wlFzBUQ+E3/LyxOys3Lcmk6KddTa5Sv1d+O8lFuzR8SKJEfCjRQLR7+TlxB7IpA==
+ bh=a2Avj7O3U2h1Jfqt/sVRvtjd56VVDY0qObz6VnpACoA=;
+ b=kZv2Yr9jLhkUz2MHtl/XFu+KUiofD0Ycwi1zDS3xOGuAl9dida+Yb6FB5/5bH1+Ob50T9f31xWQQvGLEVsHgvwuYHPnSNRsn9L3mJcbxQOjO/bkNhQWKT34KiQxrmLqMi0NHhv7VCfANA8DUDqpR6JvtqZvX0QAyD4XuFS4aAuM49q5bfJPF7riDCEodhturoBvhgrtsbblqM0aEO/j9eD8ceYtocgKZi6oVlKUEhN+MaaZN1ECoWMNlW7jGw5qc/cBHyb4QN+CCY4Rug6Fx5Te6id/fZc1TjN3ayBaDzSM9IUiAG3q/DNVsCs+Y7gx7kK+Of4lN0RpRbGP1ew37rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=muQiyvUBKRooW7mA8wjZt/NYA+NTDk04wZjwj70dLQU=;
- b=r3YMoZI+95pLRamqOYKoy/9fvbkwXIqZ+qWY5n9OietvvcFtDBnwUOAyXbc7lK85QRzZqAY01ddoqcRSnBFEN7822mKHxzQhpclQ5IRDsJi2bgULvDVXj9lhfzBJmoSBMuQf7sFHP3J/LNNKGax9TmE/2PzK6MtlLh5oIm7tyRU=
-Received: from DM6PR18CA0006.namprd18.prod.outlook.com (2603:10b6:5:15b::19)
- by SA3PR12MB7808.namprd12.prod.outlook.com (2603:10b6:806:31b::18) with
+ bh=a2Avj7O3U2h1Jfqt/sVRvtjd56VVDY0qObz6VnpACoA=;
+ b=1i+xIwRLH7OeRLxxf9+gXNblVwOa5D6KY8UdHbKJ1DM/ov7gIXEtXl3Dc6OsCHmekANvsGZl7TphbEwvCY8kpk8t25hGVPt8pZtT5OJ3ddYbMQEm90uVZOdgIspE4MyIL8qm/FpiWoT7/GaTwrr2jpx8yS1XpKhoy761PQpWtUo=
+Received: from SN7PR18CA0015.namprd18.prod.outlook.com (2603:10b6:806:f3::6)
+ by LV2PR12MB5896.namprd12.prod.outlook.com (2603:10b6:408:172::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.30; Tue, 25 Jun
- 2024 13:56:38 +0000
-Received: from DS3PEPF000099D5.namprd04.prod.outlook.com
- (2603:10b6:5:15b:cafe::87) by DM6PR18CA0006.outlook.office365.com
- (2603:10b6:5:15b::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.28; Tue, 25 Jun
+ 2024 14:24:54 +0000
+Received: from SA2PEPF00003F66.namprd04.prod.outlook.com
+ (2603:10b6:806:f3:cafe::76) by SN7PR18CA0015.outlook.office365.com
+ (2603:10b6:806:f3::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.38 via Frontend
- Transport; Tue, 25 Jun 2024 13:56:38 +0000
+ Transport; Tue, 25 Jun 2024 14:24:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,74 +48,73 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D5.mail.protection.outlook.com (10.167.17.6) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Tue, 25 Jun 2024 13:56:38 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ SA2PEPF00003F66.mail.protection.outlook.com (10.167.248.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Tue, 25 Jun 2024 14:24:54 +0000
+Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Jun
- 2024 08:56:35 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Felix.Kuehling@amd.com>, <mukul.joshi@amd.com>,
- <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH] drm/amdkfd: Use device based logging for errors
-Date: Tue, 25 Jun 2024 19:26:18 +0530
-Message-ID: <20240625135618.1221391-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2024 09:24:49 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <alexander.deucher@amd.com>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v2] drm/radeon: check bo_va->bo is non-NULL before using it
+Date: Tue, 25 Jun 2024 16:22:33 +0200
+Message-ID: <20240625142418.156810-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D5:EE_|SA3PR12MB7808:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa6fbd8a-34e4-4ba0-4cfe-08dc951ea223
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F66:EE_|LV2PR12MB5896:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22e44fd4-bb47-4d61-fd87-08dc95229539
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230037|36860700010|82310400023|1800799021|376011; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ULeWYE//kqxGR1a0B2OUGxpbSmBVEGrDv3x5BqtowKCbKa6+w88mRb+t24HJ?=
- =?us-ascii?Q?FtNph4IO8GrPTf2u3BBVQLDdKFtN15ARopGAwHkhVCz0JsCXJ/dXZv2xcWAW?=
- =?us-ascii?Q?KMhdrlziQUuhMLrFbM8rXKfg3TPFziV2kbgR8kLKQG7ntVutaj4yq7fuvI0E?=
- =?us-ascii?Q?+dfQkszDAZy1kfrojW7NNnn0GG6Q9mA3OnF3VwM51RlOTbygkGVMqIZauy8x?=
- =?us-ascii?Q?F2FVJrJ+pC2LrSdLMEBjr9DchfBMd7Fvtovy2fKDQBxgOLwMZtRnpqIV9mjK?=
- =?us-ascii?Q?qNJ8EZzAkeAfu8aOF8EzPYmbUrqiRSTKMLV3lqx1RUhmmgSZarNt2IdZokZZ?=
- =?us-ascii?Q?yFl7d/ovHaKillXIjzXFvhYML/PT5ItzIq7DbVBZbvvA+KFBvOiVneK/eLAz?=
- =?us-ascii?Q?DJL0j9NEr/covqvF99tH8owcNddcPpzQwha7UjAJqLDq4dT+R7t3r3o+YMW9?=
- =?us-ascii?Q?a5ymu2jzeOGsd/pLg6bgvIPOXYgerWixjwbalUfitlztpC9wHDYyyPqCA9lj?=
- =?us-ascii?Q?Wn5f06CNlE/zY6IfdaTc9yv4jLTkMyhCcyUGCG0ZUvGt85g99qvfMPj+HMRj?=
- =?us-ascii?Q?ol0s3hEQiPMkGO7Mj1XzObJys6BAhSpgbVstZOC8SlSrpROWks07wZE88mzA?=
- =?us-ascii?Q?1Y61enLNitBQWbDgLmyNkgDmM9VrvZdlOdpwRHqg8DoDKvvGppQ1XXe6ERn1?=
- =?us-ascii?Q?peOFADCKatCS3md/DBDMYUweeXHdPVfFxS5/S/IbsQ8nhbF3AVhgUfO62ith?=
- =?us-ascii?Q?S1RGzmPNZHYckC1D9GGgYYCiERBLJ/uVCH6JLo2L09FV1bQKcWQ7CN1jHR7P?=
- =?us-ascii?Q?tYoDcmpGJrJV5OKTx6QSObqhQvbm5QOUgnhd7S9qQndHuM9CopUONnCOk4rw?=
- =?us-ascii?Q?NtxILgG/ayy9/xa6SU2RxqITgN6Mmwa71c0dbWTUOhSOCcr2Fx20jqoEmB8T?=
- =?us-ascii?Q?FngUNjJbA0ZmIRHxYnTlK1s3yqxfgxtCXKdn467DhyfaDDkpVCyw3xx6eM4q?=
- =?us-ascii?Q?Ef6ZTI+7ktMelSQ3GanIB10EqmGplfhtiam9hx/4wtE0b2DBDVh1FszmqxCq?=
- =?us-ascii?Q?jcKSowmDhQkpLK/yFF0NO5rxzNBqePqCSSJDItYPJNHalDf4Yazs97EGoHT2?=
- =?us-ascii?Q?pHo041UpAcRY3BTyEbWdLMoFpO3I9TQAfhXbw8iC3mUpIAZ1OHv/oG0e/ea4?=
- =?us-ascii?Q?faxNBCAc1iSccxI3EGRNeoeHUvUuzQm7SpAqldKbNednaL7TSCu+1MS8ymA2?=
- =?us-ascii?Q?c/N42iJc8MRur/HxUG5PmuALyNe+aAHGSR9+VGujFYHMLlPBNUTPPcVMshKE?=
- =?us-ascii?Q?2ghg+ODLFM4JY71w2m7K6StTCilJUKnpu1DgR7gNgDhcT4ydHSKo89BsxR6S?=
- =?us-ascii?Q?af/y9ETtV77K3x+FthBB12BPUfCevH2JNloL6qfki5XYqYKFnQ=3D=3D?=
+ ARA:13230037|36860700010|376011|82310400023|1800799021; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?63zaxQuIhmCvZdd9lah/UbIReWQdAI2HRgLEQFaGhGx7F54AY6YYphtKxuQK?=
+ =?us-ascii?Q?+x0JQkpHdpm0L5zDiloWdjkFb/l28p5JbCnClV38mlu0ZBceQrbjtzNVuCgx?=
+ =?us-ascii?Q?ORn+RHW1BlIytGBHiDN2bq/YjmKyxdvBRqd8AkGFjER72HPJEvrCUM8mU1nG?=
+ =?us-ascii?Q?InwikFgIT94YZP/4KXqiC/NQ9vclfo64sPO7V/cSdLS6hDK0xwibLygIMVhs?=
+ =?us-ascii?Q?4OBjL0NKG3JEpUzdIDrClbcDS9aCtXFAkHfT9JtS4p1DIYTYIu9gcvo3TaMe?=
+ =?us-ascii?Q?9XlR15QsmlGQR9JfNRntqEPw+VEqjq+9v9MAv6ecIdr3fhGnKd3///RXoT2d?=
+ =?us-ascii?Q?JUVXQNb+g76PmBtZ57TJEctenfQJtvSBgvPygMnCvbNp9aUYJGo0/x3D/Yb1?=
+ =?us-ascii?Q?7jjpx2EX6Rh3JG0kTi/A4Z/TPv96Eo0Dc03ZWrnV+PXm9lbLIsjY8dFOMSM7?=
+ =?us-ascii?Q?WsLnfmDerlwEAy8IH+8PdoVnNU22xhklJW0l941hVh0ntsX+76gcL9sIT1Ip?=
+ =?us-ascii?Q?h796dhhKLCrBsU+wq7Pt56fRb5qnlMH3DQrhjr230yJL+ZWWtVBWU7VtBInO?=
+ =?us-ascii?Q?pHQZ4m1ohrLHnf55DoegO3uoSYU9c898eyr/ta0Edj1fX+f12cjs4sUkX1N4?=
+ =?us-ascii?Q?D2dICuzFouznoT6nAV6zOVovmz5X3rxV0+jqdNXwsxlwj6FALvmqz+NjqAFs?=
+ =?us-ascii?Q?egAuq9XHB3N6gPhexU1SVd1g6GjCsAzPharVhDozJeKeG8CAFlYgAGfeB4eS?=
+ =?us-ascii?Q?TuSxo0lpBFrbN2NkXZWjdNdRf+0L5YrdAYoCMzKL1exetVjwB1u65FAVpqUn?=
+ =?us-ascii?Q?6vdbDb1FETdGvI+IfxgWGp7iXWHGn8USzq6nkRueRVQNGVTXkNYGQ1/JuRTM?=
+ =?us-ascii?Q?lxIyNxUvBD9cVM3ab+8hWGr0HcqUnb4fkBwo7PK09unBROCMYS5R47d3XpyV?=
+ =?us-ascii?Q?Us0qT533INZW8P+gJ+hz0EQ0CYFKCi6lhf33S0lmaWhkpxiZXvqdSXfbbH7F?=
+ =?us-ascii?Q?LWXv6tCT4cp3MrSPq1VvLlEM6SebwlrcI8oFyS9AQe8AiJegYOFCyXAZQXaS?=
+ =?us-ascii?Q?mjiCQMO3ZkealuCxeU/gauCA1X8C7VZ8xOcBcfSyDsmKgaZ/FKCVq8hx3k1n?=
+ =?us-ascii?Q?iH25UNqkVfEyGnknN3Tbh51Fznp6TOxfjszI9wnwlndYioKQkJoFlg4CM1Nq?=
+ =?us-ascii?Q?I+AyRPHZcTpsQwFxZHN5u/xudbVP5avlD58Nynsm/j1R9lWl1hx/id0f/w9g?=
+ =?us-ascii?Q?A0OE7XG7eO2BQNbmcpgd7/biIr+sQbFLd183OYwoAW5oJdIMF26DPu/cxlPc?=
+ =?us-ascii?Q?qMue7PPXA7cyE++AAEsRcD18vYLVwkUrqpdNfWc+iVf1SNfH0lHiUHjNE3r3?=
+ =?us-ascii?Q?qGc6fR7TNZPIXhP1TCyN7zb/rqYu+qhCi+cVpoMC383YDZ1ngw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230037)(36860700010)(82310400023)(1800799021)(376011); DIR:OUT;
+ SFS:(13230037)(36860700010)(376011)(82310400023)(1800799021); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2024 13:56:38.0141 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa6fbd8a-34e4-4ba0-4cfe-08dc951ea223
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2024 14:24:54.3862 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22e44fd4-bb47-4d61-fd87-08dc95229539
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F66.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7808
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5896
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,459 +129,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert some pr_* to some dev_* APIs to identify the device.
+The call to radeon_vm_clear_freed might clear bo_va->bo, so
+we have to check it before dereferencing it.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 21 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  8 ++-
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 63 ++++++++++++-------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 24 ++++---
- 5 files changed, 74 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 4a64307bc438..dbcb60eb54b2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -380,7 +380,8 @@ int kfd_init_apertures(struct kfd_process *process)
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index 3fec3acdaf28..27225d1fe8d2 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -641,7 +641,7 @@ static void radeon_gem_va_update_vm(struct radeon_device *rdev,
+ 	if (r)
+ 		goto error_unlock;
  
- 		pdd = kfd_create_process_device_data(dev, process);
- 		if (!pdd) {
--			pr_err("Failed to create process device data\n");
-+			dev_err(dev->adev->dev,
-+				"Failed to create process device data\n");
- 			return -ENOMEM;
- 		}
- 		/*
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-index 3ea75a9d86ec..4843dcb9a5f7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -69,7 +69,7 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 		kq->mqd_mgr = dev->dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
- 		break;
- 	default:
--		pr_err("Invalid queue type %d\n", type);
-+		dev_err(dev->adev->dev, "Invalid queue type %d\n", type);
- 		return false;
- 	}
+-	if (bo_va->it.start)
++	if (bo_va->it.start && bo_va->bo)
+ 		r = radeon_vm_bo_update(rdev, bo_va, bo_va->bo->tbo.resource);
  
-@@ -79,13 +79,14 @@ static bool kq_initialize(struct kernel_queue *kq, struct kfd_node *dev,
- 	prop.doorbell_ptr = kfd_get_kernel_doorbell(dev->kfd, &prop.doorbell_off);
- 
- 	if (!prop.doorbell_ptr) {
--		pr_err("Failed to initialize doorbell");
-+		dev_err(dev->adev->dev, "Failed to initialize doorbell");
- 		goto err_get_kernel_doorbell;
- 	}
- 
- 	retval = kfd_gtt_sa_allocate(dev, queue_size, &kq->pq);
- 	if (retval != 0) {
--		pr_err("Failed to init pq queues size %d\n", queue_size);
-+		dev_err(dev->adev->dev, "Failed to init pq queues size %d\n",
-+			queue_size);
- 		goto err_pq_allocate_vidmem;
- 	}
- 
-@@ -341,7 +342,7 @@ struct kernel_queue *kernel_queue_init(struct kfd_node *dev,
- 	if (kq_initialize(kq, dev, type, KFD_KERNEL_QUEUE_SIZE))
- 		return kq;
- 
--	pr_err("Failed to init kernel queue\n");
-+	dev_err(dev->adev->dev, "Failed to init kernel queue\n");
- 
- 	kfree(kq);
- 	return NULL;
-@@ -360,26 +361,26 @@ static __attribute__((unused)) void test_kq(struct kfd_node *dev)
- 	uint32_t *buffer, i;
- 	int retval;
- 
--	pr_err("Starting kernel queue test\n");
-+	dev_err(dev->adev->dev, "Starting kernel queue test\n");
- 
- 	kq = kernel_queue_init(dev, KFD_QUEUE_TYPE_HIQ);
- 	if (unlikely(!kq)) {
--		pr_err("  Failed to initialize HIQ\n");
--		pr_err("Kernel queue test failed\n");
-+		dev_err(dev->adev->dev, "  Failed to initialize HIQ\n");
-+		dev_err(dev->adev->dev, "Kernel queue test failed\n");
- 		return;
- 	}
- 
- 	retval = kq_acquire_packet_buffer(kq, 5, &buffer);
- 	if (unlikely(retval != 0)) {
--		pr_err("  Failed to acquire packet buffer\n");
--		pr_err("Kernel queue test failed\n");
-+		dev_err(dev->adev->dev, "  Failed to acquire packet buffer\n");
-+		dev_err(dev->adev->dev, "Kernel queue test failed\n");
- 		return;
- 	}
- 	for (i = 0; i < 5; i++)
- 		buffer[i] = kq->nop_packet;
- 	kq_submit_packet(kq);
- 
--	pr_err("Ending kernel queue test\n");
-+	dev_err(dev->adev->dev, "Ending kernel queue test\n");
- }
- 
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-index ccfa5a0a8f6b..50a81da43ce1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-@@ -118,12 +118,14 @@ void mqd_symmetrically_map_cu_mask(struct mqd_manager *mm,
- 	 * attention grabbing.
- 	 */
- 	if (gfx_info->max_shader_engines > KFD_MAX_NUM_SE) {
--		pr_err("Exceeded KFD_MAX_NUM_SE, chip reports %d\n",
--		       gfx_info->max_shader_engines);
-+		dev_err(mm->dev->adev->dev,
-+			"Exceeded KFD_MAX_NUM_SE, chip reports %d\n",
-+			gfx_info->max_shader_engines);
- 		return;
- 	}
- 	if (gfx_info->max_sh_per_se > KFD_MAX_NUM_SH_PER_SE) {
--		pr_err("Exceeded KFD_MAX_NUM_SH, chip reports %d\n",
-+		dev_err(mm->dev->adev->dev,
-+			"Exceeded KFD_MAX_NUM_SH, chip reports %d\n",
- 			gfx_info->max_sh_per_se * gfx_info->max_shader_engines);
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index a05d5c1097a8..37930629edc5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -45,7 +45,8 @@ static void pm_calc_rlib_size(struct packet_manager *pm,
- 	unsigned int process_count, queue_count, compute_queue_count, gws_queue_count;
- 	unsigned int map_queue_size;
- 	unsigned int max_proc_per_quantum = 1;
--	struct kfd_node *dev = pm->dqm->dev;
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 
- 	process_count = pm->dqm->processes_count;
- 	queue_count = pm->dqm->active_queue_count;
-@@ -59,14 +60,14 @@ static void pm_calc_rlib_size(struct packet_manager *pm,
- 	 */
- 	*over_subscription = false;
- 
--	if (dev->max_proc_per_quantum > 1)
--		max_proc_per_quantum = dev->max_proc_per_quantum;
-+	if (node->max_proc_per_quantum > 1)
-+		max_proc_per_quantum = node->max_proc_per_quantum;
- 
- 	if ((process_count > max_proc_per_quantum) ||
- 	    compute_queue_count > get_cp_queues_num(pm->dqm) ||
- 	    gws_queue_count > 1) {
- 		*over_subscription = true;
--		pr_debug("Over subscribed runlist\n");
-+		dev_dbg(dev, "Over subscribed runlist\n");
- 	}
- 
- 	map_queue_size = pm->pmf->map_queues_size;
-@@ -81,7 +82,7 @@ static void pm_calc_rlib_size(struct packet_manager *pm,
- 	if (*over_subscription)
- 		*rlib_size += pm->pmf->runlist_size;
- 
--	pr_debug("runlist ib size %d\n", *rlib_size);
-+	dev_dbg(dev, "runlist ib size %d\n", *rlib_size);
- }
- 
- static int pm_allocate_runlist_ib(struct packet_manager *pm,
-@@ -90,6 +91,8 @@ static int pm_allocate_runlist_ib(struct packet_manager *pm,
- 				unsigned int *rl_buffer_size,
- 				bool *is_over_subscription)
- {
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	int retval;
- 
- 	if (WARN_ON(pm->allocated))
-@@ -99,11 +102,10 @@ static int pm_allocate_runlist_ib(struct packet_manager *pm,
- 
- 	mutex_lock(&pm->lock);
- 
--	retval = kfd_gtt_sa_allocate(pm->dqm->dev, *rl_buffer_size,
--					&pm->ib_buffer_obj);
-+	retval = kfd_gtt_sa_allocate(node, *rl_buffer_size, &pm->ib_buffer_obj);
- 
- 	if (retval) {
--		pr_err("Failed to allocate runlist IB\n");
-+		dev_err(dev, "Failed to allocate runlist IB\n");
- 		goto out;
- 	}
- 
-@@ -125,6 +127,8 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
- {
- 	unsigned int alloc_size_bytes;
- 	unsigned int *rl_buffer, rl_wptr, i;
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	int retval, processes_mapped;
- 	struct device_process_node *cur;
- 	struct qcm_process_device *qpd;
-@@ -142,7 +146,7 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
- 	*rl_size_bytes = alloc_size_bytes;
- 	pm->ib_size_bytes = alloc_size_bytes;
- 
--	pr_debug("Building runlist ib process count: %d queues count %d\n",
-+	dev_dbg(dev, "Building runlist ib process count: %d queues count %d\n",
- 		pm->dqm->processes_count, pm->dqm->active_queue_count);
- 
- 	/* build the run list ib packet */
-@@ -150,7 +154,7 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
- 		qpd = cur->qpd;
- 		/* build map process packet */
- 		if (processes_mapped >= pm->dqm->processes_count) {
--			pr_debug("Not enough space left in runlist IB\n");
-+			dev_dbg(dev, "Not enough space left in runlist IB\n");
- 			pm_release_ib(pm);
- 			return -ENOMEM;
- 		}
-@@ -167,7 +171,8 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
- 			if (!kq->queue->properties.is_active)
- 				continue;
- 
--			pr_debug("static_queue, mapping kernel q %d, is debug status %d\n",
-+			dev_dbg(dev,
-+				"static_queue, mapping kernel q %d, is debug status %d\n",
- 				kq->queue->queue, qpd->is_debug);
- 
- 			retval = pm->pmf->map_queues(pm,
-@@ -186,7 +191,8 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
- 			if (!q->properties.is_active)
- 				continue;
- 
--			pr_debug("static_queue, mapping user queue %d, is debug status %d\n",
-+			dev_dbg(dev,
-+				"static_queue, mapping user queue %d, is debug status %d\n",
- 				q->queue, qpd->is_debug);
- 
- 			retval = pm->pmf->map_queues(pm,
-@@ -203,11 +209,13 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
- 		}
- 	}
- 
--	pr_debug("Finished map process and queues to runlist\n");
-+	dev_dbg(dev, "Finished map process and queues to runlist\n");
- 
- 	if (is_over_subscription) {
- 		if (!pm->is_over_subscription)
--			pr_warn("Runlist is getting oversubscribed. Expect reduced ROCm performance.\n");
-+			dev_warn(
-+				dev,
-+				"Runlist is getting oversubscribed. Expect reduced ROCm performance.\n");
- 		retval = pm->pmf->runlist(pm, &rl_buffer[rl_wptr],
- 					*rl_gpu_addr,
- 					alloc_size_bytes / sizeof(uint32_t),
-@@ -273,6 +281,8 @@ void pm_uninit(struct packet_manager *pm)
- int pm_send_set_resources(struct packet_manager *pm,
- 				struct scheduling_resources *res)
- {
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	uint32_t *buffer, size;
- 	int retval = 0;
- 
-@@ -282,7 +292,7 @@ int pm_send_set_resources(struct packet_manager *pm,
- 					size / sizeof(uint32_t),
- 					(unsigned int **)&buffer);
- 	if (!buffer) {
--		pr_err("Failed to allocate buffer on kernel queue\n");
-+		dev_err(dev, "Failed to allocate buffer on kernel queue\n");
- 		retval = -ENOMEM;
- 		goto out;
- 	}
-@@ -344,6 +354,8 @@ int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_queues)
- int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
- 			uint64_t fence_value)
- {
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	uint32_t *buffer, size;
- 	int retval = 0;
- 
-@@ -355,7 +367,7 @@ int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
- 	kq_acquire_packet_buffer(pm->priv_queue,
- 			size / sizeof(uint32_t), (unsigned int **)&buffer);
- 	if (!buffer) {
--		pr_err("Failed to allocate buffer on kernel queue\n");
-+		dev_err(dev, "Failed to allocate buffer on kernel queue\n");
- 		retval = -ENOMEM;
- 		goto out;
- 	}
-@@ -373,6 +385,8 @@ int pm_send_query_status(struct packet_manager *pm, uint64_t fence_address,
- 
- int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_period)
- {
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	int retval = 0;
- 	uint32_t *buffer, size;
- 
-@@ -386,7 +400,8 @@ int pm_update_grace_period(struct packet_manager *pm, uint32_t grace_period)
- 			(unsigned int **)&buffer);
- 
- 		if (!buffer) {
--			pr_err("Failed to allocate buffer on kernel queue\n");
-+			dev_err(dev,
-+				"Failed to allocate buffer on kernel queue\n");
- 			retval = -ENOMEM;
- 			goto out;
- 		}
-@@ -407,6 +422,8 @@ int pm_send_unmap_queue(struct packet_manager *pm,
- 			enum kfd_unmap_queues_filter filter,
- 			uint32_t filter_param, bool reset)
- {
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	uint32_t *buffer, size;
- 	int retval = 0;
- 
-@@ -415,7 +432,7 @@ int pm_send_unmap_queue(struct packet_manager *pm,
- 	kq_acquire_packet_buffer(pm->priv_queue,
- 			size / sizeof(uint32_t), (unsigned int **)&buffer);
- 	if (!buffer) {
--		pr_err("Failed to allocate buffer on kernel queue\n");
-+		dev_err(dev, "Failed to allocate buffer on kernel queue\n");
- 		retval = -ENOMEM;
- 		goto out;
- 	}
-@@ -464,6 +481,8 @@ int pm_debugfs_runlist(struct seq_file *m, void *data)
- 
- int pm_debugfs_hang_hws(struct packet_manager *pm)
- {
-+	struct kfd_node *node = pm->dqm->dev;
-+	struct device *dev = node->adev->dev;
- 	uint32_t *buffer, size;
- 	int r = 0;
- 
-@@ -475,16 +494,16 @@ int pm_debugfs_hang_hws(struct packet_manager *pm)
- 	kq_acquire_packet_buffer(pm->priv_queue,
- 			size / sizeof(uint32_t), (unsigned int **)&buffer);
- 	if (!buffer) {
--		pr_err("Failed to allocate buffer on kernel queue\n");
-+		dev_err(dev, "Failed to allocate buffer on kernel queue\n");
- 		r = -ENOMEM;
- 		goto out;
- 	}
- 	memset(buffer, 0x55, size);
- 	kq_submit_packet(pm->priv_queue);
- 
--	pr_info("Submitting %x %x %x %x %x %x %x to HIQ to hang the HWS.",
--		buffer[0], buffer[1], buffer[2], buffer[3],
--		buffer[4], buffer[5], buffer[6]);
-+	dev_info(dev, "Submitting %x %x %x %x %x %x %x to HIQ to hang the HWS.",
-+		 buffer[0], buffer[1], buffer[2], buffer[3], buffer[4],
-+		 buffer[5], buffer[6]);
- out:
- 	mutex_unlock(&pm->lock);
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 6251f37c312a..17e42161b015 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1311,7 +1311,8 @@ int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
- 		if (IS_ERR_VALUE(qpd->tba_addr)) {
- 			int err = qpd->tba_addr;
- 
--			pr_err("Failure to set tba address. error %d.\n", err);
-+			dev_err(dev->adev->dev,
-+				"Failure to set tba address. error %d.\n", err);
- 			qpd->tba_addr = 0;
- 			qpd->cwsr_kaddr = NULL;
- 			return err;
-@@ -1611,7 +1612,8 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
- 						&pdd->proc_ctx_cpu_ptr,
- 						false);
- 		if (retval) {
--			pr_err("failed to allocate process context bo\n");
-+			dev_err(dev->adev->dev,
-+				"failed to allocate process context bo\n");
- 			goto err_free_pdd;
- 		}
- 		memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
-@@ -1676,7 +1678,7 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 						     &p->kgd_process_info,
- 						     &ef);
- 	if (ret) {
--		pr_err("Failed to create process VM object\n");
-+		dev_err(dev->adev->dev, "Failed to create process VM object\n");
- 		return ret;
- 	}
- 	RCU_INIT_POINTER(p->ef, ef);
-@@ -1723,7 +1725,7 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_node *dev,
- 
- 	pdd = kfd_get_process_device_data(dev, p);
- 	if (!pdd) {
--		pr_err("Process device data doesn't exist\n");
-+		dev_err(dev->adev->dev, "Process device data doesn't exist\n");
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
-@@ -1833,6 +1835,7 @@ int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger)
- 
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
-+		struct device *dev = pdd->dev->adev->dev;
- 
- 		kfd_smi_event_queue_eviction(pdd->dev, p->lead_thread->pid,
- 					     trigger);
-@@ -1844,7 +1847,7 @@ int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger)
- 		 * them been add back since they actually not be saved right now.
- 		 */
- 		if (r && r != -EIO) {
--			pr_err("Failed to evict process queues\n");
-+			dev_err(dev, "Failed to evict process queues\n");
- 			goto fail;
- 		}
- 		n_evicted++;
-@@ -1866,7 +1869,8 @@ int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger)
- 
- 		if (pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
- 							      &pdd->qpd))
--			pr_err("Failed to restore queues\n");
-+			dev_err(pdd->dev->adev->dev,
-+				"Failed to restore queues\n");
- 
- 		n_evicted--;
- 	}
-@@ -1882,13 +1886,14 @@ int kfd_process_restore_queues(struct kfd_process *p)
- 
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
-+		struct device *dev = pdd->dev->adev->dev;
- 
- 		kfd_smi_event_queue_restore(pdd->dev, p->lead_thread->pid);
- 
- 		r = pdd->dev->dqm->ops.restore_process_queues(pdd->dev->dqm,
- 							      &pdd->qpd);
- 		if (r) {
--			pr_err("Failed to restore process queues\n");
-+			dev_err(dev, "Failed to restore process queues\n");
- 			if (!ret)
- 				ret = r;
- 		}
-@@ -2065,7 +2070,7 @@ int kfd_reserved_mem_mmap(struct kfd_node *dev, struct kfd_process *process,
- 	struct qcm_process_device *qpd;
- 
- 	if ((vma->vm_end - vma->vm_start) != KFD_CWSR_TBA_TMA_SIZE) {
--		pr_err("Incorrect CWSR mapping size.\n");
-+		dev_err(dev->adev->dev, "Incorrect CWSR mapping size.\n");
- 		return -EINVAL;
- 	}
- 
-@@ -2077,7 +2082,8 @@ int kfd_reserved_mem_mmap(struct kfd_node *dev, struct kfd_process *process,
- 	qpd->cwsr_kaddr = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
- 					get_order(KFD_CWSR_TBA_TMA_SIZE));
- 	if (!qpd->cwsr_kaddr) {
--		pr_err("Error allocating per process CWSR buffer.\n");
-+		dev_err(dev->adev->dev,
-+			"Error allocating per process CWSR buffer.\n");
- 		return -ENOMEM;
- 	}
- 
+ error_unlock:
 -- 
-2.25.1
+2.45.2
 
