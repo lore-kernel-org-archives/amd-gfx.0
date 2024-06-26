@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D687C3064D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7169FC2BD09
 	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jun 2024 07:15:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 663A610EA41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C65E10EA3E;
 	Thu, 27 Jun 2024 07:15:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="BUopx4bm";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="TM6eDvG/";
 	dkim-atps=neutral
 Received: from mout.web.de (mout.web.de [212.227.15.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B627610E94A;
- Wed, 26 Jun 2024 16:26:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C320E10E9A8;
+ Wed, 26 Jun 2024 19:00:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1719419156; x=1720023956; i=markus.elfring@web.de;
- bh=+BOJNdTWEc0DoeEIadfvO9hcM5W1C0uZqLmVuEgings=;
+ s=s29768273; t=1719428410; x=1720033210; i=markus.elfring@web.de;
+ bh=29KHwZye0kesocr9dbrXEFn2i9JHQORDS/QSHCR5JkE=;
  h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
  Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
  cc:content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=BUopx4bm5LepcSY9IGuR2p7li7I8+ZvtMbKcbPkK24fKoOGXW7RRR4WDEKvKEI3K
- 3Bz/P/EO4IWVje5Y7d0cjg95elb2TI1JDeDVQ5BydMtlUkzLAlH7/+8g+wUIuBRd0
- EduNZrAi/1lt96GkBBQGGYvjkjtaEaqY59W+MWww6qr8o1OCvE9DLW06A+FrHtbXI
- XSFgHSH70p9jwP+ILpkrlsuR92Jvgo+VikjANgHKiZzO7rAa6RpMfCIx59mAvzrob
- 3hVmGHuotkix2FUk3Urx4Uz/w/tlVktXnvpSTF5h5eTJsd1iXAUXobRPKAri3k32m
- ahvdxqkLEzy4+3zk4g==
+ b=TM6eDvG/9OoSM+SVdICxRRIMdx6I/27LLao9HyGCgKqu7eCw9JftV/l1QQcQ9190
+ nWpBPHbBiVsaTqz9RpURaQJ2E8tezAtmqts2UpDMY862srNiCQXTto9U5iiuE+tkT
+ EP7FvY3FL3Tv1+4CsPoVICzDDgDNSbdjolOm3v1vxoDfQkWkvwo38WJtzBDSkxB4u
+ ug//suhD2qi6q36ep/1ZBhYO6HYr8hc7pw2JSnkbq1pHNUJRe/TVYt3QHS5jB7tr+
+ Am7ktLx52BCbqIFT/9RImbkwbKKGyort17DVS68D+mjAmgStqA7vc5/m9I5J6aW4/
+ AljtGV8lDzXjWV2bhA==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.91.95]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MGgJK-1s9uYI0kEM-0070K0; Wed, 26
- Jun 2024 18:25:56 +0200
-Message-ID: <a8470f92-8059-46b3-b50d-5ed776d5b087@web.de>
-Date: Wed, 26 Jun 2024 18:25:53 +0200
+Received: from [192.168.178.21] ([94.31.91.95]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N6Jxd-1sP50t2yXR-00vvCj; Wed, 26
+ Jun 2024 21:00:10 +0200
+Message-ID: <9789db5b-faff-422f-a772-d3c4be1fbb37@web.de>
+Date: Wed, 26 Jun 2024 21:00:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Ma Ke <make24@iscas.ac.cn>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Ma Ke <make24@iscas.ac.cn>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Dillon Varone <dillon.varone@amd.com>,
@@ -45,34 +47,32 @@ To: Ma Ke <make24@iscas.ac.cn>, amd-gfx@lists.freedesktop.org,
  Leo Li <sunpeng.li@amd.com>,
  Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
  Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Stylon Wang <stylon.wang@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
  Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20240626130650.2866706-1-make24@iscas.ac.cn>
+References: <d62e10cd-6e27-4498-b90f-3ec891686070@amd.com>
 Subject: Re: [PATCH] drm/amd/display: Add null check before access structs
 Content-Language: en-GB
 From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20240626130650.2866706-1-make24@iscas.ac.cn>
+In-Reply-To: <d62e10cd-6e27-4498-b90f-3ec891686070@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:hW5T3ytNJy84MW/WoW5rqy1HSSQrjRdA2CQImSwGMFGq+ssNq1U
- 2KmdBKYZeF+wxg9l+M2L/2jHW5jC5t+/lswua/aMyCTz9p2rh8pAlhkiYmFyXUnnOzIzO+n
- EqqNO3rgp/TM9HvF3VEe0xF6RNO7J7QVEjCVn2urM4xiJfVlXb6Hr4r/bnGKQRYEgQ/lu43
- 7WoEaxsY/oaV3nNnEDWhw==
-UI-OutboundReport: notjunk:1;M01:P0:BrK4kecaDD8=;x68V+m7KY51k84B+tcqQPLPp5Z/
- 02focIqKuCbb14UU9GVSNkg4W0t/t8tKvY2jkL6Mzh3HIBeI5Rkl0m3cwCEKuCqcCgyLoy1Ny
- b5ciZCTEVHM56RKL/1o8Xe8maOPzwYtpWA9EPcb3cvx1MBowLlgYChSjz9VZLbL9s2IHBKxOi
- ZgABaH+zEQ/w/4avT64YEZAU3if2MsivhbfhD5YdM8cMMsWJv5wyHsBTTONawFTXj7CojnjFC
- yY8QA2iZTjeKuLDqppGfzutKJ9M+uPxvD66mKbXAcCh7gBx1kCUgt9QuhLvrbeohFpBJhwAYI
- 3I9sfHjQFexgRX4PBIzYdtrg87X9eZHPrU5olO0bwKzeaPYeb/rHsLms257vzy+2YJqzERpzO
- jlq2HwU1uVYia9H1FWTJKrd7osYOYUpg8mSZbyGu8Q/lbR+YaoXdRLKT026iX1+Mhiz/NWyqA
- NPE1hfyN/cBH+DStzuXk0VmcVKTrmdjyjGBqU5mze0F49u8C5UoouniI21U90O26cMv+PcYRq
- b34XFj6f0ZuUq60BpCO3sLJnH15XmU8nxHog8D0KPEkewD5vDdAXaHxV5BnCs7hJuGAqp5jCP
- d5m5iC22zZFRkOvlc0xvp+EidS9CPJDCQ87RsWkFMvplV0zbtd3yChdnotxPIY7SiIuN0rZAw
- lN6MxRh6xEgqjTHSxu5wRWA/IwpI8BU0WKSrECVUYgXARhiqTHGd7LRMCSwtOb9ZlreN5vF/K
- E/nGZBT6IvPWdr9VyBFoJ+f5JCAosy7bf5OrYgMRR/21IxDoSl7ieVAI3Rf+Su+nZI4Oe+RHo
- QgVfioky/3erOihTVwCE+bNVhpCxbVClqx2n69vtaOEys=
+X-Provags-ID: V03:K1:N+qiR8aDMloWDxybWsjmFMuQPscTm7+84T56DXRpPb7kAjI+KLE
+ QKSu6Cie3RSPvfNjF9vLArLxaIC10u2DbIZO90rISaM3A5u/q54aRbz9XGgM+NjARiRZ/x+
+ snzgJPAw4CMgppfsFLBK1YMZSNgtIDzKzkAMhO1rLYUNe9acr5zntwppUrKOCnQY1yFnjPT
+ f11Qgzqylv6rb97vfcIlg==
+UI-OutboundReport: notjunk:1;M01:P0:GA+IBcd9gGo=;KPp2FlQiLy41n6X8fBfmcAFqaq0
+ RJ5OB2Um2s3/olhxCjMg7LX3VaydggOTlQvvvmUh5Pb3W5KycafMTDtvEVfvP16V3C3nZi7Go
+ sRMz6pdU6sTx76HCWh80gsKzXsjl/ds1alc4ZtB1Q5Jl7srqVN4QLkIRa3mhxSnqGfiODls+j
+ fU7DUiWsWQmynL2XEBRIHHttqOjyEBQgZOAO5SO9UzdlhtPn9FgD8zJOmDhZmbuy7P3FjiDS+
+ LZGHkUNcCiq0nj+smNehKsz/5UIzn8yFe8m6YigK3erzVApNKxo/b7/dqFH6zPy1/+y78uOyS
+ LKdrQCp4G5RtkAPUNRco5pfeGWgbk6MVnHYcluAQxXG0rpWawSWYLT6hr6fM9v0/aH1L82onQ
+ cs9Wntd1Eh78F1sHQSeBKKyjhrOIIG8RmzbrigUBaw/a3ijEtyTZoo4Yyjj94cfONcqkepZ9C
+ 0xkRyrv7SiSdx5+g5roKJ9l25sxxkFDTZghj0U3dhPOYGvaer24U3csUB5/32fSSwrH2fYh0v
+ NRTc3KV6x9lOT3ZdljZTrm2zHfUFhO3HxTgMdqCyVFrLml90H2XuO87E53PJTSvkNITsZOV73
+ fVFuZiBtrlnH0EuyL7VbBpBESAQ3PVpx28G06NDMOC8FXnSvo0CA7fQcIK/7/rNly3/vt3ju6
+ /WxqBs7FlOePcuiUgawwhG8vb6SLvfyaA/GJ1rUJz1GHuxUIB2f2hDxRXZQnlUi2FiQGp43PA
+ ZQAD1zrweILEHI8S04RNB/E3ZZqSL2IHTLkwQeBaenOk/mkYvXB3zf8ZY40JvhvKqiqgKEj7w
+ B7pKbbtFV6kGV1Wx6ijEpNPYgGdR6/TryDN8gYUkOmhgA=
 X-Mailman-Approved-At: Thu, 27 Jun 2024 07:15:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,26 +88,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> In enable_phantom_plane, we should better check null pointer before
-> accessing various structs.
+> > In enable_phantom_plane, we should better check null pointer before
+> > accessing various structs.
+>
+> Thanks for the fix, I'll apply this.
 
-1. Can a wording approach (like the following) be a better change descript=
-ion?
-   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/process/submitting-patches.rst?h=3Dv6.10-rc5#n45
-
-   A null pointer is stored in the local variable =E2=80=9Cphantom_plane=
-=E2=80=9D after a call
-   of the function =E2=80=9Ccreate_phantom_plane=E2=80=9D (as a data struc=
-ture menber) failed.
-   This pointer was used in subsequent statements where an undesirable
-   dereference will be performed then.
-   Thus add a corresponding return value check.
-
-
-2. How do you think about to use a summary phrase like
-   =E2=80=9CPrevent null pointer dereference in enable_phantom_plane()=E2=
-=80=9D?
+Do you care for better commit messages and summary phrases?
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv6.10-rc5#n45
 
 Regards,
 Markus
