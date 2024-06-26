@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A70CC30658
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA7EC3064D
 	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 18:32:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 784C610E99F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99CEC10E9A0;
 	Wed, 26 Jun 2024 18:32:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fWRkdn8C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dEBe+5Kp";
 	dkim-atps=neutral
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD1510E99F
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 18:32:12 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-79d5495fe01so51273885a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 11:32:12 -0700 (PDT)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F4110E999
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 18:32:11 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-79c0f8d6ec5so156818685a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 11:32:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719426731; x=1720031531; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719426730; x=1720031530; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=INHm/jPqzvUdwOXxfhIIb6A9nZm7DGduu2bNcPDKqe0=;
- b=fWRkdn8CwfTqPlwu34q4SL7gvUgUuxrKbbNAaiXX3eAh2hEn1ct0ZJ6RtVkduAr3wP
- jw5kkA4m5jQmojwrN5abMUJ4fIRNidse231wJD/DhnwqSWOZcfo+zh8gHp2dKfb7Txus
- 1htwS5h8tdLWIYw2nCDqHClKT08IDCoPPNc/9MvYCD4xFZfoAVbkzQMomfLEAGD/D3r0
- n7dFrIJpRQL0VW+y3b5MthcC+/DDaQ3hW2dPgwim687QXtf6jXWFVYb9dYH49LBpAbO3
- b1sBcqSeKHU4rYyzb/4aZRYup2JfCx0UVQ2gZMBrgINag1yA8IlhTxu+recQG4Sjvn8I
- C7pQ==
+ bh=9k+Mo8mg73anFxbrWDvfMjpj08YphmArYTo3FhzDkn8=;
+ b=dEBe+5KpcUySPqApOQPzUlqxs+bBvagtPv4Wom0NyeBS7L3Prg/d2R28DzXsuZktaz
+ JkDdoWYTzdGmMUQPfemsRuleFF6q+o/hXJO9ZHxBZ98bDgMaRsVGBWuOdKaBTbfcRd7o
+ QSOr/DeSopX0UHKUkhME7hwHEqgJXA6MtNwnHBFsrJx0K4mc8k5qI71J9jJwpqXF7dQE
+ +noPgLqQml3IUwdLS3EuUU7IoZCFJcYpQvDL4zSVBvkOzZRsPGo26mM/WBsXjdGQ/jnk
+ 2fM1IERZwIcvr/yX/hSG45CiIZRLjDU7IJpLEe6J6GoGSPl/Np2a31Rga55a4LOJ2HWR
+ NnxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719426731; x=1720031531;
+ d=1e100.net; s=20230601; t=1719426730; x=1720031530;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=INHm/jPqzvUdwOXxfhIIb6A9nZm7DGduu2bNcPDKqe0=;
- b=dwYc/TyKYJDJRfY4mG2Xyz8xeagSyTvOCb/w2WmfXtMWLMKPanknIbMDAQRwYN9so6
- eCncgyoqPX+1O+S+atiBx5hYid0U5nRFMWHiqJ1SNdHoxF2OIDrpWFMit6iQWkAWook3
- warBKY0PtzZARVu54z+eC/dtCoeRwV3M1U8HYBf7sJrwCyEw66KFaBDDB0n5yu95SbzB
- B1jgU2iTYcRMx38dI07jMWrjRIVsM1pNE0xSThEIgPdkMCNqB+LYV19TEfT1S+e+Gc87
- M0vZDJ+P82jNry+yWNysxvo7KW0y8+kuDeakT0L86Iu+Du+9bFNF7iKHBvZQ50TExoIH
- VC+A==
-X-Gm-Message-State: AOJu0YxEsn6ojAELr1+FIYY9k/WZPT7ztVMihLPZ07kns3kOg84EnurD
- omtCjxGX4IiK94tmvhsCWC/PDRtS5IiLBsBELEW6Ks+gD2Uc8Un9xjWR5w==
-X-Google-Smtp-Source: AGHT+IHBVrpc7Zel8K20ewPFqFPWvvRteWQYrNhdjcHQ4wrsirw0wkJGQFBGCNCbelcOlkqA3IX/kg==
-X-Received: by 2002:ad4:50a9:0:b0:6b4:f761:f0b8 with SMTP id
- 6a1803df08f44-6b54099938amr118436516d6.8.1719426730781; 
- Wed, 26 Jun 2024 11:32:10 -0700 (PDT)
+ bh=9k+Mo8mg73anFxbrWDvfMjpj08YphmArYTo3FhzDkn8=;
+ b=WGYUVPv1kHsmiJFxCGbLw0KxNsSEuz010LDPlEXbP+JUlJ7ukjfnTliV4GySOD+5LW
+ RyIGtQ3Vb10xZr9oqAVqUZwZoIjKypNQZLhAz5lOt5AxhMVelsmBKqilWknhpM+Cq9kT
+ 3QfBW+MntMdgSyDcCDrUr3txyp5satHbm7XRcoqQqaNhYe0zuEKIgeQT4PcEz5/0FVxU
+ U0L2OXA9IHDDV3EqmFbE5NiloXX3YbzzdOZQFnnia4DUrWJwFwuYP6dU6Qfo5cxvuSgr
+ zXbnu+HnJBpWqdIalxvMb624+Kt/dhVfFyfuElyKXmtSJ4zc6tvu1Xc7k89ODsg9Q/NG
+ 4kIA==
+X-Gm-Message-State: AOJu0YyYi4bzeDOW8Z+ygQMJgDSC53Z1/LcOVAvX+xgUzyMqLUsDGZLh
+ AkvPbiXHgAsMJvjWNG8Y9KfMQsJtr9YK6aeTfUXXtyeb0PrHPsArsOr+Ig==
+X-Google-Smtp-Source: AGHT+IH0/uVqE+D1n0/QLPex1Mc4tbSnVUM0AF6y7nr1ZVQSIit+Ab+CJEuC59Yoc4twMHZAcLy/Fw==
+X-Received: by 2002:a0c:da0f:0:b0:6b5:47b0:8f09 with SMTP id
+ 6a1803df08f44-6b547b08fe2mr107081216d6.36.1719426729802; 
+ Wed, 26 Jun 2024 11:32:09 -0700 (PDT)
 Received: from localhost.localdomain ([142.188.138.70])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b538092644sm42209276d6.39.2024.06.26.11.32.09
+ 6a1803df08f44-6b538092644sm42209276d6.39.2024.06.26.11.32.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 11:32:10 -0700 (PDT)
+ Wed, 26 Jun 2024 11:32:08 -0700 (PDT)
 From: "=?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?=" <maraeo@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?=
  <marek.olsak@amd.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
-Subject: [PATCH 13/13] drm/amdgpu: rewrite
- convert_tiling_flags_to_modifier_gfx12
-Date: Wed, 26 Jun 2024 14:31:35 -0400
-Message-Id: <20240626183135.8606-13-marek.olsak@amd.com>
+Subject: [PATCH 12/13] drm/amdgpu/display: add all gfx12 modifiers
+Date: Wed, 26 Jun 2024 14:31:34 -0400
+Message-Id: <20240626183135.8606-12-marek.olsak@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240626183135.8606-1-marek.olsak@amd.com>
 References: <20240626183135.8606-1-marek.olsak@amd.com>
@@ -83,92 +82,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There were multiple bugs, like checking SWIZZLE_MODE before checking
-GFX12_SWIZZLE_MODE, which has undefined behavior.
-
-The function had no effect before (it always returned -EINVAL).
-
 Signed-off-by: Marek Olšák <marek.olsak@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 45 +++++++++------------
- 1 file changed, 18 insertions(+), 27 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index ec0299c5918e..092ec11258cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -724,32 +724,25 @@ extract_render_dcc_offset(struct amdgpu_device *adev,
- 
- static int convert_tiling_flags_to_modifier_gfx12(struct amdgpu_framebuffer *afb)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e13938e01b70..0320200dae94 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -688,12 +688,13 @@ static void amdgpu_dm_plane_add_gfx11_modifiers(struct amdgpu_device *adev,
+ static void amdgpu_dm_plane_add_gfx12_modifiers(struct amdgpu_device *adev,
+ 		      uint64_t **mods, uint64_t *size, uint64_t *capacity)
  {
--	struct amdgpu_device *adev = drm_to_adev(afb->base.dev);
--	const struct drm_format_info *format_info;
- 	u64 modifier = 0;
--	int tile = 0;
--	int swizzle = 0;
-+	int swizzle_mode = AMDGPU_TILING_GET(afb->tiling_flags, GFX12_SWIZZLE_MODE);
+-	uint64_t mod_64K_2D = AMD_FMT_MOD |
+-		AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX12) |
+-		AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX12_64K_2D);
++	uint64_t ver = AMD_FMT_MOD | AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX12);
  
--	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0)) {
--		tile = AMD_FMT_MOD_TILE_VER_GFX12;
--		swizzle =  AMDGPU_TILING_GET(afb->tiling_flags, GFX12_SWIZZLE_MODE);
-+	if (!swizzle_mode) {
-+		modifier = DRM_FORMAT_MOD_LINEAR;
-+	} else {
-+		int max_comp_block =
-+			AMDGPU_TILING_GET(afb->tiling_flags, GFX12_DCC_MAX_COMPRESSED_BLOCK);
-+
-+		modifier =
-+			AMD_FMT_MOD |
-+			AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX12) |
-+			AMD_FMT_MOD_SET(TILE, swizzle_mode) |
-+			AMD_FMT_MOD_SET(DCC, afb->gfx12_dcc) |
-+			AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, max_comp_block);
- 	}
- 
--	modifier =
--		AMD_FMT_MOD |
--		AMD_FMT_MOD_SET(TILE, swizzle) |
--		AMD_FMT_MOD_SET(TILE_VERSION,  tile) |
--		AMD_FMT_MOD_SET(DCC, 0) |
--		AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, 0);
--
--	format_info = amdgpu_lookup_format_info(afb->base.format->format,
--						modifier);
--	if (!format_info)
--		return -EINVAL;
--
- 	afb->base.modifier = modifier;
- 	afb->base.flags |= DRM_MODE_FB_MODIFIERS;
--
- 	return 0;
+-	/* 64K without DCC */
+-	amdgpu_dm_plane_add_modifier(mods, size, capacity, mod_64K_2D);
++	/* Without DCC: */
++	amdgpu_dm_plane_add_modifier(mods, size, capacity, ver | AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX12_256K_2D));
++	amdgpu_dm_plane_add_modifier(mods, size, capacity, ver | AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX12_64K_2D));
++	amdgpu_dm_plane_add_modifier(mods, size, capacity, ver | AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX12_4K_2D));
++	amdgpu_dm_plane_add_modifier(mods, size, capacity, ver | AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX12_256B_2D));
+ 	amdgpu_dm_plane_add_modifier(mods, size, capacity, DRM_FORMAT_MOD_LINEAR);
  }
  
-@@ -777,12 +770,6 @@ static int convert_tiling_flags_to_modifier(struct amdgpu_framebuffer *afb)
- 		int pipes = ilog2(num_pipes);
- 		uint32_t dcc_offset = AMDGPU_TILING_GET(afb->tiling_flags, DCC_OFFSET_256B);
- 
--
--		if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0)) {
--			convert_tiling_flags_to_modifier_gfx12(afb);
--			return 0;
--		}
--
- 		switch (swizzle >> 2) {
- 		case 0: /* 256B */
- 			block_size_bits = 8;
-@@ -1281,7 +1268,11 @@ static int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 
- 	if (!dev->mode_config.fb_modifiers_not_supported &&
- 	    !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
--		ret = convert_tiling_flags_to_modifier(rfb);
-+		if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0))
-+			ret = convert_tiling_flags_to_modifier_gfx12(rfb);
-+		else
-+			ret = convert_tiling_flags_to_modifier(rfb);
-+
- 		if (ret) {
- 			drm_dbg_kms(dev, "Failed to convert tiling flags 0x%llX to a modifier",
- 				    rfb->tiling_flags);
 -- 
 2.34.1
 
