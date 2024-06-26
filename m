@@ -4,76 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D18EC30653
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 07:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46348C27C4F
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 08:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 782E510E7AE;
-	Wed, 26 Jun 2024 07:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2EC610E7D7;
+	Wed, 26 Jun 2024 08:49:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="IIbs3qVF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iguId/L7";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9769310E164
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 07:54:11 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-42111cf2706so8079495e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 00:54:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1719388450; x=1719993250; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=aa2DK3FJcswd3lBlP25MRyQshT3cYKetmIItJLNJP64=;
- b=IIbs3qVF/xZn3Phsicxy6+wUnG4UkQmv+Pz9nCucpBph0XpZzAvMZgY+pKv1i0dISP
- tY++Atz6Hsb5wEeO9J3Jn4G1GZdREPsFtbscc1fAAFrNZoDs32CqIltFSe9RPVZOcd8U
- NT89X7f0ycj1wzKqfT3FaTM1InVpLTNJNYpXg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719388450; x=1719993250;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aa2DK3FJcswd3lBlP25MRyQshT3cYKetmIItJLNJP64=;
- b=D2crgwAcqa5FwijrazeJyUZimzLMDpbYG4epQI37ZQqyqTArrXIrrEUaX51ZLVCR+z
- 4HnsZocVBZ379W1zqZzZ6oHAZZeMPlbf4IQQua5KeRfInKtpvLNahUGpr/OrCtF0r1Dz
- ArKt3ML4bvIJnsn5I04WzDQ+3+WJCfflyFb2YndXvG4CwTu/hQ90WyXJakxucO19TB52
- B6YbY1YxH82sHyfsZj60x5CL0JN2MZharnS6Tq76CaEr9oeQVTZtlDKrlKL3fst54rL6
- JLVUlpBQxntXhMVzBQEHqNRgF6idJ7UNmhqLkNdX/mBG5aEBA/JfOu0KvZ+ptHuPLcjG
- Zfqw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVy0iklNmiGT5vhzQj79zclwy88JEhqcjZWqNxgzPNaNNHmPEeD2T6PkogrjG11rPrIP2JIpjnNg3pZGGILNF63jlDMMFO9G1NgEvj8dg==
-X-Gm-Message-State: AOJu0YwrSOyXcPnYpKlA8T0bKkFC1VEggK9hL3BgYX0UiiijhDe5iMrH
- KCdWonxKVCgiGUxYQuZ8SWsBoA8L1yUXGPnHIcupz5Tq3e+TMZpasQrvLE7oEBs=
-X-Google-Smtp-Source: AGHT+IHqaGlS+tvTfEnO1I9WHlqaGgPoVfylkGVqNci0K+5WMO+v3SflPB8hH8I8K/sNnuAh2cj/dw==
-X-Received: by 2002:a05:6000:4010:b0:360:8490:74d with SMTP id
- ffacd0b85a97d-366e2a5e683mr7102118f8f.5.1719388449869; 
- Wed, 26 Jun 2024 00:54:09 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3663a2f693fsm14988889f8f.69.2024.06.26.00.54.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 00:54:09 -0700 (PDT)
-Date: Wed, 26 Jun 2024 09:54:07 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 1/6] drm/amdgpu: allow ioctls to opt-out of runtime pm
-Message-ID: <ZnvJHwnNAvDrRMVG@phenom.ffwll.local>
-References: <20240618153003.146168-1-pierre-eric.pelloux-prayer@amd.com>
- <20240618153003.146168-2-pierre-eric.pelloux-prayer@amd.com>
- <c45283a1-98d2-43a2-a73c-71896464c7f9@amd.com>
- <d2eefecf-656e-4c9c-96b3-717756581cc1@damsy.net>
- <bcca41dc-8f75-4ca0-a843-62fa63636262@amd.com>
- <188b82b3-c600-4920-84c7-ceb072b8e9d6@damsy.net>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2084.outbound.protection.outlook.com [40.107.236.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6242710E7E0;
+ Wed, 26 Jun 2024 08:49:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SZgpScxtIIrItvPj1PfvNsmPDwr5bexiGicYDHHh/tojV/jbVbYaQ24t9XW8ntBcoWaFdFIY18MNWGcru4q0jjx4/wSHDSoIxUAIavB7O9E7P8qOqLdXgQf0nZE7/H6a/mzJxJYXlg0W2mUTApHKTqoIr7+N0a9EUQc8ZA/zNaSkgEmS+3TRVD0p4CAQd2xvkZO0PToCbTertUx6RJ5AH9WMDwEur3GfNH8ggtJB3Qyrm9uTbsl4HVh4db0gmnbeExl2bXkM52+5en8Pk4P5d8xPb5R9hkRz0CdB+cESVZPaOXrcimbv1ankGQqszXvMSGKsJJvm1CSYLmQIFfUaqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qE4diFddfHTpVaEqoH1lXGgJ59aOWpSaklaEgb8hQAw=;
+ b=bUHuLcooL16CwgNFSzR8Av+yivdQb7XtDdEGGHiw1Wvxk976EVc5ISr6Ji0I7Rvmgrrna/fIPOF0SU97sKzcGg3966rToCL6xysC8Bk97qFDat3hX26OOijBdCfQ2eme/xuWyNC5l6RG+mQJLTzh/pLfLjV7OKk2jGYgbBlcZGM7Dd1mdBc2geNA9ZOii+j0CFoJqBfVrAWB0cjp9as06oQd1vbxED2/3MUWWHjjo+azOE6ofCbdVvo6OTKRxI007jZRWDBzj5lAlNRZcWihewHEbYyhsPFwEYPjppioMmKYx425mYgpWg/nF0wgiXfogb5tjnJHokXtWUTlej/TLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qE4diFddfHTpVaEqoH1lXGgJ59aOWpSaklaEgb8hQAw=;
+ b=iguId/L7hDeJpLQvtBIgSELuodw/hEbGrXUsdONASqYqIO6tnikUFHwY83QHHD9O+kk/QUGNeiXW+smcFrlAJlLiKBji2/H0eNsz3ZTf7RXilgdPmmjmdc6eURrUHnE38fpH9vAOWlI3vWDObOH+pmtu08P9pMQ74XULuIu1mMM=
+Received: from MN2PR08CA0011.namprd08.prod.outlook.com (2603:10b6:208:239::16)
+ by MW3PR12MB4460.namprd12.prod.outlook.com (2603:10b6:303:2f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.30; Wed, 26 Jun
+ 2024 08:49:07 +0000
+Received: from BL02EPF0001A103.namprd05.prod.outlook.com
+ (2603:10b6:208:239:cafe::50) by MN2PR08CA0011.outlook.office365.com
+ (2603:10b6:208:239::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.38 via Frontend
+ Transport; Wed, 26 Jun 2024 08:49:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Wed, 26 Jun 2024 08:49:07 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
+ 2024 03:48:59 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
+ 2024 03:48:58 -0500
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 26 Jun 2024 03:48:55 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <lyude@redhat.com>, <jani.nikula@intel.com>, <imre.deak@intel.com>,
+ <daniel@ffwll.ch>, <Harry.Wentland@amd.com>, <jerry.zuo@amd.com>, Wayne Lin
+ <Wayne.Lin@amd.com>
+Subject: [PATCH 0/3] Fix mst daisy chain light up issue after resume
+Date: Wed, 26 Jun 2024 16:48:22 +0800
+Message-ID: <20240626084825.878565-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <188b82b3-c600-4920-84c7-ceb072b8e9d6@damsy.net>
-X-Operating-System: Linux phenom 6.8.9-amd64 
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|MW3PR12MB4460:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3542d91d-1549-4a2e-1422-08dc95bcd71c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230038|1800799022|82310400024|36860700011|376012; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+zcYTLeeLpg6ZZLKsHbGeBFGvs8nJAKDACALyTzohC0jrt5Gc2X86MQxShWs?=
+ =?us-ascii?Q?DCnewZ/ZsrikMXhr0yYqs4OAg0VxwQsrLIOXv11ZDhyI9uja3EZOusarkSq4?=
+ =?us-ascii?Q?yEBlXsMuAKxmp8PLiG8UZz5JDWT/Eh5JLFTqJO00q7VkrWLRP/hGV0EiTZzq?=
+ =?us-ascii?Q?3Yz2pQyzWTtC6hCU2u6nWESU9Qk89ZrVNxIAJDPYif4ob2Zr6WEg5tPuGxU2?=
+ =?us-ascii?Q?MeRA8CGx9TiuuSJybmCojFdVCeFzojbJL2mQK1k3SA2xRJwRJyxR3Wo+Afe5?=
+ =?us-ascii?Q?x3hoqbcKGGIPGAK08gOztwfIDptRPcNlvaXIF8hLb5GrByLMUl35zY3k73iL?=
+ =?us-ascii?Q?+ydf3TUCyf5OcY1HaSITf+Z3OeEVvtpkoHtLiI/VM6Jz2uV1W572sEsg4r/p?=
+ =?us-ascii?Q?/IRG0j5fszUGvUeYss4AYQKYs5fI/OW9lwkr0874qtQ5dgu+lCSQ+fSiLG0E?=
+ =?us-ascii?Q?Mks1NHa69UZxW71q7MmxgUBS0NCfDUH+LFreXd0bLPStkbR1Yea7Jsrla6Yo?=
+ =?us-ascii?Q?HyA8JhGpEs9Bt3HEYuSoYE6yv/KnWQ3Myrwy1MsgZtlfdSJqeewJkf31WB4H?=
+ =?us-ascii?Q?Kt5JYrnUqDZIxy6qMgb9hL6unckmy7qC8SXrpKj7BwDSBWRVMZjp/alYbShd?=
+ =?us-ascii?Q?VW4WLKxVJVYditeIX9U62x4p3GwuO8UiUyEWv9pghxSkUVBXbUlAW3sK4yyg?=
+ =?us-ascii?Q?ppcdbTJMAihoEz+DnCXqCcf7zj/IaElTqDpkCcwmIvOktVaHaimXbnU+qxr3?=
+ =?us-ascii?Q?rycKEgHBaCW+15QEROr17MB1PD5RVTcT02uuZqxO+mfcSIrV8hKiuEOzs2sR?=
+ =?us-ascii?Q?0olUOmJZvbrNRMnRsX2N7SYUxE7cEHKR84KGXwAd9ujgozV1ZIXilVxZ9hEv?=
+ =?us-ascii?Q?5CAvdIZmeZCzmMCH+JkDAM8O04SirrS5uCeLEhjzMB09xTEgpgnpG+DYiU2b?=
+ =?us-ascii?Q?fsx34zrfWFXdbnk05fGMfmRCLcV04deY1nRfbC3NugXGsGTS3HujWVbJRVmx?=
+ =?us-ascii?Q?QB7+0Hzw0buXE337Dau3rrw5UVr+oz7loAOdX0t2F0FAfVX/pO9w/WEDTMFh?=
+ =?us-ascii?Q?ToR09b3GBCWPp6FCnzEi+oqeE2GtFo0DmoYxCTB6JFLMBiVo4zdE9mVwQnrD?=
+ =?us-ascii?Q?ULf2Y0NFDkzi7XRerRiVE78ntDxuc1a1AS0ZsJi+Jbsl8YOPDpUv/PlYiWPh?=
+ =?us-ascii?Q?a2J9BD9tf/m+Mt1Mfq2e6/Uy2Vekz9Ky6RMI3hlBxSvOATSvLoHmZdcybS2N?=
+ =?us-ascii?Q?q21dZkSgr0a4rY7cTBaJWHepDKFeu85T8w3HbBXk4jsoWi22t3qv26foRndx?=
+ =?us-ascii?Q?qXCHUPppwd/au8KA30yuzgyo7v2uJbeNkxoNf7BaqSPFKzfOPPncoT+9Fzkd?=
+ =?us-ascii?Q?adXNGjyMNhPPRXUOxszt9D0UlUUFe/+NYUjptMd7z/3mQdiEyg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230038)(1800799022)(82310400024)(36860700011)(376012); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 08:49:07.4318 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3542d91d-1549-4a2e-1422-08dc95bcd71c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A103.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4460
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,122 +134,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 25, 2024 at 09:07:12AM +0200, Pierre-Eric Pelloux-Prayer wrote:
-> 
-> Le 20/06/2024 à 15:36, Christian König a écrit :
-> > Am 20.06.24 um 15:06 schrieb Pierre-Eric Pelloux-Prayer:
-> > > Le 19/06/2024 à 11:26, Christian König a écrit :
-> > > > Am 18.06.24 um 17:23 schrieb Pierre-Eric Pelloux-Prayer:
-> > > > > Waking up a device can take multiple seconds, so if it's not
-> > > > > going to be used we might as well not resume it.
-> > > > > 
-> > > > > The safest default behavior for all ioctls is to resume the GPU,
-> > > > > so this change allows specific ioctls to opt-out of generic
-> > > > > runtime pm.
-> > > > 
-> > > > I'm really wondering if we shouldn't put that into the IOCTL
-> > > > description.
-> > > > 
-> > > > See amdgpu_ioctls_kms and DRM_IOCTL_DEF_DRV() for what I mean.
-> > > 
-> > > Are you suggesting to add a new entry in enum drm_ioctl_flags to
-> > > indicate ioctls which need the device to be awake?
-> > > 
-> > > Something like: "DRM_NO_DEVICE = BIT(6)" and then use it for both
-> > > core and amdgpu ioctls?
-> > 
-> > Yeah something like that. Maybe name that DRM_SW_ONLY or something like
-> > that.
-> 
-> + dri-devel to gauge interest in adding such a flag in shared code.
+Under DP mst daisy chain configuration, unplug one chained monitor
+during suspend and then resume, observe left connected monitor not
+light up. After analyzing, seems it's due to changing dpcd
+DP_MSTM_CTRL value after LT during reume.
 
-Eh please no. That's just fundamentally the wrong way round to do runtime
-pm, but amdgpu goes way, way back in desing in that record to the vga
-switcheroo, where the simple hack was to just add runtime pm handling at
-the entry points and call it done.
+We used to defer handling UP request by disabling DP_UP_REQ_EN at the
+begining of resume process to avoid some problems. However, it turns
+out that it will cause problem on the hub if we change DP_UP_REQ_EN
+after LT. This series is trying to solve the problem by another way
+that we don't explicitly disable DP_UP_REQ_EN at source side. Instead,
+source should ignore the CSN event before source completeting topology
+probing during resume.
 
-If you look at any other drm driver, the runtime pm handling is done way
-down when touching the actual relevant hardware blocks. Because especially
-on arm it's actually a pile of runtime pm domains.
+Wayne Lin (3):
+  drm/dp_mst: Fix all mstb marked as not probed after suspend/resume
+  drm/dp_mst: Skip CSN if topology probing is not done yet
+  drm/amd/display: Solve mst monitors blank out problem after resume
 
-So essentially this is like pushing a big driver lock down the callchain
-until it's actually at the right level. First step would be to push it
-into each of the amdgpu ioctl callbacks, so that you can drop
-amdgpu_drm_ioctl and use drm_ioctl again directly. And then push it
-further until you can remove it from all the places where it's not needed.
-
-DRM_SW_ONLY otoh is pure midlayer mistake design.
-
-Cheers, Sima
-
-> 
-> Pierre-Eric
-> 
-> 
-> 
-> > 
-> > Christian.
-> > 
-> > > 
-> > > Pierre-Eric
-> > > 
-> > > 
-> > > 
-> > > 
-> > > > 
-> > > > Regards,
-> > > > Christian.
-> > > > 
-> > > > > 
-> > > > > Signed-off-by: Pierre-Eric Pelloux-Prayer
-> > > > > <pierre-eric.pelloux-prayer@amd.com>
-> > > > > ---
-> > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25
-> > > > > ++++++++++++++++++++-----
-> > > > >   1 file changed, 20 insertions(+), 5 deletions(-)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > > index 60d5758939ae..a9831b243bfc 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > > > @@ -2855,18 +2855,33 @@ long amdgpu_drm_ioctl(struct file *filp,
-> > > > >   {
-> > > > >       struct drm_file *file_priv = filp->private_data;
-> > > > >       struct drm_device *dev;
-> > > > > +    bool needs_device;
-> > > > >       long ret;
-> > > > >       dev = file_priv->minor->dev;
-> > > > > -    ret = pm_runtime_get_sync(dev->dev);
-> > > > > -    if (ret < 0)
-> > > > > -        goto out;
-> > > > > +
-> > > > > +    /* Some ioctl can opt-out of powermanagement handling
-> > > > > +     * if they don't require the device to be resumed.
-> > > > > +     */
-> > > > > +    switch (cmd) {
-> > > > > +    default:
-> > > > > +        needs_device = true;
-> > > > > +    }
-> > > > > +
-> > > > > +    if (needs_device) {
-> > > > > +        ret = pm_runtime_get_sync(dev->dev);
-> > > > > +        if (ret < 0)
-> > > > > +            goto out;
-> > > > > +    }
-> > > > >       ret = drm_ioctl(filp, cmd, arg);
-> > > > > -    pm_runtime_mark_last_busy(dev->dev);
-> > > > >   out:
-> > > > > -    pm_runtime_put_autosuspend(dev->dev);
-> > > > > +    if (needs_device) {
-> > > > > +        pm_runtime_mark_last_busy(dev->dev);
-> > > > > +        pm_runtime_put_autosuspend(dev->dev);
-> > > > > +    }
-> > > > > +
-> > > > >       return ret;
-> > > > >   }
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c     | 15 +++++++++++++--
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.37.3
+
