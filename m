@@ -4,65 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DDF6C27C4F
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 20:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D70B5C27C4F
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 21:46:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9310310E065;
-	Wed, 26 Jun 2024 20:51:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64CB710E27C;
+	Wed, 26 Jun 2024 21:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WaI52Coz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uU8oCeiV";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F17D210E065
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 20:51:48 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-1fa2782a8ccso29784745ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 13:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719435108; x=1720039908; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tGrsiIRHDVqQzyHILgfIXoewmNWMuBT7LV2wut0O6+I=;
- b=WaI52CozLrSkhvGfi1G7WLS4AuD4HQU9Pv5aYM+HC+rrbeCt1Tf+byEcupcwD+zYxF
- g4CuWhFAOtMdpQbw2/5XQFx7XBg632HmGU64wGfeTqOxouz4MTXrDVMJcCMPYknIJZue
- pJZ+mdWYKsnlemvrvsk2NO/vlD493dOMBLRT9VZJieBh8DOKHb1tBBdsl/0lYoGo+bVB
- DA5u08jeoNnfcBnAWs727tHs77H9OI826Lymh7yHYhJnSjZ7oZ7OnGcSXCL+LY+/b8A7
- F/uWKqpOVtryrYARLqu3mMpmDBkbtdBMt6HIDQ7kEnDNuCwokgQSPDtZK/nOvQXRbCDK
- hf9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719435108; x=1720039908;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tGrsiIRHDVqQzyHILgfIXoewmNWMuBT7LV2wut0O6+I=;
- b=FBYmR89g9dMFea8d3bXOZHeOY5OAFR7h3TN/+WV6uFjY2YDq0QOxMhIqXU5PfasJtb
- cels/U8orH0CNmGAoyStKLknHD48y1MHJsW0+/U+JCPxqXBYiV/wTsP5aX6qMyteJzOo
- of5cUpmdzUbkCv+VxB+p51IpW3wk3eILjwfcnvmX593/KT2/7V59cl0LLv3076eQkVMA
- hkQEUqPcaRSdPEiBf5kmyOyjVvq4jOGHBFiOyiZkRzH1ih3Z+Umiz3CrU7/FkBjaqS9P
- Wdt23znRFU2K4o/5HNkN7C2IBXOcvoi92AOr0XZECIJB0D6qFHajOwX1eXhtTBCBQp3D
- BnPA==
-X-Gm-Message-State: AOJu0YxQzVMhXboCe6NI+yrhkLz6qboGx+SOm7zV277A/Ro1KJGACCVM
- 8VLFh4sef8ZawKLCdhWMr/PYqOrmTL/1HQgDbCpK1eVA2kGg+RxJwFR6gCtS1vPoGT2cR8ZuvAA
- kkEJaKSPklY7TLMsvT5Ba9QFasZE=
-X-Google-Smtp-Source: AGHT+IHdgDJNS32MD0AX3MlCm2hia90hmbIxl0cg/A4mSTVC++vYDaMHxU76qQKVDRcbdyV0vc87MKDnvbS6nIUkjz4=
-X-Received: by 2002:a17:902:f54c:b0:1fa:ff8:e66e with SMTP id
- d9443c01a7336-1fa23f1f418mr134489815ad.59.1719435108096; Wed, 26 Jun 2024
- 13:51:48 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC3C10E27C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 21:45:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KIb6yl/yr1yPZZjDtbXi5t5fGqGt7brHjTF3MQB3F2KvMZ6LcLpb9x0wxyENB5cbO0+WvAyl/OHwxziU/SYlL6HmUmg/clL0l+MRw6z9gfJhE7OjObPsKvOD9z78BfKrs1Go47O6obW3RWiu4LPVmdQMoie/4lOEXm/XeUVx4JVXnFvXL0ILLENNUhle8oEokV/BTnLO42MAh0gIC1DkEzTDJvjQJmHPzagPYEuhSHKoYG60VjC9Kmz+MQ8ot8LPE+OgD6SD758vyerpeo6wd/UQqO0PFBe/JoQ7AXXv4MeWnogxj7pgr2PwhEKC2+dv79TnVt5HmfOhSEVjTGq+jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Wyu3VlFpVuu+22RDip/b252Uv5yyK1FXIwd5KvjG/I=;
+ b=kg9BZrhwUVYngZXQGpZcis7yLr4Uehw6vk9WnKqyy6hvXKBWPYp0Qu/GhGDE3olsUm2qmI5FYUGCMePk9QwTSvu8Vs3DLdU9FuES40U2BElXJTpVH27+OItkXPvBFlMc8oFATaHeyMgwvXBC33a6B1+/fHdWDOiFxUPs3NWP3+OMjqxFObn8r/BLGjHZ9x/glD9o8z0SeZuwCAZag0YUHwq1RIIj2KMjNPlVeR/zGgQJKmt4eiJ3/w88HP0h4O73mSM/5EZwKPAnIL5DtaJ/EHZcbIHnyRPgXZJH91EFvFIGc96rlNWq2K3HVyXmDFpmYxPh/zH7Tyx75g97XPueOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Wyu3VlFpVuu+22RDip/b252Uv5yyK1FXIwd5KvjG/I=;
+ b=uU8oCeiVd+1l9HmdiW59Go/oZ9fv+62Ki+hx9Lofgh+x3TUqW9DVQsiNBT+kZsOcZhr91T7HZx2fjtsnAseBELEl3Wr6nhhFoF4SHheTLsCfogt2ApWrdyjSR2EvlUolvbwprOIVz50HEK9KbQrpKEt5ChYB7ZlBWP71jLTcg5Y=
+Received: from BN9PR03CA0285.namprd03.prod.outlook.com (2603:10b6:408:f5::20)
+ by CY5PR12MB6550.namprd12.prod.outlook.com (2603:10b6:930:42::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.32; Wed, 26 Jun
+ 2024 21:45:53 +0000
+Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
+ (2603:10b6:408:f5:cafe::c3) by BN9PR03CA0285.outlook.office365.com
+ (2603:10b6:408:f5::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.22 via Frontend
+ Transport; Wed, 26 Jun 2024 21:45:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7741.0 via Frontend Transport; Wed, 26 Jun 2024 21:45:52 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
+ 2024 16:45:51 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: use vmalloc for struct dc_state
+Date: Wed, 26 Jun 2024 17:45:30 -0400
+Message-ID: <20240626214530.2008713-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240626183135.8606-1-marek.olsak@amd.com>
- <20240626183135.8606-7-marek.olsak@amd.com>
-In-Reply-To: <20240626183135.8606-7-marek.olsak@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Jun 2024 16:51:35 -0400
-Message-ID: <CADnq5_O4RsivVyHJ8YPC1yRY7E+pOJUO+HW8wy88F2SHX2=82A@mail.gmail.com>
-Subject: Re: [PATCH 07/13] drm/amdgpu: add amdgpu_framebuffer::gfx12_dcc
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|CY5PR12MB6550:EE_
+X-MS-Office365-Filtering-Correlation-Id: af72712d-a5ae-4702-e065-08dc962959ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230038|1800799023|36860700012|82310400025|376013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?atuX145uYg/Rgwkhlui9t66L24shLAauMWxe00iP6BGTp16Pv+qO7SrUolTT?=
+ =?us-ascii?Q?Or/BTNeTmlifSPXLVWgA/xFLgg84SiHMkU9/RQ0VQg/j8Kl9o/JDWOHxaPOW?=
+ =?us-ascii?Q?HeII3gUiv/JO1k4N47MmuYoHFdCKZyZt3OeuSvik/mNAhf2MkEdEAs5r5wQG?=
+ =?us-ascii?Q?wrGIxhLdv/1buxDYXL2ezzErLIK0lMRPCvRTPKqxGLNkKCsrs55GwDrMgYVa?=
+ =?us-ascii?Q?CbgZs1sjWGailiGxR2sW2gttUZJSgHy12IifKNCbBQ2VP+68AftPqr9VEEVK?=
+ =?us-ascii?Q?s12neIuvWufMcyVlZTWV5vpXDyjB/slA64BFbQPxiTJi8lqCe5VJW2MTz6qM?=
+ =?us-ascii?Q?UXXXfTX8CajRhWn/ce8l6meoZiYm4cdqeo/0HIB9hUMsH+zIbcWmaD9Uw8yP?=
+ =?us-ascii?Q?lpNqY2U74hNtHwYuijRAFn2nPxBGrNijOHCtMcqfzkZTmzb2kLMJ7NSOuOe7?=
+ =?us-ascii?Q?div4dwLH9sBycUIqwgj7A98VRVFS5t9zMieNQ4KwDNaMg4IyHbYNk0qW4uOc?=
+ =?us-ascii?Q?hQ+n+k2cUSzGwfF9QxICVBBPgsqdT9ge3HQ6213OGUGKo8/B7IauRPWGYPFK?=
+ =?us-ascii?Q?55p1CC/cDbuxrzW7B0a7OnMMxEO3xw7+psfdKacEK92yHFRwxzpG4boa064h?=
+ =?us-ascii?Q?WKP27GB2WaPZmfYbg5Sj4s2XbPRFKBoEmOVzA1rbVQm/3+4QWnc7F6YMWeW/?=
+ =?us-ascii?Q?gm9/1iLIrSyiPOjBZxdTRBebTdK4QJatMZkN+d8D+eTpBtHgrf4qkEg2OYwe?=
+ =?us-ascii?Q?CZy3DFvDBkFPeuMvgnWcjz5a+DaO1hXGQ2Wx43SvrUMsGSiBDwogJg0OLPR7?=
+ =?us-ascii?Q?mIFeTWeO7Pt8HKRXKlIe4gAvN1dVJJVFTTobB2yRvGJVFXFaxARqBp9hn4h9?=
+ =?us-ascii?Q?uAOn+XBXWirX1urjvP0hsh+T+oOwujC39JGRwW9619e66Lsw2btnQjv7CcfY?=
+ =?us-ascii?Q?zBKqV8AEebcUI3lAnLGj+RQ0VQtmlliaoAt3uWAuHwDQn4ZvgN4kb+I93aWe?=
+ =?us-ascii?Q?AbVtnrZI4em8A648uLKE4N5+dVB3RE2qrWY7wAe9b8ZMHXTOyFfMylVLWRCL?=
+ =?us-ascii?Q?QA8V//R0t/NhJCyB9jWKAkj1ERGm7q/FB/9vXO+shP7Ki+8mPQCEptVPaErR?=
+ =?us-ascii?Q?Rrt/AGnKRk9JKech9vY8UnwGXgST1Mkg3f7Uj2AziukJXdNGpekbPJeEiIzK?=
+ =?us-ascii?Q?DAH9jOzaWoLedgXNNcRGY0rPwZ9LiOHQzHKYpTUCGOPi/LBaRbt/BEm7Njsc?=
+ =?us-ascii?Q?k4MNg3jlp96WGkcQav6kruf4+jMrbOZ4Up6SYBhPIxf7z0KfqhnaNSTi389H?=
+ =?us-ascii?Q?r2/phAcbb+DbjfNhn/WPi+qyMftjzt3LkmZzB4KH53zubTIEcxIo4t1XEGNE?=
+ =?us-ascii?Q?rOx+rac=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230038)(1800799023)(36860700012)(82310400025)(376013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 21:45:52.5508 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af72712d-a5ae-4702-e065-08dc962959ec
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DC.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6550
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,103 +128,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 26, 2024 at 2:42=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
-.com> wrote:
->
-> amdgpu_framebuffer doesn't have tiling_flags, so we need this.
+This is a big structure so use vmalloc as malloc can
+fail when there is memory pressure.
 
-Maybe move this patch before patch 13?  It took me a while to see
-where this was used.  Either that or maybe mention where it will get
-used in the later patch.
-With that fixed, the series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3454
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 5d4f831b1e55..080c1d5f7412 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1491,9 +1491,10 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 	 * from dm_state->context.
+ 	 */
+ 
+-	local_dc_state = kmemdup(dm_state->context, sizeof(struct dc_state), GFP_KERNEL);
++	local_dc_state = vmalloc(sizeof(struct dc_state));
+ 	if (!local_dc_state)
+ 		return -ENOMEM;
++	memcpy(local_dc_state, dm_state->context, sizeof(struct dc_state));
+ 
+ 	for (i = 0; i < local_dc_state->stream_count; i++) {
+ 		struct dc_stream_state *stream = dm_state->context->streams[i];
+@@ -1563,7 +1564,7 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 			dc_stream_release(local_dc_state->streams[i]);
+ 	}
+ 
+-	kfree(local_dc_state);
++	vfree(local_dc_state);
+ 
+ 	return ret;
+ }
+-- 
+2.45.2
 
-
-Alex
-
-
->
-> amdgpu_display_get_fb_info never gets NULL parameters, so checking for NU=
-LL
-> was useless.
->
-> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 15 ++++++++-------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    |  1 +
->  2 files changed, 9 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_display.c
-> index 3c5fb907bdd9..3f431e6b155a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -1143,7 +1143,8 @@ static int amdgpu_display_verify_sizes(struct amdgp=
-u_framebuffer *rfb)
->  }
->
->  static int amdgpu_display_get_fb_info(const struct amdgpu_framebuffer *a=
-mdgpu_fb,
-> -                                     uint64_t *tiling_flags, bool *tmz_s=
-urface)
-> +                                     uint64_t *tiling_flags, bool *tmz_s=
-urface,
-> +                                     bool *gfx12_dcc)
->  {
->         struct amdgpu_bo *rbo;
->         int r;
-> @@ -1151,6 +1152,7 @@ static int amdgpu_display_get_fb_info(const struct =
-amdgpu_framebuffer *amdgpu_fb
->         if (!amdgpu_fb) {
->                 *tiling_flags =3D 0;
->                 *tmz_surface =3D false;
-> +               *gfx12_dcc =3D false;
->                 return 0;
->         }
->
-> @@ -1164,11 +1166,9 @@ static int amdgpu_display_get_fb_info(const struct=
- amdgpu_framebuffer *amdgpu_fb
->                 return r;
->         }
->
-> -       if (tiling_flags)
-> -               amdgpu_bo_get_tiling_flags(rbo, tiling_flags);
-> -
-> -       if (tmz_surface)
-> -               *tmz_surface =3D amdgpu_bo_encrypted(rbo);
-> +       amdgpu_bo_get_tiling_flags(rbo, tiling_flags);
-> +       *tmz_surface =3D amdgpu_bo_encrypted(rbo);
-> +       *gfx12_dcc =3D rbo->flags & AMDGPU_GEM_CREATE_GFX12_DCC;
->
->         amdgpu_bo_unreserve(rbo);
->
-> @@ -1237,7 +1237,8 @@ static int amdgpu_display_framebuffer_init(struct d=
-rm_device *dev,
->                 }
->         }
->
-> -       ret =3D amdgpu_display_get_fb_info(rfb, &rfb->tiling_flags, &rfb-=
->tmz_surface);
-> +       ret =3D amdgpu_display_get_fb_info(rfb, &rfb->tiling_flags, &rfb-=
->tmz_surface,
-> +                                        &rfb->gfx12_dcc);
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_mode.h
-> index 1fe21a70ddd0..d002b845d8ac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -300,6 +300,7 @@ struct amdgpu_framebuffer {
->
->         uint64_t tiling_flags;
->         bool tmz_surface;
-> +       bool gfx12_dcc;
->
->         /* caching for later use */
->         uint64_t address;
-> --
-> 2.34.1
->
