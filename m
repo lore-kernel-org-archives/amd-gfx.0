@@ -4,120 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA4CC30658
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 15:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7864C3064D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 16:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3340410E908;
-	Wed, 26 Jun 2024 15:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E53110E932;
+	Wed, 26 Jun 2024 16:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WnWJ7dhg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K6OA0KL8";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21C8210E901
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 15:04:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69CA510E92C;
+ Wed, 26 Jun 2024 16:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1719417709; x=1750953709;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=XRBVYeDPQIwLupUlrKT7pzIs8ydrTMHXfs34B3Fj97w=;
+ b=K6OA0KL8FlKggMaptHxWDkhJBkKv5ABzm7vn9BdcApx8/iQdYx1A+Tpa
+ C+YDXniIyDcM4FDN7Wk41Qsz5SIHwzQs1WDxsJ65VJlW5d4SSoVAJ4mA4
+ rxhC7IY9OwhNoP4UOXvmNNnxUpt+J48lDorjTw3gip50Jl17b7Iq9jnE1
+ om8QvPVV7dWs88rI7TbuGdYhZcfMRV05R9Zg4Ln4Xcla8NVQj+oyGU8oh
+ zzFoAyHsgDZfolDytSD3pykrKJ1UKjlhdkochFoXWxUPcm85X+W1CDhdh
+ C/hS/C/oDBb/CweO5ojz9yPJhIRo3iux6/iKaPhpgH25r9/2SC52/t7Kz A==;
+X-CSE-ConnectionGUID: prHpsrd5Sf+4vHd7E+bz1g==
+X-CSE-MsgGUID: GCcY0bDiQ2m0BKJXYz1mVg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11115"; a="16461465"
+X-IronPort-AV: E=Sophos;i="6.08,267,1712646000"; d="scan'208";a="16461465"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2024 09:01:46 -0700
+X-CSE-ConnectionGUID: ZYyoq7RgSru0wxoRM8XiTQ==
+X-CSE-MsgGUID: pf7lIPBiTAeijgjukl5Arg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,267,1712646000"; d="scan'208";a="44766293"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orviesa008.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 26 Jun 2024 09:01:42 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 26 Jun 2024 09:01:41 -0700
+Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 26 Jun 2024 09:01:41 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Wed, 26 Jun 2024 09:01:41 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.101)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 26 Jun 2024 09:01:40 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TfNoNoonlYIYTa3nuEUO5qhFEaq1fc99mRiOpqo6dQFjMQZDTNt1nBY5Ue7HbTT7iXOHhYBDLo64rSjwUTO7Vzx4DGXicyZik/ZV9W/TjUaDytIdNr010qk/R9+Nqae/KlpCjynY33X7kI1hVhIwJdPCAEmJCkpnKSLxlP8iGtukdVt0OJb1OrnfafULvQX9FelNwaoSGA+CSFx13hKFWhSBdlhejtH2whJb6xDV5dIxxCEf9Vt9JVqn+Romht8pfsjuqFUYxDOwLIh8LeM+Z54OgqPWmT+ilzLY2bJCAMAUN3B6nkIzvWCaYOzgCTJjzzwoJ+M/EJ8TWjOGEQ5L9w==
+ b=B1hfAl0aZxeteTNNYJ5hS7sJKF3YBpXaaKaCbTEqf2BlRVrrKdZa85L0k5eS5Xrklpgo01Yb7pa22s2oHFedDGyK2bsggXId9cb2TGBK5oz+u/itiL8A9ChlfrLMmyjie9m7qpzbhDW+vhskXV3inu5mlaDBtFCH8s14LkUcP/uUgbfUGcvrbuLSFvp6ClqD1omZLrb2K1Wd8+Lx9PkQp03uQpbSKRQlVdCF3gWAAoA8zndIStRlSNEN3MRkMrJnOi7+vhVfEmwGDMBc4VFuCpgDksexjcWHrV47Xo0fn7bMCyv3ElDL9vQh3JjkNd1dSuD4kqJFQrVhW4wvXn8pLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+k70GiWumo9tOcTjvcq8E0o2Y1Ue6uFT3Jpa0I1QlFE=;
- b=P9LYrmN8LiW8LUwAmAuCAlTsRWndu7YyhiSxgkCuc8+PERRObJfR+UBCeb/ZT1zOTq+G76OP/U3DHkfcAU7gSxMY26jf4EoKTUO0MnNegUWlQIEM7Lvru1TzVlIvK6b4EQAWEYQZeXnjtUEN+ynOWYJ3DK1WqQZX10Rks9JHz7GKp4dUHiOGqyvbNuA5TDrHSU+7z4ju623XxNRwTesHWy7divX9xY0lhx/QacnAsc3QICLxA0BPsGgsNxwZoeJP6oFmFRpjlinOgDcQc/XDbzxckHs70fJ8mR4qCMbSHFXPias3V7a7iqTy1ToVtkh2R5htGs/6ID+Ex+egPIcqDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+k70GiWumo9tOcTjvcq8E0o2Y1Ue6uFT3Jpa0I1QlFE=;
- b=WnWJ7dhgHIPadqgySMib+Ofv0ZoCxCVd9q8REEpk0qFt5BYBA+OBS8UkrEXfGFqWSXheEutuHvib1bsgOH6kzeQHI2ZCwoTk5yTLSPuwAwkL2WmaG2zVyIdHbG1COToeFRN/90Czqtm2S19y0PGydmAihc9u2t98EFPqVUACL7A=
-Received: from SA1P222CA0160.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c3::6)
- by SN7PR12MB6984.namprd12.prod.outlook.com (2603:10b6:806:260::9) with
+ bh=6y7QGVA1GjCnJS6YEMX9kD3b9fAEiXQb9LPQmQDGF6c=;
+ b=L2rETJLvy5drO4CvhCyHqQKKOeB8X1cB4fNaxaw33HN29PMCjP6Nw/tVUu71LsvQvHf1R0Rsdu4giv/zZ24vQydtLZ2B44Sq+ind/9hORQs//iW/1LTa/b0TBzBPQqttusOYZFNYHhzUVYMsUb+NgvXtmxLOai/yApfns0uIyNg/m1hazuLnrUYFI8wrqyA9yAikRZQ7xKa4/aZF3efwAiWDfwVzoJuHyVHtfbu+71XVJMSYCnzH1tXouW9doUAHr0DtKZwuCEbTA/4e7AtF10v2Q7uaDHbiMwPzt3sO0sS900CM8VGRZ1VNpa5TpU659GpVoifsS4Ygnm9bWNK1gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BYAPR11MB2854.namprd11.prod.outlook.com (2603:10b6:a02:c9::12)
+ by DM4PR11MB6237.namprd11.prod.outlook.com (2603:10b6:8:a9::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.29; Wed, 26 Jun
- 2024 15:04:19 +0000
-Received: from SN1PEPF0002BA52.namprd03.prod.outlook.com
- (2603:10b6:806:3c3:cafe::9d) by SA1P222CA0160.outlook.office365.com
- (2603:10b6:806:3c3::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.22 via Frontend
- Transport; Wed, 26 Jun 2024 15:04:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF0002BA52.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7677.15 via Frontend Transport; Wed, 26 Jun 2024 15:04:19 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
- 2024 10:04:06 -0500
-Received: from Xiaogang-ROCM-Dev.attlocal.net (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 26 Jun 2024 10:04:01 -0500
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <Philip.Yang@amd.com>, Xiaogang Chen
- <xiaogang.chen@amd.com>, Xiaogang Chen <Xiaogang.Chen@amd.com>
-Subject: [PATCH v2] drm/amdkfd: Correct svm prange overlapping handling at
- svm_range_set_attr ioctl
-Date: Wed, 26 Jun 2024 10:06:33 -0500
-Message-ID: <20240626150633.157464-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.28; Wed, 26 Jun
+ 2024 16:01:37 +0000
+Received: from BYAPR11MB2854.namprd11.prod.outlook.com
+ ([fe80::8a98:4745:7147:ed42]) by BYAPR11MB2854.namprd11.prod.outlook.com
+ ([fe80::8a98:4745:7147:ed42%5]) with mapi id 15.20.7698.025; Wed, 26 Jun 2024
+ 16:01:37 +0000
+Date: Wed, 26 Jun 2024 12:01:29 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Rob
+ Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <intel-gfx@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH v5] drm/display: split DSC helpers from DP helpers
+Message-ID: <Znw7WYxcW_iKE4B7@intel.com>
+References: <20240623-panel-sw43408-fix-v5-1-5401ab61e738@linaro.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: xiaogang.chen@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+In-Reply-To: <20240623-panel-sw43408-fix-v5-1-5401ab61e738@linaro.org>
+X-ClientProxiedBy: SJ0PR05CA0204.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::29) To BYAPR11MB2854.namprd11.prod.outlook.com
+ (2603:10b6:a02:c9::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA52:EE_|SN7PR12MB6984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 063cb023-27b2-4af2-eb13-08dc95f14128
+X-MS-TrafficTypeDiagnostic: BYAPR11MB2854:EE_|DM4PR11MB6237:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67e39589-c4c3-436b-cab9-08dc95f94246
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230038|36860700011|376012|1800799022|82310400024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?x29XlEqiajrazwitC2+upk//M+5yrTF+bblt39E7SijxLLIpHfBUR+9SOx2x?=
- =?us-ascii?Q?vvm//BoZMG0nVLcJ2nYZb/ZQ9I0/c33qpnsRleyCq6mJA1TKRASsbDT+OY6q?=
- =?us-ascii?Q?Nd5v7gCobgY7LgtmqMiXGDmETaZfHt0/i0nLyFS8L7hWh0MsfOv+dId/fxLU?=
- =?us-ascii?Q?ofSTlyYFVaYd2BTjvn7OzMxnct4vmwTcfopTKMuiEXNiSLDztfjJV9Tohl4Q?=
- =?us-ascii?Q?T9FULIY31z2OQ8Gx/XvEIa8YgniW9jHHC3AZyxN3aQR5e2/D3ElUbVdddmT4?=
- =?us-ascii?Q?tI9kHhxcIn7qEoVBw0v7CJLSapVRt4UG8MCdrl/S9WhDQg/b7fo65LCd7IiB?=
- =?us-ascii?Q?3X1n19y9TaCI0UsVNeaP1HuEMWt9kBNTfGyqOlL5c0WYLKllL+jKEYaEleAD?=
- =?us-ascii?Q?Gp0syP3jsk2UaoGgz9h2Cv5NUrWu1reRoqpjBGif2jGc47f8Hqh0OLFd8ddQ?=
- =?us-ascii?Q?uBg8jCNpkLD6VXMbyoxxGNYZalBRQ+aZI+VMyOHfkB71+kiAhWiW6KSd2f19?=
- =?us-ascii?Q?Tq8lFMlXh/rdA9oXiNw496sia0/d2vNyP3lpUvSFeT6aWYtJJYghRYlH34j2?=
- =?us-ascii?Q?DSFzGdkW/GQn1NYlr4CcRs/jdqcnrbekuc9BXh1mIgjf1OeFfVgtwt97MgnE?=
- =?us-ascii?Q?mZJ6ATmPa6FWQu7QHTlpOmRONSlPk6QRXONeHThgRVJFAIQ17EUUHNJJvT3v?=
- =?us-ascii?Q?p/zynvb4g3cBwjlFR1+kRfbTDMwk8GC4fpGls00d+WLuuFq/3m1sshpKtLdu?=
- =?us-ascii?Q?6JciUJJ1C+n/H+iIZ4ep/EIj8Bs77hcdunBuRHHsb6t6pkGUgMGOAg7aCgMp?=
- =?us-ascii?Q?JF8L52qdZPUyW//hyUIfeuL66+knfAl8jjE8rD6DhqoHXKM6BW0CoqBsgVoF?=
- =?us-ascii?Q?p6fQbou4rcZlQ81qpNa/atUbIbZfFp0TE6ZNc66Eyd3OaQMPAHmuPYhpNd23?=
- =?us-ascii?Q?rqYmxhNQjOmB9PuLsdvGFO38kvyaXHaaWGg3+UPYMsO8kcSPwotdRQBdy7xd?=
- =?us-ascii?Q?954IVH6i+EJFoi2+tt3Umzal+HdDP0Se+GjXxBm3BruN6kmz9xNZnJWkuTWN?=
- =?us-ascii?Q?wBk7MoBrY69oZAkDXD3zvH6eAfx+6ZjJQ0tfcjRj3JldKzTkUGmhvlhbzcl9?=
- =?us-ascii?Q?Swg9pMEylxDhZJdP74hQjKDd4R8oZ2z/VqWTNz4NCn5zVMXYukE4mBJvXE5a?=
- =?us-ascii?Q?iBQYLDEgI4C2XBUYdOq0NNI5Z6iZM9Kpz7gkps+xNm5xDYo9fc1KrJevnJ3D?=
- =?us-ascii?Q?XEvcJypDJzNjWJ6NgNTYXbD5DX+xi2GtVF+TyUrm+5MvoJ5liNyUR/tRF7zJ?=
- =?us-ascii?Q?YtP3juBBtauQ9FT5McMTF2rXHz0zYuYbZWyOvtEm+eBTCSryZ06kOgyKwxFl?=
- =?us-ascii?Q?alshsq4rh/oJIU2kIgcQpa2rPMe4W6Nig8Raqewce+EA2QOkRA=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230038)(36860700011)(376012)(1800799022)(82310400024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 15:04:19.0906 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 063cb023-27b2-4af2-eb13-08dc95f14128
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA52.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6984
+X-Microsoft-Antispam: BCL:0;ARA:13230038|366014|376012|7416012|1800799022;
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?jqsdiZ9Mo/oy1ktij0aixgR2BvJHCjasQvYRBr5OaUx/mzJo9hfhEZNOPA?=
+ =?iso-8859-1?Q?EH3jRPT0FRbpfVeJjY+G3Kx6MXrlFJdUqhNn9oiExWJIRVVk91OeCc70tZ?=
+ =?iso-8859-1?Q?obM4+VPDrQAv/6J3MGHWJIFlh98IrBRIivP0/jh+NuhAiHMUfZODkmY06K?=
+ =?iso-8859-1?Q?BrA/Y37cwssFWksMACyCq8lHVXB/v56+8hS1eLEWT+HkcDaCcPWolJmdq1?=
+ =?iso-8859-1?Q?EBmJV0FV/VsN5N5YW3Eo4Ew7IHvzxysLA22fH/2k90FOt13sqqRq5No5CP?=
+ =?iso-8859-1?Q?4BwM5zs3GtU2e9x2BF//Sxn60b/Q8qQCWPgVpnnauwcTRUrz+3lN9BWPLx?=
+ =?iso-8859-1?Q?KfEnCKV1gTzbLiraea9JBiOgVh7cRKALz0repzznaRwzAiJoEldnoSR602?=
+ =?iso-8859-1?Q?uimDSpPNArmqtAQzGX8tboevXaDtxNu+dp3gobAWsJipbLoqtZuAvObIP9?=
+ =?iso-8859-1?Q?P/k1JFxSj+yU6kb/uwDTKvqfeab/obS347v67lVOrVvB4IRTwundwP8Pcb?=
+ =?iso-8859-1?Q?cqpEeX3IW5vfVBV1IuRYV6OEnYC54R9hcIRibq76/bwmKoSc8UmpdrlPMg?=
+ =?iso-8859-1?Q?iVnD8gCtff6inbj7ZNOhw4aw6fYH8Py0DfFXlk89StIXvkEMpdNU5J6fcQ?=
+ =?iso-8859-1?Q?xLSSo2O4A4zKS972adFgygaA3hFUwV00hXU0uq/QOSaftFwQgrGLAbtQD7?=
+ =?iso-8859-1?Q?aZNF419JT8PNMRpHz4LZmBCzCWDz2lHb3/YT24oMxllpeQj5VkmA7KfYGG?=
+ =?iso-8859-1?Q?xUuXFLRIOt0PjKXXopXJoK/UuxQ+Iulpbz8DS3I95tgq52ztP0CdCc82xh?=
+ =?iso-8859-1?Q?zTW2FV1pspajFUb0dVz3Bh1WWMXmumGGsHl8WVVJisdD/S0rczisu5BUwp?=
+ =?iso-8859-1?Q?k7JNhDfplGkdab0S0BrQ58xAprB+lMetFSqt3+tBNzhDPzUqFNHRv2w86w?=
+ =?iso-8859-1?Q?hJwUMpUqx/9iQ57bGMcodL0RLy0JNzVi0XmcSA4sxx4JLfjj8wZOhhmtqI?=
+ =?iso-8859-1?Q?Arle/rZ/HBNM8DfEUWJkqmb6zYfCWScHwupZ55aj4HZea0TT0Y2kfaZaKV?=
+ =?iso-8859-1?Q?IVccn20gTDKzLcWZUUoH2S0m7y9MZldexbrblWRY3VKHhHhMqe4yQRZuiO?=
+ =?iso-8859-1?Q?tge0b0swOK8YDJshwMosglSBPXdfKnMR/3S6S+2kn2dFvIvh9PrXKS4O63?=
+ =?iso-8859-1?Q?cNM2dq1qJy06QVUI5JAd2G530i9N881xqlgrC+1EDXiQ55bw5kiyOPe44z?=
+ =?iso-8859-1?Q?sZTgNydJP4OmnUlmyTPjXaBlH7cTh67IV867SaI6gdZ3xAVh0B948/hHSP?=
+ =?iso-8859-1?Q?rUQM?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR11MB2854.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230038)(366014)(376012)(7416012)(1800799022); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?mP+n6ubT218sRiPMFRebtea7Re4iKCs69abWpIzOsQtnFhfpCZhCK36Bcc?=
+ =?iso-8859-1?Q?fcKJ3X5LL6tTIKzK+PXrVTilbGxOU7P4psl1JGwEzmHZfyfROgcwjA6aut?=
+ =?iso-8859-1?Q?DCT4HgDg36AhG5KUr3jgHgeRtCtB9+RXeKARYdrhQTFzL7MDmyhIgSIVbD?=
+ =?iso-8859-1?Q?PzRTsaFXoH+IhzlP7IdcTyR9F3g3pf5SOaGbnAj3gCB7GhwbWFw6sXsHrk?=
+ =?iso-8859-1?Q?UY7JagzHU65IWCaTkbAQXjbrHbuICYSJSjosa4R8o4yeNPg52mTVVws8Xr?=
+ =?iso-8859-1?Q?8Xr2GugfVee/ZqYxsrNjeeCxi1qlpB/+mWkpvojo520unVOgF4xZg0mOcC?=
+ =?iso-8859-1?Q?Dp5aU7JTUa5ZC34kVNeGCB3K/8IfCmHbDvZP/PsK3ZiJJyBsr36359g7to?=
+ =?iso-8859-1?Q?Eir2dcIsnHc6/K7qowuZ0M1GjiG80VppwCtsk+PzejIYXVY3XQEOarp62C?=
+ =?iso-8859-1?Q?I50lpYhb8gEFdxKabHBiSzb3Gx1vQhwJdJIv+wWRTkGUI0Q9Opbzwdm5tD?=
+ =?iso-8859-1?Q?aNikdXIRNbBfjnBWhBkSV7dODeOkpBts5tYFAEKH6Kpsw75cG6fPI5izy1?=
+ =?iso-8859-1?Q?U6FHdfquFjvb27t6hPdJVeDAaeJ0USlfLNOXKg3RlYlIcBEwkKP+4Bfs6W?=
+ =?iso-8859-1?Q?6NRWRF4asTNgW7e7mtcstxgF7QyOrJCD9iTECr6PMGz44ZmXmV3iJYWqm0?=
+ =?iso-8859-1?Q?OSZSZ1KYl+SVK9i3CPqgKYinhM+yZJFWPsHxTqdZDn0r0sDS3f+OxNP/SM?=
+ =?iso-8859-1?Q?eZ4k2VO9fdV64H82+fiFf9uQj6nhO2kjpz+2mRGOUmJfRT+iEmQY0N9QLT?=
+ =?iso-8859-1?Q?JaqauONs1EqqLWR/OFMpRkmtqr5oin6mYq5XPJrLcOHavxie3x496xIAUS?=
+ =?iso-8859-1?Q?dYBN9aRMxgqk8PconWI8I+N6oA9Y+4yYBhaghP47nwGt6yinMblt76HHqc?=
+ =?iso-8859-1?Q?QiinAtLwd/9VfsJoghwCeT6J8T1ziHp5nRsuX3BF+h8SYgK2HlAR3iRwK2?=
+ =?iso-8859-1?Q?QMZ6m4j1eyW6TnCzc/oyvKlh1TYPB+GlIX5+AdOaafbXG7DHjkK4wvt3V/?=
+ =?iso-8859-1?Q?s8hlQB9cX/wJFnxG+srMk2QiGhhGw2P0dKniSwfKhTQPgRRhk+405Oeae3?=
+ =?iso-8859-1?Q?BfoCrgJaaLDTiScErdj9dFq0JoePgNU5jADwbAQaa8O4qUlubQhbx94LvZ?=
+ =?iso-8859-1?Q?QCM3LRewDpoyHFjcln+kwq99PyTVj7nB2+P+b3yO29S7FziMXrD6LryeI2?=
+ =?iso-8859-1?Q?QOC1PpQfXnGO3RRdr8Mk4HLULoZuutCBw+XG1cNgmqUjM6gviSkzC0xjTG?=
+ =?iso-8859-1?Q?4RL6lxxpBwvqinoPfk3eKQHbMVugif31Rk2cxpyOgu772PEyUAkajfbCO6?=
+ =?iso-8859-1?Q?Dow52OifdGk+6bgvsp3DWFYAGjHZZYDOsONsIdamHWs2wHZ0kfCduSpNJG?=
+ =?iso-8859-1?Q?QeAI56PSgwDO5EFVG2qZ9xkQ7PvXpRicMfwWk/Std+azBw7oDesz3tNYrN?=
+ =?iso-8859-1?Q?tXtAd+QPfCqZP7BFoej1OsX6wmSyhAidU6mOjH2FkqbiaDL+F0wOLAPfvC?=
+ =?iso-8859-1?Q?fQRGdjghDSGHeuxVO2RIepoIb2Jv5yynXkuBvOTHS2RApkAWYhAhCZbd9K?=
+ =?iso-8859-1?Q?mO628q5PTIbW6jOgo7DvK9iZwNbbr8rBJ2?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67e39589-c4c3-436b-cab9-08dc95f94246
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB2854.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 16:01:37.3442 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RQoDfpKWlhgx1VXhqjII4HIyUpHqEV/pkVE/aCNY1RngaRncgCnYY3BJF6MZJeD4TkNKDuFEjfjp4jshBdzzNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6237
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,250 +191,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+On Sun, Jun 23, 2024 at 01:44:19AM +0300, Dmitry Baryshkov wrote:
+> Currently the DRM DSC functions are selected by the
+> DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
+> code (both panel and host drivers) end up selecting the seemingly
+> irrelevant DP helpers. Split the DSC code to be guarded by the separate
+> DRM_DISPLAY_DSC_HELPER Kconfig symbol.
+> 
+> Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> To: Alex Deucher <alexander.deucher@amd.com>
+> To: Christian König <christian.koenig@amd.com>
+> To: Pan, Xinhui <Xinhui.Pan@amd.com>
+> To: David Airlie <airlied@gmail.com>
+> To: Daniel Vetter <daniel@ffwll.ch>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: Jani Nikula <jani.nikula@linux.intel.com>
+> To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> To: Tvrtko Ursulin <tursulin@ursulin.net>
+> To: Rob Clark <robdclark@gmail.com>
+> To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> To: Sean Paul <sean@poorly.run>
+> To: Marijn Suijten <marijn.suijten@somainline.org>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Changes in v5:
+> - Drop applied patches
+> - Link to v4: https://lore.kernel.org/r/20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org
+> 
+> Changes in v4:
+> - Reoder patches so that fixes come first, to be able to land them to
+>   drm-misc-fixes
+> - Link to v3: https://lore.kernel.org/r/20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org
+> 
+> Changes in v3:
+> - Split DRM_DISPLAY_DSC_HELPER from DRM_DISPLAY_DP_HELPER
+> - Added missing Fixes tags
+> - Link to v2: https://lore.kernel.org/r/20240510-panel-sw43408-fix-v2-0-d1ef91ee1b7d@linaro.org
+> 
+> Changes in v2:
+> - use SELECT instead of DEPEND to follow the reverted Kconfig changes
+> - Link to v1: https://lore.kernel.org/r/20240420-panel-sw43408-fix-v1-0-b282ff725242@linaro.org
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
+>  drivers/gpu/drm/display/Kconfig    | 6 ++++++
+>  drivers/gpu/drm/display/Makefile   | 3 ++-
+>  drivers/gpu/drm/i915/Kconfig       | 1 +
+>  drivers/gpu/drm/msm/Kconfig        | 1 +
+>  drivers/gpu/drm/panel/Kconfig      | 6 +++---
+>  6 files changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 4232ab27f990..5933ca8c6b96 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_AMDGPU
+>  	depends on !UML
+>  	select FW_LOADER
+>  	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HDMI_HELPER
+>  	select DRM_DISPLAY_HDCP_HELPER
+>  	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
+> index 479e62690d75..a2e42014ffe0 100644
+> --- a/drivers/gpu/drm/display/Kconfig
+> +++ b/drivers/gpu/drm/display/Kconfig
+> @@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+>  
+>  	  If in doubt, say "N".
+>  
+> +config DRM_DISPLAY_DSC_HELPER
+> +	bool
+> +	depends on DRM_DISPLAY_HELPER
+> +	help
+> +	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
+> +
+>  config DRM_DISPLAY_HDCP_HELPER
+>  	bool
+>  	depends on DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
+> index 629df2f4d322..df8f22c7e916 100644
+> --- a/drivers/gpu/drm/display/Makefile
+> +++ b/drivers/gpu/drm/display/Makefile
+> @@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
+>  drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
+>  	drm_dp_dual_mode_helper.o \
+>  	drm_dp_helper.o \
+> -	drm_dp_mst_topology.o \
+> +	drm_dp_mst_topology.o
+> +drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
+>  	drm_dsc_helper.o
+>  drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
+>  	drm_dp_tunnel.o
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index faa253b27664..db400aad88fa 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -11,6 +11,7 @@ config DRM_I915
+>  	select SHMEM
+>  	select TMPFS
+>  	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
 
-When user adds new vm range that has overlapping with existing svm pranges
-current kfd creats a cloned pragne and split it, then replaces original prange
-by it. That destroy original prange locks and the cloned prange locks do not
-inherit original prange lock contexts. This may cause issue if code still need
-use these locks. In general we should keep using original prange, update its
-internal data that got changed during split, then free the cloned prange.
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com> #i915
 
-This patch change vm range overlaping handling that does not remove existing
-pranges, instead updates it for split and keeps its locks alive.
-
-Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 112 ++++++++++++++++++++-------
- 1 file changed, 82 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 407636a68814..a66b8c96ee14 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1967,7 +1967,8 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
- 	return r;
- }
- 
--static struct svm_range *svm_range_clone(struct svm_range *old)
-+/* create a prange that has same range/size/addr etc info as old */
-+static struct svm_range *svm_range_duplicate(struct svm_range *old)
- {
- 	struct svm_range *new;
- 
-@@ -1999,6 +2000,25 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
- 	return new;
- }
- 
-+/* copy range/size/addr info from src to dst prange */
-+static void svm_range_copy(struct svm_range *dst, struct svm_range *src)
-+{
-+	dst->npages = src->npages;
-+	dst->start = src->start;
-+	dst->last = src->last;
-+
-+	dst->vram_pages = src->vram_pages;
-+	dst->offset = src->offset;
-+
-+	for (int i = 0; i < MAX_GPU_INSTANCE; i++) {
-+		if (!src->dma_addr[i])
-+			continue;
-+
-+		 memcpy(dst->dma_addr[i], src->dma_addr[i],
-+				src->npages * sizeof(*src->dma_addr[i]));
-+	}
-+}
-+
- void svm_range_set_max_pages(struct amdgpu_device *adev)
- {
- 	uint64_t max_pages;
-@@ -2057,20 +2077,19 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
-  * @attrs: array of attributes
-  * @update_list: output, the ranges need validate and update GPU mapping
-  * @insert_list: output, the ranges need insert to svms
-- * @remove_list: output, the ranges are replaced and need remove from svms
-  * @remap_list: output, remap unaligned svm ranges
-  *
-  * Check if the virtual address range has overlap with any existing ranges,
-  * split partly overlapping ranges and add new ranges in the gaps. All changes
-  * should be applied to the range_list and interval tree transactionally. If
-  * any range split or allocation fails, the entire update fails. Therefore any
-- * existing overlapping svm_ranges are cloned and the original svm_ranges left
-+ * existing overlapping svm_ranges are duplicated and the original svm_ranges left
-  * unchanged.
-  *
-- * If the transaction succeeds, the caller can update and insert clones and
-- * new ranges, then free the originals.
-+ * If the transaction succeeds, the caller can update and insert split ranges and
-+ * new ranges.
-  *
-- * Otherwise the caller can free the clones and new ranges, while the old
-+ * Otherwise the caller can free the duplicated and new ranges, while the old
-  * svm_ranges remain unchanged.
-  *
-  * Context: Process context, caller must hold svms->lock
-@@ -2082,7 +2101,7 @@ static int
- svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 	      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
- 	      struct list_head *update_list, struct list_head *insert_list,
--	      struct list_head *remove_list, struct list_head *remap_list)
-+	      struct list_head *remap_list)
- {
- 	unsigned long last = start + size - 1UL;
- 	struct svm_range_list *svms = &p->svms;
-@@ -2090,13 +2109,14 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 	struct svm_range *prange;
- 	struct svm_range *tmp;
- 	struct list_head new_list;
-+	struct list_head modify_list;
- 	int r = 0;
- 
- 	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
- 
- 	INIT_LIST_HEAD(update_list);
- 	INIT_LIST_HEAD(insert_list);
--	INIT_LIST_HEAD(remove_list);
-+	INIT_LIST_HEAD(&modify_list);
- 	INIT_LIST_HEAD(&new_list);
- 	INIT_LIST_HEAD(remap_list);
- 
-@@ -2117,35 +2137,41 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 			/* nothing to do */
- 		} else if (node->start < start || node->last > last) {
- 			/* node intersects the update range and its attributes
--			 * will change. Clone and split it, apply updates only
-+			 * will change. duplicate and split it, apply updates only
- 			 * to the overlapping part
- 			 */
--			struct svm_range *old = prange;
-+			/* prange_dup is a temperal prange that holds size and addr info
-+			 * updates of pragne after split
-+			 */
-+			struct svm_range *prange_dup;
- 
--			prange = svm_range_clone(old);
--			if (!prange) {
-+			prange_dup = svm_range_duplicate(prange);
-+			if (!prange_dup) {
- 				r = -ENOMEM;
- 				goto out;
- 			}
- 
--			list_add(&old->update_list, remove_list);
--			list_add(&prange->list, insert_list);
--			list_add(&prange->update_list, update_list);
--
-+			/* split prange_dup */
- 			if (node->start < start) {
- 				pr_debug("change old range start\n");
--				r = svm_range_split_head(prange, start,
-+				r = svm_range_split_head(prange_dup, start,
- 							 insert_list, remap_list);
- 				if (r)
- 					goto out;
- 			}
- 			if (node->last > last) {
- 				pr_debug("change old range last\n");
--				r = svm_range_split_tail(prange, last,
-+				r = svm_range_split_tail(prange_dup, last,
- 							 insert_list, remap_list);
- 				if (r)
- 					goto out;
- 			}
-+
-+			/* split success, insert_list has new head/tail pranges */
-+			/* move prange from svm list to modify list */
-+			list_move_tail(&prange->list, &modify_list);
-+			/* put prange_dup at pragne->update_list */
-+			list_add(&prange_dup->list, &prange->update_list);
- 		} else {
- 			/* The node is contained within start..last,
- 			 * just update it
-@@ -2178,8 +2204,38 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 			svm_range_free(prange, false);
- 		list_for_each_entry_safe(prange, tmp, &new_list, list)
- 			svm_range_free(prange, true);
-+
-+		list_for_each_entry_safe(prange, tmp, &modify_list, list) {
-+			struct svm_range *prange_dup;
-+
-+			/* free pragne_dup that is associated with prange on modify_list */
-+			prange_dup = list_first_entry(&prange->update_list, struct svm_range, list);
-+			if (prange_dup)
-+				svm_range_free(prange_dup, false);
-+
-+			INIT_LIST_HEAD(&prange->update_list);
-+			/* put prange back to svm list */
-+			list_move_tail(&prange->list, &svms->list);
-+		}
- 	} else {
- 		list_splice(&new_list, insert_list);
-+
-+		list_for_each_entry_safe(prange, tmp, &modify_list, list) {
-+			struct svm_range *prange_dup;
-+
-+			prange_dup = list_first_entry(&prange->update_list, struct svm_range, list);
-+			if (prange_dup) {
-+				/* update prange from prange_dup */
-+				svm_range_copy(prange, prange_dup);
-+				/* release temporal pragne_dup */
-+				svm_range_free(prange_dup, false);
-+			}
-+			INIT_LIST_HEAD(&prange->update_list);
-+
-+			/* move prange from modify_list to insert_list and update_list*/
-+			list_move_tail(&prange->list, insert_list);
-+			list_add(&prange->update_list, update_list);
-+		}
- 	}
- 
- 	return r;
-@@ -3533,7 +3589,6 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 	struct amdkfd_process_info *process_info = p->kgd_process_info;
- 	struct list_head update_list;
- 	struct list_head insert_list;
--	struct list_head remove_list;
- 	struct list_head remap_list;
- 	struct svm_range_list *svms;
- 	struct svm_range *prange;
-@@ -3566,7 +3621,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 
- 	/* Add new range and split existing ranges as needed */
- 	r = svm_range_add(p, start, size, nattr, attrs, &update_list,
--			  &insert_list, &remove_list, &remap_list);
-+			  &insert_list, &remap_list);
- 	if (r) {
- 		mutex_unlock(&svms->lock);
- 		mmap_write_unlock(mm);
-@@ -3574,21 +3629,18 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 	}
- 	/* Apply changes as a transaction */
- 	list_for_each_entry_safe(prange, next, &insert_list, list) {
--		svm_range_add_to_svms(prange);
--		svm_range_add_notifier_locked(mm, prange);
-+		/* prange can be new or existing range, put it at svms->list */
-+		list_move_tail(&prange->list, &prange->svms->list);
-+		/* update prange at interval trees: svms->objects and
-+		 * mm interval notifier tree
-+		 */
-+		svm_range_update_notifier_and_interval_tree(mm, prange);
-+
- 	}
- 	list_for_each_entry(prange, &update_list, update_list) {
- 		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
- 		/* TODO: unmap ranges from GPU that lost access */
- 	}
--	list_for_each_entry_safe(prange, next, &remove_list, update_list) {
--		pr_debug("unlink old 0x%p prange 0x%p [0x%lx 0x%lx]\n",
--			 prange->svms, prange, prange->start,
--			 prange->last);
--		svm_range_unlink(prange);
--		svm_range_remove_notifier(prange);
--		svm_range_free(prange, false);
--	}
- 
- 	mmap_write_downgrade(mm);
- 	/* Trigger migrations and revalidate and map to GPUs as needed. If
--- 
-2.25.1
-
+>  	select DRM_DISPLAY_HDCP_HELPER
+>  	select DRM_DISPLAY_HDMI_HELPER
+>  	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index 1931ecf73e32..6dcd26180611 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -111,6 +111,7 @@ config DRM_MSM_DSI
+>  	depends on DRM_MSM
+>  	select DRM_PANEL
+>  	select DRM_MIPI_DSI
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	default y
+>  	help
+>  	  Choose this option if you have a need for MIPI DSI connector
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index bf4eadfe21cb..afae8b130e9a 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -349,7 +349,7 @@ config DRM_PANEL_LG_SW43408
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Say Y here if you want to enable support for LG sw43408 panel.
+> @@ -558,7 +558,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Say Y here if you want to enable support for Raydium RM692E5-based
+> @@ -916,7 +916,7 @@ config DRM_PANEL_VISIONOX_R66451
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>  	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Say Y here if you want to enable support for Visionox
+> 
+> ---
+> base-commit: 2102cb0d050d34d50b9642a3a50861787527e922
+> change-id: 20240420-panel-sw43408-fix-ff6549c121be
+> 
+> Best regards,
+> -- 
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
