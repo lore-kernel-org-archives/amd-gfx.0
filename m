@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6A2BC30658
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 18:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8357C27C4F
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 18:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A787E10E999;
-	Wed, 26 Jun 2024 18:32:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A2910E038;
+	Wed, 26 Jun 2024 18:32:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mBxKJGZM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S4a0aUi5";
 	dkim-atps=neutral
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62B4410E999
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 18:32:06 +0000 (UTC)
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-6ad86f3cc34so31492726d6.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 11:32:06 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9DEB10E999
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 18:32:08 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-6b51ae173ceso27826436d6.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 11:32:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719426725; x=1720031525; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719426727; x=1720031527; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LlWN5nCQeeyKorQHMMEOa4D16E75azE5GGd9I/2GGcU=;
- b=mBxKJGZMsJRzmpuQMjRxcNuBRDzD/0Z6SLIXzgmA9D17Eek9xJUY/651LcnzHubZhD
- LhEdxKLfsbJxFHjrV0V+8XQtKHi/LMu7apdqohmtriZQlIxXxoeHqRAMWnA00tr3AsDc
- 2WpuKZrcIeLbttF/2Si9xRMRiU+COsOGgz4EQ2OdIfSpSrabxquapgKyongS4Ydp6jcG
- 6rik7Q2xkbKVxLSV6f5VPXPp6ShAiYKUE+0vQMxhaeGEne+DfVp93qVKrYG0PmU2vbN0
- /RjBqjmHvoLhYWEPHYL4XfHjNdzYZunhNoumpFuoW+28smdhiOb100TwrVQBpg/jn6Sn
- XNsw==
+ bh=MwKa6U2BOy+5HqQ4yRfe7s9arFRquqQA8SKbpyrPBV8=;
+ b=S4a0aUi5GvvoVMGsG7lTuNNuXfB7kl1EN1kdUBum2aMMudca9RxmNoPACxdq49oqo4
+ u4/FDksBUySyUDjOn5SBNEEbwQE1J1rqAEwFN4gO4URfXLYKo+wRdW7KNjmN5pqi5DFB
+ zDaZTV5LQqsexe0nZxmbJhxUS6xan6CgnaCAUs9RiAi10+MLBFZgSmF0/KSCxWqhetWE
+ xMrP745L3OgkUqIBV7gkfZAHZFerFhbuE8G07rnqwGJ2aLtnAmWauoyJ0/6rSueKmwS3
+ xKsvZ6bfeicDVTx4Vyydt4g0CpGsvAJq5Lmy4IR/tnKDJ76uEKlM5g/aQqx12z4FYqLX
+ +cdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719426725; x=1720031525;
+ d=1e100.net; s=20230601; t=1719426727; x=1720031527;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LlWN5nCQeeyKorQHMMEOa4D16E75azE5GGd9I/2GGcU=;
- b=dT7QXpVx7G6uvEYrXju9NuApryRBWtuALIm1VgBWSVo+kG/bbW92EdlB3jQjLO9+bH
- 58KpHUkzBUnjBMCGBrPHmr8IP44ZUQdFmbPtWjQ9rDIqOaWjMEYxAk9wOiGihVbQwpvk
- MzhAhJ0z03FMqmgn29qjBl3HEVBvdgqpEbtwzMjR03MUin90D/QXznRrjEsIfIhq6wAL
- S7mjrMjTxspgG41FXZ/3w7H3bV49B+LbdXXPrh5eX/kxTjVKylf3anv/a3b5+C0hA51D
- FC7qo2Q8rXlwaa6naxaj9fu5qQNMKcxsrIa2cC2er0HX8ikQOOZ/FCX2oqVKtCpyOsII
- P4ig==
-X-Gm-Message-State: AOJu0YwzxaXgasMO9ppXuDLyjB2l9eyh0auxZ+imkzTpdU0KRkFX/iwT
- pgJMlvbWEJVT8o92sy+LHU74KUR7ZBgzN6gN9P84sgS0BOFHYtEe1+UFlg==
-X-Google-Smtp-Source: AGHT+IEtiffpF8eS4rvxFvGsHLXuwbNfrN7bw5RauW+AuoXQ7GLSdiSn/vcJ81TrzcKwD8b7Zc0FuQ==
-X-Received: by 2002:a0c:e48d:0:b0:6b5:23eb:3a4d with SMTP id
- 6a1803df08f44-6b53bbb69fbmr102808096d6.27.1719426724856; 
- Wed, 26 Jun 2024 11:32:04 -0700 (PDT)
+ bh=MwKa6U2BOy+5HqQ4yRfe7s9arFRquqQA8SKbpyrPBV8=;
+ b=QTkPiFawx1TRWqITR6i9IYcZyjvrYSceRiFtpg24GWy4eAn1YcA1CLuAK8zKVu8TIC
+ orX/ZLtbdscncd6jUJJnfGGItzof1AFSDMl0cZtBhpzuY9ZUPkmp4JUSRRbGCbGApcHb
+ aWr1LUh52SA3H2J0vZo7TaG87cIFRPY80TMgCZ1aA9TpnPAaxBKXRORH0k5okYwECGZw
+ 24oo3Dp5KW9CxAe6Pqqc9EO0zYZNQ2kKBxP7ACJvmxFwge3zRWGiFgSEAjyabS32+CnR
+ 7SRelFeEDd/cKJddCp26s+/QcBazvgWXmOPkKQkdbYmnKEoL5H6L/5DWauKiwFx0sKIz
+ vYvg==
+X-Gm-Message-State: AOJu0Yw2kag1ASVeqQLGrQLfHtxdIwOTEqVPAPI5lRACs9+n9kGf8fcn
+ SPnS+8COGaA8ltVi9g+ZiXPCr5Aqta4GGwlcl2ZtNdKdYaZmCY3h7h0CWA==
+X-Google-Smtp-Source: AGHT+IGSASPoaXC3H07hiWluWXVZsVXYiTxjyNY236xMgKn60PmpayB42OLJ73wf+XhmZRQA6GFcKQ==
+X-Received: by 2002:a0c:f30f:0:b0:6b0:81c8:9f54 with SMTP id
+ 6a1803df08f44-6b53c00c5bfmr124167356d6.61.1719426727438; 
+ Wed, 26 Jun 2024 11:32:07 -0700 (PDT)
 Received: from localhost.localdomain ([142.188.138.70])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b538092644sm42209276d6.39.2024.06.26.11.32.03
+ 6a1803df08f44-6b538092644sm42209276d6.39.2024.06.26.11.32.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 11:32:03 -0700 (PDT)
+ Wed, 26 Jun 2024 11:32:06 -0700 (PDT)
 From: "=?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?=" <maraeo@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?=
  <marek.olsak@amd.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
-Subject: [PATCH 08/13] drm/amdgpu: don't use amdgpu_lookup_format_info on gfx12
-Date: Wed, 26 Jun 2024 14:31:30 -0400
-Message-Id: <20240626183135.8606-8-marek.olsak@amd.com>
+Subject: [PATCH 10/13] drm/amdgpu/display: handle gfx12 in
+ amdgpu_dm_plane_format_mod_supported
+Date: Wed, 26 Jun 2024 14:31:32 -0400
+Message-Id: <20240626183135.8606-10-marek.olsak@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240626183135.8606-1-marek.olsak@amd.com>
 References: <20240626183135.8606-1-marek.olsak@amd.com>
@@ -82,29 +83,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It only uses fields for GFX9-11 related to the separate DCC buffer,
-which doesn't exist in GFX12.
+All this code has undefined behavior on GFX12 and shouldn't be executed.
 
 Signed-off-by: Marek Olšák <marek.olsak@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 47 ++++++++++---------
+ 1 file changed, 25 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 3f431e6b155a..3a7f6e77806a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -654,6 +654,10 @@ amdgpu_lookup_format_info(u32 format, uint64_t modifier)
- 	if (!IS_AMD_FMT_MOD(modifier))
- 		return NULL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index bb534b2b0b71..5a6a21e28548 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1419,8 +1419,6 @@ static bool amdgpu_dm_plane_format_mod_supported(struct drm_plane *plane,
+ 	const struct drm_format_info *info = drm_format_info(format);
+ 	int i;
  
-+	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) < AMD_FMT_MOD_TILE_VER_GFX9 ||
-+	    AMD_FMT_MOD_GET(TILE_VERSION, modifier) >= AMD_FMT_MOD_TILE_VER_GFX12)
-+		return NULL;
+-	enum dm_micro_swizzle microtile = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier) & 3;
+-
+ 	if (!info)
+ 		return false;
+ 
+@@ -1442,29 +1440,34 @@ static bool amdgpu_dm_plane_format_mod_supported(struct drm_plane *plane,
+ 	if (i == plane->modifier_count)
+ 		return false;
+ 
+-	/*
+-	 * For D swizzle the canonical modifier depends on the bpp, so check
+-	 * it here.
+-	 */
+-	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
+-	    adev->family >= AMDGPU_FAMILY_NV) {
+-		if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
+-			return false;
+-	}
+-
+-	if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
+-	    info->cpp[0] < 8)
+-		return false;
++	/* GFX12 doesn't have these limitations. */
++	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) <= AMD_FMT_MOD_TILE_VER_GFX11) {
++		enum dm_micro_swizzle microtile = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier) & 3;
+ 
+-	if (amdgpu_dm_plane_modifier_has_dcc(modifier)) {
+-		/* Per radeonsi comments 16/64 bpp are more complicated. */
+-		if (info->cpp[0] != 4)
+-			return false;
+-		/* We support multi-planar formats, but not when combined with
+-		 * additional DCC metadata planes.
++		/*
++		 * For D swizzle the canonical modifier depends on the bpp, so check
++		 * it here.
+ 		 */
+-		if (info->num_planes > 1)
++		if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
++		    adev->family >= AMDGPU_FAMILY_NV) {
++			if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
++				return false;
++		}
 +
- 	if (AMD_FMT_MOD_GET(DCC_RETILE, modifier))
- 		return lookup_format_info(dcc_retile_formats,
- 					  ARRAY_SIZE(dcc_retile_formats),
++		if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
++		    info->cpp[0] < 8)
+ 			return false;
++
++		if (amdgpu_dm_plane_modifier_has_dcc(modifier)) {
++			/* Per radeonsi comments 16/64 bpp are more complicated. */
++			if (info->cpp[0] != 4)
++				return false;
++			/* We support multi-planar formats, but not when combined with
++			 * additional DCC metadata planes.
++			 */
++			if (info->num_planes > 1)
++				return false;
++		}
+ 	}
+ 
+ 	return true;
 -- 
 2.34.1
 
