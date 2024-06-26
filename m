@@ -4,85 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 498C4C27C4F
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 16:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF82C27C4F
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jun 2024 17:17:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4E710E941;
-	Wed, 26 Jun 2024 16:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B146910E964;
+	Wed, 26 Jun 2024 17:17:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Qko8VvZX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BylLzRLR";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F14710E941
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 16:23:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1719418985;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Q7qfR7R4wqV/FoH9GarzUSCtfbCbX7/C78uXUxoeHNc=;
- b=Qko8VvZXu08igAcVTlmuXQadukPqDllZ/3OZW8EC+SGYI8Ii7Ki3l1ItnObnJQXKJJmedr
- qenvRu84hD+0FBHG8zKg9l45ivcgLPBL30l4dRAW2w6CLSVBtdXGP/6iZT/7sRB9ei4hWP
- s5Gkn2DPWwzg0T2cH0tq5cqY+WKcIuI=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-198-kK_SxHXTN9u0XQDHYMToog-1; Wed, 26 Jun 2024 12:23:02 -0400
-X-MC-Unique: kK_SxHXTN9u0XQDHYMToog-1
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6ab80cb23beso99432946d6.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 09:23:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719418980; x=1720023780;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JuoTJ79gACgiKUQpe7k7Io37YwVqSEgfRMaeyg7Zvos=;
- b=JSldjjit6ozl4AIEPya/Qkhe4oJ5L58ubrNL1JwxCQjsCghgMRbldmAth5xrxQHife
- 52SwuKnEaY6ASiPd5RaU+m2R8d8/yx74YJdvwUjD4QyLFYbQRyhGutRon5SU2AmGgOKV
- qSV+26cHLvEFdTioa7jlYRlzxopiBZtpKqF6bAqM0AKkGIEDydaKYvqs4lFSuWJB0AVi
- n2b38MAnqk/fRXa4VcK5/PYkqkMnKCALci1eki+ESQ/rwr5Fem2d9dfizMuNVWiAreo+
- I/S+TkYBoccIFVUbTGP542jBwyjlI8KxqUzE/+ABwYJYrg+LFQGiiD4zmUHSJgSGt66h
- u9HQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUXfB2LntzU2jqCj4Y93yJ3h9rns0UnSusebYadPvSJ0v//wia23zCl5W+pP2h39yPnMbBwFFNBBilQyV41Qb+QeNf7UptSMlmsHCDmVg==
-X-Gm-Message-State: AOJu0YxO5iQ62ivqjJzEDLFw+d8BU4/9zGAISUvH2wCYEoybH3kjT8Q2
- 0ZU1NXV9OacOD4jliHbovPDxl6VYCF9ZaDQs2Jg0eW7EMcUZr6wk5+C6U8ke5/bg/JD9ABJN9NX
- d8nnyiaN/qAamPF7G/kKURuRsa9mUvz8wgoRZ8dAobc3mxFWySspJqL5//8kihxg=
-X-Received: by 2002:a0c:f64d:0:b0:6b2:a2bb:df2d with SMTP id
- 6a1803df08f44-6b58d706835mr1509726d6.48.1719418980500; 
- Wed, 26 Jun 2024 09:23:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEndPS6fn5RzMS1/6Ml0GKhbz5cKUSuQGVRP877/iF2ldPCLzprf0ZZqKl5nq4TqTtPQjLg/g==
-X-Received: by 2002:a0c:f64d:0:b0:6b2:a2bb:df2d with SMTP id
- 6a1803df08f44-6b58d706835mr1509486d6.48.1719418980212; 
- Wed, 26 Jun 2024 09:23:00 -0700 (PDT)
-Received: from chopper.lyude.net ([2600:4040:5c4c:a000::789])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b51ef5c3c1sm55634406d6.120.2024.06.26.09.22.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 09:22:59 -0700 (PDT)
-Message-ID: <61bab346f145a529a61e5366fb39f424512e5a5c.camel@redhat.com>
-Subject: Re: [PATCH 1/3] drm/dp_mst: Fix all mstb marked as not probed after
- suspend/resume
-From: Lyude Paul <lyude@redhat.com>
-To: Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: jani.nikula@intel.com, imre.deak@intel.com, daniel@ffwll.ch, 
- Harry.Wentland@amd.com, jerry.zuo@amd.com, Harry Wentland
- <hwentlan@amd.com>,  stable@vger.kernel.org
-Date: Wed, 26 Jun 2024 12:22:58 -0400
-In-Reply-To: <20240626084825.878565-2-Wayne.Lin@amd.com>
-References: <20240626084825.878565-1-Wayne.Lin@amd.com>
- <20240626084825.878565-2-Wayne.Lin@amd.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2048.outbound.protection.outlook.com [40.107.96.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB4910E964
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jun 2024 17:16:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Vx/GST/g0BOsnkVjzJKd0bQOOt8jkiWw7BssXTWFrHaX5wTA60xKV2Y3Y+dtRH8mYdBMHF1lY0pynXXuSZ6H8uLXeHK645NHto0nxTAtSx8SsTbF9OlJfDBxcwDxGVwLsZVYi2fJOjTZc5XuOzXRQ5UpYEa0YfN1Pf3BIEOJ0BVYFp7wtIC7guGz3dEq/CoIAgzBy95owGShp2xd9bf5Szcph49C7jGHm3YN0y0t5Qdsv9E+Kh+31+gqGFEk3+sCszQ/M0JVpQGeJXt/jAE50VE4Dp644jHZCCoA+gWxT2pHYK5Vc1b3shTVSW+ppj4ed1adL6bo2+OyFA22DvAI5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=erzWSCK+dbWeK0km4xygsacOfG4v6VbB8g0zy2bV+LY=;
+ b=DcdMYfBTs0LoDRbF/Zcp52iNdXp0zP/L9ZU8cMIKuQ5LURwHiK39QpR3/WO49Q3gnTS5fL8dv4aNyQMjHW+4lMku/u9MjaLOexu2INo6M5rXNd6t7s/1w/bOq1VN4VHHpL/ilLqxujjilTuM1p+lZMoQ5YRhCBjitBvvcvpca/Rmzhu8VUyNjDn1vdb8dSG7HuHMMR3c5yk+nxrkima9mQcvqVRDe83iu7hqAsaIL03DV/8TtYOjZMNfMsrYtBSouDeAWIrj1G6Yvxo20w9H3QUA+E32JJjl6WXaK455oiWcDo4no+EYKIyaQu0BpjFvirY6dzKseI+dUZN9/8gklA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=erzWSCK+dbWeK0km4xygsacOfG4v6VbB8g0zy2bV+LY=;
+ b=BylLzRLRUVaQ+SjwohOU9m9nI+7zCStF2+K+9kXl9bWKjPj8C+aWttvQSXTk4PvOtwrrrvciP35Z7qy/Rd7oiIpCMb6qJBnfrQyB+Vz80jbjmJQ319rsVbL5/5wlSPHuzrX+dGSxS7wNHWiHEPOPg+HPahScZzI/O+K/Zzj453Y=
+Received: from CH2PR08CA0018.namprd08.prod.outlook.com (2603:10b6:610:5a::28)
+ by CYXPR12MB9441.namprd12.prod.outlook.com (2603:10b6:930:dc::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.30; Wed, 26 Jun
+ 2024 17:16:54 +0000
+Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
+ (2603:10b6:610:5a:cafe::a7) by CH2PR08CA0018.outlook.office365.com
+ (2603:10b6:610:5a::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.22 via Frontend
+ Transport; Wed, 26 Jun 2024 17:16:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Wed, 26 Jun 2024 17:16:54 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
+ 2024 12:16:49 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Jun
+ 2024 12:16:48 -0500
+Received: from aaurabin-suse.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 26 Jun 2024 12:16:48 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <rodrigo.siqueira@amd.com>, <harry.wentland@amd.com>,
+ <aurabindo.pillai@amd.com>
+Subject: [PATCH] drm/amd/display: Fix null pointer deref in dcn20_resource.c
+Date: Wed, 26 Jun 2024 13:16:48 -0400
+Message-ID: <20240626171648.660826-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|CYXPR12MB9441:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c1289ba-f29a-4cac-cc5a-08dc9603c6c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230038|36860700011|376012|1800799022|82310400024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ET9oTW73SLLnqRE2QTnUQ1iIsjbAIgeUG0v9/qHxQo3E971szhOdUOHWUDQ4?=
+ =?us-ascii?Q?g43ReYdE9gCnqtUSTs15E/V8ZmxX58OhdGr0tTMFG7a9ibEZvrvRnFSFw02W?=
+ =?us-ascii?Q?9AFcRw/tFVVD7pBQ4Al6SzQ1IfSyyOwBeNgT3AGPFeTOlWQRxmLA5iMuHOJS?=
+ =?us-ascii?Q?YSQ+5fySoWRADGDFzFZkgq+ZQpXRV3kvhDuLoGqNxADsptZ0kLErSs918tKt?=
+ =?us-ascii?Q?3qIKMu3kEVa8CZkNTUutzyzD9oEbgC7+9IPBmm2XHvCU3GvPQNcjk3hrnXJP?=
+ =?us-ascii?Q?VNTiCNFAKOfTKjyiwkvaIsoz/XWoMJghRNrLkIVyYxZgJykvVZdyIrQsWFyi?=
+ =?us-ascii?Q?c2M9jXjwdE75hWxqrU8+2DskhuUSVqWt9Lwi1ZCt7kc64BlnmoitgnCUTUe9?=
+ =?us-ascii?Q?34/ujrt+bXtp4WyWFJpm+RCUL4Isl9H+8DHorODuYlF3cnTbdCoP0ab4zupS?=
+ =?us-ascii?Q?jxePROkRm9wf9cUkfcy1Seh3DnBfnXO3e9B2L+jk6NeEmWuZGJwPyZ9fJ9tP?=
+ =?us-ascii?Q?6g1GMZ+faDRGW5DC98DmEAF6ffPSK6UkzJiMnUwrUwZcfXbtrCk/Qh9C3nY7?=
+ =?us-ascii?Q?OQHVmaNT7Ghd8Ptsrhqu/7jAhMhUvaqCgUSchdlfNTUvsgdNhK8axKKIr9L4?=
+ =?us-ascii?Q?/ko/ElK2jjqHi3JdLlUrL8yT4i2QbJXhXInQtD2OfE9FyNuwp1zj6LmC6voJ?=
+ =?us-ascii?Q?mLSqx/gCHIa5HPQDcIO36D8SwXkno+EXIaplglrrFK2b+7tIIAfLXSR9rMeD?=
+ =?us-ascii?Q?e4VhMaVbCvEdKp8cOzuRMwwGs2DmnbE3gu/NvhEAdVPA7bMBze9GwrKUHK4v?=
+ =?us-ascii?Q?BLw7jmuifG4f+oCviSb89rkRUYWFUQr++kkGcutKi1ulq6UH8tsRybOS2s3r?=
+ =?us-ascii?Q?yedwT3vzkjYyCPmLA0IhE0nIExzX/bizVQF7gBdBzjnCCW4CJT/wLYfT5meD?=
+ =?us-ascii?Q?ISbESAfaneJwOW9ZjnQ+OhvzHI8VV7/Zbvsxnd2fzUXN1g5yHPJviRs0E6g1?=
+ =?us-ascii?Q?y9mg5JFVf10hFv8jBHpjctBGiffoyDDbxe31wmAlM9KS06fhbrL4VS8qdYgB?=
+ =?us-ascii?Q?pduUYMGSH180ICBYS9vEWAMZBi3P8pdFX72TgcbHC8gQJ1fkTZ5eY8bxgDBN?=
+ =?us-ascii?Q?4MdW5KcoM4PFe4dqKv1y4OY5zRFWg8ocnJSQhO3En0/63p16ugVP5Aswt5va?=
+ =?us-ascii?Q?YzmbQZrf8Pj5YDZhBJ7ib61yFUtjDxfBtRQkFw7Yd0BMxBLhsjNTOhckmvxy?=
+ =?us-ascii?Q?AQTzJR2yO69Z7vmNeo3xeearIIVsWX3G2Vs7r3wnytBDKt4OlIgUQFsH8Wi/?=
+ =?us-ascii?Q?OaAd7lJyFysmtqCP03bzpSWx3SzM0X2p3VOTdqjCD8NAtHp6OBEeQHIGRhdP?=
+ =?us-ascii?Q?Yb2FMT0KnHH3qNBLAMKhkbMgYhF37IXhmE3+bjihfKm/w+2LQw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230038)(36860700011)(376012)(1800799022)(82310400024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2024 17:16:54.2331 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c1289ba-f29a-4cac-cc5a-08dc9603c6c1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,66 +135,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks!
+Fixes a hang that has the following calltrace:
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+[  181.843989] BUG: kernel NULL pointer dereference, address: 0000000000000000
+[  181.843997] #PF: supervisor instruction fetch in kernel mode
+[  181.844003] #PF: error_code(0x0010) - not-present page
+[  181.844009] PGD 0 P4D 0
+[  181.844020] Oops: 0010 [#1] PREEMPT SMP NOPTI
+[  181.844028] CPU: 6 PID: 1892 Comm: gnome-shell Tainted: G        W  OE      6.5.0-41-generic #41~22.04.2-Ubuntu
+[  181.844038] Hardware name: System manufacturer System Product Name/CROSSHAIR VI HERO, BIOS 6302 10/23/2018
+[  181.844044] RIP: 0010:0x0
+[  181.844079] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+[  181.844084] RSP: 0018:ffffb593c2b8f7b0 EFLAGS: 00010246
+[  181.844093] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000004
+[  181.844099] RDX: ffffb593c2b8f804 RSI: ffffb593c2b8f7e0 RDI: ffff9e3c8e758400
+[  181.844105] RBP: ffffb593c2b8f7b8 R08: ffffb593c2b8f9c8 R09: ffffb593c2b8f96c
+[  181.844110] R10: 0000000000000000 R11: 0000000000000000 R12: ffffb593c2b8f9c8
+[  181.844115] R13: 0000000000000001 R14: ffff9e3c88000000 R15: 0000000000000005
+[  181.844121] FS:  00007c6e323bb5c0(0000) GS:ffff9e3f85f80000(0000) knlGS:0000000000000000
+[  181.844128] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  181.844134] CR2: ffffffffffffffd6 CR3: 0000000140fbe000 CR4: 00000000003506e0
+[  181.844141] Call Trace:
+[  181.844146]  <TASK>
+[  181.844153]  ? show_regs+0x6d/0x80
+[  181.844167]  ? __die+0x24/0x80
+[  181.844179]  ? page_fault_oops+0x99/0x1b0
+[  181.844192]  ? do_user_addr_fault+0x31d/0x6b0
+[  181.844204]  ? exc_page_fault+0x83/0x1b0
+[  181.844216]  ? asm_exc_page_fault+0x27/0x30
+[  181.844237]  dcn20_get_dcc_compression_cap+0x23/0x30 [amdgpu]
+[  181.845115]  amdgpu_dm_plane_validate_dcc.constprop.0+0xe5/0x180 [amdgpu]
+[  181.845985]  amdgpu_dm_plane_fill_plane_buffer_attributes+0x300/0x580 [amdgpu]
+[  181.846848]  fill_dc_plane_info_and_addr+0x258/0x350 [amdgpu]
+[  181.847734]  fill_dc_plane_attributes+0x162/0x350 [amdgpu]
+[  181.848748]  dm_update_plane_state.constprop.0+0x4e3/0x6b0 [amdgpu]
+[  181.849791]  ? dm_update_plane_state.constprop.0+0x4e3/0x6b0 [amdgpu]
+[  181.850840]  amdgpu_dm_atomic_check+0xdfe/0x1760 [amdgpu]
 
-On Wed, 2024-06-26 at 16:48 +0800, Wayne Lin wrote:
-> [Why]
-> After supend/resume, with topology unchanged, observe that
-> link_address_sent of all mstb are marked as false even the topology
-> probing
-> is done without any error.
->=20
-> It is caused by wrongly also include "ret =3D=3D 0" case as a probing
-> failure
-> case.
->=20
-> [How]
-> Remove inappropriate checking conditions.
->=20
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: stable@vger.kernel.org
-> Fixes: 37dfdc55ffeb ("drm/dp_mst: Cleanup drm_dp_send_link_address()
-> a bit")
-> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> ---
-> =C2=A0drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 7f8e1cfbe19d..68831f4e502a 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -2929,7 +2929,7 @@ static int drm_dp_send_link_address(struct
-> drm_dp_mst_topology_mgr *mgr,
-> =C2=A0
-> =C2=A0=09/* FIXME: Actually do some real error handling here */
-> =C2=A0=09ret =3D drm_dp_mst_wait_tx_reply(mstb, txmsg);
-> -=09if (ret <=3D 0) {
-> +=09if (ret < 0) {
-> =C2=A0=09=09drm_err(mgr->dev, "Sending link address failed with
-> %d\n", ret);
-> =C2=A0=09=09goto out;
-> =C2=A0=09}
-> @@ -2981,7 +2981,7 @@ static int drm_dp_send_link_address(struct
-> drm_dp_mst_topology_mgr *mgr,
-> =C2=A0=09mutex_unlock(&mgr->lock);
-> =C2=A0
-> =C2=A0out:
-> -=09if (ret <=3D 0)
-> +=09if (ret < 0)
-> =C2=A0=09=09mstb->link_address_sent =3D false;
-> =C2=A0=09kfree(txmsg);
-> =C2=A0=09return ret < 0 ? ret : changed;
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+---
+ .../drm/amd/display/dc/resource/dcn20/dcn20_resource.c   | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
---=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+index e783afbbb397..645927496807 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+@@ -2200,10 +2200,11 @@ bool dcn20_get_dcc_compression_cap(const struct dc *dc,
+ 		const struct dc_dcc_surface_param *input,
+ 		struct dc_surface_dcc_cap *output)
+ {
+-	return dc->res_pool->hubbub->funcs->get_dcc_compression_cap(
+-			dc->res_pool->hubbub,
+-			input,
+-			output);
++	if (dc->res_pool->hubbub->funcs->get_dcc_compression_cap)
++		return dc->res_pool->hubbub->funcs->get_dcc_compression_cap(
++			dc->res_pool->hubbub, input, output);
++	else
++		return false;
+ }
+ 
+ static void dcn20_destroy_resource_pool(struct resource_pool **pool)
+-- 
+2.45.2
 
