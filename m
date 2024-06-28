@@ -4,77 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD0BC2BBCA
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jun 2024 08:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6465C2BBCA
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jun 2024 08:42:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAF4F10E010;
-	Fri, 28 Jun 2024 08:13:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C6410E1FC;
+	Fri, 28 Jun 2024 08:42:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="2xbrUnfU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JslxfM9Z";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8286288735
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jun 2024 08:13:13 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-366de090da9so201244f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jun 2024 01:13:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1719562392; x=1720167192;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=sbFqPq+Oa7txKfUf30OD9KPQaSepJCna09ZO6Uorh5A=;
- b=2xbrUnfUN5dsZEX6WTcnj41E6n/GxM00ZigdTFrGV1yA6Qm6FqgsMgGyblVFj9PwAD
- Da0PEXfL7vi5m4AnprZ+B0/yn9a7gPv70v+FZ0b7H63OGw0eZcbd/JOv5qsfIEih5VEG
- 5FR8c5M0EQQREoUmgIKNcoBqvSImcpneLmzrDiBjtgUwbeomSdQ6wgmmw4SDGlvPmRwt
- Y7R+MUDdEKZeY62ujt+czRzBZi3WLtBzKm2eDL0jsdmHen6AEZEPaFRUiD30yg6+j5hc
- X03mJ9PtDqUsgXfrNnVkZ1gLlTXI+ewF3iedf+7s1kT7KcjAN16O43rsFtMqlV8dTpWR
- dgyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719562392; x=1720167192;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sbFqPq+Oa7txKfUf30OD9KPQaSepJCna09ZO6Uorh5A=;
- b=sn6xm+U7/v/gmZNALKflpcu2hVB0YPmqBjh8CGhi78stbxfx6V5kMlF9PXCHtjiSdk
- tIGD423Koouz0+dvy05fYSwnBDuwa46hgEhMX+ZgwxvVF90DJuKhqfXprRar4ksJCyuc
- P9shPaISNVZzel+JdJRSOfzojJw5yWX1oS/ggISWGg9r+Rh0i4AAUsD+V5VrwT5E+WrU
- Q3k29xxZkok8z3tdYZyXEyyW98/GCT4huke9UFG+ovUSAeYovOisWLa2hSNP42g7AkG6
- 8+hqbqSzLaUxQaUnz9PcfNmYywhVksi0LsDyz+lxqTHwLi3WJebOmRZEASkN1cRd5YEk
- mh4Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVilYSmO/h+AEMB/bGy36PbfgO2/igrspyepodCQQCuc19Yk9gFlogQT0gH9s4Umgvp5B7vcNc0LHneI/SLHAZNZ324BHcmKHf5tb131w==
-X-Gm-Message-State: AOJu0YwNvHnvZq/4C9P5U5PATrIDONu4TwSw7RH7wUBqf6itQRZK1HB6
- /eeMqjJ0Wo9WL8YsnVnPgy81RwZHpLEjS8+oBPk1Y6Gd5dm+ZgVd/lTBPmpJJaE=
-X-Google-Smtp-Source: AGHT+IEm+KmbqNZsNdojQ9HvgeLs2Pzg+lyRPveYxs8dn6M8VSNFQ8R3zFcEcRgN1pqTeTDSjN3tFA==
-X-Received: by 2002:a5d:674e:0:b0:362:69b3:8e4c with SMTP id
- ffacd0b85a97d-366e94cbc0fmr8707192f8f.32.1719562391743; 
- Fri, 28 Jun 2024 01:13:11 -0700 (PDT)
-Received: from [192.168.0.101] ([84.69.19.168])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3675a0d91fesm1482836f8f.40.2024.06.28.01.13.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Jun 2024 01:13:11 -0700 (PDT)
-Message-ID: <551974d2-a201-4f57-ab8d-1213459753b7@ursulin.net>
-Date: Fri, 28 Jun 2024 09:13:10 +0100
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D49B10E0D1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jun 2024 08:42:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VWCGnI7xvg5cQNtncI8rEexQ8iV8xal5bbvVHzukhhV/yCjGlmq96bLWXwQ1lm+fYBjVTslBKzmpdfaCpLEyZdW3yP0fxTsGTKfPftjdEKohW7IrMu4FJyUHAFQGqsHJROf8KxEpbOxwMH8Uwl2qkchsmrZ97BuQmUL3N1aGD0MmwH+9jJRkmxGrwJ/boqgrYj89C4Ya9UQDFnOryWK32RAYCgj9p3JD1XVt+TQ5U2cS1kKcscx05mZ8aE8hStHaNrWbDAI9Sjs/kY4/gfS0QjhdsKvZgcTUP+aHu1DKHO6Bl4CP233sXAdp9wRXVK4mUUmBg+vTY+OKCbQSM6HERg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9AX8UrX+SCwY8QK9cka0b91d/5poCsMCbOwQn4jHndU=;
+ b=GtUKSwTx+LK0xyeUb3/uxwSI3gm307z9K6BBI2sn0Zl8UrcHESYy+Xx/f80uoOR77Omre2/XM9H4SrJbWWIoI9W7jhMGVGgjWfh+qGf2CxLL4leywIMlzzaDTHBm4FaS4ZtJTxR5QlR/9poQtptF1n7Crrbie1Pkt2pOiiY+Ypy2m4IiTCrWGkEt6AmTrTgKRSfyvOHYotqKGc5ps5v7P9bLbvkYSZNwrxiGdf4dVSFv1DPlqUfkv962GOrCEPaO3o5djsbwkntpSM2ckqh9pGe2XLOF4biGaTqlVK9ts6klCX5/EruWH9HMBhy5igqSjfZ1CYnVeCaSM00+x6S4ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9AX8UrX+SCwY8QK9cka0b91d/5poCsMCbOwQn4jHndU=;
+ b=JslxfM9ZRkdGcaxdcYx2O9sdi1+DePTIIUGLQlQtFY4KLCL+sJksygKffC+QUk1fT8iZWqq8Ms2LhNOfH0hzUbHCSokJIZpXCvKfwKN6yzFYblxG3zBh4b/N3zBmoYGRpRx2F+lRAVaZwkpT0sKcrMAdOXI9aLMGZCIwS56a9Qc=
+Received: from CH0PR04CA0016.namprd04.prod.outlook.com (2603:10b6:610:76::21)
+ by IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.34; Fri, 28 Jun
+ 2024 08:42:29 +0000
+Received: from DS3PEPF000099DB.namprd04.prod.outlook.com
+ (2603:10b6:610:76:cafe::21) by CH0PR04CA0016.outlook.office365.com
+ (2603:10b6:610:76::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.26 via Frontend
+ Transport; Fri, 28 Jun 2024 08:42:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099DB.mail.protection.outlook.com (10.167.17.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Fri, 28 Jun 2024 08:42:29 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 28 Jun
+ 2024 03:42:28 -0500
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 28 Jun 2024 03:42:26 -0500
+From: Yifan Zha <Yifan.Zha@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <Hawking.Zhang@amd.com>
+CC: <Horace.Chen@amd.com>, <haijun.chang@amd.com>, Yifan Zha
+ <Yifan.Zha@amd.com>
+Subject: [PATCH] drm/amdgpu: Set no_hw_access when VF request full GPU fails
+Date: Fri, 28 Jun 2024 16:42:02 +0800
+Message-ID: <20240628084200.315216-1-Yifan.Zha@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] drm/amdgpu: always enable move threshold for BOs
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- friedrich.vock@gmx.de
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20240604160503.43359-1-christian.koenig@amd.com>
- <20240604160503.43359-6-christian.koenig@amd.com>
- <b2c68930-b165-4d78-84d5-52415923e648@ursulin.net>
- <2ccb8b25-2351-4107-bd30-3ceee1e11645@gmail.com>
- <fb6cc99c-74ad-468e-80ad-a1a938d1dc52@ursulin.net>
-Content-Language: en-GB
-In-Reply-To: <fb6cc99c-74ad-468e-80ad-a1a938d1dc52@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Yifan.Zha@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DB:EE_|IA0PR12MB8208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06686ac6-a750-4dbd-e83e-08dc974e3e98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hei206fgpFsAYZdc82QhWCGZhasvCrusOUhHkEZUiMYJheKoltAtrLnTBnU4?=
+ =?us-ascii?Q?KnwCCh7ZNa6n2X8FGvcdG9vesxNWv5KRcI/5SpSeK2Umjc7SlPcsWyjt3GGs?=
+ =?us-ascii?Q?F+U8CkGm7c0vS+tLIe+75AaZcZMAavd7S3yDUbOzw4mi/KZihN4nk5ZuCmKt?=
+ =?us-ascii?Q?Ry0k+xXcRWpNK1ULO4XJZ7wKsjNziM3JN7yGh4KaW3JP4CbnsDH7GNeUKTlK?=
+ =?us-ascii?Q?/jB3aV5WWg/e0OIsv+BAdT3Y6ifLkTffYNGiTt+8y0jDnslcCGoDDZvuPgP4?=
+ =?us-ascii?Q?lZy8JIS3pAGh0bXCFTRIvdzXO6OufApULUIu8Td/gJv1cNSQE5VNno7AkGK+?=
+ =?us-ascii?Q?SkCVsyJ4zvrUACbp58jan5F54nVK+ZwR8pTsfeMLaimsA94npizg2W1bLee6?=
+ =?us-ascii?Q?EHtIuB8kONk/YQvmxm1M1McOt+bI6xpZY8q77DEcD8r7Vm/2T7tLSLacfTNa?=
+ =?us-ascii?Q?g7O1mE/ByZe1wZ+VWOy4INz8hfnfgxk3xX4C4EjYmzzJugYIuTgzeWmGvfHv?=
+ =?us-ascii?Q?3GatF2q1s5sPzqh+U2Jyxr5yRlUFpmqJ7FORFQjJRqoTb1CFroJmYxEbdEsC?=
+ =?us-ascii?Q?iieUxeOae3CYRU7AisoNNKXVdme7ElwnSQCRwuk6/UUvlCwVLzoIOeaCK5EP?=
+ =?us-ascii?Q?ab6j3ZQGaqwEohOKiML4cnFYbw83geAH8/O62QUEbtekKsZhjd7Jj3H9ANLt?=
+ =?us-ascii?Q?R4lBylIxhE5nUUcqzqHv8gMkWMrcJ5XJ4qyjDdMVRXI6OQQt0GRm6YussTA4?=
+ =?us-ascii?Q?xOBPSr1xpjzzdb2tZJD/R5+2uSEgAHOTUJXZm3gZb5QJkmHVDbPwxRCnXv1Y?=
+ =?us-ascii?Q?pXt4dDWc6puwVLidh8Kv73h5KwelEYQQtEFhovUT1Cz9ADaNBTbcGlkRjzjX?=
+ =?us-ascii?Q?WDoDaU6g90GdOexXepyPxDQdvI+GgOF0ynLP6cu41cG0XZvmTUbpFGtsa09x?=
+ =?us-ascii?Q?+ymw2+PWnz9yAlFj/3jKnwOKyODthpUMzBOrIyKhYK2LDmKFN1fHbNwBkGij?=
+ =?us-ascii?Q?YQW+n/iXWtpmxgZKhL6SLkXcNTgYqpxQ0RWqHGhgkHZdkHB/hOFHsUYdNMqn?=
+ =?us-ascii?Q?hSqXWrGxzADsQcmcSnLOqcHL16Glm+v/+jHem/GvV5kN2G0w3WOVhXq9WwM8?=
+ =?us-ascii?Q?s+dX1nq43yON0srO8MgRmkTOnWZEy2h2RdQ5LswPnngYOJi6x+a/NwAi+CgA?=
+ =?us-ascii?Q?POv6B2TWHHhB8mdbNSRpfXheiR0V2/OeWu91iLmxNEqSoh9a6lqw+3zm2aKf?=
+ =?us-ascii?Q?mTFFplCveKD/CcYYxU/8X2j5ukZzeoLSuJiQKUgPWcsyQ9oR4jE8JAqUb96X?=
+ =?us-ascii?Q?yqFLM9S8uE8yOITnCIKMUU8LIxxDUHZP+vdxSTASKDGsgY+95uHHe7VmZZu+?=
+ =?us-ascii?Q?Gf+eXkJELCq18/hgvizYScRJNVoh5h41ARV3ggHqrCXsfJ822F8tTI/yQcgG?=
+ =?us-ascii?Q?CKkGjpgsUXiDTU+L7DkT8+m15qOZSHmA?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2024 08:42:29.2281 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06686ac6-a750-4dbd-e83e-08dc974e3e98
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,145 +133,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Why]
+If VF request full GPU access and the request failed,
+the VF driver can get stuck accessing registers for an extended period during
+the unload of KMS.
 
-Hey Christian,
+[How]
+Set no_hw_access flag when VF request for full GPU access fails
+This prevents further hardware access attempts, avoiding the prolonged
+stuck state.
 
-Any thoughts on the below reply? Did I get it wrong or I found a 
-legitimate issue?
+Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Regards,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index ccb3d041c2b2..111c380f929b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -86,8 +86,10 @@ int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init)
+ 
+ 	if (virt->ops && virt->ops->req_full_gpu) {
+ 		r = virt->ops->req_full_gpu(adev, init);
+-		if (r)
++		if (r) {
++			adev->no_hw_access = true;
+ 			return r;
++		}
+ 
+ 		adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
+ 	}
+-- 
+2.25.1
 
-Tvrtko
-
-On 14/06/2024 17:06, Tvrtko Ursulin wrote:
-> 
-> On 14/06/2024 10:53, Christian König wrote:
->>
->>>>           if (domain & abo->preferred_domains & 
->>>> AMDGPU_GEM_DOMAIN_VRAM &&
->>>> -            !(adev->flags & AMD_IS_APU))
->>>> -            places[c].flags |= TTM_PL_FLAG_FALLBACK;
->>>> +            !(adev->flags & AMD_IS_APU)) {
->>>> +            /*
->>>> +             * When GTT is just an alternative to VRAM make sure 
->>>> that we
->>>> +             * only use it as fallback and still try to fill up 
->>>> VRAM first.
->>>> +            */
->>>> +            if (abo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT)
->>>> +                places[c].flags |= TTM_PL_FLAG_FALLBACK;
->>>> +
->>>> +            /*
->>>> +             * Enable GTT when the threshold of moved bytes is
->>>> +             * reached. This prevents any non essential buffer move
->>>> +             * when the links are already saturated.
->>>> +             */
->>>> +            places[c].flags |= TTM_PL_FLAG_MOVE_THRESHOLD;
->>>> +        }
->>>
->>> For the APU case I *think* this works, but for discrete I am not sure 
->>> yet.
->>
->> Agree, APUs are basically already fine as they are. VRAM is just used 
->> so that it isn't wasted there.
-> 
-> Well yeah it works, but because re-validation is broken so it cannot hit 
-> the broken migration budget. ;)
-> 
->>> As a side note and disclaimer, the TTM "resource compatible" logic 
->>> has a half-life of about one week in my brain until I need to almost 
->>> re-figure it all out. I don't know if it just me, but I find it 
->>> really non-intuitive and almost like double, triple, or even 
->>> quadruple negation way of thinking about things.
->>
->> Yeah I was also going back and forth between the different approaches 
->> multiple times and just ended up in this implementation because it 
->> seemed to do what I wanted to have.
->>
->> It's certainly not very intuitive what's going on here.
->>
->>>
->>> It is not helping that with this proposal you set threshold on just 
->>> one of the possible object placements which further increases the 
->>> asymmetry. For me intuitive thing would be that thresholds apply to 
->>> the act of changing the current placement directly. Not indirectly 
->>> via playing with one of the placement flags dynamically.
->>
->> Interesting idea, how would the handling then be? Currently we have 
->> only the stages - 'don't evict' and 'evict'. Should we make it 
->> something more like 'don't move', 'move', 'evict' ?
-> 
-> Intuitively I would think "don't move" aligns with the "out of migration 
-> budget" concept.
-> 
-> Since in this patch you add move_threshold to ttm_operation_context 
-> could it simply be used as the overall criteria if it is set?
-> 
-> In a way like:
-> 
->   1. If the current placement is from the list of userspace supplied 
-> valid ones, and
->   2. Migration limit has been set, and
->   3. It is spent.
-> 
-> -> Then just don't migrate, return "all is good" from ttm_bo_validate.
-> 
-> Though I am not sure at the moment how that would interact with the 
-> amdgpu_evict_flags and placements userspace did not specify.
-> 
->>> Anyway, lets see.. So you set TTM_PL_FLAG_MOVE_THRESHOLD and 
->>> TTM_PL_FLAG_FALLBACK on the GTT placement, with the logic that it 
->>> will be considered compatible while under the migration budget?
->>>
->>> (Side note, the fact both flags are set I also find very difficult to 
->>> mentally model.)
->>>
->>> Say a buffer was evicted to GTT already. What then brings it back to 
->>> VRAM?
->>>
->>> The first subsequent ttm_bo_validate pass (!evicting) says GTT is 
->>> fine (applicable) while ctx->bytes_moved < ctx->move_threshold, no? 
->>> Isn't that the opposite of what would be required and causes nothing 
->>> to be migrated back in? What am I missing?
->>
->> The flag says that GTT is fine when ctx->bytes_moved >= 
->> ctx->move_threshold. The logic is exactly inverted to what you described.
->>
->> This way a BO will be moved back into VRAM as long as bytes moved 
->> doesn't exceed the threshold.
-> 
-> I'm afraid I need to sketch it out... If buffer is currently in GTT and 
-> placements are VRAM+GTT.
-> 
-> ttm_bo_validate(evicting=false)
-> 
-> 1st iteration:
-> res=GTT != place=VRAM
->     continue
-> 
-> 2nd iteration:
-> res=GTT == place=GTT+FALLBACK+THRESHOLD
-> 
-> ttm_place_applicable(GTT)
->    moved < threshold
->      return true
-> 
-> Buffer stays in GTT while under migration budget -> wrong, no? Or am I 
-> still confused?
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->> Setting both flags has the effect of saying: It's ok that the BO stays 
->> in GTT when you either above the move threshold or would have to evict 
->> something.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Regards,
->>>
->>> Tvrtko
->>
