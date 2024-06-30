@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A93C27C4F
-	for <amd-gfx@archiver.kernel.org>; Sun, 30 Jun 2024 14:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E72C3064D
+	for <amd-gfx@archiver.kernel.org>; Sun, 30 Jun 2024 14:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E57E10E262;
-	Sun, 30 Jun 2024 14:59:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 337E110E279;
+	Sun, 30 Jun 2024 14:59:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T3DsbuFi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wFu2JRUt";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6236410E25C
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Jun 2024 14:59:31 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 183C510E25C
+ for <amd-gfx@lists.freedesktop.org>; Sun, 30 Jun 2024 14:59:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YMVW2VlbrHB6ypPFQ9GlrZH1q+jbFoGCbhLsffgzsT3XpZqaJtNrSlZVtZ36HYlUA5TykZ8N2nCsldSqGing95Fp4fltTEggZJyONkjgzaIfDNjMf0c7LI2C6q1OXwOGxnIfAizCvVjftMXO1RkUJKYyj3n0gmUgNHNA4dp9/VfmvZovO+rgyDof9nE6zu1H2cXrla5m+r3nnA94oxHAcp2dIloD3IdPZheQAnDcrbd/LbzQ6/mfZsk2hHf1eq5GL+A0Wem31gbIdKzVyrzx/Y+aN0uJCNgciaiNew/0hwyFvb+LOoi4wcXiGhJgTSppMIoBoGndKj1jMZK94JsNrQ==
+ b=ks8Ztm6PRT54OX3gDfLK/KeTgsPlGuJUq5G3DFlW71gaAMvU89BklV/qf7AqHhXMNEL40ey/8gPB45/ebWEybxJDgglsSbgfk9vFIottq7Ua4WfnAeyInXJRKHz0VGfgPxjsU0PTzMQ9eV7VHBG35dpk6lIDRuPV+UqkonXLozgiVdQBgGQyVn7CSt++MJGm8mImf4h3C8emn7vZCD59gb8wIYpYA6v8GJiCN22T/NcEzO/EH/9eUjL862e6yVQaBhPaySh/lb9DyASDBcG8UfJfW7g6GAVqSUFLumTXogpcFDMk3aYkCmUKYtnndkZqBgftPV9CWC2fckt4rkWFzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bAXJQlo5//W2E21atYVlXnVloWTMAN74ay4QrH6Aw+s=;
- b=AsGfFCPgKLnJo+Tll7d2qaUg21mXJsmi48GBIjF8T/RdYhlDAdBANEP87ZuSnnXfsjBlHnZrnlArlbOW1TF1Rlap3o+8wnATkhEI37EnrOpzCDhP/zJIpNFMizmD6aK8m4QGQkRaDfAmqa+6RjgnFxwcZ5xy7+OAANpQ05xK+47nk6sM5n6RtSAFiBoIFV9UhIqgg0GXxpK4FxL8zn9hJ6hLIxNzGMwlACfJL1AezmVr+9UTMl/qcWwuYxCskaG5gbhoh697n4Acg4MViW0KOahLhxZF0mSk1UGg8QJKRIpXxFMrsZZaQBF6lPjTXiugm30dapB7VaplYRQoUmiu/A==
+ bh=k+sW3PtgVynGY04qy1MuTQ//tOgN+rdsJS8TEzHa7LM=;
+ b=NejodJ7fEpItGAp9+XWxUz2bTN+jKc1PN/iI4s8O1JQ8daLBToGBPmnpsSzCoctDjjRm83OM110CP/j/uptlaKzbUwj67p69w85boN7uPZ5T0/rliQlgu74RDHC1aigQqxfWoKcEbvRH4qy+BIq3u2DeCoDeiauabX8pOOkga6ZVcBnJCRZHbUafTKzUQ+q/OzK5/YKesf6/q8F+V6BFxevRvVfV/YLIrVTMsTUu3E30cJUOwK1z6h45Y+RJZiByGRNR7pH8c7Sc226a9bMHj7SzK+H4mBllTQV8hPnXpgn5L2EfUe3ptqbmrJDUpG6yuC6Ly23319TIP4Ox+HXkFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bAXJQlo5//W2E21atYVlXnVloWTMAN74ay4QrH6Aw+s=;
- b=T3DsbuFis6iPPLKQ3ke7h6IzF7jX3mYaLcGVzB90Gq1bs17blKY7PiMA0HRJN2KbkIVahN5OJmZ2hVBV/JW4at0CcB92JDfaOvBJQIyz0ao2ADLe/axMv7FOMy4mSd1L7GsDhUDSMhfyuuhjZh97XGo0gv+OPn6UkKCAFmDsGLQ=
+ bh=k+sW3PtgVynGY04qy1MuTQ//tOgN+rdsJS8TEzHa7LM=;
+ b=wFu2JRUti+bd2xSP3za3Wkqe+IKTcqa7VEtg33v75coDZifR9db2hMXpWt7xCHaM1lc+RQ6EiUh3iV9xm0d8FESqI4Oc6HD9tmHJHrzdMXcTYzktd5MWS7sWXOrp63x/+z8OWmMTA1ohg4BRMAMiXEavDb4Wfd7MbIiin8+OnNU=
 Received: from PH8PR20CA0011.namprd20.prod.outlook.com (2603:10b6:510:23c::14)
- by DM4PR12MB7573.namprd12.prod.outlook.com (2603:10b6:8:10f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.26; Sun, 30 Jun
- 2024 14:59:26 +0000
+ by IA0PR12MB7603.namprd12.prod.outlook.com (2603:10b6:208:439::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.28; Sun, 30 Jun
+ 2024 14:59:25 +0000
 Received: from CO1PEPF000042AD.namprd03.prod.outlook.com
- (2603:10b6:510:23c:cafe::73) by PH8PR20CA0011.outlook.office365.com
+ (2603:10b6:510:23c:cafe::46) by PH8PR20CA0011.outlook.office365.com
  (2603:10b6:510:23c::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.29 via Frontend
- Transport; Sun, 30 Jun 2024 14:59:26 +0000
+ Transport; Sun, 30 Jun 2024 14:59:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042AD.mail.protection.outlook.com (10.167.243.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7741.18 via Frontend Transport; Sun, 30 Jun 2024 14:59:26 +0000
+ 15.20.7741.18 via Frontend Transport; Sun, 30 Jun 2024 14:59:24 +0000
 Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 30 Jun
- 2024 09:59:23 -0500
+ 2024 09:59:22 -0500
 From: Tim Huang <Tim.Huang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Yifan1.zhang@amd.com>, Li Ma
- <li.ma@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
-Subject: [PATCH 3/7] drm/amd/pm: smu v14.0.4 reuse smu v14.0.0 dpmtable
-Date: Sun, 30 Jun 2024 22:58:27 +0800
-Message-ID: <20240630145831.2023399-3-Tim.Huang@amd.com>
+CC: <Alexander.Deucher@amd.com>, <Yifan1.zhang@amd.com>, Tim Huang
+ <Tim.Huang@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
+Subject: [PATCH 2/7] drm/amdgpu: add PSP IP v14.0.4 discovery support
+Date: Sun, 30 Jun 2024 22:58:26 +0800
+Message-ID: <20240630145831.2023399-2-Tim.Huang@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240630145831.2023399-1-Tim.Huang@amd.com>
 References: <20240630145831.2023399-1-Tim.Huang@amd.com>
@@ -73,51 +73,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AD:EE_|DM4PR12MB7573:EE_
-X-MS-Office365-Filtering-Correlation-Id: d22347ca-76fc-4c9c-db39-08dc99153c3e
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AD:EE_|IA0PR12MB7603:EE_
+X-MS-Office365-Filtering-Correlation-Id: 834083cd-dd46-4398-953e-08dc99153b76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?XdSiCOEz3+Ru1HDqAQnO8eQLBrY/QYu+yy/DuZ7p4hYIuvUjaZwX94QxfdUt?=
- =?us-ascii?Q?P42yj2MupA769TSH5MSM9wTSQA30iJoQX6jd6zpPQjU03VDHlxDOyr3j1I5U?=
- =?us-ascii?Q?cavkWzwBljoE9pu2ks49TF3UwleKjmubmR5wHnkLXhsHtDtCJ0WVkRBAAWqa?=
- =?us-ascii?Q?dws1SP3uvufIW1APQ9b0kT6DWJNAl7VZ1C1/RtaFVynR81PC8ssCdbB5bylu?=
- =?us-ascii?Q?b1J9t0Aev2+EIAR2d/K2+wvjZY2L0xfPVSsBq970ogiLeHiGsCC2ZhfL6e1Z?=
- =?us-ascii?Q?4LLpicXf3njvJdu3KiwpIjMf+a33R0hSvrc7yCjndpDXk76ntmq1AJkvgUGI?=
- =?us-ascii?Q?hO1fhquOD3kPeb2vE/oxu3KockX1Xcnlhjgk5M2yZeBC6ZQI6ZQ2QwvJ8rzJ?=
- =?us-ascii?Q?UiVWOeBSSQKlL8k+oa78NyJ9r5LIscw/UXFAMoYauU+5WYmC4VXHwMMf34o+?=
- =?us-ascii?Q?7oDqMp1R7HL59Rn1XfK9URxow4kfX9fm8Ky6Q0Y9/ZZK7j1BsRJ+CQRv+8RP?=
- =?us-ascii?Q?Cj3N5phr+/4/2SqtwlU0jdwwLpxJYpxk4fLqdM8mSI9oeY54FrHwtw/rxTK+?=
- =?us-ascii?Q?VkElGUi3Sb67O234qNcrbs5LpXh31L55D9f5bAYJecugJra9hDHUPGUeE6AU?=
- =?us-ascii?Q?0uvIz8hAJGT8UpS2sF/l/LSgE1BEQz4HFfgpk5MYtrD12eKEzCBw3FMxwWK/?=
- =?us-ascii?Q?AT4n+++WAv6/Hvcrty1WV3qIPjjhS5mrrBdadbX3EDCy+uHbUd1SCFJcnyM6?=
- =?us-ascii?Q?i/5BEqpuREc5HI4Qo2C48rpYmeBQgQpEI/zlwwVjM8yqtUHDSPXv5ZeBrS+p?=
- =?us-ascii?Q?XrpKYw6C3sSJL4NKbDAJCVeSqcoTHau9glaSGhbgQzWl1SRdEuGvX+ozfoXx?=
- =?us-ascii?Q?QLB3lYnkLq89ktQNBrm799oJQEl5zg0+zAo5pofRyNijbR0jCLYMyKD8jXH3?=
- =?us-ascii?Q?YNNEDjzCjimn4EODBHguPr53zQqg/W5RWS45Euhs321OZ7hJ1hv1D7w6rqbb?=
- =?us-ascii?Q?NwAgPAjxL2oi2cazfrFNHDW9w5gJfRBhpQpT4R9u9CfsgucAlAXV992LGRUj?=
- =?us-ascii?Q?Z/QQILLKFILrMxKlkkxk5CThHb+nfh5RkYdDVblxrPoouL11MlSVutbAIlT3?=
- =?us-ascii?Q?QiBEgVtOGDmWHOvHzOKfxSKCc3gHzPHqVWlKisvZYeFbmk5CvzHZrR6nDQ9p?=
- =?us-ascii?Q?xYGzG3J+i60TSJjwe7o0lF9TmqjiDJxnbSwOFDlg0xM6vt/7Asc5k7WFzAwK?=
- =?us-ascii?Q?aAHcqfPJAFeLoDmpiAdUaLOn2UQooaR9LzfHSoFme22AGfNjH6XGJC34+ySS?=
- =?us-ascii?Q?U0g2nTZk0I1zeJK4ashNtRmIJQAer302MYfBrmWbdvlfmo1EwDyR2pWSoQB3?=
- =?us-ascii?Q?YxI2LTDTvMvlUB/5qbnr0Xth4ZGYItPgU3Py3TN3ycMQ0sf0xF5i7Wq4i2wu?=
- =?us-ascii?Q?+WWlICKdjpwroZm1i0kzSQGLtHupnimC?=
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zrYiogWVxUPSRvAR+cEhSPItAiWKUleU8DJr88XZdnezx6s0s6hTfK1Brnt1?=
+ =?us-ascii?Q?Y0GzZLTXKhDeB931qqfc0SdevTOjpL+kQ2lq5fcNVovbCVapCFJptIWkYCwf?=
+ =?us-ascii?Q?tJZNzqmnPtiHWPVuk++0HdXUy2cJAw64lNHXaW1YP+EAazdq8S1t4IhlfSbs?=
+ =?us-ascii?Q?I+Vbg1yDs7hm1jzaNQ5zBesQPgAq/Z7unBFOJi54BrMOi8EQW8KzPLTuXEm3?=
+ =?us-ascii?Q?OdxcLBD0+v7K0gYJRQXDC+3sS6jkzmg3ezpiXtrfN6IVJN26OppGFoj+Yq/e?=
+ =?us-ascii?Q?dGtKW936Ha3BY6IK3N3WAxJfMC76z72q8F8Toc3HPFkF1bshkwGKEd2zeYaO?=
+ =?us-ascii?Q?2/gjtai5nAHwv4FH/MXqbxoKH36zNYusP9IjLADSxReKoktTmpECOUU4PHb6?=
+ =?us-ascii?Q?2maeKSsce8AIeTLubygpocbslkgPIHrxrNDKvD0y0SgctVb45DKsJPXPJNFK?=
+ =?us-ascii?Q?qKPu9We1JzOxhhSkMp3ITvgNZ5mQaN6dlSylM4fakPvWnWo/w4hBIaI6My6u?=
+ =?us-ascii?Q?m3Um4Ag068SrUYaZuDczF/7x50iEQPTHqE2Bm5VvU6yRNYFefeSL8ckZ0iMU?=
+ =?us-ascii?Q?emyoYtsCA7j3Je7XlcEwWQBM3YSpeyTtOc6CjmKZG2Vx0hx3V9vW1nhl65DQ?=
+ =?us-ascii?Q?wO2VEG0SKedVFR1qxnDuxey/zgq+15a6mSrU05sjY88b9Wi5ie/WiTFzr4QU?=
+ =?us-ascii?Q?ffEW75Bh33pUOOIYj8WAbYIxu5OsKy2raInaxm4DYW3tO3oy32pNaVqhAsvb?=
+ =?us-ascii?Q?22ySsEOU9ki5lYbG4vO9VARTudfu61YrHN6uaioRbkgsFX3csdgzqFfKwIWB?=
+ =?us-ascii?Q?iXAusM+8PdKTxcnz8xHzCFGx8fFKWBZ0ORL/im8YJbTEP9sSWBAKpHn+szam?=
+ =?us-ascii?Q?PVWyeYs/9XSmBHvF24/UhRVBKg+mDg0/1Bdz0iXfWTkTlEAkMr4mHro8+WGe?=
+ =?us-ascii?Q?oblsuFADS6W/Znvs65F3eIOvIl+kbQdZnAPwjIdRDk4eM4Fq5Qr26PkKbLFp?=
+ =?us-ascii?Q?nRhUMb6zJzxKdn79cagtdlRZ2+6NDU5WlQOxsjkzeLKyyHx29RvTMhVNexWB?=
+ =?us-ascii?Q?KA3VbOqtdh7Wmm8+AuHoBNwcDwpqeW1RAokMiNBj80FRsodPC+7i2WlMA3Dy?=
+ =?us-ascii?Q?lS8bZjNoD05OGQFFA4OPiJhwwhdXSD9BcpcBTCXw64KGQ7R6Cr9Yauw/QYDZ?=
+ =?us-ascii?Q?iFUTHyCWFRewarP6awjXxWWLhIhlaiUTWiiI6AQ9mtO6PljuL5bv6GUOFLEB?=
+ =?us-ascii?Q?bRuitY9oLLulXNv7aelqJAxCsHi7C7THKGRHo8rdZtOKjX4v9H10t9hvzfpS?=
+ =?us-ascii?Q?zdv8wMYXmCXq4GIZSgPlzhoRurOB4FWD+Tw9Tmv//lcOWur8gKy7a4p/HtXF?=
+ =?us-ascii?Q?KvX06BEKI6V4T2yIhiUK4x9I2fn+dmxl1lGXV7mJhEg2gcovRmQbto/Fcfq0?=
+ =?us-ascii?Q?yDQdaUeP8+7mTDaDnIJIX6r7c2qa6NPI?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2024 14:59:26.2476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d22347ca-76fc-4c9c-db39-08dc99153c3e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2024 14:59:24.9039 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 834083cd-dd46-4398-953e-08dc99153b76
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AD.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7573
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,156 +132,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Li Ma <li.ma@amd.com>
+This patch is to add PSP 14.0.4 support.
 
-Replace IP VERSION with smu->is_apu in if condition.
-And the dpmtable of smu v14.0.4 is same as smu v14.0.0.
-
-Signed-off-by: Li Ma <li.ma@amd.com>
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
 Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    | 18 ++++-------
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 30 +++++++++----------
- 2 files changed, 21 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index 5ffd7144d99e..095ee7e2c4bb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -136,8 +136,7 @@ int smu_v14_0_load_microcode(struct smu_context *smu)
- 		    1 & ~MP1_SMN_PUB_CTRL__LX3_RESET_MASK);
- 
- 	for (i = 0; i < adev->usec_timeout; i++) {
--		if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0) ||
--			amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+		if (smu->is_apu)
- 			mp1_fw_flags = RREG32_PCIE(MP1_Public |
- 						   (smnMP1_FIRMWARE_FLAGS_14_0_0 & 0xffffffff));
- 		else
-@@ -210,8 +209,7 @@ int smu_v14_0_check_fw_status(struct smu_context *smu)
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t mp1_fw_flags;
- 
--	if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0) ||
--		amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+	if (smu->is_apu)
- 		mp1_fw_flags = RREG32_PCIE(MP1_Public |
- 					   (smnMP1_FIRMWARE_FLAGS_14_0_0 & 0xffffffff));
- 	else
-@@ -866,8 +864,7 @@ static int smu_v14_0_set_irq_state(struct amdgpu_device *adev,
- 		WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_ENA, 0);
- 
- 		/* For MP1 SW irqs */
--		if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0) ||
--			amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1)) {
-+		if (smu->is_apu) {
- 			val = RREG32_SOC15(MP1, 0, regMP1_SMN_IH_SW_INT_CTRL_mp1_14_0_0);
- 			val = REG_SET_FIELD(val, MP1_SMN_IH_SW_INT_CTRL, INT_MASK, 1);
- 			WREG32_SOC15(MP1, 0, regMP1_SMN_IH_SW_INT_CTRL_mp1_14_0_0, val);
-@@ -900,8 +897,7 @@ static int smu_v14_0_set_irq_state(struct amdgpu_device *adev,
- 		WREG32_SOC15(THM, 0, regTHM_THERMAL_INT_ENA, val);
- 
- 		/* For MP1 SW irqs */
--		if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0) ||
--			amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1)) {
-+		if (smu->is_apu) {
- 			val = RREG32_SOC15(MP1, 0, regMP1_SMN_IH_SW_INT_mp1_14_0_0);
- 			val = REG_SET_FIELD(val, MP1_SMN_IH_SW_INT, ID, 0xFE);
- 			val = REG_SET_FIELD(val, MP1_SMN_IH_SW_INT, VALID, 0);
-@@ -1494,8 +1490,7 @@ int smu_v14_0_set_vcn_enable(struct smu_context *smu,
- 		if (adev->vcn.harvest_config & (1 << i))
- 			continue;
- 
--		if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0) ||
--		    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1)) {
-+		if (smu->is_apu) {
- 			if (i == 0)
- 				ret = smu_cmn_send_smc_msg_with_param(smu, enable ?
- 								      SMU_MSG_PowerUpVcn0 : SMU_MSG_PowerDownVcn0,
-@@ -1527,8 +1522,7 @@ int smu_v14_0_set_jpeg_enable(struct smu_context *smu,
- 		if (adev->jpeg.harvest_config & (1 << i))
- 			continue;
- 
--		if (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0) ||
--		    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1)) {
-+		if (smu->is_apu) {
- 			if (i == 0)
- 				ret = smu_cmn_send_smc_msg_with_param(smu, enable ?
- 								      SMU_MSG_PowerUpJpeg0 : SMU_MSG_PowerDownJpeg0,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-index 18abfbd6d059..3a9d58c036ea 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-@@ -723,10 +723,10 @@ static int smu_v14_0_common_get_dpm_freq_by_index(struct smu_context *smu,
- 						uint32_t dpm_level,
- 						uint32_t *freq)
- {
--	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0))
--		smu_v14_0_0_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
--	else if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
- 		smu_v14_0_1_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
-+	else
-+		smu_v14_0_0_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
- 
- 	return 0;
- }
-@@ -999,10 +999,10 @@ static int smu_v14_0_common_get_dpm_ultimate_freq(struct smu_context *smu,
- 							uint32_t *min,
- 							uint32_t *max)
- {
--	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0))
--		smu_v14_0_0_get_dpm_ultimate_freq(smu, clk_type, min, max);
--	else if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
- 		smu_v14_0_1_get_dpm_ultimate_freq(smu, clk_type, min, max);
-+	else
-+		smu_v14_0_0_get_dpm_ultimate_freq(smu, clk_type, min, max);
- 
- 	return 0;
- }
-@@ -1104,10 +1104,10 @@ static int smu_v14_0_common_get_dpm_level_count(struct smu_context *smu,
- 					   enum smu_clk_type clk_type,
- 					   uint32_t *count)
- {
--	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0))
--		smu_v14_0_0_get_dpm_level_count(smu, clk_type, count);
--	else if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
- 		smu_v14_0_1_get_dpm_level_count(smu, clk_type, count);
-+	else
-+		smu_v14_0_0_get_dpm_level_count(smu, clk_type, count);
- 
- 	return 0;
- }
-@@ -1372,10 +1372,10 @@ static int smu_v14_0_0_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
- 
- static int smu_v14_0_common_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
- {
--	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0))
--		smu_v14_0_0_set_fine_grain_gfx_freq_parameters(smu);
--	else if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
- 		smu_v14_0_1_set_fine_grain_gfx_freq_parameters(smu);
-+	else
-+		smu_v14_0_0_set_fine_grain_gfx_freq_parameters(smu);
- 
- 	return 0;
- }
-@@ -1436,10 +1436,10 @@ static int smu_14_0_0_get_dpm_table(struct smu_context *smu, struct dpm_clocks *
- 
- static int smu_v14_0_common_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
- {
--	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 0))
--		smu_14_0_0_get_dpm_table(smu, clock_table);
--	else if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
-+	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 1))
- 		smu_14_0_1_get_dpm_table(smu, clock_table);
-+	else
-+		smu_14_0_0_get_dpm_table(smu, clock_table);
- 
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 8f5de513d951..43499789b6ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1964,6 +1964,7 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(13, 0, 14):
+ 	case IP_VERSION(14, 0, 0):
+ 	case IP_VERSION(14, 0, 1):
++	case IP_VERSION(14, 0, 4):
+ 		amdgpu_device_ip_block_add(adev, &psp_v13_0_ip_block);
+ 		break;
+ 	case IP_VERSION(13, 0, 4):
 -- 
 2.43.0
 
