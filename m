@@ -4,58 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 926EBC3065B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73E53C2BD09
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jul 2024 06:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D42410E2F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07DE110E2F2;
 	Mon,  1 Jul 2024 06:59:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0nnRPyx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SuiWkurF";
 	dkim-atps=neutral
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B268D10E155
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Jun 2024 07:04:17 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-57cbc66a0a6so1965679a12.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Jun 2024 00:04:17 -0700 (PDT)
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B63810E0DA;
+ Sun, 30 Jun 2024 17:00:43 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id
+ af79cd13be357-79c06a06a8eso152978185a.0; 
+ Sun, 30 Jun 2024 10:00:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719731056; x=1720335856; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=r+2JhwhhcYmUlONdoqhbMCHdhahLYSDSMnL+ZYEH4CY=;
- b=m0nnRPyxknkeAvh6JnM3YXvQtaD248Ux3fN7lDB89cQmJ0/msaKoCbN7MRyp52F5N/
- j6MNhQCpbEgXkh2f1xMkUjlzTWw9+PfMvZN8FbfSnw4VX3TMvHZaX+MJ73IZi2sG1xu0
- fQnBpFYq0NOnVvLIr83ARBDtIRgR6JmzrdTBX65Ujb9Ysl5UNmJvu6D6lREFH0SpHUkY
- jxlzIhFXCdaPEcp2q4OLkIY1s7Dosbb6rJ2YEqqYFnAvcvyGRSckWw7sLlk7d9nipQ2x
- CE7WZtuUFcASr/UmAcG1uxJRsfExK6fjtSG9RVmchxXdTcsfVkrq2tuJUOppnaERGScG
- AkMQ==
+ d=gmail.com; s=20230601; t=1719766842; x=1720371642; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8QLGAW+ynl8vrQtYcMfXzZ7X2GgW9XGKGc2Rji6SiN0=;
+ b=SuiWkurFi+P2eXfT0SPNy07mGaeD0OVGbCS3o3fJtudlc6vohbyBNCs8Z+RNKDmqif
+ MHJtOewvmEpRpSAYYfsNAmDnR1MEKcLCUlXc8HqkXlCfxT8es5sLkCerkCxt9VbnHSox
+ tWYfR1S6wdq37Luun+uPcZoa7rFY+c3drGF9hTmRaf64PBpXnkwO+pQb5hM7bYrhIRvW
+ WegenUtulrVnouByNI1wuGeaVcf7hKv+hV1U6jYLXfjhOTDltybSFUwltVBUK53fg9ne
+ VhhR1vquU5m7UzeWc09M8AddA4Bk75CgI7BsXE1KgWPM3HUlfF1n9mq4kEIslq2MLLNc
+ 6niw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719731056; x=1720335856;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=r+2JhwhhcYmUlONdoqhbMCHdhahLYSDSMnL+ZYEH4CY=;
- b=iYOE08ZJaqzHWKeZFlw+mR8nYzZN40qS3rnqfCEGf1FKi7UK7+1gO513dymJ6VKTqQ
- wy5uxBhQSTePi4RufZkQrOQBxrgyfaRRW9P1ioqe8n6m1svm8EB2Du3Ux0UAVmbvWgRB
- r5jpTrzgrhn/ZN0VvF7LXFm/kYs+wMQyUio/ez2PUt+ZO5aZ9pf0HRVM6g/TEBPjgVRO
- 4WqxkfZmIt5wfwd9IFNfUfPwOW80ZaTDSVan+iWy9lSVPUM3zPckVpGS+J6zrdztOh4M
- Q/6BRtmBd4apT9D1jijARPn1LBxfLoBC/xoB9YL6YcLJC+Ck+omHPs2A2aSOD3iUz+2w
- CchA==
-X-Gm-Message-State: AOJu0YzXIOXRSJU57Kvy11cgaLgj6bE855ZqPFtlFeR2oT3XsE2QsO0b
- KR/alz5q+CgryOXymrZdh7f5nhdNGh1z95CHPp0TWThPZU3OjZcN4VtCy+qmbqbUUkQbnRun3PF
- Hr7RJ5glzMgMn5mx9nVqFsSeDCfiK91n5
-X-Google-Smtp-Source: AGHT+IGyvg5ixZr+d3W7Gk5mmoXK3rF3gZ+CgS70uGZizJd1Kw+79hJMVRpfhzulrkaoTFTyAIK3V8eQtFxZLxV/qU0=
-X-Received: by 2002:a05:6402:22e3:b0:57c:ff0d:b781 with SMTP id
- 4fb4d7f45d1cf-5865d4737cfmr4164202a12.16.1719731055648; Sun, 30 Jun 2024
- 00:04:15 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1719766842; x=1720371642;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8QLGAW+ynl8vrQtYcMfXzZ7X2GgW9XGKGc2Rji6SiN0=;
+ b=kmIfALL1POwK9eSAldIpFtxZ2uZlPFUkfgGLey21DgPB6lqAnGfloCZJe4Onod1hMz
+ ip3ONV0VmyMRzQY2qgmc6vd1fEhEhLAZ/gTFGhfqsg1418W6GbZSGIsRALm0V69c2g0C
+ XfVNbFk6rMVMMvq+UCVtAsBZZGg4jRrFibfAnybDC0tIl2W9nMVlmpyrc832WGefDN0m
+ xqaFmvO6Ets+kExSoHMEMFZnUMbMh1x9e8rN2m0kdi2XrYyobQhrlJL6UG8ZmLCnAX1T
+ 0lChckyWzDcqOTyrEWZX3whR7FOiNup7UkE1KedW5ZwRUFQTV48+sFSRCrFA50rHEDCa
+ Nkgg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV4Jfv1qD2EGC1Ys2EWsJskbgBCf0TyCBL8TJ5dWHJfF8XoHvyMqcHFGWbh/+T8aiVd6BANOoZyDuTNG5HQXDD0bZMsPlF2kIgmGuoPiEC6eDcZ+fHikqVwcF/SjMd12izF/CRmDSLmV4BJJ53+Lw==
+X-Gm-Message-State: AOJu0YwPkrBNU6BOtOcOK+icqfg8Ym+u0B5N3oXGK6WYo9t+uAjr+BDQ
+ rZr5b0a2mjCoHQGgrEAcjwVfUqOmn+MPhP6MsVGz6X5qg0K34PoU
+X-Google-Smtp-Source: AGHT+IGtMyrH/5c1fTXATxN1H5bbXW5O5iGXqlIdcuzLUpq4fPCLGzb/lvYkgdM8YMFaKQxHlNRx5Q==
+X-Received: by 2002:a05:620a:5783:b0:797:bc08:f495 with SMTP id
+ af79cd13be357-79d7b9f1df1mr383929985a.38.1719766842329; 
+ Sun, 30 Jun 2024 10:00:42 -0700 (PDT)
+Received: from localhost.localdomain ([142.198.217.108])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79d69295f5esm263431785a.56.2024.06.30.10.00.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Jun 2024 10:00:42 -0700 (PDT)
+From: Wu Hoi Pok <wuhoipok@gmail.com>
+To: 
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Wu Hoi Pok <wuhoipok@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 3/6] drm/radeon: use variable flags as parameter
+Date: Sun, 30 Jun 2024 12:59:19 -0400
+Message-ID: <20240630165949.117634-4-wuhoipok@gmail.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240630165949.117634-1-wuhoipok@gmail.com>
+References: <20240630165949.117634-1-wuhoipok@gmail.com>
 MIME-Version: 1.0
-From: Jaroslav Pulchart <jaroslav.pulchart@gmail.com>
-Date: Sun, 30 Jun 2024 09:03:59 +0200
-Message-ID: <CADVcqdwr1mVW2rtKX7tMLw8o=eRVKS2-1JMy3PQ=maBCU2uH=g@mail.gmail.com>
-Subject: High Power Consumption of AMD RX6800xt in Idle with Secondary Monitor
- Connected
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Jul 2024 06:59:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,43 +87,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear AMD GPU Kernel Maintainers,
+To be consistent with amdgpu driver, use "flags" as the parameter because
+it is already assigned as "ent->driver_data".
 
-I am writing to report an issue with high power consumption of my AMD
-RX6800xt graphics card when a secondary monitor is connected.
+Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Upon investigation, I observed that my desktop computer generates more
-heat while idling. I determined that the high power consumption issue
-arises when I connect a secondary monitor to my AMD RX6800xt card,
-causing it to consume approximately 40W of power in idle state .
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 88d3de2a79f8..7b8aa8406751 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -314,7 +314,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+ 	if (ret)
+ 		goto err_agp;
+ 
+-	ret = drm_dev_register(ddev, ent->driver_data);
++	ret = drm_dev_register(ddev, flags);
+ 	if (ret)
+ 		goto err_agp;
+ 
+-- 
+2.45.2
 
-I checked the "GFX Clocks and Power:" in
-/sys/kernel/debug/dri/1/amdgpu_pm_info of my RX6800xt during idle, and
-here are the findings:
-
-With the secondary monitor connected memory frequency is up and
-constantly at 1000MHz:
-        1000 MHz (MCLK)
-        3 MHz (SCLK)
-        1825 MHz (PSTATE_SCLK)
-        1000 MHz (PSTATE_MCLK)
-        856 mV (VDDGFX)
-        45.00 W (average SoC)
-
-Single monitor connected:
-        96 MHz (MCLK)
-        0 MHz (SCLK)
-        1825 MHz (PSTATE_SCLK)
-        1000 MHz (PSTATE_MCLK)
-        6 mV (VDDGFX)
-        8.00 W (average SoC)
-
-The significant difference in power consumption between the two states
-indicates a potential issue in power management that needs to be
-addressed. Your assistance in resolving this matter would be greatly
-appreciated.
-
-Thank you for your attention to this issue.
-
-Best regards,
-Jaroslav Pulchart
