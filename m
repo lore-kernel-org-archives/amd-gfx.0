@@ -4,42 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F6CC2BD09
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jul 2024 06:59:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1E2C3065E
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jul 2024 07:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 443DE10E306;
-	Mon,  1 Jul 2024 06:59:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 094A610E30B;
+	Mon,  1 Jul 2024 06:59:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QCrrmIGT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MTP2WmP2";
 	dkim-atps=neutral
-Received: from out30-98.freemail.mail.aliyun.com
- (out30-98.freemail.mail.aliyun.com [115.124.30.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C64710E2DD;
- Mon,  1 Jul 2024 02:50:51 +0000 (UTC)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2D110E1C4;
+ Sun, 30 Jun 2024 17:00:39 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-79c03dbddb8so240119385a.1; 
+ Sun, 30 Jun 2024 10:00:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1719802249; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=dKbWEdikIBy/xGxcnPx9urGn8RKhAvsJQ96ZeCNi8Xw=;
- b=QCrrmIGTeNCPtSVCiIZlSkiCxmEHjF7rsHTmwaWRxB1rWAN2o7c30g5tVNJxIwH1YZ2euX+XPiuBP2BZ1km5LFYHU3wVRqnO1IDFtkZdZ/bjswwosFjBx3qarfxWU9BdPRU0n8/oozPh3phDRaHYYUIZ6WCkWm5NaISU16wFmls=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045075189;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0W9XECIo_1719802230; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0W9XECIo_1719802230) by smtp.aliyun-inc.com;
- Mon, 01 Jul 2024 10:50:46 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH] drm/amd/display: Fix unsigned comparison with less than zero
-Date: Mon,  1 Jul 2024 10:50:28 +0800
-Message-Id: <20240701025028.36072-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+ d=gmail.com; s=20230601; t=1719766838; x=1720371638; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3+fUm0J60rhD0JfSfR+ec8NGlbRdea8idCqnnknLyK4=;
+ b=MTP2WmP2eyeNLlE5IbSaJhyE3I8ToUnLJshFSkMyrvfQGuo3vmdJGtjnv07asEP3B5
+ +Xc4VrGb7ip4HxCBeyW1ysDhrxg81nC2/F9tLk/BQRADV74MsGKigZNp1dsWaMaTwcvi
+ ABt2IWbQvv36q+z/U/rs51zCtMI+dFAHj4r0+Bl4bQNRCcwwLu1ui5G8WD8iOE+Dbidc
+ ycVVnQ3e+n2S6hVFxCTZhBRA+Uh2l6FmPWfrcw6jfclMRgQPuPkTfrMXE6EMWpLbStRP
+ BI8FjVUysqc+Y/PQRQtXxwZcBgm9hhbpU9qGHkNNXnn2g79xMsojSjK+/IKbaaT0nnkE
+ C+sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719766838; x=1720371638;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3+fUm0J60rhD0JfSfR+ec8NGlbRdea8idCqnnknLyK4=;
+ b=YC6FrI7RZUjxGWpI8nC5h6/EQ7J2dDHQs7YBf2lLjvHc9ECmRPwAdwubDXr3+OzsQu
+ wTLjesTNfP8X6ksf/JPS/47OUpZlSjhlmWsV3X+DoNE5EMeCIiaNvaN7FKyjutALh559
+ ovEZiCLw7WOqVkhYR1IYhSVa96Qwb35RfRaG1yPpJSEuLGx7DV9U9b2UzpzCc0xXA4dK
+ ufe3bNhdqa9xeUfTMJwd0KN4dW7lAqw27Nc8OFPMBggQeofn0sVBtGdkO/wOEvupOSQf
+ SIgKMCsd6rQpA40eB4Lv7oTTL1rXhEOIss25uxA0Rnj792ptR0eAee5iJwuDP+cQF9Hv
+ Yv3Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWR1QwXG5BO2rhV3mbnR4f6l+xCwmLPsJBPamB6xag9raU+5hZpuH/jTguzOpw66TNGWX2xow5HI7nJHwNSNBBvfcl2KlYblT32FMBUGvgPINz85En0ysNG9CygYSQevpBgmPAGR8mqr6IsAXbc9g==
+X-Gm-Message-State: AOJu0YzfzYJ4ML1bP8uY06r+xJZ4j505fYeavkQMICGOIm2jgboEWo+/
+ h6P0tY11KWEKGVHQS7T/514YS+dS/gjPl+9yebbZpqiVK+pL1C4ZBKd7NUb5
+X-Google-Smtp-Source: AGHT+IGTdfbTavrCYOtrr5ya6VIyVg2UfyDv+wbK3tnZFumCzPT8mI4PkDxBQsgVXsZo2s4ZzqGaqg==
+X-Received: by 2002:a05:620a:21db:b0:79d:747c:75b6 with SMTP id
+ af79cd13be357-79d7b9f2333mr428624885a.40.1719766838374; 
+ Sun, 30 Jun 2024 10:00:38 -0700 (PDT)
+Received: from localhost.localdomain ([142.198.217.108])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79d69295f5esm263431785a.56.2024.06.30.10.00.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Jun 2024 10:00:38 -0700 (PDT)
+From: Wu Hoi Pok <wuhoipok@gmail.com>
+To: 
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Wu Hoi Pok <wuhoipok@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/6] drm/radeon: remove load callback from kms_driver
+Date: Sun, 30 Jun 2024 12:59:18 -0400
+Message-ID: <20240630165949.117634-3-wuhoipok@gmail.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240630165949.117634-1-wuhoipok@gmail.com>
+References: <20240630165949.117634-1-wuhoipok@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Jul 2024 06:59:56 +0000
@@ -57,61 +87,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The return value from the call to dml21_find_dc_pipes_for_plane() is int.
-However, the return value is being assigned to an unsigned int variable
-'num_pipes', the condition if(num_pipes <= 0) is not rigorous enough,
-so making 'num_pipes' an int.
+The ".load" callback in "struct drm_driver" is deprecated. In order to remove
+the callback, we have to manually call "radeon_driver_load_kms" instead.
 
-./drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c:318:6-15: WARNING: Unsigned expression compared with zero: num_pipes <= 0.
-./drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c:360:6-15: WARNING: Unsigned expression compared with zero: num_pipes <= 0.
-
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9454
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
 ---
- .../drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 15 ++++++---------
- 1 file changed, 6 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-index c310354cd5fc..9d96a31419fa 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
-@@ -280,7 +280,8 @@ bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 739bb1da9dcc..88d3de2a79f8 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -310,6 +310,10 @@ static int radeon_pci_probe(struct pci_dev *pdev,
  
- void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
- {
--	unsigned int num_pipes, dml_prog_idx, dml_phantom_prog_idx, dc_pipe_index;
-+	unsigned int dml_prog_idx, dml_phantom_prog_idx, dc_pipe_index;
-+	int num_pipes;
- 	struct pipe_ctx *dc_main_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__];
- 	struct pipe_ctx *dc_phantom_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__] = {0};
+ 	pci_set_drvdata(pdev, ddev);
  
-@@ -314,10 +315,8 @@ void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context
- 		}
- 
- 		num_pipes = dml21_find_dc_pipes_for_plane(in_dc, context, dml_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
--
--		if (num_pipes <= 0 ||
--				dc_main_pipes[0]->stream == NULL ||
--				dc_main_pipes[0]->plane_state == NULL)
-+		if (num_pipes <= 0 || dc_main_pipes[0]->stream == NULL ||
-+		    dc_main_pipes[0]->plane_state == NULL)
- 			continue;
- 
- 		/* get config for each pipe */
-@@ -356,10 +355,8 @@ void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context
- 		pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
- 
- 		num_pipes = dml21_find_dc_pipes_for_plane(in_dc, context, dml_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
--
--		if (num_pipes <= 0 ||
--				dc_main_pipes[0]->stream == NULL ||
--				dc_main_pipes[0]->plane_state == NULL)
-+		if (num_pipes <= 0 || dc_main_pipes[0]->stream == NULL ||
-+		    dc_main_pipes[0]->plane_state == NULL)
- 			continue;
- 
- 		/* get config for each pipe */
++	ret = radeon_driver_load_kms(ddev, flags);
++	if (ret)
++		goto err_agp;
++
+ 	ret = drm_dev_register(ddev, ent->driver_data);
+ 	if (ret)
+ 		goto err_agp;
+@@ -569,7 +573,6 @@ static const struct drm_ioctl_desc radeon_ioctls_kms[] = {
+ static const struct drm_driver kms_driver = {
+ 	.driver_features =
+ 	    DRIVER_GEM | DRIVER_RENDER | DRIVER_MODESET,
+-	.load = radeon_driver_load_kms,
+ 	.open = radeon_driver_open_kms,
+ 	.postclose = radeon_driver_postclose_kms,
+ 	.unload = radeon_driver_unload_kms,
 -- 
-2.20.1.7.g153144c
+2.45.2
 
