@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77AD3C30653
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8725AC2BD09
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jul 2024 14:15:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C72A10E06B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD8F210E272;
 	Mon,  1 Jul 2024 14:15:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Cj+0m9gN";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Sp9Rc4Gi";
 	dkim-atps=neutral
-Received: from out30-124.freemail.mail.aliyun.com
- (out30-124.freemail.mail.aliyun.com [115.124.30.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7F3610E336;
- Mon,  1 Jul 2024 07:05:13 +0000 (UTC)
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE57410E332;
+ Mon,  1 Jul 2024 07:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1719817511; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=IM5TGvOlJvu0p7GNZlYVVp88qVq9MYjf5CUJSWGJK4g=;
- b=Cj+0m9gNNd0LIZIOKDgKBBtc1o5iaDhdD+ToHwa56WRHq//0FF6cYrdbNnfmqhOzvj7HudFOpXAXyil80ycBkMAd5lHkoDmNs7vEWlL9AFgOXZpTLva7ZQ7h4Nz+HrFtuS2S4qI4HyLEF4fSSaYPhDSYt8HppvKslogo2zeBSGY=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033045075189;
+ t=1719817505; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=Ro+y49h2mI9evwzbu3a0ljOO28mWlRwukG8jvcAoNYM=;
+ b=Sp9Rc4GiQnCJgQT0zNiXPLc8rmsJkPNDhAN4FTq++wW8GvONjBfbE8OA9hUyerg2OS8EZ/UE67VsIsxPxuDw9CBvu7+Ztl4XxItAfXsa220JMt/LY8MzX0fpAMQQEyB21ONldpekYNocjLp1B+Z9GfmGnSIdBKB2z77AgdIN/88=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033032014031;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0W9b27vI_1719817509; 
+ TI=SMTPD_---0W9avnxq_1719817496; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0W9b27vI_1719817509) by smtp.aliyun-inc.com;
- Mon, 01 Jul 2024 15:05:11 +0800
+ fp:SMTPD_---0W9avnxq_1719817496) by smtp.aliyun-inc.com;
+ Mon, 01 Jul 2024 15:05:04 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: harry.wentland@amd.com
 Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
@@ -36,12 +36,10 @@ Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
  Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH 1/4] drm/amd/display: Fix warning comparing pointer to 0
-Date: Mon,  1 Jul 2024 15:04:54 +0800
-Message-Id: <20240701070454.106083-4-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 4/4] drm/amd/display: Fix warning comparing pointer to 0
+Date: Mon,  1 Jul 2024 15:04:51 +0800
+Message-Id: <20240701070454.106083-1-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20240701070454.106083-1-jiapeng.chong@linux.alibaba.com>
-References: <20240701070454.106083-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Jul 2024 14:15:48 +0000
@@ -61,20 +59,20 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Avoid pointer type value compared with 0 to make code clear.
 
-./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_factory.c:31:12-13: WARNING comparing pointer to 0.
+./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_factory.c:14:12-13: WARNING comparing pointer to 0.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9458
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- .../amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_factory.c   | 2 +-
+ .../amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_factory.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_factory.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_factory.c
-index a34506a78c50..e0b9ece7901d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_factory.c
-@@ -28,7 +28,7 @@ bool dml2_pmo_create(enum dml2_project_id project_id, struct dml2_pmo_instance *
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_factory.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_factory.c
+index 1a0da8c6df5a..f56abe9ab919 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_factory.c
+@@ -11,7 +11,7 @@ bool dml2_core_create(enum dml2_project_id project_id, struct dml2_core_instance
  {
  	bool result = false;
  
@@ -82,7 +80,7 @@ index a34506a78c50..e0b9ece7901d 100644
 +	if (!out)
  		return false;
  
- 	memset(out, 0, sizeof(struct dml2_pmo_instance));
+ 	memset(out, 0, sizeof(struct dml2_core_instance));
 -- 
 2.20.1.7.g153144c
 
