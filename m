@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADF94C3DA48
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E96C3DA4B
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE6310E80A;
-	Wed,  3 Jul 2024 13:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13F9910E815;
+	Wed,  3 Jul 2024 13:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q61yQr5q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H1lwlLqr";
 	dkim-atps=neutral
 Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
  [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 133E510E6BE;
- Tue,  2 Jul 2024 21:58:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38EEE10E6FB;
+ Tue,  2 Jul 2024 21:59:15 +0000 (UTC)
 Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-7f61f41eef0so205060239f.3; 
- Tue, 02 Jul 2024 14:58:19 -0700 (PDT)
+ ca18e2360f4ac-7f6309e9f29so165202739f.0; 
+ Tue, 02 Jul 2024 14:59:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957498; x=1720562298; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957554; x=1720562354; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4gHhZlZC9lRM4IBPTZ/FMwaYyy9pebB6jMENYSRc4Ds=;
- b=Q61yQr5qtpgVKP0+V+NmqKjuwJn2NNN48lH+FVxbfJp/nhEzYPCRzquztlfk/Bgryz
- Ts5MDejq8urhlPCEVCjsdBCCmSlV3apel8GQZ/EuYizwXEjfeV0RL5RzA08SseozvIvB
- P/uy7lm7LNEzNe1STTOV32Fk1YATkPbewCraPWRIi/d+y9PPyjktLy0ZAnKR5BX156hE
- 0ZLoImFOlNrc7kmcWXUC36ro4IrtZkNvkj8CXxnEQLACnQ7Pn47CxuulGA7i7K08Oplf
- T4sEw45e2+e0f+H7W8Pz8IDXeIyv468gnMqOQUTvk+0B3qfskNjGnmxCFavD63nQVyE6
- zRsw==
+ bh=BVVliFbCcRiwMu0SQpi190huBei8IpcPa+B6oudggrw=;
+ b=H1lwlLqrblkCrQ9Gw3kT52IynwuEGUAZOLvCis4ITaYgM+CIb5RPQ1OeQtcGkO0isI
+ NGPVN3ie2m41cWVZvv8MhjFQgnUxi9Vk6SN2QAFM/r3Xstlqvr5x4W4Voi4IysgsFRF+
+ iBEUez0oD8d1S8Delot2Xx5x5UhLedNYlx1w0huJiA39UnY+dDzaKZ8jdo4rVEKpevRt
+ oatXGwkt+5K1zh960BDKtGT/JhKJn6U3h5smBOMGDJvgniCJcVqWdvIdQPr59OtYmYf5
+ 7frQo69F/m4zdMaYUUXPFb1wRfFcLPdLMLVTRbxL8xxSijv/z8NcAGYlcz40s5jPg50z
+ 3hGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957498; x=1720562298;
+ d=1e100.net; s=20230601; t=1719957554; x=1720562354;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4gHhZlZC9lRM4IBPTZ/FMwaYyy9pebB6jMENYSRc4Ds=;
- b=LTBBjD6v/P9OspYRI1JruO0wO4eNVkZq9kXOQRlZhBLfGdxlt/hR/bZUyFUCcHhl+a
- 9Hu5rTpuLLTgia7DAjkC1YX93ygg8f3vN2E213oXb5BYuQfImVIIgfiDHEhdzs9+dnL6
- HGGf0dn/f0au1UsYyBZONuhINoaFYt1L1LM+niyQtv+TvlFAPBJ/3eiJIwWNKN0rQm/g
- NL/ocqk106TFl0Df81vTIeMrUCrElJz9WE3EacJZwpAVkutJrqfZsuMP+seKWWiGKf7C
- 7r6fDHa7oQJITQLDM7tHeS+mReYCUQs13nz8HJDNxmXWIbGBKgQpw4fafs7Dw+mEEjAe
- JS5Q==
+ bh=BVVliFbCcRiwMu0SQpi190huBei8IpcPa+B6oudggrw=;
+ b=qo5d+BfnfxziX2j3neZgSR0EJlo56q1XJff3Ox6PV9JPZN8oBVIbS6mPo58RF2zbHh
+ c6ABpaZUgTbIqkHkIrv+m/vsmbPAPV1LK9zu3SrsPRgqNOO9giUs2m0D8AgIqSURNmdp
+ bmuUYrSJWIzGMURWKgo+U1fUmhXKsgS7gSd+cb0obd0gjAIod5Q85rd3ZBjVYKzUe16M
+ arI9wMo9aStUIMTSh+RtmKNWIP0eSYjKrQYXZ0ys64Y6ZY0iXHVltE5AtLOJu8b08IHl
+ ArsOuXkjmB4TSEi+53D789ny1dGE/nCGGQhgxxOsEiGi2qV0Cs9tJQDu0aGzzBUx0zcw
+ 5xbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8xe+nBJOqq/qsNgs7jug0rskHtTCYGlJAeQ5tCJoklRlHtTj2ju8XFeorJzhKdzD1sFY6S7jJZH+sYHy+6iSNnJUiNbJ6yrlZI5vfGB8GzEfvrQyIRClktbARwiHoyDdd8zdTmSU/EQbJpespjyDTjC0bZpAgwGt9W+yzgF0x92M72IFRw1Ir36VCjrv8ek0b2qYZadFjBk1Ep51HB+HkMblwy8NlWlBJWQ7dpM4PKVmwCZM=
-X-Gm-Message-State: AOJu0YzQj/XGdLApdKFWgS8YS30LN0OX3mKD/mEarN8BlwX62LtgHEow
- IDx+Cf9imytD/ExyOUAUOfR+xrVXt+yRPg/5kL1WLwB3mPGXy1T0YU+f2Q==
-X-Google-Smtp-Source: AGHT+IGvsn87+MenBdfimxbbj/1jff8gsxfSw490RrEkjixo7jQ/GQOm1e+Gm6LnX0EupXDxk6SVWg==
-X-Received: by 2002:a05:6602:1651:b0:7f6:51ac:bba9 with SMTP id
- ca18e2360f4ac-7f651acbd92mr409433439f.10.1719957498297; 
- Tue, 02 Jul 2024 14:58:18 -0700 (PDT)
+ AJvYcCVpbcwGLydHaiQxgl0rZPoTZ90wgGNQr05+sXic9Q1BvS4pXWjH8iiPn/fy5Foe/pGL1kjEN7Rupi13Gf7x8K0nTL8xK/Qb439/N78VUzTIJIzKnV4JeL9Uj7zHQb9/j+EEKcEjjlNAEcb+lD+/DpbkJHxJk5SxF58HwdWQPuQoGvDIZFsIaktdb2QCoY2u7vhqTm/hYuwesDVSKV1PMtCvLg65+xjz9lzLopAPeC4S52rrc5s=
+X-Gm-Message-State: AOJu0Yz/3e3pVTA8AWRkRljnQRhdMVsgdN/Gly+TZ/Omdocjsn8l3YPP
+ NJuN5jOYgsA0yz1L3JK8lzgG7Hf5zKXhLWSV+1WDe3cYyC6IXp/D
+X-Google-Smtp-Source: AGHT+IFZ62yf97Gt7+RArnHZHhfQvkUmAT8LPZ/RRX0mXtYibWBEHGPj0AQZKFILtjlHvXFtoqdSew==
+X-Received: by 2002:a5e:8c05:0:b0:7f6:2b2d:8ad4 with SMTP id
+ ca18e2360f4ac-7f62edff929mr1067144439f.4.1719957554487; 
+ Tue, 02 Jul 2024 14:59:14 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.17
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:17 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:14 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 03/52] dyndbg: reword "class unknown, " to "class:_UNKNOWN_"
-Date: Tue,  2 Jul 2024 15:56:53 -0600
-Message-ID: <20240702215804.2201271-4-jim.cromie@gmail.com>
+Subject: [PATCH v9 42/53] drm-dyndbg: add DRM_CLASSMAP_USE to bochs
+Date: Tue,  2 Jul 2024 15:57:42 -0600
+Message-ID: <20240702215804.2201271-53-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -87,36 +87,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a dyndbg classname is unknown to a kernel module (as before
-previous patch), the callsite is un-addressable via >control queries.
-
-The control-file displays this condition as "class unknown,"
-currently.  That spelling is sub-optimal/too-generic, so change it to
-"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
-make it exceedingly greppable.
-
-NB: pr_debugs are only alterable via >control, and to protect class'd
-debug's from unintended alteration, "class name" must be given to
-change them.  Classmaps map known classes to reserved .class_ids (the
-1..64 val range per module).
+tiny/bochs has 5 DRM_UT_* debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/tiny/bochs.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index f2c5e7910bb1..73ccf947d4aa 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
--			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
- 	}
- 	seq_puts(m, "\n");
+diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+index c23c9f0cf49c..ee98fab5597e 100644
+--- a/drivers/gpu/drm/tiny/bochs.c
++++ b/drivers/gpu/drm/tiny/bochs.c
+@@ -54,6 +54,8 @@ static int bochs_modeset = -1;
+ static int defx = 1024;
+ static int defy = 768;
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ module_param_named(modeset, bochs_modeset, int, 0444);
+ MODULE_PARM_DESC(modeset, "enable/disable kernel modesetting");
  
 -- 
 2.45.2
