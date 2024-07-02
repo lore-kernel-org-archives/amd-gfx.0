@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 777A0C38150
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:04:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA25C3DA43
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BC710E820;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D508610E824;
 	Wed,  3 Jul 2024 13:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mUOb0M9m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MqwYo8iL";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3970710E6AB;
- Tue,  2 Jul 2024 21:58:20 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-7f63db7a69cso142327339f.2; 
- Tue, 02 Jul 2024 14:58:20 -0700 (PDT)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D47C610E732;
+ Tue,  2 Jul 2024 21:59:36 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-7f3d3919a4aso177958539f.1; 
+ Tue, 02 Jul 2024 14:59:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957499; x=1720562299; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957576; x=1720562376; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=p9Cfh8vQIJvZJJ9snElx0jBXe6PzWuVjUPtCeny8PSA=;
- b=mUOb0M9mK/56uyDidX6Lg7PtlXUkuExNFEuhXq7Il+o4c6zOLwpzS8RGUFmNdns2LL
- 3K0YWG5n4ZlvU4kL9pOJAI273A5uFy/YGwfok/nm4Y9KGyCTLrR77DoJheg+lI7p4I3K
- XStI6MNZhxRvlgy7cpnPQg6yuTMBFnjQV+0HWBNjBGCkF2eGb5adf7i6GJ5qsq9Pou83
- 4E/jqR8J8EGux8yM+Q4PhCMjVTmm6eeCS06YQRouVc7yWKFRb8wH/k3Ad/aFq3Eupn3J
- C4KxejP3bBk9rhG5dvbLKY32tldiOoGiUOQSKqAs5EVsdD6susnxjQjwxcqk73U7rakR
- fxpQ==
+ bh=3JTbEivvcQUwAcXrAriYcuJGP77J1qAidh1sZIrKRVg=;
+ b=MqwYo8iLGylUJ8LwniuiRgPW1CwkvEFTys4YEFcSDhZu3sY2nK9V8fJnnunK/xdtxr
+ Zu45MMj6CPNvV780w6JeEQTGcGU54AAcKTQV4uBUtqlOqOEXyLfKr6Fxaw8rQEhcuEBW
+ AnbDWs9uOnnnVa3sIvf6XmX2tzLbYW63xKcIh0Yv18/LRt2UW9ZjaiU0sbpyTarMC9+v
+ lhwYbe54i3qJ1zJ55w62i+jAQ/NWZPNiKSr5HpFZKtPVDuujZI144WABla4YPGl7JX0m
+ s/5P+6nV31BVg77k1hy7WoIiId1ke6A49uD7b5K+Sh9dhewiFKkJ28LqiP3OmbqqZePd
+ W/1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957499; x=1720562299;
+ d=1e100.net; s=20230601; t=1719957576; x=1720562376;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=p9Cfh8vQIJvZJJ9snElx0jBXe6PzWuVjUPtCeny8PSA=;
- b=h1YzmTsWMJuVIUac3b8V98esBqCFwKdeEsy1Mp5A7y0Ga9WvuHOvXmxcsJq9renIkh
- SXbDfMDD3T2NUxMkPYc/K5We+vAxM8OUoizgkNPSQgVYqj0nG3O6aJ4NaBsF2383PHOk
- 4WvJ3fSMMmg7t1InfauRaoFSGl8xzkvtqeTVu48BPnXYwPRmjn8rSv0pMIvlZ9AS+esp
- cy9JB+M19Kg7/QkTPbKPYy021yAlaJoDD+HE36EI0CNdRxA6uODylfitCOgL/bEta37h
- ZT0r/BmrSnLO3NtDOadF5YDJrQ19B1Xv0W2cALkrffP49AKPsdGX31lurxgDg7+5+9Co
- H0yQ==
+ bh=3JTbEivvcQUwAcXrAriYcuJGP77J1qAidh1sZIrKRVg=;
+ b=XBd8wvw2Ei6nrU9OoteQYyGHtJx4cOfwx+hPLxQhRBCX8nbjoAda1NOPEEoo56fbZ8
+ NflkyGT0rFi4m1RHztsnmhqkki6C1tTyRei5+KAgFVwBqw7zy7p/LdU6rYuVeGfAGpVh
+ 3XbDZkSv48QBEl4vmRrlU/E8ndaozi01Bn39OuylhOpNGqtDqgWHLZvOm05EXS31vsvd
+ 9JTXuxQXNljL55MsqoErXvwJrwdv9dPJBU8XTXROCpiyHvz9iw8qvRF3jYV7Xar+guRR
+ D1GISfnRuyOZr1P7sS7Gwcf3U2mhIpw4H8IQ3WWlpv7ow06FLSiRgDtYhHgKHoSu987M
+ wOUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXjScb9EYAJbOHwnqKKqR74zI+WbKxqMEFr2UGhqngmfnVQ1tHmdSsttnIwV/nI3l5JAi3oSyR2Bvk/ht0ImbMEX3w6HmOKK8MZn0szvzTF5NCcEBPOY5uzOuMS2C16HFxgSbkVZnhOFAHYUlkuu6vMr7ocwkhWiYO/VXie4OFkAgt2sz4m4UC/2lO5qslhF5wYiwo6gIALJOgP/+6m7tgJgeqeCytdCv3q0dhkVUyl6dpxr+A=
-X-Gm-Message-State: AOJu0Yxn6kpQUOn9Q4jVyBqWMTNiJFnpYnaCUL4dTEPjkBG4AGTRUsu+
- 98Mbm0VoFv6Y8ligkQPKmpFMQRghfcHvOCRv6pFRUQ6JZKIYjbxz
-X-Google-Smtp-Source: AGHT+IG2ft1Pm2/g4PtzgBlVmK5r7iXT/FGK9csFrxluaEy4o+i8PIv1GdXT4+15tPtbVitEa/IibQ==
-X-Received: by 2002:a6b:5a0e:0:b0:7f6:210c:61b0 with SMTP id
- ca18e2360f4ac-7f62ee853a4mr1060817239f.20.1719957499460; 
- Tue, 02 Jul 2024 14:58:19 -0700 (PDT)
+ AJvYcCUw7eCgE66PgTUTCVQvDd6GOuHxBxhBC+6wlSsu+r1O7GsEdktxgygSqN5NB2bAc+dCLJXtrHbMqefokXRT4tcwnd9vqb5Rc+scd0PO6ioBMVCsYxIvwMt1WLklw3EOoEQV62DNdncdQ/GHfnNnXIYeQbBx6B6PgsLmp7rWC1Lp8BgRqIsGVnRBuK2qINZ08QYbDvWfuCfWImpJopmt2gDXWjTjhRWYaiBEwIkrs5mhsgHogUs=
+X-Gm-Message-State: AOJu0YxwT9mKLcK4yWwJjpcM7VZS9O39lGG/UJJWWTiEeutDLlkxTHeL
+ mVVnhPDVdOUdTr6rUlDcFBp6OfRC4iLBwTGc7uIwnqWwCih7X+hT
+X-Google-Smtp-Source: AGHT+IGZ5ru0Gbzul6gBrJZ696v99JPj2evs0BxHq6ZuGzyQecQi/AACVhwVexMDvP0Uufc1BvrHMA==
+X-Received: by 2002:a5e:c60c:0:b0:7f6:5143:34ba with SMTP id
+ ca18e2360f4ac-7f65143367cmr343431839f.16.1719957576037; 
+ Tue, 02 Jul 2024 14:59:36 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.18
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:18 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:35 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,10 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 04/52] dyndbg: make ddebug_class_param union members same
- size
-Date: Tue,  2 Jul 2024 15:56:54 -0600
-Message-ID: <20240702215804.2201271-5-jim.cromie@gmail.com>
+Subject: [PATCH v9 51/53] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+Date: Tue,  2 Jul 2024 15:58:01 -0600
+Message-ID: <20240702215804.2201271-72-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,45 +87,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-struct ddebug_class_param keeps a ref to the state-storage of the
-param; make both class-types use the same unsigned long storage type.
-
-ISTM this is simpler and safer; it avoids an irrelevant difference,
-and if 2 users somehow get class-type mixed up (or refer to the wrong
-union member), at least they will both see the same value.
+The qxl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 4fcbf4d4fd0a..5231aaf361c4 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -124,7 +124,7 @@ struct _ddebug_info {
- struct ddebug_class_param {
- 	union {
- 		unsigned long *bits;
--		unsigned int *lvl;
-+		unsigned long *lvl;
- 	};
- 	char flags[8];
- 	const struct ddebug_class_map *map;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 73ccf947d4aa..152b04c05981 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -799,7 +799,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index beee5563031a..1971bfa8a8a6 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -65,6 +65,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
  
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
-+		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
- 	default:
- 		return -1;
- 	}
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
+ 
 -- 
 2.45.2
 
