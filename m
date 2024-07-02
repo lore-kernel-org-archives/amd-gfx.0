@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9357FC3DA41
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08016C2BD09
 	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02C2610E800;
-	Wed,  3 Jul 2024 13:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 986FD10E7F7;
+	Wed,  3 Jul 2024 13:03:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YugcwDC+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aj09Ig5z";
 	dkim-atps=neutral
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5539D10E6C4;
- Tue,  2 Jul 2024 21:58:22 +0000 (UTC)
-Received: by mail-io1-f49.google.com with SMTP id
- ca18e2360f4ac-7f61549406eso180454639f.1; 
- Tue, 02 Jul 2024 14:58:22 -0700 (PDT)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE60B10E6D5;
+ Tue,  2 Jul 2024 21:58:43 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-7f3d884e70bso237614539f.3; 
+ Tue, 02 Jul 2024 14:58:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957501; x=1720562301; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957523; x=1720562323; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mgKlPNiKWVnT1pPVJRogWWF3tyIXWVHBmJ5ag9aE+c4=;
- b=YugcwDC+gomPWIvWRJQX/BWmKPLGFoG5mqRz2/dfCaI1HhJsT8E18G5JyjwvR5Zujn
- nAO7lBQyAuxxioWG+RPXvLwfx7N6Xes1jW5a+C5Vml8gzcfGPbeYWQLPBxavRBL3FhDN
- RUy+zAn7s29Kyj6fl2H+yOk55H5ntFb1Iu6+znGW3rvFO8xqTCG/NOrBBjq2iA4oVeoy
- rEkesomeKOYiftdcPJCqMNrRmQPPvUe5pLCzJePMSXFUsk6MGOaMMCz2MOYqPA13tv/9
- GblAxKNy+PJOrdlecwLNFt5WuzF6o9LNwHfQ2e1gWp3QGf3SUEA4BzBPYaAlHgpNxeYO
- HsUQ==
+ bh=mXTp2HWUUrTrRl4eZ7svqhTsXgDwW8WuleRWg/xTtcY=;
+ b=aj09Ig5zw5Tpifgg5tA+DPEqE7BQP/JmH4pbOXSpKQxwU6bw6nGSD0t2RkczCDJrgE
+ qW5dBPR4qQHp/5Ugtqcb9yyfIji2xi9HDzPqAWtPDaT3ODQNfipDAyzFPIqpKg9/36tW
+ e+oaeOjA4jMGfsE9nE2g4opLSX1+56AQbjUwOXbICFNFIRxLaeagU13pi2M62VrgeMVG
+ 2U2DsDv4PAWPEDW6APosCfglRuEizjUI8Q/E0ksMlx7XyArXJ0JELeRN8TMdTdG7Q/k9
+ c4BVDUSL+0J5mzVU+EDDaJkmGxzqmhQh4ncEOBdsZfctZh1kE/p8TKgWzKKmqbj5qwFk
+ 1J7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957501; x=1720562301;
+ d=1e100.net; s=20230601; t=1719957523; x=1720562323;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mgKlPNiKWVnT1pPVJRogWWF3tyIXWVHBmJ5ag9aE+c4=;
- b=wq1yMyo3RGK7+CVMdaatS1lLuFCQsJF7p/fAMbx4Cv0N/k8Jr3D5Ow2aqdG6iyA2ae
- hJBj1liWgZ6nmpQx/1GnqnSIqOWOzSPPTC98iJtchiw2vRen5AKThHVO1/u7wea4+L7p
- 0R8zdFbBUmOgdrQNlamwcAvyhJRwAgHqvCMtIJRkErDiu+i4/q2EzgpdgBUHEZlPGmf5
- jqgmVxG1kXEuezHyHCsZvWQLHVvtjGyN2qep8B0sa1d0J58VQODavx6nVVhVseLm5/jl
- SQCQ9SalSPp/AczwfOEKc655V+bhKYmyWtc0FiiBuclicdVpxSKyboIApH+IhAJK8wWK
- xr+g==
+ bh=mXTp2HWUUrTrRl4eZ7svqhTsXgDwW8WuleRWg/xTtcY=;
+ b=li39809FfHFqDDkNU/F5F9iua/eVe4/BXtjSNpX4zS0l9uNPLvT//r9Fc1WnZ2zI6e
+ 7GlumHLDmkcTLMZBHegmZz445sXlcFN3kf6JU4qCoi7k9RfyZ0HCrgdRyiXU5HZdqjVn
+ g55VqfEW/RXvaxhbEdb7L4RU8fQdUSHnWJp8c4rGJ90aonJCLYTLJ23RdN/bSAyN+Vx6
+ KhSgdZOvbdwWLfEeGLnCVL3JpMEpLJGOpAiB1f7MlSKMg9KAzJUxXjIdRNBp7/nyQkGS
+ wWO0iI8yn9NsYNfAVaGcnvs7Kv3UHVyRjqvl2y6ogbdym+JlYWo0/NFs/0JEH6GCN4/Y
+ LbpA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqEMWrquTh89gZ9J7mNmMFotBmJSmYaL5LYVs3GygQMtk5D2VxF/KP66WfS8yQ7SFOtfjArAh/S2AC78mb/A20328DIU4fX4aQgBCERsBM3h5CeK5gsfUPGbxGp0TXaUfNQns7W+pOjATaIMDsdCKMBVpZLOiQmisgxLsUrZ+U4q1YXNrCF8abVun+VeRGhMDIMm8LeVuG6boLLySP14Vi2ufR3kVRv0/jSxDf4FVdpwJA71I=
-X-Gm-Message-State: AOJu0YyPvhBHXVQCKa34NVGhr7Z+QjjdAeuBaRhonInRJRP6DmKUovB2
- vEBHyhEJEdtwtEjfocVYaSUL8uLyQCOIdyovoQ/PcXi1SyIlkPOi
-X-Google-Smtp-Source: AGHT+IEouPw8z+/+QZWHDW3dmgyQBg1bWleLTxR4pkI5y+9ohF4HuUpGu7gB4NJ1D41ODvUT06RDlQ==
-X-Received: by 2002:a5e:8d19:0:b0:7f6:2e72:e810 with SMTP id
- ca18e2360f4ac-7f62edffb18mr1166209939f.3.1719957501499; 
- Tue, 02 Jul 2024 14:58:21 -0700 (PDT)
+ AJvYcCXEibKjMUssellP4Vkl3kXIt0KoLN3//K0JJa9cZ079znakVi6Mf+5RNFdtekGZh+19my9qVCBwx/MmZgq7umy3ahp20UQZND9HJyiJNJXAePcP7KIxBVjudq66ElNRNiQysD5N+cTWEhfuQkJX3FjbvihehtOnTWNg3bsdou5r0taH6EyCVCrN9Cqx3S0wSE8oH7f4pJMK7RD6qUVkqBxnJ8krg0EhEfEA+noy6+hhHepjwCA=
+X-Gm-Message-State: AOJu0Yxp5Lzauj5ukCVR4+p47OoNDutt41Hyk6ifh1/r/+EYsUgUR2hc
+ MEiF5SJYXUCgP/tR+Y0RQE9ryf4vlKs1la3M5eEXhGgtYrYma0Yf
+X-Google-Smtp-Source: AGHT+IFrIiyJSkf6W2TunW5BCKgPQouB2T+lSzdbM4fMP+xI9st2vbvsZqO7st8XPig5Y++ArDLzWQ==
+X-Received: by 2002:a05:6602:355:b0:7f6:1dff:e364 with SMTP id
+ ca18e2360f4ac-7f62ee02647mr1168457139f.1.1719957523053; 
+ Tue, 02 Jul 2024 14:58:43 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.20
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:21 -0700 (PDT)
+ Tue, 02 Jul 2024 14:58:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,10 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 06/52] dyndbg: ddebug_apply_class_bitmap - add module arg,
- select on it
-Date: Tue,  2 Jul 2024 15:56:56 -0600
-Message-ID: <20240702215804.2201271-7-jim.cromie@gmail.com>
+Subject: [PATCH v9 23/52] docs/dyndbg: explain new delimiters: comma, percent
+Date: Tue,  2 Jul 2024 15:57:13 -0600
+Message-ID: <20240702215804.2201271-24-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -88,114 +87,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add param: query_module to ddebug_apply_class_bitmap(), and pass it
-thru to _ddebug_queries(), replacing NULL with query_module.  This
-allows its caller to update just one module, or all (as currently).
-
-We'll use this later to propagate drm.debug to each USEr as they're
-modprobed.
-
-No functional change.
+Add mention of comma and percent delimiters into the respective
+paragraphs describing their equivalents: space and newline.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
+ .../admin-guide/dynamic-debug-howto.rst        | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-after `modprobe i915`, heres the module dependencies,
-though not all on drm.debug.
-
-bash-5.2# lsmod
-Module                  Size  Used by
-i915                 3133440  0
-drm_buddy              20480  1 i915
-ttm                    90112  1 i915
-i2c_algo_bit           16384  1 i915
-video                  61440  1 i915
-wmi                    32768  1 video
-drm_display_helper    200704  1 i915
-drm_kms_helper        208896  2 drm_display_helper,i915
-drm                   606208  5 drm_kms_helper,drm_display_helper,drm_buddy,i915,ttm
-cec                    57344  2 drm_display_helper,i915
----
- lib/dynamic_debug.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
-
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 46e4cdd8e6be..a1fd2e9dbafb 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -605,7 +605,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 742eb4230c6e..7b570f29ae98 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -73,16 +73,18 @@ Command Language Reference
+ ==========================
  
- /* apply a new bitmap to the sys-knob's current bit-state */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
--				     unsigned long *new_bits, unsigned long *old_bits)
-+				     unsigned long *new_bits, unsigned long *old_bits,
-+				     const char *query_modname)
- {
- #define QUERY_SIZE 128
- 	char query[QUERY_SIZE];
-@@ -613,7 +614,8 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
+ At the basic lexical level, a command is a sequence of words separated
+-by spaces or tabs.  So these are all equivalent::
++by spaces, tabs, or commas.  So these are all equivalent::
  
--	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
-+	v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
-+		  query_modname ?: "");
+   :#> ddcmd file svcsock.c line 1603 +p
+   :#> ddcmd "file svcsock.c line 1603 +p"
+   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
++  :#> ddcmd file,svcsock.c,line,1603,+p
  
- 	for (bi = 0; bi < map->length; bi++) {
- 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-@@ -622,12 +624,15 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
- 			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
+-Command submissions are bounded by a write() system call.
+-Multiple commands can be written together, separated by ``;`` or ``\n``::
++Command submissions are bounded by a write() system call.  Multiple
++commands can be written together, separated by ``%``, ``;`` or ``\n``::
  
--		ct = ddebug_exec_queries(query, NULL);
-+		ct = ddebug_exec_queries(query, query_modname);
- 		matches += ct;
+-  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
++  :#> ddcmd func foo +p % func bar +p
++  :#> ddcmd func foo +p \; func bar +p
+   :#> ddcmd <<"EOC"
+   func pnpacpi_get_resources +p
+   func pnp_assign_mem +p
+@@ -104,7 +106,6 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
-+	v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
-+		  query_modname ?: "");
+-
+ A match specification is a keyword, which selects the attribute of
+ the callsite to be compared, and a value to compare against.  Possible
+ keywords are:::
+@@ -128,7 +129,6 @@ keywords are:::
+   ``line-range`` cannot contain space, e.g.
+   "1-30" is valid range but "1 - 30" is not.
+ 
+-
+ The meanings of each keyword are:
+ 
+ func
+@@ -153,9 +153,11 @@ module
+     The given string is compared against the module name
+     of each callsite.  The module name is the string as
+     seen in ``lsmod``, i.e. without the directory or the ``.ko``
+-    suffix and with ``-`` changed to ``_``.  Examples::
++    suffix and with ``-`` changed to ``_``.
 +
- 	return matches;
- }
++    Examples::
  
-@@ -682,7 +687,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 				continue;
- 			}
- 			curr_bits ^= BIT(cls_id);
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
- 			*dcp->bits = curr_bits;
- 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id]);
-@@ -692,7 +697,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+-	module sunrpc
++	module,sunrpc	# with ',' as token separator
+ 	module nfsd
+ 	module drm*	# both drm, drm_kms_helper
  
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
- 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
- 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id], old_bits, curr_bits);
-@@ -755,7 +760,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 			inrep &= CLASSMAP_BITMASK(map->length);
- 		}
- 		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, NULL);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -768,7 +773,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, NULL);
- 		*dcp->lvl = inrep;
- 		break;
- 	default:
 -- 
 2.45.2
 
