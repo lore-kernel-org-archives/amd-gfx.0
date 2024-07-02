@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11243C3DA56
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14AF9C3DA45
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA8B10E82A;
-	Wed,  3 Jul 2024 13:03:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8226C10E81B;
+	Wed,  3 Jul 2024 13:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GkHr5eet";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrDhDq4p";
 	dkim-atps=neutral
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
- [209.85.166.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67C0310E718;
- Tue,  2 Jul 2024 21:59:30 +0000 (UTC)
-Received: by mail-il1-f169.google.com with SMTP id
- e9e14a558f8ab-376266a65c8so19419465ab.3; 
- Tue, 02 Jul 2024 14:59:30 -0700 (PDT)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0844010E6E6;
+ Tue,  2 Jul 2024 21:59:07 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id
+ ca18e2360f4ac-7f649f7868dso113933439f.2; 
+ Tue, 02 Jul 2024 14:59:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957569; x=1720562369; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957546; x=1720562346; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=o0YsvOK5afJ8qV3rkuOU7CKX9HpGcds0hiKx8bDl++s=;
- b=GkHr5eet8CsEHIxtRWLzdBM41Cmu8UroKXDCnOajCSuLlSkpShYH7KnP5p9EXbEzIo
- XhkCQO05Mfj1xP/72k6wYbRzD/jiKuhVW5mGnzVM7YsLYFq8LGlJ1CgBCrdWLjOxyVgU
- hmdlTXUGLsyZAUmb3UGjSJWxoGK0GblV59d5fNhti//LBIqingBsMMtPtQ74z7YNJjB8
- /jrv3eTCmd2FKSFMwmRgp46xxCxdRaVsInwaRY2nuE3SvbuluywDMF4nPAoEJGt23ana
- vouiMcHDgwcvDWCHuf+xPB95ofQY2fIs4qiHSaUKxgx62R/GhJdii/W93KPyFGK6mecf
- ATxA==
+ bh=0tTLQ7kYNablnENIf/KeDz5dGwor+/R9FnQHvwE/Et4=;
+ b=FrDhDq4pexa0xNfuA2LEFm0bRsXzC9BeE9ce0dk86FXzqyLzi14xhTdfrQAAro0Uja
+ SaymzteVhux0BOC762HhUNTfCYyajOO466NCwNrGgeNC7HG5WPm7YJHZFcBXaKgPJCQf
+ 2fIDNGqg4872pgerlbscFXEYRxUHx4WWnCxfxJVcKI82IUG1MUrZoLwgZt/7LGS9Am6/
+ iEpUU4keVJ0vBR+aawdIqvm3Gww4I2g6N/QNCuplkf/WOycrCFSfIg1/5ahJ4rwzNkR7
+ MOcLxRAthM7/vRkmU1pSODknH11GBi4e0om4mBaOieqrsc9wx0L1BlrwfqcsDjdL0axf
+ 2B/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957569; x=1720562369;
+ d=1e100.net; s=20230601; t=1719957546; x=1720562346;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=o0YsvOK5afJ8qV3rkuOU7CKX9HpGcds0hiKx8bDl++s=;
- b=nq5FcU7lo6pkokuhPmxR9DUEJzWJG8lMbH4hka3qiKEUfmXbNFvAwy+6yiH4wj1UMX
- P1eWa67waeghHcsDieJa+HnArk+G1E0PS5mWcxqnmDU2mz+ghJLqWkGU4woRKFHbRGl5
- x85q/1ULT3boZzjQb6tW7pgVsWnrwaEuQorvIZMYipMy5YcGIUilbeZsLnCxG8u0DvXR
- zO0u2cl0qJ1LPpwp8zjt7Rhps9CXjBhQMtPZIFDP+aXu74wSv6WWF6q1kZyE7zCPu4D+
- F0SqP69wEiduIo9u18nULKfhBOqa10WQVBB+HjI0PtPDHGbpaUPtRAufbsSqOkuJivRu
- cBqQ==
+ bh=0tTLQ7kYNablnENIf/KeDz5dGwor+/R9FnQHvwE/Et4=;
+ b=lf47A6fBUd7N6JJPnGUl+4a+TZzv3jPR4Qdv0K1osaMn3JT3xDJH5rsDDExNNehAYf
+ jbK6wiOqUTk7r35V4QmKDrlEUbUojnA6UaaAdVYJb5you9be7q10ZmsMlJe3vvhmirJf
+ fULNGhlxw4pmatisaFiQEbxR/GpyyoS0FxiiJcDWmUIF4vjnOgjqkqvaHCFF/a8UIlVK
+ bON+W+bnqltkG2zhXpcS9zRCrTT3d2mYa8ppBkmntYih52fhcdNs+nxGHtImlChNcuoF
+ 03poHXtlzt5bSmkMKMjv6OfOeO6Yo2iSFhyM1paHFqkhU6sEwIhj1adk5KC6EiQAMYCQ
+ C6Ew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUeXWmMmWIAvZX5QAmAXrs0QNgY3mrMwmQVOHot+GNFHs5UkLADvsT/4+v20XgXRUCd25JnC/iIk/m3gDWyS3wx9tFH3wuWzXoPkyIs9Ny6Ja0lp8jwUbbNI1HhjiZurpENaw4AzCJ5HAf3LkdOqvlog1dm+W3j6uHQLgnqGed81qm57SYST+pAvVhml4PnDRPneRVuJyAA34sFxMLFcb1dvCfhP0I7KluoCvaME6dcUi+IlHI=
-X-Gm-Message-State: AOJu0YxeAIN4IhpzEiPaWbHfmEK8DPKbwMkE1P4zqPqf2WF1PEioOJBI
- WJen9dXkCy6em3GNOgl8/aEr1txe+N4ZRUUv4aMLgFELJsluctj1
-X-Google-Smtp-Source: AGHT+IERaSF1E7hyGHvqAXteBQDKZ2gIbvbhsAc5+kpyvD7v6UTlnyWFF6UFWiBkSylriwtIgT4LJw==
-X-Received: by 2002:a6b:5103:0:b0:7f3:9bde:f44 with SMTP id
- ca18e2360f4ac-7f62ee6eaf5mr1109295239f.14.1719957569649; 
- Tue, 02 Jul 2024 14:59:29 -0700 (PDT)
+ AJvYcCWtLkt0f6+Aats8RBjL5JGG5d6wZEUCUSye4gaOWCCrmoW7KvGqNGdcyURqTzm6f+ckDtY/gylnihA7W3oyxdg7CVa4ZhHflZLJqWpeledx62eXc24bOQTKCQQmphsNNpNus8vu3UOk7uX3rGMykfwKmBIQ+OViVHea9HGloLTqhX0kUhfyS8Yoj/NKbJdfnPdXZngJb89/lx8NA/a4eGIkTqg+U66AS9GIecjjZ53XBI77bYE=
+X-Gm-Message-State: AOJu0Yx85Yo4wBRbxwdsqf/8L7lLWoC1gRiST/c3uDbQtLs/ZKpKj4h8
+ 8eT9BmBmkBx30CoJlErL3kgEOH+SqeUd3eZF3/kYjJ9oiWoLe6V8
+X-Google-Smtp-Source: AGHT+IHVzUq+7oBbjRhtfUg8hR7fA0Vm3TWdJRFj0erHJhGLHrI/NeeXyYjOwGHjAwtUEfGXKXA+rQ==
+X-Received: by 2002:a5e:8f49:0:b0:7f6:1d7e:a9c9 with SMTP id
+ ca18e2360f4ac-7f62ee085a0mr1058272839f.6.1719957546282; 
+ Tue, 02 Jul 2024 14:59:06 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.28
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:59:29 -0700 (PDT)
+ Tue, 02 Jul 2024 14:59:05 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 48/53] drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
-Date: Tue,  2 Jul 2024 15:57:55 -0600
-Message-ID: <20240702215804.2201271-66-jim.cromie@gmail.com>
+Subject: [PATCH v9 38/52] drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
+Date: Tue,  2 Jul 2024 15:57:34 -0600
+Message-ID: <20240702215804.2201271-45-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -87,28 +87,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The udl driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+Invoke DRM_CLASSMAP_USE from xe_drm_client.c.  When built with
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y, this tells dydnbg that Xe uses
+has drm.debug calls.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/udl/udl_main.c | 2 ++
+ drivers/gpu/drm/xe/xe_drm_client.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-index 3ebe2ce55dfd..ba57c14454e5 100644
---- a/drivers/gpu/drm/udl/udl_main.c
-+++ b/drivers/gpu/drm/udl/udl_main.c
-@@ -19,6 +19,8 @@
- 
- #define NR_USB_REQUEST_CHANNEL 0x12
+diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
+index 87c10bd7958b..c61163d0d945 100644
+--- a/drivers/gpu/drm/xe/xe_drm_client.c
++++ b/drivers/gpu/drm/xe/xe_drm_client.c
+@@ -15,6 +15,8 @@
+ #include "xe_drm_client.h"
+ #include "xe_trace.h"
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
- #define WRITES_IN_FLIGHT (20)
- #define MAX_VENDOR_DESCRIPTOR_SIZE 256
+ /**
+  * xe_drm_client_alloc() - Allocate drm client
+  * @void: No arg
 -- 
 2.45.2
 
