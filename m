@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E14C4C3DA47
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC861C3271E
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1E410E803;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F2510E813;
 	Wed,  3 Jul 2024 13:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iqiM73dq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jzcTYT/2";
 	dkim-atps=neutral
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
- [209.85.217.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8286F10E6AB;
- Tue,  2 Jul 2024 22:14:29 +0000 (UTC)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-48fdb1791b6so153768137.3; 
- Tue, 02 Jul 2024 15:14:29 -0700 (PDT)
+Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
+ [209.85.166.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60BD10E6CB;
+ Tue,  2 Jul 2024 21:58:24 +0000 (UTC)
+Received: by mail-io1-f48.google.com with SMTP id
+ ca18e2360f4ac-7eba486df76so856839f.0; 
+ Tue, 02 Jul 2024 14:58:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719958468; x=1720563268; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1719957504; x=1720562304; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9sD8orU3RBfAf2hoz6apBJzmcU2qvSOHNCAhe0iXUBY=;
- b=iqiM73dqlDSWn2me3sgqn8O31YhIEyCiJg9ZC0h1pkTeQhdLqvZBb98AqrqSU5H2un
- 8NP+Xu4JfxeAPeCX1e0fnNMAPa1ThZtwsmdURs2VX4MyBVQooSAZoxWnJTPHD91j92GU
- +MyQgnuRhAh8QAbaAQkJpSYKI0VFi3n2pkPrbBBA2M76Wz8GymFySFFUExAh0aE03l1n
- UgnahQWQbieCpDYaJsaLRUeowvS0rQ+0g6bakv0Q0N3ZMVsYzx0Ox6vW776H8ZQzcKFo
- 1roGM77dtVFDkO+ATXYLFY7q9OW29+aLm1X/DWWXMUH9dLIlUV6ZGBDl7pWgJx30Nxu6
- Zvaw==
+ bh=wso+Oi2/ut2legKe2oAWbXK/ItRspmzOjB4tGo2hISg=;
+ b=jzcTYT/2PkZD3uXDPguTLQ8gTlWktnug6yLsUFB7M4rlHq+ZlSeaU/3rsLpvvhrv5f
+ J20J2ePO2YWfo1Y5cQvqgeQ/dyyv+BLzd6OkEttYQKpVZXFWg69WNwh6d25MdSdN4Guy
+ /46lP83aHnTAwmktrsyQgmmVc/07M39kVTD27cqnupVW3DGbMJn+tOpmo7lUEYQMwnNl
+ wHZLD14ZggOUAh1+APzDC+kTXnj4yFgaPRGX78vvHu9JNcV2nIohWovsPPe8wKJu+TI6
+ fOSKkHUAAkHczW1wMPk9J4VBHxWRtpFiPpz2MgqF/G+JdBAcXSVuortBeUxg1t5l9fp2
+ Gm9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719958468; x=1720563268;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1719957504; x=1720562304;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9sD8orU3RBfAf2hoz6apBJzmcU2qvSOHNCAhe0iXUBY=;
- b=ME1RqxijJOQK7LKqFHUOtSGUjl6N5fcgfZiem+AUQqfXS7P5yJbXOUbbGyW0E5ixlv
- sS1lt3G1rfLeaSomgSxvfaftU2Tl2bjh40+4LVhSDZrKiQ5rj/cBFPQ6Wre9kSdtNxW7
- Cj+ZhI5BXSwJf/lyp3Qm38LaI2Eb7enGPZMhfChps8E2E9buYIHKVEF2T+TRLOptOrWD
- PEaA4c2V18xng8KItePVkV7/6EVy3PbGUEFPr5WEdcINXZjFZt7iDxulqr724nPBuBG4
- Ah19QZ37+3i7rdN2E6d5tsAY3MoRgE5SUXljlX4qOqlXBYdoeaf5hRwYfEyiQwdHAOtz
- 9dxg==
+ bh=wso+Oi2/ut2legKe2oAWbXK/ItRspmzOjB4tGo2hISg=;
+ b=vDMMCJR/b21VprFw0HW3juj8s+oGvn2TbDJ+5/mLCn5EkgEKubpmHL16EhmCQfEwcF
+ JHCUsu+XSn+Do/Zr1lmsTuFyi4eBUnqXlNQ2BmYYO85BYPxMTHBoz+T+P8glTNkSU9az
+ bMSuDN61bYJ5+gSfOXmPb2Vj0/JrKUr939kdahmUx77J7ck6yeIyeGw/yoFV5zfuPUVT
+ ArdRMnZ2Xkod7Gj+nMtjCRf53QlHmd8arxj2EHsqIYkT97NJ1YAEvuBC0e0IfGr3PzoH
+ TtiMsV7j8cOgyBFrwz2d0TGUwBUWPkIdgeHqS1shWoiL83HpMePdrkdcTygXeg6AN9FY
+ h5YA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU3ReOgviUESVnizOffRc2BvpH1QZgvCsroU8XKFCSTQL3iz4ggZyYxh2jc4RKI+FyRJd5DWSk/Z6waGm6MXZ1aXvrU/+rbjDQt8E4Q4VXZqij0VOUkZy5WjKKoiXWe+KToEq+xOfHVWGs6rf9tHIDo7BybVPgBdx0H9hTZ7uyqwTTqxJCRH4gKHhgMWHgXVq9WNKPP1B7u1pIZbdTZsSp6BJJ563gbg6uOhxQG41dCUIAcpzw=
-X-Gm-Message-State: AOJu0YyzSpLYR3Qn5XfA/jqVrWA0/MM3+L0xaMuCKejwlntodLZ08aoJ
- M/rnJUYailSOCTg8Oa943HPuNzgQcBZLJgcmI5/nKwDr4VSvftP5XVwcDAQfBb2k3SmS3YdRV/E
- gqpWH+Kc4vQ3e7/NPebVUv/XAEoM=
-X-Google-Smtp-Source: AGHT+IFXhbMOr7DzwzYNNyCsqRINNrgPdR0zpixK3ln2x5FkwZHpp8LDhrs2Je7fcFc10Y+XcQgRdrAqwBXhcj1xmd8=
-X-Received: by 2002:a67:cb16:0:b0:48f:a93b:502 with SMTP id
- ada2fe7eead31-48faf133971mr11356498137.26.1719958468275; Tue, 02 Jul 2024
- 15:14:28 -0700 (PDT)
-MIME-Version: 1.0
+ AJvYcCWGspFOpI/EoxBSR+83pdN6I0R8It0DWMs75dNQkHaHdTMBbRGCA6Ooem1TM2JNXw/ATMvE0/KuPF+kJyXh1utvYcipZwIhXUeFiNYXZ7Cd6rLNwmX2//HdSrmGaNsJJ777lkS5J7JFG/MyONEV+vvs6ZXZ6cVi6MdPkZPj9WL8cEQxe+Xy4Cw8dPX+w/wM4XC/RSc11dXdiCgIXdwullX9JZWVR+NvU/uzfj9+GHJeMd3VGMQ=
+X-Gm-Message-State: AOJu0Yx911LOb8Iyp00NJMHyNdapBZH17nC98cs5n5H0N6WFiH/A0u/S
+ ZCPpJDND5uChSpTDR79W9AynZsOqRBuI3iJ8o/nq00aqxILjBuc3
+X-Google-Smtp-Source: AGHT+IEjihZo5dhJ6MSq0XVTxwNq7IPZF6HNZIFL7WZIO/OulVmLPGqkTjVhpi6rvHnYoJxnqgO6CA==
+X-Received: by 2002:a05:6602:54:b0:7f3:9e2c:fdfd with SMTP id
+ ca18e2360f4ac-7f62ee9d6e6mr484501939f.8.1719957504092; 
+ Tue, 02 Jul 2024 14:58:24 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jul 2024 14:58:23 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
+ mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v9 08/52] dyndbg: drop NUM_TYPE_ARRAY
+Date: Tue,  2 Jul 2024 15:56:58 -0600
+Message-ID: <20240702215804.2201271-9-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <ZoR40nWmpEV2Ly_6@bombadil.infradead.org>
-In-Reply-To: <ZoR40nWmpEV2Ly_6@bombadil.infradead.org>
-From: jim.cromie@gmail.com
-Date: Tue, 2 Jul 2024 16:14:01 -0600
-Message-ID: <CAJfuBxyxamRhOyz8WuL+7=eJkEKSw8jnAWjyAuqU2i7gvg-rsQ@mail.gmail.com>
-Subject: Re: [PATCH v9 00/53] fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-To: Luis Chamberlain <mcgrof@kernel.org>
-Cc: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, 
- jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com, 
- gregkh@linuxfoundation.org, ukaszb@chromium.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux@rasmusvillemoes.dk, joe@perches.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 03 Jul 2024 13:03:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,49 +87,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 2, 2024 at 4:01=E2=80=AFPM Luis Chamberlain <mcgrof@kernel.org>=
- wrote:
->
-> On Tue, Jul 02, 2024 at 03:56:50PM -0600, Jim Cromie wrote:
-> > This fixes dynamic-debug support for DRM.debug, added via classmaps.
-> > commit bb2ff6c27bc9 (drm: Disable dynamic debug as broken)
-> >
-> > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy was marked broken because drm.debug=3D=
-val
-> > was applied when drm.ko was modprobed; too early for the yet-to-load
-> > drivers, which thus missed the enablement.  My testing with
-> > /etc/modprobe.d/ entries and modprobes with dyndbg=3D$querycmd options
-> > obscured this omission.
-> >
-> > The fix is to replace invocations of DECLARE_DYNDBG_CLASSMAP with
-> > DYNDBG_CLASSMAP_DEFINE for core, and DYNDBG_CLASSMAP_USE for drivers.
-> > The distinction allows dyndbg to also handle the users properly.
-> >
-> > DRM is the only current classmaps user, and is not really using it,
-> > so if you think DRM could benefit from zero-off-cost debugs based on
-> > static-keys, please test.
-> >
-> > HISTORY
-> >
-> > 9/4/22  - ee879be38bc8..ace7c4bbb240 commited - classmaps-v1 dyndbg par=
-ts
-> > 9/11/22 - 0406faf25fb1..16deeb8e18ca commited - classmaps-v1 drm parts
-> >
-> > https://lore.kernel.org/lkml/Y3XUrOGAV4I7bB3M@kroah.com/
-> > greg k-h says:
-> > This should go through the drm tree now.  The rest probably should also
-> > go that way and not through my tree as well.
->
-> Can't this just be defined as a coccinelle smpl patch? Must easier
-> to read than 53 patches?
->
+ARRAY_SIZE works here, since array decl is complete.
 
-perhaps it could - Im not sure that would be easier to review
-than a file-scoped struct declaration or reference per driver
+no functional change
 
-Also, I did it hoping to solicit more Tested-by:s with drm.debug=3D0x1ff
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Jim
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index b53217e4b711..8116d0a0d33a 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -106,11 +106,9 @@ struct ddebug_class_map {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
+ 	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+ 
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+-- 
+2.45.2
 
->   Luis
->
