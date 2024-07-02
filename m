@@ -4,149 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C4AC3064D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 08:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C058EC30658
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 08:56:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D7410E56C;
-	Tue,  2 Jul 2024 08:52:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 739E110E57C;
+	Tue,  2 Jul 2024 08:56:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1UzAruBj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bx2IWkkm";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E00410E56C
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jul 2024 08:52:50 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD4410E578;
+ Tue,  2 Jul 2024 08:56:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f40Pid94zmcuICBHIePoBcEob5d8cWmluvO7nVwubMcELLcMghf0A94sc7Rk2leDG0jlfTeMXrNqTC+QoLMY65/cdM5ITegtEL+V3S8rKEmNKS58koXj2s97IyM3sw1kwESK0QxIWJtbLVq8A30uVpROn8NmEoCLecmg6vG4P+ZZi+GWFnfkACZHu6KnmqxVXMK1EeBGFI+CtzYD90n3AQA0yySs3cyoGu6akGG3CFonrX8P7LERNDGWRwuhKU3/c/kOsKsIbFsHaZDcLd42kfqv+lwZpM8udSEVBthQy16hP3jtujhFjJ8DH/jz2pG4lvSowEs1MyuA+kTFRWcR+g==
+ b=bky2KX5b3Fvvv7meaO8+1svkWfxS16OsK4hnDz/ct+cCAREDUyTbysJ1DT+nsYjoCuBk06dDZ+U2uREoRDbDz/AcxTrr8k9KmaMF38PUBR7jbKKf2YORxOQUYah3hdLo2qExeuZ20ZpWyXORpUvqlJ1rY6g9kGoNan74ZssIRGs47eoI+DMb9r6KbcT6U9swSPBU4LalHWbgaW+N+ykOoSlIAOGedY/37a1RsZB91A5nVZEdnGt7De4hWA+6+NNQdzg/HkulqyN1Fp1LveS2JDBY2iVGOMo2WPKetchD0T4yFjQ8UcvSDxOptluapBgH300IBUBuH/V/FR6rKkinbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YCI9TE88iY0C6pbxDI4l+mXi4xmJCOv0PhbXyNHgP2s=;
- b=SfZSfeWDDMy9eJszn7WxpjFCu/lk/W8rGhX3aWB19bNydi2UM7rI7NUN2UdevCZg7DUVeAZwmQTZuCxUs/Q5r/AO668ywpKPsPf7qvDo8WBpnNQ8sfT3dhnzovXMuV87v+KdlawX+3TVDq0O13Y7i+3w5ywrNrAXpnO6+gvOAyXFaaedNYxoglg89dBIu2wSjaknRksHxIzkUc9uPVVHc5SdkY/cGw3CHpxkfa3ImvSaXGK7RyOBF3v34Np+ekMo/pfypj4aOuQBYwq88nWPhXFkEmmLXLTWbjbRjtx4C1Q8YTb5TKy64s5gpFnvRsA8jjxquty4ZoO9vhETqZg2ag==
+ bh=RGC3fXhvd6DEJzb5b1nUb4oS5uUkXcPScuxYttxWRRo=;
+ b=MacSxjLkHrqMFLJQBSwXjLK4ROr5VspYZa2TvbKHaL0VFO8pzwjt+eMwetgbBFbcSOwk3jJdqtDwf/+QgD8cE9kaeIt3yGTZX7kTPm6erpvnYjGLVCpUEMULb/kVpSTXEDJ2+iPIkqYHKZHYb106qKge2Z0O8K1B5NTGLvJDuRQ/GM24ewnCFCStivArcemJYqk6In6W1fw94zG9znk8xOd1TeehjZcYXJxMMUVq6A7SbklgGHqjig1V4IBGhe/ziJTQQ3/RdzoHFdomFy7VfjIJH1ZCPRl9H6QN4yitCVP4c/XIlCAtkSMztKJ8OY0ZgytUKjGdM65/uSmmDQSSGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YCI9TE88iY0C6pbxDI4l+mXi4xmJCOv0PhbXyNHgP2s=;
- b=1UzAruBjgDQxPvTGLAK9dcF/jQkIC3s5sxpkPKWU2y2wqMMvfzD/rFYMvkL5iESNBJvjWLhX4aj0IrYG23Vo3ahUu+ZibWOtTvjafxiXanl2cMJTK73LB6h/jwezjDvB/nz9FYe6HuTcNYg/dai5xh7Hm4EemBXzKVq81iAfu4A=
+ bh=RGC3fXhvd6DEJzb5b1nUb4oS5uUkXcPScuxYttxWRRo=;
+ b=bx2IWkkm6rtYgyG/gHY9ah0P3i8mavgrZPNpt8DPF0bgQkP+9ZUYP2tyvS7v8f5gJBW/psA1wnmTh9DljMOl/oQikhJbcdDHFqDyJPszgoMN/7GrKoyXMEugc2QQx+ZQDDsAmvkWsrtw4csZ3OJIeLG5Pl7lpjphf4b3rGWtof0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB5883.namprd12.prod.outlook.com (2603:10b6:208:37b::18)
+ by SA3PR12MB7949.namprd12.prod.outlook.com (2603:10b6:806:31a::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.32; Tue, 2 Jul
- 2024 08:52:44 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.26; Tue, 2 Jul
+ 2024 08:56:10 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%6]) with mapi id 15.20.7719.028; Tue, 2 Jul 2024
- 08:52:43 +0000
-Message-ID: <d72c312a-5c59-4469-a2f8-057a86ddb173@amd.com>
-Date: Tue, 2 Jul 2024 10:52:38 +0200
+ 08:56:10 +0000
+Message-ID: <af4cb3c8-6d7c-464b-b22e-377b1d0a7aed@amd.com>
+Date: Tue, 2 Jul 2024 10:56:03 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] drm/amdgpu: fix out of bounds access in gfx10
- during ip dump
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20240702082605.3062592-1-sunil.khatri@amd.com>
+Subject: Re: [PATCH 1/4] drm/scheduler: implement hardware time accounting
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
+Cc: Pan Xinhui <Xinhui.Pan@amd.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, kernel@pengutronix.de,
+ patchwork-lst@pengutronix.de
+References: <20240701171447.3823888-1-l.stach@pengutronix.de>
+ <cf3beee0-14a2-4ad8-8c3d-7ba8a09c6608@ursulin.net>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240702082605.3062592-1-sunil.khatri@amd.com>
+In-Reply-To: <cf3beee0-14a2-4ad8-8c3d-7ba8a09c6608@ursulin.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0150.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b8::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0343.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::12) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB5883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5374bee6-b4b4-439e-ddd4-08dc9a74562d
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB7949:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7f2351f-ee4d-4aa4-41f6-08dc9a74d163
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MjNuZ2RPVGdHa3BVSVhNc1FIQ3d2emNnVjhpN3o2ODBDMmg5ZzV3SFN1Z1Iv?=
- =?utf-8?B?OVZPbzFvZUg1bDBiSVpzNWlnazFEQU41SGFucE5KTnZDTW43OWtteXgrUUFq?=
- =?utf-8?B?ZTZIZHRQaEc5NW5QSCtVWG9DZlVYK0F1M0orK1Z3WHlleHNiakQreG00djlO?=
- =?utf-8?B?ZnlIYkt0MlRtQ01IcXJERnRlcWJKOGd5UmFHL0FLS2JJWXBnS2NpU0Q2MFVS?=
- =?utf-8?B?S0RLdUx6OXRtanUwWFlVUjRrYXRYWEpITjJwOWRwUlA1MlB6NzEvYU9HRTZQ?=
- =?utf-8?B?dVBiYm9QVGNpUlBWejNSZVNSalF3cjhpYTJ4VTVFZlAzY3RPekZzaEFLZmhG?=
- =?utf-8?B?WlRQT2Yyb0xRMkJMSmVySFM3djhBRDJxVytCOXNtK2VUUXB0NjdSeElnNW9Z?=
- =?utf-8?B?N3UxdFZ1L2N0UUhIYXBrUFVNRDVWcURYdTZ5bENnMXEweGEwU3ZSR1lPck0y?=
- =?utf-8?B?Y2hOeExEMGV2dE9EelpBTW5aWXV0MWNyVCs4MXl0RHpkYmxldVpLVVZOOG53?=
- =?utf-8?B?Z3Q3V2FnRHBTT0FYR012Q3FRSWpVQVp1Yyt3MTF4a3NqSkw3WE9wcFFIaHBE?=
- =?utf-8?B?NXA2ejNOanlpcENKN0EyZ3RKQzRTY0tuVXp2U3JqbytEeHJMNFNocWMwR2Zv?=
- =?utf-8?B?RmsxUjJJYlZXTzMzMGtMK1VVVFpyV3VxRlRQN1l2cXpCZ3hIc0dra282TDdE?=
- =?utf-8?B?MlBTM3ZsNlFhYVVsN3BLOE42NDVkc3Ruc2xrOG1ZTml3ZnJwTGp0M016SHdF?=
- =?utf-8?B?YittaTNkeTAxbVNWWGFKcDRtUW5hZUY3Vi92TldPMEJpTitXVFU4YmZTWkln?=
- =?utf-8?B?S3oxRFhEMFFGcXYxdUNRNGxiNUlrSzhicU5yRHdqWkpvS3ZhK3NxaTRRRjl6?=
- =?utf-8?B?TVRhMzN0S3RQRnBiS1Y1MTIwRWMwM3Fxd1EwbkQ3RC93ZXpjRGJiVlQ3Mlo4?=
- =?utf-8?B?bnpXK1dMZSs5OEhnNit3RWRLK3JhV0xwWjVyRnlzWTZESkVEOHJZQ1RLa21s?=
- =?utf-8?B?STNVUm8wYVM1ZjZOZTE1YVNwWDRDSnc3ekxkYldZOVlCSnRmbGh3UFViSWJO?=
- =?utf-8?B?L2V3a0FkbE92WlJPbWw4UnFYajBwbEoyVTBucUFkMG15dHFZMWhmTE1OMnBq?=
- =?utf-8?B?RmNBZDdrMGx1WUpDY3pTY1k4Sk5KNTk5Qi83bGxjWCs0T3hUWDl4YUFPa0xS?=
- =?utf-8?B?cHhNZGRFb1dHSzdsYWdKcWo2SE52V3BnN1NCOXJ5b3NjMHRHZmZzRXdGN0l5?=
- =?utf-8?B?cXF3WFNIMWRubTh0dEhHbnhFTTF6bDVwL01kcFp0bzRtOXFrcFlXaXdGa0Y5?=
- =?utf-8?B?MTAvNW5ZKzlxT2lkQ2dhYWtsWUNlZWk1WWxvanpQM1NPRFpZWmFLaWdoQmpr?=
- =?utf-8?B?a2xwYkY0ZlpYVjZrNVhjeUFQK1EzaHVnNnJ1dHJaZDRleUpmZEIxYThnN3dl?=
- =?utf-8?B?UDhOWFN0aUczS0pJRTc0Ny9GN2Fpb2R5OXRiRXU0dFZrTWNxWmRrclZibWRx?=
- =?utf-8?B?UWRVZVQzV0dxV1NpYzNpb0hMdnozOW9mUzJoQVV0ZXlhMTI3aFJURkFaNFlV?=
- =?utf-8?B?cDNRcnEzTVl2N0llbE9jZ3N3dzljYnRDbm9mWlk5Qk55MTN4aHYzL3hRYTA3?=
- =?utf-8?B?L01tYnh4Zk52MG1YQ1VUMXM5dzFPZEY4NDlqK2g0N01LcThUaFB1U1oyQ01J?=
- =?utf-8?B?WmRyVldIVDRNcTVDc2EyNjc0WkZIajRkMjlPVjBWK3duN3JWaEViTUpEUzMx?=
- =?utf-8?B?VUY5Y0lzZHU2dXRybldaRytyZ3ZDdHdiTGQ1T25makI4RnFEOEhteURxeDVL?=
- =?utf-8?B?S2MrK3NqVlBJakZoemE4Zz09?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|7416014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YTluajZ2N0hZRnZCZGlYc2hNV2JnTEJrRG5DY2pScEprcWl2Um1mYUNsWXpi?=
+ =?utf-8?B?UGt1WjlCTWxkQWx2N1UxWlZMUFpBQ1hpMm03RC9MV3ZQTzl0ZTBLbmRROXZp?=
+ =?utf-8?B?VUR1RXVwREVlWlptcStmdnFPV2F0K0NNa0Q2K0RjVHB6RTZuN0E5ajIwMFUx?=
+ =?utf-8?B?YjBwQ0F6cnpsZVp6bVErZWkzcTRFVDNJaEt1cVJTQWtlWXgzZXBwZnFudTdJ?=
+ =?utf-8?B?MmR5T2kwbkRSamNmdGYzOFpONlFiKzU1S2lrTS9QOW1WdE5jSDZXOVc4Q0tH?=
+ =?utf-8?B?QUo1dmc4dkVSYnlIRkZCVzlVWHg5RVFhY04yVDFCZW01QnQzbU9tbXZKQ1lL?=
+ =?utf-8?B?dnhuRUM2TVhiZlhBV21qNEpscUk4OFlwemoyNDk5NUp5QVA5bFlHd3E3NGRI?=
+ =?utf-8?B?bVFTeC8wRTE5eEh4Y1BkWlBzRkluemNseVRPY1pSUW5wYmlaYXlOMHh0bHg4?=
+ =?utf-8?B?VFF3bGJ0Rkluc1FtNi9kbHNPV0c0QWNNNDNQb1E4NEtFcGt2dGlDUW0yMWtX?=
+ =?utf-8?B?QXdTRHArMEtRS3ZyaEUwMitoTldoVGNvWTBqcWZEV1lRYUUrTlFoZlVtR0tD?=
+ =?utf-8?B?MXFEVFJXb0lZSlVZdmk1ZXVnQy9hVDR3Y1M3alJEc3dmTHIzaC9oaXVCaGhs?=
+ =?utf-8?B?SWNFcEJEeFpyeXJ1b1JsZmpSdDlGSmkvcm1JRzZVTmhadmN0dFY3bk5KZEo3?=
+ =?utf-8?B?L0tYOXk0M1pLdnQxTEFUVzBGZHQzMUNBQnd2RUkvcjBqNk5hWDRUOS9FRzhk?=
+ =?utf-8?B?SytrNVVlejhwdnZqT0NWWGQwWkY4TGFBZ3p2aDdRbWRoazRLdFk4V2ErMHlW?=
+ =?utf-8?B?WnpvZWpCZUVSWkZ1VGIvMTNlWXk4TVNuV0NBVitoN0c3UHg2cjlaeStkS295?=
+ =?utf-8?B?eENLZE1Ock8zc2sxbVRDZTVSaUs1TlRSVXlqYVQwOXRtQS9kTHh1Yk04MUpr?=
+ =?utf-8?B?MTJKSmhzMXBkcFBGL0hJKzJZVitSMElMUnRqT3g2UWdlRFcydGpTRll3RmRD?=
+ =?utf-8?B?WEY4Nkk3SG16SlJCUldxNzBUTHdkU0ZGMDBLajRPYWRLRTZnM0VsY3lVWTFC?=
+ =?utf-8?B?MUF3V0I1WVNjdUcwNlNpQThWeDRTc3VKQnc1TEErcGxlL0kzb2hhN2xrc0Q1?=
+ =?utf-8?B?cW01blQ0djRHaWlBRkFDR0JXS0dsUXc5NEhRMHcwUnVtbGVXOEwzMXdFYVZw?=
+ =?utf-8?B?UGFIUzVjcWdSS0RQMXZSTXQraUg0Z2phYTkwVDN6aHFPQUMwdW05Um1RSncw?=
+ =?utf-8?B?eHYvcVBsVUprQ0FEMUl3aC8zUnp4MHJTYUhrRkN1MVZPcGJOblNIU2VmelN2?=
+ =?utf-8?B?NDRuZVFzNlExdEtHVmVuVTA1eHVDS1hkbElXaGtFN0ZDc0FDazdwUEc5YVFR?=
+ =?utf-8?B?eXM5K1hoU3haV1IwRGxyYWZoR3dlREsrQktVdkk3djhsWVVFQ2dzVWhORXVx?=
+ =?utf-8?B?Ym1iKzJyb1RUaFlGT3JMZW55V3MxNXlCV2dBNVpHVTcwamdSSXlrSzUwV0I4?=
+ =?utf-8?B?SlpmeWpQYnl1a2tLR1V0WTM4Wm1VZFZuYkRGR2QwbitCY09ibGloaWJCQ09s?=
+ =?utf-8?B?TWE5cDROcVg1YThjQTVPQUIwdzFQYmNTZGhNRzluR0UweXhsL2NWei9WWTI1?=
+ =?utf-8?B?elhFcFZqZWVPRms5RXVKeDlxQlVSek5wbDhBMDcxVWtZbkRHS3pxbDkrNHZV?=
+ =?utf-8?B?QVY5ekVJQ25jZ1pFeGpkTmpmbXBTNGx1bFA5U0Y4eE5MVkgwTE1tNVBOWjk1?=
+ =?utf-8?B?NGs3ZXVJM1lsTmplNklwT0ZDRlZ5NmdPQnVpby9zdXNJU3hJUHVrVnBRdGhE?=
+ =?utf-8?B?eC9pQU5nZGdsYjVWWCtZZz09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bS9HMXRkUnRqWnFwM3p6cHI3Tkd3Q2lGa1VGd1Q5TEgvcHg0eUxmT0U3VmZY?=
- =?utf-8?B?RWdOUzdPa1NOZjhjTm9OSWtqM0V0akJXbHI1akFOL3h1MmIycTRZVlNUamtJ?=
- =?utf-8?B?bWdhWGhKalRyUTJQQk5BQ3FLd0FBVVFSSjlhRFl5RjBDcmp1d3o1ay9lMXVp?=
- =?utf-8?B?WC9vZGp2dE1PQXpLeTU5aExOa1M0SVo1di90RFJ5WEJrM01UYkkwTS9YRFlQ?=
- =?utf-8?B?VmZPMCtQNTV3Z1NVM1lpbVM5NXdVWUJSdDJhc01GK2FVbDFhN3hNVWEwMHVj?=
- =?utf-8?B?TXduTnpDSkhONlJKZExTckVldUZPdEJxT3BiYW1RRit5MW16anNyQkJSNlhQ?=
- =?utf-8?B?Z0RVYWdrbUdIUXE4ZU1Qa2JIZE1uRDdzRGJsenNZaHBHenlsS054M0JDZ05N?=
- =?utf-8?B?cmhKL2lVbXY0bGcyY3RPRW43djNtNHpINmV4YWQvZldvTjJVV1Q1UzhrKzV2?=
- =?utf-8?B?amxpOXZ0SEc0THl0U0o0R2J2NTNBSnFudlZFZDdCV2JJNlgvSXlEYjlLMnlL?=
- =?utf-8?B?aWhBZWR5dWdVN1FZOWYrdE5jRzlEVlBSNnlqNGVhZlpaMzNPSU5FRCsvaWdt?=
- =?utf-8?B?dHVYdy9FcTVhMFpESXZVRGlDdFBVVi9zZFg0b1c5R1lQYXdZdjN6SFpyRXk5?=
- =?utf-8?B?VEtVWERJOXpmeFRqQ1h6MFRQdGpuRXpydEVCTDdkOW5PSTIzeFMzR2VyYTEr?=
- =?utf-8?B?d01sckFYaVl1SXRmWDk4dnR5d3V0cjNVTHBQbG1FbUJTNzNxYmRuKzFHMm90?=
- =?utf-8?B?TTJGYXFWS0ZOdHZxbk90NmVSNENUOUxzYXZSTnhTRWFwNjlTMHhBUmdUcHRB?=
- =?utf-8?B?aWcvU2t2cTQ5QU43eVpETEZFZU5NamFnRWNsa2dPOUFUMmFzREZFa3puNkxU?=
- =?utf-8?B?bFJPdHh3Y3ZNV1Q1QjcrYmlNckZqNjlnUzRjN2xoWWhtM1hnSkxnYUtQKzBi?=
- =?utf-8?B?ZnNnRE13MjlZcmpxeTdSRmEyNkdBOGRRSVNsY0VKdFd3ZE03ZTNPeUs0c05B?=
- =?utf-8?B?OXgvREp2T3FPL0VaQ1VGZnUvWUw2MTF4Y1BpcStjODZvWno2amNjdDMxZzdF?=
- =?utf-8?B?RTAxaTdhb2FJK3NUSDBnMHVkVXR6YVM0THdraTBCMFo3T0phQnNvQTQ3Y2Iv?=
- =?utf-8?B?SGh1cTdTUUxIOFowM2w4clVDY1MraFdiN3JweHg4aDdBRDdqNnZzMGRlMitN?=
- =?utf-8?B?S2lHT2IvWFVuczNyVkNYcWdrTTMwNUhscjlnb2luaXRQOXFpdU96MUF3Y01J?=
- =?utf-8?B?TFRpejJaM2RhQXVER2ZtbGFvMGxraEx6ampkeG1YQU94OW9RNjF3Y1cxM21L?=
- =?utf-8?B?T1haMUJMKzRiOVR2elFOWnFVTzE0YlJHNDZhSzl3Z2tqQWR0S1MxREVuSDEv?=
- =?utf-8?B?UDU2elJsNXllMkhyaHNiSmJSUExmQzk0bXNVcFZtOCt3bzZHUmE1eW94V1dT?=
- =?utf-8?B?Vy9FaC9nUklaQ3lMdERtQ3pLaXhlSithdzZoeERmL1MwRzVZcy9BVlJRMGNR?=
- =?utf-8?B?WUs4T3JnOEFZQUJ6V25jSkNPdE5NVHV3Q1N5V25RK0NuSlZQRU1la2pQd0t0?=
- =?utf-8?B?OEowZ3E4OEdQUFFiTWxIajNYWVpXcXpyUXl5cFlvM2dvcHJKeVdVbGFqL21S?=
- =?utf-8?B?cURkQmpSdFlUdTF4UlhCNkdJWXRnVFhKWlRrYlR3STQ4UlVoTW1udC8rSy9w?=
- =?utf-8?B?c2FzUEVWdHBNWE9uMk1GdmxOWlVGNFU1ZkVzZUlENWE1K0VWMXFlbTVsTjZw?=
- =?utf-8?B?RmhYdXlBZUdaMnNJS2pLbVJCN0hjbnVBMmw3UE10b1JNSEV1QVp2YUwveGpX?=
- =?utf-8?B?UEhKSCt6d3lTTmFCNVEzelR0VktNL3k1VEMxMHhmUlJRQWhQTW50RnJBRENr?=
- =?utf-8?B?Qmd1SEQ0SjNtVXVoRStBQkc5L2g4MHo5Q1lJOGV4Q05tWW1EZUNBRDNveDYv?=
- =?utf-8?B?WGtBb1UrWEtDYlUrV2ZPbFF0c2NYaHhzREVYRGtvbWNZZld4UTFPK3ZOYnEx?=
- =?utf-8?B?Tll4ZmxhMm1wcHFFY2NhcnMrbS9nRmtoS3BwdVd1ZExnR2RkR1M2V2pFSS9N?=
- =?utf-8?B?NVUwam5INHdtemt4VU0zWE9Qclo4OEdEL0NaRlNsaG8ybVhiU1hTVXh3OUs4?=
- =?utf-8?Q?hcrBfsWMTHfWoiqTNgkW/Sv0o?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dEJGRWU0SlB2WjhCNkZMVnNSeHNNNlFaWXA2dkcrcFdNdSs4UmZmSnhYYkJR?=
+ =?utf-8?B?cHVJdS9yQ004STlpRy9jeGZTMWZLQ3grQU9WbUdpYjdnVU9HYjJBa1VUT1dw?=
+ =?utf-8?B?cHlabkNUMTBMQ3FPUXFBanU2eDdCSUpCaUw1bndGSjcwSVJ4azJOa2tINmNj?=
+ =?utf-8?B?M1VLSjNDdUF0S0FXNVc4WGUwbldqYm02bFNuWWNlc0NVZi96aklrOWpKQUJq?=
+ =?utf-8?B?R1FzZ2czMGRQQ3NGcktiMzFETGVSa2xLRE96dTdmbWtPUmpYZVBvM0l5dTFX?=
+ =?utf-8?B?RjhmL1E4RHdYSk1kRnRVZ2dqRmJZUXd1N3JzdTM1TU9vUGdiNUNXNGsyZExH?=
+ =?utf-8?B?TXplVnpsd3pxNDRybHdBcE5ubnl1ejdWWUV1ZDJJUGtrNWdwdFVvb01COE5L?=
+ =?utf-8?B?WmEvcFpGcFpwb3VGNHJVYU1TT3VVbmJQWTJIZDErZmw3Z3U0dmZlSkFkWXJn?=
+ =?utf-8?B?OUw3S0R5ak5DWHdLSzBMTExHbm5zd0FvOHBJa1lQalNHR1c1UitOQTVnKzVx?=
+ =?utf-8?B?Y2g5RUhBQTNsUU5iQ3g3VjN0TTk1ODdJaGp1eDk1YU4wNnVQM2NRbUZJMmxt?=
+ =?utf-8?B?QWVnbSt4NmVZN08rNHFVcnBnRnRQUEo3ME5Rc2haOHZmUEZYcit2WHMzR0Jl?=
+ =?utf-8?B?cWU0bHQ0QXVPTzRQMHprRVdqYXJuN0RoM0VubmhNLzVJYWZVbCtBc3VWQzBH?=
+ =?utf-8?B?aW52Z0pjcTB3U1lLejlKQmt1SDZaeUFRSm5DdzZtTnAxOVJiNm9xVjdYZERo?=
+ =?utf-8?B?czJUaUwxeGx2eVR4RUZMSU5BUkdwU2pzOE9odjFvR0gzL2xYOHNlb3k3RUN0?=
+ =?utf-8?B?NUg1bUFRaHBDaVgxSFNuOVlhMkNoSmQyK2JJUzIrZXYzL2lPcTl1YUV4SzdZ?=
+ =?utf-8?B?bWc2dlVKS3FLZFZHVFROdktYVFJmMWo3VUtNZy9sMHdMZXUzTXo5VnEwRnlk?=
+ =?utf-8?B?WUQwMFpLNndWbFJ1M3hXbEY1c3RFMVZrNmZoWW5sTmxJUCtUYXN5S1pqbVF6?=
+ =?utf-8?B?ZzlTZkNZUFZCSThpNXA3VFN3bEQyelV1MzhXYUhUNEVLRVlUcEpiTUtIYlpu?=
+ =?utf-8?B?M1hLcUVFNkMvMFppbHE0QS9VazJ1ZTNHOUdwamtDcVhRRElDckFOTlNoRU9N?=
+ =?utf-8?B?VEt2UWdwQ21UeExwczRjMS9QbXU0anUrSjRINDlJbUl0Qi9LL2JNV09wYkx1?=
+ =?utf-8?B?K3hWeE5aL29wVEwvdURFNE5MQWJKTGFtcFRGdUZGVitCQW1ONXVmd0J6V2Fo?=
+ =?utf-8?B?Z3BTZHFWUTEwUjBJLzdtL1JiRzRPdzYzZ05Yb1RrM3Byekt0dEJIWFNaeFM5?=
+ =?utf-8?B?UHp6aHc4cXUyV25oRmRvTTlnM3FSVDgxSFZvV29TK3N0RjdHYkFMSjcwcVhG?=
+ =?utf-8?B?aVNWNXo4WDlIcTRZY0Z6OHFxNTgzV1RQYkNQM1FZZmZmL3pUc3pDUjN1ZEZ0?=
+ =?utf-8?B?dlVjQUs0ODcrZ0RDa2JzMkVsK0I1N0l5QXErbUNBQ3djNVRKS2VRTTlFVkRI?=
+ =?utf-8?B?Y2FOeXdxdzlMVVpGTnFLcncrTFlMWHRSRVgzYSt0RXdONGs2MG5wR3l4Q1Jq?=
+ =?utf-8?B?YmFiMXpSZG9nY1M0TUdjOFA3UHpQOVRLSUxHNzd4UGltRSs4RkZ5eU5XaEIx?=
+ =?utf-8?B?OThCdVQySDQra0tpOHZRR0psSjVEK0xmNis4cHBKRVMreWFaSEFJLzBnTEdm?=
+ =?utf-8?B?V2pQOE5DcjRqWW1Pb0RFR1k2V3dndGJnVVc4cWVTNDdadS9QWVBCTkNHVVRa?=
+ =?utf-8?B?NjA5TFhqRmNzSkw1cVY4TFFmOThUT3BRbjFKZ0tyVjNySWw3bjcyY3lFa3ZN?=
+ =?utf-8?B?TlcrSWduYzBPa1ZMck9BTGZjVE50Ykp2MmRGWnNJSjJvMFBBakJzWVdFeDJQ?=
+ =?utf-8?B?SjNGRUJZekJ1V05ISjZHalpMVmZrelNMcW1CYUNZQ2tEQXQ5K0U5M2xoVkgx?=
+ =?utf-8?B?TGNNOHlsQkNwS1RKcFBKSkpJUDhXK0NvYlA0Ri9DYnNVQnVOK1RGeHdvYU5t?=
+ =?utf-8?B?THlIMmhJNmx2TWlkWjJxelFKY0c3TGpDMHR3N1BQNHQwUHAzL3ExMXF6TW5J?=
+ =?utf-8?B?RUF6TzhlNzdDUVFGN3B5YTAwYXZudlBMTWd1RXIvdm1RbzRJaGJzM1RFZmFx?=
+ =?utf-8?Q?CDYNRFA5UQk0lAl7kiFwWfzqB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5374bee6-b4b4-439e-ddd4-08dc9a74562d
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7f2351f-ee4d-4aa4-41f6-08dc9a74d163
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2024 08:52:43.6671 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2024 08:56:10.0579 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wyvqEutdIR3XvJPOzmZyTpZCoZBKvaZtZkq1aFxVD9gv0ZZ/2hQDMWo+jt3eaMRG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5883
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2ER4Fo1daAUTerLzDzoL+4VRgiwB9bTMtL+tgcQmhDahkbSJPp+bURstDd7IjIUp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7949
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,40 +166,306 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.07.24 um 10:26 schrieb Sunil Khatri:
-> During ip dump in gfx10 the index variable is reused but is
-> not reinitialized to 0 and this causes the index calculation
-> to be wrong and access out of bound access.
+Am 02.07.24 um 10:42 schrieb Tvrtko Ursulin:
+>
+> Hi,
+>
+> I few questions below.
+>
+> On 01/07/2024 18:14, Lucas Stach wrote:
+>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+>>
+>> Multiple drivers came up with the requirement to measure how
+>> much runtime each entity accumulated on the HW.
+>>
+>> A previous attempt of accounting this had to be reverted because
+>> HW submissions can have a lifetime exceeding that of the entity
+>> originally issuing them.
+>>
+>> Amdgpu on the other hand solves this task by keeping track of
+>> all the submissions and calculating how much time they have used
+>> on demand.
+>>
+>> Move this approach over into the scheduler to provide an easy to
+>> use interface for all drivers.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+>> ---
+>> v2:
+>> - rebase to v6.10-rc1
+>> - fix for non-power-of-two number of HW submission
+>> - add comment explaining the logic behind the fence tracking array
+>> - rename some function and fix documentation
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c | 82 +++++++++++++++++++++++-
+>>   drivers/gpu/drm/scheduler/sched_fence.c  | 19 ++++++
+>>   include/drm/gpu_scheduler.h              | 31 +++++++++
+>>   3 files changed, 131 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
+>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index 58c8161289fe..d678d0b9b29e 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -62,7 +62,9 @@ int drm_sched_entity_init(struct drm_sched_entity 
+>> *entity,
+>>                 unsigned int num_sched_list,
+>>                 atomic_t *guilty)
+>>   {
+>> -    if (!(entity && sched_list && (num_sched_list == 0 || 
+>> sched_list[0])))
+>> +    unsigned int i, num_submissions = 0;
+>> +
+>> +    if (!entity || !sched_list)
+>>           return -EINVAL;
+>>         memset(entity, 0, sizeof(struct drm_sched_entity));
+>> @@ -98,6 +100,11 @@ int drm_sched_entity_init(struct drm_sched_entity 
+>> *entity,
+>>                            (s32) DRM_SCHED_PRIORITY_KERNEL);
+>>           }
+>>           entity->rq = sched_list[0]->sched_rq[entity->priority];
+>> +
+>> +        for (i = 0; i < num_sched_list; ++i) {
+>> +            num_submissions = max(num_submissions,
+>> +                          sched_list[i]->credit_limit);
+>> +        }
+>
+> Does this work (in concept and naming) for all drivers if introduction 
+> of credits broke the 1:1 between jobs and hw "ring" capacity?
+>
+> How big is the array for different drivers?
 
-Acked-by: Christian König <christian.koenig@amd.com> for the series.
+Oh, good point. I don't really know the answer.
+
+>
+>>       }
+>>         init_completion(&entity->entity_idle);
+>> @@ -110,11 +117,52 @@ int drm_sched_entity_init(struct 
+>> drm_sched_entity *entity,
+>>         atomic_set(&entity->fence_seq, 0);
+>>       entity->fence_context = dma_fence_context_alloc(2);
+>> +    spin_lock_init(&entity->accounting_lock);
+>> +
+>> +    if (!num_submissions)
+>> +        return 0;
+>> +
+>> +    entity->max_hw_submissions = num_submissions;
+>> +    entity->hw_submissions = kcalloc(num_submissions, sizeof(void *),
+>> +                     GFP_KERNEL);
+>> +    if (!entity->hw_submissions)
+>> +        return -ENOMEM;
+>>         return 0;
+>>   }
+>>   EXPORT_SYMBOL(drm_sched_entity_init);
+>>   +/**
+>> + * drm_sched_entity_time_spent - Accumulated HW runtime used by this 
+>> entity
+>> + * @entity: scheduler entity to check
+>> + *
+>> + * Get the current accumulated HW runtime used by all submissions 
+>> made through
+>> + * this entity.
+>> + */
+>> +ktime_t drm_sched_entity_time_spent(struct drm_sched_entity *entity)
+>> +{
+>> +    ktime_t result;
+>> +    unsigned int i;
+>> +
+>> +    if (!entity->max_hw_submissions)
+>> +        return ns_to_ktime(0);
+>> +
+>> +    spin_lock(&entity->accounting_lock);
+>> +    result = entity->hw_time_used;
+>> +    for (i = 0; i < entity->max_hw_submissions; ++i) {
+>> +        struct drm_sched_fence *fence = entity->hw_submissions[i];
+>> +
+>> +        if (!fence)
+>> +            continue;
+>> +
+>> +        result = ktime_add(result, drm_sched_fence_get_runtime(fence));
+>
+> Does this end up counting from when jobs have been submitted to the hw 
+> backend and may not be actually executing?
+>
+> Say if a driver configures a backend N deep and is filled with N jobs, 
+> while in actuality they are executed sequentially one at a time, the 
+> time as reported here would over-account by some series such as 
+> (job[0].finish - job[0].submit) + ... + (job[N].finish - job[N].submit)?
+>
+> Or in other words if one submits N jobs to a ring serving an 1-wide hw 
+> backend, will we see "N*100%" utilisation instead of "100%" if 
+> sampling while first job is still executing, the rest queued behind it?
+
+Oh, good question. Yeah that can happen I think.
 
 Regards,
 Christian.
 
 >
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 ++
->   1 file changed, 2 insertions(+)
+> Regards,
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 18488c02d1cf..a52c72739b40 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -9287,6 +9287,7 @@ static void gfx_v10_ip_print(void *handle, struct drm_printer *p)
->   	if (!adev->gfx.ip_dump_gfx_queues)
->   		return;
->   
-> +	index = 0;
->   	reg_count = ARRAY_SIZE(gc_gfx_queue_reg_list_10);
->   	drm_printf(p, "\nnum_me: %d num_pipe: %d num_queue: %d\n",
->   		   adev->gfx.me.num_me,
-> @@ -9352,6 +9353,7 @@ static void gfx_v10_ip_dump(void *handle)
->   	if (!adev->gfx.ip_dump_gfx_queues)
->   		return;
->   
-> +	index = 0;
->   	reg_count = ARRAY_SIZE(gc_gfx_queue_reg_list_10);
->   	amdgpu_gfx_off_ctrl(adev, false);
->   	mutex_lock(&adev->srbm_mutex);
+> Tvrtko
+>
+>> +    }
+>> +    spin_unlock(&entity->accounting_lock);
+>> +
+>> +    return result;
+>> +}
+>> +EXPORT_SYMBOL(drm_sched_entity_time_spent);
+>> +
+>>   /**
+>>    * drm_sched_entity_modify_sched - Modify sched of an entity
+>>    * @entity: scheduler entity to init
+>> @@ -326,6 +374,8 @@ EXPORT_SYMBOL(drm_sched_entity_flush);
+>>    */
+>>   void drm_sched_entity_fini(struct drm_sched_entity *entity)
+>>   {
+>> +    unsigned int i;
+>> +
+>>       /*
+>>        * If consumption of existing IBs wasn't completed. Forcefully 
+>> remove
+>>        * them here. Also makes sure that the scheduler won't touch 
+>> this entity
+>> @@ -341,6 +391,9 @@ void drm_sched_entity_fini(struct 
+>> drm_sched_entity *entity)
+>> dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+>>       RCU_INIT_POINTER(entity->last_scheduled, NULL);
+>> +    for (i = 0; i < entity->max_hw_submissions; ++i)
+>> + dma_fence_put(&entity->hw_submissions[i]->scheduled);
+>> +    kfree(entity->hw_submissions);
+>>   }
+>>   EXPORT_SYMBOL(drm_sched_entity_fini);
+>>   @@ -522,6 +575,33 @@ struct drm_sched_job 
+>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>        */
+>>       sched_job->entity = NULL;
+>>   +    if (entity->max_hw_submissions) {
+>> +        struct drm_sched_fence *fence = sched_job->s_fence;
+>> +        unsigned int idx = fence->scheduled.seqno;
+>> +
+>> +        dma_fence_get(&fence->scheduled);
+>> +        idx %= entity->max_hw_submissions;
+>> +
+>> +        spin_lock(&entity->accounting_lock);
+>> +        /*
+>> +         * The fence seqno is dense and monotonically increasing. By
+>> +         * cycling through a array sized to match the maximum number of
+>> +         * submissions queued in the HW we can be sure that once we 
+>> need
+>> +         * to reuse a slot the fence stored in this slot refers to a
+>> +         * retired submission and we can safely sum up the accumulated
+>> +         * runtime and dispose the fence.
+>> +         */
+>> +        swap(fence, entity->hw_submissions[idx]);
+>> +        if (fence) {
+>> +            ktime_t runtime = drm_sched_fence_get_runtime(fence);
+>> +
+>> +            entity->hw_time_used = ktime_add(entity->hw_time_used,
+>> +                             runtime);
+>> +            dma_fence_put(&fence->scheduled);
+>> +        }
+>> +        spin_unlock(&entity->accounting_lock);
+>> +    }
+>> +
+>>       return sched_job;
+>>   }
+>>   diff --git a/drivers/gpu/drm/scheduler/sched_fence.c 
+>> b/drivers/gpu/drm/scheduler/sched_fence.c
+>> index 0f35f009b9d3..55981ada1829 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+>> @@ -82,6 +82,25 @@ void drm_sched_fence_finished(struct 
+>> drm_sched_fence *fence, int result)
+>>       dma_fence_signal(&fence->finished);
+>>   }
+>>   +/**
+>> + * drm_sched_fence_get_runtime - accumulated runtime on HW
+>> + * @fence: fence
+>> + *
+>> + * Calculate how much runtime this fence has accumulated on the HW.
+>> + */
+>> +ktime_t drm_sched_fence_get_runtime(struct drm_sched_fence *fence)
+>> +{
+>> +    /* When the fence is not scheduled, it can't have accumulated 
+>> runtime */
+>> +    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, 
+>> &fence->scheduled.flags))
+>> +        return ns_to_ktime(0);
+>> +
+>> +    /* When it is still running, calculate runtime until now */
+>> +    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, 
+>> &fence->finished.flags))
+>> +        return ktime_sub(ktime_get(), fence->scheduled.timestamp);
+>> +
+>> +    return ktime_sub(fence->finished.timestamp, 
+>> fence->scheduled.timestamp);
+>> +}
+>> +
+>>   static const char *drm_sched_fence_get_driver_name(struct dma_fence 
+>> *fence)
+>>   {
+>>       return "drm_sched";
+>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>> index 5acc64954a88..52bcff324a92 100644
+>> --- a/include/drm/gpu_scheduler.h
+>> +++ b/include/drm/gpu_scheduler.h
+>> @@ -238,6 +238,35 @@ struct drm_sched_entity {
+>>        */
+>>       struct rb_node            rb_tree_node;
+>>   +    /**
+>> +     * @accounting_lock:
+>> +     *
+>> +     * Protects the array of fences tracking the in-flight HW 
+>> submissions
+>> +     * and the accumulator counter.
+>> +     */
+>> +    spinlock_t            accounting_lock;
+>> +
+>> +    /**
+>> +     * @hw_time_used:
+>> +     *
+>> +     * How much HW runtime has been accumulated by retired submissions
+>> +     * from this entity.
+>> +     */
+>> +    ktime_t                hw_time_used;
+>> +
+>> +    /**
+>> +     * @max_hw_submissions:
+>> +     *
+>> +     * Maximum number of submissions queued in the HW.
+>> +     */
+>> +    unsigned int            max_hw_submissions;
+>> +
+>> +    /**
+>> +     * @hw_submissions:
+>> +     *
+>> +     * Scheduler fences of the HW submissions in flight.
+>> +     */
+>> +    struct drm_sched_fence        **hw_submissions;
+>>   };
+>>     /**
+>> @@ -600,6 +629,7 @@ int drm_sched_entity_init(struct drm_sched_entity 
+>> *entity,
+>>                 struct drm_gpu_scheduler **sched_list,
+>>                 unsigned int num_sched_list,
+>>                 atomic_t *guilty);
+>> +ktime_t drm_sched_entity_time_spent(struct drm_sched_entity *entity);
+>>   long drm_sched_entity_flush(struct drm_sched_entity *entity, long 
+>> timeout);
+>>   void drm_sched_entity_fini(struct drm_sched_entity *entity);
+>>   void drm_sched_entity_destroy(struct drm_sched_entity *entity);
+>> @@ -620,6 +650,7 @@ void drm_sched_fence_free(struct drm_sched_fence 
+>> *fence);
+>>   void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+>>                      struct dma_fence *parent);
+>>   void drm_sched_fence_finished(struct drm_sched_fence *fence, int 
+>> result);
+>> +ktime_t drm_sched_fence_get_runtime(struct drm_sched_fence *fence);
+>>     unsigned long drm_sched_suspend_timeout(struct drm_gpu_scheduler 
+>> *sched);
+>>   void drm_sched_resume_timeout(struct drm_gpu_scheduler *sched,
+>>
+>> base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
 
