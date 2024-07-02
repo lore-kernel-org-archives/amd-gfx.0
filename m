@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC861C3271E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADF94C3DA48
 	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3F2510E813;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE6310E80A;
 	Wed,  3 Jul 2024 13:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jzcTYT/2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q61yQr5q";
 	dkim-atps=neutral
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E60BD10E6CB;
- Tue,  2 Jul 2024 21:58:24 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id
- ca18e2360f4ac-7eba486df76so856839f.0; 
- Tue, 02 Jul 2024 14:58:24 -0700 (PDT)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 133E510E6BE;
+ Tue,  2 Jul 2024 21:58:19 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-7f61f41eef0so205060239f.3; 
+ Tue, 02 Jul 2024 14:58:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957504; x=1720562304; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957498; x=1720562298; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wso+Oi2/ut2legKe2oAWbXK/ItRspmzOjB4tGo2hISg=;
- b=jzcTYT/2PkZD3uXDPguTLQ8gTlWktnug6yLsUFB7M4rlHq+ZlSeaU/3rsLpvvhrv5f
- J20J2ePO2YWfo1Y5cQvqgeQ/dyyv+BLzd6OkEttYQKpVZXFWg69WNwh6d25MdSdN4Guy
- /46lP83aHnTAwmktrsyQgmmVc/07M39kVTD27cqnupVW3DGbMJn+tOpmo7lUEYQMwnNl
- wHZLD14ZggOUAh1+APzDC+kTXnj4yFgaPRGX78vvHu9JNcV2nIohWovsPPe8wKJu+TI6
- fOSKkHUAAkHczW1wMPk9J4VBHxWRtpFiPpz2MgqF/G+JdBAcXSVuortBeUxg1t5l9fp2
- Gm9A==
+ bh=4gHhZlZC9lRM4IBPTZ/FMwaYyy9pebB6jMENYSRc4Ds=;
+ b=Q61yQr5qtpgVKP0+V+NmqKjuwJn2NNN48lH+FVxbfJp/nhEzYPCRzquztlfk/Bgryz
+ Ts5MDejq8urhlPCEVCjsdBCCmSlV3apel8GQZ/EuYizwXEjfeV0RL5RzA08SseozvIvB
+ P/uy7lm7LNEzNe1STTOV32Fk1YATkPbewCraPWRIi/d+y9PPyjktLy0ZAnKR5BX156hE
+ 0ZLoImFOlNrc7kmcWXUC36ro4IrtZkNvkj8CXxnEQLACnQ7Pn47CxuulGA7i7K08Oplf
+ T4sEw45e2+e0f+H7W8Pz8IDXeIyv468gnMqOQUTvk+0B3qfskNjGnmxCFavD63nQVyE6
+ zRsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957504; x=1720562304;
+ d=1e100.net; s=20230601; t=1719957498; x=1720562298;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wso+Oi2/ut2legKe2oAWbXK/ItRspmzOjB4tGo2hISg=;
- b=vDMMCJR/b21VprFw0HW3juj8s+oGvn2TbDJ+5/mLCn5EkgEKubpmHL16EhmCQfEwcF
- JHCUsu+XSn+Do/Zr1lmsTuFyi4eBUnqXlNQ2BmYYO85BYPxMTHBoz+T+P8glTNkSU9az
- bMSuDN61bYJ5+gSfOXmPb2Vj0/JrKUr939kdahmUx77J7ck6yeIyeGw/yoFV5zfuPUVT
- ArdRMnZ2Xkod7Gj+nMtjCRf53QlHmd8arxj2EHsqIYkT97NJ1YAEvuBC0e0IfGr3PzoH
- TtiMsV7j8cOgyBFrwz2d0TGUwBUWPkIdgeHqS1shWoiL83HpMePdrkdcTygXeg6AN9FY
- h5YA==
+ bh=4gHhZlZC9lRM4IBPTZ/FMwaYyy9pebB6jMENYSRc4Ds=;
+ b=LTBBjD6v/P9OspYRI1JruO0wO4eNVkZq9kXOQRlZhBLfGdxlt/hR/bZUyFUCcHhl+a
+ 9Hu5rTpuLLTgia7DAjkC1YX93ygg8f3vN2E213oXb5BYuQfImVIIgfiDHEhdzs9+dnL6
+ HGGf0dn/f0au1UsYyBZONuhINoaFYt1L1LM+niyQtv+TvlFAPBJ/3eiJIwWNKN0rQm/g
+ NL/ocqk106TFl0Df81vTIeMrUCrElJz9WE3EacJZwpAVkutJrqfZsuMP+seKWWiGKf7C
+ 7r6fDHa7oQJITQLDM7tHeS+mReYCUQs13nz8HJDNxmXWIbGBKgQpw4fafs7Dw+mEEjAe
+ JS5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWGspFOpI/EoxBSR+83pdN6I0R8It0DWMs75dNQkHaHdTMBbRGCA6Ooem1TM2JNXw/ATMvE0/KuPF+kJyXh1utvYcipZwIhXUeFiNYXZ7Cd6rLNwmX2//HdSrmGaNsJJ777lkS5J7JFG/MyONEV+vvs6ZXZ6cVi6MdPkZPj9WL8cEQxe+Xy4Cw8dPX+w/wM4XC/RSc11dXdiCgIXdwullX9JZWVR+NvU/uzfj9+GHJeMd3VGMQ=
-X-Gm-Message-State: AOJu0Yx911LOb8Iyp00NJMHyNdapBZH17nC98cs5n5H0N6WFiH/A0u/S
- ZCPpJDND5uChSpTDR79W9AynZsOqRBuI3iJ8o/nq00aqxILjBuc3
-X-Google-Smtp-Source: AGHT+IEjihZo5dhJ6MSq0XVTxwNq7IPZF6HNZIFL7WZIO/OulVmLPGqkTjVhpi6rvHnYoJxnqgO6CA==
-X-Received: by 2002:a05:6602:54:b0:7f3:9e2c:fdfd with SMTP id
- ca18e2360f4ac-7f62ee9d6e6mr484501939f.8.1719957504092; 
- Tue, 02 Jul 2024 14:58:24 -0700 (PDT)
+ AJvYcCW8xe+nBJOqq/qsNgs7jug0rskHtTCYGlJAeQ5tCJoklRlHtTj2ju8XFeorJzhKdzD1sFY6S7jJZH+sYHy+6iSNnJUiNbJ6yrlZI5vfGB8GzEfvrQyIRClktbARwiHoyDdd8zdTmSU/EQbJpespjyDTjC0bZpAgwGt9W+yzgF0x92M72IFRw1Ir36VCjrv8ek0b2qYZadFjBk1Ep51HB+HkMblwy8NlWlBJWQ7dpM4PKVmwCZM=
+X-Gm-Message-State: AOJu0YzQj/XGdLApdKFWgS8YS30LN0OX3mKD/mEarN8BlwX62LtgHEow
+ IDx+Cf9imytD/ExyOUAUOfR+xrVXt+yRPg/5kL1WLwB3mPGXy1T0YU+f2Q==
+X-Google-Smtp-Source: AGHT+IGvsn87+MenBdfimxbbj/1jff8gsxfSw490RrEkjixo7jQ/GQOm1e+Gm6LnX0EupXDxk6SVWg==
+X-Received: by 2002:a05:6602:1651:b0:7f6:51ac:bba9 with SMTP id
+ ca18e2360f4ac-7f651acbd92mr409433439f.10.1719957498297; 
+ Tue, 02 Jul 2024 14:58:18 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.22
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:23 -0700 (PDT)
+ Tue, 02 Jul 2024 14:58:17 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 08/52] dyndbg: drop NUM_TYPE_ARRAY
-Date: Tue,  2 Jul 2024 15:56:58 -0600
-Message-ID: <20240702215804.2201271-9-jim.cromie@gmail.com>
+Subject: [PATCH v9 03/52] dyndbg: reword "class unknown, " to "class:_UNKNOWN_"
+Date: Tue,  2 Jul 2024 15:56:53 -0600
+Message-ID: <20240702215804.2201271-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -87,32 +87,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ARRAY_SIZE works here, since array decl is complete.
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-no functional change
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it exceedingly greppable.
+
+NB: pr_debugs are only alterable via >control, and to protect class'd
+debug's from unintended alteration, "class name" must be given to
+change them.  Classmaps map known classes to reserved .class_ids (the
+1..64 val range per module).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b53217e4b711..8116d0a0d33a 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -106,11 +106,9 @@ struct ddebug_class_map {
- 		.mod_name = KBUILD_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.length = ARRAY_SIZE(_var##_classnames),		\
- 		.class_names = _var##_classnames,			\
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index f2c5e7910bb1..73ccf947d4aa 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
  	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+ 	seq_puts(m, "\n");
  
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
 -- 
 2.45.2
 
