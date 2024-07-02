@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 175FFC3064D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 07:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B2BEC3065C
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 07:30:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD67910E544;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B237D10E547;
 	Tue,  2 Jul 2024 07:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AhfOqK9a";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WbOhSw/B";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94C7A10E065;
- Mon,  1 Jul 2024 22:34:51 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-a725a918edaso529781566b.3; 
- Mon, 01 Jul 2024 15:34:51 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4874B10E0EC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jul 2024 06:00:16 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-58ba3e38027so161006a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jul 2024 23:00:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719873290; x=1720478090; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dDZkEA5Xw/Sp+Sil7gF9E8mjtngb6x6DnZd0K/Gw6BM=;
- b=AhfOqK9aepI9fuxy8uWyTzIr2wb5Pn/16bCCKVrNadatGrtQ+DMhBXVC6i7uqP9Duf
- bw7xl/8mTsE0FJeiI3l89iZAowT+0aK6fVmMlm6wuM+prU1IBBs3XuvsdAWwOus2ABOv
- LHOC5jxEZaeUFFwoYLkMx6lqIwpF3tbqNwAICFSN5Da+Wfkl85HQE9zdXc3JO0zt2PZw
- v09fGxu++dVaCyy2s7IPaV6wZHhhn5AhOJYuoj254B113hirO77Smb0F4VStSkmj2+FU
- RP5OiyBOC+2HpYJGAG0na3hD+Z1jazo456W69ii/0QCUANT9mjQc88l1HqGVp3GjnU0c
- /3pA==
+ d=gmail.com; s=20230601; t=1719900014; x=1720504814; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nssNrLwkLI+NUrM25Ewx6N9xGTHvxG50OdYX2CFNzMg=;
+ b=WbOhSw/B2f38Pa40Rj827ww6/VB9kjrPM9VGenTV1/UZN9ZU530mJoyceGE8uh1LXI
+ UwzPgy8O7tQ+iqggwRkljPKD5qpJRshNH5byjzg5s6q/2sdmnethywG2kNM6ZjwDpZB2
+ k0dfShc1YS0l0OXAoboYaFYHrpwEqNDOwrzcc0BOqyh3FyB8zYcZDzDe0Er2uhaf6st4
+ 9izWkmNNWjrT/rrFqW3n+0qgQvqOsvgfqeZbFzHDV7Ml1S1aCMs8wseQN2SgnlWIRhyP
+ SBeoSvvTvwU1fdSdtY2SPRw54ERvb2PDNeIA65HN58ZlqXubI3SLONVgvjMkF9Tm5nyU
+ HktA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719873290; x=1720478090;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dDZkEA5Xw/Sp+Sil7gF9E8mjtngb6x6DnZd0K/Gw6BM=;
- b=MvWvvdgQBCawuwDkXgqVsD55a27BnoyHHba2Xi0Ibor2LevVBAG1YLr9NbGe/EF6X5
- AlYUIMXYiUIYHvni/Za9YFh5S6Puk3830sr8Ku4BVlHbC3x40h2bIOcSRHpJV9BKtpS8
- aUUjCO1lUeR9oA9uobBbchpF8D8Jm2sMpcMjyskeRq1Is92t9JGYj5oP754U8FIYzNZR
- H+7Vy+CScEKFuTAtfQ30Qs5cKfLG8LBonBOMcFWHipF48Mvdzrl59nElB4HoPL++YCzV
- wlwJ61jtCgmB1LRTtRM5Jyso5RjtrmlygQKr4WnBwx7ZArkRw+OjO8ApiskAslZbJ6kE
- bT+A==
+ d=1e100.net; s=20230601; t=1719900014; x=1720504814;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nssNrLwkLI+NUrM25Ewx6N9xGTHvxG50OdYX2CFNzMg=;
+ b=WYs3bvRqokN64x1VmI0D4NYsrWEZ9b/oQ2zv6G/uc60Z05PuAxSGnmVFC+a5CQkf1k
+ zZ3tlefXyjSBnru4m6uWomfxTqMKB9EmnkAylAqE29woNzmqr9szVtca9Es99ZuPHeAT
+ 2hzreYH2tBKP6OCcGPIdFthzAKX7mKEyaa4jAea2Rqm6CpSHSMQcnFraz27zijwKrVyL
+ 46BGqnv33ny3z07B8aR3USnckHpo3tA4I4uuwjqE8T9T3kdBSfzM/JLPqXZDnuRbgJzO
+ q28nLtCVA6eUiG+fbhPYygMth9AlkAZGH9OQrWpj29PV0w+ZuuzQ9CA3b1N17J6N00xM
+ hYaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWCGbRWODvUDhqUtZ6FljTbkzgRcQHa/GcomS2byRB/l30VTzEV4Sd8xXhUEm8NAecqIF7UadSaVSaqioAXYnTVgs+EXd2ptKwgkA8NvW9pvVlGkdhzKZF1Qh35Uq4DGU+1XPd8s6tmAMAWK2Io1w==
-X-Gm-Message-State: AOJu0YwqzjbFWdf4DWurq6kqMB9YIk9F0jzrA/Kn3BpOMWQm8ijZyMfR
- QCGpB9fOabGWs35fKVUGdJt/ZIwJ3r3LZT2Zyx/jpH1QpKZUY1YfZZNcFV2sBdKzfxdN5Ez//kc
- gD8Z9STXA6HCHxzSN3S/GOZdKIPI=
-X-Google-Smtp-Source: AGHT+IGDYQPH72kLApzWQipmEC+sdBkOt/X0x5q0hPUEBs5a0NGCXeLOjteGz2HCG46xtab/yxkP4K87WE/k2Jo1spU=
-X-Received: by 2002:a17:907:3e9f:b0:a6f:50ae:e02 with SMTP id
- a640c23a62f3a-a751446803fmr643722266b.4.1719873289405; Mon, 01 Jul 2024
- 15:34:49 -0700 (PDT)
+ AJvYcCWI7bTS90b6hWbpZW+hp94qHM3maxxnHx4UVf7P7n6QjqIJujV1d5Nb9AfgbPHv9YhXNe7Y/2lUwhPcdSGBUty9gggg7J9HObvOnCUUDg==
+X-Gm-Message-State: AOJu0Yy7rmaV+TNPzEBVl/KYT0ExbCULUioso4GRjS8HpJfDqdn8wEFs
+ tJHTRJROCNGTDy+wmbP/Pw+70vYyS1mZkLLOO3VO06beZ1Ni4kcb8lxPB0c8gRf3Iy+HEBlwqh5
+ Di2v/mnXZTW5iLQzrj0nU4nEXpfEO51iH9Cs=
+X-Google-Smtp-Source: AGHT+IF7Q3QFx+7KDD0cN3IilOb8e4ySiOCsOABN9lnuKSziZ9qxnJzqxNVrlx+QXnUS16Qf33t28Gz6wEsmY+Eb/GI=
+X-Received: by 2002:a05:6402:84f:b0:57c:db99:a131 with SMTP id
+ 4fb4d7f45d1cf-587a09195b9mr6219031a12.29.1719900014110; Mon, 01 Jul 2024
+ 23:00:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240606020404.210989-1-mario.limonciello@amd.com>
- <20240606020404.210989-3-mario.limonciello@amd.com>
- <bc1d81ef-d9d0-4440-b63f-ecfb735ef783@amd.com>
- <d637d3c2-34f7-42f8-acbb-6a1730d3fc3c@amd.com>
- <CAFZQkGy0xuuUw73HQvS8Ce92sUi2rVrRnX25pi1KdNmyQbtBZA@mail.gmail.com>
- <CAFZQkGz8DeoiVX2MohoBoTMxraJk1Ou41N_wKP3GkqRrPg_6sg@mail.gmail.com>
- <49d70214-21e9-4547-96a8-ff168d922eaf@amd.com>
-In-Reply-To: <49d70214-21e9-4547-96a8-ff168d922eaf@amd.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Tue, 2 Jul 2024 00:34:37 +0200
-Message-ID: <CAFZQkGyr6aupS6vzHc1=eHeFnA+t-yvvpQMD-4kP45Hi3a=5Qw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/amd: Add power_saving_policy drm property to
- eDP connectors
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org, 
- Simon Ser <contact@emersion.fr>, Harry Wentland <Harry.Wentland@amd.com>, 
- dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@google.com>
+References: <CADVcqdwr1mVW2rtKX7tMLw8o=eRVKS2-1JMy3PQ=maBCU2uH=g@mail.gmail.com>
+ <CADnq5_Nx4=-uDR4hiaZxudEz4FJYddj_mO1RAMxiLrMeevPhTQ@mail.gmail.com>
+ <BL1PR12MB5158CCFAE59B15D8D0228A4B8EDC2@BL1PR12MB5158.namprd12.prod.outlook.com>
+ <CADVcqdzvw9i37Gf35TKrxTmiR7DoUWtVi9PMrWpn4t+uTuNfEQ@mail.gmail.com>
+ <DM4PR12MB51652B525669A4001C1EF9F58EDC2@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB51652B525669A4001C1EF9F58EDC2@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: Jaroslav Pulchart <jaroslav.pulchart@gmail.com>
+Date: Tue, 2 Jul 2024 07:59:58 +0200
+Message-ID: <CADVcqdyJEHRXZMrWJEzGA2w17hXcKgrvQM0nf5c15YB6nJO9ag@mail.gmail.com>
+Subject: Re: High Power Consumption of AMD RX6800xt in Idle with Secondary
+ Monitor Connected
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "Li, Humphrey" <Humphrey.Li@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 02 Jul 2024 07:30:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,22 +84,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Mo., 1. Juli 2024 um 21:02 Uhr schrieb Mario Limonciello
-<mario.limonciello@amd.com>:
-> Hmm I'm a bit surprised the IGT tests I did didn't catch this.
+I see the same modeline setting for both of them, does that mean "same timi=
+ng" ?
+
+$ xrandr --verbose | grep '*current' -A 2
+  3840x2160 (0x4a) 533.250MHz +HSync -VSync *current +preferred
+        h: width  3840 start 3888 end 3920 total 4000 skew    0 clock 133.3=
+1KHz
+        v: height 2160 start 2214 end 2219 total 2222           clock  60.0=
+0Hz
+--
+  3840x2160 (0x4a) 533.250MHz +HSync -VSync *current +preferred
+        h: width  3840 start 3888 end 3920 total 4000 skew    0 clock 133.3=
+1KHz
+        v: height 2160 start 2214 end 2219 total 2222           clock  60.0=
+0Hz
+
+
 >
-> Are you working on a system with two GPUs by chance (like a Framework
-> 16)?  If so; can you try the "other GPU"?
-
-No, I tested on a Framework 13.
-
-> As it seems your PR to span 3 projects and I've never built KDE before
-> can you spit out some artifacts somewhere that I can have a play with to
-> reproduce your result and find the kernel issue?  Arch pkgs would be
-> preferable for me, but some RPMs or DEBs are fine too.
-
-Here you go: https://nx44777.your-storageshare.de/s/2j4Jy5anDwwzCtF
-and https://nx44777.your-storageshare.de/s/2rxJ4Tp2L8gdc8Y
-You can set the drm property to "Require color accuracy" with
-"kscreen-doctor output.1.allowColorPowerSaving.disallow" and to zero
-again with "kscreen-doctor output.1.allowColorPowerSaving.allow"
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> The two high resolution panels have different timings so it's needed to b=
+e fixed to high memory clock level.
+> @Li, Humphrey to further comment.
+> Thanks.
+>
+>
+> -----Original Message-----
+> From: Jaroslav Pulchart <jaroslav.pulchart@gmail.com>
+> Sent: Tuesday, July 2, 2024 12:20 PM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: Alex Deucher <alexdeucher@gmail.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: High Power Consumption of AMD RX6800xt in Idle with Secondar=
+y Monitor Connected
+>
+> Caution: This message originated from an External Source. Use proper caut=
+ion when opening attachments, clicking links, or responding.
+>
+>
+> Hi,
+>
+> Yes, they are 4k monitors. Any reason for such and expected boost for the=
+m?
+>
+> BTW: I try to increase blanking periods for both monitors without any cha=
+nge.
+>
+> Jaroslav P.
+>
+> >
+> > [AMD Official Use Only - AMD Internal Distribution Only]
+> >
+> > Hi Jaroslav,
+> > Are both of your monitors 4K resolution?
+> > Then most likely the memory clock is expected to be boosted.
+> > Thanks.
+> >
+> >
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > Alex Deucher
+> > Sent: Monday, July 1, 2024 11:07 PM
+> > To: Jaroslav Pulchart <jaroslav.pulchart@gmail.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Subject: Re: High Power Consumption of AMD RX6800xt in Idle with
+> > Secondary Monitor Connected
+> >
+> > Caution: This message originated from an External Source. Use proper ca=
+ution when opening attachments, clicking links, or responding.
+> >
+> >
+> > On Mon, Jul 1, 2024 at 3:25=E2=80=AFAM Jaroslav Pulchart <jaroslav.pulc=
+hart@gmail.com> wrote:
+> > >
+> > > Dear AMD GPU Kernel Maintainers,
+> > >
+> > > I am writing to report an issue with high power consumption of my
+> > > AMD RX6800xt graphics card when a secondary monitor is connected.
+> > >
+> > > Upon investigation, I observed that my desktop computer generates
+> > > more heat while idling. I determined that the high power consumption
+> > > issue arises when I connect a secondary monitor to my AMD RX6800xt
+> > > card, causing it to consume approximately 40W of power in idle state =
+.
+> > >
+> > > I checked the "GFX Clocks and Power:" in
+> > > /sys/kernel/debug/dri/1/amdgpu_pm_info of my RX6800xt during idle,
+> > > and here are the findings:
+> > >
+> > > With the secondary monitor connected memory frequency is up and
+> > > constantly at 1000MHz:
+> > >         1000 MHz (MCLK)
+> > >         3 MHz (SCLK)
+> > >         1825 MHz (PSTATE_SCLK)
+> > >         1000 MHz (PSTATE_MCLK)
+> > >         856 mV (VDDGFX)
+> > >         45.00 W (average SoC)
+> > >
+> > > Single monitor connected:
+> > >         96 MHz (MCLK)
+> > >         0 MHz (SCLK)
+> > >         1825 MHz (PSTATE_SCLK)
+> > >         1000 MHz (PSTATE_MCLK)
+> > >         6 mV (VDDGFX)
+> > >         8.00 W (average SoC)
+> > >
+> > > The significant difference in power consumption between the two
+> > > states indicates a potential issue in power management that needs to
+> > > be addressed. Your assistance in resolving this matter would be
+> > > greatly appreciated.
+> >
+> > It depends on the timing of the monitors.  The memory reclocking can on=
+ly occur during blanking periods on the monitors.  If the reclocking is don=
+e outside of the blanking periods, you will see flickering or artifacts on =
+the display when it happens.  If the blanking periods are too short the dri=
+ver can only downclock memory when the displays are off.  Adding more monit=
+ors makes this harder as you have to take into account the blanking periods=
+ on all monitors.  You can try adjusting the modelines used on each display=
+ to increase the blanking periods.
+> >
+> > Alex
