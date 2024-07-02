@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D21C3DA46
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 193BCC3DA40
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8295710E80B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22B0310E805;
 	Wed,  3 Jul 2024 13:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LnWyUTls";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J19QX6D2";
 	dkim-atps=neutral
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
- [209.85.222.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F19B10E520;
- Wed,  3 Jul 2024 02:35:07 +0000 (UTC)
-Received: by mail-ua1-f51.google.com with SMTP id
- a1e0cc1a2514c-810177d1760so169360241.2; 
- Tue, 02 Jul 2024 19:35:07 -0700 (PDT)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 642E310E707;
+ Tue,  2 Jul 2024 21:59:27 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-7f5f7ecacc0so203302239f.0; 
+ Tue, 02 Jul 2024 14:59:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719974106; x=1720578906; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1719957566; x=1720562366; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ruvas3khZrC/B13qfnO4yyfQhv4rJjj6J6cC5+FuVww=;
- b=LnWyUTlsyG5hxFl7Nb5tsdPCZHXFMhCQlb/OLqINLZpaIJe+EdL6j3xDRguY+Gp0q9
- 0VDt7g4koEvZq5YwVwesYRdcJNpw+XX5bpLdXZj9LPrPBLw+OnKf4ywBPyGjL0E3rJJ7
- 0ovxAlM0EY+V897rKpFvZbWVFcHSezkHD1CBSfXSss4fu9l9T9+NdksFPWK1EQu67eAC
- ZB8HuZ5ujbVhKM0K6ZzSS9TMj2RrBJ+EeS9Cjnh1Yn9lm8bCym2grbivzOQf8cMX9Bve
- yJ81dRKbp23JYHXxS/bJg51SCBvY4SVW+q7XP/HHqvZPj1NpSPawo3j8Jql8XO664C6f
- vapQ==
+ bh=o0YsvOK5afJ8qV3rkuOU7CKX9HpGcds0hiKx8bDl++s=;
+ b=J19QX6D2TcgiODZaNPJbGGTWcntKUhxitmDDibgyNQl6XDa0qrE+5oZode1JP33mCs
+ tF5OIhG9y9bWIK6qHaQDviN5Go/RoNWOpwKrLn18BoCKWqXU9sCHLowKxE5XjIQUxYM6
+ eCfYt3pLXdXdZlB8Ex71KcSftpPdJ7UYuJXqiruwUmH3To7l/nW0I/wONBvJ2blzJXnm
+ tw1wYyUsZA/6TYbd6xD3wn0mAXqveifBhPJEWfKfK8wmuN7WJrUbvvmYEM6iArdzHJ9l
+ OUjdiOviGAUug7xSO5b3BJCtzHVtA0ryN1J45AG9peDMjYGzlm8ld5PK0zKA6BjnZvm1
+ k/5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719974106; x=1720578906;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1719957566; x=1720562366;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ruvas3khZrC/B13qfnO4yyfQhv4rJjj6J6cC5+FuVww=;
- b=U8xaedNvQTyP3lstKPZD7HwwwADxbKBz1HfbbqJUndcubCGsCbsNN0or4IkO/FzL/A
- udpE5HC+GCnZ+5/MByB2IGRaO3nMiuSeKb8zQE5oj97wdi0+zynBpFG10MKAZXXnUbNC
- +N6fDx0rYzeF29AQNDzNCnr1RN/DRLD5KRbfTkJqBS5ir9jWIEehDUUsd8I4xGS2TdQZ
- 3t9ok1n22Kwm4aIMKkZQMh8OWB37lnE8R1KMgE7TceNRBlqcznyP/hDt6ugGjP4ULVLW
- 9qeFYrlIvFmTj1hmuDATsAHiOk6yKzIxbeDR1EAlUjcxRWfugSGK/yFSOi1WkRVHiWfK
- QCUw==
+ bh=o0YsvOK5afJ8qV3rkuOU7CKX9HpGcds0hiKx8bDl++s=;
+ b=nj7D1yJJnSFOpcp93s4xxBufegWw4VykJO1l0uddKHpXtQpfm+uHWWQv+54AxMI/7F
+ Tq0Vu60k/V2icsG+709ulOwzFBEEKHjCpQCfB20szfWyqVe9Ws4NWmwvHZNx3oM6jtyM
+ eF7t3h94JEssECrf5qBBph2txKAhARME/P4iS0Ox88EyhT9ujhJ/4B88IdcOazGDEKC+
+ hYMwFmfCRTbVGqCNcRN9wcDQwRHOAKmEcuON1u8bzmqKfgADwJipqyKiUfjFqvO6v1jJ
+ f/cpe7/ljGGkXmFpligD7i/1iYdKiJofyVE6EL//wSpfqbwlw2XH6VL6g0alcl7y6Tym
+ NErg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnNG1plTd7kYkhXT9kqh856TNtE/UJ0A2ZRaXKzxy33W8xFr2ufCxDzz2hvrbXzoE8ug93EfPx9XzEntGOGW8BpgQ/h7BNoyKrTeOql6sA1RxH60gkIl/WpXbGAum0+RPApycPvfscx7fCBXZNAL5yzTjKhf1+xN6uEMg5/Yd4vZ3ynfP2X6pwk55Fq5c/3QuTb03V1xfhK81wTmptRp90UIrv1sZE86TC0K3buPKWm4qHbLM=
-X-Gm-Message-State: AOJu0YyzId/EsEFGgmaGNiiRVp0YdBIGP/6x+H2uUvNR5Emdez8ekeiH
- b/2IM+z623JiFslbA/QnrKIDsQg1NweOY6dFffuYnBPBj3jGcLNkVV9s0E7fWMletkUonixeyrE
- tIDE5HNLgHjTbnVRrSfzI5TRSjoM=
-X-Google-Smtp-Source: AGHT+IFqPTyDSbqJ95dxhUcwADW5HMUYYPETXq2E7N0v3z5D4nmrIWNtCjp5NcD+lseyyRcQp6qVXKcAGD13o9MqU8Y=
-X-Received: by 2002:a05:6102:548d:b0:48f:d683:f46e with SMTP id
- ada2fe7eead31-48fd683f75emr3271895137.22.1719974105840; Tue, 02 Jul 2024
- 19:35:05 -0700 (PDT)
-MIME-Version: 1.0
+ AJvYcCUWo26U9e70eKL7YxUy/7rC0yI2xtjFtnOWY1xyITpiestVHd9gxnKmmd8ajrY1yb4Ho7Z/rlUrM0z7YN/Gz86xosSI66VJdDYtRM8JaqKHyQ4tAloiN6adTsuoaOwAlEVKwW1FoPJ7Y0nqvoSkAcY8b9QwJbMDwiRzzJnXbpY4NJy7Wxy9PGwlwI1zXoDQ8wv71oDzSTAijG/A/kY85v3PktMxGTSFK41TP7Z5YxtA+LDxrLM=
+X-Gm-Message-State: AOJu0YysKrjhwkkGbD9wentVg0xxlEPvrKK53/cVx6fluYnktDig9YAW
+ vXlIi/HaW87qNhUBl4nb8+SjCWucyela5U5ORMDY08WYkW17ueVT
+X-Google-Smtp-Source: AGHT+IGvYws4ZnTk2jdkfQbNphXRfxlVgTR2bSz3FZORd7ias08UfIGbv4urN9er+A1Gk+gnXV2vKg==
+X-Received: by 2002:a05:6602:1306:b0:7f6:27cd:b054 with SMTP id
+ ca18e2360f4ac-7f62ee17f56mr1125065139f.4.1719957566686; 
+ Tue, 02 Jul 2024 14:59:26 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.59.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jul 2024 14:59:26 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
+ mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v9 47/52] drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
+Date: Tue,  2 Jul 2024 15:57:52 -0600
+Message-ID: <20240702215804.2201271-63-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <20240702215804.2201271-31-jim.cromie@gmail.com> <ZoSOMClB0MeWeokU@intel.com>
-In-Reply-To: <ZoSOMClB0MeWeokU@intel.com>
-From: jim.cromie@gmail.com
-Date: Tue, 2 Jul 2024 20:34:39 -0600
-Message-ID: <CAJfuBxzsZUpO-Q_uAfMhzXs0WHYMTnj1F8ju7af-kQZKQjLvNQ@mail.gmail.com>
-Subject: Re: [PATCH v9 30/52] drm-dyndbg: adapt drm core to use dyndbg
- classmaps-v2
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, 
- jani.nikula@intel.com, jbaron@akamai.com, gregkh@linuxfoundation.org, 
- ukaszb@chromium.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux@rasmusvillemoes.dk, joe@perches.com, mcgrof@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 03 Jul 2024 13:03:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,82 +87,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 2, 2024 at 5:33=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Tue, Jul 02, 2024 at 03:57:20PM -0600, Jim Cromie wrote:
-> > dyndbg's CLASSMAP-v1 api was broken; DECLARE_DYNDBG_CLASSMAP tried to
-> > do too much.  Its replaced by DRM_CLASSMAP_DEFINE, which creates &
-> > EXPORTs the classmap when CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy, for direct
-> > reference by drivers.
-> >
-> > The drivers still use DECLARE_DYNDBG_CLASSMAP for now, so they still
-> > redundantly re-declare the classmap, but we can convert the drivers
-> > later to DYNDBG_CLASSMAP_USE
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
-> >  drivers/gpu/drm/drm_print.c | 25 +++++++++++++------------
-> >  include/drm/drm_print.h     |  8 ++++++++
-> >  2 files changed, 21 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-> > index 699b7dbffd7b..4a5f2317229b 100644
-> > --- a/drivers/gpu/drm/drm_print.c
-> > +++ b/drivers/gpu/drm/drm_print.c
-> > @@ -55,18 +55,19 @@ MODULE_PARM_DESC(debug, "Enable debug output, where=
- each bit enables a debug cat
-> >  #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-> >  module_param_named(debug, __drm_debug, ulong, 0600);
-> >  #else
-> > -/* classnames must match vals of enum drm_debug_category */
-> > -DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS=
-, 0,
-> > -                     "DRM_UT_CORE",
-> > -                     "DRM_UT_DRIVER",
-> > -                     "DRM_UT_KMS",
-> > -                     "DRM_UT_PRIME",
-> > -                     "DRM_UT_ATOMIC",
-> > -                     "DRM_UT_VBL",
-> > -                     "DRM_UT_STATE",
-> > -                     "DRM_UT_LEASE",
-> > -                     "DRM_UT_DP",
-> > -                     "DRM_UT_DRMRES");
-> > +/* classnames must match value-symbols of enum drm_debug_category */
-> > +DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
-> > +                 DRM_UT_CORE,
-> > +                 "DRM_UT_CORE",
-> > +                 "DRM_UT_DRIVER",
-> > +                 "DRM_UT_KMS",
-> > +                 "DRM_UT_PRIME",
-> > +                 "DRM_UT_ATOMIC",
-> > +                 "DRM_UT_VBL",
-> > +                 "DRM_UT_STATE",
-> > +                 "DRM_UT_LEASE",
-> > +                 "DRM_UT_DP",
-> > +                 "DRM_UT_DRMRES");
->
-> Looks like this stuff just ends up in an array, so presumably
-> it should be possible to use designated initializers to make this
-> less fragile?
+The udl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
-Im not sure I got your whole point, but:
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/udl/udl_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-the fragility is the repetitive re-statement of the map,
-in those un-modified DECLARE_s,
-once replaced, the USEs just ref the struct built by the _DEFINE
-(once, and exported)
+diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+index 3ebe2ce55dfd..ba57c14454e5 100644
+--- a/drivers/gpu/drm/udl/udl_main.c
++++ b/drivers/gpu/drm/udl/udl_main.c
+@@ -19,6 +19,8 @@
+ 
+ #define NR_USB_REQUEST_CHANNEL 0x12
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
+ #define WRITES_IN_FLIGHT (20)
+ #define MAX_VENDOR_DESCRIPTOR_SIZE 256
+-- 
+2.45.2
 
-I dont really like the _DEFINEs restatement of the enum-values: DRM_UT_*
-especially as "strings".
-I can automate the stringification with an APPLY_FN_(__stringify, ...)
-but the enum-list DRM_UT_* (w.o quotes) is still needed as args.
-
-unless there is something C can do thats like Enum.values() ?
-
-
-
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
