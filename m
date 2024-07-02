@@ -4,44 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0103C3064D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 09:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE72BC3064D
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jul 2024 11:43:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C4E10E580;
-	Tue,  2 Jul 2024 09:15:19 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B36FD10E580
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jul 2024 09:15:18 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[IPv6:::1]) by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1sOZbQ-0004N7-LM; Tue, 02 Jul 2024 11:15:08 +0200
-Message-ID: <35f24b9172893cad50d6e36ff667576f8d3a2fc0.camel@pengutronix.de>
-Subject: Re: [PATCH 1/4] drm/scheduler: implement hardware time accounting
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Luben Tuikov <ltuikov89@gmail.com>, Matthew
- Brost <matthew.brost@intel.com>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>, Christian Gmeiner
- <christian.gmeiner@gmail.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- kernel@pengutronix.de, patchwork-lst@pengutronix.de
-Date: Tue, 02 Jul 2024 11:15:07 +0200
-In-Reply-To: <cf3beee0-14a2-4ad8-8c3d-7ba8a09c6608@ursulin.net>
-References: <20240701171447.3823888-1-l.stach@pengutronix.de>
- <cf3beee0-14a2-4ad8-8c3d-7ba8a09c6608@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8063110E5CE;
+	Tue,  2 Jul 2024 11:43:48 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ekGPwd4N";
+	dkim-atps=neutral
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F7B10E5CE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jul 2024 11:43:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eOBWKB1oRT+R03f8Qh69qGP49LNo0xvwDVuIHD6X/n6X+UD/d5OuWQG6gsCFpuTQuc6X+agIlTtTLg+esQ5Yv3Ndm53nQ8l8r0JMeb2JKRwQJQgn7IFAdNcPhSPF7hQcd13qgRo8UDe/EZKjZ+Bmy6gLCXwx9BUIIMacfdqoNpsCMoxlFOMQeFADbAuEm/GPo/KpctnYYzlJO4lcrLV6RcBzKmp1Inr7gzr+Sr2oAdFJjmYKHJwR7EufmS5CcAZjfTdvaVVgRx1xTF6oLBzF5paqRhnIqkly9pFbrXniorPbQb2jKx/q47Ki77bQ1tlQuUpfmS6yOnDfPvkXkW4eKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AHXIVL+j0FVSU613sCv3J93QYFlzLhJxM/Dq1TwQeK8=;
+ b=QHiegrk9HQMlvWvjZnS51cCaJXc5he9IykxDtnrTFdEGThbpeO8Gv14aTER2IhdomD3DGO+a8qUK9u5K7ZoqFsDgFLt9E9QyQR9jcykDyhipHjTAjnpQ+mUrH7xuZvkYG+Lw4dG3RLQ/sJKIs19MpTfg+0xD/rnChIKbaTsNUKdGlJWvl5zgEhY+d4fe/kehSBJVSf8R/W7PRTqiTVApf4vhDCC03VURF0phrc9tUUlnxW3yQprEk7gGt3dq69O+RLdlvNYE9sMjjhSdDIYKwk17G9QkjO14D7ODclo/HOOAlKi4ZnNYgk82u7EL2UDEpGMT4iGUfurOe1m//kdLSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AHXIVL+j0FVSU613sCv3J93QYFlzLhJxM/Dq1TwQeK8=;
+ b=ekGPwd4N7G+Moa7bi9Jb58M9ZGWVb8fiIB2EL6WNi2Z5Pd9PcG7i2Dh3hhslTKNBWIAYZ3pXGMRRc6FHNDlLw0ai9te2qU2fqNyfrFPYYItW88uTucucRgm3acE15ZhH5+B9pJQumTo09tSb8wA9x9WD+bopEa+NIO8HrRlbAYQ=
+Received: from SJ0PR13CA0132.namprd13.prod.outlook.com (2603:10b6:a03:2c6::17)
+ by CY8PR12MB7243.namprd12.prod.outlook.com (2603:10b6:930:58::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.29; Tue, 2 Jul
+ 2024 11:43:41 +0000
+Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::37) by SJ0PR13CA0132.outlook.office365.com
+ (2603:10b6:a03:2c6::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.17 via Frontend
+ Transport; Tue, 2 Jul 2024 11:43:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7741.18 via Frontend Transport; Tue, 2 Jul 2024 11:43:40 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 2 Jul 2024 06:43:37 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Tom Chung
+ <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Add checks to prevent buffer overflow in
+ mod_hdcp_dump_binary_message
+Date: Tue, 2 Jul 2024 17:13:14 +0530
+Message-ID: <20240702114314.1341221-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|CY8PR12MB7243:EE_
+X-MS-Office365-Filtering-Correlation-Id: 994a9f5e-c072-46ee-6380-08dc9a8c3850
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?N0F2TkV3cVpKMjlCTExzUlBMc3Nmem1RZEI5aXNVSVdUdmZqY2IvQU8rYWJo?=
+ =?utf-8?B?Qyt4LzdPanhocjU1QUlpUXFGK3dKbmhuWGtWYUhOdTlnTkI3TzYwSWdtMGhQ?=
+ =?utf-8?B?RzFjcXRUREw5Z1B3NHFDcnBRaG5Sb3IwNGVYNlc1alJvMkZ2VHBYNHRCM1cw?=
+ =?utf-8?B?TWNwQWRsM1N4SDBPbE5yR29PQ2xIY2lycW1nVjNHaXloaTRjNVpUaVlGQmta?=
+ =?utf-8?B?YkhrMTRyL2lNN2didFpkT0o4OVk5RmFLa1ZTaTloSURVYmtpU3NhWHNOWU53?=
+ =?utf-8?B?NG1LTU45Yy9ITHBtYWZVdFdKYm9pTWFQdWVwSXpScXRMZ3FQTGdqaTZpRDgy?=
+ =?utf-8?B?WGlBVGpNSmRpa1RxTmFxZGltdUI5K3hkRXBodmdoLzJIeXpXaEEvNXQzcEdN?=
+ =?utf-8?B?M3hXQnhRL1BPSmUzbHBEZlpDVFJyNFVkWVB1aFVhN0hYZ3A0YlhuUlBkcVEy?=
+ =?utf-8?B?QS9pMEhFVTc5cC95TUtYSUVPQVgyakh6S3pRNVc0SG8xMHloaHRaMUV6VVY0?=
+ =?utf-8?B?RlVQMXJ3dUlKMHJuRmc4MzZNaUd1SWVlai96Rko5c2E2T2k1UW9UcDZlL2JW?=
+ =?utf-8?B?ZUlFa1BQcDlPN2pEVldvM0ZDeklxZUxENXMzTWMrWDJCUmRBb2FnUk10TkRO?=
+ =?utf-8?B?eDlQNm9xYkk0akZkaXRlVWxzMDkwMDVGWG52QVpXWmN0TnBJZXF0ZjM1OHJk?=
+ =?utf-8?B?U1VTMFAzSWJmb0JFbHFGUkEwMHZxUTV6RGs4VTkxMkE0SXZWVUFJVjNiank0?=
+ =?utf-8?B?UzhkMEJ1a2pYSUNIeitqTkRzK1AraEVLa0ZFaTB0Z29Bc2Z4d1Y3dWo4ZHJm?=
+ =?utf-8?B?UVdaUmRFeU1KcXRNUmlHNzBQYWhOU0hwZTFyNnpBbmFtYk4xV25Bd040SS9m?=
+ =?utf-8?B?bXNsVUUySEpneHcyNVlaVE53TWVGdUNIUkhTczNTUVlFSjA5TTRlaXB4YXlF?=
+ =?utf-8?B?MjJiOTJwcnpBNm9YNWxHaVJwbHpnMjdaQXJNbFFDYmtiNDBkOVJoTmZYRVdj?=
+ =?utf-8?B?WkNkTGt6QUs2OW5xUXlZZGJkRUxRcG11WWRCN0pmYWxmNjFEOGRnMWxJa1ZI?=
+ =?utf-8?B?UXFkVU1nWkFsTkhuKytCU0hFLzNkRVBidDJxTWVXaS9QR0lZMEhPZlFoVlZQ?=
+ =?utf-8?B?NHVsQkVmNzFYM1lrNC91WXFXUDBuamhTSDBVYTNFZlNQZ1lONjVXUks4ZDhu?=
+ =?utf-8?B?RThYQkdFRFNFc1FDYkFQQXcxaktPR3V3WDUwcndRUGp0eS95dHg2blFpQlFu?=
+ =?utf-8?B?cVc0Y0hWRFcxWE1CMXRETXhPRml6TWVjSThJaVlQUUVORFpGKzZRWVdIOWlR?=
+ =?utf-8?B?amhlWURwOS9sWGpoZEYwL1lSWXRuU2QrR05OQjMzRTZEYnNjd2t5dks3bWl1?=
+ =?utf-8?B?WVA0UWVhc1A2NXpoNkZhdlNEQWJITUZ2cldUNmxIMGFuQ0gwaG50MTI4ZEgz?=
+ =?utf-8?B?YmtZTVVZdW5QTzZFSG9ocDRsaUwzNzczTEEvTkc0eXd3WHQwekJ5N0lDdVZF?=
+ =?utf-8?B?RHVHM1d5ZW1QWDhLV3h1TkxIVWt5VkdybHIzY0hFR3VWZWg3eEdKL3F2VzNM?=
+ =?utf-8?B?VmxZdXplSDFiZEh0d0oveUJIckpNck9ZWEpMc1lTTWdJcUJ6WEw2T29rM1Jk?=
+ =?utf-8?B?dVhEV3FmMUJPZGZFbFVCYnhBNkR6ekw2cVRuSkJPZEZYeGNGZXJuTjJ4M2RN?=
+ =?utf-8?B?QTJPRU1QVmp1andUL1NXdytIaHVPZzg2elpSWWZ6RG5kM2pMLzlFUzBJSFhx?=
+ =?utf-8?B?NjBPWnFqNXpWQnhEZjdSNzNwS2FLSVlHYzNvWmJYY3VSTkRTbVh5Q3FXdmha?=
+ =?utf-8?B?WEF1VFFxSGFSS2R6Z21QTS9aVGd6Mm5RdlVhbVN5eW9Qbm4rNldPS2ZVM1Nh?=
+ =?utf-8?B?dVo1SXJiTGhTOXpGR1krYk9nZFpWV2hsWUYzbFdDUlF6aGMwQklpVW5wcU1F?=
+ =?utf-8?Q?9qDCmOSqL2rPkhar1huAx0QDsSzsfM+h?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2024 11:43:40.8940 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 994a9f5e-c072-46ee-6380-08dc9a8c3850
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7243
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,328 +143,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+This commit addresses a buffer overflow issue in the
+mod_hdcp_dump_binary_message function in the display/hdcp module
 
-Am Dienstag, dem 02.07.2024 um 09:42 +0100 schrieb Tvrtko Ursulin:
-> Hi,
->=20
-> I few questions below.
->=20
-> On 01/07/2024 18:14, Lucas Stach wrote:
-> > From: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
-> >=20
-> > Multiple drivers came up with the requirement to measure how
-> > much runtime each entity accumulated on the HW.
-> >=20
-> > A previous attempt of accounting this had to be reverted because
-> > HW submissions can have a lifetime exceeding that of the entity
-> > originally issuing them.
-> >=20
-> > Amdgpu on the other hand solves this task by keeping track of
-> > all the submissions and calculating how much time they have used
-> > on demand.
-> >=20
-> > Move this approach over into the scheduler to provide an easy to
-> > use interface for all drivers.
-> >=20
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
-> > ---
-> > v2:
-> > - rebase to v6.10-rc1
-> > - fix for non-power-of-two number of HW submission
-> > - add comment explaining the logic behind the fence tracking array
-> > - rename some function and fix documentation
-> > ---
-> >   drivers/gpu/drm/scheduler/sched_entity.c | 82 +++++++++++++++++++++++=
--
-> >   drivers/gpu/drm/scheduler/sched_fence.c  | 19 ++++++
-> >   include/drm/gpu_scheduler.h              | 31 +++++++++
-> >   3 files changed, 131 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm=
-/scheduler/sched_entity.c
-> > index 58c8161289fe..d678d0b9b29e 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > @@ -62,7 +62,9 @@ int drm_sched_entity_init(struct drm_sched_entity *en=
-tity,
-> >   			  unsigned int num_sched_list,
-> >   			  atomic_t *guilty)
-> >   {
-> > -	if (!(entity && sched_list && (num_sched_list =3D=3D 0 || sched_list[=
-0])))
-> > +	unsigned int i, num_submissions =3D 0;
-> > +
-> > +	if (!entity || !sched_list)
-> >   		return -EINVAL;
-> >  =20
-> >   	memset(entity, 0, sizeof(struct drm_sched_entity));
-> > @@ -98,6 +100,11 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
-> >   						 (s32) DRM_SCHED_PRIORITY_KERNEL);
-> >   		}
-> >   		entity->rq =3D sched_list[0]->sched_rq[entity->priority];
-> > +
-> > +		for (i =3D 0; i < num_sched_list; ++i) {
-> > +			num_submissions =3D max(num_submissions,
-> > +					      sched_list[i]->credit_limit);
-> > +		}
->=20
-> Does this work (in concept and naming) for all drivers if introduction=
-=20
-> of credits broke the 1:1 between jobs and hw "ring" capacity?
->=20
-Functionally it's still correct, as we simply cycle through the array a
-bit slower when a job takes multiple credits. It doesn't violate any
-fundamental assumption. However, ...
+The issue arises when the 'buf' pointer is NULL or the 'buf_pos' index
+exceeds the 'buf_size', and is passed to the sprintf function, which
+attempts to write to an invalid memory location. This is leading to
+undefined behavior
 
-> How big is the array for different drivers?
->=20
-... the tracking array is getting really big for drivers which allow
-for a large number of credits. Worst cases in order are PVR with 64k
-and nouveau with 1024 credits. The memory required to hold the pointers
-to the fences, as well as referenced fences is huge.
+To resolve this, checks are added to ensure that 'buf' is not NULL and
+'buf_pos' is within the bounds of 'buf_size' before it is passed to the
+sprintf function. This change prevents the buffer overflow.
 
-I guess we need something more clever like a xarray to track the fences
-and clean up signalled fences on each submit or something like that.
+Fixes the below:
+In function ‘mod_hdcp_dump_binary_message’,
+    inlined from ‘mod_hdcp_dump_binary_message’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:29:6,
+    inlined from ‘mod_hdcp_log_ddc_trace’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:107:3:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:47:25: warning: null destination pointer [-Wformat-overflow=]
+   47 |                         sprintf(&buf[buf_pos], "%02X ", msg[i]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘mod_hdcp_dump_binary_message’,
+    inlined from ‘mod_hdcp_dump_binary_message’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:29:6,
+    inlined from ‘mod_hdcp_log_ddc_trace’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:122:3:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:47:25: warning: null destination pointer [-Wformat-overflow=]
+   47 |                         sprintf(&buf[buf_pos], "%02X ", msg[i]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘mod_hdcp_dump_binary_message’,
+    inlined from ‘mod_hdcp_dump_binary_message’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:29:6,
+    inlined from ‘mod_hdcp_log_ddc_trace’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:61:3:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:47:25: warning: null destination pointer [-Wformat-overflow=]
+   47 |                         sprintf(&buf[buf_pos], "%02X ", msg[i]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘mod_hdcp_dump_binary_message’,
+    inlined from ‘mod_hdcp_dump_binary_message’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:29:6,
+    inlined from ‘mod_hdcp_log_ddc_trace’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:70:3:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:47:25: warning: null destination pointer [-Wformat-overflow=]
+   47 |                         sprintf(&buf[buf_pos], "%02X ", msg[i]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘mod_hdcp_dump_binary_message’,
+    inlined from ‘mod_hdcp_dump_binary_message’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:29:6,
+    inlined from ‘mod_hdcp_log_ddc_trace’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:73:3:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:47:25: warning: null destination pointer [-Wformat-overflow=]
+   47 |                         sprintf(&buf[buf_pos], "%02X ", msg[i]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function ‘mod_hdcp_dump_binary_message’,
+    inlined from ‘mod_hdcp_dump_binary_message’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:29:6,
+    inlined from ‘mod_hdcp_log_ddc_trace’ at drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:70:3:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_log.c:47:25: warning: null destination pointer [-Wformat-overflow=]
+   47 |                         sprintf(&buf[buf_pos], "%02X ", msg[i]);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Regards,
-Lucas
+Cc: Wenjing Liu <wenjing.liu@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> >   	}
-> >  =20
-> >   	init_completion(&entity->entity_idle);
-> > @@ -110,11 +117,52 @@ int drm_sched_entity_init(struct drm_sched_entity=
- *entity,
-> >  =20
-> >   	atomic_set(&entity->fence_seq, 0);
-> >   	entity->fence_context =3D dma_fence_context_alloc(2);
-> > +	spin_lock_init(&entity->accounting_lock);
-> > +
-> > +	if (!num_submissions)
-> > +		return 0;
-> > +
-> > +	entity->max_hw_submissions =3D num_submissions;
-> > +	entity->hw_submissions =3D kcalloc(num_submissions, sizeof(void *),
-> > +					 GFP_KERNEL);
-> > +	if (!entity->hw_submissions)
-> > +		return -ENOMEM;
-> >  =20
-> >   	return 0;
-> >   }
-> >   EXPORT_SYMBOL(drm_sched_entity_init);
-> >  =20
-> > +/**
-> > + * drm_sched_entity_time_spent - Accumulated HW runtime used by this e=
-ntity
-> > + * @entity: scheduler entity to check
-> > + *
-> > + * Get the current accumulated HW runtime used by all submissions made=
- through
-> > + * this entity.
-> > + */
-> > +ktime_t drm_sched_entity_time_spent(struct drm_sched_entity *entity)
-> > +{
-> > +	ktime_t result;
-> > +	unsigned int i;
-> > +
-> > +	if (!entity->max_hw_submissions)
-> > +		return ns_to_ktime(0);
-> > +
-> > +	spin_lock(&entity->accounting_lock);
-> > +	result =3D entity->hw_time_used;
-> > +	for (i =3D 0; i < entity->max_hw_submissions; ++i) {
-> > +		struct drm_sched_fence *fence =3D entity->hw_submissions[i];
-> > +
-> > +		if (!fence)
-> > +			continue;
-> > +
-> > +		result =3D ktime_add(result, drm_sched_fence_get_runtime(fence));
->=20
-> Does this end up counting from when jobs have been submitted to the hw=
-=20
-> backend and may not be actually executing?
->=20
-> Say if a driver configures a backend N deep and is filled with N jobs,=
-=20
-> while in actuality they are executed sequentially one at a time, the=20
-> time as reported here would over-account by some series such as=20
-> (job[0].finish - job[0].submit) + ... + (job[N].finish - job[N].submit)?
->=20
-> Or in other words if one submits N jobs to a ring serving an 1-wide hw=
-=20
-> backend, will we see "N*100%" utilisation instead of "100%" if sampling=
-=20
-> while first job is still executing, the rest queued behind it?
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> > +	}
-> > +	spin_unlock(&entity->accounting_lock);
-> > +
-> > +	return result;
-> > +}
-> > +EXPORT_SYMBOL(drm_sched_entity_time_spent);
-> > +
-> >   /**
-> >    * drm_sched_entity_modify_sched - Modify sched of an entity
-> >    * @entity: scheduler entity to init
-> > @@ -326,6 +374,8 @@ EXPORT_SYMBOL(drm_sched_entity_flush);
-> >    */
-> >   void drm_sched_entity_fini(struct drm_sched_entity *entity)
-> >   {
-> > +	unsigned int i;
-> > +
-> >   	/*
-> >   	 * If consumption of existing IBs wasn't completed. Forcefully remov=
-e
-> >   	 * them here. Also makes sure that the scheduler won't touch this en=
-tity
-> > @@ -341,6 +391,9 @@ void drm_sched_entity_fini(struct drm_sched_entity =
-*entity)
-> >  =20
-> >   	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
-> >   	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> > +	for (i =3D 0; i < entity->max_hw_submissions; ++i)
-> > +		dma_fence_put(&entity->hw_submissions[i]->scheduled);
-> > +	kfree(entity->hw_submissions);
-> >   }
-> >   EXPORT_SYMBOL(drm_sched_entity_fini);
-> >  =20
-> > @@ -522,6 +575,33 @@ struct drm_sched_job *drm_sched_entity_pop_job(str=
-uct drm_sched_entity *entity)
-> >   	 */
-> >   	sched_job->entity =3D NULL;
-> >  =20
-> > +	if (entity->max_hw_submissions) {
-> > +		struct drm_sched_fence *fence =3D sched_job->s_fence;
-> > +		unsigned int idx =3D fence->scheduled.seqno;
-> > +
-> > +		dma_fence_get(&fence->scheduled);
-> > +		idx %=3D entity->max_hw_submissions;
-> > +
-> > +		spin_lock(&entity->accounting_lock);
-> > +		/*
-> > +		 * The fence seqno is dense and monotonically increasing. By
-> > +		 * cycling through a array sized to match the maximum number of
-> > +		 * submissions queued in the HW we can be sure that once we need
-> > +		 * to reuse a slot the fence stored in this slot refers to a
-> > +		 * retired submission and we can safely sum up the accumulated
-> > +		 * runtime and dispose the fence.
-> > +		 */
-> > +		swap(fence, entity->hw_submissions[idx]);
-> > +		if (fence) {
-> > +			ktime_t runtime =3D drm_sched_fence_get_runtime(fence);
-> > +
-> > +			entity->hw_time_used =3D ktime_add(entity->hw_time_used,
-> > +							 runtime);
-> > +			dma_fence_put(&fence->scheduled);
-> > +		}
-> > +		spin_unlock(&entity->accounting_lock);
-> > +	}
-> > +
-> >   	return sched_job;
-> >   }
-> >  =20
-> > diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/=
-scheduler/sched_fence.c
-> > index 0f35f009b9d3..55981ada1829 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_fence.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_fence.c
-> > @@ -82,6 +82,25 @@ void drm_sched_fence_finished(struct drm_sched_fence=
- *fence, int result)
-> >   	dma_fence_signal(&fence->finished);
-> >   }
-> >  =20
-> > +/**
-> > + * drm_sched_fence_get_runtime - accumulated runtime on HW
-> > + * @fence: fence
-> > + *
-> > + * Calculate how much runtime this fence has accumulated on the HW.
-> > + */
-> > +ktime_t drm_sched_fence_get_runtime(struct drm_sched_fence *fence)
-> > +{
-> > +	/* When the fence is not scheduled, it can't have accumulated runtime=
- */
-> > +	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->scheduled.flags))
-> > +		return ns_to_ktime(0);
-> > +
-> > +	/* When it is still running, calculate runtime until now */
-> > +	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->finished.flags))
-> > +		return ktime_sub(ktime_get(), fence->scheduled.timestamp);
-> > +
-> > +	return ktime_sub(fence->finished.timestamp, fence->scheduled.timestam=
-p);
-> > +}
-> > +
-> >   static const char *drm_sched_fence_get_driver_name(struct dma_fence *=
-fence)
-> >   {
-> >   	return "drm_sched";
-> > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> > index 5acc64954a88..52bcff324a92 100644
-> > --- a/include/drm/gpu_scheduler.h
-> > +++ b/include/drm/gpu_scheduler.h
-> > @@ -238,6 +238,35 @@ struct drm_sched_entity {
-> >   	 */
-> >   	struct rb_node			rb_tree_node;
-> >  =20
-> > +	/**
-> > +	 * @accounting_lock:
-> > +	 *
-> > +	 * Protects the array of fences tracking the in-flight HW submissions
-> > +	 * and the accumulator counter.
-> > +	 */
-> > +	spinlock_t			accounting_lock;
-> > +
-> > +	/**
-> > +	 * @hw_time_used:
-> > +	 *
-> > +	 * How much HW runtime has been accumulated by retired submissions
-> > +	 * from this entity.
-> > +	 */
-> > +	ktime_t				hw_time_used;
-> > +
-> > +	/**
-> > +	 * @max_hw_submissions:
-> > +	 *
-> > +	 * Maximum number of submissions queued in the HW.
-> > +	 */
-> > +	unsigned int			max_hw_submissions;
-> > +
-> > +	/**
-> > +	 * @hw_submissions:
-> > +	 *
-> > +	 * Scheduler fences of the HW submissions in flight.
-> > +	 */
-> > +	struct drm_sched_fence		**hw_submissions;
-> >   };
-> >  =20
-> >   /**
-> > @@ -600,6 +629,7 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
-> >   			  struct drm_gpu_scheduler **sched_list,
-> >   			  unsigned int num_sched_list,
-> >   			  atomic_t *guilty);
-> > +ktime_t drm_sched_entity_time_spent(struct drm_sched_entity *entity);
-> >   long drm_sched_entity_flush(struct drm_sched_entity *entity, long tim=
-eout);
-> >   void drm_sched_entity_fini(struct drm_sched_entity *entity);
-> >   void drm_sched_entity_destroy(struct drm_sched_entity *entity);
-> > @@ -620,6 +650,7 @@ void drm_sched_fence_free(struct drm_sched_fence *f=
-ence);
-> >   void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
-> >   			       struct dma_fence *parent);
-> >   void drm_sched_fence_finished(struct drm_sched_fence *fence, int resu=
-lt);
-> > +ktime_t drm_sched_fence_get_runtime(struct drm_sched_fence *fence);
-> >  =20
-> >   unsigned long drm_sched_suspend_timeout(struct drm_gpu_scheduler *sch=
-ed);
-> >   void drm_sched_resume_timeout(struct drm_gpu_scheduler *sched,
-> >=20
-> > base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
+index 6b3b5f610907..285251711a2d 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
+@@ -40,9 +40,9 @@ void mod_hdcp_dump_binary_message(uint8_t *msg, uint32_t msg_size,
+ 	uint32_t buf_pos = 0;
+ 	uint32_t i = 0;
+ 
+-	if (buf_size >= target_size) {
++	if (buf_size >= target_size && buf) {
+ 		for (i = 0; i < msg_size; i++) {
+-			if (i % bytes_per_line == 0)
++			if (i % bytes_per_line == 0 && buf_pos < buf_size)
+ 				buf[buf_pos++] = '\n';
+ 			sprintf(&buf[buf_pos], "%02X ", msg[i]);
+ 			buf_pos += byte_size;
+-- 
+2.34.1
 
