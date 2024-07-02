@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31025C3814E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB9D9C3DA4D
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 13:04:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1CD610E811;
-	Wed,  3 Jul 2024 13:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87B8410E81D;
+	Wed,  3 Jul 2024 13:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="edI3UR31";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SB8obxTM";
 	dkim-atps=neutral
-Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
- [209.85.166.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2F010E6E2;
- Tue,  2 Jul 2024 21:58:52 +0000 (UTC)
-Received: by mail-io1-f44.google.com with SMTP id
- ca18e2360f4ac-7f61f41eef0so205080639f.3; 
- Tue, 02 Jul 2024 14:58:52 -0700 (PDT)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143E310E6E7;
+ Tue,  2 Jul 2024 21:58:49 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-7f3cd2c0a79so167774439f.1; 
+ Tue, 02 Jul 2024 14:58:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719957531; x=1720562331; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1719957528; x=1720562328; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=82cgNbRoYEtZbLGOSF5g6lGYBT3iAgTZZ5N8otaIkxw=;
- b=edI3UR31Z5ZgSERtLXBBy8YUMytYK/ARdjS6UyKtDx1SoiKTdt3X+z7WIM4L/wsQzE
- Ef0NOZc5wE/JadxRubGrsSlA5hYOuYr0bpFvYYCBGGeFe+U98oXGEGh04VuOOcW5A/4z
- 9tXqmucbJRJYYk1/mSQjgvAuGWkQ22Wq4UzetE5R4vkMeyLVDnMuCcqn1ve/Foth4FbL
- VfoxU1DtITZCBUSplXRVP4TGt0i7ZfhzOcHI0xcTsgIglO96W4WKJaZAevftd+Uu8sv1
- Ult0AlXaPasWh+Dqm4ouYoKIWfrZKgnX2oveylV9LYPx/hBmdCbf/hwxQGskFMES3ZAp
- ERSg==
+ bh=FUz2fuyNm0/W+cer/IlT8tdUcSLjwR0swYFnYz1+7bA=;
+ b=SB8obxTMY8VShzYnCjwVB0T13vpBZf3limFd/lYaLVCaIpwP5MeAkSKwoFYqRQ5vve
+ M60Fs0Nlj2nlyJ1aCpkLhtfPnAERfxzUjCNgL6YWe6Cm80h6wJY49mnjNTZTt24+i0xp
+ 4O8m/bIf1l3eRz9u7SdtTxT7AE6pt6VptJsdAH/zq2aluNgUNOm9iOApkVBwo1XdhSCo
+ KVhf6g500qL2oAbIdzhvy+bEPp/LsHAUuIMN2tGSqQWIf3+v8QhViTtIhuGyouMPco2z
+ DlcsZ+85MVohKLpMzdmoe+8Ohx0OowXPwKBIPOEt3MQNvlxSSX4wRjTbNArPRkaYzBOz
+ qBgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719957531; x=1720562331;
+ d=1e100.net; s=20230601; t=1719957528; x=1720562328;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=82cgNbRoYEtZbLGOSF5g6lGYBT3iAgTZZ5N8otaIkxw=;
- b=vHwdDiE+QOybJEWrMuOWNu0HOO3+RaYcdmijJ4xIqWRhNcKoBYKk9C4afHNgR5+piC
- a0kxtnf9RYESVoaLfplRW10x2MrNPoNEVPCPpU3xG0zv8yzy0+RczK/Ru6brfHCyTk4C
- iXMacOcCrvdUrNVPXwVRjB4b0EqBW5ryJYlvOdZ1anPu0bMbH7lFUF3zwe57FnQBcB86
- tN0rBHSGbUAIAvXZpDO8RZc8ZE7PJ4waAVF7iIiQUCT4Ceh3k2cOQxFMeNbvqVBiEtHf
- N8CAreVOWgdbRVgDXSZFhz7tS+Soxy5pMzf8onaMV7a0B+yVPP/ZQKK+f3RSeunkzYbE
- 8lXw==
+ bh=FUz2fuyNm0/W+cer/IlT8tdUcSLjwR0swYFnYz1+7bA=;
+ b=qDgp3L3Fj5FFsNPoqSxKs22JfNY8jzZRsidDVGgcYGt2K0LjoSCONlD+OnWnc4I+08
+ QjHLf9mzJCHEPqQ6+i1tR4Zv36GwOzJMUk35nohfNUnE+hxV25O/venBAzlaYoeRz8/D
+ 6dh+i2btCunoP63qrmSqY17cLK5LVzpWzjx5HQL9GxxYK55FABFFbpE+QdZQ59Wy9nK3
+ L+VbuPboZRGkyRfTTN/tCZ1Ijsj6TSuXVxLRAryR56yBho/FBBX6cb4W58JyrluqaHp6
+ PFD2rXw/K+1OF6EjD1TIFXvdR/FxKrLU5aUH7JukeBiu5BYDlFPjwnBFxSvSxZKdQYpR
+ +YNg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUUfxKFsXYbIRxMiv+lzIeLR022V6ucghyXPS+JxsfOt5/TbRklUkx2y94HKotBjX1KfUYQXTrnP0IOoG+fyIT+zeOfQEcHDVyxZYEGn6kwwo3faEwHTAMomgnzli0S7c/GrddbaLYz+37yeMHLoAq3uD2S8yaBMeYck3TiTUx66vopnpXJZ6UhqDyLK9X2hmSnbjZDyFgrOm/tclzLrlxoEb2JYKCtdTf+tQmwdL95UDq66rQ=
-X-Gm-Message-State: AOJu0YztCWwpNI3EKV8k1zjA/Gbhfxj/yd8wyeVUnuNkDYJiSjKIdMbk
- u//VxV0fkzgvnHcoLMvgdSh21m3y7k0RJUm0Id4o4LUIPZB4ixOF
-X-Google-Smtp-Source: AGHT+IF0XfGuaBZergfyh09/+1cwiSfDW4SSxiw5JoBgqXQoqE0seQNYvFesDvoSIIDGsiZcxnz7Ow==
-X-Received: by 2002:a05:6602:42c8:b0:7f3:d811:d808 with SMTP id
- ca18e2360f4ac-7f62eeae89fmr1232570639f.17.1719957531440; 
- Tue, 02 Jul 2024 14:58:51 -0700 (PDT)
+ AJvYcCV5+WSUFxDAVyyQuhMAz06A8vw+eZu7df0rBN5Yczr+3e2WLPinKEFR90sLV4Ry7JiByk6ZDFIYNDDPsJLyPy9D6JPc2jo6jyuYMBus9Fx+xz+fy5ey43b4DDlRpfu0N1FFRAZ08vmet3Oku6h4ek1SD5316udGZ76e9x6xI/tBBc+u6mqtzfeMRmdyzkcWU9xegcQYfYqWJRBc07QqeCDNhPHV7unx9ba4c9JXWoFqXLPJ/Ls=
+X-Gm-Message-State: AOJu0Yyi9+9Ut72Fa7Npl6q8E1rrl/c2Ft2aoMT42A5GQttYav+7Gu4E
+ BQUuf4RNw0i0/ZVf9dXXegNA2F/2EfsONsbmGvvAZX0Iy86yWGSx
+X-Google-Smtp-Source: AGHT+IHBWcQbF7AzwbpraWmmrtlRBjOUVEzWk/QMFIDiv3bq2LCfSxlC7rVZKZrSP+Cf2khVoPBz0Q==
+X-Received: by 2002:a5d:8453:0:b0:7f3:d649:9fff with SMTP id
+ ca18e2360f4ac-7f62ed4c918mr1080653939f.0.1719957528255; 
+ Tue, 02 Jul 2024 14:58:48 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.50
+ ca18e2360f4ac-7f61d207fcesm279944739f.51.2024.07.02.14.58.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 14:58:50 -0700 (PDT)
+ Tue, 02 Jul 2024 14:58:47 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com, jbaron@akamai.com,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
  mcgrof@kernel.org, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9 31/52] drm-dyndbg: adapt DRM to invoke DYNDBG_CLASSMAP_PARAM
-Date: Tue,  2 Jul 2024 15:57:21 -0600
-Message-ID: <20240702215804.2201271-32-jim.cromie@gmail.com>
+Subject: [PATCH v9 28/52] dyndbg-selftest: reduce default verbosity
+Date: Tue,  2 Jul 2024 15:57:18 -0600
+Message-ID: <20240702215804.2201271-29-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240702215804.2201271-1-jim.cromie@gmail.com>
 References: <20240702215804.2201271-1-jim.cromie@gmail.com>
@@ -87,54 +87,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Invoke DYNDBG_CLASSMAP_PARAM to hook drm.debug (__drm_debug) to the
-DRM_UT_* classmap, replacing the ad-hoc wiring previously doing it.
+Remove the '-v' arg from the tests in test_mod_submod().
+Setting V=1 in the environment turns it back on, for all tests.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 8 ++------
- include/drm/drm_print.h     | 6 ++++--
- 2 files changed, 6 insertions(+), 8 deletions(-)
+ .../dynamic_debug/dyndbg_selftest.sh          | 23 +++++++++----------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 4a5f2317229b..efdf82f8cbbb 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -69,12 +69,8 @@ DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
- 		    "DRM_UT_DP",
- 		    "DRM_UT_DRMRES");
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index d09ef26b2308..b3d7155cb45c 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -168,7 +168,6 @@ function error_log_ref {
+ }
  
--static struct ddebug_class_param drm_debug_bitmap = {
--	.bits = &__drm_debug,
--	.flags = "p",
--	.map = &drm_debug_classes,
--};
--module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
-+DRM_CLASSMAP_PARAM_REF(debug, __drm_debug, drm_debug_classes, p);
-+
- #endif
+ function ifrmmod {
+-    lsmod | grep $1 2>&1>/dev/null || echo $1 not there
+     lsmod | grep $1 2>&1>/dev/null && rmmod $1
+ }
  
- void __drm_puts_coredump(struct drm_printer *p, const char *str)
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 905fc25bf65a..95c667934bbb 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -141,11 +141,13 @@ enum drm_debug_category {
- };
+@@ -316,13 +315,13 @@ function test_mod_submod {
  
- #ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
--#define DRM_CLASSMAP_DEFINE(...) DYNDBG_CLASSMAP_DEFINE(__VA_ARGS__)
--#define DRM_CLASSMAP_USE(name)   DYNDBG_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_DEFINE(...)    DYNDBG_CLASSMAP_DEFINE(__VA_ARGS__)
-+#define DRM_CLASSMAP_USE(name)      DYNDBG_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_PARAM_REF(...) DYNDBG_CLASSMAP_PARAM_REF(__VA_ARGS__)
- #else
- #define DRM_CLASSMAP_DEFINE(...)
- #define DRM_CLASSMAP_USE(name)
-+#define DRM_CLASSMAP_PARAM_REF(...)
- #endif
+     # change classes again, this time submod too
+     ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
+-    check_match_ct =pmf 1 -v
+-    check_match_ct =plt 1 -v
+-    check_match_ct =pml 1 -v
++    check_match_ct =pmf 1
++    check_match_ct =plt 1
++    check_match_ct =pml 1
+     #  submod changed too
+-    check_match_ct =mf 1 -v
+-    check_match_ct =lt 1 -v
+-    check_match_ct =ml 1 -v
++    check_match_ct =mf 1
++    check_match_ct =lt 1
++    check_match_ct =ml 1
  
- static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
+     # now work the classmap-params
+     # fresh start, to clear all above flags (test-fn limits)
+@@ -333,25 +332,25 @@ function test_mod_submod {
+     echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
+     echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
+     # 2 mods * ( V1-3 + D2_CORE )
+-    check_match_ct =p 8 -v
++    check_match_ct =p 8
+     echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
+     echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
+     # 2 mods * ( D2_CORE, D2_DRIVER )
+-    check_match_ct =p 4 -v
++    check_match_ct =p 4
+     echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
+     echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
+     # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
+-    check_match_ct =p 6 -v
++    check_match_ct =p 6
+ 
+     # recap DRM_USE_DYNAMIC_DEBUG regression
+     ifrmmod test_dynamic_debug_submod
+     ifrmmod test_dynamic_debug
+     # set super-mod params
+     modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
+-    check_match_ct =p 7 -v
++    check_match_ct =p 7
+     modprobe test_dynamic_debug_submod
+     # see them picked up by submod
+-    check_match_ct =p 14 -v
++    check_match_ct =p 14
+ }
+ 
+ tests_list=(
 -- 
 2.45.2
 
