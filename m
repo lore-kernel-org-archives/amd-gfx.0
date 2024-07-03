@@ -4,150 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3D1C2BD09
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 14:10:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 555AFC2BD09
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 14:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0314410E8B6;
-	Wed,  3 Jul 2024 14:10:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F83C10E8EE;
+	Wed,  3 Jul 2024 14:29:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1PGoLuWE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EmwCyvI4";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5237F10E8B6
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 14:10:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AT3NBM4pCdJOLqqAXMWOlpPCngUUQ4brcfO/xIU+yP7bzfx1zwcPr928avqGpQBboJFuf8Dl1lxXCPShnNMAFJXKr5SwncWD19BK4SDaQrV6GLGy3d1PVFPoywORZwTqXR9d4NhsJ+5xtJsHztTZW8bcsMBkgOTbuZoIOHyuxXGGShIrB0GcqNi8jQI1Qjy8rubYWZ8PpxBHyc1kDu1zsLSgSSwm/xsQ3+hq+KXkjssZOM8JjeMVvT/FPeUzkJbO9G6KeOo+iFxvf6G+/fj3Qse0UJ+wxYS1H3veIakU1U+CVLag88XFzKW5jEy1bfD2PkWBNsZiHXDawST/9Hq/Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xzNH8QeAeYzaIrXPsXk4vOfDG6Gg1Lvhzzqp4+ffDQA=;
- b=OT2aMAWkVpu+Q09DItbaH/rVoQnuwa9/8vfqfPOBZMKBdejfVEtJprfEb0log12TjYFZ/PVLJYpHZvPu2khx5SwzLN+j7lsaq1uX9LH77WfzkpTzxzXSaIAvep4TjBcNVJshqEqZiGpoupBvlChqonhDWxPbFvWLWRxMyDRdm6gppaWnCZhAk+xKqpWyt2R0MaIvNKk+hD/R4Sp4VdM9uZHD+RxhMx6aN0VBSJPnfrEr7vbtRYogr0NKFn1ANOl5MYFQMsE3P9eavusYYS1DkuA2yEmiy3GMP7pzR1hA/F/CNsGaWCDwezR27Ret7MwiLcUvi2FiKJU+//5IDl7qBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xzNH8QeAeYzaIrXPsXk4vOfDG6Gg1Lvhzzqp4+ffDQA=;
- b=1PGoLuWE86vL3Wrf26AYtdedpHZSOl2mY0VK0VExKTL//d31r6FVEd/NoDZwAdV1GPOLSsF+37tCOIo6Fn+sbt0ZGAM8rMdXu51ivoAG8kz2tcYgxjpO5ZrVMq5u23KcaLy6JhLYf8mcZBGkkELrM+7RKjFEdroTAEK3sKYPFg0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB6184.namprd12.prod.outlook.com (2603:10b6:8:a6::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7719.32; Wed, 3 Jul 2024 14:10:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%6]) with mapi id 15.20.7741.017; Wed, 3 Jul 2024
- 14:10:34 +0000
-Message-ID: <5a63063e-a3c3-4ce5-ac7b-95aafd7dffce@amd.com>
-Date: Wed, 3 Jul 2024 16:10:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: disallow multiple BO_HANDLES chunks in one
- submit
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <20240702132357.327220-1-pierre-eric.pelloux-prayer@amd.com>
- <636b7a69-f6e4-41b3-886b-1dbe92d15479@amd.com>
- <f014af20-9d7b-4276-8e06-eb48329d2f16@damsy.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <f014af20-9d7b-4276-8e06-eb48329d2f16@damsy.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0071.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ce::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D44D10E8E3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 14:29:10 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2c97aceb6e4so469307a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jul 2024 07:29:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1720016950; x=1720621750; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mBJzSFLzwdLsyCRgN9qRxy6yyFkDUjl+4YzWMMfFEcQ=;
+ b=EmwCyvI42sKG7FjSBVS1Zo8EJWBy6Ab6INjWHX7VstLW3o6Du/dumZoyB3xpgHcREn
+ MxSuiepKT0BjrmZcom8m1CgjW4Kl4Iuo65OBeqLUuWzFzGmYJIhtKkRcMQJAQMzJZrty
+ qUuwvf9VnYslo/N0lJr9+oCSlo3uexYjaUPUTDomUHE3ICHHBlbseWCjIcCJcP2EB86f
+ kGEniS7KJRGXFfHsTnS+XklUJQ+cDvN1cE134fS7pN1xQBUDxpFP6m1TNl/7VlkQCAWF
+ /zEc2/Zvjlf4S0rWk+IjXMrctxXAY9CZa7PiLTCYS+n8yhEwZpxW4EXpxceVIERtKEhH
+ OKnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720016950; x=1720621750;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mBJzSFLzwdLsyCRgN9qRxy6yyFkDUjl+4YzWMMfFEcQ=;
+ b=dz+O6wNlSWYTJ6Y+vNF0BnPJHBzeO+fdswxFZsfVrhG/h7IhE+OldzCSEjAenbcKRo
+ gWUeEXRDvSF16RwnfZ/ULwHbow3ekFq5e6jD4p0IQy+CML1xB3emCJpe/JlLctC+/r3x
+ Ik4SOedeY4L3jiEhZODXVUkbAGYIT/wRRs/lnQienuKp9TbUasYPWItittDbrztbkaek
+ yplGbYdbayb4gGE1WSpjJ/R8ukS4P0/J6363YtB3uH8nbVO1riF14yjF0f/NUgT1VtQl
+ Wb0XZWQO9yf85vGJwlXz8DVz/ito4gR1Gs+0H0Jx0lOS2E7UNoVCuG4uMalzBU8bQ5Aa
+ AP9Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXPC1tlIkSkwLZAD2dBMmdqdxq03mXxBhGcgmdQiDM+Wyvbh6eIY45KiIp+D7sNXwGeznjYy5Ha+ecSH851RD8yDMbb/YYzRBjNIqg1dQ==
+X-Gm-Message-State: AOJu0Yy3mXMvlkRCAndFwCdBhIYYlZzYZxqIit8rwsL/wx7hp60wMyUp
+ m+ofbu9uahPVgPGflzIU1i+cqLWyfsXdG3N5rXvsBqnfBrJ8qcIu7N1AiBEIC6xJ+mIG2ttjGT6
+ A+1VFzbT/Ogk6u6VP0/jnL+zc/7I=
+X-Google-Smtp-Source: AGHT+IH4sMt/hHsooimbrYAqshyD0yLAfQb38UNB3cGEJCt0f4At/IUkjN2g9mZGLG/gLBG/6jyvodoqferngqiqed8=
+X-Received: by 2002:a17:90a:5106:b0:2c9:6791:a752 with SMTP id
+ 98e67ed59e1d1-2c96791a7e9mr2901548a91.44.1720016949901; Wed, 03 Jul 2024
+ 07:29:09 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6184:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2323407d-bef0-4312-77ae-08dc9b69e7de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NEJiWjlhQ1lTY29jSGRraFZwNzE3WVVCbjJpUWNVNjhlMHBjUXJaM2FPTU9O?=
- =?utf-8?B?YlZpSUZFcnJtK3ZQbEM0TmhYc3dVSnJ1WXpiVUxZcWJtQ1F1ckdEUnp3cW5y?=
- =?utf-8?B?L2tRbnJYQVI3NGVOaXNyeFNUWGtmU0l0SExnemhXenY2eUpNWUlGbEJyaGhI?=
- =?utf-8?B?WmswZDhFY3VvMUVNdTVidzZyek5uQjlvSzlmc2VkMVVQTnFpUHNlZVl4Z1hJ?=
- =?utf-8?B?Rko5WFI0ZzRXT2JyTThiVXd2RzZ5S1VHdm51dVFFZlJsT3FaeHJVQXpERTJj?=
- =?utf-8?B?eGFZOVhpNm9PTmh3N3psWUt1dmRZdmRhdHJJUC9DYmk4bGJpUFBaZXlFTGxM?=
- =?utf-8?B?VytrUkNWU1g2dmxxVERVY2FJYktnMStmSUxCaVVUcTFnZkVweXlwWGxXaUty?=
- =?utf-8?B?aGN5RXQwRzU0eWtKUDdOT3hNbS84VlNzdDF4emVWZytFU2tSV3hDRXlxenNS?=
- =?utf-8?B?OHZWdTJtQngvV2wwSWFvTGowUGZNTE9FbGs1OE1vVDVrLy9QdVZZMnpPb0pM?=
- =?utf-8?B?Y2I0YzYrUURkcGlxR0tEOTFkakxUM3NnZEMxTEY5NlhGKzk5Q240SzYrcUE5?=
- =?utf-8?B?SzVIOGc0SHFlVklqMkJrTkpsVGIzazYwaWs5NDRJYTlDYjRsekZ1WUxvVTJz?=
- =?utf-8?B?N2hMYTdPZCtOektxSTJ6NHpHYmwvSG1QL1BJanZzaXdmMitvTjByaUNTMnN2?=
- =?utf-8?B?Q3lBcXdmTFE4SGUybEt5eGVYRlJzbHZ3YUF1YnBVSnF4KzQvK0VVZ0RhYk1H?=
- =?utf-8?B?aS9RSXV1RU9FNDJIN3FYNk96Y2pSaG5CUklPQVB6a1g1eldId0FaaUF1YVMw?=
- =?utf-8?B?bDhzU21EWk9WbkVDZmZ4VGFoL05aRU9ubk53bkJqYlJCRkhBSUUwVlJENXNu?=
- =?utf-8?B?YXh5S2xEZEpESkl3YlVuK1o2cHdxQ20rRHZHSDZSQXBUbDJ2UWZWbXIvYi9N?=
- =?utf-8?B?T01RT1VQUkxDRVNqR1ZjYmJ4TnNQYUJ3UFZPdTdYYXU0YlpTOXYzTlpaWVlV?=
- =?utf-8?B?K3I3RytOWEhUMUpCSnZZUUcxTk1RSVNxQXN6aHlHLzN3U0trYWUxQTd1bnJV?=
- =?utf-8?B?RzNzbENqREZ3L1hHTkhPYm8rSVFwTGM1Tk1PZXE4ZWxpcTJLMXQzeTdRNUgw?=
- =?utf-8?B?d2ZCYVg3TlNseGk4c2hHbVAxQ3dQcWFNaUtRcWFVRUx5TXVFUDdqRm5wdWI0?=
- =?utf-8?B?NSttL3NXUThpUE5pVnhLZXFrbEFPbFpQSGlyWFBkU0ZLTjQ3TnJOcUhYM1pQ?=
- =?utf-8?B?a29lUkZHQWwwR0ZRcmJPM3hsWldHTjRMTy9TYWoxenZ0akxLd2lvcURoTWx0?=
- =?utf-8?B?Wlg3MUNSNEFIQkIvUzNaYnYwN3QyVk1oRENzTjRsK2R0eERTeE9KLzB1bmY0?=
- =?utf-8?B?cEpIdUNPaUlHL3FRYk5zL3U4NjNGak85K05IWnJ5akpMbmk3L0orYVMvTSsr?=
- =?utf-8?B?dGswVXJqaHBFT0hQT2FRUWZvWDVlM0hxRE1ZVS93Y0NkMWJmWkJmdzdKMGt5?=
- =?utf-8?B?Ni9WTWlzb3E5dEdpcUx6RytJSmNSbm5RQzRteUJ6aUN1N0JXZnhDRUlYMENG?=
- =?utf-8?B?cHczVlA1b1lDeUR4MGw5ZXBTaU45SzgyMWsvaVEzVmFaNjZuQUg4TXA2OElN?=
- =?utf-8?B?MCtzTUg0NkNCakwydXE0cDRGdFg5QUJZSWRLNGNYdFhLeUVTRU0yR1ZRWUhy?=
- =?utf-8?B?d0ljeWxWN1NPSVYrMWRQSVYyQ0p3N1NvVzB2cWNpWklVN3l3cU5hdlVHclc0?=
- =?utf-8?B?aGJFUkxxaW5GK0g0SGEyNTNOMWNhUDMrdUh6VW5PRTlCU21zcDBqeG5YcFRY?=
- =?utf-8?B?SlBwdVVlSEJhdlIvbCt6UT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0F3Skl6bTYvYUV0QklVOURKdTZBRXM1RG81UThWNVBXbmFMYldDL3lHQWJ6?=
- =?utf-8?B?azZwUEtHTG9NUFIrcW5jUGU4UkZoWFhQLzdUODdVZklZdFN5Y3BTVGJqb3VJ?=
- =?utf-8?B?ekVwRVlJd2FsT0U5WFhKNHYzL20yc0p4Y25TTGRvRysweGZta29WcFZlTzhv?=
- =?utf-8?B?Yk0zYk1nRS9henFTU1hRR1RSeVJtVDl3aUpMMkZ5ckNlUUJISGNDdnVMVXJi?=
- =?utf-8?B?OUZzNzBEd29zWVphaFljMGg3RjQyMW40aGMrTWJWTTh5WGtPZTRzMXVub1Zl?=
- =?utf-8?B?ai9hT2hicENaTDZPTTRhdGdVZVRwSUNJdHJBemJKMEw0dEpveUtXMDZSZ0R5?=
- =?utf-8?B?ZVdwSTZMR29iRjFlUmZXTk1sMkJuMVVMbUlvd3JidUx4L1dBM3o3KzFxQWU3?=
- =?utf-8?B?cC9oTDkyNlZ4S1p5MjN3aTRLM0pCRDliZXMraVZiUHFlWUxTSGhaSEJkT2gr?=
- =?utf-8?B?N2IvZGx4SjhMTmFvYkpXNXlCa1ZaMEoxUVZWMW1tTDI0L1BBQ3ZsNnhSZUNJ?=
- =?utf-8?B?ejRzMkRDb004VENSZElXcWphdVp0cjhqc1ZiZUZxR1NydWV1NlJaTXZ4L1dV?=
- =?utf-8?B?UHNNQ2o5ZGxHRm1HZXhuUHMrdHpPSktJbUhzR3prNkFpVER5UC92bTkxVnVT?=
- =?utf-8?B?MHhyTmpteXFuYndqcldDRVViNE9qOEJFVTNXdDNhUEduL1Q4ZEF5QXk3SXVS?=
- =?utf-8?B?SHNYc2NLTGRtVzJhc0NEWk9zMDI2ajlhU3I4NWUyaHFaUkhBb2Q3ZE91TWFq?=
- =?utf-8?B?ZHBMV1A1S0UwSVdxSXY4YlhBOGJmUHdhNnB5MFcyeDY2NWdJTWtzekdLNlg3?=
- =?utf-8?B?NmNuaUl2dEJXbk94dG52L2NLeUE4Tk1JTFh6ZDg1c2xTNlJ0Rmlic1FKSmtF?=
- =?utf-8?B?Y2p1VnhSUWNYYXI5dndwSDhHR2NzalJnRmxucW9DMmhlbElQUTlPT3FIR0sw?=
- =?utf-8?B?MW1URnRmZGdUNWNxUGFJaG1hYmtOYzkxVGVWRUd4Y3A2T0E5dHhvM21vbUdP?=
- =?utf-8?B?b1ptTnpQVHBFSngza1c0Wm9pM041M3BiK2VIRFFvMkZtQlJ4aDJvMXc4dG8r?=
- =?utf-8?B?cllENVJxeUhLVDlZYW1hbGp0NnM5Rjdzb2lQUFluOGIzWjA5QmFjY1Q2TDdU?=
- =?utf-8?B?K1NBb1hjbXdtTHZBZ2VtaDIxS2ZqNjNZL0ZtUzRDay9vT2xFTitxWGJyTDNZ?=
- =?utf-8?B?NEhQOUpQVmNZekxJb2pDUmgxU2FKdVQ5emh1bDlVWHo1QXVTSStzclBhMURs?=
- =?utf-8?B?bmprS2VFdjFFSHhPVi9LL21QWklUZ0M0RTlxdmxMU1FGSzVWU1pqMFpUZElp?=
- =?utf-8?B?ajNPQWtXcGFDZ28xQ0o1UmVnMzVxVmUzZDdpRG5JWldnWlc5SDI2L241NlIw?=
- =?utf-8?B?Qko2cG5sOGRCYlBySHRpUWNiNTloTnlLaFNIOXo5WWlrOEtvR2xWc25NcElO?=
- =?utf-8?B?Qk4yeUFqL05NZzZNVnlNc25Eb1pxRFlucEdQWjBXNit4a0U1WlMxbDN0SnZJ?=
- =?utf-8?B?bXdQNWtRd2ZIb3lCVDRRN2VIUlNKWUlESlMzV1djUjRBYzlkNTNadVpNUExw?=
- =?utf-8?B?NnF1eTR4cWxzS202OUxhSUpyUG5weUE4MWhMN2xjbGNJTXdQRU8waW1CWkJT?=
- =?utf-8?B?ZWF5L2xXdDk0WVRIV2F1Z1dwMkJKTnhhUkZZUHNucXFMYW9sWUdXUnFvSzFK?=
- =?utf-8?B?K2oyY3d1VkFJTWxpQ3FaNjJaemxhRDVDakMxZDZQaHBaaDVQTFFUK0VuR0JW?=
- =?utf-8?B?WGMxWHBhekF6MURYWktuL2VNYmVXMXNkYkJXLzlDaTIxclNVSVhQRTFjaWF6?=
- =?utf-8?B?WmVoUi9DMGUxMVZVbGpWQ3VFRUk2QUxEc0o4Sm5IMG1BMG1BT1JSbWFETnNU?=
- =?utf-8?B?OFBVMkRRMitVVTVWYUlwemJ2NWpoQUdJYjUyTDJTZzlkRzFxeTJpclJiSDdL?=
- =?utf-8?B?SlRGT3NDbU5uRmpQaXJSeWxKOXJlcll2NjRXM2FTZm5UTitxN21ib3grYmRW?=
- =?utf-8?B?L2ZPQ2JkekcvL1dPcThGaXBJS3BqcFVaYUNobHVXeFJHaGhLWFl4VXg3TEQ4?=
- =?utf-8?B?Zm1RS3VPekFUSkdnVGlua1NnTXllb2FyMi95STFqRzdmOXNqRHJtaHhzQ1l2?=
- =?utf-8?Q?4hfpBqyFJd0jX3gDoADDv+tE9?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2323407d-bef0-4312-77ae-08dc9b69e7de
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2024 14:10:34.6815 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OCUunMOABysuhwfw6feSi1EmMwVutrF8A+KVVCKAApS5nQ2r9cRxD30GuhSaPh6E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6184
+References: <20240703073901.914348-1-sunil.khatri@amd.com>
+ <20240703073901.914348-5-sunil.khatri@amd.com>
+In-Reply-To: <20240703073901.914348-5-sunil.khatri@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 3 Jul 2024 10:28:57 -0400
+Message-ID: <CADnq5_P-RuiYM63bqe=rkvhuC5pR=QZ_2btiRG5h=najnWSZNQ@mail.gmail.com>
+Subject: Re: [PATCH v1 4/4] drm/amdgpu: add gfx queue support for gfx12 ipdump
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,77 +80,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.07.24 um 14:48 schrieb Pierre-Eric Pelloux-Prayer:
-> Le 02/07/2024 à 15:35, Christian König a écrit :
->> Am 02.07.24 um 15:23 schrieb Pierre-Eric Pelloux-Prayer:
->>> Before this commit, only submits with both a BO_HANDLES chunk and a
->>> 'bo_list_handle' would be rejected (by amdgpu_cs_parser_bos).
->>>
->>> But if UMD sent a multiple BO_HANDLES, what would happen is:
->>> * only the last one would be really used
->>> * all the others would leak memory as amdgpu_cs_p1_bo_handles would
->>>    overwrite the previous p->bo_list value
->>>
->>> This commit rejects submissions with multiple BO_HANDLES chunks to
->>> match the implementation of the parser.
->>>
->>> Signed-off-by: Pierre-Eric Pelloux-Prayer 
->>> <pierre-eric.pelloux-prayer@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
->>>   1 file changed, 4 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index c08dfffae262..69d168d6f35a 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -154,6 +154,10 @@ static int amdgpu_cs_p1_bo_handles(struct 
->>> amdgpu_cs_parser *p,
->>>       struct drm_amdgpu_bo_list_entry *info;
->>>       int r;
->>> +    /* Disallow multiple BO_HANDLES chunks. */
->>
->> Describe why you do something, instead of what you do since that 
->> should be obvious from the code.
->>
->> E.g. something like /* Only allow a single BO list to avoid memory 
->> leak. */
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+On Wed, Jul 3, 2024 at 3:39=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com> =
+wrote:
 >
-> It's not really to avoid a memleak because the code below could be fixed
-> to not leak the list.
-> This change is really about only disallowing multiple BO_HANDLES since 
-> this is the de-facto API, except it was not validated until now.
+> Add support of all the CP GFX queues for gfx12 ipdump
+> to be used by devcoredump.
 >
-> I can rephrase the comment as /* Only a single BO list is allowed. */
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 94 ++++++++++++++++++++++++++
+>  1 file changed, 94 insertions(+)
 >
-> Would that work?
-
-Mhm, we still need to give a reason why only a single BO list is allowed.
-
-Maybe "Only a single BO list is allowed to simplify handling".
-
-I don't really see a use case for having more than one BO list, but who 
-knows.
-
-Regards,
-Christian.
-
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index 21b8167f39bd..cf7209b93617 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -173,6 +173,35 @@ static const struct amdgpu_hwip_reg_entry gc_cp_reg_=
+list_12[] =3D {
+>         SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_DEQUEUE_STATUS)
+>  };
 >
-> Thanks,
-> Pierre-Eric
+> +static const struct amdgpu_hwip_reg_entry gc_gfx_queue_reg_list_12[] =3D=
+ {
+> +       /* gfx queue registers */
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_ACTIVE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_VMID),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_QUEUE_PRIORITY),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_QUANTUM),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_BASE),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_OFFSET),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_CNTL),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_CSMD_RPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_WPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_WPTR_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_DEQUEUE_REQUEST),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_MAPPED),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_QUE_MGR_CONTROL),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_HQ_CONTROL0),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HQD_HQ_STATUS0),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_MQD_BASE_ADDR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_MQD_BASE_ADDR_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR_POLL_ADDR_LO),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR_POLL_ADDR_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_RPTR),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_LO),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_CMD_BUFSZ),
+> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BUFSZ)
+> +};
+> +
+>  #define DEFAULT_SH_MEM_CONFIG \
+>         ((SH_MEM_ADDRESS_MODE_64 << SH_MEM_CONFIG__ADDRESS_MODE__SHIFT) |=
+ \
+>          (SH_MEM_ALIGNMENT_MODE_UNALIGNED << SH_MEM_CONFIG__ALIGNMENT_MOD=
+E__SHIFT) | \
+> @@ -1265,6 +1294,19 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_=
+device *adev)
+>         } else {
+>                 adev->gfx.ip_dump_compute_queues =3D ptr;
+>         }
+> +
+> +       /* Allocate memory for gfx queue registers for all the instances =
+*/
+> +       reg_count =3D ARRAY_SIZE(gc_gfx_queue_reg_list_12);
+> +       inst =3D adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
+> +               adev->gfx.me.num_queue_per_pipe;
+> +
+> +       ptr =3D kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
+> +       if (ptr =3D=3D NULL) {
+> +               DRM_ERROR("Failed to allocate memory for GFX Queues IP Du=
+mp\n");
+> +               adev->gfx.ip_dump_gfx_queues =3D NULL;
+> +       } else {
+> +               adev->gfx.ip_dump_gfx_queues =3D ptr;
+> +       }
+>  }
 >
->>
->> With that fixed Reviewed-by: Christian König <christian.koenig@amd.com>
->>
->> Regards,
->> Christian.
->>
->>
->>> +    if (p->bo_list)
->>> +        return -EINVAL;
->>> +
->>>       r = amdgpu_bo_create_list_entry_array(data, &info);
->>>       if (r)
->>>           return r;
-
+>  static int gfx_v12_0_sw_init(void *handle)
+> @@ -1462,6 +1504,7 @@ static int gfx_v12_0_sw_fini(void *handle)
+>
+>         kfree(adev->gfx.ip_dump_core);
+>         kfree(adev->gfx.ip_dump_compute_queues);
+> +       kfree(adev->gfx.ip_dump_gfx_queues);
+>
+>         return 0;
+>  }
+> @@ -4853,6 +4896,31 @@ static void gfx_v12_ip_print(void *handle, struct =
+drm_printer *p)
+>                         }
+>                 }
+>         }
+> +
+> +       /* print gfx queue registers for all instances */
+> +       if (!adev->gfx.ip_dump_gfx_queues)
+> +               return;
+> +
+> +       index =3D 0;
+> +       reg_count =3D ARRAY_SIZE(gc_gfx_queue_reg_list_12);
+> +       drm_printf(p, "\nnum_me: %d num_pipe: %d num_queue: %d\n",
+> +                  adev->gfx.me.num_me,
+> +                  adev->gfx.me.num_pipe_per_me,
+> +                  adev->gfx.me.num_queue_per_pipe);
+> +
+> +       for (i =3D 0; i < adev->gfx.me.num_me; i++) {
+> +               for (j =3D 0; j < adev->gfx.me.num_pipe_per_me; j++) {
+> +                       for (k =3D 0; k < adev->gfx.me.num_queue_per_pipe=
+; k++) {
+> +                               drm_printf(p, "\nme %d, pipe %d, queue %d=
+\n", i, j, k);
+> +                               for (reg =3D 0; reg < reg_count; reg++) {
+> +                                       drm_printf(p, "%-50s \t 0x%08x\n"=
+,
+> +                                                  gc_gfx_queue_reg_list_=
+12[reg].reg_name,
+> +                                                  adev->gfx.ip_dump_gfx_=
+queues[index + reg]);
+> +                               }
+> +                               index +=3D reg_count;
+> +                       }
+> +               }
+> +       }
+>  }
+>
+>  static void gfx_v12_ip_dump(void *handle)
+> @@ -4893,6 +4961,32 @@ static void gfx_v12_ip_dump(void *handle)
+>         soc24_grbm_select(adev, 0, 0, 0, 0);
+>         mutex_unlock(&adev->srbm_mutex);
+>         amdgpu_gfx_off_ctrl(adev, true);
+> +
+> +       /* dump gfx queue registers for all instances */
+> +       if (!adev->gfx.ip_dump_gfx_queues)
+> +               return;
+> +
+> +       index =3D 0;
+> +       reg_count =3D ARRAY_SIZE(gc_gfx_queue_reg_list_12);
+> +       amdgpu_gfx_off_ctrl(adev, false);
+> +       mutex_lock(&adev->srbm_mutex);
+> +       for (i =3D 0; i < adev->gfx.me.num_me; i++) {
+> +               for (j =3D 0; j < adev->gfx.me.num_pipe_per_me; j++) {
+> +                       for (k =3D 0; k < adev->gfx.me.num_queue_per_pipe=
+; k++) {
+> +                               soc24_grbm_select(adev, i, j, k, 0);
+> +
+> +                               for (reg =3D 0; reg < reg_count; reg++) {
+> +                                       adev->gfx.ip_dump_gfx_queues[inde=
+x + reg] =3D
+> +                                               RREG32(SOC15_REG_ENTRY_OF=
+FSET(
+> +                                                       gc_gfx_queue_reg_=
+list_12[reg]));
+> +                               }
+> +                               index +=3D reg_count;
+> +                       }
+> +               }
+> +       }
+> +       soc24_grbm_select(adev, 0, 0, 0, 0);
+> +       mutex_unlock(&adev->srbm_mutex);
+> +       amdgpu_gfx_off_ctrl(adev, true);
+>  }
+>
+>  static const struct amd_ip_funcs gfx_v12_0_ip_funcs =3D {
+> --
+> 2.34.1
+>
