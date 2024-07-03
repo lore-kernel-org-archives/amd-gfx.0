@@ -4,128 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 373D0C30653
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 08:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4EF5C2BD09
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 09:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC8410E128;
-	Wed,  3 Jul 2024 08:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5994110E131;
+	Wed,  3 Jul 2024 09:01:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="13XjcBnq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6WN91WI7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="13XjcBnq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6WN91WI7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1bU/iK5H";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7D510E17F;
- Wed,  3 Jul 2024 08:52:44 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 121121FC9E;
- Wed,  3 Jul 2024 08:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719996763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vL2mwRISun4ZAo3P75oUig4aPMONa2S3X9TsSq90GtI=;
- b=13XjcBnqLAWkgkt49/Om3DGVVmX0DPZpO6UpVVUJ96IKSuX32zhBiQsa0bkMPmebQcCywC
- HY6qnHT3lBsrTdKJgfo6d+QP9guhc4P9eyN5VOGs+PPBxbZy9cxgYHuTcQOmU/wpkB5MMW
- LajIz3UPkhK+dAMDHmo3A+3ykxPit8Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719996763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vL2mwRISun4ZAo3P75oUig4aPMONa2S3X9TsSq90GtI=;
- b=6WN91WI7pHZjGruwSpxqySZyNSLws3lkAgvnC399YKBlYqEurqZ/rGBYAQeIODKCzV81e/
- UnWj7+CwpobuH1DQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719996763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vL2mwRISun4ZAo3P75oUig4aPMONa2S3X9TsSq90GtI=;
- b=13XjcBnqLAWkgkt49/Om3DGVVmX0DPZpO6UpVVUJ96IKSuX32zhBiQsa0bkMPmebQcCywC
- HY6qnHT3lBsrTdKJgfo6d+QP9guhc4P9eyN5VOGs+PPBxbZy9cxgYHuTcQOmU/wpkB5MMW
- LajIz3UPkhK+dAMDHmo3A+3ykxPit8Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719996763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vL2mwRISun4ZAo3P75oUig4aPMONa2S3X9TsSq90GtI=;
- b=6WN91WI7pHZjGruwSpxqySZyNSLws3lkAgvnC399YKBlYqEurqZ/rGBYAQeIODKCzV81e/
- UnWj7+CwpobuH1DQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C86E913889;
- Wed,  3 Jul 2024 08:52:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +aFAL1oRhWb9SgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 03 Jul 2024 08:52:42 +0000
-Message-ID: <748e1bd6-6c40-443d-acbc-3d379229d068@suse.de>
-Date: Wed, 3 Jul 2024 10:52:42 +0200
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E15F410E131
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 09:01:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P+gJhJFWOcKSgbh2VJDrV8LdSlGnlIZSj2dtpHeQrsGqU73s/okGlIGYHOjnEj8s6y6hZRMorV3OTvgw4S5Vj7DdIRhips4gGfEypvLDzsMjvWIxZwoKEmWxEqmHuKvLEKyBvW2c99J7UnitWb/UnZsjY2BunO8QeRYTb2Xq7ZYjH2RNkrbmfIrR23najzeDpuN031h7qAv82Ys01VXpLrREZ3EHiMbRsRHghP/+eD/YFDxBWwpMIHsxILaHSgxPg0CKhc5ZJF+oe4CcoOTiBF924gSoOvF8q/VAshayooQvlYzxgjaFn0vIf5uvhoyIW+edAEYFI32V+OQIPDYR1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QaC5mb9HDoLKOomC4bnMQ+Bh1UPTKWYhl8EUvxOD1Oo=;
+ b=RL/+IOpKFqHwxO0Xz92Idy+g71BgnsPZmvRETU95Da186if1/fiPdkb2K51d6LoPVoTfh9CYaF1JBXCsaQL53rf6yFm5xpDuhjtxWKV4xSN0kNXd0CSdgbiE9QrrRhRJExXRlzBCWAABuhTR9yeIDf3CIPXMgwsXXiyMm7S7JCLO6ocLmZZl7S9ETCELwu4sIUQSmR72l3Fm5l/7cNkRQ2iOdDstcozoYVCkfLEuTev2vcUTapDJo/OcV8V5+3ZMBaw9JJOdyFUMZSrzJsxkAnuzxR4LrmLBuRFMOXKgsOwOAyei0k/6qEZTn4FuzZrcNSfWhxrIbs7smvHa44S9jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QaC5mb9HDoLKOomC4bnMQ+Bh1UPTKWYhl8EUvxOD1Oo=;
+ b=1bU/iK5H6D37Q/ij/M7b2DqaNU1mh18Nqynp/Jzmzvt2HSkrjk+saJwYLHO9IaJM+4BJAc6WHiZ7XJbBVR4qZ2P30kuBRa4UUWJNnwRkoVhAsgzxZuBQkJ+p8xk/Ea0hJnuw7YYI4YA3PArqCXoVbtdw40k9v06Y59fATTNLPFs=
+Received: from DM5PR07CA0071.namprd07.prod.outlook.com (2603:10b6:4:ad::36) by
+ DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7719.33; Wed, 3 Jul 2024 09:01:47 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2603:10b6:4:ad:cafe::14) by DM5PR07CA0071.outlook.office365.com
+ (2603:10b6:4:ad::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.25 via Frontend
+ Transport; Wed, 3 Jul 2024 09:01:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7741.18 via Frontend Transport; Wed, 3 Jul 2024 09:01:47 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 3 Jul
+ 2024 04:01:46 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 3 Jul
+ 2024 04:01:46 -0500
+Received: from dev.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 3 Jul 2024 04:01:44 -0500
+From: Bob Zhou <bob.zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Tim.Huang@amd.com>, <jesse.zhang@amd.com>
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>, Bob Zhou
+ <bob.zhou@amd.com>
+Subject: [PATCH] drm/amdgpu: : Fix the null pointer dereference for
+ amdgpu_device_switch_gang
+Date: Wed, 3 Jul 2024 17:01:44 +0800
+Message-ID: <20240703090144.11241-1-bob.zhou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] drm/radeon: remove load callback & drm_dev_alloc
-To: Wu Hoi Pok <wuhoipok@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240630165949.117634-1-wuhoipok@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20240630165949.117634-1-wuhoipok@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[9]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: bob.zhou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|DM4PR12MB6374:EE_
+X-MS-Office365-Filtering-Correlation-Id: b45c2f9a-cce1-46f2-a8aa-08dc9b3ec50e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dmYuSKZELM1h7Vp7PDHmLuCvNZomIAVStQFC39gcJdvhSyPjkwHXYaqrd3fb?=
+ =?us-ascii?Q?OqnMP0dpB/yHYx0idT8+Nlhasjs4XMrPxTEHwr3XAJQvw9KuJ8DARXrChRHy?=
+ =?us-ascii?Q?ztIB4u94OlM3aKXTFCIR7vQhFX0JMN56PpbKhStFO3vC5UqH5a1uwUR5ZRJH?=
+ =?us-ascii?Q?weI1H/5p3NmOme2hNEM/IWVgnoA/8T9JsxxA4HTJcqRqPE/WjrYsm/X2gVLi?=
+ =?us-ascii?Q?mmy5/+G3n7PDWDzsRTnZNf6NX+73yFYZ94IE6yjHDtgayg3j84G0EN0aUmX2?=
+ =?us-ascii?Q?DMKAkQ+mS9aOo92P7z7cV9FljPMqmaLj5FIrAxFGOp7bZSyYskKu04Yr+0ND?=
+ =?us-ascii?Q?4cqa6rkpjCnGVW/UD1/KRbIlGglSgAJqERE+93G0tGdIshWzwoHuWMxo6zJX?=
+ =?us-ascii?Q?uU45uQA7czXokr8Qt26aBRui90GidtV+lsO+sxu0Z2UPPpi0JTtRG432TCpT?=
+ =?us-ascii?Q?Om2L0cyUtsvJkyfLcrEfajvP+JyKaBqWJz3fMaSjnn+5DKSTZOfrUjKtUSu+?=
+ =?us-ascii?Q?uBRWXJsiKeATFvtTAoqIuGj+7q55hHZRilYOSSCwqiRxkh+6bqibWGG5QvFB?=
+ =?us-ascii?Q?jRvJy8Y9X9A1XwJwMBi1G3C79Q+CNF2TN6TGBBO6BDDywrh0kYOQihCH3Dfe?=
+ =?us-ascii?Q?t76sREqaVjjrqmQqgXx5wh37FjMIQhcDRlvtjFOqYZN/tXp+spAkaUKU0aBu?=
+ =?us-ascii?Q?iHkfwUzHLyMPuYLoW7CTfOTKt8VAordroW1eR8pHapdSZBSeMqTNZ5zFPpvf?=
+ =?us-ascii?Q?UPrsbL6gMVKGZy65SHyNDpEzSLV77ekUk3ppncQoucRnlGLTahC45a9kQlc/?=
+ =?us-ascii?Q?mYHRBvGYdYqR7s4jhpo1mc6b398bSe5NgdxfHUF23Bmw6kTPvl6fd8gthKLB?=
+ =?us-ascii?Q?qkM0xyhKTwDmoTJE73knYx8rIH+I65vRYiSf1K1Oo1n3ankgdmd4ucZ04kHB?=
+ =?us-ascii?Q?yaIsDWhRLC7fWZC8M5RW4yjdwkRlATz2G2kRbA0F1B0g/kRrTLLnZytdyW7n?=
+ =?us-ascii?Q?2D0nUpEAkNuZz+jRf6Zdrw9Qpd8LRiillInmS6cRtVFgV89JMD4nmGyqNWjg?=
+ =?us-ascii?Q?3346jvVg5Fs0YEAPUQtIt9IpgFM0gLTu2XrkqIYl7VkFvgew/DLi2hGavFRw?=
+ =?us-ascii?Q?nPyJ2uWbHdOkBSlEoV6IqRqcY0zqPizE04UodNmrMyR60JSBB+4lkcdZfW3T?=
+ =?us-ascii?Q?ndBF4qox06t053BUwyGQnBfwEsZrfX/VcJ3ewfYGxnMEeWa65Tb4HeOenTWq?=
+ =?us-ascii?Q?YRXrVJ8bAzQhBJXW8jQpRYkNXNruuJPTUB037EO6gq3zyOSqYegH+2U9Co1C?=
+ =?us-ascii?Q?BEH/DGZa8qp++9e4ByT5+7I52KqHoM/PUNYbhTs3BWJTGtEE5AB2QTw2IbZD?=
+ =?us-ascii?Q?FZWYIV4LCp0uVxa1/b00+MmBnIOwfz2xz8aeR+MskZvNSMg+YHnsNOLji7cQ?=
+ =?us-ascii?Q?aAF4dRtQNqa41hBTlFCIUFWxlAOb0vrW?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2024 09:01:47.4711 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b45c2f9a-cce1-46f2-a8aa-08dc9b3ec50e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,80 +137,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+To avoid null pointer dereference reported by Coverity,
+so add null pointer check for the return of amdgpu_device_get_gang().
 
-Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
-> .load and drm_dev_alloc are deprecated. These patch series aims to
-> remove them.
->
-> v3: Both v1 and v2 sucks. v3 improves greatly on readability.
+Signed-off-by: Bob Zhou <bob.zhou@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Very nice, thank you. I tested the patches with Radeon hardware and did 
-not find issues. AFAICT this can be merged as-is. I think it should go 
-into the amd trees. Maybe Alex or Christian can pick it up.
-
-Thanks for sticking with it.
-
-Best regards
-Thomas
-
->
-> Wu Hoi Pok (6):
->    drm/radeon: change variable name "dev" to "ddev" for consistency
->    drm/radeon: remove load callback from kms_driver
->    drm/radeon: use variable flags as parameter
->    drm/radeon: add helper rdev_to_drm(rdev)
->    drm/radeon: change rdev->ddev to rdev_to_drm(rdev)
->    drm/radeon: change drm_dev_alloc to devm_drm_dev_alloc
->
->   drivers/gpu/drm/radeon/atombios_encoders.c |  2 +-
->   drivers/gpu/drm/radeon/cik.c               | 14 ++--
->   drivers/gpu/drm/radeon/dce6_afmt.c         |  2 +-
->   drivers/gpu/drm/radeon/evergreen.c         | 12 ++--
->   drivers/gpu/drm/radeon/ni.c                |  2 +-
->   drivers/gpu/drm/radeon/r100.c              | 24 +++----
->   drivers/gpu/drm/radeon/r300.c              |  6 +-
->   drivers/gpu/drm/radeon/r420.c              |  6 +-
->   drivers/gpu/drm/radeon/r520.c              |  2 +-
->   drivers/gpu/drm/radeon/r600.c              | 12 ++--
->   drivers/gpu/drm/radeon/r600_cs.c           |  2 +-
->   drivers/gpu/drm/radeon/r600_dpm.c          |  4 +-
->   drivers/gpu/drm/radeon/r600_hdmi.c         |  2 +-
->   drivers/gpu/drm/radeon/radeon.h            |  7 +-
->   drivers/gpu/drm/radeon/radeon_acpi.c       | 10 +--
->   drivers/gpu/drm/radeon/radeon_agp.c        |  2 +-
->   drivers/gpu/drm/radeon/radeon_atombios.c   |  2 +-
->   drivers/gpu/drm/radeon/radeon_audio.c      |  4 +-
->   drivers/gpu/drm/radeon/radeon_combios.c    | 12 ++--
->   drivers/gpu/drm/radeon/radeon_device.c     | 13 ++--
->   drivers/gpu/drm/radeon/radeon_display.c    | 74 +++++++++++-----------
->   drivers/gpu/drm/radeon/radeon_drv.c        | 27 +++++---
->   drivers/gpu/drm/radeon/radeon_fbdev.c      | 26 ++++----
->   drivers/gpu/drm/radeon/radeon_fence.c      |  8 +--
->   drivers/gpu/drm/radeon/radeon_gem.c        |  2 +-
->   drivers/gpu/drm/radeon/radeon_i2c.c        |  2 +-
->   drivers/gpu/drm/radeon/radeon_ib.c         |  2 +-
->   drivers/gpu/drm/radeon/radeon_irq_kms.c    | 12 ++--
->   drivers/gpu/drm/radeon/radeon_kms.c        |  8 +--
->   drivers/gpu/drm/radeon/radeon_object.c     |  2 +-
->   drivers/gpu/drm/radeon/radeon_pm.c         | 20 +++---
->   drivers/gpu/drm/radeon/radeon_ring.c       |  2 +-
->   drivers/gpu/drm/radeon/radeon_ttm.c        |  6 +-
->   drivers/gpu/drm/radeon/rs400.c             |  6 +-
->   drivers/gpu/drm/radeon/rs600.c             | 14 ++--
->   drivers/gpu/drm/radeon/rs690.c             |  2 +-
->   drivers/gpu/drm/radeon/rv515.c             |  4 +-
->   drivers/gpu/drm/radeon/rv770.c             |  2 +-
->   drivers/gpu/drm/radeon/si.c                |  4 +-
->   39 files changed, 184 insertions(+), 179 deletions(-)
->
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index bcacf2e35eba..c1d82c346daa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6569,7 +6569,7 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
+ 		if (old == gang)
+ 			break;
+ 
+-		if (!dma_fence_is_signaled(old))
++		if (!old || !dma_fence_is_signaled(old))
+ 			return old;
+ 
+ 	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.34.1
 
