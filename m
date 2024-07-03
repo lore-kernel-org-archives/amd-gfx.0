@@ -4,77 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F378C30653
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 09:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 497E3C2BD09
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 09:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E72A510E1BC;
-	Wed,  3 Jul 2024 09:11:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBADA10E312;
+	Wed,  3 Jul 2024 09:25:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GpFHhnDd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Ry+YeI7";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4A610E1BC
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 09:11:31 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-424ad289949so37224115e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Jul 2024 02:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719997890; x=1720602690; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3J9Ac36Nn4BPoF4tfYFuUOdS/RHfzKct4iVSpZU6aG0=;
- b=GpFHhnDdApMsGLKrBkiZqknWTZ6dEjTOh9kXFbwF0x8SeWJnbBXEoyBRUX3vgWiV8B
- GtmXgwOzfmQfaCz/iD1MQdcCdyvv7ftJc83038bG28/gTLa+auykRBpxTihOt6W7EQNZ
- vXnoYio/QrPfFbHXkVo3WLbS1nxd/SPaEftPpYYmxmCBzl7nfq4eyoZG1tWdkNkosHh/
- PQzHgzOVS8D1lAzRKVux5FR2x/ND6O1HBI1bS7JX89VXfSjML0NPK9JlnonNEZnU6GxM
- kbapj0JH6YTsjlCEgraFPWT9pCesCqbap/WGjJCqE13xzrdL5fYEENHioM1TNw8GQCud
- 2n4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719997890; x=1720602690;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3J9Ac36Nn4BPoF4tfYFuUOdS/RHfzKct4iVSpZU6aG0=;
- b=CDlYx2pd3bkqrcnvDVs/05f7C0ejyWaD4ZroN5iqF7XXG4V2f4N6QEe0U6oub7JH0h
- DrBINsUKFoFLZDZxWEc840PrFl0iHkS+rxfE9nNmNBtNvInw01GIgdD+/wCsWGepVfr5
- T8qIAU3btFjIxvgvtWtAld53L71xneB4ZBtyME9K5Le+ZriTma1s1NdYGxViUDoS0r9j
- RsFV37CbIy12qv4TtinwBMTejEzJrKbvBZtB6EJ41Jdw1/uF4j1Zo67Dps3r2n665swQ
- zkA/EhAVXS+ZwkzyJY6l7v7Pz9257Jys5h8lSJeKUrS9AeFaQSZnyw3tqDyNMkQZ8W41
- QzRA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX5aiOfzRVK5k3ucZdDD5J0xpzqcwh7X8juK2U4cimsdtOv0Lvz3d4yc2mbvqtVX9OfvoZ5rQsBiMSwJ/a6bAfni5VrWsx243WXq7MM+w==
-X-Gm-Message-State: AOJu0YwwzW+F/vBhp/RTEXzQYjIqPUjfHPTHQCmKQqcsPYg+00CSPz+R
- RECJZK6FM0fvBb4mFmODdOKdDRjhrMiUwUWor8T4CJLI8oAIphNQ
-X-Google-Smtp-Source: AGHT+IF6Sj+A/uUEfJVd0JshOEfYBW3B1cg+iV2s+3bMFHyp2KH+1moPHlgwYYBRmq+xOPNMsmeWeg==
-X-Received: by 2002:a05:600c:3047:b0:422:4fcd:d4b3 with SMTP id
- 5b1f17b1804b1-4257a0282f9mr75224515e9.37.1719997889230; 
- Wed, 03 Jul 2024 02:11:29 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4257d04c742sm148108375e9.7.2024.07.03.02.11.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jul 2024 02:11:28 -0700 (PDT)
-Message-ID: <9f5f46fd-1360-46a6-b48a-7185bddad3b7@gmail.com>
-Date: Wed, 3 Jul 2024 11:11:26 +0200
-MIME-Version: 1.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C3F10E312
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 09:25:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rs+OLjQSH51rxCOaiaMj745ZXy42jzt/mQk3edg94O5/amjjLwVlDrlLrTehaEfCbexAV42lO8m+UZqlBwJFidWN5EmWUST/qdiXFzfKc0NIEsJfvtRU1pgCNqJ5mKZzwm6cfFIJgv5BS+oVZcTQ6iQhTPxkpwN2Eeu2TXhFPTe+cobOnnzA0sbbpk284UsBMXPcpYBnRx6I4A0OnAgcKbFd8X1qVwAk1HoUAWRBsfYwLfiMZrtJyMBuQ9Voc7v7FxZdMafEJ0c72TK2feCgJgw6xhVhgnxi1x1vZzE1zfAQg8qQKLzCanM7SIJgbGgeG/xPeRrFYtepOALMkrUBVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a288N5nPAvgB6jH/KqJN+Ofxv0aucmqL9JT5rP67urw=;
+ b=nNr6Hni0dQiwd5HC6nRDv/DC5WIQGL+0/j4qJMoU1yw9GBhg7JYJZsQskJilvE9fqc0+uQgTcDGeZfOj/26VsTyjZQVtn4XCzO75EjslBtRnHxtsi8xNIE38TUHj5tR0zdcxHHNgfAqxTbmDpXwjRbSg266KSIoC77ig9ifVHebprs7JBply1SOhPg1nv59L7882Ib8kl75o8z4ZoL5XnfUr23P2h2zu+j3k1xwb/y2kydv9aJQJWE3E5dIFedsMw1u96So5VJcttNEU75P+hfYFrg9mNl5ORHhvHO1aWxiaUWHpxeACrPf+Uffb0I8A393/c6G6+LHkFyGBbK36Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a288N5nPAvgB6jH/KqJN+Ofxv0aucmqL9JT5rP67urw=;
+ b=1Ry+YeI70X+D2OGkOHibfZ1ExzpoyT7dWOje0LiO2N6Bc0UAKD/j8BaJtdDVJMEpVwiptI2o+dTDDBPVFOIdHRdoPajMN9ZiGMbbN6R25DY3vrj37So9IuE7q5nld14zRdRMVmbrW6nCtq7OIHF6go7+ryGOmFLwtNm0Mn5G8k8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7911.namprd12.prod.outlook.com (2603:10b6:806:32a::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.33; Wed, 3 Jul
+ 2024 09:25:45 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%6]) with mapi id 15.20.7741.017; Wed, 3 Jul 2024
+ 09:25:44 +0000
+Message-ID: <918275d8-788a-421e-b791-3d9537dbcead@amd.com>
+Date: Wed, 3 Jul 2024 11:25:37 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add missing error handling for
- amdgpu_ring_alloc()
-To: "Zhou, Bob" <Bob.Zhou@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Huang, Tim" <Tim.Huang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20240621092454.42879-1-bob.zhou@amd.com>
- <f59fe9bd-b9d6-44cc-980e-59d111933217@amd.com>
- <CO6PR12MB539481D03C064387AC38464D94DD2@CO6PR12MB5394.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu: : Fix the null pointer dereference for
+ amdgpu_device_switch_gang
+To: Bob Zhou <bob.zhou@amd.com>, amd-gfx@lists.freedesktop.org,
+ Tim.Huang@amd.com, jesse.zhang@amd.com
+Cc: alexander.deucher@amd.com
+References: <20240703090144.11241-1-bob.zhou@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CO6PR12MB539481D03C064387AC38464D94DD2@CO6PR12MB5394.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240703090144.11241-1-bob.zhou@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0054.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7911:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef1fd794-6765-4ae4-495f-08dc9b421d74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?d240Sit6aVB4WnFUUElxYzFNdzdEWTRXS1V3c2h0TGVVYVhQeHNXN2tpT04r?=
+ =?utf-8?B?R01rSWNJNVFwWXJETTAvbWpYQ2xKdjRIUFhBZUc1V3RwekZKTzNEVnNkZTJN?=
+ =?utf-8?B?bHB6RHpNbEZSV1M4TmJUbHRQeW5vM3RsLzYxU0FQTHBwejQ0R3hHTlB4dURF?=
+ =?utf-8?B?VWpQQ2VUSk9DeW9KNzhsT1FOSTNEc0ZRcmJIYkF3azc3cmpYRjg3Q0RIUzRP?=
+ =?utf-8?B?OVVHOTBOVU5ZdjR1emI4MjRGRWZ6S0dVYmswOTk0L0FBVml3UGY4L1dkYzNo?=
+ =?utf-8?B?YUprR3dvd0krUEtRSFozWENMd3dpSDV0cnp1UGQ5bUNkeXVCZjJmWDJuSjhI?=
+ =?utf-8?B?cnRaV25ldnNKTFl0VGZMWGMvYnBZUkZDekE5cG1QRXRGdjFvd0ZzYlZHa2hq?=
+ =?utf-8?B?c2VBWE1ZUUY4TnJuREZBSVFxWWhDdFZDRWE5K096WkxTNVd0cGc2bS9JdThZ?=
+ =?utf-8?B?bkhuOHpWMlJrUlBVL2NETVRKSG5hbkJYSTk0b001OVRCendDV3dZNDVnUTFt?=
+ =?utf-8?B?ajk0cHY0ZmVZYndyc2E3cjh4RGVDWUxsYTJtVGNUMnhFN05GUDQzQ2M1STN2?=
+ =?utf-8?B?T1dPbDFGVDkwKzZiTVdpSm8zalhBZnVUV011aXNQUU5oeVBZRU4rNEVuY2Jk?=
+ =?utf-8?B?bnlkdmUyeFd0ZWJ6RTVKV3l3NkpIS3ZOdk1xYnpVOGRBU29COVVPYVpqZjJx?=
+ =?utf-8?B?YXBSdTltWGVIWnZCZHdreU44V0dEajBaM1ZaZjdRS1dHR0lDbGRCTDRoOXIr?=
+ =?utf-8?B?bldHOUZiRkRDKytzRmpFckcrUzE1d1lEcEpMbjFaTk1zbWFhLzF2M0czaEx2?=
+ =?utf-8?B?ZGpHcmVwWnJXMFpJRXNVTGdhSFliMFROWnRxK3J6cjlyeFc5eVBELzN1eVh2?=
+ =?utf-8?B?Rno2ZGxQd09Lbmc0WEZkaVJqcEdDNTRrOVM3dXZ3TlA4UXR1bTJscFVIUVl4?=
+ =?utf-8?B?UEUyUGtEOWQzbmVxa0lXWjJoQTFYMTNEazlvbkQxV0drdDdJMG1ablovWC9w?=
+ =?utf-8?B?M3ArZTY5TnozRUJJaEU3S2tnRS9DSSsrNy9kVjdKQzZ3aStBOGVhYklSVnlS?=
+ =?utf-8?B?TVdNWmlFVFF3bnlELys5RjgwQm9leC9nMlhsOENqdENYdE56b04ySDBnK3Ri?=
+ =?utf-8?B?L1lWZlJPQjB2TlRvQVJ5TXRpZ1RZcG1ZU2tYZm1obzdyUGNjSXB3UEZaUnBy?=
+ =?utf-8?B?cnI1UjZZWlVCWVQ0cTJvV0tLTU10Sko1RDl6TFNlOWlKMForUTBWMkVHSjZp?=
+ =?utf-8?B?NUpLUGFPUDRiL3BpWEs4RHBMWW5iRk00cm1zbDZEQ05mQXJERVVhVHEvNjVM?=
+ =?utf-8?B?aFkrbDhJck1aTUZNS3hTVTM1cWNHWDlPMCtkTHo5ZmdBejBkU2drWUNnUTJo?=
+ =?utf-8?B?R1pleTBESVIyMUUxbEJJRW9zK2VodXN1YmdsUmVINzBLQ2cxeXRhbzFIMHJs?=
+ =?utf-8?B?b0JBZm5PUkRrTkFMaUFNck5NVmQ4RHRrbThJaDJBRTZuVTZPRU5GZVpjaDhU?=
+ =?utf-8?B?VjF5M2hjZnU3anhpdXNlenR5cWhsZzYrVUJ2aTI1OENzVkluNUkvU25LVlJk?=
+ =?utf-8?B?VmFJSFFHejYvV0d3cUFmNGVwU0JQaHlqUHd1akl0OCtMMHp2RURtTmtUSUli?=
+ =?utf-8?B?S0MvT1p4WlhzSk5nbjVmNTJHZVkrZ2JpTGI3anZ0bCtRUU8wSWM5QzZPNkxp?=
+ =?utf-8?B?UlAwZllFcWxoUWFCaDZQRXBaY2dXa3NGV0hRZFY3UkgrNWNaSU9ic3FPOE56?=
+ =?utf-8?B?d2VDSTE5NzBCdGQyRUxOZTV2L1c2L0owSkVCSG1YR201MTNuZWhaaUpXNkRa?=
+ =?utf-8?B?dVRhZlc5NXMyWW9TL3N5QT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0JPRnRzN3hQaW5KakE5VVBqckR0NFhVOGRud0srUUZyeGtJOUF4TC9xUXNZ?=
+ =?utf-8?B?UTZlTmZTNE1XZU5wcEUrNThaRDNiQk5TNDJRM2FTNWJkU0RzRWE4NmErRk5M?=
+ =?utf-8?B?Z0xocm9TajJrb0JJdFVnYTZqYms4S0ZTdHlwQ2QraGs2Rk96bDByN1NiUzZy?=
+ =?utf-8?B?cXM3M29wYUYwVTh0ZEZxbG0zSmFMM3pPayswbjQrN2hKQkQyNkNJTGFlMU1k?=
+ =?utf-8?B?bHhNRVdOU3U3VmlCRlRGRUthTmpiSEMzdjJVV0NUYlhibWd6ZVNYSnMvU1VH?=
+ =?utf-8?B?NytGT2FKMnhTbDZuWHgwbzhYSkVoSXRRNFZzeC9QcE45UWUveFhHTitrSzRx?=
+ =?utf-8?B?OFRxM1lYYURFczBHRzE2cklidWN0OFFaLzlnZURSbGNFUzhjb1dSSlNxWUJj?=
+ =?utf-8?B?M085ZWxtVUtETllSZlQ2WTdETDdlR3FKQ29oQWxBcko5Wmplb3pscHpTd2JW?=
+ =?utf-8?B?Z1JIVUE2VVdIZDQ4Q1kwTVpncU80dTMxMGcyalUyblVqbTM4ZElndDlBSHdi?=
+ =?utf-8?B?d3A1NXkvNVZZY2NSUEFPdXgrcUR5Mm4rQXdxTVUraE40bmV1c0ZFR1gxN0Jx?=
+ =?utf-8?B?VXdpZDg1UTBQWGU1N1dZNGdRb3AyNjlhOTNsMFNMckJyOWkyazdEOUJLOFhn?=
+ =?utf-8?B?OURXZjhrT2VoaVlvZkQybjFkL0R4YzRQaGRZd2xFbjNrSytwOGo2SXFKTVhR?=
+ =?utf-8?B?SGhPaEpQVnRsTVdHaUtWMnhYM2FiMDVNYWs1bzJlTjllRXovalZxWHRLSURL?=
+ =?utf-8?B?WjZwR0VscmhBNTZ0SGE2WkNyditqVWVrK3YvQWJPZDhCdkgxa0dLQ0VkVUtU?=
+ =?utf-8?B?aGVURURrV0tQZTlQSU1CUHlkc2o2MWRPRkx4UUo0SFZqNjJ5bkU1NHNKTHlx?=
+ =?utf-8?B?YjJTN0lySzA5WEZSdisvNHA3S0t3d2NLZmh6N2FPZXFpMU1iOFZhSlE0a2Fw?=
+ =?utf-8?B?ekZTWVJKREtLWGhIMFJFY0dtSng4QXRDendPMEhNS0ZtcGFsTDhMcDVoOU5D?=
+ =?utf-8?B?YWI5R3VtSlNTWi9FUHNOY0FSWUJ6QkdObXkzWTA3UG95bzF0bncwZ1VlanFX?=
+ =?utf-8?B?WUpXWUJGUnVTbjRpTGVJRk44eFYydkdUQXFCN3h6RStJWSt0MG9BSEc1Tysr?=
+ =?utf-8?B?T3ExRUZrb1F0cnJHUUY4N20vRUFmckZ2ZkNpOHFXcTVJWlVoTm0yVXJvdElD?=
+ =?utf-8?B?MWRuNFlhUDA0b1c4WkxxWnIxVlk1bDBFdWlZTUdWZjRuQlpXdTVidU5SRVN6?=
+ =?utf-8?B?NzB4NzV2UWN4OG9xbER5VktlRzd5dTU4Y0lQOElxZEJUdTVRK3RLUW8zMWl4?=
+ =?utf-8?B?eGhLRkFKRmt0aDQ3b2xDWDZhN0dJeDJwc3VLOWxrMERsaWdhT3pnMS92bnpP?=
+ =?utf-8?B?MTFZWDllTFNYNWtENnVwK2srNmFTdm5GTi9FZ2xob0l5cGZscjd1a2oybnNv?=
+ =?utf-8?B?Nnh5VFVLMWgrSmp4NmEzOW14dlJJbEV3dkN2MUV6NlJiYkVoWkRQdzdRSnQv?=
+ =?utf-8?B?Z3B4U2xKa0J3NmhWWjRWelFTRnJ4M2hBY2JOYXU0ZThSME9obWNyTnNFYU1a?=
+ =?utf-8?B?NFdsNjdzNWg0YkRjcnNqMlA0T3Zrc0JSWW5tSXVrU1hQaDlQdk44TE4rbEZ6?=
+ =?utf-8?B?ZitGaTJraDA0TS9IM29ITkRRY0hsMzYvVDdtOWkxVXVJcVFTdzZJY1JvZGVu?=
+ =?utf-8?B?dCtubnNhMldEYlhRZmtjMkJUVWZrTzdFUjJ5R3RBdVpvTkJ1OUFEbVdEVTI3?=
+ =?utf-8?B?N29lZVNHbDkxaVNYc2VVbDF5ZEg0MUEzdU56bzNzRnJ4bzNiT0txY1k1WDI2?=
+ =?utf-8?B?US84ODkyV2F4NFhlUVRjVTZKREZQd2lvY3NnYlJjZUxSSkw4REFNY1ludE1k?=
+ =?utf-8?B?UGZyT2thOXpmSTE3cVdlalcxMWU5Rkw0UmxHVVh5ZURCL3lRL09uek41SENZ?=
+ =?utf-8?B?eTFHMHB5c20wOXVBSlpFYmhicENLUm9YT3ZZVkZJN0UrV01XM2tWcFJxbVFn?=
+ =?utf-8?B?SUd3RFprZ3FDY2svNGVIMUlBVFNSMWxxbHRBL1A5UWlsdUxhLzdkZXdVYmxy?=
+ =?utf-8?B?YitqVVBKMXZQRWpzT1Nyek1wbjQ5Vm1BcklkeVgxazVjSkFJa1Iyc0Q5Z0dy?=
+ =?utf-8?Q?zdUBKsPl1XuYboWX1zOfeR848?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef1fd794-6765-4ae4-495f-08dc9b421d74
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2024 09:25:44.6859 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: crTWKUzXK9ZKkKF9lDUo/nUXZIyxvceX7WyEr1OF8cZPoIha0PYHPHV4E3bvTWfZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7911
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,240 +160,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Error handling is to resolve or at least mitigate problems caused by the 
-user or the hardware.
+Am 03.07.24 um 11:01 schrieb Bob Zhou:
+> To avoid null pointer dereference reported by Coverity,
+> so add null pointer check for the return of amdgpu_device_get_gang().
 
-When the driver tries to allocate more than allowed from the ring then 
-that's a driver bug and not something for error handling.
+NAK, that's complete nonsense in the first place.
 
-So the error handling here doesn't seem to make sense in the first place.
+The pointer is guaranteed to be never NULL or otherwise the logic would 
+have crashed long before.
 
 Regards,
 Christian.
 
-Am 03.07.24 um 09:23 schrieb Zhou, Bob:
-> [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> Hi Christian,
+> Signed-off-by: Bob Zhou <bob.zhou@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> In making the v2 version patch process, I check lots of cases for amdgpu_ring_alloc(). I think checking the return value maybe better.
-> For allocating submission size from amdgpu_ring_alloc(), the action is allowed to fail so that rerun allocating submission rather than drop the return value.
-> For many cases in gpu driver, it still needs check the call result to conduct the error handling. If drop the return value, in those case it causes some unexpected result.
-> If the error occurs, the command submission should be skip and wait the next action.
->
-> Regards,
-> Bob
->
-> -----Original Message-----
-> From: Koenig, Christian <Christian.Koenig@amd.com>
-> Sent: 2024年6月21日 17:28
-> To: Zhou, Bob <Bob.Zhou@amd.com>; amd-gfx@lists.freedesktop.org; Huang, Tim <Tim.Huang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: add missing error handling for amdgpu_ring_alloc()
->
-> Am 21.06.24 um 11:24 schrieb Bob Zhou:
->> Fix the unchecked return value warning reported by Coverity, so add
->> error handling.
-> That seems to be completely superfluous. The only case when
-> amdgpu_ring_alloc() returns an error is when we try to allocate more than the maximum submission size.
->
-> And in that case we will get quite a warning already.
->
-> I strongly suggest to instead drop the return value from amdgpu_ring_alloc().
->
-> Regards,
-> Christian.
->
->> Signed-off-by: Bob Zhou <bob.zhou@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c      | 7 +++++--
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c      | 4 +++-
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 6 ++++--
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c      | 3 ++-
->>    drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c        | 8 ++++++--
->>    drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c       | 6 +++++-
->>    drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c       | 6 +++++-
->>    drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c       | 6 +++++-
->>    8 files changed, 35 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->> index 82452606ae6c..25cab6a8d478 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->> @@ -1005,7 +1005,8 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
->>                pr_err("critical bug! too many kiq readers\n");
->>                goto failed_unlock;
->>        }
->> -     amdgpu_ring_alloc(ring, 32);
->> +     if (amdgpu_ring_alloc(ring, 32))
->> +             goto failed_unlock;
->>        amdgpu_ring_emit_rreg(ring, reg, reg_val_offs);
->>        r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
->>        if (r)
->> @@ -1071,7 +1072,8 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
->>        }
->>
->>        spin_lock_irqsave(&kiq->ring_lock, flags);
->> -     amdgpu_ring_alloc(ring, 32);
->> +     if (amdgpu_ring_alloc(ring, 32))
->> +             goto failed_unlock;
->>        amdgpu_ring_emit_wreg(ring, reg, v);
->>        r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
->>        if (r)
->> @@ -1107,6 +1109,7 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev,
->> uint32_t reg, uint32_t v, uint3
->>
->>    failed_undo:
->>        amdgpu_ring_undo(ring);
->> +failed_unlock:
->>        spin_unlock_irqrestore(&kiq->ring_lock, flags);
->>    failed_kiq_write:
->>        dev_err(adev->dev, "failed to write reg:%x\n", reg); diff --git
->> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> index 3a7622611916..778941f47c96 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> @@ -768,7 +768,8 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
->>        }
->>
->>        spin_lock_irqsave(&kiq->ring_lock, flags);
->> -     amdgpu_ring_alloc(ring, 32);
->> +     if (amdgpu_ring_alloc(ring, 32))
->> +             goto failed_unlock;
->>        amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
->>                                            ref, mask);
->>        r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT); @@
->> -798,6 +799,7 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct
->> amdgpu_device *adev,
->>
->>    failed_undo:
->>        amdgpu_ring_undo(ring);
->> +failed_unlock:
->>        spin_unlock_irqrestore(&kiq->ring_lock, flags);
->>    failed_kiq:
->>        dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0,
->> reg1); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
->> index d234b7ccfaaf..01864990a192 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
->> @@ -63,12 +63,14 @@ static void amdgpu_ring_mux_copy_pkt_from_sw_ring(struct amdgpu_ring_mux *mux,
->>                return;
->>        }
->>        if (start > end) {
->> -             amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - start);
->> +             if (amdgpu_ring_alloc(real_ring, (ring->ring_size >> 2) + end - start))
->> +                     return;
->>                amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start],
->>                                           (ring->ring_size >> 2) - start);
->>                amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[0], end);
->>        } else {
->> -             amdgpu_ring_alloc(real_ring, end - start);
->> +             if (amdgpu_ring_alloc(real_ring, end - start))
->> +                     return;
->>                amdgpu_ring_write_multiple(real_ring, (void *)&ring->ring[start], end - start);
->>        }
->>    }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
->> index bad232859972..d7d68e61506d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
->> @@ -610,7 +610,8 @@ static int vpe_ring_preempt_ib(struct amdgpu_ring
->> *ring)
->>
->>        /* emit the trailing fence */
->>        ring->trail_seq += 1;
->> -     amdgpu_ring_alloc(ring, 10);
->> +     if (amdgpu_ring_alloc(ring, 10))
->> +             return -ENOMEM;
->>        vpe_ring_emit_fence(ring, ring->trail_fence_gpu_addr, ring->trail_seq, 0);
->>        amdgpu_ring_commit(ring);
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> index 2929c8972ea7..810f7f7e279d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> @@ -4093,7 +4093,8 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
->>                pr_err("critical bug! too many kiq readers\n");
->>                goto failed_unlock;
->>        }
->> -     amdgpu_ring_alloc(ring, 32);
->> +     if (amdgpu_ring_alloc(ring, 32))
->> +             goto failed_unlock;
->>        amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
->>        amdgpu_ring_write(ring, 9 |     /* src: register*/
->>                                (5 << 8) |      /* dst: memory */
->> @@ -5639,7 +5640,10 @@ static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ring *ring)
->>        amdgpu_ring_set_preempt_cond_exec(ring, false);
->>
->>        ring->trail_seq += 1;
->> -     amdgpu_ring_alloc(ring, 13);
->> +     if (amdgpu_ring_alloc(ring, 13)) {
->> +             spin_unlock_irqrestore(&kiq->ring_lock, flags);
->> +             return -ENOMEM;
->> +     }
->>        gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
->>                                 ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC |
->> AMDGPU_FENCE_FLAG_INT);
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> index b7d33d78bce0..07ca9264085b 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> @@ -1490,7 +1490,11 @@ static int sdma_v5_0_ring_preempt_ib(struct
->> amdgpu_ring *ring)
->>
->>        /* emit the trailing fence */
->>        ring->trail_seq += 1;
->> -     amdgpu_ring_alloc(ring, 10);
->> +     r = amdgpu_ring_alloc(ring, 10);
->> +     if (r) {
->> +             DRM_ERROR("ring %d failed to be allocated\n", ring->idx);
->> +             return r;
->> +     }
->>        sdma_v5_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
->>                                  ring->trail_seq, 0);
->>        amdgpu_ring_commit(ring);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> index cc9e961f0078..d51d5bd7de30 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> @@ -1345,7 +1345,11 @@ static int sdma_v5_2_ring_preempt_ib(struct
->> amdgpu_ring *ring)
->>
->>        /* emit the trailing fence */
->>        ring->trail_seq += 1;
->> -     amdgpu_ring_alloc(ring, 10);
->> +     r = amdgpu_ring_alloc(ring, 10);
->> +     if (r) {
->> +             DRM_ERROR("ring %d failed to be allocated\n", ring->idx);
->> +             return r;
->> +     }
->>        sdma_v5_2_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
->>                                  ring->trail_seq, 0);
->>        amdgpu_ring_commit(ring);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> index c833b6b8373b..e82426459cc7 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> @@ -1371,7 +1371,11 @@ static int sdma_v6_0_ring_preempt_ib(struct
->> amdgpu_ring *ring)
->>
->>        /* emit the trailing fence */
->>        ring->trail_seq += 1;
->> -     amdgpu_ring_alloc(ring, 10);
->> +     r = amdgpu_ring_alloc(ring, 10);
->> +     if (r) {
->> +             DRM_ERROR("ring %d failed to be allocated\n", ring->idx);
->> +             return r;
->> +     }
->>        sdma_v6_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
->>                                  ring->trail_seq, 0);
->>        amdgpu_ring_commit(ring);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index bcacf2e35eba..c1d82c346daa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6569,7 +6569,7 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
+>   		if (old == gang)
+>   			break;
+>   
+> -		if (!dma_fence_is_signaled(old))
+> +		if (!old || !dma_fence_is_signaled(old))
+>   			return old;
+>   
+>   	} while (cmpxchg((struct dma_fence __force **)&adev->gang_submit,
 
