@@ -4,143 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99DF4C2BD09
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 08:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E96C9C2BD09
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 08:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432AB10E75D;
-	Wed,  3 Jul 2024 08:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D27210E760;
+	Wed,  3 Jul 2024 08:42:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bXGH+uct";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="F35vQmsm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="umDZhrtR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="F35vQmsm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="umDZhrtR";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2042.outbound.protection.outlook.com [40.107.95.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30FB410E75D
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 08:28:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RwENzS6SxQrwRIowJ278/QWJkxESkMELoCldaiF+BSDfjovDQ3DzbCg+oGQ3LHJj2obx/7oDd3sjJaDSep7O5Cfl5IYlPukklY7SDGrWE+U5OESibc29JxRgGakXTpSuqMo1KkdbAhDn7Fm6bWWupj2AsRvsowCmU/edQsy4XlYAmzSkCsGidflDSF6Ft+xUz34liIrphDspX3n4m/e9Ixkr5uv8cl5FB43N/V3FzO2OGLe/xpWbjMpiwzDgepoAppi7cU3d7oaZB+4NUwynTu5juUKIFNEaIAYKvKmiT3hnGrcEUEHDKLgIc18qZWFD0IEwpYLXg6kucjXRuSSj6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UnB9EFdmbtYe9Sg8JmHt3ITcCCmSotMUivsy+86nXXw=;
- b=hFcPWBCb+KgHDV0sExDUXxqxAPreHZpwXlTYR8RiOabbO315hPdyxcEPD2U0TdJqX8sA/5REp/RRNzljeT4l0v8Jhv2fytack8i5rtn4VheyooWdMIG8D8/RuzbFadwqXYk8d4BSMMdqRsNzUgNq9p/VWiIhJ0HSOUfXlZKJEavsZUXUJ4e6EEednRVRrjqvaEfyHWbODivmiUPzZSj8JkTZfu0BOHfYT1FEAGamrO8BdDInhGglBvIXfQUVFvsianjOrZ6S/jrYM4W+OQj/nA26DkX/qXCMLZD2YnVstU6LZ3RzvKyLLxFErzMWJ3pl1R2uqJdslAj4W4a2tSugIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UnB9EFdmbtYe9Sg8JmHt3ITcCCmSotMUivsy+86nXXw=;
- b=bXGH+uctrG7Rgs5o2W5Z4qPacqhoB/ATGA29RZrkpWd2oDqCc/tIZuheRSZOoFNyEso3Y/HahlD1KF/dC6fDhhIsnwENKXWkaAlsnYflezn22PsUipqlSPgkPYnINASdd4QvgF8FGNX5UmqNE6dZXb2RiA1DPzHDe1MFcYmTLJg=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by DM4PR12MB6352.namprd12.prod.outlook.com (2603:10b6:8:a0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.26; Wed, 3 Jul
- 2024 08:28:20 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%5]) with mapi id 15.20.7741.017; Wed, 3 Jul 2024
- 08:28:20 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH 3/4] drm/amdgpu: add ras POSION_CONSUMPTION event id
- support
-Thread-Topic: [PATCH 3/4] drm/amdgpu: add ras POSION_CONSUMPTION event id
- support
-Thread-Index: AQHazQ0p5B1dzU1iSEWQONEJm4d/HrHkqndw
-Date: Wed, 3 Jul 2024 08:28:20 +0000
-Message-ID: <PH7PR12MB8796042B81B22FEBF0E9634EB0DD2@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20240703055200.1610956-1-kevinyang.wang@amd.com>
- <20240703055200.1610956-3-kevinyang.wang@amd.com>
-In-Reply-To: <20240703055200.1610956-3-kevinyang.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=418ea63f-08fd-49bc-a4df-6152ebcea2a8;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-03T08:23:30Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|DM4PR12MB6352:EE_
-x-ms-office365-filtering-correlation-id: 2fb78e3f-6942-41d0-5c62-08dc9b3a1898
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?wtPyI9SC0HHDII4UBH+6S+Ab1eAxcxknapOHH4WGrfIJqB9AIdygKBsy/RBr?=
- =?us-ascii?Q?51Z+4XunfOEtPxUor9Y7A+0bO5Pji3uhTb/mFE82Xq75dm5CIHgeUoMyc7hy?=
- =?us-ascii?Q?I3sQ6ZWpI228fYF8KJq/TfihdGAv5SwY2CLR7TbEptwYybTYG0xkltio5E/L?=
- =?us-ascii?Q?NJFXmEo9zlEIH6apMJrKkQ26U1Uqr5hxJZE6iO4uypo4lY9CtoQKojGVfXje?=
- =?us-ascii?Q?P+85GyYAKE+hhQ5Rc+c1XPPolBf7RX0YkYNd6NdQdNWZf7Az/YSKYQxzloK0?=
- =?us-ascii?Q?eTAQRlMgUt9MiZvqgXIIU/2VjfLyiRZ3aEQEm3Q9sLzAthgCB8jiB5UwkXu6?=
- =?us-ascii?Q?roxpZzIzz2VRI6w4nnuF3TylY5rDtj8uitc359CRnelPHYnN656rzXRk+ZJB?=
- =?us-ascii?Q?GOlNMvy6Px+D5lwSGSOCj1DqNKBUtBfSNTbi/ReCp6Ptf4+veDPRRw9At+rv?=
- =?us-ascii?Q?tdMtana8Y3pOJQSzJa4fDMarq664QObZNIzKi6oMUE0b0i3NOqGA/MtkQ4RA?=
- =?us-ascii?Q?Y35ml+LX56hQyPrBlfSTQ/ttqvKsiGMAFgQ0pXuAxHmXPEJRUigpfFlU2x3F?=
- =?us-ascii?Q?wH538F1P9dJxqtnZI4OI3CX7u7mI9FPKx3Nhd6XfZGRh/r+1CC4xAJy24Xyb?=
- =?us-ascii?Q?EmBNPJyaNpu5ONpx3NMdf3orNld0QXbk9L5BMOZaBmgwx2NnVF5GsrsrVYFN?=
- =?us-ascii?Q?lwwo6gw+6WcwgX4kiFasvlUPe9JEKQaPXO3kJkRHGwYLrlRjEC3Lk7Bp51bu?=
- =?us-ascii?Q?FLbTDRI/2SXCh5awVY6vr2QIWo40ZhfiQFf75IspfQcoxyB+2xN+JwEOzZFm?=
- =?us-ascii?Q?DrdzjBI1n0RgFNH3LeHMq8WAd8/bB9eii7xROYp059Sm/l2jRrSjcP0z+VbV?=
- =?us-ascii?Q?kwJwUY0frhUz236KsGy+ag1+hQVM1tIo7JqZjgCxaoH6Hea3ID4v8JFE31wQ?=
- =?us-ascii?Q?mq3T0O35/F+kqwYa7MwEufw+lu4UQ2JnlhgNiXRYa98fWwIEaFRAx3epjP1I?=
- =?us-ascii?Q?41x4MWu7B3EezcK8Co23VhHS7GdyKB0hT8HGYht6b5orrYjl6Varow9k6eMz?=
- =?us-ascii?Q?Lc+/HKhm/faiD4V86AX8aue0jCZao0Xvp8Jfrj1nfhtzpHaAieRG3SQLFCeO?=
- =?us-ascii?Q?VuvKPsKrjYh0Z0kCT9wRTkOfVhmDGayxPBvyEJEpCmO86T5ZSIBhbJR4Blr2?=
- =?us-ascii?Q?ovXuWJuqMwbKtPfSae3/kbxWxOtZTPpp+qGpx6MlqtsOlZOFhfx8Kzk4y6dw?=
- =?us-ascii?Q?SSrlz+k0X3H5voZcRxhLeihoYw+O2TBi+UZwPhXd1hK+0alp2Lgd/VF8+ie4?=
- =?us-ascii?Q?SEnCED1GD0LpD+IsHbXp/j/xofWy4K7giO4BERidIO9Alj7Zsj4J9+VJQBpa?=
- =?us-ascii?Q?e57C/63BjakujtBxwIISEZHA5A0WPo3jUxgZmYmOmgdZCwm7Dg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?b7Wc+KRnLFXiYfHNfJGibRRRMM85gnRA0oIL7PNmrqIaQ4pgn+02qqA+fgIs?=
- =?us-ascii?Q?OFHzZfsCj0KdD2tM7Y2nfwpz2U0CYJhECfa6sPg0LF/Z0colc4OXclJcXA9J?=
- =?us-ascii?Q?TmjZGKZVDKXMEWMzYgaT/OXyardaVkRr3OzBV7aoh5/KxSuzT4i/HwB8E8lm?=
- =?us-ascii?Q?/GgW9pw/wGhUvN0VBF6VKiIhWq00wjps7GXsBq01aB7BMpR+POkkdcqYIW1L?=
- =?us-ascii?Q?dkomvd6j0FZBFufvD0kFV1L6r/POLbeKX27KP7YoucAXdkj0aFYFjoaDEg/Q?=
- =?us-ascii?Q?8v6PGxc4XHTBf0x7thxFscdkhFGr50LsXy9gKYsWNIHZMOwZAa+L1c5XvPOO?=
- =?us-ascii?Q?iLJfqdAnDqoY1RtDyoX6u5zJVGryFjSLR629NtcbkDmcbdCEl4mRvbrhytXr?=
- =?us-ascii?Q?2yepf6148y4uqCZ2HeaFqn5nzLy2F/zJG42QRzfEt+uVVUAI6BqH0w7o+dwM?=
- =?us-ascii?Q?y3cFhDMJe9bkAJW1IMrDC522cmzVFjZagD8CvkUrdG1ixnmEnBHXWUP/7AFl?=
- =?us-ascii?Q?Ab2RfMjC3151+ASG5Y9710KxgUsnWmZMbjiXgF4tS2stlsX9A08wiIczCWfZ?=
- =?us-ascii?Q?Z96iXJcvIjxof4SUUgIe8pyCI6fChsYwEdE1w431h4aMBREvaKcjgSrZ9o0j?=
- =?us-ascii?Q?vz+6b/mTSb3Oa4Z8cU1dtJcMY4eCDTLvLdGsft9gJrZpeKB0fFdpUEIBVysO?=
- =?us-ascii?Q?x72IGKLOHGZSMg8FjyZpH74oU7ZJJVKOOADOZq8KhEO1jVRSmOZUuAMgoQe/?=
- =?us-ascii?Q?6OtQMkIQxCINHLoDp5cClD7QYqVr+lPy2zZiJiSNQbMXdyihtoA5N71zyP+p?=
- =?us-ascii?Q?PQjtrHnfKooQBGeI2vWhke/xHiCEXfT/g4S3hgF7yeHiJLYolXKGnwqi4kW9?=
- =?us-ascii?Q?pzqxRWxXjD+hIMi7DO5qkFfAmNb5vukZALjCsFYbbgALCgHW/FuUpyjFOlPA?=
- =?us-ascii?Q?jLNsW8xWtD9ApL2plcvFfVYey5b0IqO5hiIdA+1jvfJ4sSUgsP9UXEN3+yCA?=
- =?us-ascii?Q?8lJHT2Kj9lLOblH9YrpUrfXqchzjJvWaXbb9oB8c8VBnR6JHunEY2dOCa5zL?=
- =?us-ascii?Q?Xp7AvhlqOPzY8csKpx/PFV6/CZY9WZ+Ph4uXyxKYvjhePrMkngEeEFXrBk9Z?=
- =?us-ascii?Q?FO39IrILRWLnEhHr56oQKXhleTquUdvtJjXk6CdkhEyV4A6Q0VBnl22KLiq5?=
- =?us-ascii?Q?m2QlW5fRaaWEB1QmKij+14Bmbz4FG/h5EecS/Jg/81gtSaYJyWBpDWrsCNae?=
- =?us-ascii?Q?WKl0A2jpd468LHo9Jq49vxf8PbECPfA7wlr1xSt254yvrAzi7bkBv6eAU9lM?=
- =?us-ascii?Q?jV+aGL7CWyuefe90E0h2dNpxXhssgTQ1RtW8/bsxMhhnvqudaEfPiVoByXRo?=
- =?us-ascii?Q?Hb314R5Nj2LG8i/AK3HZuW7L41aBvH3MHXzPv0SfL1uxu6NoxwOd604p+P/M?=
- =?us-ascii?Q?9gbEvmheep0lPoFh2eSHDPP2zzlDOqtE6LUesXjcu882yaDUpZh1qBcME4qX?=
- =?us-ascii?Q?DpZM/jukxmAA8QT5NgUWCrKyWjd2dLKOga8BgIHM9MYEljSFzV/irCht4yfn?=
- =?us-ascii?Q?mj+qC+kW/v5WV3JDFqk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E59310E75F;
+ Wed,  3 Jul 2024 08:42:15 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 318321FCD5;
+ Wed,  3 Jul 2024 08:42:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1719996134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
+ b=F35vQmsmMtcKlfuOYR9sFIuYaLQsvXgcEpEYjT9vSJ3ausuRWFZVlePzXzM0idi3fYVNNd
+ /EvAx8ptEQ7VQLVsiFFeOlxlxWnnq1BNzblaIYITS/xji3pTptbi9khzFq9VA1hFbuov2b
+ MZ95/2qkDJsOhqEYDZzJt5WruoTgGfM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1719996134;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
+ b=umDZhrtRaWUFOiIFY8HBxmlypRj9SjIXGW9AEgymSmchZ3ZuDi5mnciJB/0DbaYX5mHL9t
+ PWGg3xP8WKea8mBg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F35vQmsm;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=umDZhrtR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1719996134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
+ b=F35vQmsmMtcKlfuOYR9sFIuYaLQsvXgcEpEYjT9vSJ3ausuRWFZVlePzXzM0idi3fYVNNd
+ /EvAx8ptEQ7VQLVsiFFeOlxlxWnnq1BNzblaIYITS/xji3pTptbi9khzFq9VA1hFbuov2b
+ MZ95/2qkDJsOhqEYDZzJt5WruoTgGfM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1719996134;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
+ b=umDZhrtRaWUFOiIFY8HBxmlypRj9SjIXGW9AEgymSmchZ3ZuDi5mnciJB/0DbaYX5mHL9t
+ PWGg3xP8WKea8mBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7CE8F13889;
+ Wed,  3 Jul 2024 08:42:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /zsZE+UOhWZdRwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 03 Jul 2024 08:42:13 +0000
+Message-ID: <b5a86d3b-2824-4709-8afd-cc93addc0989@suse.de>
+Date: Wed, 3 Jul 2024 10:42:12 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fb78e3f-6942-41d0-5c62-08dc9b3a1898
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2024 08:28:20.2362 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3VZxVZUZ+MESRa84PLpSjcLoRo6BmfP1Ly+oz520xTahBnoV/ZDQBgkH+zF4Z4pX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6352
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] drm/radeon: change variable name "dev" to "ddev"
+ for consistency
+To: Wu Hoi Pok <wuhoipok@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240630165949.117634-1-wuhoipok@gmail.com>
+ <20240630165949.117634-2-wuhoipok@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20240630165949.117634-2-wuhoipok@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 318321FCD5
+X-Spamd-Result: default: False [-6.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; FREEMAIL_TO(0.00)[gmail.com];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_SEVEN(0.00)[9]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,161 +155,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-> -----Original Message-----
-> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Sent: Wednesday, July 3, 2024 1:52 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>
-> Subject: [PATCH 3/4] drm/amdgpu: add ras POSION_CONSUMPTION event id
-> support
+
+Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
+> In the probe function of amdgpu, it uses "ddev" as the name of "struct drm_device *",
+> so I suggest renaming it to be consistent.
 >
-> add amdgpu ras POSION_CONSUMPTION event id support.
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c         | 16 +++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h         |  1 +
->  drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c | 15 ++++++++++++---
->  3 files changed, 26 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/radeon/radeon_drv.c | 16 ++++++++--------
+>   1 file changed, 8 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 8a98611d2353..11f8c37a97ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -2076,10 +2076,17 @@ static void
-> amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
->       struct amdgpu_ras_block_object *block_obj =3D
->               amdgpu_ras_get_ras_block(adev, obj->head.block, 0);
->       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
-> +     enum ras_event_type type =3D
-> RAS_EVENT_TYPE_POISON_CONSUMPTION;
-> +     u64 event_id;
-> +     int ret;
->
->       if (!block_obj || !con)
->               return;
->
-> +     ret =3D amdgpu_ras_mark_ras_event(adev, type);
-> +     if (ret)
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+> index 7bf08164140e..739bb1da9dcc 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -259,7 +259,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+>   			    const struct pci_device_id *ent)
+>   {
+>   	unsigned long flags = 0;
+> -	struct drm_device *dev;
+> +	struct drm_device *ddev;
+>   	int ret;
+>   
+>   	if (!ent)
+> @@ -300,28 +300,28 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+>   	if (ret)
+>   		return ret;
+>   
+> -	dev = drm_dev_alloc(&kms_driver, &pdev->dev);
+> -	if (IS_ERR(dev))
+> -		return PTR_ERR(dev);
+> +	ddev = drm_dev_alloc(&kms_driver, &pdev->dev);
+> +	if (IS_ERR(ddev))
+> +		return PTR_ERR(ddev);
+>   
+>   	ret = pci_enable_device(pdev);
+>   	if (ret)
+>   		goto err_free;
+>   
+> -	pci_set_drvdata(pdev, dev);
+> +	pci_set_drvdata(pdev, ddev);
+>   
+> -	ret = drm_dev_register(dev, ent->driver_data);
+> +	ret = drm_dev_register(ddev, ent->driver_data);
+>   	if (ret)
+>   		goto err_agp;
+>   
+> -	radeon_fbdev_setup(dev->dev_private);
+> +	radeon_fbdev_setup(ddev->dev_private);
+>   
+>   	return 0;
+>   
+>   err_agp:
+>   	pci_disable_device(pdev);
+>   err_free:
+> -	drm_dev_put(dev);
+> +	drm_dev_put(ddev);
+>   	return ret;
+>   }
+>   
 
-[Tao] add warning? Or you can add it in amdgpu_ras_mark_ras_event.
-
-> +             return;
-> +
->       /* both query_poison_status and handle_poison_consumption are
-> optional,
->        * but at least one of them should be implemented if we need poison
->        * consumption handler
-> @@ -2104,8 +2111,10 @@ static void
-> amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
->        * For RMA case, amdgpu_umc_poison_handler will handle gpu reset.
->        */
->       if (poison_stat && !con->is_rma) {
-> -             dev_info(adev->dev, "GPU reset for %s RAS poison consumptio=
-n
-> is issued!\n",
-> -                             block_obj->ras_comm.name);
-> +             event_id =3D amdgpu_ras_acquire_event_id(adev, type);
-> +             RAS_EVENT_LOG(adev, event_id,
-> +                           "GPU reset for %s RAS poison consumption is
-> issued!\n",
-> +                           block_obj->ras_comm.name);
->               amdgpu_ras_reset_gpu(adev);
->       }
->
-> @@ -2498,7 +2507,7 @@ static enum ras_event_type
-> amdgpu_ras_get_recovery_event(struct amdgpu_device *a
->       if (amdgpu_ras_intr_triggered())
->               return RAS_EVENT_TYPE_ISR;
->       else
-> -             return RAS_EVENT_TYPE_INVALID;
-> +             return RAS_EVENT_TYPE_POISON_CONSUMPTION;
->  }
->
->  static void amdgpu_ras_do_recovery(struct work_struct *work) @@ -3975,6
-> +3984,7 @@ u64 amdgpu_ras_acquire_event_id(struct amdgpu_device *adev,
-> enum ras_event_type
->       switch (type) {
->       case RAS_EVENT_TYPE_ISR:
->       case RAS_EVENT_TYPE_POISON_CREATION:
-> +     case RAS_EVENT_TYPE_POISON_CONSUMPTION:
->               event_mgr =3D __get_ras_event_mgr(adev);
->               if (!event_mgr)
->                       return RAS_EVENT_INVALID_ID;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> index 1343cfbc913b..6086da67fa4e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> @@ -433,6 +433,7 @@ enum ras_event_type {
->       RAS_EVENT_TYPE_INVALID =3D 0,
->       RAS_EVENT_TYPE_ISR,
->       RAS_EVENT_TYPE_POISON_CREATION,
-> +     RAS_EVENT_TYPE_POISON_CONSUMPTION,
->       RAS_EVENT_TYPE_COUNT,
->  };
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> index 816800555f7f..8a10a0e42846 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> @@ -27,6 +27,7 @@
->  #include "soc15_int.h"
->  #include "kfd_device_queue_manager.h"
->  #include "kfd_smi_events.h"
-> +#include "amdgpu_ras.h"
->
->  /*
->   * GFX9 SQ Interrupts
-> @@ -144,9 +145,11 @@ static void
-> event_interrupt_poison_consumption_v9(struct kfd_node *dev,
->                               uint16_t pasid, uint16_t client_id)  {
->       enum amdgpu_ras_block block =3D 0;
-> -     int old_poison;
->       uint32_t reset =3D 0;
->       struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
-> +     enum ras_event_type type =3D
-> RAS_EVENT_TYPE_POISON_CONSUMPTION;
-> +     u64 event_id;
-> +     int old_poison, ret;
->
->       if (!p)
->               return;
-> @@ -191,10 +194,16 @@ static void
-> event_interrupt_poison_consumption_v9(struct kfd_node *dev,
->               return;
->       }
->
-> +     ret =3D amdgpu_ras_mark_ras_event(dev->adev, type);
-
-[Tao] I don't think it's necessary to mark it both in amdgpu_ras_interrupt_=
-poison_consumption_handler and here.
-Another question is, event_interrupt_poison_consumption_v9 is used by sever=
-al ASICs, are you sure the event id code doesn't affect old ASICs?
-
-> +     if (ret)
-> +             return;
-> +
->       kfd_signal_poison_consumed_event(dev, pasid);
->
-> -     dev_warn(dev->adev->dev,
-> -              "poison is consumed by client %d, kick off gpu reset flow\=
-n",
-> client_id);
-> +     event_id =3D amdgpu_ras_acquire_event_id(dev->adev, type);
-> +
-> +     RAS_EVENT_LOG(dev->adev, event_id,
-> +                   "poison is consumed by client %d, kick off gpu reset =
-flow\n",
-> +client_id);
->
->       amdgpu_amdkfd_ras_pasid_poison_consumption_handler(dev->adev,
->               block, pasid, NULL, NULL, reset);
-> --
-> 2.34.1
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
