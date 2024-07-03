@@ -4,143 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E96C9C2BD09
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 08:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 211EFC2BD09
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jul 2024 08:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D27210E760;
-	Wed,  3 Jul 2024 08:42:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4D0C10E76B;
+	Wed,  3 Jul 2024 08:42:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="F35vQmsm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="umDZhrtR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="F35vQmsm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="umDZhrtR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qMeI6Bin";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E59310E75F;
- Wed,  3 Jul 2024 08:42:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 318321FCD5;
- Wed,  3 Jul 2024 08:42:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719996134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
- b=F35vQmsmMtcKlfuOYR9sFIuYaLQsvXgcEpEYjT9vSJ3ausuRWFZVlePzXzM0idi3fYVNNd
- /EvAx8ptEQ7VQLVsiFFeOlxlxWnnq1BNzblaIYITS/xji3pTptbi9khzFq9VA1hFbuov2b
- MZ95/2qkDJsOhqEYDZzJt5WruoTgGfM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719996134;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
- b=umDZhrtRaWUFOiIFY8HBxmlypRj9SjIXGW9AEgymSmchZ3ZuDi5mnciJB/0DbaYX5mHL9t
- PWGg3xP8WKea8mBg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F35vQmsm;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=umDZhrtR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1719996134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
- b=F35vQmsmMtcKlfuOYR9sFIuYaLQsvXgcEpEYjT9vSJ3ausuRWFZVlePzXzM0idi3fYVNNd
- /EvAx8ptEQ7VQLVsiFFeOlxlxWnnq1BNzblaIYITS/xji3pTptbi9khzFq9VA1hFbuov2b
- MZ95/2qkDJsOhqEYDZzJt5WruoTgGfM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1719996134;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pVZhhRDP+nvOU/Y51hfBpD5iU3hxtZs+KVMgYPpO31s=;
- b=umDZhrtRaWUFOiIFY8HBxmlypRj9SjIXGW9AEgymSmchZ3ZuDi5mnciJB/0DbaYX5mHL9t
- PWGg3xP8WKea8mBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7CE8F13889;
- Wed,  3 Jul 2024 08:42:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id /zsZE+UOhWZdRwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 03 Jul 2024 08:42:13 +0000
-Message-ID: <b5a86d3b-2824-4709-8afd-cc93addc0989@suse.de>
-Date: Wed, 3 Jul 2024 10:42:12 +0200
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2073.outbound.protection.outlook.com [40.107.100.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8849010E76B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jul 2024 08:42:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T4gd+TnCh/ZDsKOzIbm5jqKRKHhsqWeFn8aWMPUqxNHskYV3WfmzmxUfWCrrBK99JmlJknrrczcROHPY8zLLR2oOkbFDHx/qXCaix7zp5KG2iWZeYT00oz6qDOVt7ELz2loFfSGlRTHctf6DQ8SfWg5IN5QDPPb0mpt4QnBET6/B6ahwraV4gh5jk1SnFHm7iZeqQBInH8+C9KRcFW0LIF0QZ5HJ01u59Tc0yZdIqUu5jdOf5MiPfdL35KU9/1Vr3jcTBn9QZP/T1vlwHt/8tJXJTL6qrUuq0PoP1JuONvFjpmtgJvE7MYfKADhB0GvTuH9kmf2j7I6z+1IEb0OEsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1HVsi1K+xjETTb68zyq8fvIitxvoQVKAER0iaPm+5MM=;
+ b=QDt+LpRtmsxqxDg2l6oEBRS9aiPSm/znW+B3BARHHiLL0V+2lG8/EyI9oP85C/6T7Nen+46Hot9lNQ/0coZuSJvnyAzpyuBypY+AqVw5qCdvfwl+P1K3HoS6BG1Ljkpbl8spyrUIoCot7FdVmxfNNOCiKyklU+0o80UGd78KmtGtArhpzdn9Z2Wda2cyPkjUhQQ0uY2bB71RJhhSgM5lL28lkaL2In+oPx8KAAIJFYEUtz3ZA5PrxN8RDla/14KKNBpWC42VZOhXuIiPRZkwUHcSFTalXsyP0xFsYm2o79y9MA9mueTI/8cAJ8i34k03TOiy74zn1+b/5WC5Vv8F+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1HVsi1K+xjETTb68zyq8fvIitxvoQVKAER0iaPm+5MM=;
+ b=qMeI6Bin0LreaPEYPHIacaJnMM0C/56gQWBF3DPJNHzNxGqV+0cqnh6FI/kqqVsoCNztFjdeODdt7JgtzWmi7KE2HVJlVv9PkzaKdVqT2FDtiTGZxhGNmrxekDEeyAY15s9WesjGwoDpRBK/cDmCmzKVyAlrIcWPIFtwLQOIRuE=
+Received: from MN0PR02CA0011.namprd02.prod.outlook.com (2603:10b6:208:530::33)
+ by SJ2PR12MB8873.namprd12.prod.outlook.com (2603:10b6:a03:53d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.33; Wed, 3 Jul
+ 2024 08:42:31 +0000
+Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
+ (2603:10b6:208:530:cafe::56) by MN0PR02CA0011.outlook.office365.com
+ (2603:10b6:208:530::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.23 via Frontend
+ Transport; Wed, 3 Jul 2024 08:42:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7762.1 via Frontend Transport; Wed, 3 Jul 2024 08:42:31 +0000
+Received: from amd-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 3 Jul
+ 2024 03:42:27 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
+ <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, YiPeng Chai
+ <YiPeng.Chai@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: flush all cached ras bad pages to eeprom
+Date: Wed, 3 Jul 2024 16:41:26 +0800
+Message-ID: <20240703084127.478058-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] drm/radeon: change variable name "dev" to "ddev"
- for consistency
-To: Wu Hoi Pok <wuhoipok@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240630165949.117634-1-wuhoipok@gmail.com>
- <20240630165949.117634-2-wuhoipok@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20240630165949.117634-2-wuhoipok@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 318321FCD5
-X-Spamd-Result: default: False [-6.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; FREEMAIL_TO(0.00)[gmail.com];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
- RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[9]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|SJ2PR12MB8873:EE_
+X-MS-Office365-Filtering-Correlation-Id: 281be5fc-3c06-46f5-09ca-08dc9b3c1405
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pBOC39bhVnWnyIuDEN3L2BszXU+7b2i7TWXT4a2m+xx6jzV1oZtDZFWmm8X7?=
+ =?us-ascii?Q?GvpoVRbO3KRJSxNyzl/OJf67ztQ/fX5ltFE3/dNzUZi4vHQrY6rgHCt3aqRe?=
+ =?us-ascii?Q?cH7JOgOuUNiy4LCNaSJgnlYwasGZnR8vodQtHnRmrbIWUiyw/rv5+0M8uAYz?=
+ =?us-ascii?Q?STgsLk67od+FGb5gT0QiyYMHQ2h1faMVo4osqwaOxWw7P62cYT5Rt6S4mNWy?=
+ =?us-ascii?Q?vLim70YblnIJJPFZV+7KVC5QO3FfrTt8bhxxYgFbacu0ojA/bSiO/BellsqY?=
+ =?us-ascii?Q?wg6wxke0AlQa3clk37iGe8xD2zrk+irk2FL5ozM/Xd73/ml9tqztJjlJPrdw?=
+ =?us-ascii?Q?OTMz5D0NOsE966e+3lSAe69LQyYe1lu0QD5n8ehmAuztNfddxVWnObTESq3s?=
+ =?us-ascii?Q?l7Z2KlmbEenn2Eq240EH9ZWrorq3ncgGIIZqlyLiYh87xEiC1zYW6RzjHmNC?=
+ =?us-ascii?Q?VhRjyst/G4hPCziWmC+NqxxApyg1tV/U8w41+JrDLpEK8JLA6QWuOeqNrPej?=
+ =?us-ascii?Q?W4eCStR+KeKoiNo8BGRtbEwoFO8qNdEJGF9oYOrOoZXna0TZNnO/Ip1d4b40?=
+ =?us-ascii?Q?9FDbpWpXS04QpA6/Qv+VFV6DWX8olLutRxBmlgSCgKmrskwjrQsnMOQxss4I?=
+ =?us-ascii?Q?S95xCSJERn9FfBLawpiiw1PlTruOKvtijQIvsYO7KxJeAed1I7nmzbQU/m2G?=
+ =?us-ascii?Q?nlqymYWuzCV3YQ8NwZuOrRJXgQgnOYLMsGwVkYKu7qiBOSo/sFe5nCGYUUmA?=
+ =?us-ascii?Q?lCanYkExJFrL9rvehUXfvAObfbZ3PrLZ1VcSIuhLXq2LGWHbDaTU071Ch5ax?=
+ =?us-ascii?Q?bsLDnUabNCw72WP5pdN31nyZjj4uawGbc8veB/Nzy0Av61pEvgv9+8+/uOD7?=
+ =?us-ascii?Q?SiHxVc3DdhefRf/25dCnd3eYTqAkVIZjINhV4L3OOlTqROSWNbRa8xxJCokp?=
+ =?us-ascii?Q?r5PdeMzHEigZ6JR4G2zhTHze3dm9vThSY0eZfKeQ1mwO7POTTzBXCOKR+47L?=
+ =?us-ascii?Q?UcoyoXxb+A0F9w5QutjgzJAZBSmQCGYYey9U7vLyxWeGRtMCGBQMSU3mIJL5?=
+ =?us-ascii?Q?Ei9w/1fzBnwJt4AlSRWWWAhKzOZY4FKFNQgMkKK9mnorr89m297RmB0NC8kc?=
+ =?us-ascii?Q?PruDtk4nmKWK6TXfCEJL4HAPKUub9Iu1R8rVq3d06eNOnPcYaUSTqJ/7dKcb?=
+ =?us-ascii?Q?LCK9/UO+6PhTgAxnI9N/KjP1fRWjf/e2WMzBPYOkw/Xu3FCCgVQD1A4/BTwO?=
+ =?us-ascii?Q?DMBy0ORS7WmONHCs6G9XqqxmP4LZgyrqaBBZj1h4W3ZA4UVI6VWMtoeX98BH?=
+ =?us-ascii?Q?dqnvNlnKVIH6+WaQeylNkqH14xWL4NtgiEU8zT6h+eMDYo4azHg0bfIbXPBJ?=
+ =?us-ascii?Q?vCuUZYQLrKQz5dnpNxynaDtR16IOd+1UXUN+zBYg4yiQl6qv0XlsM7gKJoh3?=
+ =?us-ascii?Q?QvAE5IxKGqUQD+pz7c/tYzggbWW6SDZg?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2024 08:42:31.3485 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 281be5fc-3c06-46f5-09ca-08dc9b3c1405
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DC.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8873
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,77 +131,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Before uninstalling gpu driver, flush all cached ras
+bad pages to eeprom.
 
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
-> In the probe function of amdgpu, it uses "ddev" as the name of "struct drm_device *",
-> so I suggest renaming it to be consistent.
->
-> Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/gpu/drm/radeon/radeon_drv.c | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index 7bf08164140e..739bb1da9dcc 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -259,7 +259,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->   			    const struct pci_device_id *ent)
->   {
->   	unsigned long flags = 0;
-> -	struct drm_device *dev;
-> +	struct drm_device *ddev;
->   	int ret;
->   
->   	if (!ent)
-> @@ -300,28 +300,28 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->   	if (ret)
->   		return ret;
->   
-> -	dev = drm_dev_alloc(&kms_driver, &pdev->dev);
-> -	if (IS_ERR(dev))
-> -		return PTR_ERR(dev);
-> +	ddev = drm_dev_alloc(&kms_driver, &pdev->dev);
-> +	if (IS_ERR(ddev))
-> +		return PTR_ERR(ddev);
->   
->   	ret = pci_enable_device(pdev);
->   	if (ret)
->   		goto err_free;
->   
-> -	pci_set_drvdata(pdev, dev);
-> +	pci_set_drvdata(pdev, ddev);
->   
-> -	ret = drm_dev_register(dev, ent->driver_data);
-> +	ret = drm_dev_register(ddev, ent->driver_data);
->   	if (ret)
->   		goto err_agp;
->   
-> -	radeon_fbdev_setup(dev->dev_private);
-> +	radeon_fbdev_setup(ddev->dev_private);
->   
->   	return 0;
->   
->   err_agp:
->   	pci_disable_device(pdev);
->   err_free:
-> -	drm_dev_put(dev);
-> +	drm_dev_put(ddev);
->   	return ret;
->   }
->   
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 26098b03447b..1b6f5b26957b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -124,6 +124,8 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+ 
+ #define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
+ 
++#define MAX_FLUSH_RETIRE_DWORK_TIMES  200
++
+ enum amdgpu_ras_retire_page_reservation {
+ 	AMDGPU_RAS_RETIRE_PAGE_RESERVED,
+ 	AMDGPU_RAS_RETIRE_PAGE_PENDING,
+@@ -3176,11 +3178,26 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_err_handler_data *data = con->eh_data;
++	int max_flush_timeout = MAX_FLUSH_RETIRE_DWORK_TIMES;
++	int ret;
+ 
+ 	/* recovery_init failed to init it, fini is useless */
+ 	if (!data)
+ 		return 0;
+ 
++	/* Save all cached bad pages to eeprom */
++	do {
++		flush_delayed_work(&con->page_retirement_dwork);
++
++		mutex_lock(&con->umc_ecc_log.lock);
++		ret = radix_tree_tagged(&con->umc_ecc_log.de_page_tree,
++				UMC_ECC_NEW_DETECTED_TAG);
++		mutex_unlock(&con->umc_ecc_log.lock);
++
++		if (ret)
++			schedule_delayed_work(&con->page_retirement_dwork, 0);
++	} while (ret && max_flush_timeout--);
++
+ 	if (con->page_retirement_thread)
+ 		kthread_stop(con->page_retirement_thread);
+ 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.34.1
 
