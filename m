@@ -4,78 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3315C3065C
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jul 2024 10:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF869C30653
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jul 2024 10:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5725110EA7A;
-	Thu,  4 Jul 2024 10:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9B810EA7B;
+	Thu,  4 Jul 2024 10:16:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M7YxZmAM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PZCl+huJ";
 	dkim-atps=neutral
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274B310EA7B
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jul 2024 10:15:56 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2ec1ac1aed2so4742041fa.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jul 2024 03:15:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720088154; x=1720692954; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1nvqcTE+d+I6/PYlZYlUrN3ZSE7/0dbyWuREcOgf8aA=;
- b=M7YxZmAM3xI4Hx4cCi9v4DQF44Z5xUniV7zJCyC76LcXmFpa0NpnrTVLZi3qMWGW2+
- m53+SIR5d0pUvaP49fSYGJ58x2Y/07rnJZgyT7LUfeJZq5f8MFrs680Yash8D1mbB4lh
- b9zC53ESlRXVF6/wu6p4L62PLSX5k23Cz4WZvDzJHruFb42PV+NWXyh0AbbYrX0H2Us8
- 8KprM3q59Cqmo8yyIZzMwzaGlF9jcQFAX9nAEavbRTlvXidYhnpbCE+9snsbVJjCoCsf
- hPgZ8pvLYwZF1zYwsvnMZQgPcmbB6o8WSSrHpEjugkKc8RSIsbzZaW3lt+PmSYvGM5Yn
- yU6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720088154; x=1720692954;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1nvqcTE+d+I6/PYlZYlUrN3ZSE7/0dbyWuREcOgf8aA=;
- b=AuusogE06JGbd6as/nf8cHcIWJmdgBPMzx+HTz0b5hANznvxQnNdVJixmVwm5x0qaB
- SlE44/N07YkXsd+oun3Q73x/VfT6v0uGpcuaxb1pclbC2bNgszxHlUjWEOKIP01slqSv
- 4LCv9nJIbmDAoOaH6rlannPmdkGyuBhGrPv9Zy+7orVUdDiyWGaLGZBiZ9TwQTGp+LNq
- sOxWio3JbIvLpj1jExLl7C2y9/T46G11mGDlfN1SOFB6b7v7+ItEyNqJts/UoqKf6euw
- VREWeZORZgalj8XhJ39vc7rXavhgikwqIJwvaC5Dbp5O8vkCXP2fcOUlG+Y28DthomcL
- e89g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJ+NNE49QH0WioBcjZsbH9RptLsIjBnWhZPJAFhHO5OAZx6hZw/gkRe/K9CLj/LFrdzWabc666d7KXeyrT1SMgS3uSCqzbjCRHNbYoYQ==
-X-Gm-Message-State: AOJu0YwkYA0mKYubklVkZb4kyzH4Q8EHX97VpXjmbCRm2Hp4Y8mxdQSi
- 0pTiTdSlQeWfKnLrpMHPwPKguVeP23lwRJyFaZ3Rd6Gky0E0Ey65mSpItSblRe8=
-X-Google-Smtp-Source: AGHT+IFjFbE6dWkiueh16FP2N9UOEw13MN12/uduae8Rfkcs3JR/7QPB7Yfqddj+KjB9xdjW8KZcuw==
-X-Received: by 2002:a2e:98c3:0:b0:2ec:5200:a935 with SMTP id
- 38308e7fff4ca-2ee8edc2d45mr8049801fa.40.1720088154177; 
- Thu, 04 Jul 2024 03:15:54 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ee5168cf1fsm22523201fa.116.2024.07.04.03.15.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jul 2024 03:15:53 -0700 (PDT)
-Date: Thu, 4 Jul 2024 13:15:52 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
- helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
- robdclark@gmail.com, 
- guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
- mcanal@igalia.com, 
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] drm/ci: uprev IGT
-Message-ID: <ojnz5hjfht6gwouphvmvizb2udlz2wvwnsj4vgosp3chrhsmcv@c7cxscdyxtsn>
-References: <20240704092202.75551-1-vignesh.raman@collabora.com>
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2074.outbound.protection.outlook.com [40.107.101.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E54B10EA7B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jul 2024 10:16:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Af/fzggguPWDz60zL+X5ICH/tqdCQBpDpJnuVnoT1JnRLERW1esufx9bPrQkhU7huFPCJa5y4X1vhaU++G+Qo2xqyzldx4VQrgaw5FBHoxrC7MOhSWWvzt/JJ/BecbnannUHujY+2o7lBBc0Ab20rjIsmpXcBP3mmaHvKqegoGlJwjOTcBDRh+3RGX5rQPDcdaVt5a1+TqXhGDNa10AJhhZCIkTPi6bPQtFcxhbIs6gjoIeS8JJFd9TVa3jqxArRXlTc4bHqv6/Tg4ccihdEja4kJ0EeqhtfqKPlR3oXV9aI9sgZZVSfP9S3L/FWRsOj1D0bCZnlk78b5PnIfQY47Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S47rrT/kyA5AVyo4MfztJwQv9/6COK3JvgwYxt4sB/w=;
+ b=GBn1NsOah2nlRvYYpgAdBuHWrpMb2ft/Z13nZ2cCEG+47CIQC91+OpZ0wUK3/ZIBA25yxU1ZlUS5PryE4kzdUTLCoQvXl6oi1bupXiwfVHT87j7nVlaGKrjztY51VOwlGmYtdBSlnReGzIBhA875LT6u87Wbq6t8bHF7NfFzih5WZP8i1tQr+nCNdqi5Pz0hU7T9WXrL9er0y9qBVRAw9K1jQO3XPnntvXFYNY/Z0XOro1L9mSNMhFdoUdGMR6Wfs0LyqW5d+mIUKsugZUVQr7+cw265OE4IXPKrPKnxB+MNKsGVFCGoz4G8FpbwZS4lJe7+gzF0mGTxqFZT//j51Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S47rrT/kyA5AVyo4MfztJwQv9/6COK3JvgwYxt4sB/w=;
+ b=PZCl+huJF3LLWdOsqKwz6pekVVkwxByRX+ftUR1PWr83oyBn3ua4RwOQCZa0A35F7TtgwF59EBkPV2Hq+fi7DoVZv0k6HsBhK4CJ4kW/AqzBI1yUuObJ4RGzYEwG3uYw1roIFQXs7TdeDmPJWvzX6JuOetoyj+RAyKqi2Xtbdwc=
+Received: from SJ0PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:33f::21)
+ by PH7PR12MB6696.namprd12.prod.outlook.com (2603:10b6:510:1b3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.32; Thu, 4 Jul
+ 2024 10:16:13 +0000
+Received: from SJ1PEPF000023D3.namprd21.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::b) by SJ0PR05CA0046.outlook.office365.com
+ (2603:10b6:a03:33f::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.8 via Frontend
+ Transport; Thu, 4 Jul 2024 10:16:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF000023D3.mail.protection.outlook.com (10.167.244.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7762.1 via Frontend Transport; Thu, 4 Jul 2024 10:16:13 +0000
+Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 4 Jul 2024 05:16:09 -0500
+From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <saleemkhan.jamadar@amd.com>,
+ <leo.liu@amd.com>, <sathishkumar.sundararaju@amd.com>,
+ <veerabadhran.gopalakrishnan@amd.com>, <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: enable dpg for vcn and jpeg on GC 11_5_2
+Date: Thu, 4 Jul 2024 15:44:36 +0530
+Message-ID: <20240704101436.2303041-1-saleemkhan.jamadar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240704092202.75551-1-vignesh.raman@collabora.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|PH7PR12MB6696:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95fdb1ef-df31-496d-6afa-08dc9c125579
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?sM0dQ2y44hLhcaacGhTw3AwIznDR9kAmMt3WHr0Eym/PfOsft97hPc3VY6Du?=
+ =?us-ascii?Q?OrK2lPycOdHTIVlsHLlu9r9BHgxfw8VVq49JhD9gEWSIM8SFTB22pU/cORXA?=
+ =?us-ascii?Q?Dh7mAipUYEErMLPCLcTDv8O9MrRZxCl50yIesN3MV/nPLupl3lpC82kDoD2D?=
+ =?us-ascii?Q?CvRiJwxP4cqzrEMIsobxu4cSROvGmEUvd51aMzr6W7HgMkyO7SuPFxzHlJ8i?=
+ =?us-ascii?Q?RA7mc/1eIS+8oHKoeX5KlmIvrfG7z8v9G+dkHMwS8jzXeOYQ1lWe2VVUa6CJ?=
+ =?us-ascii?Q?voZWVSeZeam3TIDa+mtBmX8c4CufbdPF0/mNG3YDIwbWwBpHIQygaIle+sDR?=
+ =?us-ascii?Q?+ZyfxeWSBJmMD/B3bZ+qdmUcZH0sVA4WWVHyJD3LxiboCYdJ5inBw2JhJzU0?=
+ =?us-ascii?Q?rzBCnFTA/gqq+IbKxz/oE5HUqurAGlIssYTS6j+TVQm2QsJC3FmpDpBJuRgv?=
+ =?us-ascii?Q?/8tKuJNu2oMjJTOPP0A5Z9tX/tCU6uLmY6HDTKUerWm9EsPHyo0kplNWvMwN?=
+ =?us-ascii?Q?UrPaVQtQuNxBmWQiWzo/U/Ixg9DUlToOdF5touzIA4HtmmEyTiqGCetqXvI+?=
+ =?us-ascii?Q?X1ke7ZXbJqbxTkv/BD8s8fLLyXnxe+xvuSSJx2OdMaPjN3ezLvAqv1gWRMR2?=
+ =?us-ascii?Q?uP8erCiRoY/HxUN70SAO4lgXOlHuwNVtsep6h/YKm3N16fjo9qrdPOquwGXK?=
+ =?us-ascii?Q?7x7ELirlv4C8nh13nw5ZBlnrHRleoN6i8FsFIibWPhc0MtmLEVchwo6a80JE?=
+ =?us-ascii?Q?8XAEPo14gz0zLCsLNC0yZIkmh8miKbbKvhKegSofKNMSu+zukgBeAomcR7Ar?=
+ =?us-ascii?Q?6lDOC7zkJ4alGEsOttU8FXcuta/mDkbRTm2uOAVL2S2iwrNHF45Xy1dooHGk?=
+ =?us-ascii?Q?r811HKM0RQvSzo7/DZl4p3U9qD66cj9RUoOABsvuYNV/43IpD4PRKhjl4P2b?=
+ =?us-ascii?Q?wrL69qtJgH1vfQrx55xF8Wf5krSuuGVgBC2MZhNMj9u8EpYhc6bmhDu3D7tv?=
+ =?us-ascii?Q?WbOxtmCkelgQzl5NF6iXWf/cKeDn3ViAEHrVVdJ264Cg+dfsfRUcmrqjU6ir?=
+ =?us-ascii?Q?4/qlH7+EWZz6V1/6dyrsEZW6DkSs/B+jhBgML/z2hnV5NICWRowEbYQBk4qP?=
+ =?us-ascii?Q?s2yl5BzyG4WDHzd4n2ZH06p5vyBj3PjkrAwjmB7ypKjgjaTZq2DYBjlI+Wb8?=
+ =?us-ascii?Q?PJA2YiWLmamph57rIQeTXFfmIq+Q0R75Ow0zEBkuq/5Ku/At3X2sUMfDAxgl?=
+ =?us-ascii?Q?ZPia7HgBv5y8qATZzzNlo8qjd7FSI7Mk0Q0DTDl1eHEMbpg5O37WuOYaA2uo?=
+ =?us-ascii?Q?nhxx6/w5fgjff9oE08IjE4V1avtqg4rZDMpJXSluZBTjDrEHZfqzEV2MeAwA?=
+ =?us-ascii?Q?MQyl09j8EtyAzyIuyNX4L1pGvLWMP71w1sTAgWthDKwzWMMoR3bUB1VmZ/to?=
+ =?us-ascii?Q?Mpr9cEARmqoEmApn8sex0jyluPThlUfd?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2024 10:16:13.5726 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95fdb1ef-df31-496d-6afa-08dc9c125579
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D3.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6696
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,94 +130,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 04, 2024 at 02:52:02PM GMT, Vignesh Raman wrote:
-> Uprev IGT to the latest version, which includes a fix for the
-> writeback tests issue on MSM devices. Enable debugging for
-> igt-runner to log output such as 'Begin test' and 'End test'.
-> This will help identify which test causes system freeze or hangs.
-> Update xfails and add metadata header for each flake test.
-> 
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
-> ---
-> 
-> v1:
->   - https://gitlab.freedesktop.org/vigneshraman/linux/-/pipelines/1216850
-> 
-> ---
->  drivers/gpu/drm/ci/gitlab-ci.yml              |   2 +-
->  drivers/gpu/drm/ci/igt_runner.sh              |   1 +
->  .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |   1 +
->  .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |  14 +-
->  .../gpu/drm/ci/xfails/amdgpu-stoney-skips.txt |   4 +-
->  drivers/gpu/drm/ci/xfails/i915-amly-fails.txt |  12 +-
->  .../gpu/drm/ci/xfails/i915-amly-flakes.txt    |  41 ++++-
->  drivers/gpu/drm/ci/xfails/i915-amly-skips.txt |   5 +-
->  drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt |   2 +-
->  drivers/gpu/drm/ci/xfails/i915-apl-skips.txt  |   4 +-
->  drivers/gpu/drm/ci/xfails/i915-cml-fails.txt  |  14 +-
->  drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt |   9 +-
->  drivers/gpu/drm/ci/xfails/i915-cml-skips.txt  |   5 +-
->  drivers/gpu/drm/ci/xfails/i915-glk-fails.txt  |  24 +--
->  drivers/gpu/drm/ci/xfails/i915-glk-flakes.txt |   8 +-
->  drivers/gpu/drm/ci/xfails/i915-glk-skips.txt  |   4 +-
->  drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt  |   2 +
->  drivers/gpu/drm/ci/xfails/i915-kbl-flakes.txt |   2 +-
->  drivers/gpu/drm/ci/xfails/i915-kbl-skips.txt  |   4 +-
->  drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt  |  25 +--
->  drivers/gpu/drm/ci/xfails/i915-tgl-skips.txt  |   4 +-
->  drivers/gpu/drm/ci/xfails/i915-whl-fails.txt  |  17 +-
->  drivers/gpu/drm/ci/xfails/i915-whl-flakes.txt |   2 +-
->  drivers/gpu/drm/ci/xfails/i915-whl-skips.txt  |   5 +-
->  .../drm/ci/xfails/mediatek-mt8173-fails.txt   |   9 +-
->  .../drm/ci/xfails/mediatek-mt8173-flakes.txt  |  32 +++-
->  .../drm/ci/xfails/mediatek-mt8173-skips.txt   |   4 +-
->  .../drm/ci/xfails/mediatek-mt8183-fails.txt   |   2 +-
->  .../drm/ci/xfails/mediatek-mt8183-skips.txt   |   2 +-
->  .../gpu/drm/ci/xfails/meson-g12b-fails.txt    |   2 +-
->  .../gpu/drm/ci/xfails/meson-g12b-skips.txt    |   2 +-
->  .../gpu/drm/ci/xfails/msm-apq8016-fails.txt   |   5 +-
->  .../gpu/drm/ci/xfails/msm-apq8016-skips.txt   |   2 +-
->  .../gpu/drm/ci/xfails/msm-apq8096-flakes.txt  |   2 +-
->  .../gpu/drm/ci/xfails/msm-apq8096-skips.txt   |   4 +-
+DPG mode is enabled for vcn and jpeg on VCN v4_0_5
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm tests
+Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-
->  .../msm-sc7180-trogdor-kingoftown-fails.txt   | 145 ------------------
->  .../msm-sc7180-trogdor-kingoftown-flakes.txt  |  18 ++-
->  .../msm-sc7180-trogdor-kingoftown-skips.txt   |   5 +-
->  ...sm-sc7180-trogdor-lazor-limozeen-fails.txt | 145 ------------------
->  ...m-sc7180-trogdor-lazor-limozeen-flakes.txt |  11 +-
->  ...sm-sc7180-trogdor-lazor-limozeen-skips.txt |   2 +-
->  .../gpu/drm/ci/xfails/msm-sdm845-flakes.txt   | 105 ++++++++++++-
->  .../gpu/drm/ci/xfails/msm-sdm845-skips.txt    |   4 +-
->  .../drm/ci/xfails/rockchip-rk3288-fails.txt   |   2 +-
->  .../drm/ci/xfails/rockchip-rk3288-skips.txt   |   2 +-
->  .../drm/ci/xfails/rockchip-rk3399-fails.txt   |   2 +-
->  .../drm/ci/xfails/rockchip-rk3399-flakes.txt  |   4 +-
->  .../drm/ci/xfails/rockchip-rk3399-skips.txt   |   2 +-
->  .../drm/ci/xfails/virtio_gpu-none-fails.txt   |  64 ++++++++
->  .../drm/ci/xfails/virtio_gpu-none-skips.txt   |   4 +-
->  drivers/gpu/drm/ci/xfails/vkms-none-fails.txt |   4 -
->  .../gpu/drm/ci/xfails/vkms-none-flakes.txt    |  21 +++
->  drivers/gpu/drm/ci/xfails/vkms-none-skips.txt | 105 ++++++++++++-
->  53 files changed, 527 insertions(+), 395 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
-> index 80fb0f57ae46..b09976c3d2c2 100644
-> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
-> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
-> @@ -5,7 +5,7 @@ variables:
->    UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
->    TARGET_BRANCH: drm-next
->  
-> -  IGT_VERSION: 0df7b9b97f9da0e364f5ee30fe331004b8c86b56
-> +  IGT_VERSION: f13702b8e4e847c56da3ef6f0969065d686049c5
->  
->    DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/anholt/deqp-runner.git
->    DEQP_RUNNER_GIT_TAG: v0.15.0
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 6cc86d13f32a..d30ad7d56def 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -774,7 +774,9 @@ static int soc21_common_early_init(void *handle)
+ 			AMD_CG_SUPPORT_IH_CG |
+ 			AMD_CG_SUPPORT_BIF_MGCG |
+ 			AMD_CG_SUPPORT_BIF_LS;
+-		adev->pg_flags = AMD_PG_SUPPORT_VCN |
++		adev->pg_flags = AMD_PG_SUPPORT_VCN_DPG |
++			AMD_PG_SUPPORT_VCN |
++			AMD_PG_SUPPORT_JPEG_DPG |
+ 			AMD_PG_SUPPORT_JPEG |
+ 			AMD_PG_SUPPORT_GFX_PG;
+ 		adev->external_rev_id = adev->rev_id + 0x40;
 -- 
-With best wishes
-Dmitry
+2.25.1
+
