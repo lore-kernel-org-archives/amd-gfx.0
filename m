@@ -4,75 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912BFC30653
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jul 2024 13:02:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15528C30653
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jul 2024 13:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E18A10EAD7;
-	Thu,  4 Jul 2024 13:02:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C44A510EAE1;
+	Thu,  4 Jul 2024 13:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fR2U4Is7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q03LSdXJ";
 	dkim-atps=neutral
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D2D10EAD7;
- Thu,  4 Jul 2024 13:02:39 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2ebe40673d8so7228231fa.3; 
- Thu, 04 Jul 2024 06:02:39 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF19E10EAF2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jul 2024 13:04:03 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-42562fde108so4192435e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jul 2024 06:04:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720098157; x=1720702957; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720098242; x=1720703042; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=PYzELPqhwd90nc3XRq3C8yvVVSaVJeIDbfmf6pI/VMY=;
- b=fR2U4Is7iOojbiA4xWhi9umtOxoxzhQtjBN0I05/ZO6WYWBT5wqCYH4ob8FsiaRbt8
- qZuXHZHeAsM3qUQ8kJmG5al0Tdm0n3lXK3bPfWTqctCgqvPn+GRiyEuChNNlMeLqvlrZ
- ARpgyh6oE3PhvItovwMgR6Q8I1a5oWWBxsU1eZN7wE2H8hWzGGHYJy9pTQ3aw2wc77OK
- CqISmPiuGsKp3k1zZs3Mr27xPGyjVu9BGBP153GI/bbGUm7ADFeGj478zrxYj3hUECdj
- 3RwVYs77WQ8dkRCZK2B1vN3cFVkTv5m8MU5aVJDa6p6qB0e0/FpDwG/w6QmXjLCCCrUi
- up5A==
+ bh=56TF0NcgU4W5QoZvLKGhKdizMMkKE+ds9Wjh5mFg14g=;
+ b=Q03LSdXJlvx2Ci7otDvzk+42bTYAK2WcCmi/l8kPtrQBOjfcEch/omkbeF1mxLgsta
+ w/NnSEHnmGRKxmEUZIYWDxx8dxcm4jPYfmtGYX8tCMqQnGlxjK0o/yuV7xBlH+hZsw3U
+ ixo9I2FlMZHnYI/H4UuXdY4jndOAeBhBtGvzOSzEa52DWhleokG6IXUeT8kANw5YDfCf
+ IujCXjpQsGqbaYcwerUKgojgHwgHz6cKPWORM6S7o2XAS1q+cLdwqnBrmtWQ5XPp6PJG
+ JmBoSTovEnSgk9gQ5GbP3K1OfUexr1SbV7mbWgFDKmTClbBIGJjIY7XXOsrUk9AprL6x
+ EP0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720098157; x=1720702957;
+ d=1e100.net; s=20230601; t=1720098242; x=1720703042;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PYzELPqhwd90nc3XRq3C8yvVVSaVJeIDbfmf6pI/VMY=;
- b=lWgY5MzGcDQa0oKE5cAxRsp1pylzVDYks97IRwrzHHwtUYXvUPnNKnV8OTOPkAX7rX
- MSn92i5zaP+CMG4z3bu83CI0j7g3RCIciVzM1UmAtJoL6wV+Os9WZIQ9CgEAHaEWi5S/
- ER806CJAH2kNpV7ovkyPfpJXUZ6fIF7ZLIeKdX4W3FAB1aeobMHv0J9LiCnMD+owc5TM
- ndICopIirKMzUyd8WJ453ZuSKJRuQw+ucA0hDRLEoxq6GS5xg4pXroebPPfEXhPUdyUp
- 7OT+aibDhCUtUkoCfmsbGT2bNWyylJIkjpBdJ/7nlAX2VYEbGPMIOjKdW33b8GXNyV47
- 0hEg==
+ bh=56TF0NcgU4W5QoZvLKGhKdizMMkKE+ds9Wjh5mFg14g=;
+ b=YqTfeKUSKKwpb8Ju8t6QwtwrcluPYQcn/QLx1YWXJBfp9OKhkBjQfI1fDDuOXdt/1A
+ mJZtuVovUzjouPSZPm1vWf0WKxz2s0SuGl+9mQiK8XdSsdrygbZ3Hkcx5N+gfPjpfkjM
+ icOFkWg5Tuk5Vn76fY/meny4J8HcRajFURT/4Kk3VF85Io6f1DvLl44qGo8HXptSg8us
+ AAW7L3CvCLZ8MlcyW3OSUEkKyyW+QnDDzreiZ3EAbwxBwnHqWdkDhTGuGciFjpbSWQ1x
+ FbTEXOeSyyZV4a+nTTBGPOrrSEU7Qk29+p4wG37nvrJiqJs4syu8h1ztxi9m/29VxQN7
+ LKjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWHbgb/+y/ZPzc9xC6vEkTSCgaWAj8F7919g4BEgb22WS9m9iiLBJDC+5DZDQoTatF7mWJRLQk93qirlLwKIgKdMf5Qoh58s6NNGVzZmfM+aGCZz/teZIhdGovvIeIHKvUVjRT4PPgiKGHIqsZXpg==
-X-Gm-Message-State: AOJu0YwHG4R63DX/4xDAXq+a3SCx1pTOdnxXoWtmOXLMBc9SvTZnpHPW
- 6OW4XW+ki2ycuJeQow5t2TZkhD+LW3Xjck1QOXF/csJSug+Gy2jh
-X-Google-Smtp-Source: AGHT+IHB46KLyRy+mPjFpVofOsGJPEp7Rjn1ERtbNbQDfpsh5s651UESQ96G1+TDXCIuqikePoFkaA==
-X-Received: by 2002:a2e:960a:0:b0:2ec:5467:dcb6 with SMTP id
- 38308e7fff4ca-2ee8ee0ad5fmr10167491fa.52.1720098156565; 
- Thu, 04 Jul 2024 06:02:36 -0700 (PDT)
+ AJvYcCXi/1l0PG/wZn6KRkIx1+nNM5xaDEhEfSS5edYzjJRTvMTeJSJH53/1iMLT91/yTVDLrW94Y5bc4pJJL6gvk4HvulXcVSeP/bq3TZjEpA==
+X-Gm-Message-State: AOJu0Yz3NlZFts34pZkxtT3+e/Ja2SYjaSusAsTx/QzObrb2Pi2mj1JB
+ VLHqEzEWYqvlKoJCihfi206HLYAX7YSgqJO/BxM4Oakd/1+Yts2OilYwKFmi
+X-Google-Smtp-Source: AGHT+IGAQsoJXwM2vsWUG34+H30S4RzH/FwVaF7w5ouC8sREEx3qQ1uDehR/VqYCZIel0TanV+O5bA==
+X-Received: by 2002:a7b:ce19:0:b0:424:abef:e952 with SMTP id
+ 5b1f17b1804b1-4264a4562fdmr12025685e9.29.1720098241701; 
+ Thu, 04 Jul 2024 06:04:01 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4264a1dd97bsm23029815e9.15.2024.07.04.06.02.35
+ 5b1f17b1804b1-4264a1dd952sm23470285e9.13.2024.07.04.06.04.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jul 2024 06:02:36 -0700 (PDT)
-Message-ID: <574f6d9f-4978-4ec0-9aa1-76817dd70686@gmail.com>
-Date: Thu, 4 Jul 2024 15:02:34 +0200
+ Thu, 04 Jul 2024 06:04:00 -0700 (PDT)
+Message-ID: <a43c0b42-612d-4988-ab22-72dbee32c099@gmail.com>
+Date: Thu, 4 Jul 2024 15:03:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] drm/radeon: remove load callback & drm_dev_alloc
-To: Hoi Pok Wu <wuhoipok@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240630165949.117634-1-wuhoipok@gmail.com>
- <748e1bd6-6c40-443d-acbc-3d379229d068@suse.de>
- <CANyH0kDFSn6voXWnF-91fYufRT=Y3eRBLG66JBXz2_=rxJHXfg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove redundant semicolons in RAS_EVENT_LOG
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: hawking.zhang@amd.com, tao.zhou1@amd.com
+References: <20240704055240.1722656-1-kevinyang.wang@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CANyH0kDFSn6voXWnF-91fYufRT=Y3eRBLG66JBXz2_=rxJHXfg@mail.gmail.com>
+In-Reply-To: <20240704055240.1722656-1-kevinyang.wang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,89 +83,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.07.24 um 06:58 schrieb Hoi Pok Wu:
-> Thanks a lot for your help Thomas.
+Am 04.07.24 um 07:52 schrieb Yang Wang:
+> remove redundant semicolons in RAS_EVENT_LOG to avoid
+> code format check warning.
 >
-> On Wed, Jul 3, 2024 at 4:52 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Hi
->>
->> Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
->>> .load and drm_dev_alloc are deprecated. These patch series aims to
->>> remove them.
->>>
->>> v3: Both v1 and v2 sucks. v3 improves greatly on readability.
->> Very nice, thank you. I tested the patches with Radeon hardware and did
->> not find issues. AFAICT this can be merged as-is. I think it should go
->> into the amd trees. Maybe Alex or Christian can pick it up.
->>
->> Thanks for sticking with it.
+> Fixes: 951c09c88fca ("drm/amdgpu: fix compiler 'side-effect' check issue for RAS_EVENT_LOG()")
+>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 
-Nice work guys. Skimming over it it looks ok to me, but maybe Alex has 
-some more notes.
+Ah, yes one of the most common mistakes of all times :)
 
-Regards,
-Christian.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
->>
->> Best regards
->> Thomas
->>
->>> Wu Hoi Pok (6):
->>>     drm/radeon: change variable name "dev" to "ddev" for consistency
->>>     drm/radeon: remove load callback from kms_driver
->>>     drm/radeon: use variable flags as parameter
->>>     drm/radeon: add helper rdev_to_drm(rdev)
->>>     drm/radeon: change rdev->ddev to rdev_to_drm(rdev)
->>>     drm/radeon: change drm_dev_alloc to devm_drm_dev_alloc
->>>
->>>    drivers/gpu/drm/radeon/atombios_encoders.c |  2 +-
->>>    drivers/gpu/drm/radeon/cik.c               | 14 ++--
->>>    drivers/gpu/drm/radeon/dce6_afmt.c         |  2 +-
->>>    drivers/gpu/drm/radeon/evergreen.c         | 12 ++--
->>>    drivers/gpu/drm/radeon/ni.c                |  2 +-
->>>    drivers/gpu/drm/radeon/r100.c              | 24 +++----
->>>    drivers/gpu/drm/radeon/r300.c              |  6 +-
->>>    drivers/gpu/drm/radeon/r420.c              |  6 +-
->>>    drivers/gpu/drm/radeon/r520.c              |  2 +-
->>>    drivers/gpu/drm/radeon/r600.c              | 12 ++--
->>>    drivers/gpu/drm/radeon/r600_cs.c           |  2 +-
->>>    drivers/gpu/drm/radeon/r600_dpm.c          |  4 +-
->>>    drivers/gpu/drm/radeon/r600_hdmi.c         |  2 +-
->>>    drivers/gpu/drm/radeon/radeon.h            |  7 +-
->>>    drivers/gpu/drm/radeon/radeon_acpi.c       | 10 +--
->>>    drivers/gpu/drm/radeon/radeon_agp.c        |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_atombios.c   |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_audio.c      |  4 +-
->>>    drivers/gpu/drm/radeon/radeon_combios.c    | 12 ++--
->>>    drivers/gpu/drm/radeon/radeon_device.c     | 13 ++--
->>>    drivers/gpu/drm/radeon/radeon_display.c    | 74 +++++++++++-----------
->>>    drivers/gpu/drm/radeon/radeon_drv.c        | 27 +++++---
->>>    drivers/gpu/drm/radeon/radeon_fbdev.c      | 26 ++++----
->>>    drivers/gpu/drm/radeon/radeon_fence.c      |  8 +--
->>>    drivers/gpu/drm/radeon/radeon_gem.c        |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_i2c.c        |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_ib.c         |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_irq_kms.c    | 12 ++--
->>>    drivers/gpu/drm/radeon/radeon_kms.c        |  8 +--
->>>    drivers/gpu/drm/radeon/radeon_object.c     |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_pm.c         | 20 +++---
->>>    drivers/gpu/drm/radeon/radeon_ring.c       |  2 +-
->>>    drivers/gpu/drm/radeon/radeon_ttm.c        |  6 +-
->>>    drivers/gpu/drm/radeon/rs400.c             |  6 +-
->>>    drivers/gpu/drm/radeon/rs600.c             | 14 ++--
->>>    drivers/gpu/drm/radeon/rs690.c             |  2 +-
->>>    drivers/gpu/drm/radeon/rv515.c             |  4 +-
->>>    drivers/gpu/drm/radeon/rv770.c             |  2 +-
->>>    drivers/gpu/drm/radeon/si.c                |  4 +-
->>>    39 files changed, 184 insertions(+), 179 deletions(-)
->>>
->> --
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstrasse 146, 90461 Nuernberg, Germany
->> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
->> HRB 36809 (AG Nuernberg)
->>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index 9224fc6418e4..518b10f190ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -72,7 +72,7 @@ struct amdgpu_iv_entry;
+>   #define RAS_EVENT_ID_IS_VALID(x)	(!((x) & BIT_ULL(63)))
+>   
+>   #define RAS_EVENT_LOG(adev, id, fmt, ...)	\
+> -	amdgpu_ras_event_log_print((adev), (id), (fmt), ##__VA_ARGS__);
+> +	amdgpu_ras_event_log_print((adev), (id), (fmt), ##__VA_ARGS__)
+>   
+>   #define amdgpu_ras_mark_ras_event(adev, type)	\
+>   	(amdgpu_ras_mark_ras_event_caller((adev), (type), __builtin_return_address(0)))
 
