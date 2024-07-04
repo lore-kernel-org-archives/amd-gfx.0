@@ -4,72 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F319C30653
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jul 2024 07:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8296AC3271F
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jul 2024 07:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDFFD10E9F3;
-	Thu,  4 Jul 2024 07:24:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B8910E9F4;
+	Thu,  4 Jul 2024 07:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L69Jsas5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kMEgcUAB";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0017710E0AD;
- Wed,  3 Jul 2024 16:11:58 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-3d6301e7279so3417996b6e.3; 
- Wed, 03 Jul 2024 09:11:58 -0700 (PDT)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 592FC10E8F3;
+ Thu,  4 Jul 2024 04:58:18 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2ebeefb9a7fso2355521fa.0; 
+ Wed, 03 Jul 2024 21:58:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720023118; x=1720627918; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720069096; x=1720673896; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3/dH8jV/d+x/FI16gAcv4uydOAqFjUfOw8j20FTynlU=;
- b=L69Jsas5/D3/3ApkGSi3VgF0gbzU/gvLHIkKWHRNhIeSj6SRYF/bIgZzqh9t0UQOdC
- bdclcz/L/L4Ie0uE5xUTWkXkHmfLf36Pmp2OgMhLnPUV8C7xZWaRLJ/XyQbBGNBMNNfN
- lJZpj3InNNmdZiZCY0xwa0Uv+lDp8x9MMsdSyUo2jS55vNNbfwtpTR3UA6d4uskZL/sP
- U31QHKKzvBA2eGvc+5ex+qmF/YpxRcGGBaMbl2ZaP9eQbn9k5haU2M/p9Szif3SDbXf4
- boYkoy9Io/l6bsQPIWfJj/nZHVOKcnYoDucVTzxOQYnsI7n8Gr0IECRdTyTT4zxifI5U
- Selw==
+ bh=B7zncIRfeuDlItOIy7D0MDTD3orFgOC3UeicdZPk4r4=;
+ b=kMEgcUABKYVXobgOpCg3Xg2vgKuqGrNh79/AeZ1AzJ7te0XJLlIyBtDanPi1mIaoHV
+ lppfPp4vHkk/qB71pOJc5kDTqEOaHkB4m8djBj69j52hQAShoVO6rQqNso2QS/9R+GSP
+ qv07Oj+0qSPrk/tANeEkw54YIlraSu+zAd44Q6SDckGIbIXJm/NSWRGp/3Dun9hMhEFI
+ 7nyO1BYMlcsftRUOAnkR+Nsz+xudJ/gCbL67Bi3Sn1FDSzDOrtSNI0zFGvmItZp3Yce/
+ ce9MHP4iruEZ6QRzUh1ZDyVGxFGXSldl+iQM3fV/KTQsbln/nQ1nFPx7/0NbYfCWx0LY
+ CWkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720023118; x=1720627918;
+ d=1e100.net; s=20230601; t=1720069096; x=1720673896;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3/dH8jV/d+x/FI16gAcv4uydOAqFjUfOw8j20FTynlU=;
- b=Ap3RvnpyfACigH64Jss15Pyo6CcBISap9ApM/m3QGL9gMvh2DPkU0l7iZPxThKMHWC
- 5ZdcBHjDB6ueBd3yPCasqmn5MSfj8kyjhlIL4DV24PLcYpBWcpgehEooNEhEBYLjoeMC
- xYwR3ToVBkqyi1RfCFcAJZh4PtgkgZwMbMf5YJ618zLmxGwz9oe0Nok84oTuTFnL39cg
- lFME4OzuG3FtAPRDRS8NzZA5h/8aWPt30wzROfEgEeyeGF29Idz4/RUc6BExcD7ZEy2y
- SKWWIz7Ob0ZGSWA2r5zftSZ00rProX88qDn9snG4/yE3+DIgr0pau0Ahy6WknfsEzkms
- TflA==
+ bh=B7zncIRfeuDlItOIy7D0MDTD3orFgOC3UeicdZPk4r4=;
+ b=NBkzqnq2QyN0gkJ7D4QfI5wRWdjk0TvGsY/g2/9KJarz4Vk5w+7xJvW+vlqTntUksP
+ IRn6oc2/kEYhIYDPFdWfmhMr2vz7X9eXvDLnrUeLE42jyfoH0lqdQBYC9H9Sapy2uZiJ
+ KXeshI2rgKSEUqdJF0A1wPpiA7IeqIgOPPdqzkKk+6V8DFCmY8S+nHe5ooQebyPOk6kT
+ L3dWwv32OmHB/Kfr2qhB5di+iz1qTBt+2JXH20BjbL//nT4zrNI3dfVI8L+9eutBUXIw
+ 4pMaInwqzhNgUKJmNNKdtGYdQcHRMBSSrKTy2HsRnyuU/wxPFAOAapzss6hxFVQ8WM3m
+ oMVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBKy9VqPgK1ij2A4dgB0IFwMtsMF0i6c5+tWyysUDz1iSHqZwUL9GagAwLpVoVAf0gmr2wjjPBiqsvyPYDz+xLD4m2OTYhcOYzMW4iyWgdepLHFshjQlHyAczuVP8w6KJEmjNiCnyks+bKrJExgLvwOTnBIM3V3R5M3JkhzZxY4YMXC2ryeFz+y38KSuLGVKBG9axUJdEbKljRHqhFgEY1CUV3BOw4LVDZa8/wYPNYZpRW9zE=
-X-Gm-Message-State: AOJu0YwMQQu5A4meTmMnNSWFv8kZmGVVP9M/ptn549dVjbRUYFtjdvrw
- WumJhdfrfb4swROrB7PzUmJ7PafY55TL4iZpca0q821nm7YHT/YRXysg1Q6tTw55W35f9GLfDpt
- C1TyGBDCRnKF5RRpP75vSN9+0yYY=
-X-Google-Smtp-Source: AGHT+IHHyVJ7tvgjX6YNT5yXxjT4ZfaP2CSlRVqBQQ9Svv1tUxG/jN+Xkt79kJWNOKN+ENdTMdSGcTnRp+qX6KDNUkc=
-X-Received: by 2002:a05:6808:1909:b0:3d5:5e58:528b with SMTP id
- 5614622812f47-3d6b2b24045mr15706235b6e.1.1720023118007; Wed, 03 Jul 2024
- 09:11:58 -0700 (PDT)
+ AJvYcCX7FI7zasDyhdn5egdqwjmtnkOfh+kWFbvLZye1diDZ6vsq2dUyEIvtayIrTOUGn5smZANwXPFw3LT/iWueGtA68/xVamrzidIdrTtqCVp+kFzA68l5W1WL1oMgiB0/O/cI9ZJ6hhrtu+hHmOlZlA==
+X-Gm-Message-State: AOJu0Yx133xuzukp+np/DEzpnwBtCtdNYtehJZWttSRvbPYyNrasJyHt
+ dxg8mdq5S3KdqzqHIUR5BNVwyJVslTGOjFERifpMPS8Z1DhEXwWzsje8Agbp/kvrjiHZj/KzRqJ
+ wFXdcspuBM+t4JtBEy44NGSaf9/E=
+X-Google-Smtp-Source: AGHT+IF0DLCtxx1ONKaWIRWGcQaRLMMZnMXe1/bJJ23kQW1gwZq1F3/MHvrqsk9LZCHS4bi/2zcKgih857VzQG3iP9Y=
+X-Received: by 2002:a2e:bc86:0:b0:2ed:58d0:b711 with SMTP id
+ 38308e7fff4ca-2ee8edfaa32mr3768541fa.33.1720069095952; Wed, 03 Jul 2024
+ 21:58:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <20240702215804.2201271-31-jim.cromie@gmail.com> <ZoSOMClB0MeWeokU@intel.com>
- <CAJfuBxzsZUpO-Q_uAfMhzXs0WHYMTnj1F8ju7af-kQZKQjLvNQ@mail.gmail.com>
- <ZoU7kR2aYwVDvd_G@intel.com>
-In-Reply-To: <ZoU7kR2aYwVDvd_G@intel.com>
-From: jim.cromie@gmail.com
-Date: Wed, 3 Jul 2024 10:11:31 -0600
-Message-ID: <CAJfuBxwVWbJ9TdgH0ARmxUy+_DfNVKrTewjkqWKmCQtfOKQEAg@mail.gmail.com>
-Subject: Re: [PATCH v9 30/52] drm-dyndbg: adapt drm core to use dyndbg
- classmaps-v2
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, 
- jani.nikula@intel.com, jbaron@akamai.com, gregkh@linuxfoundation.org, 
- ukaszb@chromium.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux@rasmusvillemoes.dk, joe@perches.com, mcgrof@kernel.org
+References: <20240630165949.117634-1-wuhoipok@gmail.com>
+ <748e1bd6-6c40-443d-acbc-3d379229d068@suse.de>
+In-Reply-To: <748e1bd6-6c40-443d-acbc-3d379229d068@suse.de>
+From: Hoi Pok Wu <wuhoipok@gmail.com>
+Date: Thu, 4 Jul 2024 00:58:04 -0400
+Message-ID: <CANyH0kDFSn6voXWnF-91fYufRT=Y3eRBLG66JBXz2_=rxJHXfg@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] drm/radeon: remove load callback & drm_dev_alloc
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 04 Jul 2024 07:24:30 +0000
@@ -87,115 +84,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Got it.
-I had some mental block about passing designated intializers as macro args.
-it just worked, I needed to eyeball the .i file just to be sure.
-thanks.
-I have a fixup patch.
-whats the best thing to do with it, squash it in for later ? send in
-reply here ?
+Thanks a lot for your help Thomas.
 
-On Wed, Jul 3, 2024 at 5:52=E2=80=AFAM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
+On Wed, Jul 3, 2024 at 4:52=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
+de> wrote:
 >
-> On Tue, Jul 02, 2024 at 08:34:39PM -0600, jim.cromie@gmail.com wrote:
-> > On Tue, Jul 2, 2024 at 5:33=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
-> > <ville.syrjala@linux.intel.com> wrote:
-> > >
-> > > On Tue, Jul 02, 2024 at 03:57:20PM -0600, Jim Cromie wrote:
-> > > > dyndbg's CLASSMAP-v1 api was broken; DECLARE_DYNDBG_CLASSMAP tried =
-to
-> > > > do too much.  Its replaced by DRM_CLASSMAP_DEFINE, which creates &
-> > > > EXPORTs the classmap when CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy, for dir=
-ect
-> > > > reference by drivers.
-> > > >
-> > > > The drivers still use DECLARE_DYNDBG_CLASSMAP for now, so they stil=
-l
-> > > > redundantly re-declare the classmap, but we can convert the drivers
-> > > > later to DYNDBG_CLASSMAP_USE
-> > > >
-> > > > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_print.c | 25 +++++++++++++------------
-> > > >  include/drm/drm_print.h     |  8 ++++++++
-> > > >  2 files changed, 21 insertions(+), 12 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_prin=
-t.c
-> > > > index 699b7dbffd7b..4a5f2317229b 100644
-> > > > --- a/drivers/gpu/drm/drm_print.c
-> > > > +++ b/drivers/gpu/drm/drm_print.c
-> > > > @@ -55,18 +55,19 @@ MODULE_PARM_DESC(debug, "Enable debug output, w=
-here each bit enables a debug cat
-> > > >  #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-> > > >  module_param_named(debug, __drm_debug, ulong, 0600);
-> > > >  #else
-> > > > -/* classnames must match vals of enum drm_debug_category */
-> > > > -DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_=
-BITS, 0,
-> > > > -                     "DRM_UT_CORE",
-> > > > -                     "DRM_UT_DRIVER",
-> > > > -                     "DRM_UT_KMS",
-> > > > -                     "DRM_UT_PRIME",
-> > > > -                     "DRM_UT_ATOMIC",
-> > > > -                     "DRM_UT_VBL",
-> > > > -                     "DRM_UT_STATE",
-> > > > -                     "DRM_UT_LEASE",
-> > > > -                     "DRM_UT_DP",
-> > > > -                     "DRM_UT_DRMRES");
-> > > > +/* classnames must match value-symbols of enum drm_debug_category =
-*/
-> > > > +DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS=
-,
-> > > > +                 DRM_UT_CORE,
-> > > > +                 "DRM_UT_CORE",
-> > > > +                 "DRM_UT_DRIVER",
-> > > > +                 "DRM_UT_KMS",
-> > > > +                 "DRM_UT_PRIME",
-> > > > +                 "DRM_UT_ATOMIC",
-> > > > +                 "DRM_UT_VBL",
-> > > > +                 "DRM_UT_STATE",
-> > > > +                 "DRM_UT_LEASE",
-> > > > +                 "DRM_UT_DP",
-> > > > +                 "DRM_UT_DRMRES");
-> > >
-> > > Looks like this stuff just ends up in an array, so presumably
-> > > it should be possible to use designated initializers to make this
-> > > less fragile?
+> Hi
+>
+> Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
+> > .load and drm_dev_alloc are deprecated. These patch series aims to
+> > remove them.
 > >
-> > Im not sure I got your whole point, but:
+> > v3: Both v1 and v2 sucks. v3 improves greatly on readability.
 >
-> I mean using
->  [DRM_UT_CORE] =3D "DRM_UT_CORE"
-> instead of
->  "DRM_UT_CORE"
-> so there is no chance of screwing up the order.
-> Or maybe the order doesn't even matter here?
+> Very nice, thank you. I tested the patches with Radeon hardware and did
+> not find issues. AFAICT this can be merged as-is. I think it should go
+> into the amd trees. Maybe Alex or Christian can pick it up.
 >
-> Could also stringify to avoid accidental of typos.
+> Thanks for sticking with it.
+>
+> Best regards
+> Thomas
 >
 > >
-> > the fragility is the repetitive re-statement of the map,
-> > in those un-modified DECLARE_s,
-> > once replaced, the USEs just ref the struct built by the _DEFINE
-> > (once, and exported)
+> > Wu Hoi Pok (6):
+> >    drm/radeon: change variable name "dev" to "ddev" for consistency
+> >    drm/radeon: remove load callback from kms_driver
+> >    drm/radeon: use variable flags as parameter
+> >    drm/radeon: add helper rdev_to_drm(rdev)
+> >    drm/radeon: change rdev->ddev to rdev_to_drm(rdev)
+> >    drm/radeon: change drm_dev_alloc to devm_drm_dev_alloc
 > >
-> > I dont really like the _DEFINEs restatement of the enum-values: DRM_UT_=
-*
-> > especially as "strings".
-> > I can automate the stringification with an APPLY_FN_(__stringify, ...)
-> > but the enum-list DRM_UT_* (w.o quotes) is still needed as args.
+> >   drivers/gpu/drm/radeon/atombios_encoders.c |  2 +-
+> >   drivers/gpu/drm/radeon/cik.c               | 14 ++--
+> >   drivers/gpu/drm/radeon/dce6_afmt.c         |  2 +-
+> >   drivers/gpu/drm/radeon/evergreen.c         | 12 ++--
+> >   drivers/gpu/drm/radeon/ni.c                |  2 +-
+> >   drivers/gpu/drm/radeon/r100.c              | 24 +++----
+> >   drivers/gpu/drm/radeon/r300.c              |  6 +-
+> >   drivers/gpu/drm/radeon/r420.c              |  6 +-
+> >   drivers/gpu/drm/radeon/r520.c              |  2 +-
+> >   drivers/gpu/drm/radeon/r600.c              | 12 ++--
+> >   drivers/gpu/drm/radeon/r600_cs.c           |  2 +-
+> >   drivers/gpu/drm/radeon/r600_dpm.c          |  4 +-
+> >   drivers/gpu/drm/radeon/r600_hdmi.c         |  2 +-
+> >   drivers/gpu/drm/radeon/radeon.h            |  7 +-
+> >   drivers/gpu/drm/radeon/radeon_acpi.c       | 10 +--
+> >   drivers/gpu/drm/radeon/radeon_agp.c        |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_atombios.c   |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_audio.c      |  4 +-
+> >   drivers/gpu/drm/radeon/radeon_combios.c    | 12 ++--
+> >   drivers/gpu/drm/radeon/radeon_device.c     | 13 ++--
+> >   drivers/gpu/drm/radeon/radeon_display.c    | 74 +++++++++++----------=
+-
+> >   drivers/gpu/drm/radeon/radeon_drv.c        | 27 +++++---
+> >   drivers/gpu/drm/radeon/radeon_fbdev.c      | 26 ++++----
+> >   drivers/gpu/drm/radeon/radeon_fence.c      |  8 +--
+> >   drivers/gpu/drm/radeon/radeon_gem.c        |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_i2c.c        |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_ib.c         |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_irq_kms.c    | 12 ++--
+> >   drivers/gpu/drm/radeon/radeon_kms.c        |  8 +--
+> >   drivers/gpu/drm/radeon/radeon_object.c     |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_pm.c         | 20 +++---
+> >   drivers/gpu/drm/radeon/radeon_ring.c       |  2 +-
+> >   drivers/gpu/drm/radeon/radeon_ttm.c        |  6 +-
+> >   drivers/gpu/drm/radeon/rs400.c             |  6 +-
+> >   drivers/gpu/drm/radeon/rs600.c             | 14 ++--
+> >   drivers/gpu/drm/radeon/rs690.c             |  2 +-
+> >   drivers/gpu/drm/radeon/rv515.c             |  4 +-
+> >   drivers/gpu/drm/radeon/rv770.c             |  2 +-
+> >   drivers/gpu/drm/radeon/si.c                |  4 +-
+> >   39 files changed, 184 insertions(+), 179 deletions(-)
 > >
-> > unless there is something C can do thats like Enum.values() ?
-> >
-> >
-> >
-> > >
-> > > --
-> > > Ville Syrj=C3=A4l=C3=A4
-> > > Intel
 >
 > --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
+>
