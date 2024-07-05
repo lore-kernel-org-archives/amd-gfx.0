@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B58C2BD09
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB08FC3DA41
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F032210E27E;
-	Sat,  6 Jul 2024 16:39:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C48B10E292;
+	Sat,  6 Jul 2024 16:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M1LDTjzU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wjep+ywC";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A650A10E94C;
- Fri,  5 Jul 2024 09:44:59 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1faad2f1967so18112315ad.0; 
- Fri, 05 Jul 2024 02:44:59 -0700 (PDT)
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D5C10E94C;
+ Fri,  5 Jul 2024 09:49:26 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id
+ 5614622812f47-3d91a2c95b2so361425b6e.3; 
+ Fri, 05 Jul 2024 02:49:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720172699; x=1720777499; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720172966; x=1720777766; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
  bh=TbMZKC8DIqM8ieSD0r5HNg9/jzslem7r4bfvqOdWMpA=;
- b=M1LDTjzU6N7P5qusJm47FHLuradZR+DcjwRbXueDF4sDPmqicD3aqF10D484yNGbcT
- B77I/QEr48riukEx+djbWs0r5AClpe3E2I/mtNORpKERL6Ec90ZFEuHyuTUSK14dw6m6
- rhjsWOEn1f3djUkccVDNTt2VV0nc9/DXBHKcE7hQpk5jAfZOuSynJrTyTPc9N907rO9y
- adeKxVrE8NyufLg7BCxzWPRs1JpKut2tUgEZCxC989mYJ6mfSTntg4NCpLYHnGuxrZ3F
- gipERgtdsQbplFtkpwYo2HhdCfM4d5piJqYucQWxyVE1QH0bPq3SodlxnNxbh/oVgADw
- YxGQ==
+ b=Wjep+ywC3r4E643oigKKlV6oqOuITN6YN2hybTIUUhlCTPuqmyvQulNUgvDhs3ibbX
+ QWU8xsDc9XOb2OUmKXNgnrFidcieSm6KgTHXi0/GoLVPBV8mKp6aPsIJ2y/wDJAJ3U2D
+ iuDtI4cfXxE7FuxVzFpJp6YBhe1Y4zv/85nrZiFX7mtAghgsReJS7I+GbdRi+Tznq20T
+ 1/P1x7ZtFP5Aa6d34sUaeQ5Wls+moHJZKq75IOR0mcG6bB24lvW10+fc3d8UDbyQtAxK
+ eD9rRzGwu7d8FUFQEzRRM3+Q3jVhiG6lBpDp8L25AraBRg5gEEPI9NqHDwRb31RKTRMT
+ dJeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720172699; x=1720777499;
+ d=1e100.net; s=20230601; t=1720172966; x=1720777766;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
  bh=TbMZKC8DIqM8ieSD0r5HNg9/jzslem7r4bfvqOdWMpA=;
- b=I+6cAtC93Dvd5f0Yy92xbsaBTBdbJyvgR2bFzSHrI4ukk9zyGGm0ctyd1kHHb2DNHw
- 4X5Ft2XZA8YOku27YGxe1Ppn9K63EDp5p86ymFaQdtWa7qG+Iovlvsql+FwRTo0u5DHj
- C5z8fieqRjPegJ9yYk6fbUbs7KaXWivT5U0vfsyDe2J3bZxFq9XSAPAbGK3jkinz9Q08
- 6hqeaYQ7yqZ9QW2+EIHkH31SzFf+Nyodn/T1JV5TSYsHl3Jh9yogQ9TojiuLRLSuB/FM
- pafqrtvoQS46VsUhVw84N46XbTfQYnNpG52lwJaBlNtd8+TE34W6n5wZQnPMa6aTSfhX
- HZLQ==
+ b=IrE73NPOc1CfMwLcv96o6K3eDoaufxLffGOJYoo+rxgmWZI9qh9VebgpfOaOClRF2G
+ jKAP9uQfa/dPl1Bm2rC/ZK/jlXYwjdo59ef5kGZPFr5FaKsXHuwXh/3iLg9apfJsoq/9
+ VTJKdysoXU4bt0q8bLSqCrb0XONbUk2x5lFDKdKraROxBiSegz9ZcAWMMalWK+229+X+
+ OrC2TzogUYmnvk0ZWDikOgMMWpxa3vWqeGDUUl9qNfGawIzUNBodpH0NbrkVUV4SIIG7
+ 9xKI/M453KqcJcz+Jv8fiellKmf1yQnZSkeV72Pf5QB/c7gSteeRJa71KNNprIawI+8L
+ v4Dg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXiGwhy7z6rKa1XQI0j7cRrCWSyTP0guwa91LkBEe/E3mKLZPavD9IdeGUoPHsIVGU9aH9ls0B4oFmyCmexZcT+r16FaDFCPFrfPrlHHvB6ml9/T8n6juq7/a1MEwBHYZl87NIlDhqMINO4sEQuWQ==
-X-Gm-Message-State: AOJu0YyBfmOZe69UMwnKV6l70ODX1MOH/U3OYji8HYx+kakE917SSYnu
- 15z6IC9PO0VYgEkL5zA1Q6mXMGjGzG+j5mpHFbmZX25xYqgkcl0L
-X-Google-Smtp-Source: AGHT+IFIOsO9JRujFXsVZsOxpIb8GSdE6GdOogexRlOCDz74s6RB/DEiJp4bpjlHZiMAjnGmY8T55Q==
-X-Received: by 2002:a17:902:ce8a:b0:1fb:3263:2e60 with SMTP id
- d9443c01a7336-1fb37046126mr53036475ad.13.1720172698820; 
- Fri, 05 Jul 2024 02:44:58 -0700 (PDT)
+ AJvYcCU/u+2RGukkcY8+rl+9uA2kwMzZQaf+AEfc0ZIxuWG4HSIzCx1x+ZuAU1WdSjSjUSLBRfPat+55s9cEXOdkKxwVDxcA8sk3P/AebnbisTc50NxCkiv5F7xNF2Ykzqe1bdCl7RWA3xS61hIiez39Ew==
+X-Gm-Message-State: AOJu0YzvSWrUzcQ3DRnpTnvFuPMP5KI/tYEnNZJIjMoTJy4I2OiXnYxs
+ y2fj14p141HxuuXkyW/XTaMBou2rD0Uf+EghJ0m8/qHfragJBp/d
+X-Google-Smtp-Source: AGHT+IFN9rzfbXK0Hc+NZ/fUS4V4FYR9VVi4H2M9XrZqKKDeZJ2LhGYv5DE6m7N7j5k2QDzd/2OZ3w==
+X-Received: by 2002:a05:6808:1902:b0:3d6:2bb8:82ab with SMTP id
+ 5614622812f47-3d914da9af7mr5291414b6e.36.1720172965642; 
+ Fri, 05 Jul 2024 02:49:25 -0700 (PDT)
 Received: from pop-os.. ([2401:4900:1cd7:818f:d731:f6bd:8194:7763])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7080256df35sm13570682b3a.64.2024.07.05.02.44.56
+ d2e1a72fcca58-70b143b9409sm107313b3a.124.2024.07.05.02.49.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jul 2024 02:44:58 -0700 (PDT)
+ Fri, 05 Jul 2024 02:49:25 -0700 (PDT)
 From: Akshay Behl <akshaybehl231@gmail.com>
 To: 
 Cc: Akshay Behl <akshaybehl231@gmail.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: [PATCH v2] drm/amd/display: Docs improvement in /dc/inc/hw/mpc.h
-Date: Fri,  5 Jul 2024 15:13:44 +0530
-Message-Id: <20240705094342.351894-1-akshaybehl231@gmail.com>
+Date: Fri,  5 Jul 2024 15:18:58 +0530
+Message-Id: <20240705094857.352270-1-akshaybehl231@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <e17781fa-438d-4806-ae45-eb1239759f43@amd.com>
-References: <e17781fa-438d-4806-ae45-eb1239759f43@amd.com>
+In-Reply-To: <20240704092039.31264-1-akshaybehl231@gmail.com>
+References: <20240704092039.31264-1-akshaybehl231@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 06 Jul 2024 16:39:38 +0000
+X-Mailman-Approved-At: Sat, 06 Jul 2024 16:39:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
