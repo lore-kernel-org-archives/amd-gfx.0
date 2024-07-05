@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB08FC3DA41
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA92C3814E
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:39:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C48B10E292;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F9E10E298;
 	Sat,  6 Jul 2024 16:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wjep+ywC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L4a7I3/R";
 	dkim-atps=neutral
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D5C10E94C;
- Fri,  5 Jul 2024 09:49:26 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-3d91a2c95b2so361425b6e.3; 
- Fri, 05 Jul 2024 02:49:26 -0700 (PDT)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3375510E97A;
+ Fri,  5 Jul 2024 10:02:43 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-70af9f7104cso1019193b3a.3; 
+ Fri, 05 Jul 2024 03:02:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720172966; x=1720777766; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720173763; x=1720778563; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TbMZKC8DIqM8ieSD0r5HNg9/jzslem7r4bfvqOdWMpA=;
- b=Wjep+ywC3r4E643oigKKlV6oqOuITN6YN2hybTIUUhlCTPuqmyvQulNUgvDhs3ibbX
- QWU8xsDc9XOb2OUmKXNgnrFidcieSm6KgTHXi0/GoLVPBV8mKp6aPsIJ2y/wDJAJ3U2D
- iuDtI4cfXxE7FuxVzFpJp6YBhe1Y4zv/85nrZiFX7mtAghgsReJS7I+GbdRi+Tznq20T
- 1/P1x7ZtFP5Aa6d34sUaeQ5Wls+moHJZKq75IOR0mcG6bB24lvW10+fc3d8UDbyQtAxK
- eD9rRzGwu7d8FUFQEzRRM3+Q3jVhiG6lBpDp8L25AraBRg5gEEPI9NqHDwRb31RKTRMT
- dJeQ==
+ bh=ueZlpVq6cMGd2O6TPcbGvjQRFl2p51IxcfO3kFZ+XLY=;
+ b=L4a7I3/RpJ6/a4EbjA/mp6V6b+NwRZS+QnLZnUBi7KUu9FZ8LAfmSTtsd2qMrMb1sU
+ Ri25Z5IUHU9jNtxC8iVNFmeeqkX7ScBL7xX83eanI93Lo+0r9KQx9bvIbrYB7RWPzjTa
+ 3JdeU0TuiGXcIR/ql5A9ceCEvWX0lplZRCpg+PGenZbljxK82sdGvtGSZC4y6bKHt/gw
+ vy9B84dqxiXjwSsOKHWefBJy1rcC7AQohlYX+PBi/fBXKtDodl1P93Oz2RP4p+/TwJef
+ 8gmAPnh2qebCdfn8F0pltCSoMTbK65vftn7EXMaIP6uPYGENJXUk5xApG3cXa2ZbHkcp
+ VHhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720172966; x=1720777766;
+ d=1e100.net; s=20230601; t=1720173763; x=1720778563;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TbMZKC8DIqM8ieSD0r5HNg9/jzslem7r4bfvqOdWMpA=;
- b=IrE73NPOc1CfMwLcv96o6K3eDoaufxLffGOJYoo+rxgmWZI9qh9VebgpfOaOClRF2G
- jKAP9uQfa/dPl1Bm2rC/ZK/jlXYwjdo59ef5kGZPFr5FaKsXHuwXh/3iLg9apfJsoq/9
- VTJKdysoXU4bt0q8bLSqCrb0XONbUk2x5lFDKdKraROxBiSegz9ZcAWMMalWK+229+X+
- OrC2TzogUYmnvk0ZWDikOgMMWpxa3vWqeGDUUl9qNfGawIzUNBodpH0NbrkVUV4SIIG7
- 9xKI/M453KqcJcz+Jv8fiellKmf1yQnZSkeV72Pf5QB/c7gSteeRJa71KNNprIawI+8L
- v4Dg==
+ bh=ueZlpVq6cMGd2O6TPcbGvjQRFl2p51IxcfO3kFZ+XLY=;
+ b=TblmlafJo3yA4O1AhYClpLFerCmMPED5c5Iou4RHTDTQg/69vXCzJQlQfpMTf3RfQP
+ EwZ9g3UnGptfG6FmQeKqCrQIQVDPeHvJJ7dHaozD1lqC4ydACeAHzgWIZUWT5T4mx1Pd
+ 15SacMWXsCCz03F3wZW5VQz4WDp22vqVcny9Q7WnoXxmIDDOZ0zydddG1P7CPZevICcX
+ ipukwrHQmYNeVh1H11gcUSzsXOgm1D+TIrXovLpXEZ6YCBRLimgirylLz8Abpu+JC3p4
+ dRbfAxXqWgj9oudgpl/MfXi+dbcBp3cB+/GRJnMI6boreDwVXNepHwoB03fguZm6kUyU
+ euyQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/u+2RGukkcY8+rl+9uA2kwMzZQaf+AEfc0ZIxuWG4HSIzCx1x+ZuAU1WdSjSjUSLBRfPat+55s9cEXOdkKxwVDxcA8sk3P/AebnbisTc50NxCkiv5F7xNF2Ykzqe1bdCl7RWA3xS61hIiez39Ew==
-X-Gm-Message-State: AOJu0YzvSWrUzcQ3DRnpTnvFuPMP5KI/tYEnNZJIjMoTJy4I2OiXnYxs
- y2fj14p141HxuuXkyW/XTaMBou2rD0Uf+EghJ0m8/qHfragJBp/d
-X-Google-Smtp-Source: AGHT+IFN9rzfbXK0Hc+NZ/fUS4V4FYR9VVi4H2M9XrZqKKDeZJ2LhGYv5DE6m7N7j5k2QDzd/2OZ3w==
-X-Received: by 2002:a05:6808:1902:b0:3d6:2bb8:82ab with SMTP id
- 5614622812f47-3d914da9af7mr5291414b6e.36.1720172965642; 
- Fri, 05 Jul 2024 02:49:25 -0700 (PDT)
+ AJvYcCV5IuVhwgowBMrMo9Kn0gI6O9uLgjFMnri8m0IeGHtgwBZQrgjb0eajkRg2q+qlG+A0tZgD9ECZHlBb4F8B/52yoMNkim3H7sStLe0CoqoDxTp638ikQhxML5wgTQBK2fHq4Edwiu8wXHWmWHFX2g==
+X-Gm-Message-State: AOJu0Yy5llVTH+DYg5rMD5H3YJEBOOmI6KXJ3NcHdKOdZ5Ibqua7CkQ1
+ KDdW0ZRCB34QfXLJM75B3KeQ1+s3XkT+6BTjS5XwgkGeq1PNr7fR
+X-Google-Smtp-Source: AGHT+IGth6g00ULdqwjQ5OsB/b6tcPIphe8A+dcZteytrm1KA6ipJ415LiZeDcSQljJ2azzErnFegA==
+X-Received: by 2002:a05:6a00:846:b0:705:b0aa:a6bf with SMTP id
+ d2e1a72fcca58-70b00914f13mr4569613b3a.2.1720173762453; 
+ Fri, 05 Jul 2024 03:02:42 -0700 (PDT)
 Received: from pop-os.. ([2401:4900:1cd7:818f:d731:f6bd:8194:7763])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b143b9409sm107313b3a.124.2024.07.05.02.49.23
+ d2e1a72fcca58-70804c835absm13623750b3a.220.2024.07.05.03.02.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jul 2024 02:49:25 -0700 (PDT)
+ Fri, 05 Jul 2024 03:02:42 -0700 (PDT)
 From: Akshay Behl <akshaybehl231@gmail.com>
-To: 
-Cc: Akshay Behl <akshaybehl231@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: airlied@gmail.com,
+	daniel@ffwll.ch
+Cc: Akshay Behl <akshaybehl231@gmail.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Subject: [PATCH v2] drm/amd/display: Docs improvement in /dc/inc/hw/mpc.h
-Date: Fri,  5 Jul 2024 15:18:58 +0530
-Message-Id: <20240705094857.352270-1-akshaybehl231@gmail.com>
+Date: Fri,  5 Jul 2024 15:31:26 +0530
+Message-Id: <20240705100125.353231-1-akshaybehl231@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240704092039.31264-1-akshaybehl231@gmail.com>
 References: <20240704092039.31264-1-akshaybehl231@gmail.com>
@@ -83,7 +86,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- After making the required changes
+After making the required changes
 
 This patch fixes some of the warnings while building kernel Docs:
 ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'read_mpcc_state' not described in 'mpc_funcs'
