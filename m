@@ -4,67 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F147EC2BD09
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:36:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B58C2BD09
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:39:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5533110E037;
-	Sat,  6 Jul 2024 16:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F032210E27E;
+	Sat,  6 Jul 2024 16:39:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EaSJ8QUW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M1LDTjzU";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC2310E037;
- Sat,  6 Jul 2024 16:36:37 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2c95ca60719so1665456a91.3; 
- Sat, 06 Jul 2024 09:36:37 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A650A10E94C;
+ Fri,  5 Jul 2024 09:44:59 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-1faad2f1967so18112315ad.0; 
+ Fri, 05 Jul 2024 02:44:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720283796; x=1720888596; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1720172699; x=1720777499; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OS/e5X8AeoMEo6aWPpRtgD4CgR/73R+ByeVN6ZU4krU=;
- b=EaSJ8QUWRZZRIU1oeT0XMupOf6Y4V68+b3dedgE2AwgDUdTN80fIonFtlzDjM5+InI
- jkQuvx/XOcZd0Te9U6QCBTpMXv3JhV2BQM5ebA6GVni+R+rjHFscuEFWckzWv1i9V7Sc
- bu3vZBpZJ3997zwK+7IAIY7zRkFZQuW1pWaA+xpSiZg7fV0oQ03KPn9JmOYzO0DfNeBS
- n2STswPJPoV38T1Z3pi+S8JtWAkMYb+UHXSWX+EODlJbAQkDWFpi683ksnWWUf/cIGvt
- QRH25eF428ZSMuqMwPLdTbg7m7CI0vvr5MlNakeLcb4Vxukepvl8MvlMpzwm68I/91pf
- pt1g==
+ bh=TbMZKC8DIqM8ieSD0r5HNg9/jzslem7r4bfvqOdWMpA=;
+ b=M1LDTjzU6N7P5qusJm47FHLuradZR+DcjwRbXueDF4sDPmqicD3aqF10D484yNGbcT
+ B77I/QEr48riukEx+djbWs0r5AClpe3E2I/mtNORpKERL6Ec90ZFEuHyuTUSK14dw6m6
+ rhjsWOEn1f3djUkccVDNTt2VV0nc9/DXBHKcE7hQpk5jAfZOuSynJrTyTPc9N907rO9y
+ adeKxVrE8NyufLg7BCxzWPRs1JpKut2tUgEZCxC989mYJ6mfSTntg4NCpLYHnGuxrZ3F
+ gipERgtdsQbplFtkpwYo2HhdCfM4d5piJqYucQWxyVE1QH0bPq3SodlxnNxbh/oVgADw
+ YxGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720283796; x=1720888596;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1720172699; x=1720777499;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OS/e5X8AeoMEo6aWPpRtgD4CgR/73R+ByeVN6ZU4krU=;
- b=JoWeZTy/aHJZJGrNu5Qf/CAX6Amh6je1YATkkjdO+3wj2BaVMd8qqef7dz1sX0UfBx
- M10stf6Q/FQlrxtI+yeon80TrdmUCXt5vnolhlVZJImgcdxLVIgBkYGJg4FF4EE16ahs
- W+L2ESOpHokwSbAzElBmc6QSSDp0KpXoJ6qcUGQ3rZTEhUCoSxA1SgQx6V7dk0wYkOVa
- 5txn5F8TabS3XhK3aAtywTYRl7Lt3p50r0/iVBar5alow/CqTIsL2SAamIp3zhqRbCql
- 55cjebZ+5vrRYAEudcqe9UXdSSy6oWsL2EuTlVeTL7FrUd0AvyG4nHoZdEgcCcyYTElA
- Pakg==
+ bh=TbMZKC8DIqM8ieSD0r5HNg9/jzslem7r4bfvqOdWMpA=;
+ b=I+6cAtC93Dvd5f0Yy92xbsaBTBdbJyvgR2bFzSHrI4ukk9zyGGm0ctyd1kHHb2DNHw
+ 4X5Ft2XZA8YOku27YGxe1Ppn9K63EDp5p86ymFaQdtWa7qG+Iovlvsql+FwRTo0u5DHj
+ C5z8fieqRjPegJ9yYk6fbUbs7KaXWivT5U0vfsyDe2J3bZxFq9XSAPAbGK3jkinz9Q08
+ 6hqeaYQ7yqZ9QW2+EIHkH31SzFf+Nyodn/T1JV5TSYsHl3Jh9yogQ9TojiuLRLSuB/FM
+ pafqrtvoQS46VsUhVw84N46XbTfQYnNpG52lwJaBlNtd8+TE34W6n5wZQnPMa6aTSfhX
+ HZLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVR0AuLMqqUGMXYmEwnP8V/+dnvx7u0YY7733yZJlVAe4upvbWz+Wo3I5sXSou53ngDJKfalBk0hVHAuOGt0lxIHXKqsr4eERRMkEFyd5UaZxK5Xm8vQwRUnAGJoZQOuhYenaC/GsNylmQfGdi7zA==
-X-Gm-Message-State: AOJu0YyStCAZmZ1ywF+psWw1wRqiN4GZvmd9Y1aXOaXvXhXVymS/LbzD
- RtasR0LCmA/L1VBoDyaopNg3nvIKAR/iJp+8ADDG27qYjp1V0jZgszA0ClFxo9GX48X93STn88T
- 374tuOysdLzTJRuaBWdgizl4aD76MzQ==
-X-Google-Smtp-Source: AGHT+IE6+ycFi3cn9EaplC8GQUc1u5KyD80X0dCkx8jYOMZdjYCrQUlKyoGBZWGsCJBXyqgtAaF7hV/eShS/nfJoWjQ=
-X-Received: by 2002:a17:90a:f195:b0:2c9:6aae:ac08 with SMTP id
- 98e67ed59e1d1-2c99c6af5famr4494292a91.17.1720283796482; Sat, 06 Jul 2024
- 09:36:36 -0700 (PDT)
+ AJvYcCXiGwhy7z6rKa1XQI0j7cRrCWSyTP0guwa91LkBEe/E3mKLZPavD9IdeGUoPHsIVGU9aH9ls0B4oFmyCmexZcT+r16FaDFCPFrfPrlHHvB6ml9/T8n6juq7/a1MEwBHYZl87NIlDhqMINO4sEQuWQ==
+X-Gm-Message-State: AOJu0YyBfmOZe69UMwnKV6l70ODX1MOH/U3OYji8HYx+kakE917SSYnu
+ 15z6IC9PO0VYgEkL5zA1Q6mXMGjGzG+j5mpHFbmZX25xYqgkcl0L
+X-Google-Smtp-Source: AGHT+IFIOsO9JRujFXsVZsOxpIb8GSdE6GdOogexRlOCDz74s6RB/DEiJp4bpjlHZiMAjnGmY8T55Q==
+X-Received: by 2002:a17:902:ce8a:b0:1fb:3263:2e60 with SMTP id
+ d9443c01a7336-1fb37046126mr53036475ad.13.1720172698820; 
+ Fri, 05 Jul 2024 02:44:58 -0700 (PDT)
+Received: from pop-os.. ([2401:4900:1cd7:818f:d731:f6bd:8194:7763])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7080256df35sm13570682b3a.64.2024.07.05.02.44.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jul 2024 02:44:58 -0700 (PDT)
+From: Akshay Behl <akshaybehl231@gmail.com>
+To: 
+Cc: Akshay Behl <akshaybehl231@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/amd/display: Docs improvement in /dc/inc/hw/mpc.h
+Date: Fri,  5 Jul 2024 15:13:44 +0530
+Message-Id: <20240705094342.351894-1-akshaybehl231@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <e17781fa-438d-4806-ae45-eb1239759f43@amd.com>
+References: <e17781fa-438d-4806-ae45-eb1239759f43@amd.com>
 MIME-Version: 1.0
-References: <20240703184723.1981997-1-alexander.deucher@amd.com>
- <ZofR4znVEPn5fjPL@phenom.ffwll.local>
-In-Reply-To: <ZofR4znVEPn5fjPL@phenom.ffwll.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 6 Jul 2024 12:36:25 -0400
-Message-ID: <CADnq5_Nbt1j0jdu1dkc64y-4BaNs+pA2bf6=skG5Ucqpjz+muw@mail.gmail.com>
-Subject: Re: [pull] amdgpu, radeon drm-fixes-6.10
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, airlied@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 06 Jul 2024 16:39:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,96 +83,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 5, 2024 at 7:15=E2=80=AFAM Daniel Vetter <daniel.vetter@ffwll.c=
-h> wrote:
->
-> On Wed, Jul 03, 2024 at 02:47:23PM -0400, Alex Deucher wrote:
-> > Hi Dave, Sima,
-> >
-> > Fixes for 6.10.
-> >
-> > The following changes since commit 22a40d14b572deb80c0648557f4bd502d7e8=
-3826:
-> >
-> >   Linux 6.10-rc6 (2024-06-30 14:40:44 -0700)
-> >
-> > are available in the Git repository at:
-> >
-> >   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.1=
-0-2024-07-03
-> >
-> > for you to fetch changes up to d0417264437a8fa05f894cabba5a26715b32d78e=
-:
-> >
-> >   drm/amdgpu/atomfirmware: silence UBSAN warning (2024-07-02 18:34:05 -=
-0400)
->
-> Pulled, thanks.
->
-> Also I noticed you have some cherry-picks from -next in here, would be
-> good to add a cherry-pick from annotation like drm-intel/xe does (or dim
-> cherry-pick does).
->
-> It doesn't help to prevent Greg KH from getting confused, but it does hel=
-p
-> everyone else since cherry-picks tend to cause confusing conflicts.
->
+- After making the required changes
 
-Ok.  Will do.  I used to do that in the past, but got dinged for
-referencing commits not in Linus' tree for -fixes, but I guess with
-the -next tree that's less of an issue these days.
+This patch fixes some of the warnings while building kernel Docs:
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'read_mpcc_state' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'mpc_init_single_inst' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'get_mpcc_for_dpp_from_secondary' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'get_mpcc_for_dpp' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'wait_for_idle' not described in 'mpc_funcs'
+./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:547: warning: Function parameter or struct member 'assert_mpcc_idle_before_connect' not described in 'mpc_funcs'
 
-Alex
+by adding descriptions to these struct members
 
+Signed-off-by: Akshay Behl <akshaybehl231@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 84 ++++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 1 deletion(-)
 
-> Cheers, Sima
-> >
-> > ----------------------------------------------------------------
-> > amd-drm-fixes-6.10-2024-07-03:
-> >
-> > amdgpu:
-> > - Freesync fixes
-> > - DML1 bandwidth fix
-> > - DCN 3.5 fixes
-> > - DML2 fix
-> > - Silence an UBSAN warning
-> >
-> > radeon:
-> > - GPUVM fix
-> >
-> > ----------------------------------------------------------------
-> > Alex Deucher (1):
-> >       drm/amdgpu/atomfirmware: silence UBSAN warning
-> >
-> > Alvin Lee (1):
-> >       drm/amd/display: Account for cursor prefetch BW in DML1 mode supp=
-ort
-> >
-> > Fangzhi Zuo (1):
-> >       drm/amd/display: Update efficiency bandwidth for dcn351
-> >
-> > Pierre-Eric Pelloux-Prayer (1):
-> >       drm/radeon: check bo_va->bo is non-NULL before using it
-> >
-> > Roman Li (1):
-> >       drm/amd/display: Fix array-index-out-of-bounds in dml2/FCLKChange=
-Support
-> >
-> > Tom Chung (3):
-> >       drm/amd/display: Reset freesync config before update new state
-> >       drm/amd/display: Add refresh rate range check
-> >       drm/amd/display: Fix refresh rate range for some panel
-> >
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 53 ++++++++++++++=
-+++++++-
-> >  .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  3 ++
-> >  .../amd/display/dc/dml2/dml2_translation_helper.c  |  1 +
-> >  drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c   |  2 +-
-> >  drivers/gpu/drm/amd/include/atomfirmware.h         |  2 +-
-> >  drivers/gpu/drm/radeon/radeon_gem.c                |  2 +-
-> >  6 files changed, 59 insertions(+), 4 deletions(-)
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+index 34a398f23fc6..d2bea0a9699d 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+@@ -282,6 +282,21 @@ struct mpcc_state {
+  * struct mpc_funcs - funcs
+  */
+ struct mpc_funcs {
++	/**
++	 * @read_mpcc_state:
++	 *
++	 * Read current state of a specified MPCC instance
++	 *
++	 * Parameters:
++	 *
++	 * - [in/out] mpc  - MPC context.
++	 * - [in] mpcc_inst - integer representing specific MPC instance
++	 * - [in/out] mpcc_state - MPCC state struct where read information will be stored
++	 *
++	 * Return:
++	 *
++	 * void
++	 */
+ 	void (*read_mpcc_state)(
+ 			struct mpc *mpc,
+ 			int mpcc_inst,
+@@ -352,6 +367,21 @@ struct mpc_funcs {
+ 	 * void
+ 	 */
+ 	void (*mpc_init)(struct mpc *mpc);
++
++	/**
++	 * @mpc_init_single_inst:
++	 *
++	 * Reset the MPCC HW status of a single MPCC physical instance.
++	 *
++	 * Parameters:
++	 *
++	 * - [in/out] mpc - MPC context.
++	 * - [in] mpcc_id - The MPCC physical instance to use for blending.
++	 *
++	 * Return:
++	 *
++	 * void
++	 */
+ 	void (*mpc_init_single_inst)(
+ 			struct mpc *mpc,
+ 			unsigned int mpcc_id);
+@@ -448,17 +478,69 @@ struct mpc_funcs {
+ 			struct mpc *mpc,
+ 			struct mpc_tree *tree,
+ 			struct mpcc *mpcc);
+-
++	/**
++	 * @get_mpcc_for_dpp_from_secondary:
++	 *
++	 * Retrieve a specified MPCC struct from the 'secondary' MPC tree using the provided DPP id.
++	 *
++	 * Parameters:
++	 * - [in/out] tree - MPC tree structure that will be searched.
++	 * - [in]     dpp_id - DPP input for the MPCC.
++	 *
++	 * Return:
++	 *
++	 * struct mpcc* - MPCC that matched the input params
++	 */
+ 	struct mpcc* (*get_mpcc_for_dpp_from_secondary)(
+ 			struct mpc_tree *tree,
+ 			int dpp_id);
+ 
++	/**
++	 * @get_mpcc_for_dpp:
++	 *
++	 * Retrieve a specified MPCC struct from the MPC tree using the provided DPP id.
++	 *
++	 * Parameters:
++	 * - [in/out] tree - MPC tree structure that will be searched.
++	 * - [in]     dpp_id - DPP input for the MPCC.
++	 *
++	 * Return:
++	 *
++	 * struct mpcc* - MPCC that matched the input params
++	 */
++
+ 	struct mpcc* (*get_mpcc_for_dpp)(
+ 			struct mpc_tree *tree,
+ 			int dpp_id);
+ 
++	/**
++	 * @wait_for_idle:
++	 *
++	 * Wait for a specific MPCC instance to become idle
++	 *
++	 * Parameters:
++	 * - [in/out] mpc  - MPC context.
++	 * - [in]     id - ID of the MPCC instance to wait for
++	 *
++	 * Return:
++	 *
++	 * void
++	 */
+ 	void (*wait_for_idle)(struct mpc *mpc, int id);
+ 
++	/**
++	 * @assert_mpcc_idle_before_connect:
++	 *
++	 * Assert that the specific MPCC instance is ideal before attempting to connect.
++	 *
++	 * Parameters:
++	 * - [in/out] mpc  - MPC context.
++	 * - [in]     mpcc_id - ID of the MPCC instance to check for
++	 *
++	 * Return:
++	 *
++	 * void
++	 */
+ 	void (*assert_mpcc_idle_before_connect)(struct mpc *mpc, int mpcc_id);
+ 
+ 	void (*init_mpcc_list_from_hw)(
+-- 
+2.34.1
+
