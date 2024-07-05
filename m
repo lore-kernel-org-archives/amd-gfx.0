@@ -4,146 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB412C3271E
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jul 2024 15:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B499C3271E
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jul 2024 16:21:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA8B10E1B2;
-	Fri,  5 Jul 2024 15:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABCFF10EC1C;
+	Fri,  5 Jul 2024 16:21:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wM2fUFZY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XUtGj9Gq";
 	dkim-atps=neutral
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E93CB10E1B2
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jul 2024 15:15:22 +0000 (UTC)
+ (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B90B10EC1C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jul 2024 16:21:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Km01jDLfYB2K5iDIBq5xzJFyK0BaKAwHm6riipZ8U1b8y5x19CbFubjmvb4PXPWCLcQoACTMfz9FF3Gi7d9SUaL73cOIvDEvj13d8QndMUqd7Q0vtZ5g0zQC+MtlhyQzSBQfMGhUj/LyVUwh3+nkG2+sum6qulKj3gDsK6SZXnF4bVaqt/7IM/FixIwZwBnxrDxO4KWCGeLTmZVjUte2pRFt6zwoWbav5tt11QR7PCMXsliayRuDSW4mlTH+7ZyQ8M9P7ydsd/3C0wLBE9PTttXs4FUrtkJf/yqwaUek0jT6WlqxHafSE09zXrz17s6wQof1u3UAm0KfWHYwhsCs/w==
+ b=Yh+1UEnB2SLc+mCuxHbcY43gBBK9lGvFvjbEdbcVOF6XcnjJ82Ns7lfxDPNhmsghz8roVDixhzw1IdrvJ7qOXBSE5vvEe5XyJ6EkghHnFqfKmheqhcbSJHCbZlf2IMZsDMiJlzVwqW0/C0zy1JoNPITfEzyHvhswwsTbgtNSEwNWXkIGMPM33wQnIH8d4ubFivfXPwxPbocqjE2qYidXxzsGsFfBC+YHSMiXrGVie+7NkmMFrbET7Y1vJ+L4v21Kpv/oLg3fTlMOkCQTetJ10AER94K3yl0ydoMyvvGrE8TPkv8+oQuLmeLXJrE/PBqGRuO6uOiyA4E0ZsTUU3/qQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HiPvI+N/Z3Zz7KSIY9xGmkMAcKPrzCZ1cJds+bUi/u8=;
- b=NDhPp68L1b7TDNwTmTaEahpyH+O7KkWyd1HsqpyUQEv55kTBYGg5aWDrpwuUhEi1GHR6fGpkQI9OhRpSMwRhHRxj0F+cmtms0ukfjz8ytCfyIPwaHDaJ7NABNp0ALpOCkEVJyi7jphKAclUu35Vr2zi02XryMda28aDTYEzay49yKBObnAQx2Zxb6OyXDYXVIaXJ4hBwsH6NpIXXm7KZPP3v7HllE8dXkydoKbZyRp58ahfED5SsC9oAd6S2a/K172RrduByQFP2+JY/KdjEyI5RYhSmswG69bCxyPk22eBNXQaBSerWPio8zYIG/uJKc6VhBIxbblTKiRh2X3jf7g==
+ bh=ZcEifJPwKyYqsbSNZQE7SRPQI0yf/sMPGz/NsDxPfN8=;
+ b=bmTBp6DbP/Xfdep0nKHsZUGwzARQDbIJvLpfLXK8kCcaS0ar3JcjQyOcNJshozIYVhA+YJvDpt7jtoHokmcqrWGVj4rkX+LkOLgExktZabrw7KlUaS1Sntj9ahhgDUHYVcZC0HXar6ShCIMuYwTmq+lniULXl91QNcGjQsjg/4/b2DnlkyWC3yKc31blqu+nFjbrYAVWVGV4NZq015bvx8kwqJA7eT4Jvj5hPZa7W11sNf0PuQPD5IV5+bSyzpX/Utqdmb0OfVDkyY3fXBaVAvBcQ/L84M0bsJcKg5ESbWta6r+t/eohbtiyK5TK0tMFZ2TaTFyo0yqftw1m+H+L9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HiPvI+N/Z3Zz7KSIY9xGmkMAcKPrzCZ1cJds+bUi/u8=;
- b=wM2fUFZYTQXZstctyWkSRswj4ke3PguA+KN4uBLZj/T3isJtSWMdogyyNnmYRAZeycHONDehHmP6v/duBOD3wZsZHfO3wudTrxKhGofUxPgltgj4pi2Cw30r+l0AMMpTsXB5AcqQ+TSWlYVJ5JTwlmN6yq9L6oCbsSqJabA5bfo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- MW6PR12MB8736.namprd12.prod.outlook.com (2603:10b6:303:244::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7719.29; Fri, 5 Jul 2024 15:15:16 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%6]) with mapi id 15.20.7741.017; Fri, 5 Jul 2024
- 15:15:16 +0000
-Message-ID: <86ef87a1-b476-4d7c-a4d1-85e33691720f@amd.com>
-Date: Fri, 5 Jul 2024 20:45:08 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: set CP_HQD_PQ_DOORBELL_CONTROL.DOORBELL_MODE
- to 1
-To: Zhigang Luo <Zhigang.Luo@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240704154038.4599-1-Zhigang.Luo@amd.com>
+ bh=ZcEifJPwKyYqsbSNZQE7SRPQI0yf/sMPGz/NsDxPfN8=;
+ b=XUtGj9GqfN976A08UBSLupL7V6TzlDwAXLeeRvP0DrNun9uwc1TJWpi2SdxrdJOeX72AyEvHfrmrit8D/VG0xS9K3TyHLVEawvXpX3k2DbkboU51mxocwacTULodcy7n8hhhsmN2jQwp/13ARSS5JXPC3FayvHcAnCgQIKa1VIY=
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
+ MW4PR12MB7384.namprd12.prod.outlook.com (2603:10b6:303:22b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.25; Fri, 5 Jul
+ 2024 16:20:48 +0000
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::eb6c:c1fc:66f2:1ca]) by DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::eb6c:c1fc:66f2:1ca%7]) with mapi id 15.20.7741.017; Fri, 5 Jul 2024
+ 16:20:48 +0000
+From: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>
+To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Yang, Philip"
+ <Philip.Yang@amd.com>
+Subject: RE: [PATCH v2] drm/amdkfd: Correct svm prange overlapping handling at
+ svm_range_set_attr ioctl
+Thread-Topic: [PATCH v2] drm/amdkfd: Correct svm prange overlapping handling
+ at svm_range_set_attr ioctl
+Thread-Index: AQHax9oa/0ihKJfEKEutmxXkmprZt7HoXTbA
+Date: Fri, 5 Jul 2024 16:20:48 +0000
+Message-ID: <DM6PR12MB2602ECA96925121844971F13E3DF2@DM6PR12MB2602.namprd12.prod.outlook.com>
+References: <20240626150633.157464-1-xiaogang.chen@amd.com>
+In-Reply-To: <20240626150633.157464-1-xiaogang.chen@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240704154038.4599-1-Zhigang.Luo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0074.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ad::7) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=ec9f2ecb-2285-4599-991c-c836622570f1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-05T16:14:48Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2602:EE_|MW4PR12MB7384:EE_
+x-ms-office365-filtering-correlation-id: 2577ed40-4a4e-4528-d4b0-08dc9d0e6e0c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?EesRkBFz6iCcH+0Sm+eBcE0dL+DkIZyUEdp3lpP9NF9m3j9XDKs0aG4ted7X?=
+ =?us-ascii?Q?XSfpa3l/24gNTXrZFSJillVLxvDPXFe5f4BjIiyJeFTsNDOzJ0NutOOaed7L?=
+ =?us-ascii?Q?3Velxxwo6IL3lsr+hqjIq2eYPLFMi7DP5/R3NU7eManTmlptsUYl60G9biGK?=
+ =?us-ascii?Q?MFFnQU1sc8muf72xTPtWGC2rLJmqQQ208kMMV2ap0EAgHi5IVYUiwXgsLVRH?=
+ =?us-ascii?Q?twA4t1fp7B39kADEUm9kieG83/gG+xk3PLzQYjWV4vu+q70eOq5359RD79Ym?=
+ =?us-ascii?Q?XibYJ1n5/l5HY9R5e2MzbWDOUP7osrBbqFoLILAh/81r++B1ucyeKFhwr6+L?=
+ =?us-ascii?Q?CsxUo8xhJIArg9C0sM43oQalDemxUE3FDHwRnFzYME3zHaS/lMalMSEqrvih?=
+ =?us-ascii?Q?DIQnj5Orn2EZXRr1yV4QJdOLNjGN7ppvJTIG3IPHepxpTYRH17Bsgh4WIVYD?=
+ =?us-ascii?Q?zJSL3zqFPHwNNGQ4QXP7d2QP3tIuaxX9RyVagakffIsjbSYXVDCC6UbCayNV?=
+ =?us-ascii?Q?Qxlc6WLrztQqdZuxbUlb7Zmq8GW99HqWdjkEhXqgWD563MblUNu4vAgeDgMY?=
+ =?us-ascii?Q?/oliyKAn2DVCMLW1VOBkITX4k9T44uSUE9fkiXjLysMbBRl3JJBmu3nbwtxF?=
+ =?us-ascii?Q?C9gfnNx45rVxfPGUW0cfUKQlriL/7uAIOHsoqWtB7dVyz2RW/vrOAZnCrKPx?=
+ =?us-ascii?Q?r5QEVtLuvoRPZRuc8ROyvbw1YJome5XPptREOc+luJmY1E92Vhc9vzxjFLKK?=
+ =?us-ascii?Q?mJZsXk0h6VCO9R/q++xdZodDHnRgv8MgGH2IiRM4CIfAUB9vgbASdLXAmdH2?=
+ =?us-ascii?Q?VuVhB7Lm0xok+6Iaqo8W3iPCIb8AKh7pRTKXht6y2HR718yUS1+ZSDGnyLol?=
+ =?us-ascii?Q?RUTdKpeheRuLYaLI02YcybsqtPz6FJEiTmv6K4O1MIgwmNQ5KSlg5iBAanwz?=
+ =?us-ascii?Q?HmofRheoxeR5w9QWQ0IaXj2OZwe9/6pBRUpZ3uDWbBbgV5HF0eTn+3arVpZI?=
+ =?us-ascii?Q?54o8DmA/eCqS1g6UrCAqn2WUmgs0rrq85dejMRHGC9IFumz8SEdvK3CZdxt7?=
+ =?us-ascii?Q?IFGXXkZ5QakAyChZyINJOUS/gQLVcgk0s0NK5pkrDAIUw0hHrKfBojWpL4Cb?=
+ =?us-ascii?Q?4mQW5KYXyFP2+kmIoidfcUX2z3CLrk0s+Awe0CIY3rPPa5BaaCd7clZhALMB?=
+ =?us-ascii?Q?NCdvH10rdhT1jNHvg08O7+pUYMf98Mtp4OSrdjK0Id0OTrYkzJ/F11tyzNYY?=
+ =?us-ascii?Q?oY41fg/YPpLbT4bhcFLvKBxE2TRlORIhOEtUHjOHRQOa/e5sTd2dF8ApWFSw?=
+ =?us-ascii?Q?ipYSFheWfezLgSG8v/053Z60XcUVdEOaZAbqeErcdxRKQpfhimcBJ/A6S8yA?=
+ =?us-ascii?Q?0PiIq86AYo06ni1MPhfAP8o6iF54AQAtV9Uk0xzH6pSyaVCgHA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8W2OSgADOew84gNzk0fuwS642y3h3Rlb6de400T+5GxqRH74TMqBWCR2+T1J?=
+ =?us-ascii?Q?NG46LQBEnOq7MDokErPI3njg50VEr2AgfaCVMe7pKBe9/7V/jPEYM1V/wSG4?=
+ =?us-ascii?Q?NM4hdgDLPhQ3TTh7H8M+GYxH1cJ47DgfoxEb+atOhtUNnC44ijhlgCe1eGUX?=
+ =?us-ascii?Q?BCX2bOxdh1+o341VWZTcPS6jMSxFCA+BhCdPoZYq5DVaQy14rzNB4kU5oF7f?=
+ =?us-ascii?Q?D0RXkoYzbRUsTUDKya03skaH6SnA6nLtRs27CaOH5Ty4947+GZ40okVda2mc?=
+ =?us-ascii?Q?C0GG/XETDLLUFqd4o6eeEAxHBgngiUf6WuHc1kFyDhXM3lUBQRk8WumQNzl/?=
+ =?us-ascii?Q?zMrxUEyQywa/9+UbKESodtN7zy5PyX1QcB9A+QZXPoDZ5rVypOXxqtHLgXGB?=
+ =?us-ascii?Q?tItVtFSH74d80VDmAZKjTXHHWQKalOWk3vEBZ4UzLzmqDR4wTUXngi4Ilh86?=
+ =?us-ascii?Q?xNJ8SAiDhUPq3B8mmFJcUh7qNdZ9VaS4cCb7wNYa1dGb/Dc9+HGTqN64n6a5?=
+ =?us-ascii?Q?fIZsl2dNlaw0nNcbsv9fe1IaAaBYA6GjGWtrlEve/2YMTBkSdFordspjBT7t?=
+ =?us-ascii?Q?jOZCH159uRvlfxn6ZYk5LvCDFC19kzGWjpn9wQbTZjhjr0+/bLEKN7o3Zw/x?=
+ =?us-ascii?Q?0Z23io0Yi4dwZXsQBVTqMIG/86367eM4lq38cPgzZFbd1Uf2MGTUsyAGGUcQ?=
+ =?us-ascii?Q?V7nTqmYePU7LRSi72y+8JQPSvjkjiW5aBoPcEuQQNkJNhvYR+tYPA3pYdJAW?=
+ =?us-ascii?Q?0xI1b6190kcYS7w5u4vLpD1v5QY05zrCl4Ag/NyJ9Oo1+IxS0Ec7l/E14eUE?=
+ =?us-ascii?Q?JG6qhnZ3a3Z9uoAX0ZA8AWHXiNua9dQ/sLiWO7mOWdFfcWQr7mJvxAc6+c+n?=
+ =?us-ascii?Q?X0EEW93xEFbr+FTrHAjgpFspn/L2MhoRYTFrc2BaZyGYh413KISt0HCd/Fsz?=
+ =?us-ascii?Q?6GbRxRXS9zW2sInX4Eoh7/sOkg2Z7KNmYbR2UyaZvFgGqht003+T2HA22EyV?=
+ =?us-ascii?Q?djQOFnRglYLDVLqid8YLeNy8FhIbr2QhX6bz+R05z8kOAZwnTukje24jWy1d?=
+ =?us-ascii?Q?I/mOfQw5kePNMBvfRr6uPF5ydfQWAregsy5qDVYocFJ3wLTfw1YNK5Pn53CX?=
+ =?us-ascii?Q?DBEJ3iaKKAedPlYNtxPAsCnZQv6hYr8Ud/XYOXYhJt10FC/J8Ffyq/idvmzq?=
+ =?us-ascii?Q?/dAq6m+nOs3YQiLmwTnUdupMvWKTSfHnU0hHslhB4PbW0l9Ubst9fICISRG3?=
+ =?us-ascii?Q?s/pi8czz0uuDveXRcLmKZVNWrsIELVIae48eqkM3LsFklP2MSIDpnqCaxaFs?=
+ =?us-ascii?Q?Hwe65HqsIk8yU/h7uf4jpJ/kuLvskt/6+OIoeZBhQrrjDN4O9l7GlVXzD3R5?=
+ =?us-ascii?Q?9Y6waRQsiH02W5mUQyU7mDxymBJw2xBNzgW45V3mtKJHUH3heO5hvUdM3zx8?=
+ =?us-ascii?Q?awuGOrubksWlVc+6hnGzc9U7VtTJ+kxQjbPWXJywFNLyhBadeE6+WV6izLZc?=
+ =?us-ascii?Q?NJmHECE2nSaIJx7kAK4qNnt2FNOFKCKjwbIqbiSgR+ybNzm+m4FTG1vadPiX?=
+ =?us-ascii?Q?PfWQvqQfw/+czgsOa0s=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|MW6PR12MB8736:EE_
-X-MS-Office365-Filtering-Correlation-Id: caf38d44-74cd-4f33-0ea2-08dc9d054617
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WGxWVkxRbEJHQndScFV0aGVPbmFtL3hzYTFDbmRiZXF2U1BvWG9IUUwvZ0tu?=
- =?utf-8?B?S0YvRUk1ZVI1TlJaTlJ5VGZ6M3VHNlU0Q3l3YklMRjZIaW9zcU9ETTBydTRC?=
- =?utf-8?B?bVpsUXF2Rkk2dTAvL3c5Q2NCVXJkSjNHMmtQYThMbHROUDVqcGlPdUlEV0Zt?=
- =?utf-8?B?QmxIa1hZTlNJeW1UdFAyeE5kRHR6cFA1MlZQM0x1MTNBK1lxTnI4V1JYSnhU?=
- =?utf-8?B?OWk4SmxOeDRiRXIwbDFzQTZPdFFMSzJMdC9oeFV0b1RqRFdVQ1Z2VENYZFRD?=
- =?utf-8?B?cHhsT3pSbUlOT1YvSDd6ZUVLKy90MGVDSm8rbndQS1AvL3UvYy80Z3RGS1VW?=
- =?utf-8?B?TmpMc01QdWgyU1loTTZVQW1qZkhkRFVuYXl4dlVFS3pvS25xNUZYR3B5eGhU?=
- =?utf-8?B?dzlOUS9qdUYxS3NVT3lZS2V0UlowaW5QWklOM0pQOE95aVpnUzlFTXVIOERO?=
- =?utf-8?B?QWxpVFVvS0RQMjNmUGw3MmJFUkFPWDRQajY0Zlo2b2J5MUJNcEljUXdkSGVJ?=
- =?utf-8?B?TG1jQXZJNlQ0NEpIQ3cyWndWUnBtT0tDVm1GaENuUFhHc2t2UFhjTTZXcExM?=
- =?utf-8?B?aEJUbHpDTFZROXljSUtET2NZZnJNeDRXTXZKT1BRMGRKOTBQZFdweUpyM3c5?=
- =?utf-8?B?TTE5dXlPNklOWTNyOWVPU3Q0ckxvUmpyMTRNY1l3SFJKVHhTSmhLbmVHdWs4?=
- =?utf-8?B?dGNnTzloeExUMmcrTFhQZnZWRXhiTmRpTDFiUWc0Y3hVc2pDQW0xUktjSFZ4?=
- =?utf-8?B?dGpoSXE5RllIcHoxa3Vnc0xTUWlBd2lKRnJpcVhaL055SmZ2Nm5DU3ZWR0ZW?=
- =?utf-8?B?QkRZSUJkcVZPcGU1OHBSbDQzcHo4VkIzdE53NktxeXR2SUYyekVwbnhVUm10?=
- =?utf-8?B?L21SeFZIYnF3bUN1QXVnMi94TDlrbnA5YWd5eXlBd1laVm9yT2FyV0xnb3lM?=
- =?utf-8?B?bzB6d2dWTzFaOHY5amIzV0gxRHFzNnpoNU5ObElSK1VkV0N5cUF0OXYvNE4r?=
- =?utf-8?B?d0h4SDRoRmhEblA1eXRqQlR5M3ZELzkvZDM2aEdXMUdQOElUOXlkLzJ6aDR5?=
- =?utf-8?B?bk42Q21xRmFaVjJGcGx3ajc3WnJVZUxRNUZIRkp3ank2bHpBMkZGTEJkckEz?=
- =?utf-8?B?aVNBa0ppdjlDZ3VsWXpNN2JJbThqbUNHWDdvSHI0SFdoMEg2dkFMWWNBUC9R?=
- =?utf-8?B?UjZ4VkVURlJSbUJBVFZ0LzJZZFZsUzVTRWJnZVNuVktzeUhPMjBCSDk1elZB?=
- =?utf-8?B?SE43RU54dHBkQXRncW1MUjQ1L2prRlNiOTNKMWxuQkhVOTBncEpFTEZLWm9r?=
- =?utf-8?B?T0FaUy94NjB2WTErVW45Y0J0dWc3S2xJcW1MYk1wNGJReWhtSXRQcjdjY2FB?=
- =?utf-8?B?VUtwZitKWG0yMVhreWFYRk1MaVRnM2d1aW5oc2hDblgvWktYM2trdHpyaTBC?=
- =?utf-8?B?TEV1ZnZnd1NjRC9jV0tKSHdZWUJCR3owRGRJUmE2R1JpRklQRmRJd2tWVVdU?=
- =?utf-8?B?aCs1WE5DMFlyUTVsWUNLS2F2WEk2MnlFc2E2TjEwOUZvMVNyc0UwV21tTERo?=
- =?utf-8?B?c29qTlVhV3NLb1F1UEpYalB2U0JKUE1KSDdqbEFDcWo3dG9pNlluSUsrZllM?=
- =?utf-8?B?NXB6K3I5Z25OMUdVVVU1SW1Ca3RkaVpyeG1mYTBoRG5vajAxblRNMnQ4U2Fi?=
- =?utf-8?B?c2NIRGpCN2RpTGRSMlB1c2VwYnd3ZlY1TUVKSVdTWnNMenFqRFA5UnptVStw?=
- =?utf-8?B?RHZxaHlvanh3a1F0eEdVdTZKTEltVUJvY2J5a1RuNXA4NEprMUdlaVhrcXht?=
- =?utf-8?B?eFQzNlEvU1NjZXAzRVljUT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aktnMXJzT2tyQVZOSXN2OGp6NEhRZXZwOEVmaDFKRmcxQlFRT1pjdWVnK0JM?=
- =?utf-8?B?anlBWTErQlFoMkVwcGNrTXh0enErVUZMdzNBSHFHak1GaDA1WmswSkNoOFBW?=
- =?utf-8?B?ZHptMDlUbFlyV1o1RjJ4RzNiNkZSWDdNM2o4cG5PYmk3cU1ubnhkK0NMSjVo?=
- =?utf-8?B?VUVCdzlWYkFUZjZLZE9pL0MzSitQeUQzWk5TYitJRVB2QWhiTEU2dHROSnpI?=
- =?utf-8?B?VkVSSnJOVTd3S3NsTVRQZjdOemxRRWYrMjhwSFJGTDdOckNkc1pqTEh6N2Uw?=
- =?utf-8?B?K1oreGxuVTc1a0NkeDVMby9kTlh5WDFpTlQvcllla0lCcmVPMklzcHNaRVNt?=
- =?utf-8?B?V3NhM0pZdHJ6cHlpSWIvV05XdnBiaFJpNUlMOFZWV3VjbHh6aUdsU3pLdlZ1?=
- =?utf-8?B?UXlzSGhjQ2IwdE8vNnlHMTNUTXhzditnVHYzNkRHYzRERzIxeS9hSEFUNTZY?=
- =?utf-8?B?RmhXYU5mc0NiMmh6cHNweWczL2dIUTNrQ2R4UjZuY3I1aWRzNnl6bVpZTDhu?=
- =?utf-8?B?WTlrSWM2UUVYQ3hDSnc4VjVTZ3VwZ0FuZjZzSndBUGFPbFkza0FjWnZDQXZw?=
- =?utf-8?B?bXJ5WGN1ZFVrcEg1dGs3TEp3c2NKTTFlTE9SRHM5N1dFY01hN2xYejZBTDVU?=
- =?utf-8?B?dUVFV1NxZnFWdE84TW8yUXVvWjJXMTZWcGp6cDNBT0FrdXkrOE9ld1JiVDRU?=
- =?utf-8?B?ckFFczN1RjdCaC90b3J6RDVNR1RXZjN6RkZzOHRZbTNrR0dzRjh3RkIvZDd3?=
- =?utf-8?B?ckNDQ1pMMTBSajVXRXNIVlA3U05FSFpldkZHZHRaa2FwNVRTSW1TODYwcEp2?=
- =?utf-8?B?UUpSMkphSGRKcGd1aGMvSjZMcnJxMExCZ3NyZmE2ZFl4WUIzZHRRei9qMUhr?=
- =?utf-8?B?M3BBOEM5TGdPcWx1L0hIT1FGODlSNThRZ1k3Vk1LWEUxbjZtZVFnVDJ0aThI?=
- =?utf-8?B?RnVUQWRyRUxiN0ZUWmFZN3poWHdjdWxNalVRa2JzVzJzUm9EbVc0SnIzbDV2?=
- =?utf-8?B?YWZ6SjZUK2o0MStsZFJjRWFyMkRQd00xMTJhUmlzSTZFZlptK3ZxSVhJNkpl?=
- =?utf-8?B?L0llU3gxZnJNcWl4OEJocFBlTGtuRnpxVXFyTVlBMDMzaDRSVEZDNjJPdnVp?=
- =?utf-8?B?YldOTE9sUlA0SGRrUHVoVW9meURDeXA5ejhRYVQxUlNZWDhFN21CSWhOK3Fz?=
- =?utf-8?B?Wk9YbFhjNTVQeERodkRrajZoalRDQ0tPOTVoeHFkYlhJdGc4VzVFWDE3MnYx?=
- =?utf-8?B?WnBQaWd2Yng2SzhSUHlGTDhjcEVCSm1zNnJzZlVjdGxHSGhpYUswSjVkc25x?=
- =?utf-8?B?SzdOb2t6OG9JT05kQW1BR2NlYnR5RUI5V3pQcTI2a2dmUVlXRFcycDJDOElt?=
- =?utf-8?B?bC81OG9UY3VhdmhYUUFJeEl4dnRGeWJ0YVMyeEd6em10TUtUaW5oK2UxU3J0?=
- =?utf-8?B?UWxQVExsZTg2OTViRzNrOElYVXpNNDBNandrdHRXWDNQck9UR3FlMnVacEdK?=
- =?utf-8?B?TklPS2FpMm5GS3B6SGxwWm85aisyYkJlaU1EbXdXWSt0NWl5d0NlYVNYWjhz?=
- =?utf-8?B?WkNNWG1HMHQxdWV5L3Z0eUJDVlY0T3pVZWM4VzVYWXVocHVBV2xaWXFQN1ZP?=
- =?utf-8?B?cEI3SHlYeStCbzZCUjg0YkFlUEtnUnRQMi9rZTNVUnFWOHVMMXVQaTdsblJZ?=
- =?utf-8?B?Q2diRlBtMWNoclZsOWV3ZXIzc0Y0cWdyQzExV1NVNCswMFpMaXAzNTFsWUtT?=
- =?utf-8?B?NW1sV09NNWRQaUxyck1XU0VrMnhaMlNOWkVFRlg1am15dW5idE42c2p4TU0v?=
- =?utf-8?B?SWNmZkdUUmVRbnRRZTlBa1d5N2dBN0pzdmdBNVp3aGovdnpoZTZQdGNGbzBN?=
- =?utf-8?B?S2F2TTRJbXZQQ21DemFIRDgvMnFkYmFtcVloRXhpVkdUMUpiN3FHd0szalBH?=
- =?utf-8?B?VWdBbVdzUXlnOWxtRzhtY05FWEdldWhvSlBKQng3R2J2VFJuanNWbEdXSWdl?=
- =?utf-8?B?Z3ljSE9EN29zVWxrYzVCS1puZzQvN2lTM1g0dEZ3OVNmTzFXREpIME5aa0V2?=
- =?utf-8?B?ejI2OWFXcjFHRjNUS083YkMyWGZrWlNOdmc3Y1FYS24zWWZQcEdiczVmNytL?=
- =?utf-8?Q?k3HCtnUnGxuS+UJiwQ1bnu2tS?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: caf38d44-74cd-4f33-0ea2-08dc9d054617
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2024 15:15:15.9571 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vX7VGWzBrJvgKi9vVVEkQRUrjGyyyDAZAxVMx5yZdRfcTFg1YgssniaHdYq8jCBk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8736
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2577ed40-4a4e-4528-d4b0-08dc9d0e6e0c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jul 2024 16:20:48.0948 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pZ/ulD3zV3gX/aTb2oLco9yeWzGvFIYUjiEz/3NVvy0nlkX4242cwJn60YMQyApo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7384
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,49 +155,296 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
+ping
 
-On 7/4/2024 9:10 PM, Zhigang Luo wrote:
-> to avoid reading wrong WPTR from doorbell in sriov vf, set
-> CP_HQD_PQ_DOORBELL_CONTROL.DOORBELL_MODE to 1 to read WPTR from MQD.
-> 
-> Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
+-----Original Message-----
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+Sent: Wednesday, June 26, 2024 10:07 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Yang, Philip <Philip.Yang@amd=
+.com>; Chen, Xiaogang <Xiaogang.Chen@amd.com>; Chen, Xiaogang <Xiaogang.Che=
+n@amd.com>
+Subject: [PATCH v2] drm/amdkfd: Correct svm prange overlapping handling at =
+svm_range_set_attr ioctl
 
-Acked-by: Lijo Lazar <lijo.lazar@amd.com>
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-Thanks,
-Lijo
+When user adds new vm range that has overlapping with existing svm pranges =
+current kfd creats a cloned pragne and split it, then replaces original pra=
+nge by it. That destroy original prange locks and the cloned prange locks d=
+o not inherit original prange lock contexts. This may cause issue if code s=
+till need use these locks. In general we should keep using original prange,=
+ update its internal data that got changed during split, then free the clon=
+ed prange.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c         | 3 +++
->  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 +++
->  2 files changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 8d8763ebe027..4556a1be5f71 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -1584,6 +1584,9 @@ static int gfx_v9_4_3_xcc_mqd_init(struct amdgpu_ring *ring, int xcc_id)
->  				    DOORBELL_SOURCE, 0);
->  		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
->  				    DOORBELL_HIT, 0);
-> +		if (amdgpu_sriov_vf(adev))
-> +			tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
-> +					    DOORBELL_MODE, 1);
->  	} else {
->  		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
->  					 DOORBELL_EN, 0);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index 399fa2106631..66c73825c0a0 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -546,6 +546,9 @@ static void init_mqd_hiq_v9_4_3(struct mqd_manager *mm, void **mqd,
->  		m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__NO_UPDATE_RPTR_MASK |
->  					1 << CP_HQD_PQ_CONTROL__PRIV_STATE__SHIFT |
->  					1 << CP_HQD_PQ_CONTROL__KMD_QUEUE__SHIFT;
-> +		if (amdgpu_sriov_vf(mm->dev->adev))
-> +			m->cp_hqd_pq_doorbell_control |= 1 <<
-> +				CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_MODE__SHIFT;
->  		m->cp_mqd_stride_size = kfd_hiq_mqd_stride(mm->dev);
->  		if (xcc == 0) {
->  			/* Set no_update_rptr = 0 in Master XCC */
+This patch change vm range overlaping handling that does not remove existin=
+g pranges, instead updates it for split and keeps its locks alive.
+
+Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 112 ++++++++++++++++++++-------
+ 1 file changed, 82 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
+kfd/kfd_svm.c
+index 407636a68814..a66b8c96ee14 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1967,7 +1967,8 @@ svm_range_evict(struct svm_range *prange, struct mm_s=
+truct *mm,
+        return r;
+ }
+
+-static struct svm_range *svm_range_clone(struct svm_range *old)
++/* create a prange that has same range/size/addr etc info as old */
++static struct svm_range *svm_range_duplicate(struct svm_range *old)
+ {
+        struct svm_range *new;
+
+@@ -1999,6 +2000,25 @@ static struct svm_range *svm_range_clone(struct svm_=
+range *old)
+        return new;
+ }
+
++/* copy range/size/addr info from src to dst prange */ static void
++svm_range_copy(struct svm_range *dst, struct svm_range *src) {
++       dst->npages =3D src->npages;
++       dst->start =3D src->start;
++       dst->last =3D src->last;
++
++       dst->vram_pages =3D src->vram_pages;
++       dst->offset =3D src->offset;
++
++       for (int i =3D 0; i < MAX_GPU_INSTANCE; i++) {
++               if (!src->dma_addr[i])
++                       continue;
++
++                memcpy(dst->dma_addr[i], src->dma_addr[i],
++                               src->npages * sizeof(*src->dma_addr[i]));
++       }
++}
++
+ void svm_range_set_max_pages(struct amdgpu_device *adev)  {
+        uint64_t max_pages;
+@@ -2057,20 +2077,19 @@ svm_range_split_new(struct svm_range_list *svms, ui=
+nt64_t start, uint64_t last,
+  * @attrs: array of attributes
+  * @update_list: output, the ranges need validate and update GPU mapping
+  * @insert_list: output, the ranges need insert to svms
+- * @remove_list: output, the ranges are replaced and need remove from svms
+  * @remap_list: output, remap unaligned svm ranges
+  *
+  * Check if the virtual address range has overlap with any existing ranges=
+,
+  * split partly overlapping ranges and add new ranges in the gaps. All cha=
+nges
+  * should be applied to the range_list and interval tree transactionally. =
+If
+  * any range split or allocation fails, the entire update fails. Therefore=
+ any
+- * existing overlapping svm_ranges are cloned and the original svm_ranges =
+left
++ * existing overlapping svm_ranges are duplicated and the original
++ svm_ranges left
+  * unchanged.
+  *
+- * If the transaction succeeds, the caller can update and insert clones an=
+d
+- * new ranges, then free the originals.
++ * If the transaction succeeds, the caller can update and insert split
++ ranges and
++ * new ranges.
+  *
+- * Otherwise the caller can free the clones and new ranges, while the old
++ * Otherwise the caller can free the duplicated and new ranges, while
++ the old
+  * svm_ranges remain unchanged.
+  *
+  * Context: Process context, caller must hold svms->lock @@ -2082,7 +2101,=
+7 @@ static int  svm_range_add(struct kfd_process *p, uint64_t start, uint6=
+4_t size,
+              uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
+              struct list_head *update_list, struct list_head *insert_list,
+-             struct list_head *remove_list, struct list_head *remap_list)
++             struct list_head *remap_list)
+ {
+        unsigned long last =3D start + size - 1UL;
+        struct svm_range_list *svms =3D &p->svms; @@ -2090,13 +2109,14 @@ s=
+vm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+        struct svm_range *prange;
+        struct svm_range *tmp;
+        struct list_head new_list;
++       struct list_head modify_list;
+        int r =3D 0;
+
+        pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
+
+        INIT_LIST_HEAD(update_list);
+        INIT_LIST_HEAD(insert_list);
+-       INIT_LIST_HEAD(remove_list);
++       INIT_LIST_HEAD(&modify_list);
+        INIT_LIST_HEAD(&new_list);
+        INIT_LIST_HEAD(remap_list);
+
+@@ -2117,35 +2137,41 @@ svm_range_add(struct kfd_process *p, uint64_t start=
+, uint64_t size,
+                        /* nothing to do */
+                } else if (node->start < start || node->last > last) {
+                        /* node intersects the update range and its attribu=
+tes
+-                        * will change. Clone and split it, apply updates o=
+nly
++                        * will change. duplicate and split it, apply updat=
+es only
+                         * to the overlapping part
+                         */
+-                       struct svm_range *old =3D prange;
++                       /* prange_dup is a temperal prange that holds size =
+and addr info
++                        * updates of pragne after split
++                        */
++                       struct svm_range *prange_dup;
+
+-                       prange =3D svm_range_clone(old);
+-                       if (!prange) {
++                       prange_dup =3D svm_range_duplicate(prange);
++                       if (!prange_dup) {
+                                r =3D -ENOMEM;
+                                goto out;
+                        }
+
+-                       list_add(&old->update_list, remove_list);
+-                       list_add(&prange->list, insert_list);
+-                       list_add(&prange->update_list, update_list);
+-
++                       /* split prange_dup */
+                        if (node->start < start) {
+                                pr_debug("change old range start\n");
+-                               r =3D svm_range_split_head(prange, start,
++                               r =3D svm_range_split_head(prange_dup, star=
+t,
+                                                         insert_list, remap=
+_list);
+                                if (r)
+                                        goto out;
+                        }
+                        if (node->last > last) {
+                                pr_debug("change old range last\n");
+-                               r =3D svm_range_split_tail(prange, last,
++                               r =3D svm_range_split_tail(prange_dup, last=
+,
+                                                         insert_list, remap=
+_list);
+                                if (r)
+                                        goto out;
+                        }
++
++                       /* split success, insert_list has new head/tail pra=
+nges */
++                       /* move prange from svm list to modify list */
++                       list_move_tail(&prange->list, &modify_list);
++                       /* put prange_dup at pragne->update_list */
++                       list_add(&prange_dup->list, &prange->update_list);
+                } else {
+                        /* The node is contained within start..last,
+                         * just update it
+@@ -2178,8 +2204,38 @@ svm_range_add(struct kfd_process *p, uint64_t start,=
+ uint64_t size,
+                        svm_range_free(prange, false);
+                list_for_each_entry_safe(prange, tmp, &new_list, list)
+                        svm_range_free(prange, true);
++
++               list_for_each_entry_safe(prange, tmp, &modify_list, list) {
++                       struct svm_range *prange_dup;
++
++                       /* free pragne_dup that is associated with prange o=
+n modify_list */
++                       prange_dup =3D list_first_entry(&prange->update_lis=
+t, struct svm_range, list);
++                       if (prange_dup)
++                               svm_range_free(prange_dup, false);
++
++                       INIT_LIST_HEAD(&prange->update_list);
++                       /* put prange back to svm list */
++                       list_move_tail(&prange->list, &svms->list);
++               }
+        } else {
+                list_splice(&new_list, insert_list);
++
++               list_for_each_entry_safe(prange, tmp, &modify_list, list) {
++                       struct svm_range *prange_dup;
++
++                       prange_dup =3D list_first_entry(&prange->update_lis=
+t, struct svm_range, list);
++                       if (prange_dup) {
++                               /* update prange from prange_dup */
++                               svm_range_copy(prange, prange_dup);
++                               /* release temporal pragne_dup */
++                               svm_range_free(prange_dup, false);
++                       }
++                       INIT_LIST_HEAD(&prange->update_list);
++
++                       /* move prange from modify_list to insert_list and =
+update_list*/
++                       list_move_tail(&prange->list, insert_list);
++                       list_add(&prange->update_list, update_list);
++               }
+        }
+
+        return r;
+@@ -3533,7 +3589,6 @@ svm_range_set_attr(struct kfd_process *p, struct mm_s=
+truct *mm,
+        struct amdkfd_process_info *process_info =3D p->kgd_process_info;
+        struct list_head update_list;
+        struct list_head insert_list;
+-       struct list_head remove_list;
+        struct list_head remap_list;
+        struct svm_range_list *svms;
+        struct svm_range *prange;
+@@ -3566,7 +3621,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_s=
+truct *mm,
+
+        /* Add new range and split existing ranges as needed */
+        r =3D svm_range_add(p, start, size, nattr, attrs, &update_list,
+-                         &insert_list, &remove_list, &remap_list);
++                         &insert_list, &remap_list);
+        if (r) {
+                mutex_unlock(&svms->lock);
+                mmap_write_unlock(mm);
+@@ -3574,21 +3629,18 @@ svm_range_set_attr(struct kfd_process *p, struct mm=
+_struct *mm,
+        }
+        /* Apply changes as a transaction */
+        list_for_each_entry_safe(prange, next, &insert_list, list) {
+-               svm_range_add_to_svms(prange);
+-               svm_range_add_notifier_locked(mm, prange);
++               /* prange can be new or existing range, put it at svms->lis=
+t */
++               list_move_tail(&prange->list, &prange->svms->list);
++               /* update prange at interval trees: svms->objects and
++                * mm interval notifier tree
++                */
++               svm_range_update_notifier_and_interval_tree(mm, prange);
++
+        }
+        list_for_each_entry(prange, &update_list, update_list) {
+                svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapp=
+ing);
+                /* TODO: unmap ranges from GPU that lost access */
+        }
+-       list_for_each_entry_safe(prange, next, &remove_list, update_list) {
+-               pr_debug("unlink old 0x%p prange 0x%p [0x%lx 0x%lx]\n",
+-                        prange->svms, prange, prange->start,
+-                        prange->last);
+-               svm_range_unlink(prange);
+-               svm_range_remove_notifier(prange);
+-               svm_range_free(prange, false);
+-       }
+
+        mmap_write_downgrade(mm);
+        /* Trigger migrations and revalidate and map to GPUs as needed. If
+--
+2.25.1
+
