@@ -4,51 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15D23C3271E
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 03:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F147EC2BD09
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C31E310EA22;
-	Sat,  6 Jul 2024 03:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5533110E037;
+	Sat,  6 Jul 2024 16:36:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="B09MFEOG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EaSJ8QUW";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B71EE10EA14;
- Sat,  6 Jul 2024 03:41:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=ekbQDooGGkHs+OEBp01r7ebDHbjjVf+o0Kyh/Fj/m7Y=; b=B09MFEOGQ4fn/DonXCu7z9fcZ+
- 4f6C3tKoFyReoxV3lmCTkVhZBI8MgY/YbqhZiYeTs8EU3Y7u1uB0i8S+Qrs53DhgS+RLTsy+FmKcF
- nddZ8eUsELiPEG2QD6C7+odIjYF37WaH75IKLpsbXQfxvMpoyT9wIpBEsKQ2OoDzGLWvrtysVUqtW
- aUcej2ryvDhdOkCZlzIPp1AGztLt34EpRbuxgPoIlk+sV5w6+Nt8lZTsCg3KgmzHGG1Ke429elpPf
- LkhZ6LbuJeoQXm2pzkq1cGa17xtYzSNFhND0Ed77H9UPwAy7Xd7esWUxHc8KhoEoVJVHCgy+BMiYd
- a5kY207w==;
-Received: from [189.6.17.125] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sPwIQ-00Bj27-Q1; Sat, 06 Jul 2024 05:41:11 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: [PATCH v4 11/11] drm/amd/display: remove dc_edid handler from
- dm_helpers_parse_edid_caps
-Date: Sat,  6 Jul 2024 00:35:12 -0300
-Message-ID: <20240706034004.801329-12-mwen@igalia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240706034004.801329-1-mwen@igalia.com>
-References: <20240706034004.801329-1-mwen@igalia.com>
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC2310E037;
+ Sat,  6 Jul 2024 16:36:37 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-2c95ca60719so1665456a91.3; 
+ Sat, 06 Jul 2024 09:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1720283796; x=1720888596; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OS/e5X8AeoMEo6aWPpRtgD4CgR/73R+ByeVN6ZU4krU=;
+ b=EaSJ8QUWRZZRIU1oeT0XMupOf6Y4V68+b3dedgE2AwgDUdTN80fIonFtlzDjM5+InI
+ jkQuvx/XOcZd0Te9U6QCBTpMXv3JhV2BQM5ebA6GVni+R+rjHFscuEFWckzWv1i9V7Sc
+ bu3vZBpZJ3997zwK+7IAIY7zRkFZQuW1pWaA+xpSiZg7fV0oQ03KPn9JmOYzO0DfNeBS
+ n2STswPJPoV38T1Z3pi+S8JtWAkMYb+UHXSWX+EODlJbAQkDWFpi683ksnWWUf/cIGvt
+ QRH25eF428ZSMuqMwPLdTbg7m7CI0vvr5MlNakeLcb4Vxukepvl8MvlMpzwm68I/91pf
+ pt1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720283796; x=1720888596;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OS/e5X8AeoMEo6aWPpRtgD4CgR/73R+ByeVN6ZU4krU=;
+ b=JoWeZTy/aHJZJGrNu5Qf/CAX6Amh6je1YATkkjdO+3wj2BaVMd8qqef7dz1sX0UfBx
+ M10stf6Q/FQlrxtI+yeon80TrdmUCXt5vnolhlVZJImgcdxLVIgBkYGJg4FF4EE16ahs
+ W+L2ESOpHokwSbAzElBmc6QSSDp0KpXoJ6qcUGQ3rZTEhUCoSxA1SgQx6V7dk0wYkOVa
+ 5txn5F8TabS3XhK3aAtywTYRl7Lt3p50r0/iVBar5alow/CqTIsL2SAamIp3zhqRbCql
+ 55cjebZ+5vrRYAEudcqe9UXdSSy6oWsL2EuTlVeTL7FrUd0AvyG4nHoZdEgcCcyYTElA
+ Pakg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVR0AuLMqqUGMXYmEwnP8V/+dnvx7u0YY7733yZJlVAe4upvbWz+Wo3I5sXSou53ngDJKfalBk0hVHAuOGt0lxIHXKqsr4eERRMkEFyd5UaZxK5Xm8vQwRUnAGJoZQOuhYenaC/GsNylmQfGdi7zA==
+X-Gm-Message-State: AOJu0YyStCAZmZ1ywF+psWw1wRqiN4GZvmd9Y1aXOaXvXhXVymS/LbzD
+ RtasR0LCmA/L1VBoDyaopNg3nvIKAR/iJp+8ADDG27qYjp1V0jZgszA0ClFxo9GX48X93STn88T
+ 374tuOysdLzTJRuaBWdgizl4aD76MzQ==
+X-Google-Smtp-Source: AGHT+IE6+ycFi3cn9EaplC8GQUc1u5KyD80X0dCkx8jYOMZdjYCrQUlKyoGBZWGsCJBXyqgtAaF7hV/eShS/nfJoWjQ=
+X-Received: by 2002:a17:90a:f195:b0:2c9:6aae:ac08 with SMTP id
+ 98e67ed59e1d1-2c99c6af5famr4494292a91.17.1720283796482; Sat, 06 Jul 2024
+ 09:36:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240703184723.1981997-1-alexander.deucher@amd.com>
+ <ZofR4znVEPn5fjPL@phenom.ffwll.local>
+In-Reply-To: <ZofR4znVEPn5fjPL@phenom.ffwll.local>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Sat, 6 Jul 2024 12:36:25 -0400
+Message-ID: <CADnq5_Nbt1j0jdu1dkc64y-4BaNs+pA2bf6=skG5Ucqpjz+muw@mail.gmail.com>
+Subject: Re: [pull] amdgpu, radeon drm-fixes-6.10
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, airlied@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,129 +79,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We can parse edid caps from drm_edid and drm_eld and any calls of
-dm_helpers_parse_edid_caps is made in a state that we have drm_edid set
-to amdgpu connector.
+On Fri, Jul 5, 2024 at 7:15=E2=80=AFAM Daniel Vetter <daniel.vetter@ffwll.c=
+h> wrote:
+>
+> On Wed, Jul 03, 2024 at 02:47:23PM -0400, Alex Deucher wrote:
+> > Hi Dave, Sima,
+> >
+> > Fixes for 6.10.
+> >
+> > The following changes since commit 22a40d14b572deb80c0648557f4bd502d7e8=
+3826:
+> >
+> >   Linux 6.10-rc6 (2024-06-30 14:40:44 -0700)
+> >
+> > are available in the Git repository at:
+> >
+> >   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.1=
+0-2024-07-03
+> >
+> > for you to fetch changes up to d0417264437a8fa05f894cabba5a26715b32d78e=
+:
+> >
+> >   drm/amdgpu/atomfirmware: silence UBSAN warning (2024-07-02 18:34:05 -=
+0400)
+>
+> Pulled, thanks.
+>
+> Also I noticed you have some cherry-picks from -next in here, would be
+> good to add a cherry-pick from annotation like drm-intel/xe does (or dim
+> cherry-pick does).
+>
+> It doesn't help to prevent Greg KH from getting confused, but it does hel=
+p
+> everyone else since cherry-picks tend to cause confusing conflicts.
+>
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++--
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 29 +++++++++----------
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  1 -
- .../drm/amd/display/dc/link/link_detection.c  |  6 ++--
- 4 files changed, 17 insertions(+), 25 deletions(-)
+Ok.  Will do.  I used to do that in the past, but got dinged for
+referencing commits not in Linus' tree for -fixes, but I guess with
+the -next tree that's less of an issue these days.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 34e380b4408e..fd3580bf1fb2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7024,10 +7024,8 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
- 
- 		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
- 		memmove(dc_em_sink->dc_edid.raw_edid, (uint8_t *)edid, (edid->extensions + 1) * EDID_LENGTH);
--		dm_helpers_parse_edid_caps(
--			dc_link,
--			&dc_em_sink->dc_edid,
--			&dc_em_sink->edid_caps);
-+		dm_helpers_parse_edid_caps(dc_link,
-+					   &dc_em_sink->edid_caps);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 3fb07f437793..59c12cb1db5a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -87,27 +87,20 @@ static void apply_edid_quirks(struct drm_edid_product_id *product_id, struct dc_
-  *
-  * Return: void
-  */
--enum dc_edid_status dm_helpers_parse_edid_caps(
--		struct dc_link *link,
--		const struct dc_edid *edid,
--		struct dc_edid_caps *edid_caps)
-+enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
-+					       struct dc_edid_caps *edid_caps)
- {
- 	struct amdgpu_dm_connector *aconnector = link->priv;
- 	struct drm_connector *connector = &aconnector->base;
- 	const struct drm_edid *drm_edid = aconnector->drm_edid;
- 	struct drm_edid_product_id product_id;
--	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
- 	int sad_count;
- 	int i = 0;
--
- 	enum dc_edid_status result = EDID_OK;
- 
--	if (!edid_caps || !edid)
-+	if (!edid_caps || !drm_edid)
- 		return EDID_BAD_INPUT;
- 
--	if (!drm_edid_is_valid(edid_buf))
--		result = EDID_BAD_CHECKSUM;
--
- 	drm_edid_get_product_id(drm_edid, &product_id);
- 
- 	edid_caps->manufacturer_id = le16_to_cpu(product_id.manufacturer_name);
-@@ -919,19 +912,23 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 		if (!drm_edid)
- 			return EDID_NO_RESPONSE;
- 
--		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
-+		/* FIXME: Get rid of drm_edid_raw()
-+		 * Raw edid is still needed for dm_helpers_dp_write_dpcd()
-+		 */
-+		edid = drm_edid_raw(drm_edid);
- 		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
- 		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
- 
- 		edid_status = dm_helpers_parse_edid_caps(
- 						link,
--						&sink->dc_edid,
- 						&sink->edid_caps);
- 
--		/* We don't need the original edid anymore */
--		drm_edid_free(drm_edid);
--
--	} while (edid_status == EDID_BAD_CHECKSUM && --retry > 0);
-+		if (edid_status != EDID_OK) {
-+			/* We can discard the drm_edid and retry */
-+			drm_edid_free(drm_edid);
-+			drm_edid_connector_update(connector, drm_edid);
-+		}
-+	} while (edid_status != EDID_OK && --retry > 0);
- 
- 	if (edid_status != EDID_OK)
- 		DRM_ERROR("EDID err: %d, on connector: %s",
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 34adae7ab6e8..bcdfc46c844e 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -61,7 +61,6 @@ void dm_helpers_free_gpu_mem(
- 
- enum dc_edid_status dm_helpers_parse_edid_caps(
- 	struct dc_link *link,
--	const struct dc_edid *edid,
- 	struct dc_edid_caps *edid_caps);
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index bba644024780..c7bb146636b2 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1417,10 +1417,8 @@ struct dc_sink *link_add_remote_sink(
- 			dc_sink))
- 		goto fail_add_sink;
- 
--	edid_status = dm_helpers_parse_edid_caps(
--			link,
--			&dc_sink->dc_edid,
--			&dc_sink->edid_caps);
-+	edid_status = dm_helpers_parse_edid_caps(link,
-+						 &dc_sink->edid_caps);
- 
- 	/*
- 	 * Treat device as no EDID device if EDID
--- 
-2.43.0
+Alex
 
+
+> Cheers, Sima
+> >
+> > ----------------------------------------------------------------
+> > amd-drm-fixes-6.10-2024-07-03:
+> >
+> > amdgpu:
+> > - Freesync fixes
+> > - DML1 bandwidth fix
+> > - DCN 3.5 fixes
+> > - DML2 fix
+> > - Silence an UBSAN warning
+> >
+> > radeon:
+> > - GPUVM fix
+> >
+> > ----------------------------------------------------------------
+> > Alex Deucher (1):
+> >       drm/amdgpu/atomfirmware: silence UBSAN warning
+> >
+> > Alvin Lee (1):
+> >       drm/amd/display: Account for cursor prefetch BW in DML1 mode supp=
+ort
+> >
+> > Fangzhi Zuo (1):
+> >       drm/amd/display: Update efficiency bandwidth for dcn351
+> >
+> > Pierre-Eric Pelloux-Prayer (1):
+> >       drm/radeon: check bo_va->bo is non-NULL before using it
+> >
+> > Roman Li (1):
+> >       drm/amd/display: Fix array-index-out-of-bounds in dml2/FCLKChange=
+Support
+> >
+> > Tom Chung (3):
+> >       drm/amd/display: Reset freesync config before update new state
+> >       drm/amd/display: Add refresh rate range check
+> >       drm/amd/display: Fix refresh rate range for some panel
+> >
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 53 ++++++++++++++=
++++++++-
+> >  .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  3 ++
+> >  .../amd/display/dc/dml2/dml2_translation_helper.c  |  1 +
+> >  drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c   |  2 +-
+> >  drivers/gpu/drm/amd/include/atomfirmware.h         |  2 +-
+> >  drivers/gpu/drm/radeon/radeon_gem.c                |  2 +-
+> >  6 files changed, 59 insertions(+), 4 deletions(-)
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
