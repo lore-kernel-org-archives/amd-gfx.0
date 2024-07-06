@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856C3C2BD09
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 16:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D9E5C2BD09
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 19:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB4FB10E16C;
-	Sat,  6 Jul 2024 16:54:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 161C310E082;
+	Sat,  6 Jul 2024 19:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aCnYsYra";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Fa3W7s2h";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC7010E031
- for <amd-gfx@lists.freedesktop.org>; Sat,  6 Jul 2024 16:54:33 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2c961b5f215so1597868a91.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 06 Jul 2024 09:54:33 -0700 (PDT)
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
+ [209.85.160.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2F8510E061
+ for <amd-gfx@lists.freedesktop.org>; Sat,  6 Jul 2024 19:20:37 +0000 (UTC)
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-25075f3f472so423017fac.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 06 Jul 2024 12:20:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720284873; x=1720889673; darn=lists.freedesktop.org;
+ d=ffwll.ch; s=google; t=1720293637; x=1720898437; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=l6JKp4wGLAdXhXxuz1tIdEkuCF6yf2YgaQ/zkOraCSs=;
- b=aCnYsYraB0G0YRfR6IupZ/GJzpSqXQxZ+qH/X5vlSz9x9CaceI6/FiW1x8iEeoSafD
- K4bsehpUd10uhBmiRBg6OReEoDBvmXxWWU8HMqDzlyTOXw3l2UA526fCz/qitiKFRMnD
- hlfntFtAq96A12pJ7PQTc9v7rlMnvlsEXAKGoXMmpKnVpocXHKWupMP52QExhGuRAa8C
- 6zFBwkp9BzM3EQcm2AEJIloJXkb2ggCTuLv6QKR+qb2Q+sIaeEJPzgdAjR4Zsh9PDyOs
- +eivajvXAnJ75t2CbTV6Hei3BlW6TMTKqTIXrgwWmJhXsdz2l+3mRP1j3k9wYvLoWR1D
- qGdQ==
+ bh=ikxGv2F7tsE+G14aVyn9PLqKDbvk1ZKaUHJjD1JcbyY=;
+ b=Fa3W7s2h8c/ohgTACTgx7kejXklt9UIqq1BqzwfAClJyowDvYnBVeqKJ7Aow0dIzc7
+ a/q1PksLzCdpcADweBVsvHftCOzL2JqaCgOLI0njfAiatzIPIGYWPHg02lZ466QdCdkQ
+ KK72/Gx/qfl0cG/YFAUPJkyRvBx29SyWNLPx4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720284873; x=1720889673;
+ d=1e100.net; s=20230601; t=1720293637; x=1720898437;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=l6JKp4wGLAdXhXxuz1tIdEkuCF6yf2YgaQ/zkOraCSs=;
- b=Yl0t0yXGZpS01xFqtkePyWii5YYswlLRtINLkg/QuBIbXg2DJvaGJt1pdLzj7pNHv/
- Oftgwuq8+yfItDsdmki/TrjKaxnlQFGITqcvw2h8RhLUB61Cxaj6VBHzzZ5iA8rvJJ9Q
- RVxodWYMRrgmKPRh+jU5m9/9xdLw8tsXNY+4t4vDtC/XCnIY6357VGYKItcUAmY2J0d/
- UpF+dijAM2Ix0lz/uqDpZ1WeKk1EY+aACKbQXHMeFkQdADErXHRWh2fHPfWB/HPmR559
- mVevPeJ7tjwYz7PS0Ads2Tc6eV2gd7FVt76V9sd+a26Vni5AHcsFUZY+w9t1XBBhZxaj
- u8Zg==
-X-Gm-Message-State: AOJu0YwpaUUtopiR+Fa8QqIWMMe/aeIXsVR1UtgrbP6jcpgBJ+i3bhrv
- nWC9o/vDzMLXKooxn03TF82CJseYi8pAzHBKxETyLj+eaI9ZpF4ynitp74/ENTwpPCEFNGBJ1fC
- X2XKv5FR2aAVh67k0I8UyDgIrOxU=
-X-Google-Smtp-Source: AGHT+IE1k1mGmBZdycZv875ktl1ugdXspjgLanoQ5QtNpiCmTOsCx7AlnzbUqfyK89woyMdHN1tihNzZwjff/hXbDJg=
-X-Received: by 2002:a17:90b:3ccd:b0:2c4:b8e1:89b0 with SMTP id
- 98e67ed59e1d1-2c99c7f11c2mr4591868a91.30.1720284872525; Sat, 06 Jul 2024
- 09:54:32 -0700 (PDT)
+ bh=ikxGv2F7tsE+G14aVyn9PLqKDbvk1ZKaUHJjD1JcbyY=;
+ b=h8Ua7/X1H0h+8zapYwS+AlP3CjV5gLTGi+0MOgWLz5Ll2wbaJkmYi9J8SfqMTNS49c
+ 8q2jYfU7RRhJxNPlfHJw/LQFWpcBv/tUr6R/zrjaW88b5VEbxLLGdooBAjo+Ts8/GNBb
+ MwhG8ol3xZnRtUGcTzwBZkP9Pcw9bvI2ZyuUoUCVa0sfELWTy7jiKanKgGvE0iOIvUXA
+ WjkbSW+HuZbReM1dSTZ4k7hU1AqSDv3ZI2yVxyxrIkAxqU307h2SQqp1fgIOpMRIJHKl
+ 8eg6xZpaawzR43RTOxwcUmrxNDOHAZ/L422jMtjpTNKCNXFvAdsUxF0Wg78hzltuNKyp
+ 8WQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUUNLGbeDUWcIRwM1kNjvv9OGN+/fyoYo/UAREMFZluXONHXqVEDZxyaCANLw5KjjrR2eqLXXUFNJmr0mxR6GkrkAA5Tyv/TpKC6sp//g==
+X-Gm-Message-State: AOJu0YwxlZtHw15ue3a+0aWRyk1JZ9AaAlA+X3Y6iQqT9ZQ3G6EpPCHp
+ c4cgzNtQ8Js4++FwkYDuU3hW0NrTHy3sQObNvhVg0DXslCyOsTCExZTBLJtgyNMxKDwOAim3rbB
+ 8DA1Hgqq+KS6Uz1vNDT2Hi+OfpxDxhX1k0QUgVQ==
+X-Google-Smtp-Source: AGHT+IGxjK4Ec31F49wmZ290KqV0vTiKCVLdT2hfQJBLGY3KJLmVdn2U6bfmFttt0ai9vh3nLXNcP+DuR1rGt+MSeD8=
+X-Received: by 2002:a05:6871:24d9:b0:254:affe:5a08 with SMTP id
+ 586e51a60fabf-25e2ba1b287mr7348356fac.2.1720293636810; Sat, 06 Jul 2024
+ 12:20:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240704145741.378053-1-kent.russell@amd.com>
-In-Reply-To: <20240704145741.378053-1-kent.russell@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 6 Jul 2024 12:54:21 -0400
-Message-ID: <CADnq5_OakwkjQv--9jwDsystOGpGwtQEXE3WaL8Xn85ugPW-Ow@mail.gmail.com>
-Subject: Re: [PATCH] Documentation/amdgpu: Clarify MI200 and MI300 entries
-To: Kent Russell <kent.russell@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+References: <20240703184723.1981997-1-alexander.deucher@amd.com>
+ <ZofR4znVEPn5fjPL@phenom.ffwll.local>
+ <CADnq5_Nbt1j0jdu1dkc64y-4BaNs+pA2bf6=skG5Ucqpjz+muw@mail.gmail.com>
+In-Reply-To: <CADnq5_Nbt1j0jdu1dkc64y-4BaNs+pA2bf6=skG5Ucqpjz+muw@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Sat, 6 Jul 2024 21:20:25 +0200
+Message-ID: <CAKMK7uFY58-kMt6HZ4Wo8JZv4Hm9A86y9p7ptzAmTFTWxNiX0w@mail.gmail.com>
+Subject: Re: [pull] amdgpu, radeon drm-fixes-6.10
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, airlied@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,45 +77,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 4, 2024 at 11:15=E2=80=AFAM Kent Russell <kent.russell@amd.com>=
- wrote:
+On Sat, 6 Jul 2024 at 18:36, Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> Add "Series" to MI200 and MI300 to clarify that they represent the
-> series of cards, and to more closely match the product information
-> materials. This also matches other entries in this list
+> On Fri, Jul 5, 2024 at 7:15=E2=80=AFAM Daniel Vetter <daniel.vetter@ffwll=
+.ch> wrote:
+> >
+> > On Wed, Jul 03, 2024 at 02:47:23PM -0400, Alex Deucher wrote:
+> > > Hi Dave, Sima,
+> > >
+> > > Fixes for 6.10.
+> > >
+> > > The following changes since commit 22a40d14b572deb80c0648557f4bd502d7=
+e83826:
+> > >
+> > >   Linux 6.10-rc6 (2024-06-30 14:40:44 -0700)
+> > >
+> > > are available in the Git repository at:
+> > >
+> > >   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6=
+.10-2024-07-03
+> > >
+> > > for you to fetch changes up to d0417264437a8fa05f894cabba5a26715b32d7=
+8e:
+> > >
+> > >   drm/amdgpu/atomfirmware: silence UBSAN warning (2024-07-02 18:34:05=
+ -0400)
+> >
+> > Pulled, thanks.
+> >
+> > Also I noticed you have some cherry-picks from -next in here, would be
+> > good to add a cherry-pick from annotation like drm-intel/xe does (or di=
+m
+> > cherry-pick does).
+> >
+> > It doesn't help to prevent Greg KH from getting confused, but it does h=
+elp
+> > everyone else since cherry-picks tend to cause confusing conflicts.
+> >
 >
-> Also correct a typo in the MI300 codename (Vangaram->Vanjaram)
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> Ok.  Will do.  I used to do that in the past, but got dinged for
+> referencing commits not in Linus' tree for -fixes, but I guess with
+> the -next tree that's less of an issue these days.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  Documentation/gpu/amdgpu/dgpu-asic-info-table.csv | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+You'll still get dinged by Greg, but frankly when he doesn't get it
+since like 10 years (that's how long intel cherry-picks everything for
+-fixes) it's not an us problem anymore, and it's really useful imo.
+-Sima
+
 >
-> diff --git a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv b/Document=
-ation/gpu/amdgpu/dgpu-asic-info-table.csv
-> index 3825f00ca9fe..d2f10ee69dfc 100644
-> --- a/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
-> +++ b/Documentation/gpu/amdgpu/dgpu-asic-info-table.csv
-> @@ -15,8 +15,8 @@ Radeon (RX/Pro) 500 /540(X) /550 /640 /WX2100 /WX3100 /=
-WX200 Series, POLARIS12,
->  Radeon (RX|TM) (PRO|WX) Vega /MI25 /V320 /V340L /8200 /9100 /SSG MxGPU, =
-VEGA10, DCE 12, 9.0.1, VCE 4.0.0 / UVD 7.0.0, 4.0.0
->  AMD Radeon (Pro) VII /MI50 /MI60, VEGA20, DCE 12, 9.4.0, VCE 4.1.0 / UVD=
- 7.2.0, 4.2.0
->  MI100, ARCTURUS, *, 9.4.1, VCN 2.5.0, 4.2.2
-> -MI200, ALDEBARAN, *, 9.4.2, VCN 2.6.0, 4.4.0
-> -MI300, AQUA_VANGARAM, *, 9.4.3, VCN 4.0.3, 4.4.2
-> +MI200 Series, ALDEBARAN, *, 9.4.2, VCN 2.6.0, 4.4.0
-> +MI300 Series, AQUA_VANJARAM, *, 9.4.3, VCN 4.0.3, 4.4.2
->  AMD Radeon (RX|Pro) 5600(M|XT) /5700 (M|XT|XTB) /W5700, NAVI10, DCN 2.0.=
-0, 10.1.10, VCN 2.0.0, 5.0.0
->  AMD Radeon (Pro) 5300 /5500XTB/5500(XT|M) /W5500M /W5500, NAVI14, DCN 2.=
-0.0, 10.1.1, VCN 2.0.2, 5.0.2
->  AMD Radeon RX 6800(XT) /6900(XT) /W6800, SIENNA_CICHLID, DCN 3.0.0, 10.3=
-.0, VCN 3.0.0, 5.2.0
-> --
-> 2.34.1
+> Alex
 >
+>
+> > Cheers, Sima
+> > >
+> > > ----------------------------------------------------------------
+> > > amd-drm-fixes-6.10-2024-07-03:
+> > >
+> > > amdgpu:
+> > > - Freesync fixes
+> > > - DML1 bandwidth fix
+> > > - DCN 3.5 fixes
+> > > - DML2 fix
+> > > - Silence an UBSAN warning
+> > >
+> > > radeon:
+> > > - GPUVM fix
+> > >
+> > > ----------------------------------------------------------------
+> > > Alex Deucher (1):
+> > >       drm/amdgpu/atomfirmware: silence UBSAN warning
+> > >
+> > > Alvin Lee (1):
+> > >       drm/amd/display: Account for cursor prefetch BW in DML1 mode su=
+pport
+> > >
+> > > Fangzhi Zuo (1):
+> > >       drm/amd/display: Update efficiency bandwidth for dcn351
+> > >
+> > > Pierre-Eric Pelloux-Prayer (1):
+> > >       drm/radeon: check bo_va->bo is non-NULL before using it
+> > >
+> > > Roman Li (1):
+> > >       drm/amd/display: Fix array-index-out-of-bounds in dml2/FCLKChan=
+geSupport
+> > >
+> > > Tom Chung (3):
+> > >       drm/amd/display: Reset freesync config before update new state
+> > >       drm/amd/display: Add refresh rate range check
+> > >       drm/amd/display: Fix refresh rate range for some panel
+> > >
+> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 53 ++++++++++++=
++++++++++-
+> > >  .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  3 ++
+> > >  .../amd/display/dc/dml2/dml2_translation_helper.c  |  1 +
+> > >  drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c   |  2 +-
+> > >  drivers/gpu/drm/amd/include/atomfirmware.h         |  2 +-
+> > >  drivers/gpu/drm/radeon/radeon_gem.c                |  2 +-
+> > >  6 files changed, 59 insertions(+), 4 deletions(-)
+> >
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
+
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
