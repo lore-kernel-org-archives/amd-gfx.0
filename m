@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D9E5C2BD09
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Jul 2024 19:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25705C2BD09
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jul 2024 02:25:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 161C310E082;
-	Sat,  6 Jul 2024 19:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A373210E038;
+	Sun,  7 Jul 2024 02:25:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="Fa3W7s2h";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jl3RToEn";
 	dkim-atps=neutral
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F8510E061
- for <amd-gfx@lists.freedesktop.org>; Sat,  6 Jul 2024 19:20:37 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-25075f3f472so423017fac.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 06 Jul 2024 12:20:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1720293637; x=1720898437; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ikxGv2F7tsE+G14aVyn9PLqKDbvk1ZKaUHJjD1JcbyY=;
- b=Fa3W7s2h8c/ohgTACTgx7kejXklt9UIqq1BqzwfAClJyowDvYnBVeqKJ7Aow0dIzc7
- a/q1PksLzCdpcADweBVsvHftCOzL2JqaCgOLI0njfAiatzIPIGYWPHg02lZ466QdCdkQ
- KK72/Gx/qfl0cG/YFAUPJkyRvBx29SyWNLPx4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720293637; x=1720898437;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ikxGv2F7tsE+G14aVyn9PLqKDbvk1ZKaUHJjD1JcbyY=;
- b=h8Ua7/X1H0h+8zapYwS+AlP3CjV5gLTGi+0MOgWLz5Ll2wbaJkmYi9J8SfqMTNS49c
- 8q2jYfU7RRhJxNPlfHJw/LQFWpcBv/tUr6R/zrjaW88b5VEbxLLGdooBAjo+Ts8/GNBb
- MwhG8ol3xZnRtUGcTzwBZkP9Pcw9bvI2ZyuUoUCVa0sfELWTy7jiKanKgGvE0iOIvUXA
- WjkbSW+HuZbReM1dSTZ4k7hU1AqSDv3ZI2yVxyxrIkAxqU307h2SQqp1fgIOpMRIJHKl
- 8eg6xZpaawzR43RTOxwcUmrxNDOHAZ/L422jMtjpTNKCNXFvAdsUxF0Wg78hzltuNKyp
- 8WQA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUNLGbeDUWcIRwM1kNjvv9OGN+/fyoYo/UAREMFZluXONHXqVEDZxyaCANLw5KjjrR2eqLXXUFNJmr0mxR6GkrkAA5Tyv/TpKC6sp//g==
-X-Gm-Message-State: AOJu0YwxlZtHw15ue3a+0aWRyk1JZ9AaAlA+X3Y6iQqT9ZQ3G6EpPCHp
- c4cgzNtQ8Js4++FwkYDuU3hW0NrTHy3sQObNvhVg0DXslCyOsTCExZTBLJtgyNMxKDwOAim3rbB
- 8DA1Hgqq+KS6Uz1vNDT2Hi+OfpxDxhX1k0QUgVQ==
-X-Google-Smtp-Source: AGHT+IGxjK4Ec31F49wmZ290KqV0vTiKCVLdT2hfQJBLGY3KJLmVdn2U6bfmFttt0ai9vh3nLXNcP+DuR1rGt+MSeD8=
-X-Received: by 2002:a05:6871:24d9:b0:254:affe:5a08 with SMTP id
- 586e51a60fabf-25e2ba1b287mr7348356fac.2.1720293636810; Sat, 06 Jul 2024
- 12:20:36 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 997D510E038;
+ Sun,  7 Jul 2024 02:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1720319135; x=1751855135;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=rKND/DDor3jBEfbUtMGSK9KCKF/ysHxNWp/E/B3E1h8=;
+ b=jl3RToEn3roFTyAEbSUcbjLRSRWITcVSRM1+MWxrZoDd7C3sA5Pfa+Vv
+ B3QkdIhmMKeIrI/sR564GkqFW/GQv9xFUyqFQbiYagcFx1Hqf3nFXdwQp
+ 2Eq8KBsWS0SAUJMozM+27Jq7e2ENyRaLwRonSovvJD37JQGH+WN2p1hu8
+ VF9ZKe+cI8uyVQ6+wS4uqOyynSyZ1XzN6A8BA6bTFSZclFBvOUNW45I59
+ WwnNXJnUOxWnrXlaBIKuO3tPD8Z50d2BLya/4WR3qf6lZ5gx/03SlR8Hy
+ jAEfPxWbWm0UC12jmM+9Q0gO1V/Gw7kgzTQq+gaEcmpPipS/Y7TinyYC/ Q==;
+X-CSE-ConnectionGUID: i9yVmhevRcyDcKjwHpawmQ==
+X-CSE-MsgGUID: /Mk7uUisS7CtPGngoiqi1A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11125"; a="21321760"
+X-IronPort-AV: E=Sophos;i="6.09,189,1716274800"; d="scan'208";a="21321760"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2024 19:25:34 -0700
+X-CSE-ConnectionGUID: EDZ/wsrnSnG6EXixXe+oDw==
+X-CSE-MsgGUID: vuSaGMqtTVascBuhV8XStQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,189,1716274800"; d="scan'208";a="70374633"
+Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
+ by fmviesa002.fm.intel.com with ESMTP; 06 Jul 2024 19:25:30 -0700
+Received: from kbuild by 68891e0c336b with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sQHah-000UWQ-31;
+ Sun, 07 Jul 2024 02:25:27 +0000
+Date: Sun, 7 Jul 2024 10:24:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: Melissa Wen <mwen@igalia.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, Alex Hung <alex.hung@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH v4 11/11] drm/amd/display: remove dc_edid handler from
+ dm_helpers_parse_edid_caps
+Message-ID: <202407071047.0LkXU4JN-lkp@intel.com>
+References: <20240706034004.801329-12-mwen@igalia.com>
 MIME-Version: 1.0
-References: <20240703184723.1981997-1-alexander.deucher@amd.com>
- <ZofR4znVEPn5fjPL@phenom.ffwll.local>
- <CADnq5_Nbt1j0jdu1dkc64y-4BaNs+pA2bf6=skG5Ucqpjz+muw@mail.gmail.com>
-In-Reply-To: <CADnq5_Nbt1j0jdu1dkc64y-4BaNs+pA2bf6=skG5Ucqpjz+muw@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Sat, 6 Jul 2024 21:20:25 +0200
-Message-ID: <CAKMK7uFY58-kMt6HZ4Wo8JZv4Hm9A86y9p7ptzAmTFTWxNiX0w@mail.gmail.com>
-Subject: Re: [pull] amdgpu, radeon drm-fixes-6.10
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, airlied@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240706034004.801329-12-mwen@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,113 +76,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 6 Jul 2024 at 18:36, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Fri, Jul 5, 2024 at 7:15=E2=80=AFAM Daniel Vetter <daniel.vetter@ffwll=
-.ch> wrote:
-> >
-> > On Wed, Jul 03, 2024 at 02:47:23PM -0400, Alex Deucher wrote:
-> > > Hi Dave, Sima,
-> > >
-> > > Fixes for 6.10.
-> > >
-> > > The following changes since commit 22a40d14b572deb80c0648557f4bd502d7=
-e83826:
-> > >
-> > >   Linux 6.10-rc6 (2024-06-30 14:40:44 -0700)
-> > >
-> > > are available in the Git repository at:
-> > >
-> > >   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6=
-.10-2024-07-03
-> > >
-> > > for you to fetch changes up to d0417264437a8fa05f894cabba5a26715b32d7=
-8e:
-> > >
-> > >   drm/amdgpu/atomfirmware: silence UBSAN warning (2024-07-02 18:34:05=
- -0400)
-> >
-> > Pulled, thanks.
-> >
-> > Also I noticed you have some cherry-picks from -next in here, would be
-> > good to add a cherry-pick from annotation like drm-intel/xe does (or di=
-m
-> > cherry-pick does).
-> >
-> > It doesn't help to prevent Greg KH from getting confused, but it does h=
-elp
-> > everyone else since cherry-picks tend to cause confusing conflicts.
-> >
->
-> Ok.  Will do.  I used to do that in the past, but got dinged for
-> referencing commits not in Linus' tree for -fixes, but I guess with
-> the -next tree that's less of an issue these days.
+Hi Melissa,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on next-20240703]
+[cannot apply to amd-pstate/linux-next amd-pstate/bleeding-edge linus/master v6.10-rc6 v6.10-rc5 v6.10-rc4 v6.10-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-amd-display-clean-unused-variables-for-hdmi-freesync-parser/20240706-121621
+base:   next-20240703
+patch link:    https://lore.kernel.org/r/20240706034004.801329-12-mwen%40igalia.com
+patch subject: [PATCH v4 11/11] drm/amd/display: remove dc_edid handler from dm_helpers_parse_edid_caps
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20240707/202407071047.0LkXU4JN-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240707/202407071047.0LkXU4JN-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202407071047.0LkXU4JN-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:92: warning: Excess function parameter 'edid' description in 'dm_helpers_parse_edid_caps'
 
 
-You'll still get dinged by Greg, but frankly when he doesn't get it
-since like 10 years (that's how long intel cherry-picks everything for
--fixes) it's not an us problem anymore, and it's really useful imo.
--Sima
+vim +92 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c
 
->
-> Alex
->
->
-> > Cheers, Sima
-> > >
-> > > ----------------------------------------------------------------
-> > > amd-drm-fixes-6.10-2024-07-03:
-> > >
-> > > amdgpu:
-> > > - Freesync fixes
-> > > - DML1 bandwidth fix
-> > > - DCN 3.5 fixes
-> > > - DML2 fix
-> > > - Silence an UBSAN warning
-> > >
-> > > radeon:
-> > > - GPUVM fix
-> > >
-> > > ----------------------------------------------------------------
-> > > Alex Deucher (1):
-> > >       drm/amdgpu/atomfirmware: silence UBSAN warning
-> > >
-> > > Alvin Lee (1):
-> > >       drm/amd/display: Account for cursor prefetch BW in DML1 mode su=
-pport
-> > >
-> > > Fangzhi Zuo (1):
-> > >       drm/amd/display: Update efficiency bandwidth for dcn351
-> > >
-> > > Pierre-Eric Pelloux-Prayer (1):
-> > >       drm/radeon: check bo_va->bo is non-NULL before using it
-> > >
-> > > Roman Li (1):
-> > >       drm/amd/display: Fix array-index-out-of-bounds in dml2/FCLKChan=
-geSupport
-> > >
-> > > Tom Chung (3):
-> > >       drm/amd/display: Reset freesync config before update new state
-> > >       drm/amd/display: Add refresh rate range check
-> > >       drm/amd/display: Fix refresh rate range for some panel
-> > >
-> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 53 ++++++++++++=
-+++++++++-
-> > >  .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  3 ++
-> > >  .../amd/display/dc/dml2/dml2_translation_helper.c  |  1 +
-> > >  drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c   |  2 +-
-> > >  drivers/gpu/drm/amd/include/atomfirmware.h         |  2 +-
-> > >  drivers/gpu/drm/radeon/radeon_gem.c                |  2 +-
-> > >  6 files changed, 59 insertions(+), 4 deletions(-)
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+613a7956deb3b1 Aurabindo Pillai     2023-06-12   79  
+4855fdb5fc5488 Melissa Wen          2024-07-06   80  #define AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS 13
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   81  /**
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   82   * dm_helpers_parse_edid_caps() - Parse edid caps
+4562236b3bc0a2 Harry Wentland       2017-09-12   83   *
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   84   * @link: current detected link
+4562236b3bc0a2 Harry Wentland       2017-09-12   85   * @edid:	[in] pointer to edid
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   86   * @edid_caps:	[in] pointer to edid caps
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   87   *
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   88   * Return: void
+f0b60e6e9b2ba3 Srinivasan Shanmugam 2023-07-13   89   */
+4dbd1b96ef4bca Melissa Wen          2024-07-06   90  enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
+4562236b3bc0a2 Harry Wentland       2017-09-12   91  					       struct dc_edid_caps *edid_caps)
+4562236b3bc0a2 Harry Wentland       2017-09-12  @92  {
+3c021931023a30 Claudio Suarez       2021-10-17   93  	struct amdgpu_dm_connector *aconnector = link->priv;
+3c021931023a30 Claudio Suarez       2021-10-17   94  	struct drm_connector *connector = &aconnector->base;
+766cded62d4ba6 Melissa Wen          2024-07-06   95  	const struct drm_edid *drm_edid = aconnector->drm_edid;
+766cded62d4ba6 Melissa Wen          2024-07-06   96  	struct drm_edid_product_id product_id;
+c3e817e49503e3 Melissa Wen          2024-07-06   97  	int sad_count;
+4562236b3bc0a2 Harry Wentland       2017-09-12   98  	int i = 0;
+4562236b3bc0a2 Harry Wentland       2017-09-12   99  	enum dc_edid_status result = EDID_OK;
+4562236b3bc0a2 Harry Wentland       2017-09-12  100  
+4dbd1b96ef4bca Melissa Wen          2024-07-06  101  	if (!edid_caps || !drm_edid)
+4562236b3bc0a2 Harry Wentland       2017-09-12  102  		return EDID_BAD_INPUT;
+4562236b3bc0a2 Harry Wentland       2017-09-12  103  
+766cded62d4ba6 Melissa Wen          2024-07-06  104  	drm_edid_get_product_id(drm_edid, &product_id);
+766cded62d4ba6 Melissa Wen          2024-07-06  105  
+766cded62d4ba6 Melissa Wen          2024-07-06  106  	edid_caps->manufacturer_id = le16_to_cpu(product_id.manufacturer_name);
+766cded62d4ba6 Melissa Wen          2024-07-06  107  	edid_caps->product_id = le16_to_cpu(product_id.product_code);
+766cded62d4ba6 Melissa Wen          2024-07-06  108  	edid_caps->serial_number = le32_to_cpu(product_id.serial_number);
+766cded62d4ba6 Melissa Wen          2024-07-06  109  	edid_caps->manufacture_week = product_id.week_of_manufacture;
+766cded62d4ba6 Melissa Wen          2024-07-06  110  	edid_caps->manufacture_year = product_id.year_of_manufacture;
+4562236b3bc0a2 Harry Wentland       2017-09-12  111  
+4855fdb5fc5488 Melissa Wen          2024-07-06  112  	memset(edid_caps->display_name, 0, AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+4855fdb5fc5488 Melissa Wen          2024-07-06  113  	memcpy(edid_caps->display_name,
+4855fdb5fc5488 Melissa Wen          2024-07-06  114  	       &connector->eld[DRM_ELD_MONITOR_NAME_STRING],
+4855fdb5fc5488 Melissa Wen          2024-07-06  115  	       AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS);
+4562236b3bc0a2 Harry Wentland       2017-09-12  116  
+3c021931023a30 Claudio Suarez       2021-10-17  117  	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+4562236b3bc0a2 Harry Wentland       2017-09-12  118  
+766cded62d4ba6 Melissa Wen          2024-07-06  119  	apply_edid_quirks(&product_id, edid_caps);
+b7cdccc6a84956 Ryan Lin             2024-02-28  120  
+b13a74b7280b1a Melissa Wen          2024-07-06  121  	sad_count = drm_eld_sad_count(connector->eld);
+ae2a3495973ef0 Jean Delvare         2019-09-04  122  	if (sad_count <= 0)
+4562236b3bc0a2 Harry Wentland       2017-09-12  123  		return result;
+4562236b3bc0a2 Harry Wentland       2017-09-12  124  
+1347b15d5e8e16 Srinivasan Shanmugam 2023-08-13  125  	edid_caps->audio_mode_count = min(sad_count, DC_MAX_AUDIO_DESC_COUNT);
+4562236b3bc0a2 Harry Wentland       2017-09-12  126  	for (i = 0; i < edid_caps->audio_mode_count; ++i) {
+b13a74b7280b1a Melissa Wen          2024-07-06  127  		struct cea_sad sad;
+4562236b3bc0a2 Harry Wentland       2017-09-12  128  
+b13a74b7280b1a Melissa Wen          2024-07-06  129  		if (drm_eld_sad_get(connector->eld, i, &sad) < 0)
+b13a74b7280b1a Melissa Wen          2024-07-06  130  			continue;
+b13a74b7280b1a Melissa Wen          2024-07-06  131  
+b13a74b7280b1a Melissa Wen          2024-07-06  132  		edid_caps->audio_modes[i].format_code = sad.format;
+b13a74b7280b1a Melissa Wen          2024-07-06  133  		edid_caps->audio_modes[i].channel_count = sad.channels + 1;
+b13a74b7280b1a Melissa Wen          2024-07-06  134  		edid_caps->audio_modes[i].sample_rate = sad.freq;
+b13a74b7280b1a Melissa Wen          2024-07-06  135  		edid_caps->audio_modes[i].sample_size = sad.byte2;
+4562236b3bc0a2 Harry Wentland       2017-09-12  136  	}
+4562236b3bc0a2 Harry Wentland       2017-09-12  137  
+4562236b3bc0a2 Harry Wentland       2017-09-12  138  
+c3e817e49503e3 Melissa Wen          2024-07-06  139  	if (connector->eld[DRM_ELD_SPEAKER])
+c3e817e49503e3 Melissa Wen          2024-07-06  140  		edid_caps->speaker_flags = connector->eld[DRM_ELD_SPEAKER];
+4562236b3bc0a2 Harry Wentland       2017-09-12  141  	else
+4562236b3bc0a2 Harry Wentland       2017-09-12  142  		edid_caps->speaker_flags = DEFAULT_SPEAKER_LOCATION;
+4562236b3bc0a2 Harry Wentland       2017-09-12  143  
+4562236b3bc0a2 Harry Wentland       2017-09-12  144  	return result;
+4562236b3bc0a2 Harry Wentland       2017-09-12  145  }
+4562236b3bc0a2 Harry Wentland       2017-09-12  146  
 
-
-
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
