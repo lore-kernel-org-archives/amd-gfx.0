@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F111C3271E
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 17:21:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F2AFC3271E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 19:04:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20EA810E0C2;
-	Mon,  8 Jul 2024 17:21:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E47D10E3E6;
+	Mon,  8 Jul 2024 19:04:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jVdpyoqQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ebNf3dsV";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD2E10E0C2
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jul 2024 17:21:03 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A853410E3E6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jul 2024 19:04:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kW2SKX34bayFhiMaadcJ5F5/H77O+IrblGNTJUlM42TQJRXM8X75mk+0iEWJgodoqrwbhmpiJLqkYVFebsbrsmncTdbLfbmQZqWrLJXNldzvkn4CWHDJGNvoCBS5g/geK9mCqumFu8cOq5GW6mBmZrio1Y6u+yW1KIPEUljtvz/tqb7gW1yJEMl15NLZB1/JxpjI6jhFuet5MYoBI2oDyQ/jU3o8IRne/V5oo8UrtscB5imxliZJr0cP5nbprcxNCnNlyGIia4Uhcun2KPSlEh12Usq/diXZKP/ZAJZXqjzrKw/Plla/GLhvGdavkrx8OhEnGszjxt/LZLXBSXJdlA==
+ b=BD+v6ZyMWc1ix0xkYL/8MjZrPGGyPSNICzqZ0oVyNdZOFtGT+TPOTsLmhAco21iqi2W/wI4d2MQYbVOusFsum+MiYhd0tbK2XB6Ev3bORWNRZYkwr+4j35qKiN68CsbeuzdgJkGx1P4Qjz/j3OrfxRSUVIrtAhpmijvs173tHTz9oRBxtfG0PWw8flRKQR9OvbChKbM+SVqdA7M3tX0GazslLcE8SQLLoPB62cccxnG0O71HAdx5WgCGL2tkeqnb7/ch2ObMvVasiPTGQ4agZrp66tcWwQO6Qwa+sYbJAs8kNslwo3DTN7yFQ77hibNpQCaRFv4Yfv91XOhjpkEKVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nr3eVebY+Ofl4H44lFYpHekovMOIQ+q2S7Xq3IwGeT8=;
- b=RejcBsB3JWyYAhCvsu0l7nxD6N8I0KV1ciepc9/fT9Suw+LbUSVzSl/fV1G3HhR5kcKOvdYUemhKTQQmW5l/jo8GWQ00dXXAEasWquN7L9zuiMHV7/S046ExiNAqpuHjp/nUlakHBCEapw7JyOGbJANWuDAv9++NfZWqLsRqVolrOpRzEiPyP+SfEofZHWGcjT3hGASzr6PxmKGdhep6iuDZT1xK7NQxsoyoBaVcUHlYjpAM7W2E0nDBWG666RdHc2CK5+NL+CBVDQVhzt+t63Bjx7x9OPaOrvDMY1TpCqgbHXC/V3j2HnSr+5BeNS+JmzOvOJuQwOF1Ti8npqTfvQ==
+ bh=PwemPGz7LHpoQrCes2Qb/mySWwK30ZlsIvNw47lcgG4=;
+ b=hsNO8BhlLQzWSrR4GEOYAPFDtL+uzMLQsyzA4LEBxzUhm4UGDZFTjb3SjkkCRJIxUHlLlH/E3+U08GnK4tG9OqVWi8mhy42nEFV1iIaYk7TVPHgfFSgY/E0XU5NZ6koXgo4kXAvnbU2mVT3MYNkxiQLwuqsMu1q1TKRqKSWamvQtfSpeKtpofPRwk0e6xtFSYK2J1KuoBbhuvexkRh3RuXELUr7J/dAutKqqwBvKzc13QEiqeQFngEMo6TMjLAbdErWNDTJoPWeBt05lQJtKUxE1dF3sAhE001Qau2uNPNxm1YxgagX4nwFNFAeWTSDZPZ9EjihlsLExvtlh2uSQvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nr3eVebY+Ofl4H44lFYpHekovMOIQ+q2S7Xq3IwGeT8=;
- b=jVdpyoqQGDzMz8w/uqJ/8xu5m8IxgnUkyI+fdxWyQtaC6lMfoaVHTrmbNWJEnZar1sbBzH8UuoIPGPImVUiwdjCFMxUiwOwCKF6TbS2ORy3FkLRQfHWeJZBJsbYgci8KVRWksDZFP6Lo2Y2bSUUXTgjtLMtjGOqQ9ShWNkoWTqg=
-Received: from SJ0PR05CA0166.namprd05.prod.outlook.com (2603:10b6:a03:339::21)
- by PH8PR12MB7350.namprd12.prod.outlook.com (2603:10b6:510:216::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.31; Mon, 8 Jul
- 2024 17:21:00 +0000
-Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
- (2603:10b6:a03:339:cafe::11) by SJ0PR05CA0166.outlook.office365.com
- (2603:10b6:a03:339::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.18 via Frontend
- Transport; Mon, 8 Jul 2024 17:21:00 +0000
+ bh=PwemPGz7LHpoQrCes2Qb/mySWwK30ZlsIvNw47lcgG4=;
+ b=ebNf3dsVnl6XDkRJWtz/EJzWE0VrFDrBjv7WzPTJfSrxaueJnr/TyieY6QKtRcG1nKv5W6i2gelgwFOgbq9dQTVXx3SsTrp0yuoRoOO2Acr6baGKdipfTnUkmeZSIZyl4NxdQX6RS6BdpbXA8hlPdQFidCZSPWvmoNi5+k4ZqoA=
+Received: from BN0PR02CA0049.namprd02.prod.outlook.com (2603:10b6:408:e5::24)
+ by DM6PR12MB4202.namprd12.prod.outlook.com (2603:10b6:5:219::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Mon, 8 Jul
+ 2024 19:04:36 +0000
+Received: from BN1PEPF00006002.namprd05.prod.outlook.com
+ (2603:10b6:408:e5:cafe::35) by BN0PR02CA0049.outlook.office365.com
+ (2603:10b6:408:e5::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36 via Frontend
+ Transport; Mon, 8 Jul 2024 19:04:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,72 +48,73 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ BN1PEPF00006002.mail.protection.outlook.com (10.167.243.234) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.1 via Frontend Transport; Mon, 8 Jul 2024 17:21:00 +0000
-Received: from ubuntu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7762.17 via Frontend Transport; Mon, 8 Jul 2024 19:04:36 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 8 Jul
- 2024 12:20:57 -0500
-From: Gavin Wan <Gavin.Wan@amd.com>
+ 2024 14:04:34 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Gavin Wan <Gavin.Wan@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: fix SDMA IRQ client ID <-> req mapping.
-Date: Mon, 8 Jul 2024 17:20:24 +0000
-Message-ID: <20240708172024.1951-1-Gavin.Wan@amd.com>
-X-Mailer: git-send-email 2.40.1
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/job: Replace DRM_INFO/ERROR logging
+Date: Mon, 8 Jul 2024 15:04:19 -0400
+Message-ID: <20240708190419.3615363-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|PH8PR12MB7350:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e8c2023-93d0-4b76-4a11-08dc9f725670
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006002:EE_|DM6PR12MB4202:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcf95177-6088-42ac-1259-08dc9f80cfa1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cE0kMd5Y6mp06iyM6j9Wv++uNEq6AMVVBmhYnZPhlva8ThCyeknNH00krfX+?=
- =?us-ascii?Q?zF1Dn+j5cHv3fRJFNL6i809h5x53eGtCIDGSlMefBy34oPsh5YkYTexXmIn4?=
- =?us-ascii?Q?D31Z44fhpPY+RbxnOc4yEAikncrcpt/Q5zc7NOxnTWZ5k4w5KW9o3T0DSMul?=
- =?us-ascii?Q?seOXWup7cXYYpN7nQAJraIceAdW8andEgh7U0F05nGEUhP926SnGeBtDIZzj?=
- =?us-ascii?Q?JmjTi8d1TnaDq7Rmu7aYK41iFxtL3v4809Ssa+r2Dh08iTt4/mosnQWDSxxd?=
- =?us-ascii?Q?AcJr2RzDiUGgqn7UCHrBnN5uT7MLmIWGTB8Zhi+Na1Wb9v2zInsk3zkIhS1U?=
- =?us-ascii?Q?/CfQxA/Ce0Prwu75q66rOYf+MH58erT83VxeLFD05KldHRsEkDTOd2Y3VlkU?=
- =?us-ascii?Q?wYq0PObklrqCW+3uzJZdEkkUmFjUWRx7eUQgoF+8O2AtUm6dwAh3gyfwgFR6?=
- =?us-ascii?Q?BW8Q0R+oOUidzJPFIdY6QnKaw6iBrnkxQE91Tht0vqtVrm/GmO1VEgy+ZXd0?=
- =?us-ascii?Q?fjKl6iaL/J7GkAmx6oP57JB/WlP19by9qT23o8m9ScKAfslRMIQGx/rOHood?=
- =?us-ascii?Q?EI2msNq91TCa9IHFCJXmWhhSWNExcTJcBBfOTPWC4e0wF19V2z+Q+wWg/BKm?=
- =?us-ascii?Q?Dmj0u6FvqXEY+Omakn32IetdEzz77QtE3le8M4/pW2x7UyvKzv7y/tAtQOvP?=
- =?us-ascii?Q?3CI3uoslHU/owUFW+lMPH2b//SQoHXYDblurF18xygr28OIVxOlGkkwlsoLY?=
- =?us-ascii?Q?8QOtFD0ZdC3sh7bbow9RCViC38u2T6CIOkpqe79Fx421fCGZsgXiXoY5Y62M?=
- =?us-ascii?Q?UulMxt/CFNcAAM8cvwpBkzX52fCaCbSwIHvrhfvc88BdtoizVsMsDFnPP+4f?=
- =?us-ascii?Q?rlNlRcIsRh4+gWFxAri2AHWTAtwx/X/TIPhlfj+xFc/oajkwwJeP92rxuqU0?=
- =?us-ascii?Q?6lf4J6HgjnbT31hhqaxQUsAqvc0O0SIN5IuYvil4QIepbTIU75RMqZEto2X2?=
- =?us-ascii?Q?bszqvkasAw/qn19DLHK3DPMTKFIagponjxzjBwz8tonBYmlCt7WkeFi0KKkc?=
- =?us-ascii?Q?lE3qUGgGyYro//0n7RC6MsWJp09Gd1dZBUwSjTVtylbpDE6Jqh/AyG1M5HUU?=
- =?us-ascii?Q?H5iJUyF5M1roRg/QN7Om/Ec4FyalxImy7gdjlMEOI2ZcLRTUNNJDzj6BOPEg?=
- =?us-ascii?Q?TsZT9FAE3yqhqBXQB/JYgMiclhEqZ+EsTt+HBtjM1TI/sDBKQt2W3K2p59yW?=
- =?us-ascii?Q?OeX0Hk5h7dUKUL1DFHSGE7dApZKphHwVQ3cC0389tQ+iJE5zYR/sOtYlIxDc?=
- =?us-ascii?Q?zY5xgFPxaCb2r9iNmGI2MTSv3QjRh+M51L3uCCajS6bT+YPp2I4+1lgQrKfY?=
- =?us-ascii?Q?xmGSwbPGEbZ3mc+ZNN7XLfZeVPK+biDesBt6A7hBEZAaAx+1Xw=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g/8VuHheKv03RBbJolhA0HLsnMeNlZAoVRLfcrf38wfAIWvrnjRzaFKyaq0w?=
+ =?us-ascii?Q?+n86iiFlsIzqwS3VmmmxPcsZL7Zsjd2itriNDHwXGGn3OzNO/ac3X12HYIeQ?=
+ =?us-ascii?Q?ARBchTxkwhoyDf3goMvdF4zhpgJ4YAAeuG2D7X94jrcFHV5Mz5BZ7bwqtj0D?=
+ =?us-ascii?Q?XrnHtUoCT6qR2Zs2eivmSilJeetRDbUOxioYNNQ8nkZ4kHam5X8Yurp9Qknd?=
+ =?us-ascii?Q?xFJ3BcPLjs/gBlG+Yoan4tczt5kBm9IDpQC8trMsUwaWh1mjC0M5r87bnp0n?=
+ =?us-ascii?Q?tfAEZfDQH560ew0AULfURGC9uCr44DL9utCDL7beEPy8iHfNlTfJhJolTvpC?=
+ =?us-ascii?Q?hS4EbVJv092ArB+eTzfUiQNHJbSmtF1hhQNASDSwNSCEgl13t5wrmxiL1TZc?=
+ =?us-ascii?Q?WssZ9QvKt7xGWEyWaHu3LNeOgPLgZZqJxuZeJtgCCXgfqADpSePQ1Qej2rhO?=
+ =?us-ascii?Q?fMLPK8YsxWFfHAjLlQ2zwa7dQoMjE3GnjV6NVLqfDpi5ieMwXXpWYipd1GLw?=
+ =?us-ascii?Q?A91jPvmkgTvIhAKSUqgz5l/WJD1NNgnyerF6oHv9+kcNKrGfM1++VZ1FDCjJ?=
+ =?us-ascii?Q?MZDmYiSC+XOvSpD74UjjRste2t5B1eIxNIg6ioKlPb17Rj0J/YZ5+lPTpdSN?=
+ =?us-ascii?Q?te1CzuXL8X6swDfhKh5ZFYs5vXhFxgWQH8T46J20duy14p+BAMQy4kKCWiId?=
+ =?us-ascii?Q?KVuD55WTcmBEPL6ktHESitmnQNaHjcvTT0ZePvTCzWRs/dpBFyxc+Lc+ghkq?=
+ =?us-ascii?Q?ZjBTENimeUtLsJ31HdGyc+Clc9xbDvCKNKNYZWFzdXF1SYUJ8R/6VDXclzgW?=
+ =?us-ascii?Q?LxBz42OR0Yk/r6kgmMf2ZEkgcM59vwKO3VGKjSOCVtWXIJVqkkYW+9gsqueB?=
+ =?us-ascii?Q?lx65IVY3SObxIbbXqau5JUwSj8DNYatkORb/7XNXM2THUb69woZeetOHJNHa?=
+ =?us-ascii?Q?Gay83wA5EFVcIBtH8jqPhJCh1jKwie+GHzqxLF1k8uxDFVtdiX36xX+2yaKb?=
+ =?us-ascii?Q?lindZsosv7VI7BKL86kZ5+0VWCMChoRjctg9WXIldEW+RxHsWoEdkP3q+Jba?=
+ =?us-ascii?Q?W/KGuqJ3BzfdlRwZY6nZXcCIUWwV7fdwQHGN+3OElDspdsdwdRHz1tslzP6I?=
+ =?us-ascii?Q?/uIqnRQZUrSZGRSuLK8CHMhc+w7mlgEp1A3yz8TsTQEIj71sTP0zgg3bXCQy?=
+ =?us-ascii?Q?XcCXT5u3E/TvKQA9rSl0carXNifVK8MO0V5Kk0V94a07rtNg+fH4N0yHGJzQ?=
+ =?us-ascii?Q?eqfzynKFcZw/vhgwgzpH9iplGMHwNR6bHjFdpYfyJe9VzDFM3+zJsxnPuOO8?=
+ =?us-ascii?Q?tn03+/YETd2dxkPU8Kavb5ih6d2GkdTidHgRjIXiOQsv6o8Mgd9hQQP0qy8A?=
+ =?us-ascii?Q?nw6bEablMYoqAEOij01g4oZgUuvqQcW8ePyuV8onoEKXcLTJm/OeMhi1bFF5?=
+ =?us-ascii?Q?RuaQ2M306Awbx4zNuJLxa8MjJheMfpu0?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 17:21:00.2086 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e8c2023-93d0-4b76-4a11-08dc9f725670
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 19:04:36.2368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcf95177-6088-42ac-1259-08dc9f80cfa1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D7.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006002.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7350
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4202
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,84 +129,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sdma has 2 instances in SRIOV cpx mode. Odd numbered VFs have
-sdma0/sdma1 instances. Even numbered vfs have sdma2/sdma3. For
-Even numbered vfs, the sdma2 & sdma3 (irq srouce id
-CLIENTID_SDMA2 and CLIENTID_SDMA2) shoud map to irq seq 0 & 1.
+Use the dev_info/err variants so we get per device logging
+in multi-GPU cases.
 
-Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
-Change-Id: Ie850114932ca98ea3c9176370dde5dd393ddf7e7
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index fec5a3d1c4bc..4516cb0b3ae8 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -82,7 +82,7 @@ static unsigned sdma_v4_4_2_seq_to_irq_id(int seq_num)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index cf0c4470ab9c..e238f2832f65 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -41,7 +41,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 	int r;
+ 
+ 	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
+-		DRM_INFO("%s - device unplugged skipping recovery on scheduler:%s",
++		dev_info(adev->dev, "%s - device unplugged skipping recovery on scheduler:%s",
+ 			 __func__, s_job->sched->name);
+ 
+ 		/* Effectively the job is aborted as the device is gone */
+@@ -53,19 +53,20 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 
+ 	if (amdgpu_gpu_recovery &&
+ 	    amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
+-		DRM_ERROR("ring %s timeout, but soft recovered\n",
+-			  s_job->sched->name);
++		dev_err(adev->dev, "ring %s timeout, but soft recovered\n",
++			s_job->sched->name);
+ 		goto exit;
  	}
- }
  
--static int sdma_v4_4_2_irq_id_to_seq(unsigned client_id)
-+static int sdma_v4_4_2_irq_id_to_seq(struct amdgpu_device *adev, unsigned client_id)
- {
- 	switch (client_id) {
- 	case SOC15_IH_CLIENTID_SDMA0:
-@@ -90,9 +90,15 @@ static int sdma_v4_4_2_irq_id_to_seq(unsigned client_id)
- 	case SOC15_IH_CLIENTID_SDMA1:
- 		return 1;
- 	case SOC15_IH_CLIENTID_SDMA2:
--		return 2;
-+		if (amdgpu_sriov_vf(adev) && (adev->gfx.xcc_mask == 0x1))
-+			return 0;
-+		else
-+			return 2;
- 	case SOC15_IH_CLIENTID_SDMA3:
--		return 3;
-+		if (amdgpu_sriov_vf(adev) && (adev->gfx.xcc_mask == 0x1))
-+			return 1;
-+		else
-+			return 3;
- 	default:
- 		return -EINVAL;
+-	DRM_ERROR("ring %s timeout, signaled seq=%u, emitted seq=%u\n",
+-		   job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
+-		   ring->fence_drv.sync_seq);
++	dev_err(adev->dev, "ring %s timeout, signaled seq=%u, emitted seq=%u\n",
++		job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
++		ring->fence_drv.sync_seq);
+ 
+ 	ti = amdgpu_vm_get_task_info_pasid(ring->adev, job->pasid);
+ 	if (ti) {
+-		DRM_ERROR("Process information: process %s pid %d thread %s pid %d\n",
+-			  ti->process_name, ti->tgid, ti->task_name, ti->pid);
++		dev_err(adev->dev,
++			"Process information: process %s pid %d thread %s pid %d\n",
++			ti->process_name, ti->tgid, ti->task_name, ti->pid);
+ 		amdgpu_vm_put_task_info(ti);
  	}
-@@ -1541,7 +1547,7 @@ static int sdma_v4_4_2_process_trap_irq(struct amdgpu_device *adev,
- 	uint32_t instance, i;
  
- 	DRM_DEBUG("IH: SDMA trap\n");
--	instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
-+	instance = sdma_v4_4_2_irq_id_to_seq(adev, entry->client_id);
+@@ -82,7 +83,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
  
- 	/* Client id gives the SDMA instance in AID. To know the exact SDMA
- 	 * instance, interrupt entry gives the node id which corresponds to the AID instance.
-@@ -1584,7 +1590,7 @@ static int sdma_v4_4_2_process_ras_data_cb(struct amdgpu_device *adev,
- 	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA))
- 		goto out;
- 
--	instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
-+	instance = sdma_v4_4_2_irq_id_to_seq(adev, entry->client_id);
- 	if (instance < 0)
- 		goto out;
- 
-@@ -1603,7 +1609,7 @@ static int sdma_v4_4_2_process_illegal_inst_irq(struct amdgpu_device *adev,
- 
- 	DRM_ERROR("Illegal instruction in SDMA command stream\n");
- 
--	instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
-+	instance = sdma_v4_4_2_irq_id_to_seq(adev, entry->client_id);
- 	if (instance < 0)
- 		return 0;
- 
-@@ -1647,7 +1653,7 @@ static int sdma_v4_4_2_print_iv_entry(struct amdgpu_device *adev,
- 	struct amdgpu_task_info task_info;
- 	u64 addr;
- 
--	instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
-+	instance = sdma_v4_4_2_irq_id_to_seq(adev, entry->client_id);
- 	if (instance < 0 || instance >= adev->sdma.num_instances) {
- 		dev_err(adev->dev, "sdma instance invalid %d\n", instance);
- 		return -EINVAL;
+ 		r = amdgpu_device_gpu_recover(ring->adev, job, &reset_context);
+ 		if (r)
+-			DRM_ERROR("GPU Recovery Failed: %d\n", r);
++			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
+ 	} else {
+ 		drm_sched_suspend_timeout(&ring->sched);
+ 		if (amdgpu_sriov_vf(adev))
+@@ -274,7 +275,7 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
+ 	while (!fence && job->vm && !job->vmid) {
+ 		r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
+ 		if (r) {
+-			DRM_ERROR("Error getting VM ID (%d)\n", r);
++			dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
+ 			goto error;
+ 		}
+ 	}
 -- 
-2.40.1
+2.45.2
 
