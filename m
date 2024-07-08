@@ -4,127 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC09C3DA42
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 16:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E20A9C3271E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 16:15:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 531A410E3A6;
-	Mon,  8 Jul 2024 16:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F3C10E3BA;
+	Mon,  8 Jul 2024 16:15:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NEW9M+2P";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gZXNMqLn";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE20C10E3A1;
- Mon,  8 Jul 2024 16:06:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WzlO8MnlkQy3aM0862oCLJeSvRol7avRPuJUoqlzWaybLBUhSw9bhMifYpVbnXsvL2h7b/kDQCIifsKYH+nPnJnENp3+67Q9U2OECRnbPw2ERVu1InYvd1KN73hPnLLko/At7uH11mW9LyJVkLNu+LbkBiXHDdUPFSAEl0CaU9gkE8bHi1/5ZpKLU5dwnexbOfvue2tY7O0FyVnBfGdrrt1i+kgj8dM7SbQs11JTBnmaFBfLjM5MlVhkKX91CUElD8NUKlkEZl01AX4CXc1WZqu4KJn8BhyX1pb3NUzUEOw45e8NhCXgjAJx5vDFD9sZnK74GckDZd0oKRw7SVK0lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4aiVI42DDJEMwFbuZiQwGvsDBCvwpfUaSMaauB0Tzf0=;
- b=XcjJ6txD/WfSaIJjmSfTPCcDSxtr8yl6CEoZwpiU8LqGUv7gKfeLuGeRkeAJ8CxGnI4squSnDUNGoTjEAN6DGbbQf1NROm5xsO0dtvHJcFCElaUy3Sz9zlLYD/06ch9/crj/vQPIYMTyA+/WAhvBKQJbxZgTlgCiz9ripMAY08LNfrJiOVWPFUgNVBzPue9ZaX2AFENlGrESdnumU/Wae48ev/RJrQGS0Wi53zXUl85r7IThnCPI+yk+/ywNj5MOpza8/2qcEGQLcmy5L2SmIcZ1aMpCy3uRfRfWa6lL2DrztL78WELr6vMpl09hvkF+62JVdYLx6+fpr/U6wiL/Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4aiVI42DDJEMwFbuZiQwGvsDBCvwpfUaSMaauB0Tzf0=;
- b=NEW9M+2PqBehf4Rj1xCvcvYXmZk8GtAsJs3vP3vYZPW3/TyK3+H0dmitrFRsMw7CoYxeYMYmnxr2xrzTi9Wqq/QIFC6Un56kh2H+r7IfYSncVGYiCA+lVTdBo5IugQJz3YoTLGJnWx/MBIutMaYwwdIYPHapp00tM0Xjpji07ag=
-Received: from MW4PR03CA0115.namprd03.prod.outlook.com (2603:10b6:303:b7::30)
- by PH8PR12MB7112.namprd12.prod.outlook.com (2603:10b6:510:22c::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36; Mon, 8 Jul
- 2024 16:06:50 +0000
-Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
- (2603:10b6:303:b7:cafe::b6) by MW4PR03CA0115.outlook.office365.com
- (2603:10b6:303:b7::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35 via Frontend
- Transport; Mon, 8 Jul 2024 16:06:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Mon, 8 Jul 2024 16:06:49 +0000
-Received: from rajneesh-desk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 8 Jul
- 2024 11:06:48 -0500
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Dave Airlie <airlied@redhat.com>, Vlastimil Babka <vbabka@suse.cz>, "Daniel
- Vetter" <daniel.vetter@ffwll.ch>
-Subject: [Patch v2] drm/ttm: Allow direct reclaim to allocate local memory
-Date: Mon, 8 Jul 2024 12:06:36 -0400
-Message-ID: <20240708160636.1147308-1-rajneesh.bhardwaj@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F66A10E3BA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jul 2024 16:15:25 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-2c5362c7c0bso2295024a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Jul 2024 09:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1720455325; x=1721060125; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LcVMc7lFx/Z5rJ3xdP4F11hAPHeJ3NzESW2fj2mE/b4=;
+ b=gZXNMqLnhSyZ9SZgMvpmCm/dZGAzSA+LP4EcOYGF3DHX7qO+ia9PsqO/8elWSU+6X6
+ O8cB2MYrDR9GZwB2Yv9X90uqxOyzZDE9TWMGF7SoqzAzHTvlw2EbHJ99iM5mjsGQYDdH
+ j/D0IQUiNDygaJO0jD5JqJmTEToSernBaNtZvBB2WAEBXtMi1iMMOHLlNAJv7kAWw+O/
+ 7DXCJ4ikFs1E6tq9AbXfbx9+b43oBjVC03loOcfnrUKZk+YvshKBp5FcB15tFJQAtUO/
+ PbyJmTswbdpoLGm9wauJuE8uQOqskvubVFc0BP/sD3z23u7+fG0bUSnvTbtOExZ9CtOb
+ TX0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720455325; x=1721060125;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LcVMc7lFx/Z5rJ3xdP4F11hAPHeJ3NzESW2fj2mE/b4=;
+ b=uxxnS7hd5sqPay0FjNugdMlfSKhzFI4Sbj8hmUNI+iZpI/8lL5RE0lILX/9Ib6j1q+
+ HOuXnOhoqdXK304blW1wvqegVBM5nuIHDyv+RjLIn8zemYT7e1rHLAZ/inF3H0050rse
+ oM/iZXPb/MLHCZ8+UOHMpxf8Mfvcn/9yzNR57iDNtnWm5nwgJrVgMzMUSub/o7HUzpGz
+ 7kCaxdOdKx9cXM1/REaunHwfecwcNOUvyH6LNgoVIk2+mVaAt2MAVG0Ju0igesJHjH6R
+ G9vHYFdixF0XrkureKUvn6zRvCKZ3DFhH7GYZrZA/o3gMmPCOcQkZWwhwleSEdDvjm11
+ a/jw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5cjNFBj/V5vQKwg2ytwwW801V22ZaIcYedU7E05FVs5o8vAw4ZCUjn+E8Q18ihn7h+G3wcYGqhAzp4ubJ/aJ/J54cnVlJ2QKYYJugmA==
+X-Gm-Message-State: AOJu0YzPZ+TKCNZM2ui6uMZhrDVcWyGllZwIl3vdQEW0nR+aEszh0mcs
+ cCOsKnIrR0DtSWc+HOKFWL7Qrw87d6nOriRnFRB6+R3AH434kgzHHR1y9ABECmI0lkej0qSlkOW
+ /f5cbUo/w6FPrwc9tnHth6g9VxMdplw==
+X-Google-Smtp-Source: AGHT+IH8EaSNuogc6VMeWe1mTrLYu42ogE0VU5OSMEwpaLZYnO8drHZaqwsvkukI6ZqhJW5i20axBhH/0pwot/3pM1I=
+X-Received: by 2002:a17:90b:51ce:b0:2c9:8b0c:af10 with SMTP id
+ 98e67ed59e1d1-2ca35d86ef8mr121492a91.45.1720455324618; Mon, 08 Jul 2024
+ 09:15:24 -0700 (PDT)
 MIME-Version: 1.0
+References: <20240702084116.1263774-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20240702084116.1263774-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Jul 2024 12:15:12 -0400
+Message-ID: <CADnq5_NTrRLQAOb_h9ekFERBGOze+esb9Ta9c-GmN-okSyDA6A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/acpi: Add NULL check for event->device_class
+ in amdgpu_atif_handler
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|PH8PR12MB7112:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67a05b13-8152-4c0b-6f7c-08dc9f67f989
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S3lzdTdxdktxZUZTeW1pMmVDMWc5RzJraFB6T2RMd3NaYnlraWNtbE1wRHNY?=
- =?utf-8?B?MnNvc3ZXa0szZVBvbEFmV2xEUURSSVQ5UWE1SHI1ME1heDNBUDJrNS9NR052?=
- =?utf-8?B?cEhmZGs1dW1JUnVhR1QyZ1U1TGYwYkFYOWNkK2UvWWxVVWd1NFlOajFEUVR2?=
- =?utf-8?B?cUF1TG91enZsdkUyRnh5dkhqTFNBUjhaUG9hd1JRcHJGYkhSY3FoYlY0Z3Iy?=
- =?utf-8?B?VWRrNU83ZFVNNStRbWlOa25lbkFLTHVMUkVCWGZyTnRLRDZmVytrSHUydEti?=
- =?utf-8?B?SGxzaDd5Q2ZRSjhNSmhiN1lha3hMb2ZPM1RKZmVndDhiN1hpTTkzanc1b1Y2?=
- =?utf-8?B?S3NGcGM0REIwZlJCdkprRUtGUnllTkVJOS9TczAwT2RHd1l3WlJwSGVoUE05?=
- =?utf-8?B?NmJQRzJUNmtRcU04Mk5oQnNaYVN0b2ZhQ25SV1BtNTNJOHFOa3lEOUV5bEhM?=
- =?utf-8?B?NUNrczNVVFdjUHcrbVlRTlgzNEtGc09jMUovT1JyQ2NuRm0yVFFiMmJQa1Jp?=
- =?utf-8?B?SzBRVFJzeWdldTFrMzIxNkZRZHROb2dxbkVxUDNhSTcyaUxZZUZQMnZwMS8x?=
- =?utf-8?B?WDJaWnU4ZDJDTWdONXgzbStSaTR4enVTRU44NkU1WENvQjV0VWhxQTU1YjZh?=
- =?utf-8?B?RTMramVvZ3BNVEUwUTdTN2VVWHNnbUpJV3lrOGZXRlJRcXhuaE9YcEltbWZx?=
- =?utf-8?B?OThoZ3BuM3FBYlV6RTJUK3A1WUpzdmo4WENHV0ZROWFleVBWUEs1RVljZkdI?=
- =?utf-8?B?blZhRFJ4WklLVmNESVhzWE5mVjZsRy9TQjRmS09rNlZXNFRnNHhuZ3pyOGxL?=
- =?utf-8?B?VC9YbUVSYnNHbmVTVWJZMVJ1d2tBNDA5enRJcFlPRnJ6MlBET0NXbUJDdHdn?=
- =?utf-8?B?N2x1cVhoN3EvZTJXMlFab3RnQjJjMVRQbXM4ME04ZXRlclk3UnNTK3JEQ2Vn?=
- =?utf-8?B?RnZBUThGb2ErQi9xRGl6b0ZwNUVBRlhtdXpOVG1CMEIraTBTdUR4enR5aUoy?=
- =?utf-8?B?c2dsb2h4cmh4N0dvbG9ucWtaZGV0bE5zTXBnR0dlRENGWVdOWEhaNm9OQVRI?=
- =?utf-8?B?M0xmQTRoUVBMb1hxdC9tRzJseURLMUtkZGJDbmsyNFJaY1JEVFBob2t6bnd1?=
- =?utf-8?B?aUJvYk84OFpaa2RGMXhZdEg2ZUNmQ3lIKzFnOFJTd0Z0Qkp1MUx6aUxuSFJH?=
- =?utf-8?B?Y0tyenlpSDI5NVlvUHBIMi9MaFQxMmdtL0lQSVJQb05sdTdOQmdmb3ZHWGhH?=
- =?utf-8?B?dTFGbE9uV29kTHd5VHRNUk9Md21WcmgwcWZsZ2krd2JudUhMUXZVTHRSNklY?=
- =?utf-8?B?dG5PQzlnK2NaTXpGU0kwRmVKb3VsdVNBbjh6c3ZkZ1B5cGhMRzhabWNBWi9j?=
- =?utf-8?B?RTFuKys3bmxodVBVQURUSGlTaFRJTzIwL3lCTWJZd0FMb05reXUwV1F5Vzho?=
- =?utf-8?B?VEc0eFhmM3puZnVGVFgzRmVUY3VqM0NxUk5tSS9sVnRMWGE0bW00TTkrRjZB?=
- =?utf-8?B?RHZiRjFIRXZ3MEhmUDdoUE1BMkMwclJaQTVGWDMvV3hxMFY2SW5JTGFXN3FE?=
- =?utf-8?B?K2tEa0VsWWZ4enpLSENGcGxwMldtbEhGVG9TSUhWbC9HRWdBUHF6L1phb0Zm?=
- =?utf-8?B?bUFiKzd5QWEwSVZkRVo0VTZ0MUkvZHBtSHFjSXc1d3l4RHkvTFJzMkhFa2tn?=
- =?utf-8?B?SGJJeC95dTkrLzNLenVHczVaWkpmZm1wN2hsTnptSzlycFQvUTlVRUZ3K2Vm?=
- =?utf-8?B?aHZ1dUhIOUtVTlk0UFowWGVXMy9uN1BGajhqUmtZM0ZTSk9OdkxjK2o0Q1c2?=
- =?utf-8?B?Mmw3MklNVnBpbERGNzhKSkNzdFhUdFVCRkFvdG51b2todjZxdFNsM1czYWN4?=
- =?utf-8?Q?e+Qkwab5pqNKm?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 16:06:49.4093 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67a05b13-8152-4c0b-6f7c-08dc9f67f989
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7112
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,40 +79,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Limiting the allocation of higher order pages to the closest NUMA node
-and enabling direct memory reclaim provides not only failsafe against
-situations when memory becomes too much fragmented and the allocator is
-not able to satisfy the request from the local node but falls back to
-remote pages (HUGEPAGE) but also offers performance improvement.
-Accessing remote pages suffers due to bandwidth limitations and could be
-avoided if memory becomes defragmented and in most cases without using
-manual compaction. (/proc/sys/vm/compact_memory)
+On Tue, Jul 2, 2024 at 4:50=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> This commit addresses a NULL dereference issue in the
+> amdgpu_atif_handler function.
+>
+> The issue arises when event->device_class is NULL and is passed to the
+> DRM_DEBUG_DRIVER macro, which attempts to print the NULL string with the
+> %s format specifier. This constitutes undefined behavior.
+>
+> To resolve this, a conditional check is added to ensure that
+> event->device_class is not NULL before it is passed to the
+> DRM_DEBUG_DRIVER macro. If it is NULL, the string "NULL" is printed
+> instead, thereby preventing the NULL dereference.
 
-Note: On certain distros such as RHEL, the proactive compaction is
-disabled. (https://tinyurl.com/4f32f7rs)
+I don't think this can ever be NULL.  Not sure there is a way to indicate t=
+hat.
 
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 6e1fd6985ffc..cc27d5c7afe8 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -91,7 +91,7 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 	 */
- 	if (order)
- 		gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
--			__GFP_KSWAPD_RECLAIM;
-+			__GFP_RECLAIM | __GFP_THISNODE;
- 
- 	if (!pool->use_dma_alloc) {
- 		p = alloc_pages_node(pool->nid, gfp_flags, order);
--- 
-2.34.1
-
+>
+> Fixes the below:
+> In function =E2=80=98amdgpu_atif_handler=E2=80=99,
+>     inlined from =E2=80=98amdgpu_acpi_event=E2=80=99 at drivers/gpu/drm/a=
+md/amdgpu/amdgpu_acpi.c:1215:9:
+> ./include/drm/drm_print.h:536:49: warning: =E2=80=98%s=E2=80=99 directive=
+ argument is null [-Wformat-overflow=3D]
+>   536 | #define __drm_dbg(cat, fmt, ...)                ___drm_dbg(NULL, =
+cat, fmt, ##__VA_ARGS__)
+>       |                                                 ^~~~~~~~~~~~~~~~~=
+~~~~~~~~~~~~~~~~~~~~~~~~
+> ./include/drm/drm_print.h:582:9: note: in expansion of macro =E2=80=98__d=
+rm_dbg=E2=80=99
+>   582 |         __drm_dbg(DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+>       |         ^~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:452:9: note: in expansion of mac=
+ro =E2=80=98DRM_DEBUG_DRIVER=E2=80=99
+>   452 |         DRM_DEBUG_DRIVER("event, device_class =3D %s, type =3D %#=
+x\n",
+>       |         ^~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: In function =E2=80=98amdgpu_acp=
+i_event=E2=80=99:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:452:49: note: format string is d=
+efined here
+>   452 |         DRM_DEBUG_DRIVER("event, device_class =3D %s, type =3D %#=
+x\n",
+>       |
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_acpi.c
+> index f85ace0384d2..27131ff30579 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -450,7 +450,7 @@ static int amdgpu_atif_handler(struct amdgpu_device *=
+adev,
+>         int count;
+>
+>         DRM_DEBUG_DRIVER("event, device_class =3D %s, type =3D %#x\n",
+> -                       event->device_class, event->type);
+> +                       event->device_class ? event->device_class : "NULL=
+", event->type);
+>
+>         if (strcmp(event->device_class, ACPI_VIDEO_CLASS) !=3D 0)
+>                 return NOTIFY_DONE;
+> --
+> 2.34.1
+>
