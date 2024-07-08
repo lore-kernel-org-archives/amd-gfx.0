@@ -4,142 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B85BC2BD09
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 07:27:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E14DCC2BD09
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 07:41:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3905892C8;
-	Tue,  9 Jul 2024 07:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E05D10E32A;
+	Tue,  9 Jul 2024 07:41:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H46qmZ4g";
+	dkim=pass (1024-bit key; unprotected) header.d=chickenguard.com header.i=@chickenguard.com header.b="etMfWCbC";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84819892C8
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jul 2024 07:27:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k43apt4oIf4ptPU4dLSEhp8dhVD03G8RnnF38oBZUKV+ElXISyW9UYBhULyBA6OEykFovAmhpJd+fNjhTNBQb5Emd7DBOsa4TNgMGx1/NzGbuV+fUYpcweutDxOxWNFkBqR39sZVC5r5Ggw1sycc6Uab1KKXzpHTms1cmDUJ6UxPcr/GpBS/r88NfYPMMjP+DDdYHikLZDeRdfo5ALo88/CrH3odkxdenJ6vUq/79WPUjGmCi/HvqbjYJRnoEvTsvjErmtnfGn+J9AE/q+/XLS2m6nx9vVBG2wxKw2xcxzXC3WZBfi2eVlQ62/RRBKP2TjzadhlqrQCHHCms1aATYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n6aDOWq8sJCJ+GR443p0Ki9nkHBQrylV+YSOAuebEyo=;
- b=P+H2cmViUIKO9EsmdNmuWWBRize/tXJ3R7gBnjEm946rGfzI/jt4pvQ7opTElDfESf5m9EtnbCDkcx7dWdyChtow0gtnUfGdmufAX1GjoBirTY/+k56PXeKc/yUyTszErCrVkjhCJGkDgT748kzW2t9hFGpasZf9NgqpIBan8kkHt95Bx54K4h2ZOAvvl/k5aexgGA9W6OMwhkIZBTzXAcCFEckqq9J2Is9RDnT9/+aDKHlvDKTecSP0nsfLNqvsTLz7Rf+pGNAYRgL7lW39jevHC7zWdv1xCzp8xB2vC1Ib+m81glbmV5vVDC88LmGpEYSbROlBtYLOJxWq9wSWWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n6aDOWq8sJCJ+GR443p0Ki9nkHBQrylV+YSOAuebEyo=;
- b=H46qmZ4gZ1SazCZgtEc5nJ5PrNeBM4L/ImRlR+goneHF4nu8z8W4wSy2vMhw2Z+8H5GXxiSSCitAEetsK9HJmLA8TXXZpZSZpXJMrB8mayM4vNB2JrNXz/PXSumCUxB+YdB3SrBRa2zDA1hxCWXLatcv23ahpz3tWlhm1Bzaewg=
-Received: from SA1PR12MB7442.namprd12.prod.outlook.com (2603:10b6:806:2b5::15)
- by CH3PR12MB8403.namprd12.prod.outlook.com (2603:10b6:610:133::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36; Tue, 9 Jul
- 2024 07:27:50 +0000
-Received: from SA1PR12MB7442.namprd12.prod.outlook.com
- ([fe80::cf37:527e:ce1c:5a78]) by SA1PR12MB7442.namprd12.prod.outlook.com
- ([fe80::cf37:527e:ce1c:5a78%3]) with mapi id 15.20.7741.033; Tue, 9 Jul 2024
- 07:27:50 +0000
-From: "Huang, Trigger" <Trigger.Huang@amd.com>
-To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: set start timestamp of fence in the right
- place
-Thread-Topic: [PATCH] drm/amdgpu: set start timestamp of fence in the right
- place
-Thread-Index: AQHa0c0fIQiHNIBpDUGfMq9lcABumrHt/mtg
-Date: Tue, 9 Jul 2024 07:27:50 +0000
-Message-ID: <SA1PR12MB74429297CDE337A8B1F33EFEFEDB2@SA1PR12MB7442.namprd12.prod.outlook.com>
-References: <20240709065547.1639176-1-jiadong.zhu@amd.com>
-In-Reply-To: <20240709065547.1639176-1-jiadong.zhu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=d4c519d5-a31a-45f0-962f-19010d55f621;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-09T07:24:18Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB7442:EE_|CH3PR12MB8403:EE_
-x-ms-office365-filtering-correlation-id: 72fd3095-18d4-4c29-0f7d-08dc9fe8a357
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?GvH0YK4fbUp2USC+4Jpe90ctNyHSYgA5IRcAKFA4zUIYw42C+oolGzyoTCn1?=
- =?us-ascii?Q?v7JkgJqwWWaafjV7G5G+ycqM1j/KOBOiEk3PZ6j1mfsGTc6Jh4dzilfipMNm?=
- =?us-ascii?Q?fpPYAJsUYEMWQaoCK1vvytskws6672loIgiyWvXetUmtrG/C36cNj5XgcNhd?=
- =?us-ascii?Q?C3+4v3nF3M8zswpDwZT949S5HCi4G28BCwnVHKAroYyWXIpQ2cr9SgB5bPg3?=
- =?us-ascii?Q?VCHRkuDJgOV3xZMyrUtwU9tPcsnlW2CWDffFZPtmWcDs7zhfjS2Czk4uOjsK?=
- =?us-ascii?Q?c8+eh39wc0OseI2KakMmtGCq0bWmxDBkSQcmdhaJIaPZEvrzhwBmU5PXJB9G?=
- =?us-ascii?Q?RKGt1E26LBOv1gxPVWMUUA0373fkE32oRlhXEkYOoHb0FUiAs57DZLiKCUxp?=
- =?us-ascii?Q?2f9F9w81XbTvmaZZu66HvLF9E8xsiqvvtEBSXA+Z893XysL18FCl8RjICwSH?=
- =?us-ascii?Q?qd/BHlkXlGBJeoEUbSMIGML5NrS1G98JFOwtPmT5kzRJFkfU0SDKs4PnVuqC?=
- =?us-ascii?Q?BzZMsjlILYICxOPwQ4YRZFG7tZrDGcTaGZ4u+G7rejcrmuNMWCpShhzLXacc?=
- =?us-ascii?Q?+2quvX6fhAfsRkOO3Rkz4+s8yK6EDaPJhZDW0Yn0yh7yn6lW+ak/vFXZ4cWA?=
- =?us-ascii?Q?HWfIdlA7/A2Lt7eSHQZ2P6XaaGEj5T7pMJ8OV41Ot3C4dsUA/t7b8uExRhoL?=
- =?us-ascii?Q?7fKbr8Y/z1sLAZn8+PvGr4zhXxz7EfLdbVxbFSs5rLOrcbqGGRE2DTgBcAVh?=
- =?us-ascii?Q?vRIDf2QM6Sr6EwzDlkpE+/kNJuOZfDokEvpOyuTEOLKZj6VwWLMJXhnZO25U?=
- =?us-ascii?Q?3lfCvkoUWTyx60ULn0BWUxlE0MS16kGpYojW+bUevoTRSnterfK1GSDWzWkm?=
- =?us-ascii?Q?0w/aGEqfBxV7qFRPuj0MpWKSWovK8gpG6jp2U82M2GrnY3+drdle1a7PsOSm?=
- =?us-ascii?Q?wT4pauwNUCV9BvnNCdY6S+NmY8/DHIVRzkT0XK4YwVpqilneKWzSgoavHPUL?=
- =?us-ascii?Q?q2Tyo1XASyfyBqjRQCsjOVvghN72vjWWcfmN+M1f13T7UaVbxGiDobZpZWvt?=
- =?us-ascii?Q?Csn7UTvot4n1V2ieSUsOP8B94gYNwae50+n2Dz9Y3uc7CyACq5xvjm7fO/SJ?=
- =?us-ascii?Q?HJTJeyi/XdfZ2VwAU56VXY1thaILpm1lZrQ1gEGcTbBjKztvClBPS0JyQQwa?=
- =?us-ascii?Q?oX2zrbRqwaFyN6M2crx6mr/5k3shfScz1xLnqXVtbKbTMCzx6vEcCWa8JXAh?=
- =?us-ascii?Q?ltdgP3JRnfoBJzvNMFDuti4hzXSy+ZxAhkpvukais0N05ANUaUZYaoW5u8uq?=
- =?us-ascii?Q?lEN7lbyCuyevKIpM2QINsMJscKuDLb/R44iuEejs/VjI0a7o6ltNkMqSBfvu?=
- =?us-ascii?Q?qd1pB8faXDd7FKXTjBVrqC6GiX9z7gOjN02EEJqW946scQnDiw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB7442.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HW+PbSeV5YVTsT2y6UqzZJtY3M7YWpiNX4RLdXawpJ6+YxHm7wLgCW/+ONTm?=
- =?us-ascii?Q?PjE1Le/vpSfUGaCF+iBctvBDNz7vOtee2IUZTIbgE0/IWOYs7IBmy7pXJuu3?=
- =?us-ascii?Q?leQjkTXQbm7e/h2lGu6EeMsaluuPp5j1WdlK5uF+maaUQMpkx0c8lSGe5fek?=
- =?us-ascii?Q?G8ArCKy+bJ7WlOjFuca4/s4fqTnkmdXJADG1x1LNg02PW7nuxgcrgR9q5FKH?=
- =?us-ascii?Q?gTG2y9q2NxjCYD/3TR7xT4F5TlKtYZDN4HXCW+Qo40xJXX2OgbljTpMDyWJo?=
- =?us-ascii?Q?mDr79cNfepz1pMY0bBu3uAETkyrmSZnV5YLz2iPuQFgFPjtHRTV7NlMK8Zfr?=
- =?us-ascii?Q?ak2bWFU3KuAC5GvpZxGZAL8NbHoCDksrM56RhiCY/gWcbYt8i5ni4o3uZOmO?=
- =?us-ascii?Q?LRyv1zQxs7GSfcdDw3Bb3JYVPupIj8Aqx9BVAkQksGPoJH+/ooWFZobSGD21?=
- =?us-ascii?Q?2/z6kd815zWj3coJYhLDmCOW34XjTI0ttk9wmomDdDKgwyEDlMHGHY1fSAxb?=
- =?us-ascii?Q?8P/V4k7r84z7LZSBBaL0F4oZNML+HYKyNywd5Y7lq7IMwrt2JbV+QKCURwz1?=
- =?us-ascii?Q?qC6rObvSOO2vC5S44HmrPpEWl87ihMBbhndceVTOVt97Q0oO3loXkNyRR9Ob?=
- =?us-ascii?Q?Z4YB3ZL/TV51FgxlKrlNJBlyvkDinwIVAAyHX86Qu4L55FyURLKspOkS4StE?=
- =?us-ascii?Q?6/KCUOJj95nXIstTHG2vEZh0VeH5zoPoWIDk31j+ZINemjU0RUzabbBLJ3M4?=
- =?us-ascii?Q?01M+zGviOpwnq7tuy2mza1A6lLl68Mqv0i4KjfgnmRnzMWa5PqTLOC70eEPR?=
- =?us-ascii?Q?vPXbkWAnt1BFjddkwUp4c7X6WtWKPpl8f0adMCCzuORyJ0XkpExxA6ars0yM?=
- =?us-ascii?Q?H2WLhxL+XlwKSBrL2Qo2irYi4hnsk4IMKN35YAQeMXuuHMKJRtvWDBIXXenA?=
- =?us-ascii?Q?Vh8jI8TJwE2hl9bzZZlCWcvhzHDVyFlM7cGTKrfXUs5u4QctyfpLWOcD6PlQ?=
- =?us-ascii?Q?2g0xgNW/H1L4libDZdytu5NLTHlCy+idcayVZMLS+b47su4slvfaMkIvKdJS?=
- =?us-ascii?Q?7jF8UalsA/88hK/XAjsBT+vNjZuQfDqbXTKcGlMGVLdwWE9S1oiEQ1uqKxun?=
- =?us-ascii?Q?TRlUWIgX2EyqRdGv3sfKKA3hb/uK+nYqIXDC/GwC5O05Qw9vPUKvxOb3Dngp?=
- =?us-ascii?Q?JK4y5s4gYjGrwyzhWjoV7xQfXPBH7Q17YLMTLD3MEXzR4Q2oWKDNutJ7mHI4?=
- =?us-ascii?Q?XR0if4c3iAvv8uXDenjrZrWPDu3LjJUAMfrIc4t4uBhOQlKvdxOIzfkuk6Hp?=
- =?us-ascii?Q?R8m6cbFaYmsvlJjMiIda+/cxlnzBUxpAAIbsL9usmLjr48lYJhmheyMp/E1f?=
- =?us-ascii?Q?u5v93RXs31AOIOlrKR1cd9vrsy3+6W8YnS5D9gck5JPDWeumyyBNgKii6Wvg?=
- =?us-ascii?Q?Xx6ZQdjxILA6nG2Tprvuf0fuJUJQ2FZf3Xrfy7Ydd+24hkeFkz87X8CxskMQ?=
- =?us-ascii?Q?XZ+bP6N0jIT09aXOaHXyxJANEyoV6iE7xTqv7+njLoHrkzGXyBfjys7IIhQC?=
- =?us-ascii?Q?vicjC4WT1EkItI4QOCI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 1201 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Jul 2024 23:12:53 UTC
+Received: from mta-174-84-143.intercom.com.sparkpostmail.com
+ (mta-174-84-143.intercom.com.sparkpostmail.com [192.174.84.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 118D410E43B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jul 2024 23:12:52 +0000 (UTC)
+X-MSFBL: Gl0JfPePv8eMJ/TM6vUYGr1aXHvgB/Blg41icbyynGk=|eyJ0ZW5hbnRfaWQiOiJ
+ pbnRlcmNvbSIsInIiOiJhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIsIm1
+ lc3NhZ2VfaWQiOiI2Njg4YmY2ZDhjNjY2MDU5NTdlYiIsInN1YmFjY291bnRfaWQ
+ iOiIzNTMwMTgiLCJjdXN0b21lcl9pZCI6IjEifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chickenguard.com;
+ s=intercom; t=1720479167; i=@chickenguard.com;
+ bh=5KrokW6Ni4l0h2zKALwCIQXSmyzGvBJ2xSvbYzM7kK0=;
+ h=To:Content-Type:Subject:From:Date:Message-ID:Cc:From:To:Cc:
+ Subject;
+ b=etMfWCbC7R/UqXntafteGr7+GfKqYVkTgN4MvHJUyRY8ubMPbs8TntKy82lMwP6Ex
+ u0B3PN4cu9WXoxyupdP1s89vyia4rvWkcmrt5MDPjCKikYuVwOPqZayhvO4mlgh+Ji
+ nnAQvtfNndEii9U1fvEkjLbFkMrdWUvL2K6K3cNg=
+To: felix.kuehling@amd.com
+Content-Type: multipart/alternative;
+ boundary="_----BeoNQayvnox3IlxY9j8yiA===_4D/75-09702-FBD6C866"
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7442.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72fd3095-18d4-4c29-0f7d-08dc9fe8a357
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2024 07:27:50.1112 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zoszLEwokYlJhWznFLaYVrUUUSnYgzCsu+CXThM3cug0MZgT0oQN1RrW8S5EmR/zvISXHAh2q8iVBwe0s10Nlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8403
+Subject: =?utf-8?B?UmU6IFJlOiBbQ1JJVV0gUmXvvJpQcm9wb3NhbCB0byBhZGQgQ1JJ?=
+ =?utf-8?B?VSBzdXBwb3J0IHRvIERSTSByZW5kZXIgbm9kZXM=?=
+From: "Chip (Support Bot) from ChickenGuard" <customercare@chickenguard.com>
+References: <dcbcff5e11b787a2f913b5fc5f7f694c904fe441@intercom>
+ <29cab8f8-a544-4e5c-a87c-b7f4c31a1a64@amd.com>
+Date: Mon, 08 Jul 2024 22:52:47 +0000
+X-Intercom-App-Id: mnjgb56x
+X-Intercom-Comment-Id: 21910046954
+X-Intercom-Notification-Reason: support_email
+X-Intercom-Bin: proven_users
+X-Auto-Response-Suppress: OOF, AutoReply
+Message-ID: <5ebd34a0-479eddd9-1720479167-157432@outbound.intercom.chickenguard.com>
+X-Report-Abuse: Please report spam or abuse to abuse@intercom.io
+X-Intercom-Source: workflow
+In-Reply-To: <29cab8f8-a544-4e5c-a87c-b7f4c31a1a64@amd.com>
+X-Mailgun-Variables: {"app_id":"mnjgb56x", "conversation_id":"157432",
+ "intercom_message_id":2292006748, "user_id":"668c6da71d8e3b3b6ca6851c"}
+Cc: riyue.zcm@alibaba-inc.com, tursulin@ursulin.net,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ airlied@redhat.com, daniel@ffwll.ch
+X-Mailman-Approved-At: Tue, 09 Jul 2024 07:41:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,140 +66,840 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: "Chip \(Support Bot\) from ChickenGuard"
+ <customercare@chickenguard.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+--_----BeoNQayvnox3IlxY9j8yiA===_4D/75-09702-FBD6C866
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> jiadong.zhu@amd.com
-> Sent: Tuesday, July 9, 2024 2:56 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhu, Jiadong <Jiadong.Zhu@amd.com>
-> Subject: [PATCH] drm/amdgpu: set start timestamp of fence in the right pl=
-ace
->
-> Caution: This message originated from an External Source. Use proper caut=
-ion
-> when opening attachments, clicking links, or responding.
->
->
-> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
->
-> The job's embedded fence is dma_fence which shall not be conversed to
-> amdgpu_fence. The start timestamp shall be saved on job for hw_fence.
->
-> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 33
-> ++++++++++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h   |  4 +++
->  2 files changed, 34 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 2f24a6aa13bf..60c14d2e1c39 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -88,6 +88,33 @@ static inline struct amdgpu_fence
-> *to_amdgpu_fence(struct dma_fence *f)
->         return NULL;
->  }
->
-> +static inline void set_fence_start_time(struct dma_fence *f, ktime_t
-> +start_timestamp) {
-> +       if (f->ops =3D=3D &amdgpu_fence_ops) {
-> +               struct amdgpu_fence *__f =3D container_of(f, struct
-> +amdgpu_fence, base);
-> +
-> +               __f->start_timestamp =3D start_timestamp;
-> +       } else if (f->ops =3D=3D &amdgpu_job_fence_ops) {
-> +               struct amdgpu_job *job =3D container_of(f, struct
-> + amdgpu_job, hw_fence);
-> +
-> +               job->start_timestamp =3D start_timestamp;
-> +       }
-> +}
-> +
-> +static inline ktime_t get_fence_start_time(struct dma_fence *f) {
-> +       if (f->ops =3D=3D &amdgpu_fence_ops) {
-> +               struct amdgpu_fence *__f =3D container_of(f, struct
-> +amdgpu_fence, base);
-> +
-> +               return __f->start_timestamp;
-> +       } else if (f->ops =3D=3D &amdgpu_job_fence_ops) {
-> +               struct amdgpu_job *job =3D container_of(f, struct
-> + amdgpu_job, hw_fence);
-> +
-> +               return job->start_timestamp;
-> +       }
-> +       return ktime_get();
+Hi Felix, 
+ Thank you for your email. It has been received and a member of the team will be in contact as soon as possible. We are usually able to respond to queries within 1-2 working days. 
+ (If not already given, please let us know your full name, order number, and purchase date to aid us in supporting you efficiently.) 
+ In the meantime, please feel free to explore our help centre to see if there is already an answer to your question. 
+ https://help.chickenguard.com/en/ 
+ Kind regards,
+--_----BeoNQayvnox3IlxY9j8yiA===_4D/75-09702-FBD6C866
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html; charset="UTF-8"
 
-Here the invocation of ktime_get() should be unnecessary as start_timestamp=
- in both amdgpu_fence_ops and amdgpu_job_fence_ops styles are already set b=
-y set_fence_start_time();
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html style="background-color: #fff;">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width">
+<meta name="format-detection" content="telephone=no">
+<!-- Resets -->
 
-Regards,
-Trigger
+<style type="text/css" data-premailer="ignore">
+  #outlook a{
+    padding: 0;
+  }
+  body{
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    font-weight: 400;
+  }
+  .ReadMsgBody{
+    width: 100%;
+  }
+  .ExternalClass{
+    width: 100%;
+  }
+  img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    outline: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    line-height: 100%;
+  }
+  #backgroundTable{
+    height: 100% !important;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+  }
+</style>
+<!-- Main styles -->
 
-> +}
-> +
->  /**
->   * amdgpu_fence_write - write a fence value
->   *
-> @@ -197,7 +224,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring,
-> struct dma_fence **f, struct amd
->                 }
->         }
->
-> -       to_amdgpu_fence(fence)->start_timestamp =3D ktime_get();
-> +       set_fence_start_time(fence, ktime_get());
->
->         /* This function can't be called concurrently anyway, otherwise
->          * emitting the fence would mess up the hardware ring buffer.
-> @@ -428,7 +455,7 @@ u64 amdgpu_fence_last_unsignaled_time_us(struct
-> amdgpu_ring *ring)
->                 return 0;
->
->         return ktime_us_delta(ktime_get(),
-> -               to_amdgpu_fence(fence)->start_timestamp);
-> +               get_fence_start_time(fence));
->  }
->
->  /**
-> @@ -451,7 +478,7 @@ void amdgpu_fence_update_start_timestamp(struct
-> amdgpu_ring *ring, uint32_t seq,
->         if (!fence)
->                 return;
->
-> -       to_amdgpu_fence(fence)->start_timestamp =3D timestamp;
-> +       set_fence_start_time(fence, timestamp);
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> index a963a25ddd62..68a80e31ba0c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-> @@ -73,11 +73,15 @@ struct amdgpu_job {
->         uint64_t                gds_va;
->         bool                    init_shadow;
->
-> +       /* start timestamp for hw_fence*/
-> +       ktime_t                 start_timestamp;
-> +
->         /* job_run_counter >=3D 1 means a resubmit job */
->         uint32_t                job_run_counter;
->
->         uint32_t                num_ibs;
->         struct amdgpu_ib        ibs[];
-> +
->  };
->
->  static inline struct amdgpu_ring *amdgpu_job_ring(struct amdgpu_job *job=
-)
-> --
-> 2.25.1
+<style type="text/css">
+  /**
+   * Generic
+   */
+
+  html {
+    background-color: #fff;
+  }
+
+  .main {
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: 0;
+    width: 100%;
+  }
+
+  table {
+    border-spacing: 0;
+    border-collapse: separate;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  a {
+    border: none;
+    outline: none !important;
+  }
+
+
+  /**
+   * Content
+   */
+
+  .content-td {
+    line-height: 20px;
+    font-size: 14px;
+  }
+
+  .content-td .article-card,
+  .content-td .intercom-interblocks-link-content-container {
+    max-width: 500px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    padding: 0;
+    margin-bottom: 15px;
+  }
+
+  .content-td .article-card .intercom-interblocks-link-content-container {
+    border: none;
+  }
+
+  .content-td .messenger-card table {
+    border: none;
+  }
+
+  .events {
+    background-color: #F5F5F5;
+    border-collapse: separate;
+    border-spacing: 10px;
+    table-layout: fixed;
+    border-radius: 5px;
+    border: 1px solid #E5E5E5;
+    padding: 0px 15px 0px 15px;
+  }
+
+  .content-td .ratings td,
+  .content-td .messenger-card td {
+    border: 0;
+    padding: 0;
+  }
+
+  .content-td .messenger-card td {
+    text-align: center;
+  }
+
+  .content-td .messenger-card td p {
+    font-size: 14px;
+    color: #6e7a89;
+    text-align: center;
+  }
+
+
+  .rating-link {
+    max-width: 27px;
+    min-height: 27px;
+  }
+
+  .content-td > :first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .content-td h1 {
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 25px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
+  .content-td h1 + h2 {
+    margin-top: 0 !important;
+  }
+
+  .content-td h2 + h1 {
+    margin-top: 0 !important;
+  }
+
+  .content-td h2 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 5px;
+  }
+
+  .content-td h3 ,
+  .content-td h4 ,
+  .content-td h5 {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .content-td p {
+    margin: 0 0 15px 0;
+  }
+
+  .content-td p.no-margin {
+    margin: 0;
+    min-height: 15px;
+  }
+
+  .content-td p img,
+  .content-td h1 img,
+  .content-td h2 img,
+  .content-td li img,
+  .content-td .intercom-h2b-button img {
+    margin: 0;
+    padding: 0;
+  }
+
+  .content-td a {
+    color: #1251ba;
+    text-decoration: underline;
+  }
+
+  .content-td .messenger-card .link {
+    margin-bottom: 25px;
+  }
+
+  .content-td strong {
+    color: #606060;
+  }
+
+  .content-td ol,
+  .content-td ul {
+    margin: 0 0 20px 40px;
+    padding: 0;
+    list-style: disc;
+  }
+
+  .content-td ol {
+    list-style: decimal;
+  }
+
+  .content-td ol li,
+  .content-td ul li {
+    margin: 5px 0;
+  }
+
+  .content-td blockquote {
+    padding: 10px 0;
+    margin: 10px 0;
+    font-style: italic;
+  }
+
+  .content-td blockquote a {
+    color: #8C8C8C;
+  }
+
+  .content-td img {
+    max-width: 100%;
+    margin: 15px 0 15px;
+  }
+
+  .content-td .intercom-container {
+    margin-bottom: 16px;
+  }
+
+  .content-td hr {
+    border: none;
+    border-top: 1px solid #DDD;
+    border-bottom: 0;
+    margin: 20px 0;
+  }
+
+  .content-td table th {
+    font-weight: bold;
+    background: #F6F6F6;
+  }
+
+  .content-td table td,
+  .content-td table th {
+    padding: 7px 10px;
+    border: 1px solid #DADADA;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .content-td table {
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .content-td table.intercom-container.intercom-align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .content-td table.intercom-container td {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .content-td a.reply-in-messenger-button {
+    background-color: #286efa;
+    color: white;
+    padding: 6px 25px;
+    margin: 0px 0 16px 0;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+
+  .content-td p.reply-in-messenger-message {
+    color: #8c8c8c;
+    font-size: 12px;
+    margin: 0;
+  }
+
+  table.ratings,
+  .content-td .messenger-card {
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      border-radius: 5px;
+      border: 1px solid #dadfe3;
+      margin-bottom: 0;
+  }
+
+  .content-td table.ratings {
+      width: 260px;
+      padding: 16px 0;
+  }
+
+  table.ratings {
+      padding: 16px 0;
+  }
+
+  .content-td .ratings table img {
+      margin: 0;
+  }
+
+  .align_top {
+    vertical-align: top;
+  }
+
+  .align_center {
+      margin: 0 auto;
+  }
+
+  /**
+   * Footer
+   */
+   .smiley {
+     padding: 4px;
+   }
+   .feedback_item:first-child .smiley {
+     padding-left: 0;
+   }
+  .divider {
+    border: none;
+    height: 1px;
+    color: #f0f0f0;
+    background-color: #f0f0f0;
+    margin: 0;
+  }
+  .feedback-text {
+    margin-bottom: 0.3em;
+    margin-top: 0;
+  }
+  .deemphasized_text {
+    color: #8c8c8c;
+  }
+  .sent_to_text {
+    font-weight: bold;
+  }
+  .dark_text {
+    color: #222;
+  }
+  .light_text {
+    color: #999;
+  }
+  .align_middle {
+    vertical-align: middle !important;
+  }
+
+  .history .history_content {
+    font-style: normal;
+    padding-top: 1px;
+    border-left: 1px #ccc solid;
+    margin: 0 0 0 .8ex;
+    padding-left: 1ex;
+  }
+  .history .history_content > *:last-child {
+    margin-bottom: 0;
+  }
+  .powered_by_badge {
+    font-size: 14px;
+  }
+  .powered_by_link {
+    color: #8c8c8c;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  /**
+    * Email signature
+    */
+  .email_signature .container {
+      margin-inline-start: 0;
+  }
+  .email_signature th {
+      font-weight: normal;
+  }
+  .email_signature p,
+  .email_signature h1,
+  .email_signature h2 {
+      margin: 0;
+      padding: 0;
+      text-align: start;
+  }
+
+  .history {
+    color: #500050;
+  }
+
+  /**
+   * Ticket with attributes
+   */
+
+  .ticket_card {
+    border: 1px solid #E1E1E1;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 570px;
+    word-wrap: break-word;
+  }
+
+  .ticket_card .app_logo {
+      width: 100%;
+      padding: 18px 40px;
+      border-bottom: 1px solid #E1E1E1;
+  }
+
+  .ticket_card .app_logo img {
+      height: 26px !important;
+      max-height: 26px !important;
+      max-width: 100%;
+  }
+
+  .ticket_card .body {
+      padding: 28px 40px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      width: 100%;
+  }
+
+  .collapsed_ticket_card .title,
+  .ticket_card .title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24px;
+  }
+
+  .ticket_card .ticket_state_description {
+      font-size: 16px;
+      line-height: 20px;
+      padding-bottom: 24px;
+  }
+
+  .ticket_card .ticket_state_step {
+      border-radius: 8px;
+      height: 4px;
+      margin-bottom: 8px;
+  }
+
+  .ticket_card .ticket_state_submitted {
+      background-color: #334bfa;
+      border-color: #334bfa;
+  }
+
+  .ticket_card .ticket_state_in_progress {
+      background-color: #b24d00;
+      border-color: #b24d00;
+  }
+
+  .ticket_card .ticket_state_waiting_on_customer {
+      background-color: #db0629;
+      border-color: #db0629;
+  }
+
+  .ticket_card .ticket_state_resolved {
+      background-color: #0f7134;
+      border-color: #0f7134;
+  }
+
+  .ticket_card .ticket_custom_state_submitted {
+      background-color: #334bfa;
+      border-color: #334bfa;
+  }
+
+  .ticket_card .ticket_custom_state_in_progress {
+      background-color: #334bfa;
+      border-color: #334bfa;
+  }
+
+  .ticket_card .ticket_custom_state_waiting_on_customer {
+      background-color: #b24d00;
+      border-color: #b24d00;
+  }
+
+  .ticket_card .ticket_custom_state_resolved {
+      background-color: #0f7134;
+      border-color: #0f7134;
+  }
+
+  .ticket_card .ticket_state_inactive {
+      background-color: #DADADA;
+      border-color: #DADADA;
+  }
+
+  .ticket_card .ticket_progress {
+      font-size: 13px;
+      line-height: 16px;
+  }
+
+  .ticket_card .ticket_state_label_inactive {
+      color: #757575;
+  }
+
+  .ticket_card .ticket_state_label_active {
+      font-weight: 700;
+  }
+
+  .ticket_card .ticket_state_label {
+      margin-bottom: 4px;
+  }
+
+  .ticket_custom_state .label {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 30px;
+  }
+
+  .ticket_custom_state .submitted {
+      color: #334bfa;
+  }
+
+  .ticket_custom_state .in_progress {
+      color: #334bfa;
+  }
+
+  .ticket_custom_state .waiting_on_customer {
+      color: #b24d00;
+  }
+
+  .ticket_custom_state .resolved {
+      color: #0f7134;
+  }
+
+  .ticket_card .attribute_name {
+      font-weight: 600;
+      word-wrap: break-word;
+  }
+
+  [dir="rtl"] .ticket_card .ticket_state_spacing {
+      padding-left: 8px;
+  }
+
+  [dir="ltr"] .ticket_card .ticket_state_spacing {
+      padding-right: 8px;
+  }
+
+  [dir="rtl"] .ticket_card .attribute_name {
+      padding: 8px 0 8px 16px;
+  }
+
+  [dir="ltr"] .ticket_card .attribute_name {
+      padding: 8px 16px 8px 0;
+  }
+
+  .ticket_card .attribute_value {
+      word-wrap: break-word;
+      padding: 8px 0;
+  }
+
+  .ticket_card .ticket_description {
+      padding-bottom: 24px;
+  }
+
+  .reply_in_messenger_card {
+    background: #F5F5F5;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 570px;
+    word-wrap: break-word;
+    padding: 16px;
+  }
+
+  .reply_in_messenger_card .title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    word-wrap: break-word;
+  }
+
+  .reply_in_messenger_card .body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    word-wrap: break-word;
+    padding-top: 8px;
+  }
+
+  .chat_notification_container {
+    width: 100%;
+    max-width: 570px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    word-wrap: break-word;
+  }
+
+  [dir="rtl"] .chat_notification_container .admin_avatar_wrapper {
+    padding-left: 16px;
+  }
+
+  [dir="rtl"] .chat_notification_container .user_avatar_wrapper {
+      padding-right: 16px;
+  }
+
+  [dir="ltr"] .chat_notification_container .admin_avatar_wrapper {
+      padding-right: 16px;
+  }
+
+  [dir="ltr"] .chat_notification_container .user_avatar_wrapper {
+      padding-left: 16px;
+  }
+
+  [dir="ltr"] .chat_notification_container .message_bubble {
+      margin-left: auto;
+  }
+
+  [dir="rtl"] .chat_notification_container .message_bubble {
+      margin-right: auto;
+  }
+
+  .chat_notification_container .user_avatar_wrapper .initials_avatar {
+      border-radius: 100px;
+      color: white;
+      font-size: 12px;
+      height: 28px;
+      line-height: 28px;
+      width: 28px;
+      text-align: center;
+  }
+
+  .chat_notification_container .comment_wrapper {
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #F5F5F5;
+  }
+
+  .chat_notification_container .comment_wrapper p {
+    margin: 0;
+  }
+
+  .chat_notification_container .brand_logo img {
+      height: 26px !important;
+      max-height: 26px !important;
+      max-width: 100%;
+  }
+
+  .chat_notification_container .comment_wrapper img {
+    max-width: 100% !important;
+  }
+
+  .collapsed_ticket_card {
+    border: 1px solid #E1E1E1;
+    border-radius: 8px;
+    padding: 12px 20px;
+  }
+
+  .align_middle {
+    vertical-align: middle;
+  }
+
+  @media (max-width: 768px) {
+    .ticket_card .app_logo {
+      padding: 18px !important;
+    }
+
+    .ticket_card .body {
+      padding: 18px !important;
+    }
+
+    [dir="rtl"] .ticket_card .ticket_state_spacing {
+      padding-left: 2px !important;
+    }
+
+    [dir="ltr"] .ticket_card .ticket_state_spacing {
+      padding-right: 2px !important;
+    }
+
+    .ticket_card .ticket_state_spacing {
+      padding-right: 2px !important;
+    }
+
+    .ticket_card .ticket_description {
+      padding-bottom: 16px !important;
+    }
+  }
+
+</style>
+
+<!-- Outlook.com -->
+<style type="text/css" data-premailer="ignore">
+  .content-td blockquote + * {
+    margin-top: 10px !important;
+  }
+
+  .ExternalClass .content-td h1 {
+    padding: 15px 0 5px 0 !important;
+  }
+
+  .ExternalClass .content-td h2 {
+    padding: 0 0 5px 0 !important;
+  }
+
+  .ExternalClass .content-td p {
+    padding: 10px 0 !important;
+  }
+
+  .ExternalClass .content-td hr + * {
+    padding-top: 20px !important;
+  }
+
+  .ExternalClass .content-td .intercom-container {
+    padding: 5px 0 !important;
+  }
+
+  .ExternalClass .content-td ol ,
+  .ExternalClass .content-td ul {
+    padding: 0 0 20px 40px !important;
+    margin: 0 !important;
+  }
+
+  img {
+    max-width: 600px !important;
+  }
+  @media (max-width: 600px) {
+    img {
+      max-width: 100% !important;
+    }
+  }
+</style>
+
+
+<!-- Outlook fix -->
+
+<!--[if gte mso 9]>
+    <style type="text/css">
+      table {
+        border-collapse: collapse !important;
+      }
+      td {
+        border-collapse: collapse !important;
+      }
+    </style>
+<![endif]-->
+
+</head>
+
+<body id="admin_reply" dir="ltr">
+<div style="color:transparent;visibility:hidden;opacity:0;font-size:0px;border:0;max-height:1px;width:1px;margin:0px;padding:0px;border-width:0px!important;display:none!important;line-height:0px!important;"><img border="0" width="1" height="1" src="https://chickenguard-b7d3c18b1b6b.intercom-mail.com/q/hbu5SX_wAe-VjWhmWNytqA~~/AAAAAQA~/RgRobvK_PVcIaW50ZXJjb21CCmaIv22MZmBZV-tSHWFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnWAQABWL6" alt=""/></div>
+
+  <table cellspacing="0" border="0" cellpadding="0" align="center" bgcolor="transparent" class="main" style="font-family: Helvetica, Arial, sans-serif; letter-spacing: 0; width: 100%; border-spacing: 0; border-collapse: separate; table-layout: fixed;">
+    <tbody>
+        <tr>
+  <td style="font-family: Helvetica, Arial, sans-serif; padding: 0;">
+    <table id="reply_email" style="table-layout: auto; border-spacing: 0; border-collapse: separate;">
+      <tbody>
+
+      <tr>
+        <td class="content-td" style="font-family: Helvetica, Arial, sans-serif; line-height: 20px; font-size: 14px; padding: 0 0 16px;">
+              <div style="margin-top: 0; padding-top: 0;">
+<p style="margin: 0 0 15px;">Hi Felix,</p>
+<p style="margin: 0 0 15px;">Thank you for your email. It has been received and a member of the team will be in contact as soon as possible. We are usually able to respond to queries within 1-2 working days.</p>
+<p style="margin: 0 0 15px;">(If not already given, please let us know  your full name, order number, and purchase date to aid us in supporting you efficiently.)</p>
+<p style="margin: 0 0 15px;">In the meantime, please feel free to explore our help centre to see if there is already an answer to your question.</p>
+<p style="margin: 0 0 15px;"><a href="https://help.chickenguard.com/en/" target="_blank" class="intercom-content-link" style="outline: none !important; color: #1251ba; text-decoration: underline; border-style: none;">https://help.chickenguard.com/en/</a></p>
+<p style="margin: 0 0 15px;">Kind regards,</p>
+</div>
+        </td>
+      </tr>
+
+
+        <tr>
+            <td style="font-family: Helvetica, Arial, sans-serif; padding: 0;">
+              <div class="email_signature">
+                <table border="0" style="border-spacing: 0; border-collapse: separate; table-layout: fixed;">
+  <tbody>
+    <tr><td style="font-family: Helvetica, Arial, sans-serif; padding: 0;">
+<p style="text-align: start; margin: 0; padding: 0;" align="start"><b>Chip (Support Bot)</b></p>
+<p style="text-align: start; margin: 0; padding: 0;" align="start">ChickenGuard </p>
+<p style="text-align: start; margin: 0; padding: 0;" align="start"></p>
+<p style="text-align: start; margin: 0; padding: 0;" align="start"></p>
+<p style="text-align: start; margin: 0; padding: 0;" align="start"></p>
+<p style="text-align: start; margin: 0; padding: 0;" align="start">Facebook - <a href="https://www.facebook.com/chickenguard" rel="nofollow noopener noreferrer" target="_blank" class="intercom-content-link" style="outline: none !important; border-style: none;">https://www.facebook.com/chickenguard</a></p>
+<p style="color: #222222; text-align: start; margin: 0; padding: 0;" align="start">Instagram - <a href="https://www.instagram.com/chickenguards/" rel="nofollow noopener noreferrer" target="_blank" class="intercom-content-link" style="outline: none !important; border-style: none;">https://www.instagram.com/chickenguards/</a></p>
+</td></tr>
+    <tr height="4"></tr>
+    <tr><td style="font-family: Helvetica, Arial, sans-serif; padding: 0;"><img width="140" height="83" src="https://downloads.intercomcdn.com/i/o/662075775/acf22594733b8c9b66ced565/CG+logo.png"></td></tr>
+  </tbody>
+</table>
+
+              </div>
+            </td>
+        </tr>
+
+      
+      <tr height="32"></tr>
+      </tbody>
+    </table>
+    <table style="border-spacing: 0; border-collapse: separate; table-layout: fixed;">
+      <tbody>
+        <tr>
+          <td style="font-family: Helvetica, Arial, sans-serif; padding: 0;">
+            <div dir="ltr">
+              
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </td>
+</tr>
+
+    </tbody>
+  </table>
+<img src="https://chickenguard-b7d3c18b1b6b.intercom-mail.com/via/o?h=48566111849c7afa439ea459f8be8a584ea59ef8-mnjgb56x_157432_21910046954" width="1" height="1" style="display: block;" alt="intercom">
+
+<img border="0" width="1" height="1" alt="" src="https://chickenguard-b7d3c18b1b6b.intercom-mail.com/q/lFk3XCqTlgH5ishIQxwUVQ~~/AAAAAQA~/RgRobvK_PlcIaW50ZXJjb21CCmaIv22MZmBZV-tSHWFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnWAQABWL6">
+</body>
+</html>
+--_----BeoNQayvnox3IlxY9j8yiA===_4D/75-09702-FBD6C866--
 
