@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE839C3DA42
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 03:25:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C98FEC3DA41
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 03:25:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB8210E1FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE49A10E201;
 	Mon,  8 Jul 2024 03:24:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XhxWnl2x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pSUFPmCE";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B124710E1C3
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2086.outbound.protection.outlook.com [40.107.95.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D28A710E1EE
  for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jul 2024 03:24:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bQcWaTdWhCffUM5iXTBd6B13XQfBnyYtAobvaxICzE693myshJDrJFuCiIsLVMD2eGo5kU30LFF2PzSuK3x8V+DMvynoQXUKyGv5qkD2YfBAlY0O6i28x0y+Dfp4O6ZCITJTpvmc5ut2K3t0Hv/6Xz+0B55WN/KqUvVZE7ZOeEMCQs3ogbH9Irp0IkFkHyps9UEugVkDNMjjI09qxg8Ew3Wb/q5uKaD7abgxVr/b4yLh0OpS3TlXlCMDOOxBXAmJ015mPt1w5TrSpVncw6fjtsrjvl1491mrlJGW+7b21jIiFawErR7uoZsnlTo3NKIk8oDPlCAz655dgMj6MRyeZw==
+ b=jLlPdGQvmNzn+s1+muSkcsGHEwYD1jYyxDq72vzPkvNZvuTCNIdMNxKyNIMgg7G8GvJG9YlwYxJpHS7TxK1A6EV6T4T0n2zMToRkQAdgMKOJ8YOETXzYRWsYsibjVv5RDAo9CQ/8Vkw/ujBfpFQmWhVdmdllCv07muND9o7RhTh+01gB5/vL6Si/TkUXUJR1cVjTnS+t3M7sbEYmJxCOrWEGF84wtDU//E/oG4Fw006hsQvt1saJQIrN2LqwdT52iuz2YhHF849gqyPpq0JuiwPJwrWTvvYjo3PDFGImug6qgGSx96n5AEG9p2AYqxqQgOL1AhgyJbGSZ9gg7LaVWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4egOod6uQQfTtb3bRRNQDKBuN3EXaS9t57nwE80xGw0=;
- b=kvD8XhlkohGCN9ex9wzOdHZ1on8WmG2wJii/jNSRdXcvcbeIoFLl3OxAk0gkKC9vzV8qWAmtzzN0LsnzmHiWdFe9YQKsXWXFECtvZc1jkSEbRpbDY07RZzQdpR/nP5ynuHr9sUHmf843dRomx7YTnZw/C9CvvOPvJp1fpkhivdRfvZgapO50wZpOelkP7QNyNBaP3b7T0tBXPtXf76g6usyCklzGZL1HwRjB/Vf/E/+RuD7LU/ClWOcp1hRkSJiTJ3sUFSO8DLmGbqNGszEwLWO+aBquhe9WhAeBuTAUCR5mERAQMdAP7dxTHtQx/yRBNCZCh4BfLD8rAZnbwQsecw==
+ bh=9kyCk3xSqKUCtYviV2EVavFs5aICt1yagTF8Cwt02TY=;
+ b=S+SG1Hmgy+Fn8VOplQUB4RdgZTPUl6x/tIdypcrBq+HstjkN/Qr0USzeDRlAAnh2xxpD/AZ1ujiETS8uhH3aEzJzOnFTnF7Z+4NXqSct1uJCJFzBvAbbI5ccPSg4/w2s5mgzOX/bA+skcUT5xWT1AbOmdgp655tbr6brN88lBnsPtn1GtFCOGPiJBbXdYvF8Llum84tAWDEDIK25p3LbLwuR87m6+FBg+Y5lWZhtiyLkUSngDaBI87stPIlredLa4DGU1D7hAatwT5Am3pw5uua1rZMNbrtd1OuowhrDGYEkGSAUWuBC3e6XKk6L6SvAJuRrYtinhPwct4wU3Ls2OQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4egOod6uQQfTtb3bRRNQDKBuN3EXaS9t57nwE80xGw0=;
- b=XhxWnl2x4VehwQ5CrtGoQkYFXGBVuPDM2bLXpt4rma76J3a94rycE+BwKu+tUGUFwu8H1Gz0qc+LuZN+pVDQlre9rw7fkczQ2UftjwCDE1Rx+J44hT05Jz4kUADrP5NwyLHpEm08QteKodIWGoPfRHHZVpnKp6I80PPlVJRK3bg=
-Received: from PH7PR03CA0004.namprd03.prod.outlook.com (2603:10b6:510:339::30)
- by SN7PR12MB7297.namprd12.prod.outlook.com (2603:10b6:806:2ad::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=9kyCk3xSqKUCtYviV2EVavFs5aICt1yagTF8Cwt02TY=;
+ b=pSUFPmCEEa79iPCiyT45D1AHNOLprQ4bqrVemEN/QQ1vXG/9/kHwJuFiUm7wvcp1f21o+1v9Ly0Zaj56dEWRmv/aqDIx0E2t3soxx7/RyQH+os4wQ8jvI4L3s5/tiguGAJYOCznvcELWvXXZjvjvPysZM9LxDq6nx5DnNsppQRQ=
+Received: from PH7P220CA0144.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::6)
+ by DS0PR12MB8453.namprd12.prod.outlook.com (2603:10b6:8:157::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Mon, 8 Jul
- 2024 03:24:57 +0000
-Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
- (2603:10b6:510:339:cafe::d2) by PH7PR03CA0004.outlook.office365.com
- (2603:10b6:510:339::30) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 03:24:54 +0000
+Received: from CY4PEPF0000EDD2.namprd03.prod.outlook.com
+ (2603:10b6:510:327:cafe::90) by PH7P220CA0144.outlook.office365.com
+ (2603:10b6:510:327::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35 via Frontend
- Transport; Mon, 8 Jul 2024 03:24:56 +0000
+ Transport; Mon, 8 Jul 2024 03:24:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ CY4PEPF0000EDD2.mail.protection.outlook.com (10.167.241.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Mon, 8 Jul 2024 03:24:56 +0000
+ 15.20.7762.17 via Frontend Transport; Mon, 8 Jul 2024 03:24:53 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 7 Jul
- 2024 22:24:54 -0500
+ 2024 22:24:51 -0500
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <hawking.zhang@amd.com>, <tao.zhou1@amd.com>
-Subject: [PATCH v4 4/4] drm/amdgpu: add ras event state device attribute
- support
-Date: Mon, 8 Jul 2024 11:24:39 +0800
-Message-ID: <20240708032439.2944714-4-kevinyang.wang@amd.com>
+Subject: [PATCH v4 2/4] drm/amdgpu: add ras POSION_CREATION event id support
+Date: Mon, 8 Jul 2024 11:24:37 +0800
+Message-ID: <20240708032439.2944714-2-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240708032439.2944714-1-kevinyang.wang@amd.com>
 References: <20240708032439.2944714-1-kevinyang.wang@amd.com>
@@ -73,51 +72,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|SN7PR12MB7297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8be304a3-0aa7-4061-1f62-08dc9efd8a76
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD2:EE_|DS0PR12MB8453:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad3e6710-22f9-4247-9b10-08dc9efd888a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?a0r7W5Ev4AbCju/ufNUTN6a/7S67WaMj4IQnHO9vOEsBR25gUJkwinu/X3PW?=
- =?us-ascii?Q?h/GPll04td347lZT/zSichM+pVHHSltO6YOghVRsfSXa6XGHjWbYjBde1Ofb?=
- =?us-ascii?Q?1tUduq6lgrnjDjYJkDSoopF+bvNN4NBnBGVxeyJVnJsQNRMWDH30A4OYf3Nd?=
- =?us-ascii?Q?JqvoPuWDAtEg+Ygzie9m3cLMYxfLwpG9ZGFcfmUhJAv/ICzzYLrQ4lfGp/NI?=
- =?us-ascii?Q?pqizcRlCSCSV6Q1/FPHo0ffYFEFcXOeRwHfQmFqk4vHerEFXpot0Np2HtJpc?=
- =?us-ascii?Q?yIw3VHiAMiWtYnxSmbbiQoN6S9ethOZZEthtLaDg/OPT3CoFeTi1HTcL+mI+?=
- =?us-ascii?Q?ct4f9jyRxP/R9WrS+Df3kzVKp/FapjmOLYfLItqFYWpNWt/NsIWMnywQUkAI?=
- =?us-ascii?Q?po0Lwh+orw5gAwslq7zQNewNwdthky040ALYL0LlvU3gYr74iPOvEGz+asBN?=
- =?us-ascii?Q?/UqWWsyVCtkJ5phYRwLVncqRKXuskX09+FLal6s7O4T1X0QMyog9jvItxcfd?=
- =?us-ascii?Q?jkGrT8UhBPltDDBfksAESwiH/VvmSMReMlUcS22UfrSnKbRr2Bv0J9krhJ7U?=
- =?us-ascii?Q?BtQrSFzjmJaVOTTPFC4diFQ+jJwcs1dDbyrPeMA6qHj/8liR2memxvGYcPZV?=
- =?us-ascii?Q?xt+DW45sbla8RDIVyXSKcr/jSmVLRH3pOfzX8QiD3FRPnoZj6wBtp/JKFCeI?=
- =?us-ascii?Q?l8QfPZp/kcfsDIYRXumTvGSR2OWcWuS/ln6E56n28JmHuNcsEvjuTZCMhru7?=
- =?us-ascii?Q?g1Z2HcrJnyYbqXKNQTSoNnHAF97OPADE1x/0c24n32fe3GzFyf8ZYEeZ/fOr?=
- =?us-ascii?Q?ncaDQ+fwJs4hClabfDW0kBGBAyyPxP1Ko1BTI/njgfSk+3vj2nZwqiDmmem0?=
- =?us-ascii?Q?NTJdS3MaGl5+SOxWiYX3L2xkWgFPDYOEaK6XB1IfenXzIbwCbprvZAfvZrFU?=
- =?us-ascii?Q?3jIQ7I1hOzyUpJOA92vun+eWIsnRc+JKPKb5HmmxT19zxRW1NKjAb5LYPEJz?=
- =?us-ascii?Q?vXPpIJG24+ZOQN5sgaZJR1AWZUolViIBhBIJY72hYkGnwQJ24+NSzlQPApct?=
- =?us-ascii?Q?4WU/2XWIz3h9IAZYNYh/MY6RJSSVvi8HlOMgK8DtVg/SEkj5dKysmg2Cf0Xg?=
- =?us-ascii?Q?bXNn508pCdhGjGdjC/aaRBOk0PsqlbyskMfBesQekqqF+R9CBiNHlT08tgVb?=
- =?us-ascii?Q?PZ3LmMUE+fCpf4xL3QMbfWj2iDMkZ1Ju9eH0KVZ6CHBRXnQZilf+6jYlxTmp?=
- =?us-ascii?Q?0oysKmBGU+IiaXLrLtU7qSFWqjt0ldVf8x6/1pQoUtzatRfw09DowU+KC+sF?=
- =?us-ascii?Q?MZ4e9J91JNW+OYB/aWxscA4T5BErnqezMPYcN5NfRdtixVDeKUYi2v0SSvMv?=
- =?us-ascii?Q?HbrXuYkj8amGJ6vihwGrlFDkTJtJLpSR3VSuVo9IAsWpjqucI6Vb4Ky4U2Sr?=
- =?us-ascii?Q?PGC961pTGC8V6f5qiuKUELHyfFv3xZWk?=
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/yLLzPVVr1OoCbskmorApPv+QClbf4AqUzLx454oNqxoKDGcE6YnpZRpE9WF?=
+ =?us-ascii?Q?Kw89yXM+4hmdPPfzDsBRPJC5ZIy4QqNR/JmGK80Et3g2orGsmjwgZe0W/IaW?=
+ =?us-ascii?Q?Fkq+nmNpabuXo45As78PWzCn5Gar0HMyeA1RGiEB/c+ZnnMqKT/5KvZVxnwj?=
+ =?us-ascii?Q?/0MuCASN5RSPmkgjxMqQATv+VpOnPpsmduhoFgK572x1I9ui4CYfhFoFv35O?=
+ =?us-ascii?Q?lENPWBFEHaEE3ofIefHxnVBsgSXZtWvJ/mBvhoSPaIUXTE2DV6WsGDFyzUB6?=
+ =?us-ascii?Q?2tnlRIhFKIz6TE3vIJQqspnnysmpD6LMF9f0vPQ/cGvrvhB00+6EQTQNGKFJ?=
+ =?us-ascii?Q?CA2YI9Rrr3OwTgN7ZwycTWxW8Acgb2sY5li03ACW0LRAYu4LaNw9c/ZVDItF?=
+ =?us-ascii?Q?ILIM1bQzdPnDPwZUF3YHLWG5yqQFuEnAJncOdkASrQftkN1nOeVjetNI9AsD?=
+ =?us-ascii?Q?RBKMcE2KxC8EF9k1w0B6eGqotGr50WMBvfnlMJ1mBAKSViMOyL9qVTuNvf75?=
+ =?us-ascii?Q?ftCEc3iWF9B9mHJH/klvT9yGO7D/PbnnVqyT8mexktzu6yJTmsoDmuIKQLSs?=
+ =?us-ascii?Q?Q8yZ1GIhoFcGhkV+jvMuPz0o/myObk+pkOYWOJi1k9UXoItnTBGYaih0yj6A?=
+ =?us-ascii?Q?VwrVtNyGYHYpe/99quXkRfq86Rmw6HU6GIPhumSpCJk9FGokyV/pFUMrFhCE?=
+ =?us-ascii?Q?Q7LJKnc2JKOBJgjdAMluyWL8tLZg6vLyo+HWtuPPHSxbn9uUF1/DJjnQ4W4D?=
+ =?us-ascii?Q?raPzkldG/pcEdmCIWtf2QCSSHt91zbVQoq5sU/UJ2/X/S1kc/ySUFXS1CVEP?=
+ =?us-ascii?Q?tNbGRnbnZm0lskztl8t9zrRzy9ogR+ayDxX9FrtLLRnYtNAt7UcnnN6DQ3WE?=
+ =?us-ascii?Q?zB5kqbiGUGCK+EGj/2z5+TTThOvrwlKDms0vgYlwFlrURJ+VP1uiAIedzbPJ?=
+ =?us-ascii?Q?lDgNxe8KD76QM+kuHry3YRMhVMuD1DRrIOKBYNCDpPsNBksYasmi3qUbey/+?=
+ =?us-ascii?Q?wjmOPceIeGeYDRxNr14ONcuLXQ/SueiXfxvQrGZJ2ngs4xMwzhccNnCDghlo?=
+ =?us-ascii?Q?xRELQUP6Wwxk11/QBE8qSRGX5XHJwjGJiCBUcXrsh5IxIMOprsfPnjoNBPf1?=
+ =?us-ascii?Q?ih6Q7Crv1yuQpoTeecFoyKQs+xSjXKVt+dmKNkVzqBfJA+8s4sd52rKbPYBJ?=
+ =?us-ascii?Q?4D934fR/6z+Onu5uLWZxO4G1srDdOlutWlnKU2hAOFYareu3XHk03Sm/+jed?=
+ =?us-ascii?Q?oLv/zzJi1Umtov9CWt2z0TXH6P86dsMixkWagNOCRlw4a+l8d8ngCcCuEe30?=
+ =?us-ascii?Q?hSHePIbIqq7S+u4nbU84Sg9WCoBNzUGY9ZFu+QjqfYkUnKJN3PQSq5jbGzP8?=
+ =?us-ascii?Q?EJNQybN5XBCZ/Arq+rM/N6XH/FzrWv73cizlNqN8mZAlABUxpLL58IJNPnMV?=
+ =?us-ascii?Q?eUCisCx1Wz7ZURj+2ctFckALzqVzGrbx?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 03:24:56.4493 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8be304a3-0aa7-4061-1f62-08dc9efd8a76
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 03:24:53.3217 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad3e6710-22f9-4247-9b10-08dc9efd888a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7297
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,171 +131,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add amdgpu ras 'event_state' sysfs device attribute support
+add amdgpu ras POSION_CREATION event id support.
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 56 +++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  7 +++-
- 2 files changed, 58 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 17 ++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  1 +
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index ca09316fbb6a..be053e168b64 100644
+index a40886d0f507..c7e68c5e90cd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1731,6 +1731,39 @@ static ssize_t amdgpu_ras_sysfs_schema_show(struct device *dev,
- 	return sysfs_emit(buf, "schema: 0x%x\n", con->schema);
- }
- 
-+static struct {
-+	enum ras_event_type type;
-+	const char *name;
-+} dump_event[] = {
-+	{RAS_EVENT_TYPE_FATAL, "Fatal Error"},
-+	{RAS_EVENT_TYPE_POISON_CREATION, "Poison Creation"},
-+	{RAS_EVENT_TYPE_POISON_CONSUMPTION, "Poison Consumption"},
-+};
-+
-+static ssize_t amdgpu_ras_sysfs_event_state_show(struct device *dev,
-+						 struct device_attribute *attr, char *buf)
-+{
-+	struct amdgpu_ras *con =
-+		container_of(attr, struct amdgpu_ras, event_state_attr);
-+	struct ras_event_manager *event_mgr = con->event_mgr;
-+	struct ras_event_state *event_state;
-+	int i, size = 0;
-+
-+	if (!event_mgr)
-+		return -EINVAL;
-+
-+	size += sysfs_emit_at(buf, size, "current seqno: %llu\n", atomic64_read(&event_mgr->seqno));
-+	for (i = 0; i < ARRAY_SIZE(dump_event); i++) {
-+		event_state = &event_mgr->event_state[dump_event[i].type];
-+		size += sysfs_emit_at(buf, size, "%s: count:%llu, last_seqno:%llu\n",
-+				      dump_event[i].name,
-+				      atomic64_read(&event_state->count),
-+				      event_state->last_seqno);
-+	}
-+
-+	return (ssize_t)size;
-+}
-+
- static void amdgpu_ras_sysfs_remove_bad_page_node(struct amdgpu_device *adev)
+@@ -2116,8 +2116,17 @@ static void amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
+ static void amdgpu_ras_interrupt_poison_creation_handler(struct ras_manager *obj,
+ 				struct amdgpu_iv_entry *entry)
  {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-@@ -1748,6 +1781,7 @@ static int amdgpu_ras_sysfs_remove_dev_attr_node(struct amdgpu_device *adev)
- 		&con->features_attr.attr,
- 		&con->version_attr.attr,
- 		&con->schema_attr.attr,
-+		&con->event_state_attr.attr,
- 		NULL
- 	};
- 	struct attribute_group group = {
-@@ -1980,6 +2014,8 @@ static DEVICE_ATTR(version, 0444,
- 		amdgpu_ras_sysfs_version_show, NULL);
- static DEVICE_ATTR(schema, 0444,
- 		amdgpu_ras_sysfs_schema_show, NULL);
-+static DEVICE_ATTR(event_state, 0444,
-+		   amdgpu_ras_sysfs_event_state_show, NULL);
- static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-@@ -1990,6 +2026,7 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- 		&con->features_attr.attr,
- 		&con->version_attr.attr,
- 		&con->schema_attr.attr,
-+		&con->event_state_attr.attr,
- 		NULL
- 	};
- 	struct bin_attribute *bin_attrs[] = {
-@@ -2012,6 +2049,10 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- 	con->schema_attr = dev_attr_schema;
- 	sysfs_attr_init(attrs[2]);
- 
-+	/* add event_state entry */
-+	con->event_state_attr = dev_attr_event_state;
-+	sysfs_attr_init(attrs[3]);
+-	dev_info(obj->adev->dev,
+-		"Poison is created\n");
++	struct amdgpu_device *adev = obj->adev;
++	enum ras_event_type type = RAS_EVENT_TYPE_POISON_CREATION;
++	u64 event_id;
++	int ret;
 +
- 	if (amdgpu_bad_page_threshold != 0) {
- 		/* add bad_page_features entry */
- 		bin_attr_gpu_vram_bad_pages.private = NULL;
-@@ -3440,13 +3481,17 @@ static int amdgpu_get_ras_schema(struct amdgpu_device *adev)
++	ret = amdgpu_ras_mark_ras_event(adev, type);
++	if (ret)
++		return;
++
++	event_id = amdgpu_ras_acquire_event_id(adev, type);
++	RAS_EVENT_LOG(adev, event_id, "Poison is created\n");
  
- static void ras_event_mgr_init(struct ras_event_manager *mgr)
- {
-+	struct ras_event_state *event_state;
- 	int i;
+ 	if (amdgpu_ip_version(obj->adev, UMC_HWIP, 0) >= IP_VERSION(12, 0, 0)) {
+ 		struct amdgpu_ras *con = amdgpu_ras_get_context(obj->adev);
+@@ -2889,6 +2898,7 @@ static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
+ 	uint32_t new_detect_count, total_detect_count;
+ 	uint32_t need_query_count = poison_creation_count;
+ 	bool query_data_timeout = false;
++	enum ras_event_type type = RAS_EVENT_TYPE_POISON_CREATION;
  
- 	memset(mgr, 0, sizeof(*mgr));
- 	atomic64_set(&mgr->seqno, 0);
+ 	memset(&info, 0, sizeof(info));
+ 	info.head.block = AMDGPU_RAS_BLOCK__UMC;
+@@ -2896,7 +2906,7 @@ static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
+ 	ecc_log = &ras->umc_ecc_log;
+ 	total_detect_count = 0;
+ 	do {
+-		ret = amdgpu_ras_query_error_status(adev, &info);
++		ret = amdgpu_ras_query_error_status_with_event(adev, &info, type);
+ 		if (ret)
+ 			return ret;
  
--	for (i = 0; i < ARRAY_SIZE(mgr->last_seqno); i++)
--		mgr->last_seqno[i] = RAS_EVENT_INVALID_ID;
-+	for (i = 0; i < ARRAY_SIZE(mgr->event_state); i++) {
-+		event_state = &mgr->event_state[i];
-+		event_state->last_seqno = RAS_EVENT_INVALID_ID;
-+		atomic64_set(&event_state->count, 0);
-+	}
- }
+@@ -3974,6 +3984,7 @@ u64 amdgpu_ras_acquire_event_id(struct amdgpu_device *adev, enum ras_event_type
  
- static void amdgpu_ras_event_mgr_init(struct amdgpu_device *adev)
-@@ -3960,6 +4005,7 @@ static struct ras_event_manager* __get_ras_event_mgr(struct amdgpu_device *adev)
- int amdgpu_ras_mark_ras_event_caller(struct amdgpu_device *adev, enum ras_event_type type, const void *caller)
- {
- 	struct ras_event_manager *event_mgr;
-+	struct ras_event_state *event_state;
- 	int ret = 0;
- 
- 	if (type >= RAS_EVENT_TYPE_COUNT) {
-@@ -3973,7 +4019,9 @@ int amdgpu_ras_mark_ras_event_caller(struct amdgpu_device *adev, enum ras_event_
- 		goto out;
- 	}
- 
--	event_mgr->last_seqno[type] = atomic64_inc_return(&event_mgr->seqno);
-+	event_state = &event_mgr->event_state[type];
-+	event_state->last_seqno = atomic64_inc_return(&event_mgr->seqno);
-+	atomic64_inc(&event_state->count);
- 
- out:
- 	if (ret && caller)
-@@ -3999,7 +4047,7 @@ u64 amdgpu_ras_acquire_event_id(struct amdgpu_device *adev, enum ras_event_type
+ 	switch (type) {
+ 	case RAS_EVENT_TYPE_FATAL:
++	case RAS_EVENT_TYPE_POISON_CREATION:
+ 		event_mgr = __get_ras_event_mgr(adev);
  		if (!event_mgr)
  			return RAS_EVENT_INVALID_ID;
- 
--		id = event_mgr->last_seqno[type];
-+		id = event_mgr->event_state[type].last_seqno;
- 		break;
- 	case RAS_EVENT_TYPE_INVALID:
- 	default:
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 49ec8edcbe39..88a427a1c8cb 100644
+index fd6a4c55bdc9..69eb5fd4640f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -439,10 +439,14 @@ enum ras_event_type {
- 	RAS_EVENT_TYPE_POISON_CONSUMPTION,
+@@ -435,6 +435,7 @@ struct umc_ecc_info {
+ enum ras_event_type {
+ 	RAS_EVENT_TYPE_INVALID = 0,
+ 	RAS_EVENT_TYPE_FATAL,
++	RAS_EVENT_TYPE_POISON_CREATION,
  	RAS_EVENT_TYPE_COUNT,
  };
-+struct ras_event_state {
-+	u64 last_seqno;
-+	atomic64_t count;
-+};
  
- struct ras_event_manager {
- 	atomic64_t seqno;
--	u64 last_seqno[RAS_EVENT_TYPE_COUNT];
-+	struct ras_event_state event_state[RAS_EVENT_TYPE_COUNT];
- };
- 
- struct ras_event_id {
-@@ -496,6 +500,7 @@ struct amdgpu_ras {
- 	struct device_attribute features_attr;
- 	struct device_attribute version_attr;
- 	struct device_attribute schema_attr;
-+	struct device_attribute event_state_attr;
- 	struct bin_attribute badpages_attr;
- 	struct dentry *de_ras_eeprom_table;
- 	/* block array */
 -- 
 2.34.1
 
