@@ -4,117 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F2AFC3271E
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 19:04:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30E9C3271E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 20:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E47D10E3E6;
-	Mon,  8 Jul 2024 19:04:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5479210E404;
+	Mon,  8 Jul 2024 20:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ebNf3dsV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VkZgCMuU";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A853410E3E6
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jul 2024 19:04:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BD+v6ZyMWc1ix0xkYL/8MjZrPGGyPSNICzqZ0oVyNdZOFtGT+TPOTsLmhAco21iqi2W/wI4d2MQYbVOusFsum+MiYhd0tbK2XB6Ev3bORWNRZYkwr+4j35qKiN68CsbeuzdgJkGx1P4Qjz/j3OrfxRSUVIrtAhpmijvs173tHTz9oRBxtfG0PWw8flRKQR9OvbChKbM+SVqdA7M3tX0GazslLcE8SQLLoPB62cccxnG0O71HAdx5WgCGL2tkeqnb7/ch2ObMvVasiPTGQ4agZrp66tcWwQO6Qwa+sYbJAs8kNslwo3DTN7yFQ77hibNpQCaRFv4Yfv91XOhjpkEKVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PwemPGz7LHpoQrCes2Qb/mySWwK30ZlsIvNw47lcgG4=;
- b=hsNO8BhlLQzWSrR4GEOYAPFDtL+uzMLQsyzA4LEBxzUhm4UGDZFTjb3SjkkCRJIxUHlLlH/E3+U08GnK4tG9OqVWi8mhy42nEFV1iIaYk7TVPHgfFSgY/E0XU5NZ6koXgo4kXAvnbU2mVT3MYNkxiQLwuqsMu1q1TKRqKSWamvQtfSpeKtpofPRwk0e6xtFSYK2J1KuoBbhuvexkRh3RuXELUr7J/dAutKqqwBvKzc13QEiqeQFngEMo6TMjLAbdErWNDTJoPWeBt05lQJtKUxE1dF3sAhE001Qau2uNPNxm1YxgagX4nwFNFAeWTSDZPZ9EjihlsLExvtlh2uSQvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PwemPGz7LHpoQrCes2Qb/mySWwK30ZlsIvNw47lcgG4=;
- b=ebNf3dsVnl6XDkRJWtz/EJzWE0VrFDrBjv7WzPTJfSrxaueJnr/TyieY6QKtRcG1nKv5W6i2gelgwFOgbq9dQTVXx3SsTrp0yuoRoOO2Acr6baGKdipfTnUkmeZSIZyl4NxdQX6RS6BdpbXA8hlPdQFidCZSPWvmoNi5+k4ZqoA=
-Received: from BN0PR02CA0049.namprd02.prod.outlook.com (2603:10b6:408:e5::24)
- by DM6PR12MB4202.namprd12.prod.outlook.com (2603:10b6:5:219::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Mon, 8 Jul
- 2024 19:04:36 +0000
-Received: from BN1PEPF00006002.namprd05.prod.outlook.com
- (2603:10b6:408:e5:cafe::35) by BN0PR02CA0049.outlook.office365.com
- (2603:10b6:408:e5::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36 via Frontend
- Transport; Mon, 8 Jul 2024 19:04:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00006002.mail.protection.outlook.com (10.167.243.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Mon, 8 Jul 2024 19:04:36 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 8 Jul
- 2024 14:04:34 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/job: Replace DRM_INFO/ERROR logging
-Date: Mon, 8 Jul 2024 15:04:19 -0400
-Message-ID: <20240708190419.3615363-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.45.2
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0DA110E2FC;
+ Mon,  8 Jul 2024 20:04:38 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-7163489149eso3201395a12.1; 
+ Mon, 08 Jul 2024 13:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1720469078; x=1721073878; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4W49Ts2h7IXoKSnNhKTlkJLMbVTeV+7YxvdVcGt2FXk=;
+ b=VkZgCMuUTfp7pqGPHW65KFNBjN/5XfAraj/oQn/1wfGZvPU+VN/MXvAVBBmLeHOUQf
+ n+l9RQDkUInSFwt3OmakGBb2304gWPS1rQ15fjpv2iBSpoY5rpS49/+2Ya9QyH+emFfW
+ wDOwe08SZzpr5AFCvDNb5yQPEJv6u/vONxnAFO4YuYf+Ncvzzxz9cORf4Lqd12qI282A
+ 65bhyIk2Tt58gjHd8KufQA717pnK5nerqaDkBkqRmeYutPkAEFrfEV5Uw4raHp9UYbEh
+ o6+Gq8q5gtswwaRjHWjTeiwb2wQ3IhSI5WoeUubGw7cCaSjhtJVwHa2vromgbDB2bGFe
+ /vAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720469078; x=1721073878;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4W49Ts2h7IXoKSnNhKTlkJLMbVTeV+7YxvdVcGt2FXk=;
+ b=Y/ff9CMvINnj+0FEm+w2t/tmkd0AOXytz5Pp2p+vEzhibUNh07Vt1TIOR90KlJFf5E
+ rOiWlxD5wOlZBrcTZNcEhp7OpTYzmjtNULeslKkhQ47FAU1X2X0EDV2ZLxDdduMOq9fZ
+ nqbR0KlhXwRrFvzcjEaY8tN8eTXeFDdnuL7dVinXGSZPJYs2XAnXfrgzJ0PCI4/55J9J
+ H+sJisDGRWEEaXNpYmyK91Ln9uwy9PNCu0x/o8XUmc6xRdlHUtQG0uKadJ3QGp5P+/ZD
+ aG3L3uY6kjv4TJGF4vA0aKo1tI8XaKnWC4ohI7Y3FOMboahInAzPa7WTc/7THvVFW6qB
+ Cb3g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUXLvSORDwVdYu6WloU05Do1ex9bJ7mDMVWo+zfS5WCcERTzxVy8sqP+GhEsjL06r6BVfogAhIzBM0EQPkUvizTt2+lYeLnKzkwW8tDlCLdxx0ROZA0aqsrpMevJMrSdQd5M6K1queyYf9P6inhig==
+X-Gm-Message-State: AOJu0YzRAh2nAYlXKpxnPVFchU2zLLiCqv1l9WcJfiAPP+CLyAOnlXX2
+ LlhJykyEeX1ByJqSQLzgJb5XlfxULJpXsXSmQoxI/q+SPjWycKlmg1/K0wNK/qGMBj3xgBZEyZe
+ f4i2psXTOqAxHUAxYk3U3geY/NsLCxA==
+X-Google-Smtp-Source: AGHT+IG+RG9sKH282j1PUR1uFtwEkAUIQDyBg0mzm5Zr7D1Y3mFiNCPk0xP+P9igu7ELI0aPhLclO7bBMc3MaJ4qawk=
+X-Received: by 2002:a17:90b:1fcd:b0:2c8:db8b:7247 with SMTP id
+ 98e67ed59e1d1-2ca35be7c77mr668245a91.9.1720469078305; Mon, 08 Jul 2024
+ 13:04:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006002:EE_|DM6PR12MB4202:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcf95177-6088-42ac-1259-08dc9f80cfa1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g/8VuHheKv03RBbJolhA0HLsnMeNlZAoVRLfcrf38wfAIWvrnjRzaFKyaq0w?=
- =?us-ascii?Q?+n86iiFlsIzqwS3VmmmxPcsZL7Zsjd2itriNDHwXGGn3OzNO/ac3X12HYIeQ?=
- =?us-ascii?Q?ARBchTxkwhoyDf3goMvdF4zhpgJ4YAAeuG2D7X94jrcFHV5Mz5BZ7bwqtj0D?=
- =?us-ascii?Q?XrnHtUoCT6qR2Zs2eivmSilJeetRDbUOxioYNNQ8nkZ4kHam5X8Yurp9Qknd?=
- =?us-ascii?Q?xFJ3BcPLjs/gBlG+Yoan4tczt5kBm9IDpQC8trMsUwaWh1mjC0M5r87bnp0n?=
- =?us-ascii?Q?tfAEZfDQH560ew0AULfURGC9uCr44DL9utCDL7beEPy8iHfNlTfJhJolTvpC?=
- =?us-ascii?Q?hS4EbVJv092ArB+eTzfUiQNHJbSmtF1hhQNASDSwNSCEgl13t5wrmxiL1TZc?=
- =?us-ascii?Q?WssZ9QvKt7xGWEyWaHu3LNeOgPLgZZqJxuZeJtgCCXgfqADpSePQ1Qej2rhO?=
- =?us-ascii?Q?fMLPK8YsxWFfHAjLlQ2zwa7dQoMjE3GnjV6NVLqfDpi5ieMwXXpWYipd1GLw?=
- =?us-ascii?Q?A91jPvmkgTvIhAKSUqgz5l/WJD1NNgnyerF6oHv9+kcNKrGfM1++VZ1FDCjJ?=
- =?us-ascii?Q?MZDmYiSC+XOvSpD74UjjRste2t5B1eIxNIg6ioKlPb17Rj0J/YZ5+lPTpdSN?=
- =?us-ascii?Q?te1CzuXL8X6swDfhKh5ZFYs5vXhFxgWQH8T46J20duy14p+BAMQy4kKCWiId?=
- =?us-ascii?Q?KVuD55WTcmBEPL6ktHESitmnQNaHjcvTT0ZePvTCzWRs/dpBFyxc+Lc+ghkq?=
- =?us-ascii?Q?ZjBTENimeUtLsJ31HdGyc+Clc9xbDvCKNKNYZWFzdXF1SYUJ8R/6VDXclzgW?=
- =?us-ascii?Q?LxBz42OR0Yk/r6kgmMf2ZEkgcM59vwKO3VGKjSOCVtWXIJVqkkYW+9gsqueB?=
- =?us-ascii?Q?lx65IVY3SObxIbbXqau5JUwSj8DNYatkORb/7XNXM2THUb69woZeetOHJNHa?=
- =?us-ascii?Q?Gay83wA5EFVcIBtH8jqPhJCh1jKwie+GHzqxLF1k8uxDFVtdiX36xX+2yaKb?=
- =?us-ascii?Q?lindZsosv7VI7BKL86kZ5+0VWCMChoRjctg9WXIldEW+RxHsWoEdkP3q+Jba?=
- =?us-ascii?Q?W/KGuqJ3BzfdlRwZY6nZXcCIUWwV7fdwQHGN+3OElDspdsdwdRHz1tslzP6I?=
- =?us-ascii?Q?/uIqnRQZUrSZGRSuLK8CHMhc+w7mlgEp1A3yz8TsTQEIj71sTP0zgg3bXCQy?=
- =?us-ascii?Q?XcCXT5u3E/TvKQA9rSl0carXNifVK8MO0V5Kk0V94a07rtNg+fH4N0yHGJzQ?=
- =?us-ascii?Q?eqfzynKFcZw/vhgwgzpH9iplGMHwNR6bHjFdpYfyJe9VzDFM3+zJsxnPuOO8?=
- =?us-ascii?Q?tn03+/YETd2dxkPU8Kavb5ih6d2GkdTidHgRjIXiOQsv6o8Mgd9hQQP0qy8A?=
- =?us-ascii?Q?nw6bEablMYoqAEOij01g4oZgUuvqQcW8ePyuV8onoEKXcLTJm/OeMhi1bFF5?=
- =?us-ascii?Q?RuaQ2M306Awbx4zNuJLxa8MjJheMfpu0?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2024 19:04:36.2368 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcf95177-6088-42ac-1259-08dc9f80cfa1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006002.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4202
+References: <20240630165949.117634-1-wuhoipok@gmail.com>
+ <20240630165949.117634-7-wuhoipok@gmail.com>
+ <3ecb6fb4-ff60-4c49-8199-b76b4f297ecf@suse.de>
+In-Reply-To: <3ecb6fb4-ff60-4c49-8199-b76b4f297ecf@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Jul 2024 16:04:26 -0400
+Message-ID: <CADnq5_NNhVZ481RJMcAchxh-66vCOqcp_kOx9HLO2g2agyWOKA@mail.gmail.com>
+Subject: Re: [PATCH v3 6/6] drm/radeon: change drm_dev_alloc to
+ devm_drm_dev_alloc
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Wu Hoi Pok <wuhoipok@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,73 +85,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the dev_info/err variants so we get per device logging
-in multi-GPU cases.
+Applied the series.  Thanks!
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index cf0c4470ab9c..e238f2832f65 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -41,7 +41,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	int r;
- 
- 	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
--		DRM_INFO("%s - device unplugged skipping recovery on scheduler:%s",
-+		dev_info(adev->dev, "%s - device unplugged skipping recovery on scheduler:%s",
- 			 __func__, s_job->sched->name);
- 
- 		/* Effectively the job is aborted as the device is gone */
-@@ -53,19 +53,20 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 
- 	if (amdgpu_gpu_recovery &&
- 	    amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
--		DRM_ERROR("ring %s timeout, but soft recovered\n",
--			  s_job->sched->name);
-+		dev_err(adev->dev, "ring %s timeout, but soft recovered\n",
-+			s_job->sched->name);
- 		goto exit;
- 	}
- 
--	DRM_ERROR("ring %s timeout, signaled seq=%u, emitted seq=%u\n",
--		   job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
--		   ring->fence_drv.sync_seq);
-+	dev_err(adev->dev, "ring %s timeout, signaled seq=%u, emitted seq=%u\n",
-+		job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
-+		ring->fence_drv.sync_seq);
- 
- 	ti = amdgpu_vm_get_task_info_pasid(ring->adev, job->pasid);
- 	if (ti) {
--		DRM_ERROR("Process information: process %s pid %d thread %s pid %d\n",
--			  ti->process_name, ti->tgid, ti->task_name, ti->pid);
-+		dev_err(adev->dev,
-+			"Process information: process %s pid %d thread %s pid %d\n",
-+			ti->process_name, ti->tgid, ti->task_name, ti->pid);
- 		amdgpu_vm_put_task_info(ti);
- 	}
- 
-@@ -82,7 +83,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 
- 		r = amdgpu_device_gpu_recover(ring->adev, job, &reset_context);
- 		if (r)
--			DRM_ERROR("GPU Recovery Failed: %d\n", r);
-+			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
- 	} else {
- 		drm_sched_suspend_timeout(&ring->sched);
- 		if (amdgpu_sriov_vf(adev))
-@@ -274,7 +275,7 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
- 	while (!fence && job->vm && !job->vmid) {
- 		r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
- 		if (r) {
--			DRM_ERROR("Error getting VM ID (%d)\n", r);
-+			dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
- 			goto error;
- 		}
- 	}
--- 
-2.45.2
-
+On Wed, Jul 3, 2024 at 4:55=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
+de> wrote:
+>
+>
+>
+> Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
+> > "drm_dev_alloc" is deprecated, in order to use the newer "devm_drm_dev_=
+alloc",
+> > the "drm_device" is stored inside "radeon_device", by changing "rdev_to=
+_drm(rdev)"
+> > other functions still gain access to the member "drm_device". Also, "de=
+vm_drm_dev_alloc"
+> > is now allocating "radeon_device", allocation inside "radeon_driver_loa=
+d_kms" has to be
+> > removed.
+> >
+> > In "radeon_device_init", it originally assigned "rdev->dev" etc. Howeve=
+r it is already
+> > done right after "devm_drm_dev_alloc" as you can see down below. It is =
+better remove them.
+> >
+> > Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
+>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>
+>
+> > ---
+> >   drivers/gpu/drm/radeon/radeon.h        |  4 ++--
+> >   drivers/gpu/drm/radeon/radeon_device.c |  3 ---
+> >   drivers/gpu/drm/radeon/radeon_drv.c    | 12 +++++++++---
+> >   drivers/gpu/drm/radeon/radeon_kms.c    |  8 +-------
+> >   4 files changed, 12 insertions(+), 15 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
+adeon.h
+> > index ae35c102a487..fd8a4513025f 100644
+> > --- a/drivers/gpu/drm/radeon/radeon.h
+> > +++ b/drivers/gpu/drm/radeon/radeon.h
+> > @@ -2297,7 +2297,7 @@ typedef void (*radeon_wreg_t)(struct radeon_devic=
+e*, uint32_t, uint32_t);
+> >
+> >   struct radeon_device {
+> >       struct device                   *dev;
+> > -     struct drm_device               *ddev;
+> > +     struct drm_device               ddev;
+> >       struct pci_dev                  *pdev;
+> >   #ifdef __alpha__
+> >       struct pci_controller           *hose;
+> > @@ -2478,7 +2478,7 @@ void cik_mm_wdoorbell(struct radeon_device *rdev,=
+ u32 index, u32 v);
+> >
+> >   static inline struct drm_device *rdev_to_drm(struct radeon_device *rd=
+ev)
+> >   {
+> > -     return rdev->ddev;
+> > +     return &rdev->ddev;
+> >   }
+> >
+> >   /*
+> > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/r=
+adeon/radeon_device.c
+> > index 32851632643d..554b236c2328 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_device.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> > @@ -1285,9 +1285,6 @@ int radeon_device_init(struct radeon_device *rdev=
+,
+> >       bool runtime =3D false;
+> >
+> >       rdev->shutdown =3D false;
+> > -     rdev->dev =3D &pdev->dev;
+> > -     rdev->ddev =3D ddev;
+> > -     rdev->pdev =3D pdev;
+> >       rdev->flags =3D flags;
+> >       rdev->family =3D flags & RADEON_FAMILY_MASK;
+> >       rdev->is_atom_bios =3D false;
+> > diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/rade=
+on/radeon_drv.c
+> > index 7b8aa8406751..f36aa71c57c7 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> > @@ -260,6 +260,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+> >   {
+> >       unsigned long flags =3D 0;
+> >       struct drm_device *ddev;
+> > +     struct radeon_device *rdev;
+> >       int ret;
+> >
+> >       if (!ent)
+> > @@ -300,9 +301,14 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+> >       if (ret)
+> >               return ret;
+> >
+> > -     ddev =3D drm_dev_alloc(&kms_driver, &pdev->dev);
+> > -     if (IS_ERR(ddev))
+> > -             return PTR_ERR(ddev);
+> > +     rdev =3D devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*rdev=
+), ddev);
+> > +     if (IS_ERR(rdev))
+> > +             return PTR_ERR(rdev);
+> > +
+> > +     rdev->dev =3D &pdev->dev;
+> > +     rdev->pdev =3D pdev;
+> > +     ddev =3D rdev_to_drm(rdev);
+> > +     ddev->dev_private =3D rdev;
+> >
+> >       ret =3D pci_enable_device(pdev);
+> >       if (ret)
+> > diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/rade=
+on/radeon_kms.c
+> > index a16590c6247f..645e33bf7947 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_kms.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_kms.c
+> > @@ -104,15 +104,9 @@ void radeon_driver_unload_kms(struct drm_device *d=
+ev)
+> >   int radeon_driver_load_kms(struct drm_device *dev, unsigned long flag=
+s)
+> >   {
+> >       struct pci_dev *pdev =3D to_pci_dev(dev->dev);
+> > -     struct radeon_device *rdev;
+> > +     struct radeon_device *rdev =3D dev->dev_private;
+> >       int r, acpi_status;
+> >
+> > -     rdev =3D kzalloc(sizeof(struct radeon_device), GFP_KERNEL);
+> > -     if (rdev =3D=3D NULL) {
+> > -             return -ENOMEM;
+> > -     }
+> > -     dev->dev_private =3D (void *)rdev;
+> > -
+> >   #ifdef __alpha__
+> >       rdev->hose =3D pdev->sysdata;
+> >   #endif
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
+>
