@@ -4,71 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30E9C3271E
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 20:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B13FC3271E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jul 2024 20:12:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5479210E404;
-	Mon,  8 Jul 2024 20:04:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E1D610E406;
+	Mon,  8 Jul 2024 20:12:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VkZgCMuU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jAZtb8j3";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0DA110E2FC;
- Mon,  8 Jul 2024 20:04:38 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-7163489149eso3201395a12.1; 
- Mon, 08 Jul 2024 13:04:38 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4052210E406;
+ Mon,  8 Jul 2024 20:12:22 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2c927152b4bso2975187a91.2; 
+ Mon, 08 Jul 2024 13:12:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720469078; x=1721073878; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720469542; x=1721074342; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4W49Ts2h7IXoKSnNhKTlkJLMbVTeV+7YxvdVcGt2FXk=;
- b=VkZgCMuUTfp7pqGPHW65KFNBjN/5XfAraj/oQn/1wfGZvPU+VN/MXvAVBBmLeHOUQf
- n+l9RQDkUInSFwt3OmakGBb2304gWPS1rQ15fjpv2iBSpoY5rpS49/+2Ya9QyH+emFfW
- wDOwe08SZzpr5AFCvDNb5yQPEJv6u/vONxnAFO4YuYf+Ncvzzxz9cORf4Lqd12qI282A
- 65bhyIk2Tt58gjHd8KufQA717pnK5nerqaDkBkqRmeYutPkAEFrfEV5Uw4raHp9UYbEh
- o6+Gq8q5gtswwaRjHWjTeiwb2wQ3IhSI5WoeUubGw7cCaSjhtJVwHa2vromgbDB2bGFe
- /vAw==
+ bh=yzafkm5mkmKvzuSXY/SPyzLGzyO6gnrISbVK7dcBMos=;
+ b=jAZtb8j3LX20GvAV5FR0GJjelkAR+EI6nWwnRiTkwYfRxm1chKMCOc0MsUwD+ikQP/
+ bafVUztay+BPpvTYufB6m0+y4SRuIZ0ncX20xcN5/m0rucdNK+xqX1i+A+BJT6F/ilDA
+ m4/uU83hWWE/+aWAHpBPHK3hVWQ2VvWIPaCtFkgltGaSOHE2u4PKjN9utNMg1sz8svy6
+ KGrakSVFWUniJ4p0KW+cZ+GzyiLOCVBgMrw6Z7F2oDszk4IAQX9eWqxqubUUeW8I+6OO
+ sSbebL6QR0nsalhDUErL3d23vMysUXfu2UwQzcmZhA6bxJzSvy0ljFK/jctPemhqg+2z
+ S8DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720469078; x=1721073878;
+ d=1e100.net; s=20230601; t=1720469542; x=1721074342;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4W49Ts2h7IXoKSnNhKTlkJLMbVTeV+7YxvdVcGt2FXk=;
- b=Y/ff9CMvINnj+0FEm+w2t/tmkd0AOXytz5Pp2p+vEzhibUNh07Vt1TIOR90KlJFf5E
- rOiWlxD5wOlZBrcTZNcEhp7OpTYzmjtNULeslKkhQ47FAU1X2X0EDV2ZLxDdduMOq9fZ
- nqbR0KlhXwRrFvzcjEaY8tN8eTXeFDdnuL7dVinXGSZPJYs2XAnXfrgzJ0PCI4/55J9J
- H+sJisDGRWEEaXNpYmyK91Ln9uwy9PNCu0x/o8XUmc6xRdlHUtQG0uKadJ3QGp5P+/ZD
- aG3L3uY6kjv4TJGF4vA0aKo1tI8XaKnWC4ohI7Y3FOMboahInAzPa7WTc/7THvVFW6qB
- Cb3g==
+ bh=yzafkm5mkmKvzuSXY/SPyzLGzyO6gnrISbVK7dcBMos=;
+ b=Kic6IQW4zY0QXhbTgQQ8ppxaSHYbWcCh+D8NTb10xO8I2CX2W35IxWm4VLriHCW6LQ
+ lZ4zyx2hq3MorYNxC0T8EdaQ+dOqJYU79uphZGaW9mbsJ5cG0tFwELEm53tsizdAV6m9
+ FaP4PnawGcJ5BL5Q4AdvkOTLQlFnGEAt8STSACSO0tvm+ljj8iN2lNfqxqv3vNKZ50mJ
+ 2dVNknwlO5AvmziHHoTuIr/biJunN/Aoi36aunXrZUnMt0uvYwsjxdjt+0uMgrheX+cD
+ owQ7omP4zX85mEKTyEvSK7N8V2Haj/W8ILtDwFCK3IG569HoGfIb50T8fqU7cyI/6tzu
+ bOuQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXLvSORDwVdYu6WloU05Do1ex9bJ7mDMVWo+zfS5WCcERTzxVy8sqP+GhEsjL06r6BVfogAhIzBM0EQPkUvizTt2+lYeLnKzkwW8tDlCLdxx0ROZA0aqsrpMevJMrSdQd5M6K1queyYf9P6inhig==
-X-Gm-Message-State: AOJu0YzRAh2nAYlXKpxnPVFchU2zLLiCqv1l9WcJfiAPP+CLyAOnlXX2
- LlhJykyEeX1ByJqSQLzgJb5XlfxULJpXsXSmQoxI/q+SPjWycKlmg1/K0wNK/qGMBj3xgBZEyZe
- f4i2psXTOqAxHUAxYk3U3geY/NsLCxA==
-X-Google-Smtp-Source: AGHT+IG+RG9sKH282j1PUR1uFtwEkAUIQDyBg0mzm5Zr7D1Y3mFiNCPk0xP+P9igu7ELI0aPhLclO7bBMc3MaJ4qawk=
-X-Received: by 2002:a17:90b:1fcd:b0:2c8:db8b:7247 with SMTP id
- 98e67ed59e1d1-2ca35be7c77mr668245a91.9.1720469078305; Mon, 08 Jul 2024
- 13:04:38 -0700 (PDT)
+ AJvYcCVOuBVLxNsJIwosgeEUcs2loyX3Jro3SUx4J76ip1k0iSbiOlIFsl9j4Bu4yZBlHTxnkUW7Qx8Qai5mLaZAAnv1z4RKfBSKEKMtodTXqw==
+X-Gm-Message-State: AOJu0YxBJWZ8AChX9rMf5xwfuPWbQrF93rlckio9JGiiJPWd+2qgB5Qa
+ cMd1I8yz8iiFivS8Z4K0PqgzwXN/6CY6cjmUl/NhnH0ETxmBFV8IYfq1dnUJs2oNJNLwyB+Ol0x
+ MnOwHrAB6W+F09d+8Th/83doK1Y0=
+X-Google-Smtp-Source: AGHT+IEpKE793N62IJYqsTndOl2Ev7riOj5UZboqX14BS5hlSOPGppfWcTvU0UtFD1Yfmagea3RNPWVTsms+DSt5Y0M=
+X-Received: by 2002:a17:90a:43c6:b0:2c8:660d:cc2 with SMTP id
+ 98e67ed59e1d1-2ca35be1c8dmr666706a91.4.1720469541582; Mon, 08 Jul 2024
+ 13:12:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240630165949.117634-1-wuhoipok@gmail.com>
- <20240630165949.117634-7-wuhoipok@gmail.com>
- <3ecb6fb4-ff60-4c49-8199-b76b4f297ecf@suse.de>
-In-Reply-To: <3ecb6fb4-ff60-4c49-8199-b76b4f297ecf@suse.de>
+References: <20240704083008.870021-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20240704083008.870021-1-Arunpravin.PaneerSelvam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Jul 2024 16:04:26 -0400
-Message-ID: <CADnq5_NNhVZ481RJMcAchxh-66vCOqcp_kOx9HLO2g2agyWOKA@mail.gmail.com>
-Subject: Re: [PATCH v3 6/6] drm/radeon: change drm_dev_alloc to
- devm_drm_dev_alloc
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Wu Hoi Pok <wuhoipok@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+Date: Mon, 8 Jul 2024 16:12:10 -0400
+Message-ID: <CADnq5_OcuKoZYizbeU_RGPaWYvTpxGMPWg6xOXaPASBMYb5kig@mail.gmail.com>
+Subject: Re: [PATCH] drm/buddy: Add start address support to trim function
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ matthew.auld@intel.com, christian.koenig@amd.com, alexander.deucher@amd.com, 
+ frank.min@amd.com, marek.olsak@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,149 +79,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+On Thu, Jul 4, 2024 at 4:40=E2=80=AFAM Arunpravin Paneer Selvam
+<Arunpravin.PaneerSelvam@amd.com> wrote:
+>
+> - Add a new start parameter in trim function to specify exact
+>   address from where to start the trimming. This would help us
+>   in situations like if drivers would like to do address alignment
+>   for specific requirements.
+>
+> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
+>   flag to disable the allocator trimming part. This patch enables
+>   the drivers control trimming and they can do it themselves
+>   based on the application requirements.
+>
+> v1:(Matthew)
+>   - check new_start alignment with min chunk_size
+>   - use range_overflows()
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+I'd like to take this series through the amdgpu tree if there are no
+objections as it's required for display buffers on some chips and I'd
+like to make sure it lands in 6.11.
+
+Thanks,
 
 Alex
 
-On Wed, Jul 3, 2024 at 4:55=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
+> ---
+>  drivers/gpu/drm/drm_buddy.c          | 25 +++++++++++++++++++++++--
+>  drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
+>  include/drm/drm_buddy.h              |  2 ++
+>  3 files changed, 26 insertions(+), 3 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 94f8c34fc293..8cebe1fa4e9d 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct drm_buddy=
+ *mm,
+>   * drm_buddy_block_trim - free unused pages
+>   *
+>   * @mm: DRM buddy manager
+> + * @start: start address to begin the trimming.
+>   * @new_size: original size requested
+>   * @blocks: Input and output list of allocated blocks.
+>   * MUST contain single block as input to be trimmed.
+> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct drm_bud=
+dy *mm,
+>   * 0 on success, error code on failure.
+>   */
+>  int drm_buddy_block_trim(struct drm_buddy *mm,
+> +                        u64 *start,
+>                          u64 new_size,
+>                          struct list_head *blocks)
+>  {
+>         struct drm_buddy_block *parent;
+>         struct drm_buddy_block *block;
+> +       u64 block_start, block_end;
+>         LIST_HEAD(dfs);
+>         u64 new_start;
+>         int err;
+> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>                                  struct drm_buddy_block,
+>                                  link);
 >
+> +       block_start =3D drm_buddy_block_offset(block);
+> +       block_end =3D block_start + drm_buddy_block_size(mm, block);
+> +
+>         if (WARN_ON(!drm_buddy_block_is_allocated(block)))
+>                 return -EINVAL;
 >
-> Am 30.06.24 um 18:59 schrieb Wu Hoi Pok:
-> > "drm_dev_alloc" is deprecated, in order to use the newer "devm_drm_dev_=
-alloc",
-> > the "drm_device" is stored inside "radeon_device", by changing "rdev_to=
-_drm(rdev)"
-> > other functions still gain access to the member "drm_device". Also, "de=
-vm_drm_dev_alloc"
-> > is now allocating "radeon_device", allocation inside "radeon_driver_loa=
-d_kms" has to be
-> > removed.
-> >
-> > In "radeon_device_init", it originally assigned "rdev->dev" etc. Howeve=
-r it is already
-> > done right after "devm_drm_dev_alloc" as you can see down below. It is =
-better remove them.
-> >
-> > Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
+> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>         if (new_size =3D=3D drm_buddy_block_size(mm, block))
+>                 return 0;
 >
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> +       new_start =3D block_start;
+> +       if (start) {
+> +               new_start =3D *start;
+> +
+> +               if (new_start < block_start)
+> +                       return -EINVAL;
+> +
+> +               if (!IS_ALIGNED(new_start, mm->chunk_size))
+> +                       return -EINVAL;
+> +
+> +               if (range_overflows(new_start, new_size, block_end))
+> +                       return -EINVAL;
+> +       }
+> +
+>         list_del(&block->link);
+>         mark_free(mm, block);
+>         mm->avail +=3D drm_buddy_block_size(mm, block);
+> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>         parent =3D block->parent;
+>         block->parent =3D NULL;
 >
+> -       new_start =3D drm_buddy_block_offset(block);
+>         list_add(&block->tmp_link, &dfs);
+>         err =3D  __alloc_range(mm, &dfs, new_start, new_size, blocks, NUL=
+L);
+>         if (err) {
+> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>         } while (1);
 >
-> > ---
-> >   drivers/gpu/drm/radeon/radeon.h        |  4 ++--
-> >   drivers/gpu/drm/radeon/radeon_device.c |  3 ---
-> >   drivers/gpu/drm/radeon/radeon_drv.c    | 12 +++++++++---
-> >   drivers/gpu/drm/radeon/radeon_kms.c    |  8 +-------
-> >   4 files changed, 12 insertions(+), 15 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
-adeon.h
-> > index ae35c102a487..fd8a4513025f 100644
-> > --- a/drivers/gpu/drm/radeon/radeon.h
-> > +++ b/drivers/gpu/drm/radeon/radeon.h
-> > @@ -2297,7 +2297,7 @@ typedef void (*radeon_wreg_t)(struct radeon_devic=
-e*, uint32_t, uint32_t);
-> >
-> >   struct radeon_device {
-> >       struct device                   *dev;
-> > -     struct drm_device               *ddev;
-> > +     struct drm_device               ddev;
-> >       struct pci_dev                  *pdev;
-> >   #ifdef __alpha__
-> >       struct pci_controller           *hose;
-> > @@ -2478,7 +2478,7 @@ void cik_mm_wdoorbell(struct radeon_device *rdev,=
- u32 index, u32 v);
-> >
-> >   static inline struct drm_device *rdev_to_drm(struct radeon_device *rd=
-ev)
-> >   {
-> > -     return rdev->ddev;
-> > +     return &rdev->ddev;
-> >   }
-> >
-> >   /*
-> > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/r=
-adeon/radeon_device.c
-> > index 32851632643d..554b236c2328 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_device.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> > @@ -1285,9 +1285,6 @@ int radeon_device_init(struct radeon_device *rdev=
-,
-> >       bool runtime =3D false;
-> >
-> >       rdev->shutdown =3D false;
-> > -     rdev->dev =3D &pdev->dev;
-> > -     rdev->ddev =3D ddev;
-> > -     rdev->pdev =3D pdev;
-> >       rdev->flags =3D flags;
-> >       rdev->family =3D flags & RADEON_FAMILY_MASK;
-> >       rdev->is_atom_bios =3D false;
-> > diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/rade=
-on/radeon_drv.c
-> > index 7b8aa8406751..f36aa71c57c7 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> > @@ -260,6 +260,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
-> >   {
-> >       unsigned long flags =3D 0;
-> >       struct drm_device *ddev;
-> > +     struct radeon_device *rdev;
-> >       int ret;
-> >
-> >       if (!ent)
-> > @@ -300,9 +301,14 @@ static int radeon_pci_probe(struct pci_dev *pdev,
-> >       if (ret)
-> >               return ret;
-> >
-> > -     ddev =3D drm_dev_alloc(&kms_driver, &pdev->dev);
-> > -     if (IS_ERR(ddev))
-> > -             return PTR_ERR(ddev);
-> > +     rdev =3D devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*rdev=
-), ddev);
-> > +     if (IS_ERR(rdev))
-> > +             return PTR_ERR(rdev);
-> > +
-> > +     rdev->dev =3D &pdev->dev;
-> > +     rdev->pdev =3D pdev;
-> > +     ddev =3D rdev_to_drm(rdev);
-> > +     ddev->dev_private =3D rdev;
-> >
-> >       ret =3D pci_enable_device(pdev);
-> >       if (ret)
-> > diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/rade=
-on/radeon_kms.c
-> > index a16590c6247f..645e33bf7947 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> > @@ -104,15 +104,9 @@ void radeon_driver_unload_kms(struct drm_device *d=
-ev)
-> >   int radeon_driver_load_kms(struct drm_device *dev, unsigned long flag=
-s)
-> >   {
-> >       struct pci_dev *pdev =3D to_pci_dev(dev->dev);
-> > -     struct radeon_device *rdev;
-> > +     struct radeon_device *rdev =3D dev->dev_private;
-> >       int r, acpi_status;
-> >
-> > -     rdev =3D kzalloc(sizeof(struct radeon_device), GFP_KERNEL);
-> > -     if (rdev =3D=3D NULL) {
-> > -             return -ENOMEM;
-> > -     }
-> > -     dev->dev_private =3D (void *)rdev;
-> > -
-> >   #ifdef __alpha__
-> >       rdev->hose =3D pdev->sysdata;
-> >   #endif
+>         /* Trim the allocated block to the required size */
+> -       if (original_size !=3D size) {
+> +       if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
+> +           original_size !=3D size) {
+>                 struct list_head *trim_list;
+>                 LIST_HEAD(temp);
+>                 u64 trim_size;
+> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>                 }
+>
+>                 drm_buddy_block_trim(mm,
+> +                                    NULL,
+>                                      trim_size,
+>                                      trim_list);
+>
+> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe=
+_ttm_vram_mgr.c
+> index fe3779fdba2c..423b261ea743 100644
+> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct ttm_resource_ma=
+nager *man,
+>         } while (remaining_size);
+>
+>         if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+> -               if (!drm_buddy_block_trim(mm, vres->base.size, &vres->blo=
+cks))
+> +               if (!drm_buddy_block_trim(mm, NULL, vres->base.size, &vre=
+s->blocks))
+>                         size =3D vres->base.size;
+>         }
+>
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index 82570f77e817..0c2f735f0265 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -27,6 +27,7 @@
+>  #define DRM_BUDDY_CONTIGUOUS_ALLOCATION                BIT(2)
+>  #define DRM_BUDDY_CLEAR_ALLOCATION             BIT(3)
+>  #define DRM_BUDDY_CLEARED                      BIT(4)
+> +#define DRM_BUDDY_TRIM_DISABLE                 BIT(5)
+>
+>  struct drm_buddy_block {
+>  #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>                            unsigned long flags);
+>
+>  int drm_buddy_block_trim(struct drm_buddy *mm,
+> +                        u64 *start,
+>                          u64 new_size,
+>                          struct list_head *blocks);
 >
 > --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstrasse 146, 90461 Nuernberg, Germany
-> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-> HRB 36809 (AG Nuernberg)
+> 2.25.1
 >
