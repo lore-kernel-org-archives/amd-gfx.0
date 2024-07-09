@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79225C2BD09
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 05:17:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A97AC3DA41
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 05:56:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBAB210E046;
-	Tue,  9 Jul 2024 05:17:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B96BC10E481;
+	Tue,  9 Jul 2024 05:56:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZzlXUVoR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eYFC4KUx";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2403E10E47A
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jul 2024 05:17:52 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB6AE10E47A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jul 2024 05:56:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ejcv77Om4Ne7AUu9FgnjxDui77IN0OHbGrYQ/FLpvQC6mLCQNAEkGfjFsINxxUofmTzKZcL1zX16q6Y0H5wxKnk7We6hPgBLwFgHn+IKe6guM0v9WFeGgcVE8Egb63BJWSARu1z8SwOajPbup/CAcZZpLC7j8jleF6T9dyC7xBckE/lmFVJOAmQt93u9F/nXP1x4WqL5H5PKJoDT/jHFq72KdrfVaJ6WuOhZrXW02HJb2qoqKmrEi+dRaQZ/7WEI+aX2XH59pvfAS1GlARTgAbgaracbt9Bfw535peQaKfaKzrxRZON5tD9iQVC6zug9svKxyns5VseS1JmVqe0wxg==
+ b=Nxj+ImhX36hphUNdfhsllUQmhnhIouGWJ6q3EWUFMllF+PybnwMEY+VUv+Fi9bjlva25PUEjdL1T2wGGCWHVVXyrf1OTR8S8fPIu0zBIiTkh5sLf8Vu70x4RDDD/uWbN3/q0rGi+7Gjq6w9rDccUf79Kl4OdknpR1zHPMmpGI0bFeS6qqZcBHUJxBHECdh3g8wb73M9qvsM0MPpDzXhtWmn0i6Feukf3elJMXSGzlU5t3bQAPAnKiMhgj8zJFK+oo+TuRJddMCvu8mwgUyOnnvjsTvGHBCXb9ZqIB40bfUJQOrMDPWpmFojeOAxo8jIWFWVE5iuNkVLCfsn1qieGBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4SizMAnpgieO7K9NNx3h9NPDiMO6OtDwlKKEgMH4WLk=;
- b=e2EuV9Dg8dY+ljg7+1tUf6MLa+daf3TnG4lQf6KAMuTOugllNrQTypilmxlwjBR9+IkcaSH7bjxb3ulsoAZ3z7NWEOdjjYz47re6Aj66bL19OX9pMOp7Z2ku5RCqYV3eplnTkni4v7d4D28zdOOeXARPWdRbhHXq4XHrujo1LqvCU3SZ647KfXSD4PUcQeSUzWcMFtqgYpzPoXe2BH4an4FQBnAXK+t4LsGCO4A3kCFMXPTkAol1BLKoDJbqAYF73doxdK/CkyIaajY/LKzubA8OTh1KSCe/Ewhk5NHtmLDsEIgeYYYoE4ZJbSz68hNJG79iyMGG5DbmdEQqmX/OAg==
+ bh=NanxKzUbUPVG+cBWcY+2W92a8uWp75CW92PGvfDAH98=;
+ b=VEENkNL8uzwx2ukTRR1MHSVT+ITBecsF64PQUOTiS7MnKdqAeoDIPQxppCVljcNEKlI1AEsvagTk4PWbMRnmXHNZ3t926ZjtfiYgTChdlRF3aHseyfIlaFvPXSoQgGu0N5q6Y+0dqrNU+xbpzFjz89aA7kcFSFG2PWBEGUJGGaMfcHeDG2xySImDqHLvwG9DoeLkDrg97e6PirRnUYexbyEWCFKgfPExvW38U3N2JQCYku9kKAqcnZvZ/eGEHiFZNaJl3KdPNoihgpB7Qs27inHBIIb3FaHYW+VYDcCwuOyqNFKTDpTgoAHsIOOnNtm5T6EWdIoEYhUgNA3X2b8gvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4SizMAnpgieO7K9NNx3h9NPDiMO6OtDwlKKEgMH4WLk=;
- b=ZzlXUVoRuX7D8MtWn2XPYdk7Cm7VXWs1RKnK2e9BThStnhLxRDu8lO73vOutI1AoDDzzCV/ePhxrzPzdSul88Sn7LcgmqxDyOCULhfe7xWCedZXhJVbi+yqMeWIVovLMh1puenDgFH/Stq3khqAK3fInQzYzofk3JkfQZysG7Vs=
-Received: from CH3P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::20)
- by MW4PR12MB7216.namprd12.prod.outlook.com (2603:10b6:303:226::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.34; Tue, 9 Jul
- 2024 05:17:49 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com
- (2603:10b6:610:1e7:cafe::25) by CH3P221CA0025.outlook.office365.com
- (2603:10b6:610:1e7::20) with Microsoft SMTP Server (version=TLS1_2,
+ bh=NanxKzUbUPVG+cBWcY+2W92a8uWp75CW92PGvfDAH98=;
+ b=eYFC4KUxSfx1rY+SuF1P2XCmnu5aNZGNZ79VxTiD1JhvRqfYUW+WLJU2u3w2U7T5RUIWqbXC3Ob+L0hbD8AeE+EeWnJy+m+jNcLTMqii575vzL+bKnZ09HCRffFWV8iEhA+zIxnJodAZoDTW7GIbBg+ASJi8F4JBsGUKtvrnxeM=
+Received: from BL0PR01CA0029.prod.exchangelabs.com (2603:10b6:208:71::42) by
+ DS0PR12MB6389.namprd12.prod.outlook.com (2603:10b6:8:cf::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7741.35; Tue, 9 Jul 2024 05:56:47 +0000
+Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
+ (2603:10b6:208:71:cafe::f8) by BL0PR01CA0029.outlook.office365.com
+ (2603:10b6:208:71::42) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36 via Frontend
- Transport; Tue, 9 Jul 2024 05:17:48 +0000
+ Transport; Tue, 9 Jul 2024 05:56:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +47,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Tue, 9 Jul 2024 05:17:48 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7762.17 via Frontend Transport; Tue, 9 Jul 2024 05:56:46 +0000
+Received: from amd-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 9 Jul
- 2024 00:17:45 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
+ 2024 00:56:44 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Satya.Thadvai@amd.com>, <HaiJun.Chang@amd.com>, <Lianjie.Shi@amd.com>
-Subject: [PATCH] drm/amdgpu: Initialize VF partition mode
-Date: Tue, 9 Jul 2024 10:47:29 +0530
-Message-ID: <20240709051729.1364475-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
+ <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, YiPeng Chai
+ <YiPeng.Chai@amd.com>
+Subject: [PATCH V2 2/2] drm/amdgpu: timely save bad pages to eeprom after gpu
+ ras reset is completed
+Date: Tue, 9 Jul 2024 13:56:06 +0800
+Message-ID: <20240709055606.53567-2-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240709055606.53567-1-YiPeng.Chai@amd.com>
+References: <20240709055606.53567-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,51 +74,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|MW4PR12MB7216:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79b4f764-e570-43fb-586e-08dc9fd67955
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|DS0PR12MB6389:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7dc47000-71f0-48e8-f3fc-08dc9fdbeaef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?d+Xy9fsv75qRpEOcKoOzpLOkgXvCRLUtnxelexAsUQch17G36cTOiFSUk82f?=
- =?us-ascii?Q?pGH4hnXUlAqKdMsxnXF8vwbMGNWHKIiVOmFN9aHdb5v0FHXCo9TDc1fWLQnF?=
- =?us-ascii?Q?aYFQmFSxqvl0vb+q6kkLCWd8wfxWLEFdThQaPHZgk08mHMGGW2HZ0db+jtxA?=
- =?us-ascii?Q?3+9EtFrrFsx7np4t8rD5qD3R3kPZemLAdw6U/fbfqqMVTai3g59hku4OVwzi?=
- =?us-ascii?Q?YTCreMHZq0e3QkfGKWSC8kVMc4y8gecxi/9J5DofoWzvTQ8Ss/zZXl/7XcpS?=
- =?us-ascii?Q?ljokmdJdMiHwshD/Vg4jfB780K7eVYyHmmLkrkWGYAWGDJVd3+b09fXGzYc6?=
- =?us-ascii?Q?ndsOSzFW6K4fweEa+E6lVxX3nJMXCmPy5EQqpbZewnBum6UIH2uTwjle/rKs?=
- =?us-ascii?Q?W179T424vulrtau91C1hqEj7PkxiuxEpA2MlZzBuzR6abs7dDnRWsb57LC26?=
- =?us-ascii?Q?cwdB7pyUO7k0Rv1ie3SaYPUqUKOlpgPMAJ7f2CmKIwyw3jUucToPa7iq10gw?=
- =?us-ascii?Q?PXrta9YzC/fVnEJpk9fWPgPJVnrELhot/7L88xNQB0u8+p7OrMpkAYggT8vm?=
- =?us-ascii?Q?oO2Y4gh9GYRbG7EwvPb/YwxZv1kBT46uj6oI8dTeQXjuhSRFODYkY7ETTcZT?=
- =?us-ascii?Q?q2lulwvEdqWXzHqftiqh0rFWbF33qweOGoZ5BeFxtLy+YE9w+5f9efpuYyhG?=
- =?us-ascii?Q?poVAcTPAs5wcO4QUWEYW2++9yYfaqZknKDwUF/nrUaHdQLUYCibPS5IHyByt?=
- =?us-ascii?Q?fHMZW+ZYPGlmFOD9BBfK0ayi6yHXAMzlH1tXju9ELho26zHa675f09PE+4gN?=
- =?us-ascii?Q?hYbVHbC9NV/6d8TF5Cf+o9+OOJqXhU9yBh89/eVz7F2kGJmCBpy3zjDzmP6F?=
- =?us-ascii?Q?NU/VKA/q3UXcFyFWu8j5YktS9JCFaePJpgo+V3OtDRNE4uNE85sKjJ8m7YY9?=
- =?us-ascii?Q?g2g9ypkDIZbozfJT53T1bHSboYdcmH7TU7q+3NYyr4C1smUk2OplIm4EoV8f?=
- =?us-ascii?Q?wW27aSRfhDohn0Ux6+wPtAVX1nz9Xbhl0dB2CGqGrW4PvfIsBfgrEJkxfpJK?=
- =?us-ascii?Q?gpeIQdk4XlXrKwyeQ0dfDgztZLwfhFaWSgWyHmlESTcO1mM0r3vjRyII8fqM?=
- =?us-ascii?Q?Kh/J5dH8aVIliW0QUxJL+fcpiiOSdqB6pGl5JTgrOzXGGzyKG9YuZ6cn0VxY?=
- =?us-ascii?Q?QVQ5A3MrR/ifdepv6AVxXE05rGrJITdyagV4t/vgJsM1+d7DrQ0oEOQi1mQA?=
- =?us-ascii?Q?oT+8VB3MI9MlV2KSMqqhVyR0OWwkgxA/IGZW06BBMHydqenQHODkLB4+FqqC?=
- =?us-ascii?Q?kJzlFEPasY8QEptWQv8WEZY8h/udu1k7+VIHkDVQ6FZ/edpge+Q97PrXPQ0W?=
- =?us-ascii?Q?gX4XIVSd6RmmHh2hi5n1UgyDNkOXbOYRJfaMeO8gfJFAcyLwG11poWa7MDFT?=
- =?us-ascii?Q?ZfgW1y0Q+zOQIjn8peF68YeScGjC76ZU?=
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CiyOkASqkBCzxYV5nqAPNCrZh2/cQU+psdDFRpzgQ9qZj9HaZ101+bskKslK?=
+ =?us-ascii?Q?uh1DgbgI+fjNmJyhAXChY7+2mBzKtE1k4+u/eov2sqJDg7L+ZiGCHPjTyuC3?=
+ =?us-ascii?Q?pBuLNtJ4y2Qpuej2CX6mnwKQuDy9Y3tvUxLETCR2LW7ddOw3PAClISWiHSIZ?=
+ =?us-ascii?Q?CWV3MBN/70cn9lOkvp5yp0G8t0MAG4N6B7L9dQJ4bu/SQTOXS2t04N8DB3bA?=
+ =?us-ascii?Q?VihMBzRPt02bzs0BocuhYkBJ2i2USI9NCej0I+2rlhqOrypnD5XrnTAS3Za9?=
+ =?us-ascii?Q?PWSTq6T7/sNkJYYTrDIQv+5e57sDqvcjHxgf4CrjETPCMJF8I6hzLh9HxN6F?=
+ =?us-ascii?Q?/xuN/8AlVBeadrxCYdng7zwy+1+yNaiRNWiVuIC8ni1LDSBc60ZSzdk+3Bjm?=
+ =?us-ascii?Q?XowDP51Kb1+0t3bZu5ZD4wy/82Tb5DCdfi489wlCGOaA2aklQdlV634C0gHd?=
+ =?us-ascii?Q?LkD7sv3inB6DkwoJ8jQeKYR1c87Tot4uKdKYHB76eKbUFS//EYp/tuqdtL/Y?=
+ =?us-ascii?Q?gFd7E4fuywWlFwnJz2KKTojmr5pECbQK2hxDjgNVdCA428CWFeu8oAbSTw+b?=
+ =?us-ascii?Q?vgWTxcNPEJeWMIilhwS5+Kt5f+63T6dQHYjQen5WXV51wy1xtYGT377ib+Ro?=
+ =?us-ascii?Q?aEqry8yUyD4vTWfSalrspMskwFTTO+4YjtAxTRULXpGSP102xupwZPt7Vgbe?=
+ =?us-ascii?Q?CBrLAKcO/aBqrRf68bW1WwNnfI8TZcCqm5J77o2ya2x60O2ci6o341QzQBQC?=
+ =?us-ascii?Q?lArQOUaQVpj0PE3nyyF3vtFb/iSfzbPoF4ibnMqOmXSj8udlnQbolM46BuqL?=
+ =?us-ascii?Q?o4rDqicXse5bG8TdCn4E9PazaPWWSpwj489xLX12wxzGm+t0pTJkJPiVeuBC?=
+ =?us-ascii?Q?dUwIZeOT8Taz7M7BQFlQqy2MrbDo6NmkIZoRlLV2Avomc7YryDeiVagRsILz?=
+ =?us-ascii?Q?Hhfc8OnghxQ5YS2cmgrRwkoEINty3PGaBdsBizQiJXWAEh1yQ4ScLOx+gyzz?=
+ =?us-ascii?Q?ls+YA+4gvZmpu7aiRRDQvru7kQum4QHuduXrA4eYg7lHxEOP4xk/hATBXx52?=
+ =?us-ascii?Q?3tJliqsoKJBjGYncIMPE1Jx8meNi8ILEJtF24YyptsmsGaFai/IorDFKU01I?=
+ =?us-ascii?Q?eX8J3yXisQ7UcXi4HV0TeFwW+kT/55wMTpHcvXKdzN3oRYyThEq8hclViV6p?=
+ =?us-ascii?Q?m7oYrf3+SHy99yid8C6TowAqKaGgpCHvgkVGdHBTFGjVhiuJK0L5vmaWy/ks?=
+ =?us-ascii?Q?5a3uxws4rv0dTC9Cu/qCbjD0Lj8WC847QnbAC+DXSAONdWE8lLBDFm+0Ad83?=
+ =?us-ascii?Q?g9mO7OCbjmSxM6b9UtR7V4Q9/nnb3/W5uyVUpsBTZpmy+4pmv2QHUrgPUfe6?=
+ =?us-ascii?Q?LpJlA4CQ2BBRTh0Ivgl6Gwq0VnH9M9BL7vTw0qBfMRCbYb9nGXWgUsUenfV/?=
+ =?us-ascii?Q?AuWkKY5TzbHcji8hlluP/EI9jWy5Ai47?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2024 05:17:48.4566 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79b4f764-e570-43fb-586e-08dc9fd67955
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2024 05:56:46.7235 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dc47000-71f0-48e8-f3fc-08dc9fdbeaef
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7216
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,208 +133,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For SOCs with GFX v9.4.3, a VF may have multiple compute partitions.
-Fetch the partition information during init and initialize partition
-nodes. There is no support to switch partition mode in VF mode, hence
-disable the same.
+The problem case is as follows:
+1. GPU A triggers a gpu ras reset, and GPU A drives
+   GPU B to also perform a gpu ras reset.
+2. After gpu B ras reset started, gpu B queried a DE
+   data. Since the DE data was queried in the ras reset
+   thread instead of the page retirement thread, bad
+   page retirement work would not be triggered. Then
+   even if all gpu resets are completed, the bad pages
+   will be cached in RAM until GPU B's bad page retirement
+   work is triggered again and then saved to eeprom.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+This patch can save the bad pages to eeprom in time after gpu
+ras reset is completed.
+
+v2:
+  1. Add the above description to code comments.
+  2. Reuse existing function.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 12 ++++--
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 50 +++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    | 37 +++++++++++++---
- 4 files changed, 88 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  6 +++++-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  | 18 ++++++++++++++++++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 6b0416777c5b..ddda94e49db4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -297,6 +297,7 @@ struct amdgpu_gfx_funcs {
- 	int (*switch_partition_mode)(struct amdgpu_device *adev,
- 				     int num_xccs_per_xcp);
- 	int (*ih_node_to_logical_xcc)(struct amdgpu_device *adev, int ih_node);
-+	int (*get_xccs_per_xcp)(struct amdgpu_device *adev);
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index d923151af752..34226ae010c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2864,8 +2864,12 @@ static void amdgpu_ras_do_page_retirement(struct work_struct *work)
+ 	struct ras_err_data err_data;
+ 	unsigned long err_cnt;
  
- struct sq_work {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index 2b99eed5ba19..a6d456ec6aeb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -219,7 +219,8 @@ int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
- {
- 	int mode;
- 
--	if (xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
-+	if (!amdgpu_sriov_vf(xcp_mgr->adev) &&
-+	    xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
- 		return xcp_mgr->mode;
- 
- 	if (!xcp_mgr->funcs || !xcp_mgr->funcs->query_partition_mode)
-@@ -228,6 +229,12 @@ int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
- 	if (!(flags & AMDGPU_XCP_FL_LOCKED))
- 		mutex_lock(&xcp_mgr->xcp_lock);
- 	mode = xcp_mgr->funcs->query_partition_mode(xcp_mgr);
-+
-+	/* First time query for VF, set the mode here */
-+	if (amdgpu_sriov_vf(xcp_mgr->adev) &&
-+	    xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
-+		xcp_mgr->mode = mode;
-+
- 	if (xcp_mgr->mode != AMDGPU_XCP_MODE_TRANS && mode != xcp_mgr->mode)
- 		dev_WARN(
- 			xcp_mgr->adev->dev,
-@@ -282,8 +289,7 @@ int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
- {
- 	struct amdgpu_xcp_mgr *xcp_mgr;
- 
--	if (!xcp_funcs || !xcp_funcs->switch_partition_mode ||
--	    !xcp_funcs->get_ip_details)
-+	if (!xcp_funcs || !xcp_funcs->get_ip_details)
- 		return -EINVAL;
- 
- 	xcp_mgr = kzalloc(sizeof(*xcp_mgr), GFP_KERNEL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index 2c9a0aa41e2d..228fd4dd32f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -304,13 +304,56 @@ u64 aqua_vanjaram_encode_ext_smn_addressing(int ext_id)
- 	return ext_offset;
- }
- 
-+static enum amdgpu_gfx_partition
-+__aqua_vanjaram_calc_xcp_mode(struct amdgpu_xcp_mgr *xcp_mgr)
-+{
-+	struct amdgpu_device *adev = xcp_mgr->adev;
-+	int num_xcc, num_xcc_per_xcp = 0, mode = 0;
-+
-+	num_xcc = NUM_XCC(xcp_mgr->adev->gfx.xcc_mask);
-+	if (adev->gfx.funcs->get_xccs_per_xcp)
-+		num_xcc_per_xcp = adev->gfx.funcs->get_xccs_per_xcp(adev);
-+	if ((num_xcc_per_xcp) && (num_xcc % num_xcc_per_xcp == 0))
-+		mode = num_xcc / num_xcc_per_xcp;
-+
-+	if (num_xcc_per_xcp == 1)
-+		return AMDGPU_CPX_PARTITION_MODE;
-+
-+	switch (mode) {
-+	case 1:
-+		return AMDGPU_SPX_PARTITION_MODE;
-+	case 2:
-+		return AMDGPU_DPX_PARTITION_MODE;
-+	case 3:
-+		return AMDGPU_TPX_PARTITION_MODE;
-+	case 4:
-+		return AMDGPU_QPX_PARTITION_MODE;
-+	default:
-+		return AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
-+	}
-+
-+	return AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
-+}
-+
- static int aqua_vanjaram_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr)
- {
--	enum amdgpu_gfx_partition mode = AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
-+	enum amdgpu_gfx_partition derv_mode,
-+		mode = AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
- 	struct amdgpu_device *adev = xcp_mgr->adev;
- 
--	if (adev->nbio.funcs->get_compute_partition_mode)
-+	derv_mode = __aqua_vanjaram_calc_xcp_mode(xcp_mgr);
-+
-+	if (amdgpu_sriov_vf(adev))
-+		return derv_mode;
-+
-+	if (adev->nbio.funcs->get_compute_partition_mode) {
- 		mode = adev->nbio.funcs->get_compute_partition_mode(adev);
-+		if (mode != derv_mode)
-+			dev_warn(
-+				adev->dev,
-+				"Mismatch in compute partition mode - reported : %d derived : %d",
-+				mode, derv_mode);
+-	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev))
++	/* If gpu reset is ongoing, delay retiring the bad pages */
++	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) {
++		amdgpu_ras_schedule_retirement_dwork(con,
++				AMDGPU_RAS_RETIRE_PAGE_INTERVAL * 3);
+ 		return;
 +	}
  
- 	return mode;
+ 	amdgpu_ras_error_data_init(&err_data);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index 0faa21d8a7b4..9dbb13adb661 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -29,6 +29,7 @@
+ #include "mp/mp_13_0_6_sh_mask.h"
+ 
+ #define MAX_ECC_NUM_PER_RETIREMENT  32
++#define DELAYED_TIME_FOR_GPU_RESET  1000  //ms
+ 
+ static inline uint64_t get_umc_v12_0_reg_offset(struct amdgpu_device *adev,
+ 					    uint32_t node_inst,
+@@ -568,6 +569,23 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
+ 
+ 	con->umc_ecc_log.de_queried_count++;
+ 
++	/* The problem case is as follows:
++	 * 1. GPU A triggers a gpu ras reset, and GPU A drives
++	 *    GPU B to also perform a gpu ras reset.
++	 * 2. After gpu B ras reset started, gpu B queried a DE
++	 *    data. Since the DE data was queried in the ras reset
++	 *    thread instead of the page retirement thread, bad
++	 *    page retirement work would not be triggered. Then
++	 *    even if all gpu resets are completed, the bad pages
++	 *    will be cached in RAM until GPU B's bad page retirement
++	 *    work is triggered again and then saved to eeprom.
++	 * Trigger delayed work to save the bad pages to eeprom in time
++	 * after gpu ras reset is completed.
++	 */
++	if (amdgpu_ras_in_recovery(adev))
++		schedule_delayed_work(&con->page_retirement_dwork,
++			msecs_to_jiffies(DELAYED_TIME_FOR_GPU_RESET));
++
+ 	return 0;
  }
-@@ -624,6 +667,9 @@ static int aqua_vanjaram_xcp_mgr_init(struct amdgpu_device *adev)
- {
- 	int ret;
  
-+	if (amdgpu_sriov_vf(adev))
-+		aqua_vanjaram_xcp_funcs.switch_partition_mode = NULL;
-+
- 	ret = amdgpu_xcp_mgr_init(adev, AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE, 1,
- 				  &aqua_vanjaram_xcp_funcs);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index c908e585b9ec..20ea6cb01edf 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -652,6 +652,15 @@ static void gfx_v9_4_3_select_me_pipe_q(struct amdgpu_device *adev,
- 	soc15_grbm_select(adev, me, pipe, q, vm, GET_INST(GC, xcc_id));
- }
- 
-+static int gfx_v9_4_3_get_xccs_per_xcp(struct amdgpu_device *adev)
-+{
-+	u32 xcp_ctl;
-+
-+	/* Value is expected to be the same on all, fetch from first instance */
-+	xcp_ctl = RREG32_SOC15(GC, GET_INST(GC, 0), regCP_HYP_XCP_CTL);
-+
-+	return REG_GET_FIELD(xcp_ctl, CP_HYP_XCP_CTL, NUM_XCC_IN_XCP);
-+}
- 
- static int gfx_v9_4_3_switch_compute_partition(struct amdgpu_device *adev,
- 						int num_xccs_per_xcp)
-@@ -706,6 +715,7 @@ static const struct amdgpu_gfx_funcs gfx_v9_4_3_gfx_funcs = {
- 	.select_me_pipe_q = &gfx_v9_4_3_select_me_pipe_q,
- 	.switch_partition_mode = &gfx_v9_4_3_switch_compute_partition,
- 	.ih_node_to_logical_xcc = &gfx_v9_4_3_ih_to_xcc_inst,
-+	.get_xccs_per_xcp = &gfx_v9_4_3_get_xccs_per_xcp,
- };
- 
- static int gfx_v9_4_3_aca_bank_parser(struct aca_handle *handle,
-@@ -2050,18 +2060,31 @@ static int gfx_v9_4_3_xcc_cp_resume(struct amdgpu_device *adev, int xcc_id)
- 
- static int gfx_v9_4_3_cp_resume(struct amdgpu_device *adev)
- {
--	int r = 0, i, num_xcc;
-+	int r = 0, i, num_xcc, num_xcp, num_xcc_per_xcp;
-+
-+	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-+	if (amdgpu_sriov_vf(adev)) {
-+		enum amdgpu_gfx_partition mode;
- 
--	if (amdgpu_xcp_query_partition_mode(adev->xcp_mgr,
--					    AMDGPU_XCP_FL_NONE) ==
--	    AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
--		r = amdgpu_xcp_switch_partition_mode(adev->xcp_mgr,
--						     amdgpu_user_partt_mode);
-+		mode = amdgpu_xcp_query_partition_mode(adev->xcp_mgr,
-+						       AMDGPU_XCP_FL_NONE);
-+		if (mode == AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
-+			return -EINVAL;
-+		num_xcc_per_xcp = gfx_v9_4_3_get_xccs_per_xcp(adev);
-+		adev->gfx.num_xcc_per_xcp = num_xcc_per_xcp;
-+		num_xcp = num_xcc / num_xcc_per_xcp;
-+		r = amdgpu_xcp_init(adev->xcp_mgr, num_xcp, mode);
- 
-+	} else {
-+		if (amdgpu_xcp_query_partition_mode(adev->xcp_mgr,
-+						    AMDGPU_XCP_FL_NONE) ==
-+		    AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
-+			r = amdgpu_xcp_switch_partition_mode(
-+				adev->xcp_mgr, amdgpu_user_partt_mode);
-+	}
- 	if (r)
- 		return r;
- 
--	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
- 	for (i = 0; i < num_xcc; i++) {
- 		r = gfx_v9_4_3_xcc_cp_resume(adev, i);
- 		if (r)
 -- 
-2.25.1
+2.34.1
 
