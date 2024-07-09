@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A97AC3DA41
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 05:56:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C03CC2BD09
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jul 2024 05:56:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B96BC10E481;
-	Tue,  9 Jul 2024 05:56:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9B810E2A4;
+	Tue,  9 Jul 2024 05:56:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eYFC4KUx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WonIMSo+";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB6AE10E47A
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jul 2024 05:56:49 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CCEA10E481
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jul 2024 05:56:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Nxj+ImhX36hphUNdfhsllUQmhnhIouGWJ6q3EWUFMllF+PybnwMEY+VUv+Fi9bjlva25PUEjdL1T2wGGCWHVVXyrf1OTR8S8fPIu0zBIiTkh5sLf8Vu70x4RDDD/uWbN3/q0rGi+7Gjq6w9rDccUf79Kl4OdknpR1zHPMmpGI0bFeS6qqZcBHUJxBHECdh3g8wb73M9qvsM0MPpDzXhtWmn0i6Feukf3elJMXSGzlU5t3bQAPAnKiMhgj8zJFK+oo+TuRJddMCvu8mwgUyOnnvjsTvGHBCXb9ZqIB40bfUJQOrMDPWpmFojeOAxo8jIWFWVE5iuNkVLCfsn1qieGBg==
+ b=n8w3i4FjyBxhzxXRFaKJSM3kPxDj+WfNxXGrLyVPOpijKrQpQf7+ea0ia/7pkkNBw+H3HaZhdbTmu+tv+E5NE5wZPXPJql8KqcFzntdzpXJUP5dFD6+yPrcuL2xEqv4VRzU/oWsYHSjfTZIiZQ2exSwR7b/THqPjtz3vvcAhltK+OFVV0nxrxFDr98meP0Mush0pABshCZrsi56MgBlWjhCqRI3U+kmC9d0R9ek7BRwdrt+jWf/j5R6WdM5otxPV9bsGFOSnDwTMvHQUpzN9SGuxsBuvAJs+ppRAuYxNKnbw8BIrCMwzqUrkS57h9tGD28ZzfqdmMxi2oKhtZcrnKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NanxKzUbUPVG+cBWcY+2W92a8uWp75CW92PGvfDAH98=;
- b=VEENkNL8uzwx2ukTRR1MHSVT+ITBecsF64PQUOTiS7MnKdqAeoDIPQxppCVljcNEKlI1AEsvagTk4PWbMRnmXHNZ3t926ZjtfiYgTChdlRF3aHseyfIlaFvPXSoQgGu0N5q6Y+0dqrNU+xbpzFjz89aA7kcFSFG2PWBEGUJGGaMfcHeDG2xySImDqHLvwG9DoeLkDrg97e6PirRnUYexbyEWCFKgfPExvW38U3N2JQCYku9kKAqcnZvZ/eGEHiFZNaJl3KdPNoihgpB7Qs27inHBIIb3FaHYW+VYDcCwuOyqNFKTDpTgoAHsIOOnNtm5T6EWdIoEYhUgNA3X2b8gvg==
+ bh=XadFJXwTHdQzSonJIjZXFBc7ooOiFZt3t7ILuwD3PbU=;
+ b=dLyqW5+ouRz7UyW5NSEzEPt+Qpv1BNoHnyyK1LUhEvLEIW655tbKgsrYD/8vJa8YIMsBhpVVOLRA6rLuvAkNQHLaXD497d+jgLvzJ9BcZA4rhdDeXEGe6EnHDWYp1SuAqO6b9W7l4EgFpfabZjMqhKbiV0QP9QAho/NMK4FHBqGsBA4gznQPd/cu47BGpGoAPwFdae40DVet+UjSPU+mZOiAGTzwn2duR6OeWq9Z+pvLgmjoPpgepTkZzf6Ck5CDsnRIERfSM70QcZsahVTb/9KAEZYyaShQ84Y33WWybInYDr9bDRtuVzVk4we6CWxt4EVBBrqNtfZo/Qj/DjZmIg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NanxKzUbUPVG+cBWcY+2W92a8uWp75CW92PGvfDAH98=;
- b=eYFC4KUxSfx1rY+SuF1P2XCmnu5aNZGNZ79VxTiD1JhvRqfYUW+WLJU2u3w2U7T5RUIWqbXC3Ob+L0hbD8AeE+EeWnJy+m+jNcLTMqii575vzL+bKnZ09HCRffFWV8iEhA+zIxnJodAZoDTW7GIbBg+ASJi8F4JBsGUKtvrnxeM=
-Received: from BL0PR01CA0029.prod.exchangelabs.com (2603:10b6:208:71::42) by
- DS0PR12MB6389.namprd12.prod.outlook.com (2603:10b6:8:cf::9) with Microsoft
+ bh=XadFJXwTHdQzSonJIjZXFBc7ooOiFZt3t7ILuwD3PbU=;
+ b=WonIMSo+PemBFoMCXakdgldkLrO61xtwx4gvo9ahieraJNZvDToheh2OnYasmun0DbBl0v/kZ/iiQhVzbmGOefIb90I4WB5MQOplIKLMlaiP84stPEtXjwpKqNPbnSRXW63sJ0ZimTE0R6dd5qiJA0S2mrqZ4tHTZDnwNbN0NtA=
+Received: from BL0PR01CA0003.prod.exchangelabs.com (2603:10b6:208:71::16) by
+ DM4PR12MB6062.namprd12.prod.outlook.com (2603:10b6:8:b2::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7741.35; Tue, 9 Jul 2024 05:56:47 +0000
+ 15.20.7741.26; Tue, 9 Jul 2024 05:56:45 +0000
 Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:208:71:cafe::f8) by BL0PR01CA0029.outlook.office365.com
- (2603:10b6:208:71::42) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:71:cafe::9f) by BL0PR01CA0003.outlook.office365.com
+ (2603:10b6:208:71::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36 via Frontend
- Transport; Tue, 9 Jul 2024 05:56:46 +0000
+ Transport; Tue, 9 Jul 2024 05:56:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,23 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Tue, 9 Jul 2024 05:56:46 +0000
+ 15.20.7762.17 via Frontend Transport; Tue, 9 Jul 2024 05:56:45 +0000
 Received: from amd-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 9 Jul
- 2024 00:56:44 -0500
+ 2024 00:56:42 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, YiPeng Chai
  <YiPeng.Chai@amd.com>
-Subject: [PATCH V2 2/2] drm/amdgpu: timely save bad pages to eeprom after gpu
- ras reset is completed
-Date: Tue, 9 Jul 2024 13:56:06 +0800
-Message-ID: <20240709055606.53567-2-YiPeng.Chai@amd.com>
+Subject: [PATCH V2 1/2] drm/amdgpu: flush all cached ras bad pages to eeprom
+Date: Tue, 9 Jul 2024 13:56:05 +0800
+Message-ID: <20240709055606.53567-1-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240709055606.53567-1-YiPeng.Chai@amd.com>
-References: <20240709055606.53567-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,51 +71,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|DS0PR12MB6389:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7dc47000-71f0-48e8-f3fc-08dc9fdbeaef
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|DM4PR12MB6062:EE_
+X-MS-Office365-Filtering-Correlation-Id: e251dbb7-68b7-4cca-c37a-08dc9fdbe9fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CiyOkASqkBCzxYV5nqAPNCrZh2/cQU+psdDFRpzgQ9qZj9HaZ101+bskKslK?=
- =?us-ascii?Q?uh1DgbgI+fjNmJyhAXChY7+2mBzKtE1k4+u/eov2sqJDg7L+ZiGCHPjTyuC3?=
- =?us-ascii?Q?pBuLNtJ4y2Qpuej2CX6mnwKQuDy9Y3tvUxLETCR2LW7ddOw3PAClISWiHSIZ?=
- =?us-ascii?Q?CWV3MBN/70cn9lOkvp5yp0G8t0MAG4N6B7L9dQJ4bu/SQTOXS2t04N8DB3bA?=
- =?us-ascii?Q?VihMBzRPt02bzs0BocuhYkBJ2i2USI9NCej0I+2rlhqOrypnD5XrnTAS3Za9?=
- =?us-ascii?Q?PWSTq6T7/sNkJYYTrDIQv+5e57sDqvcjHxgf4CrjETPCMJF8I6hzLh9HxN6F?=
- =?us-ascii?Q?/xuN/8AlVBeadrxCYdng7zwy+1+yNaiRNWiVuIC8ni1LDSBc60ZSzdk+3Bjm?=
- =?us-ascii?Q?XowDP51Kb1+0t3bZu5ZD4wy/82Tb5DCdfi489wlCGOaA2aklQdlV634C0gHd?=
- =?us-ascii?Q?LkD7sv3inB6DkwoJ8jQeKYR1c87Tot4uKdKYHB76eKbUFS//EYp/tuqdtL/Y?=
- =?us-ascii?Q?gFd7E4fuywWlFwnJz2KKTojmr5pECbQK2hxDjgNVdCA428CWFeu8oAbSTw+b?=
- =?us-ascii?Q?vgWTxcNPEJeWMIilhwS5+Kt5f+63T6dQHYjQen5WXV51wy1xtYGT377ib+Ro?=
- =?us-ascii?Q?aEqry8yUyD4vTWfSalrspMskwFTTO+4YjtAxTRULXpGSP102xupwZPt7Vgbe?=
- =?us-ascii?Q?CBrLAKcO/aBqrRf68bW1WwNnfI8TZcCqm5J77o2ya2x60O2ci6o341QzQBQC?=
- =?us-ascii?Q?lArQOUaQVpj0PE3nyyF3vtFb/iSfzbPoF4ibnMqOmXSj8udlnQbolM46BuqL?=
- =?us-ascii?Q?o4rDqicXse5bG8TdCn4E9PazaPWWSpwj489xLX12wxzGm+t0pTJkJPiVeuBC?=
- =?us-ascii?Q?dUwIZeOT8Taz7M7BQFlQqy2MrbDo6NmkIZoRlLV2Avomc7YryDeiVagRsILz?=
- =?us-ascii?Q?Hhfc8OnghxQ5YS2cmgrRwkoEINty3PGaBdsBizQiJXWAEh1yQ4ScLOx+gyzz?=
- =?us-ascii?Q?ls+YA+4gvZmpu7aiRRDQvru7kQum4QHuduXrA4eYg7lHxEOP4xk/hATBXx52?=
- =?us-ascii?Q?3tJliqsoKJBjGYncIMPE1Jx8meNi8ILEJtF24YyptsmsGaFai/IorDFKU01I?=
- =?us-ascii?Q?eX8J3yXisQ7UcXi4HV0TeFwW+kT/55wMTpHcvXKdzN3oRYyThEq8hclViV6p?=
- =?us-ascii?Q?m7oYrf3+SHy99yid8C6TowAqKaGgpCHvgkVGdHBTFGjVhiuJK0L5vmaWy/ks?=
- =?us-ascii?Q?5a3uxws4rv0dTC9Cu/qCbjD0Lj8WC847QnbAC+DXSAONdWE8lLBDFm+0Ad83?=
- =?us-ascii?Q?g9mO7OCbjmSxM6b9UtR7V4Q9/nnb3/W5uyVUpsBTZpmy+4pmv2QHUrgPUfe6?=
- =?us-ascii?Q?LpJlA4CQ2BBRTh0Ivgl6Gwq0VnH9M9BL7vTw0qBfMRCbYb9nGXWgUsUenfV/?=
- =?us-ascii?Q?AuWkKY5TzbHcji8hlluP/EI9jWy5Ai47?=
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?h9UK7aXqbrV3EFE5de83i35XceYTBwWTyc6/w3qFLrQIcegSCl2sgaGn6ffU?=
+ =?us-ascii?Q?0s4616wXho8FIFqtVh8zHM/lZ5C+PVJwA/C6GDal+HFzl0zWRiXiOAsDlRTk?=
+ =?us-ascii?Q?yOdq/XU+46+uqhctvWPfzyTs/CDj7MvaN2k9H4MUcn8KV52hEIHQB1kEFcUt?=
+ =?us-ascii?Q?s4IrKlkoDDKagnKXMWWc9OEeIonMoodyh4tjezjJOpE8UC+eAGMrKyzMdrJg?=
+ =?us-ascii?Q?Ln7PJY552JRBDPaU/dtJ4h5Q3WAHtkquricyOyWmGK4DL8E0819UkvQsPPk4?=
+ =?us-ascii?Q?9Fy66f6ROeyRSctdvfGeq+053R+uRCPjojYl+hKKVHFHV127R9dG+xXiB4+9?=
+ =?us-ascii?Q?3Uu6I0B79J6COlRR7YPUjk0NUZfQLfAuWyqkBmh8mBckkWV0ezVAaxKvUzj/?=
+ =?us-ascii?Q?OOPc7oXXsU0NFhXYlO3pkqUX8ZsqqHstOW7GSYoiBJzO2sGaMBl5fFb6nsQw?=
+ =?us-ascii?Q?kVM0234rGknwQO5TQXKjFI7PjH39+TyC6Se9D0BORXO+IyRRHsC8cR3Gu2Ho?=
+ =?us-ascii?Q?JxQF2396buL5xZEqtGEbsW/3FLZRnpa1W/zljyitn2QArELEP2CpP/DxnsdZ?=
+ =?us-ascii?Q?W7vaeajNyz6kmPb3kZg3Y5xJsti24jMazp4lHqRK9fQRMu+vK4XRnac3CBgY?=
+ =?us-ascii?Q?CXLyQK7+nbyt2QxwfBN3eId+0iZaw5vchQ0ZBaIK9XhLQVtiGvqdUFUH4NCz?=
+ =?us-ascii?Q?ZJ8HoAy3vqTlZKQHVTJ/crEvmihrnBtiM2k2bMVBEoR3ld5PsB0chi6TxUwY?=
+ =?us-ascii?Q?CFxjrDi0CP6mmfUd+suop+PVZQyrHSEzTOTky4izQSDsMwVVMJGiCM6rReEb?=
+ =?us-ascii?Q?V4TzrVNk9wizerLqGeAilYKUHLd+3UN2VhLOvFH0SV8HVMdJ9gaTMvuT0U68?=
+ =?us-ascii?Q?ULj9Gmf2YLVHYPS6gQ96HOuhoNetOjADtNztRvMxuSKseAYrFeYm/7jA6Vr8?=
+ =?us-ascii?Q?3h2gBUiFr28PYef7rpCh2hLBZrRr49/V97fJYGIns4z0E89teV4C05ngb9iy?=
+ =?us-ascii?Q?+QpAmLBIymdloqXV7jMrv0wCVjy+QHzgGPp9t6ihcEXW5arA+AvI4sf20d5B?=
+ =?us-ascii?Q?fjXbkDESY1MWuWROGOqiSM6mtUQQj11p3Jbuiw5X+5fCPXLpwEpyRbvGU2MK?=
+ =?us-ascii?Q?8+INsVY+JQpyKfJAwulNaYXs0kn+KLXhxH+sIrOmaA5TepTR2/3WZdDPQmE+?=
+ =?us-ascii?Q?eqw2nX5tirZ919a6TnIPYXkDPj+xpJRfHdOBhWutAMUCuRH2rt4HQHJA5vm7?=
+ =?us-ascii?Q?K5MLA6gcL6KAo5TNyaMskhAquXSgUNNJFEhmk7H9poEtVcfbwlnn1Vs21BFb?=
+ =?us-ascii?Q?j/iIPTFQep3g8FGDL3QgbhZZ1kX4SoKD5Z0QtrNeqMK/fjvFqzKOYh/L+njv?=
+ =?us-ascii?Q?WIt/OqNd/KSOtqb3qyLOtSGh/ntPcdaY/NxWVLnVAIacUTnvp/L/6bUcZA7q?=
+ =?us-ascii?Q?5OtcMJFscwRx+qE4GPk9H0TO7I/Ck6vk?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2024 05:56:46.7235 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7dc47000-71f0-48e8-f3fc-08dc9fdbeaef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2024 05:56:45.0047 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e251dbb7-68b7-4cca-c37a-08dc9fdbe9fc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6389
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6062
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,83 +130,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The problem case is as follows:
-1. GPU A triggers a gpu ras reset, and GPU A drives
-   GPU B to also perform a gpu ras reset.
-2. After gpu B ras reset started, gpu B queried a DE
-   data. Since the DE data was queried in the ras reset
-   thread instead of the page retirement thread, bad
-   page retirement work would not be triggered. Then
-   even if all gpu resets are completed, the bad pages
-   will be cached in RAM until GPU B's bad page retirement
-   work is triggered again and then saved to eeprom.
-
-This patch can save the bad pages to eeprom in time after gpu
-ras reset is completed.
+Before uninstalling gpu driver, flush all cached ras
+bad pages to eeprom.
 
 v2:
-  1. Add the above description to code comments.
-  2. Reuse existing function.
+  Put the same code into a function and reuse the function.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  | 18 ++++++++++++++++++
- 2 files changed, 23 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 35 ++++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index d923151af752..34226ae010c7 100644
+index 0e748cd55d43..d923151af752 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2864,8 +2864,12 @@ static void amdgpu_ras_do_page_retirement(struct work_struct *work)
- 	struct ras_err_data err_data;
- 	unsigned long err_cnt;
+@@ -124,6 +124,8 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
  
--	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev))
-+	/* If gpu reset is ongoing, delay retiring the bad pages */
-+	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) {
-+		amdgpu_ras_schedule_retirement_dwork(con,
-+				AMDGPU_RAS_RETIRE_PAGE_INTERVAL * 3);
- 		return;
-+	}
+ #define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
  
- 	amdgpu_ras_error_data_init(&err_data);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-index 0faa21d8a7b4..9dbb13adb661 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -29,6 +29,7 @@
- #include "mp/mp_13_0_6_sh_mask.h"
- 
- #define MAX_ECC_NUM_PER_RETIREMENT  32
-+#define DELAYED_TIME_FOR_GPU_RESET  1000  //ms
- 
- static inline uint64_t get_umc_v12_0_reg_offset(struct amdgpu_device *adev,
- 					    uint32_t node_inst,
-@@ -568,6 +569,23 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
- 
- 	con->umc_ecc_log.de_queried_count++;
- 
-+	/* The problem case is as follows:
-+	 * 1. GPU A triggers a gpu ras reset, and GPU A drives
-+	 *    GPU B to also perform a gpu ras reset.
-+	 * 2. After gpu B ras reset started, gpu B queried a DE
-+	 *    data. Since the DE data was queried in the ras reset
-+	 *    thread instead of the page retirement thread, bad
-+	 *    page retirement work would not be triggered. Then
-+	 *    even if all gpu resets are completed, the bad pages
-+	 *    will be cached in RAM until GPU B's bad page retirement
-+	 *    work is triggered again and then saved to eeprom.
-+	 * Trigger delayed work to save the bad pages to eeprom in time
-+	 * after gpu ras reset is completed.
-+	 */
-+	if (amdgpu_ras_in_recovery(adev))
-+		schedule_delayed_work(&con->page_retirement_dwork,
-+			msecs_to_jiffies(DELAYED_TIME_FOR_GPU_RESET));
++#define MAX_FLUSH_RETIRE_DWORK_TIMES  100
 +
- 	return 0;
+ enum amdgpu_ras_retire_page_reservation {
+ 	AMDGPU_RAS_RETIRE_PAGE_RESERVED,
+ 	AMDGPU_RAS_RETIRE_PAGE_PENDING,
+@@ -2837,6 +2839,23 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
  }
+ #endif
+ 
++static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *con,
++				uint32_t delayed_ms)
++{
++	int ret;
++
++	mutex_lock(&con->umc_ecc_log.lock);
++	ret = radix_tree_tagged(&con->umc_ecc_log.de_page_tree,
++			UMC_ECC_NEW_DETECTED_TAG);
++	mutex_unlock(&con->umc_ecc_log.lock);
++
++	if (ret)
++		schedule_delayed_work(&con->page_retirement_dwork,
++			msecs_to_jiffies(delayed_ms));
++
++	return ret ? true : false;
++}
++
+ static void amdgpu_ras_do_page_retirement(struct work_struct *work)
+ {
+ 	struct amdgpu_ras *con = container_of(work, struct amdgpu_ras,
+@@ -2858,12 +2877,8 @@ static void amdgpu_ras_do_page_retirement(struct work_struct *work)
+ 	if (err_cnt && con->is_rma)
+ 		amdgpu_ras_reset_gpu(adev);
+ 
+-	mutex_lock(&con->umc_ecc_log.lock);
+-	if (radix_tree_tagged(&con->umc_ecc_log.de_page_tree,
+-				UMC_ECC_NEW_DETECTED_TAG))
+-		schedule_delayed_work(&con->page_retirement_dwork,
+-			msecs_to_jiffies(AMDGPU_RAS_RETIRE_PAGE_INTERVAL));
+-	mutex_unlock(&con->umc_ecc_log.lock);
++	amdgpu_ras_schedule_retirement_dwork(con,
++			AMDGPU_RAS_RETIRE_PAGE_INTERVAL);
+ }
+ 
+ static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
+@@ -3179,11 +3194,19 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_err_handler_data *data = con->eh_data;
++	int max_flush_timeout = MAX_FLUSH_RETIRE_DWORK_TIMES;
++	bool ret;
+ 
+ 	/* recovery_init failed to init it, fini is useless */
+ 	if (!data)
+ 		return 0;
+ 
++	/* Save all cached bad pages to eeprom */
++	do {
++		flush_delayed_work(&con->page_retirement_dwork);
++		ret = amdgpu_ras_schedule_retirement_dwork(con, 0);
++	} while (ret && max_flush_timeout--);
++
+ 	if (con->page_retirement_thread)
+ 		kthread_stop(con->page_retirement_thread);
  
 -- 
 2.34.1
