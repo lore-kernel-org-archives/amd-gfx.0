@@ -4,66 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1EB0C38150
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 07:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E65FC3DA42
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 07:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F92F10E67F;
-	Wed, 10 Jul 2024 07:13:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="sJzvxjyX";
-	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED0610E539;
- Tue,  9 Jul 2024 12:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=ziBWPyZuXFGkV8kVZKK0Xj6BNHEbLXnVYFACz7/URSM=;
- t=1720528917; x=1720960917; b=sJzvxjyXeNPWd/2fkdOEVFOHfCUVkv6GXeVmKNGTIf2ojdP
- ocSEHmIeeMUOuMPAjrwzwp2NxLBZxbmBjRTLUkFjlWDpzDonLUgjfox3lVdTIgjqROJTqkDVOIDso
- dYb8Nc2Ea6aKDNAyEwgDutkuMW82Ru03ZSCzyhuTLJFFS91mr+jbm2139Gl6xDNvINyO8ZFNdKI3i
- +LK24AuDwzH8iaSzMblz++sM4jDQ4iw6Q2il/0uRgVhXwgSgvZZADqcyXps/t1oy1dZfdFN310B0L
- rn3OOtuB0CaR5IZhtcgw6D8eWBz3M5DiVs79HPOdYgPAe2sU2D5U6/I4qIZ7RIOA==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1sRAAN-0006uA-4B; Tue, 09 Jul 2024 14:41:55 +0200
-Message-ID: <af91ef9c-5050-4f16-898a-f0c02a293d3f@leemhuis.info>
-Date: Tue, 9 Jul 2024 14:41:54 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D82710E690;
+	Wed, 10 Jul 2024 07:13:25 +0000 (UTC)
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBDD410E4C8;
+ Tue,  9 Jul 2024 09:10:31 +0000 (UTC)
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
+ by APP-05 (Coremail) with SMTP id zQCowADn7+d2_oxmuspWAg--.37939S2;
+ Tue, 09 Jul 2024 17:10:25 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, daniel.vetter@ffwll.ch,
+ alvin.lee2@amd.com, wenjing.liu@amd.com, chaitanya.dhere@amd.com,
+ hamza.mahfooz@amd.com, sohaib.nadeem@amd.com, samson.tam@amd.com,
+ Qingqing.Zhuo@amd.com, dillon.varone@amd.com, stylon.wang@amd.com,
+ akpm@linux-foundation.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ma Ke <make24@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/amd/display: Add otg_master NULL check within
+ init_pipe_slice_table_from_context
+Date: Tue,  9 Jul 2024 17:10:12 +0800
+Message-Id: <20240709091012.3123409-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: 6.10/bisected/regression - commits bc87d666c05 and 6d4279cb99ac
- cause appearing green flashing bar on top of screen on Radeon 6900XT and
- 120Hz
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
-References: <CABXGCsNptxsQO=5=qi-JYiFX=rX8Ok5inK80Gn0qrUFWbtBGng@mail.gmail.com>
- <CADnq5_PDxJ8O1JUQ9RBYRFB9G1WZJos05ZAM4jUKuPBwPxjNkA@mail.gmail.com>
- <CABXGCsNN9LwHc2x2AAEH=5UNwpvkWkBqRYz3OP8MZ6Woy+HDXA@mail.gmail.com>
- <b6c440ca-e63e-429b-af41-5f27d4b8b2a2@leemhuis.info>
- <CABXGCsNoFfMn7LaqqFgEPg-ECyUPN=f=SXVrFi=GZk6c69-Gqw@mail.gmail.com>
- <CADnq5_PDSkr4hOHJmb1J30UC0a7sXsm5-TPkEmjzffMK_A+7ug@mail.gmail.com>
- <ea465a40-f673-42b1-8b1c-a2efb20cd562@amd.com>
- <CABXGCsPyrUEqDq2gbr4VLw5ncd9cKoCZ9nOr2SRfg8Lh=9H5Kg@mail.gmail.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Content-Language: en-US, de-DE
-In-Reply-To: <CABXGCsPyrUEqDq2gbr4VLw5ncd9cKoCZ9nOr2SRfg8Lh=9H5Kg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1720528917;
- 5dd8eef7; 
-X-HE-SMSGID: 1sRAAN-0006uA-4B
+X-CM-TRANSID: zQCowADn7+d2_oxmuspWAg--.37939S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JF4fZr4kKr4kXw1kJrWkWFg_yoWkKFb_Kr
+ yvvrZ5tw17uFnrWF1jvrn5ur10v3yj9rs7A3Z7tayI9r17ArWUurWfu397Wr15AFnrAayD
+ Aan5Krn5C3srKjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb3AFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6r1S6rWUM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+ 6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+ F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
+ 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+ 648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+ 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+ zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+ 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+ CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+ nIWIevJa73UjIFyTuYvjfUrBMNUUUUU
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 X-Mailman-Approved-At: Wed, 10 Jul 2024 07:13:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,36 +64,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 30.06.24 01:18, Mikhail Gavrilov wrote:
-> On Sat, Jun 29, 2024 at 9:46 PM Rodrigo Siqueira Jordao
-> <Rodrigo.Siqueira@amd.com> wrote:
->>
->> I'm trying to reproduce this issue, but until now, I've been unable to
->> reproduce it. I tried some different scenarios with the following
->> components:
->>
->> 1. Displays: I tried with one and two displays
->>   - 4k@120 - DP && 4k@60 - HDMI
->>   - 4k@244 Oled - DP
->> 2. GPU: 7900XTX
-> 
-> The issue only reproduced with RDNA2 (6900XT)
-> RDNA3 (7900XTX) is not affected.
+To avoid reports of NULL_RETURN warning, we should add
+otg_master NULL check.
 
-Hmmm, again this looks stalled -- and the regression report is 6 weeks
-old by now. :-/ Or was a solution found in between?
+Cc: stable@vger.kernel.org
+Fixes: c51d87202d1f ("drm/amd/display: do not attempt ODM power optimization if minimal transition doesn't exist")
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+---
+Changes in v2:
+- added the recipient's email address, due to the prolonged absence of a 
+response from the recipient.
+- added Cc stable.
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-So I assume no solution will be ready in time for the 6.10 final? I also
-assume a "simple" temporary revert is not a option or bears big risks?
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index f6fe0a64beac..8972598ca77f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -1177,6 +1177,9 @@ static void init_pipe_slice_table_from_context(
+ 		stream = context->streams[i];
+ 		otg_master = resource_get_otg_master_for_stream(
+ 				&context->res_ctx, stream);
++		if (!otg_master)
++			continue;
++
+ 		count = resource_get_odm_slice_count(otg_master);
+ 		update_slice_table_for_stream(table, stream, count);
+ 
+-- 
+2.25.1
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
-
-#regzbot poke
