@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA91DC38150
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 07:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1EB0C38150
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 07:13:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F5510E1EA;
-	Wed, 10 Jul 2024 07:03:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F92F10E67F;
+	Wed, 10 Jul 2024 07:13:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JktpBqIh";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="sJzvxjyX";
 	dkim-atps=neutral
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27D5B10E1EA;
- Wed, 10 Jul 2024 07:03:42 +0000 (UTC)
-Received: by mail-qt1-f173.google.com with SMTP id
- d75a77b69052e-447f0b046d4so1362431cf.1; 
- Wed, 10 Jul 2024 00:03:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720595021; x=1721199821; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p3BXcqkjeuhZC3iXU7hUkrYXvkUrW95a4kWlrA8Wcs0=;
- b=JktpBqIhdbPwGeNz897t5mxoEfAzJ5XqpheBtRJhKz2Ojc1G9Y9VknLbPLxCEQZ+gK
- /KMfdAWqe9gDOgtis4kKbufDqkO1L3SzAtwzvfv9VH0Zhx3wJuKshOTaLVnBRbrPns3j
- C16q5ILN0I8kmid9x/kkM9wItEt0mbaVd3Ny+oV/oAxHs3cycz3D+qyYANs3Y+YERhCI
- 5AWo3rC67p3IlktF3UQ+PxRwnVSe9N212C3I2y3H8DkT8Bqy0bigZAnrSv8kEtrGTPxC
- /MdtJjC4V14GG9abjY5OVc7tnUFHoF3jHSC1fO+zRudiU8DmQY3UZ1RCQe7z/ZeNCQSn
- FEcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720595021; x=1721199821;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p3BXcqkjeuhZC3iXU7hUkrYXvkUrW95a4kWlrA8Wcs0=;
- b=WIALk5ull74UO9k+g2AuYzUK7RtsJG2hIdWn+MTGwlsArI0NGLIP8opeQ8anIDFQST
- CboZ9ksNTD5T5gceXG0ugVlAyKf6Cu5jU6Ny+7JPH0+jJOCtVDv6057XAQEJknvBcKyS
- alH/p3s5gHNP9FMaKGmAP5UWDVaO9bUn3phFSPtOWzGWkaJBxayGuCvULFjkv5RXIZr0
- iRB87qFHyapsMaXKdKXiGKarLiKpt/jf4QR/+uqBrRcoMzz+YeEz6ge5MySF/3gNOMeo
- RUm28aUuLFbFxrJ3ikpqIroNUQd/bZhn51V9vzGLQ3rUBfpMOkgu/mLV2itU8/kxhCDT
- XVEg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXZKIkBi+VW1ia5mjt5rvs1vPRuY7LAeFUPICDORQuiDWUtkzzjzfrm1hYxodau56Gu0CDYjJjufrEx7+jy3PqfNKcsC9SMJq3kB7mxsOEpg4c5jMid8Xq0dZa2D8HUEfBx+nJU1nGxdNeoID1OVg==
-X-Gm-Message-State: AOJu0Yz2OWAlECrsgI/9F73uHs/fMsrik0O8f+Ot6Iz5Inj3MPcnkyyP
- JyL/AaCbayL80yxVxIjIAhw5prmlwTGa7XKtiK15i1PZPiX9NKWLjbQno52rQYOZc5QI2PkEiB9
- lq2xaMAaU2X6ijoVpwrlnLbELNNo=
-X-Google-Smtp-Source: AGHT+IGoTFtKJW2jS7acG2Oi3QXPtRAexd48mCUJWxKk2iudODVVH1vr9AaGCM32ITeGQ3dDowuFjyKpv2ALtupjw7I=
-X-Received: by 2002:a05:6214:514d:b0:6b2:b13d:5b75 with SMTP id
- 6a1803df08f44-6b61bc801a7mr50698376d6.1.1720595021031; Wed, 10 Jul 2024
- 00:03:41 -0700 (PDT)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED0610E539;
+ Tue,  9 Jul 2024 12:41:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ In-Reply-To:References; bh=ziBWPyZuXFGkV8kVZKK0Xj6BNHEbLXnVYFACz7/URSM=;
+ t=1720528917; x=1720960917; b=sJzvxjyXeNPWd/2fkdOEVFOHfCUVkv6GXeVmKNGTIf2ojdP
+ ocSEHmIeeMUOuMPAjrwzwp2NxLBZxbmBjRTLUkFjlWDpzDonLUgjfox3lVdTIgjqROJTqkDVOIDso
+ dYb8Nc2Ea6aKDNAyEwgDutkuMW82Ru03ZSCzyhuTLJFFS91mr+jbm2139Gl6xDNvINyO8ZFNdKI3i
+ +LK24AuDwzH8iaSzMblz++sM4jDQ4iw6Q2il/0uRgVhXwgSgvZZADqcyXps/t1oy1dZfdFN310B0L
+ rn3OOtuB0CaR5IZhtcgw6D8eWBz3M5DiVs79HPOdYgPAe2sU2D5U6/I4qIZ7RIOA==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1sRAAN-0006uA-4B; Tue, 09 Jul 2024 14:41:55 +0200
+Message-ID: <af91ef9c-5050-4f16-898a-f0c02a293d3f@leemhuis.info>
+Date: Tue, 9 Jul 2024 14:41:54 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: 6.10/bisected/regression - commits bc87d666c05 and 6d4279cb99ac
+ cause appearing green flashing bar on top of screen on Radeon 6900XT and
+ 120Hz
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 References: <CABXGCsNptxsQO=5=qi-JYiFX=rX8Ok5inK80Gn0qrUFWbtBGng@mail.gmail.com>
  <CADnq5_PDxJ8O1JUQ9RBYRFB9G1WZJos05ZAM4jUKuPBwPxjNkA@mail.gmail.com>
  <CABXGCsNN9LwHc2x2AAEH=5UNwpvkWkBqRYz3OP8MZ6Woy+HDXA@mail.gmail.com>
@@ -61,24 +55,16 @@ References: <CABXGCsNptxsQO=5=qi-JYiFX=rX8Ok5inK80Gn0qrUFWbtBGng@mail.gmail.com>
  <CADnq5_PDSkr4hOHJmb1J30UC0a7sXsm5-TPkEmjzffMK_A+7ug@mail.gmail.com>
  <ea465a40-f673-42b1-8b1c-a2efb20cd562@amd.com>
  <CABXGCsPyrUEqDq2gbr4VLw5ncd9cKoCZ9nOr2SRfg8Lh=9H5Kg@mail.gmail.com>
- <2915a8c4-ebac-4dae-8f09-32a5b4d9aeda@amd.com>
- <CABXGCsPuRViSd_WeOciLKcQ4hjYxJ7e3i7LomwsUMzd0a+zvBw@mail.gmail.com>
-In-Reply-To: <CABXGCsPuRViSd_WeOciLKcQ4hjYxJ7e3i7LomwsUMzd0a+zvBw@mail.gmail.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Wed, 10 Jul 2024 12:03:30 +0500
-Message-ID: <CABXGCsOsfP2SToiDhRAS51nPJ+Qr2v7B3Kjr+yVeP4G7zFZpMA@mail.gmail.com>
-Subject: Re: 6.10/bisected/regression - commits bc87d666c05 and 6d4279cb99ac
- cause appearing green flashing bar on top of screen on Radeon 6900XT and 120Hz
-To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "Mahfooz,
- Hamza" <Hamza.Mahfooz@amd.com>, 
- Linux regressions mailing list <regressions@lists.linux.dev>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Content-Language: en-US, de-DE
+In-Reply-To: <CABXGCsPyrUEqDq2gbr4VLw5ncd9cKoCZ9nOr2SRfg8Lh=9H5Kg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1720528917;
+ 5dd8eef7; 
+X-HE-SMSGID: 1sRAAN-0006uA-4B
+X-Mailman-Approved-At: Wed, 10 Jul 2024 07:13:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,117 +76,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 10, 2024 at 12:01=E2=80=AFPM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
->
-> On Tue, Jul 9, 2024 at 7:48=E2=80=AFPM Rodrigo Siqueira Jordao
+On 30.06.24 01:18, Mikhail Gavrilov wrote:
+> On Sat, Jun 29, 2024 at 9:46 PM Rodrigo Siqueira Jordao
 > <Rodrigo.Siqueira@amd.com> wrote:
-> > Hi,
-> >
-> > I also tried it with 6900XT. I got the same results on my side.
->
-> This is weird.
->
-> > Anyway, I could not reproduce the issue with the below components. I ma=
-y
-> > be missing something that will trigger this bug; in this sense, could
-> > you describe the following:
-> > - The display resolution and refresh rate.
->
-> 3840x2160 and 120Hz
-> At 60Hz issue not reproduced.
->
-> > - Are you able to reproduce this issue with DP and HDMI?
->
-> My TV, an OLED LG C3, has only an HDMI 2.1 port.
->
-> > - Could you provide the firmware information: sudo cat
-> > /sys/kernel/debug/dri/0/amdgpu_firmware_info
->
-> > sudo cat /sys/kernel/debug/dri/0/amdgpu_firmware_info
-> [sudo] password for mikhail:
-> VCE feature version: 0, firmware version: 0x00000000
-> UVD feature version: 0, firmware version: 0x00000000
-> MC feature version: 0, firmware version: 0x00000000
-> ME feature version: 38, firmware version: 0x0000000e
-> PFP feature version: 38, firmware version: 0x0000000e
-> CE feature version: 38, firmware version: 0x00000003
-> RLC feature version: 1, firmware version: 0x0000001f
-> RLC SRLC feature version: 1, firmware version: 0x00000001
-> RLC SRLG feature version: 1, firmware version: 0x00000001
-> RLC SRLS feature version: 1, firmware version: 0x00000001
-> RLCP feature version: 0, firmware version: 0x00000000
-> RLCV feature version: 0, firmware version: 0x00000000
-> MEC feature version: 38, firmware version: 0x00000015
-> MEC2 feature version: 38, firmware version: 0x00000015
-> IMU feature version: 0, firmware version: 0x00000000
-> SOS feature version: 0, firmware version: 0x00000000
-> ASD feature version: 553648344, firmware version: 0x210000d8
-> TA XGMI feature version: 0x00000000, firmware version: 0x00000000
-> TA RAS feature version: 0x00000000, firmware version: 0x00000000
-> TA HDCP feature version: 0x00000000, firmware version: 0x1700003f
-> TA DTM feature version: 0x00000000, firmware version: 0x12000016
-> TA RAP feature version: 0x00000000, firmware version: 0x00000000
-> TA SECUREDISPLAY feature version: 0x00000000, firmware version: 0x0000000=
-0
-> SMC feature version: 0, program: 0, firmware version: 0x00544fdf (84.79.2=
-23)
-> SDMA0 feature version: 52, firmware version: 0x00000009
-> VCN feature version: 0, firmware version: 0x0311f002
-> DMCU feature version: 0, firmware version: 0x00000000
-> DMCUB feature version: 0, firmware version: 0x05000f00
-> TOC feature version: 0, firmware version: 0x00000007
-> MES_KIQ feature version: 0, firmware version: 0x00000000
-> MES feature version: 0, firmware version: 0x00000000
-> VPE feature version: 0, firmware version: 0x00000000
-> VBIOS version: 102-RAPHAEL-008
->
+>>
+>> I'm trying to reproduce this issue, but until now, I've been unable to
+>> reproduce it. I tried some different scenarios with the following
+>> components:
+>>
+>> 1. Displays: I tried with one and two displays
+>>   - 4k@120 - DP && 4k@60 - HDMI
+>>   - 4k@244 Oled - DP
+>> 2. GPU: 7900XTX
+> 
+> The issue only reproduced with RDNA2 (6900XT)
+> RDNA3 (7900XTX) is not affected.
 
-I forgot to add output for discrete GPU:
+Hmmm, again this looks stalled -- and the regression report is 6 weeks
+old by now. :-/ Or was a solution found in between?
 
-> sudo cat /sys/kernel/debug/dri/1/amdgpu_firmware_info
-[sudo] password for mikhail:
-VCE feature version: 0, firmware version: 0x00000000
-UVD feature version: 0, firmware version: 0x00000000
-MC feature version: 0, firmware version: 0x00000000
-ME feature version: 44, firmware version: 0x00000040
-PFP feature version: 44, firmware version: 0x00000062
-CE feature version: 44, firmware version: 0x00000025
-RLC feature version: 1, firmware version: 0x00000060
-RLC SRLC feature version: 0, firmware version: 0x00000000
-RLC SRLG feature version: 0, firmware version: 0x00000000
-RLC SRLS feature version: 0, firmware version: 0x00000000
-RLCP feature version: 0, firmware version: 0x00000000
-RLCV feature version: 0, firmware version: 0x00000000
-MEC feature version: 44, firmware version: 0x00000076
-MEC2 feature version: 44, firmware version: 0x00000076
-IMU feature version: 0, firmware version: 0x00000000
-SOS feature version: 0, firmware version: 0x00210e64
-ASD feature version: 553648345, firmware version: 0x210000d9
-TA XGMI feature version: 0x00000000, firmware version: 0x2000000f
-TA RAS feature version: 0x00000000, firmware version: 0x1b00013e
-TA HDCP feature version: 0x00000000, firmware version: 0x1700003f
-TA DTM feature version: 0x00000000, firmware version: 0x12000016
-TA RAP feature version: 0x00000000, firmware version: 0x07000016
-TA SECUREDISPLAY feature version: 0x00000000, firmware version: 0x00000000
-SMC feature version: 0, program: 0, firmware version: 0x003a5a00 (58.90.0)
-SDMA0 feature version: 52, firmware version: 0x00000053
-SDMA1 feature version: 52, firmware version: 0x00000053
-SDMA2 feature version: 52, firmware version: 0x00000053
-SDMA3 feature version: 52, firmware version: 0x00000053
-VCN feature version: 0, firmware version: 0x0311f002
-DMCU feature version: 0, firmware version: 0x00000000
-DMCUB feature version: 0, firmware version: 0x02020020
-TOC feature version: 0, firmware version: 0x00000000
-MES_KIQ feature version: 0, firmware version: 0x00000000
-MES feature version: 0, firmware version: 0x00000000
-VPE feature version: 0, firmware version: 0x00000000
-VBIOS version: 113-D4120100-100
+So I assume no solution will be ready in time for the 6.10 final? I also
+assume a "simple" temporary revert is not a option or bears big risks?
 
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
 
---=20
-Best Regards,
-Mike Gavrilov.
+#regzbot poke
