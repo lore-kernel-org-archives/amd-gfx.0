@@ -4,55 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65FF5C3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 20:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7908BC3DA42
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 20:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D419910E8EB;
-	Wed, 10 Jul 2024 20:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 233A210E8F3;
+	Wed, 10 Jul 2024 20:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YwikL/RN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OqvXcZ4j";
 	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A516E10E8EA;
- Wed, 10 Jul 2024 20:23:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1720642983;
- bh=S2S5BrlKFHCSOaQ/HORfy3cWipQAGsIPftq+UXjaxP4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YwikL/RNJJUIvHJd8wTCGaQR4mqEVxQVM9q+1THEV/PO0Jox6YasBoThKS7lOyK4D
- s1/IVqj+LV3+qeQ2WWDorlPAuL2IV2B3zCQRdijKkNisIgF43GlNevEo1FZa3ek+MV
- FTHUuZPjYSdkHuf1F5raTRMXXwSiX+OXPEjtp9JQIGeRFxZ94Pd7Ep90nhdlrDjs5X
- Xng6NE1wZh39mN4bsIlqTIAtLek9xnw+8JD5IFJvhziLXRoVlKdh0kD7sAjw7MU5MP
- 27A8xeJqvC8s4PZq5rp6IBb8q11dTdTH4gSIYpwh5eF/4uPvQhXD1msWTrOBvFXjex
- u1cKdFk1ExTtQ==
-Received: from [100.95.196.25] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: koike)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 0E87A3782180;
- Wed, 10 Jul 2024 20:22:57 +0000 (UTC)
-Message-ID: <22bc825c-d726-4a4d-bd3a-508773c04071@collabora.com>
-Date: Wed, 10 Jul 2024 17:22:55 -0300
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1714710E8F3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 20:30:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dZzgSNsykWVvDptCc4Ib2w6p8rpvgW3Ll0WVaWIfygbNNRP4v17uDSjW7JMWc0vismQWZ+8nicg5LfZZLHznW1QRbDmbHsbcqSWhSGPJ4SyDCUYTKY5rXdDs8TEham4cZiRUCcteTz+UGmf+aEfLaZ0S3h3PqKyJtTW1wkHIm+IGoSe/QqX/bBb2RGNMG9Xw//V7kutSYtVDPz/IYHSfhoUna1J3fyHSMMTqrMcegA5aOsW7WphmTJp4DBP2X98jl01cn/GZ8G6xJemVPXvnwSttJIVbCDFUM/e/mGsNecOMvnpUpZ2TMhY0CusMV7Om9IJ/NCGNlPj7NqMhQqp/Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vXvyyiFV9xKoLQ1aRZDpMF5ooTaPgYQsVpQ8rxVsL4c=;
+ b=YJ7FDwDv6W8F4ClXmAqfzHLuh0DOGKlyuuuTcD7aSruAm0tU/dtcF7p/hoEo2ynVwZdcUV4dYcoQKOK8Yz+TOeEIpW5JdNUzrXPCgmX5NMieI/uypxTCGNsqYe4hwyRuzf96rR3nuPYSJ/EamOhjOpA3t6BF3m9n41UL2kFqAV4/rNtB8P0Tm6oSUaMDBrkcAF/D/k/QvaOz0Wc3jQlAgG1F3Gjoj7B8pXV0uniUJDkgafsrbqbFPnHRx8Pw0QKWklbS5KLtkMJ5W9Q2D7j7pnneclVuOUSbJV13os0efPg4O1vZN5cEnyeCB1criLhlu+VfC8XdpOHh9HU25/LziA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vXvyyiFV9xKoLQ1aRZDpMF5ooTaPgYQsVpQ8rxVsL4c=;
+ b=OqvXcZ4jtq6F6Q+5lVrCYhY4LzA4+9WvCMT2aHCk1CDYHIZnU2V5rDpggGDnfRg9oBw3oYWvhAUMrLDl1evYI2pfgPdjnforYS8h+aJF32LIsPbZcgbmyGp9eKDrjgvtWLRv2yu2bp4/K+ok00f5LhdT2ozOOj9FOPpbwlkxAI8=
+Received: from CH5PR05CA0001.namprd05.prod.outlook.com (2603:10b6:610:1f0::19)
+ by IA1PR12MB7495.namprd12.prod.outlook.com (2603:10b6:208:419::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.20; Wed, 10 Jul
+ 2024 20:30:10 +0000
+Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::ee) by CH5PR05CA0001.outlook.office365.com
+ (2603:10b6:610:1f0::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.20 via Frontend
+ Transport; Wed, 10 Jul 2024 20:30:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7762.17 via Frontend Transport; Wed, 10 Jul 2024 20:30:10 +0000
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Jul
+ 2024 15:30:05 -0500
+From: <boyuan.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Boyuan Zhang <boyuan.zhang@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu/vcn: identify unified queue in sw init
+Date: Wed, 10 Jul 2024 16:29:51 -0400
+Message-ID: <20240710202952.188573-1-boyuan.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 27/52] selftests-dyndbg: check KCONFIG_CONFIG to avoid
- silly fails
-To: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com,
- mcgrof@kernel.org
-References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <20240702215804.2201271-28-jim.cromie@gmail.com>
-Content-Language: en-US
-From: Helen Koike <helen.koike@collabora.com>
-In-Reply-To: <20240702215804.2201271-28-jim.cromie@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|IA1PR12MB7495:EE_
+X-MS-Office365-Filtering-Correlation-Id: f52a5326-238d-49a4-cdaf-08dca11f1858
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?SdiJ4dSBZjOOYW3IVSkQx5beL0bVIDPcajPNpNSV6MzfkZQbE5u3ZoNdKjTe?=
+ =?us-ascii?Q?tdJUpCX9dgXGl1+lKaiX2t/GHS3Qc20TLZPFu8Vg2uLkz3sPgplJnV1ucZEY?=
+ =?us-ascii?Q?lZo9MBz+xu/rPUbntGIfLhvhXRV0T7v7ixiSQLFX+fCElkg99e4fiE9uhydq?=
+ =?us-ascii?Q?4LwUKhwZHFlSV8SpQD0iBcUKa/dpPAt/cqngG4jZHZb7gg6K6ju58wpYcTnL?=
+ =?us-ascii?Q?dc+K22lzyQrcc5zSuyhwMJ/bLz4RiIHdHIuIbBvNkxIXSzdq19Z9mO9SFfu/?=
+ =?us-ascii?Q?c9TPQMSufJZZ5sQX1cx2PTa9bD8nd93Pprrf7GIbO0oIie9sZS7l+0KFhU4X?=
+ =?us-ascii?Q?yXx4DS5hzL3iFwBXtjqx+xfKxwXJTR+OLTCLyvHYmKTeo1PrsWwHFj2BQDIH?=
+ =?us-ascii?Q?xfOIwcL5XP2zK+hyEi7zjsqlC8Yr7+0pU2kkH5eWOwXV7zs3jDa4CRD3zw83?=
+ =?us-ascii?Q?ggU+3QAjZByw7/O1b3fh16gR6rBOwXzAb7LgokhUfUmlgDtfxRU3cPvSRcvR?=
+ =?us-ascii?Q?DRsDU3zwsDZPYWGlQCJxhHvUIhRwPQek6bv1H8Vneza5IjmvE9MyT2ZhxGoA?=
+ =?us-ascii?Q?bheRUUuzKSSm+4511PIed7noBAoAzyMT1sUV7C2454UwH+zg07tmwdKWlBPB?=
+ =?us-ascii?Q?th+VBiZC4AB5Pa1PTm25ayuePdETKPyHhLjLn9Xp/TGeKMgk+Xcbt8qfEfAX?=
+ =?us-ascii?Q?hCCZUql/R/Cah6WfhISmgaoAjDOn/sUiEyUpu8KhHhCMoWhbY68uuiOKa9wr?=
+ =?us-ascii?Q?IxZEFX++fEScf+x+chqlmgc/6Rcr6cDuUTYhzUjPpJPDEz9cA185zjPFd/aM?=
+ =?us-ascii?Q?2+/Fj6BxxH+S57vJHH8db9ccWv/xTnm6PWf4gKEUh+qDntIUsAXPdkz/gmO2?=
+ =?us-ascii?Q?hBUBDoI7dDyqx9WGmS5ULNUWjQLcW+YnjRYOL7lmXDsrdsGcHuozJP6y4Iey?=
+ =?us-ascii?Q?FycbjNcdlY4Vi/kKK6lb/JDKvRRQOwuyJZ1Si+r3zu7W2c/cbpxKWzhaBwmD?=
+ =?us-ascii?Q?FdYjyNGUHy5GpqbPJWcg+L8pEXW2urPPMr+OFUovjP5h+neH2aG0Gy/RlGxx?=
+ =?us-ascii?Q?mEpKU26vaX31oihKUYFvKAq/YUQFLYANbVoRFWzU3LWb3O2TcJTDEyTbfnji?=
+ =?us-ascii?Q?eb8zTAambBCc7CetaXgGeH4F14471Vf1TpJ6wD7iZdnJLLJ1r2goGarJx6aV?=
+ =?us-ascii?Q?bQoMdn1hRPTk9qRv3DPGThHJBAKDSROA3GItzDU7FhTv7UtK4XItpqNXhym2?=
+ =?us-ascii?Q?ZEIEGKXdMj1UsEZJMKNtwPKg8HYs4A+J/ZRvRMC8oWmm/FyAGiH8C9wt2drM?=
+ =?us-ascii?Q?x3Lh/3QCD++OE3DEMlrD3BteqDGb7aQeYsRoZxqLetlpKcoMuNb+48Amr5rl?=
+ =?us-ascii?Q?SaHxLwko4q2YhKGEHN10IhyhxvxFDcaNXjlYfJq04ZY4ExTXMKit945j7x1w?=
+ =?us-ascii?Q?IvqqlLtPrOs=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 20:30:10.2111 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f52a5326-238d-49a4-cdaf-08dca11f1858
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7495
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,143 +130,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Boyuan Zhang <boyuan.zhang@amd.com>
 
+Determine whether VCN using unified queue in sw_init, instead of calling
+functions later on.
 
-On 02/07/2024 18:57, Jim Cromie wrote:
-> Several tests are dependent upon config choices. Lets avoid failing
-> where that is noise.
-> 
-> The KCONFIG_CONFIG var exists to convey the config-file around.  If
-> the var names a file, read it and extract the relevant CONFIG items,
-> and use them to skip the dependent tests, thus avoiding the fails that
-> would follow, and the disruption to whatever CI is running these
-> selftests.
-> 
-> If the envar doesn't name a config-file, ".config" is assumed.
-> 
-> CONFIG_DYNAMIC_DEBUG=y:
-> 
-> basic-tests() and comma-terminator-tests() test for the presence of
-> the builtin pr_debugs in module/main.c, which I deemed stable and
-> therefore safe to count.  That said, the test fails if only
-> CONFIG_DYNAMIC_DEBUG_CORE=y is set.  It could be rewritten to test
-> against test-dynamic-debug.ko, but that just trades one config
-> dependence for another.
-> 
-> CONFIG_TEST_DYNAMIC_DEBUG=m
-> 
-> As written, test_percent_splitting() modprobes test_dynamic_debug,
-> enables several classes, and count them.  It could be re-written to
-> work for the builtin module also, but builtin test modules are not a
-> common or desirable build/config.
-> 
-> CONFIG_TEST_DYNAMIC_DEBUG=m && CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m
-> 
-> test_mod_submod() recaps the bug found in DRM-CI where drivers werent
+v2: fix coding style
 
-If this fixes any but listed in drm/ci/xfails folder, please update it too.
+Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 39 ++++++++++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 +
+ 2 files changed, 16 insertions(+), 24 deletions(-)
 
-Regards,
-Helen
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index dad5f9722e14..f59e81be885d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -139,6 +139,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
++	/* from vcn4 and above, only unified queue is used */
++	adev->vcn.using_unified_queue =
++		amdgpu_ip_version(adev, UVD_HWIP, 0) >= IP_VERSION(4, 0, 0);
++
+ 	hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+ 	adev->vcn.fw_version = le32_to_cpu(hdr->ucode_version);
+ 
+@@ -266,18 +270,6 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-/* from vcn4 and above, only unified queue is used */
+-static bool amdgpu_vcn_using_unified_queue(struct amdgpu_ring *ring)
+-{
+-	struct amdgpu_device *adev = ring->adev;
+-	bool ret = false;
+-
+-	if (amdgpu_ip_version(adev, UVD_HWIP, 0) >= IP_VERSION(4, 0, 0))
+-		ret = true;
+-
+-	return ret;
+-}
+-
+ bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type type, uint32_t vcn_instance)
+ {
+ 	bool ret = false;
+@@ -747,12 +739,11 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
+-	bool sq = amdgpu_vcn_using_unified_queue(ring);
+ 	uint32_t *ib_checksum;
+ 	uint32_t ib_pack_in_dw;
+ 	int i, r;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		ib_size_dw += 8;
+ 
+ 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+@@ -765,7 +756,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	ib->length_dw = 0;
+ 
+ 	/* single queue headers */
+-	if (sq) {
++	if (adev->vcn.using_unified_queue) {
+ 		ib_pack_in_dw = sizeof(struct amdgpu_vcn_decode_buffer) / sizeof(uint32_t)
+ 						+ 4 + 2; /* engine info + decoding ib in dw */
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, ib_pack_in_dw, false);
+@@ -784,7 +775,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	for (i = ib->length_dw; i < ib_size_dw; ++i)
+ 		ib->ptr[i] = 0x0;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, ib_pack_in_dw);
+ 
+ 	r = amdgpu_job_submit_direct(job, ring, &f);
+@@ -874,15 +865,15 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 					 struct dma_fence **fence)
+ {
+ 	unsigned int ib_size_dw = 16;
++	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	uint32_t *ib_checksum = NULL;
+ 	uint64_t addr;
+-	bool sq = amdgpu_vcn_using_unified_queue(ring);
+ 	int i, r;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		ib_size_dw += 8;
+ 
+ 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+@@ -896,7 +887,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 
+ 	ib->length_dw = 0;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 0x11, true);
+ 
+ 	ib->ptr[ib->length_dw++] = 0x00000018;
+@@ -918,7 +909,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 	for (i = ib->length_dw; i < ib_size_dw; ++i)
+ 		ib->ptr[i] = 0x0;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
+ 
+ 	r = amdgpu_job_submit_direct(job, ring, &f);
+@@ -941,15 +932,15 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+ 					  struct dma_fence **fence)
+ {
+ 	unsigned int ib_size_dw = 16;
++	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	uint32_t *ib_checksum = NULL;
+ 	uint64_t addr;
+-	bool sq = amdgpu_vcn_using_unified_queue(ring);
+ 	int i, r;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		ib_size_dw += 8;
+ 
+ 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+@@ -963,7 +954,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+ 
+ 	ib->length_dw = 0;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 0x11, true);
+ 
+ 	ib->ptr[ib->length_dw++] = 0x00000018;
+@@ -985,7 +976,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+ 	for (i = ib->length_dw; i < ib_size_dw; ++i)
+ 		ib->ptr[i] = 0x0;
+ 
+-	if (sq)
++	if (adev->vcn.using_unified_queue)
+ 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
+ 
+ 	r = amdgpu_job_submit_direct(job, ring, &f);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 081695e74932..838c0935f683 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -329,6 +329,7 @@ struct amdgpu_vcn {
+ 
+ 	uint16_t inst_mask;
+ 	uint8_t	num_inst_per_aid;
++	bool using_unified_queue;
+ };
+ 
+ struct amdgpu_fw_shared_rb_ptrs_struct {
+-- 
+2.34.1
 
-> enabled by drm.debug=<bits>.  It modprobes both test_dynamic_debug &
-> test_dynamic_debug_submod, so it depends on a loadable modules config.
-> 
-> It could be rewritten to work in a builtin parent config; DRM=y is
-> common enough to be pertinent, but testing that config also wouldn't
-> really test anything more fully than all-loadable modules, since they
-> default together.
-> 
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> 
-> fixup-kconfig
-> ---
->   .../dynamic_debug/dyndbg_selftest.sh          | 45 ++++++++++++++++++-
->   1 file changed, 44 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-> index fccd2012b548..d09ef26b2308 100755
-> --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-> @@ -11,6 +11,30 @@ CYAN="\033[0;36m"
->   NC="\033[0;0m"
->   error_msg=""
->   
-> +[ -e /proc/dynamic_debug/control ] || {
-> +    echo -e "${RED}: this test requires CONFIG_DYNAMIC_DEBUG=y ${NC}"
-> +    exit 0 # nothing to test here, no good reason to fail.
-> +}
-> +
-> +# need info to avoid failures due to untestable configs
-> +
-> +[ -f "$KCONFIG_CONFIG" ] || KCONFIG_CONFIG=".config"
-> +if [ -f "$KCONFIG_CONFIG" ]; then
-> +    echo "# consulting KCONFIG_CONFIG: $KCONFIG_CONFIG"
-> +    grep -q "CONFIG_DYNAMIC_DEBUG=y" $KCONFIG_CONFIG ; LACK_DD_BUILTIN=$?
-> +    grep -q "CONFIG_TEST_DYNAMIC_DEBUG=m" $KCONFIG_CONFIG ; LACK_TMOD=$?
-> +    grep -q "CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m" $KCONFIG_CONFIG ; LACK_TMOD_SUBMOD=$?
-> +    if [ $V -eq 1 ]; then
-> +	echo LACK_DD_BUILTIN: $LACK_DD_BUILTIN
-> +	echo LACK_TMOD: $LACK_TMOD
-> +	echo LACK_TMOD_SUBMOD: $LACK_TMOD_SUBMOD
-> +    fi
-> +else
-> +    LACK_DD_BUILTIN=0
-> +    LACK_TMOD=0
-> +    LACK_TMOD_SUBMOD=0
-> +fi
-> +
->   function vx () {
->       echo $1 > /sys/module/dynamic_debug/parameters/verbose
->   }
-> @@ -192,6 +216,10 @@ function check_err_msg() {
->   
->   function basic_tests {
->       echo -e "${GREEN}# BASIC_TESTS ${NC}"
-> +    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-> +	echo "SKIP"
-> +	return
-> +    fi
->       ddcmd =_ # zero everything (except class'd sites)
->       check_match_ct =p 0
->       # there are several main's :-/
-> @@ -214,6 +242,10 @@ EOF
->   
->   function comma_terminator_tests {
->       echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
-> +    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-> +	echo "SKIP"
-> +	return
-> +    fi
->       # try combos of spaces & commas
->       check_match_ct '\[params\]' 4 -r
->       ddcmd module,params,=_		# commas as spaces
-> @@ -226,9 +258,12 @@ function comma_terminator_tests {
->       ddcmd =_
->   }
->   
-> -
->   function test_percent_splitting {
->       echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
-> +    if [ $LACK_TMOD -eq 1 ]; then
-> +	echo "SKIP"
-> +	return
-> +    fi
->       ifrmmod test_dynamic_debug_submod
->       ifrmmod test_dynamic_debug
->       ddcmd =_
-> @@ -248,6 +283,14 @@ function test_percent_splitting {
->   
->   function test_mod_submod {
->       echo -e "${GREEN}# TEST_MOD_SUBMOD ${NC}"
-> +    if [ $LACK_TMOD -eq 1 ]; then
-> +	echo "SKIP"
-> +	return
-> +    fi
-> +    if [ $LACK_TMOD_SUBMOD -eq 1 ]; then
-> +	echo "SKIP"
-> +	return
-> +    fi
->       ifrmmod test_dynamic_debug_submod
->       ifrmmod test_dynamic_debug
->       ddcmd =_
