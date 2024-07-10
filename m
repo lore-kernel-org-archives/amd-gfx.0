@@ -4,156 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA1C3C3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 21:13:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC57BC3DA41
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 23:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4276510E902;
-	Wed, 10 Jul 2024 21:13:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9968926D;
+	Wed, 10 Jul 2024 23:47:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3iOyVVIM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mag+FIBE";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2D1F10E1AD;
- Wed, 10 Jul 2024 21:13:27 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E5E88926D;
+ Wed, 10 Jul 2024 23:47:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d6IT5kzIjImY/48uVC7HRgTHwSekjhgu+0b/T+tSmvfgRIXpKgs/A3jBx/GJJoY5GaB8MieHGmGfykt0+9FNFYA3sWzMmo5gep03LeiG5/hypmsc3wF1CymY+HsH9SydsOxE4+G8F6GkkeLCIHkqOmLEDHo29nhVlTwi0jcXr38Kod0iWmvfzseITn/GBNUrGAo0epjoYOqZJDooHcAuVRYezzHDiisoN+smd/1AZ0t/y6uHYWR1yALFQrcCxSowldKSJxrBNZ00n5vV80SDBqahZs7V6MIAjO+KhDg2aUak+yQ1Pszl4Qf5wML0k1w8z5S5xq2sHnY4dKx376qf1Q==
+ b=Yfpx27nmdxfItQ+D26g87m+sIt2J6sBLoDJG5aqvEIH4xM5gQXbMxr2UFfgGiI+xDJIlBkNu3c4DOKL7Q3uxf3/RpWXCPkidlUePs3MxvBNOczbDMAa3Diviodf5pAH6JJdgG+ABcusWhH+RVKhm8JeHlYcq318jiEp99Z/rgUYgg4yMiEYFzzr3xp7S08evVH9bm3N4ekZP3uUIi+Qb1N/3NTCWDnlEScCMeCxa5KrHEXxbKWPwER7GhdkEpHn2Bauy6aA+IJRX68DUVTOe+nMpZJXdCCipOv7zokvwZg6ShML4OtIi4irYNPSQdjldZFEOxv+eLQPDS+0BLDx7xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NhZOpNaoWox8bwqB4FhFlhS1oJYbleT7CU+b0E41xb8=;
- b=R+xsLOa/7D6igVHwXNs254WM/0V2sQTcYTi8jXAoT6Q3wbyjnDxnVBiiqozlbCk8U/Rasba3zuMqEsjMm3oV5Si7Q7FtslGXVNg5jwxPe/FjuZ8B4HmReWZhH7tb1sNUag3lEXHJr6Tv7CF4Fr8uX9s88XRyE0GKoaC9Mh78k5w2qEQ6bGCKw3ZRiTJDREb2ao22yCma62Y8U97Y2qayol7y5PbRCfeTnFgayxpR2ToNBies78vsMp2OKq3JLBZJWNXQGbVjOfHxSFzBrG8ntPUJu2ggOfg+Zdpb43PZNXSa6IXAdebAuV+o4sec/dfbaWZM0uDO8wyU38DSj6HQvA==
+ bh=TBhMo2ITlOb3z+sCTdLGBPzcRPRm6kv2ah8KnuP76vs=;
+ b=b/NHbhYGT8Wxq+ku9Oglm/bOKmDVi/cI2C/Vnvd/7XX+aZxON/8ySvB0j36ZFsLblEyAUf0US2cpksyAo8pKfKluZ9vpUGUF3opvh4GzeoO8x4BghquwFsAXGlVr0pQZq5j685TsUUK+WO+x1DZvpyRwL3yEUgYqpXIykZpiz/gpf+c7BGtEEruUU6Zj3h1RxivdreiQnt7jolVby62bbaGXikMA1Hd6EKG5rVDl5ndHbj9FsjMeQZkVYE0aECiO0bkOtWN+Ng6YOiQ9EynOszozBijKPQXCAjNtgumZoR/fmD8dUZ4Fdutdtj+WbYPCFGQBkereMD8efzkIg3dtjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NhZOpNaoWox8bwqB4FhFlhS1oJYbleT7CU+b0E41xb8=;
- b=3iOyVVIMhNgWf/M2a2d1VAutdepYSLQfVT4xPrswKiMiZqmctP6dUYnZyqnNpw5ta94hm9YUGovIFMwOGk7Ab0yx7hMa/zq3RsXyxwURpindfhHzcKhrvUDisHzTCroRNpGepN99pjU9dYchSH7hAZYNJlZC5D2DccMNiLj/p0w=
+ bh=TBhMo2ITlOb3z+sCTdLGBPzcRPRm6kv2ah8KnuP76vs=;
+ b=mag+FIBE3YiXpgZzohsoidXYXaRvfStlZHmuPMgb4yX2Nkaz6o2cNUXzw17php9fvQ+5Cg9ec1J0YJ9PjGZneus8QHuqUkw38HxXUzXPeo5gLdlKo+P3hfm/4vHZ0t1H63P3/snLc3K7qqnolu2262S37rrv2eQP9xbzquKxU0k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB6839.namprd12.prod.outlook.com (2603:10b6:806:265::21)
- by DS0PR12MB9039.namprd12.prod.outlook.com (2603:10b6:8:de::21) with
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH2PR12MB4167.namprd12.prod.outlook.com (2603:10b6:610:7a::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.20; Wed, 10 Jul
- 2024 21:13:22 +0000
-Received: from SN7PR12MB6839.namprd12.prod.outlook.com
- ([fe80::eaf3:6d41:3ac0:b5f4]) by SN7PR12MB6839.namprd12.prod.outlook.com
- ([fe80::eaf3:6d41:3ac0:b5f4%6]) with mapi id 15.20.7741.033; Wed, 10 Jul 2024
- 21:13:22 +0000
-Message-ID: <bd3da8d0-a60f-4905-b27d-cf549844c683@amd.com>
-Date: Wed, 10 Jul 2024 17:13:18 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Wed, 10 Jul
+ 2024 23:47:06 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.7762.016; Wed, 10 Jul 2024
+ 23:47:06 +0000
+Message-ID: <782ca993-39f3-4a17-9039-23d98d5031ec@amd.com>
+Date: Wed, 10 Jul 2024 19:47:03 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amd/display: use drm_crtc_set_vblank_offdelay()
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
+Subject: =?UTF-8?Q?Re=3A_va_range_based_memory_management_discussion_=28was?=
+ =?UTF-8?B?OiDlm57lpI3vvJrlm57lpI3vvJpSZe+8mlByb3Bvc2FsIHRvIGFkZCBDUklVIHN1?=
+ =?UTF-8?Q?pport_to_DRM_render_nodes=29?=
+To: =?UTF-8?B?5ZGo5pil5piOKOaXpeaciCk=?= <riyue.zcm@alibaba-inc.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
+ criu <criu@openvz.org>
+Cc: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <wayne.lin@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240708202907.383917-1-hamza.mahfooz@amd.com>
- <20240708202907.383917-2-hamza.mahfooz@amd.com>
- <Zo0Dm_XeF3dMqK1C@phenom.ffwll.local> <Zo0MSB7eSp1H0iPI@phenom.ffwll.local>
- <3214e5a3-a616-4bcd-8f1d-238e1bf346fe@amd.com>
- <Zo5Ju2bWFUVBHeKX@phenom.ffwll.local>
+ =?UTF-8?B?5byg5Lym5by6KOW8oOWwmCk=?= <zhanglunqiang.zlq@alibaba-inc.com>
+References: <fdd1aaa5-29fe-4d67-bb55-da054c7c24f6.riyue.zcm@alibaba-inc.com>
 Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <Zo5Ju2bWFUVBHeKX@phenom.ffwll.local>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <fdd1aaa5-29fe-4d67-bb55-da054c7c24f6.riyue.zcm@alibaba-inc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0099.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::8) To SN7PR12MB6839.namprd12.prod.outlook.com
- (2603:10b6:806:265::21)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQXPR0101CA0051.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::28) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB6839:EE_|DS0PR12MB9039:EE_
-X-MS-Office365-Filtering-Correlation-Id: 749397a0-85aa-4bd5-77aa-08dca1252108
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4167:EE_
+X-MS-Office365-Filtering-Correlation-Id: a002f495-7488-49ee-d1ac-08dca13a9b28
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YnprMlY0MUVrNjhJeTFMaVVMU3Rqb05PSHdkZVV0U3M1K2dPbmxUby9LUWpP?=
- =?utf-8?B?TlJDS0J2MWNFeE90T2EyWSsxRGF5QXN5c0dHZU00SURuNFBLYlZJYXhTSkJG?=
- =?utf-8?B?eE5uNndaSGR3ZUFVY0QvaURiUVFwUmQ5L0lSYTFyMHUyajRQMytFbUZ5eWg5?=
- =?utf-8?B?SlhIZUEwZWNMRjBETWZ5TEF4bmVzTVhsb3p2UFIvcVBpQkR1OUtleWE4MUJv?=
- =?utf-8?B?RzF4RjRDdXU3K2JPYStuemIzK1NPSURFdDJhTk5nQzNpbS9jUXNDVkVTaHJL?=
- =?utf-8?B?VEFScmNoUzloRSt0ZmtBTVI3VGlrbGlsTHZBSER1aEpuM2w4cFlkV25POTAz?=
- =?utf-8?B?dUFNWUVNK1FkRVYvNnZad3BmeExCY0dNYktyZWd5RUUvNVBXZHRLS05xM295?=
- =?utf-8?B?RUVxRVFYNnl4Ym9IbDl3T0toQnRJUGx1SW4waVNMbTc0OG1BV0IwUjY3cTFB?=
- =?utf-8?B?NWJzNzF2dkcyVU5TNTQ5SHNSSkdUT2k0ejBiUGEwN29sdlZ3OUJudS9kREFi?=
- =?utf-8?B?Umw0d1NEWGNaZisvNytBV1RnY242ci9aRUJsUlZ6U05xK253UEVmQ0YxZW5x?=
- =?utf-8?B?VzF3ZVlmaE1zWGh5QVo1TVJZNXJ3WGVoSTBFOGRIaEtNYTJCeU5mMFBtcEVk?=
- =?utf-8?B?eEZhM2MrdVpFdFJRaG91TEVISER5Z291eGJXTVJvZERGM2F0L3ZnWlR0VllY?=
- =?utf-8?B?QTB0YVFPaE9tTmlBVmRFMnlkZ2xtSENOMHFncDlBM3NkYWxwRE5yU2d1c3hN?=
- =?utf-8?B?cEdMZVMveEd3ZEh0RExNUEJHSFdIU1JvSGRkeXdWaGVScDU2Z1NjME12TXJH?=
- =?utf-8?B?VWJVYVRNbFZZWENpYVdVeVR5aEpLb0NZTnhsRTgvbXRGYmJPQmorL3JxazJu?=
- =?utf-8?B?NmxJdFFHMllleE53WFRVMzhoREhncnVCSGFjaEF1cDBmUkFCdEMyR0tJNFQ0?=
- =?utf-8?B?NlRGUjdMMktWQ1VzMnczZ0FuODdOanhtTVNuOU9xSVdua0ZNUGdSNGFENDBL?=
- =?utf-8?B?K2hhL1RWaG04S3Q0MDN4alErdG1iVGhxTXJqN3JYRDVhWXhDOC9DenlWMGJ2?=
- =?utf-8?B?WmhaU1h4Y2d3b2NBdVpPbXM1WTRvR0RZQTdFU29JQVZLb09FdGQ2M2ZKMnd2?=
- =?utf-8?B?VmY4UmR1YWt5ZWZ6TEVRSStlUGhsTFlDd0h1NXpNOGEzT0NNVEtMVm14ZGNj?=
- =?utf-8?B?RjR2MmtvR1FLYndnOWwrQk9FaHlEelJ5ZzhLc2QveEV4RG05THpVR3Rma0tj?=
- =?utf-8?B?dUF2V2kySGZiNHVJdzNVY1huaTBlQkVQN2VFaW9YTFZ4MWJzS1NNU0NPQnJG?=
- =?utf-8?B?cHg0cEFwSEsxajhwalhmWTNOS2Z3Y09pQTBhYTJHOWVXclFMejhSdGErNFh2?=
- =?utf-8?B?bGErM3NVMWhSQjJIK2VEMmpXdjE4Zm5pekt6T0oxcVBTS3BYcnBMbEVzeFB3?=
- =?utf-8?B?cmFyZFF3aXZoVDMybW5HWUFteDBiVzZzK215L1dRcHRQTjdkbDhTZWJ6NTlX?=
- =?utf-8?B?MVNXVGlUQWVXa21HN0ljUTJ0WjhkQXJQSG9WREVzNkFsM1Znbm9UY0FHNzQv?=
- =?utf-8?B?dktacnRaeTlQYllYaE4rT2xLUUhVeU9QTm1XVmRHcEw2bUNERUNCTWdmbXIr?=
- =?utf-8?B?NUx3VjR1aVdVVXJ2Z3hUS0lmU0E3eFY0REZoeUc2ZG5wR0gvcUYwS0ZObVRP?=
- =?utf-8?B?VWRCZ3N6cjZEL01IZERVWENtWHZVU2oyc044K2VWWjdUVlN6M2pER0xBY1Zt?=
- =?utf-8?B?U1ozNzI5SE8wZlFJN3ZmNmpudDByUWxta21NMjlwWExHSnZpSG5aUm9nQk5W?=
- =?utf-8?B?M1VyREVEdHhhZ2RDSjhEUT09?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|3613699012;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U1lEM1cxTTJmWU9VSTZUMy9LS0RkRW41dnhFL2J3b041NE1vMkpzMW9yVFl4?=
+ =?utf-8?B?VXZnU25MZXhhMTJhb3ZuWmowRzA0eDdBMk1VMWlrU01uYlAxS1ZsTWxGYnNO?=
+ =?utf-8?B?MTN5M3V5bXNTOWdPMXhWUURUSWU5MW93RldLZXpORmsya3VhalY2U1dja0Zj?=
+ =?utf-8?B?aG1rL01xRzJObnpnbFoyQXh1bVpLQVBaOTJXdnA5SFNGejRGZWNER0tYTHJv?=
+ =?utf-8?B?SGRWdks5UHdUVkVMYUUreFR4SXlJYm9hZk1HY2luazd6d0NlZDNWcUlsQ1Rv?=
+ =?utf-8?B?b21Cc1hMNHBJVkdnOVAySTZJUGh4T0VSS2ZjZVVnbUlLNmdBSE9CYW41R2x3?=
+ =?utf-8?B?WlZFYUlNQ2FmM29RYjFSall0V0JlM3VObXhqZUdKTzNDd0hmRGR4eUtZSDFn?=
+ =?utf-8?B?Nk1SOTBaQTZGb1QrT3FaazNaMFVXRDdaWVRzaTBRTUp5V2hBVkVxajFtdXow?=
+ =?utf-8?B?Um92NU1xa3E2bXFBRlN6YWxjbXh4SFVNeUtqMGhsV0hBditnTXRLVTJVTUIx?=
+ =?utf-8?B?UXEwWG1Eb2V6dWlwdXdmM3lQTUFvZ3ZBYWdPSWxqUDQvaVpVSkNZMHViRHRz?=
+ =?utf-8?B?YjNVYjNrRWtadzlETGh4TllzZUlsNFBrcGtXRWI5VE1FZXRuTjVWNlV6MU83?=
+ =?utf-8?B?Mytsc01pU1ZESWdvcFovU0xGejYwWmcwSHo3M2dlWFRaV3hZNHYrVDBjRHB6?=
+ =?utf-8?B?SjVycXRLZ2R1M3FPeGdVeDNRZDNYdEdzWU50MmEvZjVmdjJjTW8wRG1kN1JQ?=
+ =?utf-8?B?L25VNFNlTy9qM1RBWGZ0N3JPaTVKZGdkTG1SMmZIQ3U5ODcrajhocVBxRGIw?=
+ =?utf-8?B?cUxpNXZ4S3U3TE5oMHMyQW1ZdVZBcnhTbUFyZkVWNEtlcDVBNkRwazZiOEl3?=
+ =?utf-8?B?ZVM2bmZaLzdycE8xMXV6RnZxZXFtZUViZmpLeVVMVnBxNUVPc21iUU5uRUFw?=
+ =?utf-8?B?c3JUOTEzWjlFVWlYd3lTMVZjSzc4UXJ0ejBmWnZqS1UxYVRBd2k5dFlCcUZp?=
+ =?utf-8?B?YTRjTzJYdmFzVzBseDJPZ3MwZkNLK2QyMDArckVmaTJQSWxLOFByVndEczhO?=
+ =?utf-8?B?V3U5U3FNc2s4TEZrVEpYeTNubWpLd1ROVktPQWNHdzBpNThHSEJxMTg0bkVz?=
+ =?utf-8?B?VktnNlNPekxTd3BpaXk5ZXZHbzhPcVN2bXcwbzlzcHRlTnN6Y2gwUlR6ZUlx?=
+ =?utf-8?B?QmhxWEk0YS9Pd1dtVk9ISm9iRDBaemVGUlZaYlhjdWpLNVZvN01oOFo2cExj?=
+ =?utf-8?B?M0JuR0gwZjFuM2plbVg0WmVxMFMzZmhORjN2MHh6dkdEL1AreXVFckpINmYy?=
+ =?utf-8?B?citYampBYXNUNWVPZ0trM1BJdVJpeWZCRHZsNkg0WUlQUDNlTUd6aXhNeFFs?=
+ =?utf-8?B?R0dzbUlyNHFLRVd1R1NJeGFReklXL0xlWFJuaTNIUjhjWGdhQ3piVDVNaHow?=
+ =?utf-8?B?SWRrcHdNYm4vYlIzZDFtcjVNdFUyekxrQ1VmU01MTzJMb21qd3RrWkNncHhx?=
+ =?utf-8?B?Ty9tSEhGamJNTTB6U1drRHFvcXcxRExGQkdEbHBiNmJHZkhCWDB2SlFHZTJI?=
+ =?utf-8?B?VTBXdG5ubTdXSkdiSERPRkhWSmhhR0hxc2hLQkIrRVNuM1FTeGhqUDlhMXhs?=
+ =?utf-8?B?UzhzV3lnUTN3S0pNN3h2d2NPOWxjNXIwMkdDc0VHaUlCdXQxSm5OckVoWmt1?=
+ =?utf-8?B?MDhnUTZZaWtCSEh4MG5KendlQTdrTVJiTU9GWWltMmd2bXZzUGtqRXJrTjdu?=
+ =?utf-8?B?c0ZjSE5yQ1llbUxsNGJwdGJ4SnRLcEs0QzJrbFcwY1JTTE9PZVJNcW94WDRL?=
+ =?utf-8?Q?UjrcgGNGC8h9Ys/Wrs7ETny1+a7kFcJqOtmVg=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB6839.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(3613699012); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVk4UmFaa2JrelJlTmZnT0w4MHlsZUlKVzA4TmFxTklVUnNaUTNqenpET1RC?=
- =?utf-8?B?TVVzci9ialQvTVpiTENjK1ErWXgzQWE1c0lyeVphY3FJbjBDcS9mcSsxQ3FH?=
- =?utf-8?B?VEpVeFEycHN6MDV6SnNMS2tQL3hWZ0llYStydWxZL3JVQ2QybXI4U1loS3ZB?=
- =?utf-8?B?Y3NZci85RTJNelhNbXlZSnEvM0FQeGF6elVPLytIakE3aGFLK2FWUFpNYjNj?=
- =?utf-8?B?ZUx6VkFxTmVBdHgvekoxOVVOZkN4VVRwWTBpYjc4RjNsNUI0WXVqZVp3aU9z?=
- =?utf-8?B?ZEJ1S2RCbENWVnhLajVWTFY4d3dXVG5meTJXRWx4L2l4SmdaaTd4ZWZCWURx?=
- =?utf-8?B?OGlacXNGalo1WWoxZmRvUW9Fc1RzcU54Q3hZODFEckl2ZHpwZHV6anFISEFX?=
- =?utf-8?B?cENZMHNZYjMvdFMxcmh2RzB4c1R4NmxESjl1MHNVWkpvSW1RVklzNzRFNW1q?=
- =?utf-8?B?bFo1WDhQQnpNcXBQb0Y5aVdoUTVVTVc0MW9VZFkzdGhoREt6VGh3RUhBQlRs?=
- =?utf-8?B?enk5bkNUTVhNSWdJSmc2TTZZdkdFSTFKeVI2K092MmlLN1l4MEhxbVRKaTMv?=
- =?utf-8?B?cGkwVTJ1YUVLWmEyNjMraFJrSU1CME5PTVp3alY1eVVyeUkvbERrMUI2eHRs?=
- =?utf-8?B?bnZHOElTRTFJU2JjbkpDeEh6cU93ak9ybFlaaWV2U0s4U3BtT3g0bkFIaUhO?=
- =?utf-8?B?R3FsQXJ2M1BBU2NNUXhnOVNpdXg0QmxjcXZPa3N5NllZWmdKbTJvcHFoYlBa?=
- =?utf-8?B?VVg3MXcrdTJvc25NaTdYTE1XTUYrbDRPZCtLWDFmSU1ISjc4UUVFanFMYk50?=
- =?utf-8?B?Y1VNVnQ1NVhJNjJIVEM1RTBCL3k4Y0NiNTFLWXhPKytnQ3VzTkRJRTNDUncr?=
- =?utf-8?B?b1hpUzJXQUo0aXhjdzVhTjJIS2VrTTdicnlPUUF0YzFtNGNpbGtQRFkwUlNW?=
- =?utf-8?B?a1VZOTBGN2Z5ZGRZQWpHa3dwNzRHTXFXR0d3WTV6RDFZZDBVeTlSUXJKVDdG?=
- =?utf-8?B?SVdGNDVYUHJ0VmZiQmU2MnBjN01vekJQTFJ2WVJHR0J2NldCMjdWbHRKRXJJ?=
- =?utf-8?B?Tzhadk5qMlR0VmxibVE3Z1dQMysvTlFjWXZZREtoUDhMc05kSG5FQjYxRDIv?=
- =?utf-8?B?MEpuTkx3VDRPZVdFZkM0VGU1WWlMNTFCUUYrWWdyMGtLeFlhaFE4TXBaemIy?=
- =?utf-8?B?VjNEbXZWeWRsdU51R3lCNnlWMnVGaEhVMXFRcnIxQXRsSyt0cFRVa004MUtQ?=
- =?utf-8?B?T0h3YVltb2hvKzBBR3JsckZ6ajFZaVdLQ3Vob0FIVWdzMGl0cTNvRXptanJu?=
- =?utf-8?B?UmtlQzB1bUVJSHBnY0VEaWNWUFY2ZU14L3BUa0xpcjhWSEtQVkNKWXRRbHRQ?=
- =?utf-8?B?dk93alpDRU02T0FYYXFvREszeFZ0RjZUdytXTW05WmtZOU5BazhsVmhRcnlX?=
- =?utf-8?B?YWNWb2NGRUhzU3VzQTArK2VlVENTblNhck44L0ZsZHMyRENmbFZXMkZrYXBy?=
- =?utf-8?B?aGszY2FjelFiLzFDbVN6R1Y5TjdIbkZCZXZ6dmJtKzQzVVpXZkxtRzRNVWtq?=
- =?utf-8?B?anB0WnFpamU3TnhDQm4yZmw5ZDFZeHZwZGJRZW5vWEJtbXJmTXFwU2JGaTM2?=
- =?utf-8?B?OVBWNGRWSzlYdFdKbmNKbWhRcjBTcyswZVZWYkNxN053ZWJHSHNVZDFycTRY?=
- =?utf-8?B?Q0xoQm5sZnowSFd3clFhd3BDZ2xrRC81czA3T3pXcTg5TG5lYmlGU2ZKR2NF?=
- =?utf-8?B?a1M5VEE4bURsZE9mNm5JNGpiYjVEYm5SbkdsVk5UYlAyeTc3ZVVWRW9TVjRs?=
- =?utf-8?B?VEFwbXhDYjVSUVg1VU9xMGpSVWwvaG95UXFVVDloWlQ3WkhWUTgrSmM4Y0k5?=
- =?utf-8?B?cHFZc3RZZ3F2S2hjQ3RHV0x0RWRldm9HaEdaNUJzQUFPMzZjdGVwamhrK2NR?=
- =?utf-8?B?TllweWwzWFVacVdqdmM1Nmk2anVzUS9FVmVCMmYyQWlHeHJmcDB6UjFsQ3lK?=
- =?utf-8?B?amtMRExzSzZyRHkzcWtpU2FKaTAyUUg0UDMxeEFvZW5zMVEzdGFibFg4Mjhw?=
- =?utf-8?B?UjFDT0xKNnl4V2RwdjVnVzJ6elNraFkwQ0dELzN6d2RiVlYwbkxoWjAvd0pQ?=
- =?utf-8?Q?V8ng/C36dTcOIw613zc0rA5w7?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1FpNmRaN05LaW92Wm5tdTMvZ2Z2dkZYUlRZUHh2S3d6WW8xN3Vyb29ieXMz?=
+ =?utf-8?B?SGdaQkdiU2tlN1UyOE1PemZzeGNyOGhaUkxHa0VzZmtlcFJSc25LVllqK000?=
+ =?utf-8?B?ZmdvR0lEOGdCYnNIaHhhemsrTFdZb3ZrWU45ak1rV3NNR0RrbWc4djNrS0dj?=
+ =?utf-8?B?S3VGS2VKWFFqdmxPUHJYYnF1a2pBVWNCMmo4NENqdjZSbXh1d3V3T3QyaWpC?=
+ =?utf-8?B?VWk3Q2Zpa21FSFFFLzdYZHpGS3JKcmdhdnBqNzFiMVBBUHgyWHBmUWFrYitK?=
+ =?utf-8?B?RjhtYXdOd01SZXAzVHc1elRPSk1teUxBTjh0dUNmek1iY21hTGoyQ1VZenBV?=
+ =?utf-8?B?M01Cd29WcFpJSmpZV1ZqRk13TFZaZGx3Zm0vYXlYRzZITUFjR05MZy9pRTdr?=
+ =?utf-8?B?alpuSWZza2FDQUhrZjBGNUFXd2k3YXI1QXNCYThnTG8zUmNUemRIWE9OQWNu?=
+ =?utf-8?B?UTIwajlYRURrNmxieXpRVXVFQ1NMQ3Q5RlYzK0pwcmFOdTFlV3JVZU1uL1d3?=
+ =?utf-8?B?R0lCdkFyUkNwYXphNlI5N1FmeUs2SUF1Z2ZTMzFmYnhKRUdleHNtQ1dCNWdz?=
+ =?utf-8?B?K2IyRWo5QVFockFDcFBVa1kycmcraURVOEgyNkNmZGNmOElnQWFsS01MaEtS?=
+ =?utf-8?B?a0J5bEVEWm9tcTdoK1c3WGVmR1NtOXRmRk5QVml2VVp2dXJUUmFadFRDUWV2?=
+ =?utf-8?B?c3RnL1FnV3hoWGFqeHZlclE5aU80SmptdWZ4ZHZqSFJJSjdLUjRGSlZkeFl0?=
+ =?utf-8?B?d3JPZ2RXVjJtMzNGWHpsK3JrMzVPa016b0hOblM4M1FXSUM1YWdOR2hMZlR3?=
+ =?utf-8?B?ZDA2ZFNrTFVPaSs0dUlNVDkrTElwMmRpeEV4VkVlTE1DWUQwYm9Pbjd6bGhH?=
+ =?utf-8?B?TUNrU1ZFTXliK015Y3JXS0ZnQlZVWHdTakpmdEFUSXJjOXBtMzltQVVlQlBS?=
+ =?utf-8?B?TW9oWDNkTkpMYjFabDV2MmYwaGhMcTErSVAzOUhYKzN6Q2FxbC9pUDhERDlS?=
+ =?utf-8?B?cUhjOFg4dGl6M3lEc2tsZ21sMWlLUXQ5aUk2MHMzSDFjWFY3TnBWdC9yQkdF?=
+ =?utf-8?B?UWpObTl6dENaeUpPSTFaZlplYnhMaDJPQTUxY0JENTlwQ1JORnNOaDllUGdY?=
+ =?utf-8?B?blJlM2luTkNlYTlaaGpVY2FySjdseVJxWjJzRnhiSWlXZGlNbWZUUlJvd0lN?=
+ =?utf-8?B?ZElhTTA1aWZxbW1BdkJqUVBPNUpVTUpFUG1ubXpuZ3NEczVrR0pnOFRsNWFW?=
+ =?utf-8?B?eWFBcmZzak5mY0FKTXNnS21qUy8yZG5udFlKbm9MY2ExM0ZZVTlmNzdVZTZY?=
+ =?utf-8?B?Ly9jZXJsVDU4Y01QVGx6VG1GQ1lpbG1UMkVobE05emJFODZva3k4MERseXY2?=
+ =?utf-8?B?OGRjSVp2QUwwNko1QUVFNDR4dXlkeFQwT3pYam83UWlZQzdMTWIxQ2k0N3pO?=
+ =?utf-8?B?b0NoTzlqK0hyY2VoSi93Z2QrS2h5RDNPT05tRCt2QzhvYm9MUjM5TW1ES3VQ?=
+ =?utf-8?B?L2N3eXNJbzQrRG9NNkNHUkg2clc3RjVtWlNuQjYrcUV2WnZvL0dhMkJVeEJo?=
+ =?utf-8?B?dithNUNsMWhtT1NqSkNwdkRLQjhJZUtlMEp5T3V0ZHNWRk5ocTJYdU1sMnhu?=
+ =?utf-8?B?K1NwRGowV1RvOUhNM3dUZ1V2cmZrY251WFNtK2VXOGJQb1VnbTQ4U0kxalpS?=
+ =?utf-8?B?KzhSL1k3eDFPUTdmbjRla3NwQU0wekdzRFpSTlZKcitRVXRibmZQZVVtQXZJ?=
+ =?utf-8?B?UStmNXQwWm9tT1dHcnlXU2dWU1pnbEpiZ3BWdk8zRzNsQ0Y1V2VOOURTNUVt?=
+ =?utf-8?B?elFncy9UVlM1aDBlZ3JnUE1Hdm52OXUybzN6OXVFS1lUTHhlVllwWVRDVEhF?=
+ =?utf-8?B?WHU0U3Y4YXZ5VTlieDNoeFk0WGtmY0FsNVkwNXJYL21tZGN5cE5uV2JBRHVK?=
+ =?utf-8?B?d1BLckJMMHZiZDhzTllPZGxNdFdsemFJQjFXUUFwb2psckY2TEVYZE4veDls?=
+ =?utf-8?B?R2NqYWxSbzVXRXkvaEhoc2Qxenl1T2dXTXhOVFQ3eVpkdnBzZm1iYk8vajRs?=
+ =?utf-8?B?OThwOGpySWhjbk5iTmlYcTNRRDd5ajliMUlORGtPS2swaVJXSUdQUjVlbFdq?=
+ =?utf-8?Q?RiZBItviYuWs8falfkmFkZQ+U?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 749397a0-85aa-4bd5-77aa-08dca1252108
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6839.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a002f495-7488-49ee-d1ac-08dca13a9b28
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 21:13:22.1010 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 23:47:06.4494 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k9Nev1IWyhu9xdXveWffbcVAmsxAElRWys7HXmuhYwq5OKu/nFUmnUt+FDcIDQUl1krLYtEKdthy3c0wuMPzTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9039
+X-MS-Exchange-CrossTenant-UserPrincipalName: fUrL0WcMycQKs2m0XIO9F6mnyhb14bftA9PbcTJsOXhy1KiufdW/kFCaTl2kfinzY5CXi/H8yP2sGFxJsi8X/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,129 +168,774 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/10/24 04:43, Daniel Vetter wrote:
-> On Tue, Jul 09, 2024 at 10:02:08AM -0400, Hamza Mahfooz wrote:
->> On 7/9/24 06:09, Daniel Vetter wrote:
->>> On Tue, Jul 09, 2024 at 11:32:11AM +0200, Daniel Vetter wrote:
->>>> On Mon, Jul 08, 2024 at 04:29:07PM -0400, Hamza Mahfooz wrote:
->>>>> Hook up drm_crtc_set_vblank_offdelay() in amdgpu_dm, so that we can
->>>>> enable PSR more quickly for displays that support it.
->>>>>
->>>>> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->>>>> ---
->>>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 30 ++++++++++++++-----
->>>>>    1 file changed, 22 insertions(+), 8 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> index fdbc9b57a23d..ee6c31e9d3c4 100644
->>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> @@ -8231,7 +8231,7 @@ static int amdgpu_dm_encoder_init(struct drm_device *dev,
->>>>>    static void manage_dm_interrupts(struct amdgpu_device *adev,
->>>>>    				 struct amdgpu_crtc *acrtc,
->>>>> -				 bool enable)
->>>>> +				 struct dm_crtc_state *acrtc_state)
->>>>>    {
->>>>>    	/*
->>>>>    	 * We have no guarantee that the frontend index maps to the same
->>>>> @@ -8239,12 +8239,25 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
->>>>>    	 *
->>>>>    	 * TODO: Use a different interrupt or check DC itself for the mapping.
->>>>>    	 */
->>>>> -	int irq_type =
->>>>> -		amdgpu_display_crtc_idx_to_irq_type(
->>>>> -			adev,
->>>>> -			acrtc->crtc_id);
->>>>> +	int irq_type = amdgpu_display_crtc_idx_to_irq_type(adev,
->>>>> +							   acrtc->crtc_id);
->>>>> +	struct dc_crtc_timing *timing;
->>>>> +	int offdelay;
->>>>> +
->>>>> +	if (acrtc_state) {
->>>>> +		timing = &acrtc_state->stream->timing;
->>>>> +
->>>>> +		/* at least 2 frames */
->>>>> +		offdelay = 2000 / div64_u64(div64_u64((timing->pix_clk_100hz *
->>>>> +						       (uint64_t)100),
->>>>> +						      timing->v_total),
->>>>> +					    timing->h_total) + 1;
->>>>
->>>> Yeah, _especially_ when you have a this short timeout your really have to
->>>> instead fix the vblank driver code properly so you can enable
->>>> vblank_disable_immediate. This is just cheating :-)
->>>
->>> Michel mentioned on irc that DC had immediate vblank disabling, but this
->>> was reverted with f64e6e0b6afe ("Revert "drm/amdgpu/display: set
->>> vblank_disable_immediate for DC"").
->>>
->>> I haven't looked at the details of the bug report, but stuttering is
->>> exactly what happens when the driver's vblank code has these races. Going
->>> for a very low timeout instead of zero just means it's a bit harder to hit
->>> the issue, and much, much harder to debug properly.
->>>
->>> So yeah even more reasons to look at the underlying root-cause here I
->>> think.
->>> -Sima
->>
->> The issue is that DMUB (display firmware) isn't able to keep up with all of
->> the requests that the driver is making. The issue is fairly difficult to
->> reproduce (I've only seen it once after letting the system run with a
->> program that would engage PSR every so often, after several hours).
->> It is also worth noting that we have the same 2 idle frame wait on the
->> windows
->> driver, for the same reasons. So, in all likelihood if it is your opinion
->> that
->> the series should be NAKed, we will probably have to move the wait into the
->> driver as a workaround.
-> 
-> Well that's an entirely different reason, and needs to be recorded in the
-> commit log that disabling/enabling vblank is too expensive and why. Also
-> would be good to record that windows does the same.
+On 2024-07-09 22:38, 周春明(日月) wrote:
+>
+>
+>
+>
+>
+>
+> ------------------------------------------------------------------
+> 发件人：Felix Kuehling <felix.kuehling@amd.com>
+> 发送时间：2024年7月10日(星期三) 01:07
+> 收件人：周春明(日月) <riyue.zcm@alibaba-inc.com>; Tvrtko Ursulin 
+> <tursulin@ursulin.net>; dri-devel@lists.freedesktop.org 
+> <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org 
+> <amd-gfx@lists.freedesktop.org>; Dave Airlie <airlied@redhat.com>; 
+> Daniel Vetter <daniel@ffwll.ch>; criu <criu@openvz.org>
+> 抄　送："Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>; "Christian König" 
+> <christian.koenig@amd.com>
+> 主　题：Re: 回复：Re：Proposal to add CRIU support to DRM render nodes
+>
+>
+>
+> On 2024-07-09 5:30, 周春明(日月) wrote:
+> >
+> >
+> >
+> >
+> >
+> >
+> > ------------------------------------------------------------------
+> > 发件人：Felix Kuehling <felix.kuehling@amd.com>
+> > 发送时间：2024年7月9日(星期二) 06:40
+> > 收件人：周春明(日月) <riyue.zcm@alibaba-inc.com>; Tvrtko Ursulin 
+> <tursulin@ursulin.net>; dri-devel@lists.freedesktop.org 
+> <dri-devel@lists.freedesktop.org>; amd-gfx@lists.freedesktop.org 
+> <amd-gfx@lists.freedesktop.org>; Dave Airlie <airlied@redhat.com>; 
+> Daniel Vetter <daniel@ffwll.ch>; criu <criu@openvz.org>
+> > 抄 送："Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>; "Christian König" 
+> <christian.koenig@amd.com>
+> > 主 题：Re: Re：Proposal to add CRIU support to DRM render nodes
+> >
+> >
+> > On 2024-07-08 2:51, 周春明(日月) wrote:
+> >>
+> >>> Hi Felix,
+> >>>
+> >>> When I learn CRIU you introduced in 
+> https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu 
+> <https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu> 
+> <https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu>> 
+> <https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu> 
+> <https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu>> 
+> <https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu>> 
+> <https://github.com/checkpoint-restore/criu/tree/criu-dev/plugins/amdgpu>>> 
+> , there is a sentence
+> >>> "ROCm manages memory in the form of buffer objects (BOs). We are 
+> also working on a new memory management API that will be based on 
+> virtual address ranges...",
+> >>> Out of curious, how about "new memory management based on virtual 
+> address ranges"? Any introduction for that?
+> >>
+> >>>Hi David,
+> >>
+> >>>This refers to the SVM API that has been in the upstream driver for 
+> a while now: 
+> https://elixir.bootlin.com/linux/v6.9.8/source/include/uapi/linux/kfd_ioctl.h#L732 
+> <https://elixir.bootlin.com/linux/v6.9.8/source/include/uapi/linux/kfd_ioctl.h#L732> 
+> <https://elixir.bootlin.com/linux/v6.9.8/source/include/uapi/linux/kfd_ioctl.h#L732>>
+> >>
+> >> [David] Can all ROCm runtime memory management switch to use svm 
+> apis? No need BOs any more?
+>
+> >I had thought about that when I started working on SVM years ago. But 
+> I came to the conclusion that we need to use BOs for VRAM to support 
+> DMABuf exports and imports to support P2P and IPC features.
+>
+> [David] OK, I guessed you would say DMABuf and IPC factors, if we 
+> don't use dmabuf (as you know, dmabuf isn't popular in compute area) 
+> and implement a new ipc based on va ranges, is that possible to using 
+> svm api to cover all ROCm memory management?
+> When I tried memory pool used by cuda graph, seems that's OK.
 
-Point taken.
+DMABuf and IPC are important for collective communications libraries 
+used by distributed applications. You could get away without it when 
+you're running a single-process application on a single machine. But 
+changing all memory allocations to SVM would probably cause some 
+performance regressions, because our BO allocators and memory mapping 
+functions are simpler and easier to optimize than for unified memory.
 
-> 
-> I'm also not entirely sure this is a good interface, so some
-> thoughts/question:
-> 
-> - is the issue only with psr, meaning that if we switch the panel to a
->    different crtc, do we need to update the off delay.
+That leaves the question, what's the expected benefit or a compelling 
+reason for making such an invasive change?
 
-I can't say definitively, but all of the public reports (that I've seen)
-and my local repro are PSR related.
+Regards,
+   Felix
 
-> 
-> - there's still the question of why vblank_immediate_disable resulted in
->    stuttering, is that the same bug? I think for consistency it'd be best
->    if we enable immediate vblank disabling everywhere (for maximum
->    testing), and then apply the 2 frame delay workaround only where needed
->    explicitly. Otherwise if there's other issues than DMUB being slow, they
->    might be mostly hidden and become really hard to track down when they
->    show up.
 
-Ya, I believe they are all DMUB related since the stuttering issues are
-accompanied by the following dmesg log entry:
-
-[drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting for DMUB 
-idle: status=3
-
-(which is pretty much an unspecified firmware timeout)
-
-Also, setting vblank_immediate_disable unconditionally for amdgpu, while 
-only
-enabling the delay for cases that we know that we need it seems 
-reasonable to me.
-
-> 
-> - I think an interface to set the right values in lockstep with the vblank
->    on/off state would be best, so maybe a special drm_crtc_vblank_on_config
->    that takes additional parameters?
-
-Sure, that seems fine, what parameters besides the off delay did you have
-in mind though?
-
-> 
-> Cheers, Sima
--- 
-Hamza
-
+>
+> Thanks,
+> -David
+>
+> >Regards,
+> >  Felix
+>
+>
+> >
+> > Thanks,
+> > -David
+> >
+> > Regards,
+> >   Felix
+> >
+> >
+> >>
+> >> Thanks,
+> >> -David
+> >>
+> >> ------------------------------------------------------------------
+> >>     发件人：Felix Kuehling <felix.kuehling@amd.com>
+> >>     发送时间：2024年5月3日(星期五) 22:44
+> >>     收件人：Tvrtko Ursulin <tursulin@ursulin.net>; 
+> dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; 
+> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Dave 
+> Airlie <airlied@redhat.com>; Daniel Vetter <daniel@ffwll.ch>; criu 
+> <criu@openvz.org>
+> >>     抄 送："Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>; "Christian 
+> König" <christian.koenig@amd.com>
+> >>     主 题：Re: Proposal to add CRIU support to DRM render nodes
+> >>
+> >>
+> >>
+> >>     On 2024-04-16 10:04, Tvrtko Ursulin wrote:
+> >>     >
+> >>     > On 01/04/2024 18:58, Felix Kuehling wrote:
+> >>     >>
+> >>     >> On 2024-04-01 12:56, Tvrtko Ursulin wrote:
+> >>     >>>
+> >>     >>> On 01/04/2024 17:37, Felix Kuehling wrote:
+> >>     >>>> On 2024-04-01 11:09, Tvrtko Ursulin wrote:
+> >>     >>>>>
+> >>     >>>>> On 28/03/2024 20:42, Felix Kuehling wrote:
+> >>     >>>>>>
+> >>     >>>>>> On 2024-03-28 12:03, Tvrtko Ursulin wrote:
+> >>     >>>>>>>
+> >>     >>>>>>> Hi Felix,
+> >>     >>>>>>>
+> >>     >>>>>>> I had one more thought while browsing around the amdgpu 
+> CRIU plugin. It appears it relies on the KFD support being compiled in 
+> and /dev/kfd present, correct? AFAICT at least, it relies on that to 
+> figure out the amdgpu DRM node.
+> >>     >>>>>>>
+> >>     >>>>>>> In would be probably good to consider designing things 
+> without that dependency. So that checkpointing an application which 
+> does not use /dev/kfd is possible. Or if the kernel does not even have 
+> the KFD support compiled in.
+> >>     >>>>>>
+> >>     >>>>>> Yeah, if we want to support graphics apps that don't use 
+> KFD, we should definitely do that. Currently we get a lot of topology 
+> information from KFD, not even from the /dev/kfd device but from the 
+> sysfs nodes exposed by KFD. We'd need to get GPU device info from the 
+> render nodes instead. And if KFD is available, we may need to 
+> integrate both sources of information.
+> >>     >>>>>>
+> >>     >>>>>>
+> >>     >>>>>>>
+> >>     >>>>>>> It could perhaps mean no more than adding some GPU 
+> discovery code into CRIU. Which shuold be flexible enough to account 
+> for things like re-assigned minor numbers due driver reload.
+> >>     >>>>>>
+> >>     >>>>>> Do you mean adding GPU discovery to the core CRIU, or to 
+> the plugin. I was thinking this is still part of the plugin.
+> >>     >>>>>
+> >>     >>>>> Yes I agree. I was only thinking about adding some DRM 
+> device discovery code in a more decoupled fashion from the current 
+> plugin, for both the reason discussed above (decoupling a bit from 
+> reliance on kfd sysfs), and then also if/when a new DRM driver might 
+> want to implement this the code could be move to some common plugin area.
+> >>     >>>>>
+> >>     >>>>> I am not sure how feasible that would be though. The "gpu 
+> id" concept and it's matching in the current kernel code and CRIU 
+> plugin - is that value tied to the physical GPU instance or how it works?
+> >>     >>>>
+> >>     >>>> The concept of the GPU ID is that it's stable while the 
+> system is up, even when devices get added and removed dynamically. It 
+> was baked into the API early on, but I don't think we ever fully 
+> validated device hot plug. I think the closest we're getting is with 
+> our latest MI GPUs and dynamic partition mode change.
+> >>     >>>
+> >>     >>> Doesn't it read the saved gpu id from the image file while 
+> doing restore and tries to open the render node to match it? Maybe I 
+> am misreading the code.. But if it does, does it imply that in 
+> practice it could be stable across reboots? Or that it is not possible 
+> to restore to a different instance of maybe the same GPU model 
+> installed in a system?
+> >>     >>
+> >>     >> Ah, the idea is, that when you restore on a different 
+> system, you may get different GPU IDs. Or you may checkpoint an app 
+> running on GPU 1 but restore it on GPU 2 on the same system. That's 
+> why we need to translate GPU IDs in restored applications. User mode 
+> still uses the old GPU IDs, but the kernel mode driver translates them 
+> to the actual GPU IDs of the GPUs that the process was restored on.
+> >>     >
+> >>     > I see.. I think. Normal flow is ppd->user_gpu_id set during 
+> client init, but for restored clients it gets overriden during restore 
+> so that any further ioctls can actually not instantly fail.
+> >>     >
+> >>     > And then in amdgpu_plugin_restore_file, when it is opening 
+> the render node, it relies on the kfd topology to have filled in (more 
+> or less) the target_gpu_id corresponding to the render node gpu id of 
+> the target GPU - the one associated with the new kfd gpu_id?
+> >>
+> >>     Yes.
+> >>
+> >>     >
+> >>     > I am digging into this because I am trying to see if some 
+> part of GPU discovery could somehow be decoupled.. to offer you to 
+> work on at least that until you start to tackle the main body of the 
+> feature. But it looks properly tangled up.
+> >>
+> >>     OK. Most of the interesting plugin code should be in 
+> amdgpu_plugin_topology.c. It currently has some pretty complicated 
+> logic to find a set of devices that matches the topology in the 
+> checkpoint, including shader ISA versions, numbers of compute units, 
+> memory sizes, firmware versions and IO-Links between GPUs. This was 
+> originally done to support P2P with XGMI links. I'm not sure we ever 
+> updated it to properly support PCIe P2P.
+> >>
+> >>
+> >>     >
+> >>     > Do you have any suggestions with what I could help with? 
+> Maybe developing some sort of drm device enumeration library if you 
+> see a way that would be useful in decoupling the device discovery from 
+> kfd. We would need to define what sort of information you would need 
+> to be queryable from it.
+> >>
+> >>     Maybe. I think a lot of device information is available with 
+> some amdgpu info-ioctl. It may not cover all the things we're checking 
+> in the KFD topology, though.
+> >>
+> >>     >
+> >>     >>>> This also highlights another aspect on those spatially 
+> partitioned GPUs. GPU IDs identify device partitions, not devices. 
+> Similarly, each partition has its own render node, and the KFD 
+> topology info in sysfs points to the render-minor number corresponding 
+> to each GPU ID.
+> >>     >>>
+> >>     >>> I am not familiar with this. This is not SR-IOV but some 
+> other kind of partitioning? Would you have any links where I could 
+> read more?
+> >>     >>
+> >>     >> Right, the bare-metal driver can partition a PF spatially 
+> without SRIOV. SRIOV can also use spatial partitioning and expose each 
+> partition through its own VF, but that's not useful for bare metal. 
+> Spatial partitioning is new in MI300. There is some high-level info in 
+> this whitepaper: 
+> https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf 
+> <https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf> 
+> <https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf>> 
+> <https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf> 
+> <https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf>> 
+> <https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf>> 
+> <https://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/white-papers/amd-cdna-3-white-paper.pdf>>>.
+> >>     >
+> >>     > From the outside (userspace) this looks simply like multiple 
+> DRM render nodes or how exactly?
+> >>
+> >>     Yes, that's correct. Each partition has its own render node and 
+> its own node in the KFD topology.
+> >>
+> >>     Regards,
+> >>       Felix
+> >>
+> >>     >
+> >>     > Regards,
+> >>     >
+> >>     > Tvrtko
+> >>     >
+> >>     >>
+> >>     >> Regards,
+> >>     >>    Felix
+> >>     >>
+> >>     >>
+> >>     >>>
+> >>     >>> Regards,
+> >>     >>>
+> >>     >>> Tvrtko
+> >>     >>>
+> >>     >>>>>>> Otherwise I am eagerly awaiting to hear more about the 
+> design specifics around dma-buf handling. And also seeing how to 
+> extend to other DRM related anonymous fds.
+> >>     >>>>>>
+> >>     >>>>>> I've been pretty far under-water lately. I hope I'll 
+> find time to work on this more, but it's probably going to be at least 
+> a few weeks.
+> >>     >>>>>
+> >>     >>>>> Got it.
+> >>     >>>>>
+> >>     >>>>> Regards,
+> >>     >>>>>
+> >>     >>>>> Tvrtko
+> >>     >>>>>
+> >>     >>>>>>
+> >>     >>>>>> Regards,
+> >>     >>>>>>    Felix
+> >>     >>>>>>
+> >>     >>>>>>
+> >>     >>>>>>>
+> >>     >>>>>>> Regards,
+> >>     >>>>>>>
+> >>     >>>>>>> Tvrtko
+> >>     >>>>>>>
+> >>     >>>>>>> On 15/03/2024 18:36, Tvrtko Ursulin wrote:
+> >>     >>>>>>>>
+> >>     >>>>>>>> On 15/03/2024 02:33, Felix Kuehling wrote:
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> On 2024-03-12 5:45, Tvrtko Ursulin wrote:
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>> On 11/03/2024 14:48, Tvrtko Ursulin wrote:
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> Hi Felix,
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> On 06/12/2023 21:23, Felix Kuehling wrote:
+> >> >>>>>>>>>>>> Executive Summary: We need to add CRIU support to DRM 
+> render nodes in order to maintain CRIU support for ROCm application 
+> once they start relying on render nodes for more GPU memory 
+> management. In this email I'm providing some background why we are 
+> doing this, and outlining some of the problems we need to solve to 
+> checkpoint and restore render node state and shared memory (DMABuf) 
+> state. I have some thoughts on the API design, leaning on what we did 
+> for KFD, but would like to get feedback from the DRI community 
+> regarding that API and to what extent there is interest in making that 
+> generic.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> We are working on using DRM render nodes for virtual 
+> address mappings in ROCm applications to implement the CUDA11-style VM 
+> API and improve interoperability between graphics and compute. This 
+> uses DMABufs for sharing buffer objects between KFD and multiple 
+> render node devices, as well as between processes. In the long run 
+> this also provides a path to moving all or most memory management from 
+> the KFD ioctl API to libdrm.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Once ROCm user mode starts using render nodes for 
+> virtual address management, that creates a problem for checkpointing 
+> and restoring ROCm applications with CRIU. Currently there is no 
+> support for checkpointing and restoring render node state, other than 
+> CPU virtual address mappings. Support will be needed for checkpointing 
+> GEM buffer objects and handles, their GPU virtual address mappings and 
+> memory sharing relationships between devices and processes.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Eventually, if full CRIU support for graphics 
+> applications is desired, more state would need to be captured, 
+> including scheduler contexts and BO lists. Most of this state is 
+> driver-specific.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> After some internal discussions we decided to take our 
+> design process public as this potentially touches DRM GEM and DMABuf 
+> APIs and may have implications for other drivers in the future.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> One basic question before going into any API details: 
+> Is there a desire to have CRIU support for other DRM drivers?
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> This sounds like a very interesting feature on the 
+> overall, although I cannot answer on the last question here.
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>> I forgot to finish this thought. I cannot answer / 
+> don't know of any concrete plans, but I think feature is pretty cool 
+> and if amdgpu gets it working I wouldn't be surprised if other drivers 
+> would get interested.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Thanks, that's good to hear!
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>>> Funnily enough, it has a tiny relation to an i915 
+> feature I recently implemented on Mesa's request, which is to be able 
+> to "upload" the GPU context from the GPU hang error state and replay 
+> the hanging request. It is kind of (at a stretch) a very special tiny 
+> subset of checkout and restore so I am not mentioning it as a curiosity.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> And there is also another partical conceptual 
+> intersect with the (at the moment not yet upstream) i915 online 
+> debugger. This part being in the area of discovering and enumerating 
+> GPU resources beloning to the client.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> I don't see an immediate design or code sharing 
+> opportunities though but just mentioning.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> I did spend some time reading your plugin and 
+> kernel implementation out of curiousity and have some comments and 
+> questions.
+> >>     >>>>>>>>>>>
+> >> >>>>>>>>>>>> With that out of the way, some considerations for a 
+> possible DRM CRIU API (either generic of AMDGPU driver specific): The 
+> API goes through several phases during checkpoint and restore:
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Checkpoint:
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>>  1. Process-info (enumerates objects and sizes so user 
+> mode can allocate
+> >> >>>>>>>>>>>>     memory for the checkpoint, stops execution on the GPU)
+> >> >>>>>>>>>>>>  2. Checkpoint (store object metadata for BOs, queues, 
+> etc.)
+> >> >>>>>>>>>>>>  3. Unpause (resumes execution after the checkpoint is 
+> complete)
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Restore:
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>>  1. Restore (restore objects, VMAs are not in the 
+> right place at this time)
+> >> >>>>>>>>>>>>  2. Resume (final fixups after the VMAs are sorted 
+> out, resume execution)
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> Btw is check-pointing guaranteeing all relevant 
+> activity is idled? For instance dma_resv objects are free of fences 
+> which would need to restored for things to continue executing 
+> sensibly? Or how is that handled?
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> In our compute use cases, we suspend user mode 
+> queues. This can include CWSR (compute-wave-save-restore) where the 
+> state of in-flight waves is stored in memory and can be reloaded and 
+> resumed from memory later. We don't use any fences other than 
+> "eviction fences", that are signaled after the queues are suspended. 
+> And those fences are never handed to user mode. So we don't need to 
+> worry about any fence state in the checkpoint.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> If we extended this to support the kernel mode 
+> command submission APIs, I would expect that we'd wait for all current 
+> submissions to complete, and stop new ones from being sent to the HW 
+> before taking the checkpoint. When we take the checkpoint in the CRIU 
+> plugin, the CPU threads are already frozen and cannot submit any more 
+> work. If we wait for all currently pending submissions to drain, I 
+> think we don't need to save any fence state because all the fences 
+> will have signaled. (I may be missing some intricacies and I'm afraid 
+> it may not be that simple in reality, but that's my opening bid. ;)
+> >>     >>>>>>>>
+> >>     >>>>>>>> It feels feasible to me too, for the normally behaving 
+> clients at least.
+> >>     >>>>>>>>
+> >>     >>>>>>>> Presumably, given that the whole checkpointing is not 
+> instant, it would be okay to wait a second or two longer for the 
+> in-progress submissions complete. After which kernel would need to 
+> prune all signalled fences from the respective container objects 
+> before checkpointing.
+> >>     >>>>>>>>
+> >>     >>>>>>>> For the "misbehaving" clients who have perhaps queued 
+> up too much work, either still in the scheduler with unsatisfied 
+> dependencies, or already submitted to the hardware and/or driver 
+> backend, is there a timeout concept in CRIU so it would be possible to 
+> say something like "try to checkpoint but if the kernel says no time 
+> period t then give up"?
+> >>     >>>>>>>>
+> >> >>>>>>>>>>>> For some more background about our implementation in 
+> KFD, you can refer to this whitepaper: 
+> https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md 
+> <https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md> 
+> <https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md>> 
+> <https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md> 
+> <https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md>> 
+> <https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md>> 
+> <https://github.com/checkpoint-restore/criu/blob/criu-dev/plugins/amdgpu/README.md>>>
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Potential objections to a KFD-style CRIU API in DRM 
+> render nodes, I'll address each of them in more detail below:
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>>   * Opaque information in the checkpoint data that 
+> user mode can't
+> >> >>>>>>>>>>>> interpret or do anything with
+> >> >>>>>>>>>>>>   * A second API for creating objects (e.g. BOs) that 
+> is separate from
+> >> >>>>>>>>>>>>     the regular BO creation API
+> >> >>>>>>>>>>>>   * Kernel mode would need to be involved in restoring 
+> BO sharing
+> >> >>>>>>>>>>>> relationships rather than replaying BO creation, 
+> export and import
+> >> >>>>>>>>>>>>     from user mode
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> # Opaque information in the checkpoint
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> This comes out of ABI compatibility considerations. 
+> Adding any new objects or attributes to the driver/HW state that needs 
+> to be checkpointed could potentially break the ABI of the CRIU 
+> checkpoint/restore ioctl if the plugin needs to parse that 
+> information. Therefore, much of the information in our KFD CRIU ioctl 
+> API is opaque. It is written by kernel mode in the checkpoint, it is 
+> consumed by kernel mode when restoring the checkpoint, but user mode 
+> doesn't care about the contents or binary layout, so there is no user 
+> mode ABI to break. This is how we were able to maintain CRIU support 
+> when we added the SVM API to KFD without changing the CRIU plugin and 
+> without breaking our ABI.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Opaque information may also lend itself to API 
+> abstraction, if this becomes a generic DRM API with driver-specific 
+> callbacks that fill in HW-specific opaque data.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> This feels sound in principle to me. Fundamentally 
+> the state is very hardware specfic, and/or driver version specific, so 
+> I don't see anything could be gained in practice by making it much 
+> less opaque. (Apart from making things more complicated.)
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> I was however unsure of the current split of how 
+> you dump buffer objects with some data in the defined bo structure, 
+> and some in completely opaque private data. Is there a benefit to that 
+> split, or maybe in other words, is there a benefit on having part 
+> transparent and part opaque for buffer objects?
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Some of the buffer object state is needed by the 
+> plugin. E.g. the size and mmap offset are needed to match VMAs with 
+> BOs. I'd have to review the plugin in detail to prove that all the 
+> fields are, in fact, needed by the plugin, but that was the intent. 
+> Anything that the plugin doesn't need to know should be in the opaque 
+> data structures.
+> >>     >>>>>>>>
+> >>     >>>>>>>> Right, got it.
+> >>     >>>>>>>>
+> >>     >>>>>>>> Would it make sense to make the opaque data in the 
+> same block as the defined one? I mean instead of separating the two in 
+> the binary image for instance have struct kfd_criu_bo_bucket have a 
+> trailing priv_data blob? Maybe it is too late now if the image format 
+> is not versioned or something.
+> >>     >>>>>>>>
+> >>     >>>>>>>>>>> To slightly touch upon the question of whether this 
+> could become a generic DRM API. It feels it would be hard to do it 
+> from the start. What sounds more feasible is if/when generic looking 
+> helpers can be spotted while developing the RFC then potentially 
+> structure the code they can easily be promoted to shared/common at 
+> some future moment.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Yes, that's how this usually goes, in my experience. 
+> Thanks for confirming.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>>>
+> >> >>>>>>>>>>>> # Second API for creating objects
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Creating BOs and other objects when restoring a 
+> checkpoint needs more information than the usual BO alloc and similar 
+> APIs provide. For example, we need to restore BOs with the same GEM 
+> handles so that user mode can continue using those handles after 
+> resuming execution. If BOs are shared through DMABufs without dynamic 
+> attachment, we need to restore pinned BOs as pinned. Validation of 
+> virtual addresses and handling MMU notifiers must be suspended until 
+> the virtual address space is restored. For user mode queues we need to 
+> save and restore a lot of queue execution state so that execution can 
+> resume cleanly.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> This also sounds justified to me. Restore creating 
+> all internal objects is definitely special and sounds better to add 
+> uapi to create them directly with the correct properties, than to add 
+> uapi to adjust internal properties after creation. And in case you 
+> would always need some new uapi - so at least to adjust after 
+> creation. At which point you may have both in one. Internally 
+> implementation can be split or common, whatever makes sense for a 
+> given object type, but new uapi definitely sounds is required.
+> >> >>>>>>>>>>>> # Restoring buffer sharing relationships
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> Different GEM handles in different render nodes and 
+> processes can refer to the same underlying shared memory, either by 
+> directly pointing to the same GEM object, or by creating an import 
+> attachment that may get its SG tables invalidated and updated 
+> dynamically through dynamic attachment callbacks. In the latter case 
+> it's obvious, who is the exporter and who is the importer. In the 
+> first case, either one could be the exporter, and it's not clear who 
+> would need to create the BO and who would need to
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> To see if I follow the former case correctly.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> This could be two clients A and B, where B has 
+> imported a dma-buf shared BO from A and has since closed the dma-buf 
+> fd? Which results in a single BO with reference count of 2 and 
+> obj->import_attach unset. History of who created the object is lost.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Yes. In the amdgpu driver this happens when the 
+> exporter and import device are the same.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> In fact it could even be that two imported objects 
+> remain (clients A, B and C) and A, who originally created the BO, has 
+> since fully released it. So any kind of "creator" tracking if added 
+> wouldn't be fully reliable either.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> That's a good point.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>>>
+> >> >>>>>>>>>>>> import it when restoring the checkpoint. To further 
+> complicate things, multiple processes in a checkpoint get restored 
+> concurrently. So there is no guarantee that an exporter has restored a 
+> shared BO at the time an importer is trying to restore its import.
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> A proposal to deal with these problems would be to 
+> treat importers and exporters the same. Whoever restores first, ends 
+> up creating the BO and potentially attaching to it. The other 
+> process(es) can find BOs that were already restored by another process 
+> by looking it up with a unique ID that could be based on the DMABuf 
+> inode number. An alternative would be a two-pass approach that needs 
+> to restore BOs on two passes:
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>>  1. Restore exported BOs
+> >> >>>>>>>>>>>>  2. Restore imports
+> >> >>>>>>>>>>>>
+> >> >>>>>>>>>>>> With some inter-process synchronization in CRIU itself 
+> between these two passes. This may require changes in the core CRIU, 
+> outside our plugin. Both approaches depend on identifying BOs with 
+> some unique ID that could be based on the DMABuf inode number in the 
+> checkpoint. However, we would need to identify the processes in the 
+> same restore session, possibly based on parent/child process 
+> relationships, to create a scope where those IDs are valid during restore.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> If my understanding above is on the right track, 
+> then I think this is the only thing which can be done (for all scenarios).
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> I presented two alternatives. I think you're in favor 
+> of the first one, where it doesn't matter who is the importer and 
+> exporter. I think the two-pass approach requires that you can identify 
+> an exporter. And as you pointed out, the exporter may already have 
+> dropped their reference to the BO.
+> >>     >>>>>>>>
+> >>     >>>>>>>> Yep.
+> >>     >>>>>>>>
+> >>     >>>>>>>>>>> I also *think* it would be safe. At least at the 
+> moment I cannot think what could go wrong. Semantics are that it 
+> doesn't really matter who created the object.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> I would agree. What matters is that the object is 
+> recreated on the correct device, and that all the direct references 
+> and import attachments pointing to it are restored.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>>>
+> >> >>>>>>>>>>>> Finally, we would also need to checkpoint and restore 
+> DMABuf file descriptors themselves. These are anonymous file 
+> descriptors. The CRIU plugin could probably be taught to recreate them 
+> from the original exported BO based on the inode number that could be 
+> queried with fstat in the checkpoint. It would need help from the 
+> render node CRIU API to find the right BO from the inode, which may be 
+> from a different process in the same restore session.
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> This part feels like it is breaking the component 
+> separation a bit because even for buffers fully owned by amdgpu, 
+> strictly speaking the dma-buf fd is not. At least my understanding 
+> from the above is that you propose to attempt to import the fd, from 
+> the kernel side, during the checkpoint process? Like:
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> Checkpoint:
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> CRIU for each anon fd:
+> >>     >>>>>>>>>>> amdgpu_plugin(fd)
+> >>     >>>>>>>>>>>   -> attempt in kernel dma buf import (passes fd to 
+> kernel via ioctl?)
+> >>     >>>>>>>>>>>       -> is it ours? (no -> error)
+> >>     >>>>>>>>>>>           -> create a record mapping fd number to 
+> amdgpu BO
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> Restore:
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> for each dma-buf fd record:
+> >>     >>>>>>>>>>>   create BO if does not exists
+> >>     >>>>>>>>>>>   export BO to same fd
+> >>     >>>>>>>>>>>   close BO handle if not in regular BO handle records
+> >>     >>>>>>>>>>>
+> >>     >>>>>>>>>>> Or since you mention lookup by inode, that would 
+> need to be dmabuf_plugin so it can lookup inodes in the private mount 
+> space. However how would it co-operate with amdgpu_plugin is not clear 
+> to me.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> The way I think about the ownership is, whichever 
+> driver created the underlying BO owns the checkpointing of the dmabuf. 
+> You need driver-specific information to link the dmabuf with the 
+> driver's BO and you need the right driver to recreate the BO and the 
+> dmabuf fd when restoring the checkpoint.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> It gets really interesting if you have an amdgpu 
+> plugin and an i915 plugin, and they checkpoint an application that 
+> shares BOs between the two devices through DMABufs. E.g. if i915 
+> created a BO and amdgpu imported it, then during restore, i915 needs 
+> to restore the dmabuf before the amdgpu import of it can be restored. 
+> I think that brings us back to a two-phase approach to restoring the 
+> memory sharing relationships. Uff.
+> >>     >>>>>>>>
+> >>     >>>>>>>> I think this part of the discussion somewhat depends 
+> on the previous part about idling. If it is feasible to completely 
+> idle and prune, and fail if that is not happening quickly enough, then 
+> maybe there wouldn't be too much hierarchical state to save.
+> >>     >>>>>>>>
+> >>     >>>>>>>> Otherwise my idea was that there is a top-level 
+> drm_plugin.so which understands amdgpu fds, i915, syncobj, sync_file, 
+> and uses some new uapi to uniquely identify each, associate with the 
+> correct driver, and then internally dispatches to 
+> amdgpu|i915|dmabuf|..._plugin.so. Building the in memory 
+> representation of their relationships. As long as all objects and 
+> their relationships have been recorded I think everything could then 
+> be correctly restored.
+> >>     >>>>>>>>
+> >>     >>>>>>>> It is possible there is flaw in my thinking and that 
+> something in CRIU design would make this impossible? I think it would 
+> require the top-level drm_plugin.so to hold all state in memory until 
+> the whole checkpointing is done, and then verify something is not 
+> incomplete, failing it all if it was. (For instance one plugin 
+> discovered an reference to an object which was not discoverd by any 
+> other plugin or things like that.) May need some further tweaks to 
+> CRIU common code.
+> >>     >>>>>>>>
+> >>     >>>>>>>> Maybe I need to better understand how exactly you mean 
+> to query the DRM driver about random anonymous fds. I see it as a 
+> problem in the design, possibly even implementation, but maybe I am 
+> missing something which makes it not so. I mean even with my general 
+> idea I don't know how would one determine which driver to query about 
+> a particular anonymous inode.
+> >>     >>>>>>>>
+> >>     >>>>>>>>>> I later also realised that I was maybe increasing 
+> the scope for you here. :) You did state focus is ROCm applications 
+> which possibly doesn't care about dma-resv, fences, syncobjs etc?
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> That's my focus for now. But I don't want to engineer 
+> a solution that would preclude your use cases in the future.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>> But I think the "how to handle dma-bufs" design 
+> question is still relevant and interesting. For example I had this 
+> thought that perhaps what would be needed is a CRIU plugin hierarchy.
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>> Because fundamentally we would be snapshoting a 
+> hierarcy of kernel objects belonging to different drivers (kfd, 
+> amdgpu, dma-buf, ...). And if one day someone would to try to handle 
+> dma fences and drm syncobjs, the argument for a hierarchial design 
+> would be even stronger I think.
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>> Something like a drm_plugin.so could call 
+> sub-plugins (amdgpu, dma-buf, sync file, ...) and internally build the 
+> representation of the whole state and how the relationship between the 
+> objects.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Maybe. I guess a structure similar to libdrm makes 
+> sense. I'm not sure it's strictly a hierarchy. Maybe more like some 
+> common code shared by multiple GPU driver plugins. I think the common 
+> checkpoint state is quite limited and restoring it requires the 
+> GPU-specific drivers anyway.
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Also the idea of building a representation of the 
+> whole state doesn't work well with the CRIU design, because "the whole 
+> state" can include multiple processes that restore themselves 
+> concurrently and only synchronize with each other in a few places in 
+> the restore process. I feel, if we can work out how to checkpoint and 
+> restore shared objects between processes, we can do the same for 
+> shared objects between drivers without imposing a strict hierarchy and 
+> some omniscient entity that needs to know "the whole state".
+> >>     >>>>>>>>
+> >>     >>>>>>>> Okay, this continues on the same problem space as 
+> above. And you obviously know how CRIU works much better than me.
+> >>     >>>>>>>>
+> >>     >>>>>>>>>> With that kind of design there probably would be a 
+> need to define some common kernel side api and uapi, so all involved 
+> objects can be enumerated with some unique ids etc.
+> >>     >>>>>>>>>>
+> >>     >>>>>>>>>> Now.. the counter argument.. the more state from 
+> different drivers would one want to handle the bigger this project 
+> would get. Would it even be feasible is the question, to the point 
+> that it may be simpler to just run the workload in a VM via SR-IOV and 
+> simply hibernate the whole thin guest. :)
+> >>     >>>>>>>>>
+> >>     >>>>>>>>> Well, CRIU kind of tries to do that, but with 
+> containers instead of VMs. ;)
+> >>     >>>>>>>>
+> >>     >>>>>>>> It would definitely be useful for hardware and drivers 
+> without SR-IOV support so lets hope it is doable. :)
+> >>     >>>>>>>>
+> >>     >>>>>>>> Regards,
+> >>     >>>>>>>>
+> >>     >>>>>>>> Tvrtko
+> >
+>
