@@ -4,75 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 458A3C3DA45
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 09:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFCD4C3DA45
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 09:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0CC210E118;
-	Wed, 10 Jul 2024 09:27:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A12810E21C;
+	Wed, 10 Jul 2024 09:43:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jHDcMN3h";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N+M/q4Fs";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0210A10E118
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 09:27:27 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-367a081d1cdso3393141f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 02:27:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720603646; x=1721208446; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=qIrFg1mcPMXEcp4AwvL9KtHSad2s3JE4VORsXTNtdt0=;
- b=jHDcMN3hrguNvZH1mDCwDvlanDD+synhV/gff05hd9P1aO26UMOe5S0tpe49N/iVen
- euVC59SF1g0xGNVH+gF+CGZnPxHXMyjeFMqX6hm+Lom8AcNkNx/NQif9osYW76wmsa/i
- qF4rV1EpGiALzk9MQMlxCF/9a0Qq3ZUUHfq73fXm9LzvL0CQYo50egudw1G7SSb9Dqq7
- +T3sgDECJ5wa1hURwECz17KpVPyiraDApB9arrThGO64+oppSbXFmNa+u9D/9AYK4mt1
- j0DQRFOMNvz56MDzQrrOLNtGVNlMDS5lgknH7byryubqLt0tE6kBqqZpjIs/DmEhnS2d
- YI/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720603646; x=1721208446;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qIrFg1mcPMXEcp4AwvL9KtHSad2s3JE4VORsXTNtdt0=;
- b=kOJWriYyJzZIg7VzJzalo6Kp9VddtXIy5Kq37IumIMk2LVRkCg5jsi9sx3FkHZ7E7w
- v1jaUOhWJnxPZOfGTJlMzsyVC3ZBaIzcVe7qnDaiRrs6y3NDmpWNaQAri8IKY5yyGe6Z
- HVENyhcr04kt25LbObKpwNtMsOzF1aKBmSymqbQRDdJHQ2UkTR9QTE5AGjp05EOx8J2c
- qsK729W/WwkRVss0mwoGxegpVSQOYWhG9/zRkz1fg+VvAW2/YQ8HCdOlNmhvzkgV0HQx
- r1onzmeI3gFLofCPKOTIV+9Duf3RB7wLu/fvhaF59+SWgtMDH1ReDmTQvgsU21V1z4nB
- MAWQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW3O+P8+WgURyTEoH0vqM9x97Usmih0dmlab+fFdYpfQRSB4PonX5XW2h6MBK7rd5bXB2Rb9sPoJuuwxlXSfHjQgDr/eLRIU8WZP9J/rA==
-X-Gm-Message-State: AOJu0Ywhmhw5CKiS66/iwLpCO0tY3okwsMzyw+ZtPrfujZ1bbYJeDZTy
- nNLoRGq768BdX67H1V5DhhgILTqKHVui/rY7UJRVc3WdDWQot7iT
-X-Google-Smtp-Source: AGHT+IFElVyv2FfGSupO1kzDM6YRaysFqjabdmyQgwoNDK5QaXCDFX1ymi19ZKwyRUau/6KzEm8qZA==
-X-Received: by 2002:adf:f20b:0:b0:367:4dfe:3e8d with SMTP id
- ffacd0b85a97d-367cea45a27mr3091517f8f.13.1720603645805; 
- Wed, 10 Jul 2024 02:27:25 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-367cde846b9sm4799895f8f.29.2024.07.10.02.27.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jul 2024 02:27:25 -0700 (PDT)
-Message-ID: <3f6f779d-33ff-4cbb-9eaf-035888c200e5@gmail.com>
-Date: Wed, 10 Jul 2024 11:27:22 +0200
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1EE10E21C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 09:43:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VK0Utqu1+wm4FD8KaupmgA0Kx8ZnGOoktz9MtXcfxwKpQdRL6paKfe/XyVNdDD30Etbb5QSCpsPbzjpRKrZWZw15geZlg0mI/f7DqLImeA5TcjR8hiUYYFITbUyWFsduhvxu0Ggr16mtNzqsZzeBIZyekh0bfChFZ3ZDzymHEhlA2S9FTdNAGn9Wu3Jxn5F35Zn5hjMWBauQnroJ8k2LopPZfJbZ58p/hapUM9I/J3a9g82cLMR2m9TvjGvEVMh1/v/OlVsA5RNZvLVPWpl4NPjQ3OcT7MzwLshEnAJ9nrXWZstko+tCMxI8OyZ/9vAHeecIoi29G2lZRqsPq90hTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9akEhXeez1o4AR4iuxjChiDxz4/ml5FtbYG2VoetCFQ=;
+ b=KOClQZdCQvy5kzTj7LnfPrEBap4ps5nEqbiwH28zMp4tAKdKDyjyERjs+R9nZkwk4REFu1V0bZdooY9xAgBv+ELwSXWJN9OsIF4gm76mRDcZZc80jgsR54u7/ijp5U2UwaYYq2+ZHOj5ktxKk+6oPZuy8oTsin9Z/lZgOMaAcDKOwQfMpYtgoYMoUNVFiNsoaHuhYV9AcXYsdTef4YNwa06h3q5iXazbDqjE0AUXZjLThs/ccTvfFozILpvLj3NtFyHf7ce2qmWksWNA3ZehFc2FXP6fOYTjfVBioF4hWFxBgtjpF9sT4fNYH7jPhuzVUmKWme7kt8UMiABSNVU7Lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9akEhXeez1o4AR4iuxjChiDxz4/ml5FtbYG2VoetCFQ=;
+ b=N+M/q4FsrSF9sjLTmAqkYQSnFbUFzpFTY63NmkjQxgrccyMJ0G2/t1+7ZQJyE61n9ibTV3xS7CBIQCuBNiTIsZtTOhaWXLVzYI2WhSVApA3kuQwvTIFd7hGNJWOtYRSCzYLQgQhiVBwV0yWlyc1i3Lfza8yaJ0FC7d+sFjv7rlA=
+Received: from BN9PR03CA0900.namprd03.prod.outlook.com (2603:10b6:408:13c::35)
+ by CH3PR12MB9098.namprd12.prod.outlook.com (2603:10b6:610:19e::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.38; Wed, 10 Jul
+ 2024 09:43:22 +0000
+Received: from BL6PEPF00022571.namprd02.prod.outlook.com
+ (2603:10b6:408:13c:cafe::63) by BN9PR03CA0900.outlook.office365.com
+ (2603:10b6:408:13c::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.21 via Frontend
+ Transport; Wed, 10 Jul 2024 09:43:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00022571.mail.protection.outlook.com (10.167.249.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7762.17 via Frontend Transport; Wed, 10 Jul 2024 09:43:22 +0000
+Received: from jenkins-mali-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Jul
+ 2024 04:43:19 -0500
+From: Li Ma <li.ma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <tim.huang@amd.com>, <Alexander.Deucher@amd.com>, <yifan1.zhang@amd.com>, 
+ Li Ma <li.ma@amd.com>
+Subject: [PATCH] drm/amd/swsmu: enable Pstates profile levels for SMU v14.0.4
+Date: Wed, 10 Jul 2024 17:42:59 +0800
+Message-ID: <20240710094258.1033943-1-li.ma@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in the right
- place
-To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <Alexander.Deucher@amd.com>
-References: <20240710003101.1645322-1-jiadong.zhu@amd.com>
- <0e79392e-1e82-4602-8ebb-2dc9d31e001c@gmail.com>
- <DS7PR12MB633361A48187FDC04193B93CF4A42@DS7PR12MB6333.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DS7PR12MB633361A48187FDC04193B93CF4A42@DS7PR12MB6333.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022571:EE_|CH3PR12MB9098:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6779afa2-5729-4f6d-efac-08dca0c4bd24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?H22TWyUpKusnCVrCcK3iXGBiNskIWyrk8Kad+wvaGYOfJWuOK8Lefh8smh3h?=
+ =?us-ascii?Q?nvfKGM+n1i75tx9SxQr7NdoAnYw1fNwtyHLP19AbfK9kK+RTZBRLzEP8iHKc?=
+ =?us-ascii?Q?mjGjAvQz5Yb0f3SF+DbH0qxZ9q/YHuIPRMzqKnyiCzEWYFdbVY+CzFIDHRi3?=
+ =?us-ascii?Q?eKRes7nvqZ8QYzVXGGnAUb+bWwIP9YcfMLT9hS0ZLS8Lipm6kN+6ahE1sYfo?=
+ =?us-ascii?Q?WyVHkd0+aeOWV/ZtBs5CFYk0jV6uulQmExv3V6HzEnjRPwjiySyOOFUfjte6?=
+ =?us-ascii?Q?d5l7+0H7MelOJhDbw4NUxzJjl4iwlP8XzD3O9Dg3VR366rWZ7+I5OVZSWVMU?=
+ =?us-ascii?Q?BHk5knFloemkcfVIvQzum7BtbkHFomun15IaMp/wVSy/EjLxoEmjltr8Rq08?=
+ =?us-ascii?Q?dtlnoyPRP2Moa2FatxQVu3TC8gw6wvmvu1/VX+OI+VGX1sWLP2a43QqAcLdl?=
+ =?us-ascii?Q?IOPC7L/B4BPHYXcB6uWsuZ++DlXY0cJTRGl+cwPV+wQEE1+1ITLY6IKn0ifD?=
+ =?us-ascii?Q?5xpDNe0z56d4X5A/YZzRFOWxWPbmWlMi7hEAVrNu/oXnsMQbCcAAUpSKfDgf?=
+ =?us-ascii?Q?Zb8TerY7dywHIJdPWpVdmvSO0fcclScyXphxeeCX96reg8lRY+YvnkPHM85X?=
+ =?us-ascii?Q?JBNfEFfBgLiZNEZjnsTccV3Ny/MDPqsCeQg2q/3mA0VyYixjkZRKAptLJARm?=
+ =?us-ascii?Q?yWc55zrvzaxQ6DTG9i8LfGO0e6Yy6RzkiRMWCq2WJyUsfn9OfqIB1JQl4d4U?=
+ =?us-ascii?Q?TYF+7/2ftwo9wd7imxW+dBd+DElb3e7bdjBTseVTXdXzQra7QDd+OvL2rpVl?=
+ =?us-ascii?Q?M7UiPTCyjmJeK2UZ3ZJ50ORsJATw6+SvrB1G2j/yacEpUtAvrZDhpJU7whtf?=
+ =?us-ascii?Q?qgOzeo0eW6IzwKEx5spmwAVlygojRsqSbuTvzU5YgjiuW7R9qdYjnuxPE+73?=
+ =?us-ascii?Q?wUs9zqvdq/PgBouK74julx0G7kLLnQEyT1Xsw1zQKlIxZ8xpgm648WkvkBvt?=
+ =?us-ascii?Q?HCNyuvMfYWAXXQog+9eRubLxhLXeWud9I+og6P32X4dUr71Fsp4OyZsUNg3w?=
+ =?us-ascii?Q?MQYsh0+mq6RjyddxxpNFlvxmOMcSwhBojV2o+7dJ5MvqgrGjTAmcH8NDRiQW?=
+ =?us-ascii?Q?vETh4sKTQBkjc/OSKD058OOV5vLe6r5GoTlbpSeu5nj/Rwbk/rE4E+L/Sd+0?=
+ =?us-ascii?Q?G0qL4bfib5z+pFlPXeUVrYTQ1JGFzSG5S5VR58zxK+4XgFGOJwwWsajhrq9v?=
+ =?us-ascii?Q?wAtz+1HrKH1UI6xUMC1nY+rCOdun8g3xQAkknLSrld82yLJR8JlYZbe8M7uM?=
+ =?us-ascii?Q?RwWb6VEMqn+ePAL3ZJT3qDvZC5KCU3MPWFWeMj88HJs+l04PswcFeoWy4GcF?=
+ =?us-ascii?Q?v2Q8zJyo9FyD4F0R6Rt9AqC69EuASmsLNrV7O07SHJ1QFoK9M15J/QGpUfcU?=
+ =?us-ascii?Q?IXUDijKBtRorCztp7ZEBuLeRj1aRTnlX?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 09:43:22.4772 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6779afa2-5729-4f6d-efac-08dca0c4bd24
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022571.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9098
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,137 +130,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.07.24 um 09:54 schrieb Zhu, Jiadong:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->> -----Original Message-----
->> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->> Sent: Wednesday, July 10, 2024 3:17 PM
->> To: Zhu, Jiadong <Jiadong.Zhu@amd.com>; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in the
->> right place
->>
->> Am 10.07.24 um 02:31 schrieb jiadong.zhu@amd.com:
->>> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
->>>
->>> The job's embedded fence is dma_fence which shall not be conversed to
->>> amdgpu_fence.
->> Good catch.
->>
->>> The start timestamp shall be saved on job for hw_fence.
->> But NAK to that approach. Why do we need the start time here in the first
->> place?
->>
->> Regards,
->> Christian.
->>
-> The start timestamp is used for ring mux to check if the fences are  unsignaled for a period of time under mcbp scenarios (by calling amdgpu_fence_last_unsignaled_time_us).
+Enables following UMD stable Pstates profile levels
+of power_dpm_force_performance_level for SMU v14.0.4.
 
-I can't find a reason for doing that in the first place. What is the 
-background of this?
+    - profile_peak
+    - profile_min_mclk
+    - profile_min_sclk
+    - profile_standard
 
-Regards,
-Christian.
+Signed-off-by: Li Ma <li.ma@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-
->
-> Thanks,
-> Jiadong
->>> v2: optimize get_fence_start_time.
->>> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 31
->> ++++++++++++++++++++---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.h   |  3 +++
->>>    2 files changed, 31 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> index 2f24a6aa13bf..72bb007e48c8 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>> @@ -88,6 +88,31 @@ static inline struct amdgpu_fence
->> *to_amdgpu_fence(struct dma_fence *f)
->>>      return NULL;
->>>    }
->>>
->>> +static inline void set_fence_start_time(struct dma_fence *f, ktime_t
->>> +start_timestamp) {
->>> +   if (f->ops == &amdgpu_fence_ops) {
->>> +           struct amdgpu_fence *__f = container_of(f, struct
->> amdgpu_fence,
->>> +base);
->>> +
->>> +           __f->start_timestamp = start_timestamp;
->>> +   } else if (f->ops == &amdgpu_job_fence_ops) {
->>> +           struct amdgpu_job *job = container_of(f, struct amdgpu_job,
->>> +hw_fence);
->>> +
->>> +           job->start_timestamp = start_timestamp;
->>> +   }
->>> +}
->>> +
->>> +static inline ktime_t get_fence_start_time(struct dma_fence *f) {
->>> +   if (unlikely(f->ops == &amdgpu_fence_ops)) {
->>> +           struct amdgpu_fence *__f = container_of(f, struct
->> amdgpu_fence,
->>> +base);
->>> +
->>> +           return __f->start_timestamp;
->>> +   }
->>> +   struct amdgpu_job *job = container_of(f, struct amdgpu_job,
->>> +hw_fence);
->>> +
->>> +   return job->start_timestamp;
->>> +}
->>> +
->>>    /**
->>>     * amdgpu_fence_write - write a fence value
->>>     *
->>> @@ -197,7 +222,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring,
->> struct dma_fence **f, struct amd
->>>              }
->>>      }
->>>
->>> -   to_amdgpu_fence(fence)->start_timestamp = ktime_get();
->>> +   set_fence_start_time(fence, ktime_get());
->>>
->>>      /* This function can't be called concurrently anyway, otherwise
->>>       * emitting the fence would mess up the hardware ring buffer.
->>> @@ -428,7 +453,7 @@ u64
->> amdgpu_fence_last_unsignaled_time_us(struct amdgpu_ring *ring)
->>>              return 0;
->>>
->>>      return ktime_us_delta(ktime_get(),
->>> -           to_amdgpu_fence(fence)->start_timestamp);
->>> +           get_fence_start_time(fence));
->>>    }
->>>
->>>    /**
->>> @@ -451,7 +476,7 @@ void
->> amdgpu_fence_update_start_timestamp(struct amdgpu_ring *ring,
->> uint32_t seq,
->>>      if (!fence)
->>>              return;
->>>
->>> -   to_amdgpu_fence(fence)->start_timestamp = timestamp;
->>> +   set_fence_start_time(fence, timestamp);
->>>    }
->>>
->>>    /**
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> index a963a25ddd62..3a73fe11a1ce 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> @@ -73,6 +73,9 @@ struct amdgpu_job {
->>>      uint64_t                gds_va;
->>>      bool                    init_shadow;
->>>
->>> +   /* start timestamp for hw_fence*/
->>> +   ktime_t                 start_timestamp;
->>> +
->>>      /* job_run_counter >= 1 means a resubmit job */
->>>      uint32_t                job_run_counter;
->>>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index 5d47d58944f6..8798ebfcea83 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -69,6 +69,9 @@
+ #define SMU_14_0_0_UMD_PSTATE_SOCCLK			678
+ #define SMU_14_0_0_UMD_PSTATE_FCLK			1800
+ 
++#define SMU_14_0_4_UMD_PSTATE_GFXCLK			938
++#define SMU_14_0_4_UMD_PSTATE_SOCCLK			938
++
+ #define FEATURE_MASK(feature) (1ULL << feature)
+ #define SMC_DPM_FEATURE ( \
+ 	FEATURE_MASK(FEATURE_CCLK_DPM_BIT) | \
+@@ -1296,19 +1299,28 @@ static int smu_v14_0_common_get_dpm_profile_freq(struct smu_context *smu,
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+ 	case SMU_SCLK:
+-		clk_limit = SMU_14_0_0_UMD_PSTATE_GFXCLK;
++		if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 4))
++			clk_limit = SMU_14_0_4_UMD_PSTATE_GFXCLK;
++		else
++			clk_limit = SMU_14_0_0_UMD_PSTATE_GFXCLK;
+ 		if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+ 			smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_SCLK, NULL, &clk_limit);
+ 		else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK)
+ 			smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_SCLK, &clk_limit, NULL);
+ 		break;
+ 	case SMU_SOCCLK:
+-		clk_limit = SMU_14_0_0_UMD_PSTATE_SOCCLK;
++		if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 4))
++			clk_limit = SMU_14_0_4_UMD_PSTATE_SOCCLK;
++		else
++			clk_limit = SMU_14_0_0_UMD_PSTATE_SOCCLK;
+ 		if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+ 			smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_SOCCLK, NULL, &clk_limit);
+ 		break;
+ 	case SMU_FCLK:
+-		clk_limit = SMU_14_0_0_UMD_PSTATE_FCLK;
++		if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 4))
++			smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_FCLK, NULL, &clk_limit);
++		else
++			clk_limit = SMU_14_0_0_UMD_PSTATE_FCLK;
+ 		if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+ 			smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_FCLK, NULL, &clk_limit);
+ 		else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK)
+-- 
+2.25.1
 
