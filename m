@@ -4,79 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59674C3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 08:43:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 458A3C3DA45
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 09:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2EEA10E6B2;
-	Wed, 10 Jul 2024 08:43:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0CC210E118;
+	Wed, 10 Jul 2024 09:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="R5wY7s/1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jHDcMN3h";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4975010E6B2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 08:43:44 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-52ea84b6131so629300e87.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 01:43:44 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0210A10E118
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 09:27:27 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-367a081d1cdso3393141f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 02:27:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1720601022; x=1721205822; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=yhUibTlqabbjxA3p6g3/z47vHiVZll4AJPBzwT49V8A=;
- b=R5wY7s/1VH7HAWnmu2l/MwQBNZYmZPl04921SakjGZQ5MmsTFH99PMmxv6kn8suGG1
- hJgID2jb99H/9LrMH/R1QP4Vv18ZnV4jPrYlMnCjrme6+1PWPHA5SsIb5R0t2LmrBNl6
- P+eM/TpWFBP72rJsTQw0c/J6YOPe5K2Vt19s4=
+ d=gmail.com; s=20230601; t=1720603646; x=1721208446; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=qIrFg1mcPMXEcp4AwvL9KtHSad2s3JE4VORsXTNtdt0=;
+ b=jHDcMN3hrguNvZH1mDCwDvlanDD+synhV/gff05hd9P1aO26UMOe5S0tpe49N/iVen
+ euVC59SF1g0xGNVH+gF+CGZnPxHXMyjeFMqX6hm+Lom8AcNkNx/NQif9osYW76wmsa/i
+ qF4rV1EpGiALzk9MQMlxCF/9a0Qq3ZUUHfq73fXm9LzvL0CQYo50egudw1G7SSb9Dqq7
+ +T3sgDECJ5wa1hURwECz17KpVPyiraDApB9arrThGO64+oppSbXFmNa+u9D/9AYK4mt1
+ j0DQRFOMNvz56MDzQrrOLNtGVNlMDS5lgknH7byryubqLt0tE6kBqqZpjIs/DmEhnS2d
+ YI/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720601022; x=1721205822;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yhUibTlqabbjxA3p6g3/z47vHiVZll4AJPBzwT49V8A=;
- b=axB7sToSOVCuZio+LbRT1E3hE93CHA+E5PKATTjuwhuQJm8HKGXK4/rr/2hgfFNNpz
- as6PmB03nSy1T1UT6pGLa4d8/yGBsWLtOnrjVcOljeDeuzWHas8X9043N/lYnSX+J3VI
- rbc37TVnwRwx85ThTNVUjgAjmGVEuSIj+YIpGMolPiAFCOQGx+0E+iRPOOGRXXAQlmRU
- XjcNzQP6M0ydEyIkBun+idxDguwIhyopwydQ8QtP9s+pyNHvXChlUW8uvUUhJ7ros4rY
- yj5S2L4RZqpV2mxDKqw09IhXG0+sVfImouRSJpYIEILszg0F6Ldh6ZeqVpu8c6z9ccmI
- 8e7Q==
+ d=1e100.net; s=20230601; t=1720603646; x=1721208446;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qIrFg1mcPMXEcp4AwvL9KtHSad2s3JE4VORsXTNtdt0=;
+ b=kOJWriYyJzZIg7VzJzalo6Kp9VddtXIy5Kq37IumIMk2LVRkCg5jsi9sx3FkHZ7E7w
+ v1jaUOhWJnxPZOfGTJlMzsyVC3ZBaIzcVe7qnDaiRrs6y3NDmpWNaQAri8IKY5yyGe6Z
+ HVENyhcr04kt25LbObKpwNtMsOzF1aKBmSymqbQRDdJHQ2UkTR9QTE5AGjp05EOx8J2c
+ qsK729W/WwkRVss0mwoGxegpVSQOYWhG9/zRkz1fg+VvAW2/YQ8HCdOlNmhvzkgV0HQx
+ r1onzmeI3gFLofCPKOTIV+9Duf3RB7wLu/fvhaF59+SWgtMDH1ReDmTQvgsU21V1z4nB
+ MAWQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUaT0Eq3+fEKxs4DMi2G5EjqnBJtavildgov2rGnLRTvEboL+TmYa1N2ptycyuV7QW4mRKHDhFzJLPnLufKs4xLuASTLGChEZCapc+sCg==
-X-Gm-Message-State: AOJu0YxIbkD6n9SvoJj+3HtTKkVj+dV4sqzbhvoCWuELb6PQJAS2yOFT
- nqANl8Hb2ANr0cmyIGYBM5Tb90f0kSTr3sDdVFSGm0ClE0JUz9fXLTR9W+xYDF8=
-X-Google-Smtp-Source: AGHT+IGjNh/LmrRrjy0KMamgYOUkHQ+0kRaZJ7wdPUO+yrnWCEpLIRA8jdgUrbiAZPHXRA4u2N5lUQ==
-X-Received: by 2002:a05:6512:10d2:b0:52e:9b18:9a7f with SMTP id
- 2adb3069b0e04-52eb9993c36mr3153639e87.2.1720601022089; 
- Wed, 10 Jul 2024 01:43:42 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ AJvYcCW3O+P8+WgURyTEoH0vqM9x97Usmih0dmlab+fFdYpfQRSB4PonX5XW2h6MBK7rd5bXB2Rb9sPoJuuwxlXSfHjQgDr/eLRIU8WZP9J/rA==
+X-Gm-Message-State: AOJu0Ywhmhw5CKiS66/iwLpCO0tY3okwsMzyw+ZtPrfujZ1bbYJeDZTy
+ nNLoRGq768BdX67H1V5DhhgILTqKHVui/rY7UJRVc3WdDWQot7iT
+X-Google-Smtp-Source: AGHT+IFElVyv2FfGSupO1kzDM6YRaysFqjabdmyQgwoNDK5QaXCDFX1ymi19ZKwyRUau/6KzEm8qZA==
+X-Received: by 2002:adf:f20b:0:b0:367:4dfe:3e8d with SMTP id
+ ffacd0b85a97d-367cea45a27mr3091517f8f.13.1720603645805; 
+ Wed, 10 Jul 2024 02:27:25 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4266f6f5f51sm74850235e9.25.2024.07.10.01.43.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jul 2024 01:43:41 -0700 (PDT)
-Date: Wed, 10 Jul 2024 10:43:39 +0200
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <wayne.lin@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/amd/display: use drm_crtc_set_vblank_offdelay()
-Message-ID: <Zo5Ju2bWFUVBHeKX@phenom.ffwll.local>
-References: <20240708202907.383917-1-hamza.mahfooz@amd.com>
- <20240708202907.383917-2-hamza.mahfooz@amd.com>
- <Zo0Dm_XeF3dMqK1C@phenom.ffwll.local>
- <Zo0MSB7eSp1H0iPI@phenom.ffwll.local>
- <3214e5a3-a616-4bcd-8f1d-238e1bf346fe@amd.com>
+ ffacd0b85a97d-367cde846b9sm4799895f8f.29.2024.07.10.02.27.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jul 2024 02:27:25 -0700 (PDT)
+Message-ID: <3f6f779d-33ff-4cbb-9eaf-035888c200e5@gmail.com>
+Date: Wed, 10 Jul 2024 11:27:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3214e5a3-a616-4bcd-8f1d-238e1bf346fe@amd.com>
-X-Operating-System: Linux phenom 6.9.7-amd64 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in the right
+ place
+To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <Alexander.Deucher@amd.com>
+References: <20240710003101.1645322-1-jiadong.zhu@amd.com>
+ <0e79392e-1e82-4602-8ebb-2dc9d31e001c@gmail.com>
+ <DS7PR12MB633361A48187FDC04193B93CF4A42@DS7PR12MB6333.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DS7PR12MB633361A48187FDC04193B93CF4A42@DS7PR12MB6333.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,104 +87,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 09, 2024 at 10:02:08AM -0400, Hamza Mahfooz wrote:
-> On 7/9/24 06:09, Daniel Vetter wrote:
-> > On Tue, Jul 09, 2024 at 11:32:11AM +0200, Daniel Vetter wrote:
-> > > On Mon, Jul 08, 2024 at 04:29:07PM -0400, Hamza Mahfooz wrote:
-> > > > Hook up drm_crtc_set_vblank_offdelay() in amdgpu_dm, so that we can
-> > > > enable PSR more quickly for displays that support it.
-> > > > 
-> > > > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> > > > ---
-> > > >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 30 ++++++++++++++-----
-> > > >   1 file changed, 22 insertions(+), 8 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > index fdbc9b57a23d..ee6c31e9d3c4 100644
-> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > @@ -8231,7 +8231,7 @@ static int amdgpu_dm_encoder_init(struct drm_device *dev,
-> > > >   static void manage_dm_interrupts(struct amdgpu_device *adev,
-> > > >   				 struct amdgpu_crtc *acrtc,
-> > > > -				 bool enable)
-> > > > +				 struct dm_crtc_state *acrtc_state)
-> > > >   {
-> > > >   	/*
-> > > >   	 * We have no guarantee that the frontend index maps to the same
-> > > > @@ -8239,12 +8239,25 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
-> > > >   	 *
-> > > >   	 * TODO: Use a different interrupt or check DC itself for the mapping.
-> > > >   	 */
-> > > > -	int irq_type =
-> > > > -		amdgpu_display_crtc_idx_to_irq_type(
-> > > > -			adev,
-> > > > -			acrtc->crtc_id);
-> > > > +	int irq_type = amdgpu_display_crtc_idx_to_irq_type(adev,
-> > > > +							   acrtc->crtc_id);
-> > > > +	struct dc_crtc_timing *timing;
-> > > > +	int offdelay;
-> > > > +
-> > > > +	if (acrtc_state) {
-> > > > +		timing = &acrtc_state->stream->timing;
-> > > > +
-> > > > +		/* at least 2 frames */
-> > > > +		offdelay = 2000 / div64_u64(div64_u64((timing->pix_clk_100hz *
-> > > > +						       (uint64_t)100),
-> > > > +						      timing->v_total),
-> > > > +					    timing->h_total) + 1;
-> > > 
-> > > Yeah, _especially_ when you have a this short timeout your really have to
-> > > instead fix the vblank driver code properly so you can enable
-> > > vblank_disable_immediate. This is just cheating :-)
-> > 
-> > Michel mentioned on irc that DC had immediate vblank disabling, but this
-> > was reverted with f64e6e0b6afe ("Revert "drm/amdgpu/display: set
-> > vblank_disable_immediate for DC"").
-> > 
-> > I haven't looked at the details of the bug report, but stuttering is
-> > exactly what happens when the driver's vblank code has these races. Going
-> > for a very low timeout instead of zero just means it's a bit harder to hit
-> > the issue, and much, much harder to debug properly.
-> > 
-> > So yeah even more reasons to look at the underlying root-cause here I
-> > think.
-> > -Sima
-> 
-> The issue is that DMUB (display firmware) isn't able to keep up with all of
-> the requests that the driver is making. The issue is fairly difficult to
-> reproduce (I've only seen it once after letting the system run with a
-> program that would engage PSR every so often, after several hours).
-> It is also worth noting that we have the same 2 idle frame wait on the
-> windows
-> driver, for the same reasons. So, in all likelihood if it is your opinion
-> that
-> the series should be NAKed, we will probably have to move the wait into the
-> driver as a workaround.
+Am 10.07.24 um 09:54 schrieb Zhu, Jiadong:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>> -----Original Message-----
+>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+>> Sent: Wednesday, July 10, 2024 3:17 PM
+>> To: Zhu, Jiadong <Jiadong.Zhu@amd.com>; amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in the
+>> right place
+>>
+>> Am 10.07.24 um 02:31 schrieb jiadong.zhu@amd.com:
+>>> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+>>>
+>>> The job's embedded fence is dma_fence which shall not be conversed to
+>>> amdgpu_fence.
+>> Good catch.
+>>
+>>> The start timestamp shall be saved on job for hw_fence.
+>> But NAK to that approach. Why do we need the start time here in the first
+>> place?
+>>
+>> Regards,
+>> Christian.
+>>
+> The start timestamp is used for ring mux to check if the fences are  unsignaled for a period of time under mcbp scenarios (by calling amdgpu_fence_last_unsignaled_time_us).
 
-Well that's an entirely different reason, and needs to be recorded in the
-commit log that disabling/enabling vblank is too expensive and why. Also
-would be good to record that windows does the same.
+I can't find a reason for doing that in the first place. What is the 
+background of this?
 
-I'm also not entirely sure this is a good interface, so some
-thoughts/question:
+Regards,
+Christian.
 
-- is the issue only with psr, meaning that if we switch the panel to a
-  different crtc, do we need to update the off delay.
 
-- there's still the question of why vblank_immediate_disable resulted in
-  stuttering, is that the same bug? I think for consistency it'd be best
-  if we enable immediate vblank disabling everywhere (for maximum
-  testing), and then apply the 2 frame delay workaround only where needed
-  explicitly. Otherwise if there's other issues than DMUB being slow, they
-  might be mostly hidden and become really hard to track down when they
-  show up.
+>
+> Thanks,
+> Jiadong
+>>> v2: optimize get_fence_start_time.
+>>> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 31
+>> ++++++++++++++++++++---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.h   |  3 +++
+>>>    2 files changed, 31 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>> index 2f24a6aa13bf..72bb007e48c8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>> @@ -88,6 +88,31 @@ static inline struct amdgpu_fence
+>> *to_amdgpu_fence(struct dma_fence *f)
+>>>      return NULL;
+>>>    }
+>>>
+>>> +static inline void set_fence_start_time(struct dma_fence *f, ktime_t
+>>> +start_timestamp) {
+>>> +   if (f->ops == &amdgpu_fence_ops) {
+>>> +           struct amdgpu_fence *__f = container_of(f, struct
+>> amdgpu_fence,
+>>> +base);
+>>> +
+>>> +           __f->start_timestamp = start_timestamp;
+>>> +   } else if (f->ops == &amdgpu_job_fence_ops) {
+>>> +           struct amdgpu_job *job = container_of(f, struct amdgpu_job,
+>>> +hw_fence);
+>>> +
+>>> +           job->start_timestamp = start_timestamp;
+>>> +   }
+>>> +}
+>>> +
+>>> +static inline ktime_t get_fence_start_time(struct dma_fence *f) {
+>>> +   if (unlikely(f->ops == &amdgpu_fence_ops)) {
+>>> +           struct amdgpu_fence *__f = container_of(f, struct
+>> amdgpu_fence,
+>>> +base);
+>>> +
+>>> +           return __f->start_timestamp;
+>>> +   }
+>>> +   struct amdgpu_job *job = container_of(f, struct amdgpu_job,
+>>> +hw_fence);
+>>> +
+>>> +   return job->start_timestamp;
+>>> +}
+>>> +
+>>>    /**
+>>>     * amdgpu_fence_write - write a fence value
+>>>     *
+>>> @@ -197,7 +222,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring,
+>> struct dma_fence **f, struct amd
+>>>              }
+>>>      }
+>>>
+>>> -   to_amdgpu_fence(fence)->start_timestamp = ktime_get();
+>>> +   set_fence_start_time(fence, ktime_get());
+>>>
+>>>      /* This function can't be called concurrently anyway, otherwise
+>>>       * emitting the fence would mess up the hardware ring buffer.
+>>> @@ -428,7 +453,7 @@ u64
+>> amdgpu_fence_last_unsignaled_time_us(struct amdgpu_ring *ring)
+>>>              return 0;
+>>>
+>>>      return ktime_us_delta(ktime_get(),
+>>> -           to_amdgpu_fence(fence)->start_timestamp);
+>>> +           get_fence_start_time(fence));
+>>>    }
+>>>
+>>>    /**
+>>> @@ -451,7 +476,7 @@ void
+>> amdgpu_fence_update_start_timestamp(struct amdgpu_ring *ring,
+>> uint32_t seq,
+>>>      if (!fence)
+>>>              return;
+>>>
+>>> -   to_amdgpu_fence(fence)->start_timestamp = timestamp;
+>>> +   set_fence_start_time(fence, timestamp);
+>>>    }
+>>>
+>>>    /**
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>> index a963a25ddd62..3a73fe11a1ce 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+>>> @@ -73,6 +73,9 @@ struct amdgpu_job {
+>>>      uint64_t                gds_va;
+>>>      bool                    init_shadow;
+>>>
+>>> +   /* start timestamp for hw_fence*/
+>>> +   ktime_t                 start_timestamp;
+>>> +
+>>>      /* job_run_counter >= 1 means a resubmit job */
+>>>      uint32_t                job_run_counter;
+>>>
 
-- I think an interface to set the right values in lockstep with the vblank
-  on/off state would be best, so maybe a special drm_crtc_vblank_on_config
-  that takes additional parameters?
-
-Cheers, Sima
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
