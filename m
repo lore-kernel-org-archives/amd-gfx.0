@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06671C3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 13:44:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D933C3DA41
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 13:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFF410E7C9;
-	Wed, 10 Jul 2024 13:44:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2213410E7CF;
+	Wed, 10 Jul 2024 13:47:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KeMwsmAw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jz85L297";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5A110E7C9
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 13:44:15 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-6bce380eb9bso3734533a12.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 06:44:15 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E98210E7CF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 13:47:45 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2c8517aab46so4688333a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 06:47:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720619054; x=1721223854; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720619265; x=1721224065; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jChNdLaiBcupPG5WhK/GSRQVKUinf8MI7EUAt4O3o9U=;
- b=KeMwsmAwUlgPcg78EwAPrcNK9/um65DakO36Ti1TXWfKZAA7JdtcxF0yZBbMjWbJFY
- P24SMeqi2rxizOJT3T4OStbAf8wUT/1w//uAuh1XlhkeyYBmJMWUrFrb2Ch4mvHLu1C7
- Hutr3dq3fi6d84ym2czPiOeIcIu9KDoZNiVnZkbElRQSiq+nFSqYn1lq5xku/t0pfcv8
- 3k1E18dPC/izUzakeF3Gq+Fc1VqfY2gWfQQORATlmHd1mvr2GQsquBlfy2/ov/G6N6pV
- ocFSXjzK92rdAsdUhVApnn/iAo2XrqFeUj6RzefQfUjPdfM1ME/ry+VPwqdlQPvalGuj
- MgKw==
+ bh=zkeh/thtDpJ7cne/sew20LJSnXDKm9AzrtpDn/GsF44=;
+ b=Jz85L297chIBRhkMQS6k+Csp5iS4Q9OZDHWbbA0V6XWCYQZsHxMZDLl9Fr88AeA8D0
+ aQk/PqQIPEgTzurMTeqiXuCLN/9liIT05UVxwTiGN2QeYgZmO+/3RiqmWv8A6L2zNbY3
+ UFqqHx5x3+Xf0CWv2UB6e+SCYknMKZyr9SAhvZO6FLoCmLwlVQEXsKAGKmOfAnqarl0a
+ bAg5/14AVQ+ZALIFdwoltyKdcHYpOD8aqIxFySsofj2ZqdY7YDKCWMZaU8Xuyb1Mvivz
+ 2abXIIuLShvT7YkDRZ/nVIzPJwB3GGVH6/6lkBzemB0a7WPRBuz4hMV+EqbXZqzJ3foR
+ xtPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720619054; x=1721223854;
+ d=1e100.net; s=20230601; t=1720619265; x=1721224065;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jChNdLaiBcupPG5WhK/GSRQVKUinf8MI7EUAt4O3o9U=;
- b=lqk8L9AshFQ7tmhSZdvUOFPn/5RFn6VC0o7fz5+dHP7V/5y0xYBp1KLho8TKbNmLcQ
- 9fBrGDxd8o8k6dbl06Dv5/3UZzZ6ZQpijvl58ZyeJ+vLoSQEWYz6mSs+frf0xPSVZh9A
- Aly0mOzn6SgWPixz7yAU+b3CJXO4qU+57qKA2guFO54N7n9uply80CTAgt0gDAu1lLOH
- NyXd2sHrpnAnRhNHEEFMn8KkIifYvo9EdUFT+KMjxS9soRrnAW+liN2WtDhk457MJajh
- /Uc4yAomP8Q6nFSEnaCKhFkIsWME+z2MqrjVUDNCTz+RRltVSsyNJD543eVGG2B+lp7r
- H3Vg==
-X-Gm-Message-State: AOJu0YxRCE5eyIILfxcNkXks0jjGlMA4dG1SZ7gUHxLZgDfIrJ5AB8i0
- MLl/vJdNYL9xD1VmNxjk32Zf9MraJDfVKV1q77oH8LuuSnPjBw5W6zWMkxMGCiDZGZBMgjc2QPn
- Gg5z3Xxw/UfV6Jt7oZAWZuf1ert6MjA==
-X-Google-Smtp-Source: AGHT+IESd0C4b2TxVtVFZx/vSDwzsvdu5+MYRP1vX3b6s24+HNXTJ7xbGxxZmwVIc45dY7zURPs3SuT+newjokCxxBk=
-X-Received: by 2002:a05:6a21:9997:b0:1c0:f288:4903 with SMTP id
- adf61e73a8af0-1c2982232b7mr6728664637.17.1720619054268; Wed, 10 Jul 2024
- 06:44:14 -0700 (PDT)
+ bh=zkeh/thtDpJ7cne/sew20LJSnXDKm9AzrtpDn/GsF44=;
+ b=rjqf4xGDnzT+sIxbbSYOfxjJiZoOteRm/O0o5QLeVHBfZsvU/C+Px0IB0OxsY11uWc
+ 8pfZrtBL4TVPcUPp4tfK3XfIni19GpnAJR0dUbhcHRVqsMDmutwa1zYL4ZRgJaB638ad
+ RoqBSPSIo+gMzC4MRXTcTPHdPKIHg90ADB3dMmteAQ3ZG5Qrabufh8GY2/UHE+MwGd2V
+ cUMcnOne1+3yuRZabZXdSltj4U4B9ZDK8Xx+uzkCrCX17NkNtvecx1QGunMe2hg8YkDb
+ pdVaZ+n8sBODTqF28DtmIvvy9hHOgX4ywupokhmjXa8q8+PRGHBOBwv+qQaHFCEmEqsS
+ QQbw==
+X-Gm-Message-State: AOJu0YzYGoStIg6wLzmbPFUdWiLQAT/jdsX/k8Jzo83GpGkWCvMs9G8O
+ Ss3ww7EmMNp53YU0yyWBChnmfogBYBGAZsO9mEe+BwVARLiJpqGB+OgUGqQdrcYJ/90tGHyVIOe
+ 0io22wOdEPwvJ1KqEs7dSYs5kuqcnvQ==
+X-Google-Smtp-Source: AGHT+IH8udzWeXYbuk9499wTJAG5jF3v0eKtnB2bXFtxK1rB/PIAa2po0lVPIBzO8WVUBxs6JTzFVrV4TRVGHrnQR5o=
+X-Received: by 2002:a17:90b:10b:b0:2c9:a151:44fb with SMTP id
+ 98e67ed59e1d1-2ca35c68956mr4573247a91.22.1720619264792; Wed, 10 Jul 2024
+ 06:47:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240708215041.529979-1-alexander.deucher@amd.com>
- <20240708215041.529979-2-alexander.deucher@amd.com>
-In-Reply-To: <20240708215041.529979-2-alexander.deucher@amd.com>
+References: <20240710094258.1033943-1-li.ma@amd.com>
+In-Reply-To: <20240710094258.1033943-1-li.ma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 10 Jul 2024 09:44:02 -0400
-Message-ID: <CADnq5_PqBm9Nue1Lc-wR4XmccoeDKjQcH8TKxui2BVFT+CvPSA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu/mes12: add missing opcode string
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Wed, 10 Jul 2024 09:47:33 -0400
+Message-ID: <CADnq5_OnccCt9o=Zh6Vaqzgr95bibsV4DBoqmD+r3PtYJk76bg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/swsmu: enable Pstates profile levels for SMU
+ v14.0.4
+To: Li Ma <li.ma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, tim.huang@amd.com, 
+ Alexander.Deucher@amd.com, yifan1.zhang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,33 +77,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series?
-
-Alex
-
-On Mon, Jul 8, 2024 at 6:30=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
-com> wrote:
+On Wed, Jul 10, 2024 at 5:50=E2=80=AFAM Li Ma <li.ma@amd.com> wrote:
 >
-> Fixes the indexing of the string array.
+> Enables following UMD stable Pstates profile levels
+> of power_dpm_force_performance_level for SMU v14.0.4.
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>     - profile_peak
+>     - profile_min_mclk
+>     - profile_min_sclk
+>     - profile_standard
+>
+> Signed-off-by: Li Ma <li.ma@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 1 +
->  1 file changed, 1 insertion(+)
+>  .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 106eef1ff5cc..c9f74231ad59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -99,6 +99,7 @@ static const char *mes_v12_0_opcodes[] =3D {
->         "SET_LOG_BUFFER",
->         "CHANGE_GANG_PRORITY",
->         "QUERY_SCHEDULER_STATUS",
-> +       "unused",
->         "SET_DEBUG_VMID",
->         "MISC",
->         "UPDATE_ROOT_PAGE_TABLE",
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> index 5d47d58944f6..8798ebfcea83 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> @@ -69,6 +69,9 @@
+>  #define SMU_14_0_0_UMD_PSTATE_SOCCLK                   678
+>  #define SMU_14_0_0_UMD_PSTATE_FCLK                     1800
+>
+> +#define SMU_14_0_4_UMD_PSTATE_GFXCLK                   938
+> +#define SMU_14_0_4_UMD_PSTATE_SOCCLK                   938
+> +
+>  #define FEATURE_MASK(feature) (1ULL << feature)
+>  #define SMC_DPM_FEATURE ( \
+>         FEATURE_MASK(FEATURE_CCLK_DPM_BIT) | \
+> @@ -1296,19 +1299,28 @@ static int smu_v14_0_common_get_dpm_profile_freq(=
+struct smu_context *smu,
+>         switch (clk_type) {
+>         case SMU_GFXCLK:
+>         case SMU_SCLK:
+> -               clk_limit =3D SMU_14_0_0_UMD_PSTATE_GFXCLK;
+> +               if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_V=
+ERSION(14, 0, 4))
+> +                       clk_limit =3D SMU_14_0_4_UMD_PSTATE_GFXCLK;
+> +               else
+> +                       clk_limit =3D SMU_14_0_0_UMD_PSTATE_GFXCLK;
+>                 if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+>                         smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_S=
+CLK, NULL, &clk_limit);
+>                 else if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SC=
+LK)
+>                         smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_S=
+CLK, &clk_limit, NULL);
+>                 break;
+>         case SMU_SOCCLK:
+> -               clk_limit =3D SMU_14_0_0_UMD_PSTATE_SOCCLK;
+> +               if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_V=
+ERSION(14, 0, 4))
+> +                       clk_limit =3D SMU_14_0_4_UMD_PSTATE_SOCCLK;
+> +               else
+> +                       clk_limit =3D SMU_14_0_0_UMD_PSTATE_SOCCLK;
+>                 if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+>                         smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_S=
+OCCLK, NULL, &clk_limit);
+>                 break;
+>         case SMU_FCLK:
+> -               clk_limit =3D SMU_14_0_0_UMD_PSTATE_FCLK;
+> +               if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_V=
+ERSION(14, 0, 4))
+> +                       smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_F=
+CLK, NULL, &clk_limit);
+> +               else
+> +                       clk_limit =3D SMU_14_0_0_UMD_PSTATE_FCLK;
+>                 if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+>                         smu_v14_0_common_get_dpm_ultimate_freq(smu, SMU_F=
+CLK, NULL, &clk_limit);
+>                 else if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MC=
+LK)
 > --
-> 2.45.2
+> 2.25.1
 >
