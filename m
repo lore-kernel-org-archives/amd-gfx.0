@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65A27C3DA41
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 19:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11E08C3DA41
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jul 2024 19:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2080C10E8C2;
-	Wed, 10 Jul 2024 19:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE4C210E8C8;
+	Wed, 10 Jul 2024 19:40:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4U9X9/Ql";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LME6ROBZ";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9EB110E8C2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 19:40:21 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F38A10E8C6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jul 2024 19:40:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Matzn1EPkFymHVCJZIUbbq8mel9cg/nd44JKTfyTXGEsgjzep18LDkT+NV6hP7ZAwnEh6fzAjMftyL4UE0dWqPH65zjgwwoVEX9Oh9qUzQ5jZxLEMrjwNNnCXX5lH2tC9yGkzXUohWUkI42dw/jnRlwMp0fWlG/XkMio1lXLWKMP30WsOfAD4yiQLQ97NM+cjzNIienrQ62auyt7gGMOevN48F1ueC5/8GrBEtaWM9d9bqkcYx9t/i2dV/C/aknDDghP5j/JSlikP5c8LGWEzfUK0OhF0wUdPdFhpxCb59t6FoSiIsdYXcr0gnI/KAMChcFR2DClKEAjYbgOMXHkqw==
+ b=PPVOIBn6H28aIguy7wftNrOygBvqrwW2eNUKWfJVmMIgfxTYFsZKjGD0REKbFMa+oKmd8tEDetHuV+eJj4MhM+mtKFRVE/Ex0xkCbhTdvb+TBqbyGrn6yBZrapvWXcUsIxIdt4FcSOq0YcJHlYU+r1Kuv3LMPMpEYkY1ZkR+FhQWKIkYPM0HrB3ete/YP+CzXot+e56wtFSgn4stMPkvpPEJV1wc3+0e5YV4i35Y2VecEfhY4k3uXrUAK9X1pLXKxQT1yDEU1QdUuv8WGSUYLI1wXS+GaxvzXTJrWCeurXWxYMLWPOhlaoQJh99rn2/y/CjPFTo1Q62U0DIPR9arYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=getKFo5kn1TAsPxqvY5KsbiaQyCauyELNrR8YtSOO2A=;
- b=Sv1nFXIXveOgtYncbBsLGN74dw0UZTuavGJP/7Qo4F5ICKrk4V6lEE6wSV/sfQrK720pBTCtf3/IpBJxm7RIBO8pyNz5eK/Wdc7nDoJ6iVhKjuMGObeJKBwxgcR6Zq901VLlk1YTX/MIRU8QfTkz+9qKmoOjsRm6xwTsrFJVHfIpoNd/T+kyXXMnCjknDiQRow9KHFx+GpXg0p45xAyxyL5BgIDDljFUIQwmnEpm3V+GCGnuF8BZBptMQgD30ldJCHHM1W1NmDc8nj+cutRrfJ3Ca7vwsr/qaXlyIhzkJcgHt2WM/R2LeJd1i+Kt+zZLEOVLrQQ1rOn0se7ta9IhEQ==
+ bh=vQNHtlIS+9I/iNl7IPI/LZRYrD74p77mrkZaLTkDMgQ=;
+ b=f7N/frBfl0ZixdMLTyg/5Qd1kzjkWOUHVHG5k8zNJHhrPxNKQkaalv70EDU//CfRxjX5RMBYnS8KII+A9+HSpt0LQpg8jcWcD0fmEsR7overy1Q0V0z37dS8h+680x3l8DYjIGfZe7PzpzlLL5UGuihnFbdzDWSuCTvSERQfFkmOMjG6LaXStSi4MODrw+KQBG0QhWDSGd9/Zr72/P+7n6djgZk8vFCUrDv1R/iWU/OGSqqZsTQBocmc0rRWQIM3EMgZf2LeMkL6NYAe8FhZC94OcTR7LSoE2l/i0y61THdQwyBTzRvXNy+hIdH5QLczdRE+Ib9fLSueH3JK21oWlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=getKFo5kn1TAsPxqvY5KsbiaQyCauyELNrR8YtSOO2A=;
- b=4U9X9/Ql5GRejnyi66zPt4jOC/q+gz0A16rqr55e4ICcwBOPC1F6ZAVC9XLWiZhYGjC+R/PGO9254KuW2GJfW7q4UMcptQEczo1vavGO2v8cK3hA8fO8mVoJy5bv7EoUvP2Y/AmF5hkd/CaFN4s0O4FV5WgqhjIcvnhwzQk9Bbk=
-Received: from MN2PR06CA0022.namprd06.prod.outlook.com (2603:10b6:208:23d::27)
- by DS0PR12MB8573.namprd12.prod.outlook.com (2603:10b6:8:162::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=vQNHtlIS+9I/iNl7IPI/LZRYrD74p77mrkZaLTkDMgQ=;
+ b=LME6ROBZ7D8RnJDWA2xQLX2qUXWcJuaNs/+grX3jArbXIIkpcqCi2WTMetISgxJw+KUIkh5EQGTVBH2IlANvOyRglvJ5Mj8zZsCyUVsjpdP7W/qPC6o2Ywn6yI+2gwoWb/yUl2S3XtrTVMt1qQQ5snTzVFlpi3yOvpo715uYKP8=
+Received: from MN2PR06CA0019.namprd06.prod.outlook.com (2603:10b6:208:23d::24)
+ by SA1PR12MB7441.namprd12.prod.outlook.com (2603:10b6:806:2b9::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35; Wed, 10 Jul
- 2024 19:40:18 +0000
+ 2024 19:40:20 +0000
 Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2603:10b6:208:23d::4) by MN2PR06CA0022.outlook.office365.com
- (2603:10b6:208:23d::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.36 via Frontend
- Transport; Wed, 10 Jul 2024 19:40:18 +0000
+ (2603:10b6:208:23d:cafe::32) by MN2PR06CA0019.outlook.office365.com
+ (2603:10b6:208:23d::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.21 via Frontend
+ Transport; Wed, 10 Jul 2024 19:40:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,82 +50,84 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7762.17 via Frontend Transport; Wed, 10 Jul 2024 19:40:18 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ 15.20.7762.17 via Frontend Transport; Wed, 10 Jul 2024 19:40:19 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Jul
- 2024 14:40:14 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 14:40:16 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 10 Jul
- 2024 14:40:14 -0500
+ 2024 14:40:16 -0500
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 10 Jul 2024 14:40:13 -0500
+ Transport; Wed, 10 Jul 2024 14:40:15 -0500
 From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, Mudimela <lmudimel@amd.com>, Martin Leung
+ <jerry.zuo@amd.com>, Dillon Varone <dillon.varone@amd.com>, Martin Leung
  <martin.leung@amd.com>
-Subject: [PATCH 40/50] drm/amd/display: Refactoring DWB related files from
- dcn30 Files
-Date: Wed, 10 Jul 2024 15:36:57 -0400
-Message-ID: <20240710193707.43754-41-Jerry.Zuo@amd.com>
+Subject: [PATCH 41/50] drm/amd/display: Export additional FAMS2 global
+ configuration options from DML
+Date: Wed, 10 Jul 2024 15:36:58 -0400
+Message-ID: <20240710193707.43754-42-Jerry.Zuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240710193707.43754-1-Jerry.Zuo@amd.com>
 References: <20240710193707.43754-1-Jerry.Zuo@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: Jerry.Zuo@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|DS0PR12MB8573:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b0910e8-fdf9-4a81-fba8-08dca118210c
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|SA1PR12MB7441:EE_
+X-MS-Office365-Filtering-Correlation-Id: fce36fdc-754a-4149-540e-08dca11821e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ER3j4d0XsZ0KI7kgpv3tqu96b5EfaRiMo/1mLx/oZcXnIMlZg8fZ5V5IVOMU?=
- =?us-ascii?Q?5duHzGr1QD70qeyrIkEXhyrA1MBBDfsDAnVbS6u+sCtAeDNOSPg8JSa8QSg9?=
- =?us-ascii?Q?0R2jU4/XC51AYvnJTqsbuyXCW43Rsr1eiDW51kKLELfJcz3XERKymZ131KlT?=
- =?us-ascii?Q?OgezxaDMSme7CFcDnkYdgakuwx5EEP87vlUzL6DQPVEJbK43KXUh9NeFHqoV?=
- =?us-ascii?Q?1LSs2Ks8aQIVJ3A8lkud1JZzC3hs45ZWcozAsKa+burleUmpV/81+ZKbcTvK?=
- =?us-ascii?Q?qM1ijshZopmXQBcRqm5h5X4ok52rz6/tZlPNqUAc1XTTQrS5oa7sa6Apd9mO?=
- =?us-ascii?Q?lnZveRbQ4nUzsuJJeyDje7Cb19FBw3MtanUT44vttMmzKoSq1N+v/Jj1U+jK?=
- =?us-ascii?Q?FtSyI0xS5tgll6qHn7IsRfNm1hHWumZxzNWiPA6XPbQ45+vM2dhNKD82EWAW?=
- =?us-ascii?Q?5jdGHXGdu8MMKbMWJcM3/wSGnhoZLEj3/Bd0HmVlG9MPNP0U/kMW8xX1yQ3a?=
- =?us-ascii?Q?5AdFCv+rSMN6hxm79J4Wyqbh+4xuwpKyys8ezeUqxQenrm9bOueZ+pJV/Va8?=
- =?us-ascii?Q?643uopRoRsNc/JPYDGg0qBg+TInU/XQE7F++ydApsVt4MBr3eJthXok78ndh?=
- =?us-ascii?Q?rFXKwFVOkQ9IKQRMUiqpU6nJXMZT35Da/HOG83gl95B2BCPKPdv9XaTkTLPr?=
- =?us-ascii?Q?KkAmda1NeI+g9DePXgtOgRjFL9LbbIcOf14bOyn8JDNPW+dE51KAAGhKAPro?=
- =?us-ascii?Q?O23FENYxE11qrdHU7hgVGZJs+N/w4y1kc0aox1SFWs4WsAuoadfKb6/ZAnk/?=
- =?us-ascii?Q?f/NfySOQzUEFGMcHZIsa8w6w1uLZE1jZBoCzCQyI4OdL7fU1XlW218yTV6jw?=
- =?us-ascii?Q?bhnSA7iMaJu4gQSZ8Cacwq+v2fjjUEUy6ekLk/JTnIwGq+EDeNK+fJ1BQvgF?=
- =?us-ascii?Q?iciLbZQDvkfO+qD0//thgO0jZIJus2kukIs54DIaeqTdIPls9o/y06NBxBCK?=
- =?us-ascii?Q?Fh7/9UFwO0A80FffpZmATNrP39epzSg1rcSh8LNCopeJywiUf/SvC7acvlp9?=
- =?us-ascii?Q?f7EUDs0Yrmw1HkWwBVShe8JyWGdZ60i4AsK1wUipX7VvF6MRfRqwM6PVVRly?=
- =?us-ascii?Q?Oin6euA28T4RT5RspTyIXUWUe6LhxiuUAzdvYJDT9pNia1h9FDLB4efqVEED?=
- =?us-ascii?Q?f+I66L2oEACxHNynyt40TxRxeVvHkmLA8hLm9WalXKx/+6hB9coor/ymp/s4?=
- =?us-ascii?Q?oN0qHmuHX/8XX44cVCkGQMGsefVfX+otbfktFWNASX3+K7GRjcdlXhZysjTO?=
- =?us-ascii?Q?JGt8JMt//Gpki1cmc0Xant24jKyf+1J34wCN5FkRMWBDESfuDuHr8mqP7HiC?=
- =?us-ascii?Q?Y5pW13wtdopr+FxlhXVCzeP/X/54Pll/H2trDX6I3X9yDsrQ06OZqkzQCiYO?=
- =?us-ascii?Q?3Xr5kS7tZKudaKuNBbYLc/nFMp1oJiQY?=
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?x4OvHgBJvUpTZVRIQdwisgFwB2ra+KhQ2vRXeza1mfl+O9AdVEwZbH0JkBIa?=
+ =?us-ascii?Q?u3Fq+b3INl48LrTRPdDh3L8ivBTqBe1wXe8by9jF/piz1wAoZGAfOVrl9pQb?=
+ =?us-ascii?Q?AWevJTrTvJmhxFnJTn5d8hRhBmq1ACBJ1t9Aw1tE+i94zTDG6nOL8zavofyM?=
+ =?us-ascii?Q?EhVFPqA1AFX9gXe8TerwIwyGyTJWVna9PK+toCmM9UuW7mfKKUElWpAmEnCw?=
+ =?us-ascii?Q?kKJcojEhE5d9NMhZT3SFDPR8EaEQs0WZevkpzmvlHiS98lFtw7z+d+UTXTr0?=
+ =?us-ascii?Q?zZ9IaUEgadm+T5eWyNwpwr7tuM7PFcyal0USkg1AjeK/gHngXAbsZAABB0Jc?=
+ =?us-ascii?Q?k3jXOCl/wmYZsou4afyHcUx1varku57g7AcMiYJ5sS2fvsxpa+QhXsDGduge?=
+ =?us-ascii?Q?WbW24Q7Zrpu7r2v/zet+51s1SxmFYqTrDAfXzWQ6ljBfZFUcAJiQWs0n0FFx?=
+ =?us-ascii?Q?XyTuvePn+Mu35zNeZ9Ej8o1VWkzIwnWRZj0HiyNJpXO26wBHZHQufqk31rHo?=
+ =?us-ascii?Q?3m2AogF5ZRAFOU32V8goruG+KM88gnduuf3V0BRj5dzsZrpeY7LLkXS1QXoI?=
+ =?us-ascii?Q?EhDh5yA5t/goq/P/sPrJ/bYBcqVSzfr18HCdkuWbn91G+5qK77kH2E5d2EDd?=
+ =?us-ascii?Q?7JAxyTwlKTevXq43Tv7LKDhCyc9RGjqmPIOwim0WHXbJSMocrTnjxk4Rsvo5?=
+ =?us-ascii?Q?EJpSxucFbRnZ80xk7ZACDrjXWgtRZvu1/RHf7EyOB2M+lAyg2YIojhvUWu7y?=
+ =?us-ascii?Q?E8M/NWWiEuup0lKOtrFvN+4wQMkz643zgdHo1k7BmjZiCfDBpRSPhgFLJVXf?=
+ =?us-ascii?Q?lYhl7ND46u85UmuuhdT8Rtj0/GwAA159YMO4M0PDoutQRjprPr8ueW18OII9?=
+ =?us-ascii?Q?F6fm9sLvA6m/o6Z83Vb/Vy9eL1Rpk1EE4U0u7pK8U0dgFOba0XoASSPysShd?=
+ =?us-ascii?Q?jXYmHE5QPtYjDsRha8cH+VipBd6m6PmDqGXnqD/eGv/++vrb7/uIrZHte1Ry?=
+ =?us-ascii?Q?GuZqhJUmn1bA5Q8rzs5Q0NeETbeCCJMFTFCZV8KhL+F2koj/v/aAcLYzfGpg?=
+ =?us-ascii?Q?eN5m9nXpTEXBZED4r183h8682u/x1THDQi/Y/epOh5k5I9w3ADarx6oCguaI?=
+ =?us-ascii?Q?t61Odc6Mliy1Jhz7AvVz03SGWpFfej9jH9ljS/U75OTK0ih+SBc1MlpeNb9T?=
+ =?us-ascii?Q?XKg1tqZ81RPz9hXyyAghI81FrdXmGTQFlWyOCDhU8Cx4n1PvlWAiy+jhqpij?=
+ =?us-ascii?Q?YnxZhJtB1ki57P+A/GYfgVspLgJtk+8NYyt/MgOvrrUATH7vbWPScJ33AUXT?=
+ =?us-ascii?Q?4pJJ7Ktu8i9d8TNKBF9pXfBnp5RUIDUCf6wCq9OLY2JSWO2wbfHwrrUW+aTD?=
+ =?us-ascii?Q?wT3UxZg9K13xHyDGbzU40uswHpahdRMO8WECD/iRCjz+Ajga/0D6q9Ih01B4?=
+ =?us-ascii?Q?SvwUdZtJfzzdZrmgmnEXnofYOXSF5nVZ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 19:40:18.2428 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b0910e8-fdf9-4a81-fba8-08dca118210c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2024 19:40:19.6335 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fce36fdc-754a-4149-540e-08dca11821e8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8573
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,106 +142,349 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mudimela <lmudimel@amd.com>
+From: Dillon Varone <dillon.varone@amd.com>
 
-[Why]
-To refactor DWB related files from dcn30 Files
-
-[How]
-Moved DWB related files from dcn30 to specific DWB folder and
-updated Makefiles to fix Compilation.
+[WHY&HOW]
+Some global configuration options were previously hardcoded in DC, now they are
+exported by DML and sent to FW.
 
 Reviewed-by: Martin Leung <martin.leung@amd.com>
 Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Mudimela <lmudimel@amd.com>
+Signed-off-by: Dillon Varone <dillon.varone@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/Makefile            | 2 --
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/dwb/Makefile              | 9 +++++++++
- .../drm/amd/display/dc/{ => dwb}/dcn30/dcn30_cm_common.h | 0
- .../gpu/drm/amd/display/dc/{ => dwb}/dcn30/dcn30_dwb.c   | 0
- .../gpu/drm/amd/display/dc/{ => dwb}/dcn30/dcn30_dwb.h   | 0
- .../drm/amd/display/dc/{ => dwb}/dcn30/dcn30_dwb_cm.c    | 0
- drivers/gpu/drm/amd/display/dc/dwb/dcn35/dcn35_dwb.c     | 1 -
- 8 files changed, 10 insertions(+), 4 deletions(-)
- rename drivers/gpu/drm/amd/display/dc/{ => dwb}/dcn30/dcn30_cm_common.h (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dwb}/dcn30/dcn30_dwb.c (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dwb}/dcn30/dcn30_dwb.h (100%)
- rename drivers/gpu/drm/amd/display/dc/{ => dwb}/dcn30/dcn30_dwb_cm.c (100%)
+ .../gpu/drm/amd/display/dc/core/dc_state.c    |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  34 ++---
+ .../amd/display/dc/dml2/dml21/dml21_utils.c   | 143 ++++++++++--------
+ .../dml2/dml21/src/dml2_core/dml2_core_dcn4.c |   1 +
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |  17 ++-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |   4 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +-
+ 7 files changed, 110 insertions(+), 95 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-index 804851247acc..ccb4b21338b9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-@@ -25,8 +25,6 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+index 665157f8d4cb..2597e3fd562b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+@@ -967,10 +967,10 @@ bool dc_state_is_fams2_in_use(
+ 	bool is_fams2_in_use = false;
  
- DCN30 := dcn30_vpg.o \
- 	dcn30_afmt.o \
--	dcn30_dwb.o \
--	dcn30_dwb_cm.o \
- 	dcn30_cm_common.o \
- 	dcn30_mmhubbub.o \
+ 	if (state)
+-		is_fams2_in_use |= state->bw_ctx.bw.dcn.fams2_stream_count > 0;
++		is_fams2_in_use |= state->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-index b8327237ed44..685702321d32 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-@@ -28,7 +28,7 @@
- #include "reg_helper.h"
- #include "dcn30/dcn30_dpp.h"
- #include "basics/conversion.h"
--#include "dcn30_cm_common.h"
-+#include "dcn30/dcn30_cm_common.h"
- #include "custom_float.h"
+ 	if (dc->current_state)
+-		is_fams2_in_use |= dc->current_state->bw_ctx.bw.dcn.fams2_stream_count > 0;
++		is_fams2_in_use |= dc->current_state->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable;
  
- #define REG(reg) reg
-diff --git a/drivers/gpu/drm/amd/display/dc/dwb/Makefile b/drivers/gpu/drm/amd/display/dc/dwb/Makefile
-index 16f7a454fed9..3952ba4cd508 100644
---- a/drivers/gpu/drm/amd/display/dc/dwb/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dwb/Makefile
-@@ -24,6 +24,15 @@
- #
+ 	return is_fams2_in_use;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index ded13026c8ff..fb3391854eed 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1672,22 +1672,17 @@ void dc_dmub_srv_fams2_update_config(struct dc *dc,
+ 	global_cmd->header.sub_type = DMUB_CMD__FAMS2_CONFIG;
+ 	global_cmd->header.payload_bytes = sizeof(struct dmub_rb_cmd_fams2) - sizeof(struct dmub_cmd_header);
  
- ifdef CONFIG_DRM_AMD_DC_FP
-+###############################################################################
-+# DCN30
-+###############################################################################
-+DWB_DCN30 = dcn30_dwb.o dcn30_dwb_cm.o
-+
-+AMD_DAL_DWB_DCN30 = $(addprefix $(AMDDALPATH)/dc/dwb/dcn30/,$(DWB_DCN30))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_DWB_DCN30)
-+
- ###############################################################################
- # DCN35
- ###############################################################################
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.h b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_cm_common.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.h
-rename to drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_cm_common.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb.c b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb.c
-rename to drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb.h b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb.h
-rename to drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb_cm.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
-rename to drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb_cm.c
-diff --git a/drivers/gpu/drm/amd/display/dc/dwb/dcn35/dcn35_dwb.c b/drivers/gpu/drm/amd/display/dc/dwb/dcn35/dcn35_dwb.c
-index b23a809999ed..d5e8294f5a16 100644
---- a/drivers/gpu/drm/amd/display/dc/dwb/dcn35/dcn35_dwb.c
-+++ b/drivers/gpu/drm/amd/display/dc/dwb/dcn35/dcn35_dwb.c
-@@ -21,7 +21,6 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  *
-  */
+-	/* send global configuration parameters */
+-	global_cmd->config.global.max_allow_delay_us = 100 * 1000; //100ms
+-	global_cmd->config.global.lock_wait_time_us = 5000; //5ms
+-	global_cmd->config.global.recovery_timeout_us = 5000; //5ms
+-	global_cmd->config.global.hwfq_flip_programming_delay_us = 100; //100us
 -
- #include "reg_helper.h"
- #include "dcn35_dwb.h"
+-	/* copy static feature configuration */
+-	global_cmd->config.global.features.all = dc->debug.fams2_config.all;
++	if (enable) {
++		/* send global configuration parameters */
++		memcpy(&global_cmd->config.global, &context->bw_ctx.bw.dcn.fams2_global_config, sizeof(struct dmub_cmd_fams2_global_config));
+ 
+-	/* apply feature configuration based on current driver state */
+-	global_cmd->config.global.features.bits.enable_visual_confirm = dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS2;
+-	global_cmd->config.global.features.bits.enable = enable;
++		/* copy static feature configuration overrides */
++		global_cmd->config.global.features.bits.enable_stall_recovery = dc->debug.fams2_config.bits.enable_stall_recovery;
++		global_cmd->config.global.features.bits.enable_debug = dc->debug.fams2_config.bits.enable_debug;
++		global_cmd->config.global.features.bits.enable_offload_flip = dc->debug.fams2_config.bits.enable_offload_flip;
+ 
+-	/* construct per-stream configs */
+-	if (enable) {
+-		for (i = 0; i < context->bw_ctx.bw.dcn.fams2_stream_count; i++) {
++		/* construct per-stream configs */
++		for (i = 0; i < context->bw_ctx.bw.dcn.fams2_global_config.num_streams; i++) {
+ 			struct dmub_rb_cmd_fams2 *stream_cmd = &cmd[i+1].fams2_config;
+ 
+ 			/* configure command header */
+@@ -1702,12 +1697,15 @@ void dc_dmub_srv_fams2_update_config(struct dc *dc,
+ 		}
+ 	}
+ 
+-	if (enable && context->bw_ctx.bw.dcn.fams2_stream_count) {
++	/* apply feature configuration based on current driver state */
++	global_cmd->config.global.features.bits.enable_visual_confirm = dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS2;
++	global_cmd->config.global.features.bits.enable = enable;
++
++	if (enable && context->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable) {
+ 		/* set multi pending for global, and unset for last stream cmd */
+-		global_cmd->config.global.num_streams = context->bw_ctx.bw.dcn.fams2_stream_count;
+ 		global_cmd->header.multi_cmd_pending = 1;
+-		cmd[context->bw_ctx.bw.dcn.fams2_stream_count].fams2_config.header.multi_cmd_pending = 0;
+-		num_cmds += context->bw_ctx.bw.dcn.fams2_stream_count;
++		cmd[context->bw_ctx.bw.dcn.fams2_global_config.num_streams].fams2_config.header.multi_cmd_pending = 0;
++		num_cmds += context->bw_ctx.bw.dcn.fams2_global_config.num_streams;
+ 	}
+ 
+ 	dm_execute_dmub_cmd_list(dc->ctx, num_cmds, cmd, DM_DMUB_WAIT_TYPE_WAIT);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c
+index 622c98f4b7fb..e11246e525ac 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_utils.c
+@@ -461,94 +461,103 @@ void dml21_build_fams2_programming(const struct dc *dc,
+ 		struct dml2_context *dml_ctx)
+ {
+ 	int i, j, k;
++	unsigned int num_fams2_streams = 0;
+ 
+ 	/* reset fams2 data */
+-	context->bw_ctx.bw.dcn.fams2_stream_count = 0;
+ 	memset(&context->bw_ctx.bw.dcn.fams2_stream_params, 0, sizeof(struct dmub_fams2_stream_static_state) * DML2_MAX_PLANES);
++	memset(&context->bw_ctx.bw.dcn.fams2_global_config, 0, sizeof(struct dmub_cmd_fams2_global_config));
+ 
+-	if (!dml_ctx->v21.mode_programming.programming->fams2_required)
+-		return;
++	if (dml_ctx->v21.mode_programming.programming->fams2_required) {
++		for (i = 0; i < context->stream_count; i++) {
++			int dml_stream_idx;
++			struct dc_stream_state *phantom_stream;
++			struct dc_stream_status *phantom_status;
+ 
+-	for (i = 0; i < context->stream_count; i++) {
+-		int dml_stream_idx;
+-		struct dc_stream_state *phantom_stream;
+-		struct dc_stream_status *phantom_status;
++			struct dmub_fams2_stream_static_state *static_state = &context->bw_ctx.bw.dcn.fams2_stream_params[num_fams2_streams];
+ 
+-		struct dmub_fams2_stream_static_state *static_state = &context->bw_ctx.bw.dcn.fams2_stream_params[context->bw_ctx.bw.dcn.fams2_stream_count];
++			struct dc_stream_state *stream = context->streams[i];
+ 
+-		struct dc_stream_state *stream = context->streams[i];
+-
+-		if (context->stream_status[i].plane_count == 0 ||
+-				dml_ctx->config.svp_pstate.callbacks.get_stream_subvp_type(context, stream) == SUBVP_PHANTOM) {
+-			/* can ignore blanked or phantom streams */
+-			continue;
+-		}
+-
+-		dml_stream_idx = dml21_helper_find_dml_pipe_idx_by_stream_id(dml_ctx, stream->stream_id);
+-		if (dml_stream_idx < 0) {
+-			ASSERT(dml_stream_idx >= 0);
+-			continue;
+-		}
+-
+-		/* copy static state from PMO */
+-		memcpy(static_state,
+-				&dml_ctx->v21.mode_programming.programming->stream_programming[dml_stream_idx].fams2_params,
+-				sizeof(struct dmub_fams2_stream_static_state));
+-
+-		/* get information from context */
+-		static_state->num_planes = context->stream_status[i].plane_count;
+-		static_state->otg_inst = context->stream_status[i].primary_otg_inst;
+-
+-		/* populate pipe masks for planes */
+-		for (j = 0; j < context->stream_status[i].plane_count; j++) {
+-			for (k = 0; k < dc->res_pool->pipe_count; k++) {
+-				if (context->res_ctx.pipe_ctx[k].stream &&
+-						context->res_ctx.pipe_ctx[k].stream->stream_id == stream->stream_id &&
+-						context->res_ctx.pipe_ctx[k].plane_state == context->stream_status[i].plane_states[j]) {
+-					static_state->pipe_mask |= (1 << k);
+-					static_state->plane_pipe_masks[j] |= (1 << k);
+-				}
++			if (context->stream_status[i].plane_count == 0 ||
++					dml_ctx->config.svp_pstate.callbacks.get_stream_subvp_type(context, stream) == SUBVP_PHANTOM) {
++				/* can ignore blanked or phantom streams */
++				continue;
+ 			}
+-		}
+ 
+-		/* get per method programming */
+-		switch (static_state->type) {
+-		case FAMS2_STREAM_TYPE_VBLANK:
+-		case FAMS2_STREAM_TYPE_VACTIVE:
+-		case FAMS2_STREAM_TYPE_DRR:
+-			break;
+-		case FAMS2_STREAM_TYPE_SUBVP:
+-			phantom_stream = dml_ctx->config.svp_pstate.callbacks.get_paired_subvp_stream(context, stream);
+-			if (!phantom_stream)
+-				break;
++			dml_stream_idx = dml21_helper_find_dml_pipe_idx_by_stream_id(dml_ctx, stream->stream_id);
++			if (dml_stream_idx < 0) {
++				ASSERT(dml_stream_idx >= 0);
++				continue;
++			}
+ 
+-			phantom_status = dml_ctx->config.callbacks.get_stream_status(context, phantom_stream);
++			/* copy static state from PMO */
++			memcpy(static_state,
++					&dml_ctx->v21.mode_programming.programming->stream_programming[dml_stream_idx].fams2_params,
++					sizeof(struct dmub_fams2_stream_static_state));
+ 
+-			/* phantom status should always be present */
+-			ASSERT(phantom_status);
+-			static_state->sub_state.subvp.phantom_otg_inst = phantom_status->primary_otg_inst;
++			/* get information from context */
++			static_state->num_planes = context->stream_status[i].plane_count;
++			static_state->otg_inst = context->stream_status[i].primary_otg_inst;
+ 
+-			/* populate pipe masks for phantom planes */
+-			for (j = 0; j < phantom_status->plane_count; j++) {
++			/* populate pipe masks for planes */
++			for (j = 0; j < context->stream_status[i].plane_count; j++) {
+ 				for (k = 0; k < dc->res_pool->pipe_count; k++) {
+ 					if (context->res_ctx.pipe_ctx[k].stream &&
+-							context->res_ctx.pipe_ctx[k].stream->stream_id == phantom_stream->stream_id &&
+-							context->res_ctx.pipe_ctx[k].plane_state == phantom_status->plane_states[j]) {
+-						static_state->sub_state.subvp.phantom_pipe_mask |= (1 << k);
+-						static_state->sub_state.subvp.phantom_plane_pipe_masks[j] |= (1 << k);
++							context->res_ctx.pipe_ctx[k].stream->stream_id == stream->stream_id &&
++							context->res_ctx.pipe_ctx[k].plane_state == context->stream_status[i].plane_states[j]) {
++						static_state->pipe_mask |= (1 << k);
++						static_state->plane_pipe_masks[j] |= (1 << k);
+ 					}
+ 				}
+ 			}
+-			break;
+-		default:
+-			ASSERT(false);
+-			break;
++
++			/* get per method programming */
++			switch (static_state->type) {
++			case FAMS2_STREAM_TYPE_VBLANK:
++			case FAMS2_STREAM_TYPE_VACTIVE:
++			case FAMS2_STREAM_TYPE_DRR:
++				break;
++			case FAMS2_STREAM_TYPE_SUBVP:
++				phantom_stream = dml_ctx->config.svp_pstate.callbacks.get_paired_subvp_stream(context, stream);
++				if (!phantom_stream)
++					break;
++
++				phantom_status = dml_ctx->config.callbacks.get_stream_status(context, phantom_stream);
++
++				/* phantom status should always be present */
++				ASSERT(phantom_status);
++				static_state->sub_state.subvp.phantom_otg_inst = phantom_status->primary_otg_inst;
++
++				/* populate pipe masks for phantom planes */
++				for (j = 0; j < phantom_status->plane_count; j++) {
++					for (k = 0; k < dc->res_pool->pipe_count; k++) {
++						if (context->res_ctx.pipe_ctx[k].stream &&
++								context->res_ctx.pipe_ctx[k].stream->stream_id == phantom_stream->stream_id &&
++								context->res_ctx.pipe_ctx[k].plane_state == phantom_status->plane_states[j]) {
++							static_state->sub_state.subvp.phantom_pipe_mask |= (1 << k);
++							static_state->sub_state.subvp.phantom_plane_pipe_masks[j] |= (1 << k);
++						}
++					}
++				}
++				break;
++			default:
++				ASSERT(false);
++				break;
++			}
++
++			num_fams2_streams++;
+ 		}
++	}
++
++	if (num_fams2_streams > 0) {
++		/* copy FAMS2 configuration */
++		memcpy(&context->bw_ctx.bw.dcn.fams2_global_config,
++				&dml_ctx->v21.mode_programming.programming->fams2_global_config,
++				sizeof(struct dmub_cmd_fams2_global_config));
+ 
+-		context->bw_ctx.bw.dcn.fams2_stream_count++;
++		context->bw_ctx.bw.dcn.fams2_global_config.num_streams = num_fams2_streams;
+ 	}
+ 
+-	context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = context->bw_ctx.bw.dcn.fams2_stream_count > 0;
++	context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching = context->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable;
+ }
+ 
+ bool dml21_is_plane1_enabled(enum dml2_source_format_class source_format)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.c
+index b7a6f7f4c342..8c803b12404b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.c
+@@ -351,6 +351,7 @@ static void pack_mode_programming_params_with_implicit_subvp(struct dml2_core_in
+ 		programming->fams2_required = display_cfg->stage3.fams2_required;
+ 
+ 		dml2_core_calcs_get_global_fams2_programming(&core->clean_me_up.mode_lib, display_cfg, &programming->fams2_global_config);
++		programming->fams2_global_config.features.bits.enable = display_cfg->stage3.fams2_required;
+ 	}
+ 
+ 	// Only loop over all the main streams (the implicit svp streams will be packed as part of the main stream)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index 45e43a915fd6..3b1e5c548435 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -12221,12 +12221,19 @@ void dml2_core_calcs_get_global_fams2_programming(const struct dml2_core_interna
+ 		const struct display_configuation_with_meta *display_cfg,
+ 		struct dmub_cmd_fams2_global_config *fams2_global_config)
+ {
+-	fams2_global_config->max_allow_delay_us = mode_lib->ip_caps.fams2.max_allow_delay_us;
+-	fams2_global_config->lock_wait_time_us = mode_lib->ip_caps.fams2.lock_timeout_us;
+-	fams2_global_config->recovery_timeout_us = mode_lib->ip_caps.fams2.recovery_timeout_us;
+-	fams2_global_config->hwfq_flip_programming_delay_us = mode_lib->ip_caps.fams2.flip_programming_delay_us;
++	fams2_global_config->features.bits.enable = display_cfg->stage3.fams2_required;
+ 
+-	fams2_global_config->num_streams = display_cfg->display_config.num_streams;
++	if (fams2_global_config->features.bits.enable) {
++		fams2_global_config->features.bits.enable_stall_recovery = true;
++		fams2_global_config->features.bits.allow_delay_check_mode = FAMS2_ALLOW_DELAY_CHECK_FROM_START;
++
++		fams2_global_config->max_allow_delay_us = mode_lib->ip_caps.fams2.max_allow_delay_us;
++		fams2_global_config->lock_wait_time_us = mode_lib->ip_caps.fams2.lock_timeout_us;
++		fams2_global_config->recovery_timeout_us = mode_lib->ip_caps.fams2.recovery_timeout_us;
++		fams2_global_config->hwfq_flip_programming_delay_us = mode_lib->ip_caps.fams2.flip_programming_delay_us;
++
++		fams2_global_config->num_streams = display_cfg->display_config.num_streams;
++	}
+ }
+ 
+ void dml2_core_calcs_get_stream_fams2_programming(const struct dml2_core_internal_display_mode_lib *mode_lib,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index d0b4308dca96..f4c1547a368f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -1531,7 +1531,7 @@ void dcn401_fams2_update_config(struct dc *dc, struct dc_state *context, bool en
+ 	if (!dc->ctx || !dc->ctx->dmub_srv || !dc->debug.fams2_config.bits.enable)
+ 		return;
+ 
+-	fams2_required = context->bw_ctx.bw.dcn.fams2_stream_count > 0;
++	fams2_required = context->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable;
+ 
+ 	dc_dmub_srv_fams2_update_config(dc, context, enable && fams2_required);
+ }
+@@ -1656,7 +1656,7 @@ void dcn401_hardware_release(struct dc *dc)
+ 	 */
+ 	if (dc->current_state) {
+ 		if ((!dc->clk_mgr->clks.p_state_change_support ||
+-				dc->current_state->bw_ctx.bw.dcn.fams2_stream_count > 0) &&
++				dc->current_state->bw_ctx.bw.dcn.fams2_global_config.features.bits.enable) &&
+ 				dc->res_pool->hubbub->funcs->force_pstate_change_control)
+ 			dc->res_pool->hubbub->funcs->force_pstate_change_control(
+ 					dc->res_pool->hubbub, true, true);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index 4c8e6436c7e1..bfb8b8502d20 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -534,8 +534,8 @@ struct dcn_bw_output {
+ 	unsigned int legacy_svp_drr_stream_index;
+ 	bool legacy_svp_drr_stream_index_valid;
+ 	struct dml2_mcache_surface_allocation mcache_allocations[DML2_MAX_PLANES];
++	struct dmub_cmd_fams2_global_config fams2_global_config;
+ 	struct dmub_fams2_stream_static_state fams2_stream_params[DML2_MAX_PLANES];
+-	unsigned fams2_stream_count;
+ 	struct dml2_display_arb_regs arb_regs;
+ };
  
 -- 
 2.34.1
