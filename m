@@ -4,73 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C60BC3DA47
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jul 2024 07:19:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A66C3DA4E
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jul 2024 07:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC82110E972;
-	Thu, 11 Jul 2024 07:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC87110E97D;
+	Thu, 11 Jul 2024 07:18:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="Qf6UdGtV";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="ZHmSw9M7";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBBDA10E962;
- Thu, 11 Jul 2024 06:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1720680523; x=1721285323; i=markus.elfring@web.de;
- bh=6qI8fLIJiGf17J5Ni96D/YTFzWMMohhjRTncnDj8gIg=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=Qf6UdGtVg0C+3CVRbryVw/ff4dGeXSVSTquRkYNDn/jDjj1ReKAhus+X/6P80WH/
- msiR+5OjWeqY+rtZMqAFwoBgnKv+IGyOQTCx69kAV2gaqX2WJ/QRWFzBOMCw+TZlO
- iV8aOLR2YDWwYSrJ7SLsVwzCXGn8m7rzXrmBBn3sQeVj0K1MCrrj5LcOWKjokTKFQ
- rbr8a2bOCXA5XuhBalFPkH4hALZSZZqhqrStomMxG3cJ1wi6WCnSSXWn1EjC42HiU
- Mi8Qkj/ZGdxokChxM7/c1QB9zbwzrXxSHOMgVSOw2nHQ5AKES36vwG734WaKJ+S/6
- ujlWJ/d/+YuN6umoag==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.89.95]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MzCED-1sDj8T3pXX-00rMnK; Thu, 11
- Jul 2024 08:48:43 +0200
-Message-ID: <74b43faa-f212-4542-b7e2-68d5eb9ce474@web.de>
-Date: Thu, 11 Jul 2024 08:48:36 +0200
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E936C10E8D7;
+ Thu, 11 Jul 2024 05:29:07 +0000 (UTC)
+Received: from rrs24-12-35.corp.microsoft.com (unknown [131.107.159.213])
+ by linux.microsoft.com (Postfix) with ESMTPSA id AE9B420B7165;
+ Wed, 10 Jul 2024 22:29:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AE9B420B7165
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1720675747;
+ bh=TXslZm7l31oVmL4IRB7cxEknwRuJDanuUWgnpQOIK4c=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ZHmSw9M7RPIsPSrdhoxEFxDDMvqk8wYOGbdg2g/5sp0PrNsyCMIbgsF62JvJvkgKi
+ HjaSMqWKmqjNMGjXh8ZSfR6VES/Q9wnDJi3Pfdq5/YOdQUCfcA36QH9XKhYc5tEqOL
+ eF/jEcVERE3LHkL2Ak/jxDErFr1wXeLs7clp3biI=
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+To: Steve Glendinning <steve.glendinning@shawell.net>,
+ Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org (open list:SMSC UFX6000 and UFX7000 USB to VGA
+ DRIVER), dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER LAYER),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Easwar Hariharan <eahariha@linux.microsoft.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915
+ DRIVERS), 
+ linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+ linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER LAYER),
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v4 5/6] fbdev/smscufx: Make I2C terminology more inclusive
+Date: Thu, 11 Jul 2024 05:27:33 +0000
+Message-Id: <20240711052734.1273652-6-eahariha@linux.microsoft.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240711052734.1273652-1-eahariha@linux.microsoft.com>
+References: <20240711052734.1273652-1-eahariha@linux.microsoft.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: make24@iscas.ac.cn, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
-Cc: tech-board@groups.linuxfoundation.org, LKML
- <linux-kernel@vger.kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- Chen Jiahao <chenjiahao16@huawei.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Guchun Chen <guchun.chen@amd.com>, Jammy Zhou <Jammy.Zhou@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Shuah Khan <shuah@kernel.org>, Wei Liu <wei.liu@kernel.org>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-References: <20240711024531.1604757-1-make24@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/amdgpu: fix a possible null pointer dereference
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20240711024531.1604757-1-make24@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:SQMLuje8Gr1yokQNLO4dDAgbd+AIGjrCDl1NTgAreYMe3ccfHrM
- qHW7nk1tIK3Qh3sJg0yZ1UBiSf+em5kL7oH1eIuO/bKFYNuOy9t2z/YIg6SA8ozi1gV/ibU
- elAPMwnfIeGc4ta0+RTeysexxtXFQtcrQL1v0aH43/mpFGVjgm3nALJUMURbreMljVqOF0Z
- +aOxRAbBw4/DqyjagFnow==
-UI-OutboundReport: notjunk:1;M01:P0:F35aPUitlI8=;iUxxLvJdovw+7SO0os6kpsTQkXg
- AevsvLV/3wAetvXBvxMzDMLKJ81X4uKxpOXUBTzCXnbeKnqMmZ9V/Itdlj6DgpPiqZfLITzLI
- gE0IaYZzN13JFQIQBGFf1jBQgXPTkFLAAjl3woxxyrL8A9COvOJ8GooNsisumF9Fx9ygLQxPc
- 04lERQA2dXUCjmvWZ9+w+0lW3AbFEXjEsPQEEdCh1kjliIqTPue5RVzb6nP1uSsLNWPh5iMJv
- MlFPTRa/8ndIGpktU7pORraE1KHGNXLdxzvCYbBNKjllbE+/V6w0uHKShBb0JyyObQea8pNi+
- 9YNi/PbP92NRkhlBbpmTA3Xbiu40GmRVvggNkVKiSRK0Us1yE+s9A3kp89JtDMbCC0PkNvom5
- bEx2yHphgAnm2X2dw6QXw4zYVxaXCfjjyHUEfhYmgEl7jctnpDYFehDMSvts1zKtdwtc4hfbi
- n/hPVpbSsUVQHQhWAMh3tTjBAGZbHpcnHVQFijlQWZuWPM/xX1E2BjMKB45rqSH+vI/pR/9Wv
- Oak57OurljQbWCMFup4rKX0r7BD8yFf2ay+vNjRBsvz94tAETcWnh2xOCN1GZiEivzCKwKCvY
- aY1VFFS2U0aeycECtCAt/UHQZoRoC+aTaf036FTiRAULa+HYi4gLgnk6LIzRHPmLeQYSh6SAy
- fmitSZaft1XyvWgdGjGNbxFPlfRNZkHmQvtx6hiG2kpDhypZntw1ZKXMs9s7MuVmUL+jdE7ww
- zDkkKpPV3eOGONJD7zcpoxWb8nIASLEKFqLQgY83dZwboiPyccJMkQIYo61nY17QlkWZRFXIQ
- 1r+GNaPXAVQZ8DC9EGEmngpg==
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Jul 2024 07:18:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,17 +68,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> In amdgpu_connector_add_common_modes(), the return value of drm_cvt_mode=
-()
-> is assigned to mode, which will lead to a NULL pointer dereference on
-> failure of drm_cvt_mode(). Add a check to avoid npd.
->
-> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-> Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+I2C v7, SMBus 3.2, and I3C 1.1.1 specifications have replaced "master/slave"
+with more appropriate terms. Inspired by Wolfram's series to fix drivers/i2c/,
+fix the terminology for users of I2C_ALGOBIT bitbanging interface, now that
+the approved verbiage exists in the specification.
 
-Are you going to adhere to known research and development processes?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/researcher-guidelines.rst?h=3Dv6.10-rc7#n5
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+---
+ drivers/video/fbdev/smscufx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Regards,
-Markus
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 35d682b110c42..5f0dd01fd8349 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -1292,7 +1292,7 @@ static int ufx_realloc_framebuffer(struct ufx_data *dev, struct fb_info *info)
+ 	return 0;
+ }
+ 
+-/* sets up I2C Controller for 100 Kbps, std. speed, 7-bit addr, master,
++/* sets up DDC channel for 100 Kbps, std. speed, 7-bit addr, controller mode,
+  * restart enabled, but no start byte, enable controller */
+ static int ufx_i2c_init(struct ufx_data *dev)
+ {
+@@ -1321,7 +1321,7 @@ static int ufx_i2c_init(struct ufx_data *dev)
+ 	/* 7-bit (not 10-bit) addressing */
+ 	tmp &= ~(0x10);
+ 
+-	/* enable restart conditions and master mode */
++	/* enable restart conditions and controller mode */
+ 	tmp |= 0x21;
+ 
+ 	status = ufx_reg_write(dev, 0x1000, tmp);
+-- 
+2.34.1
+
