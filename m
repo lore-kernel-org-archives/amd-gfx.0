@@ -4,64 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD555C3DA45
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jul 2024 15:17:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5793C3DA45
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jul 2024 18:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BC410EABB;
-	Thu, 11 Jul 2024 15:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5874A10E16C;
+	Thu, 11 Jul 2024 18:17:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gUyKV30d";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Aj2wDtD5";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8F010EAB7
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 15:17:38 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-70b0bc1ef81so791644b3a.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 08:17:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720711058; x=1721315858; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7HFRfHOqxP0iSCQLpW7b0NTcVaIAkpX9f7OQXGlBlQc=;
- b=gUyKV30diXbp8wxujIpLrXmF4ah/38CT92Lf2rKsRvXukNTxErerZ8zcyv1HfBi+t9
- 5VLB3fMlBTidxuL+42eYdXBPXh1Co0Zuj2z7fyq7WM6xDM725g2wIA3PeUSNHW6zNCkM
- /CX3ao0huzQMwULCaW/hYn8zj3UQLV9z3hPtPaVi1LfAkNw49fId63NJcZrrB7DQckHY
- OyFkoncxaF9VwTkTv/rQSiYaJ/GffC4XhPPEtoDHO3IYE3vWgrMXHmQWr+ixbJnwSEvS
- MONJN0fXA1NnKBvSVaA7Xq51mRUPfKSopYQDsID4P2fmFDHkBk0SkrM5JuIsU9MUrd76
- 5T/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720711058; x=1721315858;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7HFRfHOqxP0iSCQLpW7b0NTcVaIAkpX9f7OQXGlBlQc=;
- b=TPwbR+DDgtZCsfKQf7wxT6uppWsvB2R3beuVd08DFbCDiBKleWLY4I9Vr9MMbvkyjP
- tuwfXRlTai+jaOanwWs6s9Y3Gjl2yZM384RPVRK8OgAnsCvIi1HpyNGKqY+cFUgZnmuu
- 8PMxOH6WIqD74MfC3v5FXKFJSfxoTRe7U0Oy0UvWWVgcmn28i2KFFxUvLX0vaPQb6K2A
- vd6T5dZabqNNLmft8RdqnGYagfITIg/Xlf9W6qqRDtcdTlFHd5tcK76C/Acu54P8TI0V
- D6z6cgrQCKVPYtVGvM9m/6dN7edJ7aoKAlHAc/17YvN5Kl1ynBsv90XVLNNzhQNVQVrn
- +BNw==
-X-Gm-Message-State: AOJu0YzE7fwcLsw6X85OW40Mt0IfqPlQEwKW5TU6Vl5Hxyr5UsEbUYBO
- 4mazdFbwH0hbzrrh7HlXDM8vQ5JxXKQyhlfbT2f0+QJAWwERatfvZpgNi6JldqD/1qnVS/Eh72j
- 9mFl8j7ix2v7FgmAIzLBTf1TcyAaDhw==
-X-Google-Smtp-Source: AGHT+IHT3UEVvxcAC9IXz1NTRBRgD55WC++4cgGf6t28Os1SkedsMzC547tv+L4sJ8xaj7YM7I/+MU/t5G71SThNVD0=
-X-Received: by 2002:a05:6a20:4fa2:b0:1bd:260e:be97 with SMTP id
- adf61e73a8af0-1c2984ddcecmr8234878637.53.1720711057765; Thu, 11 Jul 2024
- 08:17:37 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7521710E16C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 18:17:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=N+LETS1WfckbktpPGI6ajUp+pOmH49nt0NF0OZW/50w=; b=Aj2wDtD58+3DtFvbhRDbu3fN7Z
+ C6k5BVy8fw94EuUbIr0Jva6DSYAwLGKrmy6roRaOjDSs03QJFX4o7ERS4jjgLdfyOFn5pbkDRs47t
+ F7b7gj5c+5BPpSszQQqrHzftJcsyflKOL8NlYVi7bulw+GDsleJytRMTBNiW9CCSI6URpaZbthe4o
+ CJcOpRLpEfVj4Y2+ObT5oSS07HdtUyap4ubsZO+ugg45D/QQSdpkbd2kV/jUXSYj77ehKAXDi0dU4
+ s0j9SuXSbiHlHSb+ZubqBCt8XaGXy5fv5lAfVkT5XLWBgMme0q/3A6695+lGU9jWxjamiZ3QS9XLL
+ bjSzYivw==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1sRyMW-00Dqgy-Om; Thu, 11 Jul 2024 20:17:48 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC] drm/amdgpu: More efficient ring padding
+Date: Thu, 11 Jul 2024 19:17:46 +0100
+Message-ID: <20240711181746.86311-1-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240711140603.2860632-1-aurabindo.pillai@amd.com>
-In-Reply-To: <20240711140603.2860632-1-aurabindo.pillai@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Jul 2024 11:17:26 -0400
-Message-ID: <CADnq5_NwQt8jL7bbaSKkbq79m6ek_q5rWQaD7kxwenXphSarHA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Bump KMS_DRIVER_MINOR version
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- marek.olsak@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,41 +56,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 11, 2024 at 11:05=E2=80=AFAM Aurabindo Pillai
-<aurabindo.pillai@amd.com> wrote:
->
-> Increase the KMS minor version to indicate GFX12 DCC support since this
-> contains a major change in how DCC is managed across IPs like GFX, DCN
-> etc. This will be used mainly by userspace like Mesa to figure out
-> DCC support on GFX12 hardware.
->
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+From the department of questionable optimisations today we have a minor
+improvement to how padding / filling the rings with nops is done.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 802debd8d9f0..af44cbc90d2a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -117,9 +117,10 @@
->   * - 3.56.0 - Update IB start address and size alignment for decode and =
-encode
->   * - 3.57.0 - Compute tunneling on GFX10+
->   * - 3.58.0 - Add AMDGPU_IDS_FLAGS_MODE_PF, AMDGPU_IDS_FLAGS_MODE_VF & A=
-MDGPU_IDS_FLAGS_MODE_PT
-> + * - 3.59.0 - Add GFX12 DCC support
->   */
->  #define KMS_DRIVER_MAJOR       3
-> -#define KMS_DRIVER_MINOR       58
-> +#define KMS_DRIVER_MINOR       59
->  #define KMS_DRIVER_PATCHLEVEL  0
->
->  /*
-> --
-> 2.45.2
->
+Having noticed that typically 200+ nops per submission are filled into the
+ring, using a rather verbose one-nop-at-a-time-plus-ring-buffer-arithmetic
+as done in amdgpu_ring_write(), while right next to it there is
+amdgpu_ring_write_multiple(), I thought why not pre-cache a block of nops
+and write them out more efficiently.
+
+The patch is rather quick and dirty, does not deal with all insert_nops
+vfuncs, and the cache should probably go one level up so it is not
+replicated per amdgpu_ring instance.
+
+And performance gains are not that amazing for normal workloads. For
+instance a game which results in two submissions per frame, each pads
+with 222 nops, submission worker thread profile changes from:
+
++   90.78%     0.67%  kworker/u32:3-e  [kernel.kallsyms]  [k] process_one_work
++   48.92%     0.12%  kworker/u32:3-e  [kernel.kallsyms]  [k] commit_tail
++   41.18%     1.73%  kworker/u32:3-e  [kernel.kallsyms]  [k] amdgpu_dm_atomic_commit_tail
+-   30.31%     0.67%  kworker/u32:3-e  [kernel.kallsyms]  [k] drm_sched_run_job_work
+   - 29.63% drm_sched_run_job_work
+      + 8.55% dma_fence_add_callback
+      - 7.50% amdgpu_job_run
+         - 7.43% amdgpu_ib_schedule
+            - 2.46% amdgpu_ring_commit
+                 1.44% amdgpu_ring_insert_nop
+
+To:
+
++   89.83%     0.51%  kworker/u32:6-g  [kernel.kallsyms]  [k] process_one_work
++   47.65%     0.30%  kworker/u32:6-g  [kernel.kallsyms]  [k] commit_tail
++   39.42%     1.97%  kworker/u32:6-g  [kernel.kallsyms]  [k] amdgpu_dm_atomic_commit_tail
+-   29.57%     1.10%  kworker/u32:6-g  [kernel.kallsyms]  [k] drm_sched_run_job_work
+   - 28.47% drm_sched_run_job_work
+      + 8.52% dma_fence_add_callback
+      - 6.33% amdgpu_job_run
+         - 6.19% amdgpu_ib_schedule
+            - 1.85% amdgpu_ring_commit
+                 0.53% amdgpu_ring_insert_nop
+
+Or if we run a more "spammy" workload, which does several orders of
+magnitude more submissions second we go from:
+
++   79.38%     1.66%  kworker/u32:1+e  [kernel.kallsyms]  [k] process_one_work
+-   63.13%     6.66%  kworker/u32:1+e  [kernel.kallsyms]  [k] drm_sched_run_job_work
+   - 56.47% drm_sched_run_job_work
+      - 25.67% amdgpu_job_run
+         - 24.40% amdgpu_ib_schedule
+            - 15.29% amdgpu_ring_commit
+                 12.06% amdgpu_ring_insert_nop
+
+To:
+
++   77.76%     1.97%  kworker/u32:6-f  [kernel.kallsyms]  [k] process_one_work
+-   60.15%     7.04%  kworker/u32:6-f  [kernel.kallsyms]  [k] drm_sched_run_job_work
+   - 53.11% drm_sched_run_job_work
+      - 19.35% amdgpu_job_run
+         - 17.85% amdgpu_ib_schedule
+            - 7.75% amdgpu_ring_commit
+                 3.27% amdgpu_ring_insert_nop
+
+Not bad and "every little helps", or flame-throwers at ready?
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 20 +++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+ 2 files changed, 16 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index ad49cecb20b8..22ec9de62b06 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -108,10 +108,14 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+  */
+ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
++	if (count > 1 && count <= ARRAY_SIZE(ring->nop_cache)) {
++		amdgpu_ring_write_multiple(ring, ring->nop_cache, count);
++	} else {
++		int i;
+ 
+-	for (i = 0; i < count; i++)
+-		amdgpu_ring_write(ring, ring->funcs->nop);
++		for (i = 0; i < count; i++)
++			amdgpu_ring_write(ring, ring->funcs->nop);
++	}
+ }
+ 
+ /**
+@@ -124,8 +128,11 @@ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+  */
+ void amdgpu_ring_generic_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib)
+ {
+-	while (ib->length_dw & ring->funcs->align_mask)
+-		ib->ptr[ib->length_dw++] = ring->funcs->nop;
++	u32 count = ib->length_dw & ring->funcs->align_mask;
++
++	memcpy(&ib->ptr[ib->length_dw], ring->nop_cache, count * sizeof(u32));
++
++	ib->length_dw += count;
+ }
+ 
+ /**
+@@ -359,6 +366,9 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 			&ring->sched;
+ 	}
+ 
++	for (r = 0; r < ARRAY_SIZE(ring->nop_cache); r++)
++		ring->nop_cache[r] = ring->funcs->nop;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 582053f1cd56..74ce95b4666a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -246,6 +246,7 @@ struct amdgpu_ring {
+ 	struct amdgpu_bo	*ring_obj;
+ 	volatile uint32_t	*ring;
+ 	unsigned		rptr_offs;
++	u32			nop_cache[256];
+ 	u64			rptr_gpu_addr;
+ 	volatile u32		*rptr_cpu_addr;
+ 	u64			wptr;
+-- 
+2.44.0
+
