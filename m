@@ -4,43 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD53C2BD09
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2377C3DA45
 	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 07:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 392B710EC28;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E19A10EC2A;
 	Fri, 12 Jul 2024 07:17:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Zrc8B2/z";
-	dkim-atps=neutral
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B62510EAA8
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 14:57:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1720709853;
- bh=Y+wAWAFTXevIAj9CS2cKzDzafDJ2NYFrO0uWvlIyreg=;
- h=Subject:From:To:Date:From;
- b=Zrc8B2/zALAaOMD7Oo56ZSZWu/QJYOfgLUKK4DnuIGa5xeY0KgeRsZWBFijzKxpr1
- jaaVQSBKHplMS2fSfhRm7SFizQOqnyl7WV0NyjUoROPU31WljzWmDNS5rU2iCYpryc
- zffEYHV3GgCVEFGZKaMqlwiTKy0vaZxqIQvYzGMDYc7uTpwsNUINkV4R4el8sUon7T
- 8q/Cngw7h7PWKgYWzPD3jsk6ragEGx5MbbmlVKGMj3hCA2kE0P9rFUvVKWGC48OEDb
- kmDZA7Qpq3n+KHbrjXyERT2bIOobz6/89B018htjnIk289XZ0yziz5RZokVElzdaNX
- k2LMH4YYQJXtg==
-Received: from [100.127.186.53] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: mfilion)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 07B64378065F
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 14:57:32 +0000 (UTC)
-Message-ID: <9e8981a98a022e9ab4c6dd2408488c0c26058167.camel@collabora.com>
-Subject: XDC 2024: Registration & Call for Proposals now open!
-From: Mark Filion <mark.filion@collabora.com>
-To: amd-gfx@lists.freedesktop.org
-Date: Thu, 11 Jul 2024 10:57:17 -0400
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.1 (3.52.1-1.fc40) 
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 346E910E99E;
+ Thu, 11 Jul 2024 08:45:21 +0000 (UTC)
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
+ by APP-05 (Coremail) with SMTP id zQCowAC3veWVm49mlSy3Ag--.57394S2;
+ Thu, 11 Jul 2024 16:45:17 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, asad.kamal@amd.com, lijo.lazar@amd.com,
+ make24@iscas.ac.cn, le.ma@amd.com, kenneth.feng@amd.com, evan.quan@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/amdgpu: Fix uninitialized variable warnings
+Date: Thu, 11 Jul 2024 16:45:09 +0800
+Message-Id: <20240711084509.2432392-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAC3veWVm49mlSy3Ag--.57394S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtryrZr45Zr4rWw43Xr1DZFb_yoW3GFX_Kr
+ 4UJasrGrn2yF1q9r1UZayFqa42yF98uF4vqas3ta4Fv3yxX343Xr93WrykXF1ruF43C3Zr
+ A34UWry5A39IkjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6r1S6rWUM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAG
+ YxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUQZ23UUUUU=
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 X-Mailman-Approved-At: Fri, 12 Jul 2024 07:17:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,53 +61,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+Return 0 to avoid returning an uninitialized variable r.
 
-Registration & Call for Proposals are now open for XDC 2024, which will
-take place at the Concordia University Conference Centre in Montr=C3=A9al,
-Canada on October 9 to 11.=20
+Fixes: 230dd6bb6117 ("drm/amd/amdgpu: implement mode2 reset on smu_v13_0_10")
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-New this year: XDC 2024 will feature two full days dedicated to talks
-followed by a day dedicated to workshops, meetings & hacking.
-All workshops and meetings will take place on the last day.
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+index 04c797d54511..0af648931df5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+@@ -91,7 +91,7 @@ static int smu_v13_0_10_mode2_suspend_ip(struct amdgpu_device *adev)
+ 		adev->ip_blocks[i].status.hw = false;
+ 	}
+ 
+-	return r;
++	return 0;
+ }
+ 
+ static int
+-- 
+2.25.1
 
-    https://xdc2024.x.org
-  =20
-As usual, the conference is free of charge and open to the general
-public. If you plan on attending, please make sure to register as early
-as possible!
-=20
-In order to register as attendee, you will therefore need to register
-via the XDC website.
-
-    https://indico.freedesktop.org/event/6/registrations/
-
-In addition to registration, the CfP is now open for talks, workshops
-and demos at XDC 2024. While any serious proposal will be gratefully
-considered, topics of interest to X.Org and freedesktop.org developers
-are encouraged. The program focus is on new development, ongoing
-challenges and anything else that will spark discussions among
-attendees in the hallway track.
-
-We are open to talks across all layers of the graphics stack, from the
-kernel to desktop environments / graphical applications and about how
-to make things better for the developers who build them. Head to the
-CfP page to learn more:
-
-    https://indico.freedesktop.org/event/6/abstracts/
-
-The deadline for submissions Monday, 12 August 2024.
-
-We are looking forward to seeing you in Montr=C3=A9al! If you have any
-questions,
-please send me an email (mfilion at collabora.com),
-adding on CC the X.org board (board at foundation.x.org).
-
-And don't forget, you can follow us on Mastodon for all the latest
-updates and to stay connected:
-
-    https://floss.social/@XOrgDevConf
-
-Best,
-
-Mark
