@@ -4,79 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07742C3DA41
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jul 2024 11:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ACEBC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jul 2024 11:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4C8310EA3B;
-	Thu, 11 Jul 2024 11:56:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D761010EA3D;
+	Thu, 11 Jul 2024 11:56:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PIsDO8cB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="I6+YSnYK";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 388C110EA3B
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 11:56:10 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-36796bbf687so371086f8f.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 04:56:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720698968; x=1721303768; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=pwDYMQwO2rpZT8vO6jOXx4pg9DA0t0y5rxzqSwAoeq8=;
- b=PIsDO8cBUUsQ4Yr/XbdPHg3VhMExunU0K+RR8gNmdfxLTzEoySugayexiPEKtW0i/C
- +jB/H9+H6clKGzs3leoBGABr/zYLZtCYYAcfbY4MIHGqmnJy57vIP/W5BxmAirJjfmJZ
- u44m+QFejrOUyUKtjEY+KzXBOfY0HcG5Zz3vl4+3tlO+CVyA5DhIH/YM23r+F/oVRnWE
- lMGSCnKpRuTRCL05uvVRyFovrgDJ2rmwPHqqEwIlvPvDWN5VyNjo56wUC7u3FMAjylyM
- YFsuarcETB6VXjgRJRAL/rnps9CGfaNtUgnOBhSpsMOacdrZku8OOUmMT72Jt32t9sCF
- S8ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720698968; x=1721303768;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pwDYMQwO2rpZT8vO6jOXx4pg9DA0t0y5rxzqSwAoeq8=;
- b=qXnIHcDCYG3oTwOBcv72DduDNEVe4eD9SxAKX34NJjnEmPuTdtwMoiM8CfFsVE/+DZ
- O8gFmu5mgPgeRqg17okZI260ZPgYPftR1sKivMI40yVDZXkiKl7w8jIxyw63qDio01ZG
- OoLntieAMZSLNSyz1IZo2EjpOB6gocSgbCg/UNnU8nIPgUq+IfG7+SGVP/tR/0vYU/eP
- bij6qpLiuSJxV/VBooxMWNT6cHn7cwE8+v0Qi+uZOdCz+O0BiNQsMdYDCV6MiFd0duPU
- CGoIwY2SDEqwVZLnyJAXCB81LYoHx9u3oDbdGT9uf++9hxz6KSlyTUIdD4zZE09TAZ/v
- 5qlg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWrOS1ZIjqobNNZgWGYSxz+2QWbi/1a9y7dCnbTCAbYoba0Pv8xufmVDgvElmswtaUs3OGkhGOV8jxxwj94H0PXM6D4GnxeIR7BN6zxPg==
-X-Gm-Message-State: AOJu0YyKUsKchCq+ufCRD5S8N9Lys8YHrH1Zjq/rCFRLqJtlbl6nN6BY
- dt+PCW+XDP2aeCjQs3A6kXoRHT7rcbuqNJGG2OxDfYhGNkUhp3/d
-X-Google-Smtp-Source: AGHT+IGI/G0+mj0PaXttF0OXXFELz4BKHzp1BTpy6+y+VLIfuNbY4IRS2bqiU3FTcTPIAeTrrvwN6w==
-X-Received: by 2002:adf:e692:0:b0:366:ec2f:dbc9 with SMTP id
- ffacd0b85a97d-367ceac4ba5mr5459827f8f.51.1720698968055; 
- Thu, 11 Jul 2024 04:56:08 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-367cdfa0672sm7638732f8f.79.2024.07.11.04.56.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jul 2024 04:56:07 -0700 (PDT)
-Message-ID: <a3919111-1476-466a-a9b8-9779d2e5b072@gmail.com>
-Date: Thu, 11 Jul 2024 13:56:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in the right
- place
-To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20240710003101.1645322-1-jiadong.zhu@amd.com>
- <0e79392e-1e82-4602-8ebb-2dc9d31e001c@gmail.com>
- <DS7PR12MB633361A48187FDC04193B93CF4A42@DS7PR12MB6333.namprd12.prod.outlook.com>
- <3f6f779d-33ff-4cbb-9eaf-035888c200e5@gmail.com>
- <DS7PR12MB6333A502ED4D41239EEB86C8F4A42@DS7PR12MB6333.namprd12.prod.outlook.com>
- <28dba774-ef8b-4f84-9ff3-6014b50e11b7@gmail.com>
- <DS7PR12MB63330DE4D4D6664AC1BE31F7F4A52@DS7PR12MB6333.namprd12.prod.outlook.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5165310EA3E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jul 2024 11:56:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PZ6y0nkOTU76/90unMvwkksyThsdj2LowD8vO4iY9thn1SXD93+BJE4hk46aU7U8xiioULRR2NZVh2uf5jnpoQY2aOB/1xi3LX9mn3/LGaUDBZAe+OLg5HaBYdbL+8lWBSI6o3Y8uzI1/v+GCVoMUNCG47u5KY1dR8qUVV7xengHw74Uw0SkkUU2xuniy0GInJBIhtEerL7KXeCw9n9gq8iclK8SqgKl1OebdPjY1kVD5rddUPMUovnAJmVQDtPRaEkM5oDn1pVxX21NPt1Ri2yHIeVX/WI/ctRn7YNwpgOoGH7UCyC7fxfgKdheIDBl3Yvn/89twVdxWTcujdX5BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RbhHD32SJDya8yj1rrL4QffcBrt85zeJcFfQbB4IuJA=;
+ b=ZSx/Nt1hxprmMmOn0d75ExLKOUKbSRPjrDF/zBojeow3p8Md2QGNN3YjpS/5kpo0CjXYx2Q1oGsQW0lYlgHfSDamd7z88vJBEotrPXYF11s50ik+UoaY/NjEiUf0yVKBCjIETzuob/ws1HaS9HmLLEfHCi8wXjxd4TSWILpTcZdNfU8xikTRxkVZcexqj3d3x5NNbc0/SGQjAJDgY/YWRt4VBdNeTQowqRWGBrs7PecYgVPeZq9I7nobibs9ILOSmyW0MPgi4oOrTjv3Bkkg7/3rvqeYOtfbL3bOlqwL/k9vgnZnFWfLQ26Huml2iC3q/9vymoe5hGXA9OMJWP6vfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RbhHD32SJDya8yj1rrL4QffcBrt85zeJcFfQbB4IuJA=;
+ b=I6+YSnYKv06w8M0JwFYCFp+DIb9iuBJHO9Zf6ahySZPOkRYHhOH8khWTgewCrqRmkauaLxEJIzQeUp1z9Pt34f1zq7M/qhG6uYujbEGHIHY5FMHzFpoP1jozCF/MoVHbwzCCXgUXrZWSmB77zTdDQNoSnMz+V/CWgWGvXouKkjM=
+Received: from SA1PR12MB7442.namprd12.prod.outlook.com (2603:10b6:806:2b5::15)
+ by DS7PR12MB5936.namprd12.prod.outlook.com (2603:10b6:8:7f::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7741.41; Thu, 11 Jul 2024 11:56:15 +0000
+Received: from SA1PR12MB7442.namprd12.prod.outlook.com
+ ([fe80::cf37:527e:ce1c:5a78]) by SA1PR12MB7442.namprd12.prod.outlook.com
+ ([fe80::cf37:527e:ce1c:5a78%3]) with mapi id 15.20.7741.033; Thu, 11 Jul 2024
+ 11:56:15 +0000
+From: "Huang, Trigger" <Trigger.Huang@amd.com>
+To: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>, "YuanShang Mao (River)"
+ <YuanShang.Mao@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
+Thread-Topic: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
+Thread-Index: AQHa03IhEK0Tdjf3Jk+mDkXW36o+uLHxaZFw
+Date: Thu, 11 Jul 2024 11:56:15 +0000
+Message-ID: <SA1PR12MB74429E91B411DEEF22D29B70FEA52@SA1PR12MB7442.namprd12.prod.outlook.com>
+References: <20240711090947.478919-1-YuanShang.Mao@amd.com>
+In-Reply-To: <20240711090947.478919-1-YuanShang.Mao@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DS7PR12MB63330DE4D4D6664AC1BE31F7F4A52@DS7PR12MB6333.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=e650a8ab-534c-4e8d-8faf-07322d5f2a18;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-11T11:48:21Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR12MB7442:EE_|DS7PR12MB5936:EE_
+x-ms-office365-filtering-correlation-id: 0438a2b2-9e57-45ea-0fb5-08dca1a07782
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?mk5X/z/Stb/WZBGYxhx2N6Id4juiwmDtAHz+lPOydjhQUtV9kcQscsiEqQJ7?=
+ =?us-ascii?Q?hrItPgjWahbAsvlNSP0GGx3AXP0Q8DRtiU+phUf/OpRWVO+62tF8ho35TBax?=
+ =?us-ascii?Q?8WCY8WjcrNXylh1ogf8Z3ooAfgcd5Hz5ChRdTvr/n14wkg1a7knJv7rQpssV?=
+ =?us-ascii?Q?yhA/nQCzLxpCSLH+9ZSIpKtJbEw4XrZ0I1A6RxVqbQa3MadpVCVrq7U5CGHd?=
+ =?us-ascii?Q?NrJnYusjmvx2JtXsb9bWzzevGFZTzGWjJgg83Y9csev6PPQ/k6vTVH/qAGuC?=
+ =?us-ascii?Q?WWyPqu54E2k62jA60W5z7hqbbxo8orXMucJ4wLjPigZvZstCJiS542KhDFWG?=
+ =?us-ascii?Q?DJ0qp4Q5IIQDPhZWQZHoxHb9CgFku/Jvpu8L+DMb3Oxz1wHuP/5TfrkbNati?=
+ =?us-ascii?Q?TPvz4b75sJyTSBAOKcPAlH2fF5bYCsEiYHOkL2W+eqNGw6wldZXrb9JpINKR?=
+ =?us-ascii?Q?e6Mbv9+lRPA1ENoEtNyd9sgj/DpOIwCEvjlkCedoH+mCxKkzUEvvjt8rO8/k?=
+ =?us-ascii?Q?ZmZBgF5ZT2eCYafEjDLQ0qnVEYtu4aZoQx7sqb2rkRzN4g0FtzIapfOrMx/C?=
+ =?us-ascii?Q?qV0hN4TV/qx7GP8egU3ZV/dbEPMXvHBy9xp3+4IfMrY/eb5e4rWkW1289F52?=
+ =?us-ascii?Q?N9EWdQ49zXu6brcWGirhzYW6ba1r0JWahseQj+mgEY5gfgZuWpOXntpGEqLv?=
+ =?us-ascii?Q?hkPFO5+R+egnl3EmjUY/yTYmfngJL11pbKCVpBT1dcVWWTRlKmVxSqnSvWZ2?=
+ =?us-ascii?Q?u1bzIMn5TTVSCBpvpP5pgo8WYsBrP9IbIe/zy+AD0qInyJoTENYNh7H6K8N9?=
+ =?us-ascii?Q?8ocjUg7KH9BbisU21gILqcguIFlwM1qJi9cNzgrkww3SGoWRcdxvIy/MVnSO?=
+ =?us-ascii?Q?+29E33ko4VhzUzyG8jTMkRtW1aK/kOPdpqLJ1qYeTqQGh9Q53unrr/WNPFrP?=
+ =?us-ascii?Q?L/SR+mP8OYTGoAReP3xu722tJjyfWABMld0yykGS5UkIj8u9/ZXC+nT9uluI?=
+ =?us-ascii?Q?vGJTwqSZtrqXLvDncG9pYtq7sYUP30aIxbBGmhHPY+wG2ENOonvpW2bmEY1x?=
+ =?us-ascii?Q?t3Afauq52cMLf3CbxJzWYLFW2PlbSMxPiTrCvmp9PB45YSIE/HaoJ1YTt6O0?=
+ =?us-ascii?Q?Dax1BA5yI+K4US6nk8CWn6xGbHOzxuIYx6YNLQYs0DVojfU9B4XvhKn1l5mm?=
+ =?us-ascii?Q?fbjtWCEoOQZrmTwv41m79tiTZYMR1eL2SAakXbJ6bUy0CHVEy3S5rIFEYKGC?=
+ =?us-ascii?Q?zBKVAOhw9QIJOfd6FdxCLd/tSTECF/iXa5rbjzGec32SRzwvrsadz4AoRLR7?=
+ =?us-ascii?Q?K2Hp3upPwWgzRlA8SBZrV1oBHnhjCZllR+jPJwICHr2M4kEyBbf6Mq2fr51J?=
+ =?us-ascii?Q?lTgQJehN+9YVB77dz1sk50SyaPK8xaUd5ixSMgfmPggzfHFclA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB7442.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jcSfSZR8u2KmXgb8AP+ArV2OEJGEg2I8Dl0LrOeciYROpHPLwA8jI4I8+JJi?=
+ =?us-ascii?Q?c95LXfaIwW2yD7/v9xEWmUX3ie2xK1T6FE2qfzEXg+9o1nhj1w0xnF2F5f/8?=
+ =?us-ascii?Q?pCLS/3knpnuQGiGhwXVyWOYiSBinheNgTbYsiw5XTQ7/QSLkIxHR+2v+12Ez?=
+ =?us-ascii?Q?SI8uQsSEm9Bs/+slYWworborwcOFStAyNaYANfT78tGAiANyuzzRq4tke9Eb?=
+ =?us-ascii?Q?Lyx5Lwjtc7maOe3uav8E9ylxPVlwO7Gtm9FDr4orzuDv8AeSXdemaQT+dIeH?=
+ =?us-ascii?Q?ot+KrDwrU9PhmU8l5JUZcOYq21YQcxqJSWzxsSVlJgZ2MWaUbx4PcN3VV2WR?=
+ =?us-ascii?Q?7cbMSSeJUJ9+AaLzM46rTtSGO8hKRGGAwOMRA7tTqztsPi4UK2lg6xaf/YnB?=
+ =?us-ascii?Q?Ipw+CN4bl77jfXq3Q7T/CPkUmbcgYZl8+q079BkRvEQuaCLVKgLlSo35CJ9x?=
+ =?us-ascii?Q?1tG/r0TwZ7ByHWyPi60h9JUWcZ11VBXmlqGT4nekVpySglXqV3EXK0RW6/+K?=
+ =?us-ascii?Q?YBGA0lTIir0s4way/7Omfr7n4yjUtzW69qJafsTKvbDoVcXE9DX4Js/QWsDT?=
+ =?us-ascii?Q?LgGLRlmieeW9aHGoiQCHnuiKKa5dPjz1ksfJrUd9hg87sYdScDbsFtLUZhq9?=
+ =?us-ascii?Q?+ifRTiaNJ4BfL12xH++jldi8/uv8T5p4651wzwjnAqKKNuwpxR/18H8F+K5c?=
+ =?us-ascii?Q?xazHqZgtxfvFw8hULCmUJzrP52edbGO4VUscX1jnhG7Ynb/oz7oq5I4OhZf1?=
+ =?us-ascii?Q?ZMP59ve04VAi9LnUdGR7LtUn6uPP0hJxBGtg/jCDhtotxCTuiiPhzoxJdIje?=
+ =?us-ascii?Q?sp8QGQkUeW1kOTg6kE0ttTwjqi8foDzyW/E2kr2r5Ux3kJQepAbGjh2BSIpo?=
+ =?us-ascii?Q?DMfvEujxQyNTpRiGfifbD2HztZcW5kmuBmHcwdf4WdTJBcH/9wfQ/vjUa+MZ?=
+ =?us-ascii?Q?smqirNhwVOVUG9Vys0CoJoqQnT8oLMEyOk849Kuppskf5K9EGHzFLd5mPsHk?=
+ =?us-ascii?Q?//4R3l14uNdsdQ1KJI0bB1xc7OBWAlTErvXvVyW8tWDQFqpbbc1a0Zr6LCNa?=
+ =?us-ascii?Q?MYod4pfV7T8tgh3ggABBUSBa4urb9Ud8pqnW2+aG5BGOtxN8cRNWFDpnD2ua?=
+ =?us-ascii?Q?KjAfQNooSaPIUERZLAJeoVmPCZkuI0qB4xGbNLfR9s0aZjWP02WowHaoUN85?=
+ =?us-ascii?Q?sYVuiSelD0RHlWd9tvWJTN3HvtyY0NRTmv7dQVcSeEt+FCuEW0vE3rgrNSMk?=
+ =?us-ascii?Q?mX8KSY6/mcyVBPnVMvOZ5BQA6/gYVmJqd739ni3wIV5xKoY6Pvhj+jo3dUp1?=
+ =?us-ascii?Q?yM5x7B/nr5fi5AC8n8wsxraD8y/O1AWHP4x4cWnfleEOZ3paUkMuaBu5T+lr?=
+ =?us-ascii?Q?JKIwPyu8qNeM68xzln9nwa/9QyY0ducC8AU8MtYG2a5gNnP7vX3KXIsIi8RL?=
+ =?us-ascii?Q?0FiXy+rlj6Knbkdm5AqSjs1990zaZNd1hLarWaO32PLII4jcyRaYz5LY9sbF?=
+ =?us-ascii?Q?M1Ke+tupR3xko4TaLRD/XGQYk+BnXaFPGJ5GthwE6rDgdLyn/5IdpEXGLHVp?=
+ =?us-ascii?Q?x/DYGBdkrRAg8/xrxQ4=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7442.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0438a2b2-9e57-45ea-0fb5-08dca1a07782
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2024 11:56:15.1476 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Hh9bkkSYS7AliaVDbsQ0UqpHvWbTPO1whhNWnbYQqwog1TQ6LtP5u9YcwmYkfRhIcpv+yiYtGKPdczNINkTI7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5936
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,198 +153,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.07.24 um 03:31 schrieb Zhu, Jiadong:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->> -----Original Message-----
->> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->> Sent: Wednesday, July 10, 2024 8:46 PM
->> To: Zhu, Jiadong <Jiadong.Zhu@amd.com>; amd-gfx@lists.freedesktop.org;
->> Deucher, Alexander <Alexander.Deucher@amd.com>
->> Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in the
->> right place
->>
->> Am 10.07.24 um 12:15 schrieb Zhu, Jiadong:
->>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>
->>>> -----Original Message-----
->>>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>>> Sent: Wednesday, July 10, 2024 5:27 PM
->>>> To: Zhu, Jiadong <Jiadong.Zhu@amd.com>;
->>>> amd-gfx@lists.freedesktop.org; Deucher, Alexander
->>>> <Alexander.Deucher@amd.com>
->>>> Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in
->>>> the right place
->>>>
->>>> Am 10.07.24 um 09:54 schrieb Zhu, Jiadong:
->>>>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>>>
->>>>>> -----Original Message-----
->>>>>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>>>>> Sent: Wednesday, July 10, 2024 3:17 PM
->>>>>> To: Zhu, Jiadong <Jiadong.Zhu@amd.com>; amd-
->>>> gfx@lists.freedesktop.org
->>>>>> Subject: Re: [PATCH v2] drm/amdgpu: set start timestamp of fence in
->>>>>> the right place
->>>>>>
->>>>>> Am 10.07.24 um 02:31 schrieb jiadong.zhu@amd.com:
->>>>>>> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
->>>>>>>
->>>>>>> The job's embedded fence is dma_fence which shall not be
->> conversed
->>>>>>> to amdgpu_fence.
->>>>>> Good catch.
->>>>>>
->>>>>>> The start timestamp shall be saved on job for hw_fence.
->>>>>> But NAK to that approach. Why do we need the start time here in the
->>>>>> first place?
->>>>>>
->>>>>> Regards,
->>>>>> Christian.
->>>>>>
->>>>> The start timestamp is used for ring mux to check if the fences are
->>>> unsignaled for a period of time under mcbp scenarios (by calling
->>>> amdgpu_fence_last_unsignaled_time_us).
->>>>
->>>> I can't find a reason for doing that in the first place. What is the
->>>> background of this?
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>> It is about os triggered mcbp on gfx9. When we are using software ring and
->> ring mux on gfx9,  the ring mux checks the fence unsignaled time of the low
->> priority context while high priority job comes. If the time duration exceeds a
->> certain time, mux will trigger mcbp.
->>> we could add adev->gfx.mcbp check when set start_timestamp for those
->> fences.
->>
->> So you basically want to guarantee some forward progress?
-> this patch is to fix the memory overlap on job->hw_fence.  For the other part we leave it as it was.
->
->> While this is nice to have I don't think we need that in the first place.
->>
->> I mean when I have two hardware queues the high priority one would starve
->> the low priority one as well.
-> HWS has two levels to handle queue priority:  for priority mode, high priority queue will preempt low priority queue as long as it has some work. For quantum mode, all the queues are in the same priority, the queue would be preempted when it uses up its time slice.
-> The hardware team suggested OS to use quantum mode as it will not starve low priority queue. Our implementation partially referred to that design.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Please drop that design. We don't have any use case for that quantum mode.
+This patch seems to be wrong.
+Quite a lot of preparations have been done in amdgpu_bo_move_notify
+For example, amdgpu_bo_kunmap() will be called to prevent the BO from being=
+ accessed by CPU. If not called, the CPU may attempt to access the BO while=
+ it is being moved.
 
-We only need high/low priority queues here.
+Thanks,
+Trigger
 
-Regards,
-Christian.
-
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> YuanShang
+> Sent: Thursday, July 11, 2024 5:10 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: YuanShang Mao (River) <YuanShang.Mao@amd.com>; YuanShang Mao
+> (River) <YuanShang.Mao@amd.com>
+> Subject: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
 >
-> Thanks,
-> Jiadong
+> Caution: This message originated from an External Source. Use proper caut=
+ion
+> when opening attachments, clicking links, or responding.
 >
->> Regards,
->> Christian.
->>
->>> Thanks,
->>> Jiadong
->>>
->>>>> Thanks,
->>>>> Jiadong
->>>>>>> v2: optimize get_fence_start_time.
->>>>>>> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
->>>>>>> ---
->>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 31
->>>>>> ++++++++++++++++++++---
->>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_job.h   |  3 +++
->>>>>>>      2 files changed, 31 insertions(+), 3 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>>>> index 2f24a6aa13bf..72bb007e48c8 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>>>> @@ -88,6 +88,31 @@ static inline struct amdgpu_fence
->>>>>> *to_amdgpu_fence(struct dma_fence *f)
->>>>>>>        return NULL;
->>>>>>>      }
->>>>>>>
->>>>>>> +static inline void set_fence_start_time(struct dma_fence *f,
->>>>>>> +ktime_t
->>>>>>> +start_timestamp) {
->>>>>>> +   if (f->ops == &amdgpu_fence_ops) {
->>>>>>> +           struct amdgpu_fence *__f = container_of(f, struct
->>>>>> amdgpu_fence,
->>>>>>> +base);
->>>>>>> +
->>>>>>> +           __f->start_timestamp = start_timestamp;
->>>>>>> +   } else if (f->ops == &amdgpu_job_fence_ops) {
->>>>>>> +           struct amdgpu_job *job = container_of(f, struct
->>>>>>> +amdgpu_job, hw_fence);
->>>>>>> +
->>>>>>> +           job->start_timestamp = start_timestamp;
->>>>>>> +   }
->>>>>>> +}
->>>>>>> +
->>>>>>> +static inline ktime_t get_fence_start_time(struct dma_fence *f) {
->>>>>>> +   if (unlikely(f->ops == &amdgpu_fence_ops)) {
->>>>>>> +           struct amdgpu_fence *__f = container_of(f, struct
->>>>>> amdgpu_fence,
->>>>>>> +base);
->>>>>>> +
->>>>>>> +           return __f->start_timestamp;
->>>>>>> +   }
->>>>>>> +   struct amdgpu_job *job = container_of(f, struct amdgpu_job,
->>>>>>> +hw_fence);
->>>>>>> +
->>>>>>> +   return job->start_timestamp;
->>>>>>> +}
->>>>>>> +
->>>>>>>      /**
->>>>>>>       * amdgpu_fence_write - write a fence value
->>>>>>>       *
->>>>>>> @@ -197,7 +222,7 @@ int amdgpu_fence_emit(struct amdgpu_ring
->>>> *ring,
->>>>>> struct dma_fence **f, struct amd
->>>>>>>                }
->>>>>>>        }
->>>>>>>
->>>>>>> -   to_amdgpu_fence(fence)->start_timestamp = ktime_get();
->>>>>>> +   set_fence_start_time(fence, ktime_get());
->>>>>>>
->>>>>>>        /* This function can't be called concurrently anyway, otherwise
->>>>>>>         * emitting the fence would mess up the hardware ring buffer.
->>>>>>> @@ -428,7 +453,7 @@ u64
->>>>>> amdgpu_fence_last_unsignaled_time_us(struct amdgpu_ring *ring)
->>>>>>>                return 0;
->>>>>>>
->>>>>>>        return ktime_us_delta(ktime_get(),
->>>>>>> -           to_amdgpu_fence(fence)->start_timestamp);
->>>>>>> +           get_fence_start_time(fence));
->>>>>>>      }
->>>>>>>
->>>>>>>      /**
->>>>>>> @@ -451,7 +476,7 @@ void
->>>>>> amdgpu_fence_update_start_timestamp(struct amdgpu_ring *ring,
->>>>>> uint32_t seq,
->>>>>>>        if (!fence)
->>>>>>>                return;
->>>>>>>
->>>>>>> -   to_amdgpu_fence(fence)->start_timestamp = timestamp;
->>>>>>> +   set_fence_start_time(fence, timestamp);
->>>>>>>      }
->>>>>>>
->>>>>>>      /**
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>>>> index a963a25ddd62..3a73fe11a1ce 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>>>> @@ -73,6 +73,9 @@ struct amdgpu_job {
->>>>>>>        uint64_t                gds_va;
->>>>>>>        bool                    init_shadow;
->>>>>>>
->>>>>>> +   /* start timestamp for hw_fence*/
->>>>>>> +   ktime_t                 start_timestamp;
->>>>>>> +
->>>>>>>        /* job_run_counter >= 1 means a resubmit job */
->>>>>>>        uint32_t                job_run_counter;
->>>>>>>
+>
+> It leads to race condition if amdgpu_bo is marked as invalid before it is=
+ really
+> moved.
+>
+> Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 29e4b5875872..a29d5132ad3d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -519,8 +519,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object
+> *bo, bool evict,
+>
+>         if (!old_mem || (old_mem->mem_type =3D=3D TTM_PL_SYSTEM &&
+>                          bo->ttm =3D=3D NULL)) {
+> -               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 ttm_bo_move_null(bo, new_mem);
+> +               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 return 0;
+>         }
+>         if (old_mem->mem_type =3D=3D AMDGPU_GEM_DOMAIN_DGMA || @@ -
+> 530,8 +530,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo,
+> bool evict,
+>         if (old_mem->mem_type =3D=3D TTM_PL_SYSTEM &&
+>             (new_mem->mem_type =3D=3D TTM_PL_TT ||
+>              new_mem->mem_type =3D=3D AMDGPU_PL_PREEMPT)) {
+> -               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 ttm_bo_move_null(bo, new_mem);
+> +               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 return 0;
+>         }
+>         if ((old_mem->mem_type =3D=3D TTM_PL_TT || @@ -542,9 +542,9 @@ st=
+atic
+> int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+>                         return r;
+>
+>                 amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
+> -               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 ttm_resource_free(bo, &bo->resource);
+>                 ttm_bo_assign_mem(bo, new_mem);
+> +               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 return 0;
+>         }
+>
+> @@ -557,8 +557,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object
+> *bo, bool evict,
+>             new_mem->mem_type =3D=3D AMDGPU_PL_OA ||
+>             new_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL) {
+>                 /* Nothing to save here */
+> -               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 ttm_bo_move_null(bo, new_mem);
+> +               amdgpu_bo_move_notify(bo, evict, new_mem);
+>                 return 0;
+>         }
+>
+> @@ -583,11 +583,11 @@ static int amdgpu_bo_move(struct
+> ttm_buffer_object *bo, bool evict,
+>                 return -EMULTIHOP;
+>         }
+>
+> -       amdgpu_bo_move_notify(bo, evict, new_mem);
+>         if (adev->mman.buffer_funcs_enabled)
+>                 r =3D amdgpu_move_blit(bo, evict, new_mem, old_mem);
+>         else
+>                 r =3D -ENODEV;
+> +       amdgpu_bo_move_notify(bo, evict, new_mem);
+>
+>         if (r) {
+>                 /* Check that all memory is CPU accessible */
+> --
+> 2.25.1
 
