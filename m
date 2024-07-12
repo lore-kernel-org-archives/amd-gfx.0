@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 153E1C3DA45
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 17:17:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9CEC2BD09
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 17:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28F710ED73;
-	Fri, 12 Jul 2024 17:17:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD1710ED79;
+	Fri, 12 Jul 2024 17:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5aHIqQv7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0R9ebITs";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31ED110ED70;
- Fri, 12 Jul 2024 17:17:02 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637D410ED79
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 17:29:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xxkcunDahhJigg8oE5d0mf20Jh2JV7XnBF0BAhJXPf6nJAPQO+iOrzNvtBxCFGUmFUlV9uW5GI14QGN0Ou9NN87U3B1Hu+/7VI8k5mLSlcjHmAtCvWBGi+404igETgPUjaoR7l53EsKBG60YOKoO6FBcLHMXE4NaHF6jJhxifITld0up7kYOM7jFz9UsOREohhfkB8QpvNtqN3U/8pHQg/ANK6a4G2y0fVWrbVx2h1anyj3urjOWSzE0Dl9sWtw4+TRJ2BSoVMta9LnlDiSvqkby8zvushCpZCVERsv76+BmuZG/Y0BUBGVgxo0gdu62/RJNtJ7B9MPKI9YUlRCxOg==
+ b=frGB4BpJHZ/zjktpZuJNQggfHKvrpuz9oX/LVllPST22leRaFhlzdUN5rnHYZeNgahJ/ggZeJBEANuO9SpuUrhYgykXEN3rgr+Uij5drm8xN4TyAEVsAO8D2h6dOnrYC5JeVPFWxLdEAurdddRjrv7Le68vBzqMfIB06OdBfhTrUTP4Hco0MODOHhovfW1Y3mZ3A2CmYTmmN3NjVYNU/tu+agIe0L+KHBOTNwT3mYzvOLntpjVO0rZgBeElYhx1iJDUW5Hh8K2ro/g391XCKGsw4SD33jLfcCePrEi05a5lhT+lB0NbvuZl7+iYOZdIKC+d2gx9qBNRc+AbR8tzf5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h1S8bWomLr0k/r06Q9TGc2L3YS4iS3yJbKEICCAvi2I=;
- b=tjxIwj3S7wNMn1+4NafcBsW94Z3QpabLOnhW87YzwMxVyEmwmREotaBaTn76ptQqFqaZvjoLwibEqkMx01NwUxz9cLGRxufa1kQa2kycbuUScTA7h9YSKfuaCmoYjz0SFQRu1rXBxOENtyK+9Zr3zPj+Xq3XtH/pWd3dad0yCIRo6+Gn+XWtfv2akdPqRQWuBCHMDf1iXbRBD5A/k1MtAtR320tV0hCAgSVCj4R3lxEotzD9iheBW22WC23aLRwAsT53eaQYCu6UWTVglE4cWI+EOaDLk5Rx1yT9jP6pJXdsZEYDTcv90m4ej+hbZ+6fFLXjOtsEpMCsfeOeKBHdpQ==
+ bh=mlxRvxznJUpSZy7azhpW1yyOmV8GoF9YqlUHSC+fMs4=;
+ b=p3nNfeyTuAWEOyEZ4Uc4Z3zoncA6k/rj9sUyLJEK6t1MdIShhcWjU2NexP8Nf9KCxCfmod4mAT8t9pTXSCccX3UxjI9w7uxv2tl/G5pu18WDncbln0wEqwVCb53r7ocJR168C6HpH9ti0tj87LheBJ5n3XcbIe0q357SstS70JhBisAlwEXfB5hCVPduGH0UaeYXS4WcIs0U0OTm2FcKeCGOxu4EjtuheWr66/v6EFdkjtQ9n7NKVGUg0i5sU50aJrd0C+S1D6q1ScCpdJDDSg2dYGw8Xb6iitsRwA3I6pqCyCfdLCkk0XnryXaHoGIhpPc/Wi8af9aTkn8MFRu74A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h1S8bWomLr0k/r06Q9TGc2L3YS4iS3yJbKEICCAvi2I=;
- b=5aHIqQv7wEw1wN/lWQR7P6EoFXZDOUzxHfTl/2AxnLbOzUWnZob4Hhe06QhvnTcZ9iqDAsyiz7hUPLWjHyLO5gsbTIF8tsqOTQ1JawPCjzgvFKoaBcPGDK6GT9bGW9mWUflggwpbV57zrfLB5/Pm8lsPJsGYqQQ1nyw7pBexfGs=
-Received: from SJ0PR05CA0107.namprd05.prod.outlook.com (2603:10b6:a03:334::22)
- by BY5PR12MB4193.namprd12.prod.outlook.com (2603:10b6:a03:20c::19)
+ bh=mlxRvxznJUpSZy7azhpW1yyOmV8GoF9YqlUHSC+fMs4=;
+ b=0R9ebITsRDNk0moTMoOVvvbLjsgkzG03Msy2ilpgaHdWbU7+QO/fTm5m1Q0MY9LrFuyecsZfAcONPIdElsv8SqF8HDAFvaAZBgV/CTUVDOt+CixpLuHmVbfymWfgmP/E9+6PBhJqhyE1M8Yok21LBhEDEUKsRiPpEqzKTX0oNI4=
+Received: from PH8PR05CA0015.namprd05.prod.outlook.com (2603:10b6:510:2cc::16)
+ by IA1PR12MB8191.namprd12.prod.outlook.com (2603:10b6:208:3f3::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.23; Fri, 12 Jul
- 2024 17:16:58 +0000
-Received: from SJ1PEPF000023D4.namprd21.prod.outlook.com
- (2603:10b6:a03:334:cafe::3e) by SJ0PR05CA0107.outlook.office365.com
- (2603:10b6:a03:334::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.24 via Frontend
- Transport; Fri, 12 Jul 2024 17:16:58 +0000
+ 2024 17:29:36 +0000
+Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::9d) by PH8PR05CA0015.outlook.office365.com
+ (2603:10b6:510:2cc::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.23 via Frontend
+ Transport; Fri, 12 Jul 2024 17:29:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,81 +48,74 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023D4.mail.protection.outlook.com (10.167.244.69) with Microsoft
+ CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.5 via Frontend Transport; Fri, 12 Jul 2024 17:16:57 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7762.17 via Frontend Transport; Fri, 12 Jul 2024 17:29:35 +0000
+Received: from belanger-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 12 Jul
- 2024 12:16:56 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-next-6.11
-Date: Fri, 12 Jul 2024 13:16:36 -0400
-Message-ID: <20240712171637.2581787-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.45.2
+ 2024 12:29:34 -0500
+From: David Belanger <david.belanger@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Belanger <david.belanger@amd.com>, Hawking Zhang
+ <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix atomics on GFX12
+Date: Fri, 12 Jul 2024 13:29:13 -0400
+Message-ID: <20240712172913.1876626-1-david.belanger@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D4:EE_|BY5PR12MB4193:EE_
-X-MS-Office365-Filtering-Correlation-Id: 015c79b5-3152-4031-9d9a-08dca2966fa0
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|IA1PR12MB8191:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbf7607b-ebeb-4a08-3587-08dca298335d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M2gvcjlIbVRsZjhESUdDd2MwQTNQMEtTSHlGdC9VeThQTWFZVGZmdEo1YUtt?=
- =?utf-8?B?eHpLZzBHQ29zdm5mT0lZbm5Ic24ydnlyZ0N3cHhzNHU1SVZ6clFob3AxdHFO?=
- =?utf-8?B?Rm5xU2xIU1RTVndUVFl2NFlqRnIzTk13VC9ZS00yTXFwZE9pT1BBdEQzejNQ?=
- =?utf-8?B?Ri9XV1l3dUpsc0VrWmduMjY2cFl6ellKbzdIbjBwT3NYcXpTcm1SaFpZbjJn?=
- =?utf-8?B?S1FFYUFOMFc0aU5taFBhS25tQmlEWjJFOWIwSHlUb0VUeWViL0ZsOFRRd1Vj?=
- =?utf-8?B?elNzVmdMNk1wb1psZkFPNmdGQlZsbytiK0ZMbXdVSCtJbzRueXEvS0dLRE9W?=
- =?utf-8?B?d3NwMTg0VERsVWlGKzV2VFBYb3VQeEdKcExKc3pic3F5ODEzekY4U2VtblVF?=
- =?utf-8?B?aGxHcFBhQyt3Vm9zd2F6ZUdNajdIN0xsUGo1SThmaEhDdExmSDd4RE5RK1lj?=
- =?utf-8?B?eFdmaDNDUmRSTkJnQlc2UVphMUxKUGwxelp0QTBwK09sODJuWGhrT2pwRDMz?=
- =?utf-8?B?a2RYSE14K0VGUDdOQ1hpQ1pFTm5GdUVaUGlwZEVsUVFXMGVhTlQvMjMzem4v?=
- =?utf-8?B?alNPUURnaXJ6WGE0Nk9JNGJhaXQ4V3k1WUFLN3NWL0ZJVE1mM05NZGh0MTNn?=
- =?utf-8?B?T3RRUVUxcDVkVmIxb3UzTWo1b042V1MyT2pVbHNleS9KcDZZYVJBV3JJTG4y?=
- =?utf-8?B?RnZmSjBWdHJHZkFPZW5VM0czSzQrdFNNSnkwVnZnNEcwbi9wajh6MFFHWHgz?=
- =?utf-8?B?SGJkT3RQZndCQy9ySjVCaXhLT2NickRHb1hodVZ1MWVKSUhXRHBJSHhvVHZV?=
- =?utf-8?B?QTNsekNIbExHdC9SMGxNNC9yVjh6RW5OTXltblY3eG1UWXppZ0J1Vkg4L0tY?=
- =?utf-8?B?cGwrZjhUbnY2Tk5tMGVsNlJDMlErbkJMRzh4ek9DT2FyZmM4WGpsWTZDcHI5?=
- =?utf-8?B?VUhqcGpLV1ZwSHNDSnVFWmFvc3ZhT0xKdmlmSUs5dGR1WmExa1VoTFA2cW9M?=
- =?utf-8?B?LzMrcS8yYlpKdUthTFRuWHc2VllaaFB0Ky9DQXZHSzMwbUJNQlRHaHpmQ3VS?=
- =?utf-8?B?Vm9rZENZeEZHeFk2WGY2Vlg2SEE4RFBPcHNjcFA0aW9mVlNicjMwNjlqdDJG?=
- =?utf-8?B?bGtPSmN2OHphN0hKdTYvaXBUWG5Ka0dKTG5XRU9pWjFIRnY0NnRrNkZKQ1FJ?=
- =?utf-8?B?N2pyaGR0bG5ndVRsdGFkRkxnZjY0SWxLbGhHSnlYdU14NDJucC9YZFM2OHk0?=
- =?utf-8?B?bW5DSTZ0QmJNWEh5U0FPQndtZEZCem9XWEFEZ29UOVpCd2kyY0xaMGtDZTR1?=
- =?utf-8?B?MCtlQTVnSVpZV1ZrT3ZUWWZTd3lRSjRqUHZDbmlUdFNNT2ZtcFFyZHB2bkRs?=
- =?utf-8?B?aUhIRW5XTXdyQnZ3WVRZQjQ4aXBoQ3dpZGo3NnJqMXdoNWJTeExxVEcxWnVY?=
- =?utf-8?B?ekYvZ0k4eldWcVVTN055QmFmTlZ6aysveXYzVzA2UGp1am0yR2c2aTJMZnB1?=
- =?utf-8?B?WHZUdm0xaEFhbDBuUktjV0VjUXBBbURsb2ZxUlU2SG9uWnkxZVpLYmhiRGFC?=
- =?utf-8?B?Q1lMTjZlNjgyelVnWkpxeUZ2T1pkdW11Wll1RmZwTkZKbXFPb3hEWUR6Ui9a?=
- =?utf-8?B?UzRrck40d1Q3UkJsNzkxQlZ6bjcwMStyekpFeWRsbmFiQzJxS0hERWZKbDN0?=
- =?utf-8?B?V1lZN0xiaVRQK2Ezc3Q4NDBUM2dPTXVrOHovNFB4UERIQ3FxY05pMzRqdlNT?=
- =?utf-8?B?L1ZTYzZGN1NZdWt2ZWZQN1VqWk1Bakk4QWNhSWZTYi9EN1E0K21mYjQ0bHd6?=
- =?utf-8?B?U2xtTktWSzVjQjJaR1Z0RUh6Y25hb1Y3aCtvZEpPMXlXUkk5clBoZDBWZkNa?=
- =?utf-8?B?dkZGTER4b3NvUndiTWJ3TWozbTZsMUk5OGtNSVpsdFMvVWc9PQ==?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?z+lN0j/PVOT11lCGv+k/tLRoNZJRHM15P20Gqikc5hj4OCQrqyCoUThUXqrI?=
+ =?us-ascii?Q?0VnyTq6GaMz6JIwROuGAMqz2YljdJhAZWl2tMjySHhalapBDdvDOfKbp/SCZ?=
+ =?us-ascii?Q?vcqBHKSPYDSiGm+yoBeZndNjnm/10H8HCovotlSEbPJWQGNgcCgdbNIos8m+?=
+ =?us-ascii?Q?nCSd6EpsYSuaq45rMHtON7p6h/QSZfg/cM6LDodwdWRugnAQsDG+ECNKVucA?=
+ =?us-ascii?Q?7/n1eNS8iPjl3SPoFYKGveV8r86MaEwrVw5V+xfzqYBecrCQVnafgCpP4tQ9?=
+ =?us-ascii?Q?9a1HU53MzXzIlOg2fWUb8l8SK64SF29W/yEfPyuCrb97WUe1cJfeNAM6XUra?=
+ =?us-ascii?Q?qbn/zdsRWSpYL/t0F861k/ZqxuiIHshrbfAtskMT7yKYw9O8TzPjC3bvrjaq?=
+ =?us-ascii?Q?7PQM6A4npwP1KnxHEFWc3fMhDt/REFf2/vLKXpzULMcHVbXFJXEtjdId4diI?=
+ =?us-ascii?Q?7Lg7HqCZWcqZgUqwLBXIJLlNxbhnJgHeIccItatWyh0dbmlUAZse289VE8WR?=
+ =?us-ascii?Q?41K1wHHwSwkKS4T5BFfMB2tQocLQ4vwm0pI2LuoOw1VhFO8eGXuGrhvnn5bx?=
+ =?us-ascii?Q?8sTkl92Q55yLn9rTXVAjlJO9pJesHbaa8vYIEgY2IfXwGHMNMuPObJlxALk4?=
+ =?us-ascii?Q?RgWM/gVxloZTiMwC+87i4c37SQMxTfAA/nvYzN8FY75uzUPlIgDkYNg71sW2?=
+ =?us-ascii?Q?8+F82yclzNeiZf7GXSe2IOhFd9f+03CphpiU+uFPgXT0bXz5HG8OqF13TBwU?=
+ =?us-ascii?Q?LalwwGPQpiALjl3B187FMSKjVhaHWR+Dji+iBuc3Kw69wHT8DqeGN4aa9RIr?=
+ =?us-ascii?Q?W99GjhZm2UsFwLELvbKvIUMkmfwA4jfkWKugZKIo9bOI0J+LUl2zlJkqfzK1?=
+ =?us-ascii?Q?eh2S6XLt0HMwYfntiEakqKoxqp7UMVvTVko17cxqodbfwAXSUl408GBcN88i?=
+ =?us-ascii?Q?AXwGqWExykmn28z/XiT3JQ2i/zz3jthk2LoOHw1Hh/ndesR9BcT6PhC1HpPx?=
+ =?us-ascii?Q?OfRneHgOQynvxrB8nsn5euEX62R7qaiuqiZFdmUNbPebQX0YCZQVUy5/BuGb?=
+ =?us-ascii?Q?X4zBCClkdFbXCxU259jecQSeNz33x6GGBYSr46E8I3Q6LA3h+I4LsVoau2i6?=
+ =?us-ascii?Q?toKJxHyBdNvluWh3n84puTJaSqDjVKamAPTUq3CAfPU57BGo/JED3DALfbw7?=
+ =?us-ascii?Q?AxDOnH/T1/yQ2YMid5J0uB57SZW21oguBvEhkMaouve5AeKvu8xNarwQkVGH?=
+ =?us-ascii?Q?qn1yP1L5i0k4ACMRWMHepCPaqfV0jGykz2fmYEd7fnXntpeawOXwQAS3+Kag?=
+ =?us-ascii?Q?jdqDXy/giMt277ahihOVhNWLIReIVDTL9Z9xM/oUqcC7h1IBZ15BKAG/X42V?=
+ =?us-ascii?Q?/PSfIp6uX9YgmM8To7DRCkRy83a6+TxDTjgDLHGksHpz2J39Mu7hTUKmtFGT?=
+ =?us-ascii?Q?edgtcW8yItY4dlyddvnIEMfEDhTuIE1X?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2024 17:16:57.9796 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 015c79b5-3152-4031-9d9a-08dca2966fa0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2024 17:29:35.8993 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbf7607b-ebeb-4a08-3587-08dca298335d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D4.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4193
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8191
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,157 +130,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+If PCIe supports atomics, configure register to prevent DF from
+breaking atomics in separate load/store operations.
 
-A few updates for new IPs, but mostly bug fixes.
+Signed-off-by: David Belanger <david.belanger@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile           |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_df.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  5 +++
+ drivers/gpu/drm/amd/amdgpu/df_v4_15.c         | 45 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/df_v4_15.h         | 30 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |  4 ++
+ .../amd/include/asic_reg/df/df_4_15_offset.h  | 28 ++++++++++++
+ .../amd/include/asic_reg/df/df_4_15_sh_mask.h | 28 ++++++++++++
+ 8 files changed, 143 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/df_v4_15.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/df_v4_15.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_sh_mask.h
 
-The following changes since commit 62a05f4ae9c1fb70bc75d494c9c1c373d2c2e374:
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index eddbb69a179f..ec099aadf334 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -106,7 +106,8 @@ amdgpu-y += \
+ 	df_v1_7.o \
+ 	df_v3_6.o \
+ 	df_v4_3.o \
+-	df_v4_6_2.o
++	df_v4_6_2.o \
++	df_v4_15.o
+ 
+ # add GMC block
+ amdgpu-y += \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+index 1538b2dbfff1..eb605e79ae0e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+@@ -33,6 +33,7 @@ struct amdgpu_df_hash_status {
+ struct amdgpu_df_funcs {
+ 	void (*sw_init)(struct amdgpu_device *adev);
+ 	void (*sw_fini)(struct amdgpu_device *adev);
++	void (*hw_init)(struct amdgpu_device *adev);
+ 	void (*enable_broadcast_mode)(struct amdgpu_device *adev,
+ 				      bool enable);
+ 	u32 (*get_fb_channel_number)(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index b241f61fe9c9..ac108fca64fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -37,6 +37,7 @@
+ #include "df_v3_6.h"
+ #include "df_v4_3.h"
+ #include "df_v4_6_2.h"
++#include "df_v4_15.h"
+ #include "nbio_v6_1.h"
+ #include "nbio_v7_0.h"
+ #include "nbio_v7_4.h"
+@@ -2803,6 +2804,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(4, 6, 2):
+ 		adev->df.funcs = &df_v4_6_2_funcs;
+ 		break;
++	case IP_VERSION(4, 15, 0):
++	case IP_VERSION(4, 15, 1):
++		adev->df.funcs = &df_v4_15_funcs;
++		break;
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v4_15.c b/drivers/gpu/drm/amd/amdgpu/df_v4_15.c
+new file mode 100644
+index 000000000000..2a573e33908b
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/df_v4_15.c
+@@ -0,0 +1,45 @@
++/*
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include "amdgpu.h"
++#include "df_v4_15.h"
++
++#include "df/df_4_15_offset.h"
++#include "df/df_4_15_sh_mask.h"
++
++static void df_v4_15_hw_init(struct amdgpu_device *adev)
++{
++	if (adev->have_atomics_support) {
++		uint32_t tmp;
++		uint32_t dis_lcl_proc = (1 <<  1 |
++					1 <<  2 |
++					1 << 13);
++
++		tmp = RREG32_SOC15(DF, 0, regNCSConfigurationRegister1);
++		tmp |= (dis_lcl_proc << NCSConfigurationRegister1__DisIntAtomicsLclProcessing__SHIFT);
++		WREG32_SOC15(DF, 0, regNCSConfigurationRegister1, tmp);
++	}
++}
++
++const struct amdgpu_df_funcs df_v4_15_funcs = {
++	.hw_init = df_v4_15_hw_init
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v4_15.h b/drivers/gpu/drm/amd/amdgpu/df_v4_15.h
+new file mode 100644
+index 000000000000..dddf2422112a
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/df_v4_15.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __DF_V4_15_H__
++#define __DF_V4_15_H__
++
++extern const struct amdgpu_df_funcs df_v4_15_funcs;
++
++#endif /* __DF_V4_15_H__ */
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index d27fb4ea6612..7d641d0dadba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -484,6 +484,10 @@ static int soc24_common_hw_init(void *handle)
+ 	 */
+ 	if (adev->nbio.funcs->remap_hdp_registers)
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
++
++	if (adev->df.funcs->hw_init)
++		adev->df.funcs->hw_init(adev);
++
+ 	/* enable the doorbell aperture */
+ 	soc24_enable_doorbell_aperture(adev, true);
+ 
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_offset.h b/drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_offset.h
+new file mode 100644
+index 000000000000..c2b009752f60
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_offset.h
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2024  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#ifndef _df_4_15_OFFSET_HEADER
++#define _df_4_15_OFFSET_HEADER
++
++#define regNCSConfigurationRegister1               0x0901
++#define regNCSConfigurationRegister1_BASE_IDX           4
++
++#endif
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_sh_mask.h
+new file mode 100644
+index 000000000000..9868a9c32795
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/df/df_4_15_sh_mask.h
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2024  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#ifndef _df_4_15_SH_MASK_HEADER
++#define _df_4_15_SH_MASK_HEADER
++
++#define NCSConfigurationRegister1__DisIntAtomicsLclProcessing__SHIFT         0x3
++#define NCSConfigurationRegister1__DisIntAtomicsLclProcessing_MASK    0x0003FFF8L
++
++#endif
+-- 
+2.41.0
 
-  Merge tag 'drm-msm-next-2024-07-04' of https://gitlab.freedesktop.org/drm/msm into drm-next (2024-07-05 12:45:41 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.11-2024-07-12
-
-for you to fetch changes up to 1cff1010bef6f325d895db0306b59dc7232ed9b7:
-
-  drm/amdgpu/mes12: add missing opcode string (2024-07-12 11:46:46 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-6.11-2024-07-12:
-
-amdgpu:
-- RAS fixes
-- SMU fixes
-- GC 12 updates
-- SR-IOV fixes
-- IH 7 updates
-- DCC fixes
-- GC 11.5 fixes
-- DP MST fixes
-- GFX 9.4.4 fixes
-- SMU 14 updates
-- Documentation updates
-- MAINTAINERS updates
-- PSR SU fix
-- Misc small fixes
-
-----------------------------------------------------------------
-Alex Deucher (6):
-      MAINTAINERS: update powerplay and swsmu
-      MAINTAINERS: fix Xinhui's name
-      drm/amdgpu/job: Replace DRM_INFO/ERROR logging
-      drm/amdgpu: remove exp hw support check for gfx12
-      drm/amdgpu/mes11: update opcode strings
-      drm/amdgpu/mes12: add missing opcode string
-
-Aurabindo Pillai (1):
-      drm/amd/display: Allow display DCC for DCN401
-
-Christian König (1):
-      drm/amdgpu: reject gang submit on reserved VMIDs
-
-Danijel Slivka (1):
-      drm/amd/pm: Ignore initial value in smu response register
-
-Frank Min (2):
-      drm/amdgpu: update gfxhub client id for gfx12
-      drm/amdgpu: restore dcc bo tilling configs while moving
-
-Gavin Wan (1):
-      drm/amd/amdgpu: fix SDMA IRQ client ID <-> req mapping.
-
-Kent Russell (1):
-      Documentation/amdgpu: Clarify MI200 and MI300 entries
-
-Leo Li (1):
-      Revert "drm/amd/display: Reset freesync config before update new state"
-
-Li Ma (1):
-      drm/amd/swsmu: enable more Pstates profile levels for SMU v14.0.0 and v14.0.1
-
-Lijo Lazar (1):
-      drm/amdgpu: Initialize VF partition mode
-
-Saleemkhan Jamadar (1):
-      drm/amdgpu: enable dpg for vcn and jpeg on GC 11_5_2
-
-Stanley.Yang (1):
-      drm/amdkfd: Use mode1 reset for GFX v9.4.4
-
-Sunil Khatri (9):
-      drm/amdgpu: add gfx12 register support in ipdump
-      drm/amdgpu: add print support for gfx12 ipdump
-      drm:amdgpu: enable IH ring1 for IH v7.0
-      drm/amdgpu: enable redirection of irq's for IH v7.0
-      drm/amdgpu: add cp queue registers for gfx12 ipdump
-      drm/amdgpu: add gfx queue support for gfx12 ipdump
-      drm/amdgpu: select compute ME engines dynamically
-      drm/amdgpu: select compute ME engines dynamically
-      drm/amdgpu: select compute ME engines dynamically
-
-Tim Huang (1):
-      drm/amd/pm: avoid to load smu firmware for APUs
-
-Wayne Lin (1):
-      drm/amd/display: Solve mst monitors blank out problem after resume
-
-Yang Wang (5):
-      drm/amdgpu: remove redundant semicolons in RAS_EVENT_LOG
-      drm/amdgpu: refine amdgpu ras event id core code
-      drm/amdgpu: add ras POSION_CREATION event id support
-      drm/amdgpu: add ras POSION_CONSUMPTION event id support
-      drm/amdgpu: add ras event state device attribute support
-
-YiPeng Chai (3):
-      drm/amdgpu: sysfs node disable query error count during gpu reset
-      drm/amdgpu: flush all cached ras bad pages to eeprom
-      drm/amdgpu: timely save bad pages to eeprom after gpu ras reset is completed
-
-Yifan Zha (1):
-      drm/amdgpu: Set no_hw_access when VF request full GPU fails
-
-Zhigang Luo (1):
-      drm/amdgpu: set CP_HQD_PQ_DOORBELL_CONTROL.DOORBELL_MODE to 1
-
- Documentation/gpu/amdgpu/dgpu-asic-info-table.csv  |   4 +-
- MAINTAINERS                                        |   4 +-
- drivers/gpu/drm/amd/amdgpu/aldebaran.c             |   2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c            |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  15 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  21 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c            |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 225 ++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |  32 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  17 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |  11 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c            |  12 +-
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c         |  50 +++-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             | 326 ++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |  40 ++-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c          |  22 +-
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c               |  26 +-
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   3 +
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c           |  20 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/soc21.c                 |   4 +-
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             |  18 ++
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c    |  21 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |   3 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   4 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |  31 +-
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |   2 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   2 +
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   7 +
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   | 152 +++++++++-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  36 ++-
- 40 files changed, 1039 insertions(+), 134 deletions(-)
