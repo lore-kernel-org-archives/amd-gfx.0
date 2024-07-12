@@ -4,73 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F176C2BD09
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 07:36:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39837C2BD09
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jul 2024 07:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC9F10EC3E;
-	Fri, 12 Jul 2024 07:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E178810EC3F;
+	Fri, 12 Jul 2024 07:39:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iZaC1s6b";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WzRPnS8k";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE61010EC3E
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 07:36:23 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-42662d80138so10526295e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 00:36:23 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8726110EC3F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 07:39:09 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-42679f33fefso11287935e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 00:39:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720769782; x=1721374582; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1720769948; x=1721374748; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bDtViol4g2LzhSS5XlhcbWFCymKU1QkxpglqbLets0M=;
- b=iZaC1s6bh4KVz9t73zjBqanXgT3mmEJ9IalITuD4UL62jD1hfUFPbUn7CWv7aLT2ob
- kyzEeg8XGjrNYtO8rC82CfZVomgzTdsKz2Dwgf1cd27tBpj8ZAk1bP2qDK/w4cg92Zb+
- q3kP2Ceb7axilQZf5TtrHnh5nlm/ernlmMwZ93Zr/yJUgzY4ocHVh6fmGfbE4I1XLJY0
- ysfjlXyjzK8YOu+ij7buDZlJBg2LuM9jgHV61mT+m6oVXmTmz6kDgdFRLCh/mb2OiVK2
- V6YkxXy3yRmyLApZaqFLtA7V1mI9ZQJ4g8yXLZfZnJbvDd3D1rNMVK+ifUCldCXjCb6m
- 4kGQ==
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ASoL2n44cIGdLcKkIeaBgYofTWWcQ/Km4ZFF+6f+LtQ=;
+ b=WzRPnS8kyGqSqpEHRunDRmFNqEqPSt4wdh/actnYkE7/EjrK26PYWqN7d66E0Uw03u
+ 9F2MKf7ZmR3fDizfeCvr10dNsXeZUVtc+UTLiEEyLYd0LLrwPr+ddREyqJGnSAoW1z5f
+ zU4CTlXzZtSb9mcOSbjzIfr+fCTjlIoNURP9YsEfQrlD+y4U0oKsfzxMw9Q9Q/0RntgJ
+ mYQmzUsAkbiLWQE74C/tx2JQ91Eh5mwxF1VUnXwgIUDLA9UTqoLDe/tbEDURvbVFJRDa
+ jJ4sw5AQuAxFFzb5PhUyDcBNQw1ZR4j+eXpnzs2yXACVYPLFiBl+q8CHO25Fpw2FG4VM
+ QjOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720769782; x=1721374582;
+ d=1e100.net; s=20230601; t=1720769948; x=1721374748;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bDtViol4g2LzhSS5XlhcbWFCymKU1QkxpglqbLets0M=;
- b=XtvViDdJPopDMXlVs5winucxn66Vwc5ItdrdGOa7x4zI8PzsQ8XCUWQUOiaGCxHsIW
- OU0sEHY5k3rWWJppso+XjJb/CP/zJry3f9Arb7H4L3mQi8RlCYyrQVfSmfh0oEimJmgy
- oeoaKq9FbKo5PopZaaTjYQ9t5Dp+c+/zkogFuh2ZxAM879PcigX1tLVqI2w/uwl+49tO
- q7Enf9aHGzlbVSp3JbQGhfMHDLhpVu035lz0Kh1OoPFMqz187qvQ98Pv+f0vHAxzpSy4
- tu97sUrhlLyHmJKm1AUipq5wJLo3qtkSzejaMNRgYmUqucBY6mFSVfxslbv4Cr4tNEla
- HHag==
+ bh=ASoL2n44cIGdLcKkIeaBgYofTWWcQ/Km4ZFF+6f+LtQ=;
+ b=s6UyiGUctjuT/Z9CkayCIL1ymlAT5fy1gXSkQ90mThqq3lykTKD40MLKLAXzxOzpSq
+ xA8ZfW+gsf7eteE+XT3lkzZg5frZpn8G7cwGbeWI/NPQnKwAolRTKWLVkpj4b2Z5n7fG
+ OE921jyiXiviLnUDspYRinWZeWHYsldXXICEs8wizyt4Bt9TByV2PR4CY3bRWhpaX/iz
+ uequFHaAe+Oc2vVyU8jLuvqS2y1GqEiYoNwf/fcu48a3zHdeVSoUmtm3nToiLuUvswN6
+ rpm9tf90MUwn+BvvfZHTDA2ypKSXwuaMlt1Wpde4uh9Vbzx4oDF4zj41b1c4C/8VeKDr
+ l/sw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUYT5WqIj6l707dr5YNiQ818O4UVZ3T5heAFteqD6cgfYExQiNuL9i0l8p+LtqL3cH7XIqXjT3OJ+ZAhsIoyMUR5VJKQF2CoOS9XMDqWA==
-X-Gm-Message-State: AOJu0YxHsoRz6DEmwIyJ2SvwWM8SveZiA3vQODd3wy4WYY7uTvOjqRp6
- iD3jlky/rPA0VNxlEecGQBslDS6GFC98ybRX37SfrnOau3RYQRszjnH50GZ/
-X-Google-Smtp-Source: AGHT+IFTPmR7P2NZ/Q7VDBFRP4PKkaNyvRUkGUdtSDMv4ClSjlKTcjb4udNjAcEl5dLijkdstSLtiw==
-X-Received: by 2002:a05:600c:2109:b0:426:549b:dd7a with SMTP id
- 5b1f17b1804b1-426708fa767mr68789365e9.36.1720769781642; 
- Fri, 12 Jul 2024 00:36:21 -0700 (PDT)
+ AJvYcCVB2eajPZQOwR1O/f1OXTRNeSZUt8AhRAXr9DpiNjc7wCqNfraQwBJb+QmPXqF99jEuAIFfKHTDM10jGjIwGUR1zEzDNG5q0kOQHXogSw==
+X-Gm-Message-State: AOJu0YxIIBiqJPgzkQCpeWcTpWa2/kDemQ3w8LbtzQn89bOYdr63gW5w
+ iInapGSTu5T97ahPpeakWHQ6C79jcrV31jHqesK6RBWTcC71QdZQ
+X-Google-Smtp-Source: AGHT+IG+4Jwe71P/WjAKOZgKaSJv4V/ocgS6VuUDT0OcYMh18oFQdywoMCskHYHobLNmvb5opSmxzw==
+X-Received: by 2002:a05:600c:4d0d:b0:426:6e8b:3dc5 with SMTP id
+ 5b1f17b1804b1-426708f1fb7mr71566805e9.32.1720769947235; 
+ Fri, 12 Jul 2024 00:39:07 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-367cdfa06ffsm9525275f8f.77.2024.07.12.00.36.20
+ 5b1f17b1804b1-4279f2be68bsm13263965e9.40.2024.07.12.00.39.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jul 2024 00:36:21 -0700 (PDT)
-Message-ID: <a2786797-738a-4263-b29f-654fc3fd4945@gmail.com>
-Date: Fri, 12 Jul 2024 09:36:20 +0200
+ Fri, 12 Jul 2024 00:39:06 -0700 (PDT)
+Message-ID: <ad162a88-7549-4fc0-9102-3f45b1e8ef73@gmail.com>
+Date: Fri, 12 Jul 2024 09:39:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
-To: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>
-Cc: "Huang, Trigger" <Trigger.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+To: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>,
+ "Huang, Trigger" <Trigger.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "cao, lin" <lin.cao@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>
 References: <20240711090947.478919-1-YuanShang.Mao@amd.com>
  <SA1PR12MB74429E91B411DEEF22D29B70FEA52@SA1PR12MB7442.namprd12.prod.outlook.com>
  <d7d59834-7907-4100-8f7e-4c864674f00e@gmail.com>
  <PH0PR12MB542037268A58AEDF49E84D35E0A62@PH0PR12MB5420.namprd12.prod.outlook.com>
+ <PH0PR12MB5420453D1FF4C3834CDCFB4EE0A62@PH0PR12MB5420.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <PH0PR12MB542037268A58AEDF49E84D35E0A62@PH0PR12MB5420.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB5420453D1FF4C3834CDCFB4EE0A62@PH0PR12MB5420.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,16 +91,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi River,
 
-well that is complete nonsense.
+well that isn't an error at all, this is perfectly expected behavior.
 
-The BOs are not meant to be used with on demand faulting, so their VM 
-state absolutely shouldn't matter to the KFD.
+The VMs used by the KFD process are currently not meant to be used by 
+classic CS at the same time.
+
+This is one of the reasons for that.
 
 Regards,
 Christian.
 
-Am 12.07.24 um 04:54 schrieb YuanShang Mao (River):
+Am 12.07.24 um 09:35 schrieb YuanShang Mao (River):
 > [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Add more info and CC @Kuehling, Felix @cao, lin
+>
+> In amdgpu_amdkfd_fence.c, there is a design description:
+>
+> /* Eviction Fence
+>   * Fence helper functions to deal with KFD memory eviction.
+>   * Big Idea - Since KFD submissions are done by user queues, a BO cannot be
+>   *  evicted unless all the user queues for that process are evicted.
+>   *
+>   * All the BOs in a process share an eviction fence. When process X wants
+>   * to map VRAM memory but TTM can't find enough space, TTM will attempt to
+>   * evict BOs from its LRU list. TTM checks if the BO is valuable to evict
+>   * by calling ttm_device_funcs->eviction_valuable().
+>   *
+>   * ttm_device_funcs->eviction_valuable() - will return false if the BO belongs
+>   *  to process X. Otherwise, it will return true to indicate BO can be
+>   *  evicted by TTM.
+>   *
+>   * If ttm_device_funcs->eviction_valuable returns true, then TTM will continue
+>   * the evcition process for that BO by calling ttm_bo_evict --> amdgpu_bo_move
+>   * --> amdgpu_copy_buffer(). This sets up job in GPU scheduler.
+>   *
+>   * GPU Scheduler (amd_sched_main) - sets up a cb (fence_add_callback) to
+>   *  nofity when the BO is free to move. fence_add_callback --> enable_signaling
+>   *  --> amdgpu_amdkfd_fence.enable_signaling
+>   *
+>   * amdgpu_amdkfd_fence.enable_signaling - Start a work item that will quiesce
+>   * user queues and signal fence. The work item will also start another delayed
+>   * work item to restore BOs
+>   */
+>
+> If mark BOs as invalidated before submitting job to move the buffer, user queue is still active.
+> During the time before user queue is evicted, if a drm job achieve, amdgpu_cs_vm_handling will call amdgpu_vm_handle_moved to clear the ptes of
+> Invalidated BOs. Then page fault happens because compute shader is still accessing the "invalidated" BO.
+>
+> I am not familiar with amdgpu_vm_bo state machine, so I don’t know if it is an code error or an design error.
+>
+> Thanks
+> River
+>
+>
+> -----Original Message-----
+> From: YuanShang Mao (River)
+> Sent: Friday, July 12, 2024 10:55 AM
+> To: Christian König <ckoenig.leichtzumerken@gmail.com>
+> Cc: Huang, Trigger <Trigger.Huang@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: RE: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
 >
 > We need to make sure that all BOs of an active kfd process validated. Moving buffer will trigger process eviction.
 > If mark it as invalided before process eviction, related kfd process is still active and may attempt to access this invalidated BO.
