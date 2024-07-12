@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA39C3DA42
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96141C3DA45
 	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jul 2024 08:51:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9F010E0BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6CF10E03A;
 	Sat, 13 Jul 2024 08:51:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="DvP/J91q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R6aBcdcq";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 360AD10ED44
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 15:44:20 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-52ea34ffcdaso2413981e87.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jul 2024 08:44:20 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E2E10E198;
+ Fri, 12 Jul 2024 16:23:59 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-367b8a60b60so1237380f8f.2; 
+ Fri, 12 Jul 2024 09:23:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1720799058; x=1721403858;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Gm+dL+hq2H7t5EiDDEM1tOdPxkkuckw7URFjri0hY5Y=;
- b=DvP/J91qtXmUjno5NsvXWeGBdf+jkXFtFPYYWz2XwNPsdppiUcyb2u/8FIaG1/AIk+
- JCoqroTAPJ0rEubk/PZzyzHMw0JFDLEgnnfv+tsK+vN+OjWP51ifBT8y1J9W31zul+DS
- F8aJpfGaw/b2c21HMmUNrBXJwm4EgZfYzfI5E=
+ d=gmail.com; s=20230601; t=1720801437; x=1721406237; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hn+GixGy3/wqCNmbaVUdcuRjiIfqGnrOXg+l5ek8FFw=;
+ b=R6aBcdcqmkavoufOA752poB3w96JIIuXy+jhpNK44ibEXzrJEYCagj4apnelEgWg2i
+ kMr1Z/pNQHxD9et7Lkoj5r1K7ykdEYcMq9gA0up6k2mX3Ai2KXRqMgShZh64WgxhrWRR
+ +7Z5B0cLQJYsFrVy74cE/g/FOkWBdBiftLDkRcQ1gel8sWAs6J+lK/+Df/PwzvKGollh
+ +jc9mE0b4bCChIh48u9OjXqXD33hJvKw86HihPUufLadGqASiO+EBmBp2NJ5C3YZV69B
+ 7qRTabFtUMbCu1aymmtQkGELdWY8jfMdyuhYvp8xc0Wf3tsezYaundqetoBCqcEk1ZTr
+ n3XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720799058; x=1721403858;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Gm+dL+hq2H7t5EiDDEM1tOdPxkkuckw7URFjri0hY5Y=;
- b=cZAb0/cXhYTfjOT8ZhIAnYtug487CwfLyvcpzFgFMTmCPCZY3j39C+ge4Mi52axBLM
- ZPL3Nq8FMobxyA+JNn9owg/ZIyhEjtwDZIywV4gweHF5Ue6/caATJxVdkaXG7DTGDofw
- iB0nzvNqUNetxwC4JvFhOgNHiTCTRi+7vxQz4j9FsMNybMVgUo6CCr30t5vbIW2K7rro
- 0SAwifmI5E1asHThr3GNCKwcF9f9jDSpQNoEgdYfj2mlrRFCAf9BZcaNnUI5WxX5J4vD
- dACEop95iJKw3UE4TxoEpFS0pd4L110G3YnVBsT8NaEqfarLe4KzxxvN4qP6CDw1Gj4z
- putA==
+ d=1e100.net; s=20230601; t=1720801437; x=1721406237;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hn+GixGy3/wqCNmbaVUdcuRjiIfqGnrOXg+l5ek8FFw=;
+ b=R7J/hfGSvDTMVJUU00aj17tfkQpVIiqDTZj2gz8tSazdbm7YP3t9R1VP4UkNLeEwlK
+ Ef0i5tXwR/pCCiwFbjBelsIvRI5lboJ9GKFnk8l53U6zN5/luo38YQ6h1LnU/B+eIoyF
+ IP+P1yUDJWIN+Y9fNOfYlEF2X0hLKb3XUHxQyaFZFENJf+kU4q98K9RK1ObiUlwJB4GX
+ tNahXWQ6MyN+oUaeo6x9Ibq/k6tPj1onVfCeZX50ipfwKWQ5Uvnv1Bbb+DH3WJO0phlw
+ YXedVUF84fWit05aniljRPggKuYCCiPMFbydmCbZWcjW3OepeuJTEWWe3sA+tYxkB3Ge
+ R4Nw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWp6Xil1vRnCh9i7YrxBITqb7CIVwK+shqUAhiY5MgoAEw8cVAykWVDFy3ZDjQAn+ak80DZSiJdhjBN6x0/oBhgFJ7Cpnd6Q96z+AufFw==
-X-Gm-Message-State: AOJu0YwYZ5T4xu9VmSnphyerrAedehtR5KFmUyDirT5wAnXCaiTkPdob
- N6mku+7j89RjymnjD5sh54HgWTrJfEi4c9jr7y5OZqLiH3Ipj6KkeJGoVCX9A3MITumP445C8D3
- I4kxoHJ+irvWGOCbL58EOaeJyFaGv6JLxa7Y=
-X-Google-Smtp-Source: AGHT+IH9pJBNkOUybx5L7VzoPfxzDl6G5bgrKTfUB/1jjytiloEd89f5W+QGClFOQf+tuEha2LiMoViJKAOxrZ9jfME=
-X-Received: by 2002:a05:6512:ea1:b0:52c:df6f:a66 with SMTP id
- 2adb3069b0e04-52eb99d4f5dmr8246097e87.58.1720799058056; Fri, 12 Jul 2024
- 08:44:18 -0700 (PDT)
+ AJvYcCX3Eqrp1YPw5QBg6jJDDLpyuE1hsoUBIH1CtaE4c/n1oRDBeqFceJOxWBqZgdPaUDzVvhY7DuObO49yd78IoBf1uXeZhyUy9EceFLxn+kUgeP017IPNTrAYVZxNVsZNZFMK1nA5khnQxa6Um5R0LA==
+X-Gm-Message-State: AOJu0YxtXTphAFnUw2iOew5+ChrrOIbM+V0zFKt1F907AWI31ned17HS
+ HA2MblgaIQuuNga9vWFuqoVW1gd1q90wL3Ii47n5jIKcLFovB2xT
+X-Google-Smtp-Source: AGHT+IFXRaZUXZvr3FGsTkx2MEPXnjbLliZ4mKa0YckpBF5gChle14p/17QJAUoUUg7mT8NHlqYVcw==
+X-Received: by 2002:a5d:60c5:0:b0:367:4dbb:ed4e with SMTP id
+ ffacd0b85a97d-367ce5de7c8mr8005771f8f.0.1720801437223; 
+ Fri, 12 Jul 2024 09:23:57 -0700 (PDT)
+Received: from fedora.. ([213.94.26.172]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-367cde848e7sm10458852f8f.44.2024.07.12.09.23.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jul 2024 09:23:56 -0700 (PDT)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: harry.wentland@amd.com
+Cc: Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+Subject: [PATCH] drm/amd/display: Implement bounds check for stream encoder
+ creation
+Date: Fri, 12 Jul 2024 18:23:53 +0200
+Message-ID: <20240712162353.10220-1-jose.exposito89@gmail.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <ZoR40nWmpEV2Ly_6@bombadil.infradead.org>
- <CAJfuBxyxamRhOyz8WuL+7=eJkEKSw8jnAWjyAuqU2i7gvg-rsQ@mail.gmail.com>
-In-Reply-To: <CAJfuBxyxamRhOyz8WuL+7=eJkEKSw8jnAWjyAuqU2i7gvg-rsQ@mail.gmail.com>
-From: =?UTF-8?Q?=C5=81ukasz_Bartosik?= <ukaszb@chromium.org>
-Date: Fri, 12 Jul 2024 17:44:06 +0200
-Message-ID: <CALwA+NbUCfEj_DzT5eMQ7_pSNpyp-zBe6PEL2XnMZrb303J4_Q@mail.gmail.com>
-Subject: Re: [PATCH v9 00/53] fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-To: jim.cromie@gmail.com
-Cc: Luis Chamberlain <mcgrof@kernel.org>, daniel.vetter@ffwll.ch, 
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, jbaron@akamai.com, gregkh@linuxfoundation.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 13 Jul 2024 08:51:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,77 +84,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 3, 2024 at 12:14=E2=80=AFAM <jim.cromie@gmail.com> wrote:
->
-> On Tue, Jul 2, 2024 at 4:01=E2=80=AFPM Luis Chamberlain <mcgrof@kernel.or=
-g> wrote:
-> >
-> > On Tue, Jul 02, 2024 at 03:56:50PM -0600, Jim Cromie wrote:
-> > > This fixes dynamic-debug support for DRM.debug, added via classmaps.
-> > > commit bb2ff6c27bc9 (drm: Disable dynamic debug as broken)
-> > >
-> > > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy was marked broken because drm.debug=
-=3Dval
-> > > was applied when drm.ko was modprobed; too early for the yet-to-load
-> > > drivers, which thus missed the enablement.  My testing with
-> > > /etc/modprobe.d/ entries and modprobes with dyndbg=3D$querycmd option=
-s
-> > > obscured this omission.
-> > >
-> > > The fix is to replace invocations of DECLARE_DYNDBG_CLASSMAP with
-> > > DYNDBG_CLASSMAP_DEFINE for core, and DYNDBG_CLASSMAP_USE for drivers.
-> > > The distinction allows dyndbg to also handle the users properly.
-> > >
-> > > DRM is the only current classmaps user, and is not really using it,
-> > > so if you think DRM could benefit from zero-off-cost debugs based on
-> > > static-keys, please test.
-> > >
-> > > HISTORY
-> > >
-> > > 9/4/22  - ee879be38bc8..ace7c4bbb240 commited - classmaps-v1 dyndbg p=
-arts
-> > > 9/11/22 - 0406faf25fb1..16deeb8e18ca commited - classmaps-v1 drm part=
-s
-> > >
-> > > https://lore.kernel.org/lkml/Y3XUrOGAV4I7bB3M@kroah.com/
-> > > greg k-h says:
-> > > This should go through the drm tree now.  The rest probably should al=
-so
-> > > go that way and not through my tree as well.
-> >
-> > Can't this just be defined as a coccinelle smpl patch? Must easier
-> > to read than 53 patches?
-> >
->
-> perhaps it could - Im not sure that would be easier to review
-> than a file-scoped struct declaration or reference per driver
->
-> Also, I did it hoping to solicit more Tested-by:s with drm.debug=3D0x1ff
->
-> Jim
->
+The same pattern fixed by commit 15dba12c5659 ("drm/amd/display:
+Implement bounds check for stream encoder creation in DCN301") was used
+in other create_stream_encoder() functions.
 
-Jim,
+Apply the same fix.
 
-When testing different combinations of Y/M for TEST_DYNAMIC_DEBUG and
-TEST_DYNAMIC_DEBUG_SUBMOD in virtme-ng I spotted test failures:
+Signed-off-by: José Expósito <jose.exposito89@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c  | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c    | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c  | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c    | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c    | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 2 +-
+ .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 2 +-
+ 11 files changed, 11 insertions(+), 11 deletions(-)
 
-When the TEST_DYNAMIC_DEBUG=3DM and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
-BASIC_TESTS, COMMA_TERMINATOR_TESTS, TEST_PERCENT_SPLITTING,
-TEST_MOD_SUBMOD selftests passed
-When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
-BASIC_TESTS, COMMA_TERMINATOR_TESTS selftests passed, however
-TEST_PERCENT_SPLITTING selftest fails with ": ./dyndbg_selftest.sh:270
-check failed expected 1 on =3Dpf, got 0"
-When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DY -
-BASIC_TESTS, COMMA_TERMINATOR_TESTS selftests passed, however
-TEST_PERCENT_SPLITTING selftest fails also with ":
-./dyndbg_selftest.sh:270 check failed expected 1 on =3Dpf, got 0"
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+index f35cc307830b..c8a538a6ea76 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+@@ -1029,7 +1029,7 @@ static struct stream_encoder *dcn30_stream_encoder_create(enum engine_id eng_id,
+ 	vpg = dcn30_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn30_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
+index 5791b5cc2875..a12d880da586 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
+@@ -407,7 +407,7 @@ static struct stream_encoder *dcn302_stream_encoder_create(enum engine_id eng_id
+ 	vpg = dcn302_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn302_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
+index 8bc1bcaeaa47..75481c6d99b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
+@@ -394,7 +394,7 @@ static struct stream_encoder *dcn303_stream_encoder_create(enum engine_id eng_id
+ 	vpg = dcn303_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn303_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+index d4c3e2754f51..3fd172788581 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+@@ -1237,7 +1237,7 @@ static struct stream_encoder *dcn31_stream_encoder_create(
+ 	vpg = dcn31_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn31_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+index ff50f43e4c00..83ad7a7d3fd7 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+@@ -1293,7 +1293,7 @@ static struct stream_encoder *dcn314_stream_encoder_create(
+ 	vpg = dcn31_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn31_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+index 4ce0f4bf1d9b..cd6471eb01b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+@@ -1236,7 +1236,7 @@ static struct stream_encoder *dcn315_stream_encoder_create(
+ 	vpg = dcn31_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn31_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+index 5fd52c5fcee4..1f40e150a478 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+@@ -1231,7 +1231,7 @@ static struct stream_encoder *dcn316_stream_encoder_create(
+ 	vpg = dcn31_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn31_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index abd76345d1e4..39cef0018dae 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -1216,7 +1216,7 @@ static struct stream_encoder *dcn32_stream_encoder_create(
+ 	vpg = dcn32_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn32_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+index e4b360d89b3b..1ed1c93f8e72 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+@@ -1200,7 +1200,7 @@ static struct stream_encoder *dcn321_stream_encoder_create(
+ 	vpg = dcn321_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn321_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 2df8a742516c..ed1c9cd1c30c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -1280,7 +1280,7 @@ static struct stream_encoder *dcn35_stream_encoder_create(
+ 	vpg = dcn31_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn31_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index ddf9560ab772..35dbb8641ed6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -1260,7 +1260,7 @@ static struct stream_encoder *dcn35_stream_encoder_create(
+ 	vpg = dcn31_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn31_afmt_create(ctx, afmt_inst);
+ 
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
+-- 
+2.45.2
 
-Have I missed something ?
-
-Thanks,
-Lukasz
-
-> >   Luis
-> >
