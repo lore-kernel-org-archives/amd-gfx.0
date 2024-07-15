@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A62D1C3DA59
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 12:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85664C3DA4B
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 12:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 383B610E38E;
-	Mon, 15 Jul 2024 12:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DC110E394;
+	Mon, 15 Jul 2024 12:36:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o/VdDCOQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LuXiY3k5";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CD6710E37C
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 12:36:36 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2048.outbound.protection.outlook.com [40.107.212.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A81E10E391
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 12:36:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KwVVpTDtyrBWvR3n23LIY1AOGR8zjTObFBBlaCTzEJKsGEViuVmRkkbYbkSrt61mAXvLkZruOzlvx0yqBwu8OXBS9oYjThbUio55ZAapEdW6WI4xsfv5sY29dmh7/Rb043ez4sLA11b5aW0NKgmlc4LLvnyoH9afwAZtIC932BF3jsVVcAydgC1zY8Pro5Z6y+P/TzAP+jHYh7US2BhtS1AQgz+qn9UtfTStlTFCDzlLgCvTE5EDn/bCMncSd1D/9yz8LvmJvw1A+rf3yBxCj4cTG5qlvDsjd+KauGbmV8xW4/gVX5plZ8tfBuqUaEDt2OIIFPaH1+OlWy+wCPR1Vg==
+ b=TZ9V6aY4Ku5vDKvnfi7SAJI86Z6Huhka+xBKcEdEnDo2bRzxotczHRThR9QoTc30aR/VVWqjWwvSCU3UtuUDYPDYjeilOHVwiYmqHmVCcLCWz+dIgYe42WYVFFjpUyFtrH3tiHS+Q5FVxydmyAIK/LLL5ZWAAtmqBNEMLdftJ/c9phVvorOSQ1Vjcdll8egI+Trxbl1jUWrPF2TO/a2FYz2vSbRGLN1iJmOcGri+sx0ehUAjvLAz5Z0poFMfgA0MVlStXTldCdiQJHO/zK8uKsBJWe11ThBEUQ9c+8XFR3TOrMyp+nzV6mw6hJu1hY4LRMqcuKHXRf4Yrm4KcBtfMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CAy9KYBPbKFnfadRMEGFtH+a5Toti8/IIKA7wy2OxWI=;
- b=YYoW1MNws5j3A0BbVrtm10VWmB9FM1HSj19iQLcBXlhB0FutWXXzWsxwta3edFts1Rvm/ruYgeWDkleYO+CO75Nv1WGm5uAy4/QSQIugXWuBN2Zf/BULQgtDYCg2+vPiTqWMf5+Owso0Hts2vTAI/kMw68Mq0Hvs6PUm3fSoMBWQhYrCm078h/iu9CstLRHInEZgAfhLbfYQtCuOQMWXb7q6kpmtyMttSsIiRBZU+spDZJ7L8IUQDSQv8p71ITx+WccMauWEG98QSbGbcl9VLgoDNclfFQJHPCMhFQx6rvR8Eq0Pqtz2oMGbJ2yQWe01Ze79xh6lpPYJw5VxRx0ayA==
+ bh=O/711S4xEm3dULaVjrN7W6mnq8dRPrHSz7ybgCfcf4M=;
+ b=DRfzNi8tZt6LJGPHdThMbW2ordSuxepc2QHbTC5NrQFFAaqCGVr+wrCxUtVElq7bA7g4FCakmEB0JCE884Tfi/x7VbwBA/k9NXSW4NgM3I+d6Uqbj1TyPtQ9f2MLBgCBwgNS7++Wsi1kfr4k+yk5MCRiGPmmQZki1nedwLn1IDdhiNJQfSymd7G9yhMwNTnrJWHbm4zjSLrKaD7wV9i0kzR7AiAbJk1+jmkeWpwKw7Ie/eyxu4Uu8N5S48hiwFQjsnKnEKyHUryELkkLTprhoQr6c5poP9g+kfqBnCA+zd9WwO+g7B85sW30jMcyX+I+6RqtO819DFTTCPfVtnCYYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CAy9KYBPbKFnfadRMEGFtH+a5Toti8/IIKA7wy2OxWI=;
- b=o/VdDCOQ9W+ArINWwKRkcK4L4ic9AKGCuXP0nf7+YwvKTFqWSDD5GgaQbEerJp1j83Ip/URk4xF1gWNVXKDHnxRjcBx/kLvUg6XzQc6b5X2pRI63laylifeA6xgpri5Fz2eaql/aYh33zxk3RdfijJJOuj9TvfItfmAvO+B65sE=
-Received: from BL1PR13CA0327.namprd13.prod.outlook.com (2603:10b6:208:2c1::32)
- by DM3PR12MB9435.namprd12.prod.outlook.com (2603:10b6:0:40::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7762.28; Mon, 15 Jul 2024 12:36:32 +0000
+ bh=O/711S4xEm3dULaVjrN7W6mnq8dRPrHSz7ybgCfcf4M=;
+ b=LuXiY3k5EET0MlP9JbJQQyh2QI7w0nyEesJTcqeKSh0vc9dIt9b1NJxxi+m+tgfmDKl5p4+1p7c3fLveTUL7/+tDdpjrm5cz9eLeQTWlV8EDvNZmFT9yT/hKu3Hjynm4heqX7cRkmPfCVdXygIAHXGYKZgKMM/vB/t/9NFLM/h4=
+Received: from BL1PR13CA0326.namprd13.prod.outlook.com (2603:10b6:208:2c1::31)
+ by SJ2PR12MB7918.namprd12.prod.outlook.com (2603:10b6:a03:4cc::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Mon, 15 Jul
+ 2024 12:36:29 +0000
 Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
- (2603:10b6:208:2c1:cafe::33) by BL1PR13CA0327.outlook.office365.com
- (2603:10b6:208:2c1::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.12 via Frontend
- Transport; Mon, 15 Jul 2024 12:36:32 +0000
+ (2603:10b6:208:2c1:cafe::56) by BL1PR13CA0326.outlook.office365.com
+ (2603:10b6:208:2c1::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.13 via Frontend
+ Transport; Mon, 15 Jul 2024 12:36:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Mon, 15 Jul 2024 12:36:32 +0000
+ 15.20.7784.11 via Frontend Transport; Mon, 15 Jul 2024 12:36:29 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 15 Jul
- 2024 07:36:29 -0500
+ 2024 07:36:27 -0500
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <Alexander.Deucher@amd.com>,
- <christian.koenig@amd.com>, Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>
-Subject: [PATCH 9/9] drm/amdkfd: Validate queue cwsr area and eop buffer size
-Date: Mon, 15 Jul 2024 08:35:02 -0400
-Message-ID: <20240715123502.7013-10-Philip.Yang@amd.com>
+ <christian.koenig@amd.com>, Philip Yang <Philip.Yang@amd.com>
+Subject: [PATCH 5/9] drm/amdkfd: Ensure user queue buffers residency
+Date: Mon, 15 Jul 2024 08:34:58 -0400
+Message-ID: <20240715123502.7013-6-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240715123502.7013-1-Philip.Yang@amd.com>
 References: <20240715123502.7013-1-Philip.Yang@amd.com>
@@ -74,51 +73,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|DM3PR12MB9435:EE_
-X-MS-Office365-Filtering-Correlation-Id: cef8bd8b-5a8f-4910-b6fe-08dca4cac208
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|SJ2PR12MB7918:EE_
+X-MS-Office365-Filtering-Correlation-Id: 764f521d-de3b-4c73-f384-08dca4cac03e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?t8jeF1tlWPs4Akxk6dFheCpZ+y/ENYhpqs/4Pd2Q9NkpdswrbkC30w38rPKg?=
- =?us-ascii?Q?NYYizDGIxCwojq96/clrxbkOOjel/R6tOG2mPafZ0MThXuOJ6YecrCM9D2/t?=
- =?us-ascii?Q?5r6J+96U41xgt8db6NM+jpT8eLTI4k3s3ETEw5ZEN2svFs8L+TXfE/Zi8Fsr?=
- =?us-ascii?Q?HOceEN11yui+PfYwC1JttWTLw+yLlh7XfNRDrrRJe67rNz2Njg2hLmRMD7qC?=
- =?us-ascii?Q?O8HdpfMGTZuKwFMxV+t3LWrxBZUfpN8+aS+2tmqgkjsESG6uzgOmTb8LsttI?=
- =?us-ascii?Q?b+1QkGQ2YgAiMuGb05UUPvPrrEzajycrIZWd8gqabrzOUPlH1b282u3ktMwo?=
- =?us-ascii?Q?e/e60Fd/mGpBQVp7tWtOJiXxXEdlKGa3UZ9ftLTja/6K4fS1i+YYlItNdHfK?=
- =?us-ascii?Q?DGoOptAEZwSKADK0RGMcvmcbBzBUm/zySsdTREHznzvs1+5Kwl3CnxQZIa3g?=
- =?us-ascii?Q?6apWbByAp7cSpCS+3gWMIzypc6TU0L1yUNHNh/TIxMGFt0/95g+95mcmgg7P?=
- =?us-ascii?Q?L3ExcGUJAQUcgqdRjs2Q10gMltIbGlsjJT9EggzEI7SMeEPv4EOKJI/8rn0z?=
- =?us-ascii?Q?AVL6jbJWboNnjSxgnqjQsIQDEokZHhw9QUSstiLyMf9WHptW1JmTMUdhRKX6?=
- =?us-ascii?Q?k3gTfP8H64oJZyfdVPdhUFs12igjxZ3VHoaio8XL6GYdCVgbgeePV9H4/uRz?=
- =?us-ascii?Q?M3ROmOsf2ja09elKS2/s8iypzpk0DeZ7g+SHoQb6IYbymkVJh2IuXN6fvvHn?=
- =?us-ascii?Q?7EVzmr1KrBOICQkLd53WmNNxZUyMdp4BfxiLj5iDjRoNDju/Lann+A2Gckoo?=
- =?us-ascii?Q?N1IfOigzxQ1twjo5HqOqmjEesSVUXa+E55jNewEHEfh7cMFgtRPKM2ilqGLX?=
- =?us-ascii?Q?X3gYygvkW5+XpGTAbPpclTQPIjWWeNiGeOKdoRzBws7GMoL07oo9uIHDd4pf?=
- =?us-ascii?Q?IFxPdrNNQuPYu4NRIwaakWHljfCk8h4oKwZtURh1kiY74aTsB4wdUHV5qudZ?=
- =?us-ascii?Q?6cH4OLKezRSAZv8CQ9iLFc6fbCUolpYHkRHG9D3wqarYejGrKptcW0HHCuRJ?=
- =?us-ascii?Q?9iWMEljpGBEqcgUCkIEkuM5DBybr0I0/yykcIjkrzrFhM3CuoOWpEsfbf15U?=
- =?us-ascii?Q?7BnIRU2SF1H/009n91LfAJtxhjuk+BZRowWvjVOQo8FusnjSzKy9fLZkNXzD?=
- =?us-ascii?Q?gPiD1jbxkEf1T1oxZSgOh8sNvtjQInXgCCtX5iytQVUGDjMpIUu138EQC7AK?=
- =?us-ascii?Q?nzztJ+QcyaeMPG0iWzzaxyS+odG8HHpYHQaCm3U8fBhf119cpNoxMBufYGN4?=
- =?us-ascii?Q?RnfVydX7QmmRangQVLfnpY8/yWWVHJpr0BNYRGyGCdSyOhq/D0XDVmwN/gKR?=
- =?us-ascii?Q?zUcXvCnEE/+G2Utrh9TTEMIdPILlwDGlPvpRdKIql6TiaNflkwAuKSVLOtBL?=
- =?us-ascii?Q?PQTWy4QwdxaS+e0lF+fAKmO0TIr5Rmsn?=
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+E3D2qRVMMV5tHWSXUM4Rp+95DMmaJsZl803bVzLW3QWD9v4bgiXHzuyG+ch?=
+ =?us-ascii?Q?YhuQoeNGFKwbV5WZbzl+4kpmns7gQsYRmuban93oRjWg2peDElTi2DjlcT/+?=
+ =?us-ascii?Q?wgZJBI3ECn9mYm12PPNPAn9Lq9ISukaeWbkmCK/5uiaegWLNJk1ZsdL+3yEO?=
+ =?us-ascii?Q?/Pa/AP/qRe/m3dKXjrJ9Pk/rM0Smnidc6jgl7E5uM1zIFjd7Jns7A9hrfIBF?=
+ =?us-ascii?Q?qm8waA+VatPMwNEVkM9+SdAMvW+YsnRaT/5LhIzV0RyKAyFmWhRsIV7z9crH?=
+ =?us-ascii?Q?cdK1VD0QqACz59kD/JP8d0C2qN2UfcKLYUrTr8E05VHqtsR3GYzAVCSP5+Xd?=
+ =?us-ascii?Q?Nz7hujmMAVktmG9ZD/LR11oYuks2KVabvUtsKw/hMIoS78C1WHj3ZjSyd7pP?=
+ =?us-ascii?Q?SHXLon2HwC3ahnPk2/XvZijG99Ey9b/NxJ2LcH42sQvJZmA4vHwdZbXSTagi?=
+ =?us-ascii?Q?2WAwV5cowD7Kdf7ztR1Qfji1BV2eDbG/aRbWxAORdFnjYVzvWUXrxHLSvHv/?=
+ =?us-ascii?Q?l/neIyNHeBLqQOcu9LV19K7CZAMunB1CTUt7X3Vr8NkvMbEKLNHxhhV4syBO?=
+ =?us-ascii?Q?HcrEFtL8uxFxBfmD72+Hwpkgj/Tvub6VyNa8JLmbWaNDA5PLXNWuaMakaHtO?=
+ =?us-ascii?Q?iBaI25DAX3CsJO9RHlca8NEIvZTQyTSQJuKar3Na8Z6PvMPd28hV+jKHyksL?=
+ =?us-ascii?Q?WWzgKg7jJXdkmERHAlS8fApWDhwH7uwQBpcMqyYwt0wyN/od2IWRR2uW39WQ?=
+ =?us-ascii?Q?4FDRALH0AC7icrV0pNv9C3SMjeLXv/NkvQFzIE50JOIxsrV0YSjphsAhmOvh?=
+ =?us-ascii?Q?aGbZK24CYWgQmlf3FzCBayrEfV68705iowlfmcXweIKHuK+jhEA1FFYTpPJl?=
+ =?us-ascii?Q?5aKDTrOZhMeFdS3WfOtiGDmCTCH1BEialtRgXQNCiBPqtbGEYoU/8cTlOZ98?=
+ =?us-ascii?Q?BLB7rU3cDsdrjawuoMGWEAKXO3mKYBVLlwN17x/c7fNbyOi/1+LOIDliAJNl?=
+ =?us-ascii?Q?Tjd5cPDUlm3amLIRUzWehrlwxdIbNr9lcOc2gqgxl807iJQPLEODcUJDXlYK?=
+ =?us-ascii?Q?a8wqraqlg5wxJH2MV99mrcSNmnfX4eb2QX+StpTq0gCez1ppiXLzcuMhL7hT?=
+ =?us-ascii?Q?77qzXRDCWjVypS3MPFMrU5HAVrW7qLXYjqQepLfB3Vp9TxKQEWUJudceIEb9?=
+ =?us-ascii?Q?fYPko414VHAMBf8oUQ5n9+zEyuMp+pDWFuuSuvf2kCnd84zRJ9ZX4iig6bKM?=
+ =?us-ascii?Q?453zUpZsmE0iVzsDns9Yw2ej1frxzAT5O1rc87Iz9+k9zU+WOIU+D1+9KqH/?=
+ =?us-ascii?Q?fLe3j07maLyMCl8iAYMmzQwlKkMWdLKgYPzLDq0snPoweCu73KuL5VArOinP?=
+ =?us-ascii?Q?mdXFohUGfO89ACQZiTuqaUpBLDF+NYdGaStE5E+W36hu3RGVCwZSw2FqwypX?=
+ =?us-ascii?Q?2/wSSSCBsnlMrotKJs0v5M3akUOC7O2g?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2024 12:36:32.4530 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cef8bd8b-5a8f-4910-b6fe-08dca4cac208
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2024 12:36:29.4217 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 764f521d-de3b-4c73-f384-08dca4cac03e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9435
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7918
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,115 +132,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When creating KFD user compute queue, check if queue eop buffer size,
-cwsr area size, ctl stack size equal to the size of KFD node
-properities.
+Add atomic queue_refcount to struct bo_va, return -EBUSY to fail unmap
+BO from the GPU if the bo_va queue_refcount is not zero.
 
-Check the entire cwsr area which may split into multiple svm ranges
-aligned to gramularity boundary.
+Create queue to increase the bo_va queue_refcount, destroy queue to
+decrease the bo_va queue_refcount, to ensure the queue buffers mapped on
+the GPU when queue is active.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 46 +++++++++++++++++++++++---
- 1 file changed, 42 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 14 ++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  6 ++++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        | 34 ++++++++++++++++---
+ 5 files changed, 49 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 0ab37e7aec26..6d5fd371d5ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1252,7 +1252,7 @@ static int unreserve_bo_and_vms(struct bo_vm_reservation_context *ctx,
+ 	return ret;
+ }
+ 
+-static void unmap_bo_from_gpuvm(struct kgd_mem *mem,
++static int unmap_bo_from_gpuvm(struct kgd_mem *mem,
+ 				struct kfd_mem_attachment *entry,
+ 				struct amdgpu_sync *sync)
+ {
+@@ -1260,11 +1260,18 @@ static void unmap_bo_from_gpuvm(struct kgd_mem *mem,
+ 	struct amdgpu_device *adev = entry->adev;
+ 	struct amdgpu_vm *vm = bo_va->base.vm;
+ 
++	if (bo_va->queue_refcount) {
++		pr_debug("bo_va->queue_refcount %d\n", bo_va->queue_refcount);
++		return -EBUSY;
++	}
++
+ 	amdgpu_vm_bo_unmap(adev, bo_va, entry->va);
+ 
+ 	amdgpu_vm_clear_freed(adev, vm, &bo_va->last_pt_update);
+ 
+ 	amdgpu_sync_fence(sync, bo_va->last_pt_update);
++
++	return 0;
+ }
+ 
+ static int update_gpuvm_pte(struct kgd_mem *mem,
+@@ -2191,7 +2198,10 @@ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+ 		pr_debug("\t unmap VA 0x%llx - 0x%llx from entry %p\n",
+ 			 entry->va, entry->va + bo_size, entry);
+ 
+-		unmap_bo_from_gpuvm(mem, entry, ctx.sync);
++		ret = unmap_bo_from_gpuvm(mem, entry, ctx.sync);
++		if (ret)
++			goto unreserve_out;
++
+ 		entry->is_mapped = false;
+ 
+ 		mem->mapped_to_gpu_memory--;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index bc42ccbde659..d7e27957013f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -90,6 +90,12 @@ struct amdgpu_bo_va {
+ 	bool				cleared;
+ 
+ 	bool				is_xgmi;
++
++	/*
++	 * protected by vm reservation lock
++	 * if non-zero, cannot unmap from GPU because user queues may still access it
++	 */
++	unsigned int			queue_refcount;
+ };
+ 
+ struct amdgpu_bo {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 202f24ee4bd7..65a37ac5a0f0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1384,8 +1384,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
+ 		err = amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+ 			peer_pdd->dev->adev, (struct kgd_mem *)mem, peer_pdd->drm_priv);
+ 		if (err) {
+-			pr_err("Failed to unmap from gpu %d/%d\n",
+-			       i, args->n_devices);
++			pr_debug("Failed to unmap from gpu %d/%d\n", i, args->n_devices);
+ 			goto unmap_memory_from_gpu_failed;
+ 		}
+ 		args->n_success = i+1;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d0dca20849d9..95fbdb12beb1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1291,6 +1291,7 @@ void print_queue_properties(struct queue_properties *q);
+ void print_queue(struct queue *q);
+ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_bo **pbo,
+ 			 u64 expected_size);
++void kfd_queue_buffer_put(struct amdgpu_vm *vm, struct amdgpu_bo **bo);
+ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
+ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
+ 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index adcda9730c9f..9807e8adf77d 100644
+index 0e661160c295..3fd386dcb011 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -225,9 +225,15 @@ void kfd_queue_buffer_put(struct amdgpu_vm *vm, struct amdgpu_bo **bo)
- 
- int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
- {
-+	struct kfd_topology_device *topo_dev;
- 	struct amdgpu_vm *vm;
-+	u32 total_cwsr_size;
- 	int err;
- 
-+	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-+	if (!topo_dev)
-+		return -EINVAL;
-+
- 	vm = drm_priv_to_vm(pdd->drm_priv);
- 	err = amdgpu_bo_reserve(vm->root.bo, false);
- 	if (err)
-@@ -252,6 +258,12 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- 
- 	/* EOP buffer is not required for all ASICs */
- 	if (properties->eop_ring_buffer_address) {
-+		if (properties->eop_ring_buffer_size != topo_dev->node_props.eop_buffer_size) {
-+			pr_debug("queue eop bo size 0x%lx not equal to node eop buf size 0x%x\n",
-+				properties->eop_buf_bo->tbo.base.size,
-+				topo_dev->node_props.eop_buffer_size);
-+			goto out_err_unreserve;
-+		}
- 		err = kfd_queue_buffer_get(vm, (void *)properties->eop_ring_buffer_address,
- 					   &properties->eop_buf_bo,
- 					   properties->eop_ring_buffer_size);
-@@ -259,15 +271,33 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- 			goto out_err_unreserve;
+@@ -106,6 +106,7 @@ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_
  	}
  
-+	if (properties->ctl_stack_size != topo_dev->node_props.ctl_stack_size) {
-+		pr_debug("queue ctl stack size 0x%x not equal to node ctl stack size 0x%x\n",
-+			properties->ctl_stack_size,
-+			topo_dev->node_props.ctl_stack_size);
-+		goto out_err_unreserve;
+ 	*pbo = amdgpu_bo_ref(mapping->bo_va->base.bo);
++	mapping->bo_va->queue_refcount++;
+ 	return 0;
+ 
+ out_err:
+@@ -113,6 +114,19 @@ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_
+ 	return -EINVAL;
+ }
+ 
++void kfd_queue_buffer_put(struct amdgpu_vm *vm, struct amdgpu_bo **bo)
++{
++	if (*bo) {
++		struct amdgpu_bo_va *bo_va;
++
++		bo_va = amdgpu_vm_bo_find(vm, *bo);
++		if (bo_va)
++			bo_va->queue_refcount--;
 +	}
 +
-+	if (properties->ctx_save_restore_area_size != topo_dev->node_props.cwsr_size) {
-+		pr_debug("queue cwsr size 0x%x not equal to node cwsr size 0x%x\n",
-+			properties->ctx_save_restore_area_size,
-+			topo_dev->node_props.cwsr_size);
-+		goto out_err_unreserve;
-+	}
++	amdgpu_bo_unref(bo);
++}
 +
-+	total_cwsr_size = (topo_dev->node_props.cwsr_size + topo_dev->node_props.debug_memory_size)
-+			  * NUM_XCC(pdd->dev->xcc_mask);
-+	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
-+
- 	err = kfd_queue_buffer_get(vm, (void *)properties->ctx_save_restore_area_address,
--				   &properties->cwsr_bo, 0);
-+				   &properties->cwsr_bo, total_cwsr_size);
- 	if (!err)
- 		goto out_unreserve;
- 
- 	amdgpu_bo_unreserve(vm->root.bo);
- 
- 	err = kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_area_address,
--				       properties->ctx_save_restore_area_size);
-+				       total_cwsr_size);
- 	if (err)
- 		goto out_err_release;
- 
-@@ -286,7 +316,9 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
+ {
+ 	struct amdgpu_vm *vm;
+@@ -166,10 +180,20 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
  
  int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
  {
-+	struct kfd_topology_device *topo_dev;
- 	struct amdgpu_vm *vm;
-+	u32 total_cwsr_size;
- 	int err;
- 
- 	vm = drm_priv_to_vm(pdd->drm_priv);
-@@ -302,8 +334,14 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
- 
- 	amdgpu_bo_unreserve(vm->root.bo);
- 
--	kfd_queue_buffer_svm_put(pdd, properties->ctx_save_restore_area_address,
--				 properties->ctx_save_restore_area_size);
-+	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-+	if (!topo_dev)
-+		return -EINVAL;
-+	total_cwsr_size = (topo_dev->node_props.cwsr_size + topo_dev->node_props.debug_memory_size)
-+			  * NUM_XCC(pdd->dev->xcc_mask);
-+	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
+-	amdgpu_bo_unref(&properties->wptr_bo);
+-	amdgpu_bo_unref(&properties->rptr_bo);
+-	amdgpu_bo_unref(&properties->ring_bo);
+-	amdgpu_bo_unref(&properties->eop_buf_bo);
+-	amdgpu_bo_unref(&properties->cwsr_bo);
++	struct amdgpu_vm *vm;
++	int err;
 +
-+	kfd_queue_buffer_svm_put(pdd, properties->ctx_save_restore_area_address, total_cwsr_size);
++	vm = drm_priv_to_vm(pdd->drm_priv);
++	err = amdgpu_bo_reserve(vm->root.bo, false);
++	if (err)
++		return err;
++
++	kfd_queue_buffer_put(vm, &properties->wptr_bo);
++	kfd_queue_buffer_put(vm, &properties->rptr_bo);
++	kfd_queue_buffer_put(vm, &properties->ring_bo);
++	kfd_queue_buffer_put(vm, &properties->eop_buf_bo);
++	kfd_queue_buffer_put(vm, &properties->cwsr_bo);
++
++	amdgpu_bo_unreserve(vm->root.bo);
  	return 0;
  }
- 
 -- 
 2.43.2
 
