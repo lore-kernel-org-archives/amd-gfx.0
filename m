@@ -4,66 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9102C3DA45
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 08:39:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00AAC3DA5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 08:40:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0E610E301;
-	Mon, 15 Jul 2024 08:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04CA310E305;
+	Mon, 15 Jul 2024 08:40:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bAGhr4L2";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="UYi4kcm1";
 	dkim-atps=neutral
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
- [209.85.222.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 020B610E05E
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Jul 2024 00:51:58 +0000 (UTC)
-Received: by mail-ua1-f43.google.com with SMTP id
- a1e0cc1a2514c-8100f08b5a8so1005406241.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jul 2024 17:51:58 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B295910E333
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 08:40:23 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-42673554402so4950305e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 01:40:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720918318; x=1721523118; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RKNNtoRYyRFaWrLCKwWk1hyHdEXa7o4btSdNDP9UG5k=;
- b=bAGhr4L2XvdQi3EzfOc1ELTUzR/bd9Q61JcsljpnYrY2N2T61GsOdq/nqrW7nbdKzl
- vU8ht2QSIzawSQHiruCqMMKjWK+sig81dvC6CmK4FWYOAzEULlHaZAkSVxAaaZ5aeKMR
- WTdyt5jmbCjMc+KTTBEH0G+drj22X1XUA6JFooH2Su81Q7V2cCGCjvKEzN74Wfx2zowU
- x6Pa1qrYIJ/owi0jnJ6Q9PpUkUlHshaxa1Sfq16Ndw+MpKVODdqrMzrNNOrmbrkzmrwb
- r3PKGfTSv6txuWsc5koUQrmnuR586M+I/nurKeyVLbqOUJ95yJtsy2SEktVRasg38DmQ
- rbqg==
+ d=ffwll.ch; s=google; t=1721032822; x=1721637622; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=RgzA7sj7xpV2smokBUe81ciZuXU3I/NBeyJ+R2ni3eA=;
+ b=UYi4kcm1HJQbCdWkrBTB26yFEKdzcuj+hzNpp1nhAxwikoi31QoEbEz/lLnK+StYCh
+ o4MdXCWROJ4Cwa9kVrpy02ZJwSGpvf8Q5+Fqpwo9kL1Lf/gVSZx/u84gBJUgFvQV57w+
+ BuyiH0YBf+V4YKAweJB5Fn6rC7m4hRiSEHMSo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720918318; x=1721523118;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RKNNtoRYyRFaWrLCKwWk1hyHdEXa7o4btSdNDP9UG5k=;
- b=BSRX0sxDEnlWNm+qEKsDjkaBqBvBU27TCP7auwTycg3NsgSQrZEIoYAl9erKUfi/28
- UF+dlIw2z18HcyjLeE7Zi88dOdT17YsnPfgIlZIno+iEwPmJ1mhtsSqYYwokXxPyFTVj
- CajKTqzH2ubT+IqoUP6ecxebUeBYcUsc57yFAjEKonyr8X1+H+TWvtlmdhUHtUuJ2y7G
- oQZ82eWVaPfCrY+oPFxjiOeDQ+cxWEs6d7zXwmgFgizJuU9slM54BhVEYVcRQMGNPCyG
- LLFgp2bAuixtU+9pBlrwvhOyHX8OGlIHv/ngVKKZdl6fa7k19MJCOh9F62kNnSgPfRNr
- 2arQ==
-X-Gm-Message-State: AOJu0YwqKGikDRg4Ri81p8SoBr/A4D0zmAG6XeTqBu0GblFd0H03bB+Y
- kpq2xX8uHdzMsLtGdWQ5LxfRTmxwvtMXAWaCsN9apbDfAjx20YofAYiuHvQslF4=
-X-Google-Smtp-Source: AGHT+IH+buhQ0cCMpdvHUc6btN6ANwPmc6vY4DSaLjLkEIzXcsRHChaRPUrKZ6l+6T+XelexiNJYOQ==
-X-Received: by 2002:a05:6102:6d0:b0:48f:de85:2b4c with SMTP id
- ada2fe7eead31-490321d51famr19517689137.23.1720918317349; 
- Sat, 13 Jul 2024 17:51:57 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700::1cb1])
+ d=1e100.net; s=20230601; t=1721032822; x=1721637622;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RgzA7sj7xpV2smokBUe81ciZuXU3I/NBeyJ+R2ni3eA=;
+ b=aGxD18t4VB8rDEQ+YoxOAy39IIZonIuntADvkZ98B/vPzlt3B/zjxoaWvVA7sv2ikj
+ 47S49s/a3lg9n2mudXN59R9na+/pv7nIAKsbZ+ejpreaR77f/zNFO/6X8KPnREqgYwb+
+ OY69UcHeP6fOp/Pct5bfIPvlEfbe4Kb6ashZ+k/obQXpwTCG0URbUKVO+ucez9uJLITI
+ UixLMVcS8Ap9MWxfXUwT3sKmegUFkbAGjixw/KMXCqTUgsBEQG1FKbLxLaImKjOC8nPv
+ 3i8U9Av23Dw2ihKeFmUMfXXqMbsZI0HIOeebsMy+nQyDBJ9NAQOFWyFI1Xpb4ZJJrVei
+ 7jLw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpzi9lU1OtsBtEV3ecfGxuL5ooAIiZL3BiSqsPiq+SQ0vWHUXVX51aMcFOy3VmTu3u2aaFdOBdIzBXjv6wu5yTYcQFZp+Lkfy6zOHjfA==
+X-Gm-Message-State: AOJu0YxQlwopoz5YmudWrlVdc1QAcWgz+pG/eIx4VraOS6vM7pbz0H0s
+ jeQGlIXrxwUoQ/Y/ee7SxWJY50mtbzfayCuqFfhoq5cjvSLZrOCRre4ECVmYp6A=
+X-Google-Smtp-Source: AGHT+IEAxg/lboQUShtz50qwIecCeh+qhuGdeeZLdppErsWqo+x1aqyB1cBh5B7prERa9AvlPR/Uow==
+X-Received: by 2002:a05:600c:4f49:b0:427:9f6f:9c00 with SMTP id
+ 5b1f17b1804b1-4279f6f9c11mr39749665e9.6.1721032821837; 
+ Mon, 15 Jul 2024 01:40:21 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-5ce74ee4ba8sm346355eaf.7.2024.07.13.17.51.56
+ ffacd0b85a97d-3680dab3ee4sm5738192f8f.7.2024.07.15.01.40.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jul 2024 17:51:56 -0700 (PDT)
-Date: Sat, 13 Jul 2024 19:51:54 -0500
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Stylon Wang <stylon.wang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/display: Fix ineffective setting of max bpc
- property
-Message-ID: <b5a259e8-193a-4895-a34b-c62d0af86e61@stanley.mountain>
+ Mon, 15 Jul 2024 01:40:21 -0700 (PDT)
+Date: Mon, 15 Jul 2024 10:40:19 +0200
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/amd/display: use drm_crtc_set_vblank_offdelay()
+Message-ID: <ZpTgcwAGmJEi4cYX@phenom.ffwll.local>
+References: <20240708202907.383917-1-hamza.mahfooz@amd.com>
+ <20240708202907.383917-2-hamza.mahfooz@amd.com>
+ <Zo0Dm_XeF3dMqK1C@phenom.ffwll.local>
+ <Zo0MSB7eSp1H0iPI@phenom.ffwll.local>
+ <3214e5a3-a616-4bcd-8f1d-238e1bf346fe@amd.com>
+ <Zo5Ju2bWFUVBHeKX@phenom.ffwll.local>
+ <bd3da8d0-a60f-4905-b27d-cf549844c683@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Mailman-Approved-At: Mon, 15 Jul 2024 08:39:00 +0000
+In-Reply-To: <bd3da8d0-a60f-4905-b27d-cf549844c683@amd.com>
+X-Operating-System: Linux phenom 6.9.7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,48 +93,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Stylon Wang,
+On Wed, Jul 10, 2024 at 05:13:18PM -0400, Hamza Mahfooz wrote:
+> On 7/10/24 04:43, Daniel Vetter wrote:
+> > On Tue, Jul 09, 2024 at 10:02:08AM -0400, Hamza Mahfooz wrote:
+> > > On 7/9/24 06:09, Daniel Vetter wrote:
+> > > > On Tue, Jul 09, 2024 at 11:32:11AM +0200, Daniel Vetter wrote:
+> > > > > On Mon, Jul 08, 2024 at 04:29:07PM -0400, Hamza Mahfooz wrote:
+> > > > > > Hook up drm_crtc_set_vblank_offdelay() in amdgpu_dm, so that we can
+> > > > > > enable PSR more quickly for displays that support it.
+> > > > > > 
+> > > > > > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> > > > > > ---
+> > > > > >    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 30 ++++++++++++++-----
+> > > > > >    1 file changed, 22 insertions(+), 8 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > > > index fdbc9b57a23d..ee6c31e9d3c4 100644
+> > > > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > > > @@ -8231,7 +8231,7 @@ static int amdgpu_dm_encoder_init(struct drm_device *dev,
+> > > > > >    static void manage_dm_interrupts(struct amdgpu_device *adev,
+> > > > > >    				 struct amdgpu_crtc *acrtc,
+> > > > > > -				 bool enable)
+> > > > > > +				 struct dm_crtc_state *acrtc_state)
+> > > > > >    {
+> > > > > >    	/*
+> > > > > >    	 * We have no guarantee that the frontend index maps to the same
+> > > > > > @@ -8239,12 +8239,25 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+> > > > > >    	 *
+> > > > > >    	 * TODO: Use a different interrupt or check DC itself for the mapping.
+> > > > > >    	 */
+> > > > > > -	int irq_type =
+> > > > > > -		amdgpu_display_crtc_idx_to_irq_type(
+> > > > > > -			adev,
+> > > > > > -			acrtc->crtc_id);
+> > > > > > +	int irq_type = amdgpu_display_crtc_idx_to_irq_type(adev,
+> > > > > > +							   acrtc->crtc_id);
+> > > > > > +	struct dc_crtc_timing *timing;
+> > > > > > +	int offdelay;
+> > > > > > +
+> > > > > > +	if (acrtc_state) {
+> > > > > > +		timing = &acrtc_state->stream->timing;
+> > > > > > +
+> > > > > > +		/* at least 2 frames */
+> > > > > > +		offdelay = 2000 / div64_u64(div64_u64((timing->pix_clk_100hz *
+> > > > > > +						       (uint64_t)100),
+> > > > > > +						      timing->v_total),
+> > > > > > +					    timing->h_total) + 1;
+> > > > > 
+> > > > > Yeah, _especially_ when you have a this short timeout your really have to
+> > > > > instead fix the vblank driver code properly so you can enable
+> > > > > vblank_disable_immediate. This is just cheating :-)
+> > > > 
+> > > > Michel mentioned on irc that DC had immediate vblank disabling, but this
+> > > > was reverted with f64e6e0b6afe ("Revert "drm/amdgpu/display: set
+> > > > vblank_disable_immediate for DC"").
+> > > > 
+> > > > I haven't looked at the details of the bug report, but stuttering is
+> > > > exactly what happens when the driver's vblank code has these races. Going
+> > > > for a very low timeout instead of zero just means it's a bit harder to hit
+> > > > the issue, and much, much harder to debug properly.
+> > > > 
+> > > > So yeah even more reasons to look at the underlying root-cause here I
+> > > > think.
+> > > > -Sima
+> > > 
+> > > The issue is that DMUB (display firmware) isn't able to keep up with all of
+> > > the requests that the driver is making. The issue is fairly difficult to
+> > > reproduce (I've only seen it once after letting the system run with a
+> > > program that would engage PSR every so often, after several hours).
+> > > It is also worth noting that we have the same 2 idle frame wait on the
+> > > windows
+> > > driver, for the same reasons. So, in all likelihood if it is your opinion
+> > > that
+> > > the series should be NAKed, we will probably have to move the wait into the
+> > > driver as a workaround.
+> > 
+> > Well that's an entirely different reason, and needs to be recorded in the
+> > commit log that disabling/enabling vblank is too expensive and why. Also
+> > would be good to record that windows does the same.
+> 
+> Point taken.
+> 
+> > 
+> > I'm also not entirely sure this is a good interface, so some
+> > thoughts/question:
+> > 
+> > - is the issue only with psr, meaning that if we switch the panel to a
+> >    different crtc, do we need to update the off delay.
+> 
+> I can't say definitively, but all of the public reports (that I've seen)
+> and my local repro are PSR related.
+> 
+> > 
+> > - there's still the question of why vblank_immediate_disable resulted in
+> >    stuttering, is that the same bug? I think for consistency it'd be best
+> >    if we enable immediate vblank disabling everywhere (for maximum
+> >    testing), and then apply the 2 frame delay workaround only where needed
+> >    explicitly. Otherwise if there's other issues than DMUB being slow, they
+> >    might be mostly hidden and become really hard to track down when they
+> >    show up.
+> 
+> Ya, I believe they are all DMUB related since the stuttering issues are
+> accompanied by the following dmesg log entry:
+> 
+> [drm:dc_dmub_srv_wait_idle [amdgpu]] *ERROR* Error waiting for DMUB idle:
+> status=3
+> 
+> (which is pretty much an unspecified firmware timeout)
 
-Commit fa7041d9d2fc ("drm/amd/display: Fix ineffective setting of max
-bpc property") from Jun 12, 2020 (linux-next), leads to the following
-Smatch static checker warning:
+Ah that would be really good to add to the commit message, should help
+connect with any bug reports later on. And the firmware handling PSR
+specially also makes sense, the flow is a lot more involved for that I
+guess.
 
-	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:7201 create_validate_stream_for_sink()
-	error: we previously assumed 'dm_state' could be null (see line 7194)
+> Also, setting vblank_immediate_disable unconditionally for amdgpu, while
+> only
+> enabling the delay for cases that we know that we need it seems reasonable
+> to me.
+> 
+> > 
+> > - I think an interface to set the right values in lockstep with the vblank
+> >    on/off state would be best, so maybe a special drm_crtc_vblank_on_config
+> >    that takes additional parameters?
+> 
+> Sure, that seems fine, what parameters besides the off delay did you have
+> in mind though?
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
-    7185 struct dc_stream_state *
-    7186 create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
-    7187                                 const struct drm_display_mode *drm_mode,
-    7188                                 const struct dm_connector_state *dm_state,
-    7189                                 const struct dc_stream_state *old_stream)
-    7190 {
-    7191         struct drm_connector *connector = &aconnector->base;
-    7192         struct amdgpu_device *adev = drm_to_adev(connector->dev);
-    7193         struct dc_stream_state *stream;
-    7194         const struct drm_connector_state *drm_state = dm_state ? &dm_state->base : NULL;
-                                                               ^^^^^^^^
-                                     ^^^^^^^^^
-This used check connector->state but then we changed it to dm_state instead
+Whatever you need, sounds like you need to update both the off delay and
+the immediate disable (or maybe we just magically put them into the same
+value, dunno). I just thought that supplying the right parameters to
+drm_crtc_vblank_on is probably the right way to go about this.
 
-    7195         int requested_bpc = drm_state ? drm_state->max_requested_bpc : 8;
-    7196         enum dc_status dc_result = DC_OK;
-    7197 
-    7198         do {
-    7199                 stream = create_stream_for_sink(connector, drm_mode,
-    7200                                                 dm_state, old_stream,
-                                                         ^^^^^^^^
+Note that there's the question of whether drm_crtc_vblank_off should
+restore the old values, or whether drivers simply have to use that special
+version unconditionally, instead of only for the outputs like PSR that
+need special handling.
 
-But dm_state is dereferenced on the next line without checking.  (Presumably
-the NULL check can be removed).
-
---> 7201                                                 requested_bpc);
-    7202                 if (stream == NULL) {
-    7203                         DRM_ERROR("Failed to create stream for sink!\n");
-    7204                         break;
-    7205                 }
-    7206 
-    7207                 if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-
-regards,
-dan carpenter
+Cheers, Sima
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
