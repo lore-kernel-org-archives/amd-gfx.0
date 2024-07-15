@@ -4,121 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE041C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 14:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F404C3DA4B
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 14:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798DD10E3F5;
-	Mon, 15 Jul 2024 14:42:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09DDB10E404;
+	Mon, 15 Jul 2024 14:48:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fu69DPw2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KLfp7Ufp";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2084.outbound.protection.outlook.com [40.107.95.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 370A910E3F5
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 14:42:29 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2053.outbound.protection.outlook.com [40.107.212.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7196510E3FB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 14:48:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jn9bQHRLVxAKISZy5KQpyHdp5Qu6GarVf2tCYOpZkYEecgaHAZsuSez92S38+NbKKtVFZevvNm2CdhjCF+drEv4c3rblBa4dtphjrLxUqQWzBv3HxZqSuFLEYfcf08+KoDSvzrWCH9ligBNMaxHUPyZ2k/MfB+usQd/p1vOTKT07hFTZtlQ1xielANwwkpsEt7z29sU8agC7h1ji7W4IRTdT78x9vIUh6vguxFeE/Lj4P28ylvX+8kZgjxlkCJK8p199eoAT1E1BvhCq2Bme0B4HnkLzQE1wtHe6RzDoHh0bjcNuSA7MTLbbfXaFQAg05l2oPtt0p4UPRs78D2/qyw==
+ b=DRN3TkFINFyU7++MpPhMVpunOmE7I69VyD8nSilH874YwwVXqwBLueccpaAftJ3MuRngQjYJFJs5AnDwixOXCDgfIfcmr1gpqQRyRDXoyj/UBJvY/yECBtWuaCKhaNbLx0gRVkRj+aEj5sjej2tmJtQeX6ea3X+YSCxBK6cJZIhsJxKERHhR4Se8jdb5QBo2AL8bxOxCkNPKvLcciguGiYumwIm6cFekY5DBhTSFNssT0Se6StiUGgTn2yjmuZFNA7PZL4ZiVoeU6ShrD/SZ/dmo5psFsYkNT3v4SAG7mZLqItT3rth6N+9mLIsR0MfM1JUHPqu88Gt3nWgb9VlskQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JCc2X1xrwOVdF1Bi9WR+3zPLg6ntszUMmmmP8ufh/yY=;
- b=G0qpV8Vy3GnsRi+gcom4JIpguDFHJt/q8/jRSEk+imZDSDfbm1Pwsegk2TH29ZVpOq5BE/1r88Yz3dqRY2ujR86EkGTm0PUB/yc9pFNTwuW9mSc37HJEH2avKc0KR0Pnj/xW6worUZJ6750XyUO2npW5zqkUYARl6w45zpZfz8ocs9xwWR55TfDarLQhKI71nwDj4+TTj440Fq9ZcrBCx4pkrH1OtEZtItoLWZMNeOdNJs10A03ZVJ+Sqcoej3CEKYZazv70HZE4pQJ0eHJWdRJoGT3FZ5kiRqUzoxpaMmyv/enOEw2vW+KjjfhcwEbrGUIA0tOYL10G9CItPFwD/w==
+ bh=Yj7cJiFJ4cMPW+fstPbXCOy6RofgZAMYjDtgyJUG1Cc=;
+ b=JbtB7A42XkyNViyj2Pxit1T/53jOPGo/9S8LhTPCK6t2CLJzOgaLx/PCyN8TGSsLD0xHyrg4nsb4UvBUc5uuD1xsLG4Ug8JQh+OLHUO7cuJOdCPtktEBnd2BorEXAiGXMVhiR47Ttx4vNz44ZKXLs/5I0cT2oW/5p5VkRXkqtQH19ZXXmzmMdoUoZpB4ULFTcttU62hWf6BC6yZ6G0LMJBP66CmxB+URllYa5vsSBFUwRQSS6ThPO/inDHW3GnrsjxSOT8g+IGHp1XhHgPSk3QRMiuHlUaIsw+s2mjo3JtoxQuplMVO1bb/K0fBN3JgkfOMxRkGxBfoT8VF0O9Hi/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JCc2X1xrwOVdF1Bi9WR+3zPLg6ntszUMmmmP8ufh/yY=;
- b=fu69DPw2vBTI3g3iwQ9VfUYj49tr2DlXKSNveDXfx89SlQeaNVw4pXNcK63+U96CC9yaKWYbxYrU/3O3QcbXan1QvQg0oZev9OjHD4vlNQB/roOfnDxuYUCJDg7XRCArGpzMJYmG/bE5jYpzfgpIQ11nW3QKqaqrYMySmC26sZI=
-Received: from BLAPR05CA0012.namprd05.prod.outlook.com (2603:10b6:208:36e::21)
- by CH3PR12MB7667.namprd12.prod.outlook.com (2603:10b6:610:14f::19)
+ bh=Yj7cJiFJ4cMPW+fstPbXCOy6RofgZAMYjDtgyJUG1Cc=;
+ b=KLfp7Ufpz2W2ox18jO6sK3uRTSRN1hVXoxbmVu2rnG8eAea+dEPGDl0fW5M6PzPrgNZap3LCo2U9K9gS9tQInvcKuSZW99wtTRqYbfoJSrLDwgpBpKx68UyolLS8jKALrTHdzh3QEf5/wYlL9CzD2Xk093mxDqXGkKPb3gEqhe0=
+Received: from SA1P222CA0190.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c4::27)
+ by MW4PR12MB6730.namprd12.prod.outlook.com (2603:10b6:303:1ec::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28; Mon, 15 Jul
- 2024 14:42:21 +0000
-Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::73) by BLAPR05CA0012.outlook.office365.com
- (2603:10b6:208:36e::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.13 via Frontend
- Transport; Mon, 15 Jul 2024 14:42:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.29; Mon, 15 Jul
+ 2024 14:48:03 +0000
+Received: from SN1PEPF0002636D.namprd02.prod.outlook.com
+ (2603:10b6:806:3c4:cafe::7) by SA1P222CA0190.outlook.office365.com
+ (2603:10b6:806:3c4::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29 via Frontend
+ Transport; Mon, 15 Jul 2024 14:48:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002636D.mail.protection.outlook.com (10.167.241.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Mon, 15 Jul 2024 14:42:20 +0000
-Received: from birman-stx1-09-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7784.11 via Frontend Transport; Mon, 15 Jul 2024 14:48:03 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 15 Jul
- 2024 09:42:19 -0500
-From: Pratap Nirujogi <pratap.nirujogi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <mlimonci@amd.com>, <benjamin.chan@amd.com>, <king.li@amd.com>,
- <bin.du@amd.com>, Pratap Nirujogi <pratap.nirujogi@amd.com>
-Subject: [PATCH 1/1] drm/amd/amdgpu: Add support for isp buffers
-Date: Mon, 15 Jul 2024 10:42:03 -0400
-Message-ID: <20240715144203.14563-2-pratap.nirujogi@amd.com>
+ 2024 09:48:01 -0500
+Received: from jane-sm-stand.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 15 Jul 2024 09:47:54 -0500
+From: Jane Jian <Jane.Jian@amd.com>
+To: <Lijo.Lazar@amd.com>, <Haijun.Chang@amd.com>, <Victor.Zhao@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Lijo Lazar <lijo.lazar@amd.com>, "Jane
+ Jian" <Jane.Jian@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: Add empty HDP flush function to JPEG v4.0.3
+Date: Mon, 15 Jul 2024 22:47:48 +0800
+Message-ID: <20240715144748.168556-1-Jane.Jian@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240715144203.14563-1-pratap.nirujogi@amd.com>
-References: <20240715144203.14563-1-pratap.nirujogi@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
+Received-SPF: None (SATLEXMB03.amd.com: Jane.Jian@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|CH3PR12MB7667:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7cd5bd2-0778-4408-00f0-08dca4dc552d
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636D:EE_|MW4PR12MB6730:EE_
+X-MS-Office365-Filtering-Correlation-Id: b821f52b-070e-4084-0902-08dca4dd212c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mfOwHaVwTUakavsfVr9JH/GJ6BgusicIbnXXrdpJpxGDcYoXE3UxzlYjs1by?=
- =?us-ascii?Q?lg8H+CLYyxsAnEzF6zdGaUI4KRB7pgkq+1CvEufbSoGGYTKixiEOp55Eu01h?=
- =?us-ascii?Q?uGzr0mWRTrcMP6jvCPvcRBLuJDF2RrDrg646QNf3Dr5k0/TsqJhYPQwYP9zi?=
- =?us-ascii?Q?btK150DN6JtEOkNdqqmqSbCDVLEOtFwAq+G6MO7qLP3sjML0A3ClR40rwBBy?=
- =?us-ascii?Q?EXKiatJGFtSpCFByFISs+2/gE3JSme98nQWTw9sT3yunzdS/lWyILvjzG2r9?=
- =?us-ascii?Q?GDw7Sb+rz2LICHPJ7ol7P6fvPb/KmD8felE/pbcDijkItamCBb8ZHR18n1sB?=
- =?us-ascii?Q?XHk8WWh14NDWHqrr2e6LiXhI7TRDXpuQf+16jtcd3boi07dDaoYFTuNcn9S9?=
- =?us-ascii?Q?Hy6sMtcO/aEbjO2erbYf51cBwSrrQM/7aKKz8gF1rwFhqo91hIQOi2m9S5z6?=
- =?us-ascii?Q?Y7CuQvKR9+MeKoh6e9RQEWKQX62gsPt8M4q08GjI3fKguIA9M+nNvYehWYP3?=
- =?us-ascii?Q?T12vWiMTEQdgoLm1pLocrZUWwxxIDMxQdOhC3YR19bZLhldcVeMBGpEMaHKW?=
- =?us-ascii?Q?N6cxbacNjkfemMbW/EQxlUl+OHT2XFcKcA3+AaXE27nUL/kf8e20yOqiSDaM?=
- =?us-ascii?Q?QOoELtUwIm96ezoNmPNxjPJJrdxg8j0WcgMNzdf38kpIJt2A5QMZEDvMCN15?=
- =?us-ascii?Q?LQ3hf5MVG5WFqJvWhznA6ZIc/ggDUlqbxSqB3h73gZEix/OHLXLlvv1uPKJm?=
- =?us-ascii?Q?1Vvo3YTPSP6gKbSPrc8l8UXXiXhlbsNmJKXUtWC1fQ5q1oJgtRjXxEAOsJ87?=
- =?us-ascii?Q?Oq6E/Th76IDpIBWrFzBVyv4Ao165v63Dc9/GBG0QdaL2xdF6qWpqcliDT1la?=
- =?us-ascii?Q?biq0qMg9fvZupJFaXSrmHxi7guSKt7gquP5ghklfYqOxeM6LgiP4tbrUbMa0?=
- =?us-ascii?Q?oB7ozBuMAV/p+GWgawKeHjlUP8ZFdhkKymiX5+lSz9amscUg6oLaJAgG+96u?=
- =?us-ascii?Q?4CHqGNWxVlZ3SdSzBSNSjgdoW7BZhRUv6P3OXMeqqGJ62gi0Umk68K0eunS6?=
- =?us-ascii?Q?uC+141Eq46hDnK2X6D5EwvwaY1zDNf5KsF9ilobjb/h85EJc3poe3XpmdmFG?=
- =?us-ascii?Q?COntFltDE0uAO5oxKmpqtqfcVWrM+1TaxdHBFf1pHfiHj+PF/v8B/3dz7QTP?=
- =?us-ascii?Q?qNLHKnvxf9EE69LGQ/VCKG/I1ViDyTG4Yrx0O9othqbJZnVXjJcBfBPQ4QY+?=
- =?us-ascii?Q?QkRG7C7nhutYwF9Kb8+mfU5ygf3WcgClYR3yhD5DQyflv4FRDC1xhCfQnLGr?=
- =?us-ascii?Q?VwAXUPfW4xoxTDv79nVGg4OiNSaZ/a+3quHIM+l2FdIluR5qvJieW28s3NEu?=
- =?us-ascii?Q?vsD13RealyFNUb1H2v1qLUp7nU+4vDar8gxavUr4IMnbuv7aboKbX0kIrRYS?=
- =?us-ascii?Q?AqFojwlTkLBpP8m5vt41+fgIIC+pyyUh?=
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tggpAgen8OdsodCdSsFyjb97gbmUe1Jk+a5MMsU458QKrSAMcW2ZuLKA2/E7?=
+ =?us-ascii?Q?mtfLx9a124v//68wQf8oCyx8k4bVW0/tWB7KIeQfvg10ioUd8TKHj/NgibvW?=
+ =?us-ascii?Q?1oKrLgEw69Lf6UGLxT8yTiY2LkJxzdp1k7oZphLYvbfhGv/UmbjJzzfIBbJY?=
+ =?us-ascii?Q?Zz+frmwoLv1vcaxwyUFzZhfshvEgykpv1BfxZSMXU1xmyriU58p1xWVkOU96?=
+ =?us-ascii?Q?stMY/tI/iTIOn62/cCBbdfjrixkAbR0ZAYXcu66jWwAejuZl0zcavC3qGg+0?=
+ =?us-ascii?Q?lVodTdRrrEoS4lBodTIqoQH+jnIPKGVZbLBeItVls16cX51WJKP0cdFNzC0Z?=
+ =?us-ascii?Q?w4aLBCnltHk1fqBv1UDF+YBh0y3ggwN+mHVhBuEX1QHaJGLEnWP8+fqTpoDO?=
+ =?us-ascii?Q?birPrZZ2ruD2YNSUWYf976mll3BTqjJeV1xZrqqppNjjTNiswWAlIadMRxO1?=
+ =?us-ascii?Q?RDi0PgUPjN/feRMYOKT1RoLNxpAXFfKIqTmQHEqQhnJYNoI/KtfeBF6F9giJ?=
+ =?us-ascii?Q?9SUULTmsFw0BsI7GE3n6v8D/CZJBnTUXM1eb+ECCjwqSGLVZelk3v2iU0eYi?=
+ =?us-ascii?Q?vqcKMElGlxQUMDU/aRjygE2zVNEZ0V0nrrfN+KxhwM7mvemCCgoS8WgIjyxY?=
+ =?us-ascii?Q?NHqQ3yyDVv9n3WxU23RaYnJp2xIplyQawpVvMqNdtxHfk410QkGmVqJcDiud?=
+ =?us-ascii?Q?Hf8hDp9OLej3fvD/65+HARWXOAMCZr6KrSX+6MTvVJCBch3sKDs///DZOjOG?=
+ =?us-ascii?Q?mUDGdH8hz7xhyRQBHBUJcnuznnzatJMZMxaWZxRydWEq4vXF0dHuFc1u86Tn?=
+ =?us-ascii?Q?akkvJ3YDEaYayrh8R+ziROhEPJ0faCctdQGoCfmggISRSpJJgSwLNK4THb/p?=
+ =?us-ascii?Q?Hew9ZM5X/KMi29JQh4yLzm4Vo+X9xUhupk8u0wWNoGLTTXNx+d69L/r3vGMQ?=
+ =?us-ascii?Q?WZnAgBZVjEi46GLTgeCvBdMWZQ1PMHbaDLqMta56eGxHJLaZNdiZjBfA7ftk?=
+ =?us-ascii?Q?l2MTJintc4l/3FM3d1EfmXk7LDeUo5wh5uSugEjVAwIxcxws4HxHLP/olgUw?=
+ =?us-ascii?Q?0AO1ZEJHi00MlSxiMeAjsVaKTR8ds78eTeDIeRTUDuzbOdQkY/JGUvCcb3aB?=
+ =?us-ascii?Q?dupVOSxY75LTVrQgHhO2cbBqdLyW18IwCiNNXv9KyJLaP8m+UA4hygCah+Qa?=
+ =?us-ascii?Q?gkPNsy/POZGYLScuwO+AP3IfXf2wb6R26IldsL3B4cPZKg3ymGB1mQD1MZsu?=
+ =?us-ascii?Q?Ck8TAN/kjM29ra+xFD5CVO0eHM1mWGpWrLJy5CvBr5OkGuV0A/brgwbnd92e?=
+ =?us-ascii?Q?P83/Q+18reb6DyNgEnK+FEOcsiYPR1MfuuDzqVC3ZoSh3e3bJR5gkqaIrQRa?=
+ =?us-ascii?Q?OLCLjhmoJ6kT/FG7yMeDedI3CSRHM1ci/YhKCW+ZhHsCcIt/p+rHVuSeGB0P?=
+ =?us-ascii?Q?tpc3npqPdMi51dk3NsPkmdUBxWqHZwIJ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2024 14:42:20.7915 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7cd5bd2-0778-4408-00f0-08dca4dc552d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2024 14:48:03.0091 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b821f52b-070e-4084-0902-08dca4dd212c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB73.namprd02.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7667
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,182 +132,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support to create user BOs with MC address for isp using the dma-buf
-handle exported for the buffers allocated from system memory in isp driver.
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-Export amdgpu_bo_create_kernel() and amdgpu_bo_free_kernel() as well for
-isp to allocate GTT internal buffers required for fw to run.
+JPEG v4.0.3 doesn't support HDP flush when RRMT is enabled. Instead,
+mmsch fw will do the flush.
 
-Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 103 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |   4 +
- 2 files changed, 107 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 6faeb9e4a572..517c9567a332 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -39,6 +39,7 @@
- #include "amdgpu.h"
- #include "amdgpu_trace.h"
- #include "amdgpu_amdkfd.h"
-+#include "amdgpu_dma_buf.h"
- 
- /**
-  * DOC: amdgpu_object
-@@ -334,6 +335,9 @@ int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
-  *
-  * Allocates and pins a BO for kernel internal use.
-  *
-+ * This function is exported to allow the V4L2 isp device
-+ * external to drm device to create and access the kernel BO.
-+ *
-  * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.
-  *
-  * Returns:
-@@ -357,6 +361,77 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
- 
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index 04d8966423de..ea601047dab0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -621,6 +621,14 @@ static uint64_t jpeg_v4_0_3_dec_ring_get_wptr(struct amdgpu_ring *ring)
+ 			ring->pipe ? (0x40 * ring->pipe - 0xc80) : 0);
  }
-+EXPORT_SYMBOL(amdgpu_bo_create_kernel);
-+
-+/**
-+ * amdgpu_bo_create_isp_user - create user BO for isp
-+ *
-+ * @adev: amdgpu device object
-+ * @dma_buf: DMABUF handle for isp buffer
-+ * @domain: where to place it
-+ * @bo:  used to initialize BOs in structures
-+ * @gpu_addr: GPU addr of the pinned BO
-+ *
-+ * Imports isp DMABUF to allocate and pin a user BO for isp internal use. It does
-+ * GART alloc to generate gpu_addr for BO to make it accessible through the
-+ * GART aperture for ISP HW.
-+ *
-+ * This function is exported to allow the V4L2 isp device external to drm device
-+ * to create and access the isp user BO.
-+ *
-+ * Returns:
-+ * 0 on success, negative error code otherwise.
-+ */
-+int amdgpu_bo_create_isp_user(struct amdgpu_device *adev,
-+			   struct dma_buf *dbuf, u32 domain, struct amdgpu_bo **bo,
-+			   u64 *gpu_addr)
-+
-+{
-+	struct drm_gem_object *gem_obj;
-+	int r;
-+
-+	gem_obj = amdgpu_gem_prime_import(&adev->ddev, dbuf);
-+	*bo = gem_to_amdgpu_bo(gem_obj);
-+	if (!(*bo)) {
-+		dev_err(adev->dev, "failed to get valid isp user bo\n");
-+		return -EINVAL;
-+	}
-+
-+	r = amdgpu_bo_reserve(*bo, false);
-+	if (r) {
-+		dev_err(adev->dev, "(%d) failed to reserve isp user bo\n", r);
-+		return r;
-+	}
-+
-+	r = amdgpu_bo_pin(*bo, domain);
-+	if (r) {
-+		dev_err(adev->dev, "(%d) isp user bo pin failed\n", r);
-+		goto error_unreserve;
-+	}
-+
-+	r = amdgpu_ttm_alloc_gart(&(*bo)->tbo);
-+	if (r) {
-+		dev_err(adev->dev, "%p bind failed\n", *bo);
-+		goto error_unpin;
-+	}
-+
-+	if (!WARN_ON(!gpu_addr))
-+		*gpu_addr = amdgpu_bo_gpu_offset(*bo);
-+
-+	amdgpu_bo_unreserve(*bo);
-+
-+	return 0;
-+
-+error_unpin:
-+	amdgpu_bo_unpin(*bo);
-+error_unreserve:
-+	amdgpu_bo_unreserve(*bo);
-+	amdgpu_bo_unref(bo);
-+
-+	return r;
-+}
-+EXPORT_SYMBOL(amdgpu_bo_create_isp_user);
-+
  
++static void jpeg_v4_0_3_ring_emit_hdp_flush(struct amdgpu_ring *ring)
++{
++	/* VCN engine access for HDP flush doesn't work when RRMT is enabled.
++	 * This is a workaround to avoid any HDP flush through VCN ring. Instead
++	 * HDP flush will be done by driver while submitting doorbell.
++	 */
++}
++
  /**
-  * amdgpu_bo_create_kernel_at - create BO for kernel use at specific location
-@@ -433,6 +508,9 @@ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
-  * @cpu_addr: pointer to where the BO's CPU memory space address was stored
+  * jpeg_v4_0_3_dec_ring_set_wptr - set write pointer
   *
-  * unmaps and unpin a BO for kernel internal use.
-+ *
-+ * This function is exported to allow the V4L2 isp device
-+ * external to drm device to free the kernel BO.
-  */
- void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
- 			   void **cpu_addr)
-@@ -457,6 +535,31 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
- 	if (cpu_addr)
- 		*cpu_addr = NULL;
- }
-+EXPORT_SYMBOL(amdgpu_bo_free_kernel);
-+
-+
-+/**
-+ * amdgpu_bo_free_isp_user - free BO for isp use
-+ *
-+ * @bo: amdgpu isp user BO to free
-+ *
-+ * unpin and unref BO for isp internal use.
-+ *
-+ * This function is exported to allow the V4L2 isp device
-+ * external to drm device to free the isp user BO.
-+ */
-+void amdgpu_bo_free_isp_user(struct amdgpu_bo *bo)
-+{
-+	if (bo == NULL)
-+		return;
-+
-+	if (amdgpu_bo_reserve(bo, true) == 0) {
-+		amdgpu_bo_unpin(bo);
-+		amdgpu_bo_unreserve(bo);
-+	}
-+	amdgpu_bo_unref(&bo);
-+}
-+EXPORT_SYMBOL(amdgpu_bo_free_isp_user);
- 
- /* Validate bo size is bit bigger than the request domain */
- static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index bc42ccbde659..17aa99b8311d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -299,6 +299,9 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
- 			    unsigned long size, int align,
- 			    u32 domain, struct amdgpu_bo **bo_ptr,
- 			    u64 *gpu_addr, void **cpu_addr);
-+int amdgpu_bo_create_isp_user(struct amdgpu_device *adev,
-+			   struct dma_buf *dbuf, u32 domain, struct amdgpu_bo **bo,
-+			   u64 *gpu_addr);
- int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
- 			       uint64_t offset, uint64_t size,
- 			       struct amdgpu_bo **bo_ptr, void **cpu_addr);
-@@ -310,6 +313,7 @@ int amdgpu_bo_create_vm(struct amdgpu_device *adev,
- 			struct amdgpu_bo_vm **ubo_ptr);
- void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
- 			   void **cpu_addr);
-+void amdgpu_bo_free_isp_user(struct amdgpu_bo *bo);
- int amdgpu_bo_kmap(struct amdgpu_bo *bo, void **ptr);
- void *amdgpu_bo_kptr(struct amdgpu_bo *bo);
- void amdgpu_bo_kunmap(struct amdgpu_bo *bo);
+@@ -1072,6 +1080,7 @@ static const struct amdgpu_ring_funcs jpeg_v4_0_3_dec_ring_vm_funcs = {
+ 	.emit_ib = jpeg_v4_0_3_dec_ring_emit_ib,
+ 	.emit_fence = jpeg_v4_0_3_dec_ring_emit_fence,
+ 	.emit_vm_flush = jpeg_v4_0_3_dec_ring_emit_vm_flush,
++	.emit_hdp_flush = jpeg_v4_0_3_ring_emit_hdp_flush,
+ 	.test_ring = amdgpu_jpeg_dec_ring_test_ring,
+ 	.test_ib = amdgpu_jpeg_dec_ring_test_ib,
+ 	.insert_nop = jpeg_v4_0_3_dec_ring_nop,
 -- 
 2.34.1
 
