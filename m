@@ -4,80 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37E58C3DA4B
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 12:40:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9EE4C3DA59
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jul 2024 12:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA8810E399;
-	Mon, 15 Jul 2024 12:40:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31DAF10E39C;
+	Mon, 15 Jul 2024 12:48:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hevZFEzW";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="FnEVe9/s";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 176FD10E39A
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 12:40:00 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4266f535e82so28422965e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 05:40:00 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF0B810E325
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 10:05:09 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-52e9c6b5a62so4252059e87.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jul 2024 03:05:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721047198; x=1721651998; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rV8CBz21NlvEp3orbP/l0+hZHUVgvwGgRpQc6amYZBI=;
- b=hevZFEzWqI7x9p6xpBkmRXCFcrU5/fhxwbWaQbHhI0e7iXLMjBi4alY/hZcrYqfZKi
- HSJq7u+ffN2tMlfZyF56SoISlbxQ2J+n0DAaeZBhrz3iPoKWR2qWhG/DNIu533oQoU1q
- JYzNaHelpzLrPmyoSxPcPslv66bZ9IV0WkYzXymvqfEOQY970uyo5lzITWIcRsi/07sU
- A/qSu+qsfWlSvwpsULfmpXRps+5wW03ft9qsR+d4MnoBqeTnHj42QWAL8dEBdSvaB/Du
- choSeA0iMny7InHTT2LIVz6Pc4KzIpoI3JexxgXaN7FcZIhwU4owreBwoTpf+qE0XqwS
- edNA==
+ d=chromium.org; s=google; t=1721037908; x=1721642708;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fXrhdNRq6oludJZnjz76rz84qmMewPWdtA9STQ5A9L0=;
+ b=FnEVe9/sLPgEINEsGst9ox0IFowzHtbOV1hHXwK+2vE4B70F42sO/pAulE2xZF4yBq
+ T4SkVb7xNGZThBLjsKMldERY9jSwOhSLlroPTXAYbf8CurxU3JXWROZ3ACedbLG85q/R
+ gjnE9eUJyVsLFD6u4TkBQx1bcQn/mNkYBfGSU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721047198; x=1721651998;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rV8CBz21NlvEp3orbP/l0+hZHUVgvwGgRpQc6amYZBI=;
- b=qqKew7qpew/R0qZP3T5ZXG2uIxdl3EztECVX0pg3QL8PRXwrOUMSy1rXQr8sLMupVK
- FbM5BuRnWaP30/6GdH7eIo0n+rr2JgqXFsQCEkxF1zc2f5/pf3Ncf+kJrcf/O4THbDqM
- vqAg7Zs0ZSoVjerUDyyEMB+MwutjkQ17QbXAzRgy227Qr2bbzBUxHQktBLDS0Hpmuqat
- vPYwVu2+hizZfOURAs5kMW5ia3/jP7xTo1WGbikRWTfSTNQNypNrxMyLeldJ3ahhmAmb
- Bq2JJKBQrbV8SvYIPvK2krZww44OB/sdzvRRxiC1X0mPG06LF2s9CFpzqTP9V+WhiFGB
- t1ZA==
+ d=1e100.net; s=20230601; t=1721037908; x=1721642708;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fXrhdNRq6oludJZnjz76rz84qmMewPWdtA9STQ5A9L0=;
+ b=L/bI2EpUhSD2EFsC7iUGfopaN/Wl6gJ7Qz4EzFMocm1Uhh/ul79JDA03YaSSd75Bon
+ J2W+oiVgwmXnehP9cHjCz5FY8fdNWQw0GTTRPuHx4Iv2NvL/IxSC97nSO6YBIuTs5MNv
+ oX9GvtEpoLW32U7t9jR8JNjEtxskeGnvnRWHMaVQsJ6QllLASGT0BJpqSfwUBuVmIofV
+ XIqOoNr+/9DnF+4Xr/+Q9MeDcUrevRlV3u8MwNhsugun+PtLe9NfeCWvhHmtAQXRiVUS
+ jFS8/kZKZMUxeBg1kIfHQhOdZ4/mBGF/PUm0ZUs9hemOOMr08M4eJFVUdbpRTvJb4nD8
+ GF9A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHleaj4EYPhekqo/H1qekDIgS+uvxFbEsHAKlLnfyUNfETEbaQojSVepC42DqPPe3rAKssGPqwxir7GH/yyqoyYHPxZNJk62DjSyz7MA==
-X-Gm-Message-State: AOJu0Yz60IgcZBHaOUOhpLLcgAtWXIJSFTKu0TJil41UyYOIp7gvjeDZ
- qhFM24tkCpkELMNfzQ+L8jKV8ZoOzucSSJIUU3Z8+4jBS0tbEfQI1rkWbw==
-X-Google-Smtp-Source: AGHT+IFm0DietgTRl9Y7vkbhMTpLQvS3tpSy4RdWJdZG6dycR1OrWK3vfMSEhd6oeZmw5KIdTXMBGQ==
-X-Received: by 2002:a05:600c:55ce:b0:426:6ea7:3838 with SMTP id
- 5b1f17b1804b1-426708f1dd5mr112461675e9.27.1721047197875; 
- Mon, 15 Jul 2024 05:39:57 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4279f23984fsm121026095e9.7.2024.07.15.05.39.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jul 2024 05:39:57 -0700 (PDT)
-Message-ID: <d892bc3f-20ad-4074-baec-c9de456eabbf@gmail.com>
-Date: Mon, 15 Jul 2024 14:39:55 +0200
+ AJvYcCW7sDMkM1K2ZB7mC0kgX+d5/UnviP6FkrHCCCp1LcksgS8utlglodr4ewCJOfGFKfPabaUOjaZBXVWoTwtdVIBYrWTmW9ENWp4pJCKu7g==
+X-Gm-Message-State: AOJu0YyHSMspgSf+fmVdMfjVkouPz7L8hgwdg2Y0532WDHbfIa8tFHM3
+ q48AfdLxiUnjQr27KJz4Pf7xHJzqzJvVtuDwx0tTJ/lkq8/d64toAxyW32CsQRDEjwnbULiHJjZ
+ Q1wItPQDMc26h8jj4LJay3smwlhasUFuQDI8=
+X-Google-Smtp-Source: AGHT+IFR/iC1N3Tb8Jho/ZE42f1MzhOjhl0CAO4hiWmUByPiy1Zd0g36Ny/4VrjQlbpoVgWVwwAvv2WZBTBdvA7v3B4=
+X-Received: by 2002:a05:6512:3b20:b0:52c:c9ce:be8d with SMTP id
+ 2adb3069b0e04-52eb99d6de0mr12891922e87.57.1721037907620; Mon, 15 Jul 2024
+ 03:05:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
-To: Felix Kuehling <felix.kuehling@amd.com>,
- "YuanShang Mao (River)" <YuanShang.Mao@amd.com>,
- "Huang, Trigger" <Trigger.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "cao, lin" <lin.cao@amd.com>
-References: <20240711090947.478919-1-YuanShang.Mao@amd.com>
- <SA1PR12MB74429E91B411DEEF22D29B70FEA52@SA1PR12MB7442.namprd12.prod.outlook.com>
- <d7d59834-7907-4100-8f7e-4c864674f00e@gmail.com>
- <PH0PR12MB542037268A58AEDF49E84D35E0A62@PH0PR12MB5420.namprd12.prod.outlook.com>
- <PH0PR12MB5420453D1FF4C3834CDCFB4EE0A62@PH0PR12MB5420.namprd12.prod.outlook.com>
- <ad162a88-7549-4fc0-9102-3f45b1e8ef73@gmail.com>
- <748a49bd-0726-46b1-a94e-6c4333fb219c@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <748a49bd-0726-46b1-a94e-6c4333fb219c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20240702215804.2201271-1-jim.cromie@gmail.com>
+ <ZoR40nWmpEV2Ly_6@bombadil.infradead.org>
+ <CAJfuBxyxamRhOyz8WuL+7=eJkEKSw8jnAWjyAuqU2i7gvg-rsQ@mail.gmail.com>
+ <CALwA+NbUCfEj_DzT5eMQ7_pSNpyp-zBe6PEL2XnMZrb303J4_Q@mail.gmail.com>
+ <CAJfuBxzeYWWV1ikYagFpyFHdAQU4ReYPirksQFHbEzDxhXCfHA@mail.gmail.com>
+In-Reply-To: <CAJfuBxzeYWWV1ikYagFpyFHdAQU4ReYPirksQFHbEzDxhXCfHA@mail.gmail.com>
+From: =?UTF-8?Q?=C5=81ukasz_Bartosik?= <ukaszb@chromium.org>
+Date: Mon, 15 Jul 2024 12:04:56 +0200
+Message-ID: <CALwA+Naec_YHxHoKu8Ba_Bnuq2L3VXw1cT3=Tx3qC3mE5_BG1g@mail.gmail.com>
+Subject: Re: [PATCH v9 00/53] fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+To: jim.cromie@gmail.com
+Cc: Luis Chamberlain <mcgrof@kernel.org>, daniel.vetter@ffwll.ch, 
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, jbaron@akamai.com, gregkh@linuxfoundation.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 15 Jul 2024 12:48:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,211 +85,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
-
-yes that is a perfectly expected consequence.
-
-The last time we talked about it the problem to solve this was that 
-amdgpu_vm_sdma_prepare() couldn't read the fences from a resv object 
-which wasn't locked.
-
-That happens both during amdgpu_vm_handle_moved() as well as unlocked in 
-validations of the page tables.
-
-IIRC we postponed looking into the issue until it really becomes a 
-problem which is probably now :)
-
-Regards,
-Christian.
-
-Am 12.07.24 um 16:56 schrieb Felix Kuehling:
-> KFD eviction fences are triggered by the enable_signaling callback on the eviction fence. Any move operations scheduled by amdgpu_bo_move are held up by the GPU scheduler until the eviction fence is signaled by the KFD eviction handler, which only happens after the user mode queues are stopped.
+On Sat, Jul 13, 2024 at 11:45=E2=80=AFPM <jim.cromie@gmail.com> wrote:
 >
-> As I understand it, VM BO invalidation does not unmap anything from the page table itself. So the KFD queues are OK continue running until the eviction handler stops them and signals the fence.
+> On Fri, Jul 12, 2024 at 9:44=E2=80=AFAM =C5=81ukasz Bartosik <ukaszb@chro=
+mium.org> wrote:
+> >
+> > On Wed, Jul 3, 2024 at 12:14=E2=80=AFAM <jim.cromie@gmail.com> wrote:
+> > >
+> > > On Tue, Jul 2, 2024 at 4:01=E2=80=AFPM Luis Chamberlain <mcgrof@kerne=
+l.org> wrote:
+> > > >
+> > > > On Tue, Jul 02, 2024 at 03:56:50PM -0600, Jim Cromie wrote:
+> > > > > This fixes dynamic-debug support for DRM.debug, added via classma=
+ps.
+> > > > > commit bb2ff6c27bc9 (drm: Disable dynamic debug as broken)
+> > > > >
+> > > > > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy was marked broken because drm.de=
+bug=3Dval
+> > > > > was applied when drm.ko was modprobed; too early for the yet-to-l=
+oad
+> > > > > drivers, which thus missed the enablement.  My testing with
+> > > > > /etc/modprobe.d/ entries and modprobes with dyndbg=3D$querycmd op=
+tions
+> > > > > obscured this omission.
+> > > > >
+> > > > > The fix is to replace invocations of DECLARE_DYNDBG_CLASSMAP with
+> > > > > DYNDBG_CLASSMAP_DEFINE for core, and DYNDBG_CLASSMAP_USE for driv=
+ers.
+> > > > > The distinction allows dyndbg to also handle the users properly.
+> > > > >
+> > > > > DRM is the only current classmaps user, and is not really using i=
+t,
+> > > > > so if you think DRM could benefit from zero-off-cost debugs based=
+ on
+> > > > > static-keys, please test.
+> > > > >
+> > > > > HISTORY
+> > > > >
+> > > > > 9/4/22  - ee879be38bc8..ace7c4bbb240 commited - classmaps-v1 dynd=
+bg parts
+> > > > > 9/11/22 - 0406faf25fb1..16deeb8e18ca commited - classmaps-v1 drm =
+parts
+> > > > >
+> > > > > https://lore.kernel.org/lkml/Y3XUrOGAV4I7bB3M@kroah.com/
+> > > > > greg k-h says:
+> > > > > This should go through the drm tree now.  The rest probably shoul=
+d also
+> > > > > go that way and not through my tree as well.
+> > > >
+> > > > Can't this just be defined as a coccinelle smpl patch? Must easier
+> > > > to read than 53 patches?
+> > > >
+> > >
+> > > perhaps it could - Im not sure that would be easier to review
+> > > than a file-scoped struct declaration or reference per driver
+> > >
+> > > Also, I did it hoping to solicit more Tested-by:s with drm.debug=3D0x=
+1ff
+> > >
+> > > Jim
+> > >
+> >
+> > Jim,
+> >
+> > When testing different combinations of Y/M for TEST_DYNAMIC_DEBUG and
+> > TEST_DYNAMIC_DEBUG_SUBMOD in virtme-ng I spotted test failures:
+> >
+> > When the TEST_DYNAMIC_DEBUG=3DM and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
+> > BASIC_TESTS, COMMA_TERMINATOR_TESTS, TEST_PERCENT_SPLITTING,
+> > TEST_MOD_SUBMOD selftests passed
+> > When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
+> > BASIC_TESTS, COMMA_TERMINATOR_TESTS selftests passed, however
+> > TEST_PERCENT_SPLITTING selftest fails with ": ./dyndbg_selftest.sh:270
+> > check failed expected 1 on =3Dpf, got 0"
+> > When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DY -
+> > BASIC_TESTS, COMMA_TERMINATOR_TESTS selftests passed, however
+> > TEST_PERCENT_SPLITTING selftest fails also with ":
+> > ./dyndbg_selftest.sh:270 check failed expected 1 on =3Dpf, got 0"
+> >
+> > Have I missed something ?
+> >
 >
-> However, if amdgpu_vm_handle_moved gets called before the eviction fence is signaled, then there could be a problem. In applications that do compute-graphics interop, the VM is shared between compute and graphics. So graphics and compute submissions at the same time are possible. @Christian, this is a concequence of using libdrm and insisting that each process uses only a single VM per GPU.
+> I am not seeing those 2 failures on those 2 configs.
 >
-> Regards,
->    Felix
+> most of my recent testing has been on x86-defconfig + minimals,
+> built and run using/inside virtme-ng
 >
-> On 2024-07-12 3:39, Christian König wrote:
->> Hi River,
->>
->> well that isn't an error at all, this is perfectly expected behavior.
->>
->> The VMs used by the KFD process are currently not meant to be used by classic CS at the same time.
->>
->> This is one of the reasons for that.
->>
->> Regards,
->> Christian.
->>
->> Am 12.07.24 um 09:35 schrieb YuanShang Mao (River):
->>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>
->>> Add more info and CC @Kuehling, Felix @cao, lin
->>>
->>> In amdgpu_amdkfd_fence.c, there is a design description:
->>>
->>> /* Eviction Fence
->>>    * Fence helper functions to deal with KFD memory eviction.
->>>    * Big Idea - Since KFD submissions are done by user queues, a BO cannot be
->>>    *  evicted unless all the user queues for that process are evicted.
->>>    *
->>>    * All the BOs in a process share an eviction fence. When process X wants
->>>    * to map VRAM memory but TTM can't find enough space, TTM will attempt to
->>>    * evict BOs from its LRU list. TTM checks if the BO is valuable to evict
->>>    * by calling ttm_device_funcs->eviction_valuable().
->>>    *
->>>    * ttm_device_funcs->eviction_valuable() - will return false if the BO belongs
->>>    *  to process X. Otherwise, it will return true to indicate BO can be
->>>    *  evicted by TTM.
->>>    *
->>>    * If ttm_device_funcs->eviction_valuable returns true, then TTM will continue
->>>    * the evcition process for that BO by calling ttm_bo_evict --> amdgpu_bo_move
->>>    * --> amdgpu_copy_buffer(). This sets up job in GPU scheduler.
->>>    *
->>>    * GPU Scheduler (amd_sched_main) - sets up a cb (fence_add_callback) to
->>>    *  nofity when the BO is free to move. fence_add_callback --> enable_signaling
->>>    *  --> amdgpu_amdkfd_fence.enable_signaling
->>>    *
->>>    * amdgpu_amdkfd_fence.enable_signaling - Start a work item that will quiesce
->>>    * user queues and signal fence. The work item will also start another delayed
->>>    * work item to restore BOs
->>>    */
->>>
->>> If mark BOs as invalidated before submitting job to move the buffer, user queue is still active.
->>> During the time before user queue is evicted, if a drm job achieve, amdgpu_cs_vm_handling will call amdgpu_vm_handle_moved to clear the ptes of
->>> Invalidated BOs. Then page fault happens because compute shader is still accessing the "invalidated" BO.
->>>
->>> I am not familiar with amdgpu_vm_bo state machine, so I don’t know if it is an code error or an design error.
->>>
->>> Thanks
->>> River
->>>
->>>
->>> -----Original Message-----
->>> From: YuanShang Mao (River)
->>> Sent: Friday, July 12, 2024 10:55 AM
->>> To: Christian König <ckoenig.leichtzumerken@gmail.com>
->>> Cc: Huang, Trigger <Trigger.Huang@amd.com>; amd-gfx@lists.freedesktop.org
->>> Subject: RE: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
->>>
->>> We need to make sure that all BOs of an active kfd process validated. Moving buffer will trigger process eviction.
->>> If mark it as invalided before process eviction, related kfd process is still active and may attempt to access this invalidated BO.
->>>
->>> Agree with Trigger. Seems kfd eviction should been synced to move notify, not the move action.
->>>
->>> Thanks
->>> River
->>>
->>> -----Original Message-----
->>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>> Sent: Thursday, July 11, 2024 8:39 PM
->>> To: Huang, Trigger <Trigger.Huang@amd.com>; YuanShang Mao (River) <YuanShang.Mao@amd.com>; amd-gfx@lists.freedesktop.org
->>> Subject: Re: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
->>>
->>> Yeah, completely agree. This patch doesn't really make sense.
->>>
->>> Please explain why you would want to do this?
->>>
->>> Regards,
->>> Christian.
->>>
->>> Am 11.07.24 um 13:56 schrieb Huang, Trigger:
->>>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>>
->>>> This patch seems to be wrong.
->>>> Quite a lot of preparations have been done in amdgpu_bo_move_notify
->>>> For example, amdgpu_bo_kunmap() will be called to prevent the BO from being accessed by CPU. If not called, the CPU may attempt to access the BO while it is being moved.
->>>>
->>>> Thanks,
->>>> Trigger
->>>>
->>>>> -----Original Message-----
->>>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->>>>> YuanShang
->>>>> Sent: Thursday, July 11, 2024 5:10 PM
->>>>> To: amd-gfx@lists.freedesktop.org
->>>>> Cc: YuanShang Mao (River) <YuanShang.Mao@amd.com>; YuanShang Mao
->>>>> (River) <YuanShang.Mao@amd.com>
->>>>> Subject: [PATCH] drm/amdgpu: Mark amdgpu_bo as invalid after moved
->>>>>
->>>>> Caution: This message originated from an External Source. Use proper
->>>>> caution when opening attachments, clicking links, or responding.
->>>>>
->>>>>
->>>>> It leads to race condition if amdgpu_bo is marked as invalid before
->>>>> it is really moved.
->>>>>
->>>>> Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 10 +++++-----
->>>>>     1 file changed, 5 insertions(+), 5 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>> index 29e4b5875872..a29d5132ad3d 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>> @@ -519,8 +519,8 @@ static int amdgpu_bo_move(struct
->>>>> ttm_buffer_object *bo, bool evict,
->>>>>
->>>>>            if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
->>>>>                             bo->ttm == NULL)) {
->>>>> -               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    ttm_bo_move_null(bo, new_mem);
->>>>> +               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    return 0;
->>>>>            }
->>>>>            if (old_mem->mem_type == AMDGPU_GEM_DOMAIN_DGMA || @@ -
->>>>> 530,8 +530,8 @@ static int amdgpu_bo_move(struct ttm_buffer_object
->>>>> *bo, bool evict,
->>>>>            if (old_mem->mem_type == TTM_PL_SYSTEM &&
->>>>>                (new_mem->mem_type == TTM_PL_TT ||
->>>>>                 new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
->>>>> -               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    ttm_bo_move_null(bo, new_mem);
->>>>> +               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    return 0;
->>>>>            }
->>>>>            if ((old_mem->mem_type == TTM_PL_TT || @@ -542,9 +542,9 @@
->>>>> static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
->>>>>                            return r;
->>>>>
->>>>>                    amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
->>>>> -               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    ttm_resource_free(bo, &bo->resource);
->>>>>                    ttm_bo_assign_mem(bo, new_mem);
->>>>> +               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    return 0;
->>>>>            }
->>>>>
->>>>> @@ -557,8 +557,8 @@ static int amdgpu_bo_move(struct
->>>>> ttm_buffer_object *bo, bool evict,
->>>>>                new_mem->mem_type == AMDGPU_PL_OA ||
->>>>>                new_mem->mem_type == AMDGPU_PL_DOORBELL) {
->>>>>                    /* Nothing to save here */
->>>>> -               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    ttm_bo_move_null(bo, new_mem);
->>>>> +               amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>                    return 0;
->>>>>            }
->>>>>
->>>>> @@ -583,11 +583,11 @@ static int amdgpu_bo_move(struct
->>>>> ttm_buffer_object *bo, bool evict,
->>>>>                    return -EMULTIHOP;
->>>>>            }
->>>>>
->>>>> -       amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>            if (adev->mman.buffer_funcs_enabled)
->>>>>                    r = amdgpu_move_blit(bo, evict, new_mem, old_mem);
->>>>>            else
->>>>>                    r = -ENODEV;
->>>>> +       amdgpu_bo_move_notify(bo, evict, new_mem);
->>>>>
->>>>>            if (r) {
->>>>>                    /* Check that all memory is CPU accessible */
->>>>> -- 
->>>>> 2.25.1
+> the last kernel I installed on this hw was june 16, I will repeat that,
+> and report soon if I see the failure outside the vm
+>
+> I'll also send you my script, to maybe speed isolation of the differences=
+.
+>
 
+Jim,
+
+I know why I saw these failures.
+I ran dyndbg_selftest.sh directly in thw directory
+tools/testing/selftests/dynamic_debug/.
+
+All works as expected when I run it from the top kernel directory.
+Here are the results:
+
+When the TEST_DYNAMIC_DEBUG=3DM and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
+BASIC_TESTS, COMMA_TERMINATOR_TESTS, TEST_PERCENT_SPLITTING,
+TEST_MOD_SUBMOD selftests passed
+
+When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
+BASIC_TESTS and COMMA_TERMINATOR_TESTS selftests passed,
+TEST_PERCENT_SPLITTING and TEST_PERCENT_SPLITTING selftests were
+skipped
+
+When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DY -
+BASIC_TESTS and COMMA_TERMINATOR_TESTS selftests passed,
+TEST_PERCENT_SPLITTING and TEST_PERCENT_SPLITTING selftests were
+skipped
+
+Based on that maybe it would be worth it for the script to fail when
+it doesn't find a .config with an error message something like this:
+"Kernel .config not found. Are you running the script from the
+kernel's top directory?"
+
+What do you think ?
+
+Thanks,
+Lukasz
+
+> > Thanks,
+> > Lukasz
+> >
+> > > >   Luis
+> > > >
