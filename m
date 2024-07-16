@@ -4,78 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF4A2C3DA59
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 17:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B46C3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 17:33:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C45D10E7EC;
-	Tue, 16 Jul 2024 17:25:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB5E410E813;
+	Tue, 16 Jul 2024 17:33:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PBhLFILd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WEvXj0b8";
 	dkim-atps=neutral
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3F4D10E6FD
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 17:25:46 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-52eafec1e84so8186562e87.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 10:25:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721150745; x=1721755545; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=BIzlW/re+zqWdbXrMFMpZtR9RUNKkE+7zdmZJ+T5ET8=;
- b=PBhLFILdxrYYhIyDCvdLPsgfJp6POjrcRD/06ulW90QzE1nYbzp6p5lxh3lS8IoMtf
- Ib72xeuZu6yZ8E72wwPQbNolWD0DdnXQTpod+DkBWv8JmFgRr+U+8QZukcIne1BJuYIC
- 3Ad0w6Jmhygq9rVAC9oNr852jaelDn1VqMjPNQHHO1xt1PW8XMZxj7gi4gAnradPF9Rd
- DVGmh8C/Xg+qeTRYei9w+iOlJWrjC7VG3YY7ZoMz4I/OiY3DM8+Y85mw8mOAXkjK93ZJ
- xciDRD+1R8w18rWcZdInJsJltX2ra6huVEP1jm6iTDbr5HfF3N9Fp54qpjoGdeYiPlDD
- suHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721150745; x=1721755545;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BIzlW/re+zqWdbXrMFMpZtR9RUNKkE+7zdmZJ+T5ET8=;
- b=MkAp9dr/1Apb+NfGNGxuWe9rqZxjYzaHJISOvZdpv3iCZzMT30Xsq8kFt+T8FXQ7FG
- MutpVCzM+8fR4oZZgwQMpVy7dLe8uo92OR2iMz47O8LT3slkSqymHuyJqmEaa4BbaG59
- eHpoWqS5UNAViR/xwTJEmy1ka/y9vRMbqixpyR9pfojRyHa49IxsOH36xNzyefUKJavZ
- VHe3DAOC1WvJVuuhxaGYObJddOKqTyQDBZFPs4xrFnq+szmthE8vWDc7e5i5hv4CuYFE
- I0xPXK/15S9JLSHXLvoLIEp0EAj9O3Q4tYFu0dr3HSSM6BZuu8paaw6u0YGg/PvrGM4X
- h+UQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXS92CPp3jAgN+DHgyDdPLO8rmqxp+hAEqXoUV0dF7jwqfkXPcU/mbo04vbsax78MY/GgQ6X6bhFlGFTwJ4V1txE55vxQ+JtK4O7d387Q==
-X-Gm-Message-State: AOJu0YxvbNiAGxwwMjWDMp1a1oUtwKyG/zowea8Ei1s5Pcq5vtebRUx3
- qbVXjJtjpXBAS9yqQkbu3wuI4rGtfM6840BI2oHGuk8wfu5z9eYpmMpvccJd/6c=
-X-Google-Smtp-Source: AGHT+IGGXs9LQIjcLFKl+/yb9bNVeYQzPggbFyrU2zP9kH7kEuX20Nqc1cSioz/zdX1LY1hUP9w7jg==
-X-Received: by 2002:a05:6512:15a4:b0:52b:bee3:dcc6 with SMTP id
- 2adb3069b0e04-52edf03011emr1612383e87.51.1721150744972; 
- Tue, 16 Jul 2024 10:25:44 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ed24e2a10sm1200582e87.7.2024.07.16.10.25.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 10:25:44 -0700 (PDT)
-Date: Tue, 16 Jul 2024 20:25:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Subject: Re: DisplayPort: handling of HPD events / link training
-Message-ID: <s6kua7scw65q2f43b6qimxjaqmm2a3giszkv4654ffnr4c7q7a@y2xqhp3mgf46>
-References: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
- <d3be8832-a6f2-496e-ac2e-9b29cae9f8f2@suse.de>
- <CAA8EJprA3aXHex4ctSE+ChhhWVLLdcXtppsadrNYbnHWi+gKLQ@mail.gmail.com>
- <e924c624-8664-4739-84c5-8229325f78ce@suse.de>
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A71B10E813
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 17:33:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P5SarppCyqtQ9+MM0IUVxUEl19j2nH2MIlZ+D8D9xLLEFKa572tUeBo3j7OCr2WN1gjDsy+AJzWydRWyMF0ytcphCEJxsozP1+z9dUjbjXuDdC0orPCld+cm7ebldBjnK21VV29DezfukLkQkwP+D9GRpEnua1vgUgjuIm+VpKLdfaW6bT3M3KndYho+elYJsu0oPg5Ct25RYEHoynh3xndjzaXaUJtAvQA9IgpbNtVu5qr1Vevke7J1CJzkltRUTHRmKYXmB3xUgsWPOpTHVo+rGNjSu1cqWZ6ABR97TcB9XKmwe3pLyZgwMnznOgQEDz2LqJYSPIKKT/tw3CPPiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iQswMtPZE4Rvm9sJaSpzlQBHfegW5S3AXszbODPH6Ks=;
+ b=k/OLjyKlQZCLLRB/SIMk2m2Zpy3rMMaw2eyTvkVaA+2LfBbCagygSRaUMIS0h0e6X02wJwhVZQvbMGsczkfo+3NwcLkkXU2/o3/PngrOuw+MSNperR/8AZYqnisurnkuLfV/LHGN3jhuYAsafEh7pYcpCfGlaJ698a05CEl7zSMPpZ6a3qU/C4/MX6natlz403G2xr0HlmmdmG/+fSVXbCBgPBJ/jI4xH1mWQH3fPMxa6bbwvD4h8e6wc/SW8jlDf6/1J2rco4ku0Fk3HYqxPJRW1puEeNqaRR9kZq8Fz74LK0HMSCp/+G+TY/3eullG5Md2F9o+fJntK0A0tyPI7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iQswMtPZE4Rvm9sJaSpzlQBHfegW5S3AXszbODPH6Ks=;
+ b=WEvXj0b8lBSltKKDV9WymAEYmWNmZBNfY5ZJ7SE7vhWlVE+EFl0Gz8N0opvz+lR1koj9QR64Hv4NycVEUJzMKUi3KF4a4u3bhwmlXPqY/JNvjm+sG3U+wbpDCddC6Ichp5C4+FmkFZTijQ0e3wkqWKjtY7RBOJr4LgCvwOIMbG8=
+Received: from DM6PR07CA0062.namprd07.prod.outlook.com (2603:10b6:5:74::39) by
+ LV2PR12MB5943.namprd12.prod.outlook.com (2603:10b6:408:170::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7784.14; Tue, 16 Jul 2024 17:33:37 +0000
+Received: from DS2PEPF0000343E.namprd02.prod.outlook.com
+ (2603:10b6:5:74:cafe::62) by DM6PR07CA0062.outlook.office365.com
+ (2603:10b6:5:74::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28 via Frontend
+ Transport; Tue, 16 Jul 2024 17:33:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343E.mail.protection.outlook.com (10.167.18.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Tue, 16 Jul 2024 17:33:37 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 16 Jul
+ 2024 12:33:36 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, <mikhail.v.gavrilov@gmail.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH] drm/amd/display: fix corruption with high refresh rates on
+ DCN 3.0
+Date: Tue, 16 Jul 2024 13:33:22 -0400
+Message-ID: <20240716173322.4061791-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e924c624-8664-4739-84c5-8229325f78ce@suse.de>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343E:EE_|LV2PR12MB5943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 505d3b7f-54bb-409f-6a8e-08dca5bd6cc4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qnQW3ex66upzTYXAxFsn666nRZEDerW0hSySVf85SGSgJs57Rv6goK8ZmUqa?=
+ =?us-ascii?Q?iFzI6vp33xuFAX6V+pPxBzZor586xObArvimHka2fMOSAs7UgbThEOv+2AZa?=
+ =?us-ascii?Q?WDb9B6eo1clIYeRCj0CdlkhekOe2AA/p1pKRXsfFv7ddgzjD4tbTZL/6T9gf?=
+ =?us-ascii?Q?klh35296y7hGpNiSgfuwiMEVLAef/lduXEHPdt2deSfoCIAvs0HEwwyoROtD?=
+ =?us-ascii?Q?X47I6KQdJ4lOMdgWgs70xjgUlrjw7yoaeu/2I+I57Fg2h3WRE2T1kcUDLdj1?=
+ =?us-ascii?Q?NVF4qI12ZsZ3IY/Vd+JMoEG4/Sq3jlXePLiRokVdhg7IcHML8W2TjeG8/Qwg?=
+ =?us-ascii?Q?3a1XCSYf2QIbQkThpJCnpJZCcoqmyal01EflKdzHrJd/qTqZSr2Dw6HMLggU?=
+ =?us-ascii?Q?bqpCclBf5JPvFV2axmw1PkAq3CQ4H+zVnLCYgMBdWLhyFXqpYICQD8AzfWIU?=
+ =?us-ascii?Q?ULntaIKaxd6512WUDQfB+NvZZg+PBO1hMLzlKwF3CHqQLHJExULCZQkJ7ene?=
+ =?us-ascii?Q?Y7Ai9fcXIo9vwFcdNDNgLLBXmXzd9Du2lT9C61F9ZYDjBf9hEYji04qkRqL7?=
+ =?us-ascii?Q?1a935Ir5ULV08+ClDNKy/3/mgdi12eFXdpNejfXRXTEgNvMDtw04fH89F9Py?=
+ =?us-ascii?Q?geTKDUkqbdXspgsgcZVx/ANzfUwSveBR7o215HVh8vfmCA38P7a/rMmiXapz?=
+ =?us-ascii?Q?aWJYc6/7nfd0IWQrz3A+8dL/aa7Gx46gvZyPd6dlJIBi0C9dMU++eLMPZ6aE?=
+ =?us-ascii?Q?DJFIYB7W5Axhrmaz8N09zG+QPAg2cQjpd5pzd40wmR7sh1qZJ68JcwEE3nET?=
+ =?us-ascii?Q?Bnx3FLJZtEazth89SlaUjk8O+b4zFgoj3SeIzzytvuuwv93CW+zh4nemeWhP?=
+ =?us-ascii?Q?GZHpFmeDEQ/XVZrmf8AJUI8zrCxA85f8rp5n67TGrfQdm78iH9P5V4EUjVk9?=
+ =?us-ascii?Q?pqJJ/kYdtpn0yZnUQqLovsIRyWNsxrihylcXo55KVo4Osz7RGYPp/kgak8oc?=
+ =?us-ascii?Q?miL+IT/8kTrT8+gtyfFqWAdmBjtx4DCupfplnboZFBFJtKn3lOu/Qifndtpy?=
+ =?us-ascii?Q?ruPk61M8FXjflmzN0VFmEvGghvWc8ttJbQS3txMnHymFNnDjpXvDRpXgQEYF?=
+ =?us-ascii?Q?KukjXjkLnVyOdtez4IXvVLfg+Ca6Qp2mYVp+ecIQHQgtsO6lRhn/5z9XIr9a?=
+ =?us-ascii?Q?MTjwDyGka0wZmcjfwBVgWmyiUxoHJS7cTBRgT1mQqA7W1n5wwnRayiiIX//G?=
+ =?us-ascii?Q?+jh536t+/d1WBmgsypBZ5N+uDKDSCBUKibmLsXe2aig8XL0m1VngDAQy8i2Q?=
+ =?us-ascii?Q?P5O+ieGaFXSxEsVJoUs+vo5rO55xQckFL7x7OFT3lLXof+OjX0AFoZvAl/s3?=
+ =?us-ascii?Q?rJKFpw1FXd7kIDeyKpVY+fKa3lPf?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2024 17:33:37.0887 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 505d3b7f-54bb-409f-6a8e-08dca5bd6cc4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5943
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,57 +130,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 16, 2024 at 06:48:12PM GMT, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 16.07.24 um 18:35 schrieb Dmitry Baryshkov:
-> > On Tue, 16 Jul 2024 at 18:58, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > > Hi
-> > > 
-> > > Am 27.02.24 um 23:40 schrieb Dmitry Baryshkov:
-> > > > Hello,
-> > > > 
-> > > > We are currently looking at checking and/or possibly redesigning the
-> > > > way the MSM DRM driver handles the HPD events and link training.
-> > > > 
-> > > > After a quick glance at the drivers implementing DP support, I noticed
-> > > > following main approaches:
-> > > > - Perform link training at the atomic_enable time, don't report
-> > > > failures (mtk, analogix, zynqmp, tegra, nouveau)
-> > > > - Perform link training at the atomic_enable time, report errors using
-> > > > link_status property (i915, mhdp8546)
-> > > > - Perform link training on the plug event (msm, it8605).
-> > > > - Perform link training from the DPMS handler, also calling it from
-> > > > the enable callback (AMDGPU, radeon).
-> > > > 
-> > > > It looks like the majority wins and we should move HPD to
-> > > > atomic_enable time. Is that assumption correct?
-> > > Did you ever receive an answer to this question? I currently investigate
-> > > ast's DP code, which does link training as part of detecting the
-> > > connector state (in detect_ctx). But most other drivers do this in
-> > > atomic_enable. I wonder if ast should follow.
-> > Short answer: yes, the only proper place to do it is atomic_enable().
-> 
-> Thanks.
-> 
-> > 
-> > Long answer: I don't see a way to retrigger link training in ast_dp.c
-> > Without such change you are just shifting things around. The
-> > end-result of moving link-training to atomic_enable() is that each
-> > enable can trigger link training, possibly lowering the link rate,
-> > etc. if link training is just a status bit from the firmware that we
-> > don't control, it doesn't make real-real sense to move it.
-> 
-> I have to think about what to do. People tend to copy existing drivers,
-> which alone might be a good argument for using atomic_enable. The link
-> training is indeed just a flag that is set by the firmware. I think it's
-> possible to re-trigger training by powering the port down and up again.
-> atomic_enable could likely do that. The hardware is also somewhat buggy and
-> not fully standard conformant.
+This reverts commit bc87d666c05a13e6d4ae1ddce41fc43d2567b9a2 and the
+register changes from commit 6d4279cb99ac4f51d10409501d29969f687ac8dc.
 
-It stil looks like having an explicit comment ('check LT here becasue
-handled by firmware') might be better.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3478
+Cc: mikhail.v.gavrilov@gmail.com
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../drm/amd/display/dc/optc/dcn10/dcn10_optc.c    | 15 +++------------
+ .../drm/amd/display/dc/optc/dcn20/dcn20_optc.c    | 10 ++++++++++
+ 2 files changed, 13 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
+index 4f82146d94b1..f00d27b7c6fe 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
+@@ -950,19 +950,10 @@ void optc1_set_drr(
+ 				OTG_FORCE_LOCK_ON_EVENT, 0,
+ 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
+ 				OTG_SET_V_TOTAL_MIN_MASK, 0);
+-
+-		// Setup manual flow control for EOF via TRIG_A
+-		optc->funcs->setup_manual_trigger(optc);
+-
+-	} else {
+-		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
+-				OTG_SET_V_TOTAL_MIN_MASK, 0,
+-				OTG_V_TOTAL_MIN_SEL, 0,
+-				OTG_V_TOTAL_MAX_SEL, 0,
+-				OTG_FORCE_LOCK_ON_EVENT, 0);
+-
+-		optc->funcs->set_vtotal_min_max(optc, 0, 0);
+ 	}
++
++	// Setup manual flow control for EOF via TRIG_A
++	optc->funcs->setup_manual_trigger(optc);
+ }
+ 
+ void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+index 43417cff2c9b..b4694985a40a 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+@@ -453,6 +453,16 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+ 
++	/* Set the min/max selectors unconditionally so that
++	 * DMCUB fw may change OTG timings when necessary
++	 * TODO: Remove the w/a after fixing the issue in DMCUB firmware
++	 */
++	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
++				 OTG_V_TOTAL_MIN_SEL, 1,
++				 OTG_V_TOTAL_MAX_SEL, 1,
++				 OTG_FORCE_LOCK_ON_EVENT, 0,
++				 OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
++
+ 	REG_SET_8(OTG_TRIGA_CNTL, 0,
+ 			OTG_TRIGA_SOURCE_SELECT, 21,
+ 			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
 -- 
-With best wishes
-Dmitry
+2.45.2
+
