@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 615B4C3DA61
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B93FC3DA62
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB84E10E9CF;
-	Wed, 17 Jul 2024 07:24:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB08F10E9D0;
+	Wed, 17 Jul 2024 07:24:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nNn/qiiE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z7ESRlcq";
 	dkim-atps=neutral
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
- [209.85.166.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F344210E82A;
- Tue, 16 Jul 2024 18:59:01 +0000 (UTC)
-Received: by mail-io1-f42.google.com with SMTP id
- ca18e2360f4ac-807687b6652so6221339f.0; 
- Tue, 16 Jul 2024 11:59:01 -0700 (PDT)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C027210E847;
+ Tue, 16 Jul 2024 18:58:52 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-8036ce66134so4802839f.3; 
+ Tue, 16 Jul 2024 11:58:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156341; x=1721761141; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156332; x=1721761132; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FUz2fuyNm0/W+cer/IlT8tdUcSLjwR0swYFnYz1+7bA=;
- b=nNn/qiiELLQ+nbG3i9pWl2ZL9wvqwelcPtaA1jbq+ApTnFWxmXlbmH+e6Csslq/ygP
- G5In60t6/TS3ubtUBqJ1+XNkkA6wLXJkzJVAxvCweBMcE7jS1QT1eGZx+DJKDYHlmLqV
- ClDbwQXXG72FYoMCiJGsHtnAWjh0Zrm5QvgJvXJbnJi+QtR6HFhTNsAATptBUUYHNJTX
- w4C8qYfDqtPMjnu2N+K4CdtYNUgW1cSxlZni23NotfQENEr7mmCeqeSEj56s4GDTJ2Da
- zn+ZKnAP2ZDTGzChQiAij/9jX3mo334/ZktLfYN8X3dlslyIgwlU04rNc/vfexInOHam
- mduw==
+ bh=VIvOBtUs6wwUYmdF+Bm1LKjLjq3TMDH2Ljy+h6N5XvY=;
+ b=Z7ESRlcqomx4WZJZJnMHMHLpZNa+gZxA4fjRJCgjjDUIFauYdk0ESsb8QbXubVPnEZ
+ x+aVQ38hnvVJS390HMasnBOeCTPOroE/x7AQ/PjviStWibRBhSZOv8lmSTJVskF5mTtZ
+ uxbzq0fzGd1A+byY0P73YSK2JJuLoxdqvFIdFsqj+J3OUP2HA6ugJjnM/1FdaL5SQvbd
+ Ta3nWATFHNv7zlHs60bqlJBOHcbj+77X+U4aMCUvj9cD2TQHkGMMnhQrK+BNNm8MSt9S
+ 90DOj51uF3ZtCiTMrQuje6WjPnN/YtnTFlPhmEkHYosJlBiYvVXlR6OccVVQlK8h3h/t
+ OlMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156341; x=1721761141;
+ d=1e100.net; s=20230601; t=1721156332; x=1721761132;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FUz2fuyNm0/W+cer/IlT8tdUcSLjwR0swYFnYz1+7bA=;
- b=e1aFL781a74YEVt+BQvYIbsxV13UZtAJOvDCv9lLV3NcNPXUrVXb4o1CZUFmJWg4nA
- wGp/SJgo7VRQQuANHdoQcEJNNQiB6ZITGCHTl0jU3qUqfN9zlGVr/W5iM2HTckqshgre
- /0NK16B3U7IosZnZhpVEuKy1ny6vLF7zRn3ehaMWavpEwelvTJpsV680vhlxi0DwsF22
- NM3HqTKJdjGb+3dHKXZOiLt/ATLLTOvb2egKO5Iia7FeRzPsGGuaKB1qNmRYAkmb2gkU
- 179quW04JuVLzMl3MU+mKFuqiQT2EcCW2NbrKrPUv0dWzferZZFJO70GLoVN+VDr5SHW
- Yj4Q==
+ bh=VIvOBtUs6wwUYmdF+Bm1LKjLjq3TMDH2Ljy+h6N5XvY=;
+ b=m3CAJm7PUQGkYruLHs81fBqeJpuEL8wcmpmbnbGWOBe+Pf3EnVCJWUAh6ihfP5sxm/
+ 3d9ivXbAFy8JEuAsMxXStnw289w5lEAzPKYPxbGIN9dXQcc4iRLB8zf3SIMYYgyaMys1
+ 9mVTIN4kqUIkmx8OJfOjIN7kjr5xULzIuGiIlTB6+34FPgGgcB//T+EpkdHekzV6aQ0V
+ oEs1o7Dk/T+lNJol5eOvdvmHTyhHXEE/PmA1rcA11Tre/LIMoctXVhp4rCOOv0FI6WRv
+ CueQhu/zjWMF1Jvbbd7SnrjSJquw8+j8W/KO3mbOSQlJYCu5M0FHEFz0YkmfAngpTIY8
+ Rxew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURoUgAFHja3X6MSpIj0Nv++HVEFvp7odyafhPpj1gMA3/gdcKtJs+/nZBZhLwfZWRloa0xzuqscEg1XIE3tFWmA4J9XqNQ/Jx9IYewL5NEAcXkUS9eKBm2kOIG/6p36Bu6lnUBaFOY0g2MV4bQ0CYAnRow1cQZO/EBB/PYTYAEBIOqfAj524gLdxSRSdc/mZf0W9PfgQ3J6gSY6nb1Ln3myfAjeo6jKzS9KpaXEu8Djq/g4ks=
-X-Gm-Message-State: AOJu0YzfwNGB2RCuqp0EctWKVtcEscngUex1Kf+h6/ikiUnGOJUfOwpH
- qvZJbc4OxELa1ENakBgNoyGxq1dvTWoEY+N0/T1ipZNAQSJSVxID
-X-Google-Smtp-Source: AGHT+IF4Unf7gwTLxZgnHey2dXasTlyxLHDEt1SBVRbfc0oATB2X5dpSsvnnnOAQb/XIyfd8CFvaag==
-X-Received: by 2002:a05:6602:3c6:b0:7f6:1cd3:9659 with SMTP id
- ca18e2360f4ac-816c4c041ecmr47881339f.6.1721156341182; 
- Tue, 16 Jul 2024 11:59:01 -0700 (PDT)
+ AJvYcCXuDqFiX7daAd6PNRis+7SH2cnzvlcpVz/RtMs+qcrGmGihuoQ9CrcQN+68BoC83MuSnU3SB5ZV0VHGSh/u13Gc3X1RjNb72NLHw9RZ60Vlw5DjX0FMP44yhvscafprDvDbX9/4YciGovq/HDKnowxdv/tByGFNPFcq8RA91YK2xTEBoX9LTky+XZRuLfSSxjWIUc2eYG8AcabZbiNJBXrgYmNHINdbgzbC8yHzErzSCgGoahg=
+X-Gm-Message-State: AOJu0Yy6GDUfedUwJuw/48uusnW1dXBHxbN3r4bz/ZMaiqtAZNpnzcI4
+ KwW56DOO85WX7jEMyrQiZ312Fp2h8ZM7gKftEYro3LXYoPIS87ph
+X-Google-Smtp-Source: AGHT+IGIzqzPIEDRHp4d7Lzv1bJMSuo67sIN7LKuY04te4B9L6LczQkAf5ej+65dlhPKvxI7KIqPPQ==
+X-Received: by 2002:a05:6602:13d0:b0:806:6b24:ee2c with SMTP id
+ ca18e2360f4ac-816c5883f11mr40915339f.16.1721156331976; 
+ Tue, 16 Jul 2024 11:58:51 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.59
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.58.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:00 -0700 (PDT)
+ Tue, 16 Jul 2024 11:58:51 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,15 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 28/54] dyndbg-selftest: reduce default verbosity
-Date: Tue, 16 Jul 2024 12:57:40 -0600
-Message-ID: <20240716185806.1572048-29-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 21/54] dyndbg: split multi-query strings with %
+Date: Tue, 16 Jul 2024 12:57:33 -0600
+Message-ID: <20240716185806.1572048-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:12 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,77 +91,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the '-v' arg from the tests in test_mod_submod().
-Setting V=1 in the environment turns it back on, for all tests.
+Since commit
+85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
+
+Multi-query commands have been allowed:
+
+  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
+  modprobe drm dyndbg=<<EOX
+     class DRM_UT_CORE +p
+     class DRM_UT_KMS +p
+  EOX
+
+More recently, the need for quoting was avoided by treating a comma
+like a space/token-terminator:
+
+  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+
+That works, but it needs the escaped semicolon, which is a shell
+special-char (one of the bash control operators), so it is brittle
+when passed in/down/around scripts.  In particular, it fails when
+passed to vng (virtme-ng).
+
+So this patch adds '%' to the existing ';' and '\n' multi-command
+separators, which is more shell-friendly, so you can more fully avoid
+quoting and escaping hassles.
+
+NOTE: it does break format matching on '%' patterns:
+
+bash-5.2# ddcmd 'format "find-me: %foo" +p'
+[  203.900581] dyndbg: read 26 bytes from userspace
+[  203.900883] dyndbg: query 0: "format "find-me: " mod:*
+[  203.901118] dyndbg: unclosed quote: find-me:
+[  203.901355] dyndbg: tokenize failed
+[  203.901529] dyndbg: query 1: "foo" +p" mod:*
+[  203.901957] dyndbg: split into words: "foo"" "+p"
+[  203.902243] dyndbg: op='+' flags=0x1 maskp=0xffffffff
+[  203.902458] dyndbg: expecting pairs of match-spec <value>
+[  203.902703] dyndbg: query parse failed
+[  203.902871] dyndbg: processed 2 queries, with 0 matches, 2 errs
+bash: echo: write error: Invalid argument
+
+The '%' splits the input into 2 queries, and both fail.  Given the
+limited utility of matching against the working parts of a format
+string "foo: %d bar %s", nothing is actually lost here.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../dynamic_debug/dyndbg_selftest.sh          | 23 +++++++++----------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index d09ef26b2308..b3d7155cb45c 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -168,7 +168,6 @@ function error_log_ref {
- }
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 235d85765b63..dcec7b3657bb 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -596,7 +596,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
  
- function ifrmmod {
--    lsmod | grep $1 2>&1>/dev/null || echo $1 not there
-     lsmod | grep $1 2>&1>/dev/null && rmmod $1
- }
+ 	for (i = 0; query; query = split) {
+-		split = strpbrk(query, ";\n");
++		split = strpbrk(query, "%;\n");
+ 		if (split)
+ 			*split++ = '\0';
  
-@@ -316,13 +315,13 @@ function test_mod_submod {
- 
-     # change classes again, this time submod too
-     ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
--    check_match_ct =pmf 1 -v
--    check_match_ct =plt 1 -v
--    check_match_ct =pml 1 -v
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-     #  submod changed too
--    check_match_ct =mf 1 -v
--    check_match_ct =lt 1 -v
--    check_match_ct =ml 1 -v
-+    check_match_ct =mf 1
-+    check_match_ct =lt 1
-+    check_match_ct =ml 1
- 
-     # now work the classmap-params
-     # fresh start, to clear all above flags (test-fn limits)
-@@ -333,25 +332,25 @@ function test_mod_submod {
-     echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
-     # 2 mods * ( V1-3 + D2_CORE )
--    check_match_ct =p 8 -v
-+    check_match_ct =p 8
-     echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-     # 2 mods * ( D2_CORE, D2_DRIVER )
--    check_match_ct =p 4 -v
-+    check_match_ct =p 4
-     echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-     echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-     # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
--    check_match_ct =p 6 -v
-+    check_match_ct =p 6
- 
-     # recap DRM_USE_DYNAMIC_DEBUG regression
-     ifrmmod test_dynamic_debug_submod
-     ifrmmod test_dynamic_debug
-     # set super-mod params
-     modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
--    check_match_ct =p 7 -v
-+    check_match_ct =p 7
-     modprobe test_dynamic_debug_submod
-     # see them picked up by submod
--    check_match_ct =p 14 -v
-+    check_match_ct =p 14
- }
- 
- tests_list=(
 -- 
 2.45.2
 
