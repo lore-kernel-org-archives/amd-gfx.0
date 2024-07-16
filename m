@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD199C3DA59
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 14:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F4F0C3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 14:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD0F10E731;
-	Tue, 16 Jul 2024 14:26:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2AA10E735;
+	Tue, 16 Jul 2024 14:27:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QmDnPGrS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rANIUQIz";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A758610E733;
- Tue, 16 Jul 2024 14:26:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2BCA10E729;
+ Tue, 16 Jul 2024 14:27:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0A01260DF7;
- Tue, 16 Jul 2024 14:26:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B14C116B1;
- Tue, 16 Jul 2024 14:26:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4408960DF7;
+ Tue, 16 Jul 2024 14:27:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FCDBC116B1;
+ Tue, 16 Jul 2024 14:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721139994;
- bh=homoOp5PggDAdsEv+cYcAgFaZRjiXh8bu10ArfAvvGk=;
+ s=k20201202; t=1721140061;
+ bh=Sc8IZXB9/qEV7qoIpJ7WDZmVWDIUaYnpdgLUYXmbH1I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QmDnPGrS/Cf7TaPZJPYnlz9yH8I/3j3Stry17YImigREbkiH3bccPv3/52fZQgGtE
- suCsMB/LaEcR+mlx4xLiJI3qhfoDPqAUOjaHtYvR4Qt9LPqEDravBTKI8EjeybC952
- mLe6EQ5hOYE96TOL875OgckPzbJpap40ztCWg+no3t6z5REz5VtTFpVXzOC0BeMmn7
- hjF7k7TBrTV+UbHaZI3IaWf0LxS7owAuM82u5/KFCAqHX/tElmwI0gs586enI8zuKq
- XkefvdDf05ypTmYrbyrWWTaLrBtefuygL69JFXkvmqGuI8RUWJr4RAD839x+GNUhrH
- T/hXZ2DkNxyDw==
+ b=rANIUQIzTgOjrfClMcyPUBTal6tRFNi+o01mTMpS6c+ng2xwnbqYQLyiz4tWPH8uU
+ n1OxI5zl963H3cVteZomUfvI20O4QytZ7H2elXc7pXP7mkF2tAP46bwIe3BpYJgeQp
+ /bhUneEMiHzXuGGLqmQ17SNiyrFZSqdG0uCCp5Z7mkUURXnu9FVW3E5c1CYvSNcGUM
+ cuTjlMY5+TtWjMTGtRNxtNIYtReUIeWr/rLuvkzDRcBtyfZXjM2csdp70wPN7PfhE0
+ Qa14Lr/EyfDTRtQM3mk6/u9NG4I3KLV4VDwZbwv4Sdq+5WjpwBUxL+e1llmiSjAxGK
+ Vwt0anZtHDKPg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Roman Li <Roman.Li@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+Cc: Tom Chung <chiahsuan.chung@amd.com>, Sun peng Li <sunpeng.li@amd.com>,
  Jerry Zuo <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, charlene.liu@amd.com, Qingqing.Zhuo@amd.com,
- sungkim@amd.com, michael.strauss@amd.com, wenjing.liu@amd.com,
- jiapeng.chong@linux.alibaba.com, gabe.teeger@amd.com,
- dillon.varone@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.9 16/22] drm/amd/display: Fix
- array-index-out-of-bounds in dml2/FCLKChangeSupport
-Date: Tue, 16 Jul 2024 10:24:23 -0400
-Message-ID: <20240716142519.2712487-16-sashal@kernel.org>
+ harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, alex.hung@amd.com,
+ hamza.mahfooz@amd.com, roman.li@amd.com, mario.limonciello@amd.com,
+ joshua@froggi.es, wayne.lin@amd.com, srinivasan.shanmugam@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.6 10/18] drm/amd/display: Reset freesync config
+ before update new state
+Date: Tue, 16 Jul 2024 10:26:45 -0400
+Message-ID: <20240716142713.2712998-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240716142519.2712487-1-sashal@kernel.org>
-References: <20240716142519.2712487-1-sashal@kernel.org>
+In-Reply-To: <20240716142713.2712998-1-sashal@kernel.org>
+References: <20240716142713.2712998-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.9.9
+X-stable-base: Linux 6.6.40
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,42 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
+From: Tom Chung <chiahsuan.chung@amd.com>
 
-[ Upstream commit 0ad4b4a2f6357c45fbe444ead1a929a0b4017d03 ]
+[ Upstream commit 6b8487cdf9fc7bae707519ac5b5daeca18d1e85b ]
 
 [Why]
-Potential out of bounds access in dml2_calculate_rq_and_dlg_params()
-because the value of out_lowest_state_idx used as an index for FCLKChangeSupport
-array can be greater than 1.
+Sometimes the new_crtc_state->vrr_infopacket did not sync up with the
+current state.
+It will affect the update_freesync_state_on_stream() does not update
+the state correctly.
 
 [How]
-Currently dml2 core specifies identical values for all FCLKChangeSupport
-elements. Always use index 0 in the condition to avoid out of bounds access.
+Reset the freesync config before get_freesync_config_for_crtc() to
+make sure we have the correct new_crtc_state for VRR.
 
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
 Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-index b72ed3e78df05..bb4e812248aec 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
-@@ -294,7 +294,7 @@ void dml2_calculate_rq_and_dlg_params(const struct dc *dc, struct dc_state *cont
- 	context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = (unsigned int)in_ctx->v20.dml_core_ctx.mp.DCFCLKDeepSleep * 1000;
- 	context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7ed6bb61fe0ad..a1acc8108586f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9517,6 +9517,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	}
  
--	if (in_ctx->v20.dml_core_ctx.ms.support.FCLKChangeSupport[in_ctx->v20.scratch.mode_support_params.out_lowest_state_idx] == dml_fclock_change_unsupported)
-+	if (in_ctx->v20.dml_core_ctx.ms.support.FCLKChangeSupport[0] == dml_fclock_change_unsupported)
- 		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = false;
- 	else
- 		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
+ 	/* Update Freesync settings. */
++	reset_freesync_config_for_crtc(dm_new_crtc_state);
+ 	get_freesync_config_for_crtc(dm_new_crtc_state,
+ 				     dm_new_conn_state);
+ 
 -- 
 2.43.0
 
