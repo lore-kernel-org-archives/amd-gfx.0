@@ -4,147 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D72C3DA59
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 17:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAB5C3DA59
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 18:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE30010E580;
-	Tue, 16 Jul 2024 17:48:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 747CC10E2BF;
+	Tue, 16 Jul 2024 18:20:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="va9zsUIV";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="p6gL7eOT";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E495910E580
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 17:47:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=worcZP/shKWQbagbXRqgmrDA4M+hSkr5umme+mmyg8qprbk9RZ0arVmCijP0u7tElax02ImSnZlIdGT1HHfNCBphfifoYYVSqzHA1xlwWzkEGYmq0DJIAE6qv0PBxyZ6MZeyNqK2+xi94Tjb0ZECDIjRTOUsHEGAtsOYvk1XlK1CNCxj+CKeI1lmaRN3bx2Ksr+T+j97Tia1Zmfyd6NLjrF69RrD1TDU3fLkeIRVR0u6bdtZO9idqrxjuQ05+bqqiUS9Lgfqy/Tg+hvw6e3KH8zMoMCcsLnzdNJaH4cKIUz/Zp4uOSKcqvucB1TE3s8i7D96VvqINE7d1Z/KRq1tdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z/oEoaxRwiv+1RLYtFk3XmloSsTVfcgyJzJoEkhovsU=;
- b=vtNkAjRJxN+4Gz96hV0w7RRzMDXJqRl0ik+N4e1PBSLNJTKaGDkE3xZ17UBZhYQObposS7yQUgyf8YBv0cwbH7vKpZg2k3IQx8sVT78/Ch3GQVc7DZO5akzFcMF/JRpUcxpNtzCB4tMQFlxS8r0l2zj6B2SyZ5AVGmS7CFx4b9iNMP5CYUgpX7DdT1H4l40AjL6ZBEvP6YkYxtpE+ySv3HL/Pwd9WM+71ZM23HDuZxMksY5V2c8m7PIlEqjmisQfo2U5AsQ6rQMhng/JcU+duk/DghQtoOqz6lo6k4VybnP8wMxDy+MpckHQo5gGETTxoTK4ooBUTPToqmqYwlaukQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z/oEoaxRwiv+1RLYtFk3XmloSsTVfcgyJzJoEkhovsU=;
- b=va9zsUIVtmIoho580jxac/+v61lhKkT3T87FGNmrWdJ+GwSEB+rbUqpXED9TX1vpFnh0A0lv6xenV9eZW43fBGoqiKgM3wJW7DgjbZ1hGkX311Geym8+uS6N1WHitZ3LY5HHmkM+WWPSq9cGb9uZmMC7g9v1/RVdpAzoa4BpbC8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW6PR12MB8733.namprd12.prod.outlook.com (2603:10b6:303:24c::8)
- by IA0PR12MB8981.namprd12.prod.outlook.com (2603:10b6:208:484::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.24; Tue, 16 Jul
- 2024 17:47:54 +0000
-Received: from MW6PR12MB8733.namprd12.prod.outlook.com
- ([fe80::71a6:a9da:c464:fa2e]) by MW6PR12MB8733.namprd12.prod.outlook.com
- ([fe80::71a6:a9da:c464:fa2e%5]) with mapi id 15.20.7762.027; Tue, 16 Jul 2024
- 17:47:54 +0000
-Message-ID: <3e3db9ba-5cf6-451b-8845-a881a9387e01@amd.com>
-Date: Tue, 16 Jul 2024 11:47:50 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix corruption with high refresh rates
- on DCN 3.0
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-Cc: mikhail.v.gavrilov@gmail.com
-References: <20240716173322.4061791-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20240716173322.4061791-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9P223CA0002.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:408:10b::7) To MW6PR12MB8733.namprd12.prod.outlook.com
- (2603:10b6:303:24c::8)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C1210E1B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 18:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1721154036; x=1721758836; i=friedrich.vock@gmx.de;
+ bh=YhQrpoPdnLH7VOeato48tH3U2D9kYu8E/pV/lVLBU/g=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=p6gL7eOTVdU5EB73TMOX9Qz4KpwKM4Zqix3fc+dDQeJJFlTKKG2GCCYUxWNigspt
+ aZg2jR536eorK41QPks92tTefWv4RlOKTEAXFEzTGYQdBAEyxH+kvI9FpxZG0fehC
+ xRa+Npdyg4YGEGImUQS1aG9WyqbuNfiNY4QJHfTtSS57fIXgkwNMse3tfHTKbKEhQ
+ bAlDa1UtA9jOdm1P8SHKUkNR8XMqAYm/jIxqR/xAkOaObFRxZBw9NrtUiM8r0lQj7
+ Gds20OCzBoGy0qAhe1AT9/0vchNxJdUKWn/kG7R+rNJgyu+8i0CdeamofPxyfRQh7
+ r+u2M+mj8CB9+PAUGg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.177.3] ([213.152.117.92]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MC30Z-1sdv7x0Z6j-00DsKW; Tue, 16
+ Jul 2024 20:20:36 +0200
+Message-ID: <7ee9f17f-8a75-4818-b54d-efb71a1cd92c@gmx.de>
+Date: Tue, 16 Jul 2024 20:20:35 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW6PR12MB8733:EE_|IA0PR12MB8981:EE_
-X-MS-Office365-Filtering-Correlation-Id: 524129d6-e8b0-4b20-a51e-08dca5bf6b87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UXRsQ1h1dDRabGxUUjF2WDRuQmNOdEtEOERFOElyUm5wQno1UlNzUVlaSCs3?=
- =?utf-8?B?bmovRjduMkRmQmxqVjN1c3U0aHB1UVJvM2V4a0VIaTBtSUNvakZYcVN0V2Rt?=
- =?utf-8?B?bXdDc2hCcU1na0JKVnBUVk1aVmthWSthc05oZnV0S09ZY1psS1lCUlZ0YnlJ?=
- =?utf-8?B?MTYxYzBhT1QzYWxpZHpWTzlMdU9lcTNDazk1dCtsSVNpOHhwSzZzaWxyeWph?=
- =?utf-8?B?R3pjbyszMmV1TmwrQjBucThsR08zR2tUQVNqT1p4K1RKQjVSMW42aCtkYllj?=
- =?utf-8?B?eEZtMk9SdmhiaTBERXJLQmp2bEp4dVpBaGlOMDJHOEJFZ1NLNWF5WlBIZmhD?=
- =?utf-8?B?OElyYjNiTlJPWFpBMUhOSUMrMHJyZVhzZk5EeUxxd1kwRytBOU9ScDhHZFRF?=
- =?utf-8?B?ejZQVThPV1d4UGZJQUMwRGdQUXRqTzNvNzg3a0V2V1c5TVMycEovVE04YTdp?=
- =?utf-8?B?S2pTVWVEOFRiVjlJRC9iS1JmM010MlQ5RzJFV1RGcGx3QXFjSjBUQmE3VFZx?=
- =?utf-8?B?bWVUZW9vaDkxWXFpczdMYmdnb1ZSZ25Fb05scDc3T3lQbXkwcEgvQTRLMXhB?=
- =?utf-8?B?bklheUZXek94cUZGUW5VWVgxSzlmcElJRldsTjdxTDFkbTFkK2p4OHhrZW1I?=
- =?utf-8?B?ZjhTNmlybWQ0aG9rNTFyeThJaDlmKzdHRE82L3NjYi9EVnl6Wk9WZjUyenNi?=
- =?utf-8?B?ZmFaOU9UV3ZLTC9SOTlMd2c4aEk5aXdDLzZSSS9zZVU5RXhjbS9JMkx2dTMz?=
- =?utf-8?B?SkRoM1BDSDVWNWdaamtaQ0gvZ2lFYlNtUjJjeWVRRmtmQnpMNklEWTVvTlA5?=
- =?utf-8?B?bC96MHdaV1BDcE5YZmZSc0M1NnBFeGQxZEFmV1FaVHlJZXB4WG8zbC8veG82?=
- =?utf-8?B?UjFseks3Vi9oM3JjcW5yRVhzU1ExV3o5THY5L3VJdHNZMWdUM3U5V3VEL2cz?=
- =?utf-8?B?N0NLTzNlU2E3dTNJd2pVU0FTcHpiNXV4clZqcWF1eW5jTjRmU0tvb0NLM095?=
- =?utf-8?B?Tk9IdXdSVk53ZkJtQXVEZXZkWkxGTndjZnF1M200N3psZ0VvZDVDQzh6QXZ5?=
- =?utf-8?B?ajJZSFBUQ1U2ZkROZlBlOWl1TUlPQVhVVUdQQVBDbTZoWWp3d2NZeUVGYjZ2?=
- =?utf-8?B?U3hVYmM5U3lLblhmV1p3ajNScFVwWUlpeTcvbERtVEU2cFUwQ201dCtwdEd5?=
- =?utf-8?B?cW54L1p6RjRONWtRTU9FeHpWdDNPdWJwMjRGQkVLRFhESFNOSDMzdTJyMDZh?=
- =?utf-8?B?cE5XRStPREd5b1RiSGpiSVRNMDhqNldkYVhURkpQZmJZYkMrTVBBSGx6dko1?=
- =?utf-8?B?ZDMzYkFLc0xSZDFNaEtSQmtXSk9obUZ5TXlBTjlTandIYkhlT05mOG41VDNZ?=
- =?utf-8?B?ZWNDUng1d1ZhY2JTVGdUV3JPY1pHYmlraDltOG82NzRnSFp2SmJNQ080M21V?=
- =?utf-8?B?Q0FIU0R6SjhFeTZEdmlDaEl3QmdTbmt3ZEZ3TVFWTC9VV0M1MURpeHZRcU8x?=
- =?utf-8?B?N0lzemJncjYza2pjVVRnYW9UZm55eU9wR2tVWGNBS2RmaEE3diswWlAyZ1E5?=
- =?utf-8?B?d1FRRDZNUE1QeU8xWkxWaHVXQUJnY0lOT1JqZnBKZXp3eGpVUE1ySW05NFBP?=
- =?utf-8?B?bzZFQXc2NE85M25rcy9Fc0djeU1hT0UxQWJOcytMeUlPVytwbStXQUhaLzBi?=
- =?utf-8?B?dWF5aTJ0L2lEcXVPcitxZ3JJUnRjTE1BRmVnbHA0MWpicDAvRjhRejFaWVNH?=
- =?utf-8?Q?VFO788q2Wm5H6FOTpo=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW6PR12MB8733.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXlSeGE3dzlYcjl3NlFQRlpUMGxzS0FqMXIyd1h1RmlVbHZpWUxSL1ozL0pm?=
- =?utf-8?B?YXIyRWlMWFIySG5qTlVzL3NQaUdlVTJsNS96SVRBbHRQU1JlTDJLK1grWHl2?=
- =?utf-8?B?UFRZbHFSRzVsZFRwQi9YNjNTb0tTSm1pN2UrWjYrYTU4L0xOeEgxQVNKVGla?=
- =?utf-8?B?Z0FySjdmbVliY1FXSWZGd1FuMEFXSFhyTHR5bTkrU2s5anpVYkdHR05Oa0th?=
- =?utf-8?B?dHFnUXFrYWRwQ1hMMk9TN3RtTmNFZlpsZUl5V0lkMkhRekJBbm5FY2lNczBa?=
- =?utf-8?B?VFBQZWVNbWJia003K3ptb3FNb2J6Q0oyaVJZZUdaNnZaRlpxTUxrT0Z0WnpH?=
- =?utf-8?B?OHdUaEsxRUZTMXo2eVUvcWFGYUZjNzhDTVYzS1EyNGtiVXBPdzcxVmdENVlr?=
- =?utf-8?B?VllNY1VMMHYra0RGejg3UUlhZ2h0YWY4bmZaOHNGSEcxUE5tbE9qUHpnQklU?=
- =?utf-8?B?R3BtMW5QSWN0LzRJczd0VkE3bWU5Y1FRa0xSMEo3enVHdkI0UnVrZFd3NmZ1?=
- =?utf-8?B?TFpNZVVrU2hhZjBYZ05zUFo0WTBVSG0ySDd2VURrclpkVXArcVNocGdUOGhm?=
- =?utf-8?B?TjFTN1FWQ0JDRWE5ZEJqVDlDc3B1WVQxU1hLb2hVUWViSzZSMEVOT1l0OW8z?=
- =?utf-8?B?MWpzYXB4R1BiVGNBaytITnNPSjV0L0pyNlZvOVNzTHdSYnp1U1N5MmEvcklR?=
- =?utf-8?B?WGlwbm5tRGdIM1F3MFJoa0d0NnA0bldqMUNDS09YeW41RXhocmJZMHUyL3k4?=
- =?utf-8?B?Ni84UWpIZ2F0UWY4aEJ0U0E2eGQwbHJaUFQ0eFBsNUxDNWFFN0pkR0VPVFlq?=
- =?utf-8?B?QzZ6eWdBaENVbTEzc2NBNVpFNjhXNDZ1S1lna3VBOHR1ZUNYZXhmVm11OXNj?=
- =?utf-8?B?NEFNNWRqekNBWThHT2Urc1phU3dsTzNGZ1RCR2Z5dUdReUF3WXBVL0RZaHlB?=
- =?utf-8?B?bG1CVk9OWWFhamZ0ZHdheU9qbFBCYi9JdU5vM1NjMzBXeVFlTUdXeDNnYSsr?=
- =?utf-8?B?VVQ3TVBSblRHeXlOdk5TVzN5emdMZUp4Ym9adnpRYnRPc21jV3FsMmdEdkJ6?=
- =?utf-8?B?ZzJmTFBKamFqK2JYWVNOT3lWUFp0Wk4rWnFNNit3d0p3QldGUERhNHJpTjBF?=
- =?utf-8?B?UUVpR0lyVC9xM29xOEphaGZaZWZYdC9iOW52empQQXE2bFF3azd4cU1KVHBl?=
- =?utf-8?B?bHFFbDlocHpmb2RtSS9UWHg2bUliQW1yaHNON2kwVUJ2aEFyVjcrZWlad0ho?=
- =?utf-8?B?RkRKNlNFQ0VBNGVHcmxFemtsZnFlQ1dIUVdmaG1PYlBlWXV1WDR0L0RGMXpX?=
- =?utf-8?B?VmNuTmRXQVVsUHRGWng0UXVSWHBEak1VWngrbktYRnZRcDg0cFR6RFdDcGRF?=
- =?utf-8?B?Vkx3c3h5SURLT0wwNHl4Ykd5SzdKRHdESXJKMkYvTFZoYUEwME9WbHExQzg0?=
- =?utf-8?B?MytTY2F0NXhxajRlV1p1Z2ZxUjlieVp1ckZkcUVYQVhkZWptamVkT2t6ZThn?=
- =?utf-8?B?N2ZkdGxxSTJ4YWlIdGZZNkdidWxqVSt3WGNmb0drL2dkemhFTEppa3JhL0JQ?=
- =?utf-8?B?YmRWNm9UcDRPdExrODhqRUdUcnVGdzNybk9HRU9QN1JraHpsem1GQVZ0enRW?=
- =?utf-8?B?QmlSMWo0N29wQjhIV3FYc1VocFdRd2gwVGplUm1NbUI0ZTN4VGNvWVFaL3Jp?=
- =?utf-8?B?bHBQN1Z5UjUyK1NRMzAvM0RYaHBVQnp6dzhZcEpSajNLTnptSFFQQmFIZ0xF?=
- =?utf-8?B?ZUg3VE1yMGJzZ214LzVXRmp5VExqOEozV3RMYlM0T0x0TnJmRzRqTWkzQmho?=
- =?utf-8?B?aDRJdWVWbjFpSjZ1M0ZWTThRc2VGZWJpSkZZZFkzQ21sTWx5SER5Wk5JNEVa?=
- =?utf-8?B?Q0VORDNiK2ZCWFZ1b1hkb2NKQkpXWVFTYWw5ZG4xTFVLcGNVYW9Icmd4cjhp?=
- =?utf-8?B?YisveldFRHFzWjNxZkxjQUhlaU9DeGxHeWJleFlmYWJLWitwM3RtM3RDclg2?=
- =?utf-8?B?MXplSWgvR2dEbEI4SzE2NWxnN2JDblIrMFJjUzdWWnRIRUFJSDBvSWZWVVVz?=
- =?utf-8?B?eStKN2VxdUsyZThZVVlPOEZzQnFpVTVCYlVVUTd4dDVyTWFEaG1MdHRPUGpw?=
- =?utf-8?Q?2mCg4aYAYjpHDh6NXhNbtuy3R?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 524129d6-e8b0-4b20-a51e-08dca5bf6b87
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8733.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2024 17:47:54.2988 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ThIOxvxFIzCoE3qBunrfp//nIUPoX+uaPOoCaGYtvh41dKFZ3NcWkAoDUYzc4qluAZBTCxRSyf64ULdzOI845Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8981
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/sdma5.2: Update wptr registers as well as
+ doorbell
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240716155449.3203419-1-alexander.deucher@amd.com>
+Content-Language: en-US
+From: Friedrich Vock <friedrich.vock@gmx.de>
+Autocrypt: addr=friedrich.vock@gmx.de; keydata=
+ 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
+ f7+xmX0X3AMtWz/15Y+7cPO2
+In-Reply-To: <20240716155449.3203419-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Hsij1UXXblkI13p8+NPMsZaeCYv5gdH3qux1W8iAsVe3OuiH2U4
+ u0z+Tm/E4higwXCHL4Rb+bfykNq/v1lHRj8TweBCX5jeXu9FC+wJIHRaeN/9OFhZCm3mKsP
+ ZURpgTf5j1H21eJTCvktdzVHsOdJW2zZIfRwDTYU/4yusbLkC1NoIwpGhzl2uK3GKyZYaEl
+ xeXJrmlXsXRhWU0cAn3NQ==
+UI-OutboundReport: notjunk:1;M01:P0:O2HO9zLIeLs=;rfEDMTurXIkHuLK+Jl8JJwCWCCI
+ 3Ext4YtVTr3UQUCEn2AqP3lB1ACIvnv5XPRqMYIYmV0b64NYu+smYrAZL03GP1DrJXsW4ihd0
+ DZ9rDFCWl8LxiJg7MpqmK41MzLEPVtDv/kjuEK+fpvMAVBGLeXLOKl3RntrwMNug9SqzSgGrp
+ 1tyhCsrv41toktINq1es+iNls9HxEbspFli1Y/6h/385IKofOGRpvjv8rb4gEh2rn1nXunyGj
+ lij1EtoBb3oCTc3gFOfFYPjIBRvaKLcM8a7uo5nHZPOX+93BS+wEUjq0ktJMi+0mQBtTfSwI7
+ aANX4a83MuMiqk+MTe9NbBm1w0LaMGkaVbS6WFiFb3CkNCj4wIXfBAP3hMnaqXewMLiBx8tX6
+ QOMVOX4lwHRVbvIgqCqWYZQaDCvWb6N+GL+VYpNy7RzbD0mlCgN6QWMf/UyFeL7WFgDflKLJB
+ ZaXFTqjk6kCuLNIJdRYyBFgh31h9avyGt4KaUBCnaTL9l7BYATW3zLWghM2y+thtVTTu/47oF
+ pA9TSJRs0deRu/HNdt42/KVML07GYV5VScgI6IhQq6jyBHmNL7470HxJnItsZjA0a4x520AU2
+ tjkz5xaAoK0h5E3YoWNliCWPO57L20WolaejH6LfBRLZdTWfjW6SzGwJ9DQlT5I0lMtEpQrTA
+ wW0OsRzkR69PeLeivUxF6lcs/AfsYLwoeRKgo38pWYOzjBbp1fIKFgURxrKZdWZgd2P7N0Fvs
+ kJd11kY1CbrpT8L5FBDpKcwzGENuQMsvL2TiHBbhhLsWtvGfBiby967TtGlW/9v0OaxcYXAV0
+ AWOnJp2Poegenp0+hZvO1FtQGvS76WNlEcNsjS3exvb5g=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,70 +111,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 7/16/24 11:33 AM, Alex Deucher wrote:
-> This reverts commit bc87d666c05a13e6d4ae1ddce41fc43d2567b9a2 and the
-> register changes from commit 6d4279cb99ac4f51d10409501d29969f687ac8dc.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3478
-> Cc: mikhail.v.gavrilov@gmail.com
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+On 16.07.24 17:54, Alex Deucher wrote:
+> We seem to have a case where SDMA will sometimes miss a doorbell
+> if GFX is entering the powergating state when the doorbell comes in.
+> To workaround this, we can update the wptr via MMIO, however,
+> this is only safe because we disallow gfxoff in begin_ring() for
+> SDMA 5.2 and then allow it again in end_ring().
+>
+> Enable this workaround while we are root causing the issue with
+> the HW team.
+>
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/3440
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Looks like it works for me.
+Tested-by: Friedrich Vock <friedrich.vock@gmx.de>
+
+Is there a particular reason you chose to still go with the doorbell
+path plus updating the wptr via MMIO instead of setting
+ring->use_doorbell to false? The workaround shipping in SteamOS does
+that - if that has some adverse effects or something like that we should
+probably stop :)
+
+Thanks,
+Friedrich
+
 > ---
->   .../drm/amd/display/dc/optc/dcn10/dcn10_optc.c    | 15 +++------------
->   .../drm/amd/display/dc/optc/dcn20/dcn20_optc.c    | 10 ++++++++++
->   2 files changed, 13 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
-> index 4f82146d94b1..f00d27b7c6fe 100644
-> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c
-> @@ -950,19 +950,10 @@ void optc1_set_drr(
->   				OTG_FORCE_LOCK_ON_EVENT, 0,
->   				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
->   				OTG_SET_V_TOTAL_MIN_MASK, 0);
-> -
-> -		// Setup manual flow control for EOF via TRIG_A
-> -		optc->funcs->setup_manual_trigger(optc);
-> -
-> -	} else {
-> -		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
-> -				OTG_SET_V_TOTAL_MIN_MASK, 0,
-> -				OTG_V_TOTAL_MIN_SEL, 0,
-> -				OTG_V_TOTAL_MAX_SEL, 0,
-> -				OTG_FORCE_LOCK_ON_EVENT, 0);
-> -
-> -		optc->funcs->set_vtotal_min_max(optc, 0, 0);
->   	}
-> +
-> +	// Setup manual flow control for EOF via TRIG_A
-> +	optc->funcs->setup_manual_trigger(optc);
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/am=
+d/amdgpu/sdma_v5_2.c
+> index 7e475d9b554e..3c37e3cd3cbf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -225,6 +225,14 @@ static void sdma_v5_2_ring_set_wptr(struct amdgpu_r=
+ing *ring)
+>   		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
+>   				ring->doorbell_index, ring->wptr << 2);
+>   		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
+> +		/* SDMA seems to miss doorbells sometimes when powergating kicks in.
+> +		 * Updating the wptr directly will wake it. This is only safe because
+> +		 * we disallow gfxoff in begin_use() and then allow it again in end_u=
+se().
+> +		 */
+> +		WREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_GFX_RB_WPTR),
+> +		       lower_32_bits(ring->wptr << 2));
+> +		WREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_GFX_RB_WPTR_H=
+I),
+> +		       upper_32_bits(ring->wptr << 2));
+>   	} else {
+>   		DRM_DEBUG("Not using doorbell -- "
+>   				"mmSDMA%i_GFX_RB_WPTR =3D=3D 0x%08x "
+> @@ -1707,6 +1715,10 @@ static void sdma_v5_2_ring_begin_use(struct amdgp=
+u_ring *ring)
+>   	 * but it shouldn't hurt for other parts since
+>   	 * this GFXOFF will be disallowed anyway when SDMA is
+>   	 * active, this just makes it explicit.
+> +	 * sdma_v5_2_ring_set_wptr() takes advantage of this
+> +	 * to update the wptr because sometimes SDMA seems to miss
+> +	 * doorbells when entering PG.  If you remove this, update
+> +	 * sdma_v5_2_ring_set_wptr() as well!
+>   	 */
+>   	amdgpu_gfx_off_ctrl(adev, false);
 >   }
->   
->   void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
-> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-> index 43417cff2c9b..b4694985a40a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-> @@ -453,6 +453,16 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
->   {
->   	struct optc *optc1 = DCN10TG_FROM_TG(optc);
->   
-> +	/* Set the min/max selectors unconditionally so that
-> +	 * DMCUB fw may change OTG timings when necessary
-> +	 * TODO: Remove the w/a after fixing the issue in DMCUB firmware
-> +	 */
-> +	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
-> +				 OTG_V_TOTAL_MIN_SEL, 1,
-> +				 OTG_V_TOTAL_MAX_SEL, 1,
-> +				 OTG_FORCE_LOCK_ON_EVENT, 0,
-> +				 OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
-> +
->   	REG_SET_8(OTG_TRIGA_CNTL, 0,
->   			OTG_TRIGA_SOURCE_SELECT, 21,
->   			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
-
-(+Jay)
-
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
