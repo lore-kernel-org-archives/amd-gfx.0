@@ -4,116 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3776FC3DA49
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 15:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E94C3DA59
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 15:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711A410E7A6;
-	Tue, 16 Jul 2024 15:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9A410E221;
+	Tue, 16 Jul 2024 15:58:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LZs9KHNX";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="y1HimhjU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dSX0Ii/D";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="y1HimhjU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dSX0Ii/D";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39F3A10E7A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 15:55:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YZMEdz3vKfP4qIzl6CAUlWf05ww7KKH5FW+vyUMk8VwpYvYUTh0Hg9wKjlUKHU3Btl8DncFFVNVlhq2Xc4/cfNudkf9R5MBFc95Z1G2kbJF1tcW+CCVrCHpJL6/1koYbSLd+6INtlxX7pMEIrW6Y1eQ2zDWOh7UILxtF2lQGE9xNxIOs5GZMZlu1ru75u9JCflL1F74zTlzAeHcAAzwIw+xxxMrQPX7wIAtIZ3TFngjGekvzdwS/WwG8RVU1oZWyyOdIsgbIPB6g/WlpbIGDBsXVgEHP567rznos/zbtUdF+tqzH5DJ1/0QPSBvCYo6jvanAy63/d26mWpOoRtMK8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NWrfA0795q8yjfPriDLlJs/70Z4BgBxiTf3b3Po86io=;
- b=XD/pLBPCBBJHUmsBKPT7WPIdWaBMR0VhX8P6Cig1U2fcuUKnfz3htIVT4wHPcMNgwkoBOxx2IN/3Qu0sEb9SDO/n/S7OeckLn88ebxZztEpGL0foZDbJX0zeTR/LpiWQbiC0TTeFu3aCm32yXqrdhXzCSLe1l7mLhqV7eH6XKOn+BbEBJZ5qXwEmNc4CyDHjZG+NoTdYYHo0PqMsbew7p4t3lltmu/s2aEagcAGGhqE5PzN2g1hj2U/T/ZQ4+yzkCv1AKTsa1b2xdA5nMc+4myttCO/pltvtJvzD2yDP2vRiuJ9tRQ9iYo2WT6ZgJrXd7L7jSwPUxkw/rpULuDhPDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NWrfA0795q8yjfPriDLlJs/70Z4BgBxiTf3b3Po86io=;
- b=LZs9KHNXCHol+SrOgmgrG4S/4Kw0MeqcSdYxtq200v5d7FCc/0BqApteJddVd1a42C1/rGLwIqa1AwWfLGpqcEzne0YoO64Jj+AWCX9E/c9x92igkObk7ajehDG6ktfhde6riskVpTI258ytynRGxsTTAPJ9MARtM3WBtGuNtaY=
-Received: from SA9P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::31)
- by IA1PR12MB7711.namprd12.prod.outlook.com (2603:10b6:208:421::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Tue, 16 Jul
- 2024 15:55:07 +0000
-Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
- (2603:10b6:806:26:cafe::d2) by SA9P223CA0026.outlook.office365.com
- (2603:10b6:806:26::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28 via Frontend
- Transport; Tue, 16 Jul 2024 15:55:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Tue, 16 Jul 2024 15:55:04 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 16 Jul
- 2024 10:55:03 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/sdma5.2: Update wptr registers as well as doorbell
-Date: Tue, 16 Jul 2024 11:54:49 -0400
-Message-ID: <20240716155449.3203419-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.45.2
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 181D710E0FC;
+ Tue, 16 Jul 2024 15:58:40 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9C6A621B62;
+ Tue, 16 Jul 2024 15:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1721145518; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uQo99kzXBmi2LgOSACGQBs2J3f+N4eldt384D5C1gUM=;
+ b=y1HimhjUw32I0+7Fv1iVe7RevDyvMWJChWIvTdE40EZvxCCeJ/L9DN7kjpcO8Fre9NBKOh
+ jiSOzIRsKM1sZByKxKCyQwCptp23hkKVAXPV8R4MJZiEqVESwWJ/RUCi3M9CHZks/T6Utm
+ jW6HByZlSANqHq/XDEQYEm69qeyXC50=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1721145518;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uQo99kzXBmi2LgOSACGQBs2J3f+N4eldt384D5C1gUM=;
+ b=dSX0Ii/D9Nwh/m5HkF9qSKYPEsy8HHc5mwJ4afEm+1eXebcVlQzoZSh+Pgzd4HRIGjfSJK
+ ++DMX96FY33Wq+Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1721145518; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uQo99kzXBmi2LgOSACGQBs2J3f+N4eldt384D5C1gUM=;
+ b=y1HimhjUw32I0+7Fv1iVe7RevDyvMWJChWIvTdE40EZvxCCeJ/L9DN7kjpcO8Fre9NBKOh
+ jiSOzIRsKM1sZByKxKCyQwCptp23hkKVAXPV8R4MJZiEqVESwWJ/RUCi3M9CHZks/T6Utm
+ jW6HByZlSANqHq/XDEQYEm69qeyXC50=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1721145518;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uQo99kzXBmi2LgOSACGQBs2J3f+N4eldt384D5C1gUM=;
+ b=dSX0Ii/D9Nwh/m5HkF9qSKYPEsy8HHc5mwJ4afEm+1eXebcVlQzoZSh+Pgzd4HRIGjfSJK
+ ++DMX96FY33Wq+Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2998313795;
+ Tue, 16 Jul 2024 15:58:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 57A0Ba6YlmbyGwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 16 Jul 2024 15:58:38 +0000
+Message-ID: <d3be8832-a6f2-496e-ac2e-9b29cae9f8f2@suse.de>
+Date: Tue, 16 Jul 2024 17:58:37 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|IA1PR12MB7711:EE_
-X-MS-Office365-Filtering-Correlation-Id: df4c7a38-5f70-4a1b-6e0a-08dca5afa8c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hLw/UudnBVThPt/OrBJb1meRHtGjZgNyd4KtLgIjYJIiolqsbsQzmTxndXAO?=
- =?us-ascii?Q?Syfa55nTkekR73+jfCxghcQh4RbK8qNGC+7upuRKmONhMlYXzlHf3GfYPNLZ?=
- =?us-ascii?Q?msYPbFb5Lh9jCioDeRxzIpNh3bC3p2trQYtT5nIzbWz1DLOD16vGzBHtCuoN?=
- =?us-ascii?Q?tSqyzxKQuLQkKk6h8SEIR6Keatd/AbbUnx7scma3lQP+X4YVNfL85o+Z4tGD?=
- =?us-ascii?Q?PThtQ378ZA3sTNf0eXK1c2RtqjMq2a7zjB3tGcIusJKfBsB78RAu4XpNz4NQ?=
- =?us-ascii?Q?sc0bR0Fi/Qlx8W1LwdYc/WzJJCRIxq5onIuldLuGbc5fC+0KKLHqGWVyQ3h8?=
- =?us-ascii?Q?ib4cd8ZGTQ5Fx4RoBNmy39bxCDCW3XI/5uEAlUFCzZYrZP3nz6UMcQ1vRZuO?=
- =?us-ascii?Q?iFlezVKqGqcQ1Q7YgaYEZ2Lub01b6EjetaYTQ36i8le/OXo+CVtga8Njhn2P?=
- =?us-ascii?Q?P2HlBWz1dCbVdYipjMr69ZYerbAUmOr/nsEykBeecIPDjLrfKFz69tdd92ac?=
- =?us-ascii?Q?EW4Lm/HE70yLZVFHF7njb3GeAP22OC71ij6ciicBByJQJOFs+bMIOFTO83Jo?=
- =?us-ascii?Q?brbMHlkcQoAxkKfdmIjQ1cTmi6o+z1fS3/lzQxYFqpU7QPcYtkYSVhTWt1WR?=
- =?us-ascii?Q?O4qJlhf/gna0RNZqzilZ9JbMr1V3735v848YV234/zZRJ6LHbEdtXAWpu1O8?=
- =?us-ascii?Q?c5Vy169XTtrrl6nZrP89Hd/thCPOVteBqBN7aC/zrwdv4TctAaLYGcL+sByh?=
- =?us-ascii?Q?CMB5Dwdy8iHO8HAxzf3Yjiz9Ol6FSQd20AxqEtelou5DL0jX0SKMYI1ogAkE?=
- =?us-ascii?Q?LpBCBoFen8cy8jQAaxLPeGxmb6wgL7OL5cmgPSbpQBzmhSPh2++DbhKLOZeT?=
- =?us-ascii?Q?6XdJkfVZv4ZXLWNr/ptJ1ULBNBSN4Tr244sBucPuAO23ki7LzopIQtPd1p8H?=
- =?us-ascii?Q?ZwUUvGHDH/57S6BbTxKLaKMnHrSZJO4x2dXe3NO25MMy18Qb6otQ/Wv9bX8E?=
- =?us-ascii?Q?J4QNV6YFbfumY3lBlq657xAbFOQl3RGXF+WGTu04KAOTLtnqdWNACVz4GQh0?=
- =?us-ascii?Q?kVNOf3KwiaI7zx1CvYIEzUtqBMW1spjFstNdIJk6umXcDJzg7LnS4NyK4tag?=
- =?us-ascii?Q?3Hc2qjL8rDexMua6+N8ShxdkeaqCsVvglYjbXN74jXbGhfaG8Ghb7K/KdAgW?=
- =?us-ascii?Q?vIDat9hFMpmARcrTC/TQswQHnmG1TbBc7v3YSmVpquJPzRHsDSwWM2RsPp7b?=
- =?us-ascii?Q?3+bMi6uZUa+bCVM5uYvF19NVkPn2yBcNcVMntvnncpU+r0GKYelIh/sYHpkb?=
- =?us-ascii?Q?7GE+oaKI6izMKn0I7gQK54ocmsYQHjOJYkR0p4rB7Hhx4d/BgkYXzQzSQQPp?=
- =?us-ascii?Q?d+7EjUIdVK51YNlZIEpyPqc+FxSN?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2024 15:55:04.8004 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df4c7a38-5f70-4a1b-6e0a-08dca5afa8c2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7711
+User-Agent: Mozilla Thunderbird
+Subject: Re: DisplayPort: handling of HPD events / link training
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+References: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-0.29 / 50.00];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_SEVEN(0.00)[8];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FROM_HAS_DN(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,51 +138,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We seem to have a case where SDMA will sometimes miss a doorbell
-if GFX is entering the powergating state when the doorbell comes in.
-To workaround this, we can update the wptr via MMIO, however,
-this is only safe because we disallow gfxoff in begin_ring() for
-SDMA 5.2 and then allow it again in end_ring().
+Hi
 
-Enable this workaround while we are root causing the issue with
-the HW team.
+Am 27.02.24 um 23:40 schrieb Dmitry Baryshkov:
+> Hello,
+>
+> We are currently looking at checking and/or possibly redesigning the
+> way the MSM DRM driver handles the HPD events and link training.
+>
+> After a quick glance at the drivers implementing DP support, I noticed
+> following main approaches:
+> - Perform link training at the atomic_enable time, don't report
+> failures (mtk, analogix, zynqmp, tegra, nouveau)
+> - Perform link training at the atomic_enable time, report errors using
+> link_status property (i915, mhdp8546)
+> - Perform link training on the plug event (msm, it8605).
+> - Perform link training from the DPMS handler, also calling it from
+> the enable callback (AMDGPU, radeon).
+>
+> It looks like the majority wins and we should move HPD to
+> atomic_enable time. Is that assumption correct?
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/3440
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Did you ever receive an answer to this question? I currently investigate 
+ast's DP code, which does link training as part of detecting the 
+connector state (in detect_ctx). But most other drivers do this in 
+atomic_enable. I wonder if ast should follow.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 7e475d9b554e..3c37e3cd3cbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -225,6 +225,14 @@ static void sdma_v5_2_ring_set_wptr(struct amdgpu_ring *ring)
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 				ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-+		/* SDMA seems to miss doorbells sometimes when powergating kicks in.
-+		 * Updating the wptr directly will wake it. This is only safe because
-+		 * we disallow gfxoff in begin_use() and then allow it again in end_use().
-+		 */
-+		WREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_GFX_RB_WPTR),
-+		       lower_32_bits(ring->wptr << 2));
-+		WREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_GFX_RB_WPTR_HI),
-+		       upper_32_bits(ring->wptr << 2));
- 	} else {
- 		DRM_DEBUG("Not using doorbell -- "
- 				"mmSDMA%i_GFX_RB_WPTR == 0x%08x "
-@@ -1707,6 +1715,10 @@ static void sdma_v5_2_ring_begin_use(struct amdgpu_ring *ring)
- 	 * but it shouldn't hurt for other parts since
- 	 * this GFXOFF will be disallowed anyway when SDMA is
- 	 * active, this just makes it explicit.
-+	 * sdma_v5_2_ring_set_wptr() takes advantage of this
-+	 * to update the wptr because sometimes SDMA seems to miss
-+	 * doorbells when entering PG.  If you remove this, update
-+	 * sdma_v5_2_ring_set_wptr() as well!
- 	 */
- 	amdgpu_gfx_off_ctrl(adev, false);
- }
+Best regards
+Thomas
+
+>
+> Also two related questions:
+> - Is there a plan to actually make use of the link_status property?
+> Intel presented it at FOSDEM 2018, but since that time it was not
+> picked up by other drivers.
+>
+> - Is there any plan to create generic DP link training helpers? After
+> glancing through the DP drivers there is a lot of similar code in the
+> link training functions, with minor differences here and there. And
+> it's those minor differences that bug me. It means that drivers might
+> respond differently to similar devices. Or that there might be minor
+> bugs here and there.
+>
+
 -- 
-2.45.2
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
