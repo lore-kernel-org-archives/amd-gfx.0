@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A3B2C3DA5E
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 14:28:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B15AC3DA61
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 14:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A25510E73F;
-	Tue, 16 Jul 2024 14:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5F8110E744;
+	Tue, 16 Jul 2024 14:28:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z2SJBU4w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AUIAN+us";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C55010E741;
- Tue, 16 Jul 2024 14:27:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 127EC10E73B;
+ Tue, 16 Jul 2024 14:28:52 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7168E60DF7;
- Tue, 16 Jul 2024 14:27:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE62C116B1;
- Tue, 16 Jul 2024 14:27:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7656460DF8;
+ Tue, 16 Jul 2024 14:28:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82041C116B1;
+ Tue, 16 Jul 2024 14:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721140077;
- bh=qzeRWfVJsYPA69ERyTfXz/Us38dBeKL224mxFskzwao=;
+ s=k20201202; t=1721140131;
+ bh=pMeVGCYsEGtTSm6MdBRjPhxWBAHKsx4pkgme6I3Lnc4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z2SJBU4wYRd7Qx02RDqUn20LZxAp9WSJztz+0uR+HHp7gCuR69LmVR+c45J2fjpqU
- vO+8NrVeXTjTs++sZqRRfxYi+T7tCxh0xLFlUvJxC+soC2p2iJk4p5SZRdnzjFYcKb
- 7OWfJOejFjEpEwWKWaUADEMzrWy/L7bJSdgLg33yvZJIAIj1yAstUvw/3NAzK1TGng
- Zzvy06ardlDvfPRxHfQn1hJ7obIFkNN4EA3S2NMFo3kPU7QdoGIaYzin96ObH9BYMV
- JQdkS2NAPO9X5a88pg1+lh5EjWPyN5Dv5hWZr4JNdAfIzjdX2gZThQrkU3jdL/FbzT
- R9ItERICpaCxA==
+ b=AUIAN+usbWtz0sFzscvaJNKrO3DTbWbMFMYaNLtlWwoaePsq3rI3XOS7QV3whwxhn
+ QC6C/6zpDW9JI2MxhXUVEn+/MVWHCuQQJ4Kvi++h/adGSmEB+dpJBBOf9KwXsuc0tS
+ Rw7tvncJNyELsCe1I/D44MnDqUmOWzQMF95zjMwNZ3eZfaeXa8n41LQO07BnnozfSt
+ yepQIm0O/ZtAPWljV+3zivWiwGFL7b8u+nGHMbNPLhOeomgtZK8CqKBPnFyIty4TYl
+ dhmsgFS8uJyk9s56uyIOKKG3k8s9eJgNMDPBG6VxGsqUFqFjvVeunpMhvpFm3FK/BF
+ GfMbtkWpxP/2g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -41,17 +41,17 @@ Cc: Tom Chung <chiahsuan.chung@amd.com>, Sun peng Li <sunpeng.li@amd.com>,
  hamza.mahfooz@amd.com, roman.li@amd.com, mario.limonciello@amd.com,
  joshua@froggi.es, wayne.lin@amd.com, srinivasan.shanmugam@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 13/18] drm/amd/display: Fix refresh rate range for
- some panel
-Date: Tue, 16 Jul 2024 10:26:48 -0400
-Message-ID: <20240716142713.2712998-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 09/15] drm/amd/display: Reset freesync config
+ before update new state
+Date: Tue, 16 Jul 2024 10:28:06 -0400
+Message-ID: <20240716142825.2713416-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240716142713.2712998-1-sashal@kernel.org>
-References: <20240716142713.2712998-1-sashal@kernel.org>
+In-Reply-To: <20240716142825.2713416-1-sashal@kernel.org>
+References: <20240716142825.2713416-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.40
+X-stable-base: Linux 6.1.99
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,17 +69,17 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tom Chung <chiahsuan.chung@amd.com>
 
-[ Upstream commit 9ef1548aeaa8858e7aee2152bf95cc71cdcd6dff ]
+[ Upstream commit 6b8487cdf9fc7bae707519ac5b5daeca18d1e85b ]
 
 [Why]
-Some of the panels does not have the refresh rate range info
-in base EDID and only have the refresh rate range info in
-DisplayID block.
-It will cause the max/min freesync refresh rate set to 0.
+Sometimes the new_crtc_state->vrr_infopacket did not sync up with the
+current state.
+It will affect the update_freesync_state_on_stream() does not update
+the state correctly.
 
 [How]
-Try to parse the refresh rate range info from DisplayID if the
-max/min refresh rate is 0.
+Reset the freesync config before get_freesync_config_for_crtc() to
+make sure we have the correct new_crtc_state for VRR.
 
 Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
 Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
@@ -88,75 +88,21 @@ Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 +++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 023fd3945e47a..e7664a39bfceb 100644
+index 31bae620aeffc..ebf53a9a9dc89 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10631,6 +10631,49 @@ static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
- 	return ret;
- }
+@@ -9278,6 +9278,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	}
  
-+static void parse_edid_displayid_vrr(struct drm_connector *connector,
-+		struct edid *edid)
-+{
-+	u8 *edid_ext = NULL;
-+	int i;
-+	int j = 0;
-+	u16 min_vfreq;
-+	u16 max_vfreq;
-+
-+	if (edid == NULL || edid->extensions == 0)
-+		return;
-+
-+	/* Find DisplayID extension */
-+	for (i = 0; i < edid->extensions; i++) {
-+		edid_ext = (void *)(edid + (i + 1));
-+		if (edid_ext[0] == DISPLAYID_EXT)
-+			break;
-+	}
-+
-+	if (edid_ext == NULL)
-+		return;
-+
-+	while (j < EDID_LENGTH) {
-+		/* Get dynamic video timing range from DisplayID if available */
-+		if (EDID_LENGTH - j > 13 && edid_ext[j] == 0x25	&&
-+		    (edid_ext[j+1] & 0xFE) == 0 && (edid_ext[j+2] == 9)) {
-+			min_vfreq = edid_ext[j+9];
-+			if (edid_ext[j+1] & 7)
-+				max_vfreq = edid_ext[j+10] + ((edid_ext[j+11] & 3) << 8);
-+			else
-+				max_vfreq = edid_ext[j+10];
-+
-+			if (max_vfreq && min_vfreq) {
-+				connector->display_info.monitor_range.max_vfreq = max_vfreq;
-+				connector->display_info.monitor_range.min_vfreq = min_vfreq;
-+
-+				return;
-+			}
-+		}
-+		j++;
-+	}
-+}
-+
- static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
- 			  struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
- {
-@@ -10753,6 +10796,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (!adev->dm.freesync_module)
- 		goto update;
+ 	/* Update Freesync settings. */
++	reset_freesync_config_for_crtc(dm_new_crtc_state);
+ 	get_freesync_config_for_crtc(dm_new_crtc_state,
+ 				     dm_new_conn_state);
  
-+	/* Some eDP panels only have the refresh rate range info in DisplayID */
-+	if ((connector->display_info.monitor_range.min_vfreq == 0 ||
-+	     connector->display_info.monitor_range.max_vfreq == 0))
-+		parse_edid_displayid_vrr(connector, edid);
-+
- 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
- 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
- 		bool edid_check_required = false;
 -- 
 2.43.0
 
