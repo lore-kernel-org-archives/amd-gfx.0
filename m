@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52EFEC3DA4B
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96B5FC3DA42
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:23:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF0210E9A2;
-	Wed, 17 Jul 2024 07:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C175110E9A3;
+	Wed, 17 Jul 2024 07:23:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Svquqb/r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LL7U5mG6";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D9FA10E299;
- Tue, 16 Jul 2024 18:59:12 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-8046f65536dso6077739f.1; 
- Tue, 16 Jul 2024 11:59:12 -0700 (PDT)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4164C10E841;
+ Tue, 16 Jul 2024 18:59:26 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id
+ ca18e2360f4ac-8076708e8ffso5048839f.0; 
+ Tue, 16 Jul 2024 11:59:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156351; x=1721761151; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156365; x=1721761165; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Qc7kDWbr1ZOLQ8+EMlKcMIOk0gPIa550UiXaV/Fsdqw=;
- b=Svquqb/r0XD9ndeS9kJZT5r76kjZrtcPlIqiZ9Kx01h9fSvI5Ktvk/l+MemU3g8dsk
- sbu71kc9Wj08BRj6cBgsJtR/tq9OfEFKOAukEV5L/cQza23ybWG0KSq134YO7uLOOE5T
- LmK8Rmni7goG3VVYSvyNIbMEFejJROsQ7IISX95vRWLGhLNfq55Sy5X3+v1HYFiND9KX
- c9jKQ7T61umSAsqQQfYWwvXR/DBQwIpqqB+tdB85Se9wiBk7z5BDiUMw6DRmAT+KVGun
- wxAq9asGla7KeGgNhkGojyQ/wqxWr3R3X2vRlwxAw/iCXBfbrzz65JaVIJAC0fgEHwHz
- 4b0A==
+ bh=o0YsvOK5afJ8qV3rkuOU7CKX9HpGcds0hiKx8bDl++s=;
+ b=LL7U5mG6zEUZuSmYcrIK30HR60bqorOB5wdFy1+PFERL8lyH7hEFH3B2WqAI27Clu1
+ setCSf0Gb3S6pLJ7SJaeKlVmWMKJ829myVqRNCtjTfXQV2QF1GGyTlSb6AeaKmjvaCVc
+ M00Aw+Ye1X2ZaCIPhAtNgQMGsBq+4tiX0w5imUar9Hc5LH23JYLSyUCSvlVguYjA410t
+ /2L1N0mp7Vd/MTiWAKUmoNByVLSdSy4oYYENao3D2B0AT56hDUGDQZooP4Z5ss1/+oBW
+ vS/rcxMSbgI3tBZxVe2Cyij61jlZKvyEbDC3Hm18fa01LLGv/V2RkbutwPGWAXj1r4uH
+ WvvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156351; x=1721761151;
+ d=1e100.net; s=20230601; t=1721156365; x=1721761165;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Qc7kDWbr1ZOLQ8+EMlKcMIOk0gPIa550UiXaV/Fsdqw=;
- b=WW7YW+DK6M5OH/bavXYwnIozlagJTshQ6xT9Y0ZQra3Dq0AElR3WUIsVUVAbPrswgJ
- J/T5Y9TuGCVOigDM/p+6saSzkdzAPQdxktZOXOLTlatKwek9X29wm/kI9rso4ICkRDdQ
- t7sqiT11ONkRkNSUrbabPCri6NYnmzPivppp/a6jQIin3Z046eLVrIWs00CsrJ+6fLFG
- rmO2+K6IFp9Vl94Nj22fPADkEt65j9tHs03GdjPVhQ8QNEQlJE+gF98v4b2XkSVgxlmV
- BRw84B2xDujv5KxW4bouj5HMrS/zashY/g/gy9/lpPiWXqrZQvn7/TmcgueGJ8n6/+Pc
- 6DmQ==
+ bh=o0YsvOK5afJ8qV3rkuOU7CKX9HpGcds0hiKx8bDl++s=;
+ b=M6tIlyxMOB+hwHMaX5rJZfwbsoOcjUjqUr18xY0In0ux31w0luJEDHgi2RnvHJT972
+ ea+DaUMydOHK+Q1ZcqaCZZwnIwiMa0LRY/g0fSFu9qYCxuUG4o9G8/e2dRSt7F6uOhU/
+ gOC52Ldsho3NKxhno/xfwSXkQGcjo4Ff/EMoiGFWgXF8V9Hyoy75G3z240A399GxJ2me
+ M7SNX6kirW4ERafw7n6QyrnvO/qyuxyUtXrhDozjr2h5/KYh9Je+0faIVIm0KtFhUC9i
+ hchlDHSThK0zJVCfSKoPHxoBNTwJ1EjUlKA9/WZELFFh1bRu0Rh5hPQjqLBvExirkLU+
+ hJOQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7OMqSRPuQ26TSOlZ16/h5rGomJmD8U5tEDfN2nY37lpbCfoOouQb+AKeQidwzsKZaB+wbhbgjeWZhtdO1bid6vTcfBis4fzqLCY85IRFhSjeDnnUfAffQWoEBGRSEyvmr0E9+0pbMVW+FLs9QKXatJW85KFxZ5lvNBtstzUBI7idzXn9STc4w14cSf5FLJVhsrJ5CyQ3aVlOlq/z7CdFI31pyk8u/MN2YPptKUO8UGLl2DcY=
-X-Gm-Message-State: AOJu0YzCLr5JevZrmpNBbWcxnNKYFhTP/sts08DkdCySUYFYzcljwJ8G
- kKc1Avdfz3cMAnpCN0SELMzu2pPD8YaaxNtW1iCz45wajApvm8li
-X-Google-Smtp-Source: AGHT+IHniHFngXKTceOiLqztTPmU7D7E7YPzARR6ATJ7IKtQAVjxB0kHb2reQWR1pBYIGtzlOj9sIw==
-X-Received: by 2002:a5d:9f52:0:b0:7f6:565d:9046 with SMTP id
- ca18e2360f4ac-816c52c12c9mr28199839f.19.1721156351398; 
- Tue, 16 Jul 2024 11:59:11 -0700 (PDT)
+ AJvYcCXJBv6DQ+P0PsPxIF/IcE4qgllJGOigdGWH8XIkAbB4QoLoEZ8Y7RI8e+NxQlF6ZjQFmiqb8R+tUor0vLTt/J0M0x8Ht7Nndt4w+dQGHD95OYWD+XV0miIVHx454wZXDoGlFO8JaCQM2zyJXqJEwlF9SV1cly7AiJFeiZ5T6TECMjSjdQdiiFcDIjVaaIBr47PXIdBV9gegDxByrM74slMh635lePWw3Q67QuFHxVcKCiawM4A=
+X-Gm-Message-State: AOJu0Yx6Nrn6JWw4sPUOyj9jZEyECTmwIKyOB+K5vc/1lsMwc1KTkm/x
+ 5xoSz+F29aemWRux+Dq47RR7pbVLsYJP6c35kfSHPdpDyw5Vr7cd
+X-Google-Smtp-Source: AGHT+IFqBmnPojKGoLSqJ/fbhD9h9vqlD9OR7+D3gArRQ5jLMYdMb3YLCZRkAWmsE4QPVuPM6u7NJg==
+X-Received: by 2002:a05:6602:3ce:b0:7fb:790c:a317 with SMTP id
+ ca18e2360f4ac-816c32c9ademr48084039f.6.1721156365415; 
+ Tue, 16 Jul 2024 11:59:25 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.10
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:11 -0700 (PDT)
+ Tue, 16 Jul 2024 11:59:25 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,15 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 36/54] drm-dyndbg: DRM_CLASSMAP_USE in nouveau
-Date: Tue, 16 Jul 2024 12:57:48 -0600
-Message-ID: <20240716185806.1572048-37-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 47/54] drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
+Date: Tue, 16 Jul 2024 12:57:59 -0600
+Message-ID: <20240716185806.1572048-48-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:15 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,43 +91,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
-
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+The udl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_drm.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/gpu/drm/udl/udl_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index a947e1d5f309..27995c0c9b31 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -72,17 +72,7 @@
- #include "nouveau_uvmm.h"
- #include "nouveau_sched.h"
+diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+index 3ebe2ce55dfd..ba57c14454e5 100644
+--- a/drivers/gpu/drm/udl/udl_main.c
++++ b/drivers/gpu/drm/udl/udl_main.c
+@@ -19,6 +19,8 @@
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
+ #define NR_USB_REQUEST_CHANNEL 0x12
+ 
 +DRM_CLASSMAP_USE(drm_debug_classes);
- 
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
++
+ #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
+ #define WRITES_IN_FLIGHT (20)
+ #define MAX_VENDOR_DESCRIPTOR_SIZE 256
 -- 
 2.45.2
 
