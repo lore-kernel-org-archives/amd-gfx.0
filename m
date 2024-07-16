@@ -4,79 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F587C3DA42
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78440C3DA61
 	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCB110E9C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C132A10E9C3;
 	Wed, 17 Jul 2024 07:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HTHPzqPq";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fj+2RrNH";
 	dkim-atps=neutral
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAAAF10E841;
- Tue, 16 Jul 2024 18:59:34 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-7f70a708f54so6584139f.3; 
- Tue, 16 Jul 2024 11:59:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156374; x=1721761174; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=02GQEyQ8Fgm4yEF+9D4Fm23zLJa07LslS1GKZkXapgQ=;
- b=HTHPzqPq+4ko6CRDqc5KGGx9IfaOE+I7SKV/lti/ZKc/jaUS4xHepzZHymfE+qNdo8
- oDCDrRo31Xm7LTaQtN6H6DX/6EcJPRl475h9368yW8jtPcy7k2nYDogrKJTZb4JoHokd
- NE6gm906Ch9g6rl4K+b5a00iDheLqEjz7uQarnfWgGLSwJEAitmssz6m+ftPTT3gjs0R
- ukdtnNasdshybU8NZQxZTXSf/EmXrfoGEi+ZiuZK++Z542uYGr/qgWA0JHEbXdEtniE9
- jCwXnZQ7h6ouhzRllJofWb5VNXiPCYQBwwIicajAhWECFm0dZi9S1+J6+HY1dKi6Dm4n
- 8ARA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156374; x=1721761174;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=02GQEyQ8Fgm4yEF+9D4Fm23zLJa07LslS1GKZkXapgQ=;
- b=LU6KBLRc5BbfjEdqW8rAUkcXN82mJ/lHPZJxBmGEVxmi/C5yST0/Mc4ACjRxN2QFHF
- 77Y2dMbZbT0BESSJMDznx4ZF9b7hry3jIPIxZHy/gcRJBQph4ftWUoUvjjqgIpEWAN0b
- l7rertgA4nRSs1aqG8hy7tVSKBzGiCxnwByogkl/CGmEv8Z0Z9dOx90xbTbOQ5CxPnCf
- t9aAytUqVhdlenLCjy9HULRmYcfqqTC1jkWT32pY8mbYXMYMChgKo0QCdiAWp7nifGy/
- 5mfqIdYjkwlF1zgb3qHTHNty6yWd7DcmiQZLjTQjFxmnL3aOAAf4eUGoYtUpnc90uzv+
- la/Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWF8zQRaIldkH/2bzeSldeq2Pu4KrcmClP2wYWHcKRXBU0oR6UxbsN68DCQRte1WqZYe9Tjf/30C1ihH8RsbVNNzgQTIfDoE6UsZB/UcwfWfHNiniTQkhJVBBvptYdvlDYuELYhqQHCzACdXJyfJwfpFzsRj4ha7WDVvNHjG9zXqc5nRydIDhUwdbz389VROW5cWohGGQzT8Fz75wfyPh0AiI42NFDmQSehjS4MM3us2vC/s+0=
-X-Gm-Message-State: AOJu0YxoGjWSYBt4/DSPYm4q37wRFwkFx/jpv5Rzmx7Pu/hwijjIID6W
- tlOZ33XbLoqlUhqiuIhJ1AU/nxVjfKKgmW7ZqaB+G9bK4Jd+qAuE
-X-Google-Smtp-Source: AGHT+IH2P7UQSoQkuUq22B0bjuKA/ngzw01JbZNtKHx44WAJD4WRstjL+48jrY+j0JQqgWF+0C1c2g==
-X-Received: by 2002:a05:6602:1548:b0:804:f2be:ee21 with SMTP id
- ca18e2360f4ac-816c2c0d633mr43164039f.3.1721156373964; 
- Tue, 16 Jul 2024 11:59:33 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:33 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com
-Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
- mcgrof@kernel.org, seanpaul@chromium.org, robdclark@gmail.com,
- groeck@google.com, yanivt@google.com, bleung@google.com,
- linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 54/54] docs-dyndbg: improve howto classmaps api
- section
-Date: Tue, 16 Jul 2024 12:58:06 -0600
-Message-ID: <20240716185806.1572048-55-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
-References: <20240716185806.1572048-1-jim.cromie@gmail.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C583910E292
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 18:50:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1721155807;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pzRoH2dkpKJ+tNxF6vNNYOOrETVk0csHzuU1v7tcjP4=;
+ b=fj+2RrNHtPl9AMoTcaLCqMeEbe2XaNFDoszUwnjV7hJiZBqrHQo0BmJr8FenQAp44MrMuM
+ V+xwP8YeiqhHzQhSJZ5uCi1vheFVh3fRysfse3CLaMXsN3F+w3GANbz1FQH/kZ2x76qO7W
+ pj3TcksNIBKgbglmmEpXhaNtujQNtbs=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-526-n7-nBV3qMSSfJG9QX4YURA-1; Tue,
+ 16 Jul 2024 14:50:04 -0400
+X-MC-Unique: n7-nBV3qMSSfJG9QX4YURA-1
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7B2C01955D4B; Tue, 16 Jul 2024 18:50:03 +0000 (UTC)
+Received: from dev64.localdomain.com (unknown [10.64.240.88])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id B0AE119560B2; Tue, 16 Jul 2024 18:50:01 +0000 (UTC)
+From: Masatake YAMATO <yamato@redhat.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: fbstachura@gmail.com,
+	Masatake YAMATO <yamato@redhat.com>
+Subject: [PATCH] drm/amdgpu: fix unbalanced parentheses in a #if0 region
+Date: Wed, 17 Jul 2024 03:49:54 +0900
+Message-ID: <20240716184954.2338421-1-yamato@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,113 +69,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-reword the classmaps-api section to better explain how it supports
-DRM, and (a little bit) to steer clear of designated-inits in the
-_DEFINE description.
-
-probably just squash this back in
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Masatake YAMATO <yamato@redhat.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       | 64 +++++++++++--------
- 1 file changed, 39 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index ccf3704f2143..1ffab6be07fc 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -390,42 +390,56 @@ in case ``prefix_str`` is built dynamically.
- Dynamic Debug classmaps
- =======================
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+index 06d787385ad4..27188dadfbcf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+@@ -741,12 +741,12 @@ static bool vce_v4_0_check_soft_reset(void *handle)
+ 	 */
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	WREG32_FIELD(GRBM_GFX_INDEX, INSTANCE_INDEX, 0);
+-	if (RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_STATUS) & AMDGPU_VCE_STATUS_BUSY_MASK) {
++	if (RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_STATUS) & AMDGPU_VCE_STATUS_BUSY_MASK)) {
+ 		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET, SOFT_RESET_VCE0, 1);
+ 		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET, SOFT_RESET_VCE1, 1);
+ 	}
+ 	WREG32_FIELD(GRBM_GFX_INDEX, INSTANCE_INDEX, 0x10);
+-	if (RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_STATUS) & AMDGPU_VCE_STATUS_BUSY_MASK) {
++	if (RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_STATUS) & AMDGPU_VCE_STATUS_BUSY_MASK)) {
+ 		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET, SOFT_RESET_VCE0, 1);
+ 		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET, SOFT_RESET_VCE1, 1);
+ 	}
+@@ -936,16 +936,16 @@ static int vce_v4_0_set_clockgating_state(void *handle,
  
--Dyndbg allows selection/grouping of *prdbg* callsites using structural
--info: module, file, function, line.  Classmaps allow authors to add
--their own domain-oriented groupings using class-names.  Classmaps are
--exported, so they referencable from other modules.
-+Classmaps adds the "class" keyword, which selects prdbgs based on
-+author supplied, domain-oriented names; this complements the code
-+organizational keywords: module, file, function, line.
-+
-+The main difference from the others: class'd prdbgs must be named to
-+be changed.  This protects them from generic overwrite:
-+
-+  # IOW this cannot undo any DRM.debug settings
-+  :#> ddcmd -p
-+
-+So each class must be enabled individually (no wildcards):
+ 		if (enable) {
+ 			/* initialize VCE_CLOCK_GATING_A: Clock ON/OFF delay */
+-			uint32_t data = RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_CLOCK_GATING_A);
++			uint32_t data = RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_CLOCK_GATING_A));
+ 			data &= ~(0xf | 0xff0);
+ 			data |= ((0x0 << 0) | (0x04 << 4));
+-			WREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_CLOCK_GATING_A, data);
++			WREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_CLOCK_GATING_A), data);
  
--  # enable classes individually
-   :#> ddcmd class DRM_UT_CORE +p
-   :#> ddcmd class DRM_UT_KMS +p
-   # or more selectively
-   :#> ddcmd class DRM_UT_CORE module drm +p
+ 			/* initialize VCE_UENC_CLOCK_GATING: Clock ON/OFF delay */
+-			data = RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_UENC_CLOCK_GATING);
++			data = RREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_UENC_CLOCK_GATING));
+ 			data &= ~(0xf | 0xff0);
+ 			data |= ((0x0 << 0) | (0x04 << 4));
+-			WREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_UENC_CLOCK_GATING, data);
++			WREG32(SOC15_REG_OFFSET(VCE, 0, mmVCE_UENC_CLOCK_GATING), data);
+ 		}
  
--The "class FOO" syntax protects class'd prdbgs from generic overwrite::
--
--  # IOW this doesn't wipe any DRM.debug settings
--  :#> ddcmd -p
-+Or the legacy/normal (convenient) way:
- 
--To support the DRM.debug parameter, DYNDBG_CLASSMAP_PARAM* updates all
--classes in a classmap, mapping param-bits 0..N onto the classes:
--DRM_UT_<*> for the DRM use-case.
-+  :#> echo 0x1ff > /sys/module/drm/parameters/debug
- 
- Dynamic Debug Classmap API
- ==========================
- 
--DYNDBG_CLASSMAP_DEFINE - modules use this to create classmaps, naming
--each of the classes (stringified enum-symbols: "DRM_UT_<*>"), and
--type, and mapping the class-names to consecutive _class_ids.
-+The classmap API is closely modeled on DRM, which has:
-+
-+enum drm_debug_category: DRM_UT_* // 10 independent categories. 
-+dyndbg's .classid encodes that directly, allowing 0..62 classes
-+
-+DRM has ~5k calls like: drm_dbg(DRM_UT_KMS, "kms msg");
-+these are unchanged, even in argtype, since classid === category.
-+
-+DRM controls the classes together via sysfs; bits 0..9 control the
-+classes independently.
-+
-+Its expected that other classmap users will also provide debug-macros
-+using an enum-defined categorization scheme like DRM's, and dyndbg can
-+be adapted under them similarly.
-+
-+DYNDBG_CLASSMAP_DEFINE(var,type,_base,classnames) - this maps
-+classnames onto class-ids starting at _base, it also maps the
-+names onto CLASSMAP_PARAM bits 0..N.
- 
--By doing so, modules tell dyndbg that they have prdbgs with those
--class_ids, and they authorize dyndbg to accept "class FOO" for the
--module defining the classmap, and its contained classnames.
-+DYNDBG_CLASSMAP_USE(var) - modules call this to refer to the var
-+_DEFINEd elsewhere (and exported).
- 
--DYNDBG_CLASSMAP_USE - drm drivers invoke this to ref the CLASSMAP that
--drm DEFINEs.  This shares the classmap definition, and authorizes
--dyndbg to apply changes to the user module's class'd pr_debugs.  It
--also tells dyndbg how to initialize the user's prdbgs at modprobe,
--based upon the current setting of the parent's controlling param.
-+Classmaps are opt-in: modules invoke _DEFINE or _USE to authorize
-+dyndbg to update those classes.  "class FOO" queries are validated
-+against the classes, this finds the classid to alter; classes are not
-+directly selectable by their classid.
- 
- There are 2 types of classmaps:
- 
-@@ -436,9 +450,9 @@ DYNDBG_CLASSMAP_PARAM - modelled after module_param_cb, it refers to a
- DEFINEd classmap, and associates it to the param's data-store.  This
- state is then applied to DEFINEr and USEr modules when they're modprobed.
- 
--This interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relation
-+The PARAM interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relation
- amongst the contained classnames; all classes are independent in the
--control parser itself.
-+control parser itself; there is no implied meaning in names like "V4".
- 
- Modules or module-groups (drm & drivers) can define multiple
- classmaps, as long as they share the limited 0..62 per-module-group
+ 		vce_v4_0_set_vce_sw_clock_gating(adev, enable);
 -- 
 2.45.2
 
