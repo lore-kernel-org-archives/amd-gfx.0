@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8F6FC3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:23:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F34C3DA61
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 07:23:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A14710E9B9;
-	Wed, 17 Jul 2024 07:23:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A143010E9BC;
+	Wed, 17 Jul 2024 07:23:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kwz2S2PY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dJKy8Hmy";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C293610E832;
- Tue, 16 Jul 2024 18:59:15 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-804ac219676so2496639f.0; 
- Tue, 16 Jul 2024 11:59:15 -0700 (PDT)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36B8F10E845;
+ Tue, 16 Jul 2024 18:59:23 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-7f99d50c1a6so8661139f.0; 
+ Tue, 16 Jul 2024 11:59:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721156355; x=1721761155; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721156362; x=1721761162; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=q0SsnMAz6GH/rDMkbSAQVrT9nuU+frPtroMw7DfrzhM=;
- b=kwz2S2PYBdIy4XhHWL1VrdsQdb9+1o4AmTWblYcP8WuBjliguWc9TJfnh782TQIiJO
- 5tr1u2uSERYNherQsLjndyrcvB9oK7MjOF546CxL/k1hGXzpK0V+SJND0y+UHzZPOHV0
- c5DFKXRie03cT0J1MOggMpUHjNPdNg3Nzm26k4Kblk6NpmdJFMKhziCj5lb2JsetUghw
- sXg/RkKfPMqGQiNpAln6hToCp5AejDMk6BH7LasSQM6FCJWuSlCd5fdg9QdnBnT5F6s5
- DLAkByUU4DRtBOByVTlicd0giv0IhZ2PWL8SVAwuvQzKsLIfHLk9G7xdQhr5OTmJ+R+E
- duyw==
+ bh=WP6HptfiTdQ0tPqLXKJ5a+6n7jBPHeNyJUhIr64YncM=;
+ b=dJKy8HmyoHgzhJiGDOBdbhOrDIgrcJ1n1agOAU5Ibu4wdSFdHvvZ78F7sQJakq5LlC
+ 0Eo48cmbhwGb/r8xv4lQvyX3pwpMP0tc9l8G+1Kf7HVSvBXGizQ/VxMai03zv6N7RFd/
+ FqfMJziSbh9gkfW7thDdOnlvEwaQDJ8ltekdGzuih98rS99PvZ97ygM8DHicgBn5PZiS
+ Y8iKcWy4YW9ju9OlayV4z2iXfaURYRCm/piefjpTTkHImXE2sFqmGgfe7U03XOF9FhSQ
+ hDI78sUNpg31hL6Kuy1enJ8xsliWz6ubBFGYRdS5TYe1ohrAU8wFFzpmx3fqB7KPcvth
+ duLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721156355; x=1721761155;
+ d=1e100.net; s=20230601; t=1721156362; x=1721761162;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=q0SsnMAz6GH/rDMkbSAQVrT9nuU+frPtroMw7DfrzhM=;
- b=jeI49VL/1LkSryHfSKKYjc6n7Twjd1XaXnwxQd2DKiTfuTxqGzYZdRXXbdN2/ef5tu
- iC5HyMZT6YnIPrMQh5BexiRGw/fe+wE9bJxbnaXOsYpUIwNVMM8yvqgDXdRGW/aDHKP2
- 2gps/KpYiopKpLv8hUvp4a5+KNalb2uUKEz1UCi7HQ1iK5/aZhcQUHrmjrMTq6kUVxAQ
- BtJrJBuOhU7wQ8kejgDpBA+YfXHVLQUlmJ9Ix3waY632v4QPFLt9EUFRGiP6PS0rsmU8
- 1IJlWPfiOrUKSn7Y557GOcP5lNDFO2jftfeq4WiDcZnGcdepUbNNeaDDyQuN4Pk08mer
- mYIQ==
+ bh=WP6HptfiTdQ0tPqLXKJ5a+6n7jBPHeNyJUhIr64YncM=;
+ b=ZV9vmrN15Yhu4bSAFBseHwBKIVL8vK2KT/DAUUytEi5pbr0JW1ro8vxf8/Hhve00ke
+ Utmh6l+Z8nrOEh3V/C/lFNn52lvdE+jiECmCnK6AOC4Etv5ZAiLVN2I40Ski6SIfGS2h
+ BRz1T7RYc0dUeuIn4UEcx/M3FQGbWatGdqijfoXo9yq86bUwlAhj848ZBIUYYsOKfekh
+ vnhp7xLQQhFhCb3jFR/nNqWsB6ZyhEx8wqCbYAg8Z3bhqM023JQ63+J4ZHKmqnHzJn4O
+ sklJR1T1k1W5W2viMYWgkvp4AV9BtDgyo+B6ldg/7VysXRWiHMT7m27zD3dERz33okYP
+ inUw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmqWt9OAgKhwCaao/yGq/wd4LBeDnaApClNZpR53PgMExpnSis8+P8FQogtw+NXPJmyudmWZuG4yUNmn1ic224xAGxTJdVV4HxbhAeve4HZC5v9Byc6YWNMnK0mFLkqrbO+8hzfFuzSplZcgLaEeonWkjzDNra/8WZbL9Ok7rDGev7JY1zW6n4ZJb1Zgr6mrIRrAruU8ZCFB2C76vWVDBY0XzQA+mcg9iW4OZ5WhH23PxkRIk=
-X-Gm-Message-State: AOJu0YzcUTrEGpA5D6UkOfFoAfNay6jHbVy78d+/FdjMVjFtau0/z+4z
- FHoaps8G4r8WRtgL494LUT0e+1GbBC6xnLoH8DgWfJEeARNX6fZJ
-X-Google-Smtp-Source: AGHT+IG4PMiQc6lo3f14z8Q6mtR1iYHrjoCgqtBhH8cIy0Dzz/zfd1kFjfu0oHviBWuod8DuEZ49Gw==
-X-Received: by 2002:a5e:8b4d:0:b0:805:2048:a492 with SMTP id
- ca18e2360f4ac-816c4ee6d5amr23979539f.6.1721156355006; 
- Tue, 16 Jul 2024 11:59:15 -0700 (PDT)
+ AJvYcCVzUCn5oNb6qSqnahkEYLj3jJt6lLpbuaAPxiej8+TWoek4RZuHUObu5Ff3/n5X1L66L4HUs4eTKQwkoYFzYLT0YLsYo3wPJTFQy1u7Fw3IbSWOtHQ/igdBkpqR/gkRY7ZihaG7WoHiAcMF0bkUTOOA8rDROW/6yQm7FeRkTdpAPx+PFhABl4s/4IvucVz0syUBowz5zGZUSwLFme7NqExVjPCcjDuBPbUk2k6pRQqxi8zXX4g=
+X-Gm-Message-State: AOJu0YyqGl3bw7pjZRLv8vghm0CzuKIoE9qbEnq9J7MaK5shong0V/oP
+ 7cCjHgm7f0kP0JKIpe6OYsD3q2kP9joD7EqDxbNsDIsDMaJNjb2r
+X-Google-Smtp-Source: AGHT+IG0qJNgrwAVUIeZbI3iE5ZWAneLU5YeLYaL9upPtNIQr6xsAykXRcCjaAh8RTQq2lp/KAQPhg==
+X-Received: by 2002:a05:6602:6019:b0:7fa:b6c1:c35a with SMTP id
+ ca18e2360f4ac-816c51c7898mr35514039f.12.1721156362418; 
+ Tue, 16 Jul 2024 11:59:22 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.13
+ 8926c6da1cb9f-4c210f23f1csm75301173.102.2024.07.16.11.59.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 11:59:14 -0700 (PDT)
+ Tue, 16 Jul 2024 11:59:22 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
@@ -68,15 +68,16 @@ Cc: ukaszb@chromium.org, linux@rasmusvillemoes.dk, joe@perches.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org,
  Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v9-resend 39/54] drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
-Date: Tue, 16 Jul 2024 12:57:51 -0600
-Message-ID: <20240716185806.1572048-40-jim.cromie@gmail.com>
+Subject: [PATCH v9-resend 45/54] drm-dyndbg: add DRM_CLASSMAP_USE to vmwgfx
+ driver
+Date: Tue, 16 Jul 2024 12:57:57 -0600
+Message-ID: <20240716185806.1572048-46-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240716185806.1572048-1-jim.cromie@gmail.com>
 References: <20240716185806.1572048-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:15 +0000
+X-Mailman-Approved-At: Wed, 17 Jul 2024 07:23:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,28 +92,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-virtio_gpu has 10 DRM_UT_CORE debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
+The vmwgfx driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_drv.c | 2 ++
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 188e126383c2..d69d517de2a3 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -44,6 +44,8 @@ static const struct drm_driver driver;
- 
- static int virtio_gpu_modeset = -1;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+index 823d8d2da17c..fd6cd62608a9 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+@@ -277,6 +277,8 @@ static int vmw_probe(struct pci_dev *, const struct pci_device_id *);
+ static int vmwgfx_pm_notifier(struct notifier_block *nb, unsigned long val,
+ 			      void *ptr);
  
 +DRM_CLASSMAP_USE(drm_debug_classes);
 +
- MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
- module_param_named(modeset, virtio_gpu_modeset, int, 0400);
- 
+ MODULE_PARM_DESC(restrict_iommu, "Try to limit IOMMU usage for TTM pages");
+ module_param_named(restrict_iommu, vmw_restrict_iommu, int, 0600);
+ MODULE_PARM_DESC(force_coherent, "Force coherent TTM pages");
 -- 
 2.45.2
 
