@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDC33C3DA5E
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 14:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B961FC41513
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 14:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 727E410E72E;
-	Tue, 16 Jul 2024 14:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2B9110E734;
+	Tue, 16 Jul 2024 14:26:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fdWzXq5D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cFMmhCbs";
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72E3A10E726;
- Tue, 16 Jul 2024 14:26:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0465D10E731;
+ Tue, 16 Jul 2024 14:26:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 69827CE12A5;
- Tue, 16 Jul 2024 14:26:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033A5C4AF09;
- Tue, 16 Jul 2024 14:26:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4CC9161283;
+ Tue, 16 Jul 2024 14:26:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC02DC4AF0E;
+ Tue, 16 Jul 2024 14:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721139980;
- bh=t7Wz9HROynNdxtMwYgCw79VXqZmMaUv6AhN+H0/OzYQ=;
+ s=k20201202; t=1721139997;
+ bh=hPiZBpPQPKfm8zysLlxT6NXhGRC5lcxwMo3vnGpL6WQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fdWzXq5DYYn4IaQl+xeXM3qnsRI6Uj5dqXhO1Ic9s1gxIRpqTXnYGF9obDPQFARmN
- 7r3waqUxEJYIE05VM2YAwpSEPeeqCj5nF9fgPWwuKdSNREJV95/fPZ/RZyWySpaBPL
- WWLJMdJK/+tbTFH2IuuFkMogiUcYtlcUxwzsbIlDBiPWQSdHkRbu9IhDGFNi4MOssG
- IsV/EuypHCXkEUW6ODA0yw2dCYJpdMgLpbd+MpCbwodnNdndHbRGNESdZQFP2EgIy5
- YLfjDFdqtJrlojWoP2NBnMahnrAfLOYSz5BZVMKMzZQLvQ8nicSC9FLvhwrmG1cxyq
- uN7G81Ew1YD2Q==
+ b=cFMmhCbstn1AvcBA/LAqoz6g8+mJCDIfah9U5BZzoqhSOJ+Gb3xqkonrNEoFC7zSa
+ 422E3qjhlk210WZuQCtA0QBNkNlRWqMO3UDb/RDccAeeN6EbtE2eMXYeBQPMZ08Hx5
+ ohDAfBp/KFI2tC91ppKpMaAB+K/kxB4C/gSuM6B9JfCwmSdn6JESBzOSFlSu92bNAE
+ q1or4fN8akQXL/0hOHoYXggIaROOjE2eVcG1r+C6ICogRzVJveAzu5JzzzRArB3Npg
+ XEmHpvX2wXwt+dv15cR7pTzOXlw6QjxMK5bcqBXPqltKW3zGTCvnQaMgPFspW2obkb
+ 7fjjYIP1qG9jQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, charlene.liu@amd.com, hamza.mahfooz@amd.com,
- nicholas.kazlauskas@amd.com, sungkim@amd.com, syed.hassan@amd.com,
- xi.liu@amd.com, Qingqing.Zhuo@amd.com, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.9 15/22] drm/amd/display: Update efficiency
- bandwidth for dcn351
-Date: Tue, 16 Jul 2024 10:24:22 -0400
-Message-ID: <20240716142519.2712487-15-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.9 17/22] drm/radeon: check bo_va->bo is non-NULL
+ before using it
+Date: Tue, 16 Jul 2024 10:24:24 -0400
+Message-ID: <20240716142519.2712487-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240716142519.2712487-1-sashal@kernel.org>
 References: <20240716142519.2712487-1-sashal@kernel.org>
@@ -69,33 +64,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-[ Upstream commit 7ae37db29a8bc4d3d116a409308dd98fc3a0b1b3 ]
+[ Upstream commit 6fb15dcbcf4f212930350eaee174bb60ed40a536 ]
 
-Fix 4k240 underflow on dcn351
+The call to radeon_vm_clear_freed might clear bo_va->bo, so
+we have to check it before dereferencing it.
 
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-index a20f28a5d2e7b..3af759dca6ebf 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-@@ -233,6 +233,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
- 		out->round_trip_ping_latency_dcfclk_cycles = 106;
- 		out->smn_latency_us = 2;
- 		out->dispclk_dppclk_vco_speed_mhz = 3600;
-+		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
- 		break;
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index 3fec3acdaf284..27225d1fe8d2e 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -641,7 +641,7 @@ static void radeon_gem_va_update_vm(struct radeon_device *rdev,
+ 	if (r)
+ 		goto error_unlock;
  
- 	}
+-	if (bo_va->it.start)
++	if (bo_va->it.start && bo_va->bo)
+ 		r = radeon_vm_bo_update(rdev, bo_va, bo_va->bo->tbo.resource);
+ 
+ error_unlock:
 -- 
 2.43.0
 
