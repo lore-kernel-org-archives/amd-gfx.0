@@ -4,82 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD10C3DA60
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 16:31:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEBF6C3DA60
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 19:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A03F10E2DA;
-	Wed, 17 Jul 2024 16:31:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 376F810E35D;
+	Wed, 17 Jul 2024 19:39:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="CBKbZK48";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2BADj8ad";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCCD10E2E9
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 16:31:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1721233890;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oaeJ8vGKpFgW+rB0iZCJbMqPHEGG4KWcz9Xv+Rv3aJM=;
- b=CBKbZK48GG+GOaR8AgrXQmDQBnsb5zl57xBWQ+kD3FjkSYcECQ1BYiagVBRHR5K4YMH86P
- 48DbHsEbkDyCWdYgkxYCZtNL5jRlHV+06lNIQUBim9hWTWmdOzYY5BzWBXjwvEO1vEyPq3
- yEB0LVxesB3H+0xWSd1MLTfEcyunLVU=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-417-_Bs5_BS2MOuj3crUmPHweQ-1; Wed, 17 Jul 2024 12:31:28 -0400
-X-MC-Unique: _Bs5_BS2MOuj3crUmPHweQ-1
-Received: by mail-ed1-f72.google.com with SMTP id
- 4fb4d7f45d1cf-5a0e93ebc78so79097a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 09:31:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721233887; x=1721838687;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oaeJ8vGKpFgW+rB0iZCJbMqPHEGG4KWcz9Xv+Rv3aJM=;
- b=qrYOiJqVcKGDl1HsK5jgNLUrPdXMvIpbwoqEwPQcO34mlGCFQJfeZ8Vv5lP9NDNdWB
- FbgaAjnCTppqicjkmUSzNwf2aHZFFUxxY5bJGpFA8Ty3hC7oKETZnBnve1EGS2T8M81V
- 8RlMk6dEEEdUO4QwAwUe9MbmzHX+HUY9up6U782DwyoR9Ff9I7sMWNt1EhirIfoUPWxY
- pd6oDriqH3xP7SnVYgxHaB0txMJgxrRuSCxI97EOZYo9HG8pdW2PyVTWCyV8Yqhh1/yd
- Qk4Qqh0IaB3vDEZ6rl43d/F9J6kZEJ0C/KtGcfHwskN5xNaOyRstky+JSlf5Ysl/Rgkt
- Z+8A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXGtnEJxY/mh9adh1ha8RFz3952Ph8fZLcF/iId4mcH1HNQiLnntJsGk3oE6ZzpNuFwH4H16Ba+EcanXBZjYrJbU+9UzrMHqpKfLiHanA==
-X-Gm-Message-State: AOJu0Yz5R+nmDGfdPnCBeWptWHqTxZmM1r7h1mP9ro9JDu+pTB4vNI4c
- oqQKpfH2ezryIlP8lMCek/Y3yotyBoCmy2RPISykmqNoWz2mN14SIl/j0QqFI/jQfBpBLVofjky
- 7DsR/FHodviyxpII9fnMHfo/ss8/6sM1PVOldykcjggKL9kQToDd17uAsAmfct0BBX05Px58UWV
- 3E0rJtbZxARPG15PL8qBdassDEXOwL+ikPIdgAKg==
-X-Received: by 2002:a05:6402:c8f:b0:58b:e3b:c5de with SMTP id
- 4fb4d7f45d1cf-5a05dc87267mr1138157a12.4.1721233887283; 
- Wed, 17 Jul 2024 09:31:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHYvZbfrhao0m6W5xda7D2AzU3nhAWqgneX9Tdzq+5U3NhvUG41zIgjSFUaQNmFLwgodW6WpVdY8xB4nnf09fM=
-X-Received: by 2002:a05:6402:c8f:b0:58b:e3b:c5de with SMTP id
- 4fb4d7f45d1cf-5a05dc87267mr1138136a12.4.1721233886884; Wed, 17 Jul 2024
- 09:31:26 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38F9410E35D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 19:39:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AErvTyhutL3uPQM0GmD55H7ywCacG86a8OZur/pRCmlochpLKmgXYhbdyy014/8ljAzMCkDjyw1Yg1Q/KcGyv6Uq34vd2KZcOgTgyF+z988cUQIq9sRTqViJLeZG9+2UxjSMfKrdScuj0BeCGBnGf17iQilCmEjUoYhPLFbZBK5fDTWXq+WJP5t4R7A+jbx/TlXbPlASx8vilaJmfRlVosqDhtln8iGTd6ymmm5zxj/Dj84YhH6J57Gylp4Ao3EvjGu9nN2si6iTvQ1eGRSZmoqu82Pr4CEQjcttLyhHrw0v2t5s4bpsHALA6XvuIneIgvVPX9+dIAzSIOm7sddP9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xxpbXaU1Khp1eeBzqWeQ7btn9dZHaT6JLqHYkBzmqnM=;
+ b=m6ptI/2D3AecHtKQVmkWDiXGIWZZ73wWUbsNAX89X31czvmyYdTqk184Z1K9b4yo4NPUiNVEs2SkWD6uNp9Giv9jhrLa461R7ri80MIMoQD5mwH9u2fKEIMPFr89UtJVrOvgxlhS1MzILkGbTfKnqu0ehaA1jd5w0VouKjenoiTBnb+tTm3NBki6i0CVp+p40d0ohEf6zXqHDZExBpumajnz8owb8EyTcdfcAhWuw7m5ehfSTHoP4mVaYvubR+BjXjuYx1QE1t754ORo/bQnhizfqWSNxXz3IyizKUISV2oyW5WzcM3kFpXjAgiCDndBgh03oJsnJIMtdUVnyUDK0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xxpbXaU1Khp1eeBzqWeQ7btn9dZHaT6JLqHYkBzmqnM=;
+ b=2BADj8adZAB+pfpci/yPqLnqB7TEAB+CpMOo6s8/szRyYf34DMLLgkdKDWd+WQCgN0YNEJMIKfrQVMT2nRXEyh6BxPBKs88aW4+oxCFtKqpdHjpe8HzVLDZ/6caAwPMAr9PCebrqPeqs5ZIiDRn6ct82BnJfVmjiU2PYBYNmN0U=
+Received: from DM6PR13CA0028.namprd13.prod.outlook.com (2603:10b6:5:bc::41) by
+ SA3PR12MB7783.namprd12.prod.outlook.com (2603:10b6:806:314::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17; Wed, 17 Jul
+ 2024 19:39:08 +0000
+Received: from DS3PEPF0000C37F.namprd04.prod.outlook.com
+ (2603:10b6:5:bc:cafe::16) by DM6PR13CA0028.outlook.office365.com
+ (2603:10b6:5:bc::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.23 via Frontend
+ Transport; Wed, 17 Jul 2024 19:39:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS3PEPF0000C37F.mail.protection.outlook.com (10.167.23.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Wed, 17 Jul 2024 19:39:08 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 17 Jul
+ 2024 14:39:07 -0500
+Received: from debian.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 17 Jul 2024 14:39:02 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
+ <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
+Subject: [PATCH 00/22] DC Patches for 15 July, 2024
+Date: Wed, 17 Jul 2024 19:38:39 +0000
+Message-ID: <20240717193901.8821-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20231101210037.130494-1-hamza.mahfooz@amd.com>
- <CADnq5_Nv0MnG+pPvRQO37OP8iYwz8oGvFLs2g-+U=URHWcqJGw@mail.gmail.com>
- <1eed6bfa-3e98-45d1-9908-2c5a0f3173c3@amd.com>
- <CADnq5_OUjbrVOmSr7vuK8h8rmg+q14ra1jiE+B0TRfZos-jn5w@mail.gmail.com>
-In-Reply-To: <CADnq5_OUjbrVOmSr7vuK8h8rmg+q14ra1jiE+B0TRfZos-jn5w@mail.gmail.com>
-From: Karol Herbst <kherbst@redhat.com>
-Date: Wed, 17 Jul 2024 18:30:49 +0200
-Message-ID: <CACO55ttEqAxMwXjVZFaLX3nQXbAuRf2qE1kr4PEAHqZuYDmBYA@mail.gmail.com>
-Subject: Re: [PATCH] drm/edid: add a quirk for two 240Hz Samsung monitors
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>, Maxime Ripard <mripard@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jerry Zuo <jerry.zuo@amd.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37F:EE_|SA3PR12MB7783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9753eabf-b8ed-443b-5b7f-08dca6982014
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hbLGaUmfx92zY1s307sJVRFzbBPyTJfN6RnAqw1NFLPqoHxwgWwrnmbDDkDj?=
+ =?us-ascii?Q?WXewsRhpQktvWlIBQpgURxbrm2/3ebA6Yh4qLWkxasvdB+ikRlqJHZd3WBY8?=
+ =?us-ascii?Q?e7sxTdddWMsYPOLlUJwYlc9YKG2u7iRfqRiEsRMPS5DxgiVSBgZn6WSVV67J?=
+ =?us-ascii?Q?Ok0D+dv2+0/K6ooh6aYqORNdKSpBko/Z0FcMHKAP5sfqA3FeuabuLo6jCHpw?=
+ =?us-ascii?Q?vjpniWPlx6xTzynzQUc1xH44J10p9J9h7/LcTVjXzgCZtWHsobfx796winbH?=
+ =?us-ascii?Q?yD3sZKtbV091ewNzvkSDwB1TFlyK0OQlV7hi+ptijawVxo+5eOGqSWJUbuXb?=
+ =?us-ascii?Q?cgeG4jqjDTNbYH1boeMz96EC3AlY7LZsU3/D/vxmCw3VCoD6YytlY017FCZd?=
+ =?us-ascii?Q?lI8vrHoYbRI7f9WVz1IWTd6QzTylvwDxOWsjo7jwTvE3D8TRTH66lCH6heKu?=
+ =?us-ascii?Q?1P36NLhav7Reetn3J2anPuSXYiARnDBLAzhU+l3CGxj7zk7cfUKWbFGWuKSW?=
+ =?us-ascii?Q?hD6rsOD32wMCkFygxYLX99Z3k0Jcoa7lfbmgl7PBqwDOh7RF20JklN/oMSK4?=
+ =?us-ascii?Q?DbWC64/OtC96lQgHzCgg5m9Y8GhqHSWaQThgyteS2oRyA3B23WVZRPSmzVRn?=
+ =?us-ascii?Q?IwVialgiAWke197idOzwyOYTmtIOs0hPKvuP9WNysjYEB9UqY8bmjaQQ0ipw?=
+ =?us-ascii?Q?GTdZv1qQzMX5kypnq+IlcNKSsoADgDrymQa+xrOPiyrQwxJEC6u4dlFhdAE2?=
+ =?us-ascii?Q?DglaVOQ6OYWy8csGsC3d2iAhNKp2N8u02bAqMK8WY/JgdSJ2paeYZ6XwGkMS?=
+ =?us-ascii?Q?rK/VRaNelRSX/NTD2RPZJC1TpjJqjrkKiNJ36GO1OESSbI4KDbizRzelmVWa?=
+ =?us-ascii?Q?7m8wyz3WZ44hnVPBcrniUqyUOQbNP+ouVIM9veKCyxeIgGr3x7GDNIwUro60?=
+ =?us-ascii?Q?ND6F1NnNpmIBcTousmp54jhmiiro20k4gQdbNZooj3R1cQu7s3FqrJgMeoAH?=
+ =?us-ascii?Q?zU7qrKP2e0YF+lsOxqgbORjdPmbIhSOA+lMdjSbwaUaYkjaYvWc47i9tx2E4?=
+ =?us-ascii?Q?g9A2R85jSB6423SPtJqIoiJyWUqcJB5BKYOL7IpEMtBIo2WbCyRjnCBdxy59?=
+ =?us-ascii?Q?bi/CkmafAzZY5J4QS1qUW9M8tEkhVKaF1JIvmXDoNYoAjod+hWBOmXmIPJC9?=
+ =?us-ascii?Q?qw2XcMWEu6Z5e2LBRsvMr7ee2X3Tey93zfz6+KTeTNnJzjBJF4wGnPiGor+7?=
+ =?us-ascii?Q?k1gV9UH/sEB/sdxwBfVeiSUa3MV52dyGRoitvr5daVjfWgeGRMtoaw8UpPWG?=
+ =?us-ascii?Q?inBlrON/dn5oOkPR7xApWDbGMjBqOo20piiy4cpFmMYZbCVBv6R3fFlIaNd0?=
+ =?us-ascii?Q?zxhM6CWo5x3Vz9NmYTb4LhZaU6Czoi3sp7UF+50petwOW4uh9DORzSOB94e3?=
+ =?us-ascii?Q?Eb3dT/PrTK4b+i5NV37Rv9PRRINvPnoA?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 19:39:08.2118 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9753eabf-b8ed-443b-5b7f-08dca6982014
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7783
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,179 +135,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 2, 2023 at 8:06=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com>=
- wrote:
->
-> On Thu, Nov 2, 2023 at 3:00=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd.c=
-om> wrote:
-> >
-> > On 11/1/23 17:36, Alex Deucher wrote:
-> > > On Wed, Nov 1, 2023 at 5:01=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@a=
-md.com> wrote:
-> > >>
-> > >> Without this fix the 5120x1440@240 timing of these monitors
-> > >> leads to screen flickering.
-> > >>
-> > >> Cc: stable@vger.kernel.org # 6.1+
-> > >> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1442
-> > >> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> > >> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > >> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> > >> ---
-> > >>   drivers/gpu/drm/drm_edid.c | 47 ++++++++++++++++++++++++++++++++++=
-+---
-> > >>   1 file changed, 44 insertions(+), 3 deletions(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> > >> index bca2af4fe1fc..3fdb8907f66b 100644
-> > >> --- a/drivers/gpu/drm/drm_edid.c
-> > >> +++ b/drivers/gpu/drm/drm_edid.c
-> > >> @@ -89,6 +89,8 @@ static int oui(u8 first, u8 second, u8 third)
-> > >>   #define EDID_QUIRK_NON_DESKTOP                 (1 << 12)
-> > >>   /* Cap the DSC target bitrate to 15bpp */
-> > >>   #define EDID_QUIRK_CAP_DSC_15BPP               (1 << 13)
-> > >> +/* Fix up a particular 5120x1440@240Hz timing */
-> > >> +#define EDID_QUIRK_FIXUP_5120_1440_240         (1 << 14)
-> > >
-> > > What is wrong with the original timing that needs to be fixed?
-> >
-> > Apparently, all of timing values for the 5120x1440@240 mode of these
-> > monitors aren't set correctly (they are all lower than they should be)
-> > in their EDIDs. For what it's worth, the windows driver has had a quirk
-> > similar the one proposed in this patch for ~2 years.
->
-> It would be good to at least include the original mode timings from
-> the EDID and the new ones added by the quirk in the commit message and
-> a description of why they are problematic and why the new ones work.
->
-> Alex
->
+This DC patchset brings improvements in multiple areas. In summary, we have:
 
-I think this part what nvidia is doing in their driver is missing:
-https://github.com/NVIDIA/open-gpu-kernel-modules/blob/main/src/common/mode=
-set/timing/nvt_edidext_861.c#L342
+* bug fixes for SubVP, DML, SPL, DCCG, and various stability fixes
+* more reorganization of code into corresponding sub components
+* renaming certain variables in DML to better reflect their relevance.
 
-A nouveau user hit this and I think the edid parser in the kernel is
-just lacking whatever that "RID_MODE" stuff is all about.
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
+Alex Hung (2):
+  drm/amd/display: Add MST debug message when link detection fails
+  drm/amd/display: Check link_res->hpo_dp_link_enc before using it
 
->
-> >
-> > >
-> > > Alex
-> > >
-> > >
-> > >>
-> > >>   #define MICROSOFT_IEEE_OUI     0xca125c
-> > >>
-> > >> @@ -170,6 +172,12 @@ static const struct edid_quirk {
-> > >>          EDID_QUIRK('S', 'A', 'M', 596, EDID_QUIRK_PREFER_LARGE_60),
-> > >>          EDID_QUIRK('S', 'A', 'M', 638, EDID_QUIRK_PREFER_LARGE_60),
-> > >>
-> > >> +       /* Samsung C49G95T */
-> > >> +       EDID_QUIRK('S', 'A', 'M', 0x7053, EDID_QUIRK_FIXUP_5120_1440=
-_240),
-> > >> +
-> > >> +       /* Samsung S49AG95 */
-> > >> +       EDID_QUIRK('S', 'A', 'M', 0x71ac, EDID_QUIRK_FIXUP_5120_1440=
-_240),
-> > >> +
-> > >>          /* Sony PVM-2541A does up to 12 bpc, but only reports max 8=
- bpc */
-> > >>          EDID_QUIRK('S', 'N', 'Y', 0x2541, EDID_QUIRK_FORCE_12BPC),
-> > >>
-> > >> @@ -6586,7 +6594,37 @@ static void update_display_info(struct drm_co=
-nnector *connector,
-> > >>          drm_edid_to_eld(connector, drm_edid);
-> > >>   }
-> > >>
-> > >> -static struct drm_display_mode *drm_mode_displayid_detailed(struct =
-drm_device *dev,
-> > >> +static void drm_mode_displayid_detailed_edid_quirks(struct drm_conn=
-ector *connector,
-> > >> +                                                   struct drm_displ=
-ay_mode *mode)
-> > >> +{
-> > >> +       unsigned int hsync_width;
-> > >> +       unsigned int vsync_width;
-> > >> +
-> > >> +       if (connector->display_info.quirks & EDID_QUIRK_FIXUP_5120_1=
-440_240) {
-> > >> +               if (mode->hdisplay =3D=3D 5120 && mode->vdisplay =3D=
-=3D 1440 &&
-> > >> +                   mode->clock =3D=3D 1939490) {
-> > >> +                       hsync_width =3D mode->hsync_end - mode->hsyn=
-c_start;
-> > >> +                       vsync_width =3D mode->vsync_end - mode->vsyn=
-c_start;
-> > >> +
-> > >> +                       mode->clock =3D 2018490;
-> > >> +                       mode->hdisplay =3D 5120;
-> > >> +                       mode->hsync_start =3D 5120 + 8;
-> > >> +                       mode->hsync_end =3D 5120 + 8 + hsync_width;
-> > >> +                       mode->htotal =3D 5200;
-> > >> +
-> > >> +                       mode->vdisplay =3D 1440;
-> > >> +                       mode->vsync_start =3D 1440 + 165;
-> > >> +                       mode->vsync_end =3D 1440 + 165 + vsync_width=
-;
-> > >> +                       mode->vtotal =3D 1619;
-> > >> +
-> > >> +                       drm_dbg_kms(connector->dev,
-> > >> +                                   "[CONNECTOR:%d:%s] Samsung 240Hz=
- mode quirk applied\n",
-> > >> +                                   connector->base.id, connector->n=
-ame);
-> > >> +               }
-> > >> +       }
-> > >> +}
-> > >> +
-> > >> +static struct drm_display_mode *drm_mode_displayid_detailed(struct =
-drm_connector *connector,
-> > >>                                                              struct =
-displayid_detailed_timings_1 *timings,
-> > >>                                                              bool ty=
-pe_7)
-> > >>   {
-> > >> @@ -6605,7 +6643,7 @@ static struct drm_display_mode *drm_mode_displ=
-ayid_detailed(struct drm_device *d
-> > >>          bool hsync_positive =3D (timings->hsync[1] >> 7) & 0x1;
-> > >>          bool vsync_positive =3D (timings->vsync[1] >> 7) & 0x1;
-> > >>
-> > >> -       mode =3D drm_mode_create(dev);
-> > >> +       mode =3D drm_mode_create(connector->dev);
-> > >>          if (!mode)
-> > >>                  return NULL;
-> > >>
-> > >> @@ -6628,6 +6666,9 @@ static struct drm_display_mode *drm_mode_displ=
-ayid_detailed(struct drm_device *d
-> > >>
-> > >>          if (timings->flags & 0x80)
-> > >>                  mode->type |=3D DRM_MODE_TYPE_PREFERRED;
-> > >> +
-> > >> +       drm_mode_displayid_detailed_edid_quirks(connector, mode);
-> > >> +
-> > >>          drm_mode_set_name(mode);
-> > >>
-> > >>          return mode;
-> > >> @@ -6650,7 +6691,7 @@ static int add_displayid_detailed_1_modes(stru=
-ct drm_connector *connector,
-> > >>          for (i =3D 0; i < num_timings; i++) {
-> > >>                  struct displayid_detailed_timings_1 *timings =3D &d=
-et->timings[i];
-> > >>
-> > >> -               newmode =3D drm_mode_displayid_detailed(connector->d=
-ev, timings, type_7);
-> > >> +               newmode =3D drm_mode_displayid_detailed(connector, t=
-imings, type_7);
-> > >>                  if (!newmode)
-> > >>                          continue;
-> > >>
-> > >> --
-> > >> 2.42.0
-> > >>
-> > --
-> > Hamza
-> >
->
+Aric Cyr (1):
+  drm/amd/display: 3.2.293
+
+Aurabindo Pillai (3):
+  drm/amd/display: rename dcn3/dcn4 to more sound terms
+  drm/amd/display: rename dcn401_soc to dcn4_variant_a_soc
+  drm/amd/display: remove unused folder
+
+Austin Zheng (1):
+  drm/amd/display: Check if Mode is Supported Before Returning Result
+
+Dillon Varone (2):
+  drm/amd/display: Remove hardmax usage for dcn401
+  drm/amd/display: Various DML2 fixes for FAMS2
+
+Gabe Teeger (1):
+  drm/amd/display: Fix Potential Null Dereference
+
+Hansen Dsouza (3):
+  drm/amd/display: Add private data type for RCG
+  drm/amd/display: Add RCG helper functions
+  drm/amd/display: Add source select helper functions
+
+Ilya Bakoulin (1):
+  drm/amd/display: Add helper function to check for non-address fast
+    updates
+
+Joshua Aberback (1):
+  drm/amd/display: Remove duplicate HWSS interfaces
+
+Revalla Hari Krishna (1):
+  drm/amd/display: Refactoring HPO
+
+Rodrigo Siqueira (2):
+  drm/amd/display: Remove ASSERT if significance is zero in math_ceil2
+  drm/amd/display: Remove old comments
+
+Ryan Seto (1):
+  drm/amd/display: Fix visual confirm bug for SubVP
+
+Samson Tam (1):
+  drm/amd/display: ensure EASF and ISHARP coefficients are programmed
+    together
+
+Sung Joon Kim (2):
+  drm/amd/display: Check for NULL pointer
+  drm/amd/display: Check top sink only when multiple streams for DP2
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   5 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |   6 +-
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |  44 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  36 +-
+ .../gpu/drm/amd/display/dc/core/dc_surface.c  |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   8 +-
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 712 ++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dcn30/Makefile |   2 -
+ .../gpu/drm/amd/display/dc/dcn303/Makefile    |  13 -
+ drivers/gpu/drm/amd/display/dc/dcn31/Makefile |   2 +-
+ .../gpu/drm/amd/display/dc/dcn401/Makefile    |  10 -
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   4 +-
+ .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |   4 +-
+ .../dc/dml2/dml21/dml21_translation_helper.c  |  51 +-
+ .../dc/dml2/dml21/dml21_translation_helper.h  |   2 +-
+ .../amd/display/dc/dml2/dml21/dml21_utils.c   |  24 +-
+ .../dml21/inc/bounding_boxes/dcn3_soc_bb.h    |   8 +-
+ .../dml21/inc/bounding_boxes/dcn4_soc_bb.h    |  10 +-
+ .../dml21/inc/dml_top_display_cfg_types.h     |   1 -
+ .../dml21/inc/dml_top_soc_parameter_types.h   |  10 +-
+ .../display/dc/dml2/dml21/inc/dml_top_types.h |  10 +-
+ .../dml2/dml21/src/dml2_core/dml2_core_dcn4.c |   2 +-
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 186 ++---
+ .../dml21/src/dml2_core/dml2_core_shared.c    | 192 ++---
+ .../dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c | 130 ++--
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   2 +-
+ .../lib_float_math.c                          |   2 -
+ .../dc/dml2/dml21/src/dml2_top/dml_top.c      |   3 +-
+ .../amd/display/dc/dml2/dml2_internal_types.h |   1 +
+ .../display/dc/dml2/dml2_translation_helper.c |  41 +-
+ .../display/dc/dml2/dml2_translation_helper.h |   2 +-
+ .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |   6 +-
+ .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  28 +-
+ drivers/gpu/drm/amd/display/dc/hpo/Makefile   |  15 +
+ .../dcn31/dcn31_hpo_dp_link_encoder.c         |   0
+ .../dcn31/dcn31_hpo_dp_link_encoder.h         |   0
+ .../dcn31/dcn31_hpo_dp_stream_encoder.c       |   0
+ .../dcn31/dcn31_hpo_dp_stream_encoder.h       |   0
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.c  | 364 ++++-----
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   1 -
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  10 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_init.c    |   2 -
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |   2 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_init.c    |   1 -
+ .../amd/display/dc/hwss/dcn201/dcn201_init.c  |   1 -
+ .../amd/display/dc/hwss/dcn21/dcn21_init.c    |   2 -
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |   8 +-
+ .../amd/display/dc/hwss/dcn30/dcn30_init.c    |   1 -
+ .../amd/display/dc/hwss/dcn301/dcn301_init.c  |   1 -
+ .../amd/display/dc/hwss/dcn31/dcn31_init.c    |   2 -
+ .../amd/display/dc/hwss/dcn314/dcn314_init.c  |   2 -
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |   8 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_init.c    |   1 -
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |   8 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   2 -
+ .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   2 -
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  11 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   2 -
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |   1 -
+ .../display/dc/hwss/hw_sequencer_private.h    |   2 -
+ .../gpu/drm/amd/display/dc/inc/hw/mem_input.h |   2 +-
+ .../display/dc/link/hwss/link_hwss_hpo_dp.c   |   5 +
+ 62 files changed, 1401 insertions(+), 615 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dcn303/Makefile
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dcn401/Makefile
+ rename drivers/gpu/drm/amd/display/dc/{ => hpo}/dcn31/dcn31_hpo_dp_link_encoder.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{ => hpo}/dcn31/dcn31_hpo_dp_link_encoder.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{ => hpo}/dcn31/dcn31_hpo_dp_stream_encoder.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{ => hpo}/dcn31/dcn31_hpo_dp_stream_encoder.h (100%)
+
+-- 
+2.39.2
 
