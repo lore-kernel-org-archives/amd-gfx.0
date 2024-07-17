@@ -4,67 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87ED8C3DA49
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jul 2024 18:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 419E8C3DA49
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 02:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1611A10E44F;
-	Tue, 16 Jul 2024 18:43:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAAA010E6A5;
+	Wed, 17 Jul 2024 02:40:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OVjtXqtI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2aDxEgfC";
 	dkim-atps=neutral
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com
- [209.85.222.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 648F610E299
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 18:43:48 +0000 (UTC)
-Received: by mail-ua1-f43.google.com with SMTP id
- a1e0cc1a2514c-810197638fcso169973241.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jul 2024 11:43:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721155427; x=1721760227; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pW39S5IP5sRwzdRR4GBEoaTGzItLvoiqfzWNythWzps=;
- b=OVjtXqtIN5eUcHSz9oQ+O3c5AlwY5kD5rEwcXUAJ9s0jFoGFIkwT34tcRYzNNgTR8y
- 7hCZXOX3OXLGwdcjF0fAXNud1+hnNAnjbXZSxhAdar8ND8Tf2/TY2lcxwDigSaWGUsT5
- XnydUs+LPTom5jyXMizUXIq3usOSyrh0ZT7zs+4W5230Lkz+Gs4MF4q+XQP/EymVYCLF
- i+7fKGt/H2Ad0prvVzOiDpoRoh9rGNVgDPVDafrF4tb98RH24mWNpPoM7JTMHWGswfYe
- bsyhhPIr+O8bGq6MQoVnM/EffuO8FIKyvDHNJ+0xDQ+89JPnzUyAyGPzqnmgKTi745Cv
- D4+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721155427; x=1721760227;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pW39S5IP5sRwzdRR4GBEoaTGzItLvoiqfzWNythWzps=;
- b=DcnbrJA0LPWi3QE0XQ4qJnqgNCCW7OCYa4b078OTz0cH1IVShrxSWt0PBt4aQfBoC9
- zEuU3Utx4W87vhBQDnuQHJoQfZT6hJ4wITSo7bl0lgZJl+sK/UPRhjsg1HFS7L4TguCl
- MSRP271WxEUnNlNsjZlASJvtoV3GQjJNYWms52XCON9+j/UViyL7WKo6RYV1tMsZ9H9i
- 8DFiOqeqYcdE8DzLsEcqe6OZHeUUfxWB/baOXYK1tGukSTAwedChKgB3LQxNwtG5REEk
- EZHOyT2/+XN2sxvDmY33ySCjGzHoFhB5+NQ9g5zcqKOaush+R1L78deRHThmI/vwPiNB
- hJ5A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWQb9aDFh8xZARBonLnqqTZh8NHYedBp47P0Fo8qjVtWIMBazPHAEiWhC5cDrGgrTSTMz/JJXLJgEgfsKrBMi7rpTb8id+g0Tq9bsSeQA==
-X-Gm-Message-State: AOJu0Yxoikvm+a3dNprGSuzuZH8P97+2TBg94UtayHfWupXkZodF08gG
- L/LoWgTCpakvLsEtalrOsWh3P2uOQEzaBi4pX0NbrrVyi/au1lb0COMl8DVV95dWIZoIspX2Yoc
- U0fACpzG8vSVISI7aw8jXcB9jGks=
-X-Google-Smtp-Source: AGHT+IG+Srqy8fIwO4tgA1mtQjSzNnt1BrKZsjQuKfHwSRYne6qh6nnvl5vLCR2prQZxnXkVhaQ24Q2qj6c1zUU7DS8=
-X-Received: by 2002:a05:6122:1686:b0:4f2:f2e1:5f04 with SMTP id
- 71dfb90a1353d-4f4d714aef4mr2255695e0c.8.1721155425445; Tue, 16 Jul 2024
- 11:43:45 -0700 (PDT)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB9C110E6A5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 02:40:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NiJ+wma7Rj8J0+JpUdYLll5eb0JQbRhmNyKDg9tVK1gNyNJg3OKSEAi9V8pHkQJCmCudLOHbl3hQCI0P4APkED9XcxtSMPXgGsZwUe/O10cYUq4vH5LYgWBLMm+WPWzd73bmYFyA8eYpputt19noJUTmN4tA6MsnFR5ZinwS81+ZvOgnloV7SO7m1N4ZQ9IcYq5DkE2o6sofs3jSwe/JZIfk4VhEWvm6mtAUblBdyc7aVwIZkzUuO/VSkxLokuuCxcNHGuElo9U+4g2MLyezkGNKLHJOUqxYDKikWasY4UKYJhP5ZwBHhhId5SRAWJtQnmt/oTP6kdwrKU5tf+pfFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mYuxbl0h+Sn72VHGZOyyfd/qdg9MnkI/GUhPoph6X/U=;
+ b=v2kleqKByJ/6dB26zl75W9Yh7/lp/MH7O+Nn+SpBUKJuM7IhzFVSiLF9wR6gWL0gfycgt0qx7VjkBZ3L4kfmjWXOdwz/gR7VjDrDry00urjXpaQ02ZnabyxTsUWCXUao+RTpe2uIY3hkdKzC4gXYZ2dXdY4FfnIatfXFE+VO0s1BXpuf2yiaTfAAzXxUqtSXOtzc5SV2Brcv3+ZKyLJ05r2WHK01Uh7HvJlO/ufR4BtO65T6qpkM4u1yqvCDbAWrAi5XUq1uREOrV1FrvrcyRsmefcKwmwQxuCBZA1gMwYSW2wDQSPzYLvJaYOAHHYydCcI4lNw87ISnDF6gTzWGKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mYuxbl0h+Sn72VHGZOyyfd/qdg9MnkI/GUhPoph6X/U=;
+ b=2aDxEgfCCwnUTw8nKafkEALQpmIFwCBu9iIAL5cXZJQ/CPyuFff5fl51geiz6VUxTgzGmD4lnNJvjGqQQceiWy2Ypm15/0ZGizI34kcH/WOsu1MTQtOHYxVEmawydBJ8p9pDBClyFsIIeaOeAtMKLBsixm69Ov5qSAcq0edFJ+0=
+Received: from DM6PR13CA0071.namprd13.prod.outlook.com (2603:10b6:5:134::48)
+ by BY5PR12MB4307.namprd12.prod.outlook.com (2603:10b6:a03:20c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Wed, 17 Jul
+ 2024 02:40:44 +0000
+Received: from DS3PEPF000099D7.namprd04.prod.outlook.com
+ (2603:10b6:5:134:cafe::a3) by DM6PR13CA0071.outlook.office365.com
+ (2603:10b6:5:134::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.24 via Frontend
+ Transport; Wed, 17 Jul 2024 02:40:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099D7.mail.protection.outlook.com (10.167.17.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Wed, 17 Jul 2024 02:40:43 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 16 Jul 2024 21:40:38 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+ "Tom Chung" <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: [PATCH v2] drm/amd/display: Add null check for dm_state in
+ create_validate_stream_for_sink
+Date: Wed, 17 Jul 2024 08:10:00 +0530
+Message-ID: <20240717024000.512972-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240716150828.218679-1-srinivasan.shanmugam@amd.com>
+References: <20240716150828.218679-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-References: <20240716155449.3203419-1-alexander.deucher@amd.com>
- <7ee9f17f-8a75-4818-b54d-efb71a1cd92c@gmx.de>
-In-Reply-To: <7ee9f17f-8a75-4818-b54d-efb71a1cd92c@gmx.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jul 2024 14:43:31 -0400
-Message-ID: <CADnq5_N22Czw6ykD15JQYijMq-PzS6ys2n8BtstLqB-LOFgFOQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/sdma5.2: Update wptr registers as well as
- doorbell
-To: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D7:EE_|BY5PR12MB4307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 765d2658-b50b-4e86-4dd4-08dca609db25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PvimCTE9Hqp/dVdddL3x5E4fCeQuVzI+Qz20qtvItaSV5ZMPktuL+VaddqQL?=
+ =?us-ascii?Q?iOlqb0fS0Pgdmca28IpxxJnYTcUlGd31V4I3fm+G4THCdJHIMkgxZbKPf73Z?=
+ =?us-ascii?Q?tbHu6GlGyWCswicjUlNVSNV8afaRpiPbGXkgrd44tMF72DOAgPq663BzK1iw?=
+ =?us-ascii?Q?7aP1gtfyjj9fHTgEieXgNF9s7gkt4+34lq9fU5gMrN10yg5K927+EcQGXRnM?=
+ =?us-ascii?Q?tNor+Wqsq9EUXw0g5Tl92QLW5NIgvnc6Wrxhbn/eJjmc6wRMAt1+0qqlZIpL?=
+ =?us-ascii?Q?8zLa2pzxLFww3cq5mkIxh9K4ClTfaMYr52ILSKyyclJyDo4x/AODcRVQcUdf?=
+ =?us-ascii?Q?EkOP2I1Uo0El+DK5JYhiYSZRvNncJN1qdGN2Cfk2/mSbmrGvzfsn5P2HKZLy?=
+ =?us-ascii?Q?gnNX6D8d1bYvOX28XQJWL1EU0c7cfdIjqPB3dUhb5upAmrVLIyui/2fDFZ0x?=
+ =?us-ascii?Q?Fq2uMXPBCuW3+u0PHB3SXRy0v9WkMblcOKv2vGy4jJtb/hBcNvCCWuqNBWtP?=
+ =?us-ascii?Q?glAhvmxSrdCztF9P5SfIuCodI80uwTNG4mHxJ0wHeRGH4wa5O36PQiOFwy5+?=
+ =?us-ascii?Q?GSJuJP43na2L0w3RaUDE8IU28EtCTgJytg29kdoDBgJHhQj9E8XED5eV5pK2?=
+ =?us-ascii?Q?pHn/F9nEFxoQeN+NuXNkImUVbPHPA5LA72yqPdlTCnrlSU3eIit57y4r+zTo?=
+ =?us-ascii?Q?3tzhyWYjwkjXeg8uHurvFNU2UtTP34IZJQuuD1HVXPMSisI/RhMpjRvcEwWg?=
+ =?us-ascii?Q?G2e3LWnfjPfEWBSd3ppyreW9r3zdmPYGfkj6rkPXYqtz+mYznc6gEPdv8nIP?=
+ =?us-ascii?Q?/5ayx5jDDxpAcbGPk+LA9r4PvzKuZN/X72kjrybA5mARVjpWy13ZV7zIAfEd?=
+ =?us-ascii?Q?RG3POvlwt/oM3vbpU2mugRhkiCiy+jdKTAry2QTG+IoOqJV6fDT4WD0zjlpa?=
+ =?us-ascii?Q?My1y5FMhxCSxazm+XFwV0b44mzImO4KnAUx9WSYuyALAz2syW4h8NpU0zx+C?=
+ =?us-ascii?Q?xcSh4oVe7x8cf4G57bbjdDDPSjP+Qq5X75b6mLL2NekPJUORISZgbM+zrVqq?=
+ =?us-ascii?Q?0RA3bv7duD4Al3+aZibkOSjj25YAKYVrMy5GfGVrrdX7P1LSpkpoivoa8t16?=
+ =?us-ascii?Q?mw5VvyhgJyFdoU7Ic7V3dFDIWOV/zmktmTxMQxjbtXbDdJ7IH1il9Odm0lEb?=
+ =?us-ascii?Q?2Vver5wNKP+bjiJGFR3GY5+cxtkAaV/WMula2TkCcyysNyPs1dTZQwNNcyNz?=
+ =?us-ascii?Q?HPGxW8oLTNK6fq8PjPQalL+TvZp1jWCabb4ip2EEz4sbzGmPmh8ndOdnSIMe?=
+ =?us-ascii?Q?ooiEvVqQBKs0qlbTk/1Xv6qUsyjS6Shfzf7AadYafNkT8sEoMf3ZNHbrakOt?=
+ =?us-ascii?Q?2A9u1GqHrg2/HdTbV5x3sWKcHdu8MhdulG2+59LfeyxEcDfWwSzfgMmNCBXu?=
+ =?us-ascii?Q?P8vZF04BSslTwPQ4taf1sQJjoxIaXqmT?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 02:40:43.9776 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 765d2658-b50b-4e86-4dd4-08dca609db25
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,84 +137,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 16, 2024 at 2:30=E2=80=AFPM Friedrich Vock <friedrich.vock@gmx.=
-de> wrote:
->
-> On 16.07.24 17:54, Alex Deucher wrote:
-> > We seem to have a case where SDMA will sometimes miss a doorbell
-> > if GFX is entering the powergating state when the doorbell comes in.
-> > To workaround this, we can update the wptr via MMIO, however,
-> > this is only safe because we disallow gfxoff in begin_ring() for
-> > SDMA 5.2 and then allow it again in end_ring().
-> >
-> > Enable this workaround while we are root causing the issue with
-> > the HW team.
-> >
-> > Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/3440
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Looks like it works for me.
-> Tested-by: Friedrich Vock <friedrich.vock@gmx.de>
->
-> Is there a particular reason you chose to still go with the doorbell
-> path plus updating the wptr via MMIO instead of setting
-> ring->use_doorbell to false? The workaround shipping in SteamOS does
-> that - if that has some adverse effects or something like that we should
-> probably stop :)
+This commit adds a null check for the dm_state variable in the
+create_validate_stream_for_sink function. Previously, dm_state was being
+checked for nullity at line 7194, but then it was being dereferenced
+without any nullity check at line 7200. This could potentially lead to a
+null pointer dereference error if dm_state is indeed null.
 
-Either way would work I think.  I just wanted to call out in the patch
-that any access to SDMA or GFX MMIO needs to be done while gfxoff is
-disallowed (via ring begin_use in this case), otherwise, you will hang
-if gfx is in the off state.  If you want to go with disabling the
-doorbell, we should double check that there are not any other places
-where we access MMIO registers directly in the !doorbell case.  I
-don't think there are, but I didn't look too closely.
+we now ensure that dm_state is not null before  dereferencing it. We do
+this by adding a nullity check for dm_state  before the call to
+create_stream_for_sink at line 7200. If dm_state  is null, we log an
+error message and return NULL immediately.
 
-Alex
+This fix prevents a null pointer dereference error.
 
->
-> Thanks,
-> Friedrich
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 12 ++++++++++++
-> >   1 file changed, 12 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/a=
-md/amdgpu/sdma_v5_2.c
-> > index 7e475d9b554e..3c37e3cd3cbf 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> > @@ -225,6 +225,14 @@ static void sdma_v5_2_ring_set_wptr(struct amdgpu_=
-ring *ring)
-> >               DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
-> >                               ring->doorbell_index, ring->wptr << 2);
-> >               WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-> > +             /* SDMA seems to miss doorbells sometimes when powergatin=
-g kicks in.
-> > +              * Updating the wptr directly will wake it. This is only =
-safe because
-> > +              * we disallow gfxoff in begin_use() and then allow it ag=
-ain in end_use().
-> > +              */
-> > +             WREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_G=
-FX_RB_WPTR),
-> > +                    lower_32_bits(ring->wptr << 2));
-> > +             WREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_G=
-FX_RB_WPTR_HI),
-> > +                    upper_32_bits(ring->wptr << 2));
-> >       } else {
-> >               DRM_DEBUG("Not using doorbell -- "
-> >                               "mmSDMA%i_GFX_RB_WPTR =3D=3D 0x%08x "
-> > @@ -1707,6 +1715,10 @@ static void sdma_v5_2_ring_begin_use(struct amdg=
-pu_ring *ring)
-> >        * but it shouldn't hurt for other parts since
-> >        * this GFXOFF will be disallowed anyway when SDMA is
-> >        * active, this just makes it explicit.
-> > +      * sdma_v5_2_ring_set_wptr() takes advantage of this
-> > +      * to update the wptr because sometimes SDMA seems to miss
-> > +      * doorbells when entering PG.  If you remove this, update
-> > +      * sdma_v5_2_ring_set_wptr() as well!
-> >        */
-> >       amdgpu_gfx_off_ctrl(adev, false);
-> >   }
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:7201 create_validate_stream_for_sink()
+error: we previously assumed 'dm_state' could be null (see line 7194)
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+    7185 struct dc_stream_state *
+    7186 create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+    7187                                 const struct drm_display_mode *drm_mode,
+    7188                                 const struct dm_connector_state *dm_state,
+    7189                                 const struct dc_stream_state *old_stream)
+    7190 {
+    7191         struct drm_connector *connector = &aconnector->base;
+    7192         struct amdgpu_device *adev = drm_to_adev(connector->dev);
+    7193         struct dc_stream_state *stream;
+    7194         const struct drm_connector_state *drm_state = dm_state ? &dm_state->base : NULL;
+                                                               ^^^^^^^^
+                                     ^^^^^^^^^ This used check connector->state but then we changed it to dm_state instead
+
+    7195         int requested_bpc = drm_state ? drm_state->max_requested_bpc : 8;
+    7196         enum dc_status dc_result = DC_OK;
+    7197
+    7198         do {
+    7199                 stream = create_stream_for_sink(connector, drm_mode,
+    7200                                                 dm_state, old_stream,
+                                                         ^^^^^^^^
+
+But dm_state is dereferenced on the next line without checking.  (Presumably the NULL check can be removed).
+
+--> 7201                                                 requested_bpc);
+    7202                 if (stream == NULL) {
+    7203                         DRM_ERROR("Failed to create stream for sink!\n");
+    7204                         break;
+    7205                 }
+    7206
+    7207                 if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+
+Fixes: fa7041d9d2fc ("drm/amd/display: Fix ineffective setting of max bpc property")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2: s/DRM_ERROR/drm_err() (Hamza)
+   
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d1527c2e46a1..e7516a2dcb10 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7195,6 +7195,11 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 	int requested_bpc = drm_state ? drm_state->max_requested_bpc : 8;
+ 	enum dc_status dc_result = DC_OK;
+ 
++	if (!dm_state) {
++		drm_err(&adev->ddev, "dm_state is NULL!\n");
++		return NULL;
++	}
++
+ 	do {
+ 		stream = create_stream_for_sink(connector, drm_mode,
+ 						dm_state, old_stream,
+-- 
+2.34.1
+
