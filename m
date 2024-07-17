@@ -4,157 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB31C3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 14:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 161F7C3DA60
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 15:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4118D10E170;
-	Wed, 17 Jul 2024 14:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D66110E298;
+	Wed, 17 Jul 2024 15:03:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="maUqHdm+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xUCG9Ll3";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E8610E071;
- Wed, 17 Jul 2024 14:50:45 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2601910E290;
+ Wed, 17 Jul 2024 15:03:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dAemWwypcZ4djKUlh4fzMPSBrlN4dnb58qV3rQWJrKP+Hd/mo3oUX2vw39DVL/cafUXV9xcp48NGl5DYyhMkyLdYwCi+zOhZ8D4gznZyHjnyZPy2sZlZadCOxhHxGavSb+3FtM/6GcYik50dHQSrDOhMRV1fUwnjy1Ghce5PMIhcNcqLuLpkU1c/gk/6JxfC5qpIwsRUjhL2j98N/htT9UqVOhkaHXQdFAP4DABhGqy6PiHhtsln3POXnKxkX7CSr1vaU6WxRnf9nc4wc2OZMF4AkADtWWEisJgL5Qo9M298/Wuy/d2wPX1YvLu0dqLFSSSgZBcBInG2HkP9NLQw1A==
+ b=B3MnGTCnM7oauCmkeGei8jGOls5UPRk7p/cpdlQnkBaq6ANDk/1BjAL8S2dzJg9uQ+/uzKXw7J/lcIW1ZO0Byo0zgdoBV4LncRQQNrx98KjM0yaU/lfcWWSsZpIu31XRkPu1czDY7+f5cYjVAx0QRnfYxd++XuKFc+A2+F93fa2Qco6Y9yW3cni+2chfYQnzkDj+MUzqOjY3VP2lwG1uJhhpkUH4NpMAzSa6oXVTdEo4Z1P7zKyKFOwW14bzwxQbgKxyImQgoj0pC7eJNpg2Mq+nK/DRS7kQLY9TQoP00rv5Z+P3ijGey7EXLbVW0kWxKWXbE6Reo2Bf2z6Aoo3hSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZQin1TEiF5QJVNy9L8ujsCPhNkGU9GC/ILORtH7t5zQ=;
- b=ByZ1ki8XMNyXgpe6fttg44EkFdQGGqVEfdl/JoOVbyo9PPFovQJmXE3lD4Q+40fuPatu0XoBElgso4554VGQUn/KSOZl3IXo93lxyQtMYZo/TcIVr6KZK+2Oae7td2f3em8SB8UxePa+zjFW3k2dKKvMg3b4rsXeODoAfDwqI/j0W9u4WH0wGRJ9MI2Aa+UcPmEEnshRva+mx27i8q305MhIfBCojNp7sd+QW6gSnaPlJ+WhK/pULzccTtfMyngTKmNG10XQJaGY6B+ue9CLbcl2/Cab187FermlmawA0nAAvElVZo9uvGnq1xFWssi9GQWfelz77n6BSuJ69AZJQw==
+ bh=idYRWbBpWiSqK2SrsWPUs1+KV/5RGxCjYDawcWzVqD0=;
+ b=rH2RcsiQJOSxW0qfl1gNUNfRCZga+jK6u7zrA1n4jJ32WJVAG8sO9s6AKNHLPxvmvlqdv8Ni0Tbb4VhALbedlnbO/d1ztZ767SQQNgJyIGaY8NEsSeGQaopCLqwVh4FFZD+AdwzdDamNaP+LE0/6okkqnwmvZs39kiOBq/aum3We2aBWS7FmF/ZEoM28z0k8EyTluia13EP9BsaYGl1PMCowsrRBsdBFmYRFt/33iWZiClcrRi72WXQg8gGDXB16S0/xua5RNRlYgQ0owx9jTT3qEFj7qPvya7mzAUWfwgR71MmSmQNLp/YE8L2Gb0kXqCSNibHyczGzXHs5QAGXbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZQin1TEiF5QJVNy9L8ujsCPhNkGU9GC/ILORtH7t5zQ=;
- b=maUqHdm+joHUbCkP0OAeiSqRsVJCZ5i3j88FlQjhmoN22kgIWHsUdsmYHjC8wrjO4sXBn6cNVtMoZnpg87GO6FLycqrXGkT8YzbuqhEm2Pht2fnQjPY5pACj0Tr/UXSBxM480larseTuQsxIFZfvFQrJVbY98WTfE91fF81i264=
+ bh=idYRWbBpWiSqK2SrsWPUs1+KV/5RGxCjYDawcWzVqD0=;
+ b=xUCG9Ll3KDM+vxLnnzYefPNS5D8qZRipCCRpD7sKku5eHCOE88oV8HSyASqSfkLI2HL2BhMJOW0ulWPKfiAbD786GR0MPE741FPnvq5W2hf8v7uZotAKi1nQZbSd4HKQrZ1C5U0SLdO4VByLJpT+DQSEDiLZ+FyQFoOEI6dWvuY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB8616.namprd12.prod.outlook.com (2603:10b6:a03:485::20)
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by CY5PR12MB6597.namprd12.prod.outlook.com (2603:10b6:930:43::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.24; Wed, 17 Jul
- 2024 14:50:42 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7762.027; Wed, 17 Jul 2024
- 14:50:42 +0000
-Content-Type: multipart/alternative;
- boundary="------------0Cqn626exje0I05YD0r312Df"
-Message-ID: <2e948404-69f0-4ab6-9db6-ac5114c885c4@amd.com>
-Date: Wed, 17 Jul 2024 16:50:34 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16; Wed, 17 Jul
+ 2024 15:02:56 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c55f:19e:6896:cf3%4]) with mapi id 15.20.7762.027; Wed, 17 Jul 2024
+ 15:02:56 +0000
+Message-ID: <dad0c7b4-2dc7-4c2c-bc75-ff70ead452e3@amd.com>
+Date: Wed, 17 Jul 2024 20:32:30 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] drm/amdgpu: Add address alignment support to DCC
- buffers
-To: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, matthew.auld@intel.com,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- "Min, Frank" <frank.min@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <marek.olsak@amd.com>
-References: <20240716152104.377039-1-Arunpravin.PaneerSelvam@amd.com>
- <20240716152104.377039-2-Arunpravin.PaneerSelvam@amd.com>
- <CAAxE2A6gpvLcq7zDhTDgV1BiBZdbK6t7147ESpq0ufYqW-6gzQ@mail.gmail.com>
- <2a2ea485-50e0-48cb-bb02-736a03368ab7@amd.com>
- <0437c61a-9283-4827-98d0-e7a9a7baa898@amd.com>
+Subject: Re: [PATCH] drm/buddy: Add start address support to trim function
+To: Matthew Auld <matthew.auld@intel.com>, Alex Deucher <alexdeucher@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com,
+ marek.olsak@amd.com
+References: <20240704083008.870021-1-Arunpravin.PaneerSelvam@amd.com>
+ <CADnq5_OcuKoZYizbeU_RGPaWYvTpxGMPWg6xOXaPASBMYb5kig@mail.gmail.com>
+ <635ee761-13a5-413e-9953-cfb8c6d3cc0e@amd.com>
+ <67ca2d5c-a762-4627-94d1-532b0e3d2100@intel.com>
+ <f4027aee-1ff2-4f0d-8230-6f6b2e101f78@amd.com>
+ <9fce9f74-ebbb-4763-9f87-218055e61654@intel.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <0437c61a-9283-4827-98d0-e7a9a7baa898@amd.com>
-X-ClientProxiedBy: YQBPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:1::40) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <9fce9f74-ebbb-4763-9f87-218055e61654@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0009.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::17) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8616:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1defd15-5afe-4c1f-3d93-08dca66fd4ac
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|CY5PR12MB6597:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10290ac9-9b9f-48fc-f6fe-08dca6718a02
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bWVnTUQzWnpOc1ArNjRsNG1QdEg4N0JpSDZ3bDZFRmI2MVR1VmhYUERkc1ZP?=
- =?utf-8?B?dWpIUWF3QWEzUElQTndyR3BjcCtLMVNlT2RNQzVxanNYWTljQ3I0SVM1MlRR?=
- =?utf-8?B?Q25jVG5XcFA4RHNHUklrZWdYRmpsVXdMK0JrY0NHL1Y3aUR2eXBLVVpMWXFw?=
- =?utf-8?B?VHB6eGZnUytBKzNjcnAybkJZV04valpTTWFyZjZjaGRYNEt2V2I1Ym9RZWFw?=
- =?utf-8?B?L29uMWxpTTdGWURHQjN6RWhWKzlmaWpBa0lmZVNzZW82UUJRY0ZMYmFSeEhP?=
- =?utf-8?B?VXcyV1liTDd1SE4wTjVIL0ZQWGN5RFFPRmN4ekdXSHRKU2IyZjVtaml1Wlda?=
- =?utf-8?B?L2NtVG9lcVBKOXBBRCs1bFZubVR5YkhBUy9aSGZiQUxwUXEwY1RycVM0TTc0?=
- =?utf-8?B?SXlkaE9zTkdKbklYZjJEcG1wTGxMWEJhWjc4dStNRzEzVjd0eWJpVUxKZmFJ?=
- =?utf-8?B?VGQ3SGhDbHNiaVhqNnNwTkJMdXZjMzliUlFybjJtTmlybGN5YkN1OEd6RlpU?=
- =?utf-8?B?V1oyY2hybHNoZlpBZTJDaVkzQUdhZnFqNGpia0lPeXFsTkVjaVB6ZlVJQ2JB?=
- =?utf-8?B?dXl6M1hCNmVzTjJuWEF1MFUzSkNldkFyL1RJMFZsMlExdGFqeDNvcUZtbE9X?=
- =?utf-8?B?ZjNJTjNBa3Y2Z1V6TjlxQnRuN2h3Y2xuWTl3NnNKaXpyMktvdzk4UWVRZ09l?=
- =?utf-8?B?RVFNOHV6cnRBb1NGbHZaWll3Tk1zb3hRSkhDTDRBZEhURWZaSHpvdUVUYmZT?=
- =?utf-8?B?QTJ2L28yNCs0cUNSb3ZGa2hZTmh6N0FTRGRvMk9jcEZRK3FITkRpb1FUR0pz?=
- =?utf-8?B?L3lnTVpJSFZmQUlTRmlOQVlhUU4vaXM1NEFkSHBYYkI5TjB2d1M1VGw5Q1k0?=
- =?utf-8?B?MloxdW9zSVVIRCszRVUrakl5dUFjRWcxN1d0cndXQjQwTUJRQTJvRjVUMWNo?=
- =?utf-8?B?UGEvS040VVFPYnRZV285YXU0ZzdaWDJ1eDZrVHpiYi9OYjlnbGZwK09YWkU1?=
- =?utf-8?B?U0N1RWZ6aFNYUVJId1Y0V2pERGlRdmhvNnl2QXRPNi9acWVFdjZwMHk2ZjVr?=
- =?utf-8?B?RG9vZWc5SmtXRHdlRmFMc2VDTUFTNmlINFZxYUVPa1V0aTVXdGNtWnZVakpZ?=
- =?utf-8?B?ZnprUXdHWmd5azhVV0grZnpkYThiWVlpNWNGM2J2T2x6ZUlSS0ZUL1o5eDRC?=
- =?utf-8?B?aDUwOXJ2SzlqVnFRSU1mTEl1M1JvRGFGOG1seDZCb2dlUVV4RmU4WjMzdmd3?=
- =?utf-8?B?Zm9JMExJU0IyMnVXd3NqTFRTQ2RZY3JJMVNkcE12T1BZdVdGZ1dDdEs4dVFu?=
- =?utf-8?B?K0lUR2JaaEw4TE1SVFdUNlpCRFp2QjdHUmZ0aFo2bFVteTNTNHplVjQwR2U4?=
- =?utf-8?B?TjFVQVNVK2VlZW9lQzlrMVcwMWI3Ty9sZ1VPajBDR3FQRHhTUUdiKzVrNGZy?=
- =?utf-8?B?K1ZLU2ZNZEFMekNKbURJVlpxVUM0TUVhZ3VjVmRCSkhPajdkWUxnRTNpNnkw?=
- =?utf-8?B?TldwUGtzTVA5M1ROSUtMSW9qTGpYUjFSU0JCdzVyMTVNbDhrczR1NHl1NkRn?=
- =?utf-8?B?b3hld3B1dmUvcjdWMCtQVERHSG1BVUNscHZMY0ZaZG5qZkxWUlNoZTBvbG90?=
- =?utf-8?B?dDJoeVRvSHBJcVNvZDJ0YzUzUE50MVIrYjlBV1MzZEppdlJ2SGpYdzU0OVhY?=
- =?utf-8?B?amtETDhrL0pkWlFoNmZWMmliQ2Z1VXhlanRpaGpGbThtcC81aFNKaUIyelFl?=
- =?utf-8?B?djcyMXJ4cG9hNm1vbVdjVzJpVG1BQXJBejVzMWU1RlFFY3YwSzJMRUFrK1N6?=
- =?utf-8?B?Y1Y0ZnZnS20xUVFMUXJaZz09?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NFA4Uk92RzdkNmdOZ0w2R0VLeWhtZDdPV2hKYXNxQkNzR1ZGK3VNZWU3NEtP?=
+ =?utf-8?B?SlZlZXQ2cTNGRmE4dlozVityMkVqVVZzRU81U3hVaHF3dUh0TXptNGRPdzJs?=
+ =?utf-8?B?KzZjVWVKSCtGQnhWZ0lPVDA0UmtXdGQzS2JFUXdmZ2YvS0QxaHlZT2tJR2I4?=
+ =?utf-8?B?MHA0UHlpaUZnbnlTc1ZEanUyWEpWQ0E2Qzk1VWk1cDFmZHlrcG5Yc3FoV3Fk?=
+ =?utf-8?B?U3RvM1NPVEZVMEtNWCt4ZHZPN21POSt6eGFyMHVzQTRUbnhsanBnYkJwbkxw?=
+ =?utf-8?B?YmtGTzcyQXI1OHk3WlpvSzU4M0pFRm5KT2p4MlJURWx3dklBOGNCYW1jVDhZ?=
+ =?utf-8?B?RmZPOGhDVGp2WExnVkxxaDAzd3NyY2JmUitpb2dSNFo4K0F6WU1DWWFCUUt1?=
+ =?utf-8?B?Y2VCaitVZDdQNmpOTlJsS0lCZkRLZDdxL2tXRjkvRm1jdmYzOXRTRTl3b1d0?=
+ =?utf-8?B?L3hnYlZTaXlxUHZSZnpwM3dhNGIxRGM5eVk3SXI5a1Jjd3FqUit3RlM0L3Mx?=
+ =?utf-8?B?VVNZQWRRU0xzT2dqekFaUUY1Nk0wQnRrK0l3c2UvWitwV2MvbUhyUCt1LzhZ?=
+ =?utf-8?B?MlFkakJ4SUFENWNkR2NCQ3NTWFhEZDRFZ0VUcHNGb1h2L2wvRGlHWWdZZ08r?=
+ =?utf-8?B?RWFjNGpKbDRSY0ZxVi91YnNLeEJveVZuVWdBVlJrQk1HOEdoT3JHOCtoajE3?=
+ =?utf-8?B?WnU2R0psV1lGUXM0RWhmTXpZaDlvRytrOFJhZnYxbGhZS2k4SlNDbEF4b3Vu?=
+ =?utf-8?B?OUhMZHIzcU9zejB0TEIxSTBaalkyZkRGajcrMjhhQ0gxOXdWeEY1TVRRUmU0?=
+ =?utf-8?B?RU1zYW1GNzU1Mk10L002T2c5VGgrVnhaUFRPNW1tT1l6RXlOMVQvMGNxMXBv?=
+ =?utf-8?B?N3hwSWhxS25ReEZiY0lIYUVMcjhmS1l2OVRQNG54Z1Q4N21Va2FWanNUOUZr?=
+ =?utf-8?B?OG9TZEhNR3BIWUx0YS9YZWF0SHpQV0dJZWg0ZEdVLzhpdGVZMkdUR2d5TnYw?=
+ =?utf-8?B?YnI1UGJOS2RUYTVwaVhPOHE3S3UybW1TbElxemkzajJHblI1YkhiUTJsaHc5?=
+ =?utf-8?B?R1ViRE9LM1JHcEpZc3U1WTFidGNEcE1JSnVRT1Y1MFl5bjlFZ0YwMlExUTQw?=
+ =?utf-8?B?RnhzeC90WFkxNXU1TGNBQjFMd1grMjUwYk1SQ1BVRzl0U1FIdUN4VVhFVFRR?=
+ =?utf-8?B?aEFmRDgzQWJaR21lcjhFZ3htc0ZNMjE3Q2U2ajN4ZVZUeUdiUS9hMTRWQXpy?=
+ =?utf-8?B?STBPRGNRNWtldi9uUUt1d3dZMXR6RFdOU1VFM2V2d2NMbTFxckxnSmtXOWtQ?=
+ =?utf-8?B?dHdJUE5sNDdxOXN4Q1UvcGtRdWNOOEJGQ1NLVHlSOFgyTnZtZTViOFl4S0xq?=
+ =?utf-8?B?UndYNDVJUlY1Y3FmSWYvSVRpbTRUUE5IYThmeTVNditpVDdPdmxSam5jdk5M?=
+ =?utf-8?B?K1hWZzU5WmFWWVM2dzJXRTBaNmxPS2U2ZjFjQTdPVFVnQmtzUy8wQlN0blg1?=
+ =?utf-8?B?SmRGczNnVjkrZ2VkMHVlcXk3Ui80Mmltbk00MFV4MlgyOXJMQmpyaDdsenVp?=
+ =?utf-8?B?S1ZlaTUya1BIRXVVMVV0U0VlWDF4dVU0MzFENlZ1MWZsd0dyWDUzV0FPOU4y?=
+ =?utf-8?B?S1dza21JdUdSTm9YMVIrT0NHY0ZqS01uRGlsOWR4VGFHcXFMcGYrdzZ3Vlpz?=
+ =?utf-8?B?V09WOUtpeEdSZGlWUjRRMXFDVzdmNWc2WDNabTk5WHpmT3NZOWVrSGtHMnJB?=
+ =?utf-8?Q?Qb1f0RxYocgft8yXrA=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3M1bFl3VEl0b2dwK240M2xzcHNSWWZlREZXb0g1TTJENEN2Q1RDNVFpN2N6?=
- =?utf-8?B?Yk82NnV6eHYyeWRHc2xpWEFKZ2pPUHh1ekVKTWpUSDRWQkduU2hZVzVCQkVJ?=
- =?utf-8?B?VnhEZ2p2SFJHa1o5N0hPNnVTQTFndW5STjlBY3k4REh6cEJqU01rQUI4ZmtM?=
- =?utf-8?B?VVgvZk1IWnIzWTNsdVptUDJUNmJuN3UrYW5FbWRCZmxJQW0zeHJQYzJ5SEsz?=
- =?utf-8?B?YkdXb2IvLzEvRmVLU2VraCtLMnNxMUc5eXN4Y2FCd0l4ZzZ3YkUyc0FCbGt0?=
- =?utf-8?B?ZDdKakF1VDB0UW9oWXhHWEhpS3pQWFFzNnkyZWFXZDRCSEowYWxhdDJCQ1NM?=
- =?utf-8?B?SmJDOWgyaHJHUzMzeW1pTEVhM0VlVjhsZE9aMC9mWlFkZFUwcG1QdVYzSXNt?=
- =?utf-8?B?RndCOFFvWnhDSmxSZzhibFAvdk9ZQ0UyWW1VVktFeER2TTltRUpKWU1MTVp3?=
- =?utf-8?B?bkV4SjF3b2Z0Q0lpamxtSFFhMGxINEtzVTJFNTFHZG1VYno5NFduLzBwNWJJ?=
- =?utf-8?B?SVA1SUR1V3hUS0hJQlYwa2ZnVG8wdmJxbUFvL1lvQ1puTmI5UzZoZ0g4MEZ3?=
- =?utf-8?B?MWQ4YVUwNjBVR1YyZ0hUT0tyUjh5eEx5TEhKTCs0Z1FvUWRjQVZySWFOaVcr?=
- =?utf-8?B?cEpuaXlLNEN1czFHQnBsZGRML28wT3NRaWhudm85elpFdWc0QWxCaUpnMXlq?=
- =?utf-8?B?bDc4UWo5Z1QxSjhvMVZaamlQUUZXQWI0M25YTWtkL2tMNVVqMGdJdWk2enNM?=
- =?utf-8?B?bGx4WVQzcXArL2hVb1ZZalNkeGE5aXdCRURMcjY4dWZ3MmMwN3hxU3paaC95?=
- =?utf-8?B?QVR6b0xwWk5YN2tONjh0VFpCK3ZraVFjckpBLytCM3BGbmtHdGlKS2M1bUo5?=
- =?utf-8?B?MERHMXlhQmxNS3FoZUk3cUNhT3BBclJnZ0VzaWhIWFlxTnZyYWxVRWx0WDkr?=
- =?utf-8?B?OWU0Z1BldlFnQ0paMDhRdnZGSmw4R2RrTk9DU2paWmJyL3RiQjFIbWgrWmda?=
- =?utf-8?B?T250ay9HZTBlRkcwVzdUWmNqV1BYdXRrREl3Vm8yVjJmMkVweVFuQitnNkFl?=
- =?utf-8?B?ak1qK1hhTkFlVEwwTnl3OTNYTkV5VXVVS0xLdHhjL3FEOTRERnF4RlA2c3NL?=
- =?utf-8?B?ZTVCbDZOWHBWd1FhMHZaeVJlbmg2QjRLL3ZrTWlGUDZUMmd3UktTQ3RvOGs2?=
- =?utf-8?B?K2pFTkpnL0RCYXB6U2JENXJXRURUcE5TTmQyTHF4WGhGcEhpaDViTHNHNkVR?=
- =?utf-8?B?QXFJdjA2elJQZUNIOFJtTGk0bWZBQmRNSDdlREZabU40aEdoSWNSTHZ2d2Vl?=
- =?utf-8?B?b3ZGQzN4Z1VjK01GbU5GdEhSbks1QTJxMUdmb1lQVTN4SWRzclJ2MXZkTXRI?=
- =?utf-8?B?dW82ZGR0bTRoNXdEYmdqZjFDenNUR3Nubm1PVXRsU1MrL2lNNmdHY2tSejhH?=
- =?utf-8?B?NnlMVk84VERaeDNONktLSkRyQStkOEw0M1RQcG5BalhnS0FucXhXOHNBMzlZ?=
- =?utf-8?B?Mk1rODMzdmUzOGZKK2dkcWdLaEtmbFJqTG1CejZpQ0VjYXZkQVk3NWw1djJl?=
- =?utf-8?B?OUlkaUpSN3NrYnhFd1AxZElVTHlSWlo4bXB0NTJrZkRyN0ZqMkx6K0VNaE1P?=
- =?utf-8?B?TnJMa25WcUpvWXpwaHdCSFRHU0VoNERvY1k0Ly9IcjR5eWxzWEYxaDdKek9T?=
- =?utf-8?B?amJFY2xiK2hDS1MwbTFWRlQzVlVkTCtjUUdCOWM0RVFySS9SdElZQXNQdHQ5?=
- =?utf-8?B?NllpZ254citHaWdLUzJaVUZWMFNrbnFnNDhRWXByQjlpa0l5RE1EN3YzK0Uy?=
- =?utf-8?B?SXgyL2JLOUQvOFJDbVE5M0Z1WkVpWW0xNXFiaEdFTDdzanBJT25abENrelBi?=
- =?utf-8?B?L25OYVFWYnNRLzJyYjR4YUUzaHV5TWZOOEVQZW9lOEwzWk1KQmVTMUFHWU4z?=
- =?utf-8?B?dXhTc0V4WXd4OWFaelFBNXZOZXE2cEdOZmVpd0pMaDRNVitlOWFrdzFyRHBu?=
- =?utf-8?B?Q2txbzJGdUJEcVllYkRuRkRWekRMdndMclFpdWdmNnNpOHpCaldoYVhLMFJq?=
- =?utf-8?B?MHFqS1lvTU8yWmtQWE53Ukx3a1l2ZmpISERFZXlsOXlWaG0zeGt0SC9McHRX?=
- =?utf-8?Q?dqiSwTh/gvjovtq9/VOI/zFiK?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkdUNjN3OERsNU9Wa3h6V2drdHdqUWV2SVZLYnkxZTNqSlMwU0lraTNvaUlB?=
+ =?utf-8?B?ajdlM3NLMHN6L0kvcTVMOVZzci9Cdkl0TGRWUkYxa0phbDVqUkczdytSclo2?=
+ =?utf-8?B?dXZVS0xmR3AxVFZrL055cnhETXZNYldKOTZ5RnB5M0M2U3RERUliR2VRWHY4?=
+ =?utf-8?B?N3ZPVHVMZDhaeXBoa0VMNU5TWi9QMENoQW5CcWF1a1hhV00wRHNoMU5SSC9i?=
+ =?utf-8?B?bUg0TWNPdFJQd25zS0YvcE9JeGI1eEUzckx2MVZGS3VSU2tqYnBNdTVkNWMv?=
+ =?utf-8?B?ODUrbVNQZ1BLV3h2YmtqdzZwQVJ0MUd4ZzNPUTdKRFE3ZFE5ajJTbHg0MTRk?=
+ =?utf-8?B?QmZLTG1KWFFFc0U1UGlXaVZueVpuSE9WZmZZd0h4R0Y5ajllYlhad2lzcnpy?=
+ =?utf-8?B?TkZIRTRtTDVZaWMxNGhzSGZzc0gvSS9aVE0yZmd0NklybGtPSnRRVStqS3E4?=
+ =?utf-8?B?dlVhTUxydkNCUFNmOW16a0JqYnZOWVJkV3pYc2RMOGJHQ3Z2ZWVkQ3pPQWJQ?=
+ =?utf-8?B?VXczUlA0TWlLazhITDNnODRDZ1ZXTHZXOWU2TVgyUWQ5dWtUamZzRCtGYmxW?=
+ =?utf-8?B?ZmhWSFI2S1k1Qm5uZER0YkhLT2tIcXZvS3NvaHhlaE15amZ5QUpxdW9GcEh4?=
+ =?utf-8?B?WVpleGtVS2pKUGxqLzlBWlNXNGZUMFFXZHVtY3EvMW9TcEtDSnRBMjR4cXRU?=
+ =?utf-8?B?b29tcWlVK0s1TDZCOVByY0g3ZnQxb3VDRkd1Z0xhUld5M01paEJzVXkxR29L?=
+ =?utf-8?B?VnNML1NjWk0vK1JFczJYMDJ3OHBKTFJUd0ZUZ3c1ZDk5Q1FEVUdObTEvSGFI?=
+ =?utf-8?B?bUVIVXkzaVhyMzVyZjBrQnI1eXlxV1NieGNpWlhwR252b3ZSVUR0WGtyM0tH?=
+ =?utf-8?B?anlNUnc2N3hQcUlXeDIxM29md21WcW9VVFVKcUN5bHlkQWVXY2I5ZlhPN0lv?=
+ =?utf-8?B?RDF2aXZVM1BGOGNPa1dzbXVMUWxOYWg0WGNjdHRoVko3cWNhTlkwczNPNE15?=
+ =?utf-8?B?VHd6c0lNczM3UjRaQ0FJVkZjUVZCbjY2WlE1OCtlTzlZejQwbFBPTkQ4RDl5?=
+ =?utf-8?B?TDIxL0lqNm9NMURoWnFLMXA4QXJNWGV0eHMrSXpCVFF4N2lHeTBkeXBwSVht?=
+ =?utf-8?B?bjVFK0ttZU1GaEcyVER4ZzJ1Y0xhQys5N2MzUW9Pa25OZjUzbXY5djJ5SzBv?=
+ =?utf-8?B?cmllT0FvczB6RzVLbitNbnQ1ZzNnbEpTNUxnTUhDTHQrZk5NTnRnenQ0YzE1?=
+ =?utf-8?B?aDJoM2VTckpBOUg5RmMxSkxUQ1RqRnlLZXcyNVM3bFdzWmI3WEdNSWMwdTBp?=
+ =?utf-8?B?ZGpZVVNkY1ZZdU5QNkg5Ym0xR0I4TFhmMFpWd2kxQWdPckt3NGllMkN4eUtM?=
+ =?utf-8?B?eFk0cmg2d0lFb1czNUdGV0I1dHZqUjRIRGtjZzMyTkdLbGFhaVRkd3g4a3lD?=
+ =?utf-8?B?SVEwNitvMENUT3htRzFvU1VmK2cwaHZDU3FRUTBicU56bXB1RlVIQ1FiUnp0?=
+ =?utf-8?B?U0lKNDA3QmxYYmVWOVBoU0cwbmUxVUFkN0xKTGVUYzRYYU9IME1HTHNoaHJh?=
+ =?utf-8?B?bVRLaUUySGdpWTAzVm1XTzE3cHZQZ1I4cXl0UkI0RGovMVZGWjIxZ0VOMlVN?=
+ =?utf-8?B?dmRzUkNRMlBCRDJYdVFhUkNBL0hyenBqaHJDVU4zeVc4RHVTUXg0cXV1K29n?=
+ =?utf-8?B?UmlrNzVtQk9KdmlXUGtmbDV6cHh3WkpBMENWVHRDaE5Ma0tPeWhjTU1HMEJx?=
+ =?utf-8?B?akVQUytNZUtpSi9GZTJxVlpVOEUwNkh0ZC9mTFg5cU9Xd29VRzJOZS9XVksy?=
+ =?utf-8?B?L3VjRFp5NUFlZ21KVnk0WE84NkVEZ2RXVXZHeEJoUHRNUDl5c2VMMVE2bFY3?=
+ =?utf-8?B?RWg3NVRHNk5PT1Z3Z1BmWFFOWWZYdUVkQXBLLzVzYW5vVGx0Ui82UEZjVkdX?=
+ =?utf-8?B?cHpBRFBPWllNMTJSMUxvbkJaZmNNbC9JWFFNS2dmb3Ryc2kzUGtUblVVTENs?=
+ =?utf-8?B?eUZ4NHk0SENYdXFhU1czMzhnd1ZXc1RPYlkyRituVlVtbDR3d1dxZ1lqaXhV?=
+ =?utf-8?B?TExNcVY0cmF5Mmh6ci92bEtKY3BIekJFWHVwZUwrdG5HOUhCN290blpnUEpn?=
+ =?utf-8?Q?SA4nYPcrhmnXXxaUEq7F3n/lh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1defd15-5afe-4c1f-3d93-08dca66fd4ac
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10290ac9-9b9f-48fc-f6fe-08dca6718a02
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 14:50:42.1365 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 15:02:55.9597 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8u867cbzZ5igM1EoCm/KdBRyoU/0DVwl0gaUdSfkkxN8IQUZPnZ62eMAmivuUKzw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8616
+X-MS-Exchange-CrossTenant-UserPrincipalName: NkhqbFIoFxluGLhKLye63EpHgFkE3D3tltcabFmDRKHxoFySr7uAXB5b9dN1yi00kUXaN7qpIBAkqUU5j8rjxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6597
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,567 +164,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------0Cqn626exje0I05YD0r312Df
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-As far as I know, yes.
 
-Regards,
-Christian.
-
-Am 17.07.24 um 16:38 schrieb Paneer Selvam, Arunpravin:
-> Hi Christian,
+On 7/16/2024 3:34 PM, Matthew Auld wrote:
+> On 16/07/2024 10:50, Paneer Selvam, Arunpravin wrote:
+>> Hi Matthew,
+>>
+>> On 7/10/2024 6:20 PM, Matthew Auld wrote:
+>>> On 10/07/2024 07:03, Paneer Selvam, Arunpravin wrote:
+>>>> Thanks Alex.
+>>>>
+>>>> Hi Matthew,
+>>>> Any comments?
+>>>
+>>> Do we not pass the required address alignment when allocating the 
+>>> pages in the first place?
+>> If address alignment is really useful, we can add that in the 
+>> drm_buddy_alloc_blocks() function.
 >
-> Can we use the below combination flags to kick in hardware workaround 
-> while pinning BO's for this specific hw generation.
->
-> if (place->flags & TTM_PL_FLAG_CONTIGUOUS) &&
-> (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
-> amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1))) {
-> }
->
-> Regards,
-> Arun.
->
-> On 7/17/2024 2:38 PM, Christian König wrote:
->> Well that approach was discussed before and seemed to be to complicated.
->>
->> But I totally agree that the AMDGPU_GEM_CREATE_GFX12_DCC flag is a 
->> bad idea. This isn't anything userspace should need to specify in the 
->> first place.
->>
->> All we need is a hardware workaround which kicks in all the time 
->> while pinning BOs for this specific hw generation and texture channel 
->> configuration.
->>
->> Please remove the AMDGPU_GEM_CREATE_GFX12_DCC flag again if possible 
->> or specify why it is actually necessary?
->>
->> Regards,
->> Christian.
->>
->> Am 17.07.24 um 05:44 schrieb Marek Olšák:
->>> AMDGPU_GEM_CREATE_GFX12_DCC is set on 90% of all memory allocations, 
->>> and almost all of them are not displayable. Shouldn't we use a 
->>> different way to indicate that we need a non-power-of-two alignment, 
->>> such as looking at the alignment field directly?
->>>
->>> Marek
->>>
->>> On Tue, Jul 16, 2024, 11:45 Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com> wrote:
->>>
->>>     Add address alignment support to the DCC VRAM buffers.
->>>
->>>     v2:
->>>       - adjust size based on the max_texture_channel_caches values
->>>         only for GFX12 DCC buffers.
->>>       - used AMDGPU_GEM_CREATE_GFX12_DCC flag to apply change only
->>>         for DCC buffers.
->>>       - roundup non power of two DCC buffer adjusted size to nearest
->>>         power of two number as the buddy allocator does not support non
->>>         power of two alignments. This applies only to the contiguous
->>>         DCC buffers.
->>>
->>>     v3:(Alex)
->>>       - rewrite the max texture channel caches comparison code in an
->>>         algorithmic way to determine the alignment size.
->>>
->>>     v4:(Alex)
->>>       - Move the logic from amdgpu_vram_mgr_dcc_alignment() to
->>>     gmc_v12_0.c
->>>         and add a new gmc func callback for dcc alignment. If the
->>>     callback
->>>         is non-NULL, call it to get the alignment, otherwise, use
->>>     the default.
->>>
->>>     v5:(Alex)
->>>       - Set the Alignment to a default value if the callback doesn't
->>>     exist.
->>>       - Add the callback to amdgpu_gmc_funcs.
->>>
->>>     v6:
->>>       - Fix checkpatch error reported by Intel CI.
->>>
->>>     Signed-off-by: Arunpravin Paneer Selvam
->>>     <Arunpravin.PaneerSelvam@amd.com>
->>>     Acked-by: Alex Deucher <alexander.deucher@amd.com>
->>>     Acked-by: Christian König <christian.koenig@amd.com>
->>>     Reviewed-by: Frank Min <Frank.Min@amd.com>
->>>     ---
->>>      drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  6 ++++
->>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 36
->>>     ++++++++++++++++++--
->>>      drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c       | 15 ++++++++
->>>      3 files changed, 55 insertions(+), 2 deletions(-)
->>>
->>>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>     index febca3130497..654d0548a3f8 100644
->>>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>     @@ -156,6 +156,8 @@ struct amdgpu_gmc_funcs {
->>>                                           uint64_t addr, uint64_t
->>>     *flags);
->>>             /* get the amount of memory used by the vbios for pre-OS
->>>     console */
->>>             unsigned int (*get_vbios_fb_size)(struct amdgpu_device
->>>     *adev);
->>>     +       /* get the DCC buffer alignment */
->>>     +       u64 (*get_dcc_alignment)(struct amdgpu_device *adev);
->>>
->>>             enum amdgpu_memory_partition (*query_mem_partition_mode)(
->>>                     struct amdgpu_device *adev);
->>>     @@ -363,6 +365,10 @@ struct amdgpu_gmc {
->>>     (adev)->gmc.gmc_funcs->override_vm_pte_flags                 \
->>>                     ((adev), (vm), (addr), (pte_flags))
->>>      #define amdgpu_gmc_get_vbios_fb_size(adev)
->>>     (adev)->gmc.gmc_funcs->get_vbios_fb_size((adev))
->>>     +#define amdgpu_gmc_get_dcc_alignment(_adev) ({          \
->>>     +       typeof(_adev) (adev) = (_adev);          \
->>>     +  ((adev)->gmc.gmc_funcs->get_dcc_alignment((adev)));    \
->>>     +})
->>>
->>>      /**
->>>       * amdgpu_gmc_vram_full_visible - Check if full VRAM is visible
->>>     through the BAR
->>>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>     index f91cc149d06c..aa9dca12371c 100644
->>>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>     @@ -512,6 +512,16 @@ static int amdgpu_vram_mgr_new(struct
->>>     ttm_resource_manager *man,
->>>                     vres->flags |= DRM_BUDDY_RANGE_ALLOCATION;
->>>
->>>             remaining_size = (u64)vres->base.size;
->>>     +       if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
->>>     +           bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC) {
->>>     +               u64 adjust_size;
->>>     +
->>>     +               if (adev->gmc.gmc_funcs->get_dcc_alignment) {
->>>     +                       adjust_size =
->>>     amdgpu_gmc_get_dcc_alignment(adev);
->>>     +                       remaining_size =
->>>     roundup_pow_of_two(remaining_size + adjust_size);
->>>     +                       vres->flags |= DRM_BUDDY_TRIM_DISABLE;
->>>     +               }
->>>     +       }
->>>
->>>             mutex_lock(&mgr->lock);
->>>             while (remaining_size) {
->>>     @@ -521,8 +531,12 @@ static int amdgpu_vram_mgr_new(struct
->>>     ttm_resource_manager *man,
->>>                             min_block_size = mgr->default_page_size;
->>>
->>>                     size = remaining_size;
->>>     -               if ((size >= (u64)pages_per_block << PAGE_SHIFT) &&
->>>     -                   !(size & (((u64)pages_per_block <<
->>>     PAGE_SHIFT) - 1)))
->>>     +
->>>     +               if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
->>>     +                   bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
->>>     +                       min_block_size = size;
->>>     +               else if ((size >= (u64)pages_per_block <<
->>>     PAGE_SHIFT) &&
->>>     +                        !(size & (((u64)pages_per_block <<
->>>     PAGE_SHIFT) - 1)))
->>>                             min_block_size = (u64)pages_per_block <<
->>>     PAGE_SHIFT;
->>>
->>>                     BUG_ON(min_block_size < mm->chunk_size);
->>>     @@ -553,6 +567,24 @@ static int amdgpu_vram_mgr_new(struct
->>>     ttm_resource_manager *man,
->>>             }
->>>             mutex_unlock(&mgr->lock);
->>>
->>>     +       if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
->>>     +           bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC) {
->>>     +               struct drm_buddy_block *dcc_block;
->>>     +               u64 dcc_start, alignment;
->>>     +
->>>     +               dcc_block =
->>>     amdgpu_vram_mgr_first_block(&vres->blocks);
->>>     +               dcc_start = amdgpu_vram_mgr_block_start(dcc_block);
->>>     +
->>>     +               if (adev->gmc.gmc_funcs->get_dcc_alignment) {
->>>     +                       alignment =
->>>     amdgpu_gmc_get_dcc_alignment(adev);
->>>     +                       /* Adjust the start address for DCC
->>>     buffers only */
->>>     +                       dcc_start = roundup(dcc_start, alignment);
->>>     +                       drm_buddy_block_trim(mm, &dcc_start,
->>>     + (u64)vres->base.size,
->>>     + &vres->blocks);
->>>     +               }
->>>     +       }
->>>     +
->>>             vres->base.start = 0;
->>>             size = max_t(u64,
->>>     amdgpu_vram_mgr_blocks_size(&vres->blocks),
->>>                          vres->base.size);
->>>     diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
->>>     b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
->>>     index fd3ac483760e..4259edcdec8a 100644
->>>     --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
->>>     +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
->>>     @@ -542,6 +542,20 @@ static unsigned
->>>     gmc_v12_0_get_vbios_fb_size(struct amdgpu_device *adev)
->>>             return 0;
->>>      }
->>>
->>>     +static u64 gmc_v12_0_get_dcc_alignment(struct amdgpu_device *adev)
->>>     +{
->>>     +       u64 max_tex_channel_caches, alignment;
->>>     +
->>>     +       max_tex_channel_caches =
->>>     adev->gfx.config.max_texture_channel_caches;
->>>     +       if (is_power_of_2(max_tex_channel_caches))
->>>     +               alignment = (max_tex_channel_caches / SZ_4) *
->>>     max_tex_channel_caches;
->>>     +       else
->>>     +               alignment =
->>>     roundup_pow_of_two(max_tex_channel_caches) *
->>>     +  max_tex_channel_caches;
->>>     +
->>>     +       return (u64)alignment * SZ_1K;
->>>     +}
->>>     +
->>>      static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
->>>             .flush_gpu_tlb = gmc_v12_0_flush_gpu_tlb,
->>>             .flush_gpu_tlb_pasid = gmc_v12_0_flush_gpu_tlb_pasid,
->>>     @@ -551,6 +565,7 @@ static const struct amdgpu_gmc_funcs
->>>     gmc_v12_0_gmc_funcs = {
->>>             .get_vm_pde = gmc_v12_0_get_vm_pde,
->>>             .get_vm_pte = gmc_v12_0_get_vm_pte,
->>>             .get_vbios_fb_size = gmc_v12_0_get_vbios_fb_size,
->>>     +       .get_dcc_alignment = gmc_v12_0_get_dcc_alignment,
->>>      };
->>>
->>>      static void gmc_v12_0_set_gmc_funcs(struct amdgpu_device *adev)
->>>     -- 
->>>     2.25.1
->>>
->>
->
+> I mean don't we already pass the min page size, which should give us 
+> matching physical address alignment?
+I think we don't need to align the address to the passed min_block_size 
+value for all the contiguous
+buffers, so I thought that decision we can leave it to the drivers and 
+they can achieve that through trim function
+in this kind of a specific request.
 
---------------0Cqn626exje0I05YD0r312Df
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+https://patchwork.freedesktop.org/series/136150/
+We are getting this sparse error from the Intel CI. Do you think these 
+errors are introduced with this patches?
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    As far as I know, yes.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 17.07.24 um 16:38 schrieb Paneer
-      Selvam, Arunpravin:<br>
-    </div>
-    <blockquote type="cite" cite="mid:0437c61a-9283-4827-98d0-e7a9a7baa898@amd.com">
-      
-      Hi Christian,<br>
-      <br>
-      Can we use the below combination flags to kick in hardware
-      workaround while pinning BO's for this specific hw generation.<br>
-      <br>
-      if (place-&gt;flags &amp; TTM_PL_FLAG_CONTIGUOUS) &amp;&amp;<br>
-      (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||<br>
-      amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1))) {<br>
-      }<br>
-      <br>
-      Regards,<br>
-      Arun.<br>
-      <br>
-      <div class="moz-cite-prefix">On 7/17/2024 2:38 PM, Christian König
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:2a2ea485-50e0-48cb-bb02-736a03368ab7@amd.com"> Well
-        that approach was discussed before and seemed to be to
-        complicated.<br>
-        <br>
-        But I totally agree that the AMDGPU_GEM_CREATE_GFX12_DCC flag is
-        a bad idea. This isn't anything userspace should need to specify
-        in the first place.<br>
-        <br>
-        All we need is a hardware workaround which kicks in all the time
-        while pinning BOs for this specific hw generation and texture
-        channel configuration.<br>
-        <br>
-        Please remove the AMDGPU_GEM_CREATE_GFX12_DCC flag again if
-        possible or specify why it is actually necessary?<br>
-        <br>
-        Regards,<br>
-        Christian.<br>
-        <br>
-        <div class="moz-cite-prefix">Am 17.07.24 um 05:44 schrieb Marek
-          Olšák:<br>
-        </div>
-        <blockquote type="cite" cite="mid:CAAxE2A6gpvLcq7zDhTDgV1BiBZdbK6t7147ESpq0ufYqW-6gzQ@mail.gmail.com">
-          <div dir="auto">
-            <div>AMDGPU_GEM_CREATE_GFX12_DCC is set on 90% of all memory
-              allocations, and almost all of them are not displayable.
-              Shouldn't we use a different way to indicate that we need
-              a non-power-of-two alignment, such as looking at the
-              alignment field directly?&nbsp;</div>
-            <div dir="auto"><br>
-            </div>
-            <div dir="auto">Marek<br>
-              <br>
-              <div class="gmail_quote" dir="auto">
-                <div dir="ltr" class="gmail_attr">On Tue, Jul 16, 2024,
-                  11:45 Arunpravin Paneer Selvam &lt;<a href="mailto:Arunpravin.PaneerSelvam@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">Arunpravin.PaneerSelvam@amd.com</a>&gt;
-                  wrote:<br>
-                </div>
-                <blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Add
-                  address alignment support to the DCC VRAM buffers.<br>
-                  <br>
-                  v2:<br>
-                  &nbsp; - adjust size based on the
-                  max_texture_channel_caches values<br>
-                  &nbsp; &nbsp; only for GFX12 DCC buffers.<br>
-                  &nbsp; - used AMDGPU_GEM_CREATE_GFX12_DCC flag to apply
-                  change only<br>
-                  &nbsp; &nbsp; for DCC buffers.<br>
-                  &nbsp; - roundup non power of two DCC buffer adjusted size
-                  to nearest<br>
-                  &nbsp; &nbsp; power of two number as the buddy allocator does
-                  not support non<br>
-                  &nbsp; &nbsp; power of two alignments. This applies only to the
-                  contiguous<br>
-                  &nbsp; &nbsp; DCC buffers.<br>
-                  <br>
-                  v3:(Alex)<br>
-                  &nbsp; - rewrite the max texture channel caches comparison
-                  code in an<br>
-                  &nbsp; &nbsp; algorithmic way to determine the alignment size.<br>
-                  <br>
-                  v4:(Alex)<br>
-                  &nbsp; - Move the logic from
-                  amdgpu_vram_mgr_dcc_alignment() to gmc_v12_0.c<br>
-                  &nbsp; &nbsp; and add a new gmc func callback for dcc alignment.
-                  If the callback<br>
-                  &nbsp; &nbsp; is non-NULL, call it to get the alignment,
-                  otherwise, use the default.<br>
-                  <br>
-                  v5:(Alex)<br>
-                  &nbsp; - Set the Alignment to a default value if the
-                  callback doesn't exist.<br>
-                  &nbsp; - Add the callback to amdgpu_gmc_funcs.<br>
-                  <br>
-                  v6:<br>
-                  &nbsp; - Fix checkpatch error reported by Intel CI.<br>
-                  <br>
-                  Signed-off-by: Arunpravin Paneer Selvam &lt;<a href="mailto:Arunpravin.PaneerSelvam@amd.com" target="_blank" rel="noreferrer" moz-do-not-send="true" class="moz-txt-link-freetext">Arunpravin.PaneerSelvam@amd.com</a>&gt;<br>
-                  Acked-by: Alex Deucher &lt;<a href="mailto:alexander.deucher@amd.com" target="_blank" rel="noreferrer" moz-do-not-send="true" class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;<br>
-                  Acked-by: Christian König &lt;<a href="mailto:christian.koenig@amd.com" target="_blank" rel="noreferrer" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;<br>
-                  Reviewed-by: Frank Min &lt;<a href="mailto:Frank.Min@amd.com" target="_blank" rel="noreferrer" moz-do-not-send="true" class="moz-txt-link-freetext">Frank.Min@amd.com</a>&gt;<br>
-                  ---<br>
-                  &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h&nbsp; &nbsp; &nbsp; |&nbsp; 6
-                  ++++<br>
-                  &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 36
-                  ++++++++++++++++++--<br>
-                  &nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c&nbsp; &nbsp; &nbsp; &nbsp;| 15
-                  ++++++++<br>
-                  &nbsp;3 files changed, 55 insertions(+), 2 deletions(-)<br>
-                  <br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
-                  index febca3130497..654d0548a3f8 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
-                  @@ -156,6 +156,8 @@ struct amdgpu_gmc_funcs {<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uint64_t addr,
-                  uint64_t *flags);<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; /* get the amount of memory used by the vbios
-                  for pre-OS console */<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; unsigned int (*get_vbios_fb_size)(struct
-                  amdgpu_device *adev);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;/* get the DCC buffer alignment */<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;u64 (*get_dcc_alignment)(struct amdgpu_device
-                  *adev);<br>
-                  <br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; enum amdgpu_memory_partition
-                  (*query_mem_partition_mode)(<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; struct amdgpu_device *adev);<br>
-                  @@ -363,6 +365,10 @@ struct amdgpu_gmc {<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp;
-                  (adev)-&gt;gmc.gmc_funcs-&gt;override_vm_pte_flags&nbsp; &nbsp;
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ((adev), (vm), (addr), (pte_flags))<br>
-                  &nbsp;#define amdgpu_gmc_get_vbios_fb_size(adev)
-                  (adev)-&gt;gmc.gmc_funcs-&gt;get_vbios_fb_size((adev))<br>
-                  +#define amdgpu_gmc_get_dcc_alignment(_adev) ({&nbsp; &nbsp; &nbsp; &nbsp;
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;typeof(_adev) (adev) = (_adev);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\<br>
-                  +&nbsp; &nbsp; &nbsp;
-                  &nbsp;((adev)-&gt;gmc.gmc_funcs-&gt;get_dcc_alignment((adev)));&nbsp;
-                  &nbsp; &nbsp;\<br>
-                  +})<br>
-                  <br>
-                  &nbsp;/**<br>
-                  &nbsp; * amdgpu_gmc_vram_full_visible - Check if full VRAM
-                  is visible through the BAR<br>
-                  diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
-                  index f91cc149d06c..aa9dca12371c 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
-                  @@ -512,6 +512,16 @@ static int
-                  amdgpu_vram_mgr_new(struct ttm_resource_manager *man,<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vres-&gt;flags |=
-                  DRM_BUDDY_RANGE_ALLOCATION;<br>
-                  <br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; remaining_size = (u64)vres-&gt;base.size;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;if (bo-&gt;flags &amp;
-                  AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &amp;&amp;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bo-&gt;flags &amp;
-                  AMDGPU_GEM_CREATE_GFX12_DCC) {<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;u64 adjust_size;<br>
-                  +<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if
-                  (adev-&gt;gmc.gmc_funcs-&gt;get_dcc_alignment) {<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;adjust_size =
-                  amdgpu_gmc_get_dcc_alignment(adev);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;remaining_size =
-                  roundup_pow_of_two(remaining_size + adjust_size);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;vres-&gt;flags |=
-                  DRM_BUDDY_TRIM_DISABLE;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                  <br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; mutex_lock(&amp;mgr-&gt;lock);<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; while (remaining_size) {<br>
-                  @@ -521,8 +531,12 @@ static int
-                  amdgpu_vram_mgr_new(struct ttm_resource_manager *man,<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min_block_size =
-                  mgr-&gt;default_page_size;<br>
-                  <br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size = remaining_size;<br>
-                  -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if ((size &gt;= (u64)pages_per_block
-                  &lt;&lt; PAGE_SHIFT) &amp;&amp;<br>
-                  -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!(size &amp;
-                  (((u64)pages_per_block &lt;&lt; PAGE_SHIFT) - 1)))<br>
-                  +<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (bo-&gt;flags &amp;
-                  AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &amp;&amp;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bo-&gt;flags &amp;
-                  AMDGPU_GEM_CREATE_GFX12_DCC)<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;min_block_size = size;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;else if ((size &gt;=
-                  (u64)pages_per_block &lt;&lt; PAGE_SHIFT) &amp;&amp;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; !(size &amp;
-                  (((u64)pages_per_block &lt;&lt; PAGE_SHIFT) - 1)))<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min_block_size =
-                  (u64)pages_per_block &lt;&lt; PAGE_SHIFT;<br>
-                  <br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BUG_ON(min_block_size &lt;
-                  mm-&gt;chunk_size);<br>
-                  @@ -553,6 +567,24 @@ static int
-                  amdgpu_vram_mgr_new(struct ttm_resource_manager *man,<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; }<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; mutex_unlock(&amp;mgr-&gt;lock);<br>
-                  <br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;if (bo-&gt;flags &amp;
-                  AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &amp;&amp;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bo-&gt;flags &amp;
-                  AMDGPU_GEM_CREATE_GFX12_DCC) {<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct drm_buddy_block *dcc_block;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;u64 dcc_start, alignment;<br>
-                  +<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dcc_block =
-                  amdgpu_vram_mgr_first_block(&amp;vres-&gt;blocks);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dcc_start =
-                  amdgpu_vram_mgr_block_start(dcc_block);<br>
-                  +<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if
-                  (adev-&gt;gmc.gmc_funcs-&gt;get_dcc_alignment) {<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;alignment =
-                  amdgpu_gmc_get_dcc_alignment(adev);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Adjust the start address
-                  for DCC buffers only */<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dcc_start = roundup(dcc_start,
-                  alignment);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;drm_buddy_block_trim(mm,
-                  &amp;dcc_start,<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  (u64)vres-&gt;base.size,<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  &amp;vres-&gt;blocks);<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;}<br>
-                  +<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; vres-&gt;base.start = 0;<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; size = max_t(u64,
-                  amdgpu_vram_mgr_blocks_size(&amp;vres-&gt;blocks),<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;vres-&gt;base.size);<br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-                  b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
-                  index fd3ac483760e..4259edcdec8a 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
-                  @@ -542,6 +542,20 @@ static unsigned
-                  gmc_v12_0_get_vbios_fb_size(struct amdgpu_device
-                  *adev)<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; return 0;<br>
-                  &nbsp;}<br>
-                  <br>
-                  +static u64 gmc_v12_0_get_dcc_alignment(struct
-                  amdgpu_device *adev)<br>
-                  +{<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;u64 max_tex_channel_caches, alignment;<br>
-                  +<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;max_tex_channel_caches =
-                  adev-&gt;gfx.config.max_texture_channel_caches;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;if (is_power_of_2(max_tex_channel_caches))<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;alignment = (max_tex_channel_caches /
-                  SZ_4) * max_tex_channel_caches;<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;else<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;alignment =
-                  roundup_pow_of_two(max_tex_channel_caches) *<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  &nbsp;max_tex_channel_caches;<br>
-                  +<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;return (u64)alignment * SZ_1K;<br>
-                  +}<br>
-                  +<br>
-                  &nbsp;static const struct amdgpu_gmc_funcs
-                  gmc_v12_0_gmc_funcs = {<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; .flush_gpu_tlb = gmc_v12_0_flush_gpu_tlb,<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; .flush_gpu_tlb_pasid =
-                  gmc_v12_0_flush_gpu_tlb_pasid,<br>
-                  @@ -551,6 +565,7 @@ static const struct
-                  amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; .get_vm_pde = gmc_v12_0_get_vm_pde,<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; .get_vm_pte = gmc_v12_0_get_vm_pte,<br>
-                  &nbsp; &nbsp; &nbsp; &nbsp; .get_vbios_fb_size =
-                  gmc_v12_0_get_vbios_fb_size,<br>
-                  +&nbsp; &nbsp; &nbsp; &nbsp;.get_dcc_alignment =
-                  gmc_v12_0_get_dcc_alignment,<br>
-                  &nbsp;};<br>
-                  <br>
-                  &nbsp;static void gmc_v12_0_set_gmc_funcs(struct
-                  amdgpu_device *adev)<br>
-                  -- <br>
-                  2.25.1<br>
-                  <br>
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
+Thanks,
+Arun.
+>
+>>
+>> Thanks,
+>> Arun.
+>>>
+>>>>
+>>>> Thanks,
+>>>> Arun.
+>>>>
+>>>> On 7/9/2024 1:42 AM, Alex Deucher wrote:
+>>>>> On Thu, Jul 4, 2024 at 4:40 AM Arunpravin Paneer Selvam
+>>>>> <Arunpravin.PaneerSelvam@amd.com> wrote:
+>>>>>> - Add a new start parameter in trim function to specify exact
+>>>>>>    address from where to start the trimming. This would help us
+>>>>>>    in situations like if drivers would like to do address alignment
+>>>>>>    for specific requirements.
+>>>>>>
+>>>>>> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
+>>>>>>    flag to disable the allocator trimming part. This patch enables
+>>>>>>    the drivers control trimming and they can do it themselves
+>>>>>>    based on the application requirements.
+>>>>>>
+>>>>>> v1:(Matthew)
+>>>>>>    - check new_start alignment with min chunk_size
+>>>>>>    - use range_overflows()
+>>>>>>
+>>>>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>> Series is:
+>>>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>
+>>>>> I'd like to take this series through the amdgpu tree if there are no
+>>>>> objections as it's required for display buffers on some chips and I'd
+>>>>> like to make sure it lands in 6.11.
+>>>>>
+>>>>> Thanks,
+>>>>>
+>>>>> Alex
+>>>>>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/drm_buddy.c          | 25 
+>>>>>> +++++++++++++++++++++++--
+>>>>>>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
+>>>>>>   include/drm/drm_buddy.h              |  2 ++
+>>>>>>   3 files changed, 26 insertions(+), 3 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/drm_buddy.c 
+>>>>>> b/drivers/gpu/drm/drm_buddy.c
+>>>>>> index 94f8c34fc293..8cebe1fa4e9d 100644
+>>>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>>>> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct 
+>>>>>> drm_buddy *mm,
+>>>>>>    * drm_buddy_block_trim - free unused pages
+>>>>>>    *
+>>>>>>    * @mm: DRM buddy manager
+>>>>>> + * @start: start address to begin the trimming.
+>>>>>>    * @new_size: original size requested
+>>>>>>    * @blocks: Input and output list of allocated blocks.
+>>>>>>    * MUST contain single block as input to be trimmed.
+>>>>>> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct 
+>>>>>> drm_buddy *mm,
+>>>>>>    * 0 on success, error code on failure.
+>>>>>>    */
+>>>>>>   int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>> +                        u64 *start,
+>>>>>>                           u64 new_size,
+>>>>>>                           struct list_head *blocks)
+>>>>>>   {
+>>>>>>          struct drm_buddy_block *parent;
+>>>>>>          struct drm_buddy_block *block;
+>>>>>> +       u64 block_start, block_end;
+>>>>>>          LIST_HEAD(dfs);
+>>>>>>          u64 new_start;
+>>>>>>          int err;
+>>>>>> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>                                   struct drm_buddy_block,
+>>>>>>                                   link);
+>>>>>>
+>>>>>> +       block_start = drm_buddy_block_offset(block);
+>>>>>> +       block_end = block_start + drm_buddy_block_size(mm, block);
+>>>>>> +
+>>>>>>          if (WARN_ON(!drm_buddy_block_is_allocated(block)))
+>>>>>>                  return -EINVAL;
+>>>>>>
+>>>>>> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>          if (new_size == drm_buddy_block_size(mm, block))
+>>>>>>                  return 0;
+>>>>>>
+>>>>>> +       new_start = block_start;
+>>>>>> +       if (start) {
+>>>>>> +               new_start = *start;
+>>>>>> +
+>>>>>> +               if (new_start < block_start)
+>>>>>> +                       return -EINVAL;
+>>>>>> +
+>>>>>> +               if (!IS_ALIGNED(new_start, mm->chunk_size))
+>>>>>> +                       return -EINVAL;
+>>>>>> +
+>>>>>> +               if (range_overflows(new_start, new_size, block_end))
+>>>>>> +                       return -EINVAL;
+>>>>>> +       }
+>>>>>> +
+>>>>>>          list_del(&block->link);
+>>>>>>          mark_free(mm, block);
+>>>>>>          mm->avail += drm_buddy_block_size(mm, block);
+>>>>>> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>          parent = block->parent;
+>>>>>>          block->parent = NULL;
+>>>>>>
+>>>>>> -       new_start = drm_buddy_block_offset(block);
+>>>>>>          list_add(&block->tmp_link, &dfs);
+>>>>>>          err =  __alloc_range(mm, &dfs, new_start, new_size, 
+>>>>>> blocks, NULL);
+>>>>>>          if (err) {
+>>>>>> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy 
+>>>>>> *mm,
+>>>>>>          } while (1);
+>>>>>>
+>>>>>>          /* Trim the allocated block to the required size */
+>>>>>> -       if (original_size != size) {
+>>>>>> +       if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
+>>>>>> +           original_size != size) {
+>>>>>>                  struct list_head *trim_list;
+>>>>>>                  LIST_HEAD(temp);
+>>>>>>                  u64 trim_size;
+>>>>>> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy 
+>>>>>> *mm,
+>>>>>>                  }
+>>>>>>
+>>>>>>                  drm_buddy_block_trim(mm,
+>>>>>> +                                    NULL,
+>>>>>>                                       trim_size,
+>>>>>>                                       trim_list);
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c 
+>>>>>> b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+>>>>>> index fe3779fdba2c..423b261ea743 100644
+>>>>>> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+>>>>>> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+>>>>>> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct 
+>>>>>> ttm_resource_manager *man,
+>>>>>>          } while (remaining_size);
+>>>>>>
+>>>>>>          if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>>>>> -               if (!drm_buddy_block_trim(mm, vres->base.size, 
+>>>>>> &vres->blocks))
+>>>>>> +               if (!drm_buddy_block_trim(mm, NULL, 
+>>>>>> vres->base.size, &vres->blocks))
+>>>>>>                          size = vres->base.size;
+>>>>>>          }
+>>>>>>
+>>>>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>>>>>> index 82570f77e817..0c2f735f0265 100644
+>>>>>> --- a/include/drm/drm_buddy.h
+>>>>>> +++ b/include/drm/drm_buddy.h
+>>>>>> @@ -27,6 +27,7 @@
+>>>>>>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION BIT(2)
+>>>>>>   #define DRM_BUDDY_CLEAR_ALLOCATION             BIT(3)
+>>>>>>   #define DRM_BUDDY_CLEARED                      BIT(4)
+>>>>>> +#define DRM_BUDDY_TRIM_DISABLE                 BIT(5)
+>>>>>>
+>>>>>>   struct drm_buddy_block {
+>>>>>>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+>>>>>> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>>>>>>                             unsigned long flags);
+>>>>>>
+>>>>>>   int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>> +                        u64 *start,
+>>>>>>                           u64 new_size,
+>>>>>>                           struct list_head *blocks);
+>>>>>>
+>>>>>> -- 
+>>>>>> 2.25.1
+>>>>>>
+>>>>
+>>
 
---------------0Cqn626exje0I05YD0r312Df--
