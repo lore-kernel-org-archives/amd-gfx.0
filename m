@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72196C3DA42
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 08:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3907C3DA4B
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 08:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E685110E9F3;
-	Wed, 17 Jul 2024 08:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 671D210E9F5;
+	Wed, 17 Jul 2024 08:16:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xT3Xq8Hj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B/4ZtGvV";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E33428911F
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 08:16:20 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1D910E9F3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 08:16:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ROLXnU9IAARZ4j3brImW1xixbJWp3SOD7ZzTIr+w6PTz3xnrNrvJhqqaWdKdNPI90LvXYACmEbiNDGFyRJcaT/hBGcqqDBeAbiTr5PCDdrfoqHEjWPCiibxn41CsCoE5L9OPOZa0YQWUQG165x2UqN+rdaNpuigygbxvc9Llk+t0QW71aD+DdbDujHQS0B60Ep0DyxML8ePM6T3fA9IVPVMze9boXTvbOP/L8m9a/2G1KUw/MnOcBQQ98DjWxkMHsCvTkTAt5Gh0MmXrnFx7smlG8v4Saq8vKzehDfNqkpSCIB8ucw3Xq5TX7agExIAOrU6Y4cAl6BM7o5ZRjZbe6w==
+ b=jspJDTpbg0GTMIDnHrFNw6EHX8zZGCBAO1GbAR0eo8kKiANHClVie4qiquxvhNKKOz9oG6IjlZZ0vMDW0s7YgXCWFInqkX1ZpiZx6l5Ageqp3QwZC8LjLSXSSl0LhzADnT4+Y+p3qlzv+Zs8G612Qm/M8FWyeoMTiwJ12HI3dPT4kR3cGYg6mpIuYzNjl1L+tXEYsxVoRcyVUKnYedEjwhXlvymczQOsvu6Qc93OXrK30xNub0S8+0nFtwJ/htfVmSdFiowga5GQ+M/c0YAav4ZMqyRZyLbvPnuMhezw91RHQFygkBjNUXxexhDPCdLmGZ5kvpll9EX8XypojypsMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sEzjUGWvLfVr2oCbwyDnl4+m0faBlRcwe67Z8pzpm2s=;
- b=pez3v+eQVyOcbkv/XBEe1qFfnhrVdkpgfbdCnEXJZhFKeNVePFA2ERH7mqteQlGfWvdIWbd+ZwEDhZxBFPq3oCxKetqg1GSGVJIg3RVateHiF24NAqr19+kqYlDBcq6VznW9R23ITNFFBZraE6oPBTAvI92P4y11L8sIxIwcv2j4YVr4NJyJCQu9tfLfI3PonJa3XZZXaPUloo+kvv1CGePXfxPnIxbe7AattwWGQsAFc5AtZV0tOZNqMM8euZYsIXG8ogQsvnWkrfdzhre+QNBcreBGClupoP3+3OwYH0/pATiOD6eUd8LPkJS/2g7K782tKbN2tEZtaZ9nSLEhoQ==
+ bh=EcDhX7ivDQ3PQjVHQKxHAXrwt/ZnH3L0ZXjTFGqvVJk=;
+ b=kvQROmWT9wwKcD6RVhpTqJgs2B0rj6LmgoXNFy0GvzBX+yJwJhvDJ4HAAFhmhyHJ1EDCsR7ut2Qov+JMH5nzgfT4Loxg3pxLLoZYHEMV8E0kUsbifH7K1l12nGRd/L5nvuyAqL8UyLBzO85Rjmb16PbiYAp5rx192T0p3pIDOHYXOsVwlKBrRoCvu/ViHJwjmFDW5ZQphUTrz6Ltdgfabz0Hbwey0wCJ5d3faYefeFSDK+NIr/29pCtA5oaCSnzYscDQr1CxDtSAvT00+0AYapF9RA4EoLsWbz+qYRM7om7hdP0ytUL+J1hpzTao8XaQAKpZmBt2EtqiVSUroypwuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sEzjUGWvLfVr2oCbwyDnl4+m0faBlRcwe67Z8pzpm2s=;
- b=xT3Xq8HjRiuDd7twWdaCNBHSc7A+wLWXDw/V+C5TDNmsOvsALSBVToWeLhFcLDBwP8S/1cdICbIxO7f+BEkBGFxg5FCevj2km2SAdx0M/Z69bKmCUi80+Ic6wgQAi5PtZJZnXf5ZY+lWdYgvi9A9MGogQfBr3S0iXX2r/vNvo4Y=
-Received: from BL1PR13CA0261.namprd13.prod.outlook.com (2603:10b6:208:2ba::26)
- by DM6PR12MB4074.namprd12.prod.outlook.com (2603:10b6:5:218::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Wed, 17 Jul
- 2024 08:16:18 +0000
+ bh=EcDhX7ivDQ3PQjVHQKxHAXrwt/ZnH3L0ZXjTFGqvVJk=;
+ b=B/4ZtGvVhb5hbIFvW42iz2dY27Q9t+1fIzOI1UaOux4Cqnfs4usSu2f+GMpuKqwMc918lspERvr+X6tCvCXJfkNRhI6YVyaQ3H+AqKUgWwTGOok7kg5u9KzVcu9CZaJ7hYrrWz9t9UvZqTnK3b1xaxNSrCrfSFAkf+zVpool9N8=
+Received: from BL1PR13CA0269.namprd13.prod.outlook.com (2603:10b6:208:2ba::34)
+ by SN7PR12MB6816.namprd12.prod.outlook.com (2603:10b6:806:264::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28; Wed, 17 Jul
+ 2024 08:16:16 +0000
 Received: from BL6PEPF0001AB78.namprd02.prod.outlook.com
- (2603:10b6:208:2ba:cafe::a6) by BL1PR13CA0261.outlook.office365.com
- (2603:10b6:208:2ba::26) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:2ba:cafe::9b) by BL1PR13CA0269.outlook.office365.com
+ (2603:10b6:208:2ba::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.14 via Frontend
- Transport; Wed, 17 Jul 2024 08:16:18 +0000
+ Transport; Wed, 17 Jul 2024 08:16:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,22 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF0001AB78.mail.protection.outlook.com (10.167.242.171) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Wed, 17 Jul 2024 08:16:18 +0000
+ 15.20.7784.11 via Frontend Transport; Wed, 17 Jul 2024 08:16:15 +0000
 Received: from amd-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 17 Jul
- 2024 03:16:15 -0500
+ 2024 03:16:10 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, YiPeng Chai
  <YiPeng.Chai@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: Remove unused code
-Date: Wed, 17 Jul 2024 16:15:47 +0800
-Message-ID: <20240717081547.224193-3-YiPeng.Chai@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: optimize umc v12 address conversion function
+Date: Wed, 17 Jul 2024 16:15:45 +0800
+Message-ID: <20240717081547.224193-1-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240717081547.224193-1-YiPeng.Chai@amd.com>
-References: <20240717081547.224193-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,51 +72,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB78:EE_|DM6PR12MB4074:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33bc14cb-a37a-4305-5793-08dca638bbfb
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB78:EE_|SN7PR12MB6816:EE_
+X-MS-Office365-Filtering-Correlation-Id: e51ba597-5b89-45ed-053c-08dca638ba85
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kPutzZHnQPpcMGXLDZrx19/CEl0lHBRIPvvQ8pDkkdQSlifalYkfZa7GGZ1q?=
- =?us-ascii?Q?beDPiw/12X24x+5ji24hGeacgj15WPxXfnTjTariytF5uX2IC8QmwGL3sWQG?=
- =?us-ascii?Q?6TMgLiaxVRtI9oVJuqCuQFvF3T4rbsWjC+qvyqPRPlYZHr2Ace4JCLwHQ7CW?=
- =?us-ascii?Q?c4r+Wdd1g87E/7K3B/kFhgq1//L4sozGDfDy9zY0lwKn3OIlHsiG/2lBTC9A?=
- =?us-ascii?Q?GFwTcsqMjWNcl6k2ln3jcm3+MFjwcLgja7OyTghaNqtL1Y2fjUdNVbPlu1ut?=
- =?us-ascii?Q?nTZNPERjZa4kyQhXPjuaWRwVqnH/+CGBqcnK9VejihTANwP+riAVvz889nUn?=
- =?us-ascii?Q?e8tXbPILV6HcRRWPxLeZLNmfovWNyENZe7Hjvg49gzanFNpqz800o2e/mnML?=
- =?us-ascii?Q?S/DfAWmbGdJg8/uEtw/MO9bisSvGZVj9TRbMVuBRiqeO9CMcoitBxeWI0T+5?=
- =?us-ascii?Q?OFnQJC/B/n890tNBLo1tOPmxurnowMXSP8h8r+v1P2aCitMA+vQW7PrbMXjV?=
- =?us-ascii?Q?Ej8NbEO9OGEM3UFx7C+8WjQXV+uENFscTj7n6ae263F9xcOjKKOr50L38HN5?=
- =?us-ascii?Q?dk90fRM2jfg5FLUpApu9pJu289yh7nb+NYt70358HoKeCN2YkG1pKKhxZfg/?=
- =?us-ascii?Q?iaib+SXIvvbYirh8LDjOIS0rsbyFHVjtab9/tnekIgAI2Q+3o4czW/2zNRzk?=
- =?us-ascii?Q?TlWM9b9Jb4AsbiSOpi7yACfNrvRIDV3O3LXlKPH/67G3PDRy9NmjACpdyfqX?=
- =?us-ascii?Q?0Qd1QqWEDbkpmyRQybiFAmHtMhKExS6EY7eXJ2J2y1vnkXV3keoqUNrbaEkX?=
- =?us-ascii?Q?t36PH5rHoeAdqvBD6xfhZxuo2AvayldCIpwofdaqEo4ks3TB8M85+e87kAEG?=
- =?us-ascii?Q?hAaGko/dpjFgERLP0oITEiGiMJ0wIQlorJFLD2WtjCHgkCPXYl5jDnwZyw9V?=
- =?us-ascii?Q?0f2iwND0BkPqZY3eCxwqVWbMe70pBAYmS0Th1QagqNXP9lvWH2F3CP3wfyZE?=
- =?us-ascii?Q?WPg/GuV0LdgCTB9vJ2pXsgloAs7VXHeutdLAP1NM4MsR04jCgYl+7ltNtiTW?=
- =?us-ascii?Q?QA6LjQ2tqQDAWIrp1CoyTPwzO4XDCH7WEjxEAo0GyWuOwiQr3TjG2eESCnrp?=
- =?us-ascii?Q?u39tTBZzkHQlzsAYzXpKgJANGonccDRQeVebrJZ8P1a8losCHKfmcv/UUXOk?=
- =?us-ascii?Q?6BOVpGics9pm0eyxBBskqi5UiN1CRXGLGS/+LQyWUQCj4o97goR8M8grasE5?=
- =?us-ascii?Q?hq2n7CZvjl9zmaC984BUfpJDj8AbtW3c9bd72U4E/23ZwuxBeYjZ672PAJjj?=
- =?us-ascii?Q?HNEU8igbsUvW2n+nSV1161kD7TXb5xXOIXerahV8IxgC5m6BVhKL5/XOgl7H?=
- =?us-ascii?Q?P8WfIreP7waAxXPghuhfwD+xmuaRUzXBjlW6aQYLaZFyukx1yW7HAh1x4ws4?=
- =?us-ascii?Q?SSx8D2Io1dv1tZFjJdJbZGYMIHrzYV17?=
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MBIZpsiWSPnDrAsH5WI9jEae2Arva576qYFhMA7hWDFLmlNGVOzjcnRvh/b8?=
+ =?us-ascii?Q?AW2IKjFCHF6R8uI9KDm0R55m5a9cY6IXaM4BrP+Q2D+bWOk2AOz9DCE1KbqO?=
+ =?us-ascii?Q?xzzfrKto1bCwYn3z+SB8KkjN+NnymcLeRuTPOsBuWFj7fLAyDK4raxuRlHSl?=
+ =?us-ascii?Q?dN1SJnlufYXrFSPiACupvdV67NHfBfmXPiexii9p7qc9zXaqpZyJ1BWOKE6l?=
+ =?us-ascii?Q?JBgwjDi26gzRrPpre7bf609Pjca9fTk90no0salxlm8FoWMJe5cDh6qwfJu5?=
+ =?us-ascii?Q?NBmPL181OpHv0WB3kVu52WmK60owv3ORp4291mmBejMpDM0/0VT8o9NqavU5?=
+ =?us-ascii?Q?OtIn9ZdwfeaU694XF26UM2ZUT2uZ5MXn3AMDx/8lrYqf3joN+JL4TFZZdaq1?=
+ =?us-ascii?Q?w6cI7opImgEgMAmBEHXqICzCSbPk6fZ6ph1hi6j/E53u7tVS7xno8nYizKDQ?=
+ =?us-ascii?Q?skyHyGlIak8LDoTDYDhp1VzOF2L/B3CTmfCG3Dc5o2Iq/xwr8ovVSogstHPF?=
+ =?us-ascii?Q?zynQfuKu/0l45O7t5rWnzVdc2ljsvc0Wc169hcrH+Wng+62RfsKVEXnFsRfH?=
+ =?us-ascii?Q?TIBY5oQGm7193TJAuLm9U89tgvifuRhIIbKXYtQOzmfjidLg9KGcPoRLaCdF?=
+ =?us-ascii?Q?vNElWbxNsTfz7TWjVeN3SdaZhdMYd4Y5P4uiHBrLmUa0WVMoxmxd3TeEUr68?=
+ =?us-ascii?Q?5rRzVdNZ7hvnnwhPCsVdqHrx1EY/VAEu4FlzqnJF13lZXB3+22iYT8kV4AxE?=
+ =?us-ascii?Q?tojn36HI3/DnmTy5x3Yl0oGbGqtUoM7xMdw2NhNyTvUwL0yQR9JhqHjmb32n?=
+ =?us-ascii?Q?rvP+6K61umlArnA5e34PmoO3umb1s8rwQ9ph9P/Y30bZRGkyNNxokfbqo5EA?=
+ =?us-ascii?Q?+HV6yr2MEiKt6lXhGd7zMsbj+LmtEg0KPUA8MP39BhlKUuGA0gTnhzEs2UTh?=
+ =?us-ascii?Q?UnKUlPbS55oWouALhbjjt5vt60rsJ49Cj2kb3MlTDSfK4bmLQOjBC9q3pzJD?=
+ =?us-ascii?Q?0l+Q/sxAWuLaQKrvz9AKTMbE3eHlfJHokJvjIUYGngUQITRzFXcuXZyVgLZG?=
+ =?us-ascii?Q?C9sSHyoTMuPEY2oWQlP1MtH0/kswOo19o7sWjKjYoao/OIN+nmuI5pCCzBBX?=
+ =?us-ascii?Q?eGL3D8LAzB9cl1LSj94pYDXxqMZOPGXQwrVvdUjkuIIxY+n1XSXQIyLVzEv9?=
+ =?us-ascii?Q?PLkErOBDwb0yIGVNI/3mWPUJKbMTOBL6Ou8sQ37kn9dNk3mhuQu+J8BRCoV1?=
+ =?us-ascii?Q?7FTWa1ewoT+dVBlgwp+ZHYZymnT14R5S2mbYQ8Pl7mFj9WYH9TCu/5YQHckf?=
+ =?us-ascii?Q?BVslD4BnN98mKegJ0oYm5rc79c5onyVy+LRpGm4jtbVcQN0l0Kor5azKlgBb?=
+ =?us-ascii?Q?dxtkwHMdmx2M7gY+kQ9xHUOl9yqiqIm43Pilqku9yucH0PVjiM5PvL9aRSqm?=
+ =?us-ascii?Q?4LL6jVmgwIEling9Y8DI1Zw/OuyNUAkY?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 08:16:18.1333 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33bc14cb-a37a-4305-5793-08dca638bbfb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 08:16:15.6802 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e51ba597-5b89-45ed-053c-08dca638ba85
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB78.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4074
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6816
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,262 +131,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unused code.
+Split into 3 parts:
+1. Convert soc physical address via ras ta.
+2. Expand bad pages from soc physical address.
+3. Dump bad address info.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 29 ---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 10 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 86 -------------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  5 --
- 4 files changed, 130 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 116 ++++++++++++++++---------
+ 1 file changed, 77 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 95f2c3ac185f..12ab48f26bd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2886,9 +2886,6 @@ static void amdgpu_ras_ecc_log_init(struct ras_ecc_log_info *ecc_log)
- {
- 	mutex_init(&ecc_log->lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index 9dbb13adb661..eca5ac6a0532 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -225,26 +225,16 @@ static void umc_v12_0_convert_error_address(struct amdgpu_device *adev,
+ 	}
+ }
  
--	/* Set any value as siphash key */
--	memset(&ecc_log->ecc_key, 0xad, sizeof(ecc_log->ecc_key));
+-static int umc_v12_0_convert_err_addr(struct amdgpu_device *adev,
+-				struct ta_ras_query_address_input *addr_in,
+-				uint64_t *pfns, int len)
++static void umc_v12_0_dump_addr_info(struct amdgpu_device *adev,
++				struct ta_ras_query_address_output *addr_out,
++				uint64_t err_addr)
+ {
+ 	uint32_t col, row, row_xor, bank, channel_index;
+-	uint64_t soc_pa, retired_page, column, err_addr;
+-	struct ta_ras_query_address_output addr_out;
+-	uint32_t pos = 0;
 -
- 	INIT_RADIX_TREE(&ecc_log->de_page_tree, GFP_KERNEL);
- 	ecc_log->de_queried_count = 0;
- 	ecc_log->prev_de_queried_count = 0;
-@@ -3153,12 +3150,6 @@ static int amdgpu_ras_page_retirement_thread(void *param)
- 			/* Wake up work to save bad pages to eeprom */
- 			schedule_delayed_work(&con->page_retirement_dwork, 0);
- 		}
--#else
--        dev_info(adev->dev, "Start processing page retirement. request:%d\n",
--                    atomic_read(&con->page_retirement_req_cnt));
+-	err_addr = addr_in->ma.err_addr;
+-	addr_in->addr_type = TA_RAS_MCA_TO_PA;
+-	if (psp_ras_query_address(&adev->psp, addr_in, &addr_out)) {
+-		dev_warn(adev->dev, "Failed to query RAS physical address for 0x%llx",
+-			err_addr);
+-		return 0;
+-	}
++	uint64_t soc_pa, retired_page, column;
+ 
+-	soc_pa = addr_out.pa.pa;
+-	bank = addr_out.pa.bank;
+-	channel_index = addr_out.pa.channel_idx;
++	soc_pa = addr_out->pa.pa;
++	bank = addr_out->pa.bank;
++	channel_index = addr_out->pa.channel_idx;
+ 
+ 	col = (err_addr >> 1) & 0x1fULL;
+ 	row = (err_addr >> 10) & 0x3fffULL;
+@@ -258,11 +248,6 @@ static int umc_v12_0_convert_err_addr(struct amdgpu_device *adev,
+ 	for (column = 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
+ 		retired_page = soc_pa | ((column & 0x3) << UMC_V12_0_PA_C2_BIT);
+ 		retired_page |= (((column & 0x4) >> 2) << UMC_V12_0_PA_C4_BIT);
 -
--        amdgpu_umc_bad_page_polling_timeout(adev,
--                        0, MAX_UMC_POISON_POLLING_TIME_ASYNC);
- #endif
+-		if (pos >= len)
+-			return 0;
+-		pfns[pos++] = retired_page >> AMDGPU_GPU_PAGE_SHIFT;
+-
+ 		/* include column bit 0 and 1 */
+ 		col &= 0x3;
+ 		col |= (column << 2);
+@@ -270,6 +255,35 @@ static int umc_v12_0_convert_err_addr(struct amdgpu_device *adev,
+ 			"Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x Bank:0x%x Channel:0x%x\n",
+ 			retired_page, row, col, bank, channel_index);
+ 
++		/* shift R13 bit */
++		retired_page ^= (0x1ULL << UMC_V12_0_PA_R13_BIT);
++		dev_info(adev->dev,
++			"Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x Bank:0x%x Channel:0x%x\n",
++			retired_page, row_xor, col, bank, channel_index);
++	}
++}
++
++static int umc_v12_0_expand_addr_to_bad_pages(struct amdgpu_device *adev,
++			uint64_t pa_addr, uint64_t *pfns, int len)
++{
++	uint64_t soc_pa, retired_page, column;
++	uint32_t pos = 0;
++
++	soc_pa = pa_addr;
++	/* clear [C3 C2] in soc physical address */
++	soc_pa &= ~(0x3ULL << UMC_V12_0_PA_C2_BIT);
++	/* clear [C4] in soc physical address */
++	soc_pa &= ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
++
++	/* loop for all possibilities of [C4 C3 C2] */
++	for (column = 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
++		retired_page = soc_pa | ((column & 0x3) << UMC_V12_0_PA_C2_BIT);
++		retired_page |= (((column & 0x4) >> 2) << UMC_V12_0_PA_C4_BIT);
++
++		if (pos >= len)
++			return 0;
++		pfns[pos++] = retired_page >> AMDGPU_GPU_PAGE_SHIFT;
++
+ 		/* shift R13 bit */
+ 		retired_page ^= (0x1ULL << UMC_V12_0_PA_R13_BIT);
+ 
+@@ -277,14 +291,40 @@ static int umc_v12_0_convert_err_addr(struct amdgpu_device *adev,
+ 			return 0;
+ 		pfns[pos++] = retired_page >> AMDGPU_GPU_PAGE_SHIFT;
+ 
+-		dev_info(adev->dev,
+-			"Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x Bank:0x%x Channel:0x%x\n",
+-			retired_page, row_xor, col, bank, channel_index);
  	}
  
-@@ -4638,8 +4629,6 @@ static struct ras_err_info *amdgpu_ras_error_get_info(struct ras_err_data *err_d
- 	if (!err_node)
- 		return NULL;
- 
--	INIT_LIST_HEAD(&err_node->err_info.err_addr_list);
--
- 	memcpy(&err_node->err_info.mcm_info, mcm_info, sizeof(*mcm_info));
- 
- 	err_data->err_list_count++;
-@@ -4649,18 +4638,6 @@ static struct ras_err_info *amdgpu_ras_error_get_info(struct ras_err_data *err_d
- 	return &err_node->err_info;
+ 	return pos;
  }
  
--void amdgpu_ras_add_mca_err_addr(struct ras_err_info *err_info, struct ras_err_addr *err_addr)
--{
--	/* This function will be retired. */
--	return;
--}
--
--void amdgpu_ras_del_mca_err_addr(struct ras_err_info *err_info, struct ras_err_addr *mca_err_addr)
--{
--	list_del(&mca_err_addr->node);
--	kfree(mca_err_addr);
--}
--
- int amdgpu_ras_error_statistic_ue_count(struct ras_err_data *err_data,
- 		struct amdgpu_smuio_mcm_config_info *mcm_info,
- 		struct ras_err_addr *err_addr, u64 count)
-@@ -4677,9 +4654,6 @@ int amdgpu_ras_error_statistic_ue_count(struct ras_err_data *err_data,
- 	if (!err_info)
- 		return -EINVAL;
- 
--	if (err_addr && err_addr->err_status)
--		amdgpu_ras_add_mca_err_addr(err_info, err_addr);
--
- 	err_info->ue_count += count;
- 	err_data->ue_count += count;
- 
-@@ -4724,9 +4698,6 @@ int amdgpu_ras_error_statistic_de_count(struct ras_err_data *err_data,
- 	if (!err_info)
- 		return -EINVAL;
- 
--	if (err_addr && err_addr->err_status)
--		amdgpu_ras_add_mca_err_addr(err_info, err_addr);
--
- 	err_info->de_count += count;
- 	err_data->de_count += count;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index f607ff620015..7ddd13d5c06b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -28,7 +28,6 @@
- #include <linux/list.h>
- #include <linux/kfifo.h>
- #include <linux/radix-tree.h>
--#include <linux/siphash.h>
- #include "ta_ras_if.h"
- #include "amdgpu_ras_eeprom.h"
- #include "amdgpu_smuio.h"
-@@ -485,7 +484,6 @@ struct ras_ecc_err {
- 
- struct ras_ecc_log_info {
- 	struct mutex lock;
--	siphash_key_t ecc_key;
- 	struct radix_tree_root de_page_tree;
- 	uint64_t	de_queried_count;
- 	uint64_t	prev_de_queried_count;
-@@ -573,7 +571,6 @@ struct ras_fs_data {
- };
- 
- struct ras_err_addr {
--	struct list_head node;
- 	uint64_t err_status;
- 	uint64_t err_ipid;
- 	uint64_t err_addr;
-@@ -584,7 +581,6 @@ struct ras_err_info {
- 	u64 ce_count;
- 	u64 ue_count;
- 	u64 de_count;
--	struct list_head err_addr_list;
- };
- 
- struct ras_err_node {
-@@ -957,12 +953,6 @@ int amdgpu_ras_unbind_aca(struct amdgpu_device *adev, enum amdgpu_ras_block blk)
- ssize_t amdgpu_ras_aca_sysfs_read(struct device *dev, struct device_attribute *attr,
- 				  struct aca_handle *handle, char *buf, void *data);
- 
--void amdgpu_ras_add_mca_err_addr(struct ras_err_info *err_info,
--			struct ras_err_addr *err_addr);
--
--void amdgpu_ras_del_mca_err_addr(struct ras_err_info *err_info,
--		struct ras_err_addr *mca_err_addr);
--
- void amdgpu_ras_set_fed(struct amdgpu_device *adev, bool status);
- bool amdgpu_ras_get_fed_status(struct amdgpu_device *adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 2fc90799bf8d..32be258d81e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -204,55 +204,6 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
- 	return AMDGPU_RAS_SUCCESS;
- }
- 
--int amdgpu_umc_bad_page_polling_timeout(struct amdgpu_device *adev,
--			uint32_t reset, uint32_t timeout_ms)
--{
--	struct ras_err_data err_data;
--	struct ras_common_if head = {
--		.block = AMDGPU_RAS_BLOCK__UMC,
--	};
--	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
--	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
--	uint32_t timeout = timeout_ms;
--
--	memset(&err_data, 0, sizeof(err_data));
--	amdgpu_ras_error_data_init(&err_data);
--
--	do {
--
--		amdgpu_umc_handle_bad_pages(adev, &err_data);
--
--		if (timeout && !err_data.de_count) {
--			msleep(1);
--			timeout--;
--		}
--
--	} while (timeout && !err_data.de_count);
--
--	if (!timeout)
--		dev_warn(adev->dev, "Can't find bad pages\n");
--
--	if (err_data.de_count)
--		dev_info(adev->dev, "%ld new deferred hardware errors detected\n", err_data.de_count);
--
--	if (obj) {
--		obj->err_data.ue_count += err_data.ue_count;
--		obj->err_data.ce_count += err_data.ce_count;
--		obj->err_data.de_count += err_data.de_count;
--	}
--
--	amdgpu_ras_error_data_fini(&err_data);
--
--	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
--
--	if (reset || (err_data.err_addr_cnt && con && con->is_rma)) {
--		con->gpu_reset_flags |= reset;
--		amdgpu_ras_reset_gpu(adev);
--	}
--
--	return 0;
--}
--
- int amdgpu_umc_pasid_poison_handler(struct amdgpu_device *adev,
- 			enum amdgpu_ras_block block, uint16_t pasid,
- 			pasid_notify pasid_fn, void *data, uint32_t reset)
-@@ -476,43 +427,6 @@ int amdgpu_umc_update_ecc_status(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static int amdgpu_umc_uint64_cmp(const void *a, const void *b)
--{
--	uint64_t *addr_a = (uint64_t *)a;
--	uint64_t *addr_b = (uint64_t *)b;
--
--	if (*addr_a > *addr_b)
--		return 1;
--	else if (*addr_a < *addr_b)
--		return -1;
--	else
--		return 0;
--}
--
--/* Use string hash to avoid logging the same bad pages repeatedly */
--int amdgpu_umc_build_pages_hash(struct amdgpu_device *adev,
--		uint64_t *pfns, int len, uint64_t *val)
--{
--	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
--	char buf[MAX_UMC_HASH_STRING_SIZE] = {0};
--	int offset = 0, i = 0;
--	uint64_t hash_val;
--
--	if (!pfns || !len)
--		return -EINVAL;
--
--	sort(pfns, len, sizeof(uint64_t), amdgpu_umc_uint64_cmp, NULL);
--
--	for (i = 0; i < len; i++)
--		offset += snprintf(&buf[offset], sizeof(buf) - offset, "%llx", pfns[i]);
--
--	hash_val = siphash(buf, offset, &con->umc_ecc_log.ecc_key);
--
--	*val = hash_val;
--
--	return 0;
--}
--
- int amdgpu_umc_logs_ecc_err(struct amdgpu_device *adev,
- 		struct radix_tree_root *ecc_tree, struct ras_ecc_err *ecc_err)
++static int umc_v12_0_convert_mca_to_addr(struct amdgpu_device *adev,
++			uint64_t err_addr, uint32_t ch, uint32_t umc,
++			uint32_t node, uint32_t socket,
++			uint64_t *addr, bool dump_addr)
++{
++	struct ta_ras_query_address_input addr_in;
++	struct ta_ras_query_address_output addr_out;
++
++	memset(&addr_in, 0, sizeof(addr_in));
++	addr_in.ma.err_addr = err_addr;
++	addr_in.ma.ch_inst = ch;
++	addr_in.ma.umc_inst = umc;
++	addr_in.ma.node_inst = node;
++	addr_in.ma.socket_id = socket;
++	addr_in.addr_type = TA_RAS_MCA_TO_PA;
++	if (psp_ras_query_address(&adev->psp, &addr_in, &addr_out)) {
++		dev_warn(adev->dev, "Failed to query RAS physical address for 0x%llx",
++			err_addr);
++		return -EINVAL;
++	}
++
++	if (dump_addr)
++		umc_v12_0_dump_addr_info(adev, &addr_out, err_addr);
++
++	*addr = addr_out.pa.pa;
++
++	return 0;
++}
++
+ static int umc_v12_0_query_error_address(struct amdgpu_device *adev,
+ 					uint32_t node_inst, uint32_t umc_inst,
+ 					uint32_t ch_inst, void *data)
+@@ -483,12 +523,10 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
  {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-index 5f50c69c3cec..ce4179db2a6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-@@ -127,13 +127,8 @@ int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
- int amdgpu_umc_loop_channels(struct amdgpu_device *adev,
- 			umc_func func, void *data);
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	uint16_t hwid, mcatype;
+-	struct ta_ras_query_address_input addr_in;
+ 	uint64_t page_pfn[UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL];
+-	uint64_t err_addr, hash_val = 0;
++	uint64_t err_addr, hash_val = 0, pa_addr = 0;
+ 	struct ras_ecc_err *ecc_err;
+-	int count;
+-	int ret;
++	int count, ret;
  
--int amdgpu_umc_bad_page_polling_timeout(struct amdgpu_device *adev,
--			uint32_t reset, uint32_t timeout_ms);
+ 	hwid = REG_GET_FIELD(ipid, MCMP1_IPIDT0, HardwareID);
+ 	mcatype = REG_GET_FIELD(ipid, MCMP1_IPIDT0, McaType);
+@@ -514,17 +552,17 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
+ 		MCA_IPID_2_UMC_CH(ipid),
+ 		err_addr);
+ 
+-	memset(page_pfn, 0, sizeof(page_pfn));
 -
- int amdgpu_umc_update_ecc_status(struct amdgpu_device *adev,
- 				uint64_t status, uint64_t ipid, uint64_t addr);
--int amdgpu_umc_build_pages_hash(struct amdgpu_device *adev,
--		uint64_t *pfns, int len, uint64_t *val);
- int amdgpu_umc_logs_ecc_err(struct amdgpu_device *adev,
- 		struct radix_tree_root *ecc_tree, struct ras_ecc_err *ecc_err);
+-	memset(&addr_in, 0, sizeof(addr_in));
+-	addr_in.ma.err_addr = err_addr;
+-	addr_in.ma.ch_inst = MCA_IPID_2_UMC_CH(ipid);
+-	addr_in.ma.umc_inst = MCA_IPID_2_UMC_INST(ipid);
+-	addr_in.ma.node_inst = MCA_IPID_2_DIE_ID(ipid);
+-	addr_in.ma.socket_id = MCA_IPID_2_SOCKET_ID(ipid);
++	ret = umc_v12_0_convert_mca_to_addr(adev,
++			err_addr, MCA_IPID_2_UMC_CH(ipid),
++			MCA_IPID_2_UMC_INST(ipid), MCA_IPID_2_DIE_ID(ipid),
++			MCA_IPID_2_SOCKET_ID(ipid), &pa_addr, true);
++	if (ret)
++		return ret;
  
+-	count = umc_v12_0_convert_err_addr(adev,
+-				&addr_in, page_pfn, ARRAY_SIZE(page_pfn));
++	memset(page_pfn, 0, sizeof(page_pfn));
++	count = umc_v12_0_expand_addr_to_bad_pages(adev,
++				pa_addr,
++				page_pfn, ARRAY_SIZE(page_pfn));
+ 	if (count <= 0) {
+ 		dev_warn(adev->dev, "Fail to convert error address! count:%d\n", count);
+ 		return 0;
 -- 
 2.34.1
 
