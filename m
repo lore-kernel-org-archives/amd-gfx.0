@@ -4,93 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D15E6C41513
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 13:04:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB43C3DA6A
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 13:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55E7B10E81F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C093A10E826;
 	Thu, 18 Jul 2024 13:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Rl/UXerj";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="hG0yqd29";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6327E10E08F
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 08:25:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1721291124;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=F1svtcDGv9GPXqhPvf/wZn92njhXKe/iKQ0fD18vtZo=;
- b=Rl/UXerj0dFycX7GVRJBwxYnffGq8IlskHZwTwj3SQTtr0Op2L2PSF0WqqEx6YzFpXIiXo
- +ZdbNNigbHl5f9zTC8TrbjmLHd/kYIYllKaHcSKnGdhO6FYk7yaPr0cp7//DTLjGvHRgYM
- fYHIT+d707ODogZFQlgPD+5BWKws/5w=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-618-npfi2MShPPeQtKUoHbewDA-1; Thu, 18 Jul 2024 04:25:22 -0400
-X-MC-Unique: npfi2MShPPeQtKUoHbewDA-1
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-427b7a2052bso399695e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 01:25:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721291121; x=1721895921;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=F1svtcDGv9GPXqhPvf/wZn92njhXKe/iKQ0fD18vtZo=;
- b=LSJTj7Ha+QCSgaE76BKEXHdp7Q7sxRrDtCLWEeMRVqDZz/Y+5H86wco3nff1vw5KVN
- SQ1yCxytbeKfahi0SdIrRs61GhEfr7lVDzbqyjARq7ysxmGCxBqzjxMyqRLuenSMEX7g
- PSAtcH+ia6/k1Qr1x4xE9+9UKmsGGRZZ8+d2CiF65f90Q7Id/SFjCpbhYRbUln36DmPw
- gvbgK2EmygRdsipN8+1WnksWAdGjW+aQsW8Q+Z2OQNmtk8nym4TbhSTumnsRBfqbxUZf
- zSwMAuUFvg6fB3OM2lKuIASeMJgWHdN324kb1MKG1GctcMhPIo0OdwiroL5uj5TTGE5K
- wh9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVY317Ah0UOX/1a8NJR3iNUZ2AAt7uueRLSlk+Kaykw2Jzzl9mFBZF4bQAZQ6w6siXO0uE9PN+WyZT1X9JUjrWnwJmjXbmouIdp/tjWyQ==
-X-Gm-Message-State: AOJu0Yy7+E/U4Pd81oQ5p5ADVmyiFgjKAqiBOMxV+JYJNp0gLAQp3bzc
- 3hb/vNv/B648C59cOaA0qhasaV8SZxS4uQLK9voBuvLoIcgVa6fY6b1WpQsm1ph0azp0OBtANzO
- FgX5fxHxQqtnphx+9ANmm7ECKThmgOxvHRSoWPGounnXb1Q/zlO3o7FIiaiNM8j8=
-X-Received: by 2002:a05:600c:4455:b0:426:5d4d:d759 with SMTP id
- 5b1f17b1804b1-427c2d01fa0mr35302015e9.24.1721291121585; 
- Thu, 18 Jul 2024 01:25:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFDQmOs05h3TMeUCsJAeQ6XUVxagcN1TKeIjWXjqi79nkjJ+F5PJFWZ0k0Ne+JuEETUnDjJMg==
-X-Received: by 2002:a05:600c:4455:b0:426:5d4d:d759 with SMTP id
- 5b1f17b1804b1-427c2d01fa0mr35301835e9.24.1721291121154; 
- Thu, 18 Jul 2024 01:25:21 -0700 (PDT)
-Received: from [172.18.228.53] (ip-185-104-138-47.ptr.icomera.net.
- [185.104.138.47]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d2a43034sm2201335e9.3.2024.07.18.01.25.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 01:25:20 -0700 (PDT)
-Message-ID: <6db5abf9-cbdd-4ec0-b669-5df23de6c2ad@redhat.com>
-Date: Thu, 18 Jul 2024 10:25:18 +0200
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFB110E114
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 11:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:Reply-To:Cc:From:References:To:Subject:MIME-Version:Date:
+ Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ In-Reply-To:References; bh=2nYI4bBxYXi13quVm2uGOxgPUFicjhWQUweSg4nZk4Y=;
+ t=1721215275; x=1721647275; b=hG0yqd29Kdy2kAyK1AYlyfhxD8uU7muDlaIU+2F2PpfA4QJ
+ IXKLadyz5aycyWEXB5yMoxLeGGeNjvYuKrP9oaU9c2FSF5y36MASb+ncejvU9cSWOXJXTtALXDgl3
+ UWIJH47eOpvoHyfLwhbjL22gRu+iI10+MbfHNsEmDU6F5z0ji06aJSxhdWGn50K/Lx9kW6TRHFJw8
+ oJ2qmxB7GH65NLx2hIfKCjVECOZYRXySb0O8znPMC5PTUi5jlPEQEy2N1WsnqwchARQNiWbgXEoPU
+ xJ1vrgZHPlYMhGPtmFcJARRW+MI8stbb+QZBqL2RwQL0SaffSQ4aVpdGy0QiPlVQ==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1sU2ic-0006oY-De; Wed, 17 Jul 2024 13:21:10 +0200
+Message-ID: <ade43b5b-9b93-40a8-acbf-99df944b45f9@leemhuis.info>
+Date: Wed, 17 Jul 2024 13:21:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] drm: backlight quirk infrastructure and lower
- minimum for Framework AMD 13
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>
-References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
- <e61010e4-cb49-44d6-8f0d-044a193d29b2@redhat.com>
- <51f68b3b-dd21-44ef-8ec8-05bea5db6e55@t-8ch.de>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <51f68b3b-dd21-44ef-8ec8-05bea5db6e55@t-8ch.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Subject: Re: [BUG] HID: amd_sfh (drivers/hid/amd-sfh-hid/): memory/page
+ corruption
+To: Jiri Kosina <jkosina@suse.com>, Benjamin Tissoires <bentiss@kernel.org>
+References: <3b129b1f-8636-456a-80b4-0f6cce0eef63@hixontech.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Content-Language: en-US, de-DE
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>, Li Ma <li.ma@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ yifan1.zhang@amd.com, linux-kernel-bugs@hixontech.com,
+ linux-input@vger.kernel.org, Basavaraj Natikar <basavaraj.natikar@amd.com>
+In-Reply-To: <3b129b1f-8636-456a-80b4-0f6cce0eef63@hixontech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1721215275;
+ 46fc7ead; 
+X-HE-SMSGID: 1sU2ic-0006oY-De
 X-Mailman-Approved-At: Thu, 18 Jul 2024 13:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,143 +65,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
-
-On 6/24/24 6:15 PM, Thomas Weißschuh wrote:
-> Hi Hans!
+On 15.07.24 06:39, Chris Hixon wrote:
+> System: HP ENVY x360 Convertible 15-ds1xxx; AMD Ryzen 7 4700U with
+> Radeon Graphics
 > 
-> thanks for your feedback!
+> Problem commits (introduced in v6.9-rc1):
+> 6296562f30b1 HID: amd_sfh: Extend MP2 register access to SFH
+> 2105e8e00da4 HID: amd_sfh: Improve boot time when SFH is available
+>> It appears amd_sfh commits 6296562f30b1 and 2105e8e00da4 correlate with
+> some form of memory/page corruption. 
+
+Hi! From a quick search on lore it looks like Basavaraj Natikar who
+authored those two commits is inactive since a few days. This is totally
+fine, but given the nature of the problem slightly unfortunate. That's
+why I'm trying to raise awareness to this report by adding the
+subsystems maintainers, a few lists, and a few people to the list of
+recipients that were involved in the submission of those two patches.
+With a bit of luck somebody might be able to help out. Ciao, Thorsten
+
+> On my system, this typically
+> presents itself as a page dump followed by BTRFS errors, usually
+> involving "corrupt leaf" (see dmesg output below); often the BTRFS
+> filesystem becomes read-only afterwards. Note that the underlying NVME
+> disk seems fine, and the BTRFS filesystem does not actually appear to be
+> corrupt when booted/checked from kernels without this bug (no BTRFS
+> errors or I/O errors reported on non-problem kernels).
 > 
-> On 2024-06-24 11:11:40+0000, Hans de Goede wrote:
->> On 6/23/24 10:51 AM, Thomas Weißschuh wrote:
->>> The value of "min_input_signal" returned from ATIF on a Framework AMD 13
->>> is "12". This leads to a fairly bright minimum display backlight.
->>>
->>> Add a generic quirk infrastructure for backlight configuration to
->>> override the settings provided by the firmware.
->>> Also add amdgpu as a user of that infrastructure and a quirk for the
->>> Framework 13 matte panel.
->>> Most likely this will also work for the glossy panel, but I can't test
->>> that.
->>>
->>> One solution would be a fixed firmware version, but given that the
->>> problem exists since the release of the hardware, it has been known for
->>> a month that the hardware can go lower and there was no acknowledgment
->>> from Framework in any way, I'd like to explore this alternative
->>> way forward.
->>
->> There are many panels where the brightness can go lower then the advertised
->> minimum brightness by the firmware (e.g. VBT for i915). For most users
->> the minimum brightness is fine, especially since going lower often may lead
->> to an unreadable screen when indoors (not in the full sun) during daylight
->> hours. And some users get confused by the unreadable screen and find it
->> hard to recover things from this state.
+> I have no problems when I blacklist the amd_sfh module (any kernel
+> version), or revert both commits 6296562f30b1 and 2105e8e00da4 (on
+> stable, linux-6.9.y). I have no problems on any recent linux-mainline
+> (v6.10{,-rc*}) when reverting these two commits (in addition to
+> reverting 7902ec988a9a and 6856f079cd45 to successfully build the
+> kernel). I have had no problems with any 6.6.y, v6.7.y, or v6.8.y version.
 > 
-> There are a fair amount of complaints on the Framework forums about this.
-> And that specific panel is actually readable even at 0% PWM.
-
-If a lot of Framework users are complaining about this, then maybe Framework
-should fix their VBT in a BIOS update ?  That seems like a better solution
-then quirking this in the kernel.
-
+> It is curious BTRFS always seems involved, but problems go away with
+> these amd_sfh commits reverted (or amd_afh disabled).
 > 
->> So IMHO we should not be overriding the minimum brightness from the firmware
->> using quirks because:
->>
->> a) This is going to be an endless game of whack-a-mole
+> Further notes:
 > 
-> Indeed, but IMO it is better to maintain the list in the kernel than
-> forcing all users to resort to random forum advise and fiddle with
-> lowlevel system configuration.
-
-One of the problem is that what is an acceptable minimum brightness
-value is subjective. One person's "still too bright" is another
-person's "barely readable"
-
->> b) The new value may be too low for certain users / use-cases
+> I have not specifically used the amd_sfh module for anything. As far
+> I've been able to determine, my system has the "Sensor Fusion Hub" mp2
+> chip, but has no supported sensors/sub-devices (or I need to do
+> something to enable them), (or there is an error while detecting
+> sensors?). All logs I've checked contain something like:
 > 
-> The various userspace wrappers already are applying a safety
-> threshold to not go to "0".
-> At least gnome-settings-daemon and brightnessctl do not go below 1% of
-> brightness_max. They already have to deal with panels that can go
-> completely dark.
-
-Right, something which was added because the minimum brightness value
-on VBTs often is broken. Either it is missing or (subjectively) it is
-too high.
-
-
->> With that said I realize that there are also many users who want to have
->> a lower minimum brightness value for use in the evening, since they find
->> the available minimum value still too bright. I know some people want this
->> for e.g. various ThinkPad models too.
+> Jul 09 04:14:37 arch kernel: pcie_mp2_amd 0000:04:00.7: enabling device
+> (0000 -> 0002)
+> Jul 09 04:15:07 arch kernel: pcie_mp2_amd 0000:04:00.7: Failed to
+> discover, sensors not enabled is 0
+> Jul 09 04:15:07 arch kernel: pcie_mp2_amd 0000:04:00.7:
+> amd_sfh_hid_client_init failed err -95
 > 
-> From my experience with ThinkPads, the default brightness range there
-> was fine for me. But on the Framework 13 AMD it is not.
+> Excerpt from lshw:
+>            *-generic:1 UNCLAIMED
+>                 description: Signal processing controller
+>                 product: Sensor Fusion Hub
+>                 vendor: Advanced Micro Devices, Inc. [AMD]
+>                 physical id: 0.7
+>                 bus info: pci@0000:04:00.7
+>                 version: 00
+>                 width: 32 bits
+>                 clock: 33MHz
+>                 capabilities: pm pciexpress msi msix cap_list
+>                 configuration: latency=0
+>                 resources: memory:fe000000-fe0fffff
+> memory:fe4cc000-fe4cdfff
 > 
->> So rather then quirking this, with the above mentioned disadvantages I believe
->> that it would be better to extend the existing video=eDP-1:.... kernel
->> commandline parsing to allow overriding the minimum brightness in a driver
->> agnostic way.
+> How I tracked down the problem commits:
 > 
-> I'm not a fan. It seems much too complicated for most users.
-
-Wanting lower minimum brightness really is mostly a power-user thing
-and what is the right value is somewhat subjective and this is an often
-heard complained. I really believe that the kernel should NOT get in
-the business of adding quirks for this. OTOH given that this is an often
-heard complaint having some generic mechanism to override the VBT value
-would be good to have.
-
-As for this being too complicated, I fully agree that ideally things
-should just work 100% OOTB, which is why I believe that a firmware fix
-from Framework would be good. But when things do not work 100% adding
-a kernel cmdline option is something which is regularly asked from users /
-found in support questions on fora so I don't think this is overly
-complicated. I agree it is not ideal but IMHO it is workable.
-
-E.g. on Fedora it would simply be a question of users having to run:
-
-sudo grubby --update-kernel=ALL --args="video=eDP-1:min-brightness=1"
-
-will add the passed in argument to all currently installed (and
-future) kernels.
-
-> Some more background to the Framework 13 AMD case:
-> The same panel on the Intel variant already goes darker.
-> The last responses we got from Framework didn't indicate that the high
-> minimum brightness was intentional [0], [1].
-> Coincidentally the "12" returned from ATIF matches
-> AMDGPU_DM_DEFAULT_MIN_BACKLIGHT, so maybe the firmware is just not set
-> up completely.
-
-Right, so I think this should be investigated closer and then get
-framework to issue a BIOS fix, not add a quirk mechanism to the kernel.
-
-IIRC the amdgpu driver will use AMDGPU_DM_DEFAULT_MIN_BACKLIGHT when
-that setting is 0 in the VBT.
-
+> I was not able to successfully "git bisect" this bug - I seemed to run
+> into a mess of unrelated problems/errors that sent me down a rabbit hole
+> chasing who knows what. I had already manually narrowed down the bug to
+> amd_sfh by blacklisting modules, so I reverted each
+> drivers/hid/amd-sfh-hid commit on the stable linux-6.9.y branch (v6.9.8
+> known "bad"), back to v6.6 (known "good"), and then manually bisected
+> the revert commits, landing on "HID: amd_sfh: Improve boot time when SFH
+> is available" (2105e8e00da4) as the first "bad" commit.
 > 
->> The minimum brightness override set this way will still need hooking up
->> in each driver separately but by using the video=eDP-1:... mechanism
->> we can document how to do this in driver independent manner. since
->> I know there have been multiple requests for something like this in
->> the past I believe that having a single uniform way for users to do this
->> will be good.
->>
->> Alternatively we could have each driver have a driver specific module-
->> parameter for this. Either way I think we need some way for users to
->> override this as a config/setting tweak rather then use quirks for this.
+> I wanted to be able to test with only the "bad" commit(s) removed; it
+> turns out 6296562f30b1 ("HID: amd_sfh: Extend MP2 register access to
+> SFH") needs to be reverted to do that. Everything seems fine with these
+> two commits reverted (again, this in on the stable linux-6.9.y branch).
 > 
-> This also seems much too complicated for normal users.
+> When testing, "bad" commits usually quickly display some variation of
+> the page dump/BTRFS errors, similar to the dmesg output below. I
+> consider commits "good" if the system survives "stress-ng --all 2
+> --vm-bytes 50% --minimize --syslog --status 10 -t 5m" (run as a non-root
+> user), which was usually followed by building the next test kernel. The
+> "bad" commits often show errors before I even get to the stress test.
+> 
+> Examples of error messages from dmesg:
+> 
+> [  653.364343] page: refcount:4 mapcount:0 mapping:00000000b159289f
+> index:0x585a7cec pfn:0x10b5c1
+> [  653.364353] memcg:ffff8f2600918000
+> [  653.364354] aops:btree_aops ino:1
+> [  653.364358] flags:
+> 0x17ffffd000802a(uptodate|lru|private|writeback|node=0|zone=2|lastcpupid=0x1fffff)
+> [  653.364361] page_type: 0xffffffff()
+> [  653.364363] raw: 0017ffffd000802a fffff1da87ee3288 fffff1da842d70c8
+> ffff8f260c719458
+> [  653.364365] raw: 00000000585a7cec ffff8f26cd09e0f0 00000004ffffffff
+> ffff8f2600918000
+> [  653.364366] page dumped because: eb page dump
+> [  653.364367] BTRFS critical (device dm-0): corrupt leaf: root=7
+> block=6071604133888 slot=159, unexpected item end, have 2768254010
+> expect 13379
+> [  653.364371] BTRFS info (device dm-0): leaf 6071604133888 gen 679995
+> total ptrs 353 free space 322 owner 7
+> [  653.364373]     item 0 key (18446744073709551606 128 1062871883776)
+> itemoff 16271 itemsize 12
+> [  653.364375]     item 1 key (18446744073709551606 128 1062871896064)
+> itemoff 16263 itemsize 8
+> [  653.364376]     item 2 key (18446744073709551606 128 1062871904256)
+> itemoff 16255 itemsize 8
+> ...
+> [  653.364762]     item 350 key (18446744073709551606 128 1062879260672)
+> itemoff 9227 itemsize 12
+> [  653.364763]     item 351 key (18446744073709551606 128 1062879272960)
+> itemoff 9223 itemsize 4
+> [  653.364764]     item 352 key (18446744073709551606 128 1062879277056)
+> itemoff 9147 itemsize 76
+> [  653.364766] BTRFS error (device dm-0): block=6071604133888 write time
+> tree block corruption detected
+> [  653.375440] BTRFS: error (device dm-0) in
+> btrfs_commit_transaction:2511: errno=-5 IO failure (Error while writing
+> out transaction)
+> [  653.375453] BTRFS info (device dm-0 state E): forced readonly
+> [  653.375458] BTRFS warning (device dm-0 state E): Skipping commit of
+> aborted transaction.
+> [  653.375461] BTRFS error (device dm-0 state EA): Transaction aborted
+> (error -5)
+> [  653.375465] BTRFS: error (device dm-0 state EA) in
+> cleanup_transaction:2005: errno=-5 IO failure
+> [  653.375582] BTRFS warning (device dm-0 state EA): Skipping commit of
+> aborted transaction.
+> [  653.375586] BTRFS: error (device dm-0 state EA) in
+> cleanup_transaction:2005: errno=-5 IO failure
+> 
+> Another example:
+> 
+> [ 5478.134046] page: refcount:4 mapcount:0 mapping:0000000010080c01
+> index:0x5459ff30 pfn:0x168c7f
+> [ 5478.134054] memcg:ffff89c240988000
+> [ 5478.134056] aops:btree_aops ino:1
+> [ 5478.134061] flags:
+> 0x17ffffd800802a(uptodate|lru|private|writeback|node=0|zone=2|lastcpupid=0x1fffff)
+> [ 5478.134064] page_type: 0xffffffff()
+> [ 5478.134066] raw: 0017ffffd800802a ffffcc5d043e2bc8 ffffcc5d05a08c88
+> ffff89c249968338
+> [ 5478.134068] raw: 000000005459ff30 ffff89c246fa22d0 00000004ffffffff
+> ffff89c240988000
+> [ 5478.134069] page dumped because: eb page dump
+> [ 5478.134071] BTRFS critical (device dm-0): corrupt leaf: root=2161
+> block=5796594384896 slot=84 ino=2434728, invalid inode generation: has
+> 72057594122450740 expect (0, 664473]
+> [ 5478.134075] BTRFS info (device dm-0): leaf 5796594384896 gen 664472
+> total ptrs 120 free space 1223 owner 2161
+> [ 5478.134077]  item 0 key (2434713 24 3817753667) itemoff 16210
+> itemsize 73
+> [ 5478.134078]  item 1 key (2434713 108 0) itemoff 15359 itemsize 851
+> [ 5478.134080]          inline extent data size 830
+> [ 5478.134081]  item 2 key (2434714 1 0) itemoff 15199 itemsize 160
+> [ 5478.134082]          inode generation 636724 size 758 mode 100644
+> [ 5478.134083]  item 3 key (2434714 12 2348495) itemoff 15181 itemsize 18
+>   ...
+> [ 5478.134242]  item 117 key (2434733 108 0) itemoff 4398 itemsize 329
+> [ 5478.134243]          inline extent data size 308
+> [ 5478.134244]  item 118 key (2434734 1 0) itemoff 4238 itemsize 160
+> [ 5478.134245]          inode generation 636724 size 30 mode 40755
+> [ 5478.134245]  item 119 key (2434734 12 2434375) itemoff 4223 itemsize 15
+> [ 5478.134247] BTRFS error (device dm-0): block=5796594384896 write time
+> tree block corruption detected
+> [ 5478.263726] BTRFS: error (device dm-0) in
+> btrfs_commit_transaction:2511: errno=-5 IO failure (Error while writing
+> out transaction)
+> [ 5478.263733] BTRFS info (device dm-0 state E): forced readonly
+> [ 5478.263736] BTRFS warning (device dm-0 state E): Skipping commit of
+> aborted transaction.
+> [ 5478.263737] BTRFS error (device dm-0 state EA): Transaction aborted
+> (error -5)
+> [ 5478.263739] BTRFS: error (device dm-0 state EA) in
+> cleanup_transaction:2005: errno=-5 IO failure
+> [ 5478.264582] BTRFS warning (device dm-0 state EA): Skipping commit of
+> aborted transaction.
+> [ 5478.264595] BTRFS: error (device dm-0 state EA) in
+> cleanup_transaction:2005: errno=-5 IO failure
 
-I agree that having a uniform way is better then having per driver
-module options.
-
-Regards,
-
-Hans
-
+#regzbot ^introduced: 6296562f30b1
+#regzbot summary: hid: amd_sfh: memory/page corruption correlated with
+6296562f30b1 or 2105e8e00da4
+#regzbot ignore-activity
