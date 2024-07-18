@@ -4,69 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B27BAC3DA63
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 15:22:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDEC9C3DA63
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 16:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5864C10E9DB;
-	Thu, 18 Jul 2024 15:22:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8896F10EA38;
+	Thu, 18 Jul 2024 16:34:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLpNtvLp";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=friedrich.vock@gmx.de header.b="Tu12p9HT";
 	dkim-atps=neutral
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02EA910E9E9;
- Thu, 18 Jul 2024 15:22:19 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- 46e09a7af769-7039e4a4a03so501130a34.3; 
- Thu, 18 Jul 2024 08:22:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721316138; x=1721920938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YQJnSHtMQef7mtUVuS0yssb981i3hZaGT8EB0Q1Pc4E=;
- b=GLpNtvLpIMotUMjMJ8u5834vENC1Bu/SXPlIgRvTOEKbjLRsW77aA6WTUrtK8XFTWp
- Oj0Mu9+gWE3VTf27imx7c2/cRUJTO3z7NluDzgSasA0HuUR5i/zkUoS6O19lN381Xeea
- cUkwTiAK8OjasJdERYiyE9Kjgzu/B0V4c2csPxxfObBsaWFWTdzEbW6woc1bEUCVoOJX
- /gXqAgSCwxNasG/SYLnDKhbYInAEjwqtB9ASrrYGf6nLiN1exfGTIESPnSzWo8DDXsg5
- ZfUf6WFR0P0yTXKIyIKGkordaxGdoUjINGctLYZ5RQi55fzUh937f4A1fUTNtqQPewxy
- NgQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721316138; x=1721920938;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YQJnSHtMQef7mtUVuS0yssb981i3hZaGT8EB0Q1Pc4E=;
- b=wc39qguVsn4hEv/zfQZbRMT6rz7O82QTj3F0utveXdJZi2dqFP9qKuttTB9AxVjuJb
- 25f6nxSOPdRhyO3G1R93eZIAU0KBh6JXQgEZMicbsTKNJJBe/Gf84oDGr+VFmWiiC8Bb
- JCpFwKtWZAkHWy/unl93AJYAbo3xtqUCcgmwDKs4/fZEbKTFGh344/3yWHmygXu+XwyV
- U2ITQOJjD5cpHTcb9oxfAA3nObTNQgaUUj6f7WT2+Fgbi/r+N0e4IQlQ7FaQ0B+s+cxi
- /4XfdpljxAben+MLwEeMvaJnlLk9QX4VvEg5uLsUxLIKLALOcdjEPYXpq1ViJlcCzl15
- ncXw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWid/JjRS5GZoA5A6Lk3u6NC+sS0IKXOlZDxll5RcpjZfv7pQ1WGSDulc3h7RqXi5di2Oa9R7gsTSDy2OKObB3ZNpqDKAVdfnIqXqI0RCJo0/TMu3g8WukhwqK2sjN4LlvbBD8O4HO7n9+ggQ9Pcw==
-X-Gm-Message-State: AOJu0YwysLFGXATmVdo6wn0ogChCIIn6hG5p9sEINaR+mFnMWUExF1Ft
- pYqOJDmAXKO5OFg8EbqR0kd6ICImcKIlvnSe20gdQC0IIsbTg9TkTkEtHUue7rcRfUOg3nhSBqC
- nI4BrH3fh5ssVPjxwCWXzE1ZxIVg=
-X-Google-Smtp-Source: AGHT+IEiIcjze2sqfT1hps5RiIp13M1xmJPESEzqUtct0AXla+FiYHuqmHRs8F5ZJiFygKOSV/25hAiBvLnBodoW7Ms=
-X-Received: by 2002:a05:6830:908:b0:708:c1e7:912a with SMTP id
- 46e09a7af769-708e37889b9mr5937867a34.8.1721316138141; Thu, 18 Jul 2024
- 08:22:18 -0700 (PDT)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D34710EA38
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 16:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1721320474; x=1721925274; i=friedrich.vock@gmx.de;
+ bh=Toi42TlzaFXOvkvhh8p7jU/ww5SKdzgpyqujZzYc8K4=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
+ References:In-Reply-To:Content-Type:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=Tu12p9HT66hT3qq8AqV0gYyTCAURG+e7dgezXzqqRP36zqMauFgjyMaiPhkkY9KY
+ wQxYTI+taapwHkMyAQ3elYRXo3NETlVFxL0kH9ufBMy4v1va5212NzJSbF3k4Nb+x
+ UC0zjj3DjCaZCtJeUB04npoMdKN/2hezGAIsDz0cyOxaxxRUzQ7imAUZdfK2RrJhS
+ y60NlotNEcOKm6OzZhtgIP2v2yeK+zLjoGrsnNvrFMNVoKkXnFppO8D0JQTS08Bix
+ b8on/J1yVBNJSsmrjCzzrQEMiV7fNsl/xAxwUKT7z0gyI7yjXcxxf2Os0sNCck5rY
+ GAUbbGImSJpLdcqGkQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.177.3] ([213.152.117.92]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N0G1d-1s9wor3gYB-016ZXL; Thu, 18
+ Jul 2024 18:29:26 +0200
+Message-ID: <95387eeb-d81e-4a09-8475-820317605f49@gmx.de>
+Date: Thu, 18 Jul 2024 18:29:26 +0200
 MIME-Version: 1.0
-References: <20240718141735.884347-1-make24@iscas.ac.cn>
-In-Reply-To: <20240718141735.884347-1-make24@iscas.ac.cn>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Jul 2024 11:22:06 -0400
-Message-ID: <CADnq5_MiT9BOdo4cxi=MWABu4u5qTtNvziUbOXsUrEqeUhWPZQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/amdgpu: Fix uninitialized variable warnings
-To: Ma Ke <make24@iscas.ac.cn>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com, asad.kamal@amd.com,
- le.ma@amd.com, kenneth.feng@amd.com, evan.quan@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Friedrich Vock <friedrich.vock@gmx.de>
+Subject: Re: [PATCH 00/34] GC per queue reset
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240718140733.1731004-1-alexander.deucher@amd.com>
+Content-Language: en-US
+Autocrypt: addr=friedrich.vock@gmx.de; keydata=
+ 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
+ f7+xmX0X3AMtWz/15Y+7cPO2
+In-Reply-To: <20240718140733.1731004-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:S2+aAKlHkW/YUX1L1UviNK13b1uZfVJm8M5WR1aLwfWjmyyfgZq
+ gjikweWxyQ8KQnyYOPvp6cbeZ3MPcnuZBdbkfFYgEJ93N6BAJ3eFzGTCmQhFDD4cgppnOU9
+ O+kJP6HnmwKNboaF8UZosrBqkGyCQppAJ+CCge4RlZ+ybycx7ccuyyPNZoBmRAk9kgr0jm2
+ wj8GfGc1h2gbSqMAiBwow==
+UI-OutboundReport: notjunk:1;M01:P0:rsEUgwH251Y=;lhcxsh71nHYnbq83QJej8s5cTj9
+ KTR4qk+rFHUhJo7gNdvIe7ClaoFQBhCZfz16SikOQFIF6jyO3asomE/BtqEQRnuucf+rASbd1
+ fmsi56dbpKKFyxmfqV1dRAFTh7FBbxQxku/By7UxVTX1VaZMpQ4lNgl7YF1Um5ba2xnn5pBlP
+ 3smrUtz1v9xjuAluL/65J0YJrDW7i00FiPRuPDzDBdWgFbn1LEaa6C+SB7qwMSyhxC7EEqeqo
+ +u6iqPiD2Hk/PtXeH8eud498sQLSEg/Ll+0cUiC9UIoQiROTkAKuEMs9aE3640KVBl11qB5l+
+ cprqHq2+T+i0kutZW1bxH1NxkPsghdlZKvi2iT2lvO26D9xEGCSAiWbDfjVX3hQQ7VfRQzIO0
+ zYcCMdD7Ubh3BGoDom4mBcPZuTdvDmB3/lcTXwE616goG4rgGKekL5jVpcbBuIPDDEMtcUD0/
+ vYmGGKYfdgSvxabHDXvy4lYWa1Vt47HwNUt5jLmgAuGq2qyby8J05fYtdJia548Vt6Z+IrQmq
+ 1RHkUZ4nBfe+6egSGLprDvIK8rk8hvaEX1yiB1QUi1yFZGdYZDMaokdfOfkAreuxTkJckT+Ln
+ pX88TSjihxFROtrV0fO4dLAAXUh5fPIBnSYIh90QjTuKe9Ghp9ZeBQQYHKYviIZyZLAG4Ccme
+ S0rCTjQ2mFwMg2nCSjbl8UtViwAFPJ/9hScDCgrNZ8LzUs0Oc5xfsBzoJNghsd6/jBNAQac58
+ QK82dAVZcDGSg8afair9cp7HURIe+8RGKaE8e2vHzdwGUTrZK/lvYDlMA3kBSsutGlRc1b+HA
+ vfrgJ1Z6BGvMcj65xsfMS16HCzeabmPRSdl371cSNOoUc=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +109,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Hi,
 
-Alex
+On 18.07.24 16:06, Alex Deucher wrote:
+> This adds preliminary support for GC per queue reset.  In this
+> case, only the jobs currently in the queue are lost.  If this
+> fails, we fall back to a full adapter reset.
 
-On Thu, Jul 18, 2024 at 10:17=E2=80=AFAM Ma Ke <make24@iscas.ac.cn> wrote:
+First of all, thank you so much for working on this! It's great to
+finally see progress in making GPU resets better.
+
+I've just taken this patchset (together with your other
+patchsets[1][2][3]) for a quick spin on my
+Navi21 with the GPU reset tests[4] I had written a while ago - the
+current patchset sadly seems to have some regressions WRT recovery there.
+
+I ran the tests under my Plasma Wayland session once - this triggered a
+list double-add in drm_sched_stop (calltrace follows):
+
+? die (arch/x86/kernel/dumpstack.c:421 arch/x86/kernel/dumpstack.c:434 arc=
+h/x86/kernel/dumpstack.c:447)
+? do_trap (arch/x86/kernel/traps.c:113 arch/x86/kernel/traps.c:154)
+? __list_add_valid_or_report (lib/list_debug.c:35 (discriminator 1))
+? do_error_trap (./arch/x86/include/asm/traps.h:58 arch/x86/kernel/traps.c=
+:175)
+? __list_add_valid_or_report (lib/list_debug.c:35 (discriminator 1))
+? exc_invalid_op (arch/x86/kernel/traps.c:266)
+? __list_add_valid_or_report (lib/list_debug.c:35 (discriminator 1))
+? asm_exc_invalid_op (./arch/x86/include/asm/idtentry.h:568)
+? __list_add_valid_or_report (lib/list_debug.c:35 (discriminator 1))
+? __list_add_valid_or_report (lib/list_debug.c:35 (discriminator 1))
+drm_sched_stop (./include/linux/list.h:151 ./include/linux/list.h:169 driv=
+ers/gpu/drm/scheduler/sched_main.c:617)
+amdgpu_device_gpu_recover (drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:5808=
+)
+amdgpu_job_timedout (drivers/gpu/drm/amd/amdgpu/amdgpu_job.c:103)
+drm_sched_job_timedout (drivers/gpu/drm/scheduler/sched_main.c:569)
+process_one_work (kernel/workqueue.c:2633)
+worker_thread (kernel/workqueue.c:2700 (discriminator 2) kernel/workqueue.=
+c:2787 (discriminator 2))
+? __pfx_worker_thread (kernel/workqueue.c:2733)
+kthread (kernel/kthread.c:388)
+? __pfx_kthread (kernel/kthread.c:341)
+ret_from_fork (arch/x86/kernel/process.c:147)
+? __pfx_kthread (kernel/kthread.c:341)
+ret_from_fork_asm (arch/x86/entry/entry_64.S:251)
+
+When running the tests without a desktop environment active, the
+double-add disappeared, but the GPU reset still didn't go well - the TTY
+remained frozen and the kernel log contained a few messages like:
+
+[drm] *ERROR* [CRTC:90:crtc-0] flip_done timed out
+
+which I guess means at least the display subsystem is hung.
+
+Hope this info is enough to repro/investigate.
+
+Thanks,
+Friedrich
+
+[1] https://lore.kernel.org/amd-gfx/20240717203740.14059-1-alexander.deuch=
+er@amd.com/T/#t
+[2] https://lore.kernel.org/amd-gfx/20240717203847.14600-1-alexander.deuch=
+er@amd.com/T/#t
+[3] https://lore.kernel.org/amd-gfx/230ee72e-4f7f-4894-a789-2e1e5788344f@a=
+md.com/T/#t
+[4] https://gitlab.steamos.cloud/holo/HangTestSuite
+
+
 >
-> Return 0 to avoid returning an uninitialized variable r.
+> Alex Deucher (19):
+>    drm/amdgpu/mes: add API for legacy queue reset
+>    drm/amdgpu/mes11: add API for legacy queue reset
+>    drm/amdgpu/mes12: add API for legacy queue reset
+>    drm/amdgpu/mes: add API for user queue reset
+>    drm/amdgpu/mes11: add API for user queue reset
+>    drm/amdgpu/mes12: add API for user queue reset
+>    drm/amdgpu: add new ring reset callback
+>    drm/amdgpu: add per ring reset support (v2)
+>    drm/amdgpu/gfx11: add ring reset callbacks
+>    drm/amdgpu/gfx11: rename gfx_v11_0_gfx_init_queue()
+>    drm/amdgpu/gfx10: add ring reset callbacks
+>    drm/amdgpu/gfx10: rework reset sequence
+>    drm/amdgpu/gfx9: add ring reset callback
+>    drm/amdgpu/gfx9.4.3: add ring reset callback
+>    drm/amdgpu/gfx12: add ring reset callbacks
+>    drm/amdgpu/gfx12: fallback to driver reset compute queue directly
+>    drm/amdgpu/gfx11: enter safe mode before touching CP_INT_CNTL
+>    drm/amdgpu/gfx11: add a mutex for the gfx semaphore
+>    drm/amdgpu/gfx11: export gfx_v11_0_request_gfx_index_mutex()
 >
-> Cc: stable@vger.kernel.org
-> Fixes: 230dd6bb6117 ("drm/amd/amdgpu: implement mode2 reset on smu_v13_0_=
-10")
-> Signed-off-by: Ma Ke <make24@iscas.ac.cn>
-> ---
-> Changes in v2:
-> - added Cc stable line.
-> ---
->  drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Jiadong Zhu (13):
+>    drm/amdgpu/gfx11: wait for reset done before remap
+>    drm/amdgpu/gfx10: remap queue after reset successfully
+>    drm/amdgpu/gfx10: wait for reset done before remap
+>    drm/amdgpu/gfx9: remap queue after reset successfully
+>    drm/amdgpu/gfx9: wait for reset done before remap
+>    drm/amdgpu/gfx9.4.3: remap queue after reset successfully
+>    drm/amdgpu/gfx_9.4.3: wait for reset done before remap
+>    drm/amdgpu/gfx: add a new kiq_pm4_funcs callback for reset_hw_queue
+>    drm/amdgpu/gfx9: implement reset_hw_queue for gfx9
+>    drm/amdgpu/gfx9.4.3: implement reset_hw_queue for gfx9.4.3
+>    drm/amdgpu/mes: modify mes api for mmio queue reset
+>    drm/amdgpu/mes: implement amdgpu_mes_reset_hw_queue_mmio
+>    drm/amdgpu/mes11: implement mmio queue reset for gfx11
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/=
-amd/amdgpu/smu_v13_0_10.c
-> index 04c797d54511..0af648931df5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-> @@ -91,7 +91,7 @@ static int smu_v13_0_10_mode2_suspend_ip(struct amdgpu_=
-device *adev)
->                 adev->ip_blocks[i].status.hw =3D false;
->         }
+> Prike Liang (2):
+>    drm/amdgpu: increase the reset counter for the queue reset
+>    drm/amdgpu/gfx11: fallback to driver reset compute queue directly (v2=
+)
 >
-> -       return r;
-> +       return 0;
->  }
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |   6 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  18 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    |  88 ++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  37 +++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |   2 +
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 158 ++++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 117 +++++++++++++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.h     |   3 +
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |  95 ++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 126 +++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    | 125 +++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     | 132 +++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c     |  54 +++++++
+>   14 files changed, 930 insertions(+), 32 deletions(-)
 >
->  static int
-> --
-> 2.25.1
->
+
+
+
