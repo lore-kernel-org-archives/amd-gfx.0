@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1739C3DA49
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 21:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2375AC3DA61
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 23:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E56810EB36;
-	Thu, 18 Jul 2024 21:53:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C790810EB47;
+	Thu, 18 Jul 2024 23:05:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="26Ln7dgY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="glSVGD7H";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2EB310E1FC;
- Thu, 18 Jul 2024 21:53:21 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC46F10EB50
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 23:05:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UZJ+EsMl8KE25kadFogfMMiAs/IbUci52QyjhIWhhY/jucXrZiF1bzZPKa5yWABVNUQQ44ZShwFu/Tswe+ATBtGMdHfBVOsifX46K5qGZYRMSCoWVAw13PF8bMRbgtq97y5apE7oSmKMDRKO4aXb9Bx9lkVk0KJ/tAtg1p5isltJDNeQ8GQMZAlBzdDw/2Wl/JtCXyvrLumfjuGmDkhOtmv/1bN0axgZXjZxmlM/tkuMmY2sqg5qTx5n+fNIDz/9ilpy1uzQEXxgmlVr2iv/0NpZGYnzhVlNh4j7PaqGnFKLzc93wWlXvMtlMICAaXQKQyotf9dLtIXOjJNSEtiZzA==
+ b=q3PcsR9+im4Epa4KPkDgwOCj++L6cXHq1Mta+4zplI+3e38Ve3Qbqjn8cF1s7vzup+WZhGAaWq+jvnvB9hBpEkF+KK3FU+NP0IsXlNeuIg4z7MJp8yOmnRCws/v2+3RqksqFTsGYFP1XrzDptEqZo7zLA1L/qIUrOxy6UPKFKp7F8DM0QE7ciOfzscg8oAeY3qFWnaOG6I+EIY17V1HFPprmhKOfmh8g3ju0wPf13Igy08HXMYW5pfSC5aQNOIBi3ow/XyRkOdF3vfR2ACLKOc27L5VGH/sQ9VYCSzxUvCvKt+JwQjFUdZjsY6G04J+xcieAG0kCBnT7KBnV6m1m8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RcjhcYmZ+tB31HYXYKn/0RhkunppnV6qmCTjjI9UR+I=;
- b=Vqa7j4ankKQbqrfGRy2202sJQ8X2FRdVyGxLufQl6R2FroptwGAhEdiZliN9mTct7n/Ul4s8OtMywpVBWwBNwXvzUJZ135e+QSTgZR8Vkp5ikEdgGLHIRjNxbQXyhx5xcwbRVHvF+iNGgPo89VWKQ/xcJOgQyL5XUnWImBtmdrWw5pYCU9ZD9i1t4UMk8eAWGeJ8UZ+dN/MTE55HgCNE4iJY4hEVj5Eit5v0Z6XQX/60ehnCtHbCbnPv6KdHsPQnXvJyeWm+DZE9Yi8qdPNHd/Z2VOck/zb3lReS4wSUUZdV+sTbxBI3q9MBNvT7o5x4wv4c3zjVsbKavhIUfvks/w==
+ bh=UswayHfO7CZF8oIhvl/DVwiMHNHXz7ALrOWaYUwKp5E=;
+ b=nfyIAB74Elij7ihnM0ctH/GhT9Nme3EQzrqQnZYgHEZDmLD1SH9IuSu3Xn/g2TytcJ3Ty+RTciwHwIfZU3buYS6MrxymxI/z5J9JqBnw7TEvWOVye1YKMSTChC62tkmU8KqtVJxR+xSpV9he08qTR4EXQ1bcNbCPOaBeLaifKP6qPqH2euxE7C9DIHTFOj8fVzbr+keuFjSw2d4ePUpmy9YrQh1euFy2Wg8890d3WQatKqiZGz73RBdfCtcMiphXv+etGsHzYB/h11QDUGu5Wkun1TDa/zLyqOOHt0bSiSIFts75XyTsLNhTvWGnU4U+M2YmaJR6WcGI7dQ1rC2ijQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RcjhcYmZ+tB31HYXYKn/0RhkunppnV6qmCTjjI9UR+I=;
- b=26Ln7dgYLXTOtyJxJ8jRh44EuAqF3F0AnEt3ri3InKFUAvKtx9wO2MCxVBAA6zs5FIrsFh08u7LzlO0SuSb+zcxpRzLgESlTMx3MpeS+ETzSbJzLGEa/P4kxgeK3EY1kJk27xvtRkISpeobrzCQP2PNJMgH2du9HfHcd0mxl4fw=
-Received: from BL0PR0102CA0005.prod.exchangelabs.com (2603:10b6:207:18::18) by
- BY5PR12MB4098.namprd12.prod.outlook.com (2603:10b6:a03:205::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7784.18; Thu, 18 Jul 2024 21:53:16 +0000
-Received: from BN3PEPF0000B076.namprd04.prod.outlook.com
- (2603:10b6:207:18:cafe::6b) by BL0PR0102CA0005.outlook.office365.com
- (2603:10b6:207:18::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28 via Frontend
- Transport; Thu, 18 Jul 2024 21:53:16 +0000
+ bh=UswayHfO7CZF8oIhvl/DVwiMHNHXz7ALrOWaYUwKp5E=;
+ b=glSVGD7Hp64QcQtsW3WUWzM4tJ8+1jZX5MlgSrbqLH4fkXTLS0cNegw46dG8WAFEoZOZuLrrhAchEp21Tx7brMIdkDK658c2rN8zx3D/jxVN5oBTh7/LKLv1j4hr4zrwZ+lvZcGg+pYv0hAum2KO3+7Fwnn2eA/nvTKcDTQMb3Q=
+Received: from DM6PR03CA0078.namprd03.prod.outlook.com (2603:10b6:5:333::11)
+ by SJ0PR12MB6832.namprd12.prod.outlook.com (2603:10b6:a03:47e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.18; Thu, 18 Jul
+ 2024 23:05:19 +0000
+Received: from DS1PEPF00017098.namprd05.prod.outlook.com
+ (2603:10b6:5:333:cafe::3b) by DM6PR03CA0078.outlook.office365.com
+ (2603:10b6:5:333::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29 via Frontend
+ Transport; Thu, 18 Jul 2024 23:05:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B076.mail.protection.outlook.com (10.167.243.121) with Microsoft
+ DS1PEPF00017098.mail.protection.outlook.com (10.167.18.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Thu, 18 Jul 2024 21:53:15 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.7784.11 via Frontend Transport; Thu, 18 Jul 2024 23:05:18 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 18 Jul
- 2024 16:53:14 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-6.11
-Date: Thu, 18 Jul 2024 17:52:58 -0400
-Message-ID: <20240718215258.79356-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.45.2
+ 2024 18:05:17 -0500
+From: Jonathan Kim <Jonathan.Kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Jonathan Kim <Jonathan.Kim@amd.com>, Jonathan Kim <jonathan.kim@amd.com>
+Subject: [PATCH] drm/amdkfd: allow users to target recommended SDMA engines
+Date: Thu, 18 Jul 2024 19:05:05 -0400
+Message-ID: <20240718230505.1025287-1-Jonathan.Kim@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,50 +70,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B076:EE_|BY5PR12MB4098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c6c03b0-16b8-445c-9e2e-08dca7740748
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|SJ0PR12MB6832:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62f72a5b-225f-4c80-7889-08dca77e1797
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7bZBhyNmjzNv0vn87Wz1UeFc9JBeMNXM7v8XYjbWTaQV9uwxCl2J0CJxpVW4?=
- =?us-ascii?Q?LuqV2WtqXzb3wM1Tc480dkhIs1yqSkdJAzeoSZbzD4hugh80cnTe4qQPkHpu?=
- =?us-ascii?Q?j4Nzu4ckre6yvPI7g99/+zRIQtVpnbUZSs8XAm3DmWyAWMbOjeGBaAs17AEd?=
- =?us-ascii?Q?B3xKQU0iPe8b4IRbOjYxK7ylHCArLWeWJ8caAsIElnVV7jJZJvPOy4pXVe7B?=
- =?us-ascii?Q?3QKMwxZsXpUqGEuIUDNOK1hyBLuFMk8E/MUp04u1tjY+LXmbh3OgjAi8vNOs?=
- =?us-ascii?Q?8MntKumUKhfsJnDGKNdq+BSFM+Vxe7wKVoewG8wGWyBWydUNyilkOy5/oGSD?=
- =?us-ascii?Q?oesAPirbPAbrbe/k8dI2640jlaUcRqJgAxitXollwI18uKzpzM7CsHk7jicn?=
- =?us-ascii?Q?2E8+qMQCBYumJLtcoRHZew9EBgPIBDyBp4QGrZwdJPb3Qod1EGDBHwophbjM?=
- =?us-ascii?Q?l1ElZ8bmaSU2IZBKWZF4hHMAGyawmGWZFblo7c0pugFoVmVj9bZlPYoWB0bz?=
- =?us-ascii?Q?TnstPKIUEq3jiQ3l1MJbZhDXJApjQMf95kbAvLaTdoMAhU4nGtoR6tM7wHwo?=
- =?us-ascii?Q?s7X3BtV0fP1nasuoKDDQV7uUkNR+nVgcIMdGtkhWQPQztqgjNSWd1h4rszA3?=
- =?us-ascii?Q?Rxv8YLDcMvxp3nScd4Ta8OhgDNs8dqbyl2rc3YCh+z09h5jOg/3FBXEHvoeq?=
- =?us-ascii?Q?T9Usp1PWoFe0ws1C6Z+5fhCLzOn+6RPvkfIExJVDnrgoxo7WjZQucyUEn7Gg?=
- =?us-ascii?Q?9f81ffuAsTXsElyuwNZ88E2b7/YovaavHqtsvewIeMI+7oyAL0GJ0y5Va0kL?=
- =?us-ascii?Q?cWK05J0RsQxtarAXA5q0H2wDbW1E1I/E0JPUOD88qieHjo3kB+zvoGlvgLRN?=
- =?us-ascii?Q?x65ikgcsBulD2Rqpklf1sIJB3gCHbTzA+bfdxERult5IT/5vzGUrNaVrjx+P?=
- =?us-ascii?Q?Nu1ADfeihq+3ibqRI/KIy5jHHbtXGuH+kIgfh9OH2Xc4btueTaCTGkqHRUm2?=
- =?us-ascii?Q?sioNdujrBIF6KAKM/1PotWGG3U3oiM1wmK4+jG/M7uTlVtpKqmF403cClMHs?=
- =?us-ascii?Q?DkREPpFFt1/brMF7LPIehE4PkXfgKH5KH0A9sEFYu3lvkP9aT5UEoGT9eSZw?=
- =?us-ascii?Q?TCnAWh8Jnc+JrY/6+sTV3B1CfR/peY+XRS5R+Qs111zC8wPmc3RBIfsCRf8t?=
- =?us-ascii?Q?ySXpWKBxbKv1vdwDp34OyxxgCssLkneH/Acyn9YpWR8ixIwNaZZcdufMtDqC?=
- =?us-ascii?Q?NEyi1bpAw36Gw92pjPjGPt3klRIMa6Rn9sk1r12eOCMeCnGzEcT9J35jMXej?=
- =?us-ascii?Q?TkAEmDCkMLPBgnRKyworGEH4pHAGRD32XcQENiet52jiIakIql9nnQ8a6E1n?=
- =?us-ascii?Q?FrES8yRURZbPlQDWUux0P1UWf7W8?=
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?47eIAX4WJbICnQbXjA+2y81+xMbISh6dImIJgxF6M7jYf7r3wReZS94bUNAd?=
+ =?us-ascii?Q?jnfQ0GdC9sEA8IfPzmkM3budLlbV2L0fogC/5tBbLLGufhd0gYWtxit23Hlo?=
+ =?us-ascii?Q?Ct/WE97EjDsUtyHxxcPKvYgo3oQnwzIlFrPeMYIZsv0IghHQ+cd1PK/n47Fc?=
+ =?us-ascii?Q?lofeilMGMFMV4OC6zlG8+60eG36HNPbTkQstOer6XDUAcwt/T4HXu1iA+1CK?=
+ =?us-ascii?Q?/PhNTcWRIeKddN//mJYvtJ8QVNL/H1ayHN6VWEdKUsti7w1HMK5r+LrdNJ7j?=
+ =?us-ascii?Q?Je2S7llSdfffm3qGnokyPB8BN4h9JFB6g1wGxey4ixtsrb8/8IJFY1nlqYER?=
+ =?us-ascii?Q?JAtEVsBjHqLZr0UOwcyjWFB7kHElk9z8qFIy6HQ3Vl81Ml+mkXUWlY808WZl?=
+ =?us-ascii?Q?9xL+J2bERIVfzw/obDts9rmMSGlNQ/i6198jFsJzjsblyiOfSYxFFE+adpTI?=
+ =?us-ascii?Q?6tgjXnWMPSXkMQqHNJkkEwP1YMT/avKv5xfCUsAFsGK/CRaeBnYvxaCU67NI?=
+ =?us-ascii?Q?o1dog5I+g6NVEQ6MQB/k3PrOyaAlxRMV3y0J9YtaR4Dl8LvEBH6K39lhahnR?=
+ =?us-ascii?Q?6SvqDUPHn3/JMsljYaSrP/iBsTriw+uIIrtUduugb7B9mjrkyDQMihsQMrij?=
+ =?us-ascii?Q?rckm5/JA4Oc6yXymsnJPRvhRDTBEbNwsl1kkC5tNOfgrs6W43+uFXHlrONqK?=
+ =?us-ascii?Q?Js6pvYSVqrwZXB3Eb2vhZ3YupfTtdcfhEvDuo/nweMqDVsRrfzKNvqN31ipu?=
+ =?us-ascii?Q?7Rx+7fIQUiU0zulyIe1hQO/JufLzmu3max2qgTUlKVlaxPlrrG+258oyVijg?=
+ =?us-ascii?Q?lIU+MOUsT9q5EVeevVgl1v7LRCy4kuMEo/61jGJIPGlnzJgR2GfsFjfj1IKq?=
+ =?us-ascii?Q?Nwxye2KFyWSsl2zloJwZ5S2OWoUT7QCtwFh/36PBOAuJBZkfXSwxW3DXFkNq?=
+ =?us-ascii?Q?xDVao9dBnmSkEjk6rE7CiCfb4nyAQShmR8JiL2jbEgsVMEAtHJR8ILcJq2L3?=
+ =?us-ascii?Q?Ya6mBtaQAVtpHQrlN0llol20Z1wWITLXCUdgGQfXaMYsQjTVNqpVmz180nU7?=
+ =?us-ascii?Q?xbU55c84BLPelnAsUvSn8t1C6oKc+e9f9MOUecoPGUE3c+jDZOabLzbUbluZ?=
+ =?us-ascii?Q?Aj3Md4Wa2H59MdGQgfuQsPCS0Olpzm7LGMJhKdx1i+aW53tIJmLL2ONDORgC?=
+ =?us-ascii?Q?rM94aZQaevluIp3h9BC8Yo53x4ni+5heTTQU2/Rv8q0+w9plWB2AXiikaeET?=
+ =?us-ascii?Q?ZUTLrutpAzUAtsU3RMgCIdVjVpnOo2eKkTIXEGOnh3upSnHuTdIT9A70v4/Y?=
+ =?us-ascii?Q?q4lblYtHW2DX3va7f2+gH7vxC0j/FZmBhBpoCYb+Mv/wySESkixGHa2gFUQB?=
+ =?us-ascii?Q?f8BugXVXT1VvcpB8V0DKWKvz1if1e7ttaS2qPSY5bKzSZY2FWeo7wA6bc3TB?=
+ =?us-ascii?Q?Hw9wa+cilH2lqInB0gWBRzhXJ4hNUkHP?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2024 21:53:15.8918 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c6c03b0-16b8-445c-9e2e-08dca7740748
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2024 23:05:18.2350 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62f72a5b-225f-4c80-7889-08dca77e1797
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B076.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017098.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4098
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6832
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,84 +129,306 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+Certain GPUs have better copy performance over xGMI on specific
+SDMA engines depending on the source and destination GPU.
+Allow users to create SDMA queues on these recommended engines.
+Close to 2x overall performance has been observed with this
+optimization.
 
-Fixes for 6.11.
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 16 ++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.h         |  3 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 39 +++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +-
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     | 52 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |  1 +
+ include/uapi/linux/kfd_ioctl.h                |  6 ++-
+ 8 files changed, 119 insertions(+), 4 deletions(-)
 
-The following changes since commit 1cff1010bef6f325d895db0306b59dc7232ed9b7:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 32e5db509560..9610cb90a47e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -255,6 +255,7 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
+ 			args->ctx_save_restore_address;
+ 	q_properties->ctx_save_restore_area_size = args->ctx_save_restore_size;
+ 	q_properties->ctl_stack_size = args->ctl_stack_size;
++	q_properties->sdma_engine_id = args->sdma_engine_id;
+ 	if (args->queue_type == KFD_IOC_QUEUE_TYPE_COMPUTE ||
+ 		args->queue_type == KFD_IOC_QUEUE_TYPE_COMPUTE_AQL)
+ 		q_properties->type = KFD_QUEUE_TYPE_COMPUTE;
+@@ -262,6 +263,8 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
+ 		q_properties->type = KFD_QUEUE_TYPE_SDMA;
+ 	else if (args->queue_type == KFD_IOC_QUEUE_TYPE_SDMA_XGMI)
+ 		q_properties->type = KFD_QUEUE_TYPE_SDMA_XGMI;
++	else if (args->queue_type == KFD_IOC_QUEUE_TYPE_SDMA_BY_ENG_ID)
++		q_properties->type = KFD_QUEUE_TYPE_SDMA_BY_ENG_ID;
+ 	else
+ 		return -ENOTSUPP;
+ 
+@@ -334,6 +337,18 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
+ 	}
+ 
++	if (q_properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
++		int max_sdma_eng_id = kfd_get_num_sdma_engines(dev) +
++				      kfd_get_num_xgmi_sdma_engines(dev) - 1;
++
++		if (q_properties.sdma_engine_id > max_sdma_eng_id) {
++			err = -EINVAL;
++			pr_err("sdma_engine_id %i exceeds maximum id of %i\n",
++			       q_properties.sdma_engine_id, max_sdma_eng_id);
++			goto err_sdma_engine_id;
++		}
++	}
++
+ 	if (!pdd->qpd.proc_doorbells) {
+ 		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
+ 		if (err) {
+@@ -425,6 +440,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 	if (wptr_bo)
+ 		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
+ err_wptr_map_gart:
++err_sdma_engine_id:
+ err_bind_process:
+ err_pdd:
+ 	mutex_unlock(&p->mutex);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+index a8ca7ecb6d27..e880a71837bc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+@@ -259,7 +259,7 @@ struct crat_subtype_ccompute {
+ #define CRAT_IOLINK_TYPE_OTHER		16
+ #define CRAT_IOLINK_TYPE_MAX		255
+ 
+-#define CRAT_IOLINK_RESERVED_LENGTH	24
++#define CRAT_IOLINK_RESERVED_LENGTH	20
+ 
+ struct crat_subtype_iolink {
+ 	uint8_t		type;
+@@ -276,6 +276,7 @@ struct crat_subtype_iolink {
+ 	uint32_t	minimum_bandwidth_mbs;
+ 	uint32_t	maximum_bandwidth_mbs;
+ 	uint32_t	recommended_transfer_size;
++	uint32_t	recommended_sdma_eng_id_mask;
+ 	uint8_t		reserved2[CRAT_IOLINK_RESERVED_LENGTH - 1];
+ 	uint8_t		weight_xgmi;
+ };
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 4f48507418d2..58d7710ebb30 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1534,6 +1534,42 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
+ 			q->sdma_id % kfd_get_num_xgmi_sdma_engines(dqm->dev);
+ 		q->properties.sdma_queue_id = q->sdma_id /
+ 			kfd_get_num_xgmi_sdma_engines(dqm->dev);
++	} else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
++		int i, num_queues, num_engines, eng_offset = 0;
++		bool free_bit_found = false, is_xgmi = false;
++
++		if (q->properties.sdma_engine_id < kfd_get_num_sdma_engines(dqm->dev)) {
++			num_queues = get_num_sdma_queues(dqm);
++			num_engines = kfd_get_num_sdma_engines(dqm->dev);
++			q->properties.type = KFD_QUEUE_TYPE_SDMA;
++		} else {
++			num_queues = get_num_xgmi_sdma_queues(dqm);
++			num_engines = kfd_get_num_xgmi_sdma_engines(dqm->dev);
++			eng_offset = kfd_get_num_sdma_engines(dqm->dev);
++			q->properties.type = KFD_QUEUE_TYPE_SDMA_XGMI;
++			is_xgmi = true;
++		}
++
++		/* Scan available bit based on target engine ID. */
++		for (i = 0; i < num_queues; i++) {
++			int tmp_eng_id = eng_offset + i % num_engines;
++
++			if (!(q->properties.sdma_engine_id == tmp_eng_id &&
++			    test_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : dqm->sdma_bitmap)))
++				continue;
++
++			clear_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : dqm->sdma_bitmap);
++			q->sdma_id = i;
++			q->properties.sdma_queue_id = q->sdma_id / num_engines;
++			free_bit_found = true;
++			break;
++		}
++
++		if (!free_bit_found) {
++			dev_err(dev, "No more SDMA queue to allocate for target ID %i\n",
++				q->properties.sdma_engine_id);
++			return -ENOMEM;
++		}
+ 	}
+ 
+ 	pr_debug("SDMA engine id: %d\n", q->properties.sdma_engine_id);
+@@ -1786,7 +1822,8 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 	}
+ 
+ 	if (q->properties.type == KFD_QUEUE_TYPE_SDMA ||
+-		q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
++		q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI ||
++		q->properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
+ 		dqm_lock(dqm);
+ 		retval = allocate_sdma_queue(dqm, q, qd ? &qd->sdma_id : NULL);
+ 		dqm_unlock(dqm);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 2b3ec92981e8..7d26e71dfd04 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -414,13 +414,16 @@ enum kfd_unmap_queues_filter {
+  * @KFD_QUEUE_TYPE_DIQ: DIQ queue type.
+  *
+  * @KFD_QUEUE_TYPE_SDMA_XGMI: Special SDMA queue for XGMI interface.
++ *
++ * @KFD_QUEUE_TYPE_SDMA_BY_ENG_ID:  SDMA user mode queue with target SDMA engine ID.
+  */
+ enum kfd_queue_type  {
+ 	KFD_QUEUE_TYPE_COMPUTE,
+ 	KFD_QUEUE_TYPE_SDMA,
+ 	KFD_QUEUE_TYPE_HIQ,
+ 	KFD_QUEUE_TYPE_DIQ,
+-	KFD_QUEUE_TYPE_SDMA_XGMI
++	KFD_QUEUE_TYPE_SDMA_XGMI,
++	KFD_QUEUE_TYPE_SDMA_BY_ENG_ID
+ };
+ 
+ enum kfd_queue_format {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 21f5a1fb3bf8..8adf20760e67 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -345,6 +345,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 	switch (type) {
+ 	case KFD_QUEUE_TYPE_SDMA:
+ 	case KFD_QUEUE_TYPE_SDMA_XGMI:
++	case KFD_QUEUE_TYPE_SDMA_BY_ENG_ID:
+ 		/* SDMA queues are always allocated statically no matter
+ 		 * which scheduler mode is used. We also do not need to
+ 		 * check whether a SDMA queue can be allocated here, because
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 6f89b06f89d3..f6effaabd4b0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -292,6 +292,8 @@ static ssize_t iolink_show(struct kobject *kobj, struct attribute *attr,
+ 			      iolink->max_bandwidth);
+ 	sysfs_show_32bit_prop(buffer, offs, "recommended_transfer_size",
+ 			      iolink->rec_transfer_size);
++	sysfs_show_32bit_prop(buffer, offs, "recommended_sdma_engine_id_mask",
++			      iolink->rec_sdma_eng_id_mask);
+ 	sysfs_show_32bit_prop(buffer, offs, "flags", iolink->flags);
+ 
+ 	return offs;
+@@ -1265,6 +1267,55 @@ static void kfd_set_iolink_non_coherent(struct kfd_topology_device *to_dev,
+ 	}
+ }
+ 
++#define REC_SDMA_NUM_GPU	8
++static const int rec_sdma_eng_map[REC_SDMA_NUM_GPU][REC_SDMA_NUM_GPU] = {
++							{ -1, 14, 12, 2, 4, 8, 10, 6 },
++							{ 14, -1, 2, 10, 8, 4, 6, 12 },
++							{ 10, 2, -1, 12, 14, 6, 4, 8 },
++							{ 2, 12, 10, -1, 6, 14, 8, 4 },
++							{ 4, 8, 14, 6, -1, 10, 12, 2 },
++							{ 8, 4, 6, 14, 12, -1, 2, 10 },
++							{ 10, 6, 4, 8, 12, 2, -1, 14 },
++							{ 6, 12, 8, 4, 2, 10, 14, -1 }};
++
++static void kfd_set_recommended_sdma_engines(struct kfd_topology_device *to_dev,
++					     struct kfd_iolink_properties *outbound_link,
++					     struct kfd_iolink_properties *inbound_link)
++{
++	struct kfd_node *gpu = outbound_link->gpu;
++	struct amdgpu_device *adev = gpu->adev;
++	int num_xgmi_nodes = adev->gmc.xgmi.num_physical_nodes;
++	bool support_rec_eng = !amdgpu_sriov_vf(adev) && to_dev->gpu &&
++		adev->aid_mask && num_xgmi_nodes &&
++		(amdgpu_xcp_query_partition_mode(adev->xcp_mgr, AMDGPU_XCP_FL_NONE) ==
++		      AMDGPU_SPX_PARTITION_MODE) &&
++		(!(adev->flags & AMD_IS_APU) && num_xgmi_nodes == 8);
++
++	if (support_rec_eng) {
++		int src_socket_id = adev->gmc.xgmi.physical_node_id;
++		int dst_socket_id = to_dev->gpu->adev->gmc.xgmi.physical_node_id;
++
++		outbound_link->rec_sdma_eng_id_mask =
++			1 << rec_sdma_eng_map[src_socket_id][dst_socket_id];
++		inbound_link->rec_sdma_eng_id_mask =
++			1 << rec_sdma_eng_map[dst_socket_id][src_socket_id];
++	} else {
++		int num_sdma_eng = kfd_get_num_sdma_engines(gpu);
++		int i, eng_offset = 0;
++
++		if (outbound_link->iolink_type == CRAT_IOLINK_TYPE_XGMI &&
++		    kfd_get_num_xgmi_sdma_engines(gpu) && to_dev->gpu) {
++			eng_offset = num_sdma_eng;
++			num_sdma_eng = kfd_get_num_xgmi_sdma_engines(gpu);
++		}
++
++		for (i = 0; i < num_sdma_eng; i++) {
++			outbound_link->rec_sdma_eng_id_mask |= (1 << (i + eng_offset));
++			inbound_link->rec_sdma_eng_id_mask |= (1 << (i + eng_offset));
++		}
++	}
++}
++
+ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
+ {
+ 	struct kfd_iolink_properties *link, *inbound_link;
+@@ -1303,6 +1354,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
+ 			inbound_link->flags = CRAT_IOLINK_FLAGS_ENABLED;
+ 			kfd_set_iolink_no_atomics(peer_dev, dev, inbound_link);
+ 			kfd_set_iolink_non_coherent(peer_dev, link, inbound_link);
++			kfd_set_recommended_sdma_engines(peer_dev, link, inbound_link);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 2d1c9d771bef..43ba67890f2c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -121,6 +121,7 @@ struct kfd_iolink_properties {
+ 	uint32_t		min_bandwidth;
+ 	uint32_t		max_bandwidth;
+ 	uint32_t		rec_transfer_size;
++	uint32_t		rec_sdma_eng_id_mask;
+ 	uint32_t		flags;
+ 	struct kfd_node		*gpu;
+ 	struct kobject		*kobj;
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index 285a36601dc9..71a7ce5f2d4c 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -42,9 +42,10 @@
+  * - 1.14 - Update kfd_event_data
+  * - 1.15 - Enable managing mappings in compute VMs with GEM_VA ioctl
+  * - 1.16 - Add contiguous VRAM allocation flag
++ * - 1.17 - Add SDMA queue creation with target SDMA engine ID
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 16
++#define KFD_IOCTL_MINOR_VERSION 17
+ 
+ struct kfd_ioctl_get_version_args {
+ 	__u32 major_version;	/* from KFD */
+@@ -56,6 +57,7 @@ struct kfd_ioctl_get_version_args {
+ #define KFD_IOC_QUEUE_TYPE_SDMA			0x1
+ #define KFD_IOC_QUEUE_TYPE_COMPUTE_AQL		0x2
+ #define KFD_IOC_QUEUE_TYPE_SDMA_XGMI		0x3
++#define KFD_IOC_QUEUE_TYPE_SDMA_BY_ENG_ID	0x4
+ 
+ #define KFD_MAX_QUEUE_PERCENTAGE	100
+ #define KFD_MAX_QUEUE_PRIORITY		15
+@@ -78,6 +80,8 @@ struct kfd_ioctl_create_queue_args {
+ 	__u64 ctx_save_restore_address; /* to KFD */
+ 	__u32 ctx_save_restore_size;	/* to KFD */
+ 	__u32 ctl_stack_size;		/* to KFD */
++	__u32 sdma_engine_id;		/* to KFD */
++	__u32 pad;
+ };
+ 
+ struct kfd_ioctl_destroy_queue_args {
+-- 
+2.34.1
 
-  drm/amdgpu/mes12: add missing opcode string (2024-07-12 11:46:46 -0400)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.11-2024-07-18
-
-for you to fetch changes up to e3615bd198289f319172c428f20857accb46b830:
-
-  drm/amd/display: fix corruption with high refresh rates on DCN 3.0 (2024-07-17 17:41:28 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.11-2024-07-18:
-
-amdgpu:
-- Bump driver version for GFX12 DCC
-- DC documention warning fixes
-- VCN unified queue power fix
-- SMU fix
-- RAS fix
-- Display corruption fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amd/display: fix corruption with high refresh rates on DCN 3.0
-
-Alex Hung (1):
-      drm/amd/display: Add doc entry for program_3dlut_size
-
-Aurabindo Pillai (2):
-      drm/amd: Bump KMS_DRIVER_MINOR version
-      drm/amd/display: fix doc entry for bb_from_dmub
-
-Boyuan Zhang (2):
-      drm/amdgpu/vcn: identify unified queue in sw init
-      drm/amdgpu/vcn: not pause dpg for unified queue
-
-Li Ma (1):
-      drm/amd/swsmu: enable Pstates profile levels for SMU v14.0.4
-
-Rodrigo Siqueira (6):
-      drm/amd/display: Move DIO documentation to the right place
-      Documentation/gpu: Remove ':export:' option from DCN documentation
-      Documentation/gpu: Adjust DCN documentation paths
-      drm/amd/display: Add simple struct doc to remove doc build warning
-      Documentation/gpu: Remove undocumented files from dcn-blockshubbub.h
-      Documentation/amdgpu: Fix duplicate declaration
-
-Roman Li (1):
-      drm/amd/display: Add function banner for idle_workqueue
-
-Tim Huang (1):
-      drm/amd/pm: early return if disabling DPMS for GFX IP v11.5.2
-
-YiPeng Chai (1):
-      drm/amdgpu: add mutex to protect ras shared memory
-
- Documentation/gpu/amdgpu/display/dcn-blocks.rst    |  35 +-----
- .../gpu/amdgpu/display/display-manager.rst         |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            | 123 ++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c         |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |  53 +++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |   1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  17 ++-
- drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h        |  22 +++-
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h        |  14 +++
- drivers/gpu/drm/amd/display/dc/inc/hw/opp.h        |  15 +++
- .../drm/amd/display/dc/link/hwss/link_hwss_dio.c   |  29 +++++
- .../drm/amd/display/dc/link/hwss/link_hwss_dio.h   |   9 --
- .../gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.c |  15 +--
- .../gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c |  10 ++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  16 +--
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  18 ++-
- 18 files changed, 246 insertions(+), 141 deletions(-)
