@@ -4,74 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2102C3DA60
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D15E6C41513
 	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 13:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6543310E822;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E7B10E81F;
 	Thu, 18 Jul 2024 13:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="oJO2W+zf";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Rl/UXerj";
 	dkim-atps=neutral
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5B4E10E47E
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 10:39:06 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2eede876fbfso52530161fa.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 03:39:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1721212745; x=1721817545;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IUGlQHl8PKwPc+cI7G+9C1/A30MK7pw94dtaMexOJNU=;
- b=oJO2W+zf3UDVZ7S/QuU2RokeGPq/jCuT3K175B1AzbsHTD25jOPw6XHaVwG+7dYwWB
- SqHZjoDrc1xG2HqOvFwv6IEgBU4sI80MoECXbawfzW3Psz0FcQQ+6hFiaOfIc0MmbT6E
- rQQvGU4LKIfbHX0Rvg5Lc/8R0NnkiHDWDk59o=
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6327E10E08F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 08:25:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1721291124;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=F1svtcDGv9GPXqhPvf/wZn92njhXKe/iKQ0fD18vtZo=;
+ b=Rl/UXerj0dFycX7GVRJBwxYnffGq8IlskHZwTwj3SQTtr0Op2L2PSF0WqqEx6YzFpXIiXo
+ +ZdbNNigbHl5f9zTC8TrbjmLHd/kYIYllKaHcSKnGdhO6FYk7yaPr0cp7//DTLjGvHRgYM
+ fYHIT+d707ODogZFQlgPD+5BWKws/5w=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-618-npfi2MShPPeQtKUoHbewDA-1; Thu, 18 Jul 2024 04:25:22 -0400
+X-MC-Unique: npfi2MShPPeQtKUoHbewDA-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-427b7a2052bso399695e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 01:25:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721212745; x=1721817545;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IUGlQHl8PKwPc+cI7G+9C1/A30MK7pw94dtaMexOJNU=;
- b=v7GjYn8X49BbHg9I5qr1ydMwOBnBjmFRDU+E5mLe5BCwXFcBo6+Akk4IB2AeQktU+t
- 77Z6UktaM8VM4zx+uiKLA/ghl7Ypxo4bZdhbewwTIfxauISQswKTcWDi3gczRg+C9kae
- gKm33nghWuYDIWjudZdSNafSqzQaaX1fkY9KDDCYDyxfU0odrXCFtevki6GwbxgO61Ko
- QdL4Q72qSlmEwPqsbY48GgQCNPyRCaDKAf4IP11Oib02z9oBZkrgybNycRWamfXxHwjL
- 0GiNqEvxs4uL6PQMOmeoVbT1AfTXlsXLSNhXbs4+UGpmp6nG7mI0u4nqJgQ2XotnE95U
- 9YkQ==
+ d=1e100.net; s=20230601; t=1721291121; x=1721895921;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=F1svtcDGv9GPXqhPvf/wZn92njhXKe/iKQ0fD18vtZo=;
+ b=LSJTj7Ha+QCSgaE76BKEXHdp7Q7sxRrDtCLWEeMRVqDZz/Y+5H86wco3nff1vw5KVN
+ SQ1yCxytbeKfahi0SdIrRs61GhEfr7lVDzbqyjARq7ysxmGCxBqzjxMyqRLuenSMEX7g
+ PSAtcH+ia6/k1Qr1x4xE9+9UKmsGGRZZ8+d2CiF65f90Q7Id/SFjCpbhYRbUln36DmPw
+ gvbgK2EmygRdsipN8+1WnksWAdGjW+aQsW8Q+Z2OQNmtk8nym4TbhSTumnsRBfqbxUZf
+ zSwMAuUFvg6fB3OM2lKuIASeMJgWHdN324kb1MKG1GctcMhPIo0OdwiroL5uj5TTGE5K
+ wh9A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVunEzcqt+QqD3MyKcSoEIg5hTgIJINBoHzKsHF2ypyu4xNnH/ZlwV4d0pX7EWc5CONxZEz6hMHwCidw5VJknWxXBimGlaw4cfplFqnsg==
-X-Gm-Message-State: AOJu0Yy0ImPwpInfcIVD77DyULo9l5/ve3va81kuAGzb4anahicjgvfL
- 72MM0bTVpJA16eFqNWh1EDatf/YyTIm2NhkQEWypjIdc4rfwunU3jH5MkiaZSLABLZ2iFuBddkd
- Kv4l9ANoiOZYOwnybI8cico+wwkmNGorgdYk=
-X-Google-Smtp-Source: AGHT+IHxg8zNsdD8Eo1Vffp0MSXIaIS5xW3Su0QbPUe5IWbUhBN/2S1B3D0WgRGGz2VkYyi0XXC5WDVvjaMANhw5Xos=
-X-Received: by 2002:a05:6512:2387:b0:52d:259d:bd91 with SMTP id
- 2adb3069b0e04-52ee53b04c7mr1051655e87.18.1721212744729; Wed, 17 Jul 2024
- 03:39:04 -0700 (PDT)
+ AJvYcCVY317Ah0UOX/1a8NJR3iNUZ2AAt7uueRLSlk+Kaykw2Jzzl9mFBZF4bQAZQ6w6siXO0uE9PN+WyZT1X9JUjrWnwJmjXbmouIdp/tjWyQ==
+X-Gm-Message-State: AOJu0Yy7+E/U4Pd81oQ5p5ADVmyiFgjKAqiBOMxV+JYJNp0gLAQp3bzc
+ 3hb/vNv/B648C59cOaA0qhasaV8SZxS4uQLK9voBuvLoIcgVa6fY6b1WpQsm1ph0azp0OBtANzO
+ FgX5fxHxQqtnphx+9ANmm7ECKThmgOxvHRSoWPGounnXb1Q/zlO3o7FIiaiNM8j8=
+X-Received: by 2002:a05:600c:4455:b0:426:5d4d:d759 with SMTP id
+ 5b1f17b1804b1-427c2d01fa0mr35302015e9.24.1721291121585; 
+ Thu, 18 Jul 2024 01:25:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFDQmOs05h3TMeUCsJAeQ6XUVxagcN1TKeIjWXjqi79nkjJ+F5PJFWZ0k0Ne+JuEETUnDjJMg==
+X-Received: by 2002:a05:600c:4455:b0:426:5d4d:d759 with SMTP id
+ 5b1f17b1804b1-427c2d01fa0mr35301835e9.24.1721291121154; 
+ Thu, 18 Jul 2024 01:25:21 -0700 (PDT)
+Received: from [172.18.228.53] (ip-185-104-138-47.ptr.icomera.net.
+ [185.104.138.47]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427d2a43034sm2201335e9.3.2024.07.18.01.25.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Jul 2024 01:25:20 -0700 (PDT)
+Message-ID: <6db5abf9-cbdd-4ec0-b669-5df23de6c2ad@redhat.com>
+Date: Thu, 18 Jul 2024 10:25:18 +0200
 MIME-Version: 1.0
-References: <20240702215804.2201271-1-jim.cromie@gmail.com>
- <ZoR40nWmpEV2Ly_6@bombadil.infradead.org>
- <CAJfuBxyxamRhOyz8WuL+7=eJkEKSw8jnAWjyAuqU2i7gvg-rsQ@mail.gmail.com>
- <CALwA+NbUCfEj_DzT5eMQ7_pSNpyp-zBe6PEL2XnMZrb303J4_Q@mail.gmail.com>
- <CAJfuBxzeYWWV1ikYagFpyFHdAQU4ReYPirksQFHbEzDxhXCfHA@mail.gmail.com>
- <CALwA+Naec_YHxHoKu8Ba_Bnuq2L3VXw1cT3=Tx3qC3mE5_BG1g@mail.gmail.com>
- <CAJfuBxxnTyqeGtS1mPBFqX2MYs7kgK49ZUQeR1oTe4UMC4ct5A@mail.gmail.com>
-In-Reply-To: <CAJfuBxxnTyqeGtS1mPBFqX2MYs7kgK49ZUQeR1oTe4UMC4ct5A@mail.gmail.com>
-From: =?UTF-8?Q?=C5=81ukasz_Bartosik?= <ukaszb@chromium.org>
-Date: Wed, 17 Jul 2024 12:38:53 +0200
-Message-ID: <CALwA+NYQsKAtrME-dgZcBH=+KKU0duHAjxu-X3PhckJmbwz60A@mail.gmail.com>
-Subject: Re: [PATCH v9 00/53] fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-To: jim.cromie@gmail.com
-Cc: Luis Chamberlain <mcgrof@kernel.org>, daniel.vetter@ffwll.ch, 
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, jbaron@akamai.com, gregkh@linuxfoundation.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk, joe@perches.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] drm: backlight quirk infrastructure and lower
+ minimum for Framework AMD 13
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>
+References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
+ <e61010e4-cb49-44d6-8f0d-044a193d29b2@redhat.com>
+ <51f68b3b-dd21-44ef-8ec8-05bea5db6e55@t-8ch.de>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <51f68b3b-dd21-44ef-8ec8-05bea5db6e55@t-8ch.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 18 Jul 2024 13:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,211 +106,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 15, 2024 at 8:00=E2=80=AFPM <jim.cromie@gmail.com> wrote:
->
-> On Mon, Jul 15, 2024 at 4:05=E2=80=AFAM =C5=81ukasz Bartosik <ukaszb@chro=
-mium.org> wrote:
-> >
-> > On Sat, Jul 13, 2024 at 11:45=E2=80=AFPM <jim.cromie@gmail.com> wrote:
-> > >
-> > > On Fri, Jul 12, 2024 at 9:44=E2=80=AFAM =C5=81ukasz Bartosik <ukaszb@=
-chromium.org> wrote:
-> > > >
-> > > > On Wed, Jul 3, 2024 at 12:14=E2=80=AFAM <jim.cromie@gmail.com> wrot=
-e:
-> > > > >
-> > > > > On Tue, Jul 2, 2024 at 4:01=E2=80=AFPM Luis Chamberlain <mcgrof@k=
-ernel.org> wrote:
-> > > > > >
-> > > > > > On Tue, Jul 02, 2024 at 03:56:50PM -0600, Jim Cromie wrote:
-> > > > > > > This fixes dynamic-debug support for DRM.debug, added via cla=
-ssmaps.
-> > > > > > > commit bb2ff6c27bc9 (drm: Disable dynamic debug as broken)
-> > > > > > >
-> > > > > > > CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy was marked broken because dr=
-m.debug=3Dval
-> > > > > > > was applied when drm.ko was modprobed; too early for the yet-=
-to-load
-> > > > > > > drivers, which thus missed the enablement.  My testing with
-> > > > > > > /etc/modprobe.d/ entries and modprobes with dyndbg=3D$querycm=
-d options
-> > > > > > > obscured this omission.
-> > > > > > >
-> > > > > > > The fix is to replace invocations of DECLARE_DYNDBG_CLASSMAP =
-with
-> > > > > > > DYNDBG_CLASSMAP_DEFINE for core, and DYNDBG_CLASSMAP_USE for =
-drivers.
-> > > > > > > The distinction allows dyndbg to also handle the users proper=
-ly.
-> > > > > > >
-> > > > > > > DRM is the only current classmaps user, and is not really usi=
-ng it,
-> > > > > > > so if you think DRM could benefit from zero-off-cost debugs b=
-ased on
-> > > > > > > static-keys, please test.
-> > > > > > >
-> > > > > > > HISTORY
-> > > > > > >
-> > > > > > > 9/4/22  - ee879be38bc8..ace7c4bbb240 commited - classmaps-v1 =
-dyndbg parts
-> > > > > > > 9/11/22 - 0406faf25fb1..16deeb8e18ca commited - classmaps-v1 =
-drm parts
-> > > > > > >
-> > > > > > > https://lore.kernel.org/lkml/Y3XUrOGAV4I7bB3M@kroah.com/
-> > > > > > > greg k-h says:
-> > > > > > > This should go through the drm tree now.  The rest probably s=
-hould also
-> > > > > > > go that way and not through my tree as well.
-> > > > > >
-> > > > > > Can't this just be defined as a coccinelle smpl patch? Must eas=
-ier
-> > > > > > to read than 53 patches?
-> > > > > >
-> > > > >
-> > > > > perhaps it could - Im not sure that would be easier to review
-> > > > > than a file-scoped struct declaration or reference per driver
-> > > > >
-> > > > > Also, I did it hoping to solicit more Tested-by:s with drm.debug=
-=3D0x1ff
-> > > > >
-> > > > > Jim
-> > > > >
-> > > >
-> > > > Jim,
-> > > >
-> > > > When testing different combinations of Y/M for TEST_DYNAMIC_DEBUG a=
-nd
-> > > > TEST_DYNAMIC_DEBUG_SUBMOD in virtme-ng I spotted test failures:
-> > > >
-> > > > When the TEST_DYNAMIC_DEBUG=3DM and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
-> > > > BASIC_TESTS, COMMA_TERMINATOR_TESTS, TEST_PERCENT_SPLITTING,
-> > > > TEST_MOD_SUBMOD selftests passed
-> > > > When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
-> > > > BASIC_TESTS, COMMA_TERMINATOR_TESTS selftests passed, however
-> > > > TEST_PERCENT_SPLITTING selftest fails with ": ./dyndbg_selftest.sh:=
-270
-> > > > check failed expected 1 on =3Dpf, got 0"
-> > > > When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DY -
-> > > > BASIC_TESTS, COMMA_TERMINATOR_TESTS selftests passed, however
-> > > > TEST_PERCENT_SPLITTING selftest fails also with ":
-> > > > ./dyndbg_selftest.sh:270 check failed expected 1 on =3Dpf, got 0"
-> > > >
-> > > > Have I missed something ?
-> > > >
-> > >
-> > > I am not seeing those 2 failures on those 2 configs.
-> > >
-> > > most of my recent testing has been on x86-defconfig + minimals,
-> > > built and run using/inside virtme-ng
-> > >
-> > > the last kernel I installed on this hw was june 16, I will repeat tha=
-t,
-> > > and report soon if I see the failure outside the vm
-> > >
-> > > I'll also send you my script, to maybe speed isolation of the differe=
-nces.
-> > >
-> >
-> > Jim,
-> >
-> > I know why I saw these failures.
-> > I ran dyndbg_selftest.sh directly in thw directory
-> > tools/testing/selftests/dynamic_debug/.
->
-> thats odd.
-> I mostly run it from src-root,
-> also whereever make selftest target is/works (I forgot)
->
-> I went into that subdir and ran it there
-> I got no test differences / failures.
->
+Hi Thomas,
 
-Jim,
+On 6/24/24 6:15 PM, Thomas Weißschuh wrote:
+> Hi Hans!
+> 
+> thanks for your feedback!
+> 
+> On 2024-06-24 11:11:40+0000, Hans de Goede wrote:
+>> On 6/23/24 10:51 AM, Thomas Weißschuh wrote:
+>>> The value of "min_input_signal" returned from ATIF on a Framework AMD 13
+>>> is "12". This leads to a fairly bright minimum display backlight.
+>>>
+>>> Add a generic quirk infrastructure for backlight configuration to
+>>> override the settings provided by the firmware.
+>>> Also add amdgpu as a user of that infrastructure and a quirk for the
+>>> Framework 13 matte panel.
+>>> Most likely this will also work for the glossy panel, but I can't test
+>>> that.
+>>>
+>>> One solution would be a fixed firmware version, but given that the
+>>> problem exists since the release of the hardware, it has been known for
+>>> a month that the hardware can go lower and there was no acknowledgment
+>>> from Framework in any way, I'd like to explore this alternative
+>>> way forward.
+>>
+>> There are many panels where the brightness can go lower then the advertised
+>> minimum brightness by the firmware (e.g. VBT for i915). For most users
+>> the minimum brightness is fine, especially since going lower often may lead
+>> to an unreadable screen when indoors (not in the full sun) during daylight
+>> hours. And some users get confused by the unreadable screen and find it
+>> hard to recover things from this state.
+> 
+> There are a fair amount of complaints on the Framework forums about this.
+> And that specific panel is actually readable even at 0% PWM.
 
-The dyndbg_selftest.sh checks the location of kernel .config if it is
-configured and
-if not it sets it to the current dir.
+If a lot of Framework users are complaining about this, then maybe Framework
+should fix their VBT in a BIOS update ?  That seems like a better solution
+then quirking this in the kernel.
 
-[ -f "$KCONFIG_CONFIG" ] || KCONFIG_CONFIG=3D".config"
-if [ -f "$KCONFIG_CONFIG" ]; then
+> 
+>> So IMHO we should not be overriding the minimum brightness from the firmware
+>> using quirks because:
+>>
+>> a) This is going to be an endless game of whack-a-mole
+> 
+> Indeed, but IMO it is better to maintain the list in the kernel than
+> forcing all users to resort to random forum advise and fiddle with
+> lowlevel system configuration.
 
-If it does not find the .config it will set the variables to:
+One of the problem is that what is an acceptable minimum brightness
+value is subjective. One person's "still too bright" is another
+person's "barely readable"
 
-    LACK_DD_BUILTIN=3D0
-    LACK_TMOD=3D0
-    LACK_TMOD_SUBMOD=3D0
+>> b) The new value may be too low for certain users / use-cases
+> 
+> The various userspace wrappers already are applying a safety
+> threshold to not go to "0".
+> At least gnome-settings-daemon and brightnessctl do not go below 1% of
+> brightness_max. They already have to deal with panels that can go
+> completely dark.
 
-and run all selftests no matter what the values (Y/M) of
-TEST_DYNAMIC_DEBUG and TEST_DYNAMIC_DEBUG_SUBMOD are.
+Right, something which was added because the minimum brightness value
+on VBTs often is broken. Either it is missing or (subjectively) it is
+too high.
 
-> IIRC, the failure was on line 270, just after a modprobe.
-> can you further isolate it ?
->
-> > All works as expected when I run it from the top kernel directory.
-> > Here are the results:
-> >
-> > When the TEST_DYNAMIC_DEBUG=3DM and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
-> > BASIC_TESTS, COMMA_TERMINATOR_TESTS, TEST_PERCENT_SPLITTING,
-> > TEST_MOD_SUBMOD selftests passed
-> >
-> > When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DM -
-> > BASIC_TESTS and COMMA_TERMINATOR_TESTS selftests passed,
-> > TEST_PERCENT_SPLITTING and TEST_PERCENT_SPLITTING selftests were
-> > skipped
-> >
-> > When the TEST_DYNAMIC_DEBUG=3DY and TEST_DYNAMIC_DEBUG_SUBMOD=3DY -
-> > BASIC_TESTS and COMMA_TERMINATOR_TESTS selftests passed,
-> > TEST_PERCENT_SPLITTING and TEST_PERCENT_SPLITTING selftests were
-> > skipped
->
->
-> thank you for running these config-combo tests.
->
-> are you doing these in a VM ?
-> and since Im asking, Ive done these combos on virtme-ng builds,
-> also installed & running on 2 x86 boxen.
->
 
-Sorry I forgot to mention that I tested it using virtme-ng.
+>> With that said I realize that there are also many users who want to have
+>> a lower minimum brightness value for use in the evening, since they find
+>> the available minimum value still too bright. I know some people want this
+>> for e.g. various ThinkPad models too.
+> 
+> From my experience with ThinkPads, the default brightness range there
+> was fine for me. But on the Framework 13 AMD it is not.
+> 
+>> So rather then quirking this, with the above mentioned disadvantages I believe
+>> that it would be better to extend the existing video=eDP-1:.... kernel
+>> commandline parsing to allow overriding the minimum brightness in a driver
+>> agnostic way.
+> 
+> I'm not a fan. It seems much too complicated for most users.
 
-> could you add DRM=3Dm and a driver too,
-> and boot with drm.debug=3D0x1ff, dynamic_debug.verbose=3D3
-> the debug output should show all the class-work on modprobe,
-> for your easy inspection/grading ;-)
->
+Wanting lower minimum brightness really is mostly a power-user thing
+and what is the right value is somewhat subjective and this is an often
+heard complained. I really believe that the kernel should NOT get in
+the business of adding quirks for this. OTOH given that this is an often
+heard complaint having some generic mechanism to override the VBT value
+would be good to have.
 
-I will retest with your patchset v9.
+As for this being too complicated, I fully agree that ideally things
+should just work 100% OOTB, which is why I believe that a firmware fix
+from Framework would be good. But when things do not work 100% adding
+a kernel cmdline option is something which is regularly asked from users /
+found in support questions on fora so I don't think this is overly
+complicated. I agree it is not ideal but IMHO it is workable.
 
-Thanks,
-Lukasz
+E.g. on Fedora it would simply be a question of users having to run:
 
-> >
-> > Based on that maybe it would be worth it for the script to fail when
-> > it doesn't find a .config with an error message something like this:
->
-> if no config - they get to see more errors now.
-> if the solution isnt obvious to them, we can find out more ?
->
-> > "Kernel .config not found. Are you running the script from the
-> > kernel's top directory?"
-> >
-> > What do you think ?
->
-> the -rc0 window is open, Id rather not fiddle with this now.
->
-> Im gonna rebase onto 6.10, resend,
-> copy and rebase onto drm-mumble-next
-> then try to get into the DRM-CI river, see where that takes me.
->
-> thanks Lukas,
-> Jim
->
-> >
-> > Thanks,
-> > Lukasz
-> >
-> > > > Thanks,
-> > > > Lukasz
-> > > >
-> > > > > >   Luis
-> > > > > >
+sudo grubby --update-kernel=ALL --args="video=eDP-1:min-brightness=1"
+
+will add the passed in argument to all currently installed (and
+future) kernels.
+
+> Some more background to the Framework 13 AMD case:
+> The same panel on the Intel variant already goes darker.
+> The last responses we got from Framework didn't indicate that the high
+> minimum brightness was intentional [0], [1].
+> Coincidentally the "12" returned from ATIF matches
+> AMDGPU_DM_DEFAULT_MIN_BACKLIGHT, so maybe the firmware is just not set
+> up completely.
+
+Right, so I think this should be investigated closer and then get
+framework to issue a BIOS fix, not add a quirk mechanism to the kernel.
+
+IIRC the amdgpu driver will use AMDGPU_DM_DEFAULT_MIN_BACKLIGHT when
+that setting is 0 in the VBT.
+
+> 
+>> The minimum brightness override set this way will still need hooking up
+>> in each driver separately but by using the video=eDP-1:... mechanism
+>> we can document how to do this in driver independent manner. since
+>> I know there have been multiple requests for something like this in
+>> the past I believe that having a single uniform way for users to do this
+>> will be good.
+>>
+>> Alternatively we could have each driver have a driver specific module-
+>> parameter for this. Either way I think we need some way for users to
+>> override this as a config/setting tweak rather then use quirks for this.
+> 
+> This also seems much too complicated for normal users.
+
+I agree that having a uniform way is better then having per driver
+module options.
+
+Regards,
+
+Hans
+
