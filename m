@@ -4,148 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D3CC3DA5D
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jul 2024 23:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A39F7C3DA60
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 01:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C569A10E484;
-	Wed, 17 Jul 2024 23:02:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C30F10E136;
+	Thu, 18 Jul 2024 01:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GYCA7/ig";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hUcxU5z1";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F5910E484
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jul 2024 23:02:49 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B11A10E136
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 01:41:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yBG0obZH/5QPsaO15nRWVrzn0quOB0mMTyjUkiGftfFhOCRKU7ue2UYsdqEKkhVYaXoiiIUnjnZuFrz/CSPT8wMhRc1Kk3gSDfeG58m1/MuA8Bo0TKk7y6rFW9j2msQKiznajsU0sqOFL/eZO4tIbW1clVlUysC/BMiVNXDlgx9ptmsbgwujRU77mPQ7RuWLzPnX6MAcHKdAlE90i8LkCA/8Uonn9u+jvWgBhyi7k6c9VcghkeiM4iTv1sK8NTWfFIQk5zetwvMASZ5YRBIJE6PaxYz8PHcktdfhKY7omZUJdoc5GRsSg6Ex3vk7T3AfoyT1sUqa+4DFal73vgv/FQ==
+ b=tvbCAl2sDzJ7FWbV0J+BedxjIDgi5nA6G/dyEg/I6wg6rMvjTeOOUSGbU+/N0S8cXFMt8w1l0+NQ8sAj45eMz4NrorHUlnHl6zSPJW/r1rZYEiJ9fmDT8NQy4ph5wvCgWhJVr9/EUBFablRVk98yEGtFIkHm+ALmtHi5BY4/S0SXmzPON9QtuDesx4hXoPmL+b1272JMEqxunKXfyvUfc0i8jttiPkb9tyxqNBp1gy0CPblyg9+FCU63syz3q2z6yP1Mbgh/9PuuUwhi+mjwENk7RK0mZ4IgVylj4FQKpJLFQL5uUHvvotkAUmfeP7cBfKxwMQNwm6Uk+C2W80LKYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zk7dLW/Dp6kjBH0Z8yNFOoocO8j0qmDPHFUA4GLDnLs=;
- b=URTZ1EMe/r3YNw3wMstrgrSLxN3Zm2YVbFfH/9Q0cr4Ow7vcQFPo96SwZtqgSaaFwt9VLO+hD8sultkyeUn3/MU15iNSTj2UjpwMarB33WAAmZjzQ8i95TanNJ7K9284JiIqoH84of/W3fueaCKrChDeJzmDxI7sfyk5cY6YH7/xJ3gg/eWzUsxBdyUETs2iW+M7ChV8XuSsbR5AfnqCTey7PEbeEFo9Bich/36w+r6QnIUnd9eBGvaOZMuTfz0rEJ/mmfzYhDBsZhclojCDJPNcXVSCEguLRe3YdUt/dzIXCFLXEEpwrNbfq02iAxLJWW/IOrLY8p/l267a63x6Xg==
+ bh=53G6VQLc3ruJImyrM3TESTSv+/39+ILjqFMRXUC+P4U=;
+ b=KCEKi7LTKKzpXIwviAZCaYeCe26oimHGG40zz614wiqLnmRiNA2Ybe9jeuT9y64yD3NGj2OjEPPvTzl12Kn2Wd9uyZH8Ja8QnwKwl6sNylSfCK7GB7I/hDn9+RP5fJjto1Ek8md4KO7dB7d5XL12UAisZyt4dDHNFN9Gl5qYVLoEV/AOku652a/zYzhVVzr5VW8Af3KT5uY6r6QA2ShVIUHEiXogvYCj20B0akpba7h52oe1m2u0GtdeROoTcIoBbO5BB1dnXJ2ws8Y3QEd8QvCy1RTAjAjErWCXTVk5hYMx4QxZvDeFZJtEbHHMn4QJC427XN8Rgj9gKwFg5aFx+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zk7dLW/Dp6kjBH0Z8yNFOoocO8j0qmDPHFUA4GLDnLs=;
- b=GYCA7/igMDVV7mtH7QySDtzOW7iVpDsBgYoPRQOa3NpPafQuGj9Cn3/IFys3ftzN+BVOKZ7uwD50/cCv2uGaNaOn7ph0VJ++eKhwNdTyNk82N3644jxW4fEpH48m2RNZKLs/sTfIoJfTVwlIWGWR8XKP1F26SJXhP+Kds4J7BUo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB6779.namprd12.prod.outlook.com (2603:10b6:303:20f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.20; Wed, 17 Jul
- 2024 23:02:45 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.7784.016; Wed, 17 Jul 2024
- 23:02:45 +0000
-Message-ID: <0aea26d5-7850-44c8-b072-5d50a9d4c272@amd.com>
-Date: Wed, 17 Jul 2024 19:02:43 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdkfd: Correct svm prange overlapping handling at
- svm_range_set_attr ioctl
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Philip.Yang@amd.com
-References: <20240626150633.157464-1-xiaogang.chen@amd.com>
+ bh=53G6VQLc3ruJImyrM3TESTSv+/39+ILjqFMRXUC+P4U=;
+ b=hUcxU5z1Vaustip/gH5aijhDepUlfsmNnjlyU5Q3XwLNSUikSNW1s1wkxufU68iUZIWN2csqt+zBxw0lEhyfbN303ZAgOpAObWfgIFVTuMZxgOALJb+1RLCF3S39PHQZOrnD5Jc5Tp6fzWzbBUAdxHlbhaLZSfE1l5eZIpqbnKs=
+Received: from BY5PR12MB4212.namprd12.prod.outlook.com (2603:10b6:a03:202::8)
+ by CY5PR12MB6084.namprd12.prod.outlook.com (2603:10b6:930:28::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.24; Thu, 18 Jul
+ 2024 01:41:54 +0000
+Received: from BY5PR12MB4212.namprd12.prod.outlook.com
+ ([fe80::c03b:dbbb:7472:fb15]) by BY5PR12MB4212.namprd12.prod.outlook.com
+ ([fe80::c03b:dbbb:7472:fb15%5]) with mapi id 15.20.7784.016; Thu, 18 Jul 2024
+ 01:41:54 +0000
+From: "Chai, Thomas" <YiPeng.Chai@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Li, Candice" <Candice.Li@amd.com>,
+ "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Yang, Stanley"
+ <Stanley.Yang@amd.com>
+Subject: RE: [PATCH 1/3] drm/amdgpu: optimize umc v12 address conversion
+ function
+Thread-Topic: [PATCH 1/3] drm/amdgpu: optimize umc v12 address conversion
+ function
+Thread-Index: AQHa2CGXX7DIO5W8SkeRbrpn8BAzHLH64j8AgADUwIA=
+Date: Thu, 18 Jul 2024 01:41:54 +0000
+Message-ID: <BY5PR12MB42123968E9D2F4D82D18A0C3FCAC2@BY5PR12MB4212.namprd12.prod.outlook.com>
+References: <20240717081547.224193-1-YiPeng.Chai@amd.com>
+ <BN9PR12MB5257E2AE24DC4B4752F824D2FCA32@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB5257E2AE24DC4B4752F824D2FCA32@BN9PR12MB5257.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20240626150633.157464-1-xiaogang.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0002.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::10)
- To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=18f224b2-018c-4847-b15c-035a006b5afe;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-17T12:55:41Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR12MB4212:EE_|CY5PR12MB6084:EE_
+x-ms-office365-filtering-correlation-id: 47e2aa93-3f07-4964-117a-08dca6cacdce
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?cWquXpvnqly6osxIkspr88lnpatl8R+IZ+25p3FDaCj5FveRnT8WRCFMwauT?=
+ =?us-ascii?Q?AOuc+JbJPvEL5eRS+4zXiJynpZahQG2fQRes9GHGD/GmYLWu6SBEMY3oe9Uz?=
+ =?us-ascii?Q?Sq+GkDlO2c2CFno3vt6/jNB5kfPZOkq1iG/5Jq5F3yq9Dp8HTNrhWt2Dm01O?=
+ =?us-ascii?Q?asDA5e6KqK1axhzjz3jzYXv9U8OIuP2rHOt33efIMmsPkeZZufTroBhXyo3j?=
+ =?us-ascii?Q?CGUpHwqXuwZW9pnznmEr/TxlX3EWX0LiEfGF/Rm5tz17z2PFCkERjm+EYzuC?=
+ =?us-ascii?Q?cpnYb9M73DC7K04iSDOICdGDNYjyP/Ln1WGn09Ixy3+4aVmPu8snBh2abJAH?=
+ =?us-ascii?Q?anwl/OCikjA+COda8Yv7nMu9jJWtcJd7VxzUpVLbG8SsobLpszQMUKvA0pS4?=
+ =?us-ascii?Q?6fVX1PkOcsXZAbGu13G9a3zSJUTqmbMCQWz9almEFxh1rGVQ8t8Voeydkpiz?=
+ =?us-ascii?Q?Qu7hoIJYbiDpv8VDnS3YD5CPoJFQ3PaeKqW2MONRb+9MhBNLdRSAdqpUtOsV?=
+ =?us-ascii?Q?/SOXBr7qGL5go8EaS+2HE5kNcNM3FOeCcv50Npx1TBP19BMLXabreEfm8Vmy?=
+ =?us-ascii?Q?T0L3zNra31FzPJG1mGJa1rl1Q6g3kfelkfD1rKbxnXln57rT0BCP4/39mVg+?=
+ =?us-ascii?Q?BuMk1yfHd0fr/PPyCgoY5u9pIC642bURbrxIkTCiyjDlCepdXR14UB8w/tY6?=
+ =?us-ascii?Q?92UXGEmc9J39xxYbZipPPEOq0kDxBu6RKtenVsOLS+agdklIxgFknuRRbuAd?=
+ =?us-ascii?Q?JIkUTaontP8XGRY4mw7o+JCQ9NSGU8S22fXXKzzERU+xXwKlL9mGR4Sn3mAJ?=
+ =?us-ascii?Q?1Cn0Krya0xNvtC5I2AngaUkCH05EcI0vQwiCG8yRUTGp6lh6aYmmtLUZSGwk?=
+ =?us-ascii?Q?3SPVtPh5Hnek8qERFIZzMONrT0sxxxIRrZeF3VPSH88p+3eNUU1EQqpXZbTo?=
+ =?us-ascii?Q?RVyxa9yI3pZlCCLQsVhqzDW8ls2UNszgHO+t30S12UGZgkqdi82ez9u9xrPz?=
+ =?us-ascii?Q?MBHMg0AaKH5Ynsykm4yNMNJCtl/Kezw8trPEcBlCK9KIr9nZVkQUF24oAvba?=
+ =?us-ascii?Q?6TBCOoJqfLXdZh1MKYY+o9klUZFW/IwNpMNEr8txEWvd4gZM0cgCE+Gtyu3t?=
+ =?us-ascii?Q?FcYnqWRHmEq0GYJnNQ9qvxdStfOwFED404NgbHUwiC3aYHE6JICrBU7+yVrf?=
+ =?us-ascii?Q?ZpNdbgHJPgdbystBxGAEkqJ0m4f5svY6Tb/TsDJz3xso3KzhhOpPGUrnX5r1?=
+ =?us-ascii?Q?zihKUHQYUaSNzR6vnpR0gNFi5D9dljsMLmva3D9JsOi9NPxMxDpk2k8+k6YK?=
+ =?us-ascii?Q?xxq/iWPeq11LrYx3uu8yQLF+d51od4MZRvHjEbJk8luLFSOFrtn4+TusPTNk?=
+ =?us-ascii?Q?3TBnTZRf9YErcwIdgeyYwJ9VY2/RCTbh/7JFIvx/dBb3eR/tjQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4212.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SfrbzsbTwjFsfTeOMvPJGgP+M6SaL+8gI37jQFARugKx3v67xc/8KVnIrUHs?=
+ =?us-ascii?Q?RTUNucoYF4oUBV6MGeno63CEsMXey9AIPyTFxo3oNPe40Qt+GW9aYjE8Wcnt?=
+ =?us-ascii?Q?i4znjxpMZRHBuNIgk5UeM3C6Yw0unPEbu+Mi1OYI11ZM+TYVA2D/uhrwABFq?=
+ =?us-ascii?Q?2F4rV4mtlxyUWqQ3hn6zf7dmMOo4OHF75JudpkQbIG7P3FkJ4lep6Q6F4Mtf?=
+ =?us-ascii?Q?TKoKJVgJW7e1EjWr5RZZNItjKa3PvH4x44sDDBzcsPhQW+FHZ5nTgL6dOciV?=
+ =?us-ascii?Q?xkWNUxGjPxS+UVKhM4bpd+r1w/+bFyv+EvUNWSLa9w6MnW9xcbTmGwmv6Ah2?=
+ =?us-ascii?Q?hndUbFGiXaoxtwsYa2Rbeu2g22Wf2XPtIhe71sg05oHjB1hTC2nT6BevvRiG?=
+ =?us-ascii?Q?EyDmgyY1xT/W6nlOfUvq1VvUsUWsyv34bGvr4khtdhhE4umNuiQh3cU1k3dS?=
+ =?us-ascii?Q?dObJtgHn8m20reCWcKWD7RExtR7+4rD9bj1kqqk0sjDWfyDblwA1QOa9ZCZ2?=
+ =?us-ascii?Q?cguH82NrRutKdDefzi08A2dw5VFuGFYQdayQDyTns+y5GWqoKOYp6oXGsEQ2?=
+ =?us-ascii?Q?YB0JxTo60Aa4H/JLFlMYrGegCYIdtvMFs/lx7kb2US3tulMLIEMRi9pO1+Ym?=
+ =?us-ascii?Q?whHz2BWreV/EOSIeTx4DoAPIefNmCvjYrqjNVP8dzjgtdsAfvrqQk1vX/4cf?=
+ =?us-ascii?Q?/aJ/qGh6FGgQPvdwW2tcGcGGQ+/MhO3Kbhbv1GOAjbMkFSkXyuqXOkXPxzT/?=
+ =?us-ascii?Q?FFJLKEPimPihCPyvMp55rjjHsOlBjy2wqZXugP+ztXPtoW7Wp+LaaJydDSQN?=
+ =?us-ascii?Q?IYsBwVASEDCjzeNAKc8+ziWhR0Aoby2faS7KdB+McREPejIxdqWVjEpKcDSi?=
+ =?us-ascii?Q?3r5L6z2YwHwD+12LE6zJueLiDwGWQa8dbLt7zjcEFyfyPIoRdWNKinYpO08Q?=
+ =?us-ascii?Q?9HIPkOtvgfubLhNEtYaX4i8o1Wy/vuo/OTadlLYeZeIwJE9vwVF7lHLEy6ir?=
+ =?us-ascii?Q?MCy/KjGT6UoyvXQMcGmHUI5y9Wu2eL7CHqXlbduJ4xu/7myExw5Pbwz36ssc?=
+ =?us-ascii?Q?tgjsBH2jx2porgU31+lTSPjvsMD53MX49SYvMk7DuGqwKfe+YvQLDuKJayef?=
+ =?us-ascii?Q?3OVzoEgrKOfnxutP8iL76+NCyNp8s/5eyaUGyQNO7TRlt5jMxWXKoPS/lHH/?=
+ =?us-ascii?Q?lF4aFqLXMj6xt0gan6XZbsudRhUN1nWvrDVnG7N36bP9lnOsfUHV0fwbcGZU?=
+ =?us-ascii?Q?+S05723n3sVL9zwdxiFl518GgjmA3VNZ3ebiXbTdID/JihG7s0H+RgssoAGG?=
+ =?us-ascii?Q?9/426kmRFUSGGICqltyCqqTSAhZ/icmLCNyVx4ipYL7Ib1ZGL8VohxsQLCUL?=
+ =?us-ascii?Q?aOnpTNFiwnc4vP+/sAULcYwZCFKGbnW9RNsGiLdEHOnzexPx8o6Uc7liyUgV?=
+ =?us-ascii?Q?rEBMMSwNWrYsFP7Sn0/4GqSIyA+pKHH6PuDToitArTHBv/d2SPrj3xu/JGrX?=
+ =?us-ascii?Q?p8yQVXUn4dwLCINP2RSZwOhzVc7VO5kzXySGd1n6WyLQh6aDXja9/Elpzua/?=
+ =?us-ascii?Q?NRWT7BKyIDS+FrqRXho=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB6779:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fc27b56-3c7c-413c-8f6c-08dca6b491d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VytTaWdPc0FiampqUTI0RExjTGZkTDZoeUZEWkZOMXE4M2JhWURrcXpHRlNR?=
- =?utf-8?B?WFVka1NwY2IyQ1c1Q2NpQmFxSWdtSFJCcmVycDVlRSs5ZFNmMVlqclduNXZy?=
- =?utf-8?B?SUoyUUdnSFNLbEpabXFzZnZFamVOQWJPdnhzT2xpdlZ4eWVHKzQ3MmZjTm9P?=
- =?utf-8?B?L0NoUlNjalBYenVSaHBjdTFWWE9waDdsMi83SDFmRjBlUTNHR2NLbEZXekxQ?=
- =?utf-8?B?cGdtQitmTXBlRVB6NTZ2RW01VW90TVJNS1NrYm9iTWhwd1hJSy9GWkNlWTRm?=
- =?utf-8?B?bVRLTGZtVStIbmdpRGYxaC9RRHhacitFRU10UDJGS2p3aHpxZ1F2Tzd6akRM?=
- =?utf-8?B?eFhmWEFQMzUyNGhRVHE5dUFtT0F4ckdiM09WTkxLdjV3Z3N3V1F1UlBxUHlS?=
- =?utf-8?B?YjRocWF0MzF5ZGljb2FKYjdrbk1MMXhxaEE3YlRoOWUvR01HVnJ1OTF6OEE0?=
- =?utf-8?B?U2tQa0NWWVliMTNuQUpteVdETE9kTXpyZG9KWlVRUlh6MTErSXNDMGwrMitV?=
- =?utf-8?B?YlRRdEdlMnNST2NjRzZzMjJsYXo4dVl5QkRnR244NmRPK3QxdE1oVkQxN2Fx?=
- =?utf-8?B?NVB0Ui9iK0lBN1pKT2dxR0pTelZxbnllUEZISWFVYkVpcDByYUh2ZEU4TVJP?=
- =?utf-8?B?OHI1Z05RVStwWHRVaGFBc3FrdFRaR011bDNPbE9CdG1Gdi95ZENiVnJ2WHd0?=
- =?utf-8?B?eWtFQlZQT093NUl0NVhDK1UrRWc5Y0J2TklpVlJ5enArTXRQMXB0eXBHRHpu?=
- =?utf-8?B?RWlVTEVPRU1Wbk9LelVIVmlEd3MraUt0YlMyNDh4ck42SXQwR0NEbWhHOUpV?=
- =?utf-8?B?ZHRzUThFOCttODQ3NThrUThqQnFMaWtZMHlhTElwZDZvbmZjcHBJYUlEU004?=
- =?utf-8?B?bDNHbWdIWkRBMVJiNGdlU2hRdTBMdEpsMTI4SE1NdlhYSXdhTXM1Sm9yRDZt?=
- =?utf-8?B?QUVYSmVmSStQejQyamREUDArK3hncnk3VU9BVEpUTStUOGlGcjZ0VGUrWDM2?=
- =?utf-8?B?QlJUeXVpd2IyQmdBWVVSSWNZMnluTnNNNlV2bDRrRksxeklxTmNsaFhiZjU1?=
- =?utf-8?B?ZDl5Rk1XT2tOS0Z6bzR2bGY2MGZ5WGYrNGp0VGRvaXBuN09XTzF4L3Z2WnAy?=
- =?utf-8?B?S0duTUZmaUdqYW5Sb0d2bTFySkJEQ3p6R0RuTkJrdWxxK3U5ZjFIK2VtOWJ3?=
- =?utf-8?B?dkEyenQyaGtHTWh1c2kxMWUrR1RleFlITXVzcWk0VEdJRURsMStBQXF5VFpU?=
- =?utf-8?B?eEJHRVo0U3Q3RlVvdWROT3llNnFqbG5saGpMMWx0cE5oWFk5RDVjbHl1QUlv?=
- =?utf-8?B?N1NLLzBaanhuQktaRjFaUWQ0c1N4enpjd2xia0JIdlRyQUo5QkIvSnZhYUgx?=
- =?utf-8?B?dzcxUVFGOXFSU1l1RTYyOC9RZmhwZGwvTW0xTWxYdEJDY0VjVGxQUnB4dDNu?=
- =?utf-8?B?dW1tWUw1SWNsaUpJa1UxSDZNRzdaaDNlcWpMUC9IMElVczdwL1JsR2tZOHpN?=
- =?utf-8?B?aW1ia1RpR09pVkpqWVpWR0FIanVwR0RINmwxTjNtdnZkWElCYy95UzRScU05?=
- =?utf-8?B?NGp5eWVZRUswNzc5bUhtcklkakRqUEYyYjRCOXlBOWJ2OEgvVUhTTnlvN085?=
- =?utf-8?B?TjlGZm9pZDA1SWozKy9ES1RnTDlPVnhVWmM1a2V0NXI4Si9wNEJlK2lpMlhI?=
- =?utf-8?B?UmNUV1ZEN1pYWkJMSExiM0FnRzZOdEkrS0hxdEZuemZDOEpQZml4VTlqaDI4?=
- =?utf-8?B?NVBpRDBtSFRjWlJydmtuWkl0d2hkTFBrTUs4cTZEM2RpQUhJanovU1orcjU0?=
- =?utf-8?B?aTJHZHcyNmdIZE1NVjNadz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWN2Wk5JRlIyZTN0aHdPSTZRNW5uYlhNMTNCVWRjUTNwakdQQm03aS9PWEM0?=
- =?utf-8?B?VnBPQ3B2WVl0UDZWNWhWMHd2M0wvcC9tUElyeDN3M0FTaHRGNS9iZnBKR2Vl?=
- =?utf-8?B?c1MxNzBpTUFVamhnOTRkYWtKcEpNTzM0VzhDNkN1SjhMSHhUcCtvcE83LzVO?=
- =?utf-8?B?NVlKR01PdU05VnR6WGRFblZLQ202OS9zMUprYUNSNk1nVFduTVlyeE5icmNY?=
- =?utf-8?B?NEUySFh1c0Fsc1BKTTYxdG4zQ3dSbnJNZkd3cm9aR0xXanNSK3VMdVoyYkVU?=
- =?utf-8?B?eCthb0NDTGU0Y3I2NEpjNHgzQ0pWdG4xQ2EzeEY3WUtJeldvd01Fd2NrMXhS?=
- =?utf-8?B?dFN6RGtrdzB3RVZOWTNEMmRZSmJIVklXUklXY2daN1c2TG44SXBoKzdTT2VB?=
- =?utf-8?B?TDNuN3RjWGVVcUJlYnVDMVlubzFKeGpRc2RrZStJaHlBbzZpeEQ1ZUlTUjdN?=
- =?utf-8?B?Q2NxVjQ5Y3BORFg5TmZvaGVhNU9ZU3hmdEk5NjFDOGpCRThNYUJUVmhCT2VF?=
- =?utf-8?B?ZGZHbVo2YzVJN29vN3JZeW50R1M0MEh2cXpxdDFDT2ZtQkk5V085MmhlQmR4?=
- =?utf-8?B?SERGRm9yR1VxNWJLbTl6eTYxYk1UOU1Hc2w5bmtvakxkVFFEMERIaFo0ZHBT?=
- =?utf-8?B?YW1JM2tBTm1qdnhwU05DT2E4Z2h5YmVTd2RWdGpOM2xTRjZHaEExaDV5bFYz?=
- =?utf-8?B?UXJablpuVEhqTEhqRytROS9uaTlDc0Z3RTU1VnpIVU41UzNrWlB3QUhHMkYy?=
- =?utf-8?B?dGs2ZFROSVlJOXg3dG1GUitHUVdEUWQzSTZ1NXlka2d5Z2pLTHBleTBaMDlI?=
- =?utf-8?B?QmtIRi9xL1JnaXMzTmMrUGZCWlRWRTNKR3JTQ0xFZ1hOSmtkdjM5UmtKaTJo?=
- =?utf-8?B?K1RtbXlCQVhENU8xZVlxMmNRbitBUlRLcGlNVFJ2SFJLY3p6a2VZMy9SVExz?=
- =?utf-8?B?VkdXakhkbEt5SlM0QzNFTm5scEUzN25oNTN4Zi9WaEp4RHI3NFNKcXZwQktC?=
- =?utf-8?B?dmJJdU13OTJ1SWIrN1R4NmpYRnNRZytpR0h4NWkrQ1VoVEw0enQ3YStlSUVo?=
- =?utf-8?B?c2ZlVXNGVnhEZ1hSTitDVE0vVWZzK1J0U0FzMGRVaGQvVGJSRkZzUVhzUmpv?=
- =?utf-8?B?RTl1N3o1cGFJeWFaNk5PNXAyYUZEUzJnL0FCbEJicXNQclF6ZVdGbVhDTWR3?=
- =?utf-8?B?T2pHelFyb2loa29VVG1VYU9iczVLenFxNVhFTHA2WE1mcmhmbUdRT1lVMU9B?=
- =?utf-8?B?YlRNb2NlQmw0MkZ6azYwc00vNzFudTBSRG9ZOUJXR0hIbENra2JEQVdpeEQx?=
- =?utf-8?B?eTdvYlRMNGhTbmxFT2RoWU9xaGdFelZVSkRocTFlY3JIaE4xRG4rbG9MaWN6?=
- =?utf-8?B?ZGQ5ZWo0SFZJZmpTd2RtdlRZbDV0djF1Uk9RMlZoUDV0YTNNUmVTYmpMSlVq?=
- =?utf-8?B?MytUclg1UW9hcEZkVmRYaDhUV2xZV0syd0hmUEtFeTBhN1AvczdNQU91eHlJ?=
- =?utf-8?B?TEQyWk81eGd3cmtvOExTMktsUjRqSmc5Q3R6WHJWQnZmSTVacnRvTHVzSDFw?=
- =?utf-8?B?Wm5WQm5nL0t3OUdPL0Qwc0tMUnZaMjY2dU9ya0JoUDBWNnYzVFhHem5EYWVI?=
- =?utf-8?B?TkYyUmtzMDQ2U2hkNk5wZ0JhU1lGTjM0SmRDQUVZaGRvTHJGQ3EraVpOWENV?=
- =?utf-8?B?QzFXb0ZOS2lhR0w3WHdxVlROU3JsNGZxV253NVJYeVphMGZZQmxMNU1vaFdq?=
- =?utf-8?B?dE0zS0xvWXZQTll6eXJTeVgxQW1Gc2g2ZTdoM0tpeG45ak5jcm9uMXVsVnF4?=
- =?utf-8?B?WjAyV04xaTJqTzVoSDVtZ1I2WjJzSWNIRFRDRjJtM083WHF5M3ZXUEVkWmxx?=
- =?utf-8?B?YmljSDBRUDk3dnl4M21jeENBYzlMYkFDNnRJSGoxWXdlazFEQzlXWUIxWGM4?=
- =?utf-8?B?d2MwYTd2bWptbEIxY29zb0gwMlBHZmdBUTJ5VHRDdzF5bUNmQmRjUUZpNmFK?=
- =?utf-8?B?aFM3eDVmUGZYQzJTS3lVV0UycmtQOXBNc1NudUJMdkJDSVFSQi9ubXhza05k?=
- =?utf-8?B?OGFlN0ZJdEV1N3RFUkYxZTdkelMvbkdBcW8venFOenk3WjZPQkJTMjJJTUQ2?=
- =?utf-8?Q?aeEoM33c9Gfy/DjwBG1O6+p7x?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fc27b56-3c7c-413c-8f6c-08dca6b491d5
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2024 23:02:45.1964 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GqGekSJy3CaAMDgHh0xJ1f9H8x9PB8crQ6RcHb4DGTty07VFjAFtW1RfSLnQYgG7vsC5qycqDnawtvu3R5SERg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6779
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4212.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47e2aa93-3f07-4964-117a-08dca6cacdce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jul 2024 01:41:54.6153 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: liytgxryQG6ntUrfXgppriuRvo6nCrdwp1j1fNvWHuvf8f6iUWLJ1bW+I2WTV/q30Zd1jQjIJWir15s26jMPew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6084
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,284 +157,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-On 2024-06-26 11:06, Xiaogang.Chen wrote:
-> From: Xiaogang Chen <xiaogang.chen@amd.com>
->
-> When user adds new vm range that has overlapping with existing svm pranges
-> current kfd creats a cloned pragne and split it, then replaces original prange
-> by it. That destroy original prange locks and the cloned prange locks do not
-> inherit original prange lock contexts. This may cause issue if code still need
-> use these locks. In general we should keep using original prange, update its
-> internal data that got changed during split, then free the cloned prange.
-
-While splitting/updating ranges, the svms->lock needs to be held. You 
-cannot have concurrent threads accessing ranges while we're updating the 
-range list. If that is a possibility, you have a race condition anyway. 
-You also can't split, shrink or otherwise modify a range while someone 
-else is accessing that range. So keeping the same locking context is a 
-non-issue.
+OK
 
 
->
-> This patch change vm range overlaping handling that does not remove existing
-> pranges, instead updates it for split and keeps its locks alive.
+-----------------
+Best Regards,
+Thomas
 
-It sounds like you're trying to fix a problem here. Is this an actual or 
-a hypothetical problem?
+-----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Wednesday, July 17, 2024 9:00 PM
+To: Chai, Thomas <YiPeng.Chai@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Li, Candice <Candice.Li@amd.com>; Wang,=
+ Yang(Kevin) <KevinYang.Wang@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
+Subject: RE: [PATCH 1/3] drm/amdgpu: optimize umc v12 address conversion fu=
+nction
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
->
-> Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 112 ++++++++++++++++++++-------
->   1 file changed, 82 insertions(+), 30 deletions(-)
++static int umc_v12_0_expand_addr_to_bad_pages(struct amdgpu_device *adev,
++                       uint64_t pa_addr, uint64_t *pfns, int len)
 
-Just looking at the number of added and removed lines, this doesn't look 
-like a simplification. I really question the justification for this 
-change. If it makes the code more complicated or less robust, without a 
-good reason, then it's not a good change.
+I would call this function as lookup_bad_pages_in_a_row, or something like =
+that.
 
+Anyway, the series is
 
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 407636a68814..a66b8c96ee14 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1967,7 +1967,8 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
->   	return r;
->   }
->   
-> -static struct svm_range *svm_range_clone(struct svm_range *old)
-> +/* create a prange that has same range/size/addr etc info as old */
-> +static struct svm_range *svm_range_duplicate(struct svm_range *old)
-
-This seems like an unnecessary name change. "clone" and "duplicate" mean 
-the same thing. But "clone" is shorter.
-
-
->   {
->   	struct svm_range *new;
->   
-> @@ -1999,6 +2000,25 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
->   	return new;
->   }
->   
-> +/* copy range/size/addr info from src to dst prange */
-> +static void svm_range_copy(struct svm_range *dst, struct svm_range *src)
-> +{
-> +	dst->npages = src->npages;
-> +	dst->start = src->start;
-> +	dst->last = src->last;
-> +
-> +	dst->vram_pages = src->vram_pages;
-> +	dst->offset = src->offset;
-> +
-> +	for (int i = 0; i < MAX_GPU_INSTANCE; i++) {
-> +		if (!src->dma_addr[i])
-> +			continue;
-> +
-> +		 memcpy(dst->dma_addr[i], src->dma_addr[i],
-> +				src->npages * sizeof(*src->dma_addr[i]));
-
-This does not reallocate/resize the dma_addr arrays. Reallocating these 
-arrays can't be done here, because this function is not allowed to fail. 
-That's one reason to use the clone instead of modifying the existing range.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
-   Felix
+Hawking
+-----Original Message-----
+From: Chai, Thomas <YiPeng.Chai@amd.com>
+Sent: Wednesday, July 17, 2024 16:16
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Li, Candice <Candice.Li@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.co=
+m>; Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com=
+>
+Subject: [PATCH 1/3] drm/amdgpu: optimize umc v12 address conversion functi=
+on
+
+Split into 3 parts:
+1. Convert soc physical address via ras ta.
+2. Expand bad pages from soc physical address.
+3. Dump bad address info.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 116 ++++++++++++++++---------
+ 1 file changed, 77 insertions(+), 39 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/umc_v12_0.c
+index 9dbb13adb661..eca5ac6a0532 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -225,26 +225,16 @@ static void umc_v12_0_convert_error_address(struct am=
+dgpu_device *adev,
+        }
+ }
+
+-static int umc_v12_0_convert_err_addr(struct amdgpu_device *adev,
+-                               struct ta_ras_query_address_input *addr_in,
+-                               uint64_t *pfns, int len)
++static void umc_v12_0_dump_addr_info(struct amdgpu_device *adev,
++                               struct ta_ras_query_address_output *addr_ou=
+t,
++                               uint64_t err_addr)
+ {
+        uint32_t col, row, row_xor, bank, channel_index;
+-       uint64_t soc_pa, retired_page, column, err_addr;
+-       struct ta_ras_query_address_output addr_out;
+-       uint32_t pos =3D 0;
+-
+-       err_addr =3D addr_in->ma.err_addr;
+-       addr_in->addr_type =3D TA_RAS_MCA_TO_PA;
+-       if (psp_ras_query_address(&adev->psp, addr_in, &addr_out)) {
+-               dev_warn(adev->dev, "Failed to query RAS physical address f=
+or 0x%llx",
+-                       err_addr);
+-               return 0;
+-       }
++       uint64_t soc_pa, retired_page, column;
+
+-       soc_pa =3D addr_out.pa.pa;
+-       bank =3D addr_out.pa.bank;
+-       channel_index =3D addr_out.pa.channel_idx;
++       soc_pa =3D addr_out->pa.pa;
++       bank =3D addr_out->pa.bank;
++       channel_index =3D addr_out->pa.channel_idx;
+
+        col =3D (err_addr >> 1) & 0x1fULL;
+        row =3D (err_addr >> 10) & 0x3fffULL; @@ -258,11 +248,6 @@ static i=
+nt umc_v12_0_convert_err_addr(struct amdgpu_device *adev,
+        for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
+                retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
+2_BIT);
+                retired_page |=3D (((column & 0x4) >> 2) << UMC_V12_0_PA_C4=
+_BIT);
+-
+-               if (pos >=3D len)
+-                       return 0;
+-               pfns[pos++] =3D retired_page >> AMDGPU_GPU_PAGE_SHIFT;
+-
+                /* include column bit 0 and 1 */
+                col &=3D 0x3;
+                col |=3D (column << 2);
+@@ -270,6 +255,35 @@ static int umc_v12_0_convert_err_addr(struct amdgpu_de=
+vice *adev,
+                        "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
+Bank:0x%x Channel:0x%x\n",
+                        retired_page, row, col, bank, channel_index);
+
++               /* shift R13 bit */
++               retired_page ^=3D (0x1ULL << UMC_V12_0_PA_R13_BIT);
++               dev_info(adev->dev,
++                       "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
+Bank:0x%x Channel:0x%x\n",
++                       retired_page, row_xor, col, bank, channel_index);
++       }
++}
++
++static int umc_v12_0_expand_addr_to_bad_pages(struct amdgpu_device *adev,
++                       uint64_t pa_addr, uint64_t *pfns, int len) {
++       uint64_t soc_pa, retired_page, column;
++       uint32_t pos =3D 0;
++
++       soc_pa =3D pa_addr;
++       /* clear [C3 C2] in soc physical address */
++       soc_pa &=3D ~(0x3ULL << UMC_V12_0_PA_C2_BIT);
++       /* clear [C4] in soc physical address */
++       soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
++
++       /* loop for all possibilities of [C4 C3 C2] */
++       for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
++               retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
+2_BIT);
++               retired_page |=3D (((column & 0x4) >> 2) <<
++ UMC_V12_0_PA_C4_BIT);
++
++               if (pos >=3D len)
++                       return 0;
++               pfns[pos++] =3D retired_page >> AMDGPU_GPU_PAGE_SHIFT;
++
+                /* shift R13 bit */
+                retired_page ^=3D (0x1ULL << UMC_V12_0_PA_R13_BIT);
+
+@@ -277,14 +291,40 @@ static int umc_v12_0_convert_err_addr(struct amdgpu_d=
+evice *adev,
+                        return 0;
+                pfns[pos++] =3D retired_page >> AMDGPU_GPU_PAGE_SHIFT;
+
+-               dev_info(adev->dev,
+-                       "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
+Bank:0x%x Channel:0x%x\n",
+-                       retired_page, row_xor, col, bank, channel_index);
+        }
+
+        return pos;
+ }
+
++static int umc_v12_0_convert_mca_to_addr(struct amdgpu_device *adev,
++                       uint64_t err_addr, uint32_t ch, uint32_t umc,
++                       uint32_t node, uint32_t socket,
++                       uint64_t *addr, bool dump_addr) {
++       struct ta_ras_query_address_input addr_in;
++       struct ta_ras_query_address_output addr_out;
++
++       memset(&addr_in, 0, sizeof(addr_in));
++       addr_in.ma.err_addr =3D err_addr;
++       addr_in.ma.ch_inst =3D ch;
++       addr_in.ma.umc_inst =3D umc;
++       addr_in.ma.node_inst =3D node;
++       addr_in.ma.socket_id =3D socket;
++       addr_in.addr_type =3D TA_RAS_MCA_TO_PA;
++       if (psp_ras_query_address(&adev->psp, &addr_in, &addr_out)) {
++               dev_warn(adev->dev, "Failed to query RAS physical address f=
+or 0x%llx",
++                       err_addr);
++               return -EINVAL;
++       }
++
++       if (dump_addr)
++               umc_v12_0_dump_addr_info(adev, &addr_out, err_addr);
++
++       *addr =3D addr_out.pa.pa;
++
++       return 0;
++}
++
+ static int umc_v12_0_query_error_address(struct amdgpu_device *adev,
+                                        uint32_t node_inst, uint32_t umc_in=
+st,
+                                        uint32_t ch_inst, void *data) @@ -4=
+83,12 +523,10 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_devic=
+e *adev,  {
+        struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
+        uint16_t hwid, mcatype;
+-       struct ta_ras_query_address_input addr_in;
+        uint64_t page_pfn[UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL];
+-       uint64_t err_addr, hash_val =3D 0;
++       uint64_t err_addr, hash_val =3D 0, pa_addr =3D 0;
+        struct ras_ecc_err *ecc_err;
+-       int count;
+-       int ret;
++       int count, ret;
+
+        hwid =3D REG_GET_FIELD(ipid, MCMP1_IPIDT0, HardwareID);
+        mcatype =3D REG_GET_FIELD(ipid, MCMP1_IPIDT0, McaType); @@ -514,17 =
++552,17 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *ade=
+v,
+                MCA_IPID_2_UMC_CH(ipid),
+                err_addr);
+
+-       memset(page_pfn, 0, sizeof(page_pfn));
+-
+-       memset(&addr_in, 0, sizeof(addr_in));
+-       addr_in.ma.err_addr =3D err_addr;
+-       addr_in.ma.ch_inst =3D MCA_IPID_2_UMC_CH(ipid);
+-       addr_in.ma.umc_inst =3D MCA_IPID_2_UMC_INST(ipid);
+-       addr_in.ma.node_inst =3D MCA_IPID_2_DIE_ID(ipid);
+-       addr_in.ma.socket_id =3D MCA_IPID_2_SOCKET_ID(ipid);
++       ret =3D umc_v12_0_convert_mca_to_addr(adev,
++                       err_addr, MCA_IPID_2_UMC_CH(ipid),
++                       MCA_IPID_2_UMC_INST(ipid), MCA_IPID_2_DIE_ID(ipid),
++                       MCA_IPID_2_SOCKET_ID(ipid), &pa_addr, true);
++       if (ret)
++               return ret;
+
+-       count =3D umc_v12_0_convert_err_addr(adev,
+-                               &addr_in, page_pfn, ARRAY_SIZE(page_pfn));
++       memset(page_pfn, 0, sizeof(page_pfn));
++       count =3D umc_v12_0_expand_addr_to_bad_pages(adev,
++                               pa_addr,
++                               page_pfn, ARRAY_SIZE(page_pfn));
+        if (count <=3D 0) {
+                dev_warn(adev->dev, "Fail to convert error address! count:%=
+d\n", count);
+                return 0;
+--
+2.34.1
 
 
-> +	}
-> +}
-> +
->   void svm_range_set_max_pages(struct amdgpu_device *adev)
->   {
->   	uint64_t max_pages;
-> @@ -2057,20 +2077,19 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
->    * @attrs: array of attributes
->    * @update_list: output, the ranges need validate and update GPU mapping
->    * @insert_list: output, the ranges need insert to svms
-> - * @remove_list: output, the ranges are replaced and need remove from svms
->    * @remap_list: output, remap unaligned svm ranges
->    *
->    * Check if the virtual address range has overlap with any existing ranges,
->    * split partly overlapping ranges and add new ranges in the gaps. All changes
->    * should be applied to the range_list and interval tree transactionally. If
->    * any range split or allocation fails, the entire update fails. Therefore any
-> - * existing overlapping svm_ranges are cloned and the original svm_ranges left
-> + * existing overlapping svm_ranges are duplicated and the original svm_ranges left
->    * unchanged.
->    *
-> - * If the transaction succeeds, the caller can update and insert clones and
-> - * new ranges, then free the originals.
-> + * If the transaction succeeds, the caller can update and insert split ranges and
-> + * new ranges.
->    *
-> - * Otherwise the caller can free the clones and new ranges, while the old
-> + * Otherwise the caller can free the duplicated and new ranges, while the old
->    * svm_ranges remain unchanged.
->    *
->    * Context: Process context, caller must hold svms->lock
-> @@ -2082,7 +2101,7 @@ static int
->   svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
->   	      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
->   	      struct list_head *update_list, struct list_head *insert_list,
-> -	      struct list_head *remove_list, struct list_head *remap_list)
-> +	      struct list_head *remap_list)
->   {
->   	unsigned long last = start + size - 1UL;
->   	struct svm_range_list *svms = &p->svms;
-> @@ -2090,13 +2109,14 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
->   	struct svm_range *prange;
->   	struct svm_range *tmp;
->   	struct list_head new_list;
-> +	struct list_head modify_list;
->   	int r = 0;
->   
->   	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
->   
->   	INIT_LIST_HEAD(update_list);
->   	INIT_LIST_HEAD(insert_list);
-> -	INIT_LIST_HEAD(remove_list);
-> +	INIT_LIST_HEAD(&modify_list);
->   	INIT_LIST_HEAD(&new_list);
->   	INIT_LIST_HEAD(remap_list);
->   
-> @@ -2117,35 +2137,41 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
->   			/* nothing to do */
->   		} else if (node->start < start || node->last > last) {
->   			/* node intersects the update range and its attributes
-> -			 * will change. Clone and split it, apply updates only
-> +			 * will change. duplicate and split it, apply updates only
->   			 * to the overlapping part
->   			 */
-> -			struct svm_range *old = prange;
-> +			/* prange_dup is a temperal prange that holds size and addr info
-> +			 * updates of pragne after split
-> +			 */
-> +			struct svm_range *prange_dup;
->   
-> -			prange = svm_range_clone(old);
-> -			if (!prange) {
-> +			prange_dup = svm_range_duplicate(prange);
-> +			if (!prange_dup) {
->   				r = -ENOMEM;
->   				goto out;
->   			}
->   
-> -			list_add(&old->update_list, remove_list);
-> -			list_add(&prange->list, insert_list);
-> -			list_add(&prange->update_list, update_list);
-> -
-> +			/* split prange_dup */
->   			if (node->start < start) {
->   				pr_debug("change old range start\n");
-> -				r = svm_range_split_head(prange, start,
-> +				r = svm_range_split_head(prange_dup, start,
->   							 insert_list, remap_list);
->   				if (r)
->   					goto out;
->   			}
->   			if (node->last > last) {
->   				pr_debug("change old range last\n");
-> -				r = svm_range_split_tail(prange, last,
-> +				r = svm_range_split_tail(prange_dup, last,
->   							 insert_list, remap_list);
->   				if (r)
->   					goto out;
->   			}
-> +
-> +			/* split success, insert_list has new head/tail pranges */
-> +			/* move prange from svm list to modify list */
-> +			list_move_tail(&prange->list, &modify_list);
-> +			/* put prange_dup at pragne->update_list */
-> +			list_add(&prange_dup->list, &prange->update_list);
->   		} else {
->   			/* The node is contained within start..last,
->   			 * just update it
-> @@ -2178,8 +2204,38 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
->   			svm_range_free(prange, false);
->   		list_for_each_entry_safe(prange, tmp, &new_list, list)
->   			svm_range_free(prange, true);
-> +
-> +		list_for_each_entry_safe(prange, tmp, &modify_list, list) {
-> +			struct svm_range *prange_dup;
-> +
-> +			/* free pragne_dup that is associated with prange on modify_list */
-> +			prange_dup = list_first_entry(&prange->update_list, struct svm_range, list);
-> +			if (prange_dup)
-> +				svm_range_free(prange_dup, false);
-> +
-> +			INIT_LIST_HEAD(&prange->update_list);
-> +			/* put prange back to svm list */
-> +			list_move_tail(&prange->list, &svms->list);
-> +		}
->   	} else {
->   		list_splice(&new_list, insert_list);
-> +
-> +		list_for_each_entry_safe(prange, tmp, &modify_list, list) {
-> +			struct svm_range *prange_dup;
-> +
-> +			prange_dup = list_first_entry(&prange->update_list, struct svm_range, list);
-> +			if (prange_dup) {
-> +				/* update prange from prange_dup */
-> +				svm_range_copy(prange, prange_dup);
-> +				/* release temporal pragne_dup */
-> +				svm_range_free(prange_dup, false);
-> +			}
-> +			INIT_LIST_HEAD(&prange->update_list);
-> +
-> +			/* move prange from modify_list to insert_list and update_list*/
-> +			list_move_tail(&prange->list, insert_list);
-> +			list_add(&prange->update_list, update_list);
-> +		}
->   	}
->   
->   	return r;
-> @@ -3533,7 +3589,6 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   	struct amdkfd_process_info *process_info = p->kgd_process_info;
->   	struct list_head update_list;
->   	struct list_head insert_list;
-> -	struct list_head remove_list;
->   	struct list_head remap_list;
->   	struct svm_range_list *svms;
->   	struct svm_range *prange;
-> @@ -3566,7 +3621,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   
->   	/* Add new range and split existing ranges as needed */
->   	r = svm_range_add(p, start, size, nattr, attrs, &update_list,
-> -			  &insert_list, &remove_list, &remap_list);
-> +			  &insert_list, &remap_list);
->   	if (r) {
->   		mutex_unlock(&svms->lock);
->   		mmap_write_unlock(mm);
-> @@ -3574,21 +3629,18 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   	}
->   	/* Apply changes as a transaction */
->   	list_for_each_entry_safe(prange, next, &insert_list, list) {
-> -		svm_range_add_to_svms(prange);
-> -		svm_range_add_notifier_locked(mm, prange);
-> +		/* prange can be new or existing range, put it at svms->list */
-> +		list_move_tail(&prange->list, &prange->svms->list);
-> +		/* update prange at interval trees: svms->objects and
-> +		 * mm interval notifier tree
-> +		 */
-> +		svm_range_update_notifier_and_interval_tree(mm, prange);
-> +
->   	}
->   	list_for_each_entry(prange, &update_list, update_list) {
->   		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
->   		/* TODO: unmap ranges from GPU that lost access */
->   	}
-> -	list_for_each_entry_safe(prange, next, &remove_list, update_list) {
-> -		pr_debug("unlink old 0x%p prange 0x%p [0x%lx 0x%lx]\n",
-> -			 prange->svms, prange, prange->start,
-> -			 prange->last);
-> -		svm_range_unlink(prange);
-> -		svm_range_remove_notifier(prange);
-> -		svm_range_free(prange, false);
-> -	}
->   
->   	mmap_write_downgrade(mm);
->   	/* Trigger migrations and revalidate and map to GPUs as needed. If
