@@ -4,150 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08A58C3DA49
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 10:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B273C3DA60
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jul 2024 12:33:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD7F10E677;
-	Thu, 18 Jul 2024 10:47:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C322110E7FF;
+	Thu, 18 Jul 2024 12:33:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kgnbuTrj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ysQLds2F";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B99DD10E677;
- Thu, 18 Jul 2024 10:47:19 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2067.outbound.protection.outlook.com [40.107.96.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B85A10E7FF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jul 2024 12:33:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YVsIc2b9UHdWl4/V5otc8L8JfCFjITauQbcroGDIzo4MDsQQz7eYXvjL5Cw2tzOa52dIPv5yZ2PutFlxYjS4OKKGKALDGKxdRCevFuL6FICCIVATqvKoQ0VsbOSLaE9+HdrR7grS9J4qLx3SQLBiGKyKQFlYG65qMHBJ/TapBxN69TP9VcutpE865AWol0qedhspL9NQO1gk1HXFRapL/DYfMcna6UeHvm+Xew10TS1TDsTvfjejf9vkhN+Ce8SgFdmtC9KPMaemeVlf28+Tvo6MzoqqINCW47+rE6OBKYTUGMZjgcS0YD+O5kBm7XRjWI/hGPiABOp5po3JAnRF/w==
+ b=h4/PmmeZEjaoq3xGm8Sq5u4ja2lRtsQcK8Uz9McjZMXHOll/AZylBjVfGSPfSlR3y5akI6nRjGKhOMMsMcltewzraBMYQdPvsmLdi45g54OZfHT7vQEu/VzBykdXVbx63dFrKfSb38UEp8oOJniq3/kUsPMeb4T58TzPjq5zheOFsngs3o/pt7ZF5iwlfeIjlVGsFeiOC8IBzGWwkJ+NBs4It47dzo3nstIAL4IKVYdyS+zRzBc+b672o6dABQbibtv8Hi1PIqc9eUxzXniVvun+ugQg4M1OtciYQ36gzJYoZt0eBj76JXZBsahSAsojBeX2h562Hz1RwxZL+9OoFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oq3S1S55PVlm71Kn3z9+4RWNl0Ly3tkNHz5AhKcSEtA=;
- b=nZzHkHvlHc/WKdUtSm5WnI+j1Vwmi4ISkO4unbvLTB4nxBM/Oz2iw58hAx9Khp6rJTGKYed3rGIrmB6LJDRhsHFYQnwRaiu2gwJ6iSpIkwtLWozVPqcwZ92j75aVRuH/Jv5b6hctRjYgnA1aCGixzr4UWULHHaItugf17s7L8Ro9b7IXmahRb6Cx8/dr51uFOFj97d6kPidvdc/0d8YGHOS8KkzfHKSgAhZBrEGnDFWCCR+WJsas75WroEVOsbvkjNqIdIKZzBUYDHzdTJUzUv3eyTHomT0bGNC9+fSexYZtwGWsAntoDLzpwEbToXV2q9jTXoSj4jNwQO6emT1tNg==
+ bh=4g4WbiChaVU7EHhoo4KyX6c8vLubnVWYXQyrD0MjAec=;
+ b=xQRr5MlcdcLnA0Zhw+2NHngdW2Tt+0SkG6og4hyJazwzevZjqmjTeQqUcYdfRrrtS5tAwsQcdQBf9oyTY/slqTX+CVV3vhNh9yqa4hkOsu2jBlgyF6w51k0fZGnd3aCe4mJfa/1ZqmHzHBgf4muS5qHMB6bjJq99sFMWijRNVjdIT8lhtP8hnRRjAYV5+Vi6ep3miYWlOfuxn+9o1h2R7CHx8CvS79wYzjeG6Wzq+pELksk5Py82D8OH/Ilb5Xy3BSmvbv9qR8jDN/JMCFvnystL3XJVW57gn7P4jXkT8Z7CJWF57BH4n1y6kKtjMKKbP3M7Aogh37XPo9Lzq+Mbow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oq3S1S55PVlm71Kn3z9+4RWNl0Ly3tkNHz5AhKcSEtA=;
- b=kgnbuTrjSSxYy3Fz+pirNT+DhMUd6UbHwVp+sweXQLDQ7Q0znaDvGX3Sv4tyrlYcNK8ThQxtLtRSFvalMaGzPgK/FP12N7CL99mtXve4ON80uEwhXVZ4h8HaNjwV8SmZf3OrG3AowoZh1ERFOW2lXCBw11Mx5WDGQQl90UNpgvo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by DM4PR12MB9070.namprd12.prod.outlook.com (2603:10b6:8:bc::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=4g4WbiChaVU7EHhoo4KyX6c8vLubnVWYXQyrD0MjAec=;
+ b=ysQLds2FSPcBWa949K4N0kePmOb/h7tdPKP3HdIUk2Guu72x6B36g6k0kJIX7eBJEGnoHo5GvIcNKeMa4n+Lqc2kuJFgJBvOgCzJup+VKNERrQrtiULXonT/C6XtVz5a1kFDp6ZKZBTrp8oiQavv09pfv7pnSVxa31445Bh/Ndg=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Thu, 18 Jul
- 2024 10:47:13 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::ec7a:dd71:9d6c:3062]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::ec7a:dd71:9d6c:3062%3]) with mapi id 15.20.7784.016; Thu, 18 Jul 2024
- 10:47:13 +0000
-Message-ID: <f4a9f8ba-2f34-4376-953a-254145ccd22d@amd.com>
-Date: Thu, 18 Jul 2024 12:47:05 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/amdgpu: Add address alignment support to DCC
- buffers
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, matthew.auld@intel.com
-Cc: alexander.deucher@amd.com, frank.min@amd.com, marek.olsak@amd.com
-References: <20240718103243.1241392-1-Arunpravin.PaneerSelvam@amd.com>
- <20240718103243.1241392-2-Arunpravin.PaneerSelvam@amd.com>
+ 2024 12:33:00 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.7784.017; Thu, 18 Jul 2024
+ 12:33:00 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v1 6/6] drm/amdgpu: add print support for sdma_v_4_4_2
+ ip_dump
+Thread-Topic: [PATCH v1 6/6] drm/amdgpu: add print support for sdma_v_4_4_2
+ ip_dump
+Thread-Index: AQHa2Mz8fhHnyML0ckub5sCvhH5fu7H8a4CP
+Date: Thu, 18 Jul 2024 12:32:59 +0000
+Message-ID: <BL1PR12MB51449DCA7C56741FBE7AAA3FF7AC2@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240718044250.1822051-1-sunil.khatri@amd.com>
+ <20240718044250.1822051-7-sunil.khatri@amd.com>
+In-Reply-To: <20240718044250.1822051-7-sunil.khatri@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240718103243.1241392-2-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0173.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::16) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-07-18T12:32:59.141Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|CY8PR12MB7195:EE_
+x-ms-office365-filtering-correlation-id: b4fe01a7-c424-48e4-1e77-08dca725c298
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?Lh+88MBcE/wFX8tUJwnEfS5ZAsO6t9WiolMRUuctvFXh+i3D0L4iKxzDbqbU?=
+ =?us-ascii?Q?F/RLXf3XaxVPxxa6Yzq3nuEAh4iLaYtEqQLso9vV2+y4dqBdIlqmrR1sTl1n?=
+ =?us-ascii?Q?2aEJzI8FeyffI6HTiV9ZJmwTVesaIld8JDh5RkOw8BdO9YpAV9MxiFkZVkTb?=
+ =?us-ascii?Q?aSCjY0jV9Hl6XPpcdenTZcXxTPgx2GrHQBxD7pnFM9FcYzhI9QR0Gat/u05m?=
+ =?us-ascii?Q?RUpdyrq1TcoSwVoFdtyMUyy3C6K7psJAmuhwENJoEwOghEH/HgEeq/YtXN2Z?=
+ =?us-ascii?Q?CwAB9/TA2MnD+UsJBhX1j1k/bQ4fRUqfbr0qNBbbmGBtmOU9kiIzE+UjuDjm?=
+ =?us-ascii?Q?bhMn349U9AwewLwyJZrsqORWrdIcB8iTTgyf966FVuuOi2lb2B/Zfhwi9hns?=
+ =?us-ascii?Q?cAjcvuRVnI0KS58eOzoOYnr71ky/F+dv72HFjnWMrJJEkfjMAcKeaNzh+ZEz?=
+ =?us-ascii?Q?S0KpyJJd2iXngXs7/8uisUiFr2xKfAjM1RQDkJoT8awxUfyJFI0aThoN3yTu?=
+ =?us-ascii?Q?duc/sq3xv5rrdfss6+K623/Fnf/TAuoxSExVKIPRxOyUyEwJftczl5bd3Ef2?=
+ =?us-ascii?Q?XXaI8eUZYZ2pw3jyERxK9ZWA+mb2KTiKepLDxMDVvy1gisAqBiZeGCKs+Lnj?=
+ =?us-ascii?Q?oGh2klUy9gDwcEPSfkMoFul8XSbxzclYq0M0dKdIUM0IMX3Ds955zWoxgZ3/?=
+ =?us-ascii?Q?wg00WQnwz+B0N1yc1oc6U4mz9KdjbODbxsaw0iUQPzA6TBqgiaANih2KZmrF?=
+ =?us-ascii?Q?+q9jDsfDeMp30wYHkr5Ho7FEdtI8tdBlJY/5UIql6dnuaEfXD8qP3+xTAPY7?=
+ =?us-ascii?Q?F019n6N9AjxIZsZV/b0YrJBjFaoecUDBrEaoI9yuMeh5JR9jLcLtEEsBjc6D?=
+ =?us-ascii?Q?Z9PCsCyXvcvCrsIDXueLdE5qYE6+zTaDc2+0fUMQwpGBiNrqiN9QQpgRNYhN?=
+ =?us-ascii?Q?sTX0kdCTINDkHKom2Y+8/2KKB+fphiOitmNAkKgWDxUT/rviB9UfQNHM/09d?=
+ =?us-ascii?Q?gnqjz8kHKQ6TDLgNMJo9UGigBP30ksScrrCZVRFSGYII7wdF46hqDu8bqpMJ?=
+ =?us-ascii?Q?HDmyjvqoUvxd7JOKnrhi/w+pwghU8Dl8tsyQ8DpJAntBzgPmlHS4CQnDjH67?=
+ =?us-ascii?Q?+89su7HSapJv1KngJVWiQHIqozqOSksCpxvDgvB15sHTNgzgy+WErUz8Johz?=
+ =?us-ascii?Q?Qu7oN3cdQTkeTp7TNdiMj3qHgOFseK/6m/gHOz5WmVrBYuNa6Y/gDUba9iqU?=
+ =?us-ascii?Q?yIftXaGBFpZbev2krcZQ1KdpJ3r8WEevLVkgE5wbQzNQtD/b3zGDTItqnoQv?=
+ =?us-ascii?Q?70qTyP5y8lhuURcdvb/D/subrJW8VMbL2wlyfCwGbcXkY8jH1KG/a9EErZp9?=
+ =?us-ascii?Q?pQsEwjr+872EPQq9C6TmUUTUMaFYxDi/j/EZ1fCz0+C75gvoNQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hieGhN8h68ZjdmFMZ91A1amfIJm73S7bvw1ohjVbYDKcUC1d6aak25aFmo2Y?=
+ =?us-ascii?Q?/FsDF1/d7DWGS/qeEZB4avXMYHF9dh4q22L8cFulksIm7sHxAi9m1Hj77qSM?=
+ =?us-ascii?Q?YnWHU8ssV1oFj4bcPErGNDRaf/vYbSoF1gGTbvVCpIWdgiNQDt9G1eEpNp4Y?=
+ =?us-ascii?Q?rh5FJxzxFM0Whxa5ce3yEPgb6KnjxByI7EWdo/ZTxqBVHflDGUcqwRJaVRhk?=
+ =?us-ascii?Q?4vDfHf8jDe4iQ5NlXXKSg2Hym2JC/jwe/5DDG8/0tydKXsKFJrSXWM7N+AXu?=
+ =?us-ascii?Q?Z3Mz85LwNZmQBS7NuFD3ibHsIHw0cazA2d/KxqQ3KzP1Z0ayVG9X+0rAjSk+?=
+ =?us-ascii?Q?dYagI1BufO8WnYse78OM07SP6E71RwJ9/5GzMuTkvPK/CVdBYbwotfRq3ZA+?=
+ =?us-ascii?Q?Len/ag5bQzn981tvmB+5c9UlgS1V8meCO2DdG1bA0tR9KGYJpEwVG/6gNdIe?=
+ =?us-ascii?Q?LsrlyP0gSdwzouWzUi6DJDRSzr1RoqxacAJYBhSxiVFrhRpscbTJRwMuPWyw?=
+ =?us-ascii?Q?B6y4HCL3o0ErwL/UedP3+m1F0Sm7p6iXj5jJFE8W/qQl42xu6BH395wmsfRp?=
+ =?us-ascii?Q?mE2s6HcOnfILeFAi1bSomKyf560lafOIG38OVvRRnOHu/69PsGL/48vJcekn?=
+ =?us-ascii?Q?+ELT5PKyQZR7jFq7kPxqmvUfQK5I49ccP5CxHOks/gBDbHTX/ljGafQUCT32?=
+ =?us-ascii?Q?kUVE8uIbIKOldJDetvzSXv0gerVPgAlnaIShWcmLgQn5BCVweI6g//GNjn+Q?=
+ =?us-ascii?Q?8p7rRZ2DrAejXPjLm0gkWITxR7ofxsSUP37D6RAfswoSEZ0+U1KjWAAJPi9z?=
+ =?us-ascii?Q?wedDPMCrFitNrjkJNQ1KppkYXjs3cZKyXq55KqOOrQJ2Zt8xIBG4/ZGsKaKX?=
+ =?us-ascii?Q?pFx6EtVkzbV0CftRt9Or7Gpuj6D9NedT/IVh35Ad8hO4qxUnIjkNxhKYlNKZ?=
+ =?us-ascii?Q?P8dfFk5IHQV8y6ZmfIOHpQCLwOMNiAzW3P4cX4oS39wBj2vkQyQb1M0Me/a6?=
+ =?us-ascii?Q?BOGpGqaA9AQWg4i0dRbrRDYEeXffoJgJe6WNHIiMXfrArYNdMsLixDLyE7Kz?=
+ =?us-ascii?Q?TTKO6PcuQ0VQuPE21wMSWGFFJ0Wt+O8LXZrOyHt/MmcM5m2Y0inU5LkTAV/x?=
+ =?us-ascii?Q?qZ4vE8DdE/dUn6/oKcbWEKYBG9DJALGaT9YNt6Moocs06NcAPG87oNGA/PhN?=
+ =?us-ascii?Q?LMC8y0ZbO46aYvyaVoQ548nqy5W6ZNyxFUorvyb0jE8hPJowUGKLFCtCqm9K?=
+ =?us-ascii?Q?4P3/PlnUws80YRgtcTzhI8vuiU1RINL3kS9F/uODkDrK2xliE0ND4uFxGApK?=
+ =?us-ascii?Q?8WlZSV2DevIpTAYUARb7dtxc5Iiv62Mh5xUP6X1CFvc7eniJJAl29fOUg8sl?=
+ =?us-ascii?Q?ksEEb5MLbTPvi4NvzPYSoqsg5ifLTOxYtJBpZHjHYKm8IoR2O+51RbfTcItP?=
+ =?us-ascii?Q?R0JYsphBaIc0/xrlJRvVnPGKvmY37cHXlFO1QID8F4uB4nPQ9mPYwMa1mw9v?=
+ =?us-ascii?Q?ekuu56PD74to+081/WdRlL4oOz3T8iL9TnJuGFU3z07KjC1WiXJ+uRfHRdSL?=
+ =?us-ascii?Q?h6mpfUkYEzqfh4plOmI=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB51449DCA7C56741FBE7AAA3FF7AC2BL1PR12MB5144namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|DM4PR12MB9070:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d8b4af9-0b9e-45d0-ed60-08dca716fbbc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M2swYVRkZytleFZta3ZUYVM5Nk93MytaWXE2TDlZRXF0UnhRblpIWm1Qdy9L?=
- =?utf-8?B?T3NZVFNqMEJtTEVhc0JCcDV4WDJRYnM4VmlCMGtRU2Zad2NoaERHQUhsNjU0?=
- =?utf-8?B?ZEY4bmE5cEswWEozL3lza0l6YkNKNXBwMzlxTm9JeDdqTlJMUkNiMStYeWFz?=
- =?utf-8?B?QVVlZCtVMnlNUm0wTEZEa1NPb21FZE90alZzVmczQy9TMitCWU5SM25vNW1x?=
- =?utf-8?B?SnJ0VGFpT1B0U2VCM0FadlNRVzhyTVBrdEY5TUw4YWNpTWYrbnN4aWlQRHZh?=
- =?utf-8?B?Ni9vMnhlMkg1VUFIcHRWeitaQ3p3RVZ3a0ljY2FldGpuK3VUSkJ5RHhLZ1hQ?=
- =?utf-8?B?Q1pvbUFFV3VvUk5IQitXbUZyNmRUT3pzNkRrRzlybW00NlhEd09SQks5ZlZL?=
- =?utf-8?B?akkyYm9JMGJtRFpjUzVaY0J6OWJyblVDUzJEUmpveXIrQW5MWGdiVHFoek5p?=
- =?utf-8?B?ZTlxaER5K0FzRzVsMUZyc0dzYlFoaFJzWk9VckNjU1dMSDVWeHl1cXE5Z2Ft?=
- =?utf-8?B?MTNyYWJvejM0UUx5dGkyc25MTkdRYWgvNlNaQ2dKUWo2ZHNoSHNOUGtvSHIy?=
- =?utf-8?B?U2NFVjk0Wnkrd2NRKytNUEU0UWcxK1FOMERUaTJQNGZNOEUvdlYrcWloL3hL?=
- =?utf-8?B?MDhsTmFMdVJaWUEyUXc1SE1CcXRQNkdhUWQ2OTVsZzE5Q2t2bGhuNkY4aXhS?=
- =?utf-8?B?V09venFmSjRtNG0vWVg3NkkxVVRYOUthUVhNKzJOVzFZQkVhM213VVJVTXRq?=
- =?utf-8?B?Um5UaXZ1eHFwY3JiTVNPZDhoSElHVkNsOCtVUG9sZDlDWXo4eE9oUEVsRnkr?=
- =?utf-8?B?MkUzRVBBSjEyZmhkMC8vdDNFQVhlYWZkeWR5MHRqNUhRcU5sZDdqaG55anhY?=
- =?utf-8?B?a2xxY2JRL3NHZUFwRkxHM0orT1pCZ1Njb3NTWU8yejhSeGxXOVJiNkVIK1hQ?=
- =?utf-8?B?dTdSN1VtN0lpVXJDaDYyZDdTNkNBSHRzanU3b21vb2RFS0J4QmlvU3hLekVl?=
- =?utf-8?B?WDBpbHJNMy9qNFZUdnpSSVN0OVRkcnRMRDlCdlZPRFI2OGRnSW9KMGxwb21J?=
- =?utf-8?B?eFBPNDBTMGhuTDhLRk45RTFnWXNXMXdyMVA4RmpQMWRDVnZjK0VyZXkwaERi?=
- =?utf-8?B?ZlFQRG5HRnNhV0hLVnI3UE40clhWTHp3b3FXa2FuVTNPZnVwbG9TdzBlcVFX?=
- =?utf-8?B?M0VQalllakgvM0RPbkdPd0tzVTJDN3FFRWVqcnB4bmd4UkRhYWVQQzhJOXli?=
- =?utf-8?B?NUppN3BRNFlnaVYwTENBY3RIaklCOUowRzM4TVRlK0Jyc2NyQ2RVS3hidFpm?=
- =?utf-8?B?U3RKUTloL24zUjM3UkcxejVoSXpTU3I5MmVVTituSWRWY0R6QktlRU5oLzZU?=
- =?utf-8?B?cG5WY3lUeEFqZWdKNnFXdmExbDB2UmlBMXBsV05iOWxvdkRxVU55ZTQ2MUZa?=
- =?utf-8?B?bWJnTTZzWUFHK1I1aDcvS0hiSG8rS1N3VXpTcGxySE50aExyUEFMeHd6WWNm?=
- =?utf-8?B?OC9pWmNhQ0Z6b0RvSVRIOVU2V0lQZFhJVW5CMGRLb21YTVY4djY0Vmx3SnlE?=
- =?utf-8?B?YkdIZ3diNEtkN1hZaDFzUDcrRVo0NkZ3SmFHZ2VHb0d2cEJXeVQ5L21tN0Ux?=
- =?utf-8?B?NE9UMGNWK2FNRGdvSmFzTjNJYmRCVldGREkwbjl2WVJxNnVXV2E4STNLQ2V4?=
- =?utf-8?B?a3A4Z3MrRjJ3c3NmK1pqM0t2VXVhaHZWSVVoK3k0WmJQTWswK29SNVQvOVow?=
- =?utf-8?B?ZDN6bTdTMGxnRjZVL0U1d1F4QXV3YXFGY0doMXV5eFIyN2FpVHVlR1ZRd2M0?=
- =?utf-8?B?ZStJTk5xOUtkSnZNTmVmZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjRXY2swNEdwSUNZblBBSkRoUG1HRm51bHBGdW5tWllGd2xHclJHZlRuc1Y2?=
- =?utf-8?B?Y1BrazRyWHJ1YWphOE9ETEY2RXNCSVI4TU9Rb1B2Y1NNRTVrRVRVejVRUDNG?=
- =?utf-8?B?OGVqdDY1SGE2UmdLRms3eUJJT2NSMEphZ0ZmVy9JVHNkR0tHWmFEam5tdU43?=
- =?utf-8?B?RjdCTlVxT1ZBay8vWUQ4RHNEV0FXbjBOWnFCSDNUbExxSlBpMTgvcFdKbEJC?=
- =?utf-8?B?NUJSRkd2N3FOaWk3TEVuQ2krK3BmNCs4YTNWWUtyS3NTK3RYaDA1dk4xQnFK?=
- =?utf-8?B?R01HZjdMZWhic3ArejkyNG5HVjRDY0RRS1RvMTRRNGJNbkFBZEw5N2lyRGlU?=
- =?utf-8?B?aXE3YVdOT3J0OG4waEFJa1dRRUpyYzBpdE1PSTJJN3RGL0pFVXpaYTc5QTNZ?=
- =?utf-8?B?dFVTZHMvaENma2lzb2lUc0pqb05TbGx5c0RpenpEU2F1V0lubGNzQkNSbGdl?=
- =?utf-8?B?NDRITloyZit6YVI0QWxseCtjN041MWo4MzJzVGMxcFF1eWhlVWFCU2tQSUhG?=
- =?utf-8?B?OFhFZnVxdlJ3cFQxcDJOVUo4MmRVMVd6SEVEUzhLaHNZem0rVFluejBRaXVC?=
- =?utf-8?B?Z24zeGd1Ry9FRGpNaUlmY3ZoVmdvK3MxYUU3MlpHYml6U2FpVHdHR0VxMVA2?=
- =?utf-8?B?b0FxeEl6Qm5jeGJUUGV0OWJHRjJldFV0R2pVYnlTeGNkdENwS0dpUUsyRTRQ?=
- =?utf-8?B?L0NtVGlleW05STVCcEpsZEQxdzltYi8wdm5RSitYQkE5WGJtUmY2Z2tuTXdP?=
- =?utf-8?B?OW8xL2FxODZRY3VWUXlpNGNSSWwwdS9rZVpnRWlTQjFpRHM3a1RFVXIvL3BE?=
- =?utf-8?B?dWcrdWNaQlY1MnpqMXljbGZKeGhScDNKYjlMclVkYlJDaEhBY1ZjS3ExcjlK?=
- =?utf-8?B?T05yeDE1SzBOVGw3U0JwUGYrZ1d5enRxTk1zWnNyb1UwWmx0eVFXNEhLYU53?=
- =?utf-8?B?V1NYM3piK0Jiak9PVHE1RjJ6eTY0RlhWeDhzTnNnYXV3UXdNbWVTQmNVbW83?=
- =?utf-8?B?UFI2OTEzcytERHp5LzI1U1lqTjlDczUzZ3c3ejRqNlJQZHJFcWU3ZWxnZERq?=
- =?utf-8?B?VjNWOTN6TXQwSTFIaHFma2VWV0dQQVlDRkdiL0ZYMmJ6Njg4cjZMdzE0cTdv?=
- =?utf-8?B?emMybi82OTFvcElQZUp1RElseGNOUkhIRUw3OHFWQ2V3MVFYV0RKdjVQUUEz?=
- =?utf-8?B?WmV3SHUxYWRTSVhnWUZZWjZZdzYxYWs1eGVVVGw2TTRCOUNEMUM2SkhVQ1hF?=
- =?utf-8?B?bGs2V0VaQTBHdXZKMXRIQlg1d0lRelNyOFlTVmJMTUo3ajAzS256aUkxY1Nn?=
- =?utf-8?B?Q1hyemZuZk9qLzFGTmJVTWt2QUtrVnBKUUxLVHZUN0FOd0ZRbkxnSXFobjhy?=
- =?utf-8?B?cVRBcHJLMk03OUZSdk9TOGpFSkdXOVhKY3JibkZKKzBNbU1ybzlleU82QnBi?=
- =?utf-8?B?VUlOUGxwL2FLejhQZkMvSjlGblArMG4ydjdSMzlHMDl6eW5kQlBlMGFCZ2t3?=
- =?utf-8?B?UXRaMXR3Y1BXcmNzZzNHMjliRjJHQVQzUU9YRXg5aVNWcXhlUTQ1RUl5Rmt1?=
- =?utf-8?B?bkFvSFUxNnR1TXYyM2JTaTEyK01LM1hBeDlld3NSSUtBZzQ2Q05HL3JETURC?=
- =?utf-8?B?M1ZjdUlaZFZPZjZTTnM1YmYyK0pMZzQ1emFWeEs3aWY0SHBLQTBnbTJwRGQw?=
- =?utf-8?B?NUgwWTl6RmV4aVE0MmxpdzBRM3lDRTFUM0ZBd3B2cktqYmI5MmlydW05cmVz?=
- =?utf-8?B?RU5sOEgxbkJ5R1IrdVEzY0VwWHVtNjRXMFEwUHpMeitkNTV5OHMxck1NQkNW?=
- =?utf-8?B?OWdYaTZzWmhsNkREY0hFdU1FaXo2RkVFYWErWUxSUlcwYmZjdSt3dXhqYWRZ?=
- =?utf-8?B?TUt1eElLYjFYb0JEVHNBcU9BVVZad3QvM0dQcnRKck9lUXV6SlFjdFVxZEJZ?=
- =?utf-8?B?cHNaVTZxcnVLVk5BZ3MySEZhbm9ZZEJVN21kb0VhVGVPZ0xzMXdLbnRMYmRB?=
- =?utf-8?B?Z1lnNFlhVXhQbGVUREo3WTNXanZCVGZjdGUrNHN3eFloaTMvdnlxM0s4d3lS?=
- =?utf-8?B?amdJZkVpQVV0ZXhKQ05YNEVmb281RkY0MGRVT2JpY3k0V3VYamFFV3FZdEd4?=
- =?utf-8?Q?1R4Y=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d8b4af9-0b9e-45d0-ed60-08dca716fbbc
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2024 10:47:13.5666 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mweFG1xLfo6ZLBbHImkVVSsChL/ERZO0tsXSOgaSd0mRqYzKSB5nj4syTPYQeOed
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9070
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4fe01a7-c424-48e4-1e77-08dca725c298
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jul 2024 12:32:59.9645 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HtUk3IEl8pSb0qCKXHs8w1migMakq0nHjL10yvBv3Q/fTtc3odIELWyWd0/k1urhsadFDdlMDQa76dKqAM5P8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,182 +153,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.07.24 um 12:32 schrieb Arunpravin Paneer Selvam:
-> Add address alignment support to the DCC VRAM buffers.
+--_000_BL1PR12MB51449DCA7C56741FBE7AAA3FF7AC2BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Sunil Khatri <sunil.khatri@amd.com>
+Sent: Thursday, July 18, 2024 12:42 AM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Khatri, =
+Sunil <Sunil.Khatri@amd.com>
+Subject: [PATCH v1 6/6] drm/amdgpu: add print support for sdma_v_4_4_2 ip_d=
+ump
+
+Add print support for ip dump for sdma_v_4_4_2 in
+devcoredump.
+
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v4_4_2.c
+index 917a767ebaf2..9d4091175d29 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -1857,6 +1857,27 @@ static void sdma_v4_4_2_get_clockgating_state(void *=
+handle, u64 *flags)
+                 *flags |=3D AMD_CG_SUPPORT_SDMA_LS;
+ }
+
++static void sdma_v4_4_2_print_ip_state(void *handle, struct drm_printer *p=
+)
++{
++       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
++       int i, j;
++       uint32_t reg_count =3D ARRAY_SIZE(sdma_reg_list_4_4_2);
++       uint32_t instance_offset;
++
++       if (!adev->sdma.ip_dump)
++               return;
++
++       drm_printf(p, "num_instances:%d\n", adev->sdma.num_instances);
++       for (i =3D 0; i < adev->sdma.num_instances; i++) {
++               instance_offset =3D i * reg_count;
++               drm_printf(p, "\nInstance:%d\n", i);
++
++               for (j =3D 0; j < reg_count; j++)
++                       drm_printf(p, "%-50s \t 0x%08x\n", sdma_reg_list_4_=
+4_2[j].reg_name,
++                                  adev->sdma.ip_dump[instance_offset + j])=
+;
++       }
++}
++
+ static void sdma_v4_4_2_dump_ip_state(void *handle)
+ {
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+@@ -1895,6 +1916,7 @@ const struct amd_ip_funcs sdma_v4_4_2_ip_funcs =3D {
+         .set_powergating_state =3D sdma_v4_4_2_set_powergating_state,
+         .get_clockgating_state =3D sdma_v4_4_2_get_clockgating_state,
+         .dump_ip_state =3D sdma_v4_4_2_dump_ip_state,
++       .print_ip_state =3D sdma_v4_4_2_print_ip_state,
+ };
+
+ static const struct amdgpu_ring_funcs sdma_v4_4_2_ring_funcs =3D {
+--
+2.34.1
+
+
+--_000_BL1PR12MB51449DCA7C56741FBE7AAA3FF7AC2BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> v2:
->    - adjust size based on the max_texture_channel_caches values
->      only for GFX12 DCC buffers.
->    - used AMDGPU_GEM_CREATE_GFX12_DCC flag to apply change only
->      for DCC buffers.
->    - roundup non power of two DCC buffer adjusted size to nearest
->      power of two number as the buddy allocator does not support non
->      power of two alignments. This applies only to the contiguous
->      DCC buffers.
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Series is:</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sunil Khatri &lt;suni=
+l.khatri@amd.com&gt;<br>
+<b>Sent:</b> Thursday, July 18, 2024 12:42 AM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v1 6/6] drm/amdgpu: add print support for sdma_v_4_4=
+_2 ip_dump</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Add print support for ip dump for sdma_v_4_4_2 in<=
+br>
+devcoredump.<br>
+<br>
+Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 22 ++++++++++++++++++++++<=
+br>
+&nbsp;1 file changed, 22 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v4_4_2.c<br>
+index 917a767ebaf2..9d4091175d29 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c<br>
+@@ -1857,6 +1857,27 @@ static void sdma_v4_4_2_get_clockgating_state(void *=
+handle, u64 *flags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *flags |=3D AMD_CG_SUPPORT_SDMA_LS;<br>
+&nbsp;}<br>
+&nbsp;<br>
++static void sdma_v4_4_2_print_ip_state(void *handle, struct drm_printer *p=
+)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
+t amdgpu_device *)handle;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reg_count =3D ARRAY_SIZE(sdm=
+a_reg_list_4_4_2);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t instance_offset;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;sdma.ip_dump)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_printf(p, &quot;num_instances:%d\=
+n&quot;, adev-&gt;sdma.num_instances);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;sdma.nu=
+m_instances; i++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; instance_offset =3D i * reg_count;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; drm_printf(p, &quot;\nInstance:%d\n&quot;, i);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (j =3D 0; j &lt; reg_count; j++)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_printf(p, &q=
+uot;%-50s \t 0x%08x\n&quot;, sdma_reg_list_4_4_2[j].reg_name,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.ip_dump[ins=
+tance_offset + j]);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++}<br>
++<br>
+&nbsp;static void sdma_v4_4_2_dump_ip_state(void *handle)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+@@ -1895,6 +1916,7 @@ const struct amd_ip_funcs sdma_v4_4_2_ip_funcs =3D {<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_powergating_state =3D=
+ sdma_v4_4_2_set_powergating_state,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_clockgating_state =3D=
+ sdma_v4_4_2_get_clockgating_state,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .dump_ip_state =3D sdma_v4=
+_4_2_dump_ip_state,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .print_ip_state =3D sdma_v4_4_2_print=
+_ip_state,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;static const struct amdgpu_ring_funcs sdma_v4_4_2_ring_funcs =3D {<br=
 >
-> v3:(Alex)
->    - rewrite the max texture channel caches comparison code in an
->      algorithmic way to determine the alignment size.
->
-> v4:(Alex)
->    - Move the logic from amdgpu_vram_mgr_dcc_alignment() to gmc_v12_0.c
->      and add a new gmc func callback for dcc alignment. If the callback
->      is non-NULL, call it to get the alignment, otherwise, use the default.
->
-> v5:(Alex)
->    - Set the Alignment to a default value if the callback doesn't exist.
->    - Add the callback to amdgpu_gmc_funcs.
->
-> v6:
->    - Fix checkpatch warning reported by Intel CI.
->
-> v7:(Christian)
->    - remove the AMDGPU_GEM_CREATE_GFX12_DCC flag and keep a flag that
->      checks the BO pinning and for a specific hw generation.
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Frank Min <Frank.Min@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  6 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 39 +++++++++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c       | 15 ++++++++
->   3 files changed, 58 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index febca3130497..654d0548a3f8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -156,6 +156,8 @@ struct amdgpu_gmc_funcs {
->   				      uint64_t addr, uint64_t *flags);
->   	/* get the amount of memory used by the vbios for pre-OS console */
->   	unsigned int (*get_vbios_fb_size)(struct amdgpu_device *adev);
-> +	/* get the DCC buffer alignment */
-> +	u64 (*get_dcc_alignment)(struct amdgpu_device *adev);
->   
->   	enum amdgpu_memory_partition (*query_mem_partition_mode)(
->   		struct amdgpu_device *adev);
-> @@ -363,6 +365,10 @@ struct amdgpu_gmc {
->   	(adev)->gmc.gmc_funcs->override_vm_pte_flags			\
->   		((adev), (vm), (addr), (pte_flags))
->   #define amdgpu_gmc_get_vbios_fb_size(adev) (adev)->gmc.gmc_funcs->get_vbios_fb_size((adev))
-> +#define amdgpu_gmc_get_dcc_alignment(_adev) ({			\
-> +	typeof(_adev) (adev) = (_adev);				\
-> +	((adev)->gmc.gmc_funcs->get_dcc_alignment((adev)));	\
-> +})
->   
->   /**
->    * amdgpu_gmc_vram_full_visible - Check if full VRAM is visible through the BAR
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index f91cc149d06c..ace9d61fc512 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -512,6 +512,17 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   		vres->flags |= DRM_BUDDY_RANGE_ALLOCATION;
->   
->   	remaining_size = (u64)vres->base.size;
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-
-> +	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
-> +	    (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
-> +	     amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1))) {
-
-I think you should move this check into gmc_v12_0_get_dcc_alignment.
-
-E.g. here you just check if adev->gmc.gmc_funcs->get_dcc_alignment is 
-not NULL.
-
-Then call the function and if it returns a non zero value apply it.
-
-Regards,
-Christian.
-
-
-> +		u64 adjust_size;
-> +
-> +		if (adev->gmc.gmc_funcs->get_dcc_alignment) {
-> +			adjust_size = amdgpu_gmc_get_dcc_alignment(adev);
-> +			remaining_size = roundup_pow_of_two(remaining_size + adjust_size);
-> +			vres->flags |= DRM_BUDDY_TRIM_DISABLE;
-> +		}
-> +	}
->   
->   	mutex_lock(&mgr->lock);
->   	while (remaining_size) {
-> @@ -521,8 +532,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   			min_block_size = mgr->default_page_size;
->   
->   		size = remaining_size;
-> -		if ((size >= (u64)pages_per_block << PAGE_SHIFT) &&
-> -		    !(size & (((u64)pages_per_block << PAGE_SHIFT) - 1)))
-> +
-> +		if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
-> +		    (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
-> +		     amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1)))
-> +			min_block_size = size;
-> +		else if ((size >= (u64)pages_per_block << PAGE_SHIFT) &&
-> +			 !(size & (((u64)pages_per_block << PAGE_SHIFT) - 1)))
->   			min_block_size = (u64)pages_per_block << PAGE_SHIFT;
->   
->   		BUG_ON(min_block_size < mm->chunk_size);
-> @@ -553,6 +569,25 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   	}
->   	mutex_unlock(&mgr->lock);
->   
-> +	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
-> +	    (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
-> +	     amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1))) {
-> +		struct drm_buddy_block *dcc_block;
-> +		u64 dcc_start, alignment;
-> +
-> +		dcc_block = amdgpu_vram_mgr_first_block(&vres->blocks);
-> +		dcc_start = amdgpu_vram_mgr_block_start(dcc_block);
-> +
-> +		if (adev->gmc.gmc_funcs->get_dcc_alignment) {
-> +			alignment = amdgpu_gmc_get_dcc_alignment(adev);
-> +			/* Adjust the start address for DCC buffers only */
-> +			dcc_start = roundup(dcc_start, alignment);
-> +			drm_buddy_block_trim(mm, &dcc_start,
-> +					     (u64)vres->base.size,
-> +					     &vres->blocks);
-> +		}
-> +	}
-> +
->   	vres->base.start = 0;
->   	size = max_t(u64, amdgpu_vram_mgr_blocks_size(&vres->blocks),
->   		     vres->base.size);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index fd3ac483760e..4259edcdec8a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -542,6 +542,20 @@ static unsigned gmc_v12_0_get_vbios_fb_size(struct amdgpu_device *adev)
->   	return 0;
->   }
->   
-> +static u64 gmc_v12_0_get_dcc_alignment(struct amdgpu_device *adev)
-> +{
-> +	u64 max_tex_channel_caches, alignment;
-> +
-> +	max_tex_channel_caches = adev->gfx.config.max_texture_channel_caches;
-> +	if (is_power_of_2(max_tex_channel_caches))
-> +		alignment = (max_tex_channel_caches / SZ_4) * max_tex_channel_caches;
-> +	else
-> +		alignment = roundup_pow_of_two(max_tex_channel_caches) *
-> +				max_tex_channel_caches;
-> +
-> +	return (u64)alignment * SZ_1K;
-> +}
-> +
->   static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
->   	.flush_gpu_tlb = gmc_v12_0_flush_gpu_tlb,
->   	.flush_gpu_tlb_pasid = gmc_v12_0_flush_gpu_tlb_pasid,
-> @@ -551,6 +565,7 @@ static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
->   	.get_vm_pde = gmc_v12_0_get_vm_pde,
->   	.get_vm_pte = gmc_v12_0_get_vm_pte,
->   	.get_vbios_fb_size = gmc_v12_0_get_vbios_fb_size,
-> +	.get_dcc_alignment = gmc_v12_0_get_dcc_alignment,
->   };
->   
->   static void gmc_v12_0_set_gmc_funcs(struct amdgpu_device *adev)
-
+--_000_BL1PR12MB51449DCA7C56741FBE7AAA3FF7AC2BL1PR12MB5144namp_--
