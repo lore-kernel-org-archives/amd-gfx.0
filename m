@@ -4,68 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B145C3DA59
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jul 2024 16:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3ECC3DA59
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jul 2024 16:13:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1912510EC4E;
-	Fri, 19 Jul 2024 16:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEEA410EC64;
+	Fri, 19 Jul 2024 16:13:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h5VswEq/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="16pcnqHF";
 	dkim-atps=neutral
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B6AD10EC4E
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jul 2024 16:05:40 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-2eede876fccso26093991fa.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jul 2024 09:05:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721405138; x=1722009938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=49CQAQerjgkuPp61bfF3a5t9ExKOAO60fJvR+XWNpbs=;
- b=h5VswEq/JktXQ7dTkFna/5TxpJ/ewhzVSI7do97y7SVJiNfH8kkVUjcy/ZSu4kPcK0
- fw2fmzobfKPrS/dD8t7NQUB78+CzhSaMt4jlK+iWVMXivOaT3FNvh6gtnx7T3B1Ipq3t
- agQqs6le79vj/VC/Ew/0GfelGdQxmg3b+n3bcIXqHr72IWn4Klg9o2YJXMoqAaobXaDQ
- in92zBvlUhNkfGl4kOjZQZ1t6jGc/+LdToYhZ+uP6uuvhGfCHjt6GIHacVZunyVObbI2
- er+srIKVqvv5SWDrNBiwu10UjQ+UCdHcQCJtF1gBRpq+02nX/M18nV4gh+i05zBLdaBY
- 75VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721405138; x=1722009938;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=49CQAQerjgkuPp61bfF3a5t9ExKOAO60fJvR+XWNpbs=;
- b=VPmMn5NUZqAlXg/FbewQLGjXwfxr9l59C9DU8HaxA2QkikqtcPsvEJzK8L/4un+bQh
- f53sQICGqrVatyYm77uVJR2trWf2DBl8mjJmN84xvcwT7qihDaQJ4IpdhQ6BuxC3jS35
- sz+ZIZB5QxIhKiiHXVz0cV0feu/B3yc5sIIVhQU+KSVyqaCXClcOSpQFEgnqpW5/y/Up
- 6BnvyG1TlG35R/2D80C+ZXJgzZsJndRsQRFEyq/J1G7Up/ODtpVvjf+pAxS6JyZ0mO+r
- PuW8I0c9wf2nkuaPNsUqRepENnZZROhpK3eUjJ55JaGtU8Gym0MMf0p05XzJJrZE91BZ
- Ozag==
-X-Gm-Message-State: AOJu0YwmXaxK56jqiq+v66bCdI+W9HFn2+yHfAfXGuuywi6MMHoFR3yW
- 7vb9Fx2io0Nn8PvQmbfRb2yjNzOoD2JLcSp0M3mTTLc2mX6KSY4n
-X-Google-Smtp-Source: AGHT+IFGCbPGduFnFtzaox+LJgW7QFy3GVcC1PFHSX7PgXjvmOyJ296PrDyZf+JDQS/psaZ84ryHVw==
-X-Received: by 2002:a2e:8794:0:b0:2ee:8d81:5aa4 with SMTP id
- 38308e7fff4ca-2ef16782aa3mr1463461fa.14.1721405137480; 
- Fri, 19 Jul 2024 09:05:37 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15ed:fd00:5268:a92:871a:85e8])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d2a6efb6sm58253015e9.24.2024.07.19.09.05.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jul 2024 09:05:36 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: alexdeucher@gmail.com,
-	lijo.lazar@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: harden the HW access lockdep check
-Date: Fri, 19 Jul 2024 18:05:35 +0200
-Message-Id: <20240719160535.2650-1-christian.koenig@amd.com>
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2043.outbound.protection.outlook.com [40.107.212.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D533710EC56
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jul 2024 16:13:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gLnpstkJ3bf65gYoQO5Z6sur46wefysiDJ5Ubb0LXTDzM+HnILn4m02WahzBAk/zPFz0r1/LJt4S+b3XPeN8x3nKunOJs7mawQWlwQU3DClkB3dVpkuEpd4FynljwqRNVBgn2gFbKm+iZ/C+Co0S/kxEajDo/DNUp1vu69c6zKsQJRsQ/25mN9DDHOUKiyCoJ9G66sf5CCNqME07YfMFX91ZBaClkMlgmJng3bTxgcEi1r6+adnMnEHfuJ726b4h1TBsWWcGqueRVbedth1TTyQKTS/uKtRzRWmMCB2sNg1GpSoHCEz4E0U86sOt4VfXngN4SAA/DCCuPfK97rvKkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hoe3K/JWGW8P8wUIccApixDleEqvc4KTc4vQ1oWYoFM=;
+ b=VcEo5FkMxn6eFMB8xWAdby/Ky6c59kj16nKFcxV4gwfDsyKBnJ7oV9JUJyKEDGYQrpzn24KLETSq3gKB0rn95UnsZoqYIi8RT8I48OxNbRQEY0APL93KGdJW3K67oGTJ/UnBqUtU/SPEgWkHOLBNLAfEpk5iQ/K714uqv81GHaDAnLTgEq4CcHuGLbvQXvX01pGVAjWI1rdCbugG+6zJStIljYhl7sV4bHFcpA+QtblIWyf8tx3gEN3LE8+sMfPXBOqBH2btjn1bnvueNS0Jgv/UKfSsoMM0xVKTl79/aLscyZKTTx1sxQZI5Arld1H46p1SA/ZeEDMBb3SHMYRk1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hoe3K/JWGW8P8wUIccApixDleEqvc4KTc4vQ1oWYoFM=;
+ b=16pcnqHFz2/b3AeYS78YbG0o8tPA7jl+0ukfpbykOAWJuzS/VjP9kaUDhwlssXfYVm2Q+tvUBuNEyk9obxNhPBntCuNLAgDL02pUqI+A4f5gjjBIsItQOxmGWPH9JMy5VrGKiB9dK0oeg+ENb8eRnMqHtFqRKUqqoUEExOCNhsM=
+Received: from DM6PR13CA0010.namprd13.prod.outlook.com (2603:10b6:5:bc::23) by
+ SN7PR12MB7936.namprd12.prod.outlook.com (2603:10b6:806:347::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28; Fri, 19 Jul
+ 2024 16:13:19 +0000
+Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
+ (2603:10b6:5:bc:cafe::3e) by DM6PR13CA0010.outlook.office365.com
+ (2603:10b6:5:bc::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.18 via Frontend
+ Transport; Fri, 19 Jul 2024 16:13:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Fri, 19 Jul 2024 16:13:19 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Fri, 19 Jul 2024 11:13:16 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
+ <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: [PATCH] drm/amd/display: Implement bounds check for stream encoder
+ creation in DCN401
+Date: Fri, 19 Jul 2024 21:42:58 +0530
+Message-ID: <20240719161258.2415880-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|SN7PR12MB7936:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bb12cb6-4400-4d7f-003f-08dca80db483
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6bq6wK/tRDkAK0Uq+47kq0Qgi73d+OKYzr5w6v6qveg4bvfQoVtCvS+D+xcl?=
+ =?us-ascii?Q?1Wardkfapa1T4u1w4A+gAdJPChmiLi9nQhifTJCXTj8CkFPk9sE2okeIa65e?=
+ =?us-ascii?Q?YeK/tDjKL8mDeq43cG/aHMo2wlgB8+ma5PtR8GIMu8xtmuxOERvKW4DaIThC?=
+ =?us-ascii?Q?iZpCVpUi0+Ztq2xX6NSnFeZiOcg93VnV/nDNhzjuaxWwdvKNoy+siIEVKYAU?=
+ =?us-ascii?Q?b4IKBi6DAK8fNlkKARVuH1Qaw6/vwqIdzghGJo7bsqzfpFZNL1xWmRprBuHc?=
+ =?us-ascii?Q?kVtTVJf4kIKvYEhnVyskKyX0KSFlpk0bhLHqp77jx7e3H59sdX88cGLacS+y?=
+ =?us-ascii?Q?BCx80J+4BmeMjDtcnuJhqzXmLicNV2VLZJwu0VX4P3AiqH5ufgPVb6IGZeEO?=
+ =?us-ascii?Q?W8YrzHYoygk3b/qB+jAgBMUkhM+h37kPPWt6WQzJ9XONgDioofsDu/QWP9bM?=
+ =?us-ascii?Q?tOJ/COgh1NjBGors96FhBQvceX/Mnus5iXVeFrpllRXJOCz/hvF0k6/AEO2a?=
+ =?us-ascii?Q?DS+Cnh8xW+Cl+5nqJZ7NR9qmtE/u6jdtL4o3TzxfhrNhmhnRFZZKT6DvsNqs?=
+ =?us-ascii?Q?1dzLjwZLLHMbRonmM7NrsvrJQbAq0rDnPehwga+iSmBBnLuyf5UlrPuhR9aW?=
+ =?us-ascii?Q?E9xdv+KHVs1SJFpCz2cnomFGhXsh6tdENIHg/Y90l0uKRYjr1kE0JUSyFJGK?=
+ =?us-ascii?Q?t844drgtyaKyB55cHh+d5QKViLJz+qr2V7NfqcBviB7bFeEiCKSPulu2Q00Y?=
+ =?us-ascii?Q?Sb9VoY5NkO9zC+i24ja6C6fFBSYhc2ueaP1T202m5FPe5Ueowym382yT8o1Z?=
+ =?us-ascii?Q?tAULmMLVk0AxMmNz8+5BeTCYpp0QuS9+bUbAaMDfzXcczES6XrHVA8Izf9Gr?=
+ =?us-ascii?Q?vAsNry/Eiel/82xbx0UrWd6ctfzfq2UWQDV9BQbs6Y/KE1VMyZOIr24s1MsF?=
+ =?us-ascii?Q?StbUPRR/vs9K9oCbrs25kQm/udIhnmtQq23BjHNobT8XPFIZmB3MWQup+VaB?=
+ =?us-ascii?Q?WGvEx8RzduIO2QlUUEoVBm+pTupsz7znZfSMggaFXKORnfLJ/IF8rSAHOMn4?=
+ =?us-ascii?Q?gQzGMCFU0C7W8rFQk/sIx8c9BnY/io3WbE6cDKUG7Gv1cduloylQ//46IX00?=
+ =?us-ascii?Q?hLeTiXzlZ7Z/t8c+xGMyvSuXztUEuz7Ef3CobhVOLIeHV38bkCBBS1FPSX6F?=
+ =?us-ascii?Q?CCnKflaNS6iLLtOaVgr6MOELCoQfhbE9W9lhgm0IGHuH2qr77Bg9vso/pSHI?=
+ =?us-ascii?Q?rVIDWs9djhbhAR9AnzCWeRXOq55KV0fWUL7cX5P7ahLm2Wm8vydclx3D+UWV?=
+ =?us-ascii?Q?n34awDqujcLEVFDsHE+Vh5mz78jUZeLbwDlAhy29GNo/ejbrNTp+A6zcGnC+?=
+ =?us-ascii?Q?iSKPy2FEju/dQrIPL/GCbLflfhTl0l6TOghEFcUDY4/Z1rNu04lSMxfQcNO2?=
+ =?us-ascii?Q?Nia/nxB1G3tAmG8dlTkfB0qo+71qbJEW?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2024 16:13:19.5199 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bb12cb6-4400-4d7f-003f-08dca80db483
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7936
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,64 +134,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-While Alex already fixed a bunch of them we still have tons of call
-paths which are accessing the hw without holding the reset lock to
-prevent concurrent GPU resets.
+'stream_enc_regs' array is an array of dcn10_stream_enc_registers
+structures. The array is initialized with four elements, corresponding
+to the four calls to stream_enc_regs() in the array initializer. This
+means that valid indices for this array are 0, 1, 2, and 3.
 
-Start pointing those out so that we can eventually fix them. Only
-point out the first misbehavior per driver load so that we won't
-overflow the logs with them.
+The error message 'stream_enc_regs' 4 <= 5 below, is indicating that
+there is an attempt to access this array with an index of 5, which is
+out of bounds. This could lead to undefined behavior
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Here, eng_id is used as an index to access the stream_enc_regs array. If
+eng_id is 5, this would result in an out-of-bounds access on the
+stream_enc_regs array.
+
+Thus fixing Buffer overflow error in dcn401_stream_encoder_create
+
+Found by smatch:
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.c:1209 dcn401_stream_encoder_create() error: buffer overflow 'stream_enc_regs' 4 <= 5
+
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 30 +++++++---------------
- 1 file changed, 9 insertions(+), 21 deletions(-)
+ .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bcacf2e35eba..30d83ae3c14a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -567,31 +567,19 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
-  */
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index d3808c49d298..5ee20753572e 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -1190,7 +1190,7 @@ static struct stream_encoder *dcn401_stream_encoder_create(
+ 	vpg = dcn401_vpg_create(ctx, vpg_inst);
+ 	afmt = dcn401_afmt_create(ctx, afmt_inst);
  
- /* Check if hw access should be skipped because of hotplug or device error */
--bool amdgpu_device_skip_hw_access(struct amdgpu_device *adev)
-+bool noinline amdgpu_device_skip_hw_access(struct amdgpu_device *adev)
- {
--	if (adev->no_hw_access)
--		return true;
--
--#ifdef CONFIG_LOCKDEP
- 	/*
--	 * This is a bit complicated to understand, so worth a comment. What we assert
--	 * here is that the GPU reset is not running on another thread in parallel.
--	 *
--	 * For this we trylock the read side of the reset semaphore, if that succeeds
--	 * we know that the reset is not running in paralell.
-+	 * HW access in process context requires that we hold the reset lock to
-+	 * make sure that no concurrent reset is running in paralell.
- 	 *
--	 * If the trylock fails we assert that we are either already holding the read
--	 * side of the lock or are the reset thread itself and hold the write side of
--	 * the lock.
-+	 * Interrupt context obviously can't hold a mutex, but the reset
-+	 * procedure is disabling interrupts as necessary.
- 	 */
--	if (in_task()) {
--		if (down_read_trylock(&adev->reset_domain->sem))
--			up_read(&adev->reset_domain->sem);
--		else
--			lockdep_assert_held(&adev->reset_domain->sem);
--	}
--#endif
--	return false;
-+	if (in_task())
-+		lockdep_assert_held_once(&adev->reset_domain->sem);
-+
-+	return adev->no_hw_access;
- }
- 
- /**
+-	if (!enc1 || !vpg || !afmt) {
++	if (!enc1 || !vpg || !afmt || eng_id >= ARRAY_SIZE(stream_enc_regs)) {
+ 		kfree(enc1);
+ 		kfree(vpg);
+ 		kfree(afmt);
 -- 
 2.34.1
 
