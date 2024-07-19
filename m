@@ -4,171 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF4DC3DA5D
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jul 2024 17:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA011C3DA5D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jul 2024 18:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEB610EC7B;
-	Fri, 19 Jul 2024 17:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1176910EC93;
+	Fri, 19 Jul 2024 18:34:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OlM0HUe9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Dx5fVcdR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CDBB10E15B;
- Fri, 19 Jul 2024 17:40:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721410827; x=1752946827;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=/5hUY9SZkGke1I/FtIcaiLHnwqM9CgfVuxcCfz6kjVk=;
- b=OlM0HUe9lNuR//IgzqC6d3ADHR45mGBMo4HW8G2rCEbyBdbZFUb0nsBo
- sl9zy4B8flAOMqCGfM3brAa2r6gzHvlNFvyt723LxAdof/HNoXVva62dy
- iJEEciL4nEJ3jaEldrSKQkqiKOcdpXvkQxvjvk5WKuSOy0EVUZWq0Lc9R
- yuBrn35eVreumILWPF/yPPMPIxXbQTJKz0jnJrT2gjvdQ6mG0xV5H4fUF
- fNJufW2HV+4vqe0knw17x3qMUwtei71EydG6oP7JKfYuSJNtlbiVjJ1+2
- Llac8EakihgN2Uh8TzLdNG1kmZptft7neZYLqsSeDlgJrMHkAOzHdTFtO w==;
-X-CSE-ConnectionGUID: sExoIklOR5mm6bzgpWcsXw==
-X-CSE-MsgGUID: ndRbT5umRzWxLxNAJkRFHQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11138"; a="44464128"
-X-IronPort-AV: E=Sophos;i="6.09,221,1716274800"; d="scan'208";a="44464128"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2024 10:40:26 -0700
-X-CSE-ConnectionGUID: Dx8MnvMQQ0Ois2OQDvtTww==
-X-CSE-MsgGUID: 1oBdjmRPTrCQIttQlwLntA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,221,1716274800"; d="scan'208";a="51216966"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orviesa009.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 19 Jul 2024 10:40:26 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 19 Jul 2024 10:40:25 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Fri, 19 Jul 2024 10:40:25 -0700
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.41) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Fri, 19 Jul 2024 10:40:25 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90DEA10EC93
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jul 2024 18:34:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=busAJm/m7LQoi5pikVfJLxOkI/O3yzFLtGAU/g33GLdj523Cs1kM1KkF8Hjs2gDUA6NctTroVhIUz+SYM6lOkIwA7geY6MMAJ9vc53TjLEeJxz6h82MSP4mk3zfeQWP6obU7pdSIFYP4+AIFjp5TzTS+0fcDnFFt6bNfW5BSqqAuJ/cGhzpgm/zx/M2c1MknQ5Satr0mPaEtGpTT0TY5kMGd67sQVw+V55XOw62YQk88wePOT52zIKEPXR4CkrDlQngCzOKPTr+GCGxvadDum7O9fVBVEOs5r/9XPF6WKgo6mKwojta039dnwdJ93/ziL/BNIlPXuq6AeKWl8YehYw==
+ b=wrgjmWkFiMo6FKW8Kd4UH2ZiPRTzypow70G48wP4Z01VMHM6H1uL7eYwPsfdLlNfJDQkPRvHCIq9GEeWsOy1CxWvYf2Rjecpl6t+uZBNcF7YigNP55IEuOG3JU+dPhXIq+b1cGc3T38PKfSiHrQT2QfTU9zoxTSX29BIcFlC6qDJDegVTgqADFZsgzvMeQe2MHK4zpV7TrgiBhJCwhPsVyU6a25jz8qayjRZQM0rk8xrEfIU3mVupdFJQcequxauKbnOXxWeQFK/N0DJV1ajV7CusIp00n59ojry/0hKoOEUI8wGa0PyXb7+9dWExcGHcrAmpTPNsM/c6/8aPKJfBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VaW8Y211baSW/8sRd/UBwvh1S2xHbeBqCEsWeFIVfUk=;
- b=j/0psTGk+163Vvm815oViRJ5Bd0MANGuE5uXe9BIV/srVw2Hfj6IePnrUBSqXGezy9DU3ZWjGq4fNPMnjnNXNVgPQbjSJY0zqdApnxEOH4BrZjkZha/hcggnX1N5gzqmBUv7xVyP/ZbamIMknsJhZY5oEbRTn45LeFhVitoKbA7nN4+090QCnvaijK4nGRpHkBYZYoQpkbEXUNX3f7e/w9UOOmQlQqo6KZQGATgVHfJwyzk/Wz6OAGBWvydZJZv1PXaT2pdHjBzHcbdfmEiciIzl/7I08pyjjiwooYOrBBclSjRg0rfmboXBSteI7jugJxTy+xFKfHW/7e/emGi5Zg==
+ bh=mEvxR7gWURMV/q/EyBNp3Xz0x+ZyRQZ3JuLN3uXS45U=;
+ b=AXuG5z48RHE1Rp+lc0O3l30kw/B7Vc3yYv2/CxOULWRWQd7qgSsFXHAjsXPeF6SZB7cL+hfnzIBwaGNkVx8P2PWJOgyyw3jk1cHOjSWpwop37Y3538MmJETbN68VIigtJ4n5RQ0hzATbqvYcAIHfh/Qs2SkB7u7Og7KpV5Qc3RSGQjOFWvIAre0i3ryHmmsLIJskNt6nEGeH0LTV5JVUNnL+fiINs79b60LPadGC5No37614HhSrtdwLMC2v7YUwNJ3wyZTjVPgORNvZ069J+ykLybXJf8L1vkf3agmSe/yXICchYyqHOoWcpThBoB9MqvBetlpV7zSdejsWbLYVzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mEvxR7gWURMV/q/EyBNp3Xz0x+ZyRQZ3JuLN3uXS45U=;
+ b=Dx5fVcdRvzAozOOSVMIGhiSwtivkghA6zp4VMWZmBSrnf1VkcDvWTAR552pPF92oBZwXoIcMVL9cX7VL6bCTdQfio/+1o0PQiHZQTMtJHNAE8rKA/EHrF4Hso9WcVEEiVGd3jQaNOxi16VYg6wCQ52C+BYv7Ww2kogVDAqsevzo=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by IA1PR11MB7295.namprd11.prod.outlook.com (2603:10b6:208:428::15)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16; Fri, 19 Jul
- 2024 17:40:22 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::9e94:e21f:e11a:332%5]) with mapi id 15.20.7762.032; Fri, 19 Jul 2024
- 17:40:16 +0000
-Date: Fri, 19 Jul 2024 17:39:29 +0000
-From: Matthew Brost <matthew.brost@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-CC: Tvrtko Ursulin <tursulin@igalia.com>, <dri-devel@lists.freedesktop.org>,
- <kernel-dev@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Luben Tuikov <ltuikov89@gmail.com>, "Daniel
- Vetter" <daniel.vetter@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/scheduler: Fix drm_sched_entity_set_priority()
-Message-ID: <Zpqk0c9Z0uMj9YOa@DUT025-TGLU.fm.intel.com>
-References: <20240719094730.55301-1-tursulin@igalia.com>
- <61bd1b84-a7f3-46fd-8511-27e306806c8d@gmail.com>
- <bd1f203f-d8c4-4c93-8074-79c3df4fe159@gmail.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Fri, 19 Jul
+ 2024 18:33:58 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.7784.016; Fri, 19 Jul 2024
+ 18:33:58 +0000
+Message-ID: <c317a6f6-3ee0-479c-a69e-8e6492d314b3@amd.com>
+Date: Fri, 19 Jul 2024 14:33:55 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: allow users to target recommended SDMA engines
+To: Jonathan Kim <Jonathan.Kim@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240718230505.1025287-1-Jonathan.Kim@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20240718230505.1025287-1-Jonathan.Kim@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bd1f203f-d8c4-4c93-8074-79c3df4fe159@gmail.com>
-X-ClientProxiedBy: SJ0PR13CA0157.namprd13.prod.outlook.com
- (2603:10b6:a03:2c7::12) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+X-ClientProxiedBy: YQZPR01CA0131.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::19) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|IA1PR11MB7295:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e5cc52f-b6e5-49ca-d995-08dca819da33
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH7PR12MB6468:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9aacce9b-0d92-421d-75e4-08dca8215a00
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?eJzY9X8FKanP+AHIc0mH/ShKlKMsI4CrkMcIEWRA/YCj0vnQiik2lMZTpl?=
- =?iso-8859-1?Q?soLT4CH0KUrYOuQ9+eS0Z6clxgL50e750FOr2jiM9U9T0rptVXHx6lzWQi?=
- =?iso-8859-1?Q?wI2Or0I01bUNe+MfRQ5Hk6u7auRiXudG7bOlSOdEfq8oSPUeI55YLzZhB9?=
- =?iso-8859-1?Q?nYGOzGLxp4hrhQvUNyhDa1ZnbyanoQKx/9A9+V7zypfDtMfGrPuhDtPzfV?=
- =?iso-8859-1?Q?KquVbDoXmHcTW/02gt8JniBdh0vFEXXBxpgoV02m0H8kIO5qCfZTH7soU2?=
- =?iso-8859-1?Q?tpy1Qut/1XKndwQQbNi9RSHKaCpz+hqFRd+S5R3/3DRlF6pIf9QTxJObsy?=
- =?iso-8859-1?Q?Ry6y9AXuxMgCBMf27eT1Ky55v2lYpPd2wbx9QSbaj+6kc78nbU58rOEJyr?=
- =?iso-8859-1?Q?vOVyDZ05+ah6spVMke8heOTwZxxBinUXEswx1BuA4/ro+caD8yKMMPXOqg?=
- =?iso-8859-1?Q?LGupKRw7ije5Oqjr3AenabcNv//cz0fDu4LnPWIwfU69pCzxorisLP9YL0?=
- =?iso-8859-1?Q?mI8l5Ge5TIwteSXgQjnW9CvM31FV4ZfKe3neMTK6nhhjpDOIE3lQyVAjgC?=
- =?iso-8859-1?Q?NwD/TTpO9xxnJjbZtzWwIO/E6OtrK/9iRkYfYFDH7bsHobKpTGBYKX5gn/?=
- =?iso-8859-1?Q?C5JSgvu+/BiCKPPlOBsdhBBgzXOR77tOWViNlbVIFJAprOpYb65PU5gLhi?=
- =?iso-8859-1?Q?IDVbOKny1rPbAsi4ssLR/6vCsDL0qo3P/b9Vs2l00pD0XFVt51aR97Tays?=
- =?iso-8859-1?Q?MgZmoPABeTxEb20NlmB2ksxb4OsTaeOCPem69Hqk7XF6OHAoVTJzkVZMfD?=
- =?iso-8859-1?Q?D1xbdzVIxC1NeeyoWJeDGJ7CMxD6CHNDtLmdravt3LRjvbVZNy24yy2+E7?=
- =?iso-8859-1?Q?WHBxONeYC9qnh6WRhpSfDvv1/Dc2SwLYlF9jic/zZW2BJ3UVDAtOXkqO62?=
- =?iso-8859-1?Q?x9yI48Sdo1o29ZkzdOifON+F+OKmd9lgrsWzrBp5pD6ef9jR3tiM4McPgx?=
- =?iso-8859-1?Q?UMqk0KC1RY1+Ktaxg+olRot5luCD/HjMIyrm4+gJ9cIdQxEtg0fpAIu/qg?=
- =?iso-8859-1?Q?02O7YbfjPoRYnKVpai/mh8ZRm+09xWkXPDgs3RataiSZzVFjcgjM8vtCkq?=
- =?iso-8859-1?Q?ssathhbsU5hY4BMgjczygs2N8zhuUd9Q2SC8/CfgAmNGq2EJYBP6DvZ+4m?=
- =?iso-8859-1?Q?hqZajFsSIGa50Lic2mqXJcih1JWWiYo4o9mDY8UsBHahlAv5ouvWyjyGih?=
- =?iso-8859-1?Q?1TncVQFBDDY8pY9y6HHRAs8aEaUHACOSWQ8alynv60fTeOyy3RKeBAQgP6?=
- =?iso-8859-1?Q?5tnylZfhGrceVy2MPNrrNJ8jrtkXBMDvDh2FUVNXZ1gmu+EpfzdyynjSL3?=
- =?iso-8859-1?Q?NRBazEnteYo1bWKDTXuuLTC7FeiHy7zQ=3D=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?THNmQmVsWHVJa1RiNVJZNzYrQ2crWXB4bkNvYmVueWRiTHVnSXZUWHZya3JG?=
+ =?utf-8?B?b1lWMGhDREcwbm1EdE10NW9WK3FmZHZjN0daYUNoUWM1dDFwQXVFNEhjaUQ0?=
+ =?utf-8?B?WVRjTGZ0dlMyVWRuTzVZbnU1OUNiNXVMVkFwR1NlNTI4aWwxWnBUSmtyYWl3?=
+ =?utf-8?B?eTM4R3VXYlMyUG8xdUZTUmdqS2dTZFhJRHpXTmpvaUFBcGFvR2Y4K1RjZUJ4?=
+ =?utf-8?B?amxzT1dsYTRDVGxWbEJBOFNLcitwejB0SWhiQUVOQzhxNjcrNUVRcGtUWmZR?=
+ =?utf-8?B?U2JOVnQ2MnllQzRhUHlWVE1ERHBRY2NnaFNnT01FR2RHa2ZmZkphMkJVWlpF?=
+ =?utf-8?B?S204ckpGNHd1YlZBVTY1OWQrdkFIa0NhNTZvRWljcHlLaDBtZk5wVVNWTmo1?=
+ =?utf-8?B?VmltMGk3NERCL1Fzc3FHVUhWNHdoczlUZllxMFk0b3lnMzZvZDBxQ2xoS25q?=
+ =?utf-8?B?ajVkbENsVWdSN3hWd3M0Z1R4MUZyREZjT0c0Uks0NFhuelRGYzFGOTNJbHZS?=
+ =?utf-8?B?ZHA1clR5MG9Zd2lnYjlwSjVOVmlJTWs4US9sRzlWb3QxeGJzd1VrRjM5d0o1?=
+ =?utf-8?B?aytyMTBvKzdrQWh4Snh3QnVFRmNXYXV3bmFhTFBPNmlicU1WVVptUHVFQkY5?=
+ =?utf-8?B?UTJ2UTgxWFV4djg4K3B6VlBmcXJ1alRHOEllR2l4Z1J1TmVETkx5U2dsb0ZR?=
+ =?utf-8?B?U1Z3VzNRdlRNcnk0YnhIVHhlbWU0eEgvZFNWSkFnWDFOZWc2aFZidlRZQUl5?=
+ =?utf-8?B?VkwyRXl2eUZFbUJoU3pwaUVjTytnWUppalVNSEpydmszRWl5T3Y3eFQxaVhI?=
+ =?utf-8?B?elZJZVYyTTNsNHJ2ZFlBWm5pRFBaMWthSW9walB5b1VzTmkrT01ZVCt5aEY4?=
+ =?utf-8?B?MloyRjFyWjcwakY2bGlHWkZ2bTFvUS80NnQ1eTUzWmxCU1U1QUJ1NE1LZ1Rs?=
+ =?utf-8?B?MGJjM0N2NUJoS0RLMUJ2aTBlcWg3SzAxZXJrSWhmRDlwMkdRRS9VS3M2SWJV?=
+ =?utf-8?B?QzFlOHpHRy8zUk9WT0dzQ21GRndZQmJBUmh5SHJXcG11elkrQ1VoWkorUUZv?=
+ =?utf-8?B?d3FLMVIrRnR2aGY4dzNKVWFkWUprbTBYbHcyWVpJcnZXNnVJNWNIZVVndURr?=
+ =?utf-8?B?TURhNndVaEw4VVJPMGNpWTlQLzlILzE2WnEzR1djcXhDZTFzd28xdDNLRmFw?=
+ =?utf-8?B?Vzh0MzhxQ0dvb0ZUaUgrWlVXeHFwYisya1I0VWRETkJ1b2grTjZRc1VkMXIy?=
+ =?utf-8?B?UExGWVE3aWo4N2RzOFFXQ0NsUm1KVXJzZzdXS2JUMm0yNCsxWmJadEk0YnMr?=
+ =?utf-8?B?WUFzTm4rS3ptMkFjUkkvc25uanB4TEg4cVEzQnRTMXEwdFkreGNSa09wYURr?=
+ =?utf-8?B?bFhRR3RpQWxJTG5saU9ReisrMC80UHJzNG1HTjJKclpmSzBlaGptS1hRUDd0?=
+ =?utf-8?B?aWRhdUZQRXd3RjBFLzg4TGZNbkp6Vm9vWUg1aUxQendkQlN6QStkYVluYzJX?=
+ =?utf-8?B?RWlxcklQbW1VaXAyTEdXRUpKTFZFdlVlaVByTHg5MjBmTFZva3J3QXZ0YVpp?=
+ =?utf-8?B?MFU0TE5rSHlaR1lwMEl0ams3c211UzBNZ1VLQk54em9iZmVuNGZQclZkU2ZM?=
+ =?utf-8?B?eUxPNTdFdXFMZjE1TXZzMHR5djFXcWMwek5HVnlUR1VTRGYzdnozbG9wR1ZM?=
+ =?utf-8?B?UW13RGhGS2FjZEJibkNNWi9BQlJ5amJ6TjVjamhsNW9CUUxjU2lkNk1XbU42?=
+ =?utf-8?B?QzRYVFRMTlhnVFVWWWRkOFJ4V1BnTWlUT1pvcmV5SnlZZlNuczZmcXJLL04v?=
+ =?utf-8?B?YzJzNnF0TzVtY3N4c1hRUT09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?bwukHVSLNfvu/Pfa4ViTC/EDhdlDfwmXD7baq+quwWylyBEoHYh/snDRrJ?=
- =?iso-8859-1?Q?W8azaUU37WOWFNkdW7CIya0OVtvyV8nPfyR1lYY03S20mTIQHgL3IgRdo6?=
- =?iso-8859-1?Q?35ckKZFDrjh11oBExbYLC/QBdJyUVTsqnfwG4PIykxhYmRWuJlhFvVM8Ss?=
- =?iso-8859-1?Q?vhj0dDRNI9Q0GFNdecqvNy9cmrzjwx8b5nns9/7pkfTvUhWtoPyBeUxwV5?=
- =?iso-8859-1?Q?T47gygU0SpEF/rxP11ztj/LptGg3BV441amBIPc44wyDcDa8+/8xCGtklA?=
- =?iso-8859-1?Q?tEbw6/Rx6DRAIXAfOiaGKcARlVlK9QZcL2/1GP18JQ2DiAKkrIo7Z+fPCK?=
- =?iso-8859-1?Q?3nEH8TwNysvFZRn/FMBL/vxMnMk34J0xQC02yROzaecVfK0tHc8P5Fa/tJ?=
- =?iso-8859-1?Q?XYYAUDhw69uNQNF7JdwckFKcV+oip/fR8aFZkXx7u/5ayeNuww6mduNI1b?=
- =?iso-8859-1?Q?2X05vq2FR9xnY2Zooss8Y0KGjVedVEe+WSsV5zUTy+E1pyB7SRIQmdZWsr?=
- =?iso-8859-1?Q?ry2Con/dxJwbeYtKUpZnXYpzOU124TAznZnYDMPQvV9hSFnO4cpMcxIqHh?=
- =?iso-8859-1?Q?YhFv7+3XM/MS3tB/xRcAaAneNJRlz0NHezBdLU0Mb0+2Z6PxEL9FqX3UQi?=
- =?iso-8859-1?Q?NPKWQ+Ypw3HzHpTo5GZWiUhyU3z9smMnFUKeYRZaMmEb/spJYCtG0ozveE?=
- =?iso-8859-1?Q?W8NKc7E1Whar/zBSu75fsuXOgXMvvIllG83sk3SDkrZRragP3Dm612KkLZ?=
- =?iso-8859-1?Q?3/i8/2lPkzGuZCFUHzEwYjzVS9QBz3B3+Ak8sMP3A84Ha9hubgRFm0vpPx?=
- =?iso-8859-1?Q?1WK2VK8ZBS7KL5axlOv8pSr4yj7Zxva4koQTKBgqkLciQWGgp11YkkIfVh?=
- =?iso-8859-1?Q?Hhn/qjFZJKghz0NZNNST/PLQDTSZUQhjNvbg/ZAPwjvOS3UyfJFuzGJ+vY?=
- =?iso-8859-1?Q?SOGAUZRprEIPKIaiGjIU1/aq4k7r+1XLKfiyWLu25wU4Dn0L7zPMZvT2fY?=
- =?iso-8859-1?Q?YzDT9C9EI0dOrx9Y040jAIkry8HP59IUdVw58oo9SRACe6KDln4560RrZN?=
- =?iso-8859-1?Q?DolWuBAceyNgzdimo+b6cpcBkBrFtr798qZ6KuXA2xUtwV4v7X5a8/ss8j?=
- =?iso-8859-1?Q?OcNiRwW4orYqtwhlG4EGMoDRMUwCMl5yHFXuqjCDFaUlH9j94puczfbDE3?=
- =?iso-8859-1?Q?7sNs2yrqsbUjD5uL31PsJUh3HIUhzRl40DVcO0LWaOEmH1qNf5vGkHM3Hl?=
- =?iso-8859-1?Q?zq7YKjDtkDfHKybbV12nDLgBcZMvjD2ahmj+UfrYCUjJtxtStfM/8Lcy2c?=
- =?iso-8859-1?Q?gyZ8UFjB9UYInRb54K3qwnzpN7l2aP5/x3vILIBExmbjli8MspezA27vuA?=
- =?iso-8859-1?Q?eFsA+eoPDE97yv6uN+FXISAl1bcofRxuWzznr7KSaSX/gDa9mHIyw7fAqW?=
- =?iso-8859-1?Q?wPYRpl9+I8nne8XYnSkuZwUTjeYkpldZc83AizcC+njMDMysl/sh/mkdi7?=
- =?iso-8859-1?Q?uUE+gx153xOS7bYpj64K7vMCQ8tbqXCdIEvBYRjiZtERktvcsu0tKO4HOs?=
- =?iso-8859-1?Q?FJglxx29rZnX6GycgkT66cg/Lk5aCgdLVts6N7Ts9yHqYld9UJAC+LyX56?=
- =?iso-8859-1?Q?nXiuEUg2P9my9347Vw4P3idNYKWUbqKWhN6FJtGWBhZYjAN4IvEGwHeQ?=
- =?iso-8859-1?Q?=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e5cc52f-b6e5-49ca-d995-08dca819da33
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0VBb200Q0ZtWnRLT0VpZkhSOFBZNklGdDJzbzlIZlBlMlhPQ1p2b1BQVEc2?=
+ =?utf-8?B?bWlZbGlBSnBBWXNXSWw0NzE3bVd3bHBUMC9hQld2eVNxN05nRE1sUnEzWXZP?=
+ =?utf-8?B?OFNJWjVSRHNVYVZtWWh4dHd6b2FzMW5MZVpWL282UDJaczMxMitsYmJQcG84?=
+ =?utf-8?B?NERRTCtuTEgwREZRYUl3SjRMZTZYWEtCK1NTT1BqcHg1S3kvQThjSCt1bFQz?=
+ =?utf-8?B?ZjBaNlQ1Rk1LbUFmRkxKcmc1VFYwWlhGVzlvenMvQTdNbnd0ZlNEQUlWSiti?=
+ =?utf-8?B?U3JPMXgvYkl2SEhSVEhjUHpyOXJCbnJzcWZUODZzdzJGOTlqOGFzTkhneVBl?=
+ =?utf-8?B?QjhYWEltS1pqS0c0eGh6WkdGR1F6VytuL3M5cnpaN3hwZkhkWk9FNFF6VEdT?=
+ =?utf-8?B?b2JNZFZxRXQwRVdya2Zkemg2cSt4YzZ6anV4WGdWQkFOcTUxUTBUTDd6c3py?=
+ =?utf-8?B?akRTVEhpMlF3QmZOOUxtc0tMV0xvYVYzNitrR1VOT2hsM1VtTUJhcGJIaWV3?=
+ =?utf-8?B?M1Q3bUZLRHovK2NpMFdWNURTSU5FUUVNNDdaYmtNTFE0aHhiMzR4QnFnWHdz?=
+ =?utf-8?B?M0x4VHJ6MmpVQVZuand6Y1FLZUZKM295cXBLeEloVFI5ZzVJQkh0N0dHUlpp?=
+ =?utf-8?B?ckM1eWQrVWxlT3BrdVpPY0ZXdEZacEZDMVJWMWxtZWNTWjNMeWc5U3p1NUZa?=
+ =?utf-8?B?cTlYaFJxTzAvbm1acU1YK0U4VExHU01RWHJnck9LckNNcXVLTTVLVWJTcHpR?=
+ =?utf-8?B?RE56d3pYMjdSeHNaallTUkkrTFh6dTJEM0cyZThpdkF3SFFNcUV4TGdCZnJV?=
+ =?utf-8?B?dDNrZzBTK3pwRitIWjEydUhuWHZDS0JGRWc3WGFWRDlsWWRpWGMwdFYzN09a?=
+ =?utf-8?B?cHdoWnlKSmw2YnBtVDFoZXF4MS9ROWVYT251Rmdjcnphb2h4a2tiVWFEQnJW?=
+ =?utf-8?B?WEhSSnEyWlFtZkp6UVBRUUwwUWRRN09keUlpOEpvQ01GSVU0MytaMW9yblUv?=
+ =?utf-8?B?QnFLVnhOMElmc2JVNDY5YzIzZHVOVU5YR05Xa25uc2JGcGtFelJUZWNHUEFI?=
+ =?utf-8?B?SW9WNFB0MG9FV0lIZk1CVEVpTVl5bm53K0NJOGk3VGVYSVp3VzFqVlo0Mkpx?=
+ =?utf-8?B?S1B0azBIVVY1N1pHZjZhY3RwZlViYWpNNFp5REVuUnM0TmZjSWdzWlQyQUpv?=
+ =?utf-8?B?TnVIc0FTZEVyOXcxTHRWQVEwVUZPUFpQVFM3Z2ZMUUJkc1hNN1NBZWduNEtl?=
+ =?utf-8?B?bXBpZ3FkU2VGSGtXU3NMeUVheTRkdFQyRDVrd1RPcFhBenBmakhid1owanZS?=
+ =?utf-8?B?T2hjUno1M0hTdmhNUlA3NWh2MnN1c1NQOU1ZVHRveENYcnlOYngwOUlwWTVr?=
+ =?utf-8?B?RVpJMGJudUZqSFF1NEk5amJRREphaGVLeVoydk5IWUVpZWUycE1sZjVWZFdY?=
+ =?utf-8?B?RU4xbkRCMFZ0ME5Qbmw1amh1c3FwYlN4SnI4WVNFaXlkRmZHZFdRaW1hNVlQ?=
+ =?utf-8?B?d2JsTzMzZWNmdytYMitGM0lwN1BmRE14Q0xtTmdYRkNjWldHc1RmR1paeG4v?=
+ =?utf-8?B?SWh2MUFYWFNkVTVxNXB5Z0xtUmtSWjNEUzI2a3dITFdVRWdIMDNRREtJbXFn?=
+ =?utf-8?B?M2QyNURsWmZyVDJBMG1sVk5VbmMrTjFkVkFValJjSTZSMmdEU01EQlk3RkFY?=
+ =?utf-8?B?MW1EcEVrRm9jbGVmUFA4OTY0WllmTElYMnA5MlhQUWk0Kzlrb2dGL0ozSHBT?=
+ =?utf-8?B?UFRrQ2JSZmNnY0N2RUtRcy8wdWJhaVBzR0FVaGdTeW83WE5NYktyQTNqWGdy?=
+ =?utf-8?B?bktranpTU01HR2VDT3RHb0NPY1pmek90ZU5TVWRxc3duc2ZmZFRIMUxaNGNN?=
+ =?utf-8?B?eU41Um1pVGVGM0NQeEY2aTQweHpZc0E5ZGhmK3VlN1BmZVN2MTJ6S2kvM3ly?=
+ =?utf-8?B?QW9jQUx1ZWVpekF2L2ZuRmx1Unh2NHlFcmVoT0wxaXRMaGZnMEdvbWxRVkg3?=
+ =?utf-8?B?WGw0eUFXRmFOWDZOQkNGbmpCbE9NZTlvcVNodm9IaUF4cTZPNGtieFFmNXIy?=
+ =?utf-8?B?WmIwT3FqUVJ1cjRYcVpCUDNLWEdjV2UrUlFrcTg4dk5rb2NFeWQyNit2bCtC?=
+ =?utf-8?Q?cs6NTAlwju1dLdGgU6cjVcaUS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9aacce9b-0d92-421d-75e4-08dca8215a00
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2024 17:40:16.9444 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2024 18:33:57.8763 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YjlgMuHYPbHFkztTqNDtNIQElShSUkn79Wv2HC1fC6j8OVar69q5sMZkEtVJZErAqNgglncx2xq5nEeP0WBSMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7295
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: T+XRwVVU1YpjcViAmpAZAJFI13PwF+oeH4bwjHd3v2YT5tWdLBxhb6nnJVi49ulqBwodx5fHk4lHjNVPYdfEjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,495 +158,338 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 19, 2024 at 05:18:05PM +0200, Christian König wrote:
-> Am 19.07.24 um 15:02 schrieb Christian König:
-> > Am 19.07.24 um 11:47 schrieb Tvrtko Ursulin:
-> > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > 
-> > > Long time ago in commit b3ac17667f11 ("drm/scheduler: rework entity
-> > > creation") a change was made which prevented priority changes for
-> > > entities
-> > > with only one assigned scheduler.
-> > > 
-> > > The commit reduced drm_sched_entity_set_priority() to simply update the
-> > > entities priority, but the run queue selection logic in
-> > > drm_sched_entity_select_rq() was never able to actually change the
-> > > originally assigned run queue.
-> > > 
-> > > In practice that only affected amdgpu, being the only driver which
-> > > can do
-> > > dynamic priority changes. And that appears was attempted to be rectified
-> > > there in 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority
-> > > override").
-> > > 
-> > > A few unresolved problems however were that this only fixed
-> > > drm_sched_entity_set_priority() *if* drm_sched_entity_modify_sched() was
-> > > called first. That was not documented anywhere.
-> > > 
-> > > Secondly, this only works if drm_sched_entity_modify_sched() is actually
-> > > called, which in amdgpu's case today is true only for gfx and compute.
-> > > Priority changes for other engines with only one scheduler assigned,
-> > > such
-> > > as jpeg and video decode will still not work.
-> > > 
-> > > Note that this was also noticed in 981b04d96856 ("drm/sched: improve
-> > > docs
-> > > around drm_sched_entity").
-> > > 
-> > > Completely different set of non-obvious confusion was that whereas
-> > > drm_sched_entity_init() was not keeping the passed in list of schedulers
-> > > (courtesy of 8c23056bdc7a ("drm/scheduler: do not keep a copy of sched
-> > > list")), drm_sched_entity_modify_sched() was disagreeing with that and
-> > > would simply assign the single item list.
-> > > 
-> > > That incosistency appears to be semi-silently fixed in ac4eb83ab255
-> > > ("drm/sched: select new rq even if there is only one v3").
-> > > 
-> > > What was also not documented is why it was important to not keep the
-> > > list of schedulers when there is only one. I suspect it could have
-> > > something to do with the fact the passed in array is on stack for many
-> > > callers with just one scheduler. With more than one scheduler amdgpu is
-> > > the only caller, and there the container is not on the stack. Keeping a
-> > > stack backed list in the entity would obviously be undefined behaviour
-> > > *if* the list was kept.
-> > > 
-> > > Amdgpu however did only stop passing in stack backed container for
-> > > the more
-> > > than one scheduler case in 977f7e1068be ("drm/amdgpu: allocate
-> > > entities on
-> > > demand"). Until then I suspect dereferencing freed stack from
-> > > drm_sched_entity_select_rq() was still present.
-> > > 
-> > > In order to untangle all that and fix priority changes this patch is
-> > > bringing back the entity owned container for storing the passed in
-> > > scheduler list.
-> > 
-> > Please don't. That makes the mess just more horrible.
-> > 
-> > The background of not keeping the array is to intentionally prevent the
-> > priority override from working.
-> > 
-> > The bug is rather that adding drm_sched_entity_modify_sched() messed
-> > this up.
+On 2024-07-18 19:05, Jonathan Kim wrote:
+> Certain GPUs have better copy performance over xGMI on specific
+> SDMA engines depending on the source and destination GPU.
+> Allow users to create SDMA queues on these recommended engines.
+> Close to 2x overall performance has been observed with this
+> optimization.
 >
-> To give more background: Amdgpu has two different ways of handling priority:
-> 1. The priority in the DRM scheduler.
-> 2. Different HW rings with different priorities.
-> 
-> Your analysis is correct that drm_sched_entity_init() initially dropped the
-> scheduler list to avoid using a stack allocated list, and that functionality
-> is still used in amdgpu_ctx_init_entity() for example.
-> 
-> Setting the scheduler priority was basically just a workaround because we
-> didn't had the hw priorities at that time. Since that is no longer the case
-> I suggest to just completely drop the drm_sched_entity_set_priority()
-> function instead.
-> 
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 16 ++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h         |  3 +-
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 39 +++++++++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +-
+>   .../amd/amdkfd/kfd_process_queue_manager.c    |  1 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c     | 52 +++++++++++++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h     |  1 +
+>   include/uapi/linux/kfd_ioctl.h                |  6 ++-
+>   8 files changed, 119 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 32e5db509560..9610cb90a47e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -255,6 +255,7 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
+>   			args->ctx_save_restore_address;
+>   	q_properties->ctx_save_restore_area_size = args->ctx_save_restore_size;
+>   	q_properties->ctl_stack_size = args->ctl_stack_size;
+> +	q_properties->sdma_engine_id = args->sdma_engine_id;
+>   	if (args->queue_type == KFD_IOC_QUEUE_TYPE_COMPUTE ||
+>   		args->queue_type == KFD_IOC_QUEUE_TYPE_COMPUTE_AQL)
+>   		q_properties->type = KFD_QUEUE_TYPE_COMPUTE;
+> @@ -262,6 +263,8 @@ static int set_queue_properties_from_user(struct queue_properties *q_properties,
+>   		q_properties->type = KFD_QUEUE_TYPE_SDMA;
+>   	else if (args->queue_type == KFD_IOC_QUEUE_TYPE_SDMA_XGMI)
+>   		q_properties->type = KFD_QUEUE_TYPE_SDMA_XGMI;
+> +	else if (args->queue_type == KFD_IOC_QUEUE_TYPE_SDMA_BY_ENG_ID)
+> +		q_properties->type = KFD_QUEUE_TYPE_SDMA_BY_ENG_ID;
+>   	else
+>   		return -ENOTSUPP;
+>   
+> @@ -334,6 +337,18 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+>   		goto err_bind_process;
+>   	}
+>   
+> +	if (q_properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
+> +		int max_sdma_eng_id = kfd_get_num_sdma_engines(dev) +
+> +				      kfd_get_num_xgmi_sdma_engines(dev) - 1;
+> +
+> +		if (q_properties.sdma_engine_id > max_sdma_eng_id) {
+> +			err = -EINVAL;
+> +			pr_err("sdma_engine_id %i exceeds maximum id of %i\n",
+> +			       q_properties.sdma_engine_id, max_sdma_eng_id);
+> +			goto err_sdma_engine_id;
+> +		}
+> +	}
+> +
+>   	if (!pdd->qpd.proc_doorbells) {
+>   		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
+>   		if (err) {
+> @@ -425,6 +440,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+>   	if (wptr_bo)
+>   		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
+>   err_wptr_map_gart:
+> +err_sdma_engine_id:
+>   err_bind_process:
+>   err_pdd:
+>   	mutex_unlock(&p->mutex);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+> index a8ca7ecb6d27..e880a71837bc 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+> @@ -259,7 +259,7 @@ struct crat_subtype_ccompute {
+>   #define CRAT_IOLINK_TYPE_OTHER		16
+>   #define CRAT_IOLINK_TYPE_MAX		255
+>   
+> -#define CRAT_IOLINK_RESERVED_LENGTH	24
+> +#define CRAT_IOLINK_RESERVED_LENGTH	20
+>   
+>   struct crat_subtype_iolink {
+>   	uint8_t		type;
+> @@ -276,6 +276,7 @@ struct crat_subtype_iolink {
+>   	uint32_t	minimum_bandwidth_mbs;
+>   	uint32_t	maximum_bandwidth_mbs;
+>   	uint32_t	recommended_transfer_size;
+> +	uint32_t	recommended_sdma_eng_id_mask;
 
-+1 on this idea of dropping drm_sched_entity_set_priority if it doesn't
-really work and unused.
+This seems completely unnecessary because your code in kfd_topology 
+doesn't depend on this info being in the CRAT table.
 
-It certainly unused in Xe and Xe has HW rings with different priorities
-via the GuC interface. I belive this is also true for all new drivers
-based on my interactions.
 
-We should not be adding complexity the scheduler without a use case.
+>   	uint8_t		reserved2[CRAT_IOLINK_RESERVED_LENGTH - 1];
+>   	uint8_t		weight_xgmi;
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 4f48507418d2..58d7710ebb30 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -1534,6 +1534,42 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
+>   			q->sdma_id % kfd_get_num_xgmi_sdma_engines(dqm->dev);
+>   		q->properties.sdma_queue_id = q->sdma_id /
+>   			kfd_get_num_xgmi_sdma_engines(dqm->dev);
+> +	} else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
+> +		int i, num_queues, num_engines, eng_offset = 0;
+> +		bool free_bit_found = false, is_xgmi = false;
+> +
+> +		if (q->properties.sdma_engine_id < kfd_get_num_sdma_engines(dqm->dev)) {
+> +			num_queues = get_num_sdma_queues(dqm);
+> +			num_engines = kfd_get_num_sdma_engines(dqm->dev);
+> +			q->properties.type = KFD_QUEUE_TYPE_SDMA;
+> +		} else {
+> +			num_queues = get_num_xgmi_sdma_queues(dqm);
+> +			num_engines = kfd_get_num_xgmi_sdma_engines(dqm->dev);
+> +			eng_offset = kfd_get_num_sdma_engines(dqm->dev);
+> +			q->properties.type = KFD_QUEUE_TYPE_SDMA_XGMI;
+> +			is_xgmi = true;
+> +		}
+> +
+> +		/* Scan available bit based on target engine ID. */
+> +		for (i = 0; i < num_queues; i++) {
+> +			int tmp_eng_id = eng_offset + i % num_engines;
 
-Matt
+This could be more efficient:
 
-> In general scheduler priorities were meant to be used for things like kernel
-> queues which would always have higher priority than user space submissions
-> and using them for userspace turned out to be not such a good idea.
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> > Regards,
-> > Christian.
-> > 
-> > 
-> > > Container is now owned by the entity and the pointers are
-> > > owned by the drivers. List of schedulers is always kept including
-> > > for the
-> > > one scheduler case.
-> > > 
-> > > The patch can therefore also removes the single scheduler special case,
-> > > which means that priority changes should now work (be able to change the
-> > > selected run-queue) for all drivers and engines. In other words
-> > > drm_sched_entity_set_priority() should now just work for all cases.
-> > > 
-> > > To enable maintaining its own container some API calls needed to grow a
-> > > capability for returning success/failure, which is a change which
-> > > percolates mostly through amdgpu source.
-> > > 
-> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > Fixes: b3ac17667f11 ("drm/scheduler: rework entity creation")
-> > > References: 8c23056bdc7a ("drm/scheduler: do not keep a copy of
-> > > sched list")
-> > > References: 977f7e1068be ("drm/amdgpu: allocate entities on demand")
-> > > References: 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx
-> > > priority override")
-> > > References: ac4eb83ab255 ("drm/sched: select new rq even if there is
-> > > only one v3")
-> > > References: 981b04d96856 ("drm/sched: improve docs around
-> > > drm_sched_entity")
-> > > Cc: Christian König <christian.koenig@amd.com>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Luben Tuikov <ltuikov89@gmail.com>
-> > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Cc: amd-gfx@lists.freedesktop.org
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: <stable@vger.kernel.org> # v5.6+
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 31 +++++---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |  2 +-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 13 +--
-> > >   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c   |  3 +-
-> > >   drivers/gpu/drm/scheduler/sched_entity.c  | 96 ++++++++++++++++-------
-> > >   include/drm/gpu_scheduler.h               | 16 ++--
-> > >   6 files changed, 100 insertions(+), 61 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > > index 5cb33ac99f70..387247f8307e 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > > @@ -802,15 +802,15 @@ struct dma_fence *amdgpu_ctx_get_fence(struct
-> > > amdgpu_ctx *ctx,
-> > >       return fence;
-> > >   }
-> > >   -static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
-> > > -                       struct amdgpu_ctx_entity *aentity,
-> > > -                       int hw_ip,
-> > > -                       int32_t priority)
-> > > +static int amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
-> > > +                      struct amdgpu_ctx_entity *aentity,
-> > > +                      int hw_ip,
-> > > +                      int32_t priority)
-> > >   {
-> > >       struct amdgpu_device *adev = ctx->mgr->adev;
-> > > -    unsigned int hw_prio;
-> > >       struct drm_gpu_scheduler **scheds = NULL;
-> > > -    unsigned num_scheds;
-> > > +    unsigned int hw_prio, num_scheds;
-> > > +    int ret = 0;
-> > >         /* set sw priority */
-> > >       drm_sched_entity_set_priority(&aentity->entity,
-> > > @@ -822,16 +822,18 @@ static void
-> > > amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
-> > >           hw_prio = array_index_nospec(hw_prio, AMDGPU_RING_PRIO_MAX);
-> > >           scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
-> > >           num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
-> > > -        drm_sched_entity_modify_sched(&aentity->entity, scheds,
-> > > -                          num_scheds);
-> > > +        ret = drm_sched_entity_modify_sched(&aentity->entity, scheds,
-> > > +                            num_scheds);
-> > >       }
-> > > +
-> > > +    return ret;
-> > >   }
-> > >   -void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
-> > > -                  int32_t priority)
-> > > +int amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t
-> > > priority)
-> > >   {
-> > >       int32_t ctx_prio;
-> > >       unsigned i, j;
-> > > +    int ret;
-> > >         ctx->override_priority = priority;
-> > >   @@ -842,10 +844,15 @@ void amdgpu_ctx_priority_override(struct
-> > > amdgpu_ctx *ctx,
-> > >               if (!ctx->entities[i][j])
-> > >                   continue;
-> > >   -            amdgpu_ctx_set_entity_priority(ctx, ctx->entities[i][j],
-> > > -                               i, ctx_prio);
-> > > +            ret = amdgpu_ctx_set_entity_priority(ctx,
-> > > +                                 ctx->entities[i][j],
-> > > +                                 i, ctx_prio);
-> > > +            if (ret)
-> > > +                return ret;
-> > >           }
-> > >       }
-> > > +
-> > > +    return 0;
-> > >   }
-> > >     int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> > > index 85376baaa92f..835661515e33 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> > > @@ -82,7 +82,7 @@ struct dma_fence *amdgpu_ctx_get_fence(struct
-> > > amdgpu_ctx *ctx,
-> > >                          struct drm_sched_entity *entity,
-> > >                          uint64_t seq);
-> > >   bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio);
-> > > -void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t
-> > > ctx_prio);
-> > > +int amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t
-> > > ctx_prio);
-> > >     int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
-> > >                struct drm_file *filp);
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> > > index 863b2a34b2d6..944edb7f00a2 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-> > > @@ -54,12 +54,15 @@ static int
-> > > amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
-> > >         mgr = &fpriv->ctx_mgr;
-> > >       mutex_lock(&mgr->lock);
-> > > -    idr_for_each_entry(&mgr->ctx_handles, ctx, id)
-> > > -        amdgpu_ctx_priority_override(ctx, priority);
-> > > +    idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
-> > > +        r = amdgpu_ctx_priority_override(ctx, priority);
-> > > +        if (r)
-> > > +            break;
-> > > +    }
-> > >       mutex_unlock(&mgr->lock);
-> > >         fdput(f);
-> > > -    return 0;
-> > > +    return r;
-> > >   }
-> > >     static int amdgpu_sched_context_priority_override(struct
-> > > amdgpu_device *adev,
-> > > @@ -88,11 +91,11 @@ static int
-> > > amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
-> > >           return -EINVAL;
-> > >       }
-> > >   -    amdgpu_ctx_priority_override(ctx, priority);
-> > > +    r = amdgpu_ctx_priority_override(ctx, priority);
-> > >       amdgpu_ctx_put(ctx);
-> > >       fdput(f);
-> > >   -    return 0;
-> > > +    return r;
-> > >   }
-> > >     int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> > > b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> > > index 81fb99729f37..2453decc73c7 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> > > @@ -1362,8 +1362,7 @@ static int vcn_v4_0_5_limit_sched(struct
-> > > amdgpu_cs_parser *p,
-> > >         scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_ENC]
-> > >           [AMDGPU_RING_PRIO_0].sched;
-> > > -    drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
-> > > -    return 0;
-> > > +    return drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
-> > >   }
-> > >     static int vcn_v4_0_5_dec_msg(struct amdgpu_cs_parser *p, struct
-> > > amdgpu_job *job,
-> > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
-> > > b/drivers/gpu/drm/scheduler/sched_entity.c
-> > > index 58c8161289fe..cb5cc65f461d 100644
-> > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > > @@ -45,7 +45,12 @@
-> > >    * @guilty: atomic_t set to 1 when a job on this queue
-> > >    *          is found to be guilty causing a timeout
-> > >    *
-> > > - * Note that the &sched_list must have at least one element to
-> > > schedule the entity.
-> > > + * Note that the &sched_list must have at least one element to
-> > > schedule the
-> > > + * entity.
-> > > + *
-> > > + * The individual drm_gpu_scheduler pointers have borrow semantics, ie.
-> > > + * they must remain valid during entities lifetime, while the
-> > > containing
-> > > + * array can be freed after this call returns.
-> > >    *
-> > >    * For changing @priority later on at runtime see
-> > >    * drm_sched_entity_set_priority(). For changing the set of schedulers
-> > > @@ -69,27 +74,24 @@ int drm_sched_entity_init(struct
-> > > drm_sched_entity *entity,
-> > >       INIT_LIST_HEAD(&entity->list);
-> > >       entity->rq = NULL;
-> > >       entity->guilty = guilty;
-> > > -    entity->num_sched_list = num_sched_list;
-> > >       entity->priority = priority;
-> > > -    /*
-> > > -     * It's perfectly valid to initialize an entity without having
-> > > a valid
-> > > -     * scheduler attached. It's just not valid to use the scheduler
-> > > before it
-> > > -     * is initialized itself.
-> > > -     */
-> > > -    entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
-> > >       RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> > >       RB_CLEAR_NODE(&entity->rb_tree_node);
-> > >   -    if (num_sched_list && !sched_list[0]->sched_rq) {
-> > > -        /* Since every entry covered by num_sched_list
-> > > -         * should be non-NULL and therefore we warn drivers
-> > > -         * not to do this and to fix their DRM calling order.
-> > > -         */
-> > > -        pr_warn("%s: called with uninitialized scheduler\n", __func__);
-> > > -    } else if (num_sched_list) {
-> > > -        /* The "priority" of an entity cannot exceed the number of
-> > > run-queues of a
-> > > -         * scheduler. Protect against num_rqs being 0, by
-> > > converting to signed. Choose
-> > > -         * the lowest priority available.
-> > > +    if (num_sched_list) {
-> > > +        int ret;
-> > > +
-> > > +        ret = drm_sched_entity_modify_sched(entity,
-> > > +                            sched_list,
-> > > +                            num_sched_list);
-> > > +        if (ret)
-> > > +            return ret;
-> > > +
-> > > +        /*
-> > > +         * The "priority" of an entity cannot exceed the number of
-> > > +         * run-queues of a scheduler. Protect against num_rqs being 0,
-> > > +         * by converting to signed. Choose the lowest priority
-> > > +         * available.
-> > >            */
-> > >           if (entity->priority >= sched_list[0]->num_rqs) {
-> > >               drm_err(sched_list[0], "entity with out-of-bounds
-> > > priority:%u num_rqs:%u\n",
-> > > @@ -122,19 +124,58 @@ EXPORT_SYMBOL(drm_sched_entity_init);
-> > >    *         existing entity->sched_list
-> > >    * @num_sched_list: number of drm sched in sched_list
-> > >    *
-> > > + * The individual drm_gpu_scheduler pointers have borrow semantics, ie.
-> > > + * they must remain valid during entities lifetime, while the
-> > > containing
-> > > + * array can be freed after this call returns.
-> > > + *
-> > >    * Note that this must be called under the same common lock for
-> > > @entity as
-> > >    * drm_sched_job_arm() and drm_sched_entity_push_job(), or the
-> > > driver needs to
-> > >    * guarantee through some other means that this is never called
-> > > while new jobs
-> > >    * can be pushed to @entity.
-> > > + *
-> > > + * Returns zero on success and a negative error code on failure.
-> > >    */
-> > > -void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
-> > > -                    struct drm_gpu_scheduler **sched_list,
-> > > -                    unsigned int num_sched_list)
-> > > +int drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
-> > > +                  struct drm_gpu_scheduler **sched_list,
-> > > +                  unsigned int num_sched_list)
-> > >   {
-> > > -    WARN_ON(!num_sched_list || !sched_list);
-> > > +    struct drm_gpu_scheduler **new, **old;
-> > > +    unsigned int i;
-> > >   -    entity->sched_list = sched_list;
-> > > +    if (!(entity && sched_list && (num_sched_list == 0 ||
-> > > sched_list[0])))
-> > > +        return -EINVAL;
-> > > +
-> > > +    /*
-> > > +     * It's perfectly valid to initialize an entity without having
-> > > a valid
-> > > +     * scheduler attached. It's just not valid to use the scheduler
-> > > before
-> > > +     * it is initialized itself.
-> > > +     *
-> > > +     * Since every entry covered by num_sched_list should be
-> > > non-NULL and
-> > > +     * therefore we warn drivers not to do this and to fix their
-> > > DRM calling
-> > > +     * order.
-> > > +     */
-> > > +    for (i = 0; i < num_sched_list; i++) {
-> > > +        if (!sched_list[i]) {
-> > > +            pr_warn("%s: called with uninitialized scheduler %u!\n",
-> > > +                __func__, i);
-> > > +            return -EINVAL;
-> > > +        }
-> > > +    }
-> > > +
-> > > +    new = kmemdup_array(sched_list,
-> > > +                num_sched_list,
-> > > +                sizeof(*sched_list),
-> > > +                GFP_KERNEL);
-> > > +    if (!new)
-> > > +        return -ENOMEM;
-> > > +
-> > > +    old = entity->sched_list;
-> > > +    entity->sched_list = new;
-> > >       entity->num_sched_list = num_sched_list;
-> > > +
-> > > +    kfree(old);
-> > > +
-> > > +    return 0;
-> > >   }
-> > >   EXPORT_SYMBOL(drm_sched_entity_modify_sched);
-> > >   @@ -341,6 +382,8 @@ void drm_sched_entity_fini(struct
-> > > drm_sched_entity *entity)
-> > > dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
-> > >       RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> > > +
-> > > +    kfree(entity->sched_list);
-> > >   }
-> > >   EXPORT_SYMBOL(drm_sched_entity_fini);
-> > >   @@ -531,10 +574,6 @@ void drm_sched_entity_select_rq(struct
-> > > drm_sched_entity *entity)
-> > >       struct drm_gpu_scheduler *sched;
-> > >       struct drm_sched_rq *rq;
-> > >   -    /* single possible engine and already selected */
-> > > -    if (!entity->sched_list)
-> > > -        return;
-> > > -
-> > >       /* queue non-empty, stay on the same engine */
-> > >       if (spsc_queue_count(&entity->job_queue))
-> > >           return;
-> > > @@ -561,9 +600,6 @@ void drm_sched_entity_select_rq(struct
-> > > drm_sched_entity *entity)
-> > >           entity->rq = rq;
-> > >       }
-> > >       spin_unlock(&entity->rq_lock);
-> > > -
-> > > -    if (entity->num_sched_list == 1)
-> > > -        entity->sched_list = NULL;
-> > >   }
-> > >     /**
-> > > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> > > index 5acc64954a88..09e1d063a5c0 100644
-> > > --- a/include/drm/gpu_scheduler.h
-> > > +++ b/include/drm/gpu_scheduler.h
-> > > @@ -110,18 +110,12 @@ struct drm_sched_entity {
-> > >       /**
-> > >        * @sched_list:
-> > >        *
-> > > -     * A list of schedulers (struct drm_gpu_scheduler).  Jobs from
-> > > this entity can
-> > > -     * be scheduled on any scheduler on this list.
-> > > +     * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this
-> > > +     * entity can be scheduled on any scheduler on this list.
-> > >        *
-> > >        * This can be modified by calling
-> > > drm_sched_entity_modify_sched().
-> > >        * Locking is entirely up to the driver, see the above
-> > > function for more
-> > >        * details.
-> > > -     *
-> > > -     * This will be set to NULL if &num_sched_list equals 1 and @rq
-> > > has been
-> > > -     * set already.
-> > > -     *
-> > > -     * FIXME: This means priority changes through
-> > > -     * drm_sched_entity_set_priority() will be lost henceforth in
-> > > this case.
-> > >        */
-> > >       struct drm_gpu_scheduler        **sched_list;
-> > >   @@ -568,9 +562,9 @@ int
-> > > drm_sched_job_add_implicit_dependencies(struct drm_sched_job *job,
-> > >                           bool write);
-> > >     -void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
-> > > -                    struct drm_gpu_scheduler **sched_list,
-> > > -                                   unsigned int num_sched_list);
-> > > +int drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
-> > > +                  struct drm_gpu_scheduler **sched_list,
-> > > +                  unsigned int num_sched_list);
-> > >     void drm_sched_tdr_queue_imm(struct drm_gpu_scheduler *sched);
-> > >   void drm_sched_job_cleanup(struct drm_sched_job *job);
-> > 
-> 
+	for (i = q->properties.sdma_engine_id - eng_offset; i < num_queues; i += num_engines) {
+		if (test_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : dqm->sdma_bitmap))
+			continue;
+		...
+	}
+
+> +
+> +			if (!(q->properties.sdma_engine_id == tmp_eng_id &&
+> +			    test_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : dqm->sdma_bitmap)))
+> +				continue;
+> +
+> +			clear_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : dqm->sdma_bitmap);
+> +			q->sdma_id = i;
+> +			q->properties.sdma_queue_id = q->sdma_id / num_engines;
+> +			free_bit_found = true;
+> +			break;
+> +		}
+> +
+> +		if (!free_bit_found) {
+> +			dev_err(dev, "No more SDMA queue to allocate for target ID %i\n",
+> +				q->properties.sdma_engine_id);
+> +			return -ENOMEM;
+> +		}
+>   	}
+>   
+>   	pr_debug("SDMA engine id: %d\n", q->properties.sdma_engine_id);
+> @@ -1786,7 +1822,8 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+>   	}
+>   
+>   	if (q->properties.type == KFD_QUEUE_TYPE_SDMA ||
+> -		q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
+> +		q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI ||
+> +		q->properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
+>   		dqm_lock(dqm);
+>   		retval = allocate_sdma_queue(dqm, q, qd ? &qd->sdma_id : NULL);
+>   		dqm_unlock(dqm);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 2b3ec92981e8..7d26e71dfd04 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -414,13 +414,16 @@ enum kfd_unmap_queues_filter {
+>    * @KFD_QUEUE_TYPE_DIQ: DIQ queue type.
+>    *
+>    * @KFD_QUEUE_TYPE_SDMA_XGMI: Special SDMA queue for XGMI interface.
+> + *
+> + * @KFD_QUEUE_TYPE_SDMA_BY_ENG_ID:  SDMA user mode queue with target SDMA engine ID.
+>    */
+>   enum kfd_queue_type  {
+>   	KFD_QUEUE_TYPE_COMPUTE,
+>   	KFD_QUEUE_TYPE_SDMA,
+>   	KFD_QUEUE_TYPE_HIQ,
+>   	KFD_QUEUE_TYPE_DIQ,
+> -	KFD_QUEUE_TYPE_SDMA_XGMI
+> +	KFD_QUEUE_TYPE_SDMA_XGMI,
+> +	KFD_QUEUE_TYPE_SDMA_BY_ENG_ID
+>   };
+>   
+>   enum kfd_queue_format {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 21f5a1fb3bf8..8adf20760e67 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -345,6 +345,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+>   	switch (type) {
+>   	case KFD_QUEUE_TYPE_SDMA:
+>   	case KFD_QUEUE_TYPE_SDMA_XGMI:
+> +	case KFD_QUEUE_TYPE_SDMA_BY_ENG_ID:
+>   		/* SDMA queues are always allocated statically no matter
+>   		 * which scheduler mode is used. We also do not need to
+>   		 * check whether a SDMA queue can be allocated here, because
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 6f89b06f89d3..f6effaabd4b0 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -292,6 +292,8 @@ static ssize_t iolink_show(struct kobject *kobj, struct attribute *attr,
+>   			      iolink->max_bandwidth);
+>   	sysfs_show_32bit_prop(buffer, offs, "recommended_transfer_size",
+>   			      iolink->rec_transfer_size);
+> +	sysfs_show_32bit_prop(buffer, offs, "recommended_sdma_engine_id_mask",
+> +			      iolink->rec_sdma_eng_id_mask);
+>   	sysfs_show_32bit_prop(buffer, offs, "flags", iolink->flags);
+>   
+>   	return offs;
+> @@ -1265,6 +1267,55 @@ static void kfd_set_iolink_non_coherent(struct kfd_topology_device *to_dev,
+>   	}
+>   }
+>   
+> +#define REC_SDMA_NUM_GPU	8
+> +static const int rec_sdma_eng_map[REC_SDMA_NUM_GPU][REC_SDMA_NUM_GPU] = {
+> +							{ -1, 14, 12, 2, 4, 8, 10, 6 },
+> +							{ 14, -1, 2, 10, 8, 4, 6, 12 },
+> +							{ 10, 2, -1, 12, 14, 6, 4, 8 },
+> +							{ 2, 12, 10, -1, 6, 14, 8, 4 },
+> +							{ 4, 8, 14, 6, -1, 10, 12, 2 },
+> +							{ 8, 4, 6, 14, 12, -1, 2, 10 },
+> +							{ 10, 6, 4, 8, 12, 2, -1, 14 },
+> +							{ 6, 12, 8, 4, 2, 10, 14, -1 }};
+This matrix is mostly symmetrical, but not quite. Is that a mistake or 
+intentional?
+
+It seems it's only using even-numbered engines. An application that 
+follows these recommendations can only use half the SDMA engines. Is 
+that intentional? See below.
+
+
+> +
+> +static void kfd_set_recommended_sdma_engines(struct kfd_topology_device *to_dev,
+> +					     struct kfd_iolink_properties *outbound_link,
+> +					     struct kfd_iolink_properties *inbound_link)
+> +{
+> +	struct kfd_node *gpu = outbound_link->gpu;
+> +	struct amdgpu_device *adev = gpu->adev;
+> +	int num_xgmi_nodes = adev->gmc.xgmi.num_physical_nodes;
+> +	bool support_rec_eng = !amdgpu_sriov_vf(adev) && to_dev->gpu &&
+> +		adev->aid_mask && num_xgmi_nodes &&
+> +		(amdgpu_xcp_query_partition_mode(adev->xcp_mgr, AMDGPU_XCP_FL_NONE) ==
+> +		      AMDGPU_SPX_PARTITION_MODE) &&
+> +		(!(adev->flags & AMD_IS_APU) && num_xgmi_nodes == 8);
+> +
+> +	if (support_rec_eng) {
+> +		int src_socket_id = adev->gmc.xgmi.physical_node_id;
+> +		int dst_socket_id = to_dev->gpu->adev->gmc.xgmi.physical_node_id;
+> +
+> +		outbound_link->rec_sdma_eng_id_mask =
+> +			1 << rec_sdma_eng_map[src_socket_id][dst_socket_id];
+> +		inbound_link->rec_sdma_eng_id_mask =
+> +			1 << rec_sdma_eng_map[dst_socket_id][src_socket_id];
+
+Was the intention to set two different bits for the inbound and outbound 
+links, so an application can get full-duplex bandwidth?
+
+I also find it strange that the outbound link on GPU A uses the same 
+engine as the inbound link on GPU B. That means the wiring of each XGMI 
+link has the same SDMA engine affinity on both ends of the link?
+
+Regards,
+ Â  Felix
+
+
+> +	} else {
+> +		int num_sdma_eng = kfd_get_num_sdma_engines(gpu);
+> +		int i, eng_offset = 0;
+> +
+> +		if (outbound_link->iolink_type == CRAT_IOLINK_TYPE_XGMI &&
+> +		    kfd_get_num_xgmi_sdma_engines(gpu) && to_dev->gpu) {
+> +			eng_offset = num_sdma_eng;
+> +			num_sdma_eng = kfd_get_num_xgmi_sdma_engines(gpu);
+> +		}
+> +
+> +		for (i = 0; i < num_sdma_eng; i++) {
+> +			outbound_link->rec_sdma_eng_id_mask |= (1 << (i + eng_offset));
+> +			inbound_link->rec_sdma_eng_id_mask |= (1 << (i + eng_offset));
+> +		}
+> +	}
+> +}
+> +
+>   static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
+>   {
+>   	struct kfd_iolink_properties *link, *inbound_link;
+> @@ -1303,6 +1354,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
+>   			inbound_link->flags = CRAT_IOLINK_FLAGS_ENABLED;
+>   			kfd_set_iolink_no_atomics(peer_dev, dev, inbound_link);
+>   			kfd_set_iolink_non_coherent(peer_dev, link, inbound_link);
+> +			kfd_set_recommended_sdma_engines(peer_dev, link, inbound_link);
+>   		}
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> index 2d1c9d771bef..43ba67890f2c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> @@ -121,6 +121,7 @@ struct kfd_iolink_properties {
+>   	uint32_t		min_bandwidth;
+>   	uint32_t		max_bandwidth;
+>   	uint32_t		rec_transfer_size;
+> +	uint32_t		rec_sdma_eng_id_mask;
+>   	uint32_t		flags;
+>   	struct kfd_node		*gpu;
+>   	struct kobject		*kobj;
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index 285a36601dc9..71a7ce5f2d4c 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -42,9 +42,10 @@
+>    * - 1.14 - Update kfd_event_data
+>    * - 1.15 - Enable managing mappings in compute VMs with GEM_VA ioctl
+>    * - 1.16 - Add contiguous VRAM allocation flag
+> + * - 1.17 - Add SDMA queue creation with target SDMA engine ID
+>    */
+>   #define KFD_IOCTL_MAJOR_VERSION 1
+> -#define KFD_IOCTL_MINOR_VERSION 16
+> +#define KFD_IOCTL_MINOR_VERSION 17
+>   
+>   struct kfd_ioctl_get_version_args {
+>   	__u32 major_version;	/* from KFD */
+> @@ -56,6 +57,7 @@ struct kfd_ioctl_get_version_args {
+>   #define KFD_IOC_QUEUE_TYPE_SDMA			0x1
+>   #define KFD_IOC_QUEUE_TYPE_COMPUTE_AQL		0x2
+>   #define KFD_IOC_QUEUE_TYPE_SDMA_XGMI		0x3
+> +#define KFD_IOC_QUEUE_TYPE_SDMA_BY_ENG_ID	0x4
+>   
+>   #define KFD_MAX_QUEUE_PERCENTAGE	100
+>   #define KFD_MAX_QUEUE_PRIORITY		15
+> @@ -78,6 +80,8 @@ struct kfd_ioctl_create_queue_args {
+>   	__u64 ctx_save_restore_address; /* to KFD */
+>   	__u32 ctx_save_restore_size;	/* to KFD */
+>   	__u32 ctl_stack_size;		/* to KFD */
+> +	__u32 sdma_engine_id;		/* to KFD */
+> +	__u32 pad;
+>   };
+>   
+>   struct kfd_ioctl_destroy_queue_args {
