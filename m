@@ -4,159 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 344A2C3DA70
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jul 2024 09:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 854AAC3DA59
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jul 2024 09:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC5C10EB8A;
-	Fri, 19 Jul 2024 09:36:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC1110EB8F;
+	Fri, 19 Jul 2024 09:47:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qIVB5+TQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="a9ca9JXe";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC82A10EB8A
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jul 2024 09:36:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cG6GV7vl7EEAbPt0+6oUkrxVTyNViaVG2Xaiy+RBdps42bYXBUBRVGg4ZqinNKcvY3qizHG/2z+t8AhCpP64Y0zIPT9tpaiUFY42CHr7XsUSoUdYKflvfsMI5CKoimTJgTCNKkGTneNmAefSPowjcS30LH4AfYolNmOFixIzq3rvK/Dd/qFqUpL+mzb7qSMr5g8TGYwN2w6wlXeF/gm0pYDuwtC+TSYPEIIQ2k/rcufryKeBD7OFArJ5tHncda9mubc2ppfvMJVrK0RXN3VuJvQuwsV7g66g1TPcUpVhWfU/rUdFAuwVucmNizcFShVktLhvZi8QtVdjUt6c1KbWbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6zHAOYE3Xumf/+I3dc7oQPsQ2va0Nnu45tcI5P0l0xE=;
- b=AgE7kxcNgk5+yAXWWOGW4lkXHj1bvXlqwPgcwzmfQic0rSqrP8yDID19Y+o9BS7mW6dApiti5ilHa7a1BU/PHWEM9S/sj+1/izPVqRGO0+uB0LvWUj3lBhNicjFncQmhX2b3eeWaPib/ZBjE4IXfTmeMrHkmt+gJYJMo0Q6KdeG7NJs9Ys51EEYZYxZp5/dFAV7uZL2IsIQvNXmjAZOPqWeMzM5pcI6h+vmpx3D9ZLJ8UoNJxT9G1VDNA/JMvFhplsV8THgpUdxUa6Z7zw12rMtGfK47ZlZvk3+SmWffgwz7XF/tbbii5YlQWdA4aJkq0OyVAUL7LEna4c8VoXXGAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zHAOYE3Xumf/+I3dc7oQPsQ2va0Nnu45tcI5P0l0xE=;
- b=qIVB5+TQF8BU3Id27UGIf4UEcSzD2vd0JNbt2z0AgrgJnAa1hdpYW8JKh78SaFS9PXR50P1pZLsWqrAYMTiOEJLHQfWTcARHYNPTPrIU4RcOKxCarI8fNg9Ll3+dvrAamBHRR2KtoV/mP0xS1gOvxNO/P1o41MJYPFBCIQ1fbE8=
-Received: from MW4PR12MB6683.namprd12.prod.outlook.com (2603:10b6:303:1e2::5)
- by SJ1PR12MB6169.namprd12.prod.outlook.com (2603:10b6:a03:45c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Fri, 19 Jul
- 2024 09:36:50 +0000
-Received: from MW4PR12MB6683.namprd12.prod.outlook.com
- ([fe80::9e98:5170:cedb:5505]) by MW4PR12MB6683.namprd12.prod.outlook.com
- ([fe80::9e98:5170:cedb:5505%6]) with mapi id 15.20.7762.027; Fri, 19 Jul 2024
- 09:36:50 +0000
-From: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: reset vm state machine after gpu reset(vram
- lost)
-Thread-Topic: [PATCH] drm/amdgpu: reset vm state machine after gpu reset(vram
- lost)
-Thread-Index: AQHa2bzH7xjHy0PLOkqL6wAPcmtGebH9xswAgAAAVkA=
-Date: Fri, 19 Jul 2024 09:36:49 +0000
-Message-ID: <MW4PR12MB66832BAB6EA74EDC8556B440E9AD2@MW4PR12MB6683.namprd12.prod.outlook.com>
-References: <20240719091921.1213270-1-zhenguo.yin@amd.com>
- <e9f270ef-aacd-4874-b401-e4871c990692@amd.com>
-In-Reply-To: <e9f270ef-aacd-4874-b401-e4871c990692@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=d7349115-3a8e-42ab-9f82-9ff1adb04a01;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-19T09:23:24Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6683:EE_|SJ1PR12MB6169:EE_
-x-ms-office365-filtering-correlation-id: 36b89bd6-a7c1-4ef6-f027-08dca7d650d6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?UUZMQmVPZ3Z1aEhRcklUQjlxODEzckV6SitmMzVGUldhQzVMQVI5Tng5bnhv?=
- =?utf-8?B?dnQ2dXVqS0F1NkNpVVZXa0pTZWNUWnQvZGR3OCtodGkweFFieUtEYWVURzRM?=
- =?utf-8?B?eHdaSFNLVEVmMFVlQU91RnZvRWFQVUZmcDE1a3NKak1ZVmRRSmJVUWxqVVlG?=
- =?utf-8?B?TnFDVi9Pb09lYWRPWFFzU09EcDByMXFIdEJzY1RXZ0RXR2dMYWZvNENzWUZq?=
- =?utf-8?B?UE1QdUJNQjJmeHhWclR3L3ZUcmJaTUZDaGNKeTFTb3lBZGFLWGtlRHdOd2x6?=
- =?utf-8?B?czc2TlNDSzNNYXJyQnRKZ3lVSnMvQUUwRHRXam5CWTdmaFZzZFVXOWtmeTZM?=
- =?utf-8?B?alE1c1BoZlo1YTlwaFJORXV4ZDB0d1N5QVBUbDJMWHQ2VTkvZCtSK0lXSkd3?=
- =?utf-8?B?U2tnUU9CbVBPY2ppMHZFcnhBNHFWdjNIcTQrU0p1U3dLMWNGK2lGUzkvR1Zw?=
- =?utf-8?B?N2xPakxaTkoxRW5TeVdBNDFleGlvOVN2RFZhODkyQU5qUXhWcWhETzF5d3BN?=
- =?utf-8?B?anBHY2x6cTVheXdWZ0xxaWpibU5tdFBPOEJIeTQyVm43a29vL0pTZS8wdXlk?=
- =?utf-8?B?YTN2S2tkaTQ2Ymh0WnRpbUdRY2VCSmtURWhUemRhbENBY0ZLbEc0ajBzcEQ4?=
- =?utf-8?B?REtHMElnOFdHS0NZZ1QzWVZRVFdvQ0xQTnd6b2lFRFYzMHJzTHdqemcxNFgz?=
- =?utf-8?B?d3B3Uyt1ZnR6SFM2azVncGQwR0ZibWdSQ3dJR1NQajZFN0JtdzV2Umo3QzF1?=
- =?utf-8?B?U0pyUk1YaURYTWt2Vm12SVFNVCtUY1ptT0lraXVHbHhUbm1kb3kzVWdnaXB2?=
- =?utf-8?B?bTg5eDIwZGNuUUdQVFdIbElFOVkxVVQzdU1kZ3FJMXkrbUV5VGwxcDNGRnBo?=
- =?utf-8?B?Qlh1Q005cnYzdnpJTGFoY1lSVERHbmo3aC9LbXdJWExPVmtYYXdnMktxeDlD?=
- =?utf-8?B?ZTRRdWpWd002NlRQaEQ3VEFhNDVFMHZNVFU1T1ZpYUhRTnZJa2xadGJEUk04?=
- =?utf-8?B?Nng2blYvb2pCVE1YSFRIWmo4MmpmNkUzSDRKM0JEWmlQUXdCclBrSThtT3Zy?=
- =?utf-8?B?eWhmUVY1dW11OHJKTVBTMWpYdEVwdEVJVXY4KzNYRnIrQm5zSzVlV0lmbTU5?=
- =?utf-8?B?Wkg3NlRVZDM0SmsxMW5PdG5BRWovR1dESFpvVklPRnVmYlM1cmN3dGFncXRN?=
- =?utf-8?B?Tzd0NklJSE9palhKN3E0RjllZ3RDOCt5SWVFK3oySVVNaklhUDFENnFFN1Ju?=
- =?utf-8?B?cE1sNkRSTzExSkx1NE5icjM2WWUweHVUclFjbExCQ0xUUW5xZDhPQzFiM0hj?=
- =?utf-8?B?VmdVODljbHVqM05zMUttaTY5cDZUenVNRDI3YXk4Qjg0QXBIVXFobUh1Z21B?=
- =?utf-8?B?dk1idldzTFIzVmFoNjZXVmF5ZHRWYkNzUmpXdkFXcDNnZThvcEpzNUF1eHI5?=
- =?utf-8?B?UHFJMTVKYTdpM05TOU9RUjFqVk0xSFViUDErb0oxVFlqNkFTQ3VZQ1graE9V?=
- =?utf-8?B?M0FYdm4vMVo1aWZnNEluNCtZRDFnZVVCVEFnUmthY203QUR3R1VoNHV6VnNj?=
- =?utf-8?B?SGNBUFRNS2JBNVZhc2NmQng3aVY3RmRTOVNkaldBektQZmtpSld5NVZJV3BW?=
- =?utf-8?B?MmxFR0o5T251RmQ4Yjg4a2FLSVpod0dxTzVEYzdPSjVqMTZLRExNSUlSekJW?=
- =?utf-8?B?NWFBYnpPb2dpRFNKaStScmRpM3R1YmlBUkY1TkppZFM4ZHB0bXMyajlDblpr?=
- =?utf-8?B?R3k1amduQnJ4Z2MyM2xRcFBybkdFNmJwUXZVMGJ6Z0xKQ3kzanR3QU5GMlBS?=
- =?utf-8?B?dGxtSnZmZlpIWEZiU1BHeFBWZlp0RmhRVVFTQ2hvN0IzUUY1L1lScUhqdVZR?=
- =?utf-8?B?ckxPOGN0Z053b2FIdWhNU1hJQmNJNFh3dFRkZ0IvaDUxWFE9PQ==?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6683.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q2xJZDd2VmpmM0tBbWgyc0ZXYkhLaTdwdFlzNGdHd3cxTG90VEpycUdUbDJ1?=
- =?utf-8?B?OG4vTFpGWkNhMDlWV2JBOCs2STVSSUFMN20xU1BmbnQvZENzUDVNbWswT2NM?=
- =?utf-8?B?WGcwZStpcUlaTzB0UmxOT2pjMmljL1VFU2ExYTVxUzg5bUpVeTIwcUlIK2t0?=
- =?utf-8?B?eHBrL0hybG83b2xoY3h6bkZzdngvekFyb2p5OEN1ZnBSb3NCbWYxWFR6TlND?=
- =?utf-8?B?MGp1NjhqWmUwWTgzTkRkbnBhbjRDVUpyY2lFaEs1elhNbmpPamJsSmxucmN5?=
- =?utf-8?B?MWZFd1ZSYmZtbTZpZnhmMGZDN0ExL0xzc2VzbEI5Z29xMm9QUytRd2x3OXhq?=
- =?utf-8?B?RHBBd0tHRWpDVVo1b0llT044VmZuOGRWWC9Zckc3bENIenBFTlEwVnV4bHBN?=
- =?utf-8?B?NjBvczhSV0drazkzcytJSlRaRVIvVXpwa1B2TjdWcDU0ZS8xY3B2TDVDN1kw?=
- =?utf-8?B?Y09uSTVFS29CSVlkZHlhNUlxV0tQcmgxZE1vbFd6bDZManNwSys0aSthNnhU?=
- =?utf-8?B?d2lhanZESkd4M1RRczRPSW05ZTdPelpYMVNqenlROURzRHVuYUIvVmVnelhl?=
- =?utf-8?B?SVpaRU5Hc0lIeFFXc1VOYWgyT0ljcTA0VHh4NXIveCt4aTFlL3p0L2hJTHky?=
- =?utf-8?B?TlJ5YUFadnJrSkZESzM3SGRWZnp3YUFPdHV4SEZSK1B5RVNmVWpicnpqUGVy?=
- =?utf-8?B?b3h4d2dIMnBtSjgvUHFsNTUxSUZlRXYyWDdORlprVXVMcDAzREJRdmF1eGE0?=
- =?utf-8?B?czdpQXRpTFFCK3VnejFFcXVOVWxZd212S0tTdzV1c3YvT3NITG04cFVvYUp5?=
- =?utf-8?B?U3R3Wmc2LzJMNG1BU25JSUozejBPUVNqNzR0THdSemlkSUhjVWF4TEY2cWZI?=
- =?utf-8?B?VXh5UzFhMG5TQnBqaHBRbTBDMzlvS3JoQitKZ0FmR21jWlpZUFFPalpXdXcy?=
- =?utf-8?B?RmpObHhxTTkvcmNMcm5teVBQZjlyekNrcXB3S1N0Rk5jN3FDMGVBRkxQa0Rz?=
- =?utf-8?B?WVkrY1g0dlpQWGFGMXVVbXJ1THkvYXF3NGZTa3VmMi9WWEsvbUdlS3lFSkt0?=
- =?utf-8?B?c01nRHYvQlliVXF5WWcyd2huYWZjQjNoSU53SXo3VGRvUnFCZmxZQ1pDMVJ5?=
- =?utf-8?B?cnlFUENyVUsyS3JzcTM2ZXBIemNNVnlVWXRtN1ZOZWZmaGhLMkc1elRrd0FF?=
- =?utf-8?B?dXF1SklUNmI2MmNHNVQwa0U0dC9QSmhaNDR4RFk2R1k0b0VFaHVHSFpKc3NU?=
- =?utf-8?B?b1lZMGZvZVdJUjhHaDdtKzFCSFQzUjBtSHhCdG4zZm94UjZ1R05zc0lTaFBn?=
- =?utf-8?B?OUhqYi9rNTZRKzZobmRBUitNVTFIY0xNU05qZG9wK0p3a3RFdmppanFySTlI?=
- =?utf-8?B?YzJUQkI1Wnl6L0V4VmRoZmFvSTFrNmtZN3VOcWV5cGRidzNudU1NRW1JMko0?=
- =?utf-8?B?R2ZVVDVkclVNUkFZcHBkUXl5N1VERTVMeWRYS1FIVFI1ZlUvWWR5T1VRbno4?=
- =?utf-8?B?dE82aVBxN05lVG1mNkw5RjNjcHhDZlg1V2hYdyt5aE5FZzMxc3BYQzg3ZjB5?=
- =?utf-8?B?bmloODlDaXFnZTYrNy9ZSlhIRUtPQzdJN3l4TGtnSmdJUjBPQ2E4Zk13Ni81?=
- =?utf-8?B?WXNxTzhzbDQyN2ZONWI1eTRnLy83a3JIK3hYeVZxQm5rd3VINUlFMmJpTVVj?=
- =?utf-8?B?QzFCMHVUbGtLdHh4LzNnVWtIT2YveFhVdUhDZFpub1J0am5jNVF6UStOWGpO?=
- =?utf-8?B?aEJUYzVYTUl0ZklsUWpXalZtcWdJRmhRbnBPNjhjTi9pcHhVNlo4dzdmbFhX?=
- =?utf-8?B?d2t6eXZJdXVWRHVwc2VGeXluY1FoemJSM0tucWN4V1ZxR2lJYzhWQjgzL3dC?=
- =?utf-8?B?OTJ0OVdFQytPaVlJaGRqV1MxR2pldHZIYzd4b0RmRDBFR1hvSlZQeWhmUS9L?=
- =?utf-8?B?SlJub1VVWVpGa0lkU1MxWm0vRTY3Nm5PTTNpMUN1eDMxano2YVZWblJXUVFG?=
- =?utf-8?B?d3hlNnExRU1aN1AwUDZBOUZwb0kwNjFWbkJNTWx4d05QTGh4UlczYzNWS2wz?=
- =?utf-8?B?R3dwTWFDVjZXdlFqdkpZOTczYU5pMzNySU1ERnZqV0pLS01jRjMwbmloWkdQ?=
- =?utf-8?Q?Q8qg=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4FF10EB8D;
+ Fri, 19 Jul 2024 09:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=U4l7oPvLpcOUlX63hrBIA6+vXR4CzjUhW0YL7XhDSxU=; b=a9ca9JXenS3gBMVblA7eB7jd+2
+ 34snSGqcM6qV0+ykcjYgeZh8TyDAZTf1e2st22HrwfUc0y3OqbOdmJyZY8sJaTOEMJ68v/4zwqaGr
+ jimT6A5TOuJNtagrFGlpobQyBX2WijajfSZARSgN2JA40sGsvkYmE6tF1QQYQGLT2Vg/AVlAIFPZa
+ 6g99KCqad2eNhudKwZZlD2mjdUXpiZ9F963/tcdkWdYEbKCDAzcQyMuhiRf8jl+F2AbP1Zi16sBLe
+ bZ9FhELw1V4hYkmY/fg6kZKGoVN2dLRcohxBmfRKgEbq5UIc884hh6e4kMDfMCXYwhdayRUKp0/lE
+ 3DdeIMhw==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1sUkD7-00H9MK-25; Fri, 19 Jul 2024 11:47:33 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/scheduler: Fix drm_sched_entity_set_priority()
+Date: Fri, 19 Jul 2024 10:47:30 +0100
+Message-ID: <20240719094730.55301-1-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6683.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36b89bd6-a7c1-4ef6-f027-08dca7d650d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2024 09:36:50.0320 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4fPh7tB77SY/HEVfgTf2rXEAm3Pe0fDpnep5icIweJHe9jxOs7EhT3OcbLXHhag6BzYxD8KG8RLN/XF41MelSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6169
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,59 +62,418 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSGksIENocmlzdGlhbg0KDQpXaHkgbG9vc2luZyBWUkFNIHdvdWxkIHJlc3VsdCBpbiB0aGUg
-dm0gZW50aXR5IHRvIGJlY29tZSBpbnZhbGlkPw0KDQpJIHRoaW5rIG9ubHkgaWYgdGhlcmUgaGFz
-IGEgZmVuY2UgZXJyb3IgYXBwZWFyZWQobGlrZSBhIHBlbmRpbmcgU0RNQSBqb2IgZ290IHRpbWVk
-b3V0IG9yIGNhbmNlbGxlZCksIHRoZW4gdGhlIGVudGl0eSB2bS0+ZGVsYXllZCB3aWxsIGJlIHNl
-dCBhcyBlcnJvci4NCg0KSWYgYSBncHUgcmVzZXQgdHJpZ2dlcmVkIGJ5IGEgR0ZYIGpvYiwgYW5k
-IHRoZXJlIGhhcyBubyBTRE1BIGpvYiBpbiB0aGUgcGVuZGluZyBsaXN0LCB0aGUgZW50aXR5IHdv
-bid0IGJlIHNldCBhcyBlcnJvci4NCg0KQmVzdCwNClpoZW5ndW8NCkNsb3VkLUdQVSBDb3JlIHRl
-YW0sIFNSREMNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEtvZW5pZywgQ2hy
-aXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTZW50OiBGcmlkYXksIEp1bHkgMTks
-IDIwMjQgNToyMiBQTQ0KVG86IFlpbiwgWmhlbkd1byAoQ2hyaXMpIDxaaGVuR3VvLllpbkBhbWQu
-Y29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFJlOiBbUEFUQ0hd
-IGRybS9hbWRncHU6IHJlc2V0IHZtIHN0YXRlIG1hY2hpbmUgYWZ0ZXIgZ3B1IHJlc2V0KHZyYW0g
-bG9zdCkNCg0KQW0gMTkuMDcuMjQgdW0gMTE6MTkgc2NocmllYiBaaGVuR3VvIFlpbjoNCj4gW1do
-eV0NCj4gUGFnZSB0YWJsZSBvZiBjb21wdXRlIFZNIGluIHRoZSBWUkFNIHdpbGwgbG9zdCBhZnRl
-ciBncHUgcmVzZXQuDQo+IFZSQU0gd29uJ3QgYmUgcmVzdG9yZWQgc2luY2UgY29tcHV0ZSBWTSBo
-YXMgbm8gc2hhZG93cy4NCj4NCj4gW0hvd10NCj4gVXNlIGhpZ2hlciAzMi1iaXQgb2Ygdm0tPmdl
-bmVyYXRpb24gdG8gcmVjb3JkIGEgdnJhbV9sb3N0X2NvdW50ZXIuDQo+IFJlc2V0IHRoZSBWTSBz
-dGF0ZSBtYWNoaW5lIHdoZW4gdGhlIGNvdW50ZXIgaXMgbm90IGVxdWFsIHRvIGN1cnJlbnQNCj4g
-dnJhbV9sb3N0X2NvdW50ZXIgb2YgdGhlIGRldmljZS4NCg0KTWhtLCB0aGF0IHdhcyBteSBvcmln
-aW5hbCBhcHByb2FjaCBhcyB3ZWxsIGJ1dCB3ZSBjYW1lIHRvIHRoZSBjb25jbHVzaW9uIHRoYXQg
-dGhpcyBzaG91bGRuJ3QgYmUgbmVjZXNzYXJ5IHNpbmNlIGxvb3NpbmcgVlJBTSB3b3VsZCByZXN1
-bHQgaW4gdGhlIGVudGl0eSB0byBiZWNvbWUgaW52YWxpZCBhcyB3ZWxsLg0KDQpXaHkgaXMgdGhh
-dCBuZWNlc3Nhcnk/DQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4gU2lnbmVkLW9mZi1i
-eTogWmhlbkd1byBZaW4gPHpoZW5ndW8ueWluQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMTAgKysrKysrKystLQ0KPiAgIDEgZmls
-ZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+IGluZGV4IDNhYmZhNjZkNzJhMi4uZmQ3
-ZjkxMjgxNmRjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0K
-PiBAQCAtNDM0LDcgKzQzNCw3IEBAIHVpbnQ2NF90IGFtZGdwdV92bV9nZW5lcmF0aW9uKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkNCj4gICAgICAgaWYg
-KCF2bSkNCj4gICAgICAgICAgICAgICByZXR1cm4gcmVzdWx0Ow0KPg0KPiAtICAgICByZXN1bHQg
-Kz0gdm0tPmdlbmVyYXRpb247DQo+ICsgICAgIHJlc3VsdCArPSAodm0tPmdlbmVyYXRpb24gJiAw
-eEZGRkZGRkZGKTsNCj4gICAgICAgLyogQWRkIG9uZSBpZiB0aGUgcGFnZSB0YWJsZXMgd2lsbCBi
-ZSByZS1nZW5lcmF0ZWQgb24gbmV4dCBDUyAqLw0KPiAgICAgICBpZiAoZHJtX3NjaGVkX2VudGl0
-eV9lcnJvcigmdm0tPmRlbGF5ZWQpKQ0KPiAgICAgICAgICAgICAgICsrcmVzdWx0Ow0KPiBAQCAt
-NDY3LDYgKzQ2NywxMiBAQCBpbnQgYW1kZ3B1X3ZtX3ZhbGlkYXRlKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwNCj4gICAgICAgc3RydWN0IGFtZGdwdV9i
-byAqc2hhZG93Ow0KPiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibzsNCj4gICAgICAgaW50IHI7
-DQo+ICsgICAgIHVpbnQzMl90IHZyYW1fbG9zdF9jb3VudGVyID0gYXRvbWljX3JlYWQoJmFkZXYt
-PnZyYW1fbG9zdF9jb3VudGVyKTsNCj4gKw0KPiArICAgICBpZiAoKHZtLT5nZW5lcmF0aW9uID4+
-IDMyKSAhPSB2cmFtX2xvc3RfY291bnRlcikgew0KPiArICAgICAgICAgICAgIGFtZGdwdV92bV9i
-b19yZXNldF9zdGF0ZV9tYWNoaW5lKHZtKTsNCj4gKyAgICAgICAgICAgICB2bS0+Z2VuZXJhdGlv
-biA9ICh1NjQpdnJhbV9sb3N0X2NvdW50ZXIgPDwgMzIgfCAodm0tPmdlbmVyYXRpb24gJiAweEZG
-RkZGRkZGKTsNCj4gKyAgICAgfQ0KPg0KPiAgICAgICBpZiAoZHJtX3NjaGVkX2VudGl0eV9lcnJv
-cigmdm0tPmRlbGF5ZWQpKSB7DQo+ICAgICAgICAgICAgICAgKyt2bS0+Z2VuZXJhdGlvbjsNCj4g
-QEAgLTI0MzksNyArMjQ0NSw3IEBAIGludCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sDQo+ICAgICAgIHZtLT5sYXN0X3VwZGF0
-ZSA9IGRtYV9mZW5jZV9nZXRfc3R1YigpOw0KPiAgICAgICB2bS0+bGFzdF91bmxvY2tlZCA9IGRt
-YV9mZW5jZV9nZXRfc3R1YigpOw0KPiAgICAgICB2bS0+bGFzdF90bGJfZmx1c2ggPSBkbWFfZmVu
-Y2VfZ2V0X3N0dWIoKTsNCj4gLSAgICAgdm0tPmdlbmVyYXRpb24gPSAwOw0KPiArICAgICB2bS0+
-Z2VuZXJhdGlvbiA9ICh1NjQpYXRvbWljX3JlYWQoJmFkZXYtPnZyYW1fbG9zdF9jb3VudGVyKSA8
-PCAzMjsNCj4NCj4gICAgICAgbXV0ZXhfaW5pdCgmdm0tPmV2aWN0aW9uX2xvY2spOw0KPiAgICAg
-ICB2bS0+ZXZpY3RpbmcgPSBmYWxzZTsNCg0K
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Long time ago in commit b3ac17667f11 ("drm/scheduler: rework entity
+creation") a change was made which prevented priority changes for entities
+with only one assigned scheduler.
+
+The commit reduced drm_sched_entity_set_priority() to simply update the
+entities priority, but the run queue selection logic in
+drm_sched_entity_select_rq() was never able to actually change the
+originally assigned run queue.
+
+In practice that only affected amdgpu, being the only driver which can do
+dynamic priority changes. And that appears was attempted to be rectified
+there in 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority
+override").
+
+A few unresolved problems however were that this only fixed
+drm_sched_entity_set_priority() *if* drm_sched_entity_modify_sched() was
+called first. That was not documented anywhere.
+
+Secondly, this only works if drm_sched_entity_modify_sched() is actually
+called, which in amdgpu's case today is true only for gfx and compute.
+Priority changes for other engines with only one scheduler assigned, such
+as jpeg and video decode will still not work.
+
+Note that this was also noticed in 981b04d96856 ("drm/sched: improve docs
+around drm_sched_entity").
+
+Completely different set of non-obvious confusion was that whereas
+drm_sched_entity_init() was not keeping the passed in list of schedulers
+(courtesy of 8c23056bdc7a ("drm/scheduler: do not keep a copy of sched
+list")), drm_sched_entity_modify_sched() was disagreeing with that and
+would simply assign the single item list.
+
+That incosistency appears to be semi-silently fixed in ac4eb83ab255
+("drm/sched: select new rq even if there is only one v3").
+
+What was also not documented is why it was important to not keep the
+list of schedulers when there is only one. I suspect it could have
+something to do with the fact the passed in array is on stack for many
+callers with just one scheduler. With more than one scheduler amdgpu is
+the only caller, and there the container is not on the stack. Keeping a
+stack backed list in the entity would obviously be undefined behaviour
+*if* the list was kept.
+
+Amdgpu however did only stop passing in stack backed container for the more
+than one scheduler case in 977f7e1068be ("drm/amdgpu: allocate entities on
+demand"). Until then I suspect dereferencing freed stack from
+drm_sched_entity_select_rq() was still present.
+
+In order to untangle all that and fix priority changes this patch is
+bringing back the entity owned container for storing the passed in
+scheduler list. Container is now owned by the entity and the pointers are
+owned by the drivers. List of schedulers is always kept including for the
+one scheduler case.
+
+The patch can therefore also removes the single scheduler special case,
+which means that priority changes should now work (be able to change the
+selected run-queue) for all drivers and engines. In other words
+drm_sched_entity_set_priority() should now just work for all cases.
+
+To enable maintaining its own container some API calls needed to grow a
+capability for returning success/failure, which is a change which
+percolates mostly through amdgpu source.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: b3ac17667f11 ("drm/scheduler: rework entity creation")
+References: 8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
+References: 977f7e1068be ("drm/amdgpu: allocate entities on demand")
+References: 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
+References: ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
+References: 981b04d96856 ("drm/sched: improve docs around drm_sched_entity")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Luben Tuikov <ltuikov89@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.6+
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 31 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 13 +--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c   |  3 +-
+ drivers/gpu/drm/scheduler/sched_entity.c  | 96 ++++++++++++++++-------
+ include/drm/gpu_scheduler.h               | 16 ++--
+ 6 files changed, 100 insertions(+), 61 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 5cb33ac99f70..387247f8307e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -802,15 +802,15 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+ 	return fence;
+ }
+ 
+-static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+-					   struct amdgpu_ctx_entity *aentity,
+-					   int hw_ip,
+-					   int32_t priority)
++static int amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
++					  struct amdgpu_ctx_entity *aentity,
++					  int hw_ip,
++					  int32_t priority)
+ {
+ 	struct amdgpu_device *adev = ctx->mgr->adev;
+-	unsigned int hw_prio;
+ 	struct drm_gpu_scheduler **scheds = NULL;
+-	unsigned num_scheds;
++	unsigned int hw_prio, num_scheds;
++	int ret = 0;
+ 
+ 	/* set sw priority */
+ 	drm_sched_entity_set_priority(&aentity->entity,
+@@ -822,16 +822,18 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+ 		hw_prio = array_index_nospec(hw_prio, AMDGPU_RING_PRIO_MAX);
+ 		scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
+ 		num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
+-		drm_sched_entity_modify_sched(&aentity->entity, scheds,
+-					      num_scheds);
++		ret = drm_sched_entity_modify_sched(&aentity->entity, scheds,
++						    num_scheds);
+ 	}
++
++	return ret;
+ }
+ 
+-void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+-				  int32_t priority)
++int amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t priority)
+ {
+ 	int32_t ctx_prio;
+ 	unsigned i, j;
++	int ret;
+ 
+ 	ctx->override_priority = priority;
+ 
+@@ -842,10 +844,15 @@ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+ 			if (!ctx->entities[i][j])
+ 				continue;
+ 
+-			amdgpu_ctx_set_entity_priority(ctx, ctx->entities[i][j],
+-						       i, ctx_prio);
++			ret = amdgpu_ctx_set_entity_priority(ctx,
++							     ctx->entities[i][j],
++							     i, ctx_prio);
++			if (ret)
++				return ret;
+ 		}
+ 	}
++
++	return 0;
+ }
+ 
+ int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 85376baaa92f..835661515e33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -82,7 +82,7 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+ 				       struct drm_sched_entity *entity,
+ 				       uint64_t seq);
+ bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio);
+-void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t ctx_prio);
++int amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t ctx_prio);
+ 
+ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *filp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+index 863b2a34b2d6..944edb7f00a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+@@ -54,12 +54,15 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+ 
+ 	mgr = &fpriv->ctx_mgr;
+ 	mutex_lock(&mgr->lock);
+-	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
+-		amdgpu_ctx_priority_override(ctx, priority);
++	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
++		r = amdgpu_ctx_priority_override(ctx, priority);
++		if (r)
++			break;
++	}
+ 	mutex_unlock(&mgr->lock);
+ 
+ 	fdput(f);
+-	return 0;
++	return r;
+ }
+ 
+ static int amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
+@@ -88,11 +91,11 @@ static int amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
+ 		return -EINVAL;
+ 	}
+ 
+-	amdgpu_ctx_priority_override(ctx, priority);
++	r = amdgpu_ctx_priority_override(ctx, priority);
+ 	amdgpu_ctx_put(ctx);
+ 	fdput(f);
+ 
+-	return 0;
++	return r;
+ }
+ 
+ int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 81fb99729f37..2453decc73c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -1362,8 +1362,7 @@ static int vcn_v4_0_5_limit_sched(struct amdgpu_cs_parser *p,
+ 
+ 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_ENC]
+ 		[AMDGPU_RING_PRIO_0].sched;
+-	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
+-	return 0;
++	return drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
+ }
+ 
+ static int vcn_v4_0_5_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 58c8161289fe..cb5cc65f461d 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -45,7 +45,12 @@
+  * @guilty: atomic_t set to 1 when a job on this queue
+  *          is found to be guilty causing a timeout
+  *
+- * Note that the &sched_list must have at least one element to schedule the entity.
++ * Note that the &sched_list must have at least one element to schedule the
++ * entity.
++ *
++ * The individual drm_gpu_scheduler pointers have borrow semantics, ie.
++ * they must remain valid during entities lifetime, while the containing
++ * array can be freed after this call returns.
+  *
+  * For changing @priority later on at runtime see
+  * drm_sched_entity_set_priority(). For changing the set of schedulers
+@@ -69,27 +74,24 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	INIT_LIST_HEAD(&entity->list);
+ 	entity->rq = NULL;
+ 	entity->guilty = guilty;
+-	entity->num_sched_list = num_sched_list;
+ 	entity->priority = priority;
+-	/*
+-	 * It's perfectly valid to initialize an entity without having a valid
+-	 * scheduler attached. It's just not valid to use the scheduler before it
+-	 * is initialized itself.
+-	 */
+-	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+ 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+ 
+-	if (num_sched_list && !sched_list[0]->sched_rq) {
+-		/* Since every entry covered by num_sched_list
+-		 * should be non-NULL and therefore we warn drivers
+-		 * not to do this and to fix their DRM calling order.
+-		 */
+-		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+-	} else if (num_sched_list) {
+-		/* The "priority" of an entity cannot exceed the number of run-queues of a
+-		 * scheduler. Protect against num_rqs being 0, by converting to signed. Choose
+-		 * the lowest priority available.
++	if (num_sched_list) {
++		int ret;
++
++		ret = drm_sched_entity_modify_sched(entity,
++						    sched_list,
++						    num_sched_list);
++		if (ret)
++			return ret;
++
++		/*
++		 * The "priority" of an entity cannot exceed the number of
++		 * run-queues of a scheduler. Protect against num_rqs being 0,
++		 * by converting to signed. Choose the lowest priority
++		 * available.
+ 		 */
+ 		if (entity->priority >= sched_list[0]->num_rqs) {
+ 			drm_err(sched_list[0], "entity with out-of-bounds priority:%u num_rqs:%u\n",
+@@ -122,19 +124,58 @@ EXPORT_SYMBOL(drm_sched_entity_init);
+  *		 existing entity->sched_list
+  * @num_sched_list: number of drm sched in sched_list
+  *
++ * The individual drm_gpu_scheduler pointers have borrow semantics, ie.
++ * they must remain valid during entities lifetime, while the containing
++ * array can be freed after this call returns.
++ *
+  * Note that this must be called under the same common lock for @entity as
+  * drm_sched_job_arm() and drm_sched_entity_push_job(), or the driver needs to
+  * guarantee through some other means that this is never called while new jobs
+  * can be pushed to @entity.
++ *
++ * Returns zero on success and a negative error code on failure.
+  */
+-void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
+-				    struct drm_gpu_scheduler **sched_list,
+-				    unsigned int num_sched_list)
++int drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
++				  struct drm_gpu_scheduler **sched_list,
++				  unsigned int num_sched_list)
+ {
+-	WARN_ON(!num_sched_list || !sched_list);
++	struct drm_gpu_scheduler **new, **old;
++	unsigned int i;
+ 
+-	entity->sched_list = sched_list;
++	if (!(entity && sched_list && (num_sched_list == 0 || sched_list[0])))
++		return -EINVAL;
++
++	/*
++	 * It's perfectly valid to initialize an entity without having a valid
++	 * scheduler attached. It's just not valid to use the scheduler before
++	 * it is initialized itself.
++	 *
++	 * Since every entry covered by num_sched_list should be non-NULL and
++	 * therefore we warn drivers not to do this and to fix their DRM calling
++	 * order.
++	 */
++	for (i = 0; i < num_sched_list; i++) {
++		if (!sched_list[i]) {
++			pr_warn("%s: called with uninitialized scheduler %u!\n",
++				__func__, i);
++			return -EINVAL;
++		}
++	}
++
++	new = kmemdup_array(sched_list,
++			    num_sched_list,
++			    sizeof(*sched_list),
++			    GFP_KERNEL);
++	if (!new)
++		return -ENOMEM;
++
++	old = entity->sched_list;
++	entity->sched_list = new;
+ 	entity->num_sched_list = num_sched_list;
++
++	kfree(old);
++
++	return 0;
+ }
+ EXPORT_SYMBOL(drm_sched_entity_modify_sched);
+ 
+@@ -341,6 +382,8 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
+ 
+ 	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+ 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
++
++	kfree(entity->sched_list);
+ }
+ EXPORT_SYMBOL(drm_sched_entity_fini);
+ 
+@@ -531,10 +574,6 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_rq *rq;
+ 
+-	/* single possible engine and already selected */
+-	if (!entity->sched_list)
+-		return;
+-
+ 	/* queue non-empty, stay on the same engine */
+ 	if (spsc_queue_count(&entity->job_queue))
+ 		return;
+@@ -561,9 +600,6 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 		entity->rq = rq;
+ 	}
+ 	spin_unlock(&entity->rq_lock);
+-
+-	if (entity->num_sched_list == 1)
+-		entity->sched_list = NULL;
+ }
+ 
+ /**
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 5acc64954a88..09e1d063a5c0 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -110,18 +110,12 @@ struct drm_sched_entity {
+ 	/**
+ 	 * @sched_list:
+ 	 *
+-	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this entity can
+-	 * be scheduled on any scheduler on this list.
++	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this
++	 * entity can be scheduled on any scheduler on this list.
+ 	 *
+ 	 * This can be modified by calling drm_sched_entity_modify_sched().
+ 	 * Locking is entirely up to the driver, see the above function for more
+ 	 * details.
+-	 *
+-	 * This will be set to NULL if &num_sched_list equals 1 and @rq has been
+-	 * set already.
+-	 *
+-	 * FIXME: This means priority changes through
+-	 * drm_sched_entity_set_priority() will be lost henceforth in this case.
+ 	 */
+ 	struct drm_gpu_scheduler        **sched_list;
+ 
+@@ -568,9 +562,9 @@ int drm_sched_job_add_implicit_dependencies(struct drm_sched_job *job,
+ 					    bool write);
+ 
+ 
+-void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
+-				    struct drm_gpu_scheduler **sched_list,
+-                                   unsigned int num_sched_list);
++int drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
++				  struct drm_gpu_scheduler **sched_list,
++				  unsigned int num_sched_list);
+ 
+ void drm_sched_tdr_queue_imm(struct drm_gpu_scheduler *sched);
+ void drm_sched_job_cleanup(struct drm_sched_job *job);
+-- 
+2.44.0
+
