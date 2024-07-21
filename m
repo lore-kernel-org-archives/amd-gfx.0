@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC46DC3DA5D
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Jul 2024 06:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE280C3DA61
+	for <amd-gfx@archiver.kernel.org>; Sun, 21 Jul 2024 06:22:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF7B10E19A;
-	Sun, 21 Jul 2024 06:22:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE2710E1B5;
+	Sun, 21 Jul 2024 06:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m9MDO+KF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jjGovszJ";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00ADE10E19A
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Jul 2024 06:22:44 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 904BE10E1B5
+ for <amd-gfx@lists.freedesktop.org>; Sun, 21 Jul 2024 06:22:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z3t3QvxFye9oqjZtcPHZeeOrmGY/3DKKBa1LgX++3RLSjjeDk19AV8KezzYgE5tjA1qkRzMKNrSbAF4wqs0qI+qw1w+NQmgmSw54Yc+bM8a13SO3DMXx4cKmtk3gMjcWXslHbMcCNNY3iN86/6W0M0GHuFBHR1HNhuJ936atzpYyjayzER7Fzf/Wkx7l7KVjtgDhjYztnQUqXDetNX86pnOlWvmhLo8BXlarUyNcm5THPFDo3Mr97bVkAKkOdINEA3dtOQ4X0LsPYI43A+Po2EqcKhvqorQJJ8orfY44iA+gMt2VUPojq6ucA31kB15A40vHnsEQ57iAwMs4ph+72w==
+ b=hUg5dzkGF5tpRUkHueoxoLcZ6DpBX9JvzOjBKvf8zDIPR1VG5Dq7wetFW59ciA/JHtoZGljQ6sGjGyNgQrS8swUKgfspI8bECLacQm2fKtJk4/LKOYl9uQ1cuJlX23h9lzwklEFZS+Gvt/SAnH++jly7TMzwtD9GuhZ6xzniyvkfT9p9gjr94oEKIsSMtemHYPeGclzW5s5NrDyCyjXDpOXCIElNFl/53Dm3bfFRuFb3KdJ73096d1rwWHVP0CuCM2xmQ1ZJxnyPxj7WhKK0eigirgnwgkoh3a4gwr99ti/+TEr3wXV+nQQJ8aOT7S0FiBHRMaU5Wvq7YK6fprP7Eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rBvlxfPWdG0uPrMGxQqSbaxsMm7/2+saQ5yblUIWD8s=;
- b=oRKUmnaS/Ui8nyYWS9F68spETs/OjVe05o0qqphUBKwzDjAAMvc46ixN+Jd7H0V0r0gRaYAnr3Hj5lOXSjo+8T2UlNi3SjpAO6413pFR4C5XpksTeDEgTHABtNKZUOM1fIYEagurSygmLqrrGSmT7RSUh9gVNgGQeG8KLGqmcSO8RWoqGpUdzNTMDB3HaNCZwflre2I62uT0VRtNt2XkqbV/7a+p5ojRprbw4qfYaxLX5gJd2LMdm+FqagsScg8zkQW90fhXMGKSunD2JDGqNy66Ec2SR5yJ0gn469xHt+KKGdyxNPkgvbLwXt7fwoWgZ8sKNrJtyZxVzTQeR74ekA==
+ bh=apU82IfdTxMs/PI3ZUipodmy7d6oTKiLdlA/gXUfAfw=;
+ b=fSSbcNCd7EyP8TxQ4BnOLOPfnZPJ7B1tTTpLFF/7gUZt6UmSUO1IK7gGpLjXnRo7hjsg1N2Ox1SkWDn27dF2SDuvAmyWj2NW3plC/8Znm1ckJHjpZEFb8aKXXofAV8IRLrAHFt0aouGQV7i0hVuKCNzmokV/E0XQlBvE2j8QzeeroO5ExT2HzXGVW7x9Q0AQ7zYeNx5vnrTCgfTLZSjeQ/UEEiPGqJT2eELlOnGMtLGZjr9/0mFQWuHfaUTEIOJyabOqGQF/cHA5W/8wmxAh3VC1khZZspTm+kAHzZFU7cqwFT+5HjUQOgDnYtvCKOuAvClFFp/+yuQ69uTT0751mg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rBvlxfPWdG0uPrMGxQqSbaxsMm7/2+saQ5yblUIWD8s=;
- b=m9MDO+KFowAWi0BFQ6ZQ2DMWCQO8yuI8elSjdpnXVy1UxU4LoqXm0HFIln0UZ8li1+ze7Aq6tb/TDqrVP7Yyb9idS7esCCGL2x4Bqa5jScCU5dqi/mDH4dK+H5AVcHIglPggv6DuA/xaua4sCoGUfqbM1h/LjPM2GvETTUaLM/w=
-Received: from CH0P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::30)
- by BY1PR12MB8448.namprd12.prod.outlook.com (2603:10b6:a03:534::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.18; Sun, 21 Jul
- 2024 06:22:41 +0000
-Received: from CH1PEPF0000AD82.namprd04.prod.outlook.com
- (2603:10b6:610:ef:cafe::5) by CH0P220CA0018.outlook.office365.com
- (2603:10b6:610:ef::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.30 via Frontend
- Transport; Sun, 21 Jul 2024 06:22:41 +0000
+ bh=apU82IfdTxMs/PI3ZUipodmy7d6oTKiLdlA/gXUfAfw=;
+ b=jjGovszJewW6wU8YQRDSMm7Z93Ne0CCCKeADLmVlmTIYJOjD5Ci3cCeJT+mir2omGUoMCfkyvxY2U6PKLmpEBZ6PnD/FyEoO+yfnyDVMV9N/C4G6Y8SG0N2bBsk/0cFrhdpPgF2Pcx1c3lIvHUWfstoRUFe+sqMdxsvPUPwsCJY=
+Received: from CH5PR02CA0010.namprd02.prod.outlook.com (2603:10b6:610:1ed::22)
+ by CYYPR12MB8938.namprd12.prod.outlook.com (2603:10b6:930:c7::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.15; Sun, 21 Jul
+ 2024 06:22:44 +0000
+Received: from CH1PEPF0000AD83.namprd04.prod.outlook.com
+ (2603:10b6:610:1ed:cafe::33) by CH5PR02CA0010.outlook.office365.com
+ (2603:10b6:610:1ed::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
+ Transport; Sun, 21 Jul 2024 06:22:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +48,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD82.mail.protection.outlook.com (10.167.244.91) with Microsoft
+ CH1PEPF0000AD83.mail.protection.outlook.com (10.167.244.85) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Sun, 21 Jul 2024 06:22:41 +0000
+ 15.20.7784.11 via Frontend Transport; Sun, 21 Jul 2024 06:22:44 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Sun, 21 Jul 2024 01:22:38 -0500
+ 15.1.2507.39; Sun, 21 Jul 2024 01:22:40 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
  <aurabindo.pillai@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
- <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+ "Tom Chung" <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
  <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: [PATCH] drm/amd/display: Add NULL check for clk_mgr in dcn401_init_hw
-Date: Sun, 21 Jul 2024 11:52:12 +0530
-Message-ID: <20240721062216.3151119-3-srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amd/display: Add null check for set_output_gamma in
+ dcn30_set_output_transfer_func
+Date: Sun, 21 Jul 2024 11:52:13 +0530
+Message-ID: <20240721062216.3151119-4-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240721062216.3151119-1-srinivasan.shanmugam@amd.com>
 References: <20240721062216.3151119-1-srinivasan.shanmugam@amd.com>
@@ -76,51 +78,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD82:EE_|BY1PR12MB8448:EE_
-X-MS-Office365-Filtering-Correlation-Id: edd7bf3c-73f0-4396-cce2-08dca94d865b
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD83:EE_|CYYPR12MB8938:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc968308-02a6-4a5d-599f-08dca94d884d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VSwuO5097jQT8Vi+0TW+8F672AN2QiQdVXIY+MTOBplrLGmCRHGUihknoaWP?=
- =?us-ascii?Q?UYA6s2Ef/4Y2zA4RVSNFGHYTm/iKFG6aJHpt3Czcbb/HCsRX7x58pBcCBSe1?=
- =?us-ascii?Q?3Scmj3lAy9srcQ2Jom7C9840cfd6cXvYmLoET4gSYmvisftw/Xru9qnfHrZL?=
- =?us-ascii?Q?ZDInDmKqtsJW4+uxj0q9RHkyocDBQ/7RUxNXtC5OL6/Plspl0/HAkNcHNaD+?=
- =?us-ascii?Q?0getgJf6Jt2GW+pp50LT2jTEKlEFhjk4aXXFJYrt6A5xGJvu6Ybp+r3lIMyJ?=
- =?us-ascii?Q?1KnvPEoidIosVJ4PY2ASgUBA2fMTZ+08s48hnuBFoFvKkByTUHVHqMNzhx3J?=
- =?us-ascii?Q?y1Y3CXIAHhAcfKV4vSVIQCrX9pDI03Lr6rPI/VA54K6CVURXLU7Rk6XTfGx9?=
- =?us-ascii?Q?jO4VTdXhOYiPlM0PIFmmCZWA+E8JxoJ7mFd0De/UHD6JN92iR4Xv2BQyAt8Y?=
- =?us-ascii?Q?daQfSe9ETxiUrvk28wr2EnGglcB8B4VVl3ix3JgVeFyKCOweeZIRm7KX/Jjf?=
- =?us-ascii?Q?qVPjT/FV2oFWH0z7lDG/uN3HeZGJ8FL38xVDpCnF9JiTZjAwZWQKgB7qU1F2?=
- =?us-ascii?Q?ZSBa4FdLVg+nbkqHz6/X6pYEhazjlG7TBB2XCpWou9GbVikMBYycshhYEXPB?=
- =?us-ascii?Q?Jd3GGrokbP0hKBEYvuvQ2UosjnAlUeHk5yI15lcHadKBQYdaPnj7kze3bySx?=
- =?us-ascii?Q?i56Z6ZokbNjHVQAcM1GEx2XwanEuRQSIF9uvShHxXU8/5Y3JLuRZGL8QvHK8?=
- =?us-ascii?Q?sdm8ZzL9R328C8pEBJJNvGD5hXlo7JgaY5Qk5REsdrQgLQMfCWeEgVfp1dAX?=
- =?us-ascii?Q?MJo6IEJt3nqFUb7wObTNVl5EesC/2pdI1zx97NEeanV3Pie8XsdynmUAVT3m?=
- =?us-ascii?Q?lq19n1kFARuoYY4tQgb8gjImCtrlUYC7VJ4Z41jiNX0ifKqo8Qpshl49kGrz?=
- =?us-ascii?Q?TxSjvs30Y1ttCOk8jHVlCmdCmEWSFmulgpdKYN1N7WwnIakXhqE7y+p+2ONL?=
- =?us-ascii?Q?lumE+WHsWIe3depXUVKOZPi7aJqPZwVDQWxcK5F3dgZBw0p7lj/DLS5k1hxd?=
- =?us-ascii?Q?BdgQxMRVXEtw5VFjlBiAjWrZS8AdKCnrptJ13Stfx2XwIHisTnOtdl5U8UiN?=
- =?us-ascii?Q?argVYIzr5pgFK7ZuoGaOD/DYfUW86T2oSlGCITFg/r8pDcM4rpsqzezqS3l2?=
- =?us-ascii?Q?b+rP8WgRoUNAZtXYGKxm8720QHVDxozX7yi2NY1i7aCZncbp2qAjKzpKo3Ea?=
- =?us-ascii?Q?yKjYkQlv1PDjod1sDn40yCQgUmm1YYwr+IP/lapW89PSj14dzrp79SeT+Sgn?=
- =?us-ascii?Q?58Ljj0oPfMEctEc2TdbpeN4nShJTMDAgycmw47Ph+/ukQT5v/qqj7dXbtlkV?=
- =?us-ascii?Q?peHqzKt77X5RbsQjaulYZKArXYFVELpbpnTl5hA7D+JKNC5eB7u1h7dXcx/R?=
- =?us-ascii?Q?4W4+BQwI5NufStp9KEMr6Ka2tTEem0SK?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6ssIVboPpzhglure/LJD8EQTiibZamyCdIIYzT01o8UIlH787zHhAdaq4AIz?=
+ =?us-ascii?Q?J5EheoyqhKKEqXHHvtDMd2mC/LquDmsYES8MuKMdNdourXzc4UFb2avMQ9Op?=
+ =?us-ascii?Q?7yVVRDY+bLp9X/tTKVZFIQlNg22jF9JccgszM+6EXPCLxeL8vIfBU1zp8kKa?=
+ =?us-ascii?Q?9+Ot6jYmPOJm28htS8wemUmYy6ZVjfRqYsBFmpPnB9jqR4gr2K/U33XAXqpC?=
+ =?us-ascii?Q?Lf4cywMNmbsq5lsQ0m9/zFTXIGm0pSs5xvoKx7GCVW58wAXYNwe9ElJDNFye?=
+ =?us-ascii?Q?I58WZtC6zwEIyZoN/QOOqtNRz59OS+V9Nwp5I+8UA2JA+wLcuFhkk6v/aj1N?=
+ =?us-ascii?Q?Zou10ytcXvzdkcFrRrxtUU9yFv3AGXg5Ia+NL7CgXWUHKwjz5dR0jKYCAQgF?=
+ =?us-ascii?Q?ESZCNB3xsas4Jp+3ElHmFSs1S0kiJPWuIkzevGIhW5/2toVc+/7sARPtFUVl?=
+ =?us-ascii?Q?tgNxpn3QKxUXmqn6kUqUYKoTFl51qatn1+H0YgpCD9AGDkWvMZ1j7b+Wlt9M?=
+ =?us-ascii?Q?EF6tkCxs+4k0Zx0Jq5YYBGIBk9gcYNaRIUIco35VKvK/25uKwacPUsXavUOY?=
+ =?us-ascii?Q?g+k4kk4cQbWfYaQ+J+td2gO4XVGGXAtIK6exFOu9z45h5rEuxVnQrIr4+mjr?=
+ =?us-ascii?Q?fgTr6lAcWR3d9A4HuBKR2nXSRayt9MTnzMs/HKO/vz1T/aCyelEHGkVyjm93?=
+ =?us-ascii?Q?/hxxx1iG2qPjsSJtYTZFrXj7nRlVovbmSHQyQXMCG4X4+eq/fYSwslW8zWyA?=
+ =?us-ascii?Q?o3MVPZe+4lcII6SFv0VZmWwMAcintuNdYZiGRxQPUCfliaFCSo+6paqksJGB?=
+ =?us-ascii?Q?9aAtJDnp3WJbx8SYe5a8nERjU9EJTxoPGW/ybJAdLhw1BzEjlS9W7olF2FlK?=
+ =?us-ascii?Q?4h5jIZi3Tajsy7B26uj4V19kMYj+/lsUN6HM3HiIzFNyysFCmndYZh6qTqZ5?=
+ =?us-ascii?Q?XVWQwmHUqucCV3EnNEWkUfmEyRI3+mTnlgRd/UZYCbVoCz/LoV7LCYcjxFNy?=
+ =?us-ascii?Q?DlIe56CGiVQ0pI2zuvbD5KS7lmnJEniRZK1FapgIp5r2jqCC0maT+UhvPaWc?=
+ =?us-ascii?Q?UfMJ5PCPoN316kSM3L7Uzd2YqAE695ekyKAtfM7sqp+bD+NmnXv0rlDvS1hZ?=
+ =?us-ascii?Q?n/H8GJd4sNe7ZGYi9z6DZ0xswJeFCHux/yxnN3u5oe0wIMoG7MqBunvd4bAd?=
+ =?us-ascii?Q?xU/4faYGA7ilCYsxqkYB4vcFnslpabxGTK3NbVMR40IfzpjD49JrSpuYfSaW?=
+ =?us-ascii?Q?50rVz0gFvrDCHS6v8UrHJzYIQ5o/5xIBmcZqZNIUS8sLRy7kQa8zqBGwaaqo?=
+ =?us-ascii?Q?7g2ubUtUMMPdQMpVjV9fdtyFXNRusAmEVoj54Q017NSn9BRdmSn/7vWgCZCb?=
+ =?us-ascii?Q?3hEHXYLOesBmJBgMLQe64LrCy46hjg9Y1+R/VGAl5X1wYFefS5BuDUL1yJiM?=
+ =?us-ascii?Q?ZUrD0rlSMO35Gm9tUwC1idgPqPjpDuk/?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2024 06:22:41.0725 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: edd7bf3c-73f0-4396-cce2-08dca94d865b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2024 06:22:44.3176 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc968308-02a6-4a5d-599f-08dca94d884d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD82.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD83.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8448
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8938
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,58 +137,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit addresses a potential null pointer dereference issue in the
-`dcn401_init_hw` function. The issue could occur when `dc->clk_mgr` is
-null.
+This commit adds a null check for the set_output_gamma function pointer
+in the  dcn30_set_output_transfer_func function. Previously,
+set_output_gamma was being checked for nullity at line 386, but then it
+was being dereferenced without any nullity check at line 401. This
+could potentially lead to a null pointer dereference error if
+set_output_gamma is indeed null.
 
-The fix adds a check to ensure `dc->clk_mgr` is not null before
-accessing its functions. This prevents a potential null pointer
-dereference.
+To fix this, we now ensure that set_output_gamma is not null before
+dereferencing it. We do this by adding a nullity check for
+set_output_gamma before the call to set_output_gamma at line 401. If
+set_output_gamma is null, we log an error message and do not call the
+function.
 
-Reported by smatch:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn401/dcn401_hwseq.c:416 dcn401_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 225)
+This fix prevents a potential null pointer dereference error.
 
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn30/dcn30_hwseq.c:401 dcn30_set_output_transfer_func()
+error: we previously assumed 'mpc->funcs->set_output_gamma' could be null (see line 386)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn30/dcn30_hwseq.c
+    373 bool dcn30_set_output_transfer_func(struct dc *dc,
+    374                                 struct pipe_ctx *pipe_ctx,
+    375                                 const struct dc_stream_state *stream)
+    376 {
+    377         int mpcc_id = pipe_ctx->plane_res.hubp->inst;
+    378         struct mpc *mpc = pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
+    379         const struct pwl_params *params = NULL;
+    380         bool ret = false;
+    381
+    382         /* program OGAM or 3DLUT only for the top pipe*/
+    383         if (pipe_ctx->top_pipe == NULL) {
+    384                 /*program rmu shaper and 3dlut in MPC*/
+    385                 ret = dcn30_set_mpc_shaper_3dlut(pipe_ctx, stream);
+    386                 if (ret == false && mpc->funcs->set_output_gamma) {
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ If this is NULL
+
+    387                         if (stream->out_transfer_func.type == TF_TYPE_HWPWL)
+    388                                 params = &stream->out_transfer_func.pwl;
+    389                         else if (pipe_ctx->stream->out_transfer_func.type ==
+    390                                         TF_TYPE_DISTRIBUTED_POINTS &&
+    391                                         cm3_helper_translate_curve_to_hw_format(
+    392                                         &stream->out_transfer_func,
+    393                                         &mpc->blender_params, false))
+    394                                 params = &mpc->blender_params;
+    395                          /* there are no ROM LUTs in OUTGAM */
+    396                         if (stream->out_transfer_func.type == TF_TYPE_PREDEFINED)
+    397                                 BREAK_TO_DEBUGGER();
+    398                 }
+    399         }
+    400
+--> 401         mpc->funcs->set_output_gamma(mpc, mpcc_id, params);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Then it will crash
+
+    402         return ret;
+    403 }
+
+Fixes: d99f13878d6f ("drm/amd/display: Add DCN3 HWSEQ")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
 Cc: Tom Chung <chiahsuan.chung@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
 Cc: Alex Hung <alex.hung@amd.com>
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- .../gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c    | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index f4c1547a368f..16ffb41abc6d 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -413,10 +413,11 @@ void dcn401_init_hw(struct dc *dc)
- 	if (!dcb->funcs->is_accelerated_mode(dcb) && dc->res_pool->hubbub->funcs->init_watermarks)
- 		dc->res_pool->hubbub->funcs->init_watermarks(dc->res_pool->hubbub);
- 
--	if (dc->clk_mgr->funcs->notify_wm_ranges)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs->notify_wm_ranges)
- 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
- 
--	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs->set_hard_max_memclk &&
-+	    !dc->clk_mgr->dc_mode_softmax_enabled)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
- 
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
-@@ -438,7 +439,9 @@ void dcn401_init_hw(struct dc *dc)
- 		dc->debug.fams2_config.bits.enable &= dc->ctx->dmub_srv->dmub->feature_caps.fw_assisted_mclk_switch_ver == 2;
- 		if (!dc->debug.fams2_config.bits.enable && dc->res_pool->funcs->update_bw_bounding_box) {
- 			/* update bounding box if FAMS2 disabled */
--			dc->res_pool->funcs->update_bw_bounding_box(dc, dc->clk_mgr->bw_params);
-+			if (dc->clk_mgr)
-+				dc->res_pool->funcs->update_bw_bounding_box(dc,
-+									    dc->clk_mgr->bw_params);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index eaeeade31ed7..bd807eb79786 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -398,7 +398,11 @@ bool dcn30_set_output_transfer_func(struct dc *dc,
  		}
  	}
+ 
+-	mpc->funcs->set_output_gamma(mpc, mpcc_id, params);
++	if (mpc->funcs->set_output_gamma)
++		mpc->funcs->set_output_gamma(mpc, mpcc_id, params);
++	else
++		DRM_ERROR("set_output_gamma function pointer is NULL.\n");
++
+ 	return ret;
  }
+ 
 -- 
 2.34.1
 
