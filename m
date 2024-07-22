@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F9ABC3DA5D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 13:43:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F8FBC3DA59
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 13:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D08010E15D;
-	Mon, 22 Jul 2024 13:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F36E58920D;
+	Mon, 22 Jul 2024 13:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DSphRXTF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FZ+b9Nsh";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1088C10E15D
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 13:43:53 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-427d2cc1c4eso30481265e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 06:43:52 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E18D58920D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 13:46:23 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4266edee10cso28660265e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 06:46:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721655831; x=1722260631; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721655982; x=1722260782; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=K/zc26KEcn7+BoPxXYDUMaI1HLQd95gzDG3MNg85OX4=;
- b=DSphRXTFo9z8M6pSUbbkusjaDUmRXbHcGj3Cq1i3eO2PGY3qmqYd/dHB8Q292tSbWA
- JPYLNSrciDkurV2RVnHAN92WY9Si/1sFMA0OUly24nGx/1gTIAEsW5CM8rRWJjMSChVF
- M/nQp+E/PKtHParmWTmNYdQnlpoRG4zh0SWygwAGJIkeMX3qomQ0ZUbaP87A20bBEPxp
- GfRrQPSisdws/84EU09+5ySHNsVt6BMS9XH2NeteklB5e8CVvvp6z53PACgIIkCLCyRk
- 6vW8u30sXbILphQvf6rOGElLBVuFEOhJOgJJF21Z4de+8Zhx7xIbUndBDsBbKBKLRjJV
- HgLA==
+ bh=WWpQnC9TrFIYO0AUZ5AeJUSclLtAfX3dEtLCBmuvxyo=;
+ b=FZ+b9NshzZsnyS2L2bSOxZhG/8qRlK1BItshUrqVgdDvXmjfEk6fYK3pWI6kNXvp4q
+ DazkbA1Qnd8YPjiG4vyqwtum49ecwUcsPUJekCA5zuiPcJ3jmFlKrPo/zkobrWkLTbjQ
+ d0xHUlzcrAUClZ1KOyW6/oDFDew/boeuJinUhmsbvKg2/lnJ1Iq8UuYj2A6YD9U/N7am
+ DVW/WYmLvo3jQyK+xCm6hgir+CDgK0e9ysko1f8gMZB2OhTVngGIliRD3OINoXTsxdvn
+ FOY1qsg0z6cmiZHwB8Sx80beSoAzRS/v82LTyIlMqtyuzvWJoSSth0I9jdBQVru/0SAR
+ 3F8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721655831; x=1722260631;
+ d=1e100.net; s=20230601; t=1721655982; x=1722260782;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=K/zc26KEcn7+BoPxXYDUMaI1HLQd95gzDG3MNg85OX4=;
- b=ZjV2S/lIvFFj+0X7RcF0q5VtCVGyhNM641M5lAZqYyVvw0lWMMSWZhabG8p4MtENe3
- 4KDPsZMOSxvJxtPpE1xhgJj2y+yVG0YjtrdNZxNmGHk5jGG32bwP/16wnpGCwPpfwLVd
- SnMHk/V96dibqfXU4wZknmXEjmGC922TnBH/KuhrE6flTsi2thPVo+5o63FisUmR52im
- uDp/tShPa3fiZjjobw7dNFNosZfp76RlEUaGf5/t/xHxBRzQ+Jq5sFHf59y8mVNLf9gc
- FvpiN2Jq2pVss/qpvHZScjlHvvOyp8/pRXT70YdYl0MeD7mwQMWa7hIMr3Iq0QDkYmsK
- gmIg==
+ bh=WWpQnC9TrFIYO0AUZ5AeJUSclLtAfX3dEtLCBmuvxyo=;
+ b=aQQIMJYDqlbCrQOu/l8wekhudPHe88uGg12exQE+SJffvtVUJpWdNG4/+VtCOz92sm
+ /DqLi79KiUW7RHFqy3a3+5eY8LJoCy4nVE5NS5tmsnndoJEVdytbEVa/g06sSsSs3y6F
+ XZ7FmMZKR2otkf9criXe2VlEyMbxeZjQJQTaUwXhZNWwGq/+Q7/c/7M3uwHjeXJBhKKs
+ zQgI1dv7MWE/gfBhjkyjkM+NgIoUJN+rSPb4VeGpnQCbA85r12g81i1gU6s3nBoo/hVY
+ sDSIYfF6SIAm9HluKG71FfELgBj7eJpc2QILvL1w+O+HdnuErDL4VOAbSms/fewKIIvF
+ rrPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEGvjUM0GEzYpBT7CzkCUzGagybXX0114wHlnRJfLqvGjfQJoN2eN9LCoIwv4C7JJFVpX5wbx0O23wD0S1Rv45n2OrFaFKgLDwTtiG9Q==
-X-Gm-Message-State: AOJu0YyiuaUQEdo6lpnadrdYSochQSpy58GQr7LNP0rVIg9gU0WqdhOA
- 58LKJF8EjB76eOGrHIvz45rLc+/+jFpVF5La/FCxI7jMqMUeuiIW
-X-Google-Smtp-Source: AGHT+IEa79w2AquqtvbMqiD3XgMWJO7WCCDJdaUo/7QtoM2RUCxFSv0VXKThQ7YrCrlWbcfzwxA+qw==
-X-Received: by 2002:a05:600c:1e19:b0:427:d8f2:550 with SMTP id
- 5b1f17b1804b1-427dc52906fmr41102535e9.14.1721655830838; 
- Mon, 22 Jul 2024 06:43:50 -0700 (PDT)
+ AJvYcCXA3CXf2iOS0+bYsmAW2OoPsUtzVrWtaXrGgHVdDZbGTyII/xGKi8jrGxn2RHfsK/VbeZlYrJ0HOPGGEyuNUJGLIr82WRwsERpm6oFyCQ==
+X-Gm-Message-State: AOJu0YwZ1KHKCHP1IBFAEUJcqdjJ5O6l9zz1JrUKzB0Wc5Drdr105IE1
+ SWv6M/4tkMwv9Xf6doT1Bijcy2HepebCIBtxmIcx5f+UcauNkYSg
+X-Google-Smtp-Source: AGHT+IHKb1iGkf6B6r13CPYzcRkd0keB/T/8xGbSreIyp1inY9ZpYpuE4fufxx1O0182lvBx9Rye2A==
+X-Received: by 2002:a05:600c:1914:b0:426:629f:154e with SMTP id
+ 5b1f17b1804b1-427daa60cf1mr44558465e9.30.1721655981685; 
+ Mon, 22 Jul 2024 06:46:21 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d6901405sm127961655e9.16.2024.07.22.06.43.50
+ ffacd0b85a97d-3687868b7cesm8587029f8f.37.2024.07.22.06.46.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 06:43:50 -0700 (PDT)
-Message-ID: <dcc99c85-b0ac-4238-bd0e-9aebbe246cd1@gmail.com>
-Date: Mon, 22 Jul 2024 15:43:49 +0200
+ Mon, 22 Jul 2024 06:46:21 -0700 (PDT)
+Message-ID: <704734b0-f96a-432e-aa31-df296837ae31@gmail.com>
+Date: Mon, 22 Jul 2024 15:46:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] drm/amdgpu/gfx7: enable wave kill for compute queues
+Subject: Re: [PATCH 1/4] drm/amdgpu/gfx10: properly handle error ints on all
+ pipes
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240717203740.14059-1-alexander.deucher@amd.com>
+References: <20240717203847.14600-1-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240717203740.14059-1-alexander.deucher@amd.com>
+In-Reply-To: <20240717203847.14600-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,28 +83,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.07.24 um 22:37 schrieb Alex Deucher:
-> It should work the same for compute as well as gfx.
+Am 17.07.24 um 22:38 schrieb Alex Deucher:
+> Need to handle the interrupt enables for all pipes.
+>
+> v2: fix indexing (Jessie)
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for the whole 
-series.
+Acked-by: Christian König <christian.koenig@amd.com> for the whole series.
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 130 +++++++++++++++++++++----
+>   1 file changed, 109 insertions(+), 21 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index d84589137df9..5fbdef04c9aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -5002,6 +5002,7 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_compute = {
->   	.insert_nop = amdgpu_ring_insert_nop,
->   	.pad_ib = amdgpu_ring_generic_pad_ib,
->   	.emit_wreg = gfx_v7_0_ring_emit_wreg,
-> +	.soft_recovery = gfx_v7_0_ring_soft_recovery,
->   	.emit_mem_sync = gfx_v7_0_emit_mem_sync_compute,
->   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index c4002db6e569..66d80f3dc661 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -5212,26 +5212,74 @@ static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
 >   
+>   }
+>   
+> +static u32 gfx_v10_0_get_cpg_int_cntl(struct amdgpu_device *adev,
+> +				      int me, int pipe)
+> +{
+> +	if (me != 0)
+> +		return 0;
+> +
+> +	switch (pipe) {
+> +	case 0:
+> +		return SOC15_REG_OFFSET(GC, 0, mmCP_INT_CNTL_RING0);
+> +	case 1:
+> +		return SOC15_REG_OFFSET(GC, 0, mmCP_INT_CNTL_RING1);
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+> +static u32 gfx_v10_0_get_cpc_int_cntl(struct amdgpu_device *adev,
+> +				      int me, int pipe)
+> +{
+> +	/*
+> +	 * amdgpu controls only the first MEC. That's why this function only
+> +	 * handles the setting of interrupts for this specific MEC. All other
+> +	 * pipes' interrupts are set by amdkfd.
+> +	 */
+> +	if (me != 1)
+> +		return 0;
+> +
+> +	switch (pipe) {
+> +	case 0:
+> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE0_INT_CNTL);
+> +	case 1:
+> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE1_INT_CNTL);
+> +	case 2:
+> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE2_INT_CNTL);
+> +	case 3:
+> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE3_INT_CNTL);
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+>   static void gfx_v10_0_enable_gui_idle_interrupt(struct amdgpu_device *adev,
+>   					       bool enable)
+>   {
+> -	u32 tmp;
+> +	u32 tmp, cp_int_cntl_reg;
+> +	int i, j;
+>   
+>   	if (amdgpu_sriov_vf(adev))
+>   		return;
+>   
+> -	tmp = RREG32_SOC15(GC, 0, mmCP_INT_CNTL_RING0);
+> -
+> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_BUSY_INT_ENABLE,
+> -			    enable ? 1 : 0);
+> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_EMPTY_INT_ENABLE,
+> -			    enable ? 1 : 0);
+> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CMP_BUSY_INT_ENABLE,
+> -			    enable ? 1 : 0);
+> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, GFX_IDLE_INT_ENABLE,
+> -			    enable ? 1 : 0);
+> -
+> -	WREG32_SOC15(GC, 0, mmCP_INT_CNTL_RING0, tmp);
+> +	for (i = 0; i < adev->gfx.me.num_me; i++) {
+> +		for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
+> +			cp_int_cntl_reg = gfx_v10_0_get_cpg_int_cntl(adev, i, j);
+> +
+> +			if (cp_int_cntl_reg) {
+> +				tmp = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
+> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_BUSY_INT_ENABLE,
+> +						    enable ? 1 : 0);
+> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_EMPTY_INT_ENABLE,
+> +						    enable ? 1 : 0);
+> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CMP_BUSY_INT_ENABLE,
+> +						    enable ? 1 : 0);
+> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, GFX_IDLE_INT_ENABLE,
+> +						    enable ? 1 : 0);
+> +				WREG32_SOC15_IP(GC, cp_int_cntl_reg, tmp);
+> +			}
+> +		}
+> +	}
+>   }
+>   
+>   static int gfx_v10_0_init_csb(struct amdgpu_device *adev)
+> @@ -9073,12 +9121,39 @@ static int gfx_v10_0_set_priv_reg_fault_state(struct amdgpu_device *adev,
+>   					      unsigned int type,
+>   					      enum amdgpu_interrupt_state state)
+>   {
+> +	u32 cp_int_cntl_reg, cp_int_cntl;
+> +	int i, j;
+> +
+>   	switch (state) {
+>   	case AMDGPU_IRQ_STATE_DISABLE:
+>   	case AMDGPU_IRQ_STATE_ENABLE:
+> -		WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
+> -			       PRIV_REG_INT_ENABLE,
+> -			       state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +		for (i = 0; i < adev->gfx.me.num_me; i++) {
+> +			for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
+> +				cp_int_cntl_reg = gfx_v10_0_get_cpg_int_cntl(adev, i, j);
+> +
+> +				if (cp_int_cntl_reg) {
+> +					cp_int_cntl = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
+> +					cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_INT_CNTL_RING0,
+> +								    PRIV_REG_INT_ENABLE,
+> +								    state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +					WREG32_SOC15_IP(GC, cp_int_cntl_reg, cp_int_cntl);
+> +				}
+> +			}
+> +		}
+> +		for (i = 0; i < adev->gfx.mec.num_mec; i++) {
+> +			for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
+> +				/* MECs start at 1 */
+> +				cp_int_cntl_reg = gfx_v10_0_get_cpc_int_cntl(adev, i + 1, j);
+> +
+> +				if (cp_int_cntl_reg) {
+> +					cp_int_cntl = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
+> +					cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_ME1_PIPE0_INT_CNTL,
+> +								    PRIV_REG_INT_ENABLE,
+> +								    state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +					WREG32_SOC15_IP(GC, cp_int_cntl_reg, cp_int_cntl);
+> +				}
+> +			}
+> +		}
+>   		break;
+>   	default:
+>   		break;
+> @@ -9092,12 +9167,25 @@ static int gfx_v10_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+>   					       unsigned int type,
+>   					       enum amdgpu_interrupt_state state)
+>   {
+> +	u32 cp_int_cntl_reg, cp_int_cntl;
+> +	int i, j;
+> +
+>   	switch (state) {
+>   	case AMDGPU_IRQ_STATE_DISABLE:
+>   	case AMDGPU_IRQ_STATE_ENABLE:
+> -		WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
+> -			       PRIV_INSTR_INT_ENABLE,
+> -			       state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +		for (i = 0; i < adev->gfx.me.num_me; i++) {
+> +			for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
+> +				cp_int_cntl_reg = gfx_v10_0_get_cpg_int_cntl(adev, i, j);
+> +
+> +				if (cp_int_cntl_reg) {
+> +					cp_int_cntl = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
+> +					cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_INT_CNTL_RING0,
+> +								    PRIV_INSTR_INT_ENABLE,
+> +								    state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +					WREG32_SOC15_IP(GC, cp_int_cntl_reg, cp_int_cntl);
+> +				}
+> +			}
+> +		}
+>   		break;
+>   	default:
+>   		break;
+> @@ -9121,8 +9209,8 @@ static void gfx_v10_0_handle_priv_fault(struct amdgpu_device *adev,
+>   	case 0:
+>   		for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+>   			ring = &adev->gfx.gfx_ring[i];
+> -			/* we only enabled 1 gfx queue per pipe for now */
+> -			if (ring->me == me_id && ring->pipe == pipe_id)
+> +			if (ring->me == me_id && ring->pipe == pipe_id &&
+> +			    ring->queue == queue_id)
+>   				drm_sched_fault(&ring->sched);
+>   		}
+>   		break;
 
