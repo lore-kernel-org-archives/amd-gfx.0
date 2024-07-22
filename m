@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA7CC3DA5D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 08:20:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14C2C3DA5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 08:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D881189321;
-	Mon, 22 Jul 2024 08:20:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E16C910E434;
+	Mon, 22 Jul 2024 08:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R7ieokFH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uv5+Vef3";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E40FA89321
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 08:20:49 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-426526d30aaso30148775e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 01:20:49 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3149910E434;
+ Mon, 22 Jul 2024 08:38:22 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4257d5fc9b7so33725265e9.2; 
+ Mon, 22 Jul 2024 01:38:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721636448; x=1722241248; darn=lists.freedesktop.org;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=sfYvH02SOak2/ITQpmxFlX0FRXLy2rILFtiVgF4HiDc=;
- b=R7ieokFHM3kmR+yqga2OKR9kUYBBazMYHtvEsoAqVu3F16G+wz7B0p44aMeMFeIlXk
- sO6vp0nngRHCvrjoRPBMw32Jd0UXspld8GhBnbM7TO9+TngZScdBj7EFYzcoIL/9thi5
- 1svM6cLnOO+PFboSKJWsp6Ghfsi9bRJreXhcTCxzIqseop28ZyM1GGsXmIpy9tTVA3Q7
- Lx+DR1BsR5lmnWENqgeD3QgF5XVhlqXxDWNXy7FUCjP8URBC7747FspaN7w8fgNXumov
- XX9pJ/hcg/eVpFsXO7JYdsxYwlzQHoH0CTm7uTEVFveA2sN/K9JqYo5sVO4Xt6S+T0a8
- QMvw==
+ d=gmail.com; s=20230601; t=1721637500; x=1722242300; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=AyBTSemb5IYkzvLcK9KdCyhWY72hYiLvZer+OzCstPA=;
+ b=Uv5+Vef3y1RtqFvG/0z/E9j8KUmOFnY0KvBmTAjjYkeG9IZmBDKO6CWv6j/Falqik/
+ iNoIMhNFzdLPGt0CraiJYRAYHLJRkV0P3a2PEFXTookkyRUzeRukVHXSSOCIWYmy+yR9
+ NDX0AZMzX94SMoT6IvJV+03NnOMyy0qQD7ax/K9oAhDiitAS0xm9RZNcUvbXGHx+0Dyz
+ VGTE/bpCmzvUdvUt9pP/xvZ+zKySBHUxnZUII04FffA+/lXUVX5tZxiHZm8MEW6uRbXy
+ c9Q3HE2grQpF+FI/EE38EL1fnGk9eUbFp/gLUyzmfqGxX15jifPaWv1y6/1NHZbMUYMh
+ tmcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721636448; x=1722241248;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=sfYvH02SOak2/ITQpmxFlX0FRXLy2rILFtiVgF4HiDc=;
- b=H4V6vrdP7H3i7P/4MluAzFag2247uRtPViJBvhPDfZhBUoyTrGkHf11O5kzc7aEOUz
- GsQcgc41vQz8rKsAgcrNFKkOAYzz/TiZwtxfLClhwx9W75Z24OOB1Ew6W+gPOzumyVW5
- cDKgHz1Eg+IGEfYEdSpQzY7PHrq+rLwVgtYKsAgpVWuldbScMDz5bi/N+FZJSpSefx53
- +h2ZCM0b1yA5w4SROzyvt1CtmgCSkjMCoTBDeqgq7KiuwVMQkAaASZTdYfPl1qzuFasg
- 2AJIxFmL8vqOHmGq4zPQA17pNyFORLHWVK5QOFHIJjqFfqo4JDROxQUfOl3ppvuwFi2B
- ni2Q==
+ d=1e100.net; s=20230601; t=1721637500; x=1722242300;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AyBTSemb5IYkzvLcK9KdCyhWY72hYiLvZer+OzCstPA=;
+ b=pSV22CVUc2hcHmn3LcefX079QiG6ZOlYSRUhaHI/xqg6L8Cna0GiSxHPfomYEvicNt
+ 33ObvwvgKX0grpxkvGRJ+046DQe72/F1xAXChpqhGLg0DSDThY/6JzRDT+ivaqYJmI4D
+ 6klgYKbXw8tpWeSx+nDBgUu+9qLX7kcr29Mn5+PDPBd2gAuvFWwVjHMgLzwN0JzdASbf
+ PGbutSInFdnFQ1K1qYC8stO6hm5Wr87YzYjUHw62yJA85MdL03F1seabEY9APSO2kzOH
+ wAdl4XUonXMNHNYFczvBoon1CbmLfOQ5hHHrRnqj+pBDlzy7041uxXL/3brTwmGOPhh5
+ c5LA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWAXD22uvOaPLLvX4Bmalbk+aaoJOyIxt+3pq3kMmKyqr8P06bDCH4Qkt3rjttNyY/+2SeZcyMhiso+zSZTPOmd2hKlFb8KZC9sGJ/GDg==
-X-Gm-Message-State: AOJu0YzNqmZ8fWRospBuSz6iKed05SFqxaaJb7BPRjK9Z+/mTx7Of4/F
- bVz4ttMCpY93aHfXYtdSKN1Nb5pvw8EgcdHHrSqwV7dZ1K+hOa7E
-X-Google-Smtp-Source: AGHT+IH5GbqvXN2QozO5vA/ACLfvV3r11OIQ/6PYLyiFYKUOjuQmlbf+MsT2ZAeL3k8wa2Btij7r3A==
-X-Received: by 2002:a05:600c:1550:b0:426:5cdf:2674 with SMTP id
- 5b1f17b1804b1-427dc51a073mr39452395e9.4.1721636447350; 
- Mon, 22 Jul 2024 01:20:47 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ AJvYcCUOJLz3avqxupMQJIBNYPIIwBygLannUbZ4qyLXMQ4XIseyXumdnY++LxNsf48ihDiJ/KhXnb0uZ6TA9040K1fw7PY3i1t1TJwOWfm4tGWa9KGMEdvyFYPLk4Vk3JbkcNP+oonoAEvagpaoaTcRuA==
+X-Gm-Message-State: AOJu0Yy4NTD87HTtB2Ls6fd9mwx1ii59K4yeJt/LlMFP/RoARvP3Sk8n
+ bLtCS8bWM7Cgy3aLUZEULrnvDGdDNzWZSmrfxjXnyrvGqpl5v+Re
+X-Google-Smtp-Source: AGHT+IEcKiLdVlbyDswPhj6O9TLjt6DHQrRpAjrygNdU9aIkL/LKb9cXJUKUpLzHkBsG/w0xV554Uw==
+X-Received: by 2002:a05:6000:2aa:b0:367:4d9d:56a1 with SMTP id
+ ffacd0b85a97d-369bb2b3e3fmr5969426f8f.45.1721637499734; 
+ Mon, 22 Jul 2024 01:38:19 -0700 (PDT)
+Received: from EliteBook.amd.com (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-368786944c8sm7786418f8f.54.2024.07.22.01.20.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 01:20:46 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------Q0amzg4GUnZMtc0JlovGnSCi"
-Message-ID: <92f00b1c-79c2-431b-b8dc-70070a65b14a@gmail.com>
-Date: Mon, 22 Jul 2024 10:20:45 +0200
+ ffacd0b85a97d-368788117d5sm7839933f8f.115.2024.07.22.01.38.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jul 2024 01:38:19 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: daniel@ffwll.ch,
+	ltuikov89@gmail.com
+Cc: Felix.Kuehling@amd.com, tursulin@igalia.com, matthew.brost@intel.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/scheduler: remove full_recover from drm_sched_start
+Date: Mon, 22 Jul 2024 10:38:16 +0200
+Message-Id: <20240722083816.99685-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/mes: fix mes ring buffer overflow
-To: "Xiao, Jack" <Jack.Xiao@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20240719091615.1534436-1-Jack.Xiao@amd.com>
- <bfca2c44-9e40-4e04-bfcf-1285b3552707@gmail.com>
- <PH8PR12MB68417B9F856C92BD02912A08EFA82@PH8PR12MB6841.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <PH8PR12MB68417B9F856C92BD02912A08EFA82@PH8PR12MB6841.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,467 +84,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------Q0amzg4GUnZMtc0JlovGnSCi
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+This was basically just another one of amdgpus hacks. The parameter
+allowed to restart the scheduler without turning fence signaling on
+again.
 
-Thx, but in that case this patch here then won't help either it just 
-mitigates the problem.
+That this is absolutely not a good idea should be obvious by now since
+the fences will then just sit there and never signal.
 
-Can you try to reduce num_hw_submission for the MES ring?
+While at it cleanup the code a bit.
 
-Thanks,
-Christian.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 +--
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c       |  4 +--
+ drivers/gpu/drm/imagination/pvr_queue.c       |  4 +--
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c         |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/scheduler/sched_main.c        | 25 ++++++-------------
+ drivers/gpu/drm/v3d/v3d_sched.c               |  2 +-
+ include/drm/gpu_scheduler.h                   |  2 +-
+ 12 files changed, 22 insertions(+), 31 deletions(-)
 
-Am 22.07.24 um 05:27 schrieb Xiao, Jack:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->
-> />> I think we rather need to increase the MES ring size instead./
->
-> Unfortunately, it doesn't work. I guess mes firmware has limitation.
->
-> Regards,
-> Jack
->
-> ------------------------------------------------------------------------
-> *From:* Christian König <ckoenig.leichtzumerken@gmail.com>
-> *Sent:* Friday, 19 July 2024 23:44
-> *To:* Xiao, Jack <Jack.Xiao@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>; Deucher, Alexander 
-> <Alexander.Deucher@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu/mes: fix mes ring buffer overflow
-> Am 19.07.24 um 11:16 schrieb Jack Xiao:
-> > wait memory room until enough before writing mes packets
-> > to avoid ring buffer overflow.
-> >
-> > Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 18 ++++++++++++++----
-> >   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 18 ++++++++++++++----
-> >   2 files changed, 28 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > index 8ce51b9236c1..68c74adf79f1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> > @@ -168,7 +168,7 @@ static int 
-> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        const char *op_str, *misc_op_str;
-> >        unsigned long flags;
-> >        u64 status_gpu_addr;
-> > -     u32 status_offset;
-> > +     u32 seq, status_offset;
-> >        u64 *status_ptr;
-> >        signed long r;
-> >        int ret;
-> > @@ -196,6 +196,13 @@ static int 
-> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        if (r)
-> >                goto error_unlock_free;
-> >
-> > +     seq = ++ring->fence_drv.sync_seq;
-> > +     r = amdgpu_fence_wait_polling(ring,
-> > +                                   seq - 
-> ring->fence_drv.num_fences_mask,
-> > +                                   timeout);
-> > +     if (r < 1)
-> > +             goto error_undo;
-> > +
-> >        api_status = (struct MES_API_STATUS *)((char *)pkt + 
-> api_status_off);
-> >        api_status->api_completion_fence_addr = status_gpu_addr;
-> >        api_status->api_completion_fence_value = 1;
-> > @@ -208,8 +215,7 @@ static int 
-> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        mes_status_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
-> > mes_status_pkt.api_status.api_completion_fence_addr =
-> >                ring->fence_drv.gpu_addr;
-> > - mes_status_pkt.api_status.api_completion_fence_value =
-> > -             ++ring->fence_drv.sync_seq;
-> > + mes_status_pkt.api_status.api_completion_fence_value = seq;
-> >
-> >        amdgpu_ring_write_multiple(ring, &mes_status_pkt,
-> > sizeof(mes_status_pkt) / 4);
-> > @@ -229,7 +235,7 @@ static int 
-> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >                dev_dbg(adev->dev, "MES msg=%d was emitted\n",
-> >                        x_pkt->header.opcode);
-> >
-> > -     r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq, 
-> timeout);
-> > +     r = amdgpu_fence_wait_polling(ring, seq, timeout);
-> >        if (r < 1 || !*status_ptr) {
-> >
-> >                if (misc_op_str)
-> > @@ -252,6 +258,10 @@ static int 
-> mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        amdgpu_device_wb_free(adev, status_offset);
-> >        return 0;
-> >
-> > +error_undo:
-> > +     dev_err(adev->dev, "MES ring buffer is full.\n");
-> > +     amdgpu_ring_undo(ring);
-> > +
-> >   error_unlock_free:
-> > spin_unlock_irqrestore(&mes->ring_lock, flags);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > index c9f74231ad59..48e01206bcc4 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> > @@ -154,7 +154,7 @@ static int 
-> mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        const char *op_str, *misc_op_str;
-> >        unsigned long flags;
-> >        u64 status_gpu_addr;
-> > -     u32 status_offset;
-> > +     u32 seq, status_offset;
-> >        u64 *status_ptr;
-> >        signed long r;
-> >        int ret;
-> > @@ -182,6 +182,13 @@ static int 
-> mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        if (r)
-> >                goto error_unlock_free;
-> >
-> > +     seq = ++ring->fence_drv.sync_seq;
-> > +     r = amdgpu_fence_wait_polling(ring,
-> > +                                   seq - 
-> ring->fence_drv.num_fences_mask,
->
-> That's what's amdgpu_fence_emit_polling() does anyway.
->
-> So this here just moves the polling a bit earlier.
->
-> I think we rather need to increase the MES ring size instead.
->
-> Regards,
-> Christian.
->
->
-> > +                                   timeout);
-> > +     if (r < 1)
-> > +             goto error_undo;
-> > +
-> >        api_status = (struct MES_API_STATUS *)((char *)pkt + 
-> api_status_off);
-> >        api_status->api_completion_fence_addr = status_gpu_addr;
-> >        api_status->api_completion_fence_value = 1;
-> > @@ -194,8 +201,7 @@ static int 
-> mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        mes_status_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
-> > mes_status_pkt.api_status.api_completion_fence_addr =
-> >                ring->fence_drv.gpu_addr;
-> > - mes_status_pkt.api_status.api_completion_fence_value =
-> > -             ++ring->fence_drv.sync_seq;
-> > + mes_status_pkt.api_status.api_completion_fence_value = seq;
-> >
-> >        amdgpu_ring_write_multiple(ring, &mes_status_pkt,
-> > sizeof(mes_status_pkt) / 4);
-> > @@ -215,7 +221,7 @@ static int 
-> mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >                dev_dbg(adev->dev, "MES msg=%d was emitted\n",
-> >                        x_pkt->header.opcode);
-> >
-> > -     r = amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq, 
-> timeout);
-> > +     r = amdgpu_fence_wait_polling(ring, seq, timeout);
-> >        if (r < 1 || !*status_ptr) {
-> >
-> >                if (misc_op_str)
-> > @@ -238,6 +244,10 @@ static int 
-> mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-> >        amdgpu_device_wb_free(adev, status_offset);
-> >        return 0;
-> >
-> > +error_undo:
-> > +     dev_err(adev->dev, "MES ring buffer is full.\n");
-> > +     amdgpu_ring_undo(ring);
-> > +
-> >   error_unlock_free:
-> > spin_unlock_irqrestore(&mes->ring_lock, flags);
-> >
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+index 3a3f3ce09f00..2320df51c914 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+@@ -300,7 +300,7 @@ static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool sus
+ 			if (r)
+ 				goto out;
+ 		} else {
+-			drm_sched_start(&ring->sched, false);
++			drm_sched_start(&ring->sched);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 861ccff78af9..c186fdb198ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5862,7 +5862,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 			if (!amdgpu_ring_sched_ready(ring))
+ 				continue;
+ 
+-			drm_sched_start(&ring->sched, true);
++			drm_sched_start(&ring->sched);
+ 		}
+ 
+ 		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
+@@ -6360,7 +6360,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+ 		if (!amdgpu_ring_sched_ready(ring))
+ 			continue;
+ 
+-		drm_sched_start(&ring->sched, true);
++		drm_sched_start(&ring->sched);
+ 	}
+ 
+ 	amdgpu_device_unset_mp1_state(adev);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index c4b04b0dee16..c53641aa146f 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -72,12 +72,12 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
+ 
+ 	drm_sched_resubmit_jobs(&gpu->sched);
+ 
+-	drm_sched_start(&gpu->sched, true);
++	drm_sched_start(&gpu->sched);
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ 
+ out_no_timeout:
+ 	/* restart scheduler after GPU is usable again */
+-	drm_sched_start(&gpu->sched, true);
++	drm_sched_start(&gpu->sched);
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ }
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index 5ed9c98fb599..20cb46012082 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -782,7 +782,7 @@ static void pvr_queue_start(struct pvr_queue *queue)
+ 		}
+ 	}
+ 
+-	drm_sched_start(&queue->scheduler, true);
++	drm_sched_start(&queue->scheduler);
+ }
+ 
+ /**
+@@ -842,7 +842,7 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
+ 	}
+ 	mutex_unlock(&pvr_dev->queues.lock);
+ 
+-	drm_sched_start(sched, true);
++	drm_sched_start(sched);
+ 
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ }
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index bbf3f8feab94..1a944edb6ddc 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -463,7 +463,7 @@ static enum drm_gpu_sched_stat lima_sched_timedout_job(struct drm_sched_job *job
+ 	lima_pm_idle(ldev);
+ 
+ 	drm_sched_resubmit_jobs(&pipe->base);
+-	drm_sched_start(&pipe->base, true);
++	drm_sched_start(&pipe->base);
+ 
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index ba4139288a6d..eb6c3f9a01f5 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -379,7 +379,7 @@ nouveau_sched_timedout_job(struct drm_sched_job *sched_job)
+ 	else
+ 		NV_PRINTK(warn, job->cli, "Generic job timeout.\n");
+ 
+-	drm_sched_start(sched, true);
++	drm_sched_start(sched);
+ 
+ 	return stat;
+ }
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index a61ef0af9a4e..df49d37d0e7e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -727,7 +727,7 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 
+ 	/* Restart the schedulers */
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++)
+-		drm_sched_start(&pfdev->js->queue[i].sched, true);
++		drm_sched_start(&pfdev->js->queue[i].sched);
+ 
+ 	/* Re-enable job interrupts now that everything has been restarted. */
+ 	job_write(pfdev, JOB_INT_MASK,
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index fa0a002b1016..d47972806d50 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -827,7 +827,7 @@ static void panthor_vm_stop(struct panthor_vm *vm)
+ 
+ static void panthor_vm_start(struct panthor_vm *vm)
+ {
+-	drm_sched_start(&vm->sched, true);
++	drm_sched_start(&vm->sched);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 42929e147107..2e1becd87e3a 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -2525,7 +2525,7 @@ static void queue_start(struct panthor_queue *queue)
+ 	list_for_each_entry(job, &queue->scheduler.pending_list, base.list)
+ 		job->base.s_fence->parent = dma_fence_get(job->done_fence);
+ 
+-	drm_sched_start(&queue->scheduler, true);
++	drm_sched_start(&queue->scheduler);
+ }
+ 
+ static void panthor_group_stop(struct panthor_group *group)
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 7e90c9f95611..ab53ab486fe6 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -674,13 +674,11 @@ EXPORT_SYMBOL(drm_sched_stop);
+  * drm_sched_start - recover jobs after a reset
+  *
+  * @sched: scheduler instance
+- * @full_recovery: proceed with complete sched restart
+  *
+  */
+-void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
++void drm_sched_start(struct drm_gpu_scheduler *sched)
+ {
+ 	struct drm_sched_job *s_job, *tmp;
+-	int r;
+ 
+ 	/*
+ 	 * Locking the list is not required here as the sched thread is parked
+@@ -692,24 +690,17 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+ 
+ 		atomic_add(s_job->credits, &sched->credit_count);
+ 
+-		if (!full_recovery)
++		if (!fence) {
++			drm_sched_job_done(s_job, -ECANCELED);
+ 			continue;
++		}
+ 
+-		if (fence) {
+-			r = dma_fence_add_callback(fence, &s_job->cb,
+-						   drm_sched_job_done_cb);
+-			if (r == -ENOENT)
+-				drm_sched_job_done(s_job, fence->error);
+-			else if (r)
+-				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+-					  r);
+-		} else
+-			drm_sched_job_done(s_job, -ECANCELED);
++		if (dma_fence_add_callback(fence, &s_job->cb,
++					   drm_sched_job_done_cb))
++			drm_sched_job_done(s_job, fence->error);
+ 	}
+ 
+-	if (full_recovery)
+-		drm_sched_start_timeout_unlocked(sched);
+-
++	drm_sched_start_timeout_unlocked(sched);
+ 	drm_sched_wqueue_start(sched);
+ }
+ EXPORT_SYMBOL(drm_sched_start);
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index d193072703f3..42d4f4a2dba2 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -653,7 +653,7 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job *sched_job)
+ 
+ 	/* Unblock schedulers and restart their jobs. */
+ 	for (q = 0; q < V3D_MAX_QUEUES; q++) {
+-		drm_sched_start(&v3d->queue[q].sched, true);
++		drm_sched_start(&v3d->queue[q].sched);
+ 	}
+ 
+ 	mutex_unlock(&v3d->reset_lock);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 5acc64954a88..fe8edb917360 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -579,7 +579,7 @@ bool drm_sched_wqueue_ready(struct drm_gpu_scheduler *sched);
+ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched);
+ void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+-void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery);
++void drm_sched_start(struct drm_gpu_scheduler *sched);
+ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+ void drm_sched_increase_karma(struct drm_sched_job *bad);
+ void drm_sched_reset_karma(struct drm_sched_job *bad);
+-- 
+2.34.1
 
---------------Q0amzg4GUnZMtc0JlovGnSCi
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Thx, but in that case this patch here then won't help either it just
-    mitigates the problem.<br>
-    <br>
-    Can you try to reduce num_hw_submission for the MES ring?<br>
-    <br>
-    Thanks,<br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 22.07.24 um 05:27 schrieb Xiao,
-      Jack:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:PH8PR12MB68417B9F856C92BD02912A08EFA82@PH8PR12MB6841.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
-      <p
-style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;"
-        align="Left">
-        [AMD Official Use Only - AMD Internal Distribution Only]<br>
-      </p>
-      <br>
-      <div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          <i>&gt;&gt; I think we rather need to increase the MES ring
-            size instead.</i></div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          Unfortunately, it doesn't work. I guess mes firmware has
-          limitation.</div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          Regards,</div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          Jack</div>
-        <div class="elementToProof"
-style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
-            <b>Sent:</b> Friday, 19 July 2024 23:44<br>
-            <b>To:</b> Xiao, Jack <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@amd.com&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Deucher, Alexander
-            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH] drm/amdgpu/mes: fix mes ring
-            buffer overflow</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt;">
-              <div class="PlainText">Am 19.07.24 um 11:16 schrieb Jack
-                Xiao:<br>
-                &gt; wait memory room until enough before writing mes
-                packets<br>
-                &gt; to avoid ring buffer overflow.<br>
-                &gt;<br>
-                &gt; Signed-off-by: Jack Xiao <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@amd.com&gt;</a><br>
-                &gt; ---<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 18
-                ++++++++++++++----<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 18
-                ++++++++++++++----<br>
-                &gt;   2 files changed, 28 insertions(+), 8 deletions(-)<br>
-                &gt;<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-                b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-                &gt; index 8ce51b9236c1..68c74adf79f1 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-                &gt; @@ -168,7 +168,7 @@ static int
-                mes_v11_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        const char *op_str, *misc_op_str;<br>
-                &gt;        unsigned long flags;<br>
-                &gt;        u64 status_gpu_addr;<br>
-                &gt; -     u32 status_offset;<br>
-                &gt; +     u32 seq, status_offset;<br>
-                &gt;        u64 *status_ptr;<br>
-                &gt;        signed long r;<br>
-                &gt;        int ret;<br>
-                &gt; @@ -196,6 +196,13 @@ static int
-                mes_v11_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        if (r)<br>
-                &gt;                goto error_unlock_free;<br>
-                &gt;   <br>
-                &gt; +     seq = ++ring-&gt;fence_drv.sync_seq;<br>
-                &gt; +     r = amdgpu_fence_wait_polling(ring,<br>
-                &gt; +                                   seq -
-                ring-&gt;fence_drv.num_fences_mask,<br>
-                &gt; +                                   timeout);<br>
-                &gt; +     if (r &lt; 1)<br>
-                &gt; +             goto error_undo;<br>
-                &gt; +<br>
-                &gt;        api_status = (struct MES_API_STATUS *)((char
-                *)pkt + api_status_off);<br>
-                &gt;        api_status-&gt;api_completion_fence_addr =
-                status_gpu_addr;<br>
-                &gt;        api_status-&gt;api_completion_fence_value =
-                1;<br>
-                &gt; @@ -208,8 +215,7 @@ static int
-                mes_v11_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        mes_status_pkt.header.dwsize =
-                API_FRAME_SIZE_IN_DWORDS;<br>
-                &gt;       
-                mes_status_pkt.api_status.api_completion_fence_addr =<br>
-                &gt;                ring-&gt;fence_drv.gpu_addr;<br>
-                &gt; -    
-                mes_status_pkt.api_status.api_completion_fence_value =<br>
-                &gt; -             ++ring-&gt;fence_drv.sync_seq;<br>
-                &gt; +    
-                mes_status_pkt.api_status.api_completion_fence_value =
-                seq;<br>
-                &gt;   <br>
-                &gt;        amdgpu_ring_write_multiple(ring,
-                &amp;mes_status_pkt,<br>
-                &gt;                                  
-                sizeof(mes_status_pkt) / 4);<br>
-                &gt; @@ -229,7 +235,7 @@ static int
-                mes_v11_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;                dev_dbg(adev-&gt;dev, "MES msg=%d
-                was emitted\n",<br>
-                &gt;                        x_pkt-&gt;header.opcode);<br>
-                &gt;   <br>
-                &gt; -     r = amdgpu_fence_wait_polling(ring,
-                ring-&gt;fence_drv.sync_seq, timeout);<br>
-                &gt; +     r = amdgpu_fence_wait_polling(ring, seq,
-                timeout);<br>
-                &gt;        if (r &lt; 1 || !*status_ptr) {<br>
-                &gt;   <br>
-                &gt;                if (misc_op_str)<br>
-                &gt; @@ -252,6 +258,10 @@ static int
-                mes_v11_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        amdgpu_device_wb_free(adev, status_offset);<br>
-                &gt;        return 0;<br>
-                &gt;   <br>
-                &gt; +error_undo:<br>
-                &gt; +     dev_err(adev-&gt;dev, "MES ring buffer is
-                full.\n");<br>
-                &gt; +     amdgpu_ring_undo(ring);<br>
-                &gt; +<br>
-                &gt;   error_unlock_free:<br>
-                &gt;       
-                spin_unlock_irqrestore(&amp;mes-&gt;ring_lock, flags);<br>
-                &gt;   <br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-                b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
-                &gt; index c9f74231ad59..48e01206bcc4 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
-                &gt; @@ -154,7 +154,7 @@ static int
-                mes_v12_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        const char *op_str, *misc_op_str;<br>
-                &gt;        unsigned long flags;<br>
-                &gt;        u64 status_gpu_addr;<br>
-                &gt; -     u32 status_offset;<br>
-                &gt; +     u32 seq, status_offset;<br>
-                &gt;        u64 *status_ptr;<br>
-                &gt;        signed long r;<br>
-                &gt;        int ret;<br>
-                &gt; @@ -182,6 +182,13 @@ static int
-                mes_v12_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        if (r)<br>
-                &gt;                goto error_unlock_free;<br>
-                &gt;   <br>
-                &gt; +     seq = ++ring-&gt;fence_drv.sync_seq;<br>
-                &gt; +     r = amdgpu_fence_wait_polling(ring,<br>
-                &gt; +                                   seq -
-                ring-&gt;fence_drv.num_fences_mask,<br>
-                <br>
-                That's what's amdgpu_fence_emit_polling() does anyway.<br>
-                <br>
-                So this here just moves the polling a bit earlier.<br>
-                <br>
-                I think we rather need to increase the MES ring size
-                instead.<br>
-                <br>
-                Regards,<br>
-                Christian.<br>
-                <br>
-                <br>
-                &gt; +                                   timeout);<br>
-                &gt; +     if (r &lt; 1)<br>
-                &gt; +             goto error_undo;<br>
-                &gt; +<br>
-                &gt;        api_status = (struct MES_API_STATUS *)((char
-                *)pkt + api_status_off);<br>
-                &gt;        api_status-&gt;api_completion_fence_addr =
-                status_gpu_addr;<br>
-                &gt;        api_status-&gt;api_completion_fence_value =
-                1;<br>
-                &gt; @@ -194,8 +201,7 @@ static int
-                mes_v12_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        mes_status_pkt.header.dwsize =
-                API_FRAME_SIZE_IN_DWORDS;<br>
-                &gt;       
-                mes_status_pkt.api_status.api_completion_fence_addr =<br>
-                &gt;                ring-&gt;fence_drv.gpu_addr;<br>
-                &gt; -    
-                mes_status_pkt.api_status.api_completion_fence_value =<br>
-                &gt; -             ++ring-&gt;fence_drv.sync_seq;<br>
-                &gt; +    
-                mes_status_pkt.api_status.api_completion_fence_value =
-                seq;<br>
-                &gt;   <br>
-                &gt;        amdgpu_ring_write_multiple(ring,
-                &amp;mes_status_pkt,<br>
-                &gt;                                  
-                sizeof(mes_status_pkt) / 4);<br>
-                &gt; @@ -215,7 +221,7 @@ static int
-                mes_v12_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;                dev_dbg(adev-&gt;dev, "MES msg=%d
-                was emitted\n",<br>
-                &gt;                        x_pkt-&gt;header.opcode);<br>
-                &gt;   <br>
-                &gt; -     r = amdgpu_fence_wait_polling(ring,
-                ring-&gt;fence_drv.sync_seq, timeout);<br>
-                &gt; +     r = amdgpu_fence_wait_polling(ring, seq,
-                timeout);<br>
-                &gt;        if (r &lt; 1 || !*status_ptr) {<br>
-                &gt;   <br>
-                &gt;                if (misc_op_str)<br>
-                &gt; @@ -238,6 +244,10 @@ static int
-                mes_v12_0_submit_pkt_and_poll_completion(struct
-                amdgpu_mes *mes,<br>
-                &gt;        amdgpu_device_wb_free(adev, status_offset);<br>
-                &gt;        return 0;<br>
-                &gt;   <br>
-                &gt; +error_undo:<br>
-                &gt; +     dev_err(adev-&gt;dev, "MES ring buffer is
-                full.\n");<br>
-                &gt; +     amdgpu_ring_undo(ring);<br>
-                &gt; +<br>
-                &gt;   error_unlock_free:<br>
-                &gt;       
-                spin_unlock_irqrestore(&amp;mes-&gt;ring_lock, flags);<br>
-                &gt;   <br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------Q0amzg4GUnZMtc0JlovGnSCi--
