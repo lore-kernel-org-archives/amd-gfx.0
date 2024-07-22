@@ -4,117 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7413FC3DA61
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 02:26:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C25EC3DA5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 03:27:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B58F10E08C;
-	Mon, 22 Jul 2024 02:26:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAB1B10E18A;
+	Mon, 22 Jul 2024 03:27:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WQacfXaH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tmtFuSS3";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062.outbound.protection.outlook.com [40.107.236.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274D910E08C
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 02:26:31 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1D210E188
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 03:27:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cMzgAfmXFGGgw3ucfsPW4GMIBIeuo35dqrfS2uQ+46lzbY3Qg8yxi6YWmEJtA8Q7n3urwbjvGd2vWNQX3iNcUgp6DDq9uo3IG0sqvpkO2F6qMUnxsVkvLJpHthoI+L/iTRpUDIO8xRFr1hJZjDGDLjCh6mvVePehV4lx7h5PWyvF+SFZtQRcZrAjtBiYWtxj09bm6B/xJHC4e4Zzbe/y5EBIPvhlcE89v3CdQKaKpFDvaNDEwMY6vav/zNIxOWUTrC3/4uv5SLQEdyZe3pwLpL+o5vFQH3vcactTCP7HncLXlBQvJDqscifS9j0z6zqVwb3z7WEosBIMS3/aGE0Aow==
+ b=Pv1fKdD2cs8q7VFRc886rnfePi7Kh5nRSTKltm0EwsXEdkdlR0+Xvwz05G2R9C/4K/EuAWEF2c74Y75mXvhS87XD30dOw1QyKqlblJdp5tw1QkFaTcpMMbbAifOXluMlClUIASblUx5pfyxPJLV1pMSY/Md900IBsQGtPgM27kW9xp6iQEuImwF6Pu8HfermXI6moVSjai9x0V6J4Flv69XrImY6imEkh9R/pGIXnrROdnXQnTmIguDkC3MFVjprsi/Fhw7LFElhMv/9749zPvHGZrT7Iou7HlfgwTtIVOB6m+fQZmR77j6+aqnRcoobXW/TRenoe5FR7utfdLGd8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=11+W5uqi+gmFDPLAh6Qe3UabD/MuSNQwHE2uQSzS7wc=;
- b=TBrQqvJZhV4CDOnoW7kbrDSzAef+516yPLnfbBdEXDxHdAul/n7ADKzv2mUPVcQOegI6HsWpnbiPgRZWvSd5a6YruuRYEgpX3ubAJ88Z3cDzTOpm+LFfzatrEJd+vjGXCfD7XC/Em3+qMMSdWAp4s1Ro4nJjMzGON5fqlvzcssvpvNAkabtvVj46goihaPce5F0cKW678AmY9XsSAJK+jcpuu38BjEqdn4QUJP+kzRR4+OwPsO0/WsnjWO7Vyd9lEiD3ndV5YjzXS759dvsHXsngTN1shemfSFnXR5IUl7p8w3Bjgxgy+B9pAJSFeECtjmHFNoqf71jVnl0rzrZP6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=KCYvHDQXN4CUt0IIgm3g5XvOYzkxjvwXZ1O91ZCEWyE=;
+ b=IS+ykopLY+vA0iDsgtaKRy175DCmNYYQl+Mcxn7PTL42DUvM7rzNtQYePcsJ2J0hFLx+oqj8YEn69N0oDcfqImkg9H7wLU+7Y/XIj1+0jKG7fu8pTrE7+hLqScoJnWmLXbjgvtsUGVi0NJKJ4SHr+cLyJNHO4YTTRTpJV3fBekNHkrL3P1Pg+OpuHh3G4Atdkh9xp28eUhYcmSR2qHxYrDPoHyc3jtxjPriCxsXpjBZmYXTaxuqjhnbphS0F1I3UKP2pbdIUmzptuyrmzIowa6W3u1NQvQMayUKCX+5zT3ZJ3UKBuPbiXMFp8iDGCMleruMBT9p5fglwebtr34qKxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=11+W5uqi+gmFDPLAh6Qe3UabD/MuSNQwHE2uQSzS7wc=;
- b=WQacfXaHMG1Gx0gJteRAmj3iuITTpDBXlfIRZ/EMm+RRJc9XzVofAREXdfsdcW9IJOV3nsCrIIc5BBbeUgjfDw2IxpFIEH1FeNraR3pce4nr5BsJeswcdqQLJ8WmTBs+szP7T7Mu4jC3AV2+Alqi4XzdBJRgpWdiKrkEqmLF34M=
-Received: from MN2PR19CA0056.namprd19.prod.outlook.com (2603:10b6:208:19b::33)
- by DM4PR12MB6326.namprd12.prod.outlook.com (2603:10b6:8:a3::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=KCYvHDQXN4CUt0IIgm3g5XvOYzkxjvwXZ1O91ZCEWyE=;
+ b=tmtFuSS3qS5H38FCkMv8UWkvvpnyPbzGlRFpgM/+DkfAnycrYVcfNdb511ToxvGe4HOwfC0YXF4oD+T3WOyTcMhNpqOy0PLTdaGFilgT5nf1TGfIgV4Gz/paQ90gO5rHuNJU6u89LyY0G9caR4NU4fLh7BlaLHmJXeoAyE7AnUg=
+Received: from PH8PR12MB6841.namprd12.prod.outlook.com (2603:10b6:510:1c8::21)
+ by CY8PR12MB8196.namprd12.prod.outlook.com (2603:10b6:930:78::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Mon, 22 Jul
- 2024 02:26:26 +0000
-Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:208:19b:cafe::32) by MN2PR19CA0056.outlook.office365.com
- (2603:10b6:208:19b::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7741.35 via Frontend
- Transport; Mon, 22 Jul 2024 02:26:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Mon, 22 Jul 2024 02:26:25 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 21 Jul
- 2024 21:26:21 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: skip kfd init if GFX is not ready.
-Date: Mon, 22 Jul 2024 10:25:09 +0800
-Message-ID: <20240722022509.620547-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.3
+ 2024 03:27:32 +0000
+Received: from PH8PR12MB6841.namprd12.prod.outlook.com
+ ([fe80::8cad:63eb:fd59:940a]) by PH8PR12MB6841.namprd12.prod.outlook.com
+ ([fe80::8cad:63eb:fd59:940a%7]) with mapi id 15.20.7762.027; Mon, 22 Jul 2024
+ 03:27:31 +0000
+From: "Xiao, Jack" <Jack.Xiao@amd.com>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/mes: fix mes ring buffer overflow
+Thread-Topic: [PATCH] drm/amdgpu/mes: fix mes ring buffer overflow
+Thread-Index: AQHa2bx3Lq6MdRXCn0ej7o1d9ZHJpbH+MY2AgAPoXQk=
+Date: Mon, 22 Jul 2024 03:27:31 +0000
+Message-ID: <PH8PR12MB68417B9F856C92BD02912A08EFA82@PH8PR12MB6841.namprd12.prod.outlook.com>
+References: <20240719091615.1534436-1-Jack.Xiao@amd.com>
+ <bfca2c44-9e40-4e04-bfcf-1285b3552707@gmail.com>
+In-Reply-To: <bfca2c44-9e40-4e04-bfcf-1285b3552707@gmail.com>
+Accept-Language: en-001, zh-CN, en-US
+Content-Language: aa
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-22T03:27:31.378Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH8PR12MB6841:EE_|CY8PR12MB8196:EE_
+x-ms-office365-filtering-correlation-id: 6b4e4e9f-cc62-4659-3edc-08dca9fe38be
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?GjNjKG6K635qoxa2poz46sP7IWMap2stgg5JFKrFgan8+1eMUMORszdpgK?=
+ =?iso-8859-1?Q?bAUYffQu/fWeCzHMSRp/+03NT1Dt/EMAtiNnSZc/qeqi8TbBnn2llF30aD?=
+ =?iso-8859-1?Q?J6AXYpUV4WCXEkWRRhcmMOW/TNGr/zW5935YOMBRvLNsL1LnOO4Tv2EkC1?=
+ =?iso-8859-1?Q?11HCwfr3ScP1mFlRADgtY60v7h7GuMUPuvLCZeg2up7IT098toy3Zr2BAS?=
+ =?iso-8859-1?Q?VtHMoYhxe1k4+M/f0zNpI7aRFR5hrebHz54Xkd6Q6R8bCes4gatbwyxj7X?=
+ =?iso-8859-1?Q?FCfZIwO/wvbGCCM12DCI7Z49yyS/YAPmTuxvNEHq2hNCDk8DoJx9d5rhhw?=
+ =?iso-8859-1?Q?U3bdS+JP8NLn0ngHVrXUAeD30IjJoBnXeFxYSQaENMRAlkbsUlL5TB7VA6?=
+ =?iso-8859-1?Q?eMjh4JY9sHm8J5AVVSQ1iCiI7LYxjbC/sVP1s/PDe1Jkdoow1EudAT2Fo9?=
+ =?iso-8859-1?Q?vh4BSblVlXgLJ16E1LlIGxV+r2JUodbSmVAv0ZsgUBopSXD77PvPMWpMTt?=
+ =?iso-8859-1?Q?9i0JuiYHLqn3oT5aOfuELwUAt49oyR+OH6jp8rp1nQyF4azR9rQL42qWEj?=
+ =?iso-8859-1?Q?NLIyH+tFK2zkB17YubU24KFy+otRILA0YtmzrzWXX3cYjvZozgLhgM4zFO?=
+ =?iso-8859-1?Q?XwGQJqizRc0mnMa1y9QG6mADTY/FEvyxucyExiWshu3ewapex4h9GETYWM?=
+ =?iso-8859-1?Q?uSywkzkYlIhYv6Px2qN85OelOVI3GW8lrDMUMIbT+YKFxWHtSxWzr+FV9g?=
+ =?iso-8859-1?Q?QO3koTnWmE3Ljw7ZIvoZeel2bVyXpkKahm1telMY1RI0DaU03Xn+ZYpBY8?=
+ =?iso-8859-1?Q?eeIQ7Z9EP+tqKsALnG+jDPOWNg3ylyssZDoJnLinXfXexJ2uSYKMoGuDqr?=
+ =?iso-8859-1?Q?3T3NgUmy73mosajZKiuB6utbhcvaVIilrYKtuzqxLg/bB9AbXiWTJCiU4c?=
+ =?iso-8859-1?Q?eSilkTffUPbZy8ubrBrqgDmBIryPOVjF4W2gsZX5y8kjrk6Zs7g14UQSCB?=
+ =?iso-8859-1?Q?G5JetZ8/r90Rbfxmlq+fAVxJnOmEnMk4IRbg2jKgExnamkROZ2bmugJvbs?=
+ =?iso-8859-1?Q?js7F2RNmBMipzSogN0v85bE/MWtZKdTazWKjLs1aoYJHnuB+2bLdrRq3Gl?=
+ =?iso-8859-1?Q?M9qDreEkOeCKd8Wy1hTls33VS8hGRVRui1itXl7y/Pm1/Eg83jXDPXsmNs?=
+ =?iso-8859-1?Q?lbZNqC/pZ1uYml4Dgcj+qcYijwMwOgLKqJSifEeTgbWm4yk46WsaImarEJ?=
+ =?iso-8859-1?Q?zCXioCwATNCaM7+D+nFLSXsxU4Nv2hfLke1ekixaZlzy6ziHXqk9MdElvk?=
+ =?iso-8859-1?Q?YbkZ0YHl/p2Ou91cJU903BeKmsfE6CK9+pa/o0QC63AuPQR8yG9c2fTCTi?=
+ =?iso-8859-1?Q?weReFMlSI7FJRd5vlJkG4xIMIRIzL2fM2XpPQHBphKgY4qu76d03pOFrTe?=
+ =?iso-8859-1?Q?Ikfn8CZv46y+d4PZOmPCqwShkD/NQZ9RM7N0eg=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6841.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Z0a6CL3RK4JkkbRFBQDtXsQc8QsYEJKB+D+qDSetskv4Exg3sIJhzRPFLb?=
+ =?iso-8859-1?Q?RUireyqVw7fn0vozTDzKqHZfNM8fOG1Du5XdfCOOotbM+fc2IOeZJWjMMy?=
+ =?iso-8859-1?Q?ilv1T2uyWRZmDzK3yVqJZMFmFl34O4WP4xYUNPIlkku/UCGoCE6CRro4Kq?=
+ =?iso-8859-1?Q?HKUN+Tr2BZKCIrBIx/YBwgnTOc0KuD+Yz9jND/2h9vF8nIc3XUalnHtvs4?=
+ =?iso-8859-1?Q?w3vNK1pVlDmt4DWpsK/RGVNqsspDi/MlEsFFfmJO/yQjPz5DOdFMR6sWPN?=
+ =?iso-8859-1?Q?VH+lcW9nIw+bRcQNIvwiixikVQWyFyTG6FNjyUBer7ZLyDRbHAH+w0z6e/?=
+ =?iso-8859-1?Q?O5APX5Ti+MbNP3mbbqAFD5u+6U15Sa74C8OEmcNIplfH/uSufqS3p63GcM?=
+ =?iso-8859-1?Q?8HHo2FLObATrDi3Nx3l88KKEgbOR4o/AMtvripljev97/tLdQ/sHFXX/Ho?=
+ =?iso-8859-1?Q?cxN8YyTwCDMxvK9SWyAJCv9YMauMYrdB4gXVVQKe42opDyOxGmssbryYBw?=
+ =?iso-8859-1?Q?7abI7clhnM1ZvNZDyaNgpuxXTyDj240bpyJ0675cFO8wDOnI12jI72XYr8?=
+ =?iso-8859-1?Q?xMDYMUb1C0j0vZ76ebwAM5oVyUq89PAUtUIQcNqH70Spu9ou5EGm+1FZlX?=
+ =?iso-8859-1?Q?EeiV9RKizEFGkkuxiNy46/FFLgfbmawGONXYOviqrCtexXPWxUoSdAJdyj?=
+ =?iso-8859-1?Q?6sJVZJ9Uokwe+Tj4OdNEBYGJnWEXT0mNU28yHmaYi3E2UluS2coVq3t7y/?=
+ =?iso-8859-1?Q?S0iN2ObZar8hsDHPJ0xkoJeZSt9836lSKAayyATb+HNsFpHCCLxg73XF5+?=
+ =?iso-8859-1?Q?dZh1caXvxLI7LIvi1VMho6KM9y9w4hbtnLL0Ww/6dFSb74nEQnW7HOkorB?=
+ =?iso-8859-1?Q?P+kK4vyujQ0VNqefVIA5bBK/66z4hRAIQidYrHKCdYVXSep2IjChbsLNf7?=
+ =?iso-8859-1?Q?FXDuNz1eN8Bsxb4FtWLkX2L+cSMDDvBCO38VhTgiS4smosz4VaUUah/hrR?=
+ =?iso-8859-1?Q?/4OCSICY9vO/82fNMu4myv8KWOk3Wu0QOrtzXiloL8paNrly+qVVwpdDFH?=
+ =?iso-8859-1?Q?cr2R8ig4/snbjOK18JLHEMRaXi2UYKE/T8P7IBkYPZlCarUy3HilH7tDY2?=
+ =?iso-8859-1?Q?RrPr/QzrZmmEJEozXMe0Ysq9ReSdF6jyIEY68an2YRc/OL3S+JN4XKjBwT?=
+ =?iso-8859-1?Q?Nrvb5xTc2lZWhaW4ArJJl4y3bG8zZzbH9+oIuKUUo1vikmWoGghWQnljdS?=
+ =?iso-8859-1?Q?qe6MrLhij63KEEd/8Thsu0qP0G96SujTJuju2FcHCdxOfuLY0QnE1JO6Pr?=
+ =?iso-8859-1?Q?+ZAOe692srBURTzKaFGVtyIOAGDNDsgeLYXvWODATmIpxs5BKBExoETNPG?=
+ =?iso-8859-1?Q?J2z9/MKxqFFWlhTEwnyb4UDyL8DD7C4VHgQ/OlilPf1dw9+q9P0skR0nb5?=
+ =?iso-8859-1?Q?DuWLTHVybbhxhQx1PBPu7UCU3q6tY4FmV8kZk/YqMeuA81q5wFl3WCPatk?=
+ =?iso-8859-1?Q?UykJjTw0rkUIDwSuFr9qEjw8BB03C5hhJrdmsU6MQVVbnIARetumVjnzbP?=
+ =?iso-8859-1?Q?FKxuZYr67o+yy0Mr+dNXrpEfErbygO/LLqFK4dI8GZRTY4fI58KCJxwqU6?=
+ =?iso-8859-1?Q?gPVmBvsq1xuBw=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_PH8PR12MB68417B9F856C92BD02912A08EFA82PH8PR12MB6841namp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|DM4PR12MB6326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20a8e2ff-5712-4bf0-0031-08dca9f5afb2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YFdJCmIcli0D5QZi6zKw7nipbHcfhxpAZLtFaXHgZnvsq0Tk1TExHY+wpxf8?=
- =?us-ascii?Q?fpF9fMVMnbRP/u38UlUBjUXiEDpabapxPIeJhBOLxLbHFoPWYw2NT3ERd2AL?=
- =?us-ascii?Q?NJdhl+5HAJN7oMkG9apCaxlBJBh6+juaSnUy2ECet7NS58GiwD7i7YklFZCL?=
- =?us-ascii?Q?WzUDNTAx4sMsPXOwpQ+W82+xq8cWKCvmIoWlAw5Pq8/eZbIlHy3t+03kdmbT?=
- =?us-ascii?Q?K2BEAJ9kMnpWrjxMp/388mAvuVt3GwzDUHBobW1RwFqkWngf20n0rs4o2WON?=
- =?us-ascii?Q?Gs+cFIEqxq5flLuH6Eo0mPHJ7TRxrPTpssu/gT8nZIG9SxZmIxFecMwx3MtY?=
- =?us-ascii?Q?0BFg7/hoUPhvoJpMFZqV4+uHCvxwHx+Ss9CqNI3g3u0UbvoIoYq1HZAZimOf?=
- =?us-ascii?Q?KPBJU5ZbYd0AygZynhK5X1xo2kmu5OMgxGjrvJ/JD7L+DaZsvA97az6LeWhR?=
- =?us-ascii?Q?Lx7d4pYH43hkJpa8hS88TFnvtWg60yqlKkPTs0uHzuReTkGrIMBUwtqPEKlb?=
- =?us-ascii?Q?ofVG+tkOdSyaKnMYLt3H6yJhjqAxfZAGbPCeWbkkzvRRtXu/76W8e/tCTFUo?=
- =?us-ascii?Q?cRW9slcvjCqqzEUq8GHlAaJaEmILgP3ysbR/ikEKXNGqLad9UhXdRqAnmJqZ?=
- =?us-ascii?Q?vR5wLPQglg6V+XZ/7h1sCyX2QOxjWcxBgXhZQRx1jsOsqJlXPnqiTKFY8YlN?=
- =?us-ascii?Q?b1PNF/EVyJcdQeg8R/Mx5sGE5kAk2I30Xbf+JkhTal64npP2zizwz++IARlL?=
- =?us-ascii?Q?1NNPUDc2xRg/txD1979T1RoxbYgP85G254c34SK2yXx8oPMVtSAoUqg41hAP?=
- =?us-ascii?Q?NqVx4BV8CJ2xZo11SwKyRuaojWGlLOVGlDI1T1iLJwrL9NYRJl0m+wxRq6s+?=
- =?us-ascii?Q?fIv8yIau8ZNYpcl0IFAA7Kd0qhiB23Seq44KiSXfDuP4kdk78wZsXW3A78T+?=
- =?us-ascii?Q?+YRIiU4QxQ4kLRiue8k7EbpJeO7ucjYQXHTbWorHCjvRWAlmQoc4e03GyGB3?=
- =?us-ascii?Q?WXckJ4bXeroPsC2O3L3ZR7aZw2BBqviPOdfFYu9RCRzHXYnwjsngNTrmEon0?=
- =?us-ascii?Q?BYLeeMJmKbtRaqhdCQsGKQRuzctd3I0UcyrejnYzDhUHc6+MxgJOmLVcNgKr?=
- =?us-ascii?Q?C7rQ/ZsnxwGe1fUaNQe6Hr4+Mm2nMaSEIXX1awxpVj4f7gHrD35/id8XlDMl?=
- =?us-ascii?Q?qnMem59tKcVK5bIxLi1M32pjgfYd44r+5IgImaW16CM9PRp+HsM2OSkmr1cC?=
- =?us-ascii?Q?GAbpcKewzu8vJ41SaAmgkP57uIEDsdn1YMP3g5wBjyEKaaeME6raX1/ho8s2?=
- =?us-ascii?Q?NZz22kaks12DWuX2agFdJYDYPR6sqHg/DI7dCDdd0ThX7VoISsd1k+IYGNMc?=
- =?us-ascii?Q?kq/x0ZR1ncDgs2xibL0n5l6O54qS00hc4TGHTiMi3vLfGBMol4HyCZJKV30f?=
- =?us-ascii?Q?x7yjvvF+SWvWfhqmm6OT8UOTK8bo95DG?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2024 02:26:25.8746 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20a8e2ff-5712-4bf0-0031-08dca9f5afb2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A104.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6326
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6841.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b4e4e9f-cc62-4659-3edc-08dca9fe38be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2024 03:27:31.8337 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Yl152itFuuzeCBjcWFXv1UARiH4PYIATHIslYOhFz3I+bkys2x7xrEK5Ac6YPkx4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,37 +154,464 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-avoid kfd init crash in that case.
+--_000_PH8PR12MB68417B9F856C92BD02912A08EFA82PH8PR12MB6841namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bcacf2e35eba..730dae77570c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2471,6 +2471,7 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
-  */
- static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- {
-+	struct amdgpu_ip_block *ip_block;
- 	struct pci_dev *parent;
- 	int i, r;
- 	bool total;
-@@ -2608,7 +2609,10 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 	if (!total)
- 		return -ENODEV;
- 
--	amdgpu_amdkfd_device_probe(adev);
-+	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
-+	if (ip_block->status.valid != false)
-+		amdgpu_amdkfd_device_probe(adev);
-+
- 	adev->cg_flags &= amdgpu_cg_mask;
- 	adev->pg_flags &= amdgpu_pg_mask;
- 
--- 
-2.37.3
+>> I think we rather need to increase the MES ring size instead.
 
+Unfortunately, it doesn't work. I guess mes firmware has limitation.
+
+Regards,
+Jack
+
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Friday, 19 July 2024 23:44
+To: Xiao, Jack <Jack.Xiao@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/mes: fix mes ring buffer overflow
+
+Am 19.07.24 um 11:16 schrieb Jack Xiao:
+> wait memory room until enough before writing mes packets
+> to avoid ring buffer overflow.
+>
+> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 18 ++++++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 18 ++++++++++++++----
+>   2 files changed, 28 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index 8ce51b9236c1..68c74adf79f1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -168,7 +168,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>        const char *op_str, *misc_op_str;
+>        unsigned long flags;
+>        u64 status_gpu_addr;
+> -     u32 status_offset;
+> +     u32 seq, status_offset;
+>        u64 *status_ptr;
+>        signed long r;
+>        int ret;
+> @@ -196,6 +196,13 @@ static int mes_v11_0_submit_pkt_and_poll_completion(=
+struct amdgpu_mes *mes,
+>        if (r)
+>                goto error_unlock_free;
+>
+> +     seq =3D ++ring->fence_drv.sync_seq;
+> +     r =3D amdgpu_fence_wait_polling(ring,
+> +                                   seq - ring->fence_drv.num_fences_mask=
+,
+> +                                   timeout);
+> +     if (r < 1)
+> +             goto error_undo;
+> +
+>        api_status =3D (struct MES_API_STATUS *)((char *)pkt + api_status_=
+off);
+>        api_status->api_completion_fence_addr =3D status_gpu_addr;
+>        api_status->api_completion_fence_value =3D 1;
+> @@ -208,8 +215,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>        mes_status_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+>        mes_status_pkt.api_status.api_completion_fence_addr =3D
+>                ring->fence_drv.gpu_addr;
+> -     mes_status_pkt.api_status.api_completion_fence_value =3D
+> -             ++ring->fence_drv.sync_seq;
+> +     mes_status_pkt.api_status.api_completion_fence_value =3D seq;
+>
+>        amdgpu_ring_write_multiple(ring, &mes_status_pkt,
+>                                   sizeof(mes_status_pkt) / 4);
+> @@ -229,7 +235,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>                dev_dbg(adev->dev, "MES msg=3D%d was emitted\n",
+>                        x_pkt->header.opcode);
+>
+> -     r =3D amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq, tim=
+eout);
+> +     r =3D amdgpu_fence_wait_polling(ring, seq, timeout);
+>        if (r < 1 || !*status_ptr) {
+>
+>                if (misc_op_str)
+> @@ -252,6 +258,10 @@ static int mes_v11_0_submit_pkt_and_poll_completion(=
+struct amdgpu_mes *mes,
+>        amdgpu_device_wb_free(adev, status_offset);
+>        return 0;
+>
+> +error_undo:
+> +     dev_err(adev->dev, "MES ring buffer is full.\n");
+> +     amdgpu_ring_undo(ring);
+> +
+>   error_unlock_free:
+>        spin_unlock_irqrestore(&mes->ring_lock, flags);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index c9f74231ad59..48e01206bcc4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -154,7 +154,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>        const char *op_str, *misc_op_str;
+>        unsigned long flags;
+>        u64 status_gpu_addr;
+> -     u32 status_offset;
+> +     u32 seq, status_offset;
+>        u64 *status_ptr;
+>        signed long r;
+>        int ret;
+> @@ -182,6 +182,13 @@ static int mes_v12_0_submit_pkt_and_poll_completion(=
+struct amdgpu_mes *mes,
+>        if (r)
+>                goto error_unlock_free;
+>
+> +     seq =3D ++ring->fence_drv.sync_seq;
+> +     r =3D amdgpu_fence_wait_polling(ring,
+> +                                   seq - ring->fence_drv.num_fences_mask=
+,
+
+That's what's amdgpu_fence_emit_polling() does anyway.
+
+So this here just moves the polling a bit earlier.
+
+I think we rather need to increase the MES ring size instead.
+
+Regards,
+Christian.
+
+
+> +                                   timeout);
+> +     if (r < 1)
+> +             goto error_undo;
+> +
+>        api_status =3D (struct MES_API_STATUS *)((char *)pkt + api_status_=
+off);
+>        api_status->api_completion_fence_addr =3D status_gpu_addr;
+>        api_status->api_completion_fence_value =3D 1;
+> @@ -194,8 +201,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>        mes_status_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+>        mes_status_pkt.api_status.api_completion_fence_addr =3D
+>                ring->fence_drv.gpu_addr;
+> -     mes_status_pkt.api_status.api_completion_fence_value =3D
+> -             ++ring->fence_drv.sync_seq;
+> +     mes_status_pkt.api_status.api_completion_fence_value =3D seq;
+>
+>        amdgpu_ring_write_multiple(ring, &mes_status_pkt,
+>                                   sizeof(mes_status_pkt) / 4);
+> @@ -215,7 +221,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>                dev_dbg(adev->dev, "MES msg=3D%d was emitted\n",
+>                        x_pkt->header.opcode);
+>
+> -     r =3D amdgpu_fence_wait_polling(ring, ring->fence_drv.sync_seq, tim=
+eout);
+> +     r =3D amdgpu_fence_wait_polling(ring, seq, timeout);
+>        if (r < 1 || !*status_ptr) {
+>
+>                if (misc_op_str)
+> @@ -238,6 +244,10 @@ static int mes_v12_0_submit_pkt_and_poll_completion(=
+struct amdgpu_mes *mes,
+>        amdgpu_device_wb_free(adev, status_offset);
+>        return 0;
+>
+> +error_undo:
+> +     dev_err(adev->dev, "MES ring buffer is full.\n");
+> +     amdgpu_ring_undo(ring);
+> +
+>   error_unlock_free:
+>        spin_unlock_irqrestore(&mes->ring_lock, flags);
+>
+
+
+--_000_PH8PR12MB68417B9F856C92BD02912A08EFA82PH8PR12MB6841namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<i>&gt;&gt; I think we rather need to increase the MES ring size instead.</=
+i></div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Unfortunately, it doesn't work. I guess mes firmware has limitation.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Regards,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Jack</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Friday, 19 July 2024 23:44<br>
+<b>To:</b> Xiao, Jack &lt;Jack.Xiao@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;; Deucher, Alexander &lt;Alexander=
+.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/mes: fix mes ring buffer overflow</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 19.07.24 um 11:16 schrieb Jack Xiao:<br>
+&gt; wait memory room until enough before writing mes packets<br>
+&gt; to avoid ring buffer overflow.<br>
+&gt;<br>
+&gt; Signed-off-by: Jack Xiao &lt;Jack.Xiao@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 18 ++++++++++++++=
+----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 18 ++++++++++++++=
+----<br>
+&gt;&nbsp;&nbsp; 2 files changed, 28 insertions(+), 8 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/=
+amd/amdgpu/mes_v11_0.c<br>
+&gt; index 8ce51b9236c1..68c74adf79f1 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
+&gt; @@ -168,7 +168,7 @@ static int mes_v11_0_submit_pkt_and_poll_completio=
+n(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *op_str, *misc_op=
+_str;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long flags;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 status_gpu_addr;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; u32 status_offset;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; u32 seq, status_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 *status_ptr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; signed long r;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; @@ -196,6 +196,13 @@ static int mes_v11_0_submit_pkt_and_poll_completi=
+on(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; goto error_unlock_free;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; seq =3D ++ring-&gt;fence_drv.sync_seq;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq - ring-&gt=
+;fence_drv.num_fences_mask,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; goto error_undo;<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api_status =3D (struct MES_A=
+PI_STATUS *)((char *)pkt + api_status_off);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api_status-&gt;api_completio=
+n_fence_addr =3D status_gpu_addr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api_status-&gt;api_completio=
+n_fence_value =3D 1;<br>
+&gt; @@ -208,8 +215,7 @@ static int mes_v11_0_submit_pkt_and_poll_completio=
+n(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.header.dwsize=
+ =3D API_FRAME_SIZE_IN_DWORDS;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.api_status.ap=
+i_completion_fence_addr =3D<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ring-&gt;fence_drv.gpu_addr;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.api_status.api_completion_fen=
+ce_value =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ++ring-&gt;fence_drv.sync_seq;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.api_status.api_completion_fen=
+ce_value =3D seq;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write_multiple(r=
+ing, &amp;mes_status_pkt,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(mes_statu=
+s_pkt) / 4);<br>
+&gt; @@ -229,7 +235,7 @@ static int mes_v11_0_submit_pkt_and_poll_completio=
+n(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_dbg(adev-&gt;dev, &quot;MES msg=3D%d was emitted\n&=
+quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x_pkt-&=
+gt;header.opcode);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring, ring-&=
+gt;fence_drv.sync_seq, timeout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring, seq, t=
+imeout);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1 || !*status_ptr=
+) {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (misc_op_str)<br>
+&gt; @@ -252,6 +258,10 @@ static int mes_v11_0_submit_pkt_and_poll_completi=
+on(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_wb_free(adev, =
+status_offset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +error_undo:<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;MES ring buffer =
+is full.\n&quot;);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_undo(ring);<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; error_unlock_free:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock_irqrestore(&amp;=
+mes-&gt;ring_lock, flags);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/=
+amd/amdgpu/mes_v12_0.c<br>
+&gt; index c9f74231ad59..48e01206bcc4 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
+&gt; @@ -154,7 +154,7 @@ static int mes_v12_0_submit_pkt_and_poll_completio=
+n(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *op_str, *misc_op=
+_str;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long flags;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 status_gpu_addr;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; u32 status_offset;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; u32 seq, status_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 *status_ptr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; signed long r;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; @@ -182,6 +182,13 @@ static int mes_v12_0_submit_pkt_and_poll_completi=
+on(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; goto error_unlock_free;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; seq =3D ++ring-&gt;fence_drv.sync_seq;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq - ring-&gt=
+;fence_drv.num_fences_mask,<br>
+<br>
+That's what's amdgpu_fence_emit_polling() does anyway.<br>
+<br>
+So this here just moves the polling a bit earlier.<br>
+<br>
+I think we rather need to increase the MES ring size instead.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timeout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; goto error_undo;<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api_status =3D (struct MES_A=
+PI_STATUS *)((char *)pkt + api_status_off);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api_status-&gt;api_completio=
+n_fence_addr =3D status_gpu_addr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api_status-&gt;api_completio=
+n_fence_value =3D 1;<br>
+&gt; @@ -194,8 +201,7 @@ static int mes_v12_0_submit_pkt_and_poll_completio=
+n(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.header.dwsize=
+ =3D API_FRAME_SIZE_IN_DWORDS;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.api_status.ap=
+i_completion_fence_addr =3D<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ring-&gt;fence_drv.gpu_addr;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.api_status.api_completion_fen=
+ce_value =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ++ring-&gt;fence_drv.sync_seq;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; mes_status_pkt.api_status.api_completion_fen=
+ce_value =3D seq;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write_multiple(r=
+ing, &amp;mes_status_pkt,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(mes_statu=
+s_pkt) / 4);<br>
+&gt; @@ -215,7 +221,7 @@ static int mes_v12_0_submit_pkt_and_poll_completio=
+n(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_dbg(adev-&gt;dev, &quot;MES msg=3D%d was emitted\n&=
+quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x_pkt-&=
+gt;header.opcode);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring, ring-&=
+gt;fence_drv.sync_seq, timeout);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_fence_wait_polling(ring, seq, t=
+imeout);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt; 1 || !*status_ptr=
+) {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (misc_op_str)<br>
+&gt; @@ -238,6 +244,10 @@ static int mes_v12_0_submit_pkt_and_poll_completi=
+on(struct amdgpu_mes *mes,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_wb_free(adev, =
+status_offset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +error_undo:<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;MES ring buffer =
+is full.\n&quot;);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_undo(ring);<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; error_unlock_free:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock_irqrestore(&amp;=
+mes-&gt;ring_lock, flags);<br>
+&gt;&nbsp;&nbsp; <br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_PH8PR12MB68417B9F856C92BD02912A08EFA82PH8PR12MB6841namp_--
