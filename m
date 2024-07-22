@@ -4,71 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14C2C3DA5D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 08:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6567C3DA59
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 08:43:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E16C910E434;
-	Mon, 22 Jul 2024 08:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B4E510E446;
+	Mon, 22 Jul 2024 08:43:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uv5+Vef3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zbu9VCjB";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3149910E434;
- Mon, 22 Jul 2024 08:38:22 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4257d5fc9b7so33725265e9.2; 
- Mon, 22 Jul 2024 01:38:22 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCC710E443;
+ Mon, 22 Jul 2024 08:43:22 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4267300145eso33759305e9.3; 
+ Mon, 22 Jul 2024 01:43:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721637500; x=1722242300; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=AyBTSemb5IYkzvLcK9KdCyhWY72hYiLvZer+OzCstPA=;
- b=Uv5+Vef3y1RtqFvG/0z/E9j8KUmOFnY0KvBmTAjjYkeG9IZmBDKO6CWv6j/Falqik/
- iNoIMhNFzdLPGt0CraiJYRAYHLJRkV0P3a2PEFXTookkyRUzeRukVHXSSOCIWYmy+yR9
- NDX0AZMzX94SMoT6IvJV+03NnOMyy0qQD7ax/K9oAhDiitAS0xm9RZNcUvbXGHx+0Dyz
- VGTE/bpCmzvUdvUt9pP/xvZ+zKySBHUxnZUII04FffA+/lXUVX5tZxiHZm8MEW6uRbXy
- c9Q3HE2grQpF+FI/EE38EL1fnGk9eUbFp/gLUyzmfqGxX15jifPaWv1y6/1NHZbMUYMh
- tmcg==
+ d=gmail.com; s=20230601; t=1721637800; x=1722242600; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=g+PBfNzfyUUsqlo6xuJq2KzuHaAI09zpwcW3cyT8Tfo=;
+ b=Zbu9VCjBFV+kuIqjrHGX9U2GC8fxPk8Rhc0qDPxDB5ZGTPb2slZZGeT96lHKr5Fw2N
+ KV+rx0a1nff9jOrRReZIQ3O4U2yYCfB5K9bIrxgSFEnCbe3hHImVcyuYVrxEK+QGkomp
+ zYwo7rlRkKPqXBUZLyiyGZ4u4vfZkmdg8TQ12xHLqieSNDcrG9eQXbLmQYe+x5AVV1WD
+ Bz3/0QtrIxesVLLN9sc3KX0e0MEGb9Qbri7x51EWEAP8iMKh/YzyJzxSlyaF9z5mGTkd
+ LJCQJNrcY20azQ2LNmS+PTy3vXtf+ZXa87exHlLNiD44Ff+XrsbNuR0p8HF50X2XkA5n
+ fqKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721637500; x=1722242300;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=AyBTSemb5IYkzvLcK9KdCyhWY72hYiLvZer+OzCstPA=;
- b=pSV22CVUc2hcHmn3LcefX079QiG6ZOlYSRUhaHI/xqg6L8Cna0GiSxHPfomYEvicNt
- 33ObvwvgKX0grpxkvGRJ+046DQe72/F1xAXChpqhGLg0DSDThY/6JzRDT+ivaqYJmI4D
- 6klgYKbXw8tpWeSx+nDBgUu+9qLX7kcr29Mn5+PDPBd2gAuvFWwVjHMgLzwN0JzdASbf
- PGbutSInFdnFQ1K1qYC8stO6hm5Wr87YzYjUHw62yJA85MdL03F1seabEY9APSO2kzOH
- wAdl4XUonXMNHNYFczvBoon1CbmLfOQ5hHHrRnqj+pBDlzy7041uxXL/3brTwmGOPhh5
- c5LA==
+ d=1e100.net; s=20230601; t=1721637800; x=1722242600;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=g+PBfNzfyUUsqlo6xuJq2KzuHaAI09zpwcW3cyT8Tfo=;
+ b=IT1F3AfhCDum7CJnfO9DA1MF27iJ5hEqWl74OggMM8ZkIjmbMQM0DHUVqJD+Wvnb+J
+ 6L5dBOT9MdkC5QKToFdR+1aL5IwHV/Y7VohX7rb3dx6muf183nvUL8EP6C5ZFpDcvR2G
+ Mjpfz+gbMVQk1iqhlHUfTnb01F9f6qPcO3Uif4dTHxnwFkWJJ27lNFMldxUNaYonSivu
+ 4j5eIwyXB1t4i8nug/KwN0XIwaqg+g0X8r//1IUf+VHntySy4Ok3D2qnSTxwcZsk6H3q
+ rzXmG174yx0SzFLtjYIhbuorMKLwrfyfScPax8f16g9UL0btu9MFHvEXU5HR5WjdkmL6
+ eCyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOJLz3avqxupMQJIBNYPIIwBygLannUbZ4qyLXMQ4XIseyXumdnY++LxNsf48ihDiJ/KhXnb0uZ6TA9040K1fw7PY3i1t1TJwOWfm4tGWa9KGMEdvyFYPLk4Vk3JbkcNP+oonoAEvagpaoaTcRuA==
-X-Gm-Message-State: AOJu0Yy4NTD87HTtB2Ls6fd9mwx1ii59K4yeJt/LlMFP/RoARvP3Sk8n
- bLtCS8bWM7Cgy3aLUZEULrnvDGdDNzWZSmrfxjXnyrvGqpl5v+Re
-X-Google-Smtp-Source: AGHT+IEcKiLdVlbyDswPhj6O9TLjt6DHQrRpAjrygNdU9aIkL/LKb9cXJUKUpLzHkBsG/w0xV554Uw==
-X-Received: by 2002:a05:6000:2aa:b0:367:4d9d:56a1 with SMTP id
- ffacd0b85a97d-369bb2b3e3fmr5969426f8f.45.1721637499734; 
- Mon, 22 Jul 2024 01:38:19 -0700 (PDT)
-Received: from EliteBook.amd.com (munvpn.amd.com. [165.204.72.6])
+ AJvYcCV5E5KER4RH/QPyqdEB0o+QkzkDy9YbQRnPYfUOYqkXImkpIQiNs5EoQ5HHGOBL8HDOhl5H7qOJ0xft3PGOfuLaXM3s/rhD7gRxjNAfcv+/sgPXI0mWprYLR+SwCskq8uDJ1z+OM2Uq5c9N6Mp1/w==
+X-Gm-Message-State: AOJu0YyyHOe1mfPMBx6DvuBSmP4dH+7BGGgufQ0KbEf8XwbiUv/2p8lV
+ www0+8ajK8hzIgdTojNd44afCpOh3rZzqmBii+ts3PmUblkv/eDY
+X-Google-Smtp-Source: AGHT+IG9TWmyekMunn7arqTs6wK7XiKa21iN8IJ94PIvH6V44kpdRLR4KO7UF6usEPYmOfmXAPPE0Q==
+X-Received: by 2002:a05:600c:1d92:b0:426:5e1c:1ac2 with SMTP id
+ 5b1f17b1804b1-427dcf67fe1mr52890585e9.8.1721637800042; 
+ Mon, 22 Jul 2024 01:43:20 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-368788117d5sm7839933f8f.115.2024.07.22.01.38.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jul 2024 01:38:19 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: daniel@ffwll.ch,
-	ltuikov89@gmail.com
-Cc: Felix.Kuehling@amd.com, tursulin@igalia.com, matthew.brost@intel.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH] drm/scheduler: remove full_recover from drm_sched_start
-Date: Mon, 22 Jul 2024 10:38:16 +0200
-Message-Id: <20240722083816.99685-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
+ ffacd0b85a97d-36878695165sm7857306f8f.62.2024.07.22.01.43.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jul 2024 01:43:19 -0700 (PDT)
+Message-ID: <1266c4af-a000-48c0-bd0d-79c2e918aea9@gmail.com>
+Date: Mon, 22 Jul 2024 10:43:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: 6.10/bisected/regression - Since commit e356d321d024 in the
+ kernel log appears the message "MES failed to respond to msg=MISC
+ (WAIT_REG_MEM)" which were never seen before
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>, mukul.joshi@amd.com,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ Linux regressions mailing list <regressions@lists.linux.dev>
+References: <CABXGCsMmtqzBfUykT-JgyhZn-7ZXtftHL35znDdYuTnUOpGnoQ@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CABXGCsMmtqzBfUykT-JgyhZn-7ZXtftHL35znDdYuTnUOpGnoQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,249 +90,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This was basically just another one of amdgpus hacks. The parameter
-allowed to restart the scheduler without turning fence signaling on
-again.
+That's a known issue and we are already working on it.
 
-That this is absolutely not a good idea should be obvious by now since
-the fences will then just sit there and never signal.
+Regards,
+Christian.
 
-While at it cleanup the code a bit.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 +--
- drivers/gpu/drm/etnaviv/etnaviv_sched.c       |  4 +--
- drivers/gpu/drm/imagination/pvr_queue.c       |  4 +--
- drivers/gpu/drm/lima/lima_sched.c             |  2 +-
- drivers/gpu/drm/nouveau/nouveau_sched.c       |  2 +-
- drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
- drivers/gpu/drm/panthor/panthor_mmu.c         |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
- drivers/gpu/drm/scheduler/sched_main.c        | 25 ++++++-------------
- drivers/gpu/drm/v3d/v3d_sched.c               |  2 +-
- include/drm/gpu_scheduler.h                   |  2 +-
- 12 files changed, 22 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 3a3f3ce09f00..2320df51c914 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -300,7 +300,7 @@ static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool sus
- 			if (r)
- 				goto out;
- 		} else {
--			drm_sched_start(&ring->sched, false);
-+			drm_sched_start(&ring->sched);
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 861ccff78af9..c186fdb198ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5862,7 +5862,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			if (!amdgpu_ring_sched_ready(ring))
- 				continue;
- 
--			drm_sched_start(&ring->sched, true);
-+			drm_sched_start(&ring->sched);
- 		}
- 
- 		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
-@@ -6360,7 +6360,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
- 		if (!amdgpu_ring_sched_ready(ring))
- 			continue;
- 
--		drm_sched_start(&ring->sched, true);
-+		drm_sched_start(&ring->sched);
- 	}
- 
- 	amdgpu_device_unset_mp1_state(adev);
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-index c4b04b0dee16..c53641aa146f 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-@@ -72,12 +72,12 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
- 
- 	drm_sched_resubmit_jobs(&gpu->sched);
- 
--	drm_sched_start(&gpu->sched, true);
-+	drm_sched_start(&gpu->sched);
- 	return DRM_GPU_SCHED_STAT_NOMINAL;
- 
- out_no_timeout:
- 	/* restart scheduler after GPU is usable again */
--	drm_sched_start(&gpu->sched, true);
-+	drm_sched_start(&gpu->sched);
- 	return DRM_GPU_SCHED_STAT_NOMINAL;
- }
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 5ed9c98fb599..20cb46012082 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -782,7 +782,7 @@ static void pvr_queue_start(struct pvr_queue *queue)
- 		}
- 	}
- 
--	drm_sched_start(&queue->scheduler, true);
-+	drm_sched_start(&queue->scheduler);
- }
- 
- /**
-@@ -842,7 +842,7 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
- 	}
- 	mutex_unlock(&pvr_dev->queues.lock);
- 
--	drm_sched_start(sched, true);
-+	drm_sched_start(sched);
- 
- 	return DRM_GPU_SCHED_STAT_NOMINAL;
- }
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index bbf3f8feab94..1a944edb6ddc 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -463,7 +463,7 @@ static enum drm_gpu_sched_stat lima_sched_timedout_job(struct drm_sched_job *job
- 	lima_pm_idle(ldev);
- 
- 	drm_sched_resubmit_jobs(&pipe->base);
--	drm_sched_start(&pipe->base, true);
-+	drm_sched_start(&pipe->base);
- 
- 	return DRM_GPU_SCHED_STAT_NOMINAL;
- }
-diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
-index ba4139288a6d..eb6c3f9a01f5 100644
---- a/drivers/gpu/drm/nouveau/nouveau_sched.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
-@@ -379,7 +379,7 @@ nouveau_sched_timedout_job(struct drm_sched_job *sched_job)
- 	else
- 		NV_PRINTK(warn, job->cli, "Generic job timeout.\n");
- 
--	drm_sched_start(sched, true);
-+	drm_sched_start(sched);
- 
- 	return stat;
- }
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index a61ef0af9a4e..df49d37d0e7e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -727,7 +727,7 @@ panfrost_reset(struct panfrost_device *pfdev,
- 
- 	/* Restart the schedulers */
- 	for (i = 0; i < NUM_JOB_SLOTS; i++)
--		drm_sched_start(&pfdev->js->queue[i].sched, true);
-+		drm_sched_start(&pfdev->js->queue[i].sched);
- 
- 	/* Re-enable job interrupts now that everything has been restarted. */
- 	job_write(pfdev, JOB_INT_MASK,
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index fa0a002b1016..d47972806d50 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -827,7 +827,7 @@ static void panthor_vm_stop(struct panthor_vm *vm)
- 
- static void panthor_vm_start(struct panthor_vm *vm)
- {
--	drm_sched_start(&vm->sched, true);
-+	drm_sched_start(&vm->sched);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 42929e147107..2e1becd87e3a 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -2525,7 +2525,7 @@ static void queue_start(struct panthor_queue *queue)
- 	list_for_each_entry(job, &queue->scheduler.pending_list, base.list)
- 		job->base.s_fence->parent = dma_fence_get(job->done_fence);
- 
--	drm_sched_start(&queue->scheduler, true);
-+	drm_sched_start(&queue->scheduler);
- }
- 
- static void panthor_group_stop(struct panthor_group *group)
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 7e90c9f95611..ab53ab486fe6 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -674,13 +674,11 @@ EXPORT_SYMBOL(drm_sched_stop);
-  * drm_sched_start - recover jobs after a reset
-  *
-  * @sched: scheduler instance
-- * @full_recovery: proceed with complete sched restart
-  *
-  */
--void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
-+void drm_sched_start(struct drm_gpu_scheduler *sched)
- {
- 	struct drm_sched_job *s_job, *tmp;
--	int r;
- 
- 	/*
- 	 * Locking the list is not required here as the sched thread is parked
-@@ -692,24 +690,17 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
- 
- 		atomic_add(s_job->credits, &sched->credit_count);
- 
--		if (!full_recovery)
-+		if (!fence) {
-+			drm_sched_job_done(s_job, -ECANCELED);
- 			continue;
-+		}
- 
--		if (fence) {
--			r = dma_fence_add_callback(fence, &s_job->cb,
--						   drm_sched_job_done_cb);
--			if (r == -ENOENT)
--				drm_sched_job_done(s_job, fence->error);
--			else if (r)
--				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
--					  r);
--		} else
--			drm_sched_job_done(s_job, -ECANCELED);
-+		if (dma_fence_add_callback(fence, &s_job->cb,
-+					   drm_sched_job_done_cb))
-+			drm_sched_job_done(s_job, fence->error);
- 	}
- 
--	if (full_recovery)
--		drm_sched_start_timeout_unlocked(sched);
--
-+	drm_sched_start_timeout_unlocked(sched);
- 	drm_sched_wqueue_start(sched);
- }
- EXPORT_SYMBOL(drm_sched_start);
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index d193072703f3..42d4f4a2dba2 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -653,7 +653,7 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job *sched_job)
- 
- 	/* Unblock schedulers and restart their jobs. */
- 	for (q = 0; q < V3D_MAX_QUEUES; q++) {
--		drm_sched_start(&v3d->queue[q].sched, true);
-+		drm_sched_start(&v3d->queue[q].sched);
- 	}
- 
- 	mutex_unlock(&v3d->reset_lock);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 5acc64954a88..fe8edb917360 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -579,7 +579,7 @@ bool drm_sched_wqueue_ready(struct drm_gpu_scheduler *sched);
- void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched);
- void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
- void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
--void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery);
-+void drm_sched_start(struct drm_gpu_scheduler *sched);
- void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
- void drm_sched_increase_karma(struct drm_sched_job *bad);
- void drm_sched_reset_karma(struct drm_sched_job *bad);
--- 
-2.34.1
+Am 20.07.24 um 19:08 schrieb Mikhail Gavrilov:
+> Hi,
+> I spotted "MES failed to respond to msg=MISC (WAIT_REG_MEM)" messages
+> in my kernel log since 6.10-rc5.
+> After this message, usually follow "[drm:amdgpu_mes_reg_write_reg_wait
+> [amdgpu]] *ERROR* failed to reg_write_reg_wait".
+>
+> [ 8972.590502] input: Noble FoKus Mystique (AVRCP) as
+> /devices/virtual/input/input21
+> [ 9964.748433] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748433] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748434] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9964.748493] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748494] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748493] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748493] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748476] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748478] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748479] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748477] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748477] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748477] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748478] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748477] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748477] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748478] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748661] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9964.748770] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9977.224893] Bluetooth: hci0: ACL packet for unknown connection handle 3837
+> [ 9980.347061] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.347077] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349857] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349857] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349857] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349859] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349858] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349859] amdgpu 0000:03:00.0: amdgpu: MES failed to respond to
+> msg=MISC (WAIT_REG_MEM)
+> [ 9980.349870] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349868] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349870] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349890] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349866] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349865] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349865] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349866] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349866] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349867] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349867] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349869] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349871] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349871] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [ 9980.349871] [drm:amdgpu_mes_reg_write_reg_wait [amdgpu]] *ERROR*
+> failed to reg_write_reg_wait
+> [10037.250083] Bluetooth: hci0: ACL packet for unknown connection handle 3837
+> [12054.238867] workqueue: gc_worker [nf_conntrack] hogged CPU for
+>> 10000us 1027 times, consider switching to WQ_UNBOUND
+> [12851.087896] fossilize_repla (45968) used greatest stack depth:
+> 17440 bytes left
+>
+> Unfortunately, it is not easily reproducible.
+> Usually it appears when I play several hours in the game "STAR WARS
+> Jedi: Survivor".
+> So it is why I bisected it so long.
+>
+> git bisect start
+> # status: waiting for both good and bad commits
+> # bad: [f2661062f16b2de5d7b6a5c42a9a5c96326b8454] Linux 6.10-rc5
+> git bisect bad f2661062f16b2de5d7b6a5c42a9a5c96326b8454
+> # good: [50736169ecc8387247fe6a00932852ce7b057083] Merge tag
+> 'for-6.10-rc4-tag' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux
+> git bisect good 50736169ecc8387247fe6a00932852ce7b057083
+> # bad: [d4ba3313e84dfcdeb92a13434a2d02aad5e973e1] Merge tag
+> 'loongarch-fixes-6.10-2' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson
+> git bisect bad d4ba3313e84dfcdeb92a13434a2d02aad5e973e1
+> # good: [264efe488fd82cf3145a3dc625f394c61db99934] Merge tag
+> 'ovl-fixes-6.10-rc5' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/overlayfs/vfs
+> git bisect good 264efe488fd82cf3145a3dc625f394c61db99934
+> # bad: [35bb670d65fc0f80c62383ab4f2544cec85ac57a] Merge tag
+> 'scsi-fixes' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi
+> git bisect bad 35bb670d65fc0f80c62383ab4f2544cec85ac57a
+> # good: [f0d576f840153392d04b2d52cf3adab8f62e8cb6] drm/amdgpu: fix
+> UBSAN warning in kv_dpm.c
+> git bisect good f0d576f840153392d04b2d52cf3adab8f62e8cb6
+> # bad: [07e06189c5ea7ffe897d12b546c918380d3bffb1] Merge tag
+> 'amd-drm-fixes-6.10-2024-06-19' of
+> https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+> git bisect bad 07e06189c5ea7ffe897d12b546c918380d3bffb1
+> # bad: [ed5a4484f074aa2bfb1dad99ff3628ea8da4acdc] drm/amdgpu: init TA
+> fw for psp v14
+> git bisect bad ed5a4484f074aa2bfb1dad99ff3628ea8da4acdc
+> # bad: [e356d321d0240663a09b139fa3658ddbca163e27] drm/amdgpu: cleanup
+> MES11 command submission
+> git bisect bad e356d321d0240663a09b139fa3658ddbca163e27
+> # first bad commit: [e356d321d0240663a09b139fa3658ddbca163e27]
+> drm/amdgpu: cleanup MES11 command submission
+>
+> Author: Christian König <christian.koenig@amd.com>
+> Date:   Fri May 31 10:56:00 2024 +0200
+>
+>      drm/amdgpu: cleanup MES11 command submission
+>
+>      The approach of having a separate WB slot for each submission doesn't
+>      really work well and for example breaks GPU reset.
+>
+>      Use a status query packet for the fence update instead since those
+>      should always succeed we can use the fence of the original packet to
+>      signal the state of the operation.
+>
+>      While at it cleanup the coding style.
+>
+>      Fixes: eef016ba8986 ("drm/amdgpu/mes11: Use a separate fence per
+> transaction")
+>      Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+>      Signed-off-by: Christian König <christian.koenig@amd.com>
+>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> And I can confirm after reverting e356d321d024 I played the whole day,
+> and the "MES failed to respond" error message does not appear anymore.
+>
+> My hardware specs are: https://linux-hardware.org/?probe=78d8c680db
+>
+> Christian, can you look into it, please?
+>
 
