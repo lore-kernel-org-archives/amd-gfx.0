@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F8FBC3DA59
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 13:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96390C3DA5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 13:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F36E58920D;
-	Mon, 22 Jul 2024 13:46:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 201C010E514;
+	Mon, 22 Jul 2024 13:49:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FZ+b9Nsh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PpZ530k0";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E18D58920D
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 13:46:23 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4266edee10cso28660265e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 06:46:23 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A4810E514
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 13:49:14 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-42660b8dd27so30410585e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 06:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721655982; x=1722260782; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721656153; x=1722260953; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WWpQnC9TrFIYO0AUZ5AeJUSclLtAfX3dEtLCBmuvxyo=;
- b=FZ+b9NshzZsnyS2L2bSOxZhG/8qRlK1BItshUrqVgdDvXmjfEk6fYK3pWI6kNXvp4q
- DazkbA1Qnd8YPjiG4vyqwtum49ecwUcsPUJekCA5zuiPcJ3jmFlKrPo/zkobrWkLTbjQ
- d0xHUlzcrAUClZ1KOyW6/oDFDew/boeuJinUhmsbvKg2/lnJ1Iq8UuYj2A6YD9U/N7am
- DVW/WYmLvo3jQyK+xCm6hgir+CDgK0e9ysko1f8gMZB2OhTVngGIliRD3OINoXTsxdvn
- FOY1qsg0z6cmiZHwB8Sx80beSoAzRS/v82LTyIlMqtyuzvWJoSSth0I9jdBQVru/0SAR
- 3F8g==
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YuZaZxN8SxE3LQxjHYwuMTCAwhSvkabnxWypPbDS+9Q=;
+ b=PpZ530k0PaWt9XrzG50jtHvd0DysqQ49UClyiwRVqMsvGvtRp1+TSPg4lDZumlMyIk
+ IN8Osu0JlIysxHmv0sF4ylgQWCIqFR5zX65fLNV5NQaWWmrSfZL0NdUROQEwSA+R1xIP
+ W8OKrt7WlmhQ8IoYvxjKpQxIfLx0uSAG/OH9LU0yILSB2xSxf2T9P+O4ruy6Qh6XjNCB
+ rocjEh0RbIr9IuTkUd/Qww9PjROu43Pb75E/GUWGkGSdiyletx4r21fBmzw1rgfj+e6M
+ Kk+5qWx8Sxw2sj0ZjdQKJ6ECdf/3RK4bQoqCZYGrUFLasibmT/cKTq/NigmOcDw50TER
+ UUKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721655982; x=1722260782;
+ d=1e100.net; s=20230601; t=1721656153; x=1722260953;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WWpQnC9TrFIYO0AUZ5AeJUSclLtAfX3dEtLCBmuvxyo=;
- b=aQQIMJYDqlbCrQOu/l8wekhudPHe88uGg12exQE+SJffvtVUJpWdNG4/+VtCOz92sm
- /DqLi79KiUW7RHFqy3a3+5eY8LJoCy4nVE5NS5tmsnndoJEVdytbEVa/g06sSsSs3y6F
- XZ7FmMZKR2otkf9criXe2VlEyMbxeZjQJQTaUwXhZNWwGq/+Q7/c/7M3uwHjeXJBhKKs
- zQgI1dv7MWE/gfBhjkyjkM+NgIoUJN+rSPb4VeGpnQCbA85r12g81i1gU6s3nBoo/hVY
- sDSIYfF6SIAm9HluKG71FfELgBj7eJpc2QILvL1w+O+HdnuErDL4VOAbSms/fewKIIvF
- rrPA==
+ bh=YuZaZxN8SxE3LQxjHYwuMTCAwhSvkabnxWypPbDS+9Q=;
+ b=UY48A+kOvKHsKaK1b5cRuR/03woQDKsZ8l8BjnTShfudS9nhduIjxZkRVeJxsPiVpZ
+ IST3LjoYPYsd9GhqHf6nquY5W1o6l3XSvCILS7B5jdrAx5W4hi6dOHtXOGTO2EPDp0lU
+ kmtkiRdEkUztHECXmZ+zM6a8v2AjF5OtfkZijhNhSKOCDr31thZZpA/J1ATRP5gF7CKv
+ onPBW2a9gBYnSwvyqYthbiLXEXGtf8IFGoKH5V5T/8Nhs26DldPRy9xPoBlvJGxOE2s1
+ 53JlQ3TZONa3dra/n1hGUz/7NGGlW4oMyDD8cT/TII3sqS4QLXaJM0mXiGnEw3Zd88zu
+ VekQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXA3CXf2iOS0+bYsmAW2OoPsUtzVrWtaXrGgHVdDZbGTyII/xGKi8jrGxn2RHfsK/VbeZlYrJ0HOPGGEyuNUJGLIr82WRwsERpm6oFyCQ==
-X-Gm-Message-State: AOJu0YwZ1KHKCHP1IBFAEUJcqdjJ5O6l9zz1JrUKzB0Wc5Drdr105IE1
- SWv6M/4tkMwv9Xf6doT1Bijcy2HepebCIBtxmIcx5f+UcauNkYSg
-X-Google-Smtp-Source: AGHT+IHKb1iGkf6B6r13CPYzcRkd0keB/T/8xGbSreIyp1inY9ZpYpuE4fufxx1O0182lvBx9Rye2A==
-X-Received: by 2002:a05:600c:1914:b0:426:629f:154e with SMTP id
- 5b1f17b1804b1-427daa60cf1mr44558465e9.30.1721655981685; 
- Mon, 22 Jul 2024 06:46:21 -0700 (PDT)
+ AJvYcCUTFsDOVg82zaLbUJAmr6r7+K5CERdYZGHZIQkJhtqFfXErCR7W4pe29Hd4YKIcDuqu+4vIrEsWAIocEKfuTjTI6GjGwDLSzhU1pI+HiA==
+X-Gm-Message-State: AOJu0YwsPuXDat8cjD7etWh+WDwmttAedgmU+bI00MJwljL4p9mS+lAd
+ 3AnTxg0hrGp4ec4JvUcW4ShZPUWkNerIfASDXY0TAYH0Emu8Zxdl
+X-Google-Smtp-Source: AGHT+IGTdzOhupo+IXCTZd0Jnb7ufoSaLtqz8MjwMakSIlHtrpy1vgtqpliRjdKY9XrLIy3TfH6WvQ==
+X-Received: by 2002:a05:600c:3ba3:b0:426:5de3:2ae5 with SMTP id
+ 5b1f17b1804b1-427dc520291mr53495385e9.10.1721656152200; 
+ Mon, 22 Jul 2024 06:49:12 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3687868b7cesm8587029f8f.37.2024.07.22.06.46.20
+ 5b1f17b1804b1-427d68fa171sm130498285e9.1.2024.07.22.06.49.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 06:46:21 -0700 (PDT)
-Message-ID: <704734b0-f96a-432e-aa31-df296837ae31@gmail.com>
-Date: Mon, 22 Jul 2024 15:46:20 +0200
+ Mon, 22 Jul 2024 06:49:11 -0700 (PDT)
+Message-ID: <e3c11386-ddf6-47ab-8416-39694936db3f@gmail.com>
+Date: Mon, 22 Jul 2024 15:49:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/amdgpu/gfx10: properly handle error ints on all
- pipes
+Subject: Re: [PATCH 2/6] drm/amdgpu/gfx11: Enable bad opcode interrupt
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240717203847.14600-1-alexander.deucher@amd.com>
+Cc: Jesse Zhang <jesse.zhang@amd.com>, Prike Liang <Prike.Liang@amd.com>
+References: <20240717204011.15342-1-alexander.deucher@amd.com>
+ <20240717204011.15342-2-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240717203847.14600-1-alexander.deucher@amd.com>
+In-Reply-To: <20240717204011.15342-2-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,132 +84,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.07.24 um 22:38 schrieb Alex Deucher:
-> Need to handle the interrupt enables for all pipes.
+Am 17.07.24 um 22:40 schrieb Alex Deucher:
+> From: Jesse Zhang <jesse.zhang@amd.com>
 >
-> v2: fix indexing (Jessie)
+> For the bad opcode case, it will cause CP/ME hang.
+> The firmware will prevent the ME side from hanging by raising a bad opcode interrupt.
+> And the driver needs to perform a vmid reset when receiving the interrupt.
 >
+> v2: update irq naming (drop priv) (Alex)
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Reviewed-by: Prike Liang <Prike.Liang@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Acked-by: Christian König <christian.koenig@amd.com> for the whole series.
-
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 130 +++++++++++++++++++++----
->   1 file changed, 109 insertions(+), 21 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 73 ++++++++++++++++++++++++++
+>   1 file changed, 73 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index c4002db6e569..66d80f3dc661 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -5212,26 +5212,74 @@ static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 02efa475eb7e..ce5cb60b8628 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1569,6 +1569,13 @@ static int gfx_v11_0_sw_init(void *handle)
+>   	if (r)
+>   		return r;
 >   
+> +	/* Bad opcode Event */
+> +	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_GRBM_CP,
+> +			      GFX_11_0_0__SRCID__CP_BAD_OPCODE_ERROR,
+> +			      &adev->gfx.bad_op_irq);
+> +	if (r)
+> +		return r;
+> +
+>   	/* Privileged reg */
+>   	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_GRBM_CP,
+>   			      GFX_11_0_0__SRCID__CP_PRIV_REG_FAULT,
+> @@ -4646,6 +4653,7 @@ static int gfx_v11_0_hw_fini(void *handle)
+>   
+>   	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+>   	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+> +	amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
+>   
+>   	if (!adev->no_hw_access) {
+>   		if (amdgpu_async_gfx_ring) {
+> @@ -5002,6 +5010,9 @@ static int gfx_v11_0_late_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> +	r = amdgpu_irq_get(adev, &adev->gfx.bad_op_irq, 0);
+> +	if (r)
+> +		return r;
+>   	return 0;
 >   }
 >   
-> +static u32 gfx_v10_0_get_cpg_int_cntl(struct amdgpu_device *adev,
-> +				      int me, int pipe)
-> +{
-> +	if (me != 0)
-> +		return 0;
-> +
-> +	switch (pipe) {
-> +	case 0:
-> +		return SOC15_REG_OFFSET(GC, 0, mmCP_INT_CNTL_RING0);
-> +	case 1:
-> +		return SOC15_REG_OFFSET(GC, 0, mmCP_INT_CNTL_RING1);
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +static u32 gfx_v10_0_get_cpc_int_cntl(struct amdgpu_device *adev,
-> +				      int me, int pipe)
-> +{
-> +	/*
-> +	 * amdgpu controls only the first MEC. That's why this function only
-> +	 * handles the setting of interrupts for this specific MEC. All other
-> +	 * pipes' interrupts are set by amdkfd.
-> +	 */
-> +	if (me != 1)
-> +		return 0;
-> +
-> +	switch (pipe) {
-> +	case 0:
-> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE0_INT_CNTL);
-> +	case 1:
-> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE1_INT_CNTL);
-> +	case 2:
-> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE2_INT_CNTL);
-> +	case 3:
-> +		return SOC15_REG_OFFSET(GC, 0, mmCP_ME1_PIPE3_INT_CNTL);
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
->   static void gfx_v10_0_enable_gui_idle_interrupt(struct amdgpu_device *adev,
->   					       bool enable)
->   {
-> -	u32 tmp;
-> +	u32 tmp, cp_int_cntl_reg;
-> +	int i, j;
->   
->   	if (amdgpu_sriov_vf(adev))
->   		return;
->   
-> -	tmp = RREG32_SOC15(GC, 0, mmCP_INT_CNTL_RING0);
-> -
-> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_BUSY_INT_ENABLE,
-> -			    enable ? 1 : 0);
-> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_EMPTY_INT_ENABLE,
-> -			    enable ? 1 : 0);
-> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CMP_BUSY_INT_ENABLE,
-> -			    enable ? 1 : 0);
-> -	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, GFX_IDLE_INT_ENABLE,
-> -			    enable ? 1 : 0);
-> -
-> -	WREG32_SOC15(GC, 0, mmCP_INT_CNTL_RING0, tmp);
-> +	for (i = 0; i < adev->gfx.me.num_me; i++) {
-> +		for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
-> +			cp_int_cntl_reg = gfx_v10_0_get_cpg_int_cntl(adev, i, j);
-> +
-> +			if (cp_int_cntl_reg) {
-> +				tmp = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
-> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_BUSY_INT_ENABLE,
-> +						    enable ? 1 : 0);
-> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_EMPTY_INT_ENABLE,
-> +						    enable ? 1 : 0);
-> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CMP_BUSY_INT_ENABLE,
-> +						    enable ? 1 : 0);
-> +				tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, GFX_IDLE_INT_ENABLE,
-> +						    enable ? 1 : 0);
-> +				WREG32_SOC15_IP(GC, cp_int_cntl_reg, tmp);
-> +			}
-> +		}
-> +	}
+> @@ -6293,6 +6304,51 @@ static int gfx_v11_0_set_priv_reg_fault_state(struct amdgpu_device *adev,
+>   	return 0;
 >   }
 >   
->   static int gfx_v10_0_init_csb(struct amdgpu_device *adev)
-> @@ -9073,12 +9121,39 @@ static int gfx_v10_0_set_priv_reg_fault_state(struct amdgpu_device *adev,
->   					      unsigned int type,
->   					      enum amdgpu_interrupt_state state)
->   {
+> +static int gfx_v11_0_set_bad_op_fault_state(struct amdgpu_device *adev,
+> +					    struct amdgpu_irq_src *source,
+> +					    unsigned type,
+> +					    enum amdgpu_interrupt_state state)
+> +{
 > +	u32 cp_int_cntl_reg, cp_int_cntl;
-> +	int i, j;
+> +	int i , j;
 > +
->   	switch (state) {
->   	case AMDGPU_IRQ_STATE_DISABLE:
->   	case AMDGPU_IRQ_STATE_ENABLE:
-> -		WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
-> -			       PRIV_REG_INT_ENABLE,
-> -			       state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +	switch (state) {
+> +	case AMDGPU_IRQ_STATE_DISABLE:
+> +	case AMDGPU_IRQ_STATE_ENABLE:
+
+That switch is pretty pointless since state can only be disabled or enabled.
+
+Most likely just c&p from an older version of the code and at some point 
+lost it's relevance.
+
+Apart from that the series looks good to me.
+
+Regards,
+Christian.
+
 > +		for (i = 0; i < adev->gfx.me.num_me; i++) {
 > +			for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
-> +				cp_int_cntl_reg = gfx_v10_0_get_cpg_int_cntl(adev, i, j);
+> +				cp_int_cntl_reg = gfx_v11_0_get_cpg_int_cntl(adev, i, j);
 > +
 > +				if (cp_int_cntl_reg) {
 > +					cp_int_cntl = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
 > +					cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_INT_CNTL_RING0,
-> +								    PRIV_REG_INT_ENABLE,
+> +								    OPCODE_ERROR_INT_ENABLE,
 > +								    state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
 > +					WREG32_SOC15_IP(GC, cp_int_cntl_reg, cp_int_cntl);
 > +				}
@@ -217,58 +179,63 @@ Acked-by: Christian König <christian.koenig@amd.com> for the whole series.
 > +		for (i = 0; i < adev->gfx.mec.num_mec; i++) {
 > +			for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
 > +				/* MECs start at 1 */
-> +				cp_int_cntl_reg = gfx_v10_0_get_cpc_int_cntl(adev, i + 1, j);
+> +				cp_int_cntl_reg = gfx_v11_0_get_cpc_int_cntl(adev, i + 1, j);
 > +
 > +				if (cp_int_cntl_reg) {
 > +					cp_int_cntl = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
 > +					cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_ME1_PIPE0_INT_CNTL,
-> +								    PRIV_REG_INT_ENABLE,
+> +								    OPCODE_ERROR_INT_ENABLE,
 > +								    state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
 > +					WREG32_SOC15_IP(GC, cp_int_cntl_reg, cp_int_cntl);
 > +				}
 > +			}
 > +		}
->   		break;
->   	default:
->   		break;
-> @@ -9092,12 +9167,25 @@ static int gfx_v10_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +	return 0;
+> +}
+> +
+>   static int gfx_v11_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+>   					       struct amdgpu_irq_src *source,
 >   					       unsigned int type,
->   					       enum amdgpu_interrupt_state state)
->   {
-> +	u32 cp_int_cntl_reg, cp_int_cntl;
-> +	int i, j;
+> @@ -6369,6 +6425,15 @@ static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> +static int gfx_v11_0_bad_op_irq(struct amdgpu_device *adev,
+> +				struct amdgpu_irq_src *source,
+> +				struct amdgpu_iv_entry *entry)
+> +{
+> +	DRM_ERROR("Illegal opcode in command stream \n");
+> +	gfx_v11_0_handle_priv_fault(adev, entry);
+> +	return 0;
+> +}
 > +
->   	switch (state) {
->   	case AMDGPU_IRQ_STATE_DISABLE:
->   	case AMDGPU_IRQ_STATE_ENABLE:
-> -		WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
-> -			       PRIV_INSTR_INT_ENABLE,
-> -			       state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
-> +		for (i = 0; i < adev->gfx.me.num_me; i++) {
-> +			for (j = 0; j < adev->gfx.me.num_pipe_per_me; j++) {
-> +				cp_int_cntl_reg = gfx_v10_0_get_cpg_int_cntl(adev, i, j);
+>   static int gfx_v11_0_priv_inst_irq(struct amdgpu_device *adev,
+>   				   struct amdgpu_irq_src *source,
+>   				   struct amdgpu_iv_entry *entry)
+> @@ -6747,6 +6812,11 @@ static const struct amdgpu_irq_src_funcs gfx_v11_0_priv_reg_irq_funcs = {
+>   	.process = gfx_v11_0_priv_reg_irq,
+>   };
+>   
+> +static const struct amdgpu_irq_src_funcs gfx_v11_0_bad_op_irq_funcs = {
+> +	.set = gfx_v11_0_set_bad_op_fault_state,
+> +	.process = gfx_v11_0_bad_op_irq,
+> +};
 > +
-> +				if (cp_int_cntl_reg) {
-> +					cp_int_cntl = RREG32_SOC15_IP(GC, cp_int_cntl_reg);
-> +					cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_INT_CNTL_RING0,
-> +								    PRIV_INSTR_INT_ENABLE,
-> +								    state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
-> +					WREG32_SOC15_IP(GC, cp_int_cntl_reg, cp_int_cntl);
-> +				}
-> +			}
-> +		}
->   		break;
->   	default:
->   		break;
-> @@ -9121,8 +9209,8 @@ static void gfx_v10_0_handle_priv_fault(struct amdgpu_device *adev,
->   	case 0:
->   		for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
->   			ring = &adev->gfx.gfx_ring[i];
-> -			/* we only enabled 1 gfx queue per pipe for now */
-> -			if (ring->me == me_id && ring->pipe == pipe_id)
-> +			if (ring->me == me_id && ring->pipe == pipe_id &&
-> +			    ring->queue == queue_id)
->   				drm_sched_fault(&ring->sched);
->   		}
->   		break;
+>   static const struct amdgpu_irq_src_funcs gfx_v11_0_priv_inst_irq_funcs = {
+>   	.set = gfx_v11_0_set_priv_inst_fault_state,
+>   	.process = gfx_v11_0_priv_inst_irq,
+> @@ -6764,6 +6834,9 @@ static void gfx_v11_0_set_irq_funcs(struct amdgpu_device *adev)
+>   	adev->gfx.priv_reg_irq.num_types = 1;
+>   	adev->gfx.priv_reg_irq.funcs = &gfx_v11_0_priv_reg_irq_funcs;
+>   
+> +	adev->gfx.bad_op_irq.num_types = 1;
+> +	adev->gfx.bad_op_irq.funcs = &gfx_v11_0_bad_op_irq_funcs;
+> +
+>   	adev->gfx.priv_inst_irq.num_types = 1;
+>   	adev->gfx.priv_inst_irq.funcs = &gfx_v11_0_priv_inst_irq_funcs;
+>   
 
