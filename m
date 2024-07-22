@@ -4,154 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19381C3DA59
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 11:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D5FC3DA5D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 11:48:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA1BF10E4DB;
-	Mon, 22 Jul 2024 11:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1252510E4ED;
+	Mon, 22 Jul 2024 11:48:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VUcyjK71";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XmtTwoGo";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9916210E0B1;
- Mon, 22 Jul 2024 11:41:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9949310E4ED
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 11:48:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rdz0fr4UayylmjTWA+AbDt4RDgZpYXZeWTBMmoy3lkzlmnpdh31+KqX63faDsnBq86yZD+zKyZSUS+Gm31Pc8tgPP0GtvxGkr0UvpZZ7xjntwJlARZZXo2A/Dxrzb/YivIvbkzvu1P1LxDheOyssOfoA9NzufEJxupea59qBtrqZjfuo9CXGhHRWVip/MjEA+0L1KX09FpxZMA9lK3ZWKxxsXcxkbzp2RP0fNs8hXAmTHCee0bYSZmIQtlfJC/SB1RogEQlOI+4KG8w2CIajgOlnAF4pekjviNiKB1UkZvR2U1oFyCv0s+tYXXTkGHrN70ScwrAqh7FBrrtKppwdtQ==
+ b=goqD9VW44irr+Mhx0Sf00pYJ1/5RKVRkOVaHC/njof6JBOti+0DVo7HHMmzg4IO2V/nIKx4pK9XNjnG1Z4PnbmzLo3ediVWtReeOkpLoO2vAiaws8EbRlXA/BE9nYH8uuk4Ja92XzCtahcM4bwX44b0nYH2aMhC5Qk0o1KALKvCYXJ6ixZrOose0n+UeNU69CDbkRxvoRMuJVaaHTZ6wNU3HTJWRoT0hT9bXpvrcCvrNNWy9y+ug+uxpzeNjhfDJsQDTnrgOqpAopeaOdAUA9FrbFji30btyEG6PFdeO40SO1Yx/vy8VUrJQ7xXJOSCpIDsQHwctPNLzuFQoZDUUNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=86fFvKqYdacM2kWslQoR3U2tu5WMnX15EdsfQ8zIK/Y=;
- b=n/Ck9xZByyyoLcwnNVy9b/HdriGHvCTXFrQWXVApPx037pmD/ZOaxGlKDQB5fMru/5oHvnE4RON1QotTvJJYYLC6DjI/NYHtzHZLDQmhw16EO80X6P64DD/N1aknAtgZaKhj+qQpKZGXyzyGnH1EMSfsoPxIpwtTzni7IhUMNX7fQ/G1AyI2gc+LA7iCQQa3A+fcTh6WmK07HYdjTO0grrfkgd8PvB3Jss9FqTWlb5J91mAkUsqr9+MimGW9TrZTPoo6OrPm8jPCTWDc/3K8jV+2xi3IC+VOed7gNDYcAyBBh6jUqb0hFowkw9WMIVIPbSKHqnaCBOk1d4GVR1lgfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=3BAcoXzJhGew3ExOhzncYcbmUkc9vW/kfTmnMiVPydw=;
+ b=Pw6eK7G7sJUbIGyGgm6fvLaKOorpOzf6cv1e4Kgok8AuvQUVYdlI0onTPcJbUnOyvUaofH61JRAQmgx7hmZI6BEuqZmaaG3egAly7w0KvhjG4RySwZsF/we3eCOtvj6PQXALNNco+lNsEKbWLeX+Gk+Gv/1MaFanF2JWWU+Iq8XOX713RXkx+Ee9DQe6s2dq6GTY9eM2p6dSii8Ak8BjF3zOoPMYE2N7bygtp76BDRyFhsMk/9RQU+wIbg8YjFhzVUa/jGpMEvJ30GACCbE/FmvAgveUxJqA5ooA6IexLypXWoNena1fmLPs4ZavDV6XbBil3JU9fc4ijqSmIGi5ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=86fFvKqYdacM2kWslQoR3U2tu5WMnX15EdsfQ8zIK/Y=;
- b=VUcyjK71XSwZUSM/6TH2XcprmaYLRgxJh0rYe/upxNsBx7vjW6fPgSI8iext4JwuCtegLa0H5NO346CM5Xz/rIGp2uDkBcjh2jQOmiWRqk/+Uia8RBFUa1cpQOcH7HnlBe+A+ObfnpLRb6QagwrkFDefqRc3lYHlXERU8xRks0Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by CY5PR12MB6228.namprd12.prod.outlook.com (2603:10b6:930:20::6) with
+ bh=3BAcoXzJhGew3ExOhzncYcbmUkc9vW/kfTmnMiVPydw=;
+ b=XmtTwoGoRluQFnwZvh/mRTTrzKoJ0WQwMCb/GEVrWq6AKiN2ZMUk6t9scobdD5VwXR1c5PhPEGOWhRpyecLPWyDtDbsPwMSzR21Bvz3srHY9GEINNrvQXyj4NNVSt9utTguHQf0ncPxreZWKXs+K71DCox8CBfbP7XjwLzZqK8w=
+Received: from BYAPR05CA0015.namprd05.prod.outlook.com (2603:10b6:a03:c0::28)
+ by DS0PR12MB9273.namprd12.prod.outlook.com (2603:10b6:8:193::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16; Mon, 22 Jul
- 2024 11:41:31 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::c55f:19e:6896:cf3%4]) with mapi id 15.20.7784.017; Mon, 22 Jul 2024
- 11:41:31 +0000
-Message-ID: <2c3a79fb-4fdb-4c2d-806f-ceeed8116043@amd.com>
-Date: Mon, 22 Jul 2024 17:11:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/buddy: Add start address support to trim function
-To: Matthew Auld <matthew.auld@intel.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com,
- marek.olsak@amd.com
-References: <20240704083008.870021-1-Arunpravin.PaneerSelvam@amd.com>
- <CADnq5_OcuKoZYizbeU_RGPaWYvTpxGMPWg6xOXaPASBMYb5kig@mail.gmail.com>
- <635ee761-13a5-413e-9953-cfb8c6d3cc0e@amd.com>
- <67ca2d5c-a762-4627-94d1-532b0e3d2100@intel.com>
- <f4027aee-1ff2-4f0d-8230-6f6b2e101f78@amd.com>
- <9fce9f74-ebbb-4763-9f87-218055e61654@intel.com>
- <dad0c7b4-2dc7-4c2c-bc75-ff70ead452e3@amd.com>
- <72c98414-3d17-4f00-85c3-2e584757c85b@intel.com>
-Content-Language: en-US
-From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <72c98414-3d17-4f00-85c3-2e584757c85b@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA1PR01CA0156.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:71::26) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19; Mon, 22 Jul
+ 2024 11:48:39 +0000
+Received: from SJ1PEPF0000231F.namprd03.prod.outlook.com
+ (2603:10b6:a03:c0:cafe::ea) by BYAPR05CA0015.outlook.office365.com
+ (2603:10b6:a03:c0::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
+ Transport; Mon, 22 Jul 2024 11:48:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF0000231F.mail.protection.outlook.com (10.167.242.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Mon, 22 Jul 2024 11:48:39 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 22 Jul 2024 06:48:35 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+ "Tom Chung" <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>, Hersen Wu
+ <hersenxs.wu@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: [PATCH v2] drm/amd/display: Add null check for set_output_gamma in
+ dcn30_set_output_transfer_func
+Date: Mon, 22 Jul 2024 17:18:17 +0530
+Message-ID: <20240722114817.3935101-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240716152445.228728-1-srinivasan.shanmugam@amd.com>
+References: <20240716152445.228728-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|CY5PR12MB6228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dc9b6d5-3814-4c2b-0f43-08dcaa433b18
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231F:EE_|DS0PR12MB9273:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed209696-20d0-4a2d-8159-08dcaa443a5b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aXgzVFBQSXRsZU12Sk8wWXhrOG9Tb09idkh1Q2pkL2dpV0FMR1BKTzFKenRS?=
- =?utf-8?B?VnA3b25mdEU4UXNwUjNZQWJwZm52NWFWRW5rdmNTNXo3aUhERVNKeVhDL3Jy?=
- =?utf-8?B?aU1CeXRWWGZoTjdRYXRTVG9zYmptU1ZFYndDaXpQbkprSEdmZFBHVVpWc3I1?=
- =?utf-8?B?VGcxWTFkUGZ4YllELzUvYTYvMkYzOVowUWhFTGNwaHFPbm9lT1dLRldkMGpU?=
- =?utf-8?B?SEcrRWd4QmFicEN4R2N4MHRUNjFoYnhGN0hsU1NaQ1pjZDh2MGNtZXNaUzF5?=
- =?utf-8?B?MUFzcXp2RlJLQjNocmx0YWswemJKTlVYMDFnTVg1cm5lT3VydTNDb0R5Q1B6?=
- =?utf-8?B?MHlWTWFtazU4OE40YzRMSFM5aDdWNGUxQ01BTkVTZjVKYVN2Nm5OTGNLNDAr?=
- =?utf-8?B?Ti9iekg2alFtSkFJUHRaV2htc2pKMmlKV2M3UzY5OWU2NEt4WEFQZDhnSW1h?=
- =?utf-8?B?aEtxZ1NwUDZVMW9ka1Y3aTR3Z2RLNWVYS3kyYngrSU5UM1M0N21JMG5HWk12?=
- =?utf-8?B?a0N2Tmc2U1JzeUhkakNieGhIOWF3czNKOHlNV3pJNXBVVVI2cWxvSGZDdXFT?=
- =?utf-8?B?S3g4Wk1UWEJTTHpJTVFTQVFtNDlWckpvVVNUZkNVQkxJZld1dlpMc0RPaFpQ?=
- =?utf-8?B?dmJnYVhVVDh2NlRSQVdQcTFzKyt2UXRKK1B1cHJqc1cvaDNvS2t6T3ZzRzhl?=
- =?utf-8?B?ZjJrdEJtOWpIUHFZMDNLVyt4ZUs0eVVGcWZNT250VTRnM0RnZUFNU0lqYUF1?=
- =?utf-8?B?MDdWNDhvRVZWZmxjSDgzcS9ZTS9POGZ0djUxTS80QmFHT05pTnVyYzFxL3BO?=
- =?utf-8?B?S0lMRDF5SFpHZ3BVTnlVWlZ3VEw2dzUxYWcyUVc2MzQzalJkbkRzU3lOaWNz?=
- =?utf-8?B?bUxZT2dXZHJRZWVNS2NzNVBXc0pNdVc3NjIvTjk0MEU1MGhjV05xVWtUbUFm?=
- =?utf-8?B?Rnl4OUl1L3lTR3o0dXZ5TDN4M2Q4dFhPemdjd2tNTlBvNVpVYnZuQmVSYm5Q?=
- =?utf-8?B?U3Q1Z1Y5STl5STlZM3pUMzZZS29vR0NQNE1IV3lFbWNBQ0FJV3VHN2pyZE5m?=
- =?utf-8?B?TzB2REdJUGdGSldKWnFnbUszQ3V5YUgwZm1CVUJMSVFHQ1oxRDE4R3UydU5T?=
- =?utf-8?B?ZWd5ck9RMkFENkZqanRKOW9YRDg0WkN2UlZEU3B5akFwRkFXSk5oNmF6aDdJ?=
- =?utf-8?B?c1M3NDAweEI0NUw0aExUUEhZRkNoNEtCVWlLV2VXUXNmWkFaMDlYSTdwMnhh?=
- =?utf-8?B?RzZqaGlwQ2JFMFFqL3NlU0dYdW9WWENJdHQ5TXViY3EreE10bFFZRThlT3hj?=
- =?utf-8?B?UVgvU1l3ekEvRVphdlNGL2xtY2x1R1JCOXRWbE9tVVV4NjdSeXBWWUwrc0c4?=
- =?utf-8?B?YkZ5NmxWRFRSRWFxS0k4RDZXRFQwME5uWjFlK0EwcnRYQkxHQXgxWTRvMHpZ?=
- =?utf-8?B?ZzgvQjFKdFY5UE8xMS8wQTVoUFFvOE82bGhvMnNBTHBhUjJzK0IxRjh4UWJt?=
- =?utf-8?B?cHhBWkIyTDA2dTdkNDB4T0JOSG5xMUkyVW1hVXNGMjJUZWN3WW5UVWFsaTlr?=
- =?utf-8?B?OWlJUUpiUFB5TVlpaWlzSENqOUp1YTkxK3Y5c3V6UDF5VTAvM0FOYVNzbUNH?=
- =?utf-8?B?V0VtWVBia291SmxubFc1ZkhhdTNOeTNYOEdkVjRwSmdYU3pTZWlUR0NCOXoy?=
- =?utf-8?B?ZDdBaXhNUCtEMmZ1dnhTQXJicEsrOHZKOGZqeS96WWU3STRvNVkySjNzNGxa?=
- =?utf-8?Q?jt2MkyZCFLxAuQy4WM=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHhzK256eGM1c212ZVU1SURyUlRobGZJUnNnWlZ6V0hmUEc3RFZyNVFlRE1p?=
- =?utf-8?B?SjJqcFdaSFZiZHp3SDc2aVhQODB1M21GdXRObDR5NGNnRlZrckhMWFhjRlln?=
- =?utf-8?B?ekRnZkhzNXhnd0tzY1RVdlFSSVRTd3ljcUxtUXZIeFR6NCtvQzU1Nk1TODV2?=
- =?utf-8?B?d2ltd0g4ZFM5ZXhpcDNVSXpDNXMybGs0aEVXTFg3TlpUM2N1c0RjVCt6RVUz?=
- =?utf-8?B?VHdMNW0vSzFZQjhMYWhIaXlVTk82a3pxVStDa05oNlduL3JKZ1o3NkFLZVBz?=
- =?utf-8?B?dlJweWNpWTJXSmljWHJaWU56dFc0Rjlva2d3KzR5OGFvNXlDcVJja0pjR202?=
- =?utf-8?B?TUR6a2RDUXhXZlRKVjNYaklwdFVrTS9pS0s4TzNBOXJNZXZtRE5jcEczRDhE?=
- =?utf-8?B?eGNHM3YzOGVyVVgwcVZ5aDl1ZU4rTWFVc1ByNjNFT3E5eFRCS2h0bWV2cG51?=
- =?utf-8?B?WjEySHRvVDVxRHdJWkM4WjJTZzN3YXFRMEVRazJZZXlvd04zSThSR0RHeDVy?=
- =?utf-8?B?d05ZMW5ReDRrTVRBc2VGak0xTkFnRjlFUVdnSnd4SDBjQkJNOGJzR2s0emwz?=
- =?utf-8?B?dHJxZ25aT2MvN0h5TDdmZWJ2RTIvQytNN0pwRUtPZ0RMUkdHZWFETW0xengw?=
- =?utf-8?B?c3Q5TzJNcS9Td0lJYjBuN0lpSmpaUFRFQ2ZoV01XcXdGOEVtWThhUVA4aHpi?=
- =?utf-8?B?S3B4azlzbk8wdFgwMEFjS2UzL1JMM05DU1JKTkpHWmN3a1hGMWhBQTdyZHJz?=
- =?utf-8?B?bitKSHF3T1ZVTVJ5U2NSSnFNU3JvTVphbHB6aWxsSHBBZ1RwRzhCSjNrakxv?=
- =?utf-8?B?cXdyVnpPMFdhVEJZQ0I0TXRNTzF6MlMyTWZraXJNeUljRkNYdE9Hd0FvRytZ?=
- =?utf-8?B?ejRuZFhSOU90OUk3N2ZkOU5OL2preVZHcFBmYmw3U0dES01mMXJKY1N3RW01?=
- =?utf-8?B?Q2RIWHpGVUhKZVZIUXYzaklRVThlUktVUW9BWWlSS1EyeW5CN0dlejZDM29x?=
- =?utf-8?B?YUQzVStvSU9pcWJsbFU5dVN3anErckFidUlRdlBCZ3JrSmhZblp0RSsyeDkz?=
- =?utf-8?B?QmtpNmsra1VLRERLN2JBckFGL2lGSitDcThUR1NTYXlLYzRXV0FkNU9kc05W?=
- =?utf-8?B?THBPYk1FTkxTTURrVjg2MWEvMXZjSkRXc2NpSFZqdi9QcUFOTXUvM3hENklx?=
- =?utf-8?B?MDQ5Yk1BM1hxR29TSUJzdnRKOHZId3ZxZDBnL2FEOWxYZzJiUjRLQUFvQkVh?=
- =?utf-8?B?bnhLZTZZV0ZuV1RNSUxWcU1BcmVobzEwVkpsWS83Q1piQ1M0azNhM21kdXNn?=
- =?utf-8?B?T1RKTVd3S0hTSFZlcDZYQWJvbVVVTFR1KzFkMk1SMk5na3oxWHJESUxJdjBR?=
- =?utf-8?B?dDI1RC9PK21aTnpBUFRscEFTUFhyaUEyNGU4Tzkrc1dFcTMwREFpWHJ1a0tE?=
- =?utf-8?B?ZkZHVlB1T3FvcldodmNKUDFTQURRSzZYaXZxZXVFWFV6Nk9uZEl5Z2FqYTYv?=
- =?utf-8?B?TVoxL2FVdnB3T3llMDJVQm0zRk9ScG5wSFIzOUdKb0R5aEZJWFJmemtsSEwz?=
- =?utf-8?B?amRFK2NFT1hMVlJucTFralNDNVlVbXNVZFNlT3pFZ0xDaTlQWktzV2RnUDZE?=
- =?utf-8?B?K25KKys3Nkt5ejJDNWcydW9Sb0JMWUQySTNMSVZSU3JZNVcxOVZCZWROcFpx?=
- =?utf-8?B?R21hQXRNNGlDVnZmeU5QUXBGYTlSaUE3T1FRdlNGRVdkcWdBSE9BVDl1WVR0?=
- =?utf-8?B?TklYTWdjaXc4V0ZMeThiN0hrSC9iYmg5ZmtJYTY0V1hOQjJIeGxaOElQd3hV?=
- =?utf-8?B?SUp0ZXdMQ0xEbElzSnovUTZGeWljYWFrOXNHWlZ5R2JwK0kzb1g3WWErRVl2?=
- =?utf-8?B?OUlRaG1Td0JRTm1TeWdWL3dYaG1iSkdOZUtpZkJOMU5FQ1l3R1R1MWY2Sllw?=
- =?utf-8?B?Q2V3Nmtncm8rMURPdDJoclN1TjY2RDQ0Tnd2QWtyUUdTS01PYnJhSmZ0OGd0?=
- =?utf-8?B?SExFNlQxRWxTbXNDa01IeW9XTG4xeGJFOXE5VXNFL0Y5VC8wYW9meVFIVkRT?=
- =?utf-8?B?cEVtTmNPS1A0UlNIUUg1Mm1kWGpEdnVFRkY3R2E4WVp0c1hrK3BiT0ltbFdI?=
- =?utf-8?Q?a88EPlJxEN9sW6PYrkvA0n1m0?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WOOJ0nPbx6D60A4ViQqfVRk7r6+QMa6D8REAcirZD/I414WgR3nRXwTM1qC5?=
+ =?us-ascii?Q?ePMYTJ/Wz2zE4NjNAUJ3jiJlYbsapcmu0o/U9AI2rOtD4hZNPa+VgwWe/7VT?=
+ =?us-ascii?Q?L91v40JaQY7XfnmryKs5ULmBX8LTooCIiEuGIs0FOWc3hFztS2ZGRiwStmib?=
+ =?us-ascii?Q?gZMzvEyLcCSl4b1n97oShfHF2EztUzsqQnKHa4EXzJFueT27r9MCsG+EDjgZ?=
+ =?us-ascii?Q?LC9TNubMQgI3iSN4xk2wlfTj4s4kFjbns/0a0aX2LyLuu6XDIrTI9/sAGfq4?=
+ =?us-ascii?Q?jp5D/O5pdYeiu+ZrndXrOZzbW9Y23ZJioyoEofBEGBMTgusd4wrF9RsJA8ha?=
+ =?us-ascii?Q?gw8pQKE+b91qkvvCShPh9fWW9HeCFuPRQ1F7lSH5WwGZ0hv27IBY1zsT/1Ti?=
+ =?us-ascii?Q?g3B6BOT8mIwAvinSkv2Qg52tAhdvQwN26iVj1BTOXqPq7bwWvZ5Ie1MUGQvh?=
+ =?us-ascii?Q?1K03hlcX1bY2+l9MYF3SZrT3aCKcjfiJJglmNpIlwwcxHn7qHOdt6ikdIUHy?=
+ =?us-ascii?Q?9lhJihLcKxeIbKNdTCRJKRCqcy+85Fp+q3yMmefkEz3BDJFsWjmsszaOKd2O?=
+ =?us-ascii?Q?cLii7+vrhO0F4gc4GyBm+CDEhJBFdqciMovzrEOXZLqUBW8/rN2sV4PnlaBK?=
+ =?us-ascii?Q?IThG5ykdA3Q8GFLDwakgqVA5OE9zqvb3/803YVkM69w4AQSDKb4rGFKQES9m?=
+ =?us-ascii?Q?NHBQPcXWm2BE33RMcJK/FsqVDubRM471oM72cnpbLFSVL05DuCOKDHGXBf7v?=
+ =?us-ascii?Q?QjEaD2LFKccXVWVUBjR8QpzHvgt+W5WwLfAekaLvxOZ65OUp4L10ZMhmY9ti?=
+ =?us-ascii?Q?cfoSEX0brBzZsYLGDoS5lFFQOPuApfjrmbgc0AKNX0ZfGBc9IdzCdHVOaHzk?=
+ =?us-ascii?Q?oMoJciYYoy5aGO4vX43B8vcczU8kFbOz9pMscG5jJP/7HP2RnQ59gTPHh9sS?=
+ =?us-ascii?Q?xBmh9n8BjBBzKRfYkhH0StXKQC0P/m/wgQASbm3A7HO+QBCnwEzgRqFuBLnD?=
+ =?us-ascii?Q?bdW75h3QMmOgnuD6wxR4gVrsrgn1kNnMe4DBqDyl1iemlXLlxFCRLA3L65Yb?=
+ =?us-ascii?Q?BkK9uTZv45GUawmu6kkpEFvPqkxaRElJluEkf2QeC1a3h6bZSJpY6FFwzjxd?=
+ =?us-ascii?Q?N3fpetdFPLBFmpNcae8pX4kRprSQWgk0ARugsmkDSjGRiqp1cu1L03hTNb/V?=
+ =?us-ascii?Q?YxIWK4H/iyIcVl2V5XfWJX/TEKB102MhFrF3+/88S86bQ9kyw91K2JhPlHP9?=
+ =?us-ascii?Q?GliqKKYDTR5A2DYcsU+9OBMgnxCuVLw6cUD+rIYtmjUYSP8EcIm21zBYcSmy?=
+ =?us-ascii?Q?vPWe+da0tAah9KudsjThTW7xCO75mkjXTywEml5Vt8EdXYg/zT5pHNOESI2W?=
+ =?us-ascii?Q?YkBqY1Gcay1eGg50B/L4dxBKZhpKMr6HpIp+EV3bQpIl034ZtV40CtsRSQkG?=
+ =?us-ascii?Q?gj/GMuBGWKBDNcMq8ULgSdH4AfuYN7qr?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dc9b6d5-3814-4c2b-0f43-08dcaa433b18
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2024 11:41:31.3982 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2024 11:48:39.1934 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed209696-20d0-4a2d-8159-08dcaa443a5b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lUXPzwdR7kVjzHJKdzwIaLzqVqIQzZ1MxKxfsYcAhtiA319zK/6CHS4FSpOsWrGFB7pIyU8HrUGMXZxIIEZMgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6228
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9273
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,261 +137,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+This commit adds a null check for the set_output_gamma function pointer
+in the  dcn30_set_output_transfer_func function. Previously,
+set_output_gamma was being checked for nullity at line 386, but then it
+was being dereferenced without any nullity check at line 401. This
+could potentially lead to a null pointer dereference error if
+set_output_gamma is indeed null.
 
-On 7/19/2024 4:01 PM, Matthew Auld wrote:
-> On 17/07/2024 16:02, Paneer Selvam, Arunpravin wrote:
->>
->>
->> On 7/16/2024 3:34 PM, Matthew Auld wrote:
->>> On 16/07/2024 10:50, Paneer Selvam, Arunpravin wrote:
->>>> Hi Matthew,
->>>>
->>>> On 7/10/2024 6:20 PM, Matthew Auld wrote:
->>>>> On 10/07/2024 07:03, Paneer Selvam, Arunpravin wrote:
->>>>>> Thanks Alex.
->>>>>>
->>>>>> Hi Matthew,
->>>>>> Any comments?
->>>>>
->>>>> Do we not pass the required address alignment when allocating the 
->>>>> pages in the first place?
->>>> If address alignment is really useful, we can add that in the 
->>>> drm_buddy_alloc_blocks() function.
->>>
->>> I mean don't we already pass the min page size, which should give us 
->>> matching physical address alignment?
->> I think we don't need to align the address to the passed 
->> min_block_size value for all the contiguous
->> buffers, so I thought that decision we can leave it to the drivers 
->> and they can achieve that through trim function
->> in this kind of a specific request.
->
-> I would have assumed it would be simpler to use min_block_size and 
-> then trim the size, if it's too big? That would then also take care of 
-> the try_harder case?
-For example, if the required contiguous size is 1MiB and min_block_size 
-is 256KiB, to perform the address alignment of 256KiB, we might need to 
-over-allocate at least
-to the min_block_size (say 256KiB). Now the size becomes 1280KiB and 
-since the contiguous flag is enabled, we will round up the size to the 
-next power of two and the size
-value becomes 2MiB. Next, in trimming we should round up the block start 
-address to the min_block_size. May be we can keep the above mentioned 
-operations under the
-flag combination DRM_BUDDY_CONTIGUOUS_ALLOCATION && 
-DRM_BUDDY_ADDRESS_ALIGNMENT?.
+To fix this, we now ensure that set_output_gamma is not null before
+dereferencing it. We do this by adding a nullity check for
+set_output_gamma before the call to set_output_gamma at line 401. If
+set_output_gamma is null, we log an error message and do not call the
+function.
 
-At the moment, we cannot support address alignment for try_harder 
-allocations since in case of try_harder allocations we first traverse 
-RHS to allocate the maximum possible
-and traverse LHS (here we align the LHS size to min_block_size) to 
-allocate the remaining size. May be in case of 
-DRM_BUDDY_ADDRESS_ALIGNMENT, we should first allocate
-LHS satisfying the address alignment requirement and then traverse RHS 
-to allocate the remaining size if required?
->
-> Also how are we dealing with the multi-block try_harder case? AFAICT 
-> we only allow trimming single block atm, or is it not possible to 
-> trigger that path here? Or are we handling that somehow?
-not possible to trigger that path here. only when we either 
-over-allocate the LHS size and pass the multiple blocks to the trim 
-function or implement the above mentioned method.
->
->>
->> https://patchwork.freedesktop.org/series/136150/
->> We are getting this sparse error from the Intel CI. Do you think 
->> these errors are introduced with this patches?
->
-> I think it's safe to ignore, there seem to be other series with the 
-> same thing.
-Thanks.
->
->>
->> Thanks,
->> Arun.
->>>
->>>>
->>>> Thanks,
->>>> Arun.
->>>>>
->>>>>>
->>>>>> Thanks,
->>>>>> Arun.
->>>>>>
->>>>>> On 7/9/2024 1:42 AM, Alex Deucher wrote:
->>>>>>> On Thu, Jul 4, 2024 at 4:40 AM Arunpravin Paneer Selvam
->>>>>>> <Arunpravin.PaneerSelvam@amd.com> wrote:
->>>>>>>> - Add a new start parameter in trim function to specify exact
->>>>>>>>    address from where to start the trimming. This would help us
->>>>>>>>    in situations like if drivers would like to do address 
->>>>>>>> alignment
->>>>>>>>    for specific requirements.
->>>>>>>>
->>>>>>>> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
->>>>>>>>    flag to disable the allocator trimming part. This patch enables
->>>>>>>>    the drivers control trimming and they can do it themselves
->>>>>>>>    based on the application requirements.
->>>>>>>>
->>>>>>>> v1:(Matthew)
->>>>>>>>    - check new_start alignment with min chunk_size
->>>>>>>>    - use range_overflows()
->>>>>>>>
->>>>>>>> Signed-off-by: Arunpravin Paneer Selvam 
->>>>>>>> <Arunpravin.PaneerSelvam@amd.com>
->>>>>>> Series is:
->>>>>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>>>
->>>>>>> I'd like to take this series through the amdgpu tree if there 
->>>>>>> are no
->>>>>>> objections as it's required for display buffers on some chips 
->>>>>>> and I'd
->>>>>>> like to make sure it lands in 6.11.
->>>>>>>
->>>>>>> Thanks,
->>>>>>>
->>>>>>> Alex
->>>>>>>
->>>>>>>> ---
->>>>>>>>   drivers/gpu/drm/drm_buddy.c          | 25 
->>>>>>>> +++++++++++++++++++++++--
->>>>>>>>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
->>>>>>>>   include/drm/drm_buddy.h              |  2 ++
->>>>>>>>   3 files changed, 26 insertions(+), 3 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/drm_buddy.c 
->>>>>>>> b/drivers/gpu/drm/drm_buddy.c
->>>>>>>> index 94f8c34fc293..8cebe1fa4e9d 100644
->>>>>>>> --- a/drivers/gpu/drm/drm_buddy.c
->>>>>>>> +++ b/drivers/gpu/drm/drm_buddy.c
->>>>>>>> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct 
->>>>>>>> drm_buddy *mm,
->>>>>>>>    * drm_buddy_block_trim - free unused pages
->>>>>>>>    *
->>>>>>>>    * @mm: DRM buddy manager
->>>>>>>> + * @start: start address to begin the trimming.
->>>>>>>>    * @new_size: original size requested
->>>>>>>>    * @blocks: Input and output list of allocated blocks.
->>>>>>>>    * MUST contain single block as input to be trimmed.
->>>>>>>> @@ -866,11 +867,13 @@ static int 
->>>>>>>> __alloc_contig_try_harder(struct drm_buddy *mm,
->>>>>>>>    * 0 on success, error code on failure.
->>>>>>>>    */
->>>>>>>>   int drm_buddy_block_trim(struct drm_buddy *mm,
->>>>>>>> +                        u64 *start,
->>>>>>>>                           u64 new_size,
->>>>>>>>                           struct list_head *blocks)
->>>>>>>>   {
->>>>>>>>          struct drm_buddy_block *parent;
->>>>>>>>          struct drm_buddy_block *block;
->>>>>>>> +       u64 block_start, block_end;
->>>>>>>>          LIST_HEAD(dfs);
->>>>>>>>          u64 new_start;
->>>>>>>>          int err;
->>>>>>>> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>>>>>>>                                   struct drm_buddy_block,
->>>>>>>>                                   link);
->>>>>>>>
->>>>>>>> +       block_start = drm_buddy_block_offset(block);
->>>>>>>> +       block_end = block_start + drm_buddy_block_size(mm, block);
->>>>>>>> +
->>>>>>>>          if (WARN_ON(!drm_buddy_block_is_allocated(block)))
->>>>>>>>                  return -EINVAL;
->>>>>>>>
->>>>>>>> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy 
->>>>>>>> *mm,
->>>>>>>>          if (new_size == drm_buddy_block_size(mm, block))
->>>>>>>>                  return 0;
->>>>>>>>
->>>>>>>> +       new_start = block_start;
->>>>>>>> +       if (start) {
->>>>>>>> +               new_start = *start;
->>>>>>>> +
->>>>>>>> +               if (new_start < block_start)
->>>>>>>> +                       return -EINVAL;
->>>>>>>> +
->>>>>>>> +               if (!IS_ALIGNED(new_start, mm->chunk_size))
->>>>>>>> +                       return -EINVAL;
->>>>>>>> +
->>>>>>>> +               if (range_overflows(new_start, new_size, 
->>>>>>>> block_end))
->>>>>>>> +                       return -EINVAL;
->>>>>>>> +       }
->>>>>>>> +
->>>>>>>>          list_del(&block->link);
->>>>>>>>          mark_free(mm, block);
->>>>>>>>          mm->avail += drm_buddy_block_size(mm, block);
->>>>>>>> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>>>>>>>          parent = block->parent;
->>>>>>>>          block->parent = NULL;
->>>>>>>>
->>>>>>>> -       new_start = drm_buddy_block_offset(block);
->>>>>>>>          list_add(&block->tmp_link, &dfs);
->>>>>>>>          err =  __alloc_range(mm, &dfs, new_start, new_size, 
->>>>>>>> blocks, NULL);
->>>>>>>>          if (err) {
->>>>>>>> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct 
->>>>>>>> drm_buddy *mm,
->>>>>>>>          } while (1);
->>>>>>>>
->>>>>>>>          /* Trim the allocated block to the required size */
->>>>>>>> -       if (original_size != size) {
->>>>>>>> +       if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
->>>>>>>> +           original_size != size) {
->>>>>>>>                  struct list_head *trim_list;
->>>>>>>>                  LIST_HEAD(temp);
->>>>>>>>                  u64 trim_size;
->>>>>>>> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct 
->>>>>>>> drm_buddy *mm,
->>>>>>>>                  }
->>>>>>>>
->>>>>>>>                  drm_buddy_block_trim(mm,
->>>>>>>> +                                    NULL,
->>>>>>>>                                       trim_size,
->>>>>>>>                                       trim_list);
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c 
->>>>>>>> b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->>>>>>>> index fe3779fdba2c..423b261ea743 100644
->>>>>>>> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->>>>>>>> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->>>>>>>> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct 
->>>>>>>> ttm_resource_manager *man,
->>>>>>>>          } while (remaining_size);
->>>>>>>>
->>>>>>>>          if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
->>>>>>>> -               if (!drm_buddy_block_trim(mm, vres->base.size, 
->>>>>>>> &vres->blocks))
->>>>>>>> +               if (!drm_buddy_block_trim(mm, NULL, 
->>>>>>>> vres->base.size, &vres->blocks))
->>>>>>>>                          size = vres->base.size;
->>>>>>>>          }
->>>>>>>>
->>>>>>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->>>>>>>> index 82570f77e817..0c2f735f0265 100644
->>>>>>>> --- a/include/drm/drm_buddy.h
->>>>>>>> +++ b/include/drm/drm_buddy.h
->>>>>>>> @@ -27,6 +27,7 @@
->>>>>>>>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION BIT(2)
->>>>>>>>   #define DRM_BUDDY_CLEAR_ALLOCATION BIT(3)
->>>>>>>>   #define DRM_BUDDY_CLEARED BIT(4)
->>>>>>>> +#define DRM_BUDDY_TRIM_DISABLE BIT(5)
->>>>>>>>
->>>>>>>>   struct drm_buddy_block {
->>>>>>>>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
->>>>>>>> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy 
->>>>>>>> *mm,
->>>>>>>>                             unsigned long flags);
->>>>>>>>
->>>>>>>>   int drm_buddy_block_trim(struct drm_buddy *mm,
->>>>>>>> +                        u64 *start,
->>>>>>>>                           u64 new_size,
->>>>>>>>                           struct list_head *blocks);
->>>>>>>>
->>>>>>>> -- 
->>>>>>>> 2.25.1
->>>>>>>>
->>>>>>
->>>>
->>
+This fix prevents a potential null pointer dereference error.
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn30/dcn30_hwseq.c:401 dcn30_set_output_transfer_func()
+error: we previously assumed 'mpc->funcs->set_output_gamma' could be null (see line 386)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn30/dcn30_hwseq.c
+    373 bool dcn30_set_output_transfer_func(struct dc *dc,
+    374                                 struct pipe_ctx *pipe_ctx,
+    375                                 const struct dc_stream_state *stream)
+    376 {
+    377         int mpcc_id = pipe_ctx->plane_res.hubp->inst;
+    378         struct mpc *mpc = pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
+    379         const struct pwl_params *params = NULL;
+    380         bool ret = false;
+    381
+    382         /* program OGAM or 3DLUT only for the top pipe*/
+    383         if (pipe_ctx->top_pipe == NULL) {
+    384                 /*program rmu shaper and 3dlut in MPC*/
+    385                 ret = dcn30_set_mpc_shaper_3dlut(pipe_ctx, stream);
+    386                 if (ret == false && mpc->funcs->set_output_gamma) {
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ If this is NULL
+
+    387                         if (stream->out_transfer_func.type == TF_TYPE_HWPWL)
+    388                                 params = &stream->out_transfer_func.pwl;
+    389                         else if (pipe_ctx->stream->out_transfer_func.type ==
+    390                                         TF_TYPE_DISTRIBUTED_POINTS &&
+    391                                         cm3_helper_translate_curve_to_hw_format(
+    392                                         &stream->out_transfer_func,
+    393                                         &mpc->blender_params, false))
+    394                                 params = &mpc->blender_params;
+    395                          /* there are no ROM LUTs in OUTGAM */
+    396                         if (stream->out_transfer_func.type == TF_TYPE_PREDEFINED)
+    397                                 BREAK_TO_DEBUGGER();
+    398                 }
+    399         }
+    400
+--> 401         mpc->funcs->set_output_gamma(mpc, mpcc_id, params);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Then it will crash
+
+    402         return ret;
+    403 }
+
+Fixes: d99f13878d6f ("drm/amd/display: Add DCN3 HWSEQ")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2: s/DRM_ERROR/DC_LOG_ERROR (Tom)
+
+ drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index 98a40d46aaae..42c52284a868 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -398,7 +398,11 @@ bool dcn30_set_output_transfer_func(struct dc *dc,
+ 		}
+ 	}
+ 
+-	mpc->funcs->set_output_gamma(mpc, mpcc_id, params);
++	if (mpc->funcs->set_output_gamma)
++		mpc->funcs->set_output_gamma(mpc, mpcc_id, params);
++	else
++		DC_LOG_ERROR("%s: set_output_gamma function pointer is NULL.\n", __func__);
++
+ 	return ret;
+ }
+ 
+-- 
+2.34.1
 
