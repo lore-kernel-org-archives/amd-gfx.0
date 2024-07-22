@@ -4,65 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2108C3DA59
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 19:36:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA76C3DA59
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jul 2024 19:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38D0210E2CE;
-	Mon, 22 Jul 2024 19:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E824210E119;
+	Mon, 22 Jul 2024 19:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VejNqneX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sgQYOI0L";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9BA10E2CE
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 19:36:43 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-2c964f5a037so2591182a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 12:36:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721677003; x=1722281803; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X/8X/AtNSLV0rySM6FEIHF+gBEJIFEtdy/sMFA1TsEY=;
- b=VejNqneX/PzWRHIjIV5fpt8XAmgD+sKlv5BmR06h/T6MCT4i1fkzldV+NWmZ5SJvGP
- 56HjNlQxpvwvxJSYS3nDw+CpcEjFbnIT9WJQbtr6EoXBih1EnBUJnPXIZQkgcvpd689u
- K//xx2ubJHaKzGe4ouoW5nX67HFWxoZbHfMQz7ytlbXmv2z7w6Noa2N50iZG3Mh0CKbL
- bAPdndWJnOsOj8IfUR8L/3r7IqXaNV3Uqu3/F1BNuzN1Mm1YNGY27WjHWWQVDdhTaef9
- agwqLEheboG9vO9xqJkKN+NZMHIt0MRP/k9vD4va6IAqKK3jl3wE/RmUhagQ4YleX/Jn
- nnGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721677003; x=1722281803;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=X/8X/AtNSLV0rySM6FEIHF+gBEJIFEtdy/sMFA1TsEY=;
- b=ew3R8kVjEAnlMmx4HQcXuF4XxcOI0LxHFOXPTkU+PPW3eX08pz+RHE0k6p/VfpIAiC
- kl0c/kvXSAMs4+2KkzMLGXNNcpZIQ3u4BkCZG39q6w4kCCUsixeTi4zk5tNNFW3vdgpf
- tl2hIUXvco+GIatAlcpTBHg/1IobTcy78CIy0cqlYZf1e/KJfPzh5mdLSTrD+6wWKT7L
- a6QaeyOqUGHVJrrLFmORgg7HiH4DBY/tnpJufHdRx0fbrh0Q/blTX2qYuLATNtosp9WU
- Y4KUuDrU5a1Sl3fjfi1FMMidYgwepiLSctOUGItG6dcJRE0BH9HEWf1CZua8SXFnJzY3
- B6Vw==
-X-Gm-Message-State: AOJu0YxVebglqXCxaOuUUHVlsHYQCrZM/KBMHhjg7CLEzsCbdYsSzfre
- hlxyorCisfVVxgZrtq7xFvlL9anRdYEjtLnCy/pm0BNTFyaQ7D8eug9INSmgDvbUJ3gTSlIwpC7
- khsJxDyCxfFYtjv10HwodwsylIbsjP6/8
-X-Google-Smtp-Source: AGHT+IFuU1ek+alw6l9KYCvYv1XDuPEPWx49yEyjlRj57SPzoWhARcA5IEhQhKjISX7M/trIZKyxlga/J3XwUdOjyU8=
-X-Received: by 2002:a17:90a:8d13:b0:2c8:8a5:c1b9 with SMTP id
- 98e67ed59e1d1-2cd1603a851mr5649797a91.13.1721677003203; Mon, 22 Jul 2024
- 12:36:43 -0700 (PDT)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 059E210E15A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jul 2024 19:50:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gconpj9W5JDvBxFciqwh1UuuTlf3H1zK3nrgJlQglLxoj8GqU48Tah+FdIxvfl9MJkrVDOC0ulA7R3bsBrzHmq/9RHe4Eq47XjKjq0rMoZ5XF6/ZOzlx9TMLQ/w1qKbotuYQE3LCAHAAED4766z6sZwQtv8b//GyhJj4/5urv2VtUppuvqEPLPakJYOV07NIqv8hRgmoBk1Df6QCvG6zN9iMaDoAhIyf5IUm0/3g/Hle6/bk3JsSNctPa9PuloQ2B/zJQV1PZO10wypFmg56KAKZ/t8ZJLRpF6MmDKw5msth7lLZEuFt+QPqQyRvkphWFv93aDl/ZjExwd9M5TzaMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T7EseC4r2Wtoa9+9mIEfSIvcPSBj70E5H18R4OIwlEk=;
+ b=u7VeUDR0w7tHO+NCIuBebGyQXXVPb+O0fO2U1bQCi6rebPW1Gv9m6YTaggZBurUwML+BRACEv9twhqjj7uSkdmcSPbcORU4VpYMbZZWZio4iUUaIf3My8Pj05iZPa7FgBVklDGgG3uVs4nSTlDpZ8tg0WC5xkCeZUZkVxhl8ff/jtOrhdz23xQMyz6Ys6IXRvZFjyf9vq+UJr9qPdQU9mda5DbkthBOaV+S9pJNKLHI7avDbiCYrhAJdVf7iyd//NsHs+nDOkRvwKwbt644hey9OnfUCGVy0yIrdPf3ovtO1Ui/QUHjbWeo6cC32cr2x0pnzAU06E7I5bTcieSSbqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T7EseC4r2Wtoa9+9mIEfSIvcPSBj70E5H18R4OIwlEk=;
+ b=sgQYOI0LsknZ6htOaGTqxu/aopWR8hgpaimThuI6uRlVTSfXBhOTCfx2ZG1pj1RYjLRHJ1+zglrMXsH2KSDlCw85XKfD/7CuKt/+UBcWqH8NblQem8GYT15AP4Ek0+rlVZp3HPMrxoHk3eVM14B1Dd/1ORqau0/pTXhaSBX/7uQ=
+Received: from BYAPR05CA0017.namprd05.prod.outlook.com (2603:10b6:a03:c0::30)
+ by MW6PR12MB8959.namprd12.prod.outlook.com (2603:10b6:303:23c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Mon, 22 Jul
+ 2024 19:50:34 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:a03:c0:cafe::9f) by BYAPR05CA0017.outlook.office365.com
+ (2603:10b6:a03:c0::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
+ Transport; Mon, 22 Jul 2024 19:50:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Mon, 22 Jul 2024 19:50:33 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 22 Jul
+ 2024 14:50:30 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: set sched_hw_submission higher for MES
+Date: Mon, 22 Jul 2024 15:50:16 -0400
+Message-ID: <20240722195016.1752979-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240722081625.85392-1-jesse.zhang@amd.com>
-In-Reply-To: <20240722081625.85392-1-jesse.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 22 Jul 2024 15:36:31 -0400
-Message-ID: <CADnq5_OFNouf7gsQ-KzB1sJ-kdW=qA3jdZFyZJyFMoG6nmuRyQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix gfx10 kiq ring_lock warning on full reset
-To: Jesse Zhang <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|MW6PR12MB8959:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01861f9a-a3a5-486f-12e8-08dcaa878cb9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WWUVcO61U9YuNVwbHYVEW1DLpW0rej8IVq1gfl/d3VA0ceCJKB9XW8Nag3Bm?=
+ =?us-ascii?Q?bOipk1lidoxnx3dRAkwCliUTYWQiBmP1/HHG57r0ODNZ66tBMtReX0Kb29BR?=
+ =?us-ascii?Q?YjWuI28GzsUIKLNFanYVkpUBvpnLb3D4xqd5PelitZJxAoOXBcriJER4DzGv?=
+ =?us-ascii?Q?plgNvQ5/pHGuOHW8HX+ZnLdRu8j9vCMTXArNtxPq4Iwu4i5z/6LzP4+j4cN3?=
+ =?us-ascii?Q?BhdT99Qck0FX7VHY6vRa4dU54VgSt2dkIbXJsehzFN0ujGKXRLrqMwbExZSY?=
+ =?us-ascii?Q?zZXBczUOCRy+LgNk/lt3v/zpNBTjsJdDUmw3zLH/CyAGrEw4PH5UPEv6FpFp?=
+ =?us-ascii?Q?x5tekF0N7TqO4PqiaMCmL9vuQcmDhsT4u0FVfqy926etO4xyulVauONhJTSP?=
+ =?us-ascii?Q?Og73hIW6wR5ahA5/vyJMzP/kVNUoyjTzlHNTMOALn3/RwG01lfcEDwHNbAGb?=
+ =?us-ascii?Q?xuhxmaiHRWkOlROJIT2GbEJsg8fb/G27dyaL8YM0svN3tw3Cq5QjhWeJ5CE7?=
+ =?us-ascii?Q?XgVqHCL12NEtbr51d+JwyXQ5ZfczkCPYb60dvhLeTM6ORMSyAYMeFa2qn0+Z?=
+ =?us-ascii?Q?HjwEwNOtM9JSwR2+blJb6HzWfWumPZC2hsAhbUDj/UC+orlxZyb4sF854jYN?=
+ =?us-ascii?Q?HfhZCklbd2Zi6OYwPaTmbPD+1Yd4vytxGs22LDFiQSKk5DWTws5EY3SpDCYg?=
+ =?us-ascii?Q?hEWFVhvH5kVRmR8JEX6tIx392qY3bJPUCP/jl7wgD6Coa7F88MesDu4QrFRY?=
+ =?us-ascii?Q?zDLGBWU9DWGr5kI4bWZGciX0hkKsaQ4aklYXYI4mTS5sfqciZgXUDzfEzKln?=
+ =?us-ascii?Q?DLBLqPbJLGCzH7/KJaWGNxqT2/wKaoO54HIHRtv45CdTmeyoXR8cdM7/bUsx?=
+ =?us-ascii?Q?3yUUGKjxlLZlEgydT7af+Dg9Aknf1l6Vz6spiez4mADCWO3f7iXfu4XG2a23?=
+ =?us-ascii?Q?2hG9XEbOKMDy7MYBRISzODh7H8yjxgpuV7ZYvN7MMBfnRaJdox/rLccrvlTz?=
+ =?us-ascii?Q?vlKUxMti7aKdLvVrQrnnth5fYw1C5IbesWmvS7Pvp47CDbUBGTLCSH1EuLWG?=
+ =?us-ascii?Q?/gezbrp9bsjDBWlMflaCre/6B4lOdWeTG4DFYL774Jfs6etaLmZoDe7jtNe7?=
+ =?us-ascii?Q?v8MRce28zEYYLlrKssaeDT7uTRACvThLqNwR3wJr+sQdKidMaAjL8RZYoDbw?=
+ =?us-ascii?Q?wtX4gHEbPm7WFVHWHCKtj+OyKzL+6N6T470w8ZFzJHmLThC/uG4ilhAe5t0M?=
+ =?us-ascii?Q?oFeTVzBZpUmC6f2Kq7NAt6M/TQvqBoZ34Ls8uzszwf+9SzYIftFB0yna/Pfp?=
+ =?us-ascii?Q?yJdWuNW9a/sHct7q4ojHWAdVRJEW5mBiaQ5A36zaEUivxSKV3IXNmTvxaAi5?=
+ =?us-ascii?Q?5/+mqKJiL90J0FuLyZ9ZwHCtRyZYlFjMpS0b6xj18GVZTahf3MZR5iktRvUH?=
+ =?us-ascii?Q?s3TxBn0qja8BPPetHhBKi5djSoGWymx7?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2024 19:50:33.6451 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01861f9a-a3a5-486f-12e8-08dcaa878cb9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,132 +130,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 22, 2024 at 4:16=E2=80=AFAM Jesse Zhang <jesse.zhang@amd.com> w=
-rote:
->
-> Fix warning about kiq ring.
-> Unlock kiq ring when queue reset fails.
->
-> [  285.999224] amdgpu 0000:03:00.0: amdgpu: GPU reset begin!
-> [  312.018425] watchdog: BUG: soft lockup - CPU#11 stuck for 26s! [kworke=
-r/u64:2:878]
-> [  312.018428] Modules linked in: amdgpu(E) amdxcp drm_exec gpu_sched drm=
-_buddy drm_suballoc_helper drm_ttm_helper ttm drm_display_helper cec rc_cor=
-e drm_kms_helper i2c_algo_bit rpcsec_gss_krb5 auth_rpcgss nfsv4 nfs lockd g=
-race netfs xt_conntrack nft_chain_nat r8153_ecm cdc_ether usbnet xt_MASQUER=
-ADE nf_nat nf_conntrack_netlink nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 =
-xfrm_user xfrm_algo xt_multiport xt_addrtype nft_compat nf_tables br_netfil=
-ter libcrc32c nfnetlink bridge stp llc r8152 mii joydev input_leds overlay =
-snd_hda_codec_hdmi edac_mce_amd snd_hda_intel snd_intel_dspcfg snd_intel_sd=
-w_acpi kvm_amd snd_hda_codec snd_hda_core snd_hwdep kvm hid_generic snd_pcm=
- crct10dif_pclmul ghash_clmulni_intel sha512_ssse3 sha256_ssse3 sha1_ssse3 =
-aesni_intel snd_seq_midi snd_seq_midi_event snd_rawmidi crypto_simd usbhid =
-cryptd hid snd_seq snd_pci_acp5x snd_seq_device snd_timer snd_rn_pci_acp3x =
-rapl snd_acp_config snd_soc_acpi snd ccp snd_pci_acp3x wmi_bmof soundcore k=
-10temp mac_hid sunrpc binfmt_misc sch_fq_codel msr parport_pc
-> [  312.018466]  ppdev lp drm parport efi_pstore ip_tables x_tables autofs=
-4 ucsi_ccg typec_ucsi typec nvme crc32_pclmul nvme_core xhci_pci i2c_design=
-ware_pci i2c_piix4 xhci_pci_renesas i2c_ccgx_ucsi video wmi
-> [  312.018475] CPU: 11 PID: 878 Comm: kworker/u64:2 Tainted: G           =
- E      6.8.0+ #171
-> [  312.018477] Hardware name: AMD Splinter/Splinter-GNR, BIOS WS54117N_14=
-0 01/16/2024
-> [  312.018478] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sc=
-hed]
-> [  312.018485] RIP: 0010:native_queued_spin_lock_slowpath+0x88/0x300
-> [  312.018490] Code: 08 0f 92 c0 0f b6 c0 c1 e0 08 89 c2 41 8b 04 24 30 e=
-4 09 d0 a9 00 01 ff ff 75 5e 85 c0 74 14 41 0f b6 04 24 84 c0 74 0b f3 90 <=
-41> 0f b6 04 24 84 c0 75 f5 b8 01 00 00 00 66 41 89 04 24 5b 41 5c
-> [  312.018492] RSP: 0018:ffffa327c0de7b80 EFLAGS: 00000202
-> [  312.018493] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 000000000=
-0000000
-> [  312.018494] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff8ab91=
-3e16cf8
-> [  312.018495] RBP: ffffa327c0de7ba8 R08: 0000000000000000 R09: fffffa400=
-7040000
-> [  312.018495] R10: ffffa327c0de7bb8 R11: 0000000000000040 R12: ffff8ab91=
-3e16cf8
-> [  312.018496] R13: ffff8ab913e00000 R14: ffff8ab913e00000 R15: ffff8ab91=
-3e00000
-> [  312.018497] FS:  0000000000000000(0000) GS:ffff8ab9956c0000(0000) knlG=
-S:0000000000000000
-> [  312.018498] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  312.018498] CR2: 00007f44b24d319c CR3: 000000023b83c000 CR4: 000000000=
-0750ef0
-> [  312.018499] PKRU: 55555554
-> [  312.018500] Call Trace:
-> [  312.018501]  <IRQ>
-> [  312.018504]  ? show_regs+0x6c/0x80
-> [  312.018508]  ? watchdog_timer_fn+0x206/0x290
-> [  312.018511]  ? __pfx_watchdog_timer_fn+0x10/0x10
-> [  312.018513]  ? __hrtimer_run_queues+0xc8/0x220
-> [  312.018517]  ? hrtimer_interrupt+0x10d/0x250
-> [  312.018519]  ? __sysvec_apic_timer_interrupt+0x51/0x130
-> [  312.018522]  ? sysvec_apic_timer_interrupt+0x7f/0x90
-> [  312.018525]  </IRQ>
-> [  312.018525]  <TASK>
-> [  312.018526]  ? asm_sysvec_apic_timer_interrupt+0x1f/0x30
-> [  312.018529]  ? native_queued_spin_lock_slowpath+0x88/0x300
-> [  312.018530]  _raw_spin_lock+0x2d/0x40
-> [  312.018532]  amdgpu_gfx_disable_kgq+0x6f/0x1d0 [amdgpu]
-> [  312.018646]  gfx_v10_0_hw_fini+0x111/0x130 [amdgpu]
-> [  312.018742]  gfx_v10_0_suspend+0x12/0x20 [amdgpu]
-> [  312.018832]  amdgpu_device_ip_suspend_phase2+0x244/0x470 [amdgpu]
-> [  312.018909]  amdgpu_device_ip_suspend+0x4b/0x90 [amdgpu]
-> [  312.018989]  amdgpu_device_pre_asic_reset+0xda/0x4b0 [amdgpu]
-> [  312.019068]  amdgpu_device_gpu_recover+0x319/0xe20 [amdgpu]
-> [  312.019147]  amdgpu_job_timedout+0x177/0x280 [amdgpu]
-> [  312.019266]  drm_sched_job_timedout+0x7c/0x100 [gpu_sched]
-> [  312.019269]  process_scheduled_works+0x9a/0x3a0
-> [  312.019272]  ? __pfx_worker_thread+0x10/0x10
-> [  312.019273]  worker_thread+0x15f/0x2d0
-> [  312.019275]  ? __pfx_worker_thread+0x10/0x10
-> [  312.019276]  kthread+0xfb/0x130
-> [  312.019277]  ? __pfx_kthread+0x10/0x10
-> [  312.019278]  ret_from_fork+0x3d/0x60
-> [  312.019280]  ? __pfx_kthread+0x10/0x10
-> [  312.019281]  ret_from_fork_asm+0x1b/0x30
-> [  312.019284]  </TASK>
->
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Apply KIQ logic to MES.
 
-Good catch.  I've squashed this into the appropriate patch and pushed
-and updated branch here:
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/amd-staging-drm-next-q=
-ueue-reset
+MES doesn't really use the GPU scheduler.  The base
+drivers generally use the MES ring directly rather than
+submitting IBs.  However, amdgpu_sched_hw_submission
+(which defaults to 2) limits the number of outstanding
+fences to 2.  KFD uses the MES for TLB flushes and the
+2 fence limit hurts performance when there are several KFD
+processes running.
 
-Alex
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Jack Xiao <Jack.Xiao@amd.com>
+Cc: christian.koenig@amd.com
+---
 
+Jack, does this fix the overflow issue?
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index fde11159270c..59024fbf8c22 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -9478,6 +9478,7 @@ static int gfx_v10_0_reset_compute_ring(struct amdg=
-pu_ring *ring,
->                                    0, 0);
->         amdgpu_ring_commit(kiq_ring);
->
-> +       spin_unlock_irqrestore(&kiq->ring_lock, flags);
->         r =3D amdgpu_ring_test_ring(kiq_ring);
->         if (r)
->                 return r;
-> @@ -9530,8 +9531,6 @@ static int gfx_v10_0_reset_compute_ring(struct amdg=
-pu_ring *ring,
->         if (r)
->                 return r;
->
-> -       spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> -
->         return amdgpu_ring_test_ring(ring);
->  }
->
-> --
-> 2.25.1
->
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index ad49cecb20b8..345823d14113 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -204,13 +204,14 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 	u32 hw_ip;
+ 	unsigned int max_ibs_dw;
+ 
+-	/* Set the hw submission limit higher for KIQ because
++	/* Set the hw submission limit higher for KIQ/MES because
+ 	 * it's used for a number of gfx/compute tasks by both
+ 	 * KFD and KGD which may have outstanding fences and
+ 	 * it doesn't really use the gpu scheduler anyway;
+-	 * KIQ tasks get submitted directly to the ring.
++	 * KIQ/MES tasks get submitted directly to the ring.
+ 	 */
+-	if (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
++	if ((ring->funcs->type == AMDGPU_RING_TYPE_KIQ) ||
++	    (ring->funcs->type == AMDGPU_RING_TYPE_MES))
+ 		sched_hw_submission = max(sched_hw_submission, 256);
+ 	else if (ring == &adev->sdma.instance[0].page)
+ 		sched_hw_submission = 256;
+-- 
+2.45.2
+
