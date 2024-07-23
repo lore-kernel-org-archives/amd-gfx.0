@@ -4,155 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74385C3DA49
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 09:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B864C3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 09:48:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A32910E533;
-	Tue, 23 Jul 2024 09:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21FED10E536;
+	Tue, 23 Jul 2024 09:48:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jq+dTMu6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UzCiWAZ7";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2068.outbound.protection.outlook.com [40.107.96.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC42810E533
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 09:48:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nh8dLNTzo6TDTKxsIy+vcvolv65aW8G+/9bbDQOWu9fU0WAGZr6suSCKj/2Vx79XIf2y78l67Cmi7IQgwJg1+bZuspbQT6bOo3bfQQaceruzzd38faAzQVLk8G4Npwt+ciEcWsGAjQA4UFxcQkQBU4NaHEzltvRl/OzAoe+DkIup9nFJ6pA3en3h5TORKirV4sB5EFjWwfahYI9MIyASMPNENbQyXMw1jiDT6MbZxevbGd927QVETvAIO099lmNfAzwSC5PsBwmwGSzMXiMUafD7iW0RsgDlAWP2o6Q553GR6dr7Ch/4m8y3Iy/srkWLtJHYc4Z+gLzAtQh0T6bbfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y2PaXDD+h6Rl8/F7+Lxz25Yrt1KrJ+Dp3EhwNTN3Ago=;
- b=JzoFYgXYwbAQGyR8LeXuFGGyoofDHjeFMYwdDbH2nCL0vMuXFnOlgYz3mlbm8i65dgmKHeT2xhF8dRJ38TqrvdDo6a4TF3pVt+jx1IbJmdmpn3QPe//pdQw+dsIqzry2e8qIuOVhH8/gP+wyn8ZVvOQOvoJYmsYP8rYNvcb1t90HNrbPRBnP5b7yMzNX8sXqcCxKME3W7f7R9whwTIO/83a6mMQ440TELCcKlh7GTWEkvxx6k7QH+K6dpFfNX784Nfj2gZ0p6VaSH8SPBGZPHa8cviwPupsU1+tAfQcCjj+7uxvLsYppmfR+DCawcwBp8X2puvj6TALcvHD7HuCBYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y2PaXDD+h6Rl8/F7+Lxz25Yrt1KrJ+Dp3EhwNTN3Ago=;
- b=jq+dTMu6q2KD0GHKwZFOr7pKtkKQhVBCgBbbE+o+sxnM5KJgW6Y4OaLz0fcCzDDmDnl/PAdHCXoii+SDU8IOHG09VYQvk/qIj1Ju773mbjht3hqkSlFzYtlrEKsG7C/m310QSpt6kg9rBaEmv1DQQLzS93QJ5D0rLBV4Kh2tc98=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5040.namprd12.prod.outlook.com (2603:10b6:5:38b::19)
- by CH3PR12MB9431.namprd12.prod.outlook.com (2603:10b6:610:1c1::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16; Tue, 23 Jul
- 2024 09:48:08 +0000
-Received: from DM4PR12MB5040.namprd12.prod.outlook.com
- ([fe80::a3dc:7ea1:9cc7:ce0f]) by DM4PR12MB5040.namprd12.prod.outlook.com
- ([fe80::a3dc:7ea1:9cc7:ce0f%4]) with mapi id 15.20.7784.017; Tue, 23 Jul 2024
- 09:48:08 +0000
-Message-ID: <da9ccae0-504a-48d3-ade5-a16e53b4a9b5@amd.com>
-Date: Tue, 23 Jul 2024 15:17:58 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] HID: amd_sfh (drivers/hid/amd-sfh-hid/): memory/page
- corruption
-To: Benjamin Tissoires <bentiss@kernel.org>,
- Chris Hixon <linux-kernel-bugs@hixontech.com>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
- Jiri Kosina <jkosina@suse.com>, LKML <linux-kernel@vger.kernel.org>,
- Li Ma <li.ma@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, yifan1.zhang@amd.com,
- linux-input@vger.kernel.org, Basavaraj Natikar <basavaraj.natikar@amd.com>
-References: <3b129b1f-8636-456a-80b4-0f6cce0eef63@hixontech.com>
- <ade43b5b-9b93-40a8-acbf-99df944b45f9@leemhuis.info>
- <11fdf362-8fa5-4d44-904b-c0c9867ebd07@amd.com>
- <f6162b22-c6c6-47d7-9bda-dd702fcc5b4b@hixontech.com>
- <kkenglf5lkvu2um3o44umdxaoeh5zgsaus73kauc6vwcqpnsfv@5i6xtjnxtb5c>
-Content-Language: en-US
-From: Basavaraj Natikar <bnatikar@amd.com>
-In-Reply-To: <kkenglf5lkvu2um3o44umdxaoeh5zgsaus73kauc6vwcqpnsfv@5i6xtjnxtb5c>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0099.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:af::7) To DM4PR12MB5040.namprd12.prod.outlook.com
- (2603:10b6:5:38b::19)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EEDF10E539
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 09:48:23 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-52efd855adbso3689719e87.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 02:48:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1721728101; x=1722332901; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JW59qZFQgCC31wbEwUCtuQQuQBLlM6wWfVTdXY5t1+k=;
+ b=UzCiWAZ7vMpU0wJeJUYebns22bPqYcr0qQK0OxYZ4g67r+6S+6O5iDNXjDu60nM1q0
+ Q+kHj45P8aOOdAF6kT+V4HA7yGGiHF7hq4b8c1b9SSX3lnuXcvdrDuRmvPrYChhZEBUN
+ NMeOmuyhlyHlyHSvbTig+JZQ+pge12m88NLGwAZ5xV1IvxORTmBh0tPw41JK0f5lLQPh
+ b17CcWblHxLyUBZINf7LNnnJ7FPKGB/w6WXli8zTeEXS+ungLPPKbm0JJHz1ZWcuMFjn
+ cgnNThZG0F5SD/mSoHPtzPW8/jygF6/eSz/RdykSE7RABaUJMsNqMxiPuOtHr8vF8LXv
+ hmdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721728101; x=1722332901;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JW59qZFQgCC31wbEwUCtuQQuQBLlM6wWfVTdXY5t1+k=;
+ b=awtyfi3zuSBKMfyuzXNm9JhVE3TCCV8mtOgbrWvGIAliKTO13Ntb1m6ZBf0WBcJ7aY
+ x7YOR83bPstm+QbHkKAJZsrfyYnlNST0EbyuZ67GL5o5s1ZcVG/G/RbLVIIgQhdKbXie
+ YiGFuyo3XrhMQK8F1qct0YzUOnPivqzEuEhyOclPF4GznkFpuYo+UhEVdEmED2oHpszf
+ O0GHAPQ6IcVSq1XPNVoikE5ZtXzbP0xAF//ckHyUKeqNMKQ6OISi6269irORNeOLV8Dn
+ 486wOWN+8GAnNlnTDj6gyAfBH8ZXADDHp8RHVtakmz3DUsR2rsvv/MRTh7o46vwyJ/qX
+ 1ohA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWyDDWA/v8vJ7CBsP7KnZum8R+u2NyRgtTXg6U6ubxlM0Ckc+O5X/vWZ45XHotzHuaYZStY6/p+tnMEbj/cVtqUP8YfBYkwElPL2ZsWig==
+X-Gm-Message-State: AOJu0YzZ4H9u7VuqcBWkaCKG/Cx/1NE1l64TWIpjwK7osiBqxkMljj/L
+ tCVKqzBBJQJIi8uORmF5/Sbt/tc4pwW1MmmzAXXozPLzoOr5VEBu
+X-Google-Smtp-Source: AGHT+IEFQmyNIW61txFcSeGVWUPGZtsOcAmUn9+5NHPHaFzolJrKw/obfpyIKm00uO/17HJWcRWI0A==
+X-Received: by 2002:a05:6512:23a3:b0:52c:c032:538d with SMTP id
+ 2adb3069b0e04-52fc404b854mr1586764e87.27.1721728100363; 
+ Tue, 23 Jul 2024 02:48:20 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427d68fa17csm166916785e9.2.2024.07.23.02.48.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 02:48:19 -0700 (PDT)
+Message-ID: <ec978c23-b465-4315-88f9-eaddfb14c148@gmail.com>
+Date: Tue, 23 Jul 2024 11:48:18 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5040:EE_|CH3PR12MB9431:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2aaad658-90e0-4d9d-cc5c-08dcaafc8ec5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0RSc0FNays2UnV4TGY0dzlTbzA5MXlLd0FiMzBCKzlQUjh2Z1VLbW91bGRh?=
- =?utf-8?B?ajhnZStXZHU0UnRrV05VU2RDNFA5eXFXd1BhRVYwQng2Z1VEeElBSjZCNFZl?=
- =?utf-8?B?VFJtN0NqaDYyTXp2SWEydWxHb1gybDQrMXFtTXd4UnlzVmRkS1dlQUh1SXov?=
- =?utf-8?B?dFFSWTRzbmUvb2xMcTVmcHhIOElZbkxCTVFBMFRVM3hjTlhjYlE1YWF6MTA0?=
- =?utf-8?B?MUR3TnlJMndocHg1cFlHbHIvOEFFc1VudC9mY1hQQUh0dGRBeU1obzQyT1Z6?=
- =?utf-8?B?cUlESHcyeFBOcUFXb2lHM3BhQWZ2bnAvdWQrVDV1MWxjZkk3VEdvZVhZM2xs?=
- =?utf-8?B?bmcxOFRYNlZCM2ZJNEtJblhGa3g4U2JOZjNmcytBMmExSk9CTkhINFNpVFYw?=
- =?utf-8?B?eUxBRW1obnZaTGdReTB3aVpjSDh4dmRMQ1ZUSlI2QVM1ajV3Z2R1M2RzZUx4?=
- =?utf-8?B?a0M0NWVHSGVjSUZXb2xrMndReEtSSmlkdzdpZlJ3eTlYQ1VjZk13OU1vYnhG?=
- =?utf-8?B?amtDemZzVlBRYk12NHlZN0NERUtnb3ByOE8yTXZXS25qQVplZnc0cFlDcDFi?=
- =?utf-8?B?ZDNIa3V4MUhNbFRRenZCWVdaZW16cVA2Qzhvb3Ruc2VKVFVpY21pcWdWSVhu?=
- =?utf-8?B?d3Nlbkc2RVJzM2hDdWhTajdyRzZFV3NwaHczQk5waGZ0WWY1UXgwNGNWUjhV?=
- =?utf-8?B?bjAvU1Y3ckMzeEJKRTFFNkMwaENLSjBrWUFPWElseDZJd1Y1NUl6bFVXYWtv?=
- =?utf-8?B?SGVzYm5uRTBESklUamxQeDhqMnoyQTQ5OHduNHNYZlFXRmtlbmg5MEwwbzcx?=
- =?utf-8?B?NWYwc1hPMU9GSCtGQ3poZlNQNkJIZHhrOHlNSlZ0aGtiSCtrYzVUSkVGMmg0?=
- =?utf-8?B?UHRMQTlzN0M2c2hIK0V4cHRERDhWMEZPWFdkWkMyQW1Xd0lJRnlJbFJibXkr?=
- =?utf-8?B?Z2YzL1RuNmcrdnIyU00zTFlHdVR5T240VjhTRUJKaHJDbnBucXJkWlNlekdv?=
- =?utf-8?B?NG1YeUtrYURSZnFhdXBPMnRXRXo4L1BYNmtUbkI5bnYvdHMzcmM0N1V4eGFu?=
- =?utf-8?B?cEVSaTJodzNjalpSOUdYK25vZWRlTjZxMEppRUlndTFaWUhsRkhIYW9yZWw0?=
- =?utf-8?B?N0x6MStUaGFzMW5rZ2kveWlkTGVSZnB1QnliNEJwdTZvMGptZGZNUFE1RXN1?=
- =?utf-8?B?OHlhUzEyUytqVU1LNDFxZUVCVmpNbWVWQnV5MTZkeGZONzNuYmdULzR0TkM1?=
- =?utf-8?B?Y3BwVUVmNDBYd3RnMXFnejhpMHhvN09hT2pYQ21EbUFwRGVNN0pNMkN3YXpa?=
- =?utf-8?B?QUtVTTMzWHdoMFJ3Ukw2Vk9iWjVtcFhNRStnclM4OXhwUmhxdkFvc09KNndQ?=
- =?utf-8?B?OEN0aG9XM0FhdlNpMUlpOXlqYS9jbDNnd2pjcFFidG8yRkdNMGsxejlCeHVO?=
- =?utf-8?B?YXdHb3lDNUR2VVZVTmZWNFhCdW9FdTlodUN4T1ZBWnV0UkFZWUZkQTNmMFVr?=
- =?utf-8?B?T3IvSTM2ZWl0UGorbjZwNmtFM3M0b1krYktxSWsxVnl5dWQ0QkM0dDlmOGRh?=
- =?utf-8?B?QXprRDc3bExSWnZWQ2M2K2tLVDdEU00vM2NJK1dmakRHZTVpclI2SFNuS3N4?=
- =?utf-8?B?VEdybFluWU1jekJteW9KUnJXanprb0ZPRmt3Q2hLc3A3QVVwTmE3aG45NWho?=
- =?utf-8?B?NzJDZWlpc0M1VVhaVHBGS3lPNm9NekhzUUo1b2xvNFlaQndocGR6Y2RPWWlI?=
- =?utf-8?Q?nlrm1dQ+eWB5SM0hHM=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5040.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z09wZVdvVXpqRjV3UE10N1hmUXlpVTVQY0RRMEZlSGd1ckdTTUxPUXNOK3hy?=
- =?utf-8?B?TmpsVGlHUmpUZWdTVUJ5ME5uRENITUE4aW1TaVRrWTRveVdKYUVxTEdTZ2d1?=
- =?utf-8?B?RWVwZjN3Q0RPUXBmLzNmbFdSN1lCeHZDcGRQb0o1NjJhTC9hTDVkNmFWYmNU?=
- =?utf-8?B?dXV5SVpmS21yZE5PMUROdDh5UUFXdExjNWVVbDlQdDFGNDJpcUV0d1NoLzNP?=
- =?utf-8?B?aTRtOE41Skhub1N0a2NNd3l4QjdyTEw1TUNIVVF5QVFVUXpuZ21JQ1duenQw?=
- =?utf-8?B?dkwxZnMrd0hLVVFmWk9jUUQxaEpGVWhxWllibCs3d1Zkdnd0M3NuNW0yYlRa?=
- =?utf-8?B?cEFpUnFvRnJQWnpmbmxWODNLMVZjQzlzbjZjT3poTWlRVnVOUHFqTC9ZSVBy?=
- =?utf-8?B?RnhSbjFtOW5URGY2Tm9EejZmNytZOWJ4REwyMWgzeUJpcnFsZWRTUGM2RklX?=
- =?utf-8?B?UEtCalExQStuR2lMSTJpajd3d203RHJXMEdrTVIxUTZhZWllQjlDOFJ2Wnly?=
- =?utf-8?B?OUI0MGg5bTJMNUcvQVQvdjQ3aUJSNGJRajhCQWFvMzZtc3I2bzdza0NFMUFu?=
- =?utf-8?B?em03enJySWtQSTRWd1VXRGRaekpoNWlKbzRJUTRNelYzZE5vaDFrTFgyYnpY?=
- =?utf-8?B?UXdhM0pwTnY4TmpCSGFqRktkeStRZXR2clVLZWVVS3NqOTRBM2ZxUURsU0t0?=
- =?utf-8?B?OCt3alF0WWdibE5VeUI4VFE5eGx1VVBrT2hEL0xXN2R6a3hPeVhkWllTelJj?=
- =?utf-8?B?d2U2bWo3bTBuWnk5Y1FQYisydmJRaFVZQ0RDayttWHBKRmRmZFNPTUczdHhW?=
- =?utf-8?B?ZEkyTVBWVFk0SHFtTjlqK25aVVN5ZzBsUEV0UVhjeXp2MkxlOFU3S1dLends?=
- =?utf-8?B?T0JCNjF5eUMxdkRobHQrYXoyWEFCZWp0RkZGYndwVjFxL3VrdHRnRExJVXpa?=
- =?utf-8?B?b2ZjcFFySkNmR09ZejhiR0pLbUNnT1llcnprWWtOejVYMFloYnFrejIyejl0?=
- =?utf-8?B?VjN4ZGs1akYzQ3d5NGozV2w4YUVxM05EaFRJU2hhaG9ILzZqNng3cDJQT0Vk?=
- =?utf-8?B?VDJ3MUQ5MmpVWGtLZVhxc3R3ZUNJckpvWFpveW1mNk9mYTV4N2wydTdiSklP?=
- =?utf-8?B?cUh4THZ6c2g2c3o3ckNGZGpzblZwRERsUTlTQmFueDFycE5WaktMY3RhK2Qv?=
- =?utf-8?B?N09nMy8raUFPN1FmYzJSQTlXcEdPbHJ0SlVBYUk1cGRsU25oTTFOeW9rVzIy?=
- =?utf-8?B?TjhsZTJPQmlHYW4yNjYrZUsrMmMwa2w0djIwK0VkZ2VZYjZTQWlvOUgyNXNt?=
- =?utf-8?B?bVVyS295WmI3MUhyS05Pc2lUaG9hNlBuMEk2T3lDV1JZeXRiNlpYN05KQnZk?=
- =?utf-8?B?YVpyLzUwU1czaWsvWnEyRS9ZaktYNkdCemdxSDBSQnIwUjZ4WHdVeHIvVUMr?=
- =?utf-8?B?M2ZhUXlLWDhOTm1PQUgxczdqQlRxWjdVb1M0WFArT3NqZHlQV0ozNVFzdStF?=
- =?utf-8?B?YWtjWEZPWFZJOU1HSmZlK1pVSjdDK1ExMWJhOXpISy9HSW9xTkdOMkZmYzIw?=
- =?utf-8?B?UGV2ZGxKOTE4bjVhY0ZkcmU0OEd2c2UrM0M3b1hRZVd4TDR1NXU1bzEwR2NZ?=
- =?utf-8?B?djhKR2d1NG9UeWh2NDZDS0RNYWRQZHgvR3pyZHdBM253L2dsdDNJY2pYdnQ0?=
- =?utf-8?B?YmxVbnd3blYwUExieHF3LzJIUVJ6R2ZWcER6TWoxZXgwbHBCZ2pOZm9zWERa?=
- =?utf-8?B?WWRWci9IdXZFeDJrRjRQUG5jVUNOdlBuT1hIcWFsSEJDOXlobGM2Q3BXbVNQ?=
- =?utf-8?B?bER5WloyUHNPYUxUTjhxV3p5YnpubUxXdzE4OXp3SldrcTdvN2s4dzdNZ0s2?=
- =?utf-8?B?K1lzMTBpa2k5YXd6MW5sb1BmSGlGdzErWTJRVnQ1VTQveDJxWXVKNU1vRGwv?=
- =?utf-8?B?QXBEZDVUOWJrNkU4RzBidStVcW5DWmdMSDdVZWM5UTgzbEFvNlJGVzZuWCt0?=
- =?utf-8?B?ZnN5OVBlV2xNV2s5eWl5UTRvVkJmVDlQYy8rdDJtM3RySjUwdkptSTJzTXFK?=
- =?utf-8?B?SVRObXkreE5IbmI5VHVKYTJoZGdtT0xHUDBKOTdGRmNVNjhidGhLS0pkd3dU?=
- =?utf-8?Q?CWRcwi7qyowmq9/MhSXhECG3f?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2aaad658-90e0-4d9d-cc5c-08dcaafc8ec5
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5040.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 09:48:08.7296 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w2+uBOXyoobaQHjqrOaqBL8PV5e+qGzv8r0eg1/Cjn4vDkrWxrfK7DEZbhQk2PmtcejlmTmr3v4Xo39ISfnFqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9431
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: reset vm state machine after gpu
+ reset(vram lost)
+To: "Yin, ZhenGuo (Chris)" <ZhenGuo.Yin@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>
+References: <20240723030548.1283366-1-zhenguo.yin@amd.com>
+ <5ceac529-39cd-4095-8193-e30932f37dac@gmail.com>
+ <MW4PR12MB668323C00301AC048424BF43E9A92@MW4PR12MB6683.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <MW4PR12MB668323C00301AC048424BF43E9A92@MW4PR12MB6683.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,102 +87,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 23.07.24 um 11:04 schrieb Yin, ZhenGuo (Chris):
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Hi Christian
+>
+> I prepared this patch because we met a page fault after gpu reset in SRIOV triggered by quark.
+> After investigation, I found that the page table did not get restored after gpu reset.
+> I just tried to use vm_update_mode=0 to disable VM update by CPU, and this issue still exists.
 
-On 7/22/2024 10:00 PM, Benjamin Tissoires wrote:
-> On Jul 21 2024, Chris Hixon wrote:
->> On 7/21/24 00:20, Basavaraj Natikar wrote:
+CPU based page table updates are not supported under SRIOV.
+
+>
+> -[Christian] When VRAM is lost any submission using the VM entity will fail and so result in a new page table generation.
+> I believe that you are referring this piece of code in function amdgpu_job_run():
+>          /* Skip job if VRAM is lost and never resubmit gangs */
+>          if (job->generation != amdgpu_vm_generation(adev, job->vm) ||
+>              (job->job_run_counter && job->gang_submit))
+>                  dma_fence_set_error(finished, -ECANCELED);
+>
+> I agree that the submission from the old ctx will be set as ECANCELED and be skipped.
+> But if the application then creates a new ctx and submit a new job, both new_ctx->generation and new_job->generation will be initiated as the updated one.
+>          ctx->generation = amdgpu_vm_generation(mgr->adev, &fpriv->vm);
+>          (*job)->generation = amdgpu_vm_generation(adev, vm);
+> And the job will be executed, hence there will be a page fault due to VRAM lost.
+>
+> Please correct me if I have some misunderstanding.
+> I still can not see why any submission using the VM entity will fail due to VRAM lost.
+
+Ah! My assumption was that you will also always have a VM page table job 
+which would be canceled.
+
+But that isn't the case, instead you have only a context which is 
+re-created.
+
+In that case the approach here is valid, but let me comment on the patch 
+itself.
+
+Regards,
+Christian.
+
+>
+> Best,
+> Zhenguo
+> Cloud-GPU Core team, SRDC
+>
+> -----Original Message-----
+> From: Christian König <ckoenig.leichtzumerken@gmail.com>
+> Sent: Tuesday, July 23, 2024 3:13 PM
+> To: Yin, ZhenGuo (Chris) <ZhenGuo.Yin@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Koenig, Christian <Christian.Koenig@amd.com>
+> Subject: Re: [PATCH v2] drm/amdgpu: reset vm state machine after gpu reset(vram lost)
+>
+> Am 23.07.24 um 05:05 schrieb ZhenGuo Yin:
+>> [Why]
+>> Page table of compute VM in the VRAM will lost after gpu reset.
+>> VRAM won't be restored since compute VM has no shadows.
 >>
->>> On 7/17/2024 4:51 PM, Linux regression tracking (Thorsten Leemhuis) wrote:
->>>> On 15.07.24 06:39, Chris Hixon wrote:
->>>>> System: HP ENVY x360 Convertible 15-ds1xxx; AMD Ryzen 7 4700U with
->>>>> Radeon Graphics
->>>>>
->>>>> Problem commits (introduced in v6.9-rc1):
->>>>> 6296562f30b1 HID: amd_sfh: Extend MP2 register access to SFH
->>>>> 2105e8e00da4 HID: amd_sfh: Improve boot time when SFH is available
->>>>>> It appears amd_sfh commits 6296562f30b1 and 2105e8e00da4 correlate with
->>>>> some form of memory/page corruption. 
->>>> Hi! From a quick search on lore it looks like Basavaraj Natikar who
->>>> authored those two commits is inactive since a few days. This is totally
->>>> fine, but given the nature of the problem slightly unfortunate. That's
->>>> why I'm trying to raise awareness to this report by adding the
->>>> subsystems maintainers, a few lists, and a few people to the list of
->>>> recipients that were involved in the submission of those two patches.
->>>> With a bit of luck somebody might be able to help out. Ciao, Thorsten
->>>>
->>>>> On my system, this typically
->>>>> presents itself as a page dump followed by BTRFS errors, usually
->>>>> involving "corrupt leaf" (see dmesg output below); often the BTRFS
->>>>> filesystem becomes read-only afterwards. Note that the underlying NVME
->>>>> disk seems fine, and the BTRFS filesystem does not actually appear to be
->>>>> corrupt when booted/checked from kernels without this bug (no BTRFS
->>>>> errors or I/O errors reported on non-problem kernels).
->>>>>
->>>>> I have no problems when I blacklist the amd_sfh module (any kernel
->>>>> version), or revert both commits 6296562f30b1 and 2105e8e00da4 (on
->>>>> stable, linux-6.9.y). I have no problems on any recent linux-mainline
->>>>> (v6.10{,-rc*}) when reverting these two commits (in addition to
->>>>> reverting 7902ec988a9a and 6856f079cd45 to successfully build the
->>>>> kernel). I have had no problems with any 6.6.y, v6.7.y, or v6.8.y version.
->>>>>
->>>>> It is curious BTRFS always seems involved, but problems go away with
->>>>> these amd_sfh commits reverted (or amd_afh disabled).
->>>>>
->>>>> Further notes:
->>>>>
->>>>> I have not specifically used the amd_sfh module for anything. As far
->>>>> I've been able to determine, my system has the "Sensor Fusion Hub" mp2
->>>>> chip, but has no supported sensors/sub-devices (or I need to do
->>>>> something to enable them), (or there is an error while detecting
->>>>> sensors?). All logs I've checked contain something like:
->>>>>
->>>>> Jul 09 04:14:37 arch kernel: pcie_mp2_amd 0000:04:00.7: enabling device
->>>>> (0000 -> 0002)
->>>>> Jul 09 04:15:07 arch kernel: pcie_mp2_amd 0000:04:00.7: Failed to
->>>>> discover, sensors not enabled is 0
->>>>> Jul 09 04:15:07 arch kernel: pcie_mp2_amd 0000:04:00.7:
->>>>> amd_sfh_hid_client_init failed err -95
->>>>>
->>>>> Excerpt from lshw:
->>>>>            *-generic:1 UNCLAIMED
->>>>>                 description: Signal processing controller
->>>>>                 product: Sensor Fusion Hub
->>>>>                 vendor: Advanced Micro Devices, Inc. [AMD]
->>>>>                 physical id: 0.7
->>>>>                 bus info: pci@0000:04:00.7
->>>>>                 version: 00
->>>>>                 width: 32 bits
->>>>>                 clock: 33MHz
->>>>>                 capabilities: pm pciexpress msi msix cap_list
->>>>>                 configuration: latency=0
->>>>>                 resources: memory:fe000000-fe0fffff
->>>>> memory:fe4cc000-fe4cdfff
->>> Could you please check with the latest version, including the patch below?
->>>
->>> https://lore.kernel.org/all/20240718111616.3012155-1-Basavaraj.Natikar@amd.com/
->>>
->>> Thanks,
->>> --
->>> Basavaraj
->>>
->> Hi,
+>> [How]
+>> Use higher 32-bit of vm->generation to record a vram_lost_counter.
+>> Reset the VM state machine when vm->genertaion is not equal to
+>> re-generation token.
 >>
->> Unfortunately, that patch doesn't fix the issue. I do get different crashes...
-> Thanks for the quick testing.
+>> v2: Check vm->generation instead of calling drm_sched_entity_error in
+>> amdgpu_vm_validate.
+> I've just double checked the logic again and as far as I can see this patch here is still completely superfluous.
 >
-> Basavaraj, was the patch from above an attempt at fixing that particular
-> regression or was it emerging from some other means?
+> When VRAM is lost any submission using the VM entity will fail and so result in a new page table generation.
 >
-> In other words: should I apply the fix even if it's still not the
-> correct one for Chris?
-
-yes Benjamin, Please apply fix and it looks like below crash is not related to amd_sfh driver.
-
-Thanks,
---
-Basavaraj
-
+> What isn't handled are CPU based page table updates, but for those we could potentially change the condition inside the CPU page tables code.
 >
-> Cheers,
-> Benjamin
+> Regards,
+> Christian.
+>
+>> Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 11 +++++++----
+>>    1 file changed, 7 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index 3abfa66d72a2..9e2f84c166e7 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -434,7 +434,7 @@ uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>>        if (!vm)
+>>                return result;
+>>
+>> -     result += vm->generation;
+>> +     result += (vm->generation & 0xFFFFFFFF);
+>>        /* Add one if the page tables will be re-generated on next CS */
+>>        if (drm_sched_entity_error(&vm->delayed))
+>>                ++result;
+>> @@ -467,9 +467,12 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>        struct amdgpu_bo *shadow;
+>>        struct amdgpu_bo *bo;
+>>        int r;
+>> +     uint32_t vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+>>
+>> -     if (drm_sched_entity_error(&vm->delayed)) {
+>> -             ++vm->generation;
+>> +     if (vm->generation != amdgpu_vm_generation(adev, vm)) {
+>> +             if (drm_sched_entity_error(&vm->delayed))
+>> +                     ++vm->generation;
+>> +             vm->generation = (u64)vram_lost_counter << 32 | (vm->generation &
+>> +0xFFFFFFFF);
+>>                amdgpu_vm_bo_reset_state_machine(vm);
+>>                amdgpu_vm_fini_entities(vm);
+>>                r = amdgpu_vm_init_entities(adev, vm); @@ -2439,7 +2442,7 @@ int
+>> amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>        vm->last_update = dma_fence_get_stub();
+>>        vm->last_unlocked = dma_fence_get_stub();
+>>        vm->last_tlb_flush = dma_fence_get_stub();
+>> -     vm->generation = 0;
+>> +     vm->generation = (u64)atomic_read(&adev->vram_lost_counter) << 32;
+>>
+>>        mutex_init(&vm->eviction_lock);
+>>        vm->evicting = false;
 
