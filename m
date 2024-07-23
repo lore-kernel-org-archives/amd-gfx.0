@@ -4,118 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D372BC3DA63
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 08:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 910BAC3DA63
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 08:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26F8A10E3F9;
-	Tue, 23 Jul 2024 08:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E112A10E49B;
+	Tue, 23 Jul 2024 08:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MtMcee48";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DeZAmOOH";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26FA10E3F9
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 08:28:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=piCx7UDjKqR85zrLyMZrhqfp1MO6fWCE8ebm+SulU8HRr4w0+Ha3nYshZsAnJ6dv7lmvPmL6iIJQ8rJl7DDD9L3LY6/i4gSI6EU3CmdzXyL0K2EZ7MoPija/Gd694BlgDLjfKqEZ9VczvsTIGb87zlyhNfA0hDNO12P4EQSZgvn2vVm3hVo1sprIc640eiBy/5go7Qo/4XfIzPjGoJedK6qrOf+E5qXCAdCRUUFuOgneb8pjMukmtL93C1gUer6iuj531EiccITGfQKmnjs5PoiU95jTToXF54ysDNhJAjPl8cBiBCEu7U7ffvgUyof5BLeNr7UO0hD1yNvt2S3MCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AT31idaCTkrBGAqTcgM2UNsoJJnZNFB5G4iueFVo8Q0=;
- b=o9XMUnhMJzaCNkxFJsHWGGgWV8plPqaLVMqM3f2b20m322aM0MhedD3ghMsQgTfB9RGV0c1/CDqPiEzMMXV4N4LTrNKVyl+xDsHw6zSlTMmCqLUFl485n28U+C6E+ivMMdfdpdTGfs0eA3L6pWIFj2vmeNN6YXa4dWVTOwSam2UgwacfeF+8I9P/Z0FWQIDFZ7H02PIHNWrssoJizBjXfbrNPt1SnhBdFKcQM+MVZx5RVJToNaDLCJJD76K0WdryYBsEw41/O4s85NtnYBaKycDplQfHHDPZqgXmR201I+UiyJIQ3dNce8pdm7VAd8p4sDj/pmzhm6JCm2VWTt22Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AT31idaCTkrBGAqTcgM2UNsoJJnZNFB5G4iueFVo8Q0=;
- b=MtMcee48WtK6G7w0HD69z3PnzTwGJfUX/ukXekRqhb1N69GESTUuyFATizjQY9AxawTuwzBP7ubvhS9hE7f4oPUeVGayMlvACfe1gEVi+tu3dIEHcc00d75OGRXqeP8ZmsTP2hpU7n05OlvZ9gb53+ZkA0+WDFKnySyy1Cmwlnc=
-Received: from BY5PR03CA0014.namprd03.prod.outlook.com (2603:10b6:a03:1e0::24)
- by PH8PR12MB6963.namprd12.prod.outlook.com (2603:10b6:510:1be::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.25; Tue, 23 Jul
- 2024 08:28:16 +0000
-Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::4a) by BY5PR03CA0014.outlook.office365.com
- (2603:10b6:a03:1e0::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17 via Frontend
- Transport; Tue, 23 Jul 2024 08:28:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Tue, 23 Jul 2024 08:28:16 +0000
-Received: from jackfedora30.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
- 2024 03:28:12 -0500
-From: Jack Xiao <Jack.Xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <ckoenig.leichtzumerken@gmail.com>
-CC: Jack Xiao <Jack.Xiao@amd.com>
-Subject: [PATCH] drm/amdgpu/mes: refine for maximum packet execution
-Date: Tue, 23 Jul 2024 16:27:37 +0800
-Message-ID: <20240723082737.2359410-1-Jack.Xiao@amd.com>
-X-Mailer: git-send-email 2.41.0
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F1E10E49B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 08:34:06 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2ef283c58f4so28357401fa.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 01:34:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1721723645; x=1722328445; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AJ2VNc2om1myjOGpQ6KrGhMJVYI0Y54L6d0Qtqmz9+4=;
+ b=DeZAmOOHROfKsghYaau1BQKAsqGSMPTCFyHGn5sOjaBnSquesqgT68B29Dptb/k6rR
+ z4uIidpqzrBh9IXEXDF+d6DxLGZ78+hQP+RaqoqEpRG1qy5FkTaJr2mLRLI8WSQ9oZGj
+ okQMmN6C8r+hKKsb3uKYVna4DJLzr0tUDOCkQCUvZhxxZE/Shx3en7nOgei1HD/ybTIU
+ 0j5Ktc8nyX3fiUjIevIGGKT8wK0EGfgHPxK+jYnbIUHOZu/ov1ZAOMSG8M5yg5Ly3aYS
+ 08sFUhC4UaS6T5Xi3/FqbSJALcdilgM4b/CfaC2z0wn67SAXykGsRAdXFZu2yPrU7Gnk
+ DtMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721723645; x=1722328445;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AJ2VNc2om1myjOGpQ6KrGhMJVYI0Y54L6d0Qtqmz9+4=;
+ b=WFYoksyRVjvjkz8XVCn3RLwDxtS4cMqiyORF7M9R/HMpRV6EIyZes9e7GQQ3ZvTQCV
+ EvBVXXNfq3w+3euE76dDEzNWW5SmhDgs0FinWNIeiCUl0y8oiUaCWXueML4IakQ9QL9g
+ zCMjLwXX1W8i4ub5alZw25KbvSNJz87YnaVX6SfcLwpqbYKBplhOxG2yHSH94JCZJAdq
+ pNrHuhOFnt39oZxFtcDVqOQCxow2X0j6F/t0meZgGxPGvxKpMSurYoUg/0N72ieE41Kx
+ s47/Tq25L6/uRkO+4NTZDwa0IyqXqbfEcNLzENXnYFeRROM03oaBoIxc3jvSFDLEuSDy
+ 4L3Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVlL7pZGQKukP0zkyk3TrR6BjvN8b7B4gWrUh8I08hMID6xabkUjSBwl4tRqR9++MewX4FkxRYNIIy9NB87/qYDciCnoO8W0dZS+l3JUg==
+X-Gm-Message-State: AOJu0Yxif9xxpIz8RKljWGHY4fxXJhE+kLhmcI9keGZ8KSPn6FKAVg3q
+ qVIwkkm19iubAapAKvIAz4nON15XcvyqApRlUGGBx3Lm1VwlNGsT
+X-Google-Smtp-Source: AGHT+IELOW43OX4gZY1Nnr5U0Zz1Jy5AIhYMHFNMxPUSVeyOS2CgrPcg7vM7L3jjOOGFxcL5RwxXUQ==
+X-Received: by 2002:a2e:3013:0:b0:2ef:2247:987b with SMTP id
+ 38308e7fff4ca-2ef22479e5emr59960631fa.32.1721723644191; 
+ Tue, 23 Jul 2024 01:34:04 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427d9193350sm146558225e9.40.2024.07.23.01.34.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 01:34:03 -0700 (PDT)
+Message-ID: <e78e5ace-9524-4dda-8d60-25bbf28a9311@gmail.com>
+Date: Tue, 23 Jul 2024 10:34:02 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|PH8PR12MB6963:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f2fc008-88cd-4007-df31-08dcaaf16681
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?9bq0UTz8mKs2RjtUQu4XROAdYA7Itgt9/HX+orJVPSKMpWGVnlTPfgmHu7UU?=
- =?us-ascii?Q?Y79YHM8ZuYgAF52hgomKRV9I57ivId4zrH3RMd33frqBgyb0HazcF2jXH88v?=
- =?us-ascii?Q?g2I+EvZPjQuf7JRyT1doO33hAt58oP0vyZ7LHra9G/3J2h0JE7cqV2qhJG/C?=
- =?us-ascii?Q?3qxdF+sLH7JXKWokEvpCqM/voEnL0eMgRlwjd+A2dFOcwcSIhE4YuYM0OSAa?=
- =?us-ascii?Q?pPGHliCJQ67E3dK9a+PobqjgjdhFA0RYpW/YrCFQHZv4ki96Q8qfqb2/mibo?=
- =?us-ascii?Q?K+Lq8sM2cqK4Cw05rKOoCfEBDYFhTTCCdVVzXH94i/ZN0GkiaFW1AP33kDdP?=
- =?us-ascii?Q?DWLJ2uc4e9KeJErL1XRjqoyKXf00YUyQLQWO182sw3R3NF9phzCBzAfgJoCh?=
- =?us-ascii?Q?tUZqBBihH5Aerg9NDpjpB1//uFlxMB5vHYrR3Y8S7nyVpHwaCRR8lvJCWALE?=
- =?us-ascii?Q?L2ks1L5JVVJMqV2TC7bt5PrS+xI+WcXMdWCJEHoQaBWFsLA7mtye2nG4rgLk?=
- =?us-ascii?Q?YCtYeI0wvWMqYhURn7za7VzZzbqvEzLWxxxpp7Dbw5yxZL7wB3tRVYhwEHE5?=
- =?us-ascii?Q?QrexMO+ozUe35rEIPiOTAX2X3UxeOefEvIgMPx8HXme0ehxxIV3vCsdPGFWx?=
- =?us-ascii?Q?iiz5PfU4c9hDEB9+mYTe0xXLt+Ga8YCZdymWha0u9YHOk3S1imC7QeKqb9yE?=
- =?us-ascii?Q?uilNJhlYCaDPgN/T00S/eNEGg7NDv8lD+6E1cVgSjr4C9cXgXAaFdJFT1s8Z?=
- =?us-ascii?Q?w8IW2De67MaPw/bOnA8tOm7jf4uqVI1aNw8kxNC/aiD7pDWIYZfFLCxfEuyP?=
- =?us-ascii?Q?tMoFrzyY5qPsW5Q0kKhu26blcaT1GpvdKHMeRYbzsWDpSgNHKBwAtXC0W1BU?=
- =?us-ascii?Q?iLbnEzjPN3O5HToWwGNd/kf0WgQf0VlpRtgKXI6H02o+cIgVV3ESamyuZuVd?=
- =?us-ascii?Q?FhVNTR0x4QkPjq+OY0zIfjy06s/9HCPB2bcXouuxzegIT7r/EQZ6jQeHljD9?=
- =?us-ascii?Q?/eMeu6yfe5xOyO9jWp8ZTq+fGhomvwBz9pP1n3uGOu/DBCCCqMxjYjPy/AOe?=
- =?us-ascii?Q?Dr+H8xh7SVgSmW4uNzwQ/ZymCmbmRjLRy7X7r/zvI3jswek3fGfCmvr+9s2S?=
- =?us-ascii?Q?sTZiS51TQ6i4trCS8mAFkwtiTAL9SxGwL4lkuC80FaymG1eoqMuEUAOljxtn?=
- =?us-ascii?Q?HjyKWCvMdC/oJVN/UB87IPP9U/HCebaLsJvzWVQymojMPmyMg6qBUfFHwcrg?=
- =?us-ascii?Q?DkR8DPDQzLEHD7uCuX+LPZCJtxB6GCq953+NskThkqmqzb+Km1oRC7aTa+rD?=
- =?us-ascii?Q?z4DmSK4ExlZ18eIHCScc09DJdqFfAZROUEGb/B4RGJ3Ttt0OG/nwMIog6MN5?=
- =?us-ascii?Q?KB2k1gkL7faKk/hM6b+ECg06M0V1BoqTjO0FNNXGefU/sWEzu1zZq1LbtNPn?=
- =?us-ascii?Q?elFU7PyySeQPL6uLE4dyKD6ceL+ubvEF?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 08:28:16.1989 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f2fc008-88cd-4007-df31-08dcaaf16681
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CD.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6963
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/mes: refine for maximum packet execution
+To: Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com
+References: <20240723082737.2359410-1-Jack.Xiao@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240723082737.2359410-1-Jack.Xiao@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,55 +83,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Only allow API_NUMBER_OF_COMMAND_MAX packet in mes ring buffer,
-refine the code for maximum packet execution.
+Am 23.07.24 um 10:27 schrieb Jack Xiao:
+> Only allow API_NUMBER_OF_COMMAND_MAX packet in mes ring buffer,
+> refine the code for maximum packet execution.
+>
+> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   | 2 +-
+>   3 files changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index ad49cecb20b8..dfe487521a4a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -212,6 +212,8 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>   	 */
+>   	if (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
+>   		sched_hw_submission = max(sched_hw_submission, 256);
+> +	else if (ring->funcs->type == AMDGPU_RING_TYPE_MES)
+> +		sched_hw_submission = 32;
 
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   | 2 +-
- 3 files changed, 4 insertions(+), 2 deletions(-)
+Yeah that looks like it makes sense.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index ad49cecb20b8..dfe487521a4a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -212,6 +212,8 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
- 	 */
- 	if (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
- 		sched_hw_submission = max(sched_hw_submission, 256);
-+	else if (ring->funcs->type == AMDGPU_RING_TYPE_MES)
-+		sched_hw_submission = 32;
- 	else if (ring == &adev->sdma.instance[0].page)
- 		sched_hw_submission = 256;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 68c74adf79f1..951f13e01ee9 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -198,7 +198,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 
- 	seq = ++ring->fence_drv.sync_seq;
- 	r = amdgpu_fence_wait_polling(ring,
--				      seq - ring->fence_drv.num_fences_mask,
-+				      seq - (API_NUMBER_OF_COMMAND_MAX/2 - 1),
- 				      timeout);
- 	if (r < 1)
- 		goto error_undo;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 48e01206bcc4..dc65f28d1795 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -184,7 +184,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 
- 	seq = ++ring->fence_drv.sync_seq;
- 	r = amdgpu_fence_wait_polling(ring,
--				      seq - ring->fence_drv.num_fences_mask,
-+				      seq - (API_NUMBER_OF_COMMAND_MAX/2 - 1),
- 				      timeout);
- 	if (r < 1)
- 		goto error_undo;
--- 
-2.41.0
+>   	else if (ring == &adev->sdma.instance[0].page)
+>   		sched_hw_submission = 256;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 68c74adf79f1..951f13e01ee9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -198,7 +198,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>   
+>   	seq = ++ring->fence_drv.sync_seq;
+>   	r = amdgpu_fence_wait_polling(ring,
+> -				      seq - ring->fence_drv.num_fences_mask,
+> +				      seq - (API_NUMBER_OF_COMMAND_MAX/2 - 1),
+
+This looks a bit questionable. amdgpu_fence_wait_polling() doesn't apply 
+the fence mask to the polled value.
+
+So what happens if that overruns?
+
+Additional to that we should really keep that logic in 
+amdgpu_fence_emit_polling() and not each individual MES generation.
+
+Regards,
+Christian.
+
+>   				      timeout);
+>   	if (r < 1)
+>   		goto error_undo;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> index 48e01206bcc4..dc65f28d1795 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -184,7 +184,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>   
+>   	seq = ++ring->fence_drv.sync_seq;
+>   	r = amdgpu_fence_wait_polling(ring,
+> -				      seq - ring->fence_drv.num_fences_mask,
+> +				      seq - (API_NUMBER_OF_COMMAND_MAX/2 - 1),
+>   				      timeout);
+>   	if (r < 1)
+>   		goto error_undo;
 
