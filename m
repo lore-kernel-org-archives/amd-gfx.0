@@ -4,71 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 624CCC3DA63
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 17:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C141C3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 17:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDDB310E614;
-	Tue, 23 Jul 2024 17:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D68210E1D0;
+	Tue, 23 Jul 2024 17:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nv3EsrD7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Magy97QX";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF7C10E613;
- Tue, 23 Jul 2024 17:14:53 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-7669d62b5bfso703709a12.1; 
- Tue, 23 Jul 2024 10:14:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721754892; x=1722359692; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6YR/sRwpB1CCsWUP+4Ph7FU7thUB0l4sYMzG0JevTYg=;
- b=Nv3EsrD7aewrVvC0agV/nuG/ljLcbLLER04rYYFdwc4R5kYbZtDgyuY0lBKcHnNva0
- D4uzIppgekIDMptoUngl+LRXdErRhkYY97qjHPWBS8YZtputWBvY+pAYm91CZmw7XRbP
- DqgGbbKpax+/KmcsaBnp3mh4pxIL3pk8re8C/sQrKX/9KhH7RkFq2dwNo9gQM0ODbi9p
- RqOVaRFYSFU/WiBmaL7qbzejS6jUxAiUAbITpUA+WXOuOMB7OSBy7foAB1MLp1J2ykje
- L/svEbzpILDhVHBPl/Bhfw5A1MpfS1op4L8VULOesZlW42RzcEmjK5KUvTI3mgj03/Ul
- lPCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721754892; x=1722359692;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6YR/sRwpB1CCsWUP+4Ph7FU7thUB0l4sYMzG0JevTYg=;
- b=NWG3r2qQ26dzRPXrDz6awmcN6ZxFrTpDLYll52dcP6uDhUn1LkPnr4hxmaCMx8KhI6
- UzTlLxBN0IeJ42hNr/iyR7L7Cn/haz/sz6R881paS88RivlyojNBcT4H/b4mKHKlSsQA
- fnyd+0KMyrHGnS/JwonhBViC5YApLhKID+ZcBAXCCBemYSVsRm7pohWGRUaxxRsKUqTs
- GjI7HIe5jCeBOoIYm+8WGKmX1/uq9WavUWks7A02MuaP3rjzCYAi1cj/p5RbbjYyxHou
- amRH6sHxpRC4+388H0O5JSZXezQh0XosurocZKZdRDJCsU1MzmqkoaM7qtRq9na3XCLY
- Hscw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWviDgziVcASGhDS3aXncoB6hU6u31TtGhVktZ3RmXMB5l8RgB79iM6nICCXPUDDuaZ2vL4mTkEO+Dw3Giooo/RhED8lH8Po61YaKRliJC+UsqJcFrv4Eiv10guscIEOaCHiPBCI2xIen2+5Eixsg==
-X-Gm-Message-State: AOJu0Ywb6/Db18F9EMjo1t2GPG7tn+jbIqYQ1mlk/kp32Xk4Ntds+e0o
- saAgjZP4B54m5eek6M+ABj/xcemfzr7oQ6E2W7pouTh95SVVaU0ve7pJo8SAZELxs6XGTa0IyAM
- Scmja88tQVLKw08ayXZCytLzSQDQ=
-X-Google-Smtp-Source: AGHT+IGOWJh0Vr3vgfLKwgbdET9Ih1+E4GAFHNnhf5BKkoe1va0SUJ3C95dZPt2LE3dvS9NDOXkvc202wsNZKJQrkB0=
-X-Received: by 2002:a17:90b:1e4d:b0:2c8:7897:eb46 with SMTP id
- 98e67ed59e1d1-2cd274d48c6mr7012879a91.37.1721754892475; Tue, 23 Jul 2024
- 10:14:52 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B018910E1D0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jul 2024 17:34:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ubfiHmVkot3k3QffkWiu49cv3hfD+RAg6qegpsdm1woP3RbV5RKpGMqir/eUKN6HUc0wavcuVOQTS59YnC46gd5k5IX0VmVOJ2UVoT+UV9UdTuFJ2qcYcZfu35XAhZyfu31NOAzb8amosg9iw017smZEcNAaovBioU0axm2iVxVycewzt6dfiG83+sd3OuE9JeyQAkSzHeuNd3HAeI64wiZh1OqIsLBZsmRYPcwVEXx8abPee+zmiACOleRRxRPVN+n2fgmQAd0lrGTgvEPeI8DrpZ9K4u+6Nyut2+wRzH9a0YF4B1Zp0oeqZTpuqXllpsfVLHp4BZlHzeMyZq5BhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r7S3sNWLVcddLNCRjdI/X6sTeDUKkU2YX8mwN3iFMA4=;
+ b=DeaXVxdcudJCRh7VhtjZsTF/YKjW77iZFObnL0dH76JhJhb02OBKgoSZYR1YIKKTWUUQ+9VqEIkYHPTr1A4zHNiEuja/w6blagXLnbO4dyW4XbYofkwhspnXfazIkI5sOZxr/msaZRKTKaVTunKROX7N0fdwosX2MGPIDNEcID+KQPdroaimIAs65N06J8SdgR3goA49vJIKN0oVogatXjxgKA3ohh+x9HNv2/w6abhTybe2ZFFNaZtvC5Wq9FgdEZPvijvn4ZXzdWorw1Yl9aUuEGebFMre85ChGELJQHpaSc/afFC8uaugab2pfZLYXp6fsA5d5RFbjxTWkleAGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r7S3sNWLVcddLNCRjdI/X6sTeDUKkU2YX8mwN3iFMA4=;
+ b=Magy97QXRGFi08YjGJrLoqjgiTwyb03rgd9or72VfN/B7UHBENK/HlY+jasmYNjpwnAbK3gNpSM6rjYVYXG7ZrEVYqf7qHtC8Ec9Sk6gIFm3s5hBn7emHAIoLYqsrx7qLZcrdtNvm5pZJf+gC29o7vpCrkr2O+gDuwz9TNULLbM=
+Received: from PH7PR10CA0004.namprd10.prod.outlook.com (2603:10b6:510:23d::22)
+ by DM4PR12MB7550.namprd12.prod.outlook.com (2603:10b6:8:10e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.15; Tue, 23 Jul
+ 2024 17:34:12 +0000
+Received: from SJ1PEPF00002317.namprd03.prod.outlook.com
+ (2603:10b6:510:23d:cafe::bc) by PH7PR10CA0004.outlook.office365.com
+ (2603:10b6:510:23d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16 via Frontend
+ Transport; Tue, 23 Jul 2024 17:34:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002317.mail.protection.outlook.com (10.167.242.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Tue, 23 Jul 2024 17:34:11 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
+ 2024 12:34:10 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Subject: [PATCH 2/2] drm/radeon: properly handle vbios fake edid sizing
+Date: Tue, 23 Jul 2024 13:33:57 -0400
+Message-ID: <20240723173357.2314927-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240723173357.2314927-1-alexander.deucher@amd.com>
+References: <20240723173357.2314927-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20240616-amdgpu-edid-bios-v1-1-2874f212b365@weissschuh.net>
- <ad78ada4-4e31-4994-845b-fe756b52a1ae@t-8ch.de>
- <CADnq5_OjRgMkqnsep_AtKxonhCxthZZCsv+eNERuGH4-fXw6Ww@mail.gmail.com>
-In-Reply-To: <CADnq5_OjRgMkqnsep_AtKxonhCxthZZCsv+eNERuGH4-fXw6Ww@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 Jul 2024 13:14:40 -0400
-Message-ID: <CADnq5_NU51=+QM5OC+Ut4ahU_b-64zCAaTKfLB1BKbZijutHCg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: convert bios_hardcoded_edid to drm_edid
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002317:EE_|DM4PR12MB7550:EE_
+X-MS-Office365-Filtering-Correlation-Id: f32ece53-55f1-4857-3e94-08dcab3daa6a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SG5DUjlwWGRBMm1OWFUvNGQ4TTR4ZWR2S2doaHZDY1ZIOHZJMVBWK1dsbytu?=
+ =?utf-8?B?TlRrZWZxVmJlR3hjbTZ5Z0ZJcjljbnBwblpRU3RKK1ZkcXFxTFdNNmNYYjI1?=
+ =?utf-8?B?S2xlQlZsVlc2TmxoTTVWdC9MY2ZhUVBkbk9Xa3V4S0JUVUhpZi94c2RObGlZ?=
+ =?utf-8?B?dzJLS1ozZkgvbWtJcGluZHNjUENBRmxlK3c0KzE3bEpzQ2xPeGlwNmcxdWtN?=
+ =?utf-8?B?d2FkNlFQSm40Tk9NVEhuMXBnc1ZDaU1nbnZUSmU5SS9hcmlhN3d1NGJaVXBa?=
+ =?utf-8?B?ZFZ2UjNFY0JmaVJJaEwwRlplQXdQdVgyR0pESjk0eGlKZEUvRHRGamRkajBX?=
+ =?utf-8?B?YnIvUFFNOWpadk9ZRHNtb21CVnpwd1RHamphWHVlay95cWpDVzhBN29FZ1Bl?=
+ =?utf-8?B?T1N3NWhNM2F3L0xWSmxaL2pEYm9SMit5WWNncG1zQnUwclpYKzBWR2o5SW1E?=
+ =?utf-8?B?VHkyeS9kejBXdytzRlhiNXR3cVhhL3d0ZUpIMTQ5YWV0U1lVeDdzWU1tcVBU?=
+ =?utf-8?B?M0xBbzFObXNwcUZ1cGVtaXR2QUpSVDJFMmpnTGIyc0tUeTdxdkZRU3JMcVQ3?=
+ =?utf-8?B?dVhURjZkbm1zcTIrQ0RLWWlVRW52bGc1U2Y5cG9zdG5ZYXFpTnVzNGJ1ak5T?=
+ =?utf-8?B?R3Y1ayt1R2NRUURyVVNldktUZFZQaUdqV3JpSklTME1NRTYzcFI4V2hkbjY5?=
+ =?utf-8?B?NkdsUEEvTXorQ1NneW1mNUtaYkxQc0xxRStINlY2dkRvQkhBcTlxWHJCY0FZ?=
+ =?utf-8?B?NkhDanVJbVNPelhyci9CcFdHN2lhQzRUY08xNDlqdXQ3R253bEdOR3hYR3NH?=
+ =?utf-8?B?TjFPd0I3QzlFYkdlcHBsdkZkckdXNjQwanExY0N2NW1VaWgzcWRKUi9BUlZT?=
+ =?utf-8?B?T21QR05vTitoMWc1SFV6OVI2VXo4eVZpcDJQRWI2SkxuWW5wUkdYUWxUbmVS?=
+ =?utf-8?B?TExVd2sreGRxZkxRS2M1OHEwdnNEL2k3c0RBeUxaemlTdFNxemU4ME1Kbkpp?=
+ =?utf-8?B?YmZIbCtGOWlwRjU4YWx4WDY3RmVTS0VDRlhVWE1Ed0d0Nk5pR0phb3BPTmd6?=
+ =?utf-8?B?RW1LR3JQT01iMUY5enI0YVFlY2k1VEJSeUpuQW4xV29CMUhZU1psWjdsYU1M?=
+ =?utf-8?B?eStqTjlHUFVsd3luMlFYTElLSTQzaFQ4U0NCQ3I5STlrZ08velFvTUF3UWYz?=
+ =?utf-8?B?anhIWXpKWHJtV2dQeThBZ3hDR3RrVnQ4ZGFoNTY5eEVKOThCUklvR0lwYmI1?=
+ =?utf-8?B?Z21tdFB5eG5SN3hVdEh0RUo4RUFZRWFmRE1Ka05lenhNVS9yMTZxcTgybnNu?=
+ =?utf-8?B?MGYrMmVUQUJBYTI1WTRvUk53cVNJTUNNakxyVTQ2RXFoa0MvUk1UTW8waE50?=
+ =?utf-8?B?SDJ3d2pqY3NLblNMV3JKaW1HaFBaWlFNOWV2VXBCbWNoc2dMWDN2QjlxbUlS?=
+ =?utf-8?B?bmpnMVpwZnp5NEZVWkhqbDRsS21Md0RYNy9nVzRPS1NYcmN1QndESVNOemVa?=
+ =?utf-8?B?Y0dISUhteU1WNml2NktuQnFvVXRudzFNYW5EYzBoM1Q2WEJwUk00dW1MTTlD?=
+ =?utf-8?B?Qk9RRmxlUVR3QkdKbDZqanFtbmQ5Ykx6YzZDeUxYdTY0Z0xEY2J3VUVlUUhB?=
+ =?utf-8?B?YTE3b3VnVnA4YXhyMENQY0tPbXQ3eFZ0d1BwNEVFYjQwdnZaUmpDdnJ0Z1Fp?=
+ =?utf-8?B?SkZiSjRqNTE0VUdXMnNQVkZXL1N2US9DMWlJbUpQRnBlWmVLL1NyZEhpSHds?=
+ =?utf-8?B?cStCOWRHMTlya1FmdEpYR1JzaWQ1NWJUZllHVTBCSTdNVHFDVDJWc2lPRldt?=
+ =?utf-8?B?QWhuQjY0ak1HNW9SbUJEZTQvNFA0dWdZZjUreFdFYks5VmVIbW1pTmQxSGNP?=
+ =?utf-8?B?REg4Q3dtWkh1dVFLUTRIMjlrZWRpMG9KMFN1S1NHUTIvZy9lcXZZK20xOVgv?=
+ =?utf-8?Q?an6IJ+IJtd/vyc2uUlF+Rx4peNDnz1yl?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 17:34:11.8649 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f32ece53-55f1-4857-3e94-08dcab3daa6a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002317.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7550
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,144 +140,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 23, 2024 at 12:49=E2=80=AFPM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
->
-> On Sun, Jun 16, 2024 at 2:32=E2=80=AFPM Thomas Wei=C3=9Fschuh <linux@weis=
-sschuh.net> wrote:
-> >
-> > On 2024-06-16 11:12:03+0000, Thomas Wei=C3=9Fschuh wrote:
-> > > Instead of manually passing around 'struct edid *' and its size,
-> > > use 'struct drm_edid', which encapsulates a validated combination of
-> > > both.
-> > >
-> > > As the drm_edid_ can handle NULL gracefully, the explicit checks can =
-be
-> > > dropped.
-> > >
-> > > Also save a few characters by transforming '&array[0]' to the equival=
-ent
-> > > 'array' and using 'max_t(int, ...)' instead of manual casts.
-> > >
-> > > Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
-> > > ---
-> > > While this patch introduces a new user for drm_edid_raw(),
-> > > if amdgpu proper gets migrated to 'struct drm_edid', that usage will =
-go
-> > > away.
-> > >
-> > > This is only compile-tested.
-> > >
-> > > I have some more patches for the rest of amdgpu,
-> > > to move to 'struct drm_edid'.
-> > > This patch is a test-balloon for the general idea.
-> > >
-> > > The same can also be done for drm/radeon.
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c |  6 +-----
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h       |  4 ++--
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c       |  2 +-
-> > >  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 21 +++++++---------=
------
-> > >  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c         |  2 +-
-> > >  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c         |  2 +-
-> > >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c          |  2 +-
-> > >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c          |  2 +-
-> > >  8 files changed, 15 insertions(+), 26 deletions(-)
-> >
-> > <snip>
-> >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers=
-/gpu/drm/amd/amdgpu/atombios_encoders.c
-> > > index 25feab188dfe..90383094ed1e 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> > > @@ -2064,20 +2064,13 @@ amdgpu_atombios_encoder_get_lcd_info(struct a=
-mdgpu_encoder *encoder)
-> > >                               case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
-> > >                                       fake_edid_record =3D (ATOM_FAKE=
-_EDID_PATCH_RECORD *)record;
-> > >                                       if (fake_edid_record->ucFakeEDI=
-DLength) {
-> > > -                                             struct edid *edid;
-> > > -                                             int edid_size =3D
-> > > -                                                     max((int)EDID_L=
-ENGTH, (int)fake_edid_record->ucFakeEDIDLength);
-> > > -                                             edid =3D kmalloc(edid_s=
-ize, GFP_KERNEL);
-> > > -                                             if (edid) {
-> > > -                                                     memcpy((u8 *)ed=
-id, (u8 *)&fake_edid_record->ucFakeEDIDString[0],
-> > > -                                                            fake_edi=
-d_record->ucFakeEDIDLength);
-> > > -
-> > > -                                                     if (drm_edid_is=
-_valid(edid)) {
-> > > -                                                             adev->m=
-ode_info.bios_hardcoded_edid =3D edid;
-> > > -                                                             adev->m=
-ode_info.bios_hardcoded_edid_size =3D edid_size;
-> > > -                                                     } else
-> > > -                                                             kfree(e=
-did);
-> > > -                                             }
-> > > +                                             const struct drm_edid *=
-edid;
-> > > +                                             edid =3D drm_edid_alloc=
-(fake_edid_record->ucFakeEDIDString,
-> > > +                                                                   m=
-ax_t(int, EDID_LENGTH, fake_edid_record->ucFakeEDIDLength));
-> > > +                                             if (drm_edid_valid(edid=
-))
-> > > +                                                     adev->mode_info=
-.bios_hardcoded_edid =3D edid;
-> > > +                                             else
-> > > +                                                     drm_edid_free(e=
-did);
-> >
-> > The old code here seems broken in general.
-> > In drivers/gpu/drm/amd/include/atombios.h the comment for ucFakeEDIDLen=
-gth says:
-> > (I expect the same field in the same struct for amdgpu to have the same=
- semantics)
-> >
-> >     UCHAR ucFakeEDIDLength;       // =3D 128 means EDID length is 128 b=
-ytes, otherwise the EDID length =3D ucFakeEDIDLength*128
-> >
-> > So as soon as the EDID from the BIOS has extensions, only the first few
-> > bytes will be copied into the allocated memory. drm_edid_is_valid() wil=
-l
-> > then read the uninitialized memory and if the "extensions" field ends u=
-p
-> > non-zero it will happily "validate" past the allocated buffer.
->
-> I guess the allocation should be changed to something like:
-> if (ucFakeEDIDLength =3D=3D 128)
->     edid_size =3D ucFakeEDIDLength;
-> else
->     edid_size =3D ucFakeEDIDLength * 128;
+The comment in the vbios structure says:
+// = 128 means EDID length is 128 bytes, otherwise the EDID length = ucFakeEDIDLength*128
 
-The record size handling in atombios_encoders.c would also need to be fixed=
-.
+This fake edid struct has not been used in a long time, so I'm
+not sure if there were actually any boards out there with a non-128 byte
+EDID, but align the code with the comment.
 
-Alex
+Reported-by: Thomas Weißschuh <linux@weissschuh.net>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/radeon/radeon_atombios.c | 27 +++++++++++++-----------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
 
->
-> That said, I don't know how many systems actually used this.  IIRC
-> this was only used in GPUs from 15-20 years ago.  No objections to the
-> patch in general.
->
-> Alex
->
->
-> >
-> > The new code won't work either but at least it won't read uninitialized
-> > memory nor will it read past the buffer bounds.
-> >
-> > >                                       }
-> > >                                       record +=3D fake_edid_record->u=
-cFakeEDIDLength ?
-> > >                                                 struct_size(fake_edid=
-_record,
-> >
-> > <snip>
+diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+index 97c4e10d0550..da8f8686bb9d 100644
+--- a/drivers/gpu/drm/radeon/radeon_atombios.c
++++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+@@ -1714,15 +1714,18 @@ struct radeon_encoder_atom_dig *radeon_atombios_get_lvds_info(struct
+ 					record += sizeof(ATOM_LCD_MODE_CONTROL_CAP);
+ 					break;
+ 				case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
+-					fake_edid_record = (ATOM_FAKE_EDID_PATCH_RECORD *)record;
+-					if (fake_edid_record->ucFakeEDIDLength) {
++										if (fake_edid_record->ucFakeEDIDLength) {
+ 						struct edid *edid;
+-						int edid_size =
+-							max((int)EDID_LENGTH, (int)fake_edid_record->ucFakeEDIDLength);
+-						edid = kmalloc(edid_size, GFP_KERNEL);
++						int edid_size;
++
++						if (fake_edid_record->ucFakeEDIDLength == 128)
++							edid_size = fake_edid_record->ucFakeEDIDLength;
++						else
++							edid_size = fake_edid_record->ucFakeEDIDLength * 128;
++						edid = kmalloc(max(EDID_LENGTH, edid_size), GFP_KERNEL);
+ 						if (edid) {
+ 							memcpy((u8 *)edid, (u8 *)&fake_edid_record->ucFakeEDIDString[0],
+-							       fake_edid_record->ucFakeEDIDLength);
++							       edid_size);
+ 
+ 							if (drm_edid_is_valid(edid)) {
+ 								rdev->mode_info.bios_hardcoded_edid = edid;
+@@ -1730,13 +1733,13 @@ struct radeon_encoder_atom_dig *radeon_atombios_get_lvds_info(struct
+ 							} else
+ 								kfree(edid);
+ 						}
++						record += struct_size(fake_edid_record,
++								      ucFakeEDIDString,
++								      edid_size);
++					} else {
++						/* empty fake edid record must be 3 bytes long */
++						record += sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
+ 					}
+-					record += fake_edid_record->ucFakeEDIDLength ?
+-						  struct_size(fake_edid_record,
+-							      ucFakeEDIDString,
+-							      fake_edid_record->ucFakeEDIDLength) :
+-						  /* empty fake edid record must be 3 bytes long */
+-						  sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
+ 					break;
+ 				case LCD_PANEL_RESOLUTION_RECORD_TYPE:
+ 					panel_res_record = (ATOM_PANEL_RESOLUTION_PATCH_RECORD *)record;
+-- 
+2.45.2
+
