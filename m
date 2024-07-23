@@ -4,62 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EFD7C3DA63
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 15:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 197B8C3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 16:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3E910E5E9;
-	Tue, 23 Jul 2024 15:04:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8746E10E131;
+	Tue, 23 Jul 2024 16:49:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mf84hiLW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUUT4I3t";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF7310E5E9;
- Tue, 23 Jul 2024 15:04:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721747074; x=1753283074;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Z6dwSWk1WjEescjyQW++iIBgR8gbKpbChlsHIuy8aFE=;
- b=Mf84hiLWL0DRbs/UXIUeUUasXGl2juzbeNHmoKY7aKMZT6AQmYPk2aZp
- mEz0OWmI4YKOabe5pnGmbOUZ5ynennu2TcdpwjjmZ/M/cZWA9W1y/Even
- BhZOpPIXciG75txSI3HUSezK3NN1R87zKjKg0P4TzelReETpNnWBdSuAU
- sXOtqMf2ZdlZBBNGTkamDOwOmiBifmDcrL02yMcfHPc4wDr7ToH1EFRdr
- 0uX1GyOlmiY/o1r2SPR9w4jQpKwGFKe7IsiGybMNLXryvBLezS+5xKqqy
- bWPWfR/LJEL0Z4R8Bio/xKIky3zwPFbqVmE8nJHWujzh6xks+pvoAgpAI g==;
-X-CSE-ConnectionGUID: B1LuQlroSe6KGzIFJicnew==
-X-CSE-MsgGUID: FvKPvPsbTee1hMy87DpnGQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11142"; a="19527227"
-X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="19527227"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2024 08:04:33 -0700
-X-CSE-ConnectionGUID: GChzbPPWSeibCUHkK8VT2g==
-X-CSE-MsgGUID: lPXtIzwGQYu951MmUKUe9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="75470616"
-Received: from oandoniu-mobl3.ger.corp.intel.com (HELO [10.245.245.253])
- ([10.245.245.253])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2024 08:04:32 -0700
-Message-ID: <f23ebf02-b67c-4bc6-9244-730edd49fa98@intel.com>
-Date: Tue, 23 Jul 2024 16:02:41 +0100
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC79510E12D;
+ Tue, 23 Jul 2024 16:49:29 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2cb55ff1007so2905084a91.0; 
+ Tue, 23 Jul 2024 09:49:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1721753369; x=1722358169; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IMmHjYZaR62eDvty50K2NRQt0UbFsIJ7pK7TgLOXdII=;
+ b=dUUT4I3t3jAaqdTqE1zrc7zt/RKd6ZntAzIyxoXQwC/4FQr/aSt4SGSz+pUdqAxDcu
+ yq4z6VOsCneJjd6/L0agJd0cVVT2+uPFdk9Pmu+P9QKLrpDHtrOLl7EfU6FSdWw3R4v0
+ lWD4wp5Ed9gJFHTNKqR8WRn81EyaIN4OxE8GTS+d1nTl1ryHsQhsQxmzZmc9JVXTD/Ij
+ aEXLBtVH9jZ2UIYccwlZUpwU5QGfnaVJAv7sud38wl8+ojRdKuUT9pbV7RqDeU4l4yqd
+ nTuWBL4XOWneUWpTgQpXgxeNhEiGJ0bt1lZQO1jA9rOibQ4zviSG1tleMEz2iokJrVhZ
+ mKPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721753369; x=1722358169;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IMmHjYZaR62eDvty50K2NRQt0UbFsIJ7pK7TgLOXdII=;
+ b=UrJqe/bbkygqKM3z3fG9L5sNQpjH0aisSF6yXIcygvYLbF2kXtQLBx7tFaj4qhqC6j
+ Dewb1GSQBKmNAZBPEfAgG1Zse9kWDoE4KpfX8+/3Jsx4MdcDj2FEcElDX+mLSmASEFyc
+ yZIM/Klo0xdu7/+DsKC31U7JhgTMSaTT6oQj+qsTxB1LMD2bvU+iPOjwJOC2ejqX6QsJ
+ Zc5/G2MzlKrQxXehuQMrHpMcGkX7ZbA0pRDn14VoaizxFjgq7OXJDysEnwzmyAbbwO8A
+ TGY6/nbT9D+pPsrqONbHF/SjSKqInwRmDQVeQxavy6SiI73waR4BDl4W9DIR/SQZufZT
+ 92Yw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWYv4gXo6GcZ1tzeUVkI+miTxPz8JUmbmMMIxZ7aLwdNXpSGua5I+MkaefatNcDkq5npNS/Qq+RyEs5kaSjVmeD8lyMPl7/hZw5xl6umE0yJmPK8eJt225ctSHJJSiWZRdrebO1kdMe/W4BuG4lJQ==
+X-Gm-Message-State: AOJu0Yw1u159AMpNw1H0LZD7H/SoFS8DcTGQfLrQv3J3xtJrspAyYfcn
+ kdV5ElvIwg7fh8uNHhy6E3OfaPVXY3Ufy90wKPVNa1LEjozYIttc/loe716/JnqKNlfIyNnKD4e
+ sFXUY9hqnM58n/l1qwwXvPBHuIo0=
+X-Google-Smtp-Source: AGHT+IE8JQBZvhS2e9eniMpbuWyekU8wcVXNlUi2GDa0myv7hS4wlZavVHKcmrE30IzEvkK6/tLYZObBbfVH90jq+Zg=
+X-Received: by 2002:a17:90a:c20d:b0:2cb:4c4f:3280 with SMTP id
+ 98e67ed59e1d1-2cdaf5585b1mr259536a91.26.1721753368766; Tue, 23 Jul 2024
+ 09:49:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] drm/buddy: Add start address support to trim
- function
-To: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com,
- marek.olsak@amd.com
-References: <20240723132525.31294-1-Arunpravin.PaneerSelvam@amd.com>
- <0de0d6fa-64f0-4ada-89c3-c188a7ae36f8@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <0de0d6fa-64f0-4ada-89c3-c188a7ae36f8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20240616-amdgpu-edid-bios-v1-1-2874f212b365@weissschuh.net>
+ <ad78ada4-4e31-4994-845b-fe756b52a1ae@t-8ch.de>
+In-Reply-To: <ad78ada4-4e31-4994-845b-fe756b52a1ae@t-8ch.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 23 Jul 2024 12:49:17 -0400
+Message-ID: <CADnq5_OjRgMkqnsep_AtKxonhCxthZZCsv+eNERuGH4-fXw6Ww@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: convert bios_hardcoded_edid to drm_edid
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,156 +82,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 23/07/2024 14:43, Paneer Selvam, Arunpravin wrote:
-> Hi Matthew,
-> 
-> Can we push this version for now as we need to mainline the DCC changes 
-> ASAP,
-> while we continue our discussion and proceed to implement the permanent 
-> solution
-> for address alignment?
+On Sun, Jun 16, 2024 at 2:32=E2=80=AFPM Thomas Wei=C3=9Fschuh <linux@weisss=
+chuh.net> wrote:
+>
+> On 2024-06-16 11:12:03+0000, Thomas Wei=C3=9Fschuh wrote:
+> > Instead of manually passing around 'struct edid *' and its size,
+> > use 'struct drm_edid', which encapsulates a validated combination of
+> > both.
+> >
+> > As the drm_edid_ can handle NULL gracefully, the explicit checks can be
+> > dropped.
+> >
+> > Also save a few characters by transforming '&array[0]' to the equivalen=
+t
+> > 'array' and using 'max_t(int, ...)' instead of manual casts.
+> >
+> > Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+> > ---
+> > While this patch introduces a new user for drm_edid_raw(),
+> > if amdgpu proper gets migrated to 'struct drm_edid', that usage will go
+> > away.
+> >
+> > This is only compile-tested.
+> >
+> > I have some more patches for the rest of amdgpu,
+> > to move to 'struct drm_edid'.
+> > This patch is a test-balloon for the general idea.
+> >
+> > The same can also be done for drm/radeon.
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c |  6 +-----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h       |  4 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c       |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 21 +++++++-----------=
+---
+> >  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c         |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c         |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c          |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c          |  2 +-
+> >  8 files changed, 15 insertions(+), 26 deletions(-)
+>
+> <snip>
+>
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/g=
+pu/drm/amd/amdgpu/atombios_encoders.c
+> > index 25feab188dfe..90383094ed1e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> > @@ -2064,20 +2064,13 @@ amdgpu_atombios_encoder_get_lcd_info(struct amd=
+gpu_encoder *encoder)
+> >                               case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
+> >                                       fake_edid_record =3D (ATOM_FAKE_E=
+DID_PATCH_RECORD *)record;
+> >                                       if (fake_edid_record->ucFakeEDIDL=
+ength) {
+> > -                                             struct edid *edid;
+> > -                                             int edid_size =3D
+> > -                                                     max((int)EDID_LEN=
+GTH, (int)fake_edid_record->ucFakeEDIDLength);
+> > -                                             edid =3D kmalloc(edid_siz=
+e, GFP_KERNEL);
+> > -                                             if (edid) {
+> > -                                                     memcpy((u8 *)edid=
+, (u8 *)&fake_edid_record->ucFakeEDIDString[0],
+> > -                                                            fake_edid_=
+record->ucFakeEDIDLength);
+> > -
+> > -                                                     if (drm_edid_is_v=
+alid(edid)) {
+> > -                                                             adev->mod=
+e_info.bios_hardcoded_edid =3D edid;
+> > -                                                             adev->mod=
+e_info.bios_hardcoded_edid_size =3D edid_size;
+> > -                                                     } else
+> > -                                                             kfree(edi=
+d);
+> > -                                             }
+> > +                                             const struct drm_edid *ed=
+id;
+> > +                                             edid =3D drm_edid_alloc(f=
+ake_edid_record->ucFakeEDIDString,
+> > +                                                                   max=
+_t(int, EDID_LENGTH, fake_edid_record->ucFakeEDIDLength));
+> > +                                             if (drm_edid_valid(edid))
+> > +                                                     adev->mode_info.b=
+ios_hardcoded_edid =3D edid;
+> > +                                             else
+> > +                                                     drm_edid_free(edi=
+d);
+>
+> The old code here seems broken in general.
+> In drivers/gpu/drm/amd/include/atombios.h the comment for ucFakeEDIDLengt=
+h says:
+> (I expect the same field in the same struct for amdgpu to have the same s=
+emantics)
+>
+>     UCHAR ucFakeEDIDLength;       // =3D 128 means EDID length is 128 byt=
+es, otherwise the EDID length =3D ucFakeEDIDLength*128
+>
+> So as soon as the EDID from the BIOS has extensions, only the first few
+> bytes will be copied into the allocated memory. drm_edid_is_valid() will
+> then read the uninitialized memory and if the "extensions" field ends up
+> non-zero it will happily "validate" past the allocated buffer.
 
-Yeah, we can always merge now and circle back around later, if this for 
-sure helps your usecase and is needed asap. I just didn't fully get the 
-idea for needing this interface, but likely I am missing something.
+I guess the allocation should be changed to something like:
+if (ucFakeEDIDLength =3D=3D 128)
+    edid_size =3D ucFakeEDIDLength;
+else
+    edid_size =3D ucFakeEDIDLength * 128;
 
-> 
-> Thanks,
-> Arun.
-> 
-> On 7/23/2024 6:55 PM, Arunpravin Paneer Selvam wrote:
->> - Add a new start parameter in trim function to specify exact
->>    address from where to start the trimming. This would help us
->>    in situations like if drivers would like to do address alignment
->>    for specific requirements.
->>
->> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
->>    flag to disable the allocator trimming part. This patch enables
->>    the drivers control trimming and they can do it themselves
->>    based on the application requirements.
->>
->> v1:(Matthew)
->>    - check new_start alignment with min chunk_size
->>    - use range_overflows()
->>
->> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->> Acked-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/drm_buddy.c          | 25 +++++++++++++++++++++++--
->>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
->>   include/drm/drm_buddy.h              |  2 ++
->>   3 files changed, 26 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->> index 6a8e45e9d0ec..103c185bb1c8 100644
->> --- a/drivers/gpu/drm/drm_buddy.c
->> +++ b/drivers/gpu/drm/drm_buddy.c
->> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct 
->> drm_buddy *mm,
->>    * drm_buddy_block_trim - free unused pages
->>    *
->>    * @mm: DRM buddy manager
->> + * @start: start address to begin the trimming.
->>    * @new_size: original size requested
->>    * @blocks: Input and output list of allocated blocks.
->>    * MUST contain single block as input to be trimmed.
->> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct 
->> drm_buddy *mm,
->>    * 0 on success, error code on failure.
->>    */
->>   int drm_buddy_block_trim(struct drm_buddy *mm,
->> +             u64 *start,
->>                u64 new_size,
->>                struct list_head *blocks)
->>   {
->>       struct drm_buddy_block *parent;
->>       struct drm_buddy_block *block;
->> +    u64 block_start, block_end;
->>       LIST_HEAD(dfs);
->>       u64 new_start;
->>       int err;
->> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>                    struct drm_buddy_block,
->>                    link);
->> +    block_start = drm_buddy_block_offset(block);
->> +    block_end = block_start + drm_buddy_block_size(mm, block);
->> +
->>       if (WARN_ON(!drm_buddy_block_is_allocated(block)))
->>           return -EINVAL;
->> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>       if (new_size == drm_buddy_block_size(mm, block))
->>           return 0;
->> +    new_start = block_start;
->> +    if (start) {
->> +        new_start = *start;
->> +
->> +        if (new_start < block_start)
->> +            return -EINVAL;
->> +
->> +        if (!IS_ALIGNED(new_start, mm->chunk_size))
->> +            return -EINVAL;
->> +
->> +        if (range_overflows(new_start, new_size, block_end))
->> +            return -EINVAL;
->> +    }
->> +
->>       list_del(&block->link);
->>       mark_free(mm, block);
->>       mm->avail += drm_buddy_block_size(mm, block);
->> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->>       parent = block->parent;
->>       block->parent = NULL;
->> -    new_start = drm_buddy_block_offset(block);
->>       list_add(&block->tmp_link, &dfs);
->>       err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
->>       if (err) {
->> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>       } while (1);
->>       /* Trim the allocated block to the required size */
->> -    if (original_size != size) {
->> +    if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
->> +        original_size != size) {
->>           struct list_head *trim_list;
->>           LIST_HEAD(temp);
->>           u64 trim_size;
->> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>           }
->>           drm_buddy_block_trim(mm,
->> +                     NULL,
->>                        trim_size,
->>                        trim_list);
->> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c 
->> b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->> index fe3779fdba2c..423b261ea743 100644
->> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct 
->> ttm_resource_manager *man,
->>       } while (remaining_size);
->>       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
->> -        if (!drm_buddy_block_trim(mm, vres->base.size, &vres->blocks))
->> +        if (!drm_buddy_block_trim(mm, NULL, vres->base.size, 
->> &vres->blocks))
->>               size = vres->base.size;
->>       }
->> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->> index 2a74fa9d0ce5..9689a7c5dd36 100644
->> --- a/include/drm/drm_buddy.h
->> +++ b/include/drm/drm_buddy.h
->> @@ -27,6 +27,7 @@
->>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION        BIT(2)
->>   #define DRM_BUDDY_CLEAR_ALLOCATION        BIT(3)
->>   #define DRM_BUDDY_CLEARED            BIT(4)
->> +#define DRM_BUDDY_TRIM_DISABLE            BIT(5)
->>   struct drm_buddy_block {
->>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
->> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>                  unsigned long flags);
->>   int drm_buddy_block_trim(struct drm_buddy *mm,
->> +             u64 *start,
->>                u64 new_size,
->>                struct list_head *blocks);
->>
->> base-commit: b27d70e1042bf6a31ba7e5acf58b61c9cd28f95b
-> 
+That said, I don't know how many systems actually used this.  IIRC
+this was only used in GPUs from 15-20 years ago.  No objections to the
+patch in general.
+
+Alex
+
+
+>
+> The new code won't work either but at least it won't read uninitialized
+> memory nor will it read past the buffer bounds.
+>
+> >                                       }
+> >                                       record +=3D fake_edid_record->ucF=
+akeEDIDLength ?
+> >                                                 struct_size(fake_edid_r=
+ecord,
+>
+> <snip>
