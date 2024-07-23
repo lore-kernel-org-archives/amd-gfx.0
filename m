@@ -4,149 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E34C3DA63
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 13:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A65C3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jul 2024 14:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3D610E5D6;
-	Tue, 23 Jul 2024 13:43:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCDC10E290;
+	Tue, 23 Jul 2024 14:56:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bQxyCM1g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RDFlvjKr";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52CEE10E5D6;
- Tue, 23 Jul 2024 13:43:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ySI4QK2QdCOP5ZqIzn6THob2rr/ccBegNYKgc2fwjaSSzmhnDtR6wxxfO9ZfS0+mF6GZNf2j+TDgXrwTTczuaDpjJoIXKvx5X1wnwxLULsXfqOdp8hcCC/X6b0tqT9QyAG63ITDRTrhyLzzy7tKThOt4D7XTyauY1IFLBNE/5lptXl3ccP0vnYlGWatPTIA7igwNiMZnz7a0NY/tImyCW+OvkbMbhSbebL0psjvheWjdB70V/NDsx1az/PfokNuC+NInFcoPorc9AoSJprRlNvV6+zhdeK9RECv6NWvmJPmTa7GeJE8lVn2zGK8PObMtX3oXfa7hqNx+nFjbcY2JQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZpCESbK6sCZeKMwVvVhDq9ZRkkMaN9vXeFmkxeqpW+8=;
- b=AwMsRd2B+1Hg4RRfVY2ECXF+eovJpIyKdzmijvMbk4hEqGRVHo8qTH6Sp3XRixtL2nEzoW4Q2LrpClyyELGmX5d1Q+UoDowuw5BzG5Lq/FqDnsTz59LzaKNuQzTSj2E5Up/pwVqjjN5UNfR2nYEdIFbB1UQFHzgfPW4XlK/T9u/LhXFdW4oquPIQqjXNuiqWlv3lnkzZv6WpTITacEf+jmIOs3wpetjYLr4twx6oX0Zx6FKBtOr9Jb6C0j57lc/q56Bb8N2ojgMzWwci/YnXtHOLsXwqZWLUYneSgBs1KEi3eJHtqsffrMQ9YILYPvv3QZIervBlO2ecFHdACqLrCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZpCESbK6sCZeKMwVvVhDq9ZRkkMaN9vXeFmkxeqpW+8=;
- b=bQxyCM1gsTnB6Id3KbGXs5ebp9EnyrEvMQJRMWLRH6scM4EyWY4cvvX9Do/c1SMo3uY4k467t3Bon94+4mzBCTm8AsT5NvnyxDJLWC7mDcW4TAtHsTLSXWWk2KzCpq1a8uVoyn+fD+SoRxNIjvkjEs6fCFGzSWDwxu4+Is+YxRE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.18; Tue, 23 Jul
- 2024 13:43:31 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::c55f:19e:6896:cf3]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::c55f:19e:6896:cf3%4]) with mapi id 15.20.7784.017; Tue, 23 Jul 2024
- 13:43:31 +0000
-Message-ID: <0de0d6fa-64f0-4ada-89c3-c188a7ae36f8@amd.com>
-Date: Tue, 23 Jul 2024 19:13:22 +0530
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBF189496;
+ Tue, 23 Jul 2024 14:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1721746589; x=1753282589;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=VjCF4sXMLJzVAPahkYhBhf3XDbD38u6a10PWcLs7eEY=;
+ b=RDFlvjKrY9rt9JArGxgPPHMEAaSu2Abi+/WBmp8wHdOdjmgu7urfZa4Y
+ 2YwgGle1HfveukF8LHwV6DAg+INYgd5JdcGlwsrYttlyqrAmg1z+TwLm5
+ GUDl1cmbjynQwzDtqNjm6t1vihJIGtSZFgXQstN3WT1GL022ownlP4OsK
+ W9w1HQ9KTEpeyFJW0yNIDNNCM75IH99WD9exEtytZO0BECY/IV6r/dxGT
+ KW3J+OD8x/pLXEe0S+ZgUJX4Vc+6FQa3lczDGDEIkGJHRyga0KheoTSpg
+ EWEo4qcnRROOuBp1TPaBXW68JFRambmhP7dFJv6KIXNcBgfdtnceUXi4m g==;
+X-CSE-ConnectionGUID: iJfs0tDVSquoGPw0TdyAnQ==
+X-CSE-MsgGUID: 9fZIWo9LSGSxR2cRWyX8+w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11142"; a="22275937"
+X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="22275937"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2024 07:56:27 -0700
+X-CSE-ConnectionGUID: JI1b0nlES9mdxo1viCUyJQ==
+X-CSE-MsgGUID: j+Gurl6ARbGvUzOV4HFpBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,230,1716274800"; d="scan'208";a="82902810"
+Received: from oandoniu-mobl3.ger.corp.intel.com (HELO [10.245.245.253])
+ ([10.245.245.253])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2024 07:56:26 -0700
+Message-ID: <c2660981-0e9b-43e8-abf1-26060d308de6@intel.com>
+Date: Tue, 23 Jul 2024 15:56:22 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] drm/buddy: Add start address support to trim
- function
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, matthew.auld@intel.com
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com,
+Subject: Re: [PATCH] drm/buddy: Add start address support to trim function
+To: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, alexander.deucher@amd.com, frank.min@amd.com,
  marek.olsak@amd.com
-References: <20240723132525.31294-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-US
-From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <20240723132525.31294-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20240704083008.870021-1-Arunpravin.PaneerSelvam@amd.com>
+ <CADnq5_OcuKoZYizbeU_RGPaWYvTpxGMPWg6xOXaPASBMYb5kig@mail.gmail.com>
+ <635ee761-13a5-413e-9953-cfb8c6d3cc0e@amd.com>
+ <67ca2d5c-a762-4627-94d1-532b0e3d2100@intel.com>
+ <f4027aee-1ff2-4f0d-8230-6f6b2e101f78@amd.com>
+ <9fce9f74-ebbb-4763-9f87-218055e61654@intel.com>
+ <dad0c7b4-2dc7-4c2c-bc75-ff70ead452e3@amd.com>
+ <72c98414-3d17-4f00-85c3-2e584757c85b@intel.com>
+ <2c3a79fb-4fdb-4c2d-806f-ceeed8116043@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <2c3a79fb-4fdb-4c2d-806f-ceeed8116043@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA1PR01CA0161.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:71::31) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|MN2PR12MB4048:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5855282-9d79-437b-7de6-08dcab1d7052
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UEZ0SWx1S3pJM1kvMEVjZktjTHZPYkJvSjBTa1pHTDJmdm1PTldmSW96NVNK?=
- =?utf-8?B?ZldBWTc0d25BYjZCZ294cjIzVkZON3N2VkcwaHFUOFpxRXlTRGFHalF4dnc1?=
- =?utf-8?B?TnR4Zkc4cU4rNmpWdE1SZzZSNjdlSTYxT3JMTExyYm5kRm9MYURGc1Q0RXhB?=
- =?utf-8?B?d09VaEE4YmgxZEkvVDRHMHp4ZVFpSVpYV1J6dmZFbnFkRUlRcVRQVXE4WTg0?=
- =?utf-8?B?OEVDc0RKMHNSKzdOblNPZGRYaFYwQkVaY045bU9HaE5WamlteHN5ckRmWmFu?=
- =?utf-8?B?QStLZ08yamVYNkxobldwYzFYM1JCZm1kZUNnRUJYZG1ZVGYyK0IyL0NSWlBt?=
- =?utf-8?B?THZWV2NCNlhSRHBuRHBHUTZOc0xPd1gxTTVtcEZGLzg4TWE1cjI1SDV4RnhO?=
- =?utf-8?B?Vld6R25OT0ZZNGNPQ3BjNVViYkNtRm9RbUxqbFRSb0VCRmdKLzlIRXlzbkNh?=
- =?utf-8?B?WWZWSVZZTWlWbm1qRlZtd05qcm1PK3hnOTVMRkxCS1V6SXVCZUZkWGE2S2RT?=
- =?utf-8?B?KzhSU2pxVlJ5VkxMVnlMUWVVdWxJdHRHWXpMdlp1Um1zRGd2MDV2Uk8rbWxw?=
- =?utf-8?B?Nk8rVms1RzJRK0ZoUVNSdHdaNXZacE9kdVRidGJXcTIvQ2JHWkZoNzNtQkZP?=
- =?utf-8?B?WDI5VmFTVE9kUmJISlY5MDlCd1h0cnJnZXl6NmNkQmNMK2xDbVNod3ZCMnJC?=
- =?utf-8?B?T2tBcUtkbXlEZUlpK0JrdEhzNFlYZFdoOGcyYm5yaEZ1cHRMNVFVRXJhaVdK?=
- =?utf-8?B?VEhVYlRDa3FJSGEwL0FlT1JpdE1lNjB5MDVqYVhrT1kweUx6YXJDdHlIMHI5?=
- =?utf-8?B?eUVXUDMyclNYR2pNQXFoK0g0Z1V5MDliVWs4eks0OCtZME8xRWxhb3VoWnd3?=
- =?utf-8?B?cGtEV3dZaTh3TzVoRDQvaWRyUjhjZ2xWOVcwUnZqVVZML2lJWEcwRGFiemhX?=
- =?utf-8?B?NU54eEI2b293V0l3em9yK0lMVVc0STFpckpkTGFML3VDQTRQNnU5OWtnT0pT?=
- =?utf-8?B?Y1V1Nk4vMTNvbWRRVDZMallDZjI1Q1psOHFKVDZhUzB1QXRnYjZIVk1KVXZy?=
- =?utf-8?B?L0FXUnBpbHEwSVJ1MmdHaGJlL1hpNXJvNVZWOGFJSURLcldySWhyc2JDd0pM?=
- =?utf-8?B?NldiUDMwa0thK3d1UXRyQ1pnZkJtbDh5MGUrS25OWDQ0eC9wUGRKMVFvWjJh?=
- =?utf-8?B?THZVTEZ1b3Q4c2tpQm4xUVhZZHUwTm1LMFl0QUUyMkdGeFlQVmRuNlpmMVMx?=
- =?utf-8?B?SXExTlZhRVpaNGJNaXF4YzVWT25LTmorL1ZTcjhUeTljbTJXK29pUkgvK0Qw?=
- =?utf-8?B?ZUYvd2NVTVI3eW1lRTZidk45OVpDWlg5T0twM1dNOHFsKzhrZm0vT3ZFV0pa?=
- =?utf-8?B?VTI1ZTB2WGRtWUt0NTUwN25ocWtFMWYzS3J6aUFlL3JuVTFPWnNwYjkranNX?=
- =?utf-8?B?cmRTcmN5YlgyRmcvVFRndUY5dnFGU0xyeG41cWVIK0hadjEyeXNmY2ZUbWdS?=
- =?utf-8?B?cmt3ZTBMWkRITGgxQXpvWTRBdUdJTHZCbDVFbHFLVEg2YmgzakRWK0R1ZnhV?=
- =?utf-8?B?OVdERUdPdFZiRFBMQVZadFhkbSszV05BVEcydFg0RkY1eXNlSmlyWi9XNkJX?=
- =?utf-8?B?OXVvZFh0SGRLZktRMXdqRlIrT3JaRnlxQUNPODdHYTB2RVY5RjdyNU9haHNW?=
- =?utf-8?B?UWVWcWMvK3V0UURSOU0zZVFzTTFvcXN2U016VDlVR0pxM0U2NU1TdWdqZkRB?=
- =?utf-8?B?Vm5BVWtFQkQzRzc1SnQ4dlo1VVY0aGhKMVVqWC91czJjeEtxR3ZIQjNyclk2?=
- =?utf-8?B?S1RuQlRYYWJ2VDRSMG5LQT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDI4THNtUkxmbG1MWXcrRWZTUUppeXQ0WnBhcnB5b1RVMlI0czNINGxJRDEr?=
- =?utf-8?B?TjlqK0dPOVkwRkVGUlBhckNiK0lyR0J1K3hvM01VbHNQMUxqVW9xcGJjdVM3?=
- =?utf-8?B?a05UUERxbHY5dlNBSjFNb2xaSlRQRHZGcU9GOWFMS0plcG5ZKzE2K1l1MTBn?=
- =?utf-8?B?M2MzelZnVUcyYlFlTVhjV1MwbTJtZlNhbytwOENlK0ZSUjZ1RzhzK1dmNVFu?=
- =?utf-8?B?RXF0YXdwTWQ2VzBWK1cwOCtaLzI0b0hXMVZKQ3hPZFNtNitsbzBTRC9QWGpl?=
- =?utf-8?B?bXM1eEJjdVpyTVVrNXM1TnlBNVYwZ3BOeTA2dU9pN0x6R1R5R0x2MUlhZW9C?=
- =?utf-8?B?MytWWjNyckU5YUN0U3Z2ckdyTmNWTFNqU3ZacWNaaUFycm00c2pwZm13L0Yz?=
- =?utf-8?B?UHhIN2ExdUJsYmV1MFI5ek5uOW5yQ01vUmlXSmxDTCtraS85V2lqQlpiYm5P?=
- =?utf-8?B?ODliUWJrZUp6NVlyVGxjNG5CUkVJSnY0Mlc2NXIrWVlYQUZCbHdRbFRDWDNK?=
- =?utf-8?B?NkRUTENRRDJ2ZDFDNlJIUnhvYmYrY1ZyMzBNQnJZREIvbXdCblplWGVzS0pq?=
- =?utf-8?B?S2ZJV0kvclRURjNhWk5ZRDcxd2FGMy9yYnU3ZjhjTVd4dnpIaW11cXZVRlhx?=
- =?utf-8?B?cHhaOXBBeGVKa1FoeWpHbjVCdEd3RXNiNkNTUmY2clp5RFhZa2tQTDVwaHJ0?=
- =?utf-8?B?aUl6dFlBVUNwWXVlUU90bEJzbkJvUTRvclpoMDhSWTJISUtHcGlEelRmVXB5?=
- =?utf-8?B?OGpuU3JvdkdTU0U4M2hMaExHMndTaC84Q0NGSUFRUk9Sb2w4VGUzVm5xWFBw?=
- =?utf-8?B?bnp3Ymg1eENhVXJPNTQvQ2hzeUJ0WWgyc0FDK1ZhT0xaT0lFT2g1aitiZk5k?=
- =?utf-8?B?azZMQjM4OUNSN1RsYmZJakVBYnNycnVKZVZucE5DaEJDM0tGdnVnd0tBbVo1?=
- =?utf-8?B?R21PTjQ3TmdLMUU5OXZ0YUJiTlJuQnJ0YytIaTVETWU1S2JKSHRzOFlDdTR1?=
- =?utf-8?B?TGhZQmovemczUFViZG80ZHpETy9LS29sbGprRVZjSlkxQTRLdDgvdkNSQUo1?=
- =?utf-8?B?Tzd6cGFodVlJbDlkejVmL1N2Y28zYVdUSFRXaGZDV1dGenU4VHhoZnMzS0VV?=
- =?utf-8?B?RXZ5SGozU2hGbGc3YUtYbGlRY3czbTFKM3dmSG1XaCtnLzJhTXN2T05oUEFN?=
- =?utf-8?B?eVlmbkE5VnFqc1lsekgvMVBDbW1HQnNOZnRxWVNSUjNUTFYzbGhlZ1Yvcmha?=
- =?utf-8?B?Y0ZyWi9SUE55TzNaejZJemIwQjNFd2dNTmsyTXJkM09ROGhwQ1JIS2JMZWZv?=
- =?utf-8?B?NWFNbldwNW1sRlc5TlNMMnVvdUJJN2NuK0pUYVBESVdZR0pNOHRUNXZGQjhO?=
- =?utf-8?B?QnVJWm1UK29jQmxHQnJLWkU3ekhVV3BtUHRBLzZyUS94dUpVd01WWmNnckEy?=
- =?utf-8?B?cXBPZjE3Um9kMkc3TXBWQTdBRHpnZncvQjJabXNpTGkzSE1lcEtGeEZOVWpl?=
- =?utf-8?B?WmF6amxUSXpxN2llOG5yQVNLc1BsYVdxdjhtb21IWTlwb2ZzQkk4cHJMSlQ4?=
- =?utf-8?B?aERrTzFTOXZYZjhjWkNhd0dvM0lVNW96QkUrOU1ycG54NnZDSU1UN2lTZVZK?=
- =?utf-8?B?dHFWbFFCYjY2dzQyN1hsNmtyMVNEQ3U4YTk4Vzc3OEVnOXJNa2tIRUVXWkxm?=
- =?utf-8?B?ajFxZjhzUGdUelBWbDd1NCtwR1hKbkJtYWFLeFRIYldiUk9WNXVzU3B5K1d0?=
- =?utf-8?B?enVhSEZjOHNRTmJIMDB3aUcvaStHNnNUTjZuSWtkcDVIYTZsSEVaYlMyR2xv?=
- =?utf-8?B?OElhQklpQnRvOXVnVll3amdGQXlwOE5ZOTZiVzIyT0w1c3hnUjNBV09XT0Rx?=
- =?utf-8?B?SFhneUVQbkFSZE8vWnQrNWcvQ1YvWEZ0cWpjWWdKRU1GS2twS2RuMEdKMUV5?=
- =?utf-8?B?YXp1WDlnSXQ5ZDhIckR4ejc4WnR6MEx4QmcxOTFCY2l3dUxNVzRWcE1CVld6?=
- =?utf-8?B?eTQ0NDVKY1h3K25yLy9aTDFqaFRqQ3NPNGdvNzRsdVg3U0NlWFdmWXVvUUht?=
- =?utf-8?B?YldVZjZUdmozd0ZhNmJxSWp0bmtmNWFZcUJmbVNKKy9TMk9qQmxBbndReTc5?=
- =?utf-8?Q?VR2faRghT6n0uoCxqdtqJiyo+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5855282-9d79-437b-7de6-08dcab1d7052
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 13:43:30.9690 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z4R0vLdQNhXU+1+k4rIOyW77Hmc6wD/V2eVwSQjjpGBBHCRT4Swe2vL5bAH4/4GlULbZU8LwkPYu63b9jO2LwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,157 +80,273 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+Hi,
 
-Can we push this version for now as we need to mainline the DCC changes 
-ASAP,
-while we continue our discussion and proceed to implement the permanent 
-solution
-for address alignment?
+On 22/07/2024 12:41, Paneer Selvam, Arunpravin wrote:
+> Hi Matthew,
+> 
+> On 7/19/2024 4:01 PM, Matthew Auld wrote:
+>> On 17/07/2024 16:02, Paneer Selvam, Arunpravin wrote:
+>>>
+>>>
+>>> On 7/16/2024 3:34 PM, Matthew Auld wrote:
+>>>> On 16/07/2024 10:50, Paneer Selvam, Arunpravin wrote:
+>>>>> Hi Matthew,
+>>>>>
+>>>>> On 7/10/2024 6:20 PM, Matthew Auld wrote:
+>>>>>> On 10/07/2024 07:03, Paneer Selvam, Arunpravin wrote:
+>>>>>>> Thanks Alex.
+>>>>>>>
+>>>>>>> Hi Matthew,
+>>>>>>> Any comments?
+>>>>>>
+>>>>>> Do we not pass the required address alignment when allocating the 
+>>>>>> pages in the first place?
+>>>>> If address alignment is really useful, we can add that in the 
+>>>>> drm_buddy_alloc_blocks() function.
+>>>>
+>>>> I mean don't we already pass the min page size, which should give us 
+>>>> matching physical address alignment?
+>>> I think we don't need to align the address to the passed 
+>>> min_block_size value for all the contiguous
+>>> buffers, so I thought that decision we can leave it to the drivers 
+>>> and they can achieve that through trim function
+>>> in this kind of a specific request.
+>>
+>> I would have assumed it would be simpler to use min_block_size and 
+>> then trim the size, if it's too big? That would then also take care of 
+>> the try_harder case?
+> For example, if the required contiguous size is 1MiB and min_block_size 
+> is 256KiB, to perform the address alignment of 256KiB, we might need to 
+> over-allocate at least
+> to the min_block_size (say 256KiB). Now the size becomes 1280KiB and 
 
-Thanks,
-Arun.
+If we have 1M contig request then it should already be aligned to 256K 
+and every other power-of-two < 1M. VRAM should start at offset zero, so 
+1M block will have 1M address alignment, and so should also be aligned 
+to 256K, right?
 
-On 7/23/2024 6:55 PM, Arunpravin Paneer Selvam wrote:
-> - Add a new start parameter in trim function to specify exact
->    address from where to start the trimming. This would help us
->    in situations like if drivers would like to do address alignment
->    for specific requirements.
->
-> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
->    flag to disable the allocator trimming part. This patch enables
->    the drivers control trimming and they can do it themselves
->    based on the application requirements.
->
-> v1:(Matthew)
->    - check new_start alignment with min chunk_size
->    - use range_overflows()
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/drm_buddy.c          | 25 +++++++++++++++++++++++--
->   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
->   include/drm/drm_buddy.h              |  2 ++
->   3 files changed, 26 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 6a8e45e9d0ec..103c185bb1c8 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->    * drm_buddy_block_trim - free unused pages
->    *
->    * @mm: DRM buddy manager
-> + * @start: start address to begin the trimming.
->    * @new_size: original size requested
->    * @blocks: Input and output list of allocated blocks.
->    * MUST contain single block as input to be trimmed.
-> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
->    * 0 on success, error code on failure.
->    */
->   int drm_buddy_block_trim(struct drm_buddy *mm,
-> +			 u64 *start,
->   			 u64 new_size,
->   			 struct list_head *blocks)
->   {
->   	struct drm_buddy_block *parent;
->   	struct drm_buddy_block *block;
-> +	u64 block_start, block_end;
->   	LIST_HEAD(dfs);
->   	u64 new_start;
->   	int err;
-> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   				 struct drm_buddy_block,
->   				 link);
->   
-> +	block_start = drm_buddy_block_offset(block);
-> +	block_end = block_start + drm_buddy_block_size(mm, block);
-> +
->   	if (WARN_ON(!drm_buddy_block_is_allocated(block)))
->   		return -EINVAL;
->   
-> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   	if (new_size == drm_buddy_block_size(mm, block))
->   		return 0;
->   
-> +	new_start = block_start;
-> +	if (start) {
-> +		new_start = *start;
-> +
-> +		if (new_start < block_start)
-> +			return -EINVAL;
-> +
-> +		if (!IS_ALIGNED(new_start, mm->chunk_size))
-> +			return -EINVAL;
-> +
-> +		if (range_overflows(new_start, new_size, block_end))
-> +			return -EINVAL;
-> +	}
-> +
->   	list_del(&block->link);
->   	mark_free(mm, block);
->   	mm->avail += drm_buddy_block_size(mm, block);
-> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
->   	parent = block->parent;
->   	block->parent = NULL;
->   
-> -	new_start = drm_buddy_block_offset(block);
->   	list_add(&block->tmp_link, &dfs);
->   	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
->   	if (err) {
-> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   	} while (1);
->   
->   	/* Trim the allocated block to the required size */
-> -	if (original_size != size) {
-> +	if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
-> +	    original_size != size) {
->   		struct list_head *trim_list;
->   		LIST_HEAD(temp);
->   		u64 trim_size;
-> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   		}
->   
->   		drm_buddy_block_trim(mm,
-> +				     NULL,
->   				     trim_size,
->   				     trim_list);
->   
-> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> index fe3779fdba2c..423b261ea743 100644
-> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct ttm_resource_manager *man,
->   	} while (remaining_size);
->   
->   	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-> -		if (!drm_buddy_block_trim(mm, vres->base.size, &vres->blocks))
-> +		if (!drm_buddy_block_trim(mm, NULL, vres->base.size, &vres->blocks))
->   			size = vres->base.size;
->   	}
->   
-> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> index 2a74fa9d0ce5..9689a7c5dd36 100644
-> --- a/include/drm/drm_buddy.h
-> +++ b/include/drm/drm_buddy.h
-> @@ -27,6 +27,7 @@
->   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
->   #define DRM_BUDDY_CLEAR_ALLOCATION		BIT(3)
->   #define DRM_BUDDY_CLEARED			BIT(4)
-> +#define DRM_BUDDY_TRIM_DISABLE			BIT(5)
->   
->   struct drm_buddy_block {
->   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
-> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   			   unsigned long flags);
->   
->   int drm_buddy_block_trim(struct drm_buddy *mm,
-> +			 u64 *start,
->   			 u64 new_size,
->   			 struct list_head *blocks);
->   
->
-> base-commit: b27d70e1042bf6a31ba7e5acf58b61c9cd28f95b
+Or does "address alignment of 256KiB" mean something else here? To me it 
+just means IS_ALIGNED(block_start, 256K).
 
+> since the contiguous flag is enabled, we will round up the size to the 
+> next power of two and the size
+> value becomes 2MiB. Next, in trimming we should round up the block start 
+> address to the min_block_size. May be we can keep the above mentioned 
+> operations under the
+> flag combination DRM_BUDDY_CONTIGUOUS_ALLOCATION && 
+> DRM_BUDDY_ADDRESS_ALIGNMENT?.
+> 
+> At the moment, we cannot support address alignment for try_harder 
+> allocations since in case of try_harder allocations we first traverse 
+> RHS to allocate the maximum possible
+> and traverse LHS (here we align the LHS size to min_block_size) to 
+> allocate the remaining size. May be in case of 
+> DRM_BUDDY_ADDRESS_ALIGNMENT, we should first allocate
+> LHS satisfying the address alignment requirement and then traverse RHS 
+> to allocate the remaining size if required?
+>>
+>> Also how are we dealing with the multi-block try_harder case? AFAICT 
+>> we only allow trimming single block atm, or is it not possible to 
+>> trigger that path here? Or are we handling that somehow?
+> not possible to trigger that path here. only when we either 
+> over-allocate the LHS size and pass the multiple blocks to the trim 
+> function or implement the above mentioned method.
+>>
+>>>
+>>> https://patchwork.freedesktop.org/series/136150/
+>>> We are getting this sparse error from the Intel CI. Do you think 
+>>> these errors are introduced with this patches?
+>>
+>> I think it's safe to ignore, there seem to be other series with the 
+>> same thing.
+> Thanks.
+>>
+>>>
+>>> Thanks,
+>>> Arun.
+>>>>
+>>>>>
+>>>>> Thanks,
+>>>>> Arun.
+>>>>>>
+>>>>>>>
+>>>>>>> Thanks,
+>>>>>>> Arun.
+>>>>>>>
+>>>>>>> On 7/9/2024 1:42 AM, Alex Deucher wrote:
+>>>>>>>> On Thu, Jul 4, 2024 at 4:40 AM Arunpravin Paneer Selvam
+>>>>>>>> <Arunpravin.PaneerSelvam@amd.com> wrote:
+>>>>>>>>> - Add a new start parameter in trim function to specify exact
+>>>>>>>>>    address from where to start the trimming. This would help us
+>>>>>>>>>    in situations like if drivers would like to do address 
+>>>>>>>>> alignment
+>>>>>>>>>    for specific requirements.
+>>>>>>>>>
+>>>>>>>>> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
+>>>>>>>>>    flag to disable the allocator trimming part. This patch enables
+>>>>>>>>>    the drivers control trimming and they can do it themselves
+>>>>>>>>>    based on the application requirements.
+>>>>>>>>>
+>>>>>>>>> v1:(Matthew)
+>>>>>>>>>    - check new_start alignment with min chunk_size
+>>>>>>>>>    - use range_overflows()
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>>>>>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>>>>> Series is:
+>>>>>>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>>
+>>>>>>>> I'd like to take this series through the amdgpu tree if there 
+>>>>>>>> are no
+>>>>>>>> objections as it's required for display buffers on some chips 
+>>>>>>>> and I'd
+>>>>>>>> like to make sure it lands in 6.11.
+>>>>>>>>
+>>>>>>>> Thanks,
+>>>>>>>>
+>>>>>>>> Alex
+>>>>>>>>
+>>>>>>>>> ---
+>>>>>>>>>   drivers/gpu/drm/drm_buddy.c          | 25 
+>>>>>>>>> +++++++++++++++++++++++--
+>>>>>>>>>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
+>>>>>>>>>   include/drm/drm_buddy.h              |  2 ++
+>>>>>>>>>   3 files changed, 26 insertions(+), 3 deletions(-)
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/drm_buddy.c 
+>>>>>>>>> b/drivers/gpu/drm/drm_buddy.c
+>>>>>>>>> index 94f8c34fc293..8cebe1fa4e9d 100644
+>>>>>>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>>>>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>>>>>>> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct 
+>>>>>>>>> drm_buddy *mm,
+>>>>>>>>>    * drm_buddy_block_trim - free unused pages
+>>>>>>>>>    *
+>>>>>>>>>    * @mm: DRM buddy manager
+>>>>>>>>> + * @start: start address to begin the trimming.
+>>>>>>>>>    * @new_size: original size requested
+>>>>>>>>>    * @blocks: Input and output list of allocated blocks.
+>>>>>>>>>    * MUST contain single block as input to be trimmed.
+>>>>>>>>> @@ -866,11 +867,13 @@ static int 
+>>>>>>>>> __alloc_contig_try_harder(struct drm_buddy *mm,
+>>>>>>>>>    * 0 on success, error code on failure.
+>>>>>>>>>    */
+>>>>>>>>>   int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>>>> +                        u64 *start,
+>>>>>>>>>                           u64 new_size,
+>>>>>>>>>                           struct list_head *blocks)
+>>>>>>>>>   {
+>>>>>>>>>          struct drm_buddy_block *parent;
+>>>>>>>>>          struct drm_buddy_block *block;
+>>>>>>>>> +       u64 block_start, block_end;
+>>>>>>>>>          LIST_HEAD(dfs);
+>>>>>>>>>          u64 new_start;
+>>>>>>>>>          int err;
+>>>>>>>>> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>>>>                                   struct drm_buddy_block,
+>>>>>>>>>                                   link);
+>>>>>>>>>
+>>>>>>>>> +       block_start = drm_buddy_block_offset(block);
+>>>>>>>>> +       block_end = block_start + drm_buddy_block_size(mm, block);
+>>>>>>>>> +
+>>>>>>>>>          if (WARN_ON(!drm_buddy_block_is_allocated(block)))
+>>>>>>>>>                  return -EINVAL;
+>>>>>>>>>
+>>>>>>>>> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy 
+>>>>>>>>> *mm,
+>>>>>>>>>          if (new_size == drm_buddy_block_size(mm, block))
+>>>>>>>>>                  return 0;
+>>>>>>>>>
+>>>>>>>>> +       new_start = block_start;
+>>>>>>>>> +       if (start) {
+>>>>>>>>> +               new_start = *start;
+>>>>>>>>> +
+>>>>>>>>> +               if (new_start < block_start)
+>>>>>>>>> +                       return -EINVAL;
+>>>>>>>>> +
+>>>>>>>>> +               if (!IS_ALIGNED(new_start, mm->chunk_size))
+>>>>>>>>> +                       return -EINVAL;
+>>>>>>>>> +
+>>>>>>>>> +               if (range_overflows(new_start, new_size, 
+>>>>>>>>> block_end))
+>>>>>>>>> +                       return -EINVAL;
+>>>>>>>>> +       }
+>>>>>>>>> +
+>>>>>>>>>          list_del(&block->link);
+>>>>>>>>>          mark_free(mm, block);
+>>>>>>>>>          mm->avail += drm_buddy_block_size(mm, block);
+>>>>>>>>> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>>>>          parent = block->parent;
+>>>>>>>>>          block->parent = NULL;
+>>>>>>>>>
+>>>>>>>>> -       new_start = drm_buddy_block_offset(block);
+>>>>>>>>>          list_add(&block->tmp_link, &dfs);
+>>>>>>>>>          err =  __alloc_range(mm, &dfs, new_start, new_size, 
+>>>>>>>>> blocks, NULL);
+>>>>>>>>>          if (err) {
+>>>>>>>>> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct 
+>>>>>>>>> drm_buddy *mm,
+>>>>>>>>>          } while (1);
+>>>>>>>>>
+>>>>>>>>>          /* Trim the allocated block to the required size */
+>>>>>>>>> -       if (original_size != size) {
+>>>>>>>>> +       if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
+>>>>>>>>> +           original_size != size) {
+>>>>>>>>>                  struct list_head *trim_list;
+>>>>>>>>>                  LIST_HEAD(temp);
+>>>>>>>>>                  u64 trim_size;
+>>>>>>>>> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct 
+>>>>>>>>> drm_buddy *mm,
+>>>>>>>>>                  }
+>>>>>>>>>
+>>>>>>>>>                  drm_buddy_block_trim(mm,
+>>>>>>>>> +                                    NULL,
+>>>>>>>>>                                       trim_size,
+>>>>>>>>>                                       trim_list);
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c 
+>>>>>>>>> b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+>>>>>>>>> index fe3779fdba2c..423b261ea743 100644
+>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+>>>>>>>>> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct 
+>>>>>>>>> ttm_resource_manager *man,
+>>>>>>>>>          } while (remaining_size);
+>>>>>>>>>
+>>>>>>>>>          if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+>>>>>>>>> -               if (!drm_buddy_block_trim(mm, vres->base.size, 
+>>>>>>>>> &vres->blocks))
+>>>>>>>>> +               if (!drm_buddy_block_trim(mm, NULL, 
+>>>>>>>>> vres->base.size, &vres->blocks))
+>>>>>>>>>                          size = vres->base.size;
+>>>>>>>>>          }
+>>>>>>>>>
+>>>>>>>>> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>>>>>>>>> index 82570f77e817..0c2f735f0265 100644
+>>>>>>>>> --- a/include/drm/drm_buddy.h
+>>>>>>>>> +++ b/include/drm/drm_buddy.h
+>>>>>>>>> @@ -27,6 +27,7 @@
+>>>>>>>>>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION BIT(2)
+>>>>>>>>>   #define DRM_BUDDY_CLEAR_ALLOCATION BIT(3)
+>>>>>>>>>   #define DRM_BUDDY_CLEARED BIT(4)
+>>>>>>>>> +#define DRM_BUDDY_TRIM_DISABLE BIT(5)
+>>>>>>>>>
+>>>>>>>>>   struct drm_buddy_block {
+>>>>>>>>>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+>>>>>>>>> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy 
+>>>>>>>>> *mm,
+>>>>>>>>>                             unsigned long flags);
+>>>>>>>>>
+>>>>>>>>>   int drm_buddy_block_trim(struct drm_buddy *mm,
+>>>>>>>>> +                        u64 *start,
+>>>>>>>>>                           u64 new_size,
+>>>>>>>>>                           struct list_head *blocks);
+>>>>>>>>>
+>>>>>>>>> -- 
+>>>>>>>>> 2.25.1
+>>>>>>>>>
+>>>>>>>
+>>>>>
+>>>
+> 
