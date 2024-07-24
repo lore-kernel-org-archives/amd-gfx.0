@@ -4,71 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C320C3DA63
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 08:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 968C4C3DA63
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 09:21:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C2710E549;
-	Wed, 24 Jul 2024 08:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1878710E567;
+	Wed, 24 Jul 2024 09:21:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="af7t7Spa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZZ+4aYR+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF0BC10E4EF;
- Wed, 24 Jul 2024 08:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721811479; x=1753347479;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=ZO/GRR+lASq/+hJXGw9UMWBMQ9XV29tothYM/chdAPU=;
- b=af7t7Spa9Px26oKu+8FjauIbNBt3TOYQgH/RVWoxytU2sR+g5sSMLyFB
- t+qYU0mTxtjdVYIeREEWl5JueHLVmH5f/zzvLK49mE9Sbx4T8c3q50/ip
- YJxRR1jP6YnMU143juBjUL+zlsA2itSez64fs/wfJ4bdcF4ZuQGHUl5JJ
- jY3VuhX8LHI/kxDEWhyvYishvxxJKbiWqMYpoFvrdRjb6hGQmi54N6AqD
- FS/LNr5Yl5vMa3/f3izH9otZN31lX5HgNDM6l4Elh9vKxU1SzE2QLThVm
- ZwAkVl9k5S2WUjA+i7wUfBR9DjRuLfuQQQWFaIqTrs+Wyp6zHsVsJLsX+ g==;
-X-CSE-ConnectionGUID: s9QOcSylSlaM07VugjYHEQ==
-X-CSE-MsgGUID: bHzR/hXDSqS3Czaf59WiWw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11142"; a="19439874"
-X-IronPort-AV: E=Sophos;i="6.09,232,1716274800"; d="scan'208";a="19439874"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 01:57:59 -0700
-X-CSE-ConnectionGUID: rCrVnl35Qe6QwW3OUlq6iQ==
-X-CSE-MsgGUID: KgRcEBdgT32ESSTa07cEkg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,232,1716274800"; d="scan'208";a="57642344"
-Received: from iklimasz-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.170])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2024 01:57:51 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hans de Goede <hdegoede@redhat.com>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
- <linux@weissschuh.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
- =?utf-8?Q?ig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>
-Subject: Re: [PATCH v2 0/3] drm: backlight quirk infrastructure and lower
- minimum for Framework AMD 13
-In-Reply-To: <6db5abf9-cbdd-4ec0-b669-5df23de6c2ad@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
- <e61010e4-cb49-44d6-8f0d-044a193d29b2@redhat.com>
- <51f68b3b-dd21-44ef-8ec8-05bea5db6e55@t-8ch.de>
- <6db5abf9-cbdd-4ec0-b669-5df23de6c2ad@redhat.com>
-Date: Wed, 24 Jul 2024 11:57:47 +0300
-Message-ID: <87sevzf9pw.fsf@intel.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 343C410E612
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 09:20:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lwkSitmlIHJ1yuNjAFjiTDM6iPhIYVRrFuhWQWJDdHO+puEtQRgZ5bDZGlE4gxnHezhOkl0Zx+hUhGLNVVe13CaLunt/zKM8eGx7SAYvWeKJELb2nOh9vnRsbz7LPYDSoO/pzkXLnMdxJ522gyt4g6Y+il0pze/oYvLWZ+meRwDXUYOSZkT9e1JYWJ/OSmKhORocMk4RohTdYQsHa1yFO1NcCtXtubnB+uqGIOwglCOGTncLzL1dNz108MuTki0S+ygheORGq4eDEUFAlOggS6J8kLFIRIcS0g1EHCOJgBx/mwQUBYKh2uvL090P+F8XezoUrFOKGDvKRSICFoQ5Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f0IIKTupWsx9UbvCu8poKW6jHc/YczcSM2Len8KyFBI=;
+ b=E6I9e0mf1/1veCRuollFt5slv1VI215V2bu6Bv0R1nzHnyakModtbPtA0Akq+T0neXwDzZRtJlhJ/z6pjGM5zV+PHvUNNkuyxTvvIVAGEq2Bh85UYVqdCXeOj6U8H4Ww82ywto4gWhw0hy4AYn3rbLmQEd4Jrxif07B5aocw1Y9usgSHO473UA4FL+jSeoHq64xj9FS2tLSNZ5l+iDjNbNLscGXWny8mQzbjWiGwy5X4TgQrJwmSUiYvGrQSgpKYBy48cKoOHQ91NMTvIs4c9M3mXjH8I8oZrjATZADhb9SUXWMtJQWHKFJMtoyu4HFoCeFOHCyA10Pcg/yzAvUtNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f0IIKTupWsx9UbvCu8poKW6jHc/YczcSM2Len8KyFBI=;
+ b=ZZ+4aYR+j/WSOTjvk3VVGhNMEDeKr/xvLKR6ErQ+L72jvrPBsnwok4UhK52IrcYAiJ7oonjUNngdsVQwxQflPH8hoEGtB3Fd6SbWCliZP63nNMOqfomVqrCq7NPq51EIYIGH920Sti8R0WeBzhH11jf9Lzl4MGPYDJnGF0pRflo=
+Received: from DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) by
+ DS0PR12MB6582.namprd12.prod.outlook.com (2603:10b6:8:d2::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7784.17; Wed, 24 Jul 2024 09:20:40 +0000
+Received: from DS7PR12MB6333.namprd12.prod.outlook.com
+ ([fe80::cda7:a979:580:83a]) by DS7PR12MB6333.namprd12.prod.outlook.com
+ ([fe80::cda7:a979:580:83a%7]) with mapi id 15.20.7784.016; Wed, 24 Jul 2024
+ 09:20:40 +0000
+From: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Friedrich Vock
+ <friedrich.vock@gmx.de>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 00/34] GC per queue reset
+Thread-Topic: [PATCH 00/34] GC per queue reset
+Thread-Index: AQHa2Rvl+1l0Px+WiEyOulMeZQUJ07H8rRcAgAFi44CAB5EIUA==
+Date: Wed, 24 Jul 2024 09:20:40 +0000
+Message-ID: <DS7PR12MB6333400E4AC22FB5DFEE06DBF4AA2@DS7PR12MB6333.namprd12.prod.outlook.com>
+References: <20240718140733.1731004-1-alexander.deucher@amd.com>
+ <95387eeb-d81e-4a09-8475-820317605f49@gmx.de>
+ <CADnq5_NaXHNz_AO9YJbe5X7qKP8h7CQqUVd5BwxDh4rbg2nBkw@mail.gmail.com>
+In-Reply-To: <CADnq5_NaXHNz_AO9YJbe5X7qKP8h7CQqUVd5BwxDh4rbg2nBkw@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=2d503fbc-c8e9-4ea5-bcb2-bb3c394c68a1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-24T09:12:31Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6333:EE_|DS0PR12MB6582:EE_
+x-ms-office365-filtering-correlation-id: 5272b866-4053-479d-dd78-08dcabc1e313
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info: =?utf-8?B?YlNMMit1dVRVa0dpaVBKeWxhQnB0bmJuaWN0RjVrZVEvWS9Cc2lMOE05bFR4?=
+ =?utf-8?B?K3lVNEZ2OUt6ZXVweldBRnh3bEZ3LzFVM2orWlgyYmNZS0NqYWMrcldWT0hY?=
+ =?utf-8?B?ekVzT2MwNnAvMzJVMllhVytEMUI5M1lydXIycVlmNndZakcyQldmTi96WjRk?=
+ =?utf-8?B?UmUyb24vUE1pQitFcE5DWlNqVTlVTUZHZitpR3EvVlNYbzR6MDAwQTRWWUQx?=
+ =?utf-8?B?VEcyazQ4N1lRYis1UHhTSW1nU29XdGZYZUxaUUhCUEJCc1VMRzVOcFVaRkxV?=
+ =?utf-8?B?aUM4WUV1SzhpMTJQY1hsU3NzUEJkQXpEcVBNR3dNNzVtQ1EwVmFSYi9od1ZS?=
+ =?utf-8?B?SU1yLzhLVlVnV25SbTdoSlV6V1Exa3NYUy9XNlN5VUlTU1dYaHZ4YkdnNWUz?=
+ =?utf-8?B?WWlpWk5Obkw4VUpyLzlXNklzVzE3SlJ3YWZ5bW5iWG5vTVhxOFJzYkVJZUQ1?=
+ =?utf-8?B?Y1hIMyt2VGxIdEhNU0ZWckJQbWtmWCt6KzRXZU9ZOFlBODNpRVRvSjU5SHFh?=
+ =?utf-8?B?TE5SR05WT3FZeGxEeUllbXlGUksvaEpzY0k4RjV2c3Noemx0TFJqV2xKZHRR?=
+ =?utf-8?B?K3FtYzFvY2E3bVBaZ3ByN1FSTm9Qdng0VFMzK1Vvc0xmMmJxSEhDdzRNTEpD?=
+ =?utf-8?B?cXVldDF4MHhBZWZpcnVXQ2hrWW5Fb1NIdFY2VHpFYnFTdlQxT3lNM1lWOWZT?=
+ =?utf-8?B?cXUyRDlyNWFvVGgxWU52Y1pWb2JXK2RZdm94MXRYYTNXa1p3dVY3OTB1YjBU?=
+ =?utf-8?B?K2MrTzdxeVc2Yzl0SXh2SVg1VjM2SnZrTDRZREFTUDB5RWt5VFFzN1FSM2VL?=
+ =?utf-8?B?M1dBQ2pDK0QxNXExWnhQdHNRaFJhZFozY0M4MEU5OGlhcWwyeW82dUw0cVFE?=
+ =?utf-8?B?Zi9nWHRZbUVrQ3gwUWhRTHNQMW5NVFZsUjRLcno1VzlDQ2MzS0Z2YUhvcXVK?=
+ =?utf-8?B?Q1hWQ29YTW1oYnBZTEpBV1M0UWxYZ203UkVROUhBdGEyQ1ZFdHpQSWplYzdM?=
+ =?utf-8?B?REFxdnN3ZTVYVkFxNVJVclhRV3F5bE5mbkRWekFoR21kVDFZUVk2UmlRM1dV?=
+ =?utf-8?B?YWlIMGpBZFlpUmpYZzFPOGRLN2ZxVUtGN3NKRzJNb0ZrbUhJdTlnalhrS3ZN?=
+ =?utf-8?B?d1ZpS0p1OFRaV292RHBnQmV5ZDczQ1NmZ3pwWllBVWxvYTBJVlJHVGlVNitQ?=
+ =?utf-8?B?NmxUUjdTdnpHQ2JRbjh6T3VsL0gyeUJlMlduZjdSVENyVHhhN2hENTlkRFRw?=
+ =?utf-8?B?R21LZVRqa1ZkVHhFM3ErMG02ZVZoOE9mL3hkNHd0RmtnTng0aDFZNnJZa2pw?=
+ =?utf-8?B?V3BIcDV3bDJ0U09zblJPRXR1VThreDNvVmZzY3FZZXdZak9tcjR0cXp0S2hW?=
+ =?utf-8?B?Y1RRMXdsNjdBK2huQ0xjYks0S2R2ZVpQdWp2TFRZRWxla1lUcVBaTm1nOVBM?=
+ =?utf-8?B?QllIWnJ2ZFJnTVVwQ0srVzJOT1I2VGZFQVJtSnhacEpNcHkza1B1QjNJWkdn?=
+ =?utf-8?B?S1dBa0ZCcHQyRGhRdkxsbzYyUkU0bzVvT2RSdm9qbE1zbXZCMzdvOE9OWjJo?=
+ =?utf-8?B?UThMMWR5cC9zQzE1Tk5aU0hWSWxsd2RIYmpQQXRQd3NNSXNZTHlZU1VtMkNH?=
+ =?utf-8?B?WnAxaTNwZlluN2FtRW1STzd0clhqdThlQ3ZnM0FkWEN3UHp1RnBETEx2TDY2?=
+ =?utf-8?B?ckRHaTduZk1TZElDQ3MwRFlaT1pRRXVNTUpLM1lwTHZUanloS1M0Z0J6TkZ6?=
+ =?utf-8?B?Skc1aThOZC9WTDhMN0VvWmZBQkN4dDBSNmEvRURDcU5wV3RwWjNkZnlhWU1I?=
+ =?utf-8?Q?ehtZtvV4G/EGKeTN4GFxSLdGdnakToSps41Jk=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6333.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?THA5cFdQSUpXcnkvS3cxSGNHd0Q3NE1GLysreXc1WERWRmFTQU1BUEx6Tllv?=
+ =?utf-8?B?c1pJT1hFMUVSeWo3NDVraFBJTEJ0bjRRaGQrcUZUNUprNmVpOThJb2VMbHpk?=
+ =?utf-8?B?V01DTlVhcUpoYS9XOUtFcytuZmxMN2dTcnhOSVRldkFrdmhmVkZKVnQrZFBy?=
+ =?utf-8?B?U09QTUlZVUg4UmFKcTVzT1lJbm43MUVBaW8rYjNBejBQeno1eFRoVVFDS3RW?=
+ =?utf-8?B?U2x4dXNkWVdDOGdsQ3hwb3NuY0tUMzAwZmlTcWNxQ2pmcUFYVDh2MGVwd3o0?=
+ =?utf-8?B?ZUxqN1lRdlM3elpmcWxjZlo4V1kvbStkb3JBaThUUy9ZM1BDUmVEbFhJYVRh?=
+ =?utf-8?B?U0dXelBMdHBrY3dGVW5xRW9mM29FNVg2T1dzdnZUWjI2Qm93LzRhSGVKWnBo?=
+ =?utf-8?B?d1BwK3kvVXdhKzYwaXF6MU1Nd1Q0dVNGMFZ6SXVtSmZtUWE4QW9jVy9pQlZQ?=
+ =?utf-8?B?cTl0OGRVZTJKSVh0WGNUbldOMVlOaEtjNVUvR3UvRkwwbWVXdjVrL2svdGNh?=
+ =?utf-8?B?a08yYkl3RG1Rb0JjNk1BcGZBZSt0cnUxbDgrdEliVG91am5VRVBkQlh4Vmpu?=
+ =?utf-8?B?SU1wSXJwT2k4VmpWcjlxY3BjeDlrSFEyUERNZHB6bU0rMkRzdWZFejkzOTFh?=
+ =?utf-8?B?YjJQQVAybWJGcFBsMDk5VjF0ZlUzTWZQRmtPWWVoUHl3WUNZTFk2T1Eyc1pq?=
+ =?utf-8?B?NXE2TzVBUk42M0pHNTBkbmE4cnZ5WnNPU0ZHSXlyVVJSMmduZDY2TDJhR05Q?=
+ =?utf-8?B?QVBYYnU2bGxuQnkwM202VFo3WGNQd2xvbzZEOU5EaHpCb1VVSFRIWmk0U0o3?=
+ =?utf-8?B?SEdVTUZoYjY3MVd0RWl1eXFXcEwvNHdaSFlvSXVyM0lJS0w5ZGJaR0dyWkRE?=
+ =?utf-8?B?S2FUTXNyZUYzUEpSQ3lmbG4xTzVMWlowNkVzVk5SQytwOVJWbDQySVhHNS92?=
+ =?utf-8?B?UFRUSnVsSGxxZFBuaHptQWFaTkdsVlYrY3g3dXdWZDlKWHk2Z1BUTDQ2Z2Ey?=
+ =?utf-8?B?U3k1a1N0R3lza3BNN251RXlKY2I1dkt3dG43OWk4S2ZzR21FMnRLb0xCKzll?=
+ =?utf-8?B?ODZLMkN3QjVGU1VGU2FOWDNOSWt2RnNOd0RIVlgvbXlnU0o2Z3pnRWMxSnNN?=
+ =?utf-8?B?KzJsMVVsWkt5ci9qWUdHY1A1bWVvN1FZQVhjbkNPUW5Qbnd5M0JCMC9abWdq?=
+ =?utf-8?B?dCtMMHQ3TjZ4WkJXTkt2TzlQaXNxZjkzSHV1d2F2VHU2Ny9mZ1VxeE5GWCt3?=
+ =?utf-8?B?eTdRUWhMYm5kM2FjcnVuUnh5R0pMeTJucG13TmZta3NvTERGd3RxUVF5WXkz?=
+ =?utf-8?B?SmQxUjNuLzRXaUxhcGg0VUtVcUF2aUhsVnZyTDQ3bUgxWkc2dkpndzl5RGdj?=
+ =?utf-8?B?YXFQdXFwalJHaTloNFdtN0ZQNUdLdS9OK0p6cVo0R2wvV2ZrT1U4KzBqeGRy?=
+ =?utf-8?B?czNWajIvU3pmd0N2R2UxN09tOHNPckp3RVZIdlNnS2ZDNHJLeTFTNURhcjFY?=
+ =?utf-8?B?bnVzSHR0QkZUZTR4aW5ZcHRreVh0cmZ0VGlYb0tVM0hqTGtKaEFXVWxKa204?=
+ =?utf-8?B?QnR1R3lTZk84Z1VQSG5yeVRGa0VLS1doMkpoc1J4VS9nOW1XVjJmN3EreEVv?=
+ =?utf-8?B?Ulc3YWhuQ2lDTXZ1VER0V1dJeldhelorWDBqUmpnTklCcXdaaW1QRWx1eDNB?=
+ =?utf-8?B?bzAyTko5SWhZVlBPTjQ1R2kwOUViTHhyUkJENVc4NndnOG40RHdoRjlVWlVQ?=
+ =?utf-8?B?eGtINTd4S1JVL1JyaCtDMDN5OWZZaUVBWUhQSUVEeFhlRVk2ZXJrRExqcHZ6?=
+ =?utf-8?B?VVRCd1JmeTBicWMvekYrL1FwMlRpU0hGYTNhNjMzUkZRS0Z5VGZtaU1hRnEx?=
+ =?utf-8?B?UHNlYS9BM3ByYTE2SjJ5bUdOYmk2Y2x2MnorNndiVDRFMU0xaWtCbHVCSmh6?=
+ =?utf-8?B?VGw5MllPTTA1RnlLdTN6eC80cHF3VkJacVNGSWJqNk1odHJiRktvcmpTb0R3?=
+ =?utf-8?B?QmwzM0pRREw3U3YrSFZaQXVOMEpXbnNmYytTRjhxVnNSQXRHcm5VeFRLUVB5?=
+ =?utf-8?B?RkJVcUd2MVIxVHU2SVg3NENDcWlLaDBEOVFQRkpWMzhsVTAzeWJ4NXdEb01T?=
+ =?utf-8?Q?Z25A=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6333.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5272b866-4053-479d-dd78-08dcabc1e313
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2024 09:20:40.5985 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FpI5q7D1Irh5z/Eq5SizgYgW99LvIQDt6hqGgNuyb37bipMBvF0w/8bbHpXnLP/hmiymsZzVyPlgtWQ/crXwJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6582
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,163 +171,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 18 Jul 2024, Hans de Goede <hdegoede@redhat.com> wrote:
-> Hi Thomas,
->
-> On 6/24/24 6:15 PM, Thomas Wei=C3=9Fschuh wrote:
->> Hi Hans!
->>=20
->> thanks for your feedback!
->>=20
->> On 2024-06-24 11:11:40+0000, Hans de Goede wrote:
->>> On 6/23/24 10:51 AM, Thomas Wei=C3=9Fschuh wrote:
->>>> The value of "min_input_signal" returned from ATIF on a Framework AMD =
-13
->>>> is "12". This leads to a fairly bright minimum display backlight.
->>>>
->>>> Add a generic quirk infrastructure for backlight configuration to
->>>> override the settings provided by the firmware.
->>>> Also add amdgpu as a user of that infrastructure and a quirk for the
->>>> Framework 13 matte panel.
->>>> Most likely this will also work for the glossy panel, but I can't test
->>>> that.
->>>>
->>>> One solution would be a fixed firmware version, but given that the
->>>> problem exists since the release of the hardware, it has been known for
->>>> a month that the hardware can go lower and there was no acknowledgment
->>>> from Framework in any way, I'd like to explore this alternative
->>>> way forward.
->>>
->>> There are many panels where the brightness can go lower then the advert=
-ised
->>> minimum brightness by the firmware (e.g. VBT for i915). For most users
->>> the minimum brightness is fine, especially since going lower often may =
-lead
->>> to an unreadable screen when indoors (not in the full sun) during dayli=
-ght
->>> hours. And some users get confused by the unreadable screen and find it
->>> hard to recover things from this state.
->>=20
->> There are a fair amount of complaints on the Framework forums about this.
->> And that specific panel is actually readable even at 0% PWM.
->
-> If a lot of Framework users are complaining about this, then maybe Framew=
-ork
-> should fix their VBT in a BIOS update ?  That seems like a better solution
-> then quirking this in the kernel.
->
->>=20
->>> So IMHO we should not be overriding the minimum brightness from the fir=
-mware
->>> using quirks because:
->>>
->>> a) This is going to be an endless game of whack-a-mole
->>=20
->> Indeed, but IMO it is better to maintain the list in the kernel than
->> forcing all users to resort to random forum advise and fiddle with
->> lowlevel system configuration.
->
-> One of the problem is that what is an acceptable minimum brightness
-> value is subjective. One person's "still too bright" is another
-> person's "barely readable"
-
-Side note, IIRC the minimum brightness in VBT was not originally about
-subjective minimums, but rather to avoid electrical issues that 0% PWM
-caused in some board designs.
-
-BR,
-Jani.
-
-
->
->>> b) The new value may be too low for certain users / use-cases
->>=20
->> The various userspace wrappers already are applying a safety
->> threshold to not go to "0".
->> At least gnome-settings-daemon and brightnessctl do not go below 1% of
->> brightness_max. They already have to deal with panels that can go
->> completely dark.
->
-> Right, something which was added because the minimum brightness value
-> on VBTs often is broken. Either it is missing or (subjectively) it is
-> too high.
->
->
->>> With that said I realize that there are also many users who want to have
->>> a lower minimum brightness value for use in the evening, since they find
->>> the available minimum value still too bright. I know some people want t=
-his
->>> for e.g. various ThinkPad models too.
->>=20
->> From my experience with ThinkPads, the default brightness range there
->> was fine for me. But on the Framework 13 AMD it is not.
->>=20
->>> So rather then quirking this, with the above mentioned disadvantages I =
-believe
->>> that it would be better to extend the existing video=3DeDP-1:.... kernel
->>> commandline parsing to allow overriding the minimum brightness in a dri=
-ver
->>> agnostic way.
->>=20
->> I'm not a fan. It seems much too complicated for most users.
->
-> Wanting lower minimum brightness really is mostly a power-user thing
-> and what is the right value is somewhat subjective and this is an often
-> heard complained. I really believe that the kernel should NOT get in
-> the business of adding quirks for this. OTOH given that this is an often
-> heard complaint having some generic mechanism to override the VBT value
-> would be good to have.
->
-> As for this being too complicated, I fully agree that ideally things
-> should just work 100% OOTB, which is why I believe that a firmware fix
-> from Framework would be good. But when things do not work 100% adding
-> a kernel cmdline option is something which is regularly asked from users /
-> found in support questions on fora so I don't think this is overly
-> complicated. I agree it is not ideal but IMHO it is workable.
->
-> E.g. on Fedora it would simply be a question of users having to run:
->
-> sudo grubby --update-kernel=3DALL --args=3D"video=3DeDP-1:min-brightness=
-=3D1"
->
-> will add the passed in argument to all currently installed (and
-> future) kernels.
->
->> Some more background to the Framework 13 AMD case:
->> The same panel on the Intel variant already goes darker.
->> The last responses we got from Framework didn't indicate that the high
->> minimum brightness was intentional [0], [1].
->> Coincidentally the "12" returned from ATIF matches
->> AMDGPU_DM_DEFAULT_MIN_BACKLIGHT, so maybe the firmware is just not set
->> up completely.
->
-> Right, so I think this should be investigated closer and then get
-> framework to issue a BIOS fix, not add a quirk mechanism to the kernel.
->
-> IIRC the amdgpu driver will use AMDGPU_DM_DEFAULT_MIN_BACKLIGHT when
-> that setting is 0 in the VBT.
->
->>=20
->>> The minimum brightness override set this way will still need hooking up
->>> in each driver separately but by using the video=3DeDP-1:... mechanism
->>> we can document how to do this in driver independent manner. since
->>> I know there have been multiple requests for something like this in
->>> the past I believe that having a single uniform way for users to do this
->>> will be good.
->>>
->>> Alternatively we could have each driver have a driver specific module-
->>> parameter for this. Either way I think we need some way for users to
->>> override this as a config/setting tweak rather then use quirks for this.
->>=20
->> This also seems much too complicated for normal users.
->
-> I agree that having a uniform way is better then having per driver
-> module options.
->
-> Regards,
->
-> Hans
->
-
---=20
-Jani Nikula, Intel
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4
+LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQWxleA0KPiBEZXVj
+aGVyDQo+IFNlbnQ6IEZyaWRheSwgSnVseSAxOSwgMjAyNCA5OjQwIFBNDQo+IFRvOiBGcmllZHJp
+Y2ggVm9jayA8ZnJpZWRyaWNoLnZvY2tAZ214LmRlPg0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVy
+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgYW1kLQ0KPiBnZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMDAvMzRdIEdDIHBlciBxdWV1ZSByZXNldA0K
+Pg0KPiBPbiBUaHUsIEp1bCAxOCwgMjAyNCBhdCAxOjAw4oCvUE0gRnJpZWRyaWNoIFZvY2sgPGZy
+aWVkcmljaC52b2NrQGdteC5kZT4NCj4gd3JvdGU6DQo+ID4NCj4gPiBIaSwNCj4gPg0KPiA+IE9u
+IDE4LjA3LjI0IDE2OjA2LCBBbGV4IERldWNoZXIgd3JvdGU6DQo+ID4gPiBUaGlzIGFkZHMgcHJl
+bGltaW5hcnkgc3VwcG9ydCBmb3IgR0MgcGVyIHF1ZXVlIHJlc2V0LiAgSW4gdGhpcyBjYXNlLA0K
+PiA+ID4gb25seSB0aGUgam9icyBjdXJyZW50bHkgaW4gdGhlIHF1ZXVlIGFyZSBsb3N0LiAgSWYg
+dGhpcyBmYWlscywgd2UNCj4gPiA+IGZhbGwgYmFjayB0byBhIGZ1bGwgYWRhcHRlciByZXNldC4N
+Cj4gPg0KPiA+IEZpcnN0IG9mIGFsbCwgdGhhbmsgeW91IHNvIG11Y2ggZm9yIHdvcmtpbmcgb24g
+dGhpcyEgSXQncyBncmVhdCB0bw0KPiA+IGZpbmFsbHkgc2VlIHByb2dyZXNzIGluIG1ha2luZyBH
+UFUgcmVzZXRzIGJldHRlci4NCj4gPg0KPiA+IEkndmUganVzdCB0YWtlbiB0aGlzIHBhdGNoc2V0
+ICh0b2dldGhlciB3aXRoIHlvdXIgb3RoZXINCj4gPiBwYXRjaHNldHNbMV1bMl1bM10pIGZvciBh
+IHF1aWNrIHNwaW4gb24gbXkNCj4gPiBOYXZpMjEgd2l0aCB0aGUgR1BVIHJlc2V0IHRlc3RzWzRd
+IEkgaGFkIHdyaXR0ZW4gYSB3aGlsZSBhZ28gLSB0aGUNCj4gPiBjdXJyZW50IHBhdGNoc2V0IHNh
+ZGx5IHNlZW1zIHRvIGhhdmUgc29tZSByZWdyZXNzaW9ucyBXUlQgcmVjb3ZlcnkNCj4gdGhlcmUu
+DQo+ID4NCj4gPiBJIHJhbiB0aGUgdGVzdHMgdW5kZXIgbXkgUGxhc21hIFdheWxhbmQgc2Vzc2lv
+biBvbmNlIC0gdGhpcyB0cmlnZ2VyZWQNCj4gPiBhIGxpc3QgZG91YmxlLWFkZCBpbiBkcm1fc2No
+ZWRfc3RvcCAoY2FsbHRyYWNlIGZvbGxvd3MpOg0KPg0KPiBJIHRoaW5rIHRoaXMgc2hvdWxkIGZp
+eCB0aGUgZG91YmxlIGFkZDoNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9qb2IuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9qb2IuYw0KPiBpbmRleCA3MTA3YzRkM2EzYjYuLjU1NWQzYjY3MWJkYiAxMDA2NDQNCj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jDQo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYw0KPiBAQCAtODgsNiArODgsOCBAQCBz
+dGF0aWMgZW51bSBkcm1fZ3B1X3NjaGVkX3N0YXQNCj4gYW1kZ3B1X2pvYl90aW1lZG91dChzdHJ1
+Y3QgZHJtX3NjaGVkX2pvYiAqc19qb2IpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgZHJtX3NjaGVkX3N0YXJ0KCZyaW5nLT5zY2hlZCwgdHJ1ZSk7DQo+ICAgICAgICAgICAgICAg
+ICAgICAgICAgIGdvdG8gZXhpdDsNCj4gICAgICAgICAgICAgICAgIH0NCj4gKyAgICAgICAgICAg
+ICAgIGlmIChhbWRncHVfcmluZ19zY2hlZF9yZWFkeShyaW5nKSkNCj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgZHJtX3NjaGVkX3N0YXJ0KCZyaW5nLT5zY2hlZCwgdHJ1ZSk7DQo+ICAgICAgICAg
+fQ0KPg0KPiAgICAgICAgIGlmIChhbWRncHVfZGV2aWNlX3Nob3VsZF9yZWNvdmVyX2dwdShyaW5n
+LT5hZGV2KSkgew0KPg0KPg0KPiA+DQo+ID4gPyBkaWUgKGFyY2gveDg2L2tlcm5lbC9kdW1wc3Rh
+Y2suYzo0MjEgYXJjaC94ODYva2VybmVsL2R1bXBzdGFjay5jOjQzNA0KPiA+IGFyY2gveDg2L2tl
+cm5lbC9kdW1wc3RhY2suYzo0NDcpID8gZG9fdHJhcA0KPiA+IChhcmNoL3g4Ni9rZXJuZWwvdHJh
+cHMuYzoxMTMgYXJjaC94ODYva2VybmVsL3RyYXBzLmM6MTU0KSA/DQo+ID4gX19saXN0X2FkZF92
+YWxpZF9vcl9yZXBvcnQgKGxpYi9saXN0X2RlYnVnLmM6MzUgKGRpc2NyaW1pbmF0b3IgMSkpID8N
+Cj4gPiBkb19lcnJvcl90cmFwICguL2FyY2gveDg2L2luY2x1ZGUvYXNtL3RyYXBzLmg6NTgNCj4g
+PiBhcmNoL3g4Ni9rZXJuZWwvdHJhcHMuYzoxNzUpID8gX19saXN0X2FkZF92YWxpZF9vcl9yZXBv
+cnQNCj4gPiAobGliL2xpc3RfZGVidWcuYzozNSAoZGlzY3JpbWluYXRvciAxKSkgPyBleGNfaW52
+YWxpZF9vcA0KPiA+IChhcmNoL3g4Ni9rZXJuZWwvdHJhcHMuYzoyNjYpID8gX19saXN0X2FkZF92
+YWxpZF9vcl9yZXBvcnQNCj4gPiAobGliL2xpc3RfZGVidWcuYzozNSAoZGlzY3JpbWluYXRvciAx
+KSkgPyBhc21fZXhjX2ludmFsaWRfb3ANCj4gPiAoLi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9pZHRl
+bnRyeS5oOjU2OCkNCj4gPiA/IF9fbGlzdF9hZGRfdmFsaWRfb3JfcmVwb3J0IChsaWIvbGlzdF9k
+ZWJ1Zy5jOjM1IChkaXNjcmltaW5hdG9yIDEpKSA/DQo+ID4gX19saXN0X2FkZF92YWxpZF9vcl9y
+ZXBvcnQgKGxpYi9saXN0X2RlYnVnLmM6MzUgKGRpc2NyaW1pbmF0b3IgMSkpDQo+ID4gZHJtX3Nj
+aGVkX3N0b3AgKC4vaW5jbHVkZS9saW51eC9saXN0Lmg6MTUxIC4vaW5jbHVkZS9saW51eC9saXN0
+Lmg6MTY5DQo+ID4gZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmM6NjE3KQ0K
+PiA+IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXINCj4gPiAoZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jOjU4MDgpDQo+ID4gYW1kZ3B1X2pvYl90aW1lZG91dA0KPiAo
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jOjEwMykNCj4gPiBkcm1fc2No
+ZWRfam9iX3RpbWVkb3V0IChkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYzo1
+NjkpDQo+ID4gcHJvY2Vzc19vbmVfd29yayAoa2VybmVsL3dvcmtxdWV1ZS5jOjI2MzMpIHdvcmtl
+cl90aHJlYWQNCj4gPiAoa2VybmVsL3dvcmtxdWV1ZS5jOjI3MDAgKGRpc2NyaW1pbmF0b3IgMikg
+a2VybmVsL3dvcmtxdWV1ZS5jOjI3ODcNCj4gPiAoZGlzY3JpbWluYXRvciAyKSkgPyBfX3BmeF93
+b3JrZXJfdGhyZWFkIChrZXJuZWwvd29ya3F1ZXVlLmM6MjczMykNCj4gPiBrdGhyZWFkIChrZXJu
+ZWwva3RocmVhZC5jOjM4OCkgPyBfX3BmeF9rdGhyZWFkIChrZXJuZWwva3RocmVhZC5jOjM0MSkN
+Cj4gPiByZXRfZnJvbV9mb3JrIChhcmNoL3g4Ni9rZXJuZWwvcHJvY2Vzcy5jOjE0NykgPyBfX3Bm
+eF9rdGhyZWFkDQo+ID4gKGtlcm5lbC9rdGhyZWFkLmM6MzQxKSByZXRfZnJvbV9mb3JrX2FzbQ0K
+PiA+IChhcmNoL3g4Ni9lbnRyeS9lbnRyeV82NC5TOjI1MSkNCj4gPg0KPiA+IFdoZW4gcnVubmlu
+ZyB0aGUgdGVzdHMgd2l0aG91dCBhIGRlc2t0b3AgZW52aXJvbm1lbnQgYWN0aXZlLCB0aGUNCj4g
+PiBkb3VibGUtYWRkIGRpc2FwcGVhcmVkLCBidXQgdGhlIEdQVSByZXNldCBzdGlsbCBkaWRuJ3Qg
+Z28gd2VsbCAtIHRoZQ0KPiA+IFRUWSByZW1haW5lZCBmcm96ZW4gYW5kIHRoZSBrZXJuZWwgbG9n
+IGNvbnRhaW5lZCBhIGZldyBtZXNzYWdlcyBsaWtlOg0KPiA+DQo+ID4gW2RybV0gKkVSUk9SKiBb
+Q1JUQzo5MDpjcnRjLTBdIGZsaXBfZG9uZSB0aW1lZCBvdXQNCg0KSGkgRnJpZWRyaWNoLCB3ZSBj
+YW5ub3QgcmVwcm9kdWNlIHRoZSBmbGlwX2RvbmUgdGltZWQgb3V0IG9uIGRncHUuDQpjb3VsZCB5
+b3UgaGF2ZSBhIGNoZWNrIGlmIHRoZSBoYW5ndGVzdCBydW5zIG9uIGludGVncmF0ZWQgZ3B1IG9y
+IHRoZSBkZ3B1LiBJZiBpdCBydW5zIG9uIGlncHUsIGNvdWxkIHlvdSBoYXZlIGEgdHJ5IHRvIGRp
+c2FibGUgaWdwdSBpbiBiaW9zIHRvIHNlZSBpZiBpdCB3b3Jrcy4gVGhhbmtzLg0KDQpUaGFua3Ms
+DQpKaWFkb25nDQoNCj4gSSBkb24ndCB0aGluayB0aGUgZGlzcGxheSBoYXJkd2FyZSBpcyBodW5n
+LCBJIHRoaW5rIGl0J3MgYSBmZW5jZSBzaWduYWxsaW5nIGlzc3VlDQo+IGFmdGVyIHRoZSByZXNl
+dC4gIFdlIGFyZSBpbnZlc3RpZ2F0aW5nIHNvbWUgbGltaXRhdGlvbnMgd2UgYXJlIHNlZWluZyBp
+biB0aGUNCj4gaGFuZGxpbmcgb2YgZmVuY2VzLg0KPg0KPiA+DQo+ID4gd2hpY2ggSSBndWVzcyBt
+ZWFucyBhdCBsZWFzdCB0aGUgZGlzcGxheSBzdWJzeXN0ZW0gaXMgaHVuZy4NCj4gPg0KPiA+IEhv
+cGUgdGhpcyBpbmZvIGlzIGVub3VnaCB0byByZXByby9pbnZlc3RpZ2F0ZS4NCj4NCj4gVGhhbmtz
+IGZvciB0ZXN0aW5nIQ0KPg0KPiBBbGV4DQo+DQo+ID4NCj4gPiBUaGFua3MsDQo+ID4gRnJpZWRy
+aWNoDQo+ID4NCj4gPiBbMV0NCj4gPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbWQtZ2Z4LzIw
+MjQwNzE3MjAzNzQwLjE0MDU5LTEtYWxleGFuZGVyLmRldWNoDQo+ID4gZXJAYW1kLmNvbS9ULyN0
+IFsyXQ0KPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FtZC1nZngvMjAyNDA3MTcyMDM4NDcu
+MTQ2MDAtMS1hbGV4YW5kZXIuZGV1Y2gNCj4gPiBlckBhbWQuY29tL1QvI3QgWzNdDQo+ID4gaHR0
+cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYW1kLWdmeC8yMzBlZTcyZS00ZjdmLTQ4OTQtYTc4OS0NCj4g
+MmUxZTU3ODgzNDRmQGENCj4gPiBtZC5jb20vVC8jdCBbNF0gaHR0cHM6Ly9naXRsYWIuc3RlYW1v
+cy5jbG91ZC9ob2xvL0hhbmdUZXN0U3VpdGUNCj4gPg0KPiA+DQo+ID4gPg0KPiA+ID4gQWxleCBE
+ZXVjaGVyICgxOSk6DQo+ID4gPiAgICBkcm0vYW1kZ3B1L21lczogYWRkIEFQSSBmb3IgbGVnYWN5
+IHF1ZXVlIHJlc2V0DQo+ID4gPiAgICBkcm0vYW1kZ3B1L21lczExOiBhZGQgQVBJIGZvciBsZWdh
+Y3kgcXVldWUgcmVzZXQNCj4gPiA+ICAgIGRybS9hbWRncHUvbWVzMTI6IGFkZCBBUEkgZm9yIGxl
+Z2FjeSBxdWV1ZSByZXNldA0KPiA+ID4gICAgZHJtL2FtZGdwdS9tZXM6IGFkZCBBUEkgZm9yIHVz
+ZXIgcXVldWUgcmVzZXQNCj4gPiA+ICAgIGRybS9hbWRncHUvbWVzMTE6IGFkZCBBUEkgZm9yIHVz
+ZXIgcXVldWUgcmVzZXQNCj4gPiA+ICAgIGRybS9hbWRncHUvbWVzMTI6IGFkZCBBUEkgZm9yIHVz
+ZXIgcXVldWUgcmVzZXQNCj4gPiA+ICAgIGRybS9hbWRncHU6IGFkZCBuZXcgcmluZyByZXNldCBj
+YWxsYmFjaw0KPiA+ID4gICAgZHJtL2FtZGdwdTogYWRkIHBlciByaW5nIHJlc2V0IHN1cHBvcnQg
+KHYyKQ0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZngxMTogYWRkIHJpbmcgcmVzZXQgY2FsbGJhY2tz
+DQo+ID4gPiAgICBkcm0vYW1kZ3B1L2dmeDExOiByZW5hbWUgZ2Z4X3YxMV8wX2dmeF9pbml0X3F1
+ZXVlKCkNCj4gPiA+ICAgIGRybS9hbWRncHUvZ2Z4MTA6IGFkZCByaW5nIHJlc2V0IGNhbGxiYWNr
+cw0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZngxMDogcmV3b3JrIHJlc2V0IHNlcXVlbmNlDQo+ID4g
+PiAgICBkcm0vYW1kZ3B1L2dmeDk6IGFkZCByaW5nIHJlc2V0IGNhbGxiYWNrDQo+ID4gPiAgICBk
+cm0vYW1kZ3B1L2dmeDkuNC4zOiBhZGQgcmluZyByZXNldCBjYWxsYmFjaw0KPiA+ID4gICAgZHJt
+L2FtZGdwdS9nZngxMjogYWRkIHJpbmcgcmVzZXQgY2FsbGJhY2tzDQo+ID4gPiAgICBkcm0vYW1k
+Z3B1L2dmeDEyOiBmYWxsYmFjayB0byBkcml2ZXIgcmVzZXQgY29tcHV0ZSBxdWV1ZSBkaXJlY3Rs
+eQ0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZngxMTogZW50ZXIgc2FmZSBtb2RlIGJlZm9yZSB0b3Vj
+aGluZyBDUF9JTlRfQ05UTA0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZngxMTogYWRkIGEgbXV0ZXgg
+Zm9yIHRoZSBnZnggc2VtYXBob3JlDQo+ID4gPiAgICBkcm0vYW1kZ3B1L2dmeDExOiBleHBvcnQg
+Z2Z4X3YxMV8wX3JlcXVlc3RfZ2Z4X2luZGV4X211dGV4KCkNCj4gPiA+DQo+ID4gPiBKaWFkb25n
+IFpodSAoMTMpOg0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZngxMTogd2FpdCBmb3IgcmVzZXQgZG9u
+ZSBiZWZvcmUgcmVtYXANCj4gPiA+ICAgIGRybS9hbWRncHUvZ2Z4MTA6IHJlbWFwIHF1ZXVlIGFm
+dGVyIHJlc2V0IHN1Y2Nlc3NmdWxseQ0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZngxMDogd2FpdCBm
+b3IgcmVzZXQgZG9uZSBiZWZvcmUgcmVtYXANCj4gPiA+ICAgIGRybS9hbWRncHUvZ2Z4OTogcmVt
+YXAgcXVldWUgYWZ0ZXIgcmVzZXQgc3VjY2Vzc2Z1bGx5DQo+ID4gPiAgICBkcm0vYW1kZ3B1L2dm
+eDk6IHdhaXQgZm9yIHJlc2V0IGRvbmUgYmVmb3JlIHJlbWFwDQo+ID4gPiAgICBkcm0vYW1kZ3B1
+L2dmeDkuNC4zOiByZW1hcCBxdWV1ZSBhZnRlciByZXNldCBzdWNjZXNzZnVsbHkNCj4gPiA+ICAg
+IGRybS9hbWRncHUvZ2Z4XzkuNC4zOiB3YWl0IGZvciByZXNldCBkb25lIGJlZm9yZSByZW1hcA0K
+PiA+ID4gICAgZHJtL2FtZGdwdS9nZng6IGFkZCBhIG5ldyBraXFfcG00X2Z1bmNzIGNhbGxiYWNr
+IGZvcg0KPiByZXNldF9od19xdWV1ZQ0KPiA+ID4gICAgZHJtL2FtZGdwdS9nZng5OiBpbXBsZW1l
+bnQgcmVzZXRfaHdfcXVldWUgZm9yIGdmeDkNCj4gPiA+ICAgIGRybS9hbWRncHUvZ2Z4OS40LjM6
+IGltcGxlbWVudCByZXNldF9od19xdWV1ZSBmb3IgZ2Z4OS40LjMNCj4gPiA+ICAgIGRybS9hbWRn
+cHUvbWVzOiBtb2RpZnkgbWVzIGFwaSBmb3IgbW1pbyBxdWV1ZSByZXNldA0KPiA+ID4gICAgZHJt
+L2FtZGdwdS9tZXM6IGltcGxlbWVudCBhbWRncHVfbWVzX3Jlc2V0X2h3X3F1ZXVlX21taW8NCj4g
+PiA+ICAgIGRybS9hbWRncHUvbWVzMTE6IGltcGxlbWVudCBtbWlvIHF1ZXVlIHJlc2V0IGZvciBn
+ZngxMQ0KPiA+ID4NCj4gPiA+IFByaWtlIExpYW5nICgyKToNCj4gPiA+ICAgIGRybS9hbWRncHU6
+IGluY3JlYXNlIHRoZSByZXNldCBjb3VudGVyIGZvciB0aGUgcXVldWUgcmVzZXQNCj4gPiA+ICAg
+IGRybS9hbWRncHUvZ2Z4MTE6IGZhbGxiYWNrIHRvIGRyaXZlciByZXNldCBjb21wdXRlIHF1ZXVl
+IGRpcmVjdGx5DQo+ID4gPiAodjIpDQo+ID4gPg0KPiA+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAgIDEgKw0KPiA+ID4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmggICAgfCAgIDYgKw0KPiA+ID4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgICAgfCAgMTggKysrDQo+ID4gPiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tZXMuYyAgICB8ICA4OCArKysrKysrKysrKysNCj4g
+PiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21lcy5oICAgIHwgIDM3ICsr
+KysrDQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggICB8
+ICAgMiArDQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jICAg
+ICB8IDE1OA0KPiArKysrKysrKysrKysrKysrKysrKy0NCj4gPiA+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3YxMV8wLmMgICAgIHwgMTE3ICsrKysrKysrKysrKystLQ0KPiA+ID4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjExXzAuaCAgICAgfCAgIDMgKw0KPiA+
+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEyXzAuYyAgICAgfCAgOTUgKysr
+KysrKysrKysrLQ0KPiA+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
+ICAgICAgfCAxMjYgKysrKysrKysrKysrKysrLQ0KPiA+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjlfNF8zLmMgICAgfCAxMjUNCj4gKysrKysrKysrKysrKysrLQ0KPiA+ID4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdjExXzAuYyAgICAgfCAxMzINCj4gKysr
+KysrKysrKysrKysrKysNCj4gPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbWVzX3Yx
+Ml8wLmMgICAgIHwgIDU0ICsrKysrKysNCj4gPiA+ICAgMTQgZmlsZXMgY2hhbmdlZCwgOTMwIGlu
+c2VydGlvbnMoKyksIDMyIGRlbGV0aW9ucygtKQ0KPiA+ID4NCj4gPg0KPiA+DQo+ID4NCg==
