@@ -4,118 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF48C3DA63
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 18:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A3BC3DA61
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 18:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD2F510E796;
-	Wed, 24 Jul 2024 18:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A632610E79C;
+	Wed, 24 Jul 2024 18:55:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pbe6lcSN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WdhsmPW8";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C4610E796
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 18:46:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ORlzrfxxzbJ4lxKdRcvKZmz8GlSvhcrGWS/cE2ZLwNhAc/DGmkvRgdfqgliO4j23IuNtDQabEn2ITfUZs13itn3a4thlRUWxtu+cFSxKIbyyYNN74MlcdpI1I8uN1J7RG9BU3GLtjXFSJ1ulFVGPO2nqa9vi13MuBPHuLhx1yRVZ8JV/+yT6bgYU1Ysgb+QzEmRs+6Ki0S580HwR29DdS8xnW0YroQW+sjZITi7+RUAXkJAzDm3w8+u6ydXWMEyMiAH9x9TfgxBP0RmD+s0Wzgl05WyVLB+oCdewzmMayC/v9o+Hpc+YhSzuLAUiswWbPX2iwRJntL3dlUPZYDp2xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3SfxbSf7WRNRVUu43MXxU90oVWzK6y+msg+VD9Vt5l0=;
- b=epal9K+Qm0M3FFzivNjb0mezXUa2VvM5T38CAgAmuO0a9gwaxYw6C0ySRt8V+xfNTtwWpSR0FnmH+nZ2QJC4HH4djJYmyKlTzvy96s1elHyxQgUIRmcJGTi+pbIzz/bZ0QplYl3/Yx9CtRyP0e7ol5Grjp0prEax4Aa5lz+jjcrnSxDxhV34ZMDY9hs+occY097YyaNYj5Lg96Nj4KcBGryBIZYF4d0Q0+aHqayRXnZNbJe7JgEat/ENbQv9dbX2qyxRFERKVw6Ql0O0mVzzcsE4uRudyUAZ5OlQp4IFb0/cw3UF/opk3bfv3eqrCLXeiFIa342v016KKtxUunIY+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3SfxbSf7WRNRVUu43MXxU90oVWzK6y+msg+VD9Vt5l0=;
- b=pbe6lcSNkykUnzqqNFWdHINbc8jy2XNDA/DsGGDgDYxRnU0LKtaZZDFy529xRa6B5g6KZRw/bIb5nIdpyXtsUnCFMOyPIg9Y7xSp2f+QYcw7Dmj9cuIRyLacS8UjnqUdc9Os+0uCBe6jzDmyZotKtEpqH12zOm7VZVlIw0vT1+4=
-Received: from DM6PR18CA0034.namprd18.prod.outlook.com (2603:10b6:5:15b::47)
- by IA0PR12MB8748.namprd12.prod.outlook.com (2603:10b6:208:482::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Wed, 24 Jul
- 2024 18:46:51 +0000
-Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
- (2603:10b6:5:15b:cafe::6e) by DM6PR18CA0034.outlook.office365.com
- (2603:10b6:5:15b::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.23 via Frontend
- Transport; Wed, 24 Jul 2024 18:46:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Wed, 24 Jul 2024 18:46:51 +0000
-Received: from mchen-linux-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 24 Jul
- 2024 13:46:48 -0500
-From: Michael Chen <michael.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>,
- <michael.chen@amd.com>
-Subject: [PATCH] drm/amdgpu: increase mes log buffer size for gfx12
-Date: Wed, 24 Jul 2024 14:46:16 -0400
-Message-ID: <20240724184616.196690-1-michael.chen@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5078610E79D;
+ Wed, 24 Jul 2024 18:55:36 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-70d2d7e692eso120606b3a.0; 
+ Wed, 24 Jul 2024 11:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1721847336; x=1722452136; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=f8ZcPhyuuVkQylyVbSPVZY+MB/Sfwkm8yVypgbJEqJE=;
+ b=WdhsmPW81BXJPvcmFV46jYePXR3oC21c5urO+VfuEuvHDEn+AUauWYIJHS+jsSAPj1
+ UnqBAgjrAfHEW5G0tnzZWR/jS2bUKG/Mbsk+OlhmuRLlHWOKCL9E/DDVPpn11buU8ket
+ KSKMPV1GSzfonflNhXoeIdf2DCrpT7t409Pg046hEG6fF5YtH3FrJWRXl0Gc/lZ0sNk/
+ XoISyZ+xO6NtlcFF7S28QH9yaRqlx+8//odFb63FwLdV1F/6Il6iGW/l/TV6QuC2nDUX
+ 3ZesF2huz6zr3qeLrUfg6TPz5Uq6y9PAMcGN4WCJL8lotrs+wbgoGI/P9J/O8wjUKVeb
+ 1Wfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721847336; x=1722452136;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=f8ZcPhyuuVkQylyVbSPVZY+MB/Sfwkm8yVypgbJEqJE=;
+ b=uIeS4XN40R0MrRuNooJCZXVj3TaH8Wuwnl+lh2W1qw0v9f330GQ2cmtAijR4YG42A0
+ gZrYxPOu5sStL1P4tVWqj5U2lCbN8rnzW6UG7GmvXaVEKyqQde9XscNBDlIrscWlXNi8
+ XRLsqOGtFqa1jZNgOds+TnFmStnof6iTaHmRhZhZuGpKaNG4atdbcfo9d+kAAKtYA7ge
+ dQ6NYcFt1vb16IRN0IKcZFRNJ+DyuCMoL8bwafOptixwTbNQia2Ks/ng5/d/bnN5pIGB
+ 1o/VOeg/AJ8KLzceL+8SVW0ehVtjZiG75FEsINXxRFQlup3Ls+MGXPYAg0/d15xFbDth
+ tW4Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXHnEOdn8nrumUFskkY27BRGFvWojF2465ltgVjjcQSryCenpv7cZQg+cWPlqG2hRshvdDQh+5GCVdu2fZyJfJs+uovIetcFYaSzj2qIgZL
+X-Gm-Message-State: AOJu0Yy45jq0602sLoUx14IlMSqACV6g033saXCPcg4icAyZhMvhOLoV
+ HV0YRd6SG9ZdkBci+d7M0lRqDuJ6adYvXYjOhwnLpSVcHSh/QNdzHqAxxwDAzZInOqmejqy6goe
+ zvQBLClpV9f7e2O57xRsdNfuSrxA=
+X-Google-Smtp-Source: AGHT+IEZkTxiVgRL75Jo4/2DH2H2JytMia3rJQU5B7noVJxcYgAT01Hfhvmi6Cwpw2cLpo7oZbvdc8rYTmVic2oJD8Y=
+X-Received: by 2002:a05:6a00:2e19:b0:704:1c78:4f8a with SMTP id
+ d2e1a72fcca58-70eaa909c4fmr527100b3a.21.1721847335592; Wed, 24 Jul 2024
+ 11:55:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|IA0PR12MB8748:EE_
-X-MS-Office365-Filtering-Correlation-Id: aafbd422-7512-44bc-59fb-08dcac10fb0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lXBUtpvKXr1D1V1MQykux+eLXQBTCu/YcMV0w8miH3oNlqJOHaRuHLka9dCF?=
- =?us-ascii?Q?CZetk/qeUnPzkvpaCa+5Fdhnel3ZKw5bDqWvjoDdOPH/Bz+hrx+BwXZMZJwz?=
- =?us-ascii?Q?VAsUXuXcMFHCgMF4JK9lTbVSLFRCyD82noQKEkBTquFdRixEjbL6jAUU7Paq?=
- =?us-ascii?Q?J9UcGRkEBAgf5dYHgTQZHULWhCgN0ZnWlWrlJlQ74zPL10q/DIMyItbKyMau?=
- =?us-ascii?Q?qPNm1iN1BAu9fDik9EtXEpTOVWZJvG6guvj0sYsH8sNMQeRdSc8wd4EQsfri?=
- =?us-ascii?Q?j335fIOO7k3M6+hOZwtqUh0gBlm4JTryC+zF/whtjlUhFv1rsP+RgCtMJ4+J?=
- =?us-ascii?Q?g1M1WBaYhIzKWt3tCFVTU5a//N5SVIHLGdOcg0246WZZQLmvZYUn3LZKgYT3?=
- =?us-ascii?Q?iV33rWWXRKV+qFsQlwr0cTtrj20C/soIIuPd41ELtpsbvKB9syIkrU/7BZAg?=
- =?us-ascii?Q?Ycids6DemhaakTaX/ToQs2MyFSxeoAEMZIEVqArcYS0oewHhXbDUDAModxN5?=
- =?us-ascii?Q?drjrduSWdmmslTjoMzPXVL5/vW4s2bdzz24B+xRhS/WBBZsyY1jPgPufuMyV?=
- =?us-ascii?Q?ErIesySasw2Faz8dhex87hHdwE47esxYmHCuNo3OoKohZzR1UKplo2u+tIJ9?=
- =?us-ascii?Q?Vg8HpTWBWcPLtcL1RX+dsY65fwimujdf35tiy2WKn35soZCgXoX5nA+IEm0T?=
- =?us-ascii?Q?j0G6R4Iq+b1YU/P8GO2tMX8uJi5CukHEZQraBwHuDB/XDzuoVwVfj0BJcPlB?=
- =?us-ascii?Q?qlI315sYUwA5skDfmmZqV/ywaTUR5F1jjV4ZCvdehpjBOAG3Ye6btyY+q3VV?=
- =?us-ascii?Q?I7Qt0HvXZptGe5OThnLf83wPC1M8m6zhM+zSESW8b6wU+9iLe1USKX4hbdOe?=
- =?us-ascii?Q?LD4TvoEmRtzik0JelWRzmoUwyRUGdoQwFoUl3UzTEGozOZ/u8ke/T6K19KTB?=
- =?us-ascii?Q?yGykTCiAwMQkkaPrrcVm4bzdYgd52Lnf+29Wep91bAoAbC97H+KYjIlao+9N?=
- =?us-ascii?Q?Hj/5aA6diApPz2JKm56Lo3F2i1oy1mpgBp6f0DAqQ39ciSeKP+xHbrwliQwz?=
- =?us-ascii?Q?3XPpnCALxPLx3G5tZ2jUP/SqbgIhPDsRqSoBQY+qCsAW6ZKBmYLzqyb4Xehi?=
- =?us-ascii?Q?b+VsVv9b5gBLkuDs6MdZVrylLGHFxqTCDilolUOX2wBsFEiE8o4AIAZ7Ufqe?=
- =?us-ascii?Q?4Z0kD4pfw9bWufjnQt9MmUqeTLEArULxYdMpsLaCK+8CXTF3oq1orzELxrK5?=
- =?us-ascii?Q?zNDIrEN8wYZviHTNTnSxsfti6ARU0uLID12HnxcflbE4hSFs5TSs+u4nRWB7?=
- =?us-ascii?Q?Pcn6RddLeNeadgBUXhDDZQZwnY9NaQkqOFHLkwqmdmw+Eu8O5TkBCdlpf8Xc?=
- =?us-ascii?Q?8oCK41JRW/KVf1VBHwgvGrP1Guf64iBt4evs/kU0h0zzrNdW0wnF+z2ZsBLL?=
- =?us-ascii?Q?ARsBPdK7GY4kiGMwYrsD31SoB0pic2jG?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2024 18:46:51.0018 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aafbd422-7512-44bc-59fb-08dcac10fb0c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8748
+References: <20240724184340.183606-1-vitaly.prosyak@amd.com>
+In-Reply-To: <20240724184340.183606-1-vitaly.prosyak@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 24 Jul 2024 14:55:23 -0400
+Message-ID: <CADnq5_Naa-ATqDemiVf4GFxP-YHEXy371oDafw_AwMcNObL3JQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/sched: Add error code parameter to drm_sched_start
+To: vitaly.prosyak@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, jesse.zhang@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,141 +78,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MES firmware requires larger log buffer for gfx12. Allocate
-proper buffer respectively for gfx11 and gfx12.
+On Wed, Jul 24, 2024 at 2:43=E2=80=AFPM <vitaly.prosyak@amd.com> wrote:
+>
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+>
+> The current implementation of drm_sched_start uses a hardcoded -ECANCELED=
+ to dispose of a job when
+> the parent/hw fence is NULL. This results in drm_sched_job_done being cal=
+led with -ECANCELED for
+> each job with a NULL parent in the pending list, making it difficult to d=
+istinguish between recovery
+> methods, whether a queue reset or a full GPU reset was used. To improve t=
+his, we first try a soft
+> recovery for timeout jobs and use the error code -ENODATA. If soft recove=
+ry fails, we proceed with
+> a queue reset, where the error code would still be -ENODATA for the job. =
+Finally, for a full GPU
+> reset, we use error codes -ECANCELED or -ETIME. This patch adds an error =
+code parameter to
+> drm_sched_start, allowing us to differentiate between queue reset and GPU=
+ reset failures.
+> This enables user mode and test applications to validate the expected cor=
+rectness of the requested
+> operation. After a successful queue reset, the only way to continue norma=
+l operation is to call
+> drm_sched_job_done with the specific error code -ENODATA.
+>
+> v1: Initial implementation by Jesse utilized amdgpu_device_lock_reset_dom=
+ain and
+>     amdgpu_device_unlock_reset_domain to allow user mode to track the que=
+ue reset status
+>     and distinguish between queue reset and GPU reset.
+> v2: Christian suggested using the error codes -ENODATA for queue reset an=
+d -ECANCELED or
+>     -ETIME for GPU reset, returned to amdgpu_cs_wait_ioctl.
+> v3: To meet the requirements, we introduce a new function drm_sched_start=
+_ex with an additional
+>     parameter to set dma_fence_set_error, allowing us to handle the speci=
+fic error codes
+>     appropriately and dispose of bad jobs with the selected error code de=
+pending on whether
+>     it was a queue reset or GPU reset.
+>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> ---
+>  drivers/gpu/drm/scheduler/sched_main.c | 19 ++++++++++++++++---
+>  include/drm/gpu_scheduler.h            |  1 +
+>  2 files changed, 17 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index 7e90c9f95611..5a534772335a 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -671,13 +671,14 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched=
+, struct drm_sched_job *bad)
+>  EXPORT_SYMBOL(drm_sched_stop);
+>
+>  /**
+> - * drm_sched_start - recover jobs after a reset
+> + * drm_sched_start_ex - recover jobs after a reset
+>   *
+>   * @sched: scheduler instance
+>   * @full_recovery: proceed with complete sched restart
+> + * @error : err code for set dma_fence_set_error
+>   *
+>   */
+> -void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery=
+)
+> +void drm_sched_start_ex(struct drm_gpu_scheduler *sched, bool full_recov=
+ery, int error)
 
-Signed-off-by: Michael Chen <michael.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       | 6 +++---
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 2 ++
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 8 ++++++--
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 +++
- drivers/gpu/drm/amd/include/mes_v12_api_def.h | 3 +++
- 6 files changed, 20 insertions(+), 8 deletions(-)
+How about calling this drm_sched_start_with_recovery_error() or
+similar?  drm_sched_start_ex() is not super clear.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index e499d6ba306b..dac88d2dd70d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -103,7 +103,7 @@ static int amdgpu_mes_event_log_init(struct amdgpu_device *adev)
- 	if (!amdgpu_mes_log_enable)
- 		return 0;
- 
--	r = amdgpu_bo_create_kernel(adev, AMDGPU_MES_LOG_BUFFER_SIZE, PAGE_SIZE,
-+	r = amdgpu_bo_create_kernel(adev, adev->mes.event_log_size, PAGE_SIZE,
- 				    AMDGPU_GEM_DOMAIN_GTT,
- 				    &adev->mes.event_log_gpu_obj,
- 				    &adev->mes.event_log_gpu_addr,
-@@ -113,7 +113,7 @@ static int amdgpu_mes_event_log_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
--	memset(adev->mes.event_log_cpu_addr, 0, PAGE_SIZE);
-+	memset(adev->mes.event_log_cpu_addr, 0, adev->mes.event_log_size);
- 
- 	return  0;
- 
-@@ -1573,7 +1573,7 @@ static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *unused)
- 	uint32_t *mem = (uint32_t *)(adev->mes.event_log_cpu_addr);
- 
- 	seq_hex_dump(m, "", DUMP_PREFIX_OFFSET, 32, 4,
--		     mem, AMDGPU_MES_LOG_BUFFER_SIZE, false);
-+		     mem, adev->mes.event_log_size, false);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index e11051271f71..2d659c612f03 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -52,7 +52,6 @@ enum amdgpu_mes_priority_level {
- 
- #define AMDGPU_MES_PROC_CTX_SIZE 0x1000 /* one page area */
- #define AMDGPU_MES_GANG_CTX_SIZE 0x1000 /* one page area */
--#define AMDGPU_MES_LOG_BUFFER_SIZE 0x4000 /* Maximu log buffer size for MES */
- 
- struct amdgpu_mes_funcs;
- 
-@@ -135,8 +134,9 @@ struct amdgpu_mes {
- 	unsigned long			*doorbell_bitmap;
- 
- 	/* MES event log buffer */
--	struct amdgpu_bo		*event_log_gpu_obj;
--	uint64_t                        event_log_gpu_addr;
-+	uint32_t			event_log_size;
-+	struct amdgpu_bo	*event_log_gpu_obj;
-+	uint64_t			event_log_gpu_addr;
- 	void				*event_log_cpu_addr;
- 
- 	/* ip specific functions */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 68c74adf79f1..1a5ad5be33bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1173,6 +1173,8 @@ static int mes_v11_0_sw_init(void *handle)
- 	adev->mes.kiq_hw_init = &mes_v11_0_kiq_hw_init;
- 	adev->mes.kiq_hw_fini = &mes_v11_0_kiq_hw_fini;
- 
-+	adev->mes.event_log_size = AMDGPU_MES_LOG_BUFFER_SIZE;
-+
- 	r = amdgpu_mes_init(adev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 48e01206bcc4..249e5a66205c 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -561,8 +561,10 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes *mes)
- 	mes_set_hw_res_pkt.oversubscription_timer = 50;
- 	mes_set_hw_res_pkt.unmapped_doorbell_handling = 1;
- 
--	mes_set_hw_res_pkt.enable_mes_event_int_logging = 0;
--	mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr = mes->event_log_gpu_addr;
-+	if (amdgpu_mes_log_enable) {
-+		mes_set_hw_res_pkt.enable_mes_event_int_logging = 1;
-+		mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr = mes->event_log_gpu_addr;
-+	}
- 
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes,
- 			&mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
-@@ -1247,6 +1249,8 @@ static int mes_v12_0_sw_init(void *handle)
- 	adev->mes.kiq_hw_init = &mes_v12_0_kiq_hw_init;
- 	adev->mes.kiq_hw_fini = &mes_v12_0_kiq_hw_fini;
- 
-+	adev->mes.event_log_size = AMDGPU_MES_LOG_BUFFER_SIZE;
-+
- 	r = amdgpu_mes_init(adev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index b72d5d362251..21ceafce1f9b 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -28,6 +28,9 @@
- 
- #define MES_API_VERSION 1
- 
-+/* Maximum log buffer size for MES. Needs to be updated if MES expands MES_EVT_INTR_HIST_LOG */
-+#define  AMDGPU_MES_LOG_BUFFER_SIZE  0x4000
-+
- /* Driver submits one API(cmd) as a single Frame and this command size is same
-  * for all API to ease the debugging and parsing of ring buffer.
-  */
-diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-index ffd67c6ed9b3..4cf2c9f30b3d 100644
---- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-@@ -28,6 +28,9 @@
- 
- #define MES_API_VERSION 0x14
- 
-+/* Maximum log buffer size for MES. Needs to be updated if MES expands MES_EVT_INTR_HIST_LOG_12 */
-+#define  AMDGPU_MES_LOG_BUFFER_SIZE  0xC000
-+
- /* Driver submits one API(cmd) as a single Frame and this command size is same for all API
-  * to ease the debugging and parsing of ring buffer.
-  */
--- 
-2.34.1
+Also, add some information to the function documentation above to
+describe when and why you'd want to specify separate error messages.
+Something like in your patch description.
 
+Alex
+
+>  {
+>         struct drm_sched_job *s_job, *tmp;
+>         int r;
+> @@ -704,7 +705,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched,=
+ bool full_recovery)
+>                                 DRM_DEV_ERROR(sched->dev, "fence add call=
+back failed (%d)\n",
+>                                           r);
+>                 } else
+> -                       drm_sched_job_done(s_job, -ECANCELED);
+> +                       drm_sched_job_done(s_job, error);
+>         }
+>
+>         if (full_recovery)
+> @@ -712,6 +713,18 @@ void drm_sched_start(struct drm_gpu_scheduler *sched=
+, bool full_recovery)
+>
+>         drm_sched_wqueue_start(sched);
+>  }
+> +EXPORT_SYMBOL(drm_sched_start_ex);
+> +/**
+> + * drm_sched_start - recover jobs after a reset
+> + *
+> + * @sched: scheduler instance
+> + * @full_recovery: proceed with complete sched restart
+> + *
+> + */
+> +void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery=
+)
+> +{
+> +       drm_sched_start_ex(sched, full_recovery, -ECANCELED);
+> +}
+>  EXPORT_SYMBOL(drm_sched_start);
+>
+>  /**
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 5acc64954a88..444fa6761590 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -580,6 +580,7 @@ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *=
+sched);
+>  void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+>  void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_jo=
+b *bad);
+>  void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery=
+);
+> +void drm_sched_start_ex(struct drm_gpu_scheduler *sched, bool full_recov=
+ery, int error);
+>  void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+>  void drm_sched_increase_karma(struct drm_sched_job *bad);
+>  void drm_sched_reset_karma(struct drm_sched_job *bad);
+> --
+> 2.25.1
+>
