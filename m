@@ -4,81 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71DCEC3DA61
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 15:53:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09557C3DA63
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 16:03:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F344710E73D;
-	Wed, 24 Jul 2024 15:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 241F910E73F;
+	Wed, 24 Jul 2024 16:03:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QcKUKuYu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OUFKAv3t";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E2210E73C;
- Wed, 24 Jul 2024 15:53:53 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-70d2b921c48so2559507b3a.1; 
- Wed, 24 Jul 2024 08:53:53 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1623310E73F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 16:03:27 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-1fd70ba6a15so17049575ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 09:03:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721836433; x=1722441233; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721837006; x=1722441806; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7wESv1LdQX+UtQLY9Z+JdLQpHYUmswcLuSV3X1wwd0A=;
- b=QcKUKuYuaPTpn/o+mhAuF8cmacOtJgZN1MO2JxL33v5PsZoPlWiVq0iXpDM/qbckAa
- nE3DFl2DXfAh9yXpFV/sIArgSycUgdq0Tu/BwFoKJkb1t9K8vG1ltA/BrVhOHQNbx6mp
- uCC9sf5o9DOnwDpDcXnCmoRzsl5Fk0/PmsESYdY7myWmnTcPE9xwUsrmNnp7CHosAcSs
- Kck5xBEfFTRzEUJMzBGPqr51JiYidfkdeM6CjK9LEOCIGcKhQk/mWsA1Ag65zAwvEHxL
- qR6lpu0s3yTyLtFAZRwEpMwn86yAFvtuVeVTj0EtZOCe2fxTC5ZZF9cMkbATXmxSGwch
- 0m5w==
+ bh=JnR92zVXMi7CBtlq8RJKim8J3+gwTVhcYoJ/y/9dA4w=;
+ b=OUFKAv3tMQLxzvR/vwInkdU1MP9VVov8Nzh6InH21G2T3TMVZsXdXbfn9nObcZ9trr
+ pEOQiQDYoPZ6D6eE4kbfdLjwTDznnyN3YAyJ2q7ze1Sl0LbLcw9slQedFtD4DwUvNq22
+ ghcPwLNpShiVQlqAInf+rnuzsCOo0TXTeW75hqcFJdzWWF1a1caRw5YUhPCpfeszSY/r
+ npuTP+pLiaJrl6fS96VkfTzY1FD1rvruNz/3I7nvaNudHyAW9wWKIx4z82KJTbwlsDZ9
+ 1X0ugef+QhfvHU4jAjwp6wzthiGL54tExNZvZ6RwyUn1bfV/rTFD8L8NVnvSORMIS73m
+ DFLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721836433; x=1722441233;
+ d=1e100.net; s=20230601; t=1721837006; x=1722441806;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7wESv1LdQX+UtQLY9Z+JdLQpHYUmswcLuSV3X1wwd0A=;
- b=c5KIjPqMj8l1A9pA7s+GXvLxBAO8E6JnBgBH5HJDFgS1e7J97WntU1WBBOL2CN+c3t
- hlQ34cBFQJDzsabb3WV8EkPyRx521h8C+V+XpiYcfcyZIz9RxnKYmSRCUv3diPRP5Wrn
- Rb6ojDlr4KybAdfoRu5FHUlyfBPhaEiNX1fKnxSfGWHmvTjki2rjc7KEZlQ3eP9R8YTe
- Wo7tWp3stn1yLCdKKoYj09Em8iGrnUzNt2FXnGEu970uqaSZ3yv8jz+nMq7XFNZTZhTx
- MHufNZu4cx8ZAug6AuNXG54iDVkWFpwRjdvcKWT9f44/c7te8zH/v8SZeFik0Yl9WHfg
- yAcA==
+ bh=JnR92zVXMi7CBtlq8RJKim8J3+gwTVhcYoJ/y/9dA4w=;
+ b=VrK258+L2CiaiFaSipIbIgE5YvDTc4T3KfftIubY8zVMW14YL3b8joO8bPij6kXYgn
+ hu1Bgufc1Iyd4iVnbnxx0Dvdj7er/AfCscMnkwN0jHybXioDC5np9F8RTWCGu5GYJSP6
+ rdklNVHy6tVZUKFkkaGTCcLwmksyQRWCOZ8zDUOzj0RK/K+s0j/JEB4Ey88S5C+UVvHx
+ yJ+4257iSPPGsrTqNPmupWapui0+BNpPOOJKMYSlJsWjpWq7CV6xLFHQSA2oNkWefPXE
+ m16hsFburwQr7Ah97aDfzfh9If3FC5QLpwASp2vK6ts5F+Jb7av+KhDKTryrS8LBnRPg
+ hfGA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkcZXEObxvIwY1wFQUofWKZFoMJjwJ1AAKg1KSisoobwFXQZns9W6myf+geu32yz85XmEH2ZvW9r2N4rd5MzB670IA9hRJjJ+3eJKZM3E5uROHTUe69H2nE0RnDbEHZGCZmdD1moawKoxoftDy/g==
-X-Gm-Message-State: AOJu0YwcapOCs5lBmcTooWNfWRU5qft6/33gbFU4uKgdRE6GpykmQy6K
- GRY+kl0N/cm8+2zDgWdHHkjcq34sxKhVSczcnBCCSKE+G0/Q+4P35CC1TFq2XrNXwVZzPZk1+yi
- 6zk99pNXOWc3ynuVGeIF0y13lK2Y=
-X-Google-Smtp-Source: AGHT+IGkCbnRIx7IFaeYonMZlkeB3XKEqfo4q/s8I6cwOjZDrKDaz9jQ8V6eHBbJAVGM5xL2TR+fVuMexk4s3VvjGLo=
-X-Received: by 2002:a05:6a20:4315:b0:1c3:a411:dc49 with SMTP id
- adf61e73a8af0-1c472c602e0mr292435637.51.1721836432973; Wed, 24 Jul 2024
- 08:53:52 -0700 (PDT)
+ AJvYcCWgEoojy5ZyGK6WNfzi39vkHgZCgTsrnNmeSgwCPpc+ul3DJjgKdnB3u6v6Iok4Gtytc8fbZC81e3MiPKoZFsKCOKb5fQyYw3AQJcS96w==
+X-Gm-Message-State: AOJu0YwW3c6qW0y+7FOXqwaO0Baj1jDY/quuCMts3yYYTpEzBFa7lNr7
+ pJpsEMYVQzBWWxbHjqzgl8I1UKvp0MSFG7EDGg9RWpoSNH8KmoQc3377ETHXmkkdqcWHUHZo+t8
+ 5EIZxHErS/ZaAvYiQewiVTxBinRFCug==
+X-Google-Smtp-Source: AGHT+IFpF1icqmNZ9ODdIym+U+PPN4ExHWEjRppPsFKwnfCd93MiOH7HEasQDqfC9RsHYxNfkD/l1LXID3jmf11o3VI=
+X-Received: by 2002:a17:902:e806:b0:1f9:b9ed:e84e with SMTP id
+ d9443c01a7336-1fdd223083cmr40802525ad.58.1721837006261; Wed, 24 Jul 2024
+ 09:03:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net>
- <e61010e4-cb49-44d6-8f0d-044a193d29b2@redhat.com>
- <51f68b3b-dd21-44ef-8ec8-05bea5db6e55@t-8ch.de>
- <6db5abf9-cbdd-4ec0-b669-5df23de6c2ad@redhat.com> <87sevzf9pw.fsf@intel.com>
-In-Reply-To: <87sevzf9pw.fsf@intel.com>
+References: <20240724113250.2707693-1-sunil.khatri@amd.com>
+ <20240724113250.2707693-3-sunil.khatri@amd.com>
+In-Reply-To: <20240724113250.2707693-3-sunil.khatri@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Jul 2024 11:53:41 -0400
-Message-ID: <CADnq5_PC4u_nTKsB0dwr2UyXNu9+2EJd+KEYjBdpbBototkwOQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] drm: backlight quirk infrastructure and lower
- minimum for Framework AMD 13
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
- Alex Deucher <alexander.deucher@amd.com>,
+Date: Wed, 24 Jul 2024 12:03:14 -0400
+Message-ID: <CADnq5_My4-7NdE7Rp4-J4T21o6x-ipgVWC00RNdwNiu-VTJ2BQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/3] drm/amdgpu: add vcn_v3_0 ip dump support
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Liu Leo <Leo.Liu@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Matt Hartley <matt.hartley@gmail.com>, 
- Kieran Levin <ktl@framework.net>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dustin Howett <dustin@howett.net>
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -95,189 +80,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 24, 2024 at 4:58=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
+On Wed, Jul 24, 2024 at 7:33=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
+ wrote:
 >
-> On Thu, 18 Jul 2024, Hans de Goede <hdegoede@redhat.com> wrote:
-> > Hi Thomas,
-> >
-> > On 6/24/24 6:15 PM, Thomas Wei=C3=9Fschuh wrote:
-> >> Hi Hans!
-> >>
-> >> thanks for your feedback!
-> >>
-> >> On 2024-06-24 11:11:40+0000, Hans de Goede wrote:
-> >>> On 6/23/24 10:51 AM, Thomas Wei=C3=9Fschuh wrote:
-> >>>> The value of "min_input_signal" returned from ATIF on a Framework AM=
-D 13
-> >>>> is "12". This leads to a fairly bright minimum display backlight.
-> >>>>
-> >>>> Add a generic quirk infrastructure for backlight configuration to
-> >>>> override the settings provided by the firmware.
-> >>>> Also add amdgpu as a user of that infrastructure and a quirk for the
-> >>>> Framework 13 matte panel.
-> >>>> Most likely this will also work for the glossy panel, but I can't te=
-st
-> >>>> that.
-> >>>>
-> >>>> One solution would be a fixed firmware version, but given that the
-> >>>> problem exists since the release of the hardware, it has been known =
-for
-> >>>> a month that the hardware can go lower and there was no acknowledgme=
-nt
-> >>>> from Framework in any way, I'd like to explore this alternative
-> >>>> way forward.
-> >>>
-> >>> There are many panels where the brightness can go lower then the adve=
-rtised
-> >>> minimum brightness by the firmware (e.g. VBT for i915). For most user=
-s
-> >>> the minimum brightness is fine, especially since going lower often ma=
-y lead
-> >>> to an unreadable screen when indoors (not in the full sun) during day=
-light
-> >>> hours. And some users get confused by the unreadable screen and find =
-it
-> >>> hard to recover things from this state.
-> >>
-> >> There are a fair amount of complaints on the Framework forums about th=
-is.
-> >> And that specific panel is actually readable even at 0% PWM.
-> >
-> > If a lot of Framework users are complaining about this, then maybe Fram=
-ework
-> > should fix their VBT in a BIOS update ?  That seems like a better solut=
-ion
-> > then quirking this in the kernel.
-> >
-> >>
-> >>> So IMHO we should not be overriding the minimum brightness from the f=
-irmware
-> >>> using quirks because:
-> >>>
-> >>> a) This is going to be an endless game of whack-a-mole
-> >>
-> >> Indeed, but IMO it is better to maintain the list in the kernel than
-> >> forcing all users to resort to random forum advise and fiddle with
-> >> lowlevel system configuration.
-> >
-> > One of the problem is that what is an acceptable minimum brightness
-> > value is subjective. One person's "still too bright" is another
-> > person's "barely readable"
+> Add support of vcn ip dump in the devcoredump
+> for vcn_v3_0.
 >
-> Side note, IIRC the minimum brightness in VBT was not originally about
-> subjective minimums, but rather to avoid electrical issues that 0% PWM
-> caused in some board designs.
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 149 +++++++++++++++++++++++++-
+>  1 file changed, 148 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/=
+amdgpu/vcn_v3_0.c
+> index 24f947751c46..544b46ad55bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> @@ -60,6 +60,115 @@
+>  #define RDECODE_MSG_CREATE                                     0x0000000=
+0
+>  #define RDECODE_MESSAGE_CREATE                                 0x0000000=
+1
+>
+> +static const struct amdgpu_hwip_reg_entry vcn_reg_list_3_0[] =3D {
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_POWER_STATUS),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RBC_RB_RPTR),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RBC_RB_WPTR),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_STATUS),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_CONTEXT_ID),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_GPCOM_VCPU_DATA0),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_GPCOM_VCPU_DATA1),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_GPCOM_VCPU_CMD),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_NC1_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_NC1_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_NC0_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_NC0_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_RBC_IB_VMID),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE_VMIDS_MULTI),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_NC_VMIDS_MULTI),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI3),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO3),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR3),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR3),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE3),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_PGFSM_CONFIG),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_PGFSM_STATUS),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SOFT_RESET),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SOFT_RESET2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_CGC_GATE),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_CGC_STATUS),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_CGC_CTRL),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SUVD_CGC_GATE),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SUVD_CGC_STATUS),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SUVD_CGC_CTRL),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO4),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI4),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE4),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR4),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR4),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SUVD_CGC_STATUS2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SUVD_CGC_GATE2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_VCPU_CACHE_OFFSET2),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_GPGPU_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_GPGPU_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_CURR_LUMA_64BIT_BAR_LOW=
+),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_CURR_LUMA_64BIT_BAR_HIG=
+H),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_CURR_CHROMA_64BIT_BAR_L=
+OW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_CURR_CHROMA_64BIT_BAR_H=
+IGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_REF_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_REF_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_DBW_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_DBW_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_CM_COLOC_64BIT_BAR_LOW)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_CM_COLOC_64BIT_BAR_HIGH=
+),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP0_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP0_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP1_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP1_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP2_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP2_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP3_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSP3_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD0_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD0_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD1_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD1_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD2_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD2_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD3_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD3_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD4_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_BSD4_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE3_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE3_64BIT_BAR_HIGH)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE4_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE4_64BIT_BAR_HIGH)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE5_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE5_64BIT_BAR_HIGH)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE6_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE6_64BIT_BAR_HIGH)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE7_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_VCPU_CACHE7_64BIT_BAR_HIGH)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_SCLR_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_SCLR_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_SCLR2_64BIT_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_SCLR2_64BIT_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_IMAGEPASTE_LUMA_64BIT_B=
+AR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_IMAGEPASTE_LUMA_64BIT_B=
+AR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_IMAGEPASTE_CHROMA_64BIT=
+_BAR_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_IMAGEPASTE_CHROMA_64BIT=
+_BAR_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_PRIVACY_LUMA_64BIT_BAR_=
+LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_PRIVACY_LUMA_64BIT_BAR_=
+HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_PRIVACY_CHROMA_64BIT_BA=
+R_LOW),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_PRIVACY_CHROMA_64BIT_BA=
+R_HIGH),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_STATUS),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_REF_LUMA_64BIT_BAR_LOW)=
+,
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_LMI_MIF_REF_LUMA_64BIT_BAR_HIGH=
+),
+> +       SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_SCRATCH1)
+> +};
+> +
+>  static int amdgpu_ih_clientid_vcns[] =3D {
+>         SOC15_IH_CLIENTID_VCN,
+>         SOC15_IH_CLIENTID_VCN1
+> @@ -126,6 +235,8 @@ static int vcn_v3_0_sw_init(void *handle)
+>         struct amdgpu_ring *ring;
+>         int i, j, r;
+>         int vcn_doorbell_index =3D 0;
+> +       uint32_t reg_count =3D ARRAY_SIZE(vcn_reg_list_3_0);
+> +       uint32_t *ptr;
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+>
+>         r =3D amdgpu_vcn_sw_init(adev);
+> @@ -246,6 +357,15 @@ static int vcn_v3_0_sw_init(void *handle)
+>         if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+>                 adev->vcn.pause_dpg_mode =3D vcn_v3_0_pause_dpg_mode;
+>
+> +       /* Allocate memory for VCN IP Dump buffer */
+> +       ptr =3D kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint=
+32_t), GFP_KERNEL);
+> +       if (ptr =3D=3D NULL) {
+> +               DRM_ERROR("Failed to allocate memory for VCN IP Dump\n");
+> +               adev->vcn.ip_dump =3D NULL;
+> +       } else {
+> +               adev->vcn.ip_dump =3D ptr;
+> +       }
+> +
+>         return 0;
+>  }
+>
+> @@ -284,6 +404,7 @@ static int vcn_v3_0_sw_fini(void *handle)
+>
+>         r =3D amdgpu_vcn_sw_fini(adev);
+>
+> +       kfree(adev->vcn.ip_dump);
+>         return r;
+>  }
+>
+> @@ -2203,6 +2324,32 @@ static void vcn_v3_0_set_irq_funcs(struct amdgpu_d=
+evice *adev)
+>         }
+>  }
+>
+> +static void vcn_v3_0_dump_ip_state(void *handle)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> +       int i, j;
+> +       bool reg_safe;
+> +       uint32_t inst_off;
+> +       uint32_t reg_count =3D ARRAY_SIZE(vcn_reg_list_3_0);
+> +
+> +       if (!adev->vcn.ip_dump)
+> +               return;
+> +
+> +       for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
+> +               if (adev->vcn.harvest_config & (1 << i))
+> +                       continue;
+> +
+> +               inst_off =3D i * reg_count;
+> +               reg_safe =3D (RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS) &
+> +                           UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) !=3D=
+ 1 ? true : false;
 
-It's the same on AMD.  There was undesirable behavior on some panels
-if the level dropped below a certain threshold.
+You can drop the ? true : false.
+
+> +
+> +               if (reg_safe)
+> +                       for (j =3D 0; j < reg_count; j++)
+> +                               adev->vcn.ip_dump[inst_off + j] =3D
+> +                                       RREG32(SOC15_REG_ENTRY_OFFSET(vcn=
+_reg_list_3_0[j]));
+
+How are you handling the per instance register offset?
 
 Alex
 
->
-> BR,
-> Jani.
->
->
-> >
-> >>> b) The new value may be too low for certain users / use-cases
-> >>
-> >> The various userspace wrappers already are applying a safety
-> >> threshold to not go to "0".
-> >> At least gnome-settings-daemon and brightnessctl do not go below 1% of
-> >> brightness_max. They already have to deal with panels that can go
-> >> completely dark.
-> >
-> > Right, something which was added because the minimum brightness value
-> > on VBTs often is broken. Either it is missing or (subjectively) it is
-> > too high.
-> >
-> >
-> >>> With that said I realize that there are also many users who want to h=
-ave
-> >>> a lower minimum brightness value for use in the evening, since they f=
-ind
-> >>> the available minimum value still too bright. I know some people want=
- this
-> >>> for e.g. various ThinkPad models too.
-> >>
-> >> From my experience with ThinkPads, the default brightness range there
-> >> was fine for me. But on the Framework 13 AMD it is not.
-> >>
-> >>> So rather then quirking this, with the above mentioned disadvantages =
-I believe
-> >>> that it would be better to extend the existing video=3DeDP-1:.... ker=
-nel
-> >>> commandline parsing to allow overriding the minimum brightness in a d=
-river
-> >>> agnostic way.
-> >>
-> >> I'm not a fan. It seems much too complicated for most users.
-> >
-> > Wanting lower minimum brightness really is mostly a power-user thing
-> > and what is the right value is somewhat subjective and this is an often
-> > heard complained. I really believe that the kernel should NOT get in
-> > the business of adding quirks for this. OTOH given that this is an ofte=
-n
-> > heard complaint having some generic mechanism to override the VBT value
-> > would be good to have.
-> >
-> > As for this being too complicated, I fully agree that ideally things
-> > should just work 100% OOTB, which is why I believe that a firmware fix
-> > from Framework would be good. But when things do not work 100% adding
-> > a kernel cmdline option is something which is regularly asked from user=
-s /
-> > found in support questions on fora so I don't think this is overly
-> > complicated. I agree it is not ideal but IMHO it is workable.
-> >
-> > E.g. on Fedora it would simply be a question of users having to run:
-> >
-> > sudo grubby --update-kernel=3DALL --args=3D"video=3DeDP-1:min-brightnes=
-s=3D1"
-> >
-> > will add the passed in argument to all currently installed (and
-> > future) kernels.
-> >
-> >> Some more background to the Framework 13 AMD case:
-> >> The same panel on the Intel variant already goes darker.
-> >> The last responses we got from Framework didn't indicate that the high
-> >> minimum brightness was intentional [0], [1].
-> >> Coincidentally the "12" returned from ATIF matches
-> >> AMDGPU_DM_DEFAULT_MIN_BACKLIGHT, so maybe the firmware is just not set
-> >> up completely.
-> >
-> > Right, so I think this should be investigated closer and then get
-> > framework to issue a BIOS fix, not add a quirk mechanism to the kernel.
-> >
-> > IIRC the amdgpu driver will use AMDGPU_DM_DEFAULT_MIN_BACKLIGHT when
-> > that setting is 0 in the VBT.
-> >
-> >>
-> >>> The minimum brightness override set this way will still need hooking =
-up
-> >>> in each driver separately but by using the video=3DeDP-1:... mechanis=
-m
-> >>> we can document how to do this in driver independent manner. since
-> >>> I know there have been multiple requests for something like this in
-> >>> the past I believe that having a single uniform way for users to do t=
-his
-> >>> will be good.
-> >>>
-> >>> Alternatively we could have each driver have a driver specific module=
--
-> >>> parameter for this. Either way I think we need some way for users to
-> >>> override this as a config/setting tweak rather then use quirks for th=
-is.
-> >>
-> >> This also seems much too complicated for normal users.
-> >
-> > I agree that having a uniform way is better then having per driver
-> > module options.
-> >
-> > Regards,
-> >
-> > Hans
-> >
+> +       }
+> +}
+> +
+>  static const struct amd_ip_funcs vcn_v3_0_ip_funcs =3D {
+>         .name =3D "vcn_v3_0",
+>         .early_init =3D vcn_v3_0_early_init,
+> @@ -2221,7 +2368,7 @@ static const struct amd_ip_funcs vcn_v3_0_ip_funcs =
+=3D {
+>         .post_soft_reset =3D NULL,
+>         .set_clockgating_state =3D vcn_v3_0_set_clockgating_state,
+>         .set_powergating_state =3D vcn_v3_0_set_powergating_state,
+> -       .dump_ip_state =3D NULL,
+> +       .dump_ip_state =3D vcn_v3_0_dump_ip_state,
+>         .print_ip_state =3D NULL,
+>  };
 >
 > --
-> Jani Nikula, Intel
+> 2.34.1
+>
