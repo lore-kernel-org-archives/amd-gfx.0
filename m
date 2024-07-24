@@ -4,47 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 761FDC3DA70
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 07:09:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85208C3DA63
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 07:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB89810E1D5;
-	Wed, 24 Jul 2024 07:09:07 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 24 Jul 2024 07:09:04 UTC
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B051710E1D5
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 07:09:04 +0000 (UTC)
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-592-N3AixW39MGWjIj9d4kWSnQ-1; Wed,
- 24 Jul 2024 03:02:08 -0400
-X-MC-Unique: N3AixW39MGWjIj9d4kWSnQ-1
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CD6061955D4B
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 07:02:07 +0000 (UTC)
-Received: from dreadlord.redhat.com (unknown [10.64.136.40])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 66A951955D44
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 07:02:06 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] amdgpu: allow setting contiguous on non-kernel bos for
- placement
-Date: Wed, 24 Jul 2024 17:02:04 +1000
-Message-ID: <20240724070204.1862904-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEC9589264;
+	Wed, 24 Jul 2024 07:12:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e4rk/247";
+	dkim-atps=neutral
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1826D89264
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 07:12:24 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-368440b073bso323550f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 00:12:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1721805143; x=1722409943; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=jKoTIAT9CFpwvs3TsZrde4uPECTfWP17StYCRHF9d4o=;
+ b=e4rk/247vuWr40+IpqhaRb8mJjJwNN/Lfw5BAEWvEm3qneVNcI5d06LAbw1lvWT0vP
+ +yrHDM5cdjjn4AZjSvaaVoZEwtYyMLQonjPliOmo+qZwxExOrRvVzCaQNMCBf52CD4sy
+ UzYNiyULM2eEnYKrvvD7C5tNKMDgKrBS6DPzC8lE/APhADe5mEzfMqVMFWSr5xXIoSR4
+ WjURMQrqbk9RIhe2PTpPXUppDzaquNEAXNCgFpwHiBEodl7METYm3D8P17kY+qx7QzPE
+ leZnysuivFU0wHKYZIwi8C10cIc6VcbqPqyhNnJ35IPs83Zu97dKBu5lJWep7QdG48hs
+ 6ggQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721805143; x=1722409943;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jKoTIAT9CFpwvs3TsZrde4uPECTfWP17StYCRHF9d4o=;
+ b=NWy9Q/d0HL8u2SNSPL5gEJ1aTVsBiu4tWIYPm++EfLjv3ehyLwvRTkhZUdCJXXjyx1
+ zyt/MixCq/38lYRfhXpB0BLBjeQhwozhxKTNP4uomAx1PiycNCdM0snO+5uutFbZqrzd
+ rYKTJOfxV9A0OSv0tGg11vTB9fzTCJnKUcmv9WL++/Dp3gnHaMsGpMcKlZj7JUry0Vc3
+ CdG3ZuAf8AFGAnwEul1875FX7uKFHUv8Vc0ogThEcgwIhe8GViRGqo/KBDhWXGjhq6Kl
+ KsS6eMq9ISZuReyq+TyBZfQUMFMPgI01MYgGMd+o1asyDcZFDyPgsveW3u3sA0gO+xSD
+ fhMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXCYZRtpztHG3NpkeFsY/r7BmhA/01Qh4Ng3wl0WJ1a5F2my1O6dO0NiODwxtHR/8fVuUy4yvcyIRPPQOh0JOGUe6dLXUP92KR5fR5QMg==
+X-Gm-Message-State: AOJu0YwvOJ8THtImsVVcGOaaNfIIzMpxGNPa15Cwmz5pMV2qRvWk+eiS
+ 4GTeP1cIfQaCPzxjzrXXDbuUB5hEThXwPV1NwbaqWgrEbOvSITF1
+X-Google-Smtp-Source: AGHT+IGb/g7Yx/cbDK93xNF4384yOUdwEIEhw1xxk2YB28JOEr8+gZH88oIfh2pDgz+oFdGrLWAuwg==
+X-Received: by 2002:adf:ce0b:0:b0:362:69b3:8e4d with SMTP id
+ ffacd0b85a97d-369f66f08cdmr595270f8f.25.1721805142467; 
+ Wed, 24 Jul 2024 00:12:22 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3687868eb2esm13409252f8f.48.2024.07.24.00.12.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Jul 2024 00:12:22 -0700 (PDT)
+Message-ID: <132a70e6-6e78-47de-82ac-c00d0964daef@gmail.com>
+Date: Wed, 24 Jul 2024 09:12:19 +0200
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=WINDOWS-1252; x-default=true
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdgpu: allow setting contiguous on non-kernel bos for
+ placement
+To: Dave Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20240724070204.1862904-1-airlied@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240724070204.1862904-1-airlied@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +83,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
+Am 24.07.24 um 09:02 schrieb Dave Airlie:
+> From: Dave Airlie <airlied@redhat.com>
+>
+> This is a partial revert of drm/amdgpu: Modify the contiguous flags behaviour.
+>
+> This broke VCN AV1 decoding on radv video on GFX11.
+>
+> On VCN4 only the first VCN block has AV1 decode support, so the kernel has
+> a hacky heurisitic to work out from the submitted IB if it's AV1.
+> YOU COULD HAVE PUT A FLAG ON THE BO SUBMISSION YOU KNOW!.
 
-This is a partial revert of drm/amdgpu: Modify the contiguous flags behavio=
-ur.
+And we intentionally didn't do that.
 
-This broke VCN AV1 decoding on radv video on GFX11.
+> Now in order to access the submitted IB, it has to mark it as contiguous,
+> so the ioremap can work on it so the kernel can access the contents.
 
-On VCN4 only the first VCN block has AV1 decode support, so the kernel has
-a hacky heurisitic to work out from the submitted IB if it's AV1.
-YOU COULD HAVE PUT A FLAG ON THE BO SUBMISSION YOU KNOW!.
+Stop, something is wrong here. We should be able to kmap non-contiguous BOs.
 
-Now in order to access the submitted IB, it has to mark it as contiguous,
-so the ioremap can work on it so the kernel can access the contents.
+> However this buffer isn't a kernel buffer, so the new check introduced
+> in the above commit, breaks the whole show. I'm not sure why vaapi
+> manages to avoid this fate, but it does somehow. Anyways this restores
+> the behaviour from before.
 
-However this buffer isn't a kernel buffer, so the new check introduced
-in the above commit, breaks the whole show. I'm not sure why vaapi
-manages to avoid this fate, but it does somehow. Anyways this restores
-the behaviour from before.
+And breaks other places, so that is really not something we can do.
 
-Fixes: 143c51da8dba ("drm/amdgpu: Modify the contiguous flags behaviour")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c
-index 706345ea1430..b3ee952f68d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -153,8 +153,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *=
-abo, u32 domain)
- =09=09else
- =09=09=09places[c].flags |=3D TTM_PL_FLAG_TOPDOWN;
-=20
--=09=09if (abo->tbo.type =3D=3D ttm_bo_type_kernel &&
--=09=09    flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
-+=09=09if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
- =09=09=09places[c].flags |=3D TTM_PL_FLAG_CONTIGUOUS;
-=20
- =09=09c++;
---=20
-2.45.2
+>
+> Fixes: 143c51da8dba ("drm/amdgpu: Modify the contiguous flags behaviour")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dave Airlie <airlied@redhat.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 706345ea1430..b3ee952f68d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -153,8 +153,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+>   		else
+>   			places[c].flags |= TTM_PL_FLAG_TOPDOWN;
+>   
+> -		if (abo->tbo.type == ttm_bo_type_kernel &&
+> -		    flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
+> +		if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
+>   			places[c].flags |= TTM_PL_FLAG_CONTIGUOUS;
+>   
+>   		c++;
 
