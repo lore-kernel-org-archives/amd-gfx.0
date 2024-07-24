@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A05BC3DA61
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 18:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52CEC3DA63
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 18:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA9CC10E78F;
-	Wed, 24 Jul 2024 18:43:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4AC10E794;
+	Wed, 24 Jul 2024 18:43:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BFSCv4n5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ueOG8vI+";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2047.outbound.protection.outlook.com [40.107.212.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB3D510E78F
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 18:43:12 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2075.outbound.protection.outlook.com [40.107.220.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81F6D10E793;
+ Wed, 24 Jul 2024 18:43:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZPmORdWls+3Ry6k4U5Rt58H1ynAVZsWIqiU+GPGCS7ubkRLgx8LGHImnpwT4uC1M44G1UEICDwm8SEwCUrYoxgk3d+NvOMmVUwufdNFu1yRfN5o6AelKpL/dWQ4IUNNXK8zisQbZcJkO0wbJ9L4dxbHtVCmzPW4oCZEKd7S0o4en1MvDCQQFDDQAwO3PoltxYJRnOgdycrDCFAepPk9osp/bjZhNtglayKBKvc/SrfPR10RAF8Kvd7KUWvzaJ4I5JlO/IOn4U5PKpYCMrn8v6jT2KSEp5wX4sQmEu/XttZLX4McX1ydolHDLYC/9rYrKj4hZV0LK50rZB26ywItW2w==
+ b=c9poGIgsoEefM1t+zEe26vrypusSsna4B6E8tLTcjh2Z5Q5mC0nG4lrLyPOGEYMbi2e9IoKASNqR4403Q+0mbQkrwIjTr1WG9ZkxYvdOcO8pIHrayphdwgAW5wekcHGCVV3/eI2wdJ7a+uVi/JglADaqmuvBjgXo2b0YpIaiYtMjbKGEPdrG6+16aeeaqWMUnc966xYp3YbqAwBoa6V6D5uyrtHQcyKH8nIQcPCNQPqqI57O86EsSXkVvO3Ytw2yHsW1lXJg2a8jPrPOUULCnj/DpHQy0MuoyC6pnbe4xoV5qh644zBUunNXaHhViBwf0/1n7EdLvOv16fVn8n5Nrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YEuuI8StZXi/Cd19XiLrh2urWtJ7qKgml+Cou6v44fo=;
- b=RaiIJBIhca+IhsIsldc/ej8UnlR5nryLRS7UIEG8JqXp700RGgx3txqUYOjEEbCu2/+SU5kav9UOBhtwbk054vuuYH7pquAkkK1Kx4MlADqWFzn/rdQEKPgOHKLcSaIvhnBbYnEIMirJvsYJ6bUB6yjCPwo2cKJouP+REjpIeSGxqQ+AmO7ZkvSv4GRpv25+4pMATZ64pBkAX/8y9+icTDha6M2VXohQQZ9hHRsjMS0H/P5keLlB3haOlEjWdQwIUWr05RyAGIldBixQ2ObIRqfGWVSvlRWmStlcnBJKTCCTPLTlw9Z1TX4UqHLm4W4GcSMdMAjPIkVa2AeJLQtQSA==
+ bh=rk5qWaJZNWN8xtAjTzFfxLHue4Rw4Kv7fJly6VKyozM=;
+ b=LTjrkP3lzbGmFuR9BnQldGcrXK5Q2SoUF/1QGhlRW1YhJtqb/JcQYPZ7OWNpMiUQ/6ogF59BF8GT89807INwlaZMTcho7MMN3kj0lzvLZ4ngl6WvmcX88g5mr7GWcmpSkoxt+EsMeD4Jk1Np2jWGFPGOoDy/lnjNMNSGULbapvDoqXQSQz2Xi6XEDDtRuseGeIHid7nyukptSi+4jV6p5TYdj7ohzAC7m2Vc6z8iil4UuaXyGPg6VPqcl0dWBpv+HAnZAGmnqHM//ljFfjV/jGZXjau+wvZ7056bsg8qY48BiJLeHk0awyTGtwVKhKYdw74zXNB2QGstk70zO30YMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YEuuI8StZXi/Cd19XiLrh2urWtJ7qKgml+Cou6v44fo=;
- b=BFSCv4n5Zc5bnScVxZdkcGdqPVbzR8TJ/RfV6HBw4KdmHiIbCArNixlE2tiWjBBQ7r8w+qN2+UhzCwIhKOCJSA5N9djBTIs3N0n/rBzKHz0bA4DOipCkYFiDJTspaN4meb3Y6jd6bGN0rWXapRCfDiMZBNQjOpFCLx/8fjw4820=
-Received: from MW4PR03CA0012.namprd03.prod.outlook.com (2603:10b6:303:8f::17)
- by PH8PR12MB7446.namprd12.prod.outlook.com (2603:10b6:510:216::13)
+ bh=rk5qWaJZNWN8xtAjTzFfxLHue4Rw4Kv7fJly6VKyozM=;
+ b=ueOG8vI+axoT591jBab2mpCXtK5+SRr6mHGvp14iDMw4TF7S+xdvKyQFZdc+s6inUi7KpEQ/MJjmCLIIWGB2GFd/so0N9shQHS+Q49uHTanCieV6pGM268HyD/ZjGcyEicPaoS+FpitdJScYm6yrrDVtQ7ml/8DkjX/bcZdTkoU=
+Received: from MW4PR03CA0007.namprd03.prod.outlook.com (2603:10b6:303:8f::12)
+ by CY8PR12MB7339.namprd12.prod.outlook.com (2603:10b6:930:51::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Wed, 24 Jul
- 2024 18:43:10 +0000
-Received: from CO1PEPF000044FB.namprd21.prod.outlook.com
- (2603:10b6:303:8f:cafe::b7) by MW4PR03CA0012.outlook.office365.com
- (2603:10b6:303:8f::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
- Transport; Wed, 24 Jul 2024 18:43:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28; Wed, 24 Jul
+ 2024 18:43:46 +0000
+Received: from CO1PEPF000044F7.namprd21.prod.outlook.com
+ (2603:10b6:303:8f:cafe::dd) by MW4PR03CA0007.outlook.office365.com
+ (2603:10b6:303:8f::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17 via Frontend
+ Transport; Wed, 24 Jul 2024 18:43:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000044FB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ CO1PEPF000044F7.mail.protection.outlook.com (10.167.241.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.11 via Frontend Transport; Wed, 24 Jul 2024 18:43:09 +0000
+ 15.20.7828.11 via Frontend Transport; Wed, 24 Jul 2024 18:43:46 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 24 Jul
- 2024 13:43:08 -0500
+ 2024 13:43:44 -0500
 Received: from desktop-host.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 24 Jul 2024 13:43:08 -0500
+ Transport; Wed, 24 Jul 2024 13:43:44 -0500
 From: <vitaly.prosyak@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <jesse.zhang@amd.com>
 CC: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Subject: [PATCH] drm/amdgpu: Add error parameter to
- amdgpu_fence_driver_force_completion
-Date: Wed, 24 Jul 2024 14:42:50 -0400
-Message-ID: <20240724184250.183154-1-vitaly.prosyak@amd.com>
+Subject: [PATCH] drm/sched: Add error code parameter to drm_sched_start
+Date: Wed, 24 Jul 2024 14:43:40 -0400
+Message-ID: <20240724184340.183606-1-vitaly.prosyak@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -74,50 +74,50 @@ Received-SPF: None (SATLEXMB03.amd.com: vitaly.prosyak@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044FB:EE_|PH8PR12MB7446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e350632-8343-4e13-35ce-08dcac107715
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F7:EE_|CY8PR12MB7339:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2433200-cbf9-4573-957d-08dcac108d24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?c1wy/Hy5DcHVrmz3Lch2+np3dCqmvcSiEnUlbAj8h07ncF2Tgz8QnFgU3EuT?=
- =?us-ascii?Q?UpN7Fax/fHQwXvlrSwEJ8r76UwyV0Cjnb/AaCMW6O8aaGFc+vssGyNZrZ0Jq?=
- =?us-ascii?Q?txfpRSPzzF+8SSiEgicUUmGr/vcXxsp0goR/DEE0AX+1sNH824HzlGcnQbd6?=
- =?us-ascii?Q?oSXPcqBXblxDzXmmNZv6/LkFAL4MFEZ6KVgxiKySLF4QKvw7Kvn94I2oEwow?=
- =?us-ascii?Q?BubjXqzjZDSzlKQEjnnFZxtmEszftnbi/KN3JQoiMPffWHlC6MhQcwLjKcmW?=
- =?us-ascii?Q?w3gaTxqb2bzAxjhlsKkBriuy7OckmiIsYBgtkBWys6U9/omdyoYsPbAvjwCa?=
- =?us-ascii?Q?RqXciCjWeJ2PQwBpI1qOaB8mSD9eM6HqUvgKSG4W3szkMGSJb13lnUq5uLYy?=
- =?us-ascii?Q?NUVFjmAI6zipPlURBFj1bhv48Xl25QWLepYuON7wE985EjE1JSYtxtBv38rZ?=
- =?us-ascii?Q?LcpHL8ZGCrlQrGeUf4J//nhWt3LNXiCxEn10Xhc3RyasvQ8ZwdTDpHZKCXxa?=
- =?us-ascii?Q?k/FhMZKcVsV1XSmN2Wa5YnMkiESXGZ0GJJr4iojqAl2ze/Q9ludSWx7T2rsi?=
- =?us-ascii?Q?HRp7bXJzIPDjNmXS4B1bjZXfX5Gxr0IErY+FsxzmK4+0Q8ij10Ykklk7H/FI?=
- =?us-ascii?Q?F6TU9KDf0TB8vdSrT4yDaTMM7YC3f9+L15nCLxtbd7CGHu4bc4HfzK/PxCOC?=
- =?us-ascii?Q?AXAN8LrFO87pNet3e9wfDZW6OaGbYPZMWjRdas0QdZ4x5DfJ7QcmPjLRvFT7?=
- =?us-ascii?Q?AIUdzBZ5gchsXx2RY31GauID8RHH8T4cHfvK1kbVCl+mp9a7rLX3XU/wy05V?=
- =?us-ascii?Q?s/+Z0tq+z1pDrDFhXmxRy/Aluq8P9tafQ1Ttg6WTA9djIAjRZ/v+bQHL7pSY?=
- =?us-ascii?Q?sx/ISDlrDtqNz2KIPnolTVX+fftBAdHBvhd4W6qyC+NzcWdPgh0Upok29/pi?=
- =?us-ascii?Q?vnU2sqn/83berbNRJj2W0LDnN6PsbWFAIVm3m/iX25uSqWHNPSqr6xM6kjqA?=
- =?us-ascii?Q?bpZJR18UXHcUSAZy6TwTye9p9Ib3x/drgqxKtJvUWunGpVbkx4abnOhLhaWc?=
- =?us-ascii?Q?0HSyBWYhfSBI17JaE4dvhOFV/CUZ1fTloVseeHvEuY1bOiA96lfPyP1O0v7F?=
- =?us-ascii?Q?ptrvCZadx5BUb1RBPGDCaD5Ga+u7P9qdWjX408y+H733a7n2S24SMLfFcF27?=
- =?us-ascii?Q?cSzv2FchgWQB6OLFRW7FZFIaUashWo3g56GMB2tN3xRUM1E3b6jEmY0R+hEj?=
- =?us-ascii?Q?p54FkR7QBBoagSxqVSsXn7NtC6EOynFecN7s8AWkj61+qQZ2oH5EaouKazlw?=
- =?us-ascii?Q?+7F4KLO2ugy4aqe4F92X8AWGktq26wKnNBsGCUPxl4+b7KytvgtzvxZfOWRx?=
- =?us-ascii?Q?N55TVsfPFknrElOpetDsN50uY56ma1YmeIx8z0M8oHcz2RAB0g=3D=3D?=
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fqQawCugQNfcZKwiHXCSstQfjQ3hVbE79v8EqrsCvfUsXOVqJ4DO1skP21kr?=
+ =?us-ascii?Q?wvQvK8+nqsnVQ2mNZr4jB6RqoTc+csRCGBGREu6r3bgGtw5cIYR+0tOOZTMu?=
+ =?us-ascii?Q?Cgjzj/W/FMS9kglZk3hkkkyP5ZwJCsRT5ucfazg5MKyLZcKW8Zi3Jd0g8vzL?=
+ =?us-ascii?Q?LD2Y6ZwvULcg4UFIVlGch6QpLjODPMgxUXKQvj+E9TAoH1uddYQSD5F36aSI?=
+ =?us-ascii?Q?SBuFzY5I23cvsy3/dThpmGgQSPPq6q2pIdmRrN6xQp7vy/QdSMfyu143wj5k?=
+ =?us-ascii?Q?MUoI6RjMZdnd1tYYf5zfkIaHCuJW5VGkIW/oX5/HGkRUGwRXKiuFGq1HKTZI?=
+ =?us-ascii?Q?apsoxT4LOcVRFWZG0XfrYNmt4/Czfw92/gYUtVesX1vTXIIRjTKnKxu1ni8p?=
+ =?us-ascii?Q?mvTW4nyRHyGqnrrqhkjTBv8eqqKLS+RAzTrcVRg0/PPIydaCEQhYEgYui6rZ?=
+ =?us-ascii?Q?ZyTiII++gZ/RHllEIM9GGdWkYIxbnVClcgSk8pWe5d10yckdbay2n8AruJVS?=
+ =?us-ascii?Q?43oM7i0xrNeAvUAb450dpe+dbH6M1oWHtv+ROkFX28RFDWOlxgE7tyyBOhum?=
+ =?us-ascii?Q?hiD7H7eufbwDdOgSqRd/T6t73I37SfoHTZkc0HE5zzhBp6Fsowzo99vVeoo7?=
+ =?us-ascii?Q?9iINY0JoEsLL39BM/ExbQHiplCiPAgZQmuF1+Mfy5x9ypkaxY/ZjeoRNkMto?=
+ =?us-ascii?Q?AAaA/dV/LJ9lbzbLJbPB5Se0/ETQf7cYVR17yCDowgyzL8VPyH33ePlzd9fM?=
+ =?us-ascii?Q?Z2sIq3olTWEy0zUHQ9NzxmIDLWU3l4pHqTpray9LPOhO4U11xYXL0Lk8jVg+?=
+ =?us-ascii?Q?bDeIWh4dY9a1x04o5RcEO0PJZiIIvG3my3tnd3y40QxfBtMT9BoWp2up6a5r?=
+ =?us-ascii?Q?RM5R8JH2MTLCYJIUtoHdC2ExT1LZA/ffDdj1Jogy0c2SxJWjjIaqBFbOCCbT?=
+ =?us-ascii?Q?93BJBWdNBeqoXPAWhuvn5+Rc0gUXnrhMFdRDURTbSV3Uc/HOwtfIxJZ8nyzJ?=
+ =?us-ascii?Q?XE2G/3CjYZgAtFoJ2IfnV+t57PDFSkJ39nifvXVPS0kWOoh/QFCp440iYo5s?=
+ =?us-ascii?Q?uGBfcvzGLLs5ULQy1qaoam216fl2cwXcW+ZuOtccY7+wadP1BOIzfMGPEO6v?=
+ =?us-ascii?Q?ThYytCMNMtDjSs8Xas1z0aGNv7RTuRm2TBwNLXktkbfSB0+iSX8QUFBVJJqH?=
+ =?us-ascii?Q?TGhW3v1N23vTAZRxVoZw8P48pIKcXr3TL98l8eOk9PQ07t2SBEkwg96CyrVu?=
+ =?us-ascii?Q?MEbHXfejsbHZ9/f0oiNUH9MBuIcUHfLMd+KLW7+EGk1cR5OCy969WsT9Lnaa?=
+ =?us-ascii?Q?jb5LPOk9P9WZXTsDZH1GpKL+wOxsG5ZO1kE6xoJR5OCxcthnLdUHQf++IuKM?=
+ =?us-ascii?Q?OBZ38m7rNA/ePfP7FFGvgv5OqCuIZXWUBK93P+MivNDywgYl7A=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2024 18:43:09.5381 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e350632-8343-4e13-35ce-08dcac107715
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2024 18:43:46.5332 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2433200-cbf9-4573-957d-08dcac108d24
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FB.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F7.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7446
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,100 +134,96 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-In the case of a queue reset, we need the ability to customize the
-error code from -ECANCELED to -ENODATA for scenarios where the queue
-reset is successful. It was decided to use -ECANCELED for GPU reset cases
-and -ENODATA for queue reset cases. This change introduces an error
-parameter to the amdgpu_fence_driver_force_completion function, allowing
-us to specify a custom error code for these cases (queue reset or GPU reset).
+The current implementation of drm_sched_start uses a hardcoded -ECANCELED to dispose of a job when
+the parent/hw fence is NULL. This results in drm_sched_job_done being called with -ECANCELED for
+each job with a NULL parent in the pending list, making it difficult to distinguish between recovery
+methods, whether a queue reset or a full GPU reset was used. To improve this, we first try a soft
+recovery for timeout jobs and use the error code -ENODATA. If soft recovery fails, we proceed with
+a queue reset, where the error code would still be -ENODATA for the job. Finally, for a full GPU
+reset, we use error codes -ECANCELED or -ETIME. This patch adds an error code parameter to
+drm_sched_start, allowing us to differentiate between queue reset and GPU reset failures.
+This enables user mode and test applications to validate the expected correctness of the requested
+operation. After a successful queue reset, the only way to continue normal operation is to call
+drm_sched_job_done with the specific error code -ENODATA.
+
+v1: Initial implementation by Jesse utilized amdgpu_device_lock_reset_domain and
+    amdgpu_device_unlock_reset_domain to allow user mode to track the queue reset status
+    and distinguish between queue reset and GPU reset.
+v2: Christian suggested using the error codes -ENODATA for queue reset and -ECANCELED or
+    -ETIME for GPU reset, returned to amdgpu_cs_wait_ioctl.
+v3: To meet the requirements, we introduce a new function drm_sched_start_ex with an additional
+    parameter to set dma_fence_set_error, allowing us to handle the specific error codes
+    appropriately and dispose of bad jobs with the selected error code depending on whether
+    it was a queue reset or GPU reset.
 
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     | 2 +-
- 5 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 19 ++++++++++++++++---
+ include/drm/gpu_scheduler.h            |  1 +
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 0e1a11b6b989..a2b42c079bbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1960,7 +1960,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 		/* swap out the old fences */
- 		amdgpu_ib_preempt_fences_swap(ring, fences);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 7e90c9f95611..5a534772335a 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -671,13 +671,14 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+ EXPORT_SYMBOL(drm_sched_stop);
  
--		amdgpu_fence_driver_force_completion(ring);
-+		amdgpu_fence_driver_force_completion(ring, -ECANCELED);
- 
- 		/* resubmit unfinished jobs */
- 		amdgpu_ib_preempt_job_recovery(&ring->sched);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 730dae77570c..441eb8757d09 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5308,7 +5308,7 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 		amdgpu_fence_driver_clear_job_fences(ring);
- 
- 		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
--		amdgpu_fence_driver_force_completion(ring);
-+		amdgpu_fence_driver_force_completion(ring, -ECANCELED);
- 	}
- 
- 	amdgpu_fence_driver_isr_toggle(adev, false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 2f24a6aa13bf..ac4942fdbae0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -610,7 +610,7 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
- 			r = -ENODEV;
- 		/* no need to trigger GPU reset as we are unloading */
- 		if (r)
--			amdgpu_fence_driver_force_completion(ring);
-+			amdgpu_fence_driver_force_completion(ring, -ECANCELED);
- 
- 		if (!drm_dev_is_unplugged(adev_to_drm(adev)) &&
- 		    ring->fence_drv.irq_src &&
-@@ -757,9 +757,9 @@ void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error)
-  * @ring: fence of the ring to signal
+ /**
+- * drm_sched_start - recover jobs after a reset
++ * drm_sched_start_ex - recover jobs after a reset
+  *
+  * @sched: scheduler instance
+  * @full_recovery: proceed with complete sched restart
++ * @error : err code for set dma_fence_set_error
   *
   */
--void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring)
-+void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring, int error)
+-void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
++void drm_sched_start_ex(struct drm_gpu_scheduler *sched, bool full_recovery, int error)
  {
--	amdgpu_fence_driver_set_error(ring, -ECANCELED);
-+	amdgpu_fence_driver_set_error(ring, error);
- 	amdgpu_fence_write(ring, ring->fence_drv.sync_seq);
- 	amdgpu_fence_process(ring);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 582053f1cd56..045a2a548b80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -130,7 +130,7 @@ extern const struct drm_sched_backend_ops amdgpu_sched_ops;
- 
- void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
- void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error);
--void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
-+void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring, int error);
- 
- int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring);
- int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index 07d930339b07..ec440bb763d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -511,7 +511,7 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
- 			}
- 			memset_io(ptr, 0, size);
- 			/* to restore uvd fence seq */
--			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring);
-+			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, -ECANCELED);
- 		}
+ 	struct drm_sched_job *s_job, *tmp;
+ 	int r;
+@@ -704,7 +705,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+ 				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
+ 					  r);
+ 		} else
+-			drm_sched_job_done(s_job, -ECANCELED);
++			drm_sched_job_done(s_job, error);
  	}
- 	return 0;
+ 
+ 	if (full_recovery)
+@@ -712,6 +713,18 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+ 
+ 	drm_sched_wqueue_start(sched);
+ }
++EXPORT_SYMBOL(drm_sched_start_ex);
++/**
++ * drm_sched_start - recover jobs after a reset
++ *
++ * @sched: scheduler instance
++ * @full_recovery: proceed with complete sched restart
++ *
++ */
++void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
++{
++	drm_sched_start_ex(sched, full_recovery, -ECANCELED);
++}
+ EXPORT_SYMBOL(drm_sched_start);
+ 
+ /**
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 5acc64954a88..444fa6761590 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -580,6 +580,7 @@ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched);
+ void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery);
++void drm_sched_start_ex(struct drm_gpu_scheduler *sched, bool full_recovery, int error);
+ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+ void drm_sched_increase_karma(struct drm_sched_job *bad);
+ void drm_sched_reset_karma(struct drm_sched_job *bad);
 -- 
 2.25.1
 
