@@ -4,37 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04A36C3DA63
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 12:57:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B6FEC3DA63
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 12:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDBB10E6B2;
-	Wed, 24 Jul 2024 12:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9510E6B6;
+	Wed, 24 Jul 2024 12:57:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="ec+TJ/DQ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="h7XeOrRh";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2F310E011
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 05:56:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1721800611;
- bh=TVgyKoYIVHgiVPZt6abyanmBO83Uau31sKWes7IEjoc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ec+TJ/DQavljCOOweQYjTWbW2qUUa72dfjdRJZsLYOH62aAz/ZSk5Smy/o1pPsihU
- Uj6rbkS79v7l22jbW2k+diMQ7FArG7BjfbXDhOkg/g0zDutyY/NvgSERa86gS8sj9e
- dtNfY0vUH9otE+aQ41WE6cX4D5nhzcb5dcpdBJ5Q=
-Date: Wed, 24 Jul 2024 07:56:50 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 2/2 V2] drm/radeon: properly handle vbios fake edid sizing
-Message-ID: <3170169c-6174-4ae6-b571-b6e25b0aa92f@t-8ch.de>
-References: <20240723205121.2412168-1-alexander.deucher@amd.com>
- <20240723205121.2412168-2-alexander.deucher@amd.com>
+Received: from out30-99.freemail.mail.aliyun.com
+ (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB9F10E03A;
+ Wed, 24 Jul 2024 07:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1721806680; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=rAGYYc4I8IT8kc2kTezhDQbo9h4T2Gzxv5TX4WM92Cc=;
+ b=h7XeOrRhSeH1vbwE0H7ADL3Z+qv9fWqZxS1VJoczW9qCf9HDZOiC9+HtKh036TyJ9gQwPtVRXNQ8g9IjAKcWUW2NBxkVBYG9+qK3sltq/oP9ID74iU4A3M6/4qUtk7RJjUrl142DCZagfJ7HRe32Yn5gWA7vMW2QcpyC+2cqVjQ=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R491e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037067113;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0WBDLO5j_1721806670; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0WBDLO5j_1721806670) by smtp.aliyun-inc.com;
+ Wed, 24 Jul 2024 15:37:59 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH -next] drm/amd/display: use swap() in sort()
+Date: Wed, 24 Jul 2024 15:37:49 +0800
+Message-Id: <20240724073749.14338-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240723205121.2412168-2-alexander.deucher@amd.com>
 X-Mailman-Approved-At: Wed, 24 Jul 2024 12:56:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,76 +57,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-07-23 16:51:21+0000, Alex Deucher wrote:
-> The comment in the vbios structure says:
-> // = 128 means EDID length is 128 bytes, otherwise the EDID length = ucFakeEDIDLength*128
-> 
-> This fake edid struct has not been used in a long time, so I'm
-> not sure if there were actually any boards out there with a non-128 byte
-> EDID, but align the code with the comment.
-> 
-> Reported-by: Thomas Weißschuh <linux@weissschuh.net>
-> Link: https://lists.freedesktop.org/archives/amd-gfx/2024-June/109964.html
-> Fixes: c324acd5032f ("drm/radeon/kms: parse the extended LCD info block")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Use existing swap() function rather than duplicating its implementation.
 
-Reviewed-by: Thomas Weißschuh <linux@weissschuh.net>
+./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c:17:29-30: WARNING opportunity for swap().
 
-> ---
-> 
-> V2: Incorporate comments.
->     Fix accidently dropped hunk.
-> 
->  drivers/gpu/drm/radeon/radeon_atombios.c | 29 +++++++++++++-----------
->  1 file changed, 16 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-> index 97c4e10d0550..168f3f94003b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -1717,26 +1717,29 @@ struct radeon_encoder_atom_dig *radeon_atombios_get_lvds_info(struct
->  					fake_edid_record = (ATOM_FAKE_EDID_PATCH_RECORD *)record;
->  					if (fake_edid_record->ucFakeEDIDLength) {
->  						struct edid *edid;
-> -						int edid_size =
-> -							max((int)EDID_LENGTH, (int)fake_edid_record->ucFakeEDIDLength);
-> -						edid = kmalloc(edid_size, GFP_KERNEL);
-> +						int edid_size;
-> +
-> +						if (fake_edid_record->ucFakeEDIDLength == 128)
-> +							edid_size = fake_edid_record->ucFakeEDIDLength;
-> +						else
-> +							edid_size = fake_edid_record->ucFakeEDIDLength * 128;
-> +						edid = kmemdup(&fake_edid_record->ucFakeEDIDString[0],
-> +							       edid_size, GFP_KERNEL);
->  						if (edid) {
-> -							memcpy((u8 *)edid, (u8 *)&fake_edid_record->ucFakeEDIDString[0],
-> -							       fake_edid_record->ucFakeEDIDLength);
-> -
->  							if (drm_edid_is_valid(edid)) {
->  								rdev->mode_info.bios_hardcoded_edid = edid;
->  								rdev->mode_info.bios_hardcoded_edid_size = edid_size;
-> -							} else
-> +							} else {
->  								kfree(edid);
-> +							}
->  						}
-> +						record += struct_size(fake_edid_record,
-> +								      ucFakeEDIDString,
-> +								      edid_size);
-> +					} else {
-> +						/* empty fake edid record must be 3 bytes long */
-> +						record += sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
->  					}
-> -					record += fake_edid_record->ucFakeEDIDLength ?
-> -						  struct_size(fake_edid_record,
-> -							      ucFakeEDIDString,
-> -							      fake_edid_record->ucFakeEDIDLength) :
-> -						  /* empty fake edid record must be 3 bytes long */
-> -						  sizeof(ATOM_FAKE_EDID_PATCH_RECORD) + 1;
->  					break;
->  				case LCD_PANEL_RESOLUTION_RECORD_TYPE:
->  					panel_res_record = (ATOM_PANEL_RESOLUTION_PATCH_RECORD *)record;
-> -- 
-> 2.45.2
-> 
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9573
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ .../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c    | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+index 717536d7bb30..8e68a8094658 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c
+@@ -7,16 +7,12 @@
+ 
+ static void sort(double *list_a, int list_a_size)
+ {
+-	double temp;
+ 	// For all elements b[i] in list_b[]
+ 	for (int i = 0; i < list_a_size - 1; i++) {
+ 		// Find the first element of list_a that's larger than b[i]
+ 		for (int j = i; j < list_a_size - 1; j++) {
+-			if (list_a[j] > list_a[j + 1]) {
+-				temp = list_a[j];
+-				list_a[j] = list_a[j + 1];
+-				list_a[j + 1] = temp;
+-			}
++			if (list_a[j] > list_a[j + 1])
++				swap(list_a[j], list_a[j + 1]);
+ 		}
+ 	}
+ }
+-- 
+2.32.0.3.g01195cf9f
+
