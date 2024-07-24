@@ -4,73 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 691B5C3DA49
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 01:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E384C3DA49
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jul 2024 03:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D30BE10E108;
-	Wed, 24 Jul 2024 01:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F7110E078;
+	Wed, 24 Jul 2024 03:02:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NrtgrSAT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ubpRksR6";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB0C10E108;
- Wed, 24 Jul 2024 01:35:51 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a7a81bd549eso115917066b.3; 
- Tue, 23 Jul 2024 18:35:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721784950; x=1722389750; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=OMf60xVBkQ+Rjr71R7UMsE7+Wb+qK8ndvSVpStOEZpo=;
- b=NrtgrSATZXEbjev80MCBh50IdCE5BoBwsnkVV8v1pW8KvRBRm513RPXjeGwVi9EBrb
- yj6HyyZ5P7Guk5FJLm7TDQcTZz/JTZNz7oVKQR/OfmgQ2Ex2V8iThlk29cOoMg8gC3bh
- Rkg5nhvGB26dUAczHiYu1gknaAR1xLY2L9KGPS5yOY8We8ziQA/gtCM9TsBS410kdLBG
- 7uCXtRoxHGXZb1VGjXZSImifgv+fs+JtEVh3Dsrl+XO2agVBvlJ3FSZEejXJaGUdyDqM
- Gb7tb8VZdOcbKoKIAsDOToxx0zV11Iaa1EcnmV+jwgfpSD658v/UFVf5ESUR+JuN6M6y
- fDkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721784950; x=1722389750;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OMf60xVBkQ+Rjr71R7UMsE7+Wb+qK8ndvSVpStOEZpo=;
- b=SRkyoN97yVoLKyL0vnVBneVh1dWaVE+vOqo1NoN5jYxhNMEPCz91P02mJvi/upyxjz
- U6X0brIioNs5h7QERfmyRyo4CVxvM0ASkGASUcWEvOhJopPp5wkYXg81Hj1rQyb6NECE
- cfSLKNWkK97qkaXFr0bH6n3o/cArfzmQ/NIUQER8PV5I3+99L/DQwyC+oMTdGfVci3Yr
- P22HDgo8dO6cxWivdM3icz8B+SbfVhjnbWkGQ9DYpF9UIiUr0gh6rIg7PnGDs7glGw0G
- cYU8GSJSPyulgWabt0SZMznp2JHak5mhc7mrntQqcKADwEsWfqnow6gODSPGuW1cdcrf
- 7XAg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWMzYfmh4rq8lleF7jwD7dFvFZMPqxRDGwRRn2tINnMEN0t12iUTvRD/NoG+XTMSHFI1crj+Fh9DAUetOERoQ2pCyxslcP2jigpohKHl0xzM+4zzfncIA6lf63ybkYJIYpeaDphlGq1ux2p0DtRdyW3Y7VCxY+mSwpwaJhUNGMMznc3BL1xf/VybEPSQY+02A==
-X-Gm-Message-State: AOJu0YwzMCwQOIU/x5maWMx+Q/yBfUeEdpY2naqPQGYbvrTzH6E3mwj6
- osJa4Rst0vRnNt9XjqQIL0Bn8KJiaRA0fg+Ps/AM6M5UGae76B14L0StUEY6D+XRNw1dY2oPHau
- S/27eoyjAtLlKR5i/WUXIfXNHsDE=
-X-Google-Smtp-Source: AGHT+IGgZRlF71z0isp2NsjRZNiwNywAxNZ6NqQrKN5aauMsY17d7HNmMZeJF5MnNoKgIa2LAlblHHv6KRf7mpRV92w=
-X-Received: by 2002:a17:907:72c1:b0:a7a:a138:dbd4 with SMTP id
- a640c23a62f3a-a7ab10247f0mr37425566b.64.1721784949493; Tue, 23 Jul 2024
- 18:35:49 -0700 (PDT)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2089.outbound.protection.outlook.com [40.107.101.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C90DB10E060
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jul 2024 03:02:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nDebMUy17g2Xl3LhZvJw0NG0zs8JRFJUGqWPUmpMOiJ1z8vgoYVxtH1E1PTuinW71f/sulRBwDpYgI9P1gFuxXokswawAg3ObCnAQ9YttSVsQVIuPpVDU5sAJ3YIQNpPqoFVk4BaLv7TRE/ZK05jOsBAvHRAh8kswqxV1ftoVBySDrFyG45kfTEmona+/tB+2crdwdM9TFId/hLUfTosk+HXnpoinX9iPwsWckL335U+C94TjuoD1kekcsxh89mesCNxWg0Sb0/RSSj5QqyJutdTqf/tLoEOc1M72zAKABueSPOmR4nUiWohymGB36/pOylakPolmJmaLlIn26tTsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ygYpERBfIkeQkXUg8QHMtdLoTWIhXGA5MU5rrlywwNY=;
+ b=Sw20ODxnLPWAJqbPAeuJE4d689bpRPThLNlYB31YeZhnk6QpOSs0l59k5MP+pCXMeK8rbdK/4bvnaqLa1ka7R1sbBTGH70R9X0G6AQXbVsJhvNfpOTpvWvAhTzyNJvZrr9rKZUelMyGODDdRGAg1D7C8MbEx8GRd9Kqsiy/wBpXNr6fCdddNa5b7Ka4LuhyeCO2r2qRymLnFFz9CsgSrDfqAvkt4takn6/NElPz4Hrh1VtxlOTW/xHJDfj1GfGftu2fbAE4FvMkcFJCvWmVrnTEtUOX5Z2fzz1mpj4oJWHZZlWKuiuljmRiTQjEVcUt4X5id4jyZUXcoHAFAQt7prA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ygYpERBfIkeQkXUg8QHMtdLoTWIhXGA5MU5rrlywwNY=;
+ b=ubpRksR67pI49V15BLFuE+jQtDelc74ng3M6xivLzZnIGBOfd7+DDyl10qFW6powoUMW1vi62ZbS7WQF2bmKI97Ss/ju/s/kp3dJW/Gk2J9yz3h2tUr+6ndLc1L1yB/1Qd6B3o1sdIREt+hpBkKdo0RpS2t5hCoK4rNlDEW0570=
+Received: from CH2PR17CA0008.namprd17.prod.outlook.com (2603:10b6:610:53::18)
+ by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17; Wed, 24 Jul
+ 2024 03:02:31 +0000
+Received: from CH2PEPF0000009A.namprd02.prod.outlook.com
+ (2603:10b6:610:53:cafe::dd) by CH2PR17CA0008.outlook.office365.com
+ (2603:10b6:610:53::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17 via Frontend
+ Transport; Wed, 24 Jul 2024 03:02:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000009A.mail.protection.outlook.com (10.167.244.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Wed, 24 Jul 2024 03:02:30 +0000
+Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
+ 2024 22:00:55 -0500
+From: ZhenGuo Yin <zhenguo.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Christian.Koenig@amd.com>, ZhenGuo Yin <zhenguo.yin@amd.com>
+Subject: [PATCH v3] drm/amdgpu: reset vm state machine after gpu reset(vram
+ lost)
+Date: Wed, 24 Jul 2024 11:00:36 +0800
+Message-ID: <20240724030036.1350316-1-zhenguo.yin@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20240723132525.31294-1-Arunpravin.PaneerSelvam@amd.com>
- <0de0d6fa-64f0-4ada-89c3-c188a7ae36f8@amd.com>
- <f23ebf02-b67c-4bc6-9244-730edd49fa98@intel.com>
-In-Reply-To: <f23ebf02-b67c-4bc6-9244-730edd49fa98@intel.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 23 Jul 2024 21:35:37 -0400
-Message-ID: <CAAxE2A57f0DwdzWF2qk1U2HA8d3pN=8CqQaKFVihcmxXdUu3Vw@mail.gmail.com>
-Subject: Re: [PATCH v7 1/2] drm/buddy: Add start address support to trim
- function
-To: Matthew Auld <matthew.auld@intel.com>
-Cc: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Min,
- Frank" <frank.min@amd.com>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000004b5a5c061df44c34"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009A:EE_|DS7PR12MB8290:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63d7ccce-d693-4056-eae3-08dcab8d0f05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VWbjgCD7+j/+kCoa2Ob5gLLBfgXXHDCJelkLbh6sOeHEqW5qrL0UJye8OgHW?=
+ =?us-ascii?Q?YtV+haD7IqtbnqilQbvtW4PG7h+53w4mGpm43TkjPeEBB5a2UD/fZvmkDT2S?=
+ =?us-ascii?Q?VXrFpqnXrH1NhI1bSVlApE34UC7DnbUBU0ewvxCforAQtdSjBQwS51Eo9bxU?=
+ =?us-ascii?Q?sz3eoR+Nax4pfJ50z0dourYY0GvE/rB8QiLvRElg42cRHi5zfaSuSSX0KbQY?=
+ =?us-ascii?Q?ysOzDS5W6ObH/ZoGv7mC+0cG6GzCEfeYR/R6ZWyk4lL4GjiCUmhuii3GJevc?=
+ =?us-ascii?Q?xyG/FmVXIQv09DAewuE8QOe/VYPCzwS32nh6ytExiyY10Vj3KtLcbI9kg2j9?=
+ =?us-ascii?Q?bEjrkyjsQkwCzU9IZWjRH0S8ITkeeSNavXsP3/4JSvzAXna1JtrswGruvvll?=
+ =?us-ascii?Q?SRTyfP3JQpMT9eAWSGZqq7w+VCnQAmf+cVmNqKoJXEOmkqL3iURggINM4om7?=
+ =?us-ascii?Q?+osIfcCf8nCV2rSm1LWnYqQxa2MBXR1x5j8McDWMc5A3qmBTqKKdSRI0wDhX?=
+ =?us-ascii?Q?TfI5GQaSRCPksuoheBqvsuaYzuFIJ+l2G5BgvlEfH+rxEDrmbVUZPBgMrIfL?=
+ =?us-ascii?Q?B7WfWApm+g7KtRJIXHsHE3gm8lYk3ApQnT2XpZAjLtYM1INnu7t6+CAP1yoT?=
+ =?us-ascii?Q?pRbSoMTHs3Df7bFq6gQ2O+/vBxmTxMY0bbFCIDxLJQ0Toj0E2cYwQYKQVoBo?=
+ =?us-ascii?Q?Ryq8GesiMGI7syfUyQglw9SGeWwNDLAfOVoGl4iXWM7HQAsrlwwaiHsFZHf2?=
+ =?us-ascii?Q?G+Anwl87/UstX4Oe+2Qe1UFTPkXQG2R4kCqyl7s3z65eWuD0NhfRqcQBRgr/?=
+ =?us-ascii?Q?miQdJdtI4n58Qq7U9G3z/7ZXCEO3yprDpDcN8r58Z+auc9Rrkr56GuQuAeFL?=
+ =?us-ascii?Q?4Jm9s1PIfi+9OAoZ4iNGu7TKed302yNUJhXwHNEfh0Ib2JrPIatePAMpJV0q?=
+ =?us-ascii?Q?Zf4pkb4fD4VIrFYGXEgt8rmXKwlTNJGVvi6ZDhqnUpoLlY000dDNFHhAhSa9?=
+ =?us-ascii?Q?2FbmDRDqAh1eou007OPO/Wk0CdeZiSxilcJcUclNTi20aRgUKlABSEPY6Rok?=
+ =?us-ascii?Q?twCx0AKugVAYwECtuXApua9Ixm+7GkLnuvl/OlCi0GEnOE14Esw+0gAZqkxH?=
+ =?us-ascii?Q?rruMtTxE8xa7rSlHZmeA1s0zdRvHTajdXg8NjGMaXH4e6gX2wNHXB/E8jed4?=
+ =?us-ascii?Q?W1+dACg7pRTABQRJJFPy/UkbpJlkQM0CLH+S6baduSKvGMFbLiAQBRgZl7iy?=
+ =?us-ascii?Q?5gW8Xb7/JNSrompc/7DsrBQ73qQmADzycfaLja6fI1EKpUVvqg65+jyqZ0Ad?=
+ =?us-ascii?Q?BQZr549wfrmU6DPUm18W6yPFpXPhTfFp0Wmv9/NB5jBZAQ2qQydS7BWZUNDn?=
+ =?us-ascii?Q?LjR0GvNdFT9qEdcaHeDWfw8vn4/6HPDAR+Qd5573nj0vuDUtXEtRby3anwQR?=
+ =?us-ascii?Q?njexPncfSmzg36DF9mphHmgeyqRwJMj4?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2024 03:02:30.8833 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63d7ccce-d693-4056-eae3-08dcab8d0f05
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,416 +130,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000004b5a5c061df44c34
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[Why]
+Page table of compute VM in the VRAM will lost after gpu reset.
+VRAM won't be restored since compute VM has no shadows.
 
-The reason is that our DCC requires 768K alignment in some cases. I haven't
-read this patch series, but one way to do that is to align to 256K,
-overallocate by 512K, and then not use either 0, 256K, or 512K at the
-beginning to get to 768K alignment.
+[How]
+Use higher 32-bit of vm->generation to record a vram_lost_counter.
+Reset the VM state machine when vm->genertaion is not equal to
+the new generation token.
 
-Marek
+v2: Check vm->generation instead of calling drm_sched_entity_error
+in amdgpu_vm_validate.
+v3: Use new generation token instead of vram_lost_counter for check.
 
-On Tue, Jul 23, 2024, 11:04 Matthew Auld <matthew.auld@intel.com> wrote:
+Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-> On 23/07/2024 14:43, Paneer Selvam, Arunpravin wrote:
-> > Hi Matthew,
-> >
-> > Can we push this version for now as we need to mainline the DCC changes
-> > ASAP,
-> > while we continue our discussion and proceed to implement the permanent
-> > solution
-> > for address alignment?
->
-> Yeah, we can always merge now and circle back around later, if this for
-> sure helps your usecase and is needed asap. I just didn't fully get the
-> idea for needing this interface, but likely I am missing something.
->
-> >
-> > Thanks,
-> > Arun.
-> >
-> > On 7/23/2024 6:55 PM, Arunpravin Paneer Selvam wrote:
-> >> - Add a new start parameter in trim function to specify exact
-> >>    address from where to start the trimming. This would help us
-> >>    in situations like if drivers would like to do address alignment
-> >>    for specific requirements.
-> >>
-> >> - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this
-> >>    flag to disable the allocator trimming part. This patch enables
-> >>    the drivers control trimming and they can do it themselves
-> >>    based on the application requirements.
-> >>
-> >> v1:(Matthew)
-> >>    - check new_start alignment with min chunk_size
-> >>    - use range_overflows()
-> >>
-> >> Signed-off-by: Arunpravin Paneer Selvam <
-> Arunpravin.PaneerSelvam@amd.com>
-> >> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> >> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/drm_buddy.c          | 25 +++++++++++++++++++++++--
-> >>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  2 +-
-> >>   include/drm/drm_buddy.h              |  2 ++
-> >>   3 files changed, 26 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> >> index 6a8e45e9d0ec..103c185bb1c8 100644
-> >> --- a/drivers/gpu/drm/drm_buddy.c
-> >> +++ b/drivers/gpu/drm/drm_buddy.c
-> >> @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct
-> >> drm_buddy *mm,
-> >>    * drm_buddy_block_trim - free unused pages
-> >>    *
-> >>    * @mm: DRM buddy manager
-> >> + * @start: start address to begin the trimming.
-> >>    * @new_size: original size requested
-> >>    * @blocks: Input and output list of allocated blocks.
-> >>    * MUST contain single block as input to be trimmed.
-> >> @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct
-> >> drm_buddy *mm,
-> >>    * 0 on success, error code on failure.
-> >>    */
-> >>   int drm_buddy_block_trim(struct drm_buddy *mm,
-> >> +             u64 *start,
-> >>                u64 new_size,
-> >>                struct list_head *blocks)
-> >>   {
-> >>       struct drm_buddy_block *parent;
-> >>       struct drm_buddy_block *block;
-> >> +    u64 block_start, block_end;
-> >>       LIST_HEAD(dfs);
-> >>       u64 new_start;
-> >>       int err;
-> >> @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
-> >>                    struct drm_buddy_block,
-> >>                    link);
-> >> +    block_start =3D drm_buddy_block_offset(block);
-> >> +    block_end =3D block_start + drm_buddy_block_size(mm, block);
-> >> +
-> >>       if (WARN_ON(!drm_buddy_block_is_allocated(block)))
-> >>           return -EINVAL;
-> >> @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
-> >>       if (new_size =3D=3D drm_buddy_block_size(mm, block))
-> >>           return 0;
-> >> +    new_start =3D block_start;
-> >> +    if (start) {
-> >> +        new_start =3D *start;
-> >> +
-> >> +        if (new_start < block_start)
-> >> +            return -EINVAL;
-> >> +
-> >> +        if (!IS_ALIGNED(new_start, mm->chunk_size))
-> >> +            return -EINVAL;
-> >> +
-> >> +        if (range_overflows(new_start, new_size, block_end))
-> >> +            return -EINVAL;
-> >> +    }
-> >> +
-> >>       list_del(&block->link);
-> >>       mark_free(mm, block);
-> >>       mm->avail +=3D drm_buddy_block_size(mm, block);
-> >> @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,
-> >>       parent =3D block->parent;
-> >>       block->parent =3D NULL;
-> >> -    new_start =3D drm_buddy_block_offset(block);
-> >>       list_add(&block->tmp_link, &dfs);
-> >>       err =3D  __alloc_range(mm, &dfs, new_start, new_size, blocks, NU=
-LL);
-> >>       if (err) {
-> >> @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
-> >>       } while (1);
-> >>       /* Trim the allocated block to the required size */
-> >> -    if (original_size !=3D size) {
-> >> +    if (!(flags & DRM_BUDDY_TRIM_DISABLE) &&
-> >> +        original_size !=3D size) {
-> >>           struct list_head *trim_list;
-> >>           LIST_HEAD(temp);
-> >>           u64 trim_size;
-> >> @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
-> >>           }
-> >>           drm_buddy_block_trim(mm,
-> >> +                     NULL,
-> >>                        trim_size,
-> >>                        trim_list);
-> >> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> >> b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> >> index fe3779fdba2c..423b261ea743 100644
-> >> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> >> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> >> @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct
-> >> ttm_resource_manager *man,
-> >>       } while (remaining_size);
-> >>       if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-> >> -        if (!drm_buddy_block_trim(mm, vres->base.size, &vres->blocks)=
-)
-> >> +        if (!drm_buddy_block_trim(mm, NULL, vres->base.size,
-> >> &vres->blocks))
-> >>               size =3D vres->base.size;
-> >>       }
-> >> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
-> >> index 2a74fa9d0ce5..9689a7c5dd36 100644
-> >> --- a/include/drm/drm_buddy.h
-> >> +++ b/include/drm/drm_buddy.h
-> >> @@ -27,6 +27,7 @@
-> >>   #define DRM_BUDDY_CONTIGUOUS_ALLOCATION        BIT(2)
-> >>   #define DRM_BUDDY_CLEAR_ALLOCATION        BIT(3)
-> >>   #define DRM_BUDDY_CLEARED            BIT(4)
-> >> +#define DRM_BUDDY_TRIM_DISABLE            BIT(5)
-> >>   struct drm_buddy_block {
-> >>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
-> >> @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
-> >>                  unsigned long flags);
-> >>   int drm_buddy_block_trim(struct drm_buddy *mm,
-> >> +             u64 *start,
-> >>                u64 new_size,
-> >>                struct list_head *blocks);
-> >>
-> >> base-commit: b27d70e1042bf6a31ba7e5acf58b61c9cd28f95b
-> >
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3abfa66d72a2..6c6170f0f318 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -434,7 +434,7 @@ uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	if (!vm)
+ 		return result;
+ 
+-	result += vm->generation;
++	result += (vm->generation & 0xFFFFFFFFULL);
+ 	/* Add one if the page tables will be re-generated on next CS */
+ 	if (drm_sched_entity_error(&vm->delayed))
+ 		++result;
+@@ -463,13 +463,14 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		       int (*validate)(void *p, struct amdgpu_bo *bo),
+ 		       void *param)
+ {
++	uint64_t new_vm_generation = amdgpu_vm_generation(adev, vm);
+ 	struct amdgpu_vm_bo_base *bo_base;
+ 	struct amdgpu_bo *shadow;
+ 	struct amdgpu_bo *bo;
+ 	int r;
+ 
+-	if (drm_sched_entity_error(&vm->delayed)) {
+-		++vm->generation;
++	if (vm->generation != new_vm_generation) {
++		vm->generation = new_vm_generation;
+ 		amdgpu_vm_bo_reset_state_machine(vm);
+ 		amdgpu_vm_fini_entities(vm);
+ 		r = amdgpu_vm_init_entities(adev, vm);
+@@ -2439,7 +2440,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	vm->last_update = dma_fence_get_stub();
+ 	vm->last_unlocked = dma_fence_get_stub();
+ 	vm->last_tlb_flush = dma_fence_get_stub();
+-	vm->generation = 0;
++	vm->generation = amdgpu_vm_generation(adev, NULL);
+ 
+ 	mutex_init(&vm->eviction_lock);
+ 	vm->evicting = false;
+-- 
+2.35.1
 
---0000000000004b5a5c061df44c34
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">The reason is that our DCC requires 768K alignment in som=
-e cases. I haven&#39;t read this patch series, but one way to do that is to=
- align to 256K, overallocate by 512K, and then not use either 0, 256K, or 5=
-12K at the beginning to get to 768K alignment.<div dir=3D"auto"><div dir=3D=
-"auto"><br></div><div dir=3D"auto">Marek</div></div></div><br><div class=3D=
-"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jul 23, 2024, 1=
-1:04 Matthew Auld &lt;<a href=3D"mailto:matthew.auld@intel.com">matthew.aul=
-d@intel.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 23/07=
-/2024 14:43, Paneer Selvam, Arunpravin wrote:<br>
-&gt; Hi Matthew,<br>
-&gt; <br>
-&gt; Can we push this version for now as we need to mainline the DCC change=
-s <br>
-&gt; ASAP,<br>
-&gt; while we continue our discussion and proceed to implement the permanen=
-t <br>
-&gt; solution<br>
-&gt; for address alignment?<br>
-<br>
-Yeah, we can always merge now and circle back around later, if this for <br=
->
-sure helps your usecase and is needed asap. I just didn&#39;t fully get the=
- <br>
-idea for needing this interface, but likely I am missing something.<br>
-<br>
-&gt; <br>
-&gt; Thanks,<br>
-&gt; Arun.<br>
-&gt; <br>
-&gt; On 7/23/2024 6:55 PM, Arunpravin Paneer Selvam wrote:<br>
-&gt;&gt; - Add a new start parameter in trim function to specify exact<br>
-&gt;&gt; =C2=A0=C2=A0 address from where to start the trimming. This would =
-help us<br>
-&gt;&gt; =C2=A0=C2=A0 in situations like if drivers would like to do addres=
-s alignment<br>
-&gt;&gt; =C2=A0=C2=A0 for specific requirements.<br>
-&gt;&gt;<br>
-&gt;&gt; - Add a new flag DRM_BUDDY_TRIM_DISABLE. Drivers can use this<br>
-&gt;&gt; =C2=A0=C2=A0 flag to disable the allocator trimming part. This pat=
-ch enables<br>
-&gt;&gt; =C2=A0=C2=A0 the drivers control trimming and they can do it thems=
-elves<br>
-&gt;&gt; =C2=A0=C2=A0 based on the application requirements.<br>
-&gt;&gt;<br>
-&gt;&gt; v1:(Matthew)<br>
-&gt;&gt; =C2=A0=C2=A0 - check new_start alignment with min chunk_size<br>
-&gt;&gt; =C2=A0=C2=A0 - use range_overflows()<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Arunpravin Paneer Selvam &lt;<a href=3D"mailto:Arun=
-pravin.PaneerSelvam@amd.com" target=3D"_blank" rel=3D"noreferrer">Arunpravi=
-n.PaneerSelvam@amd.com</a>&gt;<br>
-&gt;&gt; Acked-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd=
-.com" target=3D"_blank" rel=3D"noreferrer">alexander.deucher@amd.com</a>&gt=
-;<br>
-&gt;&gt; Acked-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koe=
-nig@amd.com" target=3D"_blank" rel=3D"noreferrer">christian.koenig@amd.com<=
-/a>&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt; =C2=A0 drivers/gpu/drm/drm_buddy.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 25 +++++++++++++++++++++++--<br>
-&gt;&gt; =C2=A0 drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |=C2=A0 2 +-<br>
-&gt;&gt; =C2=A0 include/drm/drm_buddy.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++<br>
-&gt;&gt; =C2=A0 3 files changed, 26 insertions(+), 3 deletions(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_bud=
-dy.c<br>
-&gt;&gt; index 6a8e45e9d0ec..103c185bb1c8 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/drm_buddy.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/drm_buddy.c<br>
-&gt;&gt; @@ -851,6 +851,7 @@ static int __alloc_contig_try_harder(struct <b=
-r>
-&gt;&gt; drm_buddy *mm,<br>
-&gt;&gt; =C2=A0=C2=A0 * drm_buddy_block_trim - free unused pages<br>
-&gt;&gt; =C2=A0=C2=A0 *<br>
-&gt;&gt; =C2=A0=C2=A0 * @mm: DRM buddy manager<br>
-&gt;&gt; + * @start: start address to begin the trimming.<br>
-&gt;&gt; =C2=A0=C2=A0 * @new_size: original size requested<br>
-&gt;&gt; =C2=A0=C2=A0 * @blocks: Input and output list of allocated blocks.=
-<br>
-&gt;&gt; =C2=A0=C2=A0 * MUST contain single block as input to be trimmed.<b=
-r>
-&gt;&gt; @@ -866,11 +867,13 @@ static int __alloc_contig_try_harder(struct =
-<br>
-&gt;&gt; drm_buddy *mm,<br>
-&gt;&gt; =C2=A0=C2=A0 * 0 on success, error code on failure.<br>
-&gt;&gt; =C2=A0=C2=A0 */<br>
-&gt;&gt; =C2=A0 int drm_buddy_block_trim(struct drm_buddy *mm,<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 u64 *start,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 u64 new_size,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 struct list_head *blocks)<br>
-&gt;&gt; =C2=A0 {<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_buddy_block *parent;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_buddy_block *block;<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 u64 block_start, block_end;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 LIST_HEAD(dfs);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 new_start;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int err;<br>
-&gt;&gt; @@ -882,6 +885,9 @@ int drm_buddy_block_trim(struct drm_buddy *mm,=
-<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_buddy_block,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 link);<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 block_start =3D drm_buddy_block_offset(block);=
-<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 block_end =3D block_start + drm_buddy_block_si=
-ze(mm, block);<br>
-&gt;&gt; +<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (WARN_ON(!drm_buddy_block_is_all=
-ocated(block)))<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EIN=
-VAL;<br>
-&gt;&gt; @@ -894,6 +900,20 @@ int drm_buddy_block_trim(struct drm_buddy *mm=
-,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (new_size =3D=3D drm_buddy_block=
-_size(mm, block))<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;<b=
-r>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 new_start =3D block_start;<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 if (start) {<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new_start =3D *start;<=
-br>
-&gt;&gt; +<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (new_start &lt; blo=
-ck_start)<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return -EINVAL;<br>
-&gt;&gt; +<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!IS_ALIGNED(new_st=
-art, mm-&gt;chunk_size))<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return -EINVAL;<br>
-&gt;&gt; +<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (range_overflows(ne=
-w_start, new_size, block_end))<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return -EINVAL;<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 }<br>
-&gt;&gt; +<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_del(&amp;block-&gt;link);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mark_free(mm, block);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mm-&gt;avail +=3D drm_buddy_block_s=
-ize(mm, block);<br>
-&gt;&gt; @@ -904,7 +924,6 @@ int drm_buddy_block_trim(struct drm_buddy *mm,=
-<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parent =3D block-&gt;parent;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 block-&gt;parent =3D NULL;<br>
-&gt;&gt; -=C2=A0=C2=A0=C2=A0 new_start =3D drm_buddy_block_offset(block);<b=
-r>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_add(&amp;block-&gt;tmp_link, &=
-amp;dfs);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D=C2=A0 __alloc_range(mm, &am=
-p;dfs, new_start, new_size, blocks, NULL);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {<br>
-&gt;&gt; @@ -1066,7 +1085,8 @@ int drm_buddy_alloc_blocks(struct drm_buddy =
-*mm,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } while (1);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Trim the allocated block to the =
-required size */<br>
-&gt;&gt; -=C2=A0=C2=A0=C2=A0 if (original_size !=3D size) {<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0 if (!(flags &amp; DRM_BUDDY_TRIM_DISABLE) &amp=
-;&amp;<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 original_size !=3D siz=
-e) {<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct list=
-_head *trim_list;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 LIST_HEAD(t=
-emp);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 trim_si=
-ze;<br>
-&gt;&gt; @@ -1083,6 +1103,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy =
-*mm,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_buddy_b=
-lock_trim(mm,<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 trim_siz=
-e,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 trim_lis=
-t);<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c <br>
-&gt;&gt; b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c<br>
-&gt;&gt; index fe3779fdba2c..423b261ea743 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c<br>
-&gt;&gt; @@ -150,7 +150,7 @@ static int xe_ttm_vram_mgr_new(struct <br>
-&gt;&gt; ttm_resource_manager *man,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } while (remaining_size);<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (place-&gt;flags &amp; TTM_PL_FL=
-AG_CONTIGUOUS) {<br>
-&gt;&gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!drm_buddy_block_t=
-rim(mm, vres-&gt;base.size, &amp;vres-&gt;blocks))<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!drm_buddy_block_t=
-rim(mm, NULL, vres-&gt;base.size, <br>
-&gt;&gt; &amp;vres-&gt;blocks))<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 size =3D vres-&gt;base.size;<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }<br>
-&gt;&gt; diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h<br>
-&gt;&gt; index 2a74fa9d0ce5..9689a7c5dd36 100644<br>
-&gt;&gt; --- a/include/drm/drm_buddy.h<br>
-&gt;&gt; +++ b/include/drm/drm_buddy.h<br>
-&gt;&gt; @@ -27,6 +27,7 @@<br>
-&gt;&gt; =C2=A0 #define DRM_BUDDY_CONTIGUOUS_ALLOCATION=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 BIT(2)<br>
-&gt;&gt; =C2=A0 #define DRM_BUDDY_CLEAR_ALLOCATION=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 BIT(3)<br>
-&gt;&gt; =C2=A0 #define DRM_BUDDY_CLEARED=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(4)<br>
-&gt;&gt; +#define DRM_BUDDY_TRIM_DISABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(5)<br>
-&gt;&gt; =C2=A0 struct drm_buddy_block {<br>
-&gt;&gt; =C2=A0 #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)<br>
-&gt;&gt; @@ -155,6 +156,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *m=
-m,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long flags);<br>
-&gt;&gt; =C2=A0 int drm_buddy_block_trim(struct drm_buddy *mm,<br>
-&gt;&gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 u64 *start,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 u64 new_size,<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 struct list_head *blocks);<br>
-&gt;&gt;<br>
-&gt;&gt; base-commit: b27d70e1042bf6a31ba7e5acf58b61c9cd28f95b<br>
-&gt; <br>
-</blockquote></div>
-
---0000000000004b5a5c061df44c34--
