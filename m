@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B74ADC3DA7E
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A716C3DA49
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C50E10E8B3;
-	Thu, 25 Jul 2024 18:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B2110E8B5;
+	Thu, 25 Jul 2024 18:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MfabzgL+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d/A6kFPp";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2087.outbound.protection.outlook.com [40.107.102.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1C010E8B0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:28 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D081810E8B0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s+uyD/M9neJO64qjkKXULyz8c/tBWDBwziL9NxehnmU6j9/l9F4Z1Zmy8i/RzA7iT5GqRODh1WDP+gk2fYO4Y+TkrzH9TFhAXQ0O6e53uuFypBGnv70gFL8DBFXFTCdbx7fFP/nb+cXNGgWWbQ4dLGbGk8X5Rb5iOZr6kefFsO2OML95GC+aRIECN4iyGcjEu7zBxaiNp69Ubpej6OzZ1wIKGjNU714FiGyujwLHJEu9y8DFBH8Nq1y+gGnCdnmBhr6etilfFSSfUpriR8rjx3Az8ckPds5IyeDRJeabGEzNmeNa4spaLRnhFkE7DqDamRCQGqEsRuB1wshuizXnZw==
+ b=ojb1idv3mrQKzDph9vrDlZOAi9PZNNdjHCHIGE3KokGq5+bDcWc78GqbRErIBAgHRIfgWt+7fXDsMHe76FvBH17Jim5pBhl5teylqVef7nWcmuGMyc9lvUYocBgRnr3L4SgM0u6lgQlWW9HLJtafab1HNGDeQbEC5cEzr+PuUYeCQo2oxQyXUxReRuqc/PTLXKHxmm6bi1DoTI08IRr8mz6TMU0/eDfSI7qJDjOlrL9UHBd8wnANCwkvXFiIYoijrNCFe/onggNZ7C4ucL5pkjmhGsUbTIMLT2cvcxnc4Eu1qWFmcZA1z/a4CBrgSsh27gb8vGa+xs4lGEktRSks4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XES76tj121BpD2NNT44rgl4zk0ngT6nxjnCPS8QWDlM=;
- b=ohHdg3l8vDJ/xCyuZA2q4JTynhY38eVS81J/q345WWsT+pNf4okGv2XhX3beRDNHuHnWsNfKxSrFg4LyvKoowK9/yG/mWLaiHB7cW3UVkF2odC16A2VbIOiV8HZ2Zf7sXIPk3FBznxyTFT7+5EJXYhB6Q12Ejy4o+60uPKaMGMi5maLeD8PjO9iVmqF0llJmYO2t3KMYR2dRC0GXrYfBeyTgYwbhdmV/itzWlDahJsWfu6AXBgZTTJAhZE6F50uBN7+Y5pS8C8DYxjgO/5Ry3DxTCUiyfSpCRhSQUpsAq9X2osYWtXQGfpKDkG/Bz8CF6enNdk/tEhyD7rE+rwj/4w==
+ bh=F+qZwbTuWjrfqSRWCfol3ZVhAlyBnvuhRl45bg7plWE=;
+ b=gXZfccCuX+P8QSW0dCUjy6sKQqB+6ZR7gqEumhkl/ADvkAD24oO4MIPO+/SVOl7OombtMFpGUBBcBz3dD+AfATUnGKrIzuQ8JZC8n/6YppaQNxywR6NzzirbWd+M2S3+Lp1tfFIow3iQu9YPQMoFr5/OwKTMkIw4XI3CoTcZShJxzHhZY3zcEHiUxLESJfGyrHfnu/bz/ZvlrCY6Jt0PqxuJOpm236Zk89FB670Fx1xjKgdgVN6OFHvjTHflBw0D0AmR9F02kQB4YQ53molI+WF0EIeGOEvb9z6dNghvUdMRf2Gt3rFK7aQn914ta66tfxRgvuSAkCAR/Kt+whdcew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XES76tj121BpD2NNT44rgl4zk0ngT6nxjnCPS8QWDlM=;
- b=MfabzgL+N7Tptjjaf1Ju6R1PBc+X2Nc6mzV1S+Wwg2MOn74LLUwmkRtTO0UaNmvprzzCcqMomDWFvdarRXJ5k+gZV5l7SUuOo0AoMm6qAR7DzfAlHTUFcZMK6YHxvsHKfmjtlvL1bWPM6Sv3SHBY7/mXlNAF6aAKDODmJAJj/mQ=
-Received: from CH0PR03CA0387.namprd03.prod.outlook.com (2603:10b6:610:119::21)
- by SA0PR12MB4351.namprd12.prod.outlook.com (2603:10b6:806:71::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29; Thu, 25 Jul
- 2024 18:04:25 +0000
-Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
- (2603:10b6:610:119:cafe::67) by CH0PR03CA0387.outlook.office365.com
- (2603:10b6:610:119::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19 via Frontend
- Transport; Thu, 25 Jul 2024 18:04:25 +0000
+ bh=F+qZwbTuWjrfqSRWCfol3ZVhAlyBnvuhRl45bg7plWE=;
+ b=d/A6kFPpi6685olQlgLcX60WfsynG/IOK4JvIbqRZlf9yrxZeY6PLXTdLjKy4WZzpvdScm+HlW3ojvMqy+exvcwKPTdYiCIE8nCP7oZQmXMakq7i+fdVnGdlbPUynuEvY1vuo3OKlROiKh3IHxwoXUrv3z3OivhLE7D/rL8+PQY=
+Received: from CH0PR03CA0184.namprd03.prod.outlook.com (2603:10b6:610:e4::9)
+ by SN7PR12MB7106.namprd12.prod.outlook.com (2603:10b6:806:2a1::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.28; Thu, 25 Jul
+ 2024 18:04:21 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:e4:cafe::b9) by CH0PR03CA0184.outlook.office365.com
+ (2603:10b6:610:e4::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.28 via Frontend
+ Transport; Thu, 25 Jul 2024 18:04:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +48,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:25 +0000
+ 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:21 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 25 Jul
- 2024 13:04:22 -0500
+ 2024 13:04:13 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>
-Subject: [PATCH 28/39] drm/amd/display: Re-order enum in a header file
-Date: Thu, 25 Jul 2024 12:01:12 -0600
-Message-ID: <20240725180309.105968-29-Rodrigo.Siqueira@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Hansen Dsouza
+ <Hansen.Dsouza@amd.com>, Muhammad Ahmed <ahmed.ahmed@amd.com>, "Rodrigo
+ Siqueira" <rodrigo.siqueira@amd.com>
+Subject: [PATCH 23/39] drm/amd/display: Add new enable and disable functions
+ for DCN35
+Date: Thu, 25 Jul 2024 12:01:07 -0600
+Message-ID: <20240725180309.105968-24-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
 References: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
@@ -76,51 +78,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|SA0PR12MB4351:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02f44ea5-d80c-4ccf-2a11-08dcacd43812
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|SN7PR12MB7106:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7b9ef51-1346-4e16-6fbb-08dcacd435e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wFTbkbN52amWKWRZfjZqCFVhTREQ2SE1+PgnmN1n80Opz7baU/RxW9R1fkEz?=
- =?us-ascii?Q?AtthGxZqKG6+PM+/jrD93WULK84s0cMz9UkrONSSbS3fwUTpBm7rPGigSTaq?=
- =?us-ascii?Q?3oi50hXRss7KyEMUBiy36va5luCe+3AcAhQuVKrK/qyU9YM/9kmt1GDRp6Ux?=
- =?us-ascii?Q?nj5rr7ocAVVQ8z4drnA+5n7zMjt0Wchsw18a8pW8PvHVe9nS67PstAKo1krl?=
- =?us-ascii?Q?hYrDoKkQ0pnKTR7l6PdVPllt9SWUa4i9Dc2TqIH8wuGYNxfZE61/ndD6rWQA?=
- =?us-ascii?Q?1OyewuyELQWmO2RW5xnrp/LOOe7cJf2N1smsHVfV15dnRMelf1lQEZSiyHRz?=
- =?us-ascii?Q?xV0gtsg1savxhV5B2tKa19dc2Fywq3FiQ7NqS//LpVrAAntcgLT9uwM+WqmH?=
- =?us-ascii?Q?Hs8WCOrfjsB9SS1785Pr0pSAengPsUfu8BEMKKUjiSNe0LAZwQo16yv0lpLy?=
- =?us-ascii?Q?VH1OqqU/eNCwauFJq0jzSO1KCNgF2nt9gTF+7d/YaHzw7S/8Og0JVKjbDD3i?=
- =?us-ascii?Q?TNYj10kYJlvPQJ5VnZTxay0X4BUpAOegeYEsqdN2j+IJVXCn7rZo7gQvALPD?=
- =?us-ascii?Q?jHx7rjIi78zM/WtBjqhQTmHCEHwEKSzS8noACX+cj4Hzee9jKY6FAzATIYYr?=
- =?us-ascii?Q?09L1+/bWUdeu/gNd3/BUectGbdSrskz+1J2xTrMVDLlEmbwgEVd6FgKN0T7c?=
- =?us-ascii?Q?GibvzxA4jHl7EQXQfvLqg67RfYy7e7+l6e5ALBVgSVL6P9Z5eUzmp8RJPcQp?=
- =?us-ascii?Q?JQFI9+8PQ8h9d+OPvvBs+Gy1T3V+h1oUs+VwtugoPYjOQd7BaJlFabjR6bIZ?=
- =?us-ascii?Q?Z1xABFukXx7r5W6opoCBCQ41NJwGEpb9af7oTARojEKc00QSh1DweUlvBmO1?=
- =?us-ascii?Q?aCck4XIZTwYtGbyORw1MS0yCpOkweMR3iVUkEMyhzkMUyWxeRHwZgTaPYONE?=
- =?us-ascii?Q?K8lIYMRUZZ7HuywFvvZYKpXg8RnQkaAC1XEFBeN+1Jyn1eQVFB0Y3WvJ1jMG?=
- =?us-ascii?Q?hN/Oc3KLI85kT0PQ4tsCmDR3TW/aZQr1h0i2PT3ek9cVBOO+EIgKGEzPzcDQ?=
- =?us-ascii?Q?bjt0ql7cN6q1BONbPwavYnq6Atw42tmdJlQiI63HWB3crgWtp/ykwkRU25y7?=
- =?us-ascii?Q?jR8aRCwsEpUsdgEVcWhmmhua9quOhmJc3YX2t4fa8O/e3vlBdLwKlMmhsCV0?=
- =?us-ascii?Q?Nv54jPcIxy7eQYMn5bmBvYgAvaA3CbN/4icXLrurMDSOwFxdb3Jcnf96xbZV?=
- =?us-ascii?Q?4laWGj0hKWCm7yJRxQngMgsmUc2OGoReNDRCIx+alGjDho6QyWSc8JvmI8sj?=
- =?us-ascii?Q?bD6zrdnu0y45FupkaqKRuyX5TDJuMJv4ZhzVmqtcVjkmcZFQRbdu+94t0qJ0?=
- =?us-ascii?Q?o4y4CUjVuIo+0JlyIVby3tygRujClZDuGsr2l1R4KsWn4kds+jiztvvooIz3?=
- =?us-ascii?Q?wwGrzz2CuBj3uArsBZSU7K6fGnwg6I4f?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uiVwdzfe8YooujrJVRojJ4TpbTSuF35eKy5AcAWVWr/NC8lWNdqwyPf5TOZz?=
+ =?us-ascii?Q?KxVzU0c12n1101xl5pFbUQJTlOWwMvS7v2+i7XeOiVpeuiGRNW/obmU84wST?=
+ =?us-ascii?Q?h9CdygCHvWq1DIvEdghp9R+f8DVvNJPeeWIteFF11KuxJIKMOk1uSMoy0CsU?=
+ =?us-ascii?Q?OV3WBvfuJaRQQsY/cXaL9Yei2SpT8VsZytQiyvzbzLhG8YGH5oz5b1XrwISq?=
+ =?us-ascii?Q?IgmXOD+Yu/Mz4uE2nSeL7rxTJo0pP2UGO9BW812KeTi4wjd+7G6qmaQOsuJM?=
+ =?us-ascii?Q?i1L3vIo46oU5t3KzixvnAa2JksPLN9nT7eT85QXVCQI10eiSi0/FG7dlO3S4?=
+ =?us-ascii?Q?hmoGlGKBQIOxLl+ezrwiPdXSKfGraSoTaMHNwGVdh91QMmKyy8t3y260n3lZ?=
+ =?us-ascii?Q?LdR59Zyen5C3fweVxa2UAa9EzgHIpqLHKgSsOi7oaVAbBvV1ac/M8Oj8ArM0?=
+ =?us-ascii?Q?Ag546/41bpcL/YKany7bcEv7N2qvbCysIEcrlIB/0yIFfErdlSE2e+eNO7UD?=
+ =?us-ascii?Q?FqPWxMRMw8Z7U4B/pj4RONgocZbHmf/3OtdtX6zwvx4RUJlXaTYMhaeQ8D8s?=
+ =?us-ascii?Q?4jj5WJqF1t3QM7kd42whbw0XyAaUf57dimqof9ZuDPMDslHaiyf8eiGA2Kbt?=
+ =?us-ascii?Q?IT8OT3RljPr4RpnIfraZd1wTknegmN2Uu3hNoHZyTyxFyBdbYAiJYuJP+571?=
+ =?us-ascii?Q?BoVRzK/qYcbyMf5Lrr0QiLSCWOnQriSX6hOljNXwrunqsntQYLrOruhiYiWS?=
+ =?us-ascii?Q?dndd1PI9hKaolHsovoG5KENMhTMno4DtB0nHetJ9suhHLhYh0Hh0Dm/Na9Lq?=
+ =?us-ascii?Q?L8N0ll+y6L7AT06sBQxH6I5U8FeNjdQRhXN7sMH2RXv8rx9QvAHon5XCJODq?=
+ =?us-ascii?Q?dwItvxSoYckNmI84J7kqaa09WZkrO5Qb3W2a6pdWzdvT2snLPaM3mzFb+S/z?=
+ =?us-ascii?Q?pIDiUYLSlXuUeCH6Dz/InDP4uElqRiCFk8ver7ZtNuPLKBWeiRaIkuFfqjzn?=
+ =?us-ascii?Q?ThwU3SKoTJLmTb6BKUOIP6tDnz79mlsLsXJbOTiYtCIGykzuJ3UdaUJ8JIg3?=
+ =?us-ascii?Q?PyT02aLojHnaPK0omEV7O3GPzd3uYC6ku4EjHDPWCYjbIJOQhgbNWawnsRuz?=
+ =?us-ascii?Q?XXxIu4FoBHStEm2CkAcg7TFVUNxygWKGRjq9Qkx6WAoDqiuH8nWeh/92qrCR?=
+ =?us-ascii?Q?2Trm+7BjukHCxUmtpLVJ2gi/bEHMTyVs52RaTB1D8TrA5Qyw1yWLg49pW56k?=
+ =?us-ascii?Q?nUGKhO+1ebZAscWCVsQMcyRoID/+tBCrH5R0MUOOh6i7vHn9Sv7pw8rGCUQB?=
+ =?us-ascii?Q?U2gMP7432h/UThcBPEJoN9D6Eh7IAWzUjsK9PngyrbqcZvNL1Tpc24eZ4oAi?=
+ =?us-ascii?Q?gIcH7QK6KzWeMEg+9UtDsK63uz7vaYsxDiMDs01LEF9/bqAnFe5Xkdr2P5KO?=
+ =?us-ascii?Q?GsFF/tzjCq1r7Y9JbJzJUykmM27hTh17?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:25.1182 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02f44ea5-d80c-4ccf-2a11-08dcacd43812
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:21.5075 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7b9ef51-1346-4e16-6fbb-08dcacd435e6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4351
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7106
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,65 +137,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move the lb_memory_config close to the pixel format enums to improve the
-code readability.
+From: Hansen Dsouza <Hansen.Dsouza@amd.com>
 
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Add new enable and disable functions based on DCCG spec.
+
+Signed-off-by: Hansen Dsouza <Hansen.Dsouza@amd.com>
+Reviewed-by: Muhammad Ahmed <ahmed.ahmed@amd.com>
+Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/dc/spl/dc_spl_types.h | 32 +++++++++----------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 54 ++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-index caaa9ced2ec4..36d10b0f2eed 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-@@ -10,22 +10,6 @@
- #ifndef __DC_SPL_TYPES_H__
- #define __DC_SPL_TYPES_H__
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
+index 7d88b0ae241c..bd3757de51c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
+@@ -932,6 +932,53 @@ static void dccg35_disable_dpp_new(
+ 	dccg35_set_dppclk_rcg(dccg, inst, true);
+ }
  
--enum lb_memory_config {
--	/* Enable all 3 pieces of memory */
--	LB_MEMORY_CONFIG_0 = 0,
--
--	/* Enable only the first piece of memory */
--	LB_MEMORY_CONFIG_1 = 1,
--
--	/* Enable only the second piece of memory */
--	LB_MEMORY_CONFIG_2 = 2,
--
--	/* Only applicable in 4:2:0 mode, enable all 3 pieces of memory and the
--	 * last piece of chroma memory used for the luma storage
--	 */
--	LB_MEMORY_CONFIG_3 = 3
--};
--
- struct spl_size {
- 	uint32_t width;
- 	uint32_t height;
-@@ -87,6 +71,22 @@ enum spl_pixel_format {
- 	SPL_PIXEL_FORMAT_UNKNOWN
- };
- 
-+enum lb_memory_config {
-+	/* Enable all 3 pieces of memory */
-+	LB_MEMORY_CONFIG_0 = 0,
++static void dccg35_disable_dscclk_new(struct dccg *dccg,
++									  int inst)
++{
++	dccg35_set_dsc_clk_src_new(dccg, inst, DSC_CLK_REF_CLK);
++	dccg35_set_dsc_clk_rcg(dccg, inst, true);
++}
 +
-+	/* Enable only the first piece of memory */
-+	LB_MEMORY_CONFIG_1 = 1,
++static void dccg35_enable_dscclk_new(struct dccg *dccg,
++									 int inst,
++									 enum dsc_clk_source src)
++{
++	dccg35_set_dsc_clk_rcg(dccg, inst, false);
++	dccg35_set_dsc_clk_src_new(dccg, inst, src);
++}
 +
-+	/* Enable only the second piece of memory */
-+	LB_MEMORY_CONFIG_2 = 2,
++static void dccg35_enable_dtbclk_p_new(struct dccg *dccg,
++									   enum dtbclk_source src,
++									   int inst)
++{
++	dccg35_set_dtbclk_p_rcg(dccg, inst, false);
++	dccg35_set_dtbclk_p_src_new(dccg, src, inst);
++}
 +
-+	/* Only applicable in 4:2:0 mode, enable all 3 pieces of memory and the
-+	 * last piece of chroma memory used for the luma storage
-+	 */
-+	LB_MEMORY_CONFIG_3 = 3
-+};
++static void dccg35_disable_dtbclk_p_new(struct dccg *dccg,
++										enum dtbclk_source src,
++										int inst)
++{
++	dccg35_set_dtbclk_p_src_new(dccg, DTBCLK_REFCLK, inst);
++	dccg35_set_dtbclk_p_rcg(dccg, inst, true);
++}
 +
- /* Rotation angle */
- enum spl_rotation_angle {
- 	SPL_ROTATION_ANGLE_0 = 0,
++static void dccg35_enable_dpstreamclk_new(struct dccg *dccg,
++										  enum dtbclk_source src,
++										  int inst)
++{
++	dccg35_set_dpstreamclk_src_new(dccg, DP_STREAM_REFCLK, inst);
++	dccg35_set_dpstreamclk_rcg(dccg, inst, true);
++}
++
++static void dccg35_disable_dpstreamclk_new(struct dccg *dccg,
++										   enum dtbclk_source src,
++										   int inst)
++{
++	dccg35_set_dpstreamclk_rcg(dccg, inst, false);
++	dccg35_set_dtbclk_p_src_new(dccg, src, inst);
++}
++
+ static void dccg35_trigger_dio_fifo_resync(struct dccg *dccg)
+ {
+ 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
+@@ -1965,7 +2012,12 @@ struct dccg *dccg35_create(
+ 	(void)&dccg35_disable_symclk32_le_new;
+ 	(void)&dccg35_enable_dpp_new;
+ 	(void)&dccg35_disable_dpp_new;
+-
++	(void)&dccg35_disable_dscclk_new;
++	(void)&dccg35_enable_dscclk_new;
++	(void)&dccg35_enable_dtbclk_p_new;
++	(void)&dccg35_disable_dtbclk_p_new;
++	(void)&dccg35_enable_dpstreamclk_new;
++	(void)&dccg35_disable_dpstreamclk_new;
+ 	base = &dccg_dcn->base;
+ 	base->ctx = ctx;
+ 	base->funcs = &dccg35_funcs;
 -- 
 2.43.0
 
