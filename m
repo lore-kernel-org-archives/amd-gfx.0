@@ -4,73 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89675C3DA5D
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 20:59:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FF75C3DA70
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 21:36:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26C2110E87A;
-	Thu, 25 Jul 2024 20:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC1FE10E17D;
+	Thu, 25 Jul 2024 21:36:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ctpkLevM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4WpzJFXH";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A6A910E87A;
- Thu, 25 Jul 2024 20:59:29 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-70d25b5b6b0so249548b3a.2; 
- Thu, 25 Jul 2024 13:59:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721941169; x=1722545969; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I4gCniBGiUh7RbvIXsajAgjTfTdLghfosUa+OF1HFMA=;
- b=ctpkLevMkm4CeTyQrJFzXE4TkfpJKJ241c4UWHCVYib53XYEH3rzWi/PcozzJYAz2j
- EQIyDb4SEDCxDbv+RIvBumoIwepyKzyi7eux+rsFVrASdxpFHX+OVZYztP4NG0ZaBM2P
- IIATaQ22+PfyBY966riNHVg9nTptZYJTP2IMnVZ9++75exPR40xPwnvgts4b/SWyRdjy
- OC6iWm1a1wX0WsvHiL1mWUkJ3GnyBK7vw4Xbak23nxFxr/Os/ZYCApDL7paD4a87zl/0
- z80pt93AqadSNU1+Om1sx3tH6+vUzM9cuV0rhwD5aCPL8POaZVRRWrj8HQ07SJ1Kddaq
- 45XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721941169; x=1722545969;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I4gCniBGiUh7RbvIXsajAgjTfTdLghfosUa+OF1HFMA=;
- b=k8l+sQWXKoD2+UqNZN65xEkpGqlRsrIFgA5gndyoz8sdGrS6gP0xJ68oqybcqXHHi+
- wElOT1iZvK4UJwrZjoY1jwvzLy8ezTax7HINopB40E28/iGY9NyBzwVOAdiCZvfavJn2
- p5oz3gNvN8jnhw0RYiqtMTDtbWfT5yupjd5rFRZveaRkiV2ffmGu5nm+EpvGxCVbgNcE
- joca0rx7exxTarXdq9ZsFJlmYX7u6ndDJ7xkkW0ZQ1Nx5EAnfDiYqjYUPQr7RbBRf8JV
- vs12tIq67P6Ebxtvp7PEQ0xRI9xDXl3zdkQ/Gj4t+hsU0KNe5qifc1aszO4V+e357O/z
- sVXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqaYIsjn9ggww6jaWZpJYZnDBIeH29U4uMdHgeGSCCDOGbx8iwUuOYogXYpuHe6W9I7/ZpfBe2cQVELMxV9URrHFdER0irLwoI1Sig7R6r7hQkZjCRLUdkY9UVaAFuip997ZpZqdjDGutmLBWryA==
-X-Gm-Message-State: AOJu0YxXM9JGWB6Drk9yhh550Pz43i9RVMskzLWt/Kjgy3ttJzIl1CFN
- qhMjWCswuFcav/+JoFrf25gNJ4Vpvh++AWGJyeQ2IYnEP4mQjV4ZXH1PpYaHdLxHdOo4mboRCXB
- vWcAmh+ZpiUqmcM7kcW5ec7c2vDiKjg==
-X-Google-Smtp-Source: AGHT+IFA0VZ111JxLn9HdP00YaL4Z9quBI2prN0idkkDGmhMU4bZZeeTu2CxFkR1MXDUXDfcRnEz5m1mcFb+wqqyzHE=
-X-Received: by 2002:a05:6a20:7494:b0:1c0:bf35:ef4c with SMTP id
- adf61e73a8af0-1c4727aad83mr5501536637.11.1721941168624; Thu, 25 Jul 2024
- 13:59:28 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5608810E17D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 21:36:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SVNrtbQq5WJQgt1lNRLgEUQPJyChVjbL4nYXc9p/Y7KN2B1Xcd5xx7LxuWsulD3qjIRFUTa1m+sVhwYNJeErJPHYco2T/r6lpayOccy2hjxnA1UiZ95f4RfaxzRwQyMmv+uP69oFYb0TJnDqU6C+WFTxt/B89ixR0/2yHzAoTRO3IoywvEu8AaBie4Ox8MOg1W1IQOOTeHwpbOdFD4F+DpfQ/p4DJ/2OTMQz4vkLKU8Nf2JXJwq5Me+GAnj9o0PSCogUu/Z+DTHfJTU1uqGgEJ7CeUrGyWV6lgEcu4RUySy+4rqud3ga0md/gUI74zXPcRqjy2KfcpFkDLN7GEqtZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LrDto2FF3NAPCnA6qbh/WRD8zNKn7bpy7zW7DJ7gyaA=;
+ b=ReT4fgBbLmUdFZwTy9F7ut6R/IguyGzvBME5MphE3zuCWJxswImM4rO+mImQRLfA2JyGqiiy87DDnSJLMvJffHMkTaaPxIhrhTrN8vOerlqCZezgB1qGMgGDDwew14YKOCk68fVNVtTsANwEB3h9efeDYUwvGNwMxGMUO3YXZCZ5BSYJ0cvUX+j44gfeDSGhJj01cJoeBa91p5ibzwtkHDIilADI7QfhZ6J66o7UP302K3xLH3Jw+h+bemd1ZzswnDZzQWUeFu/vjZfP8uOnAd+DSwqzCbTEZzDcGBtL3rDJtxfQSNjfB2UDaGdAf1DJAAtJ1eTspIAUz6nIXdFj0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LrDto2FF3NAPCnA6qbh/WRD8zNKn7bpy7zW7DJ7gyaA=;
+ b=4WpzJFXHh28YqpR0jJbvpT00VJYuLVk8sT0vRsRtV+grW9zCPnRrri17XRt6gSF9LBc6XHipcSZv/zsizuIieD4/SOTZNvGFNGK82S8Xn1lIIwuBFLSGWzhGOT04CE9pjYke4Gor8Ng6y/AQ4tW+KAuWjO7LuYxe+jmnstV/mh4=
+Received: from MW4PR03CA0219.namprd03.prod.outlook.com (2603:10b6:303:b9::14)
+ by DM4PR12MB7503.namprd12.prod.outlook.com (2603:10b6:8:111::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.18; Thu, 25 Jul
+ 2024 21:36:00 +0000
+Received: from SJ5PEPF000001D3.namprd05.prod.outlook.com
+ (2603:10b6:303:b9:cafe::66) by MW4PR03CA0219.outlook.office365.com
+ (2603:10b6:303:b9::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
+ Transport; Thu, 25 Jul 2024 21:35:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001D3.mail.protection.outlook.com (10.167.242.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 21:35:59 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 25 Jul
+ 2024 16:35:57 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Tim Huang <Tim.Huang@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix APU handling in amdgpu_pm_load_smu_firmware()
+Date: Thu, 25 Jul 2024 17:35:44 -0400
+Message-ID: <20240725213544.2988415-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
-In-Reply-To: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Jul 2024 16:59:16 -0400
-Message-ID: <CADnq5_NuAL4=hMyc6G0QkbSrjCXa6qFM-bFtt3A7DY6cCmCt9w@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon/evergreen_cs: fix int overflow errors in cs
- track offsets
-To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Jerome Glisse <jglisse@redhat.com>, Dave Airlie <airlied@redhat.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D3:EE_|DM4PR12MB7503:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88fd1a28-1975-4060-290f-08dcacf1c649
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bl8sJVUWXTJcgy5zSTdikgnI7XzbvbvlkMqDAqJwZq3VMlIR6Kt5DzTHN6Ql?=
+ =?us-ascii?Q?9szf8U7RDs2QSpZTXxSSre6zlh8nUYsbZy1Ow45xUdT8LiT5iNgQQZQnIGPb?=
+ =?us-ascii?Q?+4eQjkNHYtFq4Ncjwh06jhKAINim5dO8O4S5FLicLhCgw8HX/gYrMYaqqZV+?=
+ =?us-ascii?Q?c4RQ9FPHVpup3nzzdKFxL/46kTZymxd7Yjq5e//w/OJe9ltgapT++pzBouRG?=
+ =?us-ascii?Q?C3JdZzdC4LZSCPK293Rjf5n/ENJWa5jRTEQK+Vvv1S/zodQy4sp8clMFDbXg?=
+ =?us-ascii?Q?79Pm9yJ5Cyh8uBBFDuXIfqCMCOELNTuxvfmAyXb1sTsdR3H8gZLy+ZEc/+XC?=
+ =?us-ascii?Q?g2jmD8CHy0YvnXkn71/QQsIaWnhec0eXVtKFMSzb2gXNsZ1huzk6+y07Qr9O?=
+ =?us-ascii?Q?b0GPP2kVcPSRTD9VClqt0BuqxCYvXoHrqBA9+cXIt2xfxVFIJZ5e+UbvLQQ7?=
+ =?us-ascii?Q?deUgWu7Ptefju2XGnOkybnIW7Wqcu5J37JtSPDD8iD2HynhexsElxtoPvXZd?=
+ =?us-ascii?Q?6M0WAlllqMxEeRxGgIqhlh1BwSLE+i1tb1M3ZEYg/N6gApXg5lmphPCAbS0N?=
+ =?us-ascii?Q?llnghA5bQ6jE5/5V9Y/E/zdyICauHDqtwHIrMB6inVfgru6N/BjLoHdmOz8J?=
+ =?us-ascii?Q?SnY1l0gYKVyxjDJd1LAshKkzfiWE/PvclnRzDVdyBRDpRTD/12BwUNeDudcS?=
+ =?us-ascii?Q?MYGoEtwgPy4qo2MIw7Duht11MdiPuAbJeX7QMvUTljnhk6l+GmkKLiuwEUdF?=
+ =?us-ascii?Q?E1YrplUyUxRXPOOn6TW1LJGLj2NiWy9m4OIkLUhENYkkT/sjehJOvCpr16R3?=
+ =?us-ascii?Q?ifG85igXM1LLfxMFL0bvvFHVJhqkPo/nSG/TimS+4g3uPnhcsB/3wISjivmC?=
+ =?us-ascii?Q?mu0P6qKcXtCiTtV3qFR5UxWCMBQ2qliVELFBSS5J1FlS0GNwe4d2xt2y8bzk?=
+ =?us-ascii?Q?DmC1JB0QWANYqbx0PsHjQhzZqZWNST5mRZaMTQh+mjMFm+IXpBm4zmW5fUE4?=
+ =?us-ascii?Q?GwqmDDHRrlYZLvwUnPKcE5jPQFjfmHr1dIaZgJwsasENRO14a1bykzE7ROD8?=
+ =?us-ascii?Q?sRWUeogp2eStIcbBDhHHihDDNVOVgd7jT9OHTGGhEO0C61SqpmxKhb2NR/c7?=
+ =?us-ascii?Q?K/gH/mlJ/PRClX/E9YnKY22CidXiEGnJ2h4fccKUrlXgUk6in1xUj8FvWVm8?=
+ =?us-ascii?Q?mHzjK/gK9wojkMPu/gRE9XBX9BIroFeqF/YFvksh+PnJjVkIaxZhC5ymHRpE?=
+ =?us-ascii?Q?7SC9wl1Fk6zhWR24GngTZYv8IwYCOx6OBdG47EhHld6HAE61iTGKaXi9znqh?=
+ =?us-ascii?Q?pVU27b29jVbgloVEQcpvSNH39piGPWFc3k34w1KVTMeTbyR3+TSNo0CQOQpw?=
+ =?us-ascii?Q?QdV3RDTSdH1FFKPOqmBD2nZaaYYv?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 21:35:59.0734 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88fd1a28-1975-4060-290f-08dcacf1c649
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,132 +128,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+We only need to skip this on modern APUs.  It's required
+on older APUs as it's where start_smu gets called from.
 
-Alex
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3502
+Fixes: 064d92436b69 ("drm/amd/pm: avoid to load smu firmware for APUs")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Tim Huang <Tim.Huang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On Thu, Jul 25, 2024 at 2:20=E2=80=AFPM Nikita Zhandarovich
-<n.zhandarovich@fintech.ru> wrote:
->
-> Several cs track offsets (such as 'track->db_s_read_offset')
-> either are initialized with or plainly take big enough values that,
-> once shifted 8 bits left, may be hit with integer overflow if the
-> resulting values end up going over u32 limit.
->
-> Some debug prints take this into account (see according dev_warn() in
-> evergreen_cs_track_validate_stencil()), even if the actual
-> calculated value assigned to local 'offset' variable is missing
-> similar proper expansion.
->
-> Mitigate the problem by casting the type of right operands to the
-> wider type of corresponding left ones in all such cases.
->
-> Found by Linux Verification Center (linuxtesting.org) with static
-> analysis tool SVACE.
->
-> Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni tiling inf=
-ormations v11")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-> ---
-> P.S. While I am not certain that track->cb_color_bo_offset[id]
-> actually ends up taking values high enough to cause an overflow,
-> nonetheless I thought it prudent to cast it to ulong as well.
->
->  drivers/gpu/drm/radeon/evergreen_cs.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/rade=
-on/evergreen_cs.c
-> index 1fe6e0d883c7..d734d221e2da 100644
-> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
-> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-> @@ -433,7 +433,7 @@ static int evergreen_cs_track_validate_cb(struct rade=
-on_cs_parser *p, unsigned i
->                 return r;
->         }
->
-> -       offset =3D track->cb_color_bo_offset[id] << 8;
-> +       offset =3D (unsigned long)track->cb_color_bo_offset[id] << 8;
->         if (offset & (surf.base_align - 1)) {
->                 dev_warn(p->dev, "%s:%d cb[%d] bo base %ld not aligned wi=
-th %ld\n",
->                          __func__, __LINE__, id, offset, surf.base_align)=
-;
-> @@ -455,7 +455,7 @@ static int evergreen_cs_track_validate_cb(struct rade=
-on_cs_parser *p, unsigned i
->                                 min =3D surf.nby - 8;
->                         }
->                         bsize =3D radeon_bo_size(track->cb_color_bo[id]);
-> -                       tmp =3D track->cb_color_bo_offset[id] << 8;
-> +                       tmp =3D (unsigned long)track->cb_color_bo_offset[=
-id] << 8;
->                         for (nby =3D surf.nby; nby > min; nby--) {
->                                 size =3D nby * surf.nbx * surf.bpe * surf=
-.nsamples;
->                                 if ((tmp + size * mslice) <=3D bsize) {
-> @@ -476,10 +476,10 @@ static int evergreen_cs_track_validate_cb(struct ra=
-deon_cs_parser *p, unsigned i
->                         }
->                 }
->                 dev_warn(p->dev, "%s:%d cb[%d] bo too small (layer size %=
-d, "
-> -                        "offset %d, max layer %d, bo size %ld, slice %d)=
-\n",
-> +                        "offset %ld, max layer %d, bo size %ld, slice %d=
-)\n",
->                          __func__, __LINE__, id, surf.layer_size,
-> -                       track->cb_color_bo_offset[id] << 8, mslice,
-> -                       radeon_bo_size(track->cb_color_bo[id]), slice);
-> +                       (unsigned long)track->cb_color_bo_offset[id] << 8=
-,
-> +                       mslice, radeon_bo_size(track->cb_color_bo[id]), s=
-lice);
->                 dev_warn(p->dev, "%s:%d problematic surf: (%d %d) (%d %d =
-%d %d %d %d %d)\n",
->                          __func__, __LINE__, surf.nbx, surf.nby,
->                         surf.mode, surf.bpe, surf.nsamples,
-> @@ -608,7 +608,7 @@ static int evergreen_cs_track_validate_stencil(struct=
- radeon_cs_parser *p)
->                 return r;
->         }
->
-> -       offset =3D track->db_s_read_offset << 8;
-> +       offset =3D (unsigned long)track->db_s_read_offset << 8;
->         if (offset & (surf.base_align - 1)) {
->                 dev_warn(p->dev, "%s:%d stencil read bo base %ld not alig=
-ned with %ld\n",
->                          __func__, __LINE__, offset, surf.base_align);
-> @@ -627,7 +627,7 @@ static int evergreen_cs_track_validate_stencil(struct=
- radeon_cs_parser *p)
->                 return -EINVAL;
->         }
->
-> -       offset =3D track->db_s_write_offset << 8;
-> +       offset =3D (unsigned long)track->db_s_write_offset << 8;
->         if (offset & (surf.base_align - 1)) {
->                 dev_warn(p->dev, "%s:%d stencil write bo base %ld not ali=
-gned with %ld\n",
->                          __func__, __LINE__, offset, surf.base_align);
-> @@ -706,7 +706,7 @@ static int evergreen_cs_track_validate_depth(struct r=
-adeon_cs_parser *p)
->                 return r;
->         }
->
-> -       offset =3D track->db_z_read_offset << 8;
-> +       offset =3D (unsigned long)track->db_z_read_offset << 8;
->         if (offset & (surf.base_align - 1)) {
->                 dev_warn(p->dev, "%s:%d stencil read bo base %ld not alig=
-ned with %ld\n",
->                          __func__, __LINE__, offset, surf.base_align);
-> @@ -722,7 +722,7 @@ static int evergreen_cs_track_validate_depth(struct r=
-adeon_cs_parser *p)
->                 return -EINVAL;
->         }
->
-> -       offset =3D track->db_z_write_offset << 8;
-> +       offset =3D (unsigned long)track->db_z_write_offset << 8;
->         if (offset & (surf.base_align - 1)) {
->                 dev_warn(p->dev, "%s:%d stencil write bo base %ld not ali=
-gned with %ld\n",
->                          __func__, __LINE__, offset, surf.base_align);
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index f78b4f013ed4..62df787d7b28 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -631,7 +631,8 @@ int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_versio
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	int r = 0;
+ 
+-	if (!pp_funcs || !pp_funcs->load_firmware || adev->flags & AMD_IS_APU)
++	if (!pp_funcs || !pp_funcs->load_firmware ||
++	    (is_support_sw_smu(adev) && (adev->flags & AMD_IS_APU)))
+ 		return 0;
+ 
+ 	mutex_lock(&adev->pm.mutex);
+-- 
+2.45.2
+
