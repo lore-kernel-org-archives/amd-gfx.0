@@ -4,63 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D56AAC3DA5D
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 15:29:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B64C3DA5D
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 16:23:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 627F110E882;
-	Thu, 25 Jul 2024 15:29:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 463BB10E2BC;
+	Thu, 25 Jul 2024 16:23:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BEC9+C3D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vhcvd92w";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F235D10E882
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 15:29:26 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-2cd1661174cso34a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 08:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721921366; x=1722526166; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jTgV5WGclQrpLo9XK8FsNIB+Jnu+X8s/EUlQVOxpS/M=;
- b=BEC9+C3DqPb7Q+cFnjygX5RKKt05rXd7orKakyq2epFm9WlLEZ3lZ9FAQLlXwLvUVG
- M0tFB48KMb5FrtEqEr5A2OP7Oc4sSNOQFMWrlCG7R6rIaLjvpK1UO5IkWxI6bA/fHVe1
- ThZrWIhvXn7xwmK8Jg8izJk10SPz5ZdGjeFdXYlr25z7XnzNG8icKqTy1ecdS9dbHCLS
- Us9L9nTC9QSCqN4x2LhtRcFzV/CgHP82Ew9zd7Vzzs8EhLzr3tv4NF887dEdR008pr+i
- oWnA8R/ckT1nTDJAPCYUe6tinuiiL+kHMlIx0jzJzw5og7tRbdXshE3gx56VUzrfktya
- 2Gaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721921366; x=1722526166;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jTgV5WGclQrpLo9XK8FsNIB+Jnu+X8s/EUlQVOxpS/M=;
- b=TULp4Mo/eIJIuzYfhBgy3uFRgJQzz/ZyPQC4nYkp84OdOV0sAgfFG76qcT1Y6rjZDQ
- P6FgT3tJqC++ThtKvLVpcO79D+PDRe9eXJwbWd7kvjBRQBstsjZegmy0xVyAL8G/3bVu
- IGhCErw8fqTKoo+9R9b0CHcfoPEUWbaB4gn6cTRBGlMk3SxMMzwZvxZ3kkdyCFC0W3gV
- bCaeq41gueqAS6HiaDlPHY3OuAfpmqyX+ngo6hjWolKIQMQ8UL5K1e6Uq6pl+kfeuW5X
- gc1/yPwB6PWBziJ5zsDG/6IltsRF0CbBqQjICnQ/2CGJAnqyo84sJ++HD+bqtonPNORj
- jTZQ==
-X-Gm-Message-State: AOJu0Ywp8nJ8wkptJelpZYtlMzm6yGRkdhV8DWGKa5W6IBuqZQG6AltG
- 8L2sAAvglmTHB347DYOVFTGU7hkMOV4+QVS/0i3QgeHJN94kxqu+k5y8Fd8H7YuJ4r5A0yUSL4p
- Zqf/dkDDm6TlpwgrhJ65h5xCAdn+PYgdO
-X-Google-Smtp-Source: AGHT+IGJJONBvyIDzHn2gmacKs5JgPTA/TMcxvUJ/weRfLLmaW+VA0EqMmd8KUWMhFjvACt3kbPGGYWtcA5IS//sDhI=
-X-Received: by 2002:a17:90a:4bc6:b0:2c9:6f5e:f5c1 with SMTP id
- 98e67ed59e1d1-2cf2379baa2mr3493269a91.10.1721921366081; Thu, 25 Jul 2024
- 08:29:26 -0700 (PDT)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3AF10E22E;
+ Thu, 25 Jul 2024 16:23:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=twNA7rkXv7ztSYkoabgEi8PHnA3hvOw2/FDCbtoFV8l7YcDR6rgOZASuP4pIN4X+gCopRGhYdl4jwl2pT5A6KVHsMmQ8uxod13uB6bSEGrrnrUYVPXLBZaG87bVQ17QoairTNmj7gxhKLYmsPgLeA4Q6SIjm069KTdHUPHTlxsUK5TFCdDpWxlJPI9n+mvfpa4vLUWrG0YfKSNRmeJWMPSbbu8IzCFvc3GGVwHEwkgN+hUFlbLc6fgW4aAlBIUlzlPgPQ86+2HunHzuZVCPMQUg8TJKks/9OmsN/dKstwBXpkohErWesZ1q6zuB0MWMe8thifXO0vbn5ZeEkES3mPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qqUjuZKDE4sIcFTq/EJy5erbYe3DebmWQkrlckyNSDQ=;
+ b=kAqMiQ445AgywoQan12azCrF3bClPduhW8vyuyVrKUCrmCTr8Lpqe2a5FABkL8PEbVi6FnJAkAevEDFrXL8JWmxWMQfCSQHXWpVvHZboMeAW+yi0L2x5qKh75ArFnuXyCAV5q2Pzyp/0eqDmS1ems6q6ZEiZsm/x8mE07D8KeoM6Nq6CUcyCoFYzawBBV2RfuCB+Rp/Pq+zdZPMJjiSsrgGr53uhxMUfhL5dFglo9RK8bnvtzT4ef88ZBjKUGmXvPdxoibEa7NTAN0eyoFmYkrBGcTDeqkMY4ZEO/L7a/0lID74rGilq98eX4HsE1/Fmrjk2+N2PZT1GpleBypk+fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qqUjuZKDE4sIcFTq/EJy5erbYe3DebmWQkrlckyNSDQ=;
+ b=vhcvd92wk5Xlb/cp3iJR1amasGx1K/f+cEvZ4ALkr1gn7b96q9oHHuWjzA99UM9C+ODUxnbhdKBtS4W66pjatIQEHCgcWUeCEljGNu2uF+mFmmVbucmfKUoMpcBkcBpk6NAmeAURe88e0f9gCv+eZXKwqIFbWsSroYy1wXaS1sQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB8495.namprd12.prod.outlook.com (2603:10b6:208:44d::9)
+ by DS0PR12MB9038.namprd12.prod.outlook.com (2603:10b6:8:f2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19; Thu, 25 Jul
+ 2024 16:23:40 +0000
+Received: from IA1PR12MB8495.namprd12.prod.outlook.com
+ ([fe80::97d3:87e9:1c4c:c692]) by IA1PR12MB8495.namprd12.prod.outlook.com
+ ([fe80::97d3:87e9:1c4c:c692%4]) with mapi id 15.20.7784.017; Thu, 25 Jul 2024
+ 16:23:40 +0000
+Message-ID: <b0017268-5651-4031-901e-45e64319d537@amd.com>
+Date: Thu, 25 Jul 2024 10:23:36 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/11] drm/amd/display: clean unused variables for hdmi
+ freesync parser
+To: Melissa Wen <mwen@igalia.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20240706034004.801329-1-mwen@igalia.com>
+ <20240706034004.801329-2-mwen@igalia.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20240706034004.801329-2-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0165.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::19) To IA1PR12MB8495.namprd12.prod.outlook.com
+ (2603:10b6:208:44d::9)
 MIME-Version: 1.0
-References: <20240725150055.1991893-1-alexander.deucher@amd.com>
-In-Reply-To: <20240725150055.1991893-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Jul 2024 11:29:14 -0400
-Message-ID: <CADnq5_NWdzoTVOuCEOFMhC0GF+26=2z8nknADXyiLxmAs9fTzQ@mail.gmail.com>
-Subject: Re: [PATCH V2 00/53] GC per queue reset
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB8495:EE_|DS0PR12MB9038:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a04b4ff-b3de-4221-45d0-08dcacc624ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cUtzL0FaZmc0QVNaVVVHQkRURUNIYzJpTEdqcWUvUU0vVnNuTytGK01tVGYx?=
+ =?utf-8?B?YXlFVll0SU5uSzB2MkJaS1FoTWhPM0J4My9EbTBENXVTWnNwd2F6UjZqVVpT?=
+ =?utf-8?B?K290L1ByOCtJRWtnSTB2eHgyUzE0R2hLVjhRcEt5YXYzc1NsenpVaUNMdmtQ?=
+ =?utf-8?B?VzJJdHpQbkJXQnJjbS9lMWF4ay93OWR4eWRPQTVLYmdDb1JSM3pLOXBadWFY?=
+ =?utf-8?B?enl0Vjl6VW15blB4ZGZpdVNwRGZjUXppQ1A5OC9ZY0EyYWdBR2tlemxuaVha?=
+ =?utf-8?B?V3k1UzZodmxYQ2RyL3plM3pTTU5DdlhSdWo0UVF1R0VDQUVkTVA4M213aXJu?=
+ =?utf-8?B?OFg2QUFocmx5Vzh3Q2RQNzBvbUVkZXdPRDI4QzY1Y2xjR0E0M3F0YmVBMDdZ?=
+ =?utf-8?B?bmpmWldoell4VUcyWWxNUEozbzZrbUF5VUJ1T0RrcVBDVmw2cnAzQitPY3pQ?=
+ =?utf-8?B?V05NeFViWGR5VmI3UUJWRW8yYlE1ZGxLeVMzcjZNMTNTWncyMDc4cE92dlpl?=
+ =?utf-8?B?OWQvQi9wdmlDWklON1EvOTJ2bEpTWEJHeVVmYk9ETnJMOG0zaDhJZzZKMm1V?=
+ =?utf-8?B?b2R6RFFqcW1STktYQzUvRjd1MmNCY2ZBUHlGd0NJNkE5eXdtVmV0STJseDY2?=
+ =?utf-8?B?MjZVaEJSdkthQkdXVGhBOHc5S0t5a2FINUpoOXlMWnZ2V3p6NVlDQ0NzUHlB?=
+ =?utf-8?B?dU8yaFUxSlpWdXBZTTVjU3M4SXFVNlpBbDczdllzd2FWTnpCTzVlL1J0UGd0?=
+ =?utf-8?B?SmlJTCtMQ2tLWTBjUWVaeG1UbHl5N0hrNXljdVA0R0RlVmZldkx5NnMxWWJu?=
+ =?utf-8?B?QVZDZmNpNE9jK0RBdDhRV3luVlNhdy92dGFpbVBITEJPd1ZRNGN3RnZ6Mkgz?=
+ =?utf-8?B?TTBkZFhrTmR4dXo4dHdsZVQ4TFNNd0VlaTJjK1pzNTA5dWkxVkRKUEVqQUt0?=
+ =?utf-8?B?Skt6ZWs1Q2dXTGpiNFp3ZWxBcFRiNUI0bXRwSW43UGhLYmNYNmVydVRnMXFX?=
+ =?utf-8?B?TDlhYXJtMFBBQTU1YWVpMmUvQ3B0MFFZK2c2SWI5UjZUcVJ1SWVxTnQ4cURx?=
+ =?utf-8?B?a2NLK01OMWpFeDVSVXZCc0l6UElYYWFlRGtpVVo5WGVzUXY1NXVVWllERmJZ?=
+ =?utf-8?B?RDlJZzJSYlFGamxYdUVKaFZSeHl3N3lOOUd3NXB0dzJMallMKzQwUS9NdTIr?=
+ =?utf-8?B?a0ZPUkVRaDZiV2hvS3NqK3Mzamt3OFdIQi9ORHRxcUw4VWhsMEtkRlgzaC82?=
+ =?utf-8?B?MmFlSnBzeDRnSlpqNXA2RDJOVkFrTWJiQjIzTHNUWVNaMVFNMDhXQ0FuNW5J?=
+ =?utf-8?B?VmU2b2FQM3N6QXJPNDlpcUNDaEV2TjdKQ25uaVhrK0t1dnIxV1hodmhmTytR?=
+ =?utf-8?B?TTdpQ25lWE5BN1plVVRTcnBuZXo5ME4zTitkYnE4Z3JiOU9qSVJEbThIRHBq?=
+ =?utf-8?B?VHh5KzJyQ2M0Z2VmVng5NDBwdDFlMjFkM0QwSGY1QVh3VU44MzE1RzdIUEZp?=
+ =?utf-8?B?amJ1emNIVXZmUXc1KzUrRCtreVNnRHZWbDJoY0JybkIvNTAxQzNwcUM4elBw?=
+ =?utf-8?B?SDcyeEl5TDZJRGQ1YmNaL0ltZENwR1YwZVFHWG0zalBVNkJJZlRIODFlVlZS?=
+ =?utf-8?B?dUltS0psOHk5bFM1NnNPVi91QmQyM0s2c0NjZ2J2UFJCOFZXNTZsd0VYenR2?=
+ =?utf-8?B?bmg1UXRPRlZQR2ZMRWZ5cWE5OHN0QWMwYWFRenNuMlg0Tzl5ME50MFlRWmFL?=
+ =?utf-8?B?YkZsRWlFaWdzKzF5S2MrRHk3ZnNKamdaZVpIOFV3Y2FjVU1DdUhia1N1NVVs?=
+ =?utf-8?B?ejIyYXA2VWcvZ3B3ZWVDUT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB8495.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEV1eTFHTXpYeHByeHJvTnhOMUpBUHJkWHFwTFJqNjZmNjRhcEZYdFRpMHgx?=
+ =?utf-8?B?QXM2YUVTaWxweWs0RGtQcStLT0pWcW9xMk4xTnpoZEpVSWEvc014clJyRlRm?=
+ =?utf-8?B?Y0NQZkNCd2J6SjJqRWtRUjVrdFVHUTJ6dlB5aE5NTmJEZWF1L3puUU5aS0l2?=
+ =?utf-8?B?MDdKeHd0elFFSG9PU2JvVzEwQnp2NzFlQWxDUndnYmpTaDVyUGw0TUgwSnlQ?=
+ =?utf-8?B?NTF5NmlmM2E0Nk9QNnJjeHhSbE1SMFZ1OXpiRkR4OUQwbUFVWlloUjNzR2s1?=
+ =?utf-8?B?UmtUV1FDUFBLVUoxdEFOQnkxNGYxd2FCYThOcmVYZ1FYMnozS0dvclhBTC91?=
+ =?utf-8?B?OGNSejlFZ3d6ZnhBV2swa2xVMWdUeGZJVTA0MnpNUG12M3lkTHZqMU1JQXpO?=
+ =?utf-8?B?VjBRNVdpYnNmQ2RHN0RsTTdZaGhrLy8xa0pHaU1xQmt0WEJDckJmVGxLRzdm?=
+ =?utf-8?B?aE5ZdEQyU2dNL3JJdm41RUZhSTVoK3JKY3Awdjg1MnVyL0ZGYXB1czhOZjN4?=
+ =?utf-8?B?b0NURUxYV2N2WHdVV0pRakhIdExrK0tTTFk3c2N1SGtVakt0YzYxblZrcHUy?=
+ =?utf-8?B?Z3dmT1lRTUNXR3FZQmxhanFKRVpXUE01NDhvMWhSc09jallGNDQrR2RmY04w?=
+ =?utf-8?B?RzNPd21OcjlkTnJRUlJTRUtZR3dicmJmVzFBQ0NoZEgwRFI3UHpra1VYbmRR?=
+ =?utf-8?B?WDlJZk0vMHVoc3BIK215SXl5VW01b3JJUDVIVWFyVWs5YThvanB3QnBWMnR4?=
+ =?utf-8?B?SGJPc1BCL0VnWFRQWGo3WE9xR0NVeUxwRmdnQmp0cWU2SkJyaDV3TEY2M09X?=
+ =?utf-8?B?bEhUQkFjV2xaNU1JRXhsRHdBM0hwWHZjRmxIbnc3NTNTankzSHAwRG5NZzA2?=
+ =?utf-8?B?cGphTnBrbndrRFM3VTFKUmxRTUQ1NXgxS2FHa09nb3k2U0pjRGh3R290ZDBn?=
+ =?utf-8?B?Yk1UdTkzQThFSngwMTZWWWdhMG50cXF2UER6ZkJhYTZqNytDbEczOWdNVSsw?=
+ =?utf-8?B?V0FsSkU5SDRZZ1Ntc0N3a0VTVTMyTHNwTFNXRkI1RmVFZkNXRFB0S1BKd1ln?=
+ =?utf-8?B?VzJLL3Q4K1owQ0VaWTBVQjh2bXRQZDVMNUZ1NzFwVGZ0eFpJNzhoRENzQnZV?=
+ =?utf-8?B?YVFCQ3BPMnpZZ2svYTJlTHRZWldGSHJ4TVVUVHN4SlJqemhqdTRQNm5TT0Jx?=
+ =?utf-8?B?VHdEakVtKzJIT3RLUjQwb1pUS2pGMHlXZldWVXBKU2EycW0veitodFhFY3Jm?=
+ =?utf-8?B?cXJObHplME40NEU5VUU5UDcyd0FKSTRPbi9Xb01wNFVaR05CN2V2VHVjMHk3?=
+ =?utf-8?B?TUhXbDIrLzgwYUdvYmV3TDNjM3BTeFNnMDBaTjVUMlBQUTdGZ0Q0VHpxZXZ6?=
+ =?utf-8?B?cjl3clNtck92Y2l0Rnc0Q3VBcWg2M3EyR092MVNzb3Q4U1U2c1I2K3hFSk9s?=
+ =?utf-8?B?ZmJIRys4ZktLbnozTnpaWjYvWWpOdjN1RW1oZHpieHQreWJuellOSnlzVTky?=
+ =?utf-8?B?bSt4dHh0ejloM0RrUzQzVHZkc1J0Uy9wM2ZwSFY4bHhUdmFyblY0US9LSHdy?=
+ =?utf-8?B?enRWQ0s1R2RNNU1KYmp5VnZlU2FZbVRycmNDZGZib2dGSFVIRlArZjRYNVZK?=
+ =?utf-8?B?clFzSllrRTFTUHdTc2Y5YnNZOGJIYmF6TTNUZlJrZkVYOWVFbi9STWxWREM1?=
+ =?utf-8?B?SSttcVJZK0pqM3phUEFsWGFtbE1ldVA4Y0tYV0V4WVhoc0xHNjhvYlJmOU5E?=
+ =?utf-8?B?RzNZQzZTYnZsNjdDQ3lzK2I1ZGxXT1hYbTFvMFhlZ1o5N2IxTTdNam1JSFVa?=
+ =?utf-8?B?UWE0eWpwU0oxOTAwZGY2bFFxOWt0cXNnTDFkcEM5T0gzT2NGUEVRaWMrNU9y?=
+ =?utf-8?B?V1pvbzhGaGhFdXp2M2FSY3R1ZTVnMlkzVzFPbTVLS0l1VXJpYkdsMklGdjM1?=
+ =?utf-8?B?dHlJTkhyb0hHSUw0blFHOEVYQmJRUnBTTXRmTXVqM3psSXo5VHNKTVduWVc3?=
+ =?utf-8?B?MGNES1NOaDRmQTdDbEZkUXIrNnFWU2ZTbU9vT1ZTU0ttYjVVdWdYZy9iSVgy?=
+ =?utf-8?B?bW51Y09SbHJ4L2VUM0NFOWZiY203WndRWEZnYVlRSU81TExQMFFyQ29xZ01u?=
+ =?utf-8?Q?Kc18r4f9QuasPu/LMlt6wT1VS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a04b4ff-b3de-4221-45d0-08dcacc624ca
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8495.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 16:23:40.2010 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dkPVDyRvAekM4anThrSzu435ARCItqezDaC3KfDAnRti0gUlupEoRg9KEf9a57mXrwDputJSYaD1dleoVZGnxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,104 +165,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 25, 2024 at 11:20=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
->
-> This adds preliminary support for GC per queue reset.  In this
-> case, only the jobs currently in the queue are lost.  If this
-> fails, we fall back to a full adapter reset.
->
-> V2: Fix fallbacks to full adapter reset
->     RLC safemode cleanup
->     Preliminary support for older GPUs
+Hi Melissa,
 
-Forgot to add a git link as well:
-https://gitlab.freedesktop.org/agd5f/linux/-/tree/amd-staging-drm-next-queu=
-e-reset?ref_type=3Dheads
+There are no commit messages in this patch.
 
-Alex
+Also, do you think this can be merged with Patch 5 "drm/amd/display: 
+remove redundant freesync parser for  DP"?
 
->
-> Alex Deucher (38):
->   drm/amdgpu/gfx10: handle SDMA in KIQ map/unmap
->   drm/amdgpu/mes11: handle second gfx pipe
->   drm/amdgpu/mes: add API for legacy queue reset
->   drm/amdgpu/mes11: add API for legacy queue reset
->   drm/amdgpu/mes12: add API for legacy queue reset
->   drm/amdgpu/mes: add API for user queue reset
->   drm/amdgpu/mes11: add API for user queue reset
->   drm/amdgpu/mes12: add API for user queue reset
->   drm/amdgpu: add new ring reset callback
->   drm/amdgpu: add per ring reset support (v5)
->   drm/amdgpu/gfx11: add ring reset callbacks
->   drm/amdgpu/gfx11: rename gfx_v11_0_gfx_init_queue()
->   drm/amdgpu/gfx10: add ring reset callbacks
->   drm/amdgpu/gfx10: rework reset sequence
->   drm/amdgpu/gfx9: add ring reset callback
->   drm/amdgpu/gfx9.4.3: add ring reset callback
->   drm/amdgpu/gfx12: add ring reset callbacks
->   drm/amdgpu/gfx12: fallback to driver reset compute queue directly
->   drm/amdgpu/gfx11: enter safe mode before touching CP_INT_CNTL
->   drm/amdgpu/gfx11: add a mutex for the gfx semaphore
->   drm/amdgpu/gfx11: export gfx_v11_0_request_gfx_index_mutex()
->   drm/amdgpu/gfx9: per queue reset only on bare metal
->   drm/amdgpu/gfx10: per queue reset only on bare metal
->   drm/amdgpu/gfx11: per queue reset only on bare metal
->   drm/amdgpu/gfx12: per queue reset only on bare metal
->   drm/amdgpu/gfx9: add ring reset callback for gfx
->   drm/amdgpu/gfx8: add ring reset callback for gfx
->   drm/amdgpu/gfx7: add ring reset callback for gfx
->   drm/amdgpu/gfx9: use proper rlc safe mode helpers
->   drm/amdgpu/gfx9.4.3: use proper rlc safe mode helpers
->   drm/amdgpu/gfx10: use proper rlc safe mode helpers
->   drm/amdgpu/gfx11: use proper rlc safe mode helpers
->   drm/amdgpu/gfx12: use proper rlc safe mode helpers
->   drm/amdgpu/gfx12: use rlc safe mode for soft recovery
->   drm/amdgpu/gfx11: use rlc safe mode for soft recovery
->   drm/amdgpu/gfx10: use rlc safe mode for soft recovery
->   drm/amdgpu/gfx9.4.3: use rlc safe mode for soft recovery
->   drm/amdgpu/gfx9: use rlc safe mode for soft recovery
->
-> Jiadong Zhu (13):
->   drm/amdgpu/gfx11: wait for reset done before remap
->   drm/amdgpu/gfx10: remap queue after reset successfully
->   drm/amdgpu/gfx10: wait for reset done before remap
->   drm/amdgpu/gfx9: remap queue after reset successfully
->   drm/amdgpu/gfx9: wait for reset done before remap
->   drm/amdgpu/gfx9.4.3: remap queue after reset successfully
->   drm/amdgpu/gfx_9.4.3: wait for reset done before remap
->   drm/amdgpu/gfx: add a new kiq_pm4_funcs callback for reset_hw_queue
->   drm/amdgpu/gfx9: implement reset_hw_queue for gfx9
->   drm/amdgpu/gfx9.4.3: implement reset_hw_queue for gfx9.4.3
->   drm/amdgpu/mes: modify mes api for mmio queue reset
->   drm/amdgpu/mes: implement amdgpu_mes_reset_hw_queue_mmio
->   drm/amdgpu/mes11: implement mmio queue reset for gfx11
->
-> Prike Liang (2):
->   drm/amdgpu: increase the reset counter for the queue reset
->   drm/amdgpu/gfx11: fallback to driver reset compute queue directly (v2)
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |   6 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  20 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    |  88 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  37 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |   2 +
->  drivers/gpu/drm/amd/amdgpu/cikd.h          |   1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 251 +++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 127 +++++++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.h     |   3 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 103 ++++++++-
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c      |  76 ++++++-
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      |  75 +++++-
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 179 ++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    | 132 ++++++++++-
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     | 134 +++++++++++
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c     |  54 +++++
->  drivers/gpu/drm/amd/amdgpu/nvd.h           |   2 +
->  drivers/gpu/drm/amd/amdgpu/vid.h           |   1 +
->  19 files changed, 1243 insertions(+), 49 deletions(-)
->
-> --
-> 2.45.2
->
+On 2024-07-05 21:35, Melissa Wen wrote:
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ---
+>   1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 98cf523a629e..1dfa7ec9af35 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -12108,9 +12108,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>   	} else if (edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+>   		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+>   		if (i >= 0 && vsdb_info.freesync_supported) {
+> -			timing  = &edid->detailed_timings[i];
+> -			data    = &timing->data.other_data;
+> -
+>   			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+>   			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+>   			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
