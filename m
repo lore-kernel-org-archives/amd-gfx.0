@@ -4,74 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D7FC3DA49
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 07:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BAA6C3DA7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 07:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3715110E24C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F56610E24D;
 	Thu, 25 Jul 2024 07:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TZztriR2";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="mzrfesd5";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84C3D10E69D;
- Wed, 24 Jul 2024 19:30:44 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-70d153fec2fso140607b3a.1; 
- Wed, 24 Jul 2024 12:30:44 -0700 (PDT)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62BF510E096;
+ Thu, 25 Jul 2024 01:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721849444; x=1722454244; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=I4MvnsTGWo0THFyPD9MrsKyrQPqeYvDANUUTqm+As1o=;
- b=TZztriR2p/IvSeQAS4SGqqx+M2O+FCNLI93UgGrY4zuXLfdnx7laCXmPUxYIkJc2iv
- fsMxWF0WSac8zeE/TlxWp6QkyhwxOHl4i9NA4HhjN4mZvJz0GYSqHSYmY91/13M11QQX
- 0ZfVSKJgIEjUfs62AZN8WhJExecVRw5rLQzZhlstRpC4c5W66MVh0suDcbEZeId/SaW7
- QrsQOGrt2tzxs2Qq3jPNQX5GPTwP03M0Jk7gfB93C1Xl8yaxIBZQ5beLuo+Ac21Ps8Yz
- PRwOZQRcuM1fJ+0AVWACE6OQuBEtxx+G2Nz+69ye347Cwh3roTuWCMDGUH9MgqM14Lth
- WhbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721849444; x=1722454244;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I4MvnsTGWo0THFyPD9MrsKyrQPqeYvDANUUTqm+As1o=;
- b=PC9yQsFPw1VvQ77vg/7uS3fvC0uyaF2/OG9CKUU5GzMn40ju2lyHk6wyVofnvcNWgw
- isE2jxZ6ASAAR1viNzh+SeCqFfRPvNQGRQkZgl7ZC+wparfPx5F8ZYmwO0BqU722WIYj
- l1+yKdsXcP0ubLV1SutbtZtwz/QyKVpGvEXiG2VxG8W8jHqtwv/m+5eL/8BdHW4OIsrp
- oH3lUocFG7pSbUGlTp0gqRiQrGDRvFdH1fOGl4Rf/4b0qidJ0Www0M+QvdE9C1QVj2lo
- Ure+XZnRP347O/5i4iWDgmaQ63qKqc9jru84FQ8haDRfys1xMx2Nhk5uoxGA79z6Yapf
- 8P9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXL0sGSdO5aMSGKKiQNft20rpSHR1dnPGuEXJfEgcJvzQOEwupr5ezF014MLMD3jIKUjaDArLti5+Rvk598T/BVG8X6fN928fhJjsbWrRpnQNcMOrZoZSwXdiR+BSfZhKSg2S/jPXxvITW0z96G+g==
-X-Gm-Message-State: AOJu0YyPPhdprwc+zxA1RUhLvFT54DwFhxn1gfQcco/JVk+GyVMm0e4i
- kswjcuVZSj133uIDxyystNE21nwBQZR9ZhM7WoDol6/LxHEbkbdB
-X-Google-Smtp-Source: AGHT+IGeMQuCgTIh3sLr3bbX2Tu5TYy4tqK2HRcEnZ6n/KheSClihGZCYHx0kW/iSQRWZ+Lsku7jpA==
-X-Received: by 2002:a05:6a20:840d:b0:1c4:2469:f893 with SMTP id
- adf61e73a8af0-1c472c6d61dmr1229216637.46.1721849443832; 
- Wed, 24 Jul 2024 12:30:43 -0700 (PDT)
-Received: from localhost ([2804:2484:804c:b67b:f1b3:b8d7:cfb4:98a5])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70d1971a5bcsm6395578b3a.0.2024.07.24.12.30.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jul 2024 12:30:43 -0700 (PDT)
-Date: Wed, 24 Jul 2024 16:30:39 -0300
-From: "Ricardo B. Marliere" <rbmarliere@gmail.com>
-To: Abhishek Tamboli <abhishektamboli9@gmail.com>
-Cc: airlied@gmail.com, daniel@ffwll.ch, harry.wentland@amd.com, 
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, 
+ d=linux.alibaba.com; s=default;
+ t=1721872648; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=hLBbEcnIh+1oprn+JujqfEAu3/3baKc5GVebY+RN8EM=;
+ b=mzrfesd5aLDOJxX5mA9OI5VhkXvAGTgUEESGO8BBQ8Tdxnop8yQVMFjsjrcP+NMAmKqiQBf6Wxt4CIG6+vcYkn1ZIB1YfCftX0mB1N/fxib1Gxme+FWc0C45hwOjzYzbqdAKdHc/jU9Tker7oBiUEil22FCEd4crjuVfChU3z64=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R361e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033032014031;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0WBFtJ-M_1721872633; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0WBFtJ-M_1721872633) by smtp.aliyun-inc.com;
+ Thu, 25 Jul 2024 09:57:27 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org, 
- marcelomspessoto@gmail.com, aurabindo.pillai@amd.com, adnelson@amd.com, 
- linux-kernel-mentees@lists.linuxfoundation.org
-Subject: Re: [PATCH] drm/amd/display: Fix documentation warning for mpc.h
-Message-ID: <qyoun6sfdpdxxzwystaimsiw3o33jwvoqxm3kpawczju2b3dl5@ytjpgyabbzet>
-References: <20240724175423.18075-1-abhishektamboli9@gmail.com>
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH -next] drm/amd/display: remove unneeded semicolon
+Date: Thu, 25 Jul 2024 09:57:12 +0800
+Message-Id: <20240725015712.50237-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240724175423.18075-1-abhishektamboli9@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 25 Jul 2024 07:47:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,49 +57,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 24 Jul 24 23:24, Abhishek Tamboli wrote:
-> Fix documentation compile warning by adding description
-> for program_3dlut_size function.
-> 
-> Remove the following warning:
-> ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1043: warning: Function parameter or struct member 'program_3dlut_size' not described in 'mpc_funcs'
-> 
-> Signed-off-by: Abhishek Tamboli <abhishektamboli9@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> index 40a9b3471208..615c69d966e7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-> @@ -1039,7 +1039,21 @@ struct mpc_funcs {
->  	*/
->  	void (*program_lut_mode)(struct mpc *mpc, const enum MCM_LUT_ID id, const enum MCM_LUT_XABLE xable,
->  			bool lut_bank_a, int mpcc_id);
-> -	void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int mpcc_id);
-> +	/**
-> +	 * @program_3dlut_size:
-> +	 *
-> +	 * Program 3D LUT size.
-> +	 *
-> +	 * Parameters:
-> +	 * - [in/out] mpc - MPC context.
-> +	 * - [in] is_17x17x17 - Boolean Flag.
-> +	 * - [in] mpcc_id - MPCC physical instance.
-> +	 *
-> +	 * Return:
-> +	 *
-> +	 * void
-> +	 */
+No functional modification involved.
 
-Reviewed-by: Ricardo B. Marliere <ricardo@marliere.net>
+./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:481:2-3: Unneeded semicolon.
+./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:3783:168-169: Unneeded semicolon.
+./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:3782:166-167: Unneeded semicolon.
 
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9575
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c      | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> +	 void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int mpcc_id);
->  };
->  
->  #endif
-> -- 
-> 2.34.1
-> 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index 0b671c665373..e4a14d41fb85 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -478,7 +478,7 @@ static unsigned int dml_get_tile_block_size_bytes(enum dml2_swizzle_mode sw_mode
+ 	default:
+ 		DML2_ASSERT(0);
+ 		return 256;
+-	};
++	}
+ }
+ 
+ static bool dml_is_vertical_rotation(enum dml2_rotation_angle Scan)
+@@ -3779,8 +3779,8 @@ static void CalculateSwathAndDETConfiguration(struct dml2_core_internal_scratch
+ 			p->SwathHeightC[k] = MaximumSwathHeightC[k] / 2;
+ 			RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
+ 			RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
+-			p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
+-			p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
++			p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
++			p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
+ 		}
+ 
+ 		if (p->SwathHeightC[k] == 0)
+-- 
+2.32.0.3.g01195cf9f
+
