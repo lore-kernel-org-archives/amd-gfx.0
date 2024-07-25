@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37683C3DA49
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50891C3DA49
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E084710E8AA;
-	Thu, 25 Jul 2024 18:04:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F09FF10E8AE;
+	Thu, 25 Jul 2024 18:04:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yIcVbrWU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SYFwUgJw";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F6E10E8AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:15 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2040.outbound.protection.outlook.com [40.107.96.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E694B10E8AD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M2CC4LCzarpjpWbbOiqaFZr7FNzUu78GW3oUvDFTDK9Ql9G4ejBO6hSpNHckRkDOvUEPHej3igPITyLQq3z++WLwUWIYZF0RcLkZqTRtfF4oFZeIFESIFDC4/nfIeLmNG5QZKpuqYJ8ntJN9VQ38vzY3elBnleICKpX5JVPY5PHZopeh2pdBbjMrvd85Kl27v5GmaEgMOaNFyeOZj+MJRibBtJY8FL0uXITUKVPll/1YVl+lYJo8VwDmc8tyeJqkj0lZWxLoww1ogzPa9hLzsIVX740ha50RCnKBbkpzMtaqpthfWdfrFWUAs38LPkriuxa1E0iL3IpsjBxhYvtC2w==
+ b=CHU6uIY5+h/7HtTCNkgcRmkF7jgkj7oiOyioiLZhR65QEjlbQO3vGLBwpMOYtmd8cVnLhWz8cai2QqM6fP62KWL3/Abiiiar9WeFwat3uKcfa+I5IffDc8oeL13jkzlNmSdRpMRwvpo0IP7w5B/hrXRnRv9nmYYR1D6j3bCgketWefs/bLWQ0sor97Rf39NxlJJum3xnntBCUqjXNGoZ9OClfGQPiCViwm7cuxCvGFk7AmGUCAn8O8MgMRM+5rwq87SWBtna3Wwfm5O1bKPrg4gHBEK6xBfa7bnjFquAMipxVpBkpPpMvrRyJshPww4xMQlpMc4YZgGT/BrQSX7D7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mwrxaokk2zo96jE2yFqsMppxQyWUype7uYO95DZkXUw=;
- b=Ydyjng8X7h+So+/UzgEeOLRNpLw2/bD5xXZDarP1evLOZcFNMAlWEOkMs92UGSRgT1P9iO6GcRIKRvStWJjVSLvhcQYgsQvkxNV8mVZ8Z3geiO4CUzYsUNcAHz33wb50D6iuUiGti//LUpwzcHBUkWzRwyJ3iAsi6aVZUU1P+hApI29Fulx0wop9O0uaZQ68cJEGzTHTnkLtsNoCLIWcARyRrOe0adn2HA2KDJC5n9XujmwWBwwtRsvMtaidQjqm0m0c4UivwL9j/S1VtEAwOymh2556w9jb9Rv5NseXfeE06M6U84rKACqZyjMKbNwZvM14jjCQd7XheH0KPQ8Mdw==
+ bh=rHg4ZdePVhchlAB6zpWsEYGQ41FwO541afzuTS9Fj2o=;
+ b=wqF4RPc0BRpGhz5eAQeOoxa7AG2NEEfR0RM2e2Dq/33C0skNmxtnFa9D3NHEUgZfv55hgOFkQRkyRDtbYrRjGIecXQK+DMl0q51g0lV4GejHG+dv3OXftfcgogjUAadc7yWGjnhwGOdyud1sI5JFAGVuLFTrR7Xwk85DUQ1F8N2ltmynQanA/XzhkSY6w4jg2lKZq7wJni8AoSxGDKLgg5P/jNLbf4Y9VoQA2lQUD1FUPHU2XOyKyw6aB3EGXE9aPqKrqWa6zcHWD5D8sMBkv7cbR71vAJ/BS/wFp9zknukVCM3MRCqDBqRJOLJ10wbnG/Wxjpgr+weDEUyTmg22zw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mwrxaokk2zo96jE2yFqsMppxQyWUype7uYO95DZkXUw=;
- b=yIcVbrWUu/miLFwMh6KG6i76qhLZsj9kOjs2PmTJ6aAXjxSVzgeoceMTqJtwIso7ZXSl1ahTaQHRt531hBU+6SgQ/UmvQ+LR9xUMb/EQsOzKF23psT8CEn4FO1eJHGLqRSTUP0ZhigczPP+0WKLPRta9io8nY1dVVsfj8yg+aMI=
-Received: from CH0PR13CA0015.namprd13.prod.outlook.com (2603:10b6:610:b1::20)
- by CYXPR12MB9386.namprd12.prod.outlook.com (2603:10b6:930:de::20)
+ bh=rHg4ZdePVhchlAB6zpWsEYGQ41FwO541afzuTS9Fj2o=;
+ b=SYFwUgJw9q5t6dq7GX09OPmlAeyYLsSUopO7UxSIZC4fU71zXc95xDg5qsVMW35j0ULcNOSkZonl9IGdEAg5PIPG3sRhaDQx4FR9Vfr5qKUuJ0qnXpaH3qQ3JyZ+Myn/ZfpI7mmUPWcOFXZaSBhiDJ/likaU3/jElB17LUXd6u4=
+Received: from CH0PR03CA0190.namprd03.prod.outlook.com (2603:10b6:610:e4::15)
+ by CH3PR12MB9080.namprd12.prod.outlook.com (2603:10b6:610:1a7::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Thu, 25 Jul
- 2024 18:04:07 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com
- (2603:10b6:610:b1:cafe::3c) by CH0PR13CA0015.outlook.office365.com
- (2603:10b6:610:b1::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29 via Frontend
- Transport; Thu, 25 Jul 2024 18:04:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.28; Thu, 25 Jul
+ 2024 18:04:21 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:e4:cafe::bc) by CH0PR03CA0190.outlook.office365.com
+ (2603:10b6:610:e4::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
+ Transport; Thu, 25 Jul 2024 18:04:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:07 +0000
+ 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:20 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 25 Jul
- 2024 13:04:04 -0500
+ 2024 13:04:12 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Hansen Dsouza
- <Hansen.Dsouza@amd.com>, Muhammad Ahmed <ahmed.ahmed@amd.com>, "Rodrigo
- Siqueira" <rodrigo.siqueira@amd.com>
-Subject: [PATCH 18/39] drm/amd/display: Add new enable and disable functions
-Date: Thu, 25 Jul 2024 12:01:02 -0600
-Message-ID: <20240725180309.105968-19-Rodrigo.Siqueira@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Jun Lei <jun.lei@amd.com>, Rodrigo Siqueira
+ <rodrigo.siqueira@amd.com>
+Subject: [PATCH 22/39] drm/amd/display: Use gpuvm_min_page_size_kbytes for
+ DML2 surfaces
+Date: Thu, 25 Jul 2024 12:01:06 -0600
+Message-ID: <20240725180309.105968-23-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
 References: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
@@ -77,51 +78,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|CYXPR12MB9386:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0795b463-c405-4dbe-48af-08dcacd42d9a
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|CH3PR12MB9080:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7dc7d7d-34e5-40a0-5f97-08dcacd43595
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eQkHT/mRBnZExAkMUidQ86KjtgvjjXLLtkmEoEg0NvEjHfDdPTsKD8H3/b8S?=
- =?us-ascii?Q?iicPQtCVrLX/mwfJHB9PAkzY/fmYakbago7qchhaQYFKPhVEr9PctaQNqQCY?=
- =?us-ascii?Q?Eg2wK+SpnGll3ysbs/RoLSnj6t+AIsLLgzO2Lcwpb4766ZrYH/9mS2o+hp71?=
- =?us-ascii?Q?Fon0AknjwzOq9MOrdz7sMIWHiUw+aqPDmnnfkLsWi8VQbhaW295LIwj3aCHa?=
- =?us-ascii?Q?ceR5OnE2TovyPFY44Su3U0maWCmEUU6f1Rfz6QkNoCMI0yYl5AWOZDHSa5W3?=
- =?us-ascii?Q?jhFDcOnECDdKA7uir2DLg/RlGA2h7QatscAB1fIiKj+pIWuOnku1b2HQEuCu?=
- =?us-ascii?Q?dqxZTuI0Id4xfyvzW0Rsgfg6KQORrUGczBolRkrmtOxDhWkZgDYyrmM5bz7R?=
- =?us-ascii?Q?uafZImBKynjbI0xJ6HXLkTw2lTFkeo8xBcNVCv7OXLw5qkkkkerOba/qDYhb?=
- =?us-ascii?Q?atFhTeD7svnTSKUQS3Po5X8zBNFEO2mI1UVseu41Nu7Rr0u7yM2JLgWiN+fF?=
- =?us-ascii?Q?6Vluk9TkJJnfJcz+KicKo/veQ+6hF7MgHZtH/F29GedfUi5PNmwO7GsjTkZO?=
- =?us-ascii?Q?Kp5Eo/3M++8SUrGaoQGqM6Gr1rJNxIm3iHxZHtI/MbnnURs0iVcvuenKcCcz?=
- =?us-ascii?Q?qijErzjXT7kjRvZ+91EhRtvuLp9aObLeXQCLuBZGnb2rpcDU0Flcemuvxmsl?=
- =?us-ascii?Q?ovGcM9xqqH+qwqkqWcuO5OZVbl47eHrti9grWkcsMQDZDBAZcKYVciqhHGJS?=
- =?us-ascii?Q?j4S+QYhb/tSnfaMB2b6ATO+/1sX7EgzmyrAQLJsoSO5F8sYEouGOLWMIl1xl?=
- =?us-ascii?Q?DzJlpCrGzF5bfCgR7N1nU785hQ1VzqQQxHuuU1p4/7evdIGtX8/EbdaH3BDF?=
- =?us-ascii?Q?FlUiyyjiOlSjnlp9c59O58aIBgCq7EHE7FKW948Ch+sVbCwDzVyBICnsaJQI?=
- =?us-ascii?Q?nrv3dhlNz6/cCbwgRWXKNvfLYuylW2JnxOvzzByzwnoRTxVM2LMLXXF8hqD/?=
- =?us-ascii?Q?HMiX/N/ruZ3C18mQLjCCqiBvVKP0BsZCE4xxkyJL+RyIQSUONh8qYBAEJLyM?=
- =?us-ascii?Q?bIjz88f6fGoEcVPYtmuKjz+J6eibvZAD01Ys/LcvhcdG4MorpCFtXPrj9kXY?=
- =?us-ascii?Q?sLnwww1Ps/0rrj8AX91si+TPf/QIMv+0ZQJcgvasRXKAiRtlXnFGXznm+Fwb?=
- =?us-ascii?Q?YNAu9UvWbC8DgXE1TEiyXM9TrmPT0MzmZY7TTt4D2R2RkYAhSXT6bn4kqT0M?=
- =?us-ascii?Q?y9wr+a3owLYeCP2TiWgx5bwxFqQlQ4XIxMDvMb36NsmRxlNZSvTmJv/Emvle?=
- =?us-ascii?Q?zET2Y2lx8ZlBFQw3HeWecIp6220XYqO/SOp70KIepK5gC9qA/l6uiHzU7Qmn?=
- =?us-ascii?Q?bQACef3TJe7h3DhCpluCJOyvmqel/2B3bXlmT98kNUwadN1YI9MCcw/wpTZH?=
- =?us-ascii?Q?Ivd+AFU/1v/hu+tR3V77plEYwZFL+OBe?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7n486MJblInL9UhtuTIrZhPVwQ7YdxZNl8oZ+p0dSUTmtXd8FZfAxsyplG5b?=
+ =?us-ascii?Q?5drt+UFN0ppMUoJzhzD4epg3aqqc37FeQg9rGOWLbOeVtqu9ykgogB4+02Bm?=
+ =?us-ascii?Q?5ttuO8blH0AT+shhsiui+Fd4f2ipDmk+MMbsAx7kcQUvq4XYqyqtXx0hxqck?=
+ =?us-ascii?Q?EPHZdZhMEjacpjjMshHxsPcL1O+NDsrrswWvGaG9l/OCuDY6v/C0EwL3nHYk?=
+ =?us-ascii?Q?b0k3pZtC2P8Ilmi8+plYzSRDn4skVOx7tvksyBaLEjgfc2tiWblWH+YDrRB7?=
+ =?us-ascii?Q?MoFcJf85cs98abU4Jf7CJ5Xi4v6xb0sbfjqSVjjJUgJXSbfkv32Y0EiqZBV+?=
+ =?us-ascii?Q?r6yIvU2rqRvBbmU/8zeqeMZYqGcbskvHdC+kcnDZl2lazHU9eLPHbE8Kf274?=
+ =?us-ascii?Q?svzU9HoTWSmffahc4hEAcAE+cBvSdSqoUn+Q8zaw5eRgaTygkOG45POJiUxT?=
+ =?us-ascii?Q?9JPuqGZbKn0vhY3sRIpbmUY5EeXsHEsZo6AFoaj7gQQfufaGF2+zsB5lQGnM?=
+ =?us-ascii?Q?RHRySSRbQMOZ+fbtFBfVl7j8li3B4emUrl6+ZIivmd4f0A/UU14YlQziEYno?=
+ =?us-ascii?Q?Pi7No20LcVCBN1oJpc1RnjTC6eUhWH7QOrZ4IfNdyMis5d9HHRVcMgHzqfE4?=
+ =?us-ascii?Q?z1ff0KiBmohWACR9HW8R1j+jvOIeVLmXBBFe4t6vrLHDp0CWLTiAKnAq0ziX?=
+ =?us-ascii?Q?K/xI9WHRQXQgAsdYhFCTycRntxActRH+77qm48SJ1aLkUQG7I4wTNcRQ7Iy5?=
+ =?us-ascii?Q?tS2RWgjAFrpjgGtW3TRSYPurjCoGUVZiGiFgVQlKmvpFiVxJ3vdvpGg8xGbC?=
+ =?us-ascii?Q?IGLyhDc0RZTfwt+4QpGqrp+FiOxXVgDWSUJXgt97+LTFnFn4Ip4xCgHYoRvu?=
+ =?us-ascii?Q?bfSMY4VHHVMiroBqHqlhvAwzI8MjV3ZHLTXwFad83sxduP2ctZrvg4l6oO5r?=
+ =?us-ascii?Q?6wMzCWXGcTBaDWDBel+/pXCKAN7ZG9Vqzg97elrX26KmNrdnOKvkuGW4sc10?=
+ =?us-ascii?Q?ar3ZeZZcP6ChQI4DOTT5GXadAegtTS9WGzy4f8Jc3TAOahAWd9AsDX9X+r5/?=
+ =?us-ascii?Q?oPm3oB+GIHKgk44LWPQesfnicHsgX+4RMl01wqGyuzh6s2qIgL4fzBUSkfmn?=
+ =?us-ascii?Q?YH6NNrAPUSAoF+cbq0RtZUXsCfh2R5ys9JRbAqnlNNYgrsbyL4Nlbx6d1qrS?=
+ =?us-ascii?Q?BF7JX4ZNvBaSns2Oysu+LICfNEXrfd1+RLUyG/YD2DQ7KWVv1TW0oW2KtoqT?=
+ =?us-ascii?Q?EZdxwua5GIPDiJxH2DAg5ds/p8kQWi/eaRrP5hSITgyNvTVHmLzX6RYSaS95?=
+ =?us-ascii?Q?xjxyEWKvmBz3pqvz18oh/bB9Fg5OVUE+GVFUQM/gkq0WUCNYFnwSOs3lD5AL?=
+ =?us-ascii?Q?uKP7Ly579O9KkEwz6WJiLfUGgpr1aLqRKUP3pnO/BNVirnVRegpdQ8/6J7qj?=
+ =?us-ascii?Q?XlvyrDDiDOglwvEWeokhCmf33JsuVnA3?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:07.5866 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0795b463-c405-4dbe-48af-08dcacd42d9a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:20.9137 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7dc7d7d-34e5-40a0-5f97-08dcacd43595
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9386
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9080
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,247 +137,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hansen Dsouza <Hansen.Dsouza@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Add new enable and disable functions based on DCCG spec.
+[Why]
+It's currently hard coded to 256 when it should be using the SOC
+provided values. This can result in corruption with linear surfaces
+where we prefetch more PTE than the buffer can hold.
 
-Signed-off-by: Hansen Dsouza <Hansen.Dsouza@amd.com>
-Reviewed-by: Muhammad Ahmed <ahmed.ahmed@amd.com>
+[How]
+Update the min page size correctly for the plane.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Jun Lei <jun.lei@amd.com>
 Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 ---
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 212 ++++++++++++++++++
- 1 file changed, 212 insertions(+)
+ .../display/dc/dml2/dml2_translation_helper.c | 20 +++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-index b698b773338a..7d88b0ae241c 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
-@@ -732,6 +732,206 @@ static void dccg35_set_symclk_fe_src_new(struct dccg *dccg, enum physymclk_fe_so
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+index 25d4ef040173..7e39873832bf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
+@@ -954,7 +954,9 @@ static void get_scaler_data_for_plane(const struct dc_plane_state *in, struct dc
+ 	memcpy(out, &temp_pipe->plane_res.scl_data, sizeof(*out));
  }
  
-+static uint32_t dccg35_is_fe_rcg(struct dccg *dccg, int inst)
-+{
-+	uint32_t enable = 0;
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+
-+	switch (inst) {
-+	case 0:
-+		REG_GET(DCCG_GATE_DISABLE_CNTL5,
-+				SYMCLKA_FE_ROOT_GATE_DISABLE, &enable);
-+		break;
-+	case 1:
-+		REG_GET(DCCG_GATE_DISABLE_CNTL5,
-+				SYMCLKB_FE_ROOT_GATE_DISABLE, &enable);
-+		break;
-+	case 2:
-+		REG_GET(DCCG_GATE_DISABLE_CNTL5,
-+				SYMCLKC_FE_ROOT_GATE_DISABLE, &enable);
-+		break;
-+	case 3:
-+		REG_GET(DCCG_GATE_DISABLE_CNTL5,
-+				SYMCLKD_FE_ROOT_GATE_DISABLE, &enable);
-+		break;
-+	case 4:
-+		REG_GET(DCCG_GATE_DISABLE_CNTL5,
-+				SYMCLKE_FE_ROOT_GATE_DISABLE, &enable);
-+		break;
-+	default:
-+		BREAK_TO_DEBUGGER();
-+		break;
-+	}
-+	return enable;
-+}
-+
-+static uint32_t dccg35_is_symclk32_se_rcg(struct dccg *dccg, int inst)
-+{
-+	uint32_t disable_l1 = 0;
-+	uint32_t disable_l2 = 0;
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+
-+	switch (inst) {
-+	case 0:
-+		REG_GET_2(DCCG_GATE_DISABLE_CNTL3,
-+				  SYMCLK32_SE0_GATE_DISABLE, &disable_l1,
-+				  SYMCLK32_ROOT_SE0_GATE_DISABLE, &disable_l2);
-+		break;
-+	case 1:
-+		REG_GET_2(DCCG_GATE_DISABLE_CNTL3,
-+				  SYMCLK32_SE1_GATE_DISABLE, &disable_l1,
-+				  SYMCLK32_ROOT_SE1_GATE_DISABLE, &disable_l2);
-+		break;
-+	case 2:
-+		REG_GET_2(DCCG_GATE_DISABLE_CNTL3,
-+				  SYMCLK32_SE2_GATE_DISABLE, &disable_l1,
-+				  SYMCLK32_ROOT_SE2_GATE_DISABLE, &disable_l2);
-+		break;
-+	case 3:
-+		REG_GET_2(DCCG_GATE_DISABLE_CNTL3,
-+				  SYMCLK32_SE3_GATE_DISABLE, &disable_l1,
-+				  SYMCLK32_ROOT_SE3_GATE_DISABLE, &disable_l2);
-+		break;
-+	default:
-+		BREAK_TO_DEBUGGER();
-+		return 0;
-+	}
-+
-+	/* return true if either block level or DCCG level gating is active */
-+	return (disable_l1 | disable_l2);
-+}
-+
-+static void dccg35_enable_symclk_fe_new(
-+	struct dccg *dccg,
-+	int inst,
-+	enum physymclk_fe_source src)
-+{
-+	dccg35_set_physymclk_fe_rcg(dccg, inst, false);
-+	dccg35_set_symclk_fe_src_new(dccg, src, inst);
-+}
-+
-+static void dccg35_disable_symclk_fe_new(
-+	struct dccg *dccg,
-+	int inst)
-+{
-+	dccg35_set_symclk_fe_src_new(dccg, PHYSYMCLK_FE_REFCLK, inst);
-+	dccg35_set_physymclk_fe_rcg(dccg, inst, true);
-+}
-+
-+static void dccg35_enable_symclk_be_new(
-+	struct dccg *dccg,
-+	int inst,
-+	enum physymclk_source src)
-+{
-+	dccg35_set_physymclk_rcg(dccg, inst, false);
-+	dccg35_set_physymclk_src_new(dccg, inst, src);
-+}
-+
-+static void dccg35_disable_symclk_be_new(
-+	struct dccg *dccg,
-+	int inst)
-+{
-+	int i;
-+
-+	/* Switch from functional clock to refclock */
-+	dccg35_set_physymclk_src_new(dccg, inst, PHYSYMCLK_REFCLK);
-+
-+	/* Check if any other SE connected LE and disable them */
-+	for (i = 0; i < 4; i++) {
-+		/* Make sure FE is not already in RCG */
-+		if (dccg35_is_fe_rcg(dccg, i) == 0) {
-+			if (dccg35_is_symclk_fe_src_functional_be(dccg, i, inst))
-+				dccg35_disable_symclk_fe_new(dccg, i);
-+		}
-+	}
-+	/* Safe to RCG SYMCLK*/
-+	dccg35_set_physymclk_rcg(dccg, inst, true);
-+}
-+
-+static void dccg35_enable_symclk32_se_new(
-+	struct dccg *dccg,
-+	int inst,
-+	enum symclk32_se_clk_source src)
-+{
-+	dccg35_set_symclk32_se_rcg(dccg, inst, false);
-+	dccg35_set_symclk32_se_src_new(dccg, inst, src);
-+}
-+
-+static void dccg35_disable_symclk32_se_new(
-+	struct dccg *dccg,
-+	int inst)
-+{
-+	dccg35_set_symclk32_se_src_new(dccg, SYMCLK32_SE_REFCLK, inst);
-+	dccg35_set_symclk32_se_rcg(dccg, inst, true);
-+}
-+
-+static void dccg35_enable_symclk32_le_new(
-+	struct dccg *dccg,
-+	int inst,
-+	enum symclk32_le_clk_source src)
-+{
-+	dccg35_set_symclk32_le_rcg(dccg, inst, false);
-+	dccg35_set_symclk32_le_src_new(dccg, inst, src);
-+}
-+
-+static void dccg35_disable_symclk32_le_new(
-+	struct dccg *dccg,
-+	int inst)
-+{
-+	int i;
-+
-+	/* Switch from functional clock to refclock */
-+	dccg35_set_symclk32_le_src_new(dccg, inst, SYMCLK32_LE_REFCLK);
-+
-+	/* Check if any SE are connected and disable SE as well */
-+	for (i = 0; i < 4; i++) {
-+		/* Make sure FE is not already in RCG */
-+		if (dccg35_is_symclk32_se_rcg(dccg, i) == 0) {
-+			/* Disable and SE connected to this LE before RCG */
-+			if (dccg35_is_symclk32_se_src_functional_le_new(dccg, i, inst))
-+				dccg35_disable_symclk32_se_new(dccg, i);
-+		}
-+	}
-+	/* Safe to RCG SYM32_LE*/
-+	dccg35_set_symclk32_le_rcg(dccg, inst, true);
-+}
-+
-+static void dccg35_enable_dpp_new(
-+	struct dccg *dccg,
-+	int inst,
-+	enum dppclk_clock_source src)
-+{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+	/* Sanitize inst before use in array de-ref */
-+	if (inst < 0) {
-+		BREAK_TO_DEBUGGER();
-+		return;
-+	}
-+	dccg35_set_dppclk_rcg(dccg, inst, false);
-+	dcn35_set_dppclk_src_new(dccg, inst, src);
-+	/* Switch DPP clock to DTO */
-+	REG_SET_2(DPPCLK_DTO_PARAM[inst], 0,
-+			  DPPCLK0_DTO_PHASE, 0xFF,
-+			  DPPCLK0_DTO_MODULO, 0xFF);
-+}
-+
-+static void dccg35_disable_dpp_new(
-+	struct dccg *dccg,
-+	int inst)
-+{
-+	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-+	/* Sanitize inst before use in array de-ref */
-+	if (inst < 0) {
-+		BREAK_TO_DEBUGGER();
-+		return;
-+	}
-+	dcn35_set_dppclk_src_new(dccg, inst, DPP_REFCLK);
-+	REG_SET_2(DPPCLK_DTO_PARAM[inst], 0,
-+			  DPPCLK0_DTO_PHASE, 0,
-+			  DPPCLK0_DTO_MODULO, 1);
-+	dccg35_set_dppclk_rcg(dccg, inst, true);
-+}
-+
- static void dccg35_trigger_dio_fifo_resync(struct dccg *dccg)
+-static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned int location, const struct dc_stream_state *in)
++static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned int location,
++					 const struct dc_stream_state *in,
++					 const struct soc_bounding_box_st *soc)
  {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-@@ -1753,6 +1953,18 @@ struct dccg *dccg35_create(
- 	(void)&dccg35_set_physymclk_src_new;
- 	(void)&dccg35_is_symclk_fe_src_functional_be;
- 	(void)&dccg35_set_symclk_fe_src_new;
-+	(void)&dccg35_is_fe_rcg;
-+	(void)&dccg35_is_symclk32_se_rcg;
-+	(void)&dccg35_enable_symclk_fe_new;
-+	(void)&dccg35_disable_symclk_fe_new;
-+	(void)&dccg35_enable_symclk_be_new;
-+	(void)&dccg35_disable_symclk_be_new;
-+	(void)&dccg35_enable_symclk32_se_new;
-+	(void)&dccg35_disable_symclk32_se_new;
-+	(void)&dccg35_enable_symclk32_le_new;
-+	(void)&dccg35_disable_symclk32_le_new;
-+	(void)&dccg35_enable_dpp_new;
-+	(void)&dccg35_disable_dpp_new;
+ 	dml_uint_t width, height;
  
- 	base = &dccg_dcn->base;
- 	base->ctx = ctx;
+@@ -971,7 +973,7 @@ static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned
+ 	out->CursorBPP[location] = dml_cur_32bit;
+ 	out->CursorWidth[location] = 256;
+ 
+-	out->GPUVMMinPageSizeKBytes[location] = 256;
++	out->GPUVMMinPageSizeKBytes[location] = soc->gpuvm_min_page_size_kbytes;
+ 
+ 	out->ViewportWidth[location] = width;
+ 	out->ViewportHeight[location] = height;
+@@ -1008,7 +1010,9 @@ static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned
+ 	out->ScalerEnabled[location] = false;
+ }
+ 
+-static void populate_dml_plane_cfg_from_plane_state(struct dml_plane_cfg_st *out, unsigned int location, const struct dc_plane_state *in, struct dc_state *context)
++static void populate_dml_plane_cfg_from_plane_state(struct dml_plane_cfg_st *out, unsigned int location,
++						    const struct dc_plane_state *in, struct dc_state *context,
++						    const struct soc_bounding_box_st *soc)
+ {
+ 	struct scaler_data *scaler_data = kzalloc(sizeof(*scaler_data), GFP_KERNEL);
+ 	if (!scaler_data)
+@@ -1019,7 +1023,7 @@ static void populate_dml_plane_cfg_from_plane_state(struct dml_plane_cfg_st *out
+ 	out->CursorBPP[location] = dml_cur_32bit;
+ 	out->CursorWidth[location] = 256;
+ 
+-	out->GPUVMMinPageSizeKBytes[location] = 256;
++	out->GPUVMMinPageSizeKBytes[location] = soc->gpuvm_min_page_size_kbytes;
+ 
+ 	out->ViewportWidth[location] = scaler_data->viewport.width;
+ 	out->ViewportHeight[location] = scaler_data->viewport.height;
+@@ -1332,7 +1336,8 @@ void map_dc_state_into_dml_display_cfg(struct dml2_context *dml2, struct dc_stat
+ 			disp_cfg_plane_location = dml_dispcfg->num_surfaces++;
+ 
+ 			populate_dummy_dml_surface_cfg(&dml_dispcfg->surface, disp_cfg_plane_location, context->streams[i]);
+-			populate_dummy_dml_plane_cfg(&dml_dispcfg->plane, disp_cfg_plane_location, context->streams[i]);
++			populate_dummy_dml_plane_cfg(&dml_dispcfg->plane, disp_cfg_plane_location,
++						     context->streams[i], &dml2->v20.dml_core_ctx.soc);
+ 
+ 			dml_dispcfg->plane.BlendingAndTiming[disp_cfg_plane_location] = disp_cfg_stream_location;
+ 
+@@ -1348,7 +1353,10 @@ void map_dc_state_into_dml_display_cfg(struct dml2_context *dml2, struct dc_stat
+ 				ASSERT(disp_cfg_plane_location >= 0 && disp_cfg_plane_location <= __DML2_WRAPPER_MAX_STREAMS_PLANES__);
+ 
+ 				populate_dml_surface_cfg_from_plane_state(dml2->v20.dml_core_ctx.project, &dml_dispcfg->surface, disp_cfg_plane_location, context->stream_status[i].plane_states[j]);
+-				populate_dml_plane_cfg_from_plane_state(&dml_dispcfg->plane, disp_cfg_plane_location, context->stream_status[i].plane_states[j], context);
++				populate_dml_plane_cfg_from_plane_state(
++					&dml_dispcfg->plane, disp_cfg_plane_location,
++					context->stream_status[i].plane_states[j], context,
++					&dml2->v20.dml_core_ctx.soc);
+ 
+ 				if (stream_mall_type == SUBVP_MAIN) {
+ 					dml_dispcfg->plane.UseMALLForPStateChange[disp_cfg_plane_location] = dml_use_mall_pstate_change_sub_viewport;
 -- 
 2.43.0
 
