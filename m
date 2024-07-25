@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41811C3DA7E
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C4AC3DA49
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8A0210E8A9;
-	Thu, 25 Jul 2024 18:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9149F10E8A2;
+	Thu, 25 Jul 2024 18:04:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X7ErdVWi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ubOiD0bv";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2081.outbound.protection.outlook.com [40.107.96.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2DF910E89B
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:05 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5EF210E8A2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CtrfxXWsB04HshZ2oNX+VhLAs6fmLsROYySpC5KL8j3pjHRmLPmHqFCageSnoKHj7Dai9MWy/WbfMIESTq4GQ6LBwzJJ5dmk/VuC+o/i8xKyrMI+eoBnezE4MeEJtWAZsGocojbRZWRbXlRckBABB7j0WbQeQ6l+kZFLwZe0wgJvZnD1FN3QBbyVp29JL/na/dAsZhKcQ/57mWyU1lE96VM8PCDUUbvkXLZUirIviE+IKp4w9ueX6Tzci/C7Yf4k5bCa4FnbV8IXje/ZvB00pXbDsRa6tdPQC8nb4XziwY+vR/cG1wpA/NLBERb0l+p47nphQRCGTLXeNFdXla5I2w==
+ b=CnARdU/WCWl9l+xCqhoiC3qu91WiDIVSKVF2VEwTeNFAdty8lCh1SO78j3mg94e7iTOBhfYJHDYxKIG2q0Bs6VirIRrQdbCYc03kK2SLGBefOUSNNyJuoJJZZvnPHK5O/lLyOm9i2XnDkSOsbJ11nZisiOgmfgMpCv1fZ8gYXiLC9+DwIFABx3EIbkUg3BP+ExWOKsPp1B5yW2Gos34mT1Czmwkr33kw6tm7LmJ5KR7emKFeuXCQVihU4ttHXD2mmBpLrjZkzQAHHjGHChVkrxsDwr8LT0MlUEG6i8yZY9dXgUM6/XxHUIivMgDUfPy1k+CI8P5MGsirYqeNaPWwuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oE2tIu/F6k2NfTpj7J2Wb7mDrBTMXl81j3Qf5TdZWMo=;
- b=XbWHVOq2wzltgEbxxPpGpHJvq2ZWZNx+uLNlQSvwfy9GncRNzY8jL5kpXGrYpls4r/u9PoMiyxpMgFQTjl6hoY3Ma7Bn1+iaW/fcxE+NQIWivX/jUxe08+eRk5Ucmns7jq0xghEmgnp/p6dqt2wyyjz/aG+QOVoSgu3tY+46ZUkCDVCgINMfuXgJLb5YtFFQ2RHgW9sTZolPwMdQkf7gUSPLtgbTn/p0gQ8S2FrXVae6DAfLTQcwLncas5EvJQesvSOCkY1zo804BwkRXcVLt33Whewc+D2rJtkJLpgQ+uCG8DIIA8hoh87VYNL93uFuhxhdbv/x94MaLHUS+gi8eQ==
+ bh=zqoBrtapTV8h/a1HPY43k//OS0SeNND2qsCifl7qzHw=;
+ b=H+CaM0oeFyeMkyWxvQR+h/ScmXzC3ZFMQbl199LUTXn2RQvBx3F6jxGD5UtcCSZH89kaOETLoypeW5nZ67P2UcJgKEYKZOsuoCQaBrE1/tZEUKzoS7+gKWAYMT2l1lJEiMbRWCSCVzDWVBcFRGAUlsXCOlpU4JJbZavkIHI3vpH0w7EFdD/pO4EerzjqLHv5WhfZpDI7Z267ySAtEfr7U7Lw9OxuUElv9JtaAGTeRvam1F5jmR1c9TwofB17VjsEeaNn6fhblu+G+aJLbkhyvyrjZ3JBOiduNUw+a6/78kkOu6AJfgfLolFzIYtnZ9pDkpk31nQ+RvGDuJZfa1mQsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oE2tIu/F6k2NfTpj7J2Wb7mDrBTMXl81j3Qf5TdZWMo=;
- b=X7ErdVWiSFZSL2NJXHrDswj5VIc51a6Ehq1hXyIn51YiYOouRVIii2ITd36Z4G6ZgZXIRKpJUsRxQfvQlJJZTcbzQ839DGjipEDshqo0B0SbqKQi9uU2vyZQ21laCarXLXvM0RqaHtNRFqnSUaE0sEPl3o49FuP+crRZ2AXrUTQ=
-Received: from CH2PR18CA0023.namprd18.prod.outlook.com (2603:10b6:610:4f::33)
- by IA0PR12MB7723.namprd12.prod.outlook.com (2603:10b6:208:431::10)
+ bh=zqoBrtapTV8h/a1HPY43k//OS0SeNND2qsCifl7qzHw=;
+ b=ubOiD0bvBifS5gGekj6L7lztRWNV1vEg41SdMng/eXpm9zk7u7R7JZcd+8Ow3EW1dYBM59XASU5whZRouL5AK//QECD/siyE7HKT8B/PDPzA75GyhUoLToAFMpoB6n6W9kmb/wggT9FL/nUA/JmUgd7Ywq3gkwanNtse/bCy6Tw=
+Received: from CH2PR10CA0029.namprd10.prod.outlook.com (2603:10b6:610:4c::39)
+ by SJ2PR12MB7943.namprd12.prod.outlook.com (2603:10b6:a03:4c8::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19; Thu, 25 Jul
- 2024 18:04:02 +0000
-Received: from CH2PEPF0000013B.namprd02.prod.outlook.com
- (2603:10b6:610:4f:cafe::3f) by CH2PR18CA0023.outlook.office365.com
- (2603:10b6:610:4f::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29 via Frontend
- Transport; Thu, 25 Jul 2024 18:04:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29; Thu, 25 Jul
+ 2024 18:04:04 +0000
+Received: from CH2PEPF0000013D.namprd02.prod.outlook.com
+ (2603:10b6:610:4c:cafe::6f) by CH2PR10CA0029.outlook.office365.com
+ (2603:10b6:610:4c::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19 via Frontend
+ Transport; Thu, 25 Jul 2024 18:04:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000013B.mail.protection.outlook.com (10.167.244.68) with Microsoft
+ CH2PEPF0000013D.mail.protection.outlook.com (10.167.244.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:02 +0000
+ 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:04 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 25 Jul
- 2024 13:03:59 -0500
+ 2024 13:04:01 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Duncan Ma <duncan.ma@amd.com>, "Rodrigo
- Siqueira" <rodrigo.siqueira@amd.com>
-Subject: [PATCH 15/39] drm/amd/display: Add seamless boot support for more DIG
- operation modes
-Date: Thu, 25 Jul 2024 12:00:59 -0600
-Message-ID: <20240725180309.105968-16-Rodrigo.Siqueira@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Ilya Bakoulin
+ <Ilya.Bakoulin@amd.com>, Alvin Lee <alvin.lee2@amd.com>, Rodrigo Siqueira
+ <rodrigo.siqueira@amd.com>
+Subject: [PATCH 16/39] drm/amd/display: Use correct cm_helper function
+Date: Thu, 25 Jul 2024 12:01:00 -0600
+Message-ID: <20240725180309.105968-17-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
 References: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
@@ -78,51 +77,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013B:EE_|IA0PR12MB7723:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78072d41-23f5-4b86-c1a1-08dcacd42a74
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013D:EE_|SJ2PR12MB7943:EE_
+X-MS-Office365-Filtering-Correlation-Id: af5c39f6-2c05-4a09-bd3b-08dcacd42b8a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?d5cJvVP/yH21Bs5GJhd3tn3wQhajDTx/WU5DHWCYXVr7yMLCyxjQwWO1d7py?=
- =?us-ascii?Q?O6dUpLg/JCRnM6b/lN78x43svQCA/nLbhxWNz8KxKgOBwUVIA/i20lrY42OG?=
- =?us-ascii?Q?gP+G85tVRjLNc9q79qOsyMh8N0i1g6Ih7gqCAMR1An8pZ45kGM9KoULXnhQB?=
- =?us-ascii?Q?z+hBNF3NpshvNJtFQG4+ipqENk0yGnwR/+8fhlVxJgZb5J5jLrQteUtAXK1r?=
- =?us-ascii?Q?EXWrOYNbZ2Wtfppt4QaGbqqo9g2q60fE82EeZOvlJR+BIkMno7C1C7t1Xwkv?=
- =?us-ascii?Q?BZaeaubYYvIvbxyojNJBV4FzohquJRTloSByvTNP341ruUk/W29NsNVyHQjZ?=
- =?us-ascii?Q?Z/q/4Vv6QFAGbyXzpmkGYs4K8DOJTxt84/0+rK87dwkBDAAIaufq5+nPBL5O?=
- =?us-ascii?Q?D9JR8uPWVcoeFdI51u9xHZ38e9B3DfpU7+taSBtAgjPAAsPoq5nMSYG0u1oq?=
- =?us-ascii?Q?8KmKSG2QHmpcOiu4VWyM0DGhjuTx8kDgAy3o6TNujIGwTLqXj50T1QuhWFiQ?=
- =?us-ascii?Q?DIqXe+1YIPExz0baNAYAO37mMhyqk5XplWbNgPk0n6o0xXh7GQmUttZ3DT5e?=
- =?us-ascii?Q?TxCBWz0N6VZMxiC0Qgz/XJksujOB01InuIZalKQ+PZYzxk8uAxdrRHcMPb/q?=
- =?us-ascii?Q?CKMZgB+7/TThfyYAax6ALci5ulY1JckNS+s9N7D6bXs8LLiKLbFVOqweT1iM?=
- =?us-ascii?Q?u/FG+D0SjQrFSFlafMgcF+fGvs8dT+22mmQnv1Ua54rfw7qDy0pWm8eYEha3?=
- =?us-ascii?Q?ANKgFKrwaTrV5kyeyttt+DMJxLCY4nuS3xazk1rdGpPNdFxGzQZ3bWm68o/m?=
- =?us-ascii?Q?qiNnvs2d+zwN5LC4gkuvU7msM4lVKDkQ+2exaEBgkXvQXDsqqzDReOKh8rem?=
- =?us-ascii?Q?hbdqX4d48H4dFRVDd8mO5aqFJzwpoKB0sO+5li6Td6YAzEpryaoJSqsJmpo0?=
- =?us-ascii?Q?x3FfnABHtQ1/6Tq4kCBRjJrx/04J6VkQgUHcgq+u4MxMoBiFJGTAfiu0LWIL?=
- =?us-ascii?Q?JbFFjhz/MAMfKiTFApBCsL7g5z702my+8TvzcipIAF9c3ibOnZb4SSAdqNP+?=
- =?us-ascii?Q?j5I+Ouj9nmj/zHUYyEQeXUyPTsiwbgVOObrqyqKBUTr4ZHnnIpGJ81flfyGu?=
- =?us-ascii?Q?QDsHFIGxgvCnAgpdRiDWsRfY7F3EBTn7bmXvVmb/Ki5+SmrsQvIjjuQK0B5p?=
- =?us-ascii?Q?/7cZJ+lM3A5dJc8zwHfciNxPXOyAr703a24wQ+EK41pytSfj+bnSlqOsMyDb?=
- =?us-ascii?Q?2a8U5xWMmtrvFYSoc9ur/oF96VTPfbfjZgxni+XtSMgjhWTnf84V26DhxE+g?=
- =?us-ascii?Q?ZnTHWuFpEX72F+RRHbMNxj8103ZAioYWoePk4DY7UY9hJIJ3YW4iG24Wdu7v?=
- =?us-ascii?Q?a1RRKv2g9bRd6ONhcCDGnCxBN9ecAv8NZB1au2d0xlVM/CIRRnV5OOWav/6N?=
- =?us-ascii?Q?zNtebCff9mDYsIAk1vuCyiwJuuABvUkQ?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lUM6amBx6X9P5Yx0AKlzizquuhBY9cMnrLFPMbdYxF3Gw2GfzHaYNsdpOrLn?=
+ =?us-ascii?Q?klkH7AmKb5bSZzUP0rZHxHferV/AokJ6Y9WTtzJnukCuLZx0u7Nzcn9tJR1k?=
+ =?us-ascii?Q?mJzMIWgXbV1V6j00bjdy8aY2f935zeXkjgdRV9DuDONr8XjHoAV0KR10c518?=
+ =?us-ascii?Q?/kGg2ZCK+bASAaylR1AGd5OiyrKOCs2p87fbpetfRvJvoJazXmzpZ3LD8810?=
+ =?us-ascii?Q?Yjh93SJJ0nxasnrMaawbwsi9C4CTwuV6hTuyi8jNtzGorwXC4WLSM67C75h+?=
+ =?us-ascii?Q?A33laOSMs0uhEEplMhj1nvhPi+oVKW9Dvwqdlx60vRqcpakHxJtjZV62MZ9w?=
+ =?us-ascii?Q?babGe+LVCTTCHShRtfElxoP//RcGx2tGmQccQwwvucGEl1Je/6bkl+WROPo2?=
+ =?us-ascii?Q?YwfMVc6qUolbse78aShpnJd2aIEUkA9FAGLP8dzAsCd+zGx0zq+wy8KN4jlH?=
+ =?us-ascii?Q?Mwx6+CcYNRZR3BrVoejHAT3rfBhTuMHu0Vr9bTodI014pnXhm0NAR4wg6/8O?=
+ =?us-ascii?Q?xhaFidGl76Lubf0509zkNK81C1fKh/5ti0tHZr19fUDXiPsKtduFn2qcc27r?=
+ =?us-ascii?Q?u+4FkVglT46xS+6G5QjdxTcsxF6+piBlwVD1akjg+6mrWa2w+ZGv5toC68WO?=
+ =?us-ascii?Q?Gq+jEOmVwKi9bFaa6gi6QMnmnynMaV6+LZzGe2jRYxeOT5eSam4ZDJYGaQlk?=
+ =?us-ascii?Q?JnPtbgwXmWK8wIwspYu7Kb4BHDVg1ljMarwkPQcz74dcEMKATtQWvKrEUxED?=
+ =?us-ascii?Q?PK0N9Xqqh6wCW7BkdprEv22TMZmVmVVufiY1YIFkGVWwm/LffPNXrGshVsJR?=
+ =?us-ascii?Q?5PX7OpNSJ/DqGOY4Jon7HmD9iqdcur0x6WNiHpC9EDhOqqEfMdQAsSOBrLSS?=
+ =?us-ascii?Q?38SrEzxFVXD7XroOAmoSzePrmHaoCGldNhsO8cf9ihedCO7mwVmBfTZ5yIg7?=
+ =?us-ascii?Q?9TJycUls0A8iL8yHmmzrVcCCtm4PwlrMSCMIeoKMXxsU0raSay6VhMUDYbg9?=
+ =?us-ascii?Q?IYEy2k1MF7HNfZybiiIE8ilHEVguD+LgEy74YxXXzHfIQShzyOXBqKCvYEWZ?=
+ =?us-ascii?Q?+EMW/dXPyJ93uXODf3mGA8Km5vLSFt8CXWkftkdLTGP6aHY46V5xeRgXDCI0?=
+ =?us-ascii?Q?Y/SrD31+hEjMWpEPid1NOgR25PVeYgz/fxVjMzGuYk398lxRlf9CETwyjxtn?=
+ =?us-ascii?Q?KDHarI+57wSNW1qEXyn+6SlGtLKgLIjOHN7YvNhQML1uKDo8QWYrfSAgK7em?=
+ =?us-ascii?Q?W7Wt8fWNn3RnHC6H64+COiOUbjwf3ifK1ltku5M/BTasbvUvPqqMsIk/wLkd?=
+ =?us-ascii?Q?hqWeEDsAr+JH/XmzYFo82wd2ublqMc0FR14Xu74nkwqTkMEAnBWMfGTRel0f?=
+ =?us-ascii?Q?L5kjX63nIGMk7bzekPuVMfE0ZdRfE343PPiYkBmcpu0ZHwV6dW8uN5BQtHjb?=
+ =?us-ascii?Q?ILJlYdUfhb5IJFK9H+lQLpDNIkF60d0n?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:02.2763 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78072d41-23f5-4b86-c1a1-08dcacd42a74
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:04.0980 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af5c39f6-2c05-4a09-bd3b-08dcacd42b8a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7723
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7943
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,105 +136,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-[Why]
-When pre-OS firmware enables display support for displays that operate
-the DIG in 2 pixels per cycle processing modes the inferred pixel rate
-from get_pixel_clk_frequency_100hz does not account for the true pixel
-rate since we're outputting 2 per cycle past the stream encoder.
+Need to use cm3_helper function with DCN401 to avoid cases where high
+RGB component values can get set to zero if using the TF curve generated
+by cm_helper.
 
-This causes seamless boot validation to abort early.
-
-[How]
-Add a new stream encoder function for getting pixels per cycle from the
-stream encoder. If the pixels per cycle is greater than 1 and the driver
-policy is to enable 2 pixels per cycle for post-OS then allow seamless
-boot to continue.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Duncan Ma <duncan.ma@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
 Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 12 ++++++++++--
- .../dc/dio/dcn35/dcn35_dio_stream_encoder.c   | 19 +++++++++++++++++++
- .../amd/display/dc/inc/hw/stream_encoder.h    |  1 +
- 3 files changed, 30 insertions(+), 2 deletions(-)
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 22 +++++++++----------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ed811352506e..143415d600ac 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1823,10 +1823,18 @@ bool dc_validate_boot_timing(const struct dc *dc,
- 			tg->funcs->get_optc_source(tg,
- 						&numOdmPipes, &id_src[0], &id_src[1]);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 0fa610590245..8e1ca709d304 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -497,6 +497,7 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+ 	enum MCM_LUT_XABLE lut3d_xable = MCM_LUT_DISABLE;
+ 	enum MCM_LUT_XABLE lut1d_xable = MCM_LUT_DISABLE;
+ 	bool is_17x17x17 = true;
++	bool rval;
  
--		if (numOdmPipes == 2)
-+		if (numOdmPipes == 2) {
- 			pix_clk_100hz *= 2;
--		if (numOdmPipes == 4)
-+		} else if (numOdmPipes == 4) {
- 			pix_clk_100hz *= 4;
-+		} else if (se && se->funcs->get_pixels_per_cycle) {
-+			uint32_t pixels_per_cycle = se->funcs->get_pixels_per_cycle(se);
-+
-+			if (pixels_per_cycle != 1 && !dc->debug.enable_dp_dig_pixel_rate_div_policy)
-+				return false;
-+
-+			pix_clk_100hz *= pixels_per_cycle;
-+		}
+ 	dcn401_get_mcm_lut_xable_from_pipe_ctx(dc, pipe_ctx, &shaper_xable, &lut3d_xable, &lut1d_xable);
  
- 		// Note: In rare cases, HW pixclk may differ from crtc's pixclk
- 		// slightly due to rounding issues in 10 kHz units.
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c
-index 19e50fbf908d..6ab2a218b769 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c
-@@ -422,6 +422,24 @@ void enc35_enable_fifo(struct stream_encoder *enc)
- 	REG_UPDATE(DIG_FIFO_CTRL0, DIG_FIFO_ENABLE, 1);
- }
+@@ -506,11 +507,10 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+ 		if (mcm_luts.lut1d_func->type == TF_TYPE_HWPWL)
+ 			m_lut_params.pwl = &mcm_luts.lut1d_func->pwl;
+ 		else if (mcm_luts.lut1d_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(
+-					dc->ctx,
++			rval = cm3_helper_translate_curve_to_hw_format(
+ 					mcm_luts.lut1d_func,
+ 					&dpp_base->regamma_params, false);
+-			m_lut_params.pwl = &dpp_base->regamma_params;
++			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
+ 		}
+ 		if (m_lut_params.pwl) {
+ 			if (mpc->funcs->populate_lut)
+@@ -527,11 +527,10 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+ 			m_lut_params.pwl = &mcm_luts.shaper->pwl;
+ 		else if (mcm_luts.shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
+ 			ASSERT(false);
+-			cm_helper_translate_curve_to_hw_format(
+-					dc->ctx,
++			rval = cm3_helper_translate_curve_to_hw_format(
+ 					mcm_luts.shaper,
+ 					&dpp_base->regamma_params, true);
+-			m_lut_params.pwl = &dpp_base->regamma_params;
++			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
+ 		}
+ 		if (m_lut_params.pwl) {
+ 			if (mpc->funcs->populate_lut)
+@@ -669,6 +668,7 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+ 	struct mpc *mpc = pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
+ 	bool result = true;
+ 	const struct pwl_params *lut_params = NULL;
++	bool rval;
  
-+static uint32_t enc35_get_pixels_per_cycle(struct stream_encoder *enc)
-+{
-+	struct dcn10_stream_encoder *enc1 = DCN10STRENC_FROM_STRENC(enc);
-+	uint32_t value;
-+
-+	REG_GET(DIG_FIFO_CTRL0, DIG_FIFO_OUTPUT_PIXEL_MODE, &value);
-+
-+	switch (value) {
-+	case 0:
-+		return 1;
-+	case 1:
-+		return 2;
-+	default:
-+		ASSERT_CRITICAL(false);
-+		return 1;
-+	}
-+}
-+
- static const struct stream_encoder_funcs dcn35_str_enc_funcs = {
- 	.dp_set_odm_combine =
- 		enc314_dp_set_odm_combine,
-@@ -474,6 +492,7 @@ static const struct stream_encoder_funcs dcn35_str_enc_funcs = {
- 	.disable_fifo = enc35_disable_fifo,
- 	.is_fifo_enabled = enc35_is_fifo_enabled,
- 	.map_stream_to_link = enc35_stream_encoder_map_to_link,
-+	.get_pixels_per_cycle = enc35_get_pixels_per_cycle,
- };
+ 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
+ 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
+@@ -677,10 +677,9 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+ 		if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+ 			lut_params = &plane_state->blend_tf.pwl;
+ 		else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
+-					&plane_state->blend_tf,
++			rval = cm3_helper_translate_curve_to_hw_format(&plane_state->blend_tf,
+ 					&dpp_base->regamma_params, false);
+-			lut_params = &dpp_base->regamma_params;
++			lut_params = rval ? &dpp_base->regamma_params : NULL;
+ 		}
+ 		result = mpc->funcs->program_1dlut(mpc, lut_params, mpcc_id);
+ 		lut_params = NULL;
+@@ -693,10 +692,9 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+ 		else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+ 			// TODO: dpp_base replace
+ 			ASSERT(false);
+-			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
+-					&plane_state->in_shaper_func,
++			rval = cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
+ 					&dpp_base->shaper_params, true);
+-			lut_params = &dpp_base->shaper_params;
++			lut_params = rval ? &dpp_base->shaper_params : NULL;
+ 		}
  
- void dcn35_dio_stream_encoder_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-index 6fe42120738d..fe7f3137f228 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-@@ -273,6 +273,7 @@ struct stream_encoder_funcs {
- 	void (*disable_fifo)(struct stream_encoder *enc);
- 	bool (*is_fifo_enabled)(struct stream_encoder *enc);
- 	void (*map_stream_to_link)(struct stream_encoder *enc, uint32_t stream_enc_inst, uint32_t link_enc_inst);
-+	uint32_t (*get_pixels_per_cycle)(struct stream_encoder *enc);
- };
- 
- struct hpo_dp_stream_encoder_state {
+ 		result = mpc->funcs->program_shaper(mpc, lut_params, mpcc_id);
 -- 
 2.43.0
 
