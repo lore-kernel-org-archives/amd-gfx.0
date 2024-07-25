@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50891C3DA49
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3380FC3DA5D
 	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 18:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F09FF10E8AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D31B610E8AC;
 	Thu, 25 Jul 2024 18:04:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SYFwUgJw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mZExAIZZ";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2040.outbound.protection.outlook.com [40.107.96.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E694B10E8AD
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:23 +0000 (UTC)
+Received: from outbound.mail.protection.outlook.com
+ (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 635E710E8AD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 18:04:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CHU6uIY5+h/7HtTCNkgcRmkF7jgkj7oiOyioiLZhR65QEjlbQO3vGLBwpMOYtmd8cVnLhWz8cai2QqM6fP62KWL3/Abiiiar9WeFwat3uKcfa+I5IffDc8oeL13jkzlNmSdRpMRwvpo0IP7w5B/hrXRnRv9nmYYR1D6j3bCgketWefs/bLWQ0sor97Rf39NxlJJum3xnntBCUqjXNGoZ9OClfGQPiCViwm7cuxCvGFk7AmGUCAn8O8MgMRM+5rwq87SWBtna3Wwfm5O1bKPrg4gHBEK6xBfa7bnjFquAMipxVpBkpPpMvrRyJshPww4xMQlpMc4YZgGT/BrQSX7D7A==
+ b=e23cKjqpAYWLHlxK8c/NfbO9IWz+YUiMLH8X0/svVlxWt88EThZbg5O9SFeWk3UIthM5uWtao/OQn2PNwBcS3VeUAmUi4j/3TtoSH0rRPTdicPauDYE9En9Wtz1P/mKEgpDNyfKvNezOMgc3JUshsWWweELQ652IqSbLYCUSTSYk2aZm8uhw8VfMnkQxBwAR0epNhPD67vGFQLxuJKMSy8j1mB5tr3xU+Pp1VVsmN8hXdlN7rdA+NDKNTNs13FVwJ/eX88GQVW8VshSrilmvDRJ5dJ+KusGThnYTmMxQWVWt4G+XCuLxgPV5l4nbOtqVmSIyGk4RAXRaUXOjEIgtoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rHg4ZdePVhchlAB6zpWsEYGQ41FwO541afzuTS9Fj2o=;
- b=wqF4RPc0BRpGhz5eAQeOoxa7AG2NEEfR0RM2e2Dq/33C0skNmxtnFa9D3NHEUgZfv55hgOFkQRkyRDtbYrRjGIecXQK+DMl0q51g0lV4GejHG+dv3OXftfcgogjUAadc7yWGjnhwGOdyud1sI5JFAGVuLFTrR7Xwk85DUQ1F8N2ltmynQanA/XzhkSY6w4jg2lKZq7wJni8AoSxGDKLgg5P/jNLbf4Y9VoQA2lQUD1FUPHU2XOyKyw6aB3EGXE9aPqKrqWa6zcHWD5D8sMBkv7cbR71vAJ/BS/wFp9zknukVCM3MRCqDBqRJOLJ10wbnG/Wxjpgr+weDEUyTmg22zw==
+ bh=acS53DxSGakRALvfCUW7duAyIdcebfp1g1cX4m2EvTU=;
+ b=tgaXx+cS+oOFfwKIInYa1EQNyoKz6iZEh+afFGMmrh1rxBiMH9pDMSh6YkvXQTGjIeE08jC2bLkHog27yQ7ARWSXigXQsQTzcDPHRv+NUKYQXfnjYTfs+efS6J1xl3DeY+uodoaP136fGf7bnhatTDWuOyWe1oC8YF/RNuhbqz22B716fSWv7NKTxvEiuCgP6XALd5TQFegJqVtvFt2f4h7kc5PD1TsogdJtZuoVlTqtNUVRyr6gye6NvyIzrnhT3ocKcRpah5eBs3iG3ZbYuvCAOlEhgvc8oAFqIUd/YrJHNOfDDO/xODzqfJlM0kOEG1HVCmrs4YF61j1xou4YnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rHg4ZdePVhchlAB6zpWsEYGQ41FwO541afzuTS9Fj2o=;
- b=SYFwUgJw9q5t6dq7GX09OPmlAeyYLsSUopO7UxSIZC4fU71zXc95xDg5qsVMW35j0ULcNOSkZonl9IGdEAg5PIPG3sRhaDQx4FR9Vfr5qKUuJ0qnXpaH3qQ3JyZ+Myn/ZfpI7mmUPWcOFXZaSBhiDJ/likaU3/jElB17LUXd6u4=
-Received: from CH0PR03CA0190.namprd03.prod.outlook.com (2603:10b6:610:e4::15)
- by CH3PR12MB9080.namprd12.prod.outlook.com (2603:10b6:610:1a7::12)
+ bh=acS53DxSGakRALvfCUW7duAyIdcebfp1g1cX4m2EvTU=;
+ b=mZExAIZZwHMNAdGTDW8PJ/AzsZFQXtpu5izWruvdnbaCXGGzLct+Dp8yE6buod/3Bu7g7m8Cs0GJRHUjWX6NPEzT7HToCirbLVh2Vcy1bjCimvtlTFZ9+VuF/xBaN2mge7AYzJXk/HtM8ZoarEpsBusblQAZhyDjVNSXVZR6tZk=
+Received: from CH0PR03CA0377.namprd03.prod.outlook.com (2603:10b6:610:119::31)
+ by BY5PR12MB4145.namprd12.prod.outlook.com (2603:10b6:a03:212::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.28; Thu, 25 Jul
- 2024 18:04:21 +0000
-Received: from CH2PEPF00000142.namprd02.prod.outlook.com
- (2603:10b6:610:e4:cafe::bc) by CH0PR03CA0190.outlook.office365.com
- (2603:10b6:610:e4::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.27; Thu, 25 Jul
+ 2024 18:04:19 +0000
+Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
+ (2603:10b6:610:119:cafe::7) by CH0PR03CA0377.outlook.office365.com
+ (2603:10b6:610:119::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20 via Frontend
- Transport; Thu, 25 Jul 2024 18:04:21 +0000
+ Transport; Thu, 25 Jul 2024 18:04:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
+ CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:20 +0000
+ 15.20.7784.11 via Frontend Transport; Thu, 25 Jul 2024 18:04:12 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 25 Jul
- 2024 13:04:12 -0500
+ 2024 13:04:08 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Jun Lei <jun.lei@amd.com>, Rodrigo Siqueira
- <rodrigo.siqueira@amd.com>
-Subject: [PATCH 22/39] drm/amd/display: Use gpuvm_min_page_size_kbytes for
- DML2 surfaces
-Date: Thu, 25 Jul 2024 12:01:06 -0600
-Message-ID: <20240725180309.105968-23-Rodrigo.Siqueira@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Subject: [PATCH 20/39] drm/amd/display: Check null values from functions
+Date: Thu, 25 Jul 2024 12:01:04 -0600
+Message-ID: <20240725180309.105968-21-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
 References: <20240725180309.105968-1-Rodrigo.Siqueira@amd.com>
@@ -78,51 +76,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|CH3PR12MB9080:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7dc7d7d-34e5-40a0-5f97-08dcacd43595
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|BY5PR12MB4145:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5048fadc-7e95-4c01-c8ac-08dcacd430bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7n486MJblInL9UhtuTIrZhPVwQ7YdxZNl8oZ+p0dSUTmtXd8FZfAxsyplG5b?=
- =?us-ascii?Q?5drt+UFN0ppMUoJzhzD4epg3aqqc37FeQg9rGOWLbOeVtqu9ykgogB4+02Bm?=
- =?us-ascii?Q?5ttuO8blH0AT+shhsiui+Fd4f2ipDmk+MMbsAx7kcQUvq4XYqyqtXx0hxqck?=
- =?us-ascii?Q?EPHZdZhMEjacpjjMshHxsPcL1O+NDsrrswWvGaG9l/OCuDY6v/C0EwL3nHYk?=
- =?us-ascii?Q?b0k3pZtC2P8Ilmi8+plYzSRDn4skVOx7tvksyBaLEjgfc2tiWblWH+YDrRB7?=
- =?us-ascii?Q?MoFcJf85cs98abU4Jf7CJ5Xi4v6xb0sbfjqSVjjJUgJXSbfkv32Y0EiqZBV+?=
- =?us-ascii?Q?r6yIvU2rqRvBbmU/8zeqeMZYqGcbskvHdC+kcnDZl2lazHU9eLPHbE8Kf274?=
- =?us-ascii?Q?svzU9HoTWSmffahc4hEAcAE+cBvSdSqoUn+Q8zaw5eRgaTygkOG45POJiUxT?=
- =?us-ascii?Q?9JPuqGZbKn0vhY3sRIpbmUY5EeXsHEsZo6AFoaj7gQQfufaGF2+zsB5lQGnM?=
- =?us-ascii?Q?RHRySSRbQMOZ+fbtFBfVl7j8li3B4emUrl6+ZIivmd4f0A/UU14YlQziEYno?=
- =?us-ascii?Q?Pi7No20LcVCBN1oJpc1RnjTC6eUhWH7QOrZ4IfNdyMis5d9HHRVcMgHzqfE4?=
- =?us-ascii?Q?z1ff0KiBmohWACR9HW8R1j+jvOIeVLmXBBFe4t6vrLHDp0CWLTiAKnAq0ziX?=
- =?us-ascii?Q?K/xI9WHRQXQgAsdYhFCTycRntxActRH+77qm48SJ1aLkUQG7I4wTNcRQ7Iy5?=
- =?us-ascii?Q?tS2RWgjAFrpjgGtW3TRSYPurjCoGUVZiGiFgVQlKmvpFiVxJ3vdvpGg8xGbC?=
- =?us-ascii?Q?IGLyhDc0RZTfwt+4QpGqrp+FiOxXVgDWSUJXgt97+LTFnFn4Ip4xCgHYoRvu?=
- =?us-ascii?Q?bfSMY4VHHVMiroBqHqlhvAwzI8MjV3ZHLTXwFad83sxduP2ctZrvg4l6oO5r?=
- =?us-ascii?Q?6wMzCWXGcTBaDWDBel+/pXCKAN7ZG9Vqzg97elrX26KmNrdnOKvkuGW4sc10?=
- =?us-ascii?Q?ar3ZeZZcP6ChQI4DOTT5GXadAegtTS9WGzy4f8Jc3TAOahAWd9AsDX9X+r5/?=
- =?us-ascii?Q?oPm3oB+GIHKgk44LWPQesfnicHsgX+4RMl01wqGyuzh6s2qIgL4fzBUSkfmn?=
- =?us-ascii?Q?YH6NNrAPUSAoF+cbq0RtZUXsCfh2R5ys9JRbAqnlNNYgrsbyL4Nlbx6d1qrS?=
- =?us-ascii?Q?BF7JX4ZNvBaSns2Oysu+LICfNEXrfd1+RLUyG/YD2DQ7KWVv1TW0oW2KtoqT?=
- =?us-ascii?Q?EZdxwua5GIPDiJxH2DAg5ds/p8kQWi/eaRrP5hSITgyNvTVHmLzX6RYSaS95?=
- =?us-ascii?Q?xjxyEWKvmBz3pqvz18oh/bB9Fg5OVUE+GVFUQM/gkq0WUCNYFnwSOs3lD5AL?=
- =?us-ascii?Q?uKP7Ly579O9KkEwz6WJiLfUGgpr1aLqRKUP3pnO/BNVirnVRegpdQ8/6J7qj?=
- =?us-ascii?Q?XlvyrDDiDOglwvEWeokhCmf33JsuVnA3?=
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8QZTDVGSAmrRv8bLCWEZLty79f//eZXXhRrUIpOfjq1Bx48FjsDkPr9T0Nfn?=
+ =?us-ascii?Q?k4hBgKa+FRItIE2trS0+0EzgLHVjzpJDKCxmXdeRWjKqeyGv84The3ur6lv4?=
+ =?us-ascii?Q?dkpvo9q+gILdXutE4A0cFB7k4zo5AzuOjDfuW0v6F9hxxpY5QTF8e0t2kILS?=
+ =?us-ascii?Q?yZl9tN/5EVC2v3e4c4MG5Aky1sgiNweYCnqxykRL315K4JJ2tVYkXAFxgjaN?=
+ =?us-ascii?Q?a9417ELA47ix99vQNg3+VP17BZa3rc3bkXpagKPtmY+PR9yV+g30I3Shnieu?=
+ =?us-ascii?Q?ZYWMwlQR1xkIH0IuR3ta1TmE9Hlqc9iM/hox7Mfc9v2CB+iok/wpvgQowJMF?=
+ =?us-ascii?Q?IkSJq7ctL6nygk4CKv7/Y1QyacrOu8VbnTDsDwaYc3ALp80y3K48xRvxwH8N?=
+ =?us-ascii?Q?Cf4KLdUWHOWeYPVeCJ4J5tCrmFEJ9oACaDz+AvaNLJuonogcZbEMFU3k6sRI?=
+ =?us-ascii?Q?dGC9DtwFt5uwK+enr+ZR5QFCw7mF9xS8/KE7dC52VYpEn9yvY3qrPZLeS2nJ?=
+ =?us-ascii?Q?3yJj/hzx0BNqPyLfMwISZjh2WiGUDd/QiyWDRZ1WGqTN4+WUX+kz4Rf0GC8A?=
+ =?us-ascii?Q?urk9Db9SOvj8e775JwXcasIxpqPJUim/tADOFcnhcMe2FxcBbKMGFKvc6WDs?=
+ =?us-ascii?Q?WpwTr9xnmGg0W0V76xGC2qxMqFYZk8lKVIbZpp3tbObPC1ZqLhOC0ZvCcj3F?=
+ =?us-ascii?Q?Gi8ybZ26/U99mheK2kHDW6cW6tW0S1o1WI60qbDsryQiopDQGBVSehNfWE+X?=
+ =?us-ascii?Q?GXnJpXWAhbH6eGx6cEzCiDlNdDlEk2UGdgyOdir4zaoGN+HqOMJLOM0XXDWM?=
+ =?us-ascii?Q?1dm0Y/62uMy3UNGxxeEck1vRLEooD0o737n741XtHYOIVLWtMw/5qqvmD5wb?=
+ =?us-ascii?Q?/+u8bfSQHOJVA73T7gKPBmzjTCjo9ZEGLEKR21LjKw2jtPsPJWUpUfYY5GYd?=
+ =?us-ascii?Q?kZEiJ6fTXrZ/3GYWPB4yBatUhI889W6L8eDcDCbCy6fp2qyqxRrg4a7jQoWe?=
+ =?us-ascii?Q?FL4i3nj2YT28BEtXzVG15zHUlr3aROyl/G7/UVIbyhGn6U7iMo/VqigH29Xk?=
+ =?us-ascii?Q?3oNzdyqzML0l0uKcM0WQ63ZxtbBxdo9IZrAWNzhuWwtPzP9XuAXSIz2GVvqP?=
+ =?us-ascii?Q?OZbNWJQk14Dk5p7KKtVOil2FGxbvsuKK4PcbponeCBmNb7jc1H/rG7Z8Y/k9?=
+ =?us-ascii?Q?OcgYep8Yk5OtjfNOmvn1xSHRMbnfDsz+Zw8U0N608iSGuSHZHtvRjE0sLy0D?=
+ =?us-ascii?Q?49ylRLUs3CdbxfFLUTcI6UeBbUYO2rS1Hx0QJZoXLFGUcMPjimgolUnFMhXU?=
+ =?us-ascii?Q?KsEOQoLp82fsMm6WWPAgbuut9fPB6z3J0UrlY2fNCuGLE6z4zi73omJk0Emv?=
+ =?us-ascii?Q?fMX/6xO/3vmZMYd5kzRNhYvbKh4fNrgFGq9glyQqh8ExKQgvf4vw6RYItQ86?=
+ =?us-ascii?Q?8Lhtbhu+pu0=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:20.9137 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7dc7d7d-34e5-40a0-5f97-08dcacd43595
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2024 18:04:12.8368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5048fadc-7e95-4c01-c8ac-08dcacd430bd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9080
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4145
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,89 +135,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[Why]
-It's currently hard coded to 256 when it should be using the SOC
-provided values. This can result in corruption with linear surfaces
-where we prefetch more PTE than the buffer can hold.
+Functions get_per_method_common_meta and get_expanded_strategy_list can
+return null and thus it is necessary to check their returned values
+before dereferencing.
 
-[How]
-Update the min page size correctly for the plane.
+This fixes 3 NULL_RETURNS issues reported by Coverity.
 
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Jun Lei <jun.lei@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 ---
- .../display/dc/dml2/dml2_translation_helper.c | 20 +++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ .../dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c      | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-index 25d4ef040173..7e39873832bf 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_translation_helper.c
-@@ -954,7 +954,9 @@ static void get_scaler_data_for_plane(const struct dc_plane_state *in, struct dc
- 	memcpy(out, &temp_pipe->plane_res.scl_data, sizeof(*out));
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
+index dddb21818f8a..9331a8fe77c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
+@@ -1199,12 +1199,17 @@ static bool is_timing_group_schedulable(
  
--static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned int location, const struct dc_stream_state *in)
-+static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned int location,
-+					 const struct dc_stream_state *in,
-+					 const struct soc_bounding_box_st *soc)
- {
- 	dml_uint_t width, height;
+ 	/* init allow start and end lines for timing group */
+ 	stream_method_fams2_meta = get_per_method_common_meta(pmo, pstate_strategy->per_stream_pstate_method[base_stream_idx], base_stream_idx);
++	if (!stream_method_fams2_meta)
++		return false;
++
+ 	group_fams2_meta->allow_start_otg_vline = stream_method_fams2_meta->allow_start_otg_vline;
+ 	group_fams2_meta->allow_end_otg_vline = stream_method_fams2_meta->allow_end_otg_vline;
+ 	group_fams2_meta->period_us = stream_method_fams2_meta->period_us;
+ 	for (i = base_stream_idx + 1; i < display_cfg->display_config.num_streams; i++) {
+ 		if (is_bit_set_in_bitfield(pmo->scratch.pmo_dcn4.synchronized_timing_group_masks[timing_group_idx], i)) {
+ 			stream_method_fams2_meta = get_per_method_common_meta(pmo, pstate_strategy->per_stream_pstate_method[i], i);
++			if (!stream_method_fams2_meta)
++				return false;
  
-@@ -971,7 +973,7 @@ static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned
- 	out->CursorBPP[location] = dml_cur_32bit;
- 	out->CursorWidth[location] = 256;
+ 			if (group_fams2_meta->allow_start_otg_vline < stream_method_fams2_meta->allow_start_otg_vline) {
+ 				/* set group allow start to larger otg vline */
+@@ -1768,6 +1773,9 @@ bool pmo_dcn4_fams2_init_for_pstate_support(struct dml2_pmo_init_for_pstate_supp
+ 	build_synchronized_timing_groups(pmo, display_config);
  
--	out->GPUVMMinPageSizeKBytes[location] = 256;
-+	out->GPUVMMinPageSizeKBytes[location] = soc->gpuvm_min_page_size_kbytes;
+ 	strategy_list = get_expanded_strategy_list(&pmo->init_data, display_config->display_config.num_streams);
++	if (!strategy_list)
++		return false;
++
+ 	strategy_list_size = get_num_expanded_strategies(&pmo->init_data, display_config->display_config.num_streams);
  
- 	out->ViewportWidth[location] = width;
- 	out->ViewportHeight[location] = height;
-@@ -1008,7 +1010,9 @@ static void populate_dummy_dml_plane_cfg(struct dml_plane_cfg_st *out, unsigned
- 	out->ScalerEnabled[location] = false;
- }
- 
--static void populate_dml_plane_cfg_from_plane_state(struct dml_plane_cfg_st *out, unsigned int location, const struct dc_plane_state *in, struct dc_state *context)
-+static void populate_dml_plane_cfg_from_plane_state(struct dml_plane_cfg_st *out, unsigned int location,
-+						    const struct dc_plane_state *in, struct dc_state *context,
-+						    const struct soc_bounding_box_st *soc)
- {
- 	struct scaler_data *scaler_data = kzalloc(sizeof(*scaler_data), GFP_KERNEL);
- 	if (!scaler_data)
-@@ -1019,7 +1023,7 @@ static void populate_dml_plane_cfg_from_plane_state(struct dml_plane_cfg_st *out
- 	out->CursorBPP[location] = dml_cur_32bit;
- 	out->CursorWidth[location] = 256;
- 
--	out->GPUVMMinPageSizeKBytes[location] = 256;
-+	out->GPUVMMinPageSizeKBytes[location] = soc->gpuvm_min_page_size_kbytes;
- 
- 	out->ViewportWidth[location] = scaler_data->viewport.width;
- 	out->ViewportHeight[location] = scaler_data->viewport.height;
-@@ -1332,7 +1336,8 @@ void map_dc_state_into_dml_display_cfg(struct dml2_context *dml2, struct dc_stat
- 			disp_cfg_plane_location = dml_dispcfg->num_surfaces++;
- 
- 			populate_dummy_dml_surface_cfg(&dml_dispcfg->surface, disp_cfg_plane_location, context->streams[i]);
--			populate_dummy_dml_plane_cfg(&dml_dispcfg->plane, disp_cfg_plane_location, context->streams[i]);
-+			populate_dummy_dml_plane_cfg(&dml_dispcfg->plane, disp_cfg_plane_location,
-+						     context->streams[i], &dml2->v20.dml_core_ctx.soc);
- 
- 			dml_dispcfg->plane.BlendingAndTiming[disp_cfg_plane_location] = disp_cfg_stream_location;
- 
-@@ -1348,7 +1353,10 @@ void map_dc_state_into_dml_display_cfg(struct dml2_context *dml2, struct dc_stat
- 				ASSERT(disp_cfg_plane_location >= 0 && disp_cfg_plane_location <= __DML2_WRAPPER_MAX_STREAMS_PLANES__);
- 
- 				populate_dml_surface_cfg_from_plane_state(dml2->v20.dml_core_ctx.project, &dml_dispcfg->surface, disp_cfg_plane_location, context->stream_status[i].plane_states[j]);
--				populate_dml_plane_cfg_from_plane_state(&dml_dispcfg->plane, disp_cfg_plane_location, context->stream_status[i].plane_states[j], context);
-+				populate_dml_plane_cfg_from_plane_state(
-+					&dml_dispcfg->plane, disp_cfg_plane_location,
-+					context->stream_status[i].plane_states[j], context,
-+					&dml2->v20.dml_core_ctx.soc);
- 
- 				if (stream_mall_type == SUBVP_MAIN) {
- 					dml_dispcfg->plane.UseMALLForPStateChange[disp_cfg_plane_location] = dml_use_mall_pstate_change_sub_viewport;
+ 	if (strategy_list_size == 0)
 -- 
 2.43.0
 
