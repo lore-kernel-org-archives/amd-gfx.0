@@ -4,62 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2794CC3DA49
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 19:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D887C3DA49
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jul 2024 19:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE4A410E300;
-	Thu, 25 Jul 2024 19:50:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9A3A10E30B;
+	Thu, 25 Jul 2024 19:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M1C9FVnc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SXWz/QTS";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 786D710E300
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 19:50:38 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-1fc658b6b2eso11995395ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 12:50:38 -0700 (PDT)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9EF210E307;
+ Thu, 25 Jul 2024 19:54:54 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1fd640a6454so12889375ad.3; 
+ Thu, 25 Jul 2024 12:54:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721937038; x=1722541838; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721937294; x=1722542094; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=t0gZ0IKHxyDL+rhOoEMBM0P5q/KUruN+QfRf6sDWNTM=;
- b=M1C9FVncnz6/ZmKyOhm78h2yePxiMnNE3E3oIJL/VXT22vmqN+sz1Y0GPEPSdshSPg
- J8BuQQUmLjZc9Ct4eI9ultQoOgyiszLCqRsCt+hrFph7L4KbOsSIkMJBynZCIh7kTOv6
- P+wSatQf2PmazOV/ZnhPEAJlU1SZTJsc/v7fGOGPgQwGq05WVud1G3WXU1QarSH0a4AK
- 5l+2MSA+n9RkbMTRPcP/qeOafa6GaG1YD4Bos4ciTEK+5fFwKmlr8qxmkoHjpq5MEs3M
- i+fmNxUDld70ADyQQHzYRWs1nudPEuA9qKmsrZjJWZ7Bi/XuBAXI/P2rvjRop5Y9ToC4
- HMkw==
+ bh=HJ2/3q/bfgdLQ2SKF+xPcpuZtJ5O3OCCf8lNzI6xqq0=;
+ b=SXWz/QTSd1tNt1pWVk2B+zayx8eR6ZbPWwJ/+xsD75DCmYujpejzNNwiUglj8eLxI6
+ R90OEVfGP7X7w34ejXfJY984VUslWQNX6eBPcNXhlQ2BXB/WGG4iQhaFgAi/q+pkJqYS
+ TU41bHEObBDRGnWaJ2pO1a4J/csChet4+BX6JYS5JfjhjeZVaXh4JC+HAywTC1W8Xoui
+ aRwzy6kNe+rFYzjJqPaUGPflt54ve0KJhD+d+jiXQEkATLgUiRcB7xz21UVm56nnRg9a
+ Em6SgN91YsNJd0GoVZ9hMnoUH00n3FTiNrMfhsQPdV2NqB/VlrVCpDpWATzE5lnVI7A+
+ 0dyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721937038; x=1722541838;
+ d=1e100.net; s=20230601; t=1721937294; x=1722542094;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=t0gZ0IKHxyDL+rhOoEMBM0P5q/KUruN+QfRf6sDWNTM=;
- b=I3Z8vxcsIfukQPYdMQLphh1N7i+nHZ6w9pj9HeE8k/Oi1YBJqdFMOrMdcHWudJ0Rly
- E28YHWYbuVRg9VWTAOij5SJ1DqOIZLJ7fZKC4fx2uebchud9DjSB3zX+OLyFUcEe5AJB
- rRTk+xGgsGOmEAtef9xWjCcqWCgMWItlefy2k8s4+PFA+Ix4vErmVYBfDPxDP7Mkf8Z5
- +9CExWBXySi1oNh8C0Qp/IbYWmfbr0S14v/v0CmdhRt4f1T7ki2aIISnfGFanH3lAUoR
- pROOJh5DDWn1XdVPaz90RXnzmI0l2oBIQh3+lU/boA/6Sz2edTLo3GtPjwgkW70x1gDV
- Qe0g==
-X-Gm-Message-State: AOJu0Yx3OlmAfGKOJ5iTBa3zt31MhskEAwsZ5WvfQcDzPZR76sjaizgp
- XB/W4EkwyG2qNG5t2qg0B9PkIYjjN/ICGhEbGSIuSbv3OPYi+HO+x4QL1FlqJAGRfLvuK0Nq+UW
- 4ILpoZxSXJaZEdJ5UANB6gfUrWnc=
-X-Google-Smtp-Source: AGHT+IEEf7Ock2bib+pIetje0++dFFziZHfNlbWTuX9J4IVendchoNoTOK5CcrbevhcM+vpE94uL3/0tYjGvK0ElaBs=
-X-Received: by 2002:a17:903:2312:b0:1fd:6581:f69f with SMTP id
- d9443c01a7336-1fed38b2103mr55183485ad.22.1721937037879; Thu, 25 Jul 2024
- 12:50:37 -0700 (PDT)
+ bh=HJ2/3q/bfgdLQ2SKF+xPcpuZtJ5O3OCCf8lNzI6xqq0=;
+ b=Vwu5VFx1oAAzg8ofEAiOE5qNH8UvSH0oDE86flvH1K80gKdi1Au8s1kPZNWnmo3MiR
+ k7rIP3MzSn9DVO253GLV1JZP9sJzWmgdQxHh1/chbUVbvZNV/TjEh2CrSoYj6LcFn7c2
+ Cn8AyhDg7/BCEmQ+7R3MxEIDQJwBkut/EZ2UL+a940anaW6HnddLmyFI/8Txz39PaFT+
+ STuZjSth3KG8T3KBlUUBUHpeE8ISQ9xS5wd0eHh5xUfAc4FawMUYvVZ7XueXlufqVzGX
+ IeYnv5wa/jTcL98blDu2G7jCbCM2twpLHqQ1in+0TrTYEfIvlx8/UdCtcdDFHlnK0k7I
+ KyPA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUw27oC0RSbeZMH3YHh+XiIzQJTrkITkUmmcv3OSmzwEtAND0rqA6G8sMQVBomyd5cCJFIkuKpP83nx85B7wZeZEw9iWf6G+SD6ADFlC3V4F4TN864v5GvnjFEsJpd0W+LFNhp8f63UkOHX6YCM+A==
+X-Gm-Message-State: AOJu0Ywa+atJRSISBPc41QmpiNrIrjN1GqAxAhbQYZDxnrdUSqhdJ34k
+ grQYjVyDvfXDeFiOogrkb9OO/Sl6RPH6l9jFTmx68pw42bjBYvYxTlHBorKJyothWOlYZjuV8SO
+ bINNDGEVl4iYEDnkatkXuvsowLyVfM7iU
+X-Google-Smtp-Source: AGHT+IGlHXz1aSbMBuuCXDUVMJbNQOTZlhgtwLY66bzlvs53OORi8u2Ewst7irO4S9i2tcQNqCkaFe1Pdt6xXP0DHFA=
+X-Received: by 2002:a17:902:c945:b0:1fc:4bdc:d413 with SMTP id
+ d9443c01a7336-1fed3af1d80mr43778135ad.60.1721937294112; Thu, 25 Jul 2024
+ 12:54:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240724184616.196690-1-michael.chen@amd.com>
-In-Reply-To: <20240724184616.196690-1-michael.chen@amd.com>
+References: <20240724175423.18075-1-abhishektamboli9@gmail.com>
+ <qyoun6sfdpdxxzwystaimsiw3o33jwvoqxm3kpawczju2b3dl5@ytjpgyabbzet>
+In-Reply-To: <qyoun6sfdpdxxzwystaimsiw3o33jwvoqxm3kpawczju2b3dl5@ytjpgyabbzet>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 25 Jul 2024 15:50:26 -0400
-Message-ID: <CADnq5_Pd6hb=_Li0owLejWU8Gv2FnEXko6B6xLV2vAe33tguEg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: increase mes log buffer size for gfx12
-To: Michael Chen <michael.chen@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
- alexander.deucher@amd.com
+Date: Thu, 25 Jul 2024 15:54:42 -0400
+Message-ID: <CADnq5_MHtyUENJGk=f+i-3ODJpGiZc1QFpQuvAh=uaFc9x9-9A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix documentation warning for mpc.h
+To: "Ricardo B. Marliere" <rbmarliere@gmail.com>
+Cc: Abhishek Tamboli <abhishektamboli9@gmail.com>, airlied@gmail.com,
+ daniel@ffwll.ch, 
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org, 
+ marcelomspessoto@gmail.com, aurabindo.pillai@amd.com, adnelson@amd.com, 
+ linux-kernel-mentees@lists.linuxfoundation.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,167 +85,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 24, 2024 at 2:47=E2=80=AFPM Michael Chen <michael.chen@amd.com>=
- wrote:
->
-> MES firmware requires larger log buffer for gfx12. Allocate
-> proper buffer respectively for gfx11 and gfx12.
->
-> Signed-off-by: Michael Chen <michael.chen@amd.com>
+This is already fixed in:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/6e169c7e0f842c48c7bf683=
+fb789dbf5a8b1dfd8
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       | 6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       | 6 +++---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 2 ++
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 8 ++++++--
->  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 +++
->  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 3 +++
->  6 files changed, 20 insertions(+), 8 deletions(-)
+On Wed, Jul 24, 2024 at 3:55=E2=80=AFPM Ricardo B. Marliere
+<rbmarliere@gmail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index e499d6ba306b..dac88d2dd70d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -103,7 +103,7 @@ static int amdgpu_mes_event_log_init(struct amdgpu_de=
-vice *adev)
->         if (!amdgpu_mes_log_enable)
->                 return 0;
+> On 24 Jul 24 23:24, Abhishek Tamboli wrote:
+> > Fix documentation compile warning by adding description
+> > for program_3dlut_size function.
+> >
+> > Remove the following warning:
+> > ./drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h:1043: warning: Function p=
+arameter or struct member 'program_3dlut_size' not described in 'mpc_funcs'
+> >
+> > Signed-off-by: Abhishek Tamboli <abhishektamboli9@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h | 16 +++++++++++++++-
+> >  1 file changed, 15 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/=
+drm/amd/display/dc/inc/hw/mpc.h
+> > index 40a9b3471208..615c69d966e7 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
+> > @@ -1039,7 +1039,21 @@ struct mpc_funcs {
+> >       */
+> >       void (*program_lut_mode)(struct mpc *mpc, const enum MCM_LUT_ID i=
+d, const enum MCM_LUT_XABLE xable,
+> >                       bool lut_bank_a, int mpcc_id);
+> > -     void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, int=
+ mpcc_id);
+> > +     /**
+> > +      * @program_3dlut_size:
+> > +      *
+> > +      * Program 3D LUT size.
+> > +      *
+> > +      * Parameters:
+> > +      * - [in/out] mpc - MPC context.
+> > +      * - [in] is_17x17x17 - Boolean Flag.
+> > +      * - [in] mpcc_id - MPCC physical instance.
+> > +      *
+> > +      * Return:
+> > +      *
+> > +      * void
+> > +      */
 >
-> -       r =3D amdgpu_bo_create_kernel(adev, AMDGPU_MES_LOG_BUFFER_SIZE, P=
-AGE_SIZE,
-> +       r =3D amdgpu_bo_create_kernel(adev, adev->mes.event_log_size, PAG=
-E_SIZE,
->                                     AMDGPU_GEM_DOMAIN_GTT,
->                                     &adev->mes.event_log_gpu_obj,
->                                     &adev->mes.event_log_gpu_addr,
-> @@ -113,7 +113,7 @@ static int amdgpu_mes_event_log_init(struct amdgpu_de=
-vice *adev)
->                 return r;
->         }
+> Reviewed-by: Ricardo B. Marliere <ricardo@marliere.net>
 >
-> -       memset(adev->mes.event_log_cpu_addr, 0, PAGE_SIZE);
-> +       memset(adev->mes.event_log_cpu_addr, 0, adev->mes.event_log_size)=
-;
 >
->         return  0;
->
-> @@ -1573,7 +1573,7 @@ static int amdgpu_debugfs_mes_event_log_show(struct=
- seq_file *m, void *unused)
->         uint32_t *mem =3D (uint32_t *)(adev->mes.event_log_cpu_addr);
->
->         seq_hex_dump(m, "", DUMP_PREFIX_OFFSET, 32, 4,
-> -                    mem, AMDGPU_MES_LOG_BUFFER_SIZE, false);
-> +                    mem, adev->mes.event_log_size, false);
->
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.h
-> index e11051271f71..2d659c612f03 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -52,7 +52,6 @@ enum amdgpu_mes_priority_level {
->
->  #define AMDGPU_MES_PROC_CTX_SIZE 0x1000 /* one page area */
->  #define AMDGPU_MES_GANG_CTX_SIZE 0x1000 /* one page area */
-> -#define AMDGPU_MES_LOG_BUFFER_SIZE 0x4000 /* Maximu log buffer size for =
-MES */
->
->  struct amdgpu_mes_funcs;
->
-> @@ -135,8 +134,9 @@ struct amdgpu_mes {
->         unsigned long                   *doorbell_bitmap;
->
->         /* MES event log buffer */
-> -       struct amdgpu_bo                *event_log_gpu_obj;
-> -       uint64_t                        event_log_gpu_addr;
-> +       uint32_t                        event_log_size;
-> +       struct amdgpu_bo        *event_log_gpu_obj;
-> +       uint64_t                        event_log_gpu_addr;
->         void                            *event_log_cpu_addr;
->
->         /* ip specific functions */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 68c74adf79f1..1a5ad5be33bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -1173,6 +1173,8 @@ static int mes_v11_0_sw_init(void *handle)
->         adev->mes.kiq_hw_init =3D &mes_v11_0_kiq_hw_init;
->         adev->mes.kiq_hw_fini =3D &mes_v11_0_kiq_hw_fini;
->
-> +       adev->mes.event_log_size =3D AMDGPU_MES_LOG_BUFFER_SIZE;
-> +
->         r =3D amdgpu_mes_init(adev);
->         if (r)
->                 return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 48e01206bcc4..249e5a66205c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -561,8 +561,10 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_=
-mes *mes)
->         mes_set_hw_res_pkt.oversubscription_timer =3D 50;
->         mes_set_hw_res_pkt.unmapped_doorbell_handling =3D 1;
->
-> -       mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 0;
-> -       mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D mes->event_l=
-og_gpu_addr;
-> +       if (amdgpu_mes_log_enable) {
-> +               mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
-> +               mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D mes-=
->event_log_gpu_addr;
-> +       }
->
->         return mes_v12_0_submit_pkt_and_poll_completion(mes,
->                         &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
-> @@ -1247,6 +1249,8 @@ static int mes_v12_0_sw_init(void *handle)
->         adev->mes.kiq_hw_init =3D &mes_v12_0_kiq_hw_init;
->         adev->mes.kiq_hw_fini =3D &mes_v12_0_kiq_hw_fini;
->
-> +       adev->mes.event_log_size =3D AMDGPU_MES_LOG_BUFFER_SIZE;
-> +
->         r =3D amdgpu_mes_init(adev);
->         if (r)
->                 return r;
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v11_api_def.h
-> index b72d5d362251..21ceafce1f9b 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -28,6 +28,9 @@
->
->  #define MES_API_VERSION 1
->
-> +/* Maximum log buffer size for MES. Needs to be updated if MES expands M=
-ES_EVT_INTR_HIST_LOG */
-> +#define  AMDGPU_MES_LOG_BUFFER_SIZE  0x4000
-> +
->  /* Driver submits one API(cmd) as a single Frame and this command size i=
-s same
->   * for all API to ease the debugging and parsing of ring buffer.
->   */
-> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v12_api_def.h
-> index ffd67c6ed9b3..4cf2c9f30b3d 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> @@ -28,6 +28,9 @@
->
->  #define MES_API_VERSION 0x14
->
-> +/* Maximum log buffer size for MES. Needs to be updated if MES expands M=
-ES_EVT_INTR_HIST_LOG_12 */
-> +#define  AMDGPU_MES_LOG_BUFFER_SIZE  0xC000
-> +
->  /* Driver submits one API(cmd) as a single Frame and this command size i=
-s same for all API
->   * to ease the debugging and parsing of ring buffer.
->   */
-> --
-> 2.34.1
->
+> > +      void (*program_3dlut_size)(struct mpc *mpc, bool is_17x17x17, in=
+t mpcc_id);
+> >  };
+> >
+> >  #endif
+> > --
+> > 2.34.1
+> >
