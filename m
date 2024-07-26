@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3DBFC52CDC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5E4C3DA70
 	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F7410E0DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD2610E0ED;
 	Sat, 27 Jul 2024 21:04:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="UfwWXRY0";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="e2c43uYC";
 	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1001E10E02D;
- Sat, 27 Jul 2024 16:28:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=6woDU4xkf0yXoBT9uAn0Jihe89Zin8AHAJkgz1oPFS4=;
- t=1722097712; x=1722529712; b=UfwWXRY0yL141e15Bzv9WLnL5rKED0Y0pb9gEVsBRBgEoaJ
- Udg+qXew7aJmFV3o6+MJXGR+7YXOk2iLKl2lNb5WHVDlxCgy/i9ehfiWgcdtJUCZ2JwqNvoVY88E0
- qZpB894F0nhIJ/puaYrbcs9AH+Lmw6p7qX5xOsOyVKRMX+7Zjz5ZBUWDgGiPosUVX4jbl61d3IsMf
- sj2ieEPwJpv4Na7I48BHITHcjYbC17BaMDnt6ppvSGElJhOB9avKqpD1mk2MOFoJa4xSB3y3CsNa6
- MROAiXbqTy9+zm7TUyquhPvVY/1tKqOdeql2JywmaIqE+Oo/BCwBqqxObbV0KJuw==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1sXkHV-00007W-6i; Sat, 27 Jul 2024 18:28:29 +0200
-Message-ID: <9ca719e4-2790-4804-b2cb-4812899adfe8@leemhuis.info>
-Date: Sat, 27 Jul 2024 18:28:28 +0200
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBC510E98B;
+ Fri, 26 Jul 2024 13:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1722001252;
+ bh=zLLuxR3/V2JlN8OpJMEgWoG2yzJmfvO65eS2FhFFww0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=e2c43uYCSx+UQy0ru8kSGsDvUIh1zIYSL0TfYSFHx07W2ZPuev8WkBemM1p9MXpMM
+ WlVBkfZ9208dnBW9WEyDTKHilQxFDyp2tqGPmsyNhg0PywSdK6O/wtOMUqkBkCk0tV
+ z9JSpYnth123fFk9b/rRrvrfpupSjJIU3dHn5rtc=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Fri, 26 Jul 2024 15:40:16 +0200
+Subject: [PATCH v2 2/2] drm/radeon: convert bios_hardcoded_edid to drm_edid
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] No image on 4k display port displays connected
- through usb-c dock in kernel 6.10
-To: kevin@holm.dev, Alex Deucher <alexander.deucher@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Wayne Lin <wayne.lin@amd.com>
-Cc: regressions@lists.linux.dev, stable@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <d74a7768e957e6ce88c27a5bece0c64dff132e24@holm.dev>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Content-Language: en-US, de-DE
-In-Reply-To: <d74a7768e957e6ce88c27a5bece0c64dff132e24@holm.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1722097712;
- 09bda657; 
-X-HE-SMSGID: 1sXkHV-00007W-6i
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20240726-amdgpu-edid-bios-v2-2-8a0326654253@weissschuh.net>
+References: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
+In-Reply-To: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1722001252; l=6245;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=zLLuxR3/V2JlN8OpJMEgWoG2yzJmfvO65eS2FhFFww0=;
+ b=9ND2sB1KDIhpbUs2FjCzipLLAEQJwkB/HTt8Z/JxRNUUSxvSIwYeKKU96tmaLZFnby3Mhupea
+ syJ6iAwiPvXC2fFCmF8mOeG+mGqSa0JgASFcS9JbNS7MXKxrMvLtY9Z
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Sat, 27 Jul 2024 21:04:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,54 +58,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[adding a few people and lists to the recipients]
+Instead of manually passing around 'struct edid *' and its size,
+use 'struct drm_edid', which encapsulates a validated combination of
+both.
 
-Hi! Thx for your rpeort.
+As the drm_edid_ can handle NULL gracefully, the explicit checks can be
+dropped.
 
-On 27.07.24 18:07, kevin@holm.dev wrote:
-> Connecting two 4k displays with display port through a lenovo usb-c
-> dock (type 40AS) to a Lenovo P14s Gen 2 (type 21A0) results in no
-> image on the connected displays.
-> 
-> The CPU in the Lenovo P14s is a 'AMD Ryzen 7 PRO 5850U with Radeon
-> Graphics' and it has no discrete GPU.
-> 
-> I first noticed the issue with kernel version '6.10.0-arch1-2'
-> provided by arch linux. With the previous kernel version
-> '6.9.10.arch1-1' both connected displays worked normally. I reported
-> the issue in the arch forums at
-> https://bbs.archlinux.org/viewtopic.php?id=297999 and was guided to
-> do a bisection to find the commit that caused the problem. Through
-> testing I identified that the issue is not present in the latest
-> kernel directly compiled from the trovalds/linux git repository.
-> 
-> With git bisect I identified 4df96ba66760345471a85ef7bb29e1cd4e956057
+Also save a few characters by transforming '&array[0]' to the equivalent
+'array' and using 'max_t(int, ...)' instead of manual casts.
 
-That's 4df96ba6676034 ("drm/amd/display: Add timing pixel encoding for
-mst mode validation") [v6.10-rc1] from Hersen Wu.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ drivers/gpu/drm/radeon/radeon_atombios.c   | 17 ++++++-----------
+ drivers/gpu/drm/radeon/radeon_combios.c    | 26 +++++---------------------
+ drivers/gpu/drm/radeon/radeon_connectors.c |  4 ++--
+ drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
+ drivers/gpu/drm/radeon/radeon_mode.h       |  4 ++--
+ 5 files changed, 16 insertions(+), 37 deletions(-)
 
-Did you try if reverting that commit is possible and might fix the problem?
+diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+index 168f3f94003b..81a0a91921b9 100644
+--- a/drivers/gpu/drm/radeon/radeon_atombios.c
++++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+@@ -1716,23 +1716,18 @@ struct radeon_encoder_atom_dig *radeon_atombios_get_lvds_info(struct
+ 				case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
+ 					fake_edid_record = (ATOM_FAKE_EDID_PATCH_RECORD *)record;
+ 					if (fake_edid_record->ucFakeEDIDLength) {
+-						struct edid *edid;
++						const struct drm_edid *edid;
+ 						int edid_size;
+ 
+ 						if (fake_edid_record->ucFakeEDIDLength == 128)
+ 							edid_size = fake_edid_record->ucFakeEDIDLength;
+ 						else
+ 							edid_size = fake_edid_record->ucFakeEDIDLength * 128;
+-						edid = kmemdup(&fake_edid_record->ucFakeEDIDString[0],
+-							       edid_size, GFP_KERNEL);
+-						if (edid) {
+-							if (drm_edid_is_valid(edid)) {
+-								rdev->mode_info.bios_hardcoded_edid = edid;
+-								rdev->mode_info.bios_hardcoded_edid_size = edid_size;
+-							} else {
+-								kfree(edid);
+-							}
+-						}
++						edid = drm_edid_alloc(fake_edid_record->ucFakeEDIDString, edid_size);
++						if (drm_edid_valid(edid))
++							rdev->mode_info.bios_hardcoded_edid = edid;
++						else
++							drm_edid_free(edid);
+ 						record += struct_size(fake_edid_record,
+ 								      ucFakeEDIDString,
+ 								      edid_size);
+diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
+index 41ddc576f8f8..df8d7f56b028 100644
+--- a/drivers/gpu/drm/radeon/radeon_combios.c
++++ b/drivers/gpu/drm/radeon/radeon_combios.c
+@@ -370,7 +370,7 @@ static uint16_t combios_get_table_offset(struct drm_device *dev,
+ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
+ {
+ 	int edid_info, size;
+-	struct edid *edid;
++	const struct drm_edid *edid;
+ 	unsigned char *raw;
+ 	edid_info = combios_get_table_offset(rdev_to_drm(rdev), COMBIOS_HARDCODED_EDID_TABLE);
+ 	if (!edid_info)
+@@ -378,19 +378,14 @@ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
+ 
+ 	raw = rdev->bios + edid_info;
+ 	size = EDID_LENGTH * (raw[0x7e] + 1);
+-	edid = kmalloc(size, GFP_KERNEL);
+-	if (edid == NULL)
+-		return false;
+-
+-	memcpy((unsigned char *)edid, raw, size);
++	edid = drm_edid_alloc(raw, size);
+ 
+-	if (!drm_edid_is_valid(edid)) {
+-		kfree(edid);
++	if (!drm_edid_valid(edid)) {
++		drm_edid_free(edid);
+ 		return false;
+ 	}
+ 
+ 	rdev->mode_info.bios_hardcoded_edid = edid;
+-	rdev->mode_info.bios_hardcoded_edid_size = size;
+ 	return true;
+ }
+ 
+@@ -398,18 +393,7 @@ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
+ struct edid *
+ radeon_bios_get_hardcoded_edid(struct radeon_device *rdev)
+ {
+-	struct edid *edid;
+-
+-	if (rdev->mode_info.bios_hardcoded_edid) {
+-		edid = kmalloc(rdev->mode_info.bios_hardcoded_edid_size, GFP_KERNEL);
+-		if (edid) {
+-			memcpy((unsigned char *)edid,
+-			       (unsigned char *)rdev->mode_info.bios_hardcoded_edid,
+-			       rdev->mode_info.bios_hardcoded_edid_size);
+-			return edid;
+-		}
+-	}
+-	return NULL;
++	return drm_edid_duplicate(drm_edid_raw(rdev->mode_info.bios_hardcoded_edid));
+ }
+ 
+ static struct radeon_i2c_bus_rec combios_setup_i2c_bus(struct radeon_device *rdev,
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 880edabfc9e3..528a8f3677c2 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -1059,7 +1059,7 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
+ 	 */
+ 	if ((!rdev->is_atom_bios) &&
+ 	    (ret == connector_status_disconnected) &&
+-	    rdev->mode_info.bios_hardcoded_edid_size) {
++	    rdev->mode_info.bios_hardcoded_edid) {
+ 		ret = connector_status_connected;
+ 	}
+ 
+@@ -1392,7 +1392,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+ out:
+ 	if ((!rdev->is_atom_bios) &&
+ 	    (ret == connector_status_disconnected) &&
+-	    rdev->mode_info.bios_hardcoded_edid_size) {
++	    rdev->mode_info.bios_hardcoded_edid) {
+ 		radeon_connector->use_digital = true;
+ 		ret = connector_status_connected;
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 10fd58f400bc..8f5f8abcb1b4 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1658,7 +1658,7 @@ void radeon_modeset_fini(struct radeon_device *rdev)
+ 		rdev->mode_info.mode_config_initialized = false;
+ 	}
+ 
+-	kfree(rdev->mode_info.bios_hardcoded_edid);
++	drm_edid_free(rdev->mode_info.bios_hardcoded_edid);
+ 
+ 	/* free i2c buses */
+ 	radeon_i2c_fini(rdev);
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index e0a5af180801..421c83fc70dc 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -39,6 +39,7 @@
+ #include <linux/i2c-algo-bit.h>
+ 
+ struct edid;
++struct drm_edid;
+ struct radeon_bo;
+ struct radeon_device;
+ 
+@@ -262,8 +263,7 @@ struct radeon_mode_info {
+ 	/* Output CSC */
+ 	struct drm_property *output_csc_property;
+ 	/* hardcoded DFP edid from BIOS */
+-	struct edid *bios_hardcoded_edid;
+-	int bios_hardcoded_edid_size;
++	const struct drm_edid *bios_hardcoded_edid;
+ 
+ 	/* firmware flags */
+ 	u16 firmware_flags;
 
-> as the first bad commit and fa57924c76d995e87ca3533ec60d1d5e55769a27
+-- 
+2.45.2
 
-That's fa57924c76d995 ("drm/amd/display: Refactor function
-dm_dp_mst_is_port_support_mode()") [v6.10-post] from Wayne Lin.
-
-> as the first commit that fixed the problem again.
-
-Hmm, the latter commit does not have a fixes tag and might or might not
-be to invasive to backport to 6.10. Let's see what the AMD developers say.
-
-> The initial commit only still shows an image on one of the connected
-> 4k screens. I have not investigated further to find out at what point
-> both displays stopped showing an image.
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
