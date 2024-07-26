@@ -4,129 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499BBC3DA49
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 06:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ECF5C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 07:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2F7910E097;
-	Fri, 26 Jul 2024 06:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACFB710E2B9;
+	Fri, 26 Jul 2024 07:05:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KB/bMhpw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VydKO1qI";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9A7710E06B
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 06:47:32 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2059.outbound.protection.outlook.com [40.107.101.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB86A10E2B9;
+ Fri, 26 Jul 2024 07:05:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iH31el5v2fsvGqiB8PP1XlKXpsKWzHHaEhx99Xx+yNvzkbrUV410PvEBFbSkEc8Cbpx5WiJzydwApfWRH5uHRK8qDcqS0AhREPSGRoAK75uxrtikwiEysBuWYE8hafor1puyyriZk+QjlrZ6mB4XgNYMV1nRwTiFFf9VbWv5YSLA0F7K1yVrHJL36XUGXCbBLQiaXVmM4tE0j0EzZuy4zyaza2pwpl4h3jV92LZDBSRqCntNRUkRMg/7Meph/8SpWUFVSCIr7kz/D6UFyoczCfIddlri2RwWkkyOwUdH0HTUcugm3Bk9yqAeWNnfDYoLURJTWwJDjn35y/oHT3lHvA==
+ b=vhSJKgCpEaDQ4zaMztaIHfJHVxYuOO8QwyoDWf5iLq5jm0pyRmQV0rEAk3MgdgY9yaWtcgsiVqnoleCBiWFYKFtgsk/QwR0PL9pBFur0qQIaRQmPp1oBR86/ztUxcLMCqKyQnTWvmKUbIwKDvNBLkt0bpWJySdxmEgKyz18UoUs27XtS4GBj/PreUH9dZT6MwC/EU7isGna8wvj3LuVVZrdnz/BFFgjiYaM6Wtno3hDHBIlBLRLUTE/mSq4+p9CGmmQR7QFPr3tpXMvGCxWeKBZ1NIwg0ZP59U+zxCMA2hg17yqZfu8xbV8cATTW1HoyZgl92T8nSjMBwQdtd7c1DA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yd0z2YeHPjuezYnqVbvS6rz4VhrsgoJsRBBgt+p1sIs=;
- b=Yp3Rdh5kbuoL3Gpf4iQVW9uxv05rPONlN8rTn8CNHtlwUrTctuak0/cMWXIoUjt5yTClaXoXtyRUgMKe3ESaXNznZrJRSHUwWmbKpa5T4yupWF37kUowpXdjRdJLpOCIRAdt4Jx6YnBhYU/Fl60T4rnqtJtf10ZThEQpkIu32ekD9PIWeBc0KigT4SpdlsOQUj+CndD71vOSRGutHnly56oRBTZZTvXHkkJrJ071MYTHoqIHNF+09IGLKsWGZHax3/5ivoM1v02XAVwOcs6UwRYiQrPVow5wBC0KSlNMPZCQyJV0Shxi9W7dhy9tCAfhmmL8YZ8t0ZvBb4Za+RXlzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=qbISvFNesB+YOBhIskwaroFX32I8IARzN8QE4D0ygkg=;
+ b=wu1E3zn4hPW+0U+aE+E/Zh1KRcdGNIGQdwIml7uBYo2yW9dfq8NfTE56/VcM6uJfX7lYUY06BO9VGmet3Uffpe2EATi8zc/hvaTvCrL3ODuJmS29nzmwCPEvVXHSzns16FK8KHMlHI+o0FtTabU3wPKSat4lOM/pXk3BRnCNXe+SKWv7bESwmg/Lbhl8Mos9Mf10J+OijrS369VixMxQ/apN+JIqdGluNPrz7k7butL1LxSQ0p7wrdRV83I/+wo4kbJ4NPPLEwJa4ONO56pNbpyrLIyPtsyk/kDur37clXKWQkIo4C0Dlx/L11oU8tguoXPjIJ6BO/geBJpv70Qwaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yd0z2YeHPjuezYnqVbvS6rz4VhrsgoJsRBBgt+p1sIs=;
- b=KB/bMhpwhWTNk2cma1krRYQDpeftmHQA5rELQEPIuwRrWfOIsc69clKB8HdyMpsMkh8TgbxmoOgYW8DlvXdYUEkyicLQl8HJBW6vxkN1CRrGVcZ3ASBXr3STEAa0RFDr3t4qtpPDWqAHV040QdoYrfjaSbfpQbTFs7HWVLdIZ10=
-Received: from PH7P220CA0078.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::34)
- by PH8PR12MB7421.namprd12.prod.outlook.com (2603:10b6:510:22b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.27; Fri, 26 Jul
- 2024 06:47:29 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2603:10b6:510:32c:cafe::34) by PH7P220CA0078.outlook.office365.com
- (2603:10b6:510:32c::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.31 via Frontend
- Transport; Fri, 26 Jul 2024 06:47:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Fri, 26 Jul 2024 06:47:28 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 26 Jul 2024 01:47:25 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>,
- Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdkfd: Fix missing error code in
- kfd_queue_acquire_buffers
-Date: Fri, 26 Jul 2024 12:17:12 +0530
-Message-ID: <20240726064712.2167971-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=qbISvFNesB+YOBhIskwaroFX32I8IARzN8QE4D0ygkg=;
+ b=VydKO1qIYHiVltphyAOHSMlHXo84LUZhYEaSQ1nVESGJ/dBF7liRxliOVTuCoZiqrOAAvxZD5ueZKIefCjbUTw9k68fQKs+Csd5pbb6D+EAgK9wNEDZlkUk/JfuPt193lbvAZTsR6rjwBES5Z11GwBL0S8VZWK8PWQ2ymx1C0wk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB5841.namprd12.prod.outlook.com (2603:10b6:8:64::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Fri, 26 Jul
+ 2024 07:05:46 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7784.017; Fri, 26 Jul 2024
+ 07:05:46 +0000
+Message-ID: <e5199bf0-0861-4b79-8f32-d14a784b116f@amd.com>
+Date: Fri, 26 Jul 2024 09:05:41 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/radeon/evergreen_cs: fix int overflow errors in cs
+ track offsets
+To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Jerome Glisse <jglisse@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+References: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0400.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|PH8PR12MB7421:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61f52c0b-9448-4c62-2421-08dcad3ed130
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 885389e4-d85b-4612-46ca-08dcad415f0c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TmFUUTQ1Q1M3MjYvbmNlNXdVdVFwUVhjb2F2UCt2c1RUd1g4MVdnK3BBemxV?=
- =?utf-8?B?cjQwRmlPd3hrTU81azBseGM2cFVyb1JGZ0NSVWpsZU9KVlpPcFJFSE4yek41?=
- =?utf-8?B?ZnhuMUFDSHBvdnFzKzhWcE1GU0dOTVVyMWErVlhoVnpyY1pKZ3ZheGZsRVhm?=
- =?utf-8?B?TmIxK056ejBjdjlVazJPZmdhUndkSk8vOTUvSjdnZEkwUG1hM0s4cXNtZlVO?=
- =?utf-8?B?MTRiZnQzbitFekVkcWRCQnpPR1VCVlBVT2QrN3BBNjFqdXE4SGZ1UjJxR0xV?=
- =?utf-8?B?ZzkzM1dCT25iR3lyS0U5RWViSDdUZHR0eFJYdjhvN2x3a29BaXpaWUYyUFhP?=
- =?utf-8?B?SWp3YkF5ditUY2diM2d1MWxzM1lIakErRnpFSHRVemF2Ykw3WHhHenpCRVc5?=
- =?utf-8?B?SVZRQ0dqcjczYTQ4RVNCQmtqWVhHM25OM2tRR0dPQXhUaVRaQWxzeUJwREwy?=
- =?utf-8?B?MGdYenVLNXRTWDNYTHRtdE5ENUd1QmRyUVdXeXlqdkoxekFYQ0FmaHB4MVBz?=
- =?utf-8?B?TDB3MW1CVXhnVVBRaG9kWnk1cTVwa0k3eGhSNUtkRUJ2QzVLd1d3cG0rVUlu?=
- =?utf-8?B?Ti9uODgzMkNicm9ES01Va0svM3k0SmdVTk5iRnhjWk5xcDByYXppVnc5Qnoy?=
- =?utf-8?B?d3VOYmdFdDBzckg1dWdlNDA2MjlMM3paUGQ2MHBDOTdySEFMQmtZS0FaTE52?=
- =?utf-8?B?S25PZFJMekhWWmE4dnF1R05GQ1gwcXcwK1FOWU1NSHRzMHNtUFFYL24wdDlM?=
- =?utf-8?B?TldTZHo0TmhSaFh4NGxKU0NTSDRvQnRJWWVuTDJpVjVSYU1wMEwxaHBjKys2?=
- =?utf-8?B?b3hMd0Fid0R4aWFQZTJkQ3VhS0FjT2ZuYnA0QzdzS1BPZFFIbGpPZ2VrWHJG?=
- =?utf-8?B?Vjg3VlBjT3U1NDZJcVN0TElxcVZoZGk1ZkFNS1QxR1J5eXV4TnBPd0lIdzBY?=
- =?utf-8?B?WXNNNURMRTNpamlyM29Ud0RBRlk2NERNVEVKWll1UnpqRVRqaTJyK1kxV3VS?=
- =?utf-8?B?SjJLWkpNaWtESXNWNUJrSWdyS1ZnS1djQ0xIWTI4Q1FNd1RHZXZ3cWl3dmpI?=
- =?utf-8?B?NWU2UjRBaTV0TVZORitMZFMvZjUwbHVMVHArcWlJNHdVNGpmdVYyVkNXcDhm?=
- =?utf-8?B?Sy9NbFZSUElXWlppdGgxWlBMamx3L1k3Mk5PZUY5ZVFFajErSWJmSG9mcFVO?=
- =?utf-8?B?bVk2dW1GdmUxbEJOTEtWcEVNMzRraDgxaWZhYnNyWkhOZnRZTmdQTjBGWjl5?=
- =?utf-8?B?VFNzZXpFbXdTYlNXM2NISXc2Mlp0aVhTSDBrRFdCbHphNzRhd1VLSjZ3ZWNu?=
- =?utf-8?B?cmNCWW9vWGJWVDVqbTRhdXRCZk11VUFWdHE0NFVCVjZJdmlyUnpQdWdyNllQ?=
- =?utf-8?B?aHd4K2NVR2dPY1hRVkxFb1ZOMTB0YmlGeW9pZmpod1E1aXVhaFptTjlwcmNK?=
- =?utf-8?B?THNLK0dFSVFPQ3NlTzR2ZlR1M1ZqL2Zvem1rWVF1UGM3UHRDTGNIdlY2anhF?=
- =?utf-8?B?ZEJmU1Zhb0Nka0JaRVUrMEhnUjFvT1MzNTZ3bndjd3lNSmRYY1J3YzVaeHlO?=
- =?utf-8?B?dER4aEpSdmVrUWVPc0gvQnB6NEtMS2JYZ2FFajZnbW9rakFyd0QvNXZNeEtk?=
- =?utf-8?B?ek5iY3M5dEswaW9LRWI4c0ZDRlFjZG5lNU05bWNMQm9aZDUva3JQTEE0UTdX?=
- =?utf-8?B?WkozTHVDaDVXNUcra2lTR1YwZUR4cUlrbHVsdVVmaXdXRFBhWmc5cmlSckFY?=
- =?utf-8?B?blhycHNXVzZ2K1Y5d3BUUW4yQkc1Qm1WbmRlNndwNDI5RUhYOG5tSnJESDY5?=
- =?utf-8?B?M3lVelZtY1VvcW84dFduR0RXcU5pOGZQYlVFY0Nla2lDQWhKcEh6TWZFMWl5?=
- =?utf-8?B?K0hEUEJiNGQyd3Uwc0kwZVJONGhFRTRWVEFQdHVoNnNQNmZoZG9ZaVZRamdW?=
- =?utf-8?Q?AG8AmBq5BvSRgSkAF7MKTYLUTNyvT139?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?b2RLTjdreng1OFBPZ2tMVFlaY0dNbXhpT3FLS3RBK084dlR5bWYvaWt2R09G?=
+ =?utf-8?B?aGVMVXhoT3dnSURSNFNNYWxYK3lvNWorWS9zYTZXZXpCSjFNeUx3MEpma2pZ?=
+ =?utf-8?B?MFI2enRMa0craXZmbXd2T3Z3UjR3REszRHZnN3o5VjdpV3ZVTEFkaTFJSS9r?=
+ =?utf-8?B?TEhJRmE5c053eEJ0Q1VFeWV1M1JvNjZ2N2hhV1FBdThWZGlaZGVJc05ZeGNz?=
+ =?utf-8?B?VnJKeDRQYnNKMGJ1RzdPZ00ydkxNQTlsZjBxUHo1ZXF1cmNBZlB3TTVsNjRI?=
+ =?utf-8?B?WjRNUlVIaXAwQzJOUXI5cEVOeTU4aElwcHNYSFBjMndEUEFtazJCWG1FMURD?=
+ =?utf-8?B?MnYvb041Y1o5Ry9NSUkrZlVHWEcrelAxZ3N4MXpLeDFqTWJMSERsWmVudzNh?=
+ =?utf-8?B?THoveloyT0I1MThrV0NpOEpBUGRvRGFGeHRTSld1TVdtdkJIbHo0aGx6N3U2?=
+ =?utf-8?B?RnFUYkc5aUhsbkprbFIwTnhidHJvTE1RdHdyNURLQ2JiMFFKd1VkSkFrRHFs?=
+ =?utf-8?B?UTJXVmNwR0hPTGFzeG11Ni9BMHJqZWMxZ3J6VzI3RnI0STZQSkVuMHlJN2Z3?=
+ =?utf-8?B?aVBWQ01hOFUxWHdTbkJlQktqZzVTZTZGNnR0NE9SMnZZTDIvTmx1U2d6TkNs?=
+ =?utf-8?B?YUpWd0FwWXFxZlVyalN4OTI2V0hVTURMSW1oY0tEdFZnc1FMOW94blZnYmRB?=
+ =?utf-8?B?MTg3NERSR0NTaENWamFNamFVZVFxVFBzdUU0Y3pmcUNncmpzUjVtLzhkL3ds?=
+ =?utf-8?B?NVNWbUVoQTFPTzNxUzlPeTJiR3ZzaUJWd0FYTWYybzAxS0YxZm1tSmoyY2Va?=
+ =?utf-8?B?T2RVdFR1MTNSTjVHbXZKQ1BKMUNrUmR6cnFMcFhTc1RobXFjbXlQQlYraHMr?=
+ =?utf-8?B?ODB5YzJyK1d5ZjV5L1U5a3ZBa3ArNkl2UWhLTWI3eCtGK0FrQUhIL3k3d29n?=
+ =?utf-8?B?NlZkYVIrQkFOWHBDZG1nUGZlU3dZSGV1OGFyT3M3VDhIMlVOdTBHMFg4WWVR?=
+ =?utf-8?B?UnpKK25xRXJNbkxVY0ZKMkZaZmx3UnNrSlFCT2FibHYzYzhKbjZOWFgveWhS?=
+ =?utf-8?B?U3RRRlpaTjVLUGZjZERwd3dVSUU4U280ZHV4Tlc5QjVHN3hNYllUNUZ6RG9Y?=
+ =?utf-8?B?RnBycDZNdW1LU2pVYk9yMmtCTWU0NkFPb01ST1FVajN4WGI1NlF1REhVQWJi?=
+ =?utf-8?B?M3pCQkR2Tk5VV3hwbkVCR25ydEprT1pObXpzYktWVm5VUUpWazMrU0JWRHpF?=
+ =?utf-8?B?UmEwOXMyRzdVazJFYXNKYzhNbVdTL2t4Mmg5bWxMNFBvS3hTUXJMOERzWVgy?=
+ =?utf-8?B?OVh2aU9yeUN0M215RVorUHZLb0l2Zmw3Y2I3Rk83SlpUSXRocXlMY2FCWEhk?=
+ =?utf-8?B?N1RXRGxtYXdzRE5UbGVWdE95ZmRMUU5NcEdKM3p2REEvZVVnQnI2NUxTTHJt?=
+ =?utf-8?B?S3paaTZDRmJScUZHSURLUEYybkJNMjZQMG9VN2d3VS9qTnBJbi9JdVFDNDdR?=
+ =?utf-8?B?TUJWV1ZDZmpzRUgzTkpFZmx2ampWZ3d4YldWMXdIN3lkQ2xZK3UwYS9aNjQ0?=
+ =?utf-8?B?RUxQejIzZDM5ZXlPWEhVeEJmbmoybHBRM2RicWhSSkhScS9LYWlPaWRnR0Jm?=
+ =?utf-8?B?eWRzRHlpN3pHaERHclQrcUFaWGtPN25BZkRjNTdORVJqZm9idEcxd0trUHJW?=
+ =?utf-8?B?c3RDNUN2dk1KbCtsVnJPU0IyRmJydVdibm5ydE1PckZMU1VDTHlObm1XKzFC?=
+ =?utf-8?B?MHAyTTg4c3NSdkhGbG9teUZ4Wk51djVqWXNUSmNib2FucTVnaG1lRjRTTlZm?=
+ =?utf-8?B?TEhIVW9CdUhqMEp5d3h1Zz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bGxmQ1BCRkF2Tmc5aFlvV1Y1NlZSeTZtM3FuR2wrT2VLS29HcVBWcXp4UG9R?=
+ =?utf-8?B?eEJPT3VXYjRoSzM3Q2dUOTBES1F1R3dlRy9vM29ydmVaUThiREd4Q3JYaVJr?=
+ =?utf-8?B?V0duSEhqc1piNnhWRVBoVnA3ejNGWE5FVTZjQ0JaVFRqNnp2aU5EZlk2Nzhj?=
+ =?utf-8?B?U0FiOXpPUWVDUGhJakdYeDUvK3JxUUhOTHRyNU9ON0FrUjJxSWNETkhjMVhm?=
+ =?utf-8?B?VjNmcXdwMWpTWUVTUHhpSEhHU0U1YXdtZUdUbGFTa1RZUEFSait5L2lkWjd6?=
+ =?utf-8?B?UTlwcGZzaTJETUc4VDNuUDVhWUF6bDB6Y2p5UnRSQWY2K0JzQkxoQUs0TGpM?=
+ =?utf-8?B?OFJWOUo3RFFUOEpSOEVXODJsZTlkOGRCWjRtZkZvZDZJeEE1OVcwcmxtUHhR?=
+ =?utf-8?B?T3luYm0xMXp0Q0kzdHRtLzdvcDBCMDVVWThZMVgxbDlieWJpc2VDdHBSTUln?=
+ =?utf-8?B?NDYwRXplM25ibi9VeFYwbDBkV21LV1BERlpVQnY4UGNzcVh5MU51blJvSEJv?=
+ =?utf-8?B?QXV1ZjQ1Umc0NlQyOGhsVkx0STdVSERFK1BwVHZxMkg0ZUdEd053SXVQVEhm?=
+ =?utf-8?B?Y2VjMmsvdXlYWEhNVTBIUDZmUS9KNmVFUk1KbFZvYlNpak95bGt5REdTNnh4?=
+ =?utf-8?B?NTkreDVUUlJGdVJ2WjJiUGFGK0hwTzdpcjRLbkgybklldlFOQ3dnclhiNjB2?=
+ =?utf-8?B?YjhEVExSMVRVMU9lM0N5NXplWEFFVlZ2VUJEa0ZSR3ZCVktpSzRHbGdSQVVm?=
+ =?utf-8?B?VjNkRnlKUTcxTWFVei9WWUNTckxnSUxOMTVBZkt6MDJkSk5rSjIzRXpWcTNx?=
+ =?utf-8?B?Q1lXMkRzV2FtUVVMSC9palIyT0wzOUFlNEY3RmJMS3IrVkNDVzViSzhQUysy?=
+ =?utf-8?B?R2JGU1kwYjJMV2RtaUpuVjJWRVRIT2xKV0lJbTRJK0pvZEVVM3JXYWxQS1V6?=
+ =?utf-8?B?LzZkbVByWmZHQ3BsanBSUkxaOFMrVzc2OWJDTFEreHZXNDVTSy9sdUowTUla?=
+ =?utf-8?B?V1VDenJpV3c4WlZEZERZTTFsRmFoOTVjYzU4ZUVjb0o2aWVlTjlGUmkrVC9a?=
+ =?utf-8?B?Q0RZQ1lEdStBc1o1NzhZTjVOdGh6RXBYazRsVXBQL2JxRVE2VytGNVhTQ29p?=
+ =?utf-8?B?NDluWjRCUVUwendQZ1lMUzRYR3hnQmhtWVdVSGcwYnNPVDdRcGlhZ1psNXBz?=
+ =?utf-8?B?WXZrbzlIYVZPazVqMnBFQTlsYzd6bk1jcEhRRittdFc1ajQvYlNZUk4yTWN5?=
+ =?utf-8?B?ejl3ZXhrWjdROUZGTUM2REJvRHlFVGlJL2w3M2RBVWZBd1dLSUpFR0U1bkFl?=
+ =?utf-8?B?MnZKU2p3bnBvRlh4a0QxYTlMU1NjOTd5L29xSEszQXJMZTRYMzJUOFByUXdS?=
+ =?utf-8?B?UGNzZk54WWgwQnVWcmdTYUYzQ1dncFdmS29BL0w1VjZSVTdtOE1hTGd2Z3NY?=
+ =?utf-8?B?WU5heFljTmtqZHA2WlVoSC91VzRwb1dyQXJHRy95clNOOTFiOVJQczlydGov?=
+ =?utf-8?B?ZWFoZnF4WEREd24rL1hjYmdWRlBnTnB0emp5MVRUeGVZamdLZWcrQlFWKzU3?=
+ =?utf-8?B?Sit5NFVnRitTZDBIV2VzUi8xV3lwc3VyMm5qZ1RjNU93UkhDSGRNbmlJVkNU?=
+ =?utf-8?B?SjhNRDVlQ2c2UGFXbTFuakhsaFc5dFJjdms2eUY1Zitwalg4ckcrZUdNVVRC?=
+ =?utf-8?B?aG1mdjkvVGNMN0xNTzRnOXgyc0x0Z3VzUDVuMksvZ0J5bHBTdFdDWExyTUhy?=
+ =?utf-8?B?K1U4WUVCMXMreFR5UFpVUDhpTEdBVGVVREtvcWdROURCVlcxK3Jub3pvaDl5?=
+ =?utf-8?B?MldIdWdrZS92b1BrdGliQWxtU0poVzJYSGFXd3ZObmcyWWVsNTNIMjlZSlJR?=
+ =?utf-8?B?emR3SGJ0ZHR6eUF6QWZRMnlVWjlXMzhXV1lqR2NsdUJQRmxQSWFXZnZPcGd1?=
+ =?utf-8?B?bVZRTDFlc05vSVJ2bWsyRVZxUm4rR0VRV29FVzdrZGpSWWdxS1hUYnYrd3Ro?=
+ =?utf-8?B?TVptV2t5RnNRYnNxK2dkZXZoZmVGb2M3aWNoRmFMUkFoc3Qrd0MxZXJtbFFI?=
+ =?utf-8?B?UUdnYUJWWGVyMmsvS2QzWUVjNVU4bW92SUQ0K1JTdUVWNmtnSk9MSlNwdjhM?=
+ =?utf-8?Q?uctk=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 06:47:28.6438 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61f52c0b-9448-4c62-2421-08dcad3ed130
+X-MS-Exchange-CrossTenant-Network-Message-Id: 885389e4-d85b-4612-46ca-08dcad415f0c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 07:05:45.9983 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7421
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tZW/xhoSeKcAfk/LcrO26agerSDD9kEkwd7sJ2E/XwZo1b+02erlBWQ/wLEVZXvz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5841
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,156 +164,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fix involves setting 'err' to '-EINVAL' before each 'goto
-out_err_unreserve'.
+Am 25.07.24 um 20:09 schrieb Nikita Zhandarovich:
+> Several cs track offsets (such as 'track->db_s_read_offset')
+> either are initialized with or plainly take big enough values that,
+> once shifted 8 bits left, may be hit with integer overflow if the
+> resulting values end up going over u32 limit.
+>
+> Some debug prints take this into account (see according dev_warn() in
+> evergreen_cs_track_validate_stencil()), even if the actual
+> calculated value assigned to local 'offset' variable is missing
+> similar proper expansion.
+>
+> Mitigate the problem by casting the type of right operands to the
+> wider type of corresponding left ones in all such cases.
+>
+> Found by Linux Verification Center (linuxtesting.org) with static
+> analysis tool SVACE.
+>
+> Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni tiling informations v11")
+> Cc: stable@vger.kernel.org
 
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_queue.c:265 kfd_queue_acquire_buffers()
-warn: missing error code 'err'
+Well first of all the long cast doesn't makes the value 64bit, it 
+depends on the architecture.
 
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_queue.c
-    226 int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
-    227 {
-    228         struct kfd_topology_device *topo_dev;
-    229         struct amdgpu_vm *vm;
-    230         u32 total_cwsr_size;
-    231         int err;
-    232
-    233         topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-    234         if (!topo_dev)
-    235                 return -EINVAL;
-    236
-    237         vm = drm_priv_to_vm(pdd->drm_priv);
-    238         err = amdgpu_bo_reserve(vm->root.bo, false);
-    239         if (err)
-    240                 return err;
-    241
-    242         err = kfd_queue_buffer_get(vm, properties->write_ptr, &properties->wptr_bo, PAGE_SIZE);
-    243         if (err)
-    244                 goto out_err_unreserve;
-    245
-    246         err = kfd_queue_buffer_get(vm, properties->read_ptr, &properties->rptr_bo, PAGE_SIZE);
-    247         if (err)
-    248                 goto out_err_unreserve;
-    249
-    250         err = kfd_queue_buffer_get(vm, (void *)properties->queue_address,
-    251                                    &properties->ring_bo, properties->queue_size);
-    252         if (err)
-    253                 goto out_err_unreserve;
-    254
-    255         /* only compute queue requires EOP buffer and CWSR area */
-    256         if (properties->type != KFD_QUEUE_TYPE_COMPUTE)
-    257                 goto out_unreserve;
+Then IIRC the underlying hw can only handle a 32bit address space so 
+having the offset as long is incorrect to begin with.
 
-This is clearly a success path.
+And finally that is absolutely not material for stable.
 
-    258
-    259         /* EOP buffer is not required for all ASICs */
-    260         if (properties->eop_ring_buffer_address) {
-    261                 if (properties->eop_ring_buffer_size != topo_dev->node_props.eop_buffer_size) {
-    262                         pr_debug("queue eop bo size 0x%lx not equal to node eop buf size 0x%x\n",
-    263                                 properties->eop_buf_bo->tbo.base.size,
-    264                                 topo_dev->node_props.eop_buffer_size);
---> 265                         goto out_err_unreserve;
+Regards,
+Christian.
 
-This has err in the label name.  err = -EINVAL?
-
-    266                 }
-    267                 err = kfd_queue_buffer_get(vm, (void *)properties->eop_ring_buffer_address,
-    268                                            &properties->eop_buf_bo,
-    269                                            properties->eop_ring_buffer_size);
-    270                 if (err)
-    271                         goto out_err_unreserve;
-    272         }
-    273
-    274         if (properties->ctl_stack_size != topo_dev->node_props.ctl_stack_size) {
-    275                 pr_debug("queue ctl stack size 0x%x not equal to node ctl stack size 0x%x\n",
-    276                         properties->ctl_stack_size,
-    277                         topo_dev->node_props.ctl_stack_size);
-    278                 goto out_err_unreserve;
-
-err?
-
-    279         }
-    280
-    281         if (properties->ctx_save_restore_area_size != topo_dev->node_props.cwsr_size) {
-    282                 pr_debug("queue cwsr size 0x%x not equal to node cwsr size 0x%x\n",
-    283                         properties->ctx_save_restore_area_size,
-    284                         topo_dev->node_props.cwsr_size);
-    285                 goto out_err_unreserve;
-
-err?  Not sure.
-
-    286         }
-    287
-    288         total_cwsr_size = (topo_dev->node_props.cwsr_size + topo_dev->node_props.debug_memory_size)
-    289                           * NUM_XCC(pdd->dev->xcc_mask);
-    290         total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
-    291
-    292         err = kfd_queue_buffer_get(vm, (void *)properties->ctx_save_restore_area_address,
-    293                                    &properties->cwsr_bo, total_cwsr_size);
-    294         if (!err)
-    295                 goto out_unreserve;
-    296
-    297         amdgpu_bo_unreserve(vm->root.bo);
-    298
-    299         err = kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_area_address,
-    300                                        total_cwsr_size);
-    301         if (err)
-    302                 goto out_err_release;
-    303
-    304         return 0;
-    305
-    306 out_unreserve:
-    307         amdgpu_bo_unreserve(vm->root.bo);
-    308         return 0;
-    309
-    310 out_err_unreserve:
-    311         amdgpu_bo_unreserve(vm->root.bo);
-    312 out_err_release:
-    313         kfd_queue_release_buffers(pdd, properties);
-    314         return err;
-    315 }
-
-Fixes: 629568d25fea ("drm/amdkfd: Validate queue cwsr area and eop buffer size")
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Philip Yang <Philip.Yang@amd.com>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 9807e8adf77d..63795f0cd55a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -262,6 +262,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- 			pr_debug("queue eop bo size 0x%lx not equal to node eop buf size 0x%x\n",
- 				properties->eop_buf_bo->tbo.base.size,
- 				topo_dev->node_props.eop_buffer_size);
-+			err = -EINVAL;
- 			goto out_err_unreserve;
- 		}
- 		err = kfd_queue_buffer_get(vm, (void *)properties->eop_ring_buffer_address,
-@@ -275,6 +276,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- 		pr_debug("queue ctl stack size 0x%x not equal to node ctl stack size 0x%x\n",
- 			properties->ctl_stack_size,
- 			topo_dev->node_props.ctl_stack_size);
-+		err = -EINVAL;
- 		goto out_err_unreserve;
- 	}
- 
-@@ -282,6 +284,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- 		pr_debug("queue cwsr size 0x%x not equal to node cwsr size 0x%x\n",
- 			properties->ctx_save_restore_area_size,
- 			topo_dev->node_props.cwsr_size);
-+		err = -EINVAL;
- 		goto out_err_unreserve;
- 	}
- 
--- 
-2.34.1
+> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+> ---
+> P.S. While I am not certain that track->cb_color_bo_offset[id]
+> actually ends up taking values high enough to cause an overflow,
+> nonetheless I thought it prudent to cast it to ulong as well.
+>
+>   drivers/gpu/drm/radeon/evergreen_cs.c | 18 +++++++++---------
+>   1 file changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+> index 1fe6e0d883c7..d734d221e2da 100644
+> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+> @@ -433,7 +433,7 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>   		return r;
+>   	}
+>   
+> -	offset = track->cb_color_bo_offset[id] << 8;
+> +	offset = (unsigned long)track->cb_color_bo_offset[id] << 8;
+>   	if (offset & (surf.base_align - 1)) {
+>   		dev_warn(p->dev, "%s:%d cb[%d] bo base %ld not aligned with %ld\n",
+>   			 __func__, __LINE__, id, offset, surf.base_align);
+> @@ -455,7 +455,7 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>   				min = surf.nby - 8;
+>   			}
+>   			bsize = radeon_bo_size(track->cb_color_bo[id]);
+> -			tmp = track->cb_color_bo_offset[id] << 8;
+> +			tmp = (unsigned long)track->cb_color_bo_offset[id] << 8;
+>   			for (nby = surf.nby; nby > min; nby--) {
+>   				size = nby * surf.nbx * surf.bpe * surf.nsamples;
+>   				if ((tmp + size * mslice) <= bsize) {
+> @@ -476,10 +476,10 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>   			}
+>   		}
+>   		dev_warn(p->dev, "%s:%d cb[%d] bo too small (layer size %d, "
+> -			 "offset %d, max layer %d, bo size %ld, slice %d)\n",
+> +			 "offset %ld, max layer %d, bo size %ld, slice %d)\n",
+>   			 __func__, __LINE__, id, surf.layer_size,
+> -			track->cb_color_bo_offset[id] << 8, mslice,
+> -			radeon_bo_size(track->cb_color_bo[id]), slice);
+> +			(unsigned long)track->cb_color_bo_offset[id] << 8,
+> +			mslice,	radeon_bo_size(track->cb_color_bo[id]), slice);
+>   		dev_warn(p->dev, "%s:%d problematic surf: (%d %d) (%d %d %d %d %d %d %d)\n",
+>   			 __func__, __LINE__, surf.nbx, surf.nby,
+>   			surf.mode, surf.bpe, surf.nsamples,
+> @@ -608,7 +608,7 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>   		return r;
+>   	}
+>   
+> -	offset = track->db_s_read_offset << 8;
+> +	offset = (unsigned long)track->db_s_read_offset << 8;
+>   	if (offset & (surf.base_align - 1)) {
+>   		dev_warn(p->dev, "%s:%d stencil read bo base %ld not aligned with %ld\n",
+>   			 __func__, __LINE__, offset, surf.base_align);
+> @@ -627,7 +627,7 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>   		return -EINVAL;
+>   	}
+>   
+> -	offset = track->db_s_write_offset << 8;
+> +	offset = (unsigned long)track->db_s_write_offset << 8;
+>   	if (offset & (surf.base_align - 1)) {
+>   		dev_warn(p->dev, "%s:%d stencil write bo base %ld not aligned with %ld\n",
+>   			 __func__, __LINE__, offset, surf.base_align);
+> @@ -706,7 +706,7 @@ static int evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>   		return r;
+>   	}
+>   
+> -	offset = track->db_z_read_offset << 8;
+> +	offset = (unsigned long)track->db_z_read_offset << 8;
+>   	if (offset & (surf.base_align - 1)) {
+>   		dev_warn(p->dev, "%s:%d stencil read bo base %ld not aligned with %ld\n",
+>   			 __func__, __LINE__, offset, surf.base_align);
+> @@ -722,7 +722,7 @@ static int evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>   		return -EINVAL;
+>   	}
+>   
+> -	offset = track->db_z_write_offset << 8;
+> +	offset = (unsigned long)track->db_z_write_offset << 8;
+>   	if (offset & (surf.base_align - 1)) {
+>   		dev_warn(p->dev, "%s:%d stencil write bo base %ld not aligned with %ld\n",
+>   			 __func__, __LINE__, offset, surf.base_align);
 
