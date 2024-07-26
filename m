@@ -4,48 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5E4C3DA70
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81AA2C52CDA
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBD2610E0ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF0310E0EF;
 	Sat, 27 Jul 2024 21:04:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="e2c43uYC";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PZcxIis2";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBC510E98B;
- Fri, 26 Jul 2024 13:40:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1722001252;
- bh=zLLuxR3/V2JlN8OpJMEgWoG2yzJmfvO65eS2FhFFww0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=e2c43uYCSx+UQy0ru8kSGsDvUIh1zIYSL0TfYSFHx07W2ZPuev8WkBemM1p9MXpMM
- WlVBkfZ9208dnBW9WEyDTKHilQxFDyp2tqGPmsyNhg0PywSdK6O/wtOMUqkBkCk0tV
- z9JSpYnth123fFk9b/rRrvrfpupSjJIU3dHn5rtc=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 26 Jul 2024 15:40:16 +0200
-Subject: [PATCH v2 2/2] drm/radeon: convert bios_hardcoded_edid to drm_edid
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B1210E36C;
+ Fri, 26 Jul 2024 09:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=b4wl9SBhUlZbjx5376T8HpczeCt/6BQTHpTpTKIFQfU=; b=PZcxIis2QJVcEzhP6QQu7jZrA+
+ tUO0ffpImHKsXywu3IvYbdbbU4ANrYgvvHNQOjiPILS37EILle3WyWiXcazvsCmVqLBw51TRRwXTh
+ mrtCxSSok5HsvjworRpTCr+yZjPyE4m+4bMGEwcIJKpevJCcnXWXdcfDXmCPqsf5dwAc7WgS57kn7
+ wC/iKeG6t5FKNt1CFJ1j4yy8V9CMncuDzoAeLVI6KD1/XHlCU+J4UM3H6uYrqIOeYymgTX7qCjNBQ
+ VWUzCtYoShMfax7/Env7E0NgJvVPXOeW3IhLcJ8ktC6xYj6Ov2njqYpPyGvd8JCXAtlP9ZdggfxF8
+ PcWToH9g==;
+Received: from [84.69.19.168] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1sXGpv-002FsT-31; Fri, 26 Jul 2024 11:02:03 +0200
+Message-ID: <d4eb469f-7fdb-4906-aec8-0e36529b10b0@igalia.com>
+Date: Fri, 26 Jul 2024 10:02:02 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/scheduler: Fix drm_sched_entity_set_priority()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20240719094730.55301-1-tursulin@igalia.com>
+ <61bd1b84-a7f3-46fd-8511-27e306806c8d@gmail.com>
+ <bd1f203f-d8c4-4c93-8074-79c3df4fe159@gmail.com>
+ <8f977694-eb15-4b64-97f7-f2b8921de5cf@igalia.com>
+ <eb8a2ce7-223f-4518-8d72-fac875a51f98@amd.com>
+ <9867a2b2-6729-424f-abc9-e1d1b81bab41@igalia.com>
+ <6b254b3d-a6d9-4b12-9a5e-dacb32d41ee9@amd.com>
+ <ecc032cd-d595-4f4d-a96a-bee51f290547@igalia.com>
+ <fb7b7ce4-294e-463b-93b7-565099e1c2d8@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <fb7b7ce4-294e-463b-93b7-565099e1c2d8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240726-amdgpu-edid-bios-v2-2-8a0326654253@weissschuh.net>
-References: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
-In-Reply-To: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1722001252; l=6245;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=zLLuxR3/V2JlN8OpJMEgWoG2yzJmfvO65eS2FhFFww0=;
- b=9ND2sB1KDIhpbUs2FjCzipLLAEQJwkB/HTt8Z/JxRNUUSxvSIwYeKKU96tmaLZFnby3Mhupea
- syJ6iAwiPvXC2fFCmF8mOeG+mGqSa0JgASFcS9JbNS7MXKxrMvLtY9Z
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Sat, 27 Jul 2024 21:04:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,173 +73,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of manually passing around 'struct edid *' and its size,
-use 'struct drm_edid', which encapsulates a validated combination of
-both.
 
-As the drm_edid_ can handle NULL gracefully, the explicit checks can be
-dropped.
 
-Also save a few characters by transforming '&array[0]' to the equivalent
-'array' and using 'max_t(int, ...)' instead of manual casts.
+On 24/07/2024 12:16, Christian König wrote:
+> Am 24.07.24 um 10:16 schrieb Tvrtko Ursulin:
+>> [SNIP]
+>>> Absolutely.
+>>
+>> Absolutely good and absolutely me, or absolutely you? :)
+> 
+> You, I don't even have time to finish all the stuff I already started :/
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- drivers/gpu/drm/radeon/radeon_atombios.c   | 17 ++++++-----------
- drivers/gpu/drm/radeon/radeon_combios.c    | 26 +++++---------------------
- drivers/gpu/drm/radeon/radeon_connectors.c |  4 ++--
- drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
- drivers/gpu/drm/radeon/radeon_mode.h       |  4 ++--
- 5 files changed, 16 insertions(+), 37 deletions(-)
+Okay, I think I can squeeze it in.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-index 168f3f94003b..81a0a91921b9 100644
---- a/drivers/gpu/drm/radeon/radeon_atombios.c
-+++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-@@ -1716,23 +1716,18 @@ struct radeon_encoder_atom_dig *radeon_atombios_get_lvds_info(struct
- 				case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
- 					fake_edid_record = (ATOM_FAKE_EDID_PATCH_RECORD *)record;
- 					if (fake_edid_record->ucFakeEDIDLength) {
--						struct edid *edid;
-+						const struct drm_edid *edid;
- 						int edid_size;
- 
- 						if (fake_edid_record->ucFakeEDIDLength == 128)
- 							edid_size = fake_edid_record->ucFakeEDIDLength;
- 						else
- 							edid_size = fake_edid_record->ucFakeEDIDLength * 128;
--						edid = kmemdup(&fake_edid_record->ucFakeEDIDString[0],
--							       edid_size, GFP_KERNEL);
--						if (edid) {
--							if (drm_edid_is_valid(edid)) {
--								rdev->mode_info.bios_hardcoded_edid = edid;
--								rdev->mode_info.bios_hardcoded_edid_size = edid_size;
--							} else {
--								kfree(edid);
--							}
--						}
-+						edid = drm_edid_alloc(fake_edid_record->ucFakeEDIDString, edid_size);
-+						if (drm_edid_valid(edid))
-+							rdev->mode_info.bios_hardcoded_edid = edid;
-+						else
-+							drm_edid_free(edid);
- 						record += struct_size(fake_edid_record,
- 								      ucFakeEDIDString,
- 								      edid_size);
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index 41ddc576f8f8..df8d7f56b028 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -370,7 +370,7 @@ static uint16_t combios_get_table_offset(struct drm_device *dev,
- bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
- {
- 	int edid_info, size;
--	struct edid *edid;
-+	const struct drm_edid *edid;
- 	unsigned char *raw;
- 	edid_info = combios_get_table_offset(rdev_to_drm(rdev), COMBIOS_HARDCODED_EDID_TABLE);
- 	if (!edid_info)
-@@ -378,19 +378,14 @@ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
- 
- 	raw = rdev->bios + edid_info;
- 	size = EDID_LENGTH * (raw[0x7e] + 1);
--	edid = kmalloc(size, GFP_KERNEL);
--	if (edid == NULL)
--		return false;
--
--	memcpy((unsigned char *)edid, raw, size);
-+	edid = drm_edid_alloc(raw, size);
- 
--	if (!drm_edid_is_valid(edid)) {
--		kfree(edid);
-+	if (!drm_edid_valid(edid)) {
-+		drm_edid_free(edid);
- 		return false;
- 	}
- 
- 	rdev->mode_info.bios_hardcoded_edid = edid;
--	rdev->mode_info.bios_hardcoded_edid_size = size;
- 	return true;
- }
- 
-@@ -398,18 +393,7 @@ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
- struct edid *
- radeon_bios_get_hardcoded_edid(struct radeon_device *rdev)
- {
--	struct edid *edid;
--
--	if (rdev->mode_info.bios_hardcoded_edid) {
--		edid = kmalloc(rdev->mode_info.bios_hardcoded_edid_size, GFP_KERNEL);
--		if (edid) {
--			memcpy((unsigned char *)edid,
--			       (unsigned char *)rdev->mode_info.bios_hardcoded_edid,
--			       rdev->mode_info.bios_hardcoded_edid_size);
--			return edid;
--		}
--	}
--	return NULL;
-+	return drm_edid_duplicate(drm_edid_raw(rdev->mode_info.bios_hardcoded_edid));
- }
- 
- static struct radeon_i2c_bus_rec combios_setup_i2c_bus(struct radeon_device *rdev,
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index 880edabfc9e3..528a8f3677c2 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -1059,7 +1059,7 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
- 	 */
- 	if ((!rdev->is_atom_bios) &&
- 	    (ret == connector_status_disconnected) &&
--	    rdev->mode_info.bios_hardcoded_edid_size) {
-+	    rdev->mode_info.bios_hardcoded_edid) {
- 		ret = connector_status_connected;
- 	}
- 
-@@ -1392,7 +1392,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
- out:
- 	if ((!rdev->is_atom_bios) &&
- 	    (ret == connector_status_disconnected) &&
--	    rdev->mode_info.bios_hardcoded_edid_size) {
-+	    rdev->mode_info.bios_hardcoded_edid) {
- 		radeon_connector->use_digital = true;
- 		ret = connector_status_connected;
- 	}
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index 10fd58f400bc..8f5f8abcb1b4 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1658,7 +1658,7 @@ void radeon_modeset_fini(struct radeon_device *rdev)
- 		rdev->mode_info.mode_config_initialized = false;
- 	}
- 
--	kfree(rdev->mode_info.bios_hardcoded_edid);
-+	drm_edid_free(rdev->mode_info.bios_hardcoded_edid);
- 
- 	/* free i2c buses */
- 	radeon_i2c_fini(rdev);
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index e0a5af180801..421c83fc70dc 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -39,6 +39,7 @@
- #include <linux/i2c-algo-bit.h>
- 
- struct edid;
-+struct drm_edid;
- struct radeon_bo;
- struct radeon_device;
- 
-@@ -262,8 +263,7 @@ struct radeon_mode_info {
- 	/* Output CSC */
- 	struct drm_property *output_csc_property;
- 	/* hardcoded DFP edid from BIOS */
--	struct edid *bios_hardcoded_edid;
--	int bios_hardcoded_edid_size;
-+	const struct drm_edid *bios_hardcoded_edid;
- 
- 	/* firmware flags */
- 	u16 firmware_flags;
+>> These are the TODO points and their opens:
+>>
+>> - Adjust amdgpu_ctx_set_entity_priority() to call 
+>> drm_sched_entity_modify_sched() regardless of the hw_type - to fix 
+>> priority changes on a single sched other than gfx or compute.
+> 
+> Either that or to stop using the scheduler priority to implement 
+> userspace priorities and always use different HW queues for that.
+> 
+>>
+>> - Document sched_list array lifetime must align with the entity and 
+>> adjust the callers.
+>>
+>> Open:
+>>
+>> Do you still oppose keeping sched_list for num_scheds == 1?
+> 
+> Not if you can fix up all callers.
+> 
+>> If so do you propose drm_sched_entity_modify_sched() keeps disagreeing 
+>> with drm_sched_entity_init() on this detail? And keep the "one shot 
+>> single sched_list" quirk in? Why is that nicer than simply keeping the 
+>> list and remove that quirk? Once lifetime rules are clear it IMO is 
+>> okay to always keep the list.
+> 
+> Yeah if every caller of drm_sched_entity_init() can be fixed I'm fine 
+> with that as well.
 
--- 
-2.45.2
+Okay so I will tackle the above few first.
 
+>>
+>> - Remove drm_sched_entity_set_priority().
+>>
+>> Open:
+>>
+>> Should we at this point also modify amdgpu_device_init_schedulers() to 
+>> stop initialising schedulers with DRM_SCHED_PRIORITY_COUNT run queues?
+> 
+> One step at a time.
+
+And leave this for later.
+
+Regards,
+
+Tvrtko
