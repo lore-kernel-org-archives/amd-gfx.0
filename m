@@ -4,152 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53055C3DA49
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 14:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BCDC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 14:24:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0637D10E9BB;
-	Fri, 26 Jul 2024 14:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6FD610E9BC;
+	Fri, 26 Jul 2024 14:24:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZmVUZbli";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VaSAosNP";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2049.outbound.protection.outlook.com [40.107.95.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48B6A10E9BB
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 14:23:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x19JHKFx92vvAVD09ECNzarolbDNbie18TONP8lZYHeClb6u1ETejDm76MTCW+Vhsk8Q6zynOwtFg3W5MuxWgRPT94EnkXrMFtIM5iMGegBZmrIqVy6zs4oEH1kmJdQU45EAHUMUHDeQltJbFI14p2Z7hctJuTMNckfLjS1M3qjESnKD0rvDs7K4jae0Ht4TRfi3RZi1d1K0vC+4JaYCxIqI4pp+7Gj8Xd8Kiqkr9KLPLPoTa9IylPDKpG9g+LSMufvi+ji0Z8fAsOLiv3kaISToycFb1nMOvCLkOCQOFcTEHhpLWvuu7/5LS9AUEMGIZhrdmCmFIEgkrysSZn9dOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hJgnU8MpGjWd77zurNL7B856aZ76Rg0mV0e7qQfgTRA=;
- b=NLnm+PkXiwXa8w1/W3QdDQF6FzgMaZqr6wo4RKFXWhnprk4VD0EfQdvpO6CNoZfyDCKDORrAi4REYKPWepV3WUQNf+D5dInEU4eRPbtuJZJeW4exK25OuWQ9IQUDRHG9Gk3kfE4N1J2wqjKao2DFnBlVj0HPRvkm259DYmt5g/JH1dUk+7HIQ9GbPcVYxi7p6ufbArVgy+IGKhbE6lAulSXezoi6dudQOnzV5bMeWz7Pgh+xRww1lFf5KUuw74wqTUSas0U68k9Cba41WnWCaeiCIAvuYuLrKRUXZkF1birILBOxWCY8k/l8DWIeQ8lH0rkCuZg2DiGVXC3rdOuxVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hJgnU8MpGjWd77zurNL7B856aZ76Rg0mV0e7qQfgTRA=;
- b=ZmVUZblilbRmGOA7CFpl8phUjfBTTJZQuyAMif/CpMzb+syaqH3QoHCtrw9CFYM4qaklEroMT1WUB1Ka/QcufQSHGZYgrYy+h+p8wtzj2Au2CWjisW3mJRzTtZlPY/g6ppvRVlNERurBeLLGg3ssifVVMS3lJHvRSsVoOh5YLv4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- by PH7PR12MB6978.namprd12.prod.outlook.com (2603:10b6:510:1b8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16; Fri, 26 Jul
- 2024 14:23:32 +0000
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::8865:d63a:a8eb:282b]) by PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::8865:d63a:a8eb:282b%7]) with mapi id 15.20.7784.020; Fri, 26 Jul 2024
- 14:23:32 +0000
-Message-ID: <f967ce91-dd88-4542-8340-1e61813eb780@amd.com>
-Date: Fri, 26 Jul 2024 19:53:23 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: trigger ip dump before suspend of IP's
-Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>, 
- Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Liu Leo <Leo.Liu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240726124751.3121312-1-sunil.khatri@amd.com>
- <20240726124751.3121312-2-sunil.khatri@amd.com>
- <CADnq5_NdYiwGGvyVvg3_0aUuH9YLL_kUgNUpjEad8z8E1xWfMQ@mail.gmail.com>
- <57660e1e-1aad-4ba6-be90-abda2b377e3f@amd.com>
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <57660e1e-1aad-4ba6-be90-abda2b377e3f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0014.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::19) To PH7PR12MB5596.namprd12.prod.outlook.com
- (2603:10b6:510:136::13)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0CB810E9BC;
+ Fri, 26 Jul 2024 14:24:56 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2cb5deb027dso771662a91.1; 
+ Fri, 26 Jul 2024 07:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722003896; x=1722608696; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XXgLD0m26HUeKNwihPrfsvZTOawIH1uUPigObJkbBi0=;
+ b=VaSAosNPaSk8t83ItOn9qnwD1baKLjX/x4nyoROrwfbbaARy4FNLL8z5prGaKtqrDj
+ 38Qg6hueJsB6GjaaGSYroobrQYTEYyenEPfve0/cCp3iMAo/6fX/YaC6jernv6ayXMsA
+ wQX0/OfM6RSvZFdo/w9cA6gnsZt2RLlczco3uUz6eqrInQgMaY5a6I61+WhjHeq2634Y
+ NFhTVPK74yj0DCK9S+sWiTMOztPV1h81wh1B7ivIH63gkhIpUdUw2aV/MgrRhjOANvQz
+ LR8UF+rO5sZXtyKi2oXkyTlBKsUZGOSxikOVChhf4wqZHz0JNY/0LTBXgETeAWOt6mAF
+ NzzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722003896; x=1722608696;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XXgLD0m26HUeKNwihPrfsvZTOawIH1uUPigObJkbBi0=;
+ b=UDjiNlvn4dLP0ISGtiWuKx35sr6pL/obNYtfY95kcvrVGs7adHD9c4bYvPObjSqFqP
+ 09d6w0KxY94w/yB23/O08qSbyTt2fWuSTfgug++tGJ3fqaKiFVYOiumNA1z4IStFHraG
+ bSGU8GiJeKRGACgbScr4mFwpENV4My99pW8I43llC24RCo6whfGl7aFp8C6mj/WKW+Cd
+ P4RssyT3C8wOXByoIc2pTIS2/JfmiqUUiqIjFSoRZsp3DGj4PD5e/VgTnjytdMMC13po
+ M58EKrn7tWFQcdM8DWHffbyP1JOhOsjwg4ipw6MUQfIX4cwEGzOIxUKLYN1xnCDYeB0Y
+ wCuA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV3W0k9t9VPl43JhyPF0moaj6zXneB/rbVM5g7S8tSN6KzpHUCU190eCm/iEMP+BQC3fJuJabDUHehhGVhThx7XQoENt0uK9xMh4Yb9i6eAqtfrX/rax+rZd99WESgTDpUAo1LgFs0J4ND2Kf2WxA==
+X-Gm-Message-State: AOJu0Yym7A7YHLJ1ukvEksp3Wvebo24LcYHgmoDP2e0ady08wL4v2fqe
+ 3OK++wzWBeB05Uy3mZgrF1K972Lf4hOqpkmXNv+KZ37PzA6EPKm8StySFVxsPgAobZYboGAz4YP
+ M0ZIB+rDoMsZQ2J1ZwPYks6CV7lQ=
+X-Google-Smtp-Source: AGHT+IFctf80aK3DGwTPMnlRmHGKh/s2j0PYO8TK/gc1CZicgQ4YnsnrfZIjmDDtFAEFkNZUB+suhX2Y6Dy2/0Rhxb0=
+X-Received: by 2002:a17:90b:3007:b0:2c4:aa78:b48b with SMTP id
+ 98e67ed59e1d1-2cf2ec064bbmr6039798a91.38.1722003896184; Fri, 26 Jul 2024
+ 07:24:56 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|PH7PR12MB6978:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86480358-9321-410f-85bc-08dcad7e86c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Mml6UTRIRlptUkVKTjExVWRsQVQ5b3F2czZtRlpDclZBbDRMdHNrUGpTOGI2?=
- =?utf-8?B?RW8vdmorRzd3STNvaFU1VzFmRlk4eFBlaDR0MnhwU1Y1NWZaM1AyTkR1eDFU?=
- =?utf-8?B?TnE0UnExTW9idVBnU1pDRGJ3ZGFibzJwbWVyRkdZN3plYnlNWUZFeGo4OUlH?=
- =?utf-8?B?TFNnYWhGdEl1eWhJS05iWU9ib3RiOVhjREwxeWVIejkraFczemIrYU8yNnBU?=
- =?utf-8?B?SXZ3aFF2U2ZJUFRSTjl4WVpkZUJOaW13Tjk3VjRmdHlWUGFybjVzaTlzUHRm?=
- =?utf-8?B?Qm1wc0VmMStGeFlDRUlnWEJpYzlSeTM3dUYwS0NXOEZzMnFaWm1qcXU1c0lv?=
- =?utf-8?B?dHJvWXJ1djFsTlRqb0dpOXBVSC9ncmN5MlVQRndFSm9DQVVqbXhYaFVkL2M3?=
- =?utf-8?B?eUpadzNML3EvNWJxUkREODRMVm1XM0piTEJpbUdhazBIV1lKWmRPbEthdjNZ?=
- =?utf-8?B?TDZzVGt3K3dmV1poTUxnTVE2YUljdFNiTnRZNkFMbmtmVkFUTklpaWkwOVlV?=
- =?utf-8?B?NkJrTVVkbkFVbitITlJZR3ZMSVRrTmxBNkZKWHhCc3hreCsxRFl5M09lTmRS?=
- =?utf-8?B?QjRDblR2VnhpdldOcEZTLy8wNDlJdkpuYnQvVU1oZWdiMnhpK0h6emxPa3Ux?=
- =?utf-8?B?Q09QcFQ1Qk5PWXBoSjl3b00ydHFmbVBHNVJaMVlxTFVsN3RFMEpTbDVVQ25n?=
- =?utf-8?B?ai9MWmpwTHZDSllNa1lLM0FsWXhaSzVHYktoMys0UmRnZlJqbFdUSmt0dHJq?=
- =?utf-8?B?RVZIK3FHS2xGZFNGQTFIeFpWemVMbGdYZmZxMUJmNFVORXJCeWdlWDRJZkh6?=
- =?utf-8?B?TFl5NjZGU0pHdnZtd1RORHBjd2VsZTkyMkRFN2RMRmRwYitQWWhEcWo1N2VD?=
- =?utf-8?B?NWdCTTdxWXJTbGFxaWh5TEt5QUFTYXV3L3gzeXNIclByYjhrNXVhM1FiTmNw?=
- =?utf-8?B?UU1LeDVWN045aU80cXYyVjhpcG9nbWc0MUQxSTd1cUl1SThTdTQ3R2RsK285?=
- =?utf-8?B?MlBjNjh5MmwyUWkvTDVPYmgybEVwNmhnZXJOUnIzdEMyQjdxV1JSOTQzV3pC?=
- =?utf-8?B?bWMvcmFTQTV6elVJeXpONkJ5K0NXNzJnOTlIQmcxMXdQZk12Y0tKSWZpdUt1?=
- =?utf-8?B?cExZN1ZpMGI3R3JJNGRZSk41akh4YTYrYi94aHFGVzFWS0xSVG54a1E4by9Y?=
- =?utf-8?B?cy9CSzBjSHdZNEF6VUMwd2tnRDBhR3pVSW4yOCtpL2hTdnNJOC8vbG01T3pI?=
- =?utf-8?B?RXVFbmlsdHE2d1NlRVk2TUV3bUNtY3FuUUNLTHgyYWMyWldhU1JYZkF4L3k2?=
- =?utf-8?B?K05FYXgzOW9GRzN4VXZwTzUvNWVCNHM5UE5OM0tuWGhCYXByNENFODBqeUJJ?=
- =?utf-8?B?K0FDVndzcnplUUV4TzM5ZXNlNmlVUTgwdkdZcnE3eFBIUnFhdktIOExHM0U5?=
- =?utf-8?B?RFNCYVZqNmhvbkkwZkVwbTFrcCtNa3J2Q014MVppM3hPbmhDUlVvenVrUjNo?=
- =?utf-8?B?MWxaMThjdVZGQVEyMFA3L0NMN0hHVTRoYUx3VGh5YlFVVzhkUkR1WXNtSXkx?=
- =?utf-8?B?U2VPYkVlYlJoWlVGMUdpcVl3VjFWcktnMzFkcWVhcWZwM3VGbVBHNHNhVFpL?=
- =?utf-8?B?VGFNaFVNV0liNnRYMDB0Z3Y0blpmVERxbWhXYXNJYkpZRFVnTmw3V3drM01p?=
- =?utf-8?B?a0hGendFZ2ZJVEFyRXVLUkx2UlpCUjZ3citSMEhBWEkxcjdTNnRLR3lKdHJZ?=
- =?utf-8?B?Z1V5a3dvalZwT0FIV3pPNDlEY3pBUnFlaEhRcXNadk04VXpkYmhWU3dPRnRU?=
- =?utf-8?B?Wkg5bTk0NGwyc2tFUTF5Zz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTNmeUd6M3Bic2lkaHJhSVRKb3BvTW5IdWxuSHRQVFZHS1N6OFJtR25YQ2FM?=
- =?utf-8?B?WjJaWm05VW8wY2dCWGJMSzlVblM1SGVUZkJWS0ZkQ1Npemh5M1NnektrcXox?=
- =?utf-8?B?RkFEVlg2eGZiWFdWMy9ndVFOb1E2dHhYc1JiUXlVNlN6N2M0TW9RQUlqa0k4?=
- =?utf-8?B?enNXT1RMMzRNVHZkNS9XL0FSYzVYTWQ1bGRKd2x1aXJHR1RsQ0hGQzV6aFl1?=
- =?utf-8?B?YXQ2QklGMVNtQlNvamJIdGlYRmFNbkdqd0RqRzRKQWd1SjZ3NnlDaW5SRU1Z?=
- =?utf-8?B?L1REalZDRVMrQXNxNVRjUjB6aWN4WUFwV3BIeDBjQ3ZPUDZtc3lYWjBreXJj?=
- =?utf-8?B?WEJiUnV3VHpMVVJyZUV6c0xpWGJiQ0RGdmhVVFpSejc2Y1dzbW43WDQ0QjlH?=
- =?utf-8?B?Qm9kS2RXNXQxK0F4OEdlbmVCT2RYMjFJY04wMGlCMU5hSzhjT2V0dDlyQXNj?=
- =?utf-8?B?cUdOWHcyVkp6bUl4Nm9MOHdPOVFaZjZpdGdESThuei9rcmVDMDhLd1g3U3Y5?=
- =?utf-8?B?WGliNFNHNVRIRFNMR0pLa1d5MjlIbnB3ZktwRDI0cldCdHNIMVpjSlI0N0pD?=
- =?utf-8?B?YXlxMURpS0FXcjkyR0NLTWhqQWgycGR2WG91V2NEOUdiKytRR0E1NEpBbmNk?=
- =?utf-8?B?Ni9sY2NjRkpVKzJxZnVmS0FiNE1TR3IvS2lBckYvRHd5U2NVb3ZqSFcwc3dH?=
- =?utf-8?B?dlRmN0xNa0NiSEpuQjZJOGFiSm9KMWw2c0tkUW9QOGlobUNFNSt4Rm44M2tZ?=
- =?utf-8?B?NzBVNHdiR0xHRE5XOHd6dzlzdDl6Q0Q4MjFXZWNJS2I1dENBdUg0OC93S3Nk?=
- =?utf-8?B?bWZjb0pVdkk1ZU9wQVlvaEduVkk0NU51UWp4cThNeHByUUdJUGNIN09sc0s0?=
- =?utf-8?B?VnA0ZEgxZXo4UllxUkRQL2Q0SGQ2OFdDNjlGcGpiNE1TTnE2bXAvZXVadlhz?=
- =?utf-8?B?SDlBVXlxbmY0TkpqRzlnSnkvZmMzR2FPSGw1ZGwrWm1EeG1CeUR4dk1HSnhX?=
- =?utf-8?B?dUxVVDJNWDdSU29EWHZXMC9IYkQ4TDJYUFFERGpkdTc4a24rY0FGdmdVMTZr?=
- =?utf-8?B?aktmSGJvNnpIcmtXVWQ1czlhWUZpMWVaeVNvVVp1UUhZVm5CU0Y1TUNCb2oz?=
- =?utf-8?B?cUlTZGxSNFRtdHRQYzlEZjZtWmtqUjVOb1RndGdTOGlqMEZNQW1ZTGQ2eU8x?=
- =?utf-8?B?Zm5iQnI3em5lOUVxa3ZpcTV1Vm1sWkR5U0xYZ1NNSTNFTVlTVyswNmt4SmlI?=
- =?utf-8?B?aVE3OWhBQkNZUlNQNHU1NjBmaU5sYVJiV1pEb0M0YUVteklSWXBnM0JEOVpo?=
- =?utf-8?B?QnJidkg2Mm5wVVk1NVZvbEFZRjh4cGpwdWZRNU0reTJQOGdZK2FKMlY3cEFr?=
- =?utf-8?B?LytWSFFtanZMa01ncWVsRUJHUWF2OEtET3IyczcrMXVsMXRSMFZyWXdkekRT?=
- =?utf-8?B?NnczbkZIcURZdXZnZGsvSFoxNzdOTWZNaTBLclZPZFRSZ1JKTUU2cHM4TlIw?=
- =?utf-8?B?R3JROW96WVY5eTJIRFBNZWZHTlo0VWRjZ3pVUVFBZko5RUNLblRDNENWbFdF?=
- =?utf-8?B?d1Yyd29hVm9maFF3ZnN0b3p4ZFhmMXkwb1VSYUNhRDJFbVVhUS9rd3dza0Vo?=
- =?utf-8?B?RXB1bmI4U3IxRWlZT3dQOEQ4UmRoOFREbWxOcjNYYkdpNmwxOTlTMUFPMGdt?=
- =?utf-8?B?TGtVR0hUbTlWdkQxcjl2T0lUbkI3MHU4R05xY0xLMWwrYlpKektkUW5FeW0v?=
- =?utf-8?B?QXk2cFNtVDVHRXNEQ1JabjZSNDduTFVqTEZOTU10a0l0dmplWUpkc0Q0Mmkv?=
- =?utf-8?B?VUJxYitqTzcxU0JYcExveG9sOFpyTFJXR1VxNmI0ajRINDlLMVN1Z3p3NVFx?=
- =?utf-8?B?Yyt3RUgrS2c1ZTFBTC8yV2tRaFBHWjJLd2tHSVVLOU9jR1Q2eVRDelM4ZEZj?=
- =?utf-8?B?NkliOU1lQ3pZcUxsZTRjbEdueDhYQXFTaWtBOG05WmNqYzZpei9FNUNSdUdp?=
- =?utf-8?B?Q29NM0MwREZKcjJFZUxHMzVMWDlrTjQzdVVPd2RHSFlBeXM2OU1ZTVBiKzlX?=
- =?utf-8?B?QXpwbVVoWC8xdHF6MFlIS1dmRjNIbkdEQ3Mxa0s3T0lGOTFudERsbGJSam1J?=
- =?utf-8?Q?xSxT42RjeMkamjAtOGX+l6dgK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86480358-9321-410f-85bc-08dcad7e86c4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 14:23:32.1712 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QDkEadSc5+fbq2EQQGKBqjkqk57IWWS4FSn/tBi3REl8CHlM1vUcE+DD4a5P6y9eiAKRY8D5FFUz/YWqbwPmGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6978
+References: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
+ <20240726-amdgpu-edid-bios-v2-2-8a0326654253@weissschuh.net>
+In-Reply-To: <20240726-amdgpu-edid-bios-v2-2-8a0326654253@weissschuh.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 26 Jul 2024 10:24:44 -0400
+Message-ID: <CADnq5_NwCJV0exdGJ+nCFKdSZ-D85LsLQqCucF54jxtSa=yvSA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/radeon: convert bios_hardcoded_edid to drm_edid
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,160 +83,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied the series.  Thanks!
 
-On 7/26/2024 7:18 PM, Lazar, Lijo wrote:
+Alex
+
+On Fri, Jul 26, 2024 at 9:40=E2=80=AFAM Thomas Wei=C3=9Fschuh <linux@weisss=
+chuh.net> wrote:
 >
-> On 7/26/2024 6:42 PM, Alex Deucher wrote:
->> On Fri, Jul 26, 2024 at 8:48 AM Sunil Khatri <sunil.khatri@amd.com> wrote:
->>> Problem:
->>> IP dump right now is done post suspend of
->>> all IP's which for some IP's could change power
->>> state and software state too which we do not want
->>> to reflect in the dump as it might not be same at
->>> the time of hang.
->>>
->>> Solution:
->>> IP should be dumped as close to the HW state when
->>> the GPU was in hung state without trying to reinitialize
->>> any resource.
->>>
->>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 60 +++++++++++-----------
->>>   1 file changed, 30 insertions(+), 30 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index 730dae77570c..74f6f15e73b5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -5277,11 +5277,29 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
->>>          return ret;
->>>   }
->>>
->>> +static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
->>> +{
->>> +       int i;
->>> +
->>> +       lockdep_assert_held(&adev->reset_domain->sem);
->>> +
->>> +       for (i = 0; i < adev->reset_info.num_regs; i++) {
->>> +               adev->reset_info.reset_dump_reg_value[i] =
->>> +                       RREG32(adev->reset_info.reset_dump_reg_list[i]);
-> A suspend also involves power/clock ungate. When reg dump is moved
-> earlier, I'm not sure if this read works for all. If it's left to
-> individual IP call backs, they could just do the same or better to move
-> these up before a dump.
-Suspend also put the status.hw = false and each IP in their respective 
-suspend state which i feel does change the state of the HW.
-To get the correct snapshot of the GPU register we should not be 
-fiddling with the HW IP at least till we capture the dump and that is 
-the intention behind the change.
-
-Do you think there is a problem in this approach?
+> Instead of manually passing around 'struct edid *' and its size,
+> use 'struct drm_edid', which encapsulates a validated combination of
+> both.
 >
->          amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->          amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-Adding this does sounds better to enable just before we dump the 
-registers but i am not very sure if ungating would be clean here or not. 
-i Could try quickly adding these two calls just before dump.
-
-All i am worried if it does change some register reflecting the original 
-state of registers at dump.
-
-What u suggest ?
-Regards
-Sunil
-
+> As the drm_edid_ can handle NULL gracefully, the explicit checks can be
+> dropped.
 >
-> Thanks,
-> Lijo
+> Also save a few characters by transforming '&array[0]' to the equivalent
+> 'array' and using 'max_t(int, ...)' instead of manual casts.
 >
->>> +
->>> +               trace_amdgpu_reset_reg_dumps(adev->reset_info.reset_dump_reg_list[i],
->>> +                                            adev->reset_info.reset_dump_reg_value[i]);
->>> +       }
->>> +
->>> +       return 0;
->>> +}
->>> +
->>>   int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->>>                                   struct amdgpu_reset_context *reset_context)
->>>   {
->>>          int i, r = 0;
->>>          struct amdgpu_job *job = NULL;
->>> +       struct amdgpu_device *tmp_adev = reset_context->reset_req_dev;
->>>          bool need_full_reset =
->>>                  test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
->>>
->>> @@ -5340,6 +5358,18 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->>>                          }
->>>                  }
->>>
->>> +               if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
->>> +                       amdgpu_reset_reg_dumps(tmp_adev);
->>> +
->>> +                       dev_info(tmp_adev->dev, "Dumping IP State\n");
->>> +                       /* Trigger ip dump before we reset the asic */
->>> +                       for (i = 0; i < tmp_adev->num_ip_blocks; i++)
->>> +                               if (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
->>> +                                       tmp_adev->ip_blocks[i].version->funcs->dump_ip_state(
->>> +                                                       (void *)tmp_adev);
->>> +                       dev_info(tmp_adev->dev, "Dumping IP State Completed\n");
->>> +               }
->>> +
->>>                  if (need_full_reset)
->>>                          r = amdgpu_device_ip_suspend(adev);
->>>                  if (need_full_reset)
->>> @@ -5352,47 +5382,17 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->>>          return r;
->>>   }
->>>
->>> -static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
->>> -{
->>> -       int i;
->>> -
->>> -       lockdep_assert_held(&adev->reset_domain->sem);
->>> -
->>> -       for (i = 0; i < adev->reset_info.num_regs; i++) {
->>> -               adev->reset_info.reset_dump_reg_value[i] =
->>> -                       RREG32(adev->reset_info.reset_dump_reg_list[i]);
->>> -
->>> -               trace_amdgpu_reset_reg_dumps(adev->reset_info.reset_dump_reg_list[i],
->>> -                                            adev->reset_info.reset_dump_reg_value[i]);
->>> -       }
->>> -
->>> -       return 0;
->>> -}
->>> -
->>>   int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->>>                           struct amdgpu_reset_context *reset_context)
->>>   {
->>>          struct amdgpu_device *tmp_adev = NULL;
->>>          bool need_full_reset, skip_hw_reset, vram_lost = false;
->>>          int r = 0;
->>> -       uint32_t i;
->>>
->>>          /* Try reset handler method first */
->>>          tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
->>>                                      reset_list);
->>>
->>> -       if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
->>> -               amdgpu_reset_reg_dumps(tmp_adev);
->>> -
->>> -               dev_info(tmp_adev->dev, "Dumping IP State\n");
->>> -               /* Trigger ip dump before we reset the asic */
->>> -               for (i = 0; i < tmp_adev->num_ip_blocks; i++)
->>> -                       if (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
->>> -                               tmp_adev->ip_blocks[i].version->funcs
->>> -                               ->dump_ip_state((void *)tmp_adev);
->>> -               dev_info(tmp_adev->dev, "Dumping IP State Completed\n");
->>> -       }
->>> -
->>>          reset_context->reset_device_list = device_list_handle;
->>>          r = amdgpu_reset_perform_reset(tmp_adev, reset_context);
->>>          /* If reset handler not implemented, continue; otherwise return */
->>> --
->>> 2.34.1
->>>
+> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+> ---
+>  drivers/gpu/drm/radeon/radeon_atombios.c   | 17 ++++++-----------
+>  drivers/gpu/drm/radeon/radeon_combios.c    | 26 +++++-------------------=
+--
+>  drivers/gpu/drm/radeon/radeon_connectors.c |  4 ++--
+>  drivers/gpu/drm/radeon/radeon_display.c    |  2 +-
+>  drivers/gpu/drm/radeon/radeon_mode.h       |  4 ++--
+>  5 files changed, 16 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/r=
+adeon/radeon_atombios.c
+> index 168f3f94003b..81a0a91921b9 100644
+> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+> @@ -1716,23 +1716,18 @@ struct radeon_encoder_atom_dig *radeon_atombios_g=
+et_lvds_info(struct
+>                                 case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
+>                                         fake_edid_record =3D (ATOM_FAKE_E=
+DID_PATCH_RECORD *)record;
+>                                         if (fake_edid_record->ucFakeEDIDL=
+ength) {
+> -                                               struct edid *edid;
+> +                                               const struct drm_edid *ed=
+id;
+>                                                 int edid_size;
+>
+>                                                 if (fake_edid_record->ucF=
+akeEDIDLength =3D=3D 128)
+>                                                         edid_size =3D fak=
+e_edid_record->ucFakeEDIDLength;
+>                                                 else
+>                                                         edid_size =3D fak=
+e_edid_record->ucFakeEDIDLength * 128;
+> -                                               edid =3D kmemdup(&fake_ed=
+id_record->ucFakeEDIDString[0],
+> -                                                              edid_size,=
+ GFP_KERNEL);
+> -                                               if (edid) {
+> -                                                       if (drm_edid_is_v=
+alid(edid)) {
+> -                                                               rdev->mod=
+e_info.bios_hardcoded_edid =3D edid;
+> -                                                               rdev->mod=
+e_info.bios_hardcoded_edid_size =3D edid_size;
+> -                                                       } else {
+> -                                                               kfree(edi=
+d);
+> -                                                       }
+> -                                               }
+> +                                               edid =3D drm_edid_alloc(f=
+ake_edid_record->ucFakeEDIDString, edid_size);
+> +                                               if (drm_edid_valid(edid))
+> +                                                       rdev->mode_info.b=
+ios_hardcoded_edid =3D edid;
+> +                                               else
+> +                                                       drm_edid_free(edi=
+d);
+>                                                 record +=3D struct_size(f=
+ake_edid_record,
+>                                                                       ucF=
+akeEDIDString,
+>                                                                       edi=
+d_size);
+> diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/ra=
+deon/radeon_combios.c
+> index 41ddc576f8f8..df8d7f56b028 100644
+> --- a/drivers/gpu/drm/radeon/radeon_combios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_combios.c
+> @@ -370,7 +370,7 @@ static uint16_t combios_get_table_offset(struct drm_d=
+evice *dev,
+>  bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
+>  {
+>         int edid_info, size;
+> -       struct edid *edid;
+> +       const struct drm_edid *edid;
+>         unsigned char *raw;
+>         edid_info =3D combios_get_table_offset(rdev_to_drm(rdev), COMBIOS=
+_HARDCODED_EDID_TABLE);
+>         if (!edid_info)
+> @@ -378,19 +378,14 @@ bool radeon_combios_check_hardcoded_edid(struct rad=
+eon_device *rdev)
+>
+>         raw =3D rdev->bios + edid_info;
+>         size =3D EDID_LENGTH * (raw[0x7e] + 1);
+> -       edid =3D kmalloc(size, GFP_KERNEL);
+> -       if (edid =3D=3D NULL)
+> -               return false;
+> -
+> -       memcpy((unsigned char *)edid, raw, size);
+> +       edid =3D drm_edid_alloc(raw, size);
+>
+> -       if (!drm_edid_is_valid(edid)) {
+> -               kfree(edid);
+> +       if (!drm_edid_valid(edid)) {
+> +               drm_edid_free(edid);
+>                 return false;
+>         }
+>
+>         rdev->mode_info.bios_hardcoded_edid =3D edid;
+> -       rdev->mode_info.bios_hardcoded_edid_size =3D size;
+>         return true;
+>  }
+>
+> @@ -398,18 +393,7 @@ bool radeon_combios_check_hardcoded_edid(struct rade=
+on_device *rdev)
+>  struct edid *
+>  radeon_bios_get_hardcoded_edid(struct radeon_device *rdev)
+>  {
+> -       struct edid *edid;
+> -
+> -       if (rdev->mode_info.bios_hardcoded_edid) {
+> -               edid =3D kmalloc(rdev->mode_info.bios_hardcoded_edid_size=
+, GFP_KERNEL);
+> -               if (edid) {
+> -                       memcpy((unsigned char *)edid,
+> -                              (unsigned char *)rdev->mode_info.bios_hard=
+coded_edid,
+> -                              rdev->mode_info.bios_hardcoded_edid_size);
+> -                       return edid;
+> -               }
+> -       }
+> -       return NULL;
+> +       return drm_edid_duplicate(drm_edid_raw(rdev->mode_info.bios_hardc=
+oded_edid));
+>  }
+>
+>  static struct radeon_i2c_bus_rec combios_setup_i2c_bus(struct radeon_dev=
+ice *rdev,
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
+/radeon/radeon_connectors.c
+> index 880edabfc9e3..528a8f3677c2 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+> @@ -1059,7 +1059,7 @@ radeon_vga_detect(struct drm_connector *connector, =
+bool force)
+>          */
+>         if ((!rdev->is_atom_bios) &&
+>             (ret =3D=3D connector_status_disconnected) &&
+> -           rdev->mode_info.bios_hardcoded_edid_size) {
+> +           rdev->mode_info.bios_hardcoded_edid) {
+>                 ret =3D connector_status_connected;
+>         }
+>
+> @@ -1392,7 +1392,7 @@ radeon_dvi_detect(struct drm_connector *connector, =
+bool force)
+>  out:
+>         if ((!rdev->is_atom_bios) &&
+>             (ret =3D=3D connector_status_disconnected) &&
+> -           rdev->mode_info.bios_hardcoded_edid_size) {
+> +           rdev->mode_info.bios_hardcoded_edid) {
+>                 radeon_connector->use_digital =3D true;
+>                 ret =3D connector_status_connected;
+>         }
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/ra=
+deon/radeon_display.c
+> index 10fd58f400bc..8f5f8abcb1b4 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -1658,7 +1658,7 @@ void radeon_modeset_fini(struct radeon_device *rdev=
+)
+>                 rdev->mode_info.mode_config_initialized =3D false;
+>         }
+>
+> -       kfree(rdev->mode_info.bios_hardcoded_edid);
+> +       drm_edid_free(rdev->mode_info.bios_hardcoded_edid);
+>
+>         /* free i2c buses */
+>         radeon_i2c_fini(rdev);
+> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeo=
+n/radeon_mode.h
+> index e0a5af180801..421c83fc70dc 100644
+> --- a/drivers/gpu/drm/radeon/radeon_mode.h
+> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
+> @@ -39,6 +39,7 @@
+>  #include <linux/i2c-algo-bit.h>
+>
+>  struct edid;
+> +struct drm_edid;
+>  struct radeon_bo;
+>  struct radeon_device;
+>
+> @@ -262,8 +263,7 @@ struct radeon_mode_info {
+>         /* Output CSC */
+>         struct drm_property *output_csc_property;
+>         /* hardcoded DFP edid from BIOS */
+> -       struct edid *bios_hardcoded_edid;
+> -       int bios_hardcoded_edid_size;
+> +       const struct drm_edid *bios_hardcoded_edid;
+>
+>         /* firmware flags */
+>         u16 firmware_flags;
+>
+> --
+> 2.45.2
+>
