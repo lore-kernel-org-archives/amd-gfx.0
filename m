@@ -4,122 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E73CFC3DA49
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 14:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADF8C3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 14:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83F7810E99A;
-	Fri, 26 Jul 2024 14:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70F610E9A1;
+	Fri, 26 Jul 2024 14:04:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="POwU6a6t";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aaGZeeVb";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442C710E99A
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 14:03:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BUL224Ci163AnCeh1FHNx2m9RKUxTkJKrmRp1O9QHvzcT75AuowzES4TSUzw0yGtIIU8mpNU7fFugMsPzIn7CLCmTuAl0goQUOxlY00N2Y8z0a8zrBespm9mVIn5bJ6J3q1v+MOtrivJM5mjJIlXot+wTZi895R4erMKjUPURh/C7MK0tr8JWeJfF2vUMCK9yzReYxG5eq1YtXUw3mf7D2RtBcASfoUAwHAttxk/ukkOOinv1tOV7b/4SEWYHi+NXfEQ6ZOq9km07b+7KbBmgenoXP35E6e1+Ty7CpLg+37TsDuUeyNrNApxFxd14EnKFvi0a6BMTFji0b335UAK2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+evFO8fABF+DOVHqjQiEQ7P5vCqTy545t0LubLzyJHw=;
- b=p1ugKWU8RKxAvEQdpIeZdyk0t3sxEuF806/bmf44jxbMcc4IaUvHDQfPbhSG8sDecSU7+EYuC7kxTQ2QfGRbXrhvStpeC6gM1SZSOSx5zPJmsSUnn/PTX7INHjPB9fQKDkbr4jNPySmby61zrhQD0gllNwhM3/WFG7lVFORVYR+mJE67cq04J46xktJXfpBd3mIh4unXgjJkOO/p+SmbqGcExshkeYlbGNeuSOZbY1wsfP43UVKwsS7osIpzdsthCxgrWNE5ygkeUeBwy/7Hx/GplEmT3Ik2TxuH+8vlB9IHujgPq5AKrb3mr2cHAK80daAflp8mvYRyCeT5szecsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+evFO8fABF+DOVHqjQiEQ7P5vCqTy545t0LubLzyJHw=;
- b=POwU6a6tQtZSVZaPdUsZhohikYjbHf2Ou2aDK8ShWcpPYkMyFXmkcbA0HjfN1AskmBwf5QC6SgozxoOcxaX9pNNY/Yby2rA3XKNthLSMr3dcWHoc/JNqPD9cTSaEQzBUEEHBSvWMYegbigfclVIkdDkgMOyiGzfRLUKG9qA74xM=
-Received: from SA9P223CA0024.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::29)
- by MW4PR12MB7311.namprd12.prod.outlook.com (2603:10b6:303:227::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29; Fri, 26 Jul
- 2024 14:03:29 +0000
-Received: from SN1PEPF00036F40.namprd05.prod.outlook.com
- (2603:10b6:806:26:cafe::99) by SA9P223CA0024.outlook.office365.com
- (2603:10b6:806:26::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.28 via Frontend
- Transport; Fri, 26 Jul 2024 14:03:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00036F40.mail.protection.outlook.com (10.167.248.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Fri, 26 Jul 2024 14:03:29 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 26 Jul 2024 09:03:25 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
- <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: [PATCH] drm/amd/display: Handle null 'stream_status' in
- 'planes_changed_for_existing_stream'
-Date: Fri, 26 Jul 2024 19:33:09 +0530
-Message-ID: <20240726140309.2409761-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD0A10E99C;
+ Fri, 26 Jul 2024 14:04:47 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-7ab09739287so680063a12.3; 
+ Fri, 26 Jul 2024 07:04:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722002687; x=1722607487; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qZtkUciy53SlA3q1C2mBesNLpAodaomgS3oD4UCQoBY=;
+ b=aaGZeeVbEs3c5mPr+cGk8+DMCwrJNCzXu/fdnkpy9TuSg7DdF5OdyHnWBMZBct0EFU
+ SA1fDH/WTw9Dzq3KUxeoXpQBAFF/2W4YBkJh46cA8V2nwEFpKWOJ0Jm/MBwQ9e6xcP6e
+ y0Lu1PAjpBWBQiFM9SQm+D+J84K/giDKBxUM3mpmogUeng/SATcO9haFMOOnWlwNmExG
+ F30nE3EN2GWK2t2HPWuFH892jSv3Ise13cPCAsBL34sCxDDtrH3tYK8lnQrc5aWTUe0A
+ R3eHzf/CgDP18UJ3P+o8899cC9UMdjjaPgTC38wJfqhShprx52NZobtljhEXINUKSWao
+ sUXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722002687; x=1722607487;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qZtkUciy53SlA3q1C2mBesNLpAodaomgS3oD4UCQoBY=;
+ b=v8dB2SumPcushOSYx6QCxYMETV0PYYMRC2w3Y0TeFJm+8dmexko6+VPksGLM2MVQ+R
+ FQ+xh7GLC6HbEqOfuRubhut0s+asJGX+iEVrHeseRDJw9LOeR+xQN2SwOVC6wOb81nCg
+ Q1Td/GCLcedaBfG7J+YuFCAM4syjjqlR7vzN0rvCdsfRodHxoDkEMPcSRTlt2UT7vE21
+ dNmSw91Qr2oa4FLgzXkJp2Llc/DfaitIc3lSpLQRKzEQjjfjsLjcBCIzOWruczNe4RFS
+ 7DAyE0Ig7acaa5p27ZuOn3hg4Ud78XmH8WpSCZ09aqb6GRLuroyvqe9NxjZh8No5M17h
+ mwGw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXrac7d6sOm5EkPGPi882bACo6CiQBoplE4+9gja0p5XoasPr1//j6ZGbjmpAFJzfx3BT1VHOw5GhcMUeUcd0wAOZ5htIbhQ7NVKukg/P/esAavMr/a59E+d2davn4hqLaBNnLDKd/W1K9gEBRWqw==
+X-Gm-Message-State: AOJu0Yydna6bDJfWq+XYtHO71Dm69GrnbxsY5IjmC7YtG51Fi6qVa+k5
+ eOnEKjvJD/rnKfnJaaY7xkRk7hqQue9PvXGcQ5Mu6CKOekhJ2d1tMXC/L50y/KqyCxrdTbMm4jq
+ 2W6uYCE99id03Fd6K/c98t2KkdBM=
+X-Google-Smtp-Source: AGHT+IEQKLKHLh9iUylwXZrOlh4LpZAvjxsgcGtt4pKukArrozDytrxIsOXJTlQFPEWoZrVPyd4xxPLBpuHK0Qol0F8=
+X-Received: by 2002:a17:90b:1c87:b0:2cb:50fa:b01e with SMTP id
+ 98e67ed59e1d1-2cf2ebb7c91mr5372574a91.41.1722002686719; Fri, 26 Jul 2024
+ 07:04:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F40:EE_|MW4PR12MB7311:EE_
-X-MS-Office365-Filtering-Correlation-Id: 514ff495-379d-4e69-3d4a-08dcad7bb9e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5n2wWgTnfh73Dc3VlmwJ/88BJpfkeqJs7vqaK7wTacrPFm+giQSAx0WBVztS?=
- =?us-ascii?Q?ic4Q/8EIomb1xhlIVnEpla9NUSNJMKrlpT0POLoWZOQRQYh2Vx7/idLiFG3r?=
- =?us-ascii?Q?8y7ulFNBZf6kiO9SX5YNMgJ6GralGw6WnTBlatFFq4NfWYl9BfPhTkuWylLu?=
- =?us-ascii?Q?7wm39unrJPLA28cmpK2KbgILl1LW+wf+9hxlTqyS6ygIxJSI7alLPTxlPpRp?=
- =?us-ascii?Q?gPSwF+haPuhIGiodriHJ0EkBxFOz2rrj4vsCgbwBwd6q17NFFq2EXg4YulA/?=
- =?us-ascii?Q?/H1KM6g/7i8hqmhsONS3RYFwRnoNX63AQ/CWTd8lS9J5vxmjFocWrrKkES36?=
- =?us-ascii?Q?V0DCDi0ezudbFyw4OaBfrM1PhzeB7RMVWNZCP4crsrQdTCLi8L+mgmgSE5ac?=
- =?us-ascii?Q?nvV9FPswtBRzWBYLIHnAm2T7CFjqOxbHAlKX5idhBOwRExEolzppt/tKhm7v?=
- =?us-ascii?Q?KjWya/Y8vn6/Y8twEGc2JyhVCP7ACHUWy/fri3iJFKwVxtWfpJ/snOe5S30k?=
- =?us-ascii?Q?HRfxwwedT1JbGQwOQHgN1tnJpJvk6+JwhGHL8YmFSiErUBtw5/wX/fHVftOx?=
- =?us-ascii?Q?gji9DWQg7mn5mmOxHYBcHUhaUP8YEDliqzOmAZGkG21ANM+JocfJZKaMaoBu?=
- =?us-ascii?Q?tTZ44o1I3Gi05iW6QcXag9BBNXHEmcytZbZXhMI8EuIKuLur+CCs1VNnXdNt?=
- =?us-ascii?Q?EU7mtpAQvudYL2bcwhoP8pDIV1/OSemyEhTUmOr7d3KKCiaeWz5BRaobQtBG?=
- =?us-ascii?Q?F3F8o/vr3R5H9Kc/yxTZO7CBeQyKYY4+dzU6OqRPunQHB1zZiDGwgWvFevDX?=
- =?us-ascii?Q?dUr/WPzbq8MYOeFBK1lpQ8/AK29naAKVYZzANaWQvC1RLVF/RO5Pi4POMnPW?=
- =?us-ascii?Q?sXUoOKJdUfil9nKObpeOnQUtNeCVgK/EbfIhE1U1KR6D9rEfjTOIsinBGo9W?=
- =?us-ascii?Q?3tBbZJt3yUzpOX53/+IdUId6SeRdDC/DLnnWE2fYX+Wim2L0lJ4lPdxf7YBW?=
- =?us-ascii?Q?ht/hisQvqCrlVJyNWgVzInEaeRrrGo8l0ZTAH9dSeUISFleicbxRq+1/V2u8?=
- =?us-ascii?Q?JGEmD/YPJJVPbVZPW0pWwUlAKdpiWc1M8inw8U9qTDyeOCTiCCUBC7j1iIav?=
- =?us-ascii?Q?bBAQXwDRZn01F7FrOGJqvj9U9plN2B+8dWKtL6EKWg2duQqjIl7PuEGCmxPj?=
- =?us-ascii?Q?TcrTBbc3QB/0tjCxLRnkOm+fbHd6or8u3dMwEdjwlQjlASHJzVPmWYk9bkhd?=
- =?us-ascii?Q?g6r6R1T31Y4rVjNYiueP+m3qaN7VVWg+GphDJeBb5o6T0i326XDot5eTeZNQ?=
- =?us-ascii?Q?bcdJXwlkxXu/FCd/2tASqX+MamPNJkY5ymceIZcli5KXmq1SnCeW7Ru4Miz/?=
- =?us-ascii?Q?ze6mmic8X+orYklq0FsRXGpUgPStvguTIST0oIKQUNAINs58zebpyK7t0XiP?=
- =?us-ascii?Q?PsvkN5W2q+YkFbB2it0/0dKiBkslkxBN?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 14:03:29.0312 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 514ff495-379d-4e69-3d4a-08dcad7bb9e4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F40.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7311
+References: <20240726094728.1161-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20240726094728.1161-1-jiapeng.chong@linux.alibaba.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 26 Jul 2024 10:04:35 -0400
+Message-ID: <CADnq5_MbocNRzAP6-2gR+CNofo-eFFM7GGsUFGUjQzKz7Q8qDg@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amd/display: Use ARRAY_SIZE for array length
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Abaci Robot <abaci@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,42 +81,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit adds a null check for 'stream_status' in the function
-'planes_changed_for_existing_stream'. Previously, the code assumed
-'stream_status' could be null, but did not handle the case where it was
-actually null. This could lead to a null pointer dereference.
+Applied.  Thanks!
 
-Reported by smatch:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_resource.c:3784 planes_changed_for_existing_stream() error: we previously assumed 'stream_status' could be null (see line 3774)
-
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 5c9091f2a8b2..60d34c696b18 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -3771,8 +3771,10 @@ static bool planes_changed_for_existing_stream(struct dc_state *context,
- 		}
- 	}
- 
--	if (!stream_status)
-+	if (!stream_status) {
- 		ASSERT(0);
-+		return false;
-+	}
- 
- 	for (i = 0; i < set_count; i++)
- 		if (set[i].stream == stream)
--- 
-2.34.1
-
+On Fri, Jul 26, 2024 at 5:55=E2=80=AFAM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
+>
+> Use of macro ARRAY_SIZE to calculate array size minimizes
+> the redundant code and improves code reusability.
+>
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1552:57-58=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1561:57-58=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1573:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1578:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1592:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1597:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1611:50-51=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1616:50-51=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1630:50-51=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1635:50-51=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1649:60-61=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1663:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1677:52-53=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1691:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1705:53-54=
+: WARNING: Use ARRAY_SIZE.
+> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1719:54-55=
+: WARNING: Use ARRAY_SIZE.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D9580
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+>  .../display/dc/spl/dc_spl_scl_easf_filters.c  | 63 ++++++-------------
+>  1 file changed, 20 insertions(+), 43 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c=
+ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
+> index 09bf82f7d468..e847af94419a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
+> +++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
+> @@ -1530,14 +1530,13 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_v=
+alue(struct spl_fixed31_32 rati
+>         value =3D lookup_table_index_ptr->reg_value;
+>
+>         while (count < num_entries) {
+> -
+>                 lookup_table_index_ptr =3D (lookup_table_base_ptr + count=
+);
+>                 if (lookup_table_index_ptr->numer < 0)
+>                         break;
+>
+>                 if (ratio.value < spl_fixpt_from_fraction(
+> -                       lookup_table_index_ptr->numer,
+> -                       lookup_table_index_ptr->denom).value) {
+> +                   lookup_table_index_ptr->numer,
+> +                   lookup_table_index_ptr->denom).value) {
+>                         value =3D lookup_table_index_ptr->reg_value;
+>                         break;
+>                 }
+> @@ -1548,21 +1547,13 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_v=
+alue(struct spl_fixed31_32 rati
+>  }
+>  uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
+>  {
+> -       uint32_t value;
+> -       unsigned int num_entries =3D sizeof(easf_v_bf3_mode_lookup) /
+> -               sizeof(struct scale_ratio_to_reg_value_lookup);
+> -       value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+> -               easf_v_bf3_mode_lookup, num_entries);
+> -       return value;
+> +       unsigned int num_entries =3D ARRAY_SIZE(easf_v_bf3_mode_lookup);
+> +       return spl_easf_get_scale_ratio_to_reg_value(ratio, easf_v_bf3_mo=
+de_lookup, num_entries);
+>  }
+>  uint32_t spl_get_h_bf3_mode(struct spl_fixed31_32 ratio)
+>  {
+> -       uint32_t value;
+> -       unsigned int num_entries =3D sizeof(easf_h_bf3_mode_lookup) /
+> -               sizeof(struct scale_ratio_to_reg_value_lookup);
+> -       value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+> -               easf_h_bf3_mode_lookup, num_entries);
+> -       return value;
+> +       unsigned int num_entries =3D ARRAY_SIZE(easf_h_bf3_mode_lookup);
+> +       return spl_easf_get_scale_ratio_to_reg_value(ratio, easf_h_bf3_mo=
+de_lookup, num_entries);
+>  }
+>  uint32_t spl_get_reducer_gain6(int taps, struct spl_fixed31_32 ratio)
+>  {
+> @@ -1570,13 +1561,11 @@ uint32_t spl_get_reducer_gain6(int taps, struct s=
+pl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 4) {
+> -               num_entries =3D sizeof(easf_reducer_gain6_4tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain6_4tap_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_reducer_gain6_4tap_lookup, num_entries);
+>         } else if (taps =3D=3D 6) {
+> -               num_entries =3D sizeof(easf_reducer_gain6_6tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain6_6tap_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_reducer_gain6_6tap_lookup, num_entries);
+>         } else
+> @@ -1589,13 +1578,11 @@ uint32_t spl_get_reducer_gain4(int taps, struct s=
+pl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 4) {
+> -               num_entries =3D sizeof(easf_reducer_gain4_4tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain4_4tap_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_reducer_gain4_4tap_lookup, num_entries);
+>         } else if (taps =3D=3D 6) {
+> -               num_entries =3D sizeof(easf_reducer_gain4_6tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain4_6tap_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_reducer_gain4_6tap_lookup, num_entries);
+>         } else
+> @@ -1608,13 +1595,11 @@ uint32_t spl_get_gainRing6(int taps, struct spl_f=
+ixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 4) {
+> -               num_entries =3D sizeof(easf_gain_ring6_4tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_gain_ring6_4tap_lookup);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_gain_ring6_4tap_lookup, num_entries);
+>         } else if (taps =3D=3D 6) {
+> -               num_entries =3D sizeof(easf_gain_ring6_6tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_gain_ring6_6tap_lookup);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_gain_ring6_6tap_lookup, num_entries);
+>         } else
+> @@ -1627,13 +1612,11 @@ uint32_t spl_get_gainRing4(int taps, struct spl_f=
+ixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 4) {
+> -               num_entries =3D sizeof(easf_gain_ring4_4tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_gain_ring4_4tap_lookup);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_gain_ring4_4tap_lookup, num_entries);
+>         } else if (taps =3D=3D 6) {
+> -               num_entries =3D sizeof(easf_gain_ring4_6tap_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_gain_ring4_6tap_lookup);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_gain_ring4_6tap_lookup, num_entries);
+>         } else
+> @@ -1646,8 +1629,7 @@ uint32_t spl_get_3tap_dntilt_uptilt_offset(int taps=
+, struct spl_fixed31_32 ratio
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 3) {
+> -               num_entries =3D sizeof(easf_3tap_dntilt_uptilt_offset_loo=
+kup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_3tap_dntilt_uptilt_offset=
+_lookup);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_3tap_dntilt_uptilt_offset_lookup, num_entrie=
+s);
+>         } else
+> @@ -1660,8 +1642,7 @@ uint32_t spl_get_3tap_uptilt_maxval(int taps, struc=
+t spl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 3) {
+> -               num_entries =3D sizeof(easf_3tap_uptilt_maxval_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt_maxval_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_3tap_uptilt_maxval_lookup, num_entries);
+>         } else
+> @@ -1674,8 +1655,7 @@ uint32_t spl_get_3tap_dntilt_slope(int taps, struct=
+ spl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 3) {
+> -               num_entries =3D sizeof(easf_3tap_dntilt_slope_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_3tap_dntilt_slope_lookup)=
+;
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_3tap_dntilt_slope_lookup, num_entries);
+>         } else
+> @@ -1688,8 +1668,7 @@ uint32_t spl_get_3tap_uptilt1_slope(int taps, struc=
+t spl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 3) {
+> -               num_entries =3D sizeof(easf_3tap_uptilt1_slope_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt1_slope_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_3tap_uptilt1_slope_lookup, num_entries);
+>         } else
+> @@ -1702,8 +1681,7 @@ uint32_t spl_get_3tap_uptilt2_slope(int taps, struc=
+t spl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 3) {
+> -               num_entries =3D sizeof(easf_3tap_uptilt2_slope_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt2_slope_lookup=
+);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_3tap_uptilt2_slope_lookup, num_entries);
+>         } else
+> @@ -1716,8 +1694,7 @@ uint32_t spl_get_3tap_uptilt2_offset(int taps, stru=
+ct spl_fixed31_32 ratio)
+>         unsigned int num_entries;
+>
+>         if (taps =3D=3D 3) {
+> -               num_entries =3D sizeof(easf_3tap_uptilt2_offset_lookup) /
+> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
+> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt2_offset_looku=
+p);
+>                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
+>                         easf_3tap_uptilt2_offset_lookup, num_entries);
+>         } else
+> --
+> 2.32.0.3.g01195cf9f
+>
