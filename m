@@ -4,151 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4298C3DA63
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 07:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF84C3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 07:40:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41A7210E1C2;
-	Fri, 26 Jul 2024 07:23:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 746B110E93C;
+	Fri, 26 Jul 2024 07:40:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aXjFpN+t";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BRnk7pem";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2069.outbound.protection.outlook.com [40.107.94.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FFF210E1C2
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 07:23:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LTpy5p34vJxKy4I0WL4BMdgsrZ6TL6KkxI4zhW9tANyWkKP/lCNQnymrjlM7LBhRqVzZC0xXFg5APvaLB9Ey5+bQi3DjyNTJ09hqmDk4RNJtq6nUWgH9FGE2eTVxf3HdI6tvN6M7qaXzN/Np9lsZm5L/Q0wMaz4VTVpXikI9UJ7zoL4JWCwlXvtcd3Bu6fBVW/3Md1JbbXYOU07CSuUkYRlCFRIcD4TWPXMGGlLelwsBW5gCzSiop5cAxytWt5KpG77XcReS6RsK6h+1Ne0UoXprg/DfsXo3WsyHnvyp8BbUromC7V1ehCx/kchBEG6jAkpUf3OH7AjkU0+et9soPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2O4RgVIZQE2h+aa5mC4+X9/HSYax6T79uQwm8x/wRjw=;
- b=BcJWFyuJI3lVP2s1rg3wXyMJF+2KFElLHvQqClet9b54zcLwfMW+hM/L9dmLa2wR/1h6q2eNJoLF4jGW+4CFwWvYd+BgD2r5mRfc4Z6zp35dOaVvHHRfV2aMR4yyQ7gHamhtnzuGqq0PEsUrdBBsRNYU4rki8o0IJY+aQ35v3GTOJBvUnj7ogVqE6nPEtYnwIlEpfgNn6UTAFxMsJTZxwf8wFvYLge8uRkbhiTWZVIN6NV+cih4y81SgbQslLcmAZ34pQk+8HupAuN6zY+e/TI09HmFbaEYCQrgvvCN2KXAdw8OobzSKqPVNy7noCcwshAcvIgPQ1kfvhipJV2PyGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2O4RgVIZQE2h+aa5mC4+X9/HSYax6T79uQwm8x/wRjw=;
- b=aXjFpN+tmrtxAdn5Z5ZPZXO2Sr5EM7iJ8pN0Utt5MO5f7YeC7fCZlBILc5iCRDaaKkZxnpEbLJmp501ciihOoKkbAb62X3oyTLqktNdedoOFeTNY3uEZOpjXxoUjragoIIGmb5lz6dTd6of4XoB37ogvmE653kWtZZ71VkaiZss=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com (2603:10b6:510:211::11)
- by CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.20; Fri, 26 Jul
- 2024 07:23:25 +0000
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::76d1:e471:c215:4381]) by PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::76d1:e471:c215:4381%5]) with mapi id 15.20.7784.020; Fri, 26 Jul 2024
- 07:23:24 +0000
-Message-ID: <87c215bf-53ff-4049-bac1-22a6c94096a2@amd.com>
-Date: Fri, 26 Jul 2024 15:23:17 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add null check for pipe_ctx->plane_state
- in dcn20_program_pipe
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Roman Li <roman.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
-References: <20240725025409.1507764-1-srinivasan.shanmugam@amd.com>
-From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-In-Reply-To: <20240725025409.1507764-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY2PR06CA0009.apcprd06.prod.outlook.com
- (2603:1096:404:42::21) To PH7PR12MB6611.namprd12.prod.outlook.com
- (2603:10b6:510:211::11)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 370A810E911
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 04:57:59 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-7093c94435bso20884a34.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 21:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721969878; x=1722574678; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=P+Pfg22TdHsx3cKNhYWh6gTgA22xrRmaPlTjXn7g0iI=;
+ b=BRnk7pemSP+BB6H3Ok6Boqqr2fMWUpx+yO9nRiOZSrHk5T793dYbLZBViQvzaXI+Bb
+ 7S5dYXWfje7dFeVjzRtBvTZVzCg43cKvWxTBAxlvphtz65Mn6oE0Opgqo7h8Kr7gC/29
+ nLMi5hK0UZ1TTHgGlvRvvWKlaLK+IIYPejdkvvyiCfjs3Blx5wNNLe1P7yiJR0vmaLWT
+ Q74T4U/AGKnhcmTv3EgXs8mD34OqRXjXk6gAEotmHlZTatNwTjSm4FxizeO+0YW5IsBl
+ 0oSHw8Pm9+KLAGcN7h1+f62jV/ab0zqqGzEi3gSC8KVHAW8U+RAiE1SdCd/9tQkPqfFy
+ LMDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721969878; x=1722574678;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=P+Pfg22TdHsx3cKNhYWh6gTgA22xrRmaPlTjXn7g0iI=;
+ b=relQi9jjXyF5g3HaXruZbt8yNJI0NHXvGyw33q7S9c95pf6F/FDbrf598jOlhLQcxy
+ FIDs5b8m/Y6cohEvzDYy9ZQFtuUqfpqfZb+iyOEbAadwGGcSEH+qB7Rcd6fIB1Dl4GnM
+ zwEoNcP+Q1e7HAsO1tcLiREHXo5p2eUoiRmZfgDVm/O3TIJfOIO1281eZLFW0xFfLlfJ
+ 4p5La3V15GYWYB2GiXmRY6M7bG5rEFLJvqXY/m5CYtOsO7OfspA6AMlYnFePtMsW73M3
+ +vzL1MhGtMYb9llx9PFxM+6z71s/dkV7uTar2x2kegRYvl+Af/H8SH66TQoqgFgc/EGY
+ OFtw==
+X-Gm-Message-State: AOJu0YwQR8g5TOBRUXdvHO5f+YuzyWJ5VccT6LXPEavqDmH7F5njmrxL
+ YdcZ2dKZrR53TEjls6aVzu/cn7cUELzkZwZI8X5s9gHIqAGB8vVAMrVpb0BBVyA=
+X-Google-Smtp-Source: AGHT+IE1HoE2T/jpxi2YMybSHE+dNo1z2GvHtOjw7tZQbZrcUn37YtLMZyBTs1rQvywgoiysCSHp8g==
+X-Received: by 2002:a05:6830:3887:b0:708:b32f:ade5 with SMTP id
+ 46e09a7af769-7092e754f12mr7067450a34.32.1721969878297; 
+ Thu, 25 Jul 2024 21:57:58 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:71d:9448:a412:cafd])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-70930787545sm617094a34.74.2024.07.25.21.57.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jul 2024 21:57:57 -0700 (PDT)
+Date: Thu, 25 Jul 2024 23:57:55 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Philip Yang <Philip.Yang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdkfd: Validate queue cwsr area and eop buffer size
+Message-ID: <2598a896-a649-4fdf-af37-cb426fc24db1@stanley.mountain>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6611:EE_|CH3PR12MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57c18a77-477a-471c-00c7-08dcad43d5b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MTdNVjU0TWdHS3JLaVdmQVA0akpGL0xtK0JrTFdPNGpZa2p0QnExSURyREpX?=
- =?utf-8?B?NHRCaHBRSzJBRzZkY0ZLMi9zVHFiV0NqcHRwNE40cjR3MVBoOE96eG5PRmsw?=
- =?utf-8?B?QmxyblpXVDUrMm41WWxZSVVRZzBCaGh0V0JJVUhSM0JJOGZISExHb3NDZUx4?=
- =?utf-8?B?UWl0eFY0MkFRRk5abDFVWlZZUXNGWHcvdCtJdVNFK0k1elRZdWpvSzNqRER6?=
- =?utf-8?B?V2gyUG5QYVdhWlpESjI3a0p3NHh6c3puZlRtV1YwQ2JBa0d3dERTZWtRVXVB?=
- =?utf-8?B?Skc5QVZwSC8vVkI4QzdwUGJuc2RmR1JKYzFmczk2VDltcjhCMVBMUi8ydUo2?=
- =?utf-8?B?NnYvQWdQUkFhdlFFbFlrcHBjMXpPYUFlQ0pFbGVzaEE1UTM1bUVIWDM5VFQ3?=
- =?utf-8?B?TGJBSGtFdU5tbHlTVnRaSk51cVZnVExuck9EZVU2MFhTMGwzTFRwS2dKUGJG?=
- =?utf-8?B?RHJubTNvMUE1Nm5QOFZTYi9sS1h3ZUdJOCtJamJockRLNkNEazFOSHVGQ2Y5?=
- =?utf-8?B?a3hhRjU2THBDTWpLVUJQN0gza3BuMXozUkpFTmE3UWU4T2tmZ200Qzl2QVRX?=
- =?utf-8?B?bmhuempNdFl2Z24xTzBUdW9RL0xqeHJZRXFqclZJR1BxSVVzWXN1NEZlZ2pZ?=
- =?utf-8?B?UTVwVmNkVHhMN01UV3FlNlRUNG0zelVTU1Y4SFlOVXVpM2M0a25xSzBkR0VE?=
- =?utf-8?B?dXlmQ09iNld1YUR5WWRwL3JuZzJ1NWkwVytlTHMzMEZ4MVpWRTN6M1c0cVNC?=
- =?utf-8?B?VzJJbzJaNldrSll4anJpQTMwMldlbk5oc21NdkVoN1Z5OFVWNHF1QVpBdG1Y?=
- =?utf-8?B?d3Z0RjlCcjNTMlZtYjBBTUVoTXo3UzdkNVJMRmtpQVNHbUkwaEYvMlRYaXhl?=
- =?utf-8?B?QWFlRHJLMVo4RGpFc3hHamZINWExc2VNdERicGRLQ2xmQVVDL3dMejUwSVhm?=
- =?utf-8?B?aHd3MlRubEVudFlIeUVxU2hCNit2RkFQRlBkYTByZ0VuakpUR2p3NmVidDUw?=
- =?utf-8?B?WC8wdlZmTkxsYW14Sjk0VTVWQ1preTFLU0d4aHR3TEFSekhFcFFtakVFTUY3?=
- =?utf-8?B?bzFiSTNHclVRQUJiUjF2OFJEQTRYdHMrUnN2TGtZNk94WkhBZ3JabXpIbCt3?=
- =?utf-8?B?YmN6b0RKTS92VFBjSnhtOWV4WXhVdnlaVEE1elpJRzhXWFdQd0RNYWppTTkz?=
- =?utf-8?B?OE9rRENtRFhJYXJMTG9wdWJHUlB6QU1zZlJtc2U0T0JxRVY1aVk3Y29SVktm?=
- =?utf-8?B?U3VzMlcwQjZpS1BhWlVOTEdUUHIydTRoNnZUL2FWdldYNit3eHd2eHRRRlNz?=
- =?utf-8?B?bFhQTHlrV3J1QTROREkyV1hveW1vMUMxZ2tpMm9QNzhwM2pRdVlITU9UYjdW?=
- =?utf-8?B?SVVYTXBwUVJpc2JSQW9LdU40YlUxaTF6cWNLT3d2MWJKQW1sUktvRTdIdVpz?=
- =?utf-8?B?ZE9Wa2g3UGF2anN0T3pua0F2a1NWYWl4bThCcjY0WG1leno2ZFdNakg1RTZW?=
- =?utf-8?B?eHFOZVQ5VVNpSFBKblRpMnIvYXFaWE00cG1DdW03TWp1UjkzQUJHK29tc3BW?=
- =?utf-8?B?NEwwZjRKQnhjc25KWnM4R2RCMjZHWEhZc0FoSXkvY0ZIajlDSW54WVM2dmhv?=
- =?utf-8?B?Qzg0VVZxNTdiN2xwOEVYeTlXODlrUzNseWxBTkZxTlJqR1FLVE5IbFNabkhj?=
- =?utf-8?B?MEdmdkdMK3pBcUlHR2txQkFFN0RPSHlNNjFZQ1g1V3p5MHE5WGVpem8xY1NJ?=
- =?utf-8?B?Y3pXQmhSMng4MWdkVmVKTzZtYVhMUTZ5cDB4eXhDNUx1SThhQWZxN3R5VEQr?=
- =?utf-8?B?MHpKdTZXNDJZT3dHckVVdz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFV3Q0JUdDA3Vm5NU0dFdTI1bDdTMWh2OWFWRlB6VjFtUlpIem8vQjBIY21Y?=
- =?utf-8?B?SVpNUmJBZCtaNzFSK0F4SklPdmRxM2U4M2toa1BWUTNtWGlmNHlzMjFmVjJa?=
- =?utf-8?B?aStQMVpheDVvM3hzNlI3VTVyZHNTR2h0ZWdCMlhWOWtqYWxCNGJ2dDlMWWpE?=
- =?utf-8?B?c3JBR3hSeFpqTm5TR0c1am83MmJYdm1HTXhpOUhwckxGZnhJMDBVS05sN2Nk?=
- =?utf-8?B?c1lGWExYMWpGdU5BWE90Qi9Vb0xta1JobDg4Sm51Sk5mMjRNUDVEdUd1L0FZ?=
- =?utf-8?B?VktFTDY5WmpFZjhma1JPR2s5SGRyN3ExRllSVll4TnF4WFhwSkNRSmh0b3V3?=
- =?utf-8?B?Mko0UkZod0U4dTdKMzAwTEtCck03N256c1crTURmZStCazByc1pJenYvcW8w?=
- =?utf-8?B?a1NTWXh0THdPd1Avakl5bEQ5bFBMZ2NJM1dZSzc2M0plTVMyOHUvRER5RTVJ?=
- =?utf-8?B?REphR2RISXF2RHFRbStNT1ZEK1E2M3lqZXJXSEN2Y1ltWnRjNFd1QjZBT3c2?=
- =?utf-8?B?bEhka3NqT09NUnNkRnZMUmdIQzdtS2VCdENCaEZZQ1hrUmJZR2JrbzJqUWdy?=
- =?utf-8?B?ckp1alQ0RWFRYis0OWoyVElNcjhsWjVPaTY0dndwaWswcUl4WndUUng1Tjgx?=
- =?utf-8?B?dERpd1VQc05iQnpqS2NINTVxeFg3bGUwSGMrZTBQcEg0TE1aS1JpeG5ZcWhG?=
- =?utf-8?B?a0o0NDhuNmZGQUduSDk2UkRLNTFXR1V0UU50UzZWdDZtc1VJODdMcmEzRG1I?=
- =?utf-8?B?RlBBKzR4WFlBb1o3SjZRdmlvRGw5WFRBZGlyOE54K1FvbHZYcUx3Q0RlelI2?=
- =?utf-8?B?WjVqdzQ0dVZuY2UvM0xIVCtKT2s2OGppN04zNXVQVEFQOFBScWowQmxycWoz?=
- =?utf-8?B?L1VoNWJaT1c0SnVKQjUyRVlpMS9UbGNIeEc2S1JkN2lmY2dSd29QRVR5L3B1?=
- =?utf-8?B?TkhoUXBOelhiQlhFUkhyK1AyZUhKMjRGTFpoQ3BHYllTTDdaL3dFcDFXZ21h?=
- =?utf-8?B?N2lVME5sL2N3L0VMWkkvbWowL2dRUFJYV1Z5bWIwWFR6UE00ck5LVjV1ajBm?=
- =?utf-8?B?Y1k1YmRIU1ljQUtEZkF6cDlaZ1VOYit4eUdEU2lOeFhneWcrcVhjQy9EYlM1?=
- =?utf-8?B?UllIV0czd0dUSFQrd1dIaFRSY0RXSkNYc1M4K1RCcGt4c2llb0poUUZmRG8v?=
- =?utf-8?B?TDA1Y3Z3eWh0OWV3VGlvMlowY2hiOFQveHkwUzd1aHlEY1RPL3JvYTI1dWZH?=
- =?utf-8?B?QTE3QW8xcW9TSmtJbG5EdXdtNHVRL2JtRFJnVXFaUVZvUUpoWUVRcHBKUm4r?=
- =?utf-8?B?MlJ5dUNObVNSNXBmU3RxUE5RME1MaHBKN0VwNGlNWURGdEVRbEs2b3dySnBt?=
- =?utf-8?B?TEFJaTdlZ0ZQNGVXVExDVmFZbHFJNFZOaW12Ui9keE8za0hNNTlYeTFMbTN4?=
- =?utf-8?B?U2R4WlRaekVrdG0yK3J4OURqMHlDM25NSWcwdTBhTHN2S2xJdFJvaDlwbVQw?=
- =?utf-8?B?Q1BLYWFCUVV6eGU0SUZPNS9LN0hDRXFud09ocDRza3owS1I5QjVnMkF5TU02?=
- =?utf-8?B?ZG5oclJWTHJWN0xjeWZWUkV1d3p4cWp4YzZ6YVo0MHBORVRSc2FVYVdxbnQy?=
- =?utf-8?B?a3JXZURweFErT3phcmNQSEI4Q1k4d3FMN1NIc2I5bklIWGlEZlBjcnQ3Y0l1?=
- =?utf-8?B?d0Jndi9Ldng3b1dlZEF4TUVMNnBaQ1ZGUWpRelVzcE9YZTFaZE1FMTJoN2g4?=
- =?utf-8?B?MEJBNWNhM1RoSEdxclNSZ0pwZkRoVXR3UVZRbmt0ZXNwOWFDdjRNY1Q3THVP?=
- =?utf-8?B?SXlDWGd0K3pvVUdjSWx1V09kSldHY3JtUk0va2tiL1ZYS09jWnZlSGNtRlRS?=
- =?utf-8?B?Qkg0VnJpY3pkOXVUeXFEVGtGUFlFdEFleDA1UXVITE1aN2VCR0NPdllhR0U2?=
- =?utf-8?B?Rk9WTlRRYktJcTRxYjZCZnNiSTdzZEpGbE45TnNIclc3Mk0xT0g1bnB5ZkJB?=
- =?utf-8?B?blNxR216QUFSVTBxVWYwMUROcHJXL0JlSW4venFQZnFnbmRWcjFTTzJaQkEw?=
- =?utf-8?B?bmRCQUR4blBkVzhlMVUwNHl3SVBpNC85b1BEbEJpRUYyK2hIaGhWUFZUeWJw?=
- =?utf-8?Q?Mv80nAGylT10yUJdyZ4VM98SG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57c18a77-477a-471c-00c7-08dcad43d5b8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6611.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 07:23:24.1770 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ATOoPw3F6JiqTK7W1Zdsy1aR4H6mytPAUsxkjzRGPreaGzTC3XdF1JSGcrP27Gg9O0Cm+/Pl9UCfmdc9nv7qgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 26 Jul 2024 07:40:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,90 +77,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
+Hello Philip Yang,
 
-On 7/25/2024 10:54 AM, Srinivasan Shanmugam wrote:
-> This commit addresses a null pointer dereference issue in the
-> `dcn20_program_pipe` function. The issue could occur when
-> `pipe_ctx->plane_state` is null.
->
-> The fix adds a check to ensure `pipe_ctx->plane_state` is not null
-> before accessing. This prevents a null pointer dereference.
->
-> Reported by smatch:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn20/dcn20_hwseq.c:1925 dcn20_program_pipe() error: we previously assumed 'pipe_ctx->plane_state' could be null (see line 1877)
->
-> Cc: Tom Chung <chiahsuan.chung@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 30 ++++++++++++-------
->   1 file changed, 19 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-> index 270e337ae27b..5a6064999033 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-> @@ -1922,22 +1922,29 @@ static void dcn20_program_pipe(
->   				dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->hubp_regs.det_size);
->   	}
->   
-> -	if (pipe_ctx->update_flags.raw || pipe_ctx->plane_state->update_flags.raw || pipe_ctx->stream->update_flags.raw)
-> +	if (pipe_ctx->update_flags.raw ||
-> +	    (pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.raw) ||
-> +	    pipe_ctx->stream->update_flags.raw)
->   		dcn20_update_dchubp_dpp(dc, pipe_ctx, context);
->   
-> -	if (pipe_ctx->update_flags.bits.enable
-> -			|| pipe_ctx->plane_state->update_flags.bits.hdr_mult)
-> +	if (pipe_ctx->update_flags.bits.enable ||
-> +	    (pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.bits.hdr_mult))
->   		hws->funcs.set_hdr_multiplier(pipe_ctx);
->   
->   	if (hws->funcs.populate_mcm_luts) {
-> -		hws->funcs.populate_mcm_luts(dc, pipe_ctx, pipe_ctx->plane_state->mcm_luts,
-> -				pipe_ctx->plane_state->lut_bank_a);
-> -		pipe_ctx->plane_state->lut_bank_a = !pipe_ctx->plane_state->lut_bank_a;
-> +		if (pipe_ctx->plane_state) {
-> +			hws->funcs.populate_mcm_luts(dc, pipe_ctx, pipe_ctx->plane_state->mcm_luts,
-> +						     pipe_ctx->plane_state->lut_bank_a);
-> +			pipe_ctx->plane_state->lut_bank_a = !pipe_ctx->plane_state->lut_bank_a;
-> +		}
->   	}
->   	if (pipe_ctx->update_flags.bits.enable ||
-> -	    pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
-> -	    pipe_ctx->plane_state->update_flags.bits.gamma_change ||
-> -	    pipe_ctx->plane_state->update_flags.bits.lut_3d)
-> +	    (pipe_ctx->plane_state &&
-> +	     pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change) ||
-> +	    (pipe_ctx->plane_state &&
-> +	     pipe_ctx->plane_state->update_flags.bits.gamma_change) ||
-> +	    (pipe_ctx->plane_state &&
-> +	     pipe_ctx->plane_state->update_flags.bits.lut_3d))
->   		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
->   
->   	/* dcn10_translate_regamma_to_hw_format takes 750us to finish
-> @@ -1947,7 +1954,8 @@ static void dcn20_program_pipe(
->   	if (pipe_ctx->update_flags.bits.enable ||
->   			pipe_ctx->update_flags.bits.plane_changed ||
->   			pipe_ctx->stream->update_flags.bits.out_tf ||
-> -			pipe_ctx->plane_state->update_flags.bits.output_tf_change)
-> +			(pipe_ctx->plane_state &&
-> +			 pipe_ctx->plane_state->update_flags.bits.output_tf_change))
->   		hws->funcs.set_output_transfer_func(dc, pipe_ctx, pipe_ctx->stream);
->   
->   	/* If the pipe has been enabled or has a different opp, we
-> @@ -1971,7 +1979,7 @@ static void dcn20_program_pipe(
->   	}
->   
->   	/* Set ABM pipe after other pipe configurations done */
-> -	if (pipe_ctx->plane_state->visible) {
-> +	if ((pipe_ctx->plane_state && pipe_ctx->plane_state->visible)) {
->   		if (pipe_ctx->stream_res.abm) {
->   			dc->hwss.set_pipe(pipe_ctx);
->   			pipe_ctx->stream_res.abm->funcs->set_abm_level(pipe_ctx->stream_res.abm,
+Commit 629568d25fea ("drm/amdkfd: Validate queue cwsr area and eop
+buffer size") from Jun 26, 2024 (linux-next), leads to the following
+Smatch static checker warning:
+
+	drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_queue.c:265 kfd_queue_acquire_buffers()
+	warn: missing error code 'err'
+
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_queue.c
+    226 int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
+    227 {
+    228         struct kfd_topology_device *topo_dev;
+    229         struct amdgpu_vm *vm;
+    230         u32 total_cwsr_size;
+    231         int err;
+    232 
+    233         topo_dev = kfd_topology_device_by_id(pdd->dev->id);
+    234         if (!topo_dev)
+    235                 return -EINVAL;
+    236 
+    237         vm = drm_priv_to_vm(pdd->drm_priv);
+    238         err = amdgpu_bo_reserve(vm->root.bo, false);
+    239         if (err)
+    240                 return err;
+    241 
+    242         err = kfd_queue_buffer_get(vm, properties->write_ptr, &properties->wptr_bo, PAGE_SIZE);
+    243         if (err)
+    244                 goto out_err_unreserve;
+    245 
+    246         err = kfd_queue_buffer_get(vm, properties->read_ptr, &properties->rptr_bo, PAGE_SIZE);
+    247         if (err)
+    248                 goto out_err_unreserve;
+    249 
+    250         err = kfd_queue_buffer_get(vm, (void *)properties->queue_address,
+    251                                    &properties->ring_bo, properties->queue_size);
+    252         if (err)
+    253                 goto out_err_unreserve;
+    254 
+    255         /* only compute queue requires EOP buffer and CWSR area */
+    256         if (properties->type != KFD_QUEUE_TYPE_COMPUTE)
+    257                 goto out_unreserve;
+
+This is clearly a success path.
+
+    258 
+    259         /* EOP buffer is not required for all ASICs */
+    260         if (properties->eop_ring_buffer_address) {
+    261                 if (properties->eop_ring_buffer_size != topo_dev->node_props.eop_buffer_size) {
+    262                         pr_debug("queue eop bo size 0x%lx not equal to node eop buf size 0x%x\n",
+    263                                 properties->eop_buf_bo->tbo.base.size,
+    264                                 topo_dev->node_props.eop_buffer_size);
+--> 265                         goto out_err_unreserve;
+
+This has err in the label name.  err = -EINVAL?
+
+    266                 }
+    267                 err = kfd_queue_buffer_get(vm, (void *)properties->eop_ring_buffer_address,
+    268                                            &properties->eop_buf_bo,
+    269                                            properties->eop_ring_buffer_size);
+    270                 if (err)
+    271                         goto out_err_unreserve;
+    272         }
+    273 
+    274         if (properties->ctl_stack_size != topo_dev->node_props.ctl_stack_size) {
+    275                 pr_debug("queue ctl stack size 0x%x not equal to node ctl stack size 0x%x\n",
+    276                         properties->ctl_stack_size,
+    277                         topo_dev->node_props.ctl_stack_size);
+    278                 goto out_err_unreserve;
+
+err?
+
+    279         }
+    280 
+    281         if (properties->ctx_save_restore_area_size != topo_dev->node_props.cwsr_size) {
+    282                 pr_debug("queue cwsr size 0x%x not equal to node cwsr size 0x%x\n",
+    283                         properties->ctx_save_restore_area_size,
+    284                         topo_dev->node_props.cwsr_size);
+    285                 goto out_err_unreserve;
+
+err?  Not sure.
+
+    286         }
+    287 
+    288         total_cwsr_size = (topo_dev->node_props.cwsr_size + topo_dev->node_props.debug_memory_size)
+    289                           * NUM_XCC(pdd->dev->xcc_mask);
+    290         total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
+    291 
+    292         err = kfd_queue_buffer_get(vm, (void *)properties->ctx_save_restore_area_address,
+    293                                    &properties->cwsr_bo, total_cwsr_size);
+    294         if (!err)
+    295                 goto out_unreserve;
+    296 
+    297         amdgpu_bo_unreserve(vm->root.bo);
+    298 
+    299         err = kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_area_address,
+    300                                        total_cwsr_size);
+    301         if (err)
+    302                 goto out_err_release;
+    303 
+    304         return 0;
+    305 
+    306 out_unreserve:
+    307         amdgpu_bo_unreserve(vm->root.bo);
+    308         return 0;
+    309 
+    310 out_err_unreserve:
+    311         amdgpu_bo_unreserve(vm->root.bo);
+    312 out_err_release:
+    313         kfd_queue_release_buffers(pdd, properties);
+    314         return err;
+    315 }
+
+regards,
+dan carpenter
