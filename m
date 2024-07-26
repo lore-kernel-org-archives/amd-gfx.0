@@ -4,69 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADF8C3DA49
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 14:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DCBBC3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 14:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70F610E9A1;
-	Fri, 26 Jul 2024 14:04:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5665F10E9BA;
+	Fri, 26 Jul 2024 14:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aaGZeeVb";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="PzmVCh/R";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD0A10E99C;
- Fri, 26 Jul 2024 14:04:47 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-7ab09739287so680063a12.3; 
- Fri, 26 Jul 2024 07:04:47 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 740BE10E9BA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 14:21:41 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-a7a920d2eb7so13500766b.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 07:21:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722002687; x=1722607487; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qZtkUciy53SlA3q1C2mBesNLpAodaomgS3oD4UCQoBY=;
- b=aaGZeeVbEs3c5mPr+cGk8+DMCwrJNCzXu/fdnkpy9TuSg7DdF5OdyHnWBMZBct0EFU
- SA1fDH/WTw9Dzq3KUxeoXpQBAFF/2W4YBkJh46cA8V2nwEFpKWOJ0Jm/MBwQ9e6xcP6e
- y0Lu1PAjpBWBQiFM9SQm+D+J84K/giDKBxUM3mpmogUeng/SATcO9haFMOOnWlwNmExG
- F30nE3EN2GWK2t2HPWuFH892jSv3Ise13cPCAsBL34sCxDDtrH3tYK8lnQrc5aWTUe0A
- R3eHzf/CgDP18UJ3P+o8899cC9UMdjjaPgTC38wJfqhShprx52NZobtljhEXINUKSWao
- sUXg==
+ d=ffwll.ch; s=google; t=1722003700; x=1722608500; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=12844c1WVF6AOL/atjpzbndftHQX0aKRe1GoG8yIarc=;
+ b=PzmVCh/RfhUxyaGrvWnAAE5auFgORKNNs/LBVXD9nnT/TjMWa/st4bEpqSoAU1JnWN
+ GhcGlvQAl4NNklmiapcSTcNjFMaICi/OinpI2q1Kvtrix+6WB3akv+iOVRt6vbs0hckC
+ AEQJAwG7zx4n7Bs6gt1h0HBjJ9D4vR/eM6MEw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722002687; x=1722607487;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qZtkUciy53SlA3q1C2mBesNLpAodaomgS3oD4UCQoBY=;
- b=v8dB2SumPcushOSYx6QCxYMETV0PYYMRC2w3Y0TeFJm+8dmexko6+VPksGLM2MVQ+R
- FQ+xh7GLC6HbEqOfuRubhut0s+asJGX+iEVrHeseRDJw9LOeR+xQN2SwOVC6wOb81nCg
- Q1Td/GCLcedaBfG7J+YuFCAM4syjjqlR7vzN0rvCdsfRodHxoDkEMPcSRTlt2UT7vE21
- dNmSw91Qr2oa4FLgzXkJp2Llc/DfaitIc3lSpLQRKzEQjjfjsLjcBCIzOWruczNe4RFS
- 7DAyE0Ig7acaa5p27ZuOn3hg4Ud78XmH8WpSCZ09aqb6GRLuroyvqe9NxjZh8No5M17h
- mwGw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXrac7d6sOm5EkPGPi882bACo6CiQBoplE4+9gja0p5XoasPr1//j6ZGbjmpAFJzfx3BT1VHOw5GhcMUeUcd0wAOZ5htIbhQ7NVKukg/P/esAavMr/a59E+d2davn4hqLaBNnLDKd/W1K9gEBRWqw==
-X-Gm-Message-State: AOJu0Yydna6bDJfWq+XYtHO71Dm69GrnbxsY5IjmC7YtG51Fi6qVa+k5
- eOnEKjvJD/rnKfnJaaY7xkRk7hqQue9PvXGcQ5Mu6CKOekhJ2d1tMXC/L50y/KqyCxrdTbMm4jq
- 2W6uYCE99id03Fd6K/c98t2KkdBM=
-X-Google-Smtp-Source: AGHT+IEQKLKHLh9iUylwXZrOlh4LpZAvjxsgcGtt4pKukArrozDytrxIsOXJTlQFPEWoZrVPyd4xxPLBpuHK0Qol0F8=
-X-Received: by 2002:a17:90b:1c87:b0:2cb:50fa:b01e with SMTP id
- 98e67ed59e1d1-2cf2ebb7c91mr5372574a91.41.1722002686719; Fri, 26 Jul 2024
- 07:04:46 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1722003700; x=1722608500;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=12844c1WVF6AOL/atjpzbndftHQX0aKRe1GoG8yIarc=;
+ b=uQc+iItL7yMJqFuHuLaYsq0F38uFMaCXQX+yKRXDbbbkhhJGbS1qMsH0mON4xfXuLR
+ WqnN3/Rh1QNEi2BJtDFcWoQYlhAf58zMtEReZe97QZB9BSxW5QLjadw9XD6Xym86HCrV
+ I2k1FQu3bqcHwi2sxQlpOm2+JMM+OGo1ZjmY36wgvDS1saigI2e6Ms0bhEKZZJucmD2O
+ 8VqYPvrT2TsjrNmhHozNEwNI6TUWBcorvYWtzMMb0VxhfDxHiX3IIfjsShWwI3nCmTgH
+ ZOXxp3muYl1zThy7YtvQmnpKIVmJvKaOBT3rVwniAYeYXwWP7UqfCvNumK22Qw//DciT
+ VeCw==
+X-Gm-Message-State: AOJu0Ywlit+1jy5yutHi2M5GUQ3gHnBdwXpZsT5TjptP7uzlktIb9Jrk
+ QrQGgX7rIoOu+3J5DbP17Vjb7mjufbf7qRO7qD1QM2F4VQ3T3p7/HwwYZNHrFTY=
+X-Google-Smtp-Source: AGHT+IHG7FfVCT9mg7z6y3ML0vmKU9tIDNvuhXzR8APsK67r1ePkG3NUL7ZJYUt6VXxzDQN7b6q43w==
+X-Received: by 2002:a17:907:7e81:b0:a77:c825:2d0f with SMTP id
+ a640c23a62f3a-a7ac59f93d4mr262804766b.6.1722003699698; 
+ Fri, 26 Jul 2024 07:21:39 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab2365fsm181316566b.21.2024.07.26.07.21.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jul 2024 07:21:39 -0700 (PDT)
+Date: Fri, 26 Jul 2024 16:21:37 +0200
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ alexander.deucher@amd.com, jesse.zhang@amd.com, vitaly.prosyak@amd.com
+Subject: Re: [PATCH] drm/sched: add optional errno to drm_sched_start()
+Message-ID: <ZqOw8URrWjr9RN7A@phenom.ffwll.local>
+References: <20240726075550.1511-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-References: <20240726094728.1161-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20240726094728.1161-1-jiapeng.chong@linux.alibaba.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 26 Jul 2024 10:04:35 -0400
-Message-ID: <CADnq5_MbocNRzAP6-2gR+CNofo-eFFM7GGsUFGUjQzKz7Q8qDg@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: Use ARRAY_SIZE for array length
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Abaci Robot <abaci@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240726075550.1511-1-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 6.9.7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,253 +79,270 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Fri, Jul 26, 2024 at 09:55:50AM +0200, Christian König wrote:
+> The current implementation of drm_sched_start uses a hardcoded
+> -ECANCELED to dispose of a job when the parent/hw fence is NULL.
+> This results in drm_sched_job_done being called with -ECANCELED for
+> each job with a NULL parent in the pending list, making it difficult
+> to distinguish between recovery methods, whether a queue reset or a
+> full GPU reset was used.
+> 
+> To improve this, we first try a soft recovery for timeout jobs and
+> use the error code -ENODATA. If soft recovery fails, we proceed with
+> a queue reset, where the error code remains -ENODATA for the job.
+> Finally, for a full GPU reset, we use error codes -ECANCELED or
+> -ETIME. This patch adds an error code parameter to drm_sched_start,
+> allowing us to differentiate between queue reset and GPU reset
+> failures. This enables user mode and test applications to validate
+> the expected correctness of the requested operation. After a
+> successful queue reset, the only way to continue normal operation is
+> to call drm_sched_job_done with the specific error code -ENODATA.
+> 
+> v1: Initial implementation by Jesse utilized amdgpu_device_lock_reset_domain
+>     and amdgpu_device_unlock_reset_domain to allow user mode to track
+>     the queue reset status and distinguish between queue reset and
+>     GPU reset.
+> v2: Christian suggested using the error codes -ENODATA for queue reset
+>     and -ECANCELED or -ETIME for GPU reset, returned to
+>     amdgpu_cs_wait_ioctl.
+> v3: To meet the requirements, we introduce a new function
+>     drm_sched_start_ex with an additional parameter to set
+>     dma_fence_set_error, allowing us to handle the specific error
+>     codes appropriately and dispose of bad jobs with the selected
+>     error code depending on whether it was a queue reset or GPU reset.
+> v4: Alex suggested using a new name, drm_sched_start_with_recovery_error,
+>     which more accurately describes the function's purpose.
+>     Additionally, it was recommended to add documentation details
+>     about the new method.
+> v5: Fixed declaration of new function drm_sched_start_with_recovery_error.(Alex)
+> v6 (chk): rebase on upstream changes, cleanup the commit message,
+>           drop the new function again and update all callers,
+>           apply the errno also to scheduler fences with hw fences
+> 
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
 
-On Fri, Jul 26, 2024 at 5:55=E2=80=AFAM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
->
-> Use of macro ARRAY_SIZE to calculate array size minimizes
-> the redundant code and improves code reusability.
->
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1552:57-58=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1561:57-58=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1573:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1578:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1592:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1597:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1611:50-51=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1616:50-51=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1630:50-51=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1635:50-51=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1649:60-61=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1663:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1677:52-53=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1691:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1705:53-54=
-: WARNING: Use ARRAY_SIZE.
-> ./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1719:54-55=
-: WARNING: Use ARRAY_SIZE.
->
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D9580
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Maybe I'm extremely missing the point, but it's kind hard to be sure
+without the testcase/mesa side code too, but for gl robustness I don't
+think this is enough, because you also need to know whether it was your
+context or someone else that caused the gpu reset. Probably biased, but I
+think the per-ctx guilty/reset counters is more then right code here. Or
+something along those lines.
+
+If we really want to stuff this into per-job fences then I think we should
+at least try to document this mess in the sync_file uapi, for a bit of
+consistency.
+
+But yeah without the full picture no idea really what we want here.
+-Sima
+
 > ---
->  .../display/dc/spl/dc_spl_scl_easf_filters.c  | 63 ++++++-------------
->  1 file changed, 20 insertions(+), 43 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c=
- b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
-> index 09bf82f7d468..e847af94419a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
-> +++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
-> @@ -1530,14 +1530,13 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_v=
-alue(struct spl_fixed31_32 rati
->         value =3D lookup_table_index_ptr->reg_value;
->
->         while (count < num_entries) {
-> -
->                 lookup_table_index_ptr =3D (lookup_table_base_ptr + count=
-);
->                 if (lookup_table_index_ptr->numer < 0)
->                         break;
->
->                 if (ratio.value < spl_fixpt_from_fraction(
-> -                       lookup_table_index_ptr->numer,
-> -                       lookup_table_index_ptr->denom).value) {
-> +                   lookup_table_index_ptr->numer,
-> +                   lookup_table_index_ptr->denom).value) {
->                         value =3D lookup_table_index_ptr->reg_value;
->                         break;
->                 }
-> @@ -1548,21 +1547,13 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_v=
-alue(struct spl_fixed31_32 rati
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c          | 4 ++--
+>  drivers/gpu/drm/etnaviv/etnaviv_sched.c             | 4 ++--
+>  drivers/gpu/drm/imagination/pvr_queue.c             | 4 ++--
+>  drivers/gpu/drm/lima/lima_sched.c                   | 2 +-
+>  drivers/gpu/drm/nouveau/nouveau_sched.c             | 2 +-
+>  drivers/gpu/drm/panfrost/panfrost_job.c             | 2 +-
+>  drivers/gpu/drm/panthor/panthor_mmu.c               | 2 +-
+>  drivers/gpu/drm/scheduler/sched_main.c              | 7 ++++---
+>  drivers/gpu/drm/v3d/v3d_sched.c                     | 2 +-
+>  include/drm/gpu_scheduler.h                         | 2 +-
+>  11 files changed, 17 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index 2320df51c914..18135d8235f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -300,7 +300,7 @@ static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool sus
+>  			if (r)
+>  				goto out;
+>  		} else {
+> -			drm_sched_start(&ring->sched);
+> +			drm_sched_start(&ring->sched, 0);
+>  		}
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index c186fdb198ad..861827deb03f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5862,7 +5862,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>  			if (!amdgpu_ring_sched_ready(ring))
+>  				continue;
+>  
+> -			drm_sched_start(&ring->sched);
+> +			drm_sched_start(&ring->sched, 0);
+>  		}
+>  
+>  		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
+> @@ -6360,7 +6360,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+>  		if (!amdgpu_ring_sched_ready(ring))
+>  			continue;
+>  
+> -		drm_sched_start(&ring->sched);
+> +		drm_sched_start(&ring->sched, 0);
+>  	}
+>  
+>  	amdgpu_device_unset_mp1_state(adev);
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> index c53641aa146f..2c8666f8ec4a 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+> @@ -72,12 +72,12 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
+>  
+>  	drm_sched_resubmit_jobs(&gpu->sched);
+>  
+> -	drm_sched_start(&gpu->sched);
+> +	drm_sched_start(&gpu->sched, 0);
+>  	return DRM_GPU_SCHED_STAT_NOMINAL;
+>  
+>  out_no_timeout:
+>  	/* restart scheduler after GPU is usable again */
+> -	drm_sched_start(&gpu->sched);
+> +	drm_sched_start(&gpu->sched, 0);
+>  	return DRM_GPU_SCHED_STAT_NOMINAL;
 >  }
->  uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
->  {
-> -       uint32_t value;
-> -       unsigned int num_entries =3D sizeof(easf_v_bf3_mode_lookup) /
-> -               sizeof(struct scale_ratio_to_reg_value_lookup);
-> -       value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
-> -               easf_v_bf3_mode_lookup, num_entries);
-> -       return value;
-> +       unsigned int num_entries =3D ARRAY_SIZE(easf_v_bf3_mode_lookup);
-> +       return spl_easf_get_scale_ratio_to_reg_value(ratio, easf_v_bf3_mo=
-de_lookup, num_entries);
+>  
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+> index 20cb46012082..c4f08432882b 100644
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+> @@ -782,7 +782,7 @@ static void pvr_queue_start(struct pvr_queue *queue)
+>  		}
+>  	}
+>  
+> -	drm_sched_start(&queue->scheduler);
+> +	drm_sched_start(&queue->scheduler, 0);
 >  }
->  uint32_t spl_get_h_bf3_mode(struct spl_fixed31_32 ratio)
->  {
-> -       uint32_t value;
-> -       unsigned int num_entries =3D sizeof(easf_h_bf3_mode_lookup) /
-> -               sizeof(struct scale_ratio_to_reg_value_lookup);
-> -       value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
-> -               easf_h_bf3_mode_lookup, num_entries);
-> -       return value;
-> +       unsigned int num_entries =3D ARRAY_SIZE(easf_h_bf3_mode_lookup);
-> +       return spl_easf_get_scale_ratio_to_reg_value(ratio, easf_h_bf3_mo=
-de_lookup, num_entries);
+>  
+>  /**
+> @@ -842,7 +842,7 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
+>  	}
+>  	mutex_unlock(&pvr_dev->queues.lock);
+>  
+> -	drm_sched_start(sched);
+> +	drm_sched_start(sched, 0);
+>  
+>  	return DRM_GPU_SCHED_STAT_NOMINAL;
 >  }
->  uint32_t spl_get_reducer_gain6(int taps, struct spl_fixed31_32 ratio)
+> diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+> index 1a944edb6ddc..b40c90e97d7e 100644
+> --- a/drivers/gpu/drm/lima/lima_sched.c
+> +++ b/drivers/gpu/drm/lima/lima_sched.c
+> @@ -463,7 +463,7 @@ static enum drm_gpu_sched_stat lima_sched_timedout_job(struct drm_sched_job *job
+>  	lima_pm_idle(ldev);
+>  
+>  	drm_sched_resubmit_jobs(&pipe->base);
+> -	drm_sched_start(&pipe->base);
+> +	drm_sched_start(&pipe->base, 0);
+>  
+>  	return DRM_GPU_SCHED_STAT_NOMINAL;
+>  }
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+> index eb6c3f9a01f5..4412f2711fb5 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_sched.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+> @@ -379,7 +379,7 @@ nouveau_sched_timedout_job(struct drm_sched_job *sched_job)
+>  	else
+>  		NV_PRINTK(warn, job->cli, "Generic job timeout.\n");
+>  
+> -	drm_sched_start(sched);
+> +	drm_sched_start(sched, 0);
+>  
+>  	return stat;
+>  }
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+> index df49d37d0e7e..d140800606bf 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -727,7 +727,7 @@ panfrost_reset(struct panfrost_device *pfdev,
+>  
+>  	/* Restart the schedulers */
+>  	for (i = 0; i < NUM_JOB_SLOTS; i++)
+> -		drm_sched_start(&pfdev->js->queue[i].sched);
+> +		drm_sched_start(&pfdev->js->queue[i].sched, 0);
+>  
+>  	/* Re-enable job interrupts now that everything has been restarted. */
+>  	job_write(pfdev, JOB_INT_MASK,
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index d47972806d50..e630cdf47f99 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -827,7 +827,7 @@ static void panthor_vm_stop(struct panthor_vm *vm)
+>  
+>  static void panthor_vm_start(struct panthor_vm *vm)
 >  {
-> @@ -1570,13 +1561,11 @@ uint32_t spl_get_reducer_gain6(int taps, struct s=
-pl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 4) {
-> -               num_entries =3D sizeof(easf_reducer_gain6_4tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain6_4tap_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_reducer_gain6_4tap_lookup, num_entries);
->         } else if (taps =3D=3D 6) {
-> -               num_entries =3D sizeof(easf_reducer_gain6_6tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain6_6tap_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_reducer_gain6_6tap_lookup, num_entries);
->         } else
-> @@ -1589,13 +1578,11 @@ uint32_t spl_get_reducer_gain4(int taps, struct s=
-pl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 4) {
-> -               num_entries =3D sizeof(easf_reducer_gain4_4tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain4_4tap_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_reducer_gain4_4tap_lookup, num_entries);
->         } else if (taps =3D=3D 6) {
-> -               num_entries =3D sizeof(easf_reducer_gain4_6tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_reducer_gain4_6tap_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_reducer_gain4_6tap_lookup, num_entries);
->         } else
-> @@ -1608,13 +1595,11 @@ uint32_t spl_get_gainRing6(int taps, struct spl_f=
-ixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 4) {
-> -               num_entries =3D sizeof(easf_gain_ring6_4tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_gain_ring6_4tap_lookup);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_gain_ring6_4tap_lookup, num_entries);
->         } else if (taps =3D=3D 6) {
-> -               num_entries =3D sizeof(easf_gain_ring6_6tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_gain_ring6_6tap_lookup);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_gain_ring6_6tap_lookup, num_entries);
->         } else
-> @@ -1627,13 +1612,11 @@ uint32_t spl_get_gainRing4(int taps, struct spl_f=
-ixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 4) {
-> -               num_entries =3D sizeof(easf_gain_ring4_4tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_gain_ring4_4tap_lookup);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_gain_ring4_4tap_lookup, num_entries);
->         } else if (taps =3D=3D 6) {
-> -               num_entries =3D sizeof(easf_gain_ring4_6tap_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_gain_ring4_6tap_lookup);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_gain_ring4_6tap_lookup, num_entries);
->         } else
-> @@ -1646,8 +1629,7 @@ uint32_t spl_get_3tap_dntilt_uptilt_offset(int taps=
-, struct spl_fixed31_32 ratio
->         unsigned int num_entries;
->
->         if (taps =3D=3D 3) {
-> -               num_entries =3D sizeof(easf_3tap_dntilt_uptilt_offset_loo=
-kup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_3tap_dntilt_uptilt_offset=
-_lookup);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_3tap_dntilt_uptilt_offset_lookup, num_entrie=
-s);
->         } else
-> @@ -1660,8 +1642,7 @@ uint32_t spl_get_3tap_uptilt_maxval(int taps, struc=
-t spl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 3) {
-> -               num_entries =3D sizeof(easf_3tap_uptilt_maxval_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt_maxval_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_3tap_uptilt_maxval_lookup, num_entries);
->         } else
-> @@ -1674,8 +1655,7 @@ uint32_t spl_get_3tap_dntilt_slope(int taps, struct=
- spl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 3) {
-> -               num_entries =3D sizeof(easf_3tap_dntilt_slope_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_3tap_dntilt_slope_lookup)=
-;
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_3tap_dntilt_slope_lookup, num_entries);
->         } else
-> @@ -1688,8 +1668,7 @@ uint32_t spl_get_3tap_uptilt1_slope(int taps, struc=
-t spl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 3) {
-> -               num_entries =3D sizeof(easf_3tap_uptilt1_slope_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt1_slope_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_3tap_uptilt1_slope_lookup, num_entries);
->         } else
-> @@ -1702,8 +1681,7 @@ uint32_t spl_get_3tap_uptilt2_slope(int taps, struc=
-t spl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 3) {
-> -               num_entries =3D sizeof(easf_3tap_uptilt2_slope_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt2_slope_lookup=
-);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_3tap_uptilt2_slope_lookup, num_entries);
->         } else
-> @@ -1716,8 +1694,7 @@ uint32_t spl_get_3tap_uptilt2_offset(int taps, stru=
-ct spl_fixed31_32 ratio)
->         unsigned int num_entries;
->
->         if (taps =3D=3D 3) {
-> -               num_entries =3D sizeof(easf_3tap_uptilt2_offset_lookup) /
-> -                       sizeof(struct scale_ratio_to_reg_value_lookup);
-> +               num_entries =3D ARRAY_SIZE(easf_3tap_uptilt2_offset_looku=
-p);
->                 value =3D spl_easf_get_scale_ratio_to_reg_value(ratio,
->                         easf_3tap_uptilt2_offset_lookup, num_entries);
->         } else
-> --
-> 2.32.0.3.g01195cf9f
->
+> -	drm_sched_start(&vm->sched);
+> +	drm_sched_start(&vm->sched, 0);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index ab53ab486fe6..f093616fe53c 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -674,9 +674,10 @@ EXPORT_SYMBOL(drm_sched_stop);
+>   * drm_sched_start - recover jobs after a reset
+>   *
+>   * @sched: scheduler instance
+> + * @errno: error to set on the pending fences
+>   *
+>   */
+> -void drm_sched_start(struct drm_gpu_scheduler *sched)
+> +void drm_sched_start(struct drm_gpu_scheduler *sched, int errno)
+>  {
+>  	struct drm_sched_job *s_job, *tmp;
+>  
+> @@ -691,13 +692,13 @@ void drm_sched_start(struct drm_gpu_scheduler *sched)
+>  		atomic_add(s_job->credits, &sched->credit_count);
+>  
+>  		if (!fence) {
+> -			drm_sched_job_done(s_job, -ECANCELED);
+> +			drm_sched_job_done(s_job, errno ?: -ECANCELED);
+>  			continue;
+>  		}
+>  
+>  		if (dma_fence_add_callback(fence, &s_job->cb,
+>  					   drm_sched_job_done_cb))
+> -			drm_sched_job_done(s_job, fence->error);
+> +			drm_sched_job_done(s_job, fence->error ?: errno);
+>  	}
+>  
+>  	drm_sched_start_timeout_unlocked(sched);
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 42d4f4a2dba2..cac02284cd19 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -653,7 +653,7 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job *sched_job)
+>  
+>  	/* Unblock schedulers and restart their jobs. */
+>  	for (q = 0; q < V3D_MAX_QUEUES; q++) {
+> -		drm_sched_start(&v3d->queue[q].sched);
+> +		drm_sched_start(&v3d->queue[q].sched, 0);
+>  	}
+>  
+>  	mutex_unlock(&v3d->reset_lock);
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index fe8edb917360..a8d19b10f9b8 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -579,7 +579,7 @@ bool drm_sched_wqueue_ready(struct drm_gpu_scheduler *sched);
+>  void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched);
+>  void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+>  void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+> -void drm_sched_start(struct drm_gpu_scheduler *sched);
+> +void drm_sched_start(struct drm_gpu_scheduler *sched, int errno);
+>  void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+>  void drm_sched_increase_karma(struct drm_sched_job *bad);
+>  void drm_sched_reset_karma(struct drm_sched_job *bad);
+> -- 
+> 2.34.1
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
