@@ -4,28 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E9CC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 12:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCFBC49EA1
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 12:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 854D210E978;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A36010E979;
 	Fri, 26 Jul 2024 12:48:05 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C279F10E1EC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9860710E979
  for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 12:48:04 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 46QCls9N3121346; Fri, 26 Jul 2024 18:17:54 +0530
+ 46QCluv53121357; Fri, 26 Jul 2024 18:17:56 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 46QCls2F3121339;
- Fri, 26 Jul 2024 18:17:54 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 46QCltBw3121356;
+ Fri, 26 Jul 2024 18:17:55 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, Liu Leo <Leo.Liu@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: print VCN instance dump for valid instance
-Date: Fri, 26 Jul 2024 18:17:50 +0530
-Message-Id: <20240726124751.3121312-1-sunil.khatri@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: trigger ip dump before suspend of IP's
+Date: Fri, 26 Jul 2024 18:17:51 +0530
+Message-Id: <20240726124751.3121312-2-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240726124751.3121312-1-sunil.khatri@amd.com>
+References: <20240726124751.3121312-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -42,76 +44,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VCN dump is dependent on power state of the ip. Dump is
-valid if VCN was powered up at the time of ip dump.
+Problem:
+IP dump right now is done post suspend of
+all IP's which for some IP's could change power
+state and software state too which we do not want
+to reflect in the dump as it might not be same at
+the time of hang.
+
+Solution:
+IP should be dumped as close to the HW state when
+the GPU was in hung state without trying to reinitialize
+any resource.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 28 +++++++++++++++++----------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 60 +++++++++++-----------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 9e1cbeee10db..c2278cc49dd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -2329,7 +2329,7 @@ static void vcn_v3_0_print_ip_state(void *handle, struct drm_printer *p)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int i, j;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
--	uint32_t inst_off;
-+	uint32_t inst_off, is_powered;
- 
- 	if (!adev->vcn.ip_dump)
- 		return;
-@@ -2342,11 +2342,17 @@ static void vcn_v3_0_print_ip_state(void *handle, struct drm_printer *p)
- 		}
- 
- 		inst_off = i * reg_count;
--		drm_printf(p, "\nActive Instance:VCN%d\n", i);
-+		is_powered = (adev->vcn.ip_dump[inst_off] &
-+				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
- 
--		for (j = 0; j < reg_count; j++)
--			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_3_0[j].reg_name,
--				   adev->vcn.ip_dump[inst_off + j]);
-+		if (is_powered) {
-+			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-+			for (j = 0; j < reg_count; j++)
-+				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_3_0[j].reg_name,
-+					   adev->vcn.ip_dump[inst_off + j]);
-+		} else {
-+			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-+		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 730dae77570c..74f6f15e73b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5277,11 +5277,29 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
+ 	return ret;
  }
  
-@@ -2354,7 +2360,7 @@ static void vcn_v3_0_dump_ip_state(void *handle)
++static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
++{
++	int i;
++
++	lockdep_assert_held(&adev->reset_domain->sem);
++
++	for (i = 0; i < adev->reset_info.num_regs; i++) {
++		adev->reset_info.reset_dump_reg_value[i] =
++			RREG32(adev->reset_info.reset_dump_reg_list[i]);
++
++		trace_amdgpu_reset_reg_dumps(adev->reset_info.reset_dump_reg_list[i],
++					     adev->reset_info.reset_dump_reg_value[i]);
++	}
++
++	return 0;
++}
++
+ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 				 struct amdgpu_reset_context *reset_context)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int i, j;
--	bool reg_safe;
-+	bool is_powered;
- 	uint32_t inst_off;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
+ 	int i, r = 0;
+ 	struct amdgpu_job *job = NULL;
++	struct amdgpu_device *tmp_adev = reset_context->reset_req_dev;
+ 	bool need_full_reset =
+ 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
  
-@@ -2366,11 +2372,13 @@ static void vcn_v3_0_dump_ip_state(void *handle)
- 			continue;
+@@ -5340,6 +5358,18 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 			}
+ 		}
  
- 		inst_off = i * reg_count;
--		reg_safe = (RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS) &
--			    UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
-+		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
-+		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
-+		is_powered = (adev->vcn.ip_dump[inst_off] &
-+				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
++		if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
++			amdgpu_reset_reg_dumps(tmp_adev);
++
++			dev_info(tmp_adev->dev, "Dumping IP State\n");
++			/* Trigger ip dump before we reset the asic */
++			for (i = 0; i < tmp_adev->num_ip_blocks; i++)
++				if (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
++					tmp_adev->ip_blocks[i].version->funcs->dump_ip_state(
++							(void *)tmp_adev);
++			dev_info(tmp_adev->dev, "Dumping IP State Completed\n");
++		}
++
+ 		if (need_full_reset)
+ 			r = amdgpu_device_ip_suspend(adev);
+ 		if (need_full_reset)
+@@ -5352,47 +5382,17 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 	return r;
+ }
  
--		if (reg_safe)
--			for (j = 0; j < reg_count; j++)
-+		if (is_powered)
-+			for (j = 1; j < reg_count; j++)
- 				adev->vcn.ip_dump[inst_off + j] =
- 					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_3_0[j], i));
- 	}
+-static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
+-{
+-	int i;
+-
+-	lockdep_assert_held(&adev->reset_domain->sem);
+-
+-	for (i = 0; i < adev->reset_info.num_regs; i++) {
+-		adev->reset_info.reset_dump_reg_value[i] =
+-			RREG32(adev->reset_info.reset_dump_reg_list[i]);
+-
+-		trace_amdgpu_reset_reg_dumps(adev->reset_info.reset_dump_reg_list[i],
+-					     adev->reset_info.reset_dump_reg_value[i]);
+-	}
+-
+-	return 0;
+-}
+-
+ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 			 struct amdgpu_reset_context *reset_context)
+ {
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	bool need_full_reset, skip_hw_reset, vram_lost = false;
+ 	int r = 0;
+-	uint32_t i;
+ 
+ 	/* Try reset handler method first */
+ 	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
+ 				    reset_list);
+ 
+-	if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
+-		amdgpu_reset_reg_dumps(tmp_adev);
+-
+-		dev_info(tmp_adev->dev, "Dumping IP State\n");
+-		/* Trigger ip dump before we reset the asic */
+-		for (i = 0; i < tmp_adev->num_ip_blocks; i++)
+-			if (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
+-				tmp_adev->ip_blocks[i].version->funcs
+-				->dump_ip_state((void *)tmp_adev);
+-		dev_info(tmp_adev->dev, "Dumping IP State Completed\n");
+-	}
+-
+ 	reset_context->reset_device_list = device_list_handle;
+ 	r = amdgpu_reset_perform_reset(tmp_adev, reset_context);
+ 	/* If reset handler not implemented, continue; otherwise return */
 -- 
 2.34.1
 
