@@ -4,65 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA7FC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 07:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B14C3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 07:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D52B10E942;
-	Fri, 26 Jul 2024 07:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB48710E291;
+	Fri, 26 Jul 2024 07:55:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UquicRM4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mth9uDQV";
 	dkim-atps=neutral
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEFDD10E91A
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 05:00:24 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-267b7ef154aso563210fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jul 2024 22:00:24 -0700 (PDT)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B09A310E281;
+ Fri, 26 Jul 2024 07:55:54 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-52f008aa351so1427993e87.0; 
+ Fri, 26 Jul 2024 00:55:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721970024; x=1722574824; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lC/1+Rq9M2/d/DfolWrO+hBIeAhWV2SjsyoElLtfCCw=;
- b=UquicRM4hscMO1V57JEfvu4nwMmRYO7scXqt0h+DaCF01eseMcq3r8oAUH/PXwtlns
- IxKAHYw5G6CCXcsUZAWbtLJED4otgIZ+Q78iUR6WWtePVGKVxViWuqi2zx6ymTIbxpsQ
- hddXGePUqWwKXaVg+t1QINukJcqcRgG4dLEVCtbpL764Ky+Aht2S0DR0CZeaOUOdYT6z
- WMjllfB0ITtYziQlzZDoPPUmrsJYvNsz/4r+vxnknXP3kFRzABsGwzY3yhqWgjIuDL3N
- RiiooLJ6pilDNuttwqEdFTW/6vJQ2Ca9ncu8HXt6hKKwc2SLnD3fl2b2dB3rWq7OFhlN
- bhxw==
+ d=gmail.com; s=20230601; t=1721980552; x=1722585352; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=o+t62m77acSl+UhLiMaVAO82NL7VYdVyAQkALQ1jSHI=;
+ b=mth9uDQV24lLbEz5KhveJciY8DxT2cVqmWXCtGis0VbccBJ3OnADfga0aZpzfNp5jg
+ AHJP7uHUK9/S1CAaCCKt3WggLaRcINwxiLFUSWFe4RTndomaNExtr8a2amY++AwI+uTh
+ la7IE2TDO8/EpZccFm9La8Dw/p2E+4uLgwh6bBBccVCkVCVGdpj82m7ovunSXi+OLa2+
+ 6OCc3Vrd0OTS2Qa4XVmV/+yvtE0H4R65bYGMKC/ljn7XPNj0kBhrxZMaoWl5hLpvhbWa
+ xEUq9RPgs/jWsW/UqsERYZFIR8UKCW7wOLmigsESKMtHFurEzb531IdNIgOkY5jT3EoN
+ G5Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721970024; x=1722574824;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lC/1+Rq9M2/d/DfolWrO+hBIeAhWV2SjsyoElLtfCCw=;
- b=lfExyUW3QpKhfy6/hVKZvgtH8W4MYlMo29I5aXdIfrrk59RMJb4l6YmC8sfDjKuvjW
- CZdYmZ69Hz5+8c2ViqJ5dFQBQwWx6fv+32gjHvcaXPYVfHaxs1NPy7rIpwQcikqVrmND
- uFI84QzgPr6Lqp66+VUyFig24Zi4nUdLKmt3cFvMQbQOnFg339Ou1FWbdzlfJB4T45Qe
- TJYmpwevQ9Oh0Ndbf65hUkfI8M59+mqYHeFauXucSCsD8tizxGNCEiIUW5RBfTST6xqr
- h0p5zPOU6+xv3igNhjfleoSqeTTt3VqQyYS3G7s5zgwHb5srSQ4/jGEGInjHygLIPqaY
- 3E0g==
-X-Gm-Message-State: AOJu0YxxN91SL2pz0zkr+j/fFYiKnef98yKHLnqSBYTk6DDntwfJx7Sz
- 3B1mz3ZptICm09C2X/2iz02UQEtskNHmaFBomISRq2MFMDqPT/Uj83eZTlojbR4=
-X-Google-Smtp-Source: AGHT+IGRTqQNDG+u6uZVytOJKshruMWW9eOlO1urAOeN0oHe0rUfaj3k9JsV+dZb/WXeI5F8YoAr2Q==
-X-Received: by 2002:a05:6870:2104:b0:25e:2923:a379 with SMTP id
- 586e51a60fabf-264a0c5dbd0mr6213263fac.16.1721970023816; 
- Thu, 25 Jul 2024 22:00:23 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700:71d:9448:a412:cafd])
+ d=1e100.net; s=20230601; t=1721980552; x=1722585352;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=o+t62m77acSl+UhLiMaVAO82NL7VYdVyAQkALQ1jSHI=;
+ b=VRlHG55T8IfdaswlRw/sWoG9SpB9y8SWRIboCP4JvKcXWdEH3kXYtSo5adN/h16+Gd
+ EOBck7+JDQfLOjODRQL6M9oxrUOwmd/btiCt+sDlMm5Jm1WY/G0wFgJ8ihMY1eeeP/9X
+ 8yNxp+G5byvIaTlNtsqvjMeIZKo8YA/f3iAcJPNglhvBoOFXlm53NnNnv5BJFxXGJefG
+ 7zrXuiMWPXm0V6wXu1nCfdxlmKjnzTUFjoetVHpDvntoetD0gYEbO+6/hyEG1kbJ0BYI
+ 4o8fePkD1vA9qideZPusCke2H50dCvDtDJ5ZLFlv2oLJK89zLOeHor+FxdlcAs8yr2VA
+ cmzA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUFznOq7egG68beh5jD3uFPVNh6IjyxEam+oYsLnPe+ARe1ViLqN8BWTqeyJmzbN5nREv8hDBkhxy6nmBjJi5ibir9yOi1njWlNxVCjFquO
+X-Gm-Message-State: AOJu0Yy5jtMKSQ98S5aTH/z1FPw95MGKjdnHDsKBEbd3TJZXoSwPX6r5
+ JMdOKUtdP5q48v3HnPgS61ikz2Md5L8F19EVU5FlpQPcnPoTnXyv8mQwzk2N
+X-Google-Smtp-Source: AGHT+IHKBV2sFyf4alzvsTD3SLbTg/OaM/jkBbe+sNdBwsrKLis+gzfkOJrkHnxnTDuRgAtY10FwRA==
+X-Received: by 2002:a2e:9150:0:b0:2ee:8555:4742 with SMTP id
+ 38308e7fff4ca-2f03dba5db7mr27666411fa.27.1721980551637; 
+ Fri, 26 Jul 2024 00:55:51 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1587:6200:14d5:ce65:314d:96e4])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7093072b795sm627936a34.42.2024.07.25.22.00.23
+ 5b1f17b1804b1-4280573fd83sm65989485e9.19.2024.07.26.00.55.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jul 2024 22:00:23 -0700 (PDT)
-Date: Fri, 26 Jul 2024 00:00:21 -0500
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Chaitanya Dhere <chaitanya.dhere@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/display: DML2.1 resynchronization
-Message-ID: <91d2f01d-b38c-4674-90d2-f297733bb6af@stanley.mountain>
+ Fri, 26 Jul 2024 00:55:51 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: alexander.deucher@amd.com,
+	jesse.zhang@amd.com,
+	vitaly.prosyak@amd.com
+Subject: [PATCH] drm/sched: add optional errno to drm_sched_start()
+Date: Fri, 26 Jul 2024 09:55:50 +0200
+Message-Id: <20240726075550.1511-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Fri, 26 Jul 2024 07:40:26 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,184 +84,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Chaitanya Dhere,
+The current implementation of drm_sched_start uses a hardcoded
+-ECANCELED to dispose of a job when the parent/hw fence is NULL.
+This results in drm_sched_job_done being called with -ECANCELED for
+each job with a NULL parent in the pending list, making it difficult
+to distinguish between recovery methods, whether a queue reset or a
+full GPU reset was used.
 
-This is a semi-automatic email about new static checker warnings.
+To improve this, we first try a soft recovery for timeout jobs and
+use the error code -ENODATA. If soft recovery fails, we proceed with
+a queue reset, where the error code remains -ENODATA for the job.
+Finally, for a full GPU reset, we use error codes -ECANCELED or
+-ETIME. This patch adds an error code parameter to drm_sched_start,
+allowing us to differentiate between queue reset and GPU reset
+failures. This enables user mode and test applications to validate
+the expected correctness of the requested operation. After a
+successful queue reset, the only way to continue normal operation is
+to call drm_sched_job_done with the specific error code -ENODATA.
 
-Commit 2563391e57b5 ("drm/amd/display: DML2.1 resynchronization")
-from Jul 2, 2024, leads to the following Smatch complaint:
+v1: Initial implementation by Jesse utilized amdgpu_device_lock_reset_domain
+    and amdgpu_device_unlock_reset_domain to allow user mode to track
+    the queue reset status and distinguish between queue reset and
+    GPU reset.
+v2: Christian suggested using the error codes -ENODATA for queue reset
+    and -ECANCELED or -ETIME for GPU reset, returned to
+    amdgpu_cs_wait_ioctl.
+v3: To meet the requirements, we introduce a new function
+    drm_sched_start_ex with an additional parameter to set
+    dma_fence_set_error, allowing us to handle the specific error
+    codes appropriately and dispose of bad jobs with the selected
+    error code depending on whether it was a queue reset or GPU reset.
+v4: Alex suggested using a new name, drm_sched_start_with_recovery_error,
+    which more accurately describes the function's purpose.
+    Additionally, it was recommended to add documentation details
+    about the new method.
+v5: Fixed declaration of new function drm_sched_start_with_recovery_error.(Alex)
+v6 (chk): rebase on upstream changes, cleanup the commit message,
+          drop the new function again and update all callers,
+          apply the errno also to scheduler fences with hw fences
 
-    drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:3854 CalculateSwathAndDETConfiguration()
-    warn: variable dereferenced before check 'p->UnboundedRequestEnabled' (see line 3698)
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c          | 4 ++--
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c             | 4 ++--
+ drivers/gpu/drm/imagination/pvr_queue.c             | 4 ++--
+ drivers/gpu/drm/lima/lima_sched.c                   | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.c             | 2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c             | 2 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c               | 2 +-
+ drivers/gpu/drm/scheduler/sched_main.c              | 7 ++++---
+ drivers/gpu/drm/v3d/v3d_sched.c                     | 2 +-
+ include/drm/gpu_scheduler.h                         | 2 +-
+ 11 files changed, 17 insertions(+), 16 deletions(-)
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-  3697	
-  3698		*p->UnboundedRequestEnabled = UnboundedRequest(p->display_cfg->overrides.hw.force_unbounded_requesting.enable, p->display_cfg->overrides.hw.force_unbounded_requesting.value, TotalActiveDPP, NoChromaOrLinear);
-  3699	
-  3700		CalculateDETBufferSize(
-  3701			&scratch->CalculateDETBufferSize_locals,
-  3702			p->display_cfg,
-  3703			p->ForceSingleDPP,
-  3704			p->NumberOfActiveSurfaces,
-  3705			*p->UnboundedRequestEnabled,
-  3706			p->nomDETInKByte,
-  3707			p->MaxTotalDETInKByte,
-  3708			p->ConfigReturnBufferSizeInKByte,
-  3709			p->MinCompressedBufferSizeInKByte,
-  3710			p->ConfigReturnBufferSegmentSizeInkByte,
-  3711			p->CompressedBufferSegmentSizeInkByte,
-  3712			p->ReadBandwidthLuma,
-  3713			p->ReadBandwidthChroma,
-  3714			p->full_swath_bytes_l,
-  3715			p->full_swath_bytes_c,
-  3716			p->DPPPerSurface,
-  3717	
-  3718			// Output
-  3719			p->DETBufferSizeInKByte, // per hubp pipe
-  3720			p->CompressedBufferSizeInkByte);
-  3721	
-  3722	#ifdef __DML_VBA_DEBUG__
-  3723		dml2_printf("DML::%s: TotalActiveDPP = %u\n", __func__, TotalActiveDPP);
-  3724		dml2_printf("DML::%s: nomDETInKByte = %u\n", __func__, p->nomDETInKByte);
-  3725		dml2_printf("DML::%s: ConfigReturnBufferSizeInKByte = %u\n", __func__, p->ConfigReturnBufferSizeInKByte);
-  3726		dml2_printf("DML::%s: UnboundedRequestEnabled = %u\n", __func__, *p->UnboundedRequestEnabled);
-  3727		dml2_printf("DML::%s: CompressedBufferSizeInkByte = %u\n", __func__, *p->CompressedBufferSizeInkByte);
-  3728	#endif
-  3729	
-  3730		*p->ViewportSizeSupport = true;
-  3731		for (unsigned int k = 0; k < p->NumberOfActiveSurfaces; ++k) {
-  3732	
-  3733			DETBufferSizeInKByteForSwathCalculation = (dml_is_phantom_pipe(&p->display_cfg->plane_descriptors[k]) ? 1024 : p->DETBufferSizeInKByte[k]);
-  3734	#ifdef __DML_VBA_DEBUG__
-  3735			dml2_printf("DML::%s: k=%u DETBufferSizeInKByteForSwathCalculation = %u\n", __func__, k, DETBufferSizeInKByteForSwathCalculation);
-  3736	#endif
-  3737			if (p->display_cfg->plane_descriptors[k].surface.tiling == dml2_sw_linear) {
-  3738				p->SwathHeightY[k] = MaximumSwathHeightY[k];
-  3739				p->SwathHeightC[k] = MaximumSwathHeightC[k];
-  3740				RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k];
-  3741				RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k];
-  3742	
-  3743				if (p->surf_linear128_l[k])
-  3744					p->request_size_bytes_luma[k] = 128;
-  3745				else
-  3746					p->request_size_bytes_luma[k] = 256;
-  3747	
-  3748				if (p->surf_linear128_c[k])
-  3749					p->request_size_bytes_chroma[k] = 128;
-  3750				else
-  3751					p->request_size_bytes_chroma[k] = 256;
-  3752	
-  3753			} else if (p->full_swath_bytes_l[k] + p->full_swath_bytes_c[k] <= DETBufferSizeInKByteForSwathCalculation * 1024 / 2) {
-  3754				p->SwathHeightY[k] = MaximumSwathHeightY[k];
-  3755				p->SwathHeightC[k] = MaximumSwathHeightC[k];
-  3756				RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k];
-  3757				RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k];
-  3758				p->request_size_bytes_luma[k] = 256;
-  3759				p->request_size_bytes_chroma[k] = 256;
-  3760	
-  3761			} else if (p->full_swath_bytes_l[k] >= 1.5 * p->full_swath_bytes_c[k] && p->full_swath_bytes_l[k] / 2 + p->full_swath_bytes_c[k] <= DETBufferSizeInKByteForSwathCalculation * 1024 / 2) {
-  3762				p->SwathHeightY[k] = MaximumSwathHeightY[k] / 2;
-  3763				p->SwathHeightC[k] = MaximumSwathHeightC[k];
-  3764				RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
-  3765				RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k];
-  3766				p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
-  3767				p->request_size_bytes_chroma[k] = 256;
-  3768	
-  3769			} else if (p->full_swath_bytes_l[k] < 1.5 * p->full_swath_bytes_c[k] && p->full_swath_bytes_l[k] + p->full_swath_bytes_c[k] / 2 <= DETBufferSizeInKByteForSwathCalculation * 1024 / 2) {
-  3770				p->SwathHeightY[k] = MaximumSwathHeightY[k];
-  3771				p->SwathHeightC[k] = MaximumSwathHeightC[k] / 2;
-  3772				RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k];
-  3773				RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
-  3774				p->request_size_bytes_luma[k] = 256;
-  3775				p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
-  3776	
-  3777			} else {
-  3778				p->SwathHeightY[k] = MaximumSwathHeightY[k] / 2;
-  3779				p->SwathHeightC[k] = MaximumSwathHeightC[k] / 2;
-  3780				RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
-  3781				RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
-  3782				p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
-  3783				p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
-  3784			}
-  3785	
-  3786			if (p->SwathHeightC[k] == 0)
-  3787				p->request_size_bytes_chroma[k] = 0;
-  3788	
-  3789			if ((p->full_swath_bytes_l[k] / 2 + p->full_swath_bytes_c[k] / 2 > DETBufferSizeInKByteForSwathCalculation * 1024 / 2) ||
-  3790				p->SwathWidth[k] > p->MaximumSwathWidthLuma[k] || (p->SwathHeightC[k] > 0 && p->SwathWidthChroma[k] > p->MaximumSwathWidthChroma[k])) {
-  3791				*p->ViewportSizeSupport = false;
-  3792				dml2_printf("DML::%s: k=%u full_swath_bytes_l=%u\n", __func__, k, p->full_swath_bytes_l[k]);
-  3793				dml2_printf("DML::%s: k=%u full_swath_bytes_c=%u\n", __func__, k, p->full_swath_bytes_c[k]);
-  3794				dml2_printf("DML::%s: k=%u DETBufferSizeInKByteForSwathCalculation=%u\n", __func__, k, DETBufferSizeInKByteForSwathCalculation);
-  3795				dml2_printf("DML::%s: k=%u SwathWidth=%u\n", __func__, k, p->SwathWidth[k]);
-  3796				dml2_printf("DML::%s: k=%u MaximumSwathWidthLuma=%f\n", __func__, k, p->MaximumSwathWidthLuma[k]);
-  3797				dml2_printf("DML::%s: k=%u SwathWidthChroma=%d\n", __func__, k, p->SwathWidthChroma[k]);
-  3798				dml2_printf("DML::%s: k=%u MaximumSwathWidthChroma=%f\n", __func__, k, p->MaximumSwathWidthChroma[k]);
-  3799				p->ViewportSizeSupportPerSurface[k] = false;
-  3800			} else {
-  3801				p->ViewportSizeSupportPerSurface[k] = true;
-  3802			}
-  3803	
-  3804			if (p->SwathHeightC[k] == 0) {
-  3805	#ifdef __DML_VBA_DEBUG__
-  3806				dml2_printf("DML::%s: k=%u, All DET will be used for plane0\n", __func__, k);
-  3807	#endif
-  3808				p->DETBufferSizeY[k] = p->DETBufferSizeInKByte[k] * 1024;
-  3809				p->DETBufferSizeC[k] = 0;
-  3810			} else if (RoundedUpSwathSizeBytesY[k] <= 1.5 * RoundedUpSwathSizeBytesC[k]) {
-  3811	#ifdef __DML_VBA_DEBUG__
-  3812				dml2_printf("DML::%s: k=%u, Half DET will be used for plane0, and half for plane1\n", __func__, k);
-  3813	#endif
-  3814				p->DETBufferSizeY[k] = p->DETBufferSizeInKByte[k] * 1024 / 2;
-  3815				p->DETBufferSizeC[k] = p->DETBufferSizeInKByte[k] * 1024 / 2;
-  3816			} else {
-  3817	#ifdef __DML_VBA_DEBUG__
-  3818				dml2_printf("DML::%s: k=%u, 2/3 DET will be used for plane0, and 1/3 for plane1\n", __func__, k);
-  3819	#endif
-  3820				p->DETBufferSizeY[k] = (unsigned int)(math_floor2(p->DETBufferSizeInKByte[k] * 1024 * 2 / 3, 1024));
-  3821				p->DETBufferSizeC[k] = p->DETBufferSizeInKByte[k] * 1024 - p->DETBufferSizeY[k];
-  3822			}
-  3823	
-  3824	#ifdef __DML_VBA_DEBUG__
-  3825			dml2_printf("DML::%s: k=%u SwathHeightY = %u\n", __func__, k, p->SwathHeightY[k]);
-  3826			dml2_printf("DML::%s: k=%u SwathHeightC = %u\n", __func__, k, p->SwathHeightC[k]);
-  3827			dml2_printf("DML::%s: k=%u full_swath_bytes_l = %u\n", __func__, k, p->full_swath_bytes_l[k]);
-  3828			dml2_printf("DML::%s: k=%u full_swath_bytes_c = %u\n", __func__, k, p->full_swath_bytes_c[k]);
-  3829			dml2_printf("DML::%s: k=%u RoundedUpSwathSizeBytesY = %u\n", __func__, k, RoundedUpSwathSizeBytesY[k]);
-  3830			dml2_printf("DML::%s: k=%u RoundedUpSwathSizeBytesC = %u\n", __func__, k, RoundedUpSwathSizeBytesC[k]);
-  3831			dml2_printf("DML::%s: k=%u DETBufferSizeInKByte = %u\n", __func__, k, p->DETBufferSizeInKByte[k]);
-  3832			dml2_printf("DML::%s: k=%u DETBufferSizeY = %u\n", __func__, k, p->DETBufferSizeY[k]);
-  3833			dml2_printf("DML::%s: k=%u DETBufferSizeC = %u\n", __func__, k, p->DETBufferSizeC[k]);
-  3834			dml2_printf("DML::%s: k=%u ViewportSizeSupportPerSurface = %u\n", __func__, k, p->ViewportSizeSupportPerSurface[k]);
-  3835	#endif
-  3836	
-  3837		}
-  3838	
-  3839		*p->compbuf_reserved_space_64b = 2 * p->pixel_chunk_size_kbytes * 1024 / 64;
-  3840		if (*p->UnboundedRequestEnabled) {
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Everything check if enabled is true
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+index 2320df51c914..18135d8235f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+@@ -300,7 +300,7 @@ static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool sus
+ 			if (r)
+ 				goto out;
+ 		} else {
+-			drm_sched_start(&ring->sched);
++			drm_sched_start(&ring->sched, 0);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index c186fdb198ad..861827deb03f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5862,7 +5862,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 			if (!amdgpu_ring_sched_ready(ring))
+ 				continue;
+ 
+-			drm_sched_start(&ring->sched);
++			drm_sched_start(&ring->sched, 0);
+ 		}
+ 
+ 		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
+@@ -6360,7 +6360,7 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+ 		if (!amdgpu_ring_sched_ready(ring))
+ 			continue;
+ 
+-		drm_sched_start(&ring->sched);
++		drm_sched_start(&ring->sched, 0);
+ 	}
+ 
+ 	amdgpu_device_unset_mp1_state(adev);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index c53641aa146f..2c8666f8ec4a 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -72,12 +72,12 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
+ 
+ 	drm_sched_resubmit_jobs(&gpu->sched);
+ 
+-	drm_sched_start(&gpu->sched);
++	drm_sched_start(&gpu->sched, 0);
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ 
+ out_no_timeout:
+ 	/* restart scheduler after GPU is usable again */
+-	drm_sched_start(&gpu->sched);
++	drm_sched_start(&gpu->sched, 0);
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ }
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index 20cb46012082..c4f08432882b 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -782,7 +782,7 @@ static void pvr_queue_start(struct pvr_queue *queue)
+ 		}
+ 	}
+ 
+-	drm_sched_start(&queue->scheduler);
++	drm_sched_start(&queue->scheduler, 0);
+ }
+ 
+ /**
+@@ -842,7 +842,7 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
+ 	}
+ 	mutex_unlock(&pvr_dev->queues.lock);
+ 
+-	drm_sched_start(sched);
++	drm_sched_start(sched, 0);
+ 
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ }
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 1a944edb6ddc..b40c90e97d7e 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -463,7 +463,7 @@ static enum drm_gpu_sched_stat lima_sched_timedout_job(struct drm_sched_job *job
+ 	lima_pm_idle(ldev);
+ 
+ 	drm_sched_resubmit_jobs(&pipe->base);
+-	drm_sched_start(&pipe->base);
++	drm_sched_start(&pipe->base, 0);
+ 
+ 	return DRM_GPU_SCHED_STAT_NOMINAL;
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index eb6c3f9a01f5..4412f2711fb5 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -379,7 +379,7 @@ nouveau_sched_timedout_job(struct drm_sched_job *sched_job)
+ 	else
+ 		NV_PRINTK(warn, job->cli, "Generic job timeout.\n");
+ 
+-	drm_sched_start(sched);
++	drm_sched_start(sched, 0);
+ 
+ 	return stat;
+ }
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index df49d37d0e7e..d140800606bf 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -727,7 +727,7 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 
+ 	/* Restart the schedulers */
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++)
+-		drm_sched_start(&pfdev->js->queue[i].sched);
++		drm_sched_start(&pfdev->js->queue[i].sched, 0);
+ 
+ 	/* Re-enable job interrupts now that everything has been restarted. */
+ 	job_write(pfdev, JOB_INT_MASK,
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index d47972806d50..e630cdf47f99 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -827,7 +827,7 @@ static void panthor_vm_stop(struct panthor_vm *vm)
+ 
+ static void panthor_vm_start(struct panthor_vm *vm)
+ {
+-	drm_sched_start(&vm->sched);
++	drm_sched_start(&vm->sched, 0);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index ab53ab486fe6..f093616fe53c 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -674,9 +674,10 @@ EXPORT_SYMBOL(drm_sched_stop);
+  * drm_sched_start - recover jobs after a reset
+  *
+  * @sched: scheduler instance
++ * @errno: error to set on the pending fences
+  *
+  */
+-void drm_sched_start(struct drm_gpu_scheduler *sched)
++void drm_sched_start(struct drm_gpu_scheduler *sched, int errno)
+ {
+ 	struct drm_sched_job *s_job, *tmp;
+ 
+@@ -691,13 +692,13 @@ void drm_sched_start(struct drm_gpu_scheduler *sched)
+ 		atomic_add(s_job->credits, &sched->credit_count);
+ 
+ 		if (!fence) {
+-			drm_sched_job_done(s_job, -ECANCELED);
++			drm_sched_job_done(s_job, errno ?: -ECANCELED);
+ 			continue;
+ 		}
+ 
+ 		if (dma_fence_add_callback(fence, &s_job->cb,
+ 					   drm_sched_job_done_cb))
+-			drm_sched_job_done(s_job, fence->error);
++			drm_sched_job_done(s_job, fence->error ?: errno);
+ 	}
+ 
+ 	drm_sched_start_timeout_unlocked(sched);
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 42d4f4a2dba2..cac02284cd19 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -653,7 +653,7 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, struct drm_sched_job *sched_job)
+ 
+ 	/* Unblock schedulers and restart their jobs. */
+ 	for (q = 0; q < V3D_MAX_QUEUES; q++) {
+-		drm_sched_start(&v3d->queue[q].sched);
++		drm_sched_start(&v3d->queue[q].sched, 0);
+ 	}
+ 
+ 	mutex_unlock(&v3d->reset_lock);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index fe8edb917360..a8d19b10f9b8 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -579,7 +579,7 @@ bool drm_sched_wqueue_ready(struct drm_gpu_scheduler *sched);
+ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched);
+ void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+-void drm_sched_start(struct drm_gpu_scheduler *sched);
++void drm_sched_start(struct drm_gpu_scheduler *sched, int errno);
+ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+ void drm_sched_increase_karma(struct drm_sched_job *bad);
+ void drm_sched_reset_karma(struct drm_sched_job *bad);
+-- 
+2.34.1
 
-  3841			*p->compbuf_reserved_space_64b = (unsigned int)math_ceil2(math_max2(*p->compbuf_reserved_space_64b,
-  3842				(double)(p->rob_buffer_size_kbytes * 1024 / 64) - (double)(RoundedUpSwathSizeBytesY[SurfaceDoingUnboundedRequest] * TTUFIFODEPTH / (p->mrq_present ? MAXIMUMCOMPRESSION : 1) / 64)), 1.0);
-  3843	#ifdef __DML_VBA_DEBUG__
-  3844			dml2_printf("DML::%s: RoundedUpSwathSizeBytesY[%d] = %u\n", __func__, SurfaceDoingUnboundedRequest, RoundedUpSwathSizeBytesY[SurfaceDoingUnboundedRequest]);
-  3845			dml2_printf("DML::%s: rob_buffer_size_kbytes = %u\n", __func__, p->rob_buffer_size_kbytes);
-  3846	#endif
-  3847		}
-  3848	#ifdef __DML_VBA_DEBUG__
-  3849		dml2_printf("DML::%s: compbuf_reserved_space_64b = %u\n", __func__, *p->compbuf_reserved_space_64b);
-  3850	#endif
-  3851	
-  3852		*p->hw_debug5 = false;
-  3853		for (unsigned int k = 0; k < p->NumberOfActiveSurfaces; ++k) {
-  3854			if (!(p->mrq_present) && (!p->UnboundedRequestEnabled) && (TotalActiveDPP == 1)
-                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
-This checks if the pointer to enabled is NULL.  Probably *p was intended.
-
-
-  3855				&& p->display_cfg->plane_descriptors[k].surface.dcc.enable
-  3856				&& ((p->rob_buffer_size_kbytes * 1024 * (p->mrq_present ? MAXIMUMCOMPRESSION : 1)
-
-regards,
-dan carpenter
