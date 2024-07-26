@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E8E7C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A53B1C3DA61
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 430E410E059;
-	Sat, 27 Jul 2024 21:04:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44D9910E0C5;
+	Sat, 27 Jul 2024 21:04:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="jOWGv1kf";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="H3am/10L";
 	dkim-atps=neutral
-Received: from out30-111.freemail.mail.aliyun.com
- (out30-111.freemail.mail.aliyun.com [115.124.30.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31C2D10E5B1;
- Fri, 26 Jul 2024 09:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1721987259; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=K1O75+dU/oxc7RMbWfEpo6GrZGyE2ZFXuZ+LFp9QDcw=;
- b=jOWGv1kf0f1029Ahsy0Spn2i3SIgsIcfs8c7Q9G7kHyaup6wy9kqjCyUF2iM25XEL8d1PvkPtle2w1pMzqEN+HZ3vhZNY3/LOTQXx2t/JWUOQZMDfGQsLtwwls1g0LJK5YzY4qQM1XSNUDnzuNpEUVfVc031MB7H7niq+BYQ95k=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037067109;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0WBLOnXO_1721987249; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0WBLOnXO_1721987249) by smtp.aliyun-inc.com;
- Fri, 26 Jul 2024 17:47:38 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH -next] drm/amd/display: Use ARRAY_SIZE for array length
-Date: Fri, 26 Jul 2024 17:47:28 +0800
-Message-Id: <20240726094728.1161-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.32.0.3.g01195cf9f
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9D810E990;
+ Fri, 26 Jul 2024 13:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1722001252;
+ bh=yCh3j7AzpbYaYw1lIg+cXANVOhzeBASAYzoBFFZRBMY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=H3am/10LeRliHMcGqvZ9VX5j2w4kiu/rMdnEhq6Iwv4xjA1XNFJcIPu+U57IZrmeL
+ BmpI+4b4JjTxhorEmFdzyJ9c59bOtshrUJEb0iL7SgfkX85kZ9/auNV7BTixPpZixF
+ kV6BJwypz8Pbn6ZtnbFeORV6Ta7d4yEBNLHkgacs=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Fri, 26 Jul 2024 15:40:15 +0200
+Subject: [PATCH v2 1/2] drm/amdgpu: convert bios_hardcoded_edid to drm_edid
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20240726-amdgpu-edid-bios-v2-1-8a0326654253@weissschuh.net>
+References: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
+In-Reply-To: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1722001252; l=6641;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=yCh3j7AzpbYaYw1lIg+cXANVOhzeBASAYzoBFFZRBMY=;
+ b=RF6nfFT/E1KPCS4w1LS0C+2C2kK/ejep/KoSDc6u7EQvZVzcNiJQIbjgWJZDGtXDLVg6QEt5r
+ Q++PuQX+/RrABVkhu0AUYYeYJS5av2igYxt7+NN39gLTZKqO4Sq2FNe
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Sat, 27 Jul 2024 21:04:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,204 +61,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use of macro ARRAY_SIZE to calculate array size minimizes
-the redundant code and improves code reusability.
+Instead of manually passing around 'struct edid *' and its size,
+use 'struct drm_edid', which encapsulates a validated combination of
+both.
 
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1552:57-58: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1561:57-58: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1573:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1578:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1592:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1597:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1611:50-51: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1616:50-51: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1630:50-51: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1635:50-51: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1649:60-61: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1663:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1677:52-53: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1691:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1705:53-54: WARNING: Use ARRAY_SIZE.
-./drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c:1719:54-55: WARNING: Use ARRAY_SIZE.
+As the drm_edid_ can handle NULL gracefully, the explicit checks can be
+dropped.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9580
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Also save a few characters by transforming '&array[0]' to the equivalent
+'array' and using 'max_t(int, ...)' instead of manual casts.
+
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- .../display/dc/spl/dc_spl_scl_easf_filters.c  | 63 ++++++-------------
- 1 file changed, 20 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c |  6 +-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 17 ++++++-----------
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c          |  2 +-
+ 8 files changed, 14 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
-index 09bf82f7d468..e847af94419a 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_scl_easf_filters.c
-@@ -1530,14 +1530,13 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_value(struct spl_fixed31_32 rati
- 	value = lookup_table_index_ptr->reg_value;
- 
- 	while (count < num_entries) {
--
- 		lookup_table_index_ptr = (lookup_table_base_ptr + count);
- 		if (lookup_table_index_ptr->numer < 0)
- 			break;
- 
- 		if (ratio.value < spl_fixpt_from_fraction(
--			lookup_table_index_ptr->numer,
--			lookup_table_index_ptr->denom).value) {
-+		    lookup_table_index_ptr->numer,
-+		    lookup_table_index_ptr->denom).value) {
- 			value = lookup_table_index_ptr->reg_value;
- 			break;
- 		}
-@@ -1548,21 +1547,13 @@ static uint32_t spl_easf_get_scale_ratio_to_reg_value(struct spl_fixed31_32 rati
- }
- uint32_t spl_get_v_bf3_mode(struct spl_fixed31_32 ratio)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index bd0fbdc5f55d..344e0a9ee08a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -249,11 +249,7 @@ amdgpu_connector_find_encoder(struct drm_connector *connector,
+ static struct edid *
+ amdgpu_connector_get_hardcoded_edid(struct amdgpu_device *adev)
  {
--	uint32_t value;
--	unsigned int num_entries = sizeof(easf_v_bf3_mode_lookup) /
--		sizeof(struct scale_ratio_to_reg_value_lookup);
--	value = spl_easf_get_scale_ratio_to_reg_value(ratio,
--		easf_v_bf3_mode_lookup, num_entries);
--	return value;
-+	unsigned int num_entries = ARRAY_SIZE(easf_v_bf3_mode_lookup);
-+	return spl_easf_get_scale_ratio_to_reg_value(ratio, easf_v_bf3_mode_lookup, num_entries);
+-	if (adev->mode_info.bios_hardcoded_edid) {
+-		return kmemdup((unsigned char *)adev->mode_info.bios_hardcoded_edid,
+-			       adev->mode_info.bios_hardcoded_edid_size, GFP_KERNEL);
+-	}
+-	return NULL;
++	return drm_edid_duplicate(drm_edid_raw(adev->mode_info.bios_hardcoded_edid));
  }
- uint32_t spl_get_h_bf3_mode(struct spl_fixed31_32 ratio)
- {
--	uint32_t value;
--	unsigned int num_entries = sizeof(easf_h_bf3_mode_lookup) /
--		sizeof(struct scale_ratio_to_reg_value_lookup);
--	value = spl_easf_get_scale_ratio_to_reg_value(ratio,
--		easf_h_bf3_mode_lookup, num_entries);
--	return value;
-+	unsigned int num_entries = ARRAY_SIZE(easf_h_bf3_mode_lookup);
-+	return spl_easf_get_scale_ratio_to_reg_value(ratio, easf_h_bf3_mode_lookup, num_entries);
+ 
+ static void amdgpu_connector_get_edid(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index d002b845d8ac..5e3faefc5510 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -51,6 +51,7 @@ struct amdgpu_encoder;
+ struct amdgpu_router;
+ struct amdgpu_hpd;
+ struct edid;
++struct drm_edid;
+ 
+ #define to_amdgpu_crtc(x) container_of(x, struct amdgpu_crtc, base)
+ #define to_amdgpu_connector(x) container_of(x, struct amdgpu_connector, base)
+@@ -326,8 +327,7 @@ struct amdgpu_mode_info {
+ 	/* FMT dithering */
+ 	struct drm_property *dither_property;
+ 	/* hardcoded DFP edid from BIOS */
+-	struct edid *bios_hardcoded_edid;
+-	int bios_hardcoded_edid_size;
++	const struct drm_edid *bios_hardcoded_edid;
+ 
+ 	/* firmware flags */
+ 	u32 firmware_flags;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 6415d0d039e1..e5f508d34ed8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -549,7 +549,7 @@ static int amdgpu_vkms_sw_fini(void *handle)
+ 
+ 	adev->mode_info.mode_config_initialized = false;
+ 
+-	kfree(adev->mode_info.bios_hardcoded_edid);
++	drm_edid_free(adev->mode_info.bios_hardcoded_edid);
+ 	kfree(adev->amdgpu_vkms_output);
+ 	return 0;
  }
- uint32_t spl_get_reducer_gain6(int taps, struct spl_fixed31_32 ratio)
+diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+index ebf83fee43bb..8defca3705d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
++++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+@@ -2064,23 +2064,18 @@ amdgpu_atombios_encoder_get_lcd_info(struct amdgpu_encoder *encoder)
+ 				case LCD_FAKE_EDID_PATCH_RECORD_TYPE:
+ 					fake_edid_record = (ATOM_FAKE_EDID_PATCH_RECORD *)record;
+ 					if (fake_edid_record->ucFakeEDIDLength) {
+-						struct edid *edid;
++						const struct drm_edid *edid;
+ 						int edid_size;
+ 
+ 						if (fake_edid_record->ucFakeEDIDLength == 128)
+ 							edid_size = fake_edid_record->ucFakeEDIDLength;
+ 						else
+ 							edid_size = fake_edid_record->ucFakeEDIDLength * 128;
+-						edid = kmemdup(&fake_edid_record->ucFakeEDIDString[0],
+-							       edid_size, GFP_KERNEL);
+-						if (edid) {
+-							if (drm_edid_is_valid(edid)) {
+-								adev->mode_info.bios_hardcoded_edid = edid;
+-								adev->mode_info.bios_hardcoded_edid_size = edid_size;
+-							} else {
+-								kfree(edid);
+-							}
+-						}
++						edid = drm_edid_alloc(fake_edid_record->ucFakeEDIDString, edid_size);
++						if (drm_edid_valid(edid))
++							adev->mode_info.bios_hardcoded_edid = edid;
++						else
++							drm_edid_free(edid);
+ 						record += struct_size(fake_edid_record,
+ 								      ucFakeEDIDString,
+ 								      edid_size);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index dddb5fe16f2c..742adbc460c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -2846,7 +2846,7 @@ static int dce_v10_0_sw_fini(void *handle)
  {
-@@ -1570,13 +1561,11 @@ uint32_t spl_get_reducer_gain6(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
  
- 	if (taps == 4) {
--		num_entries = sizeof(easf_reducer_gain6_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain6_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain6_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_reducer_gain6_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain6_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain6_6tap_lookup, num_entries);
- 	} else
-@@ -1589,13 +1578,11 @@ uint32_t spl_get_reducer_gain4(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+-	kfree(adev->mode_info.bios_hardcoded_edid);
++	drm_edid_free(adev->mode_info.bios_hardcoded_edid);
  
- 	if (taps == 4) {
--		num_entries = sizeof(easf_reducer_gain4_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain4_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain4_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_reducer_gain4_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_reducer_gain4_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_reducer_gain4_6tap_lookup, num_entries);
- 	} else
-@@ -1608,13 +1595,11 @@ uint32_t spl_get_gainRing6(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+ 	drm_kms_helper_poll_fini(adev_to_drm(adev));
  
- 	if (taps == 4) {
--		num_entries = sizeof(easf_gain_ring6_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring6_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring6_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_gain_ring6_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring6_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring6_6tap_lookup, num_entries);
- 	} else
-@@ -1627,13 +1612,11 @@ uint32_t spl_get_gainRing4(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index 11780e4d7e9f..8d46ebadfa46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -2973,7 +2973,7 @@ static int dce_v11_0_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
  
- 	if (taps == 4) {
--		num_entries = sizeof(easf_gain_ring4_4tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring4_4tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring4_4tap_lookup, num_entries);
- 	} else if (taps == 6) {
--		num_entries = sizeof(easf_gain_ring4_6tap_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_gain_ring4_6tap_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_gain_ring4_6tap_lookup, num_entries);
- 	} else
-@@ -1646,8 +1629,7 @@ uint32_t spl_get_3tap_dntilt_uptilt_offset(int taps, struct spl_fixed31_32 ratio
- 	unsigned int num_entries;
+-	kfree(adev->mode_info.bios_hardcoded_edid);
++	drm_edid_free(adev->mode_info.bios_hardcoded_edid);
  
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_dntilt_uptilt_offset_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_dntilt_uptilt_offset_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_dntilt_uptilt_offset_lookup, num_entries);
- 	} else
-@@ -1660,8 +1642,7 @@ uint32_t spl_get_3tap_uptilt_maxval(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+ 	drm_kms_helper_poll_fini(adev_to_drm(adev));
  
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt_maxval_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt_maxval_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt_maxval_lookup, num_entries);
- 	} else
-@@ -1674,8 +1655,7 @@ uint32_t spl_get_3tap_dntilt_slope(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 05c0df97f01d..f08dc6a3886f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -2745,7 +2745,7 @@ static int dce_v6_0_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
  
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_dntilt_slope_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_dntilt_slope_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_dntilt_slope_lookup, num_entries);
- 	} else
-@@ -1688,8 +1668,7 @@ uint32_t spl_get_3tap_uptilt1_slope(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+-	kfree(adev->mode_info.bios_hardcoded_edid);
++	drm_edid_free(adev->mode_info.bios_hardcoded_edid);
  
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt1_slope_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt1_slope_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt1_slope_lookup, num_entries);
- 	} else
-@@ -1702,8 +1681,7 @@ uint32_t spl_get_3tap_uptilt2_slope(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+ 	drm_kms_helper_poll_fini(adev_to_drm(adev));
  
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt2_slope_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt2_slope_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt2_slope_lookup, num_entries);
- 	} else
-@@ -1716,8 +1694,7 @@ uint32_t spl_get_3tap_uptilt2_offset(int taps, struct spl_fixed31_32 ratio)
- 	unsigned int num_entries;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index dc73e301d937..a6a3adf2ae13 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -2766,7 +2766,7 @@ static int dce_v8_0_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
  
- 	if (taps == 3) {
--		num_entries = sizeof(easf_3tap_uptilt2_offset_lookup) /
--			sizeof(struct scale_ratio_to_reg_value_lookup);
-+		num_entries = ARRAY_SIZE(easf_3tap_uptilt2_offset_lookup);
- 		value = spl_easf_get_scale_ratio_to_reg_value(ratio,
- 			easf_3tap_uptilt2_offset_lookup, num_entries);
- 	} else
+-	kfree(adev->mode_info.bios_hardcoded_edid);
++	drm_edid_free(adev->mode_info.bios_hardcoded_edid);
+ 
+ 	drm_kms_helper_poll_fini(adev_to_drm(adev));
+ 
+
 -- 
-2.32.0.3.g01195cf9f
+2.45.2
 
