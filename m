@@ -4,162 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68274C3DA49
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 19:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 591DBC3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 20:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D20410E22D;
-	Fri, 26 Jul 2024 19:36:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF4E910E1A3;
+	Fri, 26 Jul 2024 20:25:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3ngF1Aqo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SCd/GOnj";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2045.outbound.protection.outlook.com [40.107.223.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC1D10E22D
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 19:36:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U6kaJsJkbC3HUTUyvrI2mmBM7muiOsjE3nl8KTcMZxoXMRfkF/VihSlM0dQRxUEJPJMjUoay0TySsS2zppGBjRMa1wRxkiYkQactOPANJ0OsRGZ/ESm9sjgav7cXISG0d8WD3O7qcWGP2eO03up2IpHzxuOtfBuKABi8FN+r4og9P/X7BvsansYa9BOVTc75C5FIzRX7MM/6MLBT6IGwgOLNO0dlm1p2LXJZKIhNpV5da/vwufdY+APh/mjHq6osVsmQzIUkPmQyrgm2U4hXI8Oewc5fVEoZWdTdKCkrOeHTcGaFecrCP8BaB5fF9r9z/DJZ5kfpXhBmEaNwORY0HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=36h+EiocHEQfpDSJ1T1NMZr4N8cB+6F3jnDcIvVKRe0=;
- b=IiOyM7TLl91yGDW5F8afensqhuBl0c9T306MCLCbCob+H+Vp6JbB7Kea1vkGa18hlTFlNWHkeFpwLbsChw6WodZC5dND6QusrXIe/qqzSTTZ5/8N0XeYTl+aiUkPpRAkKQc77I78pZStFIlU6ifJv8oprJ5VnXQ9bCxJ1xV0hxug3aHrXlRRaKVlFGdDD25vb7Ng4SC/86mD2BiMD9AWvRLMGcNaHRGTzyq58q9aGeAHln3zp99E1GfqqIIzdRTWW/13988tEMmXdqxwVlP3HFzbru8E2O+PINtS8eb2V8H/ucvwlGfsJXupfHI9q8zyzXBdslA1PdUfpxI9hm0f9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=36h+EiocHEQfpDSJ1T1NMZr4N8cB+6F3jnDcIvVKRe0=;
- b=3ngF1AqoD1XwgX9/k3TP29+3fHm/ifZtm1H5fdetSHYfMMHzKFvseauTCMaVaEJmNnNGAjTSniAEQf7GN2ZqdFbnbtuFyyjWpGh0rwxta6A19E1B8Iw5OUEG1ppxgLKMz8dScJnr+f8DBupgPdk+qDcFPnHYGhN/ewjw/fh+HrI=
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
- by SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.16; Fri, 26 Jul
- 2024 19:36:03 +0000
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210]) by CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210%4]) with mapi id 15.20.7784.020; Fri, 26 Jul 2024
- 19:36:03 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Morichetti, Laurent"
- <Laurent.Morichetti@amd.com>, "Six, Lancelot" <Lancelot.Six@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdkfd: support the debugger during per-queue
- reset
-Thread-Topic: [PATCH 2/2] drm/amdkfd: support the debugger during per-queue
- reset
-Thread-Index: AQHa33DVhBq7qofCNk+dKG8ntmqvULIJXEGAgAAKjeA=
-Date: Fri, 26 Jul 2024 19:36:03 +0000
-Message-ID: <CY8PR12MB7435B2D5496A52572B2A986C85B42@CY8PR12MB7435.namprd12.prod.outlook.com>
-References: <20240726153049.1296575-1-Jonathan.Kim@amd.com>
- <20240726153049.1296575-2-Jonathan.Kim@amd.com>
- <CADnq5_O9KSpYyczgNZC-6G1rpmbTJYS7xGE0OOLq0P6ToK_eJw@mail.gmail.com>
-In-Reply-To: <CADnq5_O9KSpYyczgNZC-6G1rpmbTJYS7xGE0OOLq0P6ToK_eJw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=1c9de1cf-5dd7-4b76-b698-d3fe3558c0ea;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-07-26T19:34:58Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|SJ0PR12MB7007:EE_
-x-ms-office365-filtering-correlation-id: 0184b1ea-93ba-46d2-b685-08dcadaa2f9b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?a3pKYnRtZkU3Y2dtYjNrU0lhQmh4bXZPR3ZRVXNOakJXUlN0S3NLUnhTdjRt?=
- =?utf-8?B?dVpjTS9mc2pJaDJxUzRidUdsTTd6N2t1a1BZcUcyQzl2UktNejkxNTdYUGdn?=
- =?utf-8?B?Qi9GTmdEUTgzdFh1RUdvYWMvTDN5Nm5YeWxqUHd6YkVsUGZremlUdDVHQTFr?=
- =?utf-8?B?TllCWWU5Ui9vNXZiU0tCSmtWVWNPeEovZUxOckRhektUdkpZL0d4K05WN09r?=
- =?utf-8?B?enJ5Tk9rNERWSXUyazV4anBzQ3VzVlJtUjcwMHRFZFp1NUNCdkFxTm1kU1lZ?=
- =?utf-8?B?ZjFTbzg4c3JuL0FqbkVONTNNRUFhM2ZON2lEOHpDODJNb0dEVGh3ckVWQldz?=
- =?utf-8?B?NGI1T0VkejBrL1BrSFN3dlQ2VmZZa1lXSTN0czd2RWloS0FMc2hNMmpLWG43?=
- =?utf-8?B?U1hhN1NwcmprTENoQ3lwa0VGWkJqTWpiR2k1bHBoZm5qTkloVUd1aVBuS3ZQ?=
- =?utf-8?B?V1Bid3IvL0EvSzFjcFVXQ2R0RVNPTXRHcWRDR2ducEJzdEZjU2RyaEsrYkVm?=
- =?utf-8?B?V2liUjhxcjFiQi80elpDS2hPbStvU25FVnM2MDNUQ2Q0YWpPemdCdmF6Uklx?=
- =?utf-8?B?ZTlFSUlCNzJaK0dyZC9pWmM0cGJucnU0NjUzeE1GU1k1L3RvRXREOE1NTnZp?=
- =?utf-8?B?S1ZGWHRpcnh5cXRkUVZWOVoybnBNZmUrejRRcTRRV3JPRTE3VTRpYm1nM3hK?=
- =?utf-8?B?Yy95R0RYN0VOMHNDY21TVE1SMEw1MHA4YStvd2F4NkVOcUdVZ210SFRPWVVE?=
- =?utf-8?B?cU1pQjQyQ3lZVS9GSnQ3VzRYbmlsb1l1YjdoNFp4bURQSU9pZmRFemR6QVhw?=
- =?utf-8?B?S0tZd2duTS9LN2NmUVQ1b0ZiMGhnOWhGUTIwZndFbHdrU01Xa09Pcm9oT0h6?=
- =?utf-8?B?M2RmakFLY1hzZEJraERVQ2dWYWVYZTZEUmwrZXp6ODZYRjlzRnR0UGRaVVQr?=
- =?utf-8?B?ZUhGcjdZazNwSW1IZk8rZmxDNDdEazltenRMNFA4L0JxRjZjVEJ5eTNISVpt?=
- =?utf-8?B?NDFyenpHRTJWenBHc2EzUDNPOFdoSklqWWhYRUdlWVJtV2NNTDRCRzV5WXJL?=
- =?utf-8?B?ZkJJam9VMzQ4SHJubFVWNzlUc0gyZzdBNzdDK0IvNkZzNTFjNHM3V2sxRDQr?=
- =?utf-8?B?YjFCWUhSVHRWWmRzaTNRMEpmUHRFZi9tOXBZVWc5VFVaTGxNMXE1SE02M01V?=
- =?utf-8?B?c0xNQ1E2VkQvZ0tmam5JME1jRGd5ajJDa0RNSEIxN2dZTWhiTXE4bWJyc2Q1?=
- =?utf-8?B?RERQdWtRYlhRdWUrMUZsSTYva0VuVUdhbHN4L0VGTmRWZmtBRytKMlY2L2Jp?=
- =?utf-8?B?RXdmQW9yY3hhYW51N0lsUmtKWENKTVE0dEZJUjFBRktPWk9Ia2p6NmFudmxX?=
- =?utf-8?B?SkFMVVZGdTM4Z05ER1dhc2UrWERSVnVDei9nZ1FmdDRSLzlvZnN3cmFUOENF?=
- =?utf-8?B?a2JmUWZqZUc3Y1dUMDRBQVNlZzhOeE9Eenh3bnRkenEzaWVEVXJGTWx5bFdn?=
- =?utf-8?B?SGZvRjVoc2Rrc2tWSnVjK1NYcDNiMEFWbHViYTBjTVgzYVlDbDlhRGJxQmpQ?=
- =?utf-8?B?UksvbUEySHlYcXlqWE9LR0pnU2tiSFl5V3JES05OaVFnV2VUSktrY1BTTjZD?=
- =?utf-8?B?dVhJL2xONUM4QUtzQUpySWlHUXlmRkxpSVAvQ0MvdTU1akJlbU9OeU9qaEpz?=
- =?utf-8?B?YkI4eWlxWXVVL2E3akJBRnFGWmpqK29yQ2tGZ2NtQWUrZVNhZkVqWnkySTVD?=
- =?utf-8?B?MFNZY1NZdVY3TDY5cUZHZHhicDlscGZUeEMzV1gvcGFrQ2VRbjB0eW02T3hn?=
- =?utf-8?B?Q3poSTdXWFp0dGtjcDdqZ2piSC9WSTdObUdOVVl3dTFsRi9KZ2VOMWhQellG?=
- =?utf-8?B?bzNydUUvbi9mRGt5YXUrOFdpYzgrZTUyRmE5dS9zYjdLaXc9PQ==?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?U2V5VHRnOG1Jc1o3Z1A0a3ViUXZUNU02azRtR0haS0dTL1dWeG5aVkh1VzRa?=
- =?utf-8?B?ODVCU05PazdicWgxV1J2Y0dBc2FlR3ZiejErMXgyOVdKeE93Qkl5eGJoK2lS?=
- =?utf-8?B?cGt1L2pUbWFJVW1SOEZKUE95MUxZY3ozUmc5eEpxQlNtVkVUcE5wSVN4b003?=
- =?utf-8?B?cTJGQXVYSDE5dmI1N2tkQ1NFaDB2U2YwM1ZZM3FiY3g2VnFJSjUwNmV6UUUw?=
- =?utf-8?B?RUlNYWlYNy9NOG40ZTVCZVcyaGlkVFV4alNneVlFcG5zOHlmZE1aS3V6UGVD?=
- =?utf-8?B?QTJ4TlBRM0hmM2IyOGg3Z0pUUk9JMGpidWs2ekR2MXRqWVh4M0hQWlYvTnE0?=
- =?utf-8?B?Y3krbFhTMzc2T05qeGlWZ3NSQ0VoeEZncE1TdDlBL0Vib2Rpa0VPcDF6RkNx?=
- =?utf-8?B?K1NTbjFKaWtndVRQaDEvT1hQRVhjNW50UXRmR3J1VmFsU241dUdXK2tEQ2gr?=
- =?utf-8?B?dSsvU2pQWXBWdjh5TDNlT0o4cE9xQ2ZzLzdHMnBnaDYveG83TzM4enRDRTdy?=
- =?utf-8?B?amxkdnhnM2VZbDBIL3ZhaUZFQVlyV2oyV1FaS0VXN05Od3UxNll4My9lb3ds?=
- =?utf-8?B?b2pRWTN1Y1RJT3NyYzY4M0p5ODJJYkxLRDFzUjB6T3NyNmNsdkFKNXl5dThi?=
- =?utf-8?B?WDRqazF2cklLOFM2ZjFrU2M5bjhiQU1BN2JNV08vSFdSTmFPTDYwV1pZMVBh?=
- =?utf-8?B?RHh5UE5vZnl3T2F5OFI5d0N6UkQvK2Y3N3RNMk9pZUxxaWs0V2lCTGM2N0xV?=
- =?utf-8?B?RkxxVlk0d3V0VWRiWkFOeEZ3SHNnanNLaWFCMnNFS2FYdWFraExuSmQvY1Zk?=
- =?utf-8?B?NTRtOXI2YnBOekE0aElOSjlQajFRa3Bjbmp3V1pzRW8yRGRaZTYrd0k4Nlh3?=
- =?utf-8?B?U1lqVjd0L3ZUQlNIYjZDa1MrUjBZNm1xekVNR3Urc3kwMHRMM095YzAvSXRN?=
- =?utf-8?B?M2dIMHhzNjJqNXo3VWxqRmovU1VQeXU2RHJwYWNOSm55Qi9MRnBjczJyYVYy?=
- =?utf-8?B?TmFiME1BOW9yY0ttVnR6V25jek1JK1dQVlNOT3dJWFJJU0tVeC9QOThld0Q2?=
- =?utf-8?B?SVBnMjJXRzV5SkhlSDBHeXNtL3gyelN5ZFg2b0NQYW9RbzdWY1dUOVR2Vk9w?=
- =?utf-8?B?ZFVjdHZMcE11TVJQUGZnS2FkSHZuajV1bWtONVRlQTIzd0Q1czYrSGY4NzNC?=
- =?utf-8?B?MU1tMGJqNFdraysvc2tTakV3eFM5TTQwWGdya0E4MHB2dEdjeGw1SHZzTkd0?=
- =?utf-8?B?YVV2WGE4U1lXQklDRU9ldVZGTFBJOFFSY1hmVFI5YUZSRUZZek1UT3BnNEVB?=
- =?utf-8?B?U25yLzg5dXRseTFEcWhqN0JRRkVQemdycGFVOEQwaGhWcy9KV2VuSm9nOGpj?=
- =?utf-8?B?blpDaXN2Y09zNUZSR0luOFlneWc0ZlBKZ0tTd3o2aktpS3BmWVplWnFrQ3Nq?=
- =?utf-8?B?cDBuSVFvaWwxa0EwbzV3V0U0ZG5RZUpXek1HMnoxTHM0U0VUcUMzUjVyN0xh?=
- =?utf-8?B?SlFLSWZXS2lTUkEzR3I4cGsvRk1ZM2swTGRiTXl5aHFUWGZpZ0Z4SUNuNTFm?=
- =?utf-8?B?bjl2Y0VSem5BRE1rOEJONDJYQndrM1JBamV6bCtDMVMxQ2RRc0hFc2ZUTTBO?=
- =?utf-8?B?ZWxUQnJrV3pFSkJNbVU1TkFzMS8vWDZjTnVIZTN1UmU2ekVIU3A4Nm9pcG9H?=
- =?utf-8?B?UDZubGxYLzZPTEtxWVh3M0xIYzdpQU9uS2ttUlBQejFXVnlWT1doVUp5a3RE?=
- =?utf-8?B?YTRaeFBUVDRmWlNadWc2L3dxemdWZm1BQUs5VDlQTFRjLzRtTFNYd3A4OHRD?=
- =?utf-8?B?T1RQNUdnT2xCZWx6OVppNjg4NGxuMnE4TWNxZTg0ZHdZVy8vK1pnNm1QMk1C?=
- =?utf-8?B?bjczd2lVRzlWWjM1dkNmMjZiQno2bFZSaFVLOTBKdjNRM2MwM0FHOEpETVJr?=
- =?utf-8?B?MHRTTUVCL1F0QklKRWtYU3MzNE1lREdLTXlhdjBib2trdHZUQzNRblZnVUlB?=
- =?utf-8?B?WHY3RmRsd1BVclRIaCtvL1ZURXpqSEdHbDdaV3d5NUZOcTRKbG9TVXRMWERE?=
- =?utf-8?B?aERsSXdWNDFWUXVxeUR3cGp3Ym1KZmVFTGF3Z09Od0ZaYUx4c3JQbUMwbWRj?=
- =?utf-8?Q?1Kvo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D07F10E1A3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 20:25:21 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-70ea93aa9bdso1113589b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 13:25:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722025521; x=1722630321; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L4uS9iNm7MmmWVeq47NDp3+tQd70pK9WAp7Ov0yJ2tU=;
+ b=SCd/GOnj8UjHi7xHdaF+ACxjroXwPr527wRWd5J7svL5tM+2PlBtpE2VdGC/kBr4Nc
+ jQnQDigwqWpg4TVIXyd6WHTdwbWTpLOcfuG8vUHBPnSghUwle07dyRNU/YGbB3UehzcX
+ PV5UfOHoNwLIo55idTLHb+8LtbzUqrmM/x27AtKJlgPV/g/QLd3QIHU0htK57VCkRwgO
+ 2ev6KMDR+7293HfDpiB/3aBekJnxowDGKDMM6q8noX67gMdXzUDGmydI+iEc453MLuGl
+ +xrY9AUJXSRc7f9futoZuY1cg+uoFc+FAqJnpthIQV90ExNqXrUpN8xkiH3k/GkoGa+v
+ EbYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722025521; x=1722630321;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=L4uS9iNm7MmmWVeq47NDp3+tQd70pK9WAp7Ov0yJ2tU=;
+ b=B1JOoEBHFBre9/6cXtM9nU9HOfglLYxvMempnHvMs0eJSw4e8F1VfdrOp4SHgwssZv
+ vEERG/RnkgnLym9Q2xsjiJrRXmCjpHcsNUsoTN37w6ZbNVX3JqwyUdyGGy00gWvgOIn+
+ 2jzlwG0MRXpliiIvNwQOBI1EDSg4eZc75iRXj4BsJHhFEfmRC09nKZOFvQwkSfe/rD6y
+ lGLtbyrsxlmalXebiLp/h5FwxrXpZGVfjh/ugWRJRjSkWAl6Pyx4CHp2KCCfth/rmipz
+ ediCtLhTbWXYiOsZ4W9crHDrT/VMuznsVjfva/dE6A/nhotW+GVr0EEILGSpYs54z0IE
+ sGQA==
+X-Gm-Message-State: AOJu0Yxc2W3KQyNLI3FuZk1+Hh5JbXnEgGq0dJDmwmV+tBqZmMI/LDRs
+ ySbxI+3Qq6p6wAw9Pw3gCXGZWJq+Y8bFIuCoGNHJk+LRno0sPDFhONpSU9XsIVoQ32L+yAisXAy
+ Flkw0L1EcwnLe7U8ouE42lm65GoA=
+X-Google-Smtp-Source: AGHT+IEO1lyIwD6wiPRxw+IOXHAGIgH2pS1YlQfmSFA5El5mNMSl4oiV40IfQ2LHqpDMrrr2P5cru3PBv2WOITpVp+w=
+X-Received: by 2002:a05:6a20:72a3:b0:1c4:a1f4:3490 with SMTP id
+ adf61e73a8af0-1c4a1f44e94mr629802637.39.1722025520678; Fri, 26 Jul 2024
+ 13:25:20 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0184b1ea-93ba-46d2-b685-08dcadaa2f9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2024 19:36:03.3956 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +qiQBn8wD01AIdf5TdkvIJlDGNsMSMY33qfZEqEXvoJrf+XlBNnjYxs4HFfcdkvW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7007
+References: <20240726153049.1296575-1-Jonathan.Kim@amd.com>
+In-Reply-To: <20240726153049.1296575-1-Jonathan.Kim@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 26 Jul 2024 16:25:08 -0400
+Message-ID: <CADnq5_M3m6Gr4xbrGNXKVpc7wMMM_9Og5oF83do47rntROf3tQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdkfd: support per-queue reset on gfx9
+To: Jonathan Kim <Jonathan.Kim@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Felix.Kuehling@amd.com, 
+ Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,173 +76,765 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IERl
-dWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gU2VudDogRnJpZGF5LCBKdWx5IDI2LCAy
-MDI0IDI6NTcgUE0NCj4gVG86IEtpbSwgSm9uYXRoYW4gPEpvbmF0aGFuLktpbUBhbWQuY29tPg0K
-PiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IEt1ZWhsaW5nLCBGZWxpeA0KPiA8
-RmVsaXguS3VlaGxpbmdAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlcg0KPiA8QWxleGFuZGVy
-LkRldWNoZXJAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCAyLzJdIGRybS9hbWRrZmQ6
-IHN1cHBvcnQgdGhlIGRlYnVnZ2VyIGR1cmluZyBwZXItDQo+IHF1ZXVlIHJlc2V0DQo+DQo+IENh
-dXRpb246IFRoaXMgbWVzc2FnZSBvcmlnaW5hdGVkIGZyb20gYW4gRXh0ZXJuYWwgU291cmNlLiBV
-c2UgcHJvcGVyIGNhdXRpb24NCj4gd2hlbiBvcGVuaW5nIGF0dGFjaG1lbnRzLCBjbGlja2luZyBs
-aW5rcywgb3IgcmVzcG9uZGluZy4NCj4NCj4NCj4gT24gRnJpLCBKdWwgMjYsIDIwMjQgYXQgMTE6
-NDDigK9BTSBKb25hdGhhbiBLaW0gPEpvbmF0aGFuLktpbUBhbWQuY29tPg0KPiB3cm90ZToNCj4g
-Pg0KPiA+IEluIG9yZGVyIHRvIGFsbG93IFJPQ20gR0RCIHRvIGhhbmRsZSByZXNldCBxdWV1ZXMs
-IHJhaXNlIGFuDQo+ID4gRUNfUVVFVUVfUkVTRVQgZXhjZXB0aW9uIHNvIHRoYXQgdGhlIGRlYnVn
-Z2VyIGNhbiBzdWJzY3JpYmUgYW5kDQo+ID4gcXVlcnkgdGhpcyBleGNlcHRpb24uDQo+ID4NCj4g
-PiBSZXNldCBxdWV1ZXMgc2hvdWxkIHN0aWxsIGJlIGNvbnNpZGVyZWQgc3VzcGVuZGFibGUgd2l0
-aCBhIHN0YXR1cw0KPiA+IGZsYWcgb2YgS0ZEX0RCR19RVUVVRV9SRVNFVF9NQVNLLg0KPiA+IEhv
-d2V2ZXIgdGhleSBzaG91bGQgbm90IGJlIHJlc3VtYWJsZSBzaW5jZSB1c2VyIHNwYWNlIHdpbGwg
-bm8gbG9uZ2VyDQo+ID4gYmUgYWJsZSB0byBhY2Nlc3MgcmVzZXQgcXVldWVzLg0KPg0KPiBEbyB5
-b3UgaGF2ZSBhIGxpbmsgdG8gdGhlIHByb3Bvc2VkIGRlYnVnZ2VyIGNvZGUgd2hpY2ggdXNlcyB0
-aGlzPw0KDQpOb3QgeWV0LiAgKyBMYXVyZW50L0xhbmNlbG90IGZvciBhd2FyZW5lc3MuDQoNCkpv
-bg0KDQo+DQo+IEFsZXgNCj4NCj4gPg0KPiA+IHYyOiBtb3ZlIHBlci1xdWV1ZSByZXNldCBmbGFn
-IHRvIHRoaXMgcGF0Y2gNCj4gPiByZWJhc2UgYmFzZWQgb24gcGF0Y2ggMSBjaGFuZ2VzDQo+ID4N
-Cj4gPiBTaWduZWQtb2ZmLWJ5OiBKb25hdGhhbiBLaW0gPGpvbmF0aGFuLmtpbUBhbWQuY29tPg0K
-PiA+IC0tLQ0KPiA+ICAuLi4vZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2Vy
-LmMgfCAzMQ0KPiArKysrKysrKysrKysrKysrLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9wcml2LmggICAgICAgICB8ICAxICsNCj4gPiAgaW5jbHVkZS91YXBpL2xpbnV4
-L2tmZF9pb2N0bC5oICAgICAgICAgICAgICAgIHwgIDQgKysrDQo+ID4gIDMgZmlsZXMgY2hhbmdl
-ZCwgMzEgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0K
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5j
-DQo+ID4gaW5kZXggZTMzNTcwM2VmZjg0Li5jYjdiNWJiZjVjNDAgMTAwNjQ0DQo+ID4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMNCj4g
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFn
-ZXIuYw0KPiA+IEBAIC0xNjQsNiArMTY0LDEwIEBAIHN0YXRpYyB2b2lkIGtmZF9od3NfaGFuZyhz
-dHJ1Y3QNCj4gZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkNCj4gPiAgICAgICAgICAgICAgICAg
-ICAgICAgICBzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQgPSBxcGRfdG9fcGRkKHFwZCk7
-DQo+ID4NCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICBwZGQtPmhhc19yZXNldF9xdWV1ZSA9
-IHRydWU7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcS0+cHJvcGVydGllcy5pc19yZXNl
-dCA9IHRydWU7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAga2ZkX2RiZ19ldl9yYWlzZShL
-RkRfRUNfTUFTSyhFQ19RVUVVRV9SRVNFVCksDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBxLT5wcm9jZXNzLCBxLT5kZXZpY2UsIHEtPmRvb3JiZWxsX2lkLA0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFsc2UsIE5VTEws
-IDApOw0KPiA+ICAgICAgICAgICAgICAgICB9DQo+ID4gICAgICAgICB9DQo+ID4NCj4gPiBAQCAt
-OTg2LDcgKzk5MCw3IEBAIHN0YXRpYyBpbnQgc3VzcGVuZF9zaW5nbGVfcXVldWUoc3RydWN0DQo+
-IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+ID4gIHsNCj4gPiAgICAgICAgIGJvb2wgaXNf
-bmV3Ow0KPiA+DQo+ID4gLSAgICAgICBpZiAocS0+cHJvcGVydGllcy5pc19zdXNwZW5kZWQpDQo+
-ID4gKyAgICAgICBpZiAocS0+cHJvcGVydGllcy5pc19zdXNwZW5kZWQgfHwgcS0+cHJvcGVydGll
-cy5pc19yZXNldCkNCj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+ID4NCj4gPiAgICAg
-ICAgIHByX2RlYnVnKCJTdXNwZW5kaW5nIFBBU0lEICV1IHF1ZXVlIFslaV1cbiIsDQo+ID4gQEAg
-LTEwMDcsNiArMTAxMSw5IEBAIHN0YXRpYyBpbnQgc3VzcGVuZF9zaW5nbGVfcXVldWUoc3RydWN0
-DQo+IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+ID4gICAgICAgICAgICAgICAgIGlmIChk
-cW0tPmRldi0+a2ZkLT5zaGFyZWRfcmVzb3VyY2VzLmVuYWJsZV9tZXMpIHsNCj4gPiAgICAgICAg
-ICAgICAgICAgICAgICAgICBpbnQgciA9IHJlbW92ZV9xdWV1ZV9tZXMoZHFtLCBxLCAmcGRkLT5x
-cGQpOw0KPiA+DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKHEtPnByb3BlcnRpZXMu
-aXNfcmVzZXQpDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gMDsN
-Cj4gPiArDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIpDQo+ID4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsNCj4gPiAgICAgICAgICAgICAgICAgfQ0K
-PiA+IEBAIC0xOTY3LDEwICsxOTc0LDE0IEBAIHN0YXRpYyB2b2lkIHNldF9xdWV1ZV9hc19yZXNl
-dChzdHJ1Y3QNCj4gZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwgc3RydWN0IHF1ZXVlICpxDQo+
-ID4gICAgICAgICAgICAgICAgcS0+cHJvcGVydGllcy5xdWV1ZV9pZCwgcS0+cHJvY2Vzcy0+cGFz
-aWQpOw0KPiA+DQo+ID4gICAgICAgICBwZGQtPmhhc19yZXNldF9xdWV1ZSA9IHRydWU7DQo+ID4g
-KyAgICAgICBxLT5wcm9wZXJ0aWVzLmlzX3Jlc2V0ID0gdHJ1ZTsNCj4gPiAgICAgICAgIGlmIChx
-LT5wcm9wZXJ0aWVzLmlzX2FjdGl2ZSkgew0KPiA+ICAgICAgICAgICAgICAgICBxLT5wcm9wZXJ0
-aWVzLmlzX2FjdGl2ZSA9IGZhbHNlOw0KPiA+ICAgICAgICAgICAgICAgICBkZWNyZW1lbnRfcXVl
-dWVfY291bnQoZHFtLCBxcGQsIHEpOw0KPiA+ICAgICAgICAgfQ0KPiA+ICsNCj4gPiArICAgICAg
-IGtmZF9kYmdfZXZfcmFpc2UoS0ZEX0VDX01BU0soRUNfUVVFVUVfUkVTRVQpLCBxLT5wcm9jZXNz
-LCBxLQ0KPiA+ZGV2aWNlLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICBxLT5kb29yYmVs
-bF9pZCwgZmFsc2UsIE5VTEwsIDApOw0KPiA+ICB9DQo+ID4NCj4gPiAgc3RhdGljIGludCBkZXRl
-Y3RfcXVldWVfaGFuZyhzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkNCj4gPiBAQCAt
-MzAzNyw3ICszMDQ4LDggQEAgaW50IHJlc3VtZV9xdWV1ZXMoc3RydWN0IGtmZF9wcm9jZXNzICpw
-LA0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHF1
-ZXVlX2lkc1txX2lkeF0gJj0NCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIH5LRkRfREJHX1FVRVVFX0lOVkFMSURfTUFTSzsNCj4gPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSBlbHNlIHsNCj4gPiAtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBxdWV1ZV9pZHNbcV9p
-ZHhdIHw9DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcXVldWVfaWRzW3FfaWR4XSB8PSBxLT5wcm9wZXJ0aWVzLmlzX3Jlc2V0ID8NCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEtGRF9E
-QkdfUVVFVUVfUkVTRVRfTUFTSyA6DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBLRkRfREJHX1FVRVVFX0VSUk9SX01BU0s7DQo+ID4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQo+
-ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCj4gPiBAQCAtMzA3
-Miw3ICszMDg0LDcgQEAgaW50IHJlc3VtZV9xdWV1ZXMoc3RydWN0IGtmZF9wcm9jZXNzICpwLA0K
-PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcXVldWVfaWRzKTsNCj4gPg0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAvKiBtYXNrIHF1ZXVlIGFzIGVycm9yIG9uIHJlc3VtZSBmYWlsICovDQo+ID4gLSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChxX2lkeCAhPSBRVUVVRV9O
-T1RfRk9VTkQpDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlm
-IChxX2lkeCAhPSBRVUVVRV9OT1RfRk9VTkQgJiYgIXEtDQo+ID5wcm9wZXJ0aWVzLmlzX3Jlc2V0
-KQ0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHF1
-ZXVlX2lkc1txX2lkeF0gfD0NCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIEtGRF9EQkdfUVVFVUVfRVJST1JfTUFTSzsNCj4gPiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0NCj4gPiBAQCAtMzExOSw2ICszMTMxLDcgQEAg
-aW50IHN1c3BlbmRfcXVldWVzKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwNCj4gPiAgICAgICAgICAg
-ICAgICAgc3RydWN0IHFjbV9wcm9jZXNzX2RldmljZSAqcXBkID0gJnBkZC0+cXBkOw0KPiA+ICAg
-ICAgICAgICAgICAgICBzdHJ1Y3QgcXVldWUgKnE7DQo+ID4gICAgICAgICAgICAgICAgIGludCBy
-LCBwZXJfZGV2aWNlX3N1c3BlbmRlZCA9IDA7DQo+ID4gKyAgICAgICAgICAgICAgIGJvb2wgaGFz
-X3F1ZXVlX3Jlc2V0X2ZhaWwgPSBmYWxzZTsNCj4gPg0KPiA+ICAgICAgICAgICAgICAgICBtdXRl
-eF9sb2NrKCZwLT5ldmVudF9tdXRleCk7DQo+ID4gICAgICAgICAgICAgICAgIGRxbV9sb2NrKGRx
-bSk7DQo+ID4gQEAgLTMxMzUsNiArMzE0OCw5IEBAIGludCBzdXNwZW5kX3F1ZXVlcyhzdHJ1Y3Qg
-a2ZkX3Byb2Nlc3MgKnAsDQo+ID4NCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGlmICghZXJyKSB7DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHF1ZXVlX2lkc1txX2lkeF0gJj0NCj4gfktGRF9EQkdfUVVFVUVfSU5WQUxJRF9NQVNLOw0KPiA+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocS0+cHJvcGVydGll
-cy5pc19yZXNldCkNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBxdWV1ZV9pZHNbcV9pZHhdIHw9DQo+IEtGRF9EQkdfUVVFVUVfUkVTRVRfTUFTSzsN
-Cj4gPiArDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChl
-eGNlcHRpb25fY2xlYXJfbWFzayAmJiBpc19tZXMpDQo+ID4gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcS0+cHJvcGVydGllcy5leGNlcHRpb25fc3RhdHVz
-ICY9DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB+ZXhjZXB0aW9uX2NsZWFyX21hc2s7DQo+ID4gQEAgLTMxNzYsMTMgKzMxOTIsMTgg
-QEAgaW50IHN1c3BlbmRfcXVldWVzKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwNCj4gPiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KPiA+DQo+ID4gICAgICAgICAgICAg
-ICAgICAgICAgICAgLyogbWFzayBxdWV1ZSBhcyBlcnJvciBvbiBzdXNwZW5kIGZhaWwgKi8NCj4g
-PiAtICAgICAgICAgICAgICAgICAgICAgICBpZiAocikNCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICBpZiAociAmJiAhcS0+cHJvcGVydGllcy5pc19yZXNldCkgew0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgaGFzX3F1ZXVlX3Jlc2V0X2ZhaWwgPSB0cnVlOw0KPiA+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVldWVfaWRzW3FfaWR4XSB8PSBLRkRfREJH
-X1FVRVVFX0VSUk9SX01BU0s7DQo+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgZWxzZSBpZiAo
-ZXhjZXB0aW9uX2NsZWFyX21hc2spDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgfSBlbHNl
-IGlmIChleGNlcHRpb25fY2xlYXJfbWFzaykgew0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcS0+cHJvcGVydGllcy5leGNlcHRpb25fc3RhdHVzICY9DQo+ID4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB+ZXhjZXB0aW9u
-X2NsZWFyX21hc2s7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgfQ0KPiA+ICAgICAgICAg
-ICAgICAgICB9DQo+ID4NCj4gPiArICAgICAgICAgICAgICAgaWYgKCFoYXNfcXVldWVfcmVzZXRf
-ZmFpbCkNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICB0b3RhbF9zdXNwZW5kZWQgKz0gcGVy
-X2RldmljZV9zdXNwZW5kZWQ7DQo+ID4gKw0KPiA+ICAgICAgICAgICAgICAgICBkcW1fdW5sb2Nr
-KGRxbSk7DQo+ID4gICAgICAgICAgICAgICAgIG11dGV4X3VubG9jaygmcC0+ZXZlbnRfbXV0ZXgp
-Ow0KPiA+ICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2ZsdXNoX2hkcChkcW0tPmRldi0+
-YWRldiwgTlVMTCk7DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9wcml2LmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+
-ID4gaW5kZXggODkyYTg1NDA4YzA5Li4xOTJlMzEwMmMxNTIgMTAwNjQ0DQo+ID4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gPiBAQCAtNTA0LDYgKzUwNCw3IEBAIHN0cnVj
-dCBxdWV1ZV9wcm9wZXJ0aWVzIHsNCj4gPiAgICAgICAgIGJvb2wgaXNfYmVpbmdfZGVzdHJveWVk
-Ow0KPiA+ICAgICAgICAgYm9vbCBpc19hY3RpdmU7DQo+ID4gICAgICAgICBib29sIGlzX2d3czsN
-Cj4gPiArICAgICAgIGJvb2wgaXNfcmVzZXQ7DQo+ID4gICAgICAgICB1aW50MzJfdCBwbTRfdGFy
-Z2V0X3hjYzsNCj4gPiAgICAgICAgIGJvb2wgaXNfZGJnX3dhOw0KPiA+ICAgICAgICAgYm9vbCBp
-c191c2VyX2N1X21hc2tlZDsNCj4gPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2xpbnV4L2tm
-ZF9pb2N0bC5oIGIvaW5jbHVkZS91YXBpL2xpbnV4L2tmZF9pb2N0bC5oDQo+ID4gaW5kZXggMjg1
-YTM2NjAxZGM5Li40NzEzZjlhNjc5NmUgMTAwNjQ0DQo+ID4gLS0tIGEvaW5jbHVkZS91YXBpL2xp
-bnV4L2tmZF9pb2N0bC5oDQo+ID4gKysrIGIvaW5jbHVkZS91YXBpL2xpbnV4L2tmZF9pb2N0bC5o
-DQo+ID4gQEAgLTg3NSw2ICs4NzUsNyBAQCBlbnVtIGtmZF9kYmdfdHJhcF9leGNlcHRpb25fY29k
-ZSB7DQo+ID4gICAgICAgICBFQ19RVUVVRV9QQUNLRVRfRElTUEFUQ0hfV09SS19HUk9VUF9TSVpF
-X0lOVkFMSUQgPSAyMSwNCj4gPiAgICAgICAgIEVDX1FVRVVFX1BBQ0tFVF9ESVNQQVRDSF9SRUdJ
-U1RFUl9JTlZBTElEID0gMjIsDQo+ID4gICAgICAgICBFQ19RVUVVRV9QQUNLRVRfVkVORE9SX1VO
-U1VQUE9SVEVEID0gMjMsDQo+ID4gKyAgICAgICBFQ19RVUVVRV9SRVNFVCA9IDI5LA0KPiA+ICAg
-ICAgICAgRUNfUVVFVUVfUFJFRU1QVElPTl9FUlJPUiA9IDMwLA0KPiA+ICAgICAgICAgRUNfUVVF
-VUVfTkVXID0gMzEsDQo+ID4gICAgICAgICAvKiBwZXIgZGV2aWNlICovDQo+ID4gQEAgLTkwNyw2
-ICs5MDgsNyBAQCBlbnVtIGtmZF9kYmdfdHJhcF9leGNlcHRpb25fY29kZSB7DQo+ID4NCj4gS0ZE
-X0VDX01BU0soRUNfUVVFVUVfUEFDS0VUX0RJU1BBVENIX1dPUktfR1JPVVBfU0laRV9JTlZBTElE
-DQo+ICkgfCAgICAgICAgXA0KPiA+DQo+IEtGRF9FQ19NQVNLKEVDX1FVRVVFX1BBQ0tFVF9ESVNQ
-QVRDSF9SRUdJU1RFUl9JTlZBTElEKSB8ICAgICAgIFwNCj4gPg0KPiBLRkRfRUNfTUFTSyhFQ19R
-VUVVRV9QQUNLRVRfVkVORE9SX1VOU1VQUE9SVEVEKSAgICAgICAgfCAgICAgICBcDQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgS0ZEX0VDX01BU0soRUNfUVVFVUVfUkVTRVQp
-ICAgIHwgICAgICAgXA0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEtGRF9F
-Q19NQVNLKEVDX1FVRVVFX1BSRUVNUFRJT05fRVJST1IpIHwgICAgICAgXA0KPiA+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIEtGRF9FQ19NQVNLKEVDX1FVRVVFX05FVykpDQo+ID4g
-ICNkZWZpbmUgS0ZEX0VDX01BU0tfREVWSUNFDQo+IChLRkRfRUNfTUFTSyhFQ19ERVZJQ0VfUVVF
-VUVfREVMRVRFKSB8ICAgICAgICAgIFwNCj4gPiBAQCAtOTk3LDggKzk5OSwxMCBAQCBzdHJ1Y3Qg
-a2ZkX3F1ZXVlX3NuYXBzaG90X2VudHJ5IHsNCj4gPiAgfTsNCj4gPg0KPiA+ICAvKiBRdWV1ZSBz
-dGF0dXMgcmV0dXJuIGZvciBzdXNwZW5kL3Jlc3VtZSAqLw0KPiA+ICsjZGVmaW5lIEtGRF9EQkdf
-UVVFVUVfUkVTRVRfQklUICAgICAgICAgICAgICAgIDI5DQo+ID4gICNkZWZpbmUgS0ZEX0RCR19R
-VUVVRV9FUlJPUl9CSVQgICAgICAgICAgICAgICAgMzANCj4gPiAgI2RlZmluZSBLRkRfREJHX1FV
-RVVFX0lOVkFMSURfQklUICAgICAgMzENCj4gPiArI2RlZmluZSBLRkRfREJHX1FVRVVFX1JFU0VU
-X01BU0sgICAgICAgKDEgPDwNCj4gS0ZEX0RCR19RVUVVRV9SRVNFVF9CSVQpDQo+ID4gICNkZWZp
-bmUgS0ZEX0RCR19RVUVVRV9FUlJPUl9NQVNLICAgICAgICgxIDw8DQo+IEtGRF9EQkdfUVVFVUVf
-RVJST1JfQklUKQ0KPiA+ICAjZGVmaW5lIEtGRF9EQkdfUVVFVUVfSU5WQUxJRF9NQVNLICAgICAo
-MSA8PA0KPiBLRkRfREJHX1FVRVVFX0lOVkFMSURfQklUKQ0KPiA+DQo+ID4gLS0NCj4gPiAyLjM0
-LjENCj4gPg0K
+On Fri, Jul 26, 2024 at 11:31=E2=80=AFAM Jonathan Kim <Jonathan.Kim@amd.com=
+> wrote:
+>
+> Support per-queue reset for GFX9.  The recommendation is for the driver
+> to target reset the HW queue via a SPI MMIO register write.
+>
+> Since this requires pipe and HW queue info and MEC FW is limited to
+> doorbell reports of hung queues after an unmap failure, scan the HW
+> queue slots defined by SET_RESOURCES first to identify the user queue
+> candidates to reset.
+>
+> Only signal reset events to processes that have had a queue reset.
+>
+> If queue reset fails, fall back to GPU reset.
+>
+> v2: move reset queue flag for house keeping to process device.
+> split detect and reset into separate functions.
+> make reset call safe during power saving modes.
+> clean up some other nitpicks.
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> ---
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   2 +
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |   4 +-
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |   4 +-
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  16 ++
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |   9 +
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |   4 +-
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    |  18 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  85 +++++++++
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |   9 +
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 172 +++++++++++++++++-
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.h |  12 ++
+>  drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  21 +++
+>  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |   6 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   2 +
+>  .../gpu/drm/amd/include/kgd_kfd_interface.h   |   6 +
+>  16 files changed, 360 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> index aff08321e976..8dfdb18197c4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> @@ -191,4 +191,6 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd =3D {
+>         .get_iq_wait_times =3D kgd_gfx_v9_get_iq_wait_times,
+>         .build_grace_period_packet_info =3D kgd_gfx_v9_build_grace_period=
+_packet_info,
+>         .program_trap_handler_settings =3D kgd_gfx_v9_program_trap_handle=
+r_settings,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v9_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v9_hqd_reset,
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index 3a3f3ce09f00..017e8a3013aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -418,5 +418,7 @@ const struct kfd2kgd_calls arcturus_kfd2kgd =3D {
+>         .get_iq_wait_times =3D kgd_gfx_v9_get_iq_wait_times,
+>         .build_grace_period_packet_info =3D kgd_gfx_v9_build_grace_period=
+_packet_info,
+>         .get_cu_occupancy =3D kgd_gfx_v9_get_cu_occupancy,
+> -       .program_trap_handler_settings =3D kgd_gfx_v9_program_trap_handle=
+r_settings
+> +       .program_trap_handler_settings =3D kgd_gfx_v9_program_trap_handle=
+r_settings,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v9_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v9_hqd_reset
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> index a5c7259cf2a3..e2ae714a700f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> @@ -541,5 +541,7 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd =3D {
+>                         kgd_gfx_v9_4_3_set_wave_launch_trap_override,
+>         .set_wave_launch_mode =3D kgd_aldebaran_set_wave_launch_mode,
+>         .set_address_watch =3D kgd_gfx_v9_4_3_set_address_watch,
+> -       .clear_address_watch =3D kgd_gfx_v9_4_3_clear_address_watch
+> +       .clear_address_watch =3D kgd_gfx_v9_4_3_clear_address_watch,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v9_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v9_hqd_reset
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index 3ab6c3aa0ad1..62176d607bef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -1070,6 +1070,20 @@ static void program_trap_handler_settings(struct a=
+mdgpu_device *adev,
+>         unlock_srbm(adev);
+>  }
+>
+> +uint64_t kgd_gfx_v10_hqd_get_pq_addr(struct amdgpu_device *adev,
+> +                                    uint32_t pipe_id, uint32_t queue_id,
+> +                                    uint32_t inst)
+> +{
+> +       return 0;
+> +}
+> +
+> +uint64_t kgd_gfx_v10_hqd_reset(struct amdgpu_device *adev,
+> +                              uint32_t pipe_id, uint32_t queue_id,
+> +                              uint32_t inst, unsigned int utimeout)
+> +{
+> +       return 0;
+> +}
+> +
+>  const struct kfd2kgd_calls gfx_v10_kfd2kgd =3D {
+>         .program_sh_mem_settings =3D kgd_program_sh_mem_settings,
+>         .set_pasid_vmid_mapping =3D kgd_set_pasid_vmid_mapping,
+> @@ -1097,4 +1111,6 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd =3D {
+>         .get_iq_wait_times =3D kgd_gfx_v10_get_iq_wait_times,
+>         .build_grace_period_packet_info =3D kgd_gfx_v10_build_grace_perio=
+d_packet_info,
+>         .program_trap_handler_settings =3D program_trap_handler_settings,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v10_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v10_hqd_reset
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> index 67bcaa3d4226..9efd2dd4fdd7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> @@ -56,3 +56,12 @@ void kgd_gfx_v10_build_grace_period_packet_info(struct=
+ amdgpu_device *adev,
+>                                                uint32_t grace_period,
+>                                                uint32_t *reg_offset,
+>                                                uint32_t *reg_data);
+> +uint64_t kgd_gfx_v10_hqd_get_pq_addr(struct amdgpu_device *adev,
+> +                                   uint32_t pipe_id,
+> +                                   uint32_t queue_id,
+> +                                   uint32_t inst);
+> +uint64_t kgd_gfx_v10_hqd_reset(struct amdgpu_device *adev,
+> +                             uint32_t pipe_id,
+> +                             uint32_t queue_id,
+> +                             uint32_t inst,
+> +                             unsigned int utimeout);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> index 8c8437a4383f..c718bedda0ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> @@ -680,5 +680,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd =3D {
+>         .set_wave_launch_trap_override =3D kgd_gfx_v10_set_wave_launch_tr=
+ap_override,
+>         .set_wave_launch_mode =3D kgd_gfx_v10_set_wave_launch_mode,
+>         .set_address_watch =3D kgd_gfx_v10_set_address_watch,
+> -       .clear_address_watch =3D kgd_gfx_v10_clear_address_watch
+> +       .clear_address_watch =3D kgd_gfx_v10_clear_address_watch,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v10_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v10_hqd_reset
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+> index b61a32d6af4b..a4ba49cb22db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+> @@ -786,6 +786,20 @@ static uint32_t kgd_gfx_v11_clear_address_watch(stru=
+ct amdgpu_device *adev,
+>         return 0;
+>  }
+>
+> +static uint64_t kgd_gfx_v11_hqd_get_pq_addr(struct amdgpu_device *adev,
+> +                                           uint32_t pipe_id, uint32_t qu=
+eue_id,
+> +                                           uint32_t inst)
+> +{
+> +       return 0;
+> +}
+> +
+> +static uint64_t kgd_gfx_v11_hqd_reset(struct amdgpu_device *adev,
+> +                                     uint32_t pipe_id, uint32_t queue_id=
+,
+> +                                     uint32_t inst, unsigned int utimeou=
+t)
+> +{
+> +       return 0;
+> +}
+> +
+>  const struct kfd2kgd_calls gfx_v11_kfd2kgd =3D {
+>         .program_sh_mem_settings =3D program_sh_mem_settings_v11,
+>         .set_pasid_vmid_mapping =3D set_pasid_vmid_mapping_v11,
+> @@ -808,5 +822,7 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd =3D {
+>         .set_wave_launch_trap_override =3D kgd_gfx_v11_set_wave_launch_tr=
+ap_override,
+>         .set_wave_launch_mode =3D kgd_gfx_v11_set_wave_launch_mode,
+>         .set_address_watch =3D kgd_gfx_v11_set_address_watch,
+> -       .clear_address_watch =3D kgd_gfx_v11_clear_address_watch
+> +       .clear_address_watch =3D kgd_gfx_v11_clear_address_watch,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v11_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v11_hqd_reset
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 5a35a8ca8922..32f28c12077b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -1144,6 +1144,89 @@ void kgd_gfx_v9_program_trap_handler_settings(stru=
+ct amdgpu_device *adev,
+>         kgd_gfx_v9_unlock_srbm(adev, inst);
+>  }
+>
+> +uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
+> +                                   uint32_t pipe_id, uint32_t queue_id,
+> +                                   uint32_t inst)
+> +{
+> +       uint32_t low, high;
+> +       uint64_t queue_addr =3D 0;
+> +
+> +       kgd_gfx_v9_acquire_queue(adev, pipe_id, queue_id, inst);
+> +       amdgpu_gfx_rlc_enter_safe_mode(adev, inst);
+> +
+> +       if (!RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_ACTIVE))
+> +               goto unlock_out;
+> +
+> +       low =3D RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_PQ_BASE);
+> +       high =3D RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_PQ_BASE_HI=
+);
+> +
+> +       /* only concerned with user queues. */
+> +       if (!high)
+> +               goto unlock_out;
+> +
+> +       queue_addr =3D (((queue_addr | high) << 32) | low) << 8;
+> +
+> +unlock_out:
+> +       amdgpu_gfx_rlc_exit_safe_mode(adev, inst);
+> +       kgd_gfx_v9_release_queue(adev, inst);
+> +
+> +       return queue_addr;
+> +}
+> +
+> +uint64_t kgd_gfx_v9_hqd_reset(struct amdgpu_device *adev,
+> +                             uint32_t pipe_id, uint32_t queue_id,
+> +                             uint32_t inst, unsigned int utimeout)
+> +{
+> +       uint32_t low, high, temp;
+> +       unsigned long end_jiffies;
+> +       uint64_t queue_addr =3D 0;
+> +
+> +       kgd_gfx_v9_acquire_queue(adev, pipe_id, queue_id, inst);
+> +       amdgpu_gfx_rlc_enter_safe_mode(adev, inst);
+> +
+> +       if (!RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_ACTIVE))
+> +               goto unlock_out;
+> +
+> +       low =3D RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_PQ_BASE);
+> +       high =3D RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_PQ_BASE_HI=
+);
+> +
+> +       /* only concerned with user queues. */
+> +       if (!high)
+> +               goto unlock_out;
+> +
+> +       queue_addr =3D (((queue_addr | high) << 32) | low) << 8;
+> +
+> +       pr_debug("Attempting queue reset on XCC %i pipe id %i queue id %i=
+\n",
+> +                inst, pipe_id, queue_id);
+> +
+> +       /* assume previous dequeue request issued will take affect after =
+reset */
+> +       WREG32_SOC15(GC, GET_INST(GC, inst), mmSPI_COMPUTE_QUEUE_RESET, 0=
+x1);
+> +
+> +       end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
+> +       while (true) {
+> +               temp =3D RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_AC=
+TIVE);
+> +
+> +               if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
+> +                       break;
+> +
+> +               if (time_after(jiffies, end_jiffies)) {
+> +                       queue_addr =3D 0;
+> +                       break;
+> +               }
+> +
+> +               usleep_range(500, 1000);
+> +       }
+> +
+> +       pr_debug("queue reset on XCC %i pipe id %i queue id %i %s\n",
+> +                inst, pipe_id, queue_id, !!queue_addr ? "succeeded!" : "=
+failed!");
+> +
+> +unlock_out:
+> +       amdgpu_gfx_rlc_exit_safe_mode(adev, inst);
+> +       kgd_gfx_v9_release_queue(adev, inst);
+> +
+> +       return queue_addr;
+> +}
+> +
+>  const struct kfd2kgd_calls gfx_v9_kfd2kgd =3D {
+>         .program_sh_mem_settings =3D kgd_gfx_v9_program_sh_mem_settings,
+>         .set_pasid_vmid_mapping =3D kgd_gfx_v9_set_pasid_vmid_mapping,
+> @@ -1172,4 +1255,6 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd =3D {
+>         .build_grace_period_packet_info =3D kgd_gfx_v9_build_grace_period=
+_packet_info,
+>         .get_cu_occupancy =3D kgd_gfx_v9_get_cu_occupancy,
+>         .program_trap_handler_settings =3D kgd_gfx_v9_program_trap_handle=
+r_settings,
+> +       .hqd_get_pq_addr =3D kgd_gfx_v9_hqd_get_pq_addr,
+> +       .hqd_reset =3D kgd_gfx_v9_hqd_reset
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> index ce424615f59b..988c50ac3be0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> @@ -101,3 +101,12 @@ void kgd_gfx_v9_build_grace_period_packet_info(struc=
+t amdgpu_device *adev,
+>                                                uint32_t grace_period,
+>                                                uint32_t *reg_offset,
+>                                                uint32_t *reg_data);
+> +uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
+> +                                   uint32_t pipe_id,
+> +                                   uint32_t queue_id,
+> +                                   uint32_t inst);
+> +uint64_t kgd_gfx_v9_hqd_reset(struct amdgpu_device *adev,
+> +                             uint32_t pipe_id,
+> +                             uint32_t queue_id,
+> +                             uint32_t inst,
+> +                             unsigned int utimeout);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index fdc76c24b2e7..e335703eff84 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -153,6 +153,20 @@ void program_sh_mem_settings(struct device_queue_man=
+ager *dqm,
+>
+>  static void kfd_hws_hang(struct device_queue_manager *dqm)
+>  {
+> +       struct device_process_node *cur;
+> +       struct qcm_process_device *qpd;
+> +       struct queue *q;
+> +
+> +       /* Mark all device queues as reset. */
+> +       list_for_each_entry(cur, &dqm->queues, list) {
+> +               qpd =3D cur->qpd;
+> +               list_for_each_entry(q, &qpd->queues_list, list) {
+> +                       struct kfd_process_device *pdd =3D qpd_to_pdd(qpd=
+);
+> +
+> +                       pdd->has_reset_queue =3D true;
+> +               }
+> +       }
+> +
+>         /*
+>          * Issue a GPU reset if HWS is unresponsive
+>          */
+> @@ -878,6 +892,12 @@ static int update_queue(struct device_queue_manager =
+*dqm, struct queue *q,
+>                 else if (prev_active)
+>                         retval =3D remove_queue_mes(dqm, q, &pdd->qpd);
+>
+> +               /* queue is reset so inaccessable  */
+> +               if (pdd->has_reset_queue) {
+> +                       retval =3D -EACCES;
+> +                       goto out_unlock;
+> +               }
+> +
+>                 if (retval) {
+>                         dev_err(dev, "unmap queue failed\n");
+>                         goto out_unlock;
+> @@ -1627,7 +1647,7 @@ static int initialize_cpsch(struct device_queue_man=
+ager *dqm)
+>  static int start_cpsch(struct device_queue_manager *dqm)
+>  {
+>         struct device *dev =3D dqm->dev->adev->dev;
+> -       int retval;
+> +       int retval, num_hw_queue_slots;
+>
+>         retval =3D 0;
+>
+> @@ -1680,6 +1700,14 @@ static int start_cpsch(struct device_queue_manager=
+ *dqm)
+>                                         &dqm->wait_times);
+>         }
+>
+> +       /* setup per-queue reset detection buffer  */
+> +       num_hw_queue_slots =3D  dqm->dev->kfd->shared_resources.num_queue=
+_per_pipe *
+> +                             dqm->dev->kfd->shared_resources.num_pipe_pe=
+r_mec *
+> +                             NUM_XCC(dqm->dev->xcc_mask);
+> +
+> +       dqm->detect_hang_info_size =3D num_hw_queue_slots * sizeof(struct=
+ dqm_detect_hang_info);
+> +       dqm->detect_hang_info =3D kzalloc(dqm->detect_hang_info_size, GFP=
+_KERNEL);
+> +
+>         dqm_unlock(dqm);
+>
+>         return 0;
+> @@ -1713,6 +1741,7 @@ static int stop_cpsch(struct device_queue_manager *=
+dqm)
+>         kfd_gtt_sa_free(dqm->dev, dqm->fence_mem);
+>         if (!dqm->dev->kfd->shared_resources.enable_mes)
+>                 pm_uninit(&dqm->packet_mgr);
+> +       kfree(dqm->detect_hang_info);
+>         dqm_unlock(dqm);
+>
+>         return 0;
+> @@ -1929,6 +1958,131 @@ static int map_queues_cpsch(struct device_queue_m=
+anager *dqm)
+>         return retval;
+>  }
+>
+> +static void set_queue_as_reset(struct device_queue_manager *dqm, struct =
+queue *q,
+> +                              struct qcm_process_device *qpd)
+> +{
+> +       struct kfd_process_device *pdd =3D qpd_to_pdd(qpd);
+> +
+> +       pr_err("queue id 0x%0x at pasid 0x%0x is reset\n",
+> +              q->properties.queue_id, q->process->pasid);
+> +
+> +       pdd->has_reset_queue =3D true;
+> +       if (q->properties.is_active) {
+> +               q->properties.is_active =3D false;
+> +               decrement_queue_count(dqm, qpd, q);
+> +       }
+> +}
+> +
+> +static int detect_queue_hang(struct device_queue_manager *dqm)
+> +{
+> +       int i;
+> +
+> +       memset(dqm->detect_hang_info, 0, dqm->detect_hang_info_size);
+> +
+> +       for (i =3D 0; i < AMDGPU_MAX_QUEUES; ++i) {
+> +               uint32_t mec, pipe, queue;
+> +               int xcc_id;
+> +
+> +               mec =3D (i / dqm->dev->kfd->shared_resources.num_queue_pe=
+r_pipe)
+> +                       / dqm->dev->kfd->shared_resources.num_pipe_per_me=
+c;
+> +
+> +               if (mec || !test_bit(i, dqm->dev->kfd->shared_resources.c=
+p_queue_bitmap))
+> +                       continue;
+> +
+> +               amdgpu_queue_mask_bit_to_mec_queue(dqm->dev->adev, i, &me=
+c, &pipe, &queue);
+> +
+> +               for_each_inst(xcc_id, dqm->dev->xcc_mask) {
+> +                       uint64_t queue_addr =3D dqm->dev->kfd2kgd->hqd_ge=
+t_pq_addr(
+> +                                               dqm->dev->adev, pipe, que=
+ue, xcc_id);
+> +                       struct dqm_detect_hang_info hang_info;
+> +
+> +                       if (!queue_addr)
+> +                               continue;
+> +
+> +                       hang_info.pipe_id =3D pipe;
+> +                       hang_info.queue_id =3D queue;
+> +                       hang_info.xcc_id =3D xcc_id;
+> +                       hang_info.queue_address =3D queue_addr;
+> +
+> +                       dqm->detect_hang_info[dqm->detect_hang_count] =3D=
+ hang_info;
+> +                       dqm->detect_hang_count++;
+> +               }
+> +       }
+> +
+> +       return dqm->detect_hang_count;
+> +}
+> +
+> +static struct queue *find_queue_by_address(struct device_queue_manager *=
+dqm, uint64_t queue_address)
+> +{
+> +       struct device_process_node *cur;
+> +       struct qcm_process_device *qpd;
+> +       struct queue *q;
+> +
+> +       list_for_each_entry(cur, &dqm->queues, list) {
+> +               qpd =3D cur->qpd;
+> +               list_for_each_entry(q, &qpd->queues_list, list) {
+> +                       if (queue_address =3D=3D q->properties.queue_addr=
+ess)
+> +                               return q;
+> +               }
+> +       }
+> +
+> +       return NULL;
+> +}
+> +
+> +/* only for compute queue */
+> +static int reset_queues_on_hws_hang(struct device_queue_manager *dqm)
+> +{
+> +       int r =3D 0, reset_count =3D 0, i;
+> +
+> +       if (!dqm->detect_hang_info || dqm->is_hws_hang)
+> +               return -EIO;
+> +
+> +       /* assume dqm locked. */
+> +       if (!detect_queue_hang(dqm))
+> +               return -ENOTRECOVERABLE;
+> +
+> +       for (i =3D 0; i < dqm->detect_hang_count; i++) {
+> +               struct dqm_detect_hang_info hang_info =3D dqm->detect_han=
+g_info[i];
+> +               struct queue *q =3D find_queue_by_address(dqm, hang_info.=
+queue_address);
+> +               struct kfd_process_device *pdd;
+> +               uint64_t queue_addr =3D 0;
+> +
+> +               if (!q) {
+> +                       r =3D -ENOTRECOVERABLE;
+> +                       goto reset_fail;
+> +               }
+> +
+> +               pdd =3D kfd_get_process_device_data(dqm->dev, q->process)=
+;
+> +               if (!pdd) {
+> +                       r =3D -ENOTRECOVERABLE;
+> +                       goto reset_fail;
+> +               }
+> +
+> +               queue_addr =3D dqm->dev->kfd2kgd->hqd_reset(dqm->dev->ade=
+v,
+> +                               hang_info.pipe_id, hang_info.queue_id, ha=
+ng_info.xcc_id,
+> +                               KFD_UNMAP_LATENCY_MS);
+> +
+> +               /* either reset failed or we reset an unexpected queue. *=
+/
+> +               if (queue_addr !=3D q->properties.queue_address) {
+> +                       r =3D -ENOTRECOVERABLE;
+> +                       goto reset_fail;
+> +               }
+> +
+> +               set_queue_as_reset(dqm, q, &pdd->qpd);
+> +               reset_count++;
+> +       }
+> +
+> +       if (reset_count =3D=3D dqm->detect_hang_count)
+> +               kfd_signal_reset_event(dqm->dev);
+> +       else
+> +               r =3D -ENOTRECOVERABLE;
+> +
+> +reset_fail:
+> +       dqm->detect_hang_count =3D 0;
+> +
+> +       return r;
+> +}
+> +
+>  /* dqm->lock mutex has to be locked before calling this function */
+>  static int unmap_queues_cpsch(struct device_queue_manager *dqm,
+>                                 enum kfd_unmap_queues_filter filter,
+> @@ -1979,11 +2133,14 @@ static int unmap_queues_cpsch(struct device_queue=
+_manager *dqm,
+>          */
+>         mqd_mgr =3D dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
+>         if (mqd_mgr->check_preemption_failed(mqd_mgr, dqm->packet_mgr.pri=
+v_queue->queue->mqd)) {
+> -               while (halt_if_hws_hang)
+> -                       schedule();
+> -               kfd_hws_hang(dqm);
+> -               retval =3D -ETIME;
+> -               goto out;
+> +               if (reset_queues_on_hws_hang(dqm)) {
+> +                       while (halt_if_hws_hang)
+> +                               schedule();
+> +                       dqm->is_hws_hang =3D true;
+> +                       kfd_hws_hang(dqm);
+> +                       retval =3D -ETIME;
+> +                       goto out;
+> +               }
+>         }
+>
+>         /* We need to reset the grace period value for this device */
+> @@ -2002,8 +2159,7 @@ static int unmap_queues_cpsch(struct device_queue_m=
+anager *dqm,
+>  }
+>
+>  /* only for compute queue */
+> -static int reset_queues_cpsch(struct device_queue_manager *dqm,
+> -                       uint16_t pasid)
+> +static int reset_queues_cpsch(struct device_queue_manager *dqm, uint16_t=
+ pasid)
+>  {
+>         int retval;
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> index 3b9b8eabaacc..dfb36a246637 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> @@ -210,6 +210,13 @@ struct device_queue_manager_asic_ops {
+>                                  struct kfd_node *dev);
+>  };
+>
+> +struct dqm_detect_hang_info {
+> +       int pipe_id;
+> +       int queue_id;
+> +       int xcc_id;
+> +       uint64_t queue_address;
+> +};
+> +
+>  /**
+>   * struct device_queue_manager
+>   *
+> @@ -264,6 +271,11 @@ struct device_queue_manager {
+>         uint32_t                wait_times;
+>
+>         wait_queue_head_t       destroy_wait;
+> +
+> +       /* for per-queue reset support */
+> +       struct dqm_detect_hang_info *detect_hang_info;
+> +       size_t detect_hang_info_size;
+> +       int detect_hang_count;
+>  };
+>
+>  void device_queue_manager_init_cik(
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_events.c
+> index 9b33d9d2c9ad..3a6e7a4c8895 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> @@ -31,6 +31,7 @@
+>  #include <linux/memory.h>
+>  #include "kfd_priv.h"
+>  #include "kfd_events.h"
+> +#include "kfd_device_queue_manager.h"
+>  #include <linux/device.h>
+>
+>  /*
+> @@ -1244,12 +1245,32 @@ void kfd_signal_reset_event(struct kfd_node *dev)
+>         idx =3D srcu_read_lock(&kfd_processes_srcu);
+>         hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>                 int user_gpu_id =3D kfd_process_get_user_gpu_id(p, dev->i=
+d);
+> +               struct kfd_process_device *pdd =3D kfd_get_process_device=
+_data(dev, p);
+>
+>                 if (unlikely(user_gpu_id =3D=3D -EINVAL)) {
+>                         WARN_ONCE(1, "Could not get user_gpu_id from dev-=
+>id:%x\n", dev->id);
+>                         continue;
+>                 }
+>
+> +               if (unlikely(!pdd)) {
+> +                       WARN_ONCE(1, "Could not get device data from pasi=
+d:0x%x\n", p->pasid);
+> +                       continue;
+> +               }
+> +
+> +               if (dev->dqm->detect_hang_count && !pdd->has_reset_queue)
+> +                       continue;
+> +
+> +               if (dev->dqm->detect_hang_count) {
+> +                       struct amdgpu_task_info *ti;
+> +
+> +                       ti =3D amdgpu_vm_get_task_info_pasid(dev->adev, p=
+->pasid);
+> +                       if (ti) {
+> +                               DRM_ERROR("Process info: process %s tid %=
+d thread %s pid %d\n",
+> +                               ti->process_name, ti->tgid, ti->task_name=
+, ti->pid);
+> +                               amdgpu_vm_put_task_info(ti);
+
+Use dev_err() here so we know which device issued the error on
+multi-GPU systems.  With that fixed, the patch looks good to me.  I'm
+not a KFD expert, so:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+Alex
+
+> +                       }
+> +               }
+> +
+>                 rcu_read_lock();
+>
+>                 id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 66c73825c0a0..84e8ea3a8a0c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -321,8 +321,11 @@ static void update_mqd(struct mqd_manager *mm, void =
+*mqd,
+>  static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+>  {
+>         struct v9_mqd *m =3D (struct v9_mqd *)mqd;
+> +       uint32_t doorbell_id =3D m->queue_doorbell_id0;
+>
+> -       return kfd_check_hiq_mqd_doorbell_id(mm->dev, m->queue_doorbell_i=
+d0, 0);
+> +       m->queue_doorbell_id0 =3D 0;
+> +
+> +       return kfd_check_hiq_mqd_doorbell_id(mm->dev, doorbell_id, 0);
+>  }
+>
+>  static int get_wave_state(struct mqd_manager *mm, void *mqd,
+> @@ -624,6 +627,7 @@ static bool check_preemption_failed_v9_4_3(struct mqd=
+_manager *mm, void *mqd)
+>                 m =3D get_mqd(mqd + hiq_mqd_size * inst);
+>                 ret |=3D kfd_check_hiq_mqd_doorbell_id(mm->dev,
+>                                         m->queue_doorbell_id0, inst);
+> +               m->queue_doorbell_id0 =3D 0;
+>                 ++inst;
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index b5cae48dff66..892a85408c09 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -843,6 +843,9 @@ struct kfd_process_device {
+>         void *proc_ctx_bo;
+>         uint64_t proc_ctx_gpu_addr;
+>         void *proc_ctx_cpu_ptr;
+> +
+> +       /* Tracks queue reset status */
+> +       bool has_reset_queue;
+>  };
+>
+>  #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 9e29b92eb523..a902950cc060 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1851,6 +1851,8 @@ int kfd_process_evict_queues(struct kfd_process *p,=
+ uint32_t trigger)
+>                         goto fail;
+>                 }
+>                 n_evicted++;
+> +
+> +               pdd->dev->dqm->is_hws_hang =3D false;
+>         }
+>
+>         return r;
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gp=
+u/drm/amd/include/kgd_kfd_interface.h
+> index 6d094cf3587d..7744ca3ef4b1 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -318,6 +318,12 @@ struct kfd2kgd_calls {
+>         void (*program_trap_handler_settings)(struct amdgpu_device *adev,
+>                         uint32_t vmid, uint64_t tba_addr, uint64_t tma_ad=
+dr,
+>                         uint32_t inst);
+> +       uint64_t (*hqd_get_pq_addr)(struct amdgpu_device *adev,
+> +                                   uint32_t pipe_id, uint32_t queue_id,
+> +                                   uint32_t inst);
+> +       uint64_t (*hqd_reset)(struct amdgpu_device *adev,
+> +                             uint32_t pipe_id, uint32_t queue_id,
+> +                             uint32_t inst, unsigned int utimeout);
+>  };
+>
+>  #endif /* KGD_KFD_INTERFACE_H_INCLUDED */
+> --
+> 2.34.1
+>
