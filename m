@@ -4,72 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35E0DC3DA49
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 12:52:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA7EC3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jul 2024 12:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9436010E969;
-	Fri, 26 Jul 2024 12:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3DC010E2D7;
+	Fri, 26 Jul 2024 12:57:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cV8Agy9Q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i6lZs+/I";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E253210E8B6;
- Fri, 26 Jul 2024 12:52:30 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1fc569440e1so5810335ad.3; 
- Fri, 26 Jul 2024 05:52:30 -0700 (PDT)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA55010E2D7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 12:57:16 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-70ea93aa9bdso778352b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jul 2024 05:57:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721998350; x=1722603150; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721998636; x=1722603436; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Nl6ThKFvgtQtUv9d4LulxfTZukBDYJgIsNXgNCVx5ac=;
- b=cV8Agy9QW+UpW3k9N+qzFe+DqZjoczXSTz65GyOFb1iZJBPBNjhdzZABOpuKmjw9ef
- HKJ0IWPnNS8f0U7ZYiWciv2ZEhv9Cou2WcwFrdf5R8zI8HcAiZdOuflt061Lo7nNOqzN
- b8bE4iukjCwCVmjk3mb98wIGC6zj+mpLcQs8doivAKnGfO0344rkhL1sJBSRaoWbwSl1
- HRcJJkMK8Yjcwn0ejgtaTJY5ikk9i92LZwrnHUF+JnzXV8irFAy/fDhdCtIaXzPc34Xx
- BrBulJevSEdMTsvSuFhABy6+nfxH9r3yljgmugXKEfICcx/O0edqm9m5t7JYKTGzJbky
- nITA==
+ bh=EX0VpSpzBY1sGz7QXKiW7mOQ43Q7BwdAbHe5fbi3tNs=;
+ b=i6lZs+/IeyadDBG+4Yb5dUAkeagy4MIWgP5KEGaiDgd2MXs8aOuf4EkG4YNbk1+lEP
+ 2ycOwNh0bTDRruwoYwpwwvjcqX03T+WHLb3L0oRjZaNj513bxSaN12WVqnPKIU7/mGpi
+ qGVcga+bqR8eq2JdBNb1g23iOPn0HbpLZNLJBGWy1c46m+bqx1gYYq2J/cTjB2LlXhK9
+ P3N6sqCU62Rj7s+Cl1Agp1WSWmTuSfKBgBYcTJzTuCbUSwBw8I7PTgWK/qyMJq6DFMGt
+ R0fLruq2nuK7sDuAtNhneLgkvZbg+VNYQ1dTOIzxxO6hmXc8zdDDUbRO5Z5ZncSF1JlQ
+ JRpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721998350; x=1722603150;
+ d=1e100.net; s=20230601; t=1721998636; x=1722603436;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Nl6ThKFvgtQtUv9d4LulxfTZukBDYJgIsNXgNCVx5ac=;
- b=tZLf+if7xdW+FfTNxV3QEtrkR/QLj1K4ZE6cxc3NkNyNWIBw6A7+XX97DKFVIuioDE
- 23PRd7fjhe/GsK/wLD8frMYR1iuhfA6KdMrDiL9FpP8FjGk6sGhTTSGVFLbPcrYAClOV
- rmOfHz1Ku2fSNyyzjqABHsRDMhMq2bDr3XHRfF6E05k82393xayuCEJnqvJR/YGYJvVk
- ad+4tuk8Cin5GTg0Mz1Ngwqw9/h3WqzvNvtg1B4GYdf47GGnBjZovkiiUIuz3RrWR2J8
- NeDkDqK5zULCjEDTDYkiurfUoC0Ry32lUODNVGMH4ciBbrOPq6PbN4QoVkVZie8v/aWx
- oASg==
+ bh=EX0VpSpzBY1sGz7QXKiW7mOQ43Q7BwdAbHe5fbi3tNs=;
+ b=PaVZU7VfQBNzEaZPd1XxJpcDbM1OlvTFGyN+49anUR3Fj7HAMg5WoCQ7owFyn6CBzj
+ E2aXXC4wpYP+jX9bouFd/qfOnv2hKagvKfIlp/MXdLcWluttFS2HzncwnkfCQHsJyHa4
+ Q5jdU200tXdiGQKqGQG7dvkF+NvAg2iKq5LUNSnrTYH1S7GxTF2b6fhszLEOzk/H+xPk
+ nzPaPDUQmRyffLsLEd6cYGUb2pC+TQtfoU9029DKBbxD9goWrWLi+c98ojoGbrZ1Ntpt
+ +HRUbocPsQs0qsbeKO3v5YmWLq3akZbabbcYC6sdiK8qfTs+w70G1TG+ToN42xF2ompa
+ JiuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnrQ91uL8fjtjBVpGvmdYlb0q8lmfbMsIa0I70gFzyUUgP+bRUlhOwMFrYJl0xYxkJiH1BFzSYOo1ofwKO1AR217jkO1FwsXKCsfeUr0Giq9b0ZdXoILApEIJiGZsf3N0Vp140MDwOXseFigMDUw==
-X-Gm-Message-State: AOJu0YwM1eZq+uC8Ydl89t48c6WUmNtyrrJBB2UWdNOXpgqKGiOfWesh
- vvwn89DA1IPfdz9v4YKkBi6xJ0Ho2A4bcXcVN06UANKOxDc+gCgggSd09/0Xl5NpJLFsXSbTEjL
- jT13AXklNO/2ofYD66Q8LGzg0hh8=
-X-Google-Smtp-Source: AGHT+IEJHhRw/2mhPW780IeoT698zyyYGxwE+9O2EQ0T7VqZtjo0r65t5srrsM5KUTRmbT+dv1QTnf0jjMW7AFpVSkc=
-X-Received: by 2002:a17:90b:b03:b0:2c8:e43b:4015 with SMTP id
- 98e67ed59e1d1-2cf2377360bmr6772084a91.6.1721998350174; Fri, 26 Jul 2024
- 05:52:30 -0700 (PDT)
+ AJvYcCVd+YBEOeLaHGxsDYPY09peOlCP0zQiRK36/pZfzZDPV/l0ZFg9XhFsxvawLcuWlPCnlnkOCqcbAnZmZ7U72N8IV3ARy5UYQjDMRo1rHQ==
+X-Gm-Message-State: AOJu0YzjFBMpKVsEIqc+9uO3O+9xovdabX+mR6+JTasfPF63A7nw7upi
+ rmqBidt7EK4RHxrbHiesKLdH5leNqUmNTBaOl8hb+gk3KuOPQ9bAAZhvLSi2jmonHF46ajBuldx
+ /AFKZtKC3+158kvQsEs/Qf82vkjopKA==
+X-Google-Smtp-Source: AGHT+IEOO6RBjsSS9XZYrB4GcGLR4Lbd+nHQgI1YeQSc5J1Ti60wwBW7TA3vwLlaalQSuKlgNpeEZUIYin/jHu3HFY8=
+X-Received: by 2002:a05:6a20:2590:b0:1c3:b2db:4ddd with SMTP id
+ adf61e73a8af0-1c4727fb0c5mr7391113637.13.1721998635989; Fri, 26 Jul 2024
+ 05:57:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
- <e5199bf0-0861-4b79-8f32-d14a784b116f@amd.com>
-In-Reply-To: <e5199bf0-0861-4b79-8f32-d14a784b116f@amd.com>
+References: <20240502202216.3385044-1-alexander.deucher@amd.com>
+ <CADnq5_NsEWDX2T05PvaQHccLE8S8zUWYEeCmVn=4wEm+p1DdHw@mail.gmail.com>
+ <DM4PR12MB51655820A3FFEB1AFD23BFEF8EB42@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB51655820A3FFEB1AFD23BFEF8EB42@DM4PR12MB5165.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 26 Jul 2024 08:52:17 -0400
-Message-ID: <CADnq5_PuzU12x=M09HaGkG7Yqg8Lk1M1nWDAut7iP09TT33D6g@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon/evergreen_cs: fix int overflow errors in cs
- track offsets
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Jerome Glisse <jglisse@redhat.com>, Dave Airlie <airlied@redhat.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org, stable@vger.kernel.org
+Date: Fri, 26 Jul 2024 08:57:03 -0400
+Message-ID: <CADnq5_P6Rrpd8n5kM7P41OhE4LYYOpUbVeuJnpJ35id44HeWrg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: update documentation on memory clock
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,148 +80,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 26, 2024 at 3:05=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Thu, Jul 25, 2024 at 11:11=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.co=
+m> wrote:
 >
-> Am 25.07.24 um 20:09 schrieb Nikita Zhandarovich:
-> > Several cs track offsets (such as 'track->db_s_read_offset')
-> > either are initialized with or plainly take big enough values that,
-> > once shifted 8 bits left, may be hit with integer overflow if the
-> > resulting values end up going over u32 limit.
-> >
-> > Some debug prints take this into account (see according dev_warn() in
-> > evergreen_cs_track_validate_stencil()), even if the actual
-> > calculated value assigned to local 'offset' variable is missing
-> > similar proper expansion.
-> >
-> > Mitigate the problem by casting the type of right operands to the
-> > wider type of corresponding left ones in all such cases.
-> >
-> > Found by Linux Verification Center (linuxtesting.org) with static
-> > analysis tool SVACE.
-> >
-> > Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni tiling i=
-nformations v11")
-> > Cc: stable@vger.kernel.org
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> Well first of all the long cast doesn't makes the value 64bit, it
-> depends on the architecture.
->
-> Then IIRC the underlying hw can only handle a 32bit address space so
-> having the offset as long is incorrect to begin with.
+> Hi Alex,
+> I know that G6 MCLK =3D 2*UCLK.
+> May I know how did you get the data that effective_memory_clock =3D memor=
+y_controller_clock * 1?
 
-Evergreen chips support a 36 bit internal address space and NI and
-newer support a 40 bit one, so this is applicable.
+I swear someone on the pplib team told me it was 1 due to changes in
+the PHY.  I stand corrected.
 
 Alex
 
+
+> Thanks.
 >
-> And finally that is absolutely not material for stable.
 >
-> Regards,
-> Christian.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex D=
+eucher
+> Sent: Friday, July 26, 2024 5:41 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amdgpu/pm: update documentation on memory clock
 >
-> > Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+> Caution: This message originated from an External Source. Use proper caut=
+ion when opening attachments, clicking links, or responding.
+>
+>
+> Ping?
+>
+> On Thu, May 2, 2024 at 5:07=E2=80=AFPM Alex Deucher <alexander.deucher@am=
+d.com> wrote:
+> >
+> > Update documentation for RDNA3 dGPUs.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> > P.S. While I am not certain that track->cb_color_bo_offset[id]
-> > actually ends up taking values high enough to cause an overflow,
-> > nonetheless I thought it prudent to cast it to ulong as well.
+> >  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
 > >
-> >   drivers/gpu/drm/radeon/evergreen_cs.c | 18 +++++++++---------
-> >   1 file changed, 9 insertions(+), 9 deletions(-)
+> > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/p=
+m/amdgpu_pm.c
+> > index ec9058c80647a..9ad114e695e5d 100644
+> > --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> > +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> > @@ -610,12 +610,18 @@ static ssize_t amdgpu_set_pp_table(struct device =
+*dev,
+> >   *
+> >   * Clock conversion (Mhz):
+> >   *
+> > + * Pre-RDNA3 GPUs:
+> > + *
+> >   * HBM: effective_memory_clock =3D memory_controller_clock * 1
+> >   *
+> >   * G5: effective_memory_clock =3D memory_controller_clock * 1
+> >   *
+> >   * G6: effective_memory_clock =3D memory_controller_clock * 2
+> >   *
+> > + * RDNA3 GPUs:
+> > + *
+> > + * G6: effective_memory_clock =3D memory_controller_clock * 1
+> > + *
+> >   * DRAM data rate (MT/s):
+> >   *
+> >   * HBM: effective_memory_clock * 2 =3D data_rate
+> > --
+> > 2.44.0
 > >
-> > diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/ra=
-deon/evergreen_cs.c
-> > index 1fe6e0d883c7..d734d221e2da 100644
-> > --- a/drivers/gpu/drm/radeon/evergreen_cs.c
-> > +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-> > @@ -433,7 +433,7 @@ static int evergreen_cs_track_validate_cb(struct ra=
-deon_cs_parser *p, unsigned i
-> >               return r;
-> >       }
-> >
-> > -     offset =3D track->cb_color_bo_offset[id] << 8;
-> > +     offset =3D (unsigned long)track->cb_color_bo_offset[id] << 8;
-> >       if (offset & (surf.base_align - 1)) {
-> >               dev_warn(p->dev, "%s:%d cb[%d] bo base %ld not aligned wi=
-th %ld\n",
-> >                        __func__, __LINE__, id, offset, surf.base_align)=
-;
-> > @@ -455,7 +455,7 @@ static int evergreen_cs_track_validate_cb(struct ra=
-deon_cs_parser *p, unsigned i
-> >                               min =3D surf.nby - 8;
-> >                       }
-> >                       bsize =3D radeon_bo_size(track->cb_color_bo[id]);
-> > -                     tmp =3D track->cb_color_bo_offset[id] << 8;
-> > +                     tmp =3D (unsigned long)track->cb_color_bo_offset[=
-id] << 8;
-> >                       for (nby =3D surf.nby; nby > min; nby--) {
-> >                               size =3D nby * surf.nbx * surf.bpe * surf=
-.nsamples;
-> >                               if ((tmp + size * mslice) <=3D bsize) {
-> > @@ -476,10 +476,10 @@ static int evergreen_cs_track_validate_cb(struct =
-radeon_cs_parser *p, unsigned i
-> >                       }
-> >               }
-> >               dev_warn(p->dev, "%s:%d cb[%d] bo too small (layer size %=
-d, "
-> > -                      "offset %d, max layer %d, bo size %ld, slice %d)=
-\n",
-> > +                      "offset %ld, max layer %d, bo size %ld, slice %d=
-)\n",
-> >                        __func__, __LINE__, id, surf.layer_size,
-> > -                     track->cb_color_bo_offset[id] << 8, mslice,
-> > -                     radeon_bo_size(track->cb_color_bo[id]), slice);
-> > +                     (unsigned long)track->cb_color_bo_offset[id] << 8=
-,
-> > +                     mslice, radeon_bo_size(track->cb_color_bo[id]), s=
-lice);
-> >               dev_warn(p->dev, "%s:%d problematic surf: (%d %d) (%d %d =
-%d %d %d %d %d)\n",
-> >                        __func__, __LINE__, surf.nbx, surf.nby,
-> >                       surf.mode, surf.bpe, surf.nsamples,
-> > @@ -608,7 +608,7 @@ static int evergreen_cs_track_validate_stencil(stru=
-ct radeon_cs_parser *p)
-> >               return r;
-> >       }
-> >
-> > -     offset =3D track->db_s_read_offset << 8;
-> > +     offset =3D (unsigned long)track->db_s_read_offset << 8;
-> >       if (offset & (surf.base_align - 1)) {
-> >               dev_warn(p->dev, "%s:%d stencil read bo base %ld not alig=
-ned with %ld\n",
-> >                        __func__, __LINE__, offset, surf.base_align);
-> > @@ -627,7 +627,7 @@ static int evergreen_cs_track_validate_stencil(stru=
-ct radeon_cs_parser *p)
-> >               return -EINVAL;
-> >       }
-> >
-> > -     offset =3D track->db_s_write_offset << 8;
-> > +     offset =3D (unsigned long)track->db_s_write_offset << 8;
-> >       if (offset & (surf.base_align - 1)) {
-> >               dev_warn(p->dev, "%s:%d stencil write bo base %ld not ali=
-gned with %ld\n",
-> >                        __func__, __LINE__, offset, surf.base_align);
-> > @@ -706,7 +706,7 @@ static int evergreen_cs_track_validate_depth(struct=
- radeon_cs_parser *p)
-> >               return r;
-> >       }
-> >
-> > -     offset =3D track->db_z_read_offset << 8;
-> > +     offset =3D (unsigned long)track->db_z_read_offset << 8;
-> >       if (offset & (surf.base_align - 1)) {
-> >               dev_warn(p->dev, "%s:%d stencil read bo base %ld not alig=
-ned with %ld\n",
-> >                        __func__, __LINE__, offset, surf.base_align);
-> > @@ -722,7 +722,7 @@ static int evergreen_cs_track_validate_depth(struct=
- radeon_cs_parser *p)
-> >               return -EINVAL;
-> >       }
-> >
-> > -     offset =3D track->db_z_write_offset << 8;
-> > +     offset =3D (unsigned long)track->db_z_write_offset << 8;
-> >       if (offset & (surf.base_align - 1)) {
-> >               dev_warn(p->dev, "%s:%d stencil write bo base %ld not ali=
-gned with %ld\n",
-> >                        __func__, __LINE__, offset, surf.base_align);
->
