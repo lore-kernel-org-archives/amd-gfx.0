@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3EAC49EA1
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3DBFC52CDC
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jul 2024 21:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D2E10E0EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4F7410E0DC;
 	Sat, 27 Jul 2024 21:04:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="FJpwCDjm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="UfwWXRY0";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FDEC10E992;
- Fri, 26 Jul 2024 13:40:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1722001252;
- bh=Wu8RMhQzPlOleoJZKdKLHfVe34k7QEtY0utXoWZH0iI=;
- h=From:Subject:Date:To:Cc:From;
- b=FJpwCDjmCBc5L2ACBCDMmHOy/nu9Hz1+c1Ue5EuoIWxUDGHC/IAVfTSKf/aZdSyc2
- +AhiFXPnENw6gJby9w0YXOoAv1+0B0bVL/d3rWxk0uleTBzjkctJip4z/4Ouy1DNTt
- d9yY+lyqiBW8RWl+vfsdgu1C7x51MfGz6x3XY1Zg=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Subject: [PATCH v2 0/2] drm/{amdgpu,radeon}: convert bios_hardcoded_edid to
- drm_edid
-Date: Fri, 26 Jul 2024 15:40:14 +0200
-Message-Id: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1001E10E02D;
+ Sat, 27 Jul 2024 16:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ In-Reply-To:References; bh=6woDU4xkf0yXoBT9uAn0Jihe89Zin8AHAJkgz1oPFS4=;
+ t=1722097712; x=1722529712; b=UfwWXRY0yL141e15Bzv9WLnL5rKED0Y0pb9gEVsBRBgEoaJ
+ Udg+qXew7aJmFV3o6+MJXGR+7YXOk2iLKl2lNb5WHVDlxCgy/i9ehfiWgcdtJUCZ2JwqNvoVY88E0
+ qZpB894F0nhIJ/puaYrbcs9AH+Lmw6p7qX5xOsOyVKRMX+7Zjz5ZBUWDgGiPosUVX4jbl61d3IsMf
+ sj2ieEPwJpv4Na7I48BHITHcjYbC17BaMDnt6ppvSGElJhOB9avKqpD1mk2MOFoJa4xSB3y3CsNa6
+ MROAiXbqTy9+zm7TUyquhPvVY/1tKqOdeql2JywmaIqE+Oo/BCwBqqxObbV0KJuw==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1sXkHV-00007W-6i; Sat, 27 Jul 2024 18:28:29 +0200
+Message-ID: <9ca719e4-2790-4804-b2cb-4812899adfe8@leemhuis.info>
+Date: Sat, 27 Jul 2024 18:28:28 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAD6no2YC/32NQQ6CMBBFr0K6dgwzYDWuuIdhUehAZyGQDqCGc
- HcrB3D5XvLf34xyFFZzzzYTeRWVcUhAp8y0wQ09g/jEhnIqc4sW3NP30wLsxUMjo4Ir0Dm0TV4
- QmjSbInfyPpKPOnEQncf4OR5W/Nk/sRUBgW7XsiOkprCX6sWiqm1Ywnng2dT7vn8BCXBZz7UAA
- AA=
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1722001252; l=1843;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=Wu8RMhQzPlOleoJZKdKLHfVe34k7QEtY0utXoWZH0iI=;
- b=NV0rHjFiycXVUHxW+gzFkBfJvhmxtFqKbwHYjrC4/phN2yODvj6QnhsBlIMMaL6vw4jQ2fR+P
- SJX559XylH/CAe51vuGxL4q0qa9O6b3vzlvt//yN5tSWps7cncwxPw4
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] No image on 4k display port displays connected
+ through usb-c dock in kernel 6.10
+To: kevin@holm.dev, Alex Deucher <alexander.deucher@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Wayne Lin <wayne.lin@amd.com>
+Cc: regressions@lists.linux.dev, stable@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <d74a7768e957e6ce88c27a5bece0c64dff132e24@holm.dev>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Content-Language: en-US, de-DE
+In-Reply-To: <d74a7768e957e6ce88c27a5bece0c64dff132e24@holm.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1722097712;
+ 09bda657; 
+X-HE-SMSGID: 1sXkHV-00007W-6i
 X-Mailman-Approved-At: Sat, 27 Jul 2024 21:04:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,51 +65,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of manually passing around 'struct edid *' and its size,
-use 'struct drm_edid', which encapsulates a validated combination of
-both.
+[adding a few people and lists to the recipients]
 
-While this series introduces new users for drm_edid_raw(),
-these can be removed when the drivers get converted to 'struct drm_edid'
-completely for which this series provides the foundation.
+Hi! Thx for your rpeort.
 
-Only compile-tested.
+On 27.07.24 18:07, kevin@holm.dev wrote:
+> Connecting two 4k displays with display port through a lenovo usb-c
+> dock (type 40AS) to a Lenovo P14s Gen 2 (type 21A0) results in no
+> image on the connected displays.
+> 
+> The CPU in the Lenovo P14s is a 'AMD Ryzen 7 PRO 5850U with Radeon
+> Graphics' and it has no discrete GPU.
+> 
+> I first noticed the issue with kernel version '6.10.0-arch1-2'
+> provided by arch linux. With the previous kernel version
+> '6.9.10.arch1-1' both connected displays worked normally. I reported
+> the issue in the arch forums at
+> https://bbs.archlinux.org/viewtopic.php?id=297999 and was guided to
+> do a bisection to find the commit that caused the problem. Through
+> testing I identified that the issue is not present in the latest
+> kernel directly compiled from the trovalds/linux git repository.
+> 
+> With git bisect I identified 4df96ba66760345471a85ef7bb29e1cd4e956057
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
-Changes in v2:
-- Rebase onto current amdgpu/drm-next and
-  recent changes to hardcoded bios handling
-- Add patch for drm/radeon
-- Link to v1: https://lore.kernel.org/r/20240616-amdgpu-edid-bios-v1-1-2874f212b365@weissschuh.net
+That's 4df96ba6676034 ("drm/amd/display: Add timing pixel encoding for
+mst mode validation") [v6.10-rc1] from Hersen Wu.
 
----
-Thomas Weißschuh (2):
-      drm/amdgpu: convert bios_hardcoded_edid to drm_edid
-      drm/radeon: convert bios_hardcoded_edid to drm_edid
+Did you try if reverting that commit is possible and might fix the problem?
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c |  6 +-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h       |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 17 ++++++-----------
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c         |  2 +-
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c         |  2 +-
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c          |  2 +-
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c          |  2 +-
- drivers/gpu/drm/radeon/radeon_atombios.c       | 17 ++++++-----------
- drivers/gpu/drm/radeon/radeon_combios.c        | 26 +++++---------------------
- drivers/gpu/drm/radeon/radeon_connectors.c     |  4 ++--
- drivers/gpu/drm/radeon/radeon_display.c        |  2 +-
- drivers/gpu/drm/radeon/radeon_mode.h           |  4 ++--
- 13 files changed, 30 insertions(+), 60 deletions(-)
----
-base-commit: 644e49d582fd53d4d218d27e404043f56f2c286f
-change-id: 20240616-amdgpu-edid-bios-a31aa16b0321
+> as the first bad commit and fa57924c76d995e87ca3533ec60d1d5e55769a27
 
-Best regards,
--- 
-Thomas Weißschuh <linux@weissschuh.net>
+That's fa57924c76d995 ("drm/amd/display: Refactor function
+dm_dp_mst_is_port_support_mode()") [v6.10-post] from Wayne Lin.
 
+> as the first commit that fixed the problem again.
+
+Hmm, the latter commit does not have a fixes tag and might or might not
+be to invasive to backport to 6.10. Let's see what the AMD developers say.
+
+> The initial commit only still shows an image on one of the connected
+> 4k screens. I have not investigated further to find out at what point
+> both displays stopped showing an image.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
