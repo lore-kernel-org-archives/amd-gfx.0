@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98912C3DA70
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jul 2024 15:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0639C3DA49
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jul 2024 15:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE4B10E1E5;
-	Sun, 28 Jul 2024 15:43:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD9A10E1EF;
+	Sun, 28 Jul 2024 15:43:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SYcPsECY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BKvEaEHq";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85CA110E1E0;
- Sun, 28 Jul 2024 15:43:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19B1B10E1F4;
+ Sun, 28 Jul 2024 15:43:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E882A61215;
- Sun, 28 Jul 2024 15:43:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12446C4AF0A;
- Sun, 28 Jul 2024 15:43:01 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7765A61220;
+ Sun, 28 Jul 2024 15:43:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B80CC116B1;
+ Sun, 28 Jul 2024 15:43:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722181383;
- bh=W/KIzT/8ojxaMk4N7CQev7o4V8WAU8jUDQvqftuntXs=;
+ s=k20201202; t=1722181390;
+ bh=g7y97FzCmiZUCCDQ0x+h5Ka4uP5omYittfRZ4EklZZk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SYcPsECYwn3bmtLpjj54REe7GVOTbN51LXg2EWVD8bZ7iKmM+WWZ26sTIaFNocD+e
- yqiMIJJ0dKH4Jial7Ga6srdajqziwl4Lo9VBwLUlQo33oK6guCciXEny0ZXVdiZVA9
- a/aIKm2/esRfu6Z0uGoPSMmVGrHlimmPFu24lrtXWcqJUMQxleJBzwydoL1BTOY2UH
- aqvv7T8Lin2THl2E8nVq0nyFnRosfN9jRMEf0VR++iAJhFu0kQK5Z0apxylk0vNzPS
- G8VVxpDhIFYIsiHxSlb13n0VganwoCCllDZNuGBcEuMCyqtmM+GiatkvhhXdRfRtAB
- I0gFdVze6AZnQ==
+ b=BKvEaEHqOGVI0WXKUZmI/wcrL6nyIrB/BI4gzUwcrnJt4xMzSpaK2+pSp41amS6W7
+ Tjr/ZDijCWE3V6zvqLv0+h4wjGBV86mOFg87Ww3g5MH4yeyGerDnHLA3opCXBPh2PG
+ on2u0JtJu9VR8Mg/DkGF5LHu8bFzfWdgaSD0DohWe7obKVe03RSO8bAuLJei9aBQmR
+ jqxUmfVLBtQCG9sNSJBSySFC65R6YKe+dCnKdH6fqlHnhn7eTUn1WOtpmg0OEoYNif
+ pciBqJwelXeuguqu2qc84fjjf4K6Ww0nUs+B9ZPml6/UrwhN/hmF68ua9OvO5x4cok
+ 8JfH3uDOtWe1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Ramesh Errabolu <Ramesh.Errabolu@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
+Cc: Ma Jun <Jun.Ma2@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 06/34] drm/amd/amdkfd: Fix a resource leak in
- svm_range_validate_and_map()
-Date: Sun, 28 Jul 2024 11:40:30 -0400
-Message-ID: <20240728154230.2046786-6-sashal@kernel.org>
+ evan.quan@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, mario.limonciello@amd.com,
+ ruanjinjie@huawei.com, sunran001@208suo.com, alexious@zju.edu.cn,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.10 08/34] drm/amdgpu/pm: Fix the null pointer
+ dereference for smu7
+Date: Sun, 28 Jul 2024 11:40:32 -0400
+Message-ID: <20240728154230.2046786-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240728154230.2046786-1-sashal@kernel.org>
 References: <20240728154230.2046786-1-sashal@kernel.org>
@@ -65,49 +65,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+From: Ma Jun <Jun.Ma2@amd.com>
 
-[ Upstream commit d2d3a44008fea01ec7d5a9d9ca527286be2e0257 ]
+[ Upstream commit c02c1960c93eede587576625a1221205a68a904f ]
 
-Analysis of code by Coverity, a static code analyser, has identified
-a resource leak in the symbol hmm_range. This leak occurs when one of
-the prior steps before it is released encounters an error.
+optimize the code to avoid pass a null pointer (hwmgr->backend)
+to function smu7_update_edc_leakage_table.
 
-Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 50 +++++++++----------
+ 1 file changed, 24 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 31e500859ab01..92485251247a0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1658,7 +1658,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 	start = map_start << PAGE_SHIFT;
- 	end = (map_last + 1) << PAGE_SHIFT;
- 	for (addr = start; !r && addr < end; ) {
--		struct hmm_range *hmm_range;
-+		struct hmm_range *hmm_range = NULL;
- 		unsigned long map_start_vma;
- 		unsigned long map_last_vma;
- 		struct vm_area_struct *vma;
-@@ -1696,7 +1696,12 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 1fcd4451001fa..5d0c281f2378c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2957,6 +2957,7 @@ static int smu7_update_edc_leakage_table(struct pp_hwmgr *hwmgr)
  
- 		svm_range_lock(prange);
--		if (!r && amdgpu_hmm_range_get_pages_done(hmm_range)) {
+ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ {
++	struct amdgpu_device *adev = hwmgr->adev;
+ 	struct smu7_hwmgr *data;
+ 	int result = 0;
+ 
+@@ -2993,40 +2994,37 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 	/* Initalize Dynamic State Adjustment Rule Settings */
+ 	result = phm_initializa_dynamic_state_adjustment_rule_settings(hwmgr);
+ 
+-	if (0 == result) {
+-		struct amdgpu_device *adev = hwmgr->adev;
++	if (result)
++		goto fail;
+ 
+-		data->is_tlu_enabled = false;
++	data->is_tlu_enabled = false;
+ 
+-		hwmgr->platform_descriptor.hardwareActivityPerformanceLevels =
++	hwmgr->platform_descriptor.hardwareActivityPerformanceLevels =
+ 							SMU7_MAX_HARDWARE_POWERLEVELS;
+-		hwmgr->platform_descriptor.hardwarePerformanceLevels = 2;
+-		hwmgr->platform_descriptor.minimumClocksReductionPercentage = 50;
++	hwmgr->platform_descriptor.hardwarePerformanceLevels = 2;
++	hwmgr->platform_descriptor.minimumClocksReductionPercentage = 50;
+ 
+-		data->pcie_gen_cap = adev->pm.pcie_gen_mask;
+-		if (data->pcie_gen_cap & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+-			data->pcie_spc_cap = 20;
+-		else
+-			data->pcie_spc_cap = 16;
+-		data->pcie_lane_cap = adev->pm.pcie_mlw_mask;
+-
+-		hwmgr->platform_descriptor.vbiosInterruptId = 0x20000400; /* IRQ_SOURCE1_SW_INT */
+-/* The true clock step depends on the frequency, typically 4.5 or 9 MHz. Here we use 5. */
+-		hwmgr->platform_descriptor.clockStep.engineClock = 500;
+-		hwmgr->platform_descriptor.clockStep.memoryClock = 500;
+-		smu7_thermal_parameter_init(hwmgr);
+-	} else {
+-		/* Ignore return value in here, we are cleaning up a mess. */
+-		smu7_hwmgr_backend_fini(hwmgr);
+-	}
++	data->pcie_gen_cap = adev->pm.pcie_gen_mask;
++	if (data->pcie_gen_cap & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
++		data->pcie_spc_cap = 20;
++	else
++		data->pcie_spc_cap = 16;
++	data->pcie_lane_cap = adev->pm.pcie_mlw_mask;
 +
-+		/* Free backing memory of hmm_range if it was initialized
-+		 * Overrride return value to TRY AGAIN only if prior returns
-+		 * were successful
-+		 */
-+		if (hmm_range && amdgpu_hmm_range_get_pages_done(hmm_range) && !r) {
- 			pr_debug("hmm update the range, need validate again\n");
- 			r = -EAGAIN;
- 		}
++	hwmgr->platform_descriptor.vbiosInterruptId = 0x20000400; /* IRQ_SOURCE1_SW_INT */
++	/* The true clock step depends on the frequency, typically 4.5 or 9 MHz. Here we use 5. */
++	hwmgr->platform_descriptor.clockStep.engineClock = 500;
++	hwmgr->platform_descriptor.clockStep.memoryClock = 500;
++	smu7_thermal_parameter_init(hwmgr);
+ 
+ 	result = smu7_update_edc_leakage_table(hwmgr);
+-	if (result) {
+-		smu7_hwmgr_backend_fini(hwmgr);
+-		return result;
+-	}
++	if (result)
++		goto fail;
+ 
+ 	return 0;
++fail:
++	smu7_hwmgr_backend_fini(hwmgr);
++	return result;
+ }
+ 
+ static int smu7_force_dpm_highest(struct pp_hwmgr *hwmgr)
 -- 
 2.43.0
 
