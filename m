@@ -4,55 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9505C3DA61
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1990C3DA7F
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jul 2024 07:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E05D10E4E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A03210E4E1;
 	Tue, 30 Jul 2024 07:54:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="TxL8CSQm";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="V7FftfET";
 	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9ED10E21C
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jul 2024 08:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:Reply-To:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=BzIiocqu7ai5BzKHxI8W6PqIYtEJSWNtQSgp6jZijik=;
- t=1722241901; x=1722673901; b=TxL8CSQm5eF0PjkF+n1J29jdDgXdyVjMZWfNCUEO7iFInbA
- ZzHlIFFVtsEwaDrIp82KM5E5M5RJPbjfrxALYUK+io5qJTexBaXj4Cqfsj0onH4Iltmhsk7RR1br5
- 2HPy4l8hTrOFt6sxAs6lQDHj34hH4vNlQfaMz5aKMyUxGUEMGD039LXdu/XMd2s5S3JCJCCqG4EFm
- 5Ns1m5v1tbWCgvhEYw++tv1bRH44+zGGgeXkYHDlksWFVx5WaVgOpMZEDi2lUjc95aaz+QkqJ8Gnc
- I5jLd9v3o/LjvXXhbJkPDU1FR2l/tqPuy0RsBZuQm3bpIxCwR0kgfkdA7pyGRSAg==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1sYLn8-0004K5-QN; Mon, 29 Jul 2024 10:31:38 +0200
-Message-ID: <a3af3f0b-df81-4407-a38d-2fa35b33b08c@leemhuis.info>
-Date: Mon, 29 Jul 2024 10:31:38 +0200
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA2110E0D5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jul 2024 14:10:28 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7094641d4e6so636812a34.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jul 2024 07:10:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1722262227; x=1722867027; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LNp+cQPSoj/8O6JaY8fRlRrTVGCksavAKQMIAp/dl6c=;
+ b=V7FftfETW1Tr3849Ku9SCkwn5JndBNQmtWjMRYBqxF7pKGWVp1H2dO6Rhj/NJLHQVI
+ HEDc9OM5VaTsMbOWvvNTzQ5x+g7FvPTX3n3g7m5tmy9m+C0wMm7VuKotH5yQkNADay3h
+ T3SaKoftF83/RJ+8CBEdEqW8uY0DHoxj8rHmY/jhN5y+LtgqYoD4ziBXnyLNfb83o/n4
+ 8IJcXt8A/zLUmh/Bb6srfR8MJsfle9GnekVnKIZxsLMoQddJt++KzQKdSSYd0TfABxbg
+ hDYInpznqxDFovEQlfeEMgk9KuT5gsN+54DxZ2s9UlB60MJGwgAsA5C1zNAYfWOYOjXd
+ ftLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722262227; x=1722867027;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LNp+cQPSoj/8O6JaY8fRlRrTVGCksavAKQMIAp/dl6c=;
+ b=E3sgB0XOMTfZApb4YT7u2sEKkikI9KYa6nWg38QM2ZsaziiHguWxzgDg+btB/4+y3n
+ 47QmZ/BBMktWusuLmbkBh6k33brN6gD1WJ0pN/fH5Ca2gEkZ45/FJt7YR3h9hRF3HK0r
+ 4TXwIqd+PgYezeOGY8kBe+Yqdw7M2y1TS+6LTHKDSgLzn2yigldXmELuYSIL1KvyiV6R
+ fbfLf6MPjy8BDH9i9N5PMELZUsvkfcvRaCUEcl0vLHiaAi2cMatBmB93feRlokL6C6vZ
+ GyyENf+BIUl4Meq7gCRFwUBE7JkKF8cLgEQfLnZnxjZFZu/dAaoLdFBetjijpDgbYxmS
+ ENbw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmtwIOyfQqoULCVaPdRpynnmuFu/493yhX6gPEJrDEU69cQTymVDKPdH5DAHgC1GnEAeycwTLvrdGwAQIuhE19X1BUcl6axqlaCCB5Qw==
+X-Gm-Message-State: AOJu0Yx1u9+B08Eiq5ikTfwEIfG4CgxiUV8+sgI6SEZXRRtN+k7yfbvi
+ PDeg832aU/n/B4sAkiZr57785N6mwrY6wRi+XZp4vOUEdZ77CsDLLTv1YTaOduc=
+X-Google-Smtp-Source: AGHT+IE3F+o5CY91JWS1hd0lkqMsJMWrwAKpE0XMh1kK950xmMKvPHuWAQCxIuhFBKMTtCuJb/sdLA==
+X-Received: by 2002:a05:6871:3312:b0:260:e678:b653 with SMTP id
+ 586e51a60fabf-267d4ef4399mr9073460fac.42.1722262227161; 
+ Mon, 29 Jul 2024 07:10:27 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700::17c0])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-70930722531sm2096942a34.38.2024.07.29.07.10.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jul 2024 07:10:26 -0700 (PDT)
+Date: Mon, 29 Jul 2024 09:10:24 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: WangYuli <wangyuli@uniontech.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, Jingwen.Chen2@amd.com,
+ suhui@nfschina.com, bokun.zhang@amd.com, chongli2@amd.com,
+ Luqmaan.Irshad@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ guanwentao@uniontech.com, shaoyang@uniontech.com,
+ hongao@uniontech.com, wenlunpeng <wenlunpeng@uniontech.com>
+Subject: Re: [PATCH v2] drm/amd/amdgpu: Properly tune the size of struct
+Message-ID: <93d10611-9fbb-4242-87b8-5860b2606042@suswa.mountain>
+References: <D51E93EE77EF1231+20240729140000.890760-1-wangyuli@uniontech.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix corruption with high refresh rates
- on DCN 3.0
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: mikhail.v.gavrilov@gmail.com, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20240716173322.4061791-1-alexander.deucher@amd.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Content-Language: en-US, de-DE
-In-Reply-To: <20240716173322.4061791-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1722241901;
- 88b8ab58; 
-X-HE-SMSGID: 1sYLn8-0004K5-QN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <D51E93EE77EF1231+20240729140000.890760-1-wangyuli@uniontech.com>
 X-Mailman-Approved-At: Tue, 30 Jul 2024 07:54:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,26 +84,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 16.07.24 19:33, Alex Deucher wrote:
-> This reverts commit bc87d666c05a13e6d4ae1ddce41fc43d2567b9a2 and the
-> register changes from commit 6d4279cb99ac4f51d10409501d29969f687ac8dc.
+On Mon, Jul 29, 2024 at 10:00:00PM +0800, WangYuli wrote:
+> The struct assertion is failed because sparse cannot parse
+> `#pragma pack(push, 1)` and `#pragma pack(pop)` correctly.
+> GCC's output is still 1-byte-aligned. No harm to memory layout.
 > 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3478
-> Cc: mikhail.v.gavrilov@gmail.com
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> [...]
+> The error can be filtered out by sparse-diff, but sometimes
+> multiple lines queezed into one, making the sparse-diff thinks
+> its a new error. I'm trying to aviod this by fixing errors.
+> 
+> Link: https://lore.kernel.org/all/20230620045919.492128-1-suhui@nfschina.com/
+> Fixes: 1721bc1b2afa ("drm/amdgpu: Update VF2PF interface")
+> Signed-off-by: Su Hui <suhui@nfschina.com>
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: wenlunpeng <wenlunpeng@uniontech.com>
+> Signed-off-by: WangYuli <wangyuli@uniontech.com>
+> ---
 
-Hi Greg, quick note, as I don't see the quoted patch in your 6.10-queue
-yet: you might want to pick up e3615bd198289f ("drm/amd/display: fix
-corruption with high refresh rates on DCN 3.0") [v6.11-rc1, contains
-table tag] rather sooner than later for 6.10.y, as the problem
-apparently hit a few people and even made the news:
-https://lore.kernel.org/all/20240723042420.GA1455@sol.localdomain/
-https://www.reddit.com/r/archlinux/comments/1eaxjzo/linux_610_causes_screen_flicker_on_amd_gpus/
+Thanks for doing this, but these Signed-off-by tags aren't correct.
+Signed-off-by is like signing a legal document.  It came out of the SCO
+lawsuits.  SCO was a scam where SCO claimed that Linux stole their
+source code and tried to get Linux users to pay licensing fees.  (No one
+stole anything and SCO didn't even own the copyrights to Unix, those
+belonged to IBM).
 
-Ciao, Thorsten
+You could maybe use the Reported-by: or Suggested-by: tags for Su Hui.
+But the rest of us could just be Cc:
+
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: wenlunpeng <wenlunpeng@uniontech.com>
+Reported-by: Su Hui <suhui@nfschina.com>
+Signed-off-by: WangYuli <wangyuli@uniontech.com>
+
+
+regards,
+dan carpenter
+
