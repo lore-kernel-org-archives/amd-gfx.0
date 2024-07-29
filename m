@@ -4,161 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBEFC3DA61
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jul 2024 08:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FAA9C3DA61
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jul 2024 09:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D60AB10E31C;
-	Mon, 29 Jul 2024 08:27:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED6110E371;
+	Mon, 29 Jul 2024 09:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sY10BD+7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z+559wMt";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A85F10E31C
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jul 2024 08:27:51 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2086.outbound.protection.outlook.com [40.107.236.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21DF110E371;
+ Mon, 29 Jul 2024 09:23:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NoUxSfPKUu33zC40Vi0nKQH3a8OtISg7C/lx7wSOLEt2JXNE0JuyqhgAjuHnBMiDNRuWHG/5J8MV8NdmT5DPCM8olZ2QopKOFHNXmsl7uiPwvK5rGU4XUBdewLRFk748ejcaxlg8Rkmse/asoJdHfV7UZS+7x1Pmp50+DZh/TEYlUq/LPQyOPKLbS+y78TAtk/7Lg7MWUc7Or7tTx/Ox9KlpSaKg5r0QBUrxa4i8jv6SoE7X9HtGQRDPYtOCNeWVzuVV0UIn1hSA902X6it6Tyy7WjmnE1+bs6Wc+Dgb822dOsC5bHJJ/2HPu5WfH1di93WXBMTZdGSY7BjMxdW5Pg==
+ b=hFoLPm7OiwF/cD7VtBTL1VE8wKopzNccxH/JERjWwF6K1e96gHcYU00VySvu+H8nrxs51vkl6p9dnTMRwJFj/G/q0JSxr6dU7RH9Q/8o62Ve8OvJmyWxDK82tvH9NBt7CjQiMNkFgj7eNyyOOd2JFGkKmQE+/UyQXNoIEUmFofU8QfLuy3xB/aDsHhAnHeZEblJ4QPLA8BwlIciZBDC5c3ASmGNsrnP63Fu/xP9wNMPSSdI1YUXc6B3Z8LX0IRt02ieuhSlzeBdImvgw9RCxm1FGQAAtBHeptmBQ3q5zKAgSnGjNvh1Ew+vCWCyiksYFPaaGMG9juWKlhWDhc6Kagw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BvRhbbk7LcuotjrMHj56nguhAqmpExml1nVUfvDi7Yg=;
- b=AEf0ZLKp3uMdTiL8nwuu5IqIvl8GeZZwG7o/JJrf8X7a3TCO5pnQPgPL2SXJTx30vuQPiAUCMmDXW4Wo3uJoxptPa8l0Sw/kjC9vfBg6dLzF0xxX7Dm+wbhHJfj8NopRDmDuQs4VA/rhKT3CDHjCLD29nlO6AYp47CHupwQZK+Jc9xqUG6GKqaSMaR/6J1YoXg5s4kVOPN1Ruwc8cqdLFLOKvKIgIANQdOkQb31od+Pa9NEYpZqDrrkZWojSckkQzbWe1jPtq6dopG7XKe5qIipa5xeX23QKWDODaIyyE7lj7nX5PExMiyAXbKyPdbSeDfxN195hUJvMTBpRpvKFcw==
+ bh=1ez5zHb1ASZhOYrRqb5nNPrJOOu8t+3xJBO7EWyfIRQ=;
+ b=SGoa7VACXnnHg630pImrHFX6G0rtrVf2rhOiEGZ4/y0Xvyl6akuN70tk4tNGK2Z0STuKldLDlfuRBaN/oCYmkV3X+7mKmvXisKJJGzF3x5krgZWNB4R0OA+CPYWMjD1P8qMVNIqc9OETXoyL+VJ3p5xXy4XtsiecEsmebvUCo+7nJzDY5NBzI7+7WJNSkG8t/+hQkz4N2f/QYmKVmnWlC1Iwh52c+V1kjQIeMqYNMUsqvnV4OT1ZIrXBvrBTfz8lxXVxMqzMxdL1pdAuu12GcHRmcxPf2tdGdMBFTMUvNzcSJ57vszZa4749+B3j9R4id4Ea9JbCYWl7zr3JlrH5nw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BvRhbbk7LcuotjrMHj56nguhAqmpExml1nVUfvDi7Yg=;
- b=sY10BD+7UBXqzLPXDV9xUKjuH1hZBxCaFsAuln4C9lY+MwPqRJnJBAUwm6aceY4dvw1LheWfFmG/AzRiz/w62kthzOvqz5P1FO24cTMRG1GUbcH8wfSfRBl7GHOI6yc3+HHSwlclkExg/QE369csygmBsgmLU9WJkcfUEXhd4iI=
+ bh=1ez5zHb1ASZhOYrRqb5nNPrJOOu8t+3xJBO7EWyfIRQ=;
+ b=Z+559wMtYm33Udl7a8pCLatx5Q5jz9DOO0hc98LWWfpgKHSv8k2k7UPEyu7N1OgPFBPs+rPq9SA6WhmKwLkT7maR41VSp46YsLgZOXEpSxXAK2o15IEU7Nj7FRKej7rigrPOudZK8eKbujQt+djXKpewrtCfcT1LeJaDWMighdg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- by PH8PR12MB7446.namprd12.prod.outlook.com (2603:10b6:510:216::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.32; Mon, 29 Jul
- 2024 08:27:47 +0000
-Received: from PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::8865:d63a:a8eb:282b]) by PH7PR12MB5596.namprd12.prod.outlook.com
- ([fe80::8865:d63a:a8eb:282b%7]) with mapi id 15.20.7807.026; Mon, 29 Jul 2024
- 08:27:47 +0000
-Message-ID: <ac2c4a67-85f3-4cf2-95a6-78c59220ee5e@amd.com>
-Date: Mon, 29 Jul 2024 13:57:39 +0530
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6639.namprd12.prod.outlook.com (2603:10b6:8:be::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Mon, 29 Jul
+ 2024 09:23:07 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7807.026; Mon, 29 Jul 2024
+ 09:23:07 +0000
+Message-ID: <fb530f45-df88-402a-9dc0-99298b88754c@amd.com>
+Date: Mon, 29 Jul 2024 11:23:00 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: trigger ip dump before suspend of IP's
+Subject: Re: [PATCH] drm/radeon/evergreen_cs: fix int overflow errors in cs
+ track offsets
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jerome Glisse <jglisse@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+References: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
+ <e5199bf0-0861-4b79-8f32-d14a784b116f@amd.com>
+ <CADnq5_PuzU12x=M09HaGkG7Yqg8Lk1M1nWDAut7iP09TT33D6g@mail.gmail.com>
 Content-Language: en-US
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Liu Leo <Leo.Liu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20240726124751.3121312-1-sunil.khatri@amd.com>
- <20240726124751.3121312-2-sunil.khatri@amd.com>
- <CADnq5_NdYiwGGvyVvg3_0aUuH9YLL_kUgNUpjEad8z8E1xWfMQ@mail.gmail.com>
- <57660e1e-1aad-4ba6-be90-abda2b377e3f@amd.com>
- <f967ce91-dd88-4542-8340-1e61813eb780@amd.com>
- <d49c682a-57ea-4061-8b42-59764f603164@amd.com>
- <77bb2c37-d906-4c76-b87d-effbbe6064e4@amd.com>
- <23d1ef60-5756-4c4f-9fb8-04ff0dc31821@amd.com>
- <CADnq5_OY_Zoqcrk-n6JvLt8fQCQifAfMX9r8a0qyRu0i9UEEaA@mail.gmail.com>
- <5d3f962c-6efc-4aee-99ac-5dc48c43235f@amd.com>
- <a9cd3162-e844-4725-850e-a2fdcdf39a2d@amd.com>
- <16cfb6c9-c2de-4d19-909e-f06df27c78a6@amd.com>
- <5ead684a-e70d-4388-ac45-c59995eb8161@amd.com>
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <5ead684a-e70d-4388-ac45-c59995eb8161@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CADnq5_PuzU12x=M09HaGkG7Yqg8Lk1M1nWDAut7iP09TT33D6g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PEPF00000179.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c04::44) To PH7PR12MB5596.namprd12.prod.outlook.com
- (2603:10b6:510:136::13)
+X-ClientProxiedBy: FR0P281CA0256.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|PH8PR12MB7446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bc85e1f-0df5-43b7-4d4f-08dcafa853b8
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6639:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5962bf7e-dffc-468c-3c71-08dcafb00e27
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cmZzbUpFamZIakpoUFhlL3N4N2Urd0YzMFhBSDVjdDBIdzZjeWg4RnlHdWs4?=
- =?utf-8?B?anRNbStCbkJGdHh0VFVWcDM2Yk9POS9rdHQreEE0NGtTbkdpa3NibVFlTUhi?=
- =?utf-8?B?NSt4U1dCcnlyNGk1aXhPalB0VXlSZEYvT2V1dDJlNGh0Ynl4ZUFVZDB5U2JR?=
- =?utf-8?B?RmJ3dmEzRUhXYWlCS29xRjNlVmllaTJxdDFJbjIxSFJJTWc4Yjc5NkNtLzBk?=
- =?utf-8?B?WVU0QjVrSzZjcFljS1d3NDA4amlaVjUvRGJacWg3ZXdYVm41Nk1mOFJyOGU5?=
- =?utf-8?B?VjhNUFNob2E3dlhaL2F2UTQvWjJXN01LL3V6YjJKelRReUtVUFdzTllSdUQ5?=
- =?utf-8?B?VllibG5qMkFnc1Q3aG5JWjFZYmV0dE5qZW1wanNzcFdkVjZGYnh4UkhoNzF6?=
- =?utf-8?B?Q0FzcnlUUXdVWS9GRUFCMEZJN2ZRcWdVb3F1SEtkN296Z1VLc2RraWhGalQ1?=
- =?utf-8?B?aWFsYmxCSGFHSUFoQmtLVnZJUDhuVGpXZUpONTkvU3F2a1V2NUtXY201Z0hM?=
- =?utf-8?B?dStZdG9wMk8zcEVVTFc3RTcrckNwc2NOOFZwU0s4RDhqZnF6YTROUGx1V2Vp?=
- =?utf-8?B?eUczMW9YVkpGcGttRHA3N2ZydjNCTFVsVkxvOG5UcXJPTWVrTlVIclJ5dDdt?=
- =?utf-8?B?ZU9jV1BYUDJydTlmaGREbDVUdlBsRm4waGdmK3VCWFc4SDlHa1pLL1ZDcjZ2?=
- =?utf-8?B?ZDVZOVNDUnBrOERqdURTczlLR0RudEFHM3o1czdSMGF3WGV1YlFJV1phcE55?=
- =?utf-8?B?T0RnQWtTQmdlQVBLbmQzWG1XN3VwRlhJODl4UG5VSjhReGoxcTB4VDZOVDM4?=
- =?utf-8?B?aXNaclc1NW9weU94NjRtTFU2STFoSVUrWTcwSmxuUjY2Q1paMmdpVGJKdVBT?=
- =?utf-8?B?UlNMZDRZYlRJZU85SjRVbGN3NlhrT3hnM2pEWXBJVE10TC9uRy8vZ3dUbzBI?=
- =?utf-8?B?WFNOdkc3QXlnSUN1dXBkd2ZVOFhNdVU2RTEzZ0ZBd2VIL0cxTlNXME56cXov?=
- =?utf-8?B?eklVbVlnK1VMOEJBRmtRNU85V3ZKL00xaFFTUWZKS1JWSGwvYjF0eWJWOXhZ?=
- =?utf-8?B?ckV4STlIdm9Cdm5OQTcvVDNZd2tpYlJ0bWV3QkREQnNheHNpRlY0S2I2NEtM?=
- =?utf-8?B?eTZPZ3FzMXRSYUJHKzdvRWhEQWU2MFU5MmRMdFVvYWJ6OUJLT21JK0o1TCt2?=
- =?utf-8?B?S0xUNFZGNzU5WkV3MUlzNHo2SC9xSkNXQllYTE5PR3BYRDR5N0ZVbktaQlN4?=
- =?utf-8?B?SzhzeE9iMG80ZGNwK1pGUkp0RjRMOW9jNjJHL2pHMGdkWGFwNElWeGVmam9n?=
- =?utf-8?B?YnI3dlNKS2dCVGtDUTc0QjFKanFCWDVYSE1CRzIrYmV5RXVOd096VUYvU1Iv?=
- =?utf-8?B?K1B6RUZ3TENmMHc3QTFPNW9XRndwVU9qYzRhdGc3dk9RRlp0a3prbExYSmFH?=
- =?utf-8?B?cCthUmE5WlMxQVVKWUxNeGxKS25ScWx1R0I0UVhWcERzNlFMRUwrRFcrc21w?=
- =?utf-8?B?RERXQXlNL00wS28wamZVZG4xM0V0ZklrWk04dUk4d2ZtcU94RGhsTXhWbm54?=
- =?utf-8?B?N3padU9JcnAweWhXWm1PVkZoQ1BEMGVTbDNaMEMrTThXd1dKTmZBQi9kTml3?=
- =?utf-8?B?RGZBTjNocmVkVGlRSCsvZFNJOUhqRGpyZittdTJDQSszUDBmMzFDbmJuVXZm?=
- =?utf-8?B?cHk3WE5tRTB2T2FPS2NEY1ZFcDhDdHRneE5wWEJ5Z0pkZG5TMnNJWCtncTh4?=
- =?utf-8?B?NjlLbGFrbmR1bEhjS3VvSXIybWplSko0bWt2dE5Vd1l6UnVza3Znc3RSQUxQ?=
- =?utf-8?B?bHUxRmd0OU12ZEZlcVZOUT09?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NURPYTJVSlF3bnlNTWljSlpvY3hqazhESUpPM3ErN1FoZ0wxTHcxbnpwSnBm?=
+ =?utf-8?B?dGp6bzVCVlFLNzJRSWtTc213VWY3Y29xcXowZ0FiVUxwY3hhZzlPV2UrdEhv?=
+ =?utf-8?B?T09ONkNSdWl2OGFwVFVwL202VXNYVWdDWEdoaTMrUm1GNXExSVIzTklGUVdP?=
+ =?utf-8?B?cFh6cmFpN0pGelA2ZnVDZGhuWlFXTEpSNkpFbEJIZEVDd2MvMWRaeHhKQnpW?=
+ =?utf-8?B?K3F4NEpvamRERE9Gb0JlZGFNSW11Zk5hczhaODQvcElCVFU0YkxWRnpCc003?=
+ =?utf-8?B?ZS9JYW0wbFU4VHdGUTVDY3gwVm1MOHByYkV2MG9QZGNMZit1aDgxTHpFOFZW?=
+ =?utf-8?B?MitRaHlYZys2WUtKVGtxWFhsM2RnRTNBNkM1MHUzREp5RzF5V0greU5JeC9q?=
+ =?utf-8?B?b05FYmNac1ZFZVBSdEtHNG1MUStjdlRFSmJFK0ZtazJ4YWI2cFBud1k4THl0?=
+ =?utf-8?B?L2ljSFBiS0drdUoreGdiZFFuV0NUQktnb1FHVmd3aUptM1BqT3E3bmVNS3gx?=
+ =?utf-8?B?RUlRWnJGUHFSK2RhZExybkY3RTRMaHlKY09zQWdiSDRNdmtjWHlFemFMTmhz?=
+ =?utf-8?B?cXNvMDlLZVlzMHJDWDBwSFRpNUxOREVGZmxiWXZwaWI2dXRtL3B1eHZZSUhM?=
+ =?utf-8?B?bmJ6VGVtZ0wxMmNrWTUrUld4Yi95OGNjVzhudllTU1NEckxidDhjN0lNWGx3?=
+ =?utf-8?B?ZEdJazlRQ1FrNEVMNXpGaEplM29qdUhEOCtPbnRWMHFJYlRZR2xVRlhEYkk0?=
+ =?utf-8?B?WTFzTm9FUlZwaW9kK0ZSclJXU25Ma2hteFgrTm5oaTU1VkM0b1c2UktpcDBY?=
+ =?utf-8?B?dGF0VDQ4bGtIaVBBWXBORDloUFk4Z1hJckhBVk5SOEEzeGJqRzZQTWU5TUxD?=
+ =?utf-8?B?R1FCK0FYSExMa1VvMWRVWE1EcmlqMWpyVkx3TVVOVjI2WldQRlNWU3dZM2xv?=
+ =?utf-8?B?K2Ezdmd2WmhrbmlXanphRWdXd05oL2ZPWklWbCtEa0pVU0E1bmhSMGNhYTJI?=
+ =?utf-8?B?Z1NURkg4azVDa3grc3huNm4zempwcEJ5NHNzbHE1SGkvd2Y3RXZSWVFMV0ht?=
+ =?utf-8?B?Mk9adjc2b3krdTlKNlI5WUNKR3hYU1ozMFBaNXhqY2x2NC85d293RGhXVmlk?=
+ =?utf-8?B?dURxdllPZlo5Z1RIOStSU2lLdjhtaldTRUtrclN6czRpcmhZMWw5V1ppSWl5?=
+ =?utf-8?B?WHhFUGpJY3ZZYkdyVlgwQTdXeERaWVNzenFqVFJ2ZVFRY0RkUVNPTWorazdv?=
+ =?utf-8?B?ZGM3MmNnM0R5bVgrL0ZBYXZLaXdLc0w5anFHcEJ1TDZtdUwxeVRGT1VCSDA5?=
+ =?utf-8?B?S3JQUUlxQUZvbEMzS0JvUUJPWEJyRzQzZEViVHJhZ3I0eVZSTG16c2xkcTVi?=
+ =?utf-8?B?dHpUbFhCT0xBRXVUUU1LVy9CNnphQnlxdGExZ2dZcDRKSFpJa29JUWVJY3pI?=
+ =?utf-8?B?a0N6azlHTnovMkF4U3VIRFNzQjE0WkV3VVlzRVJCMjZPUGNZM1NueXZ1S3J3?=
+ =?utf-8?B?M2g3czhSamw2QWIwQXczTXZuOVBlSFFTbmpZTnY4SDBVdzZIOGJacm9tcG5G?=
+ =?utf-8?B?dktBaG9NcDQ1aWVKOU5YUVduMEpsbmdTbVloZW9CVWpzcFZoQjVqNUxibnVm?=
+ =?utf-8?B?N2N0VTVPeFlKcUIyN3VTZTB4blIxV0VTYlZndVhMRDJhb2hUWkg1eE5FT3Iz?=
+ =?utf-8?B?UWdkOEYxM1NFMC9rV2dleFJFQmJFZjAzYkFFdW5majRhVDhUSTlVcWhheGtV?=
+ =?utf-8?B?TTAwMGFuZlFxZytWOXFNcmxENWZ6SFhUczBkcU5oYkc5T2ZmQTdsQUh1Rm5U?=
+ =?utf-8?B?ZTVSUnlWbTBIaXdxOThndz09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cjZuUTUzRjc5TlhmS201Z3FJWG1GQVdSdlhWZUplakxiTUZaNlQxclNUWlFL?=
- =?utf-8?B?ZGxtVytidy9KZHZuQURXT2s3MmpEdTBGYjJtNldzb090OHVnbUtFRUFJVWdi?=
- =?utf-8?B?a0NmQlI0ck14RXZqeTJPQnZaZmVjZVB5M0dDK0FGc3M2TURxeVZZaFBTTTIy?=
- =?utf-8?B?VHFMMDV0ZzhoTmQ0WGdnTjJyZU9rczlIVk5EVmxNTGRYRmlUVnZ6aUIxbVlF?=
- =?utf-8?B?dnpDdnFjUjNIRkJTQ1VqMHRVVkVTVDk0NkVPZDIyRm1US1BYdTVKa244MW5p?=
- =?utf-8?B?eFJ2YWsvK0hxRk91NGoyUmN4bWkxR2xZWjlQUVRjaXA0c0REYUgzL1VhZmVy?=
- =?utf-8?B?L05LSVlIOUFIMDkzbSszVndITFFra0dEeGxxTjJEL29hT0l5NnphRCtSc1Va?=
- =?utf-8?B?L01OaHpkSWw0QWhmVjQxWkhRY3VibUJ6VWlpenRXYUhCYlF1RTc4STlvbmNF?=
- =?utf-8?B?YXR5N25nbDlpeG1Ta0dqdVNSUlNlUnBZODdKNk9mbVNJaGxNZzN2L1NjcEVu?=
- =?utf-8?B?RktIc2Jzb2VwU0FYeXhmbHBGUjlPOU1Jc2JrZVhQZXZ4Uko0Qk1Tcm4vOTIy?=
- =?utf-8?B?YVNxODdXbnZNYUppYmU3VUtLN1F3ejlCR3pYVWtVMnJxbi94NTdZU0JBbjdF?=
- =?utf-8?B?RnllaVJ0dDhXd1hCUWJiTCtrcnJPRUtRT3prU0o4QkI2YU1FTHc1dU4weHBW?=
- =?utf-8?B?NVpJSFNSc1lBc1VYNUFRUkNXMkZkMGZ3WXlWdDhrL29LNVZQWE8xVDlabFJE?=
- =?utf-8?B?ZjQ2Rkp6d0lsWU1DUEhEVWZzNkhKSTVyeklqRDVWcWR5aStiWmVyWVZKYlZP?=
- =?utf-8?B?RUM0MWtYNVpHKzBQR3hwd1I4L0x4YmtCVXRNZVhmMjJ6OXRsemQvaXpDOWF0?=
- =?utf-8?B?WGFYRy96Zm1QTG8wc0o0UE1CVHNOQUcvcnh4alJlMWZQTjRkYlNia3VzRGtC?=
- =?utf-8?B?eS80VVlqRkc5Q2VkZFByM1BHTWh0ZDNlc1F6ZENwUUh2UmtheU82UEdlRDlw?=
- =?utf-8?B?dVVSYzh4MlE1OHVIMDU1ZldjTUY4b2lSSGViM3pRN0xmaWMrQlFhcW1IdEV1?=
- =?utf-8?B?RFVTVmpBeEZRbjVFdGJpZUxvZjVsOUpsSUNPV0pNMkRMc1JNTFNteWJyQkQ0?=
- =?utf-8?B?dEs5Y0tXQm9TU2ZQbHpHMEprZjhaQzUyTGpwZFk1dTZnVmZkbExobXdGOHd4?=
- =?utf-8?B?NUpxV01OU2F1amNHMkoyL0sydUo0WGw1TnU1RWYxdUgxVDZjSDBId1JVQkhP?=
- =?utf-8?B?ZlZ4dHFLQ0JjbUYwQzBnTmxRY25Hd1dQOGorb2c1M2pxcnRzY2sxbFdzRjZH?=
- =?utf-8?B?b0Mxcjk4VHhnUmU3U29oSFhUeTZJOVF2NDRzWnd5QlhEVkVDb0VudGliTFAw?=
- =?utf-8?B?V3VCTGZablJhQjBkQjVXRkRuWnUrbHdxZmNsek5QSUJCb1BNay9aZ3ZXSm5C?=
- =?utf-8?B?NXpBSHRodHRqWlhJTFEyNzJOMjkzNTBaYjVGM2ZOR3FQRmozQnZHd2QzVHpT?=
- =?utf-8?B?NlgvUUM2YXFYOTd0TlVFK0FDdEtMOGRwYklhR2R5VzduTmR6OEg1NGJoZjZD?=
- =?utf-8?B?S0RkRzYrRzhvUjdvVjdaUjNvbkg5R2JJTXZ1aEkrWFZjNTV2Y2YvMm1BbzlU?=
- =?utf-8?B?UjhFWC9zWUpUVW9CczMrNmU3ajFsbzNtbkpwd01MeXYvc1VjYzhjR2hFUEow?=
- =?utf-8?B?U1hEeVlEejlKMlprZUVMRTJPb3VEWXN0QjZTNmlMd3RhazZVWkp3M08wc3Fr?=
- =?utf-8?B?UEdHNll4VmVHcHkzUFJVRzlCZFQ4MHZ6ZHJlcy9WNFkwREZFQnZBOXBFS3FJ?=
- =?utf-8?B?UmxlTlEyb0JzOHdVbjFyQllWWXM3S1FwemR6Szl6cFdhbmJUWmRtTXpuYUlQ?=
- =?utf-8?B?dGltNVZMVVZXMUt3T0FJYnh0dUh4L1p5eDh4NzNJbEo3NkhuL1RscDU1OFRX?=
- =?utf-8?B?NmdRZVhQcXhGZ0JWdDVReVVmSXdubWxsb29tVHRmcTJNc1phTm93eERTemw0?=
- =?utf-8?B?Tmozb3ByUFdqQi9aR1FCZjBUTlc3K2t5c2w3enBIMVluZ1pnNlJUYWVKbUtV?=
- =?utf-8?B?dTJHNFZOY2ZFVVdZd3U0QmpXM1Bmd2QrdTYrMjArWENHdXJsa2VKRHcxcmNo?=
- =?utf-8?Q?9kWBmm2uUdrn8yP2ivpPOPkdx?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWxFb3E3d0FZeWNINm5sS08wcURYWVdPU1c2Qkc2YmFRMHU5ME1sRmRvL2tD?=
+ =?utf-8?B?R2RZd21ETS9UNlVhUkxvRDgxcnhhWjNGKzJpMzlpYXl4KzJLUzJiWXhSTWk0?=
+ =?utf-8?B?N0dzZkRUYVk0TWRjZXVwK0lQUXhXS0RiVXowSXBwYzFweXRxQXBtcWx5dGY2?=
+ =?utf-8?B?UGlRR0FmY1RiUERvMlBoalM0cUxISFpWcFN6WmpvNW1FdG5tbkZ5UitSdER6?=
+ =?utf-8?B?ZW5NUTh4VmlEb2g1VDU5S1lIdzhic1hPcXZKb09tdDBuYnRnQXBmTTFhQzlQ?=
+ =?utf-8?B?L1l3L09raENZUHFIZ1NIVmhTalBUdHB6TXlpVHlCRWhiZHdtcjBibzlrd3I3?=
+ =?utf-8?B?ZmxXSVN6TDloM1pSajRMaWZrNzNHa3RZN0JmWFFJR2NoYng4K1RkRWp6ZjdC?=
+ =?utf-8?B?TnZsRnhFa0ZLMW1qbmZOcjdPS1ZtYkE0T0p3RU9NeTdrUUYrWEV3dUQ5ZFZW?=
+ =?utf-8?B?Q01WMzg2eTdVM1d5Y1NaV0NBRFo0ZVM1RDk2eS9UdlV5SHZlUU9BYXJsQ3p2?=
+ =?utf-8?B?VjRoMmprUnpXNDZuTThrUUoyK3c0VEpBZGJ2VE1jb2xqTmJrSGxqeUNlbTJC?=
+ =?utf-8?B?anRIallzNzk4ZWVpTFBOYnpBRVJFemY3TzROZ1Q2dzI4UVljTTZKcUtxUjEx?=
+ =?utf-8?B?dmlJd3BldXVuekUxTEJqdlN1dGhVT1hZOWErN0ZkYmk3ZnJaWDRQcU83KzB5?=
+ =?utf-8?B?YkM3d1hyY3hDekg0c2ZuYWp1UHhlZGZXZFNOSHZORWxjVW8vUVVvQy9SUjhr?=
+ =?utf-8?B?UG9sZkRsM0ZKZkY0Vm4vcUkvYXUwZGFlbE9lY0QxVFN3MnNSU0lKSHZ3Q3Yz?=
+ =?utf-8?B?Z0l4bjdIZE43K2l1RDBOZ2N0T2YyZEhyT1BCM0FkYXhsdVN3bm5aNGprS2hS?=
+ =?utf-8?B?SkZyMDFFdHM3b0N4dG8xc1lJQS80bWpvOTlzSUx4SGs0VEh4MU91cUtPcVdW?=
+ =?utf-8?B?WVl6WGN6bWtmbFpneWIvSUdHbldmc25PUjYrQmJMMjdYSjgzTGRVd2tOUUdT?=
+ =?utf-8?B?RGUrWHhsM1drZEpEUlRiNnVVSnZVcWR1TCs1d0ZDcklrZjAzQjRyTVhmS0Fa?=
+ =?utf-8?B?bTdQaVJ2Lzd3NWhxUytNa0htL0NqelBNc1FFeHdna05GZWVuSDJCbE8wZHph?=
+ =?utf-8?B?NUliM3ZTejIrd2dKWU9pYlE2REM3a0ZDVXp0Q2xxSURrVjd3VVlnUVFFT08r?=
+ =?utf-8?B?Y1I0WUd1ZUpENHNSQ1l5V3oxK0VhU0k3a2NrNHdYVUZjVEs1VE1kSi9SVHZk?=
+ =?utf-8?B?aHp2bE9OSXZoVzV0VXJLS3BJWElIOVd2dDlGa1pLQllwYzVnTDdidG5NL2RS?=
+ =?utf-8?B?U3VuVVNWdnBqdWJ1SkgzZkIwZFVNNnVGQ2JnaUVqMWRCZW1XcVhubjI4aFUw?=
+ =?utf-8?B?Sm1tWHV3U0lacXJRVDhEN0NvNDVPbUJzWnlxcmJ3dGYvSWVDREs4WTNRZmdG?=
+ =?utf-8?B?V2FwNm03WHN5R1BIbk9VM0wrYmt4M0JrTmhtVHA5d25GWGVPWXhEZnc1eUF6?=
+ =?utf-8?B?TExlN080Q1FMNVBzTnY4RjV1RGFrZmovWVVnUnBHZTZFK054WDFpSW1IalFh?=
+ =?utf-8?B?Z212RGY5cWJzMitudWZ1dlpiU2xhQVVtRVRndGdoYU00M0p2QTVTdUFRUUlJ?=
+ =?utf-8?B?MEV5NzdxRmZFRW41cnFLMGNFck9nMDdkc05SelFHWUF6SVZMMGNxd3IvU1gx?=
+ =?utf-8?B?cFVKS012czJmdkpZeWttemVpbmk0ajJYVEpHZVB2Y1Z3R0Z5TDhqMW9GRUp6?=
+ =?utf-8?B?REhyYVVRNlJ3NVJFcTNFUHJGZGt6cHRPVXRZMm1QYmRRZzJKMmxiNlpmMC9X?=
+ =?utf-8?B?T3FOSEl5OXYrelpNWHhjSmh4c25GYXhuVDdEcUN2ZlR0WlFEaXlYV25sYWVG?=
+ =?utf-8?B?alo0a0dnTDRQMXgrbFlOOFBXYi9Hc0laTEZUeUhSMGZqbmovTlBpOElGajho?=
+ =?utf-8?B?K2pGOEcxRTEyTnMxM2p5TTJ0Y2Nya1E1d2dlS0lTN1FMWXBXOTdYc2VKSUw0?=
+ =?utf-8?B?WVE1VTBqeTNKTHRHa05RTnRkK2FQN3o3eGt3cjg2dW5MY0tjNzVHWUxhcU9B?=
+ =?utf-8?B?YUZoSTRzUUJTMWxpcXB6Qm1wUjNkVWpkTE40bnVDTGNodlpPRk02S3A0Smpv?=
+ =?utf-8?Q?Shgs=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bc85e1f-0df5-43b7-4d4f-08dcafa853b8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5962bf7e-dffc-468c-3c71-08dcafb00e27
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2024 08:27:47.6833 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2024 09:23:07.1193 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0fBmgClyTTCrMl1hK+dkHSxWuXBOf14Ja9D6q0lY/S2pn27FoN/OMq3ETcABTGXsI9Kyf3PI2t1pD8GpYeFLzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7446
+X-MS-Exchange-CrossTenant-UserPrincipalName: L9FFV8UBEKEBCDbGUQCGlaChZ1lxrTu2+rSJhetMUEKGqyADuQvjTnlPbIyhzI7X
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6639
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,311 +167,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 26.07.24 um 14:52 schrieb Alex Deucher:
+> On Fri, Jul 26, 2024 at 3:05 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> Am 25.07.24 um 20:09 schrieb Nikita Zhandarovich:
+>>> Several cs track offsets (such as 'track->db_s_read_offset')
+>>> either are initialized with or plainly take big enough values that,
+>>> once shifted 8 bits left, may be hit with integer overflow if the
+>>> resulting values end up going over u32 limit.
+>>>
+>>> Some debug prints take this into account (see according dev_warn() in
+>>> evergreen_cs_track_validate_stencil()), even if the actual
+>>> calculated value assigned to local 'offset' variable is missing
+>>> similar proper expansion.
+>>>
+>>> Mitigate the problem by casting the type of right operands to the
+>>> wider type of corresponding left ones in all such cases.
+>>>
+>>> Found by Linux Verification Center (linuxtesting.org) with static
+>>> analysis tool SVACE.
+>>>
+>>> Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni tiling informations v11")
+>>> Cc: stable@vger.kernel.org
+>> Well first of all the long cast doesn't makes the value 64bit, it
+>> depends on the architecture.
+>>
+>> Then IIRC the underlying hw can only handle a 32bit address space so
+>> having the offset as long is incorrect to begin with.
+> Evergreen chips support a 36 bit internal address space and NI and
+> newer support a 40 bit one, so this is applicable.
 
-On 7/29/2024 11:17 AM, Lazar, Lijo wrote:
+In that case I strongly suggest that we replace the unsigned long with 
+u64 or otherwise we get different behavior on 32 and 64bit machines.
+
+Regards,
+Christian.
+
 >
-> On 7/29/2024 11:08 AM, Khatri, Sunil wrote:
->> On 7/29/2024 10:08 AM, Lazar, Lijo wrote:
->>> On 7/27/2024 12:51 AM, Khatri, Sunil wrote:
->>>> On 7/27/2024 12:13 AM, Alex Deucher wrote:
->>>>> On Fri, Jul 26, 2024 at 1:16 PM Khatri, Sunil <sukhatri@amd.com> wrote:
->>>>>> On 7/26/2024 8:36 PM, Lazar, Lijo wrote:
->>>>>>> On 7/26/2024 8:11 PM, Khatri, Sunil wrote:
->>>>>>>> On 7/26/2024 7:53 PM, Khatri, Sunil wrote:
->>>>>>>>> On 7/26/2024 7:18 PM, Lazar, Lijo wrote:
->>>>>>>>>> On 7/26/2024 6:42 PM, Alex Deucher wrote:
->>>>>>>>>>> On Fri, Jul 26, 2024 at 8:48 AM Sunil Khatri <sunil.khatri@amd.com>
->>>>>>>>>>> wrote:
->>>>>>>>>>>> Problem:
->>>>>>>>>>>> IP dump right now is done post suspend of
->>>>>>>>>>>> all IP's which for some IP's could change power
->>>>>>>>>>>> state and software state too which we do not want
->>>>>>>>>>>> to reflect in the dump as it might not be same at
->>>>>>>>>>>> the time of hang.
->>>>>>>>>>>>
->>>>>>>>>>>> Solution:
->>>>>>>>>>>> IP should be dumped as close to the HW state when
->>>>>>>>>>>> the GPU was in hung state without trying to reinitialize
->>>>>>>>>>>> any resource.
->>>>>>>>>>>>
->>>>>>>>>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>>>>>>>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>>>>>>>
->>>>>>>>>>>> ---
->>>>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 60
->>>>>>>>>>>> +++++++++++-----------
->>>>>>>>>>>>      1 file changed, 30 insertions(+), 30 deletions(-)
->>>>>>>>>>>>
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>> index 730dae77570c..74f6f15e73b5 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>>>>> @@ -5277,11 +5277,29 @@ int amdgpu_device_mode1_reset(struct
->>>>>>>>>>>> amdgpu_device *adev)
->>>>>>>>>>>>             return ret;
->>>>>>>>>>>>      }
->>>>>>>>>>>>
->>>>>>>>>>>> +static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
->>>>>>>>>>>> +{
->>>>>>>>>>>> +       int i;
->>>>>>>>>>>> +
->>>>>>>>>>>> +       lockdep_assert_held(&adev->reset_domain->sem);
->>>>>>>>>>>> +
->>>>>>>>>>>> +       for (i = 0; i < adev->reset_info.num_regs; i++) {
->>>>>>>>>>>> +               adev->reset_info.reset_dump_reg_value[i] =
->>>>>>>>>>>> +
->>>>>>>>>>>> RREG32(adev->reset_info.reset_dump_reg_list[i]);
->>>>>>>>>> A suspend also involves power/clock ungate. When reg dump is moved
->>>>>>>>>> earlier, I'm not sure if this read works for all. If it's left to
->>>>>>>>>> individual IP call backs, they could just do the same or better
->>>>>>>>>> to move
->>>>>>>>>> these up before a dump.
->>>>>>>>> Suspend also put the status.hw = false and each IP in their
->>>>>>>>> respective
->>>>>>>>> suspend state which i feel does change the state of the HW.
->>>>>>>>> To get the correct snapshot of the GPU register we should not be
->>>>>>>>> fiddling with the HW IP at least till we capture the dump and that is
->>>>>>>>> the intention behind the change.
->>>>>>>>>
->>>>>>>>> Do you think there is a problem in this approach?
->>>>>>>>>>             amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->>>>>>>>>>             amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
->>>>>>>>> Adding this does sounds better to enable just before we dump the
->>>>>>>>> registers but i am not very sure if ungating would be clean here or
->>>>>>>>> not. i Could try quickly adding these two calls just before dump.
->>>>>>>>>
->>>>>>>>> All i am worried if it does change some register reflecting the
->>>>>>>>> original state of registers at dump.
->>>>>>>>>
->>>>>>> I was thinking that if it includes some GFX regs and the hang happened
->>>>>>> because of some SDMA/VCN jobs which somehow keeps GFXOFF state intact.
->>>>>> For GFX and SDMA hangs we make sure to disable GFXOFF before so for
->>>>>> those IP's
->>>>>> I am not worried and also based on my testing on NAVI22 for GPU hang
->>>>>> their registers
->>>>>> seems to be read cleanly.
->>>>>> Another point that i was thinking is after a GPU hang no where till the
->>>>>> point of dump
->>>>>> any registers are touched and that is what we need considering we are
->>>>>> able to read the registers.
->>>>>>
->>>>>> For VCN there is dynamic gating which is controlled by the FW if i am
->>>>>> not wrong which makes the VCN
->>>>>> off and registers cant be read. Only in case of VCN hang i am assuming
->>>>>> due to a Job pending VCN should be in power ON
->>>>>> state and out intent of reading the registers should work fine. Sadly i
->>>>>> am unable to validate it as there arent any test readily
->>>>>> available to hang VCN.
->>>>> We want to take the register dump as early as possible in the reset
->>>>> sequence, ideally before any of the hw gets touched as part of the
->>>>> reset sequence.  Otherwise, the dump is not going to be useful.
->>>>>
->>>>> Alex
->>>> Sure Alex. I am also of the same view that we dont want to change any
->>>> power status of any IP as it could change the values.
->>> There is a debugfs interface 'amdgpu_reset_dump_register_list_write' tp
->>> add registers to reset_info.reset_dump_reg_list. Presently there is no
->>> check about which registers are added to that list. For ex: if user has
->>> added some GFX related registers, this is going to hang while in GFXOFF
->>> as ip dump state comes later.
+> Alex
+>
+>> And finally that is absolutely not material for stable.
+>>
+>> Regards,
+>> Christian.
+>>
+>>> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+>>> ---
+>>> P.S. While I am not certain that track->cb_color_bo_offset[id]
+>>> actually ends up taking values high enough to cause an overflow,
+>>> nonetheless I thought it prudent to cast it to ulong as well.
 >>>
->> this isnt being used and i will clean it up. its original intent was to
->> for dump only which we based on all conditions are taking care. So this
->> needs clean up and i will check on it.
->>
-> Right, that's why I asked before whether this generic dump is really
-> required - "since there is already dump_ip state which could capture IP
-> regs separately and handle their power/clock gate situations, do you
-> think this generic one is still needed?"
-Sorry i could not understand that you were talking about debugfs reg 
-dump first.
-i got it and i will clean that up. With that in mind we will not be 
-needing to ungate
-or change the state of IP but just before we dump we would use the ip 
-specific power
-calls based on need and hence generic ones are not needed.
->
->>> Also, all IPs don't handle dynamic wakeup; therefore, regardless of a
->>> reset scenario, direct access to powergated IPs could result in a hang
->>> and that will make things worse.
-Noted.
->> Before dumping any IP we are taking care of Power status of the IP so we
->> should be fine. Like for GFX, SDMA we make sure GFXOFF is disabled. VCN
->> we are dumping only if its power is shown as ON and like wise it will be
->> done for other IPs too.
->>
-> Yes, it's better to handle at IP level itself and remove the generic
-> interface. If the IP that is hung is known, it's likely that there is no
-> need to power ungate as the IP could be in some sort of busy state.
-> Also, there may not be any response to further operations from that IP.
-Got it.
->
-> Thanks,
-> Lijo
->
->> Regards
->>
->> Sunil Khatri
->>
->>> Thanks,
->>> Lijo
+>>>    drivers/gpu/drm/radeon/evergreen_cs.c | 18 +++++++++---------
+>>>    1 file changed, 9 insertions(+), 9 deletions(-)
 >>>
->>>> Regards
->>>> Sunil Khatri
->>>>
->>>>>>> BTW, since there is already dump_ip state which could capture IP regs
->>>>>>> separately and handle their power/clock gate situations, do you think
->>>>>>> this generic one is still needed?
->>>>>>>
->>>>>>> For whatever we have implemented till now seems to work fine in case
->>>>>>> of GPU hang withotu fidling the
->>>>>>> power state explicitly. But Calling suspend of each IP surely seems
->>>>>>> to change some state in IPs and SW state too.
->>>>>>> So i think until we experience a real problem we should go without
->>>>>>> the generic UNGATE call for all IP's
->>>>>>>
->>>>>>> But i am not an expert of power, so whatever you suggest would make
->>>>>>> more sense for the driver.
->>>>>> Regards
->>>>>> Sunil Khatri
->>>>>>> Thanks,
->>>>>>> Lijo
->>>>>>>
->>>>>>>>> What u suggest ?
->>>>>>>>> Regards
->>>>>>>>> Sunil
->>>>>>>> I quickly validated on Navi22 by adding below call just before we dump
->>>>>>>> registers
->>>>>>>> if(!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags)) {
->>>>>>>>
->>>>>>>>        amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->>>>>>>>        amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
->>>>>>>>
->>>>>>>>        amdgpu_reset_reg_dumps(tmp_adev);
->>>>>>>>        dev_info(tmp_adev->dev, "Dumping IP State\n");
->>>>>>>>        /* Trigger ip dump before we reset the asic */
->>>>>>>>        for(i=0; i<tmp_adev->num_ip_blocks; i++)
->>>>>>>>            if(tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
->>>>>>>>                tmp_adev->ip_blocks[i].version->funcs->dump_ip_state(
->>>>>>>>                                        (void*)tmp_adev);
->>>>>>>>        dev_info(tmp_adev->dev, "Dumping IP State Completed\n");
->>>>>>>> }
->>>>>>>> If this sounds fine with you i am update that. Regards Sunil Khatri
->>>>>>>>>> Thanks,
->>>>>>>>>> Lijo
->>>>>>>>>>
->>>>>>>>>>>> +
->>>>>>>>>>>> +
->>>>>>>>>>>> trace_amdgpu_reset_reg_dumps(adev->reset_info.reset_dump_reg_list[i],
->>>>>>>>>>>> +
->>>>>>>>>>>> adev->reset_info.reset_dump_reg_value[i]);
->>>>>>>>>>>> +       }
->>>>>>>>>>>> +
->>>>>>>>>>>> +       return 0;
->>>>>>>>>>>> +}
->>>>>>>>>>>> +
->>>>>>>>>>>>      int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
->>>>>>>>>>>>                                      struct amdgpu_reset_context
->>>>>>>>>>>> *reset_context)
->>>>>>>>>>>>      {
->>>>>>>>>>>>             int i, r = 0;
->>>>>>>>>>>>             struct amdgpu_job *job = NULL;
->>>>>>>>>>>> +       struct amdgpu_device *tmp_adev =
->>>>>>>>>>>> reset_context->reset_req_dev;
->>>>>>>>>>>>             bool need_full_reset =
->>>>>>>>>>>>                     test_bit(AMDGPU_NEED_FULL_RESET,
->>>>>>>>>>>> &reset_context->flags);
->>>>>>>>>>>>
->>>>>>>>>>>> @@ -5340,6 +5358,18 @@ int amdgpu_device_pre_asic_reset(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>>                             }
->>>>>>>>>>>>                     }
->>>>>>>>>>>>
->>>>>>>>>>>> +               if (!test_bit(AMDGPU_SKIP_COREDUMP,
->>>>>>>>>>>> &reset_context->flags)) {
->>>>>>>>>>>> +                       amdgpu_reset_reg_dumps(tmp_adev);
->>>>>>>>>>>> +
->>>>>>>>>>>> +                       dev_info(tmp_adev->dev, "Dumping IP
->>>>>>>>>>>> State\n");
->>>>>>>>>>>> +                       /* Trigger ip dump before we reset the
->>>>>>>>>>>> asic */
->>>>>>>>>>>> +                       for (i = 0; i <
->>>>>>>>>>>> tmp_adev->num_ip_blocks; i++)
->>>>>>>>>>>> +                               if
->>>>>>>>>>>> (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
->>>>>>>>>>>> +
->>>>>>>>>>>> tmp_adev->ip_blocks[i].version->funcs->dump_ip_state(
->>>>>>>>>>>> +                                                       (void
->>>>>>>>>>>> *)tmp_adev);
->>>>>>>>>>>> +                       dev_info(tmp_adev->dev, "Dumping IP State
->>>>>>>>>>>> Completed\n");
->>>>>>>>>>>> +               }
->>>>>>>>>>>> +
->>>>>>>>>>>>                     if (need_full_reset)
->>>>>>>>>>>>                             r = amdgpu_device_ip_suspend(adev);
->>>>>>>>>>>>                     if (need_full_reset)
->>>>>>>>>>>> @@ -5352,47 +5382,17 @@ int amdgpu_device_pre_asic_reset(struct
->>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>>>             return r;
->>>>>>>>>>>>      }
->>>>>>>>>>>>
->>>>>>>>>>>> -static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
->>>>>>>>>>>> -{
->>>>>>>>>>>> -       int i;
->>>>>>>>>>>> -
->>>>>>>>>>>> -       lockdep_assert_held(&adev->reset_domain->sem);
->>>>>>>>>>>> -
->>>>>>>>>>>> -       for (i = 0; i < adev->reset_info.num_regs; i++) {
->>>>>>>>>>>> -               adev->reset_info.reset_dump_reg_value[i] =
->>>>>>>>>>>> -
->>>>>>>>>>>> RREG32(adev->reset_info.reset_dump_reg_list[i]);
->>>>>>>>>>>> -
->>>>>>>>>>>> -
->>>>>>>>>>>> trace_amdgpu_reset_reg_dumps(adev->reset_info.reset_dump_reg_list[i],
->>>>>>>>>>>> -
->>>>>>>>>>>> adev->reset_info.reset_dump_reg_value[i]);
->>>>>>>>>>>> -       }
->>>>>>>>>>>> -
->>>>>>>>>>>> -       return 0;
->>>>>>>>>>>> -}
->>>>>>>>>>>> -
->>>>>>>>>>>>      int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->>>>>>>>>>>>                              struct amdgpu_reset_context
->>>>>>>>>>>> *reset_context)
->>>>>>>>>>>>      {
->>>>>>>>>>>>             struct amdgpu_device *tmp_adev = NULL;
->>>>>>>>>>>>             bool need_full_reset, skip_hw_reset, vram_lost = false;
->>>>>>>>>>>>             int r = 0;
->>>>>>>>>>>> -       uint32_t i;
->>>>>>>>>>>>
->>>>>>>>>>>>             /* Try reset handler method first */
->>>>>>>>>>>>             tmp_adev = list_first_entry(device_list_handle, struct
->>>>>>>>>>>> amdgpu_device,
->>>>>>>>>>>>                                         reset_list);
->>>>>>>>>>>>
->>>>>>>>>>>> -       if (!test_bit(AMDGPU_SKIP_COREDUMP,
->>>>>>>>>>>> &reset_context->flags)) {
->>>>>>>>>>>> -               amdgpu_reset_reg_dumps(tmp_adev);
->>>>>>>>>>>> -
->>>>>>>>>>>> -               dev_info(tmp_adev->dev, "Dumping IP State\n");
->>>>>>>>>>>> -               /* Trigger ip dump before we reset the asic */
->>>>>>>>>>>> -               for (i = 0; i < tmp_adev->num_ip_blocks; i++)
->>>>>>>>>>>> -                       if
->>>>>>>>>>>> (tmp_adev->ip_blocks[i].version->funcs->dump_ip_state)
->>>>>>>>>>>> -
->>>>>>>>>>>> tmp_adev->ip_blocks[i].version->funcs
->>>>>>>>>>>> -                               ->dump_ip_state((void *)tmp_adev);
->>>>>>>>>>>> -               dev_info(tmp_adev->dev, "Dumping IP State
->>>>>>>>>>>> Completed\n");
->>>>>>>>>>>> -       }
->>>>>>>>>>>> -
->>>>>>>>>>>>             reset_context->reset_device_list = device_list_handle;
->>>>>>>>>>>>             r = amdgpu_reset_perform_reset(tmp_adev,
->>>>>>>>>>>> reset_context);
->>>>>>>>>>>>             /* If reset handler not implemented, continue;
->>>>>>>>>>>> otherwise
->>>>>>>>>>>> return */
->>>>>>>>>>>> -- 
->>>>>>>>>>>> 2.34.1
->>>>>>>>>>>>
+>>> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+>>> index 1fe6e0d883c7..d734d221e2da 100644
+>>> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+>>> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+>>> @@ -433,7 +433,7 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>>>                return r;
+>>>        }
+>>>
+>>> -     offset = track->cb_color_bo_offset[id] << 8;
+>>> +     offset = (unsigned long)track->cb_color_bo_offset[id] << 8;
+>>>        if (offset & (surf.base_align - 1)) {
+>>>                dev_warn(p->dev, "%s:%d cb[%d] bo base %ld not aligned with %ld\n",
+>>>                         __func__, __LINE__, id, offset, surf.base_align);
+>>> @@ -455,7 +455,7 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>>>                                min = surf.nby - 8;
+>>>                        }
+>>>                        bsize = radeon_bo_size(track->cb_color_bo[id]);
+>>> -                     tmp = track->cb_color_bo_offset[id] << 8;
+>>> +                     tmp = (unsigned long)track->cb_color_bo_offset[id] << 8;
+>>>                        for (nby = surf.nby; nby > min; nby--) {
+>>>                                size = nby * surf.nbx * surf.bpe * surf.nsamples;
+>>>                                if ((tmp + size * mslice) <= bsize) {
+>>> @@ -476,10 +476,10 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>>>                        }
+>>>                }
+>>>                dev_warn(p->dev, "%s:%d cb[%d] bo too small (layer size %d, "
+>>> -                      "offset %d, max layer %d, bo size %ld, slice %d)\n",
+>>> +                      "offset %ld, max layer %d, bo size %ld, slice %d)\n",
+>>>                         __func__, __LINE__, id, surf.layer_size,
+>>> -                     track->cb_color_bo_offset[id] << 8, mslice,
+>>> -                     radeon_bo_size(track->cb_color_bo[id]), slice);
+>>> +                     (unsigned long)track->cb_color_bo_offset[id] << 8,
+>>> +                     mslice, radeon_bo_size(track->cb_color_bo[id]), slice);
+>>>                dev_warn(p->dev, "%s:%d problematic surf: (%d %d) (%d %d %d %d %d %d %d)\n",
+>>>                         __func__, __LINE__, surf.nbx, surf.nby,
+>>>                        surf.mode, surf.bpe, surf.nsamples,
+>>> @@ -608,7 +608,7 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>>>                return r;
+>>>        }
+>>>
+>>> -     offset = track->db_s_read_offset << 8;
+>>> +     offset = (unsigned long)track->db_s_read_offset << 8;
+>>>        if (offset & (surf.base_align - 1)) {
+>>>                dev_warn(p->dev, "%s:%d stencil read bo base %ld not aligned with %ld\n",
+>>>                         __func__, __LINE__, offset, surf.base_align);
+>>> @@ -627,7 +627,7 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>>>                return -EINVAL;
+>>>        }
+>>>
+>>> -     offset = track->db_s_write_offset << 8;
+>>> +     offset = (unsigned long)track->db_s_write_offset << 8;
+>>>        if (offset & (surf.base_align - 1)) {
+>>>                dev_warn(p->dev, "%s:%d stencil write bo base %ld not aligned with %ld\n",
+>>>                         __func__, __LINE__, offset, surf.base_align);
+>>> @@ -706,7 +706,7 @@ static int evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>>>                return r;
+>>>        }
+>>>
+>>> -     offset = track->db_z_read_offset << 8;
+>>> +     offset = (unsigned long)track->db_z_read_offset << 8;
+>>>        if (offset & (surf.base_align - 1)) {
+>>>                dev_warn(p->dev, "%s:%d stencil read bo base %ld not aligned with %ld\n",
+>>>                         __func__, __LINE__, offset, surf.base_align);
+>>> @@ -722,7 +722,7 @@ static int evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>>>                return -EINVAL;
+>>>        }
+>>>
+>>> -     offset = track->db_z_write_offset << 8;
+>>> +     offset = (unsigned long)track->db_z_write_offset << 8;
+>>>        if (offset & (surf.base_align - 1)) {
+>>>                dev_warn(p->dev, "%s:%d stencil write bo base %ld not aligned with %ld\n",
+>>>                         __func__, __LINE__, offset, surf.base_align);
+
