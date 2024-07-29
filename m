@@ -4,63 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42110C3DA61
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jul 2024 09:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD62C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jul 2024 10:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD48410E38D;
-	Mon, 29 Jul 2024 09:47:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E29610E38C;
+	Mon, 29 Jul 2024 10:49:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lZ/iGgKS";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="DBD8aStb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F5310E387;
- Mon, 29 Jul 2024 09:47:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1722246473; x=1753782473;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=RsomBzoCT2Ys4129Ye8pTLrTKipGkhhvsMm7FxcIZXM=;
- b=lZ/iGgKSb+RqpysLPiw8OsO+kmi7GVCmIYvEmYSPg6se1dIttXGURaEx
- NBeRmuzBkGXpqeCDI91GrVrD8kOI+d/JCUWISF0HYl0cagcxtMq992Hrf
- UT7Wr2/YL6PMcIyUlxVOAVoz4OLIDpYowz1iMGPCxWqLPozwR9PTDr9SJ
- Ck0KYeBTvVb7GGkthYJgpWdYQT8H0PT+YJA5gSrRIim6qpgIKP9jxK3wa
- qlcUPT1U+X+8xZnOHr78YKJOPb+K5o1uQqOPUuoKu3jcVo9BkVzsVQo/H
- qnEt8jopZj3ULCvQpuJPogRYlA1VjQBztwW3LrmyHeJhA+E0/CvOFlpOU A==;
-X-CSE-ConnectionGUID: Y+UHa8hgTY+lk2LujTrBLA==
-X-CSE-MsgGUID: /8v8S5fIRzehR759xlLC5w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11147"; a="23851502"
-X-IronPort-AV: E=Sophos;i="6.09,245,1716274800"; d="scan'208";a="23851502"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2024 02:47:52 -0700
-X-CSE-ConnectionGUID: 2yMcJEKfRiiYRrkCukWK5w==
-X-CSE-MsgGUID: V5lA0qVPRZ20S6Se2HssBQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,245,1716274800"; d="scan'208";a="58062474"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.185])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2024 02:47:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
- <linux@weissschuh.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
- =?utf-8?Q?ig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, Xinhui Pan <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] drm/radeon: convert bios_hardcoded_edid to drm_edid
-In-Reply-To: <CADnq5_NwCJV0exdGJ+nCFKdSZ-D85LsLQqCucF54jxtSa=yvSA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240726-amdgpu-edid-bios-v2-0-8a0326654253@weissschuh.net>
- <20240726-amdgpu-edid-bios-v2-2-8a0326654253@weissschuh.net>
- <CADnq5_NwCJV0exdGJ+nCFKdSZ-D85LsLQqCucF54jxtSa=yvSA@mail.gmail.com>
-Date: Mon, 29 Jul 2024 12:47:45 +0300
-Message-ID: <874j88zfzy.fsf@intel.com>
+X-Greylist: delayed 422 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Jul 2024 10:49:12 UTC
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0A110E38C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jul 2024 10:49:12 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4WXZg26C1zz9spm;
+ Mon, 29 Jul 2024 12:42:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1722249726;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=S9SU7VXSqqyPsfu4yVvSEDtwwj3MzBkFc/q8re+PJqs=;
+ b=DBD8aStb7yOsjSf3dZMg0MQ8BEEBBHjIiNDok5qtc2gJ3jLDJ6LR5tSLR/dHRO9V16sMIH
+ I5ovVKhJbgeBk1pHnnMRSSieUBRAklOMR0jX4wwlOAEfDAFsJMIXLjC4SVqoK8jtGOimr/
+ g5Dr2x+R3AAusFz5fCyFgsdfpj79mQlYZwSaNmN3upAqM/oHi350V2YMlJSr9hp+rA+eY5
+ C7tbWM8enspUOmtjNxKMpIQIjdOdDCdT6HW5SXjhe72lJFO0Qx1EaOaozXBta5JSkvQcBD
+ G+1oZyJ87i+4FYn7sMlk+DU4umN2nWG5fdHYGj6Oov3suxw9pBlf0o9eQMFWyQ==
+Message-ID: <efd8495a-d869-4314-acfb-d3e704c68cda@mailbox.org>
+Date: Mon, 29 Jul 2024 12:42:05 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: Re: [PATCH] drm/amdgpu: always allocate cleared VRAM for GEM
+ allocations
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240726134115.36802-1-alexander.deucher@amd.com>
+ <CADnq5_PGaR=0bqmXckwY8HpgCj5MxCJ4Qc1JP=QR9Lnb7AES6w@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <CADnq5_PGaR=0bqmXckwY8HpgCj5MxCJ4Qc1JP=QR9Lnb7AES6w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 5e4201341fc00b2e31b
+X-MBO-RS-META: gpsekkm837axao9e1sd8kguuujhfkg7h
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,14 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 26 Jul 2024, Alex Deucher <alexdeucher@gmail.com> wrote:
-> Applied the series.  Thanks!
+On 2024-07-26 17:25, Alex Deucher wrote:
+> On Fri, Jul 26, 2024 at 9:50 AM Alex Deucher <alexander.deucher@amd.com> wrote:
+>>
+>> This adds allocation latency, but aligns better with user
+>> expectations.  The latency should improve with the drm buddy
+>> clearing patches that Arun has been working on.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index ebb3f87ef4f6..768840e8937d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -347,6 +347,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+>>                 return -EINVAL;
+>>         }
+>>
+>> +       /* always clear VRAM */
+>> +       if (args->in.domains & AMDGPU_GEM_DOMAIN_VRAM)
+>> +               flags |= AMDGPU_GEM_CREATE_VRAM_CLEARED;
+> 
+> Alternatively, we can set AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE here,
+> although for cases like reboots, we probably want clear on create.
 
-Ah, replied to patch 1 before noticing this. Never mind about the
-bikeshedding. :)
+I agree. Thanks for doing this!
 
-BR,
-Jani.
+Reviewed-by: Michel Dänzer <mdaenzer@redhat.com>
+
+
+BTW, maybe this allows reducing the use of AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE, or even eliminating it altogether? Does this leave any way for user space to access uncleared VRAM?
+
 
 -- 
-Jani Nikula, Intel
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
