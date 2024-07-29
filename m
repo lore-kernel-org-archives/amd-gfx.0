@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09B60C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jul 2024 18:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D50C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jul 2024 18:43:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9094810E46A;
-	Mon, 29 Jul 2024 18:37:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C58F210E46B;
+	Mon, 29 Jul 2024 18:43:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mK5dTe2g";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="efebN1FO";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2E6E10E463;
- Mon, 29 Jul 2024 18:37:25 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-42816ca782dso17665635e9.2; 
- Mon, 29 Jul 2024 11:37:25 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CED3710E469;
+ Mon, 29 Jul 2024 18:43:09 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-3685afd0c56so1659929f8f.1; 
+ Mon, 29 Jul 2024 11:43:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722278244; x=1722883044; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1722278588; x=1722883388; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=oStIygigyQZe70rjTtgEKCHYl2DVMoFP1AZcLiyIhhk=;
- b=mK5dTe2gwJQf6y41QgFjCl1iOaAfK9mUtG/ZavQKNRtkJFNLo11K2J6by7YoNxPCRI
- iDP+PUHVsaMGV9/AKC1jLYw7O8vaXPIyLSPiMvPK/0VrjqP1Sz5sLQA/IVfLO6CRS1Il
- 5/E2sj+2VlVdL64KRi+2ak+gUfra4ixr02RQsp5XkK3y3Bl2Mdd4wUXaqb102EtOMXe+
- Ia2zEdM+aBbmFoRVzRi6oPDWCnJQThQqPR0e4kH9Cbf5lqsM57cZQ5NzZCHgY+QW1MWn
- h2tuFACVfWmlIlxORu+Y9WTM32gZ0PASJmZnsfBxs+pKEP1eycglHzB8wheF5ivqFzc6
- ca9A==
+ bh=R49RODKGlVKtrCybhkRDLAwqJedDDdYFvwltk2whXZU=;
+ b=efebN1FO3d3PtgNboUD25miJ85H9rp8xphrI0Nba6mfX2nWQbCYGqqHz6lMc5DxaMj
+ b7wfzy4QZvqRM5TC98N0Obzlum4gufzQ6LzYRU9h7KZAYfZQfvRu0KVKHy8uWrapawtC
+ Qrl0mdIh7s/ckITuPUUKuPgFc4kl65BQIVw/r3NrQSqJv0++asGs+yfG2fTECzEixzxu
+ IlVnu1GiqMPUMsjfBXViTuw6BD6VUMEtMxtS+6FNm5/upfzQZuDHCk4g0PZp3TqEWWOl
+ Zx7ssDi8VC/Zc5rC27qk12xYblvH392f0L2im7ahV5AyYpfF0K/H9ZfzH4C9PwFYxD+p
+ 0xpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722278244; x=1722883044;
+ d=1e100.net; s=20230601; t=1722278588; x=1722883388;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oStIygigyQZe70rjTtgEKCHYl2DVMoFP1AZcLiyIhhk=;
- b=wflBIEO1FTvz/sFC13RBgMP2tSnRuiVotAzhR6/XqOuSHAlbTHa2vAkRKfDLYYCNUn
- I7KmHSIyq7rz6EfX5YI/+Gx9NYreGqJWwVTBv1d8EgM2l/VPFQgNtPJGYx27kULuM2so
- x5M2mjddvcDnAblROMhW+kPFOGEMy9wSeYr2r/crNvSx84gyFqIN42HJhQioDCz30QRa
- PwNzH7FoVVOefKiSKQGaQMDhD0T5Kc/NkNG0bjE4yssMbXAPGMBJq0ix3EOkonhxVuJU
- F+OpRmYUINkOfAz78Wgef+KblpkLGTaQMgIU8gnjnm0kuPmBhQzdH/ei+wFJgcyhv/mR
- D9bA==
+ bh=R49RODKGlVKtrCybhkRDLAwqJedDDdYFvwltk2whXZU=;
+ b=NFjDHxXHc3lfscowGn1jHL/8FrAMBAfRnB522yDBAhe60L73i2ahhUjHZ6bETueSEw
+ Oiz7No6KjSSesPPkaeGqG367PnvDz8OfhAwoj5OHvCfH8RjCInUbW9PNjfs7CvcX0mLM
+ Wvbrh1pfaOG7vKMYaA8bITlklTu/jQ33V4Crh1K3qNZa9tCMyrm16fp2Xs9oHKuIlr0A
+ KDZ8Gxqx2EPeeOU3d4CQADlhvxv4GuasT9yaUgyqKXCOi9TLn8VBPtbK9Z2S/DmQNLU0
+ YOoAUWHvch1ToouAP5N4bv/eQ1XubKz7sEgSJRjs9y53/+iJp/UCiunu5iIGUK44Q1Vy
+ Kinw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWcgmy8qWr/9uUIUeBGk4iId5M9JWbBeU4G8PaJ5kSXCVZbXBJe7dWUbOeLSPb9qEEHcTz6O0yP6ZYSbD7Hnfo+dQ6HbSKROi1ZgkK0GSXe
-X-Gm-Message-State: AOJu0YwAdXCgaymQAR9gwd0bM0ZARqXf5b9jWl/EcEULZFTgTAr5OF0y
- yS1HWpBgE4YYVGDCOTjOdirD0ksiFuSge1uEVOu8MSC/1Z/yKT7n
-X-Google-Smtp-Source: AGHT+IE/kjc/kQS+SVFZjcN9lhFQUyA7sYRkh37TXECbHRdvbPgp4SLl87vjjUEjDu/qRnQOOFX0Dw==
-X-Received: by 2002:a05:600c:a04:b0:426:6ee7:c05a with SMTP id
- 5b1f17b1804b1-42811d8a80bmr51926955e9.15.1722278243496; 
- Mon, 29 Jul 2024 11:37:23 -0700 (PDT)
+ AJvYcCW2J1cvfqsEQrkAPpsuww617vNrJ3HwPHGYvXDdot5w+DrHP0XSmkmYOgXZLrgqvFpFJXTcAq6Ev5YQ3RAkGjVENTBER6EdvrnBLqYsla/F
+X-Gm-Message-State: AOJu0YyPYE8DYlJy5QfENXWnAI0tetSCPdl15QuXucHIvvCeM9Y1j0mc
+ AhDWiVKA+HNuh6kWsfIPknveUMbZc0Xpo1n7OwEPRGLaW4OCOyec
+X-Google-Smtp-Source: AGHT+IFAGuSlMB2+Y0KxJSkO2QhI9GOV/nncdpT3K8vlFmf7olKkvjXJwnvFKeaOPmUOQzW31MMn2A==
+X-Received: by 2002:adf:ce83:0:b0:367:4e1a:240e with SMTP id
+ ffacd0b85a97d-36b5d0bc340mr4370002f8f.50.1722278587691; 
+ Mon, 29 Jul 2024 11:43:07 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427f937348bsm228205405e9.18.2024.07.29.11.37.22
+ 5b1f17b1804b1-428140e72d1sm96492535e9.11.2024.07.29.11.43.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 11:37:23 -0700 (PDT)
-Message-ID: <35610481-cfe6-4c63-9020-9667f45c6fe8@gmail.com>
-Date: Mon, 29 Jul 2024 20:37:20 +0200
+ Mon, 29 Jul 2024 11:43:07 -0700 (PDT)
+Message-ID: <5c634b9f-5b93-4faa-b939-a370ba0d41fd@gmail.com>
+Date: Mon, 29 Jul 2024 20:43:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/sched: add optional errno to drm_sched_start()
-To: Matthew Brost <matthew.brost@intel.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  alexander.deucher@amd.com, jesse.zhang@amd.com, vitaly.prosyak@amd.com
 References: <20240726075550.1511-1-christian.koenig@amd.com>
- <ZqOW5Q778UCkh7V7@DUT025-TGLU.fm.intel.com>
+ <ZqOw8URrWjr9RN7A@phenom.ffwll.local>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <ZqOW5Q778UCkh7V7@DUT025-TGLU.fm.intel.com>
+In-Reply-To: <ZqOw8URrWjr9RN7A@phenom.ffwll.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,7 +85,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.07.24 um 14:30 schrieb Matthew Brost:
+Am 26.07.24 um 16:21 schrieb Daniel Vetter:
 > On Fri, Jul 26, 2024 at 09:55:50AM +0200, Christian König wrote:
 >> The current implementation of drm_sched_start uses a hardcoded
 >> -ECANCELED to dispose of a job when the parent/hw fence is NULL.
@@ -126,23 +126,40 @@ Am 26.07.24 um 14:30 schrieb Matthew Brost:
 >>            drop the new function again and update all callers,
 >>            apply the errno also to scheduler fences with hw fences
 >>
-> Seems responablie to me, but all the caller pass in an errno of zero to
-> drm_sched_start. Going to change in a follow up?
+>> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+>> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Maybe I'm extremely missing the point, but it's kind hard to be sure
+> without the testcase/mesa side code too, but for gl robustness I don't
+> think this is enough, because you also need to know whether it was your
+> context or someone else that caused the gpu reset. Probably biased, but I
+> think the per-ctx guilty/reset counters is more then right code here. Or
+> something along those lines.
 
-Yes, exactly that's the idea. Just wanted to double check if the 
-approach makes sense.
+Exactly that ctx based approach blew up pretty nicely because it doesn't 
+match the lifetime of the ctx.
+
+On the one hand you don't want the ctx to outlive the file descriptor 
+which it was created with since it points back to the fd, on the other 
+hand when you need it for error handling you need to keep it around 
+until all submissions are completed.
+
+In the end you have a really nice circle dependency.
+
+> If we really want to stuff this into per-job fences then I think we should
+> at least try to document this mess in the sync_file uapi, for a bit of
+> consistency.
+
+Good point. Going to add some documentation.
 
 Regards,
 Christian.
 
 >
-> Anyways, LGTM but will leave RB for a user a user of this interface.
-> Acked-by: Matthew Brost <matthew.brost@intel.com>
+> But yeah without the full picture no idea really what we want here.
+> -Sima
 >
->> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
->> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
 >> ---
 >>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 2 +-
 >>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c          | 4 ++--
