@@ -4,141 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E6CC3DA70
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jul 2024 16:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 300D1C3DA70
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jul 2024 16:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2C710E541;
-	Tue, 30 Jul 2024 16:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF2110E334;
+	Tue, 30 Jul 2024 16:35:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MR5kT0hb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G0rnca9m";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06DB310E541
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 16:23:07 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5F10E334
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 16:35:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W8/b3fnOMufHbSLxcKrJ7pes5ZzmPZPi5Cp9UsFN1Boxc/PZrM/kvSZHIkN2SYEwqK4y6fKu+ZWH83ONJtvenW1QWof4iK2CZPx6T9mRk7h1zjTnpdSSK+rC+d6AjVJ7zedJFZWTXS+ia8UD3J6taa0KNd59tJDnwi/TdIqu7kMYAJ+mf9fSzQZiN3FUMHfGP7I73x02yGl+t7EAhkuf4qlrUqzjBuZvuw7QsKYbWzK8fK/WMgVGKtz6qco+OC9kZA/8ro6fb4bWR6Jj/SQAnaQUfLSbMP0oJHpJYEMSUbRFQTW/D/QIo2fRc6n+i12CQsK2QPIHOwgu9SxdXpjxJg==
+ b=c1ArpFwgYM1Qc95vdfl3V5yBJoqCjhwv5bm3sO1RWNI3Ovcltp+nItPuHtFH4ZA4/vKtodMAYOspM1EMELnHsJdifbp0gCIN7fYWA7m6Qw8n6KkceA9Dp3BwnWyxUuZeZF0MWvg2ZiQfDtJrL//GfL1JmvpwkejMOBfGP0oM0WWs5HiBUr6Uw/SbhAbU2OMkBZD27/fJRGMwSVulFMz9HtMgK4t1zt7D52YiQU6HTwUzLgAfQuNUF31Hhs4wEytuyXmErKsTxNCPjgbBA9f/s4eTiWuMDkSErq/D2yyiT1UqNPVSuc+sC3gH3lx/pPxyzsuUlh3gS6eJ1oO8vIg97Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ajWyxvbw4GfrUYXQuiTxwaICb/JQNF1i9OuCXPBqGSQ=;
- b=egpkLSgp8ToB/foTdbLk8NIaHmfRVFd1C4zVW5AL/PnzdgioviDCM0i/v1NhhTmlfjSjIUZQ8kYUqUdheCmnURc/AbYvMli0NoVmURuKN/c0xU0KCo7EuMv4fiFP2IYyXbT4kr5XsT/7flhDn1iCameCxgMp7+OEgmXbDjhrxkToW2O6ZRJJjxi+mNApd/5IDUZt9VS1HPx4dia7OpDXmXIdTwgOtJWm/WAIw1ZYoNFbUe7KTvdtOrtU8LKv9RilRPKFQ82iLyXlZu/YyGQ8OZlgyKf9M35vWZiiFTCjdbkoJs7uzuET6hy4kPpLCr0IloHDCOWfJL8A6WP2Gj5JJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=wT3O/apZQW1JwwmrMTU7lrE66fNwKZTtm7BwEk1ZS3Y=;
+ b=KWEm3RA0zcWuifS+ARjzMrBIcSvYxLHqz4m6FKEwEDJMIkEb45Y3Ze/A3ZMkIzA8V6MJ1ZS67WGF7CTlwO8j8Imcf1q0DU0IgNXlwzbqciG/BpmqPrpCjOL2saJHzcG8mz8ub6fVnQ+lNsyOgZ786ZrJgLdu7VJStQgGi4gM7mn1qGpn7L0iT5YCFlI+XWYcq+hCgyNHNd9oyRHlY6LvRTzZkAnZj3x/KaoHEDTXU2Z0YVF7Hi9MvOJ9cC4Rx2g9Nl+FV1Epn/PVOplSZ039mwgnDbLEkyZOl3zUjh8zV6UwqUKve3Q16Isz/xEZwUefb6RpabC2a+PM0uBaWQR2eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ajWyxvbw4GfrUYXQuiTxwaICb/JQNF1i9OuCXPBqGSQ=;
- b=MR5kT0hbThbjJuVU/SxeCxnVBzltbEh347A57GYlv9CTqHw5iS3Sj66NTgwRwC2aTH58hmJcxp6eMK5Etku63F5K2B9+llVvkJFyICEledaLQu5u0pxDPXPddpCL3dLUbgYo5h+W6848ocGZIzORGPqDsdy/uQuWIlTkG47Z1Tk=
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22)
+ bh=wT3O/apZQW1JwwmrMTU7lrE66fNwKZTtm7BwEk1ZS3Y=;
+ b=G0rnca9mbVeiEuMGwh99Vr4ICiCvCQc23Qh7jjcszubjVbINHavGw9GBA8LCeZwuugNrHkXiQ5w0hFwW3pvtxgLHmN6r8ZZ21w5ZOAIg3dMfpKuejW2aYVKolwF/K9drN57N+9xNyaPWdb6HxhWxh9yYYiZ7MS2tYbmoy+IBVGc=
+Received: from BN9PR03CA0146.namprd03.prod.outlook.com (2603:10b6:408:fe::31)
+ by CY5PR12MB6323.namprd12.prod.outlook.com (2603:10b6:930:20::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Tue, 30 Jul
- 2024 16:23:04 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6%3]) with mapi id 15.20.7784.017; Tue, 30 Jul 2024
- 16:23:04 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "Kim, Jonathan"
- <Jonathan.Kim@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: fix debug watchpoints for logical devices
-Thread-Topic: [PATCH] drm/amdkfd: fix debug watchpoints for logical devices
-Thread-Index: AQHa3GkB3lCZGLh63EuMgAg+3zjfXrIPf6eA
-Date: Tue, 30 Jul 2024 16:23:04 +0000
-Message-ID: <CY8PR12MB709977C1CC4F113D9D7FC7F78CB02@CY8PR12MB7099.namprd12.prod.outlook.com>
-References: <20240722185712.1046232-1-Jonathan.Kim@amd.com>
-In-Reply-To: <20240722185712.1046232-1-Jonathan.Kim@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c69cead4-2889-4a50-bdac-dc6eaf179407;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-07-30T16:19:22Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|CY5PR12MB6179:EE_
-x-ms-office365-filtering-correlation-id: 33d84041-75fa-481f-76c5-08dcb0b3e38d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?k63M5+HuciFLCngDRAHgF7c8OP26M6zBOIXiWmx9TsoV0Jg8WrdJiIpRqcB5?=
- =?us-ascii?Q?3W6wSyL2lrdBvJweQ6XHLvpd9byJ5QNE8Vi9izjJnrfHQZbLdnGG6WdgWtfR?=
- =?us-ascii?Q?a6jLR+NiTfV/EROmJxb4vABJqaY/A8ODgCyGkQThSolb+zfkDetjTdoOD/te?=
- =?us-ascii?Q?OrKGdXQkqJM5bHieioe+5qIt1SB85PdcZBjkwPnGs1FLTeF+8FRDdN68vT1i?=
- =?us-ascii?Q?ScddGMsiZ8Zgt0YPJS3s3GBttBwvOyRfqVn+U30haI/c//8hnwdVoyLYVnhl?=
- =?us-ascii?Q?I27QreYgaKt7rxi8IS+PrO6EEjrUXhCIWhjABnOxnFjWa0hfmU98ProZVsHU?=
- =?us-ascii?Q?JC35BkYCoZuuAtqo4I2/3b8FzEzFNxGTCK46r7eQYhvJ4qQBysGq5YDEM5k3?=
- =?us-ascii?Q?lYeM3T7WhXtmbxgEPGFE2HBOsPK0JRITszmn7EntEVSvS38R0+FzJNgG58nW?=
- =?us-ascii?Q?d9063GrKa7ae161cPgLvqnu1skYcQWQkRVTZEu/m4P9wA5wQNQgd+9RzR955?=
- =?us-ascii?Q?48AJFtd2TyzWXsVIczDofcx1CY8BWd33oC+mcorqMEHc+HPaQ7iIfzQYkijn?=
- =?us-ascii?Q?xjnA8J/qgnpOdTrZpLGCZ0iZtJzJKarNuX7mdJfMQAV6Kr/DpwEeP0/Grc2e?=
- =?us-ascii?Q?2BHK0hjHxYqzSEM/77P5NKXZ7/DENYicXiYNK879Gl9oMA9SareG267UdKhb?=
- =?us-ascii?Q?n1pjTQyxxlA/Mw3xLx66425m5D1z0aWTw2IqC2fTw5lnNfa/uHpZj0Dfhr5I?=
- =?us-ascii?Q?EqRlcZmvdZz8kPbrG95eMvyu/5nToCaXZNJyjaL7Pz+YOe27OyalAwYKvyQ2?=
- =?us-ascii?Q?Kg+pR7UDdzoJbPV9fva3mDqA1BVogaOZGy4gN5z2K5sTy0wOVCbGf0S68BME?=
- =?us-ascii?Q?ZUFLxk9ZVIgGtCdDKyBm0cUYQRfsysqQ6NaNlC5QnCfJWyJKUWb+zOG7z56V?=
- =?us-ascii?Q?tX8bzqDnvgZGj36NFVL4U4390HHOFxoxWXaAb7wUtzFIwd0pQo+iSjjK/JNg?=
- =?us-ascii?Q?tmJodhFTDVbl8XkU6fQN2jYdj+4OPlGDz4YEHteJLkkD6j7di4zX1t00UQLq?=
- =?us-ascii?Q?vZ0ouTCDAxlnFjhGUEtq334bwu5vKCHQZzDBb5s2/eIORDapheiTL776G8O4?=
- =?us-ascii?Q?i/IwUdUzmGl+tjt1X6MeiSi4lrxW5eru/qLWuBoaMqtz/wn/QTeXUOY/jKWb?=
- =?us-ascii?Q?4XfO7dJ1FNpz4jnWeJIAWFJV44K6443YK2N52Kx8DHET64ZROV4m+ii3E0Bp?=
- =?us-ascii?Q?Q3sveV5JwBzPocChawtRoMXrNlLQmOqmmyaeIj+5P4TEdvELV1CAOns1C/TV?=
- =?us-ascii?Q?8qgHq3KvomqjiJT8EnzD8zDWAzxUiPXLV63cznc4dAh9UhI1SLu2PU1S7bKi?=
- =?us-ascii?Q?Zt89Y/1UUpRrXfsI4VySX5PpeXuH0G9qhTn63jXWs2shyhKpgw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EceOQF4SvvixSBYx60V1apz7t2xA9G/4NFcPXDFztAU//WAWGljJQb1vi61V?=
- =?us-ascii?Q?4EXYueP1tVdcHCutOFM79LuW7xoxcewOk77wKLLwbVJ5udRYbqwMGgN0nlBv?=
- =?us-ascii?Q?qEUKimS639A0/yZTVGQEBK1vQPq9YsJknjrPVsESPlhiJkNk6ASwWcrMug3q?=
- =?us-ascii?Q?4eD17rGJUvrIuh7XFUrM2DhMuOxBCE38zM48SFhjbp8u7o9BWqGfrt8mRclx?=
- =?us-ascii?Q?Q4tRsUgvXluRP2qm1ZOxXNCVaA7I6XdPnothmTpyO45Twr7XSoei1OD+OgGS?=
- =?us-ascii?Q?zn0K++aI5GW64qhBeJxCm6pHLQonK5PnI93zPaHApxksFxeDlTd80sxgJLzQ?=
- =?us-ascii?Q?LhYhLTjQlhxe/NaG/jF7FFRrUShFb4LwFV1TsEds7eMSZTSgEkvqyvan7vcg?=
- =?us-ascii?Q?tKfGepVdJhKBGyYPfR74HXptCNflYR0UA4IU51STySAPjFZcor90O+6D0fAI?=
- =?us-ascii?Q?3C6nb9T4S+cDyJXdhLin+95/yWYriVXQ725zuqLz4bE6vzvwr/as8eBAmIOf?=
- =?us-ascii?Q?S+JApvBHgc5TdCUAEHP2cBitUu0d992oTtXweiPeEnpcc+pLFB45gATwI4LY?=
- =?us-ascii?Q?MROMlFVOQq5su380BIcKy0tnX+tgg9/lkOfZoFDHl1iFG3OwP+Boaa970RJ2?=
- =?us-ascii?Q?u6Srr7X4OAL3Rs87zhCeapoPJW5ASwLzRAJ9i927n92NDODG6QzJgKwyJ7GJ?=
- =?us-ascii?Q?qyUGnbZpjWbwx4MZybV6tTVLae+MRwat/PM73TFi2Or5P0XAt4cvQvVlKdzD?=
- =?us-ascii?Q?ZZyJ8/ZeRQBrG1POI9yLEdXuOoh5zW8NgFkgCMX8xKhTGhZrYgUnCAEMCSnl?=
- =?us-ascii?Q?PGy5gQ5EjwIr25ECNva6Wk3OkBb07nEwNPXyJWpM9PIBJ2qSCbF1loVaoFgF?=
- =?us-ascii?Q?Ez2liny5VAAUY5pSTUDYObwSJoZcnrwvcdu+moP/iCS5FhkuOMbICsreHOjR?=
- =?us-ascii?Q?ZC5HYDBT4QTkWGDMM3VF928WWJAweuDRHQtra23Oc1KZ5wd8AsCHFOSJgpXU?=
- =?us-ascii?Q?OCnq6qi7fmgIlo4QRVfx3BPBeQbl8cKPIoYOZ7EWL/fRS50GV0kzT+Ue3s6F?=
- =?us-ascii?Q?9qUjnPjYpJVovuhNASzzHKkklPadd22ewfzsvvdimOLMrW5Xr5PVu9s6BgEV?=
- =?us-ascii?Q?48Ll78nLLw+iaHIg+p7kzHnXVp54jHtHe7Nz5QNgJpdHupDbJLjGBEFEOsvp?=
- =?us-ascii?Q?eUuNDEU9GOBrA9P0fdsfPB1CDqr2YCqQejlTOnZkt0IOdepeJxuGjhrZ1nj8?=
- =?us-ascii?Q?Y7kRfqjUu/domtLii/TI0KjL5FyX/YLFGF3zng85OhuU0HZF0M3WwZQJ8a5u?=
- =?us-ascii?Q?sj24TLmRqyrHUfL3APqWhS+mcG23p0Z0wAoqqYQGQJezODGiiwT+oETn5frM?=
- =?us-ascii?Q?fiKsipGgWt4rsMbgR1CGOVgHTUnaxvT+QBzvwVXkamdTXdpJ9ALj1MTccKYM?=
- =?us-ascii?Q?b3lW3EPJMfj5R0wfVZfgh7NPUI0L3lrxPq6lAI/s2PdkFpDpxT71euf/Xuei?=
- =?us-ascii?Q?ViK5h8VP8sMp3HEaGxC0XwDDq2t2iMe010cSfI+wdnwItH2jf6WJ8Q/e6J0H?=
- =?us-ascii?Q?p953NnY6M81xwrJBk+o=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2024 16:35:11 +0000
+Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
+ (2603:10b6:408:fe:cafe::f7) by BN9PR03CA0146.outlook.office365.com
+ (2603:10b6:408:fe::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.35 via Frontend
+ Transport; Tue, 30 Jul 2024 16:35:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7828.19 via Frontend Transport; Tue, 30 Jul 2024 16:35:10 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 30 Jul
+ 2024 11:35:09 -0500
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 30 Jul 2024 11:35:04 -0500
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <Philip.Yang@amd.com>,
+ <christian.koenig@amd.com>, Xiaogang Chen <xiaogang.chen@amd.com>, "Xiaogang
+ . Chen" <Xiaogang.Chen@amd.com>
+Subject: [PATCH v5] drm/amdkfd: Change kfd/svm page fault drain handling
+Date: Tue, 30 Jul 2024 11:34:23 -0500
+Message-ID: <20240730163423.639112-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: xiaogang.chen@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|CY5PR12MB6323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c66568b-8dd5-4948-7bf3-08dcb0b59468
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MCdyfM8e2vqeGZ5mwkIQ58vpci95TRgtV5VBtDBacH4UKKsKaNvmTey4KkEq?=
+ =?us-ascii?Q?LDQKmwzxwuznJaIjIyMQkcqVHTyYM9nY8VkezPlyrtybsiNOswfChaLlgAbk?=
+ =?us-ascii?Q?XqzkWQZ/0b027vOCRqUl2GdyAOrH//JXXEk595wIC8ihe16TXQZmwvEmpzXP?=
+ =?us-ascii?Q?wJy71o7XuoPVZrl+n3btDtS9HQlNq7lIeY1G0n+DT/jaZCLRKgiYVhqUOlzx?=
+ =?us-ascii?Q?g4FO7bfQyCeP+ZkwL29Ud5cJU8reT1rjT3+EKNcbze3OShZJs6H+3Oxvs1Ib?=
+ =?us-ascii?Q?d/TncwzUrz/cauFWOyjbcHp+fAoMqd349NsayA96Mg0Gfayz7i+v5mvKzQQy?=
+ =?us-ascii?Q?N8v9CNG8/cs1R1CYsdgsR4f+sA3XUKmdNRrox3OfIgX3qQXM7MaSXBquadEK?=
+ =?us-ascii?Q?5vEufaS0niCeD2uAoDWngP8yD78IA9sGRKPM/pavzLl1pVKGSJnyXYihyECo?=
+ =?us-ascii?Q?K/W6b5wwspaIewUrN0ZNpnuLL4PSv9k22kjs5ftuP6AjaZkRbjIV3VZB2poJ?=
+ =?us-ascii?Q?XfkNGI0FBd61wqXais4C8iH2M1MmmC5RO14yEtHL6KWci1TBXNWOVsQ8Q1hi?=
+ =?us-ascii?Q?q5bcqPl9eWVyybI2dwjzrvqopanRwNgiQu9BZ34stI/lzq0dS+1gDhiVxWbd?=
+ =?us-ascii?Q?wk5nM2C95BIJCMTuyb6Uv5GvacboLjx5MCFaRRioSinB1ssKVFmwJUjVcSxj?=
+ =?us-ascii?Q?f/SKxwNDEa+dgcmNgDpk7DhQ1XFpQJVq2HS3+lLf3zpqL6h8S3U7jl2dnc+2?=
+ =?us-ascii?Q?aW1YF1vOugFsbzoxKx4q3F43Yx3mEHCs2EXZD8XE434CKBk2Vf0baqEi1oLm?=
+ =?us-ascii?Q?WUGg/2zMp6aGFkk0OqehgP0A97npshZbTjX+et1cz7C3trymOpaWQJTntwGU?=
+ =?us-ascii?Q?OxBLz0NbZr5mM3WSwtlRaRkaJKc0Cvc/dGva9V4Av3dYC23Cm3Xhln4NGWUk?=
+ =?us-ascii?Q?P2NPN/63gt3Se8KkvO0l+Y2xGq/LCvVUXVcPs7d3Uo4RY9SUVm9+YXEKd791?=
+ =?us-ascii?Q?IVShMJjRYEkf+LHnZvhvp6Hy43MAUXIZVB7Q5C3TXhiJe4WJfK06aE6lWR2P?=
+ =?us-ascii?Q?TRYSnSflzhoSQPDXY8nzK17E2oeRB0VeCrs0yvBzZUP8Ayv6NZsmGP3JdeFh?=
+ =?us-ascii?Q?2DRDYBa6n4cTqCxRQLvfA8Mo3595cqdRuC0E0dyy04PgfMPSuRH2gmUZwOVd?=
+ =?us-ascii?Q?gmimy/E0nO1H2fxf0CNxxvJ/XbIBlW19bQYUvwbRmcOe/rWp7SLga8LXJliD?=
+ =?us-ascii?Q?eQTXOPFF2wu/OOWkfBwE4FemB3KabHe9f7/m1dE1ku05aNdiYZa/6thL63pm?=
+ =?us-ascii?Q?Vl+jSDRw2PeRWNjRZ1kUuVCTogs4kJ6ueTu5yzg+X2fuks1uFLf28lYMrt/f?=
+ =?us-ascii?Q?RrnZaa9OyafdBXt5tBIloABO/X45lrvWkq1A5GjnztpvverNyA7T5VuqnP0R?=
+ =?us-ascii?Q?3MUR7XjF+hFdg95I1IAeJPL0prwNndCU?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33d84041-75fa-481f-76c5-08dcb0b3e38d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2024 16:23:04.2991 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fDW75u4sc65JnKFWoZuT6HeaJZj3vBHNnRpqYX97ibNr/0g6wnR5bMIe6LEh8qEfB3p08dTrxXHKJsfOZ7zUNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 16:35:10.4431 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c66568b-8dd5-4948-7bf3-08dcb0b59468
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6323
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,148 +133,334 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-One minor comment b. Either way Reviewed-by: Harish Kasiviswanathan <Harish=
-.Kasiviswanathan@amd.com>
+When app unmap vm ranges(munmap) kfd/svm starts drain pending page fault and
+not handle any incoming pages fault of this process until a deferred work item
+got executed by default system wq. The time period of "not handle page fault"
+can be long and is unpredicable. That is advese to kfd performance on page
+faults recovery.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jonathan=
- Kim
-Sent: Monday, July 22, 2024 2:57 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.c=
-om>
-Subject: [PATCH] drm/amdkfd: fix debug watchpoints for logical devices
+This patch uses time stamp of incoming page fault to decide to drop or handle
+page fault. When app unmap vm ranges kfd records each gpu device's ih ring
+current time stamp. These time stamps are used at kfd page fault recovery
+routine.
 
-The number of watchpoints should be set and constrained per logical
-partition device, not by the socket device.
+Any page fault happened on unmapped ranges after unmap events is application
+bug that accesses vm range after unmap. It is not driver work to cover that.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+By using time stamp of page fault do not need drain page faults at deferred
+work. So, the time period that kfd does not handle page faults is reduced
+and can be controlled.
+
+Signed-off-by: Xiaogang.Chen <Xiaogang.Chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c  | 20 ++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_device.c |  4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  8 ++++----
- 3 files changed, 16 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  |   4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h  |   5 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 101 ++++++++++++++++---------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h   |   2 +-
+ 7 files changed, 78 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_debug.c
-index 34a282540c7e..312dfa84f29f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -365,47 +365,47 @@ static int kfd_dbg_get_dev_watch_id(struct kfd_proces=
-s_device *pdd, int *watch_i
-
-        *watch_id =3D KFD_DEBUGGER_INVALID_WATCH_POINT_ID;
-
--       spin_lock(&pdd->dev->kfd->watch_points_lock);
-+       spin_lock(&pdd->dev->watch_points_lock);
-
-        for (i =3D 0; i < MAX_WATCH_ADDRESSES; i++) {
-                /* device watchpoint in use so skip */
--               if ((pdd->dev->kfd->alloc_watch_ids >> i) & 0x1)
-+               if ((pdd->dev->alloc_watch_ids >> i) & 0x1)
-                        continue;
-
-                pdd->alloc_watch_ids |=3D 0x1 << i;
--               pdd->dev->kfd->alloc_watch_ids |=3D 0x1 << i;
-+               pdd->dev->alloc_watch_ids |=3D 0x1 << i;
-                *watch_id =3D i;
--               spin_unlock(&pdd->dev->kfd->watch_points_lock);
-+               spin_unlock(&pdd->dev->watch_points_lock);
-                return 0;
-        }
-
--       spin_unlock(&pdd->dev->kfd->watch_points_lock);
-+       spin_unlock(&pdd->dev->watch_points_lock);
-
-        return -ENOMEM;
- }
-
- static void kfd_dbg_clear_dev_watch_id(struct kfd_process_device *pdd, int=
- watch_id)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index a060c28f0877..d89a4c14bbb8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2764,7 +2764,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+  * shouldn't be reported any more.
+  */
+ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+-			    u32 vmid, u32 node_id, uint64_t addr,
++			    u32 vmid, u32 node_id, uint64_t addr, uint64_t ts,
+ 			    bool write_fault)
  {
--       spin_lock(&pdd->dev->kfd->watch_points_lock);
-+       spin_lock(&pdd->dev->watch_points_lock);
-
-        /* process owns device watch point so safe to clear */
-        if ((pdd->alloc_watch_ids >> watch_id) & 0x1) {
-                pdd->alloc_watch_ids &=3D ~(0x1 << watch_id);
--               pdd->dev->kfd->alloc_watch_ids &=3D ~(0x1 << watch_id);
-+               pdd->dev->alloc_watch_ids &=3D ~(0x1 << watch_id);
-        }
-
--       spin_unlock(&pdd->dev->kfd->watch_points_lock);
-+       spin_unlock(&pdd->dev->watch_points_lock);
- }
-
- static bool kfd_dbg_owns_dev_watch_id(struct kfd_process_device *pdd, int =
-watch_id)
- {
-        bool owns_watch_id =3D false;
-
--       spin_lock(&pdd->dev->kfd->watch_points_lock);
-+       spin_lock(&pdd->dev->watch_points_lock);
-        owns_watch_id =3D watch_id < MAX_WATCH_ADDRESSES &&
-                        ((pdd->alloc_watch_ids >> watch_id) & 0x1);
-
--       spin_unlock(&pdd->dev->kfd->watch_points_lock);
-+       spin_unlock(&pdd->dev->watch_points_lock);
-
-        return owns_watch_id;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c
-index f4d20adaa068..f91a9b6ce3fb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -885,12 +885,12 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
-                        goto node_init_error;
-                }
-
-Wouldn't it better to initialize node->watch_points_lock here.
-spin_lock_init(&node->watch_points_lock);
-
-                kfd->nodes[i] =3D node;
-+
-+               spin_lock_init(&kfd->nodes[i]->watch_points_lock);
-        }
-
-        svm_range_set_max_pages(kfd->adev);
-
--       spin_lock_init(&kfd->watch_points_lock);
--
-        kfd->init_complete =3D true;
-        dev_info(kfd_device, "added device %x:%x\n", kfd->adev->pdev->vendo=
-r,
-                 kfd->adev->pdev->device);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
-dkfd/kfd_priv.h
-index 2b3ec92981e8..653e1f934107 100644
+ 	bool is_compute_context = false;
+@@ -2790,7 +2790,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	addr /= AMDGPU_GPU_PAGE_SIZE;
+ 
+ 	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
+-	    node_id, addr, write_fault)) {
++	    node_id, addr, ts, write_fault)) {
+ 		amdgpu_bo_unref(&root);
+ 		return true;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 046949c4b695..d12d66dca8e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -558,7 +558,7 @@ amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm);
+ void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info);
+ 
+ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+-			    u32 vmid, u32 node_id, uint64_t addr,
++			    u32 vmid, u32 node_id, uint64_t addr, uint64_t ts,
+ 			    bool write_fault);
+ 
+ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index f0ceab3ce5bf..9784a2892185 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -132,7 +132,8 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ 		/* Try to handle the recoverable page faults by filling page
+ 		 * tables
+ 		 */
+-		if (amdgpu_vm_handle_fault(adev, entry->pasid, 0, 0, addr, write_fault))
++		if (amdgpu_vm_handle_fault(adev, entry->pasid, 0, 0, addr,
++					   entry->timestamp, write_fault))
+ 			return 1;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index b73136d390cc..c76ac0dfe572 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -595,7 +595,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 			cam_index = entry->src_data[2] & 0x3ff;
+ 
+ 			ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+-						     addr, write_fault);
++						     addr, entry->timestamp, write_fault);
+ 			WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+ 			if (ret)
+ 				return 1;
+@@ -618,7 +618,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 			 * tables
+ 			 */
+ 			if (amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+-						   addr, write_fault))
++						   addr, entry->timestamp, write_fault))
+ 				return 1;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 4190fa339913..5132223ce383 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -310,6 +310,10 @@ struct kfd_node {
-        struct kfd_local_mem_info local_mem_info;
-
-        struct kfd_dev *kfd;
-+
-+       /* Track per device allocated watch points */
-+       uint32_t alloc_watch_ids;
-+       spinlock_t watch_points_lock;
+@@ -859,10 +859,13 @@ struct svm_range_list {
+ 	struct list_head                criu_svm_metadata_list;
+ 	spinlock_t			deferred_list_lock;
+ 	atomic_t			evicted_ranges;
+-	atomic_t			drain_pagefaults;
++	/* stop page fault recovery for this rocess */
++	atomic_t			stop_pf_recovery;
+ 	struct delayed_work		restore_work;
+ 	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
+ 	struct task_struct		*faulting_task;
++	/* check point ts decides if page fault recovery need be dropped */
++	uint64_t			checkpoint_ts[MAX_GPU_INSTANCE];
  };
-
- struct kfd_dev {
-@@ -362,10 +366,6 @@ struct kfd_dev {
-        struct kfd_node *nodes[MAX_KFD_NODES];
-        unsigned int num_nodes;
-
--       /* Track per device allocated watch points */
--       uint32_t alloc_watch_ids;
--       spinlock_t watch_points_lock;
+ 
+ /* Process data */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 10b1a1f64198..0d667afde5fd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2256,16 +2256,10 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+ {
+ 	struct kfd_process_device *pdd;
+ 	struct kfd_process *p;
+-	int drain;
+ 	uint32_t i;
+ 
+ 	p = container_of(svms, struct kfd_process, svms);
+ 
+-restart:
+-	drain = atomic_read(&svms->drain_pagefaults);
+-	if (!drain)
+-		return;
 -
-        /* Kernel doorbells for KFD device */
-        struct amdgpu_bo *doorbells;
-
---
-2.34.1
+ 	for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
+ 		pdd = p->pdds[i];
+ 		if (!pdd)
+@@ -2285,8 +2279,6 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
+ 
+ 		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
+ 	}
+-	if (atomic_cmpxchg(&svms->drain_pagefaults, drain, 0) != drain)
+-		goto restart;
+ }
+ 
+ static void svm_range_deferred_list_work(struct work_struct *work)
+@@ -2308,17 +2300,8 @@ static void svm_range_deferred_list_work(struct work_struct *work)
+ 			 prange->start, prange->last, prange->work_item.op);
+ 
+ 		mm = prange->work_item.mm;
+-retry:
+-		mmap_write_lock(mm);
+ 
+-		/* Checking for the need to drain retry faults must be inside
+-		 * mmap write lock to serialize with munmap notifiers.
+-		 */
+-		if (unlikely(atomic_read(&svms->drain_pagefaults))) {
+-			mmap_write_unlock(mm);
+-			svm_range_drain_retry_fault(svms);
+-			goto retry;
+-		}
++		mmap_write_lock(mm);
+ 
+ 		/* Remove from deferred_list must be inside mmap write lock, for
+ 		 * two race cases:
+@@ -2439,6 +2422,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+ 	struct kfd_process *p;
+ 	unsigned long s, l;
+ 	bool unmap_parent;
++	uint32_t i;
+ 
+ 	if (atomic_read(&prange->queue_refcount)) {
+ 		int r;
+@@ -2458,11 +2442,37 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+ 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx 0x%lx]\n", svms,
+ 		 prange, prange->start, prange->last, start, last);
+ 
+-	/* Make sure pending page faults are drained in the deferred worker
+-	 * before the range is freed to avoid straggler interrupts on
+-	 * unmapped memory causing "phantom faults".
++	/* calculate time stamps that are used to decide which page faults need be
++	 * dropped or handled before unmap pages from gpu vm
+ 	 */
+-	atomic_inc(&svms->drain_pagefaults);
++	for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
++		struct kfd_process_device *pdd;
++		struct amdgpu_device *adev;
++		struct amdgpu_ih_ring *ih;
++		uint32_t checkpoint_wptr;
++
++		pdd = p->pdds[i];
++		if (!pdd)
++			continue;
++
++		adev = pdd->dev->adev;
++
++		/* Check and drain ih1 ring if cam not available */
++		ih = &adev->irq.ih1;
++		checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
++		if (ih->rptr != checkpoint_wptr) {
++			svms->checkpoint_ts[i] = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
++			continue;
++		}
++
++		/* check if dev->irq.ih_soft is not empty */
++		ih = &adev->irq.ih_soft;
++		checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
++		if (ih->rptr != checkpoint_wptr) {
++			svms->checkpoint_ts[i] = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
++			continue;
++		}
++	}
+ 
+ 	unmap_parent = start <= prange->start && last >= prange->last;
+ 
+@@ -2903,7 +2913,7 @@ svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
+ int
+ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 			uint32_t vmid, uint32_t node_id,
+-			uint64_t addr, bool write_fault)
++			uint64_t addr, uint64_t ts, bool write_fault)
+ {
+ 	unsigned long start, last, size;
+ 	struct mm_struct *mm = NULL;
+@@ -2913,7 +2923,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	ktime_t timestamp = ktime_get_boottime();
+ 	struct kfd_node *node;
+ 	int32_t best_loc;
+-	int32_t gpuidx = MAX_GPU_INSTANCE;
++	int32_t gpuid, gpuidx = MAX_GPU_INSTANCE;
+ 	bool write_locked = false;
+ 	struct vm_area_struct *vma;
+ 	bool migration = false;
+@@ -2933,12 +2943,38 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 
+ 	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
+ 
+-	if (atomic_read(&svms->drain_pagefaults)) {
+-		pr_debug("draining retry fault, drop fault 0x%llx\n", addr);
++	if (atomic_read(&svms->stop_pf_recovery)) {
++		pr_debug("page fault handling disabled, drop fault 0x%llx\n", addr);
+ 		r = 0;
+ 		goto out;
+ 	}
+ 
++	node = kfd_node_by_irq_ids(adev, node_id, vmid);
++	if (!node) {
++		pr_debug("kfd node does not exist node_id: %d, vmid: %d\n", node_id,
++			 vmid);
++		r = -EFAULT;
++		goto out;
++	}
++
++	if (kfd_process_gpuid_from_node(p, node, &gpuid, &gpuidx)) {
++		pr_debug("failed to get gpuid/gpuidex for node_id: %d\n", node_id);
++		r = -EFAULT;
++		goto out;
++	}
++
++	/* check if this page fault time stamp is before svms->checkpoint_ts */
++	if (svms->checkpoint_ts[gpuidx] != 0 &&
++		amdgpu_ih_ts_after(ts,  svms->checkpoint_ts[gpuidx])) {
++		pr_debug("draining retry fault, drop fault 0x%llx\n", addr);
++		r = 0;
++		goto out;
++	} else
++		/* ts is after svms->checkpoint_ts now, reset svms->checkpoint_ts
++		 * to zero to avoid following ts wrap around give wrong comparing
++		 */
++		svms->checkpoint_ts[gpuidx] = 0;
++
+ 	if (!p->xnack_enabled) {
+ 		pr_debug("XNACK not enabled for pasid 0x%x\n", pasid);
+ 		r = -EFAULT;
+@@ -2955,13 +2991,6 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 		goto out;
+ 	}
+ 
+-	node = kfd_node_by_irq_ids(adev, node_id, vmid);
+-	if (!node) {
+-		pr_debug("kfd node does not exist node_id: %d, vmid: %d\n", node_id,
+-			 vmid);
+-		r = -EFAULT;
+-		goto out;
+-	}
+ 	mmap_read_lock(mm);
+ retry_write_locked:
+ 	mutex_lock(&svms->lock);
+@@ -3176,9 +3205,11 @@ void svm_range_list_fini(struct kfd_process *p)
+ 	/*
+ 	 * Ensure no retry fault comes in afterwards, as page fault handler will
+ 	 * not find kfd process and take mm lock to recover fault.
++	 * stop kfd page fault handing, then wait pending page faults got drained
+ 	 */
+-	atomic_inc(&p->svms.drain_pagefaults);
++	atomic_set(&p->svms.stop_pf_recovery, 1);
+ 	svm_range_drain_retry_fault(&p->svms);
++	atomic_set(&p->svms.stop_pf_recovery, 0);
+ 
+ 	list_for_each_entry_safe(prange, next, &p->svms.list, list) {
+ 		svm_range_unlink(prange);
+@@ -3200,7 +3231,7 @@ int svm_range_list_init(struct kfd_process *p)
+ 	mutex_init(&svms->lock);
+ 	INIT_LIST_HEAD(&svms->list);
+ 	atomic_set(&svms->evicted_ranges, 0);
+-	atomic_set(&svms->drain_pagefaults, 0);
++	atomic_set(&svms->stop_pf_recovery, 0);
+ 	INIT_DELAYED_WORK(&svms->restore_work, svm_range_restore_work);
+ 	INIT_WORK(&svms->deferred_list_work, svm_range_deferred_list_work);
+ 	INIT_LIST_HEAD(&svms->deferred_range_list);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 747325a2ea89..974bbc6b14c8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -174,7 +174,7 @@ int svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+ 			    bool clear);
+ void svm_range_vram_node_free(struct svm_range *prange);
+ int svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+-			    uint32_t vmid, uint32_t node_id, uint64_t addr,
++			    uint32_t vmid, uint32_t node_id, uint64_t addr, uint64_t ts,
+ 			    bool write_fault);
+ int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence);
+ void svm_range_add_list_work(struct svm_range_list *svms,
+-- 
+2.25.1
 
