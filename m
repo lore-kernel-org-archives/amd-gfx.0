@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1591BC3DA49
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jul 2024 06:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9FBC3DA49
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jul 2024 06:44:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA43D10E33D;
-	Tue, 30 Jul 2024 06:40:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88E1610E458;
+	Tue, 30 Jul 2024 06:44:56 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1690B10E44B
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 06:40:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B027D10E458
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 06:44:54 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 46U6eCUU4185775; Tue, 30 Jul 2024 12:10:12 +0530
+ 46U6ioCx4187494; Tue, 30 Jul 2024 12:14:50 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 46U6eCHo4185774;
- Tue, 30 Jul 2024 12:10:12 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 46U6iovq4187493;
+ Tue, 30 Jul 2024 12:14:50 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 1/2] drm/amdgpu: Remove debugfs
+Subject: [PATCH v2 1/2] drm/amdgpu: Remove debugfs
  amdgpu_reset_dump_register_list
-Date: Tue, 30 Jul 2024 12:10:07 +0530
-Message-Id: <20240730064008.4185728-2-sunil.khatri@amd.com>
+Date: Tue, 30 Jul 2024 12:14:47 +0530
+Message-Id: <20240730064448.4187459-2-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240730064008.4185728-1-sunil.khatri@amd.com>
-References: <20240730064008.4185728-1-sunil.khatri@amd.com>
+In-Reply-To: <20240730064448.4187459-1-sunil.khatri@amd.com>
+References: <20240730064448.4187459-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
