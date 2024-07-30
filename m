@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E75AC3DA7F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A46DAC52D1D
 	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jul 2024 20:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E0710E58D;
-	Tue, 30 Jul 2024 20:16:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E89310E478;
+	Tue, 30 Jul 2024 20:16:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YpBe7Nw9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jxey9vkU";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2067.outbound.protection.outlook.com [40.107.236.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28F3E10E58D
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 20:16:32 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD2ED10E58D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 20:16:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GGIC99pmd2MWR/v3czW/ehT/PDLNp2CH93TKXhJAzL8JPe2uiwArKD7842f8EdN1fU6SfF05a/4mVc6wK5YSB0047XCYjE9GfgG5+CEWkxBhxXuNY7n8h7wGYWp+a/2U0F72UVWaalHR/4jhfdDifidu9pikF3TgH4KCEU2iyl9TxhifQ32OQrzs0f2z6NTioKdsnyKjzzdm3PjsiYlKrCMEWYdQ15dveMbO7LPN4myh2NaVus5LD9+cjVJQWAkj8zR2/lCGLbnFDKMtuQV85s1SNWrU6/S20IjQMHtlW0IbjZmr5kL6sgZH30HrwX3D7DQ5uaQvQ1G6uuVcFmDXJw==
+ b=OC07S6xzTyv5QJipkNPag9yiI2pJPjrg2jQwjcQqu/TK3ZwwJOETrxkFZTv6sDXKY9z079VoPtKoVnNF9NugAVFVo+j03O+xAVtKfT8bH+hnX2JaI7CzqQHzJ2yrJwinswkevtUWSKQQEg56bQDjsdZdASOlACHHbhP7CGSfVsdENBbXPwdszlOeAv+XV22R2va9b5/IlC5hgZ8tHRiLVIKgSfIET2+chbQ8FGF+gTg0p2mtG26l/DOoH/HXgOk8XL9qQIiKrY+gTI3FM1XLHm4PYM6BT0xHe20EMg4OfUZAsiLoWA55cDxOn1Gak+yrtigAldUX9ABQGrFGFMIWiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IPYQZSHVBZvqdheVFf35mIp4ZwVMtbMh9UoBBimQrHc=;
- b=qKCTxeNGTjBqe5pp0WqZCKNdJfOKEIFd4OPQKcCgXXT8q6glqDsteo/UpGOA3jqY2fH4YhzOIcWIk1pXVtrPxP1XjIoaO4PiLFmERTK5fZ0jThZtK9v42vfRynaFmekyJjW1iAmk5I7xjrR9Z1YcWbygxx+7bwgqyHPbXP32pZ6b0eJFiOXniFzkcfYyrj3t0IMKnxAoGWIvDPVuoFPd0MDUw9+IinSPUG1C9BmDNrpYu6GyAMAuxdJxDYT82OSYjzX8unJDXw1KxAZEetTIehEEb49H18mPHjfVl+hOSIp0Ye5Ubu1CWslBTuPNFJt70pzCpqSUd62H+iTCoM9xKQ==
+ bh=iSyXU8EoCACuA9LCyknUJwCf+7eSgLL30EowW/Al01g=;
+ b=m/8RdchTtl/BtxIN34wsgb5Jo1dR2jwA6p/4f73lz6SlJIi402ANtIimjIOOISR2iakBuswQ69TvCFL0NObBhrnv57tqDfj7G8WHZZu0aBK+XfKCHb5rQTDXtXxxcPw0VpIxVTaJOHTCmeE0i1FPayw/z1mkQWcZcBieA5R63SOksdva/4IPZM+6HKVCVutzQC3bHlRG1mLjzqpGiKPPcidaLOG8RYVhVM5LaBIbTsP9uGHxOiwiGb7vwUycH2N8ew4kBrfdXGIQyNnjmlcV9auOcCufB7jT+ZLrdw8Qnfc/s2lPXBi/J05IRhUQ+hzuWvN4TtftX5ySemAJ3Oj73Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IPYQZSHVBZvqdheVFf35mIp4ZwVMtbMh9UoBBimQrHc=;
- b=YpBe7Nw9lM1pKgN+unHBJOTrm8DqzPZ5kboi4xL4AlPMvXVtdUo0CnXOWcPfJDlbEnSOq5THcikf079pmR7MfSDHbL4SDxmkeiwMyIS+woYYjwMne0Jq/ryQujX723BohfZXxMSxv2GFuAhHnQxAMy2pfXsEeyFXaAwXS9PnDVo=
-Received: from MW2PR2101CA0031.namprd21.prod.outlook.com (2603:10b6:302:1::44)
- by IA1PR12MB6210.namprd12.prod.outlook.com (2603:10b6:208:3e6::14)
+ bh=iSyXU8EoCACuA9LCyknUJwCf+7eSgLL30EowW/Al01g=;
+ b=jxey9vkUDZAukZw2IwmGINCijl3XRUZTdqW1nLxtkxmj5ceXMuPTQNB+mCmCwNL8KihJ2YriQ6SZcrG+k+4sbQvHzpEWQOBPfHGgh4iW4t28Y8ysbpdJvwGDbVHA+wHHlNljsvAHaPn5698t8aA0rQUozPujLzNoxI1tMso2h+w=
+Received: from MW2PR2101CA0030.namprd21.prod.outlook.com (2603:10b6:302:1::43)
+ by IA1PR12MB8191.namprd12.prod.outlook.com (2603:10b6:208:3f3::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.30; Tue, 30 Jul
- 2024 20:16:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.27; Tue, 30 Jul
+ 2024 20:16:28 +0000
 Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
- (2603:10b6:302:1:cafe::e2) by MW2PR2101CA0031.outlook.office365.com
- (2603:10b6:302:1::44) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:302:1:cafe::90) by MW2PR2101CA0030.outlook.office365.com
+ (2603:10b6:302:1::43) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.5 via Frontend
- Transport; Tue, 30 Jul 2024 20:16:15 +0000
+ Transport; Tue, 30 Jul 2024 20:16:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,7 +50,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Tue, 30 Jul 2024 20:16:28 +0000
+ 15.20.7828.19 via Frontend Transport; Tue, 30 Jul 2024 20:16:27 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 30 Jul
@@ -58,9 +58,9 @@ Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH v2 4/4] drm/amdkfd: SMI report dropped event count
-Date: Tue, 30 Jul 2024 16:15:47 -0400
-Message-ID: <20240730201547.13590-5-Philip.Yang@amd.com>
+Subject: [PATCH v2 3/4] drm/amdkfd: Increase SMI event fifo size
+Date: Tue, 30 Jul 2024 16:15:46 -0400
+Message-ID: <20240730201547.13590-4-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240730201547.13590-1-Philip.Yang@amd.com>
 References: <20240730201547.13590-1-Philip.Yang@amd.com>
@@ -72,51 +72,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|IA1PR12MB6210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 601a60e9-d8ca-4c8e-639c-08dcb0d47efd
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|IA1PR12MB8191:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37873e30-8078-4159-1c7c-08dcb0d47e54
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JVEhNNXexwLNjmyfVgcgD+DgfyblCz43msDALUmllXzF2eNzLpi0oAn4vd/W?=
- =?us-ascii?Q?F5+34NZTJwRmcrQsjGI6laSgQ/JrXEL1Zrk85n3hIdYntHRn3Bk3tRC4G7Db?=
- =?us-ascii?Q?tFq4L0VKCB56xZ8xQkHbmooq1jXDEFKYdjS3TcBaYQG4lJ90Uik1GMV5zSQc?=
- =?us-ascii?Q?8nABYZwy9AGEHdxmdYkch3CigymDH38rCjNc4P4qQAZ1VbRViFK1EKUGlo0x?=
- =?us-ascii?Q?X2xiU4/QRw5xlazmmiMPyg2tBN+E0U4uQvshTG6pGO/CTzXMT2pcAcbroT5U?=
- =?us-ascii?Q?vd52MbFN/hOfmWLT/lTZqk8jM7yAv+pCAYDdyXZ2t9j52Yrm4cG8Mcyt9C4K?=
- =?us-ascii?Q?K9rrAWx8PktvBtQ9k9o8L6gmZpkrYlfcN+6VJAjtyfRDK/5GYsHkURSFmiT9?=
- =?us-ascii?Q?p+p+b/yOhRb1EPiqR9+7y3o8qgm9ogNYvb+l9R8XqbbRUdGnMBHB4Z69aPzp?=
- =?us-ascii?Q?HSby2wHXspo6N5Zh05OlShO+nMkYgzJJA8UGOZRVi0JHfvNcysq/eILDa4vF?=
- =?us-ascii?Q?+3+A2vmP0gE5K5FuprnvD6zttDmeOL6KIV2laKTImx/x3nE5vuPrHEcCrlTd?=
- =?us-ascii?Q?2lJST3NZ61aXvOjYSYYXzSE9W0DZffKMb+RkqCZ0OSr+a53ECloLRZ+8YOXX?=
- =?us-ascii?Q?r8FlaQDrn8nWk93RkDlQ/UHaQF1hjOuSz1kW+B9RfgruWz70vyp6OKd/oBsT?=
- =?us-ascii?Q?KaMCGMWtp5nosMF4tSi8JobeL6vKTlqqluMPSU6QUZwMMOjgsqeuMAtYSKNY?=
- =?us-ascii?Q?GSbsF/DIeiburWsOmaln4QP4JrJpfv6SF3+8fQfk8n78TR6qf6FjtrlWIeKo?=
- =?us-ascii?Q?9C3DQc2XdTJERGvsdAkTygWyGPFsoREppoNBH1+TvJhyhyAkQShfAfMCGdTx?=
- =?us-ascii?Q?R/VMUOma7VR5GT76Tq5ysBclqVp4Tat/qSdj6pTYPFV27ZcpbslIIVtiPZ5h?=
- =?us-ascii?Q?w6NfGb9Drpm458ptL3XH2DQKI8jXde0ZIoHYMtJe2aqyo1jTPChESuTgWxWS?=
- =?us-ascii?Q?+6cIdDx2k1crik0yUE3fyjJezjuxSUtpeatsieGV6odNJEORM0fxFgZTooJc?=
- =?us-ascii?Q?VHiuFFZVVJZiYNvk7J0fn8GP2DywtZjKr5CBDGA7dsDymr4o9F2XpcK5G5+Q?=
- =?us-ascii?Q?VJP3JPOfMb8pyIMUub2cuNiLmr7Dd8AIe82qaIHw+DHunToZao7oSym3ZA/6?=
- =?us-ascii?Q?m3/8cVs4zKiscBvdXs+n3EKipdP9HCrJ7gARun982DEcHr8IHnUiUN3lp3Bg?=
- =?us-ascii?Q?/rJLWnEZgHLOXRsn2/J5wS0rL1A+8ROXs5YhAFHkGK+dNmrFQZy9Odp0G56V?=
- =?us-ascii?Q?SaQIu+o7SglatFh2JyMZd6DNTx5DEIIIvT9AC7bGUsdS8tsej3XoFmp/1GF8?=
- =?us-ascii?Q?FESsBOmk+HiM1QmWZHG/NOLiYW1n8kDMqZwD6PqZR6LgL6/wF/ck0KMzMEZh?=
- =?us-ascii?Q?zffCfyEzBR1zhrPgeFB5G8roX0aYqUOF?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0F1EjRf14PSp3PxNZNJT7fwa88VHIgrwjNtXaCSNWSc7JNk3OPYw49wW1h5O?=
+ =?us-ascii?Q?8vVO7bpcsFSN+8Pm0vjXTElt/hjhgw2MvLb4lOtgd83vaUIA0oDGtPWri3ts?=
+ =?us-ascii?Q?Nq0GTncSQgFczQXi1WzpN4mKuqNnQpBoLIMjunsCtU4woIcL1Ykkpq3FuaQ7?=
+ =?us-ascii?Q?veo3hnKO6UlXZTiUPSBGSblsY83nUHRearKxxeKRSi3N9b2P1KgMRI73Zs6R?=
+ =?us-ascii?Q?l7lYZK/66UwWSJmJKtTMxLSl8HSgpHfjuO18ggDRK2osgaiZFrb+yqNp0z4b?=
+ =?us-ascii?Q?h9Ka0Vx8gIWEyyk3w/Um6pFhz+qudU5KNrtMGzYOY0G9PCJX6bqgS1r97bpR?=
+ =?us-ascii?Q?71yhIj0OCiUHhDwUUIOiqxX8y2h1aHNgPJZyqRUmqVqwo5LElAoax8Cgvi+B?=
+ =?us-ascii?Q?RdZvqmOP7si5ybRnCC68iFJYTDmnJDDFBBLQGDmA4rnvQTCO/769idZeogbr?=
+ =?us-ascii?Q?tWyEN78sHem/qv27wRupzFex8A9Le9ECnAJDaqFplnYAQTNq7eDHdGHU1Gxo?=
+ =?us-ascii?Q?Z73P+ou9p08E2765a+7tY2x+eYrqs5Lr0/gmi0Q2oBU7tvYKoNKYtV/RmpmZ?=
+ =?us-ascii?Q?phRZ+wB+FACcVu2TQ9NSZnookUboRzqifOVGzT+Lx5FwnFiWlTpnZ/NQQZwa?=
+ =?us-ascii?Q?fI6g5laUIMjmRWoPnwOP1/O3qiHDD+vPJz+cxLymfi6+WnuGIxUukWzm2OiQ?=
+ =?us-ascii?Q?K5t8WSpJ4e/kCZc+YM2PuL/btYtL9TB0aN1o1/Z6hckFWGai9/eBDqXUed43?=
+ =?us-ascii?Q?sqKFzFyP4q/HNFT/n8LBpZV3s8Y4qM7oOFPNiYQ3FBb0OT8QBx7D3SHmdUKs?=
+ =?us-ascii?Q?LLrVsp0FuAU8014hQGQOsevmn/huD44/309OdGTzJdV0N7lcZ8+fJCxDRK10?=
+ =?us-ascii?Q?kQJXCJ168GkOXcuTfjF3ZcjKPCsmIGBS4Z7AFUN6l/QqhV3mWRcKueHQkzfg?=
+ =?us-ascii?Q?2BPsqLLv3RxB33FQ2IL/zqKBzrU3NW/wUfmYkLNDBdtefSq+bBg//tchG/ys?=
+ =?us-ascii?Q?LnJ9NzAlnrRbLA5iB40QykbbWw31RlvQUUMcrUT1OZ9hCOCKdiiJqRHOpFAc?=
+ =?us-ascii?Q?Yxgk2aotSDZNpD2e5cjlEhczE3GyqUdWKMWC/a7chttJgP7nnETNKdu/XwI8?=
+ =?us-ascii?Q?LgTlz7xW6hvB6B6nejbYNqSdjW1XEEjbt/YcmzqIWDuV35X8LZY1bisCsuct?=
+ =?us-ascii?Q?rrJn0HIGwSWkf8uSB7ooiuH3Ja2G3xGamr0jICcdjGPw7VxJ23TEI+08Ku6Q?=
+ =?us-ascii?Q?SqOSOSBXBZQcYavLYLpshySq0fvZRASy98H/Gfpd7BWIZkZU5sqEzIeuH/Ot?=
+ =?us-ascii?Q?mwgY+vn0rNiTHHAoQ9iM589QrAVCgUCohhalMLOrLOwCtkicmuX2f3GGFiuQ?=
+ =?us-ascii?Q?00183Pmp/gB5cYWqu6aFVZG9cwEoD27w/cqylffqS0I/XWnHXQf/RtsAgNbw?=
+ =?us-ascii?Q?F1m9pJEeRGd5e7u3EYE1qvMp06KlkJjJ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 20:16:28.8295 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 601a60e9-d8ca-4c8e-639c-08dcb0d47efd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 20:16:27.7045 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37873e30-8078-4159-1c7c-08dcb0d47e54
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6210
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8191
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,135 +131,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add new SMI event to report the dropped event count when the event kfifo
-is full.
-
-When the kfifo has space for two events, generate a dropped event record
-to report how many events were dropped, together with the next event to
-add to kfifo.
-
-After reading event out from kfifo, if there were events dropped,
-generate a dropped event record and add to kfifo.
+SMI event fifo size 1KB was enough to report GPU vm fault or reset
+event, increase it to 8KB to store about 100 migrate events, less chance
+to drop the migrate events if lots of migration happened in the short
+period of time. Add KFD prefix to the macro name.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 41 ++++++++++++++++++---
- include/uapi/linux/kfd_ioctl.h              |  6 +++
- 2 files changed, 41 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index 9b8169761ec5..9b47657d5160 100644
+index 1d94b445a060..9b8169761ec5 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -42,6 +42,7 @@ struct kfd_smi_client {
- 	struct rcu_head rcu;
- 	pid_t pid;
+@@ -44,7 +44,7 @@ struct kfd_smi_client {
  	bool suser;
-+	u32 drop_count;
  };
  
- #define KFD_MAX_KFIFO_SIZE	8192
-@@ -103,12 +104,26 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
- 	}
- 	to_copy = min(size, to_copy);
- 	ret = kfifo_out(&client->fifo, buf, to_copy);
--	spin_unlock(&client->lock);
- 	if (ret <= 0) {
-+		spin_unlock(&client->lock);
- 		ret = -EAGAIN;
- 		goto ret_err;
- 	}
+-#define MAX_KFIFO_SIZE	1024
++#define KFD_MAX_KFIFO_SIZE	8192
  
-+	if (client->drop_count) {
-+		char msg[KFD_SMI_EVENT_MSG_SIZE];
-+		int len;
-+
-+		len = snprintf(msg, sizeof(msg), "%x ", KFD_SMI_EVENT_DROPPED_EVENT);
-+		len += snprintf(msg + len, sizeof(msg) - len,
-+				KFD_EVENT_FMT_DROPPED_EVENT(ktime_get_boottime_ns(),
-+				client->pid, client->drop_count));
-+		kfifo_in(&client->fifo, msg, len);
-+		client->drop_count = 0;
-+	}
-+
-+	spin_unlock(&client->lock);
-+
- 	ret = copy_to_user(user, buf, to_copy);
+ static __poll_t kfd_smi_ev_poll(struct file *, struct poll_table_struct *);
+ static ssize_t kfd_smi_ev_read(struct file *, char __user *, size_t, loff_t *);
+@@ -86,7 +86,7 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
+ 	struct kfd_smi_client *client = filep->private_data;
+ 	unsigned char *buf;
+ 
+-	size = min_t(size_t, size, MAX_KFIFO_SIZE);
++	size = min_t(size_t, size, KFD_MAX_KFIFO_SIZE);
+ 	buf = kmalloc(size, GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
+@@ -355,7 +355,7 @@ int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd)
+ 		return -ENOMEM;
+ 	INIT_LIST_HEAD(&client->list);
+ 
+-	ret = kfifo_alloc(&client->fifo, MAX_KFIFO_SIZE, GFP_KERNEL);
++	ret = kfifo_alloc(&client->fifo, KFD_MAX_KFIFO_SIZE, GFP_KERNEL);
  	if (ret) {
- 		ret = -EFAULT;
-@@ -173,22 +188,36 @@ static bool kfd_smi_ev_enabled(pid_t pid, struct kfd_smi_client *client,
- }
- 
- static void add_event_to_kfifo(pid_t pid, struct kfd_node *dev,
--			       unsigned int smi_event, char *event_msg, int len)
-+			       unsigned int smi_event, char *event_msg, int event_len)
- {
- 	struct kfd_smi_client *client;
-+	char msg[KFD_SMI_EVENT_MSG_SIZE];
-+	int len = 0;
- 
- 	rcu_read_lock();
- 
- 	list_for_each_entry_rcu(client, &dev->smi_clients, list) {
- 		if (!kfd_smi_ev_enabled(pid, client, smi_event))
- 			continue;
-+
- 		spin_lock(&client->lock);
--		if (kfifo_avail(&client->fifo) >= len) {
--			kfifo_in(&client->fifo, event_msg, len);
-+		if (client->drop_count) {
-+			len = snprintf(msg, sizeof(msg), "%x ", KFD_SMI_EVENT_DROPPED_EVENT);
-+			len += snprintf(msg + len, sizeof(msg) - len,
-+					KFD_EVENT_FMT_DROPPED_EVENT(ktime_get_boottime_ns(), pid,
-+					client->drop_count));
-+		}
-+
-+		if (kfifo_avail(&client->fifo) >= event_len + len) {
-+			if (len)
-+				kfifo_in(&client->fifo, msg, len);
-+			kfifo_in(&client->fifo, event_msg, event_len);
- 			wake_up_all(&client->wait_queue);
-+			client->drop_count = 0;
- 		} else {
--			pr_debug("smi_event(EventID: %u): no space left\n",
--					smi_event);
-+			client->drop_count++;
-+			pr_debug("smi_event(EventID: %u): no space left drop_count %d\n",
-+				 smi_event, client->drop_count);
- 		}
- 		spin_unlock(&client->lock);
- 	}
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index e4ed8fec3294..915d1e7c67fe 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -530,6 +530,7 @@ enum kfd_smi_event {
- 	KFD_SMI_EVENT_QUEUE_EVICTION = 9,
- 	KFD_SMI_EVENT_QUEUE_RESTORE = 10,
- 	KFD_SMI_EVENT_UNMAP_FROM_GPU = 11,
-+	KFD_SMI_EVENT_DROPPED_EVENT = 12,
- 
- 	/*
- 	 * max event number, as a flag bit to get events from all processes,
-@@ -610,6 +611,7 @@ struct kfd_ioctl_smi_events_args {
-  *    rw: 'W' for write page fault, 'R' for read page fault
-  *    rescheduled: 'R' if the queue restore failed and rescheduled to try again
-  *    error_code: migrate failure error code, 0 if no error
-+ *    drop_count: how many events dropped when fifo is full
-  */
- #define KFD_EVENT_FMT_UPDATE_GPU_RESET(reset_seq_num, reset_cause)\
- 		"%x %s\n", (reset_seq_num), (reset_cause)
-@@ -645,6 +647,10 @@ struct kfd_ioctl_smi_events_args {
- 		"%lld -%d @%lx(%lx) %x %d\n", (ns), (pid), (addr), (size),\
- 		(node), (unmap_trigger)
- 
-+#define KFD_EVENT_FMT_DROPPED_EVENT(ns, pid, drop_count)\
-+		"%lld -%d %d\n", (ns), (pid), (drop_count)
-+
-+
- /**************************************************************************************************
-  * CRIU IOCTLs (Checkpoint Restore In Userspace)
-  *
+ 		kfree(client);
+ 		return ret;
 -- 
 2.43.2
 
