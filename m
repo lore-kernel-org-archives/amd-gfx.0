@@ -4,151 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E00CC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 05:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245A5C3DA64
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 05:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4103610E171;
-	Wed, 31 Jul 2024 05:28:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B74BD10E1A1;
+	Wed, 31 Jul 2024 05:36:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bq2pT4I+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5YUDcF90";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDBE810E171
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 05:27:59 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4352F10E1A1;
+ Wed, 31 Jul 2024 05:36:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bT5I4IEZD5oSswcZNLX2u/1fmj9/j7RNq7s2dNYD9ed4eETybM66RFGZYPRm9RrpsuO8L+5axPl93fbIeMUZACLEt+nM0N+vBBsQhp3mNZzQKXhuN763F3CzrzaBMQ3ESm85zoFd3z9wEt9xMMq3wPXj46gYJUzQJ9mSgJgARSfJclqLVnL6AwmadZtb5pXWvv6kxE/MVWNw0ICOQANUFVXT713Q5YPoK5PnDAvjjL8gthodKI+p3xEEuwcNE8zwGfQIjVXuIlztuHZuSDTLEqKeSPfAWzH4rQdX6PM3N215PVFzv5gFw5nXtM+wgUPpQzXcjCJ4SxswL0ubAMukww==
+ b=XQBt58lFqSzbcP42MItZxuGfk9bZ1DMweFQFPtK0ReYNdcGmP/Tdx55JE2/50bKXI2YqrkqbuUaTlY1Kg2AD/RCGiAckQDT2FhMlbFJX5QK1hknhzgzF6OxCiBcqTQ0Vatsw/eiDf8P5rID/LE203pUWs1Ed/yd4PP10YmYAx7vM7nyZLAHYMfsTAPboXeV8twO30sAzIfRycydK3B5HgW8XOROt8MwHfwXy64YUjW+oKqAAORPagN32wqgmTbhe4d2N1xSSYvoDZzInXD+buMppHo4iHzPy4I7dKERposmYC/+5I1gMCVUF/ly71GtlcwfE0HsV37pNmf+/Vv406Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z8xqJYBD91jMPUOutk08HKMZ341MPmlAzLvG18XWd90=;
- b=P+xIgKQCiEwVhL05f+u1obpeCL8bkRQjHbO4fDubyhqJU/JKS0Q3BO8Sdx6KHjAy9I1DWGuXSHkPe+uCt+4s4l3diDRgtE/izMR3pxymikFYIlrWvVexI0SJqhxgksq20DdY0I96O2IB5wRetEkMyUdld7q/ZFJ1Sv1d2c7B1pWTy8ZV1/6KeoQ/puWcZ8lk1+AgreYznxAA96FEryY+NrDswXBtJIj808Q2OXUgqMza6oxHhrufdVBANmeN8SQxm1B/Gl74WavppvgAYApy0lDdeNgHkhop1g++Y5G7VqF3kj0RjaAvg01AF7A6Oj1x7uaL5eibmUy2av8sywGTBw==
+ bh=xKjDgjFKH1hMid4UxWLbwbkdc4Msu050/Ifxd4dwz/4=;
+ b=kAI/woh1KPm31X8+3zvM4rH+ldKSQunWHXMEZzreW7D7N021q2FTu4IRQnyg2A3lLstzkCm00/dwL2mIlXKLXwjy2cRrzLGdBQL+8cEoEZkuUz/VViixB1bXL/htLAkBfj8eM82onz05bNktCnRnKuuUvZ4UgSbRpYmsW7if1dcpk2f4U5qYqR4C/y0kV8F5Mp5zGsw95foWffpjUFMjp8NmDO8FL/vCVld+qw1lUND1/e+/hzmm9TdG7Juw0eZlaH5vPWY7FTZlyEIho/3yj6/tSewsOW4c9TNLK5q9ojtPlof3fP16wfdYx1Jz8Jh3iU3184YaHiYQB6m3S956HA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z8xqJYBD91jMPUOutk08HKMZ341MPmlAzLvG18XWd90=;
- b=Bq2pT4I+gflsMebiz89zusjeGWBE3DejATM8eUfZUBFxZVSL82u/ps85GF0D4oP2cANw8Fd5UJbtY4Kk56tqhLbcE/tI61v4Afcz1laTxK/4HmOtQCTrKCcxOJlR7pwJJZwkS7gGQp4wEPbTFhmhixTlVcLimlsT+I7MCk87DYQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com (2603:10b6:510:211::11)
- by DM4PR12MB6326.namprd12.prod.outlook.com (2603:10b6:8:a3::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.19; Wed, 31 Jul
- 2024 05:27:57 +0000
-Received: from PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::76d1:e471:c215:4381]) by PH7PR12MB6611.namprd12.prod.outlook.com
- ([fe80::76d1:e471:c215:4381%5]) with mapi id 15.20.7807.026; Wed, 31 Jul 2024
- 05:27:57 +0000
-Message-ID: <7eb9ab9e-104f-4dc7-a1ec-63dfa2cadaba@amd.com>
-Date: Wed, 31 Jul 2024 13:27:52 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Align 'dpp401_dscl_program_isharp' with
- actual function parameters
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Roman Li <roman.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
-References: <20240730041137.200169-1-srinivasan.shanmugam@amd.com>
+ bh=xKjDgjFKH1hMid4UxWLbwbkdc4Msu050/Ifxd4dwz/4=;
+ b=5YUDcF90wE81WrrqWvNLR+zsaU/jE9jceLzQGQX1159CeURtQROonyldPkjgthcxC9vtYun40rtviGaLqL+/sD+zZ4DmB3te6WYoZEeV2nwqjS05i9iT5gH1TQJsk939DM99mbzV/6eWrvHfYOLgaxKuGeb2tNEuv5pw1GMcA64=
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
+ by SJ2PR12MB9239.namprd12.prod.outlook.com (2603:10b6:a03:55e::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Wed, 31 Jul
+ 2024 05:36:34 +0000
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::5f4:a2a9:3d28:3282]) by CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::5f4:a2a9:3d28:3282%4]) with mapi id 15.20.7828.016; Wed, 31 Jul 2024
+ 05:36:34 +0000
+From: "Lin, Wayne" <Wayne.Lin@amd.com>
+To: Kevin Holm <kevin@holm.dev>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+CC: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, ML dri-devel
+ <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, "Zuo, 
+ Jerry" <Jerry.Zuo@amd.com>, "Mohamed, Zaeem" <Zaeem.Mohamed@amd.com>,
+ "Wheeler, Daniel" <Daniel.Wheeler@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 6.10] drm/amd/display: Refactor function
+ dm_dp_mst_is_port_support_mode()
+Thread-Topic: [PATCH 6.10] drm/amd/display: Refactor function
+ dm_dp_mst_is_port_support_mode()
+Thread-Index: AQHa4rHRGT+ZPp8aBkCgop6L7FIvmbIQURAQ
+Date: Wed, 31 Jul 2024 05:36:33 +0000
+Message-ID: <CO6PR12MB5489996666D6EE16982E6E94FCB12@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20240730185339.543359-1-kevin@holm.dev>
+In-Reply-To: <20240730185339.543359-1-kevin@holm.dev>
+Accept-Language: en-US, zh-TW
 Content-Language: en-US
-From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-In-Reply-To: <20240730041137.200169-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TYCP286CA0297.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c8::20) To PH7PR12MB6611.namprd12.prod.outlook.com
- (2603:10b6:510:211::11)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=b65ee151-5750-4be6-a018-3c81eb5ec609;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-07-31T05:33:59Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR12MB5489:EE_|SJ2PR12MB9239:EE_
+x-ms-office365-filtering-correlation-id: acbb470a-b1ad-4123-bd4c-08dcb122bd14
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?BXwJoDCUDypQRLFVR5tADjgQ0lWjCeSM822oEarHsz1kPzf8UQyoRQN2Qlbd?=
+ =?us-ascii?Q?kashgVkz+wsKDWGaw6MPWhnDe4rVRyd88X8KLOHW802+yKy6hCHUOt+a6a8h?=
+ =?us-ascii?Q?SHbcWktJowmtzxnisyFXudNq/G21v+7uhHGrS7cW9v1XZFGocyuYWeEw/wII?=
+ =?us-ascii?Q?i251urJz4UTgY1lFRW2RLdkAUeJQun/XxZ/Hi3dJpAX9S4/TKYsYJ0pjEA4C?=
+ =?us-ascii?Q?A0x357YnBPCOIw5FZrDisGwGeZsh9Nin2Ir+W4yezbcVoWxd+u9pxiN8PL11?=
+ =?us-ascii?Q?e18j9GAZpfSnYJpa0PmZ5SMlUgwgNb4o4mQMeSt1cxH2KaC2CUl3UMsp/c2t?=
+ =?us-ascii?Q?Y2Ecw3/hB1iXaH4TRNRsi4zQP/jArg3pWuDomX9+G+GUTQXpADTXmVTaUAo4?=
+ =?us-ascii?Q?HZYiIZlDPVTOAMqwESNVEo0hst24e5B0mBXKfo4TZHEwcAJ8mC0tUmzL8130?=
+ =?us-ascii?Q?lKujC3Av74rfN9cYwA3rxh5jn52YJqdINsO7sl6q2jSEGaPb6uA9ObPKU16U?=
+ =?us-ascii?Q?UmMTNjq9y1Vph/j9EX5opV1mukkKEhM2G5SHNx06rcvS7QhB3AmhPOAMt3H8?=
+ =?us-ascii?Q?za9nsroNcAgoaAt1F9zJSntrC7kusmFtwzcH7eOKNVI6LMmVCwKDSlnLcYTh?=
+ =?us-ascii?Q?bDB4JRmL79uIsPEn2VbTKQ4oEugGeDO9rYsMR+tzSVgTLONOT6Vtp/PBrxfE?=
+ =?us-ascii?Q?8+bfl3WXK906cdxkT8kzh0HeBZf6HPsGLeQAaVlxsjEaXlPXShTWKLEvco1I?=
+ =?us-ascii?Q?qwB5RpSO9Lvmsuy/dfBvYtDiT4lAclAB2GT3jyCx20Y7uPzgKJEyqaLTT/EX?=
+ =?us-ascii?Q?Y4EkkXe39rkysKNn7utxO5jJ/fB4wXjWsOjhObAqE6tcP7ajE/UsacfiMK9y?=
+ =?us-ascii?Q?5aW/vgAoDEsghcw17b6+zEN1Opi/abtTKP5h0jlBxn333BOMojM6oNj/ZYHs?=
+ =?us-ascii?Q?TPYeakl/299shORNpIm/M/xxaxsYJQtm9+vbDlKuSgtuJ+jaVWNayTnYH49p?=
+ =?us-ascii?Q?yHX0qR5k8wTkHyRCbLVczugq8FbiQe1odLkTmzsST43Pi3R5Mi3xbYDAxiUp?=
+ =?us-ascii?Q?6ytwPVcsIyu7U14Yu05e+mvgBFH2s71OYE3ocFrWpAdZowUaRktN9hL2mgpW?=
+ =?us-ascii?Q?5cdDE6q3H6RzqjLXPWwv8C2GZyuUWvmI+pDc5d7Qm6HEBb08iub4AAMpwSK+?=
+ =?us-ascii?Q?p4RWxR1Xw6NnwsyZSjrpnpDJRe5kxUkaXhMdYT8k0Ce4RbxE2mun2FnNJ+dr?=
+ =?us-ascii?Q?sVk37K48UkasgDxCeW2/rbztjavp4jX9L9ZcCPKUQDmfIIUctzmwbMrTHlU0?=
+ =?us-ascii?Q?uAoyMw3zpm9co6MKud7qNIjK3FgzeWn0HU8/55mwyjHSDA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rqAe7NVSArdMvj/KzLIIKTEAY/k7b4aIVnDylGYZ3W4ucwUbByzPr/9MuFVY?=
+ =?us-ascii?Q?vGKI1uryL9LBIBrGYfB3w+PjRPumysJWt09/AzIMQgs0Ha75eX3ixYHEpfMZ?=
+ =?us-ascii?Q?kED5FnGNBWSR4m9pT00+LNAw2V4ClwVj6t+0+12ub9JmJ7gAzEJzRmRNdpuH?=
+ =?us-ascii?Q?Ig8satK/tMcqT1VUmUOz1P+4YgBMaY3H8VE+SFFvVL6F8OqvJwhcdtSW+KgY?=
+ =?us-ascii?Q?LOAZOf5rPf4OZCOwe5ojLT6zPswiCIigSqlnTJDM4f/GQRv33wYyxzVh/Jzv?=
+ =?us-ascii?Q?ULCFLPqCBeHfVBQLHEpL7ItRUxv4J+cQ/iKlKp07nKVA8qIsq1lWhqk5l3JL?=
+ =?us-ascii?Q?s0TWeKpZyc5YKIaCKB7TMaYBhfhNg6gS31SCxwp+AyJ517OLKY2CRKCOypRb?=
+ =?us-ascii?Q?bJIKXTbfZunt1h5Itidj+YVyPgblxY8y1d0U1B+Cov5k3JdBrnajrMYqVFUX?=
+ =?us-ascii?Q?TdpFoipaeGGu0j9PLRFVGo0z99BUzEY/+LqNyfwvd2/H3E+QuQcA1f34X5aj?=
+ =?us-ascii?Q?2eZK/y2FdgM60fSHDnC4arGy8RlTAkCeYJMZnbeHOYFkALCQqPttwi4G+ReI?=
+ =?us-ascii?Q?LJmuS1pkwu/5tUqPH+aD48Cda1mhLQcJOlNTv3JFoo/G04moZaCpmNLuhMct?=
+ =?us-ascii?Q?TrslH9Ls6y3uZ4w+4kyHJU/r3NuV+UY0crfYb9atDJCXPhp8Jif5eAOQwKYk?=
+ =?us-ascii?Q?LjpvvCvSjk4OotUq/WrnL4kOz6MSjZZCFG3YNkQrMrkgRKlIjEhAQzRBW1Kj?=
+ =?us-ascii?Q?PKc0S0UyWj1CPY5jHJieDozs9ONNyhgadNqhx3kmxsurIa8j91oK6Zv85Ihz?=
+ =?us-ascii?Q?JDRbtFM+uGnQkgMTHSxzDNlFJKH0fhMKynOPp14Dk6mXWu7G2An1LPwOo7tY?=
+ =?us-ascii?Q?stv6HAgTQHniMbIjTDQthZ+/JNZd9/IR9pDuyqdnrVvZyF964LU+c5vRBnCG?=
+ =?us-ascii?Q?RFbTMsszBRxItdJLG1RDps9gzGBz5Hs5j4eE9/yxlNAOO3ti3D07W4h1LW6x?=
+ =?us-ascii?Q?DUDU8WxM46z71JAi33iIzZ9P/iYfLt9d7jzl1t9A39qIku03haddXbGL1+tO?=
+ =?us-ascii?Q?DqHGT0anLTpZqq8b5gT/gMF1YoCsxTsACzY4lmwQaoO07atSRMdi8mMeODi1?=
+ =?us-ascii?Q?+uIqdmw3J0agr89DrEA4VLvK0j4nPEAoCePbcVVqE+tU2CF9QGKRn6orMb/r?=
+ =?us-ascii?Q?BBpE854XfTCsFuuYuuw6kv59zjuEyKWtB/6eaFYr0ge4E8V6a3IOVdPGJEDB?=
+ =?us-ascii?Q?d5/u4fLiQn0q949Rv732OdsVv1RI7WpC30BdYzAPYO2x4zFwuBN5x4Fe1Fh0?=
+ =?us-ascii?Q?UmE0CRcbRnc2KqlyhsYYLGQVyY0vH/gIFXw/U/rz2sPvMWKVmw2E0Q64Ws1s?=
+ =?us-ascii?Q?MFxEZoOiy5rO6ATBDzZqItABVFhiasyjHvU3y0NYGfu1CVZ7RAyx4KegG84c?=
+ =?us-ascii?Q?N6eM+XvIoopcuMTOmYARbCumwWk5s8HL7946HyWLPy5Jaqu2iQAoYlO8bxT9?=
+ =?us-ascii?Q?yURPBnGutL8Uul2VXdqIdnTiaxRC1o3Zya3QE5UZtqgHrs78EvnVOS/p6x39?=
+ =?us-ascii?Q?F++oRb6ysRZww4g3f/8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6611:EE_|DM4PR12MB6326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 792e50d1-5977-4b28-33e4-08dcb1218929
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?K1hZQjFsMXNVd0lRSkR2M0tkdkFwR2RFdjk2dHNvTXZpZ0t4cGd6MitVUmFl?=
- =?utf-8?B?RDFTUm5HeHJJZUZ3cnlobXprR1J1SGt1VVdkY0M5LzloT2xjQUtiU1B2Y3ZN?=
- =?utf-8?B?S0ptT0ZLaGdWNjFPczlxRzZhZDZPRUVlLy9Hdm9SUTFPVHZGdGRiajFsaTFX?=
- =?utf-8?B?cHd6aVFDN1ZWWEdEMDJUc3R5RW5qZzM3dnJTcFFxeHlYS0JtOEloNHBXeHdx?=
- =?utf-8?B?VGpUWnVOaytHM01RL1RCSXNOSFVsUW5CK2JqMGhxR0w5V2lIWk5HM2xUT09Q?=
- =?utf-8?B?aXBvd0V6SlF2a0FSWis0SFpmcldla3h1L1UzekZhWHlQVFBXZDJUL2ZOd1hy?=
- =?utf-8?B?RWN1ampESjVjWWMvVWJTcXNwT2NWdE0rWUpaUHBGMjZzYVN4NEhDTmo5Skdi?=
- =?utf-8?B?VEE2RUREUmZ3MFBIbzUvTjlXaVh0d0QwWWdsdTlKaGhuaGJ4RjRoVzhOWDdY?=
- =?utf-8?B?RlNzMnNrS0h3VTlyeHNBOWVkVGtkb3pTZzVpTUJNMFBHY3lQL3JZeUlZZmFJ?=
- =?utf-8?B?Ny95SDhDQ0dHek1Hdk9iSVp5bE5DeXBKSFlIUzFabUFZMGRud1IrUzFyZU1R?=
- =?utf-8?B?U3VuUzBwMnpIdm9SMmVHL1hmeHYzM3htc2tCVmdTNEN0SysybDhrZEZPYmNy?=
- =?utf-8?B?eG5uQzM4RVZDeXJuZUZJSTBReUhRZFNMYmYwS1V0aS8zVnlFOVhKbmJGSXdv?=
- =?utf-8?B?cVo5RkVLTWk4ZjBpVzNlMndMS3ppM04raldLOEF3ZnNrRWVYeVBBcEp4NjhF?=
- =?utf-8?B?YWhqZUlPZGU4aEZTc0RHaTZ3RndDU0hkM08rQk1mUnRCZUtJVVNmd1kwQUlV?=
- =?utf-8?B?US9YWHJIaGNFYlEvUC9QUnpSTmFabzE3aVhKOXdsaGlyMUFlQ2hJcnhGT25x?=
- =?utf-8?B?cHgzaGtSajlrWHY5SGFEQ3pCaHNXQXFPVmJMdXJDeExFT1lxMGp5bUhqUGtK?=
- =?utf-8?B?aHNjcVNBa1BOL2xtUVd6SW9aZXJoK0l4c3dwTjFrKzk4akszeGtsKzdjVkpx?=
- =?utf-8?B?cTdtbkRaMUdaVjNUMmVIclpDUFU2eFcwdnlIT2lTWlZnbVl4YmJ1RzBvYUYr?=
- =?utf-8?B?eTgyejEvWlBRMUZkeW5aUmR1VXpWbk9TWHVtWlZyWmdabG5xMzJ6MlB2YW53?=
- =?utf-8?B?SjRQaTB2Q3d1c2dreXVEeVlRNHJtZ1lWaFNZN3RwR2g5czhRTTVFSWZHU0NE?=
- =?utf-8?B?dk16RGR6dUtaOHVaTHNvUWdPMjl4N3A1YnB6SUxiVTNkTXhWV2ErZnU3MDBw?=
- =?utf-8?B?LzE0YXpiTk1vUDlUZkdXblYxQ1grR0xSbjM5bTJMT0REVEtlQzMwSFFpVmo3?=
- =?utf-8?B?RkVsWWdBa016K0ppdUlmUUJ0L2NiUzBmWFJsU0ExbFVnMDlxNytvWWxXcnZX?=
- =?utf-8?B?SjB5U0hzVEhOejhUYUVhbXZOckJUK3JncHNIRnoySEdESlVvSjZuWGdsUi85?=
- =?utf-8?B?bmJEUzB3S3RxZzBGMnI2QU8wVW9QOTUvYlo2R28vMjhYN0dhS0gzTGhiMU8y?=
- =?utf-8?B?MEwxUW9OSnBEbXNXZ1lqOTNjbzVIbDR4YkpCYXA5SHlXTWVYa3BYOXIraWhW?=
- =?utf-8?B?TW0vWUl0MklrSTlLNFVFTURRWTdQMm12T0VmdVlWNlUyaUJ0ZElSZHViMHNN?=
- =?utf-8?B?QWd6ZVFyUEpQelRuZThKSDJtZFFXRk5IV25IbmVqc2xjbUgwVWphVGhMRUd5?=
- =?utf-8?B?T2wrTVRZblc3bDFEM2IvOFdDdGtxbWRUem1NWGFSVzlPZzAzRFZHR3dBUWVO?=
- =?utf-8?B?RmxWNDRvaDh4Yk1pWlF5SUE0OTZNekMyL0Z0OWE2M3VtZU92dTM5YWhnUnVV?=
- =?utf-8?B?dmluU28yN3VHc2FnK3lMQT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjlzaTNyRGJLQmwxa1ZVTXZickxHUUUyM0VINXpocCs3bEE3VU04Mk9zak5Q?=
- =?utf-8?B?SDR3OUJmdCtsL3VDcVB4WGhIZngycTlNdjVuS2UzSkFuTlNnMFE2ZXg5Y3Qy?=
- =?utf-8?B?RjhqTnI3MHhuZ2ZvYlI3MnUvOHd6bTgxU3NPZy80czNDZEpmdmlUSVdRVTZF?=
- =?utf-8?B?Q3l1TW5rVDdUTlkrMjNSd0lkdTExMVJqUU1xOXovNFlyck5KOUtGT2lHeWxZ?=
- =?utf-8?B?L1R0dllqRGtITUlnaWJUendQMHBZdU9tN01vWDk2VVhyQ1ZMaCtuUWVIaHhJ?=
- =?utf-8?B?NWZoY2FteG83b3BnTXRXcllxbGQrRytETjZxZHRMSUxBZjhLdlhuYlBGQWNT?=
- =?utf-8?B?blhDdTBlRDJIL0JvUUgyTlhQQy9SK1R1LzA3V0syb1FUSUd4S1RxT1gzZUw2?=
- =?utf-8?B?SVpaVzB0aERyYkZxc3hTUWplQmJsK1lwaW1LOW5OL2hiMEIxYzA0S0hKMk9H?=
- =?utf-8?B?NTZBU1VMcEJTNG5jQ3hzTk81cGY3Ky8rcW5hTzJkTDlIdW1mRzdsYW5KWG5H?=
- =?utf-8?B?VzBDS2tGMjJSVmlvUTA0UHQzSjJoUXNNTUtqcDBCck94enkwem1yTlZPTUdw?=
- =?utf-8?B?US9LU1NvMGxMZHdzSENzTmMvQ0lJUjl2MG96b3hubzJVd3ArVmZ0OG0xZXdI?=
- =?utf-8?B?am0wVHFRZHdXSWpIZmJaaXRmdDVEUEl6RG5wQmVjUHh1bUVrYXIzclhHWk92?=
- =?utf-8?B?bWlNeG5qU3FRMmRoVUhtTkFMSnBXVEJjZzlOQnpjTEM1VkRqd0ZYK0MwSVVM?=
- =?utf-8?B?VWdJTkpoSHpNTXcvaktReWFpWHFKR05vTHZiMXRvcUtzbUdiTXZqVFVhbjVX?=
- =?utf-8?B?d1oyMWdoOStNdFNmWTdPa0o5ZkdUS1JRL3ZhbkF6TjBOTTltdGYvWENYMHRK?=
- =?utf-8?B?MnBtcHJhWDVoZExtdlRLTEtlU2xjaEJrNlpLQkZ6SHpEbVkxMWpCR0RmYWFm?=
- =?utf-8?B?YTgvaHV1S1NSY29mKzdSa0Y1Q0dyR2lhTG9DSWM4b3k2ZUlqMTJpQmNjQ0c1?=
- =?utf-8?B?dTF2K1V0S2dWWU5GRm1YakxwTVBDcERickxxMGk0WlNWMlBJeDBnSzNTcnhw?=
- =?utf-8?B?cFhEYm5PbFdlNGQwSXhuWC8vOWpaSmNhamtPL1FIT2ppQ0llWU1ML0J0dW1t?=
- =?utf-8?B?Nlo5SGNlSlYyd1h6aWdXaXViWXBYTjJzSk1LMHJNM2RXKzcwWEZwTGtCNEI0?=
- =?utf-8?B?RHpGdjFTUnU3TEJzbjkzSVpSTE5QWFB6T0lOMHEyRmJWRW1YTUVmWVlacTFq?=
- =?utf-8?B?Z2lPWW5zaWdydXBFUzZvWWk0a21oNVR1V1FnOXgzYjIzbUtZTC8wdTBuVHpN?=
- =?utf-8?B?eVoyUGVRbVpZQTArQVZaZ2diM1UxRUJHcXVXdFUycmlrVzhuQkQzV1R3SS8r?=
- =?utf-8?B?ZmRjMld1OGtXeTBudXB4L0FIZVc5eWs4TUh3SmlaWU1NaWtlb0NWaG5KZGVJ?=
- =?utf-8?B?SWpBT21FT2wxKzlidEdGMEo5TWtkaXZtQ3pjMWZiTHl1UUJRd2JTOU5FdnVC?=
- =?utf-8?B?eWxJQ0tZMHNvMDU5Yk1uN0x6S2pzMFJpZEdLZDJMSmFHY0JtWDI5UExsZ1ZP?=
- =?utf-8?B?RXpiZkRhd0kvU0x1NUNZL0FzUVYzZytKWXRKancxNlhWT3BETTlYTDFMYUhC?=
- =?utf-8?B?ZmJPY2h3VUYwUU9kbk9DNEJJUnY2NFNWYVdFN3p6bVdYTUpnUmVDM1VnQXA4?=
- =?utf-8?B?dGJjLzFJbFZGWnVRV25CUyt4T1RRYzJPUHFOOXpnQVpRTng5Y3ZRYnlSeWRN?=
- =?utf-8?B?cE1HY1hZbWJadndSRWg1NGx2SENacXQ5bTFWY3dyNGJlWUpYRE44RTc2UTBP?=
- =?utf-8?B?UVdnQzJYYThFWWNMZFdwaHMwaVh4QW1tYUhWL09FSEw0b1VJZ3kzSWI4Wmh5?=
- =?utf-8?B?RHpzS3F6aFBrQnhxR0thOUw1WFJ0TzljTlZjL1l5RDdIYXlFMGRBZ2xJUkp1?=
- =?utf-8?B?ZUV4eTcwNnFqMEtxQXlFRTVzaWtVYnFnUnZLVjhNbmFjYXZyNzZ2NXF0aVBn?=
- =?utf-8?B?K1RNbzl2T1lta0xIZUNJWWxCZExHbmpNNFFSSDI4UXdhcDFidFMrVi9tcmp1?=
- =?utf-8?B?ZHQwNDhhbmlaamtaZy96Ukw5N0ZmSExvMkpLTWZXek81aWd0N2FNRVpQUm5V?=
- =?utf-8?Q?KECoCNDfl7I3158oTyh+b+7zu?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 792e50d1-5977-4b28-33e4-08dcb1218929
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6611.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2024 05:27:57.4978 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aC6prcbgIdkjzGTVaOho8ng68+p56Y/Q/o/myouUIGIHqtth1lvMLI09rf2e6frR/EDaw0DzDyGUouaB39gKUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6326
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acbb470a-b1ad-4123-bd4c-08dcb122bd14
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2024 05:36:33.8803 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wdIK6duYUjFX6mnbWTelwqYgDFl6bQ7IVhEqkjDDLFjvsgDN99b7zapw3PvZEKLQRhZisE8/lDNATKhxzeG4MQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9239
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,39 +157,401 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
+[Public]
 
-On 7/30/2024 12:11 PM, Srinivasan Shanmugam wrote:
-> This commit corrects the function comment for
-> 'dpp401_dscl_program_isharp' in 'dcn401_dpp_dscl.c'. The comment
-> previously included a description for a  non-existent parameter
-> 'bs_coeffs_updated'. This parameter description has been removed to
-> reflect the function's actual parameters.
+Thanks for the help Kevin! It looks good to me.
+
+Regards,
+Wayne Lin
+
+> -----Original Message-----
+> From: Kevin Holm <kevin@holm.dev>
+> Sent: Wednesday, July 31, 2024 2:54 AM
+> To: stable@vger.kernel.org
+> Cc: regressions@lists.linux.dev; amd-gfx@lists.freedesktop.org; ML dri-de=
+vel
+> <dri-devel@lists.freedesktop.org>; LKML <linux-kernel@vger.kernel.org>; L=
+in,
+> Wayne <Wayne.Lin@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>;
+> Mohamed, Zaeem <Zaeem.Mohamed@amd.com>; Wheeler, Daniel
+> <Daniel.Wheeler@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Kevin Holm <kevin@holm.dev>
+> Subject: [PATCH 6.10] drm/amd/display: Refactor function
+> dm_dp_mst_is_port_support_mode()
 >
-> Fixes the below with gcc W=1:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dpp/dcn401/dcn401_dpp_dscl.c:981: warning: Excess function parameter 'bs_coeffs_updated' description in 'dpp401_dscl_program_isharp'
+> From: Wayne Lin <wayne.lin@amd.com>
 >
-> Cc: Tom Chung <chiahsuan.chung@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> [ Upstream commit fa57924c76d995e87ca3533ec60d1d5e55769a27 ]
+>
+> [Why]
+> dm_dp_mst_is_port_support_mode() is a bit not following the original desi=
+gn
+> rule and cause light up issue with multiple 4k monitors after mst dsc hub=
+.
+>
+> [How]
+> Refactor function dm_dp_mst_is_port_support_mode() a bit to solve the lig=
+ht
+> up issue.
+>
+> Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
+> Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+> Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> [kevin@holm.dev: Resolved merge conflict in .../amdgpu_dm_mst_types.c]
+> Fixes: 4df96ba6676034 ("drm/amd/display: Add timing pixel encoding for
+> mst mode validation")
+> Link:
+> https://lore.kernel.org/stable/d74a7768e957e6ce88c27a5bece0c64dff132e
+> 24@holm.dev/T/#u
+> Signed-off-by: Kevin Holm <kevin@holm.dev>
 > ---
->   drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 1 -
->   1 file changed, 1 deletion(-)
+> I resolved the merge conflict so that, after this patch is applied to the=
+ linux-
+> 6.10.y branch of the stable git repository, the resulting function
+> dm_dp_mst_is_port_support_mode (and also the new function
+> dp_get_link_current_set_bw) is identical to the original commit.
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> index 88d24e36fe00..505929800426 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> @@ -971,7 +971,6 @@ static void dpp401_dscl_set_isharp_filter(
->    *
->    * @dpp_base: High level DPP struct
->    * @scl_data: scalaer_data info
-> - * @bs_coeffs_updated: coeffs update flag
->    *
->    * This is the primary function to program isharp
->    *
+> I've confirmed that it fixes the regression I reported for my use case.
+> ---
+>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 232 +++++++++++-----
+> --
+>  1 file changed, 147 insertions(+), 85 deletions(-)
+>
+> diff --git
+> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index a5e1a93ddaea..e90f9d697511 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -1595,109 +1595,171 @@ static bool
+> is_dsc_common_config_possible(struct dc_stream_state *stream,
+>       return bw_range->max_target_bpp_x16 && bw_range-
+> >min_target_bpp_x16;  }
+>
+> +#if defined(CONFIG_DRM_AMD_DC_FP)
+> +static bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t
+> +*cur_link_bw) {
+> +     uint32_t total_data_bw_efficiency_x10000 =3D 0;
+> +     uint32_t link_rate_per_lane_kbps =3D 0;
+> +     enum dc_link_rate link_rate;
+> +     union lane_count_set lane_count;
+> +     u8 dp_link_encoding;
+> +     u8 link_bw_set =3D 0;
+> +
+> +     *cur_link_bw =3D 0;
+> +
+> +     if (drm_dp_dpcd_read(aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
+> &dp_link_encoding, 1) !=3D 1 ||
+> +             drm_dp_dpcd_read(aux, DP_LANE_COUNT_SET,
+> &lane_count.raw, 1) !=3D 1 ||
+> +             drm_dp_dpcd_read(aux, DP_LINK_BW_SET, &link_bw_set,
+> 1) !=3D 1)
+> +             return false;
+> +
+> +     switch (dp_link_encoding) {
+> +     case DP_8b_10b_ENCODING:
+> +             link_rate =3D link_bw_set;
+> +             link_rate_per_lane_kbps =3D link_rate *
+> LINK_RATE_REF_FREQ_IN_KHZ * BITS_PER_DP_BYTE;
+> +             total_data_bw_efficiency_x10000 =3D
+> DATA_EFFICIENCY_8b_10b_x10000;
+> +             total_data_bw_efficiency_x10000 /=3D 100;
+> +             total_data_bw_efficiency_x10000 *=3D
+> DATA_EFFICIENCY_8b_10b_FEC_EFFICIENCY_x100;
+> +             break;
+> +     case DP_128b_132b_ENCODING:
+> +             switch (link_bw_set) {
+> +             case DP_LINK_BW_10:
+> +                     link_rate =3D LINK_RATE_UHBR10;
+> +                     break;
+> +             case DP_LINK_BW_13_5:
+> +                     link_rate =3D LINK_RATE_UHBR13_5;
+> +                     break;
+> +             case DP_LINK_BW_20:
+> +                     link_rate =3D LINK_RATE_UHBR20;
+> +                     break;
+> +             default:
+> +                     return false;
+> +             }
+> +
+> +             link_rate_per_lane_kbps =3D link_rate * 10000;
+> +             total_data_bw_efficiency_x10000 =3D
+> DATA_EFFICIENCY_128b_132b_x10000;
+> +             break;
+> +     default:
+> +             return false;
+> +     }
+> +
+> +     *cur_link_bw =3D link_rate_per_lane_kbps *
+> lane_count.bits.LANE_COUNT_SET / 10000 *
+> total_data_bw_efficiency_x10000;
+> +     return true;
+> +}
+> +#endif
+> +
+>  enum dc_status dm_dp_mst_is_port_support_mode(
+>       struct amdgpu_dm_connector *aconnector,
+>       struct dc_stream_state *stream)
+>  {
+> -     int pbn, branch_max_throughput_mps =3D 0;
+> +#if defined(CONFIG_DRM_AMD_DC_FP)
+> +     int branch_max_throughput_mps =3D 0;
+>       struct dc_link_settings cur_link_settings;
+> -     unsigned int end_to_end_bw_in_kbps =3D 0;
+> -     unsigned int upper_link_bw_in_kbps =3D 0, down_link_bw_in_kbps =3D =
+0;
+> +     uint32_t end_to_end_bw_in_kbps =3D 0;
+> +     uint32_t root_link_bw_in_kbps =3D 0;
+> +     uint32_t virtual_channel_bw_in_kbps =3D 0;
+>       struct dc_dsc_bw_range bw_range =3D {0};
+>       struct dc_dsc_config_options dsc_options =3D {0};
+> +     uint32_t stream_kbps;
+>
+> -     /*
+> -      * Consider the case with the depth of the mst topology tree is equ=
+al
+> or less than 2
+> -      * A. When dsc bitstream can be transmitted along the entire path
+> -      *    1. dsc is possible between source and branch/leaf device (com=
+mon
+> dsc params is possible), AND
+> -      *    2. dsc passthrough supported at MST branch, or
+> -      *    3. dsc decoding supported at leaf MST device
+> -      *    Use maximum dsc compression as bw constraint
+> -      * B. When dsc bitstream cannot be transmitted along the entire pat=
+h
+> -      *    Use native bw as bw constraint
+> +     /* DSC unnecessary case
+> +      * Check if timing could be supported within end-to-end BW
+>        */
+> -     if (is_dsc_common_config_possible(stream, &bw_range) &&
+> -        (aconnector->mst_output_port->passthrough_aux ||
+> -         aconnector->dsc_aux =3D=3D &aconnector->mst_output_port->aux)) =
+{
+> -             cur_link_settings =3D stream->link->verified_link_cap;
+> -             upper_link_bw_in_kbps =3D
+> dc_link_bandwidth_kbps(aconnector->dc_link, &cur_link_settings);
+> -             down_link_bw_in_kbps =3D kbps_from_pbn(aconnector-
+> >mst_output_port->full_pbn);
+> -
+> -             /* pick the end to end bw bottleneck */
+> -             end_to_end_bw_in_kbps =3D min(upper_link_bw_in_kbps,
+> down_link_bw_in_kbps);
+> -
+> -             if (end_to_end_bw_in_kbps < bw_range.min_kbps) {
+> -                     DRM_DEBUG_DRIVER("maximum dsc compression
+> cannot fit into end-to-end bandwidth\n");
+> +     stream_kbps =3D
+> +             dc_bandwidth_in_kbps_from_timing(&stream->timing,
+> +                     dc_link_get_highest_encoding_format(stream->link));
+> +     cur_link_settings =3D stream->link->verified_link_cap;
+> +     root_link_bw_in_kbps =3D dc_link_bandwidth_kbps(aconnector-
+> >dc_link, &cur_link_settings);
+> +     virtual_channel_bw_in_kbps =3D
+> +kbps_from_pbn(aconnector->mst_output_port->full_pbn);
+> +
+> +     /* pick the end to end bw bottleneck */
+> +     end_to_end_bw_in_kbps =3D min(root_link_bw_in_kbps,
+> +virtual_channel_bw_in_kbps);
+> +
+> +     if (stream_kbps <=3D end_to_end_bw_in_kbps) {
+> +             DRM_DEBUG_DRIVER("No DSC needed. End-to-end bw
+> sufficient.");
+> +             return DC_OK;
+> +     }
+> +
+> +     /*DSC necessary case*/
+> +     if (!aconnector->dsc_aux)
+> +             return DC_FAIL_BANDWIDTH_VALIDATE;
+> +
+> +     if (is_dsc_common_config_possible(stream, &bw_range)) {
+> +
+> +             /*capable of dsc passthough. dsc bitstream along the entire
+> path*/
+> +             if (aconnector->mst_output_port->passthrough_aux) {
+> +                     if (bw_range.min_kbps > end_to_end_bw_in_kbps) {
+> +                             DRM_DEBUG_DRIVER("DSC passthrough.
+> Max dsc compression can't fit
+> +into end-to-end bw\n");
+>                       return DC_FAIL_BANDWIDTH_VALIDATE;
+> -             }
+> +                     }
+> +             } else {
+> +                     /*dsc bitstream decoded at the dp last link*/
+> +                     struct drm_dp_mst_port *immediate_upstream_port
+> =3D NULL;
+> +                     uint32_t end_link_bw =3D 0;
+> +
+> +                     /*Get last DP link BW capability*/
+> +                     if (dp_get_link_current_set_bw(&aconnector-
+> >mst_output_port->aux, &end_link_bw)) {
+> +                             if (stream_kbps > end_link_bw) {
+> +                                     DRM_DEBUG_DRIVER("DSC decode at
+> last link. Mode required bw can't fit into available bw\n");
+> +                                     return
+> DC_FAIL_BANDWIDTH_VALIDATE;
+> +                             }
+> +                     }
+>
+> -             if (end_to_end_bw_in_kbps < bw_range.stream_kbps) {
+> -                     dc_dsc_get_default_config_option(stream->link->dc,
+> &dsc_options);
+> -                     dsc_options.max_target_bpp_limit_override_x16 =3D
+> aconnector->base.display_info.max_dsc_bpp * 16;
+> -                     if (dc_dsc_compute_config(stream->sink->ctx->dc-
+> >res_pool->dscs[0],
+> -                                     &stream->sink-
+> >dsc_caps.dsc_dec_caps,
+> -                                     &dsc_options,
+> -                                     end_to_end_bw_in_kbps,
+> -                                     &stream->timing,
+> -
+>       dc_link_get_highest_encoding_format(stream->link),
+> -                                     &stream->timing.dsc_cfg)) {
+> -                             stream->timing.flags.DSC =3D 1;
+> -                             DRM_DEBUG_DRIVER("end-to-end
+> bandwidth require dsc and dsc config found\n");
+> -                     } else {
+> -                             DRM_DEBUG_DRIVER("end-to-end
+> bandwidth require dsc but dsc config not found\n");
+> -                             return DC_FAIL_BANDWIDTH_VALIDATE;
+> +                     /*Get virtual channel bandwidth between source and
+> the link before the last link*/
+> +                     if (aconnector->mst_output_port->parent-
+> >port_parent)
+> +                             immediate_upstream_port =3D
+> +aconnector->mst_output_port->parent->port_parent;
+> +
+> +                     if (immediate_upstream_port) {
+> +                             virtual_channel_bw_in_kbps =3D
+> kbps_from_pbn(immediate_upstream_port->full_pbn);
+> +                             virtual_channel_bw_in_kbps =3D
+> min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
+> +                             if (bw_range.min_kbps >
+> virtual_channel_bw_in_kbps) {
+> +                                     DRM_DEBUG_DRIVER("DSC decode at
+> last link. Max dsc compression can't fit into MST available bw\n");
+> +                                     return
+> DC_FAIL_BANDWIDTH_VALIDATE;
+> +                             }
+>                       }
+>               }
+> -     } else {
+> -             /* Check if mode could be supported within max slot
+> -              * number of current mst link and full_pbn of mst links.
+> -              */
+> -             int pbn_div, slot_num, max_slot_num;
+> -             enum dc_link_encoding_format link_encoding;
+> -             uint32_t stream_kbps =3D
+> -                     dc_bandwidth_in_kbps_from_timing(&stream-
+> >timing,
+> -
+>       dc_link_get_highest_encoding_format(stream->link));
+> -
+> -             pbn =3D kbps_to_peak_pbn(stream_kbps);
+> -             pbn_div =3D dm_mst_get_pbn_divider(stream->link);
+> -             slot_num =3D DIV_ROUND_UP(pbn, pbn_div);
+> -
+> -             link_encoding =3D
+> dc_link_get_highest_encoding_format(stream->link);
+> -             if (link_encoding =3D=3D DC_LINK_ENCODING_DP_8b_10b)
+> -                     max_slot_num =3D 63;
+> -             else if (link_encoding =3D=3D
+> DC_LINK_ENCODING_DP_128b_132b)
+> -                     max_slot_num =3D 64;
+> -             else {
+> -                     DRM_DEBUG_DRIVER("Invalid link encoding
+> format\n");
+> -                     return DC_FAIL_BANDWIDTH_VALIDATE;
+> -             }
+>
+> -             if (slot_num > max_slot_num ||
+> -                     pbn > aconnector->mst_output_port->full_pbn) {
+> -                     DRM_DEBUG_DRIVER("Mode can not be supported
+> within mst links!");
+> +             /*Confirm if we can obtain dsc config*/
+> +             dc_dsc_get_default_config_option(stream->link->dc,
+> &dsc_options);
+> +             dsc_options.max_target_bpp_limit_override_x16 =3D
+> aconnector->base.display_info.max_dsc_bpp * 16;
+> +             if (dc_dsc_compute_config(stream->sink->ctx->dc->res_pool-
+> >dscs[0],
+> +                             &stream->sink->dsc_caps.dsc_dec_caps,
+> +                             &dsc_options,
+> +                             end_to_end_bw_in_kbps,
+> +                             &stream->timing,
+> +
+>       dc_link_get_highest_encoding_format(stream->link),
+> +                             &stream->timing.dsc_cfg)) {
+> +                     stream->timing.flags.DSC =3D 1;
+> +                     DRM_DEBUG_DRIVER("Require dsc and dsc config
+> found\n");
+> +             } else {
+> +                     DRM_DEBUG_DRIVER("Require dsc but can't find
+> appropriate dsc
+> +config\n");
+>                       return DC_FAIL_BANDWIDTH_VALIDATE;
+>               }
+> -     }
+>
+> -     /* check is mst dsc output bandwidth
+> branch_overall_throughput_0_mps */
+> -     switch (stream->timing.pixel_encoding) {
+> -     case PIXEL_ENCODING_RGB:
+> -     case PIXEL_ENCODING_YCBCR444:
+> -             branch_max_throughput_mps =3D
+> -                     aconnector->dc_sink-
+> >dsc_caps.dsc_dec_caps.branch_overall_throughput_0_mps;
+> -             break;
+> -     case PIXEL_ENCODING_YCBCR422:
+> -     case PIXEL_ENCODING_YCBCR420:
+> -             branch_max_throughput_mps =3D
+> -                     aconnector->dc_sink-
+> >dsc_caps.dsc_dec_caps.branch_overall_throughput_1_mps;
+> -             break;
+> -     default:
+> -             break;
+> -     }
+> +             /* check is mst dsc output bandwidth
+> branch_overall_throughput_0_mps */
+> +             switch (stream->timing.pixel_encoding) {
+> +             case PIXEL_ENCODING_RGB:
+> +             case PIXEL_ENCODING_YCBCR444:
+> +                     branch_max_throughput_mps =3D
+> +                             aconnector->dc_sink-
+> >dsc_caps.dsc_dec_caps.branch_overall_throughput_0_mps;
+> +                     break;
+> +             case PIXEL_ENCODING_YCBCR422:
+> +             case PIXEL_ENCODING_YCBCR420:
+> +                     branch_max_throughput_mps =3D
+> +                             aconnector->dc_sink-
+> >dsc_caps.dsc_dec_caps.branch_overall_throughput_1_mps;
+> +                     break;
+> +             default:
+> +                     break;
+> +             }
+>
+> -     if (branch_max_throughput_mps !=3D 0 &&
+> -             ((stream->timing.pix_clk_100hz / 10) >
+> branch_max_throughput_mps * 1000))
+> +             if (branch_max_throughput_mps !=3D 0 &&
+> +                     ((stream->timing.pix_clk_100hz / 10) >
+> branch_max_throughput_mps * 1000)) {
+> +                     DRM_DEBUG_DRIVER("DSC is required but max
+> throughput mps fails");
+>               return DC_FAIL_BANDWIDTH_VALIDATE;
+> -
+> +             }
+> +     } else {
+> +             DRM_DEBUG_DRIVER("DSC is required but can't find common
+> dsc config.");
+> +             return DC_FAIL_BANDWIDTH_VALIDATE;
+> +     }
+> +#endif
+>       return DC_OK;
+>  }
+> --
+> 2.45.2
+
