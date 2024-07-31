@@ -4,111 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 367F1C52D71
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B62C49EA1
 	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5738110E5F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D7110E5F9;
 	Wed, 31 Jul 2024 12:23:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="le8HVsGM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YAljSmHW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kr9lYrT2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X2BbPR80";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="K8YjXVQ+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4XhnPci8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="K8YjXVQ+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4XhnPci8";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F049810E5E3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0381310E5E5;
  Wed, 31 Jul 2024 12:23:20 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 47AAB21B69;
- Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 370E521B98;
+ Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G/LOYvdd+8iaaNtUHs12Y1CNwWpkdjJyqAxisMRGqW8=;
- b=le8HVsGM9lW9BekEmtQ+Sf/M9UWsNzQGM+9Vp2l2gTq2tPWWt2vVI7bCG+zO63E2/oJAiu
- TsgY/St6tOPIlKMy2memvLvVjR/EUoDF2Gbn72dfGLjEgi5IQoTGjkvtZKCfjzqbGLbfIi
- uQQ5LrsNGX9VdGzUgQBHlbVz0p/80B4=
+ bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
+ b=K8YjXVQ+lLJPFbFl8ghXvPIvtsS4cZR0YAh7OZGLSY90+QvjEBfw+mSbo021dKH+tniK+t
+ Yba0QOwz5GHCDLsjfThjIHppbaFhWtmKJo6wIBAdbd7Dn2+6LoXRhq0gwdISpWQuhgPWPJ
+ Rti6INRRO2QiztD2cCNP/m5x+oGcScw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1722428599;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G/LOYvdd+8iaaNtUHs12Y1CNwWpkdjJyqAxisMRGqW8=;
- b=YAljSmHWB4XhhLevEqH5FUIfRRHuq2qaWGN6Q1Vsbt8DQISWkLcMrm5kjq7HQD+BfJuSGV
- GmDwTaft6pkvILAQ==
+ bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
+ b=4XhnPci8D2e0+I0Q02MQ8GudBN0sMycU1XDeGY4XBBYaShNBgomBAkJFdHa99ZBlxA4YnC
+ Tn96rIQipf2H8IBQ==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kr9lYrT2;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=X2BbPR80
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G/LOYvdd+8iaaNtUHs12Y1CNwWpkdjJyqAxisMRGqW8=;
- b=kr9lYrT2noEXgSqI5RW9bdPfdNf2zAYzIgMegLf15PwnUu52MCJiuoI1jwDw8n6z0ZZYB0
- EaCADHreqWAy1prmDnlUs8NGojjsrrVHrjfNIAQ70doWI0ugXPFwygw74CITg91soiTaCT
- nGpx4cTUNEquTKgT6NN+NcoYJnKkMzs=
+ bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
+ b=K8YjXVQ+lLJPFbFl8ghXvPIvtsS4cZR0YAh7OZGLSY90+QvjEBfw+mSbo021dKH+tniK+t
+ Yba0QOwz5GHCDLsjfThjIHppbaFhWtmKJo6wIBAdbd7Dn2+6LoXRhq0gwdISpWQuhgPWPJ
+ Rti6INRRO2QiztD2cCNP/m5x+oGcScw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428598;
+ s=susede2_ed25519; t=1722428599;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G/LOYvdd+8iaaNtUHs12Y1CNwWpkdjJyqAxisMRGqW8=;
- b=X2BbPR80j6l/EYm+4hc4IUSswNBaSs7YzVrXr3XZpeZt/SnEl6vyYLSX+2Q0vyTR0IxzYh
- 5I9DZmIkbq7XnaAw==
+ bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
+ b=4XhnPci8D2e0+I0Q02MQ8GudBN0sMycU1XDeGY4XBBYaShNBgomBAkJFdHa99ZBlxA4YnC
+ Tn96rIQipf2H8IBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF38213AD8;
- Wed, 31 Jul 2024 12:23:17 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E13B313ADE;
+ Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iNFDNbUsqmacTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:17 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id OAjBNbYsqmacTQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  daniel@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Linus Walleij <linus.walleij@linaro.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: [PATCH 3/9] drm/panel: panel-novatak-nt35510: Use backlight power
+Subject: [PATCH 6/9] drm/panel: panel-samsung-s6e3ha2: Use backlight power
  constants
-Date: Wed, 31 Jul 2024 14:17:15 +0200
-Message-ID: <20240731122311.1143153-4-tzimmermann@suse.de>
+Date: Wed, 31 Jul 2024 14:17:18 +0200
+Message-ID: <20240731122311.1143153-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240731122311.1143153-1-tzimmermann@suse.de>
 References: <20240731122311.1143153-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-1.81 / 50.00];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,suse.de:email,suse.de:dkim,quicinc.com:email];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[12]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- FROM_HAS_DN(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+X-Spamd-Result: default: False [-2.60 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11];
  FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 47AAB21B69
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[quicinc.com:email,linaro.org:email,suse.de:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,26 +120,61 @@ backlight subsystem. The values are identical, so there's no
 change in functionality or semantics.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Linus Walleij <linus.walleij@linaro.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt35510.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-index d3bfdfc9cff6..57686340de49 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
-@@ -1166,7 +1166,7 @@ static int nt35510_probe(struct mipi_dsi_device *dsi)
- 			bl->props.brightness = nt->conf->wrdisbv;
- 		else
- 			bl->props.brightness = 255;
--		bl->props.power = FB_BLANK_POWERDOWN;
-+		bl->props.power = BACKLIGHT_POWER_OFF;
- 		nt->panel.backlight = bl;
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
+index 639a4fdf57bb..ab8b58545284 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
+@@ -458,7 +458,7 @@ static int s6e3ha2_set_brightness(struct backlight_device *bl_dev)
+ 		return -EINVAL;
  	}
  
+-	if (bl_dev->props.power > FB_BLANK_NORMAL)
++	if (bl_dev->props.power > BACKLIGHT_POWER_REDUCED)
+ 		return -EPERM;
+ 
+ 	s6e3ha2_call_write_func(ret, s6e3ha2_test_key_on_f0(ctx));
+@@ -508,7 +508,7 @@ static int s6e3ha2_disable(struct drm_panel *panel)
+ 	s6e3ha2_call_write_func(ret, mipi_dsi_dcs_set_display_off(dsi));
+ 
+ 	msleep(40);
+-	ctx->bl_dev->props.power = FB_BLANK_NORMAL;
++	ctx->bl_dev->props.power = BACKLIGHT_POWER_REDUCED;
+ 
+ 	return 0;
+ }
+@@ -554,7 +554,7 @@ static int s6e3ha2_prepare(struct drm_panel *panel)
+ 	if (ret < 0)
+ 		goto err;
+ 
+-	ctx->bl_dev->props.power = FB_BLANK_NORMAL;
++	ctx->bl_dev->props.power = BACKLIGHT_POWER_REDUCED;
+ 
+ 	return 0;
+ 
+@@ -601,7 +601,7 @@ static int s6e3ha2_enable(struct drm_panel *panel)
+ 	s6e3ha2_call_write_func(ret, s6e3ha2_test_key_off_f0(ctx));
+ 
+ 	s6e3ha2_call_write_func(ret, mipi_dsi_dcs_set_display_on(dsi));
+-	ctx->bl_dev->props.power = FB_BLANK_UNBLANK;
++	ctx->bl_dev->props.power = BACKLIGHT_POWER_ON;
+ 
+ 	return 0;
+ }
+@@ -729,7 +729,7 @@ static int s6e3ha2_probe(struct mipi_dsi_device *dsi)
+ 
+ 	ctx->bl_dev->props.max_brightness = S6E3HA2_MAX_BRIGHTNESS;
+ 	ctx->bl_dev->props.brightness = S6E3HA2_DEFAULT_BRIGHTNESS;
+-	ctx->bl_dev->props.power = FB_BLANK_POWERDOWN;
++	ctx->bl_dev->props.power = BACKLIGHT_POWER_OFF;
+ 
+ 	drm_panel_init(&ctx->panel, dev, &s6e3ha2_drm_funcs,
+ 		       DRM_MODE_CONNECTOR_DSI);
 -- 
 2.45.2
 
