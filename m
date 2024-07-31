@@ -4,139 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEFD0C3DA64
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 13:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43EB8C3DA64
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 14:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9385A10E61D;
-	Wed, 31 Jul 2024 13:48:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E42C010E627;
+	Wed, 31 Jul 2024 14:04:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FQlVrNH9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J1Xe5NPC";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2057.outbound.protection.outlook.com [40.107.95.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BFA410E61D
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 13:48:36 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2049.outbound.protection.outlook.com [40.107.212.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9659210E627
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 14:04:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UOy8y5UM/3Bznn3rCusprvl5osD7pVfz0ZGPBumVa31/75zKV8n6fql0Tvklan/t80wMKbDIJmUtC42PUTKngyy2Xfe3H9mVhZ8Z7nN2nxiaFSegom0FgGATPIRyF6QDfWviVD2w+DJY0/lY24p8J33BGAM9jQz+D3+8eAXLAzr2/B8KY6x42z4+QlZFSnQDp087bJcNHZqTWkNBzPxd63Mx9y2xobg/1fvRZ9yqp9NSi31egRQXx9kQK70SkewZejuAdy0IzjdQ+hQelxZ/Gm1p5G4/ga33HQFzAZd+2P2yGko00pTOcxOi5RJQkVwO3BD9oUAUBUGY5a0zDza2rg==
+ b=WQGeExT868xUJtGpjtXkXL0AeL/LX59N4c9ynaSlqbhEXHCFKVfo5XI23LBg+KwesogdVf1YkZD+PxGPubXJw2HiPNS65SFuAZSV9oLnYQcreSs5o5YIGOahnLftLy3Q/GJmgDPppx20wzU9YbBQ3kws1S9QmK6SiJCEogDToib8ToSQ7qnnQQBfdLTp8/0v1g70+9uEsQQWcYZyiN2VGHZRtoSAO9u8rR4f6T1pBtrrEUhZFv/dUcyc5RYzuYA29bSDbpeo3XEoeJqyLZH+BeyiNXQueX3oBe+P6hOQSW6BWD/u7dnpkWCvpODO9njNXq73YEylrvQMgkj3nOQb9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8GOYzR9kPjEkcfCVrPfm+Yfm/35ZWrsXTfQ/RDmw15Q=;
- b=dRic7P8pU3W2nLZehMZhX8MoRarJBUaMyVE7oSS7TjyPNAaUXQX7v9oNNBK693/TaDHR0gWv89Hti4z3JLmUkct7m6TswnUZwwpTlT2GzjiykARS0PfGOvYpDJhhsck8PiUTU+p+3WPavWPATNo/lavqtO9SXJqNIB7nZfSOY8uNmoD9FnLZq7OfHw3mDciq5HoI2JJp5FNfx5OEUnZ8pZMAB3KbevOG62DHVfVSJHtoPRcNjvvgLbL0nzOtZQWlA7qmikf81bUevnO9kfHzc8kb7Gyy8PlIkqKDoSKIO9YXqc8qgUg0ue8jApSr/kc+RUry+OhnQfrdV1flOuXFYw==
+ bh=NS+qPVnxmYot7Jn7aImqQoMBfmZQVeo2xsB85NiU5k4=;
+ b=IoZzTUUixdYQ4mQUNTc51xYOKvJpbblgTtTFt8OWqLkdXNu83JWDWSQ8C8TPq5ukIcZfLGCgo4m/UVeks6xRYHcAoUfAa5RrYuKLYIZ3ZIpjpGQc9q6Z2Mum9cYjhcKyYoWNlo5L+5T9I/AHeV0jB58V+nh0uPHClJ8n2Cx7aM/rVmf0Ik7wa4YQQXmj11CobPda1hGCP6xU6y8RRE8mfQ58OS24sd0JVEts6KfNBJ8XFLVH/5YRxjP0yY1fZGi3Rr81bbjPHcE2hKnSp46bny3BEpbG+lWgdHzNY6JlmlB11YULyrkRNaF4e/ngxJwRYLc1NKCgt0Rkc3TgEGmppw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8GOYzR9kPjEkcfCVrPfm+Yfm/35ZWrsXTfQ/RDmw15Q=;
- b=FQlVrNH9Tp/OrYJ9XumPEr5hplhKRyYMhiB62lUcueAVAmh9Tqz7jDtcRSmaSo1Q7Ix/xtFUabrigreY7P3owAaIhDvJ8LV4JSwralqRfSmHnghyD/RbK2l5//cT2Gbbxg/OgVs2yMAxtklK+2nT2cxzoedGC7jdJd9TFpbFwQ0=
-Received: from SN7PR12MB7451.namprd12.prod.outlook.com (2603:10b6:806:29b::20)
- by IA1PR12MB6140.namprd12.prod.outlook.com (2603:10b6:208:3e8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.29; Wed, 31 Jul
- 2024 13:48:32 +0000
-Received: from SN7PR12MB7451.namprd12.prod.outlook.com
- ([fe80::4ca9:555b:174c:855c]) by SN7PR12MB7451.namprd12.prod.outlook.com
- ([fe80::4ca9:555b:174c:855c%6]) with mapi id 15.20.7807.026; Wed, 31 Jul 2024
- 13:48:32 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdkfd: fix debug watchpoints for logical devices
-Thread-Topic: [PATCH] drm/amdkfd: fix debug watchpoints for logical devices
-Thread-Index: AQHa3Gj7DVQ8R62dXUymO+7JFXFLHrIPgK8AgAFm6+A=
-Date: Wed, 31 Jul 2024 13:48:32 +0000
-Message-ID: <SN7PR12MB7451BA1D84A1408F64DDA3E985B12@SN7PR12MB7451.namprd12.prod.outlook.com>
-References: <20240722185712.1046232-1-Jonathan.Kim@amd.com>
- <CY8PR12MB709977C1CC4F113D9D7FC7F78CB02@CY8PR12MB7099.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB709977C1CC4F113D9D7FC7F78CB02@CY8PR12MB7099.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=c3c73ec7-9038-4587-96fd-6edd2800193a;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-07-31T13:47:47Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=NS+qPVnxmYot7Jn7aImqQoMBfmZQVeo2xsB85NiU5k4=;
+ b=J1Xe5NPCDzEs+1/ohvjpPwjYPgCHHr4ovb3lFXC3d+8Fms+tFwV65qJf1Pa12Mlj8oGpaFscYUrC7fp75LksY8l5bGy0QToFRhhtp0ZwmFUYfAZoDSH+KgaPFVm7t2ViTJ7d0NfVSIXf5ujH819Lf5e+aQSW2hWhgptQVTwGLLY=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN7PR12MB7451:EE_|IA1PR12MB6140:EE_
-x-ms-office365-filtering-correlation-id: 4a513b4f-5022-4979-f29d-08dcb1677754
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?+QK35uaBR8fDY5d8W3wC1LEWehw2TWaw1m0RY597QAWVRKP/uo+wX9xXmnqW?=
- =?us-ascii?Q?KpOet+V70XYNWrHopU/OzN07bkPI5IxYl87bSpzSTKTKZuN2vZqp2r5PbACZ?=
- =?us-ascii?Q?+TGTdaDD8yc/AcP1K4nJsAQICjoj+uiS/k0DtIxTSmCybRKdfUcsgLkSjhgA?=
- =?us-ascii?Q?V4149fx6HKDg0ZAlziQ13TBtTwJwgc5w+eKNDST0cEiv9qZ0vrMiwXqYrBcp?=
- =?us-ascii?Q?h2pxD3ZiPtrxXE15MlXJkiaUN6439YmZNKUvUdQ586HRUS4lQGzcbaZo0r0F?=
- =?us-ascii?Q?wxjCWlKFpJR97WDl7g42CW4dvSXIHBY6N7P4xkS/LlsCwaNbtGatEevQg74P?=
- =?us-ascii?Q?pZ0X6sd1R4lzcC3mhCLaeQMHaLaWajy2GqSl/ihsmEjX5B7WRABtt8R7ancU?=
- =?us-ascii?Q?Qe+kxFbMtsDFSmx9mOjLhFPmBREwollJeu2KJF2cmm+aOFYs4Nnn0nXzCQAG?=
- =?us-ascii?Q?oibM0QXyJ48WMneh4NwSa1TXwfaEnJxSAaqJZSTlB3Ukb0wBpynrQQq7Golv?=
- =?us-ascii?Q?7V3fSJzivMaHyWaW+1J7z3W1Kq/0nzIxPqBiQSZtG1tm4515EpZNzOsuLhln?=
- =?us-ascii?Q?ZOdlQ6Vi88D9a3eBzAuxEWr4DmGM9hRKviz4WOit+iVtOGEWAkycJZfrM3wM?=
- =?us-ascii?Q?qK0nZP5CLzzuqJjoGmqnCR7qCuYOcA9vJ+c9TBdeOOD6fQFHM0sKOMLQPJl0?=
- =?us-ascii?Q?4FpiE/xn1sDmjXVnQ8a90HmUfhuIUaPDJG9jcgodNXcXQe9kBdKIZPExvfq1?=
- =?us-ascii?Q?mqPPf3DQEvPMmZySCGo53uhJBp9fhgnmhe0sDDHjEDGaYE1sg8YfRCFGkKnB?=
- =?us-ascii?Q?fOHffYpiGgDyrNxKTpwmUR4IA7U6bDgWUzAs0xBZiiIvYZtwrAIjcZR7Oxpy?=
- =?us-ascii?Q?jmbhn8nU4HUBFKGK6uvipxkOmGY2wD5GBhxsXsK1c+RZOC20hVuJdo0w3LAS?=
- =?us-ascii?Q?G5xZTF/iGU6lhV0GeC631stfjxq93nVvqh47HqjBBRtlgnVQgXJ4mQl7sS2m?=
- =?us-ascii?Q?3cWbA71ZgjW4b1ADPersnF5Gx4njo6Wm2bb+C2lWQ7yVYXr2KQbECw9xonEt?=
- =?us-ascii?Q?ZvFkMbjmVTKc8es+D64JtBenX8HpXM7XSqWS65vT7s5tv4wdcg+B/RdAdvT9?=
- =?us-ascii?Q?aIYWFzGVTQoeCVzZWn/1Z2m9nAqx79SplhXVb/dU3x70vOGnWlgU6VBlUgo6?=
- =?us-ascii?Q?MJ+K5RGPn3Jj5kIaSTXIg2EUUEFn5wx2FMTwSnI+QlpJ/N179elLhPvfNAxS?=
- =?us-ascii?Q?fAx0tdW+zqTIb4+qsh3iSQ0k+MMTSq1fO4efs2rLYq361zSIRzslLxIPXyHO?=
- =?us-ascii?Q?VFZAD/OhpOCcfozBOtY1lJVh46COMinNTkRdkLmb1fjORqOiwTtQiJwLoFyG?=
- =?us-ascii?Q?sSwRT8xlsswaJsYvm1eZh/e+olxICiUiaVgoC5lrz9AsREKcmg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB7451.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nqeVIlaNuW8BtYAybiyBYwB8dIRJHsRbAkUdpKnzDHfTv9XDjXmbVcY2gJBb?=
- =?us-ascii?Q?bwfuuD3JFQln62MdyTBQitd6C1KBDnaODDFDsDeuxga7eH2Kz2ywbJBTTM+I?=
- =?us-ascii?Q?xhcEH+PLmQFF4rxmbHz87wRz2c3xM7NluMyvncoGM/dDXBhAzTuMPW3jHcn5?=
- =?us-ascii?Q?ElegYfxFj3gRZKoqZoFjXhAFcypFSPUaW+zElWhcVSsgawDGRYG8FpOLsdGW?=
- =?us-ascii?Q?50pwB2JtAKMAvGlzK6ugm8BQDAiCgTw7Ec4F/CKvy8lQi57yWtNDSLFw5Xtx?=
- =?us-ascii?Q?a5JFO8Fhtg9+tJj90QK7xrmENYct+rdKWnsPurmxhX78ixm9U6XiLBBxho9z?=
- =?us-ascii?Q?Fj7/BPUx63st4KtM136hV3ew9x58GGL6aQ03odec7OOfUMxFEjG963nrpZGL?=
- =?us-ascii?Q?bpPvqg7FY+I1aCoqHRzK+xjXmxSwiwrb7/q+2JNIE0eQJToR/sHHbBrvSBzI?=
- =?us-ascii?Q?v3PRKIp1pdMZhFHBBxoV9zJHbOaBycjDi0xZ2Ez2Xq+7TzuzaWWu5F0Qn+59?=
- =?us-ascii?Q?thzQyfEpCgA9D9o6j2H/BM8Oc1LxnSH72UjO+Guyvc9KEmlW7/QtVCLVK2cO?=
- =?us-ascii?Q?UTkLpxWZg5I0R91g9NFp6tena6A9Dz0p7g0kVhSe3YZh+a4pGqSl3q6PDgOE?=
- =?us-ascii?Q?8UzYRDTV9sXsO2nyYhV8PgrNUmHcZQDGLHp5V+y+GarB/ltZkdrTq4lFw275?=
- =?us-ascii?Q?FtYjE/jQQ6NOrSV8KKiQAFeYOrWBpiuQDr8tPG2QDZLOn6XQj2qiz1lD/gDi?=
- =?us-ascii?Q?v4kW6EeLzAuF4lDmBLpZe8xb4ipf19C29vBTmQvTXyl+8DENDqL2aWJ8qQ9w?=
- =?us-ascii?Q?XpR4eHfvNbjgGlgN5WtlDjl8/pCorfKNvs2H9O6vXPH9R63znyxx9X1TAsXk?=
- =?us-ascii?Q?99uuU+bNAwCDeOqgyq6WAGZ1t8Jkx02rMui0oYY6yFHhrd6l8uratKxb0X2D?=
- =?us-ascii?Q?2gOzT5FxZ0L/j9pC+4D+aQNChXx8BcmfCVTUcl5pmSO3ecMCLMmp3IdJZFo0?=
- =?us-ascii?Q?lxxXtqBO5rPTDsZTyU0AAy4/aFJ6QGhaPqb2JV2wG8MgVlBr/rju00znUgDK?=
- =?us-ascii?Q?0Axp77tx/e+kcJTh9JrG5RuQh8xp8vYjmHR5EEAP0LVd9NUsPceBtECkaOZ9?=
- =?us-ascii?Q?jVPaozr3QiJh2VNTwvzb12xKF/UlKRfmFTpZ0kgm0MCHKjh/nK7Wrg6q0GJ7?=
- =?us-ascii?Q?0l1oQFfxSDVERpFlmMYjx+boUzkRBhUMdKgjoPhJFzIusQStKrD6iOY9P20d?=
- =?us-ascii?Q?BtAeEBs0P/Pf1ob7COMoSTcvmsvYvWLXPxq+gK7QuvgUmNRMJxvUrWP9VvFb?=
- =?us-ascii?Q?YwiIfd2Ed6Kjr3sr9Gp2TywSP846XU6UO81esgJ2IgS1mmKXwhXtLc1kKKlo?=
- =?us-ascii?Q?8KfDgSOj4DInuowRzQgZumoc6k2SEqJjLZcV9uA0DNOTaDlTKLUtLSUt21xk?=
- =?us-ascii?Q?te1I81bU7IcTJ7SbdtdIM3uRkmzni0C04CmziFCuPY76o8Rqf2c3PZByTpCE?=
- =?us-ascii?Q?4/pAaesKXQ6VNEmpx9ylcr8aJTF6KNujdQIznCtCtS8ZgnytPS4nidUTw0dS?=
- =?us-ascii?Q?h1JW1jJAQUGzJ9Oaa6A=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB8876.namprd12.prod.outlook.com (2603:10b6:a03:539::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29; Wed, 31 Jul
+ 2024 14:04:43 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7828.016; Wed, 31 Jul 2024
+ 14:04:43 +0000
+Message-ID: <ad1f5436-ef67-456b-922f-10286c9b4ffd@amd.com>
+Date: Wed, 31 Jul 2024 16:04:37 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: clean up the count calculation for nop
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+References: <20240731093536.28844-1-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240731093536.28844-1-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0156.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8876:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09d022e7-d6c1-44ff-66cc-08dcb169b9fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QWtJL3EySUhmSlozVGZaSTB3K0hVeVQwUmpzS1BRV3Q1d09uUThDYTJBVXJm?=
+ =?utf-8?B?MldNSUxnY2xLZVVkbTNVQW41eGRCV3FBWDVZUit2WHZNK0NJeXZQdVVoc1VN?=
+ =?utf-8?B?MmU4YzhUT1pwcGZRc2J5dDMwd01LYjBJSnVNWGtQT1ZQcTE2UmlDdGw2c3Mr?=
+ =?utf-8?B?ZUpFMmsxUFZEc0lhY1F0ODdwaU13ZVdGbW9zWnMzRmpyMGUvZGR4M3Iyc3d2?=
+ =?utf-8?B?K3UwVUMvdE5melA4Z0hSQTdscmpLYTJxN1UveEhQOUdwWWx3MFU0YjE3Zkcy?=
+ =?utf-8?B?dkNEdjlzcDZwbHBhRUZ5cTVzQUN0dk14eW50RGZyWHdZM0FwSThxS3FjOWdx?=
+ =?utf-8?B?SW9OdFNjSm9KMlpzQzcrTVBPVGYvdU9MYkJBNnJxbzZiYlQrNk5KWVJZUXlk?=
+ =?utf-8?B?emJZOXB1b1NwRUN6cW5rcjNSU0s2Zm1LMm5WalA0QmhRdDdtRlRBRFhHbElL?=
+ =?utf-8?B?d2p1dUJTbDhJcUtGeWlGR3FOb0EzL1pqOEhNQUNEczZXckRJdFFjWFBSajMz?=
+ =?utf-8?B?QnFaTExFUG5CZGIrQXcrOVArZ3B5RS9McjVqS1ROaXpTSWZ4Q3RCRFNkeHVH?=
+ =?utf-8?B?ckZwKzdNNkR4V2dUTjJhWmZuWWtteDZoWDdKSWFFUGxialBmZHUwWEdpeWwv?=
+ =?utf-8?B?NjQ3UHNCUitNSlBGK25nUXI0ZzFDQzl3YVBvSGNkb1p4UGNKVWdPd0g2dDNK?=
+ =?utf-8?B?R2UxdzRiNGliOUlEOUFhQk95UFV0Szd2dVBtb1ZEbkU3dGxTUXl5S2k2ZFZT?=
+ =?utf-8?B?eU13QlFUN05Ldy9JdTBIblJMSFNFL0p3QWVBTEdkRW1OWmEwRWdPeEJGazZj?=
+ =?utf-8?B?SEZtQXgrOG9vbHdNMjhDRE0vV3ZKUm9BdlNrZnI1aVllYmw0N1E1a2JPQWNk?=
+ =?utf-8?B?ckM5MWREbGJLWk9jS0JodGdiQ3YwOHJqK2xKVUJ1cTFoZGlPemZLV0JKMDdT?=
+ =?utf-8?B?SXRoRndXbmdERWtrSTZmWUR3c2xxUHR3M05TeUszUUV3K2hqeFlFUGloSFBH?=
+ =?utf-8?B?RHozdWN5QmhDNFNMV0lob1Y0ZldQTXBNOUdmYTQrUUdDZFlHd2kvNUxwUXEr?=
+ =?utf-8?B?bUlFVmVIZ1FMcnB6Q1V3Ym5VcEhUTGwzR0FFenRaaU5FVVh4dWwyemhtYkNp?=
+ =?utf-8?B?K1lmSThZUERETjhKa2hjVDFaV0xKaGIrVkdvdGdrc29IdGF2eDBiUDZOWndr?=
+ =?utf-8?B?WHo0VnkxanBFMGZuTXh6dkhaaWNRWjhPUHVDalVXdkh5cXFGVjFrZEttdGpI?=
+ =?utf-8?B?bzJKZkF4TVlGN1V4UHIvRTVFMGw2dVJUcjNoOUtGdE1GdFZkaVhqN1RDNTA4?=
+ =?utf-8?B?c0gyWTZOM0ExMWE3YjFLMWhVeWdod0Fud1AzcENIZWtuT3pyQ1dQUzJoVjhZ?=
+ =?utf-8?B?WEtvL3VleVFST3J2MGluaFNEZHBxYTdwSFlrTVB0RmxNYU5ybVB0VHRFM1Yr?=
+ =?utf-8?B?KzEzamhaN2xWSEk0NTVCY2FjdmNPaXVpVGZnUUxrc1p2cENUa1pKVEs1NFFr?=
+ =?utf-8?B?SmI3MVpUb25OQVRoUitNWGpIdFpaRnQyTXVyWVJOdW1kSkp2dnpDakh0bVZw?=
+ =?utf-8?B?SlErdWdwZStpdmFlNGxDSzdUc0hDRitPSjRhOThxSUVidWlwSDQ3VzdDTFYr?=
+ =?utf-8?B?c1BTWVZLb0NaQlNpa0s3cHY1aFdadzRQeDREcjNWOVY4TCsrZ0Jaa2s3eS8z?=
+ =?utf-8?B?dzRaQUtCeENsTUc3OEszOWZ6MXlORTQ0RVB6K2xLV3czVS91eit0R1NDYlpC?=
+ =?utf-8?B?TXM4U3dUV1VVbVRVajM3UXlSVjQ3MER1VE1xNHZZeFZsV1BVNGVkUFdvYVBy?=
+ =?utf-8?B?bkllQnBDaXErYUgyMW9mdz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WW1qdStvbWNkNXducEdwZTZvUWNHRSsrWkpyQ1Y5dU80bm4vREFrRGNvREkr?=
+ =?utf-8?B?bU54eTJlUFRMTHRweWpTNStzRklwa0FNQTZ0aVI3K0VwNWNEVVY5OGJZck5p?=
+ =?utf-8?B?eStqWHNRSFRZRmF2bVVOQ3lkVXVNK3hkZkhTLy8xd2xmN3dqaTFZWk1GOVk2?=
+ =?utf-8?B?WElkd3RGeDROODJ4MVVuN2l2VTdhNFhBNlM4TVRRa2hoUmlJanhVMjkvWXFs?=
+ =?utf-8?B?d0NmeDQ1QnN5Mno2WU1Ldlc5eXdPNkcxdnR4RTlJaFpqU3FqL1BTUlFXQUdW?=
+ =?utf-8?B?VWlqUlN1Vlp4M0cyQXJXMGVXWFMyR0ZzUHI5N1RzOWZKSHdDZU1YQ2hQVjNY?=
+ =?utf-8?B?VVJYSlhrV1I5OElFbGVEbWk0MStqSDlqSzJOTTh6YmdKUUNSUjhjaGx2UEg2?=
+ =?utf-8?B?RS80ZmVSaUV5YWZqbHVIMkFlTDFhY1JkQkVsSmlRb2JFOUF1QXdaaHFqVGYv?=
+ =?utf-8?B?RFdQMlArTTJaZUtVYThNeVpWODhkVFpYWGNkRmVHMVhXWGJoc1dPSHI0MkZQ?=
+ =?utf-8?B?QTg4MTcyVDR3c1RyS2NPSGp6dnZ0RE94L2RhWlBZY0NhKy9HYVpDVjlTT1VF?=
+ =?utf-8?B?YlRmbVJZMTNxVXdMbVYzUVAzMGxSMXlVUWkxRnFNY2xRRHY3MVgxL3dvQWpO?=
+ =?utf-8?B?cEFpNWY3QnhTcmUrMk9SZmFlSjhud0ZERytYSy9oNTBaa1VuMW84aEZNUkFI?=
+ =?utf-8?B?Rm9BK05mNGQ4WnJ5NkFxcU9nb1NYbnNDN0dPbHdzOTZrc05RMGc1TE94NGI3?=
+ =?utf-8?B?UkJYY2JUZWhmZEdrdnQ5UzFvbGVhSGIrZFlHVWxNSUxwR1ZyOVJSUlovMysv?=
+ =?utf-8?B?bUVRc2dvTGdnNS9qNys4aVBNbzVNZS9nL2VqMVJNTWZubTZoTGl1eVQzN2NW?=
+ =?utf-8?B?akVwdXpObU9PSmpXUGVPNEt2U0F4c05IQ05PTmVFWHd5N3lkMjVmUWYwNnRS?=
+ =?utf-8?B?SXVOLzdIekJteEpHWVN5akp1WDlqaGJBYjYvUDhIVGZUYVYwNWF6WGhsMTFk?=
+ =?utf-8?B?d1hkOFkxRWlVY1YxQ3N5WndHandYRldEbmM3ZVFJdytwWG0zSTNpQVBLNDJS?=
+ =?utf-8?B?TEpZUDV0d0hVYURQYWd6eHRRaUM3ZWwzTG1FVFBkZHQxTHBNVVNNM0s4QmFS?=
+ =?utf-8?B?RjN6YmNWeWtkNlEzUEZ0ZXFmNUhGSTF3Tlprdnk3bVRLUVI2YldYTFlJV09E?=
+ =?utf-8?B?SnBHQkRML3ZBWG42bGVLcDhnMUlqaFQyWmV1MkhDc1hqeUZ2RHFwSHVIQk9m?=
+ =?utf-8?B?b215Ym9mNTlocWdhcDlnZ05vaG50eW5zeC9qU0NzUmlFdDlkbFZpaml5V2J3?=
+ =?utf-8?B?aklZcmEyeFNkWmVaRUlSTDJZbVR5NTJYRnErVXI2eDF2dE5vVy9Rd0tmY3lp?=
+ =?utf-8?B?TytKSmRTVjB4MnlaalZrTFh1THlaOGpnUDY4eWsvNkYvY3ZHWWVDOWVTYzdv?=
+ =?utf-8?B?ZFRweUR0cjJIV1RMVkhiZEVMUlJPY3BhVDF1WFp2R3pmVmZQaGlsNGw2S0p4?=
+ =?utf-8?B?UHcrMU95TGFsYmplZU8wTXV3clBEQThKT3FXNmhQWFdBa29RL3hLMjZZNnBH?=
+ =?utf-8?B?Rmt1b0pPdlZzOXBNaWJrY3ZNZmliR2N5d2piajJQNS80TFRoaXNEOXNhVjdJ?=
+ =?utf-8?B?dElTekRnaXR1Q2JJMTJNVy9lZlAyeDNxdGM1VHkzVmVYRktmbjV3MUlvQ1FE?=
+ =?utf-8?B?eWlBSFFSS2s5QWV3YkRvQVd2MVduWTRYRFNidlBQQlMyUjRRRHhYeld2Nm11?=
+ =?utf-8?B?ZHJoQXFWOFc5ejErbTYyZHZDYUpINHZlL2xaUnVCOVVZay9uNmxuRDlYQUZG?=
+ =?utf-8?B?Y1Yxdks3Nk9PdVRqZ1hFSXpPNTVsN3ByUkxEOFBpOGMyeEo5Z1hmc2hSRjFP?=
+ =?utf-8?B?bjVPNHQ4ck1hcGNGM21Mc1B5Zi9sMEE0M2pqdmcyT3dSNmNyV0dEQk11aE5y?=
+ =?utf-8?B?YnlzZjhWT0N5YVRrWUlwY2RkTzVTZWVDdGIrSS9GWXQwQndweTcyN3ZmNncr?=
+ =?utf-8?B?MFJUZkpIQnNZTFFKU3BsbERNQk5GQ2s3SVA1MkJtSXRyZW5TdFN6Z2R6VHZU?=
+ =?utf-8?B?a2s5ZytBdW0rN0NnLzJNcGNGNXRMMEpTTVdsb2VmTjRlMk13dXlmOVFJeDI4?=
+ =?utf-8?Q?/b9GTj7rtag9db4jlAGoKrh51?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09d022e7-d6c1-44ff-66cc-08dcb169b9fc
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a513b4f-5022-4979-f29d-08dcb1677754
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2024 13:48:32.1076 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g5RUb+wbg61ccYfCsezt/bKNf5VfI8opa+zIYP0f+DbA9OSn3OkNB0ql+3Yv6LjX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6140
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2024 14:04:43.1923 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dyIFMmLpUn95tHGVnXkbRC9vS2HXyYaoLU8PcXEo3iyTTVAvtfGadgdqfOEZebpH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8876
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,167 +159,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
-> -----Original Message-----
-> From: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> Sent: Tuesday, July 30, 2024 12:23 PM
-> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan
-> <Jonathan.Kim@amd.com>
-> Subject: RE: [PATCH] drm/amdkfd: fix debug watchpoints for logical device=
-s
+Am 31.07.24 um 11:35 schrieb Sunil Khatri:
+> clean up the calculation for nops count before
+> commit in the ring.
 >
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> One minor comment b. Either way Reviewed-by: Harish Kasiviswanathan
-> <Harish.Kasiviswanathan@amd.com>
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Jonathan Kim
-> Sent: Monday, July 22, 2024 2:57 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan
-> <Jonathan.Kim@amd.com>
-> Subject: [PATCH] drm/amdkfd: fix debug watchpoints for logical devices
->
-> The number of watchpoints should be set and constrained per logical
-> partition device, not by the socket device.
->
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_debug.c  | 20 ++++++++++----------
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c |  4 ++--
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  8 ++++----
->  3 files changed, 16 insertions(+), 16 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index 34a282540c7e..312dfa84f29f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -365,47 +365,47 @@ static int kfd_dbg_get_dev_watch_id(struct
-> kfd_process_device *pdd, int *watch_i
->
->         *watch_id =3D KFD_DEBUGGER_INVALID_WATCH_POINT_ID;
->
-> -       spin_lock(&pdd->dev->kfd->watch_points_lock);
-> +       spin_lock(&pdd->dev->watch_points_lock);
->
->         for (i =3D 0; i < MAX_WATCH_ADDRESSES; i++) {
->                 /* device watchpoint in use so skip */
-> -               if ((pdd->dev->kfd->alloc_watch_ids >> i) & 0x1)
-> +               if ((pdd->dev->alloc_watch_ids >> i) & 0x1)
->                         continue;
->
->                 pdd->alloc_watch_ids |=3D 0x1 << i;
-> -               pdd->dev->kfd->alloc_watch_ids |=3D 0x1 << i;
-> +               pdd->dev->alloc_watch_ids |=3D 0x1 << i;
->                 *watch_id =3D i;
-> -               spin_unlock(&pdd->dev->kfd->watch_points_lock);
-> +               spin_unlock(&pdd->dev->watch_points_lock);
->                 return 0;
->         }
->
-> -       spin_unlock(&pdd->dev->kfd->watch_points_lock);
-> +       spin_unlock(&pdd->dev->watch_points_lock);
->
->         return -ENOMEM;
->  }
->
->  static void kfd_dbg_clear_dev_watch_id(struct kfd_process_device *pdd, i=
-nt
-> watch_id)
->  {
-> -       spin_lock(&pdd->dev->kfd->watch_points_lock);
-> +       spin_lock(&pdd->dev->watch_points_lock);
->
->         /* process owns device watch point so safe to clear */
->         if ((pdd->alloc_watch_ids >> watch_id) & 0x1) {
->                 pdd->alloc_watch_ids &=3D ~(0x1 << watch_id);
-> -               pdd->dev->kfd->alloc_watch_ids &=3D ~(0x1 << watch_id);
-> +               pdd->dev->alloc_watch_ids &=3D ~(0x1 << watch_id);
->         }
->
-> -       spin_unlock(&pdd->dev->kfd->watch_points_lock);
-> +       spin_unlock(&pdd->dev->watch_points_lock);
->  }
->
->  static bool kfd_dbg_owns_dev_watch_id(struct kfd_process_device *pdd, in=
-t
-> watch_id)
->  {
->         bool owns_watch_id =3D false;
->
-> -       spin_lock(&pdd->dev->kfd->watch_points_lock);
-> +       spin_lock(&pdd->dev->watch_points_lock);
->         owns_watch_id =3D watch_id < MAX_WATCH_ADDRESSES &&
->                         ((pdd->alloc_watch_ids >> watch_id) & 0x1);
->
-> -       spin_unlock(&pdd->dev->kfd->watch_points_lock);
-> +       spin_unlock(&pdd->dev->watch_points_lock);
->
->         return owns_watch_id;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index f4d20adaa068..f91a9b6ce3fb 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -885,12 +885,12 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->                         goto node_init_error;
->                 }
->
-> Wouldn't it better to initialize node->watch_points_lock here.
-> spin_lock_init(&node->watch_points_lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 0d72d2cbb64b..2c8218332c65 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -142,9 +142,8 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+>   	uint32_t count;
+>   
+>   	/* We pad to match fetch size */
+> -	count = ring->funcs->align_mask + 1 -
+> -		(ring->wptr & ring->funcs->align_mask);
+> -	count %= ring->funcs->align_mask + 1;
+> +	count = ring->funcs->align_mask -
+> +		((ring->wptr + ring->funcs->align_mask) & ring->funcs->align_mask);
 
-Done.  Thanks for the review.
+I just realized that the old handling was potentially better since it 
+only required a constant addition instead of two with the align_mask.
 
-Jon
+E.g. "ring->funcs->align_mask + 1 -" looks a bit odd but might be less 
+instructions.
 
->
->                 kfd->nodes[i] =3D node;
-> +
-> +               spin_lock_init(&kfd->nodes[i]->watch_points_lock);
->         }
->
->         svm_range_set_max_pages(kfd->adev);
->
-> -       spin_lock_init(&kfd->watch_points_lock);
-> -
->         kfd->init_complete =3D true;
->         dev_info(kfd_device, "added device %x:%x\n", kfd->adev->pdev->ven=
-dor,
->                  kfd->adev->pdev->device);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 2b3ec92981e8..653e1f934107 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -310,6 +310,10 @@ struct kfd_node {
->         struct kfd_local_mem_info local_mem_info;
->
->         struct kfd_dev *kfd;
-> +
-> +       /* Track per device allocated watch points */
-> +       uint32_t alloc_watch_ids;
-> +       spinlock_t watch_points_lock;
->  };
->
->  struct kfd_dev {
-> @@ -362,10 +366,6 @@ struct kfd_dev {
->         struct kfd_node *nodes[MAX_KFD_NODES];
->         unsigned int num_nodes;
->
-> -       /* Track per device allocated watch points */
-> -       uint32_t alloc_watch_ids;
-> -       spinlock_t watch_points_lock;
-> -
->         /* Kernel doorbells for KFD device */
->         struct amdgpu_bo *doorbells;
->
-> --
-> 2.34.1
->
+Maybe just review and commit the version from Tvrtko which just replaces 
+the % with an & operation.
+
+Regards,
+Christian.
+
+>   
+>   	if (count != 0)
+>   		ring->funcs->insert_nop(ring, count);
 
