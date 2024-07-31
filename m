@@ -4,103 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 931BDC49EA1
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA32CC49EA1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:56:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB0410E608;
-	Wed, 31 Jul 2024 12:23:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 689B710E611;
+	Wed, 31 Jul 2024 12:56:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="SgBd4YTQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H6OM2LJu";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SgBd4YTQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="H6OM2LJu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RYWqBitX";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29E110E5E4;
- Wed, 31 Jul 2024 12:23:20 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8758D21BC8;
- Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
- b=SgBd4YTQEu2JEIXPI6MrzMaXLWiida9M4alSAlYhaC1y2D0QtPaDTLk8RG3EHNmSFxeZ1p
- TDFbzkZPy3PhMftjXyN3kx9pvTcV5k+tL+LzUp8ps+o8RSe1tXngi/RvrbKPgAkOIoE69l
- HyvJtMNhldLUZFRwfndDyoBqH7PBE7o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428599;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
- b=H6OM2LJuQ9ISLGY29TYwl+SXgQsjBWGMhNc4pfGSqP2eaciK4n45cTVgDJvXntAK7XGq7Z
- YOAIr4hkGRM3h3Dg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
- b=SgBd4YTQEu2JEIXPI6MrzMaXLWiida9M4alSAlYhaC1y2D0QtPaDTLk8RG3EHNmSFxeZ1p
- TDFbzkZPy3PhMftjXyN3kx9pvTcV5k+tL+LzUp8ps+o8RSe1tXngi/RvrbKPgAkOIoE69l
- HyvJtMNhldLUZFRwfndDyoBqH7PBE7o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428599;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t68LhlhOJJf7RAG/eIZXnqyISnELmY7Z/GfEWW3/rIw=;
- b=H6OM2LJuQ9ISLGY29TYwl+SXgQsjBWGMhNc4pfGSqP2eaciK4n45cTVgDJvXntAK7XGq7Z
- YOAIr4hkGRM3h3Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C75513297;
- Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kFuEDbcsqmacTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:19 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616A110E210;
+ Wed, 31 Jul 2024 12:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1722430573; x=1753966573;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=iMGPNoptOsDVAI9Q8YbdeiCyDp63bgqjel5/ATpJsPY=;
+ b=RYWqBitXydnPgrI95JOE9/jzR6x4vaXSfsF5Gw9+vQ6Bbuuo7L0jHftH
+ xkVRbbQgWzAInMnH3XxhFJCQGPtgfmNVkkCaKSVAKS9Rn/joUe3WIbzS6
+ bgJV3VdxkBINSd8Ge3Y639CiFBPYBzgNvy6wfvqQADm7KfAtlT6N54/V7
+ UE8Bor08JI7iJ/yKzcG4s9QbqOs+RfvgphoHI+nPHT7uv95TSWhFdTgdP
+ X9Z/Z+v1G04EH/jlUx/ogcGJCdnSP4Mcrv/ShBYQfRFUWNosrpO1kOxWx
+ iKVBI0qrymV2iEGNEwVancWcnXa5b8CnvwyYcKnFsVDWgdEI0nWjKipYb A==;
+X-CSE-ConnectionGUID: 8fDhBA6KTO68zhjedWzZAA==
+X-CSE-MsgGUID: E4y5BtJtSUK8576U67gmew==
+X-IronPort-AV: E=McAfee;i="6700,10204,11149"; a="30969717"
+X-IronPort-AV: E=Sophos;i="6.09,251,1716274800"; d="scan'208";a="30969717"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2024 05:56:13 -0700
+X-CSE-ConnectionGUID: 7OvGN9EtRvyWrEtaq3s15A==
+X-CSE-MsgGUID: wlesvcc4Tya2OO0u9JkGrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,251,1716274800"; d="scan'208";a="54562550"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.134])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2024 05:56:08 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  daniel@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: [PATCH 7/9] drm/panel: panel-sony-acx565akm: Use backlight power
- constants
-Date: Wed, 31 Jul 2024 14:17:19 +0200
-Message-ID: <20240731122311.1143153-8-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240731122311.1143153-1-tzimmermann@suse.de>
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Thomas
+ Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>
+Subject: Re: [PATCH 2/9] drm/i915: Use backlight power constants
+In-Reply-To: <20240731122311.1143153-3-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20240731122311.1143153-1-tzimmermann@suse.de>
+ <20240731122311.1143153-3-tzimmermann@suse.de>
+Date: Wed, 31 Jul 2024 15:56:05 +0300
+Message-ID: <87y15hwwii.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.60 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; MIME_GOOD(-0.10)[text/plain];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[11];
- FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,suse.de:email,quicinc.com:email];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,30 +74,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace FB_BLANK_ constants with their counterparts from the
-backlight subsystem. The values are identical, so there's no
-change in functionality or semantics.
+On Wed, 31 Jul 2024, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Replace FB_BLANK_ constants with their counterparts from the
+> backlight subsystem. The values are identical, so there's no
+> change in functionality or semantics.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/panel/panel-sony-acx565akm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/panel/panel-sony-acx565akm.c b/drivers/gpu/drm/panel/panel-sony-acx565akm.c
-index 73ba93ff00fe..217f03569494 100644
---- a/drivers/gpu/drm/panel/panel-sony-acx565akm.c
-+++ b/drivers/gpu/drm/panel/panel-sony-acx565akm.c
-@@ -342,7 +342,7 @@ static const struct backlight_ops acx565akm_bl_ops = {
- static int acx565akm_backlight_init(struct acx565akm_panel *lcd)
- {
- 	struct backlight_properties props = {
--		.power = FB_BLANK_UNBLANK,
-+		.power = BACKLIGHT_POWER_ON,
- 		.type = BACKLIGHT_RAW,
- 	};
- 	int ret;
+Do you want us to take this via drm-intel-next, or all together via
+drm-misc? Either is fine.
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_backlight.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+> index 071668bfe5d1..6f678c039ed8 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+> @@ -455,7 +455,7 @@ void intel_backlight_disable(const struct drm_connector_state *old_conn_state)
+>  	mutex_lock(&i915->display.backlight.lock);
+>  
+>  	if (panel->backlight.device)
+> -		panel->backlight.device->props.power = FB_BLANK_POWERDOWN;
+> +		panel->backlight.device->props.power = BACKLIGHT_POWER_OFF;
+>  	panel->backlight.enabled = false;
+>  	panel->backlight.funcs->disable(old_conn_state, 0);
+>  
+> @@ -773,7 +773,7 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+>  	panel->backlight.funcs->enable(crtc_state, conn_state, panel->backlight.level);
+>  	panel->backlight.enabled = true;
+>  	if (panel->backlight.device)
+> -		panel->backlight.device->props.power = FB_BLANK_UNBLANK;
+> +		panel->backlight.device->props.power = BACKLIGHT_POWER_ON;
+>  }
+>  
+>  void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+> @@ -870,12 +870,12 @@ static int intel_backlight_device_update_status(struct backlight_device *bd)
+>  	 */
+>  	if (panel->backlight.enabled) {
+>  		if (panel->backlight.power) {
+> -			bool enable = bd->props.power == FB_BLANK_UNBLANK &&
+> +			bool enable = bd->props.power == BACKLIGHT_POWER_ON &&
+>  				bd->props.brightness != 0;
+>  			panel->backlight.power(connector, enable);
+>  		}
+>  	} else {
+> -		bd->props.power = FB_BLANK_POWERDOWN;
+> +		bd->props.power = BACKLIGHT_POWER_OFF;
+>  	}
+>  
+>  	drm_modeset_unlock(&i915->drm.mode_config.connection_mutex);
+> @@ -945,9 +945,9 @@ int intel_backlight_device_register(struct intel_connector *connector)
+>  					    props.max_brightness);
+>  
+>  	if (panel->backlight.enabled)
+> -		props.power = FB_BLANK_UNBLANK;
+> +		props.power = BACKLIGHT_POWER_ON;
+>  	else
+> -		props.power = FB_BLANK_POWERDOWN;
+> +		props.power = BACKLIGHT_POWER_OFF;
+>  
+>  	name = kstrdup_const("intel_backlight", GFP_KERNEL);
+>  	if (!name)
+
 -- 
-2.45.2
-
+Jani Nikula, Intel
