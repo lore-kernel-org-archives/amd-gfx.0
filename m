@@ -4,41 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E723BC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 07:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 927F8C52D54
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 07:20:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE5910E3F5;
-	Wed, 31 Jul 2024 07:20:00 +0000 (UTC)
-X-Greylist: delayed 137497 seconds by postgrey-1.36 at gabe;
- Wed, 31 Jul 2024 04:11:10 UTC
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA2F610E0E1;
- Wed, 31 Jul 2024 04:11:10 +0000 (UTC)
-X-QQ-mid: bizesmtpsz14t1722399046t8cj53
-X-QQ-Originating-IP: YfBrOmRzqW2rVkujMiT2lCl0fnRmfKRUSfKubBNGB0g=
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 31 Jul 2024 12:10:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8046675919235854722
-From: WangYuli <wangyuli@uniontech.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Jingwen.Chen2@amd.com,
- suhui@nfschina.com, dan.carpenter@linaro.org, bokun.zhang@amd.com,
- wangyuli@uniontech.com, chongli2@amd.com, Luqmaan.Irshad@amd.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40A1910E43D;
+	Wed, 31 Jul 2024 07:20:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=uci.edu header.i=@uci.edu header.b="kCmXRuw+";
+	dkim-atps=neutral
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA1E210E246
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 05:54:56 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-1ff1cd07f56so33748475ad.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 22:54:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=uci.edu; s=google; t=1722405296; x=1723010096; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tKqvRSmHkIVmsY2tE+MEGPilglpL1hNRDaBy1R6HENs=;
+ b=kCmXRuw+BWGIX/AWeMmhXe9dUqR/stbAB54lutqXQXrZvH0hMvswjp0mVP8I7ROHX1
+ xDaHY/MV+pqmPAlBw5EBjtN0Q68eaTqby9p0QcoPQgtORQF5MYbLKVVDEOFG/VhrC/N4
+ enULg0q+u374kYORDTopwo/cYs6ZpJ6C7DJkI841fWCS0237GECcq2S+mKxNm9mDwC9h
+ oQO+1Bc4nzeAGHJSn9Wrh1kELgNG8bqaZ64J0cVi+M3wDxyYjeKHZyexNS4it9WpwWwT
+ AFEzOMUPX7ZAeObYQZkFZzUDuh0QCvh4cvj+QplIH9cDFDZeyXDhZP3nhL5Ri1/Yn6n0
+ tzxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722405296; x=1723010096;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tKqvRSmHkIVmsY2tE+MEGPilglpL1hNRDaBy1R6HENs=;
+ b=mLjP80J8lkqYg2PAbnJAOW4C8kY98fJUOMeHSOJH3SSL5fm0N+0g26JRfRRA88vwHM
+ 24kDA3mhNTcqkTSqskdI7ZAJrDiG92o/nrShWBbEFZDttgxh+G2iKtJ6diRzmoTKokp/
+ 0tLsqM/hcsRI6YUq9QxmVM1yVCx+S0tdZh/J0t1j+r1JLAs2add1w6dzZHFmyi+XVF4i
+ uSyA7LHINp6tVZiJGFYnd99M8xTpmQPN3go42l30oHU18M2xhaUqCUDgGycbnoXuAmtZ
+ TJmTTb5QgyFMi7C8UKl+WPq6V/KYXclW1JFUPBnbOB9BOsBwByUahu71zn1C9bsouAOX
+ H8zA==
+X-Gm-Message-State: AOJu0YzhZ+A5d+Ob+1x/yBteWyXmTA5B/4ZzPvU3kFIQ4ZyfvG+RL6O2
+ U1F1ZtVgM5GpMSiVS626AllVHliVh3i7W6u3QrVVh6W5CeVlYuJQLq2rhEZQ2cY=
+X-Google-Smtp-Source: AGHT+IFhCVV0PZXpK0cSSWZ1v4yPQWI6euzChZEKm8M/bxSqMPBGp7wJxtefAjhZ7cUEpLN3KGIPHQ==
+X-Received: by 2002:a17:902:ea0e:b0:1fc:6740:3ce6 with SMTP id
+ d9443c01a7336-1ff048270a2mr147043735ad.20.1722405295409; 
+ Tue, 30 Jul 2024 22:54:55 -0700 (PDT)
+Received: from alpha.mshome.net (ip68-4-168-191.oc.oc.cox.net. [68.4.168.191])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fed7ee4ce6sm112339595ad.157.2024.07.30.22.54.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jul 2024 22:54:54 -0700 (PDT)
+From: Remington Brasga <rbrasga@uci.edu>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
- shaoyang@uniontech.com, hongao@uniontech.com,
- wenlunpeng <wenlunpeng@uniontech.com>
-Subject: [PATCH v3] drm/amd/amdgpu: Properly tune the size of struct
-Date: Wed, 31 Jul 2024 12:10:40 +0800
-Message-ID: <3BC6F04B763EF430+20240731041040.43863-1-wangyuli@uniontech.com>
-X-Mailer: git-send-email 2.43.4
+ linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linuxfoundation.org,
+ Remington Brasga <rbrasga@uci.edu>
+Subject: [PATCH] drm/amdgpu/uvd4: fix mask and shift definitions
+Date: Wed, 31 Jul 2024 05:54:51 +0000
+Message-Id: <20240731055451.15467-1-rbrasga@uci.edu>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
 X-Mailman-Approved-At: Wed, 31 Jul 2024 07:19:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,47 +83,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The struct assertion is failed because sparse cannot parse
-`#pragma pack(push, 1)` and `#pragma pack(pop)` correctly.
-GCC's output is still 1-byte-aligned. No harm to memory layout.
+A few define's are listed twice with different, incorrect values.
+This fix sets them appropriately.
 
-The error can be filtered out by sparse-diff, but sometimes
-multiple lines queezed into one, making the sparse-diff thinks
-its a new error. I'm trying to aviod this by fixing errors.
-
-Link: https://lore.kernel.org/all/20230620045919.492128-1-suhui@nfschina.com/
-Link: https://lore.kernel.org/all/93d10611-9fbb-4242-87b8-5860b2606042@suswa.mountain/
-Fixes: 1721bc1b2afa ("drm/amdgpu: Update VF2PF interface")
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: wenlunpeng <wenlunpeng@uniontech.com>
-Reported-by: Su Hui <suhui@nfschina.com>
-Signed-off-by: WangYuli <wangyuli@uniontech.com>
+Signed-off-by: Remington Brasga <rbrasga@uci.edu>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The second UVD_LMI_CTRL__RFU_MASK is incorrect, so it was removed. It should be
+`0xf800 0000`.
+The first UVD_LMI_CTRL__RFU__SHIFT is incorrect, so it was removed.
+It should bei `0x1a`.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-index fb2b394bb9c5..6e9eeaeb3de1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -213,7 +213,7 @@ struct amd_sriov_msg_pf2vf_info {
- 	uint32_t gpu_capacity;
- 	/* reserved */
- 	uint32_t reserved[256 - AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE];
--};
-+} __packed;
- 
- struct amd_sriov_msg_vf2pf_info_header {
- 	/* the total structure size in byte */
-@@ -273,7 +273,7 @@ struct amd_sriov_msg_vf2pf_info {
- 	uint32_t mes_info_size;
- 	/* reserved */
- 	uint32_t reserved[256 - AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE];
--};
-+} __packed;
- 
- /* mailbox message send from guest to host  */
- enum amd_sriov_mailbox_request_message {
+This change aligns the uvd definitions, please refer to:
+drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_3_1_sh_mask.h
+drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_2_sh_mask.h
+drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_5_0_sh_mask.h
+drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_6_0_sh_mask.h
+
+ drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
+index 8ee3149df5b7..2ef1273e65ab 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
+@@ -340,8 +340,6 @@
+ #define UVD_LMI_CTRL__REQ_MODE_MASK 0x00000200L
+ #define UVD_LMI_CTRL__REQ_MODE__SHIFT 0x00000009
+ #define UVD_LMI_CTRL__RFU_MASK 0xf8000000L
+-#define UVD_LMI_CTRL__RFU_MASK 0xfc000000L
+-#define UVD_LMI_CTRL__RFU__SHIFT 0x0000001a
+ #define UVD_LMI_CTRL__RFU__SHIFT 0x0000001b
+ #define UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN_MASK 0x00200000L
+ #define UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN__SHIFT 0x00000015
 -- 
-2.43.4
+2.34.1
 
