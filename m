@@ -4,85 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B62C49EA1
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED6EC3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62D7110E5F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE6310E5FE;
 	Wed, 31 Jul 2024 12:23:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="K8YjXVQ+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4XhnPci8";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="K8YjXVQ+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4XhnPci8";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tA6OZ8G0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="M7l9j6WT";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tA6OZ8G0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="M7l9j6WT";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0381310E5E5;
- Wed, 31 Jul 2024 12:23:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB1410E5E5;
+ Wed, 31 Jul 2024 12:23:22 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 370E521B98;
- Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2F70721BD9;
+ Wed, 31 Jul 2024 12:23:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1722428600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
- b=K8YjXVQ+lLJPFbFl8ghXvPIvtsS4cZR0YAh7OZGLSY90+QvjEBfw+mSbo021dKH+tniK+t
- Yba0QOwz5GHCDLsjfThjIHppbaFhWtmKJo6wIBAdbd7Dn2+6LoXRhq0gwdISpWQuhgPWPJ
- Rti6INRRO2QiztD2cCNP/m5x+oGcScw=
+ bh=VUBuUYlHMqSrAtFtl+TE3Ym1lVC2bBk8yu5mK8y4ja4=;
+ b=tA6OZ8G0oLWSedHqsSkJ2LICx78H8N13EkeeguunbLlmS4dLsishHPHJONtDK1s1WQaQ3p
+ lD+igrb65JIhPOMqivJERecIEfsqCtQnkdkAzLvO1ekf03auewV8CgeCQlwjIehw3ZnAEt
+ LWEFwZvzwJ5T/ru3qoGjHV6U4rB6sAA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428599;
+ s=susede2_ed25519; t=1722428600;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
- b=4XhnPci8D2e0+I0Q02MQ8GudBN0sMycU1XDeGY4XBBYaShNBgomBAkJFdHa99ZBlxA4YnC
- Tn96rIQipf2H8IBQ==
+ bh=VUBuUYlHMqSrAtFtl+TE3Ym1lVC2bBk8yu5mK8y4ja4=;
+ b=M7l9j6WTh6KkhicAw1Qt3Mvto+RqrhgucySw2J0WCDqdv+UVHyzbbrbDrWOj/ePLILCY9y
+ wZipZ+nAPetrezAw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1722428600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
- b=K8YjXVQ+lLJPFbFl8ghXvPIvtsS4cZR0YAh7OZGLSY90+QvjEBfw+mSbo021dKH+tniK+t
- Yba0QOwz5GHCDLsjfThjIHppbaFhWtmKJo6wIBAdbd7Dn2+6LoXRhq0gwdISpWQuhgPWPJ
- Rti6INRRO2QiztD2cCNP/m5x+oGcScw=
+ bh=VUBuUYlHMqSrAtFtl+TE3Ym1lVC2bBk8yu5mK8y4ja4=;
+ b=tA6OZ8G0oLWSedHqsSkJ2LICx78H8N13EkeeguunbLlmS4dLsishHPHJONtDK1s1WQaQ3p
+ lD+igrb65JIhPOMqivJERecIEfsqCtQnkdkAzLvO1ekf03auewV8CgeCQlwjIehw3ZnAEt
+ LWEFwZvzwJ5T/ru3qoGjHV6U4rB6sAA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428599;
+ s=susede2_ed25519; t=1722428600;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/xgV9WVKcqmC0UTttpJnA0rzzGxPQK5W3SqSTqt+mBM=;
- b=4XhnPci8D2e0+I0Q02MQ8GudBN0sMycU1XDeGY4XBBYaShNBgomBAkJFdHa99ZBlxA4YnC
- Tn96rIQipf2H8IBQ==
+ bh=VUBuUYlHMqSrAtFtl+TE3Ym1lVC2bBk8yu5mK8y4ja4=;
+ b=M7l9j6WTh6KkhicAw1Qt3Mvto+RqrhgucySw2J0WCDqdv+UVHyzbbrbDrWOj/ePLILCY9y
+ wZipZ+nAPetrezAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E13B313ADE;
- Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD8BE13297;
+ Wed, 31 Jul 2024 12:23:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id OAjBNbYsqmacTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:18 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id eDjZNLcsqmacTQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:19 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  daniel@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: [PATCH 6/9] drm/panel: panel-samsung-s6e3ha2: Use backlight power
- constants
-Date: Wed, 31 Jul 2024 14:17:18 +0200
-Message-ID: <20240731122311.1143153-7-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH 9/9] drm/tilcdc: Use backlight power constants
+Date: Wed, 31 Jul 2024 14:17:21 +0200
+Message-ID: <20240731122311.1143153-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240731122311.1143153-1-tzimmermann@suse.de>
 References: <20240731122311.1143153-1-tzimmermann@suse.de>
@@ -98,7 +96,7 @@ X-Spamd-Result: default: False [-2.60 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[quicinc.com:email,linaro.org:email,suse.de:email];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -120,61 +118,25 @@ backlight subsystem. The values are identical, so there's no
 change in functionality or semantics.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Jyri Sarha <jyri.sarha@iki.fi>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tilcdc/tilcdc_panel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
-index 639a4fdf57bb..ab8b58545284 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha2.c
-@@ -458,7 +458,7 @@ static int s6e3ha2_set_brightness(struct backlight_device *bl_dev)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/tilcdc/tilcdc_panel.c b/drivers/gpu/drm/tilcdc/tilcdc_panel.c
+index 68093d6b6b16..5f2d1b6f9ee9 100644
+--- a/drivers/gpu/drm/tilcdc/tilcdc_panel.c
++++ b/drivers/gpu/drm/tilcdc/tilcdc_panel.c
+@@ -49,7 +49,7 @@ static void panel_encoder_dpms(struct drm_encoder *encoder, int mode)
+ 
+ 	if (backlight) {
+ 		backlight->props.power = mode == DRM_MODE_DPMS_ON ?
+-					 FB_BLANK_UNBLANK : FB_BLANK_POWERDOWN;
++					 BACKLIGHT_POWER_ON : BACKLIGHT_POWER_OFF;
+ 		backlight_update_status(backlight);
  	}
  
--	if (bl_dev->props.power > FB_BLANK_NORMAL)
-+	if (bl_dev->props.power > BACKLIGHT_POWER_REDUCED)
- 		return -EPERM;
- 
- 	s6e3ha2_call_write_func(ret, s6e3ha2_test_key_on_f0(ctx));
-@@ -508,7 +508,7 @@ static int s6e3ha2_disable(struct drm_panel *panel)
- 	s6e3ha2_call_write_func(ret, mipi_dsi_dcs_set_display_off(dsi));
- 
- 	msleep(40);
--	ctx->bl_dev->props.power = FB_BLANK_NORMAL;
-+	ctx->bl_dev->props.power = BACKLIGHT_POWER_REDUCED;
- 
- 	return 0;
- }
-@@ -554,7 +554,7 @@ static int s6e3ha2_prepare(struct drm_panel *panel)
- 	if (ret < 0)
- 		goto err;
- 
--	ctx->bl_dev->props.power = FB_BLANK_NORMAL;
-+	ctx->bl_dev->props.power = BACKLIGHT_POWER_REDUCED;
- 
- 	return 0;
- 
-@@ -601,7 +601,7 @@ static int s6e3ha2_enable(struct drm_panel *panel)
- 	s6e3ha2_call_write_func(ret, s6e3ha2_test_key_off_f0(ctx));
- 
- 	s6e3ha2_call_write_func(ret, mipi_dsi_dcs_set_display_on(dsi));
--	ctx->bl_dev->props.power = FB_BLANK_UNBLANK;
-+	ctx->bl_dev->props.power = BACKLIGHT_POWER_ON;
- 
- 	return 0;
- }
-@@ -729,7 +729,7 @@ static int s6e3ha2_probe(struct mipi_dsi_device *dsi)
- 
- 	ctx->bl_dev->props.max_brightness = S6E3HA2_MAX_BRIGHTNESS;
- 	ctx->bl_dev->props.brightness = S6E3HA2_DEFAULT_BRIGHTNESS;
--	ctx->bl_dev->props.power = FB_BLANK_POWERDOWN;
-+	ctx->bl_dev->props.power = BACKLIGHT_POWER_OFF;
- 
- 	drm_panel_init(&ctx->panel, dev, &s6e3ha2_drm_funcs,
- 		       DRM_MODE_CONNECTOR_DSI);
 -- 
 2.45.2
 
