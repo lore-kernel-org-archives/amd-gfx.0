@@ -4,103 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2604AC52D70
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EF35C49EA1
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 12:23:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1B4010E5E4;
-	Wed, 31 Jul 2024 12:23:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06AB410E5EE;
+	Wed, 31 Jul 2024 12:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="zvAjUxKS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g8A0Lbnm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="z8dpdXuf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B2CFou3z";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LgwVuBbC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o6WiVRVI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mAzjFuLm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sRK1JjGp";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 580D710E5D9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DB910E5D9;
  Wed, 31 Jul 2024 12:23:20 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D8CA821B3C;
- Wed, 31 Jul 2024 12:23:17 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8D7B921B91;
+ Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1722428599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mOTdCVaEnYGtfzTCQMNlTu9oxJH8V7lV/p5wiT3z57w=;
- b=zvAjUxKSvjWVQRVdDndV+jDEFK9TH0jercAEgFfBYcmMUOHslDkCqM8P1b8/j5hDGvZlC0
- epm8++gA1WlB61yhaAMjIZ/mmhgSLQhgFlogjVCGxjPWYlDTBe3Wcwac/LnOse/oYyV3RS
- O/dlzhYahbNap7o05jNlsd+6gSYKBB0=
+ bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
+ b=LgwVuBbCgPrHv4XfT4L3lIKWpiN29qcQ9NXRUdezFIaqG0kk+n2+asJ45RVjYv1BBPRxqk
+ U5hFSI1tZnKBWSs/NpQDfOosQaialEjMpQ39YqgdOkArd6+v/+nBRmh2AGYSwxZnQLpETF
+ Arx0Aozzemlc1T8ntTWxxpRV6Iahnqs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1722428599;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mOTdCVaEnYGtfzTCQMNlTu9oxJH8V7lV/p5wiT3z57w=;
- b=g8A0LbnmGMo5w3T0+iwYRWddDEnLLNVVTN29j9+gK1uW9Ul2M4iRUSLfCQV8Pu1/kP8zvj
- A5ABv7HP8OlrDBDw==
+ bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
+ b=o6WiVRVIRjRjHyhlbq/KD4+Sc/gEm8teOU6vOGhdU2cSbMk86LT0Cve0Jz3K4ZiHh+J56B
+ pyYYVcxgpQKtoDAw==
 Authentication-Results: smtp-out1.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mAzjFuLm;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sRK1JjGp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1722428597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1722428598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mOTdCVaEnYGtfzTCQMNlTu9oxJH8V7lV/p5wiT3z57w=;
- b=z8dpdXufM+P1Myhaaospgg5kt0lZYMLGVLy9RhEa3DcyitoDCThX/MTGRJew7VerH8LuAz
- b2nLQMfRNeZoVtfpmk0oGxbn+u/YfNTfyP2t0AZc8OkHXlv3sHVBTw011vU7vIFS4o6mx5
- p2PrSZFnpJfytdd7yC33KRkY8Pnqpxk=
+ bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
+ b=mAzjFuLmUgS65EbRv+zJdvegD0aqVHUriiFrl7Rju/+eybYJqZFWJeLm1RGVLrSNnhkBIW
+ cPVH92qgBzaiAKRKqtyc4lo2JyGEkPE0lDDiHz1phq9NbedQS5SQlR8vo13WkXQM2eKs5u
+ 8G8u9+/oKvbSQ1kfJsHmU4+LA5r4K4I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1722428597;
+ s=susede2_ed25519; t=1722428598;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mOTdCVaEnYGtfzTCQMNlTu9oxJH8V7lV/p5wiT3z57w=;
- b=B2CFou3zXQ0f+EadaDIqls49cBrWInTvbSgYjOp4z312RLBOMxe1OMoeJvWh1SRuPGqZkq
- 3xKxkbLrC0D2ulDg==
+ bh=kVWaVob/7LNt16AIaHxjwq6RwAFHI6gy9kBArD5iSYk=;
+ b=sRK1JjGp+N0MJyl7rjrDdcXkfbUjzEOxhvzUPvgtJ9WvfTOncRYKUiskUJmhSlUD//HBDX
+ lFwX5+3dtEjl65Cg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8496F13297;
- Wed, 31 Jul 2024 12:23:17 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4114B13ADA;
+ Wed, 31 Jul 2024 12:23:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6BwnH7UsqmacTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:17 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id qEqVDrYsqmacTQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 31 Jul 2024 12:23:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  daniel@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: [PATCH 2/9] drm/i915: Use backlight power constants
-Date: Wed, 31 Jul 2024 14:17:14 +0200
-Message-ID: <20240731122311.1143153-3-tzimmermann@suse.de>
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Subject: [PATCH 4/9] drm/panel: panel-orisetech-otm8009a: Use backlight power
+ constants
+Date: Wed, 31 Jul 2024 14:17:16 +0200
+Message-ID: <20240731122311.1143153-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240731122311.1143153-1-tzimmermann@suse.de>
 References: <20240731122311.1143153-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [0.40 / 50.00]; MID_CONTAINS_FROM(1.00)[];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-1.81 / 50.00];
+ DWL_DNSWL_MED(-2.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
  NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[quicinc.com:email,linaro.org:email,suse.de:email,suse.de:dkim];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FROM_HAS_DN(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[11];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
- MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,intel.com:email,ursulin.net:email];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 8D7B921B91
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,63 +128,34 @@ backlight subsystem. The values are identical, so there's no
 change in functionality or semantics.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/i915/display/intel_backlight.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panel/panel-orisetech-otm8009a.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index 071668bfe5d1..6f678c039ed8 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -455,7 +455,7 @@ void intel_backlight_disable(const struct drm_connector_state *old_conn_state)
- 	mutex_lock(&i915->display.backlight.lock);
- 
- 	if (panel->backlight.device)
--		panel->backlight.device->props.power = FB_BLANK_POWERDOWN;
-+		panel->backlight.device->props.power = BACKLIGHT_POWER_OFF;
- 	panel->backlight.enabled = false;
- 	panel->backlight.funcs->disable(old_conn_state, 0);
- 
-@@ -773,7 +773,7 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 	panel->backlight.funcs->enable(crtc_state, conn_state, panel->backlight.level);
- 	panel->backlight.enabled = true;
- 	if (panel->backlight.device)
--		panel->backlight.device->props.power = FB_BLANK_UNBLANK;
-+		panel->backlight.device->props.power = BACKLIGHT_POWER_ON;
- }
- 
- void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
-@@ -870,12 +870,12 @@ static int intel_backlight_device_update_status(struct backlight_device *bd)
- 	 */
- 	if (panel->backlight.enabled) {
- 		if (panel->backlight.power) {
--			bool enable = bd->props.power == FB_BLANK_UNBLANK &&
-+			bool enable = bd->props.power == BACKLIGHT_POWER_ON &&
- 				bd->props.brightness != 0;
- 			panel->backlight.power(connector, enable);
- 		}
- 	} else {
--		bd->props.power = FB_BLANK_POWERDOWN;
-+		bd->props.power = BACKLIGHT_POWER_OFF;
+diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
+index 93183f30d7d6..a9b5dad70bc1 100644
+--- a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
++++ b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
+@@ -389,7 +389,7 @@ static int otm8009a_backlight_update_status(struct backlight_device *bd)
+ 		return -ENXIO;
  	}
  
- 	drm_modeset_unlock(&i915->drm.mode_config.connection_mutex);
-@@ -945,9 +945,9 @@ int intel_backlight_device_register(struct intel_connector *connector)
- 					    props.max_brightness);
+-	if (bd->props.power <= FB_BLANK_NORMAL) {
++	if (bd->props.power <= BACKLIGHT_POWER_REDUCED) {
+ 		/* Power on the backlight with the requested brightness
+ 		 * Note We can not use mipi_dsi_dcs_set_display_brightness()
+ 		 * as otm8009a driver support only 8-bit brightness (1 param).
+@@ -465,7 +465,7 @@ static int otm8009a_probe(struct mipi_dsi_device *dsi)
  
- 	if (panel->backlight.enabled)
--		props.power = FB_BLANK_UNBLANK;
-+		props.power = BACKLIGHT_POWER_ON;
- 	else
--		props.power = FB_BLANK_POWERDOWN;
-+		props.power = BACKLIGHT_POWER_OFF;
+ 	ctx->bl_dev->props.max_brightness = OTM8009A_BACKLIGHT_MAX;
+ 	ctx->bl_dev->props.brightness = OTM8009A_BACKLIGHT_DEFAULT;
+-	ctx->bl_dev->props.power = FB_BLANK_POWERDOWN;
++	ctx->bl_dev->props.power = BACKLIGHT_POWER_OFF;
+ 	ctx->bl_dev->props.type = BACKLIGHT_RAW;
  
- 	name = kstrdup_const("intel_backlight", GFP_KERNEL);
- 	if (!name)
+ 	drm_panel_add(&ctx->panel);
 -- 
 2.45.2
 
