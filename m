@@ -4,55 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A05C8C52D1D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E723BC3DA7F
 	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 07:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F92A10E3F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE5910E3F5;
 	Wed, 31 Jul 2024 07:20:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="jqhe/tyJ";
-	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC6010E252;
- Wed, 31 Jul 2024 06:38:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=P1V0z9JyXNMjXUrrv9MyjJnAXiVD3xEEot8JcZbXg2w=;
- t=1722407884; x=1722839884; b=jqhe/tyJToFnr96kQpiEys0KNdmNcFU4Z90ED1uEQd9JMWL
- /FXC8FdXHRzr/8rJDp36xSt5xMovzhvlWbw1wezHKvMHSarG+mK7d5WNqGhBiVniC9CzcmdCJM0p/
- 6Z40Vq4u8Jzw5lEU15fyX4zF8J4JpPaGqzf35yGZpiRAGjG7hI314ZP5zSBRGJ1nvuLgezu2x9sJI
- 4EsnEpDX+bjjEIQnjglYqxsDKcagg4h0ImGX0O+RQQy3xP1gnWfe6xOzciuzUu7tzjfumXOTbzgBs
- cIyFkty60oXIbA410jW/TDzJ0TfgT6gc9r6CeTlXTl8ZMtCn7gBzDEvI8lJqZABQ==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1sZ2yH-00070r-AD; Wed, 31 Jul 2024 08:38:01 +0200
-Message-ID: <245f2c54-6d06-4b71-a9f8-a6fc0dbcceb3@leemhuis.info>
-Date: Wed, 31 Jul 2024 08:38:00 +0200
+X-Greylist: delayed 137497 seconds by postgrey-1.36 at gabe;
+ Wed, 31 Jul 2024 04:11:10 UTC
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA2F610E0E1;
+ Wed, 31 Jul 2024 04:11:10 +0000 (UTC)
+X-QQ-mid: bizesmtpsz14t1722399046t8cj53
+X-QQ-Originating-IP: YfBrOmRzqW2rVkujMiT2lCl0fnRmfKRUSfKubBNGB0g=
+Received: from localhost.localdomain ( [113.57.152.160])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 31 Jul 2024 12:10:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8046675919235854722
+From: WangYuli <wangyuli@uniontech.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, Jingwen.Chen2@amd.com,
+ suhui@nfschina.com, dan.carpenter@linaro.org, bokun.zhang@amd.com,
+ wangyuli@uniontech.com, chongli2@amd.com, Luqmaan.Irshad@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
+ shaoyang@uniontech.com, hongao@uniontech.com,
+ wenlunpeng <wenlunpeng@uniontech.com>
+Subject: [PATCH v3] drm/amd/amdgpu: Properly tune the size of struct
+Date: Wed, 31 Jul 2024 12:10:40 +0800
+Message-ID: <3BC6F04B763EF430+20240731041040.43863-1-wangyuli@uniontech.com>
+X-Mailer: git-send-email 2.43.4
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Brightness at max level after waking up from sleep
- on AMD Laptop
-To: hamza.mahfooz@amd.com
-Cc: regressions@lists.linux.dev, alexander.deucher@amd.com,
- serg.partizan@gmail.com,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- mario.limonciello@amd.com, ML dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-References: <77KAHS.13UUH2XVHQQF1@gmail.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Content-Language: en-US, de-DE
-In-Reply-To: <77KAHS.13UUH2XVHQQF1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1722407884;
- 56903427; 
-X-HE-SMSGID: 1sZ2yH-00070r-AD
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
 X-Mailman-Approved-At: Wed, 31 Jul 2024 07:19:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,56 +51,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[+amd-glx, +lkml, +dri-devel]
+The struct assertion is failed because sparse cannot parse
+`#pragma pack(push, 1)` and `#pragma pack(pop)` correctly.
+GCC's output is still 1-byte-aligned. No harm to memory layout.
 
-On 27.07.24 18:52, serg.partizan@gmail.com wrote:
-> 
-> After updating from 6.8.9 to 6.9.1 I noticed a bug on my HP Envy x360
-> with AMD Ryzen 5 4500U.
->
-> [...]
-> After waking up from sleep brightness is set to max level, ignoring
-> previous value.
-> 
-> With the help of Arch Linux team, we was able to track bad commit to
-> this:
-> https://gitlab.freedesktop.org/agd5f/linux/-/commit/63d0b87213a0ba241b3fcfba3fe7b0aed0cd1cc5
+The error can be filtered out by sparse-diff, but sometimes
+multiple lines queezed into one, making the sparse-diff thinks
+its a new error. I'm trying to aviod this by fixing errors.
 
-Hamza Mahfooz, in case you missed it, that is a patch of yours:
-63d0b87213a0ba ("drm/amd/display: add panel_power_savings sysfs entry to
-eDP connectors") [v6.9-rc1].
+Link: https://lore.kernel.org/all/20230620045919.492128-1-suhui@nfschina.com/
+Link: https://lore.kernel.org/all/93d10611-9fbb-4242-87b8-5860b2606042@suswa.mountain/
+Fixes: 1721bc1b2afa ("drm/amdgpu: Update VF2PF interface")
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: wenlunpeng <wenlunpeng@uniontech.com>
+Reported-by: Su Hui <suhui@nfschina.com>
+Signed-off-by: WangYuli <wangyuli@uniontech.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> I have tested this on latest mainline kernel:
-> 
-> Results after waking up:
-> 
->> cat /sys/class/backlight/amdgpu_bl1/{brightness,actual_brightness}
-> 12
-> 252
-> 
-> Then, on exact this commit (63d0b87213a0ba241b3fcfba3fe7b0aed0cd1cc5),
-> result is the same.
-> 
-> Then, on commit just before this one (aeaf3e6cf842):
-> 
->> cat /sys/class/backlight/amdgpu_bl1/{brightness,actual_brightness}
-> 12
-> 12
-> 
-> I hope I included all relevant information, more info can be found here:
-> 
-> https://gitlab.archlinux.org/archlinux/packaging/packages/linux/-/issues/52
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+index fb2b394bb9c5..6e9eeaeb3de1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -213,7 +213,7 @@ struct amd_sriov_msg_pf2vf_info {
+ 	uint32_t gpu_capacity;
+ 	/* reserved */
+ 	uint32_t reserved[256 - AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE];
+-};
++} __packed;
+ 
+ struct amd_sriov_msg_vf2pf_info_header {
+ 	/* the total structure size in byte */
+@@ -273,7 +273,7 @@ struct amd_sriov_msg_vf2pf_info {
+ 	uint32_t mes_info_size;
+ 	/* reserved */
+ 	uint32_t reserved[256 - AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE];
+-};
++} __packed;
+ 
+ /* mailbox message send from guest to host  */
+ enum amd_sriov_mailbox_request_message {
+-- 
+2.43.4
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
-
-P.S.:
-
-#regzbot introduced: 63d0b87213a0ba241
