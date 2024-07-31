@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE51C52D1D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B35C3DA64
 	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E137010E722;
-	Thu,  1 Aug 2024 00:12:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75B2210E723;
+	Thu,  1 Aug 2024 00:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dn85OhlB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C9Uth3Uj";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B18A410E724;
- Thu,  1 Aug 2024 00:12:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 39248626E3;
- Thu,  1 Aug 2024 00:12:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842C0C116B1;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC1CD10E721;
  Thu,  1 Aug 2024 00:12:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3458C6265B;
+ Thu,  1 Aug 2024 00:12:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A14C32786;
+ Thu,  1 Aug 2024 00:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722471164;
- bh=jpkhFVOnSXpR+YPe+1YyNTyN9humETSuUWI0nGBaY0Q=;
+ s=k20201202; t=1722471161;
+ bh=BGS5wAJx3zxI9NSSDUYUvaAvLVv/o/NtJZwvzfr2PdI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Dn85OhlBeQTw1AkvCPIXa+vJPuYUpzYPfOJJbBFnTPwoObVZTbZCExJfZYcZvv3Zb
- ExgI8uh9shNClNT/5zpxomq5RyNmceamPqgv7on1ydpbWkC9QfnsnvZeEK4Aa3SjlK
- xoT4lH7nbqvLd78M8fAjX5nGshfFtRJsLZFjiDCIIi1sP1uSkDCk6687Wa60JPchDM
- peiwnXOLJJ38tw1EhS1VLYNC128nCCxLlEAgLFSiICc3x80DgHBTVqFHz5d1khnBtp
- RdCZ1Zkp4E19qKZeOUZ+UiAHhi/5BNI7YPD2H/tLTZVoevN5aziwPycq2rNCt1AzYr
- 45QAMOmQ2cKpg==
+ b=C9Uth3UjJ59M5lorRjlkn2jakdLUNQmMcROChxbKLzvFrnMK4aDhU9gvZ92cF4p0v
+ K6cg2vO5H5I5gBzQlmsqWpOUNBS0Sy0tas5BDIQPgROlR35+jLBSPz8man3cTUyJNJ
+ pDM9zub0x8sk4dH64TcuwPUTcaG3dQ0kqrLASDKx4zX1HQv41dY3MAKyzmShdsN64I
+ BHYkjbGdMJ0sdIBg93aqII1xJSrQYT5uy/Xji+s0T2AVae9E5OvUAKluLoad+fDwUt
+ bUwJquuHutypcrlkAoToKwp+Z5WUOVn18HqkNYxZphdENB1PT2AcXzbh4akHQspgjk
+ pUXJhbqTmQUQw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Michael Chen <michael.chen@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 037/121] drm/amdkfd: Reconcile the definition and
- use of oem_id in struct kfd_topology_device
-Date: Wed, 31 Jul 2024 19:59:35 -0400
-Message-ID: <20240801000834.3930818-37-sashal@kernel.org>
+Cc: Tim Huang <Tim.Huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com,
+ Hawking.Zhang@amd.com, electrodeyt@gmail.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.10 036/121] drm/amdgpu: fix mc_data out-of-bounds
+ read warning
+Date: Wed, 31 Jul 2024 19:59:34 -0400
+Message-ID: <20240801000834.3930818-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801000834.3930818-1-sashal@kernel.org>
 References: <20240801000834.3930818-1-sashal@kernel.org>
@@ -65,68 +64,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Chen <michael.chen@amd.com>
+From: Tim Huang <Tim.Huang@amd.com>
 
-[ Upstream commit 10f624ef239bd136cdcc5bbc626157a57b938a31 ]
+[ Upstream commit 51dfc0a4d609fe700750a62f41447f01b8c9ea50 ]
 
-Currently oem_id is defined as uint8_t[6] and casted to uint64_t*
-in some use case. This would lead code scanner to complain about
-access beyond. Re-define it in union to enforce 8-byte size and
-alignment to avoid potential issue.
+Clear warning that read mc_data[i-1] may out-of-bounds.
 
-Signed-off-by: Michael Chen <michael.chen@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h     | 2 --
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 3 +--
- drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 5 ++++-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index 300634b9f6683..a8ca7ecb6d271 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -42,8 +42,6 @@
- #define CRAT_OEMTABLEID_LENGTH	8
- #define CRAT_RESERVED_LENGTH	6
- 
--#define CRAT_OEMID_64BIT_MASK ((1ULL << (CRAT_OEMID_LENGTH * 8)) - 1)
--
- /* Compute Unit flags */
- #define COMPUTE_UNIT_CPU	(1 << 0)  /* Create Virtual CRAT for CPU */
- #define COMPUTE_UNIT_GPU	(1 << 1)  /* Create Virtual CRAT for GPU */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index bc9eb847ecfe7..1d271ecc386f0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -958,8 +958,7 @@ static void kfd_update_system_properties(void)
- 	dev = list_last_entry(&topology_device_list,
- 			struct kfd_topology_device, list);
- 	if (dev) {
--		sys_props.platform_id =
--			(*((uint64_t *)dev->oem_id)) & CRAT_OEMID_64BIT_MASK;
-+		sys_props.platform_id = dev->oem_id64;
- 		sys_props.platform_oem = *((uint64_t *)dev->oem_table_id);
- 		sys_props.platform_rev = dev->oem_revision;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-index 27386ce9a021d..2d1c9d771bef2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-@@ -154,7 +154,10 @@ struct kfd_topology_device {
- 	struct attribute		attr_gpuid;
- 	struct attribute		attr_name;
- 	struct attribute		attr_props;
--	uint8_t				oem_id[CRAT_OEMID_LENGTH];
-+	union {
-+		uint8_t				oem_id[CRAT_OEMID_LENGTH];
-+		uint64_t			oem_id64;
-+	};
- 	uint8_t				oem_table_id[CRAT_OEMTABLEID_LENGTH];
- 	uint32_t			oem_revision;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 52b12c1718eb0..7dc102f0bc1d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -1484,6 +1484,8 @@ int amdgpu_atombios_init_mc_reg_table(struct amdgpu_device *adev,
+ 										(u32)le32_to_cpu(*((u32 *)reg_data + j));
+ 									j++;
+ 								} else if ((reg_table->mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) == DATA_EQU_PREV) {
++									if (i == 0)
++										continue;
+ 									reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
+ 										reg_table->mc_reg_table_entry[num_ranges].mc_data[i - 1];
+ 								}
 -- 
 2.43.0
 
