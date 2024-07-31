@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12989C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F12EFC3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE9F610E718;
-	Thu,  1 Aug 2024 00:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A70C10E71C;
+	Thu,  1 Aug 2024 00:12:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RuGP6t5B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R5/vsuRu";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E841D10E717;
- Thu,  1 Aug 2024 00:12:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 701CB10E71B;
+ Thu,  1 Aug 2024 00:12:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 62B0D62660;
- Thu,  1 Aug 2024 00:12:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D738C32786;
- Thu,  1 Aug 2024 00:12:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C45AE6246A;
+ Thu,  1 Aug 2024 00:12:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10C9C4AF10;
+ Thu,  1 Aug 2024 00:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722471142;
- bh=mTvjHh/jMriSdBoszi2VSAV3u1VAPiUYVFmeIZKAnN8=;
+ s=k20201202; t=1722471149;
+ bh=g9ItIRqLvF1nnPxK1LAetPz07OAallDiEh7T4HVBHWw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RuGP6t5BxYnTUzZ9REOPrUSxW3dXPjuR3jnoMAVXFykxD9yiFxRDpAwbT2nE8EocP
- d+5yPmMT/oWmSYUJU8i7xJ91RA7hFCdRIWGYR00cgT2B2i2Yjyoaq/KXNMV2B3qnW5
- 4ywfFGrcP1n+nYz0oPpVqxX0/W0iq3adcCiLjqHy5JnQziSInoFH1OdAsH2g6xe04k
- 9CMu1cQstSv9YOL5xZn9bwkviCQYG/M2i2kjVLDz1ufrpoTzCpUWx4Xj2y/PqxmNsm
- dJ2yDXVy+WNrNWavDfYeoeCNanpZnX75/dKtzIgK+QqyfjSf3ZLfHnWVEAjXfNtuab
- PC2NczsE5Yq6A==
+ b=R5/vsuRuDqpd5Q6hX0XGzhC1FtKTHJQ4FNunLW4GKdhaP1dXg+q+gJlSbzrsqW8il
+ AhdIKm9NF55wNEVgImZ58VecPJqsXIA1N9u1r19zvaUYoIiC38k4JXPWhutFoeMA7L
+ U4OSVXceKPC1ARqfsoKt0Q5YcBj/NkybMRrabjrsQiKGVb6PyXhgJ9Lm9iCFMbUW8K
+ uqr7Bi0PE0CmYDBO/1kAZ2MYPgIuWIw572BEDCygyJAjkvrR3lICfLsJaED/0+U+c4
+ E3ls8pdSUxnjSulCgzUouTaAMu2YQXhaCjVtJ/eAtX8n8ng/sqXd8b4n8dvJnR4kj8
+ cXsH2uSOVt4HA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Asad Kamal <asad.kamal@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Hawking.Zhang@amd.com, mario.limonciello@amd.com,
- candice.li@amd.com, Jun.Ma2@amd.com, victorchengchi.lu@amd.com,
- andrealmeid@igalia.com, hamza.mahfooz@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 031/121] drm/amd/amdgpu: Check tbo resource
- pointer
-Date: Wed, 31 Jul 2024 19:59:29 -0400
-Message-ID: <20240801000834.3930818-31-sashal@kernel.org>
+Cc: "Lin.Cao" <lincao12@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.10 033/121] drm/amdkfd: Check debug trap enable
+ before write dbg_ev_file
+Date: Wed, 31 Jul 2024 19:59:31 -0400
+Message-ID: <20240801000834.3930818-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801000834.3930818-1-sashal@kernel.org>
 References: <20240801000834.3930818-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.10.2
@@ -68,35 +64,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Asad Kamal <asad.kamal@amd.com>
+From: "Lin.Cao" <lincao12@amd.com>
 
-[ Upstream commit 6cd2b872643bb29bba01a8ac739138db7bd79007 ]
+[ Upstream commit 547033b593063eb85bfdf9b25a5f1b8fd1911be2 ]
 
-Validate tbo resource pointer, skip if NULL
+In interrupt context, write dbg_ev_file will be run by work queue. It
+will cause write dbg_ev_file execution after debug_trap_disable, which
+will cause NULL pointer access.
+v2: cancel work "debug_event_workarea" before set dbg_ev_file as NULL.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Lin.Cao <lincao12@amd.com>
+Reviewed-by: Jonathan Kim <jonathan.kim@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 33f791d92ddf3..b151effc55dab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5011,7 +5011,8 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
- 		shadow = vmbo->shadow;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+index d889e3545120a..6c2f6a26c479c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+@@ -103,7 +103,8 @@ void debug_event_write_work_handler(struct work_struct *work)
+ 			struct kfd_process,
+ 			debug_event_workarea);
  
- 		/* No need to recover an evicted BO */
--		if (shadow->tbo.resource->mem_type != TTM_PL_TT ||
-+		if (!shadow->tbo.resource ||
-+		    shadow->tbo.resource->mem_type != TTM_PL_TT ||
- 		    shadow->tbo.resource->start == AMDGPU_BO_INVALID_OFFSET ||
- 		    shadow->parent->tbo.resource->mem_type != TTM_PL_VRAM)
- 			continue;
+-	kernel_write(process->dbg_ev_file, &write_data, 1, &pos);
++	if (process->debug_trap_enabled && process->dbg_ev_file)
++		kernel_write(process->dbg_ev_file, &write_data, 1, &pos);
+ }
+ 
+ /* update process/device/queue exception status, write to descriptor
+@@ -645,6 +646,7 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
+ 	else if (target->runtime_info.runtime_state != DEBUG_RUNTIME_STATE_DISABLED)
+ 		target->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_ENABLED;
+ 
++	cancel_work_sync(&target->debug_event_workarea);
+ 	fput(target->dbg_ev_file);
+ 	target->dbg_ev_file = NULL;
+ 
 -- 
 2.43.0
 
