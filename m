@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B35C3DA64
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DFA0C3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75B2210E723;
-	Thu,  1 Aug 2024 00:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4113510E726;
+	Thu,  1 Aug 2024 00:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C9Uth3Uj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V8CG5nBT";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC1CD10E721;
- Thu,  1 Aug 2024 00:12:42 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEE2210E725;
+ Thu,  1 Aug 2024 00:12:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3458C6265B;
- Thu,  1 Aug 2024 00:12:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A14C32786;
- Thu,  1 Aug 2024 00:12:40 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id E3A22CE1811;
+ Thu,  1 Aug 2024 00:12:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188EDC32786;
+ Thu,  1 Aug 2024 00:12:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722471161;
- bh=BGS5wAJx3zxI9NSSDUYUvaAvLVv/o/NtJZwvzfr2PdI=;
+ s=k20201202; t=1722471176;
+ bh=JnjjrtI9ZluhYZ4pqtI1wpNaxDeCQ+KgDX1I7VdNqHE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C9Uth3UjJ59M5lorRjlkn2jakdLUNQmMcROChxbKLzvFrnMK4aDhU9gvZ92cF4p0v
- K6cg2vO5H5I5gBzQlmsqWpOUNBS0Sy0tas5BDIQPgROlR35+jLBSPz8man3cTUyJNJ
- pDM9zub0x8sk4dH64TcuwPUTcaG3dQ0kqrLASDKx4zX1HQv41dY3MAKyzmShdsN64I
- BHYkjbGdMJ0sdIBg93aqII1xJSrQYT5uy/Xji+s0T2AVae9E5OvUAKluLoad+fDwUt
- bUwJquuHutypcrlkAoToKwp+Z5WUOVn18HqkNYxZphdENB1PT2AcXzbh4akHQspgjk
- pUXJhbqTmQUQw==
+ b=V8CG5nBT4m8LgQRDwm5SIZBlefI68cj0zQH4Z4XZP+cMkfgZSg/aBkZDMzXY4leVN
+ 9ctBml6OjRn23L8cWZWCeTrx5n9yaJRCvbGMf5n3J5L3oq4Ai93isNcNleytvQjXtV
+ obV87TTk8HRiCKeoNS95yYjtJReiQaUbKBFfDuNLGAiZn4av9mvee4JBdkHn4PDAVY
+ QVcOA4gp7CMzJnV8lof3wNbF69grSuFFCfX3RX92LvanxzvOtrc0iTqGrzTirXSaur
+ rJNg1D+sY6+/dfuTOOzimScMUjtcczEn4Os1anS3Gq9lrhsvtFcbA3wKydp2V0XzXO
+ JOH0xyoNgrbbg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Tim Huang <Tim.Huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com,
- Hawking.Zhang@amd.com, electrodeyt@gmail.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 036/121] drm/amdgpu: fix mc_data out-of-bounds
- read warning
-Date: Wed, 31 Jul 2024 19:59:34 -0400
-Message-ID: <20240801000834.3930818-36-sashal@kernel.org>
+Cc: Ma Jun <Jun.Ma2@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, mario.limonciello@amd.com,
+ lijo.lazar@amd.com, ruanjinjie@huawei.com, alexious@zju.edu.cn,
+ sunran001@208suo.com, jesse.zhang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.10 041/121] drm/amdgpu/pm: Check input value for
+ CUSTOM profile mode setting on legacy SOCs
+Date: Wed, 31 Jul 2024 19:59:39 -0400
+Message-ID: <20240801000834.3930818-41-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801000834.3930818-1-sashal@kernel.org>
 References: <20240801000834.3930818-1-sashal@kernel.org>
@@ -64,33 +66,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tim Huang <Tim.Huang@amd.com>
+From: Ma Jun <Jun.Ma2@amd.com>
 
-[ Upstream commit 51dfc0a4d609fe700750a62f41447f01b8c9ea50 ]
+[ Upstream commit df0a9bd92fbbd3fcafcb2bce6463c9228a3e6868 ]
 
-Clear warning that read mc_data[i-1] may out-of-bounds.
+Check the input value for CUSTOM profile mode setting on legacy
+SOCs. Otherwise we may use uninitalized value of input[]
 
-Signed-off-by: Tim Huang <Tim.Huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 8 ++++++--
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 52b12c1718eb0..7dc102f0bc1d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -1484,6 +1484,8 @@ int amdgpu_atombios_init_mc_reg_table(struct amdgpu_device *adev,
- 										(u32)le32_to_cpu(*((u32 *)reg_data + j));
- 									j++;
- 								} else if ((reg_table->mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) == DATA_EQU_PREV) {
-+									if (i == 0)
-+										continue;
- 									reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
- 										reg_table->mc_reg_table_entry[num_ranges].mc_data[i - 1];
- 								}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 1fcd4451001fa..8f851d2b59486 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -5640,7 +5640,7 @@ static int smu7_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, uint
+ 	mode = input[size];
+ 	switch (mode) {
+ 	case PP_SMC_POWER_PROFILE_CUSTOM:
+-		if (size < 8 && size != 0)
++		if (size != 8 && size != 0)
+ 			return -EINVAL;
+ 		/* If only CUSTOM is passed in, use the saved values. Check
+ 		 * that we actually have a CUSTOM profile by ensuring that
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index f9efb0bad8072..827669e01343b 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -4091,9 +4091,11 @@ static int vega20_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, ui
+ 	if (power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
+ 		struct vega20_hwmgr *data =
+ 			(struct vega20_hwmgr *)(hwmgr->backend);
+-		if (size == 0 && !data->is_custom_profile_set)
++
++		if (size != 10 && size != 0)
+ 			return -EINVAL;
+-		if (size < 10 && size != 0)
++
++		if (size == 0 && !data->is_custom_profile_set)
+ 			return -EINVAL;
+ 
+ 		result = vega20_get_activity_monitor_coeff(hwmgr,
+@@ -4155,6 +4157,8 @@ static int vega20_set_power_profile_mode(struct pp_hwmgr *hwmgr, long *input, ui
+ 			activity_monitor.Fclk_PD_Data_error_coeff = input[8];
+ 			activity_monitor.Fclk_PD_Data_error_rate_coeff = input[9];
+ 			break;
++		default:
++			return -EINVAL;
+ 		}
+ 
+ 		result = vega20_set_activity_monitor_coeff(hwmgr,
 -- 
 2.43.0
 
