@@ -4,111 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE5EEC3DA64
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 06:47:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE33C3DA64
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 06:57:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46FAC10E1C8;
-	Wed, 31 Jul 2024 06:47:56 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E113710E1C8
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 06:47:55 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a7aa212c1c9so725520766b.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jul 2024 23:47:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722408474; x=1723013274;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZC11nlah7LahdotxiWZMeTzPoi5FOtJC4PJowhbCO+g=;
- b=cFlUXbvFQz+NspUrBIu2UCbbaBuJ/u04LzjPryGaQyld09LSAA8vdsWebUwIEQdy2T
- 92PMWz+Mgg/NB79hdcGHVDIjv0zY9xXs+ff6rPx0sxd7T+sjMgWPK97RkiYmGH1fX3jc
- hW0wwEiMG3NjNaBKv+T0/AjyejncI/pgsCLiUV4d9JtjRIVWbVqzFWfd9CXQUTIZPDD0
- nTUb3/bzq0l5eQHxGVn1YbQBsB9qPP/vgvn9qQOFBFKaklm3hYsuMJk3toJG3qAVGsp9
- RPpZQXFNg5wBGwk40VKTgbEx8drTSs42ntT2X2AQ9cenRmF5p7u4jO0nYKKGMzuxzT1W
- fSfQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUbd42j66TJGZ4PCMz/WHaOGHTl4w8PtvFp4b1u9TE7nLHVk+dJlozCOGw1mhoGc5nqHQALyrdFAhz30fLdkGs554j2ze6+B0qIEG3alQ==
-X-Gm-Message-State: AOJu0YwxvHYqx3QKNGFXoBTAiwwXZYQD3Tepn1oDR93JdMMJwxM7LC05
- QBm6WEhtApPVkAJIdoYeEZYxMaedcZJSG9zFnzo5pJLmE8GOg5Y0bzSmPw==
-X-Google-Smtp-Source: AGHT+IFfOGod/bajvZ5lrCJaBcfmo8wrQegUUp2c0gP0GNYWK/RnJFOG4AEYg9B2QA5x6xLZTm6y1Q==
-X-Received: by 2002:a17:907:d17:b0:a7a:9ca6:528 with SMTP id
- a640c23a62f3a-a7d3ffa4f39mr914300966b.11.1722408474177; 
- Tue, 30 Jul 2024 23:47:54 -0700 (PDT)
-Received: from ?IPV6:2a0b:e7c0:0:107::aaaa:69? ([2a0b:e7c0:0:107::aaaa:69])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab52c95sm730791266b.76.2024.07.30.23.47.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 23:47:53 -0700 (PDT)
-Message-ID: <c8652666-c7e8-42d9-bc93-596e2362c7f1@kernel.org>
-Date: Wed, 31 Jul 2024 08:47:51 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 232CF10E1E1;
+	Wed, 31 Jul 2024 06:57:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UIBj/4LR";
+	dkim-atps=neutral
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2074.outbound.protection.outlook.com [40.107.244.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F31D10E1E1;
+ Wed, 31 Jul 2024 06:57:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kMlFNmppLnQ5BFCiejbSi+zDSk9XRrHs8qVEkf7ppxbAV7rb9EpUVSqbldUkGVtThqnH3ogOyhl1DNcs4wyvJ0+7R1zh/6ZREpL/Q4wUZ3cOyaiTR1vzHP8AQWrlDQ7KOWgbZ4Y8t63NaQC5PBSrVnXc2VOieDrrgObTv5bk54ZiNXD9srPfw9avIILZxS5Td0CMXmJcBCCZ7NZ51P1LZwUVaWm6F/reMDp7GmKPqxo62Pu7Dffnm+9LABqDNdbiqQFkFOV7XZaA2fNgODH700MVHZJuJOYSu9O/kaRrTQJVmG9CLNx3v++2fPeqk7Oe9FHfbyYI6tBa2Q1hCDIoVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lYIIedySQctDTao/7dQTWqWcvtcm9i1rv2vfZR9L2ac=;
+ b=ythdHp+tG4udTQZHf9kDKO1mtylKYIXfiStWZM/tpQLAvNxzXL1RnB4DQAdUveMR75gzvQaL5VIUcUXrvpr6JRSdw7spGwo+zqbm8mB+vnn1WJfCJ36j1bFv5cWgk9LEjWZssGj/HKL5dr0dr5LBhd8FKs4Iwt+y6LfRIaYV0c2fqAmQq1og1Y0FimTw9yfNAXgTePN4wXxiiJjIiTSTPg86dxrY4FyZDI4yKIMoz8zuRwtWRfwCI4TgYr+yRQmh2MGNRkNYPPBT/bw6HBsrJ9LYMRXjC26qEaN3OQJuxDGN8CjgBuF7IGpdTMLZtO0eH4TRzjHMAWY8P/v9Cyh+Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lYIIedySQctDTao/7dQTWqWcvtcm9i1rv2vfZR9L2ac=;
+ b=UIBj/4LR7gg996j9W2B+D8sET5/S3ddF39Rhz4JFdMrIlW1zhtbJzhpxrMeNxM1Jd0K+7a2VCeWE4JzGtgSdnqvaETh1M7TbHq4v4axrKE+juZXvZrx+XcIG09hA0cwwR9i9+u7IV7qOwVrlzVwjfLL7q+jz/t4kC92bLeK7EIU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB8848.namprd12.prod.outlook.com (2603:10b6:a03:537::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.26; Wed, 31 Jul
+ 2024 06:57:02 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7828.016; Wed, 31 Jul 2024
+ 06:57:02 +0000
+Message-ID: <a80ec052-72a3-4630-8381-bc24ad3a6ab6@amd.com>
+Date: Wed, 31 Jul 2024 08:56:56 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/43] drm/amd/display: FEC overhead should be checked
- once for mst slot nums
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Chiu, Solomon" <Solomon.Chiu@amd.com>,
- "Gutierrez, Agustin" <Agustin.Gutierrez@amd.com>,
- "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>
-References: <20240328195047.2843715-1-Roman.Li@amd.com>
- <20240328195047.2843715-9-Roman.Li@amd.com>
- <87138377-d5b0-4c28-96bd-35a0ffd5f204@kernel.org>
- <CO6PR12MB5489857D91F3CDC7F7517D02FCB02@CO6PR12MB5489.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/radeon/evergreen_cs: fix int overflow errors in cs
+ track offsets
+To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan
+ <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jerome Glisse <jglisse@redhat.com>,
+ Dave Airlie <airlied@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+References: <20240725180950.15820-1-n.zhandarovich@fintech.ru>
+ <e5199bf0-0861-4b79-8f32-d14a784b116f@amd.com>
+ <CADnq5_PuzU12x=M09HaGkG7Yqg8Lk1M1nWDAut7iP09TT33D6g@mail.gmail.com>
+ <fb530f45-df88-402a-9dc0-99298b88754c@amd.com>
+ <e497f5cb-a3cb-477b-8947-f96276e401b7@fintech.ru>
+ <1914cfcb-9700-4274-8120-9746e241cb54@amd.com>
+ <cb85a5c1-526b-4024-8e8f-23c2fe0d8381@amd.com>
+ <158d9e56-d8af-4d0f-980c-4355639f6ff8@fintech.ru>
 Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <CO6PR12MB5489857D91F3CDC7F7517D02FCB02@CO6PR12MB5489.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <158d9e56-d8af-4d0f-980c-4355639f6ff8@fintech.ru>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0254.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8848:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3673df31-0679-4f35-b8c8-08dcb12dfb29
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L0JQYWhLRXM5OHZwZVdDL1lseEFOSTBDUkZvVUZPZW42bkVqenA5aHVqVnBD?=
+ =?utf-8?B?am9EUy9UY25UVGp1Zm9MMEhnckFlTkRWTkhMeVFKMnN6eDBqZ3dMVEh2alhj?=
+ =?utf-8?B?VzBESytkbGVHbE5NbE9xbUpKa3NkU2pVVUZIN2MrOWdCNHIrK1BTanQ4d1Vz?=
+ =?utf-8?B?WGZsRnlxTVE3SWppMU1mQUZDZ2lpZTh3d1V5YVRqVEU2ZTJOYjRsOGtzT002?=
+ =?utf-8?B?aVdqeXBjUFdGMW5tcllaU1g4c2RPSU02THBvVVhUelc4bGpCNSs3NmtYbUVQ?=
+ =?utf-8?B?VEd3TUF0RkZiSDZKaHFCRHVVMU9hc1E3NW8zNm9qaHFmR3ZFSE96Y2djRUkv?=
+ =?utf-8?B?K3Z2d2RjU1JpUjBnSDB6YzcyNjF1WkxKd0pMT21lTlE4QUlOYm8wTnVIREZ6?=
+ =?utf-8?B?enhybFU0L09RaGt2blNHNCtvRkJ0aGJLQzZSSitWVmlzVFpOV3d3bEgybGh5?=
+ =?utf-8?B?UGhLNExuR09NWE9hTVJLRWRybDYvV0VvaVhTQjdINEV0S2dLVnpPQjQrY2FY?=
+ =?utf-8?B?THRGRlg1MFc3MDVEdW8rdm5QZGtUMFBYb0k2K3VnZU5mLzNVVnFUYUhTZ2Fo?=
+ =?utf-8?B?emt0RW9yaWJnN09GNWlOQzNIYkNWZm8yNmpSc1FqRU9sbFlXRlh6L1A0OUhK?=
+ =?utf-8?B?RytDMmh0ZFphbXQxSjc4WlZSZk8wSWFJZWlINi8xdGx2K2NuNW9Uem9XNW9M?=
+ =?utf-8?B?aHhUYlN0SzNyWDF0OWVzM0R5azE3MDZDL051cmxPcU1iNlhMVDNXaFY3dFgr?=
+ =?utf-8?B?cEwzRmFtdkxSV05wVktWU3VOL1hpUXVLUEtPQjBza3FyTGxKOFZOVnJqQWxN?=
+ =?utf-8?B?Ymt6K0JiamJMVldySDR2eXJhLzBZWWFYR2kyZi9ROWtOYjZmTzM3dm5CZWZk?=
+ =?utf-8?B?clZCY2hPc0QvVGR1Zmc2VmJ5YWFuYXNtMWh0WS9XUVBSVjNucWhkb1F1N2VN?=
+ =?utf-8?B?V2NGYVJVaFV2b2czMGlZOFZRdFV3SjVzZXNyK05lVVBTK2w1dUFkOXNHZ3h6?=
+ =?utf-8?B?WnhHU2tGQURZRTdLWTNUT3VxSS9KbHVZK1c2ZlgzbVJtMFl4Vk40WEk5cUE2?=
+ =?utf-8?B?YVRDL0pRaGE1cnRhOUV4MlJnUTFHeDlGUGRPamQyQjFwUFdwNHlxekFWdU9F?=
+ =?utf-8?B?bktxa3l6ZkxBY0h1aXVHZEFDelMrWnloNUZ4dE5USDBmNEIwek9RM2FBNGlj?=
+ =?utf-8?B?ZVRPQnBvY2xlekFmUGg2bU13WXcxeVNjdFR2bHkvbExYTlBONW40WXlLcGRQ?=
+ =?utf-8?B?RnQ0elhyME1TOTA5RVF4c3JENU5mM2xvR3dUMStiS05hZ1lJajc3S1hKVEE2?=
+ =?utf-8?B?RnlrNmYyR2phbFBhRWNyVXRxaC8rbWNFVy9VaTJQOW1SeFhOR1R3aGhXak81?=
+ =?utf-8?B?R3lROXhHMDZET3hlUjE3V2NIek1LenZ0ajVFUDAvenNRMGVJUFFQdXQzVFVt?=
+ =?utf-8?B?dkxFT0plc3BGSVN0aEtMY0NtRlpuMHc5eFcyYjRNTnFZQ1hLUmNqY05HcWx1?=
+ =?utf-8?B?cHh0aVgrTURXSGlMV01vbW5YaUhzL0pEUmg1RTI5U1YyZDA4Vkx5STRtZ0Vu?=
+ =?utf-8?B?eHNnVWQzbk5nRGZVNkhlYzZacVg1Sjd4TWdwdVBIQ1A4WlNGak4rRTdZR0h0?=
+ =?utf-8?B?NGVhREJmTzRUbFFJZmhYZVRSMEpnT3hwdWxQeHBCaEF5TCt4VXJFeSsrNVcv?=
+ =?utf-8?B?b3FLUEo2YmcreGlqSC9uQVpzT1JHaHdJTXV4Ykg5N1g2cjh3S0hobnhFM0ZE?=
+ =?utf-8?B?blZHenNkRzlYZXgrN1NHUWNoU2Nlcmk2Vnp0VjZpdWcyanVlTDhuazhWZHhD?=
+ =?utf-8?B?T1RPKytFcVQrNWszR1hDUT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUpISWVWdEFvcmRIczl1ZXpJd3BpMWhGV05OdmxKVENmVFJ4VzdNb2dFMWto?=
+ =?utf-8?B?TkRFeUVyY2g0Y0t6MjQxbEpHMk5RQVUzMGp1MVV6cm42ZDlGd2prNmsyaFJ6?=
+ =?utf-8?B?UWRJbmRHbk1rbDBoNkJCZGZFZGR1bGRGNC9CK3NqVUlEOEI4Q3dub3ZFTkds?=
+ =?utf-8?B?YUZJQmNCNTRlREpDOFd6TEtiRjlmQmN1aHUwZnFhbGVrU0FORDJkWTM2Rmwr?=
+ =?utf-8?B?c2dPdmZzS3J4ZzhGUCtvR1Q1eVZxSGs4WDZzZnNkVW5hUTgwQTNJUVpvYXBh?=
+ =?utf-8?B?Y2FOdm1kaE8wMXNaSklqcGxrVTAyOHFsR0pldlNMVWFVZDVYZHgrUkI4M2Ji?=
+ =?utf-8?B?eHFXQk9PT1BVRU8ybTZyUUFUQzdMbU9xS3JpNTFXREFxMkpZaVNjOFhLK3JW?=
+ =?utf-8?B?dGdOSkJIdU9IUFlrbFlPbVJtaXowWXBnN1NHbUxPbzc3Q3pSaXJHQ1ozS1VG?=
+ =?utf-8?B?V0VmSWY1bXdSb0RiQjg1VjBOZnNHT3gvT0dRQU1wc0FGa2t2Ry9EbHo0SWg1?=
+ =?utf-8?B?cVc5dlNORFdKNTFKTjM2aXljcG45ODlCaVZDUUlpQ3F5cWVxSWpPTGFkWERj?=
+ =?utf-8?B?czFycW9VWmkydGZJNkpIa29iU09QTFJKblhoWmtkUjJJTzJFd1ZUeDE1WjJk?=
+ =?utf-8?B?MTRTcU1uaDgrN0Z4bmxCVDJhb0hjNTlROE1KTVpVRjRHVzU5RDFrdmdTYklV?=
+ =?utf-8?B?ZjltZUNmU2syTTJxc1dBTHNtdzI2cmNyZS9OM0phNGNMZUtxTmp1L1dwVnJU?=
+ =?utf-8?B?MWF1Z2plcHF3UHVvU1VrSDRGUVVCSFI3Q0pBK2lUWmxaeXVTRU5kc2Q0WmRj?=
+ =?utf-8?B?RkN4VnlQZFFWOTR4QW5uNzNSQ3NQL1FIbTFPYktoZlpkR0p0OElRUDFFS1pJ?=
+ =?utf-8?B?a2NRL2xTR25xT0FiMURPK0I2ZHlyTjh3bWliSlBiZTUvVStZdThBbnJBbEVB?=
+ =?utf-8?B?U3VSWDk2cS90aFhjQ3ROOUdWT1hqdEVrcXhabm9vWUFaL20zVWc5N1RvUWZI?=
+ =?utf-8?B?QUlsZ1RFUnYrUjFXcDFFcmU4ZVdsWVVFbVpnbHJsRGlLVG1UNEFTZy9oemFq?=
+ =?utf-8?B?Mm04VmVUS2gxeGRIa2g3eWZ1NmlkaW9naG5uOCttQWFidjY3THUxaTNrWmZX?=
+ =?utf-8?B?Q3FBSThtQU5VV2sxcEtDVXNuajlNZmVpdmVSUnNNWFlMK2RKSE90T3FMbFIw?=
+ =?utf-8?B?Qm5WU2w2YTcvKzRqRHRmMEVhSnBjOGxzRXVtbW5iVEpMaHB3MitMeUh6NVRO?=
+ =?utf-8?B?UXJqckloak1iSG9MWXM5QXM4OU85YVZmNUN6T2hnQWhITTMwWlZEVVROZkc4?=
+ =?utf-8?B?Vi9VSVlCaElJd1pESzZ0MnNXR3M5UGU4bm41cnhpc0MxVEhHalptVTZPSGlu?=
+ =?utf-8?B?ZmZPNmNiQXBGUm5scnJmekNvNjNOcEk2UUlDWUFHOGlXQXRkcVl2MWJZVVZE?=
+ =?utf-8?B?Z1JPTWNTK2FjTC8xS2dYVTY2YnBuZFBoZTVkTTdpNUhJalloQVZ5RjMzOGJG?=
+ =?utf-8?B?YmxmeThrRnZnb21FZGVLYjVsQlJMenBCbE5CRmtvZWdneXgxUTFJSFBxeExa?=
+ =?utf-8?B?ZStaeWc2b3owbldzR3c1WGFZanNTVXpXWmtkdHl0T1BibkxnS0tNTVp0VkRk?=
+ =?utf-8?B?bTZzM0RWeW1FYkJISGhnVzJoK2ZWQm9xZDBXRHV0ejBiTHhCVGVwM2l4NWJC?=
+ =?utf-8?B?OFd0NlJGNzdiZnVETUpJcGZQbVA2d2Z6TmZsZ21rSXFTUzIzVTUyZ0ErVUov?=
+ =?utf-8?B?U2U0NFNjZk5tMENnRHJJa28zTHJ2YU1tUlllU0RrMXNJcXZOT1htWks3dC9z?=
+ =?utf-8?B?ZTVUbDZpOFJXM0FmbzF0bW51aUdGRGxwdExXSG5YZ0tpSXE0NFhNN3plWXR2?=
+ =?utf-8?B?SXcyRnVPVGxZM0ZXb3l5c0UxMTFja3ZRbEI1RUp3dXZhaEFlS2VWd1BKUTlZ?=
+ =?utf-8?B?N1IxbjE0TXBMeVNlMmVzWk52UVpGc2UvVmgrZGx1MFphaCtVSm9rSVE3QnJ1?=
+ =?utf-8?B?dFFaODhuTmlhSkEzREVaZlhJNGlDcWdKUWNVZ0NTeXlKTGVScWxaNXR0WGpK?=
+ =?utf-8?B?eVoxNytNRDROVUpUekxGcjNmK0t2bDRKTXBBY2FCNmlJTHV0a2VhcDVva1VT?=
+ =?utf-8?Q?mspZxH0QPYZdbOT7zvtJLyGJn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3673df31-0679-4f35-b8c8-08dcb12dfb29
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2024 06:57:02.6059 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aYTamG4UQTHkOZpkxDZpkLpYZ08bL5EVhooVURbeLw2RgXoQ+CYeGrLvgn2vxkNq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,14 +172,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 30. 07. 24, 8:00, Lin, Wayne wrote:
-> Thanks for the report!
-> We're going to revert it and cc to stable.
+Am 30.07.24 um 19:36 schrieb Nikita Zhandarovich:
+> On 7/29/24 11:12, Christian König wrote:
+>> Am 29.07.24 um 20:04 schrieb Christian König:
+>>> Am 29.07.24 um 19:26 schrieb Nikita Zhandarovich:
+>>>> Hi,
+>>>>
+>>>> On 7/29/24 02:23, Christian König wrote:
+>>>>> Am 26.07.24 um 14:52 schrieb Alex Deucher:
+>>>>>> On Fri, Jul 26, 2024 at 3:05 AM Christian König
+>>>>>> <christian.koenig@amd.com> wrote:
+>>>>>>> Am 25.07.24 um 20:09 schrieb Nikita Zhandarovich:
+>>>>>>>> Several cs track offsets (such as 'track->db_s_read_offset')
+>>>>>>>> either are initialized with or plainly take big enough values that,
+>>>>>>>> once shifted 8 bits left, may be hit with integer overflow if the
+>>>>>>>> resulting values end up going over u32 limit.
+>>>>>>>>
+>>>>>>>> Some debug prints take this into account (see according
+>>>>>>>> dev_warn() in
+>>>>>>>> evergreen_cs_track_validate_stencil()), even if the actual
+>>>>>>>> calculated value assigned to local 'offset' variable is missing
+>>>>>>>> similar proper expansion.
+>>>>>>>>
+>>>>>>>> Mitigate the problem by casting the type of right operands to the
+>>>>>>>> wider type of corresponding left ones in all such cases.
+>>>>>>>>
+>>>>>>>> Found by Linux Verification Center (linuxtesting.org) with static
+>>>>>>>> analysis tool SVACE.
+>>>>>>>>
+>>>>>>>> Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni
+>>>>>>>> tiling informations v11")
+>>>>>>>> Cc: stable@vger.kernel.org
+>>>>>>> Well first of all the long cast doesn't makes the value 64bit, it
+>>>>>>> depends on the architecture.
+>>>>>>>
+>>>>>>> Then IIRC the underlying hw can only handle a 32bit address space so
+>>>>>>> having the offset as long is incorrect to begin with.
+>>>>>> Evergreen chips support a 36 bit internal address space and NI and
+>>>>>> newer support a 40 bit one, so this is applicable.
+>>>>> In that case I strongly suggest that we replace the unsigned long with
+>>>>> u64 or otherwise we get different behavior on 32 and 64bit machines.
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>> To be clear, I'll prepare v2 patch that changes 'offset' to u64 as well
+>>>> as the cast of 'track->db_z_read_offset' (and the likes) to u64 too.
+>>>>
+>>>> On the other note, should I also include casting to wider type of the
+>>>> expression surf.layer_size * mslice (example down below) in
+>>>> evergreen_cs_track_validate_cb() and other similar functions? I can't
+>>>> properly gauge if the result will definitively fit into u32, maybe it
+>>>> makes sense to expand it as well?
+>>> The integer overflows caused by shifts are irrelevant and doesn't need
+>>> any fixing in the first place.
+>> Wait a second.
+>>
+>> Thinking more about it the integer overflows are actually necessary
+>> because that is exactly what happens in the hardware as well.
+>>
+>> If you don't overflow those shifts you actually create a security
+>> problem because the HW the might access at a different offset then you
+>> calculated here.
+>>
+>> We need to use something like a mask or use lower_32_bits() here.
+> Christian,
+>
+> My apologies, I may be getting a bit confused here.
+>
+> If integer overflows caused by shifts are predictable and constitute
+> normal behavior in this case, and there is no need to "fix" them, does
+> it still make sense to use any mitigations at all, i.e. masks or macros?
 
-There is a fix btw:
-https://gitlab.freedesktop.org/drm/amd/-/issues/3495#note_2501831
+Well you stumbled over that somehow, so some automated checker things 
+that this is a bad idea.
 
--- 
-js
-suse labs
+> Leaving these shifts to u32 variables as they are now will achieve the
+> same result as, for example, doing something along the lines of:
+>
+> offset = lower_32_bits((u64)track->cb_color_bo_offset[id] << 8);
+>
+> which seems clunky and unnecessary, even if it suppresses some static
+> analyzer triggers (and that seems overboard).
+> Or am I missing something obvious here?
+
+No, it's just about suppressing the static checker warnings.
+
+I'm also not 100% sure how that old hw works. Alex mentioned that it is 
+using 36bits internally.
+
+So it could be that we need to switch to using u64 here. I need to 
+double check that with Alex.
+
+But using unsigned long is certainly incorrect cause we then get 
+different behavior based on the CPU architecture.
+
+Thanks for pointing this out,
+Christian.
+
+>> Regards,
+>> Christian.
+>>
+>>> The point is rather that we need to avoid multiplication overflows and
+>>> the security problems which come with those.
+>>>
+>>>> 441         }
+>>>> 442
+>>>> 443         offset += surf.layer_size * mslice;
+>>> In other words that here needs to be validated correctly.
+>>>
+> Agreed, I think either casting right operand to u64 (once 'offset' is
+> also changed from unsigned long to u64) or using mul_u32_u32() here and
+> in other places should suffice.
+>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> 444         if (offset > radeon_bo_size(track->cb_color_bo[id])) {
+>>>> 445                 /* old ddx are broken they allocate bo with w*h*bpp
+>>>>
+>>>> Regards,
+>>>> Nikita
+>>>>>> Alex
+>>>>>>
+>>>>>>> And finally that is absolutely not material for stable.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+>>>>>>>> ---
+>>>>>>>> P.S. While I am not certain that track->cb_color_bo_offset[id]
+>>>>>>>> actually ends up taking values high enough to cause an overflow,
+>>>>>>>> nonetheless I thought it prudent to cast it to ulong as well.
+>>>>>>>>
+>>>>>>>>      drivers/gpu/drm/radeon/evergreen_cs.c | 18 +++++++++---------
+>>>>>>>>      1 file changed, 9 insertions(+), 9 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c
+>>>>>>>> b/drivers/gpu/drm/radeon/evergreen_cs.c
+>>>>>>>> index 1fe6e0d883c7..d734d221e2da 100644
+>>>>>>>> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+>>>>>>>> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+>>>>>>>> @@ -433,7 +433,7 @@ static int evergreen_cs_track_validate_cb(struct
+>>>>>>>> radeon_cs_parser *p, unsigned i
+>>>>>>>>                  return r;
+>>>>>>>>          }
+>>>>>>>>
+>>>>>>>> -     offset = track->cb_color_bo_offset[id] << 8;
+>>>>>>>> +     offset = (unsigned long)track->cb_color_bo_offset[id] << 8;
+>>>>>>>>          if (offset & (surf.base_align - 1)) {
+>>>>>>>>                  dev_warn(p->dev, "%s:%d cb[%d] bo base %ld not
+>>>>>>>> aligned with %ld\n",
+>>>>>>>>                           __func__, __LINE__, id, offset,
+>>>>>>>> surf.base_align);
+>>>>>>>> @@ -455,7 +455,7 @@ static int evergreen_cs_track_validate_cb(struct
+>>>>>>>> radeon_cs_parser *p, unsigned i
+>>>>>>>>                                  min = surf.nby - 8;
+>>>>>>>>                          }
+>>>>>>>>                          bsize =
+>>>>>>>> radeon_bo_size(track->cb_color_bo[id]);
+>>>>>>>> -                     tmp = track->cb_color_bo_offset[id] << 8;
+>>>>>>>> +                     tmp = (unsigned
+>>>>>>>> long)track->cb_color_bo_offset[id] << 8;
+>>>>>>>>                          for (nby = surf.nby; nby > min; nby--) {
+>>>>>>>>                                  size = nby * surf.nbx * surf.bpe *
+>>>>>>>> surf.nsamples;
+>>>>>>>>                                  if ((tmp + size * mslice) <=
+>>>>>>>> bsize) {
+>>>>>>>> @@ -476,10 +476,10 @@ static int
+>>>>>>>> evergreen_cs_track_validate_cb(struct radeon_cs_parser *p,
+>>>>>>>> unsigned i
+>>>>>>>>                          }
+>>>>>>>>                  }
+>>>>>>>>                  dev_warn(p->dev, "%s:%d cb[%d] bo too small (layer
+>>>>>>>> size %d, "
+>>>>>>>> -                      "offset %d, max layer %d, bo size %ld, slice
+>>>>>>>> %d)\n",
+>>>>>>>> +                      "offset %ld, max layer %d, bo size %ld, slice
+>>>>>>>> %d)\n",
+>>>>>>>>                           __func__, __LINE__, id, surf.layer_size,
+>>>>>>>> -                     track->cb_color_bo_offset[id] << 8, mslice,
+>>>>>>>> - radeon_bo_size(track->cb_color_bo[id]), slice);
+>>>>>>>> +                     (unsigned long)track->cb_color_bo_offset[id]
+>>>>>>>> << 8,
+>>>>>>>> +                     mslice,
+>>>>>>>> radeon_bo_size(track->cb_color_bo[id]), slice);
+>>>>>>>>                  dev_warn(p->dev, "%s:%d problematic surf: (%d %d)
+>>>>>>>> (%d
+>>>>>>>> %d %d %d %d %d %d)\n",
+>>>>>>>>                           __func__, __LINE__, surf.nbx, surf.nby,
+>>>>>>>>                          surf.mode, surf.bpe, surf.nsamples,
+>>>>>>>> @@ -608,7 +608,7 @@ static int
+>>>>>>>> evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>>>>>>>>                  return r;
+>>>>>>>>          }
+>>>>>>>>
+>>>>>>>> -     offset = track->db_s_read_offset << 8;
+>>>>>>>> +     offset = (unsigned long)track->db_s_read_offset << 8;
+>>>>>>>>          if (offset & (surf.base_align - 1)) {
+>>>>>>>>                  dev_warn(p->dev, "%s:%d stencil read bo base %ld not
+>>>>>>>> aligned with %ld\n",
+>>>>>>>>                           __func__, __LINE__, offset,
+>>>>>>>> surf.base_align);
+>>>>>>>> @@ -627,7 +627,7 @@ static int
+>>>>>>>> evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>>>>>>>>                  return -EINVAL;
+>>>>>>>>          }
+>>>>>>>>
+>>>>>>>> -     offset = track->db_s_write_offset << 8;
+>>>>>>>> +     offset = (unsigned long)track->db_s_write_offset << 8;
+>>>>>>>>          if (offset & (surf.base_align - 1)) {
+>>>>>>>>                  dev_warn(p->dev, "%s:%d stencil write bo base %ld
+>>>>>>>> not
+>>>>>>>> aligned with %ld\n",
+>>>>>>>>                           __func__, __LINE__, offset,
+>>>>>>>> surf.base_align);
+>>>>>>>> @@ -706,7 +706,7 @@ static int
+>>>>>>>> evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>>>>>>>>                  return r;
+>>>>>>>>          }
+>>>>>>>>
+>>>>>>>> -     offset = track->db_z_read_offset << 8;
+>>>>>>>> +     offset = (unsigned long)track->db_z_read_offset << 8;
+>>>>>>>>          if (offset & (surf.base_align - 1)) {
+>>>>>>>>                  dev_warn(p->dev, "%s:%d stencil read bo base %ld not
+>>>>>>>> aligned with %ld\n",
+>>>>>>>>                           __func__, __LINE__, offset,
+>>>>>>>> surf.base_align);
+>>>>>>>> @@ -722,7 +722,7 @@ static int
+>>>>>>>> evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>>>>>>>>                  return -EINVAL;
+>>>>>>>>          }
+>>>>>>>>
+>>>>>>>> -     offset = track->db_z_write_offset << 8;
+>>>>>>>> +     offset = (unsigned long)track->db_z_write_offset << 8;
+>>>>>>>>          if (offset & (surf.base_align - 1)) {
+>>>>>>>>                  dev_warn(p->dev, "%s:%d stencil write bo base %ld
+>>>>>>>> not
+>>>>>>>> aligned with %ld\n",
+>>>>>>>>                           __func__, __LINE__, offset,
+>>>>>>>> surf.base_align);
 
