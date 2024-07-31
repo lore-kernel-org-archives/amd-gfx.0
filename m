@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E553C49EA1
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 13:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FE2DC3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 Jul 2024 13:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EAA910E623;
-	Wed, 31 Jul 2024 13:13:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B87F510E621;
+	Wed, 31 Jul 2024 13:13:26 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E47710E621
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 13:13:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0362510E621
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 13:13:23 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 46VDD4xl354445; Wed, 31 Jul 2024 18:43:04 +0530
+ 46VDD4rM354440; Wed, 31 Jul 2024 18:43:04 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 46VDD4cV354444;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 46VDD4do354439;
  Wed, 31 Jul 2024 18:43:04 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
@@ -25,9 +25,9 @@ Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Tvrtko Ursulin <tursulin@igalia.com>,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
-Subject: [PATCH v1 3/3] drm/amdgpu: optimize the padding for gfx_v9_4_3
-Date: Wed, 31 Jul 2024 18:42:52 +0530
-Message-Id: <20240731131252.354336-4-sunil.khatri@amd.com>
+Subject: [PATCH v1 2/3] drm/amdgpu: optimize the padding for gfx9
+Date: Wed, 31 Jul 2024 18:42:51 +0530
+Message-Id: <20240731131252.354336-3-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240731131252.354336-1-sunil.khatri@amd.com>
 References: <20240731131252.354336-1-sunil.khatri@amd.com>
@@ -63,18 +63,18 @@ Cc: Tvrtko Ursulin <tursulin@igalia.com>
 Cc: Marek Olšák <marek.olsak@amd.com>
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 98fe6c40da64..c4832a5725c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -4178,6 +4178,24 @@ static void gfx_v9_4_3_enable_watchdog_timer(struct amdgpu_device *adev)
- 	amdgpu_gfx_ras_error_func(adev, NULL, gfx_v9_4_3_inst_enable_watchdog_timer);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 675a1a8e2515..991f7c2fc1a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -7100,6 +7100,24 @@ static void gfx_v9_0_emit_wave_limit(struct amdgpu_ring *ring, bool enable)
+ 	}
  }
  
-+static void gfx_v9_4_3_ring_insert_nop(struct amdgpu_ring *ring, uint32_t num_nop)
++static void gfx_v9_ring_insert_nop(struct amdgpu_ring *ring, uint32_t num_nop)
 +{
 +	int i;
 +
@@ -92,18 +92,36 @@ index 98fe6c40da64..c4832a5725c3 100644
 +		amdgpu_ring_write(ring, ring->funcs->nop);
 +}
 +
- static const struct amd_ip_funcs gfx_v9_4_3_ip_funcs = {
- 	.name = "gfx_v9_4_3",
- 	.early_init = gfx_v9_4_3_early_init,
-@@ -4227,7 +4245,7 @@ static const struct amdgpu_ring_funcs gfx_v9_4_3_ring_funcs_compute = {
- 	.emit_hdp_flush = gfx_v9_4_3_ring_emit_hdp_flush,
- 	.test_ring = gfx_v9_4_3_ring_test_ring,
- 	.test_ib = gfx_v9_4_3_ring_test_ib,
+ static void gfx_v9_ip_print(void *handle, struct drm_printer *p)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -7240,7 +7258,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
+ 	.emit_gds_switch = gfx_v9_0_ring_emit_gds_switch,
+ 	.emit_hdp_flush = gfx_v9_0_ring_emit_hdp_flush,
+ 	.test_ring = gfx_v9_0_ring_test_ring,
 -	.insert_nop = amdgpu_ring_insert_nop,
-+	.insert_nop = gfx_v9_4_3_ring_insert_nop,
++	.insert_nop = gfx_v9_ring_insert_nop,
  	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_wreg = gfx_v9_4_3_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v9_4_3_ring_emit_reg_wait,
+ 	.emit_switch_buffer = gfx_v9_ring_emit_sb,
+ 	.emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
+@@ -7294,7 +7312,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw_ring_funcs_gfx = {
+ 	.emit_hdp_flush = gfx_v9_0_ring_emit_hdp_flush,
+ 	.test_ring = gfx_v9_0_ring_test_ring,
+ 	.test_ib = gfx_v9_0_ring_test_ib,
+-	.insert_nop = amdgpu_sw_ring_insert_nop,
++	.insert_nop = gfx_v9_ring_insert_nop,
+ 	.pad_ib = amdgpu_ring_generic_pad_ib,
+ 	.emit_switch_buffer = gfx_v9_ring_emit_sb,
+ 	.emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
+@@ -7338,7 +7356,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
+ 	.emit_hdp_flush = gfx_v9_0_ring_emit_hdp_flush,
+ 	.test_ring = gfx_v9_0_ring_test_ring,
+ 	.test_ib = gfx_v9_0_ring_test_ib,
+-	.insert_nop = amdgpu_ring_insert_nop,
++	.insert_nop = gfx_v9_ring_insert_nop,
+ 	.pad_ib = amdgpu_ring_generic_pad_ib,
+ 	.emit_wreg = gfx_v9_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
 -- 
 2.34.1
 
