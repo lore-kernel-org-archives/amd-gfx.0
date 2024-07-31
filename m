@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7063BC52D76
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 07:37:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 390A9C52D7B
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 07:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 514B110E9A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B3210E9A7;
 	Fri,  2 Aug 2024 07:37:22 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4AB710E995
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 07:18:01 +0000 (UTC)
-X-UUID: 5699da2c509f11efa216b1d71e6e1362-20240802
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
- HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
- HR_TO_NO_NAME, DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED
- SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
- CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
- GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI, AMN_C_BU ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.38, REQID:18879357-d45b-457b-b8cf-d9e8aa7d7e3b, IP:5,
- U
- RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:-25
-X-CID-INFO: VERSION:1.1.38, REQID:18879357-d45b-457b-b8cf-d9e8aa7d7e3b, IP:5,
- URL
- :0,TC:0,Content:-25,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-25
-X-CID-META: VersionHash:82c5f88, CLOUDID:15c989120bec1d690fb547910e61687c,
- BulkI
- D:240802151224UQ7DLJME,BulkQuantity:1,Recheck:0,SF:66|25|17|19|45|102,TC:n
- il,Content:0,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:40,QS:nil,BEC:nil,COL
- :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSI,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-UUID: 5699da2c509f11efa216b1d71e6e1362-20240802
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
- with ESMTP id 1078735964; Fri, 02 Aug 2024 15:17:55 +0800
-From: Lu Yao <yaolu@kylinos.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- srinivasan.shanmugam@amd.com, sunil.khatri@amd.com
-Cc: airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/amdgpu: add dce6 drm_panic support
-Date: Fri,  2 Aug 2024 15:17:52 +0800
-Message-Id: <20240802071752.116541-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="En1ua2B4";
+	dkim-atps=neutral
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E5610E168;
+ Wed, 31 Jul 2024 17:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1722445249;
+ bh=rQaVG/O25AerGy2gOaY8XL7CTvpz0JJwpNoEJXB80TY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=En1ua2B4t6o6KKMCIr8w5/9rTs4IM6+m6dhQ9SqHfnN/VORWqNLMG7PhKj6AEHHz8
+ v1tyRP8rJrHDd/ttf/dbtIZ+h1nFtAb9aTY1DjWUi84h3eU3QTclIHQWPFaHyNijVZ
+ mYN2fFcgl6A3r8Qj4SWE6UeEnEgAaR7cb6vvUxQA=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Wed, 31 Jul 2024 19:00:46 +0200
+Subject: [PATCH v3 1/2] drm/connector: add
+ drm_connector_get_cmdline_min_brightness_override()
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20240731-amdgpu-min-backlight-quirk-v3-1-46d40bb21a62@weissschuh.net>
+References: <20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net>
+In-Reply-To: <20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Hans de Goede <hdegoede@redhat.com>, Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1722445249; l=2611;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=rQaVG/O25AerGy2gOaY8XL7CTvpz0JJwpNoEJXB80TY=;
+ b=+3iwRZMLJ9s+ZBHbrf2ZfwWi7C4r4hwIkIIf9rLDxZtzQq2crujBBzQA4QtGx8HvF/5LqHJiQ
+ d85gOQcvIjHDNLs7/0/Fyigf5g5FkDZlTmISEHV/A31ZHoqBbmD2xTk
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Fri, 02 Aug 2024 07:37:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,88 +68,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support for the drm_panic module, which displays a pretty user
-friendly message on the screen when a Linux kernel panic occurs.
+Add a helper which can read a overridden minimum backlight value from the
+kernel cmdline.
+This is useful if the minimum backlight as reported by machines VBT
+does not match the user expectations.
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+As an example, the minimum backlight brightness on the Framework 13
+matte panel is too high.
+
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
-The patch can work properly on the TTY, but after start X, drawn
-image is messy, it looks like the data isn't linearly arranged.
-However at this time 'fb->modifier' is 'DRM_FORMAT_MOD_LINEAR'.
+ drivers/gpu/drm/drm_connector.c | 34 ++++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h     |  2 ++
+ 2 files changed, 36 insertions(+)
 
-Another difference I found is:
-  For TTY, the amdgpu_bo is created with flag
-  'AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED|AMDGPU_GEM_CREATE_CPU_GTT_USWC|
-  AMDGPU_GEM_CREATE_VRAM_CLEARED|AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS'.
-  For X, the amdgpu_bo is created with flag
-  'AMDGPU_GEM_CREATE_NO_CPU_ACCESS|AMDGPU_GEM_CREATE_CPU_GTT_USWC'
-I try to use same flag for X, it looks like no difference.
-
-Can someone provide some insight into this problem or where I am going
-wrong. Thanks a lot.
-
-Test environment: X86 arch + v6.6 kernel + R7340.
----
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 32 +++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 05c0df97f01d..12c3801c264a 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -28,6 +28,8 @@
- #include <drm/drm_modeset_helper.h>
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_panic.h>
-+#include "../../drm_internal.h"
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index ab6ab7ff7ea8..d0b3d5d6c7c2 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -34,6 +34,7 @@
+ #include <drm/drm_utils.h>
  
- #include "amdgpu.h"
- #include "amdgpu_pm.h"
-@@ -2600,6 +2602,35 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
- 	.get_scanout_position = amdgpu_crtc_get_scanout_position,
- };
+ #include <linux/property.h>
++#include <linux/string.h>
+ #include <linux/uaccess.h>
  
-+static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plane *plane,
-+							 struct drm_scanout_buffer *sb)
+ #include <video/cmdline.h>
+@@ -3399,3 +3400,36 @@ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
+ 	return tg;
+ }
+ EXPORT_SYMBOL(drm_mode_create_tile_group);
++
++/**
++ * drm_connector_get_cmdline_min_brightness_override - read an overridden
++ * minimum brightness value from the cmdline
++ * @connector: connector to query
++ *
++ * Read an minimum brightness override from the kernel cmdline if present.
++ * The parameter takes the form "video=CONNECTOR_NAME:min-brightness=VALUE".
++ *
++ * RETURNS:
++ * negative error or override value in the range [0, 255]
++ */
++int drm_connector_get_cmdline_min_brightness_override(struct drm_connector *connector)
 +{
-+	struct drm_framebuffer *fb;
-+	struct drm_gem_object *obj;
-+	struct amdgpu_bo *abo;
-+	int ret = 0;
++	const char *option, *value_str;
++	int err;
++	u8 val;
 +
-+	if (!plane->fb || plane->fb->modifier != DRM_FORMAT_MOD_LINEAR)
-+		return -ENODEV;
++	option = video_get_options(connector->name);
++	if (!option)
++		return -ENOENT;
 +
-+	fb = plane->fb;
-+	sb->width = fb->width;
-+	sb->height = fb->height;
-+	sb->format = fb->format;
-+	sb->pitch[0] = fb->pitches[0];
-+
-+	obj = fb->obj[0];
-+	abo = gem_to_amdgpu_bo(obj);
-+	if (!abo || abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
++	value_str = option + str_has_prefix(option, "min-brightness=");
++	if (value_str == option)
 +		return -EINVAL;
 +
-+	return drm_gem_vmap(obj, &sb->map[0]);
++	err = kstrtou8(value_str, 10, &val);
++	if (err)
++		return err;
++
++	return val;
 +}
-+
-+static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_helper_funcs = {
-+	.get_scanout_buffer = dce_v6_0_drm_primary_plane_get_scanout_buffer
-+};
-+
- static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
-@@ -2627,6 +2658,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- 	amdgpu_crtc->encoder = NULL;
- 	amdgpu_crtc->connector = NULL;
- 	drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_funcs);
-+	drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_primary_plane_helper_funcs);
++EXPORT_SYMBOL_GPL(drm_connector_get_cmdline_min_brightness_override);
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index c754651044d4..64d86604cc6e 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2357,6 +2357,8 @@ bool drm_connector_has_possible_encoder(struct drm_connector *connector,
+ 					struct drm_encoder *encoder);
+ const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
  
- 	return 0;
- }
++int drm_connector_get_cmdline_min_brightness_override(struct drm_connector *connector);
++
+ /**
+  * drm_for_each_connector_iter - connector_list iterator macro
+  * @connector: &struct drm_connector pointer used as cursor
+
 -- 
-2.25.1
+2.46.0
 
