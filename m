@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFBC3C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBFCC3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 867A010E734;
-	Thu,  1 Aug 2024 00:14:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7B1F10E73F;
+	Thu,  1 Aug 2024 00:15:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eJCmQ/O4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lMfGTqlB";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B8C710E734;
- Thu,  1 Aug 2024 00:14:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1756F10E73C;
+ Thu,  1 Aug 2024 00:15:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7A4036125E;
- Thu,  1 Aug 2024 00:14:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A953C116B1;
- Thu,  1 Aug 2024 00:14:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7954461345;
+ Thu,  1 Aug 2024 00:15:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDFE2C32786;
+ Thu,  1 Aug 2024 00:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722471263;
- bh=u8f3Fbpg7m+gCX4jvES6p7tPGmIb+3Z6Xt9QGz6loCw=;
+ s=k20201202; t=1722471306;
+ bh=XtOBmbJSSX8k8FaJ6jexWUTSzNVx8y3Ygud8egqr274=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eJCmQ/O4McQmKP+K43Gmk6Hc1hb9vtV8L3bRTUHIndmWWUqTVkoqDHJLH8kXjTRqO
- Fs87OyTuCaqxcJE2nsik9ueHoSJRunhJD1tC3RXpGJNIFHumrurH9Ff0gAk4KC2+WE
- kEIAVltNhjoaJTUtt8gIzO+N2ruqYWJjB6wlaiknMgEsXu8lcuhnpQchEeLPJkuB9U
- vNRThSjxGZUk7at3S58SjZc3k3ddjNtbsrRUZzSMWJ9DCeGUFOVjV/iXnXRxqujeyB
- MMdDIK170YNjxgK3WBiKXCbBldEljwiIGjouXJc01yUQHGATDkx4yforv4yUgAOw6o
- w51N5hRQWfQqA==
+ b=lMfGTqlBGQV3JD7jXGFGClRCZrXQY8Hy48po3toNlxl0T1UlOfXdsGZHU22KK2su9
+ Kq1sLhYxtkUOUQr1sSpL3I5KnBLeaokEJpgaGA/p9WEsYtAUXgAOAONKkltdOyHANX
+ KJzSA16UvEsCD7rrvpAL6BHYUltMdAwdJFGyhpY1vXt68IS+zkmA3Rzy/tMftoI2/r
+ RM2s0mS1JwyTyrQrshwrJwCzICtS06R5/Me/ezTL2OiH94/zDJCxINz9F+EFoOaRfP
+ arTgc/ndSYExobFQez5QvPisILFGEUWPOmqRMbc5qk+sIq4YJageWyoi4XcNn9eOdm
+ czPevMpXvGlQg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Tao Zhou <tao.zhou1@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+Cc: Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ Hawking.Zhang@amd.com, yifan1.zhang@amd.com, Likun.Gao@amd.com,
+ le.ma@amd.com, Prike.Liang@amd.com, Lang.Yu@amd.com, lijo.lazar@amd.com,
+ victorchengchi.lu@amd.com, Jun.Ma2@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 049/121] drm/amdgpu: update type of buf size to
- u32 for eeprom functions
-Date: Wed, 31 Jul 2024 19:59:47 -0400
-Message-ID: <20240801000834.3930818-49-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.10 064/121] drm/amdgu: fix Unintentional integer
+ overflow for mall size
+Date: Wed, 31 Jul 2024 20:00:02 -0400
+Message-ID: <20240801000834.3930818-64-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801000834.3930818-1-sashal@kernel.org>
 References: <20240801000834.3930818-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.10.2
@@ -64,69 +68,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tao Zhou <tao.zhou1@amd.com>
+From: Jesse Zhang <jesse.zhang@amd.com>
 
-[ Upstream commit 2aadb520bfacec12527effce3566f8df55e5d08e ]
+[ Upstream commit c09d2eff81a997c169e0cacacd6b60c5e3aa33f2 ]
 
-Avoid overflow issue.
+Potentially overflowing expression mall_size_per_umc * adev->gmc.num_umc with type unsigned int (32 bits, unsigned)
+is evaluated using 32-bit arithmetic,and then used in a context that expects an expression of type u64 (64 bits, unsigned).
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-index e71768661ca8d..09a34c7258e22 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-@@ -179,7 +179,7 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
-  * Returns the number of bytes read/written; -errno on error.
-  */
- static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
--			      u8 *eeprom_buf, u16 buf_size, bool read)
-+			      u8 *eeprom_buf, u32 buf_size, bool read)
- {
- 	const struct i2c_adapter_quirks *quirks = i2c_adap->quirks;
- 	u16 limit;
-@@ -225,7 +225,7 @@ static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
- 
- int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
- 		       u32 eeprom_addr, u8 *eeprom_buf,
--		       u16 bytes)
-+		       u32 bytes)
- {
- 	return amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,
- 				  true);
-@@ -233,7 +233,7 @@ int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
- 
- int amdgpu_eeprom_write(struct i2c_adapter *i2c_adap,
- 			u32 eeprom_addr, u8 *eeprom_buf,
--			u16 bytes)
-+			u32 bytes)
- {
- 	return amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,
- 				  false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-index 6935adb2be1f1..8083b8253ef43 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-@@ -28,10 +28,10 @@
- 
- int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
- 		       u32 eeprom_addr, u8 *eeprom_buf,
--		       u16 bytes);
-+		       u32 bytes);
- 
- int amdgpu_eeprom_write(struct i2c_adapter *i2c_adap,
- 			u32 eeprom_addr, u8 *eeprom_buf,
--			u16 bytes);
-+			u32 bytes);
- 
- #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 0e31bdb4b7cb6..71db111e20f80 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1595,7 +1595,7 @@ static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
+ 		break;
+ 	case 2:
+ 		mall_size_per_umc = le32_to_cpu(mall_info->v2.mall_size_per_umc);
+-		adev->gmc.mall_size = mall_size_per_umc * adev->gmc.num_umc;
++		adev->gmc.mall_size = (uint64_t)mall_size_per_umc * adev->gmc.num_umc;
+ 		break;
+ 	default:
+ 		dev_err(adev->dev,
 -- 
 2.43.0
 
