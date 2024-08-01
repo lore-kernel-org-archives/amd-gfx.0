@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C755C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 03:24:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9140DC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 03:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC4B10E882;
-	Thu,  1 Aug 2024 03:24:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44EAE10E883;
+	Thu,  1 Aug 2024 03:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EgFHxYPs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FJhosiNS";
 	dkim-atps=neutral
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07DB510E882
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 03:24:07 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-5af6a1afa7bso7054884a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 20:24:06 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7853D10E883
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 03:24:26 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a7a9cf7d3f3so785812666b.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 20:24:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722482645; x=1723087445; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1722482665; x=1723087465; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=h9eOUww4MPb/032QgFYcZ0qFv6d2LRzVfnJOwB1qmKc=;
- b=EgFHxYPsOfQSDYijVMq5UtgGyTu27HNVxs3L/00YciTAeNVG9mIZemdv+1w8ymBold
- 5gSQ0ZcjZ0AnWZDlLmv7gzfbQiGNfHyR2mtDeF6c5qRzLA3x/wu5YOaNeWi0v2zIPYwV
- J50ICCsJHP+3or4WcNnw3opv667OkqBNmhdq/xk/UEYQlI0NXLBvju8SSfQFp1Uv9vsh
- qu3BM8gazg1HGtLntScYdawGFRqHEiLgGGPTMN0H9UOFx5DkSKWJoYAFN0vgkLMZiOKD
- vDL/OfJUzgktwAi++IkJ3ry2xDZStFLM1OP6zcsAMykpf834OIFPAc+EbGxNdYDBfa+I
- 37tQ==
+ bh=O/K4BNaqnEzsW7A/474sc9pZ92VwwlKWWcF7ft2em3o=;
+ b=FJhosiNShI3DVZ32osph+a5BdRSH43yYlz/uTeOSHQM3wK++KnPcpXaN93cwTndAEd
+ 0ZoUJ+jo51/BFVIaRqx6RNOxh7NIzcuUe708goHMD+K0mH1qs/ZUiCzp724ZGDT0sdEp
+ KNXs/Jw9+2i7D+pMo+4UFyMayWmcg0utXvTMf83DW41hq3eIBM9mYTLAq96tYoYs99h7
+ JdB/3kP/a5cHKEkotGVoA1BS3NcrYsEAE0B4S9BumEVCtqSpx1R8f+omJ4Wax26PL3X7
+ UGEin0VWK44B3HfA8/qWqFBBpeyBxXuRy2TviSNCNsKu2ODMxn9/5q7M0zqgWuX62STz
+ ycjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722482645; x=1723087445;
+ d=1e100.net; s=20230601; t=1722482665; x=1723087465;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=h9eOUww4MPb/032QgFYcZ0qFv6d2LRzVfnJOwB1qmKc=;
- b=wAa6jWu0wieENzzDrgfDlNuXVCD/ftkKINs46Ro1YPZJptSyI2dLz10uKIl+jVPYdD
- FVVM+o+4CHILHynBs8GH/U8FLkxqkNxqKGjMCLFuRFPULu4fVg9h+u51YyxhYpgAtACk
- /NsZr+PVY16/xPzRNAAQcjP/gtoN+j+YeqCvsQbUe7kgzeLlcqTxNqES0gRSg7HM+ZTS
- laDKrmcEeoCu3nMD+qLhqZ55p4a8wNvo7rqKTAjNiiArBIfuImLefncF/8HiSG+EVeVI
- CvPd3ZT7hqHvAux4OBNKzC8lM+MsPV3cSkNEW4Ch/Ot8L3o0+U62Cy48732mlyLNokjd
- 6h/Q==
+ bh=O/K4BNaqnEzsW7A/474sc9pZ92VwwlKWWcF7ft2em3o=;
+ b=Y/NraTwq41e/IETGiucg4s0TWI5fz0hlREnrRqgHgBHVU2BmIhASNx2oHD2iJw9WP6
+ Itzr07sokALD5yO49RdeiosE8E0FLzvSX0NGOF/wcRu16L8ORv49bnmNRP77HgDL7hTB
+ mMgpn+dBo+vnHnvQ6LEu3P6IkB4gopynTSVPUClq+VF/C7L/n+FpfpMf6BujsBNlifNZ
+ XOEhoFPiir/KIBew/L0tiSNoMn9WJQA//chxF0EjEDcR6IjBAzFEseqXX/1jtMTIxV8t
+ 8sh2W7Glwxt7eCLi4oYizE+RPH+7C6sY9MpjdrjTpVpAM4ejrsBRsRg3RfwdHPdE0FAu
+ skaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXrAKMfAuv5y0pxXf1pNAznXkfHgOKnunv97sNTRv3cq2RSkPYlDIEiR8k8XCCoOWKrVMRgpa+F@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyupRxTN+kRtgCtOGp7EPIrMAeFqj46levNK1QVo5nq2ibsniiV
- UlxZPjhgAqoJMlUaGEyXAurkvhHtbOKEN9S1NUUVuQ3H34XkgM6iDySoV5H++lBz90W5UjpWIud
- 1zs7/oMF5PZo3v9fRR/4RyiQau/U=
-X-Google-Smtp-Source: AGHT+IHbD2nF0B7qpn1+XiOMZ1q8+4PbX6RNC47iZ4oUcbj288NUmXZOtVou2SQcxDEjyk1sftduNgg7vi6jX7oTMvc=
-X-Received: by 2002:a17:907:96a9:b0:a7a:387c:23f8 with SMTP id
- a640c23a62f3a-a7daf4c28a0mr91756066b.3.1722482645110; Wed, 31 Jul 2024
- 20:24:05 -0700 (PDT)
+ AJvYcCV6H3bHjX0w7SBBr4k6irlYOjrOISVnnrl3876XmYjwlr9TIsPBmytSzS5I5dO/GVKzsbjCssmireMOv3QwFKLYSivr7R//ESc+BjaPkg==
+X-Gm-Message-State: AOJu0YyTGW5fNNOlBNg3tu6rrDuOWS9ZjrhqxWTKDjYZGzGEEhYi8BGI
+ qoZXM7vwq0VJjjbfsW96MYMPaxvv0tW4oD2FiiisoOO4GJHkeSYzFYxDHRnMdjcwHlOYFEGfqcg
+ 0RFsKKzELbca5MN6wRTmy8Wf5hEthb3KH
+X-Google-Smtp-Source: AGHT+IErR179YIUbVHeryEzSbf+rB0KwGVPLUmUIKEdLA6ci23wevxweFYul0Cr4t+a93lhcnWb4C1vjAwkTvbn6NCI=
+X-Received: by 2002:a17:907:8688:b0:a77:e7b9:fda0 with SMTP id
+ a640c23a62f3a-a7daf288c01mr71931666b.14.1722482664585; Wed, 31 Jul 2024
+ 20:24:24 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240731131252.354336-1-sunil.khatri@amd.com>
- <20240731131252.354336-2-sunil.khatri@amd.com>
-In-Reply-To: <20240731131252.354336-2-sunil.khatri@amd.com>
+ <20240731131252.354336-4-sunil.khatri@amd.com>
+In-Reply-To: <20240731131252.354336-4-sunil.khatri@amd.com>
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 31 Jul 2024 23:23:29 -0400
-Message-ID: <CAAxE2A4xmSKiV8+haUC_kbpid1dMHBPB0G1eyY5sFQgPJKw=DA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/3] drm/amdgpu: optimize the padding for gfx12
+Date: Wed, 31 Jul 2024 23:23:48 -0400
+Message-ID: <CAAxE2A7exVXYeUzL19AxGyFyA5jv43RoenC9F0Prgjb7Aqwk+g@mail.gmail.com>
+Subject: Re: [PATCH v1 3/3] drm/amdgpu: optimize the padding for gfx_v9_4_3
 To: Sunil Khatri <sunil.khatri@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -101,21 +101,22 @@ On Wed, Jul 31, 2024 at 9:13=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
 > Cc: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index f932c7ff85e3..29b3bf1b29b3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -5005,6 +5005,24 @@ static void gfx_v12_0_emit_mem_sync(struct amdgpu_=
-ring *ring)
->         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_4_3.c
+> index 98fe6c40da64..c4832a5725c3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -4178,6 +4178,24 @@ static void gfx_v9_4_3_enable_watchdog_timer(struc=
+t amdgpu_device *adev)
+>         amdgpu_gfx_ras_error_func(adev, NULL, gfx_v9_4_3_inst_enable_watc=
+hdog_timer);
 >  }
 >
-> +static void gfx_v12_ring_insert_nop(struct amdgpu_ring *ring, uint32_t n=
-um_nop)
+> +static void gfx_v9_4_3_ring_insert_nop(struct amdgpu_ring *ring, uint32_=
+t num_nop)
 > +{
 > +       int i;
 > +
@@ -140,29 +141,19 @@ Marek
 
 > +}
 > +
->  static void gfx_v12_ip_print(void *handle, struct drm_printer *p)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> @@ -5186,7 +5204,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_rin=
-g_funcs_gfx =3D {
->         .emit_hdp_flush =3D gfx_v12_0_ring_emit_hdp_flush,
->         .test_ring =3D gfx_v12_0_ring_test_ring,
->         .test_ib =3D gfx_v12_0_ring_test_ib,
+>  static const struct amd_ip_funcs gfx_v9_4_3_ip_funcs =3D {
+>         .name =3D "gfx_v9_4_3",
+>         .early_init =3D gfx_v9_4_3_early_init,
+> @@ -4227,7 +4245,7 @@ static const struct amdgpu_ring_funcs gfx_v9_4_3_ri=
+ng_funcs_compute =3D {
+>         .emit_hdp_flush =3D gfx_v9_4_3_ring_emit_hdp_flush,
+>         .test_ring =3D gfx_v9_4_3_ring_test_ring,
+>         .test_ib =3D gfx_v9_4_3_ring_test_ib,
 > -       .insert_nop =3D amdgpu_ring_insert_nop,
-> +       .insert_nop =3D gfx_v12_ring_insert_nop,
+> +       .insert_nop =3D gfx_v9_4_3_ring_insert_nop,
 >         .pad_ib =3D amdgpu_ring_generic_pad_ib,
->         .emit_cntxcntl =3D gfx_v12_0_ring_emit_cntxcntl,
->         .init_cond_exec =3D gfx_v12_0_ring_emit_init_cond_exec,
-> @@ -5224,7 +5242,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_rin=
-g_funcs_compute =3D {
->         .emit_hdp_flush =3D gfx_v12_0_ring_emit_hdp_flush,
->         .test_ring =3D gfx_v12_0_ring_test_ring,
->         .test_ib =3D gfx_v12_0_ring_test_ib,
-> -       .insert_nop =3D amdgpu_ring_insert_nop,
-> +       .insert_nop =3D gfx_v12_ring_insert_nop,
->         .pad_ib =3D amdgpu_ring_generic_pad_ib,
->         .emit_wreg =3D gfx_v12_0_ring_emit_wreg,
->         .emit_reg_wait =3D gfx_v12_0_ring_emit_reg_wait,
+>         .emit_wreg =3D gfx_v9_4_3_ring_emit_wreg,
+>         .emit_reg_wait =3D gfx_v9_4_3_ring_emit_reg_wait,
 > --
 > 2.34.1
 >
