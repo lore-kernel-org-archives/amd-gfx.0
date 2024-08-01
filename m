@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBFCC3DA64
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9FACC3DA7F
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7B1F10E73F;
-	Thu,  1 Aug 2024 00:15:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D9F10E5F5;
+	Thu,  1 Aug 2024 00:15:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lMfGTqlB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qGybhEmw";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1756F10E73C;
- Thu,  1 Aug 2024 00:15:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B77DF10E5F5;
+ Thu,  1 Aug 2024 00:15:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7954461345;
- Thu,  1 Aug 2024 00:15:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDFE2C32786;
- Thu,  1 Aug 2024 00:15:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 25B6B611D7;
+ Thu,  1 Aug 2024 00:15:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C503C32786;
+ Thu,  1 Aug 2024 00:15:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722471306;
- bh=XtOBmbJSSX8k8FaJ6jexWUTSzNVx8y3Ygud8egqr274=;
+ s=k20201202; t=1722471327;
+ bh=vN/0+PCnxw4RkndSR3E8Lcq/Mu7ZWGdNEZe89/ZZz1w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lMfGTqlBGQV3JD7jXGFGClRCZrXQY8Hy48po3toNlxl0T1UlOfXdsGZHU22KK2su9
- Kq1sLhYxtkUOUQr1sSpL3I5KnBLeaokEJpgaGA/p9WEsYtAUXgAOAONKkltdOyHANX
- KJzSA16UvEsCD7rrvpAL6BHYUltMdAwdJFGyhpY1vXt68IS+zkmA3Rzy/tMftoI2/r
- RM2s0mS1JwyTyrQrshwrJwCzICtS06R5/Me/ezTL2OiH94/zDJCxINz9F+EFoOaRfP
- arTgc/ndSYExobFQez5QvPisILFGEUWPOmqRMbc5qk+sIq4YJageWyoi4XcNn9eOdm
- czPevMpXvGlQg==
+ b=qGybhEmwWiuzKn/BCSl/O25Sruaqp8u8/6+40OruK37ozzhNkOOexbffD2pTppS7d
+ IoezFyb8Nv+o1OavF+ybiJXD8l9ThAMIeLgNGAGCA0rjhb6rLM4b8HFi3ar6aa90Fr
+ AOrFoSomeTBRssntU27nx04AszfBCSLM6GeA8C7vKpgFi3shFchCc4qXpQQ3zn10H3
+ 7uW5X3wHy0VPWGKA32Qrsw09iQ4ZvgOfrdWK9shyOzmmXcPxCyEcYzkSQLKJEa6QnD
+ E6rJSyGLZcu8BUY4NcgK2Z6xlXr0kVswea8QJzY5ZmCBTX/o8oEoxJdEwyOP13MaYp
+ tyn7gi9o/xmVA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Jesse Zhang <jesse.zhang@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: winstang <winstang@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- Hawking.Zhang@amd.com, yifan1.zhang@amd.com, Likun.Gao@amd.com,
- le.ma@amd.com, Prike.Liang@amd.com, Lang.Yu@amd.com, lijo.lazar@amd.com,
- victorchengchi.lu@amd.com, Jun.Ma2@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 064/121] drm/amdgu: fix Unintentional integer
- overflow for mall size
-Date: Wed, 31 Jul 2024 20:00:02 -0400
-Message-ID: <20240801000834.3930818-64-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, wenjing.liu@amd.com, alex.hung@amd.com, jun.lei@amd.com,
+ hamza.mahfooz@amd.com, george.shen@amd.com, dillon.varone@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.10 074/121] drm/amd/display: added NULL check at
+ start of dc_validate_stream
+Date: Wed, 31 Jul 2024 20:00:12 -0400
+Message-ID: <20240801000834.3930818-74-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801000834.3930818-1-sashal@kernel.org>
 References: <20240801000834.3930818-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.10.2
@@ -68,34 +68,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <jesse.zhang@amd.com>
+From: winstang <winstang@amd.com>
 
-[ Upstream commit c09d2eff81a997c169e0cacacd6b60c5e3aa33f2 ]
+[ Upstream commit 26c56049cc4f1705b498df013949427692a4b0d5 ]
 
-Potentially overflowing expression mall_size_per_umc * adev->gmc.num_umc with type unsigned int (32 bits, unsigned)
-is evaluated using 32-bit arithmetic,and then used in a context that expects an expression of type u64 (64 bits, unsigned).
+[Why]
+prevent invalid memory access
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+[How]
+check if dc and stream are NULL
+
+Co-authored-by: winstang <winstang@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+Signed-off-by: winstang <winstang@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 0e31bdb4b7cb6..71db111e20f80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1595,7 +1595,7 @@ static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
- 		break;
- 	case 2:
- 		mall_size_per_umc = le32_to_cpu(mall_info->v2.mall_size_per_umc);
--		adev->gmc.mall_size = mall_size_per_umc * adev->gmc.num_umc;
-+		adev->gmc.mall_size = (uint64_t)mall_size_per_umc * adev->gmc.num_umc;
- 		break;
- 	default:
- 		dev_err(adev->dev,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 76a8e90da0d56..dffc663fd1a10 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -4656,6 +4656,9 @@ void resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
+ 
+ enum dc_status dc_validate_stream(struct dc *dc, struct dc_stream_state *stream)
+ {
++	if (dc == NULL || stream == NULL)
++		return DC_ERROR_UNEXPECTED;
++
+ 	struct dc_link *link = stream->link;
+ 	struct timing_generator *tg = dc->res_pool->timing_generators[0];
+ 	enum dc_status res = DC_OK;
 -- 
 2.43.0
 
