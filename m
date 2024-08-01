@@ -4,72 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43090C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 18:56:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1488CC3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 22:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6E5B10E923;
-	Thu,  1 Aug 2024 18:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A707C10E0EC;
+	Thu,  1 Aug 2024 22:38:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PcBjlQcn";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="UmC9BcGQ";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F76A10E923
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 18:56:11 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5a156557026so9857891a12.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 01 Aug 2024 11:56:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722538569; x=1723143369; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=OeVxN+jLKyRxR/zA0QhowN0zawlkYe7ReP65bYd5H3A=;
- b=PcBjlQcnotIpVPLvHZuGTMH0xVNGZJjOlyKJ+0BAnU2SXBbDa/L7kKVfFP4Na6QhIP
- pPiGmOMBZ8iktLfa1Y/52sTc5FoBJ8VxFc+W3YYPLqHWBkZimxGB4jnuo0lf7rKmU0NE
- XyEMeRg+RAfqUPnEYKnB2lhG6s93lsEGqZxTHJS2LCLYpkNniQ7XofF+hFkm5U7LW421
- QGH4P+DgDqTnmLqTyMG/vu2YCxLazhHWJeimC9BttajdzoayNDFUwJcHHV/UVGDUA8hv
- 4YNjJWyC2IcCsYLU4iW51gr4NmhT2pWkA6e8YD5JD4oqNOVvlPEHx+o9vcrqH7Fs7v+2
- f6UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722538569; x=1723143369;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OeVxN+jLKyRxR/zA0QhowN0zawlkYe7ReP65bYd5H3A=;
- b=X4DTpIG7q8WHVhRtN9LkOlVVA4e/ixmP5zE7W20Nm8NhseAsOaodu18EPCzAOLVSzH
- 5D7Ez9FHzUykpFHxVCu54rdE4zfvK+PgDe5ybBTpdX9njKnArtgbfbjGys7thhyzmMCq
- DjfIUM0DdHYthOVWaUnyAd6guFldyzGOIFOrvB8K4yXqknN5V/ixZd+AUlmjBGNHu4fe
- yndUhXFr8DBsyPkXHN5vryyDGSEM6bhRWPcahp5kJim4kTrc5KOXt9mtcuKeOGmtK7kz
- 7iyucVhYri2jt7nCoExsVaS5b7uJdGOjIjlX1ZWNPpne9l5TQUYethoDjAPqruWDqJKH
- zlpw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVXn6Kl8AfaHO4p1MtJ5yATe6Z0J5eoewS0j/DUj+JeJtBkUPxHmyizUJHHzua/xPNur2xsgBt6tP2fPA6pFNk6pujDHc5UJMkaEcsk7g==
-X-Gm-Message-State: AOJu0YyyYhqAPsrl+bOqcRK8TVfWgiAI4UBtxjI9UiLXZhnuHjzaEb7l
- WxAVPu08ckdeKxgYqGgwNHnIO0M045mySdILYZqCZLDu7ILnLWACU51ajUFx42srx8FsGtYS3bE
- T0JZ0v1hoLH4sqNcimOIeR73cASpFcw==
-X-Google-Smtp-Source: AGHT+IG6X7oGIvcdHupft+LV7B1GwpcA1hOSJG+PxhIdzKbcq4zLvEfZ3KgJoCJeg4ac2MJhpZjlmZCh5667t2mvNAg=
-X-Received: by 2002:a17:906:c115:b0:a7d:9f92:9107 with SMTP id
- a640c23a62f3a-a7dc51bdf6cmr73937366b.58.1722538569178; Thu, 01 Aug 2024
- 11:56:09 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A41BA10E0DC;
+ Thu,  1 Aug 2024 22:38:24 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 471Lao6d031920;
+ Thu, 1 Aug 2024 22:37:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ tfVWpSmPQi6UTpTFIn1gv05QunuW4Xf80ucdY6qUjis=; b=UmC9BcGQQ3WcZFbj
+ TyMTytvaaI27qdqYg6rDdfSpiLSaUOYRl7STaXMF9weitZ9eWnxRuNnc8DsZAvbG
+ tgheepC6qlRahMO8mrNQ/DPmFwh1opllqIOdr2uM2HmtGbgpdjf3Sd0OxG1flYEf
+ ylaovclssoCSevhcgFSPtbwy8bFraqkmx6Z+b0qbi9d4qgALW/F114kp5rAubeNH
+ prjcNRP9EPwAMI79bRdOqxQIBhUo8yOak5vGojmeO3thzccdmP3EM3IhUdcSWDqV
+ 0EVE6/Ld2PUy2DE38lcJFQFixYf+8oGycl0XAuThOogszIKekBYqVh34L57+dpTO
+ EdPTaA==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40rjec0383-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Aug 2024 22:37:37 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 471MbZj2024266
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Aug 2024 22:37:35 GMT
+Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 1 Aug 2024
+ 15:37:35 -0700
+Message-ID: <e0548e46-ffe0-4961-8ac1-94d6ab5e7772@quicinc.com>
+Date: Thu, 1 Aug 2024 15:37:35 -0700
 MIME-Version: 1.0
-References: <20240730124332.38030-1-sunil.khatri@amd.com>
- <CAAxE2A5hEezckDEk1jJwFdfddpN1VXJtU+Yp5uXfsM2aiV2Cxg@mail.gmail.com>
- <28927b0d-f97f-451b-af03-943f8c85f92d@amd.com>
- <CAAxE2A7C3fuExvvjTytCR7fYNjoDTDzAqK2JroSihcz6EX7X2A@mail.gmail.com>
- <18c7c805-d2ec-4448-bd25-cdb106aeac7e@amd.com>
-In-Reply-To: <18c7c805-d2ec-4448-bd25-cdb106aeac7e@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 1 Aug 2024 14:55:56 -0400
-Message-ID: <CAAxE2A7XBQfUnYhSg2RS7TP_i6cv775RW0ocdgAyc-F0dsSqmQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: optimize the padding with hw optimization
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000872928061ea3c37f"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/9] drm/panel: panel-novatak-nt35510: Use backlight power
+ constants
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>, Linus
+ Walleij <linus.walleij@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+References: <20240731122311.1143153-1-tzimmermann@suse.de>
+ <20240731122311.1143153-4-tzimmermann@suse.de>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20240731122311.1143153-4-tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Vp_e8c8I0w8ME_948mKFU2vclgX4gcM3
+X-Proofpoint-GUID: Vp_e8c8I0w8ME_948mKFU2vclgX4gcM3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-01_20,2024-08-01_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ adultscore=0 clxscore=1011 mlxscore=0 priorityscore=1501 mlxlogscore=999
+ bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0 spamscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2408010151
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,151 +95,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000872928061ea3c37f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Aug 1, 2024, 03:37 Christian K=C3=B6nig <christian.koenig@amd.com> =
-wrote:
-
-> Am 01.08.24 um 08:53 schrieb Marek Ol=C5=A1=C3=A1k:
->
-> On Thu, Aug 1, 2024, 00:28 Khatri, Sunil <sukhatri@amd.com> wrote:
->
->>
->> On 8/1/2024 8:49 AM, Marek Ol=C5=A1=C3=A1k wrote:
->> >> +       /* Header is at index 0, followed by num_nops - 1 NOP packet'=
-s
->> */
->> >> +       for (i =3D 1; i < num_nop; i++)
->> >> +               amdgpu_ring_write(ring, ring->funcs->nop);
->> > This loop should be removed. It's unnecessary CPU overhead and we
->> > should never get more than 0x3fff NOPs (maybe use BUG_ON). Leaving the
->> > whole packet body uninitialized is the fastest option.
->> That was the original intent to just move the WPTR for the no of nops
->> and tried too. Based on Christian inputs we should not let the nops pack=
-et
->>
->> as garbage or whatever was there originally as a threat/safety measure.
->
->
-> It doesn't help safety. It can only be read by the GPU with kernel-level
-> permissions.
->
-> Initializing the packet body is useless and adds CPU overhead, especially
-> with the 256 NOPs or so that we use for no reason.
->
->
-> Not filling the remaining ring buffers with NOPs is a pretty clear NAK
-> from my side. Leaving garbage in the ring buffer is not even remotely
-> defensive.
->
-
-What are you defending against? You know the ring is kernel-owned memory,
-right?
-
-Marek
 
 
-> What we can do is to optimize filling N DWs into the ring buffer without
-> updating the WPTR each time.
->
-> Regards,
-> Christian.
->
->
-> Marek
->
->
+On 7/31/2024 5:17 AM, Thomas Zimmermann wrote:
+> Replace FB_BLANK_ constants with their counterparts from the
+> backlight subsystem. The values are identical, so there's no
+> change in functionality or semantics.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
 
---000000000000872928061ea3c37f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Thomas,
 
-<div dir=3D"auto"><div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">On Thu, Aug 1, 2024, 03:37 Christian K=C3=B6nig &lt;<a href=3D=
-"mailto:christian.koenig@amd.com">christian.koenig@amd.com</a>&gt; wrote:<b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
--left:1px #ccc solid;padding-left:1ex"><u></u>
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 
- =20
-  <div>
-    Am 01.08.24 um 08:53 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"auto">
-        <div>
-          <div class=3D"gmail_quote">
-            <div dir=3D"ltr" class=3D"gmail_attr">On Thu, Aug 1, 2024, 00:2=
-8
-              Khatri, Sunil &lt;<a href=3D"mailto:sukhatri@amd.com" target=
-=3D"_blank" rel=3D"noreferrer">sukhatri@amd.com</a>&gt;
-              wrote:<br>
-            </div>
-            <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
-rder-left:1px #ccc solid;padding-left:1ex"><br>
-              On 8/1/2024 8:49 AM, Marek Ol=C5=A1=C3=A1k wrote:<br>
-              &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Header is at index 0,=
- followed by
-              num_nops - 1 NOP packet&#39;s */<br>
-              &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 1; i &lt; num=
-_nop; i++)<br>
-              &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0amdgpu_ring_write(ring,
-              ring-&gt;funcs-&gt;nop);<br>
-              &gt; This loop should be removed. It&#39;s unnecessary CPU
-              overhead and we<br>
-              &gt; should never get more than 0x3fff NOPs (maybe use
-              BUG_ON). Leaving the<br>
-              &gt; whole packet body uninitialized is the fastest
-              option.<br>
-              That was the original intent to just move the WPTR for the
-              no of nops <br>
-              and tried too. Based on Christian inputs we should not let
-              the nops packet<br>
-              <br>
-              as garbage or whatever was there originally as a
-              threat/safety measure.</blockquote>
-          </div>
-        </div>
-        <div dir=3D"auto"><br>
-        </div>
-        <div dir=3D"auto">It doesn&#39;t help safety. It can only be read b=
-y
-          the GPU with kernel-level permissions.</div>
-        <div dir=3D"auto"><br>
-        </div>
-        <div dir=3D"auto">Initializing the packet body is useless and adds
-          CPU overhead, especially with the 256 NOPs or so that we use
-          for no reason.</div>
-      </div>
-    </blockquote>
-    <br>
-    Not filling the remaining ring buffers with NOPs is a pretty clear
-    NAK from my side. Leaving garbage in the ring buffer is not even
-    remotely defensive.<br></div></blockquote></div></div><div dir=3D"auto"=
-><br></div><div dir=3D"auto">What are you defending against? You know the r=
-ing is kernel-owned memory, right?=C2=A0</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"auto"><=
-div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>
-    <br>
-    What we can do is to optimize filling N DWs into the ring buffer
-    without updating the WPTR each time.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type=3D"cite">
-      <div dir=3D"auto">
-        <div dir=3D"auto"><br>
-        </div>
-        <div dir=3D"auto">Marek</div>
-        <br>
-      </div>
-    </blockquote>
-  </div>
+Thanks,
 
-</blockquote></div></div></div>
+Jessica Zhang
 
---000000000000872928061ea3c37f--
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt35510.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> index d3bfdfc9cff6..57686340de49 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> @@ -1166,7 +1166,7 @@ static int nt35510_probe(struct mipi_dsi_device *dsi)
+>   			bl->props.brightness = nt->conf->wrdisbv;
+>   		else
+>   			bl->props.brightness = 255;
+> -		bl->props.power = FB_BLANK_POWERDOWN;
+> +		bl->props.power = BACKLIGHT_POWER_OFF;
+>   		nt->panel.backlight = bl;
+>   	}
+>   
+> -- 
+> 2.45.2
+> 
