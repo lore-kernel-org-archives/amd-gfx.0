@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27587C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 03:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C755C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 03:24:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC7C10E87F;
-	Thu,  1 Aug 2024 03:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC4B10E882;
+	Thu,  1 Aug 2024 03:24:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BUymXaeH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EgFHxYPs";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4C7110E87F
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 03:23:21 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-a7a9185e1c0so644023066b.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 20:23:21 -0700 (PDT)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07DB510E882
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 03:24:07 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-5af6a1afa7bso7054884a12.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 Jul 2024 20:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722482600; x=1723087400; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1722482645; x=1723087445; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4/ZtSeCTZabsRSMs6G0dnOZaha28km1/LzVo8kvY8M0=;
- b=BUymXaeHpz91I5rsjP1QaJ49fmX+IN01z6xlgRQjLI47JvlIpolq3P8sRb2sodzhRi
- ByP9eUFm+CotSLs+8cnR6O9X7X8Ip3gqdNYU4zh2bvZq8mu3nX7qiHmrEwup6zWn4E79
- tPTTjS2cJN23etm/McJ/C58zlnGApMoh0S5j5KYmPufIbAZRMtFwhdqAuBXAxymhWZrz
- UQFiqqBXBr4QTYh1WBxfqrxrigrybRv4IjGBeS1Sfi1CsK+xPZgJC+DKIjUCXxj8pOVC
- OiFe+q/Y/ErAVD5KHAQ/yBKvIawbcHD5ZwEyYzFT4QhvzgdlzU9HWoSeG1ZJ+iU0RS18
- MNCw==
+ bh=h9eOUww4MPb/032QgFYcZ0qFv6d2LRzVfnJOwB1qmKc=;
+ b=EgFHxYPsOfQSDYijVMq5UtgGyTu27HNVxs3L/00YciTAeNVG9mIZemdv+1w8ymBold
+ 5gSQ0ZcjZ0AnWZDlLmv7gzfbQiGNfHyR2mtDeF6c5qRzLA3x/wu5YOaNeWi0v2zIPYwV
+ J50ICCsJHP+3or4WcNnw3opv667OkqBNmhdq/xk/UEYQlI0NXLBvju8SSfQFp1Uv9vsh
+ qu3BM8gazg1HGtLntScYdawGFRqHEiLgGGPTMN0H9UOFx5DkSKWJoYAFN0vgkLMZiOKD
+ vDL/OfJUzgktwAi++IkJ3ry2xDZStFLM1OP6zcsAMykpf834OIFPAc+EbGxNdYDBfa+I
+ 37tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722482600; x=1723087400;
+ d=1e100.net; s=20230601; t=1722482645; x=1723087445;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4/ZtSeCTZabsRSMs6G0dnOZaha28km1/LzVo8kvY8M0=;
- b=N53YBRLTtZWiMQZNs6HzLlY27MHt6pyxRlcFVdhOC+oMsGAJ8lkRtjHRlACfQZKKPg
- sZW01g69XCpLSdU3wrebbNubvWBH3Tz7ZQ2CdFhn+6hhX8lAYfG5WPu15nMb/31Djt2i
- SziW5n05k85mAhyVHOjf6dPKXWOEsbevo88Irpi5jh2j8kyCh0C/D5HGi9Dc0ESZhlJH
- /k3RC/++QfLH2RenZha+nDFnWZQA+yu7Iq0tvro6bpkZsSNeW7zYTfYjYvaSVWARg8jn
- ZmcZ9UKu0PVpHIm2zgsqmlrDK6QdKJind1/TKrVHE12L9+jibqxnMlO6q4E9uvoaSBez
- Wcgw==
+ bh=h9eOUww4MPb/032QgFYcZ0qFv6d2LRzVfnJOwB1qmKc=;
+ b=wAa6jWu0wieENzzDrgfDlNuXVCD/ftkKINs46Ro1YPZJptSyI2dLz10uKIl+jVPYdD
+ FVVM+o+4CHILHynBs8GH/U8FLkxqkNxqKGjMCLFuRFPULu4fVg9h+u51YyxhYpgAtACk
+ /NsZr+PVY16/xPzRNAAQcjP/gtoN+j+YeqCvsQbUe7kgzeLlcqTxNqES0gRSg7HM+ZTS
+ laDKrmcEeoCu3nMD+qLhqZ55p4a8wNvo7rqKTAjNiiArBIfuImLefncF/8HiSG+EVeVI
+ CvPd3ZT7hqHvAux4OBNKzC8lM+MsPV3cSkNEW4Ch/Ot8L3o0+U62Cy48732mlyLNokjd
+ 6h/Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVhW3xhs2pg2AJM8TrlOVtpcmdysCw4P69XaLkRSR0MolylmKMDF9gklD3/uADkSMRk7wD6T5ld@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1cJ9VtmKVnlT0kLzKXSO0nKLCj4uS5VYMTe2NLsFGLaInFOqL
- zkFvcNS5V2zdRvTo6AHgEMtptaXUuEcKvcyX2PZU1+6y0Fwa1xT3zTLi/kIfmYPjTGItC/M9wRO
- ZRY3AD0kuOA1mI9UyV143D8Jeu7uS5JBG
-X-Google-Smtp-Source: AGHT+IGALuZvunBIuVboAcmXo5OHRVWvqqH5gasTD2/LjKanTPf/szRc/6R+dmFO6HUOljpcJ3Qq4fcUS+/7ym+Oh7g=
-X-Received: by 2002:a17:907:6d17:b0:a7d:a080:b97 with SMTP id
- a640c23a62f3a-a7daf536532mr64757966b.29.1722482599916; Wed, 31 Jul 2024
- 20:23:19 -0700 (PDT)
+ AJvYcCXrAKMfAuv5y0pxXf1pNAznXkfHgOKnunv97sNTRv3cq2RSkPYlDIEiR8k8XCCoOWKrVMRgpa+F@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyupRxTN+kRtgCtOGp7EPIrMAeFqj46levNK1QVo5nq2ibsniiV
+ UlxZPjhgAqoJMlUaGEyXAurkvhHtbOKEN9S1NUUVuQ3H34XkgM6iDySoV5H++lBz90W5UjpWIud
+ 1zs7/oMF5PZo3v9fRR/4RyiQau/U=
+X-Google-Smtp-Source: AGHT+IHbD2nF0B7qpn1+XiOMZ1q8+4PbX6RNC47iZ4oUcbj288NUmXZOtVou2SQcxDEjyk1sftduNgg7vi6jX7oTMvc=
+X-Received: by 2002:a17:907:96a9:b0:a7a:387c:23f8 with SMTP id
+ a640c23a62f3a-a7daf4c28a0mr91756066b.3.1722482645110; Wed, 31 Jul 2024
+ 20:24:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240730124332.38030-1-sunil.khatri@amd.com>
- <CAAxE2A5hEezckDEk1jJwFdfddpN1VXJtU+Yp5uXfsM2aiV2Cxg@mail.gmail.com>
-In-Reply-To: <CAAxE2A5hEezckDEk1jJwFdfddpN1VXJtU+Yp5uXfsM2aiV2Cxg@mail.gmail.com>
+References: <20240731131252.354336-1-sunil.khatri@amd.com>
+ <20240731131252.354336-2-sunil.khatri@amd.com>
+In-Reply-To: <20240731131252.354336-2-sunil.khatri@amd.com>
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 31 Jul 2024 23:22:43 -0400
-Message-ID: <CAAxE2A7CcN+ePP83Z55X-gqFdBg0YTPxRniLtphiJdMrZEXAcA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: optimize the padding with hw optimization
+Date: Wed, 31 Jul 2024 23:23:29 -0400
+Message-ID: <CAAxE2A4xmSKiV8+haUC_kbpid1dMHBPB0G1eyY5sFQgPJKw=DA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] drm/amdgpu: optimize the padding for gfx12
 To: Sunil Khatri <sunil.khatri@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -83,112 +83,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 31, 2024 at 11:19=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmai=
-l.com> wrote:
+On Wed, Jul 31, 2024 at 9:13=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
+ wrote:
 >
-> On Tue, Jul 30, 2024 at 8:43=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.co=
-m> wrote:
-> >
-> > Adding NOP packets one by one in the ring
-> > does not use the CP efficiently.
-> >
-> > Solution:
-> > Use CP optimization while adding NOP packet's so PFP
-> > can discard NOP packets based on information of count
-> > from the Header instead of fetching all NOP packets
-> > one by one.
-> >
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> > Cc: Tvrtko Ursulin <tursulin@igalia.com>
-> > Cc: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
-> > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 24 +++++++++++++++++++++---
-> >  1 file changed, 21 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v10_0.c
-> > index 853084a2ce7f..edf5b5c4d185 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -9397,6 +9397,24 @@ static void gfx_v10_0_emit_mem_sync(struct amdgp=
-u_ring *ring)
-> >         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
-> >  }
-> >
-> > +static void amdgpu_gfx10_ring_insert_nop(struct amdgpu_ring *ring, uin=
-t32_t num_nop)
-> > +{
-> > +       int i;
-> > +
-> > +       /* Header itself is a NOP packet */
-> > +       if (num_nop =3D=3D 1) {
-> > +               amdgpu_ring_write(ring, ring->funcs->nop);
-> > +               return;
-> > +       }
-> > +
-> > +       /* Max HW optimization till 0x3ffe, followed by remaining one N=
-OP at a time*/
-> > +       amdgpu_ring_write(ring, PACKET3(PACKET3_NOP, min(num_nop - 2, 0=
-x3ffe)));
-> > +
-> > +       /* Header is at index 0, followed by num_nops - 1 NOP packet's =
-*/
-> > +       for (i =3D 1; i < num_nop; i++)
-> > +               amdgpu_ring_write(ring, ring->funcs->nop);
+> Adding NOP packets one by one in the ring
+> does not use the CP efficiently.
 >
-> This loop should be removed. It's unnecessary CPU overhead and we
-> should never get more than 0x3fff NOPs (maybe use BUG_ON). Leaving the
-> whole packet body uninitialized is the fastest option.
+> Solution:
+> Use CP optimization while adding NOP packet's so PFP
+> can discard NOP packets based on information of count
+> from the Header instead of fetching all NOP packets
+> one by one.
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Cc: Tvrtko Ursulin <tursulin@igalia.com>
+> Cc: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 22 ++++++++++++++++++++--
+>  1 file changed, 20 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index f932c7ff85e3..29b3bf1b29b3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -5005,6 +5005,24 @@ static void gfx_v12_0_emit_mem_sync(struct amdgpu_=
+ring *ring)
+>         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
+>  }
+>
+> +static void gfx_v12_ring_insert_nop(struct amdgpu_ring *ring, uint32_t n=
+um_nop)
+> +{
+> +       int i;
+> +
+> +       /* Header itself is a NOP packet */
+> +       if (num_nop =3D=3D 1) {
+> +               amdgpu_ring_write(ring, ring->funcs->nop);
+> +               return;
+> +       }
+> +
+> +       /* Max HW optimization till 0x3ffe, followed by remaining one NOP=
+ at a time*/
+> +       amdgpu_ring_write(ring, PACKET3(PACKET3_NOP, min(num_nop - 2, 0x3=
+ffe)));
+> +
+> +       /* Header is at index 0, followed by num_nops - 1 NOP packet's */
+> +       for (i =3D 1; i < num_nop; i++)
+> +               amdgpu_ring_write(ring, ring->funcs->nop);
 
-If you remove amdgpu_ring_write, you still need to move wptr somehow.
-amdgpu_ring_write_multiple gives a hint about how to do it:
-
-ring->wptr +=3D count_dw;
-ring->wptr &=3D ring->ptr_mask;
-ring->count_dw -=3D count_dw;
+This loop should be removed. I explained the reason in the gfx10 commit.
 
 Marek
 
+> +}
+> +
+>  static void gfx_v12_ip_print(void *handle, struct drm_printer *p)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> @@ -5186,7 +5204,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_rin=
+g_funcs_gfx =3D {
+>         .emit_hdp_flush =3D gfx_v12_0_ring_emit_hdp_flush,
+>         .test_ring =3D gfx_v12_0_ring_test_ring,
+>         .test_ib =3D gfx_v12_0_ring_test_ib,
+> -       .insert_nop =3D amdgpu_ring_insert_nop,
+> +       .insert_nop =3D gfx_v12_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+>         .emit_cntxcntl =3D gfx_v12_0_ring_emit_cntxcntl,
+>         .init_cond_exec =3D gfx_v12_0_ring_emit_init_cond_exec,
+> @@ -5224,7 +5242,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_rin=
+g_funcs_compute =3D {
+>         .emit_hdp_flush =3D gfx_v12_0_ring_emit_hdp_flush,
+>         .test_ring =3D gfx_v12_0_ring_test_ring,
+>         .test_ib =3D gfx_v12_0_ring_test_ib,
+> -       .insert_nop =3D amdgpu_ring_insert_nop,
+> +       .insert_nop =3D gfx_v12_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+>         .emit_wreg =3D gfx_v12_0_ring_emit_wreg,
+>         .emit_reg_wait =3D gfx_v12_0_ring_emit_reg_wait,
+> --
+> 2.34.1
 >
-> Marek
->
-> > +}
-> > +
-> >  static void gfx_v10_ip_print(void *handle, struct drm_printer *p)
-> >  {
-> >         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> > @@ -9588,7 +9606,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_r=
-ing_funcs_gfx =3D {
-> >         .emit_hdp_flush =3D gfx_v10_0_ring_emit_hdp_flush,
-> >         .test_ring =3D gfx_v10_0_ring_test_ring,
-> >         .test_ib =3D gfx_v10_0_ring_test_ib,
-> > -       .insert_nop =3D amdgpu_ring_insert_nop,
-> > +       .insert_nop =3D amdgpu_gfx10_ring_insert_nop,
-> >         .pad_ib =3D amdgpu_ring_generic_pad_ib,
-> >         .emit_switch_buffer =3D gfx_v10_0_ring_emit_sb,
-> >         .emit_cntxcntl =3D gfx_v10_0_ring_emit_cntxcntl,
-> > @@ -9629,7 +9647,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_r=
-ing_funcs_compute =3D {
-> >         .emit_hdp_flush =3D gfx_v10_0_ring_emit_hdp_flush,
-> >         .test_ring =3D gfx_v10_0_ring_test_ring,
-> >         .test_ib =3D gfx_v10_0_ring_test_ib,
-> > -       .insert_nop =3D amdgpu_ring_insert_nop,
-> > +       .insert_nop =3D amdgpu_gfx10_ring_insert_nop,
-> >         .pad_ib =3D amdgpu_ring_generic_pad_ib,
-> >         .emit_wreg =3D gfx_v10_0_ring_emit_wreg,
-> >         .emit_reg_wait =3D gfx_v10_0_ring_emit_reg_wait,
-> > @@ -9659,7 +9677,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_r=
-ing_funcs_kiq =3D {
-> >         .emit_fence =3D gfx_v10_0_ring_emit_fence_kiq,
-> >         .test_ring =3D gfx_v10_0_ring_test_ring,
-> >         .test_ib =3D gfx_v10_0_ring_test_ib,
-> > -       .insert_nop =3D amdgpu_ring_insert_nop,
-> > +       .insert_nop =3D amdgpu_gfx10_ring_insert_nop,
-> >         .pad_ib =3D amdgpu_ring_generic_pad_ib,
-> >         .emit_rreg =3D gfx_v10_0_ring_emit_rreg,
-> >         .emit_wreg =3D gfx_v10_0_ring_emit_wreg,
-> > --
-> > 2.34.1
-> >
