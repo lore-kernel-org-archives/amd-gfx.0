@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D556C3DA64
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 07:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B114C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 07:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3825110E89F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBCA610E8A0;
 	Thu,  1 Aug 2024 07:04:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VwdOdNP6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uVVCz262";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2063.outbound.protection.outlook.com [40.107.100.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF6B10E89F
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 07:04:55 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2075.outbound.protection.outlook.com [40.107.101.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F0D10E89F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 07:04:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qP5x7SJpAfGdnO+NutDnn0NEPP67kraoz8Pb7QduGTctU8+OdB7+KPCbHEARpHQ6O/oBrR1AooayIjE3gjfloAB2oh9tNtRUDyPzfynE9oGrA+NEyYTMIkrm3vCvb2rSG5l4NLwgf2sl0qsUCxMfBs9A2F+Z6HOjrjxfq1j6RsOLQTw4hdEdVyrrE+QBVHpUFRA8zThNN5kmW++G00zL5nmJ2rZSOSNUeNe2eeX77ekl/+EY8Pxun0SOfemPeTWQDlcEL5yIyjrttinJfU7i/1wg69sybtqhvX//WKNRrncBrSKAaOkJOr/eCBHf468QWsoIKKFT+UC1KsBWGh6LJg==
+ b=vfT22agGZXwjqn0Uf4MsgwsHki66u0e7pWq/mKnbyNMoLXtvlS7yU8GByZwbOJaGoZ3QWXxL0t/LpzUBEhTWxVUMBKgFhwh8Cq+1x5+dam7eo9jOfep7p6D5aBZFY6nG6uYRMB643twXOLsoICbffJwQC7wPYk0B5UzELPvomCBcpbEcylZQ6cmfYh9jrs24Zkt8N1PDrb0GHd7LOaLTIIf9IrALw+S3wcLT6AnqqTzfamtEtJx7uG/1Weq3XlBUHCJTm0zzC1Zi0o2voTOQq7EFM08KjWNT1NEPzw/VZ+BSbWnXYW3r/sp1l6nHrRE9VtPMwdEwnPRszf6kDBwTCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hkLdtywjTmyTcgJgUFa7TvIJvUt945BZzr8K+af5fas=;
- b=DCz1jrIpGWrwEFpY3zOERl3sFv5Zj7xAJDRnOhrURkQYuAqVfN02EKl1cIJT03XKFLxHXMHx3CpLircwDlpEegr8EnUYGE/IFDSavw+yd42Ax505LtPSVOFTU2ZhCkPNh2g65d1gmqViT0nB127x/fXz5UrDgKZAkVD4wDAOf82guP7X3qs3ZhzhspSZaVe0WDY31vg1YoyoQp+5OvyBr9SueRcshlZnajIWkkgFWUE1gKxmA+rgJWHYFhII8+hELmTXi26s2u3xSpt23jdqxa3hDUHqXXzDa6Gskfqzo7rb5AIpKNP87G8aK8I2zTW1BjK4RPqbzPub1N+E7QvmUA==
+ bh=P8kK4l49KdhoJv+3myurXMN+HETzpXdbARZK2mqcESU=;
+ b=CgZUnHvyUkfLhyt7TASCRfH6Fe9y1AF1ZpCxMIYHS34OGi/rrEoyUvL8OUMZVbiu+5J0gWxkMDFxIDWXu6B4jQ6xkif2lr7ywEDH/jBWIRFdhsyeEFK1CAPNyazoWYEVdKikmZ/QV+JCrZykkBtiE5yGXUtoSua28DZ4ZZc6gJokMAtGIpq0lI/xrYUenY0DxARRaVvCCo0hwKhvqMk0g/sIzjymY4slCJCbR5fKLNyml9j2l2kERxYrLF4UoJwHmVDNGqLYKwrDGPk9LTEamRmwV0epr636u8eRYMFWU6d+W8vWMNLxIayZoimnW7NyYc7ubz7cVxE8oi+KIsveLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hkLdtywjTmyTcgJgUFa7TvIJvUt945BZzr8K+af5fas=;
- b=VwdOdNP6EWNBGOP7XtxUSK+MuVsqM4oDz0LXcKh/xALaSKbfnZZ3prfjQoSXQBPLnJ0z8y9RP1eNhIkBgUbz8fR2yfcAIOC5o777zAQejDaunpJ0CmcOTtT4Qp0WfNi6Ef2oaEBxlw3C+QSZMYSiiOtkhX303hZbcUbjEqGWrEU=
-Received: from BYAPR08CA0002.namprd08.prod.outlook.com (2603:10b6:a03:100::15)
- by DM4PR12MB8571.namprd12.prod.outlook.com (2603:10b6:8:187::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=P8kK4l49KdhoJv+3myurXMN+HETzpXdbARZK2mqcESU=;
+ b=uVVCz2624WOFDk8Ar2KFmqa+NG3a73gLVrVvKMkpSk1f9WtBfvvdjG8oo1PYzLcXG7X67tSpo6WqzOgjWH+DXpv2nTG0ebwxx/SS/tgD28vLJRwNWJtta+lZtHywwfDpF1eCjw4+pM9LyDgZ9NLzVIxMXare8heARD6O6RRpYw8=
+Received: from SJ0PR03CA0053.namprd03.prod.outlook.com (2603:10b6:a03:33e::28)
+ by SJ2PR12MB7961.namprd12.prod.outlook.com (2603:10b6:a03:4c0::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Thu, 1 Aug
- 2024 07:04:50 +0000
-Received: from SJ1PEPF00002326.namprd03.prod.outlook.com
- (2603:10b6:a03:100:cafe::25) by BYAPR08CA0002.outlook.office365.com
- (2603:10b6:a03:100::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.34 via Frontend
- Transport; Thu, 1 Aug 2024 07:04:49 +0000
+ 2024 07:04:54 +0000
+Received: from SJ1PEPF00002324.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::1f) by SJ0PR03CA0053.outlook.office365.com
+ (2603:10b6:a03:33e::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22 via Frontend
+ Transport; Thu, 1 Aug 2024 07:04:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002326.mail.protection.outlook.com (10.167.242.89) with Microsoft
+ SJ1PEPF00002324.mail.protection.outlook.com (10.167.242.87) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Thu, 1 Aug 2024 07:04:49 +0000
+ 15.20.7828.19 via Frontend Transport; Thu, 1 Aug 2024 07:04:53 +0000
 Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 1 Aug
- 2024 02:04:45 -0500
+ 2024 02:04:49 -0500
 From: Tim Huang <tim.huang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <jesse.zhang@amd.com>, <bob.zhou@amd.com>, Tim Huang <tim.huang@amd.com>
-Subject: [PATCH 3/4] drm/amdgpu: fix unchecked return value warning for
- amdgpu_atombios
-Date: Thu, 1 Aug 2024 15:03:32 +0800
-Message-ID: <20240801070333.423881-3-tim.huang@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: check return for setting engine dram timings
+Date: Thu, 1 Aug 2024 15:03:33 +0800
+Message-ID: <20240801070333.423881-4-tim.huang@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801070333.423881-1-tim.huang@amd.com>
 References: <20240801070333.423881-1-tim.huang@amd.com>
@@ -74,51 +73,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002326:EE_|DM4PR12MB8571:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b803537-cb9f-466b-6ffb-08dcb1f83c1e
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002324:EE_|SJ2PR12MB7961:EE_
+X-MS-Office365-Filtering-Correlation-Id: b24a4d78-02d9-4aa9-fce5-08dcb1f83e96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YBZLS3sa+HWiucjiv7pMVFGQIr6CrskGmsPJxN3od15SQ21TDwB78ikPt4Wn?=
- =?us-ascii?Q?5Z5xALjnpzItr8K0tf6KxqZrMg0AqifQwxatv9D0y8nx0R19S/w7vqJTJfp5?=
- =?us-ascii?Q?wC7TiBZGLSJxT/EUqL4ACKdAVr94Q1XClEQ4D5bkzD4UZi6rivsl6qQ+4ed1?=
- =?us-ascii?Q?Tt/aw+F08NtGppanycz4O+VCRuYVuHg1ff+JKs5BCe2KpChizWttX2LqnKCj?=
- =?us-ascii?Q?kiJkdDgDOuOGvQvhewIKZ5OZ1jXO9zcb1GDiqcyXQMwc1cFy3K0eIWRlKpv+?=
- =?us-ascii?Q?ipHe0R/lSPUSRpOT8tr9dZ0jfEJ90qT9PKDLLtJBjYItEADgwki93CFCHJt9?=
- =?us-ascii?Q?ctBgVXJEy6j6VlaiKKMo73pqc2lGXsakftxLx6EVKqrgsDKpFTfNWGaTnOQt?=
- =?us-ascii?Q?WiagsMTOcpUo4bIkCYrz8x1eqEcGwvsF5WL/6nUr6L14lpvTUpe8nOCV1Rvy?=
- =?us-ascii?Q?j489xyfgGUDb+CIPYIoTbZkF8tKUCoDwAeKuzAZNZ+zRcPc4rakTkL5/eZoa?=
- =?us-ascii?Q?jTd9AyBO1AyVw4CAOgxhQY1ggpioBUf1aqYxoeigE/JkM5BefAa2dZ9bVOBK?=
- =?us-ascii?Q?4QrhOkoKij6UeKi0UIcNcvN6TMK9CsQqnfJnu5MFExcCHbETqpr51sDK29Fn?=
- =?us-ascii?Q?98QdDlVUgk94reqwpma88y+gDnbZZ6ZNPQEasVWKYZy+Vx+bOlpMmUBHyubN?=
- =?us-ascii?Q?4VumEXxHdj3bhhZG8Pr3d2EZDQfEiHxzVLKH5D6qZWABDtw/BC1NhGkXyn45?=
- =?us-ascii?Q?WLKdg3sAEiEJH1Q1EqkjHQczaa43q9c7HpfjMPBcEiRI5t3OcLk53fwnanXz?=
- =?us-ascii?Q?wlHI++U/MTE76cR3zhs1cI9oibxIsI+aeiBlGGifxecN/Eoth2BLE49Ve8Do?=
- =?us-ascii?Q?PGS9ThoxkiM7Yl2N0A2F2dhMyAXllmlm1PEJclJ920dtu+UiPsWCqqMFeHUk?=
- =?us-ascii?Q?5E40A6QF+fsS6kvJ0Gbq6Iura2cmMnDR92hMfhzyjI9MvfKB7VIOKnKBVmYF?=
- =?us-ascii?Q?SjL+o9NboQSKIHB5ZoDktd8KNWV28fFntsiPYEVCycHKyWI0AoL1gJnQZEOH?=
- =?us-ascii?Q?yXFooLgPRkknh+vgrDkeHJf5C5zbglKsbZ8WzD+sKKGyPmnpsgXLYjN46Tvi?=
- =?us-ascii?Q?W4v6JfruIceoDCSq/xDwKCf7woqYxnXnaBSGQt2B8Uamo+GAlEbNR6rCaHt4?=
- =?us-ascii?Q?OVhTDcR+R1oQLf7l8vPZjDu+HLQUdq6BxPgEPWdirM6WTIYnVpSrx9v1MqAe?=
- =?us-ascii?Q?9sljUchTVgAvOqIvWF9ESVujG8QKGeqDuoknZnSuSxXZfXcSE/+MHt3JgWcr?=
- =?us-ascii?Q?B01H9loG32yALLSFTR/d5dRcZ7NGI0wWv84DV4dgR/mjkASp91wknNyr6XxJ?=
- =?us-ascii?Q?QTEMeft9PBGQaBCo51wuyOOkDdhEaD25RQGU8+vAP6fXChGGBFjDZ3LubkTS?=
- =?us-ascii?Q?/Upq24qDGyynbrXUpQeozZ1czZ8ft9Xu?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0Sif2tRnF/SO7/xszNEFApqvCPBpI9fLJcClDXJ037CfgvjWkjmixiYuJ6uh?=
+ =?us-ascii?Q?MKfZzm4gkJse6UbvRWoU9CbN7LHuAhAO6cd16jqlBMIS1w4MplB6gwGMTNR2?=
+ =?us-ascii?Q?hRZUrz6T43XIUItvp91T23w6QmUBYfIn/n0xGtIVu8weAmHyjDjhdFICLJUj?=
+ =?us-ascii?Q?osHgEvX9jUb1ozgogCMGAkKcHpOLIF2DdJxC4WFoAtJ8zN2EC/rmGMyEppk0?=
+ =?us-ascii?Q?PsqED+VGGhGd8BJRhFGwbby4+30ls9DuNT/ejxIfXzsChysYejmoCFGqXmdX?=
+ =?us-ascii?Q?4V4mG43HJWpCrqEdqbs/TLECtVdh6lavO8ZQhcHb1yhH2cvLeVYe2Pjo3TTB?=
+ =?us-ascii?Q?Btv2VUbaMA4jkspckHYSnoYclcFz5GOsYTAxL9w64vnIpqvrsZCo/SoelsDJ?=
+ =?us-ascii?Q?oXzwkp33fNWF10oUaIe/w21yldjQMB+R3RcJ05HBQ4mmmrTyhmRbo5xOEzWe?=
+ =?us-ascii?Q?mWAMlWlcrsZA9IgiNtkQhb3FjGLYFBlvaV/tIS27IswlMdaNu3+deTLdVEJp?=
+ =?us-ascii?Q?fMfx4GVqfkDHGsAjdvM/dcWljYm0yWl/utzArniSgeL5nbmgMbGE9iY0JB1r?=
+ =?us-ascii?Q?8j0A/HUyaNXiTFghsfk01m/7+oTLVoEFUI/L+zWckIcbQu23+OL39tLMzEHd?=
+ =?us-ascii?Q?97+vCMyeAuXF7HVvYy6mrOEnb206Ubk4fT0jAUF1VTckhJOMR8rflHWnshKy?=
+ =?us-ascii?Q?iO5q3NQ6L2OD3iiSRsbWn7FyeIvbASc/w60FdCVmweYjxAt74o/Y14/7l4il?=
+ =?us-ascii?Q?QdnaRgyowJocMmFsyF/xvZLV1nDUrzTMVKDLdkKLCCVs1hZvgU96k9QoJKFh?=
+ =?us-ascii?Q?lc3M2WlRvwi+kvZXFXv/3wCrBVAc0rAbZsuamF/neZARvnIA+07O14c5MGOu?=
+ =?us-ascii?Q?tCKad94VUNns34wPW3BiLhIVbVBHBwzQz2coogHaHyK5SmiCfuXhWltv0DDx?=
+ =?us-ascii?Q?rROB8A+7ged1i6xYuxexu8IvCx1pOvRw/3fVQhoQd2IVtCMgXcDkc6Mj1Z4K?=
+ =?us-ascii?Q?aPbyFvyV/ie8k5vefv9ChouZIHgak2BALEAZaki/k+j7H8XN+FGLCE/ST2De?=
+ =?us-ascii?Q?aPWt2GDcI7gCo87+u2qoFPoHk2hdSMVHPETsNJtdTS713bI2VOR/HmyIqaJW?=
+ =?us-ascii?Q?DgQ39xrPkbS1SRqvGodc8VaytJDnCiRxJT3aAACz0qNVGmuD1NaxN3KbZ8on?=
+ =?us-ascii?Q?ntcrr6lWIo2DA113+b7zMaZlfhYfD0T3YjP9NjgEYVoJFhGrc/LiZoD++PTs?=
+ =?us-ascii?Q?xLrbUv9k9DoQjSUM3nA5GMEVGunxUknQ8xQ2gnicIJZiH7tanj/+UTMbIQG7?=
+ =?us-ascii?Q?3BX2y7Qrl6O/cFskkuXahZ+zuwuehCxj5BYFnWsKunPV2l9GTQ4t1plaklI/?=
+ =?us-ascii?Q?iNZoQGxG9qLBs9QqZYKYPKnBP/M0bFwWyT2JHa5/BMfqIVW7Z9Q3EMsvzg7k?=
+ =?us-ascii?Q?VmrhN2BKjWOFZlwVi91VYULxu27EvfGP?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2024 07:04:49.6994 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b803537-cb9f-466b-6ffb-08dcb1f83c1e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2024 07:04:53.8449 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b24a4d78-02d9-4aa9-fce5-08dcb1f83e96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002326.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002324.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8571
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7961
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,97 +136,75 @@ This resolves the unchecded return value warning reported by Coverity.
 
 Signed-off-by: Tim Huang <tim.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 35 ++++++++++++--------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 8 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h | 4 ++--
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c   | 8 +++++---
+ 3 files changed, 11 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 7dc102f0bc1d..0c8975ac5af9 100644
+index 0c8975ac5af9..093141ad6ed0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -1018,8 +1018,9 @@ int amdgpu_atombios_get_clock_dividers(struct amdgpu_device *adev,
- 		if (clock_type == COMPUTE_ENGINE_PLL_PARAM) {
- 			args.v3.ulClockParams = cpu_to_le32((clock_type << 24) | clock);
+@@ -1145,8 +1145,8 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
+ 	return 0;
+ }
  
--			amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--				sizeof(args));
-+			if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+			    index, (uint32_t *)&args, sizeof(args)))
-+				return -EINVAL;
+-void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+-					     u32 eng_clock, u32 mem_clock)
++int amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
++					    u32 eng_clock, u32 mem_clock)
+ {
+ 	SET_ENGINE_CLOCK_PS_ALLOCATION args;
+ 	int index = GetIndexIntoMasterTable(COMMAND, DynamicMemorySettings);
+@@ -1161,8 +1161,8 @@ void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+ 	if (mem_clock)
+ 		args.sReserved.ulClock = cpu_to_le32(mem_clock & SET_CLOCK_FREQ_MASK);
  
- 			dividers->post_div = args.v3.ucPostDiv;
- 			dividers->enable_post_div = (args.v3.ucCntlFlag &
-@@ -1039,8 +1040,9 @@ int amdgpu_atombios_get_clock_dividers(struct amdgpu_device *adev,
- 			if (strobe_mode)
- 				args.v5.ucInputFlag = ATOM_PLL_INPUT_FLAG_PLL_STROBE_MODE_EN;
+-	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
+-		sizeof(args));
++	return amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
++					 (uint32_t *)&args, sizeof(args));
+ }
  
--			amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--				sizeof(args));
-+			if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+			    index, (uint32_t *)&args, sizeof(args)))
-+				return -EINVAL;
+ void amdgpu_atombios_get_default_voltages(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+index 0811474e8fd3..0e16432d9a72 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+@@ -163,8 +163,8 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
+ 					    bool strobe_mode,
+ 					    struct atom_mpll_param *mpll_param);
  
- 			dividers->post_div = args.v5.ucPostDiv;
- 			dividers->enable_post_div = (args.v5.ucCntlFlag &
-@@ -1058,8 +1060,9 @@ int amdgpu_atombios_get_clock_dividers(struct amdgpu_device *adev,
- 		/* fusion */
- 		args.v4.ulClock = cpu_to_le32(clock);	/* 10 khz */
+-void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+-					     u32 eng_clock, u32 mem_clock);
++int amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
++					    u32 eng_clock, u32 mem_clock);
  
--		amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--			sizeof(args));
-+		if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+		    index, (uint32_t *)&args, sizeof(args)))
-+			return -EINVAL;
+ bool
+ amdgpu_atombios_is_voltage_gpio(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index a1baa13ab2c2..43028e776c93 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -4755,13 +4755,15 @@ static int si_populate_memory_timing_parameters(struct amdgpu_device *adev,
+ 	u32 dram_timing;
+ 	u32 dram_timing2;
+ 	u32 burst_time;
++	int ret;
  
- 		dividers->post_divider = dividers->post_div = args.v4.ucPostDiv;
- 		dividers->real_clock = le32_to_cpu(args.v4.ulClock);
-@@ -1070,8 +1073,9 @@ int amdgpu_atombios_get_clock_dividers(struct amdgpu_device *adev,
- 		args.v6_in.ulClock.ulComputeClockFlag = clock_type;
- 		args.v6_in.ulClock.ulClockFreq = cpu_to_le32(clock);	/* 10 khz */
+ 	arb_regs->mc_arb_rfsh_rate =
+ 		(u8)si_calculate_memory_refresh_rate(adev, pl->sclk);
  
--		amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--			sizeof(args));
-+		if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+		    index, (uint32_t *)&args, sizeof(args)))
-+			return -EINVAL;
+-	amdgpu_atombios_set_engine_dram_timings(adev,
+-					    pl->sclk,
+-		                            pl->mclk);
++	ret = amdgpu_atombios_set_engine_dram_timings(adev, pl->sclk,
++						      pl->mclk);
++	if (ret)
++		return ret;
  
- 		dividers->whole_fb_div = le16_to_cpu(args.v6_out.ulFbDiv.usFbDiv);
- 		dividers->frac_fb_div = le16_to_cpu(args.v6_out.ulFbDiv.usFbDivFrac);
-@@ -1113,8 +1117,9 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
- 			if (strobe_mode)
- 				args.ucInputFlag |= MPLL_INPUT_FLAG_STROBE_MODE_EN;
- 
--			amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--				sizeof(args));
-+			if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+			    index, (uint32_t *)&args, sizeof(args)))
-+				return -EINVAL;
- 
- 			mpll_param->clkfrac = le16_to_cpu(args.ulFbDiv.usFbDivFrac);
- 			mpll_param->clkf = le16_to_cpu(args.ulFbDiv.usFbDiv);
-@@ -1211,8 +1216,9 @@ int amdgpu_atombios_get_max_vddc(struct amdgpu_device *adev, u8 voltage_type,
- 		args.v2.ucVoltageMode = 0;
- 		args.v2.usVoltageLevel = 0;
- 
--		amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--			sizeof(args));
-+		if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+		    index, (uint32_t *)&args, sizeof(args)))
-+			return -EINVAL;
- 
- 		*voltage = le16_to_cpu(args.v2.usVoltageLevel);
- 		break;
-@@ -1221,8 +1227,9 @@ int amdgpu_atombios_get_max_vddc(struct amdgpu_device *adev, u8 voltage_type,
- 		args.v3.ucVoltageMode = ATOM_GET_VOLTAGE_LEVEL;
- 		args.v3.usVoltageLevel = cpu_to_le16(voltage_id);
- 
--		amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args,
--			sizeof(args));
-+		if (amdgpu_atom_execute_table(adev->mode_info.atom_context,
-+		    index, (uint32_t *)&args, sizeof(args)))
-+			return -EINVAL;
- 
- 		*voltage = le16_to_cpu(args.v3.usVoltageLevel);
- 		break;
+ 	dram_timing  = RREG32(MC_ARB_DRAM_TIMING);
+ 	dram_timing2 = RREG32(MC_ARB_DRAM_TIMING2);
 -- 
 2.43.0
 
