@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E75D8C52D1D
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:23:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99C49C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:23:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9920510E7AC;
-	Thu,  1 Aug 2024 00:23:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382D210E7AD;
+	Thu,  1 Aug 2024 00:23:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vMpnL83N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V0qIjsBH";
 	dkim-atps=neutral
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A34A10E7A7;
- Thu,  1 Aug 2024 00:23:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B54B10E7AD;
+ Thu,  1 Aug 2024 00:23:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 42555CE1874;
- Thu,  1 Aug 2024 00:23:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4606C4AF0E;
- Thu,  1 Aug 2024 00:23:09 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 8F3BACE1872;
+ Thu,  1 Aug 2024 00:23:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C830C116B1;
+ Thu,  1 Aug 2024 00:23:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722471791;
- bh=mdtSGVThuocfhAncG/yE9HLunHNL+4zIVSo0VUb1UGU=;
+ s=k20201202; t=1722471797;
+ bh=+3L1MknO07wOY49inR3xzFOkxj/UaQNw3ONi5j/xy+A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vMpnL83NEem4PPUrj1N3Oul2PdhY9E4ixcpqiYo/FIGBSTHELJJkwq3qwfvyNbDoA
- dTrZMj0a5GNMroUdjQ+pJHJ+c9YW7Wt8nKUy3Ktg7ecTgCWxNIS6Dva778yL3mWMgP
- DwqfVTVcd1L9QuUuZ9SAThigPmyc8GURaiOfpsi6WdIJagzDnj5W9N7hLYHPBJuM/k
- wLI3AcrcOProDD5FylOKlUv8HyAEi+N4Zzdnrlyce6KaqHOR4AywiW0DQE/JHAh+CT
- b1JOuhuvRurkiMWJfJJw8y03x+szpWcq1tGEBarZYvgrEgS3DcE9mAt7Gcrep7z2YF
- Wsr3h5m6wAvtA==
+ b=V0qIjsBH4JX5UbdBgRhdzryheXHLNyDXjguAejk2osG5uiwW36NAw6NX+tmmlh9Ip
+ 4JMaNXosk+Nwygv4FYlK08FNHdU3EUGFV8WmLwyjdDszCgrb/KFMUKUfLfDbT1ZuTt
+ 3p48RrLGs+tUZiXQP8apYZS9WEhwIxK5jZ++Ph2w0ylOBo3LYMfZQ4SD6bw1zHCc5A
+ CEFw8zYSBZGMSybflAJoAD9FZ+zvZD0dtU4y+RykaVPqP9ktJh1jvGq9/ChYtWH3G/
+ 4wtRZaTJejP3n0wXdt3F1Bm5HCtBBZDZAq53dlD3+tq70vW1bYBTnrQTGIbj2d4xuf
+ ULQfAghanvy9w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Ma Jun <Jun.Ma2@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, shashank.sharma@amd.com, hannes@cmpxchg.org,
- andrealmeid@igalia.com, friedrich.vock@gmx.de,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 22/83] drm/amdgpu: Fix out-of-bounds write warning
-Date: Wed, 31 Jul 2024 20:17:37 -0400
-Message-ID: <20240801002107.3934037-22-sashal@kernel.org>
+Cc: Ma Jun <Jun.Ma2@amd.com>, Tim Huang <Tim.Huang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.6 24/83] drm/amdgpu: Fix out-of-bounds read of
+ df_v1_7_channel_number
+Date: Wed, 31 Jul 2024 20:17:39 -0400
+Message-ID: <20240801002107.3934037-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801002107.3934037-1-sashal@kernel.org>
 References: <20240801002107.3934037-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.43
@@ -68,33 +66,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ma Jun <Jun.Ma2@amd.com>
 
-[ Upstream commit be1684930f5262a622d40ce7a6f1423530d87f89 ]
+[ Upstream commit d768394fa99467bcf2703bde74ddc96eeb0b71fa ]
 
-Check the ring type value to fix the out-of-bounds
-write warning
+Check the fb_channel_number range to avoid the array out-of-bounds
+read error
 
 Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Tim Huang <Tim.Huang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/df_v1_7.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 0bedffc4eb435..f44b303ae287a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -352,7 +352,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
- 	ring->max_dw = max_dw;
- 	ring->hw_prio = hw_prio;
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+index 5dfab80ffff21..cd298556f7a60 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+@@ -70,6 +70,8 @@ static u32 df_v1_7_get_hbm_channel_number(struct amdgpu_device *adev)
+ 	int fb_channel_number;
  
--	if (!ring->no_scheduler) {
-+	if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
- 		hw_ip = ring->funcs->type;
- 		num_sched = &adev->gpu_sched[hw_ip][hw_prio].num_scheds;
- 		adev->gpu_sched[hw_ip][hw_prio].sched[(*num_sched)++] =
+ 	fb_channel_number = adev->df.funcs->get_fb_channel_number(adev);
++	if (fb_channel_number >= ARRAY_SIZE(df_v1_7_channel_number))
++		fb_channel_number = 0;
+ 
+ 	return df_v1_7_channel_number[fb_channel_number];
+ }
 -- 
 2.43.0
 
