@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C987C52D1D
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF632C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F15D910E82B;
-	Thu,  1 Aug 2024 00:35:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7358510E7EF;
+	Thu,  1 Aug 2024 00:36:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CGg7kvFO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IH82i5Ly";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 350E910E855;
- Thu,  1 Aug 2024 00:35:23 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5143B10E7EF;
+ Thu,  1 Aug 2024 00:36:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9F6796173E;
- Thu,  1 Aug 2024 00:35:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55416C116B1;
- Thu,  1 Aug 2024 00:35:20 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 68F05CE1764;
+ Thu,  1 Aug 2024 00:36:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1A5EC116B1;
+ Thu,  1 Aug 2024 00:36:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722472522;
- bh=L7+VrIpIwWLuWLlG8x/fO+bqChqwHUkr6r+2VIkykqM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CGg7kvFOOWk2puaFps6tKy1eL2OgSBK9gsKVlg/FB/vmu9JyuGbZYVlpI8KsOvTHb
- 64mFFINSKYJdgu7oBZ8Q14QKQUqPpUE5hDpM/4JsWCx4qbRHUuoCEBAi4cF1Ro5+wx
- iJRcWVQqJLKJCRNvdRPrHFwTGtW50IY70vqyX6yEgXWtCfxnwmfbORVuraeUDCvkNp
- LrPbs+Rbs4Q3vjjwlVysdgt8Z4oaly23R68NFWp2dWjjZnSJcnuE6Z1VZDAVfT44rb
- FbROTI8UKBqPajXr3BokgcytPmPfKPjmDgNfv6VVWV9wuQOWreTGZl4QtCmX6KZ14T
- 0XZsXVdDY2Yog==
+ s=k20201202; t=1722472606;
+ bh=Co3rOYWFyMzUQ/iRBOHAF8/nPZFV/WYnqoQl2tPTpws=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IH82i5LyYE8doxPOf26734EDraM0s0kJXkxZCtENe/HbCFQPkizAn9M44w/XNMJSy
+ kKyjJQe+a6MLq/fIEawfaq8J2lsajYNBiVzhF3FuyJ+II7mwqCX6j+DgTm7MElazyf
+ DO8ZY4bAEhjtt4kW9v+urWZGRaEY/3iw3rwiakB99vqZLpyXFZIioGE553MznVPsrl
+ J8x38wAF4a96vRIn3yGPb8gBU9CLSzTcU5z6YQAMK4XfV+Jj+PwOdOxHkwQMwdGKt3
+ SNzOjyhwVe+xrFGOCr7yTAdmYWFZbWglMc2k0Od4+KYlnzpau1ejTlEstMGsjPeFYH
+ Rg+d9kuUSt2Dg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, marcelomspessoto@gmail.com, wenjing.liu@amd.com,
+Cc: Tim Huang <Tim.Huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Jun.Ma2@amd.com, shashank.sharma@amd.com,
+ hannes@cmpxchg.org, friedrich.vock@gmx.de, andrealmeid@igalia.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.15 38/47] drm/amd/display: Check HDCP returned status
-Date: Wed, 31 Jul 2024 20:31:28 -0400
-Message-ID: <20240801003256.3937416-38-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 01/38] drm/amdgpu: fix overflowed array index
+ read warning
+Date: Wed, 31 Jul 2024 20:35:07 -0400
+Message-ID: <20240801003643.3938534-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240801003256.3937416-1-sashal@kernel.org>
-References: <20240801003256.3937416-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.164
+X-stable-base: Linux 5.10.223
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,55 +64,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Tim Huang <Tim.Huang@amd.com>
 
-[ Upstream commit 5d93060d430b359e16e7c555c8f151ead1ac614b ]
+[ Upstream commit ebbc2ada5c636a6a63d8316a3408753768f5aa9f ]
 
-[WHAT & HOW]
-Check mod_hdcp_execute_and_set() return values in authenticated_dp.
+Clear overflowed array index read warning by cast operation.
 
-This fixes 3 CHECKED_RETURN issues reported by Coverity.
-
-Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/modules/hdcp/hdcp1_execution.c    | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-index 6ec918af3bffc..119b00aadd9a4 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
-@@ -433,17 +433,20 @@ static enum mod_hdcp_status authenticated_dp(struct mod_hdcp *hdcp,
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 15ee13c3bd9e1..6976f61be7341 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -368,8 +368,9 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
+ 					size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_ring *ring = file_inode(f)->i_private;
+-	int r, i;
+ 	uint32_t value, result, early[3];
++	loff_t i;
++	int r;
  
- 	if (status == MOD_HDCP_STATUS_SUCCESS)
--		mod_hdcp_execute_and_set(mod_hdcp_read_bstatus,
-+		if (!mod_hdcp_execute_and_set(mod_hdcp_read_bstatus,
- 				&input->bstatus_read, &status,
--				hdcp, "bstatus_read");
-+				hdcp, "bstatus_read"))
-+			goto out;
- 	if (status == MOD_HDCP_STATUS_SUCCESS)
--		mod_hdcp_execute_and_set(check_link_integrity_dp,
-+		if (!mod_hdcp_execute_and_set(check_link_integrity_dp,
- 				&input->link_integrity_check, &status,
--				hdcp, "link_integrity_check");
-+				hdcp, "link_integrity_check"))
-+			goto out;
- 	if (status == MOD_HDCP_STATUS_SUCCESS)
--		mod_hdcp_execute_and_set(check_no_reauthentication_request_dp,
-+		if (!mod_hdcp_execute_and_set(check_no_reauthentication_request_dp,
- 				&input->reauth_request_check, &status,
--				hdcp, "reauth_request_check");
-+				hdcp, "reauth_request_check"))
-+			goto out;
- out:
- 	return status;
- }
+ 	if (*pos & 3 || size & 3)
+ 		return -EINVAL;
 -- 
 2.43.0
 
