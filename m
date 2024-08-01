@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8BE0C3DA64
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:34:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 494D2C3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 00:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A0FC10E828;
-	Thu,  1 Aug 2024 00:34:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC95510E83E;
+	Thu,  1 Aug 2024 00:35:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aajDsqCN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WYD6qsuY";
 	dkim-atps=neutral
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6A910E828;
- Thu,  1 Aug 2024 00:34:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F85210E836;
+ Thu,  1 Aug 2024 00:35:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B5888CE1846;
- Thu,  1 Aug 2024 00:34:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7691EC32786;
- Thu,  1 Aug 2024 00:34:39 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 4C587CE187E;
+ Thu,  1 Aug 2024 00:35:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0FDC116B1;
+ Thu,  1 Aug 2024 00:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722472480;
- bh=m/qLhf7Iy3IXINAWH/3QJcrMjGzV7AuiwKF8xM8HaDQ=;
+ s=k20201202; t=1722472501;
+ bh=8VrR6MmszBITQ5bU0YppPlCDQg0kTTWA5rw31hIURQQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aajDsqCNOQ57AOMIvBOFtb4zf2yH+u5E9+DS0KvESfUnNZwBOnsv5ZnL6b/XZ1OBQ
- ewUFbfmipkgWlCcT334jmV5nZgjQRKYkDw5ojeW5ZBxss2JThPUfQIWIweaK8xbUNg
- +BWTsStvfPqOOPqyOLVNOlmlUypUAhlKUSM4+SLB18Ej/XbZ20d1SDt0IMyy3GB9JT
- 1dTHRd2Wzy6SUrb3BFAS7akdlig08HG8qelVqP4q5cZuSR12WZghaDZMjVzLVW6znZ
- jHa8IzgQzr8UKz+GZ2tw3rMZx7DZ0saalu/CwwqbrLm0JcWLpM8rGGC4Jdcx3jXABx
- 2xGRo8p7VVbaw==
+ b=WYD6qsuYEhL6pcJc4GjWyOmTCNEgcSlPSQRDIKGHgOOIjbZkmJGSuqk+fhOTe+1XS
+ 3EAHNNot71/vE7gjepgG2NcwMWyvZo5N2YuALzbiMj1PEQPKxZohj9oTvMQI3Kwh6H
+ YX0jS1MXlTuajfoS7rNc0a2iBE/ji7QpihKKeFBKCfwUJG1it83q1wmyCdGzoulZPw
+ 4Kkc4nd31oL+VnYEI3qKv60iD58ZXo/9X9T/4f/EWsM/yHl3CDY7WzW7k7/Xg0TFF7
+ aJVp9T6t+r1ZrDnd3Dm2qQ0QPkGjD93g4r2R+8aSfvL6jc3bPczPPMOSfKf3LYKACk
+ a5tJDfsJmBhFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Tao Zhou <tao.zhou1@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+Cc: winstang <winstang@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.15 22/47] drm/amdgpu: update type of buf size to u32
- for eeprom functions
-Date: Wed, 31 Jul 2024 20:31:12 -0400
-Message-ID: <20240801003256.3937416-22-sashal@kernel.org>
+ daniel@ffwll.ch, wenjing.liu@amd.com, alex.hung@amd.com, jun.lei@amd.com,
+ hamza.mahfooz@amd.com, george.shen@amd.com, dillon.varone@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 5.15 31/47] drm/amd/display: added NULL check at start
+ of dc_validate_stream
+Date: Wed, 31 Jul 2024 20:31:21 -0400
+Message-ID: <20240801003256.3937416-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240801003256.3937416-1-sashal@kernel.org>
 References: <20240801003256.3937416-1-sashal@kernel.org>
@@ -64,69 +68,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tao Zhou <tao.zhou1@amd.com>
+From: winstang <winstang@amd.com>
 
-[ Upstream commit 2aadb520bfacec12527effce3566f8df55e5d08e ]
+[ Upstream commit 26c56049cc4f1705b498df013949427692a4b0d5 ]
 
-Avoid overflow issue.
+[Why]
+prevent invalid memory access
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+[How]
+check if dc and stream are NULL
+
+Co-authored-by: winstang <winstang@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+Signed-off-by: winstang <winstang@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-index 4d9eb0137f8c4..48652c2a17cc0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-@@ -177,7 +177,7 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
-  * Returns the number of bytes read/written; -errno on error.
-  */
- static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
--			      u8 *eeprom_buf, u16 buf_size, bool read)
-+			      u8 *eeprom_buf, u32 buf_size, bool read)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 42432af34db29..df84f3b521e22 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2872,6 +2872,9 @@ void resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
+ 
+ enum dc_status dc_validate_stream(struct dc *dc, struct dc_stream_state *stream)
  {
- 	const struct i2c_adapter_quirks *quirks = i2c_adap->quirks;
- 	u16 limit;
-@@ -224,7 +224,7 @@ static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
- 
- int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
- 		       u32 eeprom_addr, u8 *eeprom_buf,
--		       u16 bytes)
-+		       u32 bytes)
- {
- 	return amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,
- 				  true);
-@@ -232,7 +232,7 @@ int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
- 
- int amdgpu_eeprom_write(struct i2c_adapter *i2c_adap,
- 			u32 eeprom_addr, u8 *eeprom_buf,
--			u16 bytes)
-+			u32 bytes)
- {
- 	return amdgpu_eeprom_xfer(i2c_adap, eeprom_addr, eeprom_buf, bytes,
- 				  false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-index 6935adb2be1f1..8083b8253ef43 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.h
-@@ -28,10 +28,10 @@
- 
- int amdgpu_eeprom_read(struct i2c_adapter *i2c_adap,
- 		       u32 eeprom_addr, u8 *eeprom_buf,
--		       u16 bytes);
-+		       u32 bytes);
- 
- int amdgpu_eeprom_write(struct i2c_adapter *i2c_adap,
- 			u32 eeprom_addr, u8 *eeprom_buf,
--			u16 bytes);
-+			u32 bytes);
- 
- #endif
++	if (dc == NULL || stream == NULL)
++		return DC_ERROR_UNEXPECTED;
++
+ 	struct dc_link *link = stream->link;
+ 	struct timing_generator *tg = dc->res_pool->timing_generators[0];
+ 	enum dc_status res = DC_OK;
 -- 
 2.43.0
 
