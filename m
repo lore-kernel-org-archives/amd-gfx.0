@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD05CC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 10:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9481C3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 10:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 865A010E8D9;
-	Thu,  1 Aug 2024 10:00:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C40410E8DB;
+	Thu,  1 Aug 2024 10:00:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BtJf1/uG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dxkU3bjI";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FEF210E8D9
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 10:00:11 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10FA710E8DB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 10:00:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JVXxjdTc5qm/BBFKw0G9BVXDGbi3oBHpVoTDqhhf3epHY+QyI43CMPu5jVgD9N7XbFD76B23BWiV9ztFaTHH8PByYPDVKx6WPbBEpL+WMfwpxolKSJYvb0MiVcTLSx2KfUFuyqeBnAD7z3QHZ3/5TOfVUBCPlL0twHgR3h/+MQgESP6y39vuuQG12OtsB+6znuYMUtkBCkHPJk8F/XWjT7gY7wUbLmLZHESykw8SzNfavC3Wxrz+CtKpvuBBdaZiJHWexPq4P7LX8OUBwZRGxHWv/+/1BUkehvEGFYUrKYKlETdV76nbimxyuGWqHOraj5/eYBqkB+GURl1F6Vbtow==
+ b=DvV5ZSqNwIo9RIqSO9hlT7FuRakN7iuDAvySZ3yQaBfwcmB90Ekq0/UWjqAWyAkUINMq46GQ8ZGoL8K8peRZbM5RcYRo++/BMmU2AOX2lQUlqEGWKQGwDyV5Y94SiF+33RvTsbePdMkc1OIFx+sXkjn3qonJPkb7QhGGgYhdAY9Bi5n6j7YvYhmiaJpbNmZTSMvqzFf4XfKka2jOVXJmAA0l95xJRjOcbaSNcyNyGYewHEdj9XUU6RkAID+kNJ5rCg8GR+LIkbSdbyMOmpAyuYvdzKCepri3V+/3fYAvQufADsOu+g65D5K6fFDZExmxouBCJLjX1bjEhZe4OYeC4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VqUy8Rp9HmJPtuoZg19Fwbo1LjTOtjQ+hnBFyWklj+c=;
- b=Cw9JURHQH7yjxTS4AQ1aYMy+bE7M+Znizns+jGUSeef7afN0JveqJCzK0SRq1IErwo6itsK8cmeHkgYbLsMj/zRhQyL5S2w3+kyWKNBlIvJ6YnWkbupefPUKd1REfxaemnRDnvwQdLXyLDlEjmcEjF/dAknhThc1hg8fCuwKo0TZFOHyJOcbFw8Wl+MbrI+4y+k5BPGXM5hDpbiuKBF/QkLL7E9+mNUQTaNn/w42Qgs12dQbWYoca0KucTnxLg6L/7lCtPgO0wbiDfkUFrH5KCYETVR3XSkX63WvygXFAEpQ0QkbdvCct2Y8Oi7Irx7CjooP8iGH59QteyjlyHpIZQ==
+ bh=qW9brDx6NcfqzvuRdYqDGVS0r/rECJF1IVMWTOZ8JCs=;
+ b=cZ619I6B4bE0bAxioCFUmhME05ObtAQFHAvIG0MqDdp132KEk3CyRh6KUzdv8NYmcUBAZWVtwKDH9qpHSakqSj4qtm8a7vzON0g8IBQYuCaACwshre7H9AaAja7XkXqH6SLRnS+TiewMAkyJhHrg0ziCwFQtxmxugVsD07MvtC2zBA6wJxOKiN+Jxdfjs4JQQ9lHtkW0tBcdLE/3fzxntLAaEMdYIzPXCqlw9di2r5Xo/zlNaZKPShvAkcRE2x6QB9fuS3xebnUWMLMl1TqtsQj3gWqM3YFLYVTHkVn4XP4X4wgv0UkosQgA5T+7cQv4l2lVdUVOgN7ebHr3p8OyrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VqUy8Rp9HmJPtuoZg19Fwbo1LjTOtjQ+hnBFyWklj+c=;
- b=BtJf1/uGeorc0j9fXQc0kLMhkNuQweOvptKCV2YBmSdh11CVuUsz22e7iCRwkvJMvHeEhE3kh77XmHm6SYWIbZMhpuJqycWiJzK2tYGv/J7hCXUs9uQxsZZ8IPDlwtcSSx3LKWsGC3LnnV/s+SVVKTJPVcViR1TDEBGrejBj6Yo=
-Received: from BLAPR03CA0170.namprd03.prod.outlook.com (2603:10b6:208:32f::17)
- by MN6PR12MB8491.namprd12.prod.outlook.com (2603:10b6:208:46f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22; Thu, 1 Aug
- 2024 10:00:06 +0000
+ bh=qW9brDx6NcfqzvuRdYqDGVS0r/rECJF1IVMWTOZ8JCs=;
+ b=dxkU3bjIi/gNohGnGUp4E81rvmlYCA5qy5SrnfqF16OEoX1dQOWpKYEvjpWQ6nHhzZHp961tWMDkHP/nRhHwLGfQ8xHfV2G+jzjChUR3m8Kfg8BWGm+YLu89CSc3oPyzrYYWWpEiF0L6/0DCOddA48VVy1B376a0qnXwDLJUYtQ=
+Received: from BLAPR03CA0156.namprd03.prod.outlook.com (2603:10b6:208:32f::29)
+ by DS7PR12MB6262.namprd12.prod.outlook.com (2603:10b6:8:96::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7807.30; Thu, 1 Aug 2024 10:00:07 +0000
 Received: from BN3PEPF0000B075.namprd04.prod.outlook.com
- (2603:10b6:208:32f:cafe::21) by BLAPR03CA0170.outlook.office365.com
- (2603:10b6:208:32f::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22 via Frontend
- Transport; Thu, 1 Aug 2024 10:00:06 +0000
+ (2603:10b6:208:32f:cafe::7d) by BLAPR03CA0156.outlook.office365.com
+ (2603:10b6:208:32f::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.23 via Frontend
+ Transport; Thu, 1 Aug 2024 10:00:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN3PEPF0000B075.mail.protection.outlook.com (10.167.243.120) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Thu, 1 Aug 2024 10:00:06 +0000
+ 15.20.7828.19 via Frontend Transport; Thu, 1 Aug 2024 10:00:07 +0000
 Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 1 Aug
- 2024 05:00:01 -0500
+ 2024 05:00:05 -0500
 From: Tao Zhou <tao.zhou1@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 1/3] drm/amdgpu: create function to check RAS RMA status
-Date: Thu, 1 Aug 2024 17:59:51 +0800
-Message-ID: <20240801095953.35625-1-tao.zhou1@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: report bad status in GPU recovery
+Date: Thu, 1 Aug 2024 17:59:53 +0800
+Message-ID: <20240801095953.35625-3-tao.zhou1@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240801095953.35625-1-tao.zhou1@amd.com>
+References: <20240801095953.35625-1-tao.zhou1@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,51 +72,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B075:EE_|MN6PR12MB8491:EE_
-X-MS-Office365-Filtering-Correlation-Id: 850e9f89-6164-45d9-378b-08dcb210b861
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B075:EE_|DS7PR12MB6262:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fd8f93a-b67c-4b56-a3d4-08dcb210b930
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8bTni3LfDZ2nOfiM+yulqO72DU2oWfuD8LDjo3X3AcbjLClliQY3SIH05LgC?=
- =?us-ascii?Q?b6vTJtXf9i3X3VTSkCUF+doIBQHEOt6WvbVHQQqfqTs3HZYkZXtMu9fvDsLn?=
- =?us-ascii?Q?dOHoKOrcPBoooHvThiRq6uKnyRDtONKpu1zBYVAi4+RVX4cqICV9yI4y4/It?=
- =?us-ascii?Q?ORHgCEUYMAadwswsEJ2a+kYFrEWLdpTLELsRYF596H+XRYwZwmGHaFKig/s8?=
- =?us-ascii?Q?xefKqVEoVteirORVQfk5VGg5m64o1yYqMQZ2eLGd8VNhW3F9csKZ/lWrPDtL?=
- =?us-ascii?Q?Ucp5m+XBZXVQiuU+iSZUiRV/5y1qzDXSEUPNAEY3JBLFWuGQ8MpKNSZI0tQQ?=
- =?us-ascii?Q?nEKANPDU3p5gjFWTpBMUSju6gsE8NARhYcvOWGP09aDEwykh3WNIZwrEFOPk?=
- =?us-ascii?Q?PSaRe+DRXaVihJCMHnYrQUmBbNO7rNj3ES6Kw7tUzv0c4vpH94BnbCPuB2wZ?=
- =?us-ascii?Q?cwhfw/xwNaNUGwDUUaTmu9rHhGOpcJBXNIOQ6fwEesNfP4VUuI86rfr6n7sT?=
- =?us-ascii?Q?OgpHHf2qYQRct/gK73HuRw6105HrxsL+GuY2N0V+9IouSPUKx7ryekuTUF3F?=
- =?us-ascii?Q?kelJn3Qgdh/F3GPIBQpGOpVM8N2tdkR0BLhZhda59AH7M7LB4zju+YY3XpkW?=
- =?us-ascii?Q?aJqeYjUBzxJQF+MggfjYlg1lBmWAFJ4rsMRxjJ5LwmXSpaihnNFyBggUFG+g?=
- =?us-ascii?Q?8zKFYhM8Pwa9+I45JRTnlqFz1jjRY4ca4egsEUhvyAnKyY2N8yqUB9T122zb?=
- =?us-ascii?Q?tGC+k671fpiGRARCImitYSY5XvuMYNQuUuFzTLDEGqjR6hMWKT8x+iKAfOKn?=
- =?us-ascii?Q?Dk6HVlcj7tPojq58xK6HayYowiugSiEgibjZKOyERyCHOuC2jIdPm06pxY/C?=
- =?us-ascii?Q?cU8CAiIHfzxEUWWYSSiOG7O+yXmRm46aV7H+EhkcLY8ugHTOCItf0WN5T4st?=
- =?us-ascii?Q?lT7FeR9IST9lc73oSn1Y99PUgwo7/El+ECGAxWkIH60ekQ5AjzLEOw0sE0OD?=
- =?us-ascii?Q?7+KowTcaU5Ftsr8Y2rFdYW76Wi9b7gnUHu9RxvbLnxsyh1c3ZPVmlqtMyGTg?=
- =?us-ascii?Q?9qjJaYPmvGn1J88+hkJKsSJZUgMPVB/2gWOYnVe3Keeb/B0kw78f5LENS5fc?=
- =?us-ascii?Q?osFFnzhMm2oWZNrLUt4AyuICqFg9sIgQqmUiyS9LMSm9dPRCSAtPrneaSwf9?=
- =?us-ascii?Q?QWju80aaahHDIh8qN5rZN1xSvh6bYA4Q+OZONQalOOF2TTehMpmD7JaTaxnM?=
- =?us-ascii?Q?a5zTGrG8m89HA0V1VWBBl0doszgU0NVVaQDRIi4OrR9LHvRnDDtIcTaE+Vls?=
- =?us-ascii?Q?dDBiakCucCd5lRjyjjbz9jaG7brSIXVo0laB6raS4N8w9ZAyocDrxpFNJ+QZ?=
- =?us-ascii?Q?LlrpsmyO4qd4UfaP/eEokl9rAdq+qZBAXNoaI1kdbsykIwOvUsTcuMfvOePC?=
- =?us-ascii?Q?BZ8Fko6YgybsBWWyBfqWfIEpkiUDuFV0?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CEU+0guVeOj27K2dlOGlzLtQOTedO/wF0+NJgNFsbYxj0hjcxUxkV+XKgkwt?=
+ =?us-ascii?Q?IUcClZV6DKkokpskiTQNd2GekujwLUT4Iwkem9dFE2OuOmyuAHHG57XQdKWk?=
+ =?us-ascii?Q?OWgBFU6k4LXoNOGddaEIz9opeWS4j2qPHAa0DAY+idqGiFN8K0p3MIM2ZlOl?=
+ =?us-ascii?Q?C/kFO/+aOIA3VbsQwJ0R98qYHop42aQYifouLJN+45kq104GtM1oMS45aTkI?=
+ =?us-ascii?Q?Dofk28WKPrAktYWJcWN6GabzuDXYE+BxaqStTsn3sgk35pYuNabYCszATdsw?=
+ =?us-ascii?Q?/dxhFa6dthKni1ATTWTnIrx2+R1hl9fXcc/iQew6on8AUVJZjdacYYVdbbOz?=
+ =?us-ascii?Q?nK4yY1vbsKN91sGf3cBS/HqIP5sMeMbFIgZY85e0EN2hk4sWhZru39NpxCtX?=
+ =?us-ascii?Q?GmT8zaY+CoLOxo2nBkTwNfJ/BCzxcWpUjc0mmMZZesTM7sIDsjEAW4jDRltY?=
+ =?us-ascii?Q?JsAyE5IkNdoY0ZJlLbhPhdR5xBQZc/+8bMQ3nIu2y0SW4JLPKNyS6SkhdFPO?=
+ =?us-ascii?Q?FTl5cKqQWn9b+j051yw8Tzy2RSM2TYQB+kQ8iMWTbs6FqqLa6hAOXrXQXEpZ?=
+ =?us-ascii?Q?MLT3Ri6FjJQ/0UBxeD+dZilsKIP8Cmpgt/IjB3hug5seXcfu3JJPhKsVXT6T?=
+ =?us-ascii?Q?pb73v/siauR+C4XpbRixJJc/X5BRxx4ByatZRKooj44nvO5XybSflHxYfXTe?=
+ =?us-ascii?Q?LHtzr1fy6yx1d1pkOwDk0309fnrGq5zGBoD3/OtWJLhu525hqQvVW7ZNHm4I?=
+ =?us-ascii?Q?oyvTmQpa7BMq/z51PJT0JbTuXLVhVkZmyzQBa2+XgFO9wAg2vPBGbceRtSXp?=
+ =?us-ascii?Q?w3I8JsFXvFc6N7AlClBPgtTOFkOaAdIbkWmD9wz4J/zK5Fcrbpgb6TkK/QE4?=
+ =?us-ascii?Q?E51vP1Vxt3+wYWm+556iTlHcZ9Nr6gaN9QtqU10WipBm2rRTs5LFr+IZzwEM?=
+ =?us-ascii?Q?7a7a06MitBDhHRvTCBkLtNyaW0beTHVa/f+CxGxPqPqi8f62tVNuBhGGPvzI?=
+ =?us-ascii?Q?SFhYoYIpaghJ7NILO0vtL0U85jK+cK0sgqLsizjiKAystbiBUoBZSny1DH7t?=
+ =?us-ascii?Q?opd2yZYB973S2MCAZtInsHe1Q5VrijeHq396lq78uewy6dABYUv2nlWey1sw?=
+ =?us-ascii?Q?p+TVCvuthjRxOcXP1WV43kw0Bjt0KRPv+qwH48e0YpaN+vtSIkvXjviaoHg/?=
+ =?us-ascii?Q?1crH4BaiDcN0xRLncfohBVvnM0IMzjGm1OEiCBH4mPtKafK3Cbw2RKucJYK4?=
+ =?us-ascii?Q?6/p7KLVoQI+cLTcwYuRHFcUxudQumxNjR46/hPlQrj7i9jY3q235Kl4LYCfI?=
+ =?us-ascii?Q?gXOFJgXXoOb5fHJ9uxLC9ncwLhqzdagBFyaybJJOZ8U0gyuOLH1zqaoywLAR?=
+ =?us-ascii?Q?jOLmgbTra59I2wGZe9roORqq6DwMFiyqiSDSDhO9TjLCPLhV6iwsrZeSvRFz?=
+ =?us-ascii?Q?/kLxOOnahIYZ78UlZH3B9LAn52CHYYQa?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2024 10:00:06.1742 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 850e9f89-6164-45d9-378b-08dcb210b861
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2024 10:00:07.5180 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fd8f93a-b67c-4b56-a3d4-08dcb210b930
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B075.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8491
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6262
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,124 +131,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the convenience of calling it globally.
+Instead of printing GPU reset failed.
+
+v2: add check for reset_context->src.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 22 ++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h  |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c |  2 +-
- 4 files changed, 19 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 12ab48f26bd5..0941518f04c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2153,7 +2153,7 @@ static void amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
- 	/* gpu reset is fallback for failed and default cases.
- 	 * For RMA case, amdgpu_umc_poison_handler will handle gpu reset.
- 	 */
--	if (poison_stat && !con->is_rma) {
-+	if (poison_stat && !amdgpu_ras_is_rma(adev)) {
- 		event_id = amdgpu_ras_acquire_event_id(adev, type);
- 		RAS_EVENT_LOG(adev, event_id,
- 			      "GPU reset for %s RAS poison consumption is issued!\n",
-@@ -2951,7 +2951,7 @@ static void amdgpu_ras_do_page_retirement(struct work_struct *work)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 5d49f70704c6..7b21243c7c55 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5921,8 +5921,14 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		tmp_adev->asic_reset_res = 0;
  
- 	amdgpu_ras_error_data_fini(&err_data);
- 
--	if (err_cnt && con->is_rma)
-+	if (err_cnt && amdgpu_ras_is_rma(adev))
- 		amdgpu_ras_reset_gpu(adev);
- 
- 	amdgpu_ras_schedule_retirement_dwork(con,
-@@ -3053,7 +3053,7 @@ static int amdgpu_ras_poison_consumption_handler(struct amdgpu_device *adev,
- 	}
- 
- 	/* for RMA, amdgpu_ras_poison_creation_handler will trigger gpu reset */
--	if (reset_flags && !con->is_rma) {
-+	if (reset_flags && !amdgpu_ras_is_rma(adev)) {
- 		if (reset_flags & AMDGPU_RAS_GPU_RESET_MODE1_RESET)
- 			reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
- 		else if (reset_flags & AMDGPU_RAS_GPU_RESET_MODE2_RESET)
-@@ -3202,7 +3202,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- 	 * This calling fails when is_rma is true or
- 	 * ret != 0.
- 	 */
--	if (con->is_rma || ret)
-+	if (amdgpu_ras_is_rma(adev) || ret)
- 		goto free;
- 
- 	if (con->eeprom_control.ras_num_recs) {
-@@ -3254,7 +3254,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- 	 * Except error threshold exceeding case, other failure cases in this
- 	 * function would not fail amdgpu driver init.
- 	 */
--	if (!con->is_rma)
-+	if (!amdgpu_ras_is_rma(adev))
- 		ret = 0;
- 	else
- 		ret = -EINVAL;
-@@ -4301,7 +4301,7 @@ int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
- 
- 	/* mode1 is the only selection for RMA status */
--	if (ras->is_rma) {
-+	if (amdgpu_ras_is_rma(adev)) {
- 		ras->gpu_reset_flags = 0;
- 		ras->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE1_RESET;
- 	}
-@@ -4835,3 +4835,13 @@ void amdgpu_ras_event_log_print(struct amdgpu_device *adev, u64 event_id,
- 
- 	va_end(args);
- }
-+
-+bool amdgpu_ras_is_rma(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+
-+	if (!con)
-+		return false;
-+
-+	return con->is_rma;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 7ddd13d5c06b..25a19760f098 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -972,4 +972,5 @@ __printf(3, 4)
- void amdgpu_ras_event_log_print(struct amdgpu_device *adev, u64 event_id,
- 				const char *fmt, ...);
- 
-+bool amdgpu_ras_is_rma(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 32be258d81e1..9e70a7b3aa64 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -196,7 +196,7 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
- 	amdgpu_umc_handle_bad_pages(adev, ras_error_status);
- 
- 	if ((err_data->ue_count || err_data->de_count) &&
--	    (reset || (con && con->is_rma))) {
-+	    (reset || amdgpu_ras_is_rma(adev))) {
- 		con->gpu_reset_flags |= reset;
- 		amdgpu_ras_reset_gpu(adev);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
-index 9cd221ed240c..999bb3cc88b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
-@@ -97,7 +97,7 @@ static int gfx_v11_0_3_poison_consumption_handler(struct amdgpu_device *adev,
- 			ras->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE2_RESET;
- 		}
- 
--		if (con && !con->is_rma)
-+		if (con && !amdgpu_ras_is_rma(adev))
- 			amdgpu_ras_reset_gpu(adev);
- 	}
- 
+ 		if (r) {
+-			/* bad news, how to tell it to userspace ? */
+-			dev_info(tmp_adev->dev, "GPU reset(%d) failed\n", atomic_read(&tmp_adev->gpu_reset_counter));
++			/* bad news, how to tell it to userspace ?
++			 * for ras error, we should report GPU bad status instead of
++			 * reset failure
++			 */
++			if (reset_context->src != AMDGPU_RESET_SRC_RAS ||
++			    !amdgpu_ras_eeprom_check_err_threshold(tmp_adev))
++				dev_info(tmp_adev->dev, "GPU reset(%d) failed\n",
++					atomic_read(&tmp_adev->gpu_reset_counter));
+ 			amdgpu_vf_error_put(tmp_adev, AMDGIM_ERROR_VF_GPU_RESET_FAIL, 0, r);
+ 		} else {
+ 			dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n", atomic_read(&tmp_adev->gpu_reset_counter));
 -- 
 2.34.1
 
