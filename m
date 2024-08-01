@@ -4,70 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD70C3DA64
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 11:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4E5CC3DA64
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Aug 2024 11:53:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6E4F10E916;
-	Thu,  1 Aug 2024 11:52:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D668D10E928;
+	Thu,  1 Aug 2024 11:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c6HInv0x";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FzccLXaR";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6DC10E916
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Aug 2024 11:52:01 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-428243f928cso23511515e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 01 Aug 2024 04:52:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722513119; x=1723117919; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=a+eCeYakE+bjA/0RwiufcTnt1kCEeuPWytnlcRqyR2E=;
- b=c6HInv0x3IwjxS2hQFmMT8jn32d3CyTcOK/r2Jo5czCWKvcD2te7EgudwxPhgsKPWa
- O4pZcITH31Ty6EYn2ZoWSSf7lsG8dFLmpZpJtDnaq1RvFhAmT7hK3JML5lPogJb1IN8D
- WxDtp4UZkhQMvseJap87XNxAKedMcfFxSc6g729errkuzjFJheShLQPmuYv6WG3AhDam
- f8JdIVMafaaFHF0gTebZYWQyu7iwgU/lgPm0SuSAgcSzchMr3c3rX0SsKQe7btrBwLcn
- 8GrdLOwDFRA5tormHbOM+DnxM6Ih2uZgZ6nBxk1SDiS9mJerJH7EfPz7NRrM2J2hL2oU
- lZOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722513119; x=1723117919;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=a+eCeYakE+bjA/0RwiufcTnt1kCEeuPWytnlcRqyR2E=;
- b=t1aCnM8ue05n9ps8FhaAB3eetGLAnhTd71AUxvep9RHf1Z9SkzA+q/Jx8SH3bEJZiD
- HD+EVrVS8qh6kev41D93v87+ioBZCbrabnuCB0/Mwu0S4gZ6RgXIS9j33Ykd1WDoMsJh
- NKFMTj8uVMRevRypMGYh2lTQ97fk0beJIlAXmpbDm4zh+PirYoGeF4Ot5OrtCK4tSIsk
- NfeRZTIU/kSVMSXP4I2Kh3syQmj84OCM41PryiMrDbVKQPGqoI/N2J90SK69q3+5K1CD
- ex30WW06fgWugQWiz7lHPjBIHA63/kP15aSIzTr6i4BNzE8jNCdJv2BhrQ8wCa4c70oW
- L3eg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWvnUgeeXDzTYnUMlzPjqzD42eSfyOKxyR6QEUaAcj0cViMUsRdLMR04U4O82xzQugRzsg8COYG0zjIA/azruI/SaJt6joXVUTyq4IxSw==
-X-Gm-Message-State: AOJu0Yz657dOZ681YBt6K5yGawDa/+ie8bYdLVeALvWM6InoeZuWfHfs
- Go19PjrnspuLH7ooS6Q1hp4m2VKr/UjO0zV9L3Q7LhWYFMoz7QSG
-X-Google-Smtp-Source: AGHT+IFk1utG9rBzNVmLkGrwIrnKrIdIxvvWzdr0KKso3xdqx3fnlI96MXcFkiSP9AbtQYpPKlp+gQ==
-X-Received: by 2002:adf:edd2:0:b0:36b:555a:e966 with SMTP id
- ffacd0b85a97d-36baaddcb80mr1423969f8f.35.1722513118563; 
- Thu, 01 Aug 2024 04:51:58 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36b367fd071sm19294691f8f.62.2024.08.01.04.51.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 04:51:57 -0700 (PDT)
-Message-ID: <556e74ee-df0b-4245-b328-726114356f44@gmail.com>
-Date: Thu, 1 Aug 2024 13:51:56 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DFC310E926;
+ Thu,  1 Aug 2024 11:53:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1722513181; x=1754049181;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Oj0fBNiMX6iSU78gN5ci6iFJtkNOfAOkXXuojk5ncrU=;
+ b=FzccLXaRj4cBYuWiMWa0DO021pVLRvn4hrntOY19ECw+EH0D6cYMxUeU
+ DxsY1hjX6e1jWIBDmGLP9qgsS6F3xeidIoU0u96foDyC2lUzRNR7r2zzl
+ peK/tdt3W16+ALm8yn6/iU68vo+6Gx6AE6Dx6s6zETXcVlDZm8werQ346
+ uHFOkg7mT2aUnw2HRPGrgSaiTo0NMQOpo2GZLUXJLWYTmbxQpzdcvKMcp
+ 6mleTtSUFFXO6mPY39IKZJBYQ7zBErr/kBpeD6Ryp36EEEkZcbmFWRjBB
+ TX6pXSP8waIQUU/E25GBITZHMf7jwEmZ8gNj43xZYSqKxqi4AvEiwnuJp w==;
+X-CSE-ConnectionGUID: IF9zX/wDTjyYLoYzgTYSSA==
+X-CSE-MsgGUID: aBAZT3K6QZWV0P9I1SHbHg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20402316"
+X-IronPort-AV: E=Sophos;i="6.09,254,1716274800"; d="scan'208";a="20402316"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2024 04:53:00 -0700
+X-CSE-ConnectionGUID: bFTDRMUGTVyJTOxvA/sXLA==
+X-CSE-MsgGUID: molJdK4QQj2FzMQFxrI08g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,254,1716274800"; d="scan'208";a="59332475"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.160])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2024 04:52:57 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH 2/9] drm/i915: Use backlight power constants
+In-Reply-To: <78c8c562-916b-455d-b2e1-5aed9d979926@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240731122311.1143153-1-tzimmermann@suse.de>
+ <20240731122311.1143153-3-tzimmermann@suse.de> <87y15hwwii.fsf@intel.com>
+ <78c8c562-916b-455d-b2e1-5aed9d979926@suse.de>
+Date: Thu, 01 Aug 2024 14:52:54 +0300
+Message-ID: <874j84wjc9.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 00/53] GC per queue reset
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20240725150055.1991893-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240725150055.1991893-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,104 +73,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Patches #1, #2 are Acked-by: Christian König <christian.koenig@amd.com>.
+On Wed, 31 Jul 2024, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Hi
+>
+> Am 31.07.24 um 14:56 schrieb Jani Nikula:
+>> On Wed, 31 Jul 2024, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>> Replace FB_BLANK_ constants with their counterparts from the
+>>> backlight subsystem. The values are identical, so there's no
+>>> change in functionality or semantics.
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+>>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>>> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+>> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>
+> Thanks.
+>
+>>
+>> Do you want us to take this via drm-intel-next, or all together via
+>> drm-misc? Either is fine.
+>
+> drm-intel-next is fine.
 
-Patches #3, #4 and #5 are Reviewed-by: Christian König 
-<christian.koenig@amd.com>.
+Pushed to drm-intel-next, thanks for the patch.
 
-To review the rest I really need to wrap my head around all the 
-userqueue stuff again after my vacation.
+BR,
+Jani.
 
-Regards,
-Christian.
 
-Am 25.07.24 um 17:00 schrieb Alex Deucher:
-> This adds preliminary support for GC per queue reset.  In this
-> case, only the jobs currently in the queue are lost.  If this
-> fails, we fall back to a full adapter reset.
->
-> V2: Fix fallbacks to full adapter reset
->      RLC safemode cleanup
->      Preliminary support for older GPUs
->
-> Alex Deucher (38):
->    drm/amdgpu/gfx10: handle SDMA in KIQ map/unmap
->    drm/amdgpu/mes11: handle second gfx pipe
->    drm/amdgpu/mes: add API for legacy queue reset
->    drm/amdgpu/mes11: add API for legacy queue reset
->    drm/amdgpu/mes12: add API for legacy queue reset
->    drm/amdgpu/mes: add API for user queue reset
->    drm/amdgpu/mes11: add API for user queue reset
->    drm/amdgpu/mes12: add API for user queue reset
->    drm/amdgpu: add new ring reset callback
->    drm/amdgpu: add per ring reset support (v5)
->    drm/amdgpu/gfx11: add ring reset callbacks
->    drm/amdgpu/gfx11: rename gfx_v11_0_gfx_init_queue()
->    drm/amdgpu/gfx10: add ring reset callbacks
->    drm/amdgpu/gfx10: rework reset sequence
->    drm/amdgpu/gfx9: add ring reset callback
->    drm/amdgpu/gfx9.4.3: add ring reset callback
->    drm/amdgpu/gfx12: add ring reset callbacks
->    drm/amdgpu/gfx12: fallback to driver reset compute queue directly
->    drm/amdgpu/gfx11: enter safe mode before touching CP_INT_CNTL
->    drm/amdgpu/gfx11: add a mutex for the gfx semaphore
->    drm/amdgpu/gfx11: export gfx_v11_0_request_gfx_index_mutex()
->    drm/amdgpu/gfx9: per queue reset only on bare metal
->    drm/amdgpu/gfx10: per queue reset only on bare metal
->    drm/amdgpu/gfx11: per queue reset only on bare metal
->    drm/amdgpu/gfx12: per queue reset only on bare metal
->    drm/amdgpu/gfx9: add ring reset callback for gfx
->    drm/amdgpu/gfx8: add ring reset callback for gfx
->    drm/amdgpu/gfx7: add ring reset callback for gfx
->    drm/amdgpu/gfx9: use proper rlc safe mode helpers
->    drm/amdgpu/gfx9.4.3: use proper rlc safe mode helpers
->    drm/amdgpu/gfx10: use proper rlc safe mode helpers
->    drm/amdgpu/gfx11: use proper rlc safe mode helpers
->    drm/amdgpu/gfx12: use proper rlc safe mode helpers
->    drm/amdgpu/gfx12: use rlc safe mode for soft recovery
->    drm/amdgpu/gfx11: use rlc safe mode for soft recovery
->    drm/amdgpu/gfx10: use rlc safe mode for soft recovery
->    drm/amdgpu/gfx9.4.3: use rlc safe mode for soft recovery
->    drm/amdgpu/gfx9: use rlc safe mode for soft recovery
->
-> Jiadong Zhu (13):
->    drm/amdgpu/gfx11: wait for reset done before remap
->    drm/amdgpu/gfx10: remap queue after reset successfully
->    drm/amdgpu/gfx10: wait for reset done before remap
->    drm/amdgpu/gfx9: remap queue after reset successfully
->    drm/amdgpu/gfx9: wait for reset done before remap
->    drm/amdgpu/gfx9.4.3: remap queue after reset successfully
->    drm/amdgpu/gfx_9.4.3: wait for reset done before remap
->    drm/amdgpu/gfx: add a new kiq_pm4_funcs callback for reset_hw_queue
->    drm/amdgpu/gfx9: implement reset_hw_queue for gfx9
->    drm/amdgpu/gfx9.4.3: implement reset_hw_queue for gfx9.4.3
->    drm/amdgpu/mes: modify mes api for mmio queue reset
->    drm/amdgpu/mes: implement amdgpu_mes_reset_hw_queue_mmio
->    drm/amdgpu/mes11: implement mmio queue reset for gfx11
->
-> Prike Liang (2):
->    drm/amdgpu: increase the reset counter for the queue reset
->    drm/amdgpu/gfx11: fallback to driver reset compute queue directly (v2)
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |   6 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  20 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    |  88 ++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  37 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |   2 +
->   drivers/gpu/drm/amd/amdgpu/cikd.h          |   1 +
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 251 +++++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 127 +++++++++--
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.h     |   3 +
->   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 103 ++++++++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c      |  76 ++++++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      |  75 +++++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 179 ++++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    | 132 ++++++++++-
->   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     | 134 +++++++++++
->   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c     |  54 +++++
->   drivers/gpu/drm/amd/amdgpu/nvd.h           |   2 +
->   drivers/gpu/drm/amd/amdgpu/vid.h           |   1 +
->   19 files changed, 1243 insertions(+), 49 deletions(-)
->
-
+-- 
+Jani Nikula, Intel
