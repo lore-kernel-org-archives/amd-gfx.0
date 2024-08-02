@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DFFC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 15:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65F45C52D70
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 16:22:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D523D10E16E;
-	Fri,  2 Aug 2024 15:29:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0396210E0D4;
+	Fri,  2 Aug 2024 16:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NG/wYklG";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JE/8iBSc";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E956E10E16E
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 15:29:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UtZ9D15oVf0/gGyfpG9brSxe6T8JgmBv/h85wEQTsmkBlknb9UXFl7559HfaDP5BvfI9fB1E3hqSG4nMyBeOKF2coXCPQ+3uBweFJk/GttOZkRNzuj1KLMHm0EfqVglTCZvn3UZ0VYxwAw0a2gW36zEXkPx0av3Kg5dK3vNI/bNyumZgA7o7A+3g9ZhG6WpCVTOn1Ew/0DQiNG4UunqFUI2BVLT6krDb+mqvZVCVUSONDb/xrLNhUrSZj1z8iyEZwPvZg/Fr6mUl3BI3IbAeV77dTzL3KBqHbNihs6qqHWthjNbaNrvXaNn7MUIewbZ4SjiuSbwiV+KciXa42uYNjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s+Yt9sG9cPme8SFDZkYuVA6of36M6FqmfbeMJE9J+Fs=;
- b=GKGCAdEWuDapz/50+mXoze5yfrMY6VwUJu/ONbd5v9ks+1RMId26gjgJ5FzTXIOpWo3Qiz2pZPOGxngtMaQ/Zz+vks5Cn0yODhx9KpZ4RP1BDFR5OKVaDpwFd8N/WEhrcw299ECFkSiGgksW7zzri1uCo1ipbMBHjdI/4mvmq3gXbqgAAr0u79RR3uWyMEFO1gSBAqrUMunH7G5O7V5VlYwRNf18QkN+LlPQJjlqP3e8lmQazJqZ7ELAvpi8qNHgj7kIhxF55Gipcr7cD9i44yhgnkpWPxBfaunaB/CskEuXVZBg3xAFXRiQg9q7ZRO9/rFj2LJ0h5K8+Oo3co4qbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s+Yt9sG9cPme8SFDZkYuVA6of36M6FqmfbeMJE9J+Fs=;
- b=NG/wYklGHBGg8ZEdIwYcu1UeQhVPdiewgqcNQx7J9yZzlg1QAziUx6shFmiBu+OAML51Msk0wdEUpNx8lr/wTeiJ8EjNHhkL4lJVUxZkChx1miXjwqp6udI2VBNvfmAVgjznPT3o+N7Z9u1BzFmNq5C/YrbaVy8STac6fkkouuE=
-Received: from BN0PR04CA0072.namprd04.prod.outlook.com (2603:10b6:408:ea::17)
- by SA3PR12MB8763.namprd12.prod.outlook.com (2603:10b6:806:312::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.21; Fri, 2 Aug
- 2024 15:29:05 +0000
-Received: from BN3PEPF0000B372.namprd21.prod.outlook.com
- (2603:10b6:408:ea:cafe::58) by BN0PR04CA0072.outlook.office365.com
- (2603:10b6:408:ea::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.23 via Frontend
- Transport; Fri, 2 Aug 2024 15:29:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B372.mail.protection.outlook.com (10.167.243.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.11 via Frontend Transport; Fri, 2 Aug 2024 15:29:05 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 2 Aug
- 2024 10:29:04 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdkfd: Handle queue destroy buffer access race
-Date: Fri, 2 Aug 2024 11:28:45 -0400
-Message-ID: <20240802152845.7978-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.43.2
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A829A10E0D4
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 16:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1722615747;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Vi6n1fL4oqLRoS8yugjJmnCla/husXgdjSFAHpyvCzk=;
+ b=JE/8iBScYR2Lzy100sB3cFeE+8H4mn+iutlfGfLsf8CMVOjxg8D+Nmusv1JD/SOaRUfpoI
+ YEOMmluPDmITvOdluQGnC2l15XnVtetjZdO/AMwQT0QkqsXlK1rMLE3Ryyij4njtUoUnv5
+ Fw/e+TxJRTAMLgLTY/dsRW6OMbQXoew=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-474-rTI-Nz0UOGqwEZmn8DxI8A-1; Fri, 02 Aug 2024 12:22:25 -0400
+X-MC-Unique: rTI-Nz0UOGqwEZmn8DxI8A-1
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-52f00bde210so9250009e87.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Aug 2024 09:22:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722615744; x=1723220544;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Vi6n1fL4oqLRoS8yugjJmnCla/husXgdjSFAHpyvCzk=;
+ b=LTdw5q4RXmOjgKqWN9BVGgyOxeis8frF/2+urrjKnz/mZIbbRck+4t6KHuqVMxAUV+
+ bWB42iWBMdcySytiwIXzjNEt6QgP6hf2S2Xpm1jrpzPeW+/PFQbdLX+D81oYBLgt1OI1
+ INtJyRahVfSMO303Dq68LNPA4k2dv5NjZxdx2qGqVZt1Q7faejndulL3TMQdnDsVlWXN
+ pETVB8KmZ3ezXPd95lMIayLfRLr8MsXxTcRzKnJRXkCNc6GASrt57+i0NfHZANBkRl/b
+ EqHms1ggQA3gadafbbFT0S2o4DJUJln2N0XgzjYVIrLJTv4qj9OGQs9o6Z9wBpkqpPQn
+ WpmQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXw1awHt7ZonOZ9YIShah78YGux/Vzru91bxrG3A2tMicXRB462mPNYCdZdRRPeQUkIEDjpjMi4/68FLb8LzYaNd1amsRIbZ0SLSXSqWQ==
+X-Gm-Message-State: AOJu0Yxo6wF9bUbdr8g15baO56iXXoXhcJ2MEQvFMVxvdQ5Al7ZZ+Tq9
+ BawC6177Xcy8DnOtkKAHV/sNAZBo1iBeNbGZrv4p4MDP2tIb4gNwCe1ZStBQC9d9Um4z+f8YzQY
+ BH58X0dsCF3YKgdz68pPheL1P9/AJvnGjd+Z0XgES5GWoxUybFmw33Z0h97D1H4eTbrbSqfvIMV
+ hvw+ziPwL0LAnJVYq2NYifw5w+toR6POtuXqZFBA==
+X-Received: by 2002:a05:6512:3a87:b0:530:a9fe:7bb6 with SMTP id
+ 2adb3069b0e04-530bb38147dmr2600049e87.30.1722615743640; 
+ Fri, 02 Aug 2024 09:22:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG/xZZvFMbxp/6gtymqdyIjas+EN6FSzQxoTRLla/QplBZF15L6JpCEcxfPVbsoMpfu+RF9os4Ix87D8wxz9zA=
+X-Received: by 2002:a05:6512:3a87:b0:530:a9fe:7bb6 with SMTP id
+ 2adb3069b0e04-530bb38147dmr2600023e87.30.1722615743003; Fri, 02 Aug 2024
+ 09:22:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B372:EE_|SA3PR12MB8763:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54aff75c-7d3b-4e85-1565-08dcb307d832
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DqTMAXwphAUqyqTO+JBmPVxutcCN4qZURD5AByOLT2dp82w9VnpTSID9JwFH?=
- =?us-ascii?Q?k2wgVyjYi7JPw7ytLxxBHcMVGwHkjZ3vnxPz1ZPsNA7Lq4Ywm/N9d//50nfX?=
- =?us-ascii?Q?5pppHnROeahDtu55FZpefq90/qIm+IcN86h6gHWFZLST6JUaC3pMctczf1pw?=
- =?us-ascii?Q?0X8sY+hnfnGlFTo/uxMvnzCB19uU0wA3AxL23OTLkS502Ze7pU1ZpVcP+gHI?=
- =?us-ascii?Q?d5Vkl5DkBaY4ixJF+4xg7OuZz7HeP3ju4ZxXyRLCqLrTpUzeUT0UoJiU1AIU?=
- =?us-ascii?Q?JfaMG3FV5zsdnT4TKzodBoygiknqLMHV1zaNTXtgZjVQjf5CqM+Yx7HYSPJ/?=
- =?us-ascii?Q?9bxcy/3az+9wyKjxckFoYPL7RxeD4YlwiVXly7Eee3mWSLwt80BBolVfTizH?=
- =?us-ascii?Q?Ys7yyAgN/LJrNhGqYEYuttouswWeyKWqLF5rhhsZIFbEfpcT9Ox0NzNOm1af?=
- =?us-ascii?Q?fs3/zh7QmQ6ftzXpDe3AJ80SLCdWmxTDXKDYejJhDLXicyf0R2M40RPHmFSu?=
- =?us-ascii?Q?29sIMEaYZzVqQC6sMf6Pe9VuyyOJIUm1fi+QF2lwHOj6f8CukEmAsKsalOsQ?=
- =?us-ascii?Q?Fydr29iPck65xl9epuVeroRw4nKYPgSfogPgSU2zQzZYfmEgOF86pQCbNI9c?=
- =?us-ascii?Q?yTMGHBIhYjrVMk2OOpa+jDFt8EHm08St+mRAxEJsZkOnAtdmbNFHeLW2ocKH?=
- =?us-ascii?Q?c2MqtV455+882bllT/mhGEBscRnzfwFuJXa7Vm9O9Dr/GniQgv5WwvHyn6P0?=
- =?us-ascii?Q?/kx2PpgetnkS4N0aqn9e7J+4aGNZVkfLcysW50UOCMwoFpfc/EwDMBYkNKAt?=
- =?us-ascii?Q?k3KjugpPe4CSCPOXmDIsp/RUOXyWgRANBptzOh6EjfMG6v1U1a1rTvRNcpqQ?=
- =?us-ascii?Q?2oHozTOFqzVjIdHHqxHZ8qY5ty3Rni9QCgV5tKzbncnFW3VIJRIlVsMEHz9/?=
- =?us-ascii?Q?+/AL0aEyROOHNrUZF+yMhGhrnMYvMkPKwDlHtJ6suP+d7cZ4JwlGdIBihQH5?=
- =?us-ascii?Q?nps61r6cM71lqKLW3NAfLsrzlgoVkWbEvOkv1Ztl0audkvnLofjrKlhCPcfK?=
- =?us-ascii?Q?mwEFD87HdmeMJxXfIPtSDoqXiAtaWEqvHv5PwidJe4aQJT5Hg61vnTh0ZAmH?=
- =?us-ascii?Q?5dbdm6UYZ/MZj1ncLkcBJfBseQkrPfD6yN978sevw+5JYrIaJcPzpJ0+65cJ?=
- =?us-ascii?Q?P6K575BLcf9mI3JzjsiMkplsqwTFpr3vDYCJpkm5Kq851RjjwNMrUeWkVIKJ?=
- =?us-ascii?Q?vBxisz53T9HGdKj3F9mqORn2DY+zq2juzw4NM0UirKLuYF0YaH8iRdyAyttL?=
- =?us-ascii?Q?DfUvk0d3LuGHVitYz5AV6hfjvMViDOeqOU2IUQ7HZDJs0tVxCBM6wNZZzx8g?=
- =?us-ascii?Q?bvKTfguCAgbP9UMx5562lQg4eTQYm8YWRDHHWULoMcm8V/yRH3U5+gwLkPK3?=
- =?us-ascii?Q?uYGmpLATNFCjiljylo2eZSF64yup0x+5?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2024 15:29:05.2446 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54aff75c-7d3b-4e85-1565-08dcb307d832
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B372.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8763
+References: <20240606020404.210989-1-mario.limonciello@amd.com>
+ <20240606020404.210989-3-mario.limonciello@amd.com>
+ <bc1d81ef-d9d0-4440-b63f-ecfb735ef783@amd.com>
+ <d637d3c2-34f7-42f8-acbb-6a1730d3fc3c@amd.com>
+ <CAFZQkGy0xuuUw73HQvS8Ce92sUi2rVrRnX25pi1KdNmyQbtBZA@mail.gmail.com>
+ <CAFZQkGz8DeoiVX2MohoBoTMxraJk1Ou41N_wKP3GkqRrPg_6sg@mail.gmail.com>
+ <87wml0v2vv.fsf@intel.com>
+ <CAFZQkGx=Q0W2r6XWxovt90WkBC5CUg7_X2fM7ZicSOALUg8yJg@mail.gmail.com>
+ <CA+hFU4w8kR1XjAZgXeUd7Z-pWDWn3yAv59HBr8o0iGhYruUssw@mail.gmail.com>
+ <ce4ce642-39ba-4153-8838-039d8a88c07e@amd.com>
+In-Reply-To: <ce4ce642-39ba-4153-8838-039d8a88c07e@amd.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Fri, 2 Aug 2024 18:22:11 +0200
+Message-ID: <CA+hFU4yu7pfMhP7QHn0G9Jf3XEVz=jq1emPVR1tnFEsNUtawjQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/amd: Add power_saving_policy drm property to
+ eDP connectors
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
+ dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@google.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,193 +100,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add helper function kfd_queue_unreference_buffers to reduce queue buffer
-refcount, separate it from release queue buffers.
+On Fri, Aug 2, 2024 at 4:37=E2=80=AFPM Harry Wentland <harry.wentland@amd.c=
+om> wrote:
+>
+> On 2024-08-02 09:28, Sebastian Wick wrote:
+> > I'm very unhappy about how this has played out.
+> >
+> > We have a new sysfs property that controls a feature of the display
+> > path that has been set to a default(!) which changes the color
+> > behavior! This broke color management for everyone who is on a device
+> > which supports this feature.
+> >
+>
+> Has this been a problem that people have noticed or complained about?
+> Are there bug reports?
 
-Because it is circular locking to hold dqm_lock to take vm lock,
-kfd_ioctl_destroy_queue should take vm lock, unreference queue buffers
-first, but not release queue buffers, to handle error in case failed to
-hold vm lock. Then hold dqm_lock to remove queue from queue list and
-then release queue buffers.
+Yes. Even worse, it's not obvious to people that something is broken,
+where it is broken and why it is broken.
 
-Restore process worker restore queue hold dqm_lock, will always find
-the queue with valid queue buffers.
+https://gitlab.gnome.org/GNOME/mutter/-/issues/3589
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +-
- .../amd/amdkfd/kfd_process_queue_manager.c    |  8 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c        | 62 ++++++++++++-------
- 4 files changed, 49 insertions(+), 27 deletions(-)
+>
+> AFAIK the default is "off" and PPD will enable ABM if in power or
+> balanced mode and on battery.
+>
+> > What should have been done is the following:
+> >
+> > * add the KMS property and have it default to "sysfs cannot override th=
+is"
+> > * add the sysfs property after the KMS property has been introduced so
+> > it stays disabled by default
+> > * add support for the new property in compositors and let them enable
+> > this feature only when they allow colors to randomly get broken
+> >
+> > Every other path results in broken colors at least temporarily and is
+> > breaking user space! The sysfs property *must* be reverted because it
+> > breaks user space. The KMS property *must* be reverted because it
+> > didn't meet the merging criteria.
+> >
+>
+> I agree we should revert the KMS property until we have a userspace
+> implementation that is reviewed and ready to be merged. It was merged
+> based on a misunderstanding and shouldn't have been merged.
+>
+> I don't think we should revert the sysfs property. The power savings to
+> end-users can be significant. I would like to see compositors take
+> control if it via the KMS property.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 0622ebd7e8ef..10d6e29b23cb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -400,6 +400,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	return 0;
- 
- err_create_queue:
-+	kfd_queue_unreference_buffers(pdd, &q_properties);
- 	kfd_queue_release_buffers(pdd, &q_properties);
- err_acquire_queue_buf:
- err_sdma_engine_id:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 057d20446c31..e38484b40467 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1298,9 +1298,12 @@ void print_queue_properties(struct queue_properties *q);
- void print_queue(struct queue *q);
- int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_bo **pbo,
- 			 u64 expected_size);
--void kfd_queue_buffer_put(struct amdgpu_vm *vm, struct amdgpu_bo **bo);
-+void kfd_queue_buffer_put(struct amdgpu_bo **bo);
- int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
- int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
-+void kfd_queue_unreference_buffer(struct amdgpu_vm *vm, struct amdgpu_bo **bo);
-+int kfd_queue_unreference_buffers(struct kfd_process_device *pdd,
-+				  struct queue_properties *properties);
- void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev);
- 
- struct mqd_manager *mqd_manager_init_cik(enum KFD_MQD_TYPE type,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index f732ee35b531..ef76a9cbc7e2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -217,6 +217,7 @@ void pqm_uninit(struct process_queue_manager *pqm)
- 	list_for_each_entry_safe(pqn, next, &pqm->queues, process_queue_list) {
- 		if (pqn->q) {
- 			pdd = kfd_get_process_device_data(pqn->q->device, pqm->process);
-+			kfd_queue_unreference_buffers(pdd, &pqn->q->properties);
- 			kfd_queue_release_buffers(pdd, &pqn->q->properties);
- 			pqm_clean_queue_resource(pqm, pqn);
- 		}
-@@ -512,7 +513,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 	}
- 
- 	if (pqn->q) {
--		retval = kfd_queue_release_buffers(pdd, &pqn->q->properties);
-+		retval = kfd_queue_unreference_buffers(pdd, &pqn->q->properties);
- 		if (retval)
- 			goto err_destroy_queue;
- 
-@@ -526,7 +527,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
- 			if (retval != -ETIME)
- 				goto err_destroy_queue;
- 		}
--
-+		kfd_queue_release_buffers(pdd, &pqn->q->properties);
- 		pqm_clean_queue_resource(pqm, pqn);
- 		uninit_queue(pqn->q);
- 	}
-@@ -579,7 +580,8 @@ int pqm_update_queue_properties(struct process_queue_manager *pqm,
- 			return -EFAULT;
- 		}
- 
--		kfd_queue_buffer_put(vm, &pqn->q->properties.ring_bo);
-+		kfd_queue_unreference_buffer(vm, &pqn->q->properties.ring_bo);
-+		kfd_queue_buffer_put(&pqn->q->properties.ring_bo);
- 		amdgpu_bo_unreserve(vm->root.bo);
- 
- 		pqn->q->properties.ring_bo = p->ring_bo;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index e0a073ae4a49..9ac15dff527f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -224,16 +224,8 @@ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_
- 	return -EINVAL;
- }
- 
--void kfd_queue_buffer_put(struct amdgpu_vm *vm, struct amdgpu_bo **bo)
-+void kfd_queue_buffer_put(struct amdgpu_bo **bo)
- {
--	if (*bo) {
--		struct amdgpu_bo_va *bo_va;
--
--		bo_va = amdgpu_vm_bo_find(vm, *bo);
--		if (bo_va)
--			bo_va->queue_refcount--;
--	}
--
- 	amdgpu_bo_unref(bo);
- }
- 
-@@ -327,6 +319,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- out_err_unreserve:
- 	amdgpu_bo_unreserve(vm->root.bo);
- out_err_release:
-+	kfd_queue_unreference_buffers(pdd, properties);
- 	kfd_queue_release_buffers(pdd, properties);
- 	return err;
- }
-@@ -334,22 +327,13 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
- {
- 	struct kfd_topology_device *topo_dev;
--	struct amdgpu_vm *vm;
- 	u32 total_cwsr_size;
--	int err;
--
--	vm = drm_priv_to_vm(pdd->drm_priv);
--	err = amdgpu_bo_reserve(vm->root.bo, false);
--	if (err)
--		return err;
--
--	kfd_queue_buffer_put(vm, &properties->wptr_bo);
--	kfd_queue_buffer_put(vm, &properties->rptr_bo);
--	kfd_queue_buffer_put(vm, &properties->ring_bo);
--	kfd_queue_buffer_put(vm, &properties->eop_buf_bo);
--	kfd_queue_buffer_put(vm, &properties->cwsr_bo);
- 
--	amdgpu_bo_unreserve(vm->root.bo);
-+	kfd_queue_buffer_put(&properties->wptr_bo);
-+	kfd_queue_buffer_put(&properties->rptr_bo);
-+	kfd_queue_buffer_put(&properties->ring_bo);
-+	kfd_queue_buffer_put(&properties->eop_buf_bo);
-+	kfd_queue_buffer_put(&properties->cwsr_bo);
- 
- 	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
- 	if (!topo_dev)
-@@ -362,6 +346,38 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
- 	return 0;
- }
- 
-+void kfd_queue_unreference_buffer(struct amdgpu_vm *vm, struct amdgpu_bo **bo)
-+{
-+	if (*bo) {
-+		struct amdgpu_bo_va *bo_va;
-+
-+		bo_va = amdgpu_vm_bo_find(vm, *bo);
-+		if (bo_va && bo_va->queue_refcount)
-+			bo_va->queue_refcount--;
-+	}
-+}
-+
-+int kfd_queue_unreference_buffers(struct kfd_process_device *pdd,
-+				  struct queue_properties *properties)
-+{
-+	struct amdgpu_vm *vm;
-+	int err;
-+
-+	vm = drm_priv_to_vm(pdd->drm_priv);
-+	err = amdgpu_bo_reserve(vm->root.bo, false);
-+	if (err)
-+		return err;
-+
-+	kfd_queue_unreference_buffer(vm, &properties->wptr_bo);
-+	kfd_queue_unreference_buffer(vm, &properties->rptr_bo);
-+	kfd_queue_unreference_buffer(vm, &properties->ring_bo);
-+	kfd_queue_unreference_buffer(vm, &properties->eop_buf_bo);
-+	kfd_queue_unreference_buffer(vm, &properties->cwsr_bo);
-+
-+	amdgpu_bo_unreserve(vm->root.bo);
-+	return 0;
-+}
-+
- #define SGPR_SIZE_PER_CU	0x4000
- #define LDS_SIZE_PER_CU		0x10000
- #define HWREG_SIZE_PER_CU	0x1000
--- 
-2.43.2
+If this was just a KMS property then I wouldn't have anything to
+complain about. The problem here is the sysfs / PPD thing.
+
+> > Another note: The only way to make sure that this isn't breaking user
+> > space is if user space tells the kernel that this is okay. This means
+> > that the sysfs property can only be used if the compositor grows
+> > support for the new KMS property and at that point, why do we have the
+> > sysfs property?
+> >
+>
+> We have a good handful of widely used compositors. We have one PPD
+> with a replacement for it in the works. A sysfs allows all users
+> to get the power benefits even if compositors don't explicitly
+> enable support for power saving features in KMS. The goal of PPD
+> and co. is power savings while that is not always a primary goal
+> for all compositors (even though compositors play a large role in
+> a system's power usage).
+
+The problem is that if the compositor didn't explicitly opt-in, then
+it can break something (and it actually did). I appreciate the intent
+(enabling it as broadly as possible) but the only way I can see how
+you can enable feature at all is by somehow doing it per-compositor.
+
+Given all of that, there shouldn't be a sysfs property (you should
+revert this!) but it should be yet another KMS property.
+
+> Harry
+>
+> > On Fri, Aug 2, 2024 at 2:49=E2=80=AFPM Xaver Hugl <xaver.hugl@gmail.com=
+> wrote:
+> >>
+> >> Am Do., 1. Aug. 2024 um 14:34 Uhr schrieb Jani Nikula
+> >> <jani.nikula@linux.intel.com>:
+> >>>
+> >>> On Mon, 01 Jul 2024, Xaver Hugl <xaver.hugl@gmail.com> wrote:
+> >>>> Am Do., 20. Juni 2024 um 22:22 Uhr schrieb Xaver Hugl <xaver.hugl@gm=
+ail.com>:
+> >>>>> Merging can only happen once a real world userspace application has
+> >>>>> implemented support for it. I'll try to do that sometime next week =
+in
+> >>>>> KWin
+> >>>>
+> >>>> Here's the promised implementation:
+> >>>> https://invent.kde.org/plasma/kwin/-/merge_requests/6028
+> >>>
+> >>> The requirement is that the userspace patches must be reviewed and re=
+ady
+> >>> for merging into a suitable and canonical upstream project.
+> >>>
+> >>> Are they?
+> >>
+> >> I've talked about the property with other KWin developers before, but
+> >> there's indeed no official review for the MR yet.
+> >> As some new discussions about alternative approaches have started as
+> >> well, maybe it should be reverted until we're more certain about how
+> >> to proceed?
+> >>
+> >>> BR,
+> >>> Jani.
+> >>>
+> >>>
+> >>>>
+> >>>> In testing with the patches on top of kernel 6.9.6, setting the
+> >>>> property to `Require color accuracy` makes the sysfs file correctly
+> >>>> report "Device or resource busy" when trying to change the power
+> >>>> saving level, but setting the property to zero doesn't really work.
+> >>>> Once KWin sets the property to zero, changing the power saving level
+> >>>> "works" but the screen blanks for a moment (might just be a single
+> >>>> frame) and reading from the file returns zero again, with the visual=
+s
+> >>>> and backlight level unchanged as well.
+> >>>
+> >>> --
+> >>> Jani Nikula, Intel
+> >>
+> >
+>
 
