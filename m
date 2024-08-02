@@ -4,51 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 553C9C52D71
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C13C7C52D72
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C86810E129;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B619810E132;
 	Mon,  5 Aug 2024 07:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="KTdpPPYx";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="EmWeaQrH";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5340510E18F;
- Fri,  2 Aug 2024 15:53:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1722614018;
- bh=PBrL109z5VdLAGUbDeO0hq+c0EP3kHJOHBxinu53q3U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KTdpPPYxap8ckNqzIq08ty6wG5jdnERqXiCW5zQnZ8qDbOnAcl4I13efXh0x0RtTK
- Ktdi9/75HEWzpg/FiILRjbaKMYGrGPik4h0+MgFf62KKFEyBOdZNx0e2mv3Pf+L216
- r46CSyngPmHQOx3xgR97WpUJT64fvnpRuCHfbask=
-Date: Fri, 2 Aug 2024 17:53:38 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Hans de Goede <hdegoede@redhat.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>
-Subject: Re: [PATCH v3 0/2] drm: minimum backlight overrides and
- implementation for amdgpu
-Message-ID: <f1712049-fc88-46f6-83e2-31f9f50c7869@t-8ch.de>
-References: <20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net>
- <87v80lwjcz.fsf@intel.com> <Zqqku_zS7CpPGbzW@phenom.ffwll.local>
- <1b4bfb81-339d-4582-873c-c720c82c8ba7@redhat.com>
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D2ED10E15A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 16:54:35 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1fc56fd4de1so26175315ad.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Aug 2024 09:54:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1722617674; x=1723222474; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mrAppcAAzagZXUnPObci2usi/RqmUcn+ruLZgDFl8+g=;
+ b=EmWeaQrHQMsvj8gPY7ANeBPP+BGasp97may0wGvKOpGPTJ/DKQMVCDpCxR8svclI9E
+ LtkEJ9p+Z6Q6ljcYk24XbXhdMLkp30fGxDW/aD+7qW3y0v4+RYalkrYXGoBglZxXWIKZ
+ LXhXoeb3Cqkp0NZKmPDJaIAXvfvZP4uROUkh5w/TJDwQxzjCZsSstbRejvLOdI1Dqx4k
+ bY0cO2U6VmCgiBLx7b68B/7oDOg0XjPgKJsoZOTDvIJPwyfsM/lnYhWBVa3rJdVzyGeB
+ FDKY9jNh7aPDzCA6U3PK/YyhiSWZZWel5mGtC+3xXMDqYRCvf5ZpT3XOQZ1WZtL6BHSl
+ tXUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722617674; x=1723222474;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mrAppcAAzagZXUnPObci2usi/RqmUcn+ruLZgDFl8+g=;
+ b=vps8uqUc0qvP/XIRoapeVXAM4Ug/VWdhi+62B+Qvq73NmRDQFhJFWVp7bOgd3XNnLh
+ XVNXWJvtckONpsijTClHvk4/7frHFAOG1Mdl0vK65h3rM3ck4obtkX2pyTkqWpoOAh1x
+ Jd2egJDqfXAHLenyEkGohIAy1virFQzI9oi01scGnfFnPstBJHebq6PfJShGlHS4v21z
+ l4dOAW75NAJY1MOobVZCwzDNch7J+coMXATqYE/fnyRZKFjAW0ziPOYI7AIVojia3hLk
+ X4Xy/FxSjduzyiySSLT3mHP+thU3iftKPPLmeu/k7FLFICpiY0UoF+dKb7kiwMLiVUcK
+ pU2g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWVnowM37QTdWx6pzoJln+AMtPXvCJwX2OBryvqQGyVNe3o0/ejtzwuj6LEJtnXyDya1AiWbqUwALZr1EeaZVXKLy1ToGeEU7AFpfoWvw==
+X-Gm-Message-State: AOJu0YyIVeShjWo0nbjyXe9HnkH24Bw72nLPE/BuqupgZYSTQV3EhvuD
+ SnkAqPd4D3ZFS9BmQfk10+YML2WvYULAUvCoY/l8ppu3IdiUtZbhBIplBrmL3Ss=
+X-Google-Smtp-Source: AGHT+IEYt+XIwdpCJv+hJ1/4V8vHGn2ZEIPipNfIFiZFUexUC8izLQsYMLzSM2ChZaQeCXsqOEIZLw==
+X-Received: by 2002:a17:902:e548:b0:1fb:8e29:621f with SMTP id
+ d9443c01a7336-1ff57bc50demr60862605ad.16.1722617674449; 
+ Fri, 02 Aug 2024 09:54:34 -0700 (PDT)
+Received: from localhost.localdomain ([185.153.176.46])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1ff58f29cebsm19358205ad.35.2024.08.02.09.54.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Aug 2024 09:54:34 -0700 (PDT)
+From: David Tadokoro <davidbtadokoro@usp.br>
+To: jiapeng.chong@linux.alibaba.com
+Cc: Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, abaci@linux.alibaba.com,
+ airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, chaitanya.dhere@amd.com,
+ christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, jun.lei@amd.com, linux-kernel@vger.kernel.org,
+ sunpeng.li@amd.com
+Subject: Re: [PATCH] drm/amd/display: remove unneeded semicolon
+Date: Fri,  2 Aug 2024 13:54:09 -0300
+Message-ID: <20240802165409.93652-1-davidbtadokoro@usp.br>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240802025942.62734-1-jiapeng.chong@linux.alibaba.com>
+References: <20240802025942.62734-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1b4bfb81-339d-4582-873c-c720c82c8ba7@redhat.com>
 X-Mailman-Approved-At: Mon, 05 Aug 2024 07:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,91 +88,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 2024-08-01 10:52:55+0000, Hans de Goede wrote:
-> On 7/31/24 10:55 PM, Daniel Vetter wrote:
-> > On Wed, Jul 31, 2024 at 08:40:12PM +0300, Jani Nikula wrote:
-> >> On Wed, 31 Jul 2024, Thomas Weißschuh <linux@weissschuh.net> wrote:
-> >>> The value of "min_input_signal" returned from ATIF on a Framework AMD 13
-> >>> is "12". This leads to a fairly bright minimum display backlight.
-> >>>
-> >>> Add a generic override helper for the user to override the settings
-> >>> provided by the firmware through the kernel cmdline.
-> >>> Also add amdgpu as a user of that helper.
-> >>>
-> >>> One solution would be a fixed firmware version, which was announced but
-> >>> has no timeline.
-> >>
-> >> The flip side is that if we add this now, it pretty much has a timeline:
-> >> We'll have to carry and support it forever.
-> >>
-> >> It's not a great prospect for something so specific. Not to mention that
-> >> the limits are generally there for electrical minimums that should not
-> >> be overridden. And before you know it, we'll have bug reports about
-> >> flickering screens...
-> > 
-> > Yeah I think for this specific case where a fixed firmware is already
-> > kinda promised, a quirk is the right fix. Otherwise we open up a can of
-> > worms here ... so personally I like v2 a lot more.
-> > -Sima
+> No functional modification involved.
 > 
-> Ok, with both Jani and Sima preferring the quirk approach from v2,
-> I withdraw my objection against v2. So lets go with that version.
-
-Ack.
-
-I want to note though, that there are enough other commandline
-options that can mess things up.
-An invalid video=MODELINE, custom ACPI tables, etc, so the fallout from the
-new commandline variable doesn't seem too bad to me.
-
-> Thomas, sorry about this.
-
-No worries!
-
-> I see that other then a remark from Jeff Johnson about a missing
-> MODULE_DESCRIPTION() v2 does not have any reviews yet though.
+> ./drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c:6463:166-167: Unneeded semicolon.
 > 
-> So we will need to review that version now. Might be best for
-> visibility of the patches in people's review queue to repost
-> v2 as v4 with the MODULE_DESCRIPTION() fixed ?
-
-I can do that.
-
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9633
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+>  .../display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c    | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> >>> This helper does conflict with the mode override via the cmdline.
-> >>> Only one can be specified.
-> >>> IMO the mode override can be extended to also handle "min-brightness"
-> >>> when that becomes necessary.
-> >>>
-> >>> ---
-> >>> Changes in v3:
-> >>> - Switch to cmdline override parameter
-> >>> - Link to v2: https://lore.kernel.org/r/20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net
-> >>>
-> >>> Changes in v2:
-> >>> - Introduce proper drm backlight quirk infrastructure
-> >>> - Quirk by EDID and DMI instead of only DMI
-> >>> - Limit quirk to only single Framework 13 matte panel
-> >>> - Link to v1: https://lore.kernel.org/r/20240610-amdgpu-min-backlight-quirk-v1-1-8459895a5b2a@weissschuh.net
-> >>>
-> >>> ---
-> >>> Thomas Weißschuh (2):
-> >>>       drm/connector: add drm_connector_get_cmdline_min_brightness_override()
-> >>>       drm/amd/display: implement minimum brightness override
-> >>>
-> >>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++++
-> >>>  drivers/gpu/drm/drm_connector.c                   | 34 +++++++++++++++++++++++
-> >>>  include/drm/drm_connector.h                       |  2 ++
-> >>>  3 files changed, 42 insertions(+)
-> >>> ---
-> >>> base-commit: 36821612eb3091a21f7f4a907b497064725080c3
-> >>> change-id: 20240610-amdgpu-min-backlight-quirk-8402fd8e736a
-> >>>
-> >>> Best regards,
-> >>
-> >> -- 
-> >> Jani Nikula, Intel
-> > 
-> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+> index c54c29711a65..8f3c1c0b1cc1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+> @@ -6464,8 +6464,8 @@ static void CalculateSwathAndDETConfiguration(struct dml2_core_internal_scratch
+>  			p->SwathHeightC[k] = l->MaximumSwathHeightC[k] / 2;
+>  			l->RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
+>  			l->RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
+> -			p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
+> -			p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
+> +			p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
+> +			p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
+>  		}
+>  
+>  		if (p->SwathHeightC[k] == 0)
+> -- 
+> 2.32.0.3.g01195cf9f
+
+Reviewed-by: David Tadokoro <davidbtadokoro@usp.br>
