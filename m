@@ -4,88 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65F45C52D70
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 16:22:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E06ACC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 16:38:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0396210E0D4;
-	Fri,  2 Aug 2024 16:22:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8763310E094;
+	Fri,  2 Aug 2024 16:38:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JE/8iBSc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KvtdVLg1";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A829A10E0D4
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 16:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1722615747;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Vi6n1fL4oqLRoS8yugjJmnCla/husXgdjSFAHpyvCzk=;
- b=JE/8iBScYR2Lzy100sB3cFeE+8H4mn+iutlfGfLsf8CMVOjxg8D+Nmusv1JD/SOaRUfpoI
- YEOMmluPDmITvOdluQGnC2l15XnVtetjZdO/AMwQT0QkqsXlK1rMLE3Ryyij4njtUoUnv5
- Fw/e+TxJRTAMLgLTY/dsRW6OMbQXoew=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-474-rTI-Nz0UOGqwEZmn8DxI8A-1; Fri, 02 Aug 2024 12:22:25 -0400
-X-MC-Unique: rTI-Nz0UOGqwEZmn8DxI8A-1
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-52f00bde210so9250009e87.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Aug 2024 09:22:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722615744; x=1723220544;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Vi6n1fL4oqLRoS8yugjJmnCla/husXgdjSFAHpyvCzk=;
- b=LTdw5q4RXmOjgKqWN9BVGgyOxeis8frF/2+urrjKnz/mZIbbRck+4t6KHuqVMxAUV+
- bWB42iWBMdcySytiwIXzjNEt6QgP6hf2S2Xpm1jrpzPeW+/PFQbdLX+D81oYBLgt1OI1
- INtJyRahVfSMO303Dq68LNPA4k2dv5NjZxdx2qGqVZt1Q7faejndulL3TMQdnDsVlWXN
- pETVB8KmZ3ezXPd95lMIayLfRLr8MsXxTcRzKnJRXkCNc6GASrt57+i0NfHZANBkRl/b
- EqHms1ggQA3gadafbbFT0S2o4DJUJln2N0XgzjYVIrLJTv4qj9OGQs9o6Z9wBpkqpPQn
- WpmQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXw1awHt7ZonOZ9YIShah78YGux/Vzru91bxrG3A2tMicXRB462mPNYCdZdRRPeQUkIEDjpjMi4/68FLb8LzYaNd1amsRIbZ0SLSXSqWQ==
-X-Gm-Message-State: AOJu0Yxo6wF9bUbdr8g15baO56iXXoXhcJ2MEQvFMVxvdQ5Al7ZZ+Tq9
- BawC6177Xcy8DnOtkKAHV/sNAZBo1iBeNbGZrv4p4MDP2tIb4gNwCe1ZStBQC9d9Um4z+f8YzQY
- BH58X0dsCF3YKgdz68pPheL1P9/AJvnGjd+Z0XgES5GWoxUybFmw33Z0h97D1H4eTbrbSqfvIMV
- hvw+ziPwL0LAnJVYq2NYifw5w+toR6POtuXqZFBA==
-X-Received: by 2002:a05:6512:3a87:b0:530:a9fe:7bb6 with SMTP id
- 2adb3069b0e04-530bb38147dmr2600049e87.30.1722615743640; 
- Fri, 02 Aug 2024 09:22:23 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG/xZZvFMbxp/6gtymqdyIjas+EN6FSzQxoTRLla/QplBZF15L6JpCEcxfPVbsoMpfu+RF9os4Ix87D8wxz9zA=
-X-Received: by 2002:a05:6512:3a87:b0:530:a9fe:7bb6 with SMTP id
- 2adb3069b0e04-530bb38147dmr2600023e87.30.1722615743003; Fri, 02 Aug 2024
- 09:22:23 -0700 (PDT)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2049.outbound.protection.outlook.com [40.107.102.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A70A10E013
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 16:38:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j06Jfrm70yOgxa6fXYnQFKx5goeDKDPbBsuOSUHO0+m8/8FrTEb1BmayLFYzEE1FKftPSGPHh9hagKpzys/C1yxUJIPJgsz9wLtMv1MCXygBTSVONu51qV7aKhjeLipI/MqkCaOKf4Ww+7Bz3sDf0HrACDxu6ls0NdDDApog8fI4NWoQZPiS2HT1hfRwcO0NRVEqUBn94ilzypu1WdiZDcIhtfTBS2tk/H2vjRrvoMLWX8ViqAycegSWPtBEz0C4C9eIPGiJ0C20Un8imsOtql6UKocsQzyDbGbqOES8z+ukk13vARj+Pfz9OL3G+ed2cOoJhq9WIj86o2fbbEDfEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PbmLiTeKGyNs6WcoDVisEiEVyHvRWzb6UxBPSJ2f8Dw=;
+ b=IBVg2cup0lzmMfuFbWkq6YK2nmTdHk2cU93jv8ApIhPpLVObc2BShy44QxPy+hnbIHAPRTNTzKTW5bKrhIe0dhqBXgStueoGu3fuukB+bm7Xde2geBNOS++x2PVwe1kizXW0Jo1nRwqwNjW2ftxOvTxR6DbDvoIzMBaV/tw6VTmCoUf5OohA2FL715TxjNRjvHqvesclwLwH+KL7hy/zdwvtF1qZk3tFo/I0Pjr5+V0izozo4UKxGihP4rkdijjpVTeF+316kISG4IgKoLhfeNXmBdRzUvV43Y3GWH+7LIouCqWvZ9mt0mt+glJMN3i5ChDFN28J6bSWn4F9aHufuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PbmLiTeKGyNs6WcoDVisEiEVyHvRWzb6UxBPSJ2f8Dw=;
+ b=KvtdVLg1ETDJVV19IcbYXiBkSkeCvpRTZjK2WJPZ4gSQ8GWWwdK5Wza1uTCA2iriEigtHXDeqjI7QawMKD+Ce516z1l4XgcuAFeTVhspzM0IFs2UkC4NQhmk+AuFh/EsbYHdP86rGEFHFklNOnSm0nuLKx/MPQZLA7ULw4MCOfw=
+Received: from SJ0PR03CA0231.namprd03.prod.outlook.com (2603:10b6:a03:39f::26)
+ by IA1PR12MB6258.namprd12.prod.outlook.com (2603:10b6:208:3e6::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22; Fri, 2 Aug
+ 2024 16:38:34 +0000
+Received: from SJ5PEPF000001F4.namprd05.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::59) by SJ0PR03CA0231.outlook.office365.com
+ (2603:10b6:a03:39f::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.23 via Frontend
+ Transport; Fri, 2 Aug 2024 16:38:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F4.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7828.19 via Frontend Transport; Fri, 2 Aug 2024 16:38:33 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 2 Aug
+ 2024 11:38:32 -0500
+From: Jonathan Kim <Jonathan.Kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, <Alexander.Deucher@amd.com>, Jonathan Kim
+ <Jonathan.Kim@amd.com>, Jonathan Kim <jonathan.kim@amd.com>
+Subject: [PATCH] drm/amdkfd: fallback to pipe reset on queue reset fail for
+ gfx9
+Date: Fri, 2 Aug 2024 12:38:13 -0400
+Message-ID: <20240802163813.1800438-1-Jonathan.Kim@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240606020404.210989-1-mario.limonciello@amd.com>
- <20240606020404.210989-3-mario.limonciello@amd.com>
- <bc1d81ef-d9d0-4440-b63f-ecfb735ef783@amd.com>
- <d637d3c2-34f7-42f8-acbb-6a1730d3fc3c@amd.com>
- <CAFZQkGy0xuuUw73HQvS8Ce92sUi2rVrRnX25pi1KdNmyQbtBZA@mail.gmail.com>
- <CAFZQkGz8DeoiVX2MohoBoTMxraJk1Ou41N_wKP3GkqRrPg_6sg@mail.gmail.com>
- <87wml0v2vv.fsf@intel.com>
- <CAFZQkGx=Q0W2r6XWxovt90WkBC5CUg7_X2fM7ZicSOALUg8yJg@mail.gmail.com>
- <CA+hFU4w8kR1XjAZgXeUd7Z-pWDWn3yAv59HBr8o0iGhYruUssw@mail.gmail.com>
- <ce4ce642-39ba-4153-8838-039d8a88c07e@amd.com>
-In-Reply-To: <ce4ce642-39ba-4153-8838-039d8a88c07e@amd.com>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Fri, 2 Aug 2024 18:22:11 +0200
-Message-ID: <CA+hFU4yu7pfMhP7QHn0G9Jf3XEVz=jq1emPVR1tnFEsNUtawjQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/amd: Add power_saving_policy drm property to
- eDP connectors
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
- dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@google.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F4:EE_|IA1PR12MB6258:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7faec89-ea57-45db-5188-08dcb3118cc2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+VgP0Iog1k23cm0JYcO36VLMa3IqTZzjsLNsrT78cjB51qzHZGZvPWbjjJp0?=
+ =?us-ascii?Q?Vy332eElpiYheOLaOiEZuNSUjizaCrLgnDjQ47FQWro6CAed9H2Q0G1ZyxIV?=
+ =?us-ascii?Q?JG6pd8KanbcPv3koIYfiECB+WlD5GzWyHElbSNO4ija7sYipHxB1jPdJV6ZU?=
+ =?us-ascii?Q?OBN/2QgL3eO/MF+6QEee18LbQUxXKZ4wEXjQ/4XxmDcdWXYSGrkd+AFWzSjS?=
+ =?us-ascii?Q?8KNJr+ZY8I8EIyFO/EluFNOJPKYJoPnOtvbKlTovXykAWUcJBoC69eiXvwC6?=
+ =?us-ascii?Q?OsdN37lM9GMs3VExwqOJCMf/0ygP8xmIB/CtsmWE1tFgLjYxB9bCd83iQBg6?=
+ =?us-ascii?Q?1mVUlLIpRdD04iq4XsiK8I685zqc4UJ8Dffskl6Z4v1w+NT6rBmnWOaqPQrv?=
+ =?us-ascii?Q?aRUBcrEdDZZk/fftndDG4rX5a1eZOsDchcxnCsoPRk91KZpnTUT0SXv8shcM?=
+ =?us-ascii?Q?fB4N28+v/8j6M3kE81kD00QrUu/GgiQ4Fk2lFNuMvP7ivkbW9tOmpHg1uh3Y?=
+ =?us-ascii?Q?N164EJT9Rflk5sbYU0nqIUD2+VenPYeyIfnTzG9fERxemMj4kbbdNsDl+4lO?=
+ =?us-ascii?Q?PUILR8A4SuGWMQ1NxOlYFE4Ch4bCZMEm9yua7B8mpWj+5uvGqkHio4INg1GR?=
+ =?us-ascii?Q?InKx4/CVWn8eFF9KadGUr6rScB2y6B6onEOfP7Zlltz9c6cIYxA04WsL8n+e?=
+ =?us-ascii?Q?AeZ9dnXQgXc5My332Ck3Qz2uhinMEn2WQDSTmTBwq3mYoQNosph3sa7rABjD?=
+ =?us-ascii?Q?gMalf5w8rag8AtcUXFFOdQ8GHwhAjtB3P/dgTTbEU0urtjxV2u8B6QrjwSeb?=
+ =?us-ascii?Q?P7ta5H67IwnTkWVHX31dja4ZNwXLh80ZlD+dlr1cpLBO8tLJjVQ/XAxAnFts?=
+ =?us-ascii?Q?067c8wKJw0dfGl6ICaFgUAPTPfvfl9P4DGRtVSGik1qkkiShu8NY8XzHMlCT?=
+ =?us-ascii?Q?RLmW/vPFNI5QKH5EuBQ5zxspnRDq+qvh4NHYkTNyXb8fH2A0mxcTy9kj5BSO?=
+ =?us-ascii?Q?mCwOJAX79dGex0z50I1u1ZEHgqSctu1F5J7TA00oBSrlXroVtooo04gxkNe8?=
+ =?us-ascii?Q?Pc4L55CnL3W3ehdzUY+fjakAD/9lQEyuSm122McnSP+iq2sLq1ICQEOUjALa?=
+ =?us-ascii?Q?RRYBA6A+xKy/hMkhGm9FvZGl19T8Q3VFoAf0qcq8EonINXrnxkpgroGggIa/?=
+ =?us-ascii?Q?gH2zdCprxnNLkf2KvF/KhJNoP9P37wCxXLWF5Gs19lxdxZTzVu9G5xsgNV2b?=
+ =?us-ascii?Q?z7w5JihPPMBdjDcmJeNfSfiCdgPN9ljPZEIQ6MOavWjTETgPhRL0c4TmQ55H?=
+ =?us-ascii?Q?PRdZdGQcSmFzSGcaFaqcOCanewGvVPBk7Y+Lufu3+tMm5QoFx+pDbU4A8yQq?=
+ =?us-ascii?Q?Ea7DuMtaqvwNcL8hxoo+W/VOP6WX5FjblEKYLveMO8Oaygrv0yDkj9QeQgAC?=
+ =?us-ascii?Q?HkeoiQo4P94/HrT91IL8hZiEWzAuZiHt?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2024 16:38:33.5722 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7faec89-ea57-45db-5188-08dcb3118cc2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,128 +131,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 2, 2024 at 4:37=E2=80=AFPM Harry Wentland <harry.wentland@amd.c=
-om> wrote:
->
-> On 2024-08-02 09:28, Sebastian Wick wrote:
-> > I'm very unhappy about how this has played out.
-> >
-> > We have a new sysfs property that controls a feature of the display
-> > path that has been set to a default(!) which changes the color
-> > behavior! This broke color management for everyone who is on a device
-> > which supports this feature.
-> >
->
-> Has this been a problem that people have noticed or complained about?
-> Are there bug reports?
+If queue reset fails, tell the CP to reset the pipe.
+Since queues multiplex context per pipe and we've issues a device wide
+preemption prior to the hang, we can assume the hung pipe only has one
+queue to reset on pipe reset.
 
-Yes. Even worse, it's not obvious to people that something is broken,
-where it is broken and why it is broken.
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 46 +++++++++++++------
+ 1 file changed, 31 insertions(+), 15 deletions(-)
 
-https://gitlab.gnome.org/GNOME/mutter/-/issues/3589
-
->
-> AFAIK the default is "off" and PPD will enable ABM if in power or
-> balanced mode and on battery.
->
-> > What should have been done is the following:
-> >
-> > * add the KMS property and have it default to "sysfs cannot override th=
-is"
-> > * add the sysfs property after the KMS property has been introduced so
-> > it stays disabled by default
-> > * add support for the new property in compositors and let them enable
-> > this feature only when they allow colors to randomly get broken
-> >
-> > Every other path results in broken colors at least temporarily and is
-> > breaking user space! The sysfs property *must* be reverted because it
-> > breaks user space. The KMS property *must* be reverted because it
-> > didn't meet the merging criteria.
-> >
->
-> I agree we should revert the KMS property until we have a userspace
-> implementation that is reviewed and ready to be merged. It was merged
-> based on a misunderstanding and shouldn't have been merged.
->
-> I don't think we should revert the sysfs property. The power savings to
-> end-users can be significant. I would like to see compositors take
-> control if it via the KMS property.
-
-If this was just a KMS property then I wouldn't have anything to
-complain about. The problem here is the sysfs / PPD thing.
-
-> > Another note: The only way to make sure that this isn't breaking user
-> > space is if user space tells the kernel that this is okay. This means
-> > that the sysfs property can only be used if the compositor grows
-> > support for the new KMS property and at that point, why do we have the
-> > sysfs property?
-> >
->
-> We have a good handful of widely used compositors. We have one PPD
-> with a replacement for it in the works. A sysfs allows all users
-> to get the power benefits even if compositors don't explicitly
-> enable support for power saving features in KMS. The goal of PPD
-> and co. is power savings while that is not always a primary goal
-> for all compositors (even though compositors play a large role in
-> a system's power usage).
-
-The problem is that if the compositor didn't explicitly opt-in, then
-it can break something (and it actually did). I appreciate the intent
-(enabling it as broadly as possible) but the only way I can see how
-you can enable feature at all is by somehow doing it per-compositor.
-
-Given all of that, there shouldn't be a sysfs property (you should
-revert this!) but it should be yet another KMS property.
-
-> Harry
->
-> > On Fri, Aug 2, 2024 at 2:49=E2=80=AFPM Xaver Hugl <xaver.hugl@gmail.com=
-> wrote:
-> >>
-> >> Am Do., 1. Aug. 2024 um 14:34 Uhr schrieb Jani Nikula
-> >> <jani.nikula@linux.intel.com>:
-> >>>
-> >>> On Mon, 01 Jul 2024, Xaver Hugl <xaver.hugl@gmail.com> wrote:
-> >>>> Am Do., 20. Juni 2024 um 22:22 Uhr schrieb Xaver Hugl <xaver.hugl@gm=
-ail.com>:
-> >>>>> Merging can only happen once a real world userspace application has
-> >>>>> implemented support for it. I'll try to do that sometime next week =
-in
-> >>>>> KWin
-> >>>>
-> >>>> Here's the promised implementation:
-> >>>> https://invent.kde.org/plasma/kwin/-/merge_requests/6028
-> >>>
-> >>> The requirement is that the userspace patches must be reviewed and re=
-ady
-> >>> for merging into a suitable and canonical upstream project.
-> >>>
-> >>> Are they?
-> >>
-> >> I've talked about the property with other KWin developers before, but
-> >> there's indeed no official review for the MR yet.
-> >> As some new discussions about alternative approaches have started as
-> >> well, maybe it should be reverted until we're more certain about how
-> >> to proceed?
-> >>
-> >>> BR,
-> >>> Jani.
-> >>>
-> >>>
-> >>>>
-> >>>> In testing with the patches on top of kernel 6.9.6, setting the
-> >>>> property to `Require color accuracy` makes the sysfs file correctly
-> >>>> report "Device or resource busy" when trying to change the power
-> >>>> saving level, but setting the property to zero doesn't really work.
-> >>>> Once KWin sets the property to zero, changing the power saving level
-> >>>> "works" but the screen blanks for a moment (might just be a single
-> >>>> frame) and reading from the file returns zero again, with the visual=
-s
-> >>>> and backlight level unchanged as well.
-> >>>
-> >>> --
-> >>> Jani Nikula, Intel
-> >>
-> >
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 32f28c12077b..c63528a4e894 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -1173,12 +1173,30 @@ uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
+ 	return queue_addr;
+ }
+ 
++/* assume queue acquired  */
++static int kgd_gfx_v9_hqd_dequeue_wait(struct amdgpu_device *adev, uint32_t inst,
++				       unsigned int utimeout)
++{
++	unsigned long end_jiffies = (utimeout * HZ / 1000) + jiffies;
++
++	while (true) {
++		uint32_t temp = RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_ACTIVE);
++
++		if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
++			return 0;
++
++		if (time_after(jiffies, end_jiffies))
++			return -ETIME;
++
++		usleep_range(500, 1000);
++	}
++}
++
+ uint64_t kgd_gfx_v9_hqd_reset(struct amdgpu_device *adev,
+ 			      uint32_t pipe_id, uint32_t queue_id,
+ 			      uint32_t inst, unsigned int utimeout)
+ {
+-	uint32_t low, high, temp;
+-	unsigned long end_jiffies;
++	uint32_t low, high, pipe_reset_data = 0;
+ 	uint64_t queue_addr = 0;
+ 
+ 	kgd_gfx_v9_acquire_queue(adev, pipe_id, queue_id, inst);
+@@ -1202,25 +1220,23 @@ uint64_t kgd_gfx_v9_hqd_reset(struct amdgpu_device *adev,
+ 	/* assume previous dequeue request issued will take affect after reset */
+ 	WREG32_SOC15(GC, GET_INST(GC, inst), mmSPI_COMPUTE_QUEUE_RESET, 0x1);
+ 
+-	end_jiffies = (utimeout * HZ / 1000) + jiffies;
+-	while (true) {
+-		temp = RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_ACTIVE);
++	if (!kgd_gfx_v9_hqd_dequeue_wait(adev, inst, utimeout))
++		goto unlock_out;
+ 
+-		if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
+-			break;
++	pr_debug("Attempting pipe reset on XCC %i pipe id %i\n", inst, pipe_id);
+ 
+-		if (time_after(jiffies, end_jiffies)) {
+-			queue_addr = 0;
+-			break;
+-		}
++	pipe_reset_data = REG_SET_FIELD(pipe_reset_data, CP_MEC_CNTL, MEC_ME1_PIPE0_RESET, 1);
++	pipe_reset_data = pipe_reset_data << pipe_id;
+ 
+-		usleep_range(500, 1000);
+-	}
++	WREG32_SOC15(GC, GET_INST(GC, inst), mmCP_MEC_CNTL, pipe_reset_data);
++	WREG32_SOC15(GC, GET_INST(GC, inst), mmCP_MEC_CNTL, 0);
+ 
+-	pr_debug("queue reset on XCC %i pipe id %i queue id %i %s\n",
+-		 inst, pipe_id, queue_id, !!queue_addr ? "succeeded!" : "failed!");
++	if (kgd_gfx_v9_hqd_dequeue_wait(adev, inst, utimeout))
++		queue_addr = 0;
+ 
+ unlock_out:
++	pr_debug("queue reset on XCC %i pipe id %i queue id %i %s\n",
++		 inst, pipe_id, queue_id, !!queue_addr ? "succeeded!" : "failed!");
+ 	amdgpu_gfx_rlc_exit_safe_mode(adev, inst);
+ 	kgd_gfx_v9_release_queue(adev, inst);
+ 
+-- 
+2.34.1
 
