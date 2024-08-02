@@ -4,56 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 390A9C52D7B
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 07:37:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67140C3DA49
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Aug 2024 08:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98B3210E9A7;
-	Fri,  2 Aug 2024 07:37:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CCAB10E9B1;
+	Fri,  2 Aug 2024 08:30:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="En1ua2B4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XUmzFVrD";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28E5610E168;
- Wed, 31 Jul 2024 17:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1722445249;
- bh=rQaVG/O25AerGy2gOaY8XL7CTvpz0JJwpNoEJXB80TY=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=En1ua2B4t6o6KKMCIr8w5/9rTs4IM6+m6dhQ9SqHfnN/VORWqNLMG7PhKj6AEHHz8
- v1tyRP8rJrHDd/ttf/dbtIZ+h1nFtAb9aTY1DjWUi84h3eU3QTclIHQWPFaHyNijVZ
- mYN2fFcgl6A3r8Qj4SWE6UeEnEgAaR7cb6vvUxQA=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Wed, 31 Jul 2024 19:00:46 +0200
-Subject: [PATCH v3 1/2] drm/connector: add
- drm_connector_get_cmdline_min_brightness_override()
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFA810E9B1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Aug 2024 08:30:14 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-428e3129851so10813135e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Aug 2024 01:30:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722587412; x=1723192212; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jDFMHzyewIoOpZDpgk+/wgKqvZvm4VhVGjIAU3I3z4E=;
+ b=XUmzFVrDYspg+P0wask9/UmAuyTc4nQf24MjkioqMJAdOdUGaUbG+9n7epupVjM7OT
+ i6dZ3N3GD1mkk8e0GWi0Z8aORYMVLYQM5x0fOLr87Z6zOvqg5uzrHxiOuy+BWK1XBfYs
+ gIjRVPm3JkWhpGiMOr0W/o5y7ku/HMZ5y4SNjiTDIWQi86WkJvXaKwGYUscEVM+UBK7z
+ QPf3+A6vSWEEs5/PTWk0nQ8ffg2cR/1zYM+8xCVlv/ogViAAr5wt8TLQN4//7mxK1AYm
+ qVIa/kSH2gFDTLhVcJ22Jr1CQCgzbgGXHUaHr+jlJKOVvi59NbkGNCYZjAQ+KVi5NiS+
+ QTSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722587412; x=1723192212;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jDFMHzyewIoOpZDpgk+/wgKqvZvm4VhVGjIAU3I3z4E=;
+ b=u/mb7CNrd7jyqfjvnPAeMdf7p/aFGnUwc6Run8gM37L2rIelrD6vzW+UJnRa8ETtgA
+ NJx1elQUWmcxJsR6tKUWRYijqWVjU8lEmSFRT/gwSIP999gaG71rqN5mphB4/W8oriNR
+ URAWAuLOCbvGlNrmg8ldCnDYEDN3fLmmI7ue5gKz4zFMajAunpX59OTXea2bE1AT/uYo
+ IVUB5qvA8IkrhLeRtAvA2fvDoH9GMNqxgOnEpRmYt1VI3X3z/w0zmQnfggmW3vPRacb9
+ GrZAaD2toOnwAb+SWFxGzYED0yJTGBlKDqw540VW05JLRV1eVFvs7QhQZsHwB/kdZTK4
+ 8eiA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWf0/rYCZDcpsA83NMx0G/hToRpRU1QNHdJw5JMBKs7HUuP6zbkDUA5K97EJELBoZCy4dOJ2VnmHa9dTIHaqSKPvhuOdSbjy4AFYwoLlw==
+X-Gm-Message-State: AOJu0YxDvhK0VVYzVUZ7mRNNjbWBkNNheMLa4sKCGS2Sy3DJA1jchfvP
+ 8zvmQpUPrij5kKNcybvL4Jj9rDArsqluWC1VEYosNQLPp1R8bI+O
+X-Google-Smtp-Source: AGHT+IFW5WdLmz7uruPbI37n2QHgfclR7n+YUA7F1btIGIUNebQWZc/IrYJ6b5x7PXaxxPlRHcb57A==
+X-Received: by 2002:a05:600c:4ec6:b0:426:6960:34b0 with SMTP id
+ 5b1f17b1804b1-428e6afea7fmr16959445e9.14.1722587411424; 
+ Fri, 02 Aug 2024 01:30:11 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4282b89aa9esm85094135e9.2.2024.08.02.01.30.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Aug 2024 01:30:10 -0700 (PDT)
+Message-ID: <c600abec-d16b-45d3-afe3-f10ba2fc8871@gmail.com>
+Date: Fri, 2 Aug 2024 10:30:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: Forward soft recovery errors to userspace
+To: Friedrich Vock <friedrich.vock@gmx.de>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org,
+ "Olsak, Marek" <Marek.Olsak@amd.com>
+Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ stable@vger.kernel.org
+References: <20240307190447.33423-1-joshua@froggi.es>
+ <d9632885-35da-4e4a-b952-2b6a0c38c35b@amd.com>
+ <641ce39c-a6a6-4448-bb2a-9c12d2873c1c@gmx.de>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <641ce39c-a6a6-4448-bb2a-9c12d2873c1c@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240731-amdgpu-min-backlight-quirk-v3-1-46d40bb21a62@weissschuh.net>
-References: <20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net>
-In-Reply-To: <20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
- Hans de Goede <hdegoede@redhat.com>, Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1722445249; l=2611;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=rQaVG/O25AerGy2gOaY8XL7CTvpz0JJwpNoEJXB80TY=;
- b=+3iwRZMLJ9s+ZBHbrf2ZfwWi7C4r4hwIkIIf9rLDxZtzQq2crujBBzQA4QtGx8HvF/5LqHJiQ
- d85gOQcvIjHDNLs7/0/Fyigf5g5FkDZlTmISEHV/A31ZHoqBbmD2xTk
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-Mailman-Approved-At: Fri, 02 Aug 2024 07:37:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,83 +90,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a helper which can read a overridden minimum backlight value from the
-kernel cmdline.
-This is useful if the minimum backlight as reported by machines VBT
-does not match the user expectations.
+Am 01.08.24 um 17:17 schrieb Friedrich Vock:
+> Hi,
+>
+> I happened to come across an issue just now again where soft recovery
+> fails to get reported to userspace properly, causing apps to submit
+> hanging work in a loop (which ended up hanging the entire machine) - it
+> seems like this patch never made it into amd-staging-drm-next. Given
+> that it has a Reviewed-by and everything, was this just an oversight or
+> are there some blockers to pushing it that I missed?
+>
+> If not, I'd be grateful if the patch could get merged.
 
-As an example, the minimum backlight brightness on the Framework 13
-matte panel is too high.
+Sorry that was my fault, I've forgotten about it because Alex usually 
+picks up stuff for amd-staging-drm-next.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- drivers/gpu/drm/drm_connector.c | 34 ++++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h     |  2 ++
- 2 files changed, 36 insertions(+)
+Thanks for the reminder, just pushed it.
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index ab6ab7ff7ea8..d0b3d5d6c7c2 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -34,6 +34,7 @@
- #include <drm/drm_utils.h>
- 
- #include <linux/property.h>
-+#include <linux/string.h>
- #include <linux/uaccess.h>
- 
- #include <video/cmdline.h>
-@@ -3399,3 +3400,36 @@ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
- 	return tg;
- }
- EXPORT_SYMBOL(drm_mode_create_tile_group);
-+
-+/**
-+ * drm_connector_get_cmdline_min_brightness_override - read an overridden
-+ * minimum brightness value from the cmdline
-+ * @connector: connector to query
-+ *
-+ * Read an minimum brightness override from the kernel cmdline if present.
-+ * The parameter takes the form "video=CONNECTOR_NAME:min-brightness=VALUE".
-+ *
-+ * RETURNS:
-+ * negative error or override value in the range [0, 255]
-+ */
-+int drm_connector_get_cmdline_min_brightness_override(struct drm_connector *connector)
-+{
-+	const char *option, *value_str;
-+	int err;
-+	u8 val;
-+
-+	option = video_get_options(connector->name);
-+	if (!option)
-+		return -ENOENT;
-+
-+	value_str = option + str_has_prefix(option, "min-brightness=");
-+	if (value_str == option)
-+		return -EINVAL;
-+
-+	err = kstrtou8(value_str, 10, &val);
-+	if (err)
-+		return err;
-+
-+	return val;
-+}
-+EXPORT_SYMBOL_GPL(drm_connector_get_cmdline_min_brightness_override);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index c754651044d4..64d86604cc6e 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2357,6 +2357,8 @@ bool drm_connector_has_possible_encoder(struct drm_connector *connector,
- 					struct drm_encoder *encoder);
- const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
- 
-+int drm_connector_get_cmdline_min_brightness_override(struct drm_connector *connector);
-+
- /**
-  * drm_for_each_connector_iter - connector_list iterator macro
-  * @connector: &struct drm_connector pointer used as cursor
+Regards,
+Christian.
 
--- 
-2.46.0
+>
+> Thanks,
+> Friedrich
+>
+> On 08.03.24 09:33, Christian König wrote:
+>> Am 07.03.24 um 20:04 schrieb Joshua Ashton:
+>>> As we discussed before[1], soft recovery should be
+>>> forwarded to userspace, or we can get into a really
+>>> bad state where apps will keep submitting hanging
+>>> command buffers cascading us to a hard reset.
+>>
+>> Marek you are in favor of this like forever.  So I would like to request
+>> you to put your Reviewed-by on it and I will just push it into our
+>> internal kernel branch.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> 1:
+>>> https://lore.kernel.org/all/bf23d5ed-9a6b-43e7-84ee-8cbfd0d60f18@froggi.es/ 
+>>>
+>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>>
+>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: André Almeida <andrealmeid@igalia.com>
+>>> Cc: stable@vger.kernel.org
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 3 +--
+>>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>> index 4b3000c21ef2..aebf59855e9f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>> @@ -262,9 +262,8 @@ amdgpu_job_prepare_job(struct drm_sched_job
+>>> *sched_job,
+>>>       struct dma_fence *fence = NULL;
+>>>       int r;
+>>> -    /* Ignore soft recovered fences here */
+>>>       r = drm_sched_entity_error(s_entity);
+>>> -    if (r && r != -ENODATA)
+>>> +    if (r)
+>>>           goto error;
+>>>       if (!fence && job->gang_submit)
+>>
 
