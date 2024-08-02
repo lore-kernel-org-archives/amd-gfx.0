@@ -4,73 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F74C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 553C9C52D71
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE8F10E139;
-	Mon,  5 Aug 2024 07:17:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C86810E129;
+	Mon,  5 Aug 2024 07:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a9k1uB90";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="KTdpPPYx";
 	dkim-atps=neutral
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E07710E09B;
- Fri,  2 Aug 2024 12:49:21 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a7d89bb07e7so574040866b.3; 
- Fri, 02 Aug 2024 05:49:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722602959; x=1723207759; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=oDJYdtS3XDN1VMZkCcTjw0Mh9EPPfsgYwBKITCwsvQk=;
- b=a9k1uB901fGMcDLz5jkNraFWnP1yhyLNhQSjZ1BzR6J2pWNLYuvKfbTUiUWTl/aGnc
- lgzlsjGZ3zguDG5V2TiPg7pOHAJPikNCzTheab3ewNjOhcT92ZRPAK8iY1l+EyH+1f7q
- QhNQSBRnt/apWyYJBCLx0mGIJIknAAPEPoVMOs9q82V8ncWtVVfZhjobUj3RPsxKc3rP
- it3SGlZX6hbgvpE7F1LYW4WR8HQp5O0trDxlxPv1+QtFonvZy3C9/ELdSUc2KRzLMWEM
- xdGAilycdM8tAblvwtjWEW4M/11Nbw7lb5lZnaxP75t2GT9CZTdN0fAPNppczrs6C9Cu
- 6G3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722602959; x=1723207759;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oDJYdtS3XDN1VMZkCcTjw0Mh9EPPfsgYwBKITCwsvQk=;
- b=oWGNkOHjazjzhbdvhWKTcLKCErxltGyg+kpxTQj9TA6KJFDTV7KS6vvQ2zJ3YA4JeW
- U5snJa+Wn5XxlOdp3KUj/gHh+4X6eXlsF1dSj9vxYd84jPXdR19tZzAgaRzE8ziOs7eb
- JHyVFsiZ77A5PGL5RdbSTcj+uJy8irrsEBlE4HDOVkG1QlJC1wafNIrSAN2dr8LKA7Zj
- Op/uUztwBWfoehLWIUjf4WpY+ksPfCuzefcIkhGnYIo0iVI+/xNKVHf1N5Xl4q58AJDB
- Ry/I3js/QjEOJXkv145hcHY+YCpxqMfH7aFT8F+tpvJ0PtmgPdI4v3Yqn3+NXOodVx+H
- mLjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVVUfSbZbx7UKShaijXQlH4F7mkUhS3IOkzHlQ9ZwyUJzSY8sTp/kPJk8Vrob49gqKBnn70A2w0AZmeCbONAMLBjF8+pZoUdonjkpYpkhLQ36RDihRHrn1zYDXFljH95Y+u6X2h1AibvRNEfK1L1Q==
-X-Gm-Message-State: AOJu0Yyk1ZTMktMyJCAcGlTq4xizgivTV+KRC1Zj90CDChC40hvorT6L
- +joFzCEk+pZ5C6APVu/0GTo/owDbX0YcCof75iuysQJd8hJneO1xC3++gDMr+29J/8Sruv0lLNR
- kaBSOr6kSlXdVYi3t0/+KECGSPRQ=
-X-Google-Smtp-Source: AGHT+IFEsnOhqVj4h9nkNRLTmrUgdEBh/QqLkqJVWO8AHVyZsZ9E4l6UJHbSqv4ngWz2kEVGni3D6BufpN3SZuPiLoU=
-X-Received: by 2002:a17:907:da3:b0:a7a:a892:8e0b with SMTP id
- a640c23a62f3a-a7dc4e27db7mr220852766b.19.1722602958947; Fri, 02 Aug 2024
- 05:49:18 -0700 (PDT)
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5340510E18F;
+ Fri,  2 Aug 2024 15:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1722614018;
+ bh=PBrL109z5VdLAGUbDeO0hq+c0EP3kHJOHBxinu53q3U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KTdpPPYxap8ckNqzIq08ty6wG5jdnERqXiCW5zQnZ8qDbOnAcl4I13efXh0x0RtTK
+ Ktdi9/75HEWzpg/FiILRjbaKMYGrGPik4h0+MgFf62KKFEyBOdZNx0e2mv3Pf+L216
+ r46CSyngPmHQOx3xgR97WpUJT64fvnpRuCHfbask=
+Date: Fri, 2 Aug 2024 17:53:38 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Hans de Goede <hdegoede@redhat.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>
+Subject: Re: [PATCH v3 0/2] drm: minimum backlight overrides and
+ implementation for amdgpu
+Message-ID: <f1712049-fc88-46f6-83e2-31f9f50c7869@t-8ch.de>
+References: <20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net>
+ <87v80lwjcz.fsf@intel.com> <Zqqku_zS7CpPGbzW@phenom.ffwll.local>
+ <1b4bfb81-339d-4582-873c-c720c82c8ba7@redhat.com>
 MIME-Version: 1.0
-References: <20240606020404.210989-1-mario.limonciello@amd.com>
- <20240606020404.210989-3-mario.limonciello@amd.com>
- <bc1d81ef-d9d0-4440-b63f-ecfb735ef783@amd.com>
- <d637d3c2-34f7-42f8-acbb-6a1730d3fc3c@amd.com>
- <CAFZQkGy0xuuUw73HQvS8Ce92sUi2rVrRnX25pi1KdNmyQbtBZA@mail.gmail.com>
- <CAFZQkGz8DeoiVX2MohoBoTMxraJk1Ou41N_wKP3GkqRrPg_6sg@mail.gmail.com>
- <87wml0v2vv.fsf@intel.com>
-In-Reply-To: <87wml0v2vv.fsf@intel.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Fri, 2 Aug 2024 14:49:06 +0200
-Message-ID: <CAFZQkGx=Q0W2r6XWxovt90WkBC5CUg7_X2fM7ZicSOALUg8yJg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/amd: Add power_saving_policy drm property to
- eDP connectors
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, 
- Harry Wentland <Harry.Wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- Sean Paul <seanpaul@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1b4bfb81-339d-4582-873c-c720c82c8ba7@redhat.com>
 X-Mailman-Approved-At: Mon, 05 Aug 2024 07:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,42 +64,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Do., 1. Aug. 2024 um 14:34 Uhr schrieb Jani Nikula
-<jani.nikula@linux.intel.com>:
->
-> On Mon, 01 Jul 2024, Xaver Hugl <xaver.hugl@gmail.com> wrote:
-> > Am Do., 20. Juni 2024 um 22:22 Uhr schrieb Xaver Hugl <xaver.hugl@gmail.com>:
-> >> Merging can only happen once a real world userspace application has
-> >> implemented support for it. I'll try to do that sometime next week in
-> >> KWin
-> >
-> > Here's the promised implementation:
-> > https://invent.kde.org/plasma/kwin/-/merge_requests/6028
->
-> The requirement is that the userspace patches must be reviewed and ready
-> for merging into a suitable and canonical upstream project.
->
-> Are they?
+Hi,
 
-I've talked about the property with other KWin developers before, but
-there's indeed no official review for the MR yet.
-As some new discussions about alternative approaches have started as
-well, maybe it should be reverted until we're more certain about how
-to proceed?
+On 2024-08-01 10:52:55+0000, Hans de Goede wrote:
+> On 7/31/24 10:55 PM, Daniel Vetter wrote:
+> > On Wed, Jul 31, 2024 at 08:40:12PM +0300, Jani Nikula wrote:
+> >> On Wed, 31 Jul 2024, Thomas Weißschuh <linux@weissschuh.net> wrote:
+> >>> The value of "min_input_signal" returned from ATIF on a Framework AMD 13
+> >>> is "12". This leads to a fairly bright minimum display backlight.
+> >>>
+> >>> Add a generic override helper for the user to override the settings
+> >>> provided by the firmware through the kernel cmdline.
+> >>> Also add amdgpu as a user of that helper.
+> >>>
+> >>> One solution would be a fixed firmware version, which was announced but
+> >>> has no timeline.
+> >>
+> >> The flip side is that if we add this now, it pretty much has a timeline:
+> >> We'll have to carry and support it forever.
+> >>
+> >> It's not a great prospect for something so specific. Not to mention that
+> >> the limits are generally there for electrical minimums that should not
+> >> be overridden. And before you know it, we'll have bug reports about
+> >> flickering screens...
+> > 
+> > Yeah I think for this specific case where a fixed firmware is already
+> > kinda promised, a quirk is the right fix. Otherwise we open up a can of
+> > worms here ... so personally I like v2 a lot more.
+> > -Sima
+> 
+> Ok, with both Jani and Sima preferring the quirk approach from v2,
+> I withdraw my objection against v2. So lets go with that version.
 
-> BR,
-> Jani.
->
->
-> >
-> > In testing with the patches on top of kernel 6.9.6, setting the
-> > property to `Require color accuracy` makes the sysfs file correctly
-> > report "Device or resource busy" when trying to change the power
-> > saving level, but setting the property to zero doesn't really work.
-> > Once KWin sets the property to zero, changing the power saving level
-> > "works" but the screen blanks for a moment (might just be a single
-> > frame) and reading from the file returns zero again, with the visuals
-> > and backlight level unchanged as well.
->
-> --
-> Jani Nikula, Intel
+Ack.
+
+I want to note though, that there are enough other commandline
+options that can mess things up.
+An invalid video=MODELINE, custom ACPI tables, etc, so the fallout from the
+new commandline variable doesn't seem too bad to me.
+
+> Thomas, sorry about this.
+
+No worries!
+
+> I see that other then a remark from Jeff Johnson about a missing
+> MODULE_DESCRIPTION() v2 does not have any reviews yet though.
+> 
+> So we will need to review that version now. Might be best for
+> visibility of the patches in people's review queue to repost
+> v2 as v4 with the MODULE_DESCRIPTION() fixed ?
+
+I can do that.
+
+> 
+> >>> This helper does conflict with the mode override via the cmdline.
+> >>> Only one can be specified.
+> >>> IMO the mode override can be extended to also handle "min-brightness"
+> >>> when that becomes necessary.
+> >>>
+> >>> ---
+> >>> Changes in v3:
+> >>> - Switch to cmdline override parameter
+> >>> - Link to v2: https://lore.kernel.org/r/20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net
+> >>>
+> >>> Changes in v2:
+> >>> - Introduce proper drm backlight quirk infrastructure
+> >>> - Quirk by EDID and DMI instead of only DMI
+> >>> - Limit quirk to only single Framework 13 matte panel
+> >>> - Link to v1: https://lore.kernel.org/r/20240610-amdgpu-min-backlight-quirk-v1-1-8459895a5b2a@weissschuh.net
+> >>>
+> >>> ---
+> >>> Thomas Weißschuh (2):
+> >>>       drm/connector: add drm_connector_get_cmdline_min_brightness_override()
+> >>>       drm/amd/display: implement minimum brightness override
+> >>>
+> >>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++++
+> >>>  drivers/gpu/drm/drm_connector.c                   | 34 +++++++++++++++++++++++
+> >>>  include/drm/drm_connector.h                       |  2 ++
+> >>>  3 files changed, 42 insertions(+)
+> >>> ---
+> >>> base-commit: 36821612eb3091a21f7f4a907b497064725080c3
+> >>> change-id: 20240610-amdgpu-min-backlight-quirk-8402fd8e736a
+> >>>
+> >>> Best regards,
+> >>
+> >> -- 
+> >> Jani Nikula, Intel
+> > 
+> 
