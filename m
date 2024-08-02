@@ -4,57 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EAD6C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5A5C52D6F
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4EEC10E12F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A88F10E12E;
 	Mon,  5 Aug 2024 07:17:02 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A247910E04A;
- Mon,  5 Aug 2024 02:14:36 +0000 (UTC)
-X-UUID: 72e0cb0452d011efa216b1d71e6e1362-20240805
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.38, REQID:43ed6be6-7cbe-4b97-ae56-1310478da48e, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:82c5f88, CLOUDID:5adb426e6e9d4d6f0c8c5b7e84d66b54,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,URL:0
- ,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:
- NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 72e0cb0452d011efa216b1d71e6e1362-20240805
-Received: from node2.com.cn [(10.44.16.197)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
- with ESMTP id 1888686787; Mon, 05 Aug 2024 10:14:30 +0800
-Received: from node2.com.cn (localhost [127.0.0.1])
- by node2.com.cn (NSMail) with SMTP id 5D67AB80758A;
- Mon,  5 Aug 2024 10:14:30 +0800 (CST)
-X-ns-mid: postfix-66B03586-254133957
-Received: from [10.42.20.76] (unknown [10.42.20.76])
- by node2.com.cn (NSMail) with ESMTPA id 71359B80758A;
- Mon,  5 Aug 2024 02:14:28 +0000 (UTC)
-Message-ID: <704ff51a-bb86-36e3-011b-1da0e4bd5330@kylinos.cn>
-Date: Mon, 5 Aug 2024 10:14:27 +0800
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PdDugiyB";
+	dkim-atps=neutral
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB7FF10E043;
+ Fri,  2 Aug 2024 11:42:56 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-2f0271b0ae9so94768821fa.1; 
+ Fri, 02 Aug 2024 04:42:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722598975; x=1723203775; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OOwlLJ3ofGI0TikYJvkZxHGMFAPFrL5NOyAVPrWUQ+k=;
+ b=PdDugiyBT7d/RSXIYLonsa3nZF2JLJERysGqSRyplxihmcW9Xmo2QFjQL0e2K6pP33
+ YiP5kFdh6z/k3FrlymUX5IfB7r+iViGPxa5Lu12gsdx6fysIC+IWM5iwREkobrUQvbw2
+ QMCP+hByUkx/givDW/GFViVQ0eHR6R/RzbcsljgAucvNlRTxCw2wlzPFCJ344guTlH+u
+ nATZIJYJkojumM9P432jKlb+aKPb8L1KXZmz/UgJ50JlLs3hfK19tpJZs6fgiP8yf2tn
+ 24oMQe96swhs0aqiPl8isZ58KlvATa166EWd2hcm1U/Lo6jOKBATBP0DSzzJUiAGSkmW
+ 9tCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722598975; x=1723203775;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=OOwlLJ3ofGI0TikYJvkZxHGMFAPFrL5NOyAVPrWUQ+k=;
+ b=rEnG7s3kpeKalIBeYogaIrzK2Rc2PMPlK62PT3rulbCiLuYlE8dpx2VaYkCo9hSEwq
+ 0LbrXLajehIrmxuNM5QLDlHncG34q1EONITB5LXM4tNtTYV+Gt8K16MzrSitK824GRWW
+ c3HC+I12T2Suk1uH6F8iyNmlg76eVIujB6m4xdrxdF3F3/l+DjQV2U/E4VDPV1ue4aAL
+ XI1/hVBER5BPlKXbtycEGTnZmcLfmJ2kJj24YEtupJJziR0tGhepzN5g7cgLzMKlUNhI
+ EwsoNxCZf4h0+KOlUwN8ZaXADjfK6Dmsql3Mcj/cfgHsPUZBuXT3oLlTs1nTf9IFWk74
+ 7y9g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAUUYwr50ekqKWYErH0AD2pCntpasB1F8oXKPAEEUAHKiMZGM4Ii0vzEbzNrYuwck6+xSHwGYe0ZNMnhSmTwvVHmywlN8P7Mmdqbz2++g4Yg+JbO6jthWFo16sTw6ToRpCDkZOPXUhJXnmofMang==
+X-Gm-Message-State: AOJu0YymztT0EOBDhM11o2n9HYVvovo5jB2fmRM1IYHovobMTvycfBJA
+ pb3LDBv6XYVzIWeJaiGqYK6Y6n93W6lsCzeWQP2mx2jfIO+rVvPz
+X-Google-Smtp-Source: AGHT+IG+hjnJrqP5K8N5VX1i9PsnTAXDZwc4jEIMQBxc57qkv2RRrZbZV6TiQhmdzFY+TrIqpfM45w==
+X-Received: by 2002:a2e:4941:0:b0:2ef:28d2:39cc with SMTP id
+ 38308e7fff4ca-2f15aa7187bmr22236801fa.3.1722598974134; 
+ Fri, 02 Aug 2024 04:42:54 -0700 (PDT)
+Received: from localhost
+ (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-428e6cd8d67sm30582345e9.0.2024.08.02.04.42.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Aug 2024 04:42:53 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Chaitanya Dhere <chaitanya.dhere@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd/display: remove extraneous ; after statements
+Date: Fri,  2 Aug 2024 12:42:52 +0100
+Message-Id: <20240802114252.449452-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu: add dce6 drm_panic support
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- srinivasan.shanmugam@amd.com, sunil.khatri@amd.com
-Cc: airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
- <ce45d800-ad6a-4cef-9c57-480908867490@gmail.com>
-From: yaolu <yaolu@kylinos.cn>
-In-Reply-To: <ce45d800-ad6a-4cef-9c57-480908867490@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 05 Aug 2024 07:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,126 +88,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+There are a several statements with two following semicolons, replace
+these with just one semicolon.
 
-=E5=9C=A8 2024/8/2 17:39, Christian K=C3=B6nig =E5=86=99=E9=81=93:
-> Am 02.08.24 um 09:17 schrieb Lu Yao:
->> Add support for the drm_panic module, which displays a pretty user
->> friendly message on the screen when a Linux kernel panic occurs.
->>
->> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
->> ---
->> The patch can work properly on the TTY, but after start X, drawn
->> image is messy, it looks like the data isn't linearly arranged.
->> However at this time 'fb->modifier' is 'DRM_FORMAT_MOD_LINEAR'.
->>
->> Another difference I found is:
->> =C2=A0=C2=A0 For TTY, the amdgpu_bo is created with flag
->> 'AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED|AMDGPU_GEM_CREATE_CPU_GTT_USWC|
->> AMDGPU_GEM_CREATE_VRAM_CLEARED|AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS'.
->> =C2=A0=C2=A0 For X, the amdgpu_bo is created with flag
->> 'AMDGPU_GEM_CREATE_NO_CPU_ACCESS|AMDGPU_GEM_CREATE_CPU_GTT_USWC'
->> I try to use same flag for X, it looks like no difference.
->>
->> Can someone provide some insight into this problem or where I am going
->> wrong. Thanks a lot.
->>
->> Test environment: X86 arch + v6.6 kernel + R7340.
->> ---
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 32 ++++++++++++++++++++=
-+++++++
->> =C2=A0 1 file changed, 32 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c=20
->> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> index 05c0df97f01d..12c3801c264a 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> @@ -28,6 +28,8 @@
->> =C2=A0 #include <drm/drm_modeset_helper.h>
->> =C2=A0 #include <drm/drm_modeset_helper_vtables.h>
->> =C2=A0 #include <drm/drm_vblank.h>
->> +#include <drm/drm_panic.h>
->
->> +#include "../../drm_internal.h"
->
-> Well that this file is named "internal" and not in a common include=20
-> directory is a strong indicator that you should absolutely *not*=20
-> include it in a driver.
->
-Okay, I'll fix it.
->> =C2=A0 =C2=A0 #include "amdgpu.h"
->> =C2=A0 #include "amdgpu_pm.h"
->> @@ -2600,6 +2602,35 @@ static const struct drm_crtc_helper_funcs=20
->> dce_v6_0_crtc_helper_funcs =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .get_scanout_position =3D amdgpu_crtc_g=
-et_scanout_position,
->> =C2=A0 };
->> =C2=A0 +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struc=
-t=20
->> drm_plane *plane,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_scanout_buffer *sb)
->> +{
->> +=C2=A0=C2=A0=C2=A0 struct drm_framebuffer *fb;
->> +=C2=A0=C2=A0=C2=A0 struct drm_gem_object *obj;
->> +=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *abo;
->> +=C2=A0=C2=A0=C2=A0 int ret =3D 0;
->> +
->> +=C2=A0=C2=A0=C2=A0 if (!plane->fb || plane->fb->modifier !=3D DRM_FOR=
-MAT_MOD_LINEAR)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENODEV;
->> +
->> +=C2=A0=C2=A0=C2=A0 fb =3D plane->fb;
->> +=C2=A0=C2=A0=C2=A0 sb->width =3D fb->width;
->> +=C2=A0=C2=A0=C2=A0 sb->height =3D fb->height;
->> +=C2=A0=C2=A0=C2=A0 sb->format =3D fb->format;
->> +=C2=A0=C2=A0=C2=A0 sb->pitch[0] =3D fb->pitches[0];
->> +
->> +=C2=A0=C2=A0=C2=A0 obj =3D fb->obj[0];
->> +=C2=A0=C2=A0=C2=A0 abo =3D gem_to_amdgpu_bo(obj);
->> +=C2=A0=C2=A0=C2=A0 if (!abo || abo->flags & AMDGPU_GEM_CREATE_NO_CPU_=
-ACCESS)
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
->> +
->> +=C2=A0=C2=A0=C2=A0 return drm_gem_vmap(obj, &sb->map[0]);
->
-> Yeah that will almost always not work. Most display buffers are tilled=20
-> and not CPU accessible.
->
-> Regards,
-> Christian.
->
-I did some more tests. After removing the=20
-'AMDGPU_GEM_CREATE_NO_CPU_ACCESS' judgment here, then starting X, it=20
-worked well at '1280x960' resolution, but others (e.g. 1920x1080,=20
-640x480) not.
-So, for this problem, it doesn't seem to matter 'Tiled memory' or 'CPU=20
-can't access'. Or is it just a coincidence ?
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ .../drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c  | 2 +-
+ .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c        | 2 +-
+ .../display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c    | 4 ++--
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c              | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-Thanks,
-Lu Yao
->> +}
->> +
->> +static const struct drm_plane_helper_funcs=20
->> dce_v6_0_drm_primary_plane_helper_funcs =3D {
->> +=C2=A0=C2=A0=C2=A0 .get_scanout_buffer =3D dce_v6_0_drm_primary_plane=
-_get_scanout_buffer
->> +};
->> +
->> =C2=A0 static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int i=
-ndex)
->> =C2=A0 {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_crtc *amdgpu_crtc;
->> @@ -2627,6 +2658,7 @@ static int dce_v6_0_crtc_init(struct=20
->> amdgpu_device *adev, int index)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_crtc->encoder =3D NULL;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_crtc->connector =3D NULL;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_crtc_helper_add(&amdgpu_crtc->base,=
-=20
->> &dce_v6_0_crtc_helper_funcs);
->> +=C2=A0=C2=A0=C2=A0 drm_plane_helper_add(amdgpu_crtc->base.primary,=20
->> &dce_v6_0_drm_primary_plane_helper_funcs);
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> =C2=A0 }
->
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
+index 65776602648d..9956974c4527 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
+@@ -1040,7 +1040,7 @@ void dml21_copy_clocks_to_dc_state(struct dml2_context *in_ctx, struct dc_state
+ void dml21_extract_legacy_watermark_set(const struct dc *in_dc, struct dcn_watermarks *watermark, enum dml2_dchub_watermark_reg_set_index reg_set_idx, struct dml2_context *in_ctx)
+ {
+ 	struct dml2_core_internal_display_mode_lib *mode_lib = &in_ctx->v21.dml_init.dml2_instance->core_instance.clean_me_up.mode_lib;
+-	double refclk_freq_in_mhz = (in_ctx->v21.display_config.overrides.hw.dlg_ref_clk_mhz > 0) ? (double)in_ctx->v21.display_config.overrides.hw.dlg_ref_clk_mhz : mode_lib->soc.dchub_refclk_mhz;;
++	double refclk_freq_in_mhz = (in_ctx->v21.display_config.overrides.hw.dlg_ref_clk_mhz > 0) ? (double)in_ctx->v21.display_config.overrides.hw.dlg_ref_clk_mhz : mode_lib->soc.dchub_refclk_mhz;
+ 
+ 	if (reg_set_idx >= DML2_DCHUB_WATERMARK_SET_NUM) {
+ 		/* invalid register set index */
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index 13f2c80bad4c..54197d18ab19 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -7218,7 +7218,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+ #if defined(DV_BUILD)
+ 		// Assume a memory config setting of 3 in 420 mode or get a new ip parameter that reflects the programming.
+ 		if (mode_lib->ms.BytePerPixelC[k] != 0.0 && display_cfg->plane_descriptors[k].pixel_format != dml2_rgbe_alpha) {
+-			lb_buffer_size_bits_luma = 34620 * 57;;
++			lb_buffer_size_bits_luma = 34620 * 57;
+ 			lb_buffer_size_bits_chroma = 13560 * 57;
+ 		}
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+index c54c29711a65..8f3c1c0b1cc1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+@@ -6464,8 +6464,8 @@ static void CalculateSwathAndDETConfiguration(struct dml2_core_internal_scratch
+ 			p->SwathHeightC[k] = l->MaximumSwathHeightC[k] / 2;
+ 			l->RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
+ 			l->RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
+-			p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
+-			p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;;
++			p->request_size_bytes_luma[k] = ((p->BytePerPixY[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
++			p->request_size_bytes_chroma[k] = ((p->BytePerPixC[k] == 2) == dml_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle)) ? 128 : 64;
+ 		}
+ 
+ 		if (p->SwathHeightC[k] == 0)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
+index 7655501e75d4..9e8ff3a9718e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_utils.c
+@@ -421,7 +421,7 @@ unsigned int dml2_calc_max_scaled_time(
+ 
+ void dml2_extract_writeback_wm(struct dc_state *context, struct display_mode_lib_st *dml_core_ctx)
+ {
+-	int i, j = 0;;
++	int i, j = 0;
+ 	struct mcif_arb_params *wb_arb_params = NULL;
+ 	struct dcn_bw_writeback *bw_writeback = NULL;
+ 	enum mmhubbub_wbif_mode wbif_mode = PACKED_444_FP16; /*for now*/
+-- 
+2.39.2
+
