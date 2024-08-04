@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C728AC52D73
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4589C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 07:17:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1295610E13B;
-	Mon,  5 Aug 2024 07:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93E410E135;
+	Mon,  5 Aug 2024 07:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="RPSe+GaA";
+	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="MAAaukYp";
 	dkim-atps=neutral
-Received: from smtp2.math.uni-bielefeld.de (smtp2.math.uni-bielefeld.de
- [129.70.45.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0FB610E0AC;
- Sun,  4 Aug 2024 14:07:28 +0000 (UTC)
+X-Greylist: delayed 383 seconds by postgrey-1.36 at gabe;
+ Sun, 04 Aug 2024 14:04:41 UTC
+Received: from smtp1.math.uni-bielefeld.de (smtp1.math.uni-bielefeld.de
+ [129.70.45.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF3D10E09D
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 Aug 2024 14:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=math.uni-bielefeld.de; s=default; t=1722780013;
- bh=m876A2GsQgfOTGHpdHgrxcX3ISbk2r46rH1W+Dyrem4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RPSe+GaAbVD7/kHTEEsKRQlkLMmquP4kVooxiB9KCB3PvNKHcf8MusIu2fCK8W8bJ
- bijPkhBtUoNzwhuGJ33Hu8snD8colrtVVi4tpeX6y2HvTY9FEAD+JoqdZHo+ijtkWh
- RV+uWPzYd3G7VIBcvoGpT4kMbAYBZDpTGP5cYcfJxfJsK5JXbysmGTxJ/GVlCYvzP+
- AUvy5M5e0oJftXyioSmftLDiTrITMSkJhZBn8H6O5WediVx4W3N3Vto6wAolaINAJD
- 3vnQPozr3gGYIoHxbCyBONy7+LSqS8FYevBt4IoH//LwSTtNSsWQ1FhkXQTzkadVXr
- 84651KGijGvYQ==
+ d=math.uni-bielefeld.de; s=default; t=1722779896;
+ bh=zH6zcpfQzEPY42kyNiFsf91oqYp3C8QfOhOqkV9IZaQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=MAAaukYpINGq93j7et+GA+DZ0I+lLcKwSxb6j8XbwvpWLajTt1SStkn2NQGMXkTSV
+ V42gC57n+/J8HXR7LhT54MhcpRMV/3NrFjjB0ZxU9bhc9MFRfUP/9r6ASN6hoFB+oS
+ 1Ccr6W+sTam+c7TlZQeUWdS+uyZK58FLQ/U14BcgKv0YA6sAFB/Y7gJSQc/GtV1n32
+ zXHgkr8AQ+OP9aixMvod7zpglO7c8rVnHfjdlzkETOON3KMECfZVqLbmNRjrkzwD+X
+ HEmszSwgkveKSBSYxV+4UHnIqMsPim9AsrAx673fTkP+cyS8SDqdVuQQ6a53yWhjzw
+ ZxReSFxHnP8UQ==
 Received: from localhost (dslb-088-074-203-146.088.074.pools.vodafone-ip.de
  [88.74.203.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
  server-digest SHA256) (Client did not present a certificate)
- by smtp2.math.uni-bielefeld.de (Postfix) with ESMTPSA id 320D921086;
- Sun,  4 Aug 2024 16:00:13 +0200 (CEST)
+ by smtp1.math.uni-bielefeld.de (Postfix) with ESMTPSA id 88D4820793;
+ Sun,  4 Aug 2024 15:58:16 +0200 (CEST)
 From: tjakobi@math.uni-bielefeld.de
-To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] drm/amdgpu/swsmu: fix SMU11 typos (memlk -> memclk)
-Date: Sun,  4 Aug 2024 15:56:29 +0200
-Message-ID: <ba5afac355b7c74b417c8f886e992abbfa3c046c.1722778722.git.tjakobi@math.uni-bielefeld.de>
+Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+Subject: [PATCH 0/3] drm/amd: some trivial fixes
+Date: Sun,  4 Aug 2024 15:56:26 +0200
+Message-ID: <cover.1722778722.git.tjakobi@math.uni-bielefeld.de>
 X-Mailer: git-send-email 2.44.2
-In-Reply-To: <cover.1722778722.git.tjakobi@math.uni-bielefeld.de>
-References: <cover.1722778722.git.tjakobi@math.uni-bielefeld.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 05 Aug 2024 07:17:01 +0000
@@ -66,58 +62,21 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 
-No functional changes.
+Nothing serious here, just some bits I noticed when reading code.
 
-Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
----
+Tobias Jakobi (3):
+  drm/amd: Make amd_ip_funcs static for SDMA v5.0
+  drm/amd: Make amd_ip_funcs static for SDMA v5.2
+  drm/amdgpu/swsmu: fix SMU11 typos (memlk -> memclk)
+
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c                  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.h                  | 1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c                  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.h                  | 1 -
  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 4 ++--
  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ 6 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 5a68d365967f..a1a0e6224d72 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1978,7 +1978,7 @@ static int navi10_get_power_profile_mode(struct smu_context *smu, char *buf)
- 		size += sysfs_emit_at(buf, size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
- 			" ",
- 			2,
--			"MEMLK",
-+			"MEMCLK",
- 			activity_monitor.Mem_FPS,
- 			activity_monitor.Mem_MinFreqStep,
- 			activity_monitor.Mem_MinActiveFreqType,
-@@ -2038,7 +2038,7 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
- 			activity_monitor.Soc_PD_Data_error_coeff = input[8];
- 			activity_monitor.Soc_PD_Data_error_rate_coeff = input[9];
- 			break;
--		case 2: /* Memlk */
-+		case 2: /* Memclk */
- 			activity_monitor.Mem_FPS = input[1];
- 			activity_monitor.Mem_MinFreqStep = input[2];
- 			activity_monitor.Mem_MinActiveFreqType = input[3];
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index e426f457a017..a7340569b9a1 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1691,7 +1691,7 @@ static int sienna_cichlid_get_power_profile_mode(struct smu_context *smu, char *
- 		size += sysfs_emit_at(buf, size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
- 			" ",
- 			2,
--			"MEMLK",
-+			"MEMCLK",
- 			activity_monitor->Mem_FPS,
- 			activity_monitor->Mem_MinFreqStep,
- 			activity_monitor->Mem_MinActiveFreqType,
-@@ -1754,7 +1754,7 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
- 			activity_monitor->Fclk_PD_Data_error_coeff = input[8];
- 			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[9];
- 			break;
--		case 2: /* Memlk */
-+		case 2: /* Memclk */
- 			activity_monitor->Mem_FPS = input[1];
- 			activity_monitor->Mem_MinFreqStep = input[2];
- 			activity_monitor->Mem_MinActiveFreqType = input[3];
 -- 
 2.44.2
 
