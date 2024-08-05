@@ -4,75 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E136C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 20:13:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B6CC3DA7F
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 20:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2D1910E2AF;
-	Mon,  5 Aug 2024 20:13:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC66D10E22D;
+	Mon,  5 Aug 2024 20:56:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mPNihinT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bdlDiEb4";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5EA310E2AF;
- Mon,  5 Aug 2024 20:13:00 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-7bb75419123so770089a12.3; 
- Mon, 05 Aug 2024 13:13:00 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED0C10E22D;
+ Mon,  5 Aug 2024 20:56:27 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-70d1a74a43bso7921322b3a.1; 
+ Mon, 05 Aug 2024 13:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722888780; x=1723493580; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1722891387; x=1723496187; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qnNys8YCkI4xiPbhHna2ObUa3tOGsVZDlY11WGOVPec=;
- b=mPNihinTLHa0MZ2JdOfLNt9X3kAsphmax9dUaH6xJRGoW3nr3oWPcxWblGcnedEEgF
- e57l3bMUU30YKzdIVjUCY035zVTAAaMF3klAAVYQUtDFL9aSbYGvoavGTx+AFYRSkqQc
- z4E66ddQ8DWaFl37sXVk1QVoZJ60xYMOz/HHiO4TNK6zFqHc9JGkpcz1uUN0Z96hLVnq
- 5f3D82LQjsmhxlvwNhBpa7Lgsfv2HkdC7ja0f+ahmJ7ssXEieImwZOITTZRJXJWeGFD1
- Nx2cC1IO9SMi07o9WvbQHYRYBhWaE6FyoPRbRaWFFL9FRg2ZRKvB0XycfCbw0HUl/sqP
- KO1Q==
+ bh=/zps7GFsPk6v3LICq084Feq4cUqxiv2Dwwm6SIzfyvM=;
+ b=bdlDiEb4L4y8bZNgvK0Gn90nshRaIrC0UVIjKhgVg+y76WiMs+lNTcVNPdUmKGNFox
+ ogA9zJlsE4Bl1T9nKlcs3C4BTkn4Fn13PziZSt7YC3E/EQSKaovqjm0qVOPMtg2oSYiN
+ 3IgQQYzVaNEUXqxrL4GlKF4O7YRIbLhPu5khhEgo1ATrFIx3WCef5RgiJJEm5MURAYI8
+ dTLHzbh8NcTsiVCLokHgRZ4ttsRHPub2BdSLxZ6EwqjRCC1wtsB1DALhdwu4q2nxGwnP
+ TvaLWEnfibW6mQYDZ39XY7XD5iamV/ew8Mmn4DrmQmIo6/y4OyKIApbWDHQs2uC0djO9
+ ZqOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722888780; x=1723493580;
+ d=1e100.net; s=20230601; t=1722891387; x=1723496187;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qnNys8YCkI4xiPbhHna2ObUa3tOGsVZDlY11WGOVPec=;
- b=GJ7tOvK8NKs8Rjrjgt0FDJDUUDVI02nGXI3oIUgm5mkR+rsT/4NuJB/27G0auLu2q9
- qDhtATPvh69ObC4cHar+aRBbYBQiFUNkpgPRYq7IBV5ZV8ibyooV9GrqaNml12NdUUM+
- 7Op5J05BLkzvRUNrAVfIdpYRCipmeEHL7OpOo+B1I37PApet5h1CyPhgqdPZ3iWMxEUH
- m9XYZeEdDmUk93JdCEMurID0utbQU37JnH5BJJmXJoxupKo/JTeAqZYmxRPY5aNlKUZZ
- Nu7uEsq6YT2CN5qPahDNgjqJIICbN/t3RTlpT1KmDuuOmtXoj3vWVsZdq0wzizfHg/SS
- xyXA==
+ bh=/zps7GFsPk6v3LICq084Feq4cUqxiv2Dwwm6SIzfyvM=;
+ b=mvpWyvdedQ0NdGINQBJDFGrR4e/67dnQ/Y/JPwmFmyiX/cnCBaHMrbok5tKrEpkK0w
+ loy7+tGUvmk56z5gs9S/yo3EjKqJPgIRUCXiRo4OTavvXVdRKwgOGcWTAPxrEgeFmjlU
+ NRx5klvQzWEUx1LLaxqujMsHDNItawisNsbuxpGVgUjad9ov9Os6HEIK3REwMZ+CmDNd
+ IRlG6eUIG3ch09148/5sKlcTdmk8VT680E+3NvcGs1pskTXHgMj4zzbPEMDi7NI/fCX7
+ bMJhC+jkEQ4wIND6vV8uaKzSrfp+JKAcPmh1fxw2PRA5R0lLhhEBbfB2TPVDBlyfrglw
+ IaUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYAs8X2g7qrNxEntuumd34YUTX0qU62aqEDNqb5ykA4gBXGItQGqSUNL+glAsQQoTacIRG07kYAporDoi/I4BtUkSl5OfbiqIIQggPqRJH95FlmqZL5Ga5VQjcgSNcgAb7d6BG6RmPqg1O4IkdJg==
-X-Gm-Message-State: AOJu0Yxu87V16WXJqUSn8/WMnTmPDUujpOmCzKqg1A/HTArQxyKYdYBg
- H0wqkikZ9494aZLEzZNmMBCcRDK5pwGhDKkxLpSWwxru65B/LGVgc5c85syk5UtUnsxwctOl/pE
- gj59Pj48clV2uvuDqSjwhZg51mITATg==
-X-Google-Smtp-Source: AGHT+IH5XNmjYtdtzH+sxVQCriAMtEih+csTt9WlHGPQ2NLV8lq0dYnhfUuy3Jbb/qQKRCUuQ5+yIZvvlyffy5ieAHo=
-X-Received: by 2002:a17:90b:f85:b0:2c8:da73:af82 with SMTP id
- 98e67ed59e1d1-2cff943c31bmr12904102a91.10.1722888780200; Mon, 05 Aug 2024
- 13:13:00 -0700 (PDT)
+ AJvYcCWfDRF0OybBHG/BODH7BrJD4T8dY0Lg5aOlAJXSm5Sy99dFtABFxec8FpVh0Mc0ipxmAlyqC4OpvUyl@lists.freedesktop.org,
+ AJvYcCWtUSBu1G90mp2PBWiRvydnNEjSDVrlTAaTP4sEWN0dT8z1V5yr2/gESCI8OI5kg4FA51MlsyDC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyx1jmsLxq/niPuVBSTEx3hny9IC9pbVcVF2IJrpMaT6rykPoUo
+ qMTGd/zcOgdze/4af8Fvoy3IM8nnXk+3PwDZ2LOabAvQE+MgZXhEmHCNGS7wxzwQVW0s34T79a9
+ ul0EOGpK3u9HeBCl8lxLotF39LkI=
+X-Google-Smtp-Source: AGHT+IFygedKrccRzQ249fvxaiX09MI78DbeR6+nvbdpDPownt8LElhPJvJc8lssc8mUsZ3Uop8gA2HzGxUxwbL7zaw=
+X-Received: by 2002:a05:6a00:ccb:b0:705:c029:c993 with SMTP id
+ d2e1a72fcca58-7106cfcd2fcmr12248847b3a.14.1722891386536; Mon, 05 Aug 2024
+ 13:56:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240719100929.94365-1-arnd@kernel.org>
-In-Reply-To: <20240719100929.94365-1-arnd@kernel.org>
+References: <ae4d951d022e6c34b87ae46e15f1522f8d6d3480.1722355024.git.geert+renesas@glider.be>
+In-Reply-To: <ae4d951d022e6c34b87ae46e15f1522f8d6d3480.1722355024.git.geert+renesas@glider.be>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 5 Aug 2024 16:12:48 -0400
-Message-ID: <CADnq5_Mq=XaAsKap-zKQuttFcODJ7FbJMfq7xxLRYxgYD=at+g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Use a constant format string for
- amdgpu_ucode_request
-To: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 5 Aug 2024 16:56:13 -0400
+Message-ID: <CADnq5_Ng1pLTYaP9k5jY1Cka=PfR9xhBzs0xWG+hK-CKO3cH1w@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/r100: Handle unknown family in
+ r100_cp_init_microcode()
+To: Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Arnd Bergmann <arnd@arndb.de>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Hung <alex.hung@amd.com>, 
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Chris Down <chris@chrisdown.name>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A . R . Silva" <gustavoars@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-hardening@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -92,194 +88,147 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Fri, Jul 19, 2024 at 6:35=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wro=
-te:
+On Tue, Jul 30, 2024 at 12:05=E2=80=AFPM Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
 >
-> From: Arnd Bergmann <arnd@arndb.de>
+> With -Werror:
 >
-> Multiple files in amdgpu call amdgpu_ucode_request() with a fw_name
-> variable that the compiler cannot check for being a valid format string,
-> as seen by enabling the (default-disabled) -Wformat-security option:
+>     In function =E2=80=98r100_cp_init_microcode=E2=80=99,
+>         inlined from =E2=80=98r100_cp_init=E2=80=99 at drivers/gpu/drm/ra=
+deon/r100.c:1136:7:
+>     include/linux/printk.h:465:44: error: =E2=80=98%s=E2=80=99 directive =
+argument is null [-Werror=3Dformat-overflow=3D]
+>       465 | #define printk(fmt, ...) printk_index_wrap(_printk, fmt, ##__=
+VA_ARGS__)
+>           |                                            ^
+>     include/linux/printk.h:437:17: note: in definition of macro =E2=80=98=
+printk_index_wrap=E2=80=99
+>       437 |                 _p_func(_fmt, ##__VA_ARGS__);                =
+           \
+>           |                 ^~~~~~~
+>     include/linux/printk.h:508:9: note: in expansion of macro =E2=80=98pr=
+intk=E2=80=99
+>       508 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+>           |         ^~~~~~
+>     drivers/gpu/drm/radeon/r100.c:1062:17: note: in expansion of macro =
+=E2=80=98pr_err=E2=80=99
+>      1062 |                 pr_err("radeon_cp: Failed to load firmware \"=
+%s\"\n", fw_name);
+>           |                 ^~~~~~
 >
-> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c: In function 'amdgpu_mes_init_mic=
-rocode':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1517:61: error: format not a stri=
-ng literal and no format arguments [-Werror=3Dformat-security]
->  1517 |         r =3D amdgpu_ucode_request(adev, &adev->mes.fw[pipe], fw_=
-name);
->       |                                                             ^~~~~=
-~~
-> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c: In function 'amdgpu_uvd_sw_init'=
-:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:263:9: error: format not a string=
- literal and no format arguments [-Werror=3Dformat-security]
->   263 |         r =3D amdgpu_ucode_request(adev, &adev->uvd.fw, fw_name);
->       |         ^
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c: In function 'amdgpu_vce_sw_init'=
-:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:161:9: error: format not a string=
- literal and no format arguments [-Werror=3Dformat-security]
->   161 |         r =3D amdgpu_ucode_request(adev, &adev->vce.fw, fw_name);
->       |         ^
-> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c: In function 'amdgpu_umsch_m=
-m_init_microcode':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c:590:9: error: format not a s=
-tring literal and no format arguments [-Werror=3Dformat-security]
->   590 |         r =3D amdgpu_ucode_request(adev, &adev->umsch_mm.fw, fw_n=
-ame);
->       |         ^
-> drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c: In function 'amdgpu_cgs_get_firm=
-ware_info':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c:417:72: error: format not a strin=
-g literal and no format arguments [-Werror=3Dformat-security]
->   417 |                         err =3D amdgpu_ucode_request(adev, &adev-=
->pm.fw, fw_name);
->       |                                                                  =
-      ^~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function =
-'load_dmcu_fw':
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2221:9: error=
-: format not a string literal and no format arguments [-Werror=3Dformat-sec=
-urity]
->  2221 |         r =3D amdgpu_ucode_request(adev, &adev->dm.fw_dmcu, fw_na=
-me_dmcu);
->       |         ^
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function =
-'dm_init_microcode':
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:5147:9: error=
-: format not a string literal and no format arguments [-Werror=3Dformat-sec=
-urity]
->  5147 |         r =3D amdgpu_ucode_request(adev, &adev->dm.dmub_fw, fw_na=
-me_dmub);
->       |         ^
+> Fix this by converting the if/else if/... construct into a proper
+> switch() statement with a default to handle the error case.
 >
-> Change these all to use a "%s" format with the actual name as an argument=
-,
-> to let the compiler prove this to be correct.
+> As a bonus, the generated code is ca. 100 bytes smaller (with gcc 11.4.0
+> targeting arm32).
 >
-> Fixes: e5a7d047f41b ("drm/amd: Use `amdgpu_ucode_*` helpers for CGS")
-> Fixes: 52215e2a5d4a ("drm/amd: Use `amdgpu_ucode_*` helpers for VCE")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c           | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c           | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c      | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c           | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c           | 2 +-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
->  6 files changed, 7 insertions(+), 7 deletions(-)
+> Compile-tested only.
+> ---
+>  drivers/gpu/drm/radeon/r100.c | 70 ++++++++++++++++++++++-------------
+>  1 file changed, 45 insertions(+), 25 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_cgs.c
-> index c3d89088123d..16153d275d7a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> @@ -414,7 +414,7 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_de=
-vice *cgs_device,
->                                 return -EINVAL;
->                         }
+> diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.=
+c
+> index 0b1e19345f43a771..bfd42e3e161e984f 100644
+> --- a/drivers/gpu/drm/radeon/r100.c
+> +++ b/drivers/gpu/drm/radeon/r100.c
+> @@ -1016,45 +1016,65 @@ static int r100_cp_init_microcode(struct radeon_d=
+evice *rdev)
 >
-> -                       err =3D amdgpu_ucode_request(adev, &adev->pm.fw, =
-fw_name);
-> +                       err =3D amdgpu_ucode_request(adev, &adev->pm.fw, =
-"%s", fw_name);
->                         if (err) {
->                                 DRM_ERROR("Failed to load firmware \"%s\"=
-", fw_name);
->                                 amdgpu_ucode_release(&adev->pm.fw);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index e499d6ba306b..5d89a9a6f910 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -1514,7 +1514,7 @@ int amdgpu_mes_init_microcode(struct amdgpu_device =
-*adev, int pipe)
->                          pipe =3D=3D AMDGPU_MES_SCHED_PIPE ? "" : "1");
->         }
+>         DRM_DEBUG_KMS("\n");
 >
-> -       r =3D amdgpu_ucode_request(adev, &adev->mes.fw[pipe], fw_name);
-> +       r =3D amdgpu_ucode_request(adev, &adev->mes.fw[pipe], "%s", fw_na=
-me);
->         if (r && need_retry && pipe =3D=3D AMDGPU_MES_SCHED_PIPE) {
->                 dev_info(adev->dev, "try to fall back to %s_mes.bin\n", u=
-code_prefix);
->                 r =3D amdgpu_ucode_request(adev, &adev->mes.fw[pipe],
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_umsch_mm.c
-> index fbc2852278e1..6162582d0aa2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> @@ -587,7 +587,7 @@ int amdgpu_umsch_mm_init_microcode(struct amdgpu_umsc=
-h_mm *umsch)
->                 break;
->         }
->
-> -       r =3D amdgpu_ucode_request(adev, &adev->umsch_mm.fw, fw_name);
-> +       r =3D amdgpu_ucode_request(adev, &adev->umsch_mm.fw, "%s", fw_nam=
-e);
->         if (r) {
->                 release_firmware(adev->umsch_mm.fw);
->                 adev->umsch_mm.fw =3D NULL;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_uvd.c
-> index 07d930339b07..775c09d57222 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -260,7 +260,7 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
->                 return -EINVAL;
->         }
->
-> -       r =3D amdgpu_ucode_request(adev, &adev->uvd.fw, fw_name);
-> +       r =3D amdgpu_ucode_request(adev, &adev->uvd.fw, "%s", fw_name);
->         if (r) {
->                 dev_err(adev->dev, "amdgpu_uvd: Can't validate firmware \=
-"%s\"\n",
->                         fw_name);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vce.c
-> index 968ca2c84ef7..51b045de409d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -158,7 +158,7 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, un=
-signed long size)
->                 return -EINVAL;
->         }
->
-> -       r =3D amdgpu_ucode_request(adev, &adev->vce.fw, fw_name);
-> +       r =3D amdgpu_ucode_request(adev, &adev->vce.fw, "%s", fw_name);
->         if (r) {
->                 dev_err(adev->dev, "amdgpu_vce: Can't validate firmware \=
-"%s\"\n",
->                         fw_name);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 7e7929f24ae4..80b7dc651f6b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2218,7 +2218,7 @@ static int load_dmcu_fw(struct amdgpu_device *adev)
->                 return 0;
->         }
->
-> -       r =3D amdgpu_ucode_request(adev, &adev->dm.fw_dmcu, fw_name_dmcu)=
+> -       if ((rdev->family =3D=3D CHIP_R100) || (rdev->family =3D=3D CHIP_=
+RV100) ||
+> -           (rdev->family =3D=3D CHIP_RV200) || (rdev->family =3D=3D CHIP=
+_RS100) ||
+> -           (rdev->family =3D=3D CHIP_RS200)) {
+> +       switch (rdev->family) {
+> +       case CHIP_R100:
+> +       case CHIP_RV100:
+> +       case CHIP_RV200:
+> +       case CHIP_RS100:
+> +       case CHIP_RS200:
+>                 DRM_INFO("Loading R100 Microcode\n");
+>                 fw_name =3D FIRMWARE_R100;
+> -       } else if ((rdev->family =3D=3D CHIP_R200) ||
+> -                  (rdev->family =3D=3D CHIP_RV250) ||
+> -                  (rdev->family =3D=3D CHIP_RV280) ||
+> -                  (rdev->family =3D=3D CHIP_RS300)) {
+> +               break;
+> +
+> +       case CHIP_R200:
+> +       case CHIP_RV250:
+> +       case CHIP_RV280:
+> +       case CHIP_RS300:
+>                 DRM_INFO("Loading R200 Microcode\n");
+>                 fw_name =3D FIRMWARE_R200;
+> -       } else if ((rdev->family =3D=3D CHIP_R300) ||
+> -                  (rdev->family =3D=3D CHIP_R350) ||
+> -                  (rdev->family =3D=3D CHIP_RV350) ||
+> -                  (rdev->family =3D=3D CHIP_RV380) ||
+> -                  (rdev->family =3D=3D CHIP_RS400) ||
+> -                  (rdev->family =3D=3D CHIP_RS480)) {
+> +               break;
+> +
+> +       case CHIP_R300:
+> +       case CHIP_R350:
+> +       case CHIP_RV350:
+> +       case CHIP_RV380:
+> +       case CHIP_RS400:
+> +       case CHIP_RS480:
+>                 DRM_INFO("Loading R300 Microcode\n");
+>                 fw_name =3D FIRMWARE_R300;
+> -       } else if ((rdev->family =3D=3D CHIP_R420) ||
+> -                  (rdev->family =3D=3D CHIP_R423) ||
+> -                  (rdev->family =3D=3D CHIP_RV410)) {
+> +               break;
+> +
+> +       case CHIP_R420:
+> +       case CHIP_R423:
+> +       case CHIP_RV410:
+>                 DRM_INFO("Loading R400 Microcode\n");
+>                 fw_name =3D FIRMWARE_R420;
+> -       } else if ((rdev->family =3D=3D CHIP_RS690) ||
+> -                  (rdev->family =3D=3D CHIP_RS740)) {
+> +               break;
+> +
+> +       case CHIP_RS690:
+> +       case CHIP_RS740:
+>                 DRM_INFO("Loading RS690/RS740 Microcode\n");
+>                 fw_name =3D FIRMWARE_RS690;
+> -       } else if (rdev->family =3D=3D CHIP_RS600) {
+> +               break;
+> +
+> +       case CHIP_RS600:
+>                 DRM_INFO("Loading RS600 Microcode\n");
+>                 fw_name =3D FIRMWARE_RS600;
+> -       } else if ((rdev->family =3D=3D CHIP_RV515) ||
+> -                  (rdev->family =3D=3D CHIP_R520) ||
+> -                  (rdev->family =3D=3D CHIP_RV530) ||
+> -                  (rdev->family =3D=3D CHIP_R580) ||
+> -                  (rdev->family =3D=3D CHIP_RV560) ||
+> -                  (rdev->family =3D=3D CHIP_RV570)) {
+> +               break;
+> +
+> +       case CHIP_RV515:
+> +       case CHIP_R520:
+> +       case CHIP_RV530:
+> +       case CHIP_R580:
+> +       case CHIP_RV560:
+> +       case CHIP_RV570:
+>                 DRM_INFO("Loading R500 Microcode\n");
+>                 fw_name =3D FIRMWARE_R520;
+> +               break;
+> +
+> +       default:
+> +               DRM_ERROR("Unsupported Radeon family %u\n", rdev->family)=
 ;
-> +       r =3D amdgpu_ucode_request(adev, &adev->dm.fw_dmcu, "%s", fw_name=
-_dmcu);
->         if (r =3D=3D -ENODEV) {
->                 /* DMCU firmware is not necessary, so don't raise a fuss =
-if it's missing */
->                 DRM_DEBUG_KMS("dm: DMCU firmware not found\n");
-> @@ -5144,7 +5144,7 @@ static int dm_init_microcode(struct amdgpu_device *=
-adev)
->                 /* ASIC doesn't support DMUB. */
->                 return 0;
+> +               return -EINVAL;
 >         }
-> -       r =3D amdgpu_ucode_request(adev, &adev->dm.dmub_fw, fw_name_dmub)=
-;
-> +       r =3D amdgpu_ucode_request(adev, &adev->dm.dmub_fw, "%s", fw_name=
-_dmub);
->         return r;
->  }
 >
+>         err =3D request_firmware(&rdev->me_fw, fw_name, rdev->dev);
 > --
-> 2.39.2
+> 2.34.1
 >
