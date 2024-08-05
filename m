@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3635C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 20:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25511C52D70
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 20:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78BC510E29D;
-	Mon,  5 Aug 2024 20:00:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6E4D10E2A7;
+	Mon,  5 Aug 2024 20:06:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kdnykaxg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MrhaOny9";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C18E10E29D
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Aug 2024 20:00:34 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-2cfd1b25aaaso4837569a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Aug 2024 13:00:34 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8296710E2A1;
+ Mon,  5 Aug 2024 20:06:30 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2cb4c584029so8391a91.3; 
+ Mon, 05 Aug 2024 13:06:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722888034; x=1723492834; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1722888390; x=1723493190; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2Rvpd0wIwPo5RAZRk6uyfaH6jGfmkAL4tT+G73f1Rf4=;
- b=KdnykaxgdLhm4WRW5VezNouCAdtF9eLcMeM+rJXx/KffXxCAJl+d47n6vHy0sMiBoi
- tooYQ6zflTbWO8JCCLq6gnuL92mwf8xdxiVUhfNdBUPdTZC5/efz5a3DWWV+lBObN12Y
- 2jzmb9DMBNBht+0D767aS8v2imWDPXMCnQXot2uBveSObo9srT3/AtAOjrnQePhuXOlg
- 4E+lwCl4lM3LiBW6kOOko396T0ZJORd27DNzPqXgGUa9gB3iXJImSpWufVgXr1LKHkoh
- MBNHQk7n+BClwn/Tis80Bp/WTi9BrAOFHiJSwDngewSo4kqXET6kb5TbJsBLk/wWDh5R
- nuMg==
+ bh=AhhwNjysRV1ApJpRrTYi20sRokbUvK79VIcbcb1hQIU=;
+ b=MrhaOny91/MczerT64sABxYtwSDFWXpRYNH/kT2IvJ2z+jJWxR17f4GLZsAKs+yQYd
+ 5rKz+eCY6JtC/Swyn0CPHWEd5RTT1tpuIkuvjE14j5GmdGrKI639TdW7Lsk5tLLt8dTy
+ ZA8LfLL86BglaGBTlmhzwxT2owUVI1tImT9w9zBwjXG6XjsPWk9PrElTGf/o6ZP0xXZB
+ QSIIdOCuFFjt33qhOQ2l3eZya0dm628Okef2B2lLhkYWKVO4cT5MNN2RRncOi2pPhX4l
+ P2uxEImKQXXSqUgYsJe2DR58LYQHHEyjSlqYF1nzJXWU052sQ6DfHHoZQ3quTxZRit73
+ /ljA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722888034; x=1723492834;
+ d=1e100.net; s=20230601; t=1722888390; x=1723493190;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2Rvpd0wIwPo5RAZRk6uyfaH6jGfmkAL4tT+G73f1Rf4=;
- b=ueG9tMplYQAGT0SdZFgveKA92IVO+weobpL4Br+khg5TdqZhcnbjCBNWz+xy79LSD0
- 4c9qEZjcfso6a/RC20zVvNW+r7Fpjf/3fwmuVeQMBT0UA2NxeFlQT6jRTeb7Y09WmnOV
- McUfUIGcGULYvXBWYwB+U/YYJfwQsHlrb9SZDyZ4/fcV/vhNXMxiue4HQd0qBFgyc555
- dnN8CdjgyZAuReEI7ss86tvFccHOtCjF2773nr5RxyLBDXJWg+7RnqG2U3ywGNLA9azT
- 90jJAk5jKg05id2AksLPE6Lm+Oh2ZvkL+SFyn5RvX2FbvWwYy7oy86oafQSojXNjIlN5
- R76g==
+ bh=AhhwNjysRV1ApJpRrTYi20sRokbUvK79VIcbcb1hQIU=;
+ b=ptG+4EGdBn248uDKMHcqXsYeBFH1w5lmftldd/cCgef2+FhT/nJcVPflvPOMyqgZNt
+ MVd/2ZMHBurzI5ethjfsL+5IxQEAIt3CQq3tHC9TrmrSTN0iDGRiOhYpat+o9OxKrQEU
+ aqUmCvgZ22E9qhfFeJkTdQsOyzp71tBgz/ZTMi+h4xSMdkJa0CSJzJ07eLGK9mmRkgLR
+ v8T38KI3J+wyuYfOo3bULAPQfFA93jBe0xjGlWN8cLcIdkvJeERWGx8oQjSDnDGmBC1e
+ NmPacfTjkbYpmLqpUTPGMlSw92cqvyxhnhsEH+urETMBKCH7q5/Vgzm3+oB5i0Doq47v
+ 9ugQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXs8SOHWlw4xeCi9rX/jpS6wBNNEFwAIokukE292oP0oOQZ5a52bC4JaTv0mKMwExAk++mNzIKrsTcIFEO8+MFzRUoPu2We9DA5ikbPPg==
-X-Gm-Message-State: AOJu0YwbjZZjN/qTrBw/B4bcFJT9hsL7kQQFNKE7y3NYZVy/raptWwHV
- 7z4TZJI3OysqUuzs+Rn7Ly6NvBJUD6r1u4+WMFqdZGYvDyw9ZLT0+nYMPcmjaGOvSmNvR9Tb6Ig
- l1vFO2tc64gByXShHiIoRmuu1BZnxng==
-X-Google-Smtp-Source: AGHT+IHf3fMitR6XBl7gTapNDcdbF3VU9w7FxxehYxDwg5geobLkoDIEoKZZ/7rlIkQl9TF67dOK00stnbkjIoq7/qk=
-X-Received: by 2002:a17:90a:3885:b0:2cb:511f:35f with SMTP id
- 98e67ed59e1d1-2cff9414351mr10796671a91.15.1722888033782; Mon, 05 Aug 2024
- 13:00:33 -0700 (PDT)
+ AJvYcCUSZ0wl5ynON6h8d4+qaIvsKTAeEu3qaIDdeALRoj5xrvfD5eXj/su9mhsIIOkENuZOSa8Oe7aILcEhtg9dCfU3yLd3W/UC68j7jQYG1L9O
+X-Gm-Message-State: AOJu0YwOHUctAxyABr7iHD+NCMytMelzchY2A+5zf9MfhhDKSPByqgcp
+ W/lSxwSiM5TTcg15uEOkgQXKxiZaWJqPsNoBEwvSu1BWCcCC8LFIDPNQIV22XZHkbCYnpdOS5nf
+ Ng8+457+wTgLID0lS05dEhFaLhTRxMw==
+X-Google-Smtp-Source: AGHT+IFRPNtDJR1LFejyrg8XiakZOiGzS9Uk+4UHp48b7BTue3j4pJ6Q3mck8pz/FbAcnuik1/mUBeAEwTKahh5lHOQ=
+X-Received: by 2002:a17:90a:a417:b0:2c9:6f5e:f5c1 with SMTP id
+ 98e67ed59e1d1-2cff93fe5c5mr12697459a91.10.1722888389853; Mon, 05 Aug 2024
+ 13:06:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <MW4PR12MB7482EF2FD5ECF7101A593E5180BC2@MW4PR12MB7482.namprd12.prod.outlook.com>
-In-Reply-To: <MW4PR12MB7482EF2FD5ECF7101A593E5180BC2@MW4PR12MB7482.namprd12.prod.outlook.com>
+References: <cover.1722778722.git.tjakobi@math.uni-bielefeld.de>
+In-Reply-To: <cover.1722778722.git.tjakobi@math.uni-bielefeld.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 5 Aug 2024 16:00:21 -0400
-Message-ID: <CADnq5_NYqaAcu8gtbNJL5OKx-YhD0WfFZ4dKSvxnJrC51soEGA@mail.gmail.com>
-Subject: Re: [PATCH] check for mcbp
-To: "Dandapat, Soham" <Soham.Dandapat@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Zhu, Jiadong" <Jiadong.Zhu@amd.com>, 
- "Ramayanam, Pavan" <Pavan.Ramayanam@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Date: Mon, 5 Aug 2024 16:06:17 -0400
+Message-ID: <CADnq5_Oeh-pzGQG55xv9u_fYjrdWrcCBy5-rFxX+X8mW5sBYeQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] drm/amd: some trivial fixes
+To: tjakobi@math.uni-bielefeld.de
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,24 +78,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Applied the series.  Thanks!
 
-On Sat, Aug 3, 2024 at 10:13=E2=80=AFAM Dandapat, Soham <Soham.Dandapat@amd=
-.com> wrote:
+Alex
+
+On Sun, Aug 4, 2024 at 10:14=E2=80=AFAM <tjakobi@math.uni-bielefeld.de> wro=
+te:
 >
-> [AMD Official Use Only - AMD Internal Distribution Only]
+> From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 >
+> Nothing serious here, just some bits I noticed when reading code.
 >
-> This is the fix for below
+> Tobias Jakobi (3):
+>   drm/amd: Make amd_ip_funcs static for SDMA v5.0
+>   drm/amd: Make amd_ip_funcs static for SDMA v5.2
+>   drm/amdgpu/swsmu: fix SMU11 typos (memlk -> memclk)
 >
-> we don=E2=80=99t need to call amdgpu_ring_mux_start_ib/ amdgpu_ring_mux_e=
-nd_ib if adev->gfx.mcbp is enable .
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c                  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.h                  | 1 -
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c                  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.h                  | 1 -
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 4 ++--
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 4 ++--
+>  6 files changed, 6 insertions(+), 8 deletions(-)
 >
-> we could return earlier in amdgpu_sw_ring_ib_begin/ amdgpu_sw_ring_ib_end=
- in case !adev->gfx.mcbp.
+> --
+> 2.44.2
 >
->
->
-> Thanks,
->
-> Soham
