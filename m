@@ -4,68 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADB69C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 19:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F16AC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Aug 2024 19:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64EC210E29E;
-	Mon,  5 Aug 2024 19:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC91610E29A;
+	Mon,  5 Aug 2024 19:59:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nl04Fh6J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QeyMnaeI";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27C1F10E2A1;
- Mon,  5 Aug 2024 19:56:39 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-7bb75419123so759438a12.3; 
- Mon, 05 Aug 2024 12:56:39 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFEE810E29A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Aug 2024 19:59:08 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2cb5243766dso8724a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Aug 2024 12:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722887798; x=1723492598; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1722887948; x=1723492748; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uNcOQYN/qSiGTFD6/GPizmaarPQsywctbGl3IsVIKsA=;
- b=Nl04Fh6JNN5qnFqpnxpOglpq/8wGRav2JE4eOPJJwh7b4hZ2TcFjpeiqXzJvMCy8sD
- iBK0uBS6a8Tx5lYNvpE4zpQ36Ph40Nn3PyNtxcVZxuIB9QpMxqmWfnK/njoEoAbUfkRn
- vLEdTgS4YXyNv7dzZag+zuiPO9VYDkUCxRjzDTnISr3RqIMAwtFzojbISC89nzDDLsSF
- wlc+kgFq/Ir6n7vcAAu1lecG+KLlSy9nWi8K/SlNquVCKWUGyvlSVIKytlqQ4mAjpQlg
- C/OgbU4yHuLskdD175Z7l9DyBqjVLq8mz6hYvclyO63sCCFOiCe+BRczlyTrTSV/O1cs
- k7Xg==
+ bh=BrHzJ5RpXek44xNP35USN3iE+igbkoFbqoC+MsMenhw=;
+ b=QeyMnaeIBVSWYHjDT8YJqMGVsjlezQl4DTJPAd4NUH/y0xAhqu7UKxsKBJqgYL3IMl
+ qu+cWY4ZZlD5fg99Mn9ozUlLDpOioD+Oic3pg5VWqT1mL4hC96dV+cjbbhZjbLO04a1g
+ qB4BuiNj6f7NO32wFs5GKygDRSPm2ZKKHbloCwKQ2r+LT0V7/zMRwBNSodF6wceksJSi
+ ikfXdX6L7O88c52LaXHiNCsSfPer4RRmfgvWF9wocGzz5uNMHuktoSK3H1e5AQmnDb4H
+ adKp7N5uEk3pWBjlSZXUbfWB1r5RoFQhMqqwKn39KrAmFLzbmjK1dlrOb6GR1wqSrp4Q
+ wPuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722887798; x=1723492598;
+ d=1e100.net; s=20230601; t=1722887948; x=1723492748;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uNcOQYN/qSiGTFD6/GPizmaarPQsywctbGl3IsVIKsA=;
- b=mJz28zbDkNmD3GUwBm/tqK8ShOfa4jzThxNPpFb9UuNkD+XX+wjfVwwBdfszW+HiDk
- eAFhtdOigq4VxrjKkcHRTJXU6uJntD2nGrKGO8w/qABTdw2mmY6PwIBmSUxUdwJfc/Cd
- oYZd6Y+3IQznQRuVYMiA/ZjAE00i47nJ45/lYdFxjCkbKZn4FhCoF3JEB/N1vU1uuVSG
- hj4/TCPlb1e03q7wEYSoh9qwVsahv43B0pbf0y371LZ2iHLVX/f7nZiQmEXeQyaGXQFO
- dzULgy3tpu1vRKDlfCGypHb4QpICMNFSAeYsmoQHv1OKffi8UyIIrNoMO78r859X7nlZ
- VyIQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXey2jsRJOOfJcWATWRQQxk5STeVlqv2vmEN2R2XKTaOzkM2tiUL1JgXfliydN8Z3P2yvxJVJojrVttmJDuyjzesF+HAgS/q4d6IIYB3k/gsNG61PAsU94kCXl8Rnc0lr4FUv/1KJGiPLy6hTuXvA==
-X-Gm-Message-State: AOJu0YxwsTwWCo3CT51Vf8EaemJ/mBFKlrQZdRpu94GKQx+RVhN2LltS
- e0nw/WUzRb43U1b7ZXQ2YodCrugKsjuQmc9WHn3dgsn4uw5vkHltBN1JviEbAoGUw1ro7AXUbkl
- kEUT1trqrrV/EzA4fvrUZhNQkVSLbtg==
-X-Google-Smtp-Source: AGHT+IFIDXUzuaYtUVe9G/vyHgglOXHWrm+LPeM+thU3L+PG1J1Qc3F0nt0E/Bj+1GmCud756KHGJwrkq+K3mv6bPqQ=
-X-Received: by 2002:a17:90a:ac8:b0:2cb:4c32:a7e4 with SMTP id
- 98e67ed59e1d1-2cff943c2fbmr10837771a91.15.1722887798611; Mon, 05 Aug 2024
- 12:56:38 -0700 (PDT)
+ bh=BrHzJ5RpXek44xNP35USN3iE+igbkoFbqoC+MsMenhw=;
+ b=clLHB36cgPNZPL/lboKOs2Gcgs02DwuKQ0nxSGXTVpYmDNa03nnIz2XeEV8SQMmNms
+ WhSKnlzyHpKaHywF1X7Or0OyKPBI246cMDTqvxzRw5UlMi6Z8Xrp3GePKsBtNqWxxvgJ
+ MjDgVo70KIfHg9awlFMQsF7RO2sVlVlbJkb9H5YGpYnjpNgIhg0tyCOamk+9/S63ElHl
+ pP04iu+SElpYiA0OkfGccOeM350C+PevSVPpWzJYUNpkFOxxk1zM0NLMAKuSAzW1FCBZ
+ yoPbkFWZJ3kMVzGtsnBT2twnEcHg2pHzfzqoea5CDMExZIsX5iQS3OrIomqC8lOIYD7O
+ cstw==
+X-Gm-Message-State: AOJu0YyhjgPB76rw0RZjJ6vO8OMzvmOKoSeQmGoh8bm5bv7AxiA0+8XH
+ wuUlhjjrM3uYhjJEcV9k+wF2NYORq+3vZGGD7gt3t7Z7rCOEy+NFerlUdCDIvWBmg2gHXHkC0ea
+ TmkNOIieb3ITFEdGepeu6P2y1vaTLig==
+X-Google-Smtp-Source: AGHT+IFoyB6QLFxAix7lv9d6GJC8D6yZM9Ihb4Y+kdSqn6Yj5GnBwYxMnaFz6gp6/J2dqcgVqOp3lUCXLeBmyrJaOFc=
+X-Received: by 2002:a17:90b:4c0e:b0:2c9:6ccc:2fbb with SMTP id
+ 98e67ed59e1d1-2cff946945bmr15990064a91.24.1722887948166; Mon, 05 Aug 2024
+ 12:59:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240731055451.15467-1-rbrasga@uci.edu>
-In-Reply-To: <20240731055451.15467-1-rbrasga@uci.edu>
+References: <20240802182720.318993-1-victor.skvortsov@amd.com>
+In-Reply-To: <20240802182720.318993-1-victor.skvortsov@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 5 Aug 2024 15:56:27 -0400
-Message-ID: <CADnq5_PxBDtk5m7c6pJX_b1fQw_ry1qGALprAZ6f5xR=9g34kQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/uvd4: fix mask and shift definitions
-To: Remington Brasga <rbrasga@uci.edu>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linuxfoundation.org
+Date: Mon, 5 Aug 2024 15:58:56 -0400
+Message-ID: <CADnq5_OdCBnP=E7oe0cOh3=HGJwXYavRGCH958=S8Px8smH99g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] Revert "drm/amdgpu: Extend KIQ reg polling wait for
+ VF"
+To: Victor Skvortsov <victor.skvortsov@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Vignesh.Chander@amd.com, Lijo.Lazar@amd.com,
+ Yunxiang.Li@amd.com, christian.koenig@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,45 +77,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Fri, Aug 2, 2024 at 2:27=E2=80=AFPM Victor Skvortsov
+<victor.skvortsov@amd.com> wrote:
+>
+> KIQ timeouts no longer seen.
+>
+> This reverts commit b4d12cc00ad69e8a0dea2ece7202bacfd8b894fb.
 
-On Wed, Jul 31, 2024 at 3:20=E2=80=AFAM Remington Brasga <rbrasga@uci.edu> =
-wrote:
->
-> A few define's are listed twice with different, incorrect values.
-> This fix sets them appropriately.
->
-> Signed-off-by: Remington Brasga <rbrasga@uci.edu>
+MIssing your Signed-off-by.
+
+Alex
+
 > ---
-> The second UVD_LMI_CTRL__RFU_MASK is incorrect, so it was removed. It sho=
-uld be
-> `0xf800 0000`.
-> The first UVD_LMI_CTRL__RFU__SHIFT is incorrect, so it was removed.
-> It should bei `0x1a`.
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> This change aligns the uvd definitions, please refer to:
-> drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_3_1_sh_mask.h
-> drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_2_sh_mask.h
-> drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_5_0_sh_mask.h
-> drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_6_0_sh_mask.h
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 137a88b8de45..206360503136 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -347,9 +347,9 @@ enum amdgpu_kiq_irq {
+>         AMDGPU_CP_KIQ_IRQ_DRIVER0 =3D 0,
+>         AMDGPU_CP_KIQ_IRQ_LAST
+>  };
+> -#define SRIOV_USEC_TIMEOUT 1200000 /* wait 12 * 100ms for SRIOV */
+> -#define MAX_KIQ_REG_WAIT (amdgpu_sriov_vf(adev) ? 50000 : 5000) /* in us=
+ecs, extend for VF */
+> -#define MAX_KIQ_REG_BAILOUT_INTERVAL 5 /* in msecs, 5ms */
+> +#define SRIOV_USEC_TIMEOUT  1200000 /* wait 12 * 100ms for SRIOV */
+> +#define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
+> +#define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
+>  #define MAX_KIQ_REG_TRY 1000
 >
->  drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h b=
-/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
-> index 8ee3149df5b7..2ef1273e65ab 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
-> @@ -340,8 +340,6 @@
->  #define UVD_LMI_CTRL__REQ_MODE_MASK 0x00000200L
->  #define UVD_LMI_CTRL__REQ_MODE__SHIFT 0x00000009
->  #define UVD_LMI_CTRL__RFU_MASK 0xf8000000L
-> -#define UVD_LMI_CTRL__RFU_MASK 0xfc000000L
-> -#define UVD_LMI_CTRL__RFU__SHIFT 0x0000001a
->  #define UVD_LMI_CTRL__RFU__SHIFT 0x0000001b
->  #define UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN_MASK 0x00200000L
->  #define UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN__SHIFT 0x00000015
+>  int amdgpu_device_ip_set_clockgating_state(void *dev,
 > --
 > 2.34.1
 >
