@@ -4,30 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400E6C52D6D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Aug 2024 08:18:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F770C52D71
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Aug 2024 08:18:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A7610E302;
-	Tue,  6 Aug 2024 08:18:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D44310E30A;
+	Tue,  6 Aug 2024 08:18:38 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8011610E30E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A241410E317
  for <amd-gfx@lists.freedesktop.org>; Tue,  6 Aug 2024 08:18:36 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 4768IVpi2422876; Tue, 6 Aug 2024 13:48:31 +0530
+ 4768IVTR2422830; Tue, 6 Aug 2024 13:48:31 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4768IVRd2422875;
- Tue, 6 Aug 2024 13:48:31 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4768IUWB2422829;
+ Tue, 6 Aug 2024 13:48:30 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 08/15] drm/amdgpu: add print support for vcn_v4_0_5 ip dump
-Date: Tue,  6 Aug 2024 13:48:18 +0530
-Message-Id: <20240806081825.2422771-9-sunil.khatri@amd.com>
+Subject: [PATCH v1 00/15] VCN IP DUMP support for remaining IP's
+Date: Tue,  6 Aug 2024 13:48:10 +0530
+Message-Id: <20240806081825.2422771-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240806081825.2422771-1-sunil.khatri@amd.com>
-References: <20240806081825.2422771-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,66 +42,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support for logging the registers in devcoredump
-buffer for vcn_v4_0_5.
+VCN IP dump support for
+a. 1.0
+b. 2.0
+c. 2.5
+d. 2.6
+e. 4.0
+f. 4.0.3
+g. 4.0.5
+h. 5.0
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 34 ++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+Testing is done on VCN 3.x 4.x 5.x only as older version of VCN targets
+are not available but it should work as the methodology to read and dump
+value in devcoredump remains same. All the registers are validated
+against the IP and from windows program as much as possible.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index 27b2f66117e0..f192870d9e5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -1871,6 +1871,38 @@ static void vcn_v4_0_5_set_irq_funcs(struct amdgpu_device *adev)
- 	}
- }
- 
-+static void vcn_v4_0_5_print_ip_state(void *handle, struct drm_printer *p)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	int i, j;
-+	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
-+	uint32_t inst_off, is_powered;
-+
-+	if (!adev->vcn.ip_dump)
-+		return;
-+
-+	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
-+	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-+		if (adev->vcn.harvest_config & (1 << i)) {
-+			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
-+			continue;
-+		}
-+
-+		inst_off = i * reg_count;
-+		is_powered = (adev->vcn.ip_dump[inst_off] &
-+				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
-+
-+		if (is_powered) {
-+			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-+			for (j = 0; j < reg_count; j++)
-+				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_5[j].reg_name,
-+					   adev->vcn.ip_dump[inst_off + j]);
-+		} else {
-+			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-+		}
-+	}
-+}
-+
- static void vcn_v4_0_5_dump_ip_state(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -1919,7 +1951,7 @@ static const struct amd_ip_funcs vcn_v4_0_5_ip_funcs = {
- 	.set_clockgating_state = vcn_v4_0_5_set_clockgating_state,
- 	.set_powergating_state = vcn_v4_0_5_set_powergating_state,
- 	.dump_ip_state = vcn_v4_0_5_dump_ip_state,
--	.print_ip_state = NULL,
-+	.print_ip_state = vcn_v4_0_5_print_ip_state,
- };
- 
- const struct amdgpu_ip_block_version vcn_v4_0_5_ip_block = {
+
+Sunil Khatri (15):
+  drm/amdgpu: add vcn_v5_0 ip dump support
+  drm/amdgpu: add print support for vcn_v5_0 ip dump
+  drm/amdgpu: add vcn_v4_0 ip dump support
+  drm/amdgpu: add print support for vcn_v4_0 ip dump
+  drm/amdgpu: add vcn_v4_0_3 ip dump support
+  drm/amdgpu: add print support for vcn_v4_0_3 ip dump
+  drm/amdgpu: add vcn_v4_0_5 ip dump support
+  drm/amdgpu: add print support for vcn_v4_0_5 ip dump
+  drm/amdgpu: add vcn_v1_0 ip dump support
+  drm/amdgpu: add print support for vcn_v1_0 ip dump
+  drm/amdgpu: add vcn_v2_0 ip dump support
+  drm/amdgpu: add print support for vcn_v2_0 ip dump
+  drm/amdgpu: add vcn_v2_5 ip dump support
+  drm/amdgpu: add print support for vcn_v2_5 ip dump
+  drm/amdgpu: add vcn ip dump support for vcn_v2_6
+
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 129 ++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 145 ++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 148 ++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 203 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 204 +++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 203 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 204 +++++++++++++++++++++++-
+ 7 files changed, 1220 insertions(+), 16 deletions(-)
+
 -- 
 2.34.1
 
