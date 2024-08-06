@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3062DC52D73
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Aug 2024 13:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6215EC49EA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Aug 2024 13:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B90C10E382;
-	Tue,  6 Aug 2024 13:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD8010E381;
+	Tue,  6 Aug 2024 13:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MhY5m2Tm";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Mr76nB06";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C12CB10E382;
- Tue,  6 Aug 2024 13:53:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF01610E379;
+ Tue,  6 Aug 2024 13:53:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=uIfFCH4RzJWnyQJXqXggUAjhA0rEwWO5SWfx9Tsr9MI=; b=MhY5m2TmOCEDBORFXKqSbybdbu
- NWXGMREia9Tur5p4rtJXB7/RvcQv5ZIiVeQysvjG8MAAbEIpOj7pUzCgVKdNLaD18Z0am2we1ON7H
- 2yn7T15P43egeA0GHJBLAfft1G0Uwt5/zx8HCTGYuWY5W3shn7DACOlnwG1onv56n9S7kUy6LG1YK
- L1UArUj453kz+SsPolWwW2J5FiV6OdGqZDjSInw6fxIN56E0HjGEcaI8JyxNeML+iiIcZNWum1U0F
- 6g28ZE5rM1deG2qF66ErZZsdKR4nZG9KSm1ri9pu3k/0+rIaJJQx91NjDBJvkt6EfGC5u33stDc2O
- 7U/USB3A==;
+ bh=3LTBOgJDuXy2JwBI4zDANEzW9GrzludH0YUDes8GtkE=; b=Mr76nB06wQclSyKoqSrIkT4bMj
+ OOgpRUmOKIE5K8IQGUaxR8U2Ue89TpXSxdT0t0LL0HAP3KJDI+995AnE8ngb1af0SEBLQhyErrMhE
+ hjHW2leRMXsNA6TIA0yF5ulOg9hMTxwWkDA7/eicCWGkSVkuUg/PzILn6egqQuTDxpWJ5hpLw8A5Y
+ kpZ3l/J+VEGTtCq4SoUubDju/SqTOjIteVVJcI6v6J6mcqAteBUARvIxjg1AzsJU0gfPFs5ZDK7bS
+ hD0k7/fq/d7KEC7yKQkEOc9iplQjxdb6uYxO1eog0Y2XzBfZarNrOeWHEB5CIwMTXl0pFuIMA01tf
+ 5DgN82Og==;
 Received: from [179.118.186.198] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sbKcm-008buR-K8; Tue, 06 Aug 2024 15:53:17 +0200
+ id 1sbKcd-008buR-1C; Tue, 06 Aug 2024 15:53:07 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
@@ -44,12 +44,10 @@ Cc: kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH RESEND v8 2/2] drm/amdgpu: Enable async flip on overlay planes
-Date: Tue,  6 Aug 2024 10:53:00 -0300
-Message-ID: <20240806135300.114469-3-andrealmeid@igalia.com>
+Subject: [PATCH RESEND v8 0/2] drm/atomic: Ease async flip restrictions
+Date: Tue,  6 Aug 2024 10:52:58 -0300
+Message-ID: <20240806135300.114469-1-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240806135300.114469-1-andrealmeid@igalia.com>
-References: <20240806135300.114469-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -67,28 +65,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu can handle async flips on overlay planes, so allow it for atomic
-async checks.
+Hi,
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+As per my previous patchsets, the goal of this work is to find a nice way to
+allow amdgpu to perform async page flips in the overlay plane as well, not
+only on the primary one. Currently, when using the atomic uAPI, this is the only
+type of plane allowed to do async flips, and every driver accepts it.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 8a4c40b4c27e..125402964289 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1175,8 +1175,7 @@ static int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
- static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
- 					      struct drm_atomic_state *state)
- {
--	/* Only support async updates on cursor planes. */
--	if (plane->type != DRM_PLANE_TYPE_CURSOR)
-+	if (plane->type != DRM_PLANE_TYPE_CURSOR && plane->type != DRM_PLANE_TYPE_OVERLAY)
- 		return -EINVAL;
- 
- 	return 0;
+In my last version, I had created a static field `bool async_flip` for
+drm_planes. When creating new planes, drivers could tell if such plane was
+allowed or not to do async flips. This would be latter checked on the atomic
+uAPI whenever the DRM_MODE_PAGE_FLIP_ASYNC was present.
+
+However, Dmitry Baryshkov raised a valid point about getting confused with the 
+existing atomic_async_check() code, giving that is an function to do basically
+what I want: to let drivers tell DRM whether a giving plane can do async flips
+or not. It turns out atomic_async_check() is implemented by drivers to deal with
+the legacy cursor update, so it's not wired with the atomic uAPI because is
+something that precedes such API.
+
+So my new proposal is to just reuse this same function in the atomic uAPI path.
+The plane restrictions defined at atomic_async_check() should work in this
+codepath as well. And I will be able to allow overlays planes by modifying
+amdgpu_dm_plane_atomic_async_check(), and anyone else have a proper place to
+play with async plane restrictions as well.
+
+One note is that currently we always allow async flips for primary planes,
+regardless of the drivers, but not every atomic_async_check() implementation
+allows primary planes (because they were writing targeting cursor planes
+anyway...). To avoid regressions, my patch only calls atomic_async_check() for
+non primary planes, and always allows primary ones.
+
+Thoughts?
+
+Changelog
+ v7: https://lore.kernel.org/dri-devel/20240618030024.500532-1-andrealmeid@igalia.com/
+ - Complete rewrite
+
+André Almeida (2):
+  drm/atomic: Let drivers decide which planes to async flip
+  drm/amdgpu: Enable async flip on overlay planes
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  3 +--
+ drivers/gpu/drm/drm_atomic_uapi.c             | 23 ++++++++++++++-----
+ 2 files changed, 18 insertions(+), 8 deletions(-)
+
 -- 
 2.46.0
 
