@@ -4,64 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18031C52D71
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Aug 2024 17:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CABC52D70
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Aug 2024 17:25:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B71FE10E3D0;
-	Tue,  6 Aug 2024 17:08:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 659E710E3E4;
+	Tue,  6 Aug 2024 17:25:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FtQhsORR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sxaxV4xF";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9BC10E3D0
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Aug 2024 17:08:14 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-1fd6ed7688cso10231165ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Aug 2024 10:08:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722964093; x=1723568893; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ypev+JLpngqdQC+9wat8siRQJJdZ7CezmniUzM7fATg=;
- b=FtQhsORRP4qzn8Jg8FHPYJfyzztLuV6YlTTzLlqIMh7AUXYcptJxF/roCm3F+xgnDy
- /yZ8MkvcuTW26Cj0zZvnj2mmBdxvVMTGaw92YxTX0niM6UgJVC+G3wSHjFtMK89v9k9K
- fI5bzLi5Xq+pX3sVf64FD/wA8aIIXsOPEhpRqUjblrHFPjpIlGos6Q4fPnsQomiJ6Oqh
- qYjOwBhcuCvnNJfZzPP44q71zJ4N0xGRXmJuOb24LChhm66kVKVQOLQetUBItDBkV6Uz
- E4fwVCFjE9BmXG/c6bA1RC9cNCMFtler9CasauTwwEeSgIGN3PovLmA7/GtcewZLd7Hw
- UTAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722964093; x=1723568893;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ypev+JLpngqdQC+9wat8siRQJJdZ7CezmniUzM7fATg=;
- b=msXZW6s67opUwSf8CRy55R1hy4mtsESxv+b+f/1/2yL+vCrE4xzukiRp/2se6fLc6Y
- dZQJXJHnsZSJMpcDPB6KVDzE8i7hOzM3qkYgovQFjxGEOQgNWEPBXaZmJWi7ChjQd+28
- 3xLvEfnNDZCEEs7GMFseqoB3EIAFARajPrUCuskyfQ/hH5AKD1pvwByapkA8eKNj+9g1
- 8Pc5ga57ggi9p26mZMpN9D7XmJmxVwj/sL92wPZ0L7qLXB0UdWjNano//hb15XmEdtQs
- L7MvbU3tVzQpNa5Sef+6Z9EXd4zSqSnjMxCMAS8T5kLwqmlxfbx3ayD4U3wCNVB54rvm
- GLNw==
-X-Gm-Message-State: AOJu0YwLrJqLo2drVP3IMa9nSmTJBuVqgNlpeDka/yXvGMM+ruK+Im8m
- C5mcDib+QG/1Jz2TrhCXKikdS4wZrpwvbo36aL4Uy3hVq0ctL0sRtakkZL0PF0/Q9OuRarutRtE
- HhBC3skLSyCz8Z+i61f8pYdRo5Dc=
-X-Google-Smtp-Source: AGHT+IHe3sE9eVlyeEv8/BPnK1j3upyVq6PLjF77jFJAHzAwB7IlrV6D6LwcLMOwqWwqKQ8lgNX4egnj7C+d5ZgAVx4=
-X-Received: by 2002:a17:902:d4c3:b0:1fd:9b96:32d4 with SMTP id
- d9443c01a7336-1ff57459864mr170122015ad.51.1722964093490; Tue, 06 Aug 2024
- 10:08:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240806160012.234633-1-David.Wu3@amd.com>
-In-Reply-To: <20240806160012.234633-1-David.Wu3@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 6 Aug 2024 13:08:01 -0400
-Message-ID: <CADnq5_Ov6hnKmKXRe00JEgdWLyphEbMHDghHuN+UNRoq70CFQA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/amdgpu: command submission parser for JPEG
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, 
- alexander.deucher@amd.com, leo.liu@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8940E10E3E0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Aug 2024 17:25:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f5f+0eJ4G5x3swNYJCGAK4ModRVJYmb+SX/zSCW1eEGSEc6Dwas61IrgYTTVbD/cT3zoB86HezRUpL6dbm+xigg3ZI5FO+5YK8UMtfqBPQpXNH9oZ8IW1i4HyhtTWB3sKfkXQRXx02y4ZK9EyqLR3K6D08YdNC1XRDYIoIIdVz1aRiZ5sbfU6a7ovWuYO2M3ssTFdxt63iRv3GSgetc8eqmqaLYanYn6oN/cliNJHcA/dsJFBNIWXW05Cj5GKCzGJ9GiEtkUaPobGGK+Sw5n/ZE0P1mFTuDnOTEZ5nNWVwmd43/1ECm7iXaDEmG+6Iit+fUeeB2EvC/I5cQYjt8hxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WklagYXTcmPBNUloyJDdooTPsz+lRfBXmpgzD/4zEpk=;
+ b=NlytjEzYaoTFYfLCAXmdZnOngTD5+4NFBKpeWlrIuNkFSnDPu/IxvvhZePW43SvTRna/OdoKQCA0HJU/zlEMDfhpG+H7Trf44p/dcaO5+tU0jn7lfM3lacxepD/RVfsk3ALrH0hfamBgCMXPlTTP6b0ZXWma3ejtlvmMu/BnLQqjTAzyaMLSR8JfCx4MgUsl919feHXFn5Q1f5NKjOrO55ERY/ZsGgfEfx+Yc7rsmUXQecMGnq7b8C+CgmqB0gi7xUQb+Hv7cChcrTRfE4ojIGv9bsu95NMagJ4JWysN95KOemlEGH7l6imgLaxbN5Wz3is7Lm+kkOputRFoVQ6z9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WklagYXTcmPBNUloyJDdooTPsz+lRfBXmpgzD/4zEpk=;
+ b=sxaxV4xFZtHkM7TKoTW6VrS450TklVvFZEBTDvCYc1+ct9Qf22aNio9/kw6swn5mEtWTikfYsAoIkQDx73fPp+eztk32i8B+sxGIANfdlaoZZutxLCmQ9Harucay8L6/k4foZBioV3Wi5VvZ6ar7XZju56MHOZfednhMCfaRbwg=
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
+ SJ2PR12MB9212.namprd12.prod.outlook.com (2603:10b6:a03:563::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.23; Tue, 6 Aug
+ 2024 17:25:53 +0000
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::fddf:5872:b8e2:9563]) by DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::fddf:5872:b8e2:9563%5]) with mapi id 15.20.7828.023; Tue, 6 Aug 2024
+ 17:25:53 +0000
+From: "Liu, Leo" <Leo.Liu@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/jpeg4: properly set atomics vmid field
+Thread-Topic: [PATCH 2/2] drm/amdgpu/jpeg4: properly set atomics vmid field
+Thread-Index: AQHa6CKS4Ozp2p3LWEm1QyiInoMFxbIaevcw
+Date: Tue, 6 Aug 2024 17:25:53 +0000
+Message-ID: <DM8PR12MB53994D6CF1EFAD5D780EA310E5BF2@DM8PR12MB5399.namprd12.prod.outlook.com>
+References: <20240806170301.2064080-1-alexander.deucher@amd.com>
+ <20240806170301.2064080-2-alexander.deucher@amd.com>
+In-Reply-To: <20240806170301.2064080-2-alexander.deucher@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c79f02a7-a478-4659-807f-638d929e6d88;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-08-06T17:25:22Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|SJ2PR12MB9212:EE_
+x-ms-office365-filtering-correlation-id: d86bbd43-e4fe-4472-9d15-08dcb63cd2ff
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?BB6mw+ZPPBzJlHMkbCgYRDPsfLVdLoFsV0IQ2iifJdIhZOUXlMjm30uUuUyH?=
+ =?us-ascii?Q?oDffGb/Nt5jjixNKNSUKxaVR+nRpG8HnJBoM63pKaumDXRL5t5CDkoOc51nH?=
+ =?us-ascii?Q?wqTlanKKt0a1yGKvET114XuNF1TLc8H0u6etjYGbEJx4Kks7FP2LERMCnM7a?=
+ =?us-ascii?Q?MrDD0CKCoCfUWgUusMMYdpWp7h/y/Ywxy5WwIt4sbF9ZuiZoEpgRKyMjZMmF?=
+ =?us-ascii?Q?PhUkuR1WfszjKjDnGB0McPenn9Cs4vMVIVIeAO3imnpiqjNTGw4gwzxasdDU?=
+ =?us-ascii?Q?r2jAzhoSh0ueu0G6DixcseID5PT+P/yeQNcr/DXhSA7ahx2+F6zm7dt6/245?=
+ =?us-ascii?Q?HaoAL8X7AHRSB/S1759pvE6HGC7qp4k1uDFjpf6RZBJ+meHw1fxYCWGAdH0t?=
+ =?us-ascii?Q?zY+SqGROFCpIM82gxWczyTpvDu9qX1o80DlL5VoKdzJJ4Qmr7H4Bx4OPy8ja?=
+ =?us-ascii?Q?3ZBIvTsTEHSWnDCbJq+Rc7kmFRv3G74cddv4B7ik70DlfD8e9uywK6Rz1F0P?=
+ =?us-ascii?Q?tIz/d5Nz2pLvi8LgJDs0zuFFd2jJFajfT3tW4bj7gMY/NmS/9l4oRIcVQjyi?=
+ =?us-ascii?Q?VbP/dqG5XiIal8YLH/DQJnDvV53FqwGDvNmGxCD8+/zm3Bx2585loHoACIeU?=
+ =?us-ascii?Q?lS0kyczWcJUFTWoAQwRN9fepxjDejWrcP83IrGooDYk4OsGCXuyW6pgjv0FL?=
+ =?us-ascii?Q?C7M9d4wOpu1a8m1RK1sagsip9NcSs3HzKZFBSipabfVtXIf9UdFsjVEWxLWo?=
+ =?us-ascii?Q?AxQgU79rb4Lckrs1rMtKTgqCSwHuLBV0PKlASLsW8sSdH3xDqrdi2FPwekro?=
+ =?us-ascii?Q?llzCjfNrAOSwZ9RZkmgzRTysyuwvm4xTPmbL6nl1IUXXsfRxFFHhJCmOFUo3?=
+ =?us-ascii?Q?WlCOcNMvZgmJwjE4DOqFWSFXqNFBjsjUcOcoWk3bk7UZcz1frqfDrW6CgTT3?=
+ =?us-ascii?Q?Me+C7sxlwY6kdm5h4xTzR9O6jB00H5bGQf9hJ2uyON3VirFHz6DXCn1Pn78l?=
+ =?us-ascii?Q?H21jigwyzKriHBJjiMZST1QP7GcAhtRoJs5TH3VZIoAMptchP3IC4u24rHDl?=
+ =?us-ascii?Q?idYjsONMydipgCCWDFacmo1OQuAUWuGvIGmGm0cRdloDdrx4F0zaWLguwm4g?=
+ =?us-ascii?Q?G5WUolFcMTTkYqh8m0W8QHMdRxupHKd/Wni2V0loe4IyAyMw9HUQKBI7Bhd/?=
+ =?us-ascii?Q?5RAdmm96Tb44iuxvv8Oil0I1kWjBPrIli5TaglTs/miMu87j73vlpNU6JVAP?=
+ =?us-ascii?Q?K6U0KqJvFlGxSSNeXeZyNycWL/VDHtBojY/rto9BIqGiQD4uCC8JnrvWOyZV?=
+ =?us-ascii?Q?QwzXh5Ytck9qwNZqSPkPAKT4FTZlmEYQsHFDBPz7cZVtLiSeh6yHd5JN49Ss?=
+ =?us-ascii?Q?j7fGWejuvznXjkagdftLxgBxvP5x6CgaL28qvOmUquLedxx7EA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XED+BP3RiV4DdB8Prdp0cLB3EarO3KStgmlDkdq+71MI+aG/ohrTvDc/Towt?=
+ =?us-ascii?Q?Wl5Mjx4hgdY++bGfC17bZ5DGiT1Nm4u40P/uUkv1bC7nocQWYP8Q89LCh6i2?=
+ =?us-ascii?Q?4ub/VaWjVIUzHxU6oxLvzelEngJFetwnPs0Jh4q+nLe/AqGjFFEdOmKf+nGD?=
+ =?us-ascii?Q?HmMwDeklH14lIBY52Q4gbbsbr+lLyTGrIcEsJtFFBxpCiIuy/+N8HoIN5Xmz?=
+ =?us-ascii?Q?hONrd8h1Lb+ngMMutZ2OSwL5ULe9QCqvI2t0T7a3T6yxiYK2v2ElgKMAb5jC?=
+ =?us-ascii?Q?4HjoBNsXzl/vk7VCOkj5GyfmEXFEkRioil0jdS49hX+h27Gqspu29qPLhcOk?=
+ =?us-ascii?Q?193Lo3aUlWP8XdJPCI8xgM25mPxfey0DGB/Aiuqf/tisSIdUNpopZISaKxVt?=
+ =?us-ascii?Q?n44D1UiHETLdSJNGXZZlCsMNMK0gLwsnsLLCSY49+M6CwunIqYde6dOqCgnI?=
+ =?us-ascii?Q?Dq3CTkuj8svvHpIcBkoKQEuhonf+oIM+M4LajkZTMFClIvCt2Q7uK1gr+Rip?=
+ =?us-ascii?Q?UruX+/qVLc3KyRpmggDxLVYMrvCmb95OSEiVlTjYGge7HPnIM4fkDlcu1joZ?=
+ =?us-ascii?Q?ZDGrHF+Uv/xnVjbgYwJtU1qNWvc4hXBWHdLhdFX7S+Ff7FFYylf/1w166aTY?=
+ =?us-ascii?Q?MqUv4Cl828J0Q1qqy79fpW4YNLVeXaFsuLjk7Ytfytzy7plMCyRQc879lCHT?=
+ =?us-ascii?Q?z/rEyIUY6XXcRBl1E9rVbGsHHWigvIDw5MEQH3w4ABbL2dRKLaZ6mTxucTQB?=
+ =?us-ascii?Q?zET2Zb50WBG4vUHc0Dk3/ZXbB3A6WB2w2NSQd67+6V/lEwxUwmX64qBv8cP8?=
+ =?us-ascii?Q?+XVTE+smQkqjGGkIH6AJm9fMxjbFkhqDd5L4Zm9vvcFNL/H6X+j0D76MgzCp?=
+ =?us-ascii?Q?igfWlDHQ63xNWo9pb9pguo3yrkIC4BQQ9kBCGfOPHh96bFPgWEOt9hRcsJlW?=
+ =?us-ascii?Q?GsWpXJi95N1ppBGW6cvQt8bPmfBwUl5zIkixIwFCbQ80Jdpn0LhTUfWMX2n/?=
+ =?us-ascii?Q?9TAPWLm0vDkWTQesSZFnJ/PWBd1RFgvbo10PJ3aq+1kbDwH4zN6fcEJp3PCy?=
+ =?us-ascii?Q?vuJLqKnf+e6DD9NGq6YDi3ECJ9RO5EgTtL2BZGKCZP0eyGVJkDSzdPJJq4VV?=
+ =?us-ascii?Q?4ssKdiYFRiitIj8i97qKC6oMwBvQYL1wWYB77vYcP4PVzXPN7tb8+92ASdfn?=
+ =?us-ascii?Q?CISMIkKEi8TWWJkwilqPPEwwyspY1uDSKt0mCml95l70awOkAMX0xPRQZCua?=
+ =?us-ascii?Q?jlLLINsUK9KZe5OVl7niYamUfGg7Ti6IR56eSLxDMc2hYiVDDm7i7nZXjmSD?=
+ =?us-ascii?Q?Qebw+K4JGFNBAwHoR12hcZo4rID03zBd1QcUkquQcGmV3u7NHD6U0tCKcxKv?=
+ =?us-ascii?Q?4Sxd0KkeS6S5JmUZHX8QDvRzuEqnBkMPIkiFVr+GpGBbEf3AOGO7ys8ToXTV?=
+ =?us-ascii?Q?0vaBsOLcaljaX0E816dQWhz7jOZg8um/jTwbjrIGJ1k2V6iscfsLgvO2khaV?=
+ =?us-ascii?Q?YSERdFZyq11eF6T/BPeOfmCfGTmw2Vbjx7YVGRq6DpA5NNq/w0j9UccXIgtU?=
+ =?us-ascii?Q?Fgq/OXAfJ6aT7zlt324=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d86bbd43-e4fe-4472-9d15-08dcb63cd2ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2024 17:25:53.4001 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0g1YxIjAIuAph6lsz83jEtlKtXQQ2xTgxd/wmfNje00IvawVM6ZYs+fBhHl7iNgP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9212
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,210 +154,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 6, 2024 at 12:00=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@am=
-d.com> wrote:
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+The series is:
+Reviewed-by: Leo Liu <leo.liu@amd.com>
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Tuesday, August 6, 2024 1:03 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>;
+> stable@vger.kernel.org
+> Subject: [PATCH 2/2] drm/amdgpu/jpeg4: properly set atomics vmid field
 >
-> Add JPEG IB command parser to ensure registers
-> in the command are within the JPEG IP block.
+> This needs to be set as well if the IB uses atomics.
 >
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  3 ++
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 58 +++++++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h |  7 ++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  1 +
->  drivers/gpu/drm/amd/amdgpu/soc15d.h      |  6 +++
->  5 files changed, 73 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index 1e167d925b64..78b3c067fea7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1061,6 +1061,9 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_par=
-ser *p,
->                         r =3D amdgpu_ring_parse_cs(ring, p, job, ib);
->                         if (r)
->                                 return r;
-> +
-> +                       if (ib->sa_bo)
-> +                               ib->gpu_addr =3D  amdgpu_sa_bo_gpu_addr(i=
-b->sa_bo);
->                 } else {
->                         ib->ptr =3D (uint32_t *)kptr;
->                         r =3D amdgpu_ring_patch_cs_in_place(ring, p, job,=
- ib);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v4_0_3.c
-> index ad524ddc9760..6ccf61d7c13d 100644
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> index ad524ddc9760..f4662920c653 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> @@ -782,7 +782,11 @@ void jpeg_v4_0_3_dec_ring_emit_ib(struct amdgpu_ring=
- *ring,
+> @@ -782,11 +782,11 @@ void jpeg_v4_0_3_dec_ring_emit_ib(struct
+> amdgpu_ring *ring,
 >
->         amdgpu_ring_write(ring, PACKETJ(regUVD_LMI_JRBC_IB_VMID_INTERNAL_=
-OFFSET,
->                 0, 0, PACKETJ_TYPE0));
-> -       amdgpu_ring_write(ring, (vmid | (vmid << 4)));
-> +
-> +       if (ring->funcs->parse_cs)
-> +               amdgpu_ring_write(ring, 0);
-> +       else
-> +               amdgpu_ring_write(ring, (vmid | (vmid << 4)));
-
-This part doesn't make sense to me.  If we use vmid 0, we'll need to
-also patch any addresses in the IB itself to use vmid 0 as well unless
-there is a way to use a vmid 0 address for the IB base, but a
-different vmid for the addresses in the IB.  If it's the latter, then
-we need to make sure that is set up and specify the vmid to use.
-
+>       amdgpu_ring_write(ring,
+> PACKETJ(regUVD_LMI_JRBC_IB_VMID_INTERNAL_OFFSET,
+>               0, 0, PACKETJ_TYPE0));
+> -     amdgpu_ring_write(ring, (vmid | (vmid << 4)));
+> +     amdgpu_ring_write(ring, (vmid | (vmid << 4) | (vmid << 8)));
 >
->         amdgpu_ring_write(ring, PACKETJ(regUVD_LMI_JPEG_VMID_INTERNAL_OFF=
-SET,
->                 0, 0, PACKETJ_TYPE0));
-> @@ -1084,6 +1088,7 @@ static const struct amdgpu_ring_funcs jpeg_v4_0_3_d=
-ec_ring_vm_funcs =3D {
->         .get_rptr =3D jpeg_v4_0_3_dec_ring_get_rptr,
->         .get_wptr =3D jpeg_v4_0_3_dec_ring_get_wptr,
->         .set_wptr =3D jpeg_v4_0_3_dec_ring_set_wptr,
-> +       .parse_cs =3D jpeg_v4_0_3_dec_ring_parse_cs,
->         .emit_frame_size =3D
->                 SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
->                 SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 8 +
-> @@ -1248,3 +1253,54 @@ static void jpeg_v4_0_3_set_ras_funcs(struct amdgp=
-u_device *adev)
->  {
->         adev->jpeg.ras =3D &jpeg_v4_0_3_ras;
->  }
-> +
-> +/**
-> + * jpeg_v4_0_3_dec_ring_parse_cs - command submission parser
-> + *
-> + * @parser: Command submission parser context
-> + * @job: the job to parse
-> + * @ib: the IB to parse
-> + *
-> + * Parse the command stream, return -EINVAL for invalid packet
-> + * 0 otherwise
-> + */
-> +int jpeg_v4_0_3_dec_ring_parse_cs(struct amdgpu_cs_parser *parser,
-> +                            struct amdgpu_job *job,
-> +                            struct amdgpu_ib *ib)
-> +{
-> +       uint32_t i, reg, res, cond, type;
-> +
-> +       for (i =3D 0; i < ib->length_dw ; i +=3D 2) {
-> +               reg  =3D CP_PACKETJ_GET_REG(ib->ptr[i]);
-> +               res  =3D CP_PACKETJ_GET_RES(ib->ptr[i]);
-> +               cond =3D CP_PACKETJ_GET_COND(ib->ptr[i]);
-> +               type =3D CP_PACKETJ_GET_TYPE(ib->ptr[i]);
-> +
-> +               if(res) /* only support 0 at the moment */
-
-space between if and (.
-
-> +                       return -EINVAL;
-> +
-> +               switch (type) {
-> +               case PACKETJ_TYPE0:
-> +                       if (cond !=3D PACKETJ_CONDITION_CHECK0 || reg < J=
-PEG_REG_RANGE_START || reg > JPEG_REG_RANGE_END) {
-> +                               DRM_ERROR("Invalid packet [0x%08x]!\n", i=
-b->ptr[i]);
-
-use dev_err() so we can differentiate between multiple GPUs.
-
-> +                               return -EINVAL;
-> +                       }
-> +                       break;
-> +               case PACKETJ_TYPE3:
-> +                       if (cond !=3D PACKETJ_CONDITION_CHECK3 || reg < J=
-PEG_REG_RANGE_START || reg > JPEG_REG_RANGE_END) {
-> +                               DRM_ERROR("Invalid packet [0x%08x]!\n", i=
-b->ptr[i]);
-
-Same here.
-
-> +                               return -EINVAL;
-> +                       }
-> +                       break;
-> +               case PACKETJ_TYPE6:
-> +                       if (ib->ptr[i] =3D=3D CP_PACKETJ_NOP)
-> +                               continue;
-> +                       return -EINVAL;
-> +               default:
-> +                       DRM_ERROR("Unknown packet type %d !\n", type);
-
-And here.
-
-> +                       return -EINVAL;
-> +               }
-> +       }
-> +
-> +       return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v4_0_3.h
-> index 747a3e5f6856..71c54b294e15 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h
-> @@ -46,6 +46,9 @@
+>       amdgpu_ring_write(ring,
+> PACKETJ(regUVD_LMI_JPEG_VMID_INTERNAL_OFFSET,
+>               0, 0, PACKETJ_TYPE0));
+> -     amdgpu_ring_write(ring, (vmid | (vmid << 4)));
+> +     amdgpu_ring_write(ring, (vmid | (vmid << 4) | (vmid << 8)));
 >
->  #define JRBC_DEC_EXTERNAL_REG_WRITE_ADDR                               0=
-x18000
->
-> +#define JPEG_REG_RANGE_START                                           0=
-x4000
-> +#define JPEG_REG_RANGE_END                                             0=
-x41c2
-> +
->  extern const struct amdgpu_ip_block_version jpeg_v4_0_3_ip_block;
->
->  void jpeg_v4_0_3_dec_ring_emit_ib(struct amdgpu_ring *ring,
-> @@ -62,5 +65,7 @@ void jpeg_v4_0_3_dec_ring_insert_end(struct amdgpu_ring=
- *ring);
->  void jpeg_v4_0_3_dec_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t r=
-eg, uint32_t val);
->  void jpeg_v4_0_3_dec_ring_emit_reg_wait(struct amdgpu_ring *ring, uint32=
-_t reg,
->                                         uint32_t val, uint32_t mask);
-> -
-> +int jpeg_v4_0_3_dec_ring_parse_cs(struct amdgpu_cs_parser *parser,
-> +                                 struct amdgpu_job *job,
-> +                                 struct amdgpu_ib *ib);
->  #endif /* __JPEG_V4_0_3_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_0_0.c
-> index d694a276498a..f4daff90c770 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> @@ -646,6 +646,7 @@ static const struct amdgpu_ring_funcs jpeg_v5_0_0_dec=
-_ring_vm_funcs =3D {
->         .get_rptr =3D jpeg_v5_0_0_dec_ring_get_rptr,
->         .get_wptr =3D jpeg_v5_0_0_dec_ring_get_wptr,
->         .set_wptr =3D jpeg_v5_0_0_dec_ring_set_wptr,
-> +       .parse_cs =3D jpeg_v4_0_3_dec_ring_parse_cs,
->         .emit_frame_size =3D
->                 SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
->                 SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 8 +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/am=
-dgpu/soc15d.h
-> index 2357ff39323f..e74e1983da53 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15d.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15d.h
-> @@ -76,6 +76,12 @@
->                          ((cond & 0xF) << 24) |                         \
->                          ((type & 0xF) << 28))
->
-> +#define CP_PACKETJ_NOP         0x60000000
-> +#define CP_PACKETJ_GET_REG(x)  ((x) & 0x3FFFF)
-> +#define CP_PACKETJ_GET_RES(x)  (((x) >> 18) & 0x3F)
-> +#define CP_PACKETJ_GET_COND(x) (((x) >> 24) & 0xF)
-> +#define CP_PACKETJ_GET_TYPE(x) (((x) >> 28) & 0xF)
-> +
->  /* Packet 3 types */
->  #define        PACKET3_NOP                                     0x10
->  #define        PACKET3_SET_BASE                                0x11
+>       amdgpu_ring_write(ring,
+>       PACKETJ(regUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET,
+>               0, 0, PACKETJ_TYPE0));
 > --
-> 2.34.1
->
+> 2.45.2
+
