@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B08A5C52D6F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 07:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 295E2C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 07:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E5C010E440;
-	Wed,  7 Aug 2024 07:56:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99DF10E441;
+	Wed,  7 Aug 2024 07:57:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T4qScsyK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Jx2DX0oR";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72BB310E441
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:56:49 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2065.outbound.protection.outlook.com [40.107.100.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBA1610E441
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:56:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PyRrntF0yAeohRfFuNh2z//4vUGYyeOVVFFohzKGbtBsXmClA+Ub0iT7Zm4bAU02D+On55vk4SzYRXDBDenu7bVMoDDnaDmMS6pzO8iQjZoQIYXfis4js90idTjwb+vM4qcl6s7+VOqoqwX7IN4BxiR+FDY9GdpvPOWnUU92uWagnF5rlAd6b0BwovlXMMnIT8m5shCUTvhqXAMdnoBjclXSgTX/GeJLhgziAWhQKtR7DP6lo9lh+hKaECZ4rN9gu+67IjtWzewFerDRLXtdE9A+VWIZXl9HEhGzMtE98XM77SohRIBepZliEgo2Omc6DN5XT2xxtlwQURW86/qZ/w==
+ b=bOwG5fDtUGj5hQd2iaHJ7ttMP/yoIIsTFktv5WNc77c/x9iHC/keQhYXTU/DHEz9QZ5GLB/A0RQPYuA/2RzUBNwZt9RFYvtwex8CLcPevDcDJwXpk5FwVi8kRIG5+WB9DZJeytaeeESvCUlTX+rrppVcxtV/E2brbQXbmjs+VvYQGGXBXHYRk/79BB/jT8O76rBq3aqiLUNAVesB498ps1pnWYVwgoozNrWEajSx5TYMGZ4UxTFICoo0udQRZjE3Up7zdzk3J4no/AjraOfjgQw90LwUObGWEG2cbh0KVxCZA7m5mgEnzxxd2unXtWIy/gAauXT1l76XiwGXkaSzCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qYs401uDFpFcHK65gUMphvcGkyVcSMQLdoRjy3xu8qg=;
- b=pflElxfHbmNtBb6xWWMe1JD6nL3cayLqj7gIlatfjHixNzntprKWeWdli2U107vUfGw6wrVqbu+ICc55LEjQNgk7xLZh/CD1o7wTdqzJ9PSjFnYtcSe91KQfuRpFv3Z3fz/LvHKmYGlJGhSAJR93F6sUshxNMacmYk6L5jv/waoIrVsoNhfma00jETAgsYtkX7L7E/UUDIt8s9dsnyE4qeI6xeqxFVNrY1AxnyHQKfWxQo3ctd1FwWqVs5v25AA+aIjFtDkvSUVn2B6IHSzZT6hDu9OrOMg+ddn34yIlfMByp4axeFNSTXav8Jc4qCrEg39y9pxDk+0VqOJDU8icUA==
+ bh=/nVceRLYQ7jj+w1xMLGBGl4UJD2/1nEcNK67yU3CUko=;
+ b=WowJF6fxfATZy+EsVLzydsIDpj6du5pSgTplhVjjK3J6InsXE5ykLCVEFWtGIQJ/39We+8lCY05Aj1nkapmRYkasETsiPsE3v/GvqYGMMbc2H+DYMxPCwkFBLeSWuP0uWh8Ep3vXnQOW/nh+vlFM3Cghr6hUFYUtbX2fZ57saiOnoe6SBWDvDcHNdur2QSMm6j/oM2haLHp5m8gViBTeFM66+MQycQ+j/Gya7/g7NrJoDxHvKdtPo3+RXHhdb45uYWW44pREaMbE66nOC61UzPC4LLKkaVRSykLXBkTbM6j84gi0ozsZbSbVy2Mc1Cx5pBsTdwXBCSs1KUR8a4BxkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qYs401uDFpFcHK65gUMphvcGkyVcSMQLdoRjy3xu8qg=;
- b=T4qScsyKOmOOn9/yJzjyLkKHWmcOc2RPVlWKRxuV4u+KGbTTV23HLqe1aXJuvVL6WXDoEJG/uCOk7LwwBpHGdve0DSvC5JOVEMBk9+We5ddXgT+7QRogqrmZN/O1+4F0Yv9aj+YBfw+ydzjHcgeFj8nS5vhaoHlrZj3rE+mvWgk=
-Received: from BN9PR03CA0785.namprd03.prod.outlook.com (2603:10b6:408:13f::10)
- by DS0PR12MB8366.namprd12.prod.outlook.com (2603:10b6:8:f9::17) with
+ bh=/nVceRLYQ7jj+w1xMLGBGl4UJD2/1nEcNK67yU3CUko=;
+ b=Jx2DX0oRUmFvMEW7pW28CRd13zS5uGed1oAH146HCoHtF/VTTnq9dd5jPLxKdQ2SHCQLrFCnXm0Gx0NEF0B/GYSCJyaD8Q05Y8MgS7TaDHvEcdxiRb+P9+Xe+j1ZVxqcL3sE+fGiZnZ5R6sL1es9A9b/DjKFe6C670A0lgWZBCA=
+Received: from BN9PR03CA0251.namprd03.prod.outlook.com (2603:10b6:408:ff::16)
+ by CY5PR12MB6432.namprd12.prod.outlook.com (2603:10b6:930:38::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.27; Wed, 7 Aug
- 2024 07:56:46 +0000
-Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
- (2603:10b6:408:13f:cafe::72) by BN9PR03CA0785.outlook.office365.com
- (2603:10b6:408:13f::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.28 via Frontend
- Transport; Wed, 7 Aug 2024 07:56:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.13; Wed, 7 Aug
+ 2024 07:56:54 +0000
+Received: from BN2PEPF000044AA.namprd04.prod.outlook.com
+ (2603:10b6:408:ff:cafe::b) by BN9PR03CA0251.outlook.office365.com
+ (2603:10b6:408:ff::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.29 via Frontend
+ Transport; Wed, 7 Aug 2024 07:56:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,86 +48,84 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
+ BN2PEPF000044AA.mail.protection.outlook.com (10.167.243.105) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 07:56:46 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 07:56:54 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
- 2024 02:56:45 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 02:56:54 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
- 2024 02:56:45 -0500
+ 2024 02:56:53 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 7 Aug 2024 02:56:37 -0500
+ Transport; Wed, 7 Aug 2024 02:56:45 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Hung <alex.hung@amd.com>
-Subject: [PATCH 10/24] drm/amd/display: Check null pointer before try to
- access it
-Date: Wed, 7 Aug 2024 15:55:32 +0800
-Message-ID: <20240807075546.831208-11-chiahsuan.chung@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 11/24] drm/amd/display: Fix print format specifiers in
+ DC_LOG_IPS
+Date: Wed, 7 Aug 2024 15:55:33 +0800
+Message-ID: <20240807075546.831208-12-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240807075546.831208-1-chiahsuan.chung@amd.com>
 References: <20240807075546.831208-1-chiahsuan.chung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: chiahsuan.chung@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|DS0PR12MB8366:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd4755c6-d94d-4845-1406-08dcb6b67c1c
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AA:EE_|CY5PR12MB6432:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3c76706-7c84-4e79-2d51-08dcb6b68125
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TL9LBAK69apDHeUQ2kYcQVEvjccMzHzperwsA7UjEMffg7fnBCVoYvvGmjVs?=
- =?us-ascii?Q?MNK/SJPmC5r/OfQzKfqDdGP0DU12PihyncsZba9pNkO9INfXCGMqxX9yfoH2?=
- =?us-ascii?Q?U9GQhWpZV2In/XG+VfmruBbQn88ZDkIgteumCboLoMkQ0NUues+SQ6nw2Ebi?=
- =?us-ascii?Q?UbijpxeWtO5X40nun3JiHBXjhoiwmxtlaXaBQrUBDHSckZmIPOc08kuhkdd5?=
- =?us-ascii?Q?H96D89vGH2WRvNo5+tRTYOiCqq4CWxD5ju3fLz0/nLupvtMBHeDr3hIlYDEH?=
- =?us-ascii?Q?tqipvQDftNDvipPIXqgrIViDZc8VXEw/spHGDv29ZfBSp+Y2gyG+TFrT++S/?=
- =?us-ascii?Q?cdtVbuV7xmPXmrnSJlgCXaHGcrYhw8GNLE/ei54TEPYIBl1wYDdTD3V6ny+2?=
- =?us-ascii?Q?b/nIV2iSwKO8gyJM2/lMHwrKe+aBNR6irlk01XTZjupXOx7OvsGvf0R8qT7y?=
- =?us-ascii?Q?sicJXT89ar+4eCbuSbfTD2cCEbYgWbPPZl8dZMZRGtvFl3QTXTRtKkxrxUkP?=
- =?us-ascii?Q?qyf9i4uzJyCS7slM5iE5vXKM5SixqpgTfPA4B87m+EwK1n6jqJ1/mBChFpt2?=
- =?us-ascii?Q?XsNqIdghNg2kO4QawXsIxSZhu6/b/QgSGZZnjxXOg7Hv2hyUWeUW9K2IsFG0?=
- =?us-ascii?Q?/j6NH4S+Ow2xPQAsUEwSqBapdLjwPTs8lFM0dn17Fp5xA5fqDyXZ+fY8L30S?=
- =?us-ascii?Q?WfE9zYYJ3qsTLlj9dJNqECMbtH9qkxH1lwxxvz2cb+BsV/1itt59vcbZ0s+R?=
- =?us-ascii?Q?92trVyZY8/xOPt6OhJXjIX4g/sFjl+boo8s3pdxk4RIXUGveEY3v+1ajEVgh?=
- =?us-ascii?Q?Mb0il6cdj13j/iSjSMB/5iDgKQDNx0by5LF2OSeh1ZbgV/PrE6+48kRwmJGo?=
- =?us-ascii?Q?6OWD90qgL9nMkj1AAM6ha75jxFUxYQUQLT68vTC/EmDJ4zFRf2evVFP3pBEi?=
- =?us-ascii?Q?6PWYuTYQB55k6dfLa+DrMnSL7sIeZ7tswM618bbvvmLa8dZtCGwXs1P9ftdJ?=
- =?us-ascii?Q?E/LUEVx9+dl6Cj+UkXQDcGg+hnD8eSlx3+PI0ghSGTxySgQubEmzOTZSmvxX?=
- =?us-ascii?Q?JlymwnArYvbYpEKg+Xk0GGAvNDn3W20VaJAHTcJGnccwwgu1XuKSiHhWP+oE?=
- =?us-ascii?Q?sVx02l75poCoAlo0e9cy1YsA/5dgdYChpZ7QnnBpPlFYNeGVjpcOhWXHCbe+?=
- =?us-ascii?Q?EJgQLnti/6E8HovKZj8pgNmfMMteXWsRtkhpk9NmUgvp1GxBVb3WN8MpllJ6?=
- =?us-ascii?Q?hxuZfDbef67Ce81pTQr3gmYjCLB983KIQjo6HBaQ58lvzokUF9dYtC7SwZX2?=
- =?us-ascii?Q?3SRjHtkYlFObGbdlUkiKWFpmIlD/Ef2Qc9C4xjly4+4lFawsrqyohDhHfhYy?=
- =?us-ascii?Q?IzjCrq+3wKRdpNfoyWI1370bX9FTeOSa5eZ21I2a9+no7Ejwl6xkIhWMam53?=
- =?us-ascii?Q?/sU1nsBB2p+4zxeZoMgSAGKNPV/4rIUz?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WEx/UTqeBDVl6nTO7xggRKjpxxW68TGf0aVkLLQn8+mC9KdwLxbU78F2iRrY?=
+ =?us-ascii?Q?2bPMpYTOtHcRAd4e4ZhrOmZ+Tso1QqFQtHd8tFyMPTVeoW9HEJHP5K7EtBlR?=
+ =?us-ascii?Q?e3grwGsz1bPZRlGveY1HvyDatxHyCsiTrb34J0UX8Cos3+JUhvubZ8JgvknO?=
+ =?us-ascii?Q?uqDDZcTO2AOFAv4Bn5xD7Pvg8EzK3WUZGmNVWvarLIq+hkesU8lHPHuZibq9?=
+ =?us-ascii?Q?Edh0vwG7GttFou8lxQ6c4mDhB2Pvjuni2k+me5Vvvi/6ovjbiDrGxHWRmTKN?=
+ =?us-ascii?Q?HFGN0Za41//nzq3VHy7ubIs1zKsG77fhQJTehQs8iLWsytX1b81ShWlCu5rD?=
+ =?us-ascii?Q?yqWpAn8F6WBApqxCMOwtSsRUNiXZlmCI0tUrxlbQL179bbfCPOLQzpvjrCrh?=
+ =?us-ascii?Q?x7fnwNSIVsWpKaqU7jmt5TV5enRX4d8IFuXzN+mF9QyUuYvZ/AvbSQ0uH8td?=
+ =?us-ascii?Q?ib/KmwdfCBM4BI0BBt5afXu3G0c2EQOVNHmprWkS3RyZgiu8mos1jvg0BD3D?=
+ =?us-ascii?Q?cLyu5X8zsJKuuZqsfWZSJTQ4aToocbQOmrQlmAEznNZmWopB8rs3WIpW424r?=
+ =?us-ascii?Q?Z2J8Xf4MjFdT9V46JSpV1VzXx9DVDQzw9nglYMg1S44HVPlwl1H56JEd/o66?=
+ =?us-ascii?Q?+sTCXe8NSHcsEV1mFYzoV5jzcNAmenp6SUJ5XsW8ZrHAtSuhSLxNiGMktP23?=
+ =?us-ascii?Q?ye5amBZTO1kND/tXhV7cYhMcljNf0OvuolJIuJaG1iT6l2tsdqQdDC2i0wMu?=
+ =?us-ascii?Q?64aF/CJvWjUsBaD2CDy5bOILoIw62atHSYUQdsXyY1975dvqtcuxmwaeUryn?=
+ =?us-ascii?Q?LzJSQpqCKFGX0TmWiYwty4RmdnORc7y9dnxOcmQJm2Z25u8U153ELhSjFLmw?=
+ =?us-ascii?Q?XBAFE0MLLSwkdep30DFGdlcWgsoh+T6z04AMRKGMF1xb53gaNdTzNVoTQK5/?=
+ =?us-ascii?Q?yRP8HO2eNS715kWPQm7XZHIkLH2CkIGHOPqepTBMOh5/rvPzypgPH5Az/xnX?=
+ =?us-ascii?Q?SIYal5qx0XeuSLEbd8zFf1OAVr8bHuagwMkN5w91J7EEH8Kp6IcU/hhfcL7/?=
+ =?us-ascii?Q?ua0pwuWNgquPDNbcj9DS6whvAVGccrb4WQDfVk0bj1z1x/XCYCTKwUA6g20w?=
+ =?us-ascii?Q?uBP74HKQgHBi00d9fSqFkegP6SvNVgp9XVE3jAgOJDWOyzFss9RIXsccZdiv?=
+ =?us-ascii?Q?3fC9kiIOCDyWeas8+RBfwIUDVUMzYBTFTOgEKuaTXDiuvJlSFkRx7IYCFVeZ?=
+ =?us-ascii?Q?o9pEeqejlSt/DTKNxPofXYChOb109eqKNqnfswgLh2gUCGT0IRBaeVDvPysU?=
+ =?us-ascii?Q?3dUqiCrJCxP0ndVIxHLNvoKbsK1kqG+p49VGjnS8ycZDK1ZEOY2DfjQpfi4S?=
+ =?us-ascii?Q?Ca4GX232U7p9QHJVy2qUVipwmaPshjTslctGrl3B/S8U34kxiHLttbwV8BrH?=
+ =?us-ascii?Q?HsT3DdcQJHtH4vO8M7IsgKnjhSfGBDxS?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 07:56:46.1660 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd4755c6-d94d-4845-1406-08dcb6b67c1c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 07:56:54.5674 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3c76706-7c84-4e79-2d51-08dcb6b68125
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8366
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6432
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,61 +140,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Roman Li <Roman.Li@amd.com>
 
-[why & how]
-Make sure plane_state is not null before calling a function
-that dereferences it. Besides, remove redundant codes.
+[Why]
+%d specifier is used for printing unsigned values.
+It can result in negative values in logs for unsigned variables.
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+[How]
+Replace %d with %u for unsigned.
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 22 +++++++------------
- 1 file changed, 8 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 26 ++++++++++----------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index a68da1a7092d..a80c08582932 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1928,15 +1928,10 @@ static void dcn20_program_pipe(
- 	    pipe_ctx->stream->update_flags.raw)
- 		dcn20_update_dchubp_dpp(dc, pipe_ctx, context);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index 41270fade5f2..b1265124608b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1285,7 +1285,7 @@ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
+ 		union dmub_shared_state_ips_driver_signals new_signals;
  
--	if (pipe_ctx->update_flags.bits.enable ||
--	    (pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.bits.hdr_mult))
--		hws->funcs.set_hdr_multiplier(pipe_ctx);
--
--	if ((pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.bits.hdr_mult) ||
--	    pipe_ctx->update_flags.bits.enable)
-+	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
-+	    pipe_ctx->plane_state->update_flags.bits.hdr_mult))
- 		hws->funcs.set_hdr_multiplier(pipe_ctx);
- 
--
- 	if (hws->funcs.populate_mcm_luts) {
- 		if (pipe_ctx->plane_state) {
- 			hws->funcs.populate_mcm_luts(dc, pipe_ctx, pipe_ctx->plane_state->mcm_luts,
-@@ -1944,13 +1939,12 @@ static void dcn20_program_pipe(
- 			pipe_ctx->plane_state->lut_bank_a = !pipe_ctx->plane_state->lut_bank_a;
- 		}
+ 		DC_LOG_IPS(
+-			"%s wait idle (ips1_commit=%d ips2_commit=%d)",
++			"%s wait idle (ips1_commit=%u ips2_commit=%u)",
+ 			__func__,
+ 			ips_fw->signals.bits.ips1_commit,
+ 			ips_fw->signals.bits.ips2_commit);
+@@ -1331,7 +1331,7 @@ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
  	}
--	if ((pipe_ctx->plane_state &&
--	     pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change) ||
--	    (pipe_ctx->plane_state &&
--	     pipe_ctx->plane_state->update_flags.bits.gamma_change) ||
--	    (pipe_ctx->plane_state &&
--	     pipe_ctx->plane_state->update_flags.bits.lut_3d) ||
--	     pipe_ctx->update_flags.bits.enable)
-+
-+	if (pipe_ctx->plane_state &&
-+	    (pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
-+	    pipe_ctx->plane_state->update_flags.bits.gamma_change ||
-+	    pipe_ctx->plane_state->update_flags.bits.lut_3d ||
-+	    pipe_ctx->update_flags.bits.enable))
- 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
  
- 	/* dcn10_translate_regamma_to_hw_format takes 750us to finish
+ 	DC_LOG_IPS(
+-		"%s send allow_idle=%d (ips1_commit=%d ips2_commit=%d)",
++		"%s send allow_idle=%d (ips1_commit=%u ips2_commit=%u)",
+ 		__func__,
+ 		allow_idle,
+ 		ips_fw->signals.bits.ips1_commit,
+@@ -1374,7 +1374,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 		dc_dmub_srv->driver_signals = ips_driver->signals;
+ 
+ 		DC_LOG_IPS(
+-			"%s (allow ips1=%d ips2=%d) (commit ips1=%d ips2=%d) (count rcg=%d ips1=%d ips2=%d)",
++			"%s (allow ips1=%u ips2=%u) (commit ips1=%u ips2=%u) (count rcg=%u ips1=%u ips2=%u)",
+ 			__func__,
+ 			ips_driver->signals.bits.allow_ips1,
+ 			ips_driver->signals.bits.allow_ips2,
+@@ -1393,7 +1393,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 		    (!dc->debug.optimize_ips_handshake ||
+ 		     ips_fw->signals.bits.ips2_commit || !ips_fw->signals.bits.in_idle)) {
+ 			DC_LOG_IPS(
+-				"wait IPS2 eval (ips1_commit=%d ips2_commit=%d)",
++				"wait IPS2 eval (ips1_commit=%u ips2_commit=%u)",
+ 				ips_fw->signals.bits.ips1_commit,
+ 				ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1402,7 +1402,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 
+ 			if (ips_fw->signals.bits.ips2_commit) {
+ 				DC_LOG_IPS(
+-					"exit IPS2 #1 (ips1_commit=%d ips2_commit=%d)",
++					"exit IPS2 #1 (ips1_commit=%u ips2_commit=%u)",
+ 					ips_fw->signals.bits.ips1_commit,
+ 					ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1410,7 +1410,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 				dc->clk_mgr->funcs->exit_low_power_state(dc->clk_mgr);
+ 
+ 				DC_LOG_IPS(
+-					"wait IPS2 entry delay (ips1_commit=%d ips2_commit=%d)",
++					"wait IPS2 entry delay (ips1_commit=%u ips2_commit=%u)",
+ 					ips_fw->signals.bits.ips1_commit,
+ 					ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1418,14 +1418,14 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 				udelay(dc->debug.ips2_entry_delay_us);
+ 
+ 				DC_LOG_IPS(
+-					"exit IPS2 #2 (ips1_commit=%d ips2_commit=%d)",
++					"exit IPS2 #2 (ips1_commit=%u ips2_commit=%u)",
+ 					ips_fw->signals.bits.ips1_commit,
+ 					ips_fw->signals.bits.ips2_commit);
+ 
+ 				dc->clk_mgr->funcs->exit_low_power_state(dc->clk_mgr);
+ 
+ 				DC_LOG_IPS(
+-					"wait IPS2 commit clear (ips1_commit=%d ips2_commit=%d)",
++					"wait IPS2 commit clear (ips1_commit=%u ips2_commit=%u)",
+ 					ips_fw->signals.bits.ips1_commit,
+ 					ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1433,7 +1433,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 					udelay(1);
+ 
+ 				DC_LOG_IPS(
+-					"wait hw_pwr_up (ips1_commit=%d ips2_commit=%d)",
++					"wait hw_pwr_up (ips1_commit=%u ips2_commit=%u)",
+ 					ips_fw->signals.bits.ips1_commit,
+ 					ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1441,7 +1441,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 					ASSERT(0);
+ 
+ 				DC_LOG_IPS(
+-					"resync inbox1 (ips1_commit=%d ips2_commit=%d)",
++					"resync inbox1 (ips1_commit=%u ips2_commit=%u)",
+ 					ips_fw->signals.bits.ips1_commit,
+ 					ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1452,7 +1452,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 		dc_dmub_srv_notify_idle(dc, false);
+ 		if (prev_driver_signals.bits.allow_ips1) {
+ 			DC_LOG_IPS(
+-				"wait for IPS1 commit clear (ips1_commit=%d ips2_commit=%d)",
++				"wait for IPS1 commit clear (ips1_commit=%u ips2_commit=%u)",
+ 				ips_fw->signals.bits.ips1_commit,
+ 				ips_fw->signals.bits.ips2_commit);
+ 
+@@ -1460,7 +1460,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 				udelay(1);
+ 
+ 			DC_LOG_IPS(
+-				"wait for IPS1 commit clear done (ips1_commit=%d ips2_commit=%d)",
++				"wait for IPS1 commit clear done (ips1_commit=%u ips2_commit=%u)",
+ 				ips_fw->signals.bits.ips1_commit,
+ 				ips_fw->signals.bits.ips2_commit);
+ 		}
+@@ -1469,7 +1469,7 @@ static void dc_dmub_srv_exit_low_power_state(const struct dc *dc)
+ 	if (!dc_dmub_srv_is_hw_pwr_up(dc->ctx->dmub_srv, true))
+ 		ASSERT(0);
+ 
+-	DC_LOG_IPS("%s exit (count rcg=%d ips1=%d ips2=%d)",
++	DC_LOG_IPS("%s exit (count rcg=%u ips1=%u ips2=%u)",
+ 		__func__,
+ 		rcg_exit_count,
+ 		ips1_exit_count,
 -- 
 2.34.1
 
