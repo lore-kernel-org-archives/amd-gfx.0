@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6DE6C52D7C
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 08:46:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34026C52D7D
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 08:46:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E941D10E475;
-	Wed,  7 Aug 2024 08:45:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D70E10E466;
+	Wed,  7 Aug 2024 08:45:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mA4jZuuQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZiJBPqzw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mA4jZuuQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZiJBPqzw";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oGj4IbHH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y714tgA3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oGj4IbHH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y714tgA3";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 408F510E466;
- Wed,  7 Aug 2024 08:45:47 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 928E210E463;
+ Wed,  7 Aug 2024 08:45:45 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CB8D21FB90;
- Wed,  7 Aug 2024 08:45:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2861221D04;
+ Wed,  7 Aug 2024 08:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723020345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1723020344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YGsEaSxnixzB8ZMaOx0qc0Ki/EQVSPO9IKhWAD7O9ig=;
- b=mA4jZuuQT1EiSFpKS20WX2r3bld89k3AwflQBpxGtkXO8ISrUWF7w2aFaveq3gWONaQeO5
- rpjwll3hMWWDSzL3Qfr9ZR+yfUFvYxiPLb/GPF7HDen8oF6HldSayFarDBHd4tzf1n+M5a
- 6Epxtnp26ijSGrXTaU5DVYuw7gfIwcY=
+ bh=EhSMyHJ4JX9O+w+eoZQstAqo6edtpuWyyubJ5xF/qkY=;
+ b=oGj4IbHHC0d10AU0ZisxWoICpSmpEAoBxonUL0/NcM6BUmxpG0oet6xJFGe1QsbGp7hh4v
+ pb/iT8WBu6qkOn3Wr0AIj0lWYmdCk6r6+jTQ6zvMNvqQiKTYcHUlSogB4CqokZKZp3CLzc
+ 34ZVJh73jJ5eKB81cXFshH4VwfEcWUE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723020345;
+ s=susede2_ed25519; t=1723020344;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YGsEaSxnixzB8ZMaOx0qc0Ki/EQVSPO9IKhWAD7O9ig=;
- b=ZiJBPqzwJ3xCV8Y9XsojXiOeTaUCmvkRT/qoqopIJF2zYDHLzr5xqjZAyvbpBX3v9V1sHa
- MxwDo1/YRuWmynCg==
-Authentication-Results: smtp-out2.suse.de;
+ bh=EhSMyHJ4JX9O+w+eoZQstAqo6edtpuWyyubJ5xF/qkY=;
+ b=Y714tgA301tj8xFkRVNBgwmJJgc+UrZeJmhr96IAHxBF4cysWWBCN1pzITUWckdGlnTKOe
+ sv9Y7HAhd3NAzQBg==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723020345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1723020344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YGsEaSxnixzB8ZMaOx0qc0Ki/EQVSPO9IKhWAD7O9ig=;
- b=mA4jZuuQT1EiSFpKS20WX2r3bld89k3AwflQBpxGtkXO8ISrUWF7w2aFaveq3gWONaQeO5
- rpjwll3hMWWDSzL3Qfr9ZR+yfUFvYxiPLb/GPF7HDen8oF6HldSayFarDBHd4tzf1n+M5a
- 6Epxtnp26ijSGrXTaU5DVYuw7gfIwcY=
+ bh=EhSMyHJ4JX9O+w+eoZQstAqo6edtpuWyyubJ5xF/qkY=;
+ b=oGj4IbHHC0d10AU0ZisxWoICpSmpEAoBxonUL0/NcM6BUmxpG0oet6xJFGe1QsbGp7hh4v
+ pb/iT8WBu6qkOn3Wr0AIj0lWYmdCk6r6+jTQ6zvMNvqQiKTYcHUlSogB4CqokZKZp3CLzc
+ 34ZVJh73jJ5eKB81cXFshH4VwfEcWUE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723020345;
+ s=susede2_ed25519; t=1723020344;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YGsEaSxnixzB8ZMaOx0qc0Ki/EQVSPO9IKhWAD7O9ig=;
- b=ZiJBPqzwJ3xCV8Y9XsojXiOeTaUCmvkRT/qoqopIJF2zYDHLzr5xqjZAyvbpBX3v9V1sHa
- MxwDo1/YRuWmynCg==
+ bh=EhSMyHJ4JX9O+w+eoZQstAqo6edtpuWyyubJ5xF/qkY=;
+ b=Y714tgA301tj8xFkRVNBgwmJJgc+UrZeJmhr96IAHxBF4cysWWBCN1pzITUWckdGlnTKOe
+ sv9Y7HAhd3NAzQBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E58A13297;
- Wed,  7 Aug 2024 08:45:45 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3AAA13297;
+ Wed,  7 Aug 2024 08:45:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qCSDGTk0s2ZmfQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 07 Aug 2024 08:45:45 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yPuALjc0s2ZmfQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 07 Aug 2024 08:45:43 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, kherbst@redhat.com, lyude@redhat.com, dakr@redhat.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 8/8] drm: Remove struct
+Subject: [PATCH 4/8] drm/nouveau: Do not set struct
  drm_mode_config_funcs.output_poll_changed
-Date: Wed,  7 Aug 2024 10:41:40 +0200
-Message-ID: <20240807084539.304014-9-tzimmermann@suse.de>
+Date: Wed,  7 Aug 2024 10:41:36 +0200
+Message-ID: <20240807084539.304014-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240807084539.304014-1-tzimmermann@suse.de>
 References: <20240807084539.304014-1-tzimmermann@suse.de>
@@ -114,80 +114,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The output_poll_changed hook in struct drm_mode_config_funcs is
-unused. Remove it. The helper drm_client_dev_hotplug() implements
-the callback's functionality.
+The output_poll_changed hook was only necessary before in-kernel
+DRM clients existed, but is now obsolete. The client code handles
+display otplugging internally.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_probe_helper.c | 10 +---------
- include/drm/drm_mode_config.h      | 16 ----------------
- 2 files changed, 1 insertion(+), 25 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c   | 1 -
+ drivers/gpu/drm/nouveau/nouveau_display.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 285290067056..92f21764246f 100644
---- a/drivers/gpu/drm/drm_probe_helper.c
-+++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -714,7 +714,7 @@ EXPORT_SYMBOL(drm_helper_probe_single_connector_modes);
-  * @dev: drm_device whose connector state changed
-  *
-  * This function fires off the uevent for userspace and also calls the
-- * output_poll_changed function, which is most commonly used to inform the fbdev
-+ * client hotplug function, which is most commonly used to inform the fbdev
-  * emulation code and allow it to update the fbcon output configuration.
-  *
-  * Drivers should call this from their hotplug handling code when a change is
-@@ -730,11 +730,7 @@ EXPORT_SYMBOL(drm_helper_probe_single_connector_modes);
-  */
- void drm_kms_helper_hotplug_event(struct drm_device *dev)
- {
--	/* send a uevent + call fbdev */
- 	drm_sysfs_hotplug_event(dev);
--	if (dev->mode_config.funcs->output_poll_changed)
--		dev->mode_config.funcs->output_poll_changed(dev);
--
- 	drm_client_dev_hotplug(dev);
- }
- EXPORT_SYMBOL(drm_kms_helper_hotplug_event);
-@@ -750,11 +746,7 @@ void drm_kms_helper_connector_hotplug_event(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index e4c8ce6dd40a..eed579a6c858 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -2648,7 +2648,6 @@ nv50_disp_atomic_state_alloc(struct drm_device *dev)
+ static const struct drm_mode_config_funcs
+ nv50_disp_func = {
+ 	.fb_create = nouveau_user_framebuffer_create,
+-	.output_poll_changed = drm_fb_helper_output_poll_changed,
+ 	.atomic_check = nv50_disp_atomic_check,
+ 	.atomic_commit = nv50_disp_atomic_commit,
+ 	.atomic_state_alloc = nv50_disp_atomic_state_alloc,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index 8a87e9697a42..e2fd561cd23f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -391,7 +391,6 @@ nouveau_user_framebuffer_create(struct drm_device *dev,
  
--	/* send a uevent + call fbdev */
- 	drm_sysfs_connector_hotplug_event(connector);
--	if (dev->mode_config.funcs->output_poll_changed)
--		dev->mode_config.funcs->output_poll_changed(dev);
--
- 	drm_client_dev_hotplug(dev);
- }
- EXPORT_SYMBOL(drm_kms_helper_connector_hotplug_event);
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index ab0f167474b1..271765e2e9f2 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -97,22 +97,6 @@ struct drm_mode_config_funcs {
- 	 */
- 	const struct drm_format_info *(*get_format_info)(const struct drm_mode_fb_cmd2 *mode_cmd);
+ static const struct drm_mode_config_funcs nouveau_mode_config_funcs = {
+ 	.fb_create = nouveau_user_framebuffer_create,
+-	.output_poll_changed = drm_fb_helper_output_poll_changed,
+ };
  
--	/**
--	 * @output_poll_changed:
--	 *
--	 * Callback used by helpers to inform the driver of output configuration
--	 * changes.
--	 *
--	 * Drivers implementing fbdev emulation use drm_kms_helper_hotplug_event()
--	 * to call this hook to inform the fbdev helper of output changes.
--	 *
--	 * This hook is deprecated, drivers should instead implement fbdev
--	 * support with struct drm_client, which takes care of any necessary
--	 * hotplug event forwarding already without further involvement by
--	 * the driver.
--	 */
--	void (*output_poll_changed)(struct drm_device *dev);
--
- 	/**
- 	 * @mode_valid:
- 	 *
+ 
 -- 
 2.46.0
 
