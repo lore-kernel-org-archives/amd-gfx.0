@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7CF2C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 07:56:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F320C52D6F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 07:56:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7074F10E432;
-	Wed,  7 Aug 2024 07:56:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3AB310E436;
+	Wed,  7 Aug 2024 07:56:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PH1p9t1e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l/S97tNV";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D635710E43C
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:56:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4750510E436
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:56:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rGz2PwG7yXMIM2NT3Zxn+LufG0DF4vhTaej6hsVF7e9WvkAL3r1z/kwd+LzC/NsCVMHZeByCBDCS5w6aISA1ikLGiPKAOpIvgosS7FYO5Kp9R0nLB85rSdwJwZjLQm7ovhVFvBocLvbUJcV2qyC291UdCsDEfTmLvwZ6SfDo9hkM+rg/YdCyqtgMPzOFC3vfkr/1+VadCnO3srsb+najc0mOkeDMlPX43vur+6OtN6eA+GrfO9fJItOn8hPn1sH6iZtQaMAvDDMRlSdWAumvKV9pxbnHU6K514o0yL44zNZ8Pm+IiqwXhUYlnRKb78PkayOdpVjsQ4mZvKMz1RmLvg==
+ b=tqCaiL/Cex0w4z06I9CdnENJqanLUGlyFjMPMDyd0Mf/oGc6D8dIGlTbM4ir3+LK6qi1GYHVyjSg1FyGcNEWrnwkl+wfHpGn/xXpOZ3E9g+F9J2SA01tjWg7gB5Ly6EZQxvAGeeMffSUkrIjrbSHiT3RB8EmqkpK6wIdjSshv3TEqfh57vSm5hZKq0tCs9T77aVmG19meBiRHhYKgJAJ36JRz/Z9ehM+wR+bwoltwisYGUznhH6aB4myz2GwKIwl5T768xbzUw9lgbzhPtk1JN4Qp5rKyfvKo0wHpujz7Jtdu9Qru0YfkztSvIAmA8Ideyvr37VwK3MqEIJ0YZEgxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vL6LmSIiCN0U7nvC6Q+JkzmpjW++z1lV/PzmAkQW3e0=;
- b=MMB7UY0+JdAECnvdqQLEVslzZ3fodLp6779+zGk9e7Ijski6oN/DEdujRsCiFz1wTupLo03Kg/vq1xIZeAxcJRKNwwzKBUULVtJKcgm6V/HWysunTZLZCpg72LAowj147oJf6u7ilw8WqqXEBiVDL5iDFZu/htaIVrcCk05+gulZeinbOFAzgvEmRB6oCnrp8QtaMuQxCO+A/mH908XAz/PkhwSYHI9+iZCyZBCFOaKxxE5AM5Y13Boo5EozUjqgNBnfBCUi/Dmu1DI8CSHX5vKtSWISldKIgLbWdS2lFk0cxuu2ibm3XuvILKweWyfOtCbL9QvuMPoTJFv+Fpg3BQ==
+ bh=+I2VnPO/dULpu8APDsq1J2t+MU0qAtwrMO9IHWNKJtQ=;
+ b=uGHs73Gb2NWG23F+XUHqc0CnX2J+9sMZrEsIPiMJNIgW63nxHnbf91DiiuWb8ve6rt0U+yqG3NAQfrImz6ArwIQXmcOe00z+aw5SIgZnGZfyd+Ur5DoeHpn7jIc0CHt6FdQKBOzAKwP/CwGyRGOxdEvUtQhE878k1eXW8/zZ17uJ8Qe6evFcXRApEFo3KVd6CVxQH1nbGnAG0gY5I5wrdnfMhUagCI3x/B5b9xdFezLHXauf8NJ8+I/moj/gdEwQlf4XfM2EkdqWotCnx5OXfRZ5/FK4d2K8hO2g3zB149W2SKTWGiLN2GRKSwWJ2JZXP1VwCvj1v7ak+4WGDmaoiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vL6LmSIiCN0U7nvC6Q+JkzmpjW++z1lV/PzmAkQW3e0=;
- b=PH1p9t1e9HJgZfhjUfE9ikd4NQ3nMf+V5Soe4S0Zqa2zAdo6/cOwauZf4AsPn94zJBg7DrAFQ9xAkTh/raU3yH+pphEiCCWq9KJmHmjjhhoF4/0a+pAugFAcGbSad2T3/b2snvv33n8Jh7ytsgkfMcu+3nz+MVSqJw+6AfIhUAI=
-Received: from BN9PR03CA0498.namprd03.prod.outlook.com (2603:10b6:408:130::23)
- by DS7PR12MB8324.namprd12.prod.outlook.com (2603:10b6:8:ec::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7849.13; Wed, 7 Aug 2024 07:55:59 +0000
-Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
- (2603:10b6:408:130:cafe::9) by BN9PR03CA0498.outlook.office365.com
- (2603:10b6:408:130::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.29 via Frontend
- Transport; Wed, 7 Aug 2024 07:55:59 +0000
+ bh=+I2VnPO/dULpu8APDsq1J2t+MU0qAtwrMO9IHWNKJtQ=;
+ b=l/S97tNVdlWGuV1Qcptcqc+FZWOs6C8Ioh7kGwPYZAr3joakiipI159KzJL4eYxygiH2h52Y7bla37gerPVAkVnpMHP37yIPpLtBG9fXXiKYNhoHIarVIDgnDWSE9/+0IKnX9zKnwmNU7UxmtcOOAHk5vB4ztOZ9y4uC/Czz1CI=
+Received: from BN9PR03CA0602.namprd03.prod.outlook.com (2603:10b6:408:106::7)
+ by MW4PR12MB7335.namprd12.prod.outlook.com (2603:10b6:303:22b::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22; Wed, 7 Aug
+ 2024 07:56:04 +0000
+Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
+ (2603:10b6:408:106:cafe::68) by BN9PR03CA0602.outlook.office365.com
+ (2603:10b6:408:106::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.27 via Frontend
+ Transport; Wed, 7 Aug 2024 07:56:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,27 +48,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
+ BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 07:55:59 +0000
+ 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 07:56:03 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
- 2024 02:55:58 -0500
+ 2024 02:56:02 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 7 Aug 2024 02:55:55 -0500
+ Transport; Wed, 7 Aug 2024 02:55:59 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Wenjing Liu
- <wenjing.liu@amd.com>, Austin Zheng <austin.zheng@amd.com>
-Subject: [PATCH 02/24] drm/amd/display: apply vmin optimization even if it
- doesn't reach vmin level
-Date: Wed, 7 Aug 2024 15:55:24 +0800
-Message-ID: <20240807075546.831208-3-chiahsuan.chung@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Relja Vojvodic
+ <Relja.Vojvodic@amd.com>, Ilya Bakoulin <ilya.bakoulin@amd.com>
+Subject: [PATCH 03/24] drm/amd/display: 3DLUT non-DMA refactor
+Date: Wed, 7 Aug 2024 15:55:25 +0800
+Message-ID: <20240807075546.831208-4-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240807075546.831208-1-chiahsuan.chung@amd.com>
 References: <20240807075546.831208-1-chiahsuan.chung@amd.com>
@@ -79,51 +78,51 @@ Received-SPF: None (SATLEXMB03.amd.com: chiahsuan.chung@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS7PR12MB8324:EE_
-X-MS-Office365-Filtering-Correlation-Id: ede73ae3-6f0e-4a15-10da-08dcb6b66032
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|MW4PR12MB7335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9943466e-55a7-4719-249a-08dcb6b662cb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JAVLimGmy+x4kA9g6jA6UdZDlZEv7ALKjxxkphuPRWECH9zTr/IJTHhbIjpH?=
- =?us-ascii?Q?5JdY44M0amKwnCDZ49mzged8uaV4PNDXxzHTRZdtw1m1bsB4n7PN3cjqU2wo?=
- =?us-ascii?Q?UigY6dP476LgXWTOT7lpOCd8QyW6B06ptcXpQ6VYoKT7QlQCJQHqyqPqwUCj?=
- =?us-ascii?Q?fBF2WjMj5nRUjrZYBKJxaaJZqRYQS2+9pgNw47b3NDr9jb6RtjEhqZgsnzgd?=
- =?us-ascii?Q?gD2o8LrAZLEYb1Sz2qXjwT7jFmwMEvel/EpvCJEyaFUZiOTZIqKQy417o/Vh?=
- =?us-ascii?Q?L/4Tk2faZtAcftajB4ODv68zO1naDPnF3vppIl+KSOyYROfXt/fPdRo0dLoe?=
- =?us-ascii?Q?pjuSYwzjMkxGQRHGAQcuVU9dHEBAZXk2SnkqMV/3oUERfSU5OsBCihqzIlkp?=
- =?us-ascii?Q?OeNzSKgaIdvRGOjQudO80I8Z4XbJSUgxtyhGgEx3fWBjwffZasn8ugsXrBUc?=
- =?us-ascii?Q?b/8Rj414FTVi/0BpBIsTCfePl+IL5w4MI3NRdFmGx3tKjfCmDnwAsrAC4Z9M?=
- =?us-ascii?Q?r5Zn8/1OMFfu5vTwzx9E9Ws9D8qyVvyn72ua1+Lqbe4FUht0lIemSl4kBoPC?=
- =?us-ascii?Q?RvsgkSwlakDG3SFQSi2htPToefIc+qZhhnGMUokm6sF8e+CvmL+cCZdbq0rw?=
- =?us-ascii?Q?yqB0mJbYmMIJqeCVYBUUc4WaN+NyrWSzqGDQm/IO7z1SkWmtTg1Q5Q88l7hN?=
- =?us-ascii?Q?nTq8toKxVqSjOVXNTJ+vkG4V1k5+EywlKa/g/SbHJtHQccPB1M1ik7eDP84o?=
- =?us-ascii?Q?HXk+QKQYJPbR5/pivJViDm1U0eD1lplB8CRd01cxfdC8vE7apRIDLYKaLOzT?=
- =?us-ascii?Q?0BxCvRSqNe1Z10M6+VB/xI/+t+9+SMX2HarYS0RT7z6TbWaWs2Hng9F6umVS?=
- =?us-ascii?Q?iYN2MirXMfr40c1HTEEz4AiKEDyt06t8EYDxdN249c3r1lTxqqM4PZJgUVxu?=
- =?us-ascii?Q?4TYRQtBqnAb6tUpnRV/LIbZhFriliAl6ExLU/bmkRRDAWjpkR/NIsTTdV6S5?=
- =?us-ascii?Q?W/75amTRHE5nEQR6sIwQjDAt+q+qk4v6p9Zz7TUuqwU2+u1xCIWyIl3C6XsO?=
- =?us-ascii?Q?NKNNmzjNqkGLq5epngwScXfC+U+3DPBbD/q2ZSXMwgFmuVzWjxQO5iUVa/QU?=
- =?us-ascii?Q?FWW+rRDmGoDYI2q0DG/3ozWK24l/cAfCaMlw9lXoEPJWUrM1Xk+NzpLLc9vz?=
- =?us-ascii?Q?77HvMRXvANEJX5cYH5VqrriCdeESYqLFWg3D6tSF4SfiM9Vc+ytstvn1bTtg?=
- =?us-ascii?Q?aJlvt3x8hl+h10+3x5YbQMOx/GTavOi+Q2BTA+jTaMI850CP0W/O9LvqDcHA?=
- =?us-ascii?Q?F8FjDJGBct1P/Q/8yVJuIY6zl+/4iFPkyfON+Ma0Bzlrr15jupUkvKdmD96c?=
- =?us-ascii?Q?j0aCuzRqZRqjVRHrtd2wK2s+AK9XkCBvfUmPUDxyqtnyO98hcWg/wmUBZqim?=
- =?us-ascii?Q?tUcPCaz77ixA02kJNJwEAceUgTtgKUfi?=
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?I0ogFyN83gYG9qL9kK5aIHgIsoSFuN9Er2fsLJ86wDIzo6KyomIEc0mJ2EyR?=
+ =?us-ascii?Q?LILEvj2xY7aFswscKNPfUh2I6gnsdTWGq9+g0jymuiE9lLXJMacwKTHLJq9R?=
+ =?us-ascii?Q?2thw4tnfgtAT4vtcJ3rTJhBaKCtHQAx6svSP2SSDjobFMYtnn/P5r8P4dVDM?=
+ =?us-ascii?Q?F7h+u2KKBhkMWn5JvFTyB3TfiEkfyRb0SzU/qQb8f4UQvfNwxobhz3md/HHJ?=
+ =?us-ascii?Q?hZbTh+RUnTztqnCPHYeLjwPVRi+/PIrEp3116Aa6IxcsgjU4E8jVzXeqsQD8?=
+ =?us-ascii?Q?+o6tJ+9aQDZbhmTB2ualgvWAbahKvXDQJYY7HMkiBO8QXu8a8PDGyvun8PAm?=
+ =?us-ascii?Q?8UpChn+V6x+xgraKZ+534kiD9oHntH+ZT3hnDJPM5js47NJezXAXC03AjqZk?=
+ =?us-ascii?Q?uiCd1u0GlVYREZ96e3tMDcGc5IEv0g0ZCK8ceGJWWaFxFZbCGTtGF1T2lMcK?=
+ =?us-ascii?Q?PS3RANZQUHUxqpybH73Rti8pnQU+alqA/VQh06XA6ht61i4pYLsX5lfK94DI?=
+ =?us-ascii?Q?/H6z+6wdgej1yz7w8z3ys45lnn0wug9gGDNmL95R9+ZuPeIvPMV8PZa49ATc?=
+ =?us-ascii?Q?qlbY34tftX7A1+mSEex/O8dCVybmRFfSEVGX7BbEkSaakVO0w7FOUplc3TxL?=
+ =?us-ascii?Q?JtSZA15zU7IF1TAX1hkGqGlvtqVGLAekXvR7KcTzoK7rVPowXi3eH4weP5Jg?=
+ =?us-ascii?Q?pDlqo23Dhi5vw8JSaHVYgfKL7y2fmNxytZ2z+OV8k6a8/Sq7T2mKmyR/HOlh?=
+ =?us-ascii?Q?3dL3XtRVkt1nvBC6bFgJqOFOEoHYFHRLZ07YwVPxz5iDFR4+CkjGe7C3eeVk?=
+ =?us-ascii?Q?2REP4WDmye2xmozYMeYmrSyzT1iUl0WZ64eoqZVKDntfScVLLT4YoD4q4oDR?=
+ =?us-ascii?Q?he7/7rCwLno9LXVKqgUI2CJIlSfLibyYWJTXkTr9TGeHsOx50cTeJpkvO78u?=
+ =?us-ascii?Q?1tw1XV8DBHasKF5y6RU4+MgQmIFyKtvqJpD06emm12CBUDcf2LXkc1LIGK1t?=
+ =?us-ascii?Q?+XFWvrFjVdT5PfszweGxJc0GCCsmVvsAoWQA4I1KS6GituiOP9lDqLJ3qp+b?=
+ =?us-ascii?Q?iF8LEurb/XxnZqKHSU8LM6E+47FPqf1DBbbeS2X2Tr767zuaOAcgVwN2ZHhK?=
+ =?us-ascii?Q?KhgXNFXe5INW0ZRd6jID3hE0kZQhjw1x+8VvTFNTaC/6voBVX+2K7f56ZV14?=
+ =?us-ascii?Q?ycznc0Ld1IFfYfsnwlaaC1RXSZAWW7HjnqOlg+ZcyKT8smSEQcbQp6FuLaHC?=
+ =?us-ascii?Q?hEFW2xH443b0F9xf0Fe55ebVHtdhDaijXU/yLbOid2a/qf/+I/goD0cZEu2d?=
+ =?us-ascii?Q?Z94K49EefBAgNzKOv6Saq364K5XLca9DNUJ2Ng/AkY+2PVIq79uE3rrONYAr?=
+ =?us-ascii?Q?DesHs98T3ZoLeu81eBCIPEQc8BbBArMorUYABrcD2xJZG4w7zXkyiwxe4fiO?=
+ =?us-ascii?Q?1oq5jGeo5554u10FuaGWgROrgq2+QOtf?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 07:55:59.3183 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ede73ae3-6f0e-4a15-10da-08dcb6b66032
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 07:56:03.6770 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9943466e-55a7-4719-249a-08dcb6b662cb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8324
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7335
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,99 +137,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Relja Vojvodic <Relja.Vojvodic@amd.com>
 
-[why]
-Based on power measurement result, in most cases when display clock
-is higher than Vmin display clock, lowering display clock using
-dynamic ODM will improve overall power consumption by 0 to 4 watts
-even if we can't reach Vmin.
+[Why]
+Currently the handling for 3DLUT is found in multiple different
+places, which causes issues when the different functions are not
+in sync with each other.
+Frequently bugs occur because the LUT handling is broken up, and
+what has already been handled isn't kept track of well, which can
+cause earlier changes to the LUT params to be overridden.
 
-[how]
-Allow vmin optimization applied even if dispclk can't reach Vmin.
+[How]
+Remove DMA LUT handling from DCN401 and refactor legacy LUT
+handling in one place to make it easier to keep track of what has
+and needs to be done.
 
-Reviewed-by: Austin Zheng <austin.zheng@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
+Signed-off-by: Relja Vojvodic <Relja.Vojvodic@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  | 14 +++++++++-----
- .../display/dc/dml2/dml21/src/dml2_top/dml_top.c   | 13 +++++++++++--
- 2 files changed, 20 insertions(+), 7 deletions(-)
+ .../amd/display/dc/hwss/dcn32/dcn32_init.c    |  1 -
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 46 ++++++++-----------
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |  2 +-
+ 3 files changed, 21 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-index 06e786995390..68b333b68933 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-@@ -717,6 +717,8 @@ bool pmo_dcn4_fams2_init_for_vmin(struct dml2_pmo_init_for_vmin_in_out *in_out)
- 			&in_out->base_display_config->display_config;
- 	const struct dml2_core_mode_support_result *mode_support_result =
- 			&in_out->base_display_config->mode_support_result;
-+	struct dml2_optimization_stage4_state *state =
-+			&in_out->base_display_config->stage4;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
+index 968b010971ea..58bed01fc20e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
+@@ -162,7 +162,6 @@ static const struct hwseq_private_funcs dcn32_private_funcs = {
+ 	.is_dp_dig_pixel_rate_div_policy = dcn32_is_dp_dig_pixel_rate_div_policy,
+ 	.apply_single_controller_ctx_to_hw = dce110_apply_single_controller_ctx_to_hw,
+ 	.reset_back_end_for_pipe = dcn20_reset_back_end_for_pipe,
+-	.populate_mcm_luts = dcn401_populate_mcm_luts,
+ };
  
- 	if (in_out->instance->options->disable_dyn_odm ||
- 			(in_out->instance->options->disable_dyn_odm_for_multi_stream && display_config->num_streams > 1))
-@@ -737,28 +739,30 @@ bool pmo_dcn4_fams2_init_for_vmin(struct dml2_pmo_init_for_vmin_in_out *in_out)
- 		 */
- 		if (mode_support_result->cfg_support_info.plane_support_info[i].dpps_used > 1 &&
- 				mode_support_result->cfg_support_info.stream_support_info[display_config->plane_descriptors[i].stream_index].odms_used == 1)
--			in_out->base_display_config->stage4.unoptimizable_streams[display_config->plane_descriptors[i].stream_index] = true;
-+			state->unoptimizable_streams[display_config->plane_descriptors[i].stream_index] = true;
+ void dcn32_hw_sequencer_init_functions(struct dc *dc)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 77489bbcda02..44c1184868e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -670,46 +670,40 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+ 	struct dpp *dpp_base = pipe_ctx->plane_res.dpp;
+ 	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
+ 	struct mpc *mpc = pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
+-	bool result = true;
++	bool result;
+ 	const struct pwl_params *lut_params = NULL;
+ 	bool rval;
  
- 	for (i = 0; i < display_config->num_streams; i++) {
- 		if (display_config->stream_descriptors[i].overrides.disable_dynamic_odm)
--			in_out->base_display_config->stage4.unoptimizable_streams[i] = true;
-+			state->unoptimizable_streams[i] = true;
- 		else if (in_out->base_display_config->stage3.stream_svp_meta[i].valid &&
- 				in_out->instance->options->disable_dyn_odm_for_stream_with_svp)
--			in_out->base_display_config->stage4.unoptimizable_streams[i] = true;
-+			state->unoptimizable_streams[i] = true;
- 		/*
- 		 * ODM Combine requires horizontal timing divisible by 2 so each
- 		 * ODM segment has the same size.
- 		 */
- 		else if (!is_h_timing_divisible_by(&display_config->stream_descriptors[i].timing, 2))
--			in_out->base_display_config->stage4.unoptimizable_streams[i] = true;
-+			state->unoptimizable_streams[i] = true;
- 		/*
- 		 * Our hardware support seamless ODM transitions for DP encoders
- 		 * only.
- 		 */
- 		else if (!is_dp_encoder(display_config->stream_descriptors[i].output.output_encoder))
--			in_out->base_display_config->stage4.unoptimizable_streams[i] = true;
-+			state->unoptimizable_streams[i] = true;
+ 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
+ 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
+ 	// 1D LUT
+-	if (plane_state->mcm_shaper_3dlut_setting == DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL) {
+-		if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+-			lut_params = &plane_state->blend_tf.pwl;
+-		else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			rval = cm3_helper_translate_curve_to_hw_format(&plane_state->blend_tf,
+-					&dpp_base->regamma_params, false);
+-			lut_params = rval ? &dpp_base->regamma_params : NULL;
+-		}
+-		result = mpc->funcs->program_1dlut(mpc, lut_params, mpcc_id);
+-		lut_params = NULL;
++	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
++		lut_params = &plane_state->blend_tf.pwl;
++	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
++		rval = cm3_helper_translate_curve_to_hw_format(&plane_state->blend_tf,
++				&dpp_base->regamma_params, false);
++		lut_params = rval ? &dpp_base->regamma_params : NULL;
+ 	}
++	result = mpc->funcs->program_1dlut(mpc, lut_params, mpcc_id);
++	lut_params = NULL;
+ 
+ 	// Shaper
+-	if (plane_state->mcm_shaper_3dlut_setting == DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL) {
+-		if (plane_state->in_shaper_func.type == TF_TYPE_HWPWL)
+-			lut_params = &plane_state->in_shaper_func.pwl;
+-		else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			// TODO: dpp_base replace
+-			ASSERT(false);
+-			rval = cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
+-					&dpp_base->shaper_params, true);
+-			lut_params = rval ? &dpp_base->shaper_params : NULL;
+-		}
+-
+-		result = mpc->funcs->program_shaper(mpc, lut_params, mpcc_id);
++	if (plane_state->in_shaper_func.type == TF_TYPE_HWPWL)
++		lut_params = &plane_state->in_shaper_func.pwl;
++	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
++		// TODO: dpp_base replace
++		rval = cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
++				&dpp_base->shaper_params, true);
++		lut_params = rval ? &dpp_base->shaper_params : NULL;
+ 	}
++	result &= mpc->funcs->program_shaper(mpc, lut_params, mpcc_id);
+ 
+ 	// 3D
+-	if (plane_state->mcm_shaper_3dlut_setting == DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL) {
++	if (mpc->funcs->program_3dlut) {
+ 		if (plane_state->lut3d_func.state.bits.initialized == 1)
+-			result = mpc->funcs->program_3dlut(mpc, &plane_state->lut3d_func.lut_3d, mpcc_id);
++			result &= mpc->funcs->program_3dlut(mpc, &plane_state->lut3d_func.lut_3d, mpcc_id);
+ 		else
+-			result = mpc->funcs->program_3dlut(mpc, NULL, mpcc_id);
++			result &= mpc->funcs->program_3dlut(mpc, NULL, mpcc_id);
  	}
  
-+	state->performed = true;
-+
- 	return true;
- }
+ 	return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
+index 457f4167e848..f4eda4a55ea7 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
+@@ -136,7 +136,7 @@ static const struct hwseq_private_funcs dcn401_private_funcs = {
+ 	.calculate_dccg_k1_k2_values = NULL,
+ 	.apply_single_controller_ctx_to_hw = dce110_apply_single_controller_ctx_to_hw,
+ 	.reset_back_end_for_pipe = dcn20_reset_back_end_for_pipe,
+-	.populate_mcm_luts = dcn401_populate_mcm_luts,
++	.populate_mcm_luts = NULL,
+ };
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_top/dml_top.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_top/dml_top.c
-index a9c3ed6d50ef..f9f8869cd8b8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_top/dml_top.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_top/dml_top.c
-@@ -266,9 +266,18 @@ bool dml2_build_mode_programming(struct dml2_build_mode_programming_in_out *in_o
- 
- 	vmin_success = dml2_top_optimization_perform_optimization_phase(&l->optimization_phase_locals, &l->vmin_phase);
- 
--	if (vmin_success) {
-+	if (l->optimized_display_config_with_meta.stage4.performed) {
-+		/*
-+		 * when performed is true, optimization has applied to
-+		 * optimized_display_config_with_meta and it has passed mode
-+		 * support. However it may or may not pass the test function to
-+		 * reach actual Vmin. As long as voltage is optimized even if it
-+		 * doesn't reach Vmin level, there is still power benefit so in
-+		 * this case we will still copy this optimization into base
-+		 * display config.
-+		 */
- 		memcpy(&l->base_display_config_with_meta, &l->optimized_display_config_with_meta, sizeof(struct display_configuation_with_meta));
--		l->base_display_config_with_meta.stage4.success = true;
-+		l->base_display_config_with_meta.stage4.success = vmin_success;
- 	}
- 
- 	/*
+ void dcn401_hw_sequencer_init_functions(struct dc *dc)
 -- 
 2.34.1
 
