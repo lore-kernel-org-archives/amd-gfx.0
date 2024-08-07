@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B871CC52D6F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 20:33:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29376C52D6F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 20:33:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B3E910E5D1;
-	Wed,  7 Aug 2024 20:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13F410E5D6;
+	Wed,  7 Aug 2024 20:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jvpNDBbt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KU1ibSry";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAD8A10E5D1;
- Wed,  7 Aug 2024 20:33:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF2610E5D4;
+ Wed,  7 Aug 2024 20:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=35df+jtS1rykgMVGama1CAHEXtCP8zO+IFlyKeAORkw=; b=jvpNDBbtUk8L8yZ2w476eArRMA
- I0LlaXKQNSQrV6laXJmICxYjmGUkCx2tSdHx31vl5fnFc4v11GjHAn98UyCMtOfUueSnxnq5wkqYs
- y5sw35Qf7d5+akND43C+KNuVFwrp1PkxINgQygnCNGHzOgHwGvw+E531lzz1O61xpgZgZn8Zk4SaH
- zN3GXJgqv9OSiEjPYp10ISNLA+kAoS/TCMzGUSoaizHdF+0Rr3VLJLe1ZNeb25/TPuPjug4KTugQz
- FG6QwF7s+eb3nbDjk98y4bn8AcG1Dwf0VR/8SPQpAQC4nJZoYzAcJiI9jynPvTXHMMIkVSZ2aohjG
- FulbsA1g==;
+ bh=6ptmTT3CWnSfki2vu8pRmGEEKtST751dS69J3HdtAWs=; b=KU1ibSryWGyPdZikGPPqAGqnuo
+ d8rARrn+QgsKKXlt/crZQv9LL/dC7baURgBgHR1UFyJq3Bl9FAjG2MdGFBP82VPyYq3mjsd4W0X3D
+ CnY76Q188iwXPZzJlMLnqCk5cvDJAoubcuTiTrkEL2uQ0NROmqadIGjN15CQUOgZ9m9yX/XZrWkgd
+ QDpgIzyP1wzCknRjhoidElvlcesdGOZ5twcEO5JFOfqgUBLfs0H9fATYeKbINgflVmtfLz6t6AOzG
+ hTklssivSRrtUW/5WTPzc2k9zgOw/2Xz2r9BlHJ7Vg+VyaTjM8n1OcQjJ0VjjBxbG3JYyfUD2yRqe
+ P05aD45Q==;
 Received: from [189.6.17.125] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sbnLk-0098Re-B8; Wed, 07 Aug 2024 22:33:36 +0200
+ id 1sbnLp-0098Re-70; Wed, 07 Aug 2024 22:33:41 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
@@ -41,10 +41,10 @@ Cc: Alex Hung <alex.hung@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>, kernel-dev@igalia.com,
  Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v5 2/9] drm/amd/display: switch to setting physical address
- directly
-Date: Wed,  7 Aug 2024 19:25:04 -0100
-Message-ID: <20240807203207.2830-3-mwen@igalia.com>
+Subject: [PATCH v5 3/9] drm/amd/display: always call connector_update when
+ parsing freesync_caps
+Date: Wed,  7 Aug 2024 19:25:05 -0100
+Message-ID: <20240807203207.2830-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240807203207.2830-1-mwen@igalia.com>
 References: <20240807203207.2830-1-mwen@igalia.com>
@@ -64,39 +64,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Connectors have source physical address available in display
-info. Use drm_dp_cec_attach() to use it instead of parsing the EDID
-again.
+Update connector caps with drm_edid data before parsing info for
+freesync.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index fff1f0c524fc..c43baa3d30f8 100644
+index c43baa3d30f8..0ee453d2cd65 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3484,8 +3484,7 @@ void amdgpu_dm_update_connector_after_detect(
- 		if (sink->dc_edid.length == 0) {
- 			aconnector->drm_edid = NULL;
- 			if (aconnector->dc_link->aux_mode) {
--				drm_dp_cec_unset_edid(
--					&aconnector->dm_dp_aux.aux);
-+				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
- 			}
- 		} else {
- 			const struct edid *edid = (const struct edid *)sink->dc_edid.raw_edid;
-@@ -3493,7 +3492,8 @@ void amdgpu_dm_update_connector_after_detect(
- 			drm_edid_connector_update(connector, aconnector->drm_edid);
- 
- 			if (aconnector->dc_link->aux_mode)
--				drm_dp_cec_set_edid(&aconnector->dm_dp_aux.aux, edid);
-+				drm_dp_cec_attach(&aconnector->dm_dp_aux.aux,
-+						  connector->display_info.source_physical_address);
+@@ -3504,13 +3504,11 @@ void amdgpu_dm_update_connector_after_detect(
+ 					"failed to create aconnector->requested_timing\n");
  		}
  
- 		if (!aconnector->timing_requested) {
+-		drm_edid_connector_update(connector, aconnector->drm_edid);
+ 		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid);
+ 		update_connector_ext_caps(aconnector);
+ 	} else {
+ 		drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+ 		amdgpu_dm_update_freesync_caps(connector, NULL);
+-		drm_edid_connector_update(connector, NULL);
+ 		aconnector->num_modes = 0;
+ 		dc_sink_release(aconnector->dc_sink);
+ 		aconnector->dc_sink = NULL;
+@@ -11959,6 +11957,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		amdgpu_dm_connector->dc_sink :
+ 		amdgpu_dm_connector->dc_em_sink;
+ 
++	drm_edid_connector_update(connector, drm_edid);
++
+ 	if (!drm_edid || !sink) {
+ 		dm_con_state = to_dm_connector_state(connector->state);
+ 
 -- 
 2.43.0
 
