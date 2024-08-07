@@ -4,76 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA8EC52D73
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 16:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BCB3C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 19:16:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A7410E17E;
-	Wed,  7 Aug 2024 16:43:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00E0610E194;
+	Wed,  7 Aug 2024 19:16:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QUaO+7S0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LnGp6oZy";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2011E10E17E
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 16:43:34 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5b3fff87e6bso2426087a12.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 09:43:34 -0700 (PDT)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A493510E194
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 19:16:25 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-2cfec641429so215045a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 12:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723049012; x=1723653812; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1723058185; x=1723662985; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dvzqJTJOvZ8y8LVSmBiBziJiGGtm6jzGynqa1AhFzO8=;
- b=QUaO+7S0InpOz5bdSc8E8rf5zQSJh3yUBx6uMfTeMtQAst0mkPmmRuQ7t/2tksnAn6
- oH3KxaGkq45vgA8/nRd7QFGZllz5ep2IY2ySHQy53hPInT+Lbg+8l3BuXoHTq4V9slLT
- HFg4gdh2FC1KVyK/xrEKkOh1kv0HeA9c81MIFtNHDL/JD4jIkUrmDzk5i8M8ZnJW1SCL
- uCd8dwx1yc3U4fDjwueOtYYJR+LEEl9fTQ2Xh07fUQ0wX5z/jP990D8DLWAInLsx+mIa
- +kzzqn20kKoF7xGzJUgR76j9Cvhet4SiNIvgY/N6bzb3sWPJgHNCc2L8p1JswuFqKRWd
- tzGg==
+ bh=FZ3L3crjJo9pfLsrFC2zY33bwC6pPU6pOd22o44fEbs=;
+ b=LnGp6oZyHBr7xLm2b63YlaHQa9aEuapoT/Vf3tAz0JK3dmj6SCuWjwvrt//f8RSuq7
+ xDlv7JwnH64XkfOT7HDlC09p1BzeioRBDwZjbeQvLM0h+4a22qreNmQXtQpzYtDUref+
+ JCLfb1yfM0kjwWS8wtIjZG6ajWTW7T3uhCi8ULsjyTYSQXU/p5SRJf+DZ1/RDBgYCMLj
+ 9E08q7VqeQMAdd4ZRTq14DFvAzfSTEpFNX/NuRwiqUhaJInrXDZsjZs8Vuyi1mObMfTU
+ Eh8OorUpRxNeeyhLrTYC/qx636yEJCCEIfMX3Xqn9ImWfEGySVlC8HxsICvNUNqfe+fT
+ AnBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723049012; x=1723653812;
+ d=1e100.net; s=20230601; t=1723058185; x=1723662985;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dvzqJTJOvZ8y8LVSmBiBziJiGGtm6jzGynqa1AhFzO8=;
- b=Bg+zeWjyg0pux0vg98Sbb8OzvaSl6nRmCsGzifW7VCEbPq4kf1NE0rt44t4DFu6hkl
- N1NZ1KzNqIQPAy+IZ8MI+ffcT5DalEn7q+budVAoihz9dAQ5tYNQOPsQ7l4gj8267QWl
- VL7gsnyDhx4Rqs6DyDEtja9m/g0heShh8NM6SKnIdsxAmcoMz751TdfE55FyyDIJmDv7
- EjDjLQ5c92sVr2sGMLS8cP8uNDnyXvw1tVz48uWcoeeJ9AILgr7pZ/IFVLRwMDO725a5
- DguFBGZ4QRG0kI2sOeBMfrb+awxGdo9xvvR6xxL6sSt/oCMNvh2dxr4X9q/dh4Rz7AB3
- jSjg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1aVkQO4n+OjrEUtAWNzo4S1kjnIiZXzJaEWkomEmvPw4rxhT5GREvyLdPiqHZ+bd75naYdWrrb45JIYUoTiLQBSTSPSiPcKgMmqNSEw==
-X-Gm-Message-State: AOJu0YyKdqNqLN9jZRWibnavqD7fxLQgt5EGMfr7i9WJRi/9UhUvJ0Rx
- 9+Gi+sDhPGMGyr2+xzDql2EhCbsiLe0LXvbY5tH19PQ/svQwkKXtYOcvhpSPLiGPa+30f1APNWR
- Xr1o+GfOBzQ4gWEMSr13XIEj8X6I=
-X-Google-Smtp-Source: AGHT+IHnpggEZBRsVtqchNjtkG6FF9UgMpUFw5ZKM2VLlGF/oGmMEPV4nu6TPf5Vlf6vDIKSnpOWp1GYb1qMjEgRMbY=
-X-Received: by 2002:a17:907:c70c:b0:a7d:cf4f:180b with SMTP id
- a640c23a62f3a-a7dcf4f1a5emr1120813166b.32.1723049012142; Wed, 07 Aug 2024
- 09:43:32 -0700 (PDT)
+ bh=FZ3L3crjJo9pfLsrFC2zY33bwC6pPU6pOd22o44fEbs=;
+ b=NxPUBkoT0V2hs44sVf2F8E9fkz3M2dook3N4MLilyLov7irDWxzzk/hsAoEXITSXgV
+ kr2ukWfkl8TYVkdgEEl0JtBy30rpv4nQrEdZvKPfn0eLgW+AJZhSk8wFWNBxUUOiQHtu
+ jPH3sSTwIwJ5fNkWujhUgn0X+lLzFFAki+eoAHfYwsZqI9oNDLCaQTgn9W5pLcGLW41z
+ NRJFOD9ugeRt/2k/Qqa/EE+BZykhjJv8EV6flRl4S3YluowtK0or9YZubggvInTsCuiU
+ q5GeWq0AThxc4wN5yALtdMN2E50uL0rTw9o0J2UtObb2UGrBBxLKe8cnxRs91MfceA9Z
+ BMWg==
+X-Gm-Message-State: AOJu0Yz6APrcPYZd0Guhre7GMzVxDhdetztRHUBOsmuZ0aotdMjo9SrW
+ VirkyfXT2lmFCne+Rs55QHlke/5YLkwdYEldWBkGiUDaE7TVL/6wL0zE/CdrtXVNJ+ef3h4vLJj
+ qSPHxgQ8ecsTSjEF0WtbyT+uEGbBCMw==
+X-Google-Smtp-Source: AGHT+IGQ6gZYKXaFEAUe8w3KIzfRktaAGGJX/xe7MWuJFkCWF5yiCbeNOkmlkwWsNracDzNxDikhLyuVNz3UIrPVjX8=
+X-Received: by 2002:a17:90a:f293:b0:2c9:6f91:fc43 with SMTP id
+ 98e67ed59e1d1-2cff93c4c31mr18985636a91.3.1723058184875; Wed, 07 Aug 2024
+ 12:16:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240730124332.38030-1-sunil.khatri@amd.com>
- <CAAxE2A5hEezckDEk1jJwFdfddpN1VXJtU+Yp5uXfsM2aiV2Cxg@mail.gmail.com>
- <28927b0d-f97f-451b-af03-943f8c85f92d@amd.com>
- <CAAxE2A7C3fuExvvjTytCR7fYNjoDTDzAqK2JroSihcz6EX7X2A@mail.gmail.com>
- <18c7c805-d2ec-4448-bd25-cdb106aeac7e@amd.com>
- <CAAxE2A7XBQfUnYhSg2RS7TP_i6cv775RW0ocdgAyc-F0dsSqmQ@mail.gmail.com>
- <CAAxE2A5EJGxR8XWnperC2tYjA+x1XwpqEAFC+9LR-Cs+74BpyA@mail.gmail.com>
- <104cabc4-69a1-4faa-9837-d5b4dc7a5202@ursulin.net>
-In-Reply-To: <104cabc4-69a1-4faa-9837-d5b4dc7a5202@ursulin.net>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 7 Aug 2024 12:42:55 -0400
-Message-ID: <CAAxE2A7yT7p0YdXdKKNpa2d0ggviqmJvhtTRs=hf7ee6Lhw7zg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: optimize the padding with hw optimization
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
+References: <20240807093847.2084710-1-Jack.Xiao@amd.com>
+ <20240807093847.2084710-9-Jack.Xiao@amd.com>
+In-Reply-To: <20240807093847.2084710-9-Jack.Xiao@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 7 Aug 2024 15:16:12 -0400
+Message-ID: <CADnq5_PkCtKYnenAAvE5OQm9pGU5gUcgDAh+eVs8WmKSLfRoAg@mail.gmail.com>
+Subject: Re: [PATCH 8/8] drm/amdgpu/mes12: fix suspend issue
+To: Jack Xiao <Jack.Xiao@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,101 +76,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 7, 2024 at 4:21=E2=80=AFAM Tvrtko Ursulin <tursulin@ursulin.net=
-> wrote:
+On Wed, Aug 7, 2024 at 5:39=E2=80=AFAM Jack Xiao <Jack.Xiao@amd.com> wrote:
 >
+> Use mes pipe to unmap kcq and kgq.
 >
-> On 04/08/2024 19:11, Marek Ol=C5=A1=C3=A1k wrote:
-> > On Thu, Aug 1, 2024 at 2:55=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gm=
-ail.com> wrote:
-> >>
-> >> On Thu, Aug 1, 2024, 03:37 Christian K=C3=B6nig <christian.koenig@amd.=
-com> wrote:
-> >>>
-> >>> Am 01.08.24 um 08:53 schrieb Marek Ol=C5=A1=C3=A1k:
-> >>>
-> >>> On Thu, Aug 1, 2024, 00:28 Khatri, Sunil <sukhatri@amd.com> wrote:
-> >>>>
-> >>>>
-> >>>> On 8/1/2024 8:49 AM, Marek Ol=C5=A1=C3=A1k wrote:
-> >>>>>> +       /* Header is at index 0, followed by num_nops - 1 NOP pack=
-et's */
-> >>>>>> +       for (i =3D 1; i < num_nop; i++)
-> >>>>>> +               amdgpu_ring_write(ring, ring->funcs->nop);
-> >>>>> This loop should be removed. It's unnecessary CPU overhead and we
-> >>>>> should never get more than 0x3fff NOPs (maybe use BUG_ON). Leaving =
-the
-> >>>>> whole packet body uninitialized is the fastest option.
-> >>>> That was the original intent to just move the WPTR for the no of nop=
-s
-> >>>> and tried too. Based on Christian inputs we should not let the nops =
-packet
-> >>>>
-> >>>> as garbage or whatever was there originally as a threat/safety measu=
-re.
-> >>>
-> >>>
-> >>> It doesn't help safety. It can only be read by the GPU with kernel-le=
-vel permissions.
-> >>>
-> >>> Initializing the packet body is useless and adds CPU overhead, especi=
-ally with the 256 NOPs or so that we use for no reason.
-> >>>
-> >>>
-> >>> Not filling the remaining ring buffers with NOPs is a pretty clear NA=
-K from my side. Leaving garbage in the ring buffer is not even remotely def=
-ensive.
-> >>
-> >>
-> >> What are you defending against? You know the ring is kernel-owned memo=
-ry, right?
-> >
-> > This was pushed without any justification why you need to clear
-> > kernel-allocated memory with some constant number up to 30000 times
-> > per second that only the kernel can read.
+> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 22 ++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +------------------------
+>  2 files changed, 23 insertions(+), 26 deletions(-)
 >
-> I see that this seems to be controversial, but FWIW, if the loop ends up
-> staying, at least we could replace it with memset32 as I have shown in
-> https://lore.kernel.org/amd-gfx/20240715104026.6311-1-tursulin@igalia.com=
-/
-> that the inefficient amdgpu_ring_write can show up in the profile.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index f165b9d49e29..c770cb201e64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -509,6 +509,16 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *ade=
+v, int xcc_id)
+>         int i, r =3D 0;
+>         int j;
 >
-> And also maybe consider other than gfx? Again, I did something in
-> https://lore.kernel.org/amd-gfx/20240712152855.45284-4-tursulin@igalia.co=
-m/,
-> but AMD folks will know if there is a similar (like in this series)
-> approach which also improves the GPU side processing and not just CPU sid=
-e.
-
-1. Yes, we should reduce CPU overhead by not using amdgpu_ring_write
-to flll a ring buffer.
-
-2. We should stop clearing NOP content.
-
-3. We should stop padding to 256 dwords when we really just need to
-pad to 8 dwords.
-
-4. We should get rid of amdgpu_ring_write and use a more efficient way
-to write into a ring buffer, which is described below.
-amdgpu_ring_write generates bad CPU code because the compiler can't
-determine pointer aliasing.
-
-When starting to write into a ring buffer, count_dw, *ring, buf_mask,
-and wptr should be copied to local variables and ring writes should
-only use those. After everything has been written into the ring
-buffer, the local variables should be copied back to amdgpu_ring, and
-ptr_mask should be applied only then. That allows the compiler to use
-constant offsets for the writes, and
-reorder/merge/const-evaluate/optimize all operations on the local
-variables, which doesn't happen with non-local variables. 3 macros
-(amdgpu_ring_begin, amdgpu_ring_write, amdgpu_ring_end) can be created
-to encapsulate this logic. Example:
-
-amdgpu_ring_begin(ring);
-amdgpu_ring_write(value0);
-amdgpu_ring_write(value1);
-amdgpu_ring_write(value2);
-amdgpu_ring_write(value3);
-amdgpu_ring_end();
-
-Marek
+> +       if (adev->enable_mes) {
+> +               for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+> +                       j =3D i + xcc_id * adev->gfx.num_compute_rings;
+> +                       amdgpu_mes_unmap_legacy_queue(adev,
+> +                                                  &adev->gfx.compute_rin=
+g[j],
+> +                                                  RESET_QUEUES, 0, 0);
+> +               }
+> +               return 0;
+> +       }
+> +
+>         if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+>                 return -EINVAL;
+>
+> @@ -551,6 +561,18 @@ int amdgpu_gfx_disable_kgq(struct amdgpu_device *ade=
+v, int xcc_id)
+>         int i, r =3D 0;
+>         int j;
+>
+> +       if (adev->enable_mes) {
+> +               if (amdgpu_gfx_is_master_xcc(adev, xcc_id)) {
+> +                       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
+> +                               j =3D i + xcc_id * adev->gfx.num_gfx_ring=
+s;
+> +                               amdgpu_mes_unmap_legacy_queue(adev,
+> +                                                     &adev->gfx.gfx_ring=
+[j],
+> +                                                     PREEMPT_QUEUES, 0, =
+0);
+> +                       }
+> +               }
+> +               return 0;
+> +       }
+> +
+>         if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+>                 return -EINVAL;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index f384be0d1800..c77c66155d8e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -3519,33 +3519,9 @@ static int gfx_v12_0_hw_init(void *handle)
+>         return r;
+>  }
+>
+> -static int gfx_v12_0_kiq_disable_kgq(struct amdgpu_device *adev)
+> -{
+> -       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> -       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> -       int i, r =3D 0;
+> -
+> -       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> -               return -EINVAL;
+> -
+> -       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
+> -                                       adev->gfx.num_gfx_rings))
+> -               return -ENOMEM;
+> -
+> -       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++)
+> -               kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.gfx_ring[=
+i],
+> -                                          PREEMPT_QUEUES, 0, 0);
+> -
+> -       if (adev->gfx.kiq[0].ring.sched.ready)
+> -               r =3D amdgpu_ring_test_helper(kiq_ring);
+> -
+> -       return r;
+> -}
+> -
+>  static int gfx_v12_0_hw_fini(void *handle)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> -       int r;
+>         uint32_t tmp;
+>
+>         amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+> @@ -3553,8 +3529,7 @@ static int gfx_v12_0_hw_fini(void *handle)
+>
+>         if (!adev->no_hw_access) {
+>                 if (amdgpu_async_gfx_ring) {
+> -                       r =3D gfx_v12_0_kiq_disable_kgq(adev);
+> -                       if (r)
+> +                       if (amdgpu_gfx_disable_kgq(adev, 0))
+>                                 DRM_ERROR("KGQ disable failed\n");
+>                 }
+>
+> --
+> 2.41.0
+>
