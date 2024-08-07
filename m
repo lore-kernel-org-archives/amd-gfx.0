@@ -4,125 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8735AC52D6F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 07:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47047C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 07:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0E610E42F;
-	Wed,  7 Aug 2024 07:56:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F249110E435;
+	Wed,  7 Aug 2024 07:56:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GR6apIlJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FlSJtcMi";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062.outbound.protection.outlook.com [40.107.236.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C99FA10E42F
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:56:22 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2052.outbound.protection.outlook.com [40.107.102.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F184210E435
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 07:56:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=STOjHi3w+uyMYM5AnOpE08a5A07cZIcccaRD/FABD8cy1uFsymN77AcIcZuZqD//pur+IczkT89JJ/Rzf561Zg572hMNcOr6WhyHsMCQ5nOUJyiJ0zNG8S+HyGA6cSCWh4g62FMKp3AE7aG/gpg451tKpkz7+b5nJbbp2va18Izmnzee27JSQqiAjWKDsGlZDJaTE152nbDcU9f5B/GueMw+DNGxtWgdwluT0n1oENNCkd2mbFgNNIq2YNRpDCTHpDtrHLrA73DA8wcBB1UJ427SmY77zn2qURz6I7n+Lp2sagyId9cB4tlf/0/MlMAmrG3IYZu4Non8ir8PdTkmhQ==
+ b=Dbb01IWhmofecl0a0kPHNojgMiretCb0quaPdT4wJ+HfN7D2YcHsdQG4yiLc8nN67GHFq0hUQnHK1S1V86URqeeAU9p5qKJupwr2X0YRHTCriCVMUAdBfYItx9oH6ybrU8s4Kla5riv/ykMn20MfQ7Cv071xbJIZlcLdp4NvcNDqe1hSyuZFFcA6pk0j/vhPqTblg9UFR028fVfpx5jXJvs74mbYtFQaE3NfiEUyyJFWiQKrWSsYA5D4u/URAE3he1ZocQ1ETJ3fl6m0qioo+G645uC4xWQCETNchMMwatyfp/55qZUIvCC32IPTQYP9TFjwHlWWCbEu7yFyN9GUvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2T79TFtldJMfRh3JXRf/ERg8bJrR2NPD4ZaqsiA5iH0=;
- b=hZqocKz0HmzV+vgEZs52c31IzlMWxd801FBxoxn87Fe+UoxwJV4hBCTbaVUQBHNbzZT6BxiunEGhOhydDBgZMhsXlftB6pTXIebvY0DxIyJc3kMAjir/U+2OoMlRGD5AYc9hZLu1H1k4aInH8L7uouErJxsJMns7yPtoWasMaTWDEdt0/9V0Ek6iRxKfVNfpveJ85hiZTa/thp3lcunX2YblZRciUq6BG0n/rLcCtqgqUP9Gk1GaieuTqH6oqgP6wUOP4E+xuw+040tOhCroE8ZguKhopoSOuRZsN0lgzaE9PAZ2N5avMaLhH/xQ/pszCeaMJ7JUThYEcYz/w2WNtA==
+ bh=iFCDuNSvpGQ1zFz/ba7u0wEvWIDR6R4Z2UQzEYgn3WI=;
+ b=esOTNFkUbwXyUEnxW3zaIm8NfTbOt2xNcHkghd8x+DgRwVgIjsO668veMVLm1nC6rCxJlm0dKWY5W0j7fjvrcQUztkDSAA/ENnDtzLTRfZ3OSbIZYH6mj10MW7oMfMBZjLZObuUvtCrrEcamyc/tXKqzZmk1MU6Hqi9dRQi5WkKi1Z+Ay0Ek6ruD2cIHxdF4sgeCKwV7qR1udlM02qTkdURAtvQPqAHQIB6ZbmqhWaAJ7K/aBQtNGfw6QaKUQQBGxaezBET3esXj87xdpdFEwrPDMOsjGY7yQqZksVnUWZGuj3XPEZcjiUmOmRM9YY6db+JDB62Gwky29QrUybJ2+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2T79TFtldJMfRh3JXRf/ERg8bJrR2NPD4ZaqsiA5iH0=;
- b=GR6apIlJb9X7VgZi2H4Hx8e9/BnyhBD3d+2FDSG3w6ygGAmSNNOT3m5xAF2xJTy4BTAjO35DYj6KZ02aTRNnXvqkJuK0RgGAJpAeWOokXlDOfMU18l8giRX7YVuEk/MsJq1ffr7wlu+p/9ukRyOZ7vKngDcwhwH830LUhGDVu0c=
-Received: from BLAPR03CA0085.namprd03.prod.outlook.com (2603:10b6:208:329::30)
- by IA1PR12MB6553.namprd12.prod.outlook.com (2603:10b6:208:3a3::8)
+ bh=iFCDuNSvpGQ1zFz/ba7u0wEvWIDR6R4Z2UQzEYgn3WI=;
+ b=FlSJtcMik5aQbJYR+J/TkRGZHiI1es5RejyUrwnL6m80Wq/G4oRerCkkUd7YH9AvfivF+AusfG2v0BFRSwkrmWDeW66PHrSDGRbmqDBNJyG+lD+hIlnyiCb1cpDzCiINZY0hnk7s1xP16+7LXFVqifHBHF8WBj8tmUXsGU2GrQg=
+Received: from BN9PR03CA0306.namprd03.prod.outlook.com (2603:10b6:408:112::11)
+ by MN0PR12MB6103.namprd12.prod.outlook.com (2603:10b6:208:3c9::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.26; Wed, 7 Aug
- 2024 07:56:14 +0000
-Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
- (2603:10b6:208:329:cafe::57) by BLAPR03CA0085.outlook.office365.com
- (2603:10b6:208:329::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.27 via Frontend
- Transport; Wed, 7 Aug 2024 07:56:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.27; Wed, 7 Aug
+ 2024 07:56:31 +0000
+Received: from BN2PEPF000044A6.namprd04.prod.outlook.com
+ (2603:10b6:408:112:cafe::46) by BN9PR03CA0306.outlook.office365.com
+ (2603:10b6:408:112::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.28 via Frontend
+ Transport; Wed, 7 Aug 2024 07:56:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF000044A6.mail.protection.outlook.com (10.167.243.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 07:56:14 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 07:56:31 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
- 2024 02:56:13 -0500
+ 2024 02:56:30 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
+ 2024 02:56:30 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 7 Aug 2024 02:56:10 -0500
+ Transport; Wed, 7 Aug 2024 02:56:17 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Austin Zheng
- <Austin.Zheng@amd.com>, Alvin Lee <alvin.lee2@amd.com>
-Subject: [PATCH 05/24] drm/amd/display: Unlock Pipes Based On DET Allocation
-Date: Wed, 7 Aug 2024 15:55:27 +0800
-Message-ID: <20240807075546.831208-6-chiahsuan.chung@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Subject: [PATCH 07/24] drm/amd/display: Add more logging for MALL static screen
+Date: Wed, 7 Aug 2024 15:55:29 +0800
+Message-ID: <20240807075546.831208-8-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240807075546.831208-1-chiahsuan.chung@amd.com>
 References: <20240807075546.831208-1-chiahsuan.chung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: chiahsuan.chung@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|IA1PR12MB6553:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06e0a190-4350-441a-3847-08dcb6b6693b
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A6:EE_|MN0PR12MB6103:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20d8af56-8106-45a1-410d-08dcb6b6736d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4A3QN3J5G3sBxFQKtsLCWoiJfdADgouASJbIRct86+iykWc+1xK3OSFlZqZs?=
- =?us-ascii?Q?Jr9eIk00eM8jhhQc8xatDxNKrJu7fJ7heeFoledLe7YL3j9suKqkbYveg/SY?=
- =?us-ascii?Q?j/kmKwUtbDNJt3DUZf7oScpw85iCOwuAZ3kw5LW83+kPSQw32NI1Sr7Zh8fk?=
- =?us-ascii?Q?w/4e0cC9jhXBGkz6syzKiB3eurH5JGADNMfONuAxzMnEUQOE23ZojuvBVFMg?=
- =?us-ascii?Q?IjZBmliCJJsm4AXWsdEc2fj4YIoGaJa0IdPelmDb7AOErsIR1KJk5C45+7Zr?=
- =?us-ascii?Q?MD82l7gDhpx3e21nzcroiReZ3FhSBcVEXjhUYprjrcTWh/uC//noBu5X/Z7g?=
- =?us-ascii?Q?iD25djbZwlENoYp9Qpk+qHvMtUotCVsdiz7cnu5bAqaiYcVMLmotuZbLVjC3?=
- =?us-ascii?Q?+Pj4buzi2UYtAZrYOcnXO3iiBfNRAPKYTQrRF4SgC9KwZzMyJEtmnNMeVr4U?=
- =?us-ascii?Q?bPGWyilrD8Gv6e3K+GCdfuTVOVwpFdmPW0hugZfi1J5NZTtt7wyhm5HGcl40?=
- =?us-ascii?Q?7Ilst/LbgvsjIhKNWlLozQfOwqn76A6HrHyT0abwsw5CDK7btyp4gao13zer?=
- =?us-ascii?Q?030LUpZPfbS+KhTdRdfU2le8FgVgqQewoPzfn0NWrY0XxSPezXYm77em4T0s?=
- =?us-ascii?Q?PJPUF/MH15C+yXMru+/g+OM1tYG0h/QpRQ9b8X3nuPQi6XKQATdJYiTjgE14?=
- =?us-ascii?Q?HKZoEsPHV4667oXg25OBfJrIkFQyxG+UOQm4HNy8MDx0LP62A5M4YJZdhg8K?=
- =?us-ascii?Q?K6toLL/rgswj56tf97pL9WX4jRcQw1zL+20KzBkpwoj4WsfESTdVH+bSmaSx?=
- =?us-ascii?Q?PtfUEOp9sAwjeCZVraG6PWqrIiGnORWf+ShUDckkdcfmYiGVH/1+ZvPdoqop?=
- =?us-ascii?Q?ELkmd3hzanyZbVzXC7v//+jNzIvRCryRJina8PRK39PvMw0j471I8asxkGr/?=
- =?us-ascii?Q?7sqRosP4GvcInsX+C7hL11Haw9vl3EkoAKuqtEQPKp8ZlGYNVlCSntTzAv6d?=
- =?us-ascii?Q?39bLkm1kqupbvrCv1BQD4rb0wedLHyuNLlaQDrCf4TpArmGAtKVlkg8cTZrO?=
- =?us-ascii?Q?aLQmgbwjDlrvfDv/OJH1Lzvwvr/wcn/R1GZ9IJBaQUGxY9EIf49DpPrVFdZi?=
- =?us-ascii?Q?tRv9R2r7u1oPralSQvUullsWC4vypociC9E2G9Pp9Zr53wNW2ad9tUbROex4?=
- =?us-ascii?Q?Z7aanfRYuH7rB4PoyoCzMnywCLJXzhSWBJoWceu5eSnFINXDEC89d/T6Th2c?=
- =?us-ascii?Q?BIAUJKE3yAO/06t02kAFZ7IepqCrBJLNJRpfk8A99nK8hASpLxDrHlgJHOn/?=
- =?us-ascii?Q?y06KFaJt7lcclCv7R2CnC2tYbiZO6M+c1o47NByOKj6XZdYZpsasxmhuvyQ3?=
- =?us-ascii?Q?h2ZzOYUcPPQAXwkCz+OsewHcVC8JIOUHYd37ihgpEr601hkVLIoEhIxvI82F?=
- =?us-ascii?Q?Z0rfQ1RqEX8QAvmYesGJMwx6pZ4fLxRH?=
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pScpS0cWYJBzvNLHb0cuBuNVuso7SFgAmWMFUzMAqXQcQN795qlhFCLDqh2f?=
+ =?us-ascii?Q?Cq0R9yXawBn+3DpvMbSM1O6GM8l7BNMjD6y8i87n2IEzL34rs4bVWhPH0Rht?=
+ =?us-ascii?Q?pjXLcxEgLOIj+M5Y1zcV0WuD9Zjons/tzEUOseLOC1o8iI1UaWHKCONQJ27K?=
+ =?us-ascii?Q?XT1HSHhP+6ROZnLAKJEwR0KeRbwFJX1MZd21A26RmpKyxfIMxta1wCoe4eFJ?=
+ =?us-ascii?Q?txwvoT5c3A7QkQRgw7jGl4UUfHH2uUgeU48aBQJQjxdpSfvtL5LX3xTYgfiq?=
+ =?us-ascii?Q?zyRaZitmWAk55/XCsGq0VXJCEYGx6nx59V8ZLBpQBeJBWDkFWaFatOzxW3rM?=
+ =?us-ascii?Q?28YImv2VyG4dQEjtbxbeUCr7xemOZYdZn1I6RkO0D5QBF6rYTijXKcu20/4N?=
+ =?us-ascii?Q?U0HQ0jJIjtM4g7Qecv+LdNcO5Yus/D6sKYLrN2ymWKC3yVRvzWJsAU7Crxdl?=
+ =?us-ascii?Q?wQx3bceZLkMToo2UpT6/DlQZR6DHvtcPPpyWPGsanYPm1EEJ6bR2gl8VSzNb?=
+ =?us-ascii?Q?gX8rl46yvo3Pqgx/VzWo/2+4eCpPw+YiPWMNcEWXbZo9dG6OjTZZNB91vnir?=
+ =?us-ascii?Q?xfNeJ9Ttcf/l6/8eQfhUrMRDIaHPrr72i6UX3q4gfJ/QHzKY+mKq26a0u8ui?=
+ =?us-ascii?Q?yg4pIronEPq+09PtLEDcsEPGbrMCZFz3Sspoa16QIBy9wHpNWKLXPeGWNI25?=
+ =?us-ascii?Q?Po+Sdcd8PH7wUXAk2Yc6sqpsyqnwkpupsZP2x05dCBXHmtOFNXJYlA8pFbIH?=
+ =?us-ascii?Q?E94Alr6EsaJfR/Tj2ZnnmThRQ9xuCIuEtjyKYcSkDpj3ApyPHsU4AlA+E08o?=
+ =?us-ascii?Q?zUJctR+UflKg4RTFwKyrJH7i/OHuw6E6TJL0UUNPoxRv2M7gbd3H4Le4zSQN?=
+ =?us-ascii?Q?5uNk/t2ccR1O4D1xJVcuO/0Gh9l6RpyKKJw0CBzzxejtNcWZb0H0k0K2X1RD?=
+ =?us-ascii?Q?dYhoP54j2weFeNUfmkxEBM5Yp3ac5oF77AI703kidg+SPsyPB4Jr1li9+EjO?=
+ =?us-ascii?Q?/syFg5HkzNq103ALxkjmBybchhj/ImWOuqCRKond+0APlPfsS+QZCS2jePuj?=
+ =?us-ascii?Q?aBC1zO7vVTLYiwMV0ucHmoLnSULf5jzau025gRII++2cqAPl7KMLjK7QZTi/?=
+ =?us-ascii?Q?Wf5nTjTJr9OZTBRfQq0DNBhJ1xwNlqnTTEM0kUrDK1cs7URq5Q4TfgVUwszx?=
+ =?us-ascii?Q?1D60A6Ow20ox6ay0J81Et2VBo4XP71chLPDTkJmQV/G8tm10ginsPFEIaKYo?=
+ =?us-ascii?Q?OY7TIepgCox6j3Ott/MnphKGktxR0Y4MMd78aIFnQdCidoct58N82hJ1MRD6?=
+ =?us-ascii?Q?rADTOAl4TvJe11OUNzhe/gMlQbJLprFEZHHTxZoo5bdZL5IoJeXSoeJ9meUc?=
+ =?us-ascii?Q?/mXwDQgFlV+kQNkMSQQNhSWkv3WYH++4M/DRC3um0yAejBuQ+Ec09IS5SFIx?=
+ =?us-ascii?Q?NCfV3q3PsUw/7XowYF8b+tV5sI9f1qo9?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 07:56:14.4778 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06e0a190-4350-441a-3847-08dcb6b6693b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 07:56:31.5204 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20d8af56-8106-45a1-410d-08dcb6b6736d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6F.namprd02.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A6.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6553
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6103
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,257 +139,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Why]
-DML21 does not allocate DET evenly between pipes.
-May result in underflow when unlocking the pipes as DET could
-be overallocated.
+[why & how]
+print additional info for MALL related calculations and DMCUB messaging
+to aid debugging.
 
-[How]
-1. Unlock pipes that have a decreased amount of DET allocation
-2. Wait for the double buffer to be updated.
-3. Unlock the remaining pipes.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 28 ++++++
- .../display/dc/hubbub/dcn401/dcn401_hubbub.c  | 23 +++++
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 91 +++++++++++++++++++
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |  2 +
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |  2 +-
- .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |  1 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |  5 +
- 7 files changed, 151 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  | 10 ++++++++--
+ drivers/gpu/drm/amd/display/include/logger_types.h     |  1 +
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 1c379a6b1b4c..b38340c690c6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -5275,3 +5275,31 @@ void resource_init_common_dml2_callbacks(struct dc *dc, struct dml2_configuratio
- 	dml2_options->svp_pstate.callbacks.remove_phantom_streams_and_planes = &dc_state_remove_phantom_streams_and_planes;
- 	dml2_options->svp_pstate.callbacks.release_phantom_streams_and_planes = &dc_state_release_phantom_streams_and_planes;
- }
-+
-+/* Returns number of DET segments allocated for a given OTG_MASTER pipe */
-+int resource_calculate_det_for_stream(struct dc_state *state, struct pipe_ctx *otg_master)
-+{
-+	struct pipe_ctx *opp_heads[MAX_PIPES];
-+	struct pipe_ctx *dpp_pipes[MAX_PIPES];
-+
-+	int dpp_count = 0;
-+	int det_segments = 0;
-+
-+	if (!otg_master->stream)
-+		return 0;
-+
-+	int slice_count = resource_get_opp_heads_for_otg_master(otg_master,
-+			&state->res_ctx, opp_heads);
-+
-+	for (int slice_idx = 0; slice_idx < slice_count; slice_idx++) {
-+		if (opp_heads[slice_idx]->plane_state) {
-+			dpp_count = resource_get_dpp_pipes_for_opp_head(
-+					opp_heads[slice_idx],
-+					&state->res_ctx,
-+					dpp_pipes);
-+			for (int dpp_idx = 0; dpp_idx < dpp_count; dpp_idx++)
-+				det_segments += dpp_pipes[dpp_idx]->hubp_regs.det_size;
-+		}
-+	}
-+	return det_segments;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
-index d36f758971a8..37d26fa0b6fb 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
-@@ -1170,6 +1170,28 @@ static void dcn401_program_compbuf_segments(struct hubbub *hubbub, unsigned comp
- 	}
- }
- 
-+static void dcn401_wait_for_det_update(struct hubbub *hubbub, int hubp_inst)
-+{
-+	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+
-+	switch (hubp_inst) {
-+	case 0:
-+		REG_WAIT(DCHUBBUB_DET0_CTRL, DET0_SIZE_CURRENT, hubbub2->det0_size, 1, 100000); /* 1 vupdate at 10hz */
-+		break;
-+	case 1:
-+		REG_WAIT(DCHUBBUB_DET1_CTRL, DET1_SIZE_CURRENT, hubbub2->det1_size, 1, 100000);
-+		break;
-+	case 2:
-+		REG_WAIT(DCHUBBUB_DET2_CTRL, DET2_SIZE_CURRENT, hubbub2->det2_size, 1, 100000);
-+		break;
-+	case 3:
-+		REG_WAIT(DCHUBBUB_DET3_CTRL, DET3_SIZE_CURRENT, hubbub2->det3_size, 1, 100000);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
- static const struct hubbub_funcs hubbub4_01_funcs = {
- 	.update_dchub = hubbub2_update_dchub,
- 	.init_dchub_sys_ctx = hubbub3_init_dchub_sys_ctx,
-@@ -1192,6 +1214,7 @@ static const struct hubbub_funcs hubbub4_01_funcs = {
- 	.set_request_limit = hubbub32_set_request_limit,
- 	.program_det_segments = dcn401_program_det_segments,
- 	.program_compbuf_segments = dcn401_program_compbuf_segments,
-+	.wait_for_det_update = dcn401_wait_for_det_update,
- };
- 
- void hubbub401_construct(struct dcn20_hubbub *hubbub2,
 diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 44c1184868e0..22c7afbcfc4e 100644
+index 22c7afbcfc4e..b604c8886ef4 100644
 --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
 +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -1663,3 +1663,94 @@ void dcn401_hardware_release(struct dc *dc)
+@@ -1309,8 +1309,10 @@ bool dcn401_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 	for (i = 0; i < dc->current_state->stream_count; i++) {
+ 		/* MALL SS messaging is not supported with PSR at this time */
+ 		if (dc->current_state->streams[i] != NULL &&
+-				dc->current_state->streams[i]->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED)
++				dc->current_state->streams[i]->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED) {
++			DC_LOG_MALL("MALL SS not supported with PSR at this time\n");
+ 			return false;
++		}
  	}
- }
  
-+void dcn401_wait_for_det_buffer_update(struct dc *dc, struct dc_state *context, struct pipe_ctx *otg_master)
-+{
-+	struct pipe_ctx *opp_heads[MAX_PIPES];
-+	struct pipe_ctx *dpp_pipes[MAX_PIPES];
-+	struct hubbub *hubbub = dc->res_pool->hubbub;
-+	int dpp_count = 0;
-+
-+	if (!otg_master->stream)
-+		return;
-+
-+	int slice_count = resource_get_opp_heads_for_otg_master(otg_master,
-+			&context->res_ctx, opp_heads);
-+
-+	for (int slice_idx = 0; slice_idx < slice_count; slice_idx++) {
-+		if (opp_heads[slice_idx]->plane_state) {
-+			dpp_count = resource_get_dpp_pipes_for_opp_head(
-+					opp_heads[slice_idx],
-+					&context->res_ctx,
-+					dpp_pipes);
-+			for (int dpp_idx = 0; dpp_idx < dpp_count; dpp_idx++) {
-+				struct pipe_ctx *dpp_pipe = dpp_pipes[dpp_idx];
-+					if (dpp_pipe && hubbub &&
-+						dpp_pipe->plane_res.hubp &&
-+						hubbub->funcs->wait_for_det_update)
-+						hubbub->funcs->wait_for_det_update(hubbub, dpp_pipe->plane_res.hubp->inst);
-+			}
-+		}
-+	}
-+}
-+
-+void dcn401_interdependent_update_lock(struct dc *dc,
-+		struct dc_state *context, bool lock)
-+{
-+	unsigned int i = 0;
-+	struct pipe_ctx *pipe = NULL;
-+	struct timing_generator *tg = NULL;
-+	bool pipe_unlocked[MAX_PIPES] = {0};
-+
-+	if (lock) {
-+		for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+			pipe = &context->res_ctx.pipe_ctx[i];
-+			tg = pipe->stream_res.tg;
-+
-+			if (!resource_is_pipe_type(pipe, OTG_MASTER) ||
-+					!tg->funcs->is_tg_enabled(tg) ||
-+					dc_state_get_pipe_subvp_type(context, pipe) == SUBVP_PHANTOM)
-+				continue;
-+			dc->hwss.pipe_control_lock(dc, pipe, true);
-+		}
-+	} else {
-+		/* Unlock pipes based on the change in DET allocation instead of pipe index
-+		 * Prevents over allocation of DET during unlock process
-+		 * e.g. 2 pipe config with different streams with a max of 20 DET segments
-+		 *	Before:								After:
-+		 *		- Pipe0: 10 DET segments			- Pipe0: 12 DET segments
-+		 *		- Pipe1: 10 DET segments			- Pipe1: 8 DET segments
-+		 * If Pipe0 gets updated first, 22 DET segments will be allocated
-+		 */
-+		for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+			pipe = &context->res_ctx.pipe_ctx[i];
-+			tg = pipe->stream_res.tg;
-+			int current_pipe_idx = i;
-+
-+			if (!resource_is_pipe_type(pipe, OTG_MASTER) ||
-+					!tg->funcs->is_tg_enabled(tg) ||
-+					dc_state_get_pipe_subvp_type(context, pipe) == SUBVP_PHANTOM) {
-+				pipe_unlocked[i] = true;
-+				continue;
-+			}
-+
-+			// If the same stream exists in old context, ensure the OTG_MASTER pipes for the same stream get compared
-+			struct pipe_ctx *old_otg_master = resource_get_otg_master_for_stream(&dc->current_state->res_ctx, pipe->stream);
-+
-+			if (old_otg_master)
-+				current_pipe_idx = old_otg_master->pipe_idx;
-+			if (resource_calculate_det_for_stream(context, pipe) <
-+					resource_calculate_det_for_stream(dc->current_state, &dc->current_state->res_ctx.pipe_ctx[current_pipe_idx])) {
-+				dc->hwss.pipe_control_lock(dc, pipe, false);
-+				pipe_unlocked[i] = true;
-+				dcn401_wait_for_det_buffer_update(dc, context, pipe);
-+			}
-+		}
-+
-+		for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+			if (pipe_unlocked[i])
-+				continue;
-+			pipe = &context->res_ctx.pipe_ctx[i];
-+			dc->hwss.pipe_control_lock(dc, pipe, false);
-+		}
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-index 8e9c1c17aa66..3ecb1ebffcee 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-@@ -81,4 +81,6 @@ void dcn401_hardware_release(struct dc *dc);
- void dcn401_update_odm(struct dc *dc, struct dc_state *context,
- 		struct pipe_ctx *otg_master);
- void adjust_hotspot_between_slices_for_2x_magnify(uint32_t cursor_width, struct dc_cursor_position *pos_cpy);
-+void dcn401_wait_for_det_buffer_update(struct dc *dc, struct dc_state *context, struct pipe_ctx *otg_master);
-+void dcn401_interdependent_update_lock(struct dc *dc, struct dc_state *context, bool lock);
- #endif /* __DC_HWSS_DCN401_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-index f4eda4a55ea7..b5f63675afcb 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-@@ -38,7 +38,7 @@ static const struct hw_sequencer_funcs dcn401_funcs = {
- 	.disable_audio_stream = dce110_disable_audio_stream,
- 	.disable_plane = dcn20_disable_plane,
- 	.pipe_control_lock = dcn20_pipe_control_lock,
--	.interdependent_update_lock = dcn32_interdependent_update_lock,
-+	.interdependent_update_lock = dcn401_interdependent_update_lock,
- 	.cursor_lock = dcn10_cursor_lock,
- 	.prepare_bandwidth = dcn401_prepare_bandwidth,
- 	.optimize_bandwidth = dcn401_optimize_bandwidth,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index dd2b2864876c..67c32401893e 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -227,6 +227,7 @@ struct hubbub_funcs {
- 	void (*get_mall_en)(struct hubbub *hubbub, unsigned int *mall_in_use);
- 	void (*program_det_segments)(struct hubbub *hubbub, int hubp_inst, unsigned det_buffer_size_seg);
- 	void (*program_compbuf_segments)(struct hubbub *hubbub, unsigned compbuf_size_seg, bool safe_to_increase);
-+	void (*wait_for_det_update)(struct hubbub *hubbub, int hubp_inst);
- };
+ 	memset(&cmd, 0, sizeof(cmd));
+@@ -1320,8 +1322,9 @@ bool dcn401_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 	if (enable) {
+ 		if (dcn401_check_no_memory_request_for_cab(dc)) {
+ 			/* 1. Check no memory request case for CAB.
+-			 * If no memory request case, send CAB_ACTION NO_DF_REQ DMUB message
++			 * If no memory request case, send CAB_ACTION NO_DCN_REQ DMUB message
+ 			 */
++			DC_LOG_MALL("sending CAB action NO_DCN_REQ\n");
+ 			cmd.cab.header.sub_type = DMUB_CMD__CAB_NO_DCN_REQ;
+ 		} else {
+ 			/* 2. Check if all surfaces can fit in CAB.
+@@ -1349,13 +1352,16 @@ bool dcn401_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 			if (ways <= dc->caps.cache_num_ways && !mall_ss_unsupported) {
+ 				cmd.cab.header.sub_type = DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB;
+ 				cmd.cab.cab_alloc_ways = ways;
++				DC_LOG_MALL("cab allocation: %d ways. CAB action: DCN_SS_FIT_IN_CAB\n", ways);
+ 			} else {
+ 				cmd.cab.header.sub_type = DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB;
++				DC_LOG_MALL("frame does not fit in CAB: %d ways required. CAB action: DCN_SS_NOT_FIT_IN_CAB\n", ways);
+ 			}
+ 		}
+ 	} else {
+ 		/* Disable CAB */
+ 		cmd.cab.header.sub_type = DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION;
++		DC_LOG_MALL("idle optimization disabled\n");
+ 	}
  
- struct hubbub {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 96d40d33a1f9..9cd80d3864c7 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -639,4 +639,9 @@ struct dscl_prog_data *resource_get_dscl_prog_data(struct pipe_ctx *pipe_ctx);
-  * @dml2_options: struct to hold callbacks
-  */
- void resource_init_common_dml2_callbacks(struct dc *dc, struct dml2_configuration_options *dml2_options);
-+
-+/*
-+ *Calculate total DET allocated for all pipes for a given OTG_MASTER pipe
-+ */
-+int resource_calculate_det_for_stream(struct dc_state *state, struct pipe_ctx *otg_master);
- #endif /* DRIVERS_GPU_DRM_AMD_DC_DEV_DC_INC_RESOURCE_H_ */
+ 	dm_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
+diff --git a/drivers/gpu/drm/amd/display/include/logger_types.h b/drivers/gpu/drm/amd/display/include/logger_types.h
+index 83479951732a..a48d564d1660 100644
+--- a/drivers/gpu/drm/amd/display/include/logger_types.h
++++ b/drivers/gpu/drm/amd/display/include/logger_types.h
+@@ -61,6 +61,7 @@
+ #define DC_LOG_ALL_TF_CHANNELS(...) pr_debug("[GAMMA]:"__VA_ARGS__)
+ #define DC_LOG_DSC(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+ #define DC_LOG_SMU(...) pr_debug("[SMU_MSG]:"__VA_ARGS__)
++#define DC_LOG_MALL(...) pr_debug("[MALL]:"__VA_ARGS__)
+ #define DC_LOG_DWB(...) drm_dbg((DC_LOGGER)->dev, __VA_ARGS__)
+ #define DC_LOG_DP2(...) drm_dbg_dp((DC_LOGGER)->dev, __VA_ARGS__)
+ #define DC_LOG_AUTO_DPM_TEST(...) pr_debug("[AutoDPMTest]: "__VA_ARGS__)
 -- 
 2.34.1
 
