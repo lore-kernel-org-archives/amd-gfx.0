@@ -4,68 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13097C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 04:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFE91C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 05:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98D5B10E035;
-	Wed,  7 Aug 2024 04:00:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E52E10E02B;
+	Wed,  7 Aug 2024 05:13:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LeHpKQi+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eJA7ziTX";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D282410E035
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 04:00:15 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-6bce380eb96so813055a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Aug 2024 21:00:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723003215; x=1723608015; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hoh2Zvh3JPUdPw7A4h/hm2sY9uSJsvHdN65Sc5mp4DY=;
- b=LeHpKQi+YTh0F+FrrvuJPt8iYDTs2W7vYqZq6YabfhuubjjkB/OSG1HFNCr3E6RP+8
- YwSZyWSB9tSe+9h85cdEpAHXkTN2S/L0TBTycLdBH/JJWIoZHIlvP0YNFfH4ko+8t75P
- +94JtP85Mis8f4jsNlTCPvur96YdLYL9Ya4urL4thuvpEdcfpMKvmi5tZduUHTzVDqVO
- b8k01s7qwNjrqi5twYdiN/XZTQefUHD9+pm9ELONRjdleKHormxSG0LOEmRuYO6THhCo
- ff0rKQO0KSLqBBEKRD40lhlJGPumrcVKzz/qM7pBZCLwMWKJLQVg1b78uj+GS20ormPx
- B81A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723003215; x=1723608015;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hoh2Zvh3JPUdPw7A4h/hm2sY9uSJsvHdN65Sc5mp4DY=;
- b=ASBM/nl+MSDMMbnHo5N3rhieMLSrBOqjTtGnR2PKnSrwZafPtSfnmFOBjM4bYxCUFM
- tR4aNwneIHw4OUb0lW1P0iXYOz0FyciRcP3c6F92uwjFh6fiZeeLcgzi9uV6/YzhTs+m
- rkFh9+uppQ0/+UZVRMzJyXLF+LAQeSgoAsgauC+z6D7Um409WU/Wa8UqDJlMb7Vw4726
- Uop/PLG1x7X0H3itCi99CWlEgTacEt6rKp3M9T2qvtJPgkUkHOw2cLnVYrad2YBkZgLI
- 93xgt/w/d8gSYdo9fv9u3BwBYvpAAvTw0EGhjPig/6l3OoiaDl6qfqw9IFbFHEtjr8sd
- 6D7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUIoSfjRAp+cA2EBMz09YnGb7aJ6S39CGiCsKOF1jmYr88JIdGFxz95pB72VbCqgoL++86h8PYhUfB7n/3bNbMRr/fbNKmHFmVUATQ1RQ==
-X-Gm-Message-State: AOJu0Yw98hE3RziMwbSuY2aCKkJjNyDWRxdSr6IZQcRUw0gFkioCBGaX
- QOtg/MsC0SMgt/W2KUzPNBHjUWzzpB/3dxs/9RprsWvGAGcIko81NlYgGYP4lGnvxHVOPlleQWM
- 15omQxbqQ8Ng5VZmjmDohuLKiY/Lh8nze
-X-Google-Smtp-Source: AGHT+IG15FMUpCrUZkp0ffdMM40Pdv6r6sgVh/cpanPz+sSuquulSwSLvkZPYvh11O8dfC9WSTo/CwLcYwmwM/GR4BI=
-X-Received: by 2002:a05:6a20:258e:b0:1c4:ae14:4e3d with SMTP id
- adf61e73a8af0-1c6995809d9mr20615278637.13.1723003215126; Tue, 06 Aug 2024
- 21:00:15 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C163710E02B;
+ Wed,  7 Aug 2024 05:13:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 08B796111F;
+ Wed,  7 Aug 2024 05:13:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27D0C32782;
+ Wed,  7 Aug 2024 05:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1723007602;
+ bh=um2GSGAvdjY0j0MtneCmmwl8RQ+HTQsfh/xKbEsHYF4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=eJA7ziTXO28uCUme73hpCZF3OLsHd4lwtyFCAmJ1L4eCc/QTU9cfVMxbSC3WALSoy
+ lHrZ7UhyZbLJFuT2PtoUsIloW+Qqb1NWq+6HVLivJm59yiY4oqL7zwuLAddfm7n9KO
+ cC8TF/iE88IPUUR+YWh2EDmpsDVew17PhYO3aYVZBA3eL/kQixnQ1Ss5lTUz+6EBth
+ EICk472OHMMw6uQGzjGtGW6OX1AQjViyc273VX01VndWyhIxlUtPAEHPRHPF8pEM6F
+ eOBg6WDblf2kecf8nQ7O2+5RL2itFfJ/2keTN5k6ITA6O4ukEd17AcTjK8LYuTXJ/V
+ 6hgu2UZwbqnWA==
+Message-ID: <0141fd24-ee8e-4d19-a93c-11e8d54b093a@kernel.org>
+Date: Wed, 7 Aug 2024 00:13:15 -0500
 MIME-Version: 1.0
-References: <20240806081825.2422771-1-sunil.khatri@amd.com>
- <20240806081825.2422771-16-sunil.khatri@amd.com>
-In-Reply-To: <20240806081825.2422771-16-sunil.khatri@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 7 Aug 2024 00:00:03 -0400
-Message-ID: <CADnq5_Ps1k02WcJstPhM8D+PG1ia_jwsf62bwdHLCGcv2dsuZw@mail.gmail.com>
-Subject: Re: [PATCH v1 15/15] drm/amdgpu: add vcn ip dump support for vcn_v2_6
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] Revert "drm/amd/display: add panel_power_savings
+ sysfs entry to eDP connectors"
+To: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org
+Cc: Sebastian Wick <sebastian@sebastianwick.net>,
+ Xaver Hugl <xaver.hugl@gmail.com>, Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Hung <alex.hung@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Roman Li <roman.li@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Wayne Lin
+ <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20240806184214.224672-1-sebastian.wick@redhat.com>
+ <20240806184214.224672-2-sebastian.wick@redhat.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20240806184214.224672-2-sebastian.wick@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,40 +71,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The patches other than 4.0.3 are:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-I think 4.0.3 needs the GET_INST() fix.
+On 8/6/24 13:42, Sebastian Wick wrote:
+> From: Sebastian Wick <sebastian@sebastianwick.net>
+> 
+> This reverts commit 63d0b87213a0ba241b3fcfba3fe7b0aed0cd1cc5.
+> 
+> The panel_power_savings sysfs entry can be used to change the displayed
+> colorimetry which breaks color managed setups.
+> 
+> The "do not break userspace" rule which was violated here is enough
+> reason to revert this commit.
+> 
+> The bigger problem is that this feature is part of the display chain
+> which is supposed to be controlled by KMS. This sysfs entry bypasses the
+> DRM master process and splits control to two independent processes which
+> do not know about each other. This is what caused the broken user space.
+> It also causes modesets which can be extremely confusing for the DRM
+> master process, causing unexpected timings.
+> 
+> We should in general not allow anything other than KMS to control the
+> display path. If we make an exception to this rule, this must be first
+> discussed on dri-devel with all the stakeholders approving the
+> exception.
+> 
+> This has not happened which is the second reason to revert this commit.
+> 
+> Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
 
-Alex
+For anyone who hasn't seen it, there has been a bunch of discussions 
+that have transpired on this topic and what to do about it on [1] as 
+well as some other linked places on that bug.
 
-On Tue, Aug 6, 2024 at 4:18=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com> =
-wrote:
->
-> Add support for logging the registers in devcoredump
-> buffer for vcn_v2_6.
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Also FWIW there was a discussion on the merits of the sysfs file on 
+dri-devel during the initial patch submission [2].
+
+If this revert ends up going through, please also revert 
+0887054d14ae23061e28e28747cdea7e40be9224 in the same series so the 
+feature can "at least" be accessed by the compositor and changed at 
+runtime like the sysfs file had allowed.
+
+[1] https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/issues/159
+[2] 
+https://lore.kernel.org/dri-devel/20240202152837.7388-1-hamza.mahfooz@amd.com/
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v2_5.c
-> index fdbf56a0e46e..d3e00c0bb608 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -2056,8 +2056,8 @@ static const struct amd_ip_funcs vcn_v2_6_ip_funcs =
-=3D {
->          .post_soft_reset =3D NULL,
->          .set_clockgating_state =3D vcn_v2_5_set_clockgating_state,
->          .set_powergating_state =3D vcn_v2_5_set_powergating_state,
-> -       .dump_ip_state =3D NULL,
-> -       .print_ip_state =3D NULL,
-> +       .dump_ip_state =3D vcn_v2_5_dump_ip_state,
-> +       .print_ip_state =3D vcn_v2_5_print_ip_state,
->  };
->
->  const struct amdgpu_ip_block_version vcn_v2_5_ip_block =3D
-> --
-> 2.34.1
->
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 80 -------------------
+>   1 file changed, 80 deletions(-)
+> 
+> diff --git ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c ../drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 4d4c75173fc3..16c9051d9ccf 100644
+> --- ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ ../drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6772,82 +6772,10 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
+>   	return ret;
+>   }
+>   
+> -/**
+> - * DOC: panel power savings
+> - *
+> - * The display manager allows you to set your desired **panel power savings**
+> - * level (between 0-4, with 0 representing off), e.g. using the following::
+> - *
+> - *   # echo 3 > /sys/class/drm/card0-eDP-1/amdgpu/panel_power_savings
+> - *
+> - * Modifying this value can have implications on color accuracy, so tread
+> - * carefully.
+> - */
+> -
+> -static ssize_t panel_power_savings_show(struct device *device,
+> -					struct device_attribute *attr,
+> -					char *buf)
+> -{
+> -	struct drm_connector *connector = dev_get_drvdata(device);
+> -	struct drm_device *dev = connector->dev;
+> -	u8 val;
+> -
+> -	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> -	val = to_dm_connector_state(connector->state)->abm_level ==
+> -		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
+> -		to_dm_connector_state(connector->state)->abm_level;
+> -	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> -
+> -	return sysfs_emit(buf, "%u\n", val);
+> -}
+> -
+> -static ssize_t panel_power_savings_store(struct device *device,
+> -					 struct device_attribute *attr,
+> -					 const char *buf, size_t count)
+> -{
+> -	struct drm_connector *connector = dev_get_drvdata(device);
+> -	struct drm_device *dev = connector->dev;
+> -	long val;
+> -	int ret;
+> -
+> -	ret = kstrtol(buf, 0, &val);
+> -
+> -	if (ret)
+> -		return ret;
+> -
+> -	if (val < 0 || val > 4)
+> -		return -EINVAL;
+> -
+> -	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> -	to_dm_connector_state(connector->state)->abm_level = val ?:
+> -		ABM_LEVEL_IMMEDIATE_DISABLE;
+> -	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> -
+> -	drm_kms_helper_hotplug_event(dev);
+> -
+> -	return count;
+> -}
+> -
+> -static DEVICE_ATTR_RW(panel_power_savings);
+> -
+> -static struct attribute *amdgpu_attrs[] = {
+> -	&dev_attr_panel_power_savings.attr,
+> -	NULL
+> -};
+> -
+> -static const struct attribute_group amdgpu_group = {
+> -	.name = "amdgpu",
+> -	.attrs = amdgpu_attrs
+> -};
+> -
+>   static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
+>   {
+>   	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+>   
+> -	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP &&
+> -	    amdgpu_dm_abm_level < 0)
+> -		sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
+> -
+>   	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
+>   }
+>   
+> @@ -6952,14 +6880,6 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+>   		to_amdgpu_dm_connector(connector);
+>   	int r;
+>   
+> -	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP &&
+> -	    amdgpu_dm_abm_level < 0) {
+> -		r = sysfs_create_group(&connector->kdev->kobj,
+> -				       &amdgpu_group);
+> -		if (r)
+> -			return r;
+> -	}
+> -
+>   	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
+>   
+>   	if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
+
