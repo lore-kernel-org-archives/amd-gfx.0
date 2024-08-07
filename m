@@ -4,52 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A16CC52D6F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 20:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E823C3DA7F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 20:34:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2BFB10E5E2;
-	Wed,  7 Aug 2024 20:34:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B7AF10E5E3;
+	Wed,  7 Aug 2024 20:34:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BNvTpw3I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P0+HyFiJ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793E110E5E2;
- Wed,  7 Aug 2024 20:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=7ucj5VfOj9zNojWXHEd9BVni8k6nB/XwFkhfZUowHBM=; b=BNvTpw3IEv3UyG+gtCF+B+6Kvy
- qPeyTsW6z5nv5Jp5oLaBjdUyLUKqJqaCdnjrz/f9oUhK+cqodf/wc5Aj7+O+XG8Sx/kLIV7MqYk65
- GwGKv0qrThm0Lm2Tl5oPTf9duTJCIn70cRJnbB+d5ME4aRQxYr9hH+cf2sRXH903AgrwG3Xky6oWa
- CoDlQdxn2tNh2R2zeOb6nCeyPl8l6tygubA0ipBkWFssrk5UJXrYnsR2wmepY8X9jxYHJnlXsAPqu
- TlwYMq0R6PThjSZVm8E57AJ7o0WNndMt38BWIHwFFfo850e04ZCMaGruSSyAUpNDJLFEijQmRRqCD
- sgCxyllg==;
-Received: from [189.6.17.125] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sbnMI-0098Re-EX; Wed, 07 Aug 2024 22:34:10 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, kernel-dev@igalia.com,
- Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v5 9/9] drm/amd/display: remove dc_edid handler from
- dm_helpers_parse_edid_caps
-Date: Wed,  7 Aug 2024 19:25:11 -0100
-Message-ID: <20240807203207.2830-10-mwen@igalia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240807203207.2830-1-mwen@igalia.com>
-References: <20240807203207.2830-1-mwen@igalia.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24B8510E5E3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 20:34:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bO66vUzWaJNlpyRovG9iTmyEertUxJJTrdhvYA/bKqYC9nHmfUK4nnR4doebMwtLUwCWCOnSMl78b1PILDL6tCNnHaqfmVvUc1rj+H5ltxcYxsmgijcahjRN7BByWac6YrElFT5jNFE4PZgFKxzbs8uFYn6OIOsngnA78O7Tkhj0Qkb9Df4nqPVz0mwbzb7sia7eVW3GNP1uLdVM/4ANqMiKf4NRQonJ/jppsGOmj4I4gFAh5HO8Y70/Ex3ckWZSAq+xlkmpp71ZsJSx0SlQ0u5XJxDTAMmZQwquy9/b+l7o4FQ+gEmW+FyaifV5eFPCxvoqNQy4G0BBhH1EDCUIQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CnfqhyxyxmNLRpx8Mi7CFhqmMYNmgPI5BEgOJRjz6jQ=;
+ b=ci8ieL7q2Rd1LHnK8PnOw3CucWlr3q3JbJxot+MOTz82h5wtXagInU/Hb0qYR4sw5GXA2qLlpmDBWPZuMiGK2BX5vWBKQ+YJ4Q37BbTaaw1Fhl58vAivpvt2SoNt5JeWAGx3GYgG6Vm97LGQzWMXthRqHADupW00D591RS1eCq5ZdkBp8DLx12ILXlvTa8j5tRozR7dSowbMYAc5kaTjK+pfsSe9H+6RXPOdLh0qO/ebRN0w65KyFh1fkInbp3PsTl+wyMlGUxSLPOirOWOXs2cXxn/0MjDakDv3WIdnRM6edQs+8Pwt04apj/S8H8lQecEpmOVF71fhBYb+EZUmxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CnfqhyxyxmNLRpx8Mi7CFhqmMYNmgPI5BEgOJRjz6jQ=;
+ b=P0+HyFiJnRuvgXUepxz79qdfieCxhU3VPtI9YeNSqrDyX4wUOkExiAqKIpjkca71BcVOetqNPXQRMelxcwhOhRljiBN2SZ6XNLvtkeIfStD3mXl8mN7pR59sGS1VvdeKGA6yJ2wEEe9ZbkNiSxUKC6Lz5tHGWmRrfNk4gTQQulM=
+Received: from MW4PR03CA0199.namprd03.prod.outlook.com (2603:10b6:303:b8::24)
+ by SA3PR12MB7831.namprd12.prod.outlook.com (2603:10b6:806:311::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Wed, 7 Aug
+ 2024 20:34:49 +0000
+Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
+ (2603:10b6:303:b8:cafe::72) by MW4PR03CA0199.outlook.office365.com
+ (2603:10b6:303:b8::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.30 via Frontend
+ Transport; Wed, 7 Aug 2024 20:34:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 20:34:48 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
+ 2024 15:34:47 -0500
+From: Jonathan Kim <Jonathan.Kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, Jonathan Kim <Jonathan.Kim@amd.com>, "Jonathan
+ Kim" <jonathan.kim@amd.com>
+Subject: [PATCH] drm/amdkfd: fix partition query when setting up recommended
+ sdma engines
+Date: Wed, 7 Aug 2024 16:34:40 -0400
+Message-ID: <20240807203440.1875832-1-Jonathan.Kim@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|SA3PR12MB7831:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85f843c3-9725-4dc7-7857-08dcb72061bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gfX7vSgKFzZhE9PGzQ99Nc/Cuq40JmkSsFk37G6rgn7p9N5pbey8r3yvJLhy?=
+ =?us-ascii?Q?kzHQ4wAlHeIk6OHRRZ8OFocN7WA5g3VdclMjf/VQGHKkUwPJUNu+wDevLN8W?=
+ =?us-ascii?Q?efw24TO6CH5mLGfHrKmSsqSGg17cNgtKhbhU6DFCeeBMb/kL1CoGH8t3pSn0?=
+ =?us-ascii?Q?JyHD3V2Br8S19ViOdT2/+6CUy6+KS5htoKbvgm+FSrgEXIKO3Xpii9EEvokK?=
+ =?us-ascii?Q?H9WH/Q5kQTbIYteCl1kPehdvEOzTxheVRIEaBGUkstefQ1Aa8rnCVl/Do+cC?=
+ =?us-ascii?Q?gfH2tSUW65n/ZyvnQW5SZRkKvYvEgHKTw57o9vC0c8gFE4mtbUu0ekx7H55x?=
+ =?us-ascii?Q?n2Pkg5aA4K7SO3iTbrzyks3kT5x0kdXqIEQw6eieYXLwmEHN7QpRDZoiE7Jt?=
+ =?us-ascii?Q?XBOr8y0nAX7sKO1MsMW5AsHbLH90GPGFKMMsfEBKOMQgOJ3UM0LVtDNHklHS?=
+ =?us-ascii?Q?DXStV8eIxQIVBTYl3TU5fMqNOWv98RdE3Tb0YO5OpwQkvQuAzyNDdRjGdjjq?=
+ =?us-ascii?Q?0OC1OtlrAyT+tKVcIhF5Hp6vNB/Ef9UBZSohjfx3Y694liH9KXWB9dtQCg8d?=
+ =?us-ascii?Q?daD7F9DXrCZ01CgnIwaKlfgIOzFqvSelYydQVJ2jNsLaGlFJ4VEUhRS2J68H?=
+ =?us-ascii?Q?V8qnS5Xbyv0U2kZmcOBwTprQGqKpu4nrRCmT34CAZP/kW1M3G4j6YbIEfb00?=
+ =?us-ascii?Q?59+GT30QpBLhGyqeJyy15qR3wRcOiomNTVpq4zT9P1DrQWscZRWL/9z2+Fop?=
+ =?us-ascii?Q?OaLdCUE26ofJtzvRIMtsofoqBNJaX9VJRK6c4yrc0g3IMSxnusDnyWaNPBIy?=
+ =?us-ascii?Q?D63imt9DeFNLv2x2BDFRJnqC440Nwc7swINxSeow5YvnRU1qrN/Jo4AQtCxC?=
+ =?us-ascii?Q?gvo6m64mxgDFuxIuZE9RJfZ261XjqQQJd2seDBzalJGDn5cObEWJkE0qpG1X?=
+ =?us-ascii?Q?sDOR5ZuOKM5+mZipRCVZ/Vg9m7d2HOiEnJds5asB5kkZJhLEGTX8CZb6ROIW?=
+ =?us-ascii?Q?SAH/WzWMfoGAL0lVqp7oRQxDjSiwGQ5de3wHwxEW13Vb5mXpl8q+aCSAycAh?=
+ =?us-ascii?Q?IUCXfiLxaOcKZ1093IzHsH2pKPm3nh3JIFzgJ1A0Nkg0q5np2vPkChdLL5aj?=
+ =?us-ascii?Q?kxYBYyCyR//ORdZnBF+uXRTmdv+LCD0f68h8pRXFkeIPvTOSEnTqBRii8qQ0?=
+ =?us-ascii?Q?T/AUgygKnssLCw72dpyMht6YsEUvrdrirnAquPEHdLF+CliqYgjlshAvkZwR?=
+ =?us-ascii?Q?tHbqe+VoS5wZN/GXZ4jNX28kW0fZBQg1jCRDbtyp2VgnGZN6uL8fzJ7Ofk3h?=
+ =?us-ascii?Q?dcQKO5p3Vhk1OXhbxcx/vka3P2S2e+89c1G8xIIjFsNb74AILbPRsaqiv7JA?=
+ =?us-ascii?Q?yMsYbGz66/LlOaSw2pnXnycmDeNw80QN1ZdKR9fACTc7TcHJ8heXrlro4A2f?=
+ =?us-ascii?Q?HnYMlOHJxFenyKkSGyapsUVeKExwSiGi?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 20:34:48.4848 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85f843c3-9725-4dc7-7857-08dcb72061bd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7831
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,142 +131,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We can parse edid caps from drm_edid and drm_eld and any calls of
-dm_helpers_parse_edid_caps is made in a state that we have drm_edid set
-to amdgpu connector.
+When users dynamically set the partition mode through sysfs writes,
+this can lead to a double lock situation where the KFD is trying to take
+the partition lock when updating the recommended SDMA engines.
+Have the KFD do a lockless query instead to avoid this.
+This should work since the KFD always initializes synchronously after
+the KGD partition mode is set regardless of user or system setup.
 
-v5: also remove the parameter from kernel-doc (kernel test bot)
-
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Fixes: a0f548d7871e ("drm/amdkfd: allow users to target recommended SDMA engines")
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +--
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 32 ++++++++-----------
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  1 -
- .../drm/amd/display/dc/link/link_detection.c  |  6 ++--
- 4 files changed, 17 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a710d0576edd..e75d7e58df16 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7030,10 +7030,7 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
- 		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
- 		memmove(dc_em_sink->dc_edid.raw_edid, edid,
- 			(edid->extensions + 1) * EDID_LENGTH);
--		dm_helpers_parse_edid_caps(
--			dc_link,
--			&dc_em_sink->dc_edid,
--			&dc_em_sink->edid_caps);
-+		dm_helpers_parse_edid_caps(dc_link, &dc_em_sink->edid_caps);
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 40771f8752cb..8fee89b8dd67 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1287,7 +1287,7 @@ static void kfd_set_recommended_sdma_engines(struct kfd_topology_device *to_dev,
+ 	int num_xgmi_nodes = adev->gmc.xgmi.num_physical_nodes;
+ 	bool support_rec_eng = !amdgpu_sriov_vf(adev) && to_dev->gpu &&
+ 		adev->aid_mask && num_xgmi_nodes &&
+-		(amdgpu_xcp_query_partition_mode(adev->xcp_mgr, AMDGPU_XCP_FL_NONE) ==
++		(amdgpu_xcp_query_partition_mode(adev->xcp_mgr, AMDGPU_XCP_FL_LOCKED) ==
+ 		      AMDGPU_SPX_PARTITION_MODE) &&
+ 		(!(adev->flags & AMD_IS_APU) && num_xgmi_nodes == 8);
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index e785b1e3277b..87b19c50ee55 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -82,32 +82,24 @@ static void apply_edid_quirks(struct drm_edid_product_id *product_id, struct dc_
-  * dm_helpers_parse_edid_caps() - Parse edid caps
-  *
-  * @link: current detected link
-- * @edid:	[in] pointer to edid
-  * @edid_caps:	[in] pointer to edid caps
-  *
-  * Return: void
-  */
--enum dc_edid_status dm_helpers_parse_edid_caps(
--		struct dc_link *link,
--		const struct dc_edid *edid,
--		struct dc_edid_caps *edid_caps)
-+enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
-+					       struct dc_edid_caps *edid_caps)
- {
- 	struct amdgpu_dm_connector *aconnector = link->priv;
- 	struct drm_connector *connector = &aconnector->base;
- 	const struct drm_edid *drm_edid = aconnector->drm_edid;
- 	struct drm_edid_product_id product_id;
--	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
- 	int sad_count;
- 	int i = 0;
--
- 	enum dc_edid_status result = EDID_OK;
- 
--	if (!edid_caps || !edid)
-+	if (!edid_caps || !drm_edid)
- 		return EDID_BAD_INPUT;
- 
--	if (!drm_edid_is_valid(edid_buf))
--		result = EDID_BAD_CHECKSUM;
--
- 	drm_edid_get_product_id(drm_edid, &product_id);
- 
- 	edid_caps->manufacturer_id = le16_to_cpu(product_id.manufacturer_name);
-@@ -919,19 +911,23 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 		if (!drm_edid)
- 			return EDID_NO_RESPONSE;
- 
--		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
-+		/* FIXME: Get rid of drm_edid_raw()
-+		 * Raw edid is still needed for dm_helpers_dp_write_dpcd()
-+		 */
-+		edid = drm_edid_raw(drm_edid);
- 		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
- 		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
- 
- 		edid_status = dm_helpers_parse_edid_caps(
- 						link,
--						&sink->dc_edid,
- 						&sink->edid_caps);
- 
--		/* We don't need the original edid anymore */
--		drm_edid_free(drm_edid);
--
--	} while (edid_status == EDID_BAD_CHECKSUM && --retry > 0);
-+		if (edid_status != EDID_OK) {
-+			/* We can discard the drm_edid and retry */
-+			drm_edid_free(drm_edid);
-+			drm_edid_connector_update(connector, drm_edid);
-+		}
-+	} while (edid_status != EDID_OK && --retry > 0);
- 
- 	if (edid_status != EDID_OK)
- 		DRM_ERROR("EDID err: %d, on connector: %s",
-@@ -1294,4 +1290,4 @@ bool dm_helpers_is_hdr_on(struct dc_context *ctx, struct dc_stream_state *stream
- {
- 	// TODO
- 	return false;
--}
-\ No newline at end of file
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 2e4a46f1b499..4e1776b5f0d4 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -61,7 +61,6 @@ void dm_helpers_free_gpu_mem(
- 
- enum dc_edid_status dm_helpers_parse_edid_caps(
- 	struct dc_link *link,
--	const struct dc_edid *edid,
- 	struct dc_edid_caps *edid_caps);
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index 391dbe81534d..5fdd3e7da54e 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1414,10 +1414,8 @@ struct dc_sink *link_add_remote_sink(
- 			dc_sink))
- 		goto fail_add_sink;
- 
--	edid_status = dm_helpers_parse_edid_caps(
--			link,
--			&dc_sink->dc_edid,
--			&dc_sink->edid_caps);
-+	edid_status = dm_helpers_parse_edid_caps(link,
-+						 &dc_sink->edid_caps);
- 
- 	/*
- 	 * Treat device as no EDID device if EDID
 -- 
-2.43.0
+2.34.1
 
