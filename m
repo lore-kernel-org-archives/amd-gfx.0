@@ -4,66 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6055C52D71
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 15:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA7BC52D71
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Aug 2024 15:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83E8C10E564;
-	Wed,  7 Aug 2024 15:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6232A10E164;
+	Wed,  7 Aug 2024 15:39:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="GzVZxc/I";
+	dkim=pass (2048-bit key; unprotected) header.d=gfxstrand-net.20230601.gappssmtp.com header.i=@gfxstrand-net.20230601.gappssmtp.com header.b="srDHRgoi";
 	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84C0910E564
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 15:12:23 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-7a1e23baecbso162685a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 08:12:23 -0700 (PDT)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F19010E164
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 15:39:46 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-709339c91f9so779014a34.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 08:39:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1723043542; x=1723648342;
+ d=gfxstrand-net.20230601.gappssmtp.com; s=20230601; t=1723045186; x=1723649986;
  darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=f9S20irupVyaix7A85syhnvSAWrgj4NiX5bTpfwMXBI=;
- b=GzVZxc/ItoJG3LztJCI6tVNPQH+o4HA0Jq5w+XXEE+1eEKhAcfsL7k/leAGaIOqrGt
- UGfifB/fPP8qga8GtU/C12dTvoQi2P8V5VU7NN3fLuVPpBvxmWvXHQs8YBaHO3n3C1yg
- fL3bBSiA5UovF7uX+YFpEZKGNoeWbfv4A6Y9w3D5rOtiXWnnnOQYyWDa6wtlkT4X6QQP
- ljVrE4+oOSjjMlQ0AxUybKZGcE2T5+Fh3p8KFbbKM2FEHTz9DvIrbKf195L/92FaXHEv
- 4pYtDfjZ3Vp+evmKN5liKhE4tU46Y43iLJ29/fRIc7duD6PdmpJsAUn7C3av44FX2IWc
- BTjA==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=A06tRfiwfCkx1WNzqGwjLdiLkyRdih/rggP792iOIho=;
+ b=srDHRgoi4WXh3pQsWQAbVpvP0GZW/h6QjbjW8lhuPkVlNYlSQeb+2OvItuuPHsfSVj
+ kHMcutkrqvWoZkFpQhtetJ+sELl2s1+KvkwNG1qu3F402b2KNh40iVBYZ07QBryPT9pV
+ qK6c36TKl5vTFYWN/WLpWIZL4wDsBDsDaPRxDpNM/lYzTO6ehOxceNMGLLZM3IXNssa4
+ SrofAzCVgorFsEEcT40YT6cAZUegbawUV3sSmXuiIEjSE12QUSaXMoAd/ZaBeihtjURq
+ rGMuVBokqlYnnZUMmyJLsKq/5/FEpM8qAoJIudnSQzVS3ucrIA0KwS4/85qKQabhMbKL
+ jWjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723043542; x=1723648342;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1723045186; x=1723649986;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=f9S20irupVyaix7A85syhnvSAWrgj4NiX5bTpfwMXBI=;
- b=fPFVIY1gdBPGlBo5pZXnD8oenYWlR5mw4nq9iqXT2G55413g9n3UryLEJ/rvVTqLgT
- /Tg0/yC09rzqvOP4LTzr5DAPlVhejGsgn+oSl+VQAF7whMrVGU5ODaO/RtWb/JqVf2ja
- Fb7X4hk+vTb14z5aWRuTnwcw2vfrFBakwtOlgmbXNRwgl1ribGdZ8QHURHMxaz+Uo1Yc
- Mp6peYfYQG5ZrouHOwauerg7EkidnTTkSYTC/r4Gz+eLtBSgEPUKma6PAg9OczUgQ0xu
- ZAaATK4RacsCLcgeXdwjPvnwFeuUrmzQD6DhuLG9aON7q8iJ1EOQuid9+w/DPWSEUmUG
- JdEw==
+ bh=A06tRfiwfCkx1WNzqGwjLdiLkyRdih/rggP792iOIho=;
+ b=uaRbAOqnJN7WE/9vnPOPQ57/F+ojOKlQOUrGwHKzqypO8KP6ahK31DwgIKMuxUkKWX
+ /wYRW7B3jqmBdszNUTCoOfaQeha3Ac8FfW8h6hjrCNxxINZlPphS23Ky1RGb766xygKB
+ XiUHdzD/2QegUOjYWqjQpaU5Do4itxtw+iDiALVorkiebNz02W9aE/FCCXLKVSate/rX
+ jb9UiLaQxSZxAU3/7O3o22gV5DPi6k+NFvMM4WjlbUDBekUOFANwxfZm0oXTTvmDQncX
+ Wku9xpX8tMkESDK9AaQpgFONLnN44MKsjYnX0i8NB1YUOu2tAkJ55kWJTUC/GQYS2SOa
+ a0Pg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7MlmIIuwW9E5+7X32MY7cZ62Lz+xgBO5mZ3WJGepaxNyNaktB6A6+aHK4kdjGeGkabA9OP1GjFlxvWSGRcM10LZyLpVaIOjKX658ITA==
-X-Gm-Message-State: AOJu0YwpYAFW83s6NUHrb72PxPi5ntn7lDfogkHSOD/mF2qFoHvLzXAm
- v4GunVGoswwn+fFD43HTva9h74RxdwiYiRc8YlkZQF3oGFwoslw9nWVxwcgHLI1bYW/9FcTeLgA
- wtoSI7Bwdl7v5snP3cHtsyLQ79Q2IXR1XREbz9g==
-X-Google-Smtp-Source: AGHT+IFdCteEJOOx60EP2thKH9JNKVb47F4NSb9LldqFVqZXsaeYy00dPyLFivz+m2+MogQ0c5dmm24XGmEWSVYmBaQ=
-X-Received: by 2002:a05:620a:4494:b0:79f:b3c:8fc3 with SMTP id
- af79cd13be357-7a34efc4f66mr1375105985a.6.1723043542426; Wed, 07 Aug 2024
- 08:12:22 -0700 (PDT)
+ AJvYcCVE2y/MrE2PrcBXqC/WPBJRajpc3vRNoGllL100BcR1KzU8iZ+jp8eBDVG6p9oIaRTtYLlUgMkRiG9wWpjl2oWl41ED++G1PcQteAyTtA==
+X-Gm-Message-State: AOJu0YxBZWufBuxxzfpts/qw8wxuxohhjBCVP/IE8JM0dd+tP8rebNii
+ Ws4sGPfiLYnZda9dTSbCJ7qudqfpAZX3BoR3dnE6SWDwmLzp5/dlW0QQ68GAt2lSgFLbPeMJq5D
+ c
+X-Google-Smtp-Source: AGHT+IEMwHN2wox1SG7h7oRjR6P0gDvlIV5Le5mfAYhb6p1gy4WtY/QXw2Ij4tw6aG3rBSBTq8KUEQ==
+X-Received: by 2002:a05:6830:488f:b0:703:5efa:3ce4 with SMTP id
+ 46e09a7af769-709ad851fefmr25820834a34.4.1723045185549; 
+ Wed, 07 Aug 2024 08:39:45 -0700 (PDT)
+Received: from kermit.lan ([136.62.87.188]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-70a3a75085csm4666594a34.51.2024.08.07.08.39.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Aug 2024 08:39:44 -0700 (PDT)
+From: Faith Ekstrand <faith@gfxstrand.net>
+X-Google-Original-From: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Cc: Faith Ekstrand <faith.ekstrand@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Subject: [RFC] amdgpu: Add a context flag to disable implicit sync
+Date: Wed,  7 Aug 2024 10:39:32 -0500
+Message-ID: <20240807153941.3668940-1-faith.ekstrand@collabora.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240806202732.783604-1-bas@basnieuwenhuizen.nl>
- <63b3fedc-e793-4e87-82a6-5448adb2e544@mailbox.org>
-In-Reply-To: <63b3fedc-e793-4e87-82a6-5448adb2e544@mailbox.org>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Wed, 7 Aug 2024 17:12:10 +0200
-Message-ID: <CAP+8YyG4arrfE+RuogNHZxhZ=_mTNN0KnADYp7=9SsPKu6cjEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Actually check flags for all context ops.
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="0000000000004782b4061f1956b2"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,66 +87,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000004782b4061f1956b2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Previously, AMDGPU_GEM_CREATE_EXPLICIT_SYNC was used to disable implicit
+synchronization on BOs when explicit synchronization can be used.  The
+problem is that this flag is per-BO and affects all amdgpu users in the
+system, not just the usermode drver which sets it.  This can lead to
+some unintended consequences for userspace if not used carefully.
 
-Yeah, I also found that one. Will send it out this evening if you don't get
-to it.
+Since the introduction of DMA_BUF_IOCTL_EXPORT_SYNC_FILE and
+DMA_BUF_IOCTL_IMPORT_SYNC_FILE, many userspace window system components
+have grown the ability to convert between the Vulkan explicit sync model
+and the legacy implicit sync model used by X11 and Wayland in the past.
+This allows both old and new components to exist simultaneously and talk
+to each other.  In particular, XWayland is able to convert between the
+two to let Vulkan apps work seamlessly with older X11 compositors that
+aren't aware of explicit synchronizaiton.  This is rapidly becoming the
+backbone of synchronization in the Linux window system space.
 
-On Wed, Aug 7, 2024, 5:03=E2=80=AFPM Michel D=C3=A4nzer <michel.daenzer@mai=
-lbox.org>
-wrote:
+Unfortunately, AMDGPU_GEM_CREATE_EXPLICIT_SYNC breaks this because it
+disables all implicit synchronization on the given BO, regardless of
+which userspace driver is rendering with it and regardless of the
+assumptions made by the client application.  In particular, this is
+causing issues with RADV and radeonsi.  RADV sets the flag to disable
+implicit sync on window system buffers so that it can safely have them
+resident at all times without causing internal over-synchronization.
+The BO is then handed off to a compositor which composites using
+radeonsi.  If the compositor uses the EGL_ANDROID_native_fence_sync
+extension to pass explicit sync files through to radeonsi, then
+everything is fine.  However, if that buffer ever gets handed to an
+instance of radeonsi with any assumption of implicit synchronization,
+radeonsi won't be able sync on the BO because RADV disabled implict sync
+on that BO system-wide.  It doesn't matter whether some window system
+component used DMA_BUF_IOCTL_IMPORT_SYNC_FILE to set the appropriate
+fence on the BO, amdgpu will ignore it.
 
-> On 2024-08-06 22:27, Bas Nieuwenhuizen wrote:
-> > Missing validation ...
-> >
-> > Checked libdrm and it clears all the structs, so we should be
-> > safe to just check everything.
->
-> Thanks for fixing this.
->
-> FWIW, amdgpu_cs_ioctl has the same issue AFAICT. Haven't checked any
-> others, there might be more.
->
->
-> --
-> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa devel=
-oper
-> https://redhat.com             \               Libre software enthusiast
->
->
+This new flag disables implicit sync on the context rather than the BO.
+This way RADV can disable implicit sync (which is what RADV has always
+wanted) without affecting other components in the system.  If RADV (or
+some other driver) wants implicit sync on some BO, it can use
+DMA_BUF_IOCTL_EXPORT_SYNC_FILE and DMA_BUF_IOCTL_IMPORT_SYNC_FILE to
+manually synchronize with other implicit-sync components.  This is the
+approach we've taken with NVK/nouveau, ANV/xe, and similar to the
+approach taken by ANV/i915 and it works well for those drivers.
 
---0000000000004782b4061f1956b2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Ideally, I would like to see something like this back-ported to at least
+the kernel where DMA_BUF_IOCTL_IMPORT/EXPORT_SYNC_FILE were introduced
+so that we don't have to wait another year for the fix to reach users.
+However, I understand that back-porting UAPI is problematic and I'll
+leave that decision up to the amdgpu maintainers.  Michel suggested that
+a new CTX_OP would make more sense if we want to back-port it but the
+create flag made more sense to me from an API design PoV.
 
-<div dir=3D"auto">Yeah, I also found that one. Will send it out this evenin=
-g if you don&#39;t get to it.</div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Wed, Aug 7, 2024, 5:03=E2=80=AFPM Michel D=
-=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer@mailbox.org">michel.daenzer=
-@mailbox.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 2024=
--08-06 22:27, Bas Nieuwenhuizen wrote:<br>
-&gt; Missing validation ...<br>
-&gt; <br>
-&gt; Checked libdrm and it clears all the structs, so we should be<br>
-&gt; safe to just check everything.<br>
-<br>
-Thanks for fixing this.<br>
-<br>
-FWIW, amdgpu_cs_ioctl has the same issue AFAICT. Haven&#39;t checked any ot=
-hers, there might be more.<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0\=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 GNOME / Xwayland / Mesa developer<br>
-<a href=3D"https://redhat.com" rel=3D"noreferrer noreferrer" target=3D"_bla=
-nk">https://redhat.com</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Libre software enthu=
-siast<br>
-<br>
-</blockquote></div>
+Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Michel Dänzer <mdaenzer@redhat.com>
+Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 12 ++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  7 +++++++
+ include/uapi/drm/amdgpu_drm.h           | 12 +++++++++++-
+ 4 files changed, 28 insertions(+), 6 deletions(-)
 
---0000000000004782b4061f1956b2--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index ec888fc6ead8..8410b4426541 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1196,7 +1196,8 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 		struct dma_resv *resv = bo->tbo.base.resv;
+ 		enum amdgpu_sync_mode sync_mode;
+ 
+-		sync_mode = amdgpu_bo_explicit_sync(bo) ?
++		sync_mode = (amdgpu_ctx_explicit_sync(p->ctx) ||
++			     amdgpu_bo_explicit_sync(bo)) ?
+ 			AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
+ 		r = amdgpu_sync_resv(p->adev, &p->sync, resv, sync_mode,
+ 				     &fpriv->vm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 5cb33ac99f70..a304740ccedf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -318,7 +318,8 @@ static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
+ }
+ 
+ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+-			   struct drm_file *filp, struct amdgpu_ctx *ctx)
++			   uint32_t flags, struct drm_file *filp,
++			   struct amdgpu_ctx *ctx)
+ {
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+ 	u32 current_stable_pstate;
+@@ -334,6 +335,7 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+ 	ctx->mgr = mgr;
+ 	spin_lock_init(&ctx->ring_lock);
+ 
++	ctx->flags = flags;
+ 	ctx->reset_counter = atomic_read(&mgr->adev->gpu_reset_counter);
+ 	ctx->reset_counter_query = ctx->reset_counter;
+ 	ctx->generation = amdgpu_vm_generation(mgr->adev, &fpriv->vm);
+@@ -474,6 +476,7 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+ 			    struct amdgpu_fpriv *fpriv,
+ 			    struct drm_file *filp,
+ 			    int32_t priority,
++			    uint32_t flags,
+ 			    uint32_t *id)
+ {
+ 	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
+@@ -493,7 +496,7 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+ 	}
+ 
+ 	*id = (uint32_t)r;
+-	r = amdgpu_ctx_init(mgr, priority, filp, ctx);
++	r = amdgpu_ctx_init(mgr, priority, flags, filp, ctx);
+ 	if (r) {
+ 		idr_remove(&mgr->ctx_handles, *id);
+ 		*id = 0;
+@@ -666,7 +669,7 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *filp)
+ {
+ 	int r;
+-	uint32_t id, stable_pstate;
++	uint32_t id, stable_pstate, flags;
+ 	int32_t priority;
+ 
+ 	union drm_amdgpu_ctx *args = data;
+@@ -675,6 +678,7 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 
+ 	id = args->in.ctx_id;
+ 	priority = args->in.priority;
++	flags = args->in.flags;
+ 
+ 	/* For backwards compatibility, we need to accept ioctls with garbage
+ 	 * in the priority field. Garbage values in the priority field, result
+@@ -685,7 +689,7 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 
+ 	switch (args->in.op) {
+ 	case AMDGPU_CTX_OP_ALLOC_CTX:
+-		r = amdgpu_ctx_alloc(adev, fpriv, filp, priority, &id);
++		r = amdgpu_ctx_alloc(adev, fpriv, filp, priority, flags, &id);
+ 		args->out.alloc.ctx_id = id;
+ 		break;
+ 	case AMDGPU_CTX_OP_FREE_CTX:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 85376baaa92f..9431c8d2ea59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -45,6 +45,7 @@ struct amdgpu_ctx_entity {
+ struct amdgpu_ctx {
+ 	struct kref			refcount;
+ 	struct amdgpu_ctx_mgr		*mgr;
++	uint32_t			flags;
+ 	unsigned			reset_counter;
+ 	unsigned			reset_counter_query;
+ 	uint64_t			generation;
+@@ -84,6 +85,12 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+ bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio);
+ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t ctx_prio);
+ 
++static inline bool
++amdgpu_ctx_explicit_sync(struct amdgpu_ctx *ctx)
++{
++	return ctx->flags & AMDGPU_CTX_ALLOC_FLAGS_EXPLICIT_SYNC;
++}
++
+ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 		     struct drm_file *filp);
+ 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 96e32dafd4f0..e9d87a6e3d86 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -125,7 +125,14 @@ extern "C" {
+ #define AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS	(1 << 5)
+ /* Flag that BO is always valid in this VM */
+ #define AMDGPU_GEM_CREATE_VM_ALWAYS_VALID	(1 << 6)
+-/* Flag that BO sharing will be explicitly synchronized */
++/* Flag that BO sharing will be explicitly synchronized
++ *
++ * This flag should not be used unless the client can guarantee that no
++ * other driver which ever touches this BO will ever want to use implicit
++ * synchronization as it disables implicit sync on this BO system-wide.
++ * Instead, drivers which use an explicit synchronization model should
++ * prefer AMDGPU_CTX_ALLOC_FLAGS_EXPLICIT_SYNC.
++ */
+ #define AMDGPU_GEM_CREATE_EXPLICIT_SYNC		(1 << 7)
+ /* Flag that indicates allocating MQD gart on GFX9, where the mtype
+  * for the second page onward should be set to NC. It should never
+@@ -240,6 +247,9 @@ union drm_amdgpu_bo_list {
+ #define AMDGPU_CTX_OP_GET_STABLE_PSTATE	5
+ #define AMDGPU_CTX_OP_SET_STABLE_PSTATE	6
+ 
++/* indicate that all synchronization will be explicit */
++#define AMDGPU_CTX_ALLOC_FLAGS_EXPLICIT_SYNC (1<<0)
++
+ /* GPU reset status */
+ #define AMDGPU_CTX_NO_RESET		0
+ /* this the context caused it */
+-- 
+2.45.2
+
