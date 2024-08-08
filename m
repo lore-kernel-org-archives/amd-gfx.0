@@ -4,71 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 232F0C52D71
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 17:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0695C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 17:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC39C10E7A7;
-	Thu,  8 Aug 2024 17:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A0410E7AB;
+	Thu,  8 Aug 2024 17:27:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SBPkIINs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EsENS41s";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D97A010E7A7;
- Thu,  8 Aug 2024 17:25:09 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-7b396521ff6so983375a12.1; 
- Thu, 08 Aug 2024 10:25:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723137909; x=1723742709; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=R3iZ7fcb1MmjyjW9t+2rUZPHz66g5ifDib2eiW/PAao=;
- b=SBPkIINsoak0NiGg2zTO7f1QPVGTUQOAKWzXfgxo1noJaJcN3fxiPOFP+DCfC1IOzu
- KCxbZGlxMYzfA4z6iCrnzEuCqv43c0RxxFvQ7GxWnELfG/6jOcFmgH7S5CTLHKmbysye
- I3Ngcoa5G+APs93uXiNStXT5B1h9iHElPVJNkyA4M+F39ziCZv+RuwK5pfs/2fp4vYgL
- djnfzqYQdC87bS+XmRv/aMD2eFatBzlNbUFm/8qO9c25fCxPeSvu4hrwGx3SOeZBH+5y
- Sdm/eyR/h0dAdHH7JTvTr6Ui2Rz3S///Ti48WvGmBKFkfvbhcc84W3mjfBlM5M4ahfMS
- wcNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723137909; x=1723742709;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=R3iZ7fcb1MmjyjW9t+2rUZPHz66g5ifDib2eiW/PAao=;
- b=eWT2seM28CrJtwbIz/CkJUmCAn2HIKVL/5pucfwFpPfuvK9DXwrNHv5WkfRKl4ZtRB
- S2pe5ZPtaGeVdmAUbNjdbbUKUcH2NLK/HVT/jdJXFvUT3q/G7bklbI2+gbEHyfyskesy
- hnceyT/DqTJInYjayZi1i9HtdfCSbPFHXQ5zEz9Z02hGDhuldmdDJZ/ZCO71I8jC3dth
- CT4T+q5ZLTMZKuaqWeluLnzHyHxu2hf0gKbonot9JC8SqnQwBGeYmWmZ17Z6ITIWler0
- 7IuNBX+lkzKgCiSuyC6mnHmps+/UrJJ6CWFX9k8iLAd1MP8oXnRFQE32Spse7X/w0dUt
- BwSQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUah+nP7kH/KH/X/xjQuuz+pXiD2Fs0NhNdNeb7ERifGmQKvSenrCGjQHIByFp2ITodbyJ3a1mvNyK2E8InrsNmIhPzvDfaY5rJ8qlXYui/pgL87uJjb4hUfEU/BaJDnUuR0ngMgqm9DXzyGXEjqA==
-X-Gm-Message-State: AOJu0YyAVZ0wMsLnmUEs0m/PElE22x5WL8zCOXUh76E608hgdqu9rdLs
- OKIf7rG/0kZ00+sK8xDXKNXqIx8YJp3VSSgS1LXO8hESOshRNupb2jlJLV3aS7Y2ID2swYWgeAo
- 6Yyv90Z0vPAKZKvIsmcdsInilUEo=
-X-Google-Smtp-Source: AGHT+IFK10v9qSl1uG5G5L2+ylqJz2dYSvp5UB5lkFU4pz5Lh0Xi9t+TEluxdykFf+f8QXkF5YuF/Eful1fKeNGkda0=
-X-Received: by 2002:a05:6a20:2450:b0:1c3:a760:9757 with SMTP id
- adf61e73a8af0-1c6fcfb1aa2mr3203319637.49.1723137909222; Thu, 08 Aug 2024
- 10:25:09 -0700 (PDT)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2075.outbound.protection.outlook.com [40.107.100.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B426010E7AB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Aug 2024 17:27:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KTbWUJBxt3+j5xNtOa9W2eyDVBYpWqk/xOmhYuex/wU25aSteSIF3ecFlsmS4WpaFEEsSrZtlS9nvAgOVRtAk+BFZisYGEciCjtu5oxwtySaraemnBjoNGvU62MdEU1gWYHGM6KNIS+x73IslhU7IPFuJnO2pZgqQb0upZefUzhGAB7WUH0/pG8nnKF/4L3oKSfuw0MgYuj2DpS8L+q4rTeb+xs8q5mBaM7MGMT/smDTSKkx+/p1lpYy2CvEQcYpmCnk66cvcA/T7OMjoXQ0AjAw6AuttVnDYSPoTWwJ4F3ghKYQxy9C/Oybh0qXsQgVpohW7+rx0qnxBEqVDmX87g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s97V/TZXVgQZp9IrZR5pfTbcukQPiBz35uTaI3fulO0=;
+ b=frOtmuHVkAyP1jh/mZGHQ4XqCAhGXABw2PS4ZeYufQmP8o0Pm6f0WsNrtKX3RqvqOK2qFvPe/N/iQQfZiG77kmRXVReNJrfPYFD0MNnpJN5Qh4ShIa4ICRHtWNgixmhK1nvreZHkLYFIdgCkRoVnwfUk7kFti33y9p6TfkshmvAxwCT3qhyP850bb82n73yobtSSNAry9qrRJFcLV6HamCv3+crsbK4uziHjE4Yif3Y5KhWBNEI1aQSuj6eHsJdnSfimm7fqaVgM7du3J97jRNdFLBzlwrti4DvcyZhcKfieTigsT9mZLq16ySAvK0JgMc/MZNSyVLuikO3nQXkeig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s97V/TZXVgQZp9IrZR5pfTbcukQPiBz35uTaI3fulO0=;
+ b=EsENS41ssDhNDIn5vCmPbXNKMI5+DCZ/nDP02yL5dQz7F/IRrOi0ru26t1xnlmrSpNIfy3TjvG/5H/B3JkE0xW+nGXQR23/MU0yoAQ3bkKUlGBFdBjdmxko9N7MAVwN+azMQFS+GCo6KCxD0aAgP35jnYsmJryh3xvC64OcLAmw=
+Received: from SJ0PR03CA0051.namprd03.prod.outlook.com (2603:10b6:a03:33e::26)
+ by CH3PR12MB7569.namprd12.prod.outlook.com (2603:10b6:610:146::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.13; Thu, 8 Aug
+ 2024 17:27:19 +0000
+Received: from CO1PEPF000075EE.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::81) by SJ0PR03CA0051.outlook.office365.com
+ (2603:10b6:a03:33e::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.31 via Frontend
+ Transport; Thu, 8 Aug 2024 17:27:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000075EE.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7828.19 via Frontend Transport; Thu, 8 Aug 2024 17:27:18 +0000
+Received: from mkmvskvorts01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 8 Aug
+ 2024 12:27:11 -0500
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <zhigang.luo@amd.com>
+CC: Victor Skvortsov <victor.skvortsov@amd.com>
+Subject: [PATCH] drm/amdgpu: Disable dpm_enabled flag while VF is in reset
+Date: Thu, 8 Aug 2024 13:26:53 -0400
+Message-ID: <20240808172653.56503-1-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
- <20240808061538.502762-1-yaolu@kylinos.cn>
- <CADnq5_NH9hB4v4iyU8r8WB_bDYJGdoeYK4K8gb8ukP-=votW-A@mail.gmail.com>
-In-Reply-To: <CADnq5_NH9hB4v4iyU8r8WB_bDYJGdoeYK4K8gb8ukP-=votW-A@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 Aug 2024 13:24:57 -0400
-Message-ID: <CADnq5_PDBZ9APfCpSMOSMPQWzcOeLqw_LngE2BBSOxv__7miGA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add dce6 drm_panic support
-To: Lu Yao <yaolu@kylinos.cn>
-Cc: jfalempe@redhat.com, ckoenig.leichtzumerken@gmail.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- srinivasan.shanmugam@amd.com, sunil.khatri@amd.com, airlied@gmail.com, 
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|CH3PR12MB7569:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39144b65-6438-4176-becc-08dcb7cf5a91
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?H0p6xSeWlvHIWyjuxGk4krtItBM111C4HeyHiaX/3Ap/lPEKaKx7D+1LyCSO?=
+ =?us-ascii?Q?WtWkmrFMnIJ18Yjf2Gxuwfdfu3Ma8yyia0FpG9bqKLXUbh+CwJm74sgYP80j?=
+ =?us-ascii?Q?0KngIxMylWQ6oH/4OIoi5raDwJJelx1A6/FGHM4q14Janrvh/c4X0j3XJ3Xd?=
+ =?us-ascii?Q?BUzWtC5jIVVQMzRwwKj6o6rk+NAnMUxlrOWGXqvv39fjm2+Htq/HYzUCYf6t?=
+ =?us-ascii?Q?ftiCWwlEbdJfSHoiJsAt4Bd1x//bu9ZG2whP8Y3ufKfm9RB1VjmxG3Gw/KGE?=
+ =?us-ascii?Q?wJcfzopBoaoNim44+vli2mdU9Pb0igLio8WIAoPPltYC6azVT8qpvOQMk51Y?=
+ =?us-ascii?Q?kjnQS+jHyGb3JZz/I/dVvyW305zl2EwC4BiK1RoZ6IMTV1hDzO40ZANKe7Pt?=
+ =?us-ascii?Q?cq062yGia6yKPjUsIWnxRq9n3i2ac2w87AOjPq7BDATZc5SN/udGa5EQ8f+B?=
+ =?us-ascii?Q?lPJkNQed0e61h/ZqeKTQExzeJ5ASoJ5OGx8wTauP91eoXdhwfLy45iVdrfa/?=
+ =?us-ascii?Q?4oOmlSdcvUNQEEMJ1uBi3sVHTXbSbcuXgAakjscbgeKBxdpWHEjKIzWABWzZ?=
+ =?us-ascii?Q?MGAxJxAgeI8XRnaiRx0AgtoWEfptC573HqMGizqUXYUvooFejk6ApXOQ0Vz0?=
+ =?us-ascii?Q?5e3Id0KOZQu0uQgaC1RCasU1dUlgFlWu9lw3gMlp+SbpCL97yW6fsr14u3rg?=
+ =?us-ascii?Q?rMFsFPnM9UgR7PGsQc2hIcCYcwqWAGh+HlxvAab6kU08XXcR6OtmCARjn6wH?=
+ =?us-ascii?Q?5rPCsTqa1Iy+mzPE1BE6sblXz1NJTGl+FVUqNqKyF/mbL13uhcALBH0ROWaP?=
+ =?us-ascii?Q?gLii2ftZWfa7dCxf8MDN/MNQKM9ZZOQUcmokNgo3oEJmJv9UzprU48U3gaJ7?=
+ =?us-ascii?Q?miWeca7hJGAqd64IEq0uzMmmcS8NGcYOskfqrLsZTm5AlW3bE0m8fHEyxPzh?=
+ =?us-ascii?Q?oI1coXPEaXesZfG+brCyX5t2xSmbN05SBzya420i7xRg9s/20g8QtfyUNACX?=
+ =?us-ascii?Q?We4VJMfVWgi5RpFJsnwREaKO2ddGCF9TK3oLSDzz/iF6HJVceVAsSDLYjezD?=
+ =?us-ascii?Q?TMx+mLtPzBlV5yHwC8fzF1pmCgNWB0QbNRgiSHjR6/LFyRiP8Zg942KGtj+k?=
+ =?us-ascii?Q?xKz4v4CmIdMJ7yTD5Y/KEYQcC8F145s41AomKPbCDzG+ONC29ssCGFDJX4No?=
+ =?us-ascii?Q?ZH+25qAhx+mni2+YUZU02/sEgrjY+WOR8oT8LGRL207MeeFsdHUsJNgC4eVW?=
+ =?us-ascii?Q?PleD54usmZDb1IOoXpGnd4d9GiBValncEEuiRfAMvpdQ8M4/okD5q51pO63B?=
+ =?us-ascii?Q?q+RLl52zjlgvnwTe74tMK/ZJK+UGtAqf7kEbIWclpskmxfq+ZTQu7ElybzfL?=
+ =?us-ascii?Q?obr+3oujDuBb+zFEK22nobxsRGVNkRyd6elVcunynKMNJsh+YlLnofpb/46P?=
+ =?us-ascii?Q?DDvdl7khWK0cTgRX4WolBh4eezN8NmJ7?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2024 17:27:18.3663 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39144b65-6438-4176-becc-08dcb7cf5a91
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7569
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,115 +129,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 8, 2024 at 12:43=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Thu, Aug 8, 2024 at 2:35=E2=80=AFAM Lu Yao <yaolu@kylinos.cn> wrote:
-> >
-> > On 2024/8/5 17:25, Jocelyn Falempe wrote:
-> > >
-> > >
-> > > On 02/08/2024 11:39, Christian K=C3=B6nig wrote:
-> > >> Am 02.08.24 um 09:17 schrieb Lu Yao:
-> > >>> Add support for the drm_panic module, which displays a pretty user
-> > >>> friendly message on the screen when a Linux kernel panic occurs.
-> > >>>
-> > >>> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> > >>> ---
-> > >>>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 32
-> > >>> +++++++++++++++++++++++++++
-> > >>>   1 file changed, 32 insertions(+)
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > >>> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > >>> index 05c0df97f01d..12c3801c264a 100644
-> > >>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > >>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> > >>> @@ -28,6 +28,8 @@
-> > >>>   #include <drm/drm_modeset_helper.h>
-> > >>>   #include <drm/drm_modeset_helper_vtables.h>
-> > >>>   #include <drm/drm_vblank.h>
-> > >>> +#include <drm/drm_panic.h>
-> > >>
-> > >>> +#include "../../drm_internal.h"
-> > >>
-> > >> Well that this file is named "internal" and not in a common include
-> > >> directory is a strong indicator that you should absolutely *not*
-> > >> include it in a driver.
-> > >>
-> > >>>   #include "amdgpu.h"
-> > >>>   #include "amdgpu_pm.h"
-> > >>> @@ -2600,6 +2602,35 @@ static const struct drm_crtc_helper_funcs
-> > >>> dce_v6_0_crtc_helper_funcs =3D {
-> > >>>       .get_scanout_position =3D amdgpu_crtc_get_scanout_position,
-> > >>>   };
-> > >>> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct
-> > >>> drm_plane *plane,
-> > >>> +                             struct drm_scanout_buffer *sb)
-> > >>> +{
-> > >>> +    struct drm_framebuffer *fb;
-> > >>> +    struct drm_gem_object *obj;
-> > >>> +    struct amdgpu_bo *abo;
-> > >>> +    int ret =3D 0;
-> > >>> +
-> > >>> +    if (!plane->fb || plane->fb->modifier !=3D DRM_FORMAT_MOD_LINE=
-AR)
-> > >>> +        return -ENODEV;
-> > >>> +
-> > >>> +    fb =3D plane->fb;
-> > >>> +    sb->width =3D fb->width;
-> > >>> +    sb->height =3D fb->height;
-> > >>> +    sb->format =3D fb->format;
-> > >>> +    sb->pitch[0] =3D fb->pitches[0];
-> > >>> +
-> > >>> +    obj =3D fb->obj[0];
-> > >>> +    abo =3D gem_to_amdgpu_bo(obj);
-> > >>> +    if (!abo || abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
-> > >>> +        return -EINVAL;
-> > >>> +
-> > >>> +    return drm_gem_vmap(obj, &sb->map[0]);
-> > >>
-> > >> Yeah that will almost always not work. Most display buffers are
-> > >> tilled and not CPU accessible.
-> > >
-> > > For the CPU accessible issue, Christian mentioned there was a debug
-> > > interface on AMD GPU that can be used, to work around this:
-> > >
-> > > https://lore.kernel.org/dri-devel/0baabe1f-8924-2c9a-5cd4-59084a37dbb=
-2@gmail.com/
-> > > and
-> > > https://lore.kernel.org/dri-devel/d233c376-ed07-2127-6084-8292d313dac=
-7@amd.com/
-> > >
-> > > And you will need to use the scanout_buffer->set_pixel() callback to
-> > > write the pixels one by one, similar to what I've tried for nouveau w=
-ith
-> > > https://patchwork.freedesktop.org/series/133963/
-> > >
-> > > For the tiling format, the problem is that it is internal to the GPU,
-> > > and currently the driver don't know which tiling format is being used=
-.
-> > >
-> > > It might be possible to disable tiling and compression, but it
-> > > requires some internal DC knowledge:
-> > > https://lore.kernel.org/dri-devel/f76a3297-7d63-8615-45c5-47f02b64a1d=
-5@amd.com/
-> > >
-> > >
-> > > Best regards,
-> >
-> > From the discussion provided, it is difficult to implement this feature=
- without the relevant data book and knowledge.(Whether how tiled memory sto=
-rage, or how to disable tiling of DC)
->
-> For DCE 6, the GRPH_ARRAY_MODE field in mmGRPH_CONTROL controls the
-> display tiling.  Set that field to GRPH_ARRAY_LINEAR_GENERAL (0) to
-> disable tiling.
+VFs do not perform HW fini/suspend in FLR, so the dpm_enabled
+is incorrectly kept enabled. Add interface to disable it in
+virt_pre_reset call.
 
-For clarity that register is instanced so use mmGRPH_CONTROL +
-amdgpu_crtc->crtc_offset to get the right instance.
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 10 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  8 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h      |  1 +
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 21 +++++++++++++++++++
+ 5 files changed, 37 insertions(+), 4 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 730dae77570c..1be5699f4190 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5288,10 +5288,8 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 	if (reset_context->reset_req_dev == adev)
+ 		job = reset_context->job;
+ 
+-	if (amdgpu_sriov_vf(adev)) {
+-		/* stop the data exchange thread */
+-		amdgpu_virt_fini_data_exchange(adev);
+-	}
++	if (amdgpu_sriov_vf(adev))
++		amdgpu_virt_pre_reset(adev);
+ 
+ 	amdgpu_fence_driver_isr_toggle(adev, true);
+ 
+@@ -5561,6 +5559,10 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 
+ static void amdgpu_device_set_mp1_state(struct amdgpu_device *adev)
+ {
++	if (amdgpu_sriov_vf(adev)) {
++		adev->mp1_state = PP_MP1_STATE_FLR;
++		return;
++	}
+ 
+ 	switch (amdgpu_asic_reset_method(adev)) {
+ 	case AMD_RESET_METHOD_MODE1:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 111c380f929b..456a685c3975 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_ras.h"
+ #include "amdgpu_reset.h"
++#include "amdgpu_dpm.h"
+ #include "vi.h"
+ #include "soc15.h"
+ #include "nv.h"
+@@ -849,6 +850,13 @@ enum amdgpu_sriov_vf_mode amdgpu_virt_get_sriov_vf_mode(struct amdgpu_device *ad
+ 	return mode;
+ }
+ 
++void amdgpu_virt_pre_reset(struct amdgpu_device *adev)
++{
++	/* stop the data exchange thread */
++	amdgpu_virt_fini_data_exchange(adev);
++	amdgpu_dpm_set_mp1_state(adev, PP_MP1_STATE_FLR);
++}
++
+ void amdgpu_virt_post_reset(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 0, 3)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index b42a8854dca0..b650a2032c42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -376,6 +376,7 @@ u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
+ 		      u32 offset, u32 acc_flags, u32 hwip, u32 xcc_id);
+ bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev,
+ 			uint32_t ucode_id);
++void amdgpu_virt_pre_reset(struct amdgpu_device *adev);
+ void amdgpu_virt_post_reset(struct amdgpu_device *adev);
+ bool amdgpu_sriov_xnack_support(struct amdgpu_device *adev);
+ bool amdgpu_virt_get_rlcg_reg_access_flag(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 4b20e2274313..19a48d98830a 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -218,6 +218,7 @@ enum pp_mp1_state {
+ 	PP_MP1_STATE_SHUTDOWN,
+ 	PP_MP1_STATE_UNLOAD,
+ 	PP_MP1_STATE_RESET,
++	PP_MP1_STATE_FLR,
+ };
+ 
+ enum pp_df_cstate {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 78c3f94bb3ff..b85478b1eaa7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -2638,6 +2638,26 @@ static int smu_v13_0_6_send_rma_reason(struct smu_context *smu)
+ 	return ret;
+ }
+ 
++static int smu_v13_0_6_set_mp1_state(struct smu_context *smu,
++				enum pp_mp1_state mp1_state)
++{
++	int ret =0;
++
++	switch (mp1_state) {
++	case PP_MP1_STATE_FLR:
++		/* VF lost access to SMU */
++		smu->adev->pm.dpm_enabled = false;
++		ret = 0;
++		break;
++	default:
++		/* Ignore others */
++		ret = 0;
++	}
++
++	return ret;
++}
++
++
+ static int mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+@@ -3283,6 +3303,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
+ 	.i2c_fini = smu_v13_0_6_i2c_control_fini,
+ 	.send_hbm_bad_pages_num = smu_v13_0_6_smu_send_hbm_bad_page_num,
+ 	.send_rma_reason = smu_v13_0_6_send_rma_reason,
++	.set_mp1_state = smu_v13_0_6_set_mp1_state,
+ };
+ 
+ void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
+-- 
+2.34.1
 
->
-> Alex
