@@ -4,144 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C840C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 07:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 422E0C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 07:29:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE8610E673;
-	Thu,  8 Aug 2024 07:17:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F3310E679;
+	Thu,  8 Aug 2024 07:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BXHa49bz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OFGtpquo";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C518F10E629
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Aug 2024 01:41:11 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41AF910E678
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Aug 2024 07:29:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KvefRNcGNFNYhxySI7pXn0TxAJxv3x86OVlfT4O6QA2jNGm8Vz/8dbQ3kaPph5e5j6DdQqeuhCO7l8IcKbLaXipOxJ/WHc6oBRnCzZ8nWbv6YwR3sSPkqAook7aAUor2hqr6X8wGKwudS+7vcWHrhQGyl3f74lZaSqiblKGyaWm9p9nWidcSpVqEzwnlpKRKlzk2WF3LzqK0d2VUvgkq7usk34nVdSeMB/vsyC1k+WnA/f+bw1emW4uUFMpIA+7OoiYkuc8k/RJMH4+dQgkirUFFfUqcNBWwWd8IUeLRx0oVmhQ8R97eoxEZdi4Kozgex27/cy7xls/5Ugw1b71/rg==
+ b=KNmWLY19kItCdazWaMG8Un5pgBkPa3jYAQ3sXOc5iv/3TqnQe77uQI36zOMfC7XxTshIweSjrjy2kW4D6yhxyPQVcEvda6pfRLCT7cNTX2s6cUreSjP1JldMfHgAsVBcfZ9qlmQKDldCHKKigj9Z3xbeoTwqBATjj7B8KG8nEycYtfeU4XhGbpJegXp+c8bB1/Gf2U/1/CiTXja7fbkhkZf16Qrf6cDhg2OqJsRA3ac0B/sXe6u9koJZyNpxb0SQTQ/TGRi13txVtvgaQvb/u2SgniuIW8pUnCrXVA6HTLel3ocLs/7jUB/qnqzqUPurym0Zro1fXR9W10V8HAdc+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmwEVI0durHkgj++IIIjMKRiysd91wU0wD4+P0GQ51M=;
- b=KNBkIQM9bEAAQ8eQ8xq/jt+HhCz1p8ILIlp3EiRoYmjuxXqytX00zp1NUdfN8pk/1MSbvoViXE469d4NQ4ghx5HW6jxB2xT0CCgtyFP5NwRd0vBwYHOje5/FhZigAyVhLDSYH04kJxc/8AKgULB4XL0I/CYHTT2ysAhZE4oa4snZPZ5+pokS7HU3PhEnu+kkKv8WBwqdY6AG1NfKMgtROrcuSEr8aVfZ+BMMYaNANbMDF7nZY2/PCBGNd3LV60pzlRZpgIdVL7r7Ay0FVWWLTkD7xeBLwamhARdLCbtnC4qMbQHwKarmFA8Z5Y8bVPE2TrpgdyX1nuEEYG7plNnCug==
+ bh=e6Dkz+WYvrr/QEYBypQwRQBHUZ116zBKfgBbhgnQl9c=;
+ b=Z3p5kYvAbtZKUzwJ+FV0BZUqX0yKAIUILUnK9xILkiEYkp1KMCBQvgn7xIVcmcIFu5JVEKSCqNlc+arCYHUtVJXRo5DKYAPwaoCkt5Ycgy0T3APNflAofEM+6OttJ93o61+3Dyole959nCDd7/mWJyI027xiSCbsSGFqK7iT7iT8y5Dl/1Vk/AF4UsmE+nGBAJjfVG/r6W9x6wCttPQMINjOfKV9poJfKElLogEilYmCPAE1rfEtddJaWlue12Qkkb/3x1BLxzghhf7EUme4gFsSOLd+4Z2I8Vv5XYoq0RJTtUz8CbAkgB8S4XqGjjvtMHSVGYvnPpW5llZhSqu0ZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmwEVI0durHkgj++IIIjMKRiysd91wU0wD4+P0GQ51M=;
- b=BXHa49bznX2s4Ykg0bHs/P6f+yf0I2O+TLv54WSEJaORoPzwZ7wzxOTEuqa18pRHXShNTDrK+QXWzLvnc6G4M+LiXh0FSGo5TIcAESJ5sb1fPPaD+bkPXdBnG1E3lmG/JTUtKBLVYjFTypOSI+ngiMLGPyVLZBDutV5yJFQFm5c=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SA3PR12MB7951.namprd12.prod.outlook.com (2603:10b6:806:318::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22; Thu, 8 Aug
- 2024 01:41:05 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%4]) with mapi id 15.20.7828.023; Thu, 8 Aug 2024
- 01:41:05 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, brahma_sw_dev <brahma_sw_dev@amd.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kim, Jonathan"
- <Jonathan.Kim@amd.com>, "Kasiviswanathan, Harish"
- <Harish.Kasiviswanathan@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: Add node_id to location_id generically
-Thread-Topic: [PATCH] drm/amdkfd: Add node_id to location_id generically
-Thread-Index: AQHa6OU/GDkcuBiFG0y93zrY/GNOQbIcliBw
-Date: Thu, 8 Aug 2024 01:41:04 +0000
-Message-ID: <BN9PR12MB52570FDE4E4369B0AFA055FEFCB92@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20240807161638.1647935-1-lijo.lazar@amd.com>
-In-Reply-To: <20240807161638.1647935-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=de4e3b97-4a60-4cfe-9a00-bcf5258696d1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-08-08T01:40:32Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=e6Dkz+WYvrr/QEYBypQwRQBHUZ116zBKfgBbhgnQl9c=;
+ b=OFGtpquoR8oy5npk7HEZA3YQRN0YZO3noaRVTa2jov/4Y9804JLmk9ghluwEdHgOJbx66AUYxGk9b7krL3GIw7akJh2C/dHG/7j1r2x2uhG17xGEwuIpyGAaYKOwgJvdrEMT1wLi2xoTrFcb3UslmNFi8VU37uVCsd6L2cz7YMg=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA3PR12MB7951:EE_
-x-ms-office365-filtering-correlation-id: 1b511f5e-f0bb-4e8a-36b5-08dcb74b2ae9
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?wVUqVAqP3xF+1CeyG3krpzCDCUOFpSyY3yvYC3BLWYsXZMiwKR+7qq9id3nO?=
- =?us-ascii?Q?21aeUldEir45BG5lE2mbn+UEx6UxMSQ96HJdcPmlzjRNDCR3mhX57JnlH/IY?=
- =?us-ascii?Q?UIGDDWpRCp4EKfWW1c8WyIztaGOzJrJVPL20kyJ3zHCc5oLegZtu0WTWkqdW?=
- =?us-ascii?Q?B6eT1H0ltPEv3/lpU89C+3tNhVOnEnat6FnQnIF1QXzsFgLSYyhFvcRv8opV?=
- =?us-ascii?Q?wKsojMWe3cPRi38YwA7CIeFhTwaUn47IuY48Prg7d+BtJhWhdhjgrtTsNqvm?=
- =?us-ascii?Q?f/1bpJW14fByppOidPszKk+BKDX1Y+qyd0faIgKoQx4Y8zdT6+KbeFDYYgIv?=
- =?us-ascii?Q?Cy3SGGsfMu6HRXDIMDeCjr4uqW+VOVk36n3s4wQROdRCXlxQfwei/o1oK8DS?=
- =?us-ascii?Q?VSJcnXM7wd4PJj88AEn3Smm7o/am90KT6Gr6SWiK69D5yDmToP/BeaCXa+TF?=
- =?us-ascii?Q?BQDFcRR2YsasQqPDyAlDg7AzEOMig0Ei0VUeVgKgTanRhDjxnP+1kln6DBB/?=
- =?us-ascii?Q?byDIzdIoV1X2WpgLz84MzPNcvwSuufIDPgVroY1VMolz1Rs1Cd6LK6fd6xVR?=
- =?us-ascii?Q?OxgVkfDZKWSiKB3wG9kGzbNw/L+gFe1PcSlacCrAhwsxJ1Dcaq2eggAmGJn6?=
- =?us-ascii?Q?mlF9YowmqrQ7mWX0dP7gtFcehrt02Wc8eYIWYxgkG9sKslVyRsdPXudaDvUe?=
- =?us-ascii?Q?wQrHX06V/e7r9zS+x80FP5uzlamcKOUqNmFOWe4eDPn5wFBUFy9mbhxJFwpl?=
- =?us-ascii?Q?ZTuwFMjd+yZNA8QaSd/QnTz2XqL7vJMten9k9Lb6rh6RQNDR4jH7JUkpU6vV?=
- =?us-ascii?Q?eQa8ZoKMgTAgx0CxWGEWrsEYuxwkh0xLhXy0yPw+wWC7DMyIgIMmtrjqIko4?=
- =?us-ascii?Q?Uk0oPpesOPJRcjxJOjpNsxmUUIw+MzPBWOQI7pqXjbEZ3hWE4Tf/zK3xRRt4?=
- =?us-ascii?Q?7Tmk6Yg9VLzG1aXj/jJGd47SPDCQTuxLWCeuNEvA7LkA75wLbev1k5jLOTRx?=
- =?us-ascii?Q?/ZvHIXFy+bhdSZGuFnQX6DHxffV79mLql/tI9WqF1khWZqu3FPWWVQAVx8RQ?=
- =?us-ascii?Q?2lGuO7zMiVsaEyntEL65jqBbhpMyWhljG0dpONlH1w74LZNiW3St9V/djwxN?=
- =?us-ascii?Q?JR6375ROHIZ5Bo1km6gg3I1gXyjIJgftH7p6jMjiFpCUf+IVGlgWVG8KWzMm?=
- =?us-ascii?Q?opYXv4/93dvFjkLVMJplDSnZhtQj7xrutRDeOkjOmcx5ObJcvDeJiQtPEBHB?=
- =?us-ascii?Q?UkSU5yR8ysdoe6NQjsQHPC5+tNrEAaWBaOdJzkOzCcLR7hyrcAJBy7mXwZ7Q?=
- =?us-ascii?Q?2Pk2We497aFz4iKCDsn03/TCZG8hHpfk4uk+AVcuqysSRWLxmSl0m/IiLyRb?=
- =?us-ascii?Q?tb4rDjnhNybkH0tUzU9yPA6b0wd1ypoF8FFc3IgDWc9PM9y8Qg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QEzUWj9Shi4cuokf5oOhjYW3wNlhkS/LpoKGuiBvsY71n2/hlUcARDQWsEuI?=
- =?us-ascii?Q?6B/W06WKrqQ7VJQqmqTcJWnXBhUByyDnkrEMebtD5QfPXhboR7YFq69qkTBz?=
- =?us-ascii?Q?0pJ+IJ1dAln3TaiRPkh6kBKnNI33Huwb9BFI5/rDE/RobWB70WYjgZhbraNF?=
- =?us-ascii?Q?RHdDxFsjy1wWFxdHwfMjobHWeuIteN7e336pympSFn1j+MNDDVmO217y8rQj?=
- =?us-ascii?Q?jqaCODY8/g0/eXmynNTh6k58yf4lymxzgMasFlnxlXCPyY6N0U5jPBmaKif/?=
- =?us-ascii?Q?/RKufQI9IIDzXn+YvGbHWCDh6toC+nFBLjxLq7sSKjhMLEhn/2vExmlQp+q2?=
- =?us-ascii?Q?NJAVBBBnOXSyzRT19bkHdKk1Z8hxpoUit6Z1M3Stg1hUZPUAzwsoa2kmU07w?=
- =?us-ascii?Q?H+K9gESgbiyMy1k9CoBbOqsSRQEw8EVZBol0n8NKvAEflQywQ33H0LkSmy3k?=
- =?us-ascii?Q?TabSDPRHlDy7hP/OkSD734e4MwswoNbM5elF0r30Jum8Oou9n5sdNQobrP1z?=
- =?us-ascii?Q?UzBEGODYo7PzR3I9QUU6h86bPre4EWYZOh371mYCad0E0/a51aidvMSo0pC8?=
- =?us-ascii?Q?wVjDI6XsWjcHAUzF8OdKjdRzcv0U1VG/LkrIKJtPzj5f9kvm142nRhctsWjz?=
- =?us-ascii?Q?NdWChHUpjodCwcXFd10uMnhNRmxk2t3VADFjhiP1cS1BX2gLLtO6QhzLpXQ4?=
- =?us-ascii?Q?PwmcVNJfpdsGHUX7QBKto5mYGzQvM6BWQSo+fX+H6jQiERg4KT93gep0OmDT?=
- =?us-ascii?Q?d6UP089cMvolaQgmw7WyE36sT0g//Mnazt3IA0FeQQxrELUIC5Xb4uoojDhe?=
- =?us-ascii?Q?lLIxKC4zkIIGh7NfL1wkWbwOR5rJdbjEoWNvzZ61lsefdx9sEOXXKrzB8McG?=
- =?us-ascii?Q?CjezuW2EZ6wtyoFv6FWS4yyyV5FQtxi6hifsRv6kcWPk5FEej0I9oFzf1V9R?=
- =?us-ascii?Q?z9V/6HmtSOAivpDsKtwdPwJ+Usm52p1qfKCE5BEdkquZpHL8+sJQK+1vrR1M?=
- =?us-ascii?Q?AOFnpXxIq94BZ4CLVBOhNJcV2TzJ/UKIUOM+tgG1uaKxwqZMvo0Bqc/LxwL3?=
- =?us-ascii?Q?olwjhQU6cIiKBO/ZSknJHhiXJoO4fYl9mGE4mvI+O2kN1cpCu3qPpdPp+upK?=
- =?us-ascii?Q?46NAYPAm81UILXE0gcnTbQCmxTsmZ04bVi0DBaqda4AvmWMFOVZdXH8hOfv8?=
- =?us-ascii?Q?k7xAy5vP7CDgvkm97ngcJvrRiG3LC3+CiJ2sMXppQldhftcsFaHFX+x7Y5UD?=
- =?us-ascii?Q?AYm1jVlr6OFhAUDVwVfwrrZUnRy6CIOw1LXYhfx9L4UFdxAtIDcx86FTM7mU?=
- =?us-ascii?Q?U2m3xRIPpF+84QCeYKLKa+4cjdo48yP1xbcZpWRumF1n0E/9xPjBYUzFDOyP?=
- =?us-ascii?Q?P40b/qTp587MXccSKxly9S+l18FgYG5puBRZvjhVotj/ljrjYcHzmXgXeJSh?=
- =?us-ascii?Q?Xs9AxdQ8FmlyExV4RsyiulZRJ6wBPgnbFuVI/46zXFw8ZCp1F0fXNDDo2/8i?=
- =?us-ascii?Q?wbNrAoDHUajyoVRg3fwWPRm32ey6cxmq0LCTdV2UTDQRjGd6u++5W6QuCCjd?=
- =?us-ascii?Q?W0PLcHgZWtOCNPZs/uSUyWAuzTR0QwunSRdNusq7?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
+ by DM6PR12MB4140.namprd12.prod.outlook.com (2603:10b6:5:221::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.13; Thu, 8 Aug
+ 2024 07:29:51 +0000
+Received: from PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::8865:d63a:a8eb:282b]) by PH7PR12MB5596.namprd12.prod.outlook.com
+ ([fe80::8865:d63a:a8eb:282b%7]) with mapi id 15.20.7828.024; Thu, 8 Aug 2024
+ 07:29:51 +0000
+Message-ID: <f787a816-96fe-4799-ad7c-cde1bd7b3065@amd.com>
+Date: Thu, 8 Aug 2024 12:59:43 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 05/15] drm/amdgpu: add vcn_v4_0_3 ip dump support
+Content-Language: en-US
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>, 
+ Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20240806081825.2422771-1-sunil.khatri@amd.com>
+ <20240806081825.2422771-6-sunil.khatri@amd.com>
+ <CADnq5_NRfRJQn9a44BZw1jge81X+htXjCAGkQue9BNEQ-EqXXQ@mail.gmail.com>
+ <a35d84a7-3d8b-4ca3-9157-7d8d48a54b02@amd.com>
+ <2ad50a00-b443-47c4-a9b4-04fbfdc67be9@amd.com>
+ <e3dde88f-8362-4e80-9e48-c6fb99035861@amd.com>
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <e3dde88f-8362-4e80-9e48-c6fb99035861@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0143.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::7) To PH7PR12MB5596.namprd12.prod.outlook.com
+ (2603:10b6:510:136::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5596:EE_|DM6PR12MB4140:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd99cb16-1abb-44f8-d14c-08dcb77be3df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VE15YUdyV203ZFBiU2ppc2ROQ2w0SVIwa3NqV1VCQWIrMVF0MkRtanVjUkt2?=
+ =?utf-8?B?QUs2ZWppUzNqOGdKZDg1aE9Cd3QyRUw3R2huOGdnU3UrcVdubGJ5MlpSZC9j?=
+ =?utf-8?B?cXFyRkp2NXd1Z3VPL0Y2OHYrK1oyWUZTNnl0T081SC92SlpleGF0OVdtZVBo?=
+ =?utf-8?B?K1BrdzBQOWYzR0ZxL2xIT3dTUGV6ZjZucU5UcXJsam5pREQwaExrcjhSOHNR?=
+ =?utf-8?B?Zi9GMldNZjJGVGc4MEo4dDQ5UjhObXpGNWJaZXNYOEF3d0JVcm1waUlyMDI0?=
+ =?utf-8?B?REtMV0tuTzNmUU0xTTNrS2ZEUXhyUHB1OHVBVDJ0ZWVFUEs0SS9GaG9Mb1I1?=
+ =?utf-8?B?RDNrd2VCQmh2MTg5M08rSVdEdnBPQkRQZ0hHVGxnYmFScWtJeTBjaTdXbFNI?=
+ =?utf-8?B?ODFuWjErSEpzN2FzTXBuNWcrREJMbXZXQTR3RzZUQjRPZVk1NDdrK25vWEJJ?=
+ =?utf-8?B?S0hRWWhtd01VMUd0SUV5NG5IbVFsY3IxMW1vYXRJSEFaREpFK3k4dGVYMlA1?=
+ =?utf-8?B?dVlBdXZvWGg3SlErZThtZzdFdGJNMjhlM1RQYXc2a0QwaG5OaHB4VDh4bkwx?=
+ =?utf-8?B?VXVic0FNa3JGbGhQNmtyRnlQTnFCNmJHRElaMzhUVDNPOXJDNUcwcFkzR0NI?=
+ =?utf-8?B?VEcxV0xWWCtnMi8rOUQwVlZ4dXJyRm9aRFRnZEtvNFpVaXNvTkRqNUNxVVAv?=
+ =?utf-8?B?Z3gyRW1WL1J5QkozV3BoeHN0ZTdSOGZGSjRNempOdHFVZ2FqV09sMkRnM051?=
+ =?utf-8?B?bmlBQXh2MG9VeHo0ZFVaWHl6UFdXZ3ZyYmNJT3UxUjN4K3ZJR3duSG02ZlJ2?=
+ =?utf-8?B?UVVkMm1uSVVVSU1FVVJBS0RZMXIzMURkTFVEWXd1UFhKMzYwUE5IQTZYVVNi?=
+ =?utf-8?B?UktWRFJOaE5TbmUvWTZvaGlyM2Q1aldYRVFnZnBoK2xoSFhRbkV6M0FISG12?=
+ =?utf-8?B?RGo2MThYYnFlZ3FXMHdHT09CN3dBU2NuQmsza2dWT2l4NDUwcWoxM01aQ1gr?=
+ =?utf-8?B?dVl2Zkk2dTVNeGtObitzTW9LQTQvaXJieTk2dlVwSFIzVCtFMzQyanFkRDZi?=
+ =?utf-8?B?cGovZFdDNS9rVUNiRjRIcng4WXViTlROa3ZzZ0FhTmZpL2FSaDIxSlRRTGxp?=
+ =?utf-8?B?M3o2RXRNbTBvMHJVWll2N1lhYkk2MHhpZ0lzb1JIWHB0eW1jMm1DVEJYM1Q5?=
+ =?utf-8?B?OWdSUmt5SWxwZ2pISzIzRDhEaGlCQWVRaTJ2a25vMXdKKzdwRmxXaVBwWXdU?=
+ =?utf-8?B?aWFDSGx1VDVVS1Fsa3lYYkhrTXRYV1ZPU25PZnprNXdJMUZEWTFpSkE3aDdZ?=
+ =?utf-8?B?MzVLR2dPTkdUTUhpdnhyNVZ6bVpES3ZKbjFuYUNkZDR2bi8yS09jcGk5ckY3?=
+ =?utf-8?B?RGlqZGhhdGZSUUNiY3I0dVFvc05KRnQvVDNrTkZBMll2eG1YWTRHNlQ3MGpK?=
+ =?utf-8?B?OEIxdndvS3k0eUFsWVVKK3hHak9kUmc1VFM0ZWdYa1Z1R3BDd2JBdGFLSCs0?=
+ =?utf-8?B?ancyaGUzcWlIVXF0ME10UnRCbkhGSDZPMGxTUVBGNzUzVUlyZWltMGZTcjdV?=
+ =?utf-8?B?Y08vNXpvUmtuVDFqZ2d4TmJDbE9VVXA0SFpWSFVHSStyd1c1QlpabHFKL1Vv?=
+ =?utf-8?B?ZzhsTzRNNURQbjI1SDdNWnVJL1dsZ1dPc0h1WjNHcHQ1MmhuZmtBUE5OK0pT?=
+ =?utf-8?B?bW1KcTFZOHJsSDh2bm5aTkVjWmRlUktEVmRXMjE3dVlSbjdDT0w3MWdqMzdH?=
+ =?utf-8?B?VkRGL0N4ODRnM1FxbG43aUtvTlhPcFRPTzdMa204VDViekZPdGhKYVI4K2Uv?=
+ =?utf-8?B?MDFWcmpESGRUWUo0NWdvUT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5596.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2UvZE9pRGNoZEVIVmM3VXNJSDI5cXVIS3lZQTVUVTNJT1R1T1pmOVRsVkk2?=
+ =?utf-8?B?U3FHV09GSCtkb1J0ZVprOXlHcG1UcWhrazdWbUNDZGVEUWsxenM4UUVZRmRV?=
+ =?utf-8?B?OUJBTE8yMkFvNHcyTVJEemRSWVdoajA5Z1p1ZndVYkdlTTQyQldlWkdRbFpq?=
+ =?utf-8?B?YWROd3NTWFF2aitkMVgvYkp3cjBuTm1Ea1BHOTlWOHg3bkx6YjRld2RaS1U4?=
+ =?utf-8?B?bitPNm9BcE1XS3ZQSHRDM1hLK3JsTVVFcDhSMlcwam16aHBtMFdzSnhkSVZi?=
+ =?utf-8?B?VUZRU3dxbU9OZmc0b2IwK2NObnhlYTVaMmZvcTNmQXl0djdMU3diYkR0MjZW?=
+ =?utf-8?B?VHdaYWRPN2lRdnNGZm41Q2xaQUxmVjdxbUNFUVRmRlBidExGc0tVWThMeGVY?=
+ =?utf-8?B?b3JnNVFOQlNZZ1FFaEhwbllUdjJqRnBqbEQ4cEhFOVlTSlNrN05UV0RvU1Mz?=
+ =?utf-8?B?U0wyUWJNZnZ2MnYyZjBCbkZaK3BqWGRtdi9CV1JHMkRpbGhpKzhjVTJzL1J4?=
+ =?utf-8?B?c0xlREM2SjRaOWdoK3IwMitXbkVxQTlIb3Q3U1QvT1J5NHd4T1U5MVAyNnFC?=
+ =?utf-8?B?MVF4RHFCTGVZd3Mva1pEcCtxd0FWc2ZORHBDNkQyWDlkMUl6YkFnQ1hqbU5G?=
+ =?utf-8?B?NFJCTzIxYXlXOXpySy9sTkduQmFTdzN6aFVWc1c2Q09rUEtVMTVLdUFGYWZK?=
+ =?utf-8?B?bVp1MjZGMndEdnJYM2IxY1FyYUxrOU9ldzBMbmd0UEhGK25TdVk0SE9LM0VE?=
+ =?utf-8?B?ZG5sL2Y2dGowZ2NHT2RiektncVErTEZzdi9jSE16TFRXTUU4TFJUSVNvWUNN?=
+ =?utf-8?B?V1FwNVZuSWZrZFVRYnk2U2JkWWNhYlpKMThOeHZRQ08rWGk5RHUrcHd0OWc2?=
+ =?utf-8?B?UUxBamNFVWRXSUNQRWJrT2dLL3BJc3Q0TkRSZG9FZW1oMG5pcldyMjVhQjZ1?=
+ =?utf-8?B?cGdUSkZIelNLWjFuOWIyeDkxa094ZE9zNGtTU3dreE90VHY3YTBpLzhDelZh?=
+ =?utf-8?B?Ym43Zks0RkZNY1hvSXRCbGdqK1UxNlJmNXdZQUxRaDd2M3dZN3RQM2VZWDdz?=
+ =?utf-8?B?MHQrY3N0emw2K3o4cDQ5VUxZS2ZpZTk4SnNMalNrVFUyT3U0UUU2cmVIblQ4?=
+ =?utf-8?B?VUxEY0M2VGRXWlF4cWdKcFdTNUZJTGJRZ25YQ1RIQ3VBcVVVTU9CSnc5c0Ey?=
+ =?utf-8?B?QzZ6dThmcFlRcE0vRXMvMkY5NEtuV3hwWm9RU0JDSHY2VmJOY0krUlc2dUFE?=
+ =?utf-8?B?VHNaL0ZoMzBkZGV4SWZVWXZtV0xzdmliUmoyZDh1cGdreDJnNzRVejFsWDVX?=
+ =?utf-8?B?SnluWktBZXpUdjFybkZiUkpEaTZsdDFTRnJoQ2g4WXZqNmNoS250b2NXaHlG?=
+ =?utf-8?B?Z2gybmMrZHZ0eGVraE5UUW1EUWtWMDIzQWxnYTh3V2FldEl5SVM2V09sYUpH?=
+ =?utf-8?B?U3lyb0RzN053ZzVGUDNhOTRKanpkT0hrQVVHMjVuTGU0bkZVQW5RczJXWlZa?=
+ =?utf-8?B?L2xHdkQxUGFmeHBNTnZIOENtWWh1RU83WklIaVVCSC9LcnZ1cVFtYUxkWXBa?=
+ =?utf-8?B?V2R6ZmVXLzZDOTR6SjlmWjJ6ZXpuM0N5MTUrN2xIeGlmK1krVWJ6ODVXVXN6?=
+ =?utf-8?B?NHMyV2hjTjMrdWVicjZ2cHNvV0xYRVF3UnhCb3FRbEtldVcrRGlITHc2Yndz?=
+ =?utf-8?B?TEdvMFhudjEzZU9TTlorOWE4RnlCNEtGUXkvMkNWcVhCaE43dDgzNFovOTh5?=
+ =?utf-8?B?OWxHL0xwTzRJamdrVlJFWlB0bTdTd2xxUjhhRzZwdHIrUnlHTGV4cE1PWUxn?=
+ =?utf-8?B?Q25zOU5uUmh3TVMwRG1aVlhuT2FRNXlhbHJ0TVVQZXlhbGdlSHRHM2FWbktS?=
+ =?utf-8?B?VitpSkRFZzN3WUVWYzhWSTdIaVQvcmJWUnhvWXNpaVRlZ0gwK09HNWpaRm1t?=
+ =?utf-8?B?WlpZeU9BRHpYZ0NacTVkZEQxNTc5SVVUV3VHNHZQdWV0bTlabzR4NThIekgz?=
+ =?utf-8?B?SkhLb3ljZGFFR0xzRmYveGtGbFpsWGhQcDlIS0dPQnR6M2pGc1J6alFCZWEy?=
+ =?utf-8?B?OWFueXM5VXArYVBLK1dwNnBhM1VmeDVCSEhvbG9lU1NBN2dMWEI3VUlqaWhB?=
+ =?utf-8?Q?GdIfH3pgOkfQDfqnT0tYHVUTQ?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd99cb16-1abb-44f8-d14c-08dcb77be3df
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5596.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b511f5e-f0bb-4e8a-36b5-08dcb74b2ae9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2024 01:41:04.9611 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nZJJO/pCnoeKTIhS47ogFCHCvgeezdJTVmkRKJ1e20YzXZWkqDTUqJtO3T6pz7yJw/Ghmg4DPOdV61durR/40A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7951
-X-Mailman-Approved-At: Thu, 08 Aug 2024 07:17:02 +0000
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2024 07:29:51.2827 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hb5C+u1xOCVhRepCutsZzp/wJgkmH1odfkwYjNGbReCfp0x7iA+wWEWjoykfsuCtZzJ+yX6KBt3cIj4mAUid0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4140
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,43 +166,352 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+On 8/8/2024 12:44 PM, Lazar, Lijo wrote:
+>
+> On 8/8/2024 12:36 PM, Khatri, Sunil wrote:
+>> On 8/8/2024 11:20 AM, Lazar, Lijo wrote:
+>>> On 8/7/2024 2:58 AM, Alex Deucher wrote:
+>>>> On Tue, Aug 6, 2024 at 4:18 AM Sunil Khatri <sunil.khatri@amd.com>
+>>>> wrote:
+>>>>> Add support of vcn ip dump in the devcoredump
+>>>>> for vcn_v4_0_3.
+>>>>>
+>>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 170
+>>>>> +++++++++++++++++++++++-
+>>>>>    1 file changed, 169 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>>>> index 9bae95538b62..dd3baccb2904 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>>>> @@ -45,6 +45,132 @@
+>>>>>    #define VCN_VID_SOC_ADDRESS_2_0                0x1fb00
+>>>>>    #define VCN1_VID_SOC_ADDRESS_3_0       0x48300
+>>>>>
+>>>>> +static const struct amdgpu_hwip_reg_entry vcn_reg_list_4_0_3[] = {
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_POWER_STATUS),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_STATUS),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_VCPU_CACHE_OFFSET0),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_VCPU_CACHE_OFFSET1),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_VCPU_CACHE_OFFSET2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_CONTEXT_ID),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_GPCOM_VCPU_DATA0),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_GPCOM_VCPU_DATA1),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_GPCOM_VCPU_CMD),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_NC1_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_VCPU_NC1_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_NC0_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_VCPU_NC0_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_VCPU_CACHE_VMIDS_MULTI),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_VCPU_NC_VMIDS_MULTI),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_HI),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_LO),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_HI2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_LO2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_HI3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_LO3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_HI4),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_BASE_LO4),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_RPTR),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_WPTR),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_RPTR2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_WPTR2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_RPTR3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_WPTR3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_RPTR4),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_WPTR4),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_SIZE),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_SIZE2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_SIZE3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SOFT_RESET),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SOFT_RESET2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_CGC_GATE),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_CGC_STATUS),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_CGC_CTRL),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_CGC_CTRL3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SUVD_CGC_GATE),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SUVD_CGC_STATUS),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SUVD_CGC_CTRL),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SUVD_CGC_GATE2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_SIZE3),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_SIZE4),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_RB_SIZE4),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SUVD_CGC_STATUS2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SUVD_CGC_GATE2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_VCPU_CACHE_OFFSET2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_GPGPU_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_GPGPU_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_CURR_LUMA_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_CURR_LUMA_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_CURR_CHROMA_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_CURR_CHROMA_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_DBW_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_DBW_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_CM_COLOC_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_CM_COLOC_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSP0_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSP0_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSP1_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSP1_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSP2_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSP2_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSP3_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSP3_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSD0_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSD0_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSD1_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSD1_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSD2_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSD2_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSD3_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSD3_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_BSD4_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_BSD4_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE3_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE3_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE4_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE4_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE5_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE5_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE6_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE6_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE7_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_VCPU_CACHE7_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_MIF_SCLR_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_SCLR_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_SCLR2_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_SCLR2_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_IMAGEPASTE_LUMA_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_IMAGEPASTE_LUMA_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_IMAGEPASTE_CHROMA_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_IMAGEPASTE_CHROMA_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_PRIVACY_LUMA_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_PRIVACY_LUMA_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_PRIVACY_CHROMA_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_LMI_MIF_PRIVACY_CHROMA_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_LMI_STATUS),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_LMA_CTL),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_LMA_DATA),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_LMA_MASK),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_PAUSE),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_DPG_LMI_VCPU_CACHE_64BIT_BAR_LOW),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0,
+>>>>> regUVD_DPG_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_VCPU_CACHE_OFFSET0),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_LMI_VCPU_CACHE_VMID),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_CLK_EN_VCPU_REPORT),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_LMA_CTL),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_DPG_LMA_CTL2),
+>>>>> +       SOC15_REG_ENTRY_STR(VCN, 0, regUVD_SCRATCH1)
+>>>>> +};
+>>>>> +
+>>>>>    #define NORMALIZE_VCN_REG_OFFSET(offset) \
+>>>>>                   (offset & 0x1FFFF)
+>>>>>
+>>>>> @@ -92,6 +218,8 @@ static int vcn_v4_0_3_sw_init(void *handle)
+>>>>>           struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>>           struct amdgpu_ring *ring;
+>>>>>           int i, r, vcn_inst;
+>>>>> +       uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_3);
+>>>>> +       uint32_t *ptr;
+>>>>>
+>>>>>           r = amdgpu_vcn_sw_init(adev);
+>>>>>           if (r)
+>>>>> @@ -159,6 +287,15 @@ static int vcn_v4_0_3_sw_init(void *handle)
+>>>>>                   }
+>>>>>           }
+>>>>>
+>>>>> +       /* Allocate memory for VCN IP Dump buffer */
+>>>>> +       ptr = kcalloc(adev->vcn.num_vcn_inst * reg_count,
+>>>>> sizeof(uint32_t), GFP_KERNEL);
+>>>>> +       if (ptr == NULL) {
+>>>>> +               DRM_ERROR("Failed to allocate memory for VCN IP
+>>>>> Dump\n");
+>>>>> +               adev->vcn.ip_dump = NULL;
+>>>>> +       } else {
+>>>>> +               adev->vcn.ip_dump = ptr;
+>>>>> +       }
+>>>>> +
+>>>>>           return 0;
+>>>>>    }
+>>>>>
+>>>>> @@ -194,6 +331,8 @@ static int vcn_v4_0_3_sw_fini(void *handle)
+>>>>>
+>>>>>           r = amdgpu_vcn_sw_fini(adev);
+>>>>>
+>>>>> +       kfree(adev->vcn.ip_dump);
+>>>>> +
+>>>>>           return r;
+>>>>>    }
+>>>>>
+>>>>> @@ -1684,6 +1823,35 @@ static void vcn_v4_0_3_set_irq_funcs(struct
+>>>>> amdgpu_device *adev)
+>>>>>           adev->vcn.inst->irq.funcs = &vcn_v4_0_3_irq_funcs;
+>>>>>    }
+>>>>>
+>>>>> +static void vcn_v4_0_3_dump_ip_state(void *handle)
+>>>>> +{
+>>>>> +       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>>>>> +       int i, j;
+>>>>> +       bool is_powered;
+>>>>> +       uint32_t inst_off;
+>>>>> +       uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_3);
+>>>>> +
+>>>>> +       if (!adev->vcn.ip_dump)
+>>>>> +               return;
+>>>>> +
+>>>>> +       for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+>>>>> +               if (adev->vcn.harvest_config & (1 << i))
+>>>>> +                       continue;
+>>>>> +
+>>>>> +               inst_off = i * reg_count;
+>>>>> +               /* mmUVD_POWER_STATUS is always readable and is
+>>>>> first element of the array */
+>>>>> +               adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i,
+>>>>> regUVD_POWER_STATUS);
+>>>> I think you need to use the GET_INST() macro to properly handle
+>>>> this.  E.g.,
+>>>> vcn_inst = GET_INST(VCN, i);
+>>>>
+>>>> Alex
+>>>>
+>>>>> +               is_powered = (adev->vcn.ip_dump[inst_off] &
+>>>>> +
+>>>>> UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+>>>>> +
+>>>>> +               if (is_powered)
+>>>>> +                       for (j = 1; j < reg_count; j++)
+>>>>> +                               adev->vcn.ip_dump[inst_off + j] =
+>>>>> +
+>>>>> RREG32(SOC15_REG_ENTRY_OFFSET_INST(
+>>>>> +
+>>>>> vcn_reg_list_4_0_3[j], i));
+>>> VCN 4.0.3 supports DPG. As far as I understand, most of these registers
+>>> are accessed indirectly in DPG mode through indirect SRAM.
+>>>
+>>> Checking UVD power status alone may not be sufficient for direct access.
+>> i am following what windows is following and most of the registers are
+>> directly access but i agree some might not be.
+> Whether Windows logic works is the first question other than the
+> secondary question of value in logging some of those registers.
+True. Cant say but the bare minimum we could do for a starting point was 
+the intent. Dumping VCN registers is a challenge due to its dynamic 
+power gating controlled by firmware.
+based on VCN fw guys probability is in case of VCN hung we might be in 
+power up state to read some of the status registers if not all.
+>
+>    We are assuming in case
+>> of a VCN hang it should be in good power state and we should be able to
+>> read most of the registers.
+> 'is_powered ' - It's quite obvious that there is no assumption like that
+> :). Secondly, when there are multiple instances where only one VCN
+> instance got hung, and others may not be - this assumption won't hold good.
 
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Thursday, August 8, 2024 00:17
-To: amd-gfx@lists.freedesktop.org; brahma_sw_dev <brahma_sw_dev@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; Kasiviswanathan, Har=
-ish <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH] drm/amdkfd: Add node_id to location_id generically
+The principal is we are dumping all the IP's irrespective of who caused 
+the hang so no matter what instance causes hang the registers are dumped 
+for all. The vcn hang information is captured in the kernel logs
 
-If there are multiple nodes per kfd device, add nodeid to location_id to di=
-fferentiate.
+that can be used along with it. Also is_powered is per instance and if 
+its powered off we arent going to read the register at all.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Based on the experiments i did in case of hang caused by gfx i found vcn 
+to be powered off as there isnt any work load on VCN to keep it up. We 
+will improvise on the functionality as we start seeing issues.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.c
-index 40771f8752cb..e6caab75e863 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2079,7 +2079,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
-                        HSA_CAP_ASIC_REVISION_MASK);
-
-        dev->node_props.location_id =3D pci_dev_id(gpu->adev->pdev);
--       if (KFD_GC_VERSION(dev->gpu->kfd) =3D=3D IP_VERSION(9, 4, 3))
-+       if (gpu->kfd->num_nodes > 1)
-                dev->node_props.location_id |=3D dev->gpu->node_id;
-
-        dev->node_props.domain =3D pci_domain_nr(gpu->adev->pdev->bus);
---
-2.25.1
-
+> Thanks,
+> Lijo
+>
+>> Based on further feedback will do the
+>> needful but right now the point where we are dumping the registers we
+>> could not make any change in power state.
+>>
+>> Regards
+>> Sunil khatri
+>>
+>>> Thanks,
+>>> Lijo
+>>>
+>>>>> +       }
+>>>>> +}
+>>>>> +
+>>>>>    static const struct amd_ip_funcs vcn_v4_0_3_ip_funcs = {
+>>>>>           .name = "vcn_v4_0_3",
+>>>>>           .early_init = vcn_v4_0_3_early_init,
+>>>>> @@ -1702,7 +1870,7 @@ static const struct amd_ip_funcs
+>>>>> vcn_v4_0_3_ip_funcs = {
+>>>>>           .post_soft_reset = NULL,
+>>>>>           .set_clockgating_state = vcn_v4_0_3_set_clockgating_state,
+>>>>>           .set_powergating_state = vcn_v4_0_3_set_powergating_state,
+>>>>> -       .dump_ip_state = NULL,
+>>>>> +       .dump_ip_state = vcn_v4_0_3_dump_ip_state,
+>>>>>           .print_ip_state = NULL,
+>>>>>    };
+>>>>>
+>>>>> -- 
+>>>>> 2.34.1
+>>>>>
