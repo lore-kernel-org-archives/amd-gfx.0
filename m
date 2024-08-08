@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BA20C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 01:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A885AC52D71
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 01:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8316C10E029;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D053010E03C;
 	Thu,  8 Aug 2024 01:09:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="YBL7HwX3";
+	dkim=pass (2048-bit key; secure) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="N1QVi8lw";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9EB610E029
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Aug 2024 01:09:09 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-36841f56cf6so45867f8f.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 18:09:09 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 802D810E029
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Aug 2024 01:09:10 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4280921baa2so476235e9.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Aug 2024 18:09:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1723079347; x=1723684147;
+ d=basnieuwenhuizen.nl; s=google; t=1723079348; x=1723684148;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7Gt6mVJjqK7cy7GvQhYTy2j6uVoBdtC53Q/87RLgI9M=;
- b=YBL7HwX3Di4UaqsFeHPyvrxprHgRlrCPKCAtCOiGckMww1mRGb+FH3TOx8frBCRNyY
- VzwqMtNNMCBlt5qOgqZJNLO+J27XMmje4/5qEmEwabcQTJLJ9iuxf/m2IBpa+buwf+Kv
- mXq+RnzQ2zAphD49mpXMZ4UgMXUuXnpo2Zs2IZXtDb6ePrSQTXJHPY0rMLG1r95nO66R
- lp6q2tYVeJOJxxN/eaC+sCnt6mV+ZmL0LnpCF1Bqh6HWSmkn640SlvE2TC4aeQHbdPwh
- MJws6L8M3gIfR93E7jgZF3/FYUo1cH+esrSLzNBesmvJP5LwB2o8iJI9+qAL7X0GgcHN
- mdUQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ozxQDjawcuuRETBkceg0aDmbspBVS/rCHDlGRpYPEt0=;
+ b=N1QVi8lwO0FE9PIpa/ARQu+WUiHpweIXpoLuKZmLLxMjwDUb0nMVZNsq7wVOd/l2zI
+ FYlZcByAq7K+FNXNKv3hGufrzZrtF3hLChZcO9p6Xi8KvEw/O3jbJjNt6qCKaqKq8mkG
+ mCmYjb8d+ClqDFfqkImXve5ojVNk+iBqdS9yQjAxHahwE45mOzbNMJALA8x0mKQssY6S
+ h8CqBlrowP9tEMcpBxNSWdvxTV/233+BQ1G3rVEQSeiAdXcRZ5K1unli0cqAids0zQip
+ MeRu1kntTSOTv3yfy9PEgRPAAsJVcWk5rfLWgOFxoSGzSjhzV6EzoV8yFyX3Gh1a1K2C
+ d6OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723079347; x=1723684147;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7Gt6mVJjqK7cy7GvQhYTy2j6uVoBdtC53Q/87RLgI9M=;
- b=qeLdEx8jsqFHrQfsTfTulnpWvIY3KKAhpzmTAR/b1xOfwNZthaZoFi3dp9u2VEHQBT
- OgBldHaWH1iu0C/gxCzE1AKJ9f7JAJOutK7W5saeckzuMBkHuevFQNffkOf2TjzT525T
- wtjQ5pxU5MvqEqYqkbNBprxXlhli82TQxFS8piduzw6zvHEYjYixBwiRdAn0ZT+fGLBN
- +97l7d3Dg5NWefXNX4E6EREtl3EBqWivJQaMe0gQijRRYz4J0mof2tdqoqoQSIusPsM0
- YZ1DltZ143jwDB6jOLkuM+S83OKWOFQ5qmgoJcRWXHUnpaJB0pdsOtSGO1plaSW5rAGB
- 6a1w==
-X-Gm-Message-State: AOJu0YwbjxmCeM2jWV4e8RcU2K3+IcCGQsn6nXkw6CTihGqrVzAR0Sdk
- YNt0CDMPJTE2l854fJvH4uVtkMSW3euZv9fKjSdeXNJGRAk/giOId6tj9Vu/4InL1LwPUe5RU4F
- dXPg=
-X-Google-Smtp-Source: AGHT+IE5JJVfAwuRjo12I4pchWcInDbDe0qQGlSsjG8Yh3F3zgCQx0e8w2esg7tZh4ZtlXSQrVTlwA==
-X-Received: by 2002:a5d:5988:0:b0:364:8215:7142 with SMTP id
- ffacd0b85a97d-36d273cf802mr115779f8f.1.1723079347380; 
- Wed, 07 Aug 2024 18:09:07 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1723079348; x=1723684148;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ozxQDjawcuuRETBkceg0aDmbspBVS/rCHDlGRpYPEt0=;
+ b=w6jUjoilkZCyTbnQ2LOj6kwBlulI0EdY8GX6QvPgzMPJHrt8AbdrOCNyZ9rd43bPSt
+ iUKKX4WH/79Hqf1unADd2/bZpSPuooeSaZSZ6mCpdpIAqXCgIY9waoR+8qjUbe04FEG2
+ pMSDDDdbuRfyyIdkAyuns9BVaLQa9561XWjbHEigi8chzf+Vh7q3CDyxXlw+CwYA8txh
+ Jh/zbn1FibnUMkLlIcGArK2RjBdJtOqBhfoFZMF8WpW0zhDLWgIN8fyF9WCtVAskN0Tw
+ HVlQd0rUTwH68bCI1ZkT/ZtwZEPvcsN6JNIAIBpIpHQk2YgHHLOPxmbnF/n7NvjeZlpU
+ FP2A==
+X-Gm-Message-State: AOJu0YwLnTjty3wp+OmM84KgX0kjgPtVSeUaW70DCXv16w2LK6JG+v97
+ EZSuf38zgbtrKTVz6ShwYLIyD6nebxzBe3uo0Qm1RAQHHkBX4w1c28Q37lyI7k9BT1LG5ZKfdKb
+ S0EM=
+X-Google-Smtp-Source: AGHT+IGNzmH7AKKSbDpiwvwdX/700vSL5Ntws3h299/ZfTa4wHDYs5MwCU3wxYmkd2iLqvLPN2Bx/A==
+X-Received: by 2002:a05:6000:1789:b0:36b:b2a1:ef74 with SMTP id
+ ffacd0b85a97d-36d27672301mr81259f8f.8.1723079348189; 
+ Wed, 07 Aug 2024 18:09:08 -0700 (PDT)
 Received: from bas-workstation.. ([2a02:aa12:a781:a500:aaa1:59ff:feea:fd4f])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36d272095b9sm240753f8f.68.2024.08.07.18.09.06
+ ffacd0b85a97d-36d272095b9sm240753f8f.68.2024.08.07.18.09.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Aug 2024 18:09:06 -0700 (PDT)
+ Wed, 07 Aug 2024 18:09:07 -0700 (PDT)
 From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 To: amd-gfx@lists.freedesktop.org
 Cc: christian.koenig@amd.com, airlied@gmail.com, faith@gfxstrand.net,
  friedrich.vock@gmx.de, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: [PATCH 0/6] Add submission flag to disable implicit sync.
-Date: Thu,  8 Aug 2024 03:08:59 +0200
-Message-ID: <20240808010905.439060-1-bas@basnieuwenhuizen.nl>
+Subject: [PATCH 1/6] amdgpu: Add usage argument to amdgpu_sync_resv.
+Date: Thu,  8 Aug 2024 03:09:00 +0200
+Message-ID: <20240808010905.439060-2-bas@basnieuwenhuizen.nl>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240808010905.439060-1-bas@basnieuwenhuizen.nl>
+References: <20240808010905.439060-1-bas@basnieuwenhuizen.nl>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,45 +82,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For the rationale see the earlier RFC by Faith: https://lists.freedesktop.org/archives/amd-gfx/2024-August/112273.html
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c       | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c         | 7 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h         | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c      | 3 ++-
+ 6 files changed, 12 insertions(+), 9 deletions(-)
 
-This mainly makes two changes:
-
-1. Uses a submission flag rather than a context creation flag.
-2. Uses DMA_RESV_USAGE_BOOKKEEP to avoid adding implicit fences still.
-
-Note that this doesn't disable implicit sync wrt VM ops (map/unmap), I know we have series for that going around,
-but I believe doing just submissions here is less involved and doesn't really complicate doing VM ops later.
-
-As of now this has received a limited set of testing, no full CTS runs etc yet.
-
-For Userspace see:
-
-libdrm: https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/commits/basic-explicit-sync
-
-mesa: https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/commits/basic-explicit-sync
-
-(Still missing a bunch of the version bumps & version checks, would like to postpone that till we know the actual version)
-
-Bas Nieuwenhuizen (6):
-  amdgpu: Add usage argument to amdgpu_sync_resv.
-  amdgpu: Ignore BOOKKEEP fences for submissions.
-  drm/amdgpu: Check cs flags.
-  drm/amdgpu: Add UAPI for disabling implicit sync per submission.
-  drm/amdgpu: Implement disabling implicit sync per submission.
-  drm/amdgpu: Bump the driver version for the new flag.
-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 21 ++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c      |  7 +++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h      |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  3 ++-
- include/uapi/drm/amdgpu_drm.h                 |  6 ++++++
- 9 files changed, 37 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 48ad0c04aa72..a5f517f18903 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1341,6 +1341,7 @@ static int process_sync_pds_resv(struct amdkfd_process_info *process_info,
+ 		struct amdgpu_bo *pd = peer_vm->root.bo;
+ 
+ 		ret = amdgpu_sync_resv(NULL, sync, pd->tbo.base.resv,
++				       DMA_RESV_USAGE_BOOKKEEP,
+ 				       AMDGPU_SYNC_NE_OWNER,
+ 				       AMDGPU_FENCE_OWNER_KFD);
+ 		if (ret)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index ec888fc6ead8..a578da8e2da5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1198,7 +1198,8 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 
+ 		sync_mode = amdgpu_bo_explicit_sync(bo) ?
+ 			AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
+-		r = amdgpu_sync_resv(p->adev, &p->sync, resv, sync_mode,
++		r = amdgpu_sync_resv(p->adev, &p->sync, resv,
++				     DMA_RESV_USAGE_BOOKKEEP, sync_mode,
+ 				     &fpriv->vm);
+ 		if (r)
+ 			return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index c556c8b653fa..66d666c03aed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1484,7 +1484,8 @@ int amdgpu_bo_sync_wait_resv(struct amdgpu_device *adev, struct dma_resv *resv,
+ 	int r;
+ 
+ 	amdgpu_sync_create(&sync);
+-	amdgpu_sync_resv(adev, &sync, resv, sync_mode, owner);
++	amdgpu_sync_resv(adev, &sync, resv, DMA_RESV_USAGE_BOOKKEEP, sync_mode,
++			 owner);
+ 	r = amdgpu_sync_wait(&sync, intr);
+ 	amdgpu_sync_free(&sync);
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+index bdf1ef825d89..429602d6b65a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+@@ -233,8 +233,8 @@ static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
+  * Sync to the fence
+  */
+ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+-		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
+-		     void *owner)
++		     struct dma_resv *resv, enum dma_resv_usage usage,
++		     enum amdgpu_sync_mode mode, void *owner)
+ {
+ 	struct dma_resv_iter cursor;
+ 	struct dma_fence *f;
+@@ -243,8 +243,7 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+ 	if (resv == NULL)
+ 		return -EINVAL;
+ 
+-	/* TODO: Use DMA_RESV_USAGE_READ here */
+-	dma_resv_for_each_fence(&cursor, resv, DMA_RESV_USAGE_BOOKKEEP, f) {
++	dma_resv_for_each_fence(&cursor, resv, usage, f) {
+ 		dma_fence_chain_for_each(f, f) {
+ 			struct dma_fence *tmp = dma_fence_chain_contained(f);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+index cf1e9e858efd..a6fa8e1e8e17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+@@ -49,8 +49,8 @@ struct amdgpu_sync {
+ void amdgpu_sync_create(struct amdgpu_sync *sync);
+ int amdgpu_sync_fence(struct amdgpu_sync *sync, struct dma_fence *f);
+ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+-		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
+-		     void *owner);
++		     struct dma_resv *resv, enum dma_resv_usage usage,
++		     enum amdgpu_sync_mode mode, void *owner);
+ struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
+ 				     struct amdgpu_ring *ring);
+ struct dma_fence *amdgpu_sync_get_fence(struct amdgpu_sync *sync);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 66e8a016126b..259c241f55a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -98,7 +98,8 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+ 		return 0;
+ 
+ 	amdgpu_sync_create(&sync);
+-	r = amdgpu_sync_resv(p->adev, &sync, resv, sync_mode, p->vm);
++	r = amdgpu_sync_resv(p->adev, &sync, resv, DMA_RESV_USAGE_BOOKKEEP,
++			     sync_mode, p->vm);
+ 	if (!r)
+ 		r = amdgpu_sync_push_to_job(&sync, p->job);
+ 	amdgpu_sync_free(&sync);
 -- 
 2.45.2
 
