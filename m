@@ -4,118 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B0DC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 07:17:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4A52C52D73
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 07:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B69C10E671;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBC410E670;
 	Thu,  8 Aug 2024 07:17:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0uM24zCi";
-	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6DF10E172
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Aug 2024 16:17:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rXAQnwtFFNVGmDjC0xxnHRChZkW8/blETp6+kXIPitUeTQvRxmRgSkoqIASc9BVTlXMRBlzmfAJkXZ3o/yKDUQtBmNqiK7THxzzpO5X5WPBScwmNEZZJdX0fHSoySu61NipAT6na/dd7X4Ulh1BEJduUk02gl/sTHKbmeVPdXtCPppr4zbmXQHlgdy2Cdg1HvdapKUnTlPR/O3qnufXenVBuKT5aZAon2g0JbkwTAcOd5oeLpnKaWNbGYDyICiru3iCG0dIBaQyT3hoD5XQ0KEt7pxbJg9OmLMDu18VrBGnaf/b2B1j62jNPzcaXsLEBczLWzlLkhqOklAWciZEwKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7MOl10bWX9sjvrJKD2aG9EVjzXl+O0Az6tnhdfYJepM=;
- b=c6ez8OtnELSSCHy69WPEFgnm/Hzglf590HdCc7jJti1pHIFbpOnCNTHQVbXBrpkzdbq/8ZMSrnzlzIt9zh15vFza0rvxrNS03h5sIZPv0Wj+sOMN2imhxHZexI0wcYpyef78EMptPHVRruiDEQmX8Yb0knTQOxPUwUimyw16JEY5eycW1G9Q63Dty7e9pkq89mrlNxtZ7+suqhV24NuoIdDG6o9xfJ42bfDe6TSvFig3w306CqVyS+GXHlxVmSiGdAIHJTJL0gX7zKQlbLOcsv5pS0xs2RVjIsLOlPrwWHFpFRjd2z7exDMrYMi+SRGXbX9oO3xTb2LdgW+y1APxOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7MOl10bWX9sjvrJKD2aG9EVjzXl+O0Az6tnhdfYJepM=;
- b=0uM24zCiq+ryjdvtO+yb9gDoiQHUCrHweuTq+Jx6gRz1SGGUH3/xVCpN/5Td0ZCi1uPSwWV38SlKWRAK4BvTn8v/byqkaJ129vlG5Ej3/920RBm70O2aNqjvh855KZOS+wu8PCQt3VPBimKcPUK9BamKIeDKWv92ixgMzMigheE=
-Received: from CH0P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::21)
- by DS7PR12MB6358.namprd12.prod.outlook.com (2603:10b6:8:95::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.27; Wed, 7 Aug
- 2024 16:17:05 +0000
-Received: from CH2PEPF00000145.namprd02.prod.outlook.com
- (2603:10b6:610:11c:cafe::5c) by CH0P221CA0020.outlook.office365.com
- (2603:10b6:610:11c::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.13 via Frontend
- Transport; Wed, 7 Aug 2024 16:17:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000145.mail.protection.outlook.com (10.167.244.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 16:17:04 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
- 2024 11:16:58 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <brahma_sw_dev@amd.com>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Jonathan.Kim@amd.com>, <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH] drm/amdkfd: Add node_id to location_id generically
-Date: Wed, 7 Aug 2024 21:46:38 +0530
-Message-ID: <20240807161638.1647935-1-lijo.lazar@amd.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E9D510E64F;
+ Thu,  8 Aug 2024 06:16:44 +0000 (UTC)
+X-UUID: bbb3698e554d11efa216b1d71e6e1362-20240808
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.38, REQID:af8ba63f-d4de-4483-ba89-a97f9bb2342b, IP:5,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:0
+X-CID-INFO: VERSION:1.1.38, REQID:af8ba63f-d4de-4483-ba89-a97f9bb2342b, IP:5,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:0
+X-CID-META: VersionHash:82c5f88, CLOUDID:776c521adf725efa32729930ce14164b,
+ BulkI
+ D:240802173947ECFW744W,BulkQuantity:3,Recheck:0,SF:66|38|25|17|19|43|74|64
+ |102,TC:nil,Content:0,EDM:-3,IP:-2,URL:1,File:nil,RT:nil,Bulk:40,QS:nil,BE
+ C:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
+ TF_CID_SPAM_FSI, TF_CID_SPAM_ULS
+X-UUID: bbb3698e554d11efa216b1d71e6e1362-20240808
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1112590683; Thu, 08 Aug 2024 14:16:22 +0800
+From: Lu Yao <yaolu@kylinos.cn>
+To: jfalempe@redhat.com, ckoenig.leichtzumerken@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ srinivasan.shanmugam@amd.com, sunil.khatri@amd.com
+Cc: airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: add dce6 drm_panic support
+Date: Thu,  8 Aug 2024 14:15:38 +0800
+Message-Id: <20240808061538.502762-1-yaolu@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240802071752.116541-1-yaolu@kylinos.cn>
+References: <20240802071752.116541-1-yaolu@kylinos.cn>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000145:EE_|DS7PR12MB6358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26d3b696-b3d3-4e7b-0bd2-08dcb6fc608a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?z8/s3lfuW5hukJu+TqZIsaeQM0QUz0O/lVspVcSgBb8qSpSufHJFPW9ezyaC?=
- =?us-ascii?Q?J10GwyWqvMGReY2dASHnEbs0gMjHIO3Xp2AYlo9LsF4Xz4LZnPISTUgr+Q0b?=
- =?us-ascii?Q?tQwizpc1zncYB7t6gZjEzc4YLKe/l08rvMxALy+NPaPAY6glQc1kSM2HpJ37?=
- =?us-ascii?Q?Qq09mm0yfWzVBIgLtgESxL2R9datbYRs8P1Z337T4MKLVDun2skXRnZnw/3I?=
- =?us-ascii?Q?3qD5Bzswv9ePHuAA4fmnFLksIXAomHHvFz2t1jzjyHYwZbxVIPmo8i9RZ6DS?=
- =?us-ascii?Q?A3F7eBVedHR5a2aLLsIARk0OG/RJN36WmLOxKqjCQg3hnAgRRpvLtaCOBQ0z?=
- =?us-ascii?Q?32aZ4l8ut96yEcfimKvAm5ryn4gcbJlGnSTCvI1Y5fKucVEfW0NKUHHCu9xt?=
- =?us-ascii?Q?j14Xn04qmr16DYOER16z0PkFPGW4lHPj+CyfahdmNFLJWX2QF+pplMhPjRM/?=
- =?us-ascii?Q?8ecMlIrfjGysbevk2FsTpbRx7FoN6ZI7yQKmX7s1WldyFOt1XetNX7pvvD0D?=
- =?us-ascii?Q?n5yqTL3BbPAlTlAdBH4Hf18euf3Bd5tO2tD2XAdP2zLjTkBg5WQDEEaRLGPf?=
- =?us-ascii?Q?msxxOe7K1KNpqbrc9MTeGr8bMqoXCuJTpbtgUxtMZiuQMkTU7Ct7B6pgrqVT?=
- =?us-ascii?Q?BOLpPDKT7NMr61q+Mrgz6xFJmEZEU+FdQ2e88CBp8P2wUmNpL/oHrGDJ+Umr?=
- =?us-ascii?Q?gVq0VVvuqUD4kT11qjEVvsjYqw7bKaoFneUuwvYpJC47jLlE4f/ajBj9Hibe?=
- =?us-ascii?Q?zac5hTD1gWS8bytNChpu0Le+dpINI21HNzoecEnpAQD+0nwssWLM3v6MXxnm?=
- =?us-ascii?Q?MAoV+QsGHYKQ6a6mwRIKEWMpLxXGULt3wbWspMFdnUmDKv/cX5NAevY5Eps1?=
- =?us-ascii?Q?6e5e9/O9J5X+KwV2AriPldUzmeBQMfJIOhkG6w+ghrfbUTIBY62+xVPZwdYI?=
- =?us-ascii?Q?dngkFn0ifPwGVdEqFeukcdqtryElPZ419GaZLlvw0orqVS2M/VdNF7pwp7Ux?=
- =?us-ascii?Q?7bujYJabbWYWtLbMQeIEKnWB1QqaKUTmmagm1jVsXsX+o8hhKkGdHD8igVqY?=
- =?us-ascii?Q?Z3vU3Ah65YFmNrQzUZLWDg7V0Uh5By1fXHUJsN6JMrfN219QXlHeqs8mqF8T?=
- =?us-ascii?Q?XH0jiqvBIduUpqYe8CXJvE8vbvW7d5c3he/oxkEgB5D17mhsj0fWUGM6ODDz?=
- =?us-ascii?Q?8rs5f4bztiNwOmqCRP6ZcVYvhnwN9kAUzK1C4rExcXeQYevH7HVJbQig6uMp?=
- =?us-ascii?Q?lvz0yrYh9Cx1RkI9sgbsLvAxSEJTtGXa3JY+/zhp9pHTVzD1rWSLMhTvqNvx?=
- =?us-ascii?Q?eg3U3Fs2+2kRgj3iivawRrFTW/mKeFdfYx50A2K5ueQLdHYnbhfM64SeWLdI?=
- =?us-ascii?Q?N+Lk2d5DCuwWjXzS37S7UCoigwQdl7oWxtwUhqssEVVtF0yWqMu5cCFsEe1s?=
- =?us-ascii?Q?2aNMcL8iXVayDiZalIMI7/boDRDEovTg?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 16:17:04.6347 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26d3b696-b3d3-4e7b-0bd2-08dcb6fc608a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000145.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6358
 X-Mailman-Approved-At: Thu, 08 Aug 2024 07:17:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,27 +66,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If there are multiple nodes per kfd device, add nodeid to location_id to
-differentiate.
+On 2024/8/5 17:25, Jocelyn Falempe wrote:
+>
+>
+> On 02/08/2024 11:39, Christian König wrote:
+>> Am 02.08.24 um 09:17 schrieb Lu Yao:
+>>> Add support for the drm_panic module, which displays a pretty user
+>>> friendly message on the screen when a Linux kernel panic occurs.
+>>>
+>>> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 32 
+>>> +++++++++++++++++++++++++++
+>>>   1 file changed, 32 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+>>> index 05c0df97f01d..12c3801c264a 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+>>> @@ -28,6 +28,8 @@
+>>>   #include <drm/drm_modeset_helper.h>
+>>>   #include <drm/drm_modeset_helper_vtables.h>
+>>>   #include <drm/drm_vblank.h>
+>>> +#include <drm/drm_panic.h>
+>>
+>>> +#include "../../drm_internal.h"
+>>
+>> Well that this file is named "internal" and not in a common include 
+>> directory is a strong indicator that you should absolutely *not* 
+>> include it in a driver.
+>>
+>>>   #include "amdgpu.h"
+>>>   #include "amdgpu_pm.h"
+>>> @@ -2600,6 +2602,35 @@ static const struct drm_crtc_helper_funcs 
+>>> dce_v6_0_crtc_helper_funcs = {
+>>>       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>>>   };
+>>> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct 
+>>> drm_plane *plane,
+>>> +                             struct drm_scanout_buffer *sb)
+>>> +{
+>>> +    struct drm_framebuffer *fb;
+>>> +    struct drm_gem_object *obj;
+>>> +    struct amdgpu_bo *abo;
+>>> +    int ret = 0;
+>>> +
+>>> +    if (!plane->fb || plane->fb->modifier != DRM_FORMAT_MOD_LINEAR)
+>>> +        return -ENODEV;
+>>> +
+>>> +    fb = plane->fb;
+>>> +    sb->width = fb->width;
+>>> +    sb->height = fb->height;
+>>> +    sb->format = fb->format;
+>>> +    sb->pitch[0] = fb->pitches[0];
+>>> +
+>>> +    obj = fb->obj[0];
+>>> +    abo = gem_to_amdgpu_bo(obj);
+>>> +    if (!abo || abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
+>>> +        return -EINVAL;
+>>> +
+>>> +    return drm_gem_vmap(obj, &sb->map[0]);
+>>
+>> Yeah that will almost always not work. Most display buffers are 
+>> tilled and not CPU accessible.
+>
+> For the CPU accessible issue, Christian mentioned there was a debug 
+> interface on AMD GPU that can be used, to work around this:
+>
+> https://lore.kernel.org/dri-devel/0baabe1f-8924-2c9a-5cd4-59084a37dbb2@gmail.com/ 
+> and 
+> https://lore.kernel.org/dri-devel/d233c376-ed07-2127-6084-8292d313dac7@amd.com/
+>
+> And you will need to use the scanout_buffer->set_pixel() callback to 
+> write the pixels one by one, similar to what I've tried for nouveau with
+> https://patchwork.freedesktop.org/series/133963/
+>
+> For the tiling format, the problem is that it is internal to the GPU, 
+> and currently the driver don't know which tiling format is being used.
+>
+> It might be possible to disable tiling and compression, but it 
+> requires some internal DC knowledge:
+> https://lore.kernel.org/dri-devel/f76a3297-7d63-8615-45c5-47f02b64a1d5@amd.com/ 
+>
+>
+> Best regards,
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+From the discussion provided, it is difficult to implement this feature without the relevant data book and knowledge.(Whether how tiled memory storage, or how to disable tiling of DC)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 40771f8752cb..e6caab75e863 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2079,7 +2079,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- 			HSA_CAP_ASIC_REVISION_MASK);
- 
- 	dev->node_props.location_id = pci_dev_id(gpu->adev->pdev);
--	if (KFD_GC_VERSION(dev->gpu->kfd) == IP_VERSION(9, 4, 3))
-+	if (gpu->kfd->num_nodes > 1)
- 		dev->node_props.location_id |= dev->gpu->node_id;
- 
- 	dev->node_props.domain = pci_domain_nr(gpu->adev->pdev->bus);
--- 
-2.25.1
+It looks like I'll just have to wait for AMD engineers to implement this.
 
+Thanks a lot,
+Lu Yao
