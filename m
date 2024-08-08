@@ -4,117 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C323C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 16:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BB55C52D7B
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 16:43:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A81F110E788;
-	Thu,  8 Aug 2024 16:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EBB310E78E;
+	Thu,  8 Aug 2024 16:43:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cMGM8toK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O89ZHlOE";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAF710E788;
- Thu,  8 Aug 2024 16:11:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aovJuktTXfpy+xcNtx1OA9oQv38N3NaFsx+fAa80QX6RA2rWt1adiFGKCbZYTJNTMwtPFvbPUsUFAxg1mYlHP/Ahv+8kTAEyNHKNqlcgxlhO7HC7xkiiYk/q6VQU1avxGFpGsfYk2PFts6HxszBKq/NNi75X32tng7INeM6a0EGK5/LGdPU1f+t8uhx0wIX5H5rR6AKOaotLfSz5jskh0OBH9XXDBTj2HY44kHYrlAkvIuptbNg3qZDvH4TSL3/NJFpdmtyv902L/c+eeQdeXM989BKejm0X4xiUB8IfNaf1XqhLUbVf+7gjysG+WMfC4rpnGzZv16TnrUmA9jSQ3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lBvEJxOlDVJPcZ5TJTqW7X/1FplDCyG1YKZHlxCaGtQ=;
- b=RPoQDVRMT4x6gnuRtQU7PQj+bIjMSmPXariSdZT57w5NbNEcaFtGlLRgPgVXdMz335Iq1Fl0o7HBtAs5ggQCm32uh7GWb5oF8dUeQudbnSN98v2UIrQIuwSSCJ2a5+v/7OAx6J+B5LAtZDBJBW8RbNbkB2yW4M3ShlTyvIyMgpMAZh0fsUYgjpDxcnUUjuxUjZMKu0WkePNhututKqjK/6LXmKqcNmdrSwIE3cfX0IJyBwPZNGbHHVNA0z9sBxZKj6OPQRmt1z0JWu926Ocpv/CXGR1FacV6Tx6NH7kF2cme0QdesR5igmt649xV7U0sOtlkDJ953QfO7B8RvrAUYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lBvEJxOlDVJPcZ5TJTqW7X/1FplDCyG1YKZHlxCaGtQ=;
- b=cMGM8toKqpJIIvqEbKGKX91v2XaQoUoIGDHLtxh/G+hF0kkPUUUuFZCnGpeQhehiFjBqlLFCwL/ZwSknaeLiizfzRmdOcGJ98aPpaK29w/FGmEVhGWj132DB5RxJt67s37CL+6EleS91mXEqqebRk9t+N7s/LNMa3hL+Itylz74=
-Received: from CH2PR07CA0066.namprd07.prod.outlook.com (2603:10b6:610:5b::40)
- by DM4PR12MB7718.namprd12.prod.outlook.com (2603:10b6:8:102::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.26; Thu, 8 Aug
- 2024 16:11:50 +0000
-Received: from CH2PEPF0000009A.namprd02.prod.outlook.com
- (2603:10b6:610:5b:cafe::ba) by CH2PR07CA0066.outlook.office365.com
- (2603:10b6:610:5b::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.14 via Frontend
- Transport; Thu, 8 Aug 2024 16:11:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF0000009A.mail.protection.outlook.com (10.167.244.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Thu, 8 Aug 2024 16:11:50 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 8 Aug
- 2024 11:11:48 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, drm buddy drm-fixes-6.11
-Date: Thu, 8 Aug 2024 12:11:34 -0400
-Message-ID: <20240808161134.1227671-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.45.2
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5420010E78E;
+ Thu,  8 Aug 2024 16:43:50 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-70d1cbbeeaeso953496b3a.0; 
+ Thu, 08 Aug 2024 09:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723135430; x=1723740230; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BncAidYttaXwWTJrXVRaT/JdaRkWy8ih2u+dDbnusos=;
+ b=O89ZHlOENkFCyPn5ltrMLqBNfWIRqHR3krXh674hTAggb0PvMufwZoT0JD7ava671J
+ MRsqGIzm6g3fWiNNJeTHyldAsH9uYBEK18TpAYOQVhGQOZpHJ7rOrBxIToLELKLZxLoQ
+ b6MSIKmbrCLY+wVbjOI+5YNRu1w02GVmOIQNpT8IjLhhBoY23/EUQ2DSbqTHE/Oyxk26
+ KxIx1vOMIVrLXOfn73BaroD3o3cawTO5JWs51wiQrWEWdvKD9rO+X/fsup3dJJpbK12u
+ fSpL7SjdVNugrgMtbws2+HJ9MjH+eZzYBqQ0WVlPHGeBxRE2stWTbcahhwtwKPYglywP
+ C7gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723135430; x=1723740230;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BncAidYttaXwWTJrXVRaT/JdaRkWy8ih2u+dDbnusos=;
+ b=c8PVEo21mD5npwzG9zm/8ZieDW7PndG6KtIpuD/+W7DI9c9YvbXr5U82sPUkp+WLwG
+ Ts4TjunMq8oupjkGQVPU7YLW2IvrSG/jMqHl/rps2NjgDR7Ua5eBdTyXniLImZADHtF6
+ 223hM8FN/Zr3ifWGBKeez04dGpVuKh18Mt4riqV39MTfSyF/yu8ESoZufuBGdsqDZPY5
+ LjgBiWaGFm1fTmFhDmY0N7bIyg5m/+TFZv3C114IYONmbJBZidbFEQDjGh1f/CORhMxK
+ y7njvmtnbxX99DKJ6G9aj9q+OMcFsCASCpT5Yh20Mawy3ECiqp5Q+FTfHJZYqWWgWpL8
+ aomQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXLl3v4HOse2wLx6RajBqJG+BW+lOBnwsl4Y6NxiYOrGQN+HfDZmP5nH+SYyEA1nnXMRvh/6sXnkiiXg4aiRkZ8hzbNQnPbx73PztjzWL7wTT8x408Ow3RK8d3DrNtb5k5ljktp+Lvt1Yts0XEUVw==
+X-Gm-Message-State: AOJu0Yxm2vSVBUMH93hX3oBkw9vxD5e/FK9vhqLi3Iq/+KNl0NsrEDYB
+ nmid0o8FuZprCuAPwDJ+mt6VOCSkDpcWySVC5GahReC/U/rGdz3Xk6X64WQoKEuKLsj4hPwgwwG
+ +V9Mlff1azKBK28k7068TaQOJVvw=
+X-Google-Smtp-Source: AGHT+IHmwzgpU9ZIK7iJG45Xt+sTotIFrBcVrRJ/Q05dToUmheju3DBdj5rzaGq4Jys4eXNsEjDxlZf5yoTgyq8ffIQ=
+X-Received: by 2002:a05:6a20:a11b:b0:1c6:a825:8bc1 with SMTP id
+ adf61e73a8af0-1c6fcf623e8mr2951527637.29.1723135429712; Thu, 08 Aug 2024
+ 09:43:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009A:EE_|DM4PR12MB7718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 168de2b5-1779-487c-a15e-08dcb7c4cfcf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?K8c8upNMMXHmoe6Pw0xNJ/nhj3CY7YZGXSOOgfSE7mQb65Nkzpl2v6HlNRBK?=
- =?us-ascii?Q?D0BDLpYpfMTTze5T15nRA86Lmw1dOmZqR35PgQfGQICUIgiqoEuMStZ0JXK2?=
- =?us-ascii?Q?Ii8cwoG2S39P+EAWd3XGrYrKe2w24vGqB46k7DNtD/mj3dGWh688qVD6aX9G?=
- =?us-ascii?Q?mY16GgLHPnysq0TJBcW3n9yndkp6n4+6YhSWG3DjwdxClCX/KW3tozBnk3xQ?=
- =?us-ascii?Q?xmqv9Lxc0gvsV+XqCq7aWfpVHHWL5fcHfm20kUtaL3+oTXlsfa2ZU998rKoj?=
- =?us-ascii?Q?ZkwOnWwL+kEeo4pp6lJOAl1eQuAEtzcs01DrOeAaU8LsijNP/XlTKpwPlIPB?=
- =?us-ascii?Q?PCtDSKPuQmV5ZMTux+dkdBqlei/QwQ6guzFSsMzttcfSyE81gVvlrCZaUZ1R?=
- =?us-ascii?Q?lXjNxmsugNLswj8o3+UgRKC833LHwNgfATEHXMQPXhVk6cbGSuxt5nA2lzWT?=
- =?us-ascii?Q?HUfv0o0kFicqGbpwmW1xpNCe6RFaX7BB7lBpH9jkh+mSN813PJ5+URv0PIAn?=
- =?us-ascii?Q?1cq6KvRvIglEa4MjjiMtYGfC0KoIOrQKtzAW6mqeERhZjuNne4R0sf/klHwj?=
- =?us-ascii?Q?HL/2a7nYPjt3X9rvH2nfRcWUfxPYOkb08M/fwr6hEGaUD1ShRJa2C8zQ9+rF?=
- =?us-ascii?Q?pFaamzlub25oBr7DyPon2MYrUanp7uT7zfXC0ATd5t13MiXF9PS//IiSTbhH?=
- =?us-ascii?Q?ub5lPoU2hCK0zARdFzKzC7YiEBalj2FKgbq0Rp/58Vtx5807q7uGbJscf7+E?=
- =?us-ascii?Q?aZsXhgGZWyEvq2aAm7nb5I/4FwxM5EfbENiswF9CTXeoSW9MqpGsftgukg0+?=
- =?us-ascii?Q?RbRnT3v9HqbG3qQbvLxvKgJ3Ziy3quepiG8jbkkRqS7LLKJa/CXNG6pGZU6r?=
- =?us-ascii?Q?BvGPTpK4dQgBWDLYzNyFXVrpD4dBcq3AIqY47pfH6F7eefgWm3zlokywn8A1?=
- =?us-ascii?Q?0HLyVihnDHp0OJUKWVE7UbMAmIdJej9psSyQh8TkaFEWJJUownKUC3GrSkAX?=
- =?us-ascii?Q?akhGuqmpdsNsH3Oft6aMWA3yWKe+455fB/MEDBNfxTLnSUJfEktZyZqkcx8D?=
- =?us-ascii?Q?eUThkauQtraF7bxJDvtoYtP3QRR/CBAwG4ymDeVqvWmxkDVuxXzXccts62SX?=
- =?us-ascii?Q?OXtZUMexlSn0j7pLxLuuP4AiBYgDL+KqlKpjkF93W0Qs/mXXd5LdURoB2mZM?=
- =?us-ascii?Q?uABxvEz+8Kjv1yw1nbGuUD3OFWnaVIHso4BF8nxAqk0kmzI3Sgxwm3v9CQad?=
- =?us-ascii?Q?gjXdTXfzJ85xM4I1ndpsvzdbCKIO0DU5en4wgxwBziZ/zQRfL6/DZs/tV9AV?=
- =?us-ascii?Q?Q1w8yG4dqFBuqDw96+wb+jDn7gm87Ropaw5aRtg61Q9nZlM60PPS/Ey39rTO?=
- =?us-ascii?Q?avu1oPwuDCYvD4L7dJmjpGM6W5YM?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2024 16:11:50.6638 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 168de2b5-1779-487c-a15e-08dcb7c4cfcf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7718
+References: <20240802071752.116541-1-yaolu@kylinos.cn>
+ <20240808061538.502762-1-yaolu@kylinos.cn>
+In-Reply-To: <20240808061538.502762-1-yaolu@kylinos.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 8 Aug 2024 12:43:37 -0400
+Message-ID: <CADnq5_NH9hB4v4iyU8r8WB_bDYJGdoeYK4K8gb8ukP-=votW-A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add dce6 drm_panic support
+To: Lu Yao <yaolu@kylinos.cn>
+Cc: jfalempe@redhat.com, ckoenig.leichtzumerken@gmail.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ srinivasan.shanmugam@amd.com, sunil.khatri@amd.com, airlied@gmail.com, 
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,89 +82,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+On Thu, Aug 8, 2024 at 2:35=E2=80=AFAM Lu Yao <yaolu@kylinos.cn> wrote:
+>
+> On 2024/8/5 17:25, Jocelyn Falempe wrote:
+> >
+> >
+> > On 02/08/2024 11:39, Christian K=C3=B6nig wrote:
+> >> Am 02.08.24 um 09:17 schrieb Lu Yao:
+> >>> Add support for the drm_panic module, which displays a pretty user
+> >>> friendly message on the screen when a Linux kernel panic occurs.
+> >>>
+> >>> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+> >>> ---
+> >>>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 32
+> >>> +++++++++++++++++++++++++++
+> >>>   1 file changed, 32 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> >>> index 05c0df97f01d..12c3801c264a 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> >>> @@ -28,6 +28,8 @@
+> >>>   #include <drm/drm_modeset_helper.h>
+> >>>   #include <drm/drm_modeset_helper_vtables.h>
+> >>>   #include <drm/drm_vblank.h>
+> >>> +#include <drm/drm_panic.h>
+> >>
+> >>> +#include "../../drm_internal.h"
+> >>
+> >> Well that this file is named "internal" and not in a common include
+> >> directory is a strong indicator that you should absolutely *not*
+> >> include it in a driver.
+> >>
+> >>>   #include "amdgpu.h"
+> >>>   #include "amdgpu_pm.h"
+> >>> @@ -2600,6 +2602,35 @@ static const struct drm_crtc_helper_funcs
+> >>> dce_v6_0_crtc_helper_funcs =3D {
+> >>>       .get_scanout_position =3D amdgpu_crtc_get_scanout_position,
+> >>>   };
+> >>> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct
+> >>> drm_plane *plane,
+> >>> +                             struct drm_scanout_buffer *sb)
+> >>> +{
+> >>> +    struct drm_framebuffer *fb;
+> >>> +    struct drm_gem_object *obj;
+> >>> +    struct amdgpu_bo *abo;
+> >>> +    int ret =3D 0;
+> >>> +
+> >>> +    if (!plane->fb || plane->fb->modifier !=3D DRM_FORMAT_MOD_LINEAR=
+)
+> >>> +        return -ENODEV;
+> >>> +
+> >>> +    fb =3D plane->fb;
+> >>> +    sb->width =3D fb->width;
+> >>> +    sb->height =3D fb->height;
+> >>> +    sb->format =3D fb->format;
+> >>> +    sb->pitch[0] =3D fb->pitches[0];
+> >>> +
+> >>> +    obj =3D fb->obj[0];
+> >>> +    abo =3D gem_to_amdgpu_bo(obj);
+> >>> +    if (!abo || abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
+> >>> +        return -EINVAL;
+> >>> +
+> >>> +    return drm_gem_vmap(obj, &sb->map[0]);
+> >>
+> >> Yeah that will almost always not work. Most display buffers are
+> >> tilled and not CPU accessible.
+> >
+> > For the CPU accessible issue, Christian mentioned there was a debug
+> > interface on AMD GPU that can be used, to work around this:
+> >
+> > https://lore.kernel.org/dri-devel/0baabe1f-8924-2c9a-5cd4-59084a37dbb2@=
+gmail.com/
+> > and
+> > https://lore.kernel.org/dri-devel/d233c376-ed07-2127-6084-8292d313dac7@=
+amd.com/
+> >
+> > And you will need to use the scanout_buffer->set_pixel() callback to
+> > write the pixels one by one, similar to what I've tried for nouveau wit=
+h
+> > https://patchwork.freedesktop.org/series/133963/
+> >
+> > For the tiling format, the problem is that it is internal to the GPU,
+> > and currently the driver don't know which tiling format is being used.
+> >
+> > It might be possible to disable tiling and compression, but it
+> > requires some internal DC knowledge:
+> > https://lore.kernel.org/dri-devel/f76a3297-7d63-8615-45c5-47f02b64a1d5@=
+amd.com/
+> >
+> >
+> > Best regards,
+>
+> From the discussion provided, it is difficult to implement this feature w=
+ithout the relevant data book and knowledge.(Whether how tiled memory stora=
+ge, or how to disable tiling of DC)
 
-Fixes for 6.11.  The drm buddy fix is needed to handle weird alignment
-requirements for DCN 4.0 when DCC is enabled.
+For DCE 6, the GRPH_ARRAY_MODE field in mmGRPH_CONTROL controls the
+display tiling.  Set that field to GRPH_ARRAY_LINEAR_GENERAL (0) to
+disable tiling.
 
-The following changes since commit 27ce65f65258cf2f2855162cbeef59659a81fac4:
-
-  Revert "nouveau: rip out busy fence waits" (2024-08-02 14:38:28 +1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.11-2024-08-08
-
-for you to fetch changes up to 6ad9dafba19f15a64f71c2e1a9e3b6932f96628e:
-
-  drm/amdgpu: Add DCC GFX12 flag to enable address alignment (2024-08-07 18:23:59 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.11-2024-08-08:
-
-amdgpu:
-- DMCUB fix
-- Fix DET programming on some DCNs
-- DCC fixes
-- DCN 4.0.1 fixes
-- SMU 14.0.x update
-- MMHUB fix
-- DCN 3.1.4 fix
-- GC 12.0 fixes
-- Fix soft recovery error propogation
-- SDMA 7.0 fixes
-- DSC fix
-
-drm buddy:
-- Add start address to trim function
-
-----------------------------------------------------------------
-Arunpravin Paneer Selvam (3):
-      drm/buddy: Add start address support to trim function
-      drm/amdgpu: Add address alignment support to DCC buffers
-      drm/amdgpu: Add DCC GFX12 flag to enable address alignment
-
-Fangzhi Zuo (1):
-      drm/amd/display: Skip Recompute DSC Params if no Stream on Link
-
-Frank Min (2):
-      drm/amdgpu: change non-dcc buffer copy configuration
-      drm/amdgpu: correct sdma7 max dw
-
-Joshua Ashton (1):
-      drm/amdgpu: Forward soft recovery errors to userspace
-
-Kenneth Feng (1):
-      drm/amd/pm: update powerplay structure on smu v14.0.2/3
-
-Likun Gao (2):
-      drm/amdgpu: force to use legacy inv in mmhub
-      drm/amdgpu: add golden setting for gc v12
-
-Rodrigo Siqueira (6):
-      drm/amd/display: Replace dm_execute_dmub_cmd with dc_wake_and_execute_dmub_cmd
-      drm/amd/display: Add missing DET segments programming
-      drm/amd/display: Add dcc propagation value
-      drm/amd/display: Add missing mcache registers
-      drm/amd/display: Add missing DCN314 to the DML Makefile
-      drm/amd/display: Add missing program DET segment call to pipe init
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h            |  6 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       | 36 ++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             | 27 +++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c             | 18 ++++++++
- drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c          |  3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |  7 +--
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  3 ++
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   |  3 +-
- drivers/gpu/drm/amd/display/dc/dml/Makefile        |  2 +
- .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |  2 +
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |  2 +
- .../display/dc/resource/dcn401/dcn401_resource.c   |  1 +
- .../display/dc/resource/dcn401/dcn401_resource.h   |  4 +-
- .../gpu/drm/amd/pm/swsmu/inc/smu_v14_0_2_pptable.h | 52 +++++++++++++++++++---
- drivers/gpu/drm/drm_buddy.c                        | 25 ++++++++++-
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c               |  2 +-
- include/drm/drm_buddy.h                            |  2 +
- 18 files changed, 178 insertions(+), 20 deletions(-)
+Alex
