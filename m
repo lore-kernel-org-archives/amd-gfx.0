@@ -4,140 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBABDC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 04:31:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C8EC52D7D
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Aug 2024 05:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5DE10E066;
-	Thu,  8 Aug 2024 04:31:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 078DC10E63B;
+	Thu,  8 Aug 2024 05:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vSf/UxEE";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="uejQ3rPe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pSwN1YJ4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uejQ3rPe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pSwN1YJ4";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2045.outbound.protection.outlook.com [40.107.212.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49D1110E63B
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Aug 2024 04:31:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m6GophyD8A2cS8iIZxrVSyNCoEhfoqUEPs6SoCNrGxhH/T9YfLqu/MJm0Aq/rA5PhnScBh8XGTS5FzZsc9jj0DRnR3wnG+ioMW+7FrP4rXVwlU+DaTRqlFJoRisA6QIudi69l20sE5R6Lxta7h7K8nLehpje+cdLIjEzh5kOAanCIfQef9uofWzZpjN8ikyFcHVcgEwM2KDQf4Cjn043KHSUWivwQ48JpIgRMIgEwzaIhfOf+IprvO45mkMOFxqP8bgksK7f12zb1gMEX1BWbvM4/3P2De+shx3hymY/RUqkzgStFLhgjEG8Og8H+wK8ohLEI62503aeJTghIIPqJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hk0nKpz9R8JGcV8cNyZG32hF66jwT7wZVHZlh2DepI8=;
- b=wGEO+YptEjoeluWnFwGeJwAwVXpsXTuAyN2PzOFNnJ7zg6SNVpEa6Zh62iO0ScgE1Oj1anLQRoE3oJbMMLU4KB0Fb5aMbuy+Lb6xQDRxc5TTNjWUD5xDfcO6d7Ne0J7Y5EdvYXzo3xmTlpcc50f9OQ6yIVQCVwJG1iNblyVg/1UgsWmrFbCuwtxB+6ozr5PKvRGQdjtYCR+4OOLl7I8AI5nZ+JYQBSGm5CsRVke/Gv+rTkyFijJlUJt/Ktf4mPO0fWY9IMro/lvLSNKFGRPPi4KLoLWEweoUos8qUzzB0GNYa6MU+lJMqS2EIulhX2N6lGyTfuEIlg6F8LRc9OvJjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hk0nKpz9R8JGcV8cNyZG32hF66jwT7wZVHZlh2DepI8=;
- b=vSf/UxEEe9K8MplBXhmkpt7OkY15iAk8+xejKK1MpH1pg/2F3lddJxu8jE0y0p3xFFk8IMTmtpDhQgr/nBQd3ePyUxA1VBRp2I9Un5xvAkV0XTzmHiu0Y496GjWkLovwRkQuSXH/tlJgfTTfnVGhS4chj2xryizPEq27UfjC4gA=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by CH3PR12MB8234.namprd12.prod.outlook.com (2603:10b6:610:125::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.14; Thu, 8 Aug
- 2024 04:31:08 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708%5]) with mapi id 15.20.7828.023; Thu, 8 Aug 2024
- 04:31:08 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Subject: RE: [PATCH] drm/amd/amdgpu: add HDP_SD support on gc 12.0.0/1
-Thread-Topic: [PATCH] drm/amd/amdgpu: add HDP_SD support on gc 12.0.0/1
-Thread-Index: AQHa6UsQ88n281tKDUa6YITBEEkZj7IcxJQQ
-Date: Thu, 8 Aug 2024 04:31:08 +0000
-Message-ID: <PH7PR12MB599708574DF9EEF9EFF8B7ED82B92@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20240808042342.248708-1-kenneth.feng@amd.com>
-In-Reply-To: <20240808042342.248708-1-kenneth.feng@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=ce1c98ab-b2ca-422a-a3c8-794ff9567965;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-08-08T04:29:40Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|CH3PR12MB8234:EE_
-x-ms-office365-filtering-correlation-id: cfc8ff74-6dea-47b8-ba4f-08dcb762ec9e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?GVkgbnv9DSis/JIrPKdj80GJJGZ76km3feLuoRRy+K9xRTav0N1xhacqT8q7?=
- =?us-ascii?Q?ftElfipj1/q42k3bTu4GDTm3a73NlapWlMOFAz4siNqSrmFoTZ9Yjasq0cMt?=
- =?us-ascii?Q?zGK1KaYa8a8QQdpAT1kw1jRNwK/rOuejJ6cSKMShS4tH8Kp79lgZlbLpjTWS?=
- =?us-ascii?Q?qOQowMUo9HUxdUiMoloGZmjmTTSNE2H5PCh1m1zFywupKifzBCfkHFawgRaC?=
- =?us-ascii?Q?DVholrPFRfA2QT8TcbBUcXhXPWoRCE1HIDbcrN7dMt6QyNzY/feA1/0V2WbN?=
- =?us-ascii?Q?Rr24T4kYZYJ7FlG+RSLY/1dmouc0Ls2M5xyBq2mul0aMl0BogxOLqwtOdNRU?=
- =?us-ascii?Q?O21hLYYh+fJ3OayfbpY+XEaizBhiRfTZo/sILOBG/FosXHsAK0uv9vpnpIE1?=
- =?us-ascii?Q?hivcqEhApZu3lcDNDN4zpZfKDoPpzpoddHP1UHfz3+/bF2rBCcYqCNU3q7p9?=
- =?us-ascii?Q?V1/F/p1I9Of4kt4wLdia1rIPLj62Ggm+8wk/+PLM+rBLsAXAjN5M1cMHhhej?=
- =?us-ascii?Q?uaQF1BgMR5WIcUSG58TRU3Kt9Mot5qQ1FyxexPyQRwpnGV0R7WQ3Rx++bxXT?=
- =?us-ascii?Q?Np7QQfIAOQc8zJHUEnvYbaFWtVD1z6HjCd0R+2y5x9YNn5cQZQOsG+MxoRTF?=
- =?us-ascii?Q?35U0LSdmnRo6v4af9gA/ewDuCxf0gFVlGP/oXU13+NSF5RHbkraxHfTMWZIB?=
- =?us-ascii?Q?EL0IKH2/Vny4wLBONa5JFVFRgJ0+W9av18jjWcfyRVWZlpNDzoyIWHjMEgib?=
- =?us-ascii?Q?/Ni4AumcETschCBItZ3BY97vbjNooLM9GY6vGzJ9DV1Ik4iho0qGPPWvGSK1?=
- =?us-ascii?Q?oLrGpYz/RI7hJYCSQ2OjDZVQt+uiwSkEpj7Yl38Mo7tTrECPVcp5DJ7u/+Ur?=
- =?us-ascii?Q?vJZB/klpv3EjEC3iFqTaiscLLJYzYpWTn3d0+hxwGjWfQvtDiBuUOE4y1i9f?=
- =?us-ascii?Q?BqMr0N5cHaTqXdB8FqaWWRANfxQiP3wBJ2vvAas82uhOE/2HgNF8rJQdU4xz?=
- =?us-ascii?Q?r8PjHJxe0FxJSoPxDj45dBM/S+ckuFJwN5s5eZYDoTdee6qIZyLnVbXM0lCP?=
- =?us-ascii?Q?Srwefqr/MXo6cMc1sb+IqYWg0NOX5FT3kks1PwK7cG+k9n4iPA51AW1SsRLU?=
- =?us-ascii?Q?NxjColA0XWJaTzK0uVWb2pCeaXeIAQuA29Vtkg95KNqZEZEQjPCDNYhdo7WU?=
- =?us-ascii?Q?L1oLAAdRkrEaYFPJqStzu4WA2nlxP9bZ3DbMEUQu/yHb8NBkD/mPKdK6u8M4?=
- =?us-ascii?Q?tEL6QMz0p8koxtT9PEmtkVVikX9AHpSsUy7o1O9KZy802h8oDKUJgP8+fzWk?=
- =?us-ascii?Q?huxNDIkBy+3H4WDUlWPzv0+0ujZoc8oTLjMUhykeSyAlZ96xXAwyuA/FzpAw?=
- =?us-ascii?Q?B2svHdlg9U6xREtVonJkVKpHD5cyg6sODuyb0KaiZEJ/jxrn+A=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QVRIlBGsYlQTSicV041zSshQRPAQk0VZcHAY9Vrb4bdQXShAClXA0yd/6bHh?=
- =?us-ascii?Q?LQtjn4SKOxGFpHkVr9ldbBTo+WQ2HmFOCJLgS74fkyZChKIwdaZptg0XirqH?=
- =?us-ascii?Q?gi5xnM/pa6CnkuROV0+Mix4NchD18jKtOhEQ+xpua5Ql10YWuvdiRwGkJLXv?=
- =?us-ascii?Q?6U/ZIxVVPkPSGUYR3R+iMKw9KaD8Cjfu9ywSHghQ25Rxhk+mIFYfGYBuaiXS?=
- =?us-ascii?Q?LwJaCZafHro/zMPNNDj9glR0Qo779lhrtRruV8VOHiCMeTY1lTRPsYIuVfzU?=
- =?us-ascii?Q?83Ehf/gX9NraxX5F6QT6yCBS0mnQDVaTqqJnV+gWWvK3ya02/GWflhryxjN7?=
- =?us-ascii?Q?K6o7KjPw0fzLw0Xi1js4Yl33+TYHEaWxz2G0U5OhSTZWPRseUpjs/sbCbbAj?=
- =?us-ascii?Q?9UuA2ZqcE9EqH8EoWyOGr5Yi/HWUcdC0ZIWfc5vh8XHj1sGuSQ+Hpx+psgVh?=
- =?us-ascii?Q?jduEesdh91IOfNYShhcRJ7zjv59+uMwX8Fr3wVLBf9r7vdiSyRm55P00E9mo?=
- =?us-ascii?Q?mxdPNiS47GG5e39aqvBf9SsjOLDSV8jWMkOOzmCBePO+HlDF6Z7pmK3xwnLR?=
- =?us-ascii?Q?dkpYFGceUcwxeTmOkfchaarLQVFTKSLzyOE22MKYswl9g3iDgbx9g8i/qH2f?=
- =?us-ascii?Q?suq4vy4+4ZOSqF9diHYYSP/xIdbNn7+9XduqATml9DZZw5dhufPtHFipZhLI?=
- =?us-ascii?Q?1+oNBtfE4wTMzHdliX7bt0BvH04DDjaPVCoq2mKoCNsiLNyuiipnK8c81b6a?=
- =?us-ascii?Q?Cy5c/nGNHSy8jaH559bY1wXHJehBHdzz1oWkon79W/3vqLsuPsZG4CA6lGAy?=
- =?us-ascii?Q?hFTOsJ9YCcCxvZ2QHEUoiWoW2aYotoFQ2+/bQYoZTcn2xadwG8+xyZXFtMJ5?=
- =?us-ascii?Q?Q4/rtPT15xWU+aVz89zePd04x2xsHLjN1s3yrGk4y2u331x5ZORov3T1j2+D?=
- =?us-ascii?Q?Sx+0iy9T2UtezYeSJRl1ZSkwLIDeuZbtMBmoEagSHX5NHW2XzvtKVw+wfX9d?=
- =?us-ascii?Q?Gpyt0b93fDYu6mGXNdKXRmFSO5To8AXEXRqY/tvqPOVwJPtGWhNJs2fYNAAx?=
- =?us-ascii?Q?gXVaI0LlswFxqR9RJlP8sjWA43pDceuWAkLOSQX1AvxVoOIcNM4IW/IPLO73?=
- =?us-ascii?Q?HtX7VS08tGIEAwCiObR1T9KGK50Q+hJH7Gf6+EzivfO9o7va8+X+BrDBAgBm?=
- =?us-ascii?Q?xHkiZQKZBXQG66+JzXjp0BJzAKKh4Lsy++NOBZobCvle5wIPNbwtPSxSj1w1?=
- =?us-ascii?Q?XMt0axAAn+n+IGfu518wA+L7IUzvzrEE2Qaft5sxHRgLzrSiuFQkJvP4vi5y?=
- =?us-ascii?Q?mrrFhVVpyg8qY5wWRefL+dCAStYbZWCxmm2o3t5kE9QDwM6JZwThB6CS9j8t?=
- =?us-ascii?Q?xGvS7SiLYMFwk0eIKDxW22GSBo6GeERLqGelfXviExK3UkpPZs4PN1ZTHTXd?=
- =?us-ascii?Q?WXgZTxgflxytFczM20N+9goKpooOFoYyHK4LZUffXp7T/3IOGtqugCeLZPHE?=
- =?us-ascii?Q?wVjm2hLAW3fhxBV3tWztQiaOFL/5UPZMqKyl1p9jD1UrXc5fXDdL0XwfK26m?=
- =?us-ascii?Q?hlSAIHIhQ8iDXLUxozA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA3010E637;
+ Thu,  8 Aug 2024 05:19:13 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 997FB21B89;
+ Thu,  8 Aug 2024 05:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723094351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kAjclbPhXyeg2dEOS+Le239UCzeqLOMey1w4D2nPwSA=;
+ b=uejQ3rPeNClYRFuSPlpf5tGZCvO6JcIMgLdC7Ntqtsb+PMeYgIKQW64g+T4CMF9mIeaV4Y
+ HXHGbs8oeR36Jvgku+iW0xNfYzgLKwCgwoQxEPiB9hdrwOb+/VBrZvDf1tRWNGOvbZZ+zG
+ p3/WdxFEsGGaAPfXw5XbC1bR06wfmjg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723094351;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kAjclbPhXyeg2dEOS+Le239UCzeqLOMey1w4D2nPwSA=;
+ b=pSwN1YJ44KlIOd+hjc57j7CG8g4TxpMN7fzc3vxTDD0ILJ9EbXFEjqY6Adskndlje/56W0
+ Mmug4rq/cZbSfqAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723094351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kAjclbPhXyeg2dEOS+Le239UCzeqLOMey1w4D2nPwSA=;
+ b=uejQ3rPeNClYRFuSPlpf5tGZCvO6JcIMgLdC7Ntqtsb+PMeYgIKQW64g+T4CMF9mIeaV4Y
+ HXHGbs8oeR36Jvgku+iW0xNfYzgLKwCgwoQxEPiB9hdrwOb+/VBrZvDf1tRWNGOvbZZ+zG
+ p3/WdxFEsGGaAPfXw5XbC1bR06wfmjg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723094351;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kAjclbPhXyeg2dEOS+Le239UCzeqLOMey1w4D2nPwSA=;
+ b=pSwN1YJ44KlIOd+hjc57j7CG8g4TxpMN7fzc3vxTDD0ILJ9EbXFEjqY6Adskndlje/56W0
+ Mmug4rq/cZbSfqAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 48BF213770;
+ Thu,  8 Aug 2024 05:19:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id H9d9EE9VtGYMWgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 08 Aug 2024 05:19:11 +0000
+Message-ID: <d9918867-83fe-4859-84fe-684433cd5619@suse.de>
+Date: Thu, 8 Aug 2024 07:19:10 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfc8ff74-6dea-47b8-ba4f-08dcb762ec9e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2024 04:31:08.3958 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +xJptPdtUZFfMNtU0m2t5wiU2gRhZwMfmM44K4k7Q3K4ZDPoZktFmNjYvkBIJ1bR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8234
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] drm/amdgpu: Use backlight power constants
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "daniel@ffwll.ch"
+ <daniel@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
+References: <20240731122311.1143153-1-tzimmermann@suse.de>
+ <20240731122311.1143153-2-tzimmermann@suse.de>
+ <BL1PR12MB514410E846FEB773DC0CAEEFF7BE2@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <6156f386-9316-4777-8cdb-f46ca3a9c183@suse.de>
+ <CADnq5_NyVDp2kGK1t-XLyvF0qQL+3NNY+hCeRD8MOeY7wbApEg@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CADnq5_NyVDp2kGK1t-XLyvF0qQL+3NNY+hCeRD8MOeY7wbApEg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.29 / 50.00]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_EQ_ADDR_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[12]; FREEMAIL_TO(0.00)[gmail.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[amd.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,50 +150,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Am 07.08.24 um 21:47 schrieb Alex Deucher:
+> On Tue, Aug 6, 2024 at 3:06 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
+>>
+>> Am 05.08.24 um 21:00 schrieb Deucher, Alexander:
+>>> [Public]
+>>>
+>>>> -----Original Message-----
+>>>> From: Thomas Zimmermann <tzimmermann@suse.de>
+>>>> Sent: Wednesday, July 31, 2024 8:17 AM
+>>>> To: maarten.lankhorst@linux.intel.com; mripard@kernel.org;
+>>>> airlied@gmail.com; daniel@ffwll.ch
+>>>> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; intel-
+>>>> gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; Thomas
+>>>> Zimmermann <tzimmermann@suse.de>; Deucher, Alexander
+>>>> <Alexander.Deucher@amd.com>; Koenig, Christian
+>>>> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
+>>>> Subject: [PATCH 1/9] drm/amdgpu: Use backlight power constants
+>>>>
+>>>> Replace FB_BLANK_ constants with their counterparts from the backlight
+>>>> subsystem. The values are identical, so there's no change in functionality or
+>>>> semantics.
+>>>>
+>>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: "Christian König" <christian.koenig@amd.com>
+>>>> Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+>>> This patch and the radeon patch are:
+>>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>>
+>>> Feel free to take them via whatever tree makes sense if you are trying to keep the patches together, or let me know if you want me to pick them up.
+>> Thank you for the reviews. Please pick up both patches into the rsp AMD
+>> trees. The i915 patch already went into Intel trees and the rest of the
+>> series will go into drm-misc.
+> What changes do these depend on?  BACKLIGHT_POWER_ON isn't declared in
+> my -next tree yet.  Might be easier to just run them through drm-misc
+> if that's where the change is.
 
-Best Regards,
-Kevin
+The constants are in commit a1cacb8a8e70 ("backlight: Add 
+BACKLIGHT_POWER_ constants for power states"), available in v6.11-rc1 
+and later.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kenneth =
-Feng
-Sent: Thursday, August 8, 2024 12:24 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Feng, Kenneth <Kenneth.Feng=
-@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: add HDP_SD support on gc 12.0.0/1
+Please let me know if I should take the AMD patches into drm-misc-next.
 
-add HDP_SD support on gc 12.0.0/1
+Best regards
+Thomas
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc24.c | 2 ++
- 1 file changed, 2 insertions(+)
+>
+> Alex
+>
+>> Best regards
+>> Thomas
+>>
+>>> Thanks,
+>>>
+>>> Alex
+>>>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 2 +-
+>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>>> index 25feab188dfe..650ec95bb40a 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+>>>> @@ -215,7 +215,7 @@ void
+>>>> amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder
+>>>> *amdgpu_encode
+>>>>         dig->bl_dev = bd;
+>>>>
+>>>>         bd->props.brightness =
+>>>> amdgpu_atombios_encoder_get_backlight_brightness(bd);
+>>>> -     bd->props.power = FB_BLANK_UNBLANK;
+>>>> +     bd->props.power = BACKLIGHT_POWER_ON;
+>>>>         backlight_update_status(bd);
+>>>>
+>>>>         DRM_INFO("amdgpu atom DIG backlight initialized\n");
+>>>> --
+>>>> 2.45.2
+>> --
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstrasse 146, 90461 Nuernberg, Germany
+>> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+>> HRB 36809 (AG Nuernberg)
+>>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgp=
-u/soc24.c
-index 7d641d0dadba..b0c3678cfb31 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -406,6 +406,7 @@ static int soc24_common_early_init(void *handle)
-                        AMD_CG_SUPPORT_ATHUB_MGCG |
-                        AMD_CG_SUPPORT_ATHUB_LS |
-                        AMD_CG_SUPPORT_MC_MGCG |
-+                       AMD_CG_SUPPORT_HDP_SD |
-                        AMD_CG_SUPPORT_MC_LS;
-                adev->pg_flags =3D AMD_PG_SUPPORT_VCN |
-                        AMD_PG_SUPPORT_JPEG |
-@@ -424,6 +425,7 @@ static int soc24_common_early_init(void *handle)
-                        AMD_CG_SUPPORT_ATHUB_MGCG |
-                        AMD_CG_SUPPORT_ATHUB_LS |
-                        AMD_CG_SUPPORT_MC_MGCG |
-+                       AMD_CG_SUPPORT_HDP_SD |
-                        AMD_CG_SUPPORT_MC_LS;
-
-                adev->pg_flags =3D AMD_PG_SUPPORT_VCN |
+-- 
 --
-2.34.1
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
