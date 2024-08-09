@@ -4,68 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A61C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Aug 2024 16:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321FCC52D7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Aug 2024 16:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13A9A10E025;
-	Fri,  9 Aug 2024 16:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7DDC10E9A6;
+	Fri,  9 Aug 2024 16:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RsdeTNET";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mWagwA/9";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F0BF10E025
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Aug 2024 16:17:54 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2cb52e2cb33so1728128a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Aug 2024 09:17:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723220274; x=1723825074; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CNTqmi68m0fJPfXqPXlRL8iBqHmBtJaJazF8hUt1nrU=;
- b=RsdeTNETwNxAVyUD8FZPvAhbeRbhH2NJtOFCSexEUvSysEJZs6ypCMA0t771pshgOt
- 5msVFJGbk6h9iT/x3lbFEdl625bykggdpjRYNFHYkHxJ83k8dmD9vWx+Y/GYAR4P5K3U
- mAG6mYRYxq1yACqk7ceZlnjTLV6irXCzqJ6aVplNHQ1AIFN9NpNYyjSqLHksHazo2SKo
- 02MbX9pRskY3IBsqOD1ou9gzFw1HjoZ8ZyRFlIoC8hN8vbZEyB9HKnyNANW2DUNXFnZr
- Ff7fim5Worusa5gst5alhUS8dnrPgkAPcCrnsvqugoTkFljpNCEMLLgwQvmL3RXe/aP3
- OTCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723220274; x=1723825074;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CNTqmi68m0fJPfXqPXlRL8iBqHmBtJaJazF8hUt1nrU=;
- b=w+7Nuro4FI1JsmWIUL/PdDq1TV0uJe7jhW43kG0xMq9TH+hNDQ1Y91pOKCbpazIw/z
- +PXFEE4s+5cieHpZAlvt8tZa3VtvFLSjwk8if5wqZgWwBKwquT4ArnJUY3HGrFu6RuvI
- LCyFFOD2ZNkkWROKggx1gWbBjCQw/yfE3w9FbPyC5583z8wmMmct0YVFMml2Sb9ArF4V
- dUmqvx+GFAH5jUuM8UYudPTn0tP1jHlGCJ0/TdxLJK34jsaYNQY9xEj3eSppbLYwDEw2
- Oh352x5ODtxFgIUhzy4+fM/PBmIEx0ACY+fAeN23vSrutzE8/XNiyyPGICSu9cgt6WpG
- 50Bw==
-X-Gm-Message-State: AOJu0Yz99v8U1gh/5EfVyP0MfxDj1FJNeHmyekecI27yYrUHrtDyoELA
- C3DwCdwmHcZFZGaX3/j5hNNksOlT8quYJlZJrg7A2EDEss2/iBJukxViQmjQlqDKdCGvdr7suIe
- nPm8rAb6R4pLBNqOQ6Hw7WdGp1HQX0A==
-X-Google-Smtp-Source: AGHT+IHf3N7ZQH+a3HzeGh2cqrkK1E6xdeI3/uHCzBXhFrzlQgrZGEqoX1Bla3DDF/2F4GIb7URAQnNACiT3W/Oa/iU=
-X-Received: by 2002:a17:90b:1e0e:b0:2c9:923e:faf1 with SMTP id
- 98e67ed59e1d1-2d1e7fd3cd8mr2378582a91.18.1723220274024; Fri, 09 Aug 2024
- 09:17:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240802163813.1800438-1-Jonathan.Kim@amd.com>
- <CADnq5_MbRQ36OD73oWv5o9rGS0X=LkibmdC14m-=VoQMtzeTEw@mail.gmail.com>
- <CY8PR12MB7435163B964B502CE4C7FCF685BA2@CY8PR12MB7435.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB7435163B964B502CE4C7FCF685BA2@CY8PR12MB7435.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Aug 2024 12:17:42 -0400
-Message-ID: <CADnq5_M=C6vuRc47iMW+sHr-abEMRXG26XXUDYzjTp8qQuessw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: fallback to pipe reset on queue reset fail
- for gfx9
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E3910E9A6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Aug 2024 16:58:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A8Vgr962D2JAcjfdJDaTBGmwnQuOCspfoX0N/IFQYlolW+IYwDMFugOR84IdJDaHwR7vPcGneWRmsQs8Rlv5GFIYnLj1I0wkQCjE9Fvi/VAJZTJfG/DiTstF5h4rCUXLLWoOZdj0nv5sBBayBqSq8l4POL8/EoXk/VYUouLEGUduMoO2twjjuSqVTmenJmpR62j9uC3OvIIP8E1V/HmwKkquhWW+zhjMWvp69wGMpthvHGlUWbmj5FNFoUYrJN8H5HdeTedR2y6PdbGyuL+MqRZWkmuLnSx/6zAaEeTOJBtqGm5dfeThpNLvMCmeesDTKY7gvTXhw23GxZKfct2W/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fwWpQuu3u14fE3MN9h04mpXQtMCBzA2GmRyMQwm6kEM=;
+ b=WNBE5yU67sIgzyba9z0DrDd1PqFLQMsqgmjOo9gyifqaQRKsgKdjDTmcd8wAmyq6078abQ208MvM2APCRMskcU0Z9lJBD4Dcc/Afp8UsfbQRK64+Tw6ea3/73Sw0wzrt4ciqb9LAV8x32lXAaTVu3UhZbtHwibm3Wr9FEY0Q7alWYYEBM2gX/8B/gUctcwPx9MpWcMfsFZtO9VMkgGUvP9rJzn5fwH/bcpezlZnzMOi16lMIvOdMpIni9zTZNeVEMeRZjpBfOHafc758VAAriUdagDWGcKn+M/lVbB35UPGTATLLmIm8YezAtLcGJDHWn6dOcJfJeDmwsHLKYUbMnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fwWpQuu3u14fE3MN9h04mpXQtMCBzA2GmRyMQwm6kEM=;
+ b=mWagwA/9CHOCWjVXTNtFFcJVe6vwXePNX/cKzk/PsEcnKgIl+IZI1+fY7E4kfNsyqkazqF3yDuPjz80wM9alyVClsHJaXdWJWn/kz1JF3apyVuvB7dErOrYTFlTO49AkvSLpiQYlSR30Z3ajusx6KoxMcjFLMjPDPggSMyGcIug=
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ CY8PR12MB7514.namprd12.prod.outlook.com (2603:10b6:930:92::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7849.15; Fri, 9 Aug 2024 16:58:13 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%2]) with mapi id 15.20.7849.014; Fri, 9 Aug 2024
+ 16:58:12 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Subject: RE: [PATCH] drm/amdkfd: fix partition query when setting up
+ recommended sdma engines
+Thread-Topic: [PATCH] drm/amdkfd: fix partition query when setting up
+ recommended sdma engines
+Thread-Index: AQHa6a1Cwo1rj5HLCkOsIc97BMdhoLIfJwcA
+Date: Fri, 9 Aug 2024 16:58:12 +0000
+Message-ID: <DS0PR12MB7804A37B9FD6C4F6CE3EF02F97BA2@DS0PR12MB7804.namprd12.prod.outlook.com>
+References: <20240808160839.1886946-1-Jonathan.Kim@amd.com>
+In-Reply-To: <20240808160839.1886946-1-Jonathan.Kim@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=7fcc9c31-1192-4b8b-8796-6ecd30f9976c;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-08-09T16:57:28Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB7804:EE_|CY8PR12MB7514:EE_
+x-ms-office365-filtering-correlation-id: 92d1a7c4-2a65-4770-d8de-08dcb894747f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?pa3UJMbUpE/IBkU4NkYj0lu3XR3jofwWWxnI1QsfbEDNvz5YsqjzVU4y/OST?=
+ =?us-ascii?Q?nclm8kRglCQVEXuQZ3o36Td5mJ9t00DQ2l4YJEYg4Oi4OW1IcA69m2LCCaep?=
+ =?us-ascii?Q?nU4pdhIpearBoW7I8BjVrwioCoVkQbfygMs52ZxU9j1IIQCH1MjYnUbSnmTM?=
+ =?us-ascii?Q?/h1QtLEzyZgmKSmwgLMdpKXZ0KCBaa5kksB55wl5X9EdwEQOUymlGp/ZuWKW?=
+ =?us-ascii?Q?bWuXYPSdC542NaOhUjreWV9LPMVOrVwNhg8AzfJ36QiNYmd/u1uXLGKl77mV?=
+ =?us-ascii?Q?byB+IOgQujLV06HO5JAo1AbOHM0bp7rd1PAmobObZdPG2gw/26Q68XGdMbc6?=
+ =?us-ascii?Q?ZRkJ8vO1fM5RU5XhkzFt0V0ZmQX9+cxyYziuHEfpket10QNiNjFsvBWCKjWi?=
+ =?us-ascii?Q?yKXlYXrPzw1PS9kLrGEXHgfZ0r6v+GydLlFBej1VceBejL8xa0PAGaoIXlwb?=
+ =?us-ascii?Q?4OPFZAesQV7eTKkzkHhzUMF5kzKVKvp9CvBqb/D5CpGiKmDQxJTmpUiATdJT?=
+ =?us-ascii?Q?sC8KwFk/8GWBr3TfzmOdd8ngC6RJ15DKHJ1xuavqD8PZyzilO3/8+/WooROq?=
+ =?us-ascii?Q?imDZGyeEebmfuibkRO3apfILVsmac8181lvT4WJtaoAInf/AMc8qHl3t+x3r?=
+ =?us-ascii?Q?gSLocNcvWGU8Z4Y+q73SsKm/x03g62ZR3PvBB5YGSgHWFyH7+FetJGLrB+Aj?=
+ =?us-ascii?Q?TzLrY9jA0Y20SyZSUh0ozCgZAwb78b2cv0wovCF9MsOKEYcHA8W3HVbipKry?=
+ =?us-ascii?Q?W/6eQrUdrshfGw/MmatK2ULDF+2wwZYM4cRHmkHBrAzZTuzrdDo/KJ41SQy+?=
+ =?us-ascii?Q?SntQW7M/Qm+FYlLpA+u7mGL/auhYgy8ve0dxguB/RCXkSjpvkzDSyP7uGGnZ?=
+ =?us-ascii?Q?TGFknUQafH5P9WECuH8xN4KJvC2sZemUbT0O3slHcXl1jZD39czlrlFByYWF?=
+ =?us-ascii?Q?ZCwBJrYR3H18PL8d91xArwBz6QUipV76kReIlMZbEer+IUmnAzDnahQyUFEz?=
+ =?us-ascii?Q?3bcWIXQ0jtL3/WMgeUCnnJJn1ziyk2DsfitCGG5A84r0U68LrFxnucsMrwFF?=
+ =?us-ascii?Q?kDT8IEkkGZNX+QT3RjT1zaDSQGJM0QkngggBDSO44JL6UkD3eBL2E1ENXxdI?=
+ =?us-ascii?Q?bHtqdT+9zFHSjU7E9fMA1Ac0wTdrVIgYjnZVCpg/zTiOorCKwG1csJ/r+cNE?=
+ =?us-ascii?Q?gFG0wYWOjSs+XgXervoROxHdc6bRDjajIy4NtNmHvkd43cRe/g2lc10qGAjo?=
+ =?us-ascii?Q?3PS6IYpSo61pm8Bd/AvLZ5HAd+5L2dgBkoeiOLMh+XDJOeExfh2/NmwY1373?=
+ =?us-ascii?Q?+5Xn05R75NnzDLoHYI7PGtEX4XQ34Qw9S3FZzwikgoRSluaGE6yvIuBXi8lB?=
+ =?us-ascii?Q?lsAtX9WZaZ6WT1lApB0aukuwMqdnybOOmJzwoMWb5jSkgAArLA=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gy8MZ70USUjzbKsERNwFVafmiodGgud1YvhRMwxSAqL7Z2k0Uc3RGoSQx4hw?=
+ =?us-ascii?Q?BKy+HCviCr6SObGP0Ccscxi/4EVaYdsViYiPAHiUR0URxuEKY17XWiL2KTpy?=
+ =?us-ascii?Q?hiIG6WffW4hdoeCupOnjBxtHdB/oS7Te3fYl7hvJ0pPPRYClCKfVA+T9a6qY?=
+ =?us-ascii?Q?ac+U9/ZrSoQ8i2fQOK+giJi8JDJhzfQUswknWlHnhSMt7Ru2KwiK+Q2qfWm8?=
+ =?us-ascii?Q?ietjWygsQMMV5kdoB6YkzfC4dqJ+CYwhSagDYDvVGFBGH/VmEIiouQIItfvn?=
+ =?us-ascii?Q?f0t6TG8PEkOgBrACGIT/+/FqnZcbpyzwB4EgVxK829DwIvSEp62PivCgtvHP?=
+ =?us-ascii?Q?sy0a5P78T7Fh7H1PBGzGyFy8RncoqmoZnt2T4RtX/4Xyf6kqdUr6tR3+k/IU?=
+ =?us-ascii?Q?9TBb94aY78dYDe4+Vq+njS2VBjtVaCq0eJSD2J0Psl5AQm/a29/MsIUlHPNW?=
+ =?us-ascii?Q?2ja09tUrn8FgWIdCu1AAUi+AhkRPu65UMR3FrSUuztpJql/5yo1Kn/fd7YJ+?=
+ =?us-ascii?Q?npzIQzhudsomFJss78z2oSLzfzqkJaNtbNvs4Dt1S4PX6WDFWw6xZPqdyP2E?=
+ =?us-ascii?Q?85eh2eEKUKQC/xMoL1/wJYoNbpSIeF62ipNBE487als2G3GA7AJ84/yX4u8I?=
+ =?us-ascii?Q?Mjn6MIkNsqGzKLwOO2yyhpMoOp9Aq6DPNREtOltBdh97qSN4msTs7Ywg8urq?=
+ =?us-ascii?Q?mvdSRF8wsQeQ/qasPIHLXVhQjfQRbvSMfCgrq//RTH4pXM7uO7WnRBEfQADk?=
+ =?us-ascii?Q?GUm0ly6FQVeLIufS3JBsFi67NFgqJymWwG9pIDuCjpq/ozSf6Ul7saowxBci?=
+ =?us-ascii?Q?GwzZfp9FPTYjgcTVvTXOGVRRx5QgS7uAaPsidsTvRxKaCRhtDvsYibFksFAb?=
+ =?us-ascii?Q?/xrpnp1S0TwYWdGETrtindN3aDRPu1KRG0ief5rOVhS/Srltu2TRcnWqKnDG?=
+ =?us-ascii?Q?Ywk5+4SoqQ7cQSQK0fgkwF91vaeXH2yfu5Ii232IGWjBx0i3qbGisgXm4tcB?=
+ =?us-ascii?Q?xZqOy5NrBvWbn0BhMhnUpaG4qQZ5H9cNi0dK2UpZelb8L7y33jy4NgHakRD7?=
+ =?us-ascii?Q?dmuvpKS5Qmj62tqzjtzfMXP26TEgb92q981Hgmv+f7PT4iZqatyCjv+uNtrQ?=
+ =?us-ascii?Q?s5I3N5is0CCHuMt0aQQzoU3xesjrzkp/i+a39RFcX69dsAOw0dGJ7DCNN2My?=
+ =?us-ascii?Q?Rph6bFEXamXfjejVSN9yTow3MIjAeJJtW7uDKHBWD6r/g13o35BLFnjQmI7j?=
+ =?us-ascii?Q?p9nE2apITTvhE/qF8MaISyjQIsx6oVvy2cZ0bDVHLEzKX6QOz4heOmv/BPSm?=
+ =?us-ascii?Q?K4ITdzLUtAeOvoN9g+9BN+KSo2XU2UhZlmXe4cvEIm6xDOFdAbW5GoTDzQ29?=
+ =?us-ascii?Q?k0iU4OHVN2FECTHB+1CYvPB3F4odSv0LZC40++jupglgrYRs1h9gB6pUFvZn?=
+ =?us-ascii?Q?CKbVw1sNHXLbcUOlWbPQDQYv32QwhBq7BXRSMLb56e+Xg7wQQchElNKxIE/7?=
+ =?us-ascii?Q?7kEswTEJKNHSs9U1VFPzHgZS7ReUmjH+NEgIGhsYpfnQJrxfDhH1A2F3BRA3?=
+ =?us-ascii?Q?Kjz2GAZQmXZGcmX+fXk=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92d1a7c4-2a65-4770-d8de-08dcb894747f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2024 16:58:12.8732 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pMMUDjLzr8JAu6otThWC781uLS9PR2eC6dnyY7477fL0sTon9ohOXSiptZi/rHp4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7514
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,160 +153,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 9, 2024 at 12:12=E2=80=AFPM Kim, Jonathan <Jonathan.Kim@amd.com=
-> wrote:
->
-> [Public]
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Friday, August 9, 2024 11:55 AM
-> > To: Kim, Jonathan <Jonathan.Kim@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Kuehling, Felix
-> > <Felix.Kuehling@amd.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>
-> > Subject: Re: [PATCH] drm/amdkfd: fallback to pipe reset on queue reset =
-fail for
-> > gfx9
-> >
-> > Caution: This message originated from an External Source. Use proper ca=
-ution
-> > when opening attachments, clicking links, or responding.
-> >
-> >
-> > On Fri, Aug 2, 2024 at 12:38=E2=80=AFPM Jonathan Kim <Jonathan.Kim@amd.=
-com>
-> > wrote:
-> > >
-> > > If queue reset fails, tell the CP to reset the pipe.
-> > > Since queues multiplex context per pipe and we've issues a device wid=
-e
-> > > preemption prior to the hang, we can assume the hung pipe only has on=
-e
-> > > queue to reset on pipe reset.
-> >
-> > Is there a specific CP or PSP firmware version required for this?  If
-> > so, we should check for it before attempting this if it will cause a
-> > problem.
->
-> Thanks for the review Alex.
-> Worst case is that the MMIO reg write doesn't do anything and we end up w=
-ith extra CP active poll wait cycles before falling back to adapter reset.
-> We may run into scenarios where pipe reset doesn't help anyways even if w=
-e did have the right FW.
+[Public]
 
-And I supposed there may be cases where it might help as well beyond
-just the case that requires firmware changes.
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
+Lijo
+-----Original Message-----
+From: Kim, Jonathan <Jonathan.Kim@amd.com>
+Sent: Thursday, August 8, 2024 9:39 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.c=
+om>; Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.=
+com>
+Subject: [PATCH] drm/amdkfd: fix partition query when setting up recommende=
+d sdma engines
 
-Alex
+When users dynamically set the partition mode through sysfs writes, this ca=
+n lead to a double lock situation where the KFD is trying to take the parti=
+tion lock when updating the recommended SDMA engines.
+Have the KFD reference its saved socket device number count instead.
+Also ensure we have enough SDMA xGMI engines report the recommended engines=
+ in the first place.
 
->
-> Jon
->
-> >
-> > Other than that:
-> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> >
-> >
-> > >
-> > > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-> > > ---
-> > >  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 46
-> > +++++++++++++------
-> > >  1 file changed, 31 insertions(+), 15 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > > index 32f28c12077b..c63528a4e894 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> > > @@ -1173,12 +1173,30 @@ uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct
-> > amdgpu_device *adev,
-> > >         return queue_addr;
-> > >  }
-> > >
-> > > +/* assume queue acquired  */
-> > > +static int kgd_gfx_v9_hqd_dequeue_wait(struct amdgpu_device *adev,
-> > uint32_t inst,
-> > > +                                      unsigned int utimeout)
-> > > +{
-> > > +       unsigned long end_jiffies =3D (utimeout * HZ / 1000) + jiffie=
-s;
-> > > +
-> > > +       while (true) {
-> > > +               uint32_t temp =3D RREG32_SOC15(GC, GET_INST(GC, inst)=
-,
-> > mmCP_HQD_ACTIVE);
-> > > +
-> > > +               if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
-> > > +                       return 0;
-> > > +
-> > > +               if (time_after(jiffies, end_jiffies))
-> > > +                       return -ETIME;
-> > > +
-> > > +               usleep_range(500, 1000);
-> > > +       }
-> > > +}
-> > > +
-> > >  uint64_t kgd_gfx_v9_hqd_reset(struct amdgpu_device *adev,
-> > >                               uint32_t pipe_id, uint32_t queue_id,
-> > >                               uint32_t inst, unsigned int utimeout)
-> > >  {
-> > > -       uint32_t low, high, temp;
-> > > -       unsigned long end_jiffies;
-> > > +       uint32_t low, high, pipe_reset_data =3D 0;
-> > >         uint64_t queue_addr =3D 0;
-> > >
-> > >         kgd_gfx_v9_acquire_queue(adev, pipe_id, queue_id, inst);
-> > > @@ -1202,25 +1220,23 @@ uint64_t kgd_gfx_v9_hqd_reset(struct
-> > amdgpu_device *adev,
-> > >         /* assume previous dequeue request issued will take affect af=
-ter reset */
-> > >         WREG32_SOC15(GC, GET_INST(GC, inst),
-> > mmSPI_COMPUTE_QUEUE_RESET, 0x1);
-> > >
-> > > -       end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
-> > > -       while (true) {
-> > > -               temp =3D RREG32_SOC15(GC, GET_INST(GC, inst),
-> > mmCP_HQD_ACTIVE);
-> > > +       if (!kgd_gfx_v9_hqd_dequeue_wait(adev, inst, utimeout))
-> > > +               goto unlock_out;
-> > >
-> > > -               if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
-> > > -                       break;
-> > > +       pr_debug("Attempting pipe reset on XCC %i pipe id %i\n", inst=
-, pipe_id);
-> > >
-> > > -               if (time_after(jiffies, end_jiffies)) {
-> > > -                       queue_addr =3D 0;
-> > > -                       break;
-> > > -               }
-> > > +       pipe_reset_data =3D REG_SET_FIELD(pipe_reset_data, CP_MEC_CNT=
-L,
-> > MEC_ME1_PIPE0_RESET, 1);
-> > > +       pipe_reset_data =3D pipe_reset_data << pipe_id;
-> > >
-> > > -               usleep_range(500, 1000);
-> > > -       }
-> > > +       WREG32_SOC15(GC, GET_INST(GC, inst), mmCP_MEC_CNTL,
-> > pipe_reset_data);
-> > > +       WREG32_SOC15(GC, GET_INST(GC, inst), mmCP_MEC_CNTL, 0);
-> > >
-> > > -       pr_debug("queue reset on XCC %i pipe id %i queue id %i %s\n",
-> > > -                inst, pipe_id, queue_id, !!queue_addr ? "succeeded!"=
- : "failed!");
-> > > +       if (kgd_gfx_v9_hqd_dequeue_wait(adev, inst, utimeout))
-> > > +               queue_addr =3D 0;
-> > >
-> > >  unlock_out:
-> > > +       pr_debug("queue reset on XCC %i pipe id %i queue id %i %s\n",
-> > > +                inst, pipe_id, queue_id, !!queue_addr ? "succeeded!"=
- : "failed!");
-> > >         amdgpu_gfx_rlc_exit_safe_mode(adev, inst);
-> > >         kgd_gfx_v9_release_queue(adev, inst);
-> > >
-> > > --
-> > > 2.34.1
-> > >
+v2: fixups in description
+
+Fixes: a0f548d7871e ("drm/amdkfd: allow users to target recommended SDMA en=
+gines")
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c
+index 40771f8752cb..27d452e50ca9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1286,9 +1286,8 @@ static void kfd_set_recommended_sdma_engines(struct k=
+fd_topology_device *to_dev,
+        struct amdgpu_device *adev =3D gpu->adev;
+        int num_xgmi_nodes =3D adev->gmc.xgmi.num_physical_nodes;
+        bool support_rec_eng =3D !amdgpu_sriov_vf(adev) && to_dev->gpu &&
+-               adev->aid_mask && num_xgmi_nodes &&
+-               (amdgpu_xcp_query_partition_mode(adev->xcp_mgr, AMDGPU_XCP_=
+FL_NONE) =3D=3D
+-                     AMDGPU_SPX_PARTITION_MODE) &&
++               adev->aid_mask && num_xgmi_nodes && gpu->kfd->num_nodes =3D=
+=3D 1 &&
++               kfd_get_num_xgmi_sdma_engines(gpu) >=3D 14 &&
+                (!(adev->flags & AMD_IS_APU) && num_xgmi_nodes =3D=3D 8);
+
+        if (support_rec_eng) {
+--
+2.34.1
+
