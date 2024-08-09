@@ -4,63 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 803E8C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Aug 2024 14:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0CFAC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Aug 2024 15:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA6210E933;
-	Fri,  9 Aug 2024 14:41:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3197010E946;
+	Fri,  9 Aug 2024 15:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L/73wZwA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UQntnsT/";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB5810E933
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Aug 2024 14:41:46 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2cf213128a1so1672683a91.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Aug 2024 07:41:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723214506; x=1723819306; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=n0TIaszgCPOItPFBTwg+mbjvJUOARDBs2Zsf8+pyak8=;
- b=L/73wZwA8BVHmV9t9cvI2ADcs21EMI1S3xto+fzIHdbZ8PtrP/eVbOyRpxfMmjiYNv
- bC3ltTnUnK+MKXU3Y0E0rzDLv+PsQpBImQrGFjJrbkW0uOXtZ/rfULLNImy9FnPL8ZnT
- 9fPirLXf7yZD19kL5tmPgLuHaUqjzA9Z/9WXOidzdX7m7AOtG4Btgtry8bi9uDupVrwr
- yRUfBwKoZQCNC6l4aRgWlf/gLG9yXq07AVMmOpABkYWPluitsjHD3lLG1fAtzy6jOEHQ
- 7hXaXmauoVCwcTNz55LWiiI/80PtjyIs6geW/l7KuzRQ0YX0R0+v7p3zae/ddTYb1xwA
- T2AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723214506; x=1723819306;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=n0TIaszgCPOItPFBTwg+mbjvJUOARDBs2Zsf8+pyak8=;
- b=ZWhc+p+k3cOyLOtwzuTGa3iVQg4WH87ci7f5Wvca3dzl2LPWDlu9e3mMxpPysP5vwf
- FFoKd4dOSRx5VCk7x2gaXxo7DttpO6Mh/Ez5AhSmmmrgoMKNKNFqqkfXLkklvhd+HfoD
- K91V14SC3SZ1HBMgY0NT03B90A6J7uKIHsqJYRcwY387vwyBZG7vzUcSgllwxW5/lfDy
- OhCX50GKgzhJcjmrdBcXhX8PfPzRXy7YuERb56lW1nnolmeBZW052741TGUDIm39GJg0
- WYtGZEmbQpc/cMAoXAfZxbZEqJXdNSud10SmiPWPh2tWeXUFW2wMm/L/I2X+mUL5b0DQ
- PE/g==
-X-Gm-Message-State: AOJu0YwgEprTAEK7NU3DKf6EWT1VIdyTxqJWIoPGbeHSDHDPSBjuoSDs
- cs/5m/sU+MYtf9ChExAQmcgfAioFPEyXx2tCRDCY9Gv4MP+tSwgLm1vLzdWNMWv1l3mqoL8FfcF
- 5hpE8Ub/PzwWtpclp662pfvMZnzIXGA==
-X-Google-Smtp-Source: AGHT+IF0BK/Vf+3uFjm9Qs3JvMuRwwyWTjgMDMRzVgaQdQZ3g8n4M0mpdLCCUHjRxgPi+ujLO4aUjbik8EdVfamrkbg=
-X-Received: by 2002:a17:90b:4a83:b0:2d1:c9c8:301c with SMTP id
- 98e67ed59e1d1-2d1e8049b4emr1700533a91.29.1723214506164; Fri, 09 Aug 2024
- 07:41:46 -0700 (PDT)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2085.outbound.protection.outlook.com [40.107.101.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DF710E946;
+ Fri,  9 Aug 2024 15:03:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gmum4+GBQG80rlASAzIXZR4KT9mVoLeAqlNE/15/ASP4GXvwIsoFBvZEXSAXK+qL5vUpe/7V2ghU1odx5lC20w57YueosNhI03iTXU3NStggctaTa2/CDQ7HMHQY6eQndRuqp+o5I82/4YdiPsBRySHLlYnojTegKrfeU8KyHvAa0giexNtRVlc1y+bR9Hp9ZJ65r+gLaBxVDYwZySIiopfWtqZz8d7XE9GyT8kF73q/Zy5cxA3n9COpv/x7C2A34N9fAg1CKdPWM63hmKwbaFKxCvbIw8b6BRqv6t7mQScn2lHEB2/TsrLYcfISunec5cX2RLN272+v2nRjJ6RmcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SNdGtTGLYFjQVxvX5ut0IHppu6A7Fgg+hz1WGEZJx9c=;
+ b=NgIw0czQF5z836WFgpX+rJ6+z8llWCaFTVKh4h7ePwct8DvmwagfgHLQKubYhpCNX85lAU4sY8b/2hZ98uGYOHKQiad6TLUOKQeCAm2yv3mLBQBqFGrVdhktKoUkx8XlY+uhaIvGQsO0tAG/VPQeECaDNeMe2KvbvEwp1SI5u8SoQHRvsGfGX1BM8JPy4RFFIZtjmeqJckPylkk7sYLCMehAzMxgiAC/CEK0pMV2QcvtFaU+ti4PW3oVbQ0YEn8l3Nf43cNU/NmXteEfHMyAvUU8QyG53vSR3E2RnC40Ko2BpDpM5GJYU/X7n4MkPgK3QW5MqiV0sUbUeHGrtVFPtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SNdGtTGLYFjQVxvX5ut0IHppu6A7Fgg+hz1WGEZJx9c=;
+ b=UQntnsT//nqAp6R6kIjPYHdLGgHU9iY1yyIASDLFdBOTyCw7L0g1LpZ8fZlTT1/4XYZXpn4mABNlJmF+DMySbJNv+Er177x/ZzNSl74hLCk/yjTLWd3JBU4cy3qWKtrVsYyruB6Ro37M4SeD/KxwlC5RGdf4CHAQqMYAXjr22s0=
+Received: from CH2PR12CA0025.namprd12.prod.outlook.com (2603:10b6:610:57::35)
+ by BL3PR12MB6570.namprd12.prod.outlook.com (2603:10b6:208:38d::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.15; Fri, 9 Aug
+ 2024 15:03:47 +0000
+Received: from CH2PEPF0000013B.namprd02.prod.outlook.com
+ (2603:10b6:610:57:cafe::57) by CH2PR12CA0025.outlook.office365.com
+ (2603:10b6:610:57::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.17 via Frontend
+ Transport; Fri, 9 Aug 2024 15:03:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF0000013B.mail.protection.outlook.com (10.167.244.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7849.8 via Frontend Transport; Fri, 9 Aug 2024 15:03:46 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 9 Aug
+ 2024 10:03:45 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <intel-gfx@lists.freedesktop.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>, "Sam
+ Ravnborg" <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ <stable@vger.kernel.org>
+Subject: [PATCH] video/aperture: match the pci device when calling
+ sysfb_disable()
+Date: Fri, 9 Aug 2024 11:03:27 -0400
+Message-ID: <20240809150327.2485848-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240808030707.2935006-1-Victor.Zhao@amd.com>
-In-Reply-To: <20240808030707.2935006-1-Victor.Zhao@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Aug 2024 10:41:34 -0400
-Message-ID: <CADnq5_MEL1qN9dmVaE8eG3Xa-yCvDfqHHywe0StmeVnvjRkvOg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/sriov: extend NV_MAILBOX_POLL_MSG_TIMEDOUT
-To: Victor Zhao <Victor.Zhao@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Emily.Deng@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013B:EE_|BL3PR12MB6570:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42037397-a901-4cff-e3bf-08dcb8847811
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BmRTn6HjY2cJYylSZobwdK4ibUnXcXCinW2v+GNZmBQOV/RWEbrb1B2xPQCU?=
+ =?us-ascii?Q?bql1pUagHF3uAt10NaDF4RyOcKpLNqslF7aSGf1whyBv5BvoAiH7npr+MBa8?=
+ =?us-ascii?Q?PROEsM55WU8mGCBxAKfIny/ods3KD9qqqse+uK1JiPlhLYkArIn2B8pTF1yv?=
+ =?us-ascii?Q?sDFiJIlAUZ/MJ/OdmpA57/oKhkRJwDRw8xilnha1XRtw9qACCW9Kr2eO75zq?=
+ =?us-ascii?Q?KYNgjI/nKKs9bIjMSXFyfPNSZxwRT3Bnot56CIbaxg8ZJPMbOLG8Eu6v0NmV?=
+ =?us-ascii?Q?FC/TPNik1WimLU7N3gVMymXz0iZQJYexZADn3q683oDln9wdfZDLqQnc9EuG?=
+ =?us-ascii?Q?OXElrWYHQS1ujZf9hbhG+wfM4iEAUDO+PiLwI4/7659ByVTVi/p9BJXaok8T?=
+ =?us-ascii?Q?j6I1c5rMra0jTJyrwJd2u5r2TactkSoSUTHtlrVz7Ij6IHEnWi06U413e+2p?=
+ =?us-ascii?Q?BfVi+CWa1mu3Gi1GoAZNEUKKB4NVIu+Kwd6E2RfnVjE0smxWzu+P+z7D1xrI?=
+ =?us-ascii?Q?jyfLpT6UHeJ327ZdD9MEV0/vIA5HpDqjWLnEaixPQN63hnSLdKQgUlk7qM9A?=
+ =?us-ascii?Q?d9Qa8kzdE+sSmTq+S/HISt4YsA9eJISBSoF5C2oH1488/D3/Drpvk4hViUBq?=
+ =?us-ascii?Q?D92F7UvFDepCCB4lnL/9IVVpT/3iMlB1n9ugVJMQFLY9NwKZ+zMvFGsrdHGj?=
+ =?us-ascii?Q?0rcTda8HTWuqGu+jh6HwRt0asY7k9f5uycygHiQLLz+XexuH7JCUXOpzgUKf?=
+ =?us-ascii?Q?/bHzRYXim1Q3Kca97DFMXSQB9pzY47MXm0cm7y44Jaw75SIXL9lkptZ3kwKX?=
+ =?us-ascii?Q?EcKOg75yli8bESYbG39tI7mj1To+7X+BVBl2P89YBedLtkKmXju0DNeNYnd/?=
+ =?us-ascii?Q?X5BMiUzyPp2duv11/tHjMsjikWdVGcW8bIKHJMw5Xg7PoGI72UO3d863ovZl?=
+ =?us-ascii?Q?vxt1AM7B+cJPn0Bc9sUeZWIF+56VgjhQwhK/ipc74YOCvbpLGJlya7T1zpEa?=
+ =?us-ascii?Q?SQpQ5yoWkwcifoaqFQn6IRLim22zkEyjPxa3ECuEmHvVQX6T0ppPFmrob85z?=
+ =?us-ascii?Q?xxzWf++lGXpHVrHKdupTVymcTdpoAcEkVg9bEHZYC7Rt/kpZMdzyYM51aKt5?=
+ =?us-ascii?Q?1ZOCYokcTbQ4m+Ed1bgAfK7YpRPYXRtS3qDSttZ9hUgdSFNviZ6bUI20W609?=
+ =?us-ascii?Q?ZoX/He+/XaknhvSUokbKFKdGToxDh3uZupwTDvrSgxTZ9jmMDoafawP3BlF1?=
+ =?us-ascii?Q?iRRz05qAqTdknhN3hkluFgZ9nx1hSaW5FSehn6G7e8R+6Q+BNQvMIjeHk29A?=
+ =?us-ascii?Q?4lf0vwYz7ezCt57QF4PE1iTvJdAxr2qwRD4X4sgfjAv7mtbjn69OClhKTbkF?=
+ =?us-ascii?Q?7AGwq6EZ/KYEQQTmkOflnRbhYsSw9Gl/vY/fzg/xKSzVeA2NkT4g9QLDpOWE?=
+ =?us-ascii?Q?G7SXVvhRy7Ws8XVMXmBL6c4PYG48S3TJ?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2024 15:03:46.8462 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42037397-a901-4cff-e3bf-08dcb8847811
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6570
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,41 +134,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 7, 2024 at 11:15=E2=80=AFPM Victor Zhao <Victor.Zhao@amd.com> w=
-rote:
->
-> on MI300/MI308 UBB products, when doing mode1 reset, since 1 gpu need to
-> wait all 8 gpus finish mode1 reset and then do re-init. As observed,
-> sometimes the gpu which triggered the reset need to wait 15s for all
-> gpus to finish.
->
-> If poll msg timeout, guest driver will send the reset message again, and
-> may mess up the following reinit sequence on other gpus.
->
-> So extend the time to cover the maximum time needed to recover.
->
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+In aperture_remove_conflicting_pci_devices(), match the pci
+device determine whether or not to call sysfb_disable().  This
+fixes cases where the pimary device is not VGA compatible which
+leads to the following problem:
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+1. A PCI device with a non-VGA class is the the boot display
+2. That device is probed first and it is not a vga device so
+   sysfb_disable() is not called, but the device resources
+   are freed by aperture_detach_platform_device()
+3. Non-primary GPU is vga device and it ends up calling sysfb_disable()
+4. NULL pointer dereference via sysfb_disable() since the resources
+   have already been freed by aperture_detach_platform_device() when
+   it was called by the other device.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/=
-amdgpu/mxgpu_nv.h
-> index caf616a2c8a6..1d099ffb3a5a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
-> @@ -25,7 +25,7 @@
->  #define __MXGPU_NV_H__
->
->  #define NV_MAILBOX_POLL_ACK_TIMEDOUT   500
-> -#define NV_MAILBOX_POLL_MSG_TIMEDOUT   6000
-> +#define NV_MAILBOX_POLL_MSG_TIMEDOUT   15000
->  #define NV_MAILBOX_POLL_FLR_TIMEDOUT   10000
->  #define NV_MAILBOX_POLL_MSG_REP_MAX    11
->
-> --
-> 2.34.1
->
+Fix this by calling sysfb_disable() on the device associated with it.
+
+Fixes: 5ae3716cfdcd ("video/aperture: Only remove sysfb on the default vga pci device")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/video/aperture.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
+index 561be8feca96..56a5a0bc2b1a 100644
+--- a/drivers/video/aperture.c
++++ b/drivers/video/aperture.c
+@@ -6,6 +6,7 @@
+ #include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
++#include <linux/screen_info.h>
+ #include <linux/slab.h>
+ #include <linux/sysfb.h>
+ #include <linux/types.h>
+@@ -346,6 +347,7 @@ EXPORT_SYMBOL(__aperture_remove_legacy_vga_devices);
+  */
+ int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name)
+ {
++	struct screen_info *si = &screen_info;
+ 	bool primary = false;
+ 	resource_size_t base, size;
+ 	int bar, ret = 0;
+@@ -353,7 +355,7 @@ int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *na
+ 	if (pdev == vga_default_device())
+ 		primary = true;
+ 
+-	if (primary)
++	if (pdev == screen_info_pci_dev(si))
+ 		sysfb_disable();
+ 
+ 	for (bar = 0; bar < PCI_STD_NUM_BARS; ++bar) {
+-- 
+2.45.2
+
