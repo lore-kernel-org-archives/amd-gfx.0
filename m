@@ -4,41 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C21CC52D7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F891C52D7C
 	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F08110E157;
-	Mon, 12 Aug 2024 07:31:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC26110E155;
+	Mon, 12 Aug 2024 07:31:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="PoJ1xYlA";
+	dkim=pass (2048-bit key; unprotected) header.d=kroah.com header.i=@kroah.com header.b="iqagdlus";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="edfi6leC";
 	dkim-atps=neutral
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB55710E111;
- Mon, 12 Aug 2024 07:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description;
- bh=llKvYmTSd8/Y8jELiMLmZIKz31PpLqEbxa7i6FjYD9c=; b=PoJ1xYlAcwz+VZK902tHdzv5tE
- dNic6B8B2oMcdZm8uddCSgleQrsMfgbwdSscvg3a3cUzJGlelW5m8B+vzehollvdPSoICxFh2xDG4
- 7JX8aCyjmXxyNx0ztNV9Yz6OgtArI+lGJcnZ0gyVA9BrCdLjQyfRzAEgEHbBinzOfokwPaZpUcdLE
- z4aosl04kHhJVMszLsx21srOxorfrAlEl3uAPnQhIM9xQWnTbOdTkp7JqpX3Vku1NSO2rW3tPbDrM
- vIH4e4hZUJk85ckNSiB2pJDCybBmwHANjEbBD8Yg+NWKAglBRC/TVIKEGi0PgSTmGxwqPll6GUgG/
- uFeMMHoA==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1sdP1G-000000010nd-0X3n; Mon, 12 Aug 2024 06:59:06 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: viro@zeniv.linux.org.uk
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org
-Subject: [PATCH 1/4] new helper: drm_gem_prime_handle_to_dmabuf()
-Date: Mon, 12 Aug 2024 07:59:03 +0100
-Message-ID: <20240812065906.241398-1-viro@zeniv.linux.org.uk>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240812065656.GI13701@ZenIV>
-References: <20240812065656.GI13701@ZenIV>
+X-Greylist: delayed 465 seconds by postgrey-1.36 at gabe;
+ Sun, 11 Aug 2024 12:21:14 UTC
+Received: from fout7-smtp.messagingengine.com (fout7-smtp.messagingengine.com
+ [103.168.172.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA01210E010;
+ Sun, 11 Aug 2024 12:21:14 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 7022F138FCDC;
+ Sun, 11 Aug 2024 08:13:28 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Sun, 11 Aug 2024 08:13:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm3; t=1723378408; x=1723464808; bh=bN/mOZQgK8
+ R1TmjEJ6lNJc8Sf+gJv+a60h50Kou4cuo=; b=iqagdlusCS3dT9FpqXKasV4YaT
+ ekkx/vsqvF44Q+nQfhN+McGfpZKm7VUSBEElOU/ajtQyLOaQjEwo5IHFzpSVc6P9
+ t9+mr51AhancDTbLYI4LVP6FCeZZEJ6JL2F9H2sgCY6tsIvIzNytC/bQk7rqpGMo
+ Obhm94DXk0CmdjhINN+hxPA72KNmRS4RGW2e7nXLYAi2oPksJuFQ6qeKVFOTUGAX
+ zFFd1t3Ih+oUf4UZDeVUe3gk/QI2YvIwQt/iPQYup4Zql/UlskvYprIF53xpTBXl
+ yj6LkopuvmmtNxE4oY8bNwcE9VgJzNiX86P0haEVCmXCVOcxyQOCd8kks0Fg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1723378408; x=1723464808; bh=bN/mOZQgK8R1TmjEJ6lNJc8Sf+gJ
+ v+a60h50Kou4cuo=; b=edfi6leCnJJ0Cv/rslMCnBHnWOAsCMpvCcwiXb7a7cii
+ W7gjtn5jbDlF9CMgpYnjio3UDEDAvdXpkoPaSaW1s7qGehxXMgKO3r/mPr1cifKI
+ IO1E/fdpIKw2xVABNJbOXc4DQfp5yuenE7l4ss7vp6dYOKndpne4tF/Y73uT4A0A
+ SvotFEDZ/WMOifzM7KmstFHmtuJrnfyY1vh8BOwlLE6IBl73pPrkjRAezHgqnbGs
+ KEqD/+GB2Rcwd4Wl5IyhT6QByN+6dyoFU16F/P0Vu3CkHy4iFBvmKvpz+h7WOBTA
+ ZrpjlMB4DxHRbhJmZvaLjPPit4cecC349KAfMb/YcA==
+X-ME-Sender: <xms:6Kq4Zp_YHSX5EGYFLSiQLTRCT1YPwkKD8ZqG9awFX5TeRgwKIdt1gg>
+ <xme:6Kq4Ztsx3nrIt1HKgE_w_KsvpdC4iJUbgWTHT6d8dtCUTPhSDqlXZRU2m6HqQxyNX
+ ftSkKMobbCrfw>
+X-ME-Received: <xmr:6Kq4ZnBUqsgVUTSDts07H4vhNbwitVpDx8ZkEcgzuhVT30KwwK6YlhG1Yb2A7YvfPxolu0nnHqq_kj_UAyYhK_URPSyiUPYfgBv0ZA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrleekgdehudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
+ tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
+ hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecu
+ hfhrohhmpefirhgvghcumffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrg
+ htthgvrhhnpeegheeuhefgtdeluddtleekfeegjeetgeeikeehfeduieffvddufeefleev
+ tddtvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhmpdhn
+ sggprhgtphhtthhopedvvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepkhgvvh
+ hinheshhholhhmrdguvghvpdhrtghpthhtohepshhtrggslhgvsehvghgvrhdrkhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtoheprhgvghhrvghsshhiohhnsheslhhishhtshdrlhhinh
+ hugidruggvvhdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghs
+ khhtohhprdhorhhgpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvg
+ gvuggvshhkthhophdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhg
+ vghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopeifrgihnhgvrdhlihhnsegrmhgurd
+ gtohhmpdhrtghpthhtohepjhgvrhhrhidriihuohesrghmugdrtghomhdprhgtphhtthho
+ peiirggvvghmrdhmohhhrghmvggusegrmhgurdgtohhm
+X-ME-Proxy: <xmx:6Kq4Ztf_hbQWGCQSsIvsVGTJ3d4HSeQPG3dfo1AWRsNbsJV6uxGBKg>
+ <xmx:6Kq4ZuPcYMlfMNoRFyiC3ARBJNUz3iJSJHUVaPStD5RZhmFDHoFRZg>
+ <xmx:6Kq4Zvma3MCkKGDsk74sGuJq28jYf6dYxOYlb1EfZXWuTBaa3TcrjA>
+ <xmx:6Kq4ZotDU49Hf7RGXvdKesU2U7DCA-k5v01lsrrVnCY331CgMG4N2Q>
+ <xmx:6Kq4Zl-uHpbt6TYXbwRDt-dbGnrCgYhpBaRBDcIccYuU6rbOi89l6EUe>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Aug 2024 08:13:27 -0400 (EDT)
+Date: Sun, 11 Aug 2024 14:13:26 +0200
+From: Greg KH <greg@kroah.com>
+To: Kevin Holm <kevin@holm.dev>
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, Wayne Lin <wayne.lin@amd.com>,
+ Jerry Zuo <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH 6.10] drm/amd/display: Refactor function
+ dm_dp_mst_is_port_support_mode()
+Message-ID: <2024081141-clump-obliged-8fb0@gregkh>
+References: <20240730185339.543359-1-kevin@holm.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240730185339.543359-1-kevin@holm.dev>
 X-Mailman-Approved-At: Mon, 12 Aug 2024 07:31:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,169 +108,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Once something had been put into descriptor table, the only thing you
-can do with it is returning descriptor to userland - you can't withdraw
-it on subsequent failure exit, etc.  You certainly can't count upon
-it staying in the same slot of descriptor table - another thread
-could've played with close(2)/dup2(2)/whatnot.
+On Tue, Jul 30, 2024 at 08:53:39PM +0200, Kevin Holm wrote:
+> From: Wayne Lin <wayne.lin@amd.com>
+> 
+> [ Upstream commit fa57924c76d995e87ca3533ec60d1d5e55769a27 ]
+> 
+> [Why]
+> dm_dp_mst_is_port_support_mode() is a bit not following the original design rule and cause
+> light up issue with multiple 4k monitors after mst dsc hub.
+> 
+> [How]
+> Refactor function dm_dp_mst_is_port_support_mode() a bit to solve the light up issue.
+> 
+> Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
+> Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+> Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+> Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> [kevin@holm.dev: Resolved merge conflict in .../amdgpu_dm_mst_types.c]
+> Fixes: 4df96ba6676034 ("drm/amd/display: Add timing pixel encoding for mst mode validation")
+> Link: https://lore.kernel.org/stable/d74a7768e957e6ce88c27a5bece0c64dff132e24@holm.dev/T/#u
+> Signed-off-by: Kevin Holm <kevin@holm.dev>
+> ---
+> I resolved the merge conflict so that, after this patch is applied to the
+> linux-6.10.y branch of the stable git repository, the resulting function
+> dm_dp_mst_is_port_support_mode (and also the new function 
+> dp_get_link_current_set_bw) is identical to the original commit.
+> 
+> I've confirmed that it fixes the regression I reported for my use case.
 
-Add drm_gem_prime_handle_to_dmabuf() - the "set dmabuf up" parts of
-drm_gem_prime_handle_to_fd() without the descriptor-related ones.
-Instead of inserting into descriptor table and returning the file
-descriptor it just returns the struct file.
+Now queued up, thanks.
 
-drm_gem_prime_handle_to_fd() becomes a wrapper for it.  Other users
-will be introduced in the next commit.
-
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
----
- drivers/gpu/drm/drm_prime.c | 84 +++++++++++++++++++------------------
- include/drm/drm_prime.h     |  3 ++
- 2 files changed, 46 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 03bd3c7bd0dc..467c7a278ad3 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -409,23 +409,9 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
- 	return dmabuf;
- }
- 
--/**
-- * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-- * @dev: dev to export the buffer from
-- * @file_priv: drm file-private structure
-- * @handle: buffer handle to export
-- * @flags: flags like DRM_CLOEXEC
-- * @prime_fd: pointer to storage for the fd id of the create dma-buf
-- *
-- * This is the PRIME export function which must be used mandatorily by GEM
-- * drivers to ensure correct lifetime management of the underlying GEM object.
-- * The actual exporting from GEM object to a dma-buf is done through the
-- * &drm_gem_object_funcs.export callback.
-- */
--int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-+struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
- 			       struct drm_file *file_priv, uint32_t handle,
--			       uint32_t flags,
--			       int *prime_fd)
-+			       uint32_t flags)
- {
- 	struct drm_gem_object *obj;
- 	int ret = 0;
-@@ -434,14 +420,14 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 	mutex_lock(&file_priv->prime.lock);
- 	obj = drm_gem_object_lookup(file_priv, handle);
- 	if (!obj)  {
--		ret = -ENOENT;
-+		dmabuf = ERR_PTR(-ENOENT);
- 		goto out_unlock;
- 	}
- 
- 	dmabuf = drm_prime_lookup_buf_by_handle(&file_priv->prime, handle);
- 	if (dmabuf) {
- 		get_dma_buf(dmabuf);
--		goto out_have_handle;
-+		goto out;
- 	}
- 
- 	mutex_lock(&dev->object_name_lock);
-@@ -463,7 +449,6 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 		/* normally the created dma-buf takes ownership of the ref,
- 		 * but if that fails then drop the ref
- 		 */
--		ret = PTR_ERR(dmabuf);
- 		mutex_unlock(&dev->object_name_lock);
- 		goto out;
- 	}
-@@ -478,34 +463,51 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 	ret = drm_prime_add_buf_handle(&file_priv->prime,
- 				       dmabuf, handle);
- 	mutex_unlock(&dev->object_name_lock);
--	if (ret)
--		goto fail_put_dmabuf;
--
--out_have_handle:
--	ret = dma_buf_fd(dmabuf, flags);
--	/*
--	 * We must _not_ remove the buffer from the handle cache since the newly
--	 * created dma buf is already linked in the global obj->dma_buf pointer,
--	 * and that is invariant as long as a userspace gem handle exists.
--	 * Closing the handle will clean out the cache anyway, so we don't leak.
--	 */
--	if (ret < 0) {
--		goto fail_put_dmabuf;
--	} else {
--		*prime_fd = ret;
--		ret = 0;
-+	if (ret) {
-+		dma_buf_put(dmabuf);
-+		dmabuf = ERR_PTR(ret);
- 	}
--
--	goto out;
--
--fail_put_dmabuf:
--	dma_buf_put(dmabuf);
- out:
- 	drm_gem_object_put(obj);
- out_unlock:
- 	mutex_unlock(&file_priv->prime.lock);
-+	return dmabuf;
-+}
-+EXPORT_SYMBOL(drm_gem_prime_handle_to_dmabuf);
- 
--	return ret;
-+/**
-+ * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-+ * @dev: dev to export the buffer from
-+ * @file_priv: drm file-private structure
-+ * @handle: buffer handle to export
-+ * @flags: flags like DRM_CLOEXEC
-+ * @prime_fd: pointer to storage for the fd id of the create dma-buf
-+ *
-+ * This is the PRIME export function which must be used mandatorily by GEM
-+ * drivers to ensure correct lifetime management of the underlying GEM object.
-+ * The actual exporting from GEM object to a dma-buf is done through the
-+ * &drm_gem_object_funcs.export callback.
-+ */
-+int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-+			       struct drm_file *file_priv, uint32_t handle,
-+			       uint32_t flags,
-+			       int *prime_fd)
-+{
-+	struct dma_buf *dmabuf;
-+	int fd = get_unused_fd_flags(flags);
-+
-+	if (fd < 0)
-+		return fd;
-+
-+	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
-+	if (IS_ERR(dmabuf)) {
-+		put_unused_fd(fd);
-+		return PTR_ERR(dmabuf);
-+	}
-+
-+	fd_install(fd, dmabuf->file);
-+	*prime_fd = fd;
-+	return 0;
- }
- EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
- 
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index 2a1d01e5b56b..fa085c44d4ca 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -69,6 +69,9 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
- 
- int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 			       struct drm_file *file_priv, int prime_fd, uint32_t *handle);
-+struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
-+			       struct drm_file *file_priv, uint32_t handle,
-+			       uint32_t flags);
- int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 			       struct drm_file *file_priv, uint32_t handle, uint32_t flags,
- 			       int *prime_fd);
--- 
-2.39.2
-
+greg k-h
