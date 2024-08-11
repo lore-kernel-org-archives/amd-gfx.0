@@ -4,63 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8908C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Aug 2024 12:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47F69C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Sun, 11 Aug 2024 20:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8073110E05A;
-	Sat, 10 Aug 2024 12:26:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F70189954;
+	Sun, 11 Aug 2024 20:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kV0DkQ9y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GFkBO8I2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C10E510E05A;
- Sat, 10 Aug 2024 12:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723292770; x=1754828770;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=n6S/oGteTWAzvKyTeV+JlVkxczJJOB23hpbVAeIhq84=;
- b=kV0DkQ9yy5U397iebDEcKruwJ1mQYDsis3tFwHfkdakraanN0NVtmSNp
- sV8Qxre4+/ezFXC7oix/V+9orULN2y2QFPv1eUa8dDtRix4ukt2QiGC2i
- 13HhRYWUG9st19OldPdUW4koOeHnFB/290puimHX3ZjPlc0SD4x9D1Dp/
- TdV0xJz6yQv7OrN9P6GHX26PwkAMY/BIczujZ2EpFPcTcvc49BMLAErtq
- jouqFk4YPBt+J1IGSkfwbo5HhBqPp4bcJNh83vKBWiG2u9/V1l9y9PHj+
- xUHRXoFZSCvU6FnEiOu9wEzro33bqb2SMPxEsmxqZfm+D1Wb5Tk/lYHmC Q==;
-X-CSE-ConnectionGUID: HVF+DO0bRoSG5d4BhCOyug==
-X-CSE-MsgGUID: lOaSCuV3RtOZFt47g2salw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11160"; a="25226965"
-X-IronPort-AV: E=Sophos;i="6.09,279,1716274800"; d="scan'208";a="25226965"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2024 05:26:09 -0700
-X-CSE-ConnectionGUID: pVlAOMANTumYDn0PJyDMyQ==
-X-CSE-MsgGUID: KLhlkVf/SCKAi+8XtabK9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,279,1716274800"; d="scan'208";a="62654847"
-Received: from unknown (HELO b6bf6c95bbab) ([10.239.97.151])
- by orviesa005.jf.intel.com with ESMTP; 10 Aug 2024 05:26:06 -0700
-Received: from kbuild by b6bf6c95bbab with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sclAa-0009v6-0A;
- Sat, 10 Aug 2024 12:26:04 +0000
-Date: Sat, 10 Aug 2024 20:25:04 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Helge Deller <deller@gmx.de>, Sam Ravnborg <sam@ravnborg.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, stable@vger.kernel.org
-Subject: Re: [PATCH] video/aperture: match the pci device when calling
- sysfb_disable()
-Message-ID: <202408102027.iWri1VXT-lkp@intel.com>
-References: <20240809150327.2485848-1-alexander.deucher@amd.com>
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A99310E064
+ for <amd-gfx@lists.freedesktop.org>; Sun, 11 Aug 2024 20:45:27 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-5a1c49632deso4114105a12.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 11 Aug 2024 13:45:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723409125; x=1724013925; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=OF9G8PHTIC2mhYOq/Km4bS0ibPrNmYJrVvBjRIcw78A=;
+ b=GFkBO8I2SAo9Ea72j+3YOI7+OUnpO78FPUg/cb65Nrfziawmqrcerjw7J186EB7Ltr
+ r/nIHBuRs8u4mOrRyCF/dFCdhvk6uYoeSOq1KW6eXwe1ykd+eOfahUnizJsyd6Z3H558
+ oZDszNysartho2OQki0wvEoTP/W7FQ6ol5+i7AU9/ccakh8saOQNxJprGsl3NR0Eqq9U
+ g4vy8nFOmiUYBKBSxfEDmboVPgsbcQ42mUlTb1YC6lx5qcXqHTRluoa7S9N3xOsI+hmp
+ BUB+QXtvUdRW1tzmtiCVZgU7ZxqwWDszE1P0dPgh+lwL4X73cQt7B0hPlFumtZR6kmdZ
+ qGDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723409125; x=1724013925;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OF9G8PHTIC2mhYOq/Km4bS0ibPrNmYJrVvBjRIcw78A=;
+ b=fzKJXJVAMGNSnLyjRu/YnHrRsO/EMPcP9P+BdeXnEX4VUw87vA7S5ZM/6fvKkifRmW
+ Mq2I99UyfikievH4y7ky7WmQ2tkQ9FA5355+9PN7Icxb4l0b6VDAMtdKM3Bzbys7pdMk
+ DWBeFBr1TrXfvafI6fVBNFf4OLak4MGZEok6OhR+jJPGpIrGfaHmyUClNhXL0oOKDm65
+ TMR8W1RdRtxCOTeBUlq/K6vEEQZsv6HOZjzXR1o28ZhWE/5FZzKNrG9PqzJjipAvWvU3
+ blCycEMspIyJfcIURlMFPaVV9AyQFgZny+hbfcSeQm5pqHyRQrG4DJkEjHO80cMxl0ZB
+ I3Ag==
+X-Gm-Message-State: AOJu0YxAj5WyTSPXSmw3vGCjUlMOcrWCcWhL4ZDHtBH52twaAqzqLhCH
+ rSxqAaMMNPcw/OZHrtuEqx/vP4hgw7vXEjvKA/J9RMr+uPJWjBRvUkWXXP0PsYeTuC5/Uc+o+R+
+ maTX+xBk0uEaoAs5URdSJZki3XWSFE2yR
+X-Google-Smtp-Source: AGHT+IGAFi4SXC8esHuAsPLZFN4TFag+AXUJzfSxbZb1QfPdBVYNYWWxqxKvrSJ/j7mmgirB2uhas7T5Drl6Nzm3Lmg=
+X-Received: by 2002:a17:907:3d8b:b0:a7a:a46e:dc39 with SMTP id
+ a640c23a62f3a-a80aa15e66fmr558901766b.0.1723409125093; Sun, 11 Aug 2024
+ 13:45:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240809150327.2485848-1-alexander.deucher@amd.com>
+From: James Dutton <james.dutton@gmail.com>
+Date: Sun, 11 Aug 2024 21:44:48 +0100
+Message-ID: <CAAMvbhETDhbHcTWxnsNOjnQwy+nygovDxjMj1iYOCFXwtpO4xw@mail.gmail.com>
+Subject: amdgpu debug
+To: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,35 +69,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Hi,
 
-kernel test robot noticed the following build errors:
+I wish to debug the amdgpu driver with regards to plugging and
+unplugging display port cables and screens.
+So, I would like to see the plug/unplug events, the negotiation of
+link parameters: swing / pre-emphasis.
+I have a display that is not sensed on a particular laptop running
+Linux with the amdgpu driver, whereas the same display and cable works
+fine on a different laptop with an intel GPU.
+I think there is a bug in the amdgpu driver, but I need some extra
+debug output, but just for the plug/unplug/link negotiation.
+Please can someone point me to which debug variable to tweak to get
+the debug messages I need, without being flooded with too many
+messages.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v6.11-rc2 next-20240809]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Kind Regards
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Deucher/video-aperture-match-the-pci-device-when-calling-sysfb_disable/20240810-021357
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20240809150327.2485848-1-alexander.deucher%40amd.com
-patch subject: [PATCH] video/aperture: match the pci device when calling sysfb_disable()
-config: i386-randconfig-001-20240810 (https://download.01.org/0day-ci/archive/20240810/202408102027.iWri1VXT-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240810/202408102027.iWri1VXT-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408102027.iWri1VXT-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> ld.lld: error: undefined symbol: screen_info_pci_dev
-   >>> referenced by aperture.c:358 (drivers/video/aperture.c:358)
-   >>>               drivers/video/aperture.o:(aperture_remove_conflicting_pci_devices) in archive vmlinux.a
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+James
