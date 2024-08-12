@@ -4,46 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03794C531DC
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C21CC52D7D
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6070810E148;
-	Mon, 12 Aug 2024 07:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F08110E157;
+	Mon, 12 Aug 2024 07:31:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=typeblog.net header.i=@typeblog.net header.b="JyxgTnhJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="PoJ1xYlA";
 	dkim-atps=neutral
-X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
- Sun, 11 Aug 2024 13:42:35 UTC
-Received: from mail.typeblog.net (mail.typeblog.net [88.151.33.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7452F10E037
- for <amd-gfx@lists.freedesktop.org>; Sun, 11 Aug 2024 13:42:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 552E89B05D6; Sun, 11 Aug 2024 15:36:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=typeblog.net;
- s=mailcow; t=1723383379;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language;
- bh=ivigbb9xMm1ZNuDdd5y5spX8twxwH/H+kZwec4D/O+I=;
- b=JyxgTnhJdRhvid7qS+A+E7MsFr5L1oQwnAK/ROxakAzbSrt50j7bkFTlkwlJTvnaMU+pIH
- zCOpXy1i03noxA1dURp0WR68uKCiV/jKSEKV0K/jNZPbqaPmofLz5v3g+FGAdzL5Mx6KQm
- TFl2+sGUN+R9mxDIqt+8nq/gXAo3HW3e6SMrwcIbSBXs6AsNRtPxf6ZzbHaNrdj7bV3jl8
- FtQzPr1nSaFeyNbJYHvf/cvvQPU5i9ZAhiudy1Xnvag0bze7AOPmWANc9RnHJJ+Nk7DAjn
- ImWwSOpfCp6ny13pD+GG4GkPkXaU8eetshPojO0ec34VgRzZs9YfvJ1ugt2bRg==
-Message-ID: <872a3e83-9bc5-47de-8514-48abe8ff03c5@typeblog.net>
-Date: Sun, 11 Aug 2024 09:36:13 -0400
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB55710E111;
+ Mon, 12 Aug 2024 07:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=llKvYmTSd8/Y8jELiMLmZIKz31PpLqEbxa7i6FjYD9c=; b=PoJ1xYlAcwz+VZK902tHdzv5tE
+ dNic6B8B2oMcdZm8uddCSgleQrsMfgbwdSscvg3a3cUzJGlelW5m8B+vzehollvdPSoICxFh2xDG4
+ 7JX8aCyjmXxyNx0ztNV9Yz6OgtArI+lGJcnZ0gyVA9BrCdLjQyfRzAEgEHbBinzOfokwPaZpUcdLE
+ z4aosl04kHhJVMszLsx21srOxorfrAlEl3uAPnQhIM9xQWnTbOdTkp7JqpX3Vku1NSO2rW3tPbDrM
+ vIH4e4hZUJk85ckNSiB2pJDCybBmwHANjEbBD8Yg+NWKAglBRC/TVIKEGi0PgSTmGxwqPll6GUgG/
+ uFeMMHoA==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
+ Linux)) id 1sdP1G-000000010nd-0X3n; Mon, 12 Aug 2024 06:59:06 +0000
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: viro@zeniv.linux.org.uk
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org
+Subject: [PATCH 1/4] new helper: drm_gem_prime_handle_to_dmabuf()
+Date: Mon, 12 Aug 2024 07:59:03 +0100
+Message-ID: <20240812065906.241398-1-viro@zeniv.linux.org.uk>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240812065656.GI13701@ZenIV>
+References: <20240812065656.GI13701@ZenIV>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Wayne Lin <wayne.lin@amd.com>, amd-gfx@lists.freedesktop.org,
- regressions@lists.linux.dev
-From: Peter Cai <peter@typeblog.net>
-Subject: [REGRESSION] amdgpu enables DSC unnecessarily over MST hubs on kernel
- 6.11+
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Aug 2024 07:31:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,62 +54,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Once something had been put into descriptor table, the only thing you
+can do with it is returning descriptor to userland - you can't withdraw
+it on subsequent failure exit, etc.  You certainly can't count upon
+it staying in the same slot of descriptor table - another thread
+could've played with close(2)/dup2(2)/whatnot.
 
-I have been using a DisplayPort MST hub with a AMD Ryzen 6800U laptop 
-(GPD Win Max 2) for a while. The hub exposes 2 downstream ports, both of 
-which are connected to 4K (3840x2160) displays. Recently I was hit with 
-another regression in Linux 6.10 (link: 
-https://lore.kernel.org/stable/d74a7768e957e6ce88c27a5bece0c64dff132e24@holm.dev/T/#u) 
-that caused MST displays to stop lighting up. This was caused by 
-4df96ba66760345471a85ef7bb29e1cd4e956057 and later fixed in mainline by 
-fa57924c76d995e87ca3533ec60d1d5e55769a27.
+Add drm_gem_prime_handle_to_dmabuf() - the "set dmabuf up" parts of
+drm_gem_prime_handle_to_fd() without the descriptor-related ones.
+Instead of inserting into descriptor table and returning the file
+descriptor it just returns the struct file.
 
-However, even with that fix, one of my displays is still misbehaving. 
-The display seems to be running at no more than 20Hz even though the 
-output mode is clearly set to 3840x2160@60 from the point of view of 
-both the Wayland compositor and the kernel. Some debugging again pointed 
-to the refactored `dm_dp_mst_is_port_support_mode()` function involved 
-in the aforementioned commits as the problem. Specifically, it seems 
-that the function before commit 4df96ba66760345471a85ef7bb29e1cd4e956057 
-returns `DC_OK` for my setup, while the version after 
-`fa57924c76d995e87ca3533ec60d1d5e55769a27` insists that it must set the 
-DSC bit, shown by the debug kernel message "Require dsc and dsc config 
-found". When the DSC flag is set, this display of mine seems to just 
-misbehave like what is mentioned.
+drm_gem_prime_handle_to_fd() becomes a wrapper for it.  Other users
+will be introduced in the next commit.
 
-I've done some further print-based debugging to identify why the DSC 
-branch is now taken. Adding a print right before
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+---
+ drivers/gpu/drm/drm_prime.c | 84 +++++++++++++++++++------------------
+ include/drm/drm_prime.h     |  3 ++
+ 2 files changed, 46 insertions(+), 41 deletions(-)
 
- > if (stream_kbps <= end_to_end_bw_in_kbps) {
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 03bd3c7bd0dc..467c7a278ad3 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -409,23 +409,9 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
+ 	return dmabuf;
+ }
+ 
+-/**
+- * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
+- * @dev: dev to export the buffer from
+- * @file_priv: drm file-private structure
+- * @handle: buffer handle to export
+- * @flags: flags like DRM_CLOEXEC
+- * @prime_fd: pointer to storage for the fd id of the create dma-buf
+- *
+- * This is the PRIME export function which must be used mandatorily by GEM
+- * drivers to ensure correct lifetime management of the underlying GEM object.
+- * The actual exporting from GEM object to a dma-buf is done through the
+- * &drm_gem_object_funcs.export callback.
+- */
+-int drm_gem_prime_handle_to_fd(struct drm_device *dev,
++struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
+ 			       struct drm_file *file_priv, uint32_t handle,
+-			       uint32_t flags,
+-			       int *prime_fd)
++			       uint32_t flags)
+ {
+ 	struct drm_gem_object *obj;
+ 	int ret = 0;
+@@ -434,14 +420,14 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+ 	mutex_lock(&file_priv->prime.lock);
+ 	obj = drm_gem_object_lookup(file_priv, handle);
+ 	if (!obj)  {
+-		ret = -ENOENT;
++		dmabuf = ERR_PTR(-ENOENT);
+ 		goto out_unlock;
+ 	}
+ 
+ 	dmabuf = drm_prime_lookup_buf_by_handle(&file_priv->prime, handle);
+ 	if (dmabuf) {
+ 		get_dma_buf(dmabuf);
+-		goto out_have_handle;
++		goto out;
+ 	}
+ 
+ 	mutex_lock(&dev->object_name_lock);
+@@ -463,7 +449,6 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+ 		/* normally the created dma-buf takes ownership of the ref,
+ 		 * but if that fails then drop the ref
+ 		 */
+-		ret = PTR_ERR(dmabuf);
+ 		mutex_unlock(&dev->object_name_lock);
+ 		goto out;
+ 	}
+@@ -478,34 +463,51 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+ 	ret = drm_prime_add_buf_handle(&file_priv->prime,
+ 				       dmabuf, handle);
+ 	mutex_unlock(&dev->object_name_lock);
+-	if (ret)
+-		goto fail_put_dmabuf;
+-
+-out_have_handle:
+-	ret = dma_buf_fd(dmabuf, flags);
+-	/*
+-	 * We must _not_ remove the buffer from the handle cache since the newly
+-	 * created dma buf is already linked in the global obj->dma_buf pointer,
+-	 * and that is invariant as long as a userspace gem handle exists.
+-	 * Closing the handle will clean out the cache anyway, so we don't leak.
+-	 */
+-	if (ret < 0) {
+-		goto fail_put_dmabuf;
+-	} else {
+-		*prime_fd = ret;
+-		ret = 0;
++	if (ret) {
++		dma_buf_put(dmabuf);
++		dmabuf = ERR_PTR(ret);
+ 	}
+-
+-	goto out;
+-
+-fail_put_dmabuf:
+-	dma_buf_put(dmabuf);
+ out:
+ 	drm_gem_object_put(obj);
+ out_unlock:
+ 	mutex_unlock(&file_priv->prime.lock);
++	return dmabuf;
++}
++EXPORT_SYMBOL(drm_gem_prime_handle_to_dmabuf);
+ 
+-	return ret;
++/**
++ * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
++ * @dev: dev to export the buffer from
++ * @file_priv: drm file-private structure
++ * @handle: buffer handle to export
++ * @flags: flags like DRM_CLOEXEC
++ * @prime_fd: pointer to storage for the fd id of the create dma-buf
++ *
++ * This is the PRIME export function which must be used mandatorily by GEM
++ * drivers to ensure correct lifetime management of the underlying GEM object.
++ * The actual exporting from GEM object to a dma-buf is done through the
++ * &drm_gem_object_funcs.export callback.
++ */
++int drm_gem_prime_handle_to_fd(struct drm_device *dev,
++			       struct drm_file *file_priv, uint32_t handle,
++			       uint32_t flags,
++			       int *prime_fd)
++{
++	struct dma_buf *dmabuf;
++	int fd = get_unused_fd_flags(flags);
++
++	if (fd < 0)
++		return fd;
++
++	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
++	if (IS_ERR(dmabuf)) {
++		put_unused_fd(fd);
++		return PTR_ERR(dmabuf);
++	}
++
++	fd_install(fd, dmabuf->file);
++	*prime_fd = fd;
++	return 0;
+ }
+ EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
+ 
+diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+index 2a1d01e5b56b..fa085c44d4ca 100644
+--- a/include/drm/drm_prime.h
++++ b/include/drm/drm_prime.h
+@@ -69,6 +69,9 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
+ 
+ int drm_gem_prime_fd_to_handle(struct drm_device *dev,
+ 			       struct drm_file *file_priv, int prime_fd, uint32_t *handle);
++struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
++			       struct drm_file *file_priv, uint32_t handle,
++			       uint32_t flags);
+ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+ 			       struct drm_file *file_priv, uint32_t handle, uint32_t flags,
+ 			       int *prime_fd);
+-- 
+2.39.2
 
-gives me
-
- > [   38.079643] [drm:dm_dp_mst_is_port_support_mode [amdgpu]] 
-stream_kbps = 12798000, root_link_bw_in_kbps = 12571200, 
-virtual_channel_bw_in_kbps = 17176320
-
-Since `end_to_end_bw_in_kbps` is `min(root_link_bw_in_kbps, 
-virtual_channel_bw_in_kbps)`, this causes the DSC branch to be taken.
-
-Before the changes that took `root_link_bw_in_kbps` into consideration, 
-my setup was clearly working and I haven't encountered any problem 
-whatsoever. The value `12571200` also feels a bit off to me since if 
-this is fetched from `aconnector->dc_link`, it should represent the 
-bandwidth available on the entire DP link between PC <-> MST Hub? In 
-this case, it seems to be way too low to be correct; and, again, the 
-dual 4K display setup has been working without checking this value. 
-Modifying the latest mainline to remove `root_link_bw_in_kbps` from the 
-equation also seems to fix the problem for me.
-
-It feels like my display shouldn't misbehave like that with the DSC bit 
-set, but again it is the kernel that didn't set the DSC bit before but 
-now does. I think this should count as a regression, but I'm not sure if 
-it is just me who is seeing this problem.
-
-For reference, the problematic display in question here is a Samsung 
-LS27A80. The MST hub used is an Anker 554 USB-C Docking Station / KVM 
-Switch.
-
-Regards,
-Peter.
