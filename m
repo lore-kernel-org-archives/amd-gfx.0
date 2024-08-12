@@ -4,121 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E5BC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 10:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BCD0C52D7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 10:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A06CF10E0CA;
-	Mon, 12 Aug 2024 10:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 034E810E1B2;
+	Mon, 12 Aug 2024 10:41:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qykHbC4F";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="IgJkHoKq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GJfa3mKW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IgJkHoKq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GJfa3mKW";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C284910E1A5
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Aug 2024 10:40:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D96eoD0jGtgLIqld0b8cpFpuyE2tOiYZ4ALpBLN73svKNqaVkwA1lt6PPEGv9ZjSvNnk1EHY9KvdY4MVITG/nJR2dnHSPSVXPeNRF2SCV9s/V92gxWwb/RTm7gwVnWXhqigzEVbHqOdYX3cL2p78QSQUfjEvFnDqn5VtJQeLIOwfb1rc1vYle/Uhs7ZbhJDWUpn6ARUYb3l1UcN0r3gm3G1LlPDgzKky+q6ogec4TogS5rnVdETAztFn5m3lNdThyp/jC/yWQO19zxQNL/rljqxrggFMiJavu7T6imst1dD5x1FPZLQuP/uW85IkAySfL/evBdb0IzQxnA3Xl2gE5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Ur87m9pV3/oO0Ylclo2lAytbYaWIl0yk6KHVEhuF6w=;
- b=MqceoX5lo8huelw+v+lBoBVNZh9DDUb+NQRcEXwo2E/QPVaiinyWXQoFD+RHZyxFoFgUEh32NEMULUvYC6Eq4X1pVKyheufLDVeS4ylcyt8/38H+iCRmsn4geMjN3VdyGHYglys+oVw44KNlEq8abYe8mKF56GX44sawPURKPDP7fNzZ9JRZ83RH5Di2bdoxeCY4515Y3f0hTg8DvlwsPoJ2mK2L33nqQN3UdAlk8GFV0rVvsVRmx+j8m51grN2+61lrL5L1YY8uF9GRcPLicg9UGihaPXlah/UCZnx/EqPJtxZtmRCoFpbw3tKV1Qbk7kdSATpnQ0HVLNxNyS4zaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Ur87m9pV3/oO0Ylclo2lAytbYaWIl0yk6KHVEhuF6w=;
- b=qykHbC4FLFkHjYhV+s90frY34s3BBHzeZgLxieoybX7k0RGNuol7KuAwpoiOtqM53Yo8QnJfxcUwx13/MkODJpR6wW6w0gb/krfRu7Zcn0Q0DkohWc032rE/B2dIsMutsfW7/cBDx+AxgfqUQWDyYuiwNji+1QNtRO9rI0xPVEA=
-Received: from CH0PR13CA0034.namprd13.prod.outlook.com (2603:10b6:610:b2::9)
- by LV2PR12MB5941.namprd12.prod.outlook.com (2603:10b6:408:172::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.20; Mon, 12 Aug
- 2024 10:40:40 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:b2:cafe::52) by CH0PR13CA0034.outlook.office365.com
- (2603:10b6:610:b2::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.20 via Frontend
- Transport; Mon, 12 Aug 2024 10:40:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Mon, 12 Aug 2024 10:40:39 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 12 Aug 2024 05:40:36 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
- <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: [PATCH] drm/amd/display: Align hwss_wait_for_all_blank_complete
- descriptor with implementation
-Date: Mon, 12 Aug 2024 16:10:23 +0530
-Message-ID: <20240812104023.3744443-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C86E110E1AA;
+ Mon, 12 Aug 2024 10:41:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3BBE02025F;
+ Mon, 12 Aug 2024 10:41:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723459300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ab/m5AKxXktze9znH0lC1CTq5g5RByZlcRmtfkhdDYg=;
+ b=IgJkHoKqaIx+8aIilB8EbIzDJeH3e3FLyHDm5fydwMTUMkepZ2c8ENJiQmbi/aNyM5lvaM
+ QXTAFMM857fEISqLU1+nngqIX4DFVcr3z2OOT0p6X6MKbEOeuakO0xo97uN55+zk6NZ3ol
+ GQttx4Gn7/BVkWL+ihPwHfTfFGG3WLQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723459300;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ab/m5AKxXktze9znH0lC1CTq5g5RByZlcRmtfkhdDYg=;
+ b=GJfa3mKW4I6tpgliRwiYLhtBbGkIDC74C/n3CszMeSZbMSp9WGam8RkFqaGQ0YCnuKccc1
+ w2zE48nWsfhLN0Cw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=IgJkHoKq;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GJfa3mKW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723459300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ab/m5AKxXktze9znH0lC1CTq5g5RByZlcRmtfkhdDYg=;
+ b=IgJkHoKqaIx+8aIilB8EbIzDJeH3e3FLyHDm5fydwMTUMkepZ2c8ENJiQmbi/aNyM5lvaM
+ QXTAFMM857fEISqLU1+nngqIX4DFVcr3z2OOT0p6X6MKbEOeuakO0xo97uN55+zk6NZ3ol
+ GQttx4Gn7/BVkWL+ihPwHfTfFGG3WLQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723459300;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ab/m5AKxXktze9znH0lC1CTq5g5RByZlcRmtfkhdDYg=;
+ b=GJfa3mKW4I6tpgliRwiYLhtBbGkIDC74C/n3CszMeSZbMSp9WGam8RkFqaGQ0YCnuKccc1
+ w2zE48nWsfhLN0Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6E0A13A23;
+ Mon, 12 Aug 2024 10:41:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KtKkMuPmuWZ8RwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 12 Aug 2024 10:41:39 +0000
+Message-ID: <c8228a22-9a8c-4eca-bf09-d72208fe007b@suse.de>
+Date: Mon, 12 Aug 2024 12:41:39 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|LV2PR12MB5941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92ec7ff3-50f5-419e-2048-08dcbabb3572
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LUHZanT4JeKqQ/Jd25Sz6sj9J62HnawX2wd1zkT+jCIY/HASXGEzrkWA+uud?=
- =?us-ascii?Q?RvSMZhgoDzDcKBwCKBi2qu8mVIfrWUSmYCg/WCDSw/nAWKHhr5OZH0fVIU1L?=
- =?us-ascii?Q?dK3+a5u/i6t9hKLn/VqPylFejKI5KZ/0s4KCS3RF8gr64q2H2KpfDyF8ercp?=
- =?us-ascii?Q?sLTLuBU70QVbnb22GoQqMg5/7sySjKj1128QYqqPW5PHgHh+AVoDecjuQn8m?=
- =?us-ascii?Q?USTxRyiK92xaiUNgE0vjX4hD7LRpWxwlV9zDrs/mh+ISDiYJ9aBjPDT3YdyG?=
- =?us-ascii?Q?7V2BGUgUD36XPKuvhnmBOTQz7yjt+pJb96+vlKiNN8loTEzogueKgspIXmBb?=
- =?us-ascii?Q?h4kxw2+/0wEabGOUkgtRkw2AGosyIob9/ciTIS6HOZKuReCn4u4kre1uTESA?=
- =?us-ascii?Q?UX5ztQX8VAnaZD7i8fhbr8jk+vrT53OTWLzVOzjdFOGZi5nO+kdg+GFrN5Wn?=
- =?us-ascii?Q?93+Zw2xx3ZcsP+wZwYUU6BmY91nWJrvdbLlfT88HcICcP9RI/QwI2AKWdy+j?=
- =?us-ascii?Q?mktp++bIHlse64Zmc4AF6U5vYVHWk114JhglakJGCzk9Js5xSIGdsN+ICvoN?=
- =?us-ascii?Q?TPZv9eLvAEMJNOY9tU2ecMGxmr02+hSnCghpH8ueQtyZGt6CWjukOkTg6WVH?=
- =?us-ascii?Q?I5DuxkFN+Zt1Cxb+B/S6gzWjcL4rpKdwJbUmzizFD+0mYg3Dqj4DV9yTEwhC?=
- =?us-ascii?Q?Jp24KQ56RJPpyLoi8QunEE+9vUjfno19MbwTEhCV60ditdfRvTdzQt27Komd?=
- =?us-ascii?Q?EZBI/Fj2bgcqr2zL1UGYU2O/FcLV7guiuE1YyHdIy52dm9j39OXMk2lMTSmz?=
- =?us-ascii?Q?D1KGs0cncIeqFc1UkElwS4HsC13yvd7Beuog1CGX5RiRwhIEuzjo1bDPT9a3?=
- =?us-ascii?Q?4X1M+WjMksb18NIYQ6tAKMpFol9ClsF5X4KEGUbLvx+/hSsqZeotkWut6Qki?=
- =?us-ascii?Q?qWK2FGHSZ4O/EVqrXVf7coM0wjuLGh2SpZcnfEl36uatQp8/ZvBAUEtSovfU?=
- =?us-ascii?Q?eEZaHoclkbcBE9v62lFS7SP0dBjmbsmFP0cgtnfZ4JlRVqVvurHOJaaViJbW?=
- =?us-ascii?Q?j53s+QanqmaniesB9WfUgyAdVbGQQVQtJ4cWl08Oa/G1ZJqwfrdjmyfGK1Dx?=
- =?us-ascii?Q?VZ1OCHVTZ9acPcfSnn8VRzUZvA8wk/nXBcpXdE0JDA1s7WgmG/eMKx24wB/F?=
- =?us-ascii?Q?TdzG10Y/NtMAgyL9BX5V+iqw/nPSdft/772+8cdY0VMUgmNIT4VOhJ0qSknN?=
- =?us-ascii?Q?O7t3J8u0sagOXHZA6T4yOqwlgCNNlqmtLXP3pazdk3ytyGDwhA7NSEqRMZNs?=
- =?us-ascii?Q?avYGWsWxpXMjujw6Ocd60SzIQCvW/Zxu4hqLud6A+0uRcsoZPZ/hfDSu5QpQ?=
- =?us-ascii?Q?mJNop2E+tLNL/eKM7Z7visC4RyWR+WXYaMCm+p/mtR74fRtkUA=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2024 10:40:39.7309 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92ec7ff3-50f5-419e-2048-08dcbabb3572
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5941
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] drm: Do delayed switcheroo in drm_lastclose()
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, kherbst@redhat.com, lyude@redhat.com, dakr@redhat.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+References: <20240812083000.337744-1-tzimmermann@suse.de>
+ <20240812083000.337744-2-tzimmermann@suse.de>
+ <ZrnUoPuYv0v-yx79@phenom.ffwll.local> <ZrnhiTofu_L3hLzA@phenom.ffwll.local>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <ZrnhiTofu_L3hLzA@phenom.ffwll.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-6.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[14]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,redhat.com,lists.freedesktop.org];
+ RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:email, suse.de:dkim]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 3BBE02025F
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,39 +156,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The descriptor for `hwss_wait_for_all_blank_complete` was previously
-misaligned with the actual implementation. This commit refines the
-descriptor to reflect the implementation of
-`hwss_wait_for_all_blank_complete`
+Hi
 
-Fixes the below with gcc W=1:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_hw_sequencer.c:991: warning: expecting prototype for hwss_wait_for_blank_complete(). Prototype was for hwss_wait_for_all_blank_complete() instead
+Am 12.08.24 um 12:18 schrieb Daniel Vetter:
+> On Mon, Aug 12, 2024 at 11:23:44AM +0200, Daniel Vetter wrote:
+>> On Mon, Aug 12, 2024 at 10:28:22AM +0200, Thomas Zimmermann wrote:
+>>> Amdgpu and nouveau call vga_switcheroo_process_delayed_switch() from
+>>> their lastclose callbacks. Call it from drm_lastclose(), so that the
+>>> driver functions can finally be removed. Only PCI devices with enabled
+>>> switcheroo do the delayed switching. The call has no effect on other
+>>> hardware.
+>>>
+>>> v2:
+>>> - move change to drm_lastclose() (Sima)
+>>> - update docs for vga_switcheroo_process_delayed_switch()
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> A bit an aside: The entire vgaswitcheroo code is still a midlayer mess,
+>> where the locking is at the wrong layers resulting in the can_switch check
+>> potentially being racy. But that's a different can of worms.
+> Ok I got a bit annoyed about this mess again, and I think I have a
+> reasonable idea for how to address it. Not sure why this took a decade,
+> and definitely only pick this up if you're really bored.
 
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+No, definitely not. :) I don't think I have hardware for testing 
+vga_switcheroo. Does this still exist? It seemed to be a thing of the 2000s.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 9a569aac3c00..7ee2be8f82c4 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -980,7 +980,7 @@ void get_surface_tile_visual_confirm_color(
- }
- 
- /**
-- * hwss_wait_for_blank_complete - wait for all active OPPs to finish pending blank
-+ * hwss_wait_for_all_blank_complete - wait for all active OPPs to finish pending blank
-  * pattern updates
-  *
-  * @dc: [in] dc reference
+Best regards
+Thomas
+
+>
+> - We add a new vga_switcheroo_client_tryget, which checks the current
+>    state, and if it's on, increments a newly added refcount (which vgw
+>    switheroo maintains). Otherwise it fails. Drivers call this from their
+>    drm_driver->open hook. This check also allows us to drop the
+>    layer-violating checks in drm_open_helper for drm_dev->dev_power_state.
+>
+> - That refcount is dropped with vga_switcheroo_client_put, called from
+>    drm_driver->close. If the refcount drops to 0 this function also does
+>    delayed switch processing.
+>
+> - All the can_switch callbacks get removed and instead the vgwswr code
+>    directly consults its own refount.
+>
+> With this we don't have locking inversions anymore, and the old vgw
+> switcheroo code works a lot more like the new mode based on runtime pm and
+> power domains.
+>
+> With a bit more shuffling I think we can also ditch
+> drm_driver->dev_power_state:
+>
+> - There's one in the intel backlight code, which is annoying, since it's
+>    wants to know whether the current callchain is from a vga switcheroo
+>    state change. But doable with a little helper.
+>
+> - Most others just want a vga_switcheroo_client_is_off() helper, which
+>    should be easy. Some are even entirely redundant, at least from a cursor
+>    callchain check. There's no races for these because they only matter
+>    during system suspend, since you should not mix both runtime and classic
+>    vgaswitcheroo logic. We might want some checks for that in that new
+>    helper ...
+>
+> - The one in the fbdev code is annoying, because it's another race.
+>    Ideally instead of that check it needs a call to
+>    vga_switcheroo_client_tryget/put just around the call to restore modes
+>    (we do not want fbdev to block state switches), but that probably means
+>    wiring a new callback through drm_client to drivers.
+>
+> - Might have missed a special case ...
+>
+> Anyway, I got nerdsniped, had an idea, figured best to type it up. Maybe
+> we want to add a link to this to todo.rst, I think we have a vgaswitcheroo
+> entry already.
+>
+> Cheers, Sima
+>
+>
+>> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>>
+>>> ---
+>>>   drivers/gpu/drm/drm_file.c       | 4 ++++
+>>>   drivers/gpu/vga/vga_switcheroo.c | 3 +--
+>>>   2 files changed, 5 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>>> index 714e42b05108..513bef816ae9 100644
+>>> --- a/drivers/gpu/drm/drm_file.c
+>>> +++ b/drivers/gpu/drm/drm_file.c
+>>> @@ -38,6 +38,7 @@
+>>>   #include <linux/pci.h>
+>>>   #include <linux/poll.h>
+>>>   #include <linux/slab.h>
+>>> +#include <linux/vga_switcheroo.h>
+>>>   
+>>>   #include <drm/drm_client.h>
+>>>   #include <drm/drm_drv.h>
+>>> @@ -404,6 +405,9 @@ void drm_lastclose(struct drm_device * dev)
+>>>   	drm_dbg_core(dev, "driver lastclose completed\n");
+>>>   
+>>>   	drm_client_dev_restore(dev);
+>>> +
+>>> +	if (dev_is_pci(dev->dev))
+>>> +		vga_switcheroo_process_delayed_switch();
+>>>   }
+>>>   
+>>>   /**
+>>> diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switcheroo.c
+>>> index 365e6ddbe90f..18f2c92beff8 100644
+>>> --- a/drivers/gpu/vga/vga_switcheroo.c
+>>> +++ b/drivers/gpu/vga/vga_switcheroo.c
+>>> @@ -926,8 +926,7 @@ static void vga_switcheroo_debugfs_init(struct vgasr_priv *priv)
+>>>   /**
+>>>    * vga_switcheroo_process_delayed_switch() - helper for delayed switching
+>>>    *
+>>> - * Process a delayed switch if one is pending. DRM drivers should call this
+>>> - * from their ->lastclose callback.
+>>> + * Process a delayed switch if one is pending.
+>>>    *
+>>>    * Return: 0 on success. -EINVAL if no delayed switch is pending, if the client
+>>>    * has unregistered in the meantime or if there are other clients blocking the
+>>> -- 
+>>> 2.46.0
+>>>
+>> -- 
+>> Daniel Vetter
+>> Software Engineer, Intel Corporation
+>> http://blog.ffwll.ch
+
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
