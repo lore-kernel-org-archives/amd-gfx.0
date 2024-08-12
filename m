@@ -4,63 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97DC6C531DD
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53368C52D7D
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D87210E14B;
-	Mon, 12 Aug 2024 07:31:02 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 633FE10E0DA;
- Mon, 12 Aug 2024 06:10:15 +0000 (UTC)
-X-UUID: 8713819c587111efa216b1d71e6e1362-20240812
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B,
- HR_CTT_MISS
- HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
- DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
- SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
- CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_C_CI, GTI_FG_IT
- GTI_RG_INFO, GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI
- AMN_C_BU, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.38, REQID:7c06cd3c-635a-4381-999a-a0fee1d26245, IP:5,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:-5
-X-CID-INFO: VERSION:1.1.38, REQID:7c06cd3c-635a-4381-999a-a0fee1d26245, IP:5,
- URL
- :0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:-5
-X-CID-META: VersionHash:82c5f88, CLOUDID:25e9bf6a66f7d4df0b3a813efb7a5a5e,
- BulkI
- D:240812141010FH96TZX4,BulkQuantity:0,Recheck:0,SF:17|19|45|66|38|25|102,T
- C:nil,Content:0,EDM:-3,IP:-2,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil
- ,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
- TF_CID_SPAM_FSI, TF_CID_SPAM_ULS
-X-UUID: 8713819c587111efa216b1d71e6e1362-20240812
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
- with ESMTP id 433485791; Mon, 12 Aug 2024 14:10:09 +0800
-From: Lu Yao <yaolu@kylinos.cn>
-To: alexdeucher@gmail.com, ckoenig.leichtzumerken@gmail.com, daniel@ffwll.ch,
- jfalempe@redhat.com
-Cc: Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- srinivasan.shanmugam@amd.com, sunil.khatri@amd.com, yaolu@kylinos.cn
-Subject: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
-Date: Mon, 12 Aug 2024 14:09:14 +0800
-Message-Id: <20240812060914.102614-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240802071752.116541-1-yaolu@kylinos.cn>
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9C5510E142;
+	Mon, 12 Aug 2024 07:31:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="Prn3nkMn";
+	dkim-atps=neutral
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4E410E11A;
+ Mon, 12 Aug 2024 07:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=idBXxM8dGSa96iv7+rsnoNHkcGWImDmOE5L/dsu42Mc=; b=Prn3nkMnCmNcJvqLeA8rzN+iqV
+ /xCh8fUxCllblZcx93hhu0lAvNYRNA9TbG2aDEfYJzG+y8Jq0TtoWLyXU//VT5G6i+cVZUXWBJwdZ
+ /PMhi1NJ9pV5Xz3tqJ+5AK9YyZsH/l54z2/IfRyt0J1cn7UkXo9R935A43H3v1mwFNqGmai6mcxr8
+ 1XmgzM1vlwfBAejZWcOec++qoSeZJRx6Mxw+xU9heosEEne1OefXsOAe5ctp/Ozsl/K04TkmWnnB1
+ 64Eut1YpoMBmp9eqVfFy6CN3TGrfYZZTCdUSVx4XLmA8ePrwmMOYJzhblBjXAREcQuUEffew9S6It
+ RAcOZe9Q==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
+ Linux)) id 1sdOzA-000000010k7-3Ama; Mon, 12 Aug 2024 06:56:56 +0000
+Date: Mon, 12 Aug 2024 07:56:56 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: linux-fsdevel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCHES] [drm] file descriptor fixes
+Message-ID: <20240812065656.GI13701@ZenIV>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 12 Aug 2024 07:31:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,93 +51,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support for the drm_panic module, which displays a pretty user
-friendly message on the screen when a Linux kernel panic occurs.
+	Resurrecting the stuff from last cycle.
+Context: several places in drm have racy uses of close_fd().
+Not hard to fix, thankfully.
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
-Changes in v2: 
-1. Drop include "drm_internal.h"
-2. Add disabling DC tiling ops.
-Per suggestion from previous thread:
-https://patchwork.freedesktop.org/patch/606879/?series=136832&rev=1
----
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 48 +++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+	Changed since the last posting: as requested, KFD
+fix had been split in two commits - introduction of helper
+(drm_gem_prime_handle_to_dmabuf()) and switching kfd_mem_export_dmabuf()
+to that.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 05c0df97f01d..ba1b7a36caa3 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -28,6 +28,7 @@
- #include <drm/drm_modeset_helper.h>
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_panic.h>
- 
- #include "amdgpu.h"
- #include "amdgpu_pm.h"
-@@ -2600,6 +2601,52 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
- 	.get_scanout_position = amdgpu_crtc_get_scanout_position,
- };
- 
-+static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plane *plane,
-+							 struct drm_scanout_buffer *sb)
-+{
-+	struct drm_framebuffer *fb;
-+	struct amdgpu_bo *abo;
-+	struct amdgpu_crtc *amdgpu_crtc;
-+	struct amdgpu_device *adev;
-+	uint32_t fb_format;
-+
-+	if (!plane->fb)
-+		return -EINVAL;
-+
-+	fb = plane->fb;
-+
-+	abo = gem_to_amdgpu_bo(fb->obj[0]);
-+	amdgpu_crtc = to_amdgpu_crtc(plane->crtc);
-+	adev = drm_to_adev(fb->dev);
-+
-+	if (!abo->kmap.virtual &&
-+	    ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
-+		DRM_WARN("amdgpu bo map failed, panic won't be displayed\n");
-+		return -ENOMEM;
-+	}
-+
-+	if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-+		iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
-+	else
-+		iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
-+
-+	sb->width = fb->width;
-+	sb->height = fb->height;
-+	sb->format = fb->format;
-+	sb->pitch[0] = fb->pitches[0];
-+
-+	/* Disable DC tiling */
-+	fb_format = RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
-+	fb_format &= ~GRPH_ARRAY_MODE(0x7);
-+	WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
-+
-+	return 0;
-+}
-+
-+static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_helper_funcs = {
-+	.get_scanout_buffer = dce_v6_0_drm_primary_plane_get_scanout_buffer
-+};
-+
- static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
-@@ -2627,6 +2674,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- 	amdgpu_crtc->encoder = NULL;
- 	amdgpu_crtc->connector = NULL;
- 	drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_funcs);
-+	drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_primary_plane_helper_funcs);
- 
- 	return 0;
- }
--- 
-2.25.1
+	Branch in git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git #for-drm,
+individual patches in followups.
+
+	Please, review; IMO that ought to go through drm and amd-gfx
+trees.
+
+Shortlog:
+
+Al Viro (4):
+      new helper: drm_gem_prime_handle_to_dmabuf()
+      amdgpu: fix a race in kfd_mem_export_dmabuf()
+      amdkfd CRIU fixes
+      amdgpu: get rid of bogus includes of fdtable.h
+
+Diffstat:
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c    |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 12 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c          |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 64 ++++++++++++-----
+ drivers/gpu/drm/drm_prime.c                        | 84 +++++++++++-----------
+ include/drm/drm_prime.h                            |  3 +
+ 6 files changed, 95 insertions(+), 70 deletions(-)
 
