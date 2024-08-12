@@ -4,38 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53368C52D7D
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEDFC52D7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C5510E142;
-	Mon, 12 Aug 2024 07:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12DEA10E14D;
+	Mon, 12 Aug 2024 07:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="Prn3nkMn";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="vWYB85PA";
 	dkim-atps=neutral
 Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4E410E11A;
- Mon, 12 Aug 2024 07:15:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D6EF10E10C;
+ Mon, 12 Aug 2024 07:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=idBXxM8dGSa96iv7+rsnoNHkcGWImDmOE5L/dsu42Mc=; b=Prn3nkMnCmNcJvqLeA8rzN+iqV
- /xCh8fUxCllblZcx93hhu0lAvNYRNA9TbG2aDEfYJzG+y8Jq0TtoWLyXU//VT5G6i+cVZUXWBJwdZ
- /PMhi1NJ9pV5Xz3tqJ+5AK9YyZsH/l54z2/IfRyt0J1cn7UkXo9R935A43H3v1mwFNqGmai6mcxr8
- 1XmgzM1vlwfBAejZWcOec++qoSeZJRx6Mxw+xU9heosEEne1OefXsOAe5ctp/Ozsl/K04TkmWnnB1
- 64Eut1YpoMBmp9eqVfFy6CN3TGrfYZZTCdUSVx4XLmA8ePrwmMOYJzhblBjXAREcQuUEffew9S6It
- RAcOZe9Q==;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=xN+7MW43+yLSyqT/5S/uP9zeJ9OWaDrY7qaUembhvsg=; b=vWYB85PAmQA5/JPT8NJSm7vUQ/
+ IcwsJ67D94RRrp908x1s9q3MbaOd1AcM+1DzY/bhcAabmYlUWF7UwziSSTerYpn5MNlL7B1dofvhv
+ tqQYC0Cd1wDBHqMofs+ob4iYW2rxpgrzebdVA3GTGkO3F/venEkDKHgv0OuH4nCYN9ldkKHsEUI1F
+ z1Oh4fudh1lQF3h+nz5mFmt2gczIatn3AvhgkoLnWf1JoxvzVJtBQP0VhVvcHqNw2ZM/ARJQX2Fgn
+ P/t7Rb/cx7qJyG/6kBmnS8kMkxSGVpKqOBHPl530h5/Y3PYhi/urwtbddc4Hode9rVcZLF3fe/Rc2
+ jWJgwrQw==;
 Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1sdOzA-000000010k7-3Ama; Mon, 12 Aug 2024 06:56:56 +0000
-Date: Mon, 12 Aug 2024 07:56:56 +0100
+ Linux)) id 1sdP1G-000000010nf-1VHr; Mon, 12 Aug 2024 06:59:06 +0000
 From: Al Viro <viro@zeniv.linux.org.uk>
-To: linux-fsdevel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCHES] [drm] file descriptor fixes
-Message-ID: <20240812065656.GI13701@ZenIV>
+To: viro@zeniv.linux.org.uk
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org
+Subject: [PATCH 2/4] amdgpu: fix a race in kfd_mem_export_dmabuf()
+Date: Mon, 12 Aug 2024 07:59:04 +0100
+Message-ID: <20240812065906.241398-2-viro@zeniv.linux.org.uk>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240812065906.241398-1-viro@zeniv.linux.org.uk>
+References: <20240812065656.GI13701@ZenIV>
+ <20240812065906.241398-1-viro@zeniv.linux.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Aug 2024 07:31:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,35 +55,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-	Resurrecting the stuff from last cycle.
-Context: several places in drm have racy uses of close_fd().
-Not hard to fix, thankfully.
+Using drm_gem_prime_handle_to_fd() to set dmabuf up and insert it into
+descriptor table, only to have it looked up by file descriptor and
+remove it from descriptor table is not just too convoluted - it's
+racy; another thread might have modified the descriptor table while
+we'd been going through that song and dance.
 
-	Changed since the last posting: as requested, KFD
-fix had been split in two commits - introduction of helper
-(drm_gem_prime_handle_to_dmabuf()) and switching kfd_mem_export_dmabuf()
-to that.
+Switch kfd_mem_export_dmabuf() to using drm_gem_prime_handle_to_dmabuf()
+and leave the descriptor table alone...
 
-	Branch in git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git #for-drm,
-individual patches in followups.
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-	Please, review; IMO that ought to go through drm and amd-gfx
-trees.
-
-Shortlog:
-
-Al Viro (4):
-      new helper: drm_gem_prime_handle_to_dmabuf()
-      amdgpu: fix a race in kfd_mem_export_dmabuf()
-      amdkfd CRIU fixes
-      amdgpu: get rid of bogus includes of fdtable.h
-
-Diffstat:
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c    |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 12 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c          |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 64 ++++++++++++-----
- drivers/gpu/drm/drm_prime.c                        | 84 +++++++++++-----------
- include/drm/drm_prime.h                            |  3 +
- 6 files changed, 95 insertions(+), 70 deletions(-)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 11672bfe4fad..bc5401de2948 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -25,7 +25,6 @@
+ #include <linux/pagemap.h>
+ #include <linux/sched/mm.h>
+ #include <linux/sched/task.h>
+-#include <linux/fdtable.h>
+ #include <drm/ttm/ttm_tt.h>
+ 
+ #include <drm/drm_exec.h>
+@@ -818,18 +817,13 @@ static int kfd_mem_export_dmabuf(struct kgd_mem *mem)
+ 	if (!mem->dmabuf) {
+ 		struct amdgpu_device *bo_adev;
+ 		struct dma_buf *dmabuf;
+-		int r, fd;
+ 
+ 		bo_adev = amdgpu_ttm_adev(mem->bo->tbo.bdev);
+-		r = drm_gem_prime_handle_to_fd(&bo_adev->ddev, bo_adev->kfd.client.file,
++		dmabuf = drm_gem_prime_handle_to_dmabuf(&bo_adev->ddev, bo_adev->kfd.client.file,
+ 					       mem->gem_handle,
+ 			mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ?
+-					       DRM_RDWR : 0, &fd);
+-		if (r)
+-			return r;
+-		dmabuf = dma_buf_get(fd);
+-		close_fd(fd);
+-		if (WARN_ON_ONCE(IS_ERR(dmabuf)))
++					       DRM_RDWR : 0);
++		if (IS_ERR(dmabuf))
+ 			return PTR_ERR(dmabuf);
+ 		mem->dmabuf = dmabuf;
+ 	}
+-- 
+2.39.2
 
