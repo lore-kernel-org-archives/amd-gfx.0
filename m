@@ -4,142 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC7EDC52D7C
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 12:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D8EC3DA7F
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 13:05:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8A010E1EB;
-	Mon, 12 Aug 2024 12:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6092910E203;
+	Mon, 12 Aug 2024 13:05:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FRk23idt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+NBD6IAB";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FRk23idt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+NBD6IAB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hkSjk2/e";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF1010E1EB;
- Mon, 12 Aug 2024 12:35:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A491F20275;
- Mon, 12 Aug 2024 12:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723466098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zUuSwMEVKDAQQn9/iNAON+nONtQ42bM/Rs7ltqASHcI=;
- b=FRk23idtrFdwScahmbf/OL4pl9wbhpEUBfqHFw4Z8yo19oXN2xBiCf/5hh9mMw+HSJbPIH
- F3k+dPZqjO9R2Z5jZeIBQpDrlbiJhl5EZjs56WjyVS+U625ZzrlTxtNfTnTY+NugBOlc4B
- m+NRhZJ/IOrViNij09EfmDmI76B1n84=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723466098;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zUuSwMEVKDAQQn9/iNAON+nONtQ42bM/Rs7ltqASHcI=;
- b=+NBD6IABdz01hlc2EOFQV0xPpW6xtc3rU4FUCr+0ZhB3tGP6EIa6ZuHEX2vWOPRSNy+8Gr
- lg+NgdH/FRw3u0Bg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FRk23idt;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+NBD6IAB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723466098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zUuSwMEVKDAQQn9/iNAON+nONtQ42bM/Rs7ltqASHcI=;
- b=FRk23idtrFdwScahmbf/OL4pl9wbhpEUBfqHFw4Z8yo19oXN2xBiCf/5hh9mMw+HSJbPIH
- F3k+dPZqjO9R2Z5jZeIBQpDrlbiJhl5EZjs56WjyVS+U625ZzrlTxtNfTnTY+NugBOlc4B
- m+NRhZJ/IOrViNij09EfmDmI76B1n84=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723466098;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zUuSwMEVKDAQQn9/iNAON+nONtQ42bM/Rs7ltqASHcI=;
- b=+NBD6IABdz01hlc2EOFQV0xPpW6xtc3rU4FUCr+0ZhB3tGP6EIa6ZuHEX2vWOPRSNy+8Gr
- lg+NgdH/FRw3u0Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DC7913A23;
- Mon, 12 Aug 2024 12:34:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yMzEC3IBumYaagAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 12 Aug 2024 12:34:58 +0000
-Message-ID: <b29c367f-1a46-4ddb-a8c2-a508f2b54b0d@suse.de>
-Date: Mon, 12 Aug 2024 14:34:57 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89D6610E1D6;
+ Mon, 12 Aug 2024 12:23:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1723465409; x=1755001409;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=aVHvjTpIssJ72L5NxqjtS65+lURA4xTmrt9kjaVuFYA=;
+ b=hkSjk2/eNBAB4G/QsTzOjuRbTCwVO1EMcsLa7ATbSfltOiNoGFAq7gej
+ gaKgSpB4rk2QXBZJyao2FppaVKl8JNbpc6Ve+5W+I8pu2YUS3d7kPS53C
+ kVtWRN3UdQWVmQfTovZMgFj19fm9ONO1vdCPrEnLqR38qM0B2ss/dEfIT
+ Ed/vdV4nllo8WD4GtDe9X6W+mhQPdsztESRPyMgU0E2UbRLtrnoNWbZBh
+ DZa27o5e0PMurVJM4xYs+WHeT//+yZd3Rsdouc1bgEDzmRpUN+aG42t2q
+ IritOXHAuMDlYXOyU+ZKxWZ2im6rMlFunLT9K6KpKJkFfFv4yuude/rw+ g==;
+X-CSE-ConnectionGUID: ZQ6s4q+uTkKy8i04oU+NnQ==
+X-CSE-MsgGUID: XrAGSO4/T6OZ7L3TqljlSw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="44088451"
+X-IronPort-AV: E=Sophos;i="6.09,282,1716274800"; d="scan'208";a="44088451"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 05:23:29 -0700
+X-CSE-ConnectionGUID: YmXPjcMSQsGYp0aaKwy4Ew==
+X-CSE-MsgGUID: b7+/tf5lQgCvNAD3u4lPzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,282,1716274800"; d="scan'208";a="58326985"
+Received: from iklimasz-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.117])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 05:23:26 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+	jani.nikula@intel.com
+Subject: [RESEND 3/3] drm/amd/display: switch to guid_gen() to generate valid
+ GUIDs
+Date: Mon, 12 Aug 2024 15:23:12 +0300
+Message-Id: <20240812122312.1567046-3-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240812122312.1567046-1-jani.nikula@intel.com>
+References: <20240812122312.1567046-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] drm/nouveau: Implement switcheroo reprobe with
- drm_client_dev_hotplug()
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, kherbst@redhat.com, lyude@redhat.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>
-References: <20240812083000.337744-1-tzimmermann@suse.de>
- <20240812083000.337744-6-tzimmermann@suse.de>
- <61d77e67-a318-40ea-b904-e8686252b05c@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <61d77e67-a318-40ea-b904-e8686252b05c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: A491F20275
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,redhat.com,lists.freedesktop.org];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid, suse.de:email,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Action: no action
+X-Mailman-Approved-At: Mon, 12 Aug 2024 13:05:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,53 +72,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Instead of just smashing jiffies into a GUID, use guid_gen() to generate
+RFC 4122 compliant GUIDs.
 
-Am 12.08.24 um 14:17 schrieb Danilo Krummrich:
-> On 8/12/24 10:28 AM, Thomas Zimmermann wrote:
->> Replace the call to drm_fb_helper_output_poll_changed() with a call
->> to drm_client_dev_hotplug(). It is equivalent in functionality, but
->> uses the DRM client infrastructure.
->>
->> v2:
->> - fix commit description
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Thanks for the acks. Can I merge the nouveau patches through drm-misc-next?
+---
 
-Best regards
-Thomas
+Side note, it baffles me why amdgpu has a copy of this instead of
+plumbing it into drm mst code.
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++---------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
->
->> ---
->>   drivers/gpu/drm/nouveau/nouveau_vga.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c 
->> b/drivers/gpu/drm/nouveau/nouveau_vga.c
->> index ee637f1fe03d..ab4e11dc0b8a 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
->> @@ -58,8 +58,9 @@ static void
->>   nouveau_switcheroo_reprobe(struct pci_dev *pdev)
->>   {
->>       struct nouveau_drm *drm = pci_get_drvdata(pdev);
->> +    struct drm_device *dev = drm->dev;
->>   -    drm_fb_helper_output_poll_changed(drm->dev);
->> +    drm_client_dev_hotplug(dev);
->>   }
->>     static bool
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 72c10fc2c890..ce05e7e2a383 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2568,9 +2568,9 @@ static int dm_late_init(void *handle)
+ 
+ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+ {
++	u8 buf[UUID_SIZE];
++	guid_t guid;
+ 	int ret;
+-	u8 guid[16];
+-	u64 tmp64;
+ 
+ 	mutex_lock(&mgr->lock);
+ 	if (!mgr->mst_primary)
+@@ -2591,26 +2591,27 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+ 	}
+ 
+ 	/* Some hubs forget their guids after they resume */
+-	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
+-	if (ret != 16) {
++	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
++	if (ret != sizeof(buf)) {
+ 		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
+ 		goto out_fail;
+ 	}
+ 
+-	if (memchr_inv(guid, 0, 16) == NULL) {
+-		tmp64 = get_jiffies_64();
+-		memcpy(&guid[0], &tmp64, sizeof(u64));
+-		memcpy(&guid[8], &tmp64, sizeof(u64));
++	import_guid(&guid, buf);
+ 
+-		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, guid, 16);
++	if (guid_is_null(&guid)) {
++		guid_gen(&guid);
++		export_guid(buf, &guid);
+ 
+-		if (ret != 16) {
++		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, buf, sizeof(buf));
++
++		if (ret != sizeof(buf)) {
+ 			drm_dbg_kms(mgr->dev, "check mstb guid failed - undocked during suspend?\n");
+ 			goto out_fail;
+ 		}
+ 	}
+ 
+-	import_guid(&mgr->mst_primary->guid, guid);
++	guid_copy(&mgr->mst_primary->guid, &guid);
+ 
+ out_fail:
+ 	mutex_unlock(&mgr->lock);
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.39.2
 
