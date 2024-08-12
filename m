@@ -4,67 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E011C3DA7F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 15:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43894C52D7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 18:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E85B110E261;
-	Mon, 12 Aug 2024 15:50:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D354010E27E;
+	Mon, 12 Aug 2024 18:48:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PC6adjDV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I1DGGMlV";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD6C10E255
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Aug 2024 15:50:36 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2cb55ff1007so3220774a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Aug 2024 08:50:36 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1417A10E27E;
+ Mon, 12 Aug 2024 18:48:13 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-7afd1aeac83so4041417a12.0; 
+ Mon, 12 Aug 2024 11:48:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723477835; x=1724082635; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1723488492; x=1724093292; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dVIqOgbHaWtg/qYxjrURWlfqQRhRuImZaShvSa+VBC8=;
- b=PC6adjDV8hATJoJ+BGfUDxrgw5uwAy4DhpkyRiZwBkGW/i4GYSaeSinlsN2OMBuDMm
- 8kHyBskkoY4Tiy4pwBEqazBzvGzYAkxal53bgc0lNlNVBWwDwS+U5Xm2HHEi+UVrXYVM
- JhOmkMCKUogxzwCSeoW76DTRm4onaHEGiYIU1M8jH1vfj2fs2THYw8QaP2spsMn4448k
- 17IzoxxUGJ0WiIcEXsmB0a399NACr+6tBTlhj9rD3QHlgIwfUpND5iKh2w+IXnRbG5C1
- tjgJnJ3Pq3f5k9SEeIG4whxl8O5ci0Quek1hsi3NONsaAt4N3BiRpYisHBMDweVJCdE3
- x+Gw==
+ bh=24X/ba2PlJTPK4pArpGUj8rmgVxLiXNjj3YjbEHmdHk=;
+ b=I1DGGMlVSWEgHbpbsULLfm/3uFCxPOi6dle7LqrA6gkrZjPqNrezPqSu+NIOIC7YL2
+ QwWyCA8tuDJIGPa6sYNY63LKC/sKZymAFHGqpn/UumaZx4Zq1oYF1+Y7oRjlZSVonX13
+ tAV82E1XS7yQ8sUS8VuZH6PWL8xW86my7RYa+Y8wPWFYtrbFtZ/1KBZ61SIT+/c9GHIv
+ lyL1kyAsTP5CVRks/MbRIlunn86xKQ/py2mR1uOIW76RlaSH9DUlzTu75mEMvFRK/pcW
+ 1CzuQfySDDP4ajrVUSENziCyXDQgyBgpxjpOBr+TXaLOWRAwmOjpYKmIE/ref5DObMIp
+ wjkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723477835; x=1724082635;
+ d=1e100.net; s=20230601; t=1723488492; x=1724093292;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dVIqOgbHaWtg/qYxjrURWlfqQRhRuImZaShvSa+VBC8=;
- b=v2tiB2h8GsTP8/V1YlPQYfl2OJZHJbBjoI5VPz1spKGw93Ze/kwNisimGHFy+w2icN
- g5/GXgAmc4ENwSryx7r9YjQdjA5RQQvlDGJuw3ph54C1VjicA/xI9texPK+cpqCRGcht
- Pm8Uao2Tc7NqhSbGQoTaxGN2AhAT5dij9hBYKVCPzHKGCUg635FZ4cGaD34GgjeKkcjZ
- H7gbdAqE+6Wf7upn4g5O85+1V3Ol3B4doT90XFlNXvAE8tWoJA1Jz9l3iGbLuKcspc56
- VA3eRfOWbJsEF1UDpUtG5DRQRkPQmBV3BaRWHJOOrE7d5pPOwvJ8wXMVulZa+oYuOb8K
- 8PJw==
+ bh=24X/ba2PlJTPK4pArpGUj8rmgVxLiXNjj3YjbEHmdHk=;
+ b=drmrm5izuBpFE7oeeaQ6baS7ee79jQnH1aIsnyqYTImVFgnbO5b6cJKCflCgjI47BB
+ NZ6c8aXV9OmtgU2CqSW1GY1zOUmIwvSuOTW1pfocefmqMQ1bw21hgZgJtfRpArUR4bhu
+ NrfxUYGkVCQr2Wy+2Vp/dIPkxfv0KWI0Zx6SJsM4C8WuXyp8gYcG38dT027mv2hl5lrO
+ j0ts+BEYcpcEWRKLD5O8wxlBvv3dSn3/C0wcw3vfjwgub8QKyxjNmtlPDRSM+LSHIpHe
+ V5bMPLn3Ok3XZyJJVc7MtKitSlH4Ph2/I21dwkWFIEcGmdK5dzIKxaCW2vTMrOLVjWx6
+ 6f9Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVun8+oWEN/yfadygs5CEeVIx2eS+plhNYQPuZb1A5XSV7hBiI6JRJzncMV5g0w/GviGK51r2Ch@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+734RDY8NY6mE6QKzwwIV+ZcjMYG0On/+Da0430nx+Zv38vBd
- XA0dUEdufmAB3Rjg+DUewlwn7j04Th2rKnKtiayd6tfqlGe4ubKk97DQurI5hBbRmS0pgDBxHBl
- WLuEb5HUIuukJfOEu0A8Np5quhqQpCw==
-X-Google-Smtp-Source: AGHT+IHD/eoH1Esf6fD4LeKQptx9D0urPsCeCJPq564HEQw80Ua2pCowjXGwDnWZtaLobxZUVaPnWgq+7kq6ynyUt14=
-X-Received: by 2002:a17:90a:7d11:b0:2c9:9b65:af4d with SMTP id
- 98e67ed59e1d1-2d3924e0312mr725918a91.7.1723477835432; Mon, 12 Aug 2024
- 08:50:35 -0700 (PDT)
+ AJvYcCVgb4HgEm8y+Y9v553thD9DGVeBML1yeqdi+ZHu1x4PglV/fUTTbitgWvzy9T1uNLJh+zT1lQKMAR3XPzJgwil7xjKtHkFgSSUtp5NiRE6Sgo2mmInGV5MYuC73mhDnSyZTX0+nhovWW4xPG+L0hI9N9F9xNSDm+o4v7IsKTr6mSlpNHl/POLfL4Gqvs+I=
+X-Gm-Message-State: AOJu0Yz0BfsIrZxNeG/7n+1kfY6goL39zHKHhAKj7mk/q7gFxnv1dcw7
+ xrFL2mgGIvBgfE+wUcsIYGC1m1ICHCq/zxztummnyZHo+hLjDlehaEYkG4zG3Gysy1L0g944EKR
+ LUWJeCiQoZjlmEXRG/o30ZfM2exk=
+X-Google-Smtp-Source: AGHT+IEqrho8jonZBtND7qKymcCx6SLI9tlCfQz8hrLFGJ+AV8nueiSPHUsay7pmXREN0noKqLF6NvIql8sLQlDi06M=
+X-Received: by 2002:a17:90a:ee8e:b0:2c9:5a71:1500 with SMTP id
+ 98e67ed59e1d1-2d3940e2d04mr877487a91.0.1723488492291; Mon, 12 Aug 2024
+ 11:48:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240809124822.4063927-1-sunil.khatri@amd.com>
- <20240809124822.4063927-4-sunil.khatri@amd.com>
-In-Reply-To: <20240809124822.4063927-4-sunil.khatri@amd.com>
+References: <20240812083000.337744-1-tzimmermann@suse.de>
+ <20240812083000.337744-2-tzimmermann@suse.de>
+ <ZrnUoPuYv0v-yx79@phenom.ffwll.local> <ZrnhiTofu_L3hLzA@phenom.ffwll.local>
+ <c8228a22-9a8c-4eca-bf09-d72208fe007b@suse.de>
+ <Zroe8pi1pRRhdIW8@phenom.ffwll.local>
+In-Reply-To: <Zroe8pi1pRRhdIW8@phenom.ffwll.local>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 12 Aug 2024 11:50:23 -0400
-Message-ID: <CADnq5_ONWggrBLr6wnw7=6kSHMz0SOUKWm0brarNHZvFt1PpGA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] drm/amdgpu: add cp queue registers print for
- gfx9_4_3
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
+Date: Mon, 12 Aug 2024 14:47:59 -0400
+Message-ID: <CADnq5_O+zYgWXTPqdDXwdJOM6bPbzWmGCEZOHpvKNU4gka_MZg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/9] drm: Do delayed switcheroo in drm_lastclose()
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ kherbst@redhat.com, lyude@redhat.com, dakr@redhat.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,94 +86,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+On Mon, Aug 12, 2024 at 10:40=E2=80=AFAM Daniel Vetter <daniel.vetter@ffwll=
+.ch> wrote:
+>
+> On Mon, Aug 12, 2024 at 12:41:39PM +0200, Thomas Zimmermann wrote:
+> > Hi
+> >
+> > Am 12.08.24 um 12:18 schrieb Daniel Vetter:
+> > > On Mon, Aug 12, 2024 at 11:23:44AM +0200, Daniel Vetter wrote:
+> > > > On Mon, Aug 12, 2024 at 10:28:22AM +0200, Thomas Zimmermann wrote:
+> > > > > Amdgpu and nouveau call vga_switcheroo_process_delayed_switch() f=
+rom
+> > > > > their lastclose callbacks. Call it from drm_lastclose(), so that =
+the
+> > > > > driver functions can finally be removed. Only PCI devices with en=
+abled
+> > > > > switcheroo do the delayed switching. The call has no effect on ot=
+her
+> > > > > hardware.
+> > > > >
+> > > > > v2:
+> > > > > - move change to drm_lastclose() (Sima)
+> > > > > - update docs for vga_switcheroo_process_delayed_switch()
+> > > > >
+> > > > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > > > A bit an aside: The entire vgaswitcheroo code is still a midlayer m=
+ess,
+> > > > where the locking is at the wrong layers resulting in the can_switc=
+h check
+> > > > potentially being racy. But that's a different can of worms.
+> > > Ok I got a bit annoyed about this mess again, and I think I have a
+> > > reasonable idea for how to address it. Not sure why this took a decad=
+e,
+> > > and definitely only pick this up if you're really bored.
+> >
+> > No, definitely not. :) I don't think I have hardware for testing
+> > vga_switcheroo. Does this still exist? It seemed to be a thing of the 2=
+000s.
+>
+> Yeah good chances the old style switcheroo doesn't have many, if any user=
+s
+> left ...
 
-On Fri, Aug 9, 2024 at 8:54=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com> =
-wrote:
+The power management aspect would be better handled by runtime pm.
+That just leaves the output muxes.  We could arguably limit
+vgaswitcheroo to just systems with the old mux controls.  If and when
+we come up with a proper solution for display muxes, we could migrate
+to that, but I'm not sure how many systems out there with the old mux
+controls are still in use.  I'm not even sure amdgpu supports any
+chips which used the old mux controls.  I think those were all chips
+supported by radeon.
+
+Alex
+
+> -Sima
 >
-> Add gfx9_4_3 print support of CP queue registers
-> for all queues to be used by devcoredump.
+> >
+> > Best regards
+> > Thomas
+> >
+> > >
+> > > - We add a new vga_switcheroo_client_tryget, which checks the current
+> > >    state, and if it's on, increments a newly added refcount (which vg=
+w
+> > >    switheroo maintains). Otherwise it fails. Drivers call this from t=
+heir
+> > >    drm_driver->open hook. This check also allows us to drop the
+> > >    layer-violating checks in drm_open_helper for drm_dev->dev_power_s=
+tate.
+> > >
+> > > - That refcount is dropped with vga_switcheroo_client_put, called fro=
+m
+> > >    drm_driver->close. If the refcount drops to 0 this function also d=
+oes
+> > >    delayed switch processing.
+> > >
+> > > - All the can_switch callbacks get removed and instead the vgwswr cod=
+e
+> > >    directly consults its own refount.
+> > >
+> > > With this we don't have locking inversions anymore, and the old vgw
+> > > switcheroo code works a lot more like the new mode based on runtime p=
+m and
+> > > power domains.
+> > >
+> > > With a bit more shuffling I think we can also ditch
+> > > drm_driver->dev_power_state:
+> > >
+> > > - There's one in the intel backlight code, which is annoying, since i=
+t's
+> > >    wants to know whether the current callchain is from a vga switcher=
+oo
+> > >    state change. But doable with a little helper.
+> > >
+> > > - Most others just want a vga_switcheroo_client_is_off() helper, whic=
+h
+> > >    should be easy. Some are even entirely redundant, at least from a =
+cursor
+> > >    callchain check. There's no races for these because they only matt=
+er
+> > >    during system suspend, since you should not mix both runtime and c=
+lassic
+> > >    vgaswitcheroo logic. We might want some checks for that in that ne=
+w
+> > >    helper ...
+> > >
+> > > - The one in the fbdev code is annoying, because it's another race.
+> > >    Ideally instead of that check it needs a call to
+> > >    vga_switcheroo_client_tryget/put just around the call to restore m=
+odes
+> > >    (we do not want fbdev to block state switches), but that probably =
+means
+> > >    wiring a new callback through drm_client to drivers.
+> > >
+> > > - Might have missed a special case ...
+> > >
+> > > Anyway, I got nerdsniped, had an idea, figured best to type it up. Ma=
+ybe
+> > > we want to add a link to this to todo.rst, I think we have a vgaswitc=
+heroo
+> > > entry already.
+> > >
+> > > Cheers, Sima
+> > >
+> > >
+> > > > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > > >
+> > > > > ---
+> > > > >   drivers/gpu/drm/drm_file.c       | 4 ++++
+> > > > >   drivers/gpu/vga/vga_switcheroo.c | 3 +--
+> > > > >   2 files changed, 5 insertions(+), 2 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_fil=
+e.c
+> > > > > index 714e42b05108..513bef816ae9 100644
+> > > > > --- a/drivers/gpu/drm/drm_file.c
+> > > > > +++ b/drivers/gpu/drm/drm_file.c
+> > > > > @@ -38,6 +38,7 @@
+> > > > >   #include <linux/pci.h>
+> > > > >   #include <linux/poll.h>
+> > > > >   #include <linux/slab.h>
+> > > > > +#include <linux/vga_switcheroo.h>
+> > > > >   #include <drm/drm_client.h>
+> > > > >   #include <drm/drm_drv.h>
+> > > > > @@ -404,6 +405,9 @@ void drm_lastclose(struct drm_device * dev)
+> > > > >         drm_dbg_core(dev, "driver lastclose completed\n");
+> > > > >         drm_client_dev_restore(dev);
+> > > > > +
+> > > > > +       if (dev_is_pci(dev->dev))
+> > > > > +               vga_switcheroo_process_delayed_switch();
+> > > > >   }
+> > > > >   /**
+> > > > > diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/v=
+ga_switcheroo.c
+> > > > > index 365e6ddbe90f..18f2c92beff8 100644
+> > > > > --- a/drivers/gpu/vga/vga_switcheroo.c
+> > > > > +++ b/drivers/gpu/vga/vga_switcheroo.c
+> > > > > @@ -926,8 +926,7 @@ static void vga_switcheroo_debugfs_init(struc=
+t vgasr_priv *priv)
+> > > > >   /**
+> > > > >    * vga_switcheroo_process_delayed_switch() - helper for delayed=
+ switching
+> > > > >    *
+> > > > > - * Process a delayed switch if one is pending. DRM drivers shoul=
+d call this
+> > > > > - * from their ->lastclose callback.
+> > > > > + * Process a delayed switch if one is pending.
+> > > > >    *
+> > > > >    * Return: 0 on success. -EINVAL if no delayed switch is pendin=
+g, if the client
+> > > > >    * has unregistered in the meantime or if there are other clien=
+ts blocking the
+> > > > > --
+> > > > > 2.46.0
+> > > > >
+> > > > --
+> > > > Daniel Vetter
+> > > > Software Engineer, Intel Corporation
+> > > > http://blog.ffwll.ch
+> >
+> > --
+> > --
+> > Thomas Zimmermann
+> > Graphics Driver Developer
+> > SUSE Software Solutions Germany GmbH
+> > Frankenstrasse 146, 90461 Nuernberg, Germany
+> > GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> > HRB 36809 (AG Nuernberg)
+> >
 >
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 42 +++++++++++++++++++++++--
->  1 file changed, 40 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index 5af4abca759d..7b4ae197eb49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -4362,8 +4362,9 @@ static void gfx_v9_4_3_ring_insert_nop(struct amdgp=
-u_ring *ring, uint32_t num_no
->  static void gfx_v9_4_3_ip_print(void *handle, struct drm_printer *p)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> -       uint32_t i;
-> -       uint32_t xcc_id, xcc_offset, num_xcc;
-> +       uint32_t i, j, k;
-> +       uint32_t xcc_id, xcc_offset, inst_offset;
-> +       uint32_t num_xcc, reg, num_inst;
->         uint32_t reg_count =3D ARRAY_SIZE(gc_reg_list_9_4_3);
->
->         if (!adev->gfx.ip_dump_core)
-> @@ -4379,6 +4380,43 @@ static void gfx_v9_4_3_ip_print(void *handle, stru=
-ct drm_printer *p)
->                                    gc_reg_list_9_4_3[i].reg_name,
->                                    adev->gfx.ip_dump_core[xcc_offset + i]=
-);
->         }
-> +
-> +       /* print compute queue registers for all instances */
-> +       if (!adev->gfx.ip_dump_compute_queues)
-> +               return;
-> +
-> +       num_inst =3D adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_m=
-ec *
-> +               adev->gfx.mec.num_queue_per_pipe;
-> +
-> +       reg_count =3D ARRAY_SIZE(gc_cp_reg_list_9_4_3);
-> +       drm_printf(p, "\nnum_xcc: %d num_mec: %d num_pipe: %d num_queue: =
-%d\n",
-> +                  num_xcc,
-> +                  adev->gfx.mec.num_mec,
-> +                  adev->gfx.mec.num_pipe_per_mec,
-> +                  adev->gfx.mec.num_queue_per_pipe);
-> +
-> +       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-> +               xcc_offset =3D xcc_id * reg_count * num_inst;
-> +               inst_offset =3D 0;
-> +               for (i =3D 0; i < adev->gfx.mec.num_mec; i++) {
-> +                       for (j =3D 0; j < adev->gfx.mec.num_pipe_per_mec;=
- j++) {
-> +                               for (k =3D 0; k < adev->gfx.mec.num_queue=
-_per_pipe; k++) {
-> +                                       drm_printf(p,
-> +                                                  "\nxcc:%d mec:%d, pipe=
-:%d, queue:%d\n",
-> +                                                   xcc_id, i, j, k);
-> +                                       for (reg =3D 0; reg < reg_count; =
-reg++) {
-> +                                               drm_printf(p,
-> +                                                          "%-50s \t 0x%0=
-8x\n",
-> +                                                          gc_cp_reg_list=
-_9_4_3[reg].reg_name,
-> +                                                          adev->gfx.ip_d=
-ump_compute_queues
-> +                                                               [xcc_offs=
-et + inst_offset +
-> +                                                               reg]);
-> +                                       }
-> +                                       inst_offset +=3D reg_count;
-> +                               }
-> +                       }
-> +               }
-> +       }
->  }
->
->  static void gfx_v9_4_3_ip_dump(void *handle)
 > --
-> 2.34.1
->
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
