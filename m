@@ -4,110 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8974C531DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 08:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79FEFC531DD
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 08:30:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC37A10E111;
-	Mon, 12 Aug 2024 08:30:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8AE610E16D;
+	Mon, 12 Aug 2024 08:30:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="S0H9JEDV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K1lfYO1B";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="S0H9JEDV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K1lfYO1B";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ncNBvVPh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jk5ClCT8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ncNBvVPh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jk5ClCT8";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69A2610E0DB;
- Mon, 12 Aug 2024 08:30:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3235410E10F;
+ Mon, 12 Aug 2024 08:30:10 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 04419224D5;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B353620244;
  Mon, 12 Aug 2024 08:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1723451408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y99DJDVu60Rzf3D8zFygx7kDvsJ56ct4DINPCt2VaAE=;
- b=S0H9JEDVZ2CsR8f+NWtyoF2LxXOsTLWTN7mkfNvbqxylQGhdD8y3ocw5Vl2WHReJYvoXqT
- zZyvE68zGxZ8tPufDavnPnqNTGQQolIoFIfryl/wdgbyvtgqiTq8ntyp1OTSJbWKPzQEgQ
- 4NB9FthBRUVDF2lzBUvPJWmPvseO/AE=
+ bh=u/7xqilPI9yqipFG0q16kl0OTh2lTY6KXEvFyAjUdlg=;
+ b=ncNBvVPhPImVhM2Ue2Tebd/FKXJuq1+XF40XwQKrCgiFmQZDpNv5w5f8f1VZ9MLFfXY7W8
+ 5ONPkwi44hkcYNvDOft81bSnMz5rliPt40uS8FSBED+MogrDJGtjTLbk86aB4OU1T8tMcM
+ S3xymG4UlvbGs0P0u//radS/ngLvJOk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1723451408;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y99DJDVu60Rzf3D8zFygx7kDvsJ56ct4DINPCt2VaAE=;
- b=K1lfYO1BB1Dl9o/sTuq7SLL+ENnR/r8PhHZhCA5kioQ05SV0Vw14eqY+zjZi6OJ9JGdC0/
- 5xm2XHQfvfV6VxBQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=S0H9JEDV;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=K1lfYO1B
+ bh=u/7xqilPI9yqipFG0q16kl0OTh2lTY6KXEvFyAjUdlg=;
+ b=Jk5ClCT8Hc7R/VAJ0e+9h/rtQWaqE07L1qV0H++wzggHxiGLyceO8ipdtCVY+E73lVuvrX
+ C8JzDU1MuQqJtjBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1723451408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y99DJDVu60Rzf3D8zFygx7kDvsJ56ct4DINPCt2VaAE=;
- b=S0H9JEDVZ2CsR8f+NWtyoF2LxXOsTLWTN7mkfNvbqxylQGhdD8y3ocw5Vl2WHReJYvoXqT
- zZyvE68zGxZ8tPufDavnPnqNTGQQolIoFIfryl/wdgbyvtgqiTq8ntyp1OTSJbWKPzQEgQ
- 4NB9FthBRUVDF2lzBUvPJWmPvseO/AE=
+ bh=u/7xqilPI9yqipFG0q16kl0OTh2lTY6KXEvFyAjUdlg=;
+ b=ncNBvVPhPImVhM2Ue2Tebd/FKXJuq1+XF40XwQKrCgiFmQZDpNv5w5f8f1VZ9MLFfXY7W8
+ 5ONPkwi44hkcYNvDOft81bSnMz5rliPt40uS8FSBED+MogrDJGtjTLbk86aB4OU1T8tMcM
+ S3xymG4UlvbGs0P0u//radS/ngLvJOk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1723451408;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y99DJDVu60Rzf3D8zFygx7kDvsJ56ct4DINPCt2VaAE=;
- b=K1lfYO1BB1Dl9o/sTuq7SLL+ENnR/r8PhHZhCA5kioQ05SV0Vw14eqY+zjZi6OJ9JGdC0/
- 5xm2XHQfvfV6VxBQ==
+ bh=u/7xqilPI9yqipFG0q16kl0OTh2lTY6KXEvFyAjUdlg=;
+ b=Jk5ClCT8Hc7R/VAJ0e+9h/rtQWaqE07L1qV0H++wzggHxiGLyceO8ipdtCVY+E73lVuvrX
+ C8JzDU1MuQqJtjBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 970E313A23;
- Mon, 12 Aug 2024 08:30:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5933813A23;
+ Mon, 12 Aug 2024 08:30:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WLChIw/IuWZpHwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 12 Aug 2024 08:30:07 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KC6VFBDIuWZpHwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 12 Aug 2024 08:30:08 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, kherbst@redhat.com, lyude@redhat.com, dakr@redhat.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 6/9] drm/fbdev-helper: Update documentation on obsolete
- callbacks
-Date: Mon, 12 Aug 2024 10:28:27 +0200
-Message-ID: <20240812083000.337744-7-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
+Subject: [PATCH v2 8/9] drm: Remove struct drm_driver.lastclose
+Date: Mon, 12 Aug 2024 10:28:29 +0200
+Message-ID: <20240812083000.337744-9-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240812083000.337744-1-tzimmermann@suse.de>
 References: <20240812083000.337744-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 04419224D5
-X-Spamd-Result: default: False [-5.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[14]; RCVD_TLS_ALL(0.00)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[15];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
  FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,redhat.com];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ TO_DN_SOME(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,62 +114,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The old callbacks lastclose and output_poll_changed are deprecated and
-unused. Remove them from the documentation.
+The lastclose callback in struct drm_driver is unused. Remove it. Also
+update documentation.
+
+v2:
+- update to use drm_lastclose()
+- fix typo in documentation
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 22 +++++++---------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/drm_file.c     | 28 ++++++----------------------
+ drivers/gpu/drm/drm_internal.h |  1 -
+ include/drm/drm_drv.h          | 28 ----------------------------
+ 3 files changed, 6 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 3f7da78849e4..fe5667477839 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -89,14 +89,6 @@ static DEFINE_MUTEX(kernel_fb_helper_lock);
-  * interfaces. Drivers that use one of the shared memory managers, TTM, SHMEM,
-  * DMA, should instead use the corresponding fbdev emulation.
-  *
-- * Existing fbdev implementations should restore the fbdev console by using
-- * drm_fb_helper_lastclose() as their &drm_driver.lastclose callback.
-- * They should also notify the fb helper code from updates to the output
-- * configuration by using drm_fb_helper_output_poll_changed() as their
-- * &drm_mode_config_funcs.output_poll_changed callback. New implementations
-- * of fbdev should be build on top of struct &drm_client_funcs, which handles
-- * this automatically. Setting the old callbacks should be avoided.
-- *
-  * For suspend/resume consider using drm_mode_config_helper_suspend() and
-  * drm_mode_config_helper_resume() which takes care of fbdev as well.
-  *
-@@ -260,12 +252,12 @@ __drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper,
-  * drm_fb_helper_restore_fbdev_mode_unlocked - restore fbdev configuration
-  * @fb_helper: driver-allocated fbdev helper, can be NULL
-  *
-- * This should be called from driver's drm &drm_driver.lastclose callback
-- * when implementing an fbcon on top of kms using this helper. This ensures that
-- * the user isn't greeted with a black screen when e.g. X dies.
-+ * This helper should be called from fbdev emulation's &drm_client_funcs.restore
-+ * callback. It ensures that the user isn't greeted with a black screen when the
-+ * userspace compositor releases the display device.
-  *
-- * RETURNS:
-- * Zero if everything went ok, negative error code otherwise.
-+ * Returns:
-+ * 0 on success, or a negative errno code otherwise.
-  */
- int drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper)
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index 513bef816ae9..e8a841e70934 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -63,15 +63,6 @@ bool drm_dev_needs_global_mutex(struct drm_device *dev)
+ 	if (dev->driver->load || dev->driver->unload)
+ 		return true;
+ 
+-	/*
+-	 * Drivers with the lastclose callback assume that it's synchronized
+-	 * against concurrent opens, which again needs the BKL. The proper fix
+-	 * is to use the drm_client infrastructure with proper locking for each
+-	 * client.
+-	 */
+-	if (dev->driver->lastclose)
+-		return true;
+-
+ 	return false;
+ }
+ 
+@@ -396,14 +387,8 @@ int drm_open(struct inode *inode, struct file *filp)
+ }
+ EXPORT_SYMBOL(drm_open);
+ 
+-void drm_lastclose(struct drm_device * dev)
++static void drm_lastclose(struct drm_device *dev)
  {
-@@ -2003,8 +1995,8 @@ EXPORT_SYMBOL(drm_fb_helper_hotplug_event);
-  * drm_fb_helper_lastclose - DRM driver lastclose helper for fbdev emulation
-  * @dev: DRM device
+-	drm_dbg_core(dev, "\n");
+-
+-	if (dev->driver->lastclose)
+-		dev->driver->lastclose(dev);
+-	drm_dbg_core(dev, "driver lastclose completed\n");
+-
+ 	drm_client_dev_restore(dev);
+ 
+ 	if (dev_is_pci(dev->dev))
+@@ -416,9 +401,9 @@ void drm_lastclose(struct drm_device * dev)
+  * @filp: file pointer.
   *
-- * This function can be used as the &drm_driver->lastclose callback for drivers
-- * that only need to call drm_fb_helper_restore_fbdev_mode_unlocked().
-+ * This function is obsolete. Call drm_fb_helper_restore_fbdev_mode_unlocked()
-+ * instead.
-  */
- void drm_fb_helper_lastclose(struct drm_device *dev)
- {
+  * This function must be used by drivers as their &file_operations.release
+- * method. It frees any resources associated with the open file, and calls the
+- * &drm_driver.postclose driver callback. If this is the last open file for the
+- * DRM device also proceeds to call the &drm_driver.lastclose driver callback.
++ * method. It frees any resources associated with the open file. If this
++ * is the last open file for the DRM device, it also restores the active
++ * in-kernel DRM client.
+  *
+  * RETURNS:
+  *
+@@ -488,9 +473,8 @@ void drm_file_update_pid(struct drm_file *filp)
+  *
+  * This function may be used by drivers as their &file_operations.release
+  * method. It frees any resources associated with the open file prior to taking
+- * the drm_global_mutex, which then calls the &drm_driver.postclose driver
+- * callback. If this is the last open file for the DRM device also proceeds to
+- * call the &drm_driver.lastclose driver callback.
++ * the drm_global_mutex. If this is the last open file for the DRM device, it
++ * then restores the active in-kernel DRM client.
+  *
+  * RETURNS:
+  *
+diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+index 690505a1f7a5..23c99803af44 100644
+--- a/drivers/gpu/drm/drm_internal.h
++++ b/drivers/gpu/drm/drm_internal.h
+@@ -53,7 +53,6 @@ extern struct mutex drm_global_mutex;
+ bool drm_dev_needs_global_mutex(struct drm_device *dev);
+ struct drm_file *drm_file_alloc(struct drm_minor *minor);
+ void drm_file_free(struct drm_file *file);
+-void drm_lastclose(struct drm_device *dev);
+ 
+ #ifdef CONFIG_PCI
+ 
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index cd37936c3926..02ea4e3248fd 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -228,34 +228,6 @@ struct drm_driver {
+ 	 */
+ 	void (*postclose) (struct drm_device *, struct drm_file *);
+ 
+-	/**
+-	 * @lastclose:
+-	 *
+-	 * Called when the last &struct drm_file has been closed and there's
+-	 * currently no userspace client for the &struct drm_device.
+-	 *
+-	 * Modern drivers should only use this to force-restore the fbdev
+-	 * framebuffer using drm_fb_helper_restore_fbdev_mode_unlocked().
+-	 * Anything else would indicate there's something seriously wrong.
+-	 * Modern drivers can also use this to execute delayed power switching
+-	 * state changes, e.g. in conjunction with the :ref:`vga_switcheroo`
+-	 * infrastructure.
+-	 *
+-	 * This is called after @postclose hook has been called.
+-	 *
+-	 * NOTE:
+-	 *
+-	 * All legacy drivers use this callback to de-initialize the hardware.
+-	 * This is purely because of the shadow-attach model, where the DRM
+-	 * kernel driver does not really own the hardware. Instead ownershipe is
+-	 * handled with the help of userspace through an inheritedly racy dance
+-	 * to set/unset the VT into raw mode.
+-	 *
+-	 * Legacy drivers initialize the hardware in the @firstopen callback,
+-	 * which isn't even called for modern drivers.
+-	 */
+-	void (*lastclose) (struct drm_device *);
+-
+ 	/**
+ 	 * @unload:
+ 	 *
 -- 
 2.46.0
 
