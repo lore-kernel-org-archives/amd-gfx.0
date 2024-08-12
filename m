@@ -4,38 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9E3C52D7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 07:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32368C531DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 07:30:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C33D010E229;
-	Tue, 13 Aug 2024 07:30:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B86EE10E22B;
+	Tue, 13 Aug 2024 07:30:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E8498Olq";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="FdWZwDdg";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1E7E10E232
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Aug 2024 15:00:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B30FD60921
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Aug 2024 15:00:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADE4C4AF0F;
- Mon, 12 Aug 2024 15:00:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723474818;
- bh=sVrXZXI7CBoQfRqFkJa8UtNQF3Cbc1SAfjv8VFMOQpQ=;
- h=Date:From:To:Cc:Subject:From;
- b=E8498OlqKtVNaJ0f+8w1tApZyKC+Mu7m43HcMdC/TdJ+a4sivYJ1XmS2zx+xLRQOz
- i03uBG7SkIzlpd69EA/SkbzbnZ/TvmGlF9lC/9V11DPQb4hcRRQt3249w2YzwDo+bM
- wxWHQ44XLSWD2z4kGIM++wB16oA4jViVLOMR8Xdo=
-Date: Mon, 12 Aug 2024 17:00:15 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: AMD drm patch workflow is broken for stable trees
-Message-ID: <2024081247-until-audacious-6383@gregkh>
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D63B10E2B2;
+ Mon, 12 Aug 2024 20:19:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1723493938;
+ bh=OzOV3KctGeSDiPIQhS912kuUk6g/QvgVA8C2lsF764I=;
+ h=From:Subject:Date:To:Cc:From;
+ b=FdWZwDdgvX2TtqUKia2mVoB2WpjXtAVkfH7fVseSxaihp02dh8lc6bgzO/tSzALce
+ tqQq++y0Apzc6qOfTHM8SpOL0dVtbZqmpmVgSf/378luwwArzPC8ErIDhazEGCFFa9
+ rJ4DjVh5g91ZC3j3EZsdX9NaF+xoP8tWIp7grOZw=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Subject: [PATCH v4 0/3] drm: Minimum backlight overrides and implementation
+ for amdgpu
+Date: Mon, 12 Aug 2024 22:18:29 +0200
+Message-Id: <20240812-amdgpu-min-backlight-quirk-v4-0-56a63ff897b7@weissschuh.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIABVuumYC/43Ny27CMBCF4VdBXncqe+zcWPEeVRe+TOIRJYCdp
+ EUo745h00qtUJf/WXznKjIlpiy2m6tItHDm41jCvGyEj3YcCDiUFijRyFpJsIcwnGY48AjO+v0
+ HD3GC88xpD62R2IeWGl1bUYBTop6/Hvjbe+nIeTqmy+NrUff1X+yiQBW76tquspVDu/skzjn7O
+ MfXkSZxtxf84aF+6iFI8OT7pjddsJ3709PfXqPVU08Xz9TBSOdQ2Rp/eeu63gCCLLBOaQEAAA=
+ =
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Hans de Goede <hdegoede@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
+ linux-doc@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1723493938; l=2087;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=OzOV3KctGeSDiPIQhS912kuUk6g/QvgVA8C2lsF764I=;
+ b=aTt0wBYAI8GAN6I1WJ95Le7kAoxr9a86SGkK2Libk4hy1AiwbDKxvcsNN0hsMRNHS5SqrYrP2
+ fIzKPqwVXOqClrIFTOS7mp2IadEEkNx8z/n/SO50HAkkSZRiMKamDsy
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Tue, 13 Aug 2024 07:30:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,20 +74,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+The value of "min_input_signal" returned from ATIF on a Framework AMD 13
+is "12". This leads to a fairly bright minimum display backlight.
 
-As some of you have noticed, there's a TON of failure messages being
-sent out for AMD gpu driver commits that are tagged for stable
-backports.  In short, you all are doing something really wrong with how
-you are tagging these.
+Introduce a quirk to override "min_input_signal" to "0" which leads to a
+much lower minimum brightness, which is still readable even in daylight.
 
-Please fix it up to NOT have duplicates in multiple branches that end up
-in Linus's tree at different times.  Or if you MUST do that, then give
-us a chance to figure out that it IS a duplicate.  As-is, it's not
-working at all, and I think I need to just drop all patches for this
-driver that are tagged for stable going forward and rely on you all to
-provide a proper set of backported fixes when you say they are needed.
+Tested on a Framework AMD 13 BIOS 3.05 and Framework AMD 16.
 
-Again, what you are doing today is NOT ok and is broken.  Please fix.
+One solution would be a fixed firmware version, which was announced but
+has no timeline.
 
-greg k-h
+---
+Changes in v4:
+- Switch back to v2 implementation
+- Add MODULE_DESCRIPTION()
+- Simplify quirk infrastructure to only handle min backlight quirks.
+  It can be extended if necessary.
+- Expand documentation.
+- Link to v3: https://lore.kernel.org/r/20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net
+
+Changes in v3:
+- Switch to cmdline override parameter
+- Link to v2: https://lore.kernel.org/r/20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net
+
+Changes in v2:
+- Introduce proper drm backlight quirk infrastructure
+- Quirk by EDID and DMI instead of only DMI
+- Limit quirk to only single Framework 13 matte panel
+- Link to v1: https://lore.kernel.org/r/20240610-amdgpu-min-backlight-quirk-v1-1-8459895a5b2a@weissschuh.net
+
+---
+Thomas Weißschuh (3):
+      drm: Add panel backlight quirks
+      drm: panel-backlight-quirks: Add Framework 13 matte panel
+      drm/amd/display: Add support for minimum backlight quirk
+
+ Documentation/gpu/drm-kms-helpers.rst             |  3 +
+ drivers/gpu/drm/Kconfig                           |  4 ++
+ drivers/gpu/drm/Makefile                          |  1 +
+ drivers/gpu/drm/amd/amdgpu/Kconfig                |  1 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++
+ drivers/gpu/drm/drm_panel_backlight_quirks.c      | 77 +++++++++++++++++++++++
+ include/drm/drm_utils.h                           |  3 +
+ 7 files changed, 99 insertions(+)
+---
+base-commit: d74da846046aeec9333e802f5918bd3261fb5509
+change-id: 20240610-amdgpu-min-backlight-quirk-8402fd8e736a
+
+Best regards,
+-- 
+Thomas Weißschuh <linux@weissschuh.net>
+
