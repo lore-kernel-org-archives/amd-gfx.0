@@ -4,40 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 162BDC52D7C
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97DC6C531DD
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Aug 2024 07:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B270510E141;
-	Mon, 12 Aug 2024 07:31:01 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="IRMPmjjd";
-	dkim-atps=neutral
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B88A410E10B;
- Mon, 12 Aug 2024 07:15:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description;
- bh=iOajgjUkMUESpFDP+oq2b2T6Km/PgKUCPjtCQGjZrV0=; b=IRMPmjjdkfj1SXQYflRnxzmn1k
- n5TCxhHf1joMGhNBWr+sMoS7oPRpUzj8LDKaHGFd3kKGg41ma1HAGbDQDz1ijReCE7kyNS4+WoTjA
- yVnZLM4n8T8xGTYDkclpCNgNMWz7oYF/ma23ehphBz+Zjp3DBMSMrXchh/q6kCkB5uP6+eo3uH/kG
- C8k+XmSvtC1YmKqCevqX11fdNF9eJTV5OMcOxX5jVScoaqX7vd3aVRKtsZC0Z3DblSYk+FxQg15ox
- V4h8f/rFvJxKxT8bzivspmT0pXw9B77tmfrNcQcZfMDAk8HpfQqHV9/8ioimw7UE75Ysd/8SX564X
- ++cEEqvA==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1sdP1G-000000010nl-22a5; Mon, 12 Aug 2024 06:59:06 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: viro@zeniv.linux.org.uk
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org
-Subject: [PATCH 3/4] amdkfd CRIU fixes
-Date: Mon, 12 Aug 2024 07:59:05 +0100
-Message-ID: <20240812065906.241398-3-viro@zeniv.linux.org.uk>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240812065906.241398-1-viro@zeniv.linux.org.uk>
-References: <20240812065656.GI13701@ZenIV>
- <20240812065906.241398-1-viro@zeniv.linux.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D87210E14B;
+	Mon, 12 Aug 2024 07:31:02 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 633FE10E0DA;
+ Mon, 12 Aug 2024 06:10:15 +0000 (UTC)
+X-UUID: 8713819c587111efa216b1d71e6e1362-20240812
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B,
+ HR_CTT_MISS
+ HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
+ HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+ HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+ DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+ SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+ CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_C_CI, GTI_FG_IT
+ GTI_RG_INFO, GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI
+ AMN_C_BU, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.38, REQID:7c06cd3c-635a-4381-999a-a0fee1d26245, IP:5,
+ U
+ RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-5
+X-CID-INFO: VERSION:1.1.38, REQID:7c06cd3c-635a-4381-999a-a0fee1d26245, IP:5,
+ URL
+ :0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:-5
+X-CID-META: VersionHash:82c5f88, CLOUDID:25e9bf6a66f7d4df0b3a813efb7a5a5e,
+ BulkI
+ D:240812141010FH96TZX4,BulkQuantity:0,Recheck:0,SF:17|19|45|66|38|25|102,T
+ C:nil,Content:0,EDM:-3,IP:-2,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil
+ ,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
+ TF_CID_SPAM_FSI, TF_CID_SPAM_ULS
+X-UUID: 8713819c587111efa216b1d71e6e1362-20240812
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
+ with ESMTP id 433485791; Mon, 12 Aug 2024 14:10:09 +0800
+From: Lu Yao <yaolu@kylinos.cn>
+To: alexdeucher@gmail.com, ckoenig.leichtzumerken@gmail.com, daniel@ffwll.ch,
+ jfalempe@redhat.com
+Cc: Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ srinivasan.shanmugam@amd.com, sunil.khatri@amd.com, yaolu@kylinos.cn
+Subject: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
+Date: Mon, 12 Aug 2024 14:09:14 +0800
+Message-Id: <20240812060914.102614-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240802071752.116541-1-yaolu@kylinos.cn>
+References: <20240802071752.116541-1-yaolu@kylinos.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Aug 2024 07:31:01 +0000
@@ -55,193 +76,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of trying to use close_fd() on failure exits, just have
-criu_get_prime_handle() store the file reference without inserting
-it into descriptor table.
+Add support for the drm_panic module, which displays a pretty user
+friendly message on the screen when a Linux kernel panic occurs.
 
-Then, once the callers are past the last failure exit, they can go
-and either insert all those file references into the corresponding
-slots of descriptor table, or drop all those file references and
-free the unused descriptors.
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 64 +++++++++++++++++-------
- 1 file changed, 46 insertions(+), 18 deletions(-)
+Changes in v2: 
+1. Drop include "drm_internal.h"
+2. Add disabling DC tiling ops.
+Per suggestion from previous thread:
+https://patchwork.freedesktop.org/patch/606879/?series=136832&rev=1
+---
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 48 +++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 32e5db509560..23e5e3083367 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -36,7 +36,6 @@
- #include <linux/mman.h>
- #include <linux/ptrace.h>
- #include <linux/dma-buf.h>
--#include <linux/fdtable.h>
- #include <linux/processor.h>
- #include "kfd_priv.h"
- #include "kfd_device_queue_manager.h"
-@@ -1857,7 +1856,8 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 05c0df97f01d..ba1b7a36caa3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -28,6 +28,7 @@
+ #include <drm/drm_modeset_helper.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_vblank.h>
++#include <drm/drm_panic.h>
  
- static int criu_get_prime_handle(struct kgd_mem *mem,
--				 int flags, u32 *shared_fd)
-+				 int flags, u32 *shared_fd,
-+				 struct file **file)
- {
- 	struct dma_buf *dmabuf;
- 	int ret;
-@@ -1868,13 +1868,14 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
- 		return ret;
- 	}
+ #include "amdgpu.h"
+ #include "amdgpu_pm.h"
+@@ -2600,6 +2601,52 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
+ 	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
  
--	ret = dma_buf_fd(dmabuf, flags);
-+	ret = get_unused_fd_flags(flags);
- 	if (ret < 0) {
- 		pr_err("dmabuf create fd failed, ret:%d\n", ret);
- 		goto out_free_dmabuf;
- 	}
- 
- 	*shared_fd = ret;
-+	*file = dmabuf->file;
- 	return 0;
- 
- out_free_dmabuf:
-@@ -1882,6 +1883,25 @@ static int criu_get_prime_handle(struct kgd_mem *mem,
- 	return ret;
- }
- 
-+static void commit_files(struct file **files,
-+			 struct kfd_criu_bo_bucket *bo_buckets,
-+			 unsigned int count,
-+			 int err)
++static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plane *plane,
++							 struct drm_scanout_buffer *sb)
 +{
-+	while (count--) {
-+		struct file *file = files[count];
++	struct drm_framebuffer *fb;
++	struct amdgpu_bo *abo;
++	struct amdgpu_crtc *amdgpu_crtc;
++	struct amdgpu_device *adev;
++	uint32_t fb_format;
 +
-+		if (!file)
-+			continue;
-+		if (err) {
-+			fput(file);
-+			put_unused_fd(bo_buckets[count].dmabuf_fd);
-+		} else {
-+			fd_install(bo_buckets[count].dmabuf_fd, file);
-+		}
++	if (!plane->fb)
++		return -EINVAL;
++
++	fb = plane->fb;
++
++	abo = gem_to_amdgpu_bo(fb->obj[0]);
++	amdgpu_crtc = to_amdgpu_crtc(plane->crtc);
++	adev = drm_to_adev(fb->dev);
++
++	if (!abo->kmap.virtual &&
++	    ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
++		DRM_WARN("amdgpu bo map failed, panic won't be displayed\n");
++		return -ENOMEM;
 +	}
++
++	if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
++		iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
++	else
++		iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
++
++	sb->width = fb->width;
++	sb->height = fb->height;
++	sb->format = fb->format;
++	sb->pitch[0] = fb->pitches[0];
++
++	/* Disable DC tiling */
++	fb_format = RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
++	fb_format &= ~GRPH_ARRAY_MODE(0x7);
++	WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
++
++	return 0;
 +}
 +
- static int criu_checkpoint_bos(struct kfd_process *p,
- 			       uint32_t num_bos,
- 			       uint8_t __user *user_bos,
-@@ -1890,6 +1910,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets;
- 	struct kfd_criu_bo_priv_data *bo_privs;
-+	struct file **files = NULL;
- 	int ret = 0, pdd_index, bo_index = 0, id;
- 	void *mem;
- 
-@@ -1903,6 +1924,12 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 		goto exit;
- 	}
- 
-+	files = kvzalloc(num_bos * sizeof(struct file *), GFP_KERNEL);
-+	if (!files) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
++static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_helper_funcs = {
++	.get_scanout_buffer = dce_v6_0_drm_primary_plane_get_scanout_buffer
++};
 +
- 	for (pdd_index = 0; pdd_index < p->n_pdds; pdd_index++) {
- 		struct kfd_process_device *pdd = p->pdds[pdd_index];
- 		struct amdgpu_bo *dumper_bo;
-@@ -1945,7 +1972,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 				ret = criu_get_prime_handle(kgd_mem,
- 						bo_bucket->alloc_flags &
- 						KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE ? DRM_RDWR : 0,
--						&bo_bucket->dmabuf_fd);
-+						&bo_bucket->dmabuf_fd, &files[bo_index]);
- 				if (ret)
- 					goto exit;
- 			} else {
-@@ -1996,12 +2023,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 	*priv_offset += num_bos * sizeof(*bo_privs);
- 
- exit:
--	while (ret && bo_index--) {
--		if (bo_buckets[bo_index].alloc_flags
--		    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
--			close_fd(bo_buckets[bo_index].dmabuf_fd);
--	}
--
-+	commit_files(files, bo_buckets, bo_index, ret);
-+	kvfree(files);
- 	kvfree(bo_buckets);
- 	kvfree(bo_privs);
- 	return ret;
-@@ -2353,7 +2376,8 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
- 
- static int criu_restore_bo(struct kfd_process *p,
- 			   struct kfd_criu_bo_bucket *bo_bucket,
--			   struct kfd_criu_bo_priv_data *bo_priv)
-+			   struct kfd_criu_bo_priv_data *bo_priv,
-+			   struct file **file)
+ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
  {
- 	struct kfd_process_device *pdd;
- 	struct kgd_mem *kgd_mem;
-@@ -2405,7 +2429,7 @@ static int criu_restore_bo(struct kfd_process *p,
- 	if (bo_bucket->alloc_flags
- 	    & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT)) {
- 		ret = criu_get_prime_handle(kgd_mem, DRM_RDWR,
--					    &bo_bucket->dmabuf_fd);
-+					    &bo_bucket->dmabuf_fd, file);
- 		if (ret)
- 			return ret;
- 	} else {
-@@ -2422,6 +2446,7 @@ static int criu_restore_bos(struct kfd_process *p,
- {
- 	struct kfd_criu_bo_bucket *bo_buckets = NULL;
- 	struct kfd_criu_bo_priv_data *bo_privs = NULL;
-+	struct file **files = NULL;
- 	int ret = 0;
- 	uint32_t i = 0;
+ 	struct amdgpu_crtc *amdgpu_crtc;
+@@ -2627,6 +2674,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
+ 	amdgpu_crtc->encoder = NULL;
+ 	amdgpu_crtc->connector = NULL;
+ 	drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_funcs);
++	drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_primary_plane_helper_funcs);
  
-@@ -2435,6 +2460,12 @@ static int criu_restore_bos(struct kfd_process *p,
- 	if (!bo_buckets)
- 		return -ENOMEM;
- 
-+	files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
-+	if (!files) {
-+		ret = -ENOMEM;
-+		goto exit;
-+	}
-+
- 	ret = copy_from_user(bo_buckets, (void __user *)args->bos,
- 			     args->num_bos * sizeof(*bo_buckets));
- 	if (ret) {
-@@ -2460,7 +2491,7 @@ static int criu_restore_bos(struct kfd_process *p,
- 
- 	/* Create and map new BOs */
- 	for (; i < args->num_bos; i++) {
--		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i]);
-+		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
- 		if (ret) {
- 			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
- 			goto exit;
-@@ -2475,11 +2506,8 @@ static int criu_restore_bos(struct kfd_process *p,
- 		ret = -EFAULT;
- 
- exit:
--	while (ret && i--) {
--		if (bo_buckets[i].alloc_flags
--		   & (KFD_IOC_ALLOC_MEM_FLAGS_VRAM | KFD_IOC_ALLOC_MEM_FLAGS_GTT))
--			close_fd(bo_buckets[i].dmabuf_fd);
--	}
-+	commit_files(files, bo_buckets, i, ret);
-+	kvfree(files);
- 	kvfree(bo_buckets);
- 	kvfree(bo_privs);
- 	return ret;
+ 	return 0;
+ }
 -- 
-2.39.2
+2.25.1
 
