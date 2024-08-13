@@ -4,118 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 435ADC52D7B
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 06:04:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27EBDC52D7B
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 06:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C56DB10E26A;
-	Tue, 13 Aug 2024 06:04:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC62A10E2AB;
+	Tue, 13 Aug 2024 06:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3ameg65j";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pCYKtfw5";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A329E10E26A
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 06:04:03 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08FC310E2AB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 06:05:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pRQ5hFtNMB+yJ+PDNStD2yPTS6BO8HVAS3z/efkU8WFuVa5zfjwsrcMPwrWTZN3OKE5iSXYgvYJoVa1SOaP5mMVB9rD3gxp+aDeQrZVrfotoOcj0SB1jg02FXrUd5tC8extL8YdnLzeipThVO1cgbZM0TPWOXzTBqqwvQAGuartQ1+fm+LigRK+CTQFMfBpB4H/NH6XvGYn+PqIEn23tXHmjIRJxdhYAhz9ZrkugRs4oNzRrhUhW2X/MEAUnpfMeCdjaQchceZLGKGefpHdA7Kd3dycxtb4dtzeeEK4PgYhNwICBCgEvBMrNzMev8SFoTmr0W+lJiBKVLsdZpaxlbw==
+ b=hHjf3bbRg4DCXjUnugIAxea+MouAv06fKSJhKxEIhJdQti7y8Jzd7EKe05USZBIpTfEiy5xge4frSPV+oBiqmEv33ENuyLzByd4qartI7aML7EU76AiypXg9AXFptyk787TW6uSFxTUVQ4DfxXtgR/Dim8VI/8d8bz1FF8kAb8IRu/iyX3Qa6NPse5aUaZtxw1IMoHFTHTlqMbaNBN/CdkUhnxb1qQXy0eBjroRVauiTyGhoFdx2jODA1Yd7LprCxGfqrqtbvRec2wqqp5OjhVocu/6OrvrMFYF/t/Hsz3vtNdKtrxgCD+TpAQ1JEkm5y7BJthEpAfNx7d1hUhZEfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S3EN7jA6ZYgbZwfp0ZQ/yNjbyI3pDMzqw760qCOMu/U=;
- b=b43cgAi0RpyWDEUYhltBFWxlGb4vTXNRBLul7Y6E41hMehEB3s9zGe+vpZFaffqXg7/wXzzf4havsZrTPnd6J+qqk7Zfs3SGX2jKsqr94j8tbBesmr9VDtCszWObVky1gxAhAcRgrsoDjqE9se9bdtxmVs8gGBGFBwSRkU+AQGHkbPSFIBMAv7fGXufN/ca3i/h37y1CZzC0F09fXujoSjXtHvIJhqaL2VpqytQTQb1bdEBNmAjWjSKW27IcxQETLSxij4T2CCW+10KQ+JTl3me7mT/o5aOY7Ed05eQ+S10Xxt+9LdKM1WZZta20HhnL5aYN8QfswwN36H4eUWZBlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=4GYzlrMiBch6g5Z69R6kCMf+9vSQsFnzZZEA4HWrWKc=;
+ b=WmQ4NYVagL/YvOo2se9nhySYOclaKMwoIBPxknoP1mTs5VsNjFFvcwdWmQdcQQFJcZYrGG0QJHSYuDLDN3KMjADKlVKSISLrfGR9EA3yNMeus2/cyN/jgUMQcvU6RytqwqPFwkN3gbzh3EEZG45sNrE+EFHsOhFGKA8J9goOrN9zgsVWOrFaaOmbuxXRVf9hJF6V5mfmUVu8KkzQ6BE4KtgereYAQ0rAjXIak6zJGsTtLqJzlwMMcBy9NfK13lUcG0T2OCwxBziYvaKR+xZ1Zc7jCQkGqGfIgxgIoufPcy4iaGBqCxjWg6+zyTcqKyehhJEzEsOn0j3eFkIL5i8EtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S3EN7jA6ZYgbZwfp0ZQ/yNjbyI3pDMzqw760qCOMu/U=;
- b=3ameg65jjAeoWNn4/LLUGHLUAzcCCv77DPvvIQd2QQmZEBKKlwtmzDObvgug3dpDjFUttlwGAVcVShUpWrZRWw13W6zUwncqAkVFVgV22WHnKEaCg3sCJjPtBTLZbgKFO2MoJ4KEfW/8E6CwRdGIrN2eczBVFyytKheGD60fFaQ=
-Received: from DS7PR05CA0062.namprd05.prod.outlook.com (2603:10b6:8:57::8) by
- SJ0PR12MB6968.namprd12.prod.outlook.com (2603:10b6:a03:47b::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7849.20; Tue, 13 Aug 2024 06:03:58 +0000
-Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
- (2603:10b6:8:57:cafe::b7) by DS7PR05CA0062.outlook.office365.com
- (2603:10b6:8:57::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.15 via Frontend
- Transport; Tue, 13 Aug 2024 06:03:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Tue, 13 Aug 2024 06:03:57 +0000
-Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 01:03:55 -0500
-From: Yang Wang <kevinyang.wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
- <yifan1.zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: fixing rlc firmware loading failure issue
-Date: Tue, 13 Aug 2024 14:03:44 +0800
-Message-ID: <20240813060344.3633088-1-kevinyang.wang@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=4GYzlrMiBch6g5Z69R6kCMf+9vSQsFnzZZEA4HWrWKc=;
+ b=pCYKtfw52fToBZ2FoY9eG+XAhVTTVvI32KaCrvtosYqP8ccnPbPd3zt8jvypo8c0B9ZpX0WVuiBKeCciViSroBUjO1B/VDwD/puYi6KxTnFT/AjqHPya0sABHbObI4GgnGXkLA2wGyons/BOzXBxmlE7ay6h4z7oJEOtHxtiqLU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB6611.namprd12.prod.outlook.com (2603:10b6:510:211::11)
+ by BL3PR12MB6452.namprd12.prod.outlook.com (2603:10b6:208:3bb::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22; Tue, 13 Aug
+ 2024 06:05:41 +0000
+Received: from PH7PR12MB6611.namprd12.prod.outlook.com
+ ([fe80::76d1:e471:c215:4381]) by PH7PR12MB6611.namprd12.prod.outlook.com
+ ([fe80::76d1:e471:c215:4381%5]) with mapi id 15.20.7849.021; Tue, 13 Aug 2024
+ 06:05:41 +0000
+Message-ID: <a731fb0f-99d2-4c9e-9a57-c527cbc692ec@amd.com>
+Date: Tue, 13 Aug 2024 14:05:36 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Align hwss_wait_for_all_blank_complete
+ descriptor with implementation
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Roman Li <roman.li@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>
+References: <20240812104023.3744443-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
+In-Reply-To: <20240812104023.3744443-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TYCPR01CA0100.jpnprd01.prod.outlook.com
+ (2603:1096:405:4::16) To PH7PR12MB6611.namprd12.prod.outlook.com
+ (2603:10b6:510:211::11)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|SJ0PR12MB6968:EE_
-X-MS-Office365-Filtering-Correlation-Id: 831f5b98-8604-42a4-5d81-08dcbb5db86e
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6611:EE_|BL3PR12MB6452:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67917345-3482-4edc-bf73-08dcbb5df5e9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vDNSbQeIdgNuIM67Q3tfzqn/cz/LU8jYJbILURr0UOOE7fiG1hEmt5bUBWfb?=
- =?us-ascii?Q?k7zi9JoHBcutqYF0VJ+RYI0goMP/nGw9oQpTD2Y1lNMM87/aOZuHtusOQYLO?=
- =?us-ascii?Q?uX8u8wJmNejTkvA3a66rdQb6cqDyRRUfKjMR3VyW8J4J0D3nv9A2DyCPoUlv?=
- =?us-ascii?Q?qes9bRYB0sEauVR12yhll53+CYvaeueNYcb4I/5Ci9ISC4p6ikB5748GKlGA?=
- =?us-ascii?Q?oY9ktTN/RGJb3aLw1aMMrmzY8RXFBnvWzcG/sGduoXuggSbdFQuwYNhiKqP2?=
- =?us-ascii?Q?TokAn/+8LgELjDqGJkxexHfOj9RGYTrH1rDLLZlHoeHuoJPjHX7pnP/fJxa6?=
- =?us-ascii?Q?TOGSDC2I9N96kQd28CdVC/4fAcpFy44+ITUjqbTo4Bac48MXZtJ5bDlliGFU?=
- =?us-ascii?Q?nhYMkP00dcJRP/aKdNwojkAAjYFqaIAAVCHd92uEQMC4RgveTMmrYsqzV8LT?=
- =?us-ascii?Q?wlKreA7JHiezPDd+QpV73t7vAhoCaGyrbUYgV5nQ9uYRfvOLl4a/HWNzpZN6?=
- =?us-ascii?Q?TFo1bqHQJ3FCWao3ebKxv6djYRQOB+TaXogb6LSbTTPo5lwgpoOKNGLS97j/?=
- =?us-ascii?Q?eBDzjtaRICFdO13blJGvgJIX2Ui3kCtbK5O0M0zfViiqgwHIVeVgu876s9w2?=
- =?us-ascii?Q?RItk5ZrHdJh7z++U5YjiYSzmQjGI5oiEuuCcNyDwbX6yS1E34kE7qao8Rnf+?=
- =?us-ascii?Q?PLtIUK1qE7uD7ybe2Xp7YGJA4vOhpTqc9DAXxoZGG4SMVH9XXATHZ5Gsodkl?=
- =?us-ascii?Q?ay3GFLjtQa+1lU+6uCFmXnJc1CHAmtitFr6hN4SQMk23Mr6kuVvwVNiPiCAw?=
- =?us-ascii?Q?vpkmmO4vwvr3fI6c0QO2eHOZXLa6tVUEKq0auRALN5+ZVGFhj4fo+dGLoISL?=
- =?us-ascii?Q?Zlb1uXTUlltXXRfUYR0eUamFhMofWG1EKQX8DoKqD2tFHz5p5/TW3yC4J505?=
- =?us-ascii?Q?YD47E6O1GR1ki9UJJnCQ/NrMA8uVL/BImMfIXoN//b+LooSsEJXjji53HToz?=
- =?us-ascii?Q?JOW6d/nu86qAauPSseEkLcl1yil0y4XDx3kJd8Z5oFpXlDUnelKbHn8Ph7Ad?=
- =?us-ascii?Q?PNnKCwnWBfQtXfKZ75Hs4z0ya/U2rNi841IESxx6WsXtE60sF8wxRRaC9kjZ?=
- =?us-ascii?Q?B448f5oSO5XbZWRvuAZSCkaryWB2aoGO7JhghhHbJicc6YV7cIK1bSRHU5R8?=
- =?us-ascii?Q?IlRhE6L1++qjR7Zyv4Ygc1pv+vTHe0LxcjrT1OZfbjQD4bvuY7nZL+32W1/U?=
- =?us-ascii?Q?am0xjO5l4pl13XH7VGGouaRF4Snsil1C8rMmBJWocSkeQ7jpuPGksd4zJ1Y7?=
- =?us-ascii?Q?+v2kzY6gvYDEjoWUWA2NJ2UBk5ZiWMF23mRbha1gOXZwST11hdhakNeNP+h1?=
- =?us-ascii?Q?tkZTPLUVrnq136Z05P+D0eJgeXURaXeNXyS30N9T1v47ncjXZr9ndH+LTF7c?=
- =?us-ascii?Q?1ftnsK6nhS73GZ8mEyWq3Wo/6vra7IQe?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MkMzU01DcTRjM0RVSDdiZ3A1ek00bDVmbEhkaVRlV1lvcXNlME82T1JjMFdn?=
+ =?utf-8?B?VkZVUHFsOUpSL0JVd0Z5eHdyQnJXdFV3MjhrMy9FVEpsMFRoUFl1RW5OMVVh?=
+ =?utf-8?B?UVlLOVcveWM0Y29HREVybmlGUGh1eE9aWG1Ha3M5a2JvaFg0NmtXeUlDUE9k?=
+ =?utf-8?B?ZUhXVVA4QVhIbnF4OE1XY1RqMTJENHFuaExXejk4Kzdqa3dsS1NuZ0JrTHhy?=
+ =?utf-8?B?YkMzMTJTY002Q0lhc25zdTVPRGVLZzJreWpWM1ZVdXY4Qi9LS3FMOG1yRXRS?=
+ =?utf-8?B?M214bk0rdUpGcnBLY2ttVEZtcFptVXFZRHBiUk5GSVZLQVIweGw4Tm9LWEJa?=
+ =?utf-8?B?a29jOUZCaVNxSlYrU3ZYYldkVWh1K1hxMkc0blE2NnUwcVBremZiTW1mblR1?=
+ =?utf-8?B?OEtUN1N2alZ6d0VXS3Q0NVdxNFNuYnpZdmxXdUE3cXJNUjUrVWFEZ005SmMw?=
+ =?utf-8?B?RVdZandWV3RnNjNNdTdydElibzExVnpWWHFqR3F5M3ppK0xBTFJnWExqemtB?=
+ =?utf-8?B?WmpidWhzL0NDVWoxZTJvRTJJV0EreXZ3cVFGeEF6Nm45azk3Ny9WVEY1Q3FY?=
+ =?utf-8?B?RWh0TnhHS0RONHFKcU0xdVZQVTNmajJVMmRhclcrRzZldTFyb2NuczF4TFJJ?=
+ =?utf-8?B?b0JmeGx0NkcwdHZoMnpNL3JycUpETTVYYWJYSjQzQWYyK1c3VTdRaFNuTHM0?=
+ =?utf-8?B?YXFOdjVJSEVibUJuUnY1MU9VZ3BYSUpxdkhoSm84S1BzU1JoU2xsR0toV1N1?=
+ =?utf-8?B?dDJXaUs4U3JmT3FOTzlvRzMwaS93dDJON3pBRGtsdGYyZElYdDQvQzY4dElD?=
+ =?utf-8?B?WTdpSzdzVWlxMlRhWnVPRjFVSUkyRlFPWHRDU3BMZVpmUitvcDFoWFhjZjRv?=
+ =?utf-8?B?NlZTbVNWSjg2VTdsc1hTbE9xR3hvU28xRUc3V2hkK3NuUlIxSEh3ZUVpNkR3?=
+ =?utf-8?B?MmU5d2Vpc3FPUTJQVGVXWFpCVjVGSmZyQWlQdmFSWm9XUmVnOTdDenlJUnBF?=
+ =?utf-8?B?Wm9MVG93MWJVOTExKzJuNC9Sa3JhcXRvWXRDTWNhVXhZZXlYMlhRWS96RTV1?=
+ =?utf-8?B?NmtqVHJ5ejVxMFBqUnRtSmZnVGhwTXBHd2VzRGNiQUJxR1N5c284K3dJeUtj?=
+ =?utf-8?B?VGRMN2drT0JZSEp0YTZVQURQbXBHU1dDNHJwenhMc0w4YmhRcHpsc0U5UFZ1?=
+ =?utf-8?B?QjhmWUh2MSszOURSSlYyUWFyYmV4Mzc5SURyclFpNTJveVVlWVljS1ZRWitw?=
+ =?utf-8?B?N3ZnZXZ2bjQrSmZOcWhBLzJCT0ExYVNub0VIS1Y4UmFIMmdYK253bFIzRmlz?=
+ =?utf-8?B?TTBnaFlDYU14K0V4KzMzNjNaZ1BvdWJGbGRkN01DSkpQRGpETmRGV05ENXBr?=
+ =?utf-8?B?VDRqV20vcnMyeEFYVWtlb2dTTytoNGVoYU5XeElmK3RRN2QvMjZPUmF2OTFl?=
+ =?utf-8?B?M0dFSm5HTUFVSHNNTWlwR2ZUT3JSQklOMGlKQ3VvZFdCM2JIa2ZIWU9NMERU?=
+ =?utf-8?B?N0dVYUgyT1oyNXNqSlB4QmozMG02Q2NXWjlQcTBpQ2RwTkhxYzNXRzZvYWIv?=
+ =?utf-8?B?M0ppYWJyOXhWY0ZzUUlMQU0vODRiVnRVcm5aNHhLUUVYMkJKeTZIbTRpcTF1?=
+ =?utf-8?B?eTUxcUpCN2pHb0U0R0JkT1NkdDEyRmdpRVN6K2VVM3ZRdUwwQVJMMHhzZmFx?=
+ =?utf-8?B?QmZNKzVDU0hJbWJ2c1BzMURLSVlxSGZxbElhZVpzR000NEtuU2k0c0FuWng2?=
+ =?utf-8?B?MFQ3cmtvZGxNRmhpemkzdWRHTm84ZVJUWkcwQ2UzdTZtcVkveC9QQ3FCVjlF?=
+ =?utf-8?B?UWQ0U2RPVHFJOHg2K2h2Zz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0MvRy9XVWNIdzF1SEM3RzQxTStkTEJqTzVzdk1ZY2RMbWxqRzI2YXhmNWRR?=
+ =?utf-8?B?Kyt3M25zL1ZSa1NjY0tvRGNab29JWkJHN2Y0T3lueGZsY2NobVFoZ3Rzc0RY?=
+ =?utf-8?B?cUhZMUQwMHVOc0tOYmV2TFdWeDRkbWdBYys5cjNoaklRaFVlVFBuSlJvSjc1?=
+ =?utf-8?B?UUxaSXJKdXpuWWNyR2VpZ2tpd0hsSGplN3ZnQks4eVZwWXZXVmduRXFGMDVp?=
+ =?utf-8?B?aEpNdE5jZWN6K0FodTk0MEQxODdmWGJ6aFVPYnpPWllGMitWZlY3T1dCaWNY?=
+ =?utf-8?B?Si9od3c3djBPbFVXS0ZHWUszVEQzSWdPaWxERktGQzJyK0NMQmR4czVPbEs5?=
+ =?utf-8?B?KzB1RVpITGVxOUQ0ZitWM0JKZDhLT09sTmhFRFA1cUpvWWJsUWU4MTZuUFE3?=
+ =?utf-8?B?ejJ0WjZpUzJhNXZkQUlTblhFMnRISTZFazhGRFR3QXdiY2dXeUg1YWtqcEpM?=
+ =?utf-8?B?ZHprbUxRWkszaW8xVG9zSk5YWVVGQ1EyUkhlYmZOMEcvMXZTcFJpVW5TcmpT?=
+ =?utf-8?B?NmpxUUY0clpnRHMrK1hQNFh6TUQwejRRMlk2MzNrQ3IzQTVkcW13K2pLRlcy?=
+ =?utf-8?B?MmwwTkxWejg0VENNd3FYNHBHTDlxRDlocEJWZlFYc1Fua3lJMW12bTFwK0Qy?=
+ =?utf-8?B?SlNOVmlaVm4xblpkMlZEVDB0YTVDT0JKUDhZYWMzMjhWZXQ1UDlrSWZ4bHU1?=
+ =?utf-8?B?ZGxtNDd1M2grSG53bTRXRFd1Q0NqR2dxb2MwdEdZTEE0VnRGWlRpRnV5LzFO?=
+ =?utf-8?B?bEpWc3p2THdHckl1MnlIV053czhXVEhSNHJnVkJoNFZnQ0RSTTBIaHdSZ3NY?=
+ =?utf-8?B?U082K1B3cFJWOFMwaG5DV2RHVHgwRmlwMzQ1UFZBTnczazRUT1IxMHczY2lj?=
+ =?utf-8?B?RTBURVEvM3RmOXUrVm1kb3pVTXZDenNtTlJVN3haVTRJTEhHc3hta2drR1ZV?=
+ =?utf-8?B?MEpsNE9FRk0xRVZUNjc3aFIreElPOXBVdW91Y0kvZXFqNUlmb1Z1eHZhSzR4?=
+ =?utf-8?B?R1RUMm5BTG1OUnlwYW5MWHEyN0NSNzRYbFVVcUxsRlUyRUVlQWVLNGRQNVpP?=
+ =?utf-8?B?UmFVbm9rb0lIcGdGTVY3ZUZMUG5lakRwdnU0NXk1SVJmcHFGZTRuM3R3bzll?=
+ =?utf-8?B?VURHT1NzS0dFcWZ3TE9rbW81YW9jK2JxZ1hZNE9ZOVBPYXJPbXR2bFZCQ0tJ?=
+ =?utf-8?B?MGErNjYxaUNaajQrV0YxNkZhVjZqSUltMUdGbU1GazNXdWdnSHZwWm9BcjJx?=
+ =?utf-8?B?ZW03Zm9tZE9kUnR6Z2lZZVJ0eGdoRUY3SjVycFBEQ0lrbkc4RFhrcEcvRWpu?=
+ =?utf-8?B?ejlkYVovZWtnMHdTRXYxMzQwdkRHRWpZZmdHRUZ6UGpRK3FRVUZaamhtbmhU?=
+ =?utf-8?B?YzkraFprdUU3RGJqZittTmR2YlZ0SG8wbkxpejVDRDEzeU8yRjRRZE9UV0xp?=
+ =?utf-8?B?dFpSUUpUR0hYNExPYVRmZDNQVU9XRmx2c3N4Rk1KVDUvMWNWN01EL2FKL0Fz?=
+ =?utf-8?B?RURKNDBNVkw5bTlkTjhLSE9SSnByK0VQaTR3eVowOXkxVUhoTHhraFNGVVRk?=
+ =?utf-8?B?Z2RJKzBteDhFSXFQQlJmdUxTQ3ZJQUxPc3lRUFR4bk53cHdBWUQzdUNsYS9V?=
+ =?utf-8?B?V2lKVC9KYkF5RGNGMDRTUks1MFVNSjFYZVNLWDdXRWIrNTJjZjRvQXVkMm1T?=
+ =?utf-8?B?Q2YvQ3czOTJkaUdFRm02V0JWeHowdHpjdDB3amk1Z0pQYWlsWHhjZXBrMS9P?=
+ =?utf-8?B?VjRDcUFvbWlEaGxvd1RvS1hNckcvK1ljMS9kN1k4dHQ4Q2xsQ1BjcC90MHla?=
+ =?utf-8?B?YnMyeWlCdzBaa21mTWgrOE5zNTlBS2l6cmt4aHRJWUVLdzlkbDdERmFTSW1I?=
+ =?utf-8?B?dXExbjFLNmtJN1llc2pmRm1KQ0Nvd3o4VVAxK1BWdTRVbnVLTUh5Y0xhZHZW?=
+ =?utf-8?B?YUZPNmw0L1ZBQVpvTGJ4VmdLTHJSTmF5VkFuV3M3ajlleDVXamhKVitqOGRM?=
+ =?utf-8?B?YUF2OG1DbFQ3S3ZpZkZHUVBPaVMvUEp0WExaVTBVMlBIYkE2STBrN2RVeFZn?=
+ =?utf-8?B?OHZQMkRXUDZ4VDVtWXlLZVAycUJsNHFvUGFXTFA4aEl5RXN6S1dobWNBeWQ4?=
+ =?utf-8?Q?r54gl+oQbu58dja35Ib4i8BT5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 06:03:57.8642 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 831f5b98-8604-42a4-5d81-08dcbb5db86e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67917345-3482-4edc-bf73-08dcbb5df5e9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6611.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 06:05:41.4017 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6968
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9ZoscyEzPEuBSJ1ZeuepbReH3gP8EDFi0Jce1MrarzZP3I8lEA4M8nq/FBjE9LpOY1r6hKh0M+i8aCX7I0Ajdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6452
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,39 +163,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Skip rlc firmware validation to ignore firmware header size mismatch issues.
-Refs: 49e133c973ce ("drm/amdgpu: Fix the null pointer when load rlc firmware")
+Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
 
-Fixes: e1c6c2c1099f ("drm/amdgpu: refine gfx10 firmware loading")
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 75a6ca645964..ca983a014ba0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4116,6 +4116,7 @@ static void gfx_v10_0_check_gfxoff_flag(struct amdgpu_device *adev)
- 
- static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
- {
-+	char fw_name[53];
- 	char ucode_prefix[30];
- 	const char *wks = "";
- 	int err;
-@@ -4149,8 +4150,8 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
- 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_CE);
- 
- 	if (!amdgpu_sriov_vf(adev)) {
--		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
--					   "amdgpu/%s_rlc.bin", ucode_prefix);
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_rlc.bin", ucode_prefix);
-+		err = request_firmware(&adev->gfx.rlc_fw, fw_name, adev->dev);
- 		if (err)
- 			goto out;
- 
--- 
-2.34.1
-
+On 8/12/2024 6:40 PM, Srinivasan Shanmugam wrote:
+> The descriptor for `hwss_wait_for_all_blank_complete` was previously
+> misaligned with the actual implementation. This commit refines the
+> descriptor to reflect the implementation of
+> `hwss_wait_for_all_blank_complete`
+>
+> Fixes the below with gcc W=1:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_hw_sequencer.c:991: warning: expecting prototype for hwss_wait_for_blank_complete(). Prototype was for hwss_wait_for_all_blank_complete() instead
+>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> index 9a569aac3c00..7ee2be8f82c4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> @@ -980,7 +980,7 @@ void get_surface_tile_visual_confirm_color(
+>   }
+>   
+>   /**
+> - * hwss_wait_for_blank_complete - wait for all active OPPs to finish pending blank
+> + * hwss_wait_for_all_blank_complete - wait for all active OPPs to finish pending blank
+>    * pattern updates
+>    *
+>    * @dc: [in] dc reference
