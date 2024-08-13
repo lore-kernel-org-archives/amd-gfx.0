@@ -4,121 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EAEBC52D7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 13:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2238BC52D7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 13:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD1A410E354;
-	Tue, 13 Aug 2024 13:39:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F3A210E355;
+	Tue, 13 Aug 2024 13:57:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0+VaKIfs";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RAJdl6nv";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A5D10E354
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 13:39:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tnB0A3ycgOs+V9dAZAXAY36I3VhKt+cZ8AvlUZwBtdMUxPj92BiC3E4b1cl8xS3axmpvbhswdBO+uTfoCZpaFyTjKRIwHQllBJrpFJgp/z1EkvBtQnscOoxqoo0dT7RRtMrjvip0devngIUbXwCyqQ8fnOvf4IkIiHmnGhKk17ITCFhMRtfpZQBFSzkaGJ6/pS0bUNN92nua7sU1DmiTl25ahl9aIZFGMrvGOB4pFEwK5WX57Vq6pSH/9AG12qFADzwb3RvnTIn2g+qukjPJ2Z5tDkAe9yBnKOCCPOsZUDe5ThsOcBsAOBSeXdLnYk3plrHa0X82SAnXNHQyrFwOTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kdv68Z3UQ1EH3nn0Wt9RvygH7SEeIYb0PgDWvJvZA8k=;
- b=Ho70Q8Rd/bOjYTZBzpMAwijtJOTeZGDcBXxMC90kr3u3/55cfqTi1Q7j20kfqSS1JALdTHDSNwLpohK2BhrQ04C7kG2wvW08oo9VbyezzYew8XY+BeIPOT2JvBYMLcZkRN/Xu+veM1F9V7rSSNTail8ap5Zc0Do6jodOPced185lrbDa+IxvXS7cYbl6MejttfAU9ywCdj9umM0kEaVg6JsuIupSOud2ROvr55K2JVnkSuzNXPCSDtJvG70ixzPsnKtHMYX+xewxTZFVSWWMilRBBqOlnbHWguVHIvECsJ9x6zokDPi0gcHhfDjTfPBvAjF7jVZOZEEY7FaF9D542w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kdv68Z3UQ1EH3nn0Wt9RvygH7SEeIYb0PgDWvJvZA8k=;
- b=0+VaKIfs3ziAafmkPpDokmY5agSikkqotoC36QVFpJ/QZwZwZKNb3gT5nxDn4UEEbyxn3HPm70XjzBAWqlQMaf+UBTI/x6uJKVwTBpYFPnR4RbfKXKuM1V87DrN/deEm6MgprulXJnzHroOLKS4Q4vcVJmqD1CpJcC+GSKn8/0U=
-Received: from BN0PR04CA0057.namprd04.prod.outlook.com (2603:10b6:408:e8::32)
- by CH3PR12MB9313.namprd12.prod.outlook.com (2603:10b6:610:1ca::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22; Tue, 13 Aug
- 2024 13:39:02 +0000
-Received: from BN3PEPF0000B06B.namprd21.prod.outlook.com
- (2603:10b6:408:e8:cafe::3b) by BN0PR04CA0057.outlook.office365.com
- (2603:10b6:408:e8::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.23 via Frontend
- Transport; Tue, 13 Aug 2024 13:39:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B06B.mail.protection.outlook.com (10.167.243.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.4 via Frontend Transport; Tue, 13 Aug 2024 13:39:02 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 08:39:01 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 08:39:01 -0500
-Received: from poc-rocm-server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Tue, 13 Aug 2024 08:39:00 -0500
-From: Rahul Jain <Rahul.Jain@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Rahul Jain <Rahul.Jain@amd.com>
-Subject: [PATCH v1] drm/amdgpu: Take IOMMU remapping into account for p2p
- checks
-Date: Tue, 13 Aug 2024 19:08:54 +0530
-Message-ID: <20240813133854.21144-1-Rahul.Jain@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60A3310E358;
+ Tue, 13 Aug 2024 13:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=gvOvJku7LLeoqGYHzxPANNl5lrtnWUkHhl7l2sRxhM0=; b=RAJdl6nvMXRJ9u6gLUuOHQSYIm
+ hk/G1b5+s67eO9NR/fKMye1hwsaFUgk2nMLtnG202hO6DZa1XS4LYgJ8v0s83BcYYBENwdthn9dyE
+ ImNNm1fdF7W0xxHHMGrjK4rGiI6DVRVmgogBnXNal5cTkfIqVspBdesXaObcEQT/b1MCMQ7z7o8Jf
+ 8pNT34YZKOyFhRT5rW+AfhrUyu8/6PeeTCqRepVfznSpPZSIo/qfHjq5XAb3dza10cm/nR+s+ErzC
+ VyfLjnNy7p76DXXQQ1ljazeU7430xI9fmpzDsh4K0nMAnPHvGYlGClRpwV/Su53zjM530krp/v8/0
+ d1La3msA==;
+Received: from [84.69.19.168] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1sds1V-00BxvI-H2; Tue, 13 Aug 2024 15:57:17 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>
+Subject: [PATCH 2/2] drm/amdgpu: Use drm_print_memory_stats helper from fdinfo
+Date: Tue, 13 Aug 2024 14:57:12 +0100
+Message-ID: <20240813135712.82611-3-tursulin@igalia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240813135712.82611-1-tursulin@igalia.com>
+References: <20240813135712.82611-1-tursulin@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06B:EE_|CH3PR12MB9313:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2a86a09-4502-4c5b-f425-08dcbb9d4b15
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qp0/u83Ih7t3DypXgzuOjVY5P8gpj7AhDorWCMYQeilaNvAmsZ7a7yE+wYyG?=
- =?us-ascii?Q?Abo77jcPDzweT0UM8hdDBeo9efWBOYZwziYcSDlSGIjHpD7nKuL74KLOCfIR?=
- =?us-ascii?Q?Tmdm37Y2klUpy8NnRz/seSFv7YvIJ94CFZ9I7RjCcBkYw6P0syxIPi6F8lT4?=
- =?us-ascii?Q?ZuIwdDtNAELafQd3POzparzVt1dDie0tjyg5BPAvYyEDjWutWNKY/VRm+03U?=
- =?us-ascii?Q?HzP/dmVbsY1/tsVWko2F6mAqeGQTKH8Fkn7nLTmePVdV7fI5BTyy2L4tPUi+?=
- =?us-ascii?Q?dIicDDbInA7L557Ts7zDSQbJo5f1AtiU0VcKWkz9DXauILFsIQ6E3sPpUZoN?=
- =?us-ascii?Q?Tk9dMNSDf+qZXN5AOaVB9Lpxz8EhWmvDfBIcqzyB9VTyDJKzyWBdtYjClX++?=
- =?us-ascii?Q?Gi22PIgerrZxEtwBCMhuDWlaR9FDESrvonT8P9OGAjHjzvxowza+VqSg7NGQ?=
- =?us-ascii?Q?pjZZAuCFlz6qaicYZ7niNX2tsg0LkGoUyxGQD8+jcFbCDdyJtkhZ/EUbJSzq?=
- =?us-ascii?Q?Laim4ro5z6irY6Qq/mcFE1L2TydfavfATGRpp3bRROZVjtcy3i7YJueS5R9N?=
- =?us-ascii?Q?GTblrRayfLu/6B8qkqS4HtpHm8/0Rw2Y4pDg31hC0/xU8CIqfQnPHQ4zXqQB?=
- =?us-ascii?Q?u6ZXR7YmTjm/QPN9a6NLEKMY2yrYzczUoK90i+wZJ7QpdL1kEWMuWpfO6i0z?=
- =?us-ascii?Q?Z0GY/JZuiSnLyMn+eZsCgamlSP8jbJRbZiO70KaNvu9A3+FuWPwbDD5or42+?=
- =?us-ascii?Q?CY3pZG5S/avfG7x1IaFiEMM2Ti6bTDg/lxvbnFFQqzUXPg5+M0BcenXs5ohD?=
- =?us-ascii?Q?sHcyYYhrxZHDaZftFEEXmQgFKY1pEoeBNiD94AMVZTVKsPpF1n8aQS0O+e1w?=
- =?us-ascii?Q?RJ2X0frj9sQ2JN8Y9aUuqz0ugpJD9cQNJz5l/vmKxduxrkVPVeUf5SxLUYwn?=
- =?us-ascii?Q?31reebRxIAHMdElVuyVGFk8hDx405mJuuINdP+kzmW9ADzDodqN3HFVcINmW?=
- =?us-ascii?Q?7tzmCgHKgtwUYfgJzS37f5DtT6n+LHB1YFJ3MwSkQPOGeCoIUD5ZxYgZg1SH?=
- =?us-ascii?Q?YtOJEtEflHgkM///7E4a9YVhY59/cLVUiZioCt+jvLwGoFMN+1eaHhYjeEMd?=
- =?us-ascii?Q?tBDYYx8NxegaimP8kKnb94Ywrc+tX5RPxQr7BhOd2Y9EwGdceya7MWfBgIM/?=
- =?us-ascii?Q?cBsLofmaxQBsIOpu0BDviQqitM0emOsP+9AOU5SdLvqI4NcUhGd5Tt7SRaDZ?=
- =?us-ascii?Q?T9N2HM26O78jSCdushDUqkPfF0pv6sVQzSCF98O5YHMKwJzYMf/4kFR9Kx+u?=
- =?us-ascii?Q?NiQmGalnnJBUOGT89BsnqOq9+kV8Q436NBNddQt7hbb2Rx+8XQ+6KQQ+mwj7?=
- =?us-ascii?Q?KzSsQJcsmqTuL2QJNrxyJXhQ5og4Qc9uwzGBWlcFwN50+bSWlQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 13:39:02.3132 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2a86a09-4502-4c5b-f425-08dcbb9d4b15
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06B.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9313
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,88 +62,417 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-when trying to enable p2p the amdgpu_device_is_peer_accessible()
-checks the condition where address_mask overlaps the aper_base
-and hence returns 0, due to which the p2p disables for this platform
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-IOMMU should remap the BAR addresses so the device can access
-them. Hence check if iommu_remap and return true.
+Convert fdinfo memory stats to use the common drm_print_memory_stats
+helper.
 
-Signed-off-by: Rahul Jain <Rahul.Jain@amd.com>
+This achieves alignment with the common keys as documented in
+drm-usage-stats.rst, adding specifically drm-total- key the driver was
+missing until now.
+
+Additionally I made the code stop skipping total size for objects which
+currently do not have a backing store, and I added resident, active and
+purgeable reporting.
+
+Legacy keys have been preserved, with the outlook of only potentially
+removing only the drm-memory- when the time gets right.
+
+The example output now looks like this:
+
+ pos:	0
+ flags:	02100002
+ mnt_id:	24
+ ino:	1239
+ drm-driver:	amdgpu
+ drm-client-id:	4
+ drm-pdev:	0000:04:00.0
+ pasid:	32771
+ drm-total-cpu:	0
+ drm-shared-cpu:	0
+ drm-active-cpu:	0
+ drm-resident-cpu:	0
+ drm-purgeable-cpu:	0
+ drm-total-gtt:	2392 KiB
+ drm-shared-gtt:	0
+ drm-active-gtt:	0
+ drm-resident-gtt:	2392 KiB
+ drm-purgeable-gtt:	0
+ drm-total-vram:	44564 KiB
+ drm-shared-vram:	31952 KiB
+ drm-active-vram:	0
+ drm-resident-vram:	44564 KiB
+ drm-purgeable-vram:	0
+ drm-memory-vram:	44564 KiB
+ drm-memory-gtt: 	2392 KiB
+ drm-memory-cpu: 	0 KiB
+ amd-memory-visible-vram:	44564 KiB
+ amd-evicted-vram:	0 KiB
+ amd-evicted-visible-vram:	0 KiB
+ amd-requested-vram:	44564 KiB
+ amd-requested-visible-vram:	11952 KiB
+ amd-requested-gtt:	2392 KiB
+ drm-engine-compute:	46464671 ns
+
+v2:
+ * Track purgeable via AMDGPU_GEM_CREATE_DISCARDABLE.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 30 +++++++++++++++++-----
- 2 files changed, 26 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 48 +++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 96 +++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 35 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 20 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  3 +-
+ 6 files changed, 122 insertions(+), 81 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index f3980b40f2ce..618b44f5df85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1138,6 +1138,8 @@ struct amdgpu_device {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index c7df7fa3459f..00a4ab082459 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -59,18 +59,21 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	struct amdgpu_fpriv *fpriv = file->driver_priv;
+ 	struct amdgpu_vm *vm = &fpriv->vm;
  
- 	bool				ram_is_direct_mapped;
+-	struct amdgpu_mem_stats stats;
++	struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST + 1] = { };
+ 	ktime_t usage[AMDGPU_HW_IP_NUM];
+-	unsigned int hw_ip;
++	const char *pl_name[] = {
++		[TTM_PL_VRAM] = "vram",
++		[TTM_PL_TT] = "gtt",
++		[TTM_PL_SYSTEM] = "cpu",
++	};
++	unsigned int hw_ip, i;
+ 	int ret;
  
-+	bool                            iommu_remap;
+-	memset(&stats, 0, sizeof(stats));
+-
+ 	ret = amdgpu_bo_reserve(vm->root.bo, false);
+ 	if (ret)
+ 		return;
+ 
+-	amdgpu_vm_get_memory(vm, &stats);
++	amdgpu_vm_get_memory(vm, stats, ARRAY_SIZE(stats));
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 
+ 	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
+@@ -82,24 +85,35 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	 */
+ 
+ 	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
+-	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", stats.vram/1024UL);
+-	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", stats.gtt/1024UL);
+-	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", stats.cpu/1024UL);
 +
- 	struct list_head                ras_list;
- 
- 	struct ip_discovery_top         *ip_top;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a6b8d0ba4758..927b076aa952 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3950,6 +3950,9 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
- 	domain = iommu_get_domain_for_dev(adev->dev);
- 	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY)
- 		adev->ram_is_direct_mapped = true;
++	for (i = 0; i < TTM_PL_PRIV; i++)
++		drm_print_memory_stats(p,
++				       &stats[i].drm,
++				       DRM_GEM_OBJECT_RESIDENT |
++				       DRM_GEM_OBJECT_PURGEABLE,
++				       pl_name[i]);
 +
-+	if (!domain || domain->type != IOMMU_DOMAIN_IDENTITY)
-+		adev->iommu_remap = true;
++	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
++	drm_printf(p, "drm-memory-vram:\t%llu KiB\n",
++		   stats[TTM_PL_VRAM].total/1024UL);
++	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n",
++		   stats[TTM_PL_TT].total/1024UL);
++	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n",
++		   stats[TTM_PL_SYSTEM].total/1024UL);
++
++	/* Amdgpu specific memory accounting keys: */
+ 	drm_printf(p, "amd-memory-visible-vram:\t%llu KiB\n",
+-		   stats.visible_vram/1024UL);
++		   stats[TTM_PL_VRAM].visible/1024UL);
+ 	drm_printf(p, "amd-evicted-vram:\t%llu KiB\n",
+-		   stats.evicted_vram/1024UL);
++		   stats[TTM_PL_VRAM].evicted/1024UL);
+ 	drm_printf(p, "amd-evicted-visible-vram:\t%llu KiB\n",
+-		   stats.evicted_visible_vram/1024UL);
++		   stats[TTM_PL_VRAM].evicted_visible/1024UL);
+ 	drm_printf(p, "amd-requested-vram:\t%llu KiB\n",
+-		   stats.requested_vram/1024UL);
++		   stats[TTM_PL_VRAM].requested/1024UL);
+ 	drm_printf(p, "amd-requested-visible-vram:\t%llu KiB\n",
+-		   stats.requested_visible_vram/1024UL);
++		   stats[TTM_PL_VRAM].requested_visible/1024UL);
+ 	drm_printf(p, "amd-requested-gtt:\t%llu KiB\n",
+-		   stats.requested_gtt/1024UL);
+-	drm_printf(p, "drm-shared-vram:\t%llu KiB\n", stats.vram_shared/1024UL);
+-	drm_printf(p, "drm-shared-gtt:\t%llu KiB\n", stats.gtt_shared/1024UL);
+-	drm_printf(p, "drm-shared-cpu:\t%llu KiB\n", stats.cpu_shared/1024UL);
++		   stats[TTM_PL_TT].requested/1024UL);
+ 
+ 	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+ 		if (!usage[hw_ip])
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index e32161f6b67a..7facddeab799 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1284,54 +1284,92 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
  }
  
- static const struct attribute *amdgpu_dev_attributes[] = {
-@@ -6127,6 +6130,19 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 				      struct amdgpu_device *peer_adev)
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+-			  struct amdgpu_mem_stats *stats)
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int sz)
  {
- #ifdef CONFIG_HSA_AMD_P2P
-+	/**
-+	 * There are chances when we are in amdgpu_device_init
-+	 * and either of adev have not called amdgpu_device_check_iommu_direct_map,
-+	 * Hence check if iommu_remap is available or not.
-+	 */
-+	if (!adev->iommu_remap)
-+		amdgpu_device_check_iommu_direct_map(adev);
-+	if (!peer_adev->iommu_remap)
-+		amdgpu_device_check_iommu_direct_map(peer_adev);
-+
-+	bool remap = adev->iommu_remap;
-+	bool peer_remap = peer_adev->iommu_remap;
-+
- 	uint64_t address_mask = peer_adev->dev->dma_mask ?
- 		~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
- 	resource_size_t aper_limit =
-@@ -6135,13 +6151,15 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 		!adev->gmc.xgmi.connected_to_cpu &&
- 		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
++	const unsigned int domain_to_pl[] = {
++		[ilog2(AMDGPU_GEM_DOMAIN_CPU)]	    = TTM_PL_SYSTEM,
++		[ilog2(AMDGPU_GEM_DOMAIN_GTT)]	    = TTM_PL_TT,
++		[ilog2(AMDGPU_GEM_DOMAIN_VRAM)]	    = TTM_PL_VRAM,
++		[ilog2(AMDGPU_GEM_DOMAIN_GDS)]	    = AMDGPU_PL_GDS,
++		[ilog2(AMDGPU_GEM_DOMAIN_GWS)]	    = AMDGPU_PL_GWS,
++		[ilog2(AMDGPU_GEM_DOMAIN_OA)]	    = AMDGPU_PL_OA,
++		[ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] = AMDGPU_PL_DOORBELL,
++	};
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	struct ttm_resource *res = bo->tbo.resource;
++	struct drm_gem_object *obj = &bo->tbo.base;
+ 	uint64_t size = amdgpu_bo_size(bo);
+-	struct drm_gem_object *obj;
+-	bool shared;
++	unsigned int type;
  
--	return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
--		adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
--		!(adev->gmc.aper_base & address_mask ||
--		  aper_limit & address_mask));
--#else
--	return false;
-+	if (remap && peer_remap)
-+		return pcie_p2p && p2p_access;
+-	/* Abort if the BO doesn't currently have a backing store */
+-	if (!res)
+-		return;
++	if (!res) {
++		/*
++		 * If no backing store use one of the preferred domain for basic
++		 * stats. We take the MSB since that should give a reasonable
++		 * view.
++		 */
++		BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT ||
++			     TTM_PL_VRAM < TTM_PL_SYSTEM);
++		type = fls(bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK);
++		if (!type)
++			return;
++		type--;
++		if (drm_WARN_ON_ONCE(&adev->ddev,
++				     type >= ARRAY_SIZE(domain_to_pl)))
++			return;
++		type = domain_to_pl[type];
++	} else {
++		type = res->mem_type;
++	}
+ 
+-	obj = &bo->tbo.base;
+-	shared = drm_gem_object_is_shared_for_memory_stats(obj);
+-
+-	switch (res->mem_type) {
++	/* Squash some into 'cpu' to keep the legacy userspace view. */
++	switch (type) {
+ 	case TTM_PL_VRAM:
+-		stats->vram += size;
+-		if (amdgpu_res_cpu_visible(adev, res))
+-			stats->visible_vram += size;
+-		if (shared)
+-			stats->vram_shared += size;
+-		break;
+ 	case TTM_PL_TT:
+-		stats->gtt += size;
+-		if (shared)
+-			stats->gtt_shared += size;
+-		break;
+ 	case TTM_PL_SYSTEM:
++		break;
+ 	default:
+-		stats->cpu += size;
+-		if (shared)
+-			stats->cpu_shared += size;
++		type = TTM_PL_SYSTEM;
+ 		break;
+ 	}
+ 
++	if (drm_WARN_ON_ONCE(&adev->ddev, type >= sz))
++		return;
++
++	/* DRM stats common fields: */
++
++	stats[type].total += size;
++	if (drm_gem_object_is_shared_for_memory_stats(obj))
++		stats[type].drm.shared += size;
 +	else
-+		return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
-+			adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
-+			!(adev->gmc.aper_base & address_mask ||
-+			aper_limit & address_mask));
- #endif
-+	return false;
++		stats[type].drm.private += size;
++
++	if (res) {
++		stats[type].drm.resident += size;
++
++		if (!dma_resv_test_signaled(obj->resv, DMA_RESV_USAGE_BOOKKEEP))
++			stats[type].drm.active += size;
++		else if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
++			stats[type].drm.purgeable += size;
++
++		if (type == TTM_PL_VRAM && amdgpu_res_cpu_visible(adev, res))
++			stats[type].visible += size;
++	}
++
++	/* amdgpu specific stats: */
++
+ 	if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
+-		stats->requested_vram += size;
++		stats[TTM_PL_VRAM].requested += size;
+ 		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+-			stats->requested_visible_vram += size;
++			stats[TTM_PL_VRAM].requested_visible += size;
+ 
+-		if (res->mem_type != TTM_PL_VRAM) {
+-			stats->evicted_vram += size;
++		if (type != TTM_PL_VRAM) {
++			stats[TTM_PL_VRAM].evicted += size;
+ 			if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+-				stats->evicted_visible_vram += size;
++				stats[TTM_PL_VRAM].evicted_visible += size;
+ 		}
+ 	} else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
+-		stats->requested_gtt += size;
++		stats[TTM_PL_TT].requested += size;
+ 	}
  }
  
- int amdgpu_device_baco_enter(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index bc42ccbde659..44774584a29f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -136,30 +136,14 @@ struct amdgpu_bo_vm {
+ };
+ 
+ struct amdgpu_mem_stats {
+-	/* current VRAM usage, includes visible VRAM */
+-	uint64_t vram;
+-	/* current shared VRAM usage, includes visible VRAM */
+-	uint64_t vram_shared;
+-	/* current visible VRAM usage */
+-	uint64_t visible_vram;
+-	/* current GTT usage */
+-	uint64_t gtt;
+-	/* current shared GTT usage */
+-	uint64_t gtt_shared;
+-	/* current system memory usage */
+-	uint64_t cpu;
+-	/* current shared system memory usage */
+-	uint64_t cpu_shared;
+-	/* sum of evicted buffers, includes visible VRAM */
+-	uint64_t evicted_vram;
+-	/* sum of evicted buffers due to CPU access */
+-	uint64_t evicted_visible_vram;
+-	/* how much userspace asked for, includes vis.VRAM */
+-	uint64_t requested_vram;
+-	/* how much userspace asked for */
+-	uint64_t requested_visible_vram;
+-	/* how much userspace asked for */
+-	uint64_t requested_gtt;
++	struct drm_memory_stats drm;
++
++	uint64_t total;
++	uint64_t visible;
++	uint64_t evicted;
++	uint64_t evicted_visible;
++	uint64_t requested;
++	uint64_t requested_visible;
+ };
+ 
+ static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
+@@ -342,7 +326,8 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
+ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
+ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+-			  struct amdgpu_mem_stats *stats);
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int size);
+ void amdgpu_bo_add_to_shadow_list(struct amdgpu_bo_vm *vmbo);
+ int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,
+ 			     struct dma_fence **fence);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 138d80017f35..2852a6064c9a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -34,6 +34,7 @@
+ #define AMDGPU_PL_OA		(TTM_PL_PRIV + 2)
+ #define AMDGPU_PL_PREEMPT	(TTM_PL_PRIV + 3)
+ #define AMDGPU_PL_DOORBELL	(TTM_PL_PRIV + 4)
++#define __AMDGPU_PL_LAST	(TTM_PL_PRIV + 4)
+ 
+ #define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
+ #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 52e6a0b3f0c8..86c3ee0e86e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1090,7 +1090,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ }
+ 
+ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
+-				    struct amdgpu_mem_stats *stats)
++				    struct amdgpu_mem_stats *stats,
++				    unsigned int size)
+ {
+ 	struct amdgpu_vm *vm = bo_va->base.vm;
+ 	struct amdgpu_bo *bo = bo_va->base.bo;
+@@ -1106,34 +1107,35 @@ static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
+ 	    !dma_resv_trylock(bo->tbo.base.resv))
+ 		return;
+ 
+-	amdgpu_bo_get_memory(bo, stats);
++	amdgpu_bo_get_memory(bo, stats, size);
+ 	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+ 		dma_resv_unlock(bo->tbo.base.resv);
+ }
+ 
+ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+-			  struct amdgpu_mem_stats *stats)
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int size)
+ {
+ 	struct amdgpu_bo_va *bo_va, *tmp;
+ 
+ 	spin_lock(&vm->status_lock);
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 
+ 	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status)
+-		amdgpu_vm_bo_get_memory(bo_va, stats);
++		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+ 	spin_unlock(&vm->status_lock);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 046949c4b695..c66ec14dd3d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -566,7 +566,8 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ 				struct amdgpu_vm *vm);
+ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+-			  struct amdgpu_mem_stats *stats);
++			  struct amdgpu_mem_stats *stats,
++			  unsigned int size);
+ 
+ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		       struct amdgpu_bo_vm *vmbo, bool immediate);
 -- 
-2.34.1
+2.44.0
 
