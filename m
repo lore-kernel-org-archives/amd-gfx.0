@@ -4,124 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E18C52D7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 06:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17ECCC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 07:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7E710E40C;
-	Wed, 14 Aug 2024 06:48:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBF4110E41B;
+	Wed, 14 Aug 2024 07:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GNPKgA9z";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="XD/PXHrw";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061.outbound.protection.outlook.com [40.107.96.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32B5D10E40C
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Aug 2024 06:48:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IMHjVD4UPKHGF+sY6lqdUgQMJUypapF8saWijDMt7DTiJjhPO2a3Q5P7OETpw9yOvMkAMjuqSUsq154jzmRvZyPWYnbFf26Fsa6d8vpiqoSvBwd52s645GpfbYbAQempHRSe0vYw6FEjcV9aQIdalyu0FLn7E2uvJ7/Y8UuLVxPWzf8ma5YhzTH8NAs9uR0FJ5PcexoBgHrIP3+0K20FYawP7KMjgyiPzrgJE7BHUePT9S+7fRz+e7IcQhBFjdPp7KcaCtyFtpEuRFUf7vwEksE3xhiE9DvxnbRuLj86CJA+5wHDOIBtv2bVxZgO9LzF5sfX/P51aXQCfW1bPSN6CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rGIhx0Bhdlb6CzuMSIXVudD9mEQCPW6ExIuYfxqMGt4=;
- b=Cgz7fCDnLPJ6GJChiZP7G8lPzMo3MLDXluTTI4Z9dLjsVwmbj+3NZh3VBVjj/tx3S9sopw/P/p78RKat1jmDw7mfMhY+duEupSN8W00CLvgLyTLpjkMEvIP50s2U1M67tybMrZ9EFz9RZ7D82SBKnACPTlBizp2hMxsK083NJBYXZ9XRqOTBcAoz8b5rQXPr547j18fEyETQIBnoa9SMuDPbP+vg70nsFnnQCwEj1CUa5ZglHoSLtEQKDJGy+hMBayhPw9j+1oGLl8MEC5xpEggG2zZuT/gROlpU2omUvZaPTB+3WL4gqdGijsfY/sXt5APiot7011x3URBeS2NdQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rGIhx0Bhdlb6CzuMSIXVudD9mEQCPW6ExIuYfxqMGt4=;
- b=GNPKgA9zjqDBsLVzUsSOMhnLCv/p2KmMOD+LBLh3XRSiW9s043dOx6mguXZ7y8Onsf+LMpquOqNbL/n3mahIcran+FVRqs6QMBDatCWcItszU5GchrBCgovJH6vG6MeiKkwKedNLMrKbWwtjBXss1T8wQriGW5xQAdEib8yU4EU=
-Received: from SJ0PR03CA0334.namprd03.prod.outlook.com (2603:10b6:a03:39c::9)
- by IA1PR12MB6308.namprd12.prod.outlook.com (2603:10b6:208:3e4::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.15; Wed, 14 Aug
- 2024 06:48:52 +0000
-Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
- (2603:10b6:a03:39c:cafe::b4) by SJ0PR03CA0334.outlook.office365.com
- (2603:10b6:a03:39c::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
- Transport; Wed, 14 Aug 2024 06:48:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.4 via Frontend Transport; Wed, 14 Aug 2024 06:48:51 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Aug
- 2024 01:48:49 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Aug
- 2024 01:47:21 -0500
-Received: from poc-rocm-server.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Wed, 14 Aug 2024 01:47:20 -0500
-From: Rahul Jain <Rahul.Jain@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Rahul Jain <Rahul.Jain@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Take IOMMU remapping into account for p2p
- checks
-Date: Wed, 14 Aug 2024 12:17:14 +0530
-Message-ID: <20240814064714.30455-1-Rahul.Jain@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
+ Tue, 13 Aug 2024 19:48:00 UTC
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C007C10E3ED
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 19:48:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1723577578; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=UKzdx9zkTnBSyLaYFQLLA8Lclh299YhlRomnGtWXPqzenzzRNPoPIosZ8VX9yEYVnvdsEsAy178ECS0P0K3fXao6V4/Tx81LIT+TxanAmgIg0iaYQosPZuhDcdgllq6hG90IZgtKB2SJ544dhSVacwKJf+Cl62WFLrOztzS6Yec=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1723577578;
+ h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=r37hcY9tqKHH9MCpXQMjP2k1FJLG80LgEcoAXDbY9FU=; 
+ b=jaM7bevreLn7qpZGX6VMwKV0EKRC34arE0dJssSTE/sCOYJUC9XMdeP+zumWrDf1rK70CMIF+AMRncYSnpyAfEoKFSF2PBxYqNeW5tkbhe1suaX9yG3w2mPhrGdftiBe/FsJoj9iejxkWcD1cvWF1mkowc69SvSycOHc43jJpM4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1723577578; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=r37hcY9tqKHH9MCpXQMjP2k1FJLG80LgEcoAXDbY9FU=;
+ b=XD/PXHrwBCUCgRfseR9ydxLU1SsWkNtnupQt5nQ+5nO9vsDPWbvm2Jo2ojvsQCtV
+ 1XQxxrmwYbysx3WkgajAHMxdZEmhKjOcR4fBQMVtcwyu4KW/dhkIylgNpdxYYmCpHlG
+ 3ZkALWE30/Lol/TqmrlfeF/LZ2aILqvUOtWtVgMk=
+Received: by mx.zohomail.com with SMTPS id 1723577577218537.6150774447085;
+ Tue, 13 Aug 2024 12:32:57 -0700 (PDT)
+Message-ID: <0f8e44499b075d968ed4b158342a5047d184ed85.camel@collabora.com>
+Subject: XDC 2024: Call for Proposals deadline extended to August 19
+From: Mark Filion <mark.filion@collabora.com>
+To: amd-gfx@lists.freedesktop.org
+Date: Tue, 13 Aug 2024 15:32:56 -0400
+Content-Type: multipart/alternative; boundary="=-3/2jPPSJb8Z7yaK1kSvh"
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: Rahul.Jain@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|IA1PR12MB6308:EE_
-X-MS-Office365-Filtering-Correlation-Id: c66e704c-4358-4169-eaa6-08dcbc2d28a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yTzRwKTq+0ujT97AeJRlxg9+CiuaknO1IGR5D10RKIHye10Q3P/ZsURQi0+k?=
- =?us-ascii?Q?6++DjwGXM504jQiRZ18NVj0RA+sEF7wvAx9+Db/Pe6ZSnbjt6JC/LyQjeeT1?=
- =?us-ascii?Q?w7FvEvlUgDdmXMIRapCvqX9ottGbmYIAP8XSJXzlG0cSezBPgRhKnaQzokHg?=
- =?us-ascii?Q?XU3FwbD4sTsxn45l4FOmOftxiYzQskkuNEQz5M0yd9AldfjSOyaLQjJFvFxv?=
- =?us-ascii?Q?UALgInBkj7HgYQKZol44IE2Y07gqMrcz4VScCJpaNAhSeSEx9fl3rY482XJd?=
- =?us-ascii?Q?8Rn51FdL3DBPMMQ8kwQ+egeZgndJZFv0jULt+s4+Ntkd9BvtlKf6RHuDqwwp?=
- =?us-ascii?Q?Ka9HV/bOwMXlMEQs3x0IHJDJ3C7VSDXA5OAQVV2seRxaNMxK1QUr9HVNwF5s?=
- =?us-ascii?Q?heczHp/ixNDnuzwK6aMH5osnDV9j7c+5GBMmE8BoXdWUotbA0lVbuiFoNdxJ?=
- =?us-ascii?Q?MsYVJ6MoF/ya4+/BXUFxre2RhDIZ/XlCcVaOYOmZmepKAQMdU+P3HQ9XIbz5?=
- =?us-ascii?Q?PdDlt7lzppqLKMzflm0T6qUB1B5Afcx32GIWCz1JBWoHy43+mhM8HZKOwwnz?=
- =?us-ascii?Q?6lRxU5n3ghVRPzCfWnRnaK63qLNgQvvVUXe9WE2FtRW69uVSlcfxQpTwgmSX?=
- =?us-ascii?Q?jVwtsXuWOeFRs0OZXPaPXRgqYBr9twv//mvwOmAA0iOBEfccd18Ob+s/JAtu?=
- =?us-ascii?Q?p4e7Dz8hJTeqNRr2mdno4EXzTfiUKCq+aVleZVDBDoydI5nLqwG4j4nk45Ko?=
- =?us-ascii?Q?yuAjmlqb9LP5Jiv/Dd2XXEWCdkFFcyAc87/EvomwPP2dL53BgRiunz4fDFp+?=
- =?us-ascii?Q?TfkmJ2T3Yb8SA4Wt3cpH/iqbgxGQo48rWvxoXNRRgzfwQ0vxhdaTBCJ3DpSw?=
- =?us-ascii?Q?aVnQ7xtKzl3Ozpdb6MUL/zrtLM/tkXMkqUpqm3VChywWiAz22Jp+yIMxVCz6?=
- =?us-ascii?Q?spEGUFsGx8s1wNbaGyE2au9dk9D0sQGLDZP4GwjkTfjA131jphxQR0wgIQ40?=
- =?us-ascii?Q?po0lDZNMAnUQkGpQWV5OcdN+HMT9vgF9R7C4eHVqTGnqPCOgoW031EWJMyJW?=
- =?us-ascii?Q?KlUkhDvnq5QVCIwVhSxs57AcgPA+o762gPlRuOrhazzCVUYq3V+hGsTVTk1Z?=
- =?us-ascii?Q?wWMb4Zc3xUUd2UnkkQ0BDnkxNKrWZr+0XsmJe6hjk7bTQvL0D2IH9sdb4yjJ?=
- =?us-ascii?Q?zvwefKbbblqEGtb5B1Z6bjtcB6S3RVldhnLQuMBANcsPKkY+fGyNRrDZ5w4O?=
- =?us-ascii?Q?VYNA09eyt2I7M2E8TjteD2tIlpozIgbNVaPoq8cRifHAwIW9JkMro7g/p9ut?=
- =?us-ascii?Q?cm9ZJLnO9/6QYqGwpm42UP/Ddc2IxJpQx2hHPyC8DHHAdlaeOWR/I6Mjb2MJ?=
- =?us-ascii?Q?mNtJF3xDFSlTgx7DOCs6sgxIafw2ZN2MP73+ow0VuYw5+4aSiygtO7+9rwm5?=
- =?us-ascii?Q?JiltKKK3Auyry7yZJ/p6nla+ytIZMH0z?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 06:48:51.9546 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c66e704c-4358-4169-eaa6-08dcbc2d28a0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D9.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6308
+X-Mailman-Approved-At: Wed, 14 Aug 2024 07:11:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,109 +62,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-when trying to enable p2p the amdgpu_device_is_peer_accessible()
-checks the condition where address_mask overlaps the aper_base
-and hence returns 0, due to which the p2p disables for this platform
+--=-3/2jPPSJb8Z7yaK1kSvh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-IOMMU should remap the BAR addresses so the device can access
-them. Hence check if iommu_remap and return true.
+Hello!
 
-v2: (Alex)
-- Fix as per review comments
-- add new function amdgpu_device_check_iommu_remap to check if iommu
-  remap
+The CfP deadline for talks, workshops=C2=A0and demos at XDC=C2=A02024 has b=
+een
+extended to next Monday, 19 August 2024.=C2=A0
 
-Signed-off-by: Rahul Jain <Rahul.Jain@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 46 +++++++++++++++++++---
- 2 files changed, 42 insertions(+), 6 deletions(-)
+You have one more week to submit, don't wait!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index f3980b40f2ce..618b44f5df85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1138,6 +1138,8 @@ struct amdgpu_device {
- 
- 	bool				ram_is_direct_mapped;
- 
-+	bool                            iommu_remap;
-+
- 	struct list_head                ras_list;
- 
- 	struct ip_discovery_top         *ip_top;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a6b8d0ba4758..040c75c491cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3952,6 +3952,25 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
- 		adev->ram_is_direct_mapped = true;
- }
- 
-+/**
-+ * amdgpu_device_check_iommu_remap - check if iommu remaped BAR
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * return if IOMMU remapping bar address
-+ */
-+static bool amdgpu_device_check_iommu_remap(struct amdgpu_device *adev)
-+{
-+	struct iommu_domain *domain;
-+
-+	domain = iommu_get_domain_for_dev(adev->dev);
-+	if (domain && (domain->type == IOMMU_DOMAIN_DMA ||
-+		domain->type ==	IOMMU_DOMAIN_DMA_FQ))
-+		return true;
-+
-+	return false;
-+}
-+
- static const struct attribute *amdgpu_dev_attributes[] = {
- 	&dev_attr_pcie_replay_count.attr,
- 	NULL
-@@ -6127,6 +6146,8 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 				      struct amdgpu_device *peer_adev)
- {
- #ifdef CONFIG_HSA_AMD_P2P
-+	bool peer_remap = amdgpu_device_check_iommu_remap(peer_adev);
-+
- 	uint64_t address_mask = peer_adev->dev->dma_mask ?
- 		~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
- 	resource_size_t aper_limit =
-@@ -6135,13 +6156,26 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 		!adev->gmc.xgmi.connected_to_cpu &&
- 		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
- 
--	return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
--		adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
--		!(adev->gmc.aper_base & address_mask ||
--		  aper_limit & address_mask));
--#else
--	return false;
-+	if (peer_remap)
-+		/**
-+		 * IOMMU is remapping DMA for peer_adev so all accesses
-+		 * should be within peer_adev's DMA mask
-+		 */
-+		return pcie_p2p && p2p_access &&
-+			(adev->gmc.visible_vram_size &&
-+			 adev->gmc.real_vram_size == adev->gmc.visible_vram_size);
-+	else
-+		/**
-+		 * No IOMMU remapping so make sure the adev's aperture
-+		 * fits into peer_adev's dma mask
-+		 */
-+		return pcie_p2p && p2p_access &&
-+			(adev->gmc.visible_vram_size &&
-+			adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
-+			!(adev->gmc.aper_base & address_mask ||
-+			aper_limit & address_mask));
- #endif
-+	return false;
- }
- 
- int amdgpu_device_baco_enter(struct drm_device *dev)
--- 
-2.34.1
+https://indico.freedesktop.org/event/6/abstracts/
 
+While any serious proposal will be gratefully=C2=A0considered, topics of
+interest to X.Org and freedesktop.org developers are encouraged. The
+program focus is on new development, ongoing challenges and anything
+else that will spark discussions among attendees in the hallway track.
+
+We are open to talks across all layers of the graphics stack, from the
+kernel to desktop environments / graphical applications and about how
+to make things better for the developers who build them. Head to the
+CfP page to learn more!
+=C2=A0=C2=A0=C2=A0
+As usual, the conference is free of charge and open to the general
+public. If you plan on attending, please make sure to register as early
+as possible!
+
+And don't forget, you can follow us on Mastodon for all the latest
+updates and to stay connected:
+
+=C2=A0=C2=A0=C2=A0=C2=A0https://floss.social/@XOrgDevConf
+
+Best,
+
+Mark
+
+--=-3/2jPPSJb8Z7yaK1kSvh
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><style>pre,code,address {
+  margin: 0px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+ol,ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+blockquote {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+</style></head><body><div><span style=3D"caret-color: rgb(46, 52, 54); colo=
+r: rgb(46, 52, 54); font-family: &quot;Source Code Pro&quot;; font-size: 13=
+.333333px;">Hello!</span><br><br><span style=3D"caret-color: rgb(46, 52, 54=
+); color: rgb(46, 52, 54); font-family: &quot;Source Code Pro&quot;; font-s=
+ize: 13.333333px;">The CfP deadline for talks, workshops&nbsp;and demos at =
+XDC</span>&nbsp;<span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46,=
+ 52, 54); font-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;=
+">2024 has been<br>extended to next Monday, 19 August 2024.&nbsp;</span></d=
+iv><div><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54)=
+; font-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;"><br></=
+span></div><div><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46,=
+ 52, 54); font-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;=
+">You have one more week to submit, don't wait!</span><br><br><a href=3D"ht=
+tps://indico.freedesktop.org/event/6/abstracts/" title=3D"Click to open htt=
+ps://indico.freedesktop.org/event/6/abstracts/">https://indico.freedesktop.=
+org/event/6/abstracts/</a><br><br><span style=3D"caret-color: rgb(46, 52, 5=
+4); color: rgb(46, 52, 54); font-family: &quot;Source Code Pro&quot;; font-=
+size: 13.333333px;">While any serious proposal will be gratefully&nbsp;cons=
+idered, topics of</span><br><span style=3D"caret-color: rgb(46, 52, 54); co=
+lor: rgb(46, 52, 54); font-family: &quot;Source Code Pro&quot;; font-size: =
+13.333333px;">interest to X.Org and freedesktop.org developers are encourag=
+ed. The</span><br><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(4=
+6, 52, 54); font-family: &quot;Source Code Pro&quot;; font-size: 13.333333p=
+x;">program focus is on new development, ongoing challenges and anything</s=
+pan><br><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54)=
+; font-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;">else t=
+hat will spark discussions among attendees in the hallway track.</span><br>=
+<br><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); fo=
+nt-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;">We are ope=
+n to talks across all layers of the graphics stack, from the</span><br><spa=
+n style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-famil=
+y: &quot;Source Code Pro&quot;; font-size: 13.333333px;">kernel to desktop =
+environments / graphical applications and about how</span><br><span style=
+=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: &quo=
+t;Source Code Pro&quot;; font-size: 13.333333px;">to make things better for=
+ the developers who build them. Head to the</span><br><span style=3D"caret-=
+color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: &quot;Source C=
+ode Pro&quot;; font-size: 13.333333px;">CfP page to learn more!</span><br><=
+span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-fa=
+mily: &quot;Source Code Pro&quot;; font-size: 13.333333px;">&nbsp;&nbsp;&nb=
+sp;</span><br><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 5=
+2, 54); font-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;">=
+As usual, the conference is free of charge and open to the general</span><b=
+r><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font=
+-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;">public. If y=
+ou plan on attending, please make sure to register as early</span><br><span=
+ style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family=
+: &quot;Source Code Pro&quot;; font-size: 13.333333px;">as possible!</span>=
+<br><br><span style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54)=
+; font-family: &quot;Source Code Pro&quot;; font-size: 13.333333px;">And do=
+n't forget, you can follow us on Mastodon for all the latest</span><br><spa=
+n style=3D"caret-color: rgb(46, 52, 54); color: rgb(46, 52, 54); font-famil=
+y: &quot;Source Code Pro&quot;; font-size: 13.333333px;">updates and to sta=
+y connected:</span><br><br><span style=3D"caret-color: rgb(46, 52, 54); col=
+or: rgb(46, 52, 54); font-family: &quot;Source Code Pro&quot;; font-size: 1=
+3.333333px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href=3D"https://floss.social=
+/@XOrgDevConf" title=3D"Click to open https://floss.social/@XOrgDevConf">ht=
+tps://floss.social/@XOrgDevConf</a><br><br><span style=3D"caret-color: rgb(=
+46, 52, 54); color: rgb(46, 52, 54); font-family: &quot;Source Code Pro&quo=
+t;; font-size: 13.333333px;">Best,</span><br><br><span style=3D"caret-color=
+: rgb(46, 52, 54); color: rgb(46, 52, 54); font-family: &quot;Source Code P=
+ro&quot;; font-size: 13.333333px;">Mark</span></div><div><span></span></div=
+></body></html>
+
+--=-3/2jPPSJb8Z7yaK1kSvh--
