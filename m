@@ -4,29 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C68FCC52D7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 17:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BC24C52D7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 18:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7788710E3B0;
-	Tue, 13 Aug 2024 17:07:44 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45F8F10E3B4
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 17:07:43 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 47DH7beM905220; Tue, 13 Aug 2024 22:37:37 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 47DH7bmh905213;
- Tue, 13 Aug 2024 22:37:37 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH] drm/amdgpu: remove ME0 registers from  mi300 dump
-Date: Tue, 13 Aug 2024 22:37:35 +0530
-Message-Id: <20240813170735.905194-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04FDF10E3D1;
+	Tue, 13 Aug 2024 18:47:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ti14AuoE";
+	dkim-atps=neutral
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B90A10E3D0;
+ Tue, 13 Aug 2024 18:47:53 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-5a156556fb4so6784451a12.3; 
+ Tue, 13 Aug 2024 11:47:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723574871; x=1724179671; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zN4cfhjtg0m+qcxUsehbY/r8FCTmD8wIKaA1q9aup7w=;
+ b=Ti14AuoEfD9/iWFuqQAH0LVeeiY8Pb4RvhRhaJIBzf6Z7uXTLB3x+JYX+/n/iKqqtH
+ 7hfGdCdiYfCqd51J5CIxM+RbR+nRG3an6ONG6V/N1HFGJXBDoGBKFgRwFdO8iXPFKEbb
+ mZyZYx/2b2vTCgVNOsmOv5me2KrGS//2VdZgkjSOv1RNjoFQWKD6ohh+l2dkfjH8VJqG
+ DI9HqpmznxpoqpoBc396NjGGNXARdzFYZg50QA4SlEVq/OTB6VsyJHZnfY5KTuUPeegL
+ Iva2uVMdIiKYfO63vnz7QmrKBbbgNWikaXLhgql4Ki8/UJHISiXaKYv8aKy/3C+b4Yrt
+ mbPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723574871; x=1724179671;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zN4cfhjtg0m+qcxUsehbY/r8FCTmD8wIKaA1q9aup7w=;
+ b=EwStiN4WpehJMQarSquMH33LO6fC0KJBBegOdxFXM3ROw9IXVqXAmkNnHd6eq5SePE
+ 7kZyhMB7EnxYKZbbcMoGtnOYWsBGGYi0Y3bBt0/8lNTJ/9+E1pC7mYbkM6ibCn3WetQx
+ G0ayomhk0cYl17JT1D0GyXXK3TCy19em+LgrE+IGLepz+x8btM3R/pUZmmjws/9yCcXY
+ 17gDbQm7VKFO9H+tZRlnULHtu0+clz5CimspCYLv56hom2yTlD7nEWU6u0R82jujpYbL
+ fRVrSc8dprsQ2uplr07QEoWo35lBej7fQZthYLLCWBgTLEsl57TTrGpnorUQTbLQf35e
+ SqMQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUqHXXYRGAkYgx49QuZUnHV56sLtcCGiIzNptsBwvxBFrLgcVgIdQTUXRa4ragFXZSEtaYBhMA/72+CiCMy3C1ECs5r8zcPMiX5lpbPfWuF
+X-Gm-Message-State: AOJu0YyImlXp3TZO7N9Qbmj7mNOLrVoKUuximtw/eDegPAqakExz8k6i
+ UR8isJMR2Xwg543FeOrkumPZrtQrE2HVzdd8KcWdDWsGwrhYwAckCata5giytwmLuWhJu3ZZdX5
+ k2K8aUaB9yb1vAt7aB7YRB6yL63M=
+X-Google-Smtp-Source: AGHT+IFnVaFQXYIcvXXDkk8GnJKLZo1nw2f88KFz1iXOrMa5BlQZCxf5Pf1DlScnwfnFrIVRMCc+xAulFJB59IpPnh0=
+X-Received: by 2002:a05:6402:34cc:b0:5a3:e652:d59 with SMTP id
+ 4fb4d7f45d1cf-5bea1beaa8dmr338798a12.0.1723574871152; Tue, 13 Aug 2024
+ 11:47:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240813135712.82611-1-tursulin@igalia.com>
+ <20240813135712.82611-2-tursulin@igalia.com>
+In-Reply-To: <20240813135712.82611-2-tursulin@igalia.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 13 Aug 2024 11:47:39 -0700
+Message-ID: <CAF6AEGvbZDg4K642HJtNAhj2f8Sv9DvfU+en52gi42=ssPiNnQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] Documentation/gpu: Document the situation with
+ unqualified drm-memory-
+To: Tvrtko Ursulin <tursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.keonig@amd.com>, 
+ Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,86 +83,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove ME0 registers from MI300 gfx_9_4_3 ipdump
-MI300 does not have  gfx ME and hence those register
-are just empty one and could be dropped.
+On Tue, Aug 13, 2024 at 6:57=E2=80=AFAM Tvrtko Ursulin <tursulin@igalia.com=
+> wrote:
+>
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>
+> Currently it is not well defined what is drm-memory- compared to other
+> categories.
+>
+> In practice the only driver which emits these keys is amdgpu and in them
+> exposes the current resident buffer object memory (including shared).
+>
+> To prevent any confusion, document that drm-memory- is deprecated and an
+> alias for drm-resident-memory-.
+>
+> While at it also clarify that the reserved sub-string 'memory' refers to
+> the memory region component, and also clarify the intended semantics of
+> other memory categories.
+>
+> v2:
+>  * Also mark drm-memory- as deprecated.
+>  * Add some more text describing memory categories. (Alex)
+>
+> v3:
+>  * Semantics of the amdgpu drm-memory is actually as drm-resident.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.keonig@amd.com>
+> Cc: Rob Clark <robdclark@chromium.org>
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 37 -------------------------
- 1 file changed, 37 deletions(-)
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 7b4ae197eb49..edebc4459b75 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -75,42 +75,11 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list_9_4_3[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_BUSY_STAT),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_ERROR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_BASE),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_RPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_BASE),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_RPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_WPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB1_BASE),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB1_RPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB1_WPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB2_BASE),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB2_WPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_RB2_WPTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_CMD_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_CMD_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_CMD_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_CMD_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_BASE_LO),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_BASE_HI),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_BASE_LO),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_BASE_HI),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_LO),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_HI),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BUFSZ),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BASE_LO),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BASE_HI),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BUFSZ),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCPF_UTCL1_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCPC_UTCL1_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCPG_UTCL1_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regGDS_PROTECTION_FAULT),
- 	SOC15_REG_ENTRY_STR(GC, 0, regGDS_VM_PROTECTION_FAULT),
--	SOC15_REG_ENTRY_STR(GC, 0, regIA_UTCL1_STATUS),
--	SOC15_REG_ENTRY_STR(GC, 0, regIA_UTCL1_CNTL),
--	SOC15_REG_ENTRY_STR(GC, 0, regPA_CL_CNTL_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regRLC_UTCL1_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regRMI_UTCL1_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regSQC_DCACHE_UTCL1_STATUS),
-@@ -122,11 +91,8 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list_9_4_3[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, regVM_L2_PROTECTION_FAULT_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_DEBUG),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_CNTL),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_INSTR_PNTR),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC1_INSTR_PNTR),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC2_INSTR_PNTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_ME_INSTR_PNTR),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_PFP_INSTR_PNTR),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_CPC_STATUS),
- 	SOC15_REG_ENTRY_STR(GC, 0, regRLC_STAT),
- 	SOC15_REG_ENTRY_STR(GC, 0, regRLC_SMU_COMMAND),
-@@ -139,11 +105,8 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list_9_4_3[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, regRLC_INT_STAT),
- 	SOC15_REG_ENTRY_STR(GC, 0, regRLC_GPM_GENERAL_6),
- 	/* cp header registers */
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_HEADER_DUMP),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
- 	SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME2_HEADER_DUMP),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_PFP_HEADER_DUMP),
--	SOC15_REG_ENTRY_STR(GC, 0, regCP_ME_HEADER_DUMP),
- 	/* SE status registers */
- 	SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS_SE0),
- 	SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS_SE1),
--- 
-2.34.1
-
+> ---
+>  Documentation/gpu/drm-usage-stats.rst | 25 ++++++++++++++++++++++---
+>  1 file changed, 22 insertions(+), 3 deletions(-)
+>
+> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/dr=
+m-usage-stats.rst
+> index a80f95ca1b2f..ff964c707754 100644
+> --- a/Documentation/gpu/drm-usage-stats.rst
+> +++ b/Documentation/gpu/drm-usage-stats.rst
+> @@ -144,7 +144,9 @@ Memory
+>
+>  Each possible memory type which can be used to store buffer objects by t=
+he
+>  GPU in question shall be given a stable and unique name to be returned a=
+s the
+> -string here.  The name "memory" is reserved to refer to normal system me=
+mory.
+> +string here.
+> +
+> +The region name "memory" is reserved to refer to normal system memory.
+>
+>  Value shall reflect the amount of storage currently consumed by the buff=
+er
+>  objects belong to this client, in the respective memory region.
+> @@ -152,6 +154,9 @@ objects belong to this client, in the respective memo=
+ry region.
+>  Default unit shall be bytes with optional unit specifiers of 'KiB' or 'M=
+iB'
+>  indicating kibi- or mebi-bytes.
+>
+> +This key is deprecated and is an alias for drm-resident-<region>. Only o=
+ne of
+> +the two should be present in the output.
+> +
+>  - drm-shared-<region>: <uint> [KiB|MiB]
+>
+>  The total size of buffers that are shared with another file (e.g., have =
+more
+> @@ -159,20 +164,34 @@ than a single handle).
+>
+>  - drm-total-<region>: <uint> [KiB|MiB]
+>
+> -The total size of buffers that including shared and private memory.
+> +The total size of all created buffers including shared and private memor=
+y. The
+> +backing store for the buffers does not have to be currently instantiated=
+ to be
+> +counted under this category.
+>
+>  - drm-resident-<region>: <uint> [KiB|MiB]
+>
+> -The total size of buffers that are resident in the specified region.
+> +The total size of buffers that are resident (have their backing store pr=
+esent or
+> +instantiated) in the specified region.
+> +
+> +This is an alias for drm-memory-<region> and only one of the two should =
+be
+> +present in the output.
+>
+>  - drm-purgeable-<region>: <uint> [KiB|MiB]
+>
+>  The total size of buffers that are purgeable.
+>
+> +For example drivers which implement a form of 'madvise' like functionali=
+ty can
+> +here count buffers which have instantiated backing store, but have been =
+marked
+> +with an equivalent of MADV_DONTNEED.
+> +
+>  - drm-active-<region>: <uint> [KiB|MiB]
+>
+>  The total size of buffers that are active on one or more engines.
+>
+> +One practical example of this can be presence of unsignaled fences in an=
+ GEM
+> +buffer reservation object. Therefore the active category is a subset of
+> +resident.
+> +
+>  Implementation Details
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> --
+> 2.44.0
+>
