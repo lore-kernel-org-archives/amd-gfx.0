@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43693C52D7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 21:13:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92217C52D7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 21:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC03010E2B6;
-	Tue, 13 Aug 2024 21:13:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 118A610E3E7;
+	Tue, 13 Aug 2024 21:55:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VA+kCOGG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X+V5sLhN";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51FB610E2B6
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 21:13:01 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1fc6ee64512so44368985ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 14:13:01 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C17210E3E7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 21:55:50 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-200aa78d35aso30722725ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 14:55:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723583581; x=1724188381; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1723586150; x=1724190950; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EuaJTyNPOLFQ7GFqTjdu9BlgKg8Vx0sEmHfErqdlVpM=;
- b=VA+kCOGGG2w70KxdhyBJy59ntfvZIS6cNBfr8oGW2Gye7yV4BzOPQaElrupAtVDWXr
- TCb4NuzTseOaRzbWRrXMn1AVBlzAPOMEB+uV1pquNFaI9FRRd9BDZawgiuQWsG1jH9Z/
- ItK1FZqlhYTkfH6YWfrrVQzbYef9/mR8VNyqVPCOvSjFKpMyj0hT2vqr9zu3CONe1F/t
- F3Ph0ZxxTlpjd2lxbgsv1uFzYM+I/qBA7deu6Es5QHIvwgoo5aH7oL4SP7s4Gtr6jiOv
- q0q64HO+2xM4Cj75s2gWx42Hnwdc+S+rKMh7QyQD44TDQqkFbuqneCI0keYcf8HDAYOP
- FSXQ==
+ bh=5UreK/Nu01RTdq0bsCGOGzRb3JrXysALXhL2Lv4L9tw=;
+ b=X+V5sLhNul/0I1cVTp8ORE461pg8rOTaErX1sQH6TrsYVxbdIz3p4FvDfpN1TfLW8w
+ 2TwPAWG8HY3n2bDtLUUrMXPS12qlSaM2uh4KJZFKL8QycNQXcW/5dOdl+vmhBwNi4eqM
+ xFvTLcgJLY17fdC3xeqQYGXcdqJn+upE8QN9xhqlmKExpXW43MaYRtnU527QDTfbJ3mg
+ 5ioBL+zTkRv8dT8WUJWBvUaDrviMeBhJSeCltfDV5zcGVQ/7+jsumj/DOMNj3yAeqK5o
+ YVS0zSLz6ldoXY1rD7iuGevxBoXUg6tFNMSMCSNbqlAIo0Pea+Os/VwUTYAn4meHefH6
+ Pg3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723583581; x=1724188381;
+ d=1e100.net; s=20230601; t=1723586150; x=1724190950;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EuaJTyNPOLFQ7GFqTjdu9BlgKg8Vx0sEmHfErqdlVpM=;
- b=er7mrokTPkhbZa+AM0/opj+WNUGe2+AJr5XwZjics9xZfd3ie6dHCcqPcOZNh7RyZ6
- qE0POfXfVDTZsaUb3O1rXthhPi1z9FLPH1f5sQf8qoMF6vdAqTeJPGt55OBZ5gKvfSv9
- 998iNYaK+5fr2/00ZNLRG5BC73x9ie8dLnCeBY5qAzIT9H+D7vyL3ysmi4LSysWWx5b7
- w2mDT2l49jJgSPvVedLRG0YCJDfoZK6dx4hh4d3hH2TncKzprpWK3FtdtYsfrSFmPgeV
- 9v71z/VMa0FB9JkMGKY6hUb1uzdt9CNMox8Nb0O9d/8YfjgQ7oKP6dhEOa3JMeiP/8ai
- MJww==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUmaFN6AZOSiQtqtSWu8yCc+wmdr0Rc8Nmk5ujEEPkgvOYgv3NOkMvZZas1qjEqySYpU3ER+fvx2+Kvrsf3k63SdBpIb53HcMZgZVaytw==
-X-Gm-Message-State: AOJu0YyTc6oewUgNJQQG/R6z1KTTABlth8Jpn7d50h+x5W7iC7gKsftp
- JPs0vR7Y4cjGhZRDRLDJQOu3gW7AuEDR9Im382FoikrUBvRBTKDR0VTzB7hlYJI9YJpcZruZsp3
- TWTuYOyPAR1pajXHeqyAlhkmWjQY=
-X-Google-Smtp-Source: AGHT+IF0V/drPOXDpcOdREeSvY7RgMkEuIp7MLoPnfIv+GQEE2tQqk3xE6J8alWedr0v4YIg3eewMFMRudYw49PI/do=
-X-Received: by 2002:a17:903:3583:b0:1fb:6473:e91f with SMTP id
- d9443c01a7336-201d64a5b36mr10181185ad.40.1723583580592; Tue, 13 Aug 2024
- 14:13:00 -0700 (PDT)
+ bh=5UreK/Nu01RTdq0bsCGOGzRb3JrXysALXhL2Lv4L9tw=;
+ b=caimgWBCS5ivBfgYnae5WH+QfeC7UfnVaqD3m3UhHqtLdZPNGtzuszKJX2R8aT5ZBg
+ hE+3O8X4NCdAHnvCANjB4Lol1opDtUbupnR+nJGaLLRSm82xqvF64Q7nTJxAWBvPebpv
+ H2xCu04Gh3GfEqkLJIUY8Bp0F6CpyiCgxJ0gpJ5lpcdCSLbuSDNcxZV1KjGPowiRHzwp
+ CUKDAW4mbGBrpDZIubeHLFhWW6mGJbRMKvP9s7dqaIM0hOGljfE49RmVz0ZtfBoKjVDa
+ 7Q4hWFrmRtlaaqbWxSNqJggJpJS0luwuKosX05am51RAiQhU6v3l3SX2tq/SA0i1rZPI
+ Dw+Q==
+X-Gm-Message-State: AOJu0YwXNjtTf2yVEE3+pAMdz6HWSX8K/5q1GLPRC1O2FlCTT2iY9Cg/
+ dDefoZN3ioQWVqNetAyIH6FaT1xy7OZykAxf5aDpZCyVVtpWrn2vESks/j3XQNd8L9zd/T30GHe
+ rUTZelSnhVMaJBKw3gvyBG3E8QBNOVWEb
+X-Google-Smtp-Source: AGHT+IHErTP1CeJu+FlBT8yDAaQsOTIo2wfAKI2oO/ct0FjLBG8cpTe0F++kTLax4QGZJsBw8NqYYlPJOHxM9iXFexM=
+X-Received: by 2002:a17:902:cf0d:b0:201:d945:4299 with SMTP id
+ d9443c01a7336-201d945451bmr2583755ad.21.1723586149444; Tue, 13 Aug 2024
+ 14:55:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240813170735.905194-1-sunil.khatri@amd.com>
-In-Reply-To: <20240813170735.905194-1-sunil.khatri@amd.com>
+References: <20240813133854.21144-1-Rahul.Jain@amd.com>
+In-Reply-To: <20240813133854.21144-1-Rahul.Jain@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 13 Aug 2024 17:12:48 -0400
-Message-ID: <CADnq5_M4MqrdbSB5Rr2D1s5hm40u1ScFXPsii=5j8quR4egFTA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove ME0 registers from mi300 dump
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Tue, 13 Aug 2024 17:55:37 -0400
+Message-ID: <CADnq5_PZ0hOb+S9Zrukv2RP-LN+H7sxk=zoDGVPK_UsUAr7Ofg@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/amdgpu: Take IOMMU remapping into account for p2p
+ checks
+To: Rahul Jain <Rahul.Jain@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,96 +76,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 13, 2024 at 1:07=E2=80=AFPM Sunil Khatri <sunil.khatri@amd.com>=
- wrote:
+On Tue, Aug 13, 2024 at 9:39=E2=80=AFAM Rahul Jain <Rahul.Jain@amd.com> wro=
+te:
 >
-> Remove ME0 registers from MI300 gfx_9_4_3 ipdump
-> MI300 does not have  gfx ME and hence those register
-> are just empty one and could be dropped.
+> when trying to enable p2p the amdgpu_device_is_peer_accessible()
+> checks the condition where address_mask overlaps the aper_base
+> and hence returns 0, due to which the p2p disables for this platform
 >
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> IOMMU should remap the BAR addresses so the device can access
+> them. Hence check if iommu_remap and return true.
+>
+> Signed-off-by: Rahul Jain <Rahul.Jain@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 37 -------------------------
->  1 file changed, 37 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 30 +++++++++++++++++-----
+>  2 files changed, 26 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index 7b4ae197eb49..edebc4459b75 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -75,42 +75,11 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list=
-_9_4_3[] =3D {
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_BUSY_STAT),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_ERROR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_BASE),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_RPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_BASE),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_RPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_WPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB1_BASE),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB1_RPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB1_WPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB2_BASE),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB2_WPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB2_WPTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_CMD_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_CMD_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_CMD_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_CMD_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_BASE_LO),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_BASE_HI),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB1_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_BASE_LO),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_BASE_HI),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_IB2_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_LO),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_HI),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BUFSZ),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BASE_LO),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BASE_HI),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BUFSZ),
->         SOC15_REG_ENTRY_STR(GC, 0, regCPF_UTCL1_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regCPC_UTCL1_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regCPG_UTCL1_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regGDS_PROTECTION_FAULT),
->         SOC15_REG_ENTRY_STR(GC, 0, regGDS_VM_PROTECTION_FAULT),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regIA_UTCL1_STATUS),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regIA_UTCL1_CNTL),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regPA_CL_CNTL_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regRLC_UTCL1_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regRMI_UTCL1_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regSQC_DCACHE_UTCL1_STATUS),
-> @@ -122,11 +91,8 @@ static const struct amdgpu_hwip_reg_entry gc_reg_list=
-_9_4_3[] =3D {
->         SOC15_REG_ENTRY_STR(GC, 0, regVM_L2_PROTECTION_FAULT_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_DEBUG),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_CNTL),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_INSTR_PNTR),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC1_INSTR_PNTR),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC2_INSTR_PNTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_ME_INSTR_PNTR),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_PFP_INSTR_PNTR),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_CPC_STATUS),
->         SOC15_REG_ENTRY_STR(GC, 0, regRLC_STAT),
->         SOC15_REG_ENTRY_STR(GC, 0, regRLC_SMU_COMMAND),
-> @@ -139,11 +105,8 @@ static const struct amdgpu_hwip_reg_entry gc_reg_lis=
-t_9_4_3[] =3D {
->         SOC15_REG_ENTRY_STR(GC, 0, regRLC_INT_STAT),
->         SOC15_REG_ENTRY_STR(GC, 0, regRLC_GPM_GENERAL_6),
->         /* cp header registers */
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_CE_HEADER_DUMP),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
->         SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME2_HEADER_DUMP),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_PFP_HEADER_DUMP),
-> -       SOC15_REG_ENTRY_STR(GC, 0, regCP_ME_HEADER_DUMP),
->         /* SE status registers */
->         SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS_SE0),
->         SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS_SE1),
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index f3980b40f2ce..618b44f5df85 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1138,6 +1138,8 @@ struct amdgpu_device {
+>
+>         bool                            ram_is_direct_mapped;
+>
+> +       bool                            iommu_remap;
+> +
+>         struct list_head                ras_list;
+>
+>         struct ip_discovery_top         *ip_top;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index a6b8d0ba4758..927b076aa952 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3950,6 +3950,9 @@ static void amdgpu_device_check_iommu_direct_map(st=
+ruct amdgpu_device *adev)
+
+We may want to rename amdgpu_device_check_iommu_direct_map() to
+amdgpu_device_check_iommu() since we are getting several pieces of
+data now.
+
+>         domain =3D iommu_get_domain_for_dev(adev->dev);
+>         if (!domain || domain->type =3D=3D IOMMU_DOMAIN_IDENTITY)
+>                 adev->ram_is_direct_mapped =3D true;
+> +
+> +       if (!domain || domain->type !=3D IOMMU_DOMAIN_IDENTITY)
+> +               adev->iommu_remap =3D true;
+
+This is wrong, it should be:
+if (domain && (domain->type =3D=3D IOMMU_DOMAIN_DMA || domain->type =3D=3D
+IOMMU_DOMAIN_DMA_FQ))
+
+>  }
+>
+>  static const struct attribute *amdgpu_dev_attributes[] =3D {
+> @@ -6127,6 +6130,19 @@ bool amdgpu_device_is_peer_accessible(struct amdgp=
+u_device *adev,
+>                                       struct amdgpu_device *peer_adev)
+>  {
+>  #ifdef CONFIG_HSA_AMD_P2P
+> +       /**
+> +        * There are chances when we are in amdgpu_device_init
+> +        * and either of adev have not called amdgpu_device_check_iommu_d=
+irect_map,
+> +        * Hence check if iommu_remap is available or not.
+> +        */
+> +       if (!adev->iommu_remap)
+> +               amdgpu_device_check_iommu_direct_map(adev);
+> +       if (!peer_adev->iommu_remap)
+> +               amdgpu_device_check_iommu_direct_map(peer_adev);
+
+This is ugly.  We should fix this up so we guarantee that
+amdgpu_device_check_iommu_direct_map() has been called by this point
+or just check this explicitly everywhere rather than caching it in the
+adev structure.
+
+> +
+> +       bool remap =3D adev->iommu_remap;
+> +       bool peer_remap =3D peer_adev->iommu_remap;
+
+Need to declare variables before code.  Also this function looks at
+whether peer_adev can access adev via DMA, so we only need to look at
+peer_adev for DMA remapping.
+
+> +
+>         uint64_t address_mask =3D peer_adev->dev->dma_mask ?
+>                 ~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
+>         resource_size_t aper_limit =3D
+> @@ -6135,13 +6151,15 @@ bool amdgpu_device_is_peer_accessible(struct amdg=
+pu_device *adev,
+>                 !adev->gmc.xgmi.connected_to_cpu &&
+>                 !(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) =
+< 0);
+>
+> -       return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
+> -               adev->gmc.real_vram_size =3D=3D adev->gmc.visible_vram_si=
+ze &&
+> -               !(adev->gmc.aper_base & address_mask ||
+> -                 aper_limit & address_mask));
+> -#else
+> -       return false;
+> +       if (remap && peer_remap)
+> +               return pcie_p2p && p2p_access;
+> +       else
+> +               return pcie_p2p && p2p_access && (adev->gmc.visible_vram_=
+size &&
+> +                       adev->gmc.real_vram_size =3D=3D adev->gmc.visible=
+_vram_size &&
+> +                       !(adev->gmc.aper_base & address_mask ||
+> +                       aper_limit & address_mask));
+>  #endif
+> +       return false;
+
+This needs to be fixed up:
+
+if (peer_remap)
+               /* IOMMU is remapping DMA for peer_adev so all accesses
+should be within peer_adev's DMA mask */
+               return pcie_p2p && p2p_access && (adev->gmc.visible_vram_siz=
+e &&
+                       adev->gmc.real_vram_size =3D=3D adev->gmc.visible_vr=
+am_size);
+else
+               /* No IOMMU remapping so make sure the adev's aperture
+fits into peer_adev's dma mask */
+               return pcie_p2p && p2p_access && (adev->gmc.visible_vram_siz=
+e &&
+                       adev->gmc.real_vram_size =3D=3D
+adev->gmc.visible_vram_size &&
+                       !(adev->gmc.aper_base & address_mask ||
+                       aper_limit & address_mask));
+
+Alex
+
+>  }
+>
+>  int amdgpu_device_baco_enter(struct drm_device *dev)
 > --
 > 2.34.1
 >
