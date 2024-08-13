@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D016C5320D
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 11:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13956C531DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 11:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 474DB10E303;
-	Tue, 13 Aug 2024 11:30:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B120E10E30A;
+	Tue, 13 Aug 2024 11:30:53 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01EE210E303
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A11110E303
  for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 11:30:47 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 47DBUcTC768941; Tue, 13 Aug 2024 17:00:38 +0530
+ 47DBUbGC768909; Tue, 13 Aug 2024 17:00:37 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 47DBUc94768940;
- Tue, 13 Aug 2024 17:00:38 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 47DBUb2F768908;
+ Tue, 13 Aug 2024 17:00:37 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, 
  Leo Liu <leo.liu@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 16/18] drm/amdgpu: add vcn_v2_5 ip dump support
-Date: Tue, 13 Aug 2024 17:00:32 +0530
-Message-Id: <20240813113034.768804-17-sunil.khatri@amd.com>
+Subject: [PATCH v1 11/18] drm/amdgpu: add print support for vcn_v4_0_5 ip dump
+Date: Tue, 13 Aug 2024 17:00:27 +0530
+Message-Id: <20240813113034.768804-12-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240813113034.768804-1-sunil.khatri@amd.com>
 References: <20240813113034.768804-1-sunil.khatri@amd.com>
@@ -44,140 +44,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support of vcn ip dump in the devcoredump
-for vcn_v2_5.
+Add support for logging the registers in devcoredump
+buffer for vcn_v4_0_5.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 80 ++++++++++++++++++++++++++-
- 1 file changed, 79 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 34 ++++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 96f60c303161..343a9667e03a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -55,6 +55,43 @@
- 
- #define VCN25_MAX_HW_INSTANCES_ARCTURUS			2
- 
-+static const struct amdgpu_hwip_reg_entry vcn_reg_list_2_5[] = {
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_POWER_STATUS),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_POWER_STATUS),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_STATUS),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_CONTEXT_ID),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_CONTEXT_ID2),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_GPCOM_VCPU_DATA0),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_GPCOM_VCPU_DATA1),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_GPCOM_VCPU_CMD),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI2),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO2),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI3),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO3),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_HI4),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_BASE_LO4),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR2),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR2),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR3),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR3),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_RPTR4),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_WPTR4),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE2),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE3),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_RB_SIZE4),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_PGFSM_CONFIG),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_PGFSM_STATUS),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_DPG_LMA_CTL),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_DPG_LMA_DATA),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_DPG_LMA_MASK),
-+	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_DPG_PAUSE)
-+};
-+
- static void vcn_v2_5_set_dec_ring_funcs(struct amdgpu_device *adev);
- static void vcn_v2_5_set_enc_ring_funcs(struct amdgpu_device *adev);
- static void vcn_v2_5_set_irq_funcs(struct amdgpu_device *adev);
-@@ -122,6 +159,8 @@ static int vcn_v2_5_sw_init(void *handle)
- {
- 	struct amdgpu_ring *ring;
- 	int i, j, r;
-+	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_5);
-+	uint32_t *ptr;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	for (j = 0; j < adev->vcn.num_vcn_inst; j++) {
-@@ -241,6 +280,15 @@ static int vcn_v2_5_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	/* Allocate memory for VCN IP Dump buffer */
-+	ptr = kcalloc(adev->vcn.num_vcn_inst * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	if (!ptr) {
-+		DRM_ERROR("Failed to allocate memory for VCN IP Dump\n");
-+		adev->vcn.ip_dump = NULL;
-+	} else {
-+		adev->vcn.ip_dump = ptr;
-+	}
-+
- 	return 0;
- }
- 
-@@ -277,6 +325,8 @@ static int vcn_v2_5_sw_fini(void *handle)
- 
- 	r = amdgpu_vcn_sw_fini(adev);
- 
-+	kfree(adev->vcn.ip_dump);
-+
- 	return r;
- }
- 
-@@ -1876,6 +1926,34 @@ static void vcn_v2_5_set_irq_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index b05bfe1dad75..b1fd226b7efb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -1781,6 +1781,38 @@ static void vcn_v4_0_5_set_irq_funcs(struct amdgpu_device *adev)
  	}
  }
  
-+static void vcn_v2_5_dump_ip_state(void *handle)
++static void vcn_v4_0_5_print_ip_state(void *handle, struct drm_printer *p)
 +{
 +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	int i, j;
-+	bool is_powered;
-+	uint32_t inst_off;
-+	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_5);
++	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
++	uint32_t inst_off, is_powered;
 +
 +	if (!adev->vcn.ip_dump)
 +		return;
 +
++	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 +	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-+		if (adev->vcn.harvest_config & (1 << i))
++		if (adev->vcn.harvest_config & (1 << i)) {
++			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
 +			continue;
++		}
 +
 +		inst_off = i * reg_count;
-+		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
-+		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 +		is_powered = (adev->vcn.ip_dump[inst_off] &
 +				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 +
-+		if (is_powered)
-+			for (j = 1; j < reg_count; j++)
-+				adev->vcn.ip_dump[inst_off + j] =
-+					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_5[j], i));
++		if (is_powered) {
++			drm_printf(p, "\nActive Instance:VCN%d\n", i);
++			for (j = 0; j < reg_count; j++)
++				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_5[j].reg_name,
++					   adev->vcn.ip_dump[inst_off + j]);
++		} else {
++			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
++		}
 +	}
 +}
 +
- static const struct amd_ip_funcs vcn_v2_5_ip_funcs = {
- 	.name = "vcn_v2_5",
- 	.early_init = vcn_v2_5_early_init,
-@@ -1894,7 +1972,7 @@ static const struct amd_ip_funcs vcn_v2_5_ip_funcs = {
- 	.post_soft_reset = NULL,
- 	.set_clockgating_state = vcn_v2_5_set_clockgating_state,
- 	.set_powergating_state = vcn_v2_5_set_powergating_state,
--	.dump_ip_state = NULL,
-+	.dump_ip_state = vcn_v2_5_dump_ip_state,
- 	.print_ip_state = NULL,
+ static void vcn_v4_0_5_dump_ip_state(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -1829,7 +1861,7 @@ static const struct amd_ip_funcs vcn_v4_0_5_ip_funcs = {
+ 	.set_clockgating_state = vcn_v4_0_5_set_clockgating_state,
+ 	.set_powergating_state = vcn_v4_0_5_set_powergating_state,
+ 	.dump_ip_state = vcn_v4_0_5_dump_ip_state,
+-	.print_ip_state = NULL,
++	.print_ip_state = vcn_v4_0_5_print_ip_state,
  };
  
+ const struct amdgpu_ip_block_version vcn_v4_0_5_ip_block = {
 -- 
 2.34.1
 
