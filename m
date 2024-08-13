@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13956C531DD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE2F9C52D7C
 	for <amd-gfx@archiver.kernel.org>; Tue, 13 Aug 2024 11:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B120E10E30A;
-	Tue, 13 Aug 2024 11:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0F410E30B;
+	Tue, 13 Aug 2024 11:30:54 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A11110E303
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9C910E30B
  for <amd-gfx@lists.freedesktop.org>; Tue, 13 Aug 2024 11:30:47 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 47DBUbGC768909; Tue, 13 Aug 2024 17:00:37 +0530
+ 47DBUbok768889; Tue, 13 Aug 2024 17:00:37 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 47DBUb2F768908;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 47DBUb8E768888;
  Tue, 13 Aug 2024 17:00:37 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, 
  Leo Liu <leo.liu@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 11/18] drm/amdgpu: add print support for vcn_v4_0_5 ip dump
-Date: Tue, 13 Aug 2024 17:00:27 +0530
-Message-Id: <20240813113034.768804-12-sunil.khatri@amd.com>
+Subject: [PATCH v1 07/18] drm/amdgpu: add print support for vcn_v4_0 ip dump
+Date: Tue, 13 Aug 2024 17:00:23 +0530
+Message-Id: <20240813113034.768804-8-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240813113034.768804-1-sunil.khatri@amd.com>
 References: <20240813113034.768804-1-sunil.khatri@amd.com>
@@ -45,26 +45,26 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Add support for logging the registers in devcoredump
-buffer for vcn_v4_0_5.
+buffer for vcn_v4_0.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 34 ++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 34 ++++++++++++++++++++++++++-
  1 file changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index b05bfe1dad75..b1fd226b7efb 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -1781,6 +1781,38 @@ static void vcn_v4_0_5_set_irq_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index abd5a0793e58..26c6f10a8c8f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -2158,6 +2158,38 @@ static void vcn_v4_0_set_irq_funcs(struct amdgpu_device *adev)
  	}
  }
  
-+static void vcn_v4_0_5_print_ip_state(void *handle, struct drm_printer *p)
++static void vcn_v4_0_print_ip_state(void *handle, struct drm_printer *p)
 +{
 +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	int i, j;
-+	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
++	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0);
 +	uint32_t inst_off, is_powered;
 +
 +	if (!adev->vcn.ip_dump)
@@ -84,7 +84,7 @@ index b05bfe1dad75..b1fd226b7efb 100644
 +		if (is_powered) {
 +			drm_printf(p, "\nActive Instance:VCN%d\n", i);
 +			for (j = 0; j < reg_count; j++)
-+				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_5[j].reg_name,
++				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0[j].reg_name,
 +					   adev->vcn.ip_dump[inst_off + j]);
 +		} else {
 +			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
@@ -92,18 +92,18 @@ index b05bfe1dad75..b1fd226b7efb 100644
 +	}
 +}
 +
- static void vcn_v4_0_5_dump_ip_state(void *handle)
+ static void vcn_v4_0_dump_ip_state(void *handle)
  {
  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -1829,7 +1861,7 @@ static const struct amd_ip_funcs vcn_v4_0_5_ip_funcs = {
- 	.set_clockgating_state = vcn_v4_0_5_set_clockgating_state,
- 	.set_powergating_state = vcn_v4_0_5_set_powergating_state,
- 	.dump_ip_state = vcn_v4_0_5_dump_ip_state,
+@@ -2206,7 +2238,7 @@ static const struct amd_ip_funcs vcn_v4_0_ip_funcs = {
+ 	.set_clockgating_state = vcn_v4_0_set_clockgating_state,
+ 	.set_powergating_state = vcn_v4_0_set_powergating_state,
+ 	.dump_ip_state = vcn_v4_0_dump_ip_state,
 -	.print_ip_state = NULL,
-+	.print_ip_state = vcn_v4_0_5_print_ip_state,
++	.print_ip_state = vcn_v4_0_print_ip_state,
  };
  
- const struct amdgpu_ip_block_version vcn_v4_0_5_ip_block = {
+ const struct amdgpu_ip_block_version vcn_v4_0_ip_block = {
 -- 
 2.34.1
 
