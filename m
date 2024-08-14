@@ -4,147 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186BAC531DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 20:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B00C52D7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 21:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A280810E00F;
-	Wed, 14 Aug 2024 20:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB9B10E0D3;
+	Wed, 14 Aug 2024 21:30:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nblc8vTl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MEMqeoeX";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFC9F10E00F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Aug 2024 20:39:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vvfBmjNSaYJLh57BMglQ1HG70+ZZ/nfQUzJ6JUaelYcmqrOBvbPDU7t7gnpNNx173FFMt8CjVaDzYOkpPU5sex8f78k9J+CyfPHh9zRrtttoRoWiflZMg3MQmYoy8mjNZVbAGGdej6Z3HK2h6ymwAAvw4AG5QE25lTvTOC+arJ/IwnVovn3KymSqGTsFwygde3UuWYuiqlZxm+JyhYYpEpGNZscExsW5kxi3dp6xfkBNI7UAtHojZJQSchRS5FcAozoE6abQc15w2kE+m2bUchXs6+f3Pbh5xKvgEzAyDSIsy42pZB0ItqeXe9Ey8Ob201HLHXD6zt5YdduQHKCBdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IiXzD54ayew3fIFfLysdKKqKC+UV7VyzKQ/XT65Ijhc=;
- b=DPq9cbVO17TcvkQeY5HlC3A/BHMaWYdOBM52KddBx4W0lyYcwOCusu3mmNn3zY3BR3rcsX3h9iC9MpFo2/jNL6E3tc4yJWCp6eDg+AtmpF5Mao+iUcXYT4toAN4m/yScILGnwx85KLDY7/zivON9FixgLHGsuRL+eb8AtiOC+H/LnMTKeuLL0Gy5nbItduTpW8j9YpNi08TQrMN9k2mEclivzqCRvvV8kdvHHotFTsRjlNDY78Rxk8CcjxAFj/9W2/oqijk4cROG0vAkjz8k7TkEvFKSsXzK9HYH/n2ui/Qri9Zip+Fb6c3kqU07wObqYVKb6q3MM+3xQyq1z6be1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IiXzD54ayew3fIFfLysdKKqKC+UV7VyzKQ/XT65Ijhc=;
- b=nblc8vTlYR+xDz1qtGmahYRP/V1G0V2O/Yr9yY1UuAc2dBtZSQ2BxMRvftmgamWoRDyaFHmtpPzS5TWtSTizF6AckAVX6RtfiC8NuceOoPrj7Jctob7oACmbCn6TudtxxTIowcGcdHBR2QxncSywq5UJs1GkXCvDJqew8ZGj8HQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN2PR12MB4375.namprd12.prod.outlook.com (2603:10b6:208:24f::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Wed, 14 Aug
- 2024 20:39:31 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.7849.023; Wed, 14 Aug 2024
- 20:39:31 +0000
-Message-ID: <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
-Date: Wed, 14 Aug 2024 16:39:29 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: AMD drm patch workflow is broken for stable trees
-To: Greg KH <gregkh@linuxfoundation.org>, amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <2024081247-until-audacious-6383@gregkh>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <2024081247-until-audacious-6383@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1P288CA0010.CANP288.PROD.OUTLOOK.COM (2603:10b6:b01::23)
- To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA72610E0D3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Aug 2024 21:30:20 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-1fd66cddd07so2713485ad.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Aug 2024 14:30:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723671020; x=1724275820; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1NsHo05PbFGthvrcP1w5YnBAGWCrQpMiSVu6yHBZxoE=;
+ b=MEMqeoeXB+cBzY68fzeu7IKmG4NCrXGRHXQL9OM/HMYMOKtTbruLv92PCtuzJWi5VB
+ OYV9D10iNKPDKCj1qKAQczb9K/1x2p2dUVjBcs+C+OUk/Gg5BRmiEvGa2u/Y0GGax5a+
+ SciJxhPkTvWgw8kvG2uDL8AwI6sPbs3FOtMU/wfuTrMLNoCgyn1HpgunCTJKJeUXyEs2
+ LT+8sAoM/bQy5CXTOIKh+JMP0J3/ElMEwIokzkhbZONmonrcnuLXpSWKNpsF4TXTppp+
+ eHbHkCHzjxLkpvCXAHsjUk6hESLGIaLrCF+uSQtv+Anxzhr9Abw5qZ+mL9WnrImF57Gv
+ OlzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723671020; x=1724275820;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1NsHo05PbFGthvrcP1w5YnBAGWCrQpMiSVu6yHBZxoE=;
+ b=FZA91Wg3XDDtAWyjPIfELQioOhty7jTxB1IyAwt6EjdckfyZTi4uZupN113ZXj8QiP
+ 1g6xnGESIQaEEpI2vLt0AcY3vv4hRcxLHZKkZCzOWIvHSmGrHkKC6hgGBVDk0FZJCor8
+ v2C0N7SPoe/O4MKQdebJTScdYG+9jaWHD08bVIhucQsxU0vGhq69vz5LnUmsBCbSIUcb
+ md0BYRD8KlB1SmSYQxixZTNq9l2IZAD0GnP4mP3W77jBpKRHrjgNbT9IDoUnPVBud1Ko
+ 9VTTYHC+XMlN+Xm/kuBP9GiJShdQMRTWH9/5Drd2mC/E5mL9VvytdxhA/YZaMqFPW0su
+ Djhw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQjnyG+Nlvzgj/Oh5rfsNciK0tlqXYYZEpaUJEMZdgp4pjzC9VXlVgHPJjVTpyfHoNZqMN6THqEdRGY8XPpKGzwmhI6LtPGxXxWRj8hQ==
+X-Gm-Message-State: AOJu0YygpT9pDA4PbdZgS2cRiw6sVBhySH19PUfH8nyL3AZ88HBbP+cz
+ ahVzwJbNHLsbEZIdKUjdymi3yAxH0WsP6PIx4Rq122f9Y1vEuGpoudAdmgI7BUKv0L6Yt2mCp4v
+ uO9cIKGnpGIdpMCikZzBNkdxyyik=
+X-Google-Smtp-Source: AGHT+IGO/6VFtbWnQmfGb+Soi+oj2GvKapSaNMUWtUjMTaIk9DGw3xSWQGUT3mrpqp6wi8a+/6CwpbhvPC7P1WDaC5U=
+X-Received: by 2002:a17:902:e544:b0:1fc:6a13:a394 with SMTP id
+ d9443c01a7336-201d63bacdfmr62422645ad.23.1723671020124; Wed, 14 Aug 2024
+ 14:30:20 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN2PR12MB4375:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff4a2a15-f7c0-4b12-2828-08dcbca132d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVB1V2JtS1RGZk5UUXFLRGxtN2M1SlBaWU5pWlNldW5TV2VYNTZzcThhRmFO?=
- =?utf-8?B?MU1qMmlDOGtTR1ZqOFpDRDVWcVBLUHV0VVNJSGxHQUtqeHo3aytaNXEyUngw?=
- =?utf-8?B?UEwwVjNPeTlzVTJWN3d5RDJzZ1ZJenNpOE02OEhoTVhiT0g4MEhCMFdKN0Fj?=
- =?utf-8?B?YnVYV2RxT3RzTGNnUU5kd2NNU1hsK2FRZmpxcDk3WkpXVWViaVphaFZZNWZU?=
- =?utf-8?B?M0pDR3pTZlg1KzdsZHJJck45cDAzcU1acUtObFk1TWZLTlhWdVgzaUlqc09J?=
- =?utf-8?B?QXJYSmpIOWxZVkZNSmZ4UVdURCtWZGd5bEhzR0p1bWo0SjVLNitua3BiZmxu?=
- =?utf-8?B?N3VqcEFoSHZTY3htSFk2cWtVTFBYTFdqSkM5QXh2K1dNNzhHNEhsMjNGekc1?=
- =?utf-8?B?T3Z6Tlpvd0FmRXVQTlBqZlhOYVQ3UmNZS3gvb3F0Z1k5U2d2TjFFYWVrUnU0?=
- =?utf-8?B?ZjZzMzZRUkVnL3gvQzNtZTh3dG5DMVE0ZkxONTFDTjVGMUtWbXFQRDJ4VUt4?=
- =?utf-8?B?alJRNWZ3dFJBWHY4RGhQUkdNem1LOW9PcmV4RTQxNTJmaGtCY3ppaE1mSVBD?=
- =?utf-8?B?L3YrOFdDVU1lODBjamErdWtWa0x1L09RbEZtdWVSbWJLamR3Q2U1NmMydDhO?=
- =?utf-8?B?VE1YbGNkSVRFWHV0OGxkcUxkR3QxNCtHZ1FNTDgrQmE4TnpsS2NRaVJUSEE0?=
- =?utf-8?B?dVNOd25hOUlwN3BzazJENDVEOGptNFpyNmh6MkpHcEpqWGRNRDNQazg4cVc3?=
- =?utf-8?B?eE4wNllDbEo3RjB0UklkK2ZDbE9jSFZXS1ZmRVJWVS8wWWxGbForOGx0SXBK?=
- =?utf-8?B?TldPQ095eklYejZBSENIMHdnTzcvVUJFV25MZGZEVk5NQzFOWHFuS0Z2V2N1?=
- =?utf-8?B?QUZXLzNPZFpjM0YxVVNhMFNZQXdXVGxTb0d4OVdqbGc1YngwYW9hd0dPRktq?=
- =?utf-8?B?WkNweU1BNHdTck9uMGpVOE90OFJFZkNLVm5jYW5YbGI4Q0tWcXhNSGhha21v?=
- =?utf-8?B?ZktnTHdTQ3VIblhRcW1ZWE0rdTdTWmh5ejJHVXUrNjFhWGoxNUhUT0x6MCtj?=
- =?utf-8?B?V29Vb1JWOFU5NDVBSldBNjErVEVPM3JiN0lSdGFGdVRCLzgzdG44NGM1WEtY?=
- =?utf-8?B?UnFkbVlaaUpiL1ZEYU43K3NhVjZPMXA1cDlDSG1xVjFqR1MwekdJcU9rRHF0?=
- =?utf-8?B?WVVkS1cyNEwrY2FnZ2dJcnB1TU1FaS9oc3FGdlVld0xseU1VWE8yUDI0Y3ZO?=
- =?utf-8?B?b05yQlVtNGUrSGVGZUFJZWlGc0k4VDRIYkIrRndaVnZXblM4N1d3bWhqbWM5?=
- =?utf-8?B?NWVCYmtwQXpFMGtGamFNVHFIbjNNOEZwZ25jckNjZVZlQmFUMHhtaU9DWGVs?=
- =?utf-8?B?NW9zajlsMTR1V3BiUzI0a2dhR0Fjc3FndkZQVVp1bm9XbDFucEhJSHZDbWQw?=
- =?utf-8?B?dFJrcmtNWHpwR2hvaUpZeWVMRUErbHI3QmR1VStGNWNWdWdDQ3F4amsyUVBz?=
- =?utf-8?B?VFpVQkV1V2dSTlRZOWVUdW5IekNvRlJwTmpaYUhVNXdKTndYU1ZXTUFlT2NN?=
- =?utf-8?B?VVJWMHQxbUE1SFkyaU03dmNkQnY2akd4VzhzKzNDTFloV3RCR1F1d09RL1cr?=
- =?utf-8?B?N0hsa29DU2Y5bkNJNjBDK005Y282SENjT282MU9qQmVPOW80eDNNSDZLdUZv?=
- =?utf-8?B?eXpTeDh3ZnM5UC8za0RUUldIV0RlQ2d0aVlFUjBLOVBnRUVvelluU0xwajYy?=
- =?utf-8?B?Yi82ZnptbVBKaTNUdDI4MEpTdDJoQ1hNTlhKeDFEc2V3MFNRSi8zOUc4Uk8x?=
- =?utf-8?B?K3NveEZBYkhPeHJjQWVwUT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VU5DOGtTSU9UN1ltRWIvT2hxbUM4cGlUWThIWm91RU1WQlZoRWFLS1cwSDZi?=
- =?utf-8?B?V0Y0bEh5SWhtRWtaRmpHYUszZzlWN1diNjh3Y0tSbjJSRUlKM0t5OENWKytP?=
- =?utf-8?B?RDlGMHFxeWZNeU9GSExmSVVYNW13Z255Q2FkUG9jc2h3R2pETVpEdFNVVEp4?=
- =?utf-8?B?bFRYSDVqeUpubk9IamJTOGZZY2VNK0dxTEM4bDQvWnBPdnVwRnR0Rnd6MUZ4?=
- =?utf-8?B?dHJjemg0QzdHSG4xbWtKcWtRbTMybzFWY1NJbGlEQitLQlpjVGR1NUoySzBr?=
- =?utf-8?B?T1JuYXRYaWtsN3JwM3N2ZlhCNGFsdGVVanFCdEhDckUxaW9Oajh6bU1XUW9V?=
- =?utf-8?B?MEU2MTBreDlkcUJjWk10VDg2UHc2S09MdmF5djJUa3Ara1Y4T2lseTNWQThr?=
- =?utf-8?B?RkE2T1FxWkZlYmdiZnAwK0xQVEpmT3ZmZlFDeUJJUDdrTGNoTW9MZmFLdWZF?=
- =?utf-8?B?U2IyUk5nRjFEVGw5Y2JvZjV2SGMrT2tMem1JWEpjUDlrcVJhajRDSTFMcFNJ?=
- =?utf-8?B?V1VFTmtWY1JpVWx3MjBqSHRQYktONEhJQ0R1aE91RWxHTFV4dEhnNCt3cklL?=
- =?utf-8?B?TVRncU9WSE5TRjBCQlk0NmV3bDlVdHRRcnpKa3AzN1dCSzFxTjh5bE4xa0dx?=
- =?utf-8?B?OEgwWU00UFNWUG02bUJ2QWNmSTlwSXZwcFJQZTVHSzR2TUNyd0JMWUczMjlk?=
- =?utf-8?B?M1J2QzhQTlQyU3VBWkxXM0dPd3haV2tITXdZeXJzS1Z4WDFieTNqVmYwS1E1?=
- =?utf-8?B?VHMxV3MxMVhSaXVuN1VzSEZpTWRmMWdZckp1SlA2OVEzWW56MG1VNXlYdkVF?=
- =?utf-8?B?OFVuUGZNN0M2aWpHRXJhSkcybE85Y2tta3lQclFDaW8vRDFYV1M3dTlwUXQ2?=
- =?utf-8?B?SFFBQ0Q0Mytmakwrc1N3ZUp2RzlNM1JqMk5hZXM0bEM1L3RYVDA3THFEcXFa?=
- =?utf-8?B?UzJORk9ZNTE2ZFF6SmhLazRMM2FOZisrVFdFV0N2Uys0T2tRYmsySGY4UzZu?=
- =?utf-8?B?RnR3MlZsL0l2M1BCQmgvRlR2YUd5eXJDdHZ3TDZoRjE3Y05EV1h1eElqazU4?=
- =?utf-8?B?bTFMTHVoN3h2NVhwRDJxdFJJbWgyMDNMd05WanNVMENpWHRhY3ZxSTMwN0Y3?=
- =?utf-8?B?cWFDVGwyMTdaL29VdEdXZ09NVU5mZWtIM0dENG9hLzE1d2hxQWhGTWttUTI2?=
- =?utf-8?B?TmJPV2djdjFxVUIwc3owcjVYMXFBVTJqZnYyU29GeDBYSFJKQlhUVWhnSUVu?=
- =?utf-8?B?djVGOGJJeGd5UHM5bS9kYlZwUUNSWWUybnNidUJKTXcwRk1kcGRVZG1vWUhy?=
- =?utf-8?B?bkhXSGFxd2hEU0NhOVUraTRldWk4OFE1Mnc1SVE5WjZTMENINnBWcWt6SlFv?=
- =?utf-8?B?N2ZacWdmcDhya04vT3RHdUZqWmlsL1BZdUE3eWZ5Y2N2eElvUDhGOVpleUlC?=
- =?utf-8?B?T1hGUXdKQzBBcExWbXdSS0JCbnFiK29lYU9GdnFieEFmbzRpS05TQXo5YW51?=
- =?utf-8?B?WlJjL3laWTFGbmZ4ZFpqR0lXUnVobUNwVnlPMWNWcFM2VTZyNEpJdXRzSkRG?=
- =?utf-8?B?OUNPY0d5anhtak9tcUhCZm8xR3hDVXA2RmtZVk5mRmlneEtrd0tIME9mZjVE?=
- =?utf-8?B?T0ErZlh1Q3JJbGQvTTBBbTdhRWc2RE13VHFNYXFObG85bktnQVpGYXR2a2ZQ?=
- =?utf-8?B?ekJYSGlPVWtFcVk0d1hPVFlqamNqZlNQNklkZ1hIQzZhb3llNWNjS0s5NW41?=
- =?utf-8?B?MS9Dd3luNm91NTQrd1hpL3crV3Y1U0pRZm5oaWdNSXJ3emZzZmVGVVZCUmNT?=
- =?utf-8?B?WDlzZ0thUE9LZlBmTG5ZaGJlZFJGdjFudUM5OHg2MnkySDFNcHd3THF5SmRY?=
- =?utf-8?B?ckl0L09nZlliNmVhUDRCeEVZcGFSMWdGcjJpdExMVXdVVTNuRUJPcWxrNGhZ?=
- =?utf-8?B?UERwWGhocjM1cUhocGEvczhFcFErV3lXUTVxckM0UUN0cVlwMFlwOFdTcEo0?=
- =?utf-8?B?b0lPU2dtODNBWGhtbmFJY3MrSmRPbjRMK1NnQ09zYjdheXhiT3FreEh0Umc1?=
- =?utf-8?B?U3JJdEszZ3EzOENrMHp5MzlvdlF5ZTBjNWhDVHdhajU3bGVhc2hWTklpMnJi?=
- =?utf-8?Q?autJ6OsvHW4p4IqTFN052ge3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff4a2a15-f7c0-4b12-2828-08dcbca132d6
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 20:39:30.9553 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0xxq7RIm+AmHQ39+aiwQtYj9/ilcZk3QEhCFzK4dqTrRquxDADSoJIow8HYoDyOm7U4oeWBRl00Ati33inpJzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4375
+References: <2024081247-until-audacious-6383@gregkh>
+ <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+In-Reply-To: <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 Aug 2024 17:30:08 -0400
+Message-ID: <CADnq5_MXBZ_WykSMv-GtHZv60aNzvLFVBOvze09o6da3-4-dTQ@mail.gmail.com>
+Subject: Re: AMD drm patch workflow is broken for stable trees
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, amd-gfx@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,58 +79,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-08-12 11:00, Greg KH wrote:
-> Hi all,
+On Wed, Aug 14, 2024 at 4:55=E2=80=AFPM Felix Kuehling <felix.kuehling@amd.=
+com> wrote:
 >
-> As some of you have noticed, there's a TON of failure messages being
-> sent out for AMD gpu driver commits that are tagged for stable
-> backports.  In short, you all are doing something really wrong with how
-> you are tagging these.
-Hi Greg,
+> On 2024-08-12 11:00, Greg KH wrote:
+> > Hi all,
+> >
+> > As some of you have noticed, there's a TON of failure messages being
+> > sent out for AMD gpu driver commits that are tagged for stable
+> > backports.  In short, you all are doing something really wrong with how
+> > you are tagging these.
+> Hi Greg,
+>
+> I got notifications about one KFD patch failing to apply on six branches
+> (6.10, 6.6, 6.1, 5.15, 5.10 and 5.4). The funny thing is, that you
+> already applied this patch on two branches back in May. The emails had a
+> suspicious looking date in the header (Sep 17, 2001). I wonder if there
+> was some date glitch that caused a whole bunch of patches to be re-sent
+> to stable somehow:
 
-I got notifications about one KFD patch failing to apply on six branches 
-(6.10, 6.6, 6.1, 5.15, 5.10 and 5.4). The funny thing is, that you 
-already applied this patch on two branches back in May. The emails had a 
-suspicious looking date in the header (Sep 17, 2001). I wonder if there 
-was some date glitch that caused a whole bunch of patches to be re-sent 
-to stable somehow:
+I think the crux of the problem is that sometimes patches go into
+-next with stable tags and they end getting taken into -fixes as well
+so after the merge window they end up getting picked up for stable
+again.  Going forward, if they land in -next, I'll cherry-pick -x the
+changes into -fixes so there is better traceability.
 
-    ------------------ original commit in Linus's tree
-    ------------------ From 24e82654e98e96cece5d8b919c522054456eeec6 Mon
-    Sep 17 00:00:00 2001 From: Alex Deucher
-    <alexander.deucher@amd.com>Date: Sun, 14 Apr 2024 13:06:39 -0400
-    Subject: [PATCH] drm/amdkfd: don't allow mapping the MMIO HDP page
-    with large pages ...
-
-On 6.1 and 6.6, the patch was already applied by you in May:
-
-    $ git log --pretty=fuller stable/linux-6.6.y --grep "drm/amdkfd: don't allow mapping the MMIO HDP page with large pages"
-    commit 4b4cff994a27ebf7bd3fb9a798a1cdfa8d01b724
-    Author:     Alex Deucher <alexander.deucher@amd.com>
-    AuthorDate: Sun Apr 14 13:06:39 2024 -0400
-    Commit:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-    CommitDate: Fri May 17 12:02:34 2024 +0200
-
-         drm/amdkfd: don't allow mapping the MMIO HDP page with large pages
-    ...
-
-On 6.10 it was already upstream.
-
-On 5.4-5.15 it doesn't apply because of conflicts. I can resolve those 
-and send the fixed patches out for you.
-
-Regards,
-   Felix
-
+Alex
 
 >
-> Please fix it up to NOT have duplicates in multiple branches that end up
-> in Linus's tree at different times.  Or if you MUST do that, then give
-> us a chance to figure out that it IS a duplicate.  As-is, it's not
-> working at all, and I think I need to just drop all patches for this
-> driver that are tagged for stable going forward and rely on you all to
-> provide a proper set of backported fixes when you say they are needed.
+>     ------------------ original commit in Linus's tree
+>     ------------------ From 24e82654e98e96cece5d8b919c522054456eeec6 Mon
+>     Sep 17 00:00:00 2001 From: Alex Deucher
+>     <alexander.deucher@amd.com>Date: Sun, 14 Apr 2024 13:06:39 -0400
+>     Subject: [PATCH] drm/amdkfd: don't allow mapping the MMIO HDP page
+>     with large pages ...
 >
-> Again, what you are doing today is NOT ok and is broken.  Please fix.
+> On 6.1 and 6.6, the patch was already applied by you in May:
 >
-> greg k-h
+>     $ git log --pretty=3Dfuller stable/linux-6.6.y --grep "drm/amdkfd: do=
+n't allow mapping the MMIO HDP page with large pages"
+>     commit 4b4cff994a27ebf7bd3fb9a798a1cdfa8d01b724
+>     Author:     Alex Deucher <alexander.deucher@amd.com>
+>     AuthorDate: Sun Apr 14 13:06:39 2024 -0400
+>     Commit:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>     CommitDate: Fri May 17 12:02:34 2024 +0200
+>
+>          drm/amdkfd: don't allow mapping the MMIO HDP page with large pag=
+es
+>     ...
+>
+> On 6.10 it was already upstream.
+>
+> On 5.4-5.15 it doesn't apply because of conflicts. I can resolve those
+> and send the fixed patches out for you.
+>
+> Regards,
+>    Felix
+>
+>
+> >
+> > Please fix it up to NOT have duplicates in multiple branches that end u=
+p
+> > in Linus's tree at different times.  Or if you MUST do that, then give
+> > us a chance to figure out that it IS a duplicate.  As-is, it's not
+> > working at all, and I think I need to just drop all patches for this
+> > driver that are tagged for stable going forward and rely on you all to
+> > provide a proper set of backported fixes when you say they are needed.
+> >
+> > Again, what you are doing today is NOT ok and is broken.  Please fix.
+> >
+> > greg k-h
