@@ -4,144 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E90C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 15:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 740EAC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Aug 2024 15:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECAD410E4D0;
-	Wed, 14 Aug 2024 15:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1D010E4D1;
+	Wed, 14 Aug 2024 15:36:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m/r1Zu+6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r0vipslc";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2042.outbound.protection.outlook.com [40.107.96.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 697EB10E4D0
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Aug 2024 15:35:43 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2061.outbound.protection.outlook.com [40.107.101.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E254710E4D1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Aug 2024 15:36:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fOxmkdSx9Y/gdz/gBxhz/Q2z8caIAc63LlQHGLGnDjZDdq1DP3guxwznWhZoiuom0qimiWRY9/M2jGfeLAjO5Fs97kwfXSIHBQZ6GbMbG/uDrP3RQPs6oydeeJkkIEK2lkWEwkSjv8ZQ3kxo2VSPXuiRC9zX786fE6KkwtunjXhijbS6YkWmuMbdcReF3hPugt0uzFYCw9m7hQg9kGwmO4XyCJpHNZ3q1aM7r4LROFFM5kNo17kIK9IyD4BviyEGzy7xnJQvfWXc0DGrwq+d5o7Au3ycpl1ha7PGoPi15+66LbVdkIgwCB8ZAHlNKCXE6lPwKA8F7cldGSmM0Z9Z8w==
+ b=TCq8HfCJ8177jivVbSZc2pYQRqxUpK4MBMIwvbhKf2MgwWVBQQkrUtbIWZmTAVmJGehuUTgAJpz3NY0t0kQt601XZybLWuawcyw+95teYdBC8SP1LUY54dopo1aUv0Px07nJML6JFMthE/t9ZhpJ0wBQLnZy3ctYrMVTR16L8A/5Q+J4GMzR/wyFHs7onQzb1gplF48GAgVNrnU+rIOL3bU0ltN+NHPD9FEMpthcVqoyrbJMr3GKFps1WKrSoTBbZyccF/OgvjusuFhy2j+DoAUyofQ6neDJ+rY8JPJiVmimHn4bqIDkVMDwMeHXjxjr167RmsXf5O1llJLixQaQxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xDCwBgZTR6rIa8wl+oVNKC6rp5Mr11UNswyGdCapvjE=;
- b=chhmWiffyhvb82KcJw05hCkQ3khd/7toHbWEujfjC7hwDydCBGY3XOISPv1cGtaNzm2Ppm6xiE4SUO1SpH/qhROo8Agt+taIJYcMl6ow6GPMqZf3ITYmSaOMGCnNRk0E9XDD+kmNdMXcNFdUEgduDRMVDUFb4VViiJkmH/hr+4Jj3mBP6rl0unvoKuDG4n3dXHR2YfNXa4UFjbPfn28Vx9d2eBPKp0zQTLlPp2x4qE2QJPGdncMSCWSZ+6+/oPsSpM1DszDK3hNim712JK5lHGvoht9Z9y0dbkAZtuSK0M/9MKDOZfbUOcyrIKFLEZjUR16Tj8Pt7HF/ray7xsvqgA==
+ bh=8OQ7mI37prPpGJaA8Gy7g6iuR6OsIv1JLQdnBSJQOpg=;
+ b=v04tW1JW5mXa1SgBfbLS6Clb++9KrtV0xr5z+9cODFpyk9osBGBFbkW8Hjli+SSE63v0HlI/tSGw0bFjDFEAwGQvSQH/xvr5Gg9pj80lpPz6qF+jVdDeeGOHdfdEJxTAJPJqrqs60Lc1m7pbJC/Crks8lIsuBQ/UMOD3l6BDkFHHajhOjeZG+3rPZo8ae3UeJVSbiDvM3OoyiZXgf91kW5Z4LfVEXAB/cnVXO1CTKN8o5k1v1ZkH/Zg1MWeHr+kcitHrH2UdJWo/uffZsaCtw7VTS1tHaHHmolFR1/MTGVrlUwJ9crFYZkBlz7B4qyEL5ZOI/X0hNRnW9yeJxG9upA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xDCwBgZTR6rIa8wl+oVNKC6rp5Mr11UNswyGdCapvjE=;
- b=m/r1Zu+6hOZT9GacINJj9clYug7gWhbMORvJvGaQ1A/1fwp0TqCslWm6Xgnt+4MmClEGz/jAGZKTpXxj+Ibf+WAtP0syNKtMaNZL8rJyhHq6o3TsvvLmFM8e2q3RqVpTjd7dAcwp+DkYAqX6ZBUUgHobd4Kek083AiH49RghIVs=
-Received: from BL3PR12MB6425.namprd12.prod.outlook.com (2603:10b6:208:3b4::7)
- by SN7PR12MB7956.namprd12.prod.outlook.com (2603:10b6:806:328::18)
+ bh=8OQ7mI37prPpGJaA8Gy7g6iuR6OsIv1JLQdnBSJQOpg=;
+ b=r0vipslcn5APRQ9i3WSf2DEXsO1nyGRyOfs25ZQWB4vK1q3eg4XRuSJ4l2AnUV4S+9FYTKSZrRTNSbWZcLt6kr60VEJwzEu8WL8bjR1R7vfjFmt5Rhln8lF9/SF4+C7w6UJVrp+/jjeioHP7qei8J6+RONXY2EXg6zaTbS7DtTI=
+Received: from PH8PR12MB7112.namprd12.prod.outlook.com (2603:10b6:510:22c::15)
+ by CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.20; Wed, 14 Aug
- 2024 15:35:40 +0000
-Received: from BL3PR12MB6425.namprd12.prod.outlook.com
- ([fe80::8989:59a5:1a4a:60b8]) by BL3PR12MB6425.namprd12.prod.outlook.com
- ([fe80::8989:59a5:1a4a:60b8%7]) with mapi id 15.20.7849.021; Wed, 14 Aug 2024
- 15:35:40 +0000
-From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Wed, 14 Aug
+ 2024 15:36:23 +0000
+Received: from PH8PR12MB7112.namprd12.prod.outlook.com
+ ([fe80::527b:a523:24c6:a1d4]) by PH8PR12MB7112.namprd12.prod.outlook.com
+ ([fe80::527b:a523:24c6:a1d4%5]) with mapi id 15.20.7849.013; Wed, 14 Aug 2024
+ 15:36:22 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
 CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 2/3] drm/amdkfd: Update queue unmap after VM fault with MES
-Thread-Topic: [PATCH 2/3] drm/amdkfd: Update queue unmap after VM fault with
+ <Alexander.Deucher@amd.com>, "Joshi, Mukul" <Mukul.Joshi@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdkfd: Update BadOpcode Interrupt handling with
  MES
-Thread-Index: AQHa7bKk4GF6wPcwvk28xsWA0a1VGLIm3oaAgAABUNA=
-Date: Wed, 14 Aug 2024 15:35:40 +0000
-Message-ID: <BL3PR12MB6425BA763BC75491EA95B82DEE872@BL3PR12MB6425.namprd12.prod.outlook.com>
+Thread-Topic: [PATCH 3/3] drm/amdkfd: Update BadOpcode Interrupt handling with
+ MES
+Thread-Index: AQHa7bKqZ3qd+rba4U2sZByxdbpat7Im4/OA
+Date: Wed, 14 Aug 2024 15:36:22 +0000
+Message-ID: <PH8PR12MB71120BEF9A5B09758366B21F8C872@PH8PR12MB7112.namprd12.prod.outlook.com>
 References: <20240813185713.942012-1-mukul.joshi@amd.com>
- <20240813185713.942012-2-mukul.joshi@amd.com>
- <PH8PR12MB7112017197F70269CF81FF918C872@PH8PR12MB7112.namprd12.prod.outlook.com>
-In-Reply-To: <PH8PR12MB7112017197F70269CF81FF918C872@PH8PR12MB7112.namprd12.prod.outlook.com>
+ <20240813185713.942012-3-mukul.joshi@amd.com>
+In-Reply-To: <20240813185713.942012-3-mukul.joshi@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=1c54f714-e9ed-4f83-ad69-421fbf10629e;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=a4247303-c487-4dcf-bdc3-9e39e9aa2fa8;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-08-14T15:08:23Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-08-14T15:36:03Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL3PR12MB6425:EE_|SN7PR12MB7956:EE_
-x-ms-office365-filtering-correlation-id: c3599c90-fd2b-48dc-d865-08dcbc76c0a7
+x-ms-traffictypediagnostic: PH8PR12MB7112:EE_|CY8PR12MB8065:EE_
+x-ms-office365-filtering-correlation-id: 3849a697-e153-4c58-034f-08dcbc76d9ec
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?OMO50sICnnGdAhqthaiVXLgcUakBE4C3WiurofVrUDAipN7jbhQXHHdDW6KR?=
- =?us-ascii?Q?od/GXeOWbrG80YcImDJfuLSPIR6Ej9ByxMO0C+HLRVqj/jT2E/MESgy5Vnmn?=
- =?us-ascii?Q?RZ7f3FWndg+aSzIvSut54WQ1xHqLf9SoG90OArZJHn53aV35yhunv0LOgUrC?=
- =?us-ascii?Q?T5PK1ILHmcWCjPfJGVAskPFam69jEMsc5ASvqmiuQE//tOsybZUdOWyqx5lq?=
- =?us-ascii?Q?uACW410f0vu5ixA2W/c1OKHdjZ6oB751vuFZP2QTewC28c5KRzqvOS5Pvd2Z?=
- =?us-ascii?Q?NXexwB1IObcjqoYWtP3YNpwVRgqNeoGH1aksLM5OSGzbHgs5bemFI9vb+IAr?=
- =?us-ascii?Q?AIUMzFGie9CbPCE9Mo5gdxNiiJHYHkrXoRW12zplmZa2Pj9JjETv8+PX9O/E?=
- =?us-ascii?Q?1C4eQBdYTMj+bxkUBJrUHyFXcpWzo69iKxLaNrdxM3Y1+F+nwp28/5nBxGtn?=
- =?us-ascii?Q?Rj9HaueT1VRcITgqGt62NYR/zcogFkTyLSw6jyCUBHUjqmvVCu4n2IP5eGw2?=
- =?us-ascii?Q?+jX23CAVjyDgu7DQDm1XnlH0yzyyNpF+aEJXSSrsV1Cg7ku3tGXlLVhXi0qD?=
- =?us-ascii?Q?/qIuc5iTDFEtY8uunYPrsgdJy93GVR/onjo51iBRc3c5D25guOptBP7x3RGH?=
- =?us-ascii?Q?UZR14M4Z7wxs7PTgEKA5AoYHYlakPmabhqUwYXCxAvRzV3y56uNI3V+UQAaT?=
- =?us-ascii?Q?JHFTLZIXqvQfB0BUMOX98pE5py3FO1SAg1gLa89uMw0NxGSYTyhleBp6klxa?=
- =?us-ascii?Q?SetVtrjbd96UYtlldY9SLgkusaEVrrb+uI8OEJumWxANleZqZ6K93uujXFOX?=
- =?us-ascii?Q?SQrBXQBKs+1hH3rg5+rbeQcMYcI9c6WDotJrvrhSniNHEiJKCPktgKlZChuh?=
- =?us-ascii?Q?flTetpUMFLajNtuan8/PG6KoN7CjlBw8BuKrEquX3Lj3n9rHQQCr23ixOIr6?=
- =?us-ascii?Q?1EtZwWUgrF07kJ6ElgpIOlClcPde7IEDAKE51CGSQhvx+B0t1umCPIurToeW?=
- =?us-ascii?Q?Mx8bXbflGWOy96It68yrDi6YEwBg04uHFI3a/r21X0mnbsMtEHlfJQpu5dht?=
- =?us-ascii?Q?WSAvQtS8iFtXhqI6Ny2rLERXbg32zoAmKWUPhhr9aAOYFUd7mqu5ekeQ1qvD?=
- =?us-ascii?Q?KcByLPVgRozNGGhYZoZbpN5BQFrSljJvdlGG/1Byi8whCxcwpUVTN4Qhs7Sc?=
- =?us-ascii?Q?104RD4oaYtxX8tPtNEvKOkFmuIqt9aklIWz6PMUScHTlCPzpS6S8J/9xAroT?=
- =?us-ascii?Q?Mtr2NF9hYwlj0NGRq/dHaVPMTsnz3/ZemtOwWjnK3yjgPzQK6jnTidnKBKtU?=
- =?us-ascii?Q?nhu25bM2IizmlDmkdWxwwYk38XvkeAkuLYkyriJJQaG+PURF7GjDmf/QeHbC?=
- =?us-ascii?Q?BxIKlKq91earVrryvfycBIiwIbCWd82/CgMJ2iKh/nlLq9ka7A=3D=3D?=
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?MlaM+1x8pR0G/Cw+iDpW1vJKdFHuNwFJ6Xt6WGh8EMAMzz2cxGYrBtfFkIZr?=
+ =?us-ascii?Q?clnyOboAygraGxH7/yGxWRoIUeruSUCwLwkwakGlN7Bql1ml7eCYjjZSdv+3?=
+ =?us-ascii?Q?f4mAxOVrlbVqCWB1J86lE3vfZxGln/MFDTn3c7dMldQ/JNAAJvqxnjmQYMB9?=
+ =?us-ascii?Q?sqVWemiBLcQFNJZCL3P5JDpXucCTqr/xnjXv/ZzAb+/n6sSWGq4IArVXlZlb?=
+ =?us-ascii?Q?aVbnbDUNqpDEhYcMhOrDbiBuWPUSrW2CKC7Y7dRavUtVl8s2ygTDdoeXZVAo?=
+ =?us-ascii?Q?ZkI+rWx10VToc0RYanM++3RaNs/7SK0jQcPLVhJE/XjCkALA3fngNoetx5s6?=
+ =?us-ascii?Q?m95gx63Ugv6/CEr4q0pwixyq8TJcEYkvhdEi3AFhKDV/Bn6Q4tQbZszlm79e?=
+ =?us-ascii?Q?EeprF7JWIbG+UQ00PL6nkp+siPJKnpBg5wKA0xkJBoeOUzrWvQsG0fqKDuVj?=
+ =?us-ascii?Q?4AaxZ3vF8Kce9QfBy35x/XQ9J3cfZAEeVxFkNVmAAT0zFb+gD6muOGxxKy42?=
+ =?us-ascii?Q?8z5rYEhQ/ESpY7W8oImSD8mUrzG7mkZcjCkdtpTR33ym268JeRDw9q/t3zbv?=
+ =?us-ascii?Q?IxDgvrg/Rt7axhcHJrc7V8K+ledJJMWlX2cRbcwO/cig5swGFFXY2ZHQK14I?=
+ =?us-ascii?Q?slJAUg1NGGp1byixaM3URerI97GlElZW5Rr1degausSXGj/n4V8FYh6C77ta?=
+ =?us-ascii?Q?uyfCDeKAp+WbzVHyCCzKBnRo7ugjA9srPet2Z710+HL/cXgKEAUAhLLOceEo?=
+ =?us-ascii?Q?Q2J+lTkTIAgwCHNCH0jgDVu/9pyXoXIlViHJN92SfZdVDm7O21gIrgNJurK7?=
+ =?us-ascii?Q?0CpitTt3boKZJ1U7GmoMmQVcoa1VSaeryM7SzFN3F6b/cZNSuanStpAjMH9P?=
+ =?us-ascii?Q?6t7cUC97w7MMyOw3lGEvHz1grx4xtipO+9InI1tVTcYQE0loMTGlNiD7gUqw?=
+ =?us-ascii?Q?r0xC66MkbCq1JS7/LposRQSNN28wYED2XzIKXCgrPoUeT6jU5tbtfN7isUwS?=
+ =?us-ascii?Q?b8uM1WlUKU5ZqBOZn04OB/+6EjuY2bdOwWa6PtsjgIyM3zi+t8tWv43FYfD8?=
+ =?us-ascii?Q?bs4UWB+MB+QvpgQL5jlKveVbP6Crd4lOdyur0kDIpHuApTqyi5GC9GB4eDy6?=
+ =?us-ascii?Q?I4c63drLn6wLHWBDt6FE+oBHXVYMTJonwM2WfmbXnJJx1YaRL55V7CANXKb8?=
+ =?us-ascii?Q?KOVeImzxkRqeem/nfCBdieI7auRspQ6KrZleCBl4P6VtVNmHG4DFtaem5+fU?=
+ =?us-ascii?Q?yZ2dDXzHO8uufCwF7cd7U3u5BWHZUcrZ4n2ns2hCIxUDqz1pbGP/h/E4Z4QO?=
+ =?us-ascii?Q?Zot5AyJ0SseM4csPi74siEc00MfVnOFb0lHm27YRuudZjILfoXnycAheAT6a?=
+ =?us-ascii?Q?Rl+gdw/UI/B6ykp3McZ1xxQ+iO9vlFKOKC65qHcZxRXR6T+FLw=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR12MB6425.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NIxKhrQOvoQFWd/0dufUUOpiV96uCzjWIgsbizau+YBPh5oPqovOBimCphOc?=
- =?us-ascii?Q?YWForjVG3sBwbJJMwvbQ9DIjfMigwClVK02tfcHAEcX2IU3DrnB14FNiME5x?=
- =?us-ascii?Q?KpNb2WhIRavvCcYE2+LhgvaqU8y8JuJF9TISjDnSFxEmzFcfRLOfGGyXVywx?=
- =?us-ascii?Q?8zN8d9B5iSxP28AD0sIrZQHHtRUNflS1jBGEmSyZn93Ydo9C0i/9KzIgqJ2b?=
- =?us-ascii?Q?CoVd3k8AD8DM/DPCZ4Y9/guTuEHl3mCE/UMrNTm8FuMAQeIp2d6ZOBg2DCnP?=
- =?us-ascii?Q?r+HhK1ciGwOibUFSzRfqFSBdBmAuxiKK/0aoG0Ag3rGQaROOQ3o2ST1xQECs?=
- =?us-ascii?Q?fETzqN9lp8mRfEAaydQENS5VK/2r+WlqLJrr8k1fiIlvI8BwWfCF4CTDrrQL?=
- =?us-ascii?Q?4BVORtVLNkevbPqvQ/bGW4FZVxanpt2Zpq27KKSrQq6XZl5XU5s31MbjL6d7?=
- =?us-ascii?Q?2qpHuUi5F7ruS7Qk2PGjrh2ba/ueLTsBRRKqcD5mHk8YIAlosa81XyHCBQI7?=
- =?us-ascii?Q?iVP051MjJaf4LsNsrB4zagnn/5ji3/BmxgJcndImmUjOuiK5PjiiujrgSeLN?=
- =?us-ascii?Q?YXHTBPTHkhjQ2OKykF7nDzBzSgZpRQPTtJegLCFCYwuRWy7H06oEVyXmqoMQ?=
- =?us-ascii?Q?E00kkAZnywGW9JKV8MlpmK8tQooi1YfoczJj9MA8F8rv4izYE5L8zshnfKMY?=
- =?us-ascii?Q?i3OMoTE50t0bbU9uZD4e5+iBcL1zTbWxdsgFRb8egrwnRj67t01OXTlRiN5k?=
- =?us-ascii?Q?1mG/I7ScmXmAyDAEV5Y/ky2UBWWlllETr+Phoh6tzvnzxemnwz2rYzenSm2v?=
- =?us-ascii?Q?527zYxkbruHigRiFjyNdKVdjA3rxhSl0m+MO1dsYy+p4QqrioVcUgfmlsQ/u?=
- =?us-ascii?Q?hr0NBm4+1NxtluR50DcVSFooRF8J3Hfi3pnnF5M0bO2W4IZhzpMmSZIMC/hm?=
- =?us-ascii?Q?Vb7xIS+j7431x24KHaw9/VNszmlllw8Z3PGmhK0MTCV6GzHvaE2r/JbiYlsX?=
- =?us-ascii?Q?DqFx2ptWHfcQseSicm10XQAPKEyAXs8JV1CSf8ab0H0LpqpCc5RzNlYxKA+n?=
- =?us-ascii?Q?Xc6hux00/HIB1Va5s2RGtzX6uuTm85E0pUBkNj0NywEhZ1odyWfphBHwOc9o?=
- =?us-ascii?Q?qBNnmpMdXdhHbKZEenpR/fEZDWCbODnvyPXLULrg4oZ1qjzrEtRVrhGjpVBw?=
- =?us-ascii?Q?z9aCwReE6eOKxavSTXxf5Qs3CIIenSzya0DfQH68ra6w5NvnW/rOgCjiX1xs?=
- =?us-ascii?Q?FpQIo0LxLybt2mupFvRe/8m3clDLdCqI9eFg4M1rcGijdRRqLQfbmsosZHiv?=
- =?us-ascii?Q?UPH1eCepFRUqYkfRZH+JFoUxiEuDf1XM2eQPXyn3zdiTN4Z9+7MXYV/Jll4H?=
- =?us-ascii?Q?2eBy/DhoVFvf3+XRD3T5l2NJa7zvwnvJIvJGo5YjkoFLk9XtL7Jw2WFExts7?=
- =?us-ascii?Q?6DuLrEk7i3PY7Tpkc9dsjt1nG5NHwoxoNfStdYckJUMW/4bgR+YFEHlJwp5j?=
- =?us-ascii?Q?R3XjFzWGAme1KvZ9duOkcSeqjEozFqmIP5tp524N3HCO1Vtt9jtqKw1sJTbR?=
- =?us-ascii?Q?GNhn7tV4B05zQGUeh4o=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Ns/mw6cSVB+8/2feAlXeoM4z12T9rKAqyVLS3OVEg7eQCk8ga0NXCgbAHJ6P?=
+ =?us-ascii?Q?NxfRF7loKWVIMxgSUYFksubvoOIWzJvYtmLGUQ5ksyEsG7lJNMJyVU6E5IuE?=
+ =?us-ascii?Q?Q38ycQ+3eesJyTM9+XZNZwhLnVUMIEJphdMUg+NMsHhx8S3pqsuatNaG1pD3?=
+ =?us-ascii?Q?0AYUNJ/6mpmVy7V4wxrGPOYb8aRRwSS1zTZQ7Gnjez+XbNTMjQYCS+SVkD7d?=
+ =?us-ascii?Q?g4z8qlCaIwBj5M9K55x89lpegwn9vrxjnb+QJM0WMvzkwNP9kFmSDhXKcYEZ?=
+ =?us-ascii?Q?UvE/H9UvhgPGyx0XZTkPQ44QhB3vihT0Q2clZ32Zcwg2ME6maNWi8OB97l/7?=
+ =?us-ascii?Q?l36gPXAoPHzsMqP5dRIurn1wt4pCudWYGZhP03J6LwIUXGvu/DdPHtsNkKtO?=
+ =?us-ascii?Q?pLCsfGV+skBmOFqrU/nVfroTxc400aQ9udTHoHbWcM8ipXsFQy6bt8tnDeiP?=
+ =?us-ascii?Q?Gvb0iaoLcgWlMfEyXVnDNOw7nr2NLWa08FAQe+00wv5yRW+B7QhwHrXxTe3h?=
+ =?us-ascii?Q?WWAUDifLMIdAbipNgUqvOWecpED3YPGNR/AI5V1efrjbZXHZsP8LFrSp5Vgu?=
+ =?us-ascii?Q?DgT2CBAtdhhUnsrK3qmzCetxCZZnHiSXvqDYblyExtksgAcB7Zup3DZCuZIy?=
+ =?us-ascii?Q?O2n4+HSUNhEm1AVbQ9ztR9/0eztWBEGzFUxFtaGHB4/R7/TesvN9jP2hEvlA?=
+ =?us-ascii?Q?EgBMtk8g/rHixn7NB4zrqrfvSP0dNZDoRw5mNe/kcJInuLNmpS6/lD1taIN5?=
+ =?us-ascii?Q?j28Xdmya0Bhmp/rx3JfDhdQQdDnCjjAiqpH5/89i/o+m1+ysAMsMGNY9JcZz?=
+ =?us-ascii?Q?G/5YSjgVf4LlbPq4mpJHQn0BbC2ic8ZYGYsa96JSxIkNcW9fI8R9oLRQcXpd?=
+ =?us-ascii?Q?3+W8yVLVq67CXlDK7jcKJz1LRFzTjmpltyZ0I80eBP0pIHNVfemY/ErLMvra?=
+ =?us-ascii?Q?gO/bbgQSxzEnh8EHo9AHQ+DgwqbMcDBeqYYzrZc7YF0/nNxMtP/bWse9vs0O?=
+ =?us-ascii?Q?tayW4xLRXvYOL3J+jZEo3PIV5zTCSRaqy+T0564U+Wv7FZ5jYnXOdmv4SMvy?=
+ =?us-ascii?Q?la4FaCax1Vpip/HT3JBAFwG7zrW9GuVFWTWwppKQMaKn3W3Va0XDsvEJB+0L?=
+ =?us-ascii?Q?UUuvZ13ppsZfpv/MDv4oGpCCbyceqEUCsxcn79ULoOhtfv+s2XYXniKtrice?=
+ =?us-ascii?Q?mEI0+7KRSBB2lfDy3wbC2r2xEINOAAqwHG0csbTSHP4objDqipd+DoVDxwkK?=
+ =?us-ascii?Q?vkUhWATHodu6PgBySC8FTskYKIAZ1C5Krte0b943zyGOXxJEpJWAUJVy9+C3?=
+ =?us-ascii?Q?E5L4M8DWk06p/QDvLETh7rr3bPgOGs4hvvdhIbjCrZqR3O+2mIarZTOgJwRm?=
+ =?us-ascii?Q?txp+EW+/iEbP3Jd+bnOTUuF6sjuPyz2DQhk7HPZi3MT1WSJ6+BEVtR45VwBB?=
+ =?us-ascii?Q?kTfdWDhJlvg/4TJfJlWzJCm5O2oHj7ptxBsDfUVNoftikuXVfOD7qv5t2jPY?=
+ =?us-ascii?Q?XPn0elAAzmqD14UZMSs1QIDz9PeGt62ApAlWst1pI464XHxUJ5xfF7pbx7nt?=
+ =?us-ascii?Q?c6/65lAjt6MaO8fhXf8=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6425.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3599c90-fd2b-48dc-d865-08dcbc76c0a7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2024 15:35:40.3921 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7112.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3849a697-e153-4c58-034f-08dcbc76d9ec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2024 15:36:22.7898 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9HXG0notZqW7KGxh1lzvm2NfLegTrfSUsRX0fgMoILyH/WcF1kuwc9q0BsMcNO1Q/SXWif3hIKCwigtOJr9pkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7956
+X-MS-Exchange-CrossTenant-userprincipalname: IJic/MdYHebEr4wlVwz5LoA4jc2OXC2NJD86xQy0Ya3vIcILi5dvVv5d3qT6zVFOf7//RcIpHn4o4+N8OqKIRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,172 +158,147 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-> -----Original Message-----
-> From: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> Sent: Wednesday, August 14, 2024 11:17 AM
-> To: Joshi, Mukul <Mukul.Joshi@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Joshi, Mukul <Mukul.Joshi@amd.com>
-> Subject: RE: [PATCH 2/3] drm/amdkfd: Update queue unmap after VM fault
-> with MES
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mukul
-> Joshi
-> Sent: Tuesday, August 13, 2024 2:57 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Joshi, Mukul <Mukul.Joshi@amd.com>
-> Subject: [PATCH 2/3] drm/amdkfd: Update queue unmap after VM fault with
-> MES
->
-> MEC FW expects MES to unmap all queues when a VM fault is observed on a
-> queue and then resumed once the affected process is terminated.
-> Use the MES Suspend and Resume APIs to achieve this.
->
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-> ---
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 75
-> ++++++++++++++++++-
->  1 file changed, 74 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index f6e211070299..e16b17e301d9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -319,6 +319,56 @@ static int remove_all_queues_mes(struct
-> device_queue_manager *dqm)
->         return retval;
->  }
->
-> +static int suspend_all_queues_mes(struct device_queue_manager *dqm) {
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev-
-> >adev;
-> +       int r;
-> +       struct mes_suspend_gang_input queue_input;
-> +
-> +       if (dqm->is_hws_hang)
-> +               return -EIO;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
-> +       queue_input.suspend_all_gangs =3D 1;
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->suspend_gang(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +
-> +       if (r) {
-> +               dev_err(adev->dev, "failed to suspend gangs from MES\n");
-> +               dev_err(adev->dev, "MES might be in unrecoverable state, =
-issue a
-> GPU reset\n");
-> +               kfd_hws_hang(dqm);
-> +       }
-> +
-> +       return r;
-> +}
-> +
-> +static int resume_all_queues_mes(struct device_queue_manager *dqm) {
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev-
-> >adev;
-> +       int r;
-> +       struct mes_resume_gang_input queue_input;
-> +
-> +       if (dqm->is_hws_hang)
-> +               return -EIO;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
-> +       queue_input.resume_all_gangs =3D 1;
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +
-> +       if (r) {
-> +               dev_err(adev->dev, "failed to resume gangs from MES\n");
-> +               dev_err(adev->dev, "MES might be in unrecoverable state, =
-issue a
-> GPU reset\n");
-> +               kfd_hws_hang(dqm);
-> +       }
-> +
-> +       return r;
-> +}
-> +
->  static void increment_queue_count(struct device_queue_manager *dqm,
->                                   struct qcm_process_device *qpd,
->                                   struct queue *q) @@ -2839,14 +2889,37 @=
-@ int
-> kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid)  {
->         struct kfd_process_device *pdd;
->         struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
-> +       struct device *dev =3D dqm->dev->adev->dev;
->         int ret =3D 0;
->
->         if (!p)
->                 return -EINVAL;
->         WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
->         pdd =3D kfd_get_process_device_data(dqm->dev, p);
-> -       if (pdd)
-> +       if (pdd) {
-> +               if (dqm->dev->kfd->shared_resources.enable_mes) {
-> +                       ret =3D suspend_all_queues_mes(dqm);
-> +                       if (ret) {
-> +                               dev_err(dev, "Suspending all queues faile=
-d");
-> +                               goto out;
-> +                       }
-> +               }
->                 ret =3D dqm->ops.evict_process_queues(dqm, &pdd->qpd);
-> +               if (ret) {
-> +                       dev_err(dev, "Evicting process queues failed");
-> +                       goto out;
-> +               }
-> +
-> evict_process_queues() function also has if(enable_mes) branching. Would =
-it
-> make sense to just call two different functions here one for MES and one =
-for
-> HWS?
->
-I think it should be fine to keep it like the way it is. Keeping 2 separate=
- functions one
-for MES and other for HWS will probably lead to duplication of the code. We=
- have the
-if (enable_mes) branching at a lot of places in the code and it was done ju=
-st to avoid
-duplication.
+Acked-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-> Also, if the process is already evicted then there is no need to do suspe=
-nd_all
-> and resume_all.
-Yes that's a good point. I can put a check to check if the process is alrea=
-dy evicted. If it is, then we
-avoid the suspend and resume.
 
-Thanks,
-Mukul
 
->
->
-> +               if (dqm->dev->kfd->shared_resources.enable_mes) {
-> +                       ret =3D resume_all_queues_mes(dqm);
-> +                       if (ret) {
-> +                               dev_err(dev, "Resuming all queues failed"=
-);
-> +                               goto out;
-> +                       }
-> +               }
-> +       }
-> +
-> +out:
->         kfd_unref_process(p);
->
->         return ret;
-> --
-> 2.35.1
->
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mukul Jo=
+shi
+Sent: Tuesday, August 13, 2024 2:57 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander <Alexander=
+.Deucher@amd.com>; Joshi, Mukul <Mukul.Joshi@amd.com>
+Subject: [PATCH 3/3] drm/amdkfd: Update BadOpcode Interrupt handling with M=
+ES
+
+Based on the recommendation of MEC FW, update BadOpcode interrupt
+handling by unmapping all queues, removing the queue that got the
+interrupt from scheduling and remapping rest of the queues back when
+using MES scheduler. This is done to prevent the case where unmapping
+of the bad queue can fail thereby causing a GPU reset.
+
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 51 +++++++++++++++++++
+ .../gpu/drm/amd/amdkfd/kfd_int_process_v11.c  |  9 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
+ 3 files changed, 58 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index e16b17e301d9..dbbd836d0b9d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2885,6 +2885,57 @@ void device_queue_manager_uninit(struct device_queue=
+_manager *dqm)
+        kfree(dqm);
+ }
+
++int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 d=
+oorbell_id)
++{
++       struct kfd_process_device *pdd;
++       struct kfd_process *p =3D kfd_lookup_process_by_pasid(pasid);
++       struct device_queue_manager *dqm =3D knode->dqm;
++       struct device *dev =3D dqm->dev->adev->dev;
++       struct qcm_process_device *qpd;
++       struct queue *q =3D NULL;
++       int ret =3D 0;
++
++       if (!p)
++               return -EINVAL;
++
++       dqm_lock(dqm);
++
++       pdd =3D kfd_get_process_device_data(dqm->dev, p);
++       if (pdd) {
++               qpd =3D &pdd->qpd;
++
++               list_for_each_entry(q, &qpd->queues_list, list) {
++                       if (q->doorbell_id =3D=3D doorbell_id && q->propert=
+ies.is_active) {
++                               ret =3D suspend_all_queues_mes(dqm);
++                               if (ret) {
++                                       dev_err(dev, "Suspending all queues=
+ failed");
++                                       goto out;
++                               }
++
++                               q->properties.is_evicted =3D true;
++                               q->properties.is_active =3D false;
++                               decrement_queue_count(dqm, qpd, q);
++
++                               ret =3D remove_queue_mes(dqm, q, qpd);
++                               if (ret) {
++                                       dev_err(dev, "Removing bad queue fa=
+iled");
++                                       goto out;
++                               }
++
++                               ret =3D resume_all_queues_mes(dqm);
++                               if (ret)
++                                       dev_err(dev, "Resuming all queues f=
+ailed");
++
++                               break;
++                       }
++               }
++       }
++
++out:
++       dqm_unlock(dqm);
++       return ret;
++}
++
+ int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid)
+ {
+        struct kfd_process_device *pdd;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu=
+/drm/amd/amdkfd/kfd_int_process_v11.c
+index f524a55eee11..b3f988b275a8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
+@@ -330,11 +330,14 @@ static void event_interrupt_wq_v11(struct kfd_node *d=
+ev,
+                if (source_id =3D=3D SOC15_INTSRC_CP_END_OF_PIPE)
+                        kfd_signal_event_interrupt(pasid, context_id0, 32);
+                else if (source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE &&
+-                        KFD_DBG_EC_TYPE_IS_PACKET(KFD_CTXID0_CP_BAD_OP_ECO=
+DE(context_id0)))
+-                       kfd_set_dbg_ev_from_interrupt(dev, pasid,
+-                               KFD_CTXID0_DOORBELL_ID(context_id0),
++                        KFD_DBG_EC_TYPE_IS_PACKET(KFD_CTXID0_CP_BAD_OP_ECO=
+DE(context_id0))) {
++                       u32 doorbell_id =3D KFD_CTXID0_DOORBELL_ID(context_=
+id0);
++
++                       kfd_set_dbg_ev_from_interrupt(dev, pasid, doorbell_=
+id,
+                                KFD_EC_MASK(KFD_CTXID0_CP_BAD_OP_ECODE(cont=
+ext_id0)),
+                                NULL, 0);
++                       kfd_dqm_suspend_bad_queue_mes(dev, pasid, doorbell_=
+id);
++               }
+
+                /* SDMA */
+                else if (source_id =3D=3D SOC21_INTSRC_SDMA_TRAP)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
+dkfd/kfd_priv.h
+index f7c12d4f0abb..7bba6bed2f48 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1324,6 +1324,7 @@ struct kernel_queue *kernel_queue_init(struct kfd_nod=
+e *dev,
+                                        enum kfd_queue_type type);
+ void kernel_queue_uninit(struct kernel_queue *kq);
+ int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid);
++int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 d=
+oorbell_id);
+
+ /* Process Queue Manager */
+ struct process_queue_node {
+--
+2.35.1
 
