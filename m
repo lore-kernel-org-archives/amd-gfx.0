@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFE1FC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 10:06:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78B67C531DE
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 10:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFB010E0D7;
-	Thu, 15 Aug 2024 10:05:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WWXz1qEY";
-	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78DEA10E2C7
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 05:12:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3009F61D58;
- Thu, 15 Aug 2024 05:12:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F46C4AF0A;
- Thu, 15 Aug 2024 05:12:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1723698764;
- bh=Nhs4LP/qOha9uBz5IKXTxoESOcgX8PVTbALyHYj31N8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WWXz1qEYUgsDIfcOzUses/8TFIE43Yb2x3KTlsB2rBaVb8fSCEfa++IoVb0cPIzv/
- pyZsdjwt//xvZvWX1hrjPe946GN4FuA0qEbGhRPo3iaBe0eSqaO8cQ9MK+3Iq3AGDW
- +QRkcGBSSGD8qGTik94R6a5kOw6JQHSl+Pt8X1Hg=
-Date: Thu, 15 Aug 2024 07:12:41 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: AMD drm patch workflow is broken for stable trees
-Message-ID: <2024081527-step-resort-2984@gregkh>
-References: <2024081247-until-audacious-6383@gregkh>
- <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 793F610E0A6;
+	Thu, 15 Aug 2024 10:06:00 +0000 (UTC)
+Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B7410E498;
+ Wed, 14 Aug 2024 13:48:23 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Wed, 14 Aug
+ 2024 16:48:20 +0300
+Received: from [192.168.211.130] (10.0.253.138) by Ex16-01.fintech.ru
+ (10.0.10.18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 14 Aug
+ 2024 16:48:20 +0300
+Message-ID: <714daae5-b95c-425e-afe2-3b107033e493@fintech.ru>
+Date: Wed, 14 Aug 2024 06:48:14 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/radeon/evergreen_cs: fix int overflow errors in cs
+ track offsets
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: Jerome Glisse <jglisse@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>,
+ <n.zhandarovich@fintech.ru>
+References: <20240806171904.49032-1-n.zhandarovich@fintech.ru>
+Content-Language: en-US
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+In-Reply-To: <20240806171904.49032-1-n.zhandarovich@fintech.ru>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.0.253.138]
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
 X-Mailman-Approved-At: Thu, 15 Aug 2024 10:05:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,57 +56,235 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 14, 2024 at 04:39:29PM -0400, Felix Kuehling wrote:
-> On 2024-08-12 11:00, Greg KH wrote:
-> > Hi all,
-> > 
-> > As some of you have noticed, there's a TON of failure messages being
-> > sent out for AMD gpu driver commits that are tagged for stable
-> > backports.  In short, you all are doing something really wrong with how
-> > you are tagging these.
-> Hi Greg,
+Hi,
+
+On 8/6/24 10:19, Nikita Zhandarovich wrote:
+> Several cs track offsets (such as 'track->db_s_read_offset')
+> either are initialized with or plainly take big enough values that,
+> once shifted 8 bits left, may be hit with integer overflow if the
+> resulting values end up going over u32 limit.
 > 
-> I got notifications about one KFD patch failing to apply on six branches
-> (6.10, 6.6, 6.1, 5.15, 5.10 and 5.4). The funny thing is, that you already
-> applied this patch on two branches back in May. The emails had a suspicious
-> looking date in the header (Sep 17, 2001). I wonder if there was some date
-> glitch that caused a whole bunch of patches to be re-sent to stable somehow:
+> Same goes for a few instances of 'surf.layer_size * mslice'
+> multiplications that are added to 'offset' variable - they may
+> potentially overflow as well and need to be validated properly.
 > 
->    ------------------ original commit in Linus's tree
->    ------------------ From 24e82654e98e96cece5d8b919c522054456eeec6 Mon
->    Sep 17 00:00:00 2001 From: Alex Deucher
->    <alexander.deucher@amd.com>Date: Sun, 14 Apr 2024 13:06:39 -0400
-
-That's the real date, ignore the 2001 thing, that's from git.
-
-
->    Subject: [PATCH] drm/amdkfd: don't allow mapping the MMIO HDP page
->    with large pages ...
+> While some debug prints in this code section take possible overflow
+> issues into account, simply casting to (unsigned long) may be
+> erroneous in its own way, as depending on CPU architecture one is
+> liable to get different results.
 > 
-> On 6.1 and 6.6, the patch was already applied by you in May:
+> Fix said problems by:
+>  - casting 'offset' to fixed u64 data type instead of
+>  ambiguous unsigned long.
+>  - casting one of the operands in vulnerable to integer
+>  overflow cases to u64.
+>  - adjust format specifiers in debug prints to properly
+>  represent 'offset' values.
 > 
->    $ git log --pretty=fuller stable/linux-6.6.y --grep "drm/amdkfd: don't allow mapping the MMIO HDP page with large pages"
->    commit 4b4cff994a27ebf7bd3fb9a798a1cdfa8d01b724
->    Author:     Alex Deucher <alexander.deucher@amd.com>
->    AuthorDate: Sun Apr 14 13:06:39 2024 -0400
->    Commit:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->    CommitDate: Fri May 17 12:02:34 2024 +0200
+> Found by Linux Verification Center (linuxtesting.org) with static
+> analysis tool SVACE.
 > 
->         drm/amdkfd: don't allow mapping the MMIO HDP page with large pages
->    ...
+> Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni tiling informations v11")
+> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+> ---
+> v2:
+> - change data type to cast from unsigned long to u64 per Alex's and
+> Christian's suggestion:
+> https://lore.kernel.org/all/CADnq5_NaMr+vpqwqhsMoSeGrto2Lw5v0KXWEp2HRK=++orScMg@mail.gmail.com/
+> - include validation of surf.layer_size * mslice per Christian's
+> approval:
+> https://lore.kernel.org/all/1914cfcb-9700-4274-8120-9746e241cb54@amd.com/
+> - change format specifiers when printing 'offset' value.
+> - fix commit description to reflect patch changes.
 > 
-> On 6.10 it was already upstream.
+> v1:
+> https://lore.kernel.org/all/20240725180950.15820-1-n.zhandarovich@fintech.ru/
+> 
+>  drivers/gpu/drm/radeon/evergreen_cs.c | 62 +++++++++++++++++------------------
+>  1 file changed, 31 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+> index e5577d2a19ef..a46613283393 100644
+> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+> @@ -397,7 +397,7 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>  	struct evergreen_cs_track *track = p->track;
+>  	struct eg_surface surf;
+>  	unsigned pitch, slice, mslice;
+> -	unsigned long offset;
+> +	u64 offset;
+>  	int r;
+>  
+>  	mslice = G_028C6C_SLICE_MAX(track->cb_color_view[id]) + 1;
+> @@ -435,14 +435,14 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>  		return r;
+>  	}
+>  
+> -	offset = track->cb_color_bo_offset[id] << 8;
+> +	offset = (u64)track->cb_color_bo_offset[id] << 8;
+>  	if (offset & (surf.base_align - 1)) {
+> -		dev_warn(p->dev, "%s:%d cb[%d] bo base %ld not aligned with %ld\n",
+> +		dev_warn(p->dev, "%s:%d cb[%d] bo base %llu not aligned with %ld\n",
+>  			 __func__, __LINE__, id, offset, surf.base_align);
+>  		return -EINVAL;
+>  	}
+>  
+> -	offset += surf.layer_size * mslice;
+> +	offset += (u64)surf.layer_size * mslice;
+>  	if (offset > radeon_bo_size(track->cb_color_bo[id])) {
+>  		/* old ddx are broken they allocate bo with w*h*bpp but
+>  		 * program slice with ALIGN(h, 8), catch this and patch
+> @@ -450,14 +450,14 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>  		 */
+>  		if (!surf.mode) {
+>  			uint32_t *ib = p->ib.ptr;
+> -			unsigned long tmp, nby, bsize, size, min = 0;
+> +			u64 tmp, nby, bsize, size, min = 0;
+>  
+>  			/* find the height the ddx wants */
+>  			if (surf.nby > 8) {
+>  				min = surf.nby - 8;
+>  			}
+>  			bsize = radeon_bo_size(track->cb_color_bo[id]);
+> -			tmp = track->cb_color_bo_offset[id] << 8;
+> +			tmp = (u64)track->cb_color_bo_offset[id] << 8;
+>  			for (nby = surf.nby; nby > min; nby--) {
+>  				size = nby * surf.nbx * surf.bpe * surf.nsamples;
+>  				if ((tmp + size * mslice) <= bsize) {
+> @@ -469,7 +469,7 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>  				slice = ((nby * surf.nbx) / 64) - 1;
+>  				if (!evergreen_surface_check(p, &surf, "cb")) {
+>  					/* check if this one works */
+> -					tmp += surf.layer_size * mslice;
+> +					tmp += (u64)surf.layer_size * mslice;
+>  					if (tmp <= bsize) {
+>  						ib[track->cb_color_slice_idx[id]] = slice;
+>  						goto old_ddx_ok;
+> @@ -478,9 +478,9 @@ static int evergreen_cs_track_validate_cb(struct radeon_cs_parser *p, unsigned i
+>  			}
+>  		}
+>  		dev_warn(p->dev, "%s:%d cb[%d] bo too small (layer size %d, "
+> -			 "offset %d, max layer %d, bo size %ld, slice %d)\n",
+> +			 "offset %llu, max layer %d, bo size %ld, slice %d)\n",
+>  			 __func__, __LINE__, id, surf.layer_size,
+> -			track->cb_color_bo_offset[id] << 8, mslice,
+> +			(u64)track->cb_color_bo_offset[id] << 8, mslice,
+>  			radeon_bo_size(track->cb_color_bo[id]), slice);
+>  		dev_warn(p->dev, "%s:%d problematic surf: (%d %d) (%d %d %d %d %d %d %d)\n",
+>  			 __func__, __LINE__, surf.nbx, surf.nby,
+> @@ -564,7 +564,7 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>  	struct evergreen_cs_track *track = p->track;
+>  	struct eg_surface surf;
+>  	unsigned pitch, slice, mslice;
+> -	unsigned long offset;
+> +	u64 offset;
+>  	int r;
+>  
+>  	mslice = G_028008_SLICE_MAX(track->db_depth_view) + 1;
+> @@ -610,18 +610,18 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>  		return r;
+>  	}
+>  
+> -	offset = track->db_s_read_offset << 8;
+> +	offset = (u64)track->db_s_read_offset << 8;
+>  	if (offset & (surf.base_align - 1)) {
+> -		dev_warn(p->dev, "%s:%d stencil read bo base %ld not aligned with %ld\n",
+> +		dev_warn(p->dev, "%s:%d stencil read bo base %llu not aligned with %ld\n",
+>  			 __func__, __LINE__, offset, surf.base_align);
+>  		return -EINVAL;
+>  	}
+> -	offset += surf.layer_size * mslice;
+> +	offset += (u64)surf.layer_size * mslice;
+>  	if (offset > radeon_bo_size(track->db_s_read_bo)) {
+>  		dev_warn(p->dev, "%s:%d stencil read bo too small (layer size %d, "
+> -			 "offset %ld, max layer %d, bo size %ld)\n",
+> +			 "offset %llu, max layer %d, bo size %ld)\n",
+>  			 __func__, __LINE__, surf.layer_size,
+> -			(unsigned long)track->db_s_read_offset << 8, mslice,
+> +			(u64)track->db_s_read_offset << 8, mslice,
+>  			radeon_bo_size(track->db_s_read_bo));
+>  		dev_warn(p->dev, "%s:%d stencil invalid (0x%08x 0x%08x 0x%08x 0x%08x)\n",
+>  			 __func__, __LINE__, track->db_depth_size,
+> @@ -629,18 +629,18 @@ static int evergreen_cs_track_validate_stencil(struct radeon_cs_parser *p)
+>  		return -EINVAL;
+>  	}
+>  
+> -	offset = track->db_s_write_offset << 8;
+> +	offset = (u64)track->db_s_write_offset << 8;
+>  	if (offset & (surf.base_align - 1)) {
+> -		dev_warn(p->dev, "%s:%d stencil write bo base %ld not aligned with %ld\n",
+> +		dev_warn(p->dev, "%s:%d stencil write bo base %llu not aligned with %ld\n",
+>  			 __func__, __LINE__, offset, surf.base_align);
+>  		return -EINVAL;
+>  	}
+> -	offset += surf.layer_size * mslice;
+> +	offset += (u64)surf.layer_size * mslice;
+>  	if (offset > radeon_bo_size(track->db_s_write_bo)) {
+>  		dev_warn(p->dev, "%s:%d stencil write bo too small (layer size %d, "
+> -			 "offset %ld, max layer %d, bo size %ld)\n",
+> +			 "offset %llu, max layer %d, bo size %ld)\n",
+>  			 __func__, __LINE__, surf.layer_size,
+> -			(unsigned long)track->db_s_write_offset << 8, mslice,
+> +			(u64)track->db_s_write_offset << 8, mslice,
+>  			radeon_bo_size(track->db_s_write_bo));
+>  		return -EINVAL;
+>  	}
+> @@ -661,7 +661,7 @@ static int evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>  	struct evergreen_cs_track *track = p->track;
+>  	struct eg_surface surf;
+>  	unsigned pitch, slice, mslice;
+> -	unsigned long offset;
+> +	u64 offset;
+>  	int r;
+>  
+>  	mslice = G_028008_SLICE_MAX(track->db_depth_view) + 1;
+> @@ -708,34 +708,34 @@ static int evergreen_cs_track_validate_depth(struct radeon_cs_parser *p)
+>  		return r;
+>  	}
+>  
+> -	offset = track->db_z_read_offset << 8;
+> +	offset = (u64)track->db_z_read_offset << 8;
+>  	if (offset & (surf.base_align - 1)) {
+> -		dev_warn(p->dev, "%s:%d stencil read bo base %ld not aligned with %ld\n",
+> +		dev_warn(p->dev, "%s:%d stencil read bo base %llu not aligned with %ld\n",
+>  			 __func__, __LINE__, offset, surf.base_align);
+>  		return -EINVAL;
+>  	}
+> -	offset += surf.layer_size * mslice;
+> +	offset += (u64)surf.layer_size * mslice;
+>  	if (offset > radeon_bo_size(track->db_z_read_bo)) {
+>  		dev_warn(p->dev, "%s:%d depth read bo too small (layer size %d, "
+> -			 "offset %ld, max layer %d, bo size %ld)\n",
+> +			 "offset %llu, max layer %d, bo size %ld)\n",
+>  			 __func__, __LINE__, surf.layer_size,
+> -			(unsigned long)track->db_z_read_offset << 8, mslice,
+> +			(u64)track->db_z_read_offset << 8, mslice,
+>  			radeon_bo_size(track->db_z_read_bo));
+>  		return -EINVAL;
+>  	}
+>  
+> -	offset = track->db_z_write_offset << 8;
+> +	offset = (u64)track->db_z_write_offset << 8;
+>  	if (offset & (surf.base_align - 1)) {
+> -		dev_warn(p->dev, "%s:%d stencil write bo base %ld not aligned with %ld\n",
+> +		dev_warn(p->dev, "%s:%d stencil write bo base %llu not aligned with %ld\n",
+>  			 __func__, __LINE__, offset, surf.base_align);
+>  		return -EINVAL;
+>  	}
+> -	offset += surf.layer_size * mslice;
+> +	offset += (u64)surf.layer_size * mslice;
+>  	if (offset > radeon_bo_size(track->db_z_write_bo)) {
+>  		dev_warn(p->dev, "%s:%d depth write bo too small (layer size %d, "
+> -			 "offset %ld, max layer %d, bo size %ld)\n",
+> +			 "offset %llu, max layer %d, bo size %ld)\n",
+>  			 __func__, __LINE__, surf.layer_size,
+> -			(unsigned long)track->db_z_write_offset << 8, mslice,
+> +			(u64)track->db_z_write_offset << 8, mslice,
+>  			radeon_bo_size(track->db_z_write_bo));
+>  		return -EINVAL;
+>  	}
 
-Then why did we have it in the tree again with different commit ids?
-That's the issue here, and the major confusion as there is no way for us
-to determine if this is a commit that has been in the tree already or if
-it's just a normal failure.
+Gentle ping...
 
-> On 5.4-5.15 it doesn't apply because of conflicts. I can resolve those and
-> send the fixed patches out for you.
-
-If it is needed in those branches, please do so.
-
-thanks,
-
-greg k-h
+Regards,
+Nikita
