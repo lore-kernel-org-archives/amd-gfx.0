@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D03DC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 18:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31A6DC3DA7F
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 18:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 213DB10E183;
-	Thu, 15 Aug 2024 18:15:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D78A210E4DA;
+	Thu, 15 Aug 2024 18:18:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hg+1Eady";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OAhuig37";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2EEC10E183
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 18:15:56 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1ff67158052so9239105ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 11:15:56 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E1C710E4DA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 18:18:04 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-201ed196debso11366735ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 11:18:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723745756; x=1724350556; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1723745884; x=1724350684; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ij67nvqjleJFyX12s+34/Z3BY2ns0p3dNg8zk+iNHy0=;
- b=Hg+1EadyfXD2REYuZy6klMgtZvICAq5dvKrLbJDvITf0W8UY8M4HcShOZ60nMWJ77R
- NYgmYY2VCEO8shk1+NWFD0jDlNAMzgtWVVUXANuRfqUxd26vfnC2VzrOur5TgjyOsfH6
- 44evr+/11BUO9u9gZVZ6NxAOFqJR2A7R03Wg/rYMg6UhwWAi5dG3F08EIUgstUdEdMol
- k9mF+SC+a+2sduHCUy7QEOUe5crFAMLbZFBLVOVBFcBFCGuPiQCufBQNmpqbRiS5bneE
- qJfte8XopqKzoFG8YYyUVK7I8ILYk6lFoP4QDsvPQmvtwrQNVzyLj7cJgg7VSYmZlpBS
- wEog==
+ bh=K82kYMTyNhtXCa7q7yg5V5dCtS9tkQpgnj3DjQQtuIo=;
+ b=OAhuig37Vco01NIjm1PpP0SePYJMU/RkML6tYfC/5mnI8NwaJhm8IELqA4FavlLSH7
+ KAQK4AChBNZ4zxFzkTNEKYTtGblhQqE9ywNB5gXaAzJMjNI4/p7YFxUocUcLAmbgnA9J
+ t2divOUut/6yNGZ7vvoZrkwK6lT5J09teOAf5m6iZcmug3wWgOHRVLX4/Ox1x1rIBcq4
+ 1+EaHi5w+YEchAoof3pEbFKNDRheQosDmHMjNyJBI56TFn2WFvrUBSMo+ABVeFGcDSR4
+ n+qAln6DSSefyYFH882SnAoqPmojsRzx15y+uu4SKkeqAWU8OPxPfE7PQHieuJu+Kku+
+ 5Ziw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723745756; x=1724350556;
+ d=1e100.net; s=20230601; t=1723745884; x=1724350684;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ij67nvqjleJFyX12s+34/Z3BY2ns0p3dNg8zk+iNHy0=;
- b=uo8hqQ+kZbwDbF3npJ8lVno70XiVC2N2WOIhHx375om5CNdHk+ZEKBND2aLFA+Xy2y
- t37ubMrcWGaBVtbRJn2PsAy9g7blC5zsNutBwkA28JEqIYNGai2VBb1s7QVBaQ8DfGnc
- +wpXdzejNRRln3D3mhLiNST3MPgu04mOHvdWRDXng7R7u5UG09eiuTognPT2lZ3zczCe
- Y4NBSC3ZjLt7Yo9Tlo0Sgp6Yf99Uo/45Xjpf42lpdwg2OnU3OR2k06IQh5BeboMe8E7p
- axgktCN8gSks/37h1IoM7uLj0cURGWWOT9kUQfuoKdirNQj+AChvhoDn+fm/hNjKf2n5
- ZpGg==
-X-Gm-Message-State: AOJu0YzZBxmZwrIIK5S7hKelY0z8QECim73DjieFL3Asu9793NPaCaMK
- Xs/E6ppIcH/GCyVFNZR6bNKFJAT0MAyN4GHjtwKEVBEf1g0HRmKNCU2a4DqC3tO7WlnJPMeGnvy
- djzANEsaDSLqyHWP+ydmsZH2smAY=
-X-Google-Smtp-Source: AGHT+IEIMTSu8UYROMeLeoeVI8CDXTYbYwMKyPtwTDT5uLJ/PndZ6tp4HBvC6jwooCCvAWjsh1ltsaPGPJk+pgeZy6I=
-X-Received: by 2002:a17:902:f60f:b0:1fb:72b4:8775 with SMTP id
- d9443c01a7336-20203f27dadmr8008625ad.40.1723745756241; Thu, 15 Aug 2024
- 11:15:56 -0700 (PDT)
+ bh=K82kYMTyNhtXCa7q7yg5V5dCtS9tkQpgnj3DjQQtuIo=;
+ b=KZVkV9Z/UyYu3EqU7Y3C4FrIQeCg3cLRH2xMOeP/cP+K+KIkWnj6C57qk2Rn26xwUi
+ 81+nJwB1tE7qgOBrlILpIGXZth/lkt6tXj9jiLG+1YXZRRCzu8x/Y3221a5QaW56sbgy
+ 5k4gp55tur4qxxc3y4+WKwvKfOfEfAH1XE0pUijkoGAbIs4aPqhzaNPR+qWGOiZni/JM
+ b46vXzz3fAjnPfLtaoR8dNu0hHTQnaRxiGnRYQdP4Iz4vkvcDmxfRHCSTxAcJ2b5eNFB
+ nIomTCMvMRh17T5rgdXwQzTPQsghSFqH3DbLsAFkGgAHmDBCij+LZNiidqE8Tq26PSTH
+ LL0w==
+X-Gm-Message-State: AOJu0Yx26TLgMrCu3vWsK+1xisjIBT5jIKkOA5NgCKkPfMruL3Q3qLd7
+ pD+a9S6M7fP4H+/tjX1M0xjhli6Ahwl59GJ8QNF4rFo01oM9OZMOdYzSeH8p8kFrYCurzXqSwTC
+ 9CX/sdscuorOn/XmxA1wVr5Rq90ct7g==
+X-Google-Smtp-Source: AGHT+IGjVw6V8Avesxs1+A2fBW2HkkdLp3iiV9rHqia2V0g0f/RSI3WJyjPtpN3Kp9zYHln7jvddIOilcGbRcsMHlgw=
+X-Received: by 2002:a17:902:db05:b0:202:2ed:b3d2 with SMTP id
+ d9443c01a7336-20203ec387cmr5983215ad.36.1723745883645; Thu, 15 Aug 2024
+ 11:18:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240814232754.1119319-1-mukul.joshi@amd.com>
-In-Reply-To: <20240814232754.1119319-1-mukul.joshi@amd.com>
+ <20240814232754.1119319-2-mukul.joshi@amd.com>
+In-Reply-To: <20240814232754.1119319-2-mukul.joshi@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Aug 2024 14:15:44 -0400
-Message-ID: <CADnq5_MbUsY2MyoUZzPwM+gothLHCO=x49cWj0s5c2Q70yE0dg@mail.gmail.com>
-Subject: Re: [PATCHv2 1/3] drm/amdgpu: Implement MES Suspend and Resume APIs
- for GFX11
+Date: Thu, 15 Aug 2024 14:17:52 -0400
+Message-ID: <CADnq5_MFfMud-4Xfp2Ryud-E+JjNEqjz0T_xArSxmYCsATRcWA@mail.gmail.com>
+Subject: Re: [PATCHv2 2/3] drm/amdkfd: Update queue unmap after VM fault with
+ MES
 To: Mukul Joshi <mukul.joshi@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Felix.Kuehling@amd.com, 
  alexander.deucher@amd.com
@@ -80,214 +81,136 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Wed, Aug 14, 2024 at 7:28=E2=80=AFPM Mukul Joshi <mukul.joshi@amd.com> w=
 rote:
 >
-> Add implementation for MES Suspend and Resume APIs to unmap/map
-> all queues for GFX11. Support for GFX12 will be added when the
-> corresponding firmware support is in place.
+> MEC FW expects MES to unmap all queues when a VM fault is observed
+> on a queue and then resumed once the affected process is terminated.
+> Use the MES Suspend and Resume APIs to achieve this.
 >
 > Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
 > v1->v2:
 > - Add MES FW version check.
-> - Update amdgpu_mes_suspend/amdgpu_mes_resume handling.
+> - Separate out the kfd_dqm_evict_pasid into another function.
+> - Use amdgpu_mes_suspend/amdgpu_mes_resume to suspend/resume queues.
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 71 +++++++++++++------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  2 +
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 32 ++++++++++-
->  3 files changed, 69 insertions(+), 36 deletions(-)
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 79 ++++++++++++++++++-
+>  1 file changed, 77 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index c598c3edff7e..e551943da77a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -501,60 +501,50 @@ int amdgpu_mes_remove_gang(struct amdgpu_device *ad=
-ev, int gang_id)
->
->  int amdgpu_mes_suspend(struct amdgpu_device *adev)
->  {
-> -       struct idr *idp;
-> -       struct amdgpu_mes_process *process;
-> -       struct amdgpu_mes_gang *gang;
->         struct mes_suspend_gang_input input;
-> -       int r, pasid;
-> +       int r;
-> +
-> +       if (!amdgpu_mes_suspend_resume_all_supported(adev))
-> +               return 0;
-> +
-> +       memset(&input, 0x0, sizeof(struct mes_suspend_gang_input));
-> +       input.suspend_all_gangs =3D 1;
->
->         /*
->          * Avoid taking any other locks under MES lock to avoid circular
->          * lock dependencies.
->          */
->         amdgpu_mes_lock(&adev->mes);
-> -
-> -       idp =3D &adev->mes.pasid_idr;
-> -
-> -       idr_for_each_entry(idp, process, pasid) {
-> -               list_for_each_entry(gang, &process->gang_list, list) {
-> -                       r =3D adev->mes.funcs->suspend_gang(&adev->mes, &=
-input);
-> -                       if (r)
-> -                               DRM_ERROR("failed to suspend pasid %d gan=
-gid %d",
-> -                                        pasid, gang->gang_id);
-> -               }
-> -       }
-> -
-> +       r =3D adev->mes.funcs->suspend_gang(&adev->mes, &input);
->         amdgpu_mes_unlock(&adev->mes);
-> -       return 0;
-> +       if (r)
-> +               DRM_ERROR("failed to suspend all gangs");
-> +
-> +       return r;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index f6e211070299..cb5b866eee3b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -319,6 +319,42 @@ static int remove_all_queues_mes(struct device_queue=
+_manager *dqm)
+>         return retval;
 >  }
 >
->  int amdgpu_mes_resume(struct amdgpu_device *adev)
->  {
-> -       struct idr *idp;
-> -       struct amdgpu_mes_process *process;
-> -       struct amdgpu_mes_gang *gang;
->         struct mes_resume_gang_input input;
-> -       int r, pasid;
-> +       int r;
-> +
-> +       if (!amdgpu_mes_suspend_resume_all_supported(adev))
-> +               return 0;
-> +
-> +       memset(&input, 0x0, sizeof(struct mes_resume_gang_input));
-> +       input.resume_all_gangs =3D 1;
->
->         /*
->          * Avoid taking any other locks under MES lock to avoid circular
->          * lock dependencies.
->          */
->         amdgpu_mes_lock(&adev->mes);
-> -
-> -       idp =3D &adev->mes.pasid_idr;
-> -
-> -       idr_for_each_entry(idp, process, pasid) {
-> -               list_for_each_entry(gang, &process->gang_list, list) {
-> -                       r =3D adev->mes.funcs->resume_gang(&adev->mes, &i=
-nput);
-> -                       if (r)
-> -                               DRM_ERROR("failed to resume pasid %d gang=
-id %d",
-> -                                        pasid, gang->gang_id);
-> -               }
-> -       }
-> -
-> +       r =3D adev->mes.funcs->resume_gang(&adev->mes, &input);
->         amdgpu_mes_unlock(&adev->mes);
-> -       return 0;
-> +       if (r)
-> +               DRM_ERROR("failed to resume all gangs");
-> +
-> +       return r;
->  }
->
->  static int amdgpu_mes_queue_alloc_mqd(struct amdgpu_device *adev,
-> @@ -1608,6 +1598,19 @@ int amdgpu_mes_init_microcode(struct amdgpu_device=
- *adev, int pipe)
->         return r;
->  }
->
-> +bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)
+> +static int suspend_all_queues_mes(struct device_queue_manager *dqm)
 > +{
-> +       uint32_t mes_rev =3D adev->mes.sched_version & AMDGPU_MES_VERSION=
-_MASK;
-> +       bool is_supported =3D false;
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->=
+adev;
+> +       int r =3D 0;
 > +
-> +       if (amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERSION(11, 0, 0)=
- &&
-> +           amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0) &&
-> +           mes_rev >=3D 0x63)
-> +               is_supported =3D true;
+> +       if (dqm->is_hws_hang)
+> +               return -EIO;
 > +
-> +       return is_supported;
+> +       r =3D amdgpu_mes_suspend(adev);
+> +       if (r) {
+> +               dev_err(adev->dev, "failed to suspend gangs from MES\n");
+> +               dev_err(adev->dev, "MES might be in unrecoverable state, =
+issue a GPU reset\n");
+> +               kfd_hws_hang(dqm);
+> +       }
+> +
+> +       return r;
 > +}
 > +
->  #if defined(CONFIG_DEBUG_FS)
->
->  static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *u=
-nused)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.h
-> index 548e724e3a75..b2db62e50454 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -494,4 +494,6 @@ static inline void amdgpu_mes_unlock(struct amdgpu_me=
-s *mes)
->         memalloc_noreclaim_restore(mes->saved_flags);
->         mutex_unlock(&mes->mutex_hidden);
->  }
+> +static int resume_all_queues_mes(struct device_queue_manager *dqm)
+> +{
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->=
+adev;
+> +       int r =3D 0;
 > +
-> +bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)=
-;
->  #endif /* __AMDGPU_MES_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index c0340ee3dec0..a5c582674db9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -421,13 +421,41 @@ static int mes_v11_0_unmap_legacy_queue(struct amdg=
-pu_mes *mes,
->  static int mes_v11_0_suspend_gang(struct amdgpu_mes *mes,
->                                   struct mes_suspend_gang_input *input)
+> +       if (dqm->is_hws_hang)
+> +               return -EIO;
+> +
+> +       r =3D amdgpu_mes_resume(adev);
+> +       if (r) {
+> +               dev_err(adev->dev, "failed to resume gangs from MES\n");
+> +               dev_err(adev->dev, "MES might be in unrecoverable state, =
+issue a GPU reset\n");
+> +               kfd_hws_hang(dqm);
+> +       }
+> +
+> +       return r;
+> +}
+> +
+>  static void increment_queue_count(struct device_queue_manager *dqm,
+>                                   struct qcm_process_device *qpd,
+>                                   struct queue *q)
+> @@ -2835,6 +2871,40 @@ void device_queue_manager_uninit(struct device_que=
+ue_manager *dqm)
+>         kfree(dqm);
+>  }
+>
+> +static int kfd_dqm_evict_pasid_mes(struct device_queue_manager *dqm,
+> +                                  struct qcm_process_device *qpd)
+> +{
+> +       struct device *dev =3D dqm->dev->adev->dev;
+> +       int ret =3D 0;
+> +
+> +       /* Check if process is already evicted */
+> +       dqm_lock(dqm);
+> +       if (qpd->evicted) {
+> +               dqm_unlock(dqm);
+> +               goto out;
+> +       }
+> +       dqm_unlock(dqm);
+> +
+> +       ret =3D suspend_all_queues_mes(dqm);
+> +       if (ret) {
+> +               dev_err(dev, "Suspending all queues failed");
+> +               goto out;
+> +       }
+> +
+> +       ret =3D dqm->ops.evict_process_queues(dqm, qpd);
+> +       if (ret) {
+> +               dev_err(dev, "Evicting process queues failed");
+> +               goto out;
+> +       }
+> +
+> +       ret =3D resume_all_queues_mes(dqm);
+> +       if (ret)
+> +               dev_err(dev, "Resuming all queues failed");
+> +
+> +out:
+> +       return ret;
+> +}
+> +
+>  int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid)
 >  {
-> -       return 0;
-> +       union MESAPI__SUSPEND mes_suspend_gang_pkt;
+>         struct kfd_process_device *pdd;
+> @@ -2845,8 +2915,13 @@ int kfd_dqm_evict_pasid(struct device_queue_manage=
+r *dqm, u32 pasid)
+>                 return -EINVAL;
+>         WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
+>         pdd =3D kfd_get_process_device_data(dqm->dev, p);
+> -       if (pdd)
+> -               ret =3D dqm->ops.evict_process_queues(dqm, &pdd->qpd);
+> +       if (pdd) {
+> +               if (dqm->dev->kfd->shared_resources.enable_mes)
+> +                       ret =3D kfd_dqm_evict_pasid_mes(dqm, &pdd->qpd);
+> +               else
+> +                       ret =3D dqm->ops.evict_process_queues(dqm, &pdd->=
+qpd);
+> +       }
 > +
-> +       memset(&mes_suspend_gang_pkt, 0, sizeof(mes_suspend_gang_pkt));
-> +
-> +       mes_suspend_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_suspend_gang_pkt.header.opcode =3D MES_SCH_API_SUSPEND;
-> +       mes_suspend_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> +
-> +       mes_suspend_gang_pkt.suspend_all_gangs =3D input->suspend_all_gan=
-gs;
-> +       mes_suspend_gang_pkt.gang_context_addr =3D input->gang_context_ad=
-dr;
-> +       mes_suspend_gang_pkt.suspend_fence_addr =3D input->suspend_fence_=
-addr;
-> +       mes_suspend_gang_pkt.suspend_fence_value =3D input->suspend_fence=
-_value;
-> +
-> +       return mes_v11_0_submit_pkt_and_poll_completion(mes,
-> +                       &mes_suspend_gang_pkt, sizeof(mes_suspend_gang_pk=
-t),
-> +                       offsetof(union MESAPI__SUSPEND, api_status));
->  }
+>         kfd_unref_process(p);
 >
->  static int mes_v11_0_resume_gang(struct amdgpu_mes *mes,
->                                  struct mes_resume_gang_input *input)
->  {
-> -       return 0;
-> +       union MESAPI__RESUME mes_resume_gang_pkt;
-> +
-> +       memset(&mes_resume_gang_pkt, 0, sizeof(mes_resume_gang_pkt));
-> +
-> +       mes_resume_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_resume_gang_pkt.header.opcode =3D MES_SCH_API_RESUME;
-> +       mes_resume_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> +
-> +       mes_resume_gang_pkt.resume_all_gangs =3D input->resume_all_gangs;
-> +       mes_resume_gang_pkt.gang_context_addr =3D input->gang_context_add=
-r;
-> +
-> +       return mes_v11_0_submit_pkt_and_poll_completion(mes,
-> +                       &mes_resume_gang_pkt, sizeof(mes_resume_gang_pkt)=
-,
-> +                       offsetof(union MESAPI__RESUME, api_status));
->  }
->
->  static int mes_v11_0_query_sched_status(struct amdgpu_mes *mes)
+>         return ret;
 > --
 > 2.35.1
 >
