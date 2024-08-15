@@ -4,119 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B62CC3DA7F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 07:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07321C52D7D
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 07:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D09710E2D9;
-	Thu, 15 Aug 2024 07:50:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC8F10E2AE;
+	Thu, 15 Aug 2024 07:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gNfHzxGb";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wI9tklQ+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UPi4cQ1F";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wI9tklQ+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UPi4cQ1F";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D8310E2D9
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 07:50:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nUtZpp89bqQISuXQeMGP72O/4hVVz9+4Rs5tKfP97VdUDKQDuVOwmhvQirMVdls1DpORCKf/xv2NEfeXiCHg5lQb95Aj6pU76x6K0CjMWzK9ikq+1DwDw+wpipF2bPWi5YOOPx7DJ5oAaolXm5PJGBm0ViGBTybDmm9t8kLO4xzT43jTFyhFTM487S9/E8lPBTgApC4Xg16BIrjjh2jo3rRixkjxl7S+71Qb0aQGJGtXWBu6r22aOYcjzbfEa0AqwPJzC+el/P3RVAqTff9fYWgWTrQyDsjrhssLvDO4MO8t2oDkjs4K8n5cK49xFD9xuxNQJA+abcq+r//qF2xAIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GBKtDHrfQhsnL4YQ+6zJ0f50RrEnqDSZjua7wJdnaMg=;
- b=FBbFdoTO/zczUk4QYzHziy9ogpLkNQnVIHzRjRJe7GftA+qf7CrkotPcTl1Wvzc95ByHx041hgmCDbC4SO0qqWgNpfaMFFS4U+4QTPu/ulS048DiqtpnhQgxw4ZvhSU0g+skP4ymZrLpv4GRnWbN9Fstj0MagAdF3B9w0ojio7Bi6HEBnI1ofZMJhW6cZSO/SByHC+JEWgyzyAwOZzfj8gHiRQkVP/n4/9w5qpF4lZIwWay+QbPZAC8uvf+m4S6OlE7+xNDOlqNZyJRYdXe8UVZvtlK9/meOov331T2wbavMJ1rDqI30YTdXYNSvjlXKRFiJ/+3hts0FK9Yft+ISmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GBKtDHrfQhsnL4YQ+6zJ0f50RrEnqDSZjua7wJdnaMg=;
- b=gNfHzxGbelvpJ1sT1BoQUIPlUZ7gY0QV0fIA0jHt1qzUuUvTPWygiwA69zRwCZf2BBB04DZ2QwYo1OZEaVO34swqQZug5L5MuZfWweVDZN3a4jKnmzkSZpVizcmcBc9rvRi+cEgZoIBWPQB8nJmcwTYttLs30RArR8z8/UCaREA=
-Received: from SA9PR13CA0010.namprd13.prod.outlook.com (2603:10b6:806:21::15)
- by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.24; Thu, 15 Aug
- 2024 07:50:15 +0000
-Received: from SA2PEPF00003F65.namprd04.prod.outlook.com
- (2603:10b6:806:21:cafe::27) by SA9PR13CA0010.outlook.office365.com
- (2603:10b6:806:21::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.23 via Frontend
- Transport; Thu, 15 Aug 2024 07:50:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003F65.mail.protection.outlook.com (10.167.248.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Thu, 15 Aug 2024 07:50:15 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 Aug
- 2024 02:50:14 -0500
-Received: from shikangserver.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 15 Aug 2024 02:50:14 -0500
-From: Shikang Fan <shikang.fan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Shikang Fan <shikang.fan@amd.com>
-Subject: [PATCH] drm/amdgpu: use cpu to query utcl2 poison status
-Date: Thu, 15 Aug 2024 15:50:08 +0800
-Message-ID: <20240815075008.51490-1-shikang.fan@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D0210E117;
+ Thu, 15 Aug 2024 07:59:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1FB9422156;
+ Thu, 15 Aug 2024 07:59:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723708788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kmxg6gHQEGwKxzodrC9bcMI+0pFH6dxD2dZEdvjDfE8=;
+ b=wI9tklQ+LP22B07Sv0r/0VR7mRwhWS5npzPSx7FiNKFlzAkXTpxvZhSG3mqdNAzsgtOBdE
+ IcX9TeyZ7N+C+yRc43dFspTi6I2ZBAS8Ab8Otm08LcHIvM7s+hC+yPygMQAcQ58nn1VepH
+ gtFhGFEPaGLio2M52cHnADEX3BtoALw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723708788;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kmxg6gHQEGwKxzodrC9bcMI+0pFH6dxD2dZEdvjDfE8=;
+ b=UPi4cQ1Fe4ssqGKIHUD/EVHz3GLlKJbvN6tz3CrMiugPeApRkrau0Paat1id4RTQwE8gIf
+ X9mfK8+Us/YeAYCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1723708788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kmxg6gHQEGwKxzodrC9bcMI+0pFH6dxD2dZEdvjDfE8=;
+ b=wI9tklQ+LP22B07Sv0r/0VR7mRwhWS5npzPSx7FiNKFlzAkXTpxvZhSG3mqdNAzsgtOBdE
+ IcX9TeyZ7N+C+yRc43dFspTi6I2ZBAS8Ab8Otm08LcHIvM7s+hC+yPygMQAcQ58nn1VepH
+ gtFhGFEPaGLio2M52cHnADEX3BtoALw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1723708788;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kmxg6gHQEGwKxzodrC9bcMI+0pFH6dxD2dZEdvjDfE8=;
+ b=UPi4cQ1Fe4ssqGKIHUD/EVHz3GLlKJbvN6tz3CrMiugPeApRkrau0Paat1id4RTQwE8gIf
+ X9mfK8+Us/YeAYCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE8781342D;
+ Thu, 15 Aug 2024 07:59:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 04oEMXO1vWYpdgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 15 Aug 2024 07:59:47 +0000
+Message-ID: <379bdbb3-9a31-4d3e-9c84-e25abb12de58@suse.de>
+Date: Thu, 15 Aug 2024 09:59:47 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: shikang.fan@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F65:EE_|MN2PR12MB4406:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd546da4-8949-4ba9-0a30-08dcbcfee699
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lrbO4P5CeeH87asuHz8WmqCpNeJdTrO90pS/keMO+Y3oy9dSTpIYx4jTtbd5?=
- =?us-ascii?Q?sq11lAb+fmG4pZL6u36tehe5FO2TgGwMjqvtJU0asSUoS+AVj7IvH8lcUTSm?=
- =?us-ascii?Q?hvk7os3vh/uc/V7xonS2Lnkm7diZmLWUAnuhnnBkd0OZiChmNAAzKUIlg7m1?=
- =?us-ascii?Q?7Uc+bLFR1RePV6cLjJJXvtHqJWVYvgPqfHppm4VeO8AhgJcCBEGlYRH+l9eY?=
- =?us-ascii?Q?+XN6u3ym/A41EYPA6oObmxdzILYNoPezfmtdP6c+k5CuLg6xo3yh7HFwHJ4h?=
- =?us-ascii?Q?ajOeJ4nXHy6P85RcHPwylJpb2aleHrX2soid/ac3hxdNvbUs5+qzlo81wtqT?=
- =?us-ascii?Q?6192wbcs2H6gZFGsuCjjQEMHPtw1SBOLjsr05ys8/tX/Y7vwQBiSl28zHIx2?=
- =?us-ascii?Q?vBTxizUri35PHUqtw6xBMNn2yDxq4x0x6xP054YFRcpeR8BFHvTQ+gKrDugc?=
- =?us-ascii?Q?sAcUMw2Pn3NTJ9H7EgPz0GQRLJfjUIdaRavdwqiPgYMXR/kC+yV3YuI4jSNr?=
- =?us-ascii?Q?RrG4T4YSfkKsSJiTSehr4cysV2Z3EiCj4SsRufU59QTXa2n4owf8vvdYWZVV?=
- =?us-ascii?Q?yBlP2/96N2K6VjPd4qxs/PJhovjrbtjvbMc3KK+6QS6325lkeWPxezl0KNRV?=
- =?us-ascii?Q?PoAOIKcFOj1Ag6slB5H8t+jjMqRNkB2Geqi7mcHq6qm3wxCvNQ8D9gSrwEVn?=
- =?us-ascii?Q?tgFzMHmg+oBkd0sKivO8p/jSR+dRVmcUAeB14r1hPIgCyk4HzWLsaGpcsDUD?=
- =?us-ascii?Q?xwAhRCqI09u/m3ZrEucrrluHhRO7W7Q4NFVBuANPxVXOPq1sSGYZYvSFfX20?=
- =?us-ascii?Q?cqGZrFl7gEwA9orxRSf52+xljsmrRByqqkMd2Qicashi4MYrSScJ/d3HOqFZ?=
- =?us-ascii?Q?uaf1LO/skt1TV33SrEPPb4ngtwPL//FTSn3vrhs7wNCcBv+RjYGfGF/ffvXK?=
- =?us-ascii?Q?BuWAKHp0aJF2TZYs4adCv/oH18rP4da9nB9XNQfmn7Cs6onDMEAtFFh+pP6D?=
- =?us-ascii?Q?/cI1shOWjWsbQtMhSxDiLetuT+GMTKXexm6pRE426NOnSEShNkucLhyjTYvB?=
- =?us-ascii?Q?tzLrnDEV3L34GVV9f5q0A8/UKsUsSL3RNyf5tnKhPM2dZwW/Zyt2s55orzBw?=
- =?us-ascii?Q?1s1EuF8kx1KCOf7jc33e72UB5fGv4j+zKWPp671sRAkxjADpWd54yhX1uDVx?=
- =?us-ascii?Q?N3PcRyNnC5YynbAd+16KK17fw6hNWCxZRygquZ9eVLfyKJW6rreak1wXOMkP?=
- =?us-ascii?Q?4DNpST4Hp8Ch2VXFsK39nwh+qWcFeNi0HnIBSKgS5ETY6cWnbYIuFVFHPdkO?=
- =?us-ascii?Q?18/JffimCkP7A2mCGg8b4QmSuWwKIIstfJdaw9Eos+s+pIon5nW/7yRESL6L?=
- =?us-ascii?Q?tTgAy6NBdyVCx4uglns620tBLiFxWAne3g67oWCpPhDTK4SI1fJXbVg01kGe?=
- =?us-ascii?Q?O2n4BqBnpxWrY1xnpOs+aUhg/lnwtpgs?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2024 07:50:15.5490 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd546da4-8949-4ba9-0a30-08dcbcfee699
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F65.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 9/9] drm/tilcdc: Use backlight power constants
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ daniel@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+References: <20240731122311.1143153-1-tzimmermann@suse.de>
+ <20240731122311.1143153-10-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20240731122311.1143153-10-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[10]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.de:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,54 +141,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use CPU to read registers in interrupt situation.
+Ping. This patch still needs an ack.
 
-Signed-off-by: Shikang Fan <shikang.fan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Am 31.07.24 um 14:17 schrieb Thomas Zimmermann:
+> Replace FB_BLANK_ constants with their counterparts from the
+> backlight subsystem. The values are identical, so there's no
+> change in functionality or semantics.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jyri Sarha <jyri.sarha@iki.fi>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+>   drivers/gpu/drm/tilcdc/tilcdc_panel.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_panel.c b/drivers/gpu/drm/tilcdc/tilcdc_panel.c
+> index 68093d6b6b16..5f2d1b6f9ee9 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_panel.c
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_panel.c
+> @@ -49,7 +49,7 @@ static void panel_encoder_dpms(struct drm_encoder *encoder, int mode)
+>   
+>   	if (backlight) {
+>   		backlight->props.power = mode == DRM_MODE_DPMS_ON ?
+> -					 FB_BLANK_UNBLANK : FB_BLANK_POWERDOWN;
+> +					 BACKLIGHT_POWER_ON : BACKLIGHT_POWER_OFF;
+>   		backlight_update_status(backlight);
+>   	}
+>   
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index d200310d1731..3659c2fa08b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -453,7 +453,7 @@ static bool gfxhub_v1_0_query_utcl2_poison_status(struct amdgpu_device *adev,
- 		return false;
- 
- 	hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
--	status = RREG32(hub->vm_l2_pro_fault_status);
-+	status = RREG32_NO_KIQ(hub->vm_l2_pro_fault_status);
- 	/* reset page fault status */
- 	WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-index 72109abe7c86..b36089d7f0e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-@@ -627,7 +627,7 @@ static bool gfxhub_v1_2_query_utcl2_poison_status(struct amdgpu_device *adev,
- {
- 	u32 fed, status;
- 
--	status = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regVM_L2_PROTECTION_FAULT_STATUS);
-+	status = RREG32_SOC15_NO_KIQ(GC, GET_INST(GC, xcc_id), regVM_L2_PROTECTION_FAULT_STATUS);
- 	fed = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, FED);
- 	if (!amdgpu_sriov_vf(adev)) {
- 		/* clear page fault status and address */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-index 915203b91c5f..4f552846960b 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -564,7 +564,7 @@ static bool mmhub_v1_8_query_utcl2_poison_status(struct amdgpu_device *adev,
- {
- 	u32 fed, status;
- 
--	status = RREG32_SOC15(MMHUB, hub_inst, regVM_L2_PROTECTION_FAULT_STATUS);
-+	status = RREG32_SOC15_NO_KIQ(MMHUB, hub_inst, regVM_L2_PROTECTION_FAULT_STATUS);
- 	fed = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, FED);
- 	if (!amdgpu_sriov_vf(adev)) {
- 		/* clear page fault status and address */
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
