@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E66BBC52D7F
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 22:45:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 017FFC5320D
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 22:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CAB810E541;
-	Thu, 15 Aug 2024 22:45:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA7910E54B;
+	Thu, 15 Aug 2024 22:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZWppZJHX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M9en2p3v";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25E4510E545
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D799610E541
  for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 22:45:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nf/74OVZSRdcSXlKNx6mHJmmxyaldB84cp9+hb41HhA4U+DAU4VQfmUxkGmvjwNOwv+qU4T9YpdYkSh9MNQStnFiD/5eU33c414xeKBmVUh/ESnE+wW06mPqgg8PXvFw/f2lwKKNCyrjc97pGr/NCDdYdiGh81RqLKcc+guOkyOkIFKfmJIdjHeLsDLjtZcln50MM5dYMOjyNHa+RFrvJdcN0DiLUilI0iZVmzNzpvBobgwfoy2+OgMtFIoarO9ibfm7Ecltd05e1Qv26V3lNcyriYwsJljSB80gMdRWLuegwSbdcVN5KuRi/aDoZUV7Hf7IYhWyCEtLn6OpsiojQQ==
+ b=OMCJzJwCQiYoA0ODXdpE/wldK2DzjjYarrspmpNYudI+sT+YPxwMysTJ5ScJRB+mTZIVKPI21KfDriwmQcYr8TFU5FDleTtyUuQFM2L01mY68huGP770hyE4drDNtnxgjEx20EyyzH/fvUaGdj45j6KC4d6c8y6PQemylhSx+Lf24BP70kCyeGyX6QTrOnLomrgc2TdbyJRUTQytIh0wY5qo6N3836w0jXax5pJTHASTtRWn8qvfvhSmEt6aBbySWlzs8+k5xh47/wJYaACZhM7U7slXsVJeWkz3i8U0hIy8cut947/D1ouBgmI2QvAOEnEe1u4mvFHk/WFjLBmyXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yq3BhuPp8Fqfb5bOf/fAVDdi6ZGjGaRGYCdeRuQvU9Q=;
- b=hd1S2WS3uKRQdT/ADtP9JaC4fINJvgA8/AS69s5JRYW9HYXKCue39P5QL5yCjsQWFQv2an7nK+esB5JQcYcaBk0IKc76rA383m0D6yhBzm3XwMFmiN5bBTHZxV6avCIpSKDrcRiPzmomXZLNfxm3t865kM7A8leWflTOFxHwERXvUEk+U3MzZiE2fRhW1tHiUgoMeFjZsr+G8+bM/hV+Y0Rxbp7a4c5zhRqeaPIEcxoNqWAQUh2uDEU+Df7J5zuMPvVVh3OE73AHIUbulLrMeLw2EvJMrc3Sya/FQpqhwSaRKtbcr9uS2Nd/tPguXC2qGInhfc0H8QzE8JWPlyPeeQ==
+ bh=CFtsozQCDo1YjZf0TNF6m3Dz9y2OMt1eEBfkAPZQeYc=;
+ b=q82PI9ju/r3qRZm2yGlE9FJ6DGZUy/a2DB5BovAKISpybwSv6PwEoPCqqsfPu88IJM9ejjGx4XFHlV7lkAUP4FJvmYFebFlMIjSe9Q+0GtkaJ92ghwjB7ID3hiz6583w6ZJFkmzC44gwdE0Pxy84ifsJJqoGPvdGPghyf3sZaPrt0cZGPQ4g2wb5Jd1PaNBFpLrAVhK5rZS4kmfcKYBtrroiw0opKM1lb73a5hBSHYREmhHmQaF5irwmQEb2UE/45kkhYSWzwrdbhNBckyj6RY3hTQ2DuRyk3tIV8kKDeVVg+MdMlg3ZafXfh63IDFLMvtpnQOnBprLT3ANzQ0Yp4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yq3BhuPp8Fqfb5bOf/fAVDdi6ZGjGaRGYCdeRuQvU9Q=;
- b=ZWppZJHXoxaKJgkNSl7b/S1hencKJ25cBCreK3RGfop0RcXT4wFNzwL0PnpjS90veemGc3pZzTTL5ICmX3QMeCrA53uTBOMXuM1uT3be6R+JkgovOkv92eicP/Jxfsl9xwC22NcfpS4u4412YlBGWGY4NxevP1m0QljLqvrL4wE=
-Received: from BN0PR03CA0052.namprd03.prod.outlook.com (2603:10b6:408:e7::27)
- by IA0PR12MB8253.namprd12.prod.outlook.com (2603:10b6:208:402::5)
+ bh=CFtsozQCDo1YjZf0TNF6m3Dz9y2OMt1eEBfkAPZQeYc=;
+ b=M9en2p3vfenxIF1cTraPqygb5Inx9egK73PAHNm0DGfRA4D7kZ8OX7dXNtqdDWZ+mIrFaZK2JUS9IZiHS0IKnjGp45HJsmfPxAvPXvdUBZCza2LHamX7gXHjHFM5LPV9j6X2jYNmvHtmPTZ+TxBK/OaVtU3mr+FWlprZYbUQiW0=
+Received: from BN0PR03CA0056.namprd03.prod.outlook.com (2603:10b6:408:e7::31)
+ by CYYPR12MB8656.namprd12.prod.outlook.com (2603:10b6:930:c3::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Thu, 15 Aug
- 2024 22:45:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Thu, 15 Aug
+ 2024 22:45:44 +0000
 Received: from BN3PEPF0000B074.namprd04.prod.outlook.com
- (2603:10b6:408:e7:cafe::cd) by BN0PR03CA0052.outlook.office365.com
- (2603:10b6:408:e7::27) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:e7:cafe::5c) by BN0PR03CA0056.outlook.office365.com
+ (2603:10b6:408:e7::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
- Transport; Thu, 15 Aug 2024 22:45:43 +0000
+ Transport; Thu, 15 Aug 2024 22:45:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,24 +50,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN3PEPF0000B074.mail.protection.outlook.com (10.167.243.119) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Thu, 15 Aug 2024 22:45:43 +0000
+ 15.20.7849.8 via Frontend Transport; Thu, 15 Aug 2024 22:45:44 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 Aug
- 2024 17:45:42 -0500
+ 2024 17:45:43 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 15 Aug 2024 17:45:41 -0500
+ Transport; Thu, 15 Aug 2024 17:45:43 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Sung Joon Kim
- <Sungjoon.Kim@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
-Subject: [PATCH 07/13] drm/amd/display: Support UHBR10 link rate on eDP
-Date: Thu, 15 Aug 2024 18:45:19 -0400
-Message-ID: <20240815224525.3077505-8-Roman.Li@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Nicholas Susanto
+ <Nicholas.Susanto@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 09/13] drm/amd/display: DCN35 set min dispclk to 50Mhz
+Date: Thu, 15 Aug 2024 18:45:21 -0400
+Message-ID: <20240815224525.3077505-10-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240815224525.3077505-1-Roman.Li@amd.com>
 References: <20240815224525.3077505-1-Roman.Li@amd.com>
@@ -78,51 +78,51 @@ Received-SPF: None (SATLEXMB04.amd.com: Roman.Li@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B074:EE_|IA0PR12MB8253:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee8c9e2b-b0d0-4f61-8e8d-08dcbd7bfead
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B074:EE_|CYYPR12MB8656:EE_
+X-MS-Office365-Filtering-Correlation-Id: 739dc064-d1a9-4a79-c312-08dcbd7bff43
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?99jzUDvSK3Picsx4QLs1q2aJ+FL2V6Ny4nrV5tchJmdwCTx/Lv4RgH0NIUmA?=
- =?us-ascii?Q?c54rqK0xTIVP1z1ViIgq0ZSIwDdq+7N83yQelxvc2gihBU5d0pCSaXkgblsA?=
- =?us-ascii?Q?a8qhiV5z2R0EWLinqcIWLBq6KTwTH/arQhFgCQqwBRpcaBJoQhEf+negJem0?=
- =?us-ascii?Q?VLDZBzYfPIrsnQqZafD04iA2wWHT0PlgITfjm4s8hCoyMJx+bKLInYPNpOdu?=
- =?us-ascii?Q?DRmAnnwqLbFah/LYQVmm7plCip7ChS7aHSl51BEH3gzl8Ezp5WuA5hgarTLd?=
- =?us-ascii?Q?9QSMTHKh5tepltjYd67Ze7v7fKNdCPD2vx1MZkUaTXz1ZMtYYYvMM0AE0CoX?=
- =?us-ascii?Q?OU1t5goGfoakvms5RK5/veIK2Ioo3XdNqZjCXLStoeEISA86V+6AxqNl2Vzs?=
- =?us-ascii?Q?2OuBfN7ON3LON+tEGupwt7Xon7HjCkrHXnx9ATz/A89H28Nl/XU3jp4vTNfC?=
- =?us-ascii?Q?Jyv0VNJvp2n5TtPVX6iUwb7L7AmfvxzkKq1jppSjUWmjwQkNlwYy26wE+wlZ?=
- =?us-ascii?Q?T1RtrC++gDUmSQd9gkYNi3kWw1Wf53M/AjgRjRkSAaXNRpDE8Qt/LNMm4Xp5?=
- =?us-ascii?Q?0osryEBWP9H40SGV7/MgWGcRzsU8L4LUlq072wq+bvqz3ETQRY88t51k4fzo?=
- =?us-ascii?Q?At2qwUnP78Li5E6rHRX0jxzmYBMgpHk0gSExHbf+APyILkdJYCy/6VgvwpHP?=
- =?us-ascii?Q?pQYa5p6SnYsZUDrMzQsxQwQzUvONiOARW3OOzHABbpdXDLRKtt9aWFS5MQfE?=
- =?us-ascii?Q?zIeJvnn768QFBwy6XI86+4NgBsl7NFJaV6eGq0n10XorkdiWYoaZFQZjESct?=
- =?us-ascii?Q?oO7/xTbaRPM2qiqr/Z7jcTmCU9KECnbjUdiD7UFFf0O98eyAnWeCMOlbu/5/?=
- =?us-ascii?Q?8Tjt0bd5fYlPN2ZkjSmd4biK7qQ5VEFGzzSQfP8Hxgz+RtJzeGaj3PynkMdD?=
- =?us-ascii?Q?+p0Ha9wr2P7AAbIDgSExL1LRXKV8Md3VIcNdXLOI4L/VJe/kthf6kIPOrSeT?=
- =?us-ascii?Q?a1GRffjRvSWwx5bj5twwMAlkfeFTesgCAW6dkj8+ieNg1m9P3QAQgwBMfS/l?=
- =?us-ascii?Q?wpTQzb/y1dDri7GWOMpa8w6BAJNDi3CKMfQp8maOWEm+z31mklFNZ9+0zDxK?=
- =?us-ascii?Q?sRvMwFL1IbsNs9+MPAslk9jPaRQ1ns6n0eRBvJU6+5sV+jqx0J/wLZFI81Ca?=
- =?us-ascii?Q?qoHW6QjBVsIeDMEczje/pDNxXFmrEkHICkImZPDDvfN4JZH2LBPeU87EVCXM?=
- =?us-ascii?Q?CiX9pHaAW9cXiYBN0msR4F0Xjb71Y7MClZ4ohVD5tMN2CRZjyo5PzyhIm0jA?=
- =?us-ascii?Q?SRcbERCjZuE3B9yfooYNPi12kCav/+4KayAPDWjOCnhECIw4oDT/Pl219knI?=
- =?us-ascii?Q?ZyWEUCbNW4LK9Texta+PWyeVJdH7vUbJNJphuTQ/730bJsnTasv6gNING8Vi?=
- =?us-ascii?Q?C7GEHMvrvyV4JNa/JlWSKDxLRFbO5J5x?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?rzsZm2UuL1dMuZSAcZhr0Vj9dc6oUSeT+ikjzi8/i5PjyIoEUkjB0079P/JR?=
+ =?us-ascii?Q?1HFJ3GVXpSwNpRhlN2Mse5LTIU/190rG3bXZ0DxdGT3dUl7Uuu6dip6txp4j?=
+ =?us-ascii?Q?GiiTgZj/KbjzdNkKzF7mQ8PRZQuHTa33f5AqIhibJJeWQL9fWDJmF/EhIJ7i?=
+ =?us-ascii?Q?Ba/0/l68Jt3itNqRHSAgy9VS56pjbIVKud7FUL6nAPpdz40FQnezxOc1B9gb?=
+ =?us-ascii?Q?QMCKjsBFrcoPeaG3VLD1+WCycPd6dvNNVljdAsnj4kEAokUcP45dtSpdJI+T?=
+ =?us-ascii?Q?m0+ZsPOWOkwlI3csxU8gANVB5jFyay0TdZQ2Xh2SRbe4r9gF0H+xCbt0R3lI?=
+ =?us-ascii?Q?XOWsE4m/QLOctYNfuTnsRv8CWjLB9c08bc7RmPJ82UAO8Bbmy5HuJ1vSbept?=
+ =?us-ascii?Q?sUCB86miTjtKWWjsPioJbg/xP52L6uABQZxWYb2WUj8Mx17ibnEnar+t7y8b?=
+ =?us-ascii?Q?3oLkaoBzV3tUUAfw0daKk/MpAD5Ci+mGBAPKTlMo6SbI0WfMbyGjSO1oYStM?=
+ =?us-ascii?Q?BKGOSZfugLsON2wC96Rhp0j8bu9mMrgsy8+nXFZ4tdQJkjPElH239/11PfZl?=
+ =?us-ascii?Q?CaBHytwBvMddpsE1HTmv7lqtUNKVyzwhgJ2bfdWGTNTtrzrgP5t6rVGfehpH?=
+ =?us-ascii?Q?B8b5EzLaBn0EzrpRIuHFs6VCfOEr2Q1lTEt7DvpCfI2OKluhKIMbZrEX6Qfu?=
+ =?us-ascii?Q?+5+bw4Rh6mwZx4pBfFqpZ4K+d2Dnxf5ejY5mak7733Le8uvkLe7ksVq5Hb6o?=
+ =?us-ascii?Q?yrCB4Xm/VnawcIxweFP2Rz8k2kgaSXZ4ewJHko1WNG9mLiVrAIfCOx4yGIzD?=
+ =?us-ascii?Q?nVpeER8gM9vZxkBalzi0WozOLEBlDHG8/aaJdpngz/cdaDYUd8XgOrLTpIei?=
+ =?us-ascii?Q?m9ASwIT7CtcQ347suW0UJcwPVsnzMDjrHVz1iWarAOiMYwIF6FjZuqimSz+G?=
+ =?us-ascii?Q?91wwDcGAbhej13JPrg81dRtPaFB0t6vvAM9Hag3/T3srYynfwUpfnQqdkmBA?=
+ =?us-ascii?Q?aheJeSGCrgI1e1duzfrKd1+M5qrnq4RfjM4+6Xz6R4f5J3S2UtYEMB1ydg47?=
+ =?us-ascii?Q?uhNtV1dwjTJgX/jf8/BGA8iJ+hZQ82uc661grXL8IPinKqk2Hat02Js5iDxD?=
+ =?us-ascii?Q?O5GkgGKh8JcoI9w6k91iP6PYev/aSVXQ5CsMD+won5LqgZDPlC6dTmDJ6IU1?=
+ =?us-ascii?Q?JcNkNGpKcWY/6pAlWHpFzB/Sa+it7LROWoSvRfHhKeTfks9WcHT+tkWfreTC?=
+ =?us-ascii?Q?PTWPtYntGl0WLrru5AZjVPU7i17Ag6myZS1pUOHxau3Xs5blT/wv9exfQTr4?=
+ =?us-ascii?Q?7q8mH5wfcZ+dOhFB9oltlsXdrGYYT4yc+pi7hWs4i9EfSoMKuu6EvoK4AsUC?=
+ =?us-ascii?Q?D3IFODMKLX/2vuZuHDIWNMwGrR0gSCcrg2YETcbTWig0wo4btPWMHxWIDWFq?=
+ =?us-ascii?Q?uJAIBXhFtnQPY/JcwYWar+hjzapOIo7+?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2024 22:45:43.0400 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee8c9e2b-b0d0-4f61-8e8d-08dcbd7bfead
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2024 22:45:44.0400 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 739dc064-d1a9-4a79-c312-08dcbd7bff43
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B074.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8253
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8656
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,113 +137,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Joon Kim <Sungjoon.Kim@amd.com>
+From: Nicholas Susanto <Nicholas.Susanto@amd.com>
 
-[why]
-Supporting UHBR10 link rate on eDP leverages
-the existing DP2.0 code but need to add some small
-adjustments in code.
+[Why]
 
-[how]
-Acknowledge the given DPCD caps for UHBR10
-link rate support and allow DP2.0 programming
-sequence and link training for eDP.
+Causes hard hangs when resuming after display off on extended/duplicate
+modes
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Sung Joon Kim <Sungjoon.Kim@amd.com>
+[How]
+
+Set the min dispclk to 50Mhz for DCN35
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Nicholas Susanto <Nicholas.Susanto@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 23 ++++++++++---------
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  4 ++--
- .../link/protocols/link_edp_panel_control.c   |  3 +++
- 4 files changed, 18 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 3 +++
+ drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 6b036417a73a..3de311533571 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1760,6 +1760,7 @@ struct dc_link {
- 		bool dongle_mode_timing_override;
- 		bool blank_stream_on_ocs_change;
- 		bool read_dpcd204h_on_irq_hpd;
-+		bool disable_assr_for_uhbr;
- 	} wa_flags;
- 	struct link_mst_stream_allocation_table mst_stream_alloc_table;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index e2d906327e2e..0ce9b40dfc68 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -305,6 +305,9 @@ void dcn35_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	if (new_clocks->dtbclk_en && !new_clocks->ref_dtbclk_khz)
+ 		new_clocks->ref_dtbclk_khz = 600000;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 246fa300ee95..d52ce58c6a98 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1232,20 +1232,21 @@ void dce110_blank_stream(struct pipe_ctx *pipe_ctx)
- 			 * has changed or they enter protection state and hang.
- 			 */
- 			msleep(60);
--		} else if (pipe_ctx->stream->signal == SIGNAL_TYPE_EDP) {
--			if (!link->dc->config.edp_no_power_sequencing) {
--				/*
--				 * Sometimes, DP receiver chip power-controlled externally by an
--				 * Embedded Controller could be treated and used as eDP,
--				 * if it drives mobile display. In this case,
--				 * we shouldn't be doing power-sequencing, hence we can skip
--				 * waiting for T9-ready.
--				 */
--				link->dc->link_srv->edp_receiver_ready_T9(link);
--			}
- 		}
- 	}
- 
-+	if (pipe_ctx->stream->signal == SIGNAL_TYPE_EDP &&
-+	    !link->dc->config.edp_no_power_sequencing) {
-+			/*
-+			 * Sometimes, DP receiver chip power-controlled externally by an
-+			 * Embedded Controller could be treated and used as eDP,
-+			 * if it drives mobile display. In this case,
-+			 * we shouldn't be doing power-sequencing, hence we can skip
-+			 * waiting for T9-ready.
-+			 */
-+		link->dc->link_srv->edp_receiver_ready_T9(link);
-+	}
++	if (dc->debug.min_disp_clk_khz > 0 && new_clocks->dispclk_khz < dc->debug.min_disp_clk_khz)
++		new_clocks->dispclk_khz = dc->debug.min_disp_clk_khz;
 +
- }
+ 	/*
+ 	 * if it is safe to lower, but we are already in the lower state, we don't have to do anything
+ 	 * also if safe to lower is false, we just go in the higher state
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 5f3705f97bd7..46ad684fe192 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -786,6 +786,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmub_reallow_idle = false,
+ 	.static_screen_wait_frames = 2,
+ 	.disable_timeout = true,
++	.min_disp_clk_khz = 50000,
+ };
  
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index d6550b904b16..c4e03482ba9a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -2358,7 +2358,7 @@ void link_set_dpms_off(struct pipe_ctx *pipe_ctx)
- 
- 	if (pipe_ctx->stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
- 		deallocate_mst_payload(pipe_ctx);
--	else if (pipe_ctx->stream->signal == SIGNAL_TYPE_DISPLAY_PORT &&
-+	else if (dc_is_dp_sst_signal(pipe_ctx->stream->signal) &&
- 			dp_is_128b_132b_signal(pipe_ctx))
- 		update_sst_payload(pipe_ctx, false);
- 
-@@ -2591,7 +2591,7 @@ void link_set_dpms_on(
- 
- 	if (pipe_ctx->stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
- 		allocate_mst_payload(pipe_ctx);
--	else if (pipe_ctx->stream->signal == SIGNAL_TYPE_DISPLAY_PORT &&
-+	else if (dc_is_dp_sst_signal(pipe_ctx->stream->signal) &&
- 			dp_is_128b_132b_signal(pipe_ctx))
- 		update_sst_payload(pipe_ctx, true);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 070b6c8c1aef..3aa05a2be6c0 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -1168,6 +1168,9 @@ static void edp_set_assr_enable(const struct dc *pDC, struct dc_link *link,
- 	link_enc_index = link->link_enc->transmitter - TRANSMITTER_UNIPHY_A;
- 
- 	if (link_res->hpo_dp_link_enc) {
-+		if (link->wa_flags.disable_assr_for_uhbr)
-+			return;
-+
- 		link_enc_index = link_res->hpo_dp_link_enc->inst;
- 		use_hpo_dp_link_enc = true;
- 	}
+ static const struct dc_panel_config panel_config_defaults = {
 -- 
 2.34.1
 
