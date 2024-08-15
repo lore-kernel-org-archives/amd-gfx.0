@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 679A6C5320E
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 22:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F809C5320D
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Aug 2024 22:45:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA36110E54F;
-	Thu, 15 Aug 2024 22:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3643710E557;
+	Thu, 15 Aug 2024 22:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RkEgKwkJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uH4zGJj4";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2067.outbound.protection.outlook.com [40.107.96.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB8B10E541
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 22:45:49 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D42C10E550
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Aug 2024 22:45:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rrmy2MTA5BQ4lyAapjOmqbd88MOYaA7T6lX2d9TlAmCVp9AyksUDEF9Bdgy00MdnigoIpq/NyCk8gBf7MnahaVX5QKh15iTmAXU0Xby6e+wJXYoA64BZCWy2UN9R8c14p+ZMUZBLuUsryxmuF9zLDbdj4urKf6j6USeb0eZ0dtO+7iGYVrkVFj4lQIdC/fgrdqS8vS74MFnGibLMeRyFnI1if8zXEQ6IrOxLQ4jpbt0r5gtcPcVP66ZeySSiMbbF5ez8fGu9OPgS9LsGqnA52mR7WgZQn12aAX4I73qgYVLOHUFEImQnjL/XB45BhcM0572oHTG4gwUWRufSOR8ftQ==
+ b=KMfz+oLvNOXXCjz+KWjEO5hM8ab8fvoQ+a+f2yGE1Py8s3Lacg37NtB/J7/76IRmh1UZzQw0YONIFVRWBhGN//adJU82dwUwud2qL9GtBpYLbreQMX5fDvIHIs7Pv27hC/rphbZzYFlH7PNAD73OH7kaIMggSu1Brj98x+8ZruEsouxOflauOl0hy+YGQ/7K7+iFtE6+mA3yfQm5c7cCXm0V+XZUGR3fAiAFsez4B90ylCeYR0+ZZpWux2a/CkJEEmSzQzIvllO/w+/dHGlOzVncC6vj8ozGB9p0jO74F4PzZsWpS81GnJY42Vrs0zvwB2e3Oa/sYHL2zxl4ukQ+Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=99kzDV0iYTH8JgabDzL3w8zQa0H7sMYnMAGw50r63LU=;
- b=R5HGYjFYEeOUPB5f5/CndM1FzbAeCpy1dDTDR6SNqMtVme3kMSrmICQtVszTKVPJnomP2yiO9D9SdA3EV/V/zKYTAWMEeoj9yBbbKxhdmzRqORxorsnoh6BxYs9jVMa53i6F66sgWTq73StYJSm8EoNH0neHdI/Vr4dUHMwj5L3jIUgocKm43pPn+MOEHCZ7dAfbUsEpnruD1X+kURMGbB7cus40J/zmSM7D46MzkDlt+U1aPN12Uznu7nIK2UikmEcoFnH04iaVPZIWPGtD6h2Rm+zeo/DwuBtfq6HCzgb0z2VxUOcHJUx85WT11xJxwNYg9WxSIMhVAVbuKsUHlQ==
+ bh=5DAMb39ruAfpm1eccjuZHjLMyd4icfdwI1TvWrywrUY=;
+ b=V5t4oGUNd/SW0Ipr+0MOLwfWVa+BBR3UJXRMNx6QqZIDJtMrGMUX49hRxU2skaWhaqcWQtmgKOMv/HC07JvYZFWbE+JSfSgJnxB2ycP+mgphIFaE/wKQUKYq6TILZE3MM0DdBXbibtctx+IuePW1S8R7XpICbgdm9okvfO5t2/IT5RtRXQuXtuYeZdUGURYkv82+c/TSTsbu0PmmFJsAA1Fe2eon+aRWJ8eaUDHaBW68GzHruTBFHwBJ5vjWRG66280eqE+FT0S3d86xI8Ic0Um7XN7LgjmXYCbdyCUDcvTZ5F00qdkQH3JCodHDWFiLZJyshcl/hJC98SZDbSr6rQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=99kzDV0iYTH8JgabDzL3w8zQa0H7sMYnMAGw50r63LU=;
- b=RkEgKwkJDdAhkcm8mwSXXAcVcDocRodxSXvXaVd6dKbqivD2dRYdI8TbvlwV8qiYK673GG5P5nm+Ks/rtd2Gb2F5qA+jRCOaXAuEPhMu3kdAhpTPrhYRvQB5SZJTX8SrORWbyh7+pcQ2csGw9IlY4UkOzkcwpBFMDetOMM6AvaA=
-Received: from BN0PR03CA0034.namprd03.prod.outlook.com (2603:10b6:408:e7::9)
- by IA1PR12MB6043.namprd12.prod.outlook.com (2603:10b6:208:3d5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Thu, 15 Aug
- 2024 22:45:42 +0000
+ bh=5DAMb39ruAfpm1eccjuZHjLMyd4icfdwI1TvWrywrUY=;
+ b=uH4zGJj4TSWfCnyIESSUvzcuPHDa9WEmlQb7p1cpwX6hVaQF/lLwfhJUOnPYVSZT+EBNjshOvP7spsKA29InP8j4oy+H32IoygWt1+pMWEquPCkx9oBK0+dOCkK017JdRqoP1WctXRae5EUsmoLuleUvKs97HnDPMRD8voVGgZI=
+Received: from BN0PR03CA0048.namprd03.prod.outlook.com (2603:10b6:408:e7::23)
+ by SJ0PR12MB8116.namprd12.prod.outlook.com (2603:10b6:a03:4ec::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Thu, 15 Aug
+ 2024 22:45:43 +0000
 Received: from BN3PEPF0000B074.namprd04.prod.outlook.com
- (2603:10b6:408:e7:cafe::c4) by BN0PR03CA0034.outlook.office365.com
- (2603:10b6:408:e7::9) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:e7:cafe::4e) by BN0PR03CA0048.outlook.office365.com
+ (2603:10b6:408:e7::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
- Transport; Thu, 15 Aug 2024 22:45:42 +0000
+ Transport; Thu, 15 Aug 2024 22:45:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,25 +50,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN3PEPF0000B074.mail.protection.outlook.com (10.167.243.119) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Thu, 15 Aug 2024 22:45:42 +0000
+ 15.20.7849.8 via Frontend Transport; Thu, 15 Aug 2024 22:45:43 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 Aug
- 2024 17:45:41 -0500
+ 2024 17:45:43 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 15 Aug 2024 17:45:40 -0500
+ Transport; Thu, 15 Aug 2024 17:45:42 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>,
  <Rodrigo.Siqueira@amd.com>, <Aurabindo.Pillai@amd.com>, <roman.li@amd.com>,
  <wayne.lin@amd.com>, <agustin.gutierrez@amd.com>, <chiahsuan.chung@amd.com>,
- <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Michael Strauss
- <michael.strauss@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
-Subject: [PATCH 05/13] drm/amd/display: Allow UHBR Interop With eDP Supported
- Link Rates Table
-Date: Thu, 15 Aug 2024 18:45:17 -0400
-Message-ID: <20240815224525.3077505-6-Roman.Li@amd.com>
+ <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, Ilya Bakoulin
+ <Ilya.Bakoulin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 08/13] drm/amd/display: Fix construct_phy with MXM connector
+Date: Thu, 15 Aug 2024 18:45:20 -0400
+Message-ID: <20240815224525.3077505-9-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240815224525.3077505-1-Roman.Li@amd.com>
 References: <20240815224525.3077505-1-Roman.Li@amd.com>
@@ -79,51 +78,51 @@ Received-SPF: None (SATLEXMB04.amd.com: Roman.Li@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B074:EE_|IA1PR12MB6043:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c9f625f-1af0-4181-59d9-08dcbd7bfe17
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B074:EE_|SJ0PR12MB8116:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ced1318-2222-48f2-c6f3-08dcbd7bfee6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LHBmSpCrTZWy64qXzXYSMyZ8xTprustl2lrAwwnDFVhbTluA0JWZJcPE1/Tm?=
- =?us-ascii?Q?IZE3OOEgw3x5vcLFjvGvx/icGX1+2bQO3NyHYT2HgejT66XmSWbQ/iz7bOJe?=
- =?us-ascii?Q?cnpjlzRK/OQ7CpgXlY6VtM40EhLmBTIcKbzMklZ8Dx4LeiWjW6tfjMIe326w?=
- =?us-ascii?Q?/XlalLaAHsAbketZW4JTpsnRFoSrnE1TurVZkszYJej0FlhSQnXRE+X+H4ZF?=
- =?us-ascii?Q?qb3KqejpHVT31prBh+RkxeThXbhUf5SC7xmQ5Zby9EcM19Lbat/87Nj1D1XR?=
- =?us-ascii?Q?DAkJi4DbhZLgWNYEZ8HXFyjfDhqIP02jKI7ZoeH6zYo/OrIcGjT+8FeSMbkc?=
- =?us-ascii?Q?0llVv++VOumeJY86u4jCIXcZOR+cWzWp3XFL5EYlw18FExjyF4rEa22W+uO3?=
- =?us-ascii?Q?1Sp2HWlPCYFORms1QQqiBfmLmK39vcNiKt+n7B4GhF3Zm0ba7GbKoocWMj6A?=
- =?us-ascii?Q?0FIp3bxi2y2tU09I0udf7muh1A6MoHLkKiIIvj5qj75kYXTcnexKa/CBe8Tz?=
- =?us-ascii?Q?ZEeCv7NXYebCvcpD6xTTxE0wQ7lomvY2B+ITZ5PUeyNO+oC22V8i9ckvH73q?=
- =?us-ascii?Q?v5fTf6upOylNTqAVA3uwm0PrkMAsqHZRQtLlJoGgwLB9ng/vWlTnwzfZF0p5?=
- =?us-ascii?Q?CGQlhLqEpw3CAuhNZLc8loF3p7Gj8ozsm7luAOflLWAMU6XrWc56IDd9kXIh?=
- =?us-ascii?Q?njnGRjTCaD6uPwXpmWPtkXyiCg0v3jIBZ0EvqkbQKWyl4EUAbuhslHXcT5JH?=
- =?us-ascii?Q?uK19OxctfffySQ6Bac7l3UqvSCq3M4bTao+WFzSGdn5A3/R5KiwJGT6auI/J?=
- =?us-ascii?Q?AEA399goLoCwKHTZJK47C86v7fg4dLfM4Ic+GRLJ0SJ1qJwowNAVpbP3jTUG?=
- =?us-ascii?Q?OLYgV3Spp4+9/stFArD2fi7bRDvo0N+K1rwGMLu08QqLBYM7ok74EialHXY3?=
- =?us-ascii?Q?FK0krWi6lFdu0/xYt1ysJ3gHzsobHKP6dpANY3WMlOZAYwoevf/xOSm2/j8U?=
- =?us-ascii?Q?FlL5f9LwfOuRrms0ba8PT+SEznFiNwdYVEyoJGp59TSVbNuGuNKXwmS6LdzI?=
- =?us-ascii?Q?DeQYP9NGCxLyfTZcsCNWhCdXzOfNAUAg2XydrbYemt2d7zRDybEeJiZZW7FT?=
- =?us-ascii?Q?lsoAxrqctLR2gYRdled3U1Rsd1UsN8kCU6SXKqXWZvxP/5QkYMm7Qa526PLi?=
- =?us-ascii?Q?PLXV5sAWOG/M67aK/DwCbDf+qp6MM70NWjKI9hLDQ+QHcXhMtZzC+a8m1rl7?=
- =?us-ascii?Q?+vgC7J9Y1URlIiep3lhU5VMXLqeagJ8NDZdxf+2zkak0k6kPBdG7YPrir/Kj?=
- =?us-ascii?Q?PbpX/efpQZ4HSOhvg78egAe+bkbEfNz+Si/SBrbr/844IIwZjimXKEtQdytr?=
- =?us-ascii?Q?3cq/2Vx8gPwUvdUXBUlxTCvJ3dGDSp4TYzWKFqi5meXUMS3fftpJUubCIVcC?=
- =?us-ascii?Q?SNvJQhEcf8azJaH23sIBRJVDnpBMxXj2?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EWdTDPVoUEFp6ikY+Oqo9USsLlp2XVxvXM3rkZ10f5uQWe8wrw4PfOvYGL7t?=
+ =?us-ascii?Q?lK6l0BWO1LPne6r/PK04x2j3ZDOQKSx9N0qeJT1pS/3gLoqJKGS4hcSlcnlS?=
+ =?us-ascii?Q?f4rtxaq4lYo+gu9F+lBHCSzRywgLBEEAXXokhTD19Ppt6k/IHriowR3bHSNv?=
+ =?us-ascii?Q?afyL66NTHYDMwZZSsu2Z2z9vUxMooOBT/JraeHF1u/QGs/3rw01wBJnfHnGC?=
+ =?us-ascii?Q?GKDdGAthsPLraSXBr4fzXT6xAYiwtC0d/s1Lw/d9II3fAwKaNwdNgETyJ5xN?=
+ =?us-ascii?Q?oFq/Z7j7uQUKioDSHTpVhclA0+eI9dd6copusREZprEzCFIwOLnpzA/RcdD0?=
+ =?us-ascii?Q?bw3KJB66KCOgaQbTSjEy7HQnAX68aiNB/Is9laqz0MXAZOfnsuAcJOLZjmtV?=
+ =?us-ascii?Q?ZQXFefVHqJyS4VVxudp4BzPqMRhXBbz2YNnrwyT4Y/jAsO6ynB4f8ZgBSb5O?=
+ =?us-ascii?Q?TsY7o/kPqDvbEfMLIJ5tDfGRSpk+I3YfTokH7FNU+Ug4SQDGKgh+9DGLKijd?=
+ =?us-ascii?Q?3GZjp3c9n0wDOS3MFUTSgC/JsoJYE3wCZU8pGU7K4DJIt/cK6l4C5WjL/ZqI?=
+ =?us-ascii?Q?wusM0oiWCeYEOn9pTntuf3AzC43978KYy3l+C6PNnywwYhXyZ/4aDz4Q/3w1?=
+ =?us-ascii?Q?lIxHKrX1bjpIEjQJVktKTPqASwi2V0VOqyy6ZeVp0YrvfX/fXqPthg6EGsTT?=
+ =?us-ascii?Q?nfKi7A2P7FRfwnjWokv/ktTecaGvyv0Hmj/6FW6JSpErYe0pcq7VNoVy1rAy?=
+ =?us-ascii?Q?nAXnEEAvJtn8VsY7Nuoegetsg7hY6MAxTMTBCj85wTKYIKm0/H0GpDtvwrA0?=
+ =?us-ascii?Q?GiW5xu61aw3lZLBOxl9dZTvMqKSfaYyLySh5D7eGSxtijeQKxiiNsx/OTee9?=
+ =?us-ascii?Q?97OCqhstBQHx3Caq01GzKXk94NodMpWUiNWwrmhQgTsTKINQR0yWFrBd2P1U?=
+ =?us-ascii?Q?G//EV6qzcrMoKULtXFg1jJ94kB7u/VibofVLLPY2vZNUpLzOoMeV4XASvYxh?=
+ =?us-ascii?Q?yVNbdFvnND/QfG4YmvR7ylZX/cGwf6UT/GwybT/9Q7lH/bYVFJ4uVX6crtYV?=
+ =?us-ascii?Q?LmeHCZEkRwCUJ5zmi9YjTWkyZo820jLQFBX+6P5bQw58TLnQO97rx/TPEFnM?=
+ =?us-ascii?Q?4fIzUSS5Ploy39JZizStjH3kmju8rpDJTuxpm+eVCTSqsTIp1tJGS8hIyOWW?=
+ =?us-ascii?Q?qk81khrLKazQdtfQnFJQfFaAF6kJhXxgnPWjIi6GrGOw1KXVlaaWdvuSZm8I?=
+ =?us-ascii?Q?VmaIAcIinfbpgVHA1JnpONiQRyg8pVUOlewHVZcZuJgbRXjqaGQ+UVA+vICr?=
+ =?us-ascii?Q?O6GfCNN+P/pYE+wllndf+ARXeOIlwj/UTrGSjMm3sno2LEqs9ErK0wajDM/S?=
+ =?us-ascii?Q?Cv0XN6+2dctnLH+soHPAZqbfZG0VSeuDQZXFZg3LrqMS13HU/nS8jOq7slD/?=
+ =?us-ascii?Q?QArrtNNG3aHFHI45F98vII9po741OpW3?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2024 22:45:42.0713 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c9f625f-1af0-4181-59d9-08dcbd7bfe17
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2024 22:45:43.4150 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ced1318-2222-48f2-c6f3-08dcbd7bfee6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B074.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6043
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8116
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,202 +137,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-[WHY]
-eDP 2.0 is introducing support for UHBR link rates, however current eDP ILR
-link optimization does not account for UHBR capabilities.
-Either UHBR capabilities will be provided via the same 128b/132b rate DPCD caps
-that are currently used on DP2.1, or Table 4-13 may be updated to include UHBR
-rates.
-
-[HOW]
-Add extra Supported Link Rates table translations for UHBR10/13.5/20.
-Update eDP link setting optimization search to be aware of 128b/132b DPCD
-rate caps in order to unblock UHBR on panels with Supported Link Rates table.
+[Why/How]
+The call to construct_phy will fail in cases where connector type is
+MXM, and the dc_link won't be properly created/initialized.
 
 Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../drm/amd/display/dc/link/link_detection.c  |  3 +-
- .../dc/link/protocols/link_dp_capability.c    | 59 ++++++++++---------
- .../link/protocols/link_edp_panel_control.c   | 11 ++--
- .../link/protocols/link_edp_panel_control.h   |  2 +-
- 4 files changed, 40 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/amd/display/dc/link/link_factory.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index 391dbe81534d..d21ee9d12d26 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1189,8 +1189,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 			//sink only can use supported link rate table, we are foreced to enable it
- 			if (link->reported_link_cap.link_rate == LINK_RATE_UNKNOWN)
- 				link->panel_config.ilr.optimize_edp_link_rate = true;
--			if (edp_is_ilr_optimization_enabled(link))
--				link->reported_link_cap.link_rate = get_max_link_rate_from_ilr_table(link);
-+			link->reported_link_cap.link_rate = get_max_edp_link_rate(link);
- 		}
- 
- 	} else {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index 59c9dde10885..34a618a7278b 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -212,6 +212,13 @@ static enum dc_link_rate linkRateInKHzToLinkRateMultiplier(uint32_t link_rate_in
- 	case 10000000:
- 		link_rate = LINK_RATE_UHBR10;	// UHBR10 - 10.0 Gbps/Lane
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+index 8246006857b3..85fd6e422238 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+@@ -524,6 +524,7 @@ static bool construct_phy(struct dc_link *link,
+ 		link->connector_signal = SIGNAL_TYPE_DVI_DUAL_LINK;
  		break;
-+	case 13500000:
-+		link_rate = LINK_RATE_UHBR13_5;	// UHBR13.5 - 13.5 Gbps/Lane
-+		break;
-+	case 20000000:
-+		link_rate = LINK_RATE_UHBR20;	// UHBR20 - 20.0 Gbps/Lane
-+		break;
-+
- 	default:
- 		link_rate = LINK_RATE_UNKNOWN;
- 		break;
-@@ -541,6 +548,23 @@ static enum dc_link_rate increase_link_rate(struct dc_link *link,
- 	}
- }
+ 	case CONNECTOR_ID_DISPLAY_PORT:
++	case CONNECTOR_ID_MXM:
+ 	case CONNECTOR_ID_USBC:
+ 		link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
  
-+static void increase_edp_link_rate(struct dc_link *link,
-+		struct dc_link_settings *current_link_setting)
-+{
-+	if (current_link_setting->use_link_rate_set) {
-+		if (current_link_setting->link_rate_set < link->dpcd_caps.edp_supported_link_rates_count) {
-+			current_link_setting->link_rate_set++;
-+			current_link_setting->link_rate =
-+				link->dpcd_caps.edp_supported_link_rates[current_link_setting->link_rate_set];
-+		} else {
-+			current_link_setting->use_link_rate_set = false;
-+			current_link_setting->link_rate = LINK_RATE_UHBR10;
-+		}
-+	} else {
-+		current_link_setting->link_rate = increase_link_rate(link, current_link_setting->link_rate);
-+	}
-+}
-+
- static bool decide_fallback_link_setting_max_bw_policy(
- 		struct dc_link *link,
- 		const struct dc_link_settings *max,
-@@ -759,14 +783,7 @@ bool edp_decide_link_settings(struct dc_link *link,
- 					increase_lane_count(
- 							current_link_setting.lane_count);
- 		} else {
--			if (current_link_setting.link_rate_set < link->dpcd_caps.edp_supported_link_rates_count) {
--				current_link_setting.link_rate_set++;
--				current_link_setting.link_rate =
--					link->dpcd_caps.edp_supported_link_rates[current_link_setting.link_rate_set];
--				current_link_setting.lane_count =
--									initial_link_setting.lane_count;
--			} else
--				break;
-+			increase_edp_link_rate(link, &current_link_setting);
- 		}
- 	}
- 	return false;
-@@ -818,9 +835,7 @@ bool decide_edp_link_settings_with_dsc(struct dc_link *link,
- 			if (policy) {
- 				/* minimize lane */
- 				if (current_link_setting.link_rate < max_link_rate) {
--					current_link_setting.link_rate =
--							increase_link_rate(link,
--									current_link_setting.link_rate);
-+					increase_edp_link_rate(link, &current_link_setting);
- 				} else {
- 					if (current_link_setting.lane_count <
- 									link->verified_link_cap.lane_count) {
-@@ -839,9 +854,7 @@ bool decide_edp_link_settings_with_dsc(struct dc_link *link,
- 							increase_lane_count(
- 									current_link_setting.lane_count);
- 				} else {
--					current_link_setting.link_rate =
--							increase_link_rate(link,
--									current_link_setting.link_rate);
-+					increase_edp_link_rate(link, &current_link_setting);
- 					current_link_setting.lane_count =
- 							initial_link_setting.lane_count;
- 				}
-@@ -874,18 +887,15 @@ bool decide_edp_link_settings_with_dsc(struct dc_link *link,
- 		}
- 		if (policy) {
- 			/* minimize lane */
--			if (current_link_setting.link_rate_set <
--					link->dpcd_caps.edp_supported_link_rates_count
--					&& current_link_setting.link_rate < max_link_rate) {
--				current_link_setting.link_rate_set++;
--				current_link_setting.link_rate =
--					link->dpcd_caps.edp_supported_link_rates[current_link_setting.link_rate_set];
-+			if (current_link_setting.link_rate < max_link_rate) {
-+				increase_edp_link_rate(link, &current_link_setting);
- 			} else {
- 				if (current_link_setting.lane_count < link->verified_link_cap.lane_count) {
- 					current_link_setting.lane_count =
- 							increase_lane_count(
- 									current_link_setting.lane_count);
- 					current_link_setting.link_rate_set = initial_link_setting.link_rate_set;
-+					current_link_setting.use_link_rate_set = initial_link_setting.use_link_rate_set;
- 					current_link_setting.link_rate =
- 						link->dpcd_caps.edp_supported_link_rates[current_link_setting.link_rate_set];
- 				} else
-@@ -899,13 +909,8 @@ bool decide_edp_link_settings_with_dsc(struct dc_link *link,
- 						increase_lane_count(
- 								current_link_setting.lane_count);
- 			} else {
--				if (current_link_setting.link_rate_set < link->dpcd_caps.edp_supported_link_rates_count) {
--					current_link_setting.link_rate_set++;
--					current_link_setting.link_rate =
--						link->dpcd_caps.edp_supported_link_rates[current_link_setting.link_rate_set];
--					current_link_setting.lane_count =
--						initial_link_setting.lane_count;
--				} else
-+				increase_edp_link_rate(link, &current_link_setting);
-+				if (current_link_setting.link_rate == LINK_RATE_UNKNOWN)
- 					break;
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index bf820d2b4dc4..070b6c8c1aef 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -305,16 +305,17 @@ bool edp_is_ilr_optimization_enabled(struct dc_link *link)
- 	return true;
- }
- 
--enum dc_link_rate get_max_link_rate_from_ilr_table(struct dc_link *link)
-+enum dc_link_rate get_max_edp_link_rate(struct dc_link *link)
- {
--	enum dc_link_rate link_rate = link->reported_link_cap.link_rate;
-+	enum dc_link_rate max_ilr_rate = LINK_RATE_UNKNOWN;
-+	enum dc_link_rate max_non_ilr_rate = dp_get_max_link_cap(link).link_rate;
- 
- 	for (int i = 0; i < link->dpcd_caps.edp_supported_link_rates_count; i++) {
--		if (link_rate < link->dpcd_caps.edp_supported_link_rates[i])
--			link_rate = link->dpcd_caps.edp_supported_link_rates[i];
-+		if (max_ilr_rate < link->dpcd_caps.edp_supported_link_rates[i])
-+			max_ilr_rate = link->dpcd_caps.edp_supported_link_rates[i];
- 	}
- 
--	return link_rate;
-+	return (max_ilr_rate > max_non_ilr_rate ? max_ilr_rate : max_non_ilr_rate);
- }
- 
- bool edp_is_ilr_optimization_required(struct dc_link *link,
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-index 8df8ac5bde5b..30dc8c24c008 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-@@ -69,7 +69,7 @@ bool edp_wait_for_t12(struct dc_link *link);
- bool edp_is_ilr_optimization_required(struct dc_link *link,
-        struct dc_crtc_timing *crtc_timing);
- bool edp_is_ilr_optimization_enabled(struct dc_link *link);
--enum dc_link_rate get_max_link_rate_from_ilr_table(struct dc_link *link);
-+enum dc_link_rate get_max_edp_link_rate(struct dc_link *link);
- bool edp_backlight_enable_aux(struct dc_link *link, bool enable);
- void edp_add_delay_for_T9(struct dc_link *link);
- bool edp_receiver_ready_T9(struct dc_link *link);
 -- 
 2.34.1
 
