@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A21EC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 07:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43A73C531DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 07:44:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AEB510E5BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3C6610E5BE;
 	Fri, 16 Aug 2024 07:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MI7CcUYq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZWAUDhK6";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2352F10E4E2;
- Thu, 15 Aug 2024 18:18:37 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-7b8884631c4so576905a12.2; 
- Thu, 15 Aug 2024 11:18:37 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9C810E4EC;
+ Thu, 15 Aug 2024 18:56:38 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-7c3d9a5e050so913399a12.2; 
+ Thu, 15 Aug 2024 11:56:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723745916; x=1724350716; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1723748197; x=1724352997; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FnL/caHC6IiZNXlhX4kwijSLCsO2WfzCGQwXH3dcl5Y=;
- b=MI7CcUYquNmwgVCC8DxCFEVCj+fSUDuiFU7QwdzHsCOjwBhIvpp6jrtUBgSNWZe44q
- tB+QoPw8lRpUl0Jz0r2IKzcrthUtPsSDDUWL6cd9LT1i4QUfJvXnEs6mN4hIkvasLzG9
- mM+Nk6G6444LNhd3mpWSy0ktzO5s4OPGsBQi21ekQBICwxykVS/LHcP3cVgA6eLVi3EP
- kadAT/9IGbdmLYUXaj4YXcOtYQruQPwwXlP1krPse/TaJWIX5TA0ZTVoJQEJy8oDSxys
- Tg3ns2t7TjCQsAb/WjE5xLLbqZYivA0VZzB7gR4jwpzUpQQT+iCyg45LFcYAK2B5AJSB
- SsBw==
+ bh=P2ijR5sS9+P33OT+BK82QSH+TCaValD97AwdFX5nob4=;
+ b=ZWAUDhK67hK+baBPIA1eStHYucElLqHRMX82GyCvwf8wn/F4rkWW0QaG+4R8qsCThR
+ YaBfzhs32wJJhDMcgyzRu0kYZ78I8ddcXotXIaGPW4OEyxM7IZNu5dEIgcLFKlzMsHVe
+ 1F2cAYGP5uH2rYEMFGOHZp0XR6bQhOUKQk8Ym1+SujWFmX0GXIcg2TshIflct4B0r5cM
+ pCGj8wckxCirAuIfs4qDbiqPJKYK+LCftdfOokmVcIC0NeWpdeymc6D1VtYeSUM3RsHY
+ vxkJsZkSw3JmZW+eNYSoRi8S0pC7WWb6zWCJswCOtDIBIM3thRvGAQSp7FI4kDBrbizd
+ Mj+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723745916; x=1724350716;
+ d=1e100.net; s=20230601; t=1723748197; x=1724352997;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=FnL/caHC6IiZNXlhX4kwijSLCsO2WfzCGQwXH3dcl5Y=;
- b=suQC5kH/l/qUACcCuSC5bP1NV5ZG+bgaJKGktJJKJp9naw6lq7VauAlYMYiMaALnti
- OU9x/6zH+QbMEM5WIWC6UR5KEXalI27IviPwQzPxNrHidzNSrutDqKezmNX/WK1G8oYy
- neOdDuexDM+m49PP3UiBROYplhw8Eo/2Z6KhuKEkr57ZWmuhe+KrBM62w79MEYGkpQCV
- xcy+NzwYtSvoznG60r8qzQce6LOobKZzQRLEiBGFcOASOMDY5Pdr9QA+hu4raIXRkMPf
- unsCoiF0fe0ZjPqLvvdiiKt1Ar5aQjsUuAWy5UuqzWZhEoszcBw68KkpF6Kj626jYphB
- s7/g==
+ bh=P2ijR5sS9+P33OT+BK82QSH+TCaValD97AwdFX5nob4=;
+ b=P5TWiDbfbxM2JqhhlkBsxQunFun3NyPGnymBTLoCkNRS2yUWb2UqA+wWmkGYZcchB0
+ wpcsSZFWyRJbgIB8aUcRYcycuRDJPFJghmwlqjwheD8OdJA7/ljPb/B9RU8rnI4jTu8H
+ 2HBoh5JNKK1O3i6gx+PnARjien3k7jcficV1VbGGdkwptHMIJkWV7i/XpF5RMD1ARJtl
+ 8Pam1cA3Ifgl8RdVkQ7WXbz3h5Q5O2m1Oiwh3RdVQS+j3NX+3f+k9lHxOmBr3+ougFdQ
+ uJosgqEUyADCdRW462GaGRyNP7mR7+b/nY3N+25KAsNfYo+vgcZubylLfsOHDZ9hNaBZ
+ BYxw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8e/DKymJlotrbab2SLx/h3NPlbSCsqXpoos1eWUJL/LqLw11xZGOEsWVSNxhlO+B4al66c8Zc7C2ssl0hatMbjnOyv5ystQbijzw20mBDWAi7J1GTtC4qD/fjFbW8i4/LxNO7SVvZRepGFlujVg==
-X-Gm-Message-State: AOJu0YxbUtY1u/6jtzibhevyCsj1WyO9dQTfWCM80ExiGv2cUlh1j2V4
- 0gPHVA7pKAl876bjimMIgQ0xhooHcoeIj2D5agUdAX4Q+bVh0ecnoLMU4H05
-X-Google-Smtp-Source: AGHT+IHaWEF1sYe8fMDJJTy289IrVf+ene0AoBSSVJSdnZ0unYrhGoYRiXtaEVTlDXcbZZOme7pISg==
-X-Received: by 2002:a17:90a:ea07:b0:2d3:b976:e30e with SMTP id
- 98e67ed59e1d1-2d3e00f091emr563041a91.37.1723745916391; 
- Thu, 15 Aug 2024 11:18:36 -0700 (PDT)
+ AJvYcCW2NQMqYQBUpcZ5E9Hs/0welqNGS2YTeve05oB0deTCbnEXic2+EsrZ40/fKfyJLLuALMDgl34h3cfpOmGZpq9c9Us7Qvwp6mvF3i9IBKLzJ5TiInZAfkBSJ1PQBAzLO89YZIQFl26A55knWED+ow==
+X-Gm-Message-State: AOJu0YzX4VyowaaSkYMRnoU8GclCF+oDj3zrjEkWhA5fKIwcQbvj+8sH
+ lxMIZotosf0RxYgH0bw7UZpNXgcc5XIhVN9v5lRVriUtMXO4PdWy
+X-Google-Smtp-Source: AGHT+IFwYGOOjKTUC0Iff1yvkbw1tOY+wLVqX8NH0HF16cxeKgHLMG2BxroguqvE3YR036a9umE+eQ==
+X-Received: by 2002:a05:6a21:648b:b0:1c6:ae03:6607 with SMTP id
+ adf61e73a8af0-1c904f742dfmr893637637.6.1723748197433; 
+ Thu, 15 Aug 2024 11:56:37 -0700 (PDT)
 Received: from ubuntu.. ([27.34.65.188]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2d3e3c89b8fsm77093a91.35.2024.08.15.11.18.32
+ 41be03b00d2f7-7c6b61a93aesm1448242a12.17.2024.08.15.11.56.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Aug 2024 11:18:36 -0700 (PDT)
+ Thu, 15 Aug 2024 11:56:37 -0700 (PDT)
 From: Dipendra Khadka <kdipendra88@gmail.com>
-To: airlied@gmail.com, daniel@ffwll.ch, harry.wentland@amd.com,
- sunpeng.li@amd.com, airlied@linux.ie, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com
+To: harry.wentland@amd.com, sunpeng.li@amd.com, hRodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
 Cc: Dipendra Khadka <kdipendra88@gmail.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] Fix warning: Using plain integer as NULL pointer in
- dml2_pmo_dcn4.c
-Date: Thu, 15 Aug 2024 18:18:25 +0000
-Message-ID: <20240815181827.65159-1-kdipendra88@gmail.com>
+Subject: [PATCH] Fix warning: symbol 'dcn3_14_ip' was not declared. Should it
+ be static? in dcn314_fpu.c
+Date: Thu, 15 Aug 2024 18:56:27 +0000
+Message-ID: <20240815185629.65725-1-kdipendra88@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -82,81 +82,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sparse reportef following warnings:
+Sparse reported following warning:
 
 '''
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:614:53: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:615:58: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:617:53: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:727:52: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:728:52: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:729:57: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:788:52: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:789:55: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:790:57: warning: Using plain integer as NULL pointer
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c:958:67: warning: Using plain integer as NULL pointer
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/dcn314_fpu.c:36:30: warning: symbol 'dcn3_14_ip' was not declared. Should it be static?
 '''
 
-This patch changes zero to NULL.
+Since the symbol dcn3_14_ip is not exported,it is declared as static.
 
 Signed-off-by: Dipendra Khadka <kdipendra88@gmail.com>
 ---
- .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c   | 20 +++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c
-index 8952dd7e36cb..6d524e528491 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4.c
-@@ -611,10 +611,10 @@ static bool subvp_subvp_schedulable(struct dml2_pmo_instance *pmo, const struct
- 	int max_microschedule_us = 0;
- 	int vactive1_us, vactive2_us, vblank1_us, vblank2_us;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+index 21f637ae4add..b7463e70b6e1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+@@ -33,7 +33,7 @@
+ #include "dml/display_mode_vba.h"
+ #include "dml/dml_inline_defs.h"
  
--	const struct dml2_timing_cfg *svp_timing1 = 0;
--	const struct dml2_implicit_svp_meta *svp_meta1 = 0;
-+	const struct dml2_timing_cfg *svp_timing1 = NULL;
-+	const struct dml2_implicit_svp_meta *svp_meta1 = NULL;
- 
--	const struct dml2_timing_cfg *svp_timing2 = 0;
-+	const struct dml2_timing_cfg *svp_timing2 = NULL;
- 
- 	if (svp_stream_count <= 1)
- 		return true;
-@@ -724,9 +724,9 @@ static bool validate_svp_drr_cofunctionality(struct dml2_pmo_instance *pmo,
- 	int drr_stretched_vblank_us = 0;
- 	int max_vblank_mallregion = 0;
- 
--	const struct dml2_timing_cfg *svp_timing = 0;
--	const struct dml2_timing_cfg *drr_timing = 0;
--	const struct dml2_implicit_svp_meta *svp_meta = 0;
-+	const struct dml2_timing_cfg *svp_timing = NULL;
-+	const struct dml2_timing_cfg *drr_timing = NULL;
-+	const struct dml2_implicit_svp_meta *svp_meta = NULL;
- 
- 	bool schedulable = false;
- 
-@@ -785,9 +785,9 @@ static bool validate_svp_vblank_cofunctionality(struct dml2_pmo_instance *pmo,
- 	int vblank_stream_count = 0;
- 	int svp_stream_count = 0;
- 
--	const struct dml2_timing_cfg *svp_timing = 0;
--	const struct dml2_timing_cfg *vblank_timing = 0;
--	const struct dml2_implicit_svp_meta *svp_meta = 0;
-+	const struct dml2_timing_cfg *svp_timing = NULL;
-+	const struct dml2_timing_cfg *vblank_timing = NULL;
-+	const struct dml2_implicit_svp_meta *svp_meta = NULL;
- 
- 	int prefetch_us = 0;
- 	int mall_region_us = 0;
-@@ -955,7 +955,7 @@ bool pmo_dcn4_init_for_pstate_support(struct dml2_pmo_init_for_pstate_support_in
- 
- 	struct display_configuation_with_meta *display_config;
- 	const struct dml2_plane_parameters *plane_descriptor;
--	const enum dml2_pmo_pstate_strategy (*strategy_list)[4] = 0;
-+	const enum dml2_pmo_pstate_strategy (*strategy_list)[4] = NULL;
- 	unsigned int strategy_list_size = 0;
- 	unsigned int plane_index, stream_index, i;
- 
+-struct _vcs_dpi_ip_params_st dcn3_14_ip = {
++static struct _vcs_dpi_ip_params_st dcn3_14_ip = {
+ 	.VBlankNomDefaultUS = 668,
+ 	.gpuvm_enable = 1,
+ 	.gpuvm_max_page_table_levels = 1,
 -- 
 2.43.0
 
