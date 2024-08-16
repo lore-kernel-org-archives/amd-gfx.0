@@ -4,108 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E06C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30BEC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 13:18:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED83710E7B8;
-	Fri, 16 Aug 2024 12:54:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA6210E6AB;
+	Fri, 16 Aug 2024 13:18:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="pD2WOm67";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JoWohMzm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pD2WOm67";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JoWohMzm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jAmji71X";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481C110E713;
- Fri, 16 Aug 2024 12:54:41 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0826C22886;
- Fri, 16 Aug 2024 12:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723812880; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6HRrHcB8H958v/SzDmsK+0XtQ5HzxMqAXtGUCIodP2g=;
- b=pD2WOm67NfjMvtJ2bDG/hG55prBj2TpHEylL2zpOER02ODP5gcasoJlS9B9nRrnY2BcvPY
- 0faqtvvVdm52LtGO2lJo7UD1HgPAP3GATV3iNGKKTNyLlbWzRPU2PIYnbtqsxosEzkRYYX
- VWKBa5sLyA395yA71StaBJRoEbXom7o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723812880;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6HRrHcB8H958v/SzDmsK+0XtQ5HzxMqAXtGUCIodP2g=;
- b=JoWohMzmVForTf2ojBXpJSq1lBCmJnl4EJkYSTOl23PSI4MLut30Y7/5BLxONny3YDe+Fa
- 3D0b3UHjRGD6y7AQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723812880; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6HRrHcB8H958v/SzDmsK+0XtQ5HzxMqAXtGUCIodP2g=;
- b=pD2WOm67NfjMvtJ2bDG/hG55prBj2TpHEylL2zpOER02ODP5gcasoJlS9B9nRrnY2BcvPY
- 0faqtvvVdm52LtGO2lJo7UD1HgPAP3GATV3iNGKKTNyLlbWzRPU2PIYnbtqsxosEzkRYYX
- VWKBa5sLyA395yA71StaBJRoEbXom7o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723812880;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6HRrHcB8H958v/SzDmsK+0XtQ5HzxMqAXtGUCIodP2g=;
- b=JoWohMzmVForTf2ojBXpJSq1lBCmJnl4EJkYSTOl23PSI4MLut30Y7/5BLxONny3YDe+Fa
- 3D0b3UHjRGD6y7AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A6A513ACA;
- Fri, 16 Aug 2024 12:54:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QCF1JA9Mv2bdbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:39 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA20510E6A0;
+ Fri, 16 Aug 2024 13:18:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1723814319; x=1755350319;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=0WXmG62FzuEGQr1rUL+sEKQbL4bo5d7jf/vx3Aamu7M=;
+ b=jAmji71X/E6ac4+LEYitc24novFZNoCkV1Nh2IBwW1cSRTjkIt/Nkd9o
+ hUGJXUtw96zJM4/TnSBtlY2AgfnMC3+gw0gJjeKkKDPrq/ovfyiscX6MA
+ +lqcBhfqABZ1Zb8g5CZF5Wuf5mwL79eX2Hro9xTGZMNyw1Jnym2C2mc5k
+ wrhmlJkUHpLDi1ETHaoqyqe3IaXYicHkqFeFrIx0wLddO6/4ihjyMy2j0
+ M16mpbAcM4wZsg6A9Kc+JVCKIMSmOM8R1WfAPXGP0kvocFE1c/hrANov1
+ 7m5j0JXlyyNQ+HnMaeekJCcyDdmXjbOO+G2+SRGGNc6SEm0lx2QX2rT2a Q==;
+X-CSE-ConnectionGUID: RuyHZdN1Qk2RinW8+rNiLA==
+X-CSE-MsgGUID: JsPcW4rDSvi96OZznieQ+g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11166"; a="39622178"
+X-IronPort-AV: E=Sophos;i="6.10,151,1719903600"; d="scan'208";a="39622178"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2024 06:18:39 -0700
+X-CSE-ConnectionGUID: B+zdp7TrS1yhC9YXY+JXSA==
+X-CSE-MsgGUID: zcZIEHgWRxis1CNcVRB56Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,151,1719903600"; d="scan'208";a="60227025"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.214])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2024 06:18:33 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 82/86] drm/i915: Move custom hotplug code into separate
- callback
-Date: Fri, 16 Aug 2024 14:23:48 +0200
-Message-ID: <20240816125408.310253-83-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240816125408.310253-1-tzimmermann@suse.de>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Thomas =?utf-8?Q?Hellstr?=
+ =?utf-8?Q?=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH 83/86] drm/{i915,xe}: Run DRM default client setup
+In-Reply-To: <20240816125408.310253-84-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20240816125408.310253-1-tzimmermann@suse.de>
+ <20240816125408.310253-84-tzimmermann@suse.de>
+Date: Fri, 16 Aug 2024 16:18:27 +0300
+Message-ID: <87cym87gik.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-7.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza)];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.de:mid,suse.de:email]
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,137 +75,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-i915's fbdev contains additional code for hotplugging a display that
-cannot be ported to the common fbdev client. Introduce the callback
-struct drm_fb_helper.fb_hotplug and implement it for i915. The fbdev
-helpers invoke the callback before handing the hotplug event.
+On Fri, 16 Aug 2024, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> index 206328387150..7a28396abb25 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -17,6 +17,8 @@
+>  #include <drm/drm_print.h>
+>  #include <drm/xe_drm.h>
+>  
+> +#include "intel_fbdev.h"
+> +
+>  #include "display/xe_display.h"
+>  #include "instructions/xe_gpu_commands.h"
+>  #include "regs/xe_gt_regs.h"
+> @@ -267,6 +269,7 @@ static struct drm_driver driver = {
+>  
+>  	.dumb_create = xe_bo_dumb_create,
+>  	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
+> +	INTEL_FBDEV_DRIVER_OPS,
+>  #ifdef CONFIG_PROC_FS
+>  	.show_fdinfo = xe_drm_client_fdinfo,
+>  #endif
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/drm_fb_helper.c            |  6 +++
- drivers/gpu/drm/i915/display/intel_fbdev.c | 43 ++++++++++++----------
- include/drm/drm_fb_helper.h                | 13 +++++++
- 3 files changed, 42 insertions(+), 20 deletions(-)
+Basically xe_device.c should have close to zero idea about display
+details, and should not include intel_fbdev.h directly.
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index d9e539b0fd1a..92926cb02dfb 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1938,6 +1938,12 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
- 	if (!drm_fbdev_emulation || !fb_helper)
- 		return 0;
- 
-+	if (fb_helper->funcs->fb_hotplug) {
-+		err = fb_helper->funcs->fb_hotplug(fb_helper);
-+		if (err)
-+			return err;
-+	}
-+
- 	mutex_lock(&fb_helper->lock);
- 	if (fb_helper->deferred_setup) {
- 		err = __drm_fb_helper_initial_config_and_unlock(fb_helper);
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index c03fb00002a4..abe77ef0bd84 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -305,10 +305,32 @@ static void intelfb_restore(struct drm_fb_helper *fb_helper)
- 	intel_fbdev_invalidate(ifbdev);
- }
- 
-+static int intelfb_hotplug(struct drm_fb_helper *fb_helper)
-+{
-+	struct drm_device *dev = fb_helper->client.dev;
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+	bool send_hpd;
-+
-+	if (!ifbdev)
-+		return -EINVAL;
-+
-+	mutex_lock(&ifbdev->hpd_lock);
-+	send_hpd = !ifbdev->hpd_suspended;
-+	ifbdev->hpd_waiting = true;
-+	mutex_unlock(&ifbdev->hpd_lock);
-+
-+	if (!send_hpd || !(ifbdev->vma || dev->fb_helper->deferred_setup))
-+		return -EAGAIN;
-+
-+	return 0;
-+}
-+
- static const struct drm_fb_helper_funcs intel_fb_helper_funcs = {
- 	.fb_probe = intelfb_create,
- 	.fb_dirty = intelfb_dirty,
- 	.fb_restore = intelfb_restore,
-+	.fb_hotplug = intelfb_hotplug,
- };
- 
- /*
-@@ -557,25 +579,6 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
- 	intel_fbdev_hpd_set_suspend(dev_priv, state);
- }
- 
--static int intel_fbdev_output_poll_changed(struct drm_device *dev)
--{
--	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
--	bool send_hpd;
--
--	if (!ifbdev)
--		return -EINVAL;
--
--	mutex_lock(&ifbdev->hpd_lock);
--	send_hpd = !ifbdev->hpd_suspended;
--	ifbdev->hpd_waiting = true;
--	mutex_unlock(&ifbdev->hpd_lock);
--
--	if (send_hpd && (ifbdev->vma || dev->fb_helper->deferred_setup))
--		drm_fb_helper_hotplug_event(dev->fb_helper);
--
--	return 0;
--}
--
- static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- {
- 	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-@@ -637,7 +640,7 @@ static int intel_fbdev_client_hotplug(struct drm_client_dev *client)
- 	int ret;
- 
- 	if (dev->fb_helper)
--		return intel_fbdev_output_poll_changed(dev);
-+		return drm_fb_helper_hotplug_event(fb_helper);
- 
- 	ret = drm_fb_helper_init(dev, fb_helper);
- 	if (ret)
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index 34eb77c18a13..3dcb9a60e408 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -112,6 +112,19 @@ struct drm_fb_helper_funcs {
- 	 * TODO: Fix i915 to not require this callback.
- 	 */
- 	void (*fb_restore)(struct drm_fb_helper *helper);
-+
-+	/**
-+	 * @fb_hotplug:
-+	 *
-+	 * Driver callback to prepare hotplug event. If set, fbdev
-+	 * emulation will invoke this callback before sending a hotplug
-+	 * event.
-+	 *
-+	 * Only for i915. Do not use in new code.
-+	 *
-+	 * TODO: Fix i915 to not require this callback.
-+	 */
-+	int (*fb_hotplug)(struct drm_fb_helper *helper);
- };
- 
- /**
+There's a xe_display_driver_set_hooks() call that is the right place to
+set the driver->fbdev_probe hook.
+
+It's a bit of a bummer in the sense that this prevents struct drm_driver
+from being const, but that's how it already is for xe.
+
+
+BR,
+Jani.
+
+
 -- 
-2.46.0
-
+Jani Nikula, Intel
