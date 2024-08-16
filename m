@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 911C9C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 14:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68A2EC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 14:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEAD10E7B6;
-	Fri, 16 Aug 2024 14:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1131F10E7C5;
+	Fri, 16 Aug 2024 14:16:43 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 01FC910E7AD
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 14:16:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 385E110E7BE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 14:16:42 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 655E61474
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 07:16:30 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B12621474
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 07:17:07 -0700 (PDT)
 Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
  [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 03C7C3F73B
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 07:16:03 -0700 (PDT)
-Date: Fri, 16 Aug 2024 15:15:56 +0100
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7E29D3F73B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 07:16:41 -0700 (PDT)
+Date: Fri, 16 Aug 2024 15:16:34 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com,
  javierm@redhat.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org
-Subject: Re: [PATCH 08/86] drm/arm/hdlcd: Run DRM default client setup
-Message-ID: <Zr9fHPYz5NIBZ1ud@e110455-lin.cambridge.arm.com>
+Subject: Re: [PATCH 09/86] drm/arm/malidp: Run DRM default client setup
+Message-ID: <Zr9fQuxhj5OHNT5V@e110455-lin.cambridge.arm.com>
 References: <20240816125408.310253-1-tzimmermann@suse.de>
- <20240816125408.310253-9-tzimmermann@suse.de>
+ <20240816125408.310253-10-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240816125408.310253-9-tzimmermann@suse.de>
+In-Reply-To: <20240816125408.310253-10-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,12 +49,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 16, 2024 at 02:22:34PM +0200, Thomas Zimmermann wrote:
+On Fri, Aug 16, 2024 at 02:22:35PM +0200, Thomas Zimmermann wrote:
 > Call drm_client_setup() to run the kernel's default client setup
 > for DRM. Set fbdev_probe in struct drm_driver, so that the client
 > setup can start the common fbdev client.
 > 
-> The hdlcd driver specifies a preferred color mode of 32. As this
+> The malidp driver specifies a preferred color mode of 32. As this
 > is the default if no format has been given, leave it out entirely.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
@@ -62,33 +62,36 @@ On Fri, Aug 16, 2024 at 02:22:34PM +0200, Thomas Zimmermann wrote:
 
 Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 
+Best regards,
+Liviu
+
 > ---
->  drivers/gpu/drm/arm/hdlcd_drv.c | 4 +++-
+>  drivers/gpu/drm/arm/malidp_drv.c | 4 +++-
 >  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-> index 32be9e370049..f5d358f3893b 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-> @@ -23,6 +23,7 @@
+> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+> index 6682131d2910..4cb25004b84f 100644
+> --- a/drivers/gpu/drm/arm/malidp_drv.c
+> +++ b/drivers/gpu/drm/arm/malidp_drv.c
+> @@ -18,6 +18,7 @@
 >  
->  #include <drm/drm_aperture.h>
+>  #include <drm/drm_atomic.h>
 >  #include <drm/drm_atomic_helper.h>
 > +#include <drm/drm_client_setup.h>
 >  #include <drm/drm_crtc.h>
->  #include <drm/drm_debugfs.h>
 >  #include <drm/drm_drv.h>
-> @@ -228,6 +229,7 @@ DEFINE_DRM_GEM_DMA_FOPS(fops);
->  static const struct drm_driver hdlcd_driver = {
+>  #include <drm/drm_fbdev_dma.h>
+> @@ -562,6 +563,7 @@ static void malidp_debugfs_init(struct drm_minor *minor)
+>  static const struct drm_driver malidp_driver = {
 >  	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
->  	DRM_GEM_DMA_DRIVER_OPS,
+>  	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(malidp_dumb_create),
 > +	DRM_FBDEV_DMA_DRIVER_OPS,
->  	.fops = &fops,
->  	.name = "hdlcd",
->  	.desc = "ARM HDLCD Controller DRM",
-> @@ -299,7 +301,7 @@ static int hdlcd_drm_bind(struct device *dev)
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init = malidp_debugfs_init,
+>  #endif
+> @@ -852,7 +854,7 @@ static int malidp_bind(struct device *dev)
 >  	if (ret)
->  		goto err_register;
+>  		goto register_fail;
 >  
 > -	drm_fbdev_dma_setup(drm, 32);
 > +	drm_client_setup(drm, NULL);
