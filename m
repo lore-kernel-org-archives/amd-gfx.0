@@ -4,109 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF6E7C53212
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4B7C53218
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91AF710E5A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F50210E5A1;
 	Fri, 16 Aug 2024 12:54:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LaOtvVuE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pEt+QewQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LaOtvVuE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pEt+QewQ";
-	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2713910E529;
- Fri, 16 Aug 2024 12:54:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDD810E532;
+ Fri, 16 Aug 2024 12:54:14 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8C589222FB;
- Fri, 16 Aug 2024 12:54:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723812851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
- b=LaOtvVuEVlMb5wzbnvxgn7bHbNel+k4OeyBmODZhD2LwCkR3xFBDR699aHRBQyb1BeUKdK
- 2wFGk9FMjGcE5Jl7GLv/ePa4mhx+YIyQAN6t8CUwyvdtYnib7RviQQRRRd7biP9+wIOuoR
- BUNEawkPXpWmlYH16j0mxGBJj1YgS7U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723812851;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
- b=pEt+QewQhCpGN9FJHfMz5bgHLBCHsluFEbdu8t5eYCRkLauDPtJOMbbpUAsTi6sUIylFQD
- h1krtNge4+/4KiDA==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2C6702230C;
+ Fri, 16 Aug 2024 12:54:13 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LaOtvVuE;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pEt+QewQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723812851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
- b=LaOtvVuEVlMb5wzbnvxgn7bHbNel+k4OeyBmODZhD2LwCkR3xFBDR699aHRBQyb1BeUKdK
- 2wFGk9FMjGcE5Jl7GLv/ePa4mhx+YIyQAN6t8CUwyvdtYnib7RviQQRRRd7biP9+wIOuoR
- BUNEawkPXpWmlYH16j0mxGBJj1YgS7U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723812851;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+02KtzuL/0apGbJHEoOc1Au4F649MzG1OdyHtZYcJ4M=;
- b=pEt+QewQhCpGN9FJHfMz5bgHLBCHsluFEbdu8t5eYCRkLauDPtJOMbbpUAsTi6sUIylFQD
- h1krtNge4+/4KiDA==
+	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4851213AE0;
- Fri, 16 Aug 2024 12:54:11 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D5BB613A2F;
+ Fri, 16 Aug 2024 12:54:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CAFpEPNLv2bdbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:11 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yMvtMvRLv2bdbgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:12 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 02/86] drm/fbdev-helper: Set and clear VGA switcheroo client
- from fb_info
-Date: Fri, 16 Aug 2024 14:22:28 +0200
-Message-ID: <20240816125408.310253-3-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Subject: [PATCH 07/86] drm/arm/komeda: Run DRM default client setup
+Date: Fri, 16 Aug 2024 14:22:33 +0200
+Message-ID: <20240816125408.310253-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240816125408.310253-1-tzimmermann@suse.de>
 References: <20240816125408.310253-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,suse.de:email];
- RCVD_TLS_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[10]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 8C589222FB
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 2C6702230C
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,63 +67,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Call vga_switcheroo_client_fb_set() with the PCI device from the
-instance of struct fb_info. All fbdev clients now run these calls.
-For non-PCI devices or drivers without vga-switcheroo, this does
-nothing. For i915 and radeon, it allows these drivers to use a
-common fbdev client.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
 
-The device is the same as the one stored in struct drm_client and
-struct drm_fb_helper, so there is no difference in behavior. Some
-NULL-pointer checks are being removed, where those pointers cannot
-be NULL.
+The komeda driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 4 ++--
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index af1fe79c701d..13095d38aa42 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -562,8 +562,12 @@ EXPORT_SYMBOL(drm_fb_helper_release_info);
-  */
- void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
- {
--	if (fb_helper && fb_helper->info)
--		unregister_framebuffer(fb_helper->info);
-+	struct fb_info *info = fb_helper->info;
-+	struct device *dev = info->device;
-+
-+	if (dev_is_pci(dev))
-+		vga_switcheroo_client_fb_set(to_pci_dev(dev), NULL);
-+	unregister_framebuffer(fb_helper->info);
- }
- EXPORT_SYMBOL(drm_fb_helper_unregister_info);
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+index 55c3773befde..6d475bb34002 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+@@ -9,7 +9,7 @@
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+-#include <drm/drm_fbdev_dma.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
+ #include "komeda_dev.h"
+@@ -84,7 +84,7 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ 	}
  
-@@ -1615,6 +1619,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
- 	struct drm_client_dev *client = &fb_helper->client;
- 	struct drm_device *dev = fb_helper->dev;
- 	struct drm_fb_helper_surface_size sizes;
-+	struct fb_info *info;
- 	int ret;
- 
- 	ret = drm_fb_helper_find_sizes(fb_helper, &sizes);
-@@ -1632,9 +1637,11 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
- 
- 	strcpy(fb_helper->fb->comm, "[fbcon]");
- 
-+	info = fb_helper->info;
-+
- 	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
--	if (dev_is_pci(dev->dev))
--		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
-+	if (dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
+ 	dev_set_drvdata(dev, mdrv);
+-	drm_fbdev_dma_setup(&mdrv->kms->base, 32);
++	drm_client_setup(&mdrv->kms->base, NULL);
  
  	return 0;
- }
+ 
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+index fe46b0ebefea..f3314261925c 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+@@ -9,6 +9,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_managed.h>
+@@ -58,6 +59,7 @@ static irqreturn_t komeda_kms_irq_handler(int irq, void *data)
+ static const struct drm_driver komeda_kms_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(komeda_gem_dma_dumb_create),
++	DRM_FBDEV_DMA_DRIVER_OPS,
+ 	.fops = &komeda_cma_fops,
+ 	.name = "komeda",
+ 	.desc = "Arm Komeda Display Processor driver",
 -- 
 2.46.0
 
