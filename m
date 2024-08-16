@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60077C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 13:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE8C7C531DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 13:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDDE010E776;
-	Fri, 16 Aug 2024 13:52:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B2110E77E;
+	Fri, 16 Aug 2024 13:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TAlv2Glu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JfYSIeX9";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAF4410E776
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 13:52:25 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-6e7b121be30so1570719a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 06:52:25 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C065E10E797
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 13:56:00 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-70d25b5b6b0so1667845b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 06:56:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723816345; x=1724421145; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1723816560; x=1724421360; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8XQrmvLX1pNNdpqoOGr4L77koiJHLq1TY4T2T+Q9bB4=;
- b=TAlv2GlunvqdXH0viqQGyOS769xbq7AaLTSNYbAgkc/K2c0IDvIOwxYGI7e+YYVeQV
- nyOV3PGsyVgcR90vv3KrqfqtArVEZjsJVbDnfIldEy5WloftSO6DBmIw4dpzA5IVsbUc
- GUNntfkrMPF9Kag97rxr7z3BntgfCIQqeoq4qqem965hvJR2KtXBWugIaGSydwdjsIG1
- CUI9oq2jZb+EhB8yakf2Yr2DhmrmsrHmfIOyiBbj7ikhOGvC15eu7cv6lFRDcLYdXuCW
- /bZ5Oep2oQyBj9++ziFrJsK7Jj+J63oF4UURewvpfxR8Nb+qHwuJbAvTXnuEyWb77Akj
- B3tQ==
+ bh=EuDXoU0N+0isKKgZzmbgRX5rCw6gxMwTXKsd6Subtbg=;
+ b=JfYSIeX9l+RLpdK8VBea5gw2oBlYGC6/YDjNynnH+JbcbfzgrW7NnfQIEXdPEKAOEr
+ O6CamdQ4TASOsy4Nviqelkz1kcqJfx4qqWvPT5UAY0QSbZRNr4NE0EUUa0DwatNmWJpO
+ GKQ8tDsg0woPhVNwXjJfIo8Z6jkCJ9AANAWBUko+6/RUC1nqzLohvhI1S2N4EyT4Poy9
+ cvZxwNCYPf9FF9Oo2s716PBOj6vkqQ63bK5qFfSXwHQnYNzKGdMpj5lx647DLhrcoJPh
+ 43F7qfgNAOJx0xm/to9qOgcbOnh3z/h9KL+tx2kugqhQKkdb2N4WlWVw3Ojus5ho1mNL
+ VIHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723816345; x=1724421145;
+ d=1e100.net; s=20230601; t=1723816560; x=1724421360;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8XQrmvLX1pNNdpqoOGr4L77koiJHLq1TY4T2T+Q9bB4=;
- b=Jfv3d/8aXHlf6ffZ25szDmS0slW5dMKQpgTuevMNmufl2t6cJC8iEIMChYNsw9BUjq
- Rt3ocLPJwHgtDFHuWPnxm4fjlv8VPhhQMewemgsbz/uJnOUNHlqAoDN+8rSmyvUx74TX
- 2hqWP9uptM8dvw5GcHXJi+Y6E1o+vX27tvNDU1/BlgOg2GGNGuVdFP0LUpcvJcEVUtBn
- qIpB+nXfSFvcZh+V4FM6ENceGwkqXmmT65/xkGCr3AAac0yOTmL7PPBHAFAyScxT7dJw
- z6BKpkNUlea9xmLqfB4O7z5F49Vs3ZvnBCnFPd3LJNiR172UabTeqdS84fxLA9Knauxd
- JiUQ==
-X-Gm-Message-State: AOJu0Yz4ezv43YP9Z2lbv9SqkQJj/B7qsgdD/mG94XZYNmdA0/m8sGI5
- IVvjQuOdkEbrANXHyR1DAcxlDMJso3ERYoPH7/Nu+T1gRLV6KmHqgX44ITyI/hso1akZYxu9Paa
- FH9o0hYjA7ENefdZG62bMMKBOMljjqD9c
-X-Google-Smtp-Source: AGHT+IGZL6BcrOa8LeC89pDQZmvDaiYuSYUfi+enFAjSj+9VB6qgjweGBk2fSvBCmmOUhzbC2yMcjXpuS5XVZw0AjvA=
-X-Received: by 2002:a17:90a:d904:b0:2c9:635b:7271 with SMTP id
- 98e67ed59e1d1-2d3dfd8d9e1mr3174735a91.21.1723816344896; Fri, 16 Aug 2024
- 06:52:24 -0700 (PDT)
+ bh=EuDXoU0N+0isKKgZzmbgRX5rCw6gxMwTXKsd6Subtbg=;
+ b=Gdw9cN0Q0sUH6OgHmamdE5SWBWMBJJzKRVMPrvH4Xa8iM6QuFvGlw2wbhBZdROUwxI
+ tLx91j/cWKf1aZg8Dg9znFpbrfFt3ikgjJrCT6h/7AAfH25VoknUF8Nay5klRs0kh/Pz
+ Ap2dGMJrdHmc47ORH0tRnt6w/RaUxcT5T/jL1QI6+lgbvl2VNVixOUCVVpP8RWO3Nsdt
+ b2/u2XDh2Y/KBrQ9MDwi4A4ni6JMypvxgIuBGvNHcxPO0w0uD3zv08gOcPBpDpmHvozB
+ F9TXIOdb19M6+BuX5aJabyOyw1HkUbmSQOihVo4UyelEgBndQBwj1XT2obsSnXRy/TgO
+ iBTg==
+X-Gm-Message-State: AOJu0YyQOKRnEzGlMLmIpBHluxOdD/x7cldXqGBbmGkp1E0dkcs6AlQH
+ SIEs5bwVPNjSDI8RObhc3M/SMbRSskGqt4NjJWISRPPXzlNTQqnaTCVPIldL6qUUhW7E7QqNRuW
+ isc/fx0HMyhJdlqGk5xaI8mAFTH2CsA==
+X-Google-Smtp-Source: AGHT+IH7Ns5b5JB64qU8ntBpfGAdpPl5hJAMZJXNMkrrXkND5CkueZdCyeKEAfS8MWDMJnQWaMDsle31jMnkkqk3V+I=
+X-Received: by 2002:a05:6a20:2d29:b0:1c6:ac08:8dd2 with SMTP id
+ adf61e73a8af0-1c904f913aemr3827708637.15.1723816559851; Fri, 16 Aug 2024
+ 06:55:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240816075447.442983-1-Trigger.Huang@amd.com>
- <20240816075447.442983-4-Trigger.Huang@amd.com>
-In-Reply-To: <20240816075447.442983-4-Trigger.Huang@amd.com>
+ <20240816075447.442983-2-Trigger.Huang@amd.com>
+In-Reply-To: <20240816075447.442983-2-Trigger.Huang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 16 Aug 2024 09:52:13 -0400
-Message-ID: <CADnq5_PqbSr=1bqkKL=ocwzWcyZGjDKiNBEp5HUuP477mC=aww@mail.gmail.com>
-Subject: Re: [PATCH 3/4] drm/amdgpu: skip printing vram_lost if needed
+Date: Fri, 16 Aug 2024 09:55:48 -0400
+Message-ID: <CADnq5_OROFh=s4KcYe4AMvSR0fE1VsU-Y8KsP_DZF+ZaSR4CxA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu: Add gpu_coredump parameter
 To: Trigger.Huang@amd.com
 Cc: amd-gfx@lists.freedesktop.org, sunil.khatri@amd.com, 
  alexander.deucher@amd.com
@@ -81,138 +81,69 @@ On Fri, Aug 16, 2024 at 3:55=E2=80=AFAM <Trigger.Huang@amd.com> wrote:
 >
 > From: Trigger Huang <Trigger.Huang@amd.com>
 >
-> The vm lost status can only be obtained after a GPU reset occurs, but
-> sometimes a dev core dump can be happened before GPU reset. So a new
-> argument is added to tell the dev core dump implementation whether to
-> skip printing the vram_lost status in the dump.
-> And this patch is also trying to decouple the core dump function from
-> the GPU reset function, by replacing the argument amdgpu_reset_context
-> with amdgpu_job to specify the context for core dump.
+> Add new separate parameter to control GPU coredump procedure. This can
+> be used to decouple the coredump procedure from gpu recovery procedure
+>
+> V2: enable gpu_coredump by default (Alex)
 >
 > Signed-off-by: Trigger Huang <Trigger.Huang@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 19 ++++++++++---------
->  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h  |  6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  2 +-
->  3 files changed, 14 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index cf2b4dd4d865..a860f52d8bb0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -28,8 +28,9 @@
->  #include "atom.h"
->
->  #ifndef CONFIG_DEV_COREDUMP
-> -void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-> -                    struct amdgpu_reset_context *reset_context)
-> +void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
-> +                    bool vram_lost, struct amdgpu_job *job)
-> +
->  {
->  }
->  #else
-> @@ -315,7 +316,7 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, =
-size_t count,
->                 }
->         }
->
-> -       if (coredump->reset_vram_lost)
-> +       if (!(coredump->skip_vram_check) && coredump->reset_vram_lost)
->                 drm_printf(&p, "VRAM is lost due to GPU reset!\n");
 
-You might want to say something like:
-drm_printf(&p, "VRAM lost status skipped\n");
-in the skip case so we know that we skipped it so users don't assume
-it wasn't lost.
+I still don't think we'd want to turn this off.  Does it ever hurt
+anything?  It seems like someone would accidentally turn this off and
+then run into a hang and regret it because the didn't get a dump.
 
 Alex
 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+>  2 files changed, 9 insertions(+)
 >
->         return count - iter.remain;
-> @@ -326,12 +327,11 @@ static void amdgpu_devcoredump_free(void *data)
->         kfree(data);
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 937de21a7142..4dd465ad14af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -201,6 +201,7 @@ extern uint amdgpu_force_long_training;
+>  extern int amdgpu_lbpw;
+>  extern int amdgpu_compute_multipipe;
+>  extern int amdgpu_gpu_recovery;
+> +extern int amdgpu_gpu_coredump;
+>  extern int amdgpu_emu_mode;
+>  extern uint amdgpu_smu_memory_pool_size;
+>  extern int amdgpu_smu_pptable_id;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index b9529948f2b2..06bd20d83db7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -178,6 +178,7 @@ uint amdgpu_force_long_training;
+>  int amdgpu_lbpw =3D -1;
+>  int amdgpu_compute_multipipe =3D -1;
+>  int amdgpu_gpu_recovery =3D -1; /* auto */
+> +int amdgpu_gpu_coredump =3D 1;
+>  int amdgpu_emu_mode;
+>  uint amdgpu_smu_memory_pool_size;
+>  int amdgpu_smu_pptable_id =3D -1;
+> @@ -556,6 +557,13 @@ module_param_named(compute_multipipe, amdgpu_compute=
+_multipipe, int, 0444);
+>  MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 =3D en=
+able, 0 =3D disable, -1 =3D auto)");
+>  module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
 >
-> -void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-> -                    struct amdgpu_reset_context *reset_context)
-> +void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
-> +                    bool vram_lost, struct amdgpu_job *job)
->  {
-> -       struct amdgpu_coredump_info *coredump;
->         struct drm_device *dev =3D adev_to_drm(adev);
-> -       struct amdgpu_job *job =3D reset_context->job;
-> +       struct amdgpu_coredump_info *coredump;
->         struct drm_sched_job *s_job;
->
->         coredump =3D kzalloc(sizeof(*coredump), GFP_NOWAIT);
-> @@ -341,11 +341,12 @@ void amdgpu_coredump(struct amdgpu_device *adev, bo=
-ol vram_lost,
->                 return;
->         }
->
-> +       coredump->skip_vram_check =3D skip_vram_check;
->         coredump->reset_vram_lost =3D vram_lost;
->
-> -       if (reset_context->job && reset_context->job->vm) {
-> +       if (job && job->vm) {
->                 struct amdgpu_task_info *ti;
-> -               struct amdgpu_vm *vm =3D reset_context->job->vm;
-> +               struct amdgpu_vm *vm =3D job->vm;
->
->                 ti =3D amdgpu_vm_get_task_info_vm(vm);
->                 if (ti) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-> index 52459512cb2b..c4e522e49251 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-> @@ -26,7 +26,6 @@
->  #define __AMDGPU_DEV_COREDUMP_H__
->
->  #include "amdgpu.h"
-> -#include "amdgpu_reset.h"
->
->  #ifdef CONFIG_DEV_COREDUMP
->
-> @@ -36,12 +35,13 @@ struct amdgpu_coredump_info {
->         struct amdgpu_device            *adev;
->         struct amdgpu_task_info         reset_task_info;
->         struct timespec64               reset_time;
-> +       bool                            skip_vram_check;
->         bool                            reset_vram_lost;
->         struct amdgpu_ring              *ring;
->  };
->  #endif
->
-> -void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-> -                    struct amdgpu_reset_context *reset_context);
-> +void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
-> +                    bool vram_lost, struct amdgpu_job *job);
->
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 9885d0606b0a..825cc62cd75d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5445,7 +5445,7 @@ int amdgpu_do_asic_reset(struct list_head *device_l=
-ist_handle,
->                                 vram_lost =3D amdgpu_device_check_vram_lo=
-st(tmp_adev);
->
->                                 if (amdgpu_gpu_coredump && (!test_bit(AMD=
-GPU_SKIP_COREDUMP, &reset_context->flags)))
-> -                                       amdgpu_coredump(tmp_adev, vram_lo=
-st, reset_context);
-> +                                       amdgpu_coredump(tmp_adev, false, =
-vram_lost, reset_context->job);
->
->                                 if (vram_lost) {
->                                         DRM_INFO("VRAM is lost due to GPU=
- reset!\n");
+> +/**
+> + * DOC: gpu_coredump (int)
+> + * Set to enable GPU coredump mechanism (1 =3D enable, 0 =3D disable). T=
+he default is 1
+> + */
+> +MODULE_PARM_DESC(gpu_coredump, "Enable GPU coredump mechanism, (1 =3D en=
+able(default), 0 =3D disable)");
+> +module_param_named(gpu_coredump, amdgpu_gpu_coredump, int, 0444);
+> +
+>  /**
+>   * DOC: emu_mode (int)
+>   * Set value 1 to enable emulation mode. This is only needed when runnin=
+g on an emulator. The default is 0 (disabled).
 > --
 > 2.34.1
 >
