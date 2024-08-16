@@ -4,133 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57824C5320E
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 13:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0178BC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 13:43:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B09910E717;
-	Fri, 16 Aug 2024 13:34:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BF8B10E77D;
+	Fri, 16 Aug 2024 13:43:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TiAVJh/R";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4XjQmVlb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TiAVJh/R";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4XjQmVlb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mHkHgI+p";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A8210E6E0;
- Fri, 16 Aug 2024 13:34:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6F9E2220F3;
- Fri, 16 Aug 2024 13:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723815256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PxCY1NSp+vPTDMS3xTsfjnJIha1Xy2kK//ctB90lHS4=;
- b=TiAVJh/RbEsbN5s1QtlMjb4vqXc2QEu7ytzKlWzZ5MFhLsc5lpRLhvTCndJYz4CMWy0lM6
- RGt284xw3Ts0nehSuvutV61Nc7+cBBR0hkJ3XKjRQ3Rn+I2uqdRW1hJ2F5NQi8BjdH4xm0
- 630J7RT90JCRSQ0s1YuBDfAk/6l3B/U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723815256;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PxCY1NSp+vPTDMS3xTsfjnJIha1Xy2kK//ctB90lHS4=;
- b=4XjQmVlb5qZETYlC5niW3iP8Tbdj1SxmXaPlvBrcfMsQeC0aYa/6lmbxitcW/MdqmNLFT/
- DYTu5VSiDAW40XCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1723815256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PxCY1NSp+vPTDMS3xTsfjnJIha1Xy2kK//ctB90lHS4=;
- b=TiAVJh/RbEsbN5s1QtlMjb4vqXc2QEu7ytzKlWzZ5MFhLsc5lpRLhvTCndJYz4CMWy0lM6
- RGt284xw3Ts0nehSuvutV61Nc7+cBBR0hkJ3XKjRQ3Rn+I2uqdRW1hJ2F5NQi8BjdH4xm0
- 630J7RT90JCRSQ0s1YuBDfAk/6l3B/U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1723815256;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PxCY1NSp+vPTDMS3xTsfjnJIha1Xy2kK//ctB90lHS4=;
- b=4XjQmVlb5qZETYlC5niW3iP8Tbdj1SxmXaPlvBrcfMsQeC0aYa/6lmbxitcW/MdqmNLFT/
- DYTu5VSiDAW40XCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E00313A2F;
- Fri, 16 Aug 2024 13:34:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id f6fvAVhVv2bqegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 13:34:16 +0000
-Message-ID: <0aa7de00-9780-4c6c-9526-5cbbc04433fa@suse.de>
-Date: Fri, 16 Aug 2024 15:34:15 +0200
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19CFE10E799
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 13:43:31 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2cb53da06a9so1376404a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 06:43:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723815810; x=1724420610; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LoxU/rp6k1oXcfMUEebZRoSo30Iju2lYYV9tiXnvJFM=;
+ b=mHkHgI+pKQtdYsOoU6CmULiWzj4pMq+7Z1wc0pknoQsdLS6ctOOzMxecLpPsc6pEwA
+ 4rZUVpUOu6IkF0aee7QK5Kiq/1dehXUD8Sad/DreLRB7EyMf+3xCubINqCnO3ajbggYy
+ TVIpDWqz/L1CXs4Q5/ZPWVmyGJ+Fco18/GvNLhrsv3O1WVzkUem423FDdogwMiwDNAlj
+ 7wTUi0Ejrr5akM9hWcia55rVxfyRiMyNIiV8HaOTPgLTuctrDnaxV179Pp9PPtXIahSN
+ FCf1wYODKYuFQTWMsMgMTq1U6u7AOnOxDcJGYJLUnaakZPWTZj/G5ImiKqdlxXOdCpB/
+ f98w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723815810; x=1724420610;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LoxU/rp6k1oXcfMUEebZRoSo30Iju2lYYV9tiXnvJFM=;
+ b=rET37qp0HpVEAER7rd60+WeDFIGjVOqePFf4yTlCgX96II3N1w4AHWuZh9CW4Eu2OT
+ vkYHY7SSgTPCFauEl2vXo7FEAgxRGROC/DMpsZCPbtNTOOAZ+w6fpsphJOtvDhaJsf4P
+ 3Abw85nSvQqfcCSl7/vwMRKSOHD31uosRtdW9f+0cNY4po0hzT1FM1s2lQgFkMB8FsyY
+ GBTR+hDy3DzC8rb9Q+DVBG1mIUGB4+/Mj7izaA7TR3aWS5Bcn2xOpuPxXQ7RXvUq8Te7
+ lFwgZvk6Qz1PWup6VOcS5RO8VVHOfQ7KwhmTAWmlacGPavVCMsc8041LmMUxP94C+fWw
+ k3Rg==
+X-Gm-Message-State: AOJu0Yw7XpuYdAdVvcm2dOjn7XtDAoQsQAhJceaPrACflDw89EaaNUW6
+ uH7ZhtgkgcKmn7bfa5zOGk6R9fL180t3JlIZCL9/xsnVhefntq5oGOA1Py+Euc6dpX/hbnBELeX
+ gs5PWZvb2w951WOClbMwA6+QADsRFHWxZ
+X-Google-Smtp-Source: AGHT+IF5Zdt7RySOJJBt7hie2HYKX+l4v9ty52Esfyl+8BrXlnou9CuXBvxqzk0PyDGBGmTco6bfpL4YBnPBSNDpevY=
+X-Received: by 2002:a17:90a:bf09:b0:2d3:c365:53b1 with SMTP id
+ 98e67ed59e1d1-2d3e45529b3mr4087654a91.6.1723815810297; Fri, 16 Aug 2024
+ 06:43:30 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 83/86] drm/{i915,xe}: Run DRM default client setup
-To: Jani Nikula <jani.nikula@linux.intel.com>, daniel@ffwll.ch,
- airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20240816125408.310253-1-tzimmermann@suse.de>
- <20240816125408.310253-84-tzimmermann@suse.de> <87cym87gik.fsf@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <87cym87gik.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[linux.intel.com,ffwll.ch,gmail.com,redhat.com];
- RCPT_COUNT_TWELVE(0.00)[15]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
- suse.de:mid]
+References: <20240815113836.399377-1-Trigger.Huang@amd.com>
+ <20240815113836.399377-2-Trigger.Huang@amd.com>
+ <CADnq5_NumwJ6ujpJERTF7gK7TAJMkG7MNMNgrtr3=k8pqYnBvg@mail.gmail.com>
+ <SA1PR12MB74425F710D53EAA007A062F2FE812@SA1PR12MB7442.namprd12.prod.outlook.com>
+In-Reply-To: <SA1PR12MB74425F710D53EAA007A062F2FE812@SA1PR12MB7442.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 16 Aug 2024 09:43:18 -0400
+Message-ID: <CADnq5_Oy=-54C-m1UHJijEL+LdgRMJ_aGusuo2pjdcp6nCg5xg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add gpu_coredump parameter
+To: "Huang, Trigger" <Trigger.Huang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Khatri,
+ Sunil" <Sunil.Khatri@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,60 +80,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 16.08.24 um 15:18 schrieb Jani Nikula:
-> On Fri, 16 Aug 2024, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
->> index 206328387150..7a28396abb25 100644
->> --- a/drivers/gpu/drm/xe/xe_device.c
->> +++ b/drivers/gpu/drm/xe/xe_device.c
->> @@ -17,6 +17,8 @@
->>   #include <drm/drm_print.h>
->>   #include <drm/xe_drm.h>
->>   
->> +#include "intel_fbdev.h"
->> +
->>   #include "display/xe_display.h"
->>   #include "instructions/xe_gpu_commands.h"
->>   #include "regs/xe_gt_regs.h"
->> @@ -267,6 +269,7 @@ static struct drm_driver driver = {
->>   
->>   	.dumb_create = xe_bo_dumb_create,
->>   	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
->> +	INTEL_FBDEV_DRIVER_OPS,
->>   #ifdef CONFIG_PROC_FS
->>   	.show_fdinfo = xe_drm_client_fdinfo,
->>   #endif
-> Basically xe_device.c should have close to zero idea about display
-> details, and should not include intel_fbdev.h directly.
+On Fri, Aug 16, 2024 at 2:36=E2=80=AFAM Huang, Trigger <Trigger.Huang@amd.c=
+om> wrote:
 >
-> There's a xe_display_driver_set_hooks() call that is the right place to
-> set the driver->fbdev_probe hook.
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> It's a bit of a bummer in the sense that this prevents struct drm_driver
-> from being const, but that's how it already is for xe.
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Friday, August 16, 2024 12:02 AM
+> > To: Huang, Trigger <Trigger.Huang@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Khatri, Sunil <Sunil.Khatri@amd.com>=
+;
+> > Deucher, Alexander <Alexander.Deucher@amd.com>
+> > Subject: Re: [PATCH 1/3] drm/amdgpu: Add gpu_coredump parameter
+> >
+> > On Thu, Aug 15, 2024 at 7:39=E2=80=AFAM <Trigger.Huang@amd.com> wrote:
+> > >
+> > > From: Trigger Huang <Trigger.Huang@amd.com>
+> > >
+> > > Add new separate parameter to control GPU coredump procedure. This ca=
+n
+> > > be used to decouple the coredump procedure from gpu recovery procedur=
+e
+> > >
+> > > Signed-off-by: Trigger Huang <Trigger.Huang@amd.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+> > >  2 files changed, 9 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > index 937de21a7142..4dd465ad14af 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > @@ -201,6 +201,7 @@ extern uint amdgpu_force_long_training;  extern
+> > > int amdgpu_lbpw;  extern int amdgpu_compute_multipipe;  extern int
+> > > amdgpu_gpu_recovery;
+> > > +extern int amdgpu_gpu_coredump;
+> > >  extern int amdgpu_emu_mode;
+> > >  extern uint amdgpu_smu_memory_pool_size;  extern int
+> > > amdgpu_smu_pptable_id; diff --git
+> > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > index b9529948f2b2..c5d357420236 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > @@ -178,6 +178,7 @@ uint amdgpu_force_long_training;  int
+> > amdgpu_lbpw
+> > > =3D -1;  int amdgpu_compute_multipipe =3D -1;  int amdgpu_gpu_recover=
+y =3D
+> > > -1; /* auto */
+> > > +int amdgpu_gpu_coredump;
+> > >  int amdgpu_emu_mode;
+> > >  uint amdgpu_smu_memory_pool_size;
+> > >  int amdgpu_smu_pptable_id =3D -1;
+> > > @@ -556,6 +557,13 @@ module_param_named(compute_multipipe,
+> > > amdgpu_compute_multipipe, int, 0444);
+> > MODULE_PARM_DESC(gpu_recovery,
+> > > "Enable GPU recovery mechanism, (1 =3D enable, 0 =3D disable, -1 =3D
+> > > auto)");  module_param_named(gpu_recovery, amdgpu_gpu_recovery, int,
+> > > 0444);
+> > >
+> > > +/**
+> > > + * DOC: gpu_coredump (int)
+> > > + * Set to enable GPU coredump mechanism (1 =3D enable, 0 =3D disable=
+).
+> > > +The default is 0  */ MODULE_PARM_DESC(gpu_coredump, "Enable GPU
+> > > +coredump mechanism, (1 =3D enable, 0 =3D disable (default))");
+> > > +module_param_named(gpu_coredump, amdgpu_gpu_coredump, int,
+> > 0444);
+> >
+> > I don't think we need a separate parameter for this, although if we do,=
+ this
+> > would need to be enabled by default.  If it needs to be decoupled from =
+reset,
+> > that's fine, but I don't see the need for a separate knob.
+> >
+> > Alex
+>
+> Hi Alex,
+> It is fine to enable it by default
+> There are several application scenarios that I can think of.
+>         1, Customer may need to do the core dump with gpu_recovery disabl=
+ed. This can be used for GPU hang debug
+>         2, Customer may need to disable the core dump with gpu_recovery e=
+nabled. This can be used for quick GPU recovery, especially for some lightw=
+eight hangs that can be processed by soft recovery or per ring reset.
+>         3, Customer may need to enable the core dump with gpu_recovery en=
+abled. This can be used for GPU recovery but record the core dump for furth=
+er check in stress test or system health check.
+> It seems not easy to support all the scenarios by only using amdgpu_gpu_c=
+oredump, right?
 
-Thanks, I'll look into this. The was another automatic reply about a 
-compile error in xe wrt this callback. I guess that set_hooks helper 
-would fix that as well.
+We always want devcoredump enabled by default for full adapter resets,
+otherwise it kind of defeats the purpose of the feature.  Do we want
+devcoredumps for cases where we can recover via soft recovery or per
+queue reset?  If we mainly care about full adapter reset then we can
+do something like:
 
-Best regards
-Thomas
+1. in amdgpu_job_timedout(), we can do:
+if (!amdgpu_gpu_recovery)
+    amdgpu_dev_coredump()
+between per ring reset and full adapter reset.  That way it won't get
+called for soft recovery or per queue reset.
+
+2. leave the current dev_coredump code in place for the case when
+recovery is enabled.
+
+If we want it for both soft-recovery and queue reset and full adapter
+reset, then we just just unconditionally call it in
+amdgpu_job_timedout().  If the finer grained resets don't work, we'll
+get two dumps, but I think that's probably ok.
+
+Alex
 
 >
->
-> BR,
-> Jani.
->
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
-
+> Regards,
+> Trigger
+> >
+> > > +
+> > >  /**
+> > >   * DOC: emu_mode (int)
+> > >   * Set value 1 to enable emulation mode. This is only needed when ru=
+nning
+> > on an emulator. The default is 0 (disabled).
+> > > --
+> > > 2.34.1
+> > >
