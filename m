@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7135DC531DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5766CC531DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 12:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB37610E753;
-	Fri, 16 Aug 2024 12:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD1510E734;
+	Fri, 16 Aug 2024 12:54:43 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08F2910E702;
- Fri, 16 Aug 2024 12:54:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4874410E6FC;
+ Fri, 16 Aug 2024 12:54:39 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CEA7E2230C;
- Fri, 16 Aug 2024 12:54:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EC08B22897;
+ Fri, 16 Aug 2024 12:54:37 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 85D0513ACA;
- Fri, 16 Aug 2024 12:54:36 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BA0913A2F;
+ Fri, 16 Aug 2024 12:54:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YAdRHwxMv2bdbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:36 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EPDUIA1Mv2bdbgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 16 Aug 2024 12:54:37 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Russell King <linux@armlinux.org.uk>
-Subject: [PATCH 74/86] drm/armada: Run DRM default client setup
-Date: Fri, 16 Aug 2024 14:23:40 +0200
-Message-ID: <20240816125408.310253-75-tzimmermann@suse.de>
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Subject: [PATCH 77/86] drm/msm: Run DRM default client setup
+Date: Fri, 16 Aug 2024 14:23:43 +0200
+Message-ID: <20240816125408.310253-78-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240816125408.310253-1-tzimmermann@suse.de>
 References: <20240816125408.310253-1-tzimmermann@suse.de>
@@ -49,7 +51,7 @@ X-Rspamd-Pre-Result: action=no action; module=replies;
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: CEA7E2230C
+X-Rspamd-Queue-Id: EC08B22897
 X-Rspamd-Action: no action
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
@@ -76,215 +78,247 @@ Call drm_client_setup() to run the kernel's default client setup
 for DRM. Set fbdev_probe in struct drm_driver, so that the client
 setup can start the common fbdev client.
 
-The armada driver specifies a preferred color mode of 32. As this
+The msm driver specifies a preferred color mode of 32. As this
 is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Russell King <linux@armlinux.org.uk>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- drivers/gpu/drm/armada/armada_drm.h   |  11 ++-
- drivers/gpu/drm/armada/armada_drv.c   |   4 +-
- drivers/gpu/drm/armada/armada_fbdev.c | 115 ++------------------------
- 3 files changed, 17 insertions(+), 113 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c   |   4 +-
+ drivers/gpu/drm/msm/msm_drv.h   |  13 ++-
+ drivers/gpu/drm/msm/msm_fbdev.c | 144 ++++++--------------------------
+ 3 files changed, 38 insertions(+), 123 deletions(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_drm.h b/drivers/gpu/drm/armada/armada_drm.h
-index c303e8c7ff6c..3c0ff221a43b 100644
---- a/drivers/gpu/drm/armada/armada_drm.h
-+++ b/drivers/gpu/drm/armada/armada_drm.h
-@@ -16,6 +16,8 @@ struct armada_crtc;
- struct armada_gem_object;
- struct clk;
- struct drm_display_mode;
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 9c33f4e3f822..22fe0716d18b 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -10,6 +10,7 @@
+ #include <linux/of_address.h>
+ #include <linux/uaccess.h>
+ 
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_ioctl.h>
+@@ -292,7 +293,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 
+ 	if (priv->kms_init) {
+ 		drm_kms_helper_poll_init(ddev);
+-		msm_fbdev_setup(ddev);
++		drm_client_setup(ddev, NULL);
+ 	}
+ 
+ 	return 0;
+@@ -903,6 +904,7 @@ static const struct drm_driver msm_driver = {
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+ #endif
++	MSM_FBDEV_DRIVER_OPS,
+ 	.show_fdinfo        = msm_show_fdinfo,
+ 	.ioctls             = msm_ioctls,
+ 	.num_ioctls         = ARRAY_SIZE(msm_ioctls),
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index be016d7b4ef1..63675a3b7097 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -40,6 +40,9 @@ extern struct fault_attr fail_gem_iova;
+ #  define should_fail(attr, size) 0
+ #endif
+ 
 +struct drm_fb_helper;
 +struct drm_fb_helper_surface_size;
++
+ struct msm_kms;
+ struct msm_gpu;
+ struct msm_mmu;
+@@ -298,11 +301,13 @@ struct drm_framebuffer * msm_alloc_stolen_fb(struct drm_device *dev,
+ 		int w, int h, int p, uint32_t format);
  
- static inline void
- armada_updatel(uint32_t val, uint32_t mask, void __iomem *ptr)
-@@ -74,10 +76,13 @@ struct armada_private {
- #define drm_to_armada_dev(dev) container_of(dev, struct armada_private, drm)
- 
- #if defined(CONFIG_DRM_FBDEV_EMULATION)
--void armada_fbdev_setup(struct drm_device *dev);
-+int armada_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
-+				    struct drm_fb_helper_surface_size *sizes);
-+#define ARMADA_FBDEV_DRIVER_OPS \
-+	.fbdev_probe = armada_fbdev_driver_fbdev_probe
+ #ifdef CONFIG_DRM_FBDEV_EMULATION
+-void msm_fbdev_setup(struct drm_device *dev);
++int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++				 struct drm_fb_helper_surface_size *sizes);
++#define MSM_FBDEV_DRIVER_OPS \
++	.fbdev_probe = msm_fbdev_driver_fbdev_probe
  #else
--static inline void armada_fbdev_setup(struct drm_device *dev)
--{ }
-+#define ARMADA_FBDEV_DRIVER_OPS \
+-static inline void msm_fbdev_setup(struct drm_device *dev)
+-{
+-}
++#define MSM_FBDEV_DRIVER_OPS \
 +	.fbdev_probe = NULL
  #endif
  
- int armada_overlay_plane_create(struct drm_device *, unsigned long);
-diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
-index e51ecc4f7ef4..3dc5f0499e4c 100644
---- a/drivers/gpu/drm/armada/armada_drv.c
-+++ b/drivers/gpu/drm/armada/armada_drv.c
-@@ -12,6 +12,7 @@
- 
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_client_setup.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_ioctl.h>
- #include <drm/drm_managed.h>
-@@ -39,6 +40,7 @@ DEFINE_DRM_GEM_FOPS(armada_drm_fops);
- static const struct drm_driver armada_drm_driver = {
- 	.gem_prime_import	= armada_gem_prime_import,
- 	.dumb_create		= armada_gem_dumb_create,
-+	ARMADA_FBDEV_DRIVER_OPS,
- 	.major			= 1,
- 	.minor			= 0,
- 	.name			= "armada-drm",
-@@ -137,7 +139,7 @@ static int armada_drm_bind(struct device *dev)
- 	armada_drm_debugfs_init(priv->drm.primary);
- #endif
- 
--	armada_fbdev_setup(&priv->drm);
-+	drm_client_setup(&priv->drm, NULL);
- 
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
-index d223176912b6..1ad87bb0bad9 100644
---- a/drivers/gpu/drm/armada/armada_fbdev.c
-+++ b/drivers/gpu/drm/armada/armada_fbdev.c
-@@ -39,8 +39,10 @@ static const struct fb_ops armada_fb_ops = {
- 	.fb_destroy	= armada_fbdev_fb_destroy,
+ struct hdmi;
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index 030bedac632d..c62249b1ab3d 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -65,8 +65,31 @@ static const struct fb_ops msm_fb_ops = {
+ 	.fb_destroy = msm_fbdev_fb_destroy,
  };
  
--static int armada_fbdev_create(struct drm_fb_helper *fbh,
--	struct drm_fb_helper_surface_size *sizes)
-+static const struct drm_fb_helper_funcs armada_fbdev_helper_funcs;
+-static int msm_fbdev_create(struct drm_fb_helper *helper,
+-		struct drm_fb_helper_surface_size *sizes)
++static int msm_fbdev_fb_dirty(struct drm_fb_helper *helper,
++			      struct drm_clip_rect *clip)
++{
++	struct drm_device *dev = helper->dev;
++	int ret;
 +
-+int armada_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
-+				    struct drm_fb_helper_surface_size *sizes)
++	/* Call damage handlers only if necessary */
++	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
++		return 0;
++
++	if (helper->fb->funcs->dirty) {
++		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
++		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
++			return ret;
++	}
++
++	return 0;
++}
++
++static const struct drm_fb_helper_funcs msm_fbdev_helper_funcs = {
++	.fb_dirty = msm_fbdev_fb_dirty,
++};
++
++int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
++				 struct drm_fb_helper_surface_size *sizes)
  {
- 	struct drm_device *dev = fbh->dev;
- 	struct drm_mode_fb_cmd2 mode;
-@@ -98,6 +100,7 @@ static int armada_fbdev_create(struct drm_fb_helper *fbh,
- 	info->fix.smem_len = obj->obj.size;
- 	info->screen_size = obj->obj.size;
- 	info->screen_base = ptr;
-+	fbh->funcs = &armada_fbdev_helper_funcs;
- 	fbh->fb = &dfb->fb;
+ 	struct drm_device *dev = helper->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+@@ -114,6 +137,7 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
  
- 	drm_fb_helper_fill_info(info, fbh, sizes);
-@@ -108,113 +111,7 @@ static int armada_fbdev_create(struct drm_fb_helper *fbh,
+ 	DBG("fbi=%p, dev=%p", fbi, dev);
  
- 	return 0;
++	helper->funcs = &msm_fbdev_helper_funcs;
+ 	helper->fb = fb;
  
-- err_fballoc:
-+err_fballoc:
- 	dfb->fb.funcs->destroy(&dfb->fb);
+ 	fbi->fbops = &msm_fb_ops;
+@@ -138,119 +162,3 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
+ 	drm_framebuffer_remove(fb);
  	return ret;
  }
 -
--static int armada_fb_probe(struct drm_fb_helper *fbh,
--	struct drm_fb_helper_surface_size *sizes)
+-static int msm_fbdev_fb_dirty(struct drm_fb_helper *helper,
+-			      struct drm_clip_rect *clip)
 -{
--	int ret = 0;
+-	struct drm_device *dev = helper->dev;
+-	int ret;
 -
--	if (!fbh->fb) {
--		ret = armada_fbdev_create(fbh, sizes);
--		if (ret == 0)
--			ret = 1;
+-	/* Call damage handlers only if necessary */
+-	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
+-		return 0;
+-
+-	if (helper->fb->funcs->dirty) {
+-		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
+-		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
+-			return ret;
 -	}
--	return ret;
+-
+-	return 0;
 -}
 -
--static const struct drm_fb_helper_funcs armada_fb_helper_funcs = {
--	.fb_probe	= armada_fb_probe,
+-static const struct drm_fb_helper_funcs msm_fb_helper_funcs = {
+-	.fb_probe = msm_fbdev_create,
+-	.fb_dirty = msm_fbdev_fb_dirty,
 -};
 -
 -/*
-- * Fbdev client and struct drm_client_funcs
+- * struct drm_client
 - */
 -
--static void armada_fbdev_client_unregister(struct drm_client_dev *client)
+-static void msm_fbdev_client_unregister(struct drm_client_dev *client)
 -{
--	struct drm_fb_helper *fbh = drm_fb_helper_from_client(client);
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
 -
--	if (fbh->info) {
--		drm_fb_helper_unregister_info(fbh);
+-	if (fb_helper->info) {
+-		drm_fb_helper_unregister_info(fb_helper);
 -	} else {
--		drm_client_release(&fbh->client);
--		drm_fb_helper_unprepare(fbh);
--		kfree(fbh);
+-		drm_client_release(&fb_helper->client);
+-		drm_fb_helper_unprepare(fb_helper);
+-		kfree(fb_helper);
 -	}
 -}
 -
--static int armada_fbdev_client_restore(struct drm_client_dev *client)
+-static int msm_fbdev_client_restore(struct drm_client_dev *client)
 -{
 -	drm_fb_helper_lastclose(client->dev);
 -
 -	return 0;
 -}
 -
--static int armada_fbdev_client_hotplug(struct drm_client_dev *client)
+-static int msm_fbdev_client_hotplug(struct drm_client_dev *client)
 -{
--	struct drm_fb_helper *fbh = drm_fb_helper_from_client(client);
+-	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
 -	struct drm_device *dev = client->dev;
 -	int ret;
 -
 -	if (dev->fb_helper)
 -		return drm_fb_helper_hotplug_event(dev->fb_helper);
 -
--	ret = drm_fb_helper_init(dev, fbh);
+-	ret = drm_fb_helper_init(dev, fb_helper);
 -	if (ret)
 -		goto err_drm_err;
 -
 -	if (!drm_drv_uses_atomic_modeset(dev))
 -		drm_helper_disable_unused_functions(dev);
 -
--	ret = drm_fb_helper_initial_config(fbh);
+-	ret = drm_fb_helper_initial_config(fb_helper);
 -	if (ret)
 -		goto err_drm_fb_helper_fini;
 -
 -	return 0;
 -
 -err_drm_fb_helper_fini:
--	drm_fb_helper_fini(fbh);
+-	drm_fb_helper_fini(fb_helper);
 -err_drm_err:
--	drm_err(dev, "armada: Failed to setup fbdev emulation (ret=%d)\n", ret);
+-	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
 -	return ret;
 -}
 -
--static const struct drm_client_funcs armada_fbdev_client_funcs = {
+-static const struct drm_client_funcs msm_fbdev_client_funcs = {
 -	.owner		= THIS_MODULE,
--	.unregister	= armada_fbdev_client_unregister,
--	.restore	= armada_fbdev_client_restore,
--	.hotplug	= armada_fbdev_client_hotplug,
+-	.unregister	= msm_fbdev_client_unregister,
+-	.restore	= msm_fbdev_client_restore,
+-	.hotplug	= msm_fbdev_client_hotplug,
 -};
 -
--void armada_fbdev_setup(struct drm_device *dev)
+-/* initialize fbdev helper */
+-void msm_fbdev_setup(struct drm_device *dev)
 -{
--	struct drm_fb_helper *fbh;
+-	struct drm_fb_helper *helper;
 -	int ret;
+-
+-	if (!fbdev)
+-		return;
 -
 -	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
 -	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
 -
--	fbh = kzalloc(sizeof(*fbh), GFP_KERNEL);
--	if (!fbh)
+-	helper = kzalloc(sizeof(*helper), GFP_KERNEL);
+-	if (!helper)
 -		return;
--	drm_fb_helper_prepare(dev, fbh, 32, &armada_fb_helper_funcs);
+-	drm_fb_helper_prepare(dev, helper, 32, &msm_fb_helper_funcs);
 -
--	ret = drm_client_init(dev, &fbh->client, "fbdev", &armada_fbdev_client_funcs);
+-	ret = drm_client_init(dev, &helper->client, "fbdev", &msm_fbdev_client_funcs);
 -	if (ret) {
 -		drm_err(dev, "Failed to register client: %d\n", ret);
--		goto err_drm_client_init;
+-		goto err_drm_fb_helper_unprepare;
 -	}
 -
--	drm_client_register(&fbh->client);
+-	drm_client_register(&helper->client);
 -
 -	return;
 -
--err_drm_client_init:
--	drm_fb_helper_unprepare(fbh);
--	kfree(fbh);
--	return;
+-err_drm_fb_helper_unprepare:
+-	drm_fb_helper_unprepare(helper);
+-	kfree(helper);
 -}
 -- 
 2.46.0
