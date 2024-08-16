@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF27C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 22:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B328C52D7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Aug 2024 22:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A30B10E857;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F33B910E858;
 	Fri, 16 Aug 2024 22:58:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xj2PAzrB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bXsZvt/h";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA8F310E857
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F143110E858
  for <amd-gfx@lists.freedesktop.org>; Fri, 16 Aug 2024 22:58:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ELeIAbIDAieD2BLLqTAFkctvAFtRJVtPsVEymQn4DeCFaaNqaBSBrJcvkIeNbq3/3+jyx9f5m77ljs3LmKEU+/3WErZSokf8m5+KBt3+pL5TdT6CtnyD3N8e3dBP2UfdqKHSANi/6SVms7Tu4L2tjUrMZv/qKlMgWp/Gx0P0vwpZuOEt4eWacPaPsLEPBWGVPEUe7S16d5OOwECDqkEGhe0QUVUzABF3mIZikodL5A+oBBJMqZV5CQws1hfGDkc8TZw0sb6rx2hQbGNghV0NOYQqcS4Ki9rVhC3eV/LQNasGY3f7bTlL6aXUEJq8aClad5W86xUridhFx6MooDc6fw==
+ b=ZeEyJOegktRswlRo+uCvjogG5OA8zzkq07WSYbF2vIOGO8baZNvKjOWkG6TxlZytABuRhUu58aJT4vYR9zoQIfFTBPqUbR7c5WPuConIdB7ZBBltMAEF7sCPDCAFm65V8AzB1IsNZPF8+9/s5PFg/DQyy7RTTdEooJZBCChHPtbyvi8Is9J/iJJe24vypF8cZ176eFA/QY11tm7S+0j29gbAScjvWiUzJ8KDl4jN/c2pyqq3xGJMgkclsYSTZhrbBA7SKBIdd08h20LyL9AC7c61fgeq3qd4nVCu5C/CjAc3ysXncxmZVJ7bB59A3Q56yK1hDCnIXy+p/g91whTB/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=55c1v1DljlIj34DhIftlPxyM7tQro7PGjoh2rZ9V66g=;
- b=jWzJmWK3JSMG2635yto9JA2caFCHc3d2bWsK2u8hhkiz6TVuvyAYV4soIysbZnEhlzdtemfVLjcGfHmGng9qm4VB7P4+RtfjSgZPxgM82CLF3KJEZg0686oO6B7tGrRrlly9967lMgqK4pgeLl2AHov76Obf8Fkf5LqjgGYluCEw6QKJM3U7VB437uUtkyu8SBZQhvuwa0QMY7B0cbkekBRydG68dKmbBoEQN/1s/uBMFACttFhbmq7p2rVeM53iia37UTyx9Msnf+Ct9ih+iaa60+TfeuBZrCE4DQiduoH7VjYAonEj7G8zSYMWXiLaLNdYktAJxbN+y0bdvZKQ3g==
+ bh=NnXvuGJgLjBPwV/dDcVApssrCxodhZG2pjuP+5LNNIc=;
+ b=fllXmw4jvJ7c8lTuOXdJyJEJmkNh93jPFTVFwzRwLpaYAqtXmjZ7Ti/uuX+pKfmAl574JHwsS7ZGdE985zt9jDwqYEWKW/wcZa+lANsDveevyVRKrxe6DO6t1QH6lBaYaEUZJVg1Rh72T307Jdx41987aajzswd8wM1fdoLt/uCFBS/ddGhYmtb+E9m7pyZKsDeb+G5RlONgF2Ou+N39DCMfI1HI5K97SSylT+g4jWvmCKyXYvYoR2d+L9ZHvIJxN6bjacOr9FIw/Ckk7okDNbMOD/Ks/D0VhDTxRHZCQ+X6yva5eavZwQ2M85bBs3dG8QIsasXw8GEMBB7483Fq8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=55c1v1DljlIj34DhIftlPxyM7tQro7PGjoh2rZ9V66g=;
- b=xj2PAzrBYAz3Th5naIukL6nh8SHQ2tV/EQnXH20sD5oqu8Dym5i+yiJdr94KcNBWAd60hIm8omtUcL+zP/K3Z+pgYQXeUvwd/OPrMxfqhz7wg2llLuirT8taLB24ps7BF1146qJNTRsTAamz1U+vgZGaYtsznYzBFf4RI4G+UZw=
-Received: from PH7P220CA0160.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:33b::18)
- by BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20; Fri, 16 Aug
- 2024 22:58:14 +0000
-Received: from CY4PEPF0000E9DA.namprd05.prod.outlook.com
- (2603:10b6:510:33b:cafe::20) by PH7P220CA0160.outlook.office365.com
- (2603:10b6:510:33b::18) with Microsoft SMTP Server (version=TLS1_2,
+ bh=NnXvuGJgLjBPwV/dDcVApssrCxodhZG2pjuP+5LNNIc=;
+ b=bXsZvt/hAzcdguGBietUEHJM7hz1PLjpfAEBDE9cqt+bFwSG5NMeVesIeAFDyHLnY6u03KFRHjdPqNc6xqEahesLtZH22ScwfbcBivJAIhxv4BixRcLvLyI1tBxc1RKX5TPPrL6eHClWhZQ9nPgU88vTrP/Ah/w4kqSiXTQCkFc=
+Received: from DS7PR03CA0194.namprd03.prod.outlook.com (2603:10b6:5:3b6::19)
+ by DM4PR12MB6207.namprd12.prod.outlook.com (2603:10b6:8:a6::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Fri, 16 Aug
+ 2024 22:58:13 +0000
+Received: from CY4PEPF0000E9DB.namprd05.prod.outlook.com
+ (2603:10b6:5:3b6:cafe::99) by DS7PR03CA0194.outlook.office365.com
+ (2603:10b6:5:3b6::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20 via Frontend
- Transport; Fri, 16 Aug 2024 22:58:14 +0000
+ Transport; Fri, 16 Aug 2024 22:58:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9DA.mail.protection.outlook.com (10.167.241.73) with Microsoft
+ CY4PEPF0000E9DB.mail.protection.outlook.com (10.167.241.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Fri, 16 Aug 2024 22:58:14 +0000
+ 15.20.7849.8 via Frontend Transport; Fri, 16 Aug 2024 22:58:13 +0000
 Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 Aug
- 2024 17:58:13 -0500
+ 2024 17:58:12 -0500
 From: <sunpeng.li@amd.com>
 To: <chiahsuan.chung@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, <Harry.Wentland@amd.com>,
  <hamza.mahfooz@amd.com>, <roman.li@amd.com>, <aurabindo.pillai@amd.com>,
  <rodrigo.siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH 3/5] drm/amd/display: Go through dm for exit_ips_for_hw_access
-Date: Fri, 16 Aug 2024 18:57:52 -0400
-Message-ID: <20240816225754.156098-3-sunpeng.li@amd.com>
+Subject: [PATCH 2/5] drm/amd/display: Go through dm for
+ allow_idle_optimizations
+Date: Fri, 16 Aug 2024 18:57:51 -0400
+Message-ID: <20240816225754.156098-2-sunpeng.li@amd.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240816225754.156098-1-sunpeng.li@amd.com>
 References: <20240816225754.156098-1-sunpeng.li@amd.com>
@@ -74,51 +75,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DA:EE_|BL1PR12MB5994:EE_
-X-MS-Office365-Filtering-Correlation-Id: d228e83a-ce39-4b23-574c-08dcbe46e8eb
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DB:EE_|DM4PR12MB6207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ec129fa-9a43-4d5a-178a-08dcbe46e84e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZeaUMWPXVmWRevcHyf5EFq7X8fMoToeTkSG+ga6dzZadBvQz8eO+kyLpCzXU?=
- =?us-ascii?Q?TnREd+sY2QskBQuhjJF2SZXuoZGKHmiJMMYm2MhJa4Vv5EP2sZ/WILVo18wM?=
- =?us-ascii?Q?mzz7zcGtqrVjB+UYG9Rirx03y8ReSedYwmQtP+xmTDuR5Y2mzyigyVjooaF0?=
- =?us-ascii?Q?dE9N+945EiHa/kL6HB0Fp4eo+a0v2D+JOoboHAvyhzk+hDqZLPpTw4yAQgLn?=
- =?us-ascii?Q?RaLwLnec/z0ENtXTFATYbZRAmrKSs7Ax+SRn9A7zgi52bqRmLRV7vmo0nXwb?=
- =?us-ascii?Q?Rr6Q1dNUDvTJyynJmge0r3A4HQOurPyj/Pf1Mf+hVycvSHeWp1LkiJqJL6Qp?=
- =?us-ascii?Q?FvaK6MLBo0qROETp1vOuulHOvbhuM/XiEzjBr/0HD7/0/UNnzx/sQaa7us6/?=
- =?us-ascii?Q?MWn+cHnG/ObPlIBc+825OJFaYq7LhqA2IA5q1hvs3D/fJgDAt4VkGVVY5pdM?=
- =?us-ascii?Q?S9mUOngWfTuZYXAb1p4bqjgOr22RQv9ncm6no0l92DGPGmu3FLqTga+aIRv2?=
- =?us-ascii?Q?C9doRJluD6Ta6XocESxyr09xt7KKcZRg5PoBnMzx+84nQEXLt37WrBfEraKP?=
- =?us-ascii?Q?0+KFie+pbeCs6lPDEjbFf3w7T+6gib6bvkqClCyGwVCUyJJdYC35c/IszLjT?=
- =?us-ascii?Q?j5Vq2RHxzIrBZR+tP5ha6feMvw4p6y2ReZIlcGmQsWdJn7KynHI5OckO8sj1?=
- =?us-ascii?Q?aXgovJFrA0haD50C4QgHDRMv6vRc/bOjjEEpKY1bDXBu/fFCNZ7ceQANDB3S?=
- =?us-ascii?Q?OTw5zkO/qTI3qKqR287wfiKHuWpy/crYlVddhMxJHSzvXfxztmi0wM9BpIAb?=
- =?us-ascii?Q?OGQPHe6LwomKA1z7ds3t/aNkNCwXmYdLnF2nc3TDRDAwHGXJNgNnFT5lCQod?=
- =?us-ascii?Q?MAeUDaU9fcIhmh84/Ik+dygFkjCwQLmdXhHnY8YXyeL3Xx8hoZg+gd9igATe?=
- =?us-ascii?Q?k7EyB2t/2EOSbEZ23s0ZIsgoDoWvaP7awu5O7sIWVRWztFm+moHFtz1jzpSn?=
- =?us-ascii?Q?R+OU92qQD/vg/YG1RMF0TB1I1v33js1zpIkiSnHHPC6SThj171Hxt/4yed4Y?=
- =?us-ascii?Q?k7KuVxdD/fMFKsqeH9+cDHT4kD+7Mfig9on3O5we/9RJWF6RC2z6/Xd3q5ya?=
- =?us-ascii?Q?r6othqrZqQ1o0ntRoBD3SC6866N5yvA54LnKq2uxfOWXjvU+oIk18czj3fdg?=
- =?us-ascii?Q?UU/2kyJKfyn4TRqFrWD0sD6VfsOcoW3tNkio+FB1N/TJ7Q8JiTR2FXQXdD9g?=
- =?us-ascii?Q?GixHySAtkGR1hhfi0X9IowNN6Rm9aPk9m/g3bIhGjx/sGcpIm4gLAvBmBGrI?=
- =?us-ascii?Q?QYp1MRFFdBreEK7YXRdMZGbDOXwiJocwPhfN4BLeaXIFwZN8sziFACaxdgD7?=
- =?us-ascii?Q?lb+7r5dEvPAdA9c5RzNxPmFY3NogkGUIlNPqktOTXekzNFy7HLkxkv11SNNU?=
- =?us-ascii?Q?Hk0+7bSmvZc=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?iweyceJT2/gJ3MqUIIZWNsOrybVwq+WNfhfeDvtL5RrkywEi/Oetz863+xMd?=
+ =?us-ascii?Q?Nj7uOwzlmrV3x21zrFcwg3gG9ahtwRSUM4ynHxNrEiMZh35OTMvkan1i5Tzq?=
+ =?us-ascii?Q?05rp+F+Wr8rljD/CC6NWcMnNPBEdXBFIGCg/3xfEG70R67x2ibX9ajjEOdsX?=
+ =?us-ascii?Q?xQH+2WQJn6fKlTP6dHPeVqPCgSm/8553iIEbHjRL07xP0vpZWx9Sr+wZMLBG?=
+ =?us-ascii?Q?iT5yOAnVxIH/Zy6SDoB2XOild4kU/osE8qBmfNNO2voYU/A/ij+japvShLk6?=
+ =?us-ascii?Q?9MZfs0j2gdGe+FzT1Eb9vKWRtWZoFeGW95RlIbEOYa1blyvZgc1rz4fRNQc7?=
+ =?us-ascii?Q?2tnTXXfoz6h7h4b4+rRUjdr9UYqh+c3yI08/yVLwbNN1AehsaLBBfrUknNdc?=
+ =?us-ascii?Q?W2vXgMtBPSWwgGGYBvakAQlWOg+OxxOZYQzE4t0bsS8lNE58mI45shwya3a5?=
+ =?us-ascii?Q?/7h10Bb7lhiOiZXA0Tbwae4ewNExRGfgfAZLRQU7rBvJHSC6Xn+AoVYiaE+z?=
+ =?us-ascii?Q?VDrHUtniHNYawmpPB1o4+Y5ESzjFU7nV5kxOS3HANt+G438PVcXwt/hYRKgB?=
+ =?us-ascii?Q?a/DA07ouPIy5A2hw30KfddefjrVtr4wIQ9gwykDBsFH/vnF6lCUJv9U+jd6o?=
+ =?us-ascii?Q?HUY9D2Vayx50mJCGboGk8hRnfXwCLQjpkjsAEmeF+8d4+5UVkGiv1A9uJ/2s?=
+ =?us-ascii?Q?HlkYawfhZDedeclp22BveDBsvEq6FqmTcO+tx8P1WFtqwBmoS3q/vN6X17hl?=
+ =?us-ascii?Q?etlObQX/4xr7Flc91ns9p4/SMZWuCgK4+ducfhZ8GP2k2xQBXrL700tzqzUG?=
+ =?us-ascii?Q?6RBb3yIbzCQYHOfu44TFSj+wFhAYOyDmsDlFjDGOqiRnXAMNnq7dq20vhI8D?=
+ =?us-ascii?Q?NK+6Ywfdg0IpxQEsDz03C/Fm2wQdhaeUcw9HbQOU50T9hb8Yww6SijSHDKc6?=
+ =?us-ascii?Q?0dctlRMYDCGP4mZ9Axpdr9fO58nVkww9mbubK2DzfvZZ24lr2XvsZOumcNgT?=
+ =?us-ascii?Q?FKCeCp8xuXfm7E+Cs2b2cGxjvM/JhlVz9JmZJRTfJPLEWZd5mxu1ruuZIlB1?=
+ =?us-ascii?Q?bGRgPKBqhk85KhO6f2Zztw7oYDOZa5ww/JseV/OovRiKafQy26ps1yPcRI29?=
+ =?us-ascii?Q?FbXEo3utaBuyQmVIQvFRcWb1kAlgPTuNML8m5xV/i2PSwvq6D7CYCZnwk+kZ?=
+ =?us-ascii?Q?KVzBuNGXUd1+e4yxHD920/eiosNDg049N/7KZe8GX31Sv6v5T4AxhbNoKav0?=
+ =?us-ascii?Q?pBeJOnjNjzi07MYMGMR8g0bUgiH6NTvfpQpSnmjSQFPyaDv944VNvvHH9Biy?=
+ =?us-ascii?Q?NTjGNPQR1KQ1juA4/061z7CUK5TqIR8D/F9/35yq1ECpfdLXUcKSn3yJ2zOG?=
+ =?us-ascii?Q?Wg1X4a0J3+e6N+dm2WBU+z317LiKksgTYWg68BYfzVBpchuwZVWcOIBa4UDv?=
+ =?us-ascii?Q?vpQIHU59sA64+Z8SGheIX963vE0x5lJ6?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2024 22:58:14.3243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d228e83a-ce39-4b23-574c-08dcbe46e8eb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2024 22:58:13.2781 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ec129fa-9a43-4d5a-178a-08dcbe46e84e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5994
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6207
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,127 +138,161 @@ From: Leo Li <sunpeng.li@amd.com>
 
 [Why]
 
-dc_exit_ips_for_hw_access() is the same as
-dc_allow_idle_optimizations(), but with a check on whether IPS is
-supported by the ASIC.
+In preparation for enabling IPS debug flags that require DM changes,
+a common entry point for allowing DC idle optimisations is needed.
 
 [How]
 
-Let's also pipe it through the dm function introduced by the previous
-change.
+Create an alias in DM for dc_allow_idle_optimizations(). Change all
+calls to it into dm_allow_idle_optimizations().
 
 No functional changes are intended.
 
 Signed-off-by: Leo Li <sunpeng.li@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 ++++++++++++-------
- 1 file changed, 20 insertions(+), 11 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  6 ++++++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c   |  8 ++++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c    |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c    |  2 +-
+ 5 files changed, 24 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2efa9f6e23015..c99cff3650f14 100644
+index a18ecf8607232..2efa9f6e23015 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3092,7 +3092,7 @@ static int dm_resume(void *handle)
- 	struct dc_commit_streams_params commit_params = {};
+@@ -246,6 +246,14 @@ static void handle_hpd_rx_irq(void *param);
+ static bool
+ is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
+ 				 struct drm_crtc_state *new_crtc_state);
++
++void dm_allow_idle_optimizations_internal(struct dc *dc,
++					  bool allow,
++					  char const *caller_name)
++{
++	dc_allow_idle_optimizations_internal(dc, allow, caller_name);
++}
++
+ /*
+  * dm_vblank_get_counter
+  *
+@@ -296,7 +304,7 @@ static int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+ 	}
  
- 	if (dm->dc->caps.ips_support) {
--		dc_dmub_srv_apply_idle_power_optimizations(dm->dc, false);
+ 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
+-		dc_allow_idle_optimizations(dc, false);
++		dm_allow_idle_optimizations(dc, false);
+ 
+ 	/*
+ 	 * TODO rework base driver to use values directly.
+@@ -2883,7 +2891,7 @@ static int dm_suspend(void *handle)
+ 	if (amdgpu_in_reset(adev)) {
+ 		mutex_lock(&dm->dc_lock);
+ 
+-		dc_allow_idle_optimizations(adev->dm.dc, false);
++		dm_allow_idle_optimizations(adev->dm.dc, false);
+ 
+ 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
+ 
+@@ -2911,7 +2919,7 @@ static int dm_suspend(void *handle)
+ 	hpd_rx_irq_work_suspend(dm);
+ 
+ 	if (adev->dm.dc->caps.ips_support)
+-		dc_allow_idle_optimizations(adev->dm.dc, true);
++		dm_allow_idle_optimizations(adev->dm.dc, true);
+ 
+ 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+ 	dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM_POWER_STATE_D3);
+@@ -9421,7 +9429,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 
+ 	/* Allow idle optimization when vblank count is 0 for display off */
+ 	if (dm->active_vblank_irq_count == 0)
+-		dc_allow_idle_optimizations(dm->dc, true);
++		dm_allow_idle_optimizations(dm->dc, true);
+ 	mutex_unlock(&dm->dc_lock);
+ 
+ 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 2d7755e2b6c32..3fc3c12b3a4a1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1007,4 +1007,10 @@ void *dm_allocate_gpu_mem(struct amdgpu_device *adev,
+ 
+ bool amdgpu_dm_is_headless(struct amdgpu_device *adev);
+ 
++void dm_allow_idle_optimizations_internal(struct dc *dc,
++					  bool allow,
++					  char const *caller_name);
++#define dm_allow_idle_optimizations(dc, allow) \
++	dm_allow_idle_optimizations_internal(dc, allow, __func__)
++
+ #endif /* __AMDGPU_DM_H__ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index a2cf2c066a76d..5b0d426ad50db 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -203,7 +203,7 @@ static void amdgpu_dm_idle_worker(struct work_struct *work)
+ 			mutex_unlock(&idle_work->dm->dc_lock);
+ 			break;
+ 		}
+-		dc_allow_idle_optimizations(idle_work->dm->dc, false);
++		dm_allow_idle_optimizations(idle_work->dm->dc, false);
+ 
+ 		mutex_unlock(&idle_work->dm->dc_lock);
+ 		fsleep(HPD_DETECTION_TIME_uS);
+@@ -216,7 +216,7 @@ static void amdgpu_dm_idle_worker(struct work_struct *work)
+ 		}
+ 
+ 		if (idle_work->enable)
+-			dc_allow_idle_optimizations(idle_work->dm->dc, true);
++			dm_allow_idle_optimizations(idle_work->dm->dc, true);
+ 		mutex_unlock(&idle_work->dm->dc_lock);
+ 	}
+ 	idle_work->dm->idle_workqueue->running = false;
+@@ -253,7 +253,7 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ 
+ 	if (dm->active_vblank_irq_count > 0) {
+ 		DRM_DEBUG_KMS("Allow idle optimizations (MALL): false\n");
+-		dc_allow_idle_optimizations(dm->dc, false);
 +		dm_allow_idle_optimizations(dm->dc, false);
  	}
  
- 	if (amdgpu_in_reset(adev)) {
-@@ -3141,7 +3141,8 @@ static int dm_resume(void *handle)
+ 	/*
+@@ -275,7 +275,7 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
  
- 		commit_params.streams = dc_state->streams;
- 		commit_params.stream_count = dc_state->stream_count;
--		dc_exit_ips_for_hw_access(dm->dc);
-+		if (dm->dc->caps.ips_support)
-+			dm_allow_idle_optimizations(dm->dc, false);
- 		WARN_ON(!dc_commit_streams(dm->dc, &commit_params));
+ 	if (dm->active_vblank_irq_count == 0) {
+ 		DRM_DEBUG_KMS("Allow idle optimizations (MALL): true\n");
+-		dc_allow_idle_optimizations(dm->dc, true);
++		dm_allow_idle_optimizations(dm->dc, true);
+ 	}
  
- 		dm_gpureset_commit_state(dm->cached_dc_state, dm);
-@@ -3214,7 +3215,8 @@ static int dm_resume(void *handle)
- 			emulated_link_detect(aconnector->dc_link);
- 		} else {
- 			mutex_lock(&dm->dc_lock);
--			dc_exit_ips_for_hw_access(dm->dc);
-+			if (dm->dc->caps.ips_support)
-+				dm_allow_idle_optimizations(dm->dc, false);
- 			dc_link_detect(aconnector->dc_link, DETECT_REASON_RESUMEFROMS3S4);
- 			mutex_unlock(&dm->dc_lock);
- 		}
-@@ -3589,7 +3591,8 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
- 			drm_kms_helper_connector_hotplug_event(connector);
- 	} else {
- 		mutex_lock(&adev->dm.dc_lock);
--		dc_exit_ips_for_hw_access(dc);
-+		if (dc->caps.ips_support)
-+			dm_allow_idle_optimizations(dc, false);
- 		ret = dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);
- 		mutex_unlock(&adev->dm.dc_lock);
- 		if (ret) {
-@@ -3739,7 +3742,8 @@ static void handle_hpd_rx_irq(void *param)
- 			bool ret = false;
+ 	mutex_unlock(&dm->dc_lock);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index 3390f0d8420a0..48a4c493a70a0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -730,7 +730,7 @@ static inline int dm_irq_state(struct amdgpu_device *adev,
+ 	st = (state == AMDGPU_IRQ_STATE_ENABLE);
  
- 			mutex_lock(&adev->dm.dc_lock);
--			dc_exit_ips_for_hw_access(dc);
-+			if (dc->caps.ips_support)
-+				dm_allow_idle_optimizations(dc, false);
- 			ret = dc_link_detect(dc_link, DETECT_REASON_HPDRX);
- 			mutex_unlock(&adev->dm.dc_lock);
- 
-@@ -4946,7 +4950,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 			bool ret = false;
- 
- 			mutex_lock(&dm->dc_lock);
--			dc_exit_ips_for_hw_access(dm->dc);
-+			if (dm->dc->caps.ips_support)
-+				dm_allow_idle_optimizations(dm->dc, false);
- 			ret = dc_link_detect(link, DETECT_REASON_BOOT);
- 			mutex_unlock(&dm->dc_lock);
- 
-@@ -9349,7 +9354,8 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 
- 			memset(&position, 0, sizeof(position));
- 			mutex_lock(&dm->dc_lock);
--			dc_exit_ips_for_hw_access(dm->dc);
-+			if (dm->dc->caps.ips_support)
-+				dm_allow_idle_optimizations(dm->dc, false);
- 			dc_stream_program_cursor_position(dm_old_crtc_state->stream, &position);
- 			mutex_unlock(&dm->dc_lock);
- 		}
-@@ -9424,7 +9430,8 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 
- 	dm_enable_per_frame_crtc_master_sync(dc_state);
- 	mutex_lock(&dm->dc_lock);
--	dc_exit_ips_for_hw_access(dm->dc);
-+	if (dm->dc->caps.ips_support)
-+		dm_allow_idle_optimizations(dm->dc, false);
- 	WARN_ON(!dc_commit_streams(dm->dc, &params));
- 
- 	/* Allow idle optimization when vblank count is 0 for display off */
-@@ -9793,7 +9800,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		     sizeof(*dummy_updates), dm_plane_layer_index_cmp, NULL);
- 
- 		mutex_lock(&dm->dc_lock);
--		dc_exit_ips_for_hw_access(dm->dc);
-+		if (dm->dc->caps.ips_support)
-+			dm_allow_idle_optimizations(dm->dc, false);
- 		dc_update_planes_and_stream(dm->dc,
- 					    dummy_updates,
- 					    status->plane_count,
-@@ -12159,8 +12167,9 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev)
- 
- static inline void amdgpu_dm_exit_ips_for_hw_access(struct dc *dc)
- {
--	if (dc->ctx->dmub_srv && !dc->ctx->dmub_srv->idle_exit_counter)
--		dc_exit_ips_for_hw_access(dc);
-+	if (dc->ctx->dmub_srv && dc->caps.ips_support &&
-+	    !dc->ctx->dmub_srv->idle_exit_counter)
+ 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
+-		dc_allow_idle_optimizations(dc, false);
 +		dm_allow_idle_optimizations(dc, false);
+ 
+ 	dc_interrupt_set(adev->dm.dc, irq_source, st);
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index f40240aafe988..fdf1d4c7b9300 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -192,7 +192,7 @@ void amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+ 	dc_link_set_psr_allow_active(link, &psr_enable, false, false, &power_opt);
+ 
+ 	if (link->ctx->dc->caps.ips_support)
+-		dc_allow_idle_optimizations(link->ctx->dc, true);
++		dm_allow_idle_optimizations(link->ctx->dc, true);
  }
  
- void dm_write_reg_func(const struct dc_context *ctx, uint32_t address,
+ /*
 -- 
 2.46.0
 
