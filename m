@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 232CBC5321D
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Aug 2024 08:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4467AC5472C
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Aug 2024 08:52:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9434F10E06A;
-	Sun, 18 Aug 2024 08:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E7210E170;
+	Sun, 18 Aug 2024 08:52:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BPFYlLSD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Px0anN5P";
 	dkim-atps=neutral
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71ADC10E048
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Aug 2024 08:51:45 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-530d0882370so3473497e87.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Aug 2024 01:51:45 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 649AC10E16D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Aug 2024 08:52:09 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-530e2287825so3484794e87.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Aug 2024 01:52:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723971103; x=1724575903; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1723971127; x=1724575927; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BA6gd3w/lH+pvSR0RoOOSeXPQ2D4PiFjYFb8yS1CNPg=;
- b=BPFYlLSDHi9mhPrLqtynOahUuTr2rU2ZMBNfVFmqDkGkEBYdiJyLbfak5HGxiHMyOq
- H7sy2qttTFPyJr63KVUdh9q2LwZ6XpZKAjD4gVw4bP103J83hPJ9WbiaCqLpSdfYKPC7
- y/kYotTAZ4SxRh7A6QrZjXCJOkSU9y46LfqfvCpTqgKupTuSYxIXlsgNf3s1Y4+yU8fC
- nimXPE+qgMCtOza8c8Vl3WE6ikFXmxkb4EecrZloLA5IoDr2HPzBgFsAH8Xdtf792j+q
- dtIb/zilQUUE9P7OFME6vVcdrhdmkZ++/DIuIc/AMfJegREhhkQ2N5DW5NDRjfFqkyCZ
- PabQ==
+ bh=jaXM8tMajoENaQZObqdr4u+7t4wGj6GAMOQWM7gRwcQ=;
+ b=Px0anN5PKR7n9NUToObL/CqlTaNj8EDQwcZbIvdm3ctrT6DmDW87OC3J/9ZZaZ363L
+ uH3lXoAHWShZqZ7XYQDwzDRwmQ/M2BYyeAlj/bgFsZW9j7ErEKjj4kNmVNcCSRrfHIIx
+ gjKuUOJWnHb6wHvs2ageGJySr1UzsQwyQwP/pSEtBxWWM72cy/dGVRw0uTYxHsnc7y/X
+ xCKl2ammZ5ej73ZK1SlyW/1dFD8As/ELvWfRlUKdPHvOXsVHVAgLjn+nK1EKchuAVjJK
+ fffA9IFDh5dgGIydpG3dXsizg286kgYwZsM1CG+Fn29wpqBngqCjHj1+8gaqWGo2GBn4
+ Ho6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723971103; x=1724575903;
+ d=1e100.net; s=20230601; t=1723971127; x=1724575927;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BA6gd3w/lH+pvSR0RoOOSeXPQ2D4PiFjYFb8yS1CNPg=;
- b=NP+7tTezR1Pp4HDFWRIAsTA5b3otbq4Xhy4LMj9z/kZkqCp/gglthf1KtQcAPayzp+
- R1laKxRPOtylOe0XaJTTQq4kzOB5nj4tz70xTWxRlLLieVVAMLJ1lYQBlsOGqqS2x7d+
- WFS7KLVh9teK+EQTAgJ12L3rDvKqlBK4kq9S9d8gv9bkIXM1W7YyO8oph8EoDXZyFbVt
- wiO/YM5HWzM4YPVZ1zUWAxH+D69dCPWyLIVFPSSaxdRGe1/Ui2gOiIvA9jRvWuL1UR1E
- NZFYd4yla3m5sYoBzhFDIzowU0VsRnvK2Jye/i4lcQ9qX59ULC+jkcW240HJCVdfrDgM
- gVWw==
+ bh=jaXM8tMajoENaQZObqdr4u+7t4wGj6GAMOQWM7gRwcQ=;
+ b=VkREzGo1nuLGAc2HcUrgC7ThbsI+A7GbU1iFdC6g5yqrabJTG7c0sgSNtDxhnnOrpk
+ pCVh5Os1gwLMQdnlMc9+wh8EE0eI6w9qd+lOXn61xcUK3WQlY3ByWHqVsd08R1h13NVy
+ NGqk6Os6y+codoTft64t0X0o8jWhzYd1Zwxll6uHJyHwAPbOaFf6+Omhu3TOG9cDW3Z8
+ T7sgnHMMDws1wTUj+/5FeE1pyWCpaspCH4O4Dp4V+GaWHGdZZyCbpG7L6M3itsIR2ANI
+ A89BQSL9aOPOjm2m3ymExIw9QsSIvEv3LxxFKib21bKpBFHVIUtrXe30CwJ3dLfdUDIF
+ 9XXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWPBIkV4Fcq+FyRJ5kGvE0iskzyHkyILfvioBi8lS7dt8TtJ5Zl6V/t+1Yd14HjHJA5bHCnloWfiTY/F6CpXqaLI+XQdn2T7JmKhNSc/g==
-X-Gm-Message-State: AOJu0Yx2Pzu/wCuEDifeyp5F3kKXCb2kXfdYnWdEAl1Zfm9zgOqo4irx
- z3BUtDnpViK3btNqjUXV/cW2rzGcnaT+E8IAWKZ7uNgGI+zISufhp+63DENlaMyWo/kZpxamdmY
- PpH4YMldf40iLDdNk42TDpf0VsrmRf32OW4e1/A==
-X-Google-Smtp-Source: AGHT+IHI8Iyu+5U4VNFCRJmfq2Flp3nc9zI6W2PlsTAxF8B8zzStpGZzS/TLJ8Wbz5m/zodMtuYkE86wl4uw7J15Kuc=
-X-Received: by 2002:a05:6512:3b0d:b0:51a:f689:b4df with SMTP id
- 2adb3069b0e04-5331c6dca6emr5835040e87.44.1723971102834; Sun, 18 Aug 2024
- 01:51:42 -0700 (PDT)
+ AJvYcCV2OUQNvNBgkEbfYYRQwbdFkP4rqzQccBdRLzx8mparXAlOHzwHSugQMxdO67VLuQmohbpN1lZE@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywfgyt+3OIkYYNlK7V2LlHBVy/V/pfBd8uvsDLIN6NHdWJEnTmE
+ UZcKyTe/bpo32M2JXV8RdcEeaze/mZSSlfAZLknix+8T5b37O4jTsHbC2w/BNkPchflvJ84Mvku
+ y/UvKgPdZ6SEE5+i7/cB62qoF5FjpDDJQPIE/Gg==
+X-Google-Smtp-Source: AGHT+IFJBYUL4v23WKAddpRvtFX0zdPnk+dC7WJ66AsuREM0rgiVjFfkgvfqTjZKnZNVPt7mnctS4eUYkkKWTbTHLuc=
+X-Received: by 2002:a05:6512:a8d:b0:52e:fa5f:b6b1 with SMTP id
+ 2adb3069b0e04-5331c6f46c2mr4360089e87.60.1723971126975; Sun, 18 Aug 2024
+ 01:52:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240816125408.310253-1-tzimmermann@suse.de>
- <20240816125408.310253-47-tzimmermann@suse.de>
-In-Reply-To: <20240816125408.310253-47-tzimmermann@suse.de>
+ <20240816125408.310253-26-tzimmermann@suse.de>
+In-Reply-To: <20240816125408.310253-26-tzimmermann@suse.de>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sun, 18 Aug 2024 10:51:31 +0200
-Message-ID: <CACRpkdb356fkfyafCbi-=nqzpRNG4XcC8uQVLvV+Pcc7ONqSKQ@mail.gmail.com>
-Subject: Re: [PATCH 46/86] drm/tve200: Run DRM default client setup
+Date: Sun, 18 Aug 2024 10:51:56 +0200
+Message-ID: <CACRpkdYBoz8s6_So00Y8=203Sf+wyQCvF89KXFTdgD7HuYeeyA@mail.gmail.com>
+Subject: Re: [PATCH 25/86] drm/mcde: Run DRM default client setup
 To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, 
  javierm@redhat.com, dri-devel@lists.freedesktop.org, 
@@ -88,10 +88,12 @@ On Fri, Aug 16, 2024 at 2:54=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
 > for DRM. Set fbdev_probe in struct drm_driver, so that the client
 > setup can start the common fbdev client.
 >
+> The mcde driver specifies a preferred color mode of 32. As this
+> is the default if no format has been given, leave it out entirely.
+>
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > Cc: Linus Walleij <linus.walleij@linaro.org>
 
-This way of passing a mode is definitely an improvement.
 Acked-by: Linus Walleij <linus.walleij@linaro.org>
 
 Yours,
