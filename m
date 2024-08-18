@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0102EC5320E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F88C5472D
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 07:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A7E410E1B8;
-	Mon, 19 Aug 2024 07:21:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1D4F10E07E;
+	Mon, 19 Aug 2024 07:21:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="ZMB10MJH";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="NS9c4Pls";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F82410E021;
- Sun, 18 Aug 2024 10:43:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB83B10E165;
+ Sun, 18 Aug 2024 06:58:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1723977821;
- bh=LIhDXO/vt61k9fDXb4us5vdCDXJKik9UE+Gw+d4EsFY=;
+ s=mail; t=1723964282;
+ bh=Q+CWVM1eWnfL/atd6pTcZYYzfcoTGsOu2mcBkfKzYg0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZMB10MJHVTsbEAgJsPd/WoBVbaAt6cEqCBm1JInvuDej99GJMxLVZIq+HAwJIQDSG
- bfSzFtp9SanQU1/JdSebwMsjIJqmJhhZm7tCXNPvBj47xLO9QdXwAXWi13qttLKRfM
- 4W/OShkMj2gPHkFvi+bxvsQ/iWpNgSyGVT+E5KN4=
+ b=NS9c4Plso9foostRPNCT7hRHGrLsb19jl9Jo5XxvGopgy5utCTH59Tioo8Js4D/pz
+ oK8DFBhRPSHCjwmAisYaunM5uP930ZhUVFJPF5mh9U+JIBluFUxO71QI0+mfGQxNoK
+ lkSF8XPmoPYXyLjIbZXvhoZs9MUtLOPK8vY97gbU=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 18 Aug 2024 12:43:27 +0200
-Subject: [PATCH 03/12] drm/edid: constify argument of drm_edid_is_valid()
+Date: Sun, 18 Aug 2024 08:56:40 +0200
+Subject: [PATCH v5 4/4] drm: panel-backlight-quirks: Add Framework 13
+ glossy and 2.8k panels
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20240818-amdgpu-drm_edid-v1-3-aea66c1f7cf4@weissschuh.net>
-References: <20240818-amdgpu-drm_edid-v1-0-aea66c1f7cf4@weissschuh.net>
-In-Reply-To: <20240818-amdgpu-drm_edid-v1-0-aea66c1f7cf4@weissschuh.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240818-amdgpu-min-backlight-quirk-v5-4-b6c0ead0c73d@weissschuh.net>
+References: <20240818-amdgpu-min-backlight-quirk-v5-0-b6c0ead0c73d@weissschuh.net>
+In-Reply-To: <20240818-amdgpu-min-backlight-quirk-v5-0-b6c0ead0c73d@weissschuh.net>
+To: Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, jinzh <jinzh@github.amd.com>, 
- Aric Cyr <Aric.Cyr@amd.com>, Alan Liu <HaoPing.Liu@amd.com>, 
- Tony Cheng <Tony.Cheng@amd.com>, 
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Hans de Goede <hdegoede@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
+ Jonathan Corbet <corbet@lwn.net>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Harry Wentland <Harry.Wentland@amd.com>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
+ linux-doc@vger.kernel.org
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1723977820; l=1353;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1723964281; l=1323;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=LIhDXO/vt61k9fDXb4us5vdCDXJKik9UE+Gw+d4EsFY=;
- b=1rBJN1vkIMxT+m2KRWFgnD882q/vGNU3J9DzDazmvd0Q9rpLOmUAECU5yqqlfUgOvLr9zcegN
- 39k1x2tRzx4CntHpKLI1NRy/DB3fB+PBg4H37POxzpYGpXHM5Kx48TM
+ bh=JArR9JICCmn0YbpAXfNY1dO1o7oSdk/p0an/HUTd+vk=;
+ b=Rrxx/lWLRCElyhM3NLXM7Y1RbYccBezq6Ebt7sXZz5G+WufPs5/MF7dgAWgsUguCrcZKjBFVz
+ V3iYs09bJepALcAYk6jzF35zPK77j8qthmKA39/9UhPZJsS8zlFgbn+
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 19 Aug 2024 07:21:30 +0000
@@ -68,40 +70,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_edid_is_valid() does not modify its argument, so mark it as const.
+From: "Dustin L. Howett" <dustin@howett.net>
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+I have tested these panels on the Framework Laptop 13 AMD with firmware
+revision 3.05 (latest at time of submission).
+
+Signed-off-by: Dustin L. Howett <dustin@howett.net>
 ---
- drivers/gpu/drm/drm_edid.c | 2 +-
- include/drm/drm_edid.h     | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index f68a41eeb1fa..69fb11741abd 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2034,7 +2034,7 @@ EXPORT_SYMBOL(drm_edid_block_valid);
-  *
-  * Return: True if the EDID data is valid, false otherwise.
-  */
--bool drm_edid_is_valid(struct edid *edid)
-+bool drm_edid_is_valid(const struct edid *edid)
- {
- 	int i;
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index f2aefff618dd..c477d98ade2b 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -25,6 +25,22 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.ident.name = "NE135FBM-N41",
+ 		.min_brightness = 0,
+ 	},
++	/* 13 inch glossy panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x095f),
++		.ident.name = "NE135FBM-N41",
++		.min_brightness = 0,
++	},
++	/* 13 inch 2.8k panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0cb4),
++		.ident.name = "NE135A1M-NY1",
++		.min_brightness = 0,
++	},
+ };
  
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index 6bdfa254a1c1..a5b377c4a342 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -442,7 +442,7 @@ int drm_add_modes_noedid(struct drm_connector *connector,
- int drm_edid_header_is_valid(const void *edid);
- bool drm_edid_block_valid(u8 *raw_edid, int block, bool print_bad_edid,
- 			  bool *edid_corrupt);
--bool drm_edid_is_valid(struct edid *edid);
-+bool drm_edid_is_valid(const struct edid *edid);
- void drm_edid_get_monitor_name(const struct edid *edid, char *name,
- 			       int buflen);
- struct drm_display_mode *drm_mode_find_dmt(struct drm_device *dev,
+ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
 
 -- 
 2.46.0
