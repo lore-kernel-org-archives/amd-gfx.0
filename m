@@ -4,63 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE21C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 14:13:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DD8EC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 14:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEDF10E282;
-	Mon, 19 Aug 2024 14:13:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5214310E28E;
+	Mon, 19 Aug 2024 14:20:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HdbS8ayh";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="GeO1Zn5B";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3BC710E282
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 14:13:11 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-7a23fbb372dso2525903a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 07:13:11 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169FE10E28F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 14:20:23 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-428e09ee91eso4785045e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 07:20:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724076791; x=1724681591; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E9nyer25LX0/Q7za3zN7Hq/p3i4Z7klwNSwuwFTvsPI=;
- b=HdbS8ayheLmTnEcDIBdzMgcUjH6FB1/OJeIIPpCV1xkZJkJdRQJgjmxbPe0liRy/2w
- XQDGv+Yzvxeq9/ay/bcezKF1hzczmdV2gjNRYQT9Ct0Pscz6O7sVb8UEwKItwz9/NBWw
- TOEMEjxLmzMS6CeZGczLnrjGFnSZP5ver4tE0l8MwNYzAgyiXacM1ejXCwHRocOmXltk
- M09QIcKDDj3wZJkycxAeew1gIwv8+/GY8wPqtI1i3Z5ufeatFIOhEdqLCM8Ky+qPvDE5
- l1/32h7trNTCo9FwjuYyfkT6pOS+0VdLCU8gBDhxA+u44OSek2pVT99t5LATNJvodFJG
- rwag==
+ d=ffwll.ch; s=google; t=1724077221; x=1724682021; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=89fVC9GjbHEsaGrVRfjMkxxWWpHDL7IRXbh656IqMi4=;
+ b=GeO1Zn5BJAx5SIH+F6ropkd54wvJTcHG567nQ8MdEwfrfL/pFwN4Z8JMrJg7JAKy0A
+ i17wB6GFCHN4IbY7YhmtRcfmV3zfIhX6uVO/Ta9uuR2oDPDkduueWg1EYDgZkaGWzOnI
+ Xq6T7ndewn/aG0B11nFCCZtmai+llKyLsFDRk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724076791; x=1724681591;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=E9nyer25LX0/Q7za3zN7Hq/p3i4Z7klwNSwuwFTvsPI=;
- b=j+m1QgcZTolFj3/0tvmeOOFaxEJPsLYnIMWPHZJlzY8MG4tuSF99nmgmJKCDP8UOHd
- RI+wgesVz7SvcuVhldMEx3PsizHtnT4eTJpskWg4mir0KD9DKjSu2/BriUoas1SMMwUC
- WK8i7jUqxOLzFBPixqySXDPy/XGSKnzcG5e3EgEOoiJGpndGvXHji7Gv6k8g++yRpfGc
- Oj0X4/qdJSrzWqFIAKOPqrjm7xgD/RPEJQ208W0UZ8RismGHJ4RB9XXHVdsAAcMgyudc
- Wvt4kujztJ/tOLsFQUjxjC+j/ZfbvNNS+s9BG8OXFnuMYprmLH1jOmto5vcOYhCTLtU8
- Na6w==
-X-Gm-Message-State: AOJu0YxHlcm0yXZiclUJcHGBAyuSEnhkZ177og/fDWhqXokXX/EaR/da
- Mv3KlvYzufagWLMSTw/RszjqqV6IJATMIZxel7zsO/1hsPGwmONFVomN6cKoTmPCxnYWE0FayQl
- cK8zlgDJf0sUkIPgE8Dvfru0nhwmGVg==
-X-Google-Smtp-Source: AGHT+IHYxvlj1X9RniTdBoyI51wtib/T2A7tlR1QtDSky2Lb+zxprqHBZfxHhp0ZvrelUOqFVHkVo9dvYMr+BxKq2js=
-X-Received: by 2002:a17:90b:4d8f:b0:2c9:a3d4:f044 with SMTP id
- 98e67ed59e1d1-2d3dffc0f59mr9086559a91.11.1724076790781; Mon, 19 Aug 2024
- 07:13:10 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1724077221; x=1724682021;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=89fVC9GjbHEsaGrVRfjMkxxWWpHDL7IRXbh656IqMi4=;
+ b=XS1O86w78cjM6j+mxER0BcSkhwMw/aaKib0p/pw078arLaQR/D8hH4OtkJV4hYCfHT
+ +Pmf/rscI2OM07i6QE/pNDG6hrhw3Y9BRRMAhhQe4txf/AGzVDhCoCJXBNZCmJJ5q2ue
+ CuKsbMueg8z9fw9JFeG5CuIY8AVwYr6hwubFL8VDwTVCyntqElsNrN9YdhgeatY9s3kI
+ prwB6TByJWFQZlip8rt8b4NDesNx9D5zfqHp9t2nxMOExqP4G6JwIOmgSeoDDpasEuLu
+ 366rAVFit05FaH36VljGuhi6uJrkK7HWnyLjuJSA4j/PDI5QX7Gnrs2ni9Qyscl93RWh
+ S93g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/5m7CJMk4xDFAGnqBOmVb55Cx17jHBH5uNOH62XyHJEbUzd5+rNvKfPwzaw5vIcBSPQjtbU5ASffO61zVH4J+YqKcoknOELiN6kWw6A==
+X-Gm-Message-State: AOJu0Ywa0lCeO6iVDfAxY5FZgYdKGrzsMGrWXE+fNSMUHjT9fyWYd55M
+ eRQ8mvYTylOWMbRA74WWliW2MfUHmerCPUUB2gn8jAE8fuOtfW6fx++DY76NLXg=
+X-Google-Smtp-Source: AGHT+IEZpd+iWzsV5jfXUTSP8jclTWP8wCsAQhAetrQe5fGBQatgefAo3vZ9yN/+fe/HkRBh/t/8tg==
+X-Received: by 2002:a5d:47c4:0:b0:368:aa2:2b4f with SMTP id
+ ffacd0b85a97d-3719431df4bmr3961878f8f.2.1724077221210; 
+ Mon, 19 Aug 2024 07:20:21 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-371898aacf9sm10665736f8f.102.2024.08.19.07.20.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Aug 2024 07:20:20 -0700 (PDT)
+Date: Mon, 19 Aug 2024 16:20:18 +0200
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Rob Clark <robdclark@gmail.com>, Tvrtko Ursulin <tursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Rob Clark <robdclark@chromium.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 1/2] Documentation/gpu: Document the situation with
+ unqualified drm-memory-
+Message-ID: <ZsNUooau_t4Ax4Pe@phenom.ffwll.local>
+References: <20240813135712.82611-1-tursulin@igalia.com>
+ <20240813135712.82611-2-tursulin@igalia.com>
+ <CAF6AEGvbZDg4K642HJtNAhj2f8Sv9DvfU+en52gi42=ssPiNnQ@mail.gmail.com>
+ <51bb99fd-4f50-41b0-836d-69606c50321c@igalia.com>
 MIME-Version: 1.0
-References: <CA+Y=x3n+X6PDza5KAG2fy2wLh0-w5mWQtvKbWvT3E3A0r_makg@mail.gmail.com>
-In-Reply-To: <CA+Y=x3n+X6PDza5KAG2fy2wLh0-w5mWQtvKbWvT3E3A0r_makg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 Aug 2024 10:12:58 -0400
-Message-ID: <CADnq5_N-pvp8czodNT=YDFsqRz-Tet4GHK-JWiDdHnfL-2YF-w@mail.gmail.com>
-Subject: Re: v6.11-rc4 amdgpu regression from v6.10.0
-To: Andrew Worsley <amworsley@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <51bb99fd-4f50-41b0-836d-69606c50321c@igalia.com>
+X-Operating-System: Linux phenom 6.9.12-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,99 +88,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 19, 2024 at 9:55=E2=80=AFAM Andrew Worsley <amworsley@gmail.com=
-> wrote:
->
-> The v6.11-rc4 linux hangs during amdgpu start up where as the v6.10.0
-> is fine. I had to take a photo of the screen (see attachment) from
-> which I generated
-> the following summary:
->
->     Booting linux v6.11-rc4 :
-> ...
-> amdgpu: Virtual CRAT table created for CPU
-> amdgpu: Topology: Add CPU node
-> initializing kernel modesetting (IP DISCOVERY 0x1002:0x15BF 0xF111:0x0005=
- 0xC2).
-> register mmio base: 0x90500000
-> register mmio size: 524288
-> add ip block number 0 <soc21_common>
-> add ip block number 1 <gmc_v11_0>
-> add ip block number 2 <ih_v6_0>
-> add ip block number 3 <psp>
-> add ip block number 4 <smu>
-> add ip block number 5 <dm>
-> add ip block number 6 <gfx_v11_0>
-> add ip block number 7 <sdma_v6_0>
-> add ip block number 8 <vcn_v4_0>
-> add ip block number 9 <jpeg_v4_0>
-> add ip block number 10 <mes_v11_0>
-> amdgpu 0000:c1:00.0: amdgpu: Fetched VBIOS from VFCT
-> amdgpu: ATOM BIOS: 113-PHXGENERIC-001
-> amdgpu 0000:c1:00.0: Direct firmware load for
-> amdgpu/gc_11_0_1_mes_2.bin failed with error -2
-> amdgpu 0000:c1:00.0: amdgpu: try to fall back to amdgpu/gc_11_0_1_mes.bin
+On Thu, Aug 15, 2024 at 09:37:31AM +0100, Tvrtko Ursulin wrote:
+> 
+> On 13/08/2024 19:47, Rob Clark wrote:
+> > On Tue, Aug 13, 2024 at 6:57 AM Tvrtko Ursulin <tursulin@igalia.com> wrote:
+> > > 
+> > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > 
+> > > Currently it is not well defined what is drm-memory- compared to other
+> > > categories.
+> > > 
+> > > In practice the only driver which emits these keys is amdgpu and in them
+> > > exposes the current resident buffer object memory (including shared).
+> > > 
+> > > To prevent any confusion, document that drm-memory- is deprecated and an
+> > > alias for drm-resident-memory-.
+> > > 
+> > > While at it also clarify that the reserved sub-string 'memory' refers to
+> > > the memory region component, and also clarify the intended semantics of
+> > > other memory categories.
+> > > 
+> > > v2:
+> > >   * Also mark drm-memory- as deprecated.
+> > >   * Add some more text describing memory categories. (Alex)
+> > > 
+> > > v3:
+> > >   * Semantics of the amdgpu drm-memory is actually as drm-resident.
+> > > 
+> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > Cc: Christian König <christian.keonig@amd.com>
+> > > Cc: Rob Clark <robdclark@chromium.org>
+> > 
+> > Reviewed-by: Rob Clark <robdclark@gmail.com>
+> 
+> Thanks!
+> 
+> So this one is stand alone and could be pushed to drm-misc-next.
 
--2 is -ENOENT which means the driver was not able to find the
-firmware.  I suspect you either didn't include the firmware in your
-kernel image (if you are building the driver in), or didn't include
-the firmware in your initrd (if the driver was built as a module).
+fwiw on the series Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Alex
+> 2/2 can wait for AMD to give a verdict.
 
->
->   *** Hangs with this displayed on the console ****
->     - have to power off computer to recover
->
-> Perfectly successful boot with v6.10.0 kernel :
->
-> [    2.478302] [drm] amdgpu kernel modesetting enabled.
-> [    2.485206] amdgpu: Virtual CRAT table created for CPU
-> [    2.485817] amdgpu: Topology: Add CPU node
-> [    2.486525] [drm] initializing kernel modesetting (IP DISCOVERY
-> 0x1002:0x15BF 0xF111:0x0005 0xC2).
-> [    2.487225] [drm] register mmio base: 0x90500000
-> [    2.487809] [drm] register mmio size: 524288
-> [    2.492629] [drm] add ip block number 0 <soc21_common>
-> [    2.493310] [drm] add ip block number 1 <gmc_v11_0>
-> [    2.493973] [drm] add ip block number 2 <ih_v6_0>
-> [    2.494617] [drm] add ip block number 3 <psp>
-> [    2.495255] [drm] add ip block number 4 <smu>
-> [    2.495880] [drm] add ip block number 5 <dm>
-> [    2.496499] [drm] add ip block number 6 <gfx_v11_0>
-> [    2.497114] [drm] add ip block number 7 <sdma_v6_0>
-> [    2.497717] [drm] add ip block number 8 <vcn_v4_0>
-> [    2.498313] [drm] add ip block number 9 <jpeg_v4_0>
-> [    2.498899] [drm] add ip block number 10 <mes_v11_0>
-> [    2.499479] amdgpu 0000:c1:00.0: amdgpu: Fetched VBIOS from VFCT
-> [    2.500063] amdgpu: ATOM BIOS: 113-PHXGENERIC-001
-> [    2.501760] [drm] VCN(0) encode/decode are enabled in VM mode
-> [    2.502588] amdgpu 0000:c1:00.0: [drm:jpeg_v4_0_early_init
-> [amdgpu]] JPEG decode is enabled in VM mode
-> [    2.503426] amdgpu 0000:c1:00.0: Direct firmware load for
-> amdgpu/gc_11_0_1_mes_2.bin failed with error -2
-> [    2.504043] [drm] try to fall back to amdgpu/gc_11_0_1_mes.bin
-> [    2.505117] Console: switching to colour dummy device 80x25
-> [    2.505144] amdgpu 0000:c1:00.0: vgaarb: deactivate vga console
-> [    2.505147] amdgpu 0000:c1:00.0: amdgpu: Trusted Memory Zone (TMZ)
-> feature enabled
-> [    2.505193] [drm] vm size is 262144 GB, 4 levels, block size is
-> 9-bit, fragment size is 9-bit
-> [    2.505218] amdgpu 0000:c1:00.0: amdgpu: VRAM: 2048M
-> 0x0000008000000000 - 0x000000807FFFFFFF (2048M used)
-> [    2.505223] amdgpu 0000:c1:00.0: amdgpu: GART: 512M
-> 0x00007FFF00000000 - 0x00007FFF1FFFFFFF
-> [    2.505237] [drm] Detected VRAM RAM=3D2048M, BAR=3D2048M
-> [    2.505240] [drm] RAM width 128bits DDR5
-> [    2.505418] [drm] amdgpu: 2048M of VRAM memory ready
-> [    2.505422] [drm] amdgpu: 31048M of GTT memory ready.
-> [    2.505436] [drm] GART: num cpu pages 131072, num gpu pages 131072
-> [    2.505600] [drm] PCIE GART of 512M enabled (table at 0x000000807FD000=
-00).
-> [    2.506246] [drm] Loading DMUB firmware via PSP: version=3D0x08000500
-> [    2.506550] [drm] Found VCN firmware Version ENC: 1.10 DEC: 5 VEP:
-> 0 Revision: 0
-> [    2.506558] amdgpu 0000:c1:00.0: amdgpu: Will use PSP to load VCN firm=
-ware
-> [    2.531970] amdgpu 0000:c1:00.0: amdgpu: reserve 0x4000000 from
-> 0x8078000000 for PSP TMR
+Imo best to wait a bit, unless Alex takes a while to get around to this.
+-Sima
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+> > 
+> > > ---
+> > >   Documentation/gpu/drm-usage-stats.rst | 25 ++++++++++++++++++++++---
+> > >   1 file changed, 22 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+> > > index a80f95ca1b2f..ff964c707754 100644
+> > > --- a/Documentation/gpu/drm-usage-stats.rst
+> > > +++ b/Documentation/gpu/drm-usage-stats.rst
+> > > @@ -144,7 +144,9 @@ Memory
+> > > 
+> > >   Each possible memory type which can be used to store buffer objects by the
+> > >   GPU in question shall be given a stable and unique name to be returned as the
+> > > -string here.  The name "memory" is reserved to refer to normal system memory.
+> > > +string here.
+> > > +
+> > > +The region name "memory" is reserved to refer to normal system memory.
+> > > 
+> > >   Value shall reflect the amount of storage currently consumed by the buffer
+> > >   objects belong to this client, in the respective memory region.
+> > > @@ -152,6 +154,9 @@ objects belong to this client, in the respective memory region.
+> > >   Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+> > >   indicating kibi- or mebi-bytes.
+> > > 
+> > > +This key is deprecated and is an alias for drm-resident-<region>. Only one of
+> > > +the two should be present in the output.
+> > > +
+> > >   - drm-shared-<region>: <uint> [KiB|MiB]
+> > > 
+> > >   The total size of buffers that are shared with another file (e.g., have more
+> > > @@ -159,20 +164,34 @@ than a single handle).
+> > > 
+> > >   - drm-total-<region>: <uint> [KiB|MiB]
+> > > 
+> > > -The total size of buffers that including shared and private memory.
+> > > +The total size of all created buffers including shared and private memory. The
+> > > +backing store for the buffers does not have to be currently instantiated to be
+> > > +counted under this category.
+> > > 
+> > >   - drm-resident-<region>: <uint> [KiB|MiB]
+> > > 
+> > > -The total size of buffers that are resident in the specified region.
+> > > +The total size of buffers that are resident (have their backing store present or
+> > > +instantiated) in the specified region.
+> > > +
+> > > +This is an alias for drm-memory-<region> and only one of the two should be
+> > > +present in the output.
+> > > 
+> > >   - drm-purgeable-<region>: <uint> [KiB|MiB]
+> > > 
+> > >   The total size of buffers that are purgeable.
+> > > 
+> > > +For example drivers which implement a form of 'madvise' like functionality can
+> > > +here count buffers which have instantiated backing store, but have been marked
+> > > +with an equivalent of MADV_DONTNEED.
+> > > +
+> > >   - drm-active-<region>: <uint> [KiB|MiB]
+> > > 
+> > >   The total size of buffers that are active on one or more engines.
+> > > 
+> > > +One practical example of this can be presence of unsignaled fences in an GEM
+> > > +buffer reservation object. Therefore the active category is a subset of
+> > > +resident.
+> > > +
+> > >   Implementation Details
+> > >   ======================
+> > > 
+> > > --
+> > > 2.44.0
+> > > 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
