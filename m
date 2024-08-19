@@ -4,105 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F79CC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 07:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9656C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 08:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AEBB10E1E0;
-	Mon, 19 Aug 2024 07:54:01 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA2F10E1E0
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 07:54:00 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-428163f7635so35076955e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 00:54:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724054038; x=1724658838;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FlZwT6pjnvc9A8xGJk3o0Yg5cdbBO3XgHnFjzhYbPO4=;
- b=q3ed2yPUbO0ry9eDt1wDrdwfKbQ1NSb+mRRe8VFDsotb8DWYZD1h9jBwgtmdJbhCgY
- d+ZoLQ62N7DWmoRoSgivIE8hvwQduZkzESHXC4mG3Ilyd8dRgeTWq18QjnYeTxnMXZG4
- RbOwfv3RzVyiaNP6B8ocAYvzD4Z9TPvGSZxBQhd45zJ5bfxxVBQQVdJ+3aMMVx3FnhPB
- NCt/XZtlbDlKLzs+Ub0cb+/88PK1Di4o95sxfabQMidYVr+7Ff/dChW3M6qFlebrdWBM
- NkjOnJ/w1uxyRdlRGRGSO7ok2usclUK7pPQ9tRQ9nGnQwz0RT/stzRIrJnWfFEmqGGMU
- RN/w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVuh+LqJV7zss3DF8/EaJl4MIIdpbo4I1jfK00fDQlwzAQ4sFwm00mGdoUEDEzWMzrpU9H+nAI4QPGFC+F2TtyeUv7rOyPNgxPrwSzRyQ==
-X-Gm-Message-State: AOJu0YxueF9sSKuKrVhCf+Sn+RZWwnf5Wig2H/tBeblviXL0GbyjpJxz
- KXI/TbVKaUDyTHTb+B1ft43oXMxH1zTyX9R+6Eon4Cw6UpJnXvmK
-X-Google-Smtp-Source: AGHT+IGEgc7+JflSiRqI8UnzUT+yjtcH73j7nJZgkYF/IrNv0YcfWciwBp2bAjhFSET5NcGSFS+zPA==
-X-Received: by 2002:a05:600c:1c25:b0:429:a0d:b710 with SMTP id
- 5b1f17b1804b1-429ed79c76fmr61397605e9.12.1724054038179; 
- Mon, 19 Aug 2024 00:53:58 -0700 (PDT)
-Received: from ?IPV6:2a0b:e7c0:0:107::aaaa:69? ([2a0b:e7c0:0:107::aaaa:69])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ded287d0sm154144485e9.12.2024.08.19.00.53.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 00:53:57 -0700 (PDT)
-Message-ID: <0155b806-628b-4db7-ac87-7ba21013aefd@kernel.org>
-Date: Mon, 19 Aug 2024 09:53:56 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9167D10E1E6;
+	Mon, 19 Aug 2024 08:04:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ll7Qb2Ui";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9udWDGz9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EdzuyuQW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3dT3ANge";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A79F110E1DF;
+ Mon, 19 Aug 2024 08:04:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ED23922990;
+ Mon, 19 Aug 2024 08:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1724054664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ILJjJMgN/vVG1KF3mgEFsWgeLKvgG5ha1rlaYTvfjfY=;
+ b=ll7Qb2UikIV3JfslfL43CffJuCg5S8azRQkFt7+pKJSc1bnqbLHnYn8H74TEHcmwTzA2P6
+ mSNfghfY4+vzXBZd2B0FS49xSRcmg5AcJiG9eSHyfn5hYWW7ycCYK4GN9+rJfb+M2dvnRe
+ sEtmas8hbfZGzJBSqi9+GYkcVgnufZE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1724054664;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ILJjJMgN/vVG1KF3mgEFsWgeLKvgG5ha1rlaYTvfjfY=;
+ b=9udWDGz9JNWIHTPO1GWCDyL0L+B6f96+v/MqJfYJ9GPlheGCvSh97kBv1BuQkGiQZ/j4Ui
+ YnRLH9Z84kaziHAA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=EdzuyuQW;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3dT3ANge
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1724054662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ILJjJMgN/vVG1KF3mgEFsWgeLKvgG5ha1rlaYTvfjfY=;
+ b=EdzuyuQWN6253r2KEmvZH0p+TmfaRrPZjTQJ4FCrz3e1qndYwyXCkv0m8/REkOuuHHHKve
+ /lKAxsVWidXFls5aaaTbKdKmOgsVL2rF2Aq/d0JNcAHVFnVb8mMPdaCc/SE7RBuwfh2Y0h
+ b5ekwPZJigTVYnPQbQIjieQS5PkeODk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1724054662;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ILJjJMgN/vVG1KF3mgEFsWgeLKvgG5ha1rlaYTvfjfY=;
+ b=3dT3ANgebDVQeZe7yn3zs7di46UaOK5tmoY2v1v8YFw8gteun8uoCSPdPMblB+L1mW7fDr
+ ak1m1bPC1xSuqvCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 967B1137C3;
+ Mon, 19 Aug 2024 08:04:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oulsI4b8wmZLDQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Aug 2024 08:04:22 +0000
+Message-ID: <8bbf3f92-3719-4ff4-9587-e076635758d1@suse.de>
+Date: Mon, 19 Aug 2024 10:04:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.10 090/263] drm/amdgpu/pm: Fix the param type of
- set_power_profile_mode
-From: Jiri Slaby <jirislaby@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Xinhui.Pan@amd.com,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20240812160146.517184156@linuxfoundation.org>
- <20240812160149.990704280@linuxfoundation.org>
- <ecca67e7-4c71-4b51-a271-5066cb77a601@kernel.org>
+Subject: Re: [PATCH] video/aperture: match the pci device when calling
+ sysfb_disable()
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: kernel test robot <lkp@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>, Helge Deller <deller@gmx.de>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ stable@vger.kernel.org
+References: <20240809150327.2485848-1-alexander.deucher@amd.com>
+ <202408101951.tXyqYOzv-lkp@intel.com>
+ <1c77f913-4707-4300-b84a-36fcf99942f4@suse.de>
+ <CADnq5_NjCFyy+bQY+uyijcZwvwXYkvVLLUQdtzN_ODvHAj193Q@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <ecca67e7-4c71-4b51-a271-5066cb77a601@kernel.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CADnq5_NjCFyy+bQY+uyijcZwvwXYkvVLLUQdtzN_ODvHAj193Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: ED23922990
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,intel.com:email,suse.de:dkim,suse.de:mid,suse.de:email,01.org:url];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FREEMAIL_TO(0.00)[gmail.com];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[12]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ FREEMAIL_CC(0.00)[intel.com,amd.com,lists.freedesktop.org,lists.linux.dev,redhat.com,gmx.de,ravnborg.org,ffwll.ch,vger.kernel.org];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email, suse.de:dkim, suse.de:mid,
+ suse.de:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,202 +158,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FTR:
-Delivery has failed to these recipients or groups:
-Ma Jun (Jun.Ma2@amd.com)
-The email address you entered couldn't be found
+Hi
 
-So the author of the patch CANNOT respond. Anyone else?
+Am 16.08.24 um 22:57 schrieb Alex Deucher:
+> On Mon, Aug 12, 2024 at 8:10 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
+>>
+>> Am 10.08.24 um 13:44 schrieb kernel test robot:
+>>> Hi Alex,
+>>>
+>>> kernel test robot noticed the following build errors:
+>>>
+>>> [auto build test ERROR on drm-misc/drm-misc-next]
+>>> [also build test ERROR on linus/master v6.11-rc2 next-20240809]
+>>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>>> And when submitting patch, we suggest to use '--base' as documented in
+>>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>>>
+>>> url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Deucher/video-aperture-match-the-pci-device-when-calling-sysfb_disable/20240810-021357
+>>> base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+>>> patch link:    https://lore.kernel.org/r/20240809150327.2485848-1-alexander.deucher%40amd.com
+>>> patch subject: [PATCH] video/aperture: match the pci device when calling sysfb_disable()
+>>> config: csky-randconfig-001-20240810 (https://download.01.org/0day-ci/archive/20240810/202408101951.tXyqYOzv-lkp@intel.com/config)
+>>> compiler: csky-linux-gcc (GCC) 14.1.0
+>>> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240810/202408101951.tXyqYOzv-lkp@intel.com/reproduce)
+>>>
+>>> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+>>> the same patch/commit), kindly add following tags
+>>> | Reported-by: kernel test robot <lkp@intel.com>
+>>> | Closes: https://lore.kernel.org/oe-kbuild-all/202408101951.tXyqYOzv-lkp@intel.com/
+>>>
+>>> All errors (new ones prefixed by >>):
+>>>
+>>>      csky-linux-ld: drivers/video/aperture.o: in function `aperture_remove_conflicting_pci_devices':
+>>>>> aperture.c:(.text+0x222): undefined reference to `screen_info_pci_dev'
+>> Strange. There's a already placeholder [1] for architectures without
+>> PCI. Otherwise the source file is listed at [2].
+> So I dug into this, and the problem seems to be that
+> CONFIG_SCREEN_INFO is not defined in that config.  I can't figure out
+> how this should work in that case or why this is not a problem in
+> drivers/firmware/sysfb.c.
+>
+> Something like this works:
+> diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
+> index 56a5a0bc2b1af..50e98210c9fe5 100644
+> --- a/drivers/video/aperture.c
+> +++ b/drivers/video/aperture.c
+> @@ -347,7 +347,9 @@ EXPORT_SYMBOL(__aperture_remove_legacy_vga_devices);
+>    */
+>   int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev,
+> const char *name)
+>   {
+> +#if defined(CONFIG_SCREEN_INFO)
+>          struct screen_info *si = &screen_info;
+> +#endif
+>          bool primary = false;
+>          resource_size_t base, size;
+>          int bar, ret = 0;
+> @@ -355,8 +357,10 @@ int
+> aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const
+> char *na
+>          if (pdev == vga_default_device())
+>                  primary = true;
+>
+> +#if defined(CONFIG_SCREEN_INFO)
+>          if (pdev == screen_info_pci_dev(si))
+>                  sysfb_disable();
+> +#endif
+>
+>          for (bar = 0; bar < PCI_STD_NUM_BARS; ++bar) {
+>                  if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM))
+>
+> But that can't be the right fix...  Any ideas?
 
-On 19. 08. 24, 9:49, Jiri Slaby wrote:
-> On 12. 08. 24, 18:01, Greg Kroah-Hartman wrote:
->> 6.10-stable review patch.  If anyone has any objections, please let me 
->> know.
+Thanks for investigating. I'd say we should pass the device (pdev->dev) 
+to sysfb_disable() and  do the test there. In sysfb.c, next to 
+sysfb_disable(), you'll find sysfb_parent_dev(), which gives the Linux 
+device of the screen_info.
+
+The code then looks something like this:
+
+sysfb_disable(struct device *dev)
+{
+     if (dev && dev == sysfb_parent_dev(screen_info))
+       return
+
+   /* else do the current code */
+}
+
+there's an invocation of sysfb_disable() in drivers/of/platform.c where 
+you can pass NULL.
+
+Best regards
+Thomas
+
+>
+> Alex
+>
+>> [1]
+>> https://elixir.bootlin.com/linux/v6.10/source/include/linux/screen_info.h#L127
+>> [2] https://elixir.bootlin.com/linux/v6.10/source/drivers/video/Makefile#L11
 >>
->> ------------------
+>> Best regards
+>> Thomas
 >>
->> From: Ma Jun <Jun.Ma2@amd.com>
+>>>      csky-linux-ld: drivers/video/aperture.o: in function `devm_aperture_acquire_release':
+>>>>> aperture.c:(.text+0x2c0): undefined reference to `screen_info'
+>>>>> csky-linux-ld: aperture.c:(.text+0x2c4): undefined reference to `screen_info_pci_dev'
+>> --
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstrasse 146, 90461 Nuernberg, Germany
+>> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+>> HRB 36809 (AG Nuernberg)
 >>
->> [ Upstream commit f683f24093dd94a831085fe0ea8e9dc4c6c1a2d1 ]
->>
->> Function .set_power_profile_mode need an array as input
->> parameter.
-> 
-> Which one and why?
-> 
-> static int smu_bump_power_profile_mode(struct smu_context *smu,
->                                             long *param,
->                                             uint32_t param_size)
-> 
->    int (*set_power_profile_mode)(struct smu_context *smu, long *input, 
-> uint32_t size);
-> 
-> static int pp_set_power_profile_mode(void *handle, long *input, uint32_t 
-> size)
-> 
->    int (*set_power_profile_mode)(struct pp_hwmgr *hwmgr, long *input, 
-> uint32_t size);
-> 
-> static int smu10_set_power_profile_mode(struct pp_hwmgr *hwmgr, long 
-> *input, uint32_t size)
-> {
->          int workload_type = 0;
->          int result = 0;
-> 
->          if (input[size] > PP_SMC_POWER_PROFILE_COMPUTE) {
-> 
-> 
-> There is absolutely no problem doing input[0] when a pointer to a local 
-> non-array variable is passed, is it?
-> 
->> So define variable workload as an array to fix
->> the below coverity warning.
-> 
-> This very much looks like one of many Coverity false positives.
-> 
->> "Passing &workload to function hwmgr->hwmgr_func->set_power_profile_mode
->> which uses it as an array. This might corrupt or misinterpret adjacent
->> memory locations"
-> 
-> Care to explain how this fixes anything but a Coverity false positive? 
-> Why was this included in a stable tree at all?
-> 
->> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ...
->> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
->> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
->> @@ -929,7 +929,7 @@ static int pp_dpm_switch_power_profile(void *handle,
->>           enum PP_SMC_POWER_PROFILE type, bool en)
->>   {
->>       struct pp_hwmgr *hwmgr = handle;
->> -    long workload;
->> +    long workload[1];
-> 
-> This only obfuscates the code. So please revert this if you cannot 
-> explain what real issue this actually fixes.
-> 
->>       uint32_t index;
->>       if (!hwmgr || !hwmgr->pm_en)
->> @@ -947,12 +947,12 @@ static int pp_dpm_switch_power_profile(void 
->> *handle,
->>           hwmgr->workload_mask &= ~(1 << hwmgr->workload_prority[type]);
->>           index = fls(hwmgr->workload_mask);
->>           index = index > 0 && index <= Workload_Policy_Max ? index - 
->> 1 : 0;
->> -        workload = hwmgr->workload_setting[index];
->> +        workload[0] = hwmgr->workload_setting[index];
->>       } else {
->>           hwmgr->workload_mask |= (1 << hwmgr->workload_prority[type]);
->>           index = fls(hwmgr->workload_mask);
->>           index = index <= Workload_Policy_Max ? index - 1 : 0;
->> -        workload = hwmgr->workload_setting[index];
->> +        workload[0] = hwmgr->workload_setting[index];
->>       }
->>       if (type == PP_SMC_POWER_PROFILE_COMPUTE &&
->> @@ -962,7 +962,7 @@ static int pp_dpm_switch_power_profile(void *handle,
->>       }
->>       if (hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL)
->> -        hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, &workload, 0);
->> +        hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, workload, 0);
->>       return 0;
->>   }
->> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c 
->> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
->> index 1d829402cd2e2..f4bd8e9357e22 100644
->> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
->> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pp_psm.c
->> @@ -269,7 +269,7 @@ int psm_adjust_power_state_dynamic(struct pp_hwmgr 
->> *hwmgr, bool skip_display_set
->>                           struct pp_power_state *new_ps)
->>   {
->>       uint32_t index;
->> -    long workload;
->> +    long workload[1];
->>       if (hwmgr->not_vf) {
->>           if (!skip_display_settings)
->> @@ -294,10 +294,10 @@ int psm_adjust_power_state_dynamic(struct 
->> pp_hwmgr *hwmgr, bool skip_display_set
->>       if (hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL) {
->>           index = fls(hwmgr->workload_mask);
->>           index = index > 0 && index <= Workload_Policy_Max ? index - 
->> 1 : 0;
->> -        workload = hwmgr->workload_setting[index];
->> +        workload[0] = hwmgr->workload_setting[index];
->> -        if (hwmgr->power_profile_mode != workload && 
->> hwmgr->hwmgr_func->set_power_profile_mode)
->> -            hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, 
->> &workload, 0);
->> +        if (hwmgr->power_profile_mode != workload[0] && 
->> hwmgr->hwmgr_func->set_power_profile_mode)
->> +            hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, 
->> workload, 0);
->>       }
->>       return 0;
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c 
->> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> index e1796ecf9c05c..06409133b09b1 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> @@ -2220,7 +2220,7 @@ static int smu_adjust_power_state_dynamic(struct 
->> smu_context *smu,
->>   {
->>       int ret = 0;
->>       int index = 0;
->> -    long workload;
->> +    long workload[1];
->>       struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
->>       if (!skip_display_settings) {
->> @@ -2260,10 +2260,10 @@ static int 
->> smu_adjust_power_state_dynamic(struct smu_context *smu,
->>           smu_dpm_ctx->dpm_level != 
->> AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM) {
->>           index = fls(smu->workload_mask);
->>           index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 
->> 1 : 0;
->> -        workload = smu->workload_setting[index];
->> +        workload[0] = smu->workload_setting[index];
->> -        if (smu->power_profile_mode != workload)
->> -            smu_bump_power_profile_mode(smu, &workload, 0);
->> +        if (smu->power_profile_mode != workload[0])
->> +            smu_bump_power_profile_mode(smu, workload, 0);
->>       }
->>       return ret;
->> @@ -2313,7 +2313,7 @@ static int smu_switch_power_profile(void *handle,
->>   {
->>       struct smu_context *smu = handle;
->>       struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
->> -    long workload;
->> +    long workload[1];
->>       uint32_t index;
->>       if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->> @@ -2326,17 +2326,17 @@ static int smu_switch_power_profile(void *handle,
->>           smu->workload_mask &= ~(1 << smu->workload_prority[type]);
->>           index = fls(smu->workload_mask);
->>           index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 
->> 1 : 0;
->> -        workload = smu->workload_setting[index];
->> +        workload[0] = smu->workload_setting[index];
->>       } else {
->>           smu->workload_mask |= (1 << smu->workload_prority[type]);
->>           index = fls(smu->workload_mask);
->>           index = index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
->> -        workload = smu->workload_setting[index];
->> +        workload[0] = smu->workload_setting[index];
->>       }
->>       if (smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL &&
->>           smu_dpm_ctx->dpm_level != 
->> AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM)
->> -        smu_bump_power_profile_mode(smu, &workload, 0);
->> +        smu_bump_power_profile_mode(smu, workload, 0);
->>       return 0;
->>   }
-> 
-> thanks,
 
 -- 
-js
-suse labs
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
