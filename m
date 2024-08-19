@@ -4,66 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA3BC3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 19:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F823C52D7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 19:23:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFE7C10E0A3;
-	Mon, 19 Aug 2024 19:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D855E10E33B;
+	Mon, 19 Aug 2024 19:23:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pyhbVvkR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="feGAHZT9";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC9610E0A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 19:23:02 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCAF10E33B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 19:23:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=szpwo96tkyRvnuIeyInNQ4Bm1mAXcMP7+lDyekED3HdQeJb20bAqbYKiaW4Ds14iR/1Xj0+ggtKD8aKvflY7/c/FQ7A4Mtgx81irbqJ+jDGFzeeFW7CYvvmqVyVoZtKvKdetcTv0VTecoaSo9mPczYwd0x3ClfpSEYsoTQdTTyRQd+tA0AHXzW9ghv/dA3r8xNP+l0LtZ4APpgBvcoYzP383t3c22jsj63MigwPMZKMeLCRoz8an8FDN/4vvCLdv+HXGEv8VCTmxlkeAE5yzc79Z5KVsES+2vmcMg7HB/3MnpsX9wffyHg9k2efY1NrzJgBIVEodbNboAD5R5bEW6w==
+ b=qhwR0f4XW7vTXY8XVin63TGb+Z0nUwadlI5GuG8BUVnt2r9ZVVXHSMkXOn706aymFj3teUW/xGJjkIruBRcD6WMFUtzqYpqFUl/goFmNFossxq1H147PPpDXqk02qzQAdLlTKJ5mZDRIeRg4GRR9Ili4FUnyyjkMunKk3s9A8oGCJworrA7L7cUgKUyNz/VkVJoVWpWBACX0fT/k9XpM1jPiiXd+j8R/+U7OfMWix+uzcl9UwSjKtqrAs21QhFaqbFIZyt+Wsj1huBUypXHy2LzSIvfKbmkf7RgB6NgYGIb4Y2sNien4LQrZTyObYgmGmPvTP/0mIikN8eLfevkTYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TC0mxRhHyHLDteYngIuqZdoeXC6rsTA+rvsqSu2LuE0=;
- b=RfKA6wBZ0ovoAWlxC1l+PML5oP3+mJoQSDmQnG+xyBdxkSmRYf0cJFcnlqPr2MXg5j1AoluRz6YGLG53TgzRuDOvQslQ4bSuVu6fx7BDLUhqSHDRbzWOsL16Xi0ewUCqutaTHD5OchkUZ19CnZvMY6Tzv8HARBuiOsjxtu14zOc1WAu+U5+edcRDJgbiML8R0fvTtXi2h24XStDW7E46fMLFhCUF21cjb73bMm/0fI2PLdtfe1qtcNAnfBXLa2wUW5PeB6eGQaqh2lleQZp/P1rV9+WUGYSl3z0sm2f5oGvIwXUGqHURYeJIi12EwXfNAqfdkoAM69K5G3Nt+E67DA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=NnXvuGJgLjBPwV/dDcVApssrCxodhZG2pjuP+5LNNIc=;
+ b=OmreX5OHfF9A+xF9U74fINzoc6uwrWfTgKpnkH/QvOxTTslXsMhVmP9d4df/gi7Qd9cwmUhxtNT1gwndjD1UzHRqz1Te6qp8h+JlFK+KbIMlAeHT3ym0jAFtjB1FH+0RfER7g1PyV8lFz6+mv0r3DD/9RxtOGISRT0pe6oeqsPezc9X+YsAFGYueX5LpZTJjncgfYw+BB0YpQnlmU93NwIXf2laVSw2+zAfx9scoHKd/50DkMWptdL7N+BPgHmDubW+pHnpvjP7NrfLFNAsGt0Fl6Ur1VFbPdM9HPRTEojBYpixcXL2FsJX2RwnBKbPijVVYGJKR/0vCDHP5ePYWyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TC0mxRhHyHLDteYngIuqZdoeXC6rsTA+rvsqSu2LuE0=;
- b=pyhbVvkRj4KKM//lD2hTxTJ1mGSlMuPmUYmYyIMSR6H4YexWXT0CveMSns9S4XhqE8oaaTjXkm3ktBW2G+zkfJMtnFdm/KQBFK5ptnEsUb5xskNbPMLsvTBLmyuAhUSEMsMDi6TwjjPVsGT+gbkrxbpLhvtANFz7hZp473mfnR8=
-Received: from CH2PR05CA0037.namprd05.prod.outlook.com (2603:10b6:610:38::14)
- by SA3PR12MB9179.namprd12.prod.outlook.com (2603:10b6:806:3a1::12)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=NnXvuGJgLjBPwV/dDcVApssrCxodhZG2pjuP+5LNNIc=;
+ b=feGAHZT9qaQe/KRELhfGsVG13CCSR7qu1O0dFlMWpaQqgsB/Vf2CPelS/Ut+gaOEkjN1LfHKFbTwZuzSlr4HciPv4Rre98MDHZIUi9S0Jm7TLkKbZD3Uo7Ybhqti0Xya37KgdMprWE7x8OFFEcmy4cc11gmrzjifmf50gm8vMK8=
+Received: from MW4PR03CA0164.namprd03.prod.outlook.com (2603:10b6:303:8d::19)
+ by DS7PR12MB8370.namprd12.prod.outlook.com (2603:10b6:8:eb::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Mon, 19 Aug
- 2024 19:22:54 +0000
-Received: from CH2PEPF00000143.namprd02.prod.outlook.com
- (2603:10b6:610:38:cafe::ee) by CH2PR05CA0037.outlook.office365.com
- (2603:10b6:610:38::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.13 via Frontend
- Transport; Mon, 19 Aug 2024 19:22:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ 2024 19:23:04 +0000
+Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
+ (2603:10b6:303:8d:cafe::30) by MW4PR03CA0164.outlook.office365.com
+ (2603:10b6:303:8d::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19 via Frontend
+ Transport; Mon, 19 Aug 2024 19:23:04 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000143.mail.protection.outlook.com (10.167.244.100) with Microsoft
+ SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.11 via Frontend Transport; Mon, 19 Aug 2024 19:22:54 +0000
+ 15.20.7897.11 via Frontend Transport; Mon, 19 Aug 2024 19:23:02 +0000
 Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 19 Aug
- 2024 14:22:49 -0500
+ 2024 14:22:55 -0500
 From: <sunpeng.li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Harry.Wentland@amd.com>, <chiahsuan.chung@amd.com>,
  <hamza.mahfooz@amd.com>, <roman.li@amd.com>, <aurabindo.pillai@amd.com>,
  <rodrigo.siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH v2 1/5] drm/amd: Introduce additional IPS debug flags
-Date: Mon, 19 Aug 2024 15:22:13 -0400
-Message-ID: <20240819192217.18799-1-sunpeng.li@amd.com>
+Subject: [PATCH v2 2/5] drm/amd/display: Go through dm for
+ allow_idle_optimizations
+Date: Mon, 19 Aug 2024 15:22:14 -0400
+Message-ID: <20240819192217.18799-2-sunpeng.li@amd.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240819192217.18799-1-sunpeng.li@amd.com>
+References: <20240819192217.18799-1-sunpeng.li@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,51 +75,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000143:EE_|SA3PR12MB9179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31e85525-8cce-4e4f-72b1-08dcc0845306
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|DS7PR12MB8370:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8a8fc60-2706-47b0-cdad-08dcc08457f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/NeCXq7nD35LGJkrRFrX+eRkNbtu4LgmIpGPUnT+ga/Qn5UvEa1bKFIbM51+?=
- =?us-ascii?Q?JoSrzAoSsHhQxBQcOlAVTxS5zZdF4qt3brGZ6XLR1JPtCj8qLoEfrJH5n/bI?=
- =?us-ascii?Q?GiAgK+T4g8AvrvxUiTg7M12KkNhT+uZU0aKnW4kboXhYT6/MMj324STaLvHC?=
- =?us-ascii?Q?9SmUbw3Q1/iJj1lO8azHiMHS0xc5AdObY3Gx4kD7L8vVWCEvgAe4BzMCw7Sw?=
- =?us-ascii?Q?aCBlNHj++p2su91dGrR46s88uzIxliv7eCUgb7DYWdhBR4JERnh9JHWp1JVU?=
- =?us-ascii?Q?O/qlHHXs0zdJqgNgiKi00vqfr0VHXoj8+Bh0r9HWoRNO0N3YkuRHQFy8PGIp?=
- =?us-ascii?Q?y8HMXi1wEfkjnpxwm2TrPO0xCeznZpF9kqPPggHtYgY+nPLWGYl7cCjDzU2E?=
- =?us-ascii?Q?HVYwBxIKnUdteV5FHh29LyX3OZs68+F9Ba1B573tOwg636+hoNE73Hvol5CY?=
- =?us-ascii?Q?WSNOWmVidwiTu1LIS806KhxLvZYlDYzcT2pPztOuftJlrCoEiCFbmN8qRHvk?=
- =?us-ascii?Q?xrbgLiCJ7HDkFuotlp27UgiCWD4DXrak7i4SRR8mmi7E3zekoJ6rcV+uyUug?=
- =?us-ascii?Q?tLT9SQEKl9k06t2BrhR0iUAuLz8i8HVcos0hQeMaINwscZoRt9VeOME5XhX1?=
- =?us-ascii?Q?Lbwz1S8Dd7qofG8cwlbfacmQ/h9c/6nsA/SaiBrtk1RfBPir4cqDrclyP3cG?=
- =?us-ascii?Q?mv3vUqG2Uj2juJjWtNJJT17+08uMjU9x+dERUsaQ6LcUWhyrmWVbocAUcoB+?=
- =?us-ascii?Q?bYPoizjcGihh41WYLtah7DsUsTvh2FCO4aWp/ZFA3xVV6QpQyf6XFtBi4E4w?=
- =?us-ascii?Q?LSQ7T0ZGFCg7IgMckul/wtBJCBb9umGygTB4wqCA6436H/6GCNhQW1+M+muz?=
- =?us-ascii?Q?IpSLfAh3+OSQmBCI/SYxRnTr/7ud/PpVA3aaRbZi4R3Z05oEhALDpPZQ+Bzs?=
- =?us-ascii?Q?uJ8wo4jHVFtfwyYvfcT62nVocnp7ofC1WlTB9SHBlV4zBdFCeHXHCebsnGUe?=
- =?us-ascii?Q?LhlUcbHPhRmWUMS80MLAsRCPDKYY09pTviRFnjfGnV/6kUhL7knqTvR3zqrF?=
- =?us-ascii?Q?ljV/FqzA6YRxsCk2jAZkMc6d+BJBcjmnHnWhztKSqzeDq281NAp49Xf/3MJb?=
- =?us-ascii?Q?6JaoymFm78lnfxZktQxOqu+XMWrijRGhL+Z6PnzQYmdPMTqckoxDrsO1PqMU?=
- =?us-ascii?Q?7kYEw91ZWudjCeHgtczXeEO5ns0K+n+SXDzS6FsUuNQ7fg+SqFHX8qLV0pG7?=
- =?us-ascii?Q?kWbqDcIuIWAWM4rngtJ+6ME4EE7cVJCP9ZJsKDgwq7ihaMEKMFeg+ZpnaU7d?=
- =?us-ascii?Q?LnUwZtioDD7IcOnx5xa2XDI224nuMCtUWTAC5bTQ6mn/N5sxdTACMC+inVyd?=
- =?us-ascii?Q?DGFU37VjTce/c/EGOE0LOGvGFyUqrYoNUattLSQLxNTgOnLRFj+nDMFlMmy0?=
- =?us-ascii?Q?fKjyULBYbqgohRipCAJPtGQflLOQfTSf?=
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?xvnmdmK0JTcw3pYQII8s8TikGTjMjHGC8fxrY/4ikgTl4cbXas5XmJuJxouV?=
+ =?us-ascii?Q?tTWIKampdgM45FuOZnZCXfsLi7gx/06sWWIt3Op0j4QdzEWGsnB36O5AB84z?=
+ =?us-ascii?Q?+AVluMqlinZmvz6wQZBgtShtloT1QW7WiMEk2xgHC04VSBDgLiJ4RZrygSd6?=
+ =?us-ascii?Q?+mqorkjjop0t/iaaQhXV6zfOmA+7/Bj7EPWwSnMS0s7uDyyB0Mu/NuRuF1rz?=
+ =?us-ascii?Q?oLM5pjmwCGI3ySARNapGCS7W5fpOyeNt2JmwZbdtK0mQHiXDGWTGRhgN33eT?=
+ =?us-ascii?Q?SIggE+rd/ng/HR7T80ZuHu2rU+iiOkrxwtIPk1AeJRBSCxBz+83HR6hkPCUz?=
+ =?us-ascii?Q?EX7FlceUiTiGA57fBcZ95PKTzY07KIaGhQsbSZzWaOzZPVdWZhWp/WEZyxZg?=
+ =?us-ascii?Q?7I02GqvhWFAv08NQUjg8yjkC+2ZOA9JphXlZI9JARHH9L1X2H4O1Ie9NaJGk?=
+ =?us-ascii?Q?MzB5+IBLxPdvu88Qx8PgaDGMBFtkNUaKP1vYUm3AODs0fjUA7cZsxFAmks9a?=
+ =?us-ascii?Q?obQXlISnVhCTz1LrcLboNK2bN7BaQhtTld8oUr5/6U6tCFU9W10YTdy/2Sq/?=
+ =?us-ascii?Q?b2S2xEmevh9OuuvHadt+wuO8Wb2lve0W3mcyGgeSYzkNPi+nvJwkxz06ibg2?=
+ =?us-ascii?Q?g3vGE8Eichvp8+eTWXTDSI8zLsuN7vrtiHor6Fs9SWVlMbnVDuHDLots0HmH?=
+ =?us-ascii?Q?pn45j0d5WfbD3MdVyxdh8j7r3AXWPRVb5albT5ahjmncsi7HeRzGQFzTiT0t?=
+ =?us-ascii?Q?8cxKLczahS3NPp7j+n8TzE6c8ma3OI1Qo5jxM7BiMY7HPWA4LSG1yPAomqas?=
+ =?us-ascii?Q?yykTdAINEdKLsDWy3t174fFdsNZ69DKs5DM2wkZWAzPWpXzukTEFf/HIR+6F?=
+ =?us-ascii?Q?U/lG6swLStNHMMdZzIR8EEfsHCrQdJ0j6cBFv+psqog6wrYKLac5gb76uCu/?=
+ =?us-ascii?Q?EENESj4/dH55OGDjLth0xapJQmoXivPTGuFfsb4/uats9KZ1vomtBJAZNmkA?=
+ =?us-ascii?Q?bf7nnVKXgeZue48QIWdEkfQdyz5Xc4Seu7tHO6K9irbEApn22UQQB32BqL+2?=
+ =?us-ascii?Q?1vZ21ThObC5M4QoCBYzBerycuZz7olS7ttKu3Qf/ko2jGBv+JZs1Wqnu7k99?=
+ =?us-ascii?Q?RS8OCpxhCj1JmpGVe0k9vosx4cjXhwK4PIIODk+VWCdiBwZl5+B36TnISqe3?=
+ =?us-ascii?Q?ZG2MkMyrZJkUIXoxT4qLXZ2AaTuhanctVfV/UqXD8WMzB1SrGtQWMVV2tx3q?=
+ =?us-ascii?Q?2HsOtdx2C1wd5BjtJi4AybMcXCCZoNNGLGYxqr/EC0SiUK6b+KdXMEhav/7D?=
+ =?us-ascii?Q?zUhUgTN/R9ePba2xo4oyIFO8TNe1LFsLHq1lWsW99TBvYZq4bZrl7AW3IBh+?=
+ =?us-ascii?Q?neAljQJsYcACcFfiATbG6iX61vtAl10Aj96oOsP2pkwAByVLCn4dp/vL2H7E?=
+ =?us-ascii?Q?BaxNwqh1IJ5HiRgicQ4AAHQEshgzv/O2?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2024 19:22:54.0134 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31e85525-8cce-4e4f-72b1-08dcc0845306
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2024 19:23:02.2501 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8a8fc60-2706-47b0-cdad-08dcc08457f8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000143.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CD.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9179
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8370
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,169 +138,161 @@ From: Leo Li <sunpeng.li@amd.com>
 
 [Why]
 
-Idle power states (IPS) describe levels of power-gating within DCN. DM
-and DC is responsible for ensuring that we are out of IPS before any DCN
-programming happens. Any DCN programming while we're in IPS leads to
-undefined behavior (mostly hangs).
-
-Because IPS intersects with all display features, the ability to disable
-IPS by default while ironing out the known issues is desired. However,
-disabing it completely will cause important features such as s0ix entry
-to fail.
-
-Therefore, more granular IPS debug flags are desired.
+In preparation for enabling IPS debug flags that require DM changes,
+a common entry point for allowing DC idle optimisations is needed.
 
 [How]
 
-Extend the dc debug mask bits to include the available list of IPS
-debug flags.
+Create an alias in DM for dc_allow_idle_optimizations(). Change all
+calls to it into dm_allow_idle_optimizations().
 
-All the flags should work as documented, with the exception of
-IPS_DISABLE_DYNAMIC. It requires dm changes which will be done in
-later changes.
-
-v2: enable docs and fix docstring format
+No functional changes are intended.
 
 Signed-off-by: Leo Li <sunpeng.li@amd.com>
 ---
- Documentation/gpu/amdgpu/driver-core.rst      |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++
- drivers/gpu/drm/amd/include/amd_shared.h      | 75 ++++++++++++++++++-
- 3 files changed, 81 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  6 ++++++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c   |  8 ++++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c    |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c    |  2 +-
+ 5 files changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
-index 467e6843aef63..32723a925377e 100644
---- a/Documentation/gpu/amdgpu/driver-core.rst
-+++ b/Documentation/gpu/amdgpu/driver-core.rst
-@@ -179,4 +179,4 @@ IP Blocks
-    :doc: IP Blocks
- 
- .. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
--   :identifiers: amd_ip_block_type amd_ip_funcs
-+   :identifiers: amd_ip_block_type amd_ip_funcs DC_DEBUG_MASK
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dd8353283bda3..a18ecf8607232 100644
+index a18ecf8607232..2efa9f6e23015 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1864,6 +1864,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+@@ -246,6 +246,14 @@ static void handle_hpd_rx_irq(void *param);
+ static bool
+ is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
+ 				 struct drm_crtc_state *new_crtc_state);
++
++void dm_allow_idle_optimizations_internal(struct dc *dc,
++					  bool allow,
++					  char const *caller_name)
++{
++	dc_allow_idle_optimizations_internal(dc, allow, caller_name);
++}
++
+ /*
+  * dm_vblank_get_counter
+  *
+@@ -296,7 +304,7 @@ static int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+ 	}
  
- 	if (amdgpu_dc_debug_mask & DC_DISABLE_IPS)
- 		init_data.flags.disable_ips = DMUB_IPS_DISABLE_ALL;
-+	else if (amdgpu_dc_debug_mask & DC_DISABLE_IPS_DYNAMIC)
-+		init_data.flags.disable_ips = DMUB_IPS_DISABLE_DYNAMIC;
-+	else if (amdgpu_dc_debug_mask & DC_DISABLE_IPS2_DYNAMIC)
-+		init_data.flags.disable_ips = DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF;
-+	else if (amdgpu_dc_debug_mask & DC_FORCE_IPS_ENABLE)
-+		init_data.flags.disable_ips = DMUB_IPS_ENABLE;
- 	else
- 		init_data.flags.disable_ips = DMUB_IPS_ENABLE;
+ 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
+-		dc_allow_idle_optimizations(dc, false);
++		dm_allow_idle_optimizations(dc, false);
  
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index f5b725f10a7ce..745fd052840dc 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -61,7 +61,7 @@ enum amd_apu_flags {
- * acquires the list of IP blocks for the GPU in use on initialization.
- * It can then operate on this list to perform standard driver operations
- * such as: init, fini, suspend, resume, etc.
--* 
-+*
- *
- * IP block implementations are named using the following convention:
- * <functionality>_v<version> (E.g.: gfx_v6_0).
-@@ -251,19 +251,92 @@ enum DC_FEATURE_MASK {
- 	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
- };
+ 	/*
+ 	 * TODO rework base driver to use values directly.
+@@ -2883,7 +2891,7 @@ static int dm_suspend(void *handle)
+ 	if (amdgpu_in_reset(adev)) {
+ 		mutex_lock(&dm->dc_lock);
  
-+/**
-+ * enum DC_DEBUG_MASK - Bits that are useful for debugging the Display Core IP
-+ */
- enum DC_DEBUG_MASK {
-+	/**
-+	 * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
-+	 */
- 	DC_DISABLE_PIPE_SPLIT = 0x1,
-+
-+	/**
-+	 * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
-+	 */
- 	DC_DISABLE_STUTTER = 0x2,
-+
-+	/**
-+	 * @DC_DISABLE_DSC: If set, disable display stream compression
-+	 */
- 	DC_DISABLE_DSC = 0x4,
-+
-+	/**
-+	 * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
-+	 */
- 	DC_DISABLE_CLOCK_GATING = 0x8,
-+
-+	/**
-+	 * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
-+	 */
- 	DC_DISABLE_PSR = 0x10,
-+
-+	/**
-+	 * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
-+	 * if mclk switch in vblank is possible
-+	 */
- 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
-+
-+	/**
-+	 * @DC_DISABLE_MPO: If set, disable multi-plane offloading
-+	 */
- 	DC_DISABLE_MPO = 0x40,
-+
-+	/**
-+	 * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
-+	 */
- 	DC_ENABLE_DPIA_TRACE = 0x80,
-+
-+	/**
-+	 * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
-+	 * does not default to it.
-+	 */
- 	DC_ENABLE_DML2 = 0x100,
-+
-+	/**
-+	 * @DC_DISABLE_PSR_SU: If set, disable PSR SU
-+	 */
- 	DC_DISABLE_PSR_SU = 0x200,
-+
-+	/**
-+	 * @DC_DISABLE_REPLAY: If set, disable Panel Replay
-+	 */
- 	DC_DISABLE_REPLAY = 0x400,
-+
-+	/**
-+	 * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
-+	 * If more than one IPS debug bit is set, the lowest bit takes
-+	 * precedence. For example, if DC_FORCE_IPS_ENABLE and
-+	 * DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
-+	 * precedence.
-+	 */
- 	DC_DISABLE_IPS = 0x800,
-+
-+	/**
-+	 * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
-+	 * *except* when driver goes into suspend.
-+	 */
-+	DC_DISABLE_IPS_DYNAMIC = 0x1000,
-+
-+	/**
-+	 * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
-+	 * there is an enabled display. Otherwise, enable all IPS.
-+	 */
-+	DC_DISABLE_IPS2_DYNAMIC = 0x2000,
-+
-+	/**
-+	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
-+	 */
-+	DC_FORCE_IPS_ENABLE = 0x4000,
- };
+-		dc_allow_idle_optimizations(adev->dm.dc, false);
++		dm_allow_idle_optimizations(adev->dm.dc, false);
  
- enum amd_dpm_forced_level;
+ 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
+ 
+@@ -2911,7 +2919,7 @@ static int dm_suspend(void *handle)
+ 	hpd_rx_irq_work_suspend(dm);
+ 
+ 	if (adev->dm.dc->caps.ips_support)
+-		dc_allow_idle_optimizations(adev->dm.dc, true);
++		dm_allow_idle_optimizations(adev->dm.dc, true);
+ 
+ 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+ 	dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM_POWER_STATE_D3);
+@@ -9421,7 +9429,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 
+ 	/* Allow idle optimization when vblank count is 0 for display off */
+ 	if (dm->active_vblank_irq_count == 0)
+-		dc_allow_idle_optimizations(dm->dc, true);
++		dm_allow_idle_optimizations(dm->dc, true);
+ 	mutex_unlock(&dm->dc_lock);
+ 
+ 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 2d7755e2b6c32..3fc3c12b3a4a1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1007,4 +1007,10 @@ void *dm_allocate_gpu_mem(struct amdgpu_device *adev,
+ 
+ bool amdgpu_dm_is_headless(struct amdgpu_device *adev);
+ 
++void dm_allow_idle_optimizations_internal(struct dc *dc,
++					  bool allow,
++					  char const *caller_name);
++#define dm_allow_idle_optimizations(dc, allow) \
++	dm_allow_idle_optimizations_internal(dc, allow, __func__)
++
+ #endif /* __AMDGPU_DM_H__ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index a2cf2c066a76d..5b0d426ad50db 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -203,7 +203,7 @@ static void amdgpu_dm_idle_worker(struct work_struct *work)
+ 			mutex_unlock(&idle_work->dm->dc_lock);
+ 			break;
+ 		}
+-		dc_allow_idle_optimizations(idle_work->dm->dc, false);
++		dm_allow_idle_optimizations(idle_work->dm->dc, false);
+ 
+ 		mutex_unlock(&idle_work->dm->dc_lock);
+ 		fsleep(HPD_DETECTION_TIME_uS);
+@@ -216,7 +216,7 @@ static void amdgpu_dm_idle_worker(struct work_struct *work)
+ 		}
+ 
+ 		if (idle_work->enable)
+-			dc_allow_idle_optimizations(idle_work->dm->dc, true);
++			dm_allow_idle_optimizations(idle_work->dm->dc, true);
+ 		mutex_unlock(&idle_work->dm->dc_lock);
+ 	}
+ 	idle_work->dm->idle_workqueue->running = false;
+@@ -253,7 +253,7 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ 
+ 	if (dm->active_vblank_irq_count > 0) {
+ 		DRM_DEBUG_KMS("Allow idle optimizations (MALL): false\n");
+-		dc_allow_idle_optimizations(dm->dc, false);
++		dm_allow_idle_optimizations(dm->dc, false);
+ 	}
+ 
+ 	/*
+@@ -275,7 +275,7 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ 
+ 	if (dm->active_vblank_irq_count == 0) {
+ 		DRM_DEBUG_KMS("Allow idle optimizations (MALL): true\n");
+-		dc_allow_idle_optimizations(dm->dc, true);
++		dm_allow_idle_optimizations(dm->dc, true);
+ 	}
+ 
+ 	mutex_unlock(&dm->dc_lock);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index 3390f0d8420a0..48a4c493a70a0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -730,7 +730,7 @@ static inline int dm_irq_state(struct amdgpu_device *adev,
+ 	st = (state == AMDGPU_IRQ_STATE_ENABLE);
+ 
+ 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
+-		dc_allow_idle_optimizations(dc, false);
++		dm_allow_idle_optimizations(dc, false);
+ 
+ 	dc_interrupt_set(adev->dm.dc, irq_source, st);
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index f40240aafe988..fdf1d4c7b9300 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -192,7 +192,7 @@ void amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+ 	dc_link_set_psr_allow_active(link, &psr_enable, false, false, &power_opt);
+ 
+ 	if (link->ctx->dc->caps.ips_support)
+-		dc_allow_idle_optimizations(link->ctx->dc, true);
++		dm_allow_idle_optimizations(link->ctx->dc, true);
+ }
+ 
+ /*
 -- 
 2.46.0
 
