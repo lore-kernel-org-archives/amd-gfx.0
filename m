@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF42C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 15:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80C9BC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 15:40:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E5FC10E2D2;
-	Mon, 19 Aug 2024 15:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED13210E2DB;
+	Mon, 19 Aug 2024 15:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OCj15QTQ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="h/W9GtUd";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 701E010E2D1
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 15:37:16 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4281d812d3eso49209955e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 08:37:16 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A16B310E2DA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 15:39:59 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-42817bee9e8so34692725e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 08:39:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724081835; x=1724686635; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1724081998; x=1724686798; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=b30MdRVEaw12tsyuhHxLUYLfGBRNhcbJ7BTAaBjC8Xo=;
- b=OCj15QTQ/GtB82EL02NOFayHRqRTcThCdSUfP5Fu5XfxFhI9/LbJ3CQQUwkgjvwAgs
- 2SXVF17SCY80RL3nuf6aEQMnPM3oq0rrU9S24OWDsws7wlH2Vx9fkUEZt9dsaXWyxQdr
- BOm6Ylndak2x9C+F3ODEaCM8+9GYk4tP/PArWq3OMLfBwnN4QOragTeQLqTFQKC9Zmon
- wdlprBbsl+gBfUQ8y1xK8+duh5iPVh+y8XDby556gf2uMQTOPgd/lokX7YXIYMZTpUhN
- BCneGM+GbZ5dr7qPexozqL66gCrwcCWdB94QacbjPnXVfeabLEqXLaaHIAa7uQRAbKox
- J8Lw==
+ :reply-to; bh=3rechxrZ4ECg78B8N/AWjNVRR9kwlJo6/ZF0ZSeiXCI=;
+ b=h/W9GtUdHY34i3F4OuFIYVZsSFbYkwo6XK0KHZqfG7UWpLnRFyAB2kReUGSa7C5ppj
+ pGKAVPeVAOC7oEGerPXRMuuGFY2CLvMj+qyejKwm5c15bJISoIexGqwciQtchMeqNKc1
+ hF/6GSBb7C1sR0obWTitYI7VJuYS6Lpi5GXgm5xtZ3HTsffIy/nCrSKn3tSd3M3eE420
+ mdOcn2PmkTjh+0OtrFOaJHJQoQD85H/+St02T2atwvWFoURiqISiEKdFeK8xQZjT882y
+ SjvOuXjMc1h7lbVeY9G1Nv2yTvFkyX9tqDawHMiU8AtTzU5VF1ku1ereh/YR0LaxBhDP
+ v9WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724081835; x=1724686635;
+ d=1e100.net; s=20230601; t=1724081998; x=1724686798;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=b30MdRVEaw12tsyuhHxLUYLfGBRNhcbJ7BTAaBjC8Xo=;
- b=orjosN6tqmx52kz1RiQNdvRDlg+oDLs/rn88hvF94bCrCUHOlEJ6ZV89ebN5wgMx7R
- 27MRnTn4JqD+yPYS+M+yUgzQa/sATOzy9glgQ5s/IomugaA6QGcfVpWcH3m1xRx+k+DW
- hhV2G+gV7ZHVdwK/r4STY8qdcMe6JWkAARxmefcluXzxyidP2esirMZVGCpZN21Nf3Wc
- YtrE2QgMm1gxG7ZJA01+tlB/UDYnYJYXNH9anc9yreBSy6ePjj2dh62jDG0B4nnnPaA7
- eWyqT8806m6jB5JdX8KtrN0V4/ylvjP5f4hRdr4vW5BpqzEnireRtmP/4RcH7eLylia5
- +V9Q==
+ bh=3rechxrZ4ECg78B8N/AWjNVRR9kwlJo6/ZF0ZSeiXCI=;
+ b=Y3/B+HYJpYq6QkzPFXCFnHEPKqbpMGnmF3vMqS+hzWXQ4h3WCFJp1ZGuUh674G05VH
+ 35zwXhOhPZy/BKf2KDAiNQjoenNgIAP93wq8JSayFiOMMaTTNztvXgTjC1A0abWImlCh
+ gNezwSEvq0re/3+EXn8rXnTl0protIezQTXN3ADq6jDj4hwqyfFrKNN7DH6rRmMlOs95
+ XWqWAYPdd9oBEbJUj7Pt76slTxyPvCPf5mahFjcNXPvSTVnG93Kok/e2EQJXYvieLTZX
+ t/52m0QmcWELFXUhd3ca/6dc5F8pXEWOVd5JpKZm1T6qoBkT44KpmHIzbLBstr+A5Y01
+ +Lig==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUv6+anin7XW/aiax5TTspWHOafi8ylSNBKzJGBk+PDmqOPSFqAe73Jg5vJy0dcf79JnyoPg+gf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNjqI2+tEp23u90hZuXIsboUVBWq7VWuAT0g1spdwHb5IcgPaw
- zRDmIn1IncSW89sRUi+4u6VjmB6YXWDzFYobOBtDKtCxOurpoV5pdqS9a3fZYz8=
-X-Google-Smtp-Source: AGHT+IF69rK/3jdaw7z0kd4Mqoqqvh+NOWXAhtijyf1xhjT3EA/aJrmAhYfTjxDnOuKIDWCNtgPbqQ==
-X-Received: by 2002:adf:ab17:0:b0:371:8685:84e with SMTP id
- ffacd0b85a97d-3719445257dmr9515594f8f.22.1724081834369; 
- Mon, 19 Aug 2024 08:37:14 -0700 (PDT)
+ AJvYcCVfgAvyfTIZoMtAmH/RTh/AWqaCLIOrn8SV+Rh8k4sa2vS5TYSOe5XMq1OUQls7c/sVnW5cjLXAkqDDALyzzATgNrPT4C6ewfuTqTYczA==
+X-Gm-Message-State: AOJu0YyqxBPPT8bSVOUDllbupc3VLTYo9QTviKIQzWBDme5Z4u/sDDB/
+ v0Z56v07pmvJc0ESsDfKl0+1UI/bSFO6Zw6fRiIv13NsA8znN/zIZXDCIqB7ZTc=
+X-Google-Smtp-Source: AGHT+IFdNtB2gh2+pj56HbqxXEPIg4Q+OrcMm18X+wmX4ogzgdWrG21Q+a8ippK4LwI/fSVGof4x9Q==
+X-Received: by 2002:a05:600c:1d05:b0:426:6e95:78d6 with SMTP id
+ 5b1f17b1804b1-429ed785cdemr71297355e9.4.1724081997568; 
+ Mon, 19 Aug 2024 08:39:57 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:982:cbb0:f54e:4b0a:5175:5727?
  ([2a01:e0a:982:cbb0:f54e:4b0a:5175:5727])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-371898ac074sm10781621f8f.106.2024.08.19.08.37.13
+ 5b1f17b1804b1-429ded2931asm164664175e9.17.2024.08.19.08.39.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 08:37:13 -0700 (PDT)
-Message-ID: <deac2821-9709-42bd-8749-02232384fe59@linaro.org>
-Date: Mon, 19 Aug 2024 17:37:13 +0200
+ Mon, 19 Aug 2024 08:39:57 -0700 (PDT)
+Message-ID: <7369663f-b2e6-404f-8b1c-f4d6628f3e1c@linaro.org>
+Date: Mon, 19 Aug 2024 17:39:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
@@ -157,4 +157,8 @@ On 16/08/2024 14:22, Thomas Zimmermann wrote:
 >   	return 0;
 >   }
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+So which one is right, this one or :
+https://lore.kernel.org/all/20240813091258.1625646-1-andriy.shevchenko@linux.intel.com/
+?
+
+Neil
