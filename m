@@ -4,147 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C808C52D6F
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 15:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89EF3C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Aug 2024 15:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C939110E2B3;
-	Mon, 19 Aug 2024 15:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11EC210E0B0;
+	Mon, 19 Aug 2024 15:14:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lYyEuIlA";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ByLZoEiy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hAWdifuD";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ByLZoEiy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hAWdifuD";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E66010E2B3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 15:02:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y4fUprVGpXIFdzsHP06vRZ4dnHq0QwJXuQGnAlt5NG83hNh+DkN4kb4J6Oy5wbxmUAC0vnjz+ABFV+DecXdIEq0Q4NuEyL9V53R0GMCgBIjBrrs5UvqzP1xEhDuOuxLUlIHFbCoOrugWjIUjLudv1LsA5FLMgaXd7LGCNGLES84/2JNKnrrFbX83FyuJD0dOC1o5/LrSZ6uN29cUihH+wTuxznkC3Rmu/J4zvFiCRJ8K47BP3/mXHoF7/Mp+kODfx92j7LGcHfgMGG10iPqxjo8Wkg6RGOq1MM8ilGVbAaHgcIV7yDcXAY5rZCQWGfUqFxC5aME4UaCwcMrtv9rAZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vZ0mul8eq0aZb2CB3/3o2H5gYxvwqJ0l0KnFU0BOnZM=;
- b=IjIoI/UiOyuiJ4uEgsq9XJkjSgfPUjDSJd0vTK3OqN5LrWC6b0uqTWsmSTqReRE41ykHcCVFfP8AueX8mJDhSkmpw1VSbUZv4ZYpDKilyX2CDry9KsEg6L7MGnXfVk89I/Kx/fepC/VMT/eUVRWgmcNvAuzmfvD9uIgJoIm3OaLgraSHn0yFg7i88SSiPdKgzOvrXT1suzsCJwmUFC51HqBbCFSHgIgN/SsSyVd5XGIceRbty+JJM5px650NMXXEjy3RVYSR9uYs9328xhFciKH+jhLoqgGnUGekCmzvV3ZbwgK4ifMTDsMSOo+/BZzc5zhsKe/LlBy7+QOd4ZpOKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vZ0mul8eq0aZb2CB3/3o2H5gYxvwqJ0l0KnFU0BOnZM=;
- b=lYyEuIlAucx0Zkt+828tj8E5Xe9Uk1H9o+jP+bnUx5rskL1KT3oordquULGs0CSrKX+zHSPJd4nkBonXvmee5Iu2zUbGVZT0sAfv1PmxSqcNgCP6OdYWKvdNKlkdbv4/ByfWMOLznjns7+LbGJ6ftISMtJmRu9eujFoE3hhWacY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB8055.namprd12.prod.outlook.com (2603:10b6:510:268::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.17; Mon, 19 Aug
- 2024 15:02:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7875.019; Mon, 19 Aug 2024
- 15:02:12 +0000
-Message-ID: <6130ca3c-1dea-4d93-8719-a7b481a00084@amd.com>
-Date: Mon, 19 Aug 2024 17:02:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Block MMR_READ IOCTL in reset
-To: Victor Skvortsov <victor.skvortsov@amd.com>,
- amd-gfx@lists.freedesktop.org, zhigang.luo@amd.com,
- christian.koenig@amd.com, lijo.lazar@amd.com
-References: <20240808174808.854282-1-victor.skvortsov@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240808174808.854282-1-victor.skvortsov@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0149.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CBBF10E0B0;
+ Mon, 19 Aug 2024 15:14:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1A35421ED1;
+ Mon, 19 Aug 2024 15:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1724080472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=51YdApFs8jsVtd2RKoqunhnxphP9DtzQ+7ug6Ap7uko=;
+ b=ByLZoEiy9Zqj+jusKjzCUjM7CcDAKJBRZu2gS4Q+90/sKidXcuCiDGJ9wAHdEeNTvV++jh
+ B6/edI/CckS/W//pt9jb59hKsw2gpT00IzktxRdRK+2QXD17EONvkKvVpGm+/AOiE9Yecm
+ YJVNAw47PArUw+MPOc8seAVeij+858c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1724080472;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=51YdApFs8jsVtd2RKoqunhnxphP9DtzQ+7ug6Ap7uko=;
+ b=hAWdifuDBGPUaH3YtbZGWx9R4dOwNQKB/UfM2bmwmF2uPZmQlY6SBeNuAV2XxiQLlGKsGv
+ WQoG4adn61E4ywCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ByLZoEiy;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hAWdifuD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1724080472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=51YdApFs8jsVtd2RKoqunhnxphP9DtzQ+7ug6Ap7uko=;
+ b=ByLZoEiy9Zqj+jusKjzCUjM7CcDAKJBRZu2gS4Q+90/sKidXcuCiDGJ9wAHdEeNTvV++jh
+ B6/edI/CckS/W//pt9jb59hKsw2gpT00IzktxRdRK+2QXD17EONvkKvVpGm+/AOiE9Yecm
+ YJVNAw47PArUw+MPOc8seAVeij+858c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1724080472;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=51YdApFs8jsVtd2RKoqunhnxphP9DtzQ+7ug6Ap7uko=;
+ b=hAWdifuDBGPUaH3YtbZGWx9R4dOwNQKB/UfM2bmwmF2uPZmQlY6SBeNuAV2XxiQLlGKsGv
+ WQoG4adn61E4ywCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDDAF137C3;
+ Mon, 19 Aug 2024 15:14:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3ZwZLVdhw2Z3GQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Aug 2024 15:14:31 +0000
+Message-ID: <3fdacb13-6b91-4266-9fa5-8a14f46527b5@suse.de>
+Date: Mon, 19 Aug 2024 17:14:31 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8055:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80461d41-ffd9-43d9-ea6d-08dcc05fe77b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SzRyUlFjbVZlN0JJVVVOd0xxR2MwODhxMk9KUEE3azVXVGthMnBwYVBWZ0g5?=
- =?utf-8?B?dTAxQUZBUFdSTkxjT2VTQnhNL1hjYnBaRG4rNWtIMVprTGhhVWZGSmVTOU9R?=
- =?utf-8?B?blBqYnp6ekhUaFZBNUFSZUlEZ1poTVJGbWtLMG1IM0VEUmxXL2MxNnZRQ0xn?=
- =?utf-8?B?ZXNUQjQ4OStEK2Rsbmd5Qm4rSTRHY1M3OTYyT1VKY093YnNZVy9GU3FmeW1V?=
- =?utf-8?B?VUtRVlRTN216VmRIcy9RNTVjdWpPRDVpRU1IZDFaYndXbFR1cXBnT0creVpU?=
- =?utf-8?B?OE03aVpVSEt2eUFNSllxZGRzekQwUlQ1YlJGanBKVHNadk03cEFrdVlpN2Fh?=
- =?utf-8?B?djVxWURBaTlQTnBiSzNJY3BVekw1YUpqTGJxVy9QNHNCeDR6YmF2aVZNcDBq?=
- =?utf-8?B?TjdRYlBHVUdKNXZLRkhsc0c4NEtqaTlmQlVOelJ6VDFYTjRKdjR5aFZiVHha?=
- =?utf-8?B?blVscjllMXpLMTE4d3NqRk0wNHV6ZGQ4U0VCaWZ2Mjh6RUZKZGF2dGRNNVF5?=
- =?utf-8?B?akpLc01Lc3oxc2NEbG5oaVdGVkRrVWZQaHh3Yk5pL3VhWUhZUFZqeHQ4NmRK?=
- =?utf-8?B?T2srdDQ3VzZOZXVFZURmdGZhK1VEY1c3ZUg1RzJwOGdFRG5YTnZtZTJnNXF1?=
- =?utf-8?B?Y3ZRUmlXNGFwNnJpZ1JBNlBmNzZCNi9uUjdBcUZzVzhmcHkvY2w4cVp2MkZ4?=
- =?utf-8?B?dFdWVWtkdGhsS2tad3llNXNWUnJXVlBFTzNPSU1zcDJVR2YyYkJFRkhZS0ZV?=
- =?utf-8?B?M3BTTjZxanlNem9hb1ZSL1NKenF4bCtRSVVCakRsbGVvWkVRV2lGQ0xrUmpk?=
- =?utf-8?B?V0lYbEtDOTh3Tk9OUnJJZG9HVUVUYVlKK1F1bXV4Ukg4MGxsMFVVL3JKTDdh?=
- =?utf-8?B?Sll3djBvc3VDUFNOc2lGQk5uM1Q3NDh4WlRpdXA0eVN5eHVDb1gxeEtjK2lX?=
- =?utf-8?B?VnZJUEZuVkNYM2FGRDBRMGlFNEhlbGU5WkVNZ0FTUmFWbzdDczBTZVBDRkpB?=
- =?utf-8?B?YWFoaUN3RnN6ZGdLY2Y2dXJ2Y2NvQzF2b2pvM3hMM3FBdFFJMXU3Z1A3eFJ1?=
- =?utf-8?B?UFdFVXNONjBuNzkxQUNSU05Hb243Q3p4dTdiTjJBdTM2cTlFcmNCdjJxVTNx?=
- =?utf-8?B?U1BXQnNTOTBmNS85S0grejZVNGwxTm52L3JTN3N3UFRpRExKR2xlTWJiWDV5?=
- =?utf-8?B?VVo1R1pRQmIzY1d6UWNraUV1eGQ1NmNmL3oxaDNGNEU2ck1lZWFCSzYrbEZX?=
- =?utf-8?B?YUx0TUpycWNxRUgxWUdUU3l1QUhudlc3bVhKeHRHY09XMjk4dEZlTzJmcnJP?=
- =?utf-8?B?VXlIeFpVNEJMUVV1MGtrc3dSaFVEZGJZaGZnamlEQU1LS0dObzdLQzdsRXRX?=
- =?utf-8?B?R25YY09OWkpiNlVhWFBreUVHTWRlU3FoRHZkdXBmQzlZWjNCbFpzc0x1WG1G?=
- =?utf-8?B?clFJZmR2dlF2S2E1bDhaTUE4RW1SVFppK1EydmhYWGNmTWJoNUx5dm9YZmp4?=
- =?utf-8?B?RlhHN3BzM28zTXZZeE1lMjZoem9sV3N1NEdscjV3VXZRbG9DVEZFdWp3ZFFy?=
- =?utf-8?B?SXoxMnloZ2JvZmQvWnJzSlVPdnlDSlplRDBWSERFSGw2c0g5MW1VRWRXc1dG?=
- =?utf-8?B?MHZ2ZHlub1lqSHFUMzB0VytvQ2Y4V3huZ0pQNFFTalNNMmNrcFBMcXRyNmhN?=
- =?utf-8?B?Y2EvVEN5ckl4WU1ibmpYMDU0QVFrekJkYURrLzVJUnlsSUpkdXFtOVZXeWtw?=
- =?utf-8?B?OFQ3WDgxSytFK3dVRlpETitET0NaeE5LWU85K0VvYWNPZkI5MXpxT2ZLUmdH?=
- =?utf-8?B?RjFMcVNIdGxIaXZTdGZuZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkM0RDgzQ0hOWk1CS2hzVVlPTFkwR3EwcGJWejI0d3NURVE1Z0U0dHo5a09y?=
- =?utf-8?B?dkNUL0lqa0VUaDJlUDZlaDFSM0k0OTBXdHorcHFjaXdVcmxDOWtQT1hLVXly?=
- =?utf-8?B?ajQ0TGtuMVRBN2ZYMS9EejA4WEk1emZSQllGemlxN0V3UitKaFAvY05zNnd1?=
- =?utf-8?B?WXVVNzdUcDVKODkrb293N1V3L1loZjQ2blBIUzZYL1BOQmZrWkhSZDQraFNp?=
- =?utf-8?B?S2h2R1RBYjVrVmk1WDVRQUFYWUFsWENsZ01SWXM5cmQ2dDN2eElkbjY3UGhO?=
- =?utf-8?B?RXBUbW0yMWJHa3RTVWtCZzZYWGZ1M3FkNnltamJCRTdrOVFHSmpxYkhwdjFm?=
- =?utf-8?B?cStiOFhDc3hrRXdrdWtTOVZwbDc3dmtNdnROam5ETWprRzZqYlBvL2d4NHox?=
- =?utf-8?B?S2MzSGhFY3pndWUvZm9TVTE5TVZYeHBhMWIxdHQ0aGY5L3RBR1dqZ2h6eFdh?=
- =?utf-8?B?Yk1MeTdZM01SdTk3Y1I5WVczU0tnanBVVmdJZ2dNV2RmbzJrNEovVjZkQW1S?=
- =?utf-8?B?MmV2Z09yUjhsc2t2MkF4Zld4bkZLMnFJK1pXSEdXTHB1WTM0c1E0SW1YZUdB?=
- =?utf-8?B?b3NDcmJoaE5jbDE4cGlpMmVwT0ZvMDdwVStqQytzYzlod2J3djEvaUt0a1VY?=
- =?utf-8?B?S3NIeWZuYWU0YkNkK0EyaWV3aVFMYytqM2EvZFVVZW9KdlB1MllVZ0lVai9s?=
- =?utf-8?B?MVFCS3lXVzJTc0Vlb3hSclJSWXRmRVlGMFZZZkRPSDdLUm43cmYwUVhMYjl5?=
- =?utf-8?B?bkMrVG5SMVNQdzN6Vmh6M2tsRWxpRXpHTytyclFRcnhKSTBLbjNYV2pJbldq?=
- =?utf-8?B?Y0xwejBCMzVlYzNyb0pSdWRQK2R1TTNlT3pnOHZWQ0JNSnk2QWNkTE8rU2pn?=
- =?utf-8?B?VytqVXJzZmltdjBFNHd3VkQ0dmxMc2hQaXJsVnJ2TW5teENWQVRIWS9wU2JE?=
- =?utf-8?B?cUd0R0lJY0tkNVFzTXhPY2RyaUlKT2FXWFoxL3RKaGZudUpRcWgxS053OWNn?=
- =?utf-8?B?VXZmcFkxNUJDMXJiQlBsYy93QWQrWDRLeUZLVm9sNkUxalJ0QkgzclhHVklo?=
- =?utf-8?B?WUxPQXVuSVgzUlJjKzUxTFpxbmt4K2N5U20rY0YwbjNsb0tYV3c3RXROYWpL?=
- =?utf-8?B?ZncyTzlpbXRQNE1aS1oyZE83WW5xNGplQlRWTXUvODA1K1ZTVkFDMjZLR2xj?=
- =?utf-8?B?dXo2NXBlZVVNNndUUkVadjZPamphWmxMOHZ2MVZ5RmVWQk0wOTdxdjhWTWYz?=
- =?utf-8?B?QXdCSTN0eS9hY0RJMEE4ZFNMcGlidW5lV2g0dm96Qy85UmxrUy9QdUdDb0hW?=
- =?utf-8?B?dk9sRGdES2hZam5CQ2hHU2lIRmJJMmNYSWJkSW52SVRJSWNUVTBIVFh3OVJV?=
- =?utf-8?B?UWdjWGNuTGFaclE5MHBYV3NnaENjbHlMaHQ3T3l1TWJZQ25lMGlIREdQbE9C?=
- =?utf-8?B?MUhrUi9uOG5rc1IwZjN3M3BQdm0xZFY3YW1tYXdEQmFkdW1ZTDBHM2lHNU9F?=
- =?utf-8?B?V3JLK2d6cjE3R3V1aU5HZXlRbkRyaHgwQzl5TkUyOWZqM0J6MmZwS0oyZXBK?=
- =?utf-8?B?bE93TTZZWG5XZWtBVkNncVdRNVpCdHBURnVmQ0UrY1dOZW5md2NDOHkwR1Rj?=
- =?utf-8?B?Tm9Xclp0V1BqSC9PTHpUYWxyZlh3THdMWk1MTytpajJBelZGTUd1N2ptaHdU?=
- =?utf-8?B?SmJoMEx6TWlURzFJOW13a1VHM2NFZjh3bll4bFBlN3BoOC9yR0RpeUptakJ1?=
- =?utf-8?B?NkNQQ1R4S0tUVmFhWHVKOHk5ZXRLOTAwakZJQmRCWm5ETk1xU3g3SktsbFp0?=
- =?utf-8?B?ZjFGMWl2aHczbHhxQytKYk9nZ2h0R0F1Slg0dWhFV0NGSUwyNnE1RENxaTQ0?=
- =?utf-8?B?RWdLOTBCNUY0MkFKeWdTdEE4cStNbUs5SDNXamhhZVdCZnc5eklKY0EvNmll?=
- =?utf-8?B?cXNwZk9KMHQybU1YMHB0RGVZcWNxUmRpVmkrR0dERnV6TUZzSzRmWWpHWmlJ?=
- =?utf-8?B?ZXZOWXNkbVZQeXdhNTR0clM5YXBYSG1Kam9kVFFpanJaK3ZVWm9TR0FWVEts?=
- =?utf-8?B?K1VQMGRMNngrTU9pbWpKMUdFZXk4WnFRU2dpZjV6OGg1dDYyMTByZXUyVWtO?=
- =?utf-8?Q?Xcxc=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80461d41-ffd9-43d9-ea6d-08dcc05fe77b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2024 15:02:11.9192 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5gyUx7s7yR/bh22r3YbTiLFxQ7Qco5eTsLOKIKgLA3lTu/88KaYWLi3qHcH3Ng3O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8055
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] video/aperture: match the pci device when calling
+ sysfb_disable()
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: kernel test robot <lkp@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>, Helge Deller <deller@gmx.de>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ stable@vger.kernel.org
+References: <20240809150327.2485848-1-alexander.deucher@amd.com>
+ <202408101951.tXyqYOzv-lkp@intel.com>
+ <1c77f913-4707-4300-b84a-36fcf99942f4@suse.de>
+ <CADnq5_NjCFyy+bQY+uyijcZwvwXYkvVLLUQdtzN_ODvHAj193Q@mail.gmail.com>
+ <8bbf3f92-3719-4ff4-9587-e076635758d1@suse.de>
+Content-Language: en-US
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <8bbf3f92-3719-4ff4-9587-e076635758d1@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 1A35421ED1
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-6.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_TO(0.00)[gmail.com];
+ RCPT_COUNT_TWELVE(0.00)[12]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ MID_RHS_MATCH_FROM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[intel.com,amd.com,lists.freedesktop.org,lists.linux.dev,redhat.com,gmx.de,ravnborg.org,ffwll.ch,vger.kernel.org];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,git-scm.com:url,01.org:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,102 +155,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.08.24 um 19:48 schrieb Victor Skvortsov:
-> Register access from userspace should be blocked until
-> reset is complete.
+
+
+Am 19.08.24 um 10:04 schrieb Thomas Zimmermann:
+> Hi
 >
-> Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 44 ++++++++++++++++++-------
->   1 file changed, 32 insertions(+), 12 deletions(-)
+> Am 16.08.24 um 22:57 schrieb Alex Deucher:
+>> On Mon, Aug 12, 2024 at 8:10 AM Thomas Zimmermann 
+>> <tzimmermann@suse.de> wrote:
+>>> Hi
+>>>
+>>> Am 10.08.24 um 13:44 schrieb kernel test robot:
+>>>> Hi Alex,
+>>>>
+>>>> kernel test robot noticed the following build errors:
+>>>>
+>>>> [auto build test ERROR on drm-misc/drm-misc-next]
+>>>> [also build test ERROR on linus/master v6.11-rc2 next-20240809]
+>>>> [If your patch is applied to the wrong git tree, kindly drop us a 
+>>>> note.
+>>>> And when submitting patch, we suggest to use '--base' as documented in
+>>>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>>>>
+>>>> url: 
+>>>> https://github.com/intel-lab-lkp/linux/commits/Alex-Deucher/video-aperture-match-the-pci-device-when-calling-sysfb_disable/20240810-021357
+>>>> base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+>>>> patch link: 
+>>>> https://lore.kernel.org/r/20240809150327.2485848-1-alexander.deucher%40amd.com
+>>>> patch subject: [PATCH] video/aperture: match the pci device when 
+>>>> calling sysfb_disable()
+>>>> config: csky-randconfig-001-20240810 
+>>>> (https://download.01.org/0day-ci/archive/20240810/202408101951.tXyqYOzv-lkp@intel.com/config)
+>>>> compiler: csky-linux-gcc (GCC) 14.1.0
+>>>> reproduce (this is a W=1 build): 
+>>>> (https://download.01.org/0day-ci/archive/20240810/202408101951.tXyqYOzv-lkp@intel.com/reproduce)
+>>>>
+>>>> If you fix the issue in a separate patch/commit (i.e. not just a 
+>>>> new version of
+>>>> the same patch/commit), kindly add following tags
+>>>> | Reported-by: kernel test robot <lkp@intel.com>
+>>>> | Closes: 
+>>>> https://lore.kernel.org/oe-kbuild-all/202408101951.tXyqYOzv-lkp@intel.com/
+>>>>
+>>>> All errors (new ones prefixed by >>):
+>>>>
+>>>>      csky-linux-ld: drivers/video/aperture.o: in function 
+>>>> `aperture_remove_conflicting_pci_devices':
+>>>>>> aperture.c:(.text+0x222): undefined reference to 
+>>>>>> `screen_info_pci_dev'
+>>> Strange. There's a already placeholder [1] for architectures without
+>>> PCI. Otherwise the source file is listed at [2].
+>> So I dug into this, and the problem seems to be that
+>> CONFIG_SCREEN_INFO is not defined in that config.  I can't figure out
+>> how this should work in that case or why this is not a problem in
+>> drivers/firmware/sysfb.c.
+>>
+>> Something like this works:
+>> diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
+>> index 56a5a0bc2b1af..50e98210c9fe5 100644
+>> --- a/drivers/video/aperture.c
+>> +++ b/drivers/video/aperture.c
+>> @@ -347,7 +347,9 @@ EXPORT_SYMBOL(__aperture_remove_legacy_vga_devices);
+>>    */
+>>   int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev,
+>> const char *name)
+>>   {
+>> +#if defined(CONFIG_SCREEN_INFO)
+>>          struct screen_info *si = &screen_info;
+>> +#endif
+>>          bool primary = false;
+>>          resource_size_t base, size;
+>>          int bar, ret = 0;
+>> @@ -355,8 +357,10 @@ int
+>> aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const
+>> char *na
+>>          if (pdev == vga_default_device())
+>>                  primary = true;
+>>
+>> +#if defined(CONFIG_SCREEN_INFO)
+>>          if (pdev == screen_info_pci_dev(si))
+>>                  sysfb_disable();
+>> +#endif
+>>
+>>          for (bar = 0; bar < PCI_STD_NUM_BARS; ++bar) {
+>>                  if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM))
+>>
+>> But that can't be the right fix...  Any ideas?
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 260cd0ad286d..038b400be437 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -778,6 +778,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   				    ? -EFAULT : 0;
->   	}
->   	case AMDGPU_INFO_READ_MMR_REG: {
-> +		int ret = 0;
+> Thanks for investigating. I'd say we should pass the device 
+> (pdev->dev) to sysfb_disable() and  do the test there. In sysfb.c, 
+> next to sysfb_disable(), you'll find sysfb_parent_dev(), which gives 
+> the Linux device of the screen_info.
+>
+> The code then looks something like this:
+>
+> sysfb_disable(struct device *dev)
+> {
+>     if (dev && dev == sysfb_parent_dev(screen_info))
 
-In general a good idea, but please fix the coding style. E.g. for 
-example don't initialize ret here.
+s/==/!=
 
-Regards,
-Christian.
+> return
+>
+>   /* else do the current code */
+> }
+>
+> there's an invocation of sysfb_disable() in drivers/of/platform.c 
+> where you can pass NULL.
+>
+> Best regards
+> Thomas
+>
+>>
+>> Alex
+>>
+>>> [1]
+>>> https://elixir.bootlin.com/linux/v6.10/source/include/linux/screen_info.h#L127 
+>>>
+>>> [2] 
+>>> https://elixir.bootlin.com/linux/v6.10/source/drivers/video/Makefile#L11 
+>>>
+>>>
+>>> Best regards
+>>> Thomas
+>>>
+>>>>      csky-linux-ld: drivers/video/aperture.o: in function 
+>>>> `devm_aperture_acquire_release':
+>>>>>> aperture.c:(.text+0x2c0): undefined reference to `screen_info'
+>>>>>> csky-linux-ld: aperture.c:(.text+0x2c4): undefined reference to 
+>>>>>> `screen_info_pci_dev'
+>>> -- 
+>>> -- 
+>>> Thomas Zimmermann
+>>> Graphics Driver Developer
+>>> SUSE Software Solutions Germany GmbH
+>>> Frankenstrasse 146, 90461 Nuernberg, Germany
+>>> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+>>> HRB 36809 (AG Nuernberg)
+>>>
+>
 
->   		unsigned int n, alloc_size;
->   		uint32_t *regs;
->   		unsigned int se_num = (info->read_mmr_reg.instance >>
-> @@ -787,24 +788,39 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   				   AMDGPU_INFO_MMR_SH_INDEX_SHIFT) &
->   				  AMDGPU_INFO_MMR_SH_INDEX_MASK;
->   
-> +		if (!down_read_trylock(&adev->reset_domain->sem))
-> +			return -ENOENT;
-> +
->   		/* set full masks if the userspace set all bits
->   		 * in the bitfields
->   		 */
-> -		if (se_num == AMDGPU_INFO_MMR_SE_INDEX_MASK)
-> +		if (se_num == AMDGPU_INFO_MMR_SE_INDEX_MASK) {
->   			se_num = 0xffffffff;
-> -		else if (se_num >= AMDGPU_GFX_MAX_SE)
-> -			return -EINVAL;
-> -		if (sh_num == AMDGPU_INFO_MMR_SH_INDEX_MASK)
-> +		}
-> +		else if (se_num >= AMDGPU_GFX_MAX_SE) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		if (sh_num == AMDGPU_INFO_MMR_SH_INDEX_MASK) {
->   			sh_num = 0xffffffff;
-> -		else if (sh_num >= AMDGPU_GFX_MAX_SH_PER_SE)
-> -			return -EINVAL;
-> +		}
-> +		else if (sh_num >= AMDGPU_GFX_MAX_SH_PER_SE) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
->   
-> -		if (info->read_mmr_reg.count > 128)
-> -			return -EINVAL;
-> +		if (info->read_mmr_reg.count > 128) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
->   
->   		regs = kmalloc_array(info->read_mmr_reg.count, sizeof(*regs), GFP_KERNEL);
-> -		if (!regs)
-> -			return -ENOMEM;
-> +		if (!regs) {
-> +			ret = -ENOMEM;
-> +			goto out;
-> +		}
-> +
->   		alloc_size = info->read_mmr_reg.count * sizeof(*regs);
->   
->   		amdgpu_gfx_off_ctrl(adev, false);
-> @@ -816,13 +832,17 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   					      info->read_mmr_reg.dword_offset + i);
->   				kfree(regs);
->   				amdgpu_gfx_off_ctrl(adev, true);
-> -				return -EFAULT;
-> +				ret = -EFAULT;
-> +				goto out;
->   			}
->   		}
->   		amdgpu_gfx_off_ctrl(adev, true);
->   		n = copy_to_user(out, regs, min(size, alloc_size));
->   		kfree(regs);
-> -		return n ? -EFAULT : 0;
-> +		ret = (n ? -EFAULT : 0);
-> +out:
-> +		up_read(&adev->reset_domain->sem);
-> +		return ret;
->   	}
->   	case AMDGPU_INFO_DEV_INFO: {
->   		struct drm_amdgpu_info_device *dev_info;
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
