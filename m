@@ -4,56 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC87C5472D
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 12:55:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985C8C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 12:55:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 211E110E7BA;
-	Tue, 20 Aug 2024 12:55:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4517310E7A5;
+	Tue, 20 Aug 2024 12:55:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="lhHZx2FI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qp4pIjh+";
 	dkim-atps=neutral
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Tue, 20 Aug 2024 10:46:31 UTC
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com
- [95.215.58.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E33A10E723
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 10:46:31 +0000 (UTC)
-Message-ID: <59e832ae-dd0e-4746-ad9c-327b997e992b@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1724150386;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+J6AUM5BA0XHMhLLUg9xC6LMZgDMWJLm3dx3v9LVjJE=;
- b=lhHZx2FIP/RCUXZs8p29eG005r9RJMGyeMBgQ8ovBQAz2f8rtIT0wFDvnjR2Flagaf9ZGa
- s29BHqCl/tgoW2VpLdAJfG418mIvnaeszKp4LYCtGHunZrtwlZqsm68QT+G2wpDRaNp9Kx
- Y282my+JYqtSdE0sex8AwzrnZs2qxl8=
-Date: Tue, 20 Aug 2024 18:39:29 +0800
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1867B10E793
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 12:55:20 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3718706cf8aso3405678f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 05:55:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1724158518; x=1724763318; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ngRoBeDBVxwsr8KowtAh85ovhHVduGWqpMKlvWBi1CQ=;
+ b=qp4pIjh+KmKXmCIiMqpWWPTNKcGg66dQ3ptCmEuAJvNy7W/bay/Dt77htXs3LYB1iJ
+ ssaCzq8jaqlHHqODTIqYBR0Mdw32AkSYUtkzfgFN3SoDsoSjJARlPutAdK68llnLy4Tj
+ cTXVhnI6yqwEv87yRB+RtTq8brQjpwMlye+COvlCbj3+fAEdpnHNOOUPd4Su28afDgdf
+ skuQt1fIB6XItSn7Wqk0oHCB1bHYUzCzXyoXAE+jCFkWkZNQWCmbq1PQPjvZeTY92Me3
+ 3CNAamvZxZ43yWE5J2X40MYfZe7oWsxmvoUPIUKl1YOMDOJwUuPTNi4SAOAhdrlIGdnA
+ aUvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724158518; x=1724763318;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ngRoBeDBVxwsr8KowtAh85ovhHVduGWqpMKlvWBi1CQ=;
+ b=XU5zs5EYhpb/GM0NaEa9oRBOwk2juHRLS0+WJmdEXz9GzKa+mvBvm5U7VLeRnlCR5u
+ 2Vx8LOOucwb0YmpNBZnxHM8HPaIq0aOI3fXR4e3eoV5zbfrNFVxENJVxOWGrZTUqv+4t
+ YVj36V19IWWbr/Kg/M0k+BOt/EcX0jLbQj9+0WOXil4rM7jIwboUJlG83r/+wqNKv6T2
+ EmRMvizXT1XgTeA917GUHvmQamLxeWeHKFHzymmQz+IuxSG+VGb3TsQRNhdmfqnHraFv
+ fgGNCf81zgQX+bFDDJL2L8RpQc1iycuad9aWnCKOAMEPbHwZBoH8FA1vjl6Wkmh9m6E1
+ IvVA==
+X-Gm-Message-State: AOJu0YznG/dHHTgAQ/zdZnGsuEqZHkuwXRQHfSgpRwsx8O53bDTHsaFX
+ 66UpuBS5/V/tTyKQq07Udl3el//BD+QbyRoZicOoAdWYqgRDkuuALlWumqvfCjs=
+X-Google-Smtp-Source: AGHT+IFAHL+RJ5gD/FYZRBFwpA6DtkNcBmPdTEulwk7pezIgOYHEz65TukuTZbdLoNIxNzFy6AHmig==
+X-Received: by 2002:adf:9790:0:b0:371:913a:3533 with SMTP id
+ ffacd0b85a97d-3719454bd5emr9453217f8f.22.1724158517905; 
+ Tue, 20 Aug 2024 05:55:17 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-429ed648e76sm143087615e9.2.2024.08.20.05.55.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Aug 2024 05:55:17 -0700 (PDT)
+Date: Tue, 20 Aug 2024 15:55:13 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdgpu/gfx11: add a mutex for the gfx semaphore
+Message-ID: <17436eb7-00c8-4ef3-b58e-de47cedb685f@stanley.mountain>
 MIME-Version: 1.0
-Subject: Re: [82/86] drm/i915: Move custom hotplug code into separate callback
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20240816125408.310253-83-tzimmermann@suse.de>
- <86a55d3c-930d-4b30-9f05-82dd2966df85@linux.dev>
- <a48a5538-b4a9-4e01-9930-b1538325b9e3@suse.de>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <a48a5538-b4a9-4e01-9930-b1538325b9e3@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Tue, 20 Aug 2024 12:55:35 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Tue, 20 Aug 2024 12:55:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,97 +76,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hello Alex Deucher,
 
+Commit 76acba7b7f12 ("drm/amdgpu/gfx11: add a mutex for the gfx
+semaphore") from Jul 12, 2024 (linux-next), leads to the following
+Smatch static checker warning:
 
-On 2024/8/20 15:39, Thomas Zimmermann wrote:
-> Hi
->
-> Am 19.08.24 um 10:52 schrieb Sui Jingfeng:
->> Hi, Thomas
->>
->>
->> I love your patch, yet ...
->>
->>
->> On 2024/8/16 20:23, Thomas Zimmermann wrote:
->>> i915's fbdev contains additional code for hotplugging a display that
->>> cannot be ported to the common fbdev client. Introduce the callback
->>> struct drm_fb_helper.fb_hotplug and implement it for i915. The fbdev
->>> helpers invoke the callback before handing the hotplug event.
->>>
->>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> Cc: Jani Nikula <jani.nikula@linux.intel.com>
->>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->>> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
->>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
->>> ---
->>>   drivers/gpu/drm/drm_fb_helper.c            |  6 +++
->>>   drivers/gpu/drm/i915/display/intel_fbdev.c | 43 
->>> ++++++++++++----------
->>>   include/drm/drm_fb_helper.h                | 13 +++++++
->>>   3 files changed, 42 insertions(+), 20 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_fb_helper.c 
->>> b/drivers/gpu/drm/drm_fb_helper.c
->>> index d9e539b0fd1a..92926cb02dfb 100644
->>> --- a/drivers/gpu/drm/drm_fb_helper.c
->>> +++ b/drivers/gpu/drm/drm_fb_helper.c
->>> @@ -1938,6 +1938,12 @@ int drm_fb_helper_hotplug_event(struct 
->>> drm_fb_helper *fb_helper)
->>>       if (!drm_fbdev_emulation || !fb_helper)
->>>           return 0;
->>>   +    if (fb_helper->funcs->fb_hotplug) {
->>
->> We seems need to check the existence on the 'fb_helper->funcs' here,
->>
->> For example:
->>
->>
->> if (fb_helper->funcs && fb_helper->funcs->fb_hotplug) {
->>
->> Otherwise, it will de-reference NULL pointer.
->> Can be observed on a trivial driver though,
->> with no monitor(display) connected.
->
-> Indeed. That needs to be fixed. Thank you for noting.
->
+	drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:4778 gfx_v11_0_request_gfx_index_mutex()
+	warn: inconsistent returns '&adev->gfx.reset_sem_mutex'.
 
-Thanks for you efforts then.
+drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+    4745 int gfx_v11_0_request_gfx_index_mutex(struct amdgpu_device *adev,
+    4746                                       bool req)
+    4747 {
+    4748         u32 i, tmp, val;
+    4749 
+    4750         if (req)
+    4751                 mutex_lock(&adev->gfx.reset_sem_mutex);
 
+Could we move this lock into the caller?
 
-> To give some context:  I was hoping to remove drm_fb_helper_funcs at 
-> some point. 
+    4752         for (i = 0; i < adev->usec_timeout; i++) {
+    4753                 /* Request with MeId=2, PipeId=0 */
+    4754                 tmp = REG_SET_FIELD(0, CP_GFX_INDEX_MUTEX, REQUEST, req);
+    4755                 tmp = REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, CLIENTID, 4);
+    4756                 WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
+    4757 
+    4758                 val = RREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX);
+    4759                 if (req) {
+    4760                         if (val == tmp)
+    4761                                 break;
+    4762                 } else {
+    4763                         tmp = REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX,
+    4764                                             REQUEST, 1);
+    4765 
+    4766                         /* unlocked or locked by firmware */
+    4767                         if (val != tmp)
+    4768                                 break;
+    4769                 }
+    4770                 udelay(1);
+    4771         }
+    4772         if (!req)
+    4773                 mutex_unlock(&adev->gfx.reset_sem_mutex);
+    4774 
+    4775         if (i >= adev->usec_timeout)
+    4776                 return -EINVAL;
 
+Either way this error path needs an unlock.
 
-Yeah, too many helper functions may make peoples daze.
+	if (i >= adev->usec_timeout) {
+		if (req)
+			mutex_unlock(&adev->gfx.reset_sem_mutex);
+		return -EINVAL;
+	}
 
+But I really think it would be nicer in the caller.
 
-> fb_probe is now gone with these patches and fb_dirty can certainly be 
-> replaced as well. (I once had prototype patches to do that). 
+    4777 
+--> 4778         return 0;
+    4779 }
 
-
-Well, the grammar of "ret = (*fb_helper->funcs->fb_probe)(fb_helper, &sizes);" looks strange, 
-It's lengthy and I observed you have cleaned it up at the last patch. 
-Which also eliminates one pair "if and else" clause, the codes looks 
-more fluent now.
-
-
-> This leaves the new callbacks for 915, for which I don't have a good 
-> alternative solution. So it seems that drm_fb_helper_funcs will only 
-> be used by i915/xe in the long term.
->
-
-Well, since it is a DRM client now, maybe we could try to drop it into struct drm_driver.
-Just like the '.fbdev_probe' callback, this may help to achieve a 100% DRM-based console/logger IMO.
-
-Besides, a lot of DRM driver instances has the DMA/2D acceleration hardware, promote it
-into drm_driver structure may has the potential to utilize hardware acceleration. Drivers
-will more easily to have custom implementation. I'm not 100% sure if it will only be used
-by i915 in the future.
-
-Best regards,
-Sui
-
+regards,
+dan carpenter
