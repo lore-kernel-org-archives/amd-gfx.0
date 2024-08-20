@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57D71C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 06:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9BFBC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 07:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5B1110E4DE;
-	Tue, 20 Aug 2024 06:59:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA60410E4DC;
+	Tue, 20 Aug 2024 07:09:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="XGzQeY/n";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=vignesh.raman@collabora.com header.b="WIvgmHa3";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 018B210E1A1;
- Mon, 19 Aug 2024 18:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1724092310;
- bh=nN+02BORUmu8AW+VDg5ihHazNdGoAb+E0EBL91hES1Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XGzQeY/nLMZ3EX1gs6dxRr3gqfowOv7gwV6HAOwF1Kb0+NOFaxVXPM9Ty2asI8LmP
- CJsFsNOGZZMkpXNHmOeOjU7OkE7u2yG6cQXOsS0vrUeAMyrfsaAL84Bn+W5UDsbsUy
- lCIlUHLO4srw9DlwNEraLnNrFZplcVV0RCwk8G24=
-Date: Mon, 19 Aug 2024 20:31:49 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- jinzh <jinzh@github.amd.com>, 
- Aric Cyr <Aric.Cyr@amd.com>, Alan Liu <HaoPing.Liu@amd.com>,
- Tony Cheng <Tony.Cheng@amd.com>, 
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/12] drm/edid: constify argument of drm_edid_is_valid()
-Message-ID: <00438587-4e9c-411b-bc67-82cabf251c8a@t-8ch.de>
-References: <20240818-amdgpu-drm_edid-v1-0-aea66c1f7cf4@weissschuh.net>
- <20240818-amdgpu-drm_edid-v1-3-aea66c1f7cf4@weissschuh.net>
- <877ccc7wji.fsf@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4081210E4D0;
+ Tue, 20 Aug 2024 07:09:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1724137742; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Wsf//7UlKFeMXs5mrlbsA3f7Sm4SWFQ4OhMWchFGrGlXmj8gyuwFrLdduALbIjd5yxD/zZ3xWd4GtW5mnphQOV52asjwadd4hDidbod+cjlJ19uEUG9xkh5AwjmM7VJomKofTpUJPPt7uQMy4sR5pRHv5V0wI5vzUBomskToNRU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1724137742;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=0sUDtqU8UXz2+A95knZ7ryFsZBRjCwmhZ1uQAm5xJYI=; 
+ b=ey+YqA/aEMyzbL8PrY058CoHw8u3SY9WK2lKKy6B+4+NvOcwr0DHW7DwOqQ25z2R9z6ipQbtVKN6IhGP4vAaPNgiYPiYXQPYoIQmYzCYIH35iciLlKRgcbaU6HO+J0s6srUj8P6mOb6DJRIolVgRJ8bBE1R4AHI7lxbpXFhTuYU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=vignesh.raman@collabora.com;
+ dmarc=pass header.from=<vignesh.raman@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1724137742; 
+ s=zohomail; d=collabora.com; i=vignesh.raman@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=0sUDtqU8UXz2+A95knZ7ryFsZBRjCwmhZ1uQAm5xJYI=;
+ b=WIvgmHa3eQbPb3a7PFmqg1lZ2yCyvmY6UKsmiivIyQWAx3BGMcQN2zw+HO/so6H0
+ m9pD1V6TJJCZTdFNaufvpephnLfyMBltYY2V4cQsnEurCyc6aiM9qoIDdprUYPLn5Fy
+ 5My6pDr8Isr9zkWPj0ZfqFCewFT+1t8ZfTb20OzE=
+Received: by mx.zohomail.com with SMTPS id 172413774108257.39914871221299;
+ Tue, 20 Aug 2024 00:09:01 -0700 (PDT)
+From: Vignesh Raman <vignesh.raman@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: daniels@collabora.com, helen.koike@collabora.com, airlied@gmail.com,
+ daniel@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH v1] drm/ci: increase timeout for all jobs
+Date: Tue, 20 Aug 2024 12:38:16 +0530
+Message-ID: <20240820070818.1124403-1-vignesh.raman@collabora.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <877ccc7wji.fsf@intel.com>
-X-Mailman-Approved-At: Tue, 20 Aug 2024 06:59:42 +0000
+X-ZohoMailClient: External
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,15 +67,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-08-19 11:21:21+0000, Jani Nikula wrote:
-> On Sun, 18 Aug 2024, Thomas Weißschuh <linux@weissschuh.net> wrote:
-> > drm_edid_is_valid() does not modify its argument, so mark it as const.
-> 
-> That's not true.
+Set the timeout of all drm-ci jobs to 1h30m since
+some jobs takes more than 1 hour to complete.
 
-Indeed, thanks for noticing.
-It turns out this patch is not necessary anyways and I dropped it for
-the next revision.
+Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+---
+ drivers/gpu/drm/ci/test.yml | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+index b6f428cdaf94..09d8447840e9 100644
+--- a/drivers/gpu/drm/ci/test.yml
++++ b/drivers/gpu/drm/ci/test.yml
+@@ -10,6 +10,7 @@
+ .lava-test:
+   extends:
+     - .test-rules
++  timeout: "1h30m"
+   script:
+     # Note: Build dir (and thus install) may be dirty due to GIT_STRATEGY
+     - rm -rf install
+@@ -71,6 +72,7 @@
+     - .baremetal-test-arm64
+     - .use-debian/baremetal_arm64_test
+     - .test-rules
++  timeout: "1h30m"
+   variables:
+     FDO_CI_CONCURRENT: 10
+     HWCI_TEST_SCRIPT: "/install/igt_runner.sh"
+@@ -215,7 +217,6 @@ panfrost:rk3399:
+   extends:
+     - .lava-igt:x86_64
+   stage: i915
+-  timeout: "1h30m"
+   variables:
+     DRIVER_NAME: i915
+     DTB: ""
+@@ -414,6 +415,7 @@ panfrost:g12b:
+ 
+ virtio_gpu:none:
+   stage: software-driver
++  timeout: "1h30m"
+   variables:
+     CROSVM_GALLIUM_DRIVER: llvmpipe
+     DRIVER_NAME: virtio_gpu
+@@ -436,6 +438,7 @@ virtio_gpu:none:
+ 
+ vkms:none:
+   stage: software-driver
++  timeout: "1h30m"
+   variables:
+     DRIVER_NAME: vkms
+     GPU_VERSION: none
+-- 
+2.43.0
 
-Thomas
