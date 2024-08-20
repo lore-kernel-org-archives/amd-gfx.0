@@ -4,142 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF11C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 02:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A910BC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 04:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF73D10E3A8;
-	Tue, 20 Aug 2024 02:57:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SqTE34V8";
-	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2051.outbound.protection.outlook.com [40.107.100.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0681B10E3A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 02:57:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WlB7LgA6mGX4DRvOOZgWaiWD1RiSosLCEBDrlC/L6P1mIksolQEGBh0I6OmWH8JVlDzVUqjMAZV4ZtegTmnRr2LIfL6ymPlzxoeiew4mknQxYCGv++n0taRMrVbSDcCWOYoT5DgcFxIuSNHpp4fvyRQ3VQzXHlx91lW3kJRvMSCsNEcILmvAJ3OfUQVdYov6gH8Ljw5qyC7wKmkVTevpI8dVUVxmHxHuk/FZ4r2l9F8cRMoQRIL8WrzmZQXm/no1dvehMa/kqe0sn+KB0TXpIL209Pacu+W7oQ3+PFhRJtVvg41mx1R19zSS0nT7qi0CmiJekiQDHgTIv4hieEck2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9B1gQWG58ul6IexTrIXGbTxj5Uw49rOTsbaINaatWRc=;
- b=iNiJuMh5PqRCBWFMu5PTPoDV0421ZyyyM5r7iSagDSEnWCSKHu1BpsWzRcZAuDM46NBSluMfKAPZwq54AeolTRb4hiHwcGCYI5IpTPOeeTuZtwBZO4/RMwWo5Nm0frjlU3guGlm9dNiieSbK6rtkDlmnGnCV+zTUO722OTPaRkKYuIJSVUI7YCtWZdpYuwn+VoNKW+NW4KppTQuwjjZHi7uCI8vY5byQ2YtFqsiaD0gb0Ieub5cpdAmLzZWtoCnTwE4lKihLaQILvkORDcSBXW2l43hvuiSbdU8Or743jsHXUj1AJzMgRwVInSGddtIPbK53s6KV2TT2eL7gVB3T+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9B1gQWG58ul6IexTrIXGbTxj5Uw49rOTsbaINaatWRc=;
- b=SqTE34V8cW/zTzW/tiiig9MrYSKnFWgWATALDzRy+gMOO1tnmBNnyT2p8CYhQxbxmKeWBG3jc3yM7ktxmC4aVbA5iXmw4KoNuKdi3KrKFx8mzmZZ9JilqaOTG5jHVo6O5stw7M5+Nkm+U37P9opRkVcE5F/AJkkhqhk+EkcZgG4=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by CY8PR12MB7659.namprd12.prod.outlook.com (2603:10b6:930:9f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20; Tue, 20 Aug
- 2024 02:57:38 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%5]) with mapi id 15.20.7875.019; Tue, 20 Aug 2024
- 02:57:38 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Fan, Shikang"
- <Shikang.Fan@amd.com>
-Subject: RE: [PATCH 1/3] drm/amdkfd: Check int source id for utcl2 poison event
-Thread-Topic: [PATCH 1/3] drm/amdkfd: Check int source id for utcl2 poison
- event
-Thread-Index: AQHa8kqNVVYOa9GwTk2rhggSWjmUXrIvdGsQ
-Date: Tue, 20 Aug 2024 02:57:38 +0000
-Message-ID: <PH7PR12MB87960A384F9D5F7D38D69B80B08D2@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20240819151437.13808-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20240819151437.13808-1-Hawking.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=a94c8450-4242-4b14-9bf2-d9b6cce30dc4;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-08-20T02:56:05Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|CY8PR12MB7659:EE_
-x-ms-office365-filtering-correlation-id: f5481fa6-f1b9-4bf1-3cfb-08dcc0c3d9da
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?kswFIVrx7YjaGjGhseGQXHmBO8QpPun+/xY3Xg1AYHsR6STazdOhe1Hnj86C?=
- =?us-ascii?Q?K0sBx9ROhEgJ25xjkaJ0PBTerV5FF/hp5rv2zJhDxuTmxnlWc0Ac67ieRyrp?=
- =?us-ascii?Q?iJR1JIKyV1JK5GSeF2nTI9LPhBpXHcq6v+fvX8532h2MhaAa0evWa7Lz2MRy?=
- =?us-ascii?Q?6wVp7wYGmHBoAwt16cprqFfJyzCCKu3IIsx4cV1Hs4kKoXOSF3kYDdC8J2oh?=
- =?us-ascii?Q?1YNY2xaGd2tHd8cIPSqdqTeqZ0EYycGbZGNFKxGzjEdisi3NeFms6CPTxdXp?=
- =?us-ascii?Q?Iw6pHEK4GZmB+7juqZj75K131PhLLCdd7IKRtKzUSa2ES92Elb3twhdGiun2?=
- =?us-ascii?Q?hQRnsDf5oRkCk1y9YO/Wcwwu0lVpK4tI0ga4wM5BwIbkw28BQpuUVEIHp7rs?=
- =?us-ascii?Q?xmRn9nLCGvkckIXwgbP9mGDNeR3oxygfJpmflFzjK9/JkcCU8RAbT+Akm1bi?=
- =?us-ascii?Q?qvqadHSBUboXWXHBwflERScrzHhn0uN0NbqBHpmUsDoKgDbZ0SkGZ5NeNt1T?=
- =?us-ascii?Q?h/cq0K33VAjU6s/d+yHiUsdgbQvXOuQnp77db8wCJQKw1zdi1RngmIPtUxa0?=
- =?us-ascii?Q?e3/T0zbJMBdexZucDe1KDRA7dIe43ljpn19di5ww1NQGt8peR5Oj2okhpXu2?=
- =?us-ascii?Q?K2xW2xtNXx2pMuvlfb1JdAo2ZJnazfYfbere4/6wQ4sGvvdHQRzYxBFOKYcP?=
- =?us-ascii?Q?cOTow8dzOPTzIzSYTlIeSiUGOXXsVECDKDf74nMn9zCRhgK8TsvuHR9yOnLa?=
- =?us-ascii?Q?Wbn0MxbE9MmOlA6MvcTCG76ey/fPUA1SOb9X7lG1/FFJ26i2SC5/4vNNcptD?=
- =?us-ascii?Q?GG596dufKK9NB5PzcaNbg0sJRqJoELFptn2Fc41TVMRms4dhRlx1eoF8uaVm?=
- =?us-ascii?Q?d/BfF7jlkfikmti3hLi8b9kUlhGhZyLpqDYSRUgsrR3YWLSQ/k1tbJQbNLJK?=
- =?us-ascii?Q?xPAZAiP/UHuhmdj8DjkB+PtGM1PiQKEVtGrhNt9on+Cl8l0DS21c3NRNS+NA?=
- =?us-ascii?Q?xFyUGX+7pv6y+NpiVeo7ASceyNoGxjRC0mu9fCDJoRvknUghSl7j2Ygs+t86?=
- =?us-ascii?Q?ygcwoXKqwrgf/H3mdME/LHJpJwubR/TKHC8pa47/qx+Hh5biAa6Qb3uAUSUP?=
- =?us-ascii?Q?6jPRv1gEB50ipjkxIfidfb5UsBZLwWipMkQz6QO2MvoSkWtJIF+n7f7J81s+?=
- =?us-ascii?Q?hVTphEKi9sGQ8nojMzUxO9Jvp9ZaGpDmSgkEDwwr0l/+gXn0ADKPFy/MjR/Z?=
- =?us-ascii?Q?Z4g7PgNaUZhI+iETbHDG/6QjAq4qi4rBtsLlFu4AzMg9Rmw9pL7TP3CW/5ql?=
- =?us-ascii?Q?ty9MKFsgyADj+XLbpf2L3N62qYc5NDYkWe5/ewq5Ix2Ymj91vn95N2Xvda9d?=
- =?us-ascii?Q?7cSje4imfnMoRHrrQ1LaI8OsAdp16T+mSjog9u8vmJya9JiA8Q=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QBVc5keWXJCeL2rWAdY5g4PaS8VgAxYOwLIFXXMv5GKI4Wffl/gMB/uVMh7a?=
- =?us-ascii?Q?V9/wx/4V1tIldymDcJ3pcDCYenPSwA831rR3NogkGAA79ROiFadfVJW8EHg0?=
- =?us-ascii?Q?1rlwPuoNZ73p48gkiev2IQJzr/vByuYuYmXWX7z5T3JNPhmHXAprfkgmDPOC?=
- =?us-ascii?Q?xqHVmkq+ji+BM5iBVx5JlB1VHyeermhrb0WNffdcQJEod5/s5+Mmn9SDuWc8?=
- =?us-ascii?Q?19oyZIImcf//vmx8aaSnihvCQjh//GL8PwuOBQCsnROg6ApMK+ID2fGucFyl?=
- =?us-ascii?Q?3vMiL81Xi20Oe1CfgCFkxev4ONCEOlTSNyxvQNXyYmlj+vEQmoSfQc9S9j6x?=
- =?us-ascii?Q?RoKmPzdkU3Oxc9i4Go7aU11lu1EsQnguut6z2e2eQj2phsuPUMSp9wxx+IgQ?=
- =?us-ascii?Q?XCvl4tJEfyJuMfOcmr0iaGYE+WCPbdWqYB/mXr0Dk1/W4oiveOJL/ptuK7c/?=
- =?us-ascii?Q?KLk2RqnlSsA64kL5GTy5g94+aoOmn7SvkcSYk1K9BpULGk2XSQouuw6FQhck?=
- =?us-ascii?Q?9J3VB22tPGIyRlwi4eOHDVD1CuXbTJAyLJa+ASwXQyq7OtEn7EJZyykborT6?=
- =?us-ascii?Q?kXjRZ7FgepQtyateSKp0rZEqwSHYPYNay1ztZKavpgPbDHnaEbR/DhIHb7IQ?=
- =?us-ascii?Q?xIzAoV9hXNbGBKUnzjSlG2qy/4ihsCmyY01X+mG2SABl3GHhpIB/EFS1m4be?=
- =?us-ascii?Q?GQix6phIFUmjByinCsDqCg+43wt3a9vlniCJQnWDkZxmO09OO6hYhFeV34SX?=
- =?us-ascii?Q?xJuwmKv0HihGFitOlM1Hrh0FsYHHTGqWDoFHaAQ2iRKR2hk8vT8WJMDVsiMy?=
- =?us-ascii?Q?wgfnuM0QDREOniud105kzS/XHTAF0zjMETnluqIckEpw3uNWuzpDNrAiuVCc?=
- =?us-ascii?Q?oixxxg42cfELNg75tk/Dj6CI/NAZ4tCvmi25AJoYD2fBP/2pbImc8EbMi+oP?=
- =?us-ascii?Q?fjXvNarAhIh24z8L5X3b1mVDP7cGMJV93huE7wd28hwPnrlFMBLfycovPs+m?=
- =?us-ascii?Q?CWkTgJtgzrdRuUZcHtp3xtphEm6bmpx2eRwasv60OY277qYhMyPHFxDHvjOG?=
- =?us-ascii?Q?Omt5c44k8V1/D2JzIGdOoUQhGkDD1BqxphI265v6cMR/K6tg18SrGjOdOVun?=
- =?us-ascii?Q?jVi9SvFRlyHY9BfQH51i90mpBI5UbOR2IFqoR1XMrrnqSwU/igTVU2eORuYF?=
- =?us-ascii?Q?f0VcWy33qx8WJtt3xL7R39nc+ncn+0nLt9bNDMfRMw89W9PnG4wXyCMpBQ2k?=
- =?us-ascii?Q?UGPzNjNTMIMm5qAET1PWs061ZDzwHEhSOQvrUUZlUK6WSL1oKjpQSfe8rN6D?=
- =?us-ascii?Q?Osv1lYF0pVGq2bAEgCFjJusTeRXJFowUyxN59JRJfTdc7hujS9qK19WbK36S?=
- =?us-ascii?Q?AwrF1bWqhJgZJ7GMuQf3wB+kdtb1v01bXeiesmhxOozqJv2ylrAkyUlqMQ1N?=
- =?us-ascii?Q?+oHxDZHoqM08LPpPNajjuy+ZBw0WNheqIFvsUTh95U2i7Yg4cw3EHWgwubUr?=
- =?us-ascii?Q?tlYq4uU1+oALrzRBi9v85sSB3+icYoCu7Md1R5ty0HdD2FGTCzTLvUoOwqUi?=
- =?us-ascii?Q?pX1AfO8BfG1s4jMgTBM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 217BD10E3B1;
+	Tue, 20 Aug 2024 04:39:27 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3F510E3B1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 04:39:25 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-42819654737so39070535e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Aug 2024 21:39:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724128763; x=1724733563;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rTjGr6TMsCDdXxH/Js7p8tKp5f3+qu+HUSXH6ORnMIA=;
+ b=xOltv+Qu/WBo8N+wJfPB80ixJWmdIIaOFBO2Q4V7uDSnhLQ3t2tqOJ71AyR2/jfVdE
+ KE+5rwdK14OfbjzSB4DxU9s5/PBRvVBhXuiBc5XTcS5IZ17T/m3FLrEuotlHZ1IDbB9Y
+ CbN/O2CIGFp6iUjZLg92UDI7VQR8L1Uq4x9FMV2IL8PbP18N4Fd38rjDQz9jRaXrb/k2
+ kawtr/oEZE931ZWguoPDc9kMVDJRDkdnAYCawuUER66pJevj+oRPbnQo33DRh/MiS4ca
+ kLNzk2atxoVZc5qf6bMPLcO7O9mkmP40wEN0KNocPHkHbhmvRp8mmKui5hGmbTq976d3
+ UHRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWlz60S92JFGptf58H6FK55hOTtIBXv38uOZgEEtLcwQpnrPXl9NJVpsccdBKBleF3nHzjvOXo3@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySTBPK4yxr6+lZF5vIDnUx/psaZJW62Puz3yOb8wL7/XJCRAxk
+ Iu83VVnMycZAVO0oJhkJ1yAp4sV77oozBGMuHAcTwFArGnhLQb3r
+X-Google-Smtp-Source: AGHT+IGw6e4J6VHUZdN+QnOwgMoLjCSSaFpBuKEyOnqRqfJO5YF6oXAjuzrWKpNMhSiH6I4QPTl/Kw==
+X-Received: by 2002:adf:a45a:0:b0:371:879f:5cc0 with SMTP id
+ ffacd0b85a97d-371946a4289mr7691706f8f.42.1724128763125; 
+ Mon, 19 Aug 2024 21:39:23 -0700 (PDT)
+Received: from ?IPV6:2a0b:e7c0:0:107::aaaa:69? ([2a0b:e7c0:0:107::aaaa:69])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-429ed648f4asm129292505e9.5.2024.08.19.21.39.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Aug 2024 21:39:21 -0700 (PDT)
+Message-ID: <bf1a557a-efd5-4b83-9291-fd7e45795f40@kernel.org>
+Date: Tue, 20 Aug 2024 06:39:20 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5481fa6-f1b9-4bf1-3cfb-08dcc0c3d9da
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2024 02:57:38.5600 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7wHrqAFfDAnjgigVdjQucXhUz+vK9/fAOquCRcWSNPWbNtOzw5JCfewhQvAl4H3J
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7659
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.10 090/263] drm/amdgpu/pm: Fix the param type of
+ set_power_profile_mode
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Cc: "patches@lists.linux.dev" <patches@lists.linux.dev>,
+ Sasha Levin <sashal@kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20240812160146.517184156@linuxfoundation.org>
+ <20240812160149.990704280@linuxfoundation.org>
+ <ecca67e7-4c71-4b51-a271-5066cb77a601@kernel.org>
+ <0155b806-628b-4db7-ac87-7ba21013aefd@kernel.org>
+ <BL1PR12MB514424F261930331FF6E58DBF78C2@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <BL1PR12MB514424F261930331FF6E58DBF78C2@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,66 +121,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On 19. 08. 24, 22:12, Deucher, Alexander wrote:
+> [Public]
+> 
+>> -----Original Message-----
+>> From: Jiri Slaby <jirislaby@kernel.org>
+>> Sent: Monday, August 19, 2024 3:54 AM
+>> To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>;
+>> stable@vger.kernel.org
+>> Cc: patches@lists.linux.dev; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Sasha Levin <sashal@kernel.org>; Koenig,
+>> Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
+>> amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH 6.10 090/263] drm/amdgpu/pm: Fix the param type of
+>> set_power_profile_mode
+>>
+>> FTR:
+>> Delivery has failed to these recipients or groups:
+>> Ma Jun (Jun.Ma2@amd.com)
+>> The email address you entered couldn't be found
+>>
+>> So the author of the patch CANNOT respond. Anyone else?
+> 
+> This was a Coverity fix.  As to why it was pulled into stable, I think Sasha's scripts picked it up.
 
-> -----Original Message-----
-> From: Hawking Zhang <Hawking.Zhang@amd.com>
-> Sent: Monday, August 19, 2024 11:15 PM
-> To: amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang,
-> Stanley <Stanley.Yang@amd.com>
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Fan, Shikang
-> <Shikang.Fan@amd.com>
-> Subject: [PATCH 1/3] drm/amdkfd: Check int source id for utcl2 poison eve=
-nt
->
-> Traditional utcl2 fault_status polling does not work in SRIOV environment=
-. The
-> polling of fault status register from guest side will be dropped by hardw=
-are.
->
-> Driver should switch to check utcl2 interrupt source id to identify utcl2=
- poison
-> event. It is set to 1 when poisoned data interrupts are signaled.
->
-> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c | 3 +--
->  drivers/gpu/drm/amd/amdkfd/soc15_int.h          | 1 +
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> index a9c3580be8c9..1196dccbe6bc 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> @@ -448,8 +448,7 @@ static void event_interrupt_wq_v9(struct kfd_node *de=
-v,
->               if (vmid_type && client_id =3D=3D SOC15_IH_CLIENTID_VMC)
->                       hub_inst =3D node_id / 4;
->
-> -             if (amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev,
-> -                                     hub_inst, vmid_type)) {
+Sorry, but again, why do we change the kernel to _silence_ Coverity? We 
+do not do this even for compilers.
 
-[Tao] the node_id, vmid_type and hub_inst can be also dropped.
+I am asking, why do you call this a fix at all? What does it fixes?
 
-> +             if (source_id =3D=3D SOC15_INTSRC_VMC_UTCL2_POISON) {
->                       event_interrupt_poison_consumption_v9(dev, pasid,
-> client_id);
->                       return;
->               }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-> b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-> index 10138676f27f..e5c0205f2618 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-> @@ -29,6 +29,7 @@
->  #define SOC15_INTSRC_CP_BAD_OPCODE   183
->  #define SOC15_INTSRC_SQ_INTERRUPT_MSG        239
->  #define SOC15_INTSRC_VMC_FAULT               0
-> +#define SOC15_INTSRC_VMC_UTCL2_POISON        1
->  #define SOC15_INTSRC_SDMA_TRAP               224
->  #define SOC15_INTSRC_SDMA_ECC                220
->  #define SOC21_INTSRC_SDMA_TRAP               49
-> --
-> 2.17.1
+And finally, Coverity has a "False positive" selection box to dismiss a 
+warning for good. One needs not changing the code.
+
+thanks,
+-- 
+js
+suse labs
 
