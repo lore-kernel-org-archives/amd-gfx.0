@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985C8C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 12:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB13C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 13:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4517310E7A5;
-	Tue, 20 Aug 2024 12:55:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEBD10E287;
+	Tue, 20 Aug 2024 13:09:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qp4pIjh+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DxLsgagp";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1867B10E793
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 12:55:20 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-3718706cf8aso3405678f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 05:55:20 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F6410E7D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 13:09:17 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-201f577d35aso2850255ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 06:09:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724158518; x=1724763318; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ngRoBeDBVxwsr8KowtAh85ovhHVduGWqpMKlvWBi1CQ=;
- b=qp4pIjh+KmKXmCIiMqpWWPTNKcGg66dQ3ptCmEuAJvNy7W/bay/Dt77htXs3LYB1iJ
- ssaCzq8jaqlHHqODTIqYBR0Mdw32AkSYUtkzfgFN3SoDsoSjJARlPutAdK68llnLy4Tj
- cTXVhnI6yqwEv87yRB+RtTq8brQjpwMlye+COvlCbj3+fAEdpnHNOOUPd4Su28afDgdf
- skuQt1fIB6XItSn7Wqk0oHCB1bHYUzCzXyoXAE+jCFkWkZNQWCmbq1PQPjvZeTY92Me3
- 3CNAamvZxZ43yWE5J2X40MYfZe7oWsxmvoUPIUKl1YOMDOJwUuPTNi4SAOAhdrlIGdnA
- aUvQ==
+ d=gmail.com; s=20230601; t=1724159357; x=1724764157; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7wENLxlmcieagYj63m9+kX5sP+5lkdu/NUeuQ19Odjg=;
+ b=DxLsgagpjiBxUOz0HU2KEmdp5B5EHQfXEOkSxshT+lssKOaaqWfKbHQrh/VyskmhzM
+ a7PEVOYtwDXjWCYV9LtTqlpz2c+i+awmKHOypnWU/ByMgBJix8HurrQ2/fPoA5F2kNCS
+ i7dkSnWrhJ/ES5qUfkDJXB8dSBoYoqfGHPs0wa2UsPXgWk1j9QP6493Dpn4G/OnHYHzt
+ 8S9q2cHxpphgskcKQRDvDO3Hdn7k6hyb+e+v8E1WvOAhqXfqMcmea9+tMb4vBhqKY+yg
+ eo0raa+sxwphALhF3kbIGwukHk7XxhiXtRpc6mMWc3LweOhm2SKxqz+98ZmBHtE2Wwox
+ GZww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724158518; x=1724763318;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ngRoBeDBVxwsr8KowtAh85ovhHVduGWqpMKlvWBi1CQ=;
- b=XU5zs5EYhpb/GM0NaEa9oRBOwk2juHRLS0+WJmdEXz9GzKa+mvBvm5U7VLeRnlCR5u
- 2Vx8LOOucwb0YmpNBZnxHM8HPaIq0aOI3fXR4e3eoV5zbfrNFVxENJVxOWGrZTUqv+4t
- YVj36V19IWWbr/Kg/M0k+BOt/EcX0jLbQj9+0WOXil4rM7jIwboUJlG83r/+wqNKv6T2
- EmRMvizXT1XgTeA917GUHvmQamLxeWeHKFHzymmQz+IuxSG+VGb3TsQRNhdmfqnHraFv
- fgGNCf81zgQX+bFDDJL2L8RpQc1iycuad9aWnCKOAMEPbHwZBoH8FA1vjl6Wkmh9m6E1
- IvVA==
-X-Gm-Message-State: AOJu0YznG/dHHTgAQ/zdZnGsuEqZHkuwXRQHfSgpRwsx8O53bDTHsaFX
- 66UpuBS5/V/tTyKQq07Udl3el//BD+QbyRoZicOoAdWYqgRDkuuALlWumqvfCjs=
-X-Google-Smtp-Source: AGHT+IFAHL+RJ5gD/FYZRBFwpA6DtkNcBmPdTEulwk7pezIgOYHEz65TukuTZbdLoNIxNzFy6AHmig==
-X-Received: by 2002:adf:9790:0:b0:371:913a:3533 with SMTP id
- ffacd0b85a97d-3719454bd5emr9453217f8f.22.1724158517905; 
- Tue, 20 Aug 2024 05:55:17 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ed648e76sm143087615e9.2.2024.08.20.05.55.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2024 05:55:17 -0700 (PDT)
-Date: Tue, 20 Aug 2024 15:55:13 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu/gfx11: add a mutex for the gfx semaphore
-Message-ID: <17436eb7-00c8-4ef3-b58e-de47cedb685f@stanley.mountain>
+ d=1e100.net; s=20230601; t=1724159357; x=1724764157;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7wENLxlmcieagYj63m9+kX5sP+5lkdu/NUeuQ19Odjg=;
+ b=HLdMNVDrtQoJ7SE1M7DxprStrDICilraOeP3ZuBw6Num8DFk6Oshi5sfDSk2uAq29J
+ kZHCJEgTRD+Ti4FAYvy1b5IDCTjz3VEMoz1vHde1vZ3NBIH6uVR49+JNsZ8/8RtZ1VIh
+ QAM1sOP+td0jm8rDpeHQXzIZ6JSoTBJGJJxL8Tq6mAXtVkmoy242Is8dAfYRYncHMqGr
+ m23Io+ZmBD3inHDNys1ywJqJUc1F17kXS3pqhLaNX6LNqH6GmhnmzUfIp1Tc57s7pWZj
+ 3rLCtjPKDqf1x8EKotFiLqYnA5uGQz4hNyc4YL7cpT/K5+G0WLtQYeIMmol8uQx/T0uG
+ pSmQ==
+X-Gm-Message-State: AOJu0Yybn+xWrh+kpSs4k48tJmC57STYDoJE57efijH33V0vB1CkO/gF
+ Q7lsB4TWKdxc2/bdg13y4qFT0jrMH/jjqDCH9RQstYdtb6eWyrCZyQ/jyHJIh+eAlWECKpsNWg/
+ dauyFb7JDinnhUSZ1Rz7dGVFCpNM=
+X-Google-Smtp-Source: AGHT+IE1YTok2ARYz64JT/kBfbB+WtIMxeXwBRaoECgaJQ5k5IGPdwOWBhaeyVzw5Do6el5yF4Q6B79yZfwS6hekjO4=
+X-Received: by 2002:a17:902:d289:b0:202:13d7:9290 with SMTP id
+ d9443c01a7336-20213d79b21mr82099215ad.8.1724159356545; Tue, 20 Aug 2024
+ 06:09:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Tue, 20 Aug 2024 12:55:45 +0000
+References: <CA+Y=x3n+X6PDza5KAG2fy2wLh0-w5mWQtvKbWvT3E3A0r_makg@mail.gmail.com>
+ <CADnq5_N-pvp8czodNT=YDFsqRz-Tet4GHK-JWiDdHnfL-2YF-w@mail.gmail.com>
+ <CA+Y=x3kr1F4OVPK8priS6cJZx_4KAT4kiYTLXhGK6qcYSG9TXw@mail.gmail.com>
+In-Reply-To: <CA+Y=x3kr1F4OVPK8priS6cJZx_4KAT4kiYTLXhGK6qcYSG9TXw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 20 Aug 2024 09:09:04 -0400
+Message-ID: <CADnq5_PthnFSeyLxhLSRiWSU1Y2McrMuSC6LXC2CFW3hqmTwVw@mail.gmail.com>
+Subject: Re: v6.11-rc4 amdgpu regression from v6.10.0
+To: Andrew Worsley <amworsley@gmail.com>, Jack Xiao <Jack.Xiao@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,65 +77,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Alex Deucher,
++ Jack
 
-Commit 76acba7b7f12 ("drm/amdgpu/gfx11: add a mutex for the gfx
-semaphore") from Jul 12, 2024 (linux-next), leads to the following
-Smatch static checker warning:
+Looks like maybe some older firmware versions don't support this
+properly.  @Jack Xiao Can you find out if there is a minimum firmware
+version needed for legacy queue mapping and add the appropriate check?
 
-	drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:4778 gfx_v11_0_request_gfx_index_mutex()
-	warn: inconsistent returns '&adev->gfx.reset_sem_mutex'.
+@Andrew Worsley does it work correctly with a newer version of firmware?
 
-drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-    4745 int gfx_v11_0_request_gfx_index_mutex(struct amdgpu_device *adev,
-    4746                                       bool req)
-    4747 {
-    4748         u32 i, tmp, val;
-    4749 
-    4750         if (req)
-    4751                 mutex_lock(&adev->gfx.reset_sem_mutex);
+Thanks,
 
-Could we move this lock into the caller?
+Alex
 
-    4752         for (i = 0; i < adev->usec_timeout; i++) {
-    4753                 /* Request with MeId=2, PipeId=0 */
-    4754                 tmp = REG_SET_FIELD(0, CP_GFX_INDEX_MUTEX, REQUEST, req);
-    4755                 tmp = REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX, CLIENTID, 4);
-    4756                 WREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX, tmp);
-    4757 
-    4758                 val = RREG32_SOC15(GC, 0, regCP_GFX_INDEX_MUTEX);
-    4759                 if (req) {
-    4760                         if (val == tmp)
-    4761                                 break;
-    4762                 } else {
-    4763                         tmp = REG_SET_FIELD(tmp, CP_GFX_INDEX_MUTEX,
-    4764                                             REQUEST, 1);
-    4765 
-    4766                         /* unlocked or locked by firmware */
-    4767                         if (val != tmp)
-    4768                                 break;
-    4769                 }
-    4770                 udelay(1);
-    4771         }
-    4772         if (!req)
-    4773                 mutex_unlock(&adev->gfx.reset_sem_mutex);
-    4774 
-    4775         if (i >= adev->usec_timeout)
-    4776                 return -EINVAL;
-
-Either way this error path needs an unlock.
-
-	if (i >= adev->usec_timeout) {
-		if (req)
-			mutex_unlock(&adev->gfx.reset_sem_mutex);
-		return -EINVAL;
-	}
-
-But I really think it would be nicer in the caller.
-
-    4777 
---> 4778         return 0;
-    4779 }
-
-regards,
-dan carpenter
+On Tue, Aug 20, 2024 at 3:48=E2=80=AFAM Andrew Worsley <amworsley@gmail.com=
+> wrote:
+>
+> I did a git bisect on from v6.10 .. v6.11-rc4 and found the exact
+> change when the problem appeared (see below)
+>
+> The problem is introduced by this
+>
+> commit f9d8c5c7855d
+> Author: Jack Xiao <Jack.Xiao@amd.com>
+> Date:   Thu Apr 25 15:28:48 2024 +0800
+>
+>     drm/amdgpu/gfx: enable mes to map legacy queue support
+>
+>     Enable mes to map legacy queue support.
+>
+>     v2: kiq_set_resources is required.
+>
+>     Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+>     Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+>     Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> M    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>
+>
+> On Tue, 20 Aug 2024 at 00:13, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Mon, Aug 19, 2024 at 9:55=E2=80=AFAM Andrew Worsley <amworsley@gmail=
+.com> wrote:
+> > >
+> > > The v6.11-rc4 linux hangs during amdgpu start up where as the v6.10.0
+> > > is fine. I had to take a photo of the screen (see attachment) from
+> > > which I generated
+> > > the following summary:
+> > >
+> > >     Booting linux v6.11-rc4 :
+> > > ...
+> > > amdgpu: Virtual CRAT table created for CPU
+> > > amdgpu: Topology: Add CPU node
+> > > initializing kernel modesetting (IP DISCOVERY 0x1002:0x15BF 0xF111:0x=
+0005 0xC2).
+> > > register mmio base: 0x90500000
+> > > register mmio size: 524288
+> > > add ip block number 0 <soc21_common>
+> > > add ip block number 1 <gmc_v11_0>
+> > > add ip block number 2 <ih_v6_0>
+> > > add ip block number 3 <psp>
+> > > add ip block number 4 <smu>
+> > > add ip block number 5 <dm>
+> > > add ip block number 6 <gfx_v11_0>
+> > > add ip block number 7 <sdma_v6_0>
+> > > add ip block number 8 <vcn_v4_0>
+> > > add ip block number 9 <jpeg_v4_0>
+> > > add ip block number 10 <mes_v11_0>
+> > > amdgpu 0000:c1:00.0: amdgpu: Fetched VBIOS from VFCT
+> > > amdgpu: ATOM BIOS: 113-PHXGENERIC-001
+> > > amdgpu 0000:c1:00.0: Direct firmware load for
+> > > amdgpu/gc_11_0_1_mes_2.bin failed with error -2
+> > > amdgpu 0000:c1:00.0: amdgpu: try to fall back to amdgpu/gc_11_0_1_mes=
+.bin
+>
+> The full git bisect history is
+>
+> git bisect start
+> # status: waiting for both good and bad commits
+> # good: [0c3836482481200ead7b416ca80c68a29cfdaabd] Linux 6.10
+> git bisect good 0c3836482481200ead7b416ca80c68a29cfdaabd
+> # status: waiting for bad commit, 1 good commit known
+> # bad: [47ac09b91befbb6a235ab620c32af719f8208399] Linux 6.11-rc4
+> git bisect bad 47ac09b91befbb6a235ab620c32af719f8208399
+> # bad: [de9c2c66ad8e787abec7c9d7eff4f8c3cdd28aed] Linux 6.11-rc2
+> git bisect bad de9c2c66ad8e787abec7c9d7eff4f8c3cdd28aed
+> # good: [280e36f0d5b997173d014c07484c03a7f7750668] nsfs: use cleanup guar=
+d
+> git bisect good 280e36f0d5b997173d014c07484c03a7f7750668
+> # bad: [a4f9285520584977127946a22eab2adfbc87d1bf] Merge tag
+> 'clk-for-linus' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux
+> git bisect bad a4f9285520584977127946a22eab2adfbc87d1bf
+> # bad: [365aa9f573995b46ca14a24165d85e31160e47b9] Merge tag
+> 'amd-drm-next-6.11-2024-06-22' of
+> https://gitlab.freedesktop.org/agd5f/linux into drm-next
+> git bisect bad 365aa9f573995b46ca14a24165d85e31160e47b9
+> # bad: [1ddaaa244021aba8496536a6627b4ad2bc0f936a] Merge tag
+> 'amd-drm-next-6.11-2024-06-07' of
+> https://gitlab.freedesktop.org/agd5f/linux into drm-next
+> git bisect bad 1ddaaa244021aba8496536a6627b4ad2bc0f936a
+> # bad: [b72fa761fc6be316bbf3ef9af4b7f145a208b1f3] drm/amdgpu: fix
+> documentation errors in sdma v7.0
+> git bisect bad b72fa761fc6be316bbf3ef9af4b7f145a208b1f3
+> # bad: [03f4b8c3ca7ad34d812d5760f0712e5c126c64c6] drm/amdgpu/mes12:
+> disable logging output
+> git bisect bad 03f4b8c3ca7ad34d812d5760f0712e5c126c64c6
+> # bad: [17e3bea65cdc453695b2fe4ff26d25d17f5339e9] drm/amd/pm: fix
+> warning using uninitialized value of max_vid_step
+> git bisect bad 17e3bea65cdc453695b2fe4ff26d25d17f5339e9
+> # good: [7e0357bef402875425de0296800c34c41842ba82] drm/amdgpu: remove
+> unused MCA driver codes
+> git bisect good 7e0357bef402875425de0296800c34c41842ba82
+> # good: [523ee6f4419bbeccbe43399d999f37381b5958c7] drm/amd/display:
+> For FPO + Vactive check that all pipes support VA
+> git bisect good 523ee6f4419bbeccbe43399d999f37381b5958c7
+> # good: [8fb20d9551368f0b1ef5b31fa0b4634f4be37157] drm/amdgpu: add
+> amdgpu MCA bank dispatch function support
+> git bisect good 8fb20d9551368f0b1ef5b31fa0b4634f4be37157
+> # good: [579f0c21baec9e7506b6bb3f60f0a9b6d07693b4] drm/amdgpu/pm:
+> Check the return value of smum_send_msg_to_smc
+> git bisect good 579f0c21baec9e7506b6bb3f60f0a9b6d07693b4
+> # good: [d53ce02352058639cacccc88cdbdbf48f1ee3b5a] drm/amdkfd: Evict
+> BO itself for contiguous allocation
+> git bisect good d53ce02352058639cacccc88cdbdbf48f1ee3b5a
+>
+> Andrew
