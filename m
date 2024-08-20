@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FB2C531DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 12:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90199C5472C
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Aug 2024 12:55:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E8210E126;
-	Tue, 20 Aug 2024 12:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35ABA10E793;
+	Tue, 20 Aug 2024 12:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=tronnes.org header.i=@tronnes.org header.b="lGTNWx2x";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=tronnes.org header.i=@tronnes.org header.b="gLriQE4k";
 	dkim-atps=neutral
 Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A731D10E513;
- Tue, 20 Aug 2024 08:28:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C8F10E0A7;
+ Tue, 20 Aug 2024 08:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
  ; s=ds202312;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -23,32 +23,32 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:
  References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:
- List-Owner:List-Archive; bh=ytGC/cPv2axqOpYGQV9hvopSGlgOUVWarCK8N1gO5is=; b=l
- GTNWx2xiqkAIsrUYD3Hp4Wua3iLOeSnEmczr8IF+B2o5S44brMVR2dUrOXzwMpBL2Gisn70mkOp/Q
- 7PIKoQrmSMFm/lP57JYix0+RiwcogECYlRM4EVZeUgAMOHifW/c7n+Yn92FIOVKsR0A4f/4EYC9pQ
- 3RnLUIqLLvWPpqSwlO/iGAOudm1vK5UQpNcLTsJG4tUhtSd6n8gARVLUavnk+07DPX9LWRhK552kO
- NbnNXrn72UUu5i5qn8EccdQoeczeBx0Va2p8bfWIVlMEObX0NO5Td9fUd6ID1pI5U0ldLizx572a2
- lFF+HH+eqrlnarRC9aa6ppQfWyO4bXZ2w==;
-Received: from [2a01:799:962:4900:815f:3dd0:60d8:6458] (port=53618)
+ List-Owner:List-Archive; bh=xU9l13/aA5SHhmFyVSJGQyddk2bPNASZGQftMa2HXP0=; b=g
+ LriQE4k8WHcyv8YKGGQd7s9TTH9Yf5CrvOEFALmjXKqFvDFeFo9qpGXMqfYEJMHmM+io0DFLPldlG
+ /svx54JCDjpS0Go9Iylq1ruittcajxmJtHY1EnDjzbtfSTPEDRgVYkvl6ZcP4AjO0lxx17K8Nhp2O
+ WFxHqdn4Ay01Ch0Us7GlGepl7mDLXvkg/1hKtjk4ZJm7c+DZroBFCc/hUlBqdOolp+mfm84W1/1r+
+ cOQUfinj/zaH/4L4FcZOnNhdS79+f258vAwUHnw8rhwEMZAeSkpc+3ki4HalBJcbBGVvHhkuA4Pye
+ 00XD13zIHwEtriiQCobLSSPXKXak7o/lg==;
+Received: from [2a01:799:962:4900:815f:3dd0:60d8:6458] (port=60166)
  by smtp.domeneshop.no with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <noralf@tronnes.org>) id 1sgKCG-00AwsL-Uc;
- Tue, 20 Aug 2024 10:26:32 +0200
-Message-ID: <3f09f6c4-3f70-467e-9ad8-9b555f63ed80@tronnes.org>
-Date: Tue, 20 Aug 2024 10:26:31 +0200
+ (envelope-from <noralf@tronnes.org>) id 1sgKBO-00AwN5-Ql;
+ Tue, 20 Aug 2024 10:25:38 +0200
+Message-ID: <871d7010-39bd-47b1-aea7-b1b6d39b5103@tronnes.org>
+Date: Tue, 20 Aug 2024 10:25:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 37/86] drm/repaper: Run DRM default client setup
+Subject: Re: [PATCH 28/86] drm/mi0283qt: Run DRM default client setup
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
+ nouveau@lists.freedesktop.org, noralf@tronnes.org
 References: <20240816125408.310253-1-tzimmermann@suse.de>
- <20240816125408.310253-38-tzimmermann@suse.de>
+ <20240816125408.310253-29-tzimmermann@suse.de>
 Content-Language: en-US
 From: =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20240816125408.310253-38-tzimmermann@suse.de>
+In-Reply-To: <20240816125408.310253-29-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 20 Aug 2024 12:55:35 +0000
@@ -68,7 +68,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 8/16/24 14:23, Thomas Zimmermann wrote:
+On 8/16/24 14:22, Thomas Zimmermann wrote:
 > Call drm_client_setup() to run the kernel's default client setup
 > for DRM. Set fbdev_probe in struct drm_driver, so that the client
 > setup can start the common fbdev client.
