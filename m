@@ -4,162 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5673CC52D7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 20:45:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A98EC52D6F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 20:46:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F394310E054;
-	Wed, 21 Aug 2024 20:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD1310E2EB;
+	Wed, 21 Aug 2024 20:46:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="00E5IX6v";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T4t6k56p";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F9910E054;
- Wed, 21 Aug 2024 20:45:46 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC5910E2EB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 20:46:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UPEpY4Fha6N7FztoANMZ60UAfxUwgKEonrw67Y+THK74S11/LtB1keX/u9PpIKC5z7g78FhvSF/i0Zt0bTjB0je4NKgfXVBMvkI8jTx0hkPEeJJOT0CtYAlszNFRDfskVaV83080HoE6ufLrYKiHRszB6PXEoGkrk3c1oTC272xc7m5XrBX/t/d/tEo3RMLR9IK3rWbt0sYLx5fFSC12vMm5uq7IuSVzaBgLJpKc4hPbqiLR1tByTzS3uXjifG0nUpiKRVKPJYeHf2skfAeZijHzUmd3YMDTx9foIhjXdLT1buHXC4U5X2dRGrf2SYQoJAt4lUmvo7p3rqPotP1Pow==
+ b=YJxEOe4Q+fc3MGZcUfc4XKHPm4nuKftQ6QhLfEKbqshm6r7iIbZT9RYW8ejiIkhGB87C8BP3EsTRxEldgYfoG9NCSe6NIL8wHf2vWuuo7t84yJmghiW79GbBv2AmWx6sa2TLcnShuWHFjoYjx39/gYWNI8vuOEO7g40ivcxiOp2fsqWE0XdNHdc4S1yMABzgDEhk+k7RDw0XodVCa0l74vmx0M0p9jHCxamKL5lWnQ9cIWnUt9ek1W8MJS6kCM7BpTSwB3NPokhXmwBwxrHCm5RIminZX0d8QNpQGnwSMHrcig8eQ//2MNJdyFhx7xKKzykcoL3Lbin76OQPlo619A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WlLcNiokpbPEaxlBiHuwLLER6DCrVQWXwK0LKrOUOjI=;
- b=BlQhwlronsU91iojib7RGZcv0M0iv/LGP4xDeiMY2ZdURAZrJetyEcXnVs9NAsl6x9Ps2CtJqeQ6lwGjnwSCNQadSTeD5lsboncXiTTWCaXNTULucW0/TUR5rd3+l8Xu3m4NfB1CIIxQtOFDbL8W497/PRyQwZpCSdm8zcCTMrE2CHy4Q0ZHQPBFHdtkLv0RPH39sMssg0kEokCR/OTW6xxKm7Gr0Kwlqbj4CTemC/3WCDMlBOdk61WT4tByG/2XCIseFj9XFcrSxpm3hNNvU9dAoC+Jqto7Uzgi9KmIvpmEO3BBumFT9sWO68kmCLliQ56/b2E0fPxKyAUWwOMKbw==
+ bh=o/VZy0t4chHlri8AtIxR70T57gdbLBH8dBAWYm11WoM=;
+ b=vmAwXOFSCarJOW6n4UMz2E7NhGLrby59WZ2ShlY2oWlMtulZFkwdaUPnVI+og1uQwZpkO9RFyENqVVGdW20pIYewIvWlRWT5XEu8pLEk+poLuj2VcdvWgMVzJ/FRaAv68PXeQ1gWK6aihMp+TUZUi4LbxQlUaAlXnFAy7IgoKtdwGXCs2zJG5ji+Fu4SiNF6gz8xM8KHvk3pH8Kivx/y9Wksu8LIEH/sfUXpBoSrHAILWEOOD9FHXoejj1/UbhsPIq91o+xk0tzpsRqa84v5/yppAt9pPPxUqC/XDXNAST5vxdtROrJlFnHBjMYb+KcWT7/7FTQrX7OD2ejYZrtHJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WlLcNiokpbPEaxlBiHuwLLER6DCrVQWXwK0LKrOUOjI=;
- b=00E5IX6vQRAg2hBTnob4N+8xz0CdSZqg/820RtiG5kAUTyo8FqByg6xVdJycTxJeGHspzOtvSGTYL4pwzhQCc4guwpEEN3zj5wknRtvntgadabX5jhUdXmngS9JiP4tLFuOHfYfng5Bn+GuFRzjKgbZKnl+bSH5HXLWH1EicQB4=
+ bh=o/VZy0t4chHlri8AtIxR70T57gdbLBH8dBAWYm11WoM=;
+ b=T4t6k56p95TXRCwWQd3+ldG7AItfmv+ZCb0O446MnqOuCw6Uhu9CZqtj9PA8gvGhlzT6+Pg8/lcyxGrzlkDz0Zwb3iwQM7Wr32G2AwoEOxQ4u3EpvQnwsrhLPXltl5Q6oRUTzzmwmP7OsHO16kq8OYk8PMhYTEuGJqb0TEO+xow=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH7PR12MB7188.namprd12.prod.outlook.com (2603:10b6:510:204::15)
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MW3PR12MB4361.namprd12.prod.outlook.com (2603:10b6:303:5a::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Wed, 21 Aug
- 2024 20:45:39 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.7875.016; Wed, 21 Aug 2024
- 20:45:39 +0000
-Message-ID: <4079b41e-9a5c-43be-9614-250b21d6e92d@amd.com>
-Date: Wed, 21 Aug 2024 15:45:46 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19; Wed, 21 Aug
+ 2024 20:46:18 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%2]) with mapi id 15.20.7897.014; Wed, 21 Aug 2024
+ 20:46:18 +0000
+Message-ID: <2e24ab52-c5cc-4991-b610-df0681410229@amd.com>
+Date: Wed, 21 Aug 2024 16:46:16 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/4] drm: Minimum backlight overrides and
- implementation for amdgpu
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>,
- Hans de Goede <hdegoede@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>,
- linux-doc@vger.kernel.org
-References: <20240818-amdgpu-min-backlight-quirk-v5-0-b6c0ead0c73d@weissschuh.net>
+Subject: Re: [PATCH 1/3] drm/amdgpu: re-work VM syncing
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ friedrich.vock@gmx.de, bas@basnieuwenhuizen.nl, ishitatsuyuki@gmail.com
+Cc: amd-gfx@lists.freedesktop.org
+References: <20240821120324.4583-1-christian.koenig@amd.com>
 Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20240818-amdgpu-min-backlight-quirk-v5-0-b6c0ead0c73d@weissschuh.net>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20240821120324.4583-1-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA1P222CA0163.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c3::22) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+X-ClientProxiedBy: YQZPR01CA0022.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::6) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH7PR12MB7188:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe922b05-53ba-43f7-fb11-08dcc2223757
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW3PR12MB4361:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4bd6e26-2673-47e6-0407-08dcc2224e60
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NEU4eHZDTHRwc3Y4dTJnY1czR1UxcFMxaEFYUmd6c2dzWGdSMUVNQk1qK3cr?=
- =?utf-8?B?ci8zK0V1N1l6QUpSYldFRGtpWDhQK1NjV1lsZHg1eFdmREJXUUZrTUJvaEtU?=
- =?utf-8?B?TGhad09ydm5GbGFHTjc5eklpQWhxN3JFY1VZZERkOFVpU2VKLzFVS3M5OEpW?=
- =?utf-8?B?akpiYnJ6MHZDNVJ5aXRmeU9qdGdDK2p6SmE3YUtLbEdwZ05Icm05ZFdXV245?=
- =?utf-8?B?OWNncW5Ca3E5MlMvZk0wUlJHZU9Za1Y4TGdnbml5T1ZxelZVMU5RTkszUkI0?=
- =?utf-8?B?VTR6OUJCUTh3cXJ6a1c4bklOb2dua1NNaWdmeVdVNE9nZlo4bnFuRHptMXhW?=
- =?utf-8?B?d01oN204V29rSkdOdVBuQW40NzlXbC9uMVlZZkdFV0I2cEpybW5XU2g4bElK?=
- =?utf-8?B?M1NJdzY2a1lpQmhaWkF1YUJuSFdlNzNBWDlZbDF2QTBVU2tLRFVnRzM3bUlo?=
- =?utf-8?B?KzJCQ1ZvQ1ZMT0NIMi95RG1sOVdpcmh0TlNQaG5DcDFrMXFCd2pVSC8xTi9v?=
- =?utf-8?B?aWRGZmN6UjRDeUc2QU9xK1B3eUd2YnpCMnA4NkYrQlZFYzdRMzVWMFBhVnNx?=
- =?utf-8?B?UGJFZks3dFdSTDJERmFVeUNITm5IcWdhRnRyRlVGT3VySFljTFZLT0JSdElZ?=
- =?utf-8?B?L2pyTTVGejU0bTM5N0ZFeHB1ZVFEamFEclY5dlQ1M2RtbzkwRkpKYUh5akZY?=
- =?utf-8?B?eHk1a3I5NHV5SUtPMGw4SHVvaXJYZzdqTkJQa1VwcUJBT2hLaEo0T3BERU45?=
- =?utf-8?B?YktyTnFWcUtudUs0WnlqV3V6bUJiekEzN2NacHRkOUg4VGVUazFVQVFCRlJR?=
- =?utf-8?B?Y3JlWXdQNXdic2RmOC9nRHFUWGNuTWJWdkJURlI5cFlUOEg4MXBRblRyd05B?=
- =?utf-8?B?K1VvSk9tS2c1U2JkOVlYSEF4WUptK2xTT01icERTNU1XUHZsVEM2UTBrOEFB?=
- =?utf-8?B?U0c1RFBjZzdzYzlEaCtZVURpRjRJN0JpN3pxUnp1OUsyQjVEelpUVHFISXdN?=
- =?utf-8?B?WS9UbkZKQk9LQ0NVY3dVMklxeldFYWJ0Wlkxc0JZL2JNblNPT3hoUUJuejlE?=
- =?utf-8?B?cDFQMFF4Yk9DazQ3Nk5sWFJwM1ovdzg2dnBCY0JJZzhTUEVBbWQzUzV3YW1q?=
- =?utf-8?B?SFYyZmpGS2hidnZCb0RjYTAwNGZodWttVFRsbmRaK2xCSVp3VXNkR3huL09a?=
- =?utf-8?B?dFIzK3BLUmhJWTJrS2tuU0lBYWV0Qy8yTXdoQlRYTlloRWNmZW94Q1BWaU85?=
- =?utf-8?B?WWZGR0xBbDFKNjk3OW5mdmJRbUsrbVZMblYxTFd1ZldrYTJKQVFYV0NVNnUx?=
- =?utf-8?B?YklWa29TbjVkM0s5SThTME9IWHlOZHllNEJNTFNLT0NseDQxOEJCZ0FSYzdB?=
- =?utf-8?B?bFgxSEpvbnFmendId2wyWkgrV0JnSGRqUWhLWFozdEJqVlRTUFBZdnB0SlA0?=
- =?utf-8?B?QjE0YWQxdElIdHp5aEJ4MzBqd0VlZEFqZWphdDNLdm5yR29tRnMwd1ZRV1Bj?=
- =?utf-8?B?NDZHSTJhbGJDeWhSUUU2MzFmNHVrL1FQdkRzeExIemd0NUNFTU1NNElyNmpI?=
- =?utf-8?B?YmdSUCtHM2RsUVhpTnFjSjNXYnRyMDVQVjd3d2xseWJZWFhPZThHc3pFNm1P?=
- =?utf-8?B?SkNSMmFDd0JlbjJuQ3VNQ0NzS0o4UHpTME5mVG9wTno0SStDYW00TlhiRk8z?=
- =?utf-8?B?VXZZZnlDcmJTckRQTWRJNXg3YjNYTEVPUndtd0tmRGJycldlSnA0MHhyU1B2?=
- =?utf-8?B?b1lSQjBWM1RuR05UTFZtZVJuR1pIVUE4L2FEbzAvcDVaU0R1ZzRSSk1uUTFW?=
- =?utf-8?B?RGhaaFIyd3lQeVVweXV1azFhaUxrbDFaenN6ZzBISmdLTTh0a3RLOGY1aW43?=
- =?utf-8?B?ZGNRVjJrUzZWUFoyc3VmT0FSVW0yQzJCTmtzM2pRT1pjaVE9PQ==?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cVZ1S3dNcGY3VHRsTTYvN0JOUGE5ZGpPYkYwbUM4UWUrSUhTMXRsU2FqQkRS?=
+ =?utf-8?B?WjNWRmJmbDZwK0NvenpWOTZhVEFCUUpDSUV0VWFVQzFOTGFteUFIWjVtT1g5?=
+ =?utf-8?B?NzA3T3VONW5yRzhqUC9EbHkzT1hsdGI3eFI1UytianJHV2FWMS9CUnIvSnhu?=
+ =?utf-8?B?akkvSDViK3d3NEVPbHkva3lJYVlpYTRZQVE4U1pOVWJTUldjWGdyTS90clNm?=
+ =?utf-8?B?K2JyUSt6bUNJa1JXd1NoM2pnOWt0VVg3M0F1Y0thRFdrRnhQa1ozbkVRTWR3?=
+ =?utf-8?B?TXk0UnU3Zk83UkFSNnh1ZW9pRGJPdUh1RjZBVkZ4NDZWUTFvdW9LQnBUTDl0?=
+ =?utf-8?B?QVM2cFRQTFphSTdyVHMySWVJRmp4YjIxUkxyVkRVaDBtVDlpVFZQSnFOam52?=
+ =?utf-8?B?cThFdmN3V3k5aFF1VTZGY1RpdmVpR1U0OU9GZ1BDYVJiM2VzOGpmOEs1alNT?=
+ =?utf-8?B?NUVDL1hxMFYwVXk5QXBkQlBBUUkzVXBjK1ZscTZZbTRGamJaekY0ZDl0MjBy?=
+ =?utf-8?B?UG5WUUVxSDJBYkN0dWxjeWdPWWFLZjRxRmhZVUxhTC9SRmR4ZTd4a1dxL1dw?=
+ =?utf-8?B?QkdSdlFQazZvTmg3Nko1ME9MVkphcTZqRzBsOU8rc2c3NjBWR1NxN2kxQVZQ?=
+ =?utf-8?B?eWZiTzVPekdjZ0dTMlRQM1Q3YU5oV3YxcFp2ZU1TTEYzZ3J0cXVMbFVCcm54?=
+ =?utf-8?B?MVlSYy9zVzh3aEVoMEx5R3IwWHpHbXF6eVdxKzg3c2cxWFY1OFdHY2FFNVJM?=
+ =?utf-8?B?cXBXSVNIcXZnU1FWNU1YZzRkbE1zSnBrWUJDQVFaVHVuR0ZoOFY2RWxBWjRY?=
+ =?utf-8?B?TXJRQmZUN3ZhdGk0RytKYStnZFZaQldQbFpVL3pxaG8yUDBMQXRtT20wU2lj?=
+ =?utf-8?B?ckhYaFhTOXM4UzZ6N3lUR05kK1F3bTIzVEN0NHBaL0hHb2htMXFIcUhiSzJi?=
+ =?utf-8?B?c1dGMDN5VVhtVmlOa0hVSk1NYUY2a0ZGREdDZFd6OWZ2Ri8yanhITnBRbkIy?=
+ =?utf-8?B?c05Ha2dPNzlDTG9HcjNUSnA2SCt2cUM3QWpqOGxWdllBdnV3OWVSUDc0OXRu?=
+ =?utf-8?B?bHk2MkY2eFV2MWJ0SEp6VGtGcTZSTlAxWWkwdyszSEY5OHo2S1d5dll3bUpk?=
+ =?utf-8?B?bVlFSm1lV2FOcDhmM0g0Umc1dklocGFtRmcxRnBLVUdjVEtqanZYOUNmY3VY?=
+ =?utf-8?B?bFFmV1VjeDlEeS9rV1FCeWZ3dSt4U2FqVE5CZ0FIekpBbFQ0TG9xM3pzZjZG?=
+ =?utf-8?B?cGxIOXpWTXh0OC92M2ZGaVlLejhJbk1yMTh2cnpSQkY1RUhucHVtUDFVd0F5?=
+ =?utf-8?B?SDBzWGovQzE1bjRzWXROUTRCSG5PUnVhamQvNThId0Yvc0dXb3c5VndodXoz?=
+ =?utf-8?B?ZzRneEQyRXlpZXFOdlpEMkhtZjNIcnNLZ0xScncwSTZPT3JsOGNiR09yZ0NT?=
+ =?utf-8?B?S21wNFRlTVdvdERvNzMwYzZiV0VKeHdhMTRBY1hrVHByLzhud2VIT3dLSjRk?=
+ =?utf-8?B?Y2hoWFh3RmlIamNBRUpOaFpaNEcrY2xwOGtISjJwSXpWOEZCVnVJUEVBTUlJ?=
+ =?utf-8?B?NVYwSUx4RFQ5YlB1OERCTU9hQjJMZXJVUEZXcEhCNmVYTUZVMGVCNWQ1aFln?=
+ =?utf-8?B?bDErZThKWmJKV0lmV1pCZE5DKzBYd0pxb014NUtPSEYwMk9OLzZsTlQvanNo?=
+ =?utf-8?B?dm55ZVE5YWNtWHJnNVh3dmpvT2IvTGpxWXVaTkZ2QjlROGM2UDJrR3Y4SnNv?=
+ =?utf-8?B?VktObTBTKytVNElOQnpnVi8ybWVMNVJBREdYNS9md3hwTk00bnp3L0xxZTNm?=
+ =?utf-8?B?Uk50QlZqcmMrVXIrdlNFQT09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(921020); DIR:OUT; SFP:1101;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXlmVUNyd3llSm5MdmhGUDU1RE1vQThWZTV3aVJJUlJ2SG9acUl1ZFVqdTZY?=
- =?utf-8?B?a004RFRKWEtackpmMXlnNnR0d1dLRXRGSTVqMkw5MHg3US9rWTN4UVEzZExn?=
- =?utf-8?B?WFBWVk5NKzMwdDhWOWdtT21xYUNMQTloOTRpZXZxR3c1d0xBanhpRmtNQzJP?=
- =?utf-8?B?dFNXWjR6a3JBYlJaU0w0WEtxbVE1T0x5R3psblpQZnVsZkRnbFpiRm1iS1l0?=
- =?utf-8?B?UVp6MUZLZk1RdFc0bC9kL2JZMmFtMExjTFdOU0Y3VnUrVG9JQ2NsdjdCQ0ZC?=
- =?utf-8?B?dVUraWZCb25RSzhXWHE4bTRJYWlLYUlmanhoUEhkWGVObVdMRXpOSlFGeHAx?=
- =?utf-8?B?OHY3WjVoRHJ6cmNUOUNuZlJscHZvZU5keDNzLy9IOXUyNmU0d1RxdkxNd1Y2?=
- =?utf-8?B?S3lHdWdmMzQybDkveDZNdWVGTmJzQ0RvUkxtSjFLZDhJd21qNTJya3hwOFhX?=
- =?utf-8?B?WHhrbDdSWC9IcXEyV0c2N1FtZ0cvdmYyWWVRMVQwZkMzb2YveXVsSTlTSkNT?=
- =?utf-8?B?UGFNNzhuemN6RkJNWW9UQkY2UUpseEhOOVQzcFhvSVAyUWoySGFzQ0NRYWVC?=
- =?utf-8?B?VTZDSlVNMlNFdjVQNnhia1RoZWNpWjR4OWxLS2RJbm1yUkNlN2JxbWlJZVBo?=
- =?utf-8?B?d09lOG9JZjdYY0FFZHU1YWJDNkttMTdJa3ZCaVdabE4xUU11UUJCSXMvd01M?=
- =?utf-8?B?bUYyNWJaQ1k1dmo3U3ZLbFMrTUovVHZjQkYreUFhYk5jaVhPWHd2RVAxSStK?=
- =?utf-8?B?Zld3RmJZZXBmb3dVKzJ0OUcweDR2VkU4azUrbVYwSGlTR0QvVXRPemNPRnpR?=
- =?utf-8?B?RUZSbmJFWW1MQ2x6QUVsZEhydUVobGZrZ2pyajJibjdwK1lrOHoyMmNJdFow?=
- =?utf-8?B?eFlKRis4U3hmWmFLVlB2YUxRbzRWbTU1dnpQNzRpbVZldE40QkNNalBldG0r?=
- =?utf-8?B?RG5RaGNkOWxCV2plUXF0cjVFMUIzbVlVWVdibHc0QnBER0tydFQ1dkNHU3cr?=
- =?utf-8?B?b3h5NVhSOSsraUFjRTJYUHY4bDVFKzNXY0Z4b2kyODBTY1FQZjltQ0lPNEp3?=
- =?utf-8?B?Wm50RXkxazRRc3VKcDdCeG5lQyt2ODV5TkVURXpNblluTmkwUjFRMGp3UWdS?=
- =?utf-8?B?N29ZRFlldDVPRFRRbFRSVkNGRXFDZFQxcDQ4bXZlSXVFbUE3TENnRjNTMFU3?=
- =?utf-8?B?MEt1RWdVTWtlOFNUSHE5T3RScml3a1N3R0JoMisvZzNMN1Y1VURoMmloUEMz?=
- =?utf-8?B?czJ1WFFVMlZkbWJIRlJNZGlURUpoWGhkMGJ6dEl0ZklzUFlhYVhCcCtMS1NT?=
- =?utf-8?B?N0h2MFZtMnpnNDRFYlVTR0k1ZjBIRk10NTdNdnd6ZTdnb3dNMnpJUWpVSC9Y?=
- =?utf-8?B?TkZuM3ovekV2b2c1S0dNVW9iRWYyQnpRL3ZoUGtoajhEZzVxYnQ4dlhRd0xn?=
- =?utf-8?B?ZlcxR0VkRWJ0R2Y4NFlSTHJpVkFlakY2TC9JOVYzK1VMSU9vQkZ4anpSZ0g2?=
- =?utf-8?B?eXZFVEIxeHMxTTlqdTN2RWN6R2t3VWxQQk1vKy91eG11MnFtTzhOaElxZmVs?=
- =?utf-8?B?NFlyaXgwS3U3aGh2ODlYNVgrOUxKeVBkZVhTT1lqd1h4QjNGcDBrVUwrdHRw?=
- =?utf-8?B?c05YdVM2WnpkY3BRN2xBOFd3d1c5R1cwWmtzSjVqclBIZHJnVXMvYzNEUGh1?=
- =?utf-8?B?RFZ3emE4Y3M5dmJ1ODFkcHRGWDN4NnlPeHhpblpTZysxSG83OS9adkNhb0Qy?=
- =?utf-8?B?Smc4M01xamV0UXpSZEdpbGJhV0J6QjlqVTgwK3ZDMWE2UUo5Q3Fna2VWQmhD?=
- =?utf-8?B?RVhzZW85a1FyWktmVFl6TVR0aGRkTkZFdUlzdFVIM1JPL2Jld0N1WUU4dE1i?=
- =?utf-8?B?RDErTk1tOGc3aHZVY1g2VXJ4NVU2bjZ1bmZ5RUkzWUcxd29JdDNkeDB6ZC9N?=
- =?utf-8?B?N3hOVi9RcDNrWWhXMmFUc094T1gySGpoZGhZZUFYbGtlOWdQbjZleDRLNGph?=
- =?utf-8?B?cUw2eXJYQmk5WFFhdmtkb1ExWXN3SGxJNlZFUHRZc1dPOGlaTm5OeUtxaGlZ?=
- =?utf-8?B?STJScy9ZUExSeWplODJtVENydHFDRFNwUTFHK2FBaDNsUk5vcm5VRitxNXgx?=
- =?utf-8?Q?xnbIPmreAb1f14rpI3Tt5/tBW?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bExHTFFLSE9TTWxadm8vcFE1czEvRFNwY0xnVS9UY0N1TXpGZndMQXhmNDNS?=
+ =?utf-8?B?L1lvWlcvYlpVSkZCZXROSUlsMnRuOUxtTEgwYUhmY0VZcDMwT25zcjN1ZmNp?=
+ =?utf-8?B?ZzlIWi9jVURYV2lPR2pxSy8yZmV1c3h4TEVnd1grUWg0aDZab1hCbE5jekR3?=
+ =?utf-8?B?YlNkcDBQeEJBVm1zcVpSNUgrNG9LVXVWUG8zQldrNW1JYWVTeldPcm5IL1ZJ?=
+ =?utf-8?B?bUFnL3BtY3JEcEZFdUJUQytUc3djMW5vNytqM2RsMXh3UnFvWThjOUZlMytG?=
+ =?utf-8?B?R3VDTXpxd1BiM3VWclNWeGV1dDBrMDdycjJsbjFyczRVS0hHM1FjZ2Z2dVIv?=
+ =?utf-8?B?YmVLa3A4SVZ2Y2ZvZTdaTG82ZG5RQW5rRmxBaGlsbzE1RTlhUk1zZ2VKRCtV?=
+ =?utf-8?B?dkZGMHJ3U01xK1NJeEpqYW43Tkovek5NR1IvTHg1NkNmc29KbXJvK3dmS3d1?=
+ =?utf-8?B?VVM0eENxZFIrYnNZVnE3MXRVUGkyQ3pxTERENTVBY2lQRkp0VEo1cmREMEpz?=
+ =?utf-8?B?eUNJMzd1TGtBa1JUS2s1NVlFNlRSTnRaNk5sRmxoWlhVUW91cFIxUityYnd2?=
+ =?utf-8?B?R3E1ejZtOWpwYnVJcWttZlpUMWt0WUk4MExoc1RZaWdqUGhKcWtuTlZjcGo2?=
+ =?utf-8?B?VjZSWHl2Z2toa0toczgraWZTcFc0VlNyenFYRFExRmdYRnNhcU1BR0hER1Q3?=
+ =?utf-8?B?WUp0SlI5QzlJbFcxdG8vT1ZBd0lJNDZCYi9ReGtvQVJmZlB4UUFnbnRxbXVY?=
+ =?utf-8?B?ekJUUGVuZU0xc2E3Z3NzeTQwYkp4UFFLMDdBdENzVGVWczZla0c1MFJmNWJI?=
+ =?utf-8?B?OFg3SW5BYkdIM25RSEhqcjVma2dVODVqaHhMMnZYRGtjZ0hMWU5KUy9wZHAz?=
+ =?utf-8?B?dWhYbDRMZHBvcURMZXUvYTZScWxwRDljS2FRaVFvMlBRTlhsNXVOZlE3T05Z?=
+ =?utf-8?B?S2JkaGQ4ZkhNSXJ4VFNGdXZObE9zVHJ2TXR2dzg5RkNFTE5SdEhURWZWSERo?=
+ =?utf-8?B?dEJtVm9hUlF3RWV6dng4RE8zTHg0R29YRjRPNVpuTG15NSs0RUxYVkViM0FY?=
+ =?utf-8?B?M1pteWEzTVR1Y0N3Y0NTd1UwNjdXQjVjVFRyOVpkeU9ZS05MVXE0UXFVK0w4?=
+ =?utf-8?B?ejdKczQ3MTUzKzlxZ3ZIakxsNENpQkZScERtT3BQUG92SnE4WnRKMi83djhI?=
+ =?utf-8?B?dWV5NU0xVGhMeFFVc2FlNy9RSlMxYnpyQUFzZXhhMC8xMUVodW9hL216TkhD?=
+ =?utf-8?B?TmZuUGxRVVJUbHlqK0t0YXlwZUNEQndKbkVYT1Q3a1JicndEeHJlS3hOVnI2?=
+ =?utf-8?B?enlWSDVkWjV2c3d4aU81WTA3NHFiWGJybi9UQ0ViWGxUdjJ5SmJJdjczejNw?=
+ =?utf-8?B?U0Irby9HVkh5b3lWUVZqZythcDhPOHRXaWIrMUJvLzZDLy90cFJJb2RmU29r?=
+ =?utf-8?B?S3VSVmZBKzIxdU1CbEZSUGtsb1NoUlFwNVhvV3NPNUcxVkI2eUVlN0tiMjlZ?=
+ =?utf-8?B?Um42LzNoSE91RGhxYkdYcWN0LzdQcUNtQmpjRjhNbjJRRk5RdDNlVVJlMWhS?=
+ =?utf-8?B?NDNWSkFCalFvVWJvSGhtV0RSalNURU1VZm92MElCTU5WNmRwZnVodWltNWxO?=
+ =?utf-8?B?bm9PS29PSTJLUVhiM3Ywd2xLZyt4bkgxS3RkbWs5cVdIZS9JOG82UDVhWmRt?=
+ =?utf-8?B?SjEyd21SZ1F4Y0NJRFFVUC9YQ2txYnJRZDB4MU54WVdYMnZ6bnd0YWpGN1E4?=
+ =?utf-8?B?cDBXcUtySDhRZnVhbHpXeC9FUHgxUm03dTAxS2VRYTdaRUdSMXFkK1lxdlVv?=
+ =?utf-8?B?eXRRaW5iTFpXTklJZWxDeWhDTVNLcG1hQWdXVGZsbHc3RG9GTFdSM0taK1o0?=
+ =?utf-8?B?RlJQYndMYjdsTmFpbjRGaWNJTmpveTkzN09TYzhHc1RNa2c0QmpaSHd5SExL?=
+ =?utf-8?B?TjIrWmRYS2Y2NjI2Q1AzbGxwRjZKdFVRS0ZGNFB5UkxJS2ZLQXB6UHhHcXNQ?=
+ =?utf-8?B?WG1kZWNabXJrYXEyWmtWNjREVmhJazBJUUxiUUZJaTJza2VvOENza3cxdFZM?=
+ =?utf-8?B?djNqQVIxRmhaRjI3bFVEZmo3bXk2dU5GQkNTVVBWUUw2bGJmR3ZSbW83dHhq?=
+ =?utf-8?Q?2hHael/QuEYtRkY80ZCrwdvIY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe922b05-53ba-43f7-fb11-08dcc2223757
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4bd6e26-2673-47e6-0407-08dcc2224e60
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 20:45:39.6418 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 20:46:18.0272 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X1/CXcWGWy2ezPTu6MnX4z4/vmiVLXjHezV37RT4g5OID9SzwZltLvUqmr/Xd7gx+x1ahwy9kPHwqABaVyvYlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7188
+X-MS-Exchange-CrossTenant-UserPrincipalName: IGP5JPePI0Fte3+VISUp1Ev01evUVl95ouWkVAMeqWg3cC+LWkpmd7Ac9Dbxfq5fv/Uv7Wb4cZ4rrNm2hgStgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,80 +160,330 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/18/2024 01:56, Thomas Weißschuh wrote:
-> The value of "min_input_signal" returned from ATIF on a Framework AMD 13
-> is "12". This leads to a fairly bright minimum display backlight.
-> 
-> Introduce a quirk to override "min_input_signal" to "0" which leads to a
-> much lower minimum brightness, which is still readable even in daylight.
-> 
 
-Apologies for my delayed response, I've been OOO a while.
-
-An earlier version of this series I had asked if this could be tested 
-specifically with panel_power_savings enabled to ensure we're not 
-causing a regression with such a low minimum and panel power savings 
-turned up to the maximum.  If such a dependency does exist, I believe 
-panel power savings will need to get an extra check introduced to 
-disable it when the brightness falls below the previous threshold that 
-was programmed by the firmware.
-
-Did that ever get checked?
-
-> Tested on a Framework AMD 13 BIOS 3.05 and Framework AMD 16.
-> 
-
-As far as I can tell this series doesn't apply any quirks to Framework 
-16.  So by testing, do you mean that you tested that it didn't cause 
-regressions (which it shouldn't; the panels don't match!).
-
-> One solution would be a fixed firmware version, which was announced but
-> has no timeline. >
+On 2024-08-21 08:03, Christian König wrote:
+> Rework how VM operations synchronize to submissions. Provide an
+> amdgpu_sync container to the backends instead of an reservation
+> object and fill in the amdgpu_sync object in the higher layers
+> of the code.
+>
+> No intended functional change, just prepares for upcomming changes.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
-> Changes in v5:
-> - Forward-declare struct drm_edid
-> - Reorder patches, quirk entries are last
-> - Add patch from Dustin for additional quirk entries
-> - Link to v4: https://lore.kernel.org/r/20240812-amdgpu-min-backlight-quirk-v4-0-56a63ff897b7@weissschuh.net
-> 
-> Changes in v4:
-> - Switch back to v2 implementation
-> - Add MODULE_DESCRIPTION()
-> - Simplify quirk infrastructure to only handle min backlight quirks.
->    It can be extended if necessary.
-> - Expand documentation.
-> - Link to v3: https://lore.kernel.org/r/20240731-amdgpu-min-backlight-quirk-v3-0-46d40bb21a62@weissschuh.net
-> 
-> Changes in v3:
-> - Switch to cmdline override parameter
-> - Link to v2: https://lore.kernel.org/r/20240623-amdgpu-min-backlight-quirk-v2-0-cecf7f49da9b@weissschuh.net
-> 
-> Changes in v2:
-> - Introduce proper drm backlight quirk infrastructure
-> - Quirk by EDID and DMI instead of only DMI
-> - Limit quirk to only single Framework 13 matte panel
-> - Link to v1: https://lore.kernel.org/r/20240610-amdgpu-min-backlight-quirk-v1-1-8459895a5b2a@weissschuh.net
-> 
-> ---
-> Dustin L. Howett (1):
->        drm: panel-backlight-quirks: Add Framework 13 glossy and 2.8k panels
-> 
-> Thomas Weißschuh (3):
->        drm: Add panel backlight quirks
->        drm/amd/display: Add support for minimum backlight quirk
->        drm: panel-backlight-quirks: Add Framework 13 matte panel
-> 
->   Documentation/gpu/drm-kms-helpers.rst             |  3 +
->   drivers/gpu/drm/Kconfig                           |  4 +
->   drivers/gpu/drm/Makefile                          |  1 +
->   drivers/gpu/drm/amd/amdgpu/Kconfig                |  1 +
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++
->   drivers/gpu/drm/drm_panel_backlight_quirks.c      | 94 +++++++++++++++++++++++
->   include/drm/drm_utils.h                           |  4 +
->   7 files changed, 117 insertions(+)
-> ---
-> base-commit: c3f2d783a459980eafd24c5af94ccd56a615961f
-> change-id: 20240610-amdgpu-min-backlight-quirk-8402fd8e736a
-> 
-> Best regards,
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 84 +++++++++++++--------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      | 11 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  |  7 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 16 +---
 
+There are two calls to amdgpu_vm_update_range in amdkfd/kfd_svm.c that 
+would need to be updated as well.
+
+Regards,
+   Felix
+
+
+>   5 files changed, 65 insertions(+), 55 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index bcb729094521..ba99d428610a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -838,7 +838,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   	params.vm = vm;
+>   	params.immediate = immediate;
+>   
+> -	r = vm->update_funcs->prepare(&params, NULL, AMDGPU_SYNC_EXPLICIT);
+> +	r = vm->update_funcs->prepare(&params, NULL);
+>   	if (r)
+>   		goto error;
+>   
+> @@ -933,7 +933,7 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+>    * @unlocked: unlocked invalidation during MM callback
+>    * @flush_tlb: trigger tlb invalidation after update completed
+>    * @allow_override: change MTYPE for local NUMA nodes
+> - * @resv: fences we need to sync to
+> + * @sync: fences we need to sync to
+>    * @start: start of mapped range
+>    * @last: last mapped entry
+>    * @flags: flags for the entries
+> @@ -949,16 +949,16 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+>    * 0 for success, negative erro code for failure.
+>    */
+>   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
+> -			   struct dma_resv *resv, uint64_t start, uint64_t last,
+> -			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+> +			   bool immediate, bool unlocked, bool flush_tlb,
+> +			   bool allow_override, struct amdgpu_sync *sync,
+> +			   uint64_t start, uint64_t last, uint64_t flags,
+> +			   uint64_t offset, uint64_t vram_base,
+>   			   struct ttm_resource *res, dma_addr_t *pages_addr,
+>   			   struct dma_fence **fence)
+>   {
+>   	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
+>   	struct amdgpu_vm_update_params params;
+>   	struct amdgpu_res_cursor cursor;
+> -	enum amdgpu_sync_mode sync_mode;
+>   	int r, idx;
+>   
+>   	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+> @@ -991,14 +991,6 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	params.allow_override = allow_override;
+>   	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+>   
+> -	/* Implicitly sync to command submissions in the same VM before
+> -	 * unmapping. Sync to moving fences before mapping.
+> -	 */
+> -	if (!(flags & AMDGPU_PTE_VALID))
+> -		sync_mode = AMDGPU_SYNC_EQ_OWNER;
+> -	else
+> -		sync_mode = AMDGPU_SYNC_EXPLICIT;
+> -
+>   	amdgpu_vm_eviction_lock(vm);
+>   	if (vm->evicting) {
+>   		r = -EBUSY;
+> @@ -1013,7 +1005,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		dma_fence_put(tmp);
+>   	}
+>   
+> -	r = vm->update_funcs->prepare(&params, resv, sync_mode);
+> +	r = vm->update_funcs->prepare(&params, sync);
+>   	if (r)
+>   		goto error_free;
+>   
+> @@ -1155,23 +1147,30 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   	struct amdgpu_bo *bo = bo_va->base.bo;
+>   	struct amdgpu_vm *vm = bo_va->base.vm;
+>   	struct amdgpu_bo_va_mapping *mapping;
+> +	struct dma_fence **last_update;
+>   	dma_addr_t *pages_addr = NULL;
+>   	struct ttm_resource *mem;
+> -	struct dma_fence **last_update;
+> +	struct amdgpu_sync sync;
+>   	bool flush_tlb = clear;
+> -	bool uncached;
+> -	struct dma_resv *resv;
+>   	uint64_t vram_base;
+>   	uint64_t flags;
+> +	bool uncached;
+>   	int r;
+>   
+> +	amdgpu_sync_create(&sync);
+>   	if (clear || !bo) {
+>   		mem = NULL;
+> -		resv = vm->root.bo->tbo.base.resv;
+> +
+> +		/* Implicitly sync to command submissions in the same VM before
+> +		 * unmapping.
+> +		 */
+> +		r = amdgpu_sync_resv(adev, &sync, vm->root.bo->tbo.base.resv,
+> +				     AMDGPU_SYNC_EQ_OWNER, vm);
+> +		if (r)
+> +			goto error_free;
+>   	} else {
+>   		struct drm_gem_object *obj = &bo->tbo.base;
+>   
+> -		resv = bo->tbo.base.resv;
+>   		if (obj->import_attach && bo_va->is_xgmi) {
+>   			struct dma_buf *dma_buf = obj->import_attach->dmabuf;
+>   			struct drm_gem_object *gobj = dma_buf->priv;
+> @@ -1185,6 +1184,12 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   		if (mem && (mem->mem_type == TTM_PL_TT ||
+>   			    mem->mem_type == AMDGPU_PL_PREEMPT))
+>   			pages_addr = bo->tbo.ttm->dma_address;
+> +
+> +		/* Implicitly sync to moving fences before mapping anything */
+> +		r = amdgpu_sync_resv(adev, &sync, bo->tbo.base.resv,
+> +				     AMDGPU_SYNC_EXPLICIT, vm);
+> +		if (r)
+> +			goto error_free;
+>   	}
+>   
+>   	if (bo) {
+> @@ -1234,12 +1239,12 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   		trace_amdgpu_vm_bo_update(mapping);
+>   
+>   		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
+> -					   !uncached, resv, mapping->start, mapping->last,
+> -					   update_flags, mapping->offset,
+> -					   vram_base, mem, pages_addr,
+> -					   last_update);
+> +					   !uncached, &sync, mapping->start,
+> +					   mapping->last, update_flags,
+> +					   mapping->offset, vram_base, mem,
+> +					   pages_addr, last_update);
+>   		if (r)
+> -			return r;
+> +			goto error_free;
+>   	}
+>   
+>   	/* If the BO is not in its preferred location add it back to
+> @@ -1267,7 +1272,9 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   			trace_amdgpu_vm_bo_mapping(mapping);
+>   	}
+>   
+> -	return 0;
+> +error_free:
+> +	amdgpu_sync_free(&sync);
+> +	return r;
+>   }
+>   
+>   /**
+> @@ -1414,25 +1421,34 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   			  struct amdgpu_vm *vm,
+>   			  struct dma_fence **fence)
+>   {
+> -	struct dma_resv *resv = vm->root.bo->tbo.base.resv;
+>   	struct amdgpu_bo_va_mapping *mapping;
+> -	uint64_t init_pte_value = 0;
+>   	struct dma_fence *f = NULL;
+> +	struct amdgpu_sync sync;
+>   	int r;
+>   
+> +
+> +	/*
+> +	 * Implicitly sync to command submissions in the same VM before
+> +	 * unmapping.
+> +	 */
+> +	amdgpu_sync_create(&sync);
+> +	r = amdgpu_sync_resv(adev, &sync, vm->root.bo->tbo.base.resv,
+> +			     AMDGPU_SYNC_EQ_OWNER, vm);
+> +	if (r)
+> +		goto error_free;
+> +
+>   	while (!list_empty(&vm->freed)) {
+>   		mapping = list_first_entry(&vm->freed,
+>   			struct amdgpu_bo_va_mapping, list);
+>   		list_del(&mapping->list);
+>   
+>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+> -					   resv, mapping->start, mapping->last,
+> -					   init_pte_value, 0, 0, NULL, NULL,
+> -					   &f);
+> +					   &sync, mapping->start, mapping->last,
+> +					   0, 0, 0, NULL, NULL, &f);
+>   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>   		if (r) {
+>   			dma_fence_put(f);
+> -			return r;
+> +			goto error_free;
+>   		}
+>   	}
+>   
+> @@ -1443,7 +1459,9 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   		dma_fence_put(f);
+>   	}
+>   
+> -	return 0;
+> +error_free:
+> +	amdgpu_sync_free(&sync);
+> +	return r;
+>   
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 046949c4b695..1a759012ce93 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -304,8 +304,8 @@ struct amdgpu_vm_update_params {
+>   
+>   struct amdgpu_vm_update_funcs {
+>   	int (*map_table)(struct amdgpu_bo_vm *bo);
+> -	int (*prepare)(struct amdgpu_vm_update_params *p, struct dma_resv *resv,
+> -		       enum amdgpu_sync_mode sync_mode);
+> +	int (*prepare)(struct amdgpu_vm_update_params *p,
+> +		       struct amdgpu_sync *sync);
+>   	int (*update)(struct amdgpu_vm_update_params *p,
+>   		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
+>   		      unsigned count, uint32_t incr, uint64_t flags);
+> @@ -505,9 +505,10 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
+>   void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+>   int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -			   bool immediate, bool unlocked, bool flush_tlb, bool allow_override,
+> -			   struct dma_resv *resv, uint64_t start, uint64_t last,
+> -			   uint64_t flags, uint64_t offset, uint64_t vram_base,
+> +			   bool immediate, bool unlocked, bool flush_tlb,
+> +			   bool allow_override, struct amdgpu_sync *sync,
+> +			   uint64_t start, uint64_t last, uint64_t flags,
+> +			   uint64_t offset, uint64_t vram_base,
+>   			   struct ttm_resource *res, dma_addr_t *pages_addr,
+>   			   struct dma_fence **fence);
+>   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+> index 3895bd7d176a..9ff59a4e6f15 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+> @@ -46,13 +46,12 @@ static int amdgpu_vm_cpu_map_table(struct amdgpu_bo_vm *table)
+>    * Negativ errno, 0 for success.
+>    */
+>   static int amdgpu_vm_cpu_prepare(struct amdgpu_vm_update_params *p,
+> -				 struct dma_resv *resv,
+> -				 enum amdgpu_sync_mode sync_mode)
+> +				 struct amdgpu_sync *sync)
+>   {
+> -	if (!resv)
+> +	if (!sync)
+>   		return 0;
+>   
+> -	return amdgpu_bo_sync_wait_resv(p->adev, resv, sync_mode, p->vm, true);
+> +	return amdgpu_sync_wait(sync, true);
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index e39d6e7643bf..a076f43097e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -403,7 +403,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	params.vm = vm;
+>   	params.immediate = immediate;
+>   
+> -	r = vm->update_funcs->prepare(&params, NULL, AMDGPU_SYNC_EXPLICIT);
+> +	r = vm->update_funcs->prepare(&params, NULL);
+>   	if (r)
+>   		goto exit;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> index 9b748d7058b5..4772fba33285 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> @@ -77,32 +77,24 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
+>    * amdgpu_vm_sdma_prepare - prepare SDMA command submission
+>    *
+>    * @p: see amdgpu_vm_update_params definition
+> - * @resv: reservation object with embedded fence
+> - * @sync_mode: synchronization mode
+> + * @sync: amdgpu_sync object with fences to wait for
+>    *
+>    * Returns:
+>    * Negativ errno, 0 for success.
+>    */
+>   static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+> -				  struct dma_resv *resv,
+> -				  enum amdgpu_sync_mode sync_mode)
+> +				  struct amdgpu_sync *sync)
+>   {
+> -	struct amdgpu_sync sync;
+>   	int r;
+>   
+>   	r = amdgpu_vm_sdma_alloc_job(p, 0);
+>   	if (r)
+>   		return r;
+>   
+> -	if (!resv)
+> +	if (!sync)
+>   		return 0;
+>   
+> -	amdgpu_sync_create(&sync);
+> -	r = amdgpu_sync_resv(p->adev, &sync, resv, sync_mode, p->vm);
+> -	if (!r)
+> -		r = amdgpu_sync_push_to_job(&sync, p->job);
+> -	amdgpu_sync_free(&sync);
+> -
+> +	r = amdgpu_sync_push_to_job(sync, p->job);
+>   	if (r) {
+>   		p->num_dw_left = 0;
+>   		amdgpu_job_free(p->job);
