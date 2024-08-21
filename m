@@ -4,116 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D816FC52D7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 04:24:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A55C52D7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 04:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27E0B10E885;
-	Wed, 21 Aug 2024 04:24:16 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4FC10E885
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 04:24:15 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-42808071810so50323285e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Aug 2024 21:24:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724214253; x=1724819053;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KYK0IAITUp8WsqX/ffNf+bAopyUMqgIs4u3+pK1SGYU=;
- b=vMBinDGK+YoX2nNagKKC2x0ryZCgYw+NsfuG30oN1Yq0L/ZcJ2aEVyutrD8gynM32B
- 0ngnonCDhy9OSwCnfYoNCsWwPGn40M13ZsclQuZHGnRwHw/FZP9L8gENFs87XJCPXtBI
- gN6uwEMwId2cAA7gn8Fbobhexb/CfAujobwHVycOsepvpUxiZvKfs7FxttrsoF5TvP5d
- myJoxP08GU/WwDySyvFRNI07Y6cNTyaD9X3Ucud1gL6XfUPUNi3KGjVPX28N7DqFWim4
- WpO1nrbFnr9wu21NXzsEeyW0zYlXD29uUlSpk+KhTp/UOqnpgl2YShUykFTTysVsOUIf
- 038Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWb/XT8iU6abO2Hxs1OJfyYd5/6iu6enT8Yp3+qiLo7hynUxkFWSzReIvRHukRMhf/1mKjgPvFw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHkNFb03LSZp8rAccD/LiyJ0OwWFC7aq2r4kx8FBU/JMyv+yLQ
- kAVCPvYmRliqw1vT8M/e1uVsdZsI7ts+wxn9yBqub0q7F/zl7fYr
-X-Google-Smtp-Source: AGHT+IGHeSHVfzIXTgULN/DUbxTBiC6WvS1wgjXJh0nSFZxu6WLwKF0uyrkaQ1A9ewLZFvJLonNi9A==
-X-Received: by 2002:a05:600c:4504:b0:425:7c5f:1bac with SMTP id
- 5b1f17b1804b1-42abd21f620mr8700285e9.21.1724214253143; 
- Tue, 20 Aug 2024 21:24:13 -0700 (PDT)
-Received: from ?IPV6:2a0b:e7c0:0:107::aaaa:69? ([2a0b:e7c0:0:107::aaaa:69])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42abef9bd78sm10206945e9.28.2024.08.20.21.24.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 21:24:12 -0700 (PDT)
-Message-ID: <a3473c2d-8ffc-434c-8536-933eaf1f508e@kernel.org>
-Date: Wed, 21 Aug 2024 06:24:11 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5A4610E246;
+	Wed, 21 Aug 2024 04:53:10 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IFF0R0Rk";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D15F10E246;
+ Wed, 21 Aug 2024 04:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1724215988; x=1755751988;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=e9cRXMHPwsjc4eS2oAVv7CuGsm4fG7al7v4a8+Qf4YQ=;
+ b=IFF0R0Rk2BBRxqM+Sfh7Ay3swad8636F5MV7LOEdPwPEULKu5gozbbZX
+ SlACGoEg074CvDGFG94jHU7qstIiOZ5ngmxMTc8jF/G2JorNbhO91DlO/
+ DnbDAAZCY3Ki13fqIlvm82aJbfTV6lgZcUTrWVOModmCEGTayf8NXC1dL
+ JKP0Dwh9J1XBGpO7Z7vdcOzA7ZHK1tZFmONAa9Xlrbq9c9UcOdJAEBccx
+ ejOAytH+kuaQWAl5PYKCEvPoZMmx37rO7ekN5KIOONHZBjpE2vA7OmqrW
+ dTC0VdPX0C7+OV450JmANnadj+82vcwicwCPZwFySMc/l1Eq0XciqTk55 A==;
+X-CSE-ConnectionGUID: G+SY/DhIQuG+ssT8v5t2CQ==
+X-CSE-MsgGUID: MyA0bPmERJu9PvuPo5E83w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11170"; a="40011067"
+X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="40011067"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 21:53:08 -0700
+X-CSE-ConnectionGUID: Qg/IaytxTMqaEHocC/oEOA==
+X-CSE-MsgGUID: 5DNhF1n/SRaUggpClAtcTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="65846597"
+Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
+ by orviesa005.jf.intel.com with ESMTP; 20 Aug 2024 21:53:08 -0700
+Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sgdLF-000Aug-0Z;
+ Wed, 21 Aug 2024 04:53:05 +0000
+Date: Wed, 21 Aug 2024 12:52:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ wayland-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v5 28/44] drm/amd/display: Add support for sRGB Inverse
+ EOTF in SHAPER block
+Message-ID: <202408211241.xAvubshv-lkp@intel.com>
+References: <20240819205714.316380-29-harry.wentland@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/13] drm/amd/display: Fix a typo in revert commit
-To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Lin, Wayne" <Wayne.Lin@amd.com>,
- "Gutierrez, Agustin" <Agustin.Gutierrez@amd.com>,
- "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
- "Mohamed, Zaeem" <Zaeem.Mohamed@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20240815224525.3077505-1-Roman.Li@amd.com>
- <20240815224525.3077505-13-Roman.Li@amd.com>
- <CY8PR12MB81935FA7A89D077A2D0DADB489812@CY8PR12MB8193.namprd12.prod.outlook.com>
- <360cabdc-3ba7-47a0-8e4f-f0ed8cea54bc@kernel.org>
- <CY8PR12MB819387431D6D6E754929ECB9898C2@CY8PR12MB8193.namprd12.prod.outlook.com>
- <0d12eb50-c51b-496e-a931-9ce8fb6a1455@kernel.org>
- <IA1PR12MB906330068545FC761DB98FCCE58D2@IA1PR12MB9063.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <IA1PR12MB906330068545FC761DB98FCCE58D2@IA1PR12MB9063.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240819205714.316380-29-harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,19 +72,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 20. 08. 24, 20:28, Zuo, Jerry wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
-> Hi Jiri:
-> 
->       Please kindly let me know the kernel branch you are using to validate the fix. I'll provide with two additional patches on top of ("drm/amd/display: Fix MST BW calculation Regression")
+Hi Harry,
 
-Hi,
+kernel test robot noticed the following build warnings:
 
-whatever you prefer. E.g. even drm-next is fine here. Currently I run 
-6.10-stable plus the patch.
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.11-rc4 next-20240820]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-thanks,
+url:    https://github.com/intel-lab-lkp/linux/commits/Harry-Wentland/drm-Add-helper-for-conversion-from-signed-magnitude/20240820-050138
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+patch link:    https://lore.kernel.org/r/20240819205714.316380-29-harry.wentland%40amd.com
+patch subject: [PATCH v5 28/44] drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
+config: x86_64-randconfig-003-20240821 (https://download.01.org/0day-ci/archive/20240821/202408211241.xAvubshv-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240821/202408211241.xAvubshv-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202408211241.xAvubshv-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:1232:42: warning: variable 'shaper_size' is uninitialized when used here [-Wuninitialized]
+    1232 |                 return __set_output_tf(tf, shaper_lut, shaper_size, false);
+         |                                                        ^~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:1214:22: note: initialize the variable 'shaper_size' to silence this warning
+    1214 |         uint32_t shaper_size;
+         |                             ^
+         |                              = 0
+   1 warning generated.
+
+
+vim +/shaper_size +1232 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c
+
+  1205	
+  1206	static int
+  1207	__set_colorop_in_shaper_1d_curve(struct dc_plane_state *dc_plane_state,
+  1208			       struct drm_colorop_state *colorop_state)
+  1209	{
+  1210		struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
+  1211		struct drm_colorop *colorop = colorop_state->colorop;
+  1212		struct drm_device *drm = colorop->dev;
+  1213		const struct drm_color_lut *shaper_lut;
+  1214		uint32_t shaper_size;
+  1215	
+  1216		if (colorop->type != DRM_COLOROP_1D_CURVE &&
+  1217		    colorop_state->curve_1d_type != DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF)
+  1218			return -EINVAL;
+  1219	
+  1220		if (colorop_state->bypass) {
+  1221			tf->type = TF_TYPE_BYPASS;
+  1222			tf->tf = TRANSFER_FUNCTION_LINEAR;
+  1223			return 0;
+  1224		}
+  1225	
+  1226		drm_dbg(drm, "Shaper colorop with ID: %d\n", colorop->base.id);
+  1227	
+  1228		if (colorop->type == DRM_COLOROP_1D_CURVE) {
+  1229			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+  1230			tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+  1231			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+> 1232			return __set_output_tf(tf, shaper_lut, shaper_size, false);
+  1233		}
+  1234	
+  1235		return -EINVAL;
+  1236	}
+  1237	
+
 -- 
-js
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
