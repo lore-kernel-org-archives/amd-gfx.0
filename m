@@ -4,102 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87354C54722
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD08BC5472E
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B497B10E652;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D9410E6A2;
 	Wed, 21 Aug 2024 13:03:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="cPMdBm+x";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hdBEDYxf";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cPMdBm+x";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hdBEDYxf";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="G87L3P7o";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="R3RagIUr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="G87L3P7o";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="R3RagIUr";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 343B189FEA;
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F030F89FEA;
  Wed, 21 Aug 2024 13:03:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 716EB2007C;
- Wed, 21 Aug 2024 13:03:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A8AEB21EBE;
+ Wed, 21 Aug 2024 13:03:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=9tFvcuOsGvZ1M9kapmBuM1FTromTr6whp0KRuvlQL20=;
- b=cPMdBm+xxMwYGQkVc4Dm3SJ9FSzUFCPtDQ9G3y0x8UIR1ZQH6Gc4ObYsftl8gg3g1fqNOm
- U1U+gvzCSeFaAOjxDUS7UHhOa1b5vWAOnS4CdPkbapYnuccRx9sgfjV8HlUIOlnuCJB8C7
- Cx+rJAEHRJ6alC734SWFgN3kR1mrzho=
+ t=1724245433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=frlDUV/xeqc25CcPYzgznLOdw/F+HoCkM8BmQu95/Bg=;
+ b=G87L3P7opxLWUSRSa1bzKzpFIEgV0Lgc6Wd8hVaUDJsfijfx8Bw+vy7ufVDi6aNDbK7CLz
+ osOus6szTdoa+xfkcO9q/toT0HWBRtop853rp8SSg0YTVVW2n+h+YNzxPaU8vBXFIgR41N
+ iCKYB3AwjcQLRgAdIy8AhVSiprxpPSY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245432;
+ s=susede2_ed25519; t=1724245433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=9tFvcuOsGvZ1M9kapmBuM1FTromTr6whp0KRuvlQL20=;
- b=hdBEDYxfLLcNj//vmtt9/9EslvNdq+FXJuLR6BAdPXUFkTrocoZZhS0gCGLPMefzYAZgeW
- o8ObK04fxpFyFSBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cPMdBm+x;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hdBEDYxf
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=frlDUV/xeqc25CcPYzgznLOdw/F+HoCkM8BmQu95/Bg=;
+ b=R3RagIUr1jjJw9VD6qSXk8PrF0ZMM56nzhRKkQAK4vCRKfI1iIULqW+213+4IcsCDVt7yh
+ tC6Vwt70QUzIKdDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=9tFvcuOsGvZ1M9kapmBuM1FTromTr6whp0KRuvlQL20=;
- b=cPMdBm+xxMwYGQkVc4Dm3SJ9FSzUFCPtDQ9G3y0x8UIR1ZQH6Gc4ObYsftl8gg3g1fqNOm
- U1U+gvzCSeFaAOjxDUS7UHhOa1b5vWAOnS4CdPkbapYnuccRx9sgfjV8HlUIOlnuCJB8C7
- Cx+rJAEHRJ6alC734SWFgN3kR1mrzho=
+ t=1724245433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=frlDUV/xeqc25CcPYzgznLOdw/F+HoCkM8BmQu95/Bg=;
+ b=G87L3P7opxLWUSRSa1bzKzpFIEgV0Lgc6Wd8hVaUDJsfijfx8Bw+vy7ufVDi6aNDbK7CLz
+ osOus6szTdoa+xfkcO9q/toT0HWBRtop853rp8SSg0YTVVW2n+h+YNzxPaU8vBXFIgR41N
+ iCKYB3AwjcQLRgAdIy8AhVSiprxpPSY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245432;
+ s=susede2_ed25519; t=1724245433;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=9tFvcuOsGvZ1M9kapmBuM1FTromTr6whp0KRuvlQL20=;
- b=hdBEDYxfLLcNj//vmtt9/9EslvNdq+FXJuLR6BAdPXUFkTrocoZZhS0gCGLPMefzYAZgeW
- o8ObK04fxpFyFSBw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=frlDUV/xeqc25CcPYzgznLOdw/F+HoCkM8BmQu95/Bg=;
+ b=R3RagIUr1jjJw9VD6qSXk8PrF0ZMM56nzhRKkQAK4vCRKfI1iIULqW+213+4IcsCDVt7yh
+ tC6Vwt70QUzIKdDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A54813770;
- Wed, 21 Aug 2024 13:03:52 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 600AE13B18;
+ Wed, 21 Aug 2024 13:03:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id rradCLjlxWbXGQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:03:52 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 4KMkFrnlxWbXGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:03:53 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 00/86] drm: Provide client setup helper and convert drivers
-Date: Wed, 21 Aug 2024 14:58:57 +0200
-Message-ID: <20240821130348.73038-1-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Subject: [PATCH v2 04/86] drm: Add client-agnostic setup helper
+Date: Wed, 21 Aug 2024 14:59:01 +0200
+Message-ID: <20240821130348.73038-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240821130348.73038-1-tzimmermann@suse.de>
+References: <20240821130348.73038-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 716EB2007C
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TAGGED_RCPT(0.00)[renesas]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- FUZZY_BLOCKED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[10]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza)];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,279 +115,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Provide drm_client_setup() to initialize in-kernel DRM clients. Then
-convert all drivers to the new interface. Remove old interfaces for
-the fbdev client.
+DRM may support multiple in-kernel clients that run as soon as a DRM
+driver has been registered. To select the client(s) in a single place,
+introduce drm_client_setup().
 
-So far, the only supported DRM client in the kernel is for fbdev
-emulation with its fbcon support. Long term, we want to move away
-from fbcon. Possible replacements are DRM-based loggers, boot-up
-logos or maybe even a console. The exact kind of client should be
-configurable by the user. You can find examples of such clients at
-[1] and [2].
+Drivers that call the new helper automatically instantiate the kernel's
+configured default clients. Only fbdev emulation is currently supported.
+Later versions can add support for DRM-based logging, a boot logo or even
+a console.
 
-To do this, we need one single interface for drivers to initialize
-the configured in-kernel clients, replacing the current call to
-initialize fbdev emulation. The fbdev emulation also depends on the
-DRM driver's management, so drivers differ in what fbdev code they
-run. We need to abstract this as well.
-
-This patchset addresses these topics. While there are many patches,
-most of them are small, straight-forward changes to drivers or
-rearrange existing code.
-
-Patches 1 to 3 add a driver-neutral setup function for the fbdev
-client. The new callback fbdev_probe in struct drm_driver creates
-the GEM buffer for fbdev output. It replaces the existing callback
-fb_probe from struct drm_fb_helper_funcs, which currently does the
-same. The client code is equal to code in exisisting fbdev emulation,
-except for its use of fbdev_probe.
-
-Patch 4 adds drm_client_setup(), a client-agnostic interface to
-initialize the in-kernel DRM clients. It only supports the new fbdev
-emulation setup, but additional clients will be added here. Hopefully
-this will hide future changes to DRM client initialization from
-drivers.
-
-Patches 5 to 49 rework all drivers with GEM memory management based
-on DMA helpers. This is fairly straigh-forward. The fbdev-dma helpers
-provide an implementation of the fbdev_probe helpers. Each driver
-sets the new callback in its instance of struct drm_driver and calls
-drm_client_setup(). Then the old fbdev-dma client goes away.
-
-Patches 50 to 63 do the same for drivers with SHMEM-based GEM memory
-management. The fbdev client code is again the same as before, except
-for the fbdev_probe callback.
-
-Patches 64 to 73 do the same for drivers with TTM-based GEM memory
-management.
-
-Patches 74 to 85 do the same for the remaining drivers with custom
-fbdev emulation. As before, the new fbdev client code is mostly the
-same the old one; except for the fbdev_probe function. The changes
-for i915/xe and omapdrm are a bit mor einvolved, but nothing too
-complicated.
-
-Patch 86 removes the obsolete fb_probe callback from struct
-drm_fb_helper_funcs.
-
-This patchset has been tested on various hardware with the various
-memory managers involved.
+Some drivers handle the color mode for clients internally. Provide the
+helper drm_client_setup_with_color_mode() for them.
 
 v2:
-- add drm_client_setup_with_fourcc()
-- xe: set fbdev_probe in xe_display_driver_set_hooks()
-- do cleanups
+- add drm_client_setup_with_fourcc() (Laurent)
+- push default-format handling into actual clients
 
-[1] https://lore.kernel.org/dri-devel/20240801100640.462606-4-jfalempe@redhat.com/
-[2] https://lists.freedesktop.org/archives/dri-devel/2019-March/212113.html
-
-Thomas Zimmermann (86):
-  drm/fbdev-helper: Move color-mode lookup into 4CC format helper
-  drm/fbdev-helper: Set and clear VGA switcheroo client from fb_info
-  drm/fbdev: Add memory-agnostic fbdev client
-  drm: Add client-agnostic setup helper
-  drm/fbdev-dma: Support struct drm_driver.fbdev_probe
-  drm/arcgpu: Run DRM default client setup
-  drm/arm/komeda: Run DRM default client setup
-  drm/arm/hdlcd: Run DRM default client setup
-  drm/arm/malidp: Run DRM default client setup
-  drm/aspeed: Run DRM default client setup
-  drm/atmel-hdlcd: Run DRM default client setup
-  drm/fsl-dcu: Run DRM default client setup
-  drm/hisilicon/kirin: Run DRM default client setup
-  drm/hx8357d: Run DRM default client setup
-  drm/ili9163: Run DRM default client setup
-  drm/ili9225: Run DRM default client setup
-  drm/ili9341: Run DRM default client setup
-  drm/ili9486: Run DRM default client setup
-  drm/imx/dcss: Run DRM default client setup
-  drm/imx/ipuv3: Run DRM default client setup
-  drm/imx/lcdc: Run DRM default client setup
-  drm/ingenic: Run DRM default client setup
-  drm/kmb: Run DRM default client setup
-  drm/logicvc: Run DRM default client setup
-  drm/mcde: Run DRM default client setup
-  drm/mediatek: Run DRM default client setup
-  drm/meson: Run DRM default client setup
-  drm/mi0283qt: Run DRM default client setup
-  drm/mxsfb/lcdif: Run DRM default client setup
-  drm/msxfb: Run DRM default client setup
-  drm/panel/ili9341: Run DRM default client setup
-  drm/panel-mipi-dbi: Run DRM default client setup
-  drm/pl111: Run DRM default client setup
-  drm/renesas/rcar-du: Run DRM default client setup
-  drm/renesas/rz-du: Run DRM default client setup
-  drm/renesas/shmobile: Run DRM default client setup
-  drm/repaper: Run DRM default client setup
-  drm/rockchip: Run DRM default client setup
-  drm/sti: Run DRM default client setup
-  drm/stm: Run DRM default client setup
-  drm/sun4i: Run DRM default client setup
-  drm/tidss: Run DRM default client setup
-  drm/tilcdc: Run DRM default client setup
-  drm/st7586: Run DRM default client setup
-  drm/st7735r: Run DRM default client setup
-  drm/tve200: Run DRM default client setup
-  drm/vc4: Run DRM default client setup
-  drm/xlnx: Run DRM default client setup
-  drm/fbdev-dma: Remove obsolete setup function
-  drm/fbdev-shmem: Support struct drm_driver.fbdev_probe
-  drm/ast: Run DRM default client setup
-  drm/cirrus: Run DRM default client setup
-  drm/gm12u320: Run DRM default client setup
-  drm/gud: Run DRM default client setup
-  drm/hyperv_drm: Run DRM default client setup
-  drm/mgag200: Run DRM default client setup
-  drm/ofdrm: Use DRM default client setup
-  drm/simpledrm: Run DRM default client setup
-  drm/solomon: Run DRM default client setup
-  drm/udl: Run DRM default client setup
-  drm/virtgpu: Run DRM default client setup
-  drm/vkms: Run DRM default client setup
-  drm/fbdev-shmem: Remove obsolete setup function
-  drm/fbdev-ttm: Support struct drm_driver.fbdev_probe
-  drm/amdgpu: Run DRM default client setup
-  drm/bochs: Run DRM default client setup
-  drm/hisilicon/hibmc: Run DRM default client setup
-  drm/loongson: Run DRM default client setup
-  drm/nouveau: Run DRM default client setup
-  drm/qxl: Run DRM default client setup
-  drm/vboxvideo: Run DRM default client setup
-  drm/vmwgfx: Run DRM default client setup
-  drm/fbdev-ttm: Remove obsolete setup function
-  drm/armada: Run DRM default client setup
-  drm/exynos-drm: Run DRM default client setup
-  drm/gma500: Run DRM default client setup
-  drm/msm: Run DRM default client setup
-  drm/radeon: Run DRM default client setup
-  drm/tegra: Run DRM default client setup
-  drm/i915: Remove struct drm_fb_helper from struct intel_fbdev
-  drm/i915: Move custom restore code into separate callback
-  drm/i915: Move custom hotplug code into separate callback
-  drm/{i915,xe}: Run DRM default client setup
-  drm/omapdrm: Remove struct drm_fb_helper from struct omap_fbdev.
-  drm/omapdrm: Run DRM default client setup
-  drm/fb-helper: Remove struct drm_fb_helper.fb_probe
-
- drivers/gpu/drm/Makefile                      |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  11 +-
- .../gpu/drm/arm/display/komeda/komeda_drv.c   |   4 +-
- .../gpu/drm/arm/display/komeda/komeda_kms.c   |   2 +
- drivers/gpu/drm/arm/hdlcd_drv.c               |   4 +-
- drivers/gpu/drm/arm/malidp_drv.c              |   4 +-
- drivers/gpu/drm/armada/armada_drm.h           |  11 +-
- drivers/gpu/drm/armada/armada_drv.c           |   4 +-
- drivers/gpu/drm/armada/armada_fbdev.c         | 115 +-------
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |   3 +-
- drivers/gpu/drm/ast/ast_drv.c                 |   6 +-
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |   4 +-
- drivers/gpu/drm/drm_client_setup.c            |  69 +++++
- drivers/gpu/drm/drm_fb_helper.c               | 109 +++-----
- drivers/gpu/drm/drm_fbdev_client.c            | 141 ++++++++++
- drivers/gpu/drm/drm_fbdev_dma.c               | 170 +++--------
- drivers/gpu/drm/drm_fbdev_shmem.c             | 170 +++--------
- drivers/gpu/drm/drm_fbdev_ttm.c               | 225 ++++-----------
- drivers/gpu/drm/drm_fourcc.c                  |  30 +-
- drivers/gpu/drm/exynos/exynos_drm_drv.c       |   4 +-
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c     | 101 +------
- drivers/gpu/drm/exynos/exynos_drm_fbdev.h     |  15 +-
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |   4 +-
- drivers/gpu/drm/gma500/fbdev.c                | 100 +------
- drivers/gpu/drm/gma500/psb_drv.c              |   4 +-
- drivers/gpu/drm/gma500/psb_drv.h              |  12 +-
- drivers/gpu/drm/gud/gud_drv.c                 |   4 +-
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |   4 +-
- .../gpu/drm/hisilicon/kirin/kirin_drm_ade.c   |   2 +
- .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |   4 +-
- drivers/gpu/drm/hyperv/hyperv_drm_drv.c       |   4 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    | 263 ++++++------------
- drivers/gpu/drm/i915/display/intel_fbdev.h    |   8 +
- drivers/gpu/drm/i915/i915_driver.c            |   2 +
- drivers/gpu/drm/imx/dcss/dcss-kms.c           |   4 +-
- drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |   4 +-
- drivers/gpu/drm/imx/lcdc/imx-lcdc.c           |   4 +-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   4 +-
- drivers/gpu/drm/kmb/kmb_drv.c                 |   4 +-
- drivers/gpu/drm/logicvc/logicvc_drm.c         |  16 +-
- drivers/gpu/drm/loongson/lsdc_drv.c           |   4 +-
- drivers/gpu/drm/mcde/mcde_drv.c               |   4 +-
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   4 +-
- drivers/gpu/drm/meson/meson_drv.c             |   4 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c         |   5 +-
- drivers/gpu/drm/msm/msm_drv.c                 |   4 +-
- drivers/gpu/drm/msm/msm_drv.h                 |  13 +-
- drivers/gpu/drm/msm/msm_fbdev.c               | 144 ++--------
- drivers/gpu/drm/mxsfb/lcdif_drv.c             |   4 +-
- drivers/gpu/drm/mxsfb/mxsfb_drv.c             |   4 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  10 +-
- drivers/gpu/drm/omapdrm/omap_drv.c            |   1 +
- drivers/gpu/drm/omapdrm/omap_drv.h            |   3 +
- drivers/gpu/drm/omapdrm/omap_fbdev.c          | 161 +++--------
- drivers/gpu/drm/omapdrm/omap_fbdev.h          |   8 +
- drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |   4 +-
- drivers/gpu/drm/pl111/pl111_drv.c             |   4 +-
- drivers/gpu/drm/qxl/qxl_drv.c                 |   4 +-
- drivers/gpu/drm/radeon/radeon_drv.c           |  16 +-
- drivers/gpu/drm/radeon/radeon_fbdev.c         | 114 +-------
- drivers/gpu/drm/radeon/radeon_mode.h          |  12 +-
- drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c |   4 +-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |   4 +-
- .../gpu/drm/renesas/shmobile/shmob_drm_drv.c  |   5 +-
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |   4 +-
- drivers/gpu/drm/solomon/ssd130x.c             |   4 +-
- drivers/gpu/drm/sti/sti_drv.c                 |   4 +-
- drivers/gpu/drm/stm/drv.c                     |   5 +-
- drivers/gpu/drm/sun4i/sun4i_drv.c             |   4 +-
- drivers/gpu/drm/tegra/drm.c                   |   5 +-
- drivers/gpu/drm/tegra/drm.h                   |  12 +-
- drivers/gpu/drm/tegra/fbdev.c                 |  98 +------
- drivers/gpu/drm/tidss/tidss_drv.c             |   4 +-
- drivers/gpu/drm/tilcdc/tilcdc_drv.c           |   4 +-
- drivers/gpu/drm/tiny/arcpgu.c                 |   4 +-
- drivers/gpu/drm/tiny/bochs.c                  |   4 +-
- drivers/gpu/drm/tiny/cirrus.c                 |   4 +-
- drivers/gpu/drm/tiny/gm12u320.c               |   4 +-
- drivers/gpu/drm/tiny/hx8357d.c                |   4 +-
- drivers/gpu/drm/tiny/ili9163.c                |   4 +-
- drivers/gpu/drm/tiny/ili9225.c                |   4 +-
- drivers/gpu/drm/tiny/ili9341.c                |   4 +-
- drivers/gpu/drm/tiny/ili9486.c                |   4 +-
- drivers/gpu/drm/tiny/mi0283qt.c               |   4 +-
- drivers/gpu/drm/tiny/ofdrm.c                  |   9 +-
- drivers/gpu/drm/tiny/panel-mipi-dbi.c         |   4 +-
- drivers/gpu/drm/tiny/repaper.c                |   4 +-
- drivers/gpu/drm/tiny/simpledrm.c              |   9 +-
- drivers/gpu/drm/tiny/st7586.c                 |   4 +-
- drivers/gpu/drm/tiny/st7735r.c                |   4 +-
- drivers/gpu/drm/tve200/tve200_drv.c           |   9 +-
- drivers/gpu/drm/udl/udl_drv.c                 |   4 +-
- drivers/gpu/drm/vboxvideo/vbox_drv.c          |   4 +-
- drivers/gpu/drm/vc4/vc4_drv.c                 |   5 +-
- drivers/gpu/drm/virtio/virtgpu_drv.c          |   6 +-
- drivers/gpu/drm/vkms/vkms_drv.c               |   4 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   5 +-
- drivers/gpu/drm/xe/display/xe_display.c       |   4 +
- drivers/gpu/drm/xlnx/zynqmp_kms.c             |   4 +-
- include/drm/drm_client_setup.h                |  15 +
- include/drm/drm_drv.h                         |  18 ++
- include/drm/drm_fb_helper.h                   |  43 +--
- include/drm/drm_fbdev_client.h                |  19 ++
- include/drm/drm_fbdev_dma.h                   |  13 +-
- include/drm/drm_fbdev_shmem.h                 |  13 +-
- include/drm/drm_fbdev_ttm.h                   |  15 +-
- include/drm/drm_fourcc.h                      |   1 +
- 107 files changed, 1030 insertions(+), 1564 deletions(-)
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+---
+ drivers/gpu/drm/Makefile           |  1 +
+ drivers/gpu/drm/drm_client_setup.c | 69 ++++++++++++++++++++++++++++++
+ include/drm/drm_client_setup.h     | 15 +++++++
+ 3 files changed, 85 insertions(+)
  create mode 100644 drivers/gpu/drm/drm_client_setup.c
- create mode 100644 drivers/gpu/drm/drm_fbdev_client.c
  create mode 100644 include/drm/drm_client_setup.h
- create mode 100644 include/drm/drm_fbdev_client.h
 
-
-base-commit: 70d6d55dea574b7b78ccf714699cc5d8d62fcc2c
-prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-prerequisite-patch-id: cbc453ee02fae02af22fbfdce56ab732c7a88c36
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 0beb55d028a8..e7fc77d1d573 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -129,6 +129,7 @@ drm_kms_helper-y := \
+ 	drm_atomic_helper.o \
+ 	drm_atomic_state_helper.o \
+ 	drm_bridge_connector.o \
++	drm_client_setup.o \
+ 	drm_crtc_helper.o \
+ 	drm_damage_helper.o \
+ 	drm_encoder_slave.o \
+diff --git a/drivers/gpu/drm/drm_client_setup.c b/drivers/gpu/drm/drm_client_setup.c
+new file mode 100644
+index 000000000000..c8ca5afaa47a
+--- /dev/null
++++ b/drivers/gpu/drm/drm_client_setup.c
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: MIT
++
++#include <drm/drm_client_setup.h>
++#include <drm/drm_device.h>
++#include <drm/drm_fbdev_client.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_print.h>
++
++/**
++ * drm_client_setup() - Setup in-kernel DRM clients
++ * @dev: DRM device
++ * @format: Preferred pixel format for the device. Use NULL, unless
++ *          there is clearly a driver-preferred format.
++ *
++ * This function sets up the in-kernel DRM clients. Restore, hotplug
++ * events and teardown are all taken care of.
++ *
++ * Drivers should call drm_client_setup() after registering the new
++ * DRM device with drm_dev_register(). This function is safe to call
++ * even when there are no connectors present. Setup will be retried
++ * on the next hotplug event.
++ *
++ * The clients are destroyed by drm_dev_unregister().
++ */
++void drm_client_setup(struct drm_device *dev, const struct drm_format_info *format)
++{
++	int ret;
++
++	ret = drm_fbdev_client_setup(dev, format);
++	if (ret)
++		drm_warn(dev, "Failed to set up DRM client; error %d\n", ret);
++}
++EXPORT_SYMBOL(drm_client_setup);
++
++/**
++ * drm_client_setup_with_fourcc() - Setup in-kernel DRM clients for color mode
++ * @dev: DRM device
++ * @fourcc: Preferred pixel format as 4CC code for the device
++ *
++ * This function sets up the in-kernel DRM clients. It is equivalent
++ * to drm_client_setup(), but expects a 4CC code as second argument.
++ *
++ * Do not use this function in new drivers. Prefer drm_client_setup() with a
++ * format of NULL.
++ */
++void drm_client_setup_with_fourcc(struct drm_device *dev, u32 fourcc)
++{
++	drm_client_setup(dev, drm_format_info(fourcc));
++}
++EXPORT_SYMBOL(drm_client_setup_with_fourcc);
++
++/**
++ * drm_client_setup_with_color_mode() - Setup in-kernel DRM clients for color mode
++ * @dev: DRM device
++ * @color_mode: Preferred color mode for the device
++ *
++ * This function sets up the in-kernel DRM clients. It is equivalent
++ * to drm_client_setup(), but expects a color mode as second argument.
++ *
++ * Do not use this function in new drivers. Prefer drm_client_setup() with a
++ * format of NULL.
++ */
++void drm_client_setup_with_color_mode(struct drm_device *dev, unsigned int color_mode)
++{
++	u32 fourcc = drm_driver_color_mode_format(dev, color_mode);
++
++	drm_client_setup_with_fourcc(dev, fmt);
++}
++EXPORT_SYMBOL(drm_client_setup_with_color_mode);
+diff --git a/include/drm/drm_client_setup.h b/include/drm/drm_client_setup.h
+new file mode 100644
+index 000000000000..6c0396b4f815
+--- /dev/null
++++ b/include/drm/drm_client_setup.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: MIT */
++
++#ifndef DRM_CLIENT_SETUP_H
++#define DRM_CLIENT_SETUP_H
++
++#include <linux/types.h>
++
++struct drm_device;
++struct drm_format_info;
++
++void drm_client_setup(struct drm_device *dev, const struct drm_format_info *format);
++void drm_client_setup_with_fourcc(struct drm_device *dev, u32 fourcc);
++void drm_client_setup_with_color_mode(struct drm_device *dev, unsigned int color_mode);
++
++#endif
 -- 
 2.46.0
 
