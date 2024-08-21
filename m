@@ -4,50 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F07FC52D7C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C093FC5472D
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 07:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B515C10E899;
-	Wed, 21 Aug 2024 07:16:23 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB3A10E886;
- Wed, 21 Aug 2024 04:27:48 +0000 (UTC)
-Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
- by APP-03 (Coremail) with SMTP id rQCowABHTPivbMVmUjqrCA--.1206S2;
- Wed, 21 Aug 2024 12:27:36 +0800 (CST)
-From: Ma Ke <make24@iscas.ac.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, mwen@igalia.com,
- aurabindo.pillai@amd.com, joshua@froggi.es, hamza.mahfooz@amd.com,
- marek.olsak@amd.com, HaoPing.Liu@amd.com, akpm@linux-foundation.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ma Ke <make24@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH RESEND] drm/amd/display: avoid using null object of framebuffer
-Date: Wed, 21 Aug 2024 12:27:24 +0800
-Message-Id: <20240821042724.1391169-1-make24@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABDD10E89B;
+	Wed, 21 Aug 2024 07:16:24 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA2CD10E88F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 06:50:07 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.163])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Wpc3T4SCwz1j6gm;
+ Wed, 21 Aug 2024 14:33:25 +0800 (CST)
+Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
+ by mail.maildlp.com (Postfix) with ESMTPS id 7E9F5180019;
+ Wed, 21 Aug 2024 14:33:27 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
+ (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 21 Aug
+ 2024 14:33:26 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <chaitanya.dhere@amd.com>, <jun.lei@amd.com>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <alex.hung@amd.com>, <aurabindo.pillai@amd.com>, <colin.i.king@gmail.com>,
+ <dillon.varone@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH -next 4/5] drm/amd/display: Make dcn401_dsc_funcs static
+Date: Wed, 21 Aug 2024 14:40:39 +0800
+Message-ID: <20240821064040.2292969-5-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240821064040.2292969-1-ruanjinjie@huawei.com>
+References: <20240821064040.2292969-1-ruanjinjie@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABHTPivbMVmUjqrCA--.1206S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF4xWF4xKw18Ar48KFWUCFg_yoW8Xw43pF
- sxAFy5Xr1UZF47t347CF1I9FZ0ka93XF1xKrWUuw1Svw15trn8Zws8Grs2gF4xXFWjkw4S
- qFy7ArW2yF1qvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBa14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
- 1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
- FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
- 0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
- x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20x
- vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
- 3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIx
- AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
- cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
- IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRBVb9UUUUU=
-X-Originating-IP: [183.174.60.14]
-X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.73]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ kwepemh500013.china.huawei.com (7.202.181.146)
 X-Mailman-Approved-At: Wed, 21 Aug 2024 07:16:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,46 +58,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of using state->fb->obj[0] directly, get object from framebuffer
-by calling drm_gem_fb_get_obj() and return error code when object is
-null to avoid using null object of framebuffer.
+The sparse tool complains as follows:
 
-Cc: stable@vger.kernel.org
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/dcn401/dcn401_dsc.c:30:24: warning:
+	symbol 'dcn401_dsc_funcs' was not declared. Should it be static?
+
+This symbol is not used outside of dcn401_dsc.c, so marks it static.
+
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index a83bd0331c3b..5cb11cc2d063 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -28,6 +28,7 @@
- #include <drm/drm_blend.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_plane_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_fourcc.h>
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
+index 6acb6699f146..61678b0a5a1e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
+@@ -27,7 +27,7 @@ static void dsc401_disconnect(struct display_stream_compressor *dsc);
+ static void dsc401_wait_disconnect_pending_clear(struct display_stream_compressor *dsc);
+ static void dsc401_get_enc_caps(struct dsc_enc_caps *dsc_enc_caps, int pixel_clock_100Hz);
  
- #include "amdgpu.h"
-@@ -935,10 +936,14 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 	}
- 
- 	afb = to_amdgpu_framebuffer(new_state->fb);
--	obj = new_state->fb->obj[0];
-+	obj = drm_gem_fb_get_obj(new_state->fb, 0);
-+	if (!obj) {
-+		DRM_ERROR("Failed to get obj from framebuffer\n");
-+		return -EINVAL;
-+	}
-+
- 	rbo = gem_to_amdgpu_bo(obj);
- 	adev = amdgpu_ttm_adev(rbo->tbo.bdev);
--
- 	r = amdgpu_bo_reserve(rbo, true);
- 	if (r) {
- 		dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
+-const struct dsc_funcs dcn401_dsc_funcs = {
++static const struct dsc_funcs dcn401_dsc_funcs = {
+ 	.dsc_get_enc_caps = dsc401_get_enc_caps,
+ 	.dsc_read_state = dsc401_read_state,
+ 	.dsc_validate_stream = dsc401_validate_stream,
 -- 
-2.25.1
+2.34.1
 
