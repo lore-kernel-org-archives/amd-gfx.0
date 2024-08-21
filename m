@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4708C5320E
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 03:20:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B030C52D6F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 04:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0AB110E87D;
-	Wed, 21 Aug 2024 03:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8D6410E361;
+	Wed, 21 Aug 2024 04:01:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZArZZGoF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jBKJF/V1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031EF10E87C;
- Wed, 21 Aug 2024 03:20:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E577410E12B;
+ Wed, 21 Aug 2024 04:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724210409; x=1755746409;
+ t=1724212867; x=1755748867;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=ar+dQ4i1dygyS6t1yB6lTHw2GDDRUaWDsPxGQ51Omg4=;
- b=ZArZZGoFc1JClKu7WkIFnIkMX58bYuwVfTSen7l/CgX6VHTdgFPpeUku
- K1tprHwMuyuRPC/qjkY6OXyv6ZhyThBqLdJxS5tPDZPPQf/0eprqtHyEO
- X/fUWNF0Zk4Btltn5ckcTrsmUU08FHku3juxBwCqSporT7FqU62w/t9rq
- U74xkr8ozxohDEtu1OOhJ38MyjP+Ut5aIPHQJXQzE94uqggYcyeSBocxy
- 2czzURsa+dEvQtbUIMsOLuM+BP/2OFIa2JhWuMl9BaK73v6q0bwSAUGNz
- /DtoIsXx3FEAgRmEDf0eoInneUhqSzT7rO3fA45DVOIaKfy5w9ZyxpTka w==;
-X-CSE-ConnectionGUID: w4pE+wkPRRGrWlh0wFqS9w==
-X-CSE-MsgGUID: PEDgmnulQoSKxtxyBv8C6Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11170"; a="33700761"
-X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="33700761"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2024 20:20:06 -0700
-X-CSE-ConnectionGUID: KgQ/m24UQG2DwZ2YX3h3UQ==
-X-CSE-MsgGUID: nG6pfSGxQIOH9xtiv6NZ4Q==
+ bh=AthkwurUrh7MXaMGqfRpIHLmubGQ6eqXlluCjr+zuMY=;
+ b=jBKJF/V1FiWgfkKZaTAt0242O0BbowtMk+ztPv4BSqHnuDUVPJesw7iK
+ /K03UysNWlA4bj+1AuE0k5KdAX+aDCrbXSBHoQDwWa5Gp0fsM2k84NJoL
+ 06SMqy/rvNWNTJsSBQeDBukP6TnOYBFDUJbuGEkcHGSEnIxb8eInH2SkR
+ KnRks5x8ASJI20lQ/ZCbSh6VTpoInjRcxODBBGautwHwpUS+jLZjO0aIX
+ MlO0Iv75x75DDhtPB741iJEaXzkBLOqPZHDKcHSjUSKTtH9UGKjYFniIx
+ MpcN8u07Ubnqw6rx1QcqGi26aHwQhrr8PBr9VeKTEZD+t2UKMpyC0IdZj w==;
+X-CSE-ConnectionGUID: nkeAN0LYROuLBSTMFxLkPA==
+X-CSE-MsgGUID: CCGBBW7RTb+VNdt/ENbokA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11170"; a="22359401"
+X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="22359401"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 21:01:07 -0700
+X-CSE-ConnectionGUID: J6Jlxwx3R6+NfYSXw9xtBg==
+X-CSE-MsgGUID: bIDTgDRoRgWsHcc/vZKyDw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="61712748"
+X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="91700465"
 Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
- by orviesa008.jf.intel.com with ESMTP; 20 Aug 2024 20:20:04 -0700
+ by orviesa002.jf.intel.com with ESMTP; 20 Aug 2024 21:01:06 -0700
 Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sgbtB-000AqE-2V;
- Wed, 21 Aug 2024 03:20:01 +0000
-Date: Wed, 21 Aug 2024 11:19:29 +0800
+ (envelope-from <lkp@intel.com>) id 1sgcWt-000As6-2x;
+ Wed, 21 Aug 2024 04:01:03 +0000
+Date: Wed, 21 Aug 2024 12:00:44 +0800
 From: kernel test robot <lkp@intel.com>
 To: Harry Wentland <harry.wentland@amd.com>,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Cc: oe-kbuild-all@lists.linux.dev, wayland-devel@lists.freedesktop.org,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v5 36/44] drm/amd/display: add 3x4 matrix colorop
-Message-ID: <202408211016.TkunD7H3-lkp@intel.com>
-References: <20240819205714.316380-37-harry.wentland@amd.com>
+ Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v5 20/44] drm/tests: Add a few tests around drm_fixed.h
+Message-ID: <202408211157.n8ubZpFl-lkp@intel.com>
+References: <20240819205714.316380-21-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240819205714.316380-37-harry.wentland@amd.com>
+In-Reply-To: <20240819205714.316380-21-harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,80 +72,68 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi Harry,
 
-kernel test robot noticed the following build warnings:
+kernel test robot noticed the following build errors:
 
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.11-rc4 next-20240820]
-[cannot apply to drm-exynos/exynos-drm-next]
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.11-rc4 next-20240820]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Harry-Wentland/drm-Add-helper-for-conversion-from-signed-magnitude/20240820-050138
 base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/20240819205714.316380-37-harry.wentland%40amd.com
-patch subject: [PATCH v5 36/44] drm/amd/display: add 3x4 matrix colorop
-config: arm-randconfig-002-20240821 (https://download.01.org/0day-ci/archive/20240821/202408211016.TkunD7H3-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 14.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240821/202408211016.TkunD7H3-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20240819205714.316380-21-harry.wentland%40amd.com
+patch subject: [PATCH v5 20/44] drm/tests: Add a few tests around drm_fixed.h
+config: parisc-randconfig-001-20240821 (https://download.01.org/0day-ci/archive/20240821/202408211157.n8ubZpFl-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 14.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240821/202408211157.n8ubZpFl-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408211016.TkunD7H3-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202408211157.n8ubZpFl-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
-   In file included from include/linux/device.h:15,
-                    from include/drm/drm_print.h:31,
-                    from drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_ring.h:29,
-                    from drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_ctx.h:29,
-                    from drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:43,
-                    from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:25:
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c: In function '__set_dm_plane_colorop_3x4_matrix':
->> drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:41:22: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-      41 | #define dev_fmt(fmt) "amdgpu: " fmt
-         |                      ^~~~~~~~~~
-   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ^~~
-   include/linux/dev_printk.h:156:61: note: in expansion of macro 'dev_fmt'
-     156 |         dev_printk_index_wrap(_dev_warn, KERN_WARNING, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                             ^~~~~~~
-   include/drm/drm_print.h:470:9: note: in expansion of macro 'dev_warn'
-     470 |         dev_##level##type((drm) ? (drm)->dev : NULL, "[drm] " fmt, ##__VA_ARGS__)
-         |         ^~~~
-   include/drm/drm_print.h:480:9: note: in expansion of macro '__drm_printk'
-     480 |         __drm_printk((drm), warn,, fmt, ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:1247:25: note: in expansion of macro 'drm_warn'
-    1247 |                         drm_warn(dev, "blob->length (%ld) isn't equal to drm_color_ctm_3x4 (%ld)\n",
-         |                         ^~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:41:22: warning: format '%ld' expects argument of type 'long int', but argument 4 has type 'unsigned int' [-Wformat=]
-      41 | #define dev_fmt(fmt) "amdgpu: " fmt
-         |                      ^~~~~~~~~~
-   include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ^~~
-   include/linux/dev_printk.h:156:61: note: in expansion of macro 'dev_fmt'
-     156 |         dev_printk_index_wrap(_dev_warn, KERN_WARNING, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                             ^~~~~~~
-   include/drm/drm_print.h:470:9: note: in expansion of macro 'dev_warn'
-     470 |         dev_##level##type((drm) ? (drm)->dev : NULL, "[drm] " fmt, ##__VA_ARGS__)
-         |         ^~~~
-   include/drm/drm_print.h:480:9: note: in expansion of macro '__drm_printk'
-     480 |         __drm_printk((drm), warn,, fmt, ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:1247:25: note: in expansion of macro 'drm_warn'
-    1247 |                         drm_warn(dev, "blob->length (%ld) isn't equal to drm_color_ctm_3x4 (%ld)\n",
-         |                         ^~~~~~~~
+   In file included from drivers/gpu/drm/tests/drm_fixp_test.c:6:
+   drivers/gpu/drm/tests/drm_fixp_test.c: In function 'drm_test_sm2fixp':
+>> drivers/gpu/drm/tests/drm_fixp_test.c:11:66: error: integer overflow in expression of type 'long long int' results in '9223372036854775807' [-Werror=overflow]
+      11 |         KUNIT_EXPECT_EQ(test, 0x7fffffffffffffffll, ((1LL << 63) - 1));
+         |                                                                  ^
+   include/kunit/test.h:725:40: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     725 |         const typeof(right) __right = (right);                                 \
+         |                                        ^~~~~
+   include/kunit/test.h:920:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+     920 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:917:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+     917 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/tests/drm_fixp_test.c:11:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+      11 |         KUNIT_EXPECT_EQ(test, 0x7fffffffffffffffll, ((1LL << 63) - 1));
+         |         ^~~~~~~~~~~~~~~
+   cc1: all warnings being treated as errors
 
 
-vim +41 drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h
+vim +11 drivers/gpu/drm/tests/drm_fixp_test.c
 
-539489fc91ea77 Aurabindo Pillai 2020-04-08  40  
-539489fc91ea77 Aurabindo Pillai 2020-04-08 @41  #define dev_fmt(fmt) "amdgpu: " fmt
-539489fc91ea77 Aurabindo Pillai 2020-04-08  42  
+     8	
+     9	static void drm_test_sm2fixp(struct kunit *test)
+    10	{
+  > 11		KUNIT_EXPECT_EQ(test, 0x7fffffffffffffffll, ((1LL << 63) - 1));
+    12	
+    13		/* 1 */
+    14		KUNIT_EXPECT_EQ(test, drm_int2fixp(1), drm_sm2fixp(1ull << DRM_FIXED_POINT));
+    15	
+    16		/* -1 */
+    17		KUNIT_EXPECT_EQ(test, drm_int2fixp(-1), drm_sm2fixp((1ull << 63) | (1ull << DRM_FIXED_POINT)));
+    18	
+    19		/* 0.5 */
+    20		KUNIT_EXPECT_EQ(test, drm_fixp_from_fraction(1, 2), drm_sm2fixp(1ull << (DRM_FIXED_POINT - 1)));
+    21	
+    22		/* -0.5 */
+    23		KUNIT_EXPECT_EQ(test, drm_fixp_from_fraction(-1, 2), drm_sm2fixp((1ull << 63) | (1ull << (DRM_FIXED_POINT - 1))));
+    24	
 
 -- 
 0-DAY CI Kernel Test Service
