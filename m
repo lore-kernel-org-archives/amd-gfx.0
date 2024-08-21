@@ -4,77 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62865C5472C
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 07:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F07FC52D7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 07:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2B6610E88F;
-	Wed, 21 Aug 2024 07:16:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HuPj8tdi";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D06910E564;
- Wed, 21 Aug 2024 01:08:03 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47KCpxEV012201;
- Wed, 21 Aug 2024 01:08:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xeWAl49TMadtFPar1/t3c6thDeWJreD5Fni6eWb7mtw=; b=HuPj8tdi8ilIuPTu
- be6SmedHi+HPKHfXLH7gHDVhOImneFJo7STKu8U999tnt3/fEZyd8itrBfX+lfY1
- hL8mTgph2WZObx489Gvm/Zv0ZiqxkO3r0gRVQpPRyrdg4wtkUHT8XEQB1By7kjRl
- ZMfrc1dttxSLy+dcZqWg69514COlCZImzfkjaocP3GpSTJe9FnMNldOW5YpJD6zF
- U1Q3E+phseQAE4Vj0H0JI86OEyp/sKcehnD7Om+955nZq+liuxGufIRX3JUk4BW7
- +fBAgk2z/IjyNgRkzZc9NVRu9DWSEO34ceywKadxxGAfBh+ofKCbs73HWrkoCnGk
- lR3ubA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 414uh8sgjj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Aug 2024 01:07:59 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47L17xdR026672
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 21 Aug 2024 01:07:59 GMT
-Received: from [10.81.24.74] (10.49.16.6) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 20 Aug
- 2024 18:07:58 -0700
-Message-ID: <3151445e-cc4f-403a-b2c8-6a770df6674a@quicinc.com>
-Date: Tue, 20 Aug 2024 18:07:58 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id B515C10E899;
+	Wed, 21 Aug 2024 07:16:23 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB3A10E886;
+ Wed, 21 Aug 2024 04:27:48 +0000 (UTC)
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
+ by APP-03 (Coremail) with SMTP id rQCowABHTPivbMVmUjqrCA--.1206S2;
+ Wed, 21 Aug 2024 12:27:36 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, mwen@igalia.com,
+ aurabindo.pillai@amd.com, joshua@froggi.es, hamza.mahfooz@amd.com,
+ marek.olsak@amd.com, HaoPing.Liu@amd.com, akpm@linux-foundation.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ma Ke <make24@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH RESEND] drm/amd/display: avoid using null object of framebuffer
+Date: Wed, 21 Aug 2024 12:27:24 +0800
+Message-Id: <20240821042724.1391169-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 20/44] drm/tests: Add a few tests around drm_fixed.h
-To: Harry Wentland <harry.wentland@amd.com>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>
-CC: <wayland-devel@lists.freedesktop.org>
-References: <20240819205714.316380-1-harry.wentland@amd.com>
- <20240819205714.316380-21-harry.wentland@amd.com>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <20240819205714.316380-21-harry.wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: EN__cd_jcTA4OjRUCo2atZ1xl3Xal1Rq
-X-Proofpoint-ORIG-GUID: EN__cd_jcTA4OjRUCo2atZ1xl3Xal1Rq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-20_19,2024-08-19_03,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0
- lowpriorityscore=0 impostorscore=0 mlxscore=0 spamscore=0 phishscore=0
- mlxlogscore=999 bulkscore=0 malwarescore=0 priorityscore=1501
- clxscore=1015 suspectscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2407110000 definitions=main-2408210006
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowABHTPivbMVmUjqrCA--.1206S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4xWF4xKw18Ar48KFWUCFg_yoW8Xw43pF
+ sxAFy5Xr1UZF47t347CF1I9FZ0ka93XF1xKrWUuw1Svw15trn8Zws8Grs2gF4xXFWjkw4S
+ qFy7ArW2yF1qvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBa14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+ 1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+ FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+ 0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+ x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20x
+ vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
+ 3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIx
+ AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
+ cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
+ IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRBVb9UUUUU=
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 X-Mailman-Approved-At: Wed, 21 Aug 2024 07:16:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,49 +63,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/19/24 13:56, Harry Wentland wrote:
-> While working on the CTM implementation of VKMS I had to ascertain
-> myself of a few assumptions. One of those is whether drm_fixed.h
-> treats its numbers using signed-magnitude or twos-complement. It is
-> twos-complement.
-> 
-> In order to make someone else's day easier I am adding the
-> drm_test_int2fixp test that validates the above assumption.
-> 
-> I am also adding a test for the new sm2fixp function that converts
-> from a signed-magnitude fixed point to the twos-complement fixed
-> point.
-> 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/tests/Makefile        |  3 +-
->  drivers/gpu/drm/tests/drm_fixp_test.c | 69 +++++++++++++++++++++++++++
->  2 files changed, 71 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
-> 
-> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
-> index 56dab563abd7..bd69df0eee33 100644
-> --- a/drivers/gpu/drm/tests/Makefile
-> +++ b/drivers/gpu/drm/tests/Makefile
-> @@ -20,6 +20,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
->  	drm_modes_test.o \
->  	drm_plane_helper_test.o \
->  	drm_probe_helper_test.o \
-> -	drm_rect_test.o
-> +	drm_rect_test.o	\
-> +	drm_fixp_test.o
->  
->  CFLAGS_drm_mm_test.o := $(DISABLE_STRUCTLEAK_PLUGIN)
-> diff --git a/drivers/gpu/drm/tests/drm_fixp_test.c b/drivers/gpu/drm/tests/drm_fixp_test.c
-> new file mode 100644
-> index 000000000000..f420f173ff66
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tests/drm_fixp_test.c
-> @@ -0,0 +1,69 @@
-...
-> +MODULE_AUTHOR("AMD");
-> +MODULE_LICENSE("GPL and additional rights");
-> \ No newline at end of file
+Instead of using state->fb->obj[0] directly, get object from framebuffer
+by calling drm_gem_fb_get_obj() and return error code when object is
+null to avoid using null object of framebuffer.
 
-Please add the missing MODULE_DESCRIPTION()
+Cc: stable@vger.kernel.org
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index a83bd0331c3b..5cb11cc2d063 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -28,6 +28,7 @@
+ #include <drm/drm_blend.h>
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_plane_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_fourcc.h>
+ 
+ #include "amdgpu.h"
+@@ -935,10 +936,14 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
+ 	}
+ 
+ 	afb = to_amdgpu_framebuffer(new_state->fb);
+-	obj = new_state->fb->obj[0];
++	obj = drm_gem_fb_get_obj(new_state->fb, 0);
++	if (!obj) {
++		DRM_ERROR("Failed to get obj from framebuffer\n");
++		return -EINVAL;
++	}
++
+ 	rbo = gem_to_amdgpu_bo(obj);
+ 	adev = amdgpu_ttm_adev(rbo->tbo.bdev);
+-
+ 	r = amdgpu_bo_reserve(rbo, true);
+ 	if (r) {
+ 		dev_err(adev->dev, "fail to reserve bo (%d)\n", r);
+-- 
+2.25.1
 
