@@ -4,24 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF72C54722
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 07:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CEB3C531DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 07:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AEA510E898;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48EF710E895;
 	Wed, 21 Aug 2024 07:16:19 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C715010E58F
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 06:53:07 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.105])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Wpc1C56JXzhY0P;
- Wed, 21 Aug 2024 14:31:27 +0800 (CST)
+X-Greylist: delayed 915 seconds by postgrey-1.36 at gabe;
+ Wed, 21 Aug 2024 06:48:45 UTC
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35B5A10E58F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 06:48:45 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.162.112])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Wpc1H0j0jz1xvdD;
+ Wed, 21 Aug 2024 14:31:31 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 2E4961401F2;
- Wed, 21 Aug 2024 14:33:28 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 843731401F3;
+ Wed, 21 Aug 2024 14:33:25 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
  (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 21 Aug
- 2024 14:33:27 +0800
+ 2024 14:33:24 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <chaitanya.dhere@amd.com>, <jun.lei@amd.com>, <harry.wentland@amd.com>,
  <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
@@ -31,9 +33,10 @@ To: <chaitanya.dhere@amd.com>, <jun.lei@amd.com>, <harry.wentland@amd.com>,
  <dillon.varone@amd.com>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH -next 5/5] drm/amd/display: Make dcn35_fpga_funcs static
-Date: Wed, 21 Aug 2024 14:40:40 +0800
-Message-ID: <20240821064040.2292969-6-ruanjinjie@huawei.com>
+Subject: [PATCH -next 1/5] drm/amd/display: Make
+ core_dcn4_g6_temp_read_blackout_table static
+Date: Wed, 21 Aug 2024 14:40:36 +0800
+Message-ID: <20240821064040.2292969-2-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240821064040.2292969-1-ruanjinjie@huawei.com>
 References: <20240821064040.2292969-1-ruanjinjie@huawei.com>
@@ -60,29 +63,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 The sparse tool complains as follows:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:1071:22: warning:
-	symbol 'dcn35_fpga_funcs' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:6853:56: warning:
+	symbol 'core_dcn4_g6_temp_read_blackout_table' was not declared. Should it be static?
 
-This symbol is not used outside of dcn35_clk_mgr.c, so marks it static.
+This symbol is not used outside of dml2_core_dcn4_calcs.c, so marks it static.
+
+And not want to change it, so mark it const.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index e2d906327e2e..818a9b0933a5 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -1068,7 +1068,7 @@ static struct clk_mgr_funcs dcn35_funcs = {
- 	.is_ips_supported = dcn35_is_ips_supported,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index c3c4d8d9525c..0c24f15d5067 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -6850,7 +6850,8 @@ struct dml2_core_internal_g6_temp_read_blackouts_table {
+ 	} entries[DML_MAX_CLK_TABLE_SIZE];
  };
  
--struct clk_mgr_funcs dcn35_fpga_funcs = {
-+static struct clk_mgr_funcs dcn35_fpga_funcs = {
- 	.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
- 	.update_clocks = dcn35_update_clocks_fpga,
- 	.init_clocks = dcn35_init_clocks_fpga,
+-struct dml2_core_internal_g6_temp_read_blackouts_table core_dcn4_g6_temp_read_blackout_table = {
++static const struct dml2_core_internal_g6_temp_read_blackouts_table
++	core_dcn4_g6_temp_read_blackout_table = {
+ 	.entries = {
+ 		{
+ 			.uclk_khz = 96000,
 -- 
 2.34.1
 
