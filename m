@@ -4,60 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A55C52D7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 04:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 299D5C52D7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 06:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5A4610E246;
-	Wed, 21 Aug 2024 04:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEC6610E598;
+	Wed, 21 Aug 2024 06:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IFF0R0Rk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QnB7vBGq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D15F10E246;
- Wed, 21 Aug 2024 04:53:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724215988; x=1755751988;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=e9cRXMHPwsjc4eS2oAVv7CuGsm4fG7al7v4a8+Qf4YQ=;
- b=IFF0R0Rk2BBRxqM+Sfh7Ay3swad8636F5MV7LOEdPwPEULKu5gozbbZX
- SlACGoEg074CvDGFG94jHU7qstIiOZ5ngmxMTc8jF/G2JorNbhO91DlO/
- DnbDAAZCY3Ki13fqIlvm82aJbfTV6lgZcUTrWVOModmCEGTayf8NXC1dL
- JKP0Dwh9J1XBGpO7Z7vdcOzA7ZHK1tZFmONAa9Xlrbq9c9UcOdJAEBccx
- ejOAytH+kuaQWAl5PYKCEvPoZMmx37rO7ekN5KIOONHZBjpE2vA7OmqrW
- dTC0VdPX0C7+OV450JmANnadj+82vcwicwCPZwFySMc/l1Eq0XciqTk55 A==;
-X-CSE-ConnectionGUID: G+SY/DhIQuG+ssT8v5t2CQ==
-X-CSE-MsgGUID: MyA0bPmERJu9PvuPo5E83w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11170"; a="40011067"
-X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="40011067"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2024 21:53:08 -0700
-X-CSE-ConnectionGUID: Qg/IaytxTMqaEHocC/oEOA==
-X-CSE-MsgGUID: 5DNhF1n/SRaUggpClAtcTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,163,1719903600"; d="scan'208";a="65846597"
-Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
- by orviesa005.jf.intel.com with ESMTP; 20 Aug 2024 21:53:08 -0700
-Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sgdLF-000Aug-0Z;
- Wed, 21 Aug 2024 04:53:05 +0000
-Date: Wed, 21 Aug 2024 12:52:11 +0800
-From: kernel test robot <lkp@intel.com>
-To: Harry Wentland <harry.wentland@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- wayland-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v5 28/44] drm/amd/display: Add support for sRGB Inverse
- EOTF in SHAPER block
-Message-ID: <202408211241.xAvubshv-lkp@intel.com>
-References: <20240819205714.316380-29-harry.wentland@amd.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491D110E598
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 06:57:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u3V3K6Me637SzRkDrMj+4Y2nNVtDIek5CWBoDD6CMpaZGvf6vuUsserQ9jkGRTDbK/O5yYB3iuO1d013Rez8xxzXN4yEt6KqyYZEgTWvGc7Hynf/NR5fgIkuX38w79GVoE8o2h6I17aZwmAlQrtkBi9VMbtEHpq60IRKvM4WogHxQpblfdQJb5RsneEtZ5uEhgF0hHxt8f7/3sOnJh5+ygjHRgNXE78hDUgtgSgNm3f9KTc+CFsvZ05Mnj5O0h2me9GXceaSnBo99IxDO+rlG3EKEoHaitWat7pidxc5/YxpX+aW3ny0h/rTwH+UmPB5xd+n/O2Zi5J5KH2inWh9qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wfhfRsEwtpZoNCVzFjGl8LLShrNm4cMtc21y6HM+d+0=;
+ b=y5uMAqUO2vQsMLgh690Mmy1b2R3dnxjN7nPfpdG/3T6rmynk3wdsezZaAeadpaRlN8P+VduI4Pj7JoBveQV+pJxcr0S/+iPvnYkcFype8uBtzb2+AeEt8I/u8HvD5RTWO8JXTuSCdOAdq7xZPM3XT4qficRbgTdRBm3sKwnAYq4rlPNS9HA5XmmD2sU/drThPtIpQwGfSBi0/oTZzeD+24Mp9Hr1yQKY963xTmjoARagmvmmHcYLkG83StkvcWdqyC/K/prtV/U9yYKoLOmwmTs4kOSJeZCtwrxL0GeXTBdMYti1C1n27k6XSsetKexRiRaf+LfkMLcqpaI5aHtIzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wfhfRsEwtpZoNCVzFjGl8LLShrNm4cMtc21y6HM+d+0=;
+ b=QnB7vBGqr7r8NhcRnaANHJzRDidTb4I05q2mZN0V+0UvU1Xl/GCGNHVG2t0VXMOWwqBjnRmhB4L33GiuLZIlHz0L4+roHAaC8NUNN/vufI/10Ld0UrILvz18rSBAdpkaOc63Dv5chM8QEL51vHlpLXPCjMZgcNKH0r17tKCmkhc=
+Received: from DM6PR21CA0017.namprd21.prod.outlook.com (2603:10b6:5:174::27)
+ by DS0PR12MB7653.namprd12.prod.outlook.com (2603:10b6:8:13e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Wed, 21 Aug
+ 2024 06:57:35 +0000
+Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
+ (2603:10b6:5:174:cafe::42) by DM6PR21CA0017.outlook.office365.com
+ (2603:10b6:5:174::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.13 via Frontend
+ Transport; Wed, 21 Aug 2024 06:57:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7897.11 via Frontend Transport; Wed, 21 Aug 2024 06:57:35 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 21 Aug
+ 2024 01:57:33 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <tao.zhou1@amd.com>
+Subject: [PATCH] drm/amdgpu: add list empty check to avoid null pointer issue
+Date: Wed, 21 Aug 2024 14:57:22 +0800
+Message-ID: <20240821065722.353171-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240819205714.316380-29-harry.wentland@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|DS0PR12MB7653:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e62be4f-9de3-4815-736b-08dcc1ae898f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?r1y/iadBpHnESy/GrOd1wDXi8P+1czuuVp0YqvWcnYfd7XImsHMftJZt4ZBL?=
+ =?us-ascii?Q?r1fXIptKXPDips58+7n6LY/uya8MYh4a++UZdLGVZJ8ArHC+I3HcYRPY16/o?=
+ =?us-ascii?Q?tNN4h5kiLlIyENLFkvIqNcikXSdNTpbn80QbyiZvcyPFAEUrmd5F3jsCdIJK?=
+ =?us-ascii?Q?wgaXPxthrHit3dOk771qSlI1uaJFL95BDxv7Fooxc/0rudMebBIA7xe/9m0S?=
+ =?us-ascii?Q?8szhPlzSKH5wpOE5JS0dOxeZvwVe0wrn+LLO1MVmfAduO61Yo8FCiSYDem3I?=
+ =?us-ascii?Q?rJ7/rxHJk/mTjNl5DhR3IqD6F0LdMCJRSoT5oAZsAqtcbvMqGhJoHD0rDmNX?=
+ =?us-ascii?Q?zfaNn4sczN1rRaMLnq9otnBvWQz5/krtLXMxku3hOBz1FWZuRzMz98GMM2DH?=
+ =?us-ascii?Q?VgE+rX+sO+UNtgCFP+ZOdMl3lsjEeCVxxElXhKDedzbN9s6AIDWibjINsTLJ?=
+ =?us-ascii?Q?F3oppzJe+/M3JTql+1sjeFK+x8THQmeyy34e5Md3u3cmVMA0Jz7OLdPTJ/a6?=
+ =?us-ascii?Q?xWl2xH+sgJZ0i4IGfOfGz+4lN+K7xja4Ku+3F8VgOcol0NA17e6b1BGcCLv3?=
+ =?us-ascii?Q?Mcr/6Z7UNU/JXzvpH2Cvfk2w56jzXjgCVqccfCH89S48TFGMhfvRbV1yca3k?=
+ =?us-ascii?Q?8LsgeE4SX8dS5TH+UvBNKH8l/ht+xZxfM9xIAGpMqpOS3zt9Fg6nUtPV3dUQ?=
+ =?us-ascii?Q?o4A3/5W4lsx984VCL+yDo0eo6Qh87UigonpaRty8O9iPtRm5kOGirVxZksAy?=
+ =?us-ascii?Q?Wtzu3FC1a6qsZMP4kfAJ/pZ6mJEQxt4ui2ctJKaPsQr4l8jC0jzDEixjd6bp?=
+ =?us-ascii?Q?asuAQeSpfZWAKUqf78/ypLKMWSy8OVrbY517PwiPboIdY8uVbSVtLtfiV5GS?=
+ =?us-ascii?Q?GlOmNUBfW1iiSvPx4ZQF0o7pqFcEulgcKAYlKR2rHsLCdaoxG9VutckvKZnI?=
+ =?us-ascii?Q?a0PiBb9l3RD2K0mWQllQgjxxhtjLEuh3TSqGk3aixnyb3yaK+4w8WiLNiRPs?=
+ =?us-ascii?Q?SxWGTNLYxdZnIrUVxzB6ovuMfDNiBke2jZxMg0K0v7hpuzROKQzQHw9w/Nep?=
+ =?us-ascii?Q?N4sjqPV2Um/pxjhI6hujq+Uu5RVF9XUotvcWBWOG7NHoQ/eepLwj7hDB2Qje?=
+ =?us-ascii?Q?AAo1NiHKAk/KHLldrTNErdOeeaM2hozVf4kdmzbRF1CDe97LpeOS+X6UqCLh?=
+ =?us-ascii?Q?08VmBQk5ngDFYofWfHnAxs2FzPVtqbztt1WhD1z2TdfqGMORLNZYX0vfwYfy?=
+ =?us-ascii?Q?cgIpFnXUUXjmGI6dDRIUPq9zFH1tI09XnMuxLFOtwOR6FFM6m54FjnEO9W7o?=
+ =?us-ascii?Q?3OeRgy9zzBxw7LmvbMK+EnzoR0yv+jvHJe3uOaM62LiFwaW1HcOKYBdiZod3?=
+ =?us-ascii?Q?oiJAhyZqfZauiB2LY4O7xaVyWkHFPQLHfHG6PxYtOKsFKBSIlfblPuhCarz9?=
+ =?us-ascii?Q?+Yly3PtwnwMFpzS65D3lvznnosusGSid?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 06:57:35.4867 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e62be4f-9de3-4815-736b-08dcc1ae898f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7653
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,77 +129,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Harry,
+Add list empty check to avoid null pointer issues in some corner cases.
+- list_for_each_entry_safe()
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.11-rc4 next-20240820]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Harry-Wentland/drm-Add-helper-for-conversion-from-signed-magnitude/20240820-050138
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/20240819205714.316380-29-harry.wentland%40amd.com
-patch subject: [PATCH v5 28/44] drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
-config: x86_64-randconfig-003-20240821 (https://download.01.org/0day-ci/archive/20240821/202408211241.xAvubshv-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240821/202408211241.xAvubshv-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408211241.xAvubshv-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:1232:42: warning: variable 'shaper_size' is uninitialized when used here [-Wuninitialized]
-    1232 |                 return __set_output_tf(tf, shaper_lut, shaper_size, false);
-         |                                                        ^~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:1214:22: note: initialize the variable 'shaper_size' to silence this warning
-    1214 |         uint32_t shaper_size;
-         |                             ^
-         |                              = 0
-   1 warning generated.
-
-
-vim +/shaper_size +1232 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c
-
-  1205	
-  1206	static int
-  1207	__set_colorop_in_shaper_1d_curve(struct dc_plane_state *dc_plane_state,
-  1208			       struct drm_colorop_state *colorop_state)
-  1209	{
-  1210		struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
-  1211		struct drm_colorop *colorop = colorop_state->colorop;
-  1212		struct drm_device *drm = colorop->dev;
-  1213		const struct drm_color_lut *shaper_lut;
-  1214		uint32_t shaper_size;
-  1215	
-  1216		if (colorop->type != DRM_COLOROP_1D_CURVE &&
-  1217		    colorop_state->curve_1d_type != DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF)
-  1218			return -EINVAL;
-  1219	
-  1220		if (colorop_state->bypass) {
-  1221			tf->type = TF_TYPE_BYPASS;
-  1222			tf->tf = TRANSFER_FUNCTION_LINEAR;
-  1223			return 0;
-  1224		}
-  1225	
-  1226		drm_dbg(drm, "Shaper colorop with ID: %d\n", colorop->base.id);
-  1227	
-  1228		if (colorop->type == DRM_COLOROP_1D_CURVE) {
-  1229			tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-  1230			tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
-  1231			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> 1232			return __set_output_tf(tf, shaper_lut, shaper_size, false);
-  1233		}
-  1234	
-  1235		return -EINVAL;
-  1236	}
-  1237	
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index 929095a2e088..57bda66e85ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -80,6 +80,9 @@ static void aca_banks_release(struct aca_banks *banks)
+ {
+ 	struct aca_bank_node *node, *tmp;
+ 
++	if (list_empty(&banks->list))
++		return;
++
+ 	list_for_each_entry_safe(node, tmp, &banks->list, node) {
+ 		list_del(&node->node);
+ 		kvfree(node);
+@@ -562,9 +565,13 @@ static void aca_error_fini(struct aca_error *aerr)
+ 	struct aca_bank_error *bank_error, *tmp;
+ 
+ 	mutex_lock(&aerr->lock);
++	if (list_empty(&aerr->list))
++		goto out_unlock;
++
+ 	list_for_each_entry_safe(bank_error, tmp, &aerr->list, node)
+ 		aca_bank_error_remove(aerr, bank_error);
+ 
++out_unlock:
+ 	mutex_destroy(&aerr->lock);
+ }
+ 
+@@ -680,6 +687,9 @@ static void aca_manager_fini(struct aca_handle_manager *mgr)
+ {
+ 	struct aca_handle *handle, *tmp;
+ 
++	if (list_empty(&mgr->list))
++		return;
++
+ 	list_for_each_entry_safe(handle, tmp, &mgr->list, node)
+ 		amdgpu_aca_remove_handle(handle);
+ }
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
