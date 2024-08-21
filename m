@@ -4,101 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EF54C5472C
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB276C52D6F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:07:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A104E10EA45;
-	Wed, 21 Aug 2024 13:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E4AD10EA4B;
+	Wed, 21 Aug 2024 13:04:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="d/2gIxEj";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A/cD0vuW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="d/2gIxEj";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A/cD0vuW";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xDkWXZ7c";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XmKeLHgT";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xDkWXZ7c";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XmKeLHgT";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14AF210E997;
- Wed, 21 Aug 2024 13:04:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE9210EA2D;
+ Wed, 21 Aug 2024 13:04:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C96A520099;
- Wed, 21 Aug 2024 13:04:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DC0C3222DE;
+ Wed, 21 Aug 2024 13:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1724245463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gB76lM/Vz8WSBB0gZ66k8s4YlTj2s9s8QQr9b3fJMvs=;
- b=d/2gIxEjMgg/7b6a7/5fI8Pb2lIt1d0ctNecV4SWaNmWJEg5Ms4/o6xztLyqjjXmhZLwy5
- ThGk1ooRCyTsKnkPz0HpnEe/90q60wheCRBG6Fp9IP2leUUSm9pKv3eFOr0g0WEPegRUcd
- +vsxZOS1oKs5HlTl83mF5glMOS7sGeU=
+ bh=3RmkB09pbM48/K3ytBEZhZZ0j7YGL3uJp5Q+wj7joag=;
+ b=xDkWXZ7cGuEvkT9BySoo/yYnCQfo2hoSaOAtX4DkoiTVAfcUHiaBc0Ua7naxG7pmRq2pPY
+ mBSncvcL1nDyec1R1PLDZmgNyWlg4Gco5TIknGFJaNBCsMJxIRpNQFTACb8Cemg8T45zbR
+ xACCIXNPHwvRvEHEH5fgNBl11iE5f7M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245449;
+ s=susede2_ed25519; t=1724245463;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gB76lM/Vz8WSBB0gZ66k8s4YlTj2s9s8QQr9b3fJMvs=;
- b=A/cD0vuWpah5QLinNSj0VSivj7ryWBX0zXH+eP5jI3OxZB0gI1FKY8aAw12C1L6skK20tw
- jxYd8AqeBg2jpxAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=3RmkB09pbM48/K3ytBEZhZZ0j7YGL3uJp5Q+wj7joag=;
+ b=XmKeLHgT3Bvh7YR/gwFSIfcUyKWo9E4t8OozFlXFhDYhGaeukaUtOIoP+WfLC9MymH/PBl
+ RlUpBjdgVYia6QCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xDkWXZ7c;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=XmKeLHgT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1724245463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gB76lM/Vz8WSBB0gZ66k8s4YlTj2s9s8QQr9b3fJMvs=;
- b=d/2gIxEjMgg/7b6a7/5fI8Pb2lIt1d0ctNecV4SWaNmWJEg5Ms4/o6xztLyqjjXmhZLwy5
- ThGk1ooRCyTsKnkPz0HpnEe/90q60wheCRBG6Fp9IP2leUUSm9pKv3eFOr0g0WEPegRUcd
- +vsxZOS1oKs5HlTl83mF5glMOS7sGeU=
+ bh=3RmkB09pbM48/K3ytBEZhZZ0j7YGL3uJp5Q+wj7joag=;
+ b=xDkWXZ7cGuEvkT9BySoo/yYnCQfo2hoSaOAtX4DkoiTVAfcUHiaBc0Ua7naxG7pmRq2pPY
+ mBSncvcL1nDyec1R1PLDZmgNyWlg4Gco5TIknGFJaNBCsMJxIRpNQFTACb8Cemg8T45zbR
+ xACCIXNPHwvRvEHEH5fgNBl11iE5f7M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245449;
+ s=susede2_ed25519; t=1724245463;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gB76lM/Vz8WSBB0gZ66k8s4YlTj2s9s8QQr9b3fJMvs=;
- b=A/cD0vuWpah5QLinNSj0VSivj7ryWBX0zXH+eP5jI3OxZB0gI1FKY8aAw12C1L6skK20tw
- jxYd8AqeBg2jpxAg==
+ bh=3RmkB09pbM48/K3ytBEZhZZ0j7YGL3uJp5Q+wj7joag=;
+ b=XmKeLHgT3Bvh7YR/gwFSIfcUyKWo9E4t8OozFlXFhDYhGaeukaUtOIoP+WfLC9MymH/PBl
+ RlUpBjdgVYia6QCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 780FA13770;
- Wed, 21 Aug 2024 13:04:09 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FB0F13B18;
+ Wed, 21 Aug 2024 13:04:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4JAYHMnlxWbXGQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:04:09 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wJwVGtflxWbXGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:04:23 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Dave Airlie <airlied@redhat.com>
-Subject: [PATCH v2 51/86] drm/ast: Run DRM default client setup
-Date: Wed, 21 Aug 2024 14:59:48 +0200
-Message-ID: <20240821130348.73038-52-tzimmermann@suse.de>
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v2 82/86] drm/i915: Move custom hotplug code into separate
+ callback
+Date: Wed, 21 Aug 2024 15:00:19 +0200
+Message-ID: <20240821130348.73038-83-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240821130348.73038-1-tzimmermann@suse.de>
 References: <20240821130348.73038-1-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: DC0C3222DE
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCPT_COUNT_TWELVE(0.00)[16]; MIME_TRACE(0.00)[0:+];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[11]; FUZZY_BLOCKED(0.00)[rspamd.com];
- R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza),to(RLazpx1r3qpnsfr8nfakn)];
+ TO_DN_SOME(0.00)[]; ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to(RLazpx1r3qpnsfr8nfakn),to_ip_from(RLgk4u1ri6nhg6f1rtzmk7keyw)];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,52 +128,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Call drm_client_setup() to run the kernel's default client setup
-for DRM. Set fbdev_probe in struct drm_driver, so that the client
-setup can start the common fbdev client.
-
-The ast driver specifies a preferred color mode of 32. As this
-is the default if no format has been given, leave it out entirely.
+i915's fbdev contains additional code for hotplugging a display that
+cannot be ported to the common fbdev client. Introduce the callback
+struct drm_fb_helper.fb_hotplug and implement it for i915. The fbdev
+helpers invoke the callback before handing the hotplug event.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/ast/ast_drv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c            |  6 +++
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 43 ++++++++++++----------
+ include/drm/drm_fb_helper.h                | 13 +++++++
+ 3 files changed, 42 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-index 225817087b4d..debdfd0e197e 100644
---- a/drivers/gpu/drm/ast/ast_drv.c
-+++ b/drivers/gpu/drm/ast/ast_drv.c
-@@ -32,6 +32,7 @@
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index b593f6ccd404..148de5727702 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -1938,6 +1938,12 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
+ 	if (!drm_fbdev_emulation || !fb_helper)
+ 		return 0;
  
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_client_setup.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_shmem.h>
- #include <drm/drm_gem_shmem_helper.h>
-@@ -64,7 +65,8 @@ static const struct drm_driver ast_driver = {
- 	.minor = DRIVER_MINOR,
- 	.patchlevel = DRIVER_PATCHLEVEL,
++	if (fb_helper->funcs->fb_hotplug) {
++		err = fb_helper->funcs->fb_hotplug(fb_helper);
++		if (err)
++			return err;
++	}
++
+ 	mutex_lock(&fb_helper->lock);
+ 	if (fb_helper->deferred_setup) {
+ 		err = __drm_fb_helper_initial_config_and_unlock(fb_helper);
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index c03fb00002a4..abe77ef0bd84 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -305,10 +305,32 @@ static void intelfb_restore(struct drm_fb_helper *fb_helper)
+ 	intel_fbdev_invalidate(ifbdev);
+ }
  
--	DRM_GEM_SHMEM_DRIVER_OPS
-+	DRM_GEM_SHMEM_DRIVER_OPS,
-+	DRM_FBDEV_SHMEM_DRIVER_OPS,
++static int intelfb_hotplug(struct drm_fb_helper *fb_helper)
++{
++	struct drm_device *dev = fb_helper->client.dev;
++	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
++	bool send_hpd;
++
++	if (!ifbdev)
++		return -EINVAL;
++
++	mutex_lock(&ifbdev->hpd_lock);
++	send_hpd = !ifbdev->hpd_suspended;
++	ifbdev->hpd_waiting = true;
++	mutex_unlock(&ifbdev->hpd_lock);
++
++	if (!send_hpd || !(ifbdev->vma || dev->fb_helper->deferred_setup))
++		return -EAGAIN;
++
++	return 0;
++}
++
+ static const struct drm_fb_helper_funcs intel_fb_helper_funcs = {
+ 	.fb_probe = intelfb_create,
+ 	.fb_dirty = intelfb_dirty,
+ 	.fb_restore = intelfb_restore,
++	.fb_hotplug = intelfb_hotplug,
  };
  
  /*
-@@ -360,7 +362,7 @@ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		return ret;
- 
--	drm_fbdev_shmem_setup(drm, 32);
-+	drm_client_setup(drm, NULL);
- 
- 	return 0;
+@@ -557,25 +579,6 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
+ 	intel_fbdev_hpd_set_suspend(dev_priv, state);
  }
+ 
+-static int intel_fbdev_output_poll_changed(struct drm_device *dev)
+-{
+-	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
+-	bool send_hpd;
+-
+-	if (!ifbdev)
+-		return -EINVAL;
+-
+-	mutex_lock(&ifbdev->hpd_lock);
+-	send_hpd = !ifbdev->hpd_suspended;
+-	ifbdev->hpd_waiting = true;
+-	mutex_unlock(&ifbdev->hpd_lock);
+-
+-	if (send_hpd && (ifbdev->vma || dev->fb_helper->deferred_setup))
+-		drm_fb_helper_hotplug_event(dev->fb_helper);
+-
+-	return 0;
+-}
+-
+ static int intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
+@@ -637,7 +640,7 @@ static int intel_fbdev_client_hotplug(struct drm_client_dev *client)
+ 	int ret;
+ 
+ 	if (dev->fb_helper)
+-		return intel_fbdev_output_poll_changed(dev);
++		return drm_fb_helper_hotplug_event(fb_helper);
+ 
+ 	ret = drm_fb_helper_init(dev, fb_helper);
+ 	if (ret)
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index 34eb77c18a13..3dcb9a60e408 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -112,6 +112,19 @@ struct drm_fb_helper_funcs {
+ 	 * TODO: Fix i915 to not require this callback.
+ 	 */
+ 	void (*fb_restore)(struct drm_fb_helper *helper);
++
++	/**
++	 * @fb_hotplug:
++	 *
++	 * Driver callback to prepare hotplug event. If set, fbdev
++	 * emulation will invoke this callback before sending a hotplug
++	 * event.
++	 *
++	 * Only for i915. Do not use in new code.
++	 *
++	 * TODO: Fix i915 to not require this callback.
++	 */
++	int (*fb_hotplug)(struct drm_fb_helper *helper);
+ };
+ 
+ /**
 -- 
 2.46.0
 
