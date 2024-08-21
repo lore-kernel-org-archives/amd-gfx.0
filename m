@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94458C52D6F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD847C52D7C
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 07:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EAB710E892;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F2F10E894;
 	Wed, 21 Aug 2024 07:16:19 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9288810E587;
- Wed, 21 Aug 2024 06:33:28 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.194])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Wpc322wRPzyR9t;
- Wed, 21 Aug 2024 14:33:02 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id D0D4E1401E0;
- Wed, 21 Aug 2024 14:33:24 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
- (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 21 Aug
- 2024 14:33:23 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <chaitanya.dhere@amd.com>, <jun.lei@amd.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <alex.hung@amd.com>, <aurabindo.pillai@amd.com>, <colin.i.king@gmail.com>,
- <dillon.varone@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH -next 0/5] drm/amd/display: Make some symobols static
-Date: Wed, 21 Aug 2024 14:40:35 +0800
-Message-ID: <20240821064040.2292969-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YpHYFzeP";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB67310E544;
+ Wed, 21 Aug 2024 01:05:59 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47KKXL1f020622;
+ Wed, 21 Aug 2024 01:05:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Lj0rG7v/8nItHKx7L0DEpJWHtIBseFbN4ecBj5fracw=; b=YpHYFzeP4zztHZzk
+ qng8aUZjmdHR7BkMES/ylIQMRY5+OlZrr4jIKZjarslX1cyyxjqqdLvRY8gNKP1j
+ IRNZw67TXCZCkAK15/6LUsh11sI6p/dEHG5+KRAWNeVxUzgdxav0vpxHYdb6QRO4
+ BVptuPI0oBXqV6cG5T6TjTFSAhCP8TKwtX+umlR5azoxZ6qbzfOgJ4T8/NDdPys2
+ 3CwYTR8mKuM7PMr+adYbfHAY289BFUmitBmr9KyuDSaLSfugZJGcLiijVspjWz++
+ MTb6rZKodYqJqovo4HcIz5qdEC0eDlt7Z1uEefGxVyCGUGb3HO5MB1ae1IzYg+QA
+ MeCloA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 412key9cfy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Aug 2024 01:05:56 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47L15tRr027556
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Aug 2024 01:05:55 GMT
+Received: from [10.81.24.74] (10.49.16.6) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 20 Aug
+ 2024 18:05:55 -0700
+Message-ID: <bbe1fd30-7f13-46b2-b464-4d93d45e44ca@quicinc.com>
+Date: Tue, 20 Aug 2024 18:05:54 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- kwepemh500013.china.huawei.com (7.202.181.146)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 03/44] drm/vkms: Add kunit tests for VKMS LUT handling
+To: Harry Wentland <harry.wentland@amd.com>, <dri-devel@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <wayland-devel@lists.freedesktop.org>, Arthur Grillo
+ <arthurgrillo@riseup.net>
+References: <20240819205714.316380-1-harry.wentland@amd.com>
+ <20240819205714.316380-4-harry.wentland@amd.com>
+From: Jeff Johnson <quic_jjohnson@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <20240819205714.316380-4-harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: BVX-aCqftIGC4tkbYDi1bO5444_MmrkV
+X-Proofpoint-GUID: BVX-aCqftIGC4tkbYDi1bO5444_MmrkV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-20_19,2024-08-19_03,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0
+ lowpriorityscore=0 mlxscore=0 adultscore=0 clxscore=1011 impostorscore=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ mlxlogscore=999 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2407110000 definitions=main-2408210006
 X-Mailman-Approved-At: Wed, 21 Aug 2024 07:16:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,22 +91,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make some symobols static.
+On 8/19/24 13:56, Harry Wentland wrote:
+> Debugging LUT math is much easier when we can unit test
+> it. Add kunit functionality to VKMS and add tests for
+>  - get_lut_index
+>  - lerp_u16
+> 
+> v5:
+>  - Bring back static for lerp_u16 and get_lut_index (Arthur)
+> 
+> v4:
+>  - Test the critical points of the lerp function (Pekka)
+> 
+> v3:
+>  - Use include way of testing static functions (Arthur)
 
-Jinjie Ruan (5):
-  drm/amd/display: Make core_dcn4_g6_temp_read_blackout_table static
-  drm/amd/display: Make core_dcn4_ip_caps_base static
-  drm/amd/display: Make dcn35_hubp_funcs static
-  drm/amd/display: Make dcn401_dsc_funcs static
-  drm/amd/display: Make dcn35_fpga_funcs static
+note version information is usually after the "---" so that it not part
+of the final git history
 
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 2 +-
- .../amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.c   | 2 +-
- .../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c         | 2 +-
- drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c         | 2 +-
- 5 files changed, 6 insertions(+), 5 deletions(-)
+> 
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Cc: Arthur Grillo <arthurgrillo@riseup.net>
+> ---
+>  drivers/gpu/drm/vkms/Kconfig                  |   5 +
+>  drivers/gpu/drm/vkms/tests/.kunitconfig       |   4 +
+>  drivers/gpu/drm/vkms/tests/vkms_color_tests.c | 163 ++++++++++++++++++
+>  drivers/gpu/drm/vkms/vkms_composer.c          |   4 +
+>  4 files changed, 176 insertions(+)
+>  create mode 100644 drivers/gpu/drm/vkms/tests/.kunitconfig
+>  create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+> 
+> diff --git a/drivers/gpu/drm/vkms/Kconfig b/drivers/gpu/drm/vkms/Kconfig
+> index b9ecdebecb0b..c1f8b343ff0e 100644
+> --- a/drivers/gpu/drm/vkms/Kconfig
+> +++ b/drivers/gpu/drm/vkms/Kconfig
+> @@ -13,3 +13,8 @@ config DRM_VKMS
+>  	  a VKMS.
+>  
+>  	  If M is selected the module will be called vkms.
+> +
+> +config DRM_VKMS_KUNIT_TESTS
+> +	tristate "Tests for VKMS" if !KUNIT_ALL_TESTS
+> +	depends on DRM_VKMS && KUNIT
+> +	default KUNIT_ALL_TESTS
+> diff --git a/drivers/gpu/drm/vkms/tests/.kunitconfig b/drivers/gpu/drm/vkms/tests/.kunitconfig
+> new file mode 100644
+> index 000000000000..70e378228cbd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vkms/tests/.kunitconfig
+> @@ -0,0 +1,4 @@
+> +CONFIG_KUNIT=y
+> +CONFIG_DRM=y
+> +CONFIG_DRM_VKMS=y
+> +CONFIG_DRM_VKMS_KUNIT_TESTS=y
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_tests.c b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+> new file mode 100644
+> index 000000000000..fc73e48aa57c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_tests.c
+...
+> +kunit_test_suite(vkms_color_test_suite);
+> +
+> +MODULE_LICENSE("GPL");
+> \ No newline at end of file
 
--- 
-2.34.1
+Since commit 1fffe7a34c89 ("script: modpost: emit a warning when the
+description is missing"), a module without a MODULE_DESCRIPTION() will
+result in a warning when built with make W=1. Recently, multiple
+developers have been eradicating these warnings treewide, and very few
+are left, so please don't introduce a new one :)
 
+Please add the missing MODULE_DESCRIPTION()
+
+/jeff
