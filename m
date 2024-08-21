@@ -4,103 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54DC4C52D6F
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EA7BC52D7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Aug 2024 13:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1209610EA2E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B09A910EA37;
 	Wed, 21 Aug 2024 13:04:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="NJz/6QR6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="W+VTRe/m";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NJz/6QR6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="W+VTRe/m";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dmAVfOQe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aBTM2Fm8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dmAVfOQe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aBTM2Fm8";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0B1810EA1C;
- Wed, 21 Aug 2024 13:04:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB22810E994;
+ Wed, 21 Aug 2024 13:04:10 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7475F200A7;
- Wed, 21 Aug 2024 13:04:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 721C420098;
+ Wed, 21 Aug 2024 13:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245461; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1724245449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Crtcb/v80+B488BtGMMdewK58yY0XEw02KIhoc2af1c=;
- b=NJz/6QR6L+JBrSk1biewxadFyDopQbcs9UxmhNVPFrXOT8p3r2re3ameDsOcQS1uJe3gbe
- kiZMpHIxO3vGjBRh8YqxP2CtPKgpuAvUs+COAwRXdYxbtKouee69wk1Ie+1HKXT8vYTaU/
- hNIsNfZQ3e6tJAs3tfINEfue0yAEsRA=
+ bh=5ZMJmfljuqez1ZvF2z7E0m/7+uRckOq9E6z2EWfYKKo=;
+ b=dmAVfOQeWIAklP9SZ6xBDn838XA+QJCjSXr0Owe3K6fmbsfhzxFOh+Mtk6Rp3MKRyqJHXF
+ VBM/mhX4wd9tV//RwE2wU9N5zgmsJcPETxxsFJdHXFAEpl1n+A58bvT3JORbsTY0kmGqKb
+ Ps7dRPQ8rrhkDSYbXtidWFPI0PQ0sfc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245461;
+ s=susede2_ed25519; t=1724245449;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Crtcb/v80+B488BtGMMdewK58yY0XEw02KIhoc2af1c=;
- b=W+VTRe/mbMWA+Yn4Fm/vqQ7CWru7oBk912guVz2h94WUOAIvWtEtlf5PfPu6L3vfL4c0ng
- G5OTASsW6dTlKDCQ==
+ bh=5ZMJmfljuqez1ZvF2z7E0m/7+uRckOq9E6z2EWfYKKo=;
+ b=aBTM2Fm8PtkOGA9nTAm2/9wUmUxponRyCSsso8+0WIEgCnyig9IhdebZl4lWxLQCFPyZcQ
+ uSEU0UqsVqq6sfAw==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724245461; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1724245449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Crtcb/v80+B488BtGMMdewK58yY0XEw02KIhoc2af1c=;
- b=NJz/6QR6L+JBrSk1biewxadFyDopQbcs9UxmhNVPFrXOT8p3r2re3ameDsOcQS1uJe3gbe
- kiZMpHIxO3vGjBRh8YqxP2CtPKgpuAvUs+COAwRXdYxbtKouee69wk1Ie+1HKXT8vYTaU/
- hNIsNfZQ3e6tJAs3tfINEfue0yAEsRA=
+ bh=5ZMJmfljuqez1ZvF2z7E0m/7+uRckOq9E6z2EWfYKKo=;
+ b=dmAVfOQeWIAklP9SZ6xBDn838XA+QJCjSXr0Owe3K6fmbsfhzxFOh+Mtk6Rp3MKRyqJHXF
+ VBM/mhX4wd9tV//RwE2wU9N5zgmsJcPETxxsFJdHXFAEpl1n+A58bvT3JORbsTY0kmGqKb
+ Ps7dRPQ8rrhkDSYbXtidWFPI0PQ0sfc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724245461;
+ s=susede2_ed25519; t=1724245449;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Crtcb/v80+B488BtGMMdewK58yY0XEw02KIhoc2af1c=;
- b=W+VTRe/mbMWA+Yn4Fm/vqQ7CWru7oBk912guVz2h94WUOAIvWtEtlf5PfPu6L3vfL4c0ng
- G5OTASsW6dTlKDCQ==
+ bh=5ZMJmfljuqez1ZvF2z7E0m/7+uRckOq9E6z2EWfYKKo=;
+ b=aBTM2Fm8PtkOGA9nTAm2/9wUmUxponRyCSsso8+0WIEgCnyig9IhdebZl4lWxLQCFPyZcQ
+ uSEU0UqsVqq6sfAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D99313B18;
- Wed, 21 Aug 2024 13:04:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3017C13B18;
+ Wed, 21 Aug 2024 13:04:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iHDzCdXlxWbXGQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:04:21 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id aFJoCsnlxWbXGQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 21 Aug 2024 13:04:09 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Subject: [PATCH v2 76/86] drm/gma500: Run DRM default client setup
-Date: Wed, 21 Aug 2024 15:00:13 +0200
-Message-ID: <20240821130348.73038-77-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 50/86] drm/fbdev-shmem: Support struct
+ drm_driver.fbdev_probe
+Date: Wed, 21 Aug 2024 14:59:47 +0200
+Message-ID: <20240821130348.73038-51-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240821130348.73038-1-tzimmermann@suse.de>
 References: <20240821130348.73038-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- RCPT_COUNT_SEVEN(0.00)[11];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,gmail.com];
- R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza),to(RLazpx1r3qpnsfr8nfakn)];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
  DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[10]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza),to(RLazpx1r3qpnsfr8nfakn)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,207 +114,132 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Rework fbdev probing to support fbdev_probe in struct drm_driver
-and remove the old fb_probe callback. Provide an initializer macro
-for struct drm_driver that sets the callback according to the kernel
-configuration.
+and reimplement the old fb_probe callback on top of it. Provide an
+initializer macro for struct drm_driver that sets the callback
+according to the kernel configuration.
 
-Call drm_client_setup() to run the kernel's default client setup
-for DRM. Set fbdev_probe in struct drm_driver, so that the client
-setup can start the common fbdev client.
+This change allows the common fbdev client to run on top of SHMEM-
+based DRM drivers.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
 ---
- drivers/gpu/drm/gma500/fbdev.c   | 100 +++----------------------------
- drivers/gpu/drm/gma500/psb_drv.c |   4 +-
- drivers/gpu/drm/gma500/psb_drv.h |  12 +++-
- 3 files changed, 19 insertions(+), 97 deletions(-)
+ drivers/gpu/drm/drm_fbdev_shmem.c | 60 ++++++++++++++++++-------------
+ include/drm/drm_fbdev_shmem.h     | 11 ++++++
+ 2 files changed, 47 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
-index 98b44974d42d..8edefea2ef59 100644
---- a/drivers/gpu/drm/gma500/fbdev.c
-+++ b/drivers/gpu/drm/gma500/fbdev.c
-@@ -143,12 +143,15 @@ static const struct fb_ops psb_fbdev_fb_ops = {
- 	.fb_destroy = psb_fbdev_fb_destroy,
- };
+diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
+index 0c785007f11b..3bca333917d1 100644
+--- a/drivers/gpu/drm/drm_fbdev_shmem.c
++++ b/drivers/gpu/drm/drm_fbdev_shmem.c
+@@ -107,6 +107,40 @@ static struct page *drm_fbdev_shmem_get_page(struct fb_info *info, unsigned long
  
-+static const struct drm_fb_helper_funcs psb_fbdev_fb_helper_funcs = {
+ static int drm_fbdev_shmem_helper_fb_probe(struct drm_fb_helper *fb_helper,
+ 					   struct drm_fb_helper_surface_size *sizes)
++{
++	return drm_fbdev_shmem_driver_fbdev_probe(fb_helper, sizes);
++}
++
++static int drm_fbdev_shmem_helper_fb_dirty(struct drm_fb_helper *helper,
++					   struct drm_clip_rect *clip)
++{
++	struct drm_device *dev = helper->dev;
++	int ret;
++
++	/* Call damage handlers only if necessary */
++	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
++		return 0;
++
++	if (helper->fb->funcs->dirty) {
++		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
++		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
++			return ret;
++	}
++
++	return 0;
++}
++
++static const struct drm_fb_helper_funcs drm_fbdev_shmem_helper_funcs = {
++	.fb_probe = drm_fbdev_shmem_helper_fb_probe,
++	.fb_dirty = drm_fbdev_shmem_helper_fb_dirty,
 +};
 +
- /*
-- * struct drm_fb_helper_funcs
++/*
 + * struct drm_driver
-  */
- 
--static int psb_fbdev_fb_probe(struct drm_fb_helper *fb_helper,
--			      struct drm_fb_helper_surface_size *sizes)
-+int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
-+				 struct drm_fb_helper_surface_size *sizes)
++ */
++
++int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
++				       struct drm_fb_helper_surface_size *sizes)
  {
+ 	struct drm_client_dev *client = &fb_helper->client;
  	struct drm_device *dev = fb_helper->dev;
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
-@@ -206,6 +209,7 @@ static int psb_fbdev_fb_probe(struct drm_fb_helper *fb_helper,
- 		goto err_drm_gem_object_put;
+@@ -139,6 +173,7 @@ static int drm_fbdev_shmem_helper_fb_probe(struct drm_fb_helper *fb_helper,
+ 		goto err_drm_client_buffer_delete;
  	}
  
-+	fb_helper->funcs = &psb_fbdev_fb_helper_funcs;
++	fb_helper->funcs = &drm_fbdev_shmem_helper_funcs;
+ 	fb_helper->buffer = buffer;
  	fb_helper->fb = fb;
  
- 	info = drm_fb_helper_alloc_info(fb_helper);
-@@ -246,93 +250,3 @@ static int psb_fbdev_fb_probe(struct drm_fb_helper *fb_helper,
- 	drm_gem_object_put(obj);
+@@ -182,30 +217,7 @@ static int drm_fbdev_shmem_helper_fb_probe(struct drm_fb_helper *fb_helper,
+ 	drm_client_framebuffer_delete(buffer);
  	return ret;
  }
 -
--static const struct drm_fb_helper_funcs psb_fbdev_fb_helper_funcs = {
--	.fb_probe = psb_fbdev_fb_probe,
--};
--
--/*
-- * struct drm_client_funcs and setup code
-- */
--
--static void psb_fbdev_client_unregister(struct drm_client_dev *client)
+-static int drm_fbdev_shmem_helper_fb_dirty(struct drm_fb_helper *helper,
+-					   struct drm_clip_rect *clip)
 -{
--	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = helper->dev;
+-	int ret;
 -
--	if (fb_helper->info) {
--		drm_fb_helper_unregister_info(fb_helper);
--	} else {
--		drm_fb_helper_unprepare(fb_helper);
--		drm_client_release(&fb_helper->client);
--		kfree(fb_helper);
+-	/* Call damage handlers only if necessary */
+-	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
+-		return 0;
+-
+-	if (helper->fb->funcs->dirty) {
+-		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
+-		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
+-			return ret;
 -	}
--}
--
--static int psb_fbdev_client_restore(struct drm_client_dev *client)
--{
--	drm_fb_helper_lastclose(client->dev);
 -
 -	return 0;
 -}
 -
--static int psb_fbdev_client_hotplug(struct drm_client_dev *client)
--{
--	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
--	struct drm_device *dev = client->dev;
--	int ret;
--
--	if (dev->fb_helper)
--		return drm_fb_helper_hotplug_event(dev->fb_helper);
--
--	ret = drm_fb_helper_init(dev, fb_helper);
--	if (ret)
--		goto err_drm_err;
--
--	if (!drm_drv_uses_atomic_modeset(dev))
--		drm_helper_disable_unused_functions(dev);
--
--	ret = drm_fb_helper_initial_config(fb_helper);
--	if (ret)
--		goto err_drm_fb_helper_fini;
--
--	return 0;
--
--err_drm_fb_helper_fini:
--	drm_fb_helper_fini(fb_helper);
--err_drm_err:
--	drm_err(dev, "Failed to setup gma500 fbdev emulation (ret=%d)\n", ret);
--	return ret;
--}
--
--static const struct drm_client_funcs psb_fbdev_client_funcs = {
--	.owner		= THIS_MODULE,
--	.unregister	= psb_fbdev_client_unregister,
--	.restore	= psb_fbdev_client_restore,
--	.hotplug	= psb_fbdev_client_hotplug,
+-static const struct drm_fb_helper_funcs drm_fbdev_shmem_helper_funcs = {
+-	.fb_probe = drm_fbdev_shmem_helper_fb_probe,
+-	.fb_dirty = drm_fbdev_shmem_helper_fb_dirty,
 -};
--
--void psb_fbdev_setup(struct drm_psb_private *dev_priv)
--{
--	struct drm_device *dev = &dev_priv->dev;
--	struct drm_fb_helper *fb_helper;
--	int ret;
--
--	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
--	if (!fb_helper)
--		return;
--	drm_fb_helper_prepare(dev, fb_helper, 32, &psb_fbdev_fb_helper_funcs);
--
--	ret = drm_client_init(dev, &fb_helper->client, "fbdev-gma500", &psb_fbdev_client_funcs);
--	if (ret) {
--		drm_err(dev, "Failed to register client: %d\n", ret);
--		goto err_drm_fb_helper_unprepare;
--	}
--
--	drm_client_register(&fb_helper->client);
--
--	return;
--
--err_drm_fb_helper_unprepare:
--	drm_fb_helper_unprepare(fb_helper);
--	kfree(fb_helper);
--}
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index 8b64f61ffaf9..43deefef6ad2 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -20,6 +20,7 @@
- #include <acpi/video.h>
++EXPORT_SYMBOL(drm_fbdev_shmem_driver_fbdev_probe);
  
- #include <drm/drm.h>
-+#include <drm/drm_client_setup.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
-@@ -475,7 +476,7 @@ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		return ret;
+ /*
+  * struct drm_client_funcs
+diff --git a/include/drm/drm_fbdev_shmem.h b/include/drm/drm_fbdev_shmem.h
+index fb43cadd1950..3a5d1efa9d55 100644
+--- a/include/drm/drm_fbdev_shmem.h
++++ b/include/drm/drm_fbdev_shmem.h
+@@ -4,12 +4,23 @@
+ #define DRM_FBDEV_SHMEM_H
  
--	psb_fbdev_setup(dev_priv);
-+	drm_client_setup(dev, NULL);
- 
- 	return 0;
- }
-@@ -506,6 +507,7 @@ static const struct drm_driver driver = {
- 	.num_ioctls = ARRAY_SIZE(psb_ioctls),
- 
- 	.dumb_create = psb_gem_dumb_create,
-+	PSB_FBDEV_DRIVER_OPS,
- 	.ioctls = psb_ioctls,
- 	.fops = &psb_gem_fops,
- 	.name = DRIVER_NAME,
-diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
-index bddf89b82fec..de62cbfcdc72 100644
---- a/drivers/gpu/drm/gma500/psb_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_drv.h
-@@ -184,6 +184,9 @@
- #define KSEL_BYPASS_25 6
- #define KSEL_BYPASS_83_100 7
- 
+ struct drm_device;
 +struct drm_fb_helper;
 +struct drm_fb_helper_surface_size;
-+
- struct opregion_header;
- struct opregion_acpi;
- struct opregion_swsci;
-@@ -597,10 +600,13 @@ struct drm_framebuffer *psb_framebuffer_create(struct drm_device *dev,
  
- /* fbdev */
- #if defined(CONFIG_DRM_FBDEV_EMULATION)
--void psb_fbdev_setup(struct drm_psb_private *dev_priv);
-+int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
-+				 struct drm_fb_helper_surface_size *sizes);
-+#define PSB_FBDEV_DRIVER_OPS \
-+	.fbdev_probe = psb_fbdev_driver_fbdev_probe
+ #ifdef CONFIG_DRM_FBDEV_EMULATION
++int drm_fbdev_shmem_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
++				       struct drm_fb_helper_surface_size *sizes);
++
++#define DRM_FBDEV_SHMEM_DRIVER_OPS \
++	.fbdev_probe = drm_fbdev_shmem_driver_fbdev_probe
++
+ void drm_fbdev_shmem_setup(struct drm_device *dev, unsigned int preferred_bpp);
  #else
--static inline void psb_fbdev_setup(struct drm_psb_private *dev_priv)
--{ }
-+#define PSB_FBDEV_DRIVER_OPS \
+ static inline void drm_fbdev_shmem_setup(struct drm_device *dev, unsigned int preferred_bpp)
+ { }
++
++#define DRM_FBDEV_SHMEM_DRIVER_OPS \
 +	.fbdev_probe = NULL
  #endif
  
- /* backlight.c */
+ #endif
 -- 
 2.46.0
 
