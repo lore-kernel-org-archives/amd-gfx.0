@@ -4,74 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F349C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 06:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C8AC3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 06:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD09010E74C;
-	Thu, 22 Aug 2024 06:35:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3527310E74A;
+	Thu, 22 Aug 2024 06:37:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HvSeOC3b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fg6p+ym3";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3520210E768
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 06:35:09 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-429da8b5feaso3466875e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 23:35:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724308507; x=1724913307; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=JNAwNegeQ0bETclMd055CmXfBGKKA6B8Z+TfeyDl1Ik=;
- b=HvSeOC3bQUFZgKUWgeXLJuaA+dfEFk1JUheo8N6So8LPkGs3VTeudEUp7tqvIh74Ud
- JBO6h5vOFjKfeOKGs8xs5P8lVPIXP7i3lA59bO+DC9cV6EkVh1X4/kfr1MFmq2vmrDwW
- QdiywCSEhDLSqQ1X6xGXvnRWRjLWlv8hHPI8l2fqpf2+Vj3lEN6wixLv/9lsODe9SJYW
- 9yPcINJfQroyS2dQ0FAaZBRnT3kqE2JyDLBqKxz0P914z84x8RiLGSbJB8t5xskjNsLU
- StYb3j1g/CAuZiYgvSfluWuZLPMBFrg6aR8BjiihUPMHXLB8kQn753rdySuftFqwj7ip
- aa/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724308507; x=1724913307;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JNAwNegeQ0bETclMd055CmXfBGKKA6B8Z+TfeyDl1Ik=;
- b=AWdWcoe0M8f+JyvXOYqj4FxZKQ9b6znGGMp11pYiSMJf1g4T6aKj6yIvNu0EIQlCPf
- XIOywpKXlghzV65rjBwN8+tjt3EKWspzU6/XnP74KxNxeAZnAKbqpKWRJizZnrlcBl44
- JTB7Qf9f17uUKtgGIGzhDNPmjr6BDh7Su2QfKF/nq8AwD0OPyh7CqpRHAK7nPAiu17xL
- qxLVf8eoGNQ3EplSW1u79vB8g7/7MCohtmWQbhCxBncfj+/42x35J33n3WgKv+866WTc
- GoRoBUids0FspIMfbHQm5Bhy2TwlY81k1Hnv/kF1usoX+CtjOXiO8bPIafr1UiaFLCVQ
- uhcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX4QRlvGK9KSiEHheWcxBjnWEk8MFwil57MTKWdwfT8j4areKrpBMdK1wrhTdxMC+zj1QB5ZD/D@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEHCgOl02P3P3HGdN8l9e6uxS8uVB0f5jwSKTTq50ztpZoiaEi
- T0j5CuBJ3K0Qv7arGoK0h/zXsDWTN8haXl0ZU2PDjeNd4xVlal/J
-X-Google-Smtp-Source: AGHT+IFMowenqVP4JtOqKRjFdv0aT08aRw5eI+wA4d5CoU6vP7FxsFLqaeWWlhqwgy51m1neAsjYaQ==
-X-Received: by 2002:a5d:6b86:0:b0:371:8eea:24b7 with SMTP id
- ffacd0b85a97d-37308d75b8dmr501843f8f.50.1724308506735; 
- Wed, 21 Aug 2024 23:35:06 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42abefc626fsm49730115e9.31.2024.08.21.23.35.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Aug 2024 23:35:06 -0700 (PDT)
-Message-ID: <d6664bb5-7b32-48cc-b7e3-dba7bfade792@gmail.com>
-Date: Thu, 22 Aug 2024 08:35:04 +0200
-MIME-Version: 1.0
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBEB10E74A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 06:37:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GLCXiLtO/drdAepFuJpg+waOdGFsuEuTur+nZvS9OZeH72kVQxoLbUE78yXaPhuL/VScbrVVBgSpZBxA0UwFCnkjn/6+vl9aopakzSHM8jq7+jEvJbw/BX4+QRvpnPH78UCsBdrORNkXxQE9E6HlR2nWs1jodpjQKrfo3/TI5QRxu8kFmqR4Aq1AOBCqa/RXz5wGq4z+FP7NO9L7/W0aVLQJZXdjZSaGAe6cpnlhWkLf1f78cvIngMvfwvUdfpWvqGE0nvEUrXkd84dyKGcPGjKn/gsnKjkilp5CyxYyjzehUTV+BZbnIeiiMVj/WOg3tR6+tfHhRx7FHrkncoRwRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SNeiagt8YCDY0ejNodfSOkNsr8A8p23L5bJU1Arsi+A=;
+ b=k+T3ZnGPasVtqjSCXUEStMqubXHcKoXwKnd0rj3EFKdnIkyEBo+ATmxD3vDJ2lh60LL5qrkmCUSbV8Dai/Y1GzMetaz+HLG2yRmNZCujqY62CvZ0NRIY4/NUbbd81oJxSWzHYis8VzUafkVQS29r3TzpkcASDPuay6O5WwTNq6bKlnnv/r5ATxr7bxm8zfdY7LXwcjvqBrur71u6qc1bon9kN/kvDUdaAEBeF/xCKnkf8CdEQWY41J4XdyqSljmBhzzPVjo8fGtxHkL6VHuC/2vkLnaskRQF14eWBzmc2BdwrV1Hdbt9bgvDRS2qE1WmAiiEU82bPL+loltJQzE9lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SNeiagt8YCDY0ejNodfSOkNsr8A8p23L5bJU1Arsi+A=;
+ b=fg6p+ym3iWj+00pEvD3a+3/+r21QfHNh65xjmbIjRdP+js7cJ/mQEmH17YHIiidAGQqiamZv2I++kS+YdeDm+42CLCOxKTUIwxFopkGIPV0yTrwGKE7EAaqZuTqcSYHupLueyoO7hRJFUzEMj9ROC9yd1Cr0+MFrODZSUpas3yE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5710.namprd12.prod.outlook.com (2603:10b6:510:1e1::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19; Thu, 22 Aug
+ 2024 06:37:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7875.019; Thu, 22 Aug 2024
+ 06:37:04 +0000
+Message-ID: <158bce30-7866-4654-b359-91b3e9a7a5d3@amd.com>
+Date: Thu, 22 Aug 2024 08:36:59 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/17] drm/amdgpu/gfx9: Apply Isolation Enforcement to GFX
- & Compute rings
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 00/17] Process Isolation Support
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 References: <20240815000501.1845226-1-alexander.deucher@amd.com>
- <20240815000501.1845226-16-alexander.deucher@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240815000501.1845226-16-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240815000501.1845226-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0148.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5710:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6efc506d-fbd6-4f71-d9e1-08dcc274d609
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SUEvdFNHbmdiNUFkMmFIakFXWDBWRUhwYUcyOG5FNncrWHBzQnA1M0lCdk14?=
+ =?utf-8?B?ajZUN2Q4OEpKMEYzcW1WLzNtMHNzRW5kZ3JJVnQ1T3JlMTNOZGlyaXZUTElp?=
+ =?utf-8?B?Ty9TMFE3QWUyanp2MHVyWHF5eGh3NGRFekg5K1dIcUdmK2VZeEhtVEJjYzYr?=
+ =?utf-8?B?ektiLzcyZnZuMTcreGxmOStURDNUZVFkM3RaSDZ3bk82cThFMmRXWjJuU0pm?=
+ =?utf-8?B?b0Jqb0R1M3lZQ0g0RStReEx5TWtIbzlCVHZjTHM5enU4L2lYV3o2QS9hVDN1?=
+ =?utf-8?B?MmxnT05PempRRnM0bDc4WXkxNStZVUtFcWdkaGFlenc2YkZlR1Bad3h5Ryt0?=
+ =?utf-8?B?TzdXUGNhdUl6QWgwZU1PcE1SdWNKeXN1L2VOR3NLVFlOVmpTZFNsanU4eXBY?=
+ =?utf-8?B?K2U3NnNhM00rdmJ6SzA5eGNQRElhc3ZGT1AxMVNCMmxhUDVrMXdoQURuWE44?=
+ =?utf-8?B?K3ByWWovT0QwY3JSNEF0ZVdETW01dDZoWFdwYm5xNmFtb1pKSGhibkdocHdr?=
+ =?utf-8?B?OXpaSmNnbzJidzhIYjVvcVV5VkVjYWVQWjFTMlE4c3JHS296N1FycGFENUhy?=
+ =?utf-8?B?d2t2dnowTnhHTytIWWtHWW9MdzliNmlrSXU1c2NlYVA3SXN1NDZUWUZxNEEr?=
+ =?utf-8?B?bk8rN0RxLzFHTytSb2poampyZnNNbzBXYU5qTmlxaHpON0JYalhkMkR0UXly?=
+ =?utf-8?B?ald5MUFTYmRReGVUOXdBUU5PczMraE84dmgzVkk3bmR4MmlLL3lnS1BSUWhT?=
+ =?utf-8?B?RzhNRU56OE1xcDZPOW5hZTFLUzBhcDRvZy9nNWZtS3JpNGNVZHptWjRGNUw4?=
+ =?utf-8?B?RlJqRHk5YjZVNE1jUmdLcUYzdE1aMWVxemJpaVU3K3hBNVdFMEQ3cVFhUTFw?=
+ =?utf-8?B?UlQyZmw2NVZiR1FvVFZhNUk5aUFUSWNUUnFhamZhVGR4cDdpL0pZNGlXWXZw?=
+ =?utf-8?B?aWdOYlgyZkxXQ0RZd0ZucXFYNFJaWHJYQW41NG9jdkpOTGNwVWhkVXFtUmUy?=
+ =?utf-8?B?dWlEVFc1Rm0wcFVNZFQzNUEvVzR5YUYzRmUreHdDYnY0U2VydDFMeGpTS0pU?=
+ =?utf-8?B?L3pVeTVTWDY1MGxMWjdDQ2p5ejhOaXVUK0xGSVpRNHpvbUNWb1k2amhLUTNU?=
+ =?utf-8?B?dFhHK2hBNEV1ZDVrbnlpQngxYmJPeHJoL2I5eGhKUGo4aFFpMEQ5SUVUYXlS?=
+ =?utf-8?B?YVByUmg0elhOQW9uYndmbTZ3TEpsL29WdmNTS1lOVk9aalMzL0FhRTVxR3RP?=
+ =?utf-8?B?MW1XUk50YWI0QTZMYmRnTG1rZWFjYjZjQmRoYVo5TkhmUlZTQnlFWGMxa2Qw?=
+ =?utf-8?B?cHBzaWpvbDIvK0doVjRZNXV4TjliT1BVaFpETGpia1RkYnd4SkRIK3FnbE13?=
+ =?utf-8?B?Zmg5bFJ6c0FIQW5yTU1hYkQ2b2FsRmJ6aUhBbmdEb3lsNGpobHVvTkFERENa?=
+ =?utf-8?B?R1hGd3BLZXVkMnZOR1lHL2FsVENWdW9Rc1hmNHV1ZlNCY0JPeHp4dkNWWWM1?=
+ =?utf-8?B?UnYrakw1djc0SlY3Yk4vd1FpQnR6TnUxQktSNmVJTTlwYUxZSUdGOEt2R0lY?=
+ =?utf-8?B?b3h4WXdnWlIwY085RzNmcTk5OVJqdUsxTFRMOFdjRWhGa2JPQUFodzQwbmtT?=
+ =?utf-8?B?Sk9UUFZDSmhwS2JMT3JZNEMwWVY0MmVINXo5ejRrVjVRenRFN1JLL1cyS3ls?=
+ =?utf-8?B?VitPc3FZNDFxdTlhQUhGcHE3UTZTTUZNZ3pvaHFmSUV2Sk9TUFdNSDVoN1BU?=
+ =?utf-8?B?bVZUaWp6VEVmbkFjOXlKMExsNGo4TWhwcXlSNHhkMzFLbldmNEV0Z1lRQzBW?=
+ =?utf-8?B?UCt1Ty9qZWVORVRkWmZWdz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qko4L0JRRkhtV1EvYWVWZzVHb0ZIY25hekY5SEJMZk1XMXVUbXZLUGM2aGJl?=
+ =?utf-8?B?cjFtSzByV1ZHNTU0YnZlTmtFbTdNTVJjeTYxWmUzRGMwU1g1WTNEV2hwRklR?=
+ =?utf-8?B?MjdEcHZTek4rcEE5eC9KTG5hR2ttMnByQUltU3krekVHbGluMVlyK1l4Z0NG?=
+ =?utf-8?B?ODVJdmpBV2x1YjZ5cEJ0N0hpaEZnTjNTRFRZeEhYbXZlZU9VMjNiaDBGOU1o?=
+ =?utf-8?B?T2YvRUwrc1ZqR2FCa08vYjJlaENuV215Um10ZHJMWU9Nd0ROWm9WTS8wdjFI?=
+ =?utf-8?B?Si8yZTg5cW00V1cxb3BYOHNkY1NnU0QxU0xQSXBSSzBTT1RUZnpUK2s4TDRa?=
+ =?utf-8?B?S0M3aFZMSzN5Vi90THRkODhvTUlnMHB2N0dnQ3hDL3ZyUWZ5VDA4TTVaenA4?=
+ =?utf-8?B?dWszU0kwWXI1SW92TzE1VFZmUjhmV3B3T3l4MFRXaGIyenovOUQyNkpDRHBE?=
+ =?utf-8?B?Rm0wWm5tQUdiejNmZ0NNQUdYK1lxeVVlSFpQMk93SElPMk1TOStzYTc3VVQw?=
+ =?utf-8?B?ZllDQStPbmlMcm1mdGdncEVqQklNcUlSb2trTllHOWVqTm1uQWs1S3ZyOWpn?=
+ =?utf-8?B?Q2NHdC9xdGhGSUxyelBCdTk4Rzd0SGhTSk9YWDFpTDFRUDFsZXNCREZoSGxZ?=
+ =?utf-8?B?VDQwYzhWWVZHMGV5WjcvdEJ6anJCZmp3MW8xbHJjb09Kb1grbWl2cCt1VnJE?=
+ =?utf-8?B?czZ5N2pOS0wyOW1FcDFINE9SWGtxdnhISzZGRlVOWGkweVpNaDM3UHBFK0dB?=
+ =?utf-8?B?UXIrbEFTY3V3T0RKcEVFR3V6NVpUVm4xMjRCcG4zTi9WWDFQc2dOWDE3RmNm?=
+ =?utf-8?B?S2JZVTR6cEdqanUrQmVlU0VaNHVPa2VkTVVxWFM0emtBb3dxd1BQUEpqNXow?=
+ =?utf-8?B?UllEbElxenlJalQrVGdPOHRqNGh2ajZLek15T2tqelVqNFlvT3oxOVNPSVNK?=
+ =?utf-8?B?MkVIWWNsQVJPaG5IejF3ejlCMC8xczdxc3Y5dlUzZUpPYUtIczF4cUJKcnFl?=
+ =?utf-8?B?SnVYZTJ2LzN1T3JheENyY2F3NlorVVQrSUt6ZEdYaFZrRm5sNCtmK1BDUEk0?=
+ =?utf-8?B?U3RlMCtrd3djcFJSaDdLbjI2eEl3aytEQXZUdGx2aTRScGk4VlY2dTAxU2Rx?=
+ =?utf-8?B?L0N0K0ZBV3lkYThPUk1BcVBiSEcxS3FzMHBTOE5DRGtJeXFRTTZoTUg5d0F3?=
+ =?utf-8?B?emlqeWUzeHllUVRFOWZGTncxMlVhbkJIbE5hdXBJSEEwZkRCT0UxVmlURFR3?=
+ =?utf-8?B?RU4rcCtZY2E5b0RJZWlmZU80dER6MnR0TC9oTXRpSXhHU2NpcjlScHBLRHd4?=
+ =?utf-8?B?V3lOaFcxdzhYdE04NWQxU3RDS2d5OWNGQ0VPUy84ZVljRjZqRCtMeHlvMlZB?=
+ =?utf-8?B?b2hjMUs2eWtTdDNGL24rYUY0eEloS0dTalpoSCtHdTR3S2N4TXIrZ3ZqM20v?=
+ =?utf-8?B?WGx5Sy9ZWUhRLzZVV1B4cWUrWkxCVjU4aW1IaUx2dVdMS1BMbVJPYWhCM0tx?=
+ =?utf-8?B?YmhteTBRQkQ0NTBWOC9uei9ZRUFyK09oWmNlazE5ZEg5Y3ljNVhIVm1Sancr?=
+ =?utf-8?B?aUZrRGlycHlLT040UEpabGZVY1NhajYwY25GVU9EZ2Rqd1FURFpVdjdFdXRa?=
+ =?utf-8?B?aklqZ0pIOWc3c0lCTytPQW5WT2lhSGgrMWhpY1lLVEhzMllhZGxGQkVzV2N1?=
+ =?utf-8?B?MEk4RkIwWGM5UWRPdWd6dUQ2UElNVWxYQVZLd3lIeHFWY2k1eGFUaXJCWFJa?=
+ =?utf-8?B?by9keUFmcWt6YXBUS2FhSkpYajE4QTFZTVBjZFUwSjIzYmlTaGNFRVZCNkJz?=
+ =?utf-8?B?dXQ5aW9LaU8yUklYdlAvTGJKS1dHR3pUT3liKy8xZy9uUHFJeGVYcDF4Ny9P?=
+ =?utf-8?B?M01aMFFVL0Z1VEtMTy9IQVhxd2t6RUtQYnRrRENUS1JnQnBQbEZuaFhMS21E?=
+ =?utf-8?B?UHBLcHFLRURiUUoyQ0syOUYyVGxLd0hCdyt5M0h5dUhHdFlrWTc5ZEhZOHds?=
+ =?utf-8?B?STBCRVg1ZGdTbi9Qa0JNRXIvVWk1ekl1TWdHTXJUaUllZnFuSnk2TnF5SEx6?=
+ =?utf-8?B?Mnc1M0lEVkxsU241MlZRdnU3VUZBNll5d3UrMmRvOE92RWFCeEhtdTRsNjRv?=
+ =?utf-8?Q?qQiw=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6efc506d-fbd6-4f71-d9e1-08dcc274d609
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2024 06:37:04.6211 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JftlF2Ap7blF4Fl2UChc/zyqnOiD5EZHu7gQ9Y4RHquugTm0Nkp2XISuaPO0kFb5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,72 +158,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.08.24 um 02:04 schrieb Alex Deucher:
-> From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->
-> This commit applies isolation enforcement to the GFX and Compute rings
-> in the gfx_v9_0 module.
->
-> The commit sets `amdgpu_gfx_enforce_isolation_ring_begin_use` and
-> `amdgpu_gfx_enforce_isolation_ring_end_use` as the functions to be
-> called when a ring begins and ends its use, respectively.
->
-> `amdgpu_gfx_enforce_isolation_ring_begin_use` is called when a ring
-> begins its use. This function cancels any scheduled
-> `enforce_isolation_work` and, if necessary, signals the Kernel Fusion
-> Driver (KFD) to stop the runqueue.
->
-> `amdgpu_gfx_enforce_isolation_ring_end_use` is called when a ring ends
-> its use. This function schedules `enforce_isolation_work` to be run
-> after a delay.
->
-> These functions are part of the Enforce Isolation Handler, which
-> enforces shader isolation on AMD GPUs to prevent data leakage between
-> different processes.
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 6 ++++++
->   1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 3045b8b0796d..21089aadbb7b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -7470,6 +7470,8 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
->   	.emit_mem_sync = gfx_v9_0_emit_mem_sync,
->   	.reset = gfx_v9_0_reset_kgq,
->   	.emit_cleaner_shader = gfx_v9_0_ring_emit_cleaner_shader,
-> +	.begin_use = amdgpu_gfx_enforce_isolation_ring_begin_use,
-> +	.end_use = amdgpu_gfx_enforce_isolation_ring_end_use,
+Reviewed-by: Christian König <christian.koenig@amd.com> for patches #1, 
+#3-#5,
 
-Does it make sense to have that for the MCBP ring as well?
+Acked-by: Christian König <christian.koenig@amd.com> for patches #6, 
+#8-#10, #12, #13, #14, #17.
 
+Some nit picks in patches #2, use of // for comments in patch #11 and 
+question on patch #15/#16
+
+Really big bug in patch #7, that needs to be addressed.
+
+Regards,
 Christian.
 
->   };
->   
->   static const struct amdgpu_ring_funcs gfx_v9_0_sw_ring_funcs_gfx = {
-> @@ -7528,6 +7530,8 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw_ring_funcs_gfx = {
->   	.patch_de = gfx_v9_0_ring_patch_de_meta,
->   	.patch_ce = gfx_v9_0_ring_patch_ce_meta,
->   	.emit_cleaner_shader = gfx_v9_0_ring_emit_cleaner_shader,
-> +	.begin_use = amdgpu_gfx_enforce_isolation_ring_begin_use,
-> +	.end_use = amdgpu_gfx_enforce_isolation_ring_end_use,
->   };
->   
->   static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
-> @@ -7569,6 +7573,8 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
->   	.emit_wave_limit = gfx_v9_0_emit_wave_limit,
->   	.reset = gfx_v9_0_reset_kcq,
->   	.emit_cleaner_shader = gfx_v9_0_ring_emit_cleaner_shader,
-> +	.begin_use = amdgpu_gfx_enforce_isolation_ring_begin_use,
-> +	.end_use = amdgpu_gfx_enforce_isolation_ring_end_use,
->   };
->   
->   static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_kiq = {
+Am 15.08.24 um 02:04 schrieb Alex Deucher:
+> This patch set enables process isolation mode which
+> serializes access to the graphics block between processes.
+> When this mode is active, a cleaner shader is run between
+> processes to clear shader LDS (Local Data Store) and GPRs
+> (General Purpose Registers).  A sysfs interface is
+> also available to manually clear LDS and GPRs if you
+> for example want to clear LDS and GPRs when a user logs out.
+>
+> This includes support for GFX 9.4.3 and 9.4.4.  Support for
+> other GPUs is in progress and will be available when ready.
+>
+> Alex Deucher (2):
+>    drm/amdgpu: handle enforce isolation on non-0 gfxhub
+>    drm/amdgpu: Emit cleaner shader at end of IB submission
+>
+> Amber Lin (2):
+>    drm/amdkfd: APIs to stop/start KFD scheduling
+>    drm/amdkfd: Enable processes isolation on gfx9
+>
+> Srinivasan Shanmugam (13):
+>    drm/amdgpu: Add infrastructure for Cleaner Shader feature
+>    drm/amdgpu: Make enforce_isolation setting per GPU
+>    drm/amdgpu: Enforce isolation as part of the job
+>    drm/amdgpu: Add enforce_isolation sysfs attribute
+>    drm/amdgpu: Add sysfs interface for running cleaner shader
+>    drm/amdgpu: Add PACKET3_RUN_CLEANER_SHADER for cleaner shader
+>      execution
+>    drm/amdgpu/gfx9: Implement cleaner shader support for GFX9 hardware
+>    drm/amdgpu/gfx9: Implement cleaner shader support for GFX9.4.3
+>      hardware
+>    drm/amdgpu/gfx9: Add cleaner shader for GFX9.4.3
+>    drm/amdgpu/gfx9: Add cleaner shader support for GFX9.4.4 hardware
+>    drm/amdgpu: Implement Enforce Isolation Handler for KGD/KFD
+>      serialization
+>    drm/amdgpu/gfx9: Apply Isolation Enforcement to GFX & Compute rings
+>    drm/amdgpu/gfx_v9_4_3: Apply Isolation Enforcement to GFX & Compute
+>      rings
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   6 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  18 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  14 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  23 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 437 ++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  31 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c       |  17 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h       |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   3 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   6 +
+>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |   4 +
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  51 +-
+>   .../drm/amd/amdgpu/gfx_v9_0_cleaner_shader.h  |  26 ++
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  60 ++-
+>   .../amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm  | 153 ++++++
+>   .../amd/amdgpu/gfx_v9_4_3_cleaner_shader.h    |  64 +++
+>   drivers/gpu/drm/amd/amdgpu/soc15d.h           |   4 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  39 ++
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |  58 ++-
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |   9 +
+>   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  14 +-
+>   .../gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h   |   5 +-
+>   .../amd/amdkfd/kfd_pm4_headers_aldebaran.h    |   2 +-
+>   25 files changed, 1028 insertions(+), 23 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v9_0_cleaner_shader.h
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3_cleaner_shader.h
+>
 
