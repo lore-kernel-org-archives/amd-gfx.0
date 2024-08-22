@@ -4,123 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E76C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 14:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C137C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 14:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC9F10EAFA;
-	Thu, 22 Aug 2024 14:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB28A10EB00;
+	Thu, 22 Aug 2024 14:46:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1zTUDJDX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tpsywLou";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1zTUDJDX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tpsywLou";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j5dIrVmp";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B612C10EAFA;
- Thu, 22 Aug 2024 14:42:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 326A621FE0;
- Thu, 22 Aug 2024 14:42:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724337720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=EaiNFercyjSU1gCDFlq9+we6qY7P7NGuCyxgdh0VoAs=;
- b=1zTUDJDXXiAmoHgG8NG7/Bi6bOndeemeXUy+AnpD6LKzLdUIvyLjPx5EfBbcCcSsYZ7TXA
- muEujSL2jJ2VtnHk1/wQ49BEi+TMs+CDwMSqtrpZfhf+9R76PTbP0FzkSi2bd7jewDYQms
- u8TGqWtbL40UdESNo/r7Jw5YQHbcnMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724337720;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=EaiNFercyjSU1gCDFlq9+we6qY7P7NGuCyxgdh0VoAs=;
- b=tpsywLougvyw4e5fBOb3dWOIwtfsl7SCyZfaobbvWfsCj6/0ML9BB8wVnOCEj5qmXtogpC
- HukcjKn4y/hM0+Dg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1724337720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=EaiNFercyjSU1gCDFlq9+we6qY7P7NGuCyxgdh0VoAs=;
- b=1zTUDJDXXiAmoHgG8NG7/Bi6bOndeemeXUy+AnpD6LKzLdUIvyLjPx5EfBbcCcSsYZ7TXA
- muEujSL2jJ2VtnHk1/wQ49BEi+TMs+CDwMSqtrpZfhf+9R76PTbP0FzkSi2bd7jewDYQms
- u8TGqWtbL40UdESNo/r7Jw5YQHbcnMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1724337720;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=EaiNFercyjSU1gCDFlq9+we6qY7P7NGuCyxgdh0VoAs=;
- b=tpsywLougvyw4e5fBOb3dWOIwtfsl7SCyZfaobbvWfsCj6/0ML9BB8wVnOCEj5qmXtogpC
- HukcjKn4y/hM0+Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 075CF139D3;
- Thu, 22 Aug 2024 14:42:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cokIADhOx2aAZQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 22 Aug 2024 14:41:59 +0000
-Message-ID: <57520a28-fff2-41ae-850b-fa820d2b0cfa@suse.de>
-Date: Thu, 22 Aug 2024 16:41:59 +0200
-MIME-Version: 1.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4659510EAFF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 14:46:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZUO6HNWWByC5AJVn3OgpuQqJtsX4Ei11hgdeDufDAukKo4A4Q7xs21BKG230SJRIZ1rhG50xxh3whYfchRWr4nEkMXFg39KIG0KUGGuz6kpynlYfi46wbiBC6EdSsWISGncw/xlOvDBU7FDm3IYDGmcPYGxYVL5r2SfeEC8jSddLnZAf3ICoHU1awwmoiCDcNC38q2Otuw0GYeRgEO6IMusFrNxdtA6cFluzzsH9cbdM3UTpCc1DuNm7pWPbocC64woKIKy/oe+ArsliyHenC+koce+UL0lGiOPqTNxjB0YedQcMOAKvKuz+Jcw/pw4ZRaK+AC8MMy3L1O9cvFficw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/DouMLglRrenZDJZo9NeqBQjf2EPWfZvjfcyARmL7F8=;
+ b=ggAEVVIL9MTlMfm2WhE9kM7MIbyYqvN9M5YMbiUVXWjBl9pvRQMBpN5oHtJ2aw/wAq9iUGqLmgAdxpCEBoE49dctJIFqsCmr8poMumBpaWqpjBs7kHrxjClwtWzdQBAzZb/WSC/tyhaxK6MAL0y9ymbFI9jESrBKzWsF1yWZNWgKkpCRgo7ArDTGliL2tcxU5dOwaeIhbjMZ74brrcPCwuBMhViZmCDwKHCx/AY/jGWJvqAvNHEvhHEaO3ruU0L9UQY1ypYtcu+4uIJpNuIdl0BGxkMpSIzOtsfwaFlrfo6VqThFcdJmU/obFlwzSJh4Ewz806WAdcyYZ9Bdb+Dhbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/DouMLglRrenZDJZo9NeqBQjf2EPWfZvjfcyARmL7F8=;
+ b=j5dIrVmpGqixjVL4PlGBaIPJ5aqiauTW15Tf8eVTm2fNF+GDjLsnv2ypt0skik8/+T218ai9Wphdz8Sf9LXm/cAuVwPGIfiM4VbomjCrq5jEzyWndP+BsNaDUwBQLfLCbIOKuW9jxDWQzzVyuM1Uv1WEWOoLlut+ryclisBT3AQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
+ by SJ0PR12MB8092.namprd12.prod.outlook.com (2603:10b6:a03:4ee::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19; Thu, 22 Aug
+ 2024 14:46:10 +0000
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::25c8:f399:b2e8:1947]) by SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::25c8:f399:b2e8:1947%4]) with mapi id 15.20.7897.014; Thu, 22 Aug 2024
+ 14:46:10 +0000
+Message-ID: <1503c782-a3d4-4259-81fb-d4d2ed683ef7@amd.com>
+Date: Thu, 22 Aug 2024 10:45:08 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] new helper: drm_gem_prime_handle_to_dmabuf()
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org
-References: <20240812065656.GI13701@ZenIV>
- <20240812065906.241398-1-viro@zeniv.linux.org.uk>
+Subject: Re: [PATCH v2 4/4] drm/amdkfd: SMI report dropped event count
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com
+References: <20240730201547.13590-1-Philip.Yang@amd.com>
+ <20240730201547.13590-5-Philip.Yang@amd.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20240812065906.241398-1-viro@zeniv.linux.org.uk>
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <20240730201547.13590-5-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0139.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::18) To SJ0PR12MB6760.namprd12.prod.outlook.com
+ (2603:10b6:a03:44c::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|SJ0PR12MB8092:EE_
+X-MS-Office365-Filtering-Correlation-Id: be1b1b46-361b-4063-177b-08dcc2b92971
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?a0UxalBrQkZTK3dNalh5a2NsOExQZEUwWTlVWDlteEMxcWVMTzhaZmVhaEJ3?=
+ =?utf-8?B?QjlwY0x5YVByYUZlN3lOT2g1WTRiZlJRT1lDQ1pDc1psaUk4cGdtRW90M0lo?=
+ =?utf-8?B?NCtYVlhMQkNQSzZYbmJmM09HUzhKTkNjWXowNXBEdUIrM1cvZEdRaWp6T21w?=
+ =?utf-8?B?aWpydDI0MDh3c28zb3dKNW1iMS9iNXY5QkhxMFFUdWs5aE5oelhRM25EZE16?=
+ =?utf-8?B?ZDY3ZDdpaGpKWXBFWmQwZ0xEMnkwQTlxNEpqQ3h1N1hlWU5meUp0WWRjZHhG?=
+ =?utf-8?B?bWJva0V2TG1kZWM5OXNPQXdJOTc3NU1ySkNwWWNmL0lOclRGdVB1UGgvUTZu?=
+ =?utf-8?B?RXlXaGtybENyUWpxTlZGTXRuRXRpVTJVSkVNUmlJZzVPeFlaOGYwTFRDNEFE?=
+ =?utf-8?B?SHA1LzVxSHhZK0toTFRvaDlxK0tWN2FtdjAzWjZTTVVxbjZ5T1JPRTJ5TTVu?=
+ =?utf-8?B?WlFuK003aGxrRTR5bWJBc1JWUHNSUjFsRUcyRUY0N1VsT2tySDIwbDZiNTVs?=
+ =?utf-8?B?WTkyUTZGYUNKK2lFVXgrNy9kZURQR1hDUXA4bFJhWWxTWVd3WUZJRG5qdjZE?=
+ =?utf-8?B?djVGaFFhckl3K1JVdWpFbWpLaUpsKzFQRXMvRFQrTndBWUJvUUd2OUtvR0Rr?=
+ =?utf-8?B?SmVtM0F6U29jSC9TN2NzdCtmUW1FT1luWmpqclIyYlloMk9LajhVY0IvZnBK?=
+ =?utf-8?B?Z2ZrVEhrY2tHKzR3Mml3UVRWMzZHZjY3VDZyWHZFamZRQ1RaUWsvNGtGakNa?=
+ =?utf-8?B?eURYRGs1NnJLODd0SXZvdUVnUDFPMFF0Q1krNWVzYjBTbVllN1JuT1ZkZTlF?=
+ =?utf-8?B?TGI3blcxV0w2aFhOVGNHellXYU1IbXpOVldPN2xHMVFtNjNZWTV3V2Y2aVhv?=
+ =?utf-8?B?Z3NLTlZUaFkyZ3ltbDJwdGY1amE2enFSQk5GS1R1Z2JkcDNpUVFWdklrSzd5?=
+ =?utf-8?B?Q3hTbWJJSWlNTWVEeHh6dlg5NzVLMVh1Wmwxc0FuTmV3Q0xFZ2tEUC9jdUsr?=
+ =?utf-8?B?TnhMUys2NXp4cDRNVTJtOFBOY1FsK0d1d1ZQREFxNXd1a2FNcy9LZzlRZDhk?=
+ =?utf-8?B?TllubmYvYVhzclFjdGFXWFJlOGVYTnk4KzMvUjZxWFMvQld1SGgrcjhoWDRj?=
+ =?utf-8?B?K3F5WWh3K0x3V0Fhc2NLN1lFcDhYc1VPazhLRllkTFRpaTJIUkpzZG1qS2N2?=
+ =?utf-8?B?djFCWjRRN082N1lBaGZuRGJwcCtpa2hWZmZ5bzNhZDd3ajdhYmxubTd3SFhq?=
+ =?utf-8?B?S0Noa3RaYzBOYlNpOXBwbElFOXlqWTVKZWVTb2JNUXhnOTJUV2E4QmdKREhL?=
+ =?utf-8?B?T29JRkpxRGFkdE1od1lxRXFTdmJNZm0yUlgrR1hmSkZvMzR2V0J4SHlTNy9J?=
+ =?utf-8?B?SkkrQXY0R0lyNlU4NVJaUi9LZjRTeUNtUmVYckplMGovMnJ3ZXBNU2pwNFZx?=
+ =?utf-8?B?MmM4WjlZeW02Si9HeGE4RnJibC9WOTUyVDQ4Z2tQRnF3bWNzdmxpclliOGQx?=
+ =?utf-8?B?c3lWdWFEaytkbEdqWS8wYjZWQXc5QWR1YXZYNEJraWxzbEVsLzdoZWdFaDNM?=
+ =?utf-8?B?bTlZdUV1Z0dLK1FiS1pVb3VTKy9oUHZITFdxVEZiUWV0a01kbWNBVG1LK21E?=
+ =?utf-8?B?bzFuelRPblBJL1FPblREZmhYb0ZvT0lHL1JMRDUzMWVjbmRDRmRrKzVmQ3hp?=
+ =?utf-8?B?Q3E2YjJGMlRjVDhKS1YwdDZGUnpMQ082VVFjU01pTVF1Wkd0MFhDcEs3aUYv?=
+ =?utf-8?B?Z25FdWYvTmFKQ28xajUxZmxRdGJTbjFiSSs0cWJCVG9ybVNGVU9aTzVhM29r?=
+ =?utf-8?B?ZWNMaXVPcFhoelBYWUJaZz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2xHQUJPRlJmRWp4TVNEa0V0WENjSVhqZjJ2aWIraTZIZW53VFlnODd1REw2?=
+ =?utf-8?B?V3FDZ3l6bFlwUW1HQUF1YitWem9WVzNkOFFYTkNQYzN5M0loSzRPTzUwY0F4?=
+ =?utf-8?B?N3ByelZYZERIcHJGckxVTS9SZ1c4Y2ZSQnkya0FnU0hLNzMzbURXaHdXWkpm?=
+ =?utf-8?B?eURlNU9xelMvdjNmMjRWVkJkSDRaUU9xa0VGVDc1SGt2T3ZXb2JaN08wcGtJ?=
+ =?utf-8?B?Q0M5VWdPaUFySW1CVDNTUm13L0krYTJkUkRZcG54WmFMTjBMcjQ2ejFCcGRX?=
+ =?utf-8?B?bUhXS1pTaEtFNWQzOWdZZmJyZ0V0bklPWGdNallIMXRpRHZjWllZb2thOFM3?=
+ =?utf-8?B?Z1h0N3Zoai9VOGdOZjZUMGRRVnJpQU9FeWs2S2Ftdk04aVY0bVVIbFFQOURj?=
+ =?utf-8?B?RlN1ZkdYSUlyUFdKZEswY1JkSVhteWx3UG9tS3dVZHN3QjQrWEM4bU5LQThX?=
+ =?utf-8?B?YTRxZ3RqRFdBWjEvbjdRUEUrNUhUMGNyeEd5a0pHbFFOREFidEJ4bk1vOXJi?=
+ =?utf-8?B?clFZaXI1VlREMmllMTV0N2Z6VENRdUphSmRXdERLbWZyVmZDcEVGOWxZT1ov?=
+ =?utf-8?B?ckgrK29WMDlxRUt6eHVZb0l1TnB5ZnRyQTZlNmJMZUx0NDE0NzAyMS82MHp4?=
+ =?utf-8?B?OUNXQTBYOStzMTdyN1dNdllFUjhqTmJRM2tHOFVDMFRjempFeDJpR1pBTUFz?=
+ =?utf-8?B?Z1ZIWWFmU29xeFB5Wm9nWTczU1V1bEMwRmF4czRKWnVDTTlsUXpDZnJUTWVh?=
+ =?utf-8?B?SFJNcFBNd1pMQkNQaFRCanlmSnhadklpQUYwZ05ZYTJ0Q3RsbnJybnhSTGVV?=
+ =?utf-8?B?aVVLekhOZ1kwOGhWNTgyY1o5dkR3RSttWDB4aHlvRDY0MElhOXpXUDhRVWt5?=
+ =?utf-8?B?bmwvYjFQRjZrNk50NHpleFZObmRuV0lHRmlrOE1LeDJWbHpHSnI3aWowcGhO?=
+ =?utf-8?B?bjk1WVRpZXZOUUF2KzE2OGVKM0FmNjlxaGNIUzc2UUxIN1REMjFqd2c5ZE1S?=
+ =?utf-8?B?U0dndnZ0eDFiYTFqdllKa0x2TmNHTHhXdThEUlZkWVYzRnkyNFpPY2VsL2to?=
+ =?utf-8?B?YkJVMWo0WWFTZGx3VllaZzVMWHYwZ2d2VldxaFpQcFVIYmVFY21Sazkya3dG?=
+ =?utf-8?B?YllEWWhuY0kyWDdyYXY2WXhZU3djbGdUUURwb1JRa3FsYVpsV3plbzRKS1Bo?=
+ =?utf-8?B?QlV5MTdrUlA3WDJMSDZ5azBBYlR1OFZOZC9oSk15ZmlQVGsrS0VZdm9xNDZ6?=
+ =?utf-8?B?RklUQmhSUkg4UkZvYjN4WjVBbnVUWHlDeGl3UXdNL0Y5Sk0rWTZvV2t1UWZ2?=
+ =?utf-8?B?VHZHZ0RjMThsbStqaVY4eEtnVDU1YTV2ZDdac2NUTzZPRFNNTGNDZmtUL0Zq?=
+ =?utf-8?B?U3JteWlJaTFnVXV5dXpESW5QSnhDNzJ1Mm1reVRVb1NZbFhka2ZwNWhGZHpV?=
+ =?utf-8?B?bm4yQU10d1lRYjhyRllST3cxRkwyL2llQjlTc3BCOTlSSVkrSlJYWG52RmVU?=
+ =?utf-8?B?YUZrMDNTUndlMDIzSjRuZUdCbDVHdmpPZnpDbVNHUTdCSWtuQkVPelhseDdY?=
+ =?utf-8?B?M2NCVGhUMlkyaGVwc0YwMGhmM0dUd0VFWmJWMHJPb2o4RnFsWWVtdmpYbkps?=
+ =?utf-8?B?UlRkL2c1QnYyb0VKYS9CeTlwZ2FpUVpsYWxOWldJR25WTkJCd1cxamtGYnh3?=
+ =?utf-8?B?cUpqR2I0SFNJbDNVbWljdUFFZ0oycmxMbmdzNWlVbUtOMEhMbVZOeHdQZDVC?=
+ =?utf-8?B?T1VnRy9vUEhMbFVxL3Fpbzh6NXpsbFBJRndVRFNZRXdsWXhHOTRNSm1NcGVw?=
+ =?utf-8?B?UHR3Y3ZiWCtscXAvbmhpTzJTOEgyUHVLL3Z0aFFpS2dHZ3VJbGF4TzA5NW05?=
+ =?utf-8?B?OWJhbVRteVNRYVZ6eUlRbTNuSDR5Y0VOK3FqelZnZzZjYlBsdUJmbGlmNE1n?=
+ =?utf-8?B?N3BiWGJ6RmtDMTBJb1VlMDdRUUxKTWdLVXBrRk42enF6aWE2TG1iTWRFR3lP?=
+ =?utf-8?B?eld5cCtuZWdYV1pKK0ZIa0tQTUZidVpZbUVDcHEyREVoZ1Z5OTFUakoreHJB?=
+ =?utf-8?B?TlRPVitnRzNzL3hzcTh0NGJ2S01VUXIwU09VWE02a254NTlvT29HSllTcnZY?=
+ =?utf-8?Q?0A2Qo9q4iMfbcEs9otTlYJt5R?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be1b1b46-361b-4063-177b-08dcc2b92971
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2024 14:46:10.1196 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S6rFcziDhC/p8WmT2jnoSw/Xpo780fJaGGq7F/hF+0n2iMmFT9KBWvSIq4GMCwri
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8092
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,191 +160,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 12.08.24 um 08:59 schrieb Al Viro:
-> Once something had been put into descriptor table, the only thing you
-> can do with it is returning descriptor to userland - you can't withdraw
-> it on subsequent failure exit, etc.  You certainly can't count upon
-> it staying in the same slot of descriptor table - another thread
-> could've played with close(2)/dup2(2)/whatnot.
+On 2024-07-30 16:15, Philip Yang wrote:
+> Add new SMI event to report the dropped event count when the event kfifo
+> is full.
+>
+> When the kfifo has space for two events, generate a dropped event record
+> to report how many events were dropped, together with the next event to
+> add to kfifo.
+>
+> After reading event out from kfifo, if there were events dropped,
+> generate a dropped event record and add to kfifo.
 
-This paragraph appears to refer to the newly added call to fd_install(). 
-Maybe spell that out.
+[JZ] I am wondering if it is better to use the below method.
+
+can calculate dropped event count during adding event.
+Generate/Send dropped event only in event read.
+when there are dropped events, If there is space left for dropped 
+event,then
+
+send out dropped event with this event read. otherwise, send out
+dropped event  with next event read.
 
 >
-> Add drm_gem_prime_handle_to_dmabuf() - the "set dmabuf up" parts of
-> drm_gem_prime_handle_to_fd() without the descriptor-related ones.
-> Instead of inserting into descriptor table and returning the file
-> descriptor it just returns the struct file.
->
-> drm_gem_prime_handle_to_fd() becomes a wrapper for it.  Other users
-> will be introduced in the next commit.
->
-> Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 > ---
->   drivers/gpu/drm/drm_prime.c | 84 +++++++++++++++++++------------------
->   include/drm/drm_prime.h     |  3 ++
->   2 files changed, 46 insertions(+), 41 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 41 ++++++++++++++++++---
+>   include/uapi/linux/kfd_ioctl.h              |  6 +++
+>   2 files changed, 41 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 03bd3c7bd0dc..467c7a278ad3 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -409,23 +409,9 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
->   	return dmabuf;
->   }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> index 9b8169761ec5..9b47657d5160 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -42,6 +42,7 @@ struct kfd_smi_client {
+>   	struct rcu_head rcu;
+>   	pid_t pid;
+>   	bool suser;
+> +	u32 drop_count;
+>   };
 >   
-> -/**
-> - * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-> - * @dev: dev to export the buffer from
-> - * @file_priv: drm file-private structure
-> - * @handle: buffer handle to export
-> - * @flags: flags like DRM_CLOEXEC
-> - * @prime_fd: pointer to storage for the fd id of the create dma-buf
-> - *
-> - * This is the PRIME export function which must be used mandatorily by GEM
-> - * drivers to ensure correct lifetime management of the underlying GEM object.
-> - * The actual exporting from GEM object to a dma-buf is done through the
-> - * &drm_gem_object_funcs.export callback.
-> - */
-> -int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> +struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
-
-If it's exported it should have kernel docs. At least copy-paste the 
-docs from drm_gem_prime_handle_to_fd()
-and reword a few bits.
-
-Best regards
-Thomas
-
->   			       struct drm_file *file_priv, uint32_t handle,
-> -			       uint32_t flags,
-> -			       int *prime_fd)
-> +			       uint32_t flags)
->   {
->   	struct drm_gem_object *obj;
->   	int ret = 0;
-> @@ -434,14 +420,14 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   	mutex_lock(&file_priv->prime.lock);
->   	obj = drm_gem_object_lookup(file_priv, handle);
->   	if (!obj)  {
-> -		ret = -ENOENT;
-> +		dmabuf = ERR_PTR(-ENOENT);
->   		goto out_unlock;
+>   #define KFD_MAX_KFIFO_SIZE	8192
+> @@ -103,12 +104,26 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
+>   	}
+>   	to_copy = min(size, to_copy);
+>   	ret = kfifo_out(&client->fifo, buf, to_copy);
+> -	spin_unlock(&client->lock);
+>   	if (ret <= 0) {
+> +		spin_unlock(&client->lock);
+>   		ret = -EAGAIN;
+>   		goto ret_err;
 >   	}
 >   
->   	dmabuf = drm_prime_lookup_buf_by_handle(&file_priv->prime, handle);
->   	if (dmabuf) {
->   		get_dma_buf(dmabuf);
-> -		goto out_have_handle;
-> +		goto out;
->   	}
->   
->   	mutex_lock(&dev->object_name_lock);
-> @@ -463,7 +449,6 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   		/* normally the created dma-buf takes ownership of the ref,
->   		 * but if that fails then drop the ref
->   		 */
-> -		ret = PTR_ERR(dmabuf);
->   		mutex_unlock(&dev->object_name_lock);
->   		goto out;
->   	}
-> @@ -478,34 +463,51 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   	ret = drm_prime_add_buf_handle(&file_priv->prime,
->   				       dmabuf, handle);
->   	mutex_unlock(&dev->object_name_lock);
-> -	if (ret)
-> -		goto fail_put_dmabuf;
-> -
-> -out_have_handle:
-> -	ret = dma_buf_fd(dmabuf, flags);
-> -	/*
-> -	 * We must _not_ remove the buffer from the handle cache since the newly
-> -	 * created dma buf is already linked in the global obj->dma_buf pointer,
-> -	 * and that is invariant as long as a userspace gem handle exists.
-> -	 * Closing the handle will clean out the cache anyway, so we don't leak.
-> -	 */
-> -	if (ret < 0) {
-> -		goto fail_put_dmabuf;
-> -	} else {
-> -		*prime_fd = ret;
-> -		ret = 0;
-> +	if (ret) {
-> +		dma_buf_put(dmabuf);
-> +		dmabuf = ERR_PTR(ret);
->   	}
-> -
-> -	goto out;
-> -
-> -fail_put_dmabuf:
-> -	dma_buf_put(dmabuf);
->   out:
->   	drm_gem_object_put(obj);
->   out_unlock:
->   	mutex_unlock(&file_priv->prime.lock);
-> +	return dmabuf;
-> +}
-> +EXPORT_SYMBOL(drm_gem_prime_handle_to_dmabuf);
->   
-> -	return ret;
-> +/**
-> + * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-> + * @dev: dev to export the buffer from
-> + * @file_priv: drm file-private structure
-> + * @handle: buffer handle to export
-> + * @flags: flags like DRM_CLOEXEC
-> + * @prime_fd: pointer to storage for the fd id of the create dma-buf
-> + *
-> + * This is the PRIME export function which must be used mandatorily by GEM
-> + * drivers to ensure correct lifetime management of the underlying GEM object.
-> + * The actual exporting from GEM object to a dma-buf is done through the
-> + * &drm_gem_object_funcs.export callback.
-> + */
-> +int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-> +			       struct drm_file *file_priv, uint32_t handle,
-> +			       uint32_t flags,
-> +			       int *prime_fd)
-> +{
-> +	struct dma_buf *dmabuf;
-> +	int fd = get_unused_fd_flags(flags);
+> +	if (client->drop_count) {
+> +		char msg[KFD_SMI_EVENT_MSG_SIZE];
+> +		int len;
 > +
-> +	if (fd < 0)
-> +		return fd;
-> +
-> +	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
-> +	if (IS_ERR(dmabuf)) {
-> +		put_unused_fd(fd);
-> +		return PTR_ERR(dmabuf);
+> +		len = snprintf(msg, sizeof(msg), "%x ", KFD_SMI_EVENT_DROPPED_EVENT);
+> +		len += snprintf(msg + len, sizeof(msg) - len,
+> +				KFD_EVENT_FMT_DROPPED_EVENT(ktime_get_boottime_ns(),
+> +				client->pid, client->drop_count));
+> +		kfifo_in(&client->fifo, msg, len);
+> +		client->drop_count = 0;
 > +	}
 > +
-> +	fd_install(fd, dmabuf->file);
-> +	*prime_fd = fd;
-> +	return 0;
+> +	spin_unlock(&client->lock);
+> +
+>   	ret = copy_to_user(user, buf, to_copy);
+>   	if (ret) {
+>   		ret = -EFAULT;
+> @@ -173,22 +188,36 @@ static bool kfd_smi_ev_enabled(pid_t pid, struct kfd_smi_client *client,
 >   }
->   EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
 >   
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index 2a1d01e5b56b..fa085c44d4ca 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -69,6 +69,9 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
+>   static void add_event_to_kfifo(pid_t pid, struct kfd_node *dev,
+> -			       unsigned int smi_event, char *event_msg, int len)
+> +			       unsigned int smi_event, char *event_msg, int event_len)
+>   {
+>   	struct kfd_smi_client *client;
+> +	char msg[KFD_SMI_EVENT_MSG_SIZE];
+> +	int len = 0;
 >   
->   int drm_gem_prime_fd_to_handle(struct drm_device *dev,
->   			       struct drm_file *file_priv, int prime_fd, uint32_t *handle);
-> +struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
-> +			       struct drm_file *file_priv, uint32_t handle,
-> +			       uint32_t flags);
->   int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->   			       struct drm_file *file_priv, uint32_t handle, uint32_t flags,
->   			       int *prime_fd);
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
-
+>   	rcu_read_lock();
+>   
+>   	list_for_each_entry_rcu(client, &dev->smi_clients, list) {
+>   		if (!kfd_smi_ev_enabled(pid, client, smi_event))
+>   			continue;
+> +
+>   		spin_lock(&client->lock);
+> -		if (kfifo_avail(&client->fifo) >= len) {
+> -			kfifo_in(&client->fifo, event_msg, len);
+> +		if (client->drop_count) {
+> +			len = snprintf(msg, sizeof(msg), "%x ", KFD_SMI_EVENT_DROPPED_EVENT);
+> +			len += snprintf(msg + len, sizeof(msg) - len,
+> +					KFD_EVENT_FMT_DROPPED_EVENT(ktime_get_boottime_ns(), pid,
+> +					client->drop_count));
+> +		}
+> +
+> +		if (kfifo_avail(&client->fifo) >= event_len + len) {
+> +			if (len)
+> +				kfifo_in(&client->fifo, msg, len);
+> +			kfifo_in(&client->fifo, event_msg, event_len);
+>   			wake_up_all(&client->wait_queue);
+> +			client->drop_count = 0;
+>   		} else {
+> -			pr_debug("smi_event(EventID: %u): no space left\n",
+> -					smi_event);
+> +			client->drop_count++;
+> +			pr_debug("smi_event(EventID: %u): no space left drop_count %d\n",
+> +				 smi_event, client->drop_count);
+>   		}
+>   		spin_unlock(&client->lock);
+>   	}
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index e4ed8fec3294..915d1e7c67fe 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -530,6 +530,7 @@ enum kfd_smi_event {
+>   	KFD_SMI_EVENT_QUEUE_EVICTION = 9,
+>   	KFD_SMI_EVENT_QUEUE_RESTORE = 10,
+>   	KFD_SMI_EVENT_UNMAP_FROM_GPU = 11,
+> +	KFD_SMI_EVENT_DROPPED_EVENT = 12,
+>   
+>   	/*
+>   	 * max event number, as a flag bit to get events from all processes,
+> @@ -610,6 +611,7 @@ struct kfd_ioctl_smi_events_args {
+>    *    rw: 'W' for write page fault, 'R' for read page fault
+>    *    rescheduled: 'R' if the queue restore failed and rescheduled to try again
+>    *    error_code: migrate failure error code, 0 if no error
+> + *    drop_count: how many events dropped when fifo is full
+>    */
+>   #define KFD_EVENT_FMT_UPDATE_GPU_RESET(reset_seq_num, reset_cause)\
+>   		"%x %s\n", (reset_seq_num), (reset_cause)
+> @@ -645,6 +647,10 @@ struct kfd_ioctl_smi_events_args {
+>   		"%lld -%d @%lx(%lx) %x %d\n", (ns), (pid), (addr), (size),\
+>   		(node), (unmap_trigger)
+>   
+> +#define KFD_EVENT_FMT_DROPPED_EVENT(ns, pid, drop_count)\
+> +		"%lld -%d %d\n", (ns), (pid), (drop_count)
+> +
+> +
+>   /**************************************************************************************************
+>    * CRIU IOCTLs (Checkpoint Restore In Userspace)
+>    *
