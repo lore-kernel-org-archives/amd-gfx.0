@@ -4,69 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E51C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 18:02:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A127C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 18:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CA0010EBC1;
-	Thu, 22 Aug 2024 18:02:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE6210EBCD;
+	Thu, 22 Aug 2024 18:34:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hg1zm7jv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ClikCpGc";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB78310EBBF;
- Thu, 22 Aug 2024 18:02:35 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-78f86e56b4cso99719a12.3; 
- Thu, 22 Aug 2024 11:02:35 -0700 (PDT)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C75C10EBCC;
+ Thu, 22 Aug 2024 18:34:13 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-75abb359fa5so117131a12.0; 
+ Thu, 22 Aug 2024 11:34:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724349755; x=1724954555; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1724351653; x=1724956453; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vIdZwGKc3DhnmIOea7vq7EzG3jsdVTSM3r+4Llh1m8c=;
- b=Hg1zm7jvUDCOZtNUXOKTuNAWKYDfZ1j5+lrTptYTbgB1oeLIj+cnO2hSyoj5+qE+xg
- U3BfOOFNLjTtDqvgzC/Z5VIj1DQ3sq5Zr//M9V3GaoqFcVB7ozbtPNR8YbuyFUUBvh20
- 5zQ+2bp9lp5hDEEJP1Q9S4Eeac+Y2y1eNII8DNLkIx+FzIOwLjFxKqJfslwfy65d7A7r
- o1D/XCSG6wFBDH20h4iA0iez1DY7ZN5hC7kEWug68CTYgV85QqK4sANd9PqsR1e6fxlc
- 6Q8I942AFVAPhpQVCj4wLiF5jZNmYiyoI8yF50S6Ft93SYt6HoPc56hM+B6aZJIeZRJu
- GIuA==
+ bh=EMxxaOtK8U0yo4hnUE3Sr+BVfCfehARBQJOIM+1YP0Q=;
+ b=ClikCpGcP+fizO3engFSYSBmLK5pNRkjAo23dRHQDBlSSw9ZVMzAcw1y2lqJtAms/G
+ hV7ZD0OMozTPvf/D4C5Lt6hpktEF5ZaOAYvUGAickakZnWcACx6vHbiTQKfud4OtYYZ/
+ frLRD+SjfnEzYIU+w6A4Qwtn3MhezjzC86tBceqogUApjxBVIXCM3wlBDN7EUIDtZXyU
+ hbJqMuhVUvJOhZDrKJMPI5ScSKTUAm4PMprVOGuFrW7lSWNLOZ4yMtdGu6TZKuV2R+uh
+ BFtApUIC2n2FJhvzSW12Ye21H3uIiALnYg1zMRS/GsZ2DXwyLqaRzMwiBs5xtE7Rw9UP
+ dlWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724349755; x=1724954555;
+ d=1e100.net; s=20230601; t=1724351653; x=1724956453;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vIdZwGKc3DhnmIOea7vq7EzG3jsdVTSM3r+4Llh1m8c=;
- b=bhtxi2Z7Rsx1BKkZtgOoq/JsGAeKczKpQLB8cqqF6Yd550OtCrvjUINI4M8vTAKhFR
- KMtSMWBHH3tcDbDRl9rWGzRIQ5npmxvUPIZyLl6qAMWJXSpIZ7JHhTmtTQ9/bmaff+HR
- HRjNtNQqG2Rf1X4X6l3DBiiyLxygBw2hkBR9VGxFucINwe7MrdSXzXOHXdIIdSyGbx4R
- +sIVBuTFYkeau9x8H7DTPsDSWcBFuzy7shfUEYoJtYzjDJD6ZZ1R26fveGKRulke0eKs
- 5AmVSJMZYUDpKBVqFZERi37jTtUrbjeY/rIwpCXNIVMpHdlD+pKD+g2plOWMS5sk3q3f
- y/AQ==
+ bh=EMxxaOtK8U0yo4hnUE3Sr+BVfCfehARBQJOIM+1YP0Q=;
+ b=U0CAj9oJsvHSq0dhI1Gx3fcT1Fu4jxHTRGV+1FGzaItyJyeOVXXqk+EQXD/1wLw9dP
+ S1RzcQ++gRet3hKf6nSHrgYW7A32npQtOFpzfc0FCgJQ6KmaHnC/NXhRTV5JFqQJ/0dx
+ Z0iUfAmHTyf3sB+J2rK9LgSOV5Hkn6KedqQ1/3WhlmyQId8u6TuccaRLA1eMmpSjxNGk
+ T0VcZPrjHC2X6hqOoAVAZWgHm1IL2vrtN/rvpOD4djXL6Gg9yTtyYUGnR0kWYmiw6/vB
+ juWyBB7k9WacetqFHfG0466hsO/iPPLmmrTZEPVqKDBe0gIgqVvcwfmE24clKoECyGqN
+ zTZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWaUEFTfWr1Z1RkM3SPrvzP/CN5Fb0Q95wVH2NiK7p2Lxz71hjSW0ehatg2WTSt8iYF2FnUWZqy@lists.freedesktop.org,
- AJvYcCXNZQn9FWRsJGhI8MTtC24SeYW/vpllyrkOKStR2lRTbl7kQb9gCtmiEjzcPKzIpncCDHriIEd7TFrF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxd+X6GaJgJYQpfoQbRkqioqZJfdFBJFNjwMEBgEophJGXUJ9XH
- 0VUQ3na0O+wsEqjc8xoAa8v27n6WkO0v14ONrGQ+/4f9bXCAJRnj9ERA1C0MpVXUWuSndc5H68p
- sQWH6aXcXlRKpg/h5DK+BG1fipks=
-X-Google-Smtp-Source: AGHT+IGH8BiORy07so3jtmFCtA+lbgj7e2tJludQJn6knBzrwm1xGtFWt4cjBsQ2Q4UHBBCaeVtia+r9dkZgl4i8HAo=
-X-Received: by 2002:a17:902:c409:b0:1fc:6d15:478e with SMTP id
- d9443c01a7336-20367af2ea4mr42545405ad.1.1724349755001; Thu, 22 Aug 2024
- 11:02:35 -0700 (PDT)
+ AJvYcCUVc2+ACTT1fVKgTePi+3eMBsVaW5BJZNOtp+kFhHZp61VU3RwRsGdwJtngO1jb44zkMGTlL1ZU6raO@lists.freedesktop.org,
+ AJvYcCWTXC6N6VNA/DUAQiY05qmxbWnXDMmIVKTplFyqLdXXIcPRRRj3iiJ71X1j9P2+xpGSt8V6tH3m@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyf2+fFDlfpMtMkUk/+6squEi//+17JOvudl1hN5DqjCJ+fx7bN
+ MQHauZ+YQoenToVNSzZM1JV6nLjzam0TwtFWXKjgxVttyyVmN6GGeur5C1EcP/sdrB0T3eQ1ujN
+ 5VzXonxweH6WFCYL005R+5Yh2H3k=
+X-Google-Smtp-Source: AGHT+IGPF1XUUudFvjGPHATL7UDa9u1dQKv5EqeuytdBdTms5BymTb5tqh+mLj1j4yketuXtjUee6wZ3btV4aNuNyKo=
+X-Received: by 2002:a05:6a20:7348:b0:1c4:f30e:97ff with SMTP id
+ adf61e73a8af0-1cada1f1452mr4450575637.9.1724351652819; Thu, 22 Aug 2024
+ 11:34:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240812065656.GI13701@ZenIV>
- <20240812065906.241398-1-viro@zeniv.linux.org.uk>
- <20240812065906.241398-2-viro@zeniv.linux.org.uk>
- <09a1d083-0960-4de7-ab66-527099076ee4@amd.com>
- <20240822002921.GN504335@ZenIV>
-In-Reply-To: <20240822002921.GN504335@ZenIV>
+References: <20240822065723.1336181-1-yujiaoliang@vivo.com>
+In-Reply-To: <20240822065723.1336181-1-yujiaoliang@vivo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Aug 2024 14:02:23 -0400
-Message-ID: <CADnq5_PfNy3-zK6XDa31LUAcMH5m-CkV1TtL_jtOqmdaQjcLMQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] amdgpu: fix a race in kfd_mem_export_dmabuf()
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org
+Date: Thu, 22 Aug 2024 14:34:00 -0400
+Message-ID: <CADnq5_Pm0Vg-RNtnRoj1Dkc2Ke3paz1D6PeDkaKacGstBn7uVg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/6] drm/amd/display: Use max/min macro
+To: Yu Jiaoliang <yujiaoliang@vivo.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Alex Hung <alex.hung@amd.com>, 
+ Dillon Varone <dillon.varone@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ opensource.kernel@vivo.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,36 +84,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 21, 2024 at 8:29=E2=80=AFPM Al Viro <viro@zeniv.linux.org.uk> w=
-rote:
+On Thu, Aug 22, 2024 at 2:57=E2=80=AFAM Yu Jiaoliang <yujiaoliang@vivo.com>=
+ wrote:
 >
-> On Wed, Aug 14, 2024 at 06:15:46PM -0400, Felix Kuehling wrote:
-> >
-> > On 2024-08-12 02:59, Al Viro wrote:
-> > > Using drm_gem_prime_handle_to_fd() to set dmabuf up and insert it int=
-o
-> > > descriptor table, only to have it looked up by file descriptor and
-> > > remove it from descriptor table is not just too convoluted - it's
-> > > racy; another thread might have modified the descriptor table while
-> > > we'd been going through that song and dance.
-> > >
-> > > Switch kfd_mem_export_dmabuf() to using drm_gem_prime_handle_to_dmabu=
-f()
-> > > and leave the descriptor table alone...
-> > >
-> > > Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-> >
-> > This patch is
-> >
-> > Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> *** BLURB HERE ***
 >
-> Umm...  So which tree should that series go through?
->
-> I can put it through vfs.git, or send a pull request to drm folks, or...
->
-> Preferences?
+> Yu Jiaoliang (6):
+>   drm/amd/display: Use max/min macro
+>   drm/amd/display: Use max/min macro
+>   drm/amd/display: Use max/min macro
+>   drm/amd/display: Use max/min macro
+>   drm/amd/display: Use max/min macro
+>   drm/amd/display: Use max/min macro
 
-I'm happy to take these via the amdgpu tree once the other patches get revi=
-ewed.
+Is this the preferred kernel coding style for these type of
+comparisons?  Otherwise this just seems like a lot of churn for not
+much gain.
 
 Alex
+
+>
+>  drivers/gpu/drm/amd/display/dc/bios/bios_parser.c            | 4 ++--
+>  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c | 4 +++-
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c            | 4 ++--
+>  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c                 | 2 +-
+>  drivers/gpu/drm/amd/display/dc/spl/dc_spl.c                  | 4 ++--
+>  drivers/gpu/drm/amd/display/modules/freesync/freesync.c      | 4 ++--
+>  6 files changed, 12 insertions(+), 10 deletions(-)
+>
+> --
+> 2.34.1
+>
