@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE84C531DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 06:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF86C3DA4A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 06:29:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDC5810E73E;
-	Thu, 22 Aug 2024 06:24:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 119A210E743;
+	Thu, 22 Aug 2024 06:29:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q22V/OQO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WqRb/mGu";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38B8010E73F
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 06:24:48 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-428fb103724so8149445e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 23:24:48 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE40C10E743
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 06:29:37 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-428e0d18666so2299225e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 23:29:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724307886; x=1724912686; darn=lists.freedesktop.org;
- h=in-reply-to:from:content-language:references:cc:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NeNujMnjx8VMJMox/MSmugjzWmXohxIZaEVfcHNFG4M=;
- b=Q22V/OQOgb8i3nFfutX5jehMbXDE8xmb8Rgvg1Gh5ebxS7tDlKGgcPfcwaBLFew42Q
- rZYBehx2j2x3FFFM3sswG5mgL7ntzbyAuIGISu29irxkumHwsOTTbg66yvllItDNK2/9
- vJXa3sb9LXOcnaUjFQSizylo7wZa8s7Y6Oy9vuOduJzy55znSujVGKJE6QpfhaDSwyig
- i8H4ncJdtOC1s3pGxdCb/hw4olLEFLEH/M27UT18qjVcqNw80gKXG+0y/riSnn8qtVeV
- 5lhi2cfoEzMrktR9q+cnOAXbQzwnOfZ+fkQemQF+kPGEQDP4eUjavTo9BtiVBD73hP3G
- bFyA==
+ d=gmail.com; s=20230601; t=1724308176; x=1724912976; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=N3qCjgQ61NT3W1H7eNx+8s7D5NK+EQR1NHkDhKiTiww=;
+ b=WqRb/mGumNOB0Rx9P6MiWSnED7IVjpr/L4A8FVqETr63L62a9jJVZ8+UXQZejKtVy1
+ NNuGUipSpmseOxbHS5to2qp7bySUluYHCVVG03191aElAb1N0aUB1XNhq0XK2R9jv9wk
+ 2aFcanlW931uGjUtPeoJlJ18HbLlEXy+2/a+kyyGZ7vkZcTvLI4BR5ijQbmialJCNQ0R
+ 314Z55TyktNRfmCx822s4LSiTW4uYGtWHSnnidnEo9sEGPIbeWuHmBKf/MSsVQMsiE0P
+ lPZh8kHcG29ECz/BsAbz6gPsHNVff/9tvh/hpgYRxXB2YjzMxDAzbKc84X0CWE6t17+A
+ 5nTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724307886; x=1724912686;
- h=in-reply-to:from:content-language:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=NeNujMnjx8VMJMox/MSmugjzWmXohxIZaEVfcHNFG4M=;
- b=WZJf5jt7rSR2poV4wXoA7AAuhfaRay0WPpQKY4cO/ni1+DQm383XYaNqW2yyVB6H2L
- C5obzfMHaR9zvGuluogPy1tuhNGtqdBTudvLWR0qxOnATx6Z9SXgZcVV5d/IEMdVvRRU
- o5Nkglia21jnqyRYQemQGmnOaTtupXFhfp3Ulgu3V9Y8Nkdx64aerr3s1+4r+nVV0FHT
- mW7slpmaIjYI78ZWDyRlrRmoOzRMuY+ip4N5rJHGRKopHJVTBNpMVZ6TsgflcnhmbUrW
- QvmOgoKdlLQ8oLHLGHkp9/vyOF1mxuD2J9q0VQPSsnDbBiebdjv2tNbP+25Aq857QjHC
- dgXA==
+ d=1e100.net; s=20230601; t=1724308176; x=1724912976;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=N3qCjgQ61NT3W1H7eNx+8s7D5NK+EQR1NHkDhKiTiww=;
+ b=hWEFNlUrgT5PAuS6gt4pQ0nlQD7jVBgo79IsdHI2xw17GSdZQ/MPKVLVBzy5PHPiJG
+ RrJvD4v1C0mwNgQRAQbbhtjyOFytxWX6gBTH3AJXKm/I5PGWQNta/0FP9E69TKPyBVmw
+ ktc0IrmcPTz1/JO3VzyvWQFbODsn24y/VF3o4Jv7tTS8vdKaj6155Zfcdzi0e6kLT0zK
+ tpvTl2xlko6AT3yxLf3xON7eso7y2npIPoZA4vl2fznE6QE3ufhKKyi1ErHgnaGOcPQ8
+ XwzGG8KzZowmOcSbeSmDrvBsgBIymMk2xlfVEN9gLBUANKqG8OPOsj6BD8oWP1JM9buQ
+ x+8A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAc3NkVV3qw13uGF55Ba8SgFVyIknnuymISZzLhhNJzHn1FQ8JyDqRd1Dkf+1GyesE+SdDXUt0@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyiPJEChtYHc5arAEBTbpE8gTkoVbBM4MlYZas81sQRMdPj3apZ
- QvGk8ux0ngFJ7bfSY23hIYW4FPAsPSnmB2GL3/paapXXVlFfWLKY
-X-Google-Smtp-Source: AGHT+IGQ4lXNnWNSwuIOy+Pbx1NuOQcKqs1SxZ4QRuSHe5L6M/khDyvOQ4jU8fH+VylozeREkdOoqw==
-X-Received: by 2002:a05:600c:3b9c:b0:424:895c:b84b with SMTP id
- 5b1f17b1804b1-42ac3899b27mr10843965e9.4.1724307885398; 
- Wed, 21 Aug 2024 23:24:45 -0700 (PDT)
+ AJvYcCX6gXjJ9vd0mOFXNdpk9PtaBHT55qry7EyCkv4j1oLxkLkWB80oIJWaOCdIy3V4EajVhhr7BBp6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIwH4KdFvb6KQYyyPEuiexB+KTPDuaQvfxtgf8+ARWwpGtPCRn
+ 9SQ5u/1nrdfCC0tx93un4fs/QS7srgBu8TbMCNc63BOxp6rDYZbQ
+X-Google-Smtp-Source: AGHT+IG0uwuexgko1wHAytuBAAREejqoub0Ah/KVMSo3xn09uryoeBB/RwEz2IBMbtdEdB7GYlVNng==
+X-Received: by 2002:adf:ce8e:0:b0:371:8e50:2d06 with SMTP id
+ ffacd0b85a97d-372fd82c6c8mr2537343f8f.43.1724308175384; 
+ Wed, 21 Aug 2024 23:29:35 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42abef815d2sm48264355e9.24.2024.08.21.23.24.44
+ 5b1f17b1804b1-42abefc604dsm48565025e9.35.2024.08.21.23.29.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Aug 2024 23:24:44 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------KssTU6PGFyvD0mPNbu4phE30"
-Message-ID: <e4cc2e51-4d2b-4130-b028-44794c25a30b@gmail.com>
-Date: Thu, 22 Aug 2024 08:24:43 +0200
+ Wed, 21 Aug 2024 23:29:35 -0700 (PDT)
+Message-ID: <f2ee509b-073e-4b21-87e3-e2c08b13c028@gmail.com>
+Date: Thu, 22 Aug 2024 08:29:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/17] drm/amdgpu: Add infrastructure for Cleaner Shader
- feature
+Subject: Re: [PATCH 07/17] drm/amdgpu: Add sysfs interface for running cleaner
+ shader
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 References: <20240815000501.1845226-1-alexander.deucher@amd.com>
- <20240815000501.1845226-3-alexander.deucher@amd.com>
+ <20240815000501.1845226-8-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240815000501.1845226-3-alexander.deucher@amd.com>
+In-Reply-To: <20240815000501.1845226-8-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,269 +86,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------KssTU6PGFyvD0mPNbu4phE30
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
 Am 15.08.24 um 02:04 schrieb Alex Deucher:
-> From: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
+> From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 >
-> The cleaner shader is used by the CP firmware to clean LDS and GPRs
-> between processes on the CUs.
+> This patch adds a new sysfs interface for running the cleaner shader on
+> AMD GPUs. The cleaner shader is used to clear GPU memory before it's
+> reused, which can help prevent data leakage between different processes.
 >
-> This adds an internal API for GFX IP code to allocate and initialize the
-> cleaner shader.
+> The new sysfs file is write-only and is named `run_cleaner_shader`.
+> Write the number of the partition to this file to trigger the cleaner shader
+> on that partition. There is only one partition on GPUs which do not
+> support partitioning.
 >
-> Cc: Christian König<christian.koenig@amd.com>
-> Cc: Alex Deucher<alexander.deucher@amd.com>
-> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
-> Suggested-by: Christian König<christian.koenig@amd.com>
+> Changes made in this patch:
+>
+> - Added `amdgpu_set_run_cleaner_shader` function to handle writes to the
+>    `run_cleaner_shader` sysfs file.
+> - Added `run_cleaner_shader` to the list of device attributes in
+>    `amdgpu_device_attrs`.
+> - Updated `default_attr_update` to handle `run_cleaner_shader`.
+> - Added `AMDGPU_DEVICE_ATTR_WO` macro to create write-only device
+>    attributes.
+>
+> v2: fix error handling (Alex)
+>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 35 +++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 14 ++++++++++
->   2 files changed, 49 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 134 ++++++++++++++++++++++++
+>   1 file changed, 134 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 9be8cafdcecc..4ed69fcfe9c1 100644
+> index 2e35fc2577f9..76f77cf562af 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1416,3 +1416,38 @@ void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
->   	device_remove_file(adev->dev, &dev_attr_current_compute_partition);
->   	device_remove_file(adev->dev, &dev_attr_available_compute_partition);
+> @@ -24,10 +24,13 @@
+>    */
+>   
+>   #include <linux/firmware.h>
+> +#include <linux/pm_runtime.h>
+> +
+>   #include "amdgpu.h"
+>   #include "amdgpu_gfx.h"
+>   #include "amdgpu_rlc.h"
+>   #include "amdgpu_ras.h"
+> +#include "amdgpu_reset.h"
+>   #include "amdgpu_xcp.h"
+>   #include "amdgpu_xgmi.h"
+>   
+> @@ -1391,6 +1394,129 @@ static ssize_t amdgpu_gfx_get_available_compute_partition(struct device *dev,
+>   	return sysfs_emit(buf, "%s\n", supported_partition);
 >   }
-> +
-> +int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
-> +				      unsigned int cleaner_shader_size)
+>   
+> +static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
 > +{
-> +	if (!adev->gfx.enable_cleaner_shader)
-> +		return -EOPNOTSUPP;
+> +	struct amdgpu_device *adev = ring->adev;
+> +	long timeout = msecs_to_jiffies(1000);
+> +	struct dma_fence *f = NULL;
+> +	struct amdgpu_job *job;
+> +	struct amdgpu_ib *ib;
+> +	int i, r;
+> +
+> +	r = amdgpu_job_alloc_with_ib(adev, NULL, NULL,
+> +				     64, AMDGPU_IB_POOL_DIRECT,
+> +				     &job);
+> +	if (r)
+> +		goto err;
+> +
+> +	job->enforce_isolation = true;
+> +
+> +	ib = &job->ibs[0];
+> +	for (i = 0; i <= ring->funcs->align_mask; ++i)
+> +		ib->ptr[i] = ring->funcs->nop;
+> +	ib->length_dw = ring->funcs->align_mask + 1;
+> +
+> +	r = amdgpu_job_submit_direct(job, ring, &f);
 
-It's probably better to not call the function in the first place instead 
-of returning an error.
+That's a really really bad idea. There is nothing which guarantees the 
+the scheduler tries to submit something at the same time as well.
 
-> +
-> +	return amdgpu_bo_create_kernel(adev, cleaner_shader_size, PAGE_SIZE,
-> +				       AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT,
-> +				       &adev->gfx.cleaner_shader_obj,
-> +				       &adev->gfx.cleaner_shader_gpu_addr,
-> +				       (void **)&adev->gfx.cleaner_shader_cpu_ptr);
-> +}
-> +
-> +void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev)
-> +{
-> +	if (!adev->gfx.enable_cleaner_shader)
-> +		return;
-> +
-> +	amdgpu_bo_free_kernel(&adev->gfx.cleaner_shader_obj,
-> +			      &adev->gfx.cleaner_shader_gpu_addr,
-> +			      (void **)&adev->gfx.cleaner_shader_cpu_ptr);
-> +}
-> +
-> +void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
-> +				    unsigned int cleaner_shader_size,
-> +				    const void *cleaner_shader_ptr)
-> +{
-> +	if (!adev->gfx.enable_cleaner_shader)
-> +		return;
-> +
-> +	if (adev->gfx.cleaner_shader_cpu_ptr && cleaner_shader_ptr)
-> +		memcpy_toio(adev->gfx.cleaner_shader_cpu_ptr, cleaner_shader_ptr,
-> +			    cleaner_shader_size);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index 6fe77e483bb7..5ff3ab7d429a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -444,6 +444,14 @@ struct amdgpu_gfx {
->   	uint32_t			*ip_dump_core;
->   	uint32_t			*ip_dump_compute_queues;
->   	uint32_t			*ip_dump_gfx_queues;
-> +
-> +	/* cleaner shader */
-> +	struct amdgpu_bo		*cleaner_shader_obj;
-> +	unsigned int                    cleaner_shader_size;
-This is a parameter now and the member unused.
+You need to allocate a scheduler entity and use that for submission.
 
-> +	u64				cleaner_shader_gpu_addr;
-> +	void				*cleaner_shader_cpu_ptr;
-> +	const void			*cleaner_shader_ptr;
-
-> +	bool				enable_cleaner_shader;
-Probably better to test if cleaner_shader_obj is allocated or not 
-instead of having a separate bool.
-
-Regards,
 Christian.
 
->   };
+> +	if (r)
+> +		goto err_free;
+> +
+> +	r = dma_fence_wait_timeout(f, false, timeout);
+> +	if (r == 0)
+> +		r = -ETIMEDOUT;
+> +	else if (r > 0)
+> +		r = 0;
+> +
+> +	amdgpu_ib_free(adev, ib, f);
+> +	dma_fence_put(f);
+> +
+> +	return 0;
+> +
+> +err_free:
+> +	amdgpu_job_free(job);
+> +	amdgpu_ib_free(adev, ib, f);
+> +err:
+> +	return r;
+> +}
+> +
+> +static int amdgpu_gfx_run_cleaner_shader(struct amdgpu_device *adev, int xcp_id)
+> +{
+> +	int num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> +	struct amdgpu_ring *ring;
+> +	int num_xcc_to_clear;
+> +	int i, r, xcc_id;
+> +
+> +	if (adev->gfx.num_xcc_per_xcp)
+> +		num_xcc_to_clear = adev->gfx.num_xcc_per_xcp;
+> +	else
+> +		num_xcc_to_clear = 1;
+> +
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+> +			ring = &adev->gfx.compute_ring[i + xcc_id * adev->gfx.num_compute_rings];
+> +			if ((ring->xcp_id == xcp_id) && ring->sched.ready) {
+> +				r = amdgpu_gfx_run_cleaner_shader_job(ring);
+> +				if (r)
+> +					return r;
+> +				num_xcc_to_clear--;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	if (num_xcc_to_clear)
+> +		return -ENOENT;
+> +
+> +	return 0;
+> +}
+> +
+> +static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct device *dev,
+> +						 struct device_attribute *attr,
+> +						 const char *buf,
+> +						 size_t count)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +	int ret;
+> +	long value;
+> +
+> +	if (amdgpu_in_reset(adev))
+> +		return -EPERM;
+> +	if (adev->in_suspend && !adev->in_runpm)
+> +		return -EPERM;
+> +
+> +	ret = kstrtol(buf, 0, &value);
+> +
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	if (value < 0)
+> +		return -EINVAL;
+> +
+> +	if (adev->xcp_mgr) {
+> +		if (value >= adev->xcp_mgr->num_xcps)
+> +			return -EINVAL;
+> +	} else {
+> +		if (value > 1)
+> +			return -EINVAL;
+> +	}
+> +
+> +	ret = pm_runtime_get_sync(ddev->dev);
+> +	if (ret < 0) {
+> +		pm_runtime_put_autosuspend(ddev->dev);
+> +		return ret;
+> +	}
+> +
+> +	ret = amdgpu_gfx_run_cleaner_shader(adev, value);
+> +
+> +	pm_runtime_mark_last_busy(ddev->dev);
+> +	pm_runtime_put_autosuspend(ddev->dev);
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	return count;
+> +}
+> +
+>   static ssize_t amdgpu_gfx_get_enforce_isolation(struct device *dev,
+>   						struct device_attribute *attr,
+>   						char *buf)
+> @@ -1469,6 +1595,9 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
+>   	return count;
+>   }
 >   
->   struct amdgpu_gfx_ras_reg_entry {
-> @@ -545,6 +553,12 @@ void amdgpu_gfx_ras_error_func(struct amdgpu_device *adev,
->   		void *ras_error_status,
->   		void (*func)(struct amdgpu_device *adev, void *ras_error_status,
->   				int xcc_id));
-> +int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
-> +				      unsigned int cleaner_shader_size);
-> +void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev);
-> +void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
-> +				    unsigned int cleaner_shader_size,
-> +				    const void *cleaner_shader_ptr);
+> +static DEVICE_ATTR(run_cleaner_shader, 0200,
+> +		   NULL, amdgpu_gfx_set_run_cleaner_shader);
+> +
+>   static DEVICE_ATTR(enforce_isolation, 0644,
+>   		   amdgpu_gfx_get_enforce_isolation,
+>   		   amdgpu_gfx_set_enforce_isolation);
+> @@ -1509,6 +1638,10 @@ int amdgpu_gfx_sysfs_isolation_shader_init(struct amdgpu_device *adev)
+>   			return r;
+>   	}
 >   
->   static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+> +	r = device_create_file(adev->dev, &dev_attr_run_cleaner_shader);
+> +	if (r)
+> +		return r;
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1516,6 +1649,7 @@ void amdgpu_gfx_sysfs_isolation_shader_fini(struct amdgpu_device *adev)
 >   {
+>   	if (!amdgpu_sriov_vf(adev))
+>   		device_remove_file(adev->dev, &dev_attr_enforce_isolation);
+> +	device_remove_file(adev->dev, &dev_attr_run_cleaner_shader);
+>   }
+>   
+>   int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
 
---------------KssTU6PGFyvD0mPNbu4phE30
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">Am 15.08.24 um 02:04 schrieb Alex
-      Deucher:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">From: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
-
-The cleaner shader is used by the CP firmware to clean LDS and GPRs
-between processes on the CUs.
-
-This adds an internal API for GFX IP code to allocate and initialize the
-cleaner shader.
-
-Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
-Suggested-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 35 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 14 ++++++++++
- 2 files changed, 49 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 9be8cafdcecc..4ed69fcfe9c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1416,3 +1416,38 @@ void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
- 	device_remove_file(adev-&gt;dev, &amp;dev_attr_current_compute_partition);
- 	device_remove_file(adev-&gt;dev, &amp;dev_attr_available_compute_partition);
- }
-+
-+int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
-+				      unsigned int cleaner_shader_size)
-+{
-+	if (!adev-&gt;gfx.enable_cleaner_shader)
-+		return -EOPNOTSUPP;</pre>
-    </blockquote>
-    <br>
-    It's probably better to not call the function in the first place
-    instead of returning an error.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-+
-+	return amdgpu_bo_create_kernel(adev, cleaner_shader_size, PAGE_SIZE,
-+				       AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT,
-+				       &amp;adev-&gt;gfx.cleaner_shader_obj,
-+				       &amp;adev-&gt;gfx.cleaner_shader_gpu_addr,
-+				       (void **)&amp;adev-&gt;gfx.cleaner_shader_cpu_ptr);
-+}
-+
-+void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev)
-+{
-+	if (!adev-&gt;gfx.enable_cleaner_shader)
-+		return;
-+
-+	amdgpu_bo_free_kernel(&amp;adev-&gt;gfx.cleaner_shader_obj,
-+			      &amp;adev-&gt;gfx.cleaner_shader_gpu_addr,
-+			      (void **)&amp;adev-&gt;gfx.cleaner_shader_cpu_ptr);
-+}
-+
-+void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
-+				    unsigned int cleaner_shader_size,
-+				    const void *cleaner_shader_ptr)
-+{
-+	if (!adev-&gt;gfx.enable_cleaner_shader)
-+		return;
-+
-+	if (adev-&gt;gfx.cleaner_shader_cpu_ptr &amp;&amp; cleaner_shader_ptr)
-+		memcpy_toio(adev-&gt;gfx.cleaner_shader_cpu_ptr, cleaner_shader_ptr,
-+			    cleaner_shader_size);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 6fe77e483bb7..5ff3ab7d429a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -444,6 +444,14 @@ struct amdgpu_gfx {
- 	uint32_t			*ip_dump_core;
- 	uint32_t			*ip_dump_compute_queues;
- 	uint32_t			*ip_dump_gfx_queues;
-+
-+	/* cleaner shader */
-+	struct amdgpu_bo		*cleaner_shader_obj;</pre>
-    </blockquote>
-    <span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite"
-      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">+	unsigned int                    cleaner_shader_size;</pre>
-    </blockquote>
-    This is a parameter now and the member unused.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-+	u64				cleaner_shader_gpu_addr;
-+	void				*cleaner_shader_cpu_ptr;
-+	const void			*cleaner_shader_ptr;</pre>
-    </blockquote>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-+	bool				enable_cleaner_shader;</pre>
-    </blockquote>
-    Probably better to test if cleaner_shader_obj is allocated or not
-    instead of having a separate bool.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">
- };
- 
- struct amdgpu_gfx_ras_reg_entry {
-@@ -545,6 +553,12 @@ void amdgpu_gfx_ras_error_func(struct amdgpu_device *adev,
- 		void *ras_error_status,
- 		void (*func)(struct amdgpu_device *adev, void *ras_error_status,
- 				int xcc_id));
-+int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
-+				      unsigned int cleaner_shader_size);
-+void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev);
-+void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
-+				    unsigned int cleaner_shader_size,
-+				    const void *cleaner_shader_ptr);
- 
- static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
- {
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------KssTU6PGFyvD0mPNbu4phE30--
