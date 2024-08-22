@@ -4,105 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 428F4C5472E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65EAC54730
 	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 07:20:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B08D810E7A0;
-	Thu, 22 Aug 2024 07:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 042FB10E7AC;
+	Thu, 22 Aug 2024 07:20:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="ckVpvyN8";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="M1RMuZZs";
 	dkim-atps=neutral
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E21510E5F2;
- Wed, 21 Aug 2024 14:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lxOLKkIQ7poSz2tJygrDKrikqb7HuPRZ9lURWfUtGTA=; b=ckVpvyN8jxqtuL1DTYzbKqon8r
- OFSNvDGX4aLwG1VDmJFbbbzn+SvlTfaDzHL0V0pgqzLKj1ydkl2pquDtA+gBCs4Vq4Yq6ArBCfEYR
- qZ8w88/MouCFeP7fmHoF04ktgCputMXLKo8Ojqy15Y29ZfW0puhfZ1VnkUtRMfrPMzLZ/hB1XqLQp
- eFdwd8WFso+lJ3quptmkeRbg6ys6CB+30tJF71CQpCnYfGvW6CbgAc+I/prKWeQAkfBDb2ooaVD9r
- R45yMnxA0zEeglC+y5YwK0eKzRsEXX4LelfnCtP0ZHbcV+IODvlA9ZshORDFLeQNQEZjI8D5tC0fz
- IcFkiPEQ==;
-Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:36126
- helo=[192.168.0.142]) by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96.2)
- (envelope-from <david@lechnology.com>) id 1sglj3-00024a-1M;
- Wed, 21 Aug 2024 09:48:01 -0400
-Message-ID: <8c2a2b80-cdb2-482f-85aa-4b7a943e0166@lechnology.com>
-Date: Wed, 21 Aug 2024 08:47:59 -0500
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on2072.outbound.protection.outlook.com [40.107.215.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3118A10E78D;
+ Thu, 22 Aug 2024 06:58:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cjZjhjR88VC/q7HrLKEc9OSgNGWLZ10zf1Vgjorxqiiqq+N+WRyWofCxSBp7egU0/crnOUwLcbGC0PPz2iXTD5LvdDBZA6nLBMmbCazWz0OjWEphdKJLGnq7b3WGpgUDAuPr+uGACd+BHuY47scz8nn2wXhTTbJ9s8t+tGCoGG32NmUrWvq4mwdmRtUc/JiXnaw/LeUm8PHPZt8SafgQXqz9/Uf/7VAyKbl5wSQ2oR6fsgnKjWXBX090rtlN0ZrspTfDqO6vk94ezO/PnHjhp4JnpPHqqMmZCDtbwyPIyHyMEQMIbfmRWdgLT9m1jz9Sky1Khb2UonRGM5RIOEQsrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mTsu0wrvbdIEE6vA3MQgBXlaN79AI4+N6lS1tqsz9ss=;
+ b=eUfaKqImEAQyW171bhjaQ3XZS/VTewctBra6VSY78tqJMWRooeK8UP4R0mINSkyTVL7fQ7RAU7pVyG8OC0Tko4PnWmZ/MWAxpJjdgLcIABEr173cM/s4KIKRf5JhFbE69JxlD6t3B0igs7irjD2VhlwZj4MSgyQ6Zbal7m7G/GZEk3XTisbGQ1HSnxtCc4DHUmCu6oPEEopIBv3VSFF/Mep7TH3po0wLMhjLLim565YYMw4ka7dTE8CjCo9HPsC7NHX4JlVw+qiiZ9BmguPv3DB3Y6tMlHaeP0NrM4TM4n/b7rwiPdkFUjdFEneogil8NVcOFnsDRg+O8u6A6UhRrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mTsu0wrvbdIEE6vA3MQgBXlaN79AI4+N6lS1tqsz9ss=;
+ b=M1RMuZZs05ZAGfM/evNuF3mFCjZvLbVbh3Vpgto3T3XDUrwlko8aOFm47/dXD/eak22SBLCmFgENgC06Pvl6KFTguwdZKj36CV/DIXfADd1Ou/ChHn14fXoI9rG1MyihuX3tmAN09r38b346gWrxzi4e2w80u4NdCki2pADmf+p3EHwzOwulHGcLW/5rS0F5SYyVkxSoI173NnsDxZpa27Szjop6pCQZ+xfp7WxcbfVGHULWdLR9eR5rQ1f4UXyAXn91E2lgOazMqhKHQvjHWNbLgWy+/tIxkyZjewrox67V8/SUzz97aglmZ1yHbY7q+jUpma6csE+ag5h3HVYmMQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from TYZPR06MB4461.apcprd06.prod.outlook.com (2603:1096:400:82::8)
+ by PUZPR06MB5982.apcprd06.prod.outlook.com (2603:1096:301:112::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19; Thu, 22 Aug
+ 2024 06:58:09 +0000
+Received: from TYZPR06MB4461.apcprd06.prod.outlook.com
+ ([fe80::9c62:d1f5:ede3:1b70]) by TYZPR06MB4461.apcprd06.prod.outlook.com
+ ([fe80::9c62:d1f5:ede3:1b70%7]) with mapi id 15.20.7897.014; Thu, 22 Aug 2024
+ 06:58:09 +0000
+From: Yu Jiaoliang <yujiaoliang@vivo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Dillon Varone <dillon.varone@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: opensource.kernel@vivo.com
+Subject: [PATCH v1 4/6] drm/amd/display: Use max/min macro
+Date: Thu, 22 Aug 2024 14:57:21 +0800
+Message-Id: <20240822065723.1336181-5-yujiaoliang@vivo.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240822065723.1336181-1-yujiaoliang@vivo.com>
+References: <20240822065723.1336181-1-yujiaoliang@vivo.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0049.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::18) To TYZPR06MB4461.apcprd06.prod.outlook.com
+ (2603:1096:400:82::8)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/86] drm/ili9225: Run DRM default client setup
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-References: <20240821130348.73038-1-tzimmermann@suse.de>
- <20240821130348.73038-17-tzimmermann@suse.de>
-Content-Language: en-US
-From: David Lechner <david@lechnology.com>
-Autocrypt: addr=david@lechnology.com; keydata=
- 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
-In-Reply-To: <20240821130348.73038-17-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR06MB4461:EE_|PUZPR06MB5982:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4d45a7d-1d94-4538-5a5c-08dcc277c826
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|52116014|7416014|921020|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Qt5qY8xaYneybMEkK5+XF17QlP3ctUHZ00AwIHam+emz56q8jDwKEF2js6DI?=
+ =?us-ascii?Q?2K4jkWhtFZu1YFoVujF7nUWBZDXV1M+p/PcPk94ZbwYg6Ay792rAfVeSNsNZ?=
+ =?us-ascii?Q?yxIsRfGIYWNNXbbfZdvtrTH/84kfHJUDGJ4+pqHAAs2cJpSca/qoXpQ07BaF?=
+ =?us-ascii?Q?ZArPC2a32lcmvaNafOlyXLlMcQruiTp0blGM/aXjdmVFNiPI4K/mi1FNLAIO?=
+ =?us-ascii?Q?G6ErGUqWFPIIyaGwR8PewwMDpJKGJ7RVDqHxRGz8rNMZ7wmoYMQ8U2vtYiDt?=
+ =?us-ascii?Q?uJncPbyFKFRPD5Fi324OMQO3pxAie77O1jT0Zacu1UrScBTHNiNXMMz8RM7h?=
+ =?us-ascii?Q?a55t6CC1LFXtxdv4LHVHqWJksIVkd4I5lzL6owmhDRXRlfVBbB4F0xstoSJQ?=
+ =?us-ascii?Q?+/6oVkwCylCqeqt/0tDezPZcOiZQmf+eycLgwTqF+wWM1ALnlB5daOBZmk46?=
+ =?us-ascii?Q?JMqe/lWXI0SdIy6qGRRUutg8gH+HrB7S/hoskY3bOMrgYQI9Z8qeOk/7OoI2?=
+ =?us-ascii?Q?aJGFrFnFP1R0ByoKxG/4cLGyshETGQlvE2Axv80Fy4uOy8kfJghdiIhjOW+P?=
+ =?us-ascii?Q?egAlcmsTGqwIY9v5E3LKWu2A2cCVZtzzOU//uX6UMb+LY9heKbVj4aKhS4Cx?=
+ =?us-ascii?Q?Kw4/9bsPv48Myv1EKkloeWsu8hNXT63xC5aY+8FN2NluwVSylPhKNTV7sDDV?=
+ =?us-ascii?Q?mL1Vv4a9hJ0+uKL8pMJ4Ffnpr/+SzHyH2RxdscoCYT1dMh52yTZWxSQo9XSF?=
+ =?us-ascii?Q?ygsjr8srTQtAzYaLstjgFp82Kn3yGueEWeXAKDkX18n86GgB74h45A1QeXRm?=
+ =?us-ascii?Q?lKcAHbofiAuIpUB7knocNdpTEHmCesNl2ld5xsJIhfVLPOGvIYlb+zZGiV2T?=
+ =?us-ascii?Q?PUY8NnTemwn4L5GhsZlLGLMFRfbaVSpRGbZ3L2aBMqDoYnleIVMMdAhHkJiq?=
+ =?us-ascii?Q?3ktcClxgW/uKYVx44TpygVOzDd6U+hWg8qNCzrRYZvbEPQhL618dTGRmrl06?=
+ =?us-ascii?Q?jYarScRFS7/geA9QqEBfn+5ElM4Al+3Z/pf4+DxXydOiY74oroK5yZ5G132E?=
+ =?us-ascii?Q?Eirk7raEHmb01gN6tD4eqfnEA01I0GqUUVb4I+j6BZNi2ciMr1rbgLwNtS7U?=
+ =?us-ascii?Q?viLqL5f+I//MxDqQFNhQj54o8Yp8eqfwduKj0cH/Vi1fsHq0myORj3/lkuOQ?=
+ =?us-ascii?Q?Kjznt7fXrQfbc6am1LdTYVOOddw0m25fqi0zI1X2M++ReoggKklSNO7amMd4?=
+ =?us-ascii?Q?eDyBsCSOE01PX/DwCpznpOGEI7YPnYQzOv2x7E9Y8+ebXVfsQiarfdRCopnN?=
+ =?us-ascii?Q?iznEelwEnybYIYbQVqkwuUBx6IQq6LJUNrp64uypPJBCNCC8wtNuYVnIlpCM?=
+ =?us-ascii?Q?TNQKLNlAjKbkv00pzKw3b41vY5zei2uqypkauKTqQNzYkkipOw2v7CMj0sw4?=
+ =?us-ascii?Q?xEhDBi0BOcE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR06MB4461.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(52116014)(7416014)(921020)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?f2IibXv9BAz1y7K8MmJfRtiPuPn4WkN2D8cdpSuhYrRFru9JBPgqWQRdxRZQ?=
+ =?us-ascii?Q?cwW0tnGU2bzRG1Vh+TihJ3naih4wsSXmuIPtPYd6UggXf1dPiCf9nKOwHh3R?=
+ =?us-ascii?Q?+FuuDpb5qgc0LokPxK7VohkBanekRAwAFZVFb49TwWzFix/8dx48OfiE+xmV?=
+ =?us-ascii?Q?PuHaBnqbhM2+BAO9HNx9VIKDpPgOK5iNmk97fGxAUNwATzc8fKf3F024YJA1?=
+ =?us-ascii?Q?GGNrg9k1sa5BLbFu0V9Pbwl8VeAlr0F/sp2cdCK+hI3766ny6+fkEobjn5VU?=
+ =?us-ascii?Q?BKvWQ4LUK0yBGFCA5IJjzmzm5tPRuH+6K6s49SEx8Qkd/o55dzpux6dQxRHJ?=
+ =?us-ascii?Q?c0TqrkQXQPoHBbfbQVDQFSG2YYMA3FyWxnIp20b0hwmDcBuQZjci6/OeE1a1?=
+ =?us-ascii?Q?pELasuTCjiLgWoUG19CoLtIQJ74P/rhcQBm9mNsOMdc6rKf4XvWEnQ2eS9OV?=
+ =?us-ascii?Q?1DZMRpnh76Jsl4GSHIaIgbDQsA2IAiTgyU6iXtvAVOrJjvoTWppnJugq31LK?=
+ =?us-ascii?Q?x6rFOEeQl8b2s5wclXMWrP+rnfhGW6SN3+VBtzutvaQTxJecgaFNaXOReZnv?=
+ =?us-ascii?Q?D/YH/mRvgFU2ZR4BRb9Mkq7Omx00dtRqKm/5wd3rwGCPGAHLrzIcdvT6ea3X?=
+ =?us-ascii?Q?Zk1VnmhUo4Gp1gwX2X2a7BdiTZBgNkwzebdvwrviADdVy4FjCyYpOFJC2NUY?=
+ =?us-ascii?Q?fAWWIXwK/utNl41WmDEK/KkYSTyO93UXRfr7jaBHfR4Ca8RwUQY8Ab0L66AL?=
+ =?us-ascii?Q?EW0TBpvcwW21g5OM2+YgUOBa6Y+z+FeY+F8RruJs5TAVd6hgttORg/lpI+sU?=
+ =?us-ascii?Q?Of64oVQL7HUKqMpuEg6QHrIyJm6wFBXDBYlVPbqQhc7HdgfJ9ole53Hdc8CH?=
+ =?us-ascii?Q?F/4/fRNwuT3OjsU1O3eT5jG504wGyNcSw+IH3tYalltweeM8dMKd6iuMdpTh?=
+ =?us-ascii?Q?k+NLEjj5rlr3VQusn7kjXNF/QrS1Efs1EhG0VF7Yl8U1isLx/tnVEig6IK5J?=
+ =?us-ascii?Q?CNBhvrSAL/erznzgJqs1nkdbnaXnfuwNUwS+4K3RKaib7Gio2xn9FOiG8d/M?=
+ =?us-ascii?Q?ldHsq/sxCH/j9hRxKLSdhNIdovkT6Es99iKMtbzpNT8ElR9vkGqQoW6D+yWW?=
+ =?us-ascii?Q?iCJsj2L015qzaBwWgizoN8PA00QwXRJINffQAqqHLkgpfqrsHncJ0qBNjWxg?=
+ =?us-ascii?Q?zmL0Fk7SS9sCuinLcjFpHRZDXjEbrRgohKyMK64ubcYR3UhSL9eI51jTfggf?=
+ =?us-ascii?Q?1gN1VUYHUndcHfGokNFrGKzZfxnBHANTh0vc/ljWMkb5xLc3VZluJFZxcY/M?=
+ =?us-ascii?Q?zpQfs1rz3tJ77nJZAbwgI5gsQv8462qMfPZ6TesT7xw2fQUUDIHFWWVY3YMq?=
+ =?us-ascii?Q?r2qrSutfqT0zrhxwXCkGEFZigbwuA7+tPZU5pgSJsl5VEmWQVMgGpdgZ+OHz?=
+ =?us-ascii?Q?mQQ67MAv3IPuDXwxnZR4THNaH10c6QpoiEk7d+nk7axAXsKqPFblLsj0rFby?=
+ =?us-ascii?Q?AxpQwFkarFCOBB7aHDNcwOht7aIqnpBVwL2DYsp0SH8aA4V3Zp4fkMDEG95J?=
+ =?us-ascii?Q?nkoEz65jGjFJ/yt/fuL8ZL8t141BCmIEm1RIk9Go?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4d45a7d-1d94-4538-5a5c-08dcc277c826
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR06MB4461.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2024 06:58:09.6332 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XlAzvivbHKgws98IlpL9hhHrHa5MnkYyyZ4R8SlPrOtTYLNdz0kvTxH0ovDcbEayBHnhm4iRKqfX1Mt+U/V0xA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5982
 X-Mailman-Approved-At: Thu, 22 Aug 2024 07:20:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,13 +151,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/21/24 7:59 AM, Thomas Zimmermann wrote:
-> Call drm_client_setup() to run the kernel's default client setup
-> for DRM. Set fbdev_probe in struct drm_driver, so that the client
-> setup can start the common fbdev client.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Lechner <david@lechnology.com>
-> ---
+Use the macro instead of ternary operator.
 
-Acked-by: David Lechner <david@lechnology.com>
+Signed-off-by: Yu Jiaoliang <yujiaoliang@vivo.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index b1265124608b..f48f8cf1e232 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -606,7 +606,7 @@ static void populate_subvp_cmd_drr_info(struct dc *dc,
+ 	max_drr_vblank_us = div64_u64((subvp_active_us - prefetch_us -
+ 			dc->caps.subvp_fw_processing_delay_us - drr_active_us), 2) + drr_active_us;
+ 	max_drr_mallregion_us = subvp_active_us - prefetch_us - mall_region_us - dc->caps.subvp_fw_processing_delay_us;
+-	max_drr_supported_us = max_drr_vblank_us > max_drr_mallregion_us ? max_drr_vblank_us : max_drr_mallregion_us;
++	max_drr_supported_us = max(max_drr_vblank_us, max_drr_mallregion_us);
+ 	max_vtotal_supported = div64_u64(((uint64_t)drr_timing->pix_clk_100hz * 100 * max_drr_supported_us),
+ 			(((uint64_t)drr_timing->h_total * 1000000)));
+ 
+-- 
+2.34.1
+
