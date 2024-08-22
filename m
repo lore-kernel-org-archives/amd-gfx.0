@@ -4,118 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B28C3DA4A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 04:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE84C531DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Aug 2024 06:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5A110E02A;
-	Thu, 22 Aug 2024 04:22:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDC5810E73E;
+	Thu, 22 Aug 2024 06:24:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vIN+Yup8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q22V/OQO";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2065.outbound.protection.outlook.com [40.107.212.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5837D10E02A
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 04:22:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i4wxqmOQv+5cEGPnQM5k8chAXp7xQamBpfLPeJ6eFMsKP0LaeIWDqzYT8wBC9koKs4Fi9cVyAvYHH6Gav+DE/8LG4q6IZmpjkLaE34iUGpQr5/LfXAWelbmhVfWgvdNKztc1tmd8eErPqk4Hv0Z2BQa+E02Jn62NXLnNL3B3QB4qk3QBDvu9oWBWK/4Q92o9ATPsYPZ0Y6dqcRr+oQBJk9bMXIEVvHSQkc+wVA8Lz0mU0pzN5a8qVi52kcV0wnBzgbNvwWLKlTBBDhGY+yIQLPLmUPwUPoEoXURrzxssQuKnSlBQVc1QO66+g3i47ZwimCKTqS84vVBRC+yOko7o8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0zMZNaYD6z8Bt9e/GV4x8CDH0IAXuCZDgLK7nmtyCJE=;
- b=peTvG3Il3gNbtvhbFRVO5JfRHqIDWY5HIY6n/YgDLLvbZOmK66jIevrJQ6lSVzCTCMYWdHg5taUjyh/YL2qMijvib8I4rEXUlgyJkzINO2qWKIrBkSHh+/z8lMeYKYTzAk+Ayu8XXv4w277GtsZJXyQeaTddA30XLQOz238WS0mZU7u9Cfs/Zh6MB8c0CPwl20/Py75H88XzNf+9Nds0f01UNyVoyb6vKAZaPyUXLJ5rcLQtv2WthhMvj/VuEA6bkkbeP/1SGih5XRqNh4TEoYvm5ND8ynI1xvElyW2m/mB9s8Uduaj4GCZkeehrXEI/wuWLUYYMXriaWZR4B+mS4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0zMZNaYD6z8Bt9e/GV4x8CDH0IAXuCZDgLK7nmtyCJE=;
- b=vIN+Yup8xs1sP9Mmr+9OL0QB/N0+bMLe0hT/uD9Je9iml605kjCaFnR9JqCuWU4FDW7q7xuRogUWC6Q8EsCdWQy5wnSwaKJ3zoTpHpBGLXahPRBJJFLnkDva2tR4IJdtm4vC+pioI5rOijFB/kDG3kimZLSl6WJso/F/kuDitLo=
-Received: from CH0PR03CA0256.namprd03.prod.outlook.com (2603:10b6:610:e5::21)
- by DS0PR12MB6558.namprd12.prod.outlook.com (2603:10b6:8:d2::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Thu, 22 Aug
- 2024 04:22:03 +0000
-Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
- (2603:10b6:610:e5:cafe::a7) by CH0PR03CA0256.outlook.office365.com
- (2603:10b6:610:e5::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19 via Frontend
- Transport; Thu, 22 Aug 2024 04:22:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.11 via Frontend Transport; Thu, 22 Aug 2024 04:22:03 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 21 Aug
- 2024 23:21:57 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Asad.Kamal@amd.com>, Asad Kamal <asad.kamal@amd.com>
-Subject: [PATCH] drm/amd/pm: Add support for new P2S table revision
-Date: Thu, 22 Aug 2024 09:50:50 +0530
-Message-ID: <20240822042050.1812745-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38B8010E73F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Aug 2024 06:24:48 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-428fb103724so8149445e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Aug 2024 23:24:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724307886; x=1724912686; darn=lists.freedesktop.org;
+ h=in-reply-to:from:content-language:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NeNujMnjx8VMJMox/MSmugjzWmXohxIZaEVfcHNFG4M=;
+ b=Q22V/OQOgb8i3nFfutX5jehMbXDE8xmb8Rgvg1Gh5ebxS7tDlKGgcPfcwaBLFew42Q
+ rZYBehx2j2x3FFFM3sswG5mgL7ntzbyAuIGISu29irxkumHwsOTTbg66yvllItDNK2/9
+ vJXa3sb9LXOcnaUjFQSizylo7wZa8s7Y6Oy9vuOduJzy55znSujVGKJE6QpfhaDSwyig
+ i8H4ncJdtOC1s3pGxdCb/hw4olLEFLEH/M27UT18qjVcqNw80gKXG+0y/riSnn8qtVeV
+ 5lhi2cfoEzMrktR9q+cnOAXbQzwnOfZ+fkQemQF+kPGEQDP4eUjavTo9BtiVBD73hP3G
+ bFyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724307886; x=1724912686;
+ h=in-reply-to:from:content-language:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=NeNujMnjx8VMJMox/MSmugjzWmXohxIZaEVfcHNFG4M=;
+ b=WZJf5jt7rSR2poV4wXoA7AAuhfaRay0WPpQKY4cO/ni1+DQm383XYaNqW2yyVB6H2L
+ C5obzfMHaR9zvGuluogPy1tuhNGtqdBTudvLWR0qxOnATx6Z9SXgZcVV5d/IEMdVvRRU
+ o5Nkglia21jnqyRYQemQGmnOaTtupXFhfp3Ulgu3V9Y8Nkdx64aerr3s1+4r+nVV0FHT
+ mW7slpmaIjYI78ZWDyRlrRmoOzRMuY+ip4N5rJHGRKopHJVTBNpMVZ6TsgflcnhmbUrW
+ QvmOgoKdlLQ8oLHLGHkp9/vyOF1mxuD2J9q0VQPSsnDbBiebdjv2tNbP+25Aq857QjHC
+ dgXA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVAc3NkVV3qw13uGF55Ba8SgFVyIknnuymISZzLhhNJzHn1FQ8JyDqRd1Dkf+1GyesE+SdDXUt0@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiPJEChtYHc5arAEBTbpE8gTkoVbBM4MlYZas81sQRMdPj3apZ
+ QvGk8ux0ngFJ7bfSY23hIYW4FPAsPSnmB2GL3/paapXXVlFfWLKY
+X-Google-Smtp-Source: AGHT+IGQ4lXNnWNSwuIOy+Pbx1NuOQcKqs1SxZ4QRuSHe5L6M/khDyvOQ4jU8fH+VylozeREkdOoqw==
+X-Received: by 2002:a05:600c:3b9c:b0:424:895c:b84b with SMTP id
+ 5b1f17b1804b1-42ac3899b27mr10843965e9.4.1724307885398; 
+ Wed, 21 Aug 2024 23:24:45 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42abef815d2sm48264355e9.24.2024.08.21.23.24.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Aug 2024 23:24:44 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------KssTU6PGFyvD0mPNbu4phE30"
+Message-ID: <e4cc2e51-4d2b-4130-b028-44794c25a30b@gmail.com>
+Date: Thu, 22 Aug 2024 08:24:43 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|DS0PR12MB6558:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4658b3d-a677-4333-40f1-08dcc261f9a9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YnYIwjBmwzX2+W1IG97BoxWVG8pdkF/tjKfE4GJJR0dIZztiqfNP/bnn+IjU?=
- =?us-ascii?Q?GWi+HcuCRMtddNoE6DnhISqrHmdb1M1DVEEVGpPEIC0yJrBVcGSDJj+NlhpK?=
- =?us-ascii?Q?bqilLenpUbBP2yzx5BaotjenVuJ48PvQB0lwAgIQbhOPP/OQOmfItTYtxr9O?=
- =?us-ascii?Q?mVWqCKE36SWN5kETjQaJQQd2aF5uFnwCJ7AGx/A4ESR+c345NlW0o8Fh+z96?=
- =?us-ascii?Q?LMypld1DpePAFyafrW1teOkx4PR+WJzzIt1We/IQsOrxTUXIAtK61unA5S05?=
- =?us-ascii?Q?iR+U7BlJ5GZW8qOpZALt1JMWKB+vttQ+Otj6OylyKCVyAx1Erb4pIfWzeTnb?=
- =?us-ascii?Q?jNH4jwbxt2OFgJX4pc1lEESMfTsdhNO7r5zpO7zg/eNfM/9M+pMM+W9oiO9Y?=
- =?us-ascii?Q?/EcZNOkxG/bLPtJVfcjEJSA+rTnNCOdvqYcJoLkwoS6vMZxsgciSHDv6kxRg?=
- =?us-ascii?Q?paN+wWBlkQ6BC3ra0ZdwB4AKSFRXLL5zimxHXcKKOSUW74aaHP85dfuOWprh?=
- =?us-ascii?Q?JGi6NT5VhVyTJdGWPjy5z52pG+xQ72n1ndkE299zB98HopAIEGr1TEqLD7VU?=
- =?us-ascii?Q?c9ZDqrevPx9MQiAr0d3MJ+kv6R2u1ydFxfHkPG8BBjcYmHZUTFFUwW2HnD+9?=
- =?us-ascii?Q?BVVEoAsfIO8lCx9Aykjdj3kM+NDLRqj2zISh/JEw+BkDEGqy4f1XCp4YbGHH?=
- =?us-ascii?Q?e0OzI/cMeMBLEYC95VPIULjNNk5jNJvewWQkWUGreB/YBYYTEubzOhk0x30f?=
- =?us-ascii?Q?CpEXYigj+vIv01KhIp9RR+9PkCf0gb1BKIF27X7DtVt8lBN8yq9yXMh15sXE?=
- =?us-ascii?Q?tPalguFKhKPO7pKl0HI5OGfJx3kcP2CfRW+X1h0IXbUEFozRSyT6nuL00sa3?=
- =?us-ascii?Q?lGzq4Xmc/kGZt6d/HAt3j1RV3pvy0J7hXz2+sLbZFHaOjtLV5SueVQOXV/Fg?=
- =?us-ascii?Q?bD9KPC6YKDgdilVxqNXNgceNquhuYsvUAVVAZPgtnyv1jSqWheICgElPXnyT?=
- =?us-ascii?Q?PebStit+U8JUTG0u59kLqSVwNYnSRKNpPWnAn0roZPwJKzwo17dxDn5zd9af?=
- =?us-ascii?Q?ITFIJ5KmnI29d1H803f+nIqhLHVfKmB+0ZO8YQ7Vu7JyjgN80ratu+UNaA35?=
- =?us-ascii?Q?znzHiGrbEzOi1yXF+FxVKs1vNzJqA+XsqGbngoIEVHBsvapJU1AfhUXPmy9u?=
- =?us-ascii?Q?jvuDjvDk9fIJiDLNT04hOLIKl1pXdkjWaiqw+4ILOKelmweP59qpGnd8BPLn?=
- =?us-ascii?Q?fgmXHeDg3h8U106BlVshElVHN4Q8oRcMD210EJfMYwQzjuAy5S5TlxXnv89l?=
- =?us-ascii?Q?Uc8tYOG5LETdJ1wP1hxe2ulTvgyXEekdjmJjEipNXT9Dgujabk9+WyT33o4x?=
- =?us-ascii?Q?nxXVjb26QKAkVCV+m80sTO1Udkn3UdXc/yeK4CcjMH3sxfwYunQTWqH5m9Sb?=
- =?us-ascii?Q?ZWrpQjioSCLKqSSVVoQVYvXhrJ+J/+pU?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2024 04:22:03.5221 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4658b3d-a677-4333-40f1-08dcc261f9a9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6558
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/17] drm/amdgpu: Add infrastructure for Cleaner Shader
+ feature
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20240815000501.1845226-1-alexander.deucher@amd.com>
+ <20240815000501.1845226-3-alexander.deucher@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240815000501.1845226-3-alexander.deucher@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,47 +86,269 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add p2s table support for a new revision of SMUv13.0.6.
+This is a multi-part message in MIME format.
+--------------KssTU6PGFyvD0mPNbu4phE30
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+
+
+Am 15.08.24 um 02:04 schrieb Alex Deucher:
+> From: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
+>
+> The cleaner shader is used by the CP firmware to clean LDS and GPRs
+> between processes on the CUs.
+>
+> This adds an internal API for GFX IP code to allocate and initialize the
+> cleaner shader.
+>
+> Cc: Christian König<christian.koenig@amd.com>
+> Cc: Alex Deucher<alexander.deucher@amd.com>
+> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
+> Suggested-by: Christian König<christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 35 +++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 14 ++++++++++
+>   2 files changed, 49 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 9be8cafdcecc..4ed69fcfe9c1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1416,3 +1416,38 @@ void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
+>   	device_remove_file(adev->dev, &dev_attr_current_compute_partition);
+>   	device_remove_file(adev->dev, &dev_attr_available_compute_partition);
+>   }
+> +
+> +int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
+> +				      unsigned int cleaner_shader_size)
+> +{
+> +	if (!adev->gfx.enable_cleaner_shader)
+> +		return -EOPNOTSUPP;
+
+It's probably better to not call the function in the first place instead 
+of returning an error.
+
+> +
+> +	return amdgpu_bo_create_kernel(adev, cleaner_shader_size, PAGE_SIZE,
+> +				       AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT,
+> +				       &adev->gfx.cleaner_shader_obj,
+> +				       &adev->gfx.cleaner_shader_gpu_addr,
+> +				       (void **)&adev->gfx.cleaner_shader_cpu_ptr);
+> +}
+> +
+> +void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev)
+> +{
+> +	if (!adev->gfx.enable_cleaner_shader)
+> +		return;
+> +
+> +	amdgpu_bo_free_kernel(&adev->gfx.cleaner_shader_obj,
+> +			      &adev->gfx.cleaner_shader_gpu_addr,
+> +			      (void **)&adev->gfx.cleaner_shader_cpu_ptr);
+> +}
+> +
+> +void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
+> +				    unsigned int cleaner_shader_size,
+> +				    const void *cleaner_shader_ptr)
+> +{
+> +	if (!adev->gfx.enable_cleaner_shader)
+> +		return;
+> +
+> +	if (adev->gfx.cleaner_shader_cpu_ptr && cleaner_shader_ptr)
+> +		memcpy_toio(adev->gfx.cleaner_shader_cpu_ptr, cleaner_shader_ptr,
+> +			    cleaner_shader_size);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 6fe77e483bb7..5ff3ab7d429a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -444,6 +444,14 @@ struct amdgpu_gfx {
+>   	uint32_t			*ip_dump_core;
+>   	uint32_t			*ip_dump_compute_queues;
+>   	uint32_t			*ip_dump_gfx_queues;
+> +
+> +	/* cleaner shader */
+> +	struct amdgpu_bo		*cleaner_shader_obj;
+> +	unsigned int                    cleaner_shader_size;
+This is a parameter now and the member unused.
+
+> +	u64				cleaner_shader_gpu_addr;
+> +	void				*cleaner_shader_cpu_ptr;
+> +	const void			*cleaner_shader_ptr;
+
+> +	bool				enable_cleaner_shader;
+Probably better to test if cleaner_shader_obj is allocated or not 
+instead of having a separate bool.
+
+Regards,
+Christian.
+
+>   };
+>   
+>   struct amdgpu_gfx_ras_reg_entry {
+> @@ -545,6 +553,12 @@ void amdgpu_gfx_ras_error_func(struct amdgpu_device *adev,
+>   		void *ras_error_status,
+>   		void (*func)(struct amdgpu_device *adev, void *ras_error_status,
+>   				int xcc_id));
+> +int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
+> +				      unsigned int cleaner_shader_size);
+> +void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev);
+> +void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
+> +				    unsigned int cleaner_shader_size,
+> +				    const void *cleaner_shader_ptr);
+>   
+>   static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+>   {
+
+--------------KssTU6PGFyvD0mPNbu4phE30
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class="moz-cite-prefix">Am 15.08.24 um 02:04 schrieb Alex
+      Deucher:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
+      <pre class="moz-quote-pre" wrap="">From: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
+
+The cleaner shader is used by the CP firmware to clean LDS and GPRs
+between processes on the CUs.
+
+This adds an internal API for GFX IP code to allocate and initialize the
+cleaner shader.
+
+Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
+Suggested-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 35 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 14 ++++++++++
+ 2 files changed, 49 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 7cea0862dcbb..ece1ffc1e56d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -121,6 +121,7 @@ struct mca_ras_info {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 9be8cafdcecc..4ed69fcfe9c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1416,3 +1416,38 @@ void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
+ 	device_remove_file(adev-&gt;dev, &amp;dev_attr_current_compute_partition);
+ 	device_remove_file(adev-&gt;dev, &amp;dev_attr_available_compute_partition);
+ }
++
++int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
++				      unsigned int cleaner_shader_size)
++{
++	if (!adev-&gt;gfx.enable_cleaner_shader)
++		return -EOPNOTSUPP;</pre>
+    </blockquote>
+    <br>
+    It's probably better to not call the function in the first place
+    instead of returning an error.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
+      <pre class="moz-quote-pre" wrap="">
++
++	return amdgpu_bo_create_kernel(adev, cleaner_shader_size, PAGE_SIZE,
++				       AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT,
++				       &amp;adev-&gt;gfx.cleaner_shader_obj,
++				       &amp;adev-&gt;gfx.cleaner_shader_gpu_addr,
++				       (void **)&amp;adev-&gt;gfx.cleaner_shader_cpu_ptr);
++}
++
++void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev)
++{
++	if (!adev-&gt;gfx.enable_cleaner_shader)
++		return;
++
++	amdgpu_bo_free_kernel(&amp;adev-&gt;gfx.cleaner_shader_obj,
++			      &amp;adev-&gt;gfx.cleaner_shader_gpu_addr,
++			      (void **)&amp;adev-&gt;gfx.cleaner_shader_cpu_ptr);
++}
++
++void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
++				    unsigned int cleaner_shader_size,
++				    const void *cleaner_shader_ptr)
++{
++	if (!adev-&gt;gfx.enable_cleaner_shader)
++		return;
++
++	if (adev-&gt;gfx.cleaner_shader_cpu_ptr &amp;&amp; cleaner_shader_ptr)
++		memcpy_toio(adev-&gt;gfx.cleaner_shader_cpu_ptr, cleaner_shader_ptr,
++			    cleaner_shader_size);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 6fe77e483bb7..5ff3ab7d429a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -444,6 +444,14 @@ struct amdgpu_gfx {
+ 	uint32_t			*ip_dump_core;
+ 	uint32_t			*ip_dump_compute_queues;
+ 	uint32_t			*ip_dump_gfx_queues;
++
++	/* cleaner shader */
++	struct amdgpu_bo		*cleaner_shader_obj;</pre>
+    </blockquote>
+    <span style="white-space: pre-wrap">
+</span>
+    <blockquote type="cite"
+      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
+      <pre class="moz-quote-pre" wrap="">+	unsigned int                    cleaner_shader_size;</pre>
+    </blockquote>
+    This is a parameter now and the member unused.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
+      <pre class="moz-quote-pre" wrap="">
++	u64				cleaner_shader_gpu_addr;
++	void				*cleaner_shader_cpu_ptr;
++	const void			*cleaner_shader_ptr;</pre>
+    </blockquote>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
+      <pre class="moz-quote-pre" wrap="">
++	bool				enable_cleaner_shader;</pre>
+    </blockquote>
+    Probably better to test if cleaner_shader_obj is allocated or not
+    instead of having a separate bool.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20240815000501.1845226-3-alexander.deucher@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+ };
  
- #define P2S_TABLE_ID_A 0x50325341
- #define P2S_TABLE_ID_X 0x50325358
-+#define P2S_TABLE_ID_3 0x50325303
+ struct amdgpu_gfx_ras_reg_entry {
+@@ -545,6 +553,12 @@ void amdgpu_gfx_ras_error_func(struct amdgpu_device *adev,
+ 		void *ras_error_status,
+ 		void (*func)(struct amdgpu_device *adev, void *ras_error_status,
+ 				int xcc_id));
++int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
++				      unsigned int cleaner_shader_size);
++void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_device *adev);
++void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
++				    unsigned int cleaner_shader_size,
++				    const void *cleaner_shader_ptr);
  
- // clang-format off
- static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COUNT] = {
-@@ -279,14 +280,18 @@ static int smu_v13_0_6_init_microcode(struct smu_context *smu)
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t p2s_table_id = P2S_TABLE_ID_A;
- 	int ret = 0, i, p2stable_count;
-+	int var = (adev->pdev->device & 0xF);
- 	char ucode_prefix[15];
- 
- 	/* No need to load P2S tables in IOV mode */
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	if (!(adev->flags & AMD_IS_APU))
-+	if (!(adev->flags & AMD_IS_APU)) {
- 		p2s_table_id = P2S_TABLE_ID_X;
-+		if (var == 0x5)
-+			p2s_table_id = P2S_TABLE_ID_3;
-+	}
- 
- 	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix,
- 				       sizeof(ucode_prefix));
--- 
-2.25.1
+ static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+ {
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
+--------------KssTU6PGFyvD0mPNbu4phE30--
