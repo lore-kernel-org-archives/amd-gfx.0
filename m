@@ -4,147 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96985C52D7C
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 18:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CCD4C52D7C
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 18:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 483B810E08B;
-	Fri, 23 Aug 2024 18:24:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE9710E062;
+	Fri, 23 Aug 2024 18:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J/qNU/Hg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fn5Umjy7";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2056.outbound.protection.outlook.com [40.107.96.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6557610E08B
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 18:24:57 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060.outbound.protection.outlook.com [40.107.243.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD25F10E062
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 18:45:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DLsjmWgXODs267/0a7sRnU+WcDVDVjGae82ycHV9GNo7OuyYAiLbpJE0KJgCblfgZREcUdh2wkyy6GzTuvu07un7JQ+lJDWCfRTbqJfgcjknEYtP0WiPQzDQI65chef3BiUHPEXkKiLU6zanOXo5lqOs2VcGYSe0UapjNDP+Ej1LVIWEFpVzNQ3IJg6hSFsWZoz9tLj0aRRQ7Wzi9V55hUHlvRjlqQ+UXvXZQPGNujNr/KZsfv7i1okVqX892/kPGLxsWXqM3Wi6QZdmrfZBpj/0Du5eu9A824FBogjyzPNcZ1avDMWHwsHIpbqJGHFwImIClB7bj9/99nx0aAnERA==
+ b=OIpUc+mOSc7RFQrMXBvb9B4QSblpFlEEzZZJ7ESORbLf+dXNhN+3wlsll/L5vBfcK2YrmWXkIQ0lbmfc6n64XDYvw0b9X1k80BIInjXUgHcG5+Co2Z+qooLnVybeoZydhq7+UI+uKIvZtatCs+9oYPTGtMNB3n/EM6Ipn3h4sCtwiSAUGUfzQooSOn2bPXkh87+iHfFJaLd5+Psog5ph+j41QHt/gbizZgLkOp4suU5C8yX8QdDQ6qoxkT8OCMGA9tbpbDOpYL8pt8+OPFuddlWa/y6wqf5c56QCTIYlUxXOa08RSsWWbpDVX/gc+AxpHjhbBCjTDfLU/hC+fFcB8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rwX8RrqS+Qld4W3LtJ4+k2IAtrt8DdEI9HeTkCRBicA=;
- b=qqmPWPBT0sNlgpH+RMfP33kXWznMuSTlFOXdp98CdivEG6O/ca6C9NviHnuub4uOQzAnPL/UbCWltU4pcPMbUjBRSUXeaSVzl7oaimuTVyPhTVm1XUCEpheqo6pjsHVN9XInvvc1M+Iig3hidhRMmJuhjpT4VZZK8PJfERcY2EN9bymO/BRvRZ5+n+cI+3w5IPSiTqMbXXdNPXgx09YPQKyVgF96wJRggB+gebX0Lgj6YP5iSUB4EdiqSZ0/ttYWXADGrWbd6W8Y3jyMj+kNRXJNkeZq2PtmvdVhnExibBrefjwftAxLHzJdT8FfgG5AMFt0cjFZsj1Nteu2zl744w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=1tb14qzEy7lqg6j9IrxBJtetwz6vjIraZjSZSAlafDg=;
+ b=i+d9dVmnkgxxNwKUOJbUHnl+AJA+UbTuIXBCgHDpXx+if3AgPlWQcPEEUEZG40D+XzqeMEyVhZzf1DvWGyr5cV4ClrxE2i5NLcD6ENufwLaC0Mxaf8+yCiqY/UZqrSBBogiYFkBBzDv7nu4TZrJ313Q7WsaM/Wn9e2OTJhDPzCPhiwKlgEfPRkp87gnYU6BGbi6OWdkilPe2gU8Wy1iGQaWYdvNapPybAOZPqB94urrT1IRUjZpwbgctNRnMP5rkpQ2RtH+UmtjPNx6qi0H4AW6mOTFwpmKTdCsTnMVknlyx8qYQ9DdevtcGDbLEpppnuS9dZgXXY6z5JT6pjodSoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rwX8RrqS+Qld4W3LtJ4+k2IAtrt8DdEI9HeTkCRBicA=;
- b=J/qNU/HgBCPzRUar9GwyvPVBixE4lOeF9a63VHpK1Nbs+MRRyGMCxhC0iod1YZA+yHu9kaw2+PGMFG2IrWUCGaBx5/BfN3DsDxLSexaKosPta6a8FVNJkDfg+IBL54hOEJm7namViF7y/jrjZpQ+tZfr5zA5php4IAxcWQ8OTGU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by SJ0PR12MB6830.namprd12.prod.outlook.com (2603:10b6:a03:47c::22)
+ bh=1tb14qzEy7lqg6j9IrxBJtetwz6vjIraZjSZSAlafDg=;
+ b=fn5Umjy7nnCguGfoRc2FQ6Vrx5hSvSN64WFretcgsInu1JysQ2iw8Ntc03KnWMRgoffDaJnfajfVEQi0ugVrGD7gFh/lczTTaDLXCtfX+9vRg94rBm5agy5PUWh9GaxOkQwpGlWkj4Q7TmTW0xfUHXYqhRjIeMYzea7oepg4R/0=
+Received: from BN9PR03CA0349.namprd03.prod.outlook.com (2603:10b6:408:f6::24)
+ by SN7PR12MB8603.namprd12.prod.outlook.com (2603:10b6:806:260::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20; Fri, 23 Aug
- 2024 18:24:53 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::8060:1b11:e9f3:3a51%3]) with mapi id 15.20.7897.014; Fri, 23 Aug 2024
- 18:24:53 +0000
-Message-ID: <e32bd155-1dd4-4e71-9279-d50c4452ab57@amd.com>
-Date: Fri, 23 Aug 2024 14:24:50 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] drm/amd: Introduce additional IPS debug flags
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Harry.Wentland@amd.com, chiahsuan.chung@amd.com, hamza.mahfooz@amd.com,
- roman.li@amd.com, rodrigo.siqueira@amd.com
-References: <20240819192217.18799-1-sunpeng.li@amd.com>
-Content-Language: en-US
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-In-Reply-To: <20240819192217.18799-1-sunpeng.li@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0005.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::29) To CH0PR12MB5284.namprd12.prod.outlook.com
- (2603:10b6:610:d7::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Fri, 23 Aug
+ 2024 18:44:59 +0000
+Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
+ (2603:10b6:408:f6:cafe::b) by BN9PR03CA0349.outlook.office365.com
+ (2603:10b6:408:f6::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19 via Frontend
+ Transport; Fri, 23 Aug 2024 18:44:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7897.11 via Frontend Transport; Fri, 23 Aug 2024 18:44:59 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 23 Aug
+ 2024 13:44:58 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/swsmu: always force a state reprogram on init
+Date: Fri, 23 Aug 2024 14:44:43 -0400
+Message-ID: <20240823184443.2032149-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|SJ0PR12MB6830:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7bc1d65-fa3f-4ab6-2ece-08dcc3a0e18f
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|SN7PR12MB8603:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67855d08-b99a-4321-486a-08dcc3a3b0d9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eUVvUDlnT1VXS3p5S1VrZndHK2JpdTZ1SWx4ZkZ1R1F0S1NFUHExdVdLdktw?=
- =?utf-8?B?azcyZGp3ZEZoWkJ6ZE55aWtIUDFRZjVjeHl5djJacnJMS3B6M0tzai9ubHNk?=
- =?utf-8?B?elpBWVR2MFhFTzZmanliOEN0dXVBbjJRUUZ0cHlFQ0Q4K2FTSUxSRzA1MklZ?=
- =?utf-8?B?UXlGMTZBVzRVbFZwMUExb1JCS0ZYTTFrQVZkRDNOL0VueG5OZEZPemYvMXI4?=
- =?utf-8?B?cllVL24yeVg0dUhMYU90OFNBZTg0V0FXL3M1VEtqVEJLZ2FXeG9rM1FVY3pD?=
- =?utf-8?B?bnNPZGdVV0JRUkhRdjl3dnl0MnNXdHhZNWp4RFlTMWlteFlGaGNaUjRXSEJn?=
- =?utf-8?B?Um00eXdYbjIzNWNDN3NiUmk3S2xTVmtHTmNkcG9RanhnRnRta3R3d1d0Y2JL?=
- =?utf-8?B?d0oxblNSNmF3ZHpjRm9CNCt4VWNZS3JZZTd2aGo0d1U5TlhoL3RRUU51VXBa?=
- =?utf-8?B?dEs2YXpmSktzZU5XY1pLWFZmUDEvSUNUUTlMdVpDT05NNzVBdjhBS2F6U3Fh?=
- =?utf-8?B?SmpSNi9yakFJcmxTSGRJNndhWEZsZCs4dnZrRUhLby9WV3lrdElxeDJCSklr?=
- =?utf-8?B?M2prNi9BazhYazRQZlNncjhLQVh4d3JMYnA0S2JhVDR6eGhleitxdjlnTjJa?=
- =?utf-8?B?TjVJakVOb3JzeFNGMHdqS1ZTeVNhVlM2NU40M25ENDM0WTBod3pESnFLWndi?=
- =?utf-8?B?bm54L1M5WnFZZFR6cm1CaGJzVGxVVEtVNWdJbEVEazZjMUQyUXJxYmZBZ3N4?=
- =?utf-8?B?TFhsRTRUeEg4eVNoOWFuYTl5VFpLTlJxVW8wczl3MWg0bjJKTCsrT28zWlhP?=
- =?utf-8?B?TEt6TTdDV09OOTY4SGR6VHdJWFZ3Qm12M1NDdERIZ3AyWGovNFJ6NlNBMnN2?=
- =?utf-8?B?THRLT1lhQ01iOVlPUTdZWmw0cmdvbm9MWHZTNjg1TTJhaVpPbEhzWG9ZRDZX?=
- =?utf-8?B?cTRwSXVRQ2NYUisxUlRuVkJZYWFNbEczcGdmRWZVTFFmclBPcFlveEExZis4?=
- =?utf-8?B?Mkd6U0p5L25ydUV6YXFscW9XWVIyVjFUUk5wSCt2cHhrRVFwR0V2RlpsaUZK?=
- =?utf-8?B?RGpTTGJKRk1BRGhPd2g0MjlJRXJBZzJvRFhWcXF6T2NweDU5MmRuMFRmUG13?=
- =?utf-8?B?VUg3QVZHc0FrZ1NmTytlMXQrRVNmNFRnbkhkTUxsTUFpQTEzaWRWQjcxUVhE?=
- =?utf-8?B?S3FqRXRjeDhnZkJUU2ZFdnRlQjExWG1iSmZWaHh4UjNrOEFSS2VBQk1OV1B3?=
- =?utf-8?B?T2xOVi9sMTg0UW10TmVaS3VrcmNRZXd3dGlxMlpFMzg2eXBwVW1ScDFGaS9x?=
- =?utf-8?B?M3IzNlNWSHl5TDlnYUVTYTh2czhwbDdmcHhVdDBhUjNQbGNmbHlsTXNTNElJ?=
- =?utf-8?B?VGkxaFcyUTRSa3k0RmREcVdiMFJBZ0E3UFdrbWxkWkpiQnV5MTFFRXpscHdi?=
- =?utf-8?B?YlpZMml4V3dFWFRubjR4cmVBcGtablA5bmFjc0pkN0dQbkxhOWl0NHJxdk1B?=
- =?utf-8?B?emhiL2xCbC9MQlNyc252cTZ3eXRrRllXdm9YMk0renFJYWt1MlA3ZW5USWl3?=
- =?utf-8?B?TmJJemhqKzRPeTJGeWJSeWlsNnJYWDB2UmdWNzdqempxb2Mxd3FzcDFCdFMr?=
- =?utf-8?B?bTErbjMrbHdtRjRHZUpJd01tNEpBbFJmUFczMmxReUx4cUxGL3RDcnZuOGcr?=
- =?utf-8?B?SFVkVityWUp2cENQeGdBc3JSQ3JXZk1uVGFxR3l4K1NGT3p2ZVFGY2I4OEZU?=
- =?utf-8?B?SDZrVm9saWl2WFg0N1c1Sm0rbW4vZHQwcjlxZDYyVXVBbk5WTnlHZG1SV1BT?=
- =?utf-8?B?amkxQ04wb05sZzJQL0hFdz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHhFT0dwVUMrcWo1MTF3SU44YWRaTDFEVFVYQnN1OXJweFE3K29TZkh2czll?=
- =?utf-8?B?eFY5RlYzeUJmNXNCZ2xCZ1JSTVVCaTN2REZMNE1DYkJMd0xGV3k4aUtyRkQr?=
- =?utf-8?B?V1htUGJOeStYTnhqR2NCVTJoOTM0YW5HaG5JOCtsVmh0K1BKc2ZOUjlGQ0gz?=
- =?utf-8?B?eGZNbkJtU1hkTVFiUUp2am9pWlpZbXE0endEMkdrb1pXUnhhbFZaQVhKQ1hN?=
- =?utf-8?B?UTNrbE5HdGJtT1poNDAvbXJER2wwNUtoS1g1YmlwRlVMWkt2NCtTSGtYM3Vy?=
- =?utf-8?B?ZlZTMWg1QW1nWnJSb2FmVW1hdHNhckpyOFpHcnNidlBEL3JXa0ZnZDZlSkZZ?=
- =?utf-8?B?ZzRhMnBoVmh5M29RajdNSVE5VnNSTWRXa3RaSlVIbVJqZ0VuSVlmL0JxZ3hO?=
- =?utf-8?B?VVRoL1Z6a1hDR240TEx6ZXJEazE2NVJoYnpOZXVjaVgxRnUwR2xWTkIrQ1Js?=
- =?utf-8?B?bURMRXZyT3doVGdPVkkxUHdiRkNmK3M4eVRGRGdCVEVrK3lCS2RrOEFFYVY4?=
- =?utf-8?B?eUlUUS9PNHpITUNVcWJaUFNhbk9NU2szd1VBRjZJbi92Qy9USmVzdkZ3QlBs?=
- =?utf-8?B?Z3A1Zk5ieEFQTnU1RHBLaTBkaURDWGhwWG5LUTZ5c1poYXNxSktpanFyWmdp?=
- =?utf-8?B?bGNCV0JMeFVLclg3YldxcnZETFB5TkhhbXlRbGNoNUVQU041bzE2QjNCM3c4?=
- =?utf-8?B?Rmlwak5xV3BsWk1xb04rS3czWFlRUExSbWpPOTkzaTZRNkEva0RnRWUyN2p1?=
- =?utf-8?B?S3hac1hkN29VQ25HWit1MVFMb3RlNmNqMlk0aTQwSUN1cFRIQVlFdXNlKzBT?=
- =?utf-8?B?NFArdVlQNTlPUkx1elMraWZRQTd5TTJPb1BLTW53b0dqak8vQU93bEc0K1pa?=
- =?utf-8?B?RlVqdXVxNlhsYmU3U2s2NWZsdEpWYXY5Mk1WVVRxUkRNZ3FTU2tUSmlIMURR?=
- =?utf-8?B?bjAxK3o0WXJjanJzWjYzWXdGK1cxbjZzSStPMHJwbE5ZKzBxOFM1bTdHVDQ5?=
- =?utf-8?B?Kzc2S3VhMGVZVWN2YVExNU1PSEJUV1VVWitFSEhBdU9ZNnVXQ0t6MWNtQUtR?=
- =?utf-8?B?bk93SGI2bHJzWWJSM3Y3ZTJDSk9JWGN4ZmQwRnNnZC9BUVluUmZOQnhoZWtL?=
- =?utf-8?B?VXg0Y2MyRDhNNjdseGZBc041U0NwYXpUeVE3SWNyRkVrbXRxNUZ6bFdiQ0NG?=
- =?utf-8?B?cC81Yy9wb0RmUUlWUEZ0YlZLRXkwUzNxS1VzcXhjampQUnB6eDVzNnJHZ1Zw?=
- =?utf-8?B?b2V6QlFVQTZOaGNoNFBsYU9pazJ6WjRTMzlZUVR3R0ZzRlFnV3hWT0kveW9q?=
- =?utf-8?B?SzlnZmhpK1FBeU50MmwycTA1VVkyMkRqUS9yNXRRTHp1elhjV1YrQzhJSDdO?=
- =?utf-8?B?RHM4K0pMRHUzT3doU1FhWTk1b1hZZjJtVUphdEhaMzNjSnRIeWRvRlYyOG5p?=
- =?utf-8?B?cW1ncEJxWVNUNGh0cnVTZjRXWVdFR3RYVzBuVmQxeStMeFl1SjYzcjhROTJQ?=
- =?utf-8?B?WUt4TTdvemNsd2JnUS9rT1dhVE9RZjRlSGE0QzVnbTc4aVQyemJ0Rmg1cmg5?=
- =?utf-8?B?RDgvWTBPUVE2TWdSL1FSRmtBUmVTVkFseDZBNWdnN0ZDTTJTRlhJaW1OdnBD?=
- =?utf-8?B?UUMvNExtZzlRWndFUk50SnU2UHV3U25zK2F5aThPak9kWk4zSGVYNzNTelho?=
- =?utf-8?B?TEQxbElNRkRxcEVIRHZuRjRyUTliekpDZSt1N3UwVDZTSnB6bEJ0V2dobDAw?=
- =?utf-8?B?OHFqVWRFRTE2OENiMy9DMnNYVzFkdDNvM2dZUmxGRU1IY1dGY2VBYjRTMmx4?=
- =?utf-8?B?TFF1SlY2anphV3RRN1VOYlRtWVZqMzlUcCs0Zm1SQ3ZBdDVQVkZZU3hSeE9o?=
- =?utf-8?B?TXAzREdRUnBqeFhuWTRUWE02V0VNOVBRbnRYazNwNnRSVzNLMmRvYVErRmhq?=
- =?utf-8?B?Ukt3bUlJSDlheU1KaVY4dzRKem9leGNjdmxXZzczak15b0JndWpvNXNIWVdu?=
- =?utf-8?B?NTA0ZlFZSWZKajA4VWoxMUpGQmM1SmJFWm5oRjBHMm9HQVBhcUxMK2l2eisy?=
- =?utf-8?B?dXJBWGczLzNzQU1wTnFJL2NxNXdyVjN1NzZvV1YvVG1iWnArQitCMTVJRVVR?=
- =?utf-8?Q?FTwtUoEgobdsyC5tNs5pldqrS?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3ygCnKHfWJs6H72P2/mfGKopcc1oNd+2Kwty4EsyTW0ljOgGtr5hFAQ+KRgC?=
+ =?us-ascii?Q?GXiqP6hFF6xCcUltze8r0Kgqmg7pfJJ1xEdOEStZlW1AbvrSVrknQlXn9Dn/?=
+ =?us-ascii?Q?4Br/+4JVxTPjFUNK6M7rszYwDmIy0opyDKTyPXXra2R11OCLyfmWXcetTVOn?=
+ =?us-ascii?Q?ph0CLjNgue36YWnVv5vua5aYHFXOmAcF6Oh9vEFP11SjIqFKCpVQz8UhI0Hh?=
+ =?us-ascii?Q?wANE9SzkU4BvYZNzBNKGMjV3uZ+2KFT/p8/+wNhUg1Bee50BGamMZQWLSOp/?=
+ =?us-ascii?Q?A/2vYQSC5c9zPt8HF4/LH0PpV0JAEllqG6wpor25W7zuEhn5RHKfAHuurIsj?=
+ =?us-ascii?Q?cFGLGwdtW6CUAPRO0y49sO77fyrTu2PPL4N2NcNdVNSha/5aWHL4u7YGG0eD?=
+ =?us-ascii?Q?m/8Nyzq5Gwz0iuejt1zmgrZXTM2fK7EBfjF72Ejbqj+eV0B5uDBuvlMJcVfK?=
+ =?us-ascii?Q?lwCHUHQwyC2jrFW2fStFRN3iU0BAIgJD4SdFihrRpdrn46bg3DGz5U2LZ+Hy?=
+ =?us-ascii?Q?+rjASrMCneb6IhlvG9OalHjImP1d4KBdynnnJbbLEwR4tX7dv06sydjJI+/9?=
+ =?us-ascii?Q?pz48+3pf75i0mokUKg5vYyTngn2qkTHYS4uAXwvTOOQgaRMA3R7dqV6IQ4qc?=
+ =?us-ascii?Q?THZPMSkCo3wEpY+LpNY4ZDPLUlzoajN/UZSUyYud1QoiC/9dqrD4uq6r67UR?=
+ =?us-ascii?Q?fi9IP2q4kfN4BSwsKmhJKg+SdD35rPeindYikQ5BzXGgBL9BReuAf3QDYkd2?=
+ =?us-ascii?Q?x14pow8RC3rW9BhZ8dmPBsumkD1orihjyBlhWzS5vvuFmt0p/bs05dyydXDQ?=
+ =?us-ascii?Q?w2DxOzhw42F6BjrTKe1qDk4Z0F419RBHQxaibB5uVSbs3wT5j19iNMOQd7Lm?=
+ =?us-ascii?Q?yFRhKLKxGmRYTaZBsQRW5KpViB0cvOt83Ku9DhImFvYGb8+NGCRWoKV2N9/s?=
+ =?us-ascii?Q?bSv3qD4RM1I+BPF+Uzl7t3wMstLsdz9VjrgAHnfP1VD02PeAHjXdokp96W/4?=
+ =?us-ascii?Q?RI2l8nbWj+mEXteBbmGSK2UqKKuTMhSU/Q01do5h8csCMbmsTutq7BhqS1oi?=
+ =?us-ascii?Q?LKsIbanCGAa4WQHk7N/2Qv4UXjaW7LfQ6rX1Hzy1eyF/aIxUWW9RjemHumYS?=
+ =?us-ascii?Q?l3pFRVy7AEpa5Gcpq2DbUVHwwYULwmsCZVerKk0vFCbRai5BHpHtb4qiRj0b?=
+ =?us-ascii?Q?49SqijoQGS4M2eF0GKm9bXrgW/PRRh9XL7y0goLR8Qnt3lbun3UHq4EcJVFw?=
+ =?us-ascii?Q?DJBK5+CxPhbaR5nlAaeXj5G4yLbzYf6L8fVVmGoKbl3D3K9TC1R/skrimnlg?=
+ =?us-ascii?Q?dYHL+GqmJeVmkWVG2rifG8n0FwI1my9cQv6vxWMcU6kXVaY3YYm+MKQos1Qm?=
+ =?us-ascii?Q?ZmZIF2Zu3TwTCpF08fK7GXJjw+cS?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7bc1d65-fa3f-4ab6-2ece-08dcc3a0e18f
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2024 18:24:52.8988 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2024 18:44:59.3258 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67855d08-b99a-4321-486a-08dcc3a3b0d9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c1W499/SVL4JBxYtrjjD8zC3c+gWEc9leTNrN73lsFAnNzAyQMfJxjg2KQRt2MBq0pQPXaMsPcmYA2+6Hvm5mQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6830
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,179 +128,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Always reprogram the hardware state on init.  This ensures
+the PMFW state is explicitly programmed and we are not relying
+on the default PMFW state.
 
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3131
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-On 8/19/24 3:22 PM, sunpeng.li@amd.com wrote:
-> From: Leo Li <sunpeng.li@amd.com>
-> 
-> [Why]
-> 
-> Idle power states (IPS) describe levels of power-gating within DCN. DM
-> and DC is responsible for ensuring that we are out of IPS before any DCN
-> programming happens. Any DCN programming while we're in IPS leads to
-> undefined behavior (mostly hangs).
-> 
-> Because IPS intersects with all display features, the ability to disable
-> IPS by default while ironing out the known issues is desired. However,
-> disabing it completely will cause important features such as s0ix entry
-> to fail.
-> 
-> Therefore, more granular IPS debug flags are desired.
-> 
-> [How]
-> 
-> Extend the dc debug mask bits to include the available list of IPS
-> debug flags.
-> 
-> All the flags should work as documented, with the exception of
-> IPS_DISABLE_DYNAMIC. It requires dm changes which will be done in
-> later changes.
-> 
-> v2: enable docs and fix docstring format
-> 
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> ---
->   Documentation/gpu/amdgpu/driver-core.rst      |  2 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++
->   drivers/gpu/drm/amd/include/amd_shared.h      | 75 ++++++++++++++++++-
->   3 files changed, 81 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation/gpu/amdgpu/driver-core.rst
-> index 467e6843aef63..32723a925377e 100644
-> --- a/Documentation/gpu/amdgpu/driver-core.rst
-> +++ b/Documentation/gpu/amdgpu/driver-core.rst
-> @@ -179,4 +179,4 @@ IP Blocks
->      :doc: IP Blocks
->   
->   .. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
-> -   :identifiers: amd_ip_block_type amd_ip_funcs
-> +   :identifiers: amd_ip_block_type amd_ip_funcs DC_DEBUG_MASK
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index dd8353283bda3..a18ecf8607232 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1864,6 +1864,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->   
->   	if (amdgpu_dc_debug_mask & DC_DISABLE_IPS)
->   		init_data.flags.disable_ips = DMUB_IPS_DISABLE_ALL;
-> +	else if (amdgpu_dc_debug_mask & DC_DISABLE_IPS_DYNAMIC)
-> +		init_data.flags.disable_ips = DMUB_IPS_DISABLE_DYNAMIC;
-> +	else if (amdgpu_dc_debug_mask & DC_DISABLE_IPS2_DYNAMIC)
-> +		init_data.flags.disable_ips = DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF;
-> +	else if (amdgpu_dc_debug_mask & DC_FORCE_IPS_ENABLE)
-> +		init_data.flags.disable_ips = DMUB_IPS_ENABLE;
->   	else
->   		init_data.flags.disable_ips = DMUB_IPS_ENABLE;
->   
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index f5b725f10a7ce..745fd052840dc 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -61,7 +61,7 @@ enum amd_apu_flags {
->   * acquires the list of IP blocks for the GPU in use on initialization.
->   * It can then operate on this list to perform standard driver operations
->   * such as: init, fini, suspend, resume, etc.
-> -*
-> +*
->   *
->   * IP block implementations are named using the following convention:
->   * <functionality>_v<version> (E.g.: gfx_v6_0).
-> @@ -251,19 +251,92 @@ enum DC_FEATURE_MASK {
->   	DC_REPLAY_MASK = (1 << 9), //0x200, disabled by default for dcn < 3.1.4
->   };
->   
-> +/**
-> + * enum DC_DEBUG_MASK - Bits that are useful for debugging the Display Core IP
-> + */
->   enum DC_DEBUG_MASK {
-> +	/**
-> +	 * @DC_DISABLE_PIPE_SPLIT: If set, disable pipe-splitting
-> +	 */
->   	DC_DISABLE_PIPE_SPLIT = 0x1,
-> +
-> +	/**
-> +	 * @DC_DISABLE_STUTTER: If set, disable memory stutter mode
-> +	 */
->   	DC_DISABLE_STUTTER = 0x2,
-> +
-> +	/**
-> +	 * @DC_DISABLE_DSC: If set, disable display stream compression
-> +	 */
->   	DC_DISABLE_DSC = 0x4,
-> +
-> +	/**
-> +	 * @DC_DISABLE_CLOCK_GATING: If set, disable clock gating optimizations
-> +	 */
->   	DC_DISABLE_CLOCK_GATING = 0x8,
-> +
-> +	/**
-> +	 * @DC_DISABLE_PSR: If set, disable Panel self refresh v1 and PSR-SU
-> +	 */
->   	DC_DISABLE_PSR = 0x10,
-> +
-> +	/**
-> +	 * @DC_FORCE_SUBVP_MCLK_SWITCH: If set, force mclk switch in subvp, even
-> +	 * if mclk switch in vblank is possible
-> +	 */
->   	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
-> +
-> +	/**
-> +	 * @DC_DISABLE_MPO: If set, disable multi-plane offloading
-> +	 */
->   	DC_DISABLE_MPO = 0x40,
-> +
-> +	/**
-> +	 * @DC_ENABLE_DPIA_TRACE: If set, enable trace logging for DPIA
-> +	 */
->   	DC_ENABLE_DPIA_TRACE = 0x80,
-> +
-> +	/**
-> +	 * @DC_ENABLE_DML2: If set, force usage of DML2, even if the DCN version
-> +	 * does not default to it.
-> +	 */
->   	DC_ENABLE_DML2 = 0x100,
-> +
-> +	/**
-> +	 * @DC_DISABLE_PSR_SU: If set, disable PSR SU
-> +	 */
->   	DC_DISABLE_PSR_SU = 0x200,
-> +
-> +	/**
-> +	 * @DC_DISABLE_REPLAY: If set, disable Panel Replay
-> +	 */
->   	DC_DISABLE_REPLAY = 0x400,
-> +
-> +	/**
-> +	 * @DC_DISABLE_IPS: If set, disable all Idle Power States, all the time.
-> +	 * If more than one IPS debug bit is set, the lowest bit takes
-> +	 * precedence. For example, if DC_FORCE_IPS_ENABLE and
-> +	 * DC_DISABLE_IPS_DYNAMIC are set, then DC_DISABLE_IPS_DYNAMIC takes
-> +	 * precedence.
-> +	 */
->   	DC_DISABLE_IPS = 0x800,
-> +
-> +	/**
-> +	 * @DC_DISABLE_IPS_DYNAMIC: If set, disable all IPS, all the time,
-> +	 * *except* when driver goes into suspend.
-> +	 */
-> +	DC_DISABLE_IPS_DYNAMIC = 0x1000,
-> +
-> +	/**
-> +	 * @DC_DISABLE_IPS2_DYNAMIC: If set, disable IPS2 (IPS1 allowed) if
-> +	 * there is an enabled display. Otherwise, enable all IPS.
-> +	 */
-> +	DC_DISABLE_IPS2_DYNAMIC = 0x2000,
-> +
-> +	/**
-> +	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
-> +	 */
-> +	DC_FORCE_IPS_ENABLE = 0x4000,
->   };
->   
->   enum amd_dpm_forced_level;
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 12d30af431fe..c1cd785b4aed 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2224,8 +2224,9 @@ static int smu_bump_power_profile_mode(struct smu_context *smu,
+ }
+ 
+ static int smu_adjust_power_state_dynamic(struct smu_context *smu,
+-				   enum amd_dpm_forced_level level,
+-				   bool skip_display_settings)
++					  enum amd_dpm_forced_level level,
++					  bool skip_display_settings,
++					  bool force_update)
+ {
+ 	int ret = 0;
+ 	int index = 0;
+@@ -2254,7 +2255,7 @@ static int smu_adjust_power_state_dynamic(struct smu_context *smu,
+ 		}
+ 	}
+ 
+-	if (smu_dpm_ctx->dpm_level != level) {
++	if (force_update || smu_dpm_ctx->dpm_level != level) {
+ 		ret = smu_asic_set_performance_level(smu, level);
+ 		if (ret) {
+ 			dev_err(smu->adev->dev, "Failed to set performance level!");
+@@ -2270,7 +2271,7 @@ static int smu_adjust_power_state_dynamic(struct smu_context *smu,
+ 		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
+ 		workload[0] = smu->workload_setting[index];
+ 
+-		if (smu->power_profile_mode != workload[0])
++		if (force_update || smu->power_profile_mode != workload[0])
+ 			smu_bump_power_profile_mode(smu, workload, 0);
+ 	}
+ 
+@@ -2291,11 +2292,13 @@ static int smu_handle_task(struct smu_context *smu,
+ 		ret = smu_pre_display_config_changed(smu);
+ 		if (ret)
+ 			return ret;
+-		ret = smu_adjust_power_state_dynamic(smu, level, false);
++		ret = smu_adjust_power_state_dynamic(smu, level, false, false);
+ 		break;
+ 	case AMD_PP_TASK_COMPLETE_INIT:
++		ret = smu_adjust_power_state_dynamic(smu, level, true, true);
++		break;
+ 	case AMD_PP_TASK_READJUST_POWER_STATE:
+-		ret = smu_adjust_power_state_dynamic(smu, level, true);
++		ret = smu_adjust_power_state_dynamic(smu, level, true, false);
+ 		break;
+ 	default:
+ 		break;
+-- 
+2.46.0
 
---
-
-Thanks & Regards,
-Aurabindo Pillai
