@@ -4,76 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAEFC531DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 13:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B51C52D7C
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 13:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A71310E640;
-	Fri, 23 Aug 2024 13:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00E5D10E64A;
+	Fri, 23 Aug 2024 13:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="osSw7uxD";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="uL+E+TcY";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F7A510E622
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 12:50:37 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-428101fa30aso15764645e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 05:50:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724417435; x=1725022235; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wglUMOfSKj/CJM1zOfzFbHWNacB0avO+XJafuxMQMWw=;
- b=osSw7uxDPifzrVL2njVSz5RDT13sIz3nbZPxIIgXTpRaeTgAEXT2EAKPazKXMTO4Px
- SrU0oeWp7g/QU+R1qiZQl5Q/z3FKHfQnXDa4eutEPaGULIQ1gYtC4XhYmcM1ettdJ1Lt
- 4CwbeUu9KH4qq3A/Ff4RjiocajDcZSJVFpKCJ0dMsel6Zvv5t/yxX54rJ5SsPxhUdOjb
- sUhNBbtxvrUYyoKFXjjlpX8cqFMvFrKNAPMGVmg0WgIuxpKGd0xdBYOJMLHZE6xy/dCd
- rPZyv9/uP7bJRGj3GYF5LGs5S7XxbR34Jt2U69zH1AGu8H7QidZLsZu81hmkfdWnH4zo
- /lDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724417435; x=1725022235;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wglUMOfSKj/CJM1zOfzFbHWNacB0avO+XJafuxMQMWw=;
- b=sfmyN4jarG1CGGV2G69kWjSovuru320AHIe++jA9ksNDZftPG1RSZ43Nxq4ja5LAO3
- wyxiwMdHbazGALOk/zvMPTZqMtxpJelCuySDLjaorttCTVk4XMxjwmYo9dea24/C7zeV
- ZXhCs4K5E2ztN2xxB12uBTPy4tZUzZNX31sCt78JGQ6ers9VIscWEL5ZAVbwcDgELp9i
- ZPUM6blUUyPyab7nLpSzKU7paD5hsWl7erV5Pb6GjHO18lgsiqPuGYcSQ/sJiiJ3YWO5
- uk+ZzKycMKcklNbOMI6GLXts2KX/xqnvbrkTOyVGbLtMiU29Ikr2iMIwyTRL2GAjNK7T
- a9Dg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVptzZFcInvAb1BGNonGUsR/82qQTmRe4d3LLkT/PegdZC6RfkALLv8zstK4FQzX8/2caGoIhCG@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBZ8H7oetQYApEdtlTRMKPE2S0RXPYaUmqAJ5iPpYKEEXywnc+
- XZrhusJTJn31FBT4U5kRCsTWpQN+dW3hkOjxuIchFvWobFsROj3l4B1An2q23hQ=
-X-Google-Smtp-Source: AGHT+IFLiLazjFQT+RbARqd6XebDKnhmp2PsLFcYq7T4M8t9bB2PBe0YloLgYQ2LGsntaXnC81G06g==
-X-Received: by 2002:a05:600c:4f14:b0:426:6f81:d235 with SMTP id
- 5b1f17b1804b1-42acc8dcb19mr17146615e9.15.1724417435283; 
- Fri, 23 Aug 2024 05:50:35 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37308265ae6sm4074861f8f.109.2024.08.23.05.50.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 05:50:34 -0700 (PDT)
-Date: Fri, 23 Aug 2024 15:50:30 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Chaitanya Dhere <chaitanya.dhere@amd.com>,
- Austin Zheng <Austin.Zheng@amd.com>
-Cc: Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Hung <alex.hung@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Dillon Varone <dillon.varone@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/amd/display: fix some indenting in
- CalculatePrefetchSchedule()
-Message-ID: <f57c247f-ba47-4318-b2ee-75aef1726503@stanley.mountain>
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FCD410EC3B;
+ Fri, 23 Aug 2024 07:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=rOoo4FQ0l9gDxiXKpG4Bqp0Jh6cejWRo351EVbPg1Fk=; b=uL+E+TcYWT7M2jqyy185yYkDza
+ x1/AM0kmTyGOrUV3RrABsme3F9gIFSCccOXit27YwUU4vL2t2lodqoqD2i29lo6fIIJZLDrvOBW7I
+ O1JbxG4Az9+xpypJLvK8wEqJmvi9cKUiMGyux2y6LfB6lZ/CPpC+gZlUACXcR0WXroftRDz5Wscsh
+ 15EwkyC7w5I5XLF9p966Wj3f/iM19yPHQldnfDCpIJ2AVB5apOarIEsdGHmeUR2uXRYL9DRcCwZc3
+ migwg1cnRVm9P3eKL9mrYo6yY9J8RpRMwVSXkbLdITE/SKYWA93oTtHin/4X+aLcYwVHutR2Uh1ZF
+ DpzGGoKA==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
+ Linux)) id 1shP6x-00000004RWX-46JG; Fri, 23 Aug 2024 07:53:32 +0000
+Date: Fri, 23 Aug 2024 08:53:31 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org, Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 1/4] new helper: drm_gem_prime_handle_to_dmabuf()
+Message-ID: <20240823075331.GE1049718@ZenIV>
+References: <20240812065656.GI13701@ZenIV>
+ <20240812065906.241398-1-viro@zeniv.linux.org.uk>
+ <57520a28-fff2-41ae-850b-fa820d2b0cfa@suse.de>
+ <20240822152022.GU504335@ZenIV> <20240823015719.GV504335@ZenIV>
+ <50379388-302d-420a-8397-163433c31bdc@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+In-Reply-To: <50379388-302d-420a-8397-163433c31bdc@suse.de>
 X-Mailman-Approved-At: Fri, 23 Aug 2024 13:06:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,29 +58,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These tabs were deleted accidentally in commit d07722e1fc74 ("drm/amd/display:
-DML2.1 Reintegration for Various Fixes").  Add them back.
+On Fri, Aug 23, 2024 at 09:21:14AM +0200, Thomas Zimmermann wrote:
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c        | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+> 
+> Thank you so much.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index e2c45e498664..7d287b07108f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -5612,8 +5612,8 @@ static bool CalculatePrefetchSchedule(struct dml2_core_internal_scratch *scratch
- 			s->TimeForFetchingVM = s->Tvm_equ;
- 			s->TimeForFetchingRowInVBlank = s->Tr0_equ;
- 
--		*p->dst_y_per_vm_vblank = math_ceil2(4.0 * s->TimeForFetchingVM / s->LineTime, 1.0) / 4.0;
--		*p->dst_y_per_row_vblank = math_ceil2(4.0 * s->TimeForFetchingRowInVBlank / s->LineTime, 1.0) / 4.0;
-+			*p->dst_y_per_vm_vblank = math_ceil2(4.0 * s->TimeForFetchingVM / s->LineTime, 1.0) / 4.0;
-+			*p->dst_y_per_row_vblank = math_ceil2(4.0 * s->TimeForFetchingRowInVBlank / s->LineTime, 1.0) / 4.0;
- 
- #ifdef __DML_VBA_DEBUG__
- 			dml2_printf("DML::%s: Using equ bw scheduling for prefetch\n", __func__);
--- 
-2.43.0
+OK, Acked-by added, branch force-pushed to
+git://git.kernel.org:/pub/scm/linux/kernel/git/viro/vfs.git #for-drm
 
+In case if anybody wants a signed pull request, see below; or just
+cherry-pick, etc. - entirely up to drm and amd folks...
+
+The following changes since commit 8400291e289ee6b2bf9779ff1c83a291501f017b:
+
+  Linux 6.11-rc1 (2024-07-28 14:19:55 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git tags/pull-for-drm
+
+for you to fetch changes up to 30581926c42d1886cce2a04dcf615f551d829814:
+
+  amdgpu: get rid of bogus includes of fdtable.h (2024-08-23 03:46:46 -0400)
+
+----------------------------------------------------------------
+get rid of racy manipulations of descriptor table in amdgpu
+
+----------------------------------------------------------------
+Al Viro (4):
+      new helper: drm_gem_prime_handle_to_dmabuf()
+      amdgpu: fix a race in kfd_mem_export_dmabuf()
+      amdkfd CRIU fixes
+      amdgpu: get rid of bogus includes of fdtable.h
+
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c    |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 12 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c          |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 64 ++++++++++++-----
+ drivers/gpu/drm/drm_prime.c                        | 84 ++++++++++++++--------
+ include/drm/drm_prime.h                            |  3 +
+ 6 files changed, 106 insertions(+), 59 deletions(-)
