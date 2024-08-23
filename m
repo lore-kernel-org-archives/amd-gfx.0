@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F902C531DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 07:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9011FC5472C
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 07:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6096B10EC30;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54BF410EC2F;
 	Fri, 23 Aug 2024 07:42:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="BMwyl+Ds";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Sw2A2xgz";
 	dkim-atps=neutral
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58F0110EBFC;
- Fri, 23 Aug 2024 01:57:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=NvWZmHSCnungcCwYghqZUgrUpcmA/4vJcNHw6Bfmwd4=; b=BMwyl+DsqGaXnKVUD+t56KtN+D
- hebX2fiP9fRMvyGVhDJMDlUrZN1NsLCIET5GH/Fl5L2BMN7FVQCo5vnheHKShCEgsXla/v0YMlsf2
- Xp36yu+k1g4Ekeu1QQMBZzWPJmbsg3gqTTWJFign6UMVx58M1gMwUhToGD2EesLq0hB92RX1/urBf
- eMZgq8+G5LQXBkDPrHRRf/C6zOkqx0uiN/2wQiFh5hZYPP7M0BZqhoKDv4aI5/xCWg8qJCJ9perDi
- SJnXcT0O5Zs5cfm+VEyRESjLg05IUV8HMQwtb+Nmr45y1otff5LRQzyf8b57qYxBQ7q7+Mc+qSFLk
- CJPey3ew==;
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1shJYF-00000004OSk-3ZLh; Fri, 23 Aug 2024 01:57:19 +0000
-Date: Fri, 23 Aug 2024 02:57:19 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Thomas Zimmermann <tzimmermann@suse.de>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Fri, 23 Aug 2024 00:40:23 UTC
+Received: from out30-112.freemail.mail.aliyun.com
+ (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F9B110EBF6;
+ Fri, 23 Aug 2024 00:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1724373621; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=JZ+Jb+HK5jzvd/d+WSjQLa2+SibX5DcDHdq7Wfdl5ac=;
+ b=Sw2A2xgzwjDUIlt3PbjTNn2IK9olISfyjUufTnnyIHFOjBRG2N18HqHkz0iYuVgHcKsUWN4kdj1AXvC4b2Kv6uAfTU9ZLS6tfiR0ZTbnsDUsPqgYVY3zUA7iOvmmjsQAv1t+McAjVKbNejvNRD+MHL+e42apFz9ILVk6ofUtU2U=
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0WDRYTIY_1724373316) by smtp.aliyun-inc.com;
+ Fri, 23 Aug 2024 08:35:17 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: airlied@gmail.com,
+	daniel@ffwll.ch,
+	alexander.deucher@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 1/4] new helper: drm_gem_prime_handle_to_dmabuf()
-Message-ID: <20240823015719.GV504335@ZenIV>
-References: <20240812065656.GI13701@ZenIV>
- <20240812065906.241398-1-viro@zeniv.linux.org.uk>
- <57520a28-fff2-41ae-850b-fa820d2b0cfa@suse.de>
- <20240822152022.GU504335@ZenIV>
+ linux-kernel@vger.kernel.org, Yang Li <yang.lee@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH -next] drm/amd/display: Remove unnecessary semicolon after
+ switch statement
+Date: Fri, 23 Aug 2024 08:35:15 +0800
+Message-Id: <20240823003515.57035-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.32.0.3.g01195cf9f
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240822152022.GU504335@ZenIV>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 23 Aug 2024 07:42:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,191 +55,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Do you have any problems with the variant below?  The only changes are
-in commit message and added comment for new helper...
+This commit removes the unnecessary semicolon (`;`) following the
+closing brace of the switch statement in the function
+'dml2_core_utils_get_tile_block_size_bytes'.
 
-commit 8c291056e3e88153ef4b6316d5247547da200757
-Author: Al Viro <viro@zeniv.linux.org.uk>
-Date:   Fri Aug 2 09:56:28 2024 -0400
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9804
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ .../amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_utils.c   | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-    new helper: drm_gem_prime_handle_to_dmabuf()
-    
-    Once something had been put into descriptor table, the only thing you
-    can do with it is returning descriptor to userland - you can't withdraw
-    it on subsequent failure exit, etc.  You certainly can't count upon
-    it staying in the same slot of descriptor table - another thread
-    could've played with close(2)/dup2(2)/whatnot.
-    
-    drm_gem_prime_handle_to_fd() creates a dmabuf, allocates a descriptor
-    and attaches dmabuf's file to it (the last two steps are done
-    in dma_buf_fd()).  That's nice when all you are going to do is
-    passing a descriptor to userland.  If you just need to work with the
-    resulting object or have something else to be done that might fail,
-    drm_gem_prime_handle_to_fd() is racy.
-    
-    The problem is analogous to one with anon_inode_getfd(), and solution
-    is similar to what anon_inode_getfile() provides.
-    
-    Add drm_gem_prime_handle_to_dmabuf() - the "set dmabuf up" parts of
-    drm_gem_prime_handle_to_fd() without the descriptor-related ones.
-    Instead of inserting into descriptor table and returning the file
-    descriptor it just returns the struct file.
-    
-    drm_gem_prime_handle_to_fd() becomes a wrapper for it.  Other users
-    will be introduced in the next commit.
-    
-    Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 03bd3c7bd0dc..0e3f8adf162f 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -410,22 +410,30 @@ static struct dma_buf *export_and_register_object(struct drm_device *dev,
- }
- 
- /**
-- * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-+ * drm_gem_prime_handle_to_dmabuf - PRIME export function for GEM drivers
-  * @dev: dev to export the buffer from
-  * @file_priv: drm file-private structure
-  * @handle: buffer handle to export
-  * @flags: flags like DRM_CLOEXEC
-- * @prime_fd: pointer to storage for the fd id of the create dma-buf
-  *
-  * This is the PRIME export function which must be used mandatorily by GEM
-  * drivers to ensure correct lifetime management of the underlying GEM object.
-  * The actual exporting from GEM object to a dma-buf is done through the
-  * &drm_gem_object_funcs.export callback.
-+ *
-+ * Unlike drm_gem_prime_handle_to_fd(), it returns the struct dma_buf it
-+ * has created, without attaching it to any file descriptors.  The difference
-+ * between those two is similar to that between anon_inode_getfile() and
-+ * anon_inode_getfd(); insertion into descriptor table is something you
-+ * can not revert if any cleanup is needed, so the descriptor-returning
-+ * variants should only be used when you are past the last failure exit
-+ * and the only thing left is passing the new file descriptor to userland.
-+ * When all you need is the object itself or when you need to do something
-+ * else that might fail, use that one instead.
-  */
--int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-+struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
- 			       struct drm_file *file_priv, uint32_t handle,
--			       uint32_t flags,
--			       int *prime_fd)
-+			       uint32_t flags)
- {
- 	struct drm_gem_object *obj;
- 	int ret = 0;
-@@ -434,14 +442,14 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 	mutex_lock(&file_priv->prime.lock);
- 	obj = drm_gem_object_lookup(file_priv, handle);
- 	if (!obj)  {
--		ret = -ENOENT;
-+		dmabuf = ERR_PTR(-ENOENT);
- 		goto out_unlock;
- 	}
- 
- 	dmabuf = drm_prime_lookup_buf_by_handle(&file_priv->prime, handle);
- 	if (dmabuf) {
- 		get_dma_buf(dmabuf);
--		goto out_have_handle;
-+		goto out;
- 	}
- 
- 	mutex_lock(&dev->object_name_lock);
-@@ -463,7 +471,6 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 		/* normally the created dma-buf takes ownership of the ref,
- 		 * but if that fails then drop the ref
- 		 */
--		ret = PTR_ERR(dmabuf);
- 		mutex_unlock(&dev->object_name_lock);
- 		goto out;
- 	}
-@@ -478,34 +485,51 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 	ret = drm_prime_add_buf_handle(&file_priv->prime,
- 				       dmabuf, handle);
- 	mutex_unlock(&dev->object_name_lock);
--	if (ret)
--		goto fail_put_dmabuf;
--
--out_have_handle:
--	ret = dma_buf_fd(dmabuf, flags);
--	/*
--	 * We must _not_ remove the buffer from the handle cache since the newly
--	 * created dma buf is already linked in the global obj->dma_buf pointer,
--	 * and that is invariant as long as a userspace gem handle exists.
--	 * Closing the handle will clean out the cache anyway, so we don't leak.
--	 */
--	if (ret < 0) {
--		goto fail_put_dmabuf;
--	} else {
--		*prime_fd = ret;
--		ret = 0;
-+	if (ret) {
-+		dma_buf_put(dmabuf);
-+		dmabuf = ERR_PTR(ret);
- 	}
--
--	goto out;
--
--fail_put_dmabuf:
--	dma_buf_put(dmabuf);
- out:
- 	drm_gem_object_put(obj);
- out_unlock:
- 	mutex_unlock(&file_priv->prime.lock);
-+	return dmabuf;
-+}
-+EXPORT_SYMBOL(drm_gem_prime_handle_to_dmabuf);
- 
--	return ret;
-+/**
-+ * drm_gem_prime_handle_to_fd - PRIME export function for GEM drivers
-+ * @dev: dev to export the buffer from
-+ * @file_priv: drm file-private structure
-+ * @handle: buffer handle to export
-+ * @flags: flags like DRM_CLOEXEC
-+ * @prime_fd: pointer to storage for the fd id of the create dma-buf
-+ *
-+ * This is the PRIME export function which must be used mandatorily by GEM
-+ * drivers to ensure correct lifetime management of the underlying GEM object.
-+ * The actual exporting from GEM object to a dma-buf is done through the
-+ * &drm_gem_object_funcs.export callback.
-+ */
-+int drm_gem_prime_handle_to_fd(struct drm_device *dev,
-+			       struct drm_file *file_priv, uint32_t handle,
-+			       uint32_t flags,
-+			       int *prime_fd)
-+{
-+	struct dma_buf *dmabuf;
-+	int fd = get_unused_fd_flags(flags);
-+
-+	if (fd < 0)
-+		return fd;
-+
-+	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
-+	if (IS_ERR(dmabuf)) {
-+		put_unused_fd(fd);
-+		return PTR_ERR(dmabuf);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_utils.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_utils.c
+index ab229e1598ae..695fe99e44d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_utils.c
+@@ -310,7 +310,7 @@ unsigned int dml2_core_utils_get_tile_block_size_bytes(enum dml2_swizzle_mode sw
+ 	default:
+ 		DML2_ASSERT(0);
+ 		return 256;
+-	};
 +	}
-+
-+	fd_install(fd, dmabuf->file);
-+	*prime_fd = fd;
-+	return 0;
  }
- EXPORT_SYMBOL(drm_gem_prime_handle_to_fd);
  
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index 2a1d01e5b56b..fa085c44d4ca 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -69,6 +69,9 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
  
- int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 			       struct drm_file *file_priv, int prime_fd, uint32_t *handle);
-+struct dma_buf *drm_gem_prime_handle_to_dmabuf(struct drm_device *dev,
-+			       struct drm_file *file_priv, uint32_t handle,
-+			       uint32_t flags);
- int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 			       struct drm_file *file_priv, uint32_t handle, uint32_t flags,
- 			       int *prime_fd);
+-- 
+2.32.0.3.g01195cf9f
+
