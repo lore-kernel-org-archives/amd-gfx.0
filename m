@@ -4,62 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9524C531DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 20:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1F87C5321E
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 21:23:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA16810E6B6;
-	Fri, 23 Aug 2024 20:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E47F10E084;
+	Fri, 23 Aug 2024 21:23:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ravnborg.org header.i=@ravnborg.org header.b="X7XP8gy/";
-	dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="y55+jh3Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jTrWyW4I";
 	dkim-atps=neutral
-X-Greylist: delayed 4502 seconds by postgrey-1.36 at gabe;
- Fri, 23 Aug 2024 20:08:02 UTC
-Received: from mailrelay3-1.pub.mailoutpod2-cph3.one.com
- (mailrelay3-1.pub.mailoutpod2-cph3.one.com [46.30.211.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE30A10E820
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 20:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa1;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=Ing5y83DLTTn55EUMYXnCv9ZY7skLyZoKcixFqXqMdE=;
- b=X7XP8gy/Yr5lGcX7PR2qYFaVQ26E2VGlzwA4HBnaIWWhZhdVHcXkad68vJoyrylZJcaUIUsd2QgxL
- qEyR+NsYNqBVPGZFPaLHF8Re+/Xk0jYwI7CG2+/UW5E/XGKp1Vwaqi49nHdPgvIqeLabXfFXG+RpgV
- OARvVQMNFSMBRSLpSVoXhMxjZ0CtO8lAWLEl3CEfS0CY+/54HhQZ1iPhSHL3BQEEBaE28Q6Muq5jq0
- nPZ5Tnr/EVHocYzcQr0k/YN42woRdYmxYaZUlsVcF+UFD6NSwf9ZtPCyK/YJuatTg8gUrJRqKlXZLM
- gU1WpcGzVsK1N9slC2//0oXluPL+4Nw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=ravnborg.org; s=ed1;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=Ing5y83DLTTn55EUMYXnCv9ZY7skLyZoKcixFqXqMdE=;
- b=y55+jh3YqafrHodzYngAwX+sOueuibBwiDJR2M3qeAUXxIbeQjgBxITU4jyQoPR/TVelc0jULhlMb
- kiBh3hHBw==
-X-HalOne-ID: c52ed93c-6180-11ef-b761-dd3f8b2e2fd4
-Received: from ravnborg.org (2-105-16-150-cable.dk.customer.tdc.net
- [2.105.16.150])
- by mailrelay3.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
- id c52ed93c-6180-11ef-b761-dd3f8b2e2fd4;
- Fri, 23 Aug 2024 18:51:57 +0000 (UTC)
-Date: Fri, 23 Aug 2024 20:51:56 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com,
- javierm@redhat.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Boris Brezillon <bbrezillon@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Subject: Re: [PATCH v2 11/86] drm/atmel-hdlcd: Run DRM default client setup
-Message-ID: <20240823185156.GA367392@ravnborg.org>
-References: <20240821130348.73038-1-tzimmermann@suse.de>
- <20240821130348.73038-12-tzimmermann@suse.de>
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14FEE10E084
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 21:23:59 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-20201433461so2396175ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Aug 2024 14:23:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724448238; x=1725053038; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RVw3UGVAksq0IK59oQbkTTVPhibGCKRt7ecfvi6uMvU=;
+ b=jTrWyW4Ijik3j83EgioMPKTAA3IzRpfSnqpySKpJkC4eSe0QfesEPo7hfnZtw7eQO1
+ 8M8Vps/alPHEZ+AbmNAnsxrF9UkQhG5uVbRYOo2pFadkSOmnDxbJl4evUNX5+O3Ptjiw
+ PDez5r6KStZUvq9mBycYHOIG0LucEPf2EQxRREhocIVhXr4JUOvhyC7fIpuLE3UU5ctF
+ jT4xGGz9BgAKMJsA0Uez86YScPL61BUDlz5+nNTbK7ww3nwCYW/imAurS1Rm5UGiuxX0
+ sGLICpt9RsEQSNReGNR8JQm0fY06lFFTREXwgg9Ty1mWZpU/n3/WjCt7D6OLcsQj6scB
+ HIJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724448238; x=1725053038;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RVw3UGVAksq0IK59oQbkTTVPhibGCKRt7ecfvi6uMvU=;
+ b=Pshvf/K28ml2wAue7/Wo4HqsTuLN7qojoyZxZJO9I4kHQqPdA4SKcmRpNNgpH3/yrX
+ fMY9p3rJYnMfUt0pZ21WZH0/VTssBFpIXfB0B72w0+LZ5uESWzW/yaHw//P9TJgWm86m
+ GKJRHf3/0o51QZNO+Q7FsEr4WmOJNJQXc2+I4ydDHlpdjOl/dxpIKlIQBMCeISWbbZDH
+ KtAM7J+c9ckKM8Kb6cHzbp7q6NYALq8FCrjkLKQMNoeA3wZzq+MqG4v89Hcf5sVGlO3x
+ 1k/lCmeykd1VcoNe5hXxuTfK2Lpa+Dysb8eTB3O4CqHexjbL5n1yynyOGblJ5+AJjx9K
+ mrrg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVH6Y79Zlb+bj2yz7dLKWdDDEUoUlM438RZu2hb2b5Q1rkN/Wpn6i5dtDdQwARY+eGAZVmNCTq4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtQvvIwjHVzRB09S/kx+zfO/b7jEGTLUyFkAVX4YHGjJb2rwyW
+ LOiAI/zRwb1wIoP+RuvAu/kw54oEebnfUf9d/tocc6puuJy3XMDAsZWPH88N0AeU3EZUnowxUUQ
+ 2Lh97AO6tuE60hJNn6i7emV3uinqjyw==
+X-Google-Smtp-Source: AGHT+IFlOkaj3R9oJ5MLV1p2+5FXk+ZEOLOmbW8Wg/l2bhgSMmOXoWoM5YzlxCIpuOtkNz77NLUceTnVMAFojKzGrBY=
+X-Received: by 2002:a05:6a20:6a07:b0:1c2:5f80:6bc7 with SMTP id
+ adf61e73a8af0-1cc8a01ea7emr2752575637.4.1724448238192; Fri, 23 Aug 2024
+ 14:23:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240821130348.73038-12-tzimmermann@suse.de>
+References: <2024081247-until-audacious-6383@gregkh>
+ <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+ <CADnq5_MXBZ_WykSMv-GtHZv60aNzvLFVBOvze09o6da3-4-dTQ@mail.gmail.com>
+ <2024081558-filtrate-stuffed-db5b@gregkh>
+In-Reply-To: <2024081558-filtrate-stuffed-db5b@gregkh>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 23 Aug 2024 17:23:46 -0400
+Message-ID: <CADnq5_OFxhxrm-cAfhB8DzdmEcMq_HbkU52vbynqoS1_L0rhzg@mail.gmail.com>
+Subject: Re: AMD drm patch workflow is broken for stable trees
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,52 +81,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 21, 2024 at 02:59:08PM +0200, Thomas Zimmermann wrote:
-> Call drm_client_setup_with_fourcc() to run the kernel's default client
-> setup for DRM. Set fbdev_probe in struct drm_driver, so that the client
-> setup can start the common fbdev client.
-> 
-> v2:
-> - use drm_client_setup_with_fourcc()
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Boris Brezillon <bbrezillon@kernel.org>
-> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
-> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+On Thu, Aug 15, 2024 at 1:11=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
+>
+> On Wed, Aug 14, 2024 at 05:30:08PM -0400, Alex Deucher wrote:
+> > On Wed, Aug 14, 2024 at 4:55=E2=80=AFPM Felix Kuehling <felix.kuehling@=
+amd.com> wrote:
+> > >
+> > > On 2024-08-12 11:00, Greg KH wrote:
+> > > > Hi all,
+> > > >
+> > > > As some of you have noticed, there's a TON of failure messages bein=
+g
+> > > > sent out for AMD gpu driver commits that are tagged for stable
+> > > > backports.  In short, you all are doing something really wrong with=
+ how
+> > > > you are tagging these.
+> > > Hi Greg,
+> > >
+> > > I got notifications about one KFD patch failing to apply on six branc=
+hes
+> > > (6.10, 6.6, 6.1, 5.15, 5.10 and 5.4). The funny thing is, that you
+> > > already applied this patch on two branches back in May. The emails ha=
+d a
+> > > suspicious looking date in the header (Sep 17, 2001). I wonder if the=
+re
+> > > was some date glitch that caused a whole bunch of patches to be re-se=
+nt
+> > > to stable somehow:
+> >
+> > I think the crux of the problem is that sometimes patches go into
+> > -next with stable tags and they end getting taken into -fixes as well
+> > so after the merge window they end up getting picked up for stable
+> > again.  Going forward, if they land in -next, I'll cherry-pick -x the
+> > changes into -fixes so there is better traceability.
+>
+> Please do so, and also work to not have duplicate commits like this in
+> different branches.  Git can handle merges quite well, please use it.
+>
+> If this shows up again in the next -rc1 merge window without any
+> changes, I'll have to just blackhole all amd drm patches going forward
+> until you all tell me you have fixed your development process.
 
-Hi Thomas.
+Just a heads up, you will see some of these when the 6.12 merge window
+due to what is currently in -next and the fixes that went into 6.11,
+but going forward we have updated our process and it should be better.
 
-> ---
->  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-> index 9ce429f889ca..ca5bde8ac300 100644
-> --- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-> +++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c
-> @@ -18,8 +18,10 @@
->  
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_client_setup.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_fbdev_dma.h>
-> +#include <drm/drm_fourcc.h>
->  #include <drm/drm_gem_dma_helper.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_module.h>
-> @@ -865,7 +867,7 @@ static int atmel_hlcdc_dc_drm_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto err_unload;
->  
-> -	drm_fbdev_dma_setup(ddev, 24);
-> +	drm_client_setup_with_fourcc(ddev, DRM_FORMAT_RGB888);
->  
->  	return 0;
+Thanks,
 
-I looks like a patch is missing to add DRM_FBDEV_DMA_DRIVER_OPS to
-struct drm_driver?
+Alex
 
-	Sam
+>
+> thanks,
+>
+> greg k-h
