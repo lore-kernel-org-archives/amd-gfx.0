@@ -4,65 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 655CDC531DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 13:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3928C52D7C
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Aug 2024 13:18:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15FCD10E80C;
-	Fri, 23 Aug 2024 13:13:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD2F10E829;
+	Fri, 23 Aug 2024 13:18:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IqO6LKFy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cjWowjTk";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA54310E80C;
- Fri, 23 Aug 2024 13:13:53 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-7c2595f5c35so195653a12.1; 
- Fri, 23 Aug 2024 06:13:53 -0700 (PDT)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA16B10E816;
+ Fri, 23 Aug 2024 13:18:07 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-7c2595f5c35so196134a12.1; 
+ Fri, 23 Aug 2024 06:18:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724418833; x=1725023633; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1724419087; x=1725023887; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KlMOJ/6A2fvxCoKdrNZuS0N59bJkqzjAMDDegTrgW44=;
- b=IqO6LKFyK0NGUnfsxa/XB0SBYbbLmGMYcp5DmJxhUG15djxte47Wsbp657yH5PMHfT
- L0hG8s+YTAIM7qPGBorrg1Qk6C992vqbLucSwDS8FUCOIu983bCfXt7Bnkk9bkXR3GeE
- G6iLy7UlryWoGkxPYce9fVprv4/hC0jbQ5iAzF8PCSLr6GDFFzmhVZ+CCNsSbGdkhd/U
- HvapiVGMbsNtHLAOiEmA6h1ZGWARpBXOCRjdUuaqBKbm3gOqjYiDzacaDQOavghlUj6x
- zb4VCkgTKoYsC5SPrU3YlQd8v9HsuUg2qgEjWdzm1ZUaBAVm9iTLPArN5+ctVLEJLYo0
- hELg==
+ bh=4FM9Xtx1WVTxxu5XGhVbKBrKZgXpEQzHjuRapKL7d44=;
+ b=cjWowjTkHOE7gvmBwYXgZsskh9DBf+0cnKgqAIudtsI5G5XNB/qEgfRh//8fhdWyFs
+ UnOPEOh3bTZ7Lr4Yc0uRK2LYBP5g64awxIlRYJMn0ueL9fwA+cBOgkuVF2yYlNZ5py+w
+ k+yN0roTdt+xtXmxAivAC5kaLa4cdpV9NP5CUPubS3yM3wu+fhmdh2/1ZLeCN5D4NEuk
+ oSUkTh3g9j2ipLmUsLkpWBESv/OgcfzbXwb08OM5xaxPqTu0sPFOcja0+SZfvyxmfS4p
+ i4SB5Sh/BYkOWzWYVI7HmDs+mfBzLXsrgBNbRR24xebBSOPz75UawT6/7+8DXQiNmtHM
+ B7xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724418833; x=1725023633;
+ d=1e100.net; s=20230601; t=1724419087; x=1725023887;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KlMOJ/6A2fvxCoKdrNZuS0N59bJkqzjAMDDegTrgW44=;
- b=EJrRy40yIUm5Y7VCAF+CIZoKcEpgaAtc2XclPiIXffJz12JkB7VpQWpKO2IZmA0ZwA
- JyUZ6v1GCPKJTtF4EXwSbVt51XhvRtXG1ItKxonRGdac5OqTZSq0VChgZlp/iO4gM0W4
- GccYS5XHuzhJliMVGetdlwnOccJJfVOrKH9fF4XeLWYsI81BI8ELi6fyaW4cdaZRpcTj
- y2PJBXFC3vDFcePSP8qLeLrjXp396PLyFeKyjLPid3C/U5WaLANfmBZ+lBkSR3EMOwqg
- A7ydOrDExRuHQItCYe38hxqUso7hzMsUTE+Wabfwm/dZNlAITsMZb9jnTL9er0UUS0CF
- UKaQ==
+ bh=4FM9Xtx1WVTxxu5XGhVbKBrKZgXpEQzHjuRapKL7d44=;
+ b=G9tH6TUrwKVfqemprbrpiuOvfp7g1v6hdLkVy+Fp1OPJ+m8GvdZ3JUOd7ki3EcEC4v
+ aHDbrQdSEDkT4qVuaGQ4vNapHHLu9f130q9niOcju4cNPsxt9ZY3QqC/nOQBf3au+tbi
+ gPAGjaoCaD80bwxhhek7wRig7nimYFLAgckzuLXr5FV9kb8g5NL5yGEiOPcnYBuze/mG
+ bBH2BYtfFohICesPFUM14Vfkgo6ucZC5el8Ip16r+JOjgord/Gdv/p28c5ZOp+G18SAh
+ klby4ZvHv5FSeCY1/QqQqGKXEd2G7urs/PqcXZ6znTrCpvxyLu3CYKsVlZiicuYF6NPm
+ i/zA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVyUrFFVp+oJrqvQ1aa8z+jjDYoTqwdJhr5yXje37zXtiywjnxwVH7kEiZcTxo/C3AvgGrtJDr+cCQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzk+/uhNd4wvP9CWIWUBqkNFkvDT1hL1iZGB4gfPIFPIaA+4VdT
- vBU7uVFg70sKOJgaE2BNX3lIWHGomT7ok/EnFPohYE6g/2B1e7XELGpvru2yUDEf2Qycv5VKI57
- W1s+64odofSjdc4E9EhoHfg7Az0s=
-X-Google-Smtp-Source: AGHT+IE2E6tM+02fHIv6yuOthFIR6Cw3HvfR5uY1SlfEVgrtGQ/OWIzBdbvGdZxoGCf3ePjSXVzgqIDyF2eRv4NJs/I=
-X-Received: by 2002:a17:90a:be08:b0:2c2:d11b:14dd with SMTP id
- 98e67ed59e1d1-2d64672715dmr1275764a91.0.1724418832970; Fri, 23 Aug 2024
- 06:13:52 -0700 (PDT)
+ AJvYcCWD1h8gdkARGaQXAnzT9Gtd/GUugWhXkVOcxt2qRZisdUPEvT2rPvyz0yb5VrBFx2hpPb+ntiousvjT@lists.freedesktop.org,
+ AJvYcCWXF5kKZf8H+Fg5bcfYxOPbmsZToWnnqXB0R74mP9J1+2get86xO8ygRQO69s7z3PRHpzkQuKkO@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz6gNZoWwWvlWNPppKXXKqCiKS8kHYtev+qA/gCbsav5hXUERXo
+ S1mF5SvbLuL+Sq11Ftw0PcFOakGaHKsYf09fAs7O5vuFKYbHOxqL4qfm2r5dTvOp7XBEyAIA6do
+ g2yTg3rTP9PEaQ4ZyD3MCVwQnfWU=
+X-Google-Smtp-Source: AGHT+IGGPjPiBjhx/igIgyFZnU5cMDgr5uKwT3YNr6Sp+5Qeksl9DoGAOkexFul1FA5+sXrmVo5msKSxq7/5owzoMFw=
+X-Received: by 2002:a17:902:f68d:b0:202:401f:ec8d with SMTP id
+ d9443c01a7336-2039e6e6159mr12905495ad.11.1724419086888; Fri, 23 Aug 2024
+ 06:18:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240820134600.1909370-1-alexander.deucher@amd.com>
-In-Reply-To: <20240820134600.1909370-1-alexander.deucher@amd.com>
+References: <20240823091803.3452513-1-11162571@vivo.com>
+In-Reply-To: <20240823091803.3452513-1-11162571@vivo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 23 Aug 2024 09:13:41 -0400
-Message-ID: <CADnq5_NsyR2eexPnsdx-RCWYef7SyuPed3r076+ZFhuBVxxPAw@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/ttm: increase ttm pre-fault value to PMD size"
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Zhu Lingshan <lingshan.zhu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Fri, 23 Aug 2024 09:17:55 -0400
+Message-ID: <CADnq5_PhMMT1-Xex5eW2unNkhU1gjuEvd9V7PRYfOb+dKJOwNg@mail.gmail.com>
+Subject: Re: [PATCH v2] drivers:smumgr:fix up the misspellings
+To: Yang Ruibin <11162571@vivo.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Stephen Rothwell <sfr@canb.auug.org.au>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ opensource.kernel@vivo.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,41 +85,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
-
-On Tue, Aug 20, 2024 at 9:46=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
+On Fri, Aug 23, 2024 at 5:30=E2=80=AFAM Yang Ruibin <11162571@vivo.com> wro=
+te:
 >
-> This reverts commit 0ddd2ae586d28e521d37393364d989ce118802e0.
+> Hightest is a typo.  It should be highest.Please ensure
+> the consistency of variable naming.
 >
-> This patch causes sluggishness and stuttering in graphical
-> apps.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3564
-> Link: https://www.spinics.net/lists/dri-devel/msg457005.html
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Zhu Lingshan <lingshan.zhu@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Yang Ruibin <11162571@vivo.com>
 > ---
->  include/drm/ttm/ttm_bo.h | 4 ----
->  1 file changed, 4 deletions(-)
+> Changes V2:
+> - Replaced the word "hightest_pcie_level_enabled" with "hightest_pcie_lev=
+el_enabled".
+> ---
+>  .../drm/amd/pm/powerplay/smumgr/fiji_smumgr.c    | 16 ++++++++--------
+>  .../amd/pm/powerplay/smumgr/polaris10_smumgr.c   | 16 ++++++++--------
+>  .../drm/amd/pm/powerplay/smumgr/vegam_smumgr.c   | 16 ++++++++--------
+>  3 files changed, 24 insertions(+), 24 deletions(-)
 >
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index ef0f52f56ebc..6ccf96c91f3a 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -39,11 +39,7 @@
->  #include "ttm_device.h"
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c b/driv=
+ers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+> index 5e43ad2b2..e16efc44d 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+> @@ -1014,7 +1014,7 @@ static int fiji_populate_all_graphic_levels(struct =
+pp_hwmgr *hwmgr)
+>         struct SMU73_Discrete_GraphicsLevel *levels =3D
+>                         smu_data->smc_state_table.GraphicsLevel;
+>         uint32_t i, max_entry;
+> -       uint8_t hightest_pcie_level_enabled =3D 0,
+> +       uint8_t hightest_pcie_level_enabled =3D 0,
+
+This looks like this one didn't get updated properly.
+
+Alex
+
+>                         lowest_pcie_level_enabled =3D 0,
+>                         mid_pcie_level_enabled =3D 0,
+>                         count =3D 0;
+> @@ -1054,27 +1054,27 @@ static int fiji_populate_all_graphic_levels(struc=
+t pp_hwmgr *hwmgr)
+>         } else {
+>                 while (data->dpm_level_enable_mask.pcie_dpm_enable_mask &=
+&
+>                                 ((data->dpm_level_enable_mask.pcie_dpm_en=
+able_mask &
+> -                                               (1 << (hightest_pcie_leve=
+l_enabled + 1))) !=3D 0))
+> -                       hightest_pcie_level_enabled++;
+> +                                               (1 << (highest_pcie_level=
+_enabled + 1))) !=3D 0))
+> +                       highest_pcie_level_enabled++;
 >
->  /* Default number of pre-faulted pages in the TTM fault handler */
-> -#if CONFIG_PGTABLE_LEVELS > 2
-> -#define TTM_BO_VM_NUM_PREFAULT (1 << (PMD_SHIFT - PAGE_SHIFT))
-> -#else
->  #define TTM_BO_VM_NUM_PREFAULT 16
-> -#endif
+>                 while (data->dpm_level_enable_mask.pcie_dpm_enable_mask &=
+&
+>                                 ((data->dpm_level_enable_mask.pcie_dpm_en=
+able_mask &
+>                                                 (1 << lowest_pcie_level_e=
+nabled)) =3D=3D 0))
+>                         lowest_pcie_level_enabled++;
 >
->  struct iosys_map;
+> -               while ((count < hightest_pcie_level_enabled) &&
+> +               while ((count < highest_pcie_level_enabled) &&
+>                                 ((data->dpm_level_enable_mask.pcie_dpm_en=
+able_mask &
+>                                                 (1 << (lowest_pcie_level_=
+enabled + 1 + count))) =3D=3D 0))
+>                         count++;
 >
+>                 mid_pcie_level_enabled =3D (lowest_pcie_level_enabled + 1=
+ + count) <
+> -                               hightest_pcie_level_enabled ?
+> +                               highest_pcie_level_enabled ?
+>                                                 (lowest_pcie_level_enable=
+d + 1 + count) :
+> -                                               hightest_pcie_level_enabl=
+ed;
+> +                                               highest_pcie_level_enable=
+d;
+>
+> -               /* set pcieDpmLevel to hightest_pcie_level_enabled */
+> +               /* set pcieDpmLevel to highest_pcie_level_enabled */
+>                 for (i =3D 2; i < dpm_table->sclk_table.count; i++)
+> -                       levels[i].pcieDpmLevel =3D hightest_pcie_level_en=
+abled;
+> +                       levels[i].pcieDpmLevel =3D highest_pcie_level_ena=
+bled;
+>
+>                 /* set pcieDpmLevel to lowest_pcie_level_enabled */
+>                 levels[0].pcieDpmLevel =3D lowest_pcie_level_enabled;
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b=
+/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+> index ff6b563ec..d785cc646 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+> @@ -1050,7 +1050,7 @@ static int polaris10_populate_all_graphic_levels(st=
+ruct pp_hwmgr *hwmgr)
+>         struct SMU74_Discrete_GraphicsLevel *levels =3D
+>                         smu_data->smc_state_table.GraphicsLevel;
+>         uint32_t i, max_entry;
+> -       uint8_t hightest_pcie_level_enabled =3D 0,
+> +       uint8_t highest_pcie_level_enabled =3D 0,
+>                 lowest_pcie_level_enabled =3D 0,
+>                 mid_pcie_level_enabled =3D 0,
+>                 count =3D 0;
+> @@ -1114,27 +1114,27 @@ static int polaris10_populate_all_graphic_levels(=
+struct pp_hwmgr *hwmgr)
+>         } else {
+>                 while (hw_data->dpm_level_enable_mask.pcie_dpm_enable_mas=
+k &&
+>                                 ((hw_data->dpm_level_enable_mask.pcie_dpm=
+_enable_mask &
+> -                                               (1 << (hightest_pcie_leve=
+l_enabled + 1))) !=3D 0))
+> -                       hightest_pcie_level_enabled++;
+> +                                               (1 << (highest_pcie_level=
+_enabled + 1))) !=3D 0))
+> +                       highest_pcie_level_enabled++;
+>
+>                 while (hw_data->dpm_level_enable_mask.pcie_dpm_enable_mas=
+k &&
+>                                 ((hw_data->dpm_level_enable_mask.pcie_dpm=
+_enable_mask &
+>                                                 (1 << lowest_pcie_level_e=
+nabled)) =3D=3D 0))
+>                         lowest_pcie_level_enabled++;
+>
+> -               while ((count < hightest_pcie_level_enabled) &&
+> +               while ((count < highest_pcie_level_enabled) &&
+>                                 ((hw_data->dpm_level_enable_mask.pcie_dpm=
+_enable_mask &
+>                                                 (1 << (lowest_pcie_level_=
+enabled + 1 + count))) =3D=3D 0))
+>                         count++;
+>
+>                 mid_pcie_level_enabled =3D (lowest_pcie_level_enabled + 1=
+ + count) <
+> -                               hightest_pcie_level_enabled ?
+> +                               highest_pcie_level_enabled ?
+>                                                 (lowest_pcie_level_enable=
+d + 1 + count) :
+> -                                               hightest_pcie_level_enabl=
+ed;
+> +                                               highest_pcie_level_enable=
+d;
+>
+> -               /* set pcieDpmLevel to hightest_pcie_level_enabled */
+> +               /* set pcieDpmLevel to highest_pcie_level_enabled */
+>                 for (i =3D 2; i < dpm_table->sclk_table.count; i++)
+> -                       levels[i].pcieDpmLevel =3D hightest_pcie_level_en=
+abled;
+> +                       levels[i].pcieDpmLevel =3D highest_pcie_level_ena=
+bled;
+>
+>                 /* set pcieDpmLevel to lowest_pcie_level_enabled */
+>                 levels[0].pcieDpmLevel =3D lowest_pcie_level_enabled;
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c b/dri=
+vers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
+> index 34c9f59b8..3e73f380a 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
+> @@ -878,7 +878,7 @@ static int vegam_populate_all_graphic_levels(struct p=
+p_hwmgr *hwmgr)
+>         struct SMU75_Discrete_GraphicsLevel *levels =3D
+>                         smu_data->smc_state_table.GraphicsLevel;
+>         uint32_t i, max_entry;
+> -       uint8_t hightest_pcie_level_enabled =3D 0,
+> +       uint8_t highest_pcie_level_enabled =3D 0,
+>                 lowest_pcie_level_enabled =3D 0,
+>                 mid_pcie_level_enabled =3D 0,
+>                 count =3D 0;
+> @@ -925,27 +925,27 @@ static int vegam_populate_all_graphic_levels(struct=
+ pp_hwmgr *hwmgr)
+>         } else {
+>                 while (hw_data->dpm_level_enable_mask.pcie_dpm_enable_mas=
+k &&
+>                                 ((hw_data->dpm_level_enable_mask.pcie_dpm=
+_enable_mask &
+> -                                               (1 << (hightest_pcie_leve=
+l_enabled + 1))) !=3D 0))
+> -                       hightest_pcie_level_enabled++;
+> +                                               (1 << (highest_pcie_level=
+_enabled + 1))) !=3D 0))
+> +                       highest_pcie_level_enabled++;
+>
+>                 while (hw_data->dpm_level_enable_mask.pcie_dpm_enable_mas=
+k &&
+>                                 ((hw_data->dpm_level_enable_mask.pcie_dpm=
+_enable_mask &
+>                                                 (1 << lowest_pcie_level_e=
+nabled)) =3D=3D 0))
+>                         lowest_pcie_level_enabled++;
+>
+> -               while ((count < hightest_pcie_level_enabled) &&
+> +               while ((count < highest_pcie_level_enabled) &&
+>                                 ((hw_data->dpm_level_enable_mask.pcie_dpm=
+_enable_mask &
+>                                                 (1 << (lowest_pcie_level_=
+enabled + 1 + count))) =3D=3D 0))
+>                         count++;
+>
+>                 mid_pcie_level_enabled =3D (lowest_pcie_level_enabled + 1=
+ + count) <
+> -                               hightest_pcie_level_enabled ?
+> +                               highest_pcie_level_enabled ?
+>                                                 (lowest_pcie_level_enable=
+d + 1 + count) :
+> -                                               hightest_pcie_level_enabl=
+ed;
+> +                                               highest_pcie_level_enable=
+d;
+>
+> -               /* set pcieDpmLevel to hightest_pcie_level_enabled */
+> +               /* set pcieDpmLevel to highest_pcie_level_enabled */
+>                 for (i =3D 2; i < dpm_table->sclk_table.count; i++)
+> -                       levels[i].pcieDpmLevel =3D hightest_pcie_level_en=
+abled;
+> +                       levels[i].pcieDpmLevel =3D highest_pcie_level_ena=
+bled;
+>
+>                 /* set pcieDpmLevel to lowest_pcie_level_enabled */
+>                 levels[0].pcieDpmLevel =3D lowest_pcie_level_enabled;
 > --
-> 2.46.0
+> 2.34.1
 >
