@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C411C5472D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30CC6C5321E
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Aug 2024 07:12:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C252510E11F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E52610E110;
 	Mon, 26 Aug 2024 07:12:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="TB30hA5X";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="OrmVmDLp";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA38A10E0E3;
- Sat, 24 Aug 2024 18:34:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E25F10E147;
+ Sat, 24 Aug 2024 18:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
  s=mail; t=1724524474;
- bh=pXwPNuj1+2MaBbsgOKVjjIsLJ5HBVXKxLzYgXNTSWNY=;
+ bh=mTw6jyeW6NnH6hMUo80Xkpk+kXmEzTn3WVnf7UD8fF4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TB30hA5XnEa7fyrihN7qLIn+P3NA0zkD1xPozEjokv3NczFvkhKQq0l2XRsojyQ9Y
- 8aAV106FaaH3e1hR6xC5fFVaM3RkpCpVakdlpj/KMg09Nu5ewBem4SLzNTSK6mlqwN
- VuzHCR23sJJIjuqz22qtmBKwy/VPwa1fJX/G3WVw=
+ b=OrmVmDLpNXYym67YQoExHgkOG4kFLVCsIQDj3j23GxFLUXDDOBypKfwOD+k8ORcGB
+ 1BrUOnaFTylWc7yl5pRgP8PkOT/uH0kYW4Ozvpt8H3EXDqVMiAYPInKpeS+uS8gljL
+ aWLQprfNAX6l8kIfgre+3V1bzpuerkGZ1YWUnWDU=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sat, 24 Aug 2024 20:33:55 +0200
-Subject: [PATCH v6 2/4] drm/amd/display: Add support for minimum backlight
- quirk
+Date: Sat, 24 Aug 2024 20:33:57 +0200
+Subject: [PATCH v6 4/4] drm: panel-backlight-quirks: Add Framework 13
+ glossy and 2.8k panels
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240824-amdgpu-min-backlight-quirk-v6-2-1ed776a17fb3@weissschuh.net>
+Message-Id: <20240824-amdgpu-min-backlight-quirk-v6-4-1ed776a17fb3@weissschuh.net>
 References: <20240824-amdgpu-min-backlight-quirk-v6-0-1ed776a17fb3@weissschuh.net>
 In-Reply-To: <20240824-amdgpu-min-backlight-quirk-v6-0-1ed776a17fb3@weissschuh.net>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -49,11 +49,11 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-doc@vger.kernel.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1724524474; l=2773;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1724524474; l=1440;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=pXwPNuj1+2MaBbsgOKVjjIsLJ5HBVXKxLzYgXNTSWNY=;
- b=wZPXulQQnUKt4eZU7D/anz1D3UzcnVTFMef69VP4gLOdo12ou4ie823nDuY8HBS7Tlox1yc6c
- wUKJPUFEpRFCXW+39oSRRtA6Mb5muAIVtwUuLEoM+tj+O97iDinyO9N
+ bh=4PWZVYaIj9BWwhnUS2qlUz6H6bPcZd/2WgBOxYO5hgw=;
+ b=uZISDVhsribEXW2iPNZoaYmx2fpVMDA+fMTjEw3Yb35y9ywEsVBwTCpxr008kXxwlG9Bt+J/W
+ OIUcCoJ52nnCqIZmmD7viOm+HGusVawMmcXmJenCPTrA1X6QMX4yUvO
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 26 Aug 2024 07:12:20 +0000
@@ -71,71 +71,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Not all platforms provide the full range of PWM backlight capabilities
-supported by the hardware through ATIF.
-Use the generic drm panel minimum backlight quirk infrastructure to
-override the capabilities where necessary.
+From: "Dustin L. Howett" <dustin@howett.net>
 
-Testing the backlight quirk together with the "panel_power_savings"
-sysfs file has not shown any negative impact.
-One quirk seems to be that 0% at panel_power_savings=0 seems to be
-slightly darker than at panel_power_savings=4.
+I have tested these panels on the Framework Laptop 13 AMD with firmware
+revision 3.05 (latest at time of submission).
 
+Signed-off-by: Dustin L. Howett <dustin@howett.net>
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-Tested-by: Dustin L. Howett <dustin@howett.net>
 Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Kconfig                |  1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
- 2 files changed, 11 insertions(+)
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 0051fb1b437f..655c10aef2e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -23,6 +23,7 @@ config DRM_AMDGPU
- 	select DRM_BUDDY
- 	select DRM_SUBALLOC_HELPER
- 	select DRM_EXEC
-+	select DRM_PANEL_BACKLIGHT_QUIRKS
- 	# amdgpu depends on ACPI_VIDEO when ACPI is enabled, for select to work
- 	# ACPI_VIDEO's dependencies must also be selected.
- 	select INPUT if ACPI
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 983a977632ff..056960ea335c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -93,6 +93,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
-+#include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -3333,6 +3334,8 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 	struct drm_connector *conn_base;
- 	struct amdgpu_device *adev;
- 	struct drm_luminance_range_info *luminance_range;
-+	const struct drm_edid *drm_edid;
-+	int min_input_signal_override;
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index f2aefff618dd..c477d98ade2b 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -25,6 +25,22 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.ident.name = "NE135FBM-N41",
+ 		.min_brightness = 0,
+ 	},
++	/* 13 inch glossy panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x095f),
++		.ident.name = "NE135FBM-N41",
++		.min_brightness = 0,
++	},
++	/* 13 inch 2.8k panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0cb4),
++		.ident.name = "NE135A1M-NY1",
++		.min_brightness = 0,
++	},
+ };
  
- 	if (aconnector->bl_idx == -1 ||
- 	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
-@@ -3367,6 +3370,13 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		caps->aux_min_input_signal = 0;
- 		caps->aux_max_input_signal = 512;
- 	}
-+
-+	drm_edid = drm_edid_alloc(aconnector->edid,
-+				  EDID_LENGTH * (aconnector->edid->extensions + 1));
-+	min_input_signal_override = drm_get_panel_min_brightness_quirk(drm_edid);
-+	drm_edid_free(drm_edid);
-+	if (min_input_signal_override >= 0)
-+		caps->min_input_signal = min_input_signal_override;
- }
- 
- void amdgpu_dm_update_connector_after_detect(
+ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
 
 -- 
 2.46.0
