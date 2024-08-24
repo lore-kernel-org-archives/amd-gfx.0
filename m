@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4372DC5321E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A115FC5472F
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Aug 2024 07:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0DBA10E141;
-	Mon, 26 Aug 2024 07:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBB410E129;
+	Mon, 26 Aug 2024 07:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="cireCPew";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="by+kF/rh";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9BEC10E0C3;
- Sat, 24 Aug 2024 18:34:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A64C210E0E3;
+ Sat, 24 Aug 2024 18:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
  s=mail; t=1724524474;
- bh=jPTjo8xHszfHKo7sgVPOL9TrpX9WTP+c7wzcRqjMglI=;
+ bh=AfFeXIIAgQ9QcQOVPaJFq7joVIfw9zHjAXRU+l+Hz2c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=cireCPew2EtzY8gJ16x3cRSM4QRjWkOE3BkIqskFFXZZWdJebxj2H7EHGTmdyxz+n
- XaN8QNsINVUO80tk5XZaXZCofpHR0EIIPIv2xnKoeQn8W0kJp5G8B6VIqZ+T9YqKrj
- Qa2EZUKmv1iSBfpPXCJw3cKlg/4k2XlgE7ioFe2E=
+ b=by+kF/rhDcqEuvTj4uEr8LEyJldjHKcJxSSzc/QcP1ww5D2tXigDG4MXFU7sX21qQ
+ 7PoYtVTBek4rF+boQNYvWXNR2aEAYFBBPskZppl5I7HH9xAAlv0RwmQXIcDiiqwfog
+ Np+y3lQ8haKT+vzDUpeH51/g5WJxsL8+X0z2a24s=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sat, 24 Aug 2024 20:33:54 +0200
-Subject: [PATCH v6 1/4] drm: Add panel backlight quirks
+Date: Sat, 24 Aug 2024 20:33:56 +0200
+Subject: [PATCH v6 3/4] drm: panel-backlight-quirks: Add Framework 13 matte
+ panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240824-amdgpu-min-backlight-quirk-v6-1-1ed776a17fb3@weissschuh.net>
+Message-Id: <20240824-amdgpu-min-backlight-quirk-v6-3-1ed776a17fb3@weissschuh.net>
 References: <20240824-amdgpu-min-backlight-quirk-v6-0-1ed776a17fb3@weissschuh.net>
 In-Reply-To: <20240824-amdgpu-min-backlight-quirk-v6-0-1ed776a17fb3@weissschuh.net>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -48,11 +49,11 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-doc@vger.kernel.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1724524474; l=4991;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1724524474; l=1482;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=jPTjo8xHszfHKo7sgVPOL9TrpX9WTP+c7wzcRqjMglI=;
- b=GvmUKTrjus/ulbBqwnDfwuFvjdkFTYj3oL5MAAFXHLvhMy/7bLvwYdulBAheGb+JFahDvYvL1
- dTrGKRO8A20DSoM8PTZtpzA5dJ9uw8Z9ZRQxmY+aDXIqymSOWVL19XT
+ bh=AfFeXIIAgQ9QcQOVPaJFq7joVIfw9zHjAXRU+l+Hz2c=;
+ b=aRBsXCe1+ZIvefXKrtVl3+KLKWtGSo3fVGq0sMRSB/Ro9OzQF+VgwHsWF15E4m6cz925Vfmma
+ vDd7jK8eHFLCfuWbteIMbAv4v9rR+iDO61qALA+V8itnaqw8KcAdyFH
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 26 Aug 2024 07:12:20 +0000
@@ -70,160 +71,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Panels using a PWM-controlled backlight source do not have a standard
-way to communicate their valid PWM ranges.
-On x86 the ranges are read from ACPI through driver-specific tables.
-The built-in ranges are not necessarily correct, or may grow stale if an
-older device can be retrofitted with newer panels.
+The value of "min_input_signal" returned from ATIF on a Framework AMD 13
+is "12". This leads to a fairly bright minimum display backlight.
 
-Add a quirk infrastructure with which the minimum valid backlight value
-can be maintained as part of the kernel.
+Add a quirk to override that the minimum backlight PWM to "0" which
+leads to a much lower minimum brightness, which is still visible.
 
+Tested on a Framework AMD 13 BIOS 3.05 with the matte panel.
+
+Link: https://community.frame.work/t/25711/9
+Link: https://community.frame.work/t/47036
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 Tested-by: Dustin L. Howett <dustin@howett.net>
 Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- Documentation/gpu/drm-kms-helpers.rst        |  3 ++
- drivers/gpu/drm/Kconfig                      |  4 ++
- drivers/gpu/drm/Makefile                     |  1 +
- drivers/gpu/drm/drm_panel_backlight_quirks.c | 70 ++++++++++++++++++++++++++++
- include/drm/drm_utils.h                      |  4 ++
- 5 files changed, 82 insertions(+)
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
-index 8435e8621cc0..a26989500129 100644
---- a/Documentation/gpu/drm-kms-helpers.rst
-+++ b/Documentation/gpu/drm-kms-helpers.rst
-@@ -230,6 +230,9 @@ Panel Helper Reference
- .. kernel-doc:: drivers/gpu/drm/drm_panel_orientation_quirks.c
-    :export:
- 
-+.. kernel-doc:: drivers/gpu/drm/drm_panel_backlight_quirks.c
-+   :export:
-+
- Panel Self Refresh Helper Reference
- ===================================
- 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 6b2c6b91f962..9ebb8cdb535e 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -454,6 +454,10 @@ config DRM_HYPERV
- config DRM_EXPORT_FOR_TESTS
- 	bool
- 
-+# Separate option as not all DRM drivers use it
-+config DRM_PANEL_BACKLIGHT_QUIRKS
-+	tristate
-+
- config DRM_LIB_RANDOM
- 	bool
- 	default n
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 68cc9258ffc4..adf85999aee2 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -92,6 +92,7 @@ drm-$(CONFIG_DRM_PANIC) += drm_panic.o
- obj-$(CONFIG_DRM)	+= drm.o
- 
- obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
-+obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) += drm_panel_backlight_quirks.o
- 
- #
- # Memory-management helpers
 diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-new file mode 100644
-index 000000000000..6b8bbed77c7f
---- /dev/null
+index 6b8bbed77c7f..f2aefff618dd 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
 +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -0,0 +1,70 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/array_size.h>
-+#include <linux/dmi.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_utils.h>
-+
-+struct drm_panel_min_backlight_quirk {
-+	struct {
-+		enum dmi_field field;
-+		const char * const value;
-+	} dmi_match;
-+	struct drm_edid_ident ident;
-+	u8 min_brightness;
-+};
-+
-+static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks[] = {
-+};
-+
-+static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
-+						  const struct drm_edid *edid)
-+{
-+	if (!dmi_match(quirk->dmi_match.field, quirk->dmi_match.value))
-+		return false;
-+
-+	if (!drm_edid_match(edid, &quirk->ident))
-+		return false;
-+
-+	return true;
-+}
-+
-+/**
-+ * drm_get_panel_min_brightness_quirk - Get minimum supported brightness level for a panel.
-+ * @edid: EDID of the panel to check
-+ *
-+ * This function checks for platform specific (e.g. DMI based) quirks
-+ * providing info on the minimum backlight brightness for systems where this
-+ * cannot be probed correctly from the hard-/firm-ware.
-+ *
-+ * Returns:
-+ * A negative error value or
-+ * an override value in the range [0, 255] representing 0-100% to be scaled to
-+ * the drivers target range.
-+ */
-+int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid)
-+{
-+	const struct drm_panel_min_backlight_quirk *quirk;
-+	size_t i;
-+
-+	if (!IS_ENABLED(CONFIG_DMI))
-+		return -ENODATA;
-+
-+	if (!edid)
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(drm_panel_min_backlight_quirks); i++) {
-+		quirk = &drm_panel_min_backlight_quirks[i];
-+
-+		if (drm_panel_min_backlight_quirk_matches(quirk, edid))
-+			return quirk->min_brightness;
-+	}
-+
-+	return -ENODATA;
-+}
-+EXPORT_SYMBOL(drm_get_panel_min_brightness_quirk);
-+
-+MODULE_DESCRIPTION("Quirks for panel backlight overrides");
-+MODULE_LICENSE("GPL");
-diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-index 70775748d243..15fa9b6865f4 100644
---- a/include/drm/drm_utils.h
-+++ b/include/drm/drm_utils.h
-@@ -12,8 +12,12 @@
+@@ -17,6 +17,14 @@ struct drm_panel_min_backlight_quirk {
+ };
  
- #include <linux/types.h>
+ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks[] = {
++	/* 13 inch matte panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0bca),
++		.ident.name = "NE135FBM-N41",
++		.min_brightness = 0,
++	},
+ };
  
-+struct drm_edid;
-+
- int drm_get_panel_orientation_quirk(int width, int height);
- 
-+int drm_get_panel_min_brightness_quirk(const struct drm_edid *edid);
-+
- signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
- 
- #endif
+ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
 
 -- 
 2.46.0
