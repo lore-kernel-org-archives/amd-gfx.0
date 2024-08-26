@@ -4,95 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD62BC5321E
-	for <amd-gfx@archiver.kernel.org>; Sun, 25 Aug 2024 20:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB49C5321E
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Aug 2024 00:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D17710E034;
-	Sun, 25 Aug 2024 20:46:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BAC510E002;
+	Mon, 26 Aug 2024 00:19:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nova.fail header.i=@nova.fail header.b="kPhbdCJZ";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="cB9/ciuS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Burin7BC";
 	dkim-atps=neutral
-X-Greylist: delayed 345 seconds by postgrey-1.36 at gabe;
- Sun, 25 Aug 2024 20:46:21 UTC
-Received: from fhigh7-smtp.messagingengine.com
- (fhigh7-smtp.messagingengine.com [103.168.172.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C775F10E034
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Aug 2024 20:46:21 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.nyi.internal
- [10.202.2.45])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id E337F1150836;
- Sun, 25 Aug 2024 16:40:35 -0400 (EDT)
-Received: from phl-imap-07 ([10.202.2.97])
- by phl-compute-05.internal (MEProxy); Sun, 25 Aug 2024 16:40:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nova.fail; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1724618435;
- x=1724704835; bh=wDPoFuHRFQqHcwhSC6e0OxBaywTaTrEEsYpH2T2VM8s=; b=
- kPhbdCJZBWGRJLknI8M78BHk/BWHS/FLR17oVpi3iBHfM3kPwIoa4lA1IQHHEgiO
- 33QgxsQiN1ke+7FdIVF+MjFlQWstst8KUn1yN0Eon3aoeLIq0tJ59OCjLcM+CWUK
- jyduoo+aVFoqUMvydfD9X4bFn8YHel8B8DYyZnt7YK8n+VZz8Ilver1H31dl4sla
- dhr3V0523AGNqYzEqdVk6xl1FSYS46/+js+/6lCmnup2Q0L+yg6KCAGTKwbZ94TW
- I3pjtFRoRM1Na5nJQ7uy/9mFu7dcKu6pzAy4yyDWxwQ1C32NeLpQfDiTwfUKl6ys
- diZS37PTRuIq+m0eoA/uRw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1724618435; x=
- 1724704835; bh=wDPoFuHRFQqHcwhSC6e0OxBaywTaTrEEsYpH2T2VM8s=; b=c
- B9/ciuS/DZfxURUNVWOAkorppc1UmNVq1RZk3ATWDl01Ko0bQw7zxylg3wCXxqp/
- ukdo/uMo8HRoUk9MREMwuR2QIdZqvjQvDgwS19jlUiYFHTuEenbu9WHMcYO9LMEg
- j2/eb3l86+0+DPT91Q2G6w6vZndDzdg3l9ENgA+0ZNdplZMvtSQfxyMB0d3Togkh
- 7lalFR8HElXPSP9Q+APa/FAPU55DizMwpIgf83qeHBhfYDQggoSn3UNjIMchUH1k
- GnKW5eG+qeWDv3sPTGc9N4WpIZtVJKaDmnJnTnak1WoQ3tXMYcuJVZF6cSZOHKJ1
- h5x+XEX/Y9DJKohJJ6fiw==
-X-ME-Sender: <xms:w5bLZhpzsVKCnVvJMoJL7PLPAj2NyGrqRhExsiINq6uCegEARPmfJA>
- <xme:w5bLZjp65ZIbPySeFPodzmWHMhTBUiBT307gk42B907Qt9mkMjTGmOHGJsHuPMWaU
- CxR46UPsLuD_iC7xag>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddruddviedgudehtdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
- uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
- hnthhsucdlqddutddtmdenucfjughrpefoggffhffvvefkjghfufgtgfesthejredtredt
- tdenucfhrhhomhepfdfnuhhnrgcupfhovhgrfdcuoehmlhdqfhguqdgrmhguqdhgfhigqd
- guvghvvghlsehnhiigrdhnohhvrgdrfhgrihhlqeenucggtffrrghtthgvrhhnpeethffh
- ieeiteefjeefkeevkeeutefgjeegtedugfetfeduheeklefgtdfhfeegieenucffohhmrg
- hinhepfhhrvggvuggvshhkthhophdrohhrghenucevlhhushhtvghrufhiiigvpedtnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehmlhdqfhguqdgrmhguqdhgfhigqdguvghvvghlse
- hnhiigrdhnohhvrgdrfhgrihhlpdhnsggprhgtphhtthhopeehpdhmohguvgepshhmthhp
- ohhuthdprhgtphhtthhopehmrghrihhordhlihhmohhntghivghllhhosegrmhgurdgtoh
- hmpdhrtghpthhtoheprghlvgiguggvuhgthhgvrhesghhmrghilhdrtghomhdprhgtphht
- thhopehsuhhpvghrmhdusehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrmhguqdhgfh
- igsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheplhhukhgv
- sehljhhonhgvshdruggvvh
-X-ME-Proxy: <xmx:w5bLZuN-XaiZFI4oqtxYhm2INwgsdlpHHKfW7GDEnH6563ugjVs0-Q>
- <xmx:w5bLZs5k9scOHDF7srLGLW2LyZzdUOK004sLEdPUzBeCV21_2XtpTA>
- <xmx:w5bLZg7EpVC-tvwnqTsG2SbA_LJffRM2Xfbnig6Ggbax2Ut-0cDQ1g>
- <xmx:w5bLZkiqh6Z-ke0NJg22eIUhO4ZjdqDrvWZBy3RumHjAgyZCFrkC3g>
- <xmx:w5bLZr0oqHJmOKD3Fjr1mkRXPpcwvjiwNQdSc-5dIHJoXIR4Wq_ZLkgV>
-Feedback-ID: icd4147ec:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 98CACBA0069; Sun, 25 Aug 2024 16:40:35 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AFC810E002
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Aug 2024 00:19:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 18036A4008E;
+ Mon, 26 Aug 2024 00:19:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA4DC4FEEA;
+ Mon, 26 Aug 2024 00:19:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1724631570;
+ bh=vzCGGJ+RQlJV4njwEvLDI1mTm/Xfs2qXZZgX3qm6ddk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Burin7BCzCvVTGgpnagNj9L/BKOeueTkDtyvHxSc5l2Efk3iuGYS8oKAlV0nTBVQ2
+ /6FWzlVbi/GmtSF7MbdSm/8MQmcZlPtU8AqGFshH1VfcVTtPc9CltAWNA4f5DCMuKM
+ c0rPzvLCnXCOO5Mt0h1fOTMLrCzP5+ok2rwFVpIMaKPyPsNaAqXGnPXs7iooDRj/Jl
+ lYs44H9KzyXi3RN09v28usZgtzMMuwTl09BZME0r/KmglyPC5MbzQ2tXJRy26VsSFD
+ iALcMHIQ3H7tASoQeGFLvIz7LxV+GOCwjA8i3ipojpUnAhyjcA0ZuuMS8SpaCMedmw
+ Rdn47sg4pKY6w==
+Message-ID: <26c4982a-c735-4a6e-829c-7d1a057aa4fe@kernel.org>
+Date: Sun, 25 Aug 2024 19:19:28 -0500
 MIME-Version: 1.0
-Date: Sun, 25 Aug 2024 13:40:14 -0700
-From: "Luna Nova" <ml-fd-amd-gfx-devel@nyx.nova.fail>
-To: amd-gfx@lists.freedesktop.org
-Cc: "Mario Limonciello" <superm1@kernel.org>, "Luke Jones" <luke@ljones.dev>, 
- "Mario Limonciello" <mario.limonciello@amd.com>,
- "Alex Deucher" <alexdeucher@gmail.com>
-Message-Id: <de5eeddc-df9f-4c0d-aa11-8ad077bd8adb@app.fastmail.com>
-In-Reply-To: <da2860c4-df08-49d8-b730-68691520f7ec@app.fastmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd: Don't wake dGPUs while reading sensors
+To: Luna Nova <ml-fd-amd-gfx-devel@nyx.nova.fail>,
+ amd-gfx@lists.freedesktop.org
+Cc: Luke Jones <luke@ljones.dev>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
 References: <20240820020435.472490-1-superm1@kernel.org>
  <CADnq5_O3uTj_Zu9+iY_k8i2MQhXH=Ac2+GhCe5DeW=CWY6jn4w@mail.gmail.com>
  <0e8d0a26-3dca-4669-96fc-d9f4bffbe5f6@amd.com>
  <CADnq5_OL=W_Uz9LCeoYAEZ=XX=1tu0=Hky=pjLmfz0x8vWUT-g@mail.gmail.com>
  <9efbc3a1-c43b-4f8a-a334-6ff77e6de283@amd.com>
  <da2860c4-df08-49d8-b730-68691520f7ec@app.fastmail.com>
-Subject: Re: [PATCH] drm/amd: Don't wake dGPUs while reading sensors
-Content-Type: text/plain
+ <de5eeddc-df9f-4c0d-aa11-8ad077bd8adb@app.fastmail.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <de5eeddc-df9f-4c0d-aa11-8ad077bd8adb@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,12 +66,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Raised this as an issue a while back on the bug tracker and it got closed as WONTFIX. https://gitlab.freedesktop.org/drm/amd/-/issues/2229
-Been running a patched kernel with a similar patch locally ever since because even figuring out everything on the system that's accidentally waking the GPU was too time consuming.
 
-I'd love if this gets accepted.
-I think fundamentally waking the device to ask how much power it is using thus increasing the power usage makes no sense - by trying to measure it we changed it, so if power can't be measured while off it only makes sense to return an error. Same applies for other sensors that currently wake the GPU - most of them are changing the property by waking it.
 
-Because this behavior is odd and it's not obvious on single GPU systems that anything's going wrong app and lib devs are likely to keep making this "mistake" forever.
+On 8/25/24 15:40, Luna Nova wrote:
+> Raised this as an issue a while back on the bug tracker and it got closed as WONTFIX. https://gitlab.freedesktop.org/drm/amd/-/issues/2229
+> Been running a patched kernel with a similar patch locally ever since because even figuring out everything on the system that's accidentally waking the GPU was too time consuming.
+> 
+> I'd love if this gets accepted.
+> I think fundamentally waking the device to ask how much power it is using thus increasing the power usage makes no sense - by trying to measure it we changed it, so if power can't be measured while off it only makes sense to return an error. Same applies for other sensors that currently wake the GPU - most of them are changing the property by waking it.
+> 
+> Because this behavior is odd and it's not obvious on single GPU systems that anything's going wrong app and lib devs are likely to keep making this "mistake" forever.
+> 
+> Luna
 
-Luna
+So FWIW I did file a v2 [1] that "undoes" the debugfs changes.
+
+[1] 
+https://lore.kernel.org/amd-gfx/20240823145527.150749-1-mario.limonciello@amd.com/
+
+If there is too much push back to an error code another option we can do 
+is return "0" for this case, which will make "sense" for some sysfs 
+files specifically if in d3cold.  However for d3hot and some sysfs it 
+isn't fully true.
