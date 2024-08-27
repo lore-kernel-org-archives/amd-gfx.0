@@ -4,64 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B60BC54734
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Aug 2024 13:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3944C54734
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Aug 2024 14:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C3F10E312;
-	Tue, 27 Aug 2024 13:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6333B10E30D;
+	Tue, 27 Aug 2024 14:12:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="anwAlDX2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GYt9bLQ9";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB9410E312
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 13:27:17 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-201f83e0d47so3243785ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 06:27:17 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C1710E30D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 14:12:15 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a86e5e9ff05so112807066b.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 07:12:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724765236; x=1725370036; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mFcCeFf3O2+q4CBXLmbQ2IjSyl3Z/cZzHrUxEFVTxuY=;
- b=anwAlDX2eSOoi4nMj+FrTcofr0przJklYJG9ZHjIQKS79yAzNVDeQBeXW5P88V9NzI
- UQtWrgdLcAyBIef5AKqENLURKb3BXdNUFmeDEkJ0G98Iz31dyRPsRA+5untjXfGXFuPz
- jtXx2iRx2kxKk2UMY6PFeefRfu5Hb4WQqwOY4EX1Mu6zlACiqqUXGxN+hUWdOZO6+vqi
- I03dyfGmTHnCLZJ6DyWrPAWAEtJj1FOQXwajWnBvuydeQieX7IYmGWir0uNz8Wcj1SLt
- wTKTU7cHmeDb7Uqnm/jDHDMR0aZoMV0NoaMveT1u9qFBHmr27Zm4chzmIJSVmtWSPFfu
- R2Lw==
+ d=gmail.com; s=20230601; t=1724767934; x=1725372734; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xh+e7yYTdaQhcBwR8wYRTmm0I+/ZbobV9MMOb3mAojs=;
+ b=GYt9bLQ98ahUN7TVsaQdZfSE5SuR/Rmbs2WEwCGUt3g/lgkc3mqFXWFmn/gf45Ycv0
+ deeha93cLe58fWY0yJkeIJ+Bf4jmb3ZdrLRxHhSCxMMLjfZFSOKQ/bdPCeWoPY9DD5WZ
+ qjFqunOWKWWSQ618Y+WbOKgafNUJoop0EXsJywIBCpuWRo5iU5aYszKzh5Nnoh6nuyPU
+ rahQk8A0qvUt9gCIJJdiQH6Yxmnf0Pnn0tJBjMCC1HCDSIwgCawOkeh6PRsU4oiUkdrr
+ cCFhS30j14/MadULoB3eGzBfJMh4LxTMTDvFQk+Q7p3WuMSoGAmIwYBCEEm2W1WWQmSH
+ W+xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724765236; x=1725370036;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mFcCeFf3O2+q4CBXLmbQ2IjSyl3Z/cZzHrUxEFVTxuY=;
- b=fw0JzCbBeL8DWxsOPbF45XPyAWWdPRbeyxHpjpie8t/WIdPO4jWDJwRh6/B4m2DXjr
- Q640FLpiF/Azkp8kS16zs6TOfmB/6MIPvHBzFA7B6b1oXA+bMRFR69eAI7WRxBPbJTbh
- k/h09ayDiIvkqq+1iUFxBRRhHmLCjpD/zAe2VNTOTxX5tDxPg6cAqTWiJL0ItsAB0TyW
- KHJjuZe60Tsumo12M2zpU9rJkUZxhX1OSFxJgzO9rjCcGFSvPmJsMDe4XIMXNgw7OoVp
- YyT1JZKazu43cGZ1hIrYaQlstws9Cm25tfWtma1c3+QrU84uP08DUZ/TC2KWRuX+8zpJ
- A6BQ==
-X-Gm-Message-State: AOJu0YzIYKck7YQyVsyfZp8bKTjaSQUUCdFut+E2zDZQZirKcDa3eubQ
- lNU9JVENqXR4HGwbskvVQ1G45AFf4jMfyPi/Qf9ZBW3ffcmSYe0Od4csIpxg+QXiS/pvrs6GsP6
- gzz08ViLuW36LpEW6/B+HlbDrjc0=
-X-Google-Smtp-Source: AGHT+IEEL/KCGrLy3zAyBR7yKkt+1IlcI7AQ4BxLQ+xC5ePOChkGyZOgSRPBWc9HYs1GZOLE1s2dc+jeYBKqRPIMbjQ=
-X-Received: by 2002:a17:902:f551:b0:1fb:a38b:c5b6 with SMTP id
- d9443c01a7336-2039e43a895mr94245785ad.1.1724765236305; Tue, 27 Aug 2024
- 06:27:16 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1724767934; x=1725372734;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xh+e7yYTdaQhcBwR8wYRTmm0I+/ZbobV9MMOb3mAojs=;
+ b=FYcISUehMEiYCKOcQiGiSlq9RroBR4GiPmmk9u01RnGj33fZC3vJqEbpnesep0rfVQ
+ jbizxrqXdenXs1x8pmrU9JUrLZ/Xm8Q7FmJXiz6PJSSMSsS3AQMs0IhRsfIrpbjt1Vf7
+ yLK61JGtV3+C6N53CxW9jLblWZSYJoh4ed14PLZKj3aZQBFPBi7AM8KYXw40yI8Eew/W
+ b/Rp2oO2WyBbTbMDlEqhiZGy6EBqpEvfVBlKX37LkZac+qAMJawhsvaTYvbYlqIiNS4d
+ d8ait4aLHp2rDZ8iiAy4tvRpo0q2odjeFokX4Ww4ptUJHhZplc8iKPXAYELd+EWN5kFQ
+ lToA==
+X-Gm-Message-State: AOJu0Yw20IBqGkbuHAzwGEbu147+Fkwy3rxFzEKwAiuULd14LOJuBw1s
+ qoKV9uBH5m7mJw4AaoPPa9QnHnmymeigEfDBPh7ueu9utIgO7JVAvRvIEu0r
+X-Google-Smtp-Source: AGHT+IHQvrQc9XoMvE0e92Oxzth2VYTPuOWGXDaRHtwxJJ1/oyBu/K8iUy4G0VYv+ZABEhrdTAoChw==
+X-Received: by 2002:a17:907:97ca:b0:a86:8a89:3d6c with SMTP id
+ a640c23a62f3a-a86e3d41848mr222944766b.66.1724767933359; 
+ Tue, 27 Aug 2024 07:12:13 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15b3:7800:8c1b:1972:54d8:6ca6])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e54875e5sm114196866b.5.2024.08.27.07.12.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Aug 2024 07:12:12 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Lijo.Lazar@amd.com,
+	Alexander.Deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/3] drm/amdgpu: explicitely set the
+ AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS flag
+Date: Tue, 27 Aug 2024 16:12:09 +0200
+Message-Id: <20240827141211.2411-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240827132120.62204-1-yifan1.zhang@amd.com>
-In-Reply-To: <20240827132120.62204-1-yifan1.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Aug 2024 09:27:04 -0400
-Message-ID: <CADnq5_MSOFRLHiaAP0iuOz0yk-=wr=taw6Jr80zaVEfvN-w1Ug@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdkfd: Don't drain ih1 for APU
-To: Yifan Zhang <yifan1.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Felix.Kuehling@amd.com, Philip.Yang@amd.com, Xiaogang.Chen@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,49 +81,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 27, 2024 at 9:21=E2=80=AFAM Yifan Zhang <yifan1.zhang@amd.com> =
-wrote:
->
-> ih1 is not initialized for APUs. Don't drain it or NULL pointer
-> error will be triggered.
->
-> Fixes: 490fc21fe97c (drm/amdkfd: Change kfd/svm page fault drain handling=
-)
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+Instead of having that in the amdgpu_bo_pin() function applied for all
+pinned BOs.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c             | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c              | 1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c                | 1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c                  | 2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c                  | 2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c                   | 2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c                   | 2 ++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 1 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c    | 1 +
+ 9 files changed, 13 insertions(+), 1 deletion(-)
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_svm.c
-> index b44dec90969f..512cbf9403a3 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -2458,11 +2458,13 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, st=
-ruct svm_range *prange,
->                 adev =3D pdd->dev->adev;
->
->                 /* Check and drain ih1 ring if cam not available */
-> -               ih =3D &adev->irq.ih1;
-> -               checkpoint_wptr =3D amdgpu_ih_get_wptr(adev, ih);
-> -               if (ih->rptr !=3D checkpoint_wptr) {
-> -                       svms->checkpoint_ts[i] =3D amdgpu_ih_decode_iv_ts=
-(adev, ih, checkpoint_wptr, -1);
-> -                       continue;
-> +               if (adev->irq.ih1.ring_size) {
-> +                       ih =3D &adev->irq.ih1;
-> +                       checkpoint_wptr =3D amdgpu_ih_get_wptr(adev, ih);
-> +                       if (ih->rptr !=3D checkpoint_wptr) {
-> +                               svms->checkpoint_ts[i] =3D amdgpu_ih_deco=
-de_iv_ts(adev, ih, checkpoint_wptr, -1);
-> +                               continue;
-> +                       }
->                 }
->
->                 /* check if dev->irq.ih_soft is not empty */
-> --
-> 2.37.3
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 092ec11258cd..813520655fd0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -233,6 +233,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
+ 	}
+ 
+ 	if (!adev->enable_virtual_display) {
++		new_abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 		r = amdgpu_bo_pin(new_abo,
+ 				  amdgpu_display_supported_domains(adev, new_abo->flags));
+ 		if (unlikely(r != 0)) {
+@@ -1759,6 +1760,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
+ 
+ 			r = amdgpu_bo_reserve(aobj, true);
+ 			if (r == 0) {
++				aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 				r = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
+ 				if (r != 0)
+ 					dev_err(adev->dev, "Failed to pin cursor BO (%d)\n", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 6faeb9e4a572..60ab6ae699bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1003,7 +1003,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+  */
+ int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
+ {
+-	bo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	return amdgpu_bo_pin_restricted(bo, domain, 0, 0);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index fa6928ea9555..56592ab61d16 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -342,6 +342,7 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *plane,
+ 	else
+ 		domain = AMDGPU_GEM_DOMAIN_VRAM;
+ 
++	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	r = amdgpu_bo_pin(rbo, domain);
+ 	if (unlikely(r != 0)) {
+ 		if (r != -ERESTARTSYS)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 11d648e688ce..078d37f80ebf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1881,6 +1881,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_crtc *crtc,
+ 		return r;
+ 
+ 	if (!atomic) {
++		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+ 		if (unlikely(r != 0)) {
+ 			amdgpu_bo_unreserve(abo);
+@@ -2401,6 +2402,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 		return ret;
+ 	}
+ 
++	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index 01536f523032..6f287e921e00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -1931,6 +1931,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
+ 		return r;
+ 
+ 	if (!atomic) {
++		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+ 		if (unlikely(r != 0)) {
+ 			amdgpu_bo_unreserve(abo);
+@@ -2485,6 +2486,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 		return ret;
+ 	}
+ 
++	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 0e5b568a96fc..aff32ae97d03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1861,6 +1861,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crtc *crtc,
+ 		return r;
+ 
+ 	if (!atomic) {
++		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+ 		if (unlikely(r != 0)) {
+ 			amdgpu_bo_unreserve(abo);
+@@ -2321,6 +2322,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 		return ret;
+ 	}
+ 
++	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index 895f050a3e62..3cd27f5b1b34 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1828,6 +1828,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crtc *crtc,
+ 		return r;
+ 
+ 	if (!atomic) {
++		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
+ 		if (unlikely(r != 0)) {
+ 			amdgpu_bo_unreserve(abo);
+@@ -2320,6 +2321,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 		return ret;
+ 	}
+ 
++	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index a573a6639898..7c4e3f26580d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -961,6 +961,7 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
+ 	else
+ 		domain = AMDGPU_GEM_DOMAIN_VRAM;
+ 
++	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	r = amdgpu_bo_pin(rbo, domain);
+ 	if (unlikely(r != 0)) {
+ 		if (r != -ERESTARTSYS)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+index 08c494a7a21b..0d5fefb0f591 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+@@ -114,6 +114,7 @@ static int amdgpu_dm_wb_prepare_job(struct drm_writeback_connector *wb_connector
+ 
+ 	domain = amdgpu_display_supported_domains(adev, rbo->flags);
+ 
++	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+ 	r = amdgpu_bo_pin(rbo, domain);
+ 	if (unlikely(r != 0)) {
+ 		if (r != -ERESTARTSYS)
+-- 
+2.34.1
+
