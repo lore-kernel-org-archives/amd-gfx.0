@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85B9FC54734
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Aug 2024 17:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E555CC5472F
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Aug 2024 17:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23A8810E3E2;
-	Tue, 27 Aug 2024 17:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D4610E3E4;
+	Tue, 27 Aug 2024 17:49:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="f3vNWGov";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="nVoZZsZH";
 	dkim-atps=neutral
 Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1713D10E3E3;
- Tue, 27 Aug 2024 17:49:54 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::226])
- by mslow1.mail.gandi.net (Postfix) with ESMTP id C1E91C4817;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90AFB10E3E2;
+ Tue, 27 Aug 2024 17:49:55 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::228])
+ by mslow1.mail.gandi.net (Postfix) with ESMTP id 4F0D5C494D;
  Tue, 27 Aug 2024 17:49:53 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 47770C0008;
- Tue, 27 Aug 2024 17:49:51 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 2045F1BF204;
+ Tue, 27 Aug 2024 17:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1724780991;
+ t=1724780990;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=3H2WPWkNT8YwJoB3rQQUrmG/jzIk8glHUz3AHflT+RQ=;
- b=f3vNWGovhzRvwqr8s6tqw86OJ7RdtUPfmsO8LYhGE/XLhxDvwzU9ui7NjcLJ0L6QM1Roiv
- XUMoDzWbVjvEOjM6rxDX8dx3hZP2rcr1TKVj9wuMgKPmPNv8vqNqwWXWDqZ6B9gBQydEwh
- Sm6eI01WC3A13FKJ13RFrjXsAjG3pvzW4blVqSDsZgH5Ef7wowcpB8PHOxODUjFhGKOG/O
- v/xqEh4tVgj3lFH6zdBprV6BPEChw5nvwC5kG2DqW32hwuCcQdqIJJwXG7uc+wtcnmp8HI
- azY12hh5pOKoZ6SGDi3Ut752JjyQbJzeBCQ+pxQ/bYqTIN/nEaUFw+SFgGMAGA==
-Date: Tue, 27 Aug 2024 19:49:50 +0200
+ bh=u5q0y7fToY6OMlSwCG8TbyhC7D8/eMx2WkhxHEyhXg8=;
+ b=nVoZZsZHOZ8WekKHyQsOZJh3EXqGf/3iNva+qdXRJnN6iBSrHDDBz/3DzvHMXPuoHy8i64
+ SEuPQ5s668VMLctK2TqSIrqhtRcEzo50w1kGDgzWFiTGYKtkKkztWypFCBRphj4Pk8rmnn
+ OueWq39xf/UH9Io6AXSx527Cse76rmJHpq/qTeyN7rsvGIq/wvRcjLci/xJeXGH31+hxG7
+ p51hWfIS7CLFgVuu3+DY3/KEH38SIXqcE2MId5858boJ4uUoesB+2PHjkL5YAVaDtL5Fag
+ 9RglBSkGzU4tbHiVGXB2YXecExTv3IKWMd96wCs9wWotFdroj9UrpHSjN3oJpg==
+Date: Tue, 27 Aug 2024 19:49:48 +0200
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: Harry Wentland <harry.wentland@amd.com>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 18/44] drm/vkms: Use s32 for internal color pipeline
- precision
-Message-ID: <Zs4RvolD01BudT4M@louis-chauvet-laptop>
+ wayland-devel@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>
+Subject: Re: [PATCH v5 14/44] drm/vkms: Add enumerated 1D curve colorop
+Message-ID: <Zs4RvNMce3rdgO2O@louis-chauvet-laptop>
 References: <20240819205714.316380-1-harry.wentland@amd.com>
- <20240819205714.316380-19-harry.wentland@amd.com>
+ <20240819205714.316380-15-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240819205714.316380-19-harry.wentland@amd.com>
+In-Reply-To: <20240819205714.316380-15-harry.wentland@amd.com>
 X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,142 +62,188 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Le 19/08/24 - 16:56, Harry Wentland a écrit :
-> Certain operations require us to preserve values below 0.0 and
-> above 1.0 (0x0 and 0xffff respectively in 16 bpc unorm). One
-> such operation is a BT709 encoding operation followed by its
-> decoding operation, or the reverse.
-> 
-> We'll use s32 values as intermediate in and outputs of our
-> color operations, for the operations where it matters.
->
-> For now this won't apply to LUT operations. We might want to
-> update those to work on s32 as well, but it's unclear how
-> that should work for unorm LUT definitions. We'll revisit
-> that once we add LUT + CTM tests.
-> 
-> In order to allow for this we'll also invert the nesting of our
-> colorop processing loops. We now use the pixel iteration loop
-> on the outside and the colorop iteration on the inside.
 
-Maybe you can do this inversion on your first commit so it will reduce the 
-code change here?
+> +static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
+> +{
+> +
+> +	struct drm_colorop *op, *prev_op;
+> +	struct drm_device *dev = plane->dev;
+> +	int ret;
+> +
+> +	/* 1st op: 1d curve */
+> +	op = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+> +	if (!op) {
+> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	ret = drm_colorop_curve_1d_init(dev, op, plane, supported_tfs);
+> +	if (ret)
+> +		return ret;
+> +
+> +	list->type = op->base.id;
+> +	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", op->base.id);
+> +
+> +	prev_op = op;
+> +
+> +	/* 2nd op: 1d curve */
+> +	op = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
+> +	if (!op) {
+> +		DRM_ERROR("KMS: Failed to allocate colorop\n");
+> +		return -ENOMEM;
+> +	}
 
-> v4:
->  - Clarify that we're packing 16-bit UNORM into s32, not
->    converting values to a different representation (Pekka)
-> 
-> v3:
->  - Use new colorop->next pointer
-> 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/vkms/vkms_composer.c | 55 ++++++++++++++++++++++------
->  drivers/gpu/drm/vkms/vkms_drv.h      |  4 ++
->  2 files changed, 47 insertions(+), 12 deletions(-)
-> 
+There is no need to cleanup previously created colorop here?
+
+> +	ret = drm_colorop_curve_1d_init(dev, op, plane, supported_tfs);
+> +	if (ret)
+> +		return ret;
+
+ditto?
+
+> +	drm_colorop_set_next_property(prev_op, op);
+> +
+> +	return 0;
+> +}
+> +
+> +int vkms_initialize_colorops(struct drm_plane *plane)
+> +{
+> +	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES];
+> +	int len = 0;
+> +	int ret;
+> +
+> +	/* Add color pipeline */
+> +	ret = vkms_initialize_color_pipeline(plane, &(pipelines[len]));
+> +	if (ret)
+> +		return ret;
+> +	len++;
+
+The usage of len is not very clear, can you maybe remove it? Or do you 
+plan to use it for instanciating multiple pipelines?
+
+	struct drm_prop_enum_list pipeline;
+	ret = vkms_initialize_color_pipeline(plane, &pipeline);
+	drm_plane_create_color_pipeline_property(plane, &pipeline, 1);
+
+> +	/* Create COLOR_PIPELINE property and attach */
+> +	drm_plane_create_color_pipeline_property(plane, pipelines, len);
+
+This function can fail, can you also test the result here?
+
+> +
+> +	return 0;
+> +}
 > diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-> index bc116d16e378..6e939d3a6d5c 100644
+> index 3ecda70c2b55..bc116d16e378 100644
 > --- a/drivers/gpu/drm/vkms/vkms_composer.c
 > +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -164,7 +164,7 @@ static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buff
+> @@ -12,6 +12,7 @@
+>  #include <linux/minmax.h>
+>  
+>  #include "vkms_drv.h"
+> +#include "vkms_luts.h"
+>  
+>  static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
+>  {
+> @@ -163,6 +164,53 @@ static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buff
 >  	}
 >  }
 >  
-> -static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_colorop *colorop)
-> +static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_colorop *colorop)
->  {
->  	struct drm_colorop_state *colorop_state = colorop->state;
->  
-> @@ -190,24 +190,55 @@ static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_colorop *colo
->  
->  static void pre_blend_color_transform(const struct vkms_plane_state *plane_state, struct line_buffer *output_buffer)
->  {
-> -	struct drm_colorop *colorop = plane_state->base.base.color_pipeline;
-> +	struct drm_colorop *colorop;
-> +	struct pixel_argb_s32 pixel;
->  
-> -	while (colorop) {
-> -		struct drm_colorop_state *colorop_state;
-> +	for (size_t x = 0; x < output_buffer->n_pixels; x++) {
->  
-> -		if (!colorop)
-> -			return;
-> +		/*
-> +		 * Some operations, such as applying a BT709 encoding matrix,
-> +		 * followed by a decoding matrix, require that we preserve
-> +		 * values above 1.0 and below 0.0 until the end of the pipeline.
-> +		 *
-> +		 * Pack the 16-bit UNORM values into s32 to give us head-room to
-> +		 * avoid clipping until we're at the end of the pipeline. Clip
-> +		 * intentionally at the end of the pipeline before packing
-> +		 * UNORM values back into u16.
-> +		 */
-> +		pixel.a = output_buffer->pixels[x].a;
-> +		pixel.r = output_buffer->pixels[x].r;
-> +		pixel.g = output_buffer->pixels[x].g;
-> +		pixel.b = output_buffer->pixels[x].b;
->
-> -		colorop_state = colorop->state;
-> +		colorop = plane_state->base.base.color_pipeline;
-> +		while (colorop) {
-> +			struct drm_colorop_state *colorop_state;
->  
-> -		if (!colorop_state)
-> -			return;
-> +			if (!colorop)
-> +				return;
-
-I think this is useless, the while should be sufficient.
-
+> +static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_colorop *colorop)
+> +{
+> +	struct drm_colorop_state *colorop_state = colorop->state;
 > +
-> +			colorop_state = colorop->state;
-> +
-> +			if (!colorop_state)
-> +				return;
->  
-> -		for (size_t x = 0; x < output_buffer->n_pixels; x++)
->  			if (!colorop_state->bypass)
-> -				apply_colorop(&output_buffer->pixels[x], colorop);
-> +				apply_colorop(&pixel, colorop);
->  
-> -		colorop = colorop->next;
-> +			colorop = colorop->next;
+> +	if (colorop->type == DRM_COLOROP_1D_CURVE) {
+> +		switch (colorop_state->curve_1d_type) {
+> +			case DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
+> +				pixel->r = apply_lut_to_channel_value(&srgb_inv_eotf, pixel->r, LUT_RED);
+> +				pixel->g = apply_lut_to_channel_value(&srgb_inv_eotf, pixel->g, LUT_GREEN);
+> +				pixel->b = apply_lut_to_channel_value(&srgb_inv_eotf, pixel->b, LUT_BLUE);
+> +				break;
+> +			case DRM_COLOROP_1D_CURVE_SRGB_EOTF:
+> +				pixel->r = apply_lut_to_channel_value(&srgb_eotf, pixel->r, LUT_RED);
+> +				pixel->g = apply_lut_to_channel_value(&srgb_eotf, pixel->g, LUT_GREEN);
+> +				pixel->b = apply_lut_to_channel_value(&srgb_eotf, pixel->b, LUT_BLUE);
+> +				break;
+> +			default:
+> +				DRM_DEBUG_DRIVER("unkown colorop 1D curve type %d\n", colorop_state->curve_1d_type);
+
+Maybe add a ONCE/RATELIMITED here, this function is called for every 
+pixel.
+
+> +				break;
 > +		}
+> +	}
 > +
-> +		/* clamp pixel */
-> +		pixel.a = max(min(pixel.a, 0xffff), 0x0);
-> +		pixel.r = max(min(pixel.r, 0xffff), 0x0);
-> +		pixel.g = max(min(pixel.g, 0xffff), 0x0);
-> +		pixel.b = max(min(pixel.b, 0xffff), 0x0);
+> +}
+> +
+> +static void pre_blend_color_transform(const struct vkms_plane_state *plane_state, struct line_buffer *output_buffer)
+> +{
+> +	struct drm_colorop *colorop = plane_state->base.base.color_pipeline;
+> +
+> +	while (colorop) {
+> +		struct drm_colorop_state *colorop_state;
+> +
+> +		if (!colorop)
+> +			return;
+> +
+> +		colorop_state = colorop->state;
+> +
+> +		if (!colorop_state)
+> +			return;
+> +
+> +		for (size_t x = 0; x < output_buffer->n_pixels; x++)
+> +			if (!colorop_state->bypass)
 
-clamp can't be used here? And can't we store the result directly in 
-output_buffer?
+Maybe we can swap the for and the if? I don't know the performance impact 
+is huge, but it feel more logical to check bypass before iterating.
 
+> +				apply_colorop(&output_buffer->pixels[x], colorop);
 > +
-> +		/* put back to output_buffer */
-> +		output_buffer->pixels[x].a = pixel.a;
-> +		output_buffer->pixels[x].r = pixel.r;
-> +		output_buffer->pixels[x].g = pixel.g;
-> +		output_buffer->pixels[x].b = pixel.b;
->
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-> index 278cf3533f58..b78bc2611746 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.h
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-> @@ -36,6 +36,10 @@ struct vkms_frame_info {
->  	unsigned int cpp;
->  };
->  
-> +struct pixel_argb_s32 {
-> +	s32 a, r, g, b;
-> +};
+> +		colorop = colorop->next;
+> +	}
+> +}
 > +
->  struct pixel_argb_u16 {
->  	u16 a, r, g, b;
->  };
-> -- 
-> 2.46.0
-> 
+>  /**
+>   * blend - blend the pixels from all planes and compute crc
+>   * @wb: The writeback frame buffer metadata
+> @@ -200,6 +248,9 @@ static void blend(struct vkms_writeback_job *wb,
+>  				continue;
+>  
+>  			vkms_compose_row(stage_buffer, plane[i], y_pos);
+> +
+> +			pre_blend_color_transform(plane[i], stage_buffer);
+> +
+>  			pre_mul_alpha_blend(plane[i]->frame_info, stage_buffer,
+>  					    output_buffer);
+>  		}
+
+[...]
+
+> diff --git a/drivers/gpu/drm/vkms/vkms_luts.c b/drivers/gpu/drm/vkms/vkms_luts.c
+> new file mode 100644
+> index 000000000000..6553d6d442b4
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vkms/vkms_luts.c
+> @@ -0,0 +1,802 @@
+> +/* SPDX-License-Identifier: GPL-2.0+ */
+> +
+> +#include <drm/drm_mode.h>
+> +
+> +#include "vkms_drv.h"
+> +#include "vkms_luts.h"
+> +
+> +static struct drm_color_lut linear_array[LUT_SIZE] = {
+> +	{ 0x0, 0x0, 0x0, 0 },
+> +	{ 0x101, 0x101, 0x101, 0 },
+> +	{ 0x202, 0x202, 0x202, 0 },
+> +	{ 0x303, 0x303, 0x303, 0 },
+> +	{ 0x404, 0x404, 0x404, 0 },
+
+For this LUT and the other, can you add a comment to explain how the 
+values were generated/found?
+
+[...]
+
+Thanks,
+Louis Chauvet
