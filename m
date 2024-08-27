@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3944C54734
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00488C5472F
 	for <amd-gfx@archiver.kernel.org>; Tue, 27 Aug 2024 14:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6333B10E30D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9703110E30F;
 	Tue, 27 Aug 2024 14:12:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GYt9bLQ9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F29HUdqL";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1C1710E30D
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 14:12:15 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a86e5e9ff05so112807066b.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 07:12:15 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0C8F10E30D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 14:12:16 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-a83597ce5beso863773166b.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Aug 2024 07:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724767934; x=1725372734; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xh+e7yYTdaQhcBwR8wYRTmm0I+/ZbobV9MMOb3mAojs=;
- b=GYt9bLQ98ahUN7TVsaQdZfSE5SuR/Rmbs2WEwCGUt3g/lgkc3mqFXWFmn/gf45Ycv0
- deeha93cLe58fWY0yJkeIJ+Bf4jmb3ZdrLRxHhSCxMMLjfZFSOKQ/bdPCeWoPY9DD5WZ
- qjFqunOWKWWSQ618Y+WbOKgafNUJoop0EXsJywIBCpuWRo5iU5aYszKzh5Nnoh6nuyPU
- rahQk8A0qvUt9gCIJJdiQH6Yxmnf0Pnn0tJBjMCC1HCDSIwgCawOkeh6PRsU4oiUkdrr
- cCFhS30j14/MadULoB3eGzBfJMh4LxTMTDvFQk+Q7p3WuMSoGAmIwYBCEEm2W1WWQmSH
- W+xQ==
+ d=gmail.com; s=20230601; t=1724767935; x=1725372735; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+JUH7Bd0WcQj9aSQmLZl3m8RBbAG139l3DQOfVNKrJ4=;
+ b=F29HUdqL9rezQOL6uyxfmqMLv+yVWS2WpBZHFxVAY3d87SxIexWpjLs+fgQzyt0r5e
+ HqUW6uf1rVIF0TDjU3XX0KJzWgpHpLDNmWa2cHMlBioSf6fZ788vOAgeXQ1euNLuE8li
+ DAcxQmSVchJN4ig2aVO3ksKSHxmsBHAd2LSMchYsNCwMwArsRTe6aMO+H4m9FADybuCw
+ fEtp+HOIEgw1JDIOxRznYOcjA3gcSjXULgsamYQ5fTyvgPZNWQxxElEvAym2nldnFNAE
+ mvS+u4UqHhwkJxBjKkITuXbyDwlBn04bOPMWsI5RpLYJhqFPLVCbbVja/UPBk22Qd3ao
+ gwRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724767934; x=1725372734;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xh+e7yYTdaQhcBwR8wYRTmm0I+/ZbobV9MMOb3mAojs=;
- b=FYcISUehMEiYCKOcQiGiSlq9RroBR4GiPmmk9u01RnGj33fZC3vJqEbpnesep0rfVQ
- jbizxrqXdenXs1x8pmrU9JUrLZ/Xm8Q7FmJXiz6PJSSMSsS3AQMs0IhRsfIrpbjt1Vf7
- yLK61JGtV3+C6N53CxW9jLblWZSYJoh4ed14PLZKj3aZQBFPBi7AM8KYXw40yI8Eew/W
- b/Rp2oO2WyBbTbMDlEqhiZGy6EBqpEvfVBlKX37LkZac+qAMJawhsvaTYvbYlqIiNS4d
- d8ait4aLHp2rDZ8iiAy4tvRpo0q2odjeFokX4Ww4ptUJHhZplc8iKPXAYELd+EWN5kFQ
- lToA==
-X-Gm-Message-State: AOJu0Yw20IBqGkbuHAzwGEbu147+Fkwy3rxFzEKwAiuULd14LOJuBw1s
- qoKV9uBH5m7mJw4AaoPPa9QnHnmymeigEfDBPh7ueu9utIgO7JVAvRvIEu0r
-X-Google-Smtp-Source: AGHT+IHQvrQc9XoMvE0e92Oxzth2VYTPuOWGXDaRHtwxJJ1/oyBu/K8iUy4G0VYv+ZABEhrdTAoChw==
-X-Received: by 2002:a17:907:97ca:b0:a86:8a89:3d6c with SMTP id
- a640c23a62f3a-a86e3d41848mr222944766b.66.1724767933359; 
- Tue, 27 Aug 2024 07:12:13 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1724767935; x=1725372735;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+JUH7Bd0WcQj9aSQmLZl3m8RBbAG139l3DQOfVNKrJ4=;
+ b=X1WU1mefFc2H3vZJYnuhLwBdKglVSgUcBuOPdfTq3MHoKZwtJZcwr9Z+RE3fJ55IqB
+ z1DHoCyPSia1VF2Ana7lSM5URsBVvL5YPWeHunjt/Wb7slzAjusfqoyXuX7djOAvMGJY
+ /chum+oGE+jlECDjTVbLgEviBylvseT8aKGd0HkcaHa+txI/qZprEDqd6io6lsr1u5qJ
+ 8P84taI2fgPvtLm+sliVj0dKG1Q7FEeLlthbO80dUPjmy6UjAiv7ZZm2Wdv8KYaZImNM
+ 0uXmnVLlvUzNEl5WmH6i8XR5jveUt03U5iA+U4D9tysiEHj5ODUKyKLOHYiSxu69lRMg
+ kYtg==
+X-Gm-Message-State: AOJu0YxLqgsXo0Y9+Xfamt8cF2SSm9bW3UkqJtxHdCl6qtV3STygvkTa
+ +iJlSVd9NZcckvjQiQd5mdaFfHTNfR8/h/r//E5OewEB/9SzvwG6TypxAv69
+X-Google-Smtp-Source: AGHT+IH6RqiTvN/hya5H0MYwPD16ErNhyB2je+t/vHIwVWY0jUQxo02DV6ImaomrO+W1Hcn0F67uKA==
+X-Received: by 2002:a17:907:97d0:b0:a7c:d284:4f1d with SMTP id
+ a640c23a62f3a-a86e29fdd97mr317549666b.28.1724767934342; 
+ Tue, 27 Aug 2024 07:12:14 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15b3:7800:8c1b:1972:54d8:6ca6])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e54875e5sm114196866b.5.2024.08.27.07.12.12
+ a640c23a62f3a-a86e54875e5sm114196866b.5.2024.08.27.07.12.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Aug 2024 07:12:12 -0700 (PDT)
+ Tue, 27 Aug 2024 07:12:13 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: Lijo.Lazar@amd.com,
 	Alexander.Deucher@amd.com
 Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu: explicitely set the
- AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS flag
-Date: Tue, 27 Aug 2024 16:12:09 +0200
-Message-Id: <20240827141211.2411-1-christian.koenig@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: remove amdgpu_pin_restricted()
+Date: Tue, 27 Aug 2024 16:12:10 +0200
+Message-Id: <20240827141211.2411-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240827141211.2411-1-christian.koenig@amd.com>
+References: <20240827141211.2411-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -81,170 +83,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of having that in the amdgpu_bo_pin() function applied for all
-pinned BOs.
+We haven't used the functionality to pin BOs in a certain range at all
+while the driver existed. Just nuke it.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c             | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c              | 1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c                | 1 +
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c                  | 2 ++
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c                  | 2 ++
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c                   | 2 ++
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c                   | 2 ++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c    | 1 +
- 9 files changed, 13 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 56 ++-----------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  2 -
+ 3 files changed, 6 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 092ec11258cd..813520655fd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -233,6 +233,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 6d5fd371d5ce..e7bea0d2dc2a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1505,7 +1505,7 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
+ 		}
  	}
  
- 	if (!adev->enable_virtual_display) {
-+		new_abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 		r = amdgpu_bo_pin(new_abo,
- 				  amdgpu_display_supported_domains(adev, new_abo->flags));
- 		if (unlikely(r != 0)) {
-@@ -1759,6 +1760,7 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
+-	ret = amdgpu_bo_pin_restricted(bo, domain, 0, 0);
++	ret = amdgpu_bo_pin(bo, domain);
+ 	if (ret)
+ 		pr_err("Error in Pinning BO to domain: %d\n", domain);
  
- 			r = amdgpu_bo_reserve(aobj, true);
- 			if (r == 0) {
-+				aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 				r = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
- 				if (r != 0)
- 					dev_err(adev->dev, "Failed to pin cursor BO (%d)\n", r);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 6faeb9e4a572..60ab6ae699bf 100644
+index 60ab6ae699bf..ff1a69243699 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1003,7 +1003,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
-  */
- int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
- {
--	bo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	return amdgpu_bo_pin_restricted(bo, domain, 0, 0);
+@@ -870,29 +870,22 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
  }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index fa6928ea9555..56592ab61d16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -342,6 +342,7 @@ static int amdgpu_vkms_prepare_fb(struct drm_plane *plane,
- 	else
- 		domain = AMDGPU_GEM_DOMAIN_VRAM;
+ /**
+- * amdgpu_bo_pin_restricted - pin an &amdgpu_bo buffer object
++ * amdgpu_bo_pin - pin an &amdgpu_bo buffer object
+  * @bo: &amdgpu_bo buffer object to be pinned
+  * @domain: domain to be pinned to
+- * @min_offset: the start of requested address range
+- * @max_offset: the end of requested address range
+  *
+- * Pins the buffer object according to requested domain and address range. If
+- * the memory is unbound gart memory, binds the pages into gart table. Adjusts
+- * pin_count and pin_size accordingly.
++ * Pins the buffer object according to requested domain. If the memory is
++ * unbound gart memory, binds the pages into gart table. Adjusts pin_count and
++ * pin_size accordingly.
+  *
+  * Pinning means to lock pages in memory along with keeping them at a fixed
+  * offset. It is required when a buffer can not be moved, for example, when
+  * a display buffer is being scanned out.
+  *
+- * Compared with amdgpu_bo_pin(), this function gives more flexibility on
+- * where to pin a buffer if there are specific restrictions on where a buffer
+- * must be located.
+- *
+  * Returns:
+  * 0 for success or a negative error code on failure.
+  */
+-int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+-			     u64 min_offset, u64 max_offset)
++int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	struct ttm_operation_ctx ctx = { false, false };
+@@ -901,9 +894,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ 	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+ 		return -EPERM;
  
-+	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	r = amdgpu_bo_pin(rbo, domain);
- 	if (unlikely(r != 0)) {
- 		if (r != -ERESTARTSYS)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 11d648e688ce..078d37f80ebf 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1881,6 +1881,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_crtc *crtc,
- 		return r;
+-	if (WARN_ON_ONCE(min_offset > max_offset))
+-		return -EINVAL;
+-
+ 	/* Check domain to be pinned to against preferred domains */
+ 	if (bo->preferred_domains & domain)
+ 		domain = bo->preferred_domains & domain;
+@@ -929,14 +919,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ 			return -EINVAL;
  
- 	if (!atomic) {
-+		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
- 		if (unlikely(r != 0)) {
- 			amdgpu_bo_unreserve(abo);
-@@ -2401,6 +2402,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 		return ret;
+ 		ttm_bo_pin(&bo->tbo);
+-
+-		if (max_offset != 0) {
+-			u64 domain_start = amdgpu_ttm_domain_start(adev,
+-								   mem_type);
+-			WARN_ON_ONCE(max_offset <
+-				     (amdgpu_bo_gpu_offset(bo) - domain_start));
+-		}
+-
+ 		return 0;
  	}
  
-+	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index 01536f523032..6f287e921e00 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -1931,6 +1931,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
- 		return r;
+@@ -953,17 +935,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ 		bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+ 	amdgpu_bo_placement_from_domain(bo, domain);
+ 	for (i = 0; i < bo->placement.num_placement; i++) {
+-		unsigned int fpfn, lpfn;
+-
+-		fpfn = min_offset >> PAGE_SHIFT;
+-		lpfn = max_offset >> PAGE_SHIFT;
+-
+-		if (fpfn > bo->placements[i].fpfn)
+-			bo->placements[i].fpfn = fpfn;
+-		if (!bo->placements[i].lpfn ||
+-		    (lpfn && lpfn < bo->placements[i].lpfn))
+-			bo->placements[i].lpfn = lpfn;
+-
+ 		if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS &&
+ 		    bo->placements[i].mem_type == TTM_PL_VRAM)
+ 			bo->placements[i].flags |= TTM_PL_FLAG_CONTIGUOUS;
+@@ -989,23 +960,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+ 	return r;
+ }
  
- 	if (!atomic) {
-+		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
- 		if (unlikely(r != 0)) {
- 			amdgpu_bo_unreserve(abo);
-@@ -2485,6 +2486,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 		return ret;
- 	}
- 
-+	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 0e5b568a96fc..aff32ae97d03 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1861,6 +1861,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crtc *crtc,
- 		return r;
- 
- 	if (!atomic) {
-+		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
- 		if (unlikely(r != 0)) {
- 			amdgpu_bo_unreserve(abo);
-@@ -2321,6 +2322,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 		return ret;
- 	}
- 
-+	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index 895f050a3e62..3cd27f5b1b34 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1828,6 +1828,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crtc *crtc,
- 		return r;
- 
- 	if (!atomic) {
-+		abo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 		r = amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM);
- 		if (unlikely(r != 0)) {
- 			amdgpu_bo_unreserve(abo);
-@@ -2320,6 +2321,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 		return ret;
- 	}
- 
-+	aobj->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	ret = amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMAIN_VRAM);
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index a573a6639898..7c4e3f26580d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -961,6 +961,7 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 	else
- 		domain = AMDGPU_GEM_DOMAIN_VRAM;
- 
-+	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	r = amdgpu_bo_pin(rbo, domain);
- 	if (unlikely(r != 0)) {
- 		if (r != -ERESTARTSYS)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-index 08c494a7a21b..0d5fefb0f591 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-@@ -114,6 +114,7 @@ static int amdgpu_dm_wb_prepare_job(struct drm_writeback_connector *wb_connector
- 
- 	domain = amdgpu_display_supported_domains(adev, rbo->flags);
- 
-+	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
- 	r = amdgpu_bo_pin(rbo, domain);
- 	if (unlikely(r != 0)) {
- 		if (r != -ERESTARTSYS)
+-/**
+- * amdgpu_bo_pin - pin an &amdgpu_bo buffer object
+- * @bo: &amdgpu_bo buffer object to be pinned
+- * @domain: domain to be pinned to
+- *
+- * A simple wrapper to amdgpu_bo_pin_restricted().
+- * Provides a simpler API for buffers that do not have any strict restrictions
+- * on where a buffer must be located.
+- *
+- * Returns:
+- * 0 for success or a negative error code on failure.
+- */
+-int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
+-{
+-	return amdgpu_bo_pin_restricted(bo, domain, 0, 0);
+-}
+-
+ /**
+  * amdgpu_bo_unpin - unpin an &amdgpu_bo buffer object
+  * @bo: &amdgpu_bo buffer object to be unpinned
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index d7e27957013f..44ffd9a03dce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -322,8 +322,6 @@ void amdgpu_bo_kunmap(struct amdgpu_bo *bo);
+ struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo *bo);
+ void amdgpu_bo_unref(struct amdgpu_bo **bo);
+ int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain);
+-int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
+-			     u64 min_offset, u64 max_offset);
+ void amdgpu_bo_unpin(struct amdgpu_bo *bo);
+ int amdgpu_bo_init(struct amdgpu_device *adev);
+ void amdgpu_bo_fini(struct amdgpu_device *adev);
 -- 
 2.34.1
 
