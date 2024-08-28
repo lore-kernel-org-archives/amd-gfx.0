@@ -4,49 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BDFC7EE2F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC733C7EE30
 	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D81A210E4EE;
-	Thu, 29 Aug 2024 07:08:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E75C10E4FC;
+	Thu, 29 Aug 2024 07:08:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="lVNoFK/K";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ai+Q/70P";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17BE910E314;
- Wed, 28 Aug 2024 11:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1724842836;
- bh=rGkv8vXTKQNNDjP5vTcEOnsxxSzEmVf10njH6gZtvbg=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=lVNoFK/KCHTP4ynQyOCcOeXrh08UYkTBcMhAivVVdOjFYiJ334pCccGHinCjXNboM
- 9Pxj6rUeCP2hBgPiJAnp28mD2IZBUVRNqlpqvmXjCprn9t2qqMMWNnvrpVHbVMBFHq
- 4YaDGGc02OLxeqQ9KdERcBKr7h0ksSuND7epbHXM=
-X-QQ-mid: bizesmtp88t1724842792tz70z34i
-X-QQ-Originating-IP: yURP3s+8jR7D8ND1Wq3RX+2ffkTw4oLhrct7u85Sa4c=
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 28 Aug 2024 18:59:49 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8286794993761644341
-From: WangYuli <wangyuli@uniontech.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com,
- mario.limonciello@amd.com, le.ma@amd.com, Jun.Ma2@amd.com,
- hamza.mahfooz@amd.com, andrealmeid@igalia.com, wenlunpeng@uniontech.com,
- wangyuli@uniontech.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
- zhanjun@uniontech.com
-Subject: [PATCH] amdgpu: disable amdgpu_dpm on THTF-SW831-1W-DS25_MB board
-Date: Wed, 28 Aug 2024 18:59:38 +0800
-Message-ID: <3EA7C2B9E8C4D00A+20240828105938.37674-1-wangyuli@uniontech.com>
-X-Mailer: git-send-email 2.43.4
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE2E610E576;
+ Wed, 28 Aug 2024 15:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1724857858; x=1756393858;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=+OwYc8bK2ZE/BbrISfqwEqzDsEWaDGtTsTjHjxyCVHw=;
+ b=Ai+Q/70PEP46daLsLChGJ80Z0I9fAyd++NWXesPJ6fZ6XCH30a3iU5ip
+ tfDRrhFJBRFJX5QVQVR5rmcvkfDnXYQ7sK11WInnxDdZRINUonlUBalv0
+ LqMHH9+fdycnpDHA1a/yp8ixzvfJ6T9JC+vF/2nRy2+LUpYB7j1tz3g2g
+ E+Xl0eTShxifzEfe7nDbLQtWhbofhcH2XvCy3fFPMD6uHLma3galbqCGO
+ Dyc7uU2d3bsD0eddydT1m+16tACi6ZJ2Jp+tViTfJjJDiGxz+6AtzE8Fc
+ uOwcNol0X9mR18LmYNbB2fc/XtXkrWVken/w+s3I7SZUAnQCVeg9H6nJW g==;
+X-CSE-ConnectionGUID: 5IMRYiTHSkKcGidUgJKnTQ==
+X-CSE-MsgGUID: G8aGE9lhR7uIQqhMw8EbRg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11178"; a="27162727"
+X-IronPort-AV: E=Sophos;i="6.10,183,1719903600"; d="scan'208";a="27162727"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2024 08:10:56 -0700
+X-CSE-ConnectionGUID: TSUn6mMoQcuff7YyyZsGFQ==
+X-CSE-MsgGUID: fixwIkM3TNeTfOiKMuSkcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,183,1719903600"; d="scan'208";a="67613148"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.110])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2024 08:10:54 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Subject: Re: [RESEND 3/3] drm/amd/display: switch to guid_gen() to generate
+ valid GUIDs
+In-Reply-To: <87mskwyc6p.fsf@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240812122312.1567046-1-jani.nikula@intel.com>
+ <20240812122312.1567046-3-jani.nikula@intel.com>
+ <dac8f408-6f13-4ee7-a54c-342d51ba88d1@amd.com> <87mskwyc6p.fsf@intel.com>
+Date: Wed, 28 Aug 2024 18:10:49 +0300
+Message-ID: <87h6b4y96u.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 29 Aug 2024 07:08:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,80 +72,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: wenlunpeng <wenlunpeng@uniontech.com>
+On Wed, 28 Aug 2024, Jani Nikula <jani.nikula@intel.com> wrote:
+> On Wed, 28 Aug 2024, Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
+>> On 8/12/24 08:23, Jani Nikula wrote:
+>>> Instead of just smashing jiffies into a GUID, use guid_gen() to generate
+>>> RFC 4122 compliant GUIDs.
+>>> 
+>>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>> 
+>>> ---
+>>
+>> Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+>>
+>> I would prefer to take this series through the amdgpu tree though,
+>> assuming nobody minds.
+>
+> How long is it going to take for that to get synced back to
+> drm-misc-next though?
 
-The quirk is for reboot-stability.
+Also getting acks from Alex and Harry to merge via drm-misc-next.
 
-A device reboot stress test has been observed to cause
-random system hangs when amdgpu_dpm is enabled.
+BR,
+Jani.
 
-Disabling amdgpu_dpm can fix this.
 
-However, a boot-param can still overwrite it to enable
-amdgpu_dpm.
+>
+> BR,
+> Jani.
+>
+>
+>>
+>>> 
+>>> Side note, it baffles me why amdgpu has a copy of this instead of
+>>> plumbing it into drm mst code.
+>>> ---
+>>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++---------
+>>>   1 file changed, 12 insertions(+), 11 deletions(-)
+>>> 
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 72c10fc2c890..ce05e7e2a383 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -2568,9 +2568,9 @@ static int dm_late_init(void *handle)
+>>>   
+>>>   static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+>>>   {
+>>> +	u8 buf[UUID_SIZE];
+>>> +	guid_t guid;
+>>>   	int ret;
+>>> -	u8 guid[16];
+>>> -	u64 tmp64;
+>>>   
+>>>   	mutex_lock(&mgr->lock);
+>>>   	if (!mgr->mst_primary)
+>>> @@ -2591,26 +2591,27 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+>>>   	}
+>>>   
+>>>   	/* Some hubs forget their guids after they resume */
+>>> -	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
+>>> -	if (ret != 16) {
+>>> +	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
+>>> +	if (ret != sizeof(buf)) {
+>>>   		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
+>>>   		goto out_fail;
+>>>   	}
+>>>   
+>>> -	if (memchr_inv(guid, 0, 16) == NULL) {
+>>> -		tmp64 = get_jiffies_64();
+>>> -		memcpy(&guid[0], &tmp64, sizeof(u64));
+>>> -		memcpy(&guid[8], &tmp64, sizeof(u64));
+>>> +	import_guid(&guid, buf);
+>>>   
+>>> -		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, guid, 16);
+>>> +	if (guid_is_null(&guid)) {
+>>> +		guid_gen(&guid);
+>>> +		export_guid(buf, &guid);
+>>>   
+>>> -		if (ret != 16) {
+>>> +		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, buf, sizeof(buf));
+>>> +
+>>> +		if (ret != sizeof(buf)) {
+>>>   			drm_dbg_kms(mgr->dev, "check mstb guid failed - undocked during suspend?\n");
+>>>   			goto out_fail;
+>>>   		}
+>>>   	}
+>>>   
+>>> -	import_guid(&mgr->mst_primary->guid, guid);
+>>> +	guid_copy(&mgr->mst_primary->guid, &guid);
+>>>   
+>>>   out_fail:
+>>>   	mutex_unlock(&mgr->lock);
 
-Serial log when error occurs:
-...
-Console: switching to colour frame buffer device 160x45
-amdgpu 0000:01:00.0: fb0: amdgpudrmfb frame buffer device
-[drm:amdgpu_device_ip_late_init] *ERROR* late_init of IP block <si_dpm> failed -22
-amdgpu 0000:01:00.0: amdgpu_device_ip_late_init failed
-amdgpu 0000:01:00.0: Fatal error during GPU init
-[drm] amdgpu: finishing device.
-Console: switching to colour dummy device 80x25
-...
-
-Signed-off-by: wenlunpeng <wenlunpeng@uniontech.com>
-Signed-off-by: WangYuli <wangyuli@uniontech.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 094498a0964b..81716fcac7cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_vblank.h>
- 
- #include <linux/cc_platform.h>
-+#include <linux/dmi.h>
- #include <linux/dynamic_debug.h>
- #include <linux/module.h>
- #include <linux/mmu_notifier.h>
-@@ -3023,10 +3024,32 @@ static struct pci_driver amdgpu_kms_pci_driver = {
- 	.dev_groups = amdgpu_sysfs_groups,
- };
- 
-+static int quirk_set_amdgpu_dpm_0(const struct dmi_system_id *dmi)
-+{
-+	amdgpu_dpm = 0;
-+	pr_info("Identified '%s', set amdgpu_dpm to 0.\n", dmi->ident);
-+	return 1;
-+}
-+
-+static const struct dmi_system_id amdgpu_quirklist[] = {
-+	{
-+		.ident = "DS25 Desktop",
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_NAME, "THTF-SW831-1W-DS25_MB"),
-+		},
-+		.callback = quirk_set_amdgpu_dpm_0,
-+	},
-+	{}
-+};
-+
- static int __init amdgpu_init(void)
- {
- 	int r;
- 
-+	/* quirks for some hardware, applied only when it's untouched */
-+	if (amdgpu_dpm == -1)
-+		dmi_check_system(amdgpu_quirklist);
-+
- 	if (drm_firmware_drivers_only())
- 		return -EINVAL;
- 
 -- 
-2.43.4
-
+Jani Nikula, Intel
