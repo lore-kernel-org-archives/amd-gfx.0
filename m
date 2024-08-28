@@ -4,73 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAD2AC54736
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Aug 2024 22:04:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1337AC5474A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Aug 2024 03:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D463E10E0FF;
-	Tue, 27 Aug 2024 22:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEE8810E47E;
+	Wed, 28 Aug 2024 03:11:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NWaQMEFt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LEHdH4po";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3010A10E0F1;
- Tue, 27 Aug 2024 22:04:56 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3717ff2358eso3291602f8f.1; 
- Tue, 27 Aug 2024 15:04:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724796294; x=1725401094; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VZgyQZttbFN6Mpv5C6Zqi3PHF1KkrD2jrO7egIws/+I=;
- b=NWaQMEFtrDynFHJlObHiz9JRKlK1O0/cPLyMvfsoMYuIuknabGefLbhuM+fa5908De
- 5jT5SbRUWK/uG1fzOEEYS6T5Bo4IYRrZ3cv7nmoycYVAVq/2kYBPkGibIuhgEXwMZhG5
- 1zG9G0T8CALYyRs6QbKdvuYhsZef5pLIWvL0/vKNKODGnrwE21EBd0UbN4H9FAxnS7uI
- 4bE+Er8qr3ua6bsFxkyzPNSDpXYyUktXFDfLj91s7xXLDzOtaIuJlr8k5dcimU3HNW/X
- XWTIAUl4gJaRKvGh4+/+M8Gw1DoC1Np04Qe3i0+0D0z2YCDJesffHWBRN+s+z+nWPPpi
- rIjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724796294; x=1725401094;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VZgyQZttbFN6Mpv5C6Zqi3PHF1KkrD2jrO7egIws/+I=;
- b=X7T5DlKIhK3k++KdAt40W0wyBVe6gkdbad8LCB5iIlMqiQ7uXQtGRoDPV4AoLF6f0n
- 1NpLPytv/KFxhcWSXCKM/lcUZlTdT/tPx7QIOXcAYuFx/LjIfcR5XOds4T7EDlkJ7kQc
- ZDJ2YHME2dpZFT5+0getbsW0ZhLuwGr3dkH8elW3G7a1vCeSPaiiKGvc9+n9O8buQGYX
- 3TlNcOB1VUr8mwyFrC3/volZ+WFtnPCTEjv78ftsA83vie6CF0/KPhLM+gRJsEFS96kW
- GBqDBCa5cd7jypMISz1OjEv60dhn9fZ94lKTkzcVsd/75rlSEWbYuSFsPNMKF8S0TcFu
- fjiQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWhMghXHPlnlYS0NLPNp7bcgeWLhYBp2gT0SpsIwthhAADna9rV7FwUENaN/Gt9aVi/4vlAQCC6@lists.freedesktop.org,
- AJvYcCXjYYILnQVvyORTPFc3ZIe+nhlVTBtFwaEGqPu4tfOJCg0qbbtrMCtHIm54aYalMwa6meX3jjxdc0zO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzu8V0q1+auabut/7ijdto4ABAm5KAjYk3Nki6iJ7PfnngA6Vit
- +D9fMzOLIgd8uhl/2UsaoJ3HXkOWu6avts3HDUNOvxHY3h4/koCgwH8R/Vc/yPI15fuQ6hscf7z
- w0NFufBRxk60h9E7dcucf/8d6BJE=
-X-Google-Smtp-Source: AGHT+IHWk+OQ6gg8FUjgV2v4vECfE0Fa9RJ/6lK2GykuDqzWb1DzW5pw5cVNOpUVhtAQtCWvfc0gKwWGbXHqNy0EXDs=
-X-Received: by 2002:a05:6000:8d:b0:368:747c:5a04 with SMTP id
- ffacd0b85a97d-3731185ad48mr7748341f8f.25.1724796293984; Tue, 27 Aug 2024
- 15:04:53 -0700 (PDT)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24F0A10E47E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Aug 2024 03:11:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RhdqDu/7PRYCwoOC4HoO5vjESjo0dqHpsX7e5RS2RUs3UoWEr5g/afvNXq7WXLF5eywD685LlVUCfV3bmVDDnRI4sNksErCZD+2IF5FvtMmj4bBKTxQ2oHJmdBQnITbJ9hHAPM2Va4v6CsEaZXgzx9jzLgQ+D1TQP2pzTeQ0Zfz2nCxjUwtCXlvZ/G4Wx6KlUiUdhW1nAtb7k8c46oHixQA+mAl3k5o5huBXucz0gI1VrBMXGTq9Xi1AujVKnBVJdgfgsrgWekaxyX+Olkc3pk0nS7bYeNs8/gAzShVZttLWTNvzySSQsdlkvHhjhASJvXLrkr9ezwo9VxwnDMoSoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j5VlaLzgTVjKgwMn2XTih6HhK4WRl1kabthPLeu7+iw=;
+ b=eeaobmKZbsptDYDK/wM1dbMHX7FF3LkVOIvZrewUCuTPZmKrWl8NWcpIwBYYOwUf+3/C7kemG2gTxeUt/tLQ7nNRceJGNgQD+vjZ/Lh/v6Nr8M1qI3SmBLk/BYQNfcmLBnxP/OUEWry/i1bhUwhynUjs1zMLmHBMWBrd9F/Gi8d5z8UP2m5cMMa38Lgs+TV07bbkUr1UdHbCpHHzxEysCfFIOFDddVp3ptbrwtl4YSi067oD/mHoNkLQCyVipMJoPR7XKPwfpU2xgZzyURTmKNMSsAaTkxnkhYaFV6FjV9WjX0C5dY0Rz11INjtNDceQFb7gUmPgh26y5wBKuhcyig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j5VlaLzgTVjKgwMn2XTih6HhK4WRl1kabthPLeu7+iw=;
+ b=LEHdH4poSBibA/yhONwrS+CSxpl48gcvcjSd2zr6mS27HPpJi7GzzmMoFdAUo82+jm2XwaXmqb5pWqnKlQcU5+sZYj4HbYoQGlCuGFuhXkl7pYsKD9HFF4OAnLxsqYDkJJx26cVNSj8LI/JKcF3Z3KMO4/GpI2FX97aF1Ajaklg=
+Received: from PH0PR07CA0052.namprd07.prod.outlook.com (2603:10b6:510:e::27)
+ by PH0PR12MB8173.namprd12.prod.outlook.com (2603:10b6:510:296::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.25; Wed, 28 Aug
+ 2024 03:11:05 +0000
+Received: from SA2PEPF000015CB.namprd03.prod.outlook.com
+ (2603:10b6:510:e:cafe::e7) by PH0PR07CA0052.outlook.office365.com
+ (2603:10b6:510:e::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.25 via Frontend
+ Transport; Wed, 28 Aug 2024 03:11:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Wed, 28 Aug 2024 03:11:05 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 27 Aug 2024 22:09:48 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, "Xiaogang . Chen" <Xiaogang.Chen@amd.com>,
+ kernel test robot <lkp@intel.com>
+Subject: [PATCH v2] drm/amdgpu/: Add missing kdoc entry in
+ amdgpu_vm_handle_fault function
+Date: Wed, 28 Aug 2024 08:39:26 +0530
+Message-ID: <20240828030926.4065919-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240820070818.1124403-1-vignesh.raman@collabora.com>
-In-Reply-To: <20240820070818.1124403-1-vignesh.raman@collabora.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 27 Aug 2024 15:04:42 -0700
-Message-ID: <CAF6AEGu-T4=3jPRcnq3BFBtfb_yhmWE2b8EgxgTm5Q0bqSv04Q@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/ci: increase timeout for all jobs
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
- helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch, 
- guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com, 
- deborah.brouwer@collabora.com, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CB:EE_|PH0PR12MB8173:EE_
+X-MS-Office365-Filtering-Correlation-Id: 792f1e41-f409-4b72-c36b-08dcc70f0e32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QktXeUpIaVhEQzBoejBtc1FPYzNlY3JBeVY3Q3lZTVAxZHQ4ZlZPa3RhMkp5?=
+ =?utf-8?B?UjY4UVl3N3p1UmYrN1VwcU16T2hYbDFvTXpHbld5QVNVQzQ2WDd1UU5jZVFy?=
+ =?utf-8?B?ZC9PRkRFc3lTWDBta29EbTRlQzZOQXZIR2VBMzFjQ2pWY3VuaVNXRUVjd3NX?=
+ =?utf-8?B?WE1HcWY3TFR0dnE4SmVkT3FHWGxPVzIwdnFBYWdXcWp1UnJiWllScDhMMTdO?=
+ =?utf-8?B?STZTb0l0ZWU4UnIwN0gyQnV6UG1DWkF3aGVaWS84T2twcHVRVUtRNXdpK28v?=
+ =?utf-8?B?bS94R3hmZWVJM0k3VDRYazY5NitRN1dtYlVNSTZWeCtrMlhXZ3NvbXJ0MWlF?=
+ =?utf-8?B?SjI1NWNGczRrZzk3TTJOWjg1RE1CUUFOM0pKWFJZODVvenpaR1llcVZLRHUz?=
+ =?utf-8?B?K2t6Q0paSHBVL1d4MHVqZGh0YWhuVkxSR250Vkd3R29wcEtKdHlSUXJ1cW85?=
+ =?utf-8?B?ZjZ3ZHp4T0s2S0MrME9Ra3ZLOE16ZFRua2o0TE5pdmJVanNrcyt4ck1VTWZi?=
+ =?utf-8?B?bnI2Q0VBbzFPSG9YY2g4SlJkdkdURW91cVpwZnM5dzVsVW5xc2swdVp4SVJI?=
+ =?utf-8?B?K3VweWc4WGlWZVhySTBDL040N1RmSmljT2VNdkp3VDZNd2xaZkZTOU92UFVy?=
+ =?utf-8?B?Mys1RkMyT3lFTVAyV3V5cUp2bTVxNkZsZzA5UkdmQjFYbCtaZ01PQXdpQzMw?=
+ =?utf-8?B?Q1NJK1A3VXFibkJRa3MvN2JIcVhoTm5VNm1KUE9pSCtpRkVQSUpxQjRKUUgr?=
+ =?utf-8?B?SzlSZzlvbVdWWFQ3S3BnVnVPZW5iOUlrN3RKSDQ3UGh5MXBmUkVrWEdmcWJH?=
+ =?utf-8?B?aGtuMnM4NE1FeE15czE0a2FWb1FXUEdkblpvdWxCTkN1Y1I5UTBYY1dVL3FH?=
+ =?utf-8?B?aTdPeVU5ZzV5Q3lUSjlIOVU2NWphUVZUQTJlTEs3Z2lpeDNHUDhWVk1KR3FH?=
+ =?utf-8?B?K1Vod2NWSS93cHdGemNnbDRXWUs1VmV0TzZXS1pGTmtkbllJU052YVR2cmpk?=
+ =?utf-8?B?WWtXZW9RbFBZTmNFaW5jdnI0WGJQS2pUNHozV0djQlpTTTFrTEMyNGxUWEN3?=
+ =?utf-8?B?OGJLdC9USTJUS291ZExlbmFjWXhEWUladTJYdWxuN1R3cGVQZDA2RmpvREdj?=
+ =?utf-8?B?SVFYckZTbHN0czEvMHhha1J5dWJCNGFCTXVUTDU0b1V6MXgvZTNDaE9UQXN1?=
+ =?utf-8?B?QUVmZGVFY25PWXVlNTZxbjdhZ1FBM0RVMW9ZTi93YU9RYkd6OGxkTStnc1F1?=
+ =?utf-8?B?RkxNdDRwa0RHMTVGS0FTYUV1a2xiN2ZMVVJWd2lNY25mb003cEtpdDQ5U3Ns?=
+ =?utf-8?B?NXhrSC8zbUFKRUs5bXgydTVMc2MyTFhUdE1wN2JuUGhIOEFDVzdpdE5QRGVG?=
+ =?utf-8?B?UTNaM0YvQXpieVljK2I5NUdzL3JOZ2Q4ZVRyaFZSSEFrb0Q2QU56M3NCeVBu?=
+ =?utf-8?B?OWJQSEV2Wmdua0NZem83V3Q0cnM4amVFMVlkMVFsWGVHckdWVDRCNHBVNE90?=
+ =?utf-8?B?Y0FiV3VIcDdBeDFzZGxMUFM3aUg5K3BWdUt3ZlBqeWJZdm5ydGk4cW94MUNw?=
+ =?utf-8?B?WFFVbW1KQ3M2MVdDWmRkNDYzOE1LRDZ3dDY1MmVqWGlHMTNRbk1HamJsVFNN?=
+ =?utf-8?B?aENpc2tXbnBLL0o2aHFHcmRBN2syeEM0NE1yemJ3bnlNVWQ0ZGJ6ei9XbjFQ?=
+ =?utf-8?B?Um05QU9SK0NyRWtWd0M4SDQrY2lEWGtDOERabUI1SGFLcDZ2Y2FvZHNoczRp?=
+ =?utf-8?B?NGwwZ1dlWXhJSndoREVYNDRjVkdKTzdqaFZWQm1ZWHliOXl5R1pGYS8zWkRY?=
+ =?utf-8?B?K2h4L21zUnFmcjZGNW5JSFBJRGxjdjZJaTd5dmM0QWk5ZCsxMU9kUmVVYkJC?=
+ =?utf-8?B?dU1xZm1EMm5sUHBJK2VBcXo0OTNuR0I4ejNCU09tZ293YVl2bnVHMHY5OHpZ?=
+ =?utf-8?Q?rIYVc7ebD8Qady7BdksykHNtGQ3ShENp?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2024 03:11:05.5318 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 792f1e41-f409-4b72-c36b-08dcc70f0e32
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,65 +141,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 20, 2024 at 12:09=E2=80=AFAM Vignesh Raman
-<vignesh.raman@collabora.com> wrote:
->
-> Set the timeout of all drm-ci jobs to 1h30m since
-> some jobs takes more than 1 hour to complete.
->
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+This commit adds a description for the 'ts' parameter in the
+amdgpu_vm_handle_fault function's comment block.
 
-Acked-by: Rob Clark <robdclark@gmail.com>
+Fixes the below with gcc W=1:
+drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:2781: warning: Function parameter or struct member 'ts' not described in 'amdgpu_vm_handle_fault'
 
-> ---
->  drivers/gpu/drm/ci/test.yml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-> index b6f428cdaf94..09d8447840e9 100644
-> --- a/drivers/gpu/drm/ci/test.yml
-> +++ b/drivers/gpu/drm/ci/test.yml
-> @@ -10,6 +10,7 @@
->  .lava-test:
->    extends:
->      - .test-rules
-> +  timeout: "1h30m"
->    script:
->      # Note: Build dir (and thus install) may be dirty due to GIT_STRATEG=
-Y
->      - rm -rf install
-> @@ -71,6 +72,7 @@
->      - .baremetal-test-arm64
->      - .use-debian/baremetal_arm64_test
->      - .test-rules
-> +  timeout: "1h30m"
->    variables:
->      FDO_CI_CONCURRENT: 10
->      HWCI_TEST_SCRIPT: "/install/igt_runner.sh"
-> @@ -215,7 +217,6 @@ panfrost:rk3399:
->    extends:
->      - .lava-igt:x86_64
->    stage: i915
-> -  timeout: "1h30m"
->    variables:
->      DRIVER_NAME: i915
->      DTB: ""
-> @@ -414,6 +415,7 @@ panfrost:g12b:
->
->  virtio_gpu:none:
->    stage: software-driver
-> +  timeout: "1h30m"
->    variables:
->      CROSVM_GALLIUM_DRIVER: llvmpipe
->      DRIVER_NAME: virtio_gpu
-> @@ -436,6 +438,7 @@ virtio_gpu:none:
->
->  vkms:none:
->    stage: software-driver
-> +  timeout: "1h30m"
->    variables:
->      DRIVER_NAME: vkms
->      GPU_VERSION: none
-> --
-> 2.43.0
->
+Cc: Xiaogang.Chen <Xiaogang.Chen@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202408251419.vgZHg3GV-lkp@intel.com/
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2: Added Reported-by (Xiaogang)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index ad2e469548c9..0fa165e8fb40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2766,6 +2766,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+  * amdgpu_vm_handle_fault - graceful handling of VM faults.
+  * @adev: amdgpu device pointer
+  * @pasid: PASID of the VM
++ * @ts: Timestamp of the fault
+  * @vmid: VMID, only used for GFX 9.4.3.
+  * @node_id: Node_id received in IH cookie. Only applicable for
+  *           GFX 9.4.3.
+-- 
+2.34.1
+
