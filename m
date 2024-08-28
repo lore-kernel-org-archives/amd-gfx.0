@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 495AFC7EE2C
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D296C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E6110E4A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9525010E333;
 	Thu, 29 Aug 2024 07:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="Yj45Lnl+";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="OMkBP1Bz";
 	dkim-atps=neutral
-X-Greylist: delayed 16676 seconds by postgrey-1.36 at gabe;
- Wed, 28 Aug 2024 15:38:50 UTC
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C42F10E35B;
- Wed, 28 Aug 2024 15:38:49 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D0F10E4B5;
+ Wed, 28 Aug 2024 15:47:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1724859514;
- bh=oVnFuXZSAxbQ3NtiLiMpquUs3FMfEmgMHUpg/XfODWg=;
+ s=onoh2408; t=1724860033;
+ bh=SJgbPbqzc7SahFIo0tT8HzBFaK2pKFosnheCBPu7Z8A=;
  h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=Yj45Lnl+kTK3NV+uWm88Y1pkN9bL46RCe4RBqZrz8hdqVp0RreO8Ym2zd61Pi9uDT
- nfGmyNVsjRBwCOobL9hDIhhMleQjj0HuWzMlsBsANDYPjkjGMuAy0bZTDMhHqWnHg6
- RiIUm2XWm5Z6ZW/9V0tipTnx9i8+nvrPdTMZU4iY=
-X-QQ-mid: bizesmtp81t1724859480t6l336za
-X-QQ-Originating-IP: 0HJh7Yo1Jx8Lr3Nkdfttu+na0dkmiIavMKazTlQ2IrU=
+ b=OMkBP1BzHq7Nydk+9qgbCnMk/mSPMlQIEdw/yh+p3YeL9DoH0nDbVXSsRJmhLV2V3
+ kXZS0VHLXhGM0fk0IlbaNI0vw2qGTFiMJenkiG0AIYcd2S5zYXer0uJVfxtpEbClGF
+ 3CSTqqfFET7B/Iouom+1WJmbd7RR8nXOychGKP6g=
+X-QQ-mid: bizesmtp82t1724860025tr78hzhh
+X-QQ-Originating-IP: NBBWYtTDQvWJrkvX2ybfoykKoh0AM7tmnMshH1rKKO0=
 Received: from [10.20.53.89] ( [113.57.152.160])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 28 Aug 2024 23:37:57 +0800 (CST)
+ id ; Wed, 28 Aug 2024 23:47:03 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1561753365197894062
-Message-ID: <23CC94B2018EE36C+e1d82597-6adf-4bcf-8e63-df788eb81bd0@uniontech.com>
-Date: Wed, 28 Aug 2024 23:37:57 +0800
+X-BIZMAIL-ID: 11183564941434698686
+Message-ID: <D25D5E6FB683DA94+808c82a3-546f-4289-b531-fa24d7278879@uniontech.com>
+Date: Wed, 28 Aug 2024 23:47:02 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] amdgpu: disable amdgpu_dpm on THTF-SW831-1W-DS25_MB board
-To: Mario Limonciello <mario.limonciello@amd.com>, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, lijo.lazar@amd.com, le.ma@amd.com, Jun.Ma2@amd.com,
- hamza.mahfooz@amd.com, andrealmeid@igalia.com, wenlunpeng@uniontech.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com,
+ mario.limonciello@amd.com, le.ma@amd.com, Jun.Ma2@amd.com,
+ hamza.mahfooz@amd.com, andrealmeid@igalia.com, wenlunpeng@uniontech.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, guanwentao@uniontech.com, zhanjun@uniontech.com
 References: <3EA7C2B9E8C4D00A+20240828105938.37674-1-wangyuli@uniontech.com>
- <e3122e5c-a6dd-4228-84ab-04747a3df265@amd.com>
+ <CADnq5_P42A81D_VufAdSkwVwC08ZRiT=6XAS3oHmSH325ygbow@mail.gmail.com>
 From: WangYuli <wangyuli@uniontech.com>
 Autocrypt: addr=wangyuli@uniontech.com; keydata=
  xjMEZoEsiBYJKwYBBAHaRw8BAQdAyDPzcbPnchbIhweThfNK1tg1imM+5kgDBJSKP+nX39DN
@@ -55,7 +54,7 @@ Autocrypt: addr=wangyuli@uniontech.com; keydata=
  VTL0dvPDofBTjFYDAQgHwngEGBYIACAWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZoEsiQIb
  DAAKCRDF2h8wRvQL7sKvAP4mBvm7Zn1OUjFViwkma8IGRGosXAvMUFyOHVcl1RTgFQEAuJkU
  o9ERi7qS/hbUdUgtitI89efbY0TVetgDsyeQiwU=
-In-Reply-To: <e3122e5c-a6dd-4228-84ab-04747a3df265@amd.com>
+In-Reply-To: <CADnq5_P42A81D_VufAdSkwVwC08ZRiT=6XAS3oHmSH325ygbow@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
@@ -76,40 +75,23 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2024/8/28 23:19, Mario Limonciello wrote:
-> This is production hardware?
-
-Unfortunately, this device was released quite a while back.
+On 2024/8/28 23:30, Alex Deucher wrote:
+> On Wed, Aug 28, 2024 at 7:28 AM WangYuli <wangyuli@uniontech.com> wrote:
 >
-> Have you already checked whether a BIOS upgrade for the device could 
-> help this issue?
-
-
-Sadly, there's no BIOS update to address this problem. It seems to be a 
-persistent issue across all BIOS versions for this motherboard.
-
+> This will disable dpm on all devices that you might install on this
+> platform.  If this is specific to a particular platform and board
+> combination, it might be better to check the platform in the
+> dpm_init() code for the specific chip that is problematic.
+> Additionally, disabling dpm will result in boot clocks which means
+> performance will be very low.
 >
-> Just to clarify did you guys co-work on this patch, or are you 
-> submitting on behalf of wenlunpeng?  It right now shows up as you 
-> submitting on behalf of wenlunpeng.  If you co-worked on it you should 
-> also use a Co-Developed-by tag.
+> Alex
 
+This motherboard model doesn't have combinations with different 
+platforms or chipsets now.Their model numbers are unique,so it seems 
+unnecessary to add extra judgment.
 
-No, the entirety of this bugfix is attributable to wenlunpeng.
-
->
-> As this is suspected to be a BIOS issue, I would like to better 
-> understand if the BIOS upgrade fixes it.  If it does but you would 
-> still like a quirk for the system it should include the BIOS version 
-> here.
->
->
-Unfortunately again. There's not much we as kernel developers can do 
-when devices behave unpredictably.
 
 -- 
-
-*WangYuli
-*
-
+WangYuli
 
