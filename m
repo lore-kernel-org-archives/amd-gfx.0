@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D296C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BDFC7EE2F
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9525010E333;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D81A210E4EE;
 	Thu, 29 Aug 2024 07:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="OMkBP1Bz";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="lVNoFK/K";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77D0F10E4B5;
- Wed, 28 Aug 2024 15:47:42 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17BE910E314;
+ Wed, 28 Aug 2024 11:01:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1724860033;
- bh=SJgbPbqzc7SahFIo0tT8HzBFaK2pKFosnheCBPu7Z8A=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=OMkBP1BzHq7Nydk+9qgbCnMk/mSPMlQIEdw/yh+p3YeL9DoH0nDbVXSsRJmhLV2V3
- kXZS0VHLXhGM0fk0IlbaNI0vw2qGTFiMJenkiG0AIYcd2S5zYXer0uJVfxtpEbClGF
- 3CSTqqfFET7B/Iouom+1WJmbd7RR8nXOychGKP6g=
-X-QQ-mid: bizesmtp82t1724860025tr78hzhh
-X-QQ-Originating-IP: NBBWYtTDQvWJrkvX2ybfoykKoh0AM7tmnMshH1rKKO0=
-Received: from [10.20.53.89] ( [113.57.152.160])
+ s=onoh2408; t=1724842836;
+ bh=rGkv8vXTKQNNDjP5vTcEOnsxxSzEmVf10njH6gZtvbg=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=lVNoFK/KCHTP4ynQyOCcOeXrh08UYkTBcMhAivVVdOjFYiJ334pCccGHinCjXNboM
+ 9Pxj6rUeCP2hBgPiJAnp28mD2IZBUVRNqlpqvmXjCprn9t2qqMMWNnvrpVHbVMBFHq
+ 4YaDGGc02OLxeqQ9KdERcBKr7h0ksSuND7epbHXM=
+X-QQ-mid: bizesmtp88t1724842792tz70z34i
+X-QQ-Originating-IP: yURP3s+8jR7D8ND1Wq3RX+2ffkTw4oLhrct7u85Sa4c=
+Received: from localhost.localdomain ( [113.57.152.160])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 28 Aug 2024 23:47:03 +0800 (CST)
+ id ; Wed, 28 Aug 2024 18:59:49 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11183564941434698686
-Message-ID: <D25D5E6FB683DA94+808c82a3-546f-4289-b531-fa24d7278879@uniontech.com>
-Date: Wed, 28 Aug 2024 23:47:02 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdgpu: disable amdgpu_dpm on THTF-SW831-1W-DS25_MB board
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+X-BIZMAIL-ID: 8286794993761644341
+From: WangYuli <wangyuli@uniontech.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, lijo.lazar@amd.com,
  mario.limonciello@amd.com, le.ma@amd.com, Jun.Ma2@amd.com,
  hamza.mahfooz@amd.com, andrealmeid@igalia.com, wenlunpeng@uniontech.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, guanwentao@uniontech.com, zhanjun@uniontech.com
-References: <3EA7C2B9E8C4D00A+20240828105938.37674-1-wangyuli@uniontech.com>
- <CADnq5_P42A81D_VufAdSkwVwC08ZRiT=6XAS3oHmSH325ygbow@mail.gmail.com>
-From: WangYuli <wangyuli@uniontech.com>
-Autocrypt: addr=wangyuli@uniontech.com; keydata=
- xjMEZoEsiBYJKwYBBAHaRw8BAQdAyDPzcbPnchbIhweThfNK1tg1imM+5kgDBJSKP+nX39DN
- IVdhbmdZdWxpIDx3YW5neXVsaUB1bmlvbnRlY2guY29tPsKJBBMWCAAxFiEEa1GMzYeuKPkg
- qDuvxdofMEb0C+4FAmaBLIgCGwMECwkIBwUVCAkKCwUWAgMBAAAKCRDF2h8wRvQL7g0UAQCH
- 3mrGM0HzOaARhBeA/Q3AIVfhS010a0MZmPTRGVfPbwD/SrncJwwPAL4GiLPEC4XssV6FPUAY
- 0rA68eNNI9cJLArOOARmgSyJEgorBgEEAZdVAQUBAQdA88W4CTLDD9fKwW9PB5yurCNdWNS7
- VTL0dvPDofBTjFYDAQgHwngEGBYIACAWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZoEsiQIb
- DAAKCRDF2h8wRvQL7sKvAP4mBvm7Zn1OUjFViwkma8IGRGosXAvMUFyOHVcl1RTgFQEAuJkU
- o9ERi7qS/hbUdUgtitI89efbY0TVetgDsyeQiwU=
-In-Reply-To: <CADnq5_P42A81D_VufAdSkwVwC08ZRiT=6XAS3oHmSH325ygbow@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ wangyuli@uniontech.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
+ zhanjun@uniontech.com
+Subject: [PATCH] amdgpu: disable amdgpu_dpm on THTF-SW831-1W-DS25_MB board
+Date: Wed, 28 Aug 2024 18:59:38 +0800
+Message-ID: <3EA7C2B9E8C4D00A+20240828105938.37674-1-wangyuli@uniontech.com>
+X-Mailer: git-send-email 2.43.4
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
@@ -74,24 +62,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: wenlunpeng <wenlunpeng@uniontech.com>
 
-On 2024/8/28 23:30, Alex Deucher wrote:
-> On Wed, Aug 28, 2024 at 7:28 AM WangYuli <wangyuli@uniontech.com> wrote:
->
-> This will disable dpm on all devices that you might install on this
-> platform.  If this is specific to a particular platform and board
-> combination, it might be better to check the platform in the
-> dpm_init() code for the specific chip that is problematic.
-> Additionally, disabling dpm will result in boot clocks which means
-> performance will be very low.
->
-> Alex
+The quirk is for reboot-stability.
 
-This motherboard model doesn't have combinations with different 
-platforms or chipsets now.Their model numbers are unique,so it seems 
-unnecessary to add extra judgment.
+A device reboot stress test has been observed to cause
+random system hangs when amdgpu_dpm is enabled.
 
+Disabling amdgpu_dpm can fix this.
 
+However, a boot-param can still overwrite it to enable
+amdgpu_dpm.
+
+Serial log when error occurs:
+...
+Console: switching to colour frame buffer device 160x45
+amdgpu 0000:01:00.0: fb0: amdgpudrmfb frame buffer device
+[drm:amdgpu_device_ip_late_init] *ERROR* late_init of IP block <si_dpm> failed -22
+amdgpu 0000:01:00.0: amdgpu_device_ip_late_init failed
+amdgpu 0000:01:00.0: Fatal error during GPU init
+[drm] amdgpu: finishing device.
+Console: switching to colour dummy device 80x25
+...
+
+Signed-off-by: wenlunpeng <wenlunpeng@uniontech.com>
+Signed-off-by: WangYuli <wangyuli@uniontech.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 094498a0964b..81716fcac7cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -32,6 +32,7 @@
+ #include <drm/drm_vblank.h>
+ 
+ #include <linux/cc_platform.h>
++#include <linux/dmi.h>
+ #include <linux/dynamic_debug.h>
+ #include <linux/module.h>
+ #include <linux/mmu_notifier.h>
+@@ -3023,10 +3024,32 @@ static struct pci_driver amdgpu_kms_pci_driver = {
+ 	.dev_groups = amdgpu_sysfs_groups,
+ };
+ 
++static int quirk_set_amdgpu_dpm_0(const struct dmi_system_id *dmi)
++{
++	amdgpu_dpm = 0;
++	pr_info("Identified '%s', set amdgpu_dpm to 0.\n", dmi->ident);
++	return 1;
++}
++
++static const struct dmi_system_id amdgpu_quirklist[] = {
++	{
++		.ident = "DS25 Desktop",
++		.matches = {
++			DMI_MATCH(DMI_BOARD_NAME, "THTF-SW831-1W-DS25_MB"),
++		},
++		.callback = quirk_set_amdgpu_dpm_0,
++	},
++	{}
++};
++
+ static int __init amdgpu_init(void)
+ {
+ 	int r;
+ 
++	/* quirks for some hardware, applied only when it's untouched */
++	if (amdgpu_dpm == -1)
++		dmi_check_system(amdgpu_quirklist);
++
+ 	if (drm_firmware_drivers_only())
+ 		return -EINVAL;
+ 
 -- 
-WangYuli
+2.43.4
 
