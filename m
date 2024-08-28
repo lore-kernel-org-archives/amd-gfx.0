@@ -4,59 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC733C7EE30
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2B59C7EE2C
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 07:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E75C10E4FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8355C10E5A5;
 	Thu, 29 Aug 2024 07:08:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ai+Q/70P";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XsjpwwG7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE2E610E576;
- Wed, 28 Aug 2024 15:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724857858; x=1756393858;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=+OwYc8bK2ZE/BbrISfqwEqzDsEWaDGtTsTjHjxyCVHw=;
- b=Ai+Q/70PEP46daLsLChGJ80Z0I9fAyd++NWXesPJ6fZ6XCH30a3iU5ip
- tfDRrhFJBRFJX5QVQVR5rmcvkfDnXYQ7sK11WInnxDdZRINUonlUBalv0
- LqMHH9+fdycnpDHA1a/yp8ixzvfJ6T9JC+vF/2nRy2+LUpYB7j1tz3g2g
- E+Xl0eTShxifzEfe7nDbLQtWhbofhcH2XvCy3fFPMD6uHLma3galbqCGO
- Dyc7uU2d3bsD0eddydT1m+16tACi6ZJ2Jp+tViTfJjJDiGxz+6AtzE8Fc
- uOwcNol0X9mR18LmYNbB2fc/XtXkrWVken/w+s3I7SZUAnQCVeg9H6nJW g==;
-X-CSE-ConnectionGUID: 5IMRYiTHSkKcGidUgJKnTQ==
-X-CSE-MsgGUID: G8aGE9lhR7uIQqhMw8EbRg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11178"; a="27162727"
-X-IronPort-AV: E=Sophos;i="6.10,183,1719903600"; d="scan'208";a="27162727"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2024 08:10:56 -0700
-X-CSE-ConnectionGUID: TSUn6mMoQcuff7YyyZsGFQ==
-X-CSE-MsgGUID: fixwIkM3TNeTfOiKMuSkcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,183,1719903600"; d="scan'208";a="67613148"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.110])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2024 08:10:54 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Subject: Re: [RESEND 3/3] drm/amd/display: switch to guid_gen() to generate
- valid GUIDs
-In-Reply-To: <87mskwyc6p.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240812122312.1567046-1-jani.nikula@intel.com>
- <20240812122312.1567046-3-jani.nikula@intel.com>
- <dac8f408-6f13-4ee7-a54c-342d51ba88d1@amd.com> <87mskwyc6p.fsf@intel.com>
-Date: Wed, 28 Aug 2024 18:10:49 +0300
-Message-ID: <87h6b4y96u.fsf@intel.com>
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C0710E43C;
+ Wed, 28 Aug 2024 09:32:53 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-5bebd3b7c22so765208a12.0; 
+ Wed, 28 Aug 2024 02:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724837571; x=1725442371; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ljlQm4Z756d2n9EnFl4azi2/3XalhuzYi2PKJHl8biM=;
+ b=XsjpwwG7EixVdRDtbW0w5tQ6SZ+kWulwFrAOpKuWuHFjj1IDgvifLrWbgHpeSQHQD6
+ 0dtXRz4YRI+F1S3n43yvX7z7+ATr9OtUeTGXCZjMBe9aEpVuooeGjUAY14NN6o7gMIbO
+ ckXWqHJNsbigxP2kPtEuccooCU7olzL/+d42MmbzA5uUGs+PyZyDaWzi1+nBR7k1zix7
+ VA5JpDoBVyXo6L8VYMAneQv6RQSeDWQmxnA/x+kZfU1MWqku+/be5Zz9W/I5gqC+2qgR
+ OqPZUy9s6jAylCLy7GKWrVZakkX8aYb/qbMMWvaXpyca4sSJLER0ABgN6lXJ8H5CmbOY
+ uiZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724837571; x=1725442371;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ljlQm4Z756d2n9EnFl4azi2/3XalhuzYi2PKJHl8biM=;
+ b=J6dk+x4K9MW4Cl8F8629qFEPKpwVwM1HckefI/alH1d/BgYUiIM3sDSuyxX+ZA9bPr
+ v4nFEJjb+oGGaArg47USHfusHbhgJwxXcV2sxTnEhsI5ngw58j0bp0b8pFt6je55J0gJ
+ wnXoYSCEODW/3V510L4AbnD2lveqd7MrGWWbeJeBK0nAltQcZigIqWILpiGTl3jG488d
+ yOSg9qWYB34kn6JaHoibcchLHx2wNvDMwG+Crg+4TwO27T4Vl48cYsr+J7hyXvbxYJ33
+ nk9i1522iRNibWJ97A3VPIVrubpmMyJ8r2IqzNiXhJyRilwWF6r1sJeiZwpQOaQ4Y+KO
+ tfVA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV7XW8M002DtNpJShof7m69e63QJh67HqmA1Wyug8bADgLQ36zu0SW3dovCoLrp42Tvab9eDSySHFQz@lists.freedesktop.org,
+ AJvYcCXek1ZdyzCLnKCc9dN7yfmYfaSxa3bA7bJ/KqHCL1UPjimInLGqASo1TrG6M4dH37DFHzQThSMf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMsbOEkNhNe/O7ZvalLyjm0q2t5Z2B0U3N3w8QLCpYFve5GQWr
+ OVtqxPy6UNHsYGj/Vgv72g1/MH3q9qWkGfcC9PRlC63IpHI2qEEcbLVTJGYn
+X-Google-Smtp-Source: AGHT+IFZqJB6vFvBK0EcgsYJ7T2OksI6qWVL0bPPi01r8q10EQ7avC39obDkdaWm65VsU3qbjrEM7A==
+X-Received: by 2002:a17:907:7da0:b0:a86:a6ee:7d92 with SMTP id
+ a640c23a62f3a-a870a9ba661mr180942766b.18.1724837571236; 
+ Wed, 28 Aug 2024 02:32:51 -0700 (PDT)
+Received: from localhost
+ (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e5487810sm219558766b.6.2024.08.28.02.32.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Aug 2024 02:32:50 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd/display: Fix spelling mistake "recompte" ->
+ "recompute"
+Date: Wed, 28 Aug 2024 10:32:50 +0100
+Message-Id: <20240828093250.271358-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 29 Aug 2024 07:08:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,96 +90,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 28 Aug 2024, Jani Nikula <jani.nikula@intel.com> wrote:
-> On Wed, 28 Aug 2024, Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
->> On 8/12/24 08:23, Jani Nikula wrote:
->>> Instead of just smashing jiffies into a GUID, use guid_gen() to generate
->>> RFC 4122 compliant GUIDs.
->>> 
->>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->>> 
->>> ---
->>
->> Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->>
->> I would prefer to take this series through the amdgpu tree though,
->> assuming nobody minds.
->
-> How long is it going to take for that to get synced back to
-> drm-misc-next though?
+There is a spelling mistake in a DRM_DEBUG_DRIVER message. Fix it.
 
-Also getting acks from Alex and Harry to merge via drm-misc-next.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-BR,
-Jani.
-
-
->
-> BR,
-> Jani.
->
->
->>
->>> 
->>> Side note, it baffles me why amdgpu has a copy of this instead of
->>> plumbing it into drm mst code.
->>> ---
->>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++---------
->>>   1 file changed, 12 insertions(+), 11 deletions(-)
->>> 
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index 72c10fc2c890..ce05e7e2a383 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -2568,9 +2568,9 @@ static int dm_late_init(void *handle)
->>>   
->>>   static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
->>>   {
->>> +	u8 buf[UUID_SIZE];
->>> +	guid_t guid;
->>>   	int ret;
->>> -	u8 guid[16];
->>> -	u64 tmp64;
->>>   
->>>   	mutex_lock(&mgr->lock);
->>>   	if (!mgr->mst_primary)
->>> @@ -2591,26 +2591,27 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
->>>   	}
->>>   
->>>   	/* Some hubs forget their guids after they resume */
->>> -	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
->>> -	if (ret != 16) {
->>> +	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
->>> +	if (ret != sizeof(buf)) {
->>>   		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
->>>   		goto out_fail;
->>>   	}
->>>   
->>> -	if (memchr_inv(guid, 0, 16) == NULL) {
->>> -		tmp64 = get_jiffies_64();
->>> -		memcpy(&guid[0], &tmp64, sizeof(u64));
->>> -		memcpy(&guid[8], &tmp64, sizeof(u64));
->>> +	import_guid(&guid, buf);
->>>   
->>> -		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, guid, 16);
->>> +	if (guid_is_null(&guid)) {
->>> +		guid_gen(&guid);
->>> +		export_guid(buf, &guid);
->>>   
->>> -		if (ret != 16) {
->>> +		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, buf, sizeof(buf));
->>> +
->>> +		if (ret != sizeof(buf)) {
->>>   			drm_dbg_kms(mgr->dev, "check mstb guid failed - undocked during suspend?\n");
->>>   			goto out_fail;
->>>   		}
->>>   	}
->>>   
->>> -	import_guid(&mgr->mst_primary->guid, guid);
->>> +	guid_copy(&mgr->mst_primary->guid, &guid);
->>>   
->>>   out_fail:
->>>   	mutex_unlock(&mgr->lock);
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 0859a7173a06..669fd8fb6c24 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1325,7 +1325,7 @@ static bool is_dsc_need_re_compute(
+ 		if (new_crtc_state->enable && new_crtc_state->active) {
+ 			if (new_crtc_state->mode_changed || new_crtc_state->active_changed ||
+ 					new_crtc_state->connectors_changed) {
+-				DRM_DEBUG_DRIVER("%s:%d MST_DSC dsc recompte required."
++				DRM_DEBUG_DRIVER("%s:%d MST_DSC dsc recompute required."
+ 						 "stream 0x%p in new dc_state\n",
+ 						 __func__, __LINE__, stream);
+ 				is_dsc_need_re_compute = true;
 -- 
-Jani Nikula, Intel
+2.39.2
+
