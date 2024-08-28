@@ -4,122 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D12E9C54EDA
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Aug 2024 11:26:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8395EC54FB3
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Aug 2024 13:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 790E510E401;
-	Wed, 28 Aug 2024 11:26:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E250C10E50B;
+	Wed, 28 Aug 2024 13:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tcXGjLZy";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="IUsWa/cb";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B9310E401
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Aug 2024 11:26:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y8WCfCNBy/ihf6dVZ81yTxmGw8U6Syg0hUz+c3wCnC7JYmd07xsAykw7kx/ghTe0Frt7DRUv55uT2KxlrDUpBvZ0XrVE+b7HPQOwW5UAvPMkemRuZ54Q4+f89AeU0RVkVDLub4bxwnxPlguuLK5mgOmbJq8oO4Fd/KoRcutCsWR5gaN1mJVTD5LR6s943ZL+fp+QszsqnNJEGzu/AnBWe2IrolfwnNBpwChsoOYjroocSARP6he21avGeFfMxxbud+QSnDNfPV9Fv72FqUH7rSDlLWZurwHG0hIyFzjqIggW7K+mTpSOMbaXUKHxY7blO/wjmV6Cf4Fve4x0WbkFcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=910WFqPyqvPmWvtE+of35IiRvMp8yo7mj3VJgGqySEc=;
- b=MK3SJDgll9ujwHFthygYC5FX4pf5f+RurtMzybFeTgFX3MwUaQ2nqIxmIz2kYVF2zCRAJYmaxoOYlYgknAJgvXLiVnXI6pUvLMiJdIxD0Nbnm1IzZPS2GmPCd6QfAq/05pgY85sRDYAURukKYQGJgDmSGdClo7PDSbgMKtlCOabHn5/M5Vl28/EQaIhx11P0Ps2drxwy3nXG1G61aevjIt/KD3PfBf5uvAbHilKNPEaobzA++DTIGZcr/AexXIpqdJgsNP/SbAoTBSjhFkO3qs9m2jKsDJa9WAGgIphPMnvN2Kh83sR9/EDaRAIq7VN/NGcNdt4MMRR6oWRnn0/BOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=910WFqPyqvPmWvtE+of35IiRvMp8yo7mj3VJgGqySEc=;
- b=tcXGjLZyxfdIjCNlMv64TtjZZ6tmbBQ5SyNwwPbwVR+HEfd5JzMOoeg1uzLUGh6F9HN18EUEd/UDa+weOwRpxcBqt33oSKCfaVEh+3mBFj2iB7LUOnS4o32VNZ8hwq16SH71eoeN9DBPfWZH3w6gqhie84db9FTDZ/6EbJ5J4b4=
-Received: from BN9PR03CA0461.namprd03.prod.outlook.com (2603:10b6:408:139::16)
- by MW6PR12MB8661.namprd12.prod.outlook.com (2603:10b6:303:23f::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.26; Wed, 28 Aug
- 2024 11:26:23 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:408:139:cafe::65) by BN9PR03CA0461.outlook.office365.com
- (2603:10b6:408:139::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.28 via Frontend
- Transport; Wed, 28 Aug 2024 11:26:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7939.2 via Frontend Transport; Wed, 28 Aug 2024 11:26:22 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 28 Aug 2024 06:26:19 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
- <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: [PATCH] drm/amd/display: Add missing kdoc entry for
- 'bs_coeffs_updated' in dpp401_dscl_program_isharp
-Date: Wed, 28 Aug 2024 16:55:59 +0530
-Message-ID: <20240828112559.83911-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 610D310E50B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Aug 2024 13:00:17 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-427fc97a88cso58956125e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Aug 2024 06:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1724850016; x=1725454816; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=exgXW8MQI91qxxtSMkyGmcZjJTXK1AuFo5AsFdZQpgA=;
+ b=IUsWa/cbbe5kSxM0HxGOWZuQgYdkcPM6KlcMXb/nM+bZYoMUxidHxgv8EqCf4zBn6X
+ jK7wZxItCgkJrXlT2o1v0eHwygbCj5/zSnd1nXkPaDH8ggGfCYxQJLUAT1kDfG+3goW4
+ mWwSxYlIi+4HbXQKQ/kCRJLKh9CQaicuqxBDg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724850016; x=1725454816;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=exgXW8MQI91qxxtSMkyGmcZjJTXK1AuFo5AsFdZQpgA=;
+ b=Olj3IGGUQbpBs++Ff8szkrB5pIcTzt2EpH9BLVyaBbCabjc3SYMOaHr2QTw6WITCzX
+ Jj/D2x+ezj3CNZnRv9p+KdULBL1l70ANzXRa738sBq9JZo+sKJYDpHP1MMfyJPxlZJxu
+ q5007bZdH7hKEMQy8HuDIGV1XP+/qBilWacUdbqBTJ5v24e6jziygBL+fIlj7W+cjSAf
+ rNrLN7t1LvI5mJS90gXc8JDaxHekHWHYy5H3kGjv8+0FIKOfoAFO83fkaTe4Doc1sGji
+ Jqh3tJK7kTT5kAIhTaGqllzOykjLiLwye9Dft2xspBTd6XsA8sLKMJwo/ueLfIyA5yvz
+ DUUA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWTqb8WtPI0qrKrg1zIFVsLqIVk4ZgiBRB+aDfxwTxiE8WNKO+wYAnBvsw3ks8S3KY8wr68eMXX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzlRoFTRT3zT9IR215sNP7TD/1E4ejDcFunpwPUu+2zP3AxLPfN
+ EDLRuqJ1HhOTpRDGn68Qr5IaoZPxugWv0KS1Yya8RXc3NKuOYGOuqR1Iuahf5J4=
+X-Google-Smtp-Source: AGHT+IHk6nmt4HJIQCszPe8cvSSKGksson9ORY2M6vtDdH7LVdyVKIXGkTPZ5snsIFifaadrm0kBEg==
+X-Received: by 2002:a05:600c:4ec6:b0:426:6153:5318 with SMTP id
+ 5b1f17b1804b1-42acc8dd87amr110090745e9.19.1724850015483; 
+ Wed, 28 Aug 2024 06:00:15 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42ba9a1eeadsm11022115e9.43.2024.08.28.06.00.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Aug 2024 06:00:14 -0700 (PDT)
+Date: Wed, 28 Aug 2024 15:00:12 +0200
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [RESEND 1/3] drm/mst: switch to guid_t type for GUID
+Message-ID: <Zs8fXM8vHAPigE-s@phenom.ffwll.local>
+References: <20240812122312.1567046-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|MW6PR12MB8661:EE_
-X-MS-Office365-Filtering-Correlation-Id: cebbc27f-984b-4243-3924-08dcc7543ecd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0WGvFHZzXkOccIqWjJjkazWzYUuBkVsfnNvzh80r/p1inFsWnKpcZosGnmA9?=
- =?us-ascii?Q?hcvctHd5BcunhzuZsm+RzPcOWaF02z0G8lZdJE4pOGOJaP5f4uOTotckZrj9?=
- =?us-ascii?Q?4df3TrSxsdvjw59r7EN4F2aRuKDsCyTb1W4lLYCaaeg6SzC2v+J6wH10iqws?=
- =?us-ascii?Q?NK8p+3/5PFf5xF8wSZsktOuTKZi0F7XMemfT0Tz1lH7nrgfSD+L6TLjAqpCJ?=
- =?us-ascii?Q?nzqhOja8qP+R5CPxskN08y2JYAFGZK+bIhpPyo4WEBpt7y6X9AIqTKg7cwc5?=
- =?us-ascii?Q?pCGv3K9YfbXVHU3jJqAytOP/lYrSrnNqjVDWNh75zz8vI6nF+62XD4zmcvhx?=
- =?us-ascii?Q?gMbnNwoGE3gTwujW3X0xlo3bBjUMH2SjZwbyM49/iDBfYSll4C0aCxqcTHsW?=
- =?us-ascii?Q?u7w7q7U71Diw4lc/x4y+UWVFWHfz9Xrp4CQvbO5/lOMqiJj9FtKwEVvBIEoz?=
- =?us-ascii?Q?Qnp0zy790zk1FQqsyvblD1uefe6a48QGjY6ijNiXyrRbobshjFuOQ94CWrbh?=
- =?us-ascii?Q?+45N1XMWMjNLUfM8Lhuywka8yXhDZg4RDbmZFXkvquMFRPbnqkRzVBPxVraq?=
- =?us-ascii?Q?r3cCKmpI0BXfaI6ounHYsYSovjISbcvNzsmC0iTxGefvUpOZ1I2OKzkMmr/J?=
- =?us-ascii?Q?HDXED042mwymCB5ZXpBe0bqLLy4sShWyrHp6EK3dTHT+gaO0dzfjePj5pY41?=
- =?us-ascii?Q?kVFYZh/rW7JwB8gPIFI6zblmR6JJrQAO1KiwWTlj41udHTEHkHrEWugoPi1f?=
- =?us-ascii?Q?2/VxwaMoQtYdzEFBx6s7PXxn4VzoTpkecueHlJiGfdX3t3Y51GwgoANl+53O?=
- =?us-ascii?Q?f0ZXxEhC3TDEvIihTpqa8hn/6+6N2jGTNV0O8g+bpsfEpPcG73cyrf99gOuJ?=
- =?us-ascii?Q?IMy0hD54Z/KhH4hYZJez/rDJSfIEYn5b55jApLBcnx/5buUuzcISHCJiJd2F?=
- =?us-ascii?Q?31kvzczdVs5xT342rfgYxFj85kzcWLF34OFtdjfqS+FTqc6Ba7Sr2/Wun5Rv?=
- =?us-ascii?Q?D752mwNin/i3ia+Yyp6Roq/0hDBjmBBqxVJEpMMP0p6cBgX2bxdGksiQ7liY?=
- =?us-ascii?Q?cxU/+iEEuEK1gORdSMGFAccL11UVEMFF283I39PLVQ3oCdTJqYwfNFDJnhJ8?=
- =?us-ascii?Q?ruCIIMJB37qUzWyA8dDPPb0NILqNi9pIkHc4/vmkqvA+XptRpySEwxawCDmx?=
- =?us-ascii?Q?Po9YVGEd0lsGN7AXzSwtdZq1HZojRe70MhCw/Omj+ETuCunkI6/hLH/sqshk?=
- =?us-ascii?Q?hBQ3/PQqlTyJdSQs6a48CrAW6DCd/cTpZraG8CKNto0CAB5bdJVnMEEMhzL8?=
- =?us-ascii?Q?pIfCR8H+HScnZn8+vs1cCzahQ+ulFcvVtdltyyn6AnpUhMFQnmrqyu4y21eR?=
- =?us-ascii?Q?EM7ibHoE7OIDfjpEO3+pFRhrJai/hJntbEn03FXpV99MYgS/+ktfTkyuEGzJ?=
- =?us-ascii?Q?aTX1ARafDURX7vcARhwY9r/1PTYGDf+B?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2024 11:26:22.3959 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cebbc27f-984b-4243-3924-08dcc7543ecd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8661
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240812122312.1567046-1-jani.nikula@intel.com>
+X-Operating-System: Linux phenom 6.9.12-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,33 +79,301 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes the below with gcc W=1:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dpp/dcn401/dcn401_dpp_dscl.c:961: warning: Function parameter or struct member 'bs_coeffs_updated' not described in 'dpp401_dscl_program_isharp'
+On Mon, Aug 12, 2024 at 03:23:10PM +0300, Jani Nikula wrote:
+> The kernel has a guid_t type for GUIDs. Switch to using it, but avoid
+> any functional changes here.
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 1 +
- 1 file changed, 1 insertion(+)
+I didn't cross-check everything, I'll trust the compiler on this. But
+functionally lgtm
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-index 703d7b51c6c2..3a3745597f0c 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-@@ -951,6 +951,7 @@ static void dpp401_dscl_set_isharp_filter(
-  *
-  * @dpp_base: High level DPP struct
-  * @scl_data: scalaer_data info
-+ * @bs_coeffs_updated: coeffs update flag
-  *
-  * This is the primary function to program isharp
-  *
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+Reading code a bit I did wonder whether we could have send/receive macros
+that just work for compile-time statically sized types ... but not even
+kmalloc is there yet I think, at least haven't seen anything.
+-Sima
+
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 67 +++++++++++--------
+>  include/drm/display/drm_dp_mst_helper.h       | 12 ++--
+>  3 files changed, 45 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 7e7929f24ae4..72c10fc2c890 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2610,7 +2610,7 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+>  		}
+>  	}
+>  
+> -	memcpy(mgr->mst_primary->guid, guid, 16);
+> +	import_guid(&mgr->mst_primary->guid, guid);
+>  
+>  out_fail:
+>  	mutex_unlock(&mgr->lock);
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 379a449a28a2..39f1dc45004e 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -89,7 +89,7 @@ static int drm_dp_send_enum_path_resources(struct drm_dp_mst_topology_mgr *mgr,
+>  					   struct drm_dp_mst_branch *mstb,
+>  					   struct drm_dp_mst_port *port);
+>  static bool drm_dp_validate_guid(struct drm_dp_mst_topology_mgr *mgr,
+> -				 u8 *guid);
+> +				 guid_t *guid);
+>  
+>  static int drm_dp_mst_register_i2c_bus(struct drm_dp_mst_port *port);
+>  static void drm_dp_mst_unregister_i2c_bus(struct drm_dp_mst_port *port);
+> @@ -801,7 +801,7 @@ static bool drm_dp_sideband_parse_link_address(const struct drm_dp_mst_topology_
+>  	int idx = 1;
+>  	int i;
+>  
+> -	memcpy(repmsg->u.link_addr.guid, &raw->msg[idx], 16);
+> +	import_guid(&repmsg->u.link_addr.guid, &raw->msg[idx]);
+>  	idx += 16;
+>  	repmsg->u.link_addr.nports = raw->msg[idx] & 0xf;
+>  	idx++;
+> @@ -829,7 +829,7 @@ static bool drm_dp_sideband_parse_link_address(const struct drm_dp_mst_topology_
+>  			idx++;
+>  			if (idx > raw->curlen)
+>  				goto fail_len;
+> -			memcpy(repmsg->u.link_addr.ports[i].peer_guid, &raw->msg[idx], 16);
+> +			import_guid(&repmsg->u.link_addr.ports[i].peer_guid, &raw->msg[idx]);
+>  			idx += 16;
+>  			if (idx > raw->curlen)
+>  				goto fail_len;
+> @@ -1029,7 +1029,7 @@ static bool drm_dp_sideband_parse_reply(const struct drm_dp_mst_topology_mgr *mg
+>  	msg->req_type = (raw->msg[0] & 0x7f);
+>  
+>  	if (msg->reply_type == DP_SIDEBAND_REPLY_NAK) {
+> -		memcpy(msg->u.nak.guid, &raw->msg[1], 16);
+> +		import_guid(&msg->u.nak.guid, &raw->msg[1]);
+>  		msg->u.nak.reason = raw->msg[17];
+>  		msg->u.nak.nak_data = raw->msg[18];
+>  		return false;
+> @@ -1078,7 +1078,7 @@ drm_dp_sideband_parse_connection_status_notify(const struct drm_dp_mst_topology_
+>  	if (idx > raw->curlen)
+>  		goto fail_len;
+>  
+> -	memcpy(msg->u.conn_stat.guid, &raw->msg[idx], 16);
+> +	import_guid(&msg->u.conn_stat.guid, &raw->msg[idx]);
+>  	idx += 16;
+>  	if (idx > raw->curlen)
+>  		goto fail_len;
+> @@ -1107,7 +1107,7 @@ static bool drm_dp_sideband_parse_resource_status_notify(const struct drm_dp_mst
+>  	if (idx > raw->curlen)
+>  		goto fail_len;
+>  
+> -	memcpy(msg->u.resource_stat.guid, &raw->msg[idx], 16);
+> +	import_guid(&msg->u.resource_stat.guid, &raw->msg[idx]);
+>  	idx += 16;
+>  	if (idx > raw->curlen)
+>  		goto fail_len;
+> @@ -2174,20 +2174,24 @@ ssize_t drm_dp_mst_dpcd_write(struct drm_dp_aux *aux,
+>  				      offset, size, buffer);
+>  }
+>  
+> -static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, u8 *guid)
+> +static int drm_dp_check_mstb_guid(struct drm_dp_mst_branch *mstb, guid_t *guid)
+>  {
+>  	int ret = 0;
+>  
+> -	memcpy(mstb->guid, guid, 16);
+> +	guid_copy(&mstb->guid, guid);
+> +
+> +	if (!drm_dp_validate_guid(mstb->mgr, &mstb->guid)) {
+> +		u8 buf[UUID_SIZE];
+> +
+> +		export_guid(buf, &mstb->guid);
+>  
+> -	if (!drm_dp_validate_guid(mstb->mgr, mstb->guid)) {
+>  		if (mstb->port_parent) {
+>  			ret = drm_dp_send_dpcd_write(mstb->mgr,
+>  						     mstb->port_parent,
+> -						     DP_GUID, 16, mstb->guid);
+> +						     DP_GUID, sizeof(buf), buf);
+>  		} else {
+>  			ret = drm_dp_dpcd_write(mstb->mgr->aux,
+> -						DP_GUID, mstb->guid, 16);
+> +						DP_GUID, buf, sizeof(buf));
+>  		}
+>  	}
+>  
+> @@ -2567,9 +2571,9 @@ static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_
+>  	return mstb;
+>  }
+>  
+> -static struct drm_dp_mst_branch *get_mst_branch_device_by_guid_helper(
+> -	struct drm_dp_mst_branch *mstb,
+> -	const uint8_t *guid)
+> +static struct drm_dp_mst_branch *
+> +get_mst_branch_device_by_guid_helper(struct drm_dp_mst_branch *mstb,
+> +				     const guid_t *guid)
+>  {
+>  	struct drm_dp_mst_branch *found_mstb;
+>  	struct drm_dp_mst_port *port;
+> @@ -2577,10 +2581,9 @@ static struct drm_dp_mst_branch *get_mst_branch_device_by_guid_helper(
+>  	if (!mstb)
+>  		return NULL;
+>  
+> -	if (memcmp(mstb->guid, guid, 16) == 0)
+> +	if (guid_equal(&mstb->guid, guid))
+>  		return mstb;
+>  
+> -
+>  	list_for_each_entry(port, &mstb->ports, next) {
+>  		found_mstb = get_mst_branch_device_by_guid_helper(port->mstb, guid);
+>  
+> @@ -2593,7 +2596,7 @@ static struct drm_dp_mst_branch *get_mst_branch_device_by_guid_helper(
+>  
+>  static struct drm_dp_mst_branch *
+>  drm_dp_get_mst_branch_device_by_guid(struct drm_dp_mst_topology_mgr *mgr,
+> -				     const uint8_t *guid)
+> +				     const guid_t *guid)
+>  {
+>  	struct drm_dp_mst_branch *mstb;
+>  	int ret;
+> @@ -2695,17 +2698,20 @@ static void drm_dp_mst_queue_probe_work(struct drm_dp_mst_topology_mgr *mgr)
+>  }
+>  
+>  static bool drm_dp_validate_guid(struct drm_dp_mst_topology_mgr *mgr,
+> -				 u8 *guid)
+> +				 guid_t *guid)
+>  {
+>  	u64 salt;
+> +	u8 buf[UUID_SIZE];
+>  
+> -	if (memchr_inv(guid, 0, 16))
+> +	if (!guid_is_null(guid))
+>  		return true;
+>  
+>  	salt = get_jiffies_64();
+>  
+> -	memcpy(&guid[0], &salt, sizeof(u64));
+> -	memcpy(&guid[8], &salt, sizeof(u64));
+> +	memcpy(&buf[0], &salt, sizeof(u64));
+> +	memcpy(&buf[8], &salt, sizeof(u64));
+> +
+> +	import_guid(guid, buf);
+>  
+>  	return false;
+>  }
+> @@ -2945,7 +2951,7 @@ static int drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
+>  	drm_dbg_kms(mgr->dev, "link address reply: %d\n", reply->nports);
+>  	drm_dp_dump_link_address(mgr, reply);
+>  
+> -	ret = drm_dp_check_mstb_guid(mstb, reply->guid);
+> +	ret = drm_dp_check_mstb_guid(mstb, &reply->guid);
+>  	if (ret) {
+>  		char buf[64];
+>  
+> @@ -3799,8 +3805,9 @@ EXPORT_SYMBOL(drm_dp_mst_topology_mgr_suspend);
+>  int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
+>  				   bool sync)
+>  {
+> +	u8 buf[UUID_SIZE];
+> +	guid_t guid;
+>  	int ret;
+> -	u8 guid[16];
+>  
+>  	mutex_lock(&mgr->lock);
+>  	if (!mgr->mst_primary)
+> @@ -3821,13 +3828,15 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
+>  	}
+>  
+>  	/* Some hubs forget their guids after they resume */
+> -	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
+> -	if (ret != 16) {
+> +	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, buf, sizeof(buf));
+> +	if (ret != sizeof(buf)) {
+>  		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
+>  		goto out_fail;
+>  	}
+>  
+> -	ret = drm_dp_check_mstb_guid(mgr->mst_primary, guid);
+> +	import_guid(&guid, buf);
+> +
+> +	ret = drm_dp_check_mstb_guid(mgr->mst_primary, &guid);
+>  	if (ret) {
+>  		drm_dbg_kms(mgr->dev, "check mstb failed - undocked during suspend?\n");
+>  		goto out_fail;
+> @@ -4005,12 +4014,12 @@ drm_dp_mst_process_up_req(struct drm_dp_mst_topology_mgr *mgr,
+>  	bool hotplug = false, dowork = false;
+>  
+>  	if (hdr->broadcast) {
+> -		const u8 *guid = NULL;
+> +		const guid_t *guid = NULL;
+>  
+>  		if (msg->req_type == DP_CONNECTION_STATUS_NOTIFY)
+> -			guid = msg->u.conn_stat.guid;
+> +			guid = &msg->u.conn_stat.guid;
+>  		else if (msg->req_type == DP_RESOURCE_STATUS_NOTIFY)
+> -			guid = msg->u.resource_stat.guid;
+> +			guid = &msg->u.resource_stat.guid;
+>  
+>  		if (guid)
+>  			mstb = drm_dp_get_mst_branch_device_by_guid(mgr, guid);
+> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+> index 02b037d3a93f..f6a1cbb0f600 100644
+> --- a/include/drm/display/drm_dp_mst_helper.h
+> +++ b/include/drm/display/drm_dp_mst_helper.h
+> @@ -244,18 +244,18 @@ struct drm_dp_mst_branch {
+>  	bool link_address_sent;
+>  
+>  	/* global unique identifier to identify branch devices */
+> -	u8 guid[16];
+> +	guid_t guid;
+>  };
+>  
+>  
+>  struct drm_dp_nak_reply {
+> -	u8 guid[16];
+> +	guid_t guid;
+>  	u8 reason;
+>  	u8 nak_data;
+>  };
+>  
+>  struct drm_dp_link_address_ack_reply {
+> -	u8 guid[16];
+> +	guid_t guid;
+>  	u8 nports;
+>  	struct drm_dp_link_addr_reply_port {
+>  		bool input_port;
+> @@ -265,7 +265,7 @@ struct drm_dp_link_address_ack_reply {
+>  		bool ddps;
+>  		bool legacy_device_plug_status;
+>  		u8 dpcd_revision;
+> -		u8 peer_guid[16];
+> +		guid_t peer_guid;
+>  		u8 num_sdp_streams;
+>  		u8 num_sdp_stream_sinks;
+>  	} ports[16];
+> @@ -348,7 +348,7 @@ struct drm_dp_allocate_payload_ack_reply {
+>  };
+>  
+>  struct drm_dp_connection_status_notify {
+> -	u8 guid[16];
+> +	guid_t guid;
+>  	u8 port_number;
+>  	bool legacy_device_plug_status;
+>  	bool displayport_device_plug_status;
+> @@ -425,7 +425,7 @@ struct drm_dp_query_payload {
+>  
+>  struct drm_dp_resource_status_notify {
+>  	u8 port_number;
+> -	u8 guid[16];
+> +	guid_t guid;
+>  	u16 available_pbn;
+>  };
+>  
+> -- 
+> 2.39.2
+> 
+
 -- 
-2.34.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
