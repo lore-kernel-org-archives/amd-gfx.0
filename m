@@ -4,74 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 117E9C71135
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 09:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BAD3C83F16
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Aug 2024 13:18:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5ED110E1AF;
-	Thu, 29 Aug 2024 09:48:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C546510E6A1;
+	Thu, 29 Aug 2024 13:18:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XwV+90pp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x60js+rR";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A016A10E12E
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Aug 2024 09:48:46 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-42bb8cf8abeso668005e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Aug 2024 02:48:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724924925; x=1725529725; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6yElEG6O7YJSw8FYvMON2Z4I0Wkc90cuseeVABniHRo=;
- b=XwV+90pp9nG2bY/MoBtkyte5QGsMet7zMTbgnZyMjj/e6GVDmw+w0eczcF8LOS3xeM
- GuarTxhV2J3LVB+1KX+CaS8+RsG5XERAzAyD/WA+dBqrO7L0Fy1yJ0DxLh4tV3Mx4Pop
- /29+HCfYKQQaSiz9d8lr7dQzy8px3WrinRgJY84H3xtdwZg5aRslDAdPCiWxwjPKnHXL
- 9j/ggwfl/XEZTmUFn+LkqJMsIXcgIBIDuo0csq4CWOTh+5MWMiFyBBLlQ5d1pX9LkWjT
- hkkAbrS1AWfqCgq4GYDQ9PyrISSkF849lMmbC9UpliEJ3rGpp7PSymBCw15i3pcmPuBC
- /kSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724924925; x=1725529725;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6yElEG6O7YJSw8FYvMON2Z4I0Wkc90cuseeVABniHRo=;
- b=mPXZmzeVYtkDI6RFGRwsuS9E/9g3mbdJbS/dBJx6hMelCsbDvee00aBnajk6gWq99e
- XJAsZ0jQM2+Fa8Ki3YacChdBTX2onoSDmNZ8EVVSfULikaJMpLBJX3lPst+m8f/43lzN
- wFFAfjOj8GL4hwKENjD0yxHAzbb4AwRFxjORjwUf9nUL16it/EEoAJkNKkST3eZeZgoE
- 2rFZeipDUrE3axtdt15FzeQnQQAk+ZwuLQnnPnu9PTLXm4Pj7UCYK/FzrjybPklrJ9AR
- TJL4Hsn87m+4+a8d/vJDiu3pH4ooEVFE7POEm3CDRc0Bvvx4r5nuVCbpcNsa4ZFIQd/O
- 8CaA==
-X-Gm-Message-State: AOJu0YyoN5R3BFkhydHrW92bpIvDr1N9hBPMgWekbIXAhNdFq3oNG7Rs
- VQZzbe6GAwfeW3PfiNjPGVqHQa7YEI6hIVyb36LLAPkgDcnvKMo0
-X-Google-Smtp-Source: AGHT+IEoIOBjbQ2A5XI1TOed8R/NXQJesxS+4aveRHAd4PL6mdmcZ9NBtzfEsbEMR0tiugPcRvUlZA==
-X-Received: by 2002:a05:600c:4693:b0:426:6ed5:fd5 with SMTP id
- 5b1f17b1804b1-42bb01ae664mr17159145e9.6.1724924924116; 
- Thu, 29 Aug 2024 02:48:44 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42b9d9561b1sm56285505e9.0.2024.08.29.02.48.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 02:48:43 -0700 (PDT)
-Message-ID: <c9bb85b6-5386-415f-b169-b89d2e7d8cb0@gmail.com>
-Date: Thu, 29 Aug 2024 11:48:38 +0200
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E41210E69E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Aug 2024 13:18:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vtbMty5Np4qDqrs+cSaQJdByyNlYEQydKt/5M4r8m1lye7kcf8bxc5ovV2mnlH8LK0xQDDlIGtgs/t6Ztqe6+N/AdGbo0A42Fl51/SWlYLYH9XZUXrVJvLkVm+dxCdUOgkN/Vi01O+J0hEwTZhJK2rZwswRUAukL/S1zi0Mi+UFq7SiVx9kkMlKZLDLIE527tdnRuuObJV0XpXizvSUDOZuvgIr0M/VBVWNeoMqgN45nZ+Ko5xHUsH96QMeyUVc6JWA3605In/by93niyC1K9CfKKRmxq+Qz71e4WJ6fXF2k06ndZWjca85292pcTkJwrQzHQlGp/KNZ0/6XywY5FA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+KKeErloJqiah8bNSq3cTCVVwjvdp6XYnhONQf+H2dY=;
+ b=xFA/H6JIFitDfgVC2Km9EOOxD6u5L74eeJZSHr64SvG9UYxtBmwJu6da6LMti5mCsI3gh/Q4uABm6O+jxlh8MsJ1l2cF77YVzReZG4aE+ZBTqHQ0HzkFR1MI5z1tRpdFirwHgdvR0VifIK+xXff1JjJNZpFpIdD9BUMITqjo1BXk6izP/O/i+p+aDYDrPWYRoV1Zrv21B7Op6yg0mqPxnHyCym06dIEu+oCZopINddjaRWSgBVniFNHF7DmIVrtSu2n/Ydg6DP2YCLzmyzhGezcXLrBN5K6+qfbyWtMS2MQzNZq6FkqfqBlMogpFOhJTPQcaF2VspIiLBgRTzoP/1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+KKeErloJqiah8bNSq3cTCVVwjvdp6XYnhONQf+H2dY=;
+ b=x60js+rRf3eooDM39Mju7cCOL9btTnRV/wctfwmbyl5QiWa3Ih7ji+YnvZoYNRpAkYpEurlH3ayNJ5/3XcvM6fYiiI2GUNU6n3sN2HaYGmPzK8sO9Kd44p5phwSoclmV4vICTGlG+5ejLTjBgZASLqAag/7/DZ4FmncgCO+bP0g=
+Received: from DS7PR03CA0346.namprd03.prod.outlook.com (2603:10b6:8:55::9) by
+ PH0PR12MB7790.namprd12.prod.outlook.com (2603:10b6:510:289::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.26; Thu, 29 Aug
+ 2024 13:18:06 +0000
+Received: from DS2PEPF0000343E.namprd02.prod.outlook.com
+ (2603:10b6:8:55:cafe::cc) by DS7PR03CA0346.outlook.office365.com
+ (2603:10b6:8:55::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.28 via Frontend
+ Transport; Thu, 29 Aug 2024 13:18:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343E.mail.protection.outlook.com (10.167.18.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Thu, 29 Aug 2024 13:18:05 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 29 Aug 2024 08:18:01 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
+ <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
+Subject: [PATCH v2] drm/amd/display: Add missing kdoc entry for
+ 'bs_coeffs_updated' in dpp401_dscl_program_isharp
+Date: Thu, 29 Aug 2024 18:47:45 +0530
+Message-ID: <20240829131745.1828528-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: sync to KFD fences before clearing PTEs
-To: Felix Kuehling <felix.kuehling@amd.com>, friedrich.vock@gmx.de,
- bas@basnieuwenhuizen.nl, ishitatsuyuki@gmail.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20240821120324.4583-1-christian.koenig@amd.com>
- <20240821120324.4583-2-christian.koenig@amd.com>
- <a511a28c-13d7-452f-96bd-911148c4d175@amd.com>
- <4968a387-d82a-404c-8ff9-7e4406ef33d2@gmail.com>
- <dea2c696-9944-47d3-9348-b12a52f42892@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <dea2c696-9944-47d3-9348-b12a52f42892@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343E:EE_|PH0PR12MB7790:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff1b16c6-4d24-4d04-99c5-08dcc82d048c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+B2u6uxlkRVj2jIMwZLKI1NdUXFCiebX2mWnyiUKVGHnXcTuW2odp64vxriP?=
+ =?us-ascii?Q?HBxwr+dSXkyTCiBKwviPsjvrVI7mDI+41BK1NBIkwXVarb0UmZBuEGV7OjSG?=
+ =?us-ascii?Q?sogpSglKbQOhEiExGBmIPrBQin5x/75mAkCjyudQuPFN7R61TIp72asc7ulK?=
+ =?us-ascii?Q?JydT3Euxnr8V1wqu+zjJXV+znVXOVDenOvMMCJUxirLn6G8FDko4EFocM4cK?=
+ =?us-ascii?Q?ZGKG/8q/8YauiPXXx9nmfNTr2bz16Bz1oHPuOHeO4VjwlPQ69w/hpbvnex64?=
+ =?us-ascii?Q?DIO5QJrs4hZbgD7h9b4L3ldCHnvyCX5NCiToXBMp1dYKORuJZfdZrHEcrc9x?=
+ =?us-ascii?Q?n6gDC3CGhSLEkMhbjtmB5zsPOtCUogW52h2DOOw3Jc0fY8GMTX+YY2+1u3Ud?=
+ =?us-ascii?Q?239Bdzq7GEF+tyQAPh9Q+zYQCUQsChciIXhFpyJ5B2V32jlHXCE5VfRQhgDz?=
+ =?us-ascii?Q?RKIKVJHwdlImp8npf6bGmTokTb3jXFYtBGZ5xrYo9fAhVvY+V8TFz272bmPX?=
+ =?us-ascii?Q?IliJnrPXqUsameT0dHQbVzQ8zSswUpJcYBcwbDsFAgux/czIoTY11oY3H4aS?=
+ =?us-ascii?Q?hMLdLRAux4KKW+EyJRM/g81QRC20LAo/Uet0z1Ua9s+kS7ntmZvjs/QGI09H?=
+ =?us-ascii?Q?x2Zy86hRrHNOfT2nDZuu/Pq4eD77GTNEainZqgZ4BVpA3sPymmR+0TCdhiAk?=
+ =?us-ascii?Q?380R/xg2gk60+199HHua0jbN4yQLugRJqQ9y5CuyFEJ+KSx5fNrZkHJHNsCg?=
+ =?us-ascii?Q?Q/Mc+icNixpHqbYnsNKiYI2Wq9EWF/nydANLU/Fo8U32FJ0X7EgjP7NTVlRO?=
+ =?us-ascii?Q?DpP5UrTCb3JIGmXlvveRr+ogahPBP2Nakg0S9Ikn4vg1ODkwZsPoR+8CU1Ej?=
+ =?us-ascii?Q?NwWpbCyrwm92dbtKswIOaOMW2WkTD3dgdhZOYo/zs/DrPVykViZeL+kfuKuX?=
+ =?us-ascii?Q?/vuxdup+r/+iE+TWNwUAmVNCHBxThuuSKEtn/vtT9W8rRfkamZk06n5cQTqv?=
+ =?us-ascii?Q?bMEsZ3rxZaPS+H4bzenJD9GHsRHpt+s9S3SzDGvhCWh3waXdhTkjzJSgKU2V?=
+ =?us-ascii?Q?dX9a6Twx67g9Ed+FMXEmllfs16RPui9mhe6BrI4dZlA0sD0fZTCJGO/aSIar?=
+ =?us-ascii?Q?H6qLFTFnV10KIfoW1HbWMaluT1uZkqNBIF0YHF2kCHzuz5NSagfxWliNqfOG?=
+ =?us-ascii?Q?jaWc3LxLCQ/kHu+BTW8ShHz7IQ96RawKvIAONqaiifdD3w5vPNPZejcjjzo2?=
+ =?us-ascii?Q?35PAqyQgu80oFVZ9e/0YjnxUoyVIXDq42WSeHNeRJKvEqmV7byEBlAqNbkMh?=
+ =?us-ascii?Q?F6jR9JA6VXwCDHQ+eUE75KCTAruNUTuPoIB3BlOo8d4IC0AjPp8+LCEiyR1Q?=
+ =?us-ascii?Q?S/fO8uyuZC/d9tqkIkU1/rmyQd2gMqghpmHynT9oGKV32pnLCv7hw4I3fCTG?=
+ =?us-ascii?Q?G8LbwoSARcjTSiuEzG+eqHr9+PH8YWg1?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2024 13:18:05.2362 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff1b16c6-4d24-4d04-99c5-08dcc82d048c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7790
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,148 +134,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.08.24 um 00:40 schrieb Felix Kuehling:
->
-> On 2024-08-22 05:07, Christian König wrote:
->> Am 21.08.24 um 22:01 schrieb Felix Kuehling:
->>> On 2024-08-21 08:03, Christian König wrote:
->>>> This patch tries to solve the basic problem we also need to sync to
->>>> the KFD fences of the BO because otherwise it can be that we clear
->>>> PTEs while the KFD queues are still running.
->>>
->>> This is going to trigger a lot of phantom KFD evictions and will 
->>> tank performance. It's probably not what you intended.
->>
->> I tried to avoid that by only waiting for the KFD fence only in the 
->> particular situation that we can't lock the cleared BO because of 
->> contention.
->
-> OK. It's hard to make out where you're adding that call with the small 
-> context in the patch. As far as I can tell it's in the "if (clear || 
-> !bo)" branch. The "clear" case is as you mention, only used when the 
-> BO cannot be locked. The !bo case is PRT?
+This commit addresses a missing kdoc for the 'bs_coeffs_updated'
+parameter in the 'dpp401_dscl_program_isharp' function. The
+'bs_coeffs_updated' is a flag indicating whether the Blur and Scale
+Coefficients have been updated.
 
-Yes, exactly that.
+The 'dpp401_dscl_program_isharp' function is responsible for programming
+the isharp, which includes setting the isharp filter, noise gain, and
+blur and scale coefficients. If the 'bs_coeffs_updated' flag is set to
+true, the function updates the blur and scale coefficients.
 
->
-> Contention would happen, if this runs concurrently with a 
-> restore-from-eviction, in which case we're already on a slow path and 
-> another eviction doesn't matter (as long as we're not getting into a 
-> live-lock situation). Or if a KFD BO is in the middle of being mapped 
-> or unmapped by another thread, which should be unlikely. So maybe this 
-> won't have a huge impact in practice. It's worth a try.
->
-> The patch is
->
-> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+Fixes the below with gcc W=1:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dpp/dcn401/dcn401_dpp_dscl.c:961: warning: Function parameter or struct member 'bs_coeffs_updated' not described in 'dpp401_dscl_program_isharp'
 
-Let's see if this works or not in practice.
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Suggested-by: Tom Chung <chiahsuan.chung@amd.com>
+---
+v2:
+Updated to "Blur and Scale Coefficients update flag" (Tom)
 
-Thanks,
-Christian.
+ drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 1 +
+ 1 file changed, 1 insertion(+)
 
->
->
->>
->> The only short term alternative I can see is to lock all BOs during 
->> CS and that is a) a really large rework and b) will most likely hurt 
->> performance.
->>
->> Then there is the alternative to lock the VM during BO eviction, but 
->> that means we need to wait on using the drm_exec object inside TTM as 
->> well. So that won't get this fixed in the next halve year or so.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Regards,
->>>   Felix
->>>
->>>
->>>>
->>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 30 
->>>> ++++++++++++++++++++++++
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h |  1 +
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  6 +++++
->>>>   3 files changed, 37 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> index bdf1ef825d89..c586ab4c911b 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>>> @@ -260,6 +260,36 @@ int amdgpu_sync_resv(struct amdgpu_device 
->>>> *adev, struct amdgpu_sync *sync,
->>>>       return 0;
->>>>   }
->>>>   +/**
->>>> + * amdgpu_sync_kfd - sync to KFD fences
->>>> + *
->>>> + * @sync: sync object to add KFD fences to
->>>> + * @resv: reservation object with KFD fences
->>>> + *
->>>> + * Extract all KFD fences and add them to the sync object.
->>>> + */
->>>> +int amdgpu_sync_kfd(struct amdgpu_sync *sync, struct dma_resv *resv)
->>>> +{
->>>> +    struct dma_resv_iter cursor;
->>>> +    struct dma_fence *f;
->>>> +    int r = 0;
->>>> +
->>>> +    dma_resv_iter_begin(&cursor, resv, DMA_RESV_USAGE_BOOKKEEP);
->>>> +    dma_resv_for_each_fence_unlocked(&cursor, f) {
->>>> +        void *fence_owner = amdgpu_sync_get_owner(f);
->>>> +
->>>> +        if (fence_owner != AMDGPU_FENCE_OWNER_KFD)
->>>> +            continue;
->>>> +
->>>> +        r = amdgpu_sync_fence(sync, f);
->>>> +        if (r)
->>>> +            break;
->>>> +    }
->>>> +    dma_resv_iter_end(&cursor);
->>>> +
->>>> +    return r;
->>>> +}
->>>> +
->>>>   /* Free the entry back to the slab */
->>>>   static void amdgpu_sync_entry_free(struct amdgpu_sync_entry *e)
->>>>   {
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>>> index cf1e9e858efd..e3272dce798d 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>>> @@ -51,6 +51,7 @@ int amdgpu_sync_fence(struct amdgpu_sync *sync, 
->>>> struct dma_fence *f);
->>>>   int amdgpu_sync_resv(struct amdgpu_device *adev, struct 
->>>> amdgpu_sync *sync,
->>>>                struct dma_resv *resv, enum amdgpu_sync_mode mode,
->>>>                void *owner);
->>>> +int amdgpu_sync_kfd(struct amdgpu_sync *sync, struct dma_resv *resv);
->>>>   struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
->>>>                        struct amdgpu_ring *ring);
->>>>   struct dma_fence *amdgpu_sync_get_fence(struct amdgpu_sync *sync);
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> index ba99d428610a..13d429b91327 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>> @@ -1168,6 +1168,12 @@ int amdgpu_vm_bo_update(struct amdgpu_device 
->>>> *adev, struct amdgpu_bo_va *bo_va,
->>>>                        AMDGPU_SYNC_EQ_OWNER, vm);
->>>>           if (r)
->>>>               goto error_free;
->>>> +        if (bo) {
->>>> +            r = amdgpu_sync_kfd(&sync, bo->tbo.base.resv);
->>>> +            if (r)
->>>> +                goto error_free;
->>>> +        }
->>>> +
->>>>       } else {
->>>>           struct drm_gem_object *obj = &bo->tbo.base;
->>
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
+index 703d7b51c6c2..4d8de1b8aa62 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
+@@ -951,6 +951,7 @@ static void dpp401_dscl_set_isharp_filter(
+  *
+  * @dpp_base: High level DPP struct
+  * @scl_data: scalaer_data info
++ * @bs_coeffs_updated: Blur and Scale Coefficients update flag
+  *
+  * This is the primary function to program isharp
+  *
+-- 
+2.34.1
 
