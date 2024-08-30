@@ -4,54 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F9ADCA0EF6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1B38CA0EF5
 	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD4D10EA12;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CFB410EA19;
 	Fri, 30 Aug 2024 08:45:47 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F1AA10E92B;
- Fri, 30 Aug 2024 08:45:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ItDJ5NCE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/g8hjVSz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ItDJ5NCE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/g8hjVSz";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8F310E957;
+ Fri, 30 Aug 2024 08:45:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 447B01FD14;
- Fri, 30 Aug 2024 08:45:21 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2093921BAB;
+ Fri, 30 Aug 2024 08:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1725007527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IVhOzDdQkXEf5dojjelO+6j83QESiAqdvi25AFRez60=;
+ b=ItDJ5NCETydJeO2J1Aw9G+VcZxCfL4v5oIgvl1syQU1RHhWho1GYNlBREyJwIgdtkdt2Bu
+ sLNbYqzvx+9apVzGktdgqI9vKHR3gkKtzGzN0nHXShhELs0n5m/DjkD7fif8pxbX0yI5Dx
+ yqSkx+eo4sYf+xhXeaGyLHe4fwsDFp4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1725007527;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IVhOzDdQkXEf5dojjelO+6j83QESiAqdvi25AFRez60=;
+ b=/g8hjVSz5IL2ZuKQx2McnZ4oSAwOj5KLnhNrZepujWQH9NpiTZynVL0t6AsX87pZ6g1SsM
+ pawzZu6IarIzseCA==
+Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1725007527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IVhOzDdQkXEf5dojjelO+6j83QESiAqdvi25AFRez60=;
+ b=ItDJ5NCETydJeO2J1Aw9G+VcZxCfL4v5oIgvl1syQU1RHhWho1GYNlBREyJwIgdtkdt2Bu
+ sLNbYqzvx+9apVzGktdgqI9vKHR3gkKtzGzN0nHXShhELs0n5m/DjkD7fif8pxbX0yI5Dx
+ yqSkx+eo4sYf+xhXeaGyLHe4fwsDFp4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1725007527;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IVhOzDdQkXEf5dojjelO+6j83QESiAqdvi25AFRez60=;
+ b=/g8hjVSz5IL2ZuKQx2McnZ4oSAwOj5KLnhNrZepujWQH9NpiTZynVL0t6AsX87pZ6g1SsM
+ pawzZu6IarIzseCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 006C713A66;
- Fri, 30 Aug 2024 08:45:20 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BF31D13A66;
+ Fri, 30 Aug 2024 08:45:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6B1qOqCG0WbyegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:20 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yDJpLaaG0WbyegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:26 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 64/81] drm/fbdev-ttm: Support struct drm_driver.fbdev_probe
-Date: Fri, 30 Aug 2024 10:40:48 +0200
-Message-ID: <20240830084456.77630-65-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH v3 80/81] drm/omapdrm: Remove struct drm_fb_helper from struct
+ omap_fbdev.
+Date: Fri, 30 Aug 2024 10:41:04 +0200
+Message-ID: <20240830084456.77630-81-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240830084456.77630-1-tzimmermann@suse.de>
 References: <20240830084456.77630-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 447B01FD14
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FROM_EQ_ENVFROM(0.00)[];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
+ RCPT_COUNT_SEVEN(0.00)[11]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ R_RATELIMIT(0.00)[to_ip_from(RLw9gjjhh8cousxs3wi4trssza)];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,209 +115,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rework fbdev probing to support fbdev_probe in struct drm_driver
-and reimplement the old fb_probe callback on top of it. Provide an
-initializer macro for struct drm_driver that sets the callback
-according to the kernel configuration.
+Store instances of drm_fb_helper and struct omap_fbdev separately.
+This will allow omapdrm to use the common fbdev client, which allocates
+its own instance of struct drm_fb_helper.
 
-This change allows the common fbdev client to run on top of TTM-
-based DRM drivers.
+There is at most one instance of each per DRM device, so both can be
+referenced directly from the omap and DRM device structures. A later
+patchset might rework the common fbdev client to allow for storing
+both, drm_fb_helper and omap_fbdev, together in the same place.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/drm_fbdev_ttm.c | 142 +++++++++++++++++---------------
- include/drm/drm_fbdev_ttm.h     |  13 +++
- 2 files changed, 90 insertions(+), 65 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_drv.h   |  3 ++
+ drivers/gpu/drm/omapdrm/omap_fbdev.c | 42 +++++++++++++++-------------
+ 2 files changed, 26 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
-index 119ffb28aaf9..d799cbe944cd 100644
---- a/drivers/gpu/drm/drm_fbdev_ttm.c
-+++ b/drivers/gpu/drm/drm_fbdev_ttm.c
-@@ -71,71 +71,7 @@ static const struct fb_ops drm_fbdev_ttm_fb_ops = {
- static int drm_fbdev_ttm_helper_fb_probe(struct drm_fb_helper *fb_helper,
- 					     struct drm_fb_helper_surface_size *sizes)
- {
--	struct drm_client_dev *client = &fb_helper->client;
--	struct drm_device *dev = fb_helper->dev;
--	struct drm_client_buffer *buffer;
--	struct fb_info *info;
--	size_t screen_size;
--	void *screen_buffer;
--	u32 format;
--	int ret;
--
--	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
--		    sizes->surface_width, sizes->surface_height,
--		    sizes->surface_bpp);
--
--	format = drm_driver_legacy_fb_format(dev, sizes->surface_bpp,
--					     sizes->surface_depth);
--	buffer = drm_client_framebuffer_create(client, sizes->surface_width,
--					       sizes->surface_height, format);
--	if (IS_ERR(buffer))
--		return PTR_ERR(buffer);
--
--	fb_helper->buffer = buffer;
--	fb_helper->fb = buffer->fb;
--
--	screen_size = buffer->gem->size;
--	screen_buffer = vzalloc(screen_size);
--	if (!screen_buffer) {
--		ret = -ENOMEM;
--		goto err_drm_client_framebuffer_delete;
--	}
--
--	info = drm_fb_helper_alloc_info(fb_helper);
--	if (IS_ERR(info)) {
--		ret = PTR_ERR(info);
--		goto err_vfree;
--	}
--
--	drm_fb_helper_fill_info(info, fb_helper, sizes);
--
--	info->fbops = &drm_fbdev_ttm_fb_ops;
--
--	/* screen */
--	info->flags |= FBINFO_VIRTFB | FBINFO_READS_FAST;
--	info->screen_buffer = screen_buffer;
--	info->fix.smem_len = screen_size;
--
--	/* deferred I/O */
--	fb_helper->fbdefio.delay = HZ / 20;
--	fb_helper->fbdefio.deferred_io = drm_fb_helper_deferred_io;
--
--	info->fbdefio = &fb_helper->fbdefio;
--	ret = fb_deferred_io_init(info);
--	if (ret)
--		goto err_drm_fb_helper_release_info;
--
--	return 0;
--
--err_drm_fb_helper_release_info:
--	drm_fb_helper_release_info(fb_helper);
--err_vfree:
--	vfree(screen_buffer);
--err_drm_client_framebuffer_delete:
--	fb_helper->fb = NULL;
--	fb_helper->buffer = NULL;
--	drm_client_framebuffer_delete(buffer);
--	return ret;
-+	return drm_fbdev_ttm_driver_fbdev_probe(fb_helper, sizes);
- }
+diff --git a/drivers/gpu/drm/omapdrm/omap_drv.h b/drivers/gpu/drm/omapdrm/omap_drv.h
+index 4c7217b35f6b..d903568fd8cc 100644
+--- a/drivers/gpu/drm/omapdrm/omap_drv.h
++++ b/drivers/gpu/drm/omapdrm/omap_drv.h
+@@ -32,6 +32,7 @@
+ #define MODULE_NAME     "omapdrm"
  
- static void drm_fbdev_ttm_damage_blit_real(struct drm_fb_helper *fb_helper,
-@@ -240,6 +176,82 @@ static const struct drm_fb_helper_funcs drm_fbdev_ttm_helper_funcs = {
- 	.fb_dirty = drm_fbdev_ttm_helper_fb_dirty,
+ struct omap_drm_usergart;
++struct omap_fbdev;
+ 
+ struct omap_drm_pipeline {
+ 	struct drm_crtc *crtc;
+@@ -97,6 +98,8 @@ struct omap_drm_private {
+ 
+ 	/* memory bandwidth limit if it is needed on the platform */
+ 	unsigned int max_bandwidth;
++
++	struct omap_fbdev *fbdev;
  };
  
-+/*
-+ * struct drm_driver
-+ */
-+
-+int drm_fbdev_ttm_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
-+				     struct drm_fb_helper_surface_size *sizes)
-+{
-+	struct drm_client_dev *client = &fb_helper->client;
-+	struct drm_device *dev = fb_helper->dev;
-+	struct drm_client_buffer *buffer;
-+	struct fb_info *info;
-+	size_t screen_size;
-+	void *screen_buffer;
-+	u32 format;
-+	int ret;
-+
-+	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
-+		    sizes->surface_width, sizes->surface_height,
-+		    sizes->surface_bpp);
-+
-+	format = drm_driver_legacy_fb_format(dev, sizes->surface_bpp,
-+					     sizes->surface_depth);
-+	buffer = drm_client_framebuffer_create(client, sizes->surface_width,
-+					       sizes->surface_height, format);
-+	if (IS_ERR(buffer))
-+		return PTR_ERR(buffer);
-+
-+	fb_helper->funcs = &drm_fbdev_ttm_helper_funcs;
-+	fb_helper->buffer = buffer;
-+	fb_helper->fb = buffer->fb;
-+
-+	screen_size = buffer->gem->size;
-+	screen_buffer = vzalloc(screen_size);
-+	if (!screen_buffer) {
-+		ret = -ENOMEM;
-+		goto err_drm_client_framebuffer_delete;
-+	}
-+
-+	info = drm_fb_helper_alloc_info(fb_helper);
-+	if (IS_ERR(info)) {
-+		ret = PTR_ERR(info);
-+		goto err_vfree;
-+	}
-+
-+	drm_fb_helper_fill_info(info, fb_helper, sizes);
-+
-+	info->fbops = &drm_fbdev_ttm_fb_ops;
-+
-+	/* screen */
-+	info->flags |= FBINFO_VIRTFB | FBINFO_READS_FAST;
-+	info->screen_buffer = screen_buffer;
-+	info->fix.smem_len = screen_size;
-+
-+	/* deferred I/O */
-+	fb_helper->fbdefio.delay = HZ / 20;
-+	fb_helper->fbdefio.deferred_io = drm_fb_helper_deferred_io;
-+
-+	info->fbdefio = &fb_helper->fbdefio;
-+	ret = fb_deferred_io_init(info);
-+	if (ret)
-+		goto err_drm_fb_helper_release_info;
-+
-+	return 0;
-+
-+err_drm_fb_helper_release_info:
-+	drm_fb_helper_release_info(fb_helper);
-+err_vfree:
-+	vfree(screen_buffer);
-+err_drm_client_framebuffer_delete:
-+	fb_helper->fb = NULL;
-+	fb_helper->buffer = NULL;
-+	drm_client_framebuffer_delete(buffer);
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_fbdev_ttm_driver_fbdev_probe);
-+
- static void drm_fbdev_ttm_client_unregister(struct drm_client_dev *client)
+ 
+diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+index 523be34682ca..044e80403c3b 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
++++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+@@ -13,6 +13,7 @@
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_util.h>
+ 
+ #include "omap_drv.h"
+@@ -26,10 +27,8 @@ module_param_named(ywrap, ywrap_enabled, bool, 0644);
+  * fbdev funcs, to implement legacy fbdev interface on top of drm driver
+  */
+ 
+-#define to_omap_fbdev(x) container_of(x, struct omap_fbdev, base)
+-
+ struct omap_fbdev {
+-	struct drm_fb_helper base;
++	struct drm_device *dev;
+ 	bool ywrap_enabled;
+ 
+ 	/* for deferred dmm roll when getting called in atomic ctx */
+@@ -41,7 +40,7 @@ static struct drm_fb_helper *get_fb(struct fb_info *fbi);
+ static void pan_worker(struct work_struct *work)
  {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
-diff --git a/include/drm/drm_fbdev_ttm.h b/include/drm/drm_fbdev_ttm.h
-index 9e6c3bdf3537..243685d02eb1 100644
---- a/include/drm/drm_fbdev_ttm.h
-+++ b/include/drm/drm_fbdev_ttm.h
-@@ -3,11 +3,24 @@
- #ifndef DRM_FBDEV_TTM_H
- #define DRM_FBDEV_TTM_H
+ 	struct omap_fbdev *fbdev = container_of(work, struct omap_fbdev, work);
+-	struct drm_fb_helper *helper = &fbdev->base;
++	struct drm_fb_helper *helper = fbdev->dev->fb_helper;
+ 	struct fb_info *fbi = helper->info;
+ 	struct drm_gem_object *bo = drm_gem_fb_get_obj(helper->fb, 0);
+ 	int npages;
+@@ -55,24 +54,25 @@ FB_GEN_DEFAULT_DEFERRED_DMAMEM_OPS(omap_fbdev,
+ 				   drm_fb_helper_damage_range,
+ 				   drm_fb_helper_damage_area)
  
-+#include <linux/stddef.h>
-+
- struct drm_device;
-+struct drm_fb_helper;
-+struct drm_fb_helper_surface_size;
+-static int omap_fbdev_pan_display(struct fb_var_screeninfo *var,
+-		struct fb_info *fbi)
++static int omap_fbdev_pan_display(struct fb_var_screeninfo *var, struct fb_info *fbi)
+ {
+ 	struct drm_fb_helper *helper = get_fb(fbi);
+-	struct omap_fbdev *fbdev = to_omap_fbdev(helper);
++	struct omap_drm_private *priv;
++	struct omap_fbdev *fbdev;
  
- #ifdef CONFIG_DRM_FBDEV_EMULATION
-+int drm_fbdev_ttm_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
-+				     struct drm_fb_helper_surface_size *sizes);
+ 	if (!helper)
+ 		goto fallback;
+ 
++	priv = helper->dev->dev_private;
++	fbdev = priv->fbdev;
 +
-+#define DRM_FBDEV_TTM_DRIVER_OPS \
-+	.fbdev_probe = drm_fbdev_ttm_driver_fbdev_probe
+ 	if (!fbdev->ywrap_enabled)
+ 		goto fallback;
+ 
+-	if (drm_can_sleep()) {
++	if (drm_can_sleep())
+ 		pan_worker(&fbdev->work);
+-	} else {
+-		struct omap_drm_private *priv = helper->dev->dev_private;
++	else
+ 		queue_work(priv->wq, &fbdev->work);
+-	}
+ 
+ 	return 0;
+ 
+@@ -92,7 +92,6 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+ 	struct drm_fb_helper *helper = info->par;
+ 	struct drm_framebuffer *fb = helper->fb;
+ 	struct drm_gem_object *bo = drm_gem_fb_get_obj(fb, 0);
+-	struct omap_fbdev *fbdev = to_omap_fbdev(helper);
+ 
+ 	DBG();
+ 
+@@ -104,7 +103,7 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+ 
+ 	drm_client_release(&helper->client);
+ 	drm_fb_helper_unprepare(helper);
+-	kfree(fbdev);
++	kfree(helper);
+ }
+ 
+ /*
+@@ -128,9 +127,9 @@ static const struct fb_ops omap_fb_ops = {
+ static int omap_fbdev_create(struct drm_fb_helper *helper,
+ 		struct drm_fb_helper_surface_size *sizes)
+ {
+-	struct omap_fbdev *fbdev = to_omap_fbdev(helper);
+ 	struct drm_device *dev = helper->dev;
+ 	struct omap_drm_private *priv = dev->dev_private;
++	struct omap_fbdev *fbdev = priv->fbdev;
+ 	struct drm_framebuffer *fb = NULL;
+ 	union omap_gem_size gsize;
+ 	struct fb_info *fbi = NULL;
+@@ -338,6 +337,7 @@ static const struct drm_client_funcs omap_fbdev_client_funcs = {
+ 
+ void omap_fbdev_setup(struct drm_device *dev)
+ {
++	struct omap_drm_private *priv = dev->dev_private;
+ 	struct omap_fbdev *fbdev;
+ 	struct drm_fb_helper *helper;
+ 	int ret;
+@@ -345,24 +345,28 @@ void omap_fbdev_setup(struct drm_device *dev)
+ 	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+ 	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+ 
+-	fbdev = kzalloc(sizeof(*fbdev), GFP_KERNEL);
++	fbdev = drmm_kzalloc(dev, sizeof(*fbdev), GFP_KERNEL);
+ 	if (!fbdev)
+ 		return;
+-	helper = &fbdev->base;
++	fbdev->dev = dev;
++	INIT_WORK(&fbdev->work, pan_worker);
 +
- void drm_fbdev_ttm_setup(struct drm_device *dev, unsigned int preferred_bpp);
- #else
-+#define DRM_FBDEV_TTM_DRIVER_OPS \
-+	.fbdev_probe = NULL
-+
- static inline void drm_fbdev_ttm_setup(struct drm_device *dev, unsigned int preferred_bpp)
- { }
- #endif
++	priv->fbdev = fbdev;
+ 
++	helper = kzalloc(sizeof(*helper), GFP_KERNEL);
++	if (!helper)
++		return;
+ 	drm_fb_helper_prepare(dev, helper, 32, &omap_fb_helper_funcs);
+ 
+ 	ret = drm_client_init(dev, &helper->client, "fbdev", &omap_fbdev_client_funcs);
+ 	if (ret)
+ 		goto err_drm_client_init;
+ 
+-	INIT_WORK(&fbdev->work, pan_worker);
+-
+ 	drm_client_register(&helper->client);
+ 
+ 	return;
+ 
+ err_drm_client_init:
+ 	drm_fb_helper_unprepare(helper);
+-	kfree(fbdev);
++	kfree(helper);
+ }
 -- 
 2.46.0
 
