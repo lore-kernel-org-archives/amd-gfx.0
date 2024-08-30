@@ -4,40 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5293ACA0FF2
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 13:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C26C7CA0FED
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 13:04:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0741B10E3B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A8B10E5A9;
 	Fri, 30 Aug 2024 13:04:05 +0000 (UTC)
-Received: from gauss.telenet-ops.be (gauss.telenet-ops.be [195.130.132.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 503FD10E8E7
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Aug 2024 09:45:24 +0000 (UTC)
-Received: from andre.telenet-ops.be (andre.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:15])
- by gauss.telenet-ops.be (Postfix) with ESMTPS id 4WwCtp6lwPz50PqV
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Aug 2024 11:45:22 +0200 (CEST)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:f0d5:75e3:232:dfed])
- by andre.telenet-ops.be with cmsmtp
- id 69lM2D00L4wyYGe019lMm3; Fri, 30 Aug 2024 11:45:22 +0200
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1sjyC1-001KOP-Bj;
- Fri, 30 Aug 2024 11:45:21 +0200
-Date: Fri, 30 Aug 2024 11:45:21 +0200 (CEST)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-cc: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, 
- javierm@redhat.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: Re: [PATCH v3 04/81] drm: Add client-agnostic setup helper
-In-Reply-To: <20240830084456.77630-5-tzimmermann@suse.de>
-Message-ID: <6c78eb72-c555-1fa8-18f9-c1e671a8b12@linux-m68k.org>
-References: <20240830084456.77630-1-tzimmermann@suse.de>
- <20240830084456.77630-5-tzimmermann@suse.de>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D298910E842;
+ Fri, 30 Aug 2024 07:26:45 +0000 (UTC)
+X-UUID: 322d169666a111efa216b1d71e6e1362-20240830
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B,
+ HR_CTT_MISS
+ HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
+ HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+ HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+ DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+ SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+ CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_UNKNOWN
+ GTI_C_BU, AMN_T1, AMN_T2, AMN_GOOD, AMN_C_TI
+ AMN_C_BU, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.38, REQID:a4f6c202-7660-45f3-bcdf-5810b3120bae, IP:15,
+ URL:55,TC:0,Content:-20,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,AC
+ TION:release,TS:45
+X-CID-INFO: VERSION:1.1.38, REQID:a4f6c202-7660-45f3-bcdf-5810b3120bae, IP:15,
+ UR
+ L:55,TC:0,Content:-20,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:45
+X-CID-META: VersionHash:82c5f88, CLOUDID:a9fbdbb88d84a01379cb1ad92a24edec,
+ BulkI
+ D:240830152641GKLTJXK6,BulkQuantity:0,Recheck:0,SF:45|66|25|17|19|102,TC:n
+ il,Content:1,EDM:-3,IP:-2,URL:13|11|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:
+ nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
+ TF_CID_SPAM_FSI, TF_CID_SPAM_ULN
+X-UUID: 322d169666a111efa216b1d71e6e1362-20240830
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1941210951; Fri, 30 Aug 2024 15:26:38 +0800
+From: Lu Yao <yaolu@kylinos.cn>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	Xinhui.Pan@amd.com
+Cc: sunil.khatri@amd.com, Prike.Liang@amd.com, Felix.Kuehling@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, liupeng01@kylinos.cn
+Subject: [PATCH] drm/amdgpu: add raven1 gfxoff quirk
+Date: Fri, 30 Aug 2024 15:25:54 +0800
+Message-Id: <20240830072554.128132-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 30 Aug 2024 13:04:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,94 +73,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
- 	Hi Thomas,
+From: Peng Liu <liupeng01@kylinos.cn>
 
-On Fri, 30 Aug 2024, Thomas Zimmermann wrote:
-> DRM may support multiple in-kernel clients that run as soon as a DRM
-> driver has been registered. To select the client(s) in a single place,
-> introduce drm_client_setup().
->
-> Drivers that call the new helper automatically instantiate the kernel's
-> configured default clients. Only fbdev emulation is currently supported.
-> Later versions can add support for DRM-based logging, a boot logo or even
-> a console.
->
-> Some drivers handle the color mode for clients internally. Provide the
-> helper drm_client_setup_with_color_mode() for them.
->
-> v3:
-> - fix build error
-> v2:
-> - add drm_client_setup_with_fourcc() (Laurent)
-> - push default-format handling into actual clients
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Fix screen corruption with openkylin.
 
-Thanks for your patch!
+Link: https://bbs.openkylin.top/t/topic/171497
+Signed-off-by: Peng Liu <liupeng01@kylinos.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> --- /dev/null
-> +++ b/drivers/gpu/drm/drm_client_setup.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 2929c8972ea7..0cd5fd3fa18b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1301,6 +1301,8 @@ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+ 	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+ 	/* Apple MacBook Pro (15-inch, 2019) Radeon Pro Vega 20 4 GB */
+ 	{ 0x1002, 0x69af, 0x106b, 0x019a, 0xc0 },
++	/* https://bbs.openkylin.top/t/topic/171497 */
++	{ 0x1002, 0x15d8, 0x19e5, 0x3e14, 0xc2},
+ 	{ 0, 0, 0, 0, 0 },
+ };
+ 
+-- 
+2.25.1
 
-> +/**
-> + * drm_client_setup_with_fourcc() - Setup in-kernel DRM clients for color mode
-> + * @dev: DRM device
-> + * @fourcc: Preferred pixel format as 4CC code for the device
-> + *
-> + * This function sets up the in-kernel DRM clients. It is equivalent
-> + * to drm_client_setup(), but expects a 4CC code as second argument.
-> + *
-> + * Do not use this function in new drivers. Prefer drm_client_setup() with a
-> + * format of NULL.
-
-Why? To me this looks like the right function to call on hardware
-that does not support ARGB8888 natively.
-
-BTW, once this series is applied, I plan to check again how to wire up
-native fbcon support for monochrome (DRM_FORMAT_R1) and grayscale
-(DRM_FORMAT_R8), as used by the Solomon driver.
-
-> + */
-> +void drm_client_setup_with_fourcc(struct drm_device *dev, u32 fourcc)
-> +{
-> +	drm_client_setup(dev, drm_format_info(fourcc));
-> +}
-> +EXPORT_SYMBOL(drm_client_setup_with_fourcc);
-> +
-> +/**
-> + * drm_client_setup_with_color_mode() - Setup in-kernel DRM clients for color mode
-> + * @dev: DRM device
-> + * @color_mode: Preferred color mode for the device
-> + *
-> + * This function sets up the in-kernel DRM clients. It is equivalent
-> + * to drm_client_setup(), but expects a color mode as second argument.
-> + *
-> + * Do not use this function in new drivers. Prefer drm_client_setup() with a
-
-
-Yeah, this is definitely not to be used in new drivers, as color_mode is
-ambiguous.
-
-> + * format of NULL.
-
-or drm_client_setup_with_fourcc().
-
-> + */
-> +void drm_client_setup_with_color_mode(struct drm_device *dev, unsigned int color_mode)
-> +{
-> +	u32 fourcc = drm_driver_color_mode_format(dev, color_mode);
-> +
-> +	drm_client_setup_with_fourcc(dev, fourcc);
-> +}
-> +EXPORT_SYMBOL(drm_client_setup_with_color_mode);
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
