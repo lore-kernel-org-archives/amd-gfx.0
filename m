@@ -4,44 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ACF7CA0FF1
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 13:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5293ACA0FF2
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 13:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6438710E143;
-	Fri, 30 Aug 2024 13:04:04 +0000 (UTC)
-X-Greylist: delayed 448 seconds by postgrey-1.36 at gabe;
- Fri, 30 Aug 2024 09:30:11 UTC
-Received: from cantor.telenet-ops.be (cantor.telenet-ops.be [195.130.132.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43ABC10E9EA
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Aug 2024 09:30:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0741B10E3B1;
+	Fri, 30 Aug 2024 13:04:05 +0000 (UTC)
+Received: from gauss.telenet-ops.be (gauss.telenet-ops.be [195.130.132.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 503FD10E8E7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Aug 2024 09:45:24 +0000 (UTC)
 Received: from andre.telenet-ops.be (andre.telenet-ops.be
  [IPv6:2a02:1800:120:4::f00:15])
- by cantor.telenet-ops.be (Postfix) with ESMTPS id 4WwCNd1lCjz4ySgw
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Aug 2024 11:22:41 +0200 (CEST)
+ by gauss.telenet-ops.be (Postfix) with ESMTPS id 4WwCtp6lwPz50PqV
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Aug 2024 11:45:22 +0200 (CEST)
 Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:f0d5:75e3:232:dfed])
  by andre.telenet-ops.be with cmsmtp
- id 69Nb2D0084wyYGe019NbrW; Fri, 30 Aug 2024 11:22:40 +0200
+ id 69lM2D00L4wyYGe019lMm3; Fri, 30 Aug 2024 11:45:22 +0200
 Received: from geert (helo=localhost)
  by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1sjxpz-001KEG-4a;
- Fri, 30 Aug 2024 11:22:35 +0200
-Date: Fri, 30 Aug 2024 11:22:35 +0200 (CEST)
+ (envelope-from <geert@linux-m68k.org>) id 1sjyC1-001KOP-Bj;
+ Fri, 30 Aug 2024 11:45:21 +0200
+Date: Fri, 30 Aug 2024 11:45:21 +0200 (CEST)
 From: Geert Uytterhoeven <geert@linux-m68k.org>
 To: Thomas Zimmermann <tzimmermann@suse.de>
 cc: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, 
  javierm@redhat.com, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Subject: Re: [PATCH v3 40/81] drm/stm: Run DRM default client setup
-In-Reply-To: <20240830084456.77630-41-tzimmermann@suse.de>
-Message-ID: <1bb15789-ae48-9a5f-aa35-c6c0b066d1dc@linux-m68k.org>
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Subject: Re: [PATCH v3 04/81] drm: Add client-agnostic setup helper
+In-Reply-To: <20240830084456.77630-5-tzimmermann@suse.de>
+Message-ID: <6c78eb72-c555-1fa8-18f9-c1e671a8b12@linux-m68k.org>
 References: <20240830084456.77630-1-tzimmermann@suse.de>
- <20240830084456.77630-41-tzimmermann@suse.de>
+ <20240830084456.77630-5-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII; format=flowed
 X-Mailman-Approved-At: Fri, 30 Aug 2024 13:04:03 +0000
@@ -59,24 +53,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+ 	Hi Thomas,
+
 On Fri, 30 Aug 2024, Thomas Zimmermann wrote:
-> Call drm_client_setup_with-fourcc() to run the kernel's default client
-> setup for DRM. Set fbdev_probe in struct drm_driver, so that the client
-> setup can start the common fbdev client.
+> DRM may support multiple in-kernel clients that run as soon as a DRM
+> driver has been registered. To select the client(s) in a single place,
+> introduce drm_client_setup().
 >
+> Drivers that call the new helper automatically instantiate the kernel's
+> configured default clients. Only fbdev emulation is currently supported.
+> Later versions can add support for DRM-based logging, a boot logo or even
+> a console.
+>
+> Some drivers handle the color mode for clients internally. Provide the
+> helper drm_client_setup_with_color_mode() for them.
+>
+> v3:
+> - fix build error
 > v2:
-> - use drm_client_setup_with_fourcc()
+> - add drm_client_setup_with_fourcc() (Laurent)
+> - push default-format handling into actual clients
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Acked-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Acked-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-WARNING: Duplicate signature
+Thanks for your patch!
+
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_client_setup.c
+
+> +/**
+> + * drm_client_setup_with_fourcc() - Setup in-kernel DRM clients for color mode
+> + * @dev: DRM device
+> + * @fourcc: Preferred pixel format as 4CC code for the device
+> + *
+> + * This function sets up the in-kernel DRM clients. It is equivalent
+> + * to drm_client_setup(), but expects a 4CC code as second argument.
+> + *
+> + * Do not use this function in new drivers. Prefer drm_client_setup() with a
+> + * format of NULL.
+
+Why? To me this looks like the right function to call on hardware
+that does not support ARGB8888 natively.
+
+BTW, once this series is applied, I plan to check again how to wire up
+native fbcon support for monochrome (DRM_FORMAT_R1) and grayscale
+(DRM_FORMAT_R8), as used by the Solomon driver.
+
+> + */
+> +void drm_client_setup_with_fourcc(struct drm_device *dev, u32 fourcc)
+> +{
+> +	drm_client_setup(dev, drm_format_info(fourcc));
+> +}
+> +EXPORT_SYMBOL(drm_client_setup_with_fourcc);
+> +
+> +/**
+> + * drm_client_setup_with_color_mode() - Setup in-kernel DRM clients for color mode
+> + * @dev: DRM device
+> + * @color_mode: Preferred color mode for the device
+> + *
+> + * This function sets up the in-kernel DRM clients. It is equivalent
+> + * to drm_client_setup(), but expects a color mode as second argument.
+> + *
+> + * Do not use this function in new drivers. Prefer drm_client_setup() with a
+
+
+Yeah, this is definitely not to be used in new drivers, as color_mode is
+ambiguous.
+
+> + * format of NULL.
+
+or drm_client_setup_with_fourcc().
+
+> + */
+> +void drm_client_setup_with_color_mode(struct drm_device *dev, unsigned int color_mode)
+> +{
+> +	u32 fourcc = drm_driver_color_mode_format(dev, color_mode);
+> +
+> +	drm_client_setup_with_fourcc(dev, fourcc);
+> +}
+> +EXPORT_SYMBOL(drm_client_setup_with_color_mode);
 
 Gr{oetje,eeting}s,
 
