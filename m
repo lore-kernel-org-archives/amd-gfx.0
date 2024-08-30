@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A706CA0EF9
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:48:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C469CA0EF6
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:48:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC8810E9DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA9410E9E6;
 	Fri, 30 Aug 2024 08:45:38 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914A510E952;
- Fri, 30 Aug 2024 08:45:25 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3584210E90B;
+ Fri, 30 Aug 2024 08:45:20 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3B3C91FD17;
- Fri, 30 Aug 2024 08:45:24 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DE2EE21B5A;
+ Fri, 30 Aug 2024 08:45:18 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E005C13A69;
- Fri, 30 Aug 2024 08:45:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B79E13A3D;
+ Fri, 30 Aug 2024 08:45:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +GNuNaOG0WbyegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:23 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0O63JJ6G0WbyegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Subject: [PATCH v3 72/81] drm/vmwgfx: Run DRM default client setup
-Date: Fri, 30 Aug 2024 10:40:56 +0200
-Message-ID: <20240830084456.77630-73-tzimmermann@suse.de>
+ nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 57/81] drm/ofdrm: Use DRM default client setup
+Date: Fri, 30 Aug 2024 10:40:41 +0200
+Message-ID: <20240830084456.77630-58-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240830084456.77630-1-tzimmermann@suse.de>
 References: <20240830084456.77630-1-tzimmermann@suse.de>
@@ -49,7 +47,7 @@ X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 3B3C91FD17
+X-Rspamd-Queue-Id: DE2EE21B5A
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
@@ -73,42 +71,54 @@ for DRM. Set fbdev_probe in struct drm_driver, so that the client
 setup can start the common fbdev client.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tiny/ofdrm.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 50ad3105c16e..f9009f5a5aef 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -36,6 +36,7 @@
- #include "ttm_object.h"
- 
+diff --git a/drivers/gpu/drm/tiny/ofdrm.c b/drivers/gpu/drm/tiny/ofdrm.c
+index 35996f7eedac..04ffa93de44a 100644
+--- a/drivers/gpu/drm/tiny/ofdrm.c
++++ b/drivers/gpu/drm/tiny/ofdrm.c
+@@ -7,6 +7,7 @@
  #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_state_helper.h>
 +#include <drm/drm_client_setup.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_ttm.h>
- #include <drm/drm_gem_ttm_helper.h>
-@@ -1628,6 +1629,8 @@ static const struct drm_driver driver = {
- 	.prime_handle_to_fd = vmw_prime_handle_to_fd,
- 	.gem_prime_import_sg_table = vmw_prime_import_sg_table,
+ #include <drm/drm_connector.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_device.h>
+@@ -1344,6 +1345,7 @@ DEFINE_DRM_GEM_FOPS(ofdrm_fops);
  
-+	DRM_FBDEV_TTM_DRIVER_OPS,
-+
- 	.fops = &vmwgfx_driver_fops,
- 	.name = VMWGFX_DRIVER_NAME,
- 	.desc = VMWGFX_DRIVER_DESC,
-@@ -1679,7 +1682,7 @@ static int vmw_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ static struct drm_driver ofdrm_driver = {
+ 	DRM_GEM_SHMEM_DRIVER_OPS,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
+ 	.name			= DRIVER_NAME,
+ 	.desc			= DRIVER_DESC,
+ 	.date			= DRIVER_DATE,
+@@ -1361,7 +1363,6 @@ static int ofdrm_probe(struct platform_device *pdev)
+ {
+ 	struct ofdrm_device *odev;
+ 	struct drm_device *dev;
+-	unsigned int color_mode;
+ 	int ret;
  
- 	vmw_fifo_resource_inc(vmw);
- 	vmw_svga_enable(vmw);
--	drm_fbdev_ttm_setup(&vmw->drm,  0);
-+	drm_client_setup(&vmw->drm, NULL);
+ 	odev = ofdrm_device_create(&ofdrm_driver, pdev);
+@@ -1373,11 +1374,7 @@ static int ofdrm_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
  
- 	vmw_debugfs_gem_init(vmw);
- 	vmw_debugfs_resource_managers_init(vmw);
+-	color_mode = drm_format_info_bpp(odev->format, 0);
+-	if (color_mode == 16)
+-		color_mode = odev->format->depth; // can be 15 or 16
+-
+-	drm_fbdev_shmem_setup(dev, color_mode);
++	drm_client_setup(dev, odev->format);
+ 
+ 	return 0;
+ }
 -- 
 2.46.0
 
