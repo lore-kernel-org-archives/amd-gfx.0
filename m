@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF08CA0EF4
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8068CA0EF4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 888C110E85F;
-	Fri, 30 Aug 2024 08:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8D1410E87C;
+	Fri, 30 Aug 2024 08:45:04 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05A910E85E;
- Fri, 30 Aug 2024 08:45:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B84AE10E86C;
+ Fri, 30 Aug 2024 08:45:02 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6E1961F7B6;
- Fri, 30 Aug 2024 08:44:59 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5B9BA1F7BA;
+ Fri, 30 Aug 2024 08:45:01 +0000 (UTC)
 Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22B2313A66;
- Fri, 30 Aug 2024 08:44:59 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0FF1413A66;
+ Fri, 30 Aug 2024 08:45:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id UEIqB4uG0WbyegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:44:59 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id cN+jAo2G0WbyegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:01 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: [PATCH v3 01/81] drm/fbdev-helper: Move color-mode lookup into 4CC
- format helper
-Date: Fri, 30 Aug 2024 10:39:45 +0200
-Message-ID: <20240830084456.77630-2-tzimmermann@suse.de>
+ Liviu Dudau <liviu.dudau@arm.com>
+Subject: [PATCH v3 07/81] drm/arm/komeda: Run DRM default client setup
+Date: Fri, 30 Aug 2024 10:39:51 +0200
+Message-ID: <20240830084456.77630-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240830084456.77630-1-tzimmermann@suse.de>
 References: <20240830084456.77630-1-tzimmermann@suse.de>
@@ -47,9 +46,9 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
- TAGGED_RCPT(0.00)[renesas]
-X-Rspamd-Queue-Id: 6E1961F7B6
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 5B9BA1F7BA
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
@@ -68,191 +67,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The color mode as specified on the kernel command line gives the user's
-preferred color depth and number of bits per pixel. Move the
-color-mode-to-format conversion from fbdev helpers into a 4CC helper,
-so that it can be shared among DRM clients.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
 
-v2:
-- fix grammar in commit message (Laurent)
+The komeda driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 70 +++++++--------------------------
- drivers/gpu/drm/drm_fourcc.c    | 30 +++++++++++++-
- include/drm/drm_fourcc.h        |  1 +
- 3 files changed, 45 insertions(+), 56 deletions(-)
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 4 ++--
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 29c53f9f449c..af1fe79c701d 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1441,67 +1441,27 @@ int drm_fb_helper_pan_display(struct fb_var_screeninfo *var,
- EXPORT_SYMBOL(drm_fb_helper_pan_display);
- 
- static uint32_t drm_fb_helper_find_format(struct drm_fb_helper *fb_helper, const uint32_t *formats,
--					  size_t format_count, uint32_t bpp, uint32_t depth)
-+					  size_t format_count, unsigned int color_mode)
- {
- 	struct drm_device *dev = fb_helper->dev;
- 	uint32_t format;
- 	size_t i;
- 
--	/*
--	 * Do not consider YUV or other complicated formats
--	 * for framebuffers. This means only legacy formats
--	 * are supported (fmt->depth is a legacy field), but
--	 * the framebuffer emulation can only deal with such
--	 * formats, specifically RGB/BGA formats.
--	 */
--	format = drm_mode_legacy_fb_format(bpp, depth);
--	if (!format)
--		goto err;
-+	format = drm_driver_color_mode_format(dev, color_mode);
-+	if (!format) {
-+		drm_info(dev, "unsupported color mode of %d\n", color_mode);
-+		return DRM_FORMAT_INVALID;
-+	}
- 
- 	for (i = 0; i < format_count; ++i) {
- 		if (formats[i] == format)
- 			return format;
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+index 55c3773befde..6d475bb34002 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+@@ -9,7 +9,7 @@
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+-#include <drm/drm_fbdev_dma.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
+ #include "komeda_dev.h"
+@@ -84,7 +84,7 @@ static int komeda_platform_probe(struct platform_device *pdev)
  	}
--
--err:
--	/* We found nothing. */
--	drm_warn(dev, "bpp/depth value of %u/%u not supported\n", bpp, depth);
-+	drm_warn(dev, "format %p4cc not supported\n", &format);
  
- 	return DRM_FORMAT_INVALID;
- }
+ 	dev_set_drvdata(dev, mdrv);
+-	drm_fbdev_dma_setup(&mdrv->kms->base, 32);
++	drm_client_setup(&mdrv->kms->base, NULL);
  
--static uint32_t drm_fb_helper_find_color_mode_format(struct drm_fb_helper *fb_helper,
--						     const uint32_t *formats, size_t format_count,
--						     unsigned int color_mode)
--{
--	struct drm_device *dev = fb_helper->dev;
--	uint32_t bpp, depth;
--
--	switch (color_mode) {
--	case 1:
--	case 2:
--	case 4:
--	case 8:
--	case 16:
--	case 24:
--		bpp = depth = color_mode;
--		break;
--	case 15:
--		bpp = 16;
--		depth = 15;
--		break;
--	case 32:
--		bpp = 32;
--		depth = 24;
--		break;
--	default:
--		drm_info(dev, "unsupported color mode of %d\n", color_mode);
--		return DRM_FORMAT_INVALID;
--	}
--
--	return drm_fb_helper_find_format(fb_helper, formats, format_count, bpp, depth);
--}
--
- static int __drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- 				      struct drm_fb_helper_surface_size *sizes)
- {
-@@ -1531,10 +1491,10 @@ static int __drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- 			if (!cmdline_mode->bpp_specified)
- 				continue;
+ 	return 0;
  
--			surface_format = drm_fb_helper_find_color_mode_format(fb_helper,
--									      plane->format_types,
--									      plane->format_count,
--									      cmdline_mode->bpp);
-+			surface_format = drm_fb_helper_find_format(fb_helper,
-+								   plane->format_types,
-+								   plane->format_count,
-+								   cmdline_mode->bpp);
- 			if (surface_format != DRM_FORMAT_INVALID)
- 				break; /* found supported format */
- 		}
-@@ -1544,10 +1504,10 @@ static int __drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- 			break; /* found supported format */
- 
- 		/* try preferred color mode */
--		surface_format = drm_fb_helper_find_color_mode_format(fb_helper,
--								      plane->format_types,
--								      plane->format_count,
--								      fb_helper->preferred_bpp);
-+		surface_format = drm_fb_helper_find_format(fb_helper,
-+							   plane->format_types,
-+							   plane->format_count,
-+							   fb_helper->preferred_bpp);
- 		if (surface_format != DRM_FORMAT_INVALID)
- 			break; /* found supported format */
- 	}
-diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
-index 193cf8ed7912..3a94ca211f9c 100644
---- a/drivers/gpu/drm/drm_fourcc.c
-+++ b/drivers/gpu/drm/drm_fourcc.c
-@@ -36,7 +36,6 @@
-  * @depth: bit depth per pixel
-  *
-  * Computes a drm fourcc pixel format code for the given @bpp/@depth values.
-- * Useful in fbdev emulation code, since that deals in those values.
-  */
- uint32_t drm_mode_legacy_fb_format(uint32_t bpp, uint32_t depth)
- {
-@@ -140,6 +139,35 @@ uint32_t drm_driver_legacy_fb_format(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_driver_legacy_fb_format);
- 
-+/**
-+ * drm_driver_color_mode_format - Compute DRM 4CC code from color mode
-+ * @dev: DRM device
-+ * @color_mode: command-line color mode
-+ *
-+ * Computes a DRM 4CC pixel format code for the given color mode using
-+ * drm_driver_color_mode(). The color mode is in the format used and the
-+ * kernel command line. It specifies the number of bits per pixel
-+ * and color depth in a single value.
-+ *
-+ * Useful in fbdev emulation code, since that deals in those values. The
-+ * helper does not consider YUV or other complicated formats. This means
-+ * only legacy formats are supported (fmt->depth is a legacy field), but
-+ * the framebuffer emulation can only deal with such formats, specifically
-+ * RGB/BGA formats.
-+ */
-+uint32_t drm_driver_color_mode_format(struct drm_device *dev, unsigned int color_mode)
-+{
-+	switch (color_mode) {
-+	case 15:
-+		return drm_driver_legacy_fb_format(dev, 16, 15);
-+	case 32:
-+		return drm_driver_legacy_fb_format(dev, 32, 24);
-+	default:
-+		return drm_driver_legacy_fb_format(dev, color_mode, color_mode);
-+	}
-+}
-+EXPORT_SYMBOL(drm_driver_color_mode_format);
-+
- /*
-  * Internal function to query information for a given format. See
-  * drm_format_info() for the public API.
-diff --git a/include/drm/drm_fourcc.h b/include/drm/drm_fourcc.h
-index ccf91daa4307..c3f4405d6662 100644
---- a/include/drm/drm_fourcc.h
-+++ b/include/drm/drm_fourcc.h
-@@ -313,6 +313,7 @@ drm_get_format_info(struct drm_device *dev,
- uint32_t drm_mode_legacy_fb_format(uint32_t bpp, uint32_t depth);
- uint32_t drm_driver_legacy_fb_format(struct drm_device *dev,
- 				     uint32_t bpp, uint32_t depth);
-+uint32_t drm_driver_color_mode_format(struct drm_device *dev, unsigned int color_mode);
- unsigned int drm_format_info_block_width(const struct drm_format_info *info,
- 					 int plane);
- unsigned int drm_format_info_block_height(const struct drm_format_info *info,
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+index fe46b0ebefea..f3314261925c 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+@@ -9,6 +9,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_managed.h>
+@@ -58,6 +59,7 @@ static irqreturn_t komeda_kms_irq_handler(int irq, void *data)
+ static const struct drm_driver komeda_kms_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(komeda_gem_dma_dumb_create),
++	DRM_FBDEV_DMA_DRIVER_OPS,
+ 	.fops = &komeda_cma_fops,
+ 	.name = "komeda",
+ 	.desc = "Arm Komeda Display Processor driver",
 -- 
 2.46.0
 
