@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95CE1CA0FE9
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 327B5CA0EF5
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 08:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B80410E8FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1C0C10E915;
 	Fri, 30 Aug 2024 08:45:18 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB3710E8A2;
- Fri, 30 Aug 2024 08:45:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B649310E8D8;
+ Fri, 30 Aug 2024 08:45:14 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5BF1D21A0D;
- Fri, 30 Aug 2024 08:45:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8831921B59;
+ Fri, 30 Aug 2024 08:45:13 +0000 (UTC)
 Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F344E13A69;
- Fri, 30 Aug 2024 08:45:05 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2FC7113A66;
+ Fri, 30 Aug 2024 08:45:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id sPokOpGG0WbyegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:05 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id aOFlCpmG0WbyegAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 30 Aug 2024 08:45:13 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v3 21/81] drm/imx/lcdc: Run DRM default client setup
-Date: Fri, 30 Aug 2024 10:40:05 +0200
-Message-ID: <20240830084456.77630-22-tzimmermann@suse.de>
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Subject: [PATCH v3 41/81] drm/sun4i: Run DRM default client setup
+Date: Fri, 30 Aug 2024 10:40:25 +0200
+Message-ID: <20240830084456.77630-42-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240830084456.77630-1-tzimmermann@suse.de>
 References: <20240830084456.77630-1-tzimmermann@suse.de>
@@ -48,9 +48,9 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Queue-Id: 5BF1D21A0D
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ TAGGED_RCPT(0.00)[]
+X-Rspamd-Queue-Id: 8831921B59
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
@@ -73,44 +73,47 @@ Call drm_client_setup() to run the kernel's default client setup
 for DRM. Set fbdev_probe in struct drm_driver, so that the client
 setup can start the common fbdev client.
 
+The sun4i driver specifies as preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
+
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Shawn Guo <shawnguo@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Samuel Holland <samuel@sholland.org>
 ---
- drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 4 +++-
+ drivers/gpu/drm/sun4i/sun4i_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-index 36668455aee8..3215c4acd675 100644
---- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-+++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-@@ -3,6 +3,7 @@
+diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
+index 35d7a7ffd208..c3342789e3b0 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_drv.c
++++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
+@@ -16,6 +16,7 @@
  
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
 +#include <drm/drm_client_setup.h>
- #include <drm/drm_damage_helper.h>
  #include <drm/drm_drv.h>
  #include <drm/drm_fbdev_dma.h>
-@@ -348,6 +349,7 @@ static struct drm_driver imx_lcdc_drm_driver = {
- 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
- 	.fops = &imx_lcdc_drm_fops,
- 	DRM_GEM_DMA_DRIVER_OPS_VMAP,
-+	DRM_FBDEV_DMA_DRIVER_OPS,
- 	.name = "imx-lcdc",
- 	.desc = "i.MX LCDC driver",
- 	.date = "20200716",
-@@ -501,7 +503,7 @@ static int imx_lcdc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Cannot register device\n");
+ #include <drm/drm_gem_dma_helper.h>
+@@ -55,6 +56,7 @@ static const struct drm_driver sun4i_drv_driver = {
  
--	drm_fbdev_dma_setup(drm, 0);
+ 	/* GEM Operations */
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(drm_sun4i_gem_dumb_create),
++	DRM_FBDEV_DMA_DRIVER_OPS,
+ };
+ 
+ static int sun4i_drv_bind(struct device *dev)
+@@ -111,7 +113,7 @@ static int sun4i_drv_bind(struct device *dev)
+ 	if (ret)
+ 		goto finish_poll;
+ 
+-	drm_fbdev_dma_setup(drm, 32);
 +	drm_client_setup(drm, NULL);
  
- 	return 0;
- }
+ 	dev_set_drvdata(dev, drm);
+ 
 -- 
 2.46.0
 
