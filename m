@@ -4,80 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB777CA0FF4
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 13:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BFF9CA0FF3
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 13:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50CAE10E656;
-	Fri, 30 Aug 2024 13:04:05 +0000 (UTC)
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E24F10EA26;
- Fri, 30 Aug 2024 09:32:23 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-6cdae28014dso13269467b3.1; 
- Fri, 30 Aug 2024 02:32:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06EAB10E0A5;
+	Fri, 30 Aug 2024 13:46:08 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UBLfq6Of";
+	dkim-atps=neutral
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADE2910E0A5;
+ Fri, 30 Aug 2024 13:46:07 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2020430b139so1606475ad.1; 
+ Fri, 30 Aug 2024 06:46:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725025567; x=1725630367; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ifpCQeP2cumNf3KquMi5xFhz4u6doTwHEPxrybMpp+E=;
+ b=UBLfq6OffeA3yo12XJFjpLyax0tuk48Kp6eq6qdCBMCQut+0GS5+hxI7pe9iUcfkVt
+ xsaiNKVvsZM6Ue0JLn/eNydFoCbIDiTJ98Mp3lDCr1QoSbjaHyyPGaBpkvPy7AKLkhsv
+ xBPRZ27zQiL4kxwHJI5p1pBBK5ApMMpk3rDuMqKbdcuycuseUpPnMHO8OybwSXwqcqSU
+ Jh9wZuRQH8/P15LuXrHCfJYDutByf8qnvW8sdmy6G45vo/4fl3TL+c8A2gK9Evo+5kcA
+ MXj4tseqyW9/dNWV+BaC4i4wrSF97G86SD3nKkVLGjZZk6keoYR1q6+JR/SSqokBBNNX
+ RhoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725010342; x=1725615142;
+ d=1e100.net; s=20230601; t=1725025567; x=1725630367;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=imgxU4L4plsaBKuyDZ4ep2KNsaM/vp5qwWwnJwPwFlI=;
- b=gLPFR45Wq7Mp/X24mr/hC6114tsOGkjdTeOHyLWkek1sVFE2HvClNezZMKvUYx3WxL
- wqBJi0LOkrWNAz/dg1DBoWthnbWH3fw5Endtlf+tkkIS44GHXOVkqJlBoWE7RIeiJXzk
- JeSuDuccuov1jViifS0aDeIwdTjBNLNNdfHlP2A57NbIES8ePHWZwXtX/143W6nXvJN6
- CotEwOZzVJ65Mv5Nv3j/VWhJS6z5KoC6UBfVwNP0k5OPg6FfO84dzNYDOuCOOg4Qazuw
- fnT2NKWY9U0vbeEi/XtOw+7Z4KmiA5aJJTZQVmXXGYPDy3AvuCPYJhdwP8Oahsb+yLoS
- iwUw==
+ bh=ifpCQeP2cumNf3KquMi5xFhz4u6doTwHEPxrybMpp+E=;
+ b=FCr0InD1Z4vOn2CWxTXghB2KNLDu8pMl/UCwb0A3MUyx/2NDcedGdSfvN55ARq9sAV
+ izNZI9VVEIv7fE4LcnuRz1g3wFcEZHn59Z+9wG2ChNVYW/O0uc/wO25aYfCZbd80xyQQ
+ Ye+3IPQ/HUzoWNStDu5Vlke5XiLCAkHrWOiQn1+/ijlDxj9EfQDvzCdihIco1NWp7Qmf
+ Gnw6zpE9hBACP2E/ODok6CXyB/SgrweFtytIfqEzP+DkHLfweuSxBSJc2HMhjYJV4Pb/
+ PqKFiK9kUPBzNpjYa4Oj2yiXPIrCmhzeaI+ANa5ppuQEsSTwXHVC0tBKyTwZs+9l/PiV
+ aB7Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU6AZj7l9JCotS+mBPN/sRbcqKhaNG7/UxJiggyg3GokGFbFOB8r9dfcxxh/iYMkcaqExa/D9oK@lists.freedesktop.org,
- AJvYcCUC3EgByBhTJZ2fUlGeZjgIDlDoOonVXQMCdEKb4Nf6Why9a1MGFCFVqeddr+X3ebBoPvzhOOg3T/k=@lists.freedesktop.org,
- AJvYcCVEA519tq/mZadl9jj+rJ7iiLN3xvCNVRdEOIWjMb1l2h7y/AW14odRhWYpAUylDjPna7AKE/lwigWg@lists.freedesktop.org,
- AJvYcCVWiUfSes7ikIfFxZj/JS7KsC5woC+MbbSr9zi6BQVaWkxmdEBMvq3/wy95Ql7Lm3ZtULKPpk7oYMBd@lists.freedesktop.org,
- AJvYcCVykGZem4Krdl1isnqu2pzGzrcHnvP/44s90b6ezvR+Rc6AJE1erDPFnqGE3RFYPf90l7BrM53iKw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVJY0kQDEsbcabC4vka8MJJavH/GBdZNhCu2R81a3n6KMMKpKE
- XA634TDpDjfPFLyj6Jv4pY1jgkZ1u3hzhjAvUVP5t2B8GEUrJE7qkSy6I/d0
-X-Google-Smtp-Source: AGHT+IHohzc96UO0uZxouFSNhd5eE7y0Vn9MKDyBhB6QmeM+ANwUHtYjtXDZBWkPhKbEChtjTYb8YQ==
-X-Received: by 2002:a05:690c:6a03:b0:622:c892:6ae7 with SMTP id
- 00721157ae682-6d285c15418mr46016007b3.12.1725010341960; 
- Fri, 30 Aug 2024 02:32:21 -0700 (PDT)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com.
- [209.85.128.169]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-6d2d3abe246sm5668037b3.1.2024.08.30.02.32.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 02:32:21 -0700 (PDT)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-6b3afc6cd01so21079687b3.1; 
- Fri, 30 Aug 2024 02:32:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCVD2ca9h3Uctx871el7/YN+O6Jc6k234aUMc9OvWs5x+zI6zfIH7955gFw8eUahvcDNBA4kJ9f+jg==@lists.freedesktop.org,
- AJvYcCVbPZP17Q1ryKpmPUpgVknRm6Q48U0T5/RpQTeFFkOXjG8Q4alxyhtehYWfwEG0efE5toltgpH4hV0=@lists.freedesktop.org,
- AJvYcCWVQCNWr4kLN7GUN1yfecby0K+a460eVyBcd14H91uHBn5STDlWitOShT0upDh0eF4E9BNTqkAyuAcA@lists.freedesktop.org,
- AJvYcCX2/hblPf4FjccV/65JsF1FWAAd2qbbg18zhBVU9ouly9VWSd1tWqOInpWLaIR71ngrugHxtQku@lists.freedesktop.org,
- AJvYcCX3ENGsQeVnkl6Hp7+0QtmSU715oFsxoYxzIuYCCj6FDmcbYmwxaM622evNtdKWhOjw4wpd0sn/JjFA@lists.freedesktop.org
-X-Received: by 2002:a05:690c:3704:b0:61a:e979:427e with SMTP id
- 00721157ae682-6d285c0e968mr48290357b3.11.1725010341431; Fri, 30 Aug 2024
- 02:32:21 -0700 (PDT)
+ AJvYcCU5P4BFD5A7+BE69xmQTZpZccXCBZns6YMkeoOoYehxXzp0eMs2fuegDKNJ/T7lBlQ7QvqvvRiHnw==@lists.freedesktop.org,
+ AJvYcCVROuLDlwzv+5pwG/8Gm3M/F4l3QkO7TKrak1vQG6EEfn3cmEQmYvsCr3redrWU3MuNTVgif54x@lists.freedesktop.org,
+ AJvYcCVutHZ8IUk0xZL7jZ+nA4Qjr+K08l3uvwhSBgu6tVw8AnxNjaou4yQ5cgwWBVJYRHjlUY8/UC4FX9AK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJiXgMsTTHxzjLTGiq2l3QJCOl6HgnrjpY10n0ZHCiCHugASB3
+ I1l7efl4q1CBliXQKJhTPZ18pT3h3nMIMiY86U2MVi3E354cn3QRU7AY6BBndUGMeFoqXgdjVp/
+ eYnQe6q02te1i3tlAyVhIZaQzk8M=
+X-Google-Smtp-Source: AGHT+IF5Bv6WaeQVgx6+6WiJxNlzOFFDKTePFL/dXi1F74yXRFY3KwXprcz/ekS9nHS3kcSzssaEqNkdG0sya8S6eJE=
+X-Received: by 2002:a17:903:18b:b0:202:35aa:c1c with SMTP id
+ d9443c01a7336-20527a66cf4mr13338925ad.7.1725025566988; Fri, 30 Aug 2024
+ 06:46:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240830084456.77630-1-tzimmermann@suse.de>
- <20240830084456.77630-37-tzimmermann@suse.de>
-In-Reply-To: <20240830084456.77630-37-tzimmermann@suse.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 30 Aug 2024 11:32:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX5cgqOH-X6CZPykPCjKCTg0uVqWQjHozb0Xqy7h5yiBg@mail.gmail.com>
-Message-ID: <CAMuHMdX5cgqOH-X6CZPykPCjKCTg0uVqWQjHozb0Xqy7h5yiBg@mail.gmail.com>
-Subject: Re: [PATCH v3 36/81] drm/renesas/shmobile: Run DRM default client
- setup
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: daniel@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, 
- javierm@redhat.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+References: <20240830012216.603623-1-lizetao1@huawei.com>
+ <20240830012216.603623-4-lizetao1@huawei.com>
+In-Reply-To: <20240830012216.603623-4-lizetao1@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 30 Aug 2024 09:45:55 -0400
+Message-ID: <CADnq5_N98gB4BopT+XbPCahOZJxe2aDfm8wbK5DZbUAaUivD=g@mail.gmail.com>
+Subject: Re: [PATCH -next 3/3] drm/amdgpu: use clamp() in nvkm_volt_map()
+To: Li Zetao <lizetao1@huawei.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, kherbst@redhat.com, lyude@redhat.com, 
+ dakr@redhat.com, felix.kuehling@amd.com, zhenguo.yin@amd.com, 
+ srinivasan.shanmugam@amd.com, shashank.sharma@amd.com, Jesse.Zhang@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 30 Aug 2024 13:04:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,33 +85,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 30, 2024 at 10:45=E2=80=AFAM Thomas Zimmermann <tzimmermann@sus=
-e.de> wrote:
-> Call drm_client_setup_with_fourcc() to run the kernel's default client
-> setup for DRM. Set fbdev_probe in struct drm_driver, so that the client
-> setup can start the common fbdev client.
+The patch title prefix should say drm/nouveau.
+
+Alex
+
+On Fri, Aug 30, 2024 at 3:15=E2=80=AFAM Li Zetao <lizetao1@huawei.com> wrot=
+e:
 >
-> v2:
-> - use drm_client_setup_with_fourcc()
+> When it needs to get a value within a certain interval, using clamp()
+> makes the code easier to understand than min(max()).
 >
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+> Signed-off-by: Li Zetao <lizetao1@huawei.com>
+> ---
+>  drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c b/drivers/gp=
+u/drm/nouveau/nvkm/subdev/volt/base.c
+> index a17a6dd8d3de..803b98df4858 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c
+> @@ -142,7 +142,7 @@ nvkm_volt_map(struct nvkm_volt *volt, u8 id, u8 temp)
+>                         return -ENODEV;
+>                 }
+>
+> -               result =3D min(max(result, (s64)info.min), (s64)info.max)=
+;
+> +               result =3D clamp(result, (s64)info.min, (s64)info.max);
+>
+>                 if (info.link !=3D 0xff) {
+>                         int ret =3D nvkm_volt_map(volt, info.link, temp);
+> --
+> 2.34.1
+>
