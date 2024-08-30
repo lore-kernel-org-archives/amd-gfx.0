@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD4FFCA0EEC
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 07:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 639B1CA0EE7
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Aug 2024 07:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A076C10E830;
-	Fri, 30 Aug 2024 07:16:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mg67JLS1";
-	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3855D10E727;
- Thu, 29 Aug 2024 16:19:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CFCD3CE1C05;
- Thu, 29 Aug 2024 16:19:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5047EC4CEC1;
- Thu, 29 Aug 2024 16:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1724948344;
- bh=IzY8cnr3y3J+5JXmGEIO7/jD3TY5go9gwhXmQCYhAF4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mg67JLS1FEbXy+FK/Ntlfj0GLuXwKrtvTY+zUkwba4Vx2/HnmBZv20OAUHLNd4AJd
- sCZT54c7gZayu7tztKidd2GYk376TWHQC/nQeQck2CBqaKQIrksM2JUxIGskcNNipr
- Gj5FjUR5TW4blw9KPDm53WttRy5nVsQge7ZIfekQ=
-Date: Thu, 29 Aug 2024 18:19:01 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Vamsi Krishna Brahmajosyula <vamsi-krishna.brahmajosyula@broadcom.com>
-Cc: stable@vger.kernel.org, jesse.zhang@amd.com, alexander.deucher@amd.com,
- sashal@kernel.org, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ajay.kaher@broadcom.com, alexey.makhalov@broadcom.com,
- vasavi.sirnapalli@broadcom.com
-Subject: Re: [PATCH v4.19-v6.1] drm/amdgpu: Using uninitialized value *size
- when calling
-Message-ID: <2024082955-luxury-agreed-36e6@gregkh>
-References: <20240828151607.448360-2-vamsi-krishna.brahmajosyula@broadcom.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02FEB10E833;
+	Fri, 30 Aug 2024 07:16:14 +0000 (UTC)
+X-Greylist: delayed 946 seconds by postgrey-1.36 at gabe;
+ Fri, 30 Aug 2024 04:10:18 UTC
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6C1A10E143;
+ Fri, 30 Aug 2024 04:10:18 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.17])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Ww45d4QKPz1j7gj;
+ Fri, 30 Aug 2024 11:54:13 +0800 (CST)
+Received: from kwepemd200012.china.huawei.com (unknown [7.221.188.145])
+ by mail.maildlp.com (Postfix) with ESMTPS id EC8E01A0188;
+ Fri, 30 Aug 2024 11:54:26 +0800 (CST)
+Received: from huawei.com (10.175.112.208) by kwepemd200012.china.huawei.com
+ (7.221.188.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Fri, 30 Aug
+ 2024 11:54:25 +0800
+From: Wang Wensheng <wangwensheng4@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <wayne.lin@amd.com>, <alex.hung@amd.com>,
+ <roman.li@amd.com>, <mwen@igalia.com>, <alvin.lee2@amd.com>,
+ <danny.wang@amd.com>, <dillon.varone@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+CC: <xuqiang36@huawei.com>
+Subject: [PATCH -next] drm/amd/display: Delete redundant null check for
+ 'steam' and 'plane'
+Date: Fri, 30 Aug 2024 11:41:03 +0800
+Message-ID: <20240830034103.121722-1-wangwensheng4@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240828151607.448360-2-vamsi-krishna.brahmajosyula@broadcom.com>
+Content-Type: text/plain
+X-Originating-IP: [10.175.112.208]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ kwepemd200012.china.huawei.com (7.221.188.145)
 X-Mailman-Approved-At: Fri, 30 Aug 2024 07:15:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,25 +59,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 28, 2024 at 10:15:56AM -0500, Vamsi Krishna Brahmajosyula wrote:
-> From: Jesse Zhang <jesse.zhang@amd.com>
-> 
-> [ Upstream commit 88a9a467c548d0b3c7761b4fd54a68e70f9c0944 ]
-> 
-> Initialize the size before calling amdgpu_vce_cs_reloc, such as case 0x03000001.
-> V2: To really improve the handling we would actually
->    need to have a separate value of 0xffffffff.(Christian)
-> 
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Signed-off-by: Vamsi Krishna Brahmajosyula <vamsi-krishna.brahmajosyula@broadcom.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+Since commit 15c2990e0f01 ("drm/amd/display: Add null checks for
+'stream' and 'plane' before dereferencing"), the
+dcn30_apply_idle_power_optimizations() function would return
+if these veriables would be null. So no need to check again before
+using them.
 
-Now queued up, thanks.
+Signed-off-by: Wang Wensheng <wangwensheng4@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-greg k-h
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index eaeeade31ed7..ffc35a5653fd 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -925,11 +925,9 @@ bool dcn30_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 			if (!stream || !plane)
+ 				return false;
+ 
+-			if (stream && plane) {
+-				cursor_cache_enable = stream->cursor_position.enable &&
+-						plane->address.grph.cursor_cache_addr.quad_part;
+-				cursor_attr = stream->cursor_attributes;
+-			}
++			cursor_cache_enable = stream->cursor_position.enable &&
++					plane->address.grph.cursor_cache_addr.quad_part;
++			cursor_attr = stream->cursor_attributes;
+ 
+ 			/*
+ 			 * Second, check MALL eligibility
+-- 
+2.17.1
+
