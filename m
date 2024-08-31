@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 533BCCA101E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE10CC54FC6
 	for <amd-gfx@archiver.kernel.org>; Sun,  1 Sep 2024 09:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFD5310E044;
-	Sun,  1 Sep 2024 09:14:10 +0000 (UTC)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 814FF10EAB4;
- Sat, 31 Aug 2024 01:19:49 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.214])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Wwccg4bYwz1j7m5;
- Sat, 31 Aug 2024 09:19:31 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1716010E045;
+	Sun,  1 Sep 2024 09:14:11 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB5CD10EAB4;
+ Sat, 31 Aug 2024 01:19:51 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.48])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4WwcZZ4CG7zgYZP;
+ Sat, 31 Aug 2024 09:17:42 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 222A91A016C;
- Sat, 31 Aug 2024 09:19:46 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id B21C718006C;
+ Sat, 31 Aug 2024 09:19:47 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 31 Aug
- 2024 09:19:45 +0800
+ 2024 09:19:47 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
@@ -30,13 +30,15 @@ To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <srinivasan.shanmugam@amd.com>, <zhenguo.yin@amd.com>, <Jesse.Zhang@amd.com>
 CC: <lizetao1@huawei.com>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>
-Subject: [PATCH -next -v2 0/3] drm: use clamp() instead of min(max())
-Date: Sat, 31 Aug 2024 09:28:00 +0800
-Message-ID: <20240831012803.3950100-1-lizetao1@huawei.com>
+Subject: [PATCH -next -v2 3/3] drm/nouveau/volt: use clamp() in nvkm_volt_map()
+Date: Sat, 31 Aug 2024 09:28:03 +0800
+Message-ID: <20240831012803.3950100-4-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240831012803.3950100-1-lizetao1@huawei.com>
+References: <20240831012803.3950100-1-lizetao1@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
  kwepemd500012.china.huawei.com (7.221.188.25)
@@ -55,26 +57,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+When it needs to get a value within a certain interval, using clamp()
+makes the code easier to understand than min(max()).
 
-When it needs to get the value of a certain interval [min, max],
-it is easier to understand using clamp(x, min, max) instead of
-min(max(x, min), max). What needs to be determined is that min
-should be smaller than max.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Li Zetao <lizetao1@huawei.com>
+---
+v1 -> v2: Change the patch title prefix to drm/nouveau/volt
+v1: https://lore.kernel.org/all/20240830012216.603623-4-lizetao1@huawei.com/
 
-v1 -> v2: Change the title prefix of patch 3 to drm/nouveau/volt
-v1: https://lore.kernel.org/all/20240830012216.603623-1-lizetao1@huawei.com/
-
-Li Zetao (3):
-  drm/amd: use clamp() in amdgpu_pll_get_fb_ref_div()
-  drm/amdgpu: use clamp() in amdgpu_vm_adjust_size()
-  drm/nouveau/volt: use clamp() in nvkm_volt_map()
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c         | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 2 +-
  drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c
+index a17a6dd8d3de..803b98df4858 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/volt/base.c
+@@ -142,7 +142,7 @@ nvkm_volt_map(struct nvkm_volt *volt, u8 id, u8 temp)
+ 			return -ENODEV;
+ 		}
+ 
+-		result = min(max(result, (s64)info.min), (s64)info.max);
++		result = clamp(result, (s64)info.min, (s64)info.max);
+ 
+ 		if (info.link != 0xff) {
+ 			int ret = nvkm_volt_map(volt, info.link, temp);
 -- 
 2.34.1
 
