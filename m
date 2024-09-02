@@ -4,62 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E9AECE7A81
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65228CE7A84
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9719010E92C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14DA10E930;
 	Thu,  5 Sep 2024 18:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e/V2lxpt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GCAAhcus";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BABC10E840;
- Thu,  5 Sep 2024 09:33:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725528834; x=1757064834;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DZ29/FJS9eeMPI/4e/YxqSnsah4g9bujTt1F49R/VRs=;
- b=e/V2lxptSnDWfNKwtpo+yxhqSAbyC7FzS+dWZ11B1KuJZ/yFsBl5lDmf
- qHBXWhau6AwTt0lV5dJfYLvfaT9WgLJTze9A4qqCuXdFxJY3B3/+EoX08
- 3ENmrBZSrzxYH1MStf+086sD28fSA30rfyuM75R3a0vaZz+s+eBcqRtcn
- h4nysTNKMLsxx37oGCMBTV/KvOIXfYjHbvdtm0cofnMdCEGXLVGz4ynDC
- cAyGeIw7MPO5BjdhroUcJrDSjN7wJGDcDyFHGXpqS+KO95piuHeprD2ut
- vg00Gc6fe0UwZ4HjlqS6gmb0LDt0gH+tLXWOlME7l68Vk9OMkqOX5LYRI g==;
-X-CSE-ConnectionGUID: USEpj/uETyCd9wFrhFjvJg==
-X-CSE-MsgGUID: hWaBRgaLRh6CamFXOhrpJg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11185"; a="24391714"
-X-IronPort-AV: E=Sophos;i="6.10,204,1719903600"; d="scan'208";a="24391714"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2024 02:33:54 -0700
-X-CSE-ConnectionGUID: IseAvhKQRnCl3r9Dcc7XXw==
-X-CSE-MsgGUID: 4iEs858fT+mWQcuwJZWEJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,204,1719903600"; d="scan'208";a="96354397"
-Received: from unknown (HELO fedora..) ([10.245.245.247])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2024 02:33:51 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Zack Rusin <zack.rusin@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Sui Jingfeng <suijingfeng@loongson.cn>
-Subject: [PATCH 2/2] drm/ttm: Add a device flag to propagate -ENOSPC on OOM
-Date: Thu,  5 Sep 2024 11:33:22 +0200
-Message-ID: <20240905093322.29786-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240905093322.29786-1-thomas.hellstrom@linux.intel.com>
-References: <20240905093322.29786-1-thomas.hellstrom@linux.intel.com>
+Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
+ [209.85.219.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9872E10E3C6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Sep 2024 23:20:05 +0000 (UTC)
+Received: by mail-yb1-f171.google.com with SMTP id
+ 3f1490d57ef6-e1ce8a675f7so1028425276.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Sep 2024 16:20:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725319204; x=1725924004; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=9kMpMnZNN8xeF/Kd0n+gc33N/RD8m1Vri7joRo6FyEQ=;
+ b=GCAAhcusUoSUMUEdJKkyhhYFEQeDDK4UBYrYBPeSngCsmBb7Wy/DKcGSjSck3HjO8o
+ QX/UZJGNWo3J3s+qfZ2ciG986MEIxzvy3nifW3WjR1YRWL21c+LqOTKzEayaVwBYTJYU
+ tDzDElmSBsF8gUx29xljy8XddUpUJ0hWqzgveuJlwo9gjzFHIzzbDdPzx49r+jT9AI1g
+ ridMoVQFdqzkzuCLbztQBVOfIVKKrba/qXlTg+7eYHcU8GxhMbklETjNquWjyK8XqRfN
+ 6vIbuds38qJZnxHU8GToTLnlnP51RDVLgv5ZhsU5UuCdxXFAoaYtW8fEu4mzUD2TxNNx
+ CfAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725319204; x=1725924004;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9kMpMnZNN8xeF/Kd0n+gc33N/RD8m1Vri7joRo6FyEQ=;
+ b=LwSvDDvAZ3wmT+b92RYipPIDAydJLedAUPFEEy7ZrsjwrU09XiPkrHNopq+aE3ZfsM
+ FGPZrVU3t6pNWICtA7WUSKvIs7RR96SE49l3vpdxVRWUren12PrdkioN4/t7DCmHgMxR
+ j27TD19UAC5QZ4AjGk8BnBlWyU+5zrZJmxtKJDd8kclb5IfeYkW/Vvyv56EnCyUU2Y79
+ Uq5yvYC+66jFIHOBYcv+p5sIUrocxBJK0rkDjP+YyLJZgdRt6k72KODXgdPo4GCTc6NZ
+ JIlCkbZ9qWxygZ0BUhOdXWIxnCoPVGbiioanoM0qZXv4QeSTyJZ+6SX2OOz/wU1Rbp6x
+ cPyA==
+X-Gm-Message-State: AOJu0YxCnUs+xF4Vow73iX9dVWuJAkLhTcwkP+nsRV4Cl1RYJR6yp/aC
+ NCWrH5mmksfBP6bcVMmZ/pmvsg+hYE38X0DOssKzIzDyt5B7YoFAb6exJue7KnfnfOPyrfB9c7+
+ 6CQWmSJCv8aRTDm7/HEehGkq7AVOnfg5B
+X-Google-Smtp-Source: AGHT+IFyAcbXTf/zcRfdZwwBEslSgTQO0kdq4jkyF8GprPtcsI9fmcEfA7D6/XR2jjmLfILlrcKo1tnOv1H7JacVNQk=
+X-Received: by 2002:a05:6902:c03:b0:e0b:c297:8a1c with SMTP id
+ 3f1490d57ef6-e1a79fdc00emr14865502276.15.1725319204134; Mon, 02 Sep 2024
+ 16:20:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: __- -__ <isapgswell@gmail.com>
+Date: Mon, 2 Sep 2024 20:19:51 -0300
+Message-ID: <CAN9WMdOgytm9pMdne625bHEpD5DbpghKE047m1cvSJKaqR=L1A@mail.gmail.com>
+Subject: [INFO] bad desktop experience, external monitor attached
+ nvidia-optimus-enhanced gpu
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000496b1306212b2eae"
 X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,78 +71,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some graphics APIs differentiate between out-of-graphics-memory and
-out-of-host-memory (system memory). Add a device init flag to
-have -ENOSPC propagated from the resource managers instead of being
-converted to -ENOMEM, to aid driver stacks in determining what
-error code to return or whether corrective action can be taken at
-the driver level.
+--000000000000496b1306212b2eae
+Content-Type: text/plain; charset="UTF-8"
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c     |  2 +-
- drivers/gpu/drm/ttm/ttm_device.c |  1 +
- include/drm/ttm/ttm_device.h     | 13 +++++++++++++
- 3 files changed, 15 insertions(+), 1 deletion(-)
+Hi,
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 320592435252..c4bec2ad301b 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -835,7 +835,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- 
- 	/* For backward compatibility with userspace */
- 	if (ret == -ENOSPC)
--		return -ENOMEM;
-+		return bo->bdev->propagate_enospc ? ret : -ENOMEM;
- 
- 	/*
- 	 * We might need to add a TTM.
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index 0c85d10e5e0b..aee9d52d745b 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -203,6 +203,7 @@ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *func
- 	}
- 
- 	bdev->funcs = funcs;
-+	bdev->propagate_enospc = flags.propagate_enospc;
- 
- 	ttm_sys_man_init(bdev);
- 
-diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
-index 1534bd946c78..f9da78bbd925 100644
---- a/include/drm/ttm/ttm_device.h
-+++ b/include/drm/ttm/ttm_device.h
-@@ -266,6 +266,13 @@ struct ttm_device {
- 	 * @wq: Work queue structure for the delayed delete workqueue.
- 	 */
- 	struct workqueue_struct *wq;
-+
-+	/**
-+	 * @propagate_enospc: Whether -ENOSPC should be propagated to the caller after
-+	 * graphics memory allocation failure. If false, this will be converted to
-+	 * -ENOMEM, which is the default behaviour.
-+	 */
-+	bool propagate_enospc;
- };
- 
- int ttm_global_swapout(struct ttm_operation_ctx *ctx, gfp_t gfp_flags);
-@@ -295,6 +302,12 @@ struct ttm_device_init_flags {
- 	u32 use_dma_alloc : 1;
- 	/** @use_dma32: If we should use GFP_DMA32 for device memory allocations. */
- 	u32 use_dma32 : 1;
-+	/**
-+	 * @propagate_enospc: Whether -ENOSPC should be propagated to the caller after
-+	 * graphics memory allocation failure. If false, this will be converted to
-+	 * -ENOMEM, which is the default behaviour.
-+	 */
-+	u32 propagate_enospc : 1;
- };
- 
- int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *funcs,
--- 
-2.46.0
+This issue has a workaround.
 
+put into /etc/environment
+LIBGL_DRI3_DISABLE=1
+
+Above envar force use of egl_dri2 defaults
+
+According to https://docs.mesa3d.org/egl.html
+
+Maybe it is a race condition with default MESA_LOADER.
+
+What is the relation between iris and egl_dri2????
+
+Both running is a good strategy??
+
+Please investigate this performance issue ( i think this do not impact 3D
+accelerated gammig perf )
+
+Thx
+
+Luiz
+
+--000000000000496b1306212b2eae
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>This issue has a workaro=
+und.</div><div><br></div><div>put into /etc/environment</div><div>LIBGL_DRI=
+3_DISABLE=3D1</div><div><br></div><div>Above envar force use of egl_dri2 de=
+faults<br></div><div><br></div><div>According to=C2=A0<a href=3D"https://do=
+cs.mesa3d.org/egl.html" target=3D"_blank">https://docs.mesa3d.org/egl.html<=
+/a></div><div><br></div><div>Maybe it is a race condition with default MESA=
+_LOADER.<br></div><div><br></div><div>What is the relation between iris and=
+ egl_dri2????</div><div><br></div><div>Both running is a good strategy??</d=
+iv><div><br></div><div>Please investigate this performance issue ( i think =
+this do not impact 3D accelerated gammig perf )<br></div><div><br></div><di=
+v>Thx <br></div><div><br></div><div>Luiz</div></div>
+
+--000000000000496b1306212b2eae--
