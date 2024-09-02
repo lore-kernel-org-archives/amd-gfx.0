@@ -4,66 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 577A8CD342C
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 15:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F223CA0ED3
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 15:44:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18CC010E33D;
-	Mon,  2 Sep 2024 15:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1E1610E338;
+	Mon,  2 Sep 2024 15:44:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JwRT39IX";
+	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="PxhobTo3";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F10A310E2F2;
- Mon,  2 Sep 2024 13:57:27 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a866cea40c4so488761166b.0; 
- Mon, 02 Sep 2024 06:57:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725285446; x=1725890246; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=BV+O7M8oULfIhJRN2lRrBn6twXcR7F/jAfDi0cilw7U=;
- b=JwRT39IXm87iPbIgGgvVI3azwXgCGtCW3evCSEQDojwv6GJeLsOzVU5EEq+2T5zz6c
- 9V7mHV7tfcCgtvq1zrt/+ExybknO8hbxh0Pl958ixtXF7hzpVhewXlFwLUlnFfmtxPk4
- TgHUxmZy8tRMpz9VspUVf/HAsjavzGdM9RzFvNXa489RN/GZ3As8E8QDiVnJT7ksL5yU
- lcS0Q6Z9EotrBg1YqDwZqxeyh+D8bvMMbGzTScCGiaonIGmE+8ipYI2qrcD50e1EY27x
- AHTG5BZ9TWxOgve8rX1HgMLtiJ0j/nABcRSiidGIRB+OUEYVSLbAncvufq/Cgli+50OE
- RyXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725285446; x=1725890246;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BV+O7M8oULfIhJRN2lRrBn6twXcR7F/jAfDi0cilw7U=;
- b=BHM7mR+4W+qVKqM+OhGeTf1gc6kLhCU5bkc+dE5/nos3slEOHaPvemg2uXCJGr7N1k
- Uk0U/ECXcL5ddjQnTUJdg+9vx4NpRzD2dpA0BWqDIiVX7elqfiEP4RRXpmS08YdiPCN5
- rGw3n0S+yxv/QHkw9SsBxgj/1EsIumqg4Ut9RXgS9UEh4D/nAjiKpGMs8qWkkhbqqzD0
- 6XgBphzkYgkZJtyfDhGjQfzamLStT1kiDFbLLBQGeieJApEKkHMTjPC/TSfhHeuBexq5
- 8pVN/JPzFk2WTf8ZMolppkGaXh/xVOMVPgdE6KI1mb9TRffdauzXDZvViV8jEoC+3FFm
- sfEQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYvBK4eQEaTfmZnZbyc0CZIVEYi2+OPRh9gd4YnrN4QOtWsRjvn1M9JEeN6vNplPeLygergt5P@lists.freedesktop.org,
- AJvYcCWCn2KiMiZ0HFBuj/QhqYYYbXCnsVIfpSiIxrmkHDBNVyoDV1zp2gtZgX6kDlPiOM0577rgr/5jn3w+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2w3qkyQAfVqEovbVT9YZrQkQ6i/vA8rqOenJyRZljf9ejBfwB
- GmINDplWKdhK6FTeO7IWW3/T+l73QK/OPgSJ8VRSHWXhnHHsnisSkRPxFeA0j/bxtYbJ0cFMcI6
- 8X0aRnh2bZoIPTBJuJuU+Y9fr34s=
-X-Google-Smtp-Source: AGHT+IEgsUizls4YV3Wz076LNPYJRwRrkEPhUgnLUD7VssH9O4VKzpHO4F6UKh+5du6yth3Z4gIE/sPONdQg7n4AuTA=
-X-Received: by 2002:a17:907:980f:b0:a86:7af3:8299 with SMTP id
- a640c23a62f3a-a8a1d2c8675mr18489666b.25.1725285445670; Mon, 02 Sep 2024
- 06:57:25 -0700 (PDT)
+Received: from smtp2.math.uni-bielefeld.de (smtp2.math.uni-bielefeld.de
+ [129.70.45.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E929D10E27A;
+ Mon,  2 Sep 2024 09:42:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=math.uni-bielefeld.de; s=default; t=1725270163;
+ bh=OlHUmE2mWnpkfcvXYamxHN5q0GeOY6PdRc6d9KkwM28=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PxhobTo34c9OgoeDCdYgmwTNIlFUqpQKQOEl5R38TVuQv6lAQOLtWcgesSMA5mqK3
+ /Pcll18vAVcyeKzuD2cegIT/of0J1un6UNsMsnozrwQ/XRC6PFovPmhRi44ktLpQJC
+ 0/ci/Idbi5rtewd/c3+g44D5Ee6g7Y+ahRF/+okViVJo2YrdX2DLeKcOYkWUkglAIo
+ zTERcuBa0RgZzInmUWcj37oE7pcUQDBK3YCAYyGbDragDLGzP+CmhoqM4NafskuFR2
+ Ax0GGBc0wjpSmsgSx5W3XOu9EAzH3BQhXeHzEwDK7/cc2owFWRCeO4xT4XFBZSO/Cw
+ F2oTmHvU4RvzA==
+Received: from localhost (dslb-088-074-203-146.088.074.pools.vodafone-ip.de
+ [88.74.203.146])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ by smtp2.math.uni-bielefeld.de (Postfix) with ESMTPSA id 7603B2098B;
+ Mon,  2 Sep 2024 11:42:43 +0200 (CEST)
+From: tjakobi@math.uni-bielefeld.de
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] drm/amd/display: Avoid race between dcn35_set_drr() and
+ dc_state_destruct()
+Date: Mon,  2 Sep 2024 11:40:27 +0200
+Message-ID: <fd879fd0595e9e7e47c3442da10a5aede21bf895.1725269643.git.tjakobi@math.uni-bielefeld.de>
+X-Mailer: git-send-email 2.44.2
+In-Reply-To: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
+References: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
 MIME-Version: 1.0
-From: =?UTF-8?Q?Raoul_van_R=C3=BCschen?= <raoul.van.rueschen@gmail.com>
-Date: Mon, 2 Sep 2024 15:57:14 +0200
-Message-ID: <CACsO7R=UU7Y6wdSFsUbKzhERjz+OwEqA+NaC+P=poepbP5QeMA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Avoid race between dcn10_set_drr()
- and dc_state_destruct()
-To: tjakobi@math.uni-bielefeld.de
-Cc: Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, linux-kernel@vger.kernel.org, 
- mario.limonciello@amd.com, sunpeng.li@amd.com
-Content-Type: multipart/alternative; boundary="0000000000002025b8062123520b"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 02 Sep 2024 15:44:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,194 +68,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000002025b8062123520b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 
-> From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
->
-> dc_state_destruct() nulls the resource context of the DC state. The
-> pipe
-> context passed to dcn10_set_drr() is a member of this resource
-> context.
->
-> If dc_state_destruct() is called parallel to the IRQ processing
-> (which
-> calls dcn10_set_drr() at some point), we can end up using already
-> nulled
-> function callback fields of struct stream_resource.
->
-> The logic in dcn10_set_drr() already tries to avoid this, by checking
-> tg
-> against NULL. But if the nulling happens exactly after the NULL check
-> and
-> before the next access, then we get a race.
->
-> Avoid this by copying tg first to a local variable, and then use this
-> variable for all the operations. This should work, as long as nobody
-> frees the resource pool where the timing generators live.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
-> Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while
-> keeping DML and DML2")
-> Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-> ---
->  .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 20 +++++++++++------
-> --
->  1 file changed, 12 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> index 3306684e805a..da8f2cb3c5db 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> @@ -3223,15 +3223,19 @@ void dcn10_set_drr(struct pipe_ctx
-> **pipe_ctx,
->  	 * as well.
->  	 */
->  	for (i =3D 0; i < num_pipes; i++) {
-> -		if ((pipe_ctx[i]->stream_res.tg !=3D NULL) &&
-> pipe_ctx[i]->stream_res.tg->funcs) {
-> -			if (pipe_ctx[i]->stream_res.tg->funcs-
-> >set_drr)
-> -				pipe_ctx[i]->stream_res.tg->funcs-
-> >set_drr(
-> -					pipe_ctx[i]->stream_res.tg,
-> &params);
-> +		/* dc_state_destruct() might null the stream
-> resources, so fetch tg
-> +		 * here first to avoid a race condition. The
-> lifetime of the pointee
-> +		 * itself (the timing_generator object) is not a
-> problem here.
-> +		 */
-> +		struct timing_generator *tg =3D pipe_ctx[i]-
-> >stream_res.tg;
-> +
-> +		if ((tg !=3D NULL) && tg->funcs) {
-> +			if (tg->funcs->set_drr)
-> +				tg->funcs->set_drr(tg, &params);
->  			if (adjust.v_total_max !=3D 0 &&
-> adjust.v_total_min !=3D 0)
-> -				if (pipe_ctx[i]->stream_res.tg-
-> >funcs->set_static_screen_control)
-> -					pipe_ctx[i]->stream_res.tg-
-> >funcs->set_static_screen_control(
-> -						pipe_ctx[i]-
-> >stream_res.tg,
-> -						event_triggers,
-> num_frames);
-> +				if (tg->funcs-
-> >set_static_screen_control)
-> +					tg->funcs-
-> >set_static_screen_control(
-> +						tg, event_triggers,
-> num_frames);
->  		}
->  	}
->  }
+dc_state_destruct() nulls the resource context of the DC state. The pipe
+context passed to dcn35_set_drr() is a member of this resource context.
 
-This fixes full system freezes when taking screenshots at low
-framerates with VRR enabled on an RX 7900 XTX.
+If dc_state_destruct() is called parallel to the IRQ processing (which
+calls dcn35_set_drr() at some point), we can end up using already nulled
+function callback fields of struct stream_resource.
 
-Tested-by: Raoul van R=C3=BCschen <raoul.van.rueschen@gmail.com>
+The logic in dcn35_set_drr() already tries to avoid this, by checking tg
+against NULL. But if the nulling happens exactly after the NULL check and
+before the next access, then we get a race.
 
---0000000000002025b8062123520b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Avoid this by copying tg first to a local variable, and then use this
+variable for all the operations. This should work, as long as nobody
+frees the resource pool where the timing generators live.
 
-<div dir=3D"ltr"><div><br></div><div><pre><span class=3D"gmail-q">&gt; From=
-: Tobias Jakobi &lt;<a href=3D"mailto:tjakobi@math.uni-bielefeld.de">tjakob=
-i@math.uni-bielefeld.de</a>&gt;
-&gt;=20
-&gt; dc_state_destruct() nulls the resource context of the DC state. The
-&gt; pipe
-&gt; context passed to dcn10_set_drr() is a member of this resource
-&gt; context.
-&gt;=20
-&gt; If dc_state_destruct() is called parallel to the IRQ processing
-&gt; (which
-&gt; calls dcn10_set_drr() at some point), we can end up using already
-&gt; nulled
-&gt; function callback fields of struct stream_resource.
-&gt;=20
-&gt; The logic in dcn10_set_drr() already tries to avoid this, by checking
-&gt; tg
-&gt; against NULL. But if the nulling happens exactly after the NULL check
-&gt; and
-&gt; before the next access, then we get a race.
-&gt;=20
-&gt; Avoid this by copying tg first to a local variable, and then use this
-&gt; variable for all the operations. This should work, as long as nobody
-&gt; frees the resource pool where the timing generators live.
-&gt;=20
-&gt; Closes: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/314=
-2">https://gitlab.freedesktop.org/drm/amd/-/issues/3142</a>
-&gt; Fixes: 06ad7e164256 (&quot;drm/amd/display: Destroy DC context while
-&gt; keeping DML and DML2&quot;)
-&gt; Signed-off-by: Tobias Jakobi &lt;<a href=3D"mailto:tjakobi@math.uni-bi=
-elefeld.de">tjakobi@math.uni-bielefeld.de</a>&gt;
-&gt; ---
-&gt; =C2=A0.../amd/display/dc/hwss/dcn10/dcn10_hwseq.c=C2=A0=C2=A0 | 20 +++=
-++++++++------
-&gt; --
-&gt; =C2=A01 file changed, 12 insertions(+), 8 deletions(-)
-&gt;=20
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-&gt; b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-&gt; index 3306684e805a..da8f2cb3c5db 100644
-&gt; --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-&gt; @@ -3223,15 +3223,19 @@ void dcn10_set_drr(struct pipe_ctx
-&gt; **pipe_ctx,
-&gt; =C2=A0	 * as well.
-&gt; =C2=A0	 */
-&gt; =C2=A0	for (i =3D 0; i &lt; num_pipes; i++) {
-&gt; -		if ((pipe_ctx[i]-&gt;<a href=3D"http://stream_res.tg">stream_res.tg=
-</a> !=3D NULL) &amp;&amp;
-&gt; pipe_ctx[i]-&gt;stream_res.tg-&gt;funcs) {
-&gt; -			if (pipe_ctx[i]-&gt;stream_res.tg-&gt;funcs-
-&gt; &gt;set_drr)
-&gt; -				pipe_ctx[i]-&gt;stream_res.tg-&gt;funcs-
-&gt; &gt;set_drr(
-&gt; -					pipe_ctx[i]-&gt;<a href=3D"http://stream_res.tg">stream_res.tg</=
-a>,
-&gt; &amp;params);
-&gt; +		/* dc_state_destruct() might null the stream
-&gt; resources, so fetch tg
-&gt; +		 * here first to avoid a race condition. The
-&gt; lifetime of the pointee
-&gt; +		 * itself (the timing_generator object) is not a
-&gt; problem here.
-&gt; +		 */
-&gt; +		struct timing_generator *tg =3D pipe_ctx[i]-
-&gt; &gt;<a href=3D"http://stream_res.tg">stream_res.tg</a>;
-&gt; +
-&gt; +		if ((tg !=3D NULL) &amp;&amp; tg-&gt;funcs) {
-&gt; +			if (tg-&gt;funcs-&gt;set_drr)
-&gt; +				tg-&gt;funcs-&gt;set_drr(tg, &amp;params);
-&gt; =C2=A0			if (adjust.v_total_max !=3D 0 &amp;&amp;
-&gt; adjust.v_total_min !=3D 0)
-&gt; -				if (pipe_ctx[i]-&gt;stream_res.tg-
-&gt; &gt;funcs-&gt;set_static_screen_control)
-&gt; -					pipe_ctx[i]-&gt;stream_res.tg-
-&gt; &gt;funcs-&gt;set_static_screen_control(
-&gt; -						pipe_ctx[i]-
-&gt; &gt;<a href=3D"http://stream_res.tg">stream_res.tg</a>,
-&gt; -						event_triggers,
-&gt; num_frames);
-&gt; +				if (tg-&gt;funcs-
-&gt; &gt;set_static_screen_control)
-&gt; +					tg-&gt;funcs-
-&gt; &gt;set_static_screen_control(
-&gt; +						tg, event_triggers,
-&gt; num_frames);
-&gt; =C2=A0		}
-&gt; =C2=A0	}
-&gt; =C2=A0}<br><br></span></pre><pre><span class=3D"gmail-q">This fixes fu=
-ll system freezes when taking screenshots at low framerates with VRR enable=
-d on an RX 7900 XTX.<br></span><br>Tested-by: Raoul van R=C3=BCschen &lt;<a=
- href=3D"mailto:raoul.van.rueschen@gmail.com">raoul.van.rueschen@gmail.com<=
-/a>&gt;</pre></div></div>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
+Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while keeping DML and DML2")
+Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+---
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
---0000000000002025b8062123520b--
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+index dcced89c07b3..4e77728dac10 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+@@ -1370,7 +1370,13 @@ void dcn35_set_drr(struct pipe_ctx **pipe_ctx,
+ 	params.vertical_total_mid_frame_num = adjust.v_total_mid_frame_num;
+ 
+ 	for (i = 0; i < num_pipes; i++) {
+-		if ((pipe_ctx[i]->stream_res.tg != NULL) && pipe_ctx[i]->stream_res.tg->funcs) {
++		/* dc_state_destruct() might null the stream resources, so fetch tg
++		 * here first to avoid a race condition. The lifetime of the pointee
++		 * itself (the timing_generator object) is not a problem here.
++		 */
++		struct timing_generator *tg = pipe_ctx[i]->stream_res.tg;
++
++		if ((tg != NULL) && tg->funcs) {
+ 			struct dc_crtc_timing *timing = &pipe_ctx[i]->stream->timing;
+ 			struct dc *dc = pipe_ctx[i]->stream->ctx->dc;
+ 
+@@ -1383,14 +1389,12 @@ void dcn35_set_drr(struct pipe_ctx **pipe_ctx,
+ 					num_frames = 2 * (frame_rate % 60);
+ 				}
+ 			}
+-			if (pipe_ctx[i]->stream_res.tg->funcs->set_drr)
+-				pipe_ctx[i]->stream_res.tg->funcs->set_drr(
+-					pipe_ctx[i]->stream_res.tg, &params);
++			if (tg->funcs->set_drr)
++				tg->funcs->set_drr(tg, &params);
+ 			if (adjust.v_total_max != 0 && adjust.v_total_min != 0)
+-				if (pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control)
+-					pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control(
+-						pipe_ctx[i]->stream_res.tg,
+-						event_triggers, num_frames);
++				if (tg->funcs->set_static_screen_control)
++					tg->funcs->set_static_screen_control(
++						tg, event_triggers, num_frames);
+ 		}
+ 	}
+ }
+-- 
+2.44.2
+
