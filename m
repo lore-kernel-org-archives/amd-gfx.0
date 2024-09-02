@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F223CA0ED3
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 15:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C279CD13CF
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 15:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1E1610E338;
-	Mon,  2 Sep 2024 15:44:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3FC10E33E;
+	Mon,  2 Sep 2024 15:44:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="PxhobTo3";
+	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="eG7RNFJf";
 	dkim-atps=neutral
 Received: from smtp2.math.uni-bielefeld.de (smtp2.math.uni-bielefeld.de
  [129.70.45.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E929D10E27A;
- Mon,  2 Sep 2024 09:42:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7FF10E279;
+ Mon,  2 Sep 2024 09:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=math.uni-bielefeld.de; s=default; t=1725270163;
- bh=OlHUmE2mWnpkfcvXYamxHN5q0GeOY6PdRc6d9KkwM28=;
+ d=math.uni-bielefeld.de; s=default; t=1725270082;
+ bh=+zKyfDeG1O93W2ZvWeGRXFBv0Meg5VnoIPBsky28Bpg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PxhobTo34c9OgoeDCdYgmwTNIlFUqpQKQOEl5R38TVuQv6lAQOLtWcgesSMA5mqK3
- /Pcll18vAVcyeKzuD2cegIT/of0J1un6UNsMsnozrwQ/XRC6PFovPmhRi44ktLpQJC
- 0/ci/Idbi5rtewd/c3+g44D5Ee6g7Y+ahRF/+okViVJo2YrdX2DLeKcOYkWUkglAIo
- zTERcuBa0RgZzInmUWcj37oE7pcUQDBK3YCAYyGbDragDLGzP+CmhoqM4NafskuFR2
- Ax0GGBc0wjpSmsgSx5W3XOu9EAzH3BQhXeHzEwDK7/cc2owFWRCeO4xT4XFBZSO/Cw
- F2oTmHvU4RvzA==
+ b=eG7RNFJfRcvxTzXfiBR69eBsQBRQpchcrbMGUvo7uolU4X4ENc9XiqQUU/QU8UBuq
+ PZ40uwkYSb3qM8MxqTSUoAA+EybrFX4fUhzCpxDgTKMt9VXl+qaWOaChiOUeBKWCeH
+ krdHfGdRFKfMJm24J15ZC1ophquN/uXLsOfN/UbF4JYPM+qv64GQr4m8FLB+RGu14D
+ YUNr/AMrIHtruT2UlH3OmBTpQ8ZtguwabV6UNgjD5fewzmCBYnO8xe1DWL+y2VveB8
+ QBPihzqzlSOwtAZqih89mVVCfQ2vjfFfoTx3upaZnHYQaEgddIM6DPwbRIlxQWD/Ld
+ S/a9wc9B04oWA==
 Received: from localhost (dslb-088-074-203-146.088.074.pools.vodafone-ip.de
  [88.74.203.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (Client did not present a certificate)
- by smtp2.math.uni-bielefeld.de (Postfix) with ESMTPSA id 7603B2098B;
- Mon,  2 Sep 2024 11:42:43 +0200 (CEST)
+ by smtp2.math.uni-bielefeld.de (Postfix) with ESMTPSA id 4CB9B206F4;
+ Mon,  2 Sep 2024 11:41:22 +0200 (CEST)
 From: tjakobi@math.uni-bielefeld.de
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
@@ -44,10 +44,10 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/amd/display: Avoid race between dcn35_set_drr() and
+Subject: [PATCH 1/2] drm/amd/display: Avoid race between dcn10_set_drr() and
  dc_state_destruct()
-Date: Mon,  2 Sep 2024 11:40:27 +0200
-Message-ID: <fd879fd0595e9e7e47c3442da10a5aede21bf895.1725269643.git.tjakobi@math.uni-bielefeld.de>
+Date: Mon,  2 Sep 2024 11:40:26 +0200
+Message-ID: <7b9dbbbb1e6a3aa6d7a4d9367d44d18ddd947158.1725269643.git.tjakobi@math.uni-bielefeld.de>
 X-Mailer: git-send-email 2.44.2
 In-Reply-To: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
 References: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
@@ -71,13 +71,13 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 
 dc_state_destruct() nulls the resource context of the DC state. The pipe
-context passed to dcn35_set_drr() is a member of this resource context.
+context passed to dcn10_set_drr() is a member of this resource context.
 
 If dc_state_destruct() is called parallel to the IRQ processing (which
-calls dcn35_set_drr() at some point), we can end up using already nulled
+calls dcn10_set_drr() at some point), we can end up using already nulled
 function callback fields of struct stream_resource.
 
-The logic in dcn35_set_drr() already tries to avoid this, by checking tg
+The logic in dcn10_set_drr() already tries to avoid this, by checking tg
 against NULL. But if the nulling happens exactly after the NULL check and
 before the next access, then we get a race.
 
@@ -89,18 +89,21 @@ Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
 Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while keeping DML and DML2")
 Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 ---
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 20 +++++++++++--------
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 20 +++++++++++--------
  1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index dcced89c07b3..4e77728dac10 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -1370,7 +1370,13 @@ void dcn35_set_drr(struct pipe_ctx **pipe_ctx,
- 	params.vertical_total_mid_frame_num = adjust.v_total_mid_frame_num;
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index 3306684e805a..da8f2cb3c5db 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -3223,15 +3223,19 @@ void dcn10_set_drr(struct pipe_ctx **pipe_ctx,
+ 	 * as well.
+ 	 */
  	for (i = 0; i < num_pipes; i++) {
 -		if ((pipe_ctx[i]->stream_res.tg != NULL) && pipe_ctx[i]->stream_res.tg->funcs) {
+-			if (pipe_ctx[i]->stream_res.tg->funcs->set_drr)
+-				pipe_ctx[i]->stream_res.tg->funcs->set_drr(
+-					pipe_ctx[i]->stream_res.tg, &params);
 +		/* dc_state_destruct() might null the stream resources, so fetch tg
 +		 * here first to avoid a race condition. The lifetime of the pointee
 +		 * itself (the timing_generator object) is not a problem here.
@@ -108,16 +111,6 @@ index dcced89c07b3..4e77728dac10 100644
 +		struct timing_generator *tg = pipe_ctx[i]->stream_res.tg;
 +
 +		if ((tg != NULL) && tg->funcs) {
- 			struct dc_crtc_timing *timing = &pipe_ctx[i]->stream->timing;
- 			struct dc *dc = pipe_ctx[i]->stream->ctx->dc;
- 
-@@ -1383,14 +1389,12 @@ void dcn35_set_drr(struct pipe_ctx **pipe_ctx,
- 					num_frames = 2 * (frame_rate % 60);
- 				}
- 			}
--			if (pipe_ctx[i]->stream_res.tg->funcs->set_drr)
--				pipe_ctx[i]->stream_res.tg->funcs->set_drr(
--					pipe_ctx[i]->stream_res.tg, &params);
 +			if (tg->funcs->set_drr)
 +				tg->funcs->set_drr(tg, &params);
  			if (adjust.v_total_max != 0 && adjust.v_total_min != 0)
