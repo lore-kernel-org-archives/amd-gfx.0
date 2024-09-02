@@ -4,56 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C279CD13CF
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 15:44:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B669DCA0ED3
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 17:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3FC10E33E;
-	Mon,  2 Sep 2024 15:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39E4A10E387;
+	Mon,  2 Sep 2024 17:41:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="eG7RNFJf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ST/cykna";
 	dkim-atps=neutral
-Received: from smtp2.math.uni-bielefeld.de (smtp2.math.uni-bielefeld.de
- [129.70.45.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7FF10E279;
- Mon,  2 Sep 2024 09:41:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=math.uni-bielefeld.de; s=default; t=1725270082;
- bh=+zKyfDeG1O93W2ZvWeGRXFBv0Meg5VnoIPBsky28Bpg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eG7RNFJfRcvxTzXfiBR69eBsQBRQpchcrbMGUvo7uolU4X4ENc9XiqQUU/QU8UBuq
- PZ40uwkYSb3qM8MxqTSUoAA+EybrFX4fUhzCpxDgTKMt9VXl+qaWOaChiOUeBKWCeH
- krdHfGdRFKfMJm24J15ZC1ophquN/uXLsOfN/UbF4JYPM+qv64GQr4m8FLB+RGu14D
- YUNr/AMrIHtruT2UlH3OmBTpQ8ZtguwabV6UNgjD5fewzmCBYnO8xe1DWL+y2VveB8
- QBPihzqzlSOwtAZqih89mVVCfQ2vjfFfoTx3upaZnHYQaEgddIM6DPwbRIlxQWD/Ld
- S/a9wc9B04oWA==
-Received: from localhost (dslb-088-074-203-146.088.074.pools.vodafone-ip.de
- [88.74.203.146])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (Client did not present a certificate)
- by smtp2.math.uni-bielefeld.de (Postfix) with ESMTPSA id 4CB9B206F4;
- Mon,  2 Sep 2024 11:41:22 +0200 (CEST)
-From: tjakobi@math.uni-bielefeld.de
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/amd/display: Avoid race between dcn10_set_drr() and
- dc_state_destruct()
-Date: Mon,  2 Sep 2024 11:40:26 +0200
-Message-ID: <7b9dbbbb1e6a3aa6d7a4d9367d44d18ddd947158.1725269643.git.tjakobi@math.uni-bielefeld.de>
-X-Mailer: git-send-email 2.44.2
-In-Reply-To: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
-References: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCA5310E387;
+ Mon,  2 Sep 2024 17:41:41 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-72703dd2b86so552737a12.1; 
+ Mon, 02 Sep 2024 10:41:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725298901; x=1725903701; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=p+wNgYxU7oLzYD3y0Bt7MyKXymsVh78qZSxkiBUsM4A=;
+ b=ST/cyknaVfyG3PAYjJcN+NayCvvZ1/BiqMW00NYtjwFd57JNsolGTQaYQEt+uKV401
+ WySxh6pfnS87ZmwaO3JhI/ifIcDaeEyoqbtMPXuyfgftevZbSPnb5hVdC38p+JrAnBBU
+ 5dTFBsJ8Ud0kClqC0gw5z9VLKkTZF1Q8DRGNlfW9RWFb/g/qHT/WRar3Mk7HqhFLvJ6+
+ 4e80C6kuVmMGzEr2HZlg2h1pFtUKRtGEVWAfiEPPQNIcUyPejI4hHjm/gsxZ4Mqwdx89
+ Bt+C6MIycdo+S53l6xhQzmITeyabMtvdLBbse09mnOYMv0bZ6GSCJ0adSNacMsyHdczW
+ W0AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725298901; x=1725903701;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=p+wNgYxU7oLzYD3y0Bt7MyKXymsVh78qZSxkiBUsM4A=;
+ b=vbyOk0Qa/2Ol4YhZpivxGhl7wUuKyOwvSCoGoEwSWXDMoUYFgGgy8DrNy+IGG/60lZ
+ 79tsE9P8dJIOtGigveLRdT5iROs3HPaKSk0BMS93SFoCa7Kxg7/B9p5vs/vPjXJFAxXI
+ ZKMaj6rosJ9GobDRc8CqDLoimLWlvsm/iByv2NimYU4S7KKxNCx+4faOWME+8/nCfmub
+ 5u/8JaOuzjtkE00fT/jARMZ8Sa4kr58qno9G/gy1fDQrH4l7Emrb3feBD8B7zauKoAeM
+ WOKbRXuA3+MK+sAXIMElTc2M1V/EFmkQS98AW+/AhpTZnpBTWHXmmy/RV732pgmWxO2Y
+ mJFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU9u529jGhjP1vkwaV3a59I/cCNiMQWnmZEgP/SWgXJlLwy7vKUVvSGwnFdPFN4/0URyL66Tgls6cql@lists.freedesktop.org,
+ AJvYcCVxWIR8tPm1OaCr4KT6QuKxMBxMsLcVJ8bSyxOzZS2nMDMRdcCWWQO/B1YwCPmNRW17ux8bVyTN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzr5B/FKxu+jfbpYZXUiES6eG//FSMjlVMK31CDCew41gKTatat
+ CpqcyDtFC2yLYa4Luz+JOgN+mG6pazCTeCOpHFaWt0euu9B2PSWPLfbsOtC0QU/hsZs4NHdUXnj
+ GbMcrTtV6xelhLuBsFwk/NlEUtYtInQ==
+X-Google-Smtp-Source: AGHT+IGkg12Pi/6mf66io9D4Xdsd85fJlC6soRLCamM5arxcv6bY2hHX75vh/HfsgiJ/ZJ20leY3s+4dgW2u7NweAM8=
+X-Received: by 2002:a17:903:2346:b0:205:938b:f387 with SMTP id
+ d9443c01a7336-205938bf846mr10502095ad.8.1725298901041; Mon, 02 Sep 2024
+ 10:41:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 02 Sep 2024 15:44:22 +0000
+References: <20240828093250.271358-1-colin.i.king@gmail.com>
+In-Reply-To: <20240828093250.271358-1-colin.i.king@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Sep 2024 13:41:29 -0400
+Message-ID: <CADnq5_MJYokqxKs+TJz5-ut-Gsy_SxP79g9Xr-hQxkJAb-86yA@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/display: Fix spelling mistake "recompte" ->
+ "recompute"
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +86,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+Applied.  Thanks!
 
-dc_state_destruct() nulls the resource context of the DC state. The pipe
-context passed to dcn10_set_drr() is a member of this resource context.
-
-If dc_state_destruct() is called parallel to the IRQ processing (which
-calls dcn10_set_drr() at some point), we can end up using already nulled
-function callback fields of struct stream_resource.
-
-The logic in dcn10_set_drr() already tries to avoid this, by checking tg
-against NULL. But if the nulling happens exactly after the NULL check and
-before the next access, then we get a race.
-
-Avoid this by copying tg first to a local variable, and then use this
-variable for all the operations. This should work, as long as nobody
-frees the resource pool where the timing generators live.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
-Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while keeping DML and DML2")
-Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
----
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 20 +++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 3306684e805a..da8f2cb3c5db 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -3223,15 +3223,19 @@ void dcn10_set_drr(struct pipe_ctx **pipe_ctx,
- 	 * as well.
- 	 */
- 	for (i = 0; i < num_pipes; i++) {
--		if ((pipe_ctx[i]->stream_res.tg != NULL) && pipe_ctx[i]->stream_res.tg->funcs) {
--			if (pipe_ctx[i]->stream_res.tg->funcs->set_drr)
--				pipe_ctx[i]->stream_res.tg->funcs->set_drr(
--					pipe_ctx[i]->stream_res.tg, &params);
-+		/* dc_state_destruct() might null the stream resources, so fetch tg
-+		 * here first to avoid a race condition. The lifetime of the pointee
-+		 * itself (the timing_generator object) is not a problem here.
-+		 */
-+		struct timing_generator *tg = pipe_ctx[i]->stream_res.tg;
-+
-+		if ((tg != NULL) && tg->funcs) {
-+			if (tg->funcs->set_drr)
-+				tg->funcs->set_drr(tg, &params);
- 			if (adjust.v_total_max != 0 && adjust.v_total_min != 0)
--				if (pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control)
--					pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control(
--						pipe_ctx[i]->stream_res.tg,
--						event_triggers, num_frames);
-+				if (tg->funcs->set_static_screen_control)
-+					tg->funcs->set_static_screen_control(
-+						tg, event_triggers, num_frames);
- 		}
- 	}
- }
--- 
-2.44.2
-
+On Wed, Aug 28, 2024 at 5:43=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
+com> wrote:
+>
+> There is a spelling mistake in a DRM_DEBUG_DRIVER message. Fix it.
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 0859a7173a06..669fd8fb6c24 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -1325,7 +1325,7 @@ static bool is_dsc_need_re_compute(
+>                 if (new_crtc_state->enable && new_crtc_state->active) {
+>                         if (new_crtc_state->mode_changed || new_crtc_stat=
+e->active_changed ||
+>                                         new_crtc_state->connectors_change=
+d) {
+> -                               DRM_DEBUG_DRIVER("%s:%d MST_DSC dsc recom=
+pte required."
+> +                               DRM_DEBUG_DRIVER("%s:%d MST_DSC dsc recom=
+pute required."
+>                                                  "stream 0x%p in new dc_s=
+tate\n",
+>                                                  __func__, __LINE__, stre=
+am);
+>                                 is_dsc_need_re_compute =3D true;
+> --
+> 2.39.2
+>
