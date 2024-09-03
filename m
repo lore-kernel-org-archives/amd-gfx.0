@@ -4,125 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8452CD13CF
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Sep 2024 17:50:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5919CD342F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 05:13:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4856C10E390;
-	Mon,  2 Sep 2024 17:50:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87B1B10E170;
+	Tue,  3 Sep 2024 05:13:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DoiKe9r8";
+	dkim=pass (2048-bit key; unprotected) header.d=kode54.net header.i=@kode54.net header.b="Zw7NZtUs";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A356110E35B;
- Mon,  2 Sep 2024 16:31:57 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a8696e9bd24so513685366b.0; 
- Mon, 02 Sep 2024 09:31:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725294716; x=1725899516; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=qIuNgf8vibX5+q+1uvohe/8Xj5W/5yWFtisNRGo9UZU=;
- b=DoiKe9r8jt3bh2IAc1U+pYX6Xg2U1Q3kTx9LmLANFaE2dvr2ZgkVfNao8JnZFO8m0k
- aQnByL58zDR53AAEbJU9u/xiJ87dckzG6DB4ZT11zL80m2Qvy+A7nNxQQQEPl5WASWPc
- OyAmf22kUZCkg9S3DbeGDgT5l9OYl7KBIdMrVMWm5e4GtsaLxWMlLI40s0VkmSmlIQXY
- 106+iChrHuOuPY3jRIHMUWh2kZnNEoBCdRqx/U481yQDaRNNHJK4ZQ4oKxkeeKoQ+Hd6
- NCgb45TQliPjnLFzPzQik0EHEzwqBZtSrptQTiX2eb6LFt4sEZnOYzzQgi9jbIedbqJB
- xWjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725294716; x=1725899516;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qIuNgf8vibX5+q+1uvohe/8Xj5W/5yWFtisNRGo9UZU=;
- b=NjqeQA0e68Ud80mHxBStuMs+7VsYknh60usbqc8OCkpW5fLUe7YY3idVj+Rrc8Sa5B
- QKAzsBBPTOl9F1T8e1EAnrOgpi+kolBLNNdii9v+LZoDjstdApl0nvjclccdfyfT2SD/
- MQSOe6V4Pr9zin5X2ep1T+6ncdmUYY6/erp1Ud67BkgcgDibs4chyMlsHozl7VKr4DE2
- QY4ZZ75b77CwAhJwUDLE0xD/6xocmJ6BeVoaIXK6P/joh68mr2eKgb95jT6FTdchYTPI
- Cw/Z+rGQPk7pnZzXJ6zYZle5+ZWIxvWlgUP3fd3EALRTAW3wcF+xvfnj72rLzH6Uima0
- EDRA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUIH4CSd5jYrdIbG6JLKEDz0ZVcmb/UwGYwWbl4wK5WilYDCLn3/5Ygzlshtg5Q7zwR/pOOSF7LXglQ@lists.freedesktop.org,
- AJvYcCUkaVkyI5ujuAJbLh29kDO+lDWnu1naZTSjdUEkxLVe0WhP//ES2xXBs793a/Q4X51UumtgLehZ@lists.freedesktop.org,
- AJvYcCVVUbTJh2UlvsBnA8xyAxCzXWwOsK0kQsYPQyKfwmJ2VylzQs2xzU3M+5E/iYxtRIzLOiYzCtZxaek=@lists.freedesktop.org,
- AJvYcCXx4qSJYbQJqMdx3hjwjEAgtayRb+XFjEQQnF8im2ao69nM5c1tS8nRsKNCa5zlVzzJKEylBXrQnA==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcNyrCXHLZ56cEwlLcSKg6Ax/o7IzOw0nWvVL5wcsAr8phscf3
- Sv8x0ET5xWDgyYFhYAfXQC3g7Q5y1ZaSYRohh9mgWjIrgh2M/LVs
-X-Google-Smtp-Source: AGHT+IGkmyRRaFc3yk7kChHhC1FscCc8RPz9j5sqv+VQDpOUo4KdmOEEu62eFFZCqWuMxuXGFRTuSg==
-X-Received: by 2002:a17:907:7204:b0:a86:c825:7678 with SMTP id
- a640c23a62f3a-a897fad7638mr1114110466b.64.1725294715458; 
- Mon, 02 Sep 2024 09:31:55 -0700 (PDT)
-Received: from [192.168.0.20] ([148.56.230.39])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89892232c7sm573747166b.222.2024.09.02.09.31.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 09:31:54 -0700 (PDT)
-Message-ID: <ca9c2f00-e275-454a-8c0c-b7e7cc5dcc4c@gmail.com>
-Date: Mon, 2 Sep 2024 18:31:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 26/81] drm/mediatek: Run DRM default client setup
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Chun-KuaIng Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-References: <20240830084456.77630-1-tzimmermann@suse.de>
- <20240830084456.77630-27-tzimmermann@suse.de>
-Content-Language: en-US, ca-ES, es-ES
-From: Matthias Brugger <matthias.bgg@gmail.com>
-Autocrypt: addr=matthias.bgg@gmail.com; keydata=
- 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
-In-Reply-To: <20240830084456.77630-27-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 02 Sep 2024 17:50:17 +0000
+Received: from out-187.mta0.migadu.com (out-187.mta0.migadu.com
+ [91.218.175.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FAFA10E170
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 05:13:52 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kode54.net; s=key1;
+ t=1725340430;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iliSav6dNVEYXLM7O3mkTRt+jnvb6sFDnm4YjoTgLHY=;
+ b=Zw7NZtUsZkfmlefxeuXz6WzKkI1OtfmSxdpPTXae4+Yi8LptdoYXzeeV8j2OqzZjSBTvEZ
+ 98cFj7eSAkoO1wo4IIxMgWDlTRNl0gJSt8RNF08uFHkgQMbgL1dfyRX3x5YtwMWzjcSoXt
+ zPiPYsTRd3lSykDUqDOKJhC66DhmCPNmfObbkdgRiNkvZsySHrh3uMJLdX/JXbx71zex0q
+ DLsfj9CPGwF6A5xLw6CmX0SVeH1AnpVztAO4NF+Z6pKx29N7bfj5q6UqiEJGR7udzauAwe
+ 5E8kpcIYbB4/qzeWWRNqghYC1b2SnihBrBxGaEC+0CxO107+8q/wI1snRPCxtg==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Sep 2024 22:13:43 -0700
+Message-Id: <D3WE4WL0ZP0W.2S2CCR4UJ3Q5Z@kode54.net>
+Cc: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] drm/amd/display: Avoid race between dcn10_set_drr()
+ and dc_state_destruct()
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Christopher Snowhill" <chris@kode54.net>
+To: <tjakobi@math.uni-bielefeld.de>, "Harry Wentland"
+ <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira"
+ <Rodrigo.Siqueira@amd.com>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
+ <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Daniel Vetter"
+ <daniel@ffwll.ch>, "Mario Limonciello" <mario.limonciello@amd.com>
+References: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
+ <7b9dbbbb1e6a3aa6d7a4d9367d44d18ddd947158.1725269643.git.tjakobi@math.uni-bielefeld.de>
+In-Reply-To: <7b9dbbbb1e6a3aa6d7a4d9367d44d18ddd947158.1725269643.git.tjakobi@math.uni-bielefeld.de>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,54 +64,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 30/08/2024 10:40, Thomas Zimmermann wrote:
-> Call drm_client_setup() to run the kernel's default client setup
-> for DRM. Set fbdev_probe in struct drm_driver, so that the client
-> setup can start the common fbdev client.
-> 
-> The mediatek driver specifies a preferred color mode of 32. As this
-> is the default if no format has been given, leave it out entirely.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Chun-KuaIng Hu <chunkuang.hu@kernel.org>
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Matthias Brugger <matthias.bgg@gmail.com>
-> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
-
+On Mon Sep 2, 2024 at 2:40 AM PDT, tjakobi wrote:
+> From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+>
+> dc_state_destruct() nulls the resource context of the DC state. The pipe
+> context passed to dcn10_set_drr() is a member of this resource context.
+>
+> If dc_state_destruct() is called parallel to the IRQ processing (which
+> calls dcn10_set_drr() at some point), we can end up using already nulled
+> function callback fields of struct stream_resource.
+>
+> The logic in dcn10_set_drr() already tries to avoid this, by checking tg
+> against NULL. But if the nulling happens exactly after the NULL check and
+> before the next access, then we get a race.
+>
+> Avoid this by copying tg first to a local variable, and then use this
+> variable for all the operations. This should work, as long as nobody
+> frees the resource pool where the timing generators live.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
+> Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while keeping D=
+ML and DML2")
+> Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 > ---
->   drivers/gpu/drm/mediatek/mtk_drm_drv.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> index 77b50c56c124..b1309a70fdcd 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> @@ -14,6 +14,7 @@
->   
->   #include <drm/drm_atomic.h>
->   #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_client_setup.h>
->   #include <drm/drm_drv.h>
->   #include <drm/drm_fbdev_dma.h>
->   #include <drm/drm_fourcc.h>
-> @@ -610,6 +611,7 @@ static const struct drm_driver mtk_drm_driver = {
->   	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
->   
->   	.dumb_create = mtk_gem_dumb_create,
-> +	DRM_FBDEV_DMA_DRIVER_OPS,
->   
->   	.gem_prime_import = mtk_gem_prime_import,
->   	.gem_prime_import_sg_table = mtk_gem_prime_import_sg_table,
-> @@ -666,7 +668,7 @@ static int mtk_drm_bind(struct device *dev)
->   	if (ret < 0)
->   		goto err_deinit;
->   
-> -	drm_fbdev_dma_setup(drm, 32);
-> +	drm_client_setup(drm, NULL);
->   
->   	return 0;
->   
+>  .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 20 +++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/dr=
+ivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+> index 3306684e805a..da8f2cb3c5db 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+> @@ -3223,15 +3223,19 @@ void dcn10_set_drr(struct pipe_ctx **pipe_ctx,
+>  	 * as well.
+>  	 */
+>  	for (i =3D 0; i < num_pipes; i++) {
+> -		if ((pipe_ctx[i]->stream_res.tg !=3D NULL) && pipe_ctx[i]->stream_res.=
+tg->funcs) {
+> -			if (pipe_ctx[i]->stream_res.tg->funcs->set_drr)
+> -				pipe_ctx[i]->stream_res.tg->funcs->set_drr(
+> -					pipe_ctx[i]->stream_res.tg, &params);
+> +		/* dc_state_destruct() might null the stream resources, so fetch tg
+> +		 * here first to avoid a race condition. The lifetime of the pointee
+> +		 * itself (the timing_generator object) is not a problem here.
+> +		 */
+> +		struct timing_generator *tg =3D pipe_ctx[i]->stream_res.tg;
+> +
+> +		if ((tg !=3D NULL) && tg->funcs) {
+> +			if (tg->funcs->set_drr)
+> +				tg->funcs->set_drr(tg, &params);
+>  			if (adjust.v_total_max !=3D 0 && adjust.v_total_min !=3D 0)
+> -				if (pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control)
+> -					pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control(
+> -						pipe_ctx[i]->stream_res.tg,
+> -						event_triggers, num_frames);
+> +				if (tg->funcs->set_static_screen_control)
+> +					tg->funcs->set_static_screen_control(
+> +						tg, event_triggers, num_frames);
+>  		}
+>  	}
+>  }
+
+This fixes hard to trace panics with labwc VRR and Wayfire on RX 6700 XT. I=
+ had to use netconsole to arrive at the original bug report.
+
+Tested-by: Christopher Snowhill <chris@kode54.net>
