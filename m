@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66C5CE7A84
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0492CE7A91
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5570F10E938;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5C9710E93A;
 	Thu,  5 Sep 2024 18:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="R0FTTo49";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FdhXum30";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13F210E120
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 04:58:52 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-5df9343b5b8so3190094eaf.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Sep 2024 21:58:52 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 559AF10E670;
+ Wed,  4 Sep 2024 00:49:03 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-374bb1a3addso2437399f8f.1; 
+ Tue, 03 Sep 2024 17:49:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1725339532; x=1725944332;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sPhZdW35wA0lKARiWkZjmf+aWFeCFp2ESl8o+4bQ7rQ=;
- b=R0FTTo49kn1U+3eGiTNHetXGno20cL5ijDDyMXGulQLJdaCav0yU5F6iWNzxUp3jGV
- jCwFbspEAE9LtLga+BI5ECFWxf6xTE79yz6Pjs6Hp2RKkFzJ3JWonHwoaSliT2lssWWn
- esrVM3q6dRcTOezOsOIbwprKpzhCh+LqxNw9I=
+ d=gmail.com; s=20230601; t=1725410942; x=1726015742; darn=lists.freedesktop.org;
+ h=user-agent:mime-version:message-id:cc:to:subject:date:from:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=MI2VD9V3HSMHAEsHid7UqFpfCx71vZJu73a+V6jxQIc=;
+ b=FdhXum30B5GUlfi7KqySBvBDCAit0fAaUphGA9QDoHTj8U4b4N4jCJQh58ZOtyDXDK
+ tJX/nn4RRQzDrBGVFEx8XE+5mnhQ00kug2anMwqz8a1JxNgW3KFLe22UxQgkF3w9Mpgd
+ myTEjXxSNsYXbWI4TyccTPJiUH+SlaO7iK5yZxxEmO5jPZZhb1g89WL5uxsdvmzMSbGu
+ vLRPQhcanfQa1qxI2hs66V90tO5G9J7Wt3YcdBGHxra6G/QwwiTNn7cNMgiYcEz+jt45
+ gDjqF9yW8ny8gaKrNrj1cxn5WF2cjftz0jb3t9D2d2lm6cki6AsJlkSlAR4kWy61G5q8
+ neEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725339532; x=1725944332;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sPhZdW35wA0lKARiWkZjmf+aWFeCFp2ESl8o+4bQ7rQ=;
- b=sFaT9Oxlg9j5qLsXNnG6w/I/sVfC3Tk76gJ2L2rp8CrHAPlEMfTiciIiuUMmGbmaUb
- AnvvtUeJG+53v8WtXGCL7v0/9QiGIdeda26pi3+HVGQnJZsQmm410fEHBQQ92H6XXzbG
- iNpzkQf58Hrxf8bbsqtrQzaBo7l38aRlPcPyMENNTvyigtoxIXLgG3L4ScrCGELzf+mK
- UNSlcfYOv3YIziQmvzhjGYWxRwvzlV/x2PkdaaxzfKQfhbDMhyW6E6bzVGWLn+rG2rtK
- ZIr1cNP3LrVsRvfaBj0RzkydEO0g+S4ZGa54UMP8QH8vxkM/qaZr5VjGQYXilTKKoFz9
- Nosw==
+ d=1e100.net; s=20230601; t=1725410942; x=1726015742;
+ h=user-agent:mime-version:message-id:cc:to:subject:date:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MI2VD9V3HSMHAEsHid7UqFpfCx71vZJu73a+V6jxQIc=;
+ b=X6Z0lKoa9xNPwytArtT2Nr7GInvY+TqR8yabv4ty9recjrpt6f49avfGQm4xRFARzg
+ 9CqeeMgTzvHTBJ0Wig3AdTos5Wmh3Q5LOWiVrZp6HJFmG7CQaMdGnw1YjOwCF/a5bIiA
+ gGFoK4arHfxJWP4Sunt+a7GtvpStyIzcqecfJHQOMlcJIBDjCmyva74li9XSvNr5zeVq
+ X1dUdPFFczR1+zLUjJ0/CeRzRUOPtZF0rr7odNTzRNx0d5uf3KmIXVMJb8clAoba0LPY
+ qmUZTjbcZzIaw//rQnmwZxbH+1P8FtLGAGVFt/tf5r5ZnS30+wiJxMMUQGAaaxtscVde
+ qnSw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX16kt1L65OvZ6/70gxDfVNFZ5AngkZ4cWMLIKppJseTslM5P6cxHmY79T0nRrmwWdSS+3MVYYH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1w0MBxm8Wb+a62fMz4t+r1nE00euzx4HlyZGZfB+0L4CqTYvl
- WU/TGRo0Gkut8SW/0IY+oufZuUvjMVkYDsfwI5U6j/cwcjFQR7GTs4qt7FHFcA==
-X-Google-Smtp-Source: AGHT+IG8me1bSENR4wRx/OKAQejDcXWKY5+HZ/AzEltyhw/WRh8aAe2pXkZG/Vr0P7/zTKqlGwLNxQ==
-X-Received: by 2002:a05:6358:4429:b0:1aa:b9f2:a0c4 with SMTP id
- e5c5f4694b2df-1b8117bccf4mr268303755d.11.1725339531470; 
- Mon, 02 Sep 2024 21:58:51 -0700 (PDT)
-Received: from photon-a190c64c6e7e.. ([66.170.99.1])
+ AJvYcCVDuBZtaWVIb8RsckjzxIufYmUz0IxtM3fgY4y7qAsUg+LpQqsw5TSi4zZl1hPOll3eAG60EUBc9kPn@lists.freedesktop.org,
+ AJvYcCXQoMsWyK5VXahE621Gn5Qmzp8LcmUFKiS9Mwmb7RBI2qsdYEtneDqODqZrQCXr/5k83yRZ1cBV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnumhBrL1iiGpmbe9nuImCBbY9zjgA5sZeeefq2Q+/toZJtHoP
+ T2FiinOVVq4ETT/8Wqa39o0Na6PMyo6oKWZvj7r/jOTtj0JRrd+Z
+X-Google-Smtp-Source: AGHT+IF/dT9moCjMlTPpV1LF79HsX4lZi1lQZyE6VNTQ8vBAlwqecX7lrCGqmEOe3DjJR3wrDhVrhg==
+X-Received: by 2002:a5d:5269:0:b0:368:420e:b790 with SMTP id
+ ffacd0b85a97d-376dd15a8cemr1591613f8f.14.1725410941339; 
+ Tue, 03 Sep 2024 17:49:01 -0700 (PDT)
+Received: from [10.33.80.43] (mem-185.47.220.165.jmnet.cz. [185.47.220.165])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2d8d06c9340sm3599334a91.22.2024.09.02.21.58.49
+ 4fb4d7f45d1cf-5c226c6a399sm6976144a12.8.2024.09.03.17.49.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 21:58:51 -0700 (PDT)
-From: sikkamukul <mukul.sikka@broadcom.com>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
-Cc: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, Jun.Ma2@amd.com, kevinyang.wang@amd.com,
- sashal@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ajay.kaher@broadcom.com, alexey.makhalov@broadcom.com,
- vasavi.sirnapalli@broadcom.com, Bob Zhou <bob.zhou@amd.com>,
- Tim Huang <Tim.Huang@amd.com>, Mukul Sikka <mukul.sikka@broadcom.com>
-Subject: [PATCH v5.15-v5.10] drm/amd/pm: Fix the null pointer dereference for
- vega10_hwmgr
-Date: Tue,  3 Sep 2024 04:58:09 +0000
-Message-Id: <20240903045809.5025-1-mukul.sikka@broadcom.com>
-X-Mailer: git-send-email 2.39.4
+ Tue, 03 Sep 2024 17:49:00 -0700 (PDT)
+From: Filip Hejsek <filip.hejsek@gmail.com>
+Date: Wed, 4 Sep 2024 00:50:56 +0200
+Subject: [PATCH] drm/amd/display: Fix debugfs dmub_fw_state read
+To: Harry Wentland <harry.wentland@amd.com>,
+    Leo Li <sunpeng.li@amd.com>,
+    Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+    Alex Deucher <alexander.deucher@amd.com>,
+    "Christian König" <christian.koenig@amd.com>,
+    Xinhui Pan <Xinhui.Pan@amd.com>,
+    David Airlie <airlied@gmail.com>,
+    Daniel Vetter <daniel@ffwll.ch>,
+    amd-gfx@lists.freedesktop.org,
+    dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Message-ID: <d02c033c6f4411be31a9439f33de2c593b51d8fc.camel@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.52.4 
 X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,114 +87,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bob Zhou <bob.zhou@amd.com>
+When the FW state is too large to fit in initial seq_file buffer,
+seq_write returns -1, which is subsequently returned from
+dmub_fw_state_show. This causes the read operation to fail.
 
-[ Upstream commit 50151b7f1c79a09117837eb95b76c2de76841dab ]
+Return instead always 0 and let the seq_file handling retry the read
+with a larger buffer if the initial buffer overflows.
 
-Check return value and conduct null pointer handling to avoid null pointer dereference.
-
-Signed-off-by: Bob Zhou <bob.zhou@amd.com>
-Reviewed-by: Tim Huang <Tim.Huang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Mukul Sikka <mukul.sikka@broadcom.com>
+Fixes: 2364076772b1 ("drm/amd/display: Add DMUB firmware state debugfs")
+Signed-off-by: Filip Hejsek <filip.hejsek@gmail.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 30 ++++++++++++++++---
- 1 file changed, 26 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 10678b519..304874cba 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -3391,13 +3391,17 @@ static int vega10_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwmgr, co
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	struct vega10_single_dpm_table *sclk_table = &(data->dpm_table.gfx_table);
--	uint32_t sclk = vega10_ps->performance_levels
--			[vega10_ps->performance_level_count - 1].gfx_clock;
- 	struct vega10_single_dpm_table *mclk_table = &(data->dpm_table.mem_table);
--	uint32_t mclk = vega10_ps->performance_levels
--			[vega10_ps->performance_level_count - 1].mem_clock;
-+	uint32_t sclk, mclk;
- 	uint32_t i;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index db56b0aa545..ecda44789b4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -958,7 +958,8 @@ static int dmub_fw_state_show(struct seq_file *m, void *data)
  
-+	if (vega10_ps == NULL)
-+		return -EINVAL;
-+	sclk = vega10_ps->performance_levels
-+			[vega10_ps->performance_level_count - 1].gfx_clock;
-+	mclk = vega10_ps->performance_levels
-+			[vega10_ps->performance_level_count - 1].mem_clock;
-+
- 	for (i = 0; i < sclk_table->count; i++) {
- 		if (sclk == sclk_table->dpm_levels[i].value)
- 			break;
-@@ -3704,6 +3708,9 @@ static int vega10_generate_dpm_level_enable_mask(
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	int i;
+ 	state_size = fb_info->fb[DMUB_WINDOW_6_FW_STATE].size;
  
-+	if (vega10_ps == NULL)
-+		return -EINVAL;
-+
- 	PP_ASSERT_WITH_CODE(!vega10_trim_dpm_states(hwmgr, vega10_ps),
- 			"Attempt to Trim DPM States Failed!",
- 			return -1);
-@@ -4828,6 +4835,9 @@ static int vega10_check_states_equal(struct pp_hwmgr *hwmgr,
+-	return seq_write(m, state_base, state_size);
++	seq_write(m, state_base, state_size);
++	return 0;
+ }
  
- 	psa = cast_const_phw_vega10_power_state(pstate1);
- 	psb = cast_const_phw_vega10_power_state(pstate2);
-+	if (psa == NULL || psb == NULL)
-+		return -EINVAL;
-+
- 	/* If the two states don't even have the same number of performance levels they cannot be the same state. */
- 	if (psa->performance_level_count != psb->performance_level_count) {
- 		*equal = false;
-@@ -4953,6 +4963,8 @@ static int vega10_set_sclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
- 		return -EINVAL;
- 
- 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
-+	if (vega10_ps == NULL)
-+		return -EINVAL;
- 
- 	vega10_ps->performance_levels
- 	[vega10_ps->performance_level_count - 1].gfx_clock =
-@@ -5004,6 +5016,8 @@ static int vega10_set_mclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
- 		return -EINVAL;
- 
- 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
-+	if (vega10_ps == NULL)
-+		return -EINVAL;
- 
- 	vega10_ps->performance_levels
- 	[vega10_ps->performance_level_count - 1].mem_clock =
-@@ -5239,6 +5253,9 @@ static void vega10_odn_update_power_state(struct pp_hwmgr *hwmgr)
- 		return;
- 
- 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
-+	if (vega10_ps == NULL)
-+		return;
-+
- 	max_level = vega10_ps->performance_level_count - 1;
- 
- 	if (vega10_ps->performance_levels[max_level].gfx_clock !=
-@@ -5261,6 +5278,9 @@ static void vega10_odn_update_power_state(struct pp_hwmgr *hwmgr)
- 
- 	ps = (struct pp_power_state *)((unsigned long)(hwmgr->ps) + hwmgr->ps_size * (hwmgr->num_ps - 1));
- 	vega10_ps = cast_phw_vega10_power_state(&ps->hardware);
-+	if (vega10_ps == NULL)
-+		return;
-+
- 	max_level = vega10_ps->performance_level_count - 1;
- 
- 	if (vega10_ps->performance_levels[max_level].gfx_clock !=
-@@ -5451,6 +5471,8 @@ static int vega10_get_performance_level(struct pp_hwmgr *hwmgr, const struct pp_
- 		return -EINVAL;
- 
- 	ps = cast_const_phw_vega10_power_state(state);
-+	if (ps == NULL)
-+		return -EINVAL;
- 
- 	i = index > ps->performance_level_count - 1 ?
- 			ps->performance_level_count - 1 : index;
+ /* replay_capability_show() - show eDP panel replay capability
+
+base-commit: 96a5152075c0424e9bda551d00ab850c815e309c
 -- 
-2.39.4
-
+2.46.0
