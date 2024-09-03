@@ -4,52 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5919CD342F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 05:13:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 081BECD342C
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 06:36:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B1B10E170;
-	Tue,  3 Sep 2024 05:13:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A523210E407;
+	Tue,  3 Sep 2024 06:36:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kode54.net header.i=@kode54.net header.b="Zw7NZtUs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UjT5dk/X";
 	dkim-atps=neutral
-Received: from out-187.mta0.migadu.com (out-187.mta0.migadu.com
- [91.218.175.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FAFA10E170
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 05:13:52 +0000 (UTC)
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kode54.net; s=key1;
- t=1725340430;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iliSav6dNVEYXLM7O3mkTRt+jnvb6sFDnm4YjoTgLHY=;
- b=Zw7NZtUsZkfmlefxeuXz6WzKkI1OtfmSxdpPTXae4+Yi8LptdoYXzeeV8j2OqzZjSBTvEZ
- 98cFj7eSAkoO1wo4IIxMgWDlTRNl0gJSt8RNF08uFHkgQMbgL1dfyRX3x5YtwMWzjcSoXt
- zPiPYsTRd3lSykDUqDOKJhC66DhmCPNmfObbkdgRiNkvZsySHrh3uMJLdX/JXbx71zex0q
- DLsfj9CPGwF6A5xLw6CmX0SVeH1AnpVztAO4NF+Z6pKx29N7bfj5q6UqiEJGR7udzauAwe
- 5E8kpcIYbB4/qzeWWRNqghYC1b2SnihBrBxGaEC+0CxO107+8q/wI1snRPCxtg==
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
+ [209.85.219.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C3110E407;
+ Tue,  3 Sep 2024 06:36:02 +0000 (UTC)
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-e1ce8a675f7so1273729276.3; 
+ Mon, 02 Sep 2024 23:36:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725345362; x=1725950162; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VPZudvRVHbus4LXrbfoMkcg6cOhLHcVHXr99PO6hzJo=;
+ b=UjT5dk/XUWTYbInlIYAhL7pVrKsv1g/CazbEx6k/tEooQZd9ADxujDlCtpUWedyMDw
+ PoJD68l2wSHf17yRbKbUBfReQJNxcHy5hLDGEvGvMFmxuZHypJSJ850gZ+r27Vv9TitO
+ 9/KuhxUzaeex1OzCqUarSgQA2Bd51ux7fxdH+ACJuoQMGORuJApr2UBlnEcrwcJGDqhn
+ 5/fZHASrnqJJMCQEZ/+0vaUqi8Fh4NxBnc6QCvYH3bITSxbSp1ws6wMy2lZ2IYgf6OIy
+ qzGTwIM3MmVUwhbbQyNSJTwmZVTVL6s8mP6kN3Pz3If8fOQ8yqPHW3HwhZQYvLe6GMfc
+ nDGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725345362; x=1725950162;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VPZudvRVHbus4LXrbfoMkcg6cOhLHcVHXr99PO6hzJo=;
+ b=rt3dSBBr4QKdEzwunsnAbOJTfwAAVdqGjF8oq2+BTPt7PsBy22Gq4eMJvooBzJIusm
+ S/NpbR7micMS2E2BHUL4bTOOWm7x5obOAogqalN+es9OioCrPsc+7HeDc4jKfgPuR3Jf
+ QQOOKNOo8DCCZTrXm0ZqHMcBg3cHJRyuKTqrjh33yU/v3qkZPt93b2HAQs8baJd23V4B
+ qtJwcrkQ9F3X1rcgmsbdR+f6/H4dBvXr2re+kQkMrize4iPPPN5Ku+rcLe1/Exllf2c/
+ 402Etkwl37hgukB5xfiSMIMxOqcs2KBJk3zIm/0sYiivhjPfAkrzUdzYfE/drSzCJsTA
+ NQ8Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV6+MmII1Qg2xxYX3PIQQUBod8jpGCViiMYhns2024WVu7Px30DAr3InjFUWaFL5OPjfbfP+BmSbVod@lists.freedesktop.org,
+ AJvYcCVrgbigZrnMddJ1WpSPZ/XRXNOVlUjP4bK9TXWQ01mnXU7++1T7fJ++g7jDfWIHsiF3NKK6yXPy@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzL6zA1vErc4kCB3dLC3OBO42sGNCYkBaMqymF7Zs0Dr51I3xOj
+ cMq1uAkr9pq+wpUg8EEYzFLB5KCm/AJoD8hgrKqrdZS0FbuERXiLCF6CHBU4cZ++ly1xSyESK2Y
+ lzYZwRS2Vms4ftVt/JyTniqWA88o=
+X-Google-Smtp-Source: AGHT+IHR8tpiw3igY6qGfaRdI1dxqyE9jFzmjN8jYW30VTbpCYodS9kwBwFF3bZihMwsgZEMvLsrfMZBR6/T790BhzE=
+X-Received: by 2002:a05:6902:2313:b0:e0b:ba20:7f87 with SMTP id
+ 3f1490d57ef6-e1a79ffa00amr10498144276.25.1725345361902; Mon, 02 Sep 2024
+ 23:36:01 -0700 (PDT)
+MIME-Version: 1.0
+References: <CABXGCsNgx6gQCqBq-L2P15ydaN_66sM9CgGa9GQYNzQsaa6Dkg@mail.gmail.com>
+ <CABXGCsNztS8MLteq5=fcddwuQ1TCzeOM8TdVtpJ3crK=sV5PTQ@mail.gmail.com>
+In-Reply-To: <CABXGCsNztS8MLteq5=fcddwuQ1TCzeOM8TdVtpJ3crK=sV5PTQ@mail.gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 3 Sep 2024 11:35:51 +0500
+Message-ID: <CABXGCsMdxHJ-MLkS0pm51Sk8g0PTghsuZxmowvj5t44bVN4ndA@mail.gmail.com>
+Subject: Re: 6.11/regression/bisected - after commit 1b04dcca4fb1, launching
+ some RenPy games causes computer hang
+To: Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ zaeem.mohamed@amd.com, 
+ pekka.paalanen@collabora.com, "Wheeler, Daniel" <daniel.wheeler@amd.com>, 
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
+ Linux regressions mailing list <regressions@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Sep 2024 22:13:43 -0700
-Message-Id: <D3WE4WL0ZP0W.2S2CCR4UJ3Q5Z@kode54.net>
-Cc: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] drm/amd/display: Avoid race between dcn10_set_drr()
- and dc_state_destruct()
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: "Christopher Snowhill" <chris@kode54.net>
-To: <tjakobi@math.uni-bielefeld.de>, "Harry Wentland"
- <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira"
- <Rodrigo.Siqueira@amd.com>, "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Daniel Vetter"
- <daniel@ffwll.ch>, "Mario Limonciello" <mario.limonciello@amd.com>
-References: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
- <7b9dbbbb1e6a3aa6d7a4d9367d44d18ddd947158.1725269643.git.tjakobi@math.uni-bielefeld.de>
-In-Reply-To: <7b9dbbbb1e6a3aa6d7a4d9367d44d18ddd947158.1725269643.git.tjakobi@math.uni-bielefeld.de>
-X-Migadu-Flow: FLOW_OUT
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,68 +86,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon Sep 2, 2024 at 2:40 AM PDT, tjakobi wrote:
-> From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+On Sun, Aug 25, 2024 at 2:12=E2=80=AFAM Mikhail Gavrilov
+<mikhail.v.gavrilov@gmail.com> wrote:
 >
-> dc_state_destruct() nulls the resource context of the DC state. The pipe
-> context passed to dcn10_set_drr() is a member of this resource context.
->
-> If dc_state_destruct() is called parallel to the IRQ processing (which
-> calls dcn10_set_drr() at some point), we can end up using already nulled
-> function callback fields of struct stream_resource.
->
-> The logic in dcn10_set_drr() already tries to avoid this, by checking tg
-> against NULL. But if the nulling happens exactly after the NULL check and
-> before the next access, then we get a race.
->
-> Avoid this by copying tg first to a local variable, and then use this
-> variable for all the operations. This should work, as long as nobody
-> frees the resource pool where the timing generators live.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
-> Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while keeping D=
-ML and DML2")
-> Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-> ---
->  .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 20 +++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/dr=
-ivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> index 3306684e805a..da8f2cb3c5db 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-> @@ -3223,15 +3223,19 @@ void dcn10_set_drr(struct pipe_ctx **pipe_ctx,
->  	 * as well.
->  	 */
->  	for (i =3D 0; i < num_pipes; i++) {
-> -		if ((pipe_ctx[i]->stream_res.tg !=3D NULL) && pipe_ctx[i]->stream_res.=
-tg->funcs) {
-> -			if (pipe_ctx[i]->stream_res.tg->funcs->set_drr)
-> -				pipe_ctx[i]->stream_res.tg->funcs->set_drr(
-> -					pipe_ctx[i]->stream_res.tg, &params);
-> +		/* dc_state_destruct() might null the stream resources, so fetch tg
-> +		 * here first to avoid a race condition. The lifetime of the pointee
-> +		 * itself (the timing_generator object) is not a problem here.
-> +		 */
-> +		struct timing_generator *tg =3D pipe_ctx[i]->stream_res.tg;
-> +
-> +		if ((tg !=3D NULL) && tg->funcs) {
-> +			if (tg->funcs->set_drr)
-> +				tg->funcs->set_drr(tg, &params);
->  			if (adjust.v_total_max !=3D 0 && adjust.v_total_min !=3D 0)
-> -				if (pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control)
-> -					pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control(
-> -						pipe_ctx[i]->stream_res.tg,
-> -						event_triggers, num_frames);
-> +				if (tg->funcs->set_static_screen_control)
-> +					tg->funcs->set_static_screen_control(
-> +						tg, event_triggers, num_frames);
->  		}
->  	}
->  }
+> Hi,
+> Is anyone trying to look into it?
+> I continue to reproduce this issue on fresh kernel builds 6.11-rc4+.
+> In addition to the RenPy engine, the problem also reproduces on games
+> from Ubisoft, such as Far Cry 4.
+> A very important note that I missed in the first message.
+> To reproduce the problem, you need to enable scaling in Gnome for
+> HiDPI monitors.
+> I am using 4K resolution with 200% of fractional scaling.
 
-This fixes hard to trace panics with labwc VRR and Wayfire on RX 6700 XT. I=
- had to use netconsole to arrive at the original bug report.
+Sorry for persistence, but I'm afraid there's no time left to fix this
+regression.
+There's a week left until the release.
+A month later, no one has looked at what the problem is.
 
-Tested-by: Christopher Snowhill <chris@kode54.net>
+--=20
+Best Regards,
+Mike Gavrilov.
