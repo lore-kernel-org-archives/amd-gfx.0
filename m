@@ -4,76 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B68BCD342C
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 12:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EAAECD3420
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Sep 2024 12:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFDA110E538;
-	Tue,  3 Sep 2024 12:07:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC8010E53C;
+	Tue,  3 Sep 2024 12:07:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FCjn/aZb";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="f0+EJh0b";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20E2E10E535
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 12:07:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6C710E537
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Sep 2024 12:07:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1725365244;
+ s=mimecast20190719; t=1725365267;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Swr4IS8dbgShAURYPvnCTpzYM2TD6Zc8Nzbs4EI076g=;
- b=FCjn/aZbq3IU6mc9taUpXCVGF6R8ylKCcKp7sl7TFF8U/nmuzrPSvOw3smnue9DVtl4Hlg
- dBh+W7umYlnx1UdwVgHEeQZJN78O/EtfIZyF25R/DTxIwkOI77iI/cNm+S56uAY/OTrnSE
- gB87w05UI7NzMjbjZJ0rQK8q7bcAjgE=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=oAf/TzZtq+rwzNtcBqcoWPNDNpw8IbIKF1x2SXWWyZs=;
+ b=f0+EJh0bEfqtP20AhvQ5uchIpeCcH+Xof9NT/a1i5/CsqMjBGiWCfIBEgP78mhj6m5yrQC
+ /mYF8LKyH5aTv7ADCcpbX90ZDP2Mf3qKcm4IE2Z+oMEWlGQGuM55z100LgJ25aRQmYsIs9
+ ynmK8ONLXJQlK4PkAMfgMg5QveijLOQ=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-605-LvljCUFQMBaenI7eVLlypQ-1; Tue, 03 Sep 2024 08:07:23 -0400
-X-MC-Unique: LvljCUFQMBaenI7eVLlypQ-1
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-374c294d841so2363376f8f.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Sep 2024 05:07:23 -0700 (PDT)
+ us-mta-695-QPNJePHBOaWDFLLKIcD69g-1; Tue, 03 Sep 2024 08:07:46 -0400
+X-MC-Unique: QPNJePHBOaWDFLLKIcD69g-1
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-374c294d841so2363612f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Sep 2024 05:07:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725365242; x=1725970042;
+ d=1e100.net; s=20230601; t=1725365265; x=1725970065;
  h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
  :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Swr4IS8dbgShAURYPvnCTpzYM2TD6Zc8Nzbs4EI076g=;
- b=mxxhf8+INNV7voOlbZ8Q2QzUehQ06GiCGoMyB/FIpVHkNKyoNK/j42XtKhW1kl4j2w
- iLEraOhUD54uwfJGAlCjYHegWRTTEXizNMSw0H4/NkC9ljwnO0WL732t69wzgjYtMVLn
- CZeOAErikGjeVpQE8IM9bDlBZgn0EN4/gibZA9E3q7J+3S7xo8ixGoQuWFcD6/jCyNbK
- gsCZPXP339G6F3kkVIB4jxlt9S7upwfw2i94wu7cSnu+SukrWsaBzDVm6jzUP6dePwhz
- yE3us5CRpQs5A5vG88KHcVP/RJp5Ycp0kitiRfTbLTEsXZsIPdVl9co+EtaMrWlrm6ST
- jSdg==
+ bh=oAf/TzZtq+rwzNtcBqcoWPNDNpw8IbIKF1x2SXWWyZs=;
+ b=OcNKL/aJ4bCqxmOQ0cssXPpSjn85K3dDwcogbbXVM9gUpiFOXbcLEigdvTJm2ryV1B
+ h0ZvMJ4EAws5KX8SLH/1VCATkUS77TPPghsfDZbmrtBs9enaZAQk4Jv6sN7iFqom6WmZ
+ Vk6JMLcfGl7Mxl/Vh+F4aLWvRNfydp42eUpwdW7rXiEwsIp16WWfJQUEOQ8bTUJ0jv30
+ PvtXIatyKrZxqtV1UmTd5TE8yJqohrZA9FXT7xurXcdu7uQzJLj4sgE2xazYzt09ipqp
+ 1iyJd6unt+2+jsEdRskoKkpR7z+ss5tP5R4zbwNil4btP9d+V3S67jyhZFE73oLGj+YX
+ l8xA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWzQhwUSL+D8/akKFw1EdYSoaT47qz/y/WUjZ61DwJDgt6Dc7o7LoSHLlaBmoKMWChr3sRTJHHx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJ/R6FvExhdwFyIaVTjUfXVlZdnENbpGmt638tJ7iLjR9Cf2MC
- qAgFyKieYI/+zTrrfIA9KvTwq019ZYAIjffQvSBFPmdyLt6RfXzJuQGNCQ3mN6iPPGsVnO7qUzD
- jiwBER5KYXz0BANIVqhe1HaRXuhiW0utBxTHPoN515Dkw36gyISd8tc5IXFtsn6M=
-X-Received: by 2002:a05:6000:cc1:b0:366:f04d:676f with SMTP id
- ffacd0b85a97d-3749b526222mr13863883f8f.12.1725365241917; 
- Tue, 03 Sep 2024 05:07:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF2NHKd/OZS0qGl6rQ/cQL7X9ho+DUsYgIVLhqFSVXN311ZJ1N/JkOGUvCE3TFPMHJvuHGT6Q==
-X-Received: by 2002:a05:6000:cc1:b0:366:f04d:676f with SMTP id
- ffacd0b85a97d-3749b526222mr13863856f8f.12.1725365241536; 
- Tue, 03 Sep 2024 05:07:21 -0700 (PDT)
+ AJvYcCUShYmVQVkNFQHyq3slTzRs71MsAFAkC61VnOt1lZa9IVtojaRzryoFy+jd/J05/VNNfOxAIFaT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzp0j9y+/Blw4O0RbBxkFaOtsa4tM3k2tvRT6b6sdgOB2bLy+fn
+ p4EkPXXKpXfEcLdsrpvH+oUVxwjy8jV8jMSYTYLkVGZtbYqrRShG4V51FetPmICOsrfYVOesRGB
+ nx4lGZIcDjhZf18K5sacHnfsBuM0OKMk//RSSPXrZlDbYEbWH4iIzUwzQhewNo88=
+X-Received: by 2002:adf:f4d1:0:b0:374:c160:269e with SMTP id
+ ffacd0b85a97d-374c1602776mr7846593f8f.22.1725365265440; 
+ Tue, 03 Sep 2024 05:07:45 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGCZGf4oyMzQD1xP820+OtoZdwpD9efRDqC8p6dHAxE3oooeovG0mBCFinpOGmjQ84JGX0fEg==
+X-Received: by 2002:adf:f4d1:0:b0:374:c160:269e with SMTP id
+ ffacd0b85a97d-374c1602776mr7846571f8f.22.1725365264915; 
+ Tue, 03 Sep 2024 05:07:44 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42c88c624f7sm27274635e9.39.2024.09.03.05.07.21
+ ffacd0b85a97d-374b23f20d1sm11428477f8f.35.2024.09.03.05.07.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Sep 2024 05:07:21 -0700 (PDT)
+ Tue, 03 Sep 2024 05:07:44 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, jfalempe@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH v3 71/81] drm/vboxvideo: Run DRM default client setup
-In-Reply-To: <20240830084456.77630-72-tzimmermann@suse.de>
+ Zack Rusin <zack.rusin@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>
+Subject: Re: [PATCH v3 72/81] drm/vmwgfx: Run DRM default client setup
+In-Reply-To: <20240830084456.77630-73-tzimmermann@suse.de>
 References: <20240830084456.77630-1-tzimmermann@suse.de>
- <20240830084456.77630-72-tzimmermann@suse.de>
-Date: Tue, 03 Sep 2024 14:07:20 +0200
-Message-ID: <87plplc553.fsf@minerva.mail-host-address-is-not-set>
+ <20240830084456.77630-73-tzimmermann@suse.de>
+Date: Tue, 03 Sep 2024 14:07:43 +0200
+Message-ID: <87mskpc54g.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
@@ -98,14 +99,12 @@ Thomas Zimmermann <tzimmermann@suse.de> writes:
 > for DRM. Set fbdev_probe in struct drm_driver, so that the client
 > setup can start the common fbdev client.
 >
-> The vboxvideo driver specifies a preferred color mode of 32. As this
-> is the default if no format has been given, leave it out entirely.
->
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Hans de Goede <hdegoede@redhat.com>
+> Cc: Zack Rusin <zack.rusin@broadcom.com>
+> Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 > ---
->  drivers/gpu/drm/vboxvideo/vbox_drv.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >
 
 Acked-by: Javier Martinez Canillas <javierm@redhat.com>
