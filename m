@@ -4,48 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F05CE7A89
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C75DCE7A8E
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1A0D10E931;
-	Thu,  5 Sep 2024 18:49:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B90710E933;
+	Thu,  5 Sep 2024 18:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fqR2QsG/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b36XrRSY";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC3210E816
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Sep 2024 17:23:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 6E422A440FE;
- Wed,  4 Sep 2024 17:23:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C0DC4CEC2;
- Wed,  4 Sep 2024 17:23:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1725470587;
- bh=MKVWiXAJ+7Pq+eolEHDrok3t8EEZ6mlOOGqnV70ub0Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fqR2QsG/5A2d7tJRY3kzsPBXJIdIWhE8IMlbxaF6CK0DGsTCsuVHVVX9FM/jtWTEZ
- iIJvDdnnKhemLvI0O0a824vfqnrJUvg6LzfvODA2LMx2nKa4IG90XKTXPe4ymppHvX
- GOAyL73b/IdXjPzRqZgCcb7FODGsKwmHTIzV2Mpw=
-Date: Wed, 4 Sep 2024 19:23:04 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- stable@vger.kernel.org
-Subject: Re: AMD drm patch workflow is broken for stable trees
-Message-ID: <2024090447-boozy-judiciary-849b@gregkh>
-References: <2024081247-until-audacious-6383@gregkh>
- <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
- <CADnq5_MXBZ_WykSMv-GtHZv60aNzvLFVBOvze09o6da3-4-dTQ@mail.gmail.com>
- <2024081558-filtrate-stuffed-db5b@gregkh>
- <CADnq5_OFxhxrm-cAfhB8DzdmEcMq_HbkU52vbynqoS1_L0rhzg@mail.gmail.com>
- <2024082439-extending-dramatize-09ca@gregkh>
- <CADnq5_OeJ7LD0DvXjXmr-dV2ciEhfiEEEZsZn3w1MKnOvL=KUA@mail.gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8FE710E6BF;
+ Wed,  4 Sep 2024 08:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1725438141; x=1756974141;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=V1FmEQxa7lsgaFs6dxtMyqS9h9XeuCAQr3fIQa40Vko=;
+ b=b36XrRSYtOnEijRdVtqhc84dQsSheiz40xFfTEpRe8B9gFuhpCae817X
+ tvhlNPXWuxxEnhUdplmM2xrUI5BIiLERL5B9pDl/6wH+zkO9Bd7nLGo4F
+ LADt/mI6xGubd6r+Q+9We9RQvL7/cmMIyvT8X2K+7FaJWA5ucKKsXCnJi
+ sBfT4sod4EWZcod6wO/PDyQfGFHmptxGsp3yphSX88RQ36eNbBGmLMwgr
+ fudF1vc79dwbVET+H3ns9SrIPfvYYAwuAtaFeUi1rLvvxQEQM9g26/PCm
+ SeYujQbU8ZIVTsbfUjLXgXTm9C47vVDT3o6difvDk9PY1alpnv53Mb4Ry w==;
+X-CSE-ConnectionGUID: eXs+tstXTwmE38enQU8q1Q==
+X-CSE-MsgGUID: o7gBiST0T9qfJqTnn5FD0g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11184"; a="34743457"
+X-IronPort-AV: E=Sophos;i="6.10,201,1719903600"; d="scan'208";a="34743457"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2024 01:22:21 -0700
+X-CSE-ConnectionGUID: fhxr+nYxRoODf5yvaTE17Q==
+X-CSE-MsgGUID: rm5Y8ZLpSGWehoeNaPv1rg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,201,1719903600"; d="scan'208";a="69353257"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.18])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2024 01:22:16 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ linux-kernel@vger.kernel.org, Hawking Zhang <Hawking.Zhang@amd.com>, Hamza
+ Mahfooz <hamza.mahfooz@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: enable -Wformat-truncation
+In-Reply-To: <20240903200953.292717-1-hamza.mahfooz@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240903200953.292717-1-hamza.mahfooz@amd.com>
+Date: Wed, 04 Sep 2024 11:21:59 +0300
+Message-ID: <875xrbu8uw.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADnq5_OeJ7LD0DvXjXmr-dV2ciEhfiEEEZsZn3w1MKnOvL=KUA@mail.gmail.com>
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,65 +72,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 27, 2024 at 10:18:27AM -0400, Alex Deucher wrote:
-> On Sat, Aug 24, 2024 at 1:23 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Fri, Aug 23, 2024 at 05:23:46PM -0400, Alex Deucher wrote:
-> > > On Thu, Aug 15, 2024 at 1:11 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > > >
-> > > > On Wed, Aug 14, 2024 at 05:30:08PM -0400, Alex Deucher wrote:
-> > > > > On Wed, Aug 14, 2024 at 4:55 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
-> > > > > >
-> > > > > > On 2024-08-12 11:00, Greg KH wrote:
-> > > > > > > Hi all,
-> > > > > > >
-> > > > > > > As some of you have noticed, there's a TON of failure messages being
-> > > > > > > sent out for AMD gpu driver commits that are tagged for stable
-> > > > > > > backports.  In short, you all are doing something really wrong with how
-> > > > > > > you are tagging these.
-> > > > > > Hi Greg,
-> > > > > >
-> > > > > > I got notifications about one KFD patch failing to apply on six branches
-> > > > > > (6.10, 6.6, 6.1, 5.15, 5.10 and 5.4). The funny thing is, that you
-> > > > > > already applied this patch on two branches back in May. The emails had a
-> > > > > > suspicious looking date in the header (Sep 17, 2001). I wonder if there
-> > > > > > was some date glitch that caused a whole bunch of patches to be re-sent
-> > > > > > to stable somehow:
-> > > > >
-> > > > > I think the crux of the problem is that sometimes patches go into
-> > > > > -next with stable tags and they end getting taken into -fixes as well
-> > > > > so after the merge window they end up getting picked up for stable
-> > > > > again.  Going forward, if they land in -next, I'll cherry-pick -x the
-> > > > > changes into -fixes so there is better traceability.
-> > > >
-> > > > Please do so, and also work to not have duplicate commits like this in
-> > > > different branches.  Git can handle merges quite well, please use it.
-> > > >
-> > > > If this shows up again in the next -rc1 merge window without any
-> > > > changes, I'll have to just blackhole all amd drm patches going forward
-> > > > until you all tell me you have fixed your development process.
-> > >
-> > > Just a heads up, you will see some of these when the 6.12 merge window
-> > > due to what is currently in -next and the fixes that went into 6.11,
-> > > but going forward we have updated our process and it should be better.
-> >
-> > Can you give me a list of the git ids that I should be ignoring for
-> > 6.12-rc1?  Otherwise again, it's a huge waste of time on my side trying
-> > to sift through them and figure out if the rejection is real or not...
-> 
-> 8151a6c13111 drm/amd/display: Skip Recompute DSC Params if no Stream on Link
-> fbfb5f034225 drm/amdgpu: fix contiguous handling for IB parsing v2
-> ec0d7abbb0d4 drm/amd/display: Fix Potential Null Dereference
-> 332315885d3c drm/amd/display: Remove ASSERT if significance is zero in
-> math_ceil2
-> 295d91cbc700 drm/amd/display: Check for NULL pointer
-> 6472de66c0aa drm/amd/amdgpu: Fix uninitialized variable warnings
-> 93381e6b6180 drm/amdgpu: fix a possible null pointer dereference
-> 7a38efeee6b5 drm/radeon: fix null pointer dereference in radeon_add_common_modes
+On Tue, 03 Sep 2024, Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
+> It is enabled by W=1 and amdgpu has a clean build with it enabled. So,
+> to make sure we block future instances of it from showing up on
+> our driver, enable it by default for the module.
 
-Please resend this after -rc1 is out, so we don't have to hunt for it
-again.
+Would prefer enabling it by default across the subsystem [1].
 
-thanks,
+BR,
+Jani.
 
-greg k-h
+
+[1] https://lore.kernel.org/r/cover.1716479340.git.jani.nikula@intel.com
+
+>
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 34943b866687..64adadb56fd6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -41,6 +41,7 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
+>  
+>  # Locally disable W=1 warnings enabled in drm subsystem Makefile
+>  subdir-ccflags-y += -Wno-override-init
+> +subdir-ccflags-y += $(call cc-option, -Wformat-truncation)
+>  subdir-ccflags-$(CONFIG_DRM_AMDGPU_WERROR) += -Werror
+>  
+>  amdgpu-y := amdgpu_drv.o
+
+-- 
+Jani Nikula, Intel
