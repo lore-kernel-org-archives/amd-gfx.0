@@ -4,73 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C545DCE7A8B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F05CE7A89
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE20D10E935;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1A0D10E931;
 	Thu,  5 Sep 2024 18:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sfVGEzZo";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fqR2QsG/";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56CF110E6B2
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Sep 2024 08:01:50 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-374b25263a3so2720879f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Sep 2024 01:01:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725436908; x=1726041708; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RPGRyZgor+ICRd/PoCXOyw7qG7eZQ2SIyPr9G8EXgT8=;
- b=sfVGEzZoKPxkcJ47vcerr2fQTqINigy3ec60W9vkYOxmLwF7xJh8vZ6n6W5MHxQyUW
- DOLw9dn8rBrRkWpX8TyY/Adsrvim2WLwzgeZwiLpsco6sfiQ0Ii3DS90Yjbb/WsTGP8+
- /0cqpNTbnj8XKreV1jmhM89BSVW3V9f4CPE8V87+73HCBbIMeZz8hLZpNeyjWhBVJ52F
- FgkX5lTMuSBV4/spCyogyJYxSWAYkdufzdlynLP36lC0+2xg+/5jHTdmGrjVkWJCoN49
- wZXGmIEWVvdNB7I93/Vig6nxJMxDYO8qNYYGMh9F89Bzq8gKkbazamGhs/ll7SVTOujt
- 4oxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725436908; x=1726041708;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RPGRyZgor+ICRd/PoCXOyw7qG7eZQ2SIyPr9G8EXgT8=;
- b=c0U7vygOEeMbprK5sSnl88Odk+q6umGmzd0SORbBAQiHBffMpi9i32BkOIU6T1Wfgb
- Zk5n7y24yP8ctTxiHf1Yo0O9YQcA3EqxLh7YVW8xl0GnwSooa7FPFv55ycKbHTEFFA10
- SVQFZP4F/QTykCNDZMGQHeWJnt8WkKvQdJWe9OylmAIMAcIddwseqkMYERdkplmNkTqp
- rehD45WDHuh+qSPgOaeTD6uPP2hGdyp8jZ97a+A3KZsdd3xGb6FjCedl3FjEuGiXA5ep
- POQkYJCwAoOAJayMcObClSTmpkSgFMLqcwtNSjs87KFxBys4unpGl4rySifCX3oMn8PE
- 2VhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXRGKjzCARLvEQkzLkcB9ia7CCU194PHVO5Q5YMmhmxLzhg09+rLnBI602usCt6ZN+a54FxPeHZ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRIYMYCi1QN+0J+6fqyxsJ0kWppShPMKmcEW2cO3m5sa7rfXdh
- kv2bnbApXMcQvaE8nrB3eyI/uXqM37SsDO9huUOLQsppRYlCp2k9Q5qmXb2UlXo=
-X-Google-Smtp-Source: AGHT+IHKnu53nThpZGWQqPEljZp+OwL7w/w0X/6FdYop1bPaA9q53NpXOxJ4zAW3vWCLnYcSEXQUDw==
-X-Received: by 2002:a05:6000:144e:b0:374:d2a3:9806 with SMTP id
- ffacd0b85a97d-374d2a3989cmr5576698f8f.2.1725436908416; 
- Wed, 04 Sep 2024 01:01:48 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-374c4059811sm10059317f8f.4.2024.09.04.01.01.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 01:01:47 -0700 (PDT)
-Date: Wed, 4 Sep 2024 11:01:43 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Jiadong Zhu <Jiadong.Zhu@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jack Xiao <Jack.Xiao@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, shaoyunl <shaoyun.liu@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Tim Huang <Tim.Huang@amd.com>,
- chongli2 <chongli2@amd.com>, amd-gfx@lists.freedesktop.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/mes11: Indent an if statment
-Message-ID: <4152e10c-2ec5-4ac3-be47-c97fcafdb35f@stanley.mountain>
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABC3210E816
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Sep 2024 17:23:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6E422A440FE;
+ Wed,  4 Sep 2024 17:23:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C0DC4CEC2;
+ Wed,  4 Sep 2024 17:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1725470587;
+ bh=MKVWiXAJ+7Pq+eolEHDrok3t8EEZ6mlOOGqnV70ub0Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fqR2QsG/5A2d7tJRY3kzsPBXJIdIWhE8IMlbxaF6CK0DGsTCsuVHVVX9FM/jtWTEZ
+ iIJvDdnnKhemLvI0O0a824vfqnrJUvg6LzfvODA2LMx2nKa4IG90XKTXPe4ymppHvX
+ GOAyL73b/IdXjPzRqZgCcb7FODGsKwmHTIzV2Mpw=
+Date: Wed, 4 Sep 2024 19:23:04 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: Re: AMD drm patch workflow is broken for stable trees
+Message-ID: <2024090447-boozy-judiciary-849b@gregkh>
+References: <2024081247-until-audacious-6383@gregkh>
+ <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+ <CADnq5_MXBZ_WykSMv-GtHZv60aNzvLFVBOvze09o6da3-4-dTQ@mail.gmail.com>
+ <2024081558-filtrate-stuffed-db5b@gregkh>
+ <CADnq5_OFxhxrm-cAfhB8DzdmEcMq_HbkU52vbynqoS1_L0rhzg@mail.gmail.com>
+ <2024082439-extending-dramatize-09ca@gregkh>
+ <CADnq5_OeJ7LD0DvXjXmr-dV2ciEhfiEEEZsZn3w1MKnOvL=KUA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_OeJ7LD0DvXjXmr-dV2ciEhfiEEEZsZn3w1MKnOvL=KUA@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,26 +61,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Indent the "break" statement one more tab.
+On Tue, Aug 27, 2024 at 10:18:27AM -0400, Alex Deucher wrote:
+> On Sat, Aug 24, 2024 at 1:23 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Fri, Aug 23, 2024 at 05:23:46PM -0400, Alex Deucher wrote:
+> > > On Thu, Aug 15, 2024 at 1:11 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> > > >
+> > > > On Wed, Aug 14, 2024 at 05:30:08PM -0400, Alex Deucher wrote:
+> > > > > On Wed, Aug 14, 2024 at 4:55 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
+> > > > > >
+> > > > > > On 2024-08-12 11:00, Greg KH wrote:
+> > > > > > > Hi all,
+> > > > > > >
+> > > > > > > As some of you have noticed, there's a TON of failure messages being
+> > > > > > > sent out for AMD gpu driver commits that are tagged for stable
+> > > > > > > backports.  In short, you all are doing something really wrong with how
+> > > > > > > you are tagging these.
+> > > > > > Hi Greg,
+> > > > > >
+> > > > > > I got notifications about one KFD patch failing to apply on six branches
+> > > > > > (6.10, 6.6, 6.1, 5.15, 5.10 and 5.4). The funny thing is, that you
+> > > > > > already applied this patch on two branches back in May. The emails had a
+> > > > > > suspicious looking date in the header (Sep 17, 2001). I wonder if there
+> > > > > > was some date glitch that caused a whole bunch of patches to be re-sent
+> > > > > > to stable somehow:
+> > > > >
+> > > > > I think the crux of the problem is that sometimes patches go into
+> > > > > -next with stable tags and they end getting taken into -fixes as well
+> > > > > so after the merge window they end up getting picked up for stable
+> > > > > again.  Going forward, if they land in -next, I'll cherry-pick -x the
+> > > > > changes into -fixes so there is better traceability.
+> > > >
+> > > > Please do so, and also work to not have duplicate commits like this in
+> > > > different branches.  Git can handle merges quite well, please use it.
+> > > >
+> > > > If this shows up again in the next -rc1 merge window without any
+> > > > changes, I'll have to just blackhole all amd drm patches going forward
+> > > > until you all tell me you have fixed your development process.
+> > >
+> > > Just a heads up, you will see some of these when the 6.12 merge window
+> > > due to what is currently in -next and the fixes that went into 6.11,
+> > > but going forward we have updated our process and it should be better.
+> >
+> > Can you give me a list of the git ids that I should be ignoring for
+> > 6.12-rc1?  Otherwise again, it's a huge waste of time on my side trying
+> > to sift through them and figure out if the rejection is real or not...
+> 
+> 8151a6c13111 drm/amd/display: Skip Recompute DSC Params if no Stream on Link
+> fbfb5f034225 drm/amdgpu: fix contiguous handling for IB parsing v2
+> ec0d7abbb0d4 drm/amd/display: Fix Potential Null Dereference
+> 332315885d3c drm/amd/display: Remove ASSERT if significance is zero in
+> math_ceil2
+> 295d91cbc700 drm/amd/display: Check for NULL pointer
+> 6472de66c0aa drm/amd/amdgpu: Fix uninitialized variable warnings
+> 93381e6b6180 drm/amdgpu: fix a possible null pointer dereference
+> 7a38efeee6b5 drm/radeon: fix null pointer dereference in radeon_add_common_modes
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please resend this after -rc1 is out, so we don't have to hunt for it
+again.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 0f055d1b1da6..ee91ff9e52a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -415,7 +415,7 @@ static int mes_v11_0_reset_queue_mmio(struct amdgpu_mes *mes, uint32_t queue_typ
- 		/* wait till dequeue take effects */
- 		for (i = 0; i < adev->usec_timeout; i++) {
- 			if (!(RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) & 1))
--			break;
-+				break;
- 			udelay(1);
- 		}
- 		if (i >= adev->usec_timeout) {
--- 
-2.45.2
+thanks,
 
+greg k-h
