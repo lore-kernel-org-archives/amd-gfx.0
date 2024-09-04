@@ -4,146 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E0F1CD3431
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Sep 2024 09:36:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF4BCA0ED3
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Sep 2024 09:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A46EF10E713;
-	Wed,  4 Sep 2024 09:36:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68CDC10E720;
+	Wed,  4 Sep 2024 09:51:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GAqV9yHS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FEXdg8Y6";
 	dkim-atps=neutral
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2067.outbound.protection.outlook.com [40.107.93.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2509E10E719
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Sep 2024 09:36:17 +0000 (UTC)
+ (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D8F210E720
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Sep 2024 09:51:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xYNyUtnTS6goPX5EM6bB/xzomQssYdAOuNAAlvSp6epGaqZWdk7wsdiBXHGFQDjyv8TaZsluPhQDRDna/JJwzqB7TOfPqypF7eMA94ljrdh14M/hvB0LzsB2QT6C6utOK/oDwCT2gqaBzXIGnYUIE92/H+hQDiJc997UEVuydfQnO57ORHDyjhDLGSIGgLYeSDeYxuOuWSaOfh5uzyObF3sxwAjqJJ9Yooq6Ia8UreTp2rPuZpJrMWy4Q7KtegW5fbbxF9OZyvm8fZgt+COAHzluGeImjk7v/d3AsktnM35UxZNxO7ZfivV6uituWzFNkMhyqCMVOUMaIBQHxZ0/Vw==
+ b=trJjHPswug2k7ONlb54pfRibGUZFenGnWid67r3IsJBSJTq+Y+9VzQaQEKHX2FLZi4aLCv06Lf5I1ft9ecLvYdG4N657HG1j4rf/ApeFosd/IvCpW1XVMWlfX8q2HT7I0A398ifHqyeg7oxyjpX4w2NXI9ZS/iV87cxqs/+zxGLkgz6ip43Y4iK82aCYiDK9c0D/2TsEbbUQpuc9B5xLrOHwQ6Ezg4xgbLA2myALgWCajmbTOIUxbX9231kBfWrUf6sc55AOHd/nuLlzWAxGa7mKQzP3O2uJZ+siPkNA0Lfys7N+9eJyilrogxM2JQ20roZCWR3kIAMjCIn1vCM0cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=knVTU6NS7qRzCN8Tq7A0W1jjK70DjzYb4MrX/98mLyg=;
- b=I2uOJW/hbX4MZ+7T9TJYI5DKYHgZZPfgNqpMlWg5KLC+KuPsYxeOoF5pKAfHMT3fhb0k/hBhlWZsfznULPmQzjfrzSRypEKvfYeA+/8J9IpFlxKIiR55VTdlKud4g+Bc7v9dSYj5c/EtI7wp4Wn2mj6mZQcJmwnrJF6t6/0K7atTFTvbbtB3bNNOhL0I6/TlKMoo4JZaRS/MuUtmIkM7rQFj/YhgtkX2ly0/ZOUSG8Xq6rwWQ2JuP2B/m1QL4+kZL82H6BtXdFHCXYr1/a8KDTyQV5zC1YZGRKDDoVKG+xJzVZgezaVfMJFAv3P7RsdWIVg9uSTi9fneF1ON6vk/sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jC/eAecYNZ7K2z07M0JRZOay+rVKIOD1qT3RSU4Buws=;
+ b=PxE4Z4WfST60RxEONvERxsUjoVgt2evlFI4/Ji7/ASQ8XgF3YTJ09X47clAboVQkB2LTtKbAJwJ0VFveLJBEj8OpzCJxFRbNUTNoqgPJAGRCUjssSR11Wwg/XvdIgjq2IxnDPhDlN0g3pLZ5jYRrsnzeo+oPLnV0LXvchf6Uul2GuOK02/s03j0Gql11AFiOx2VUz85Uhhplj+dgzRK0B1a7cdtst4++mIoGW5QjTecUwQNbZRzkTylalQlGNmA5oGbTIzklvFW++pcIAZRduY5JHERI0tDOHtx7DHdzQMFWQ5pC2GPmbfqzY2ZqNRFvDm7V65crkIPdKwDHf2/Few==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=knVTU6NS7qRzCN8Tq7A0W1jjK70DjzYb4MrX/98mLyg=;
- b=GAqV9yHSqA3IZtCQBpRkkDdblQi133oqQiq4eXw/9I+28/rDeO3n1x9nGkxm2E3QS/wWt0VoZR9C7X5HqAKBDB41Fq4Mz36li8JCAliSXLwLjXj3xSro23uvaW6RAQvXoFqBniTejMGyROJXUWjX2xtAuBV/n09+9DXRNiGhK2Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- IA1PR12MB8359.namprd12.prod.outlook.com (2603:10b6:208:3fc::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27; Wed, 4 Sep
- 2024 09:36:12 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%2]) with mapi id 15.20.7918.024; Wed, 4 Sep 2024
- 09:36:12 +0000
-Message-ID: <2e452e40-0fa8-4734-aba2-5da053caf5e6@amd.com>
-Date: Wed, 4 Sep 2024 15:06:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: fix a call trace when unload amdgpu driver
-To: Asher Song <Asher.Song@amd.com>, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, alexander.deucher@amd.com, felix.kuehling@amd.com
-References: <20240904080420.559277-1-Asher.Song@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240904080420.559277-1-Asher.Song@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0054.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::29) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+ bh=jC/eAecYNZ7K2z07M0JRZOay+rVKIOD1qT3RSU4Buws=;
+ b=FEXdg8Y6NltZoW3CKalvqilYlkNz5hlepQq7g4g03zcca2S8yx7cWTMr/UU0u7ziUxcHU8lGUGAz9VMnNGavB2HUBiXjLvQIVfVu2zvtGq0ByHoGaQtR7H2RQfu6AsWNdZoVKrhgWRyVeg8jF8G4Ft0XCvSWdHgBbeiwAYkk4PQ=
+Received: from SJ0P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::21)
+ by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.24; Wed, 4 Sep
+ 2024 09:51:36 +0000
+Received: from CO1PEPF000075EF.namprd03.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::d2) by SJ0P220CA0023.outlook.office365.com
+ (2603:10b6:a03:41b::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27 via Frontend
+ Transport; Wed, 4 Sep 2024 09:51:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000075EF.mail.protection.outlook.com (10.167.249.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Wed, 4 Sep 2024 09:51:35 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 4 Sep 2024 04:51:33 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH v2] drm/amdgpu/gfx9: Convert `//` to `/* ... */` in cleaner
+ shader code
+Date: Wed, 4 Sep 2024 15:21:20 +0530
+Message-ID: <20240904095120.1813377-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|IA1PR12MB8359:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e7f927b-c53f-4693-335f-08dcccc5038e
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EF:EE_|CY8PR12MB7754:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1af6450d-4c22-478a-c576-08dcccc72a50
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WEVMejhRMlMyWXhYbFV1YXZ1THlVanY5UTNNT0FFZm5aZkozVExjdFp5cktZ?=
- =?utf-8?B?RTBETUlwRGNnTlc3WGE0YVBncmQ5eWdSc3lRNzhkaWlQeGdIai9UanQ2TjZS?=
- =?utf-8?B?cG4zTFNsMm9KV0VCNjVGTnFlU0o1ODdKSXBySWpybnVmUTA4clVkM05vVldP?=
- =?utf-8?B?TFp3Nk5od0tEMUhPYndvOXlKT2VjVHJCNXI5MzkvSmhYaFBQakJJejBRZ3Q0?=
- =?utf-8?B?b1RtbkpPd29SeEhCTFZvZytqMlYyVXliSzRJOVQ1MjlhL2RlaS9NV0diQWUz?=
- =?utf-8?B?NHA2K2NNM1lxUlhMZm92SERscXV3YjVvSWVDcklMd2luc1RjZEY3c28vd1Y1?=
- =?utf-8?B?d0ErbWludXRRSGQveWJrcEJzN3p0d0VaS1BtSGlCSmV2Nk9kODd6YjBCbFVM?=
- =?utf-8?B?eFp0WmtseU1GTWZsdkw1QUF4WFBsTmF6NWxzYkc4TjJ4amVldDRxa2twK29J?=
- =?utf-8?B?bUNLZkpaVHl3MWxkSVBsZHQwTUZpblAzQ1JZdExwOHB1VEk4em80bGk1ZEpD?=
- =?utf-8?B?QXlEQ3hzR09CUE5GK25ETVNtS2k1TllCWk56dHc1NW82WGI2a01FL0lZUlQw?=
- =?utf-8?B?WE9RdG9DTmhhRDVXWEcxZ0RjYnZKVTdxb2EvaEROd3owb3BhcXhXVStwbEhp?=
- =?utf-8?B?NGJWZTdHOXg4RGU3YlBZTm5OWjdXWlJNektpVzNOR1paU3lTWVBNajMxSkVk?=
- =?utf-8?B?QnEzOXZjZ1ZDbE1RemJBSUQzcTB1em1taUhOMDlzQjZvQTFETDc4ZnVkNVpN?=
- =?utf-8?B?bGZtU09rWWhGUXpucHVLN0xsTG5rOUNTRmQremF3RVk1dFllWVlEZitMdllX?=
- =?utf-8?B?KzBZZHVLeGh5cCthQnJYTTJxaGw1R3o1MytLY0FNZHE3VjUrUUpLQnI5a2tD?=
- =?utf-8?B?ZkRHVDB2VjBnazdSTnVEZTlLNnBqZFVmRFpMNUVxM09GSEF5dFhleUtvQlJk?=
- =?utf-8?B?SUpZMlk5SVhnVjNKTUVkcDl6R284VEVQZmRtNWxDYzJuOUVDeGR4SWwreGhO?=
- =?utf-8?B?dzVxOUt2OHYzcmYrTkY1d29xclhkV01QMys5c2NjNGQzanF0SitZQ3VnS1Uw?=
- =?utf-8?B?WHBlbmRyZVBLU25xSlFlaUpRVEVsSzNiSEFJenU4eWVQWTFNSzRNWHRBVjFn?=
- =?utf-8?B?cWEyVHdqMFFYVWl4RGZTVVE0czhtY3VFZld4NDZPZXBqSHFROFhtRldSRmRQ?=
- =?utf-8?B?dk9UdllnZjQ2RjF5d09RMFNkUlgvL2oyV3kzbDBzUUwydUdBMnJmT29rc09n?=
- =?utf-8?B?QU9pUUVJZjVWTFV4L1RqZTB5ZDR4ajFlMzZtVVBjSEVrQUdMbmhJempCL3Qv?=
- =?utf-8?B?TXE5aHVTOUdSa1FaRFYwdTNmTEt6UVNDbk44cm5QSjhrcEhOb29HOEZsSnBG?=
- =?utf-8?B?Zmg3R2FhRnJCTWtCY0RMV1UrelR0UHRNM3Z0cHVibVRyQUFpcG4xWjdMbjNv?=
- =?utf-8?B?cDVVbk5IOXZDendxTFBIbTJHejI1T21hVzBmWG10Y0NBdUdmUzNibkxVWTRS?=
- =?utf-8?B?Zy9PelJJNlROaGZvS05hZFh6M3JwOUwzdXNzZi9lQzU4OUh1akk1d3NJK0lV?=
- =?utf-8?B?NWVsdDAvdnRoZXNOS3kzZEVqSWxxU2M0YnRyQzdGeVhHanhibEZDaDdsN25E?=
- =?utf-8?B?TXlXcTVIcDIwYTNURldCNFE5eXNhbjJXbVFRbGtLcEVSUGZ1VVZ1YWpiWWYr?=
- =?utf-8?B?eHh4TG1tWjNYT2FpcEVvNHdsUVcxbjFkUGM3ejN2Q3NRTU5Sak9ETkJUYjFP?=
- =?utf-8?B?bURkT1djNk1aNG9JL0lSRWRTbnVmSFYrSmJVcGgrR3FFZ2VyOElGMDFUN0Zs?=
- =?utf-8?B?ZWlhd21yaHMzdnhsbHlBdz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXh2QnVXQ0x5NkNlY29xSm9EdmExL2d0RzRtMzFRZUlzaENQNkZibmtIcmhh?=
- =?utf-8?B?NVZHREZpd2FHSmZyZUprZzVvMDYzeVQ0K3lCcXNBbWJGUTRjNGZYTGRNZzBm?=
- =?utf-8?B?a0pjQlMxOFVQNXJsNHBDS2NmZTd3NXA5SVl5YW5ycTNDUWNhK0Ntck5NV2VR?=
- =?utf-8?B?S3JrYkxTL1lQUFdPR0pGR1k5UFg3Z2d4TjJNMFpaYkkycy93RlZjY0dHVzNS?=
- =?utf-8?B?YkhlRnlkY2FEdU5wLzRYMEhYZFcxV1ArNE8wVEYrMVJuanVHejNpZ2MrQy9O?=
- =?utf-8?B?aDBvdzNSQnRBSTI5ZWhnQndaU05hOFNlWWZEWVlrLzNCNm5XOXJKS0gzSnU2?=
- =?utf-8?B?cER0ZDJsM3NJM1lwY1Z5YVpRdldDQXoxMkF4dGRqWDQ4aE1zaFA5OFhSdW9n?=
- =?utf-8?B?YWJJV0pqVFlxbkxwZG0zaFR2UXlxNm0yUGJEbEdkRko1T3FWbEM0WjFQU0xF?=
- =?utf-8?B?NkN3Vld1cTB0WGNsV0hzKzMwdWtPR3BiUlBNWExFWlZWUERaSXhUYmM0L3ZT?=
- =?utf-8?B?Q1NvQWcrSHVrY1I0Mk1qSDhTNUErYVI2RGV3L1d5b1lmaUMxRmVTLzJsN3Qx?=
- =?utf-8?B?dFVEcUdrVVh5TkgzYnhaMTY2WTZXSEd5aUFmS1l5Y0J1dTR5WWRwNnEvTUVQ?=
- =?utf-8?B?N3JrWmJUMTVXRkNVdkU2V0hQdFExcVhXWkNIVlBUaHhWamJFOVp0QXk1Q253?=
- =?utf-8?B?R3FkY2ZuUjRYdFFuaUpxVUx6MXZqN2hucTRyZ3IxQzB2cWZIcW9HR2o2NEcx?=
- =?utf-8?B?bG14UGhCeklOVGhGTVdPZ2hyTktlZUJma1BKdGIxSWQya0l2aHR4TXkzUXVO?=
- =?utf-8?B?djFDT0RNa1BnU1hwVTdmNGJxclcxOXprOVAxckNiRE9uQ0l2YUJaNG1Zd3lK?=
- =?utf-8?B?YUdJL0Q1aEJhU2xkWHYvSGxtUE9RQUdrVHlOWXo3VEhBL0kzWXY0R1BENWJQ?=
- =?utf-8?B?U1dGczFRMnZWb3NRaTdvZTFqQ3FLeFZzbVhTNFcvZEN4T0hacG9UbG1rTmcx?=
- =?utf-8?B?TE56MTlqVnV4Tkpqd2d5Y3BFVnlRLzhDNk5ZVlZ5TzlsaCtEK0hhdmZUTUhI?=
- =?utf-8?B?ZnI3em9nV3VzeEgvUHNMdklQK2ZIaks3QmtVbGl6K2JHK01RZkJPM0JQY21Y?=
- =?utf-8?B?bGJDZ2pNRnpOWEtiUGlTTEM1QlV0OGZMWjJiREV0WHIzR25PQkVsSjU2ZDhK?=
- =?utf-8?B?NDJ0K1dxcVJpeVExYVFORytGdmcvb2VnM0xEeVdJTHVPMnliYkdMMFp0Y2xH?=
- =?utf-8?B?b0tGOVFsa3IyN2JzNnorTlZrckh5TzdVSGhoSk1rVDlBSVJKdWt5cHZPN0JI?=
- =?utf-8?B?ZG8xVDh0UEtKai80ZXlXL1ZEZlJ0dU5uaUNwOWtmZEgzN3VvbkRLdGtFZDUz?=
- =?utf-8?B?Qjk5bzNKNE9lWXd0MC9RUWJMTEdmNitRZW9xUkxTZ0xGRkZ2ZTJQT0lPbXpJ?=
- =?utf-8?B?MmpNVTRpTms1STJoUnNuUlVTMEFiZSttM0h0TCszWGk4SnV5cXJPVEtaZVor?=
- =?utf-8?B?UE9JQ0FWY2hmbVJoMnI0NU13bVM0T1Y1emJuUTBGU283TkV5NjV6NnZObjBo?=
- =?utf-8?B?V3VVd1dFKy9RakYyRHNTRGhYZHZ1cHVWSFBPRjV0ZExFTmxVL1JwaHlCV1lu?=
- =?utf-8?B?dG9xK0h5VVJ4MFdad2NnMUw2d3VjTlZVdnArZXJwNU5Pa0NFeExyVXFFTUw3?=
- =?utf-8?B?clAxenMyL2kyTFRYU3ZOa3NqN2lGS1JYQ3pydXp4SzNXS1hqdjNGdC9vZy9T?=
- =?utf-8?B?bGcvMGRHTlFvbWNXbkRsOGpYMjF1THpKcnphZDJ0Nm9lUHpSTjFxeVEvdDJh?=
- =?utf-8?B?NGxrNkxVbVBkSmllU0RqSVc4MjEwR0lscjh4Uk5PVmFKZi9CbXJKVGJUMlFo?=
- =?utf-8?B?elF0MFpOTzRsL04xWWxvMW9CWVMwMmhmL2dwaFI2RHN4WGRDWFBERE80S3g2?=
- =?utf-8?B?TlRzZ2IxV1NEWlZLMkZLeVhHNFRxZEJtbUVuSk9oOGxXM1dmZEpRVmdqdXVj?=
- =?utf-8?B?dlJEdjY1eDcwblVqZHBtU05hZVhqaFE1OXgzMVp4ZURGODF4SUE0VjI0U0ha?=
- =?utf-8?B?enVhY0pPT1I4N0cvNXdyNUJhZTAvWjJab0tTK1R4WDRnMm9hZTdEcWhKWk1z?=
- =?utf-8?Q?CNFeTyTZj4hcu4ukGoxWttF/A?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cTI2Z3hHeVowY3AzLzhPcXhuZFJENVkvRzdleHRzZWZpeHdQY21ZZXdwbkFt?=
+ =?utf-8?B?b3FVU1A2bW1panNCSmNPdzloQm90QnRHSG9ZSDVBUENGZEtteWc3YkRqWHZJ?=
+ =?utf-8?B?UTNDOS82QVMyOVh6bjRQYS8wSFdmQmgrUmFEYktSU2hkMkNEdDd0cnBoWVA4?=
+ =?utf-8?B?V2JOTFhEYmsxYmR6cVVicU51RUcrb0JPUENwNGpxQ0NNZ0YwNDRPSFhPbUxz?=
+ =?utf-8?B?QUdwMnJ2UVhvMFUzaEhiRkk2THRGb0dQOHhuRVJaQ3Nhcll2UjRxcXY0d25o?=
+ =?utf-8?B?Q2xhSGlqYzFUQkZXNmc1eEQ4Qyt1ZUk0Qm1rRFFnSnM2SEpIVkRmSDBKMU9B?=
+ =?utf-8?B?SFpJQXBoK0lKVTVVUHBjQ3hKUlFHU2hYM3NsTjd2VHMveWJvcVhNSzZYdlVP?=
+ =?utf-8?B?dnVlL1ZoSXZSdU5WMmpZaXFoUC8raE42aUJmUk1QVmVCYmRrVE5SZlBDMzlX?=
+ =?utf-8?B?TG1abmhGM2krTlhPbWZPV3dNVG9naXM0SjRvdjRIWUV1U2Z4RSszU20zK09Z?=
+ =?utf-8?B?Rnk4TU5MQkxBdE82cElZTEJ3dldCRlAzdzVpSE1iSDV3Q040UjJuVEdlZ2hU?=
+ =?utf-8?B?MXIvb3M1WHNRUGpObFBGcEZGRkl5OUJYV013Zk5FeTg2NFpUODdKQTVtVjEy?=
+ =?utf-8?B?aUhnTEFBeVA2YmVhamFiVE9MY1RVRmkzSisrOGUrVU9oLzYzazM0RjBFM2JC?=
+ =?utf-8?B?ZkR4eGo0YUN4WmliZ1JNR3ZaeFdvY2V0Y2x5cDhSUlBobGwxUXJtWnZRRTZs?=
+ =?utf-8?B?MlVKTW9EMVdQM3lCTkJPZElScys4dGJBZ1R2ZFlQUUVyWXphaW1uVnZ1ZnRz?=
+ =?utf-8?B?YkhwV1FCNlJ3VHk3NmNHbWIrMEoza3V3eW0rSVE0cGxxS3c5Zko0T3lpbjFN?=
+ =?utf-8?B?YkRzaFlwQ1NiL25Yc0hwUGxzSFgwODBnbE5SS2N6UFhSS0c3cHRvSjJjRHZO?=
+ =?utf-8?B?QXl4YWd6RVBFRnlUeTQxQWVmQUF3Z0xLbFB2NDRockFXdUo4VGRtaU0xN2U3?=
+ =?utf-8?B?NGdoS0ludG5hNWwyOGNqNHRSS1MxT3ovWXd0T244MHA4Z0VIZ0hHNFRmblNF?=
+ =?utf-8?B?OXNrcWxhNTBRQmZHZzg0V25Zd2xKSGw1TkVxMzR3QlFZSERqeEZWUjAxNWtV?=
+ =?utf-8?B?NERrSzlrYUxDeUFBT3RmOUFaV3hqay9Ya3hZazVzKzlCTTQ5ak8wNnhySzVF?=
+ =?utf-8?B?UXpGR0VPdWRUa294NmRSd0FaRXpCcWxzQTJOOUpxRHRwWE5CRnVSYTBid2JE?=
+ =?utf-8?B?cjVUc2JGZVVrb0Q1djNZUmVnNUN0amZ0RWpqc3NyaHNOMmwzTXUwTXEwVzU5?=
+ =?utf-8?B?WlQwWHRndkNPOGQ3N0h1cnVRcklTbERNSE5MN3oxVWpHUWlPNG14V1djLzRo?=
+ =?utf-8?B?MFhmSGZpeWNiVVlhSkc1RlVnOWp2cm1aY1dIdkVtcDlxTzJGamx4aXQ0amIz?=
+ =?utf-8?B?Vk5LcEwwNEtmT2xkRkRqQTk2L2FUWVlzSE1GamRYcTd0ajk3clc5ZTFqcm9h?=
+ =?utf-8?B?Y3BWVkc0S3AxaStwVzlicmVQQ2VKVE5vbWh3WWNvaVVDNWNrcTVlRFp0d0gv?=
+ =?utf-8?B?cGY5SEpIM01JOHZZWWo4MTN4RlNFc0RSTW9QTkhONk9ydVVkdjZRU1JSck9a?=
+ =?utf-8?B?K3VWU2tEdUtNQ3FZdVViY2NHOFEzS2thNjJWZnVWeGhlNSt3VHI1TGYvYjl4?=
+ =?utf-8?B?M1pEeVRScHZHMmJCSnFrNjJ4ZUJ1bnNncGgwSk9aTVE5dFlLSlg0UkxXWG9G?=
+ =?utf-8?B?U3lZY0s3UFY3d0pCaUh5MjhnRkRCQndXUGhNVjdCTGJEMlQzMjY2YitnMDcz?=
+ =?utf-8?B?MUNnZWhRK2hiekV6TDJoMWpUS3d0eHBiaHNpRXhmT3kxa21HNThjeThRRHIv?=
+ =?utf-8?B?VC9QZFE0b2NVc25OWFdlTkRCd2pEb0tGNmUrYnJ1NkxxNXlyb1pKMnhOdXV6?=
+ =?utf-8?Q?pN+RZlWYyT0tYYHkvd1UQx1LgS3gWbY/?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e7f927b-c53f-4693-335f-08dcccc5038e
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2024 09:36:12.3576 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2024 09:51:35.8544 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1af6450d-4c22-478a-c576-08dcccc72a50
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oop7PZ/8zej6gPJYbnJ1n1HYu3PuzbSW5QloG0686Y+N0mOd1PB/a/TccsMJY2QY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8359
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,38 +140,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This commit updates the comment style in the cleaner shader code from
+`//` to `/* ... */` to adhere to the Linux kernel coding style.
 
+The comments describe the operation of the cleaner shader, which is used
+to clean LDS, SGPRs, and VGPRs. The shader uses two kernels launched
+separately to clean VGPRs, LDS, and lower SGPRs, and to clean remaining
+SGPRs.
 
-On 9/4/2024 1:34 PM, Asher Song wrote:
-> In some APUs, the bo type of GART page table is ttm_bo_type_sg.
-> Those type BOs is released by bo->delayed_delete which is added in ttm_device->wq, not released immediately.
-> 
-> To make sure all the ttm_resource is released before ttm_resource_manager is finilized, drain the workqueue in ttm_device.
-> 
-> v2: move drain_workqueue to amdgpu_ttm.c
-> 
-> Fixes:d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup path for imported bos")
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Asher Song <Asher.Song@amd.com>
+Fixes: 3b721dfb2c95 ("drm/amdgpu/gfx9: Add cleaner shader for GFX9.4.3")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2:
+ - Corrected typo for iteraions
+ - Added fixes tag
 
-Acked-by: Lijo Lazar <lijo.lazar@amd.com>
+ .../amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm  | 139 +++++++++---------
+ 1 file changed, 72 insertions(+), 67 deletions(-)
 
-Thanks,
-Lijo
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm
+index d5325ef80ab0..8951b5a87ae1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3_cleaner_shader.asm
+@@ -21,47 +21,52 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+ 
+-// This shader is to clean LDS, SGPRs and VGPRs. It is  first 64 Dwords or 256 bytes of 192 Dwords cleaner shader.
+-//To turn this shader program on for complitaion change this to main and lower shader main to main_1
+- 
+-// MI300 : Clear SGPRs, VGPRs and LDS
+-//   Uses two kernels launched separately:
+-//   1. Clean VGPRs, LDS, and lower SGPRs
+-//        Launches one workgroup per CU, each workgroup with 4x wave64 per SIMD in the CU
+-//        Waves are "wave64" and have 128 VGPRs each, which uses all 512 VGPRs per SIMD
+-//        Waves in the workgroup share the 64KB of LDS
+-//        Each wave clears SGPRs 0 - 95. Because there are 4 waves/SIMD, this is physical SGPRs 0-383
+-//        Each wave clears 128 VGPRs, so all 512 in the SIMD
+-//        The first wave of the workgroup clears its 64KB of LDS
+-//        The shader starts with "S_BARRIER" to ensure SPI has launched all waves of the workgroup
+-//          before any wave in the workgroup could end.  Without this, it is possible not all SGPRs get cleared.
+-//    2. Clean remaining SGPRs
+-//        Launches a workgroup with 24 waves per workgroup, yielding 6 waves per SIMD in each CU
+-//        Waves are allocating 96 SGPRs
+-//          CP sets up SPI_RESOURCE_RESERVE_* registers to prevent these waves from allocating SGPRs 0-223.
+-//          As such, these 6 waves per SIMD are allocated physical SGPRs 224-799
+-//        Barriers do not work for >16 waves per workgroup, so we cannot start with S_BARRIER
+-//          Instead, the shader starts with an S_SETHALT 1. Once all waves are launched CP will send unhalt command
+-//        The shader then clears all SGPRs allocated to it, cleaning out physical SGPRs 224-799
++/*
++ * This shader is to clean LDS, SGPRs and VGPRs. It is  first 64 Dwords or 256 bytes of 192 Dwords cleaner shader.
++ * To turn this shader program on for complitaion change this to main and lower shader main to main_1
++ *
++ * MI300 : Clear SGPRs, VGPRs and LDS
++ *   Uses two kernels launched separately:
++ *   1. Clean VGPRs, LDS, and lower SGPRs
++ *        Launches one workgroup per CU, each workgroup with 4x wave64 per SIMD in the CU
++ *        Waves are "wave64" and have 128 VGPRs each, which uses all 512 VGPRs per SIMD
++ *        Waves in the workgroup share the 64KB of LDS
++ *        Each wave clears SGPRs 0 - 95. Because there are 4 waves/SIMD, this is physical SGPRs 0-383
++ *        Each wave clears 128 VGPRs, so all 512 in the SIMD
++ *        The first wave of the workgroup clears its 64KB of LDS
++ *        The shader starts with "S_BARRIER" to ensure SPI has launched all waves of the workgroup
++ *          before any wave in the workgroup could end.  Without this, it is possible not all SGPRs get cleared.
++ *    2. Clean remaining SGPRs
++ *        Launches a workgroup with 24 waves per workgroup, yielding 6 waves per SIMD in each CU
++ *        Waves are allocating 96 SGPRs
++ *          CP sets up SPI_RESOURCE_RESERVE_* registers to prevent these waves from allocating SGPRs 0-223.
++ *          As such, these 6 waves per SIMD are allocated physical SGPRs 224-799
++ *       Barriers do not work for >16 waves per workgroup, so we cannot start with S_BARRIER
++ *       Instead, the shader starts with an S_SETHALT 1. Once all waves are launched CP will send unhalt command
++ *       The shader then clears all SGPRs allocated to it, cleaning out physical SGPRs 224-799
++ */
+  
+ shader main
+   asic(MI300)
+   type(CS)
+   wave_size(64)
+-// Note: original source code from SQ team
+ 
+-//   (theorhetical fastest = ~512clks vgpr + 1536 lds + ~128 sgpr  = 2176 clks)
++/*
++ * Note: original source code from SQ team
++ *
++ * (theorhetical fastest = ~512clks vgpr + 1536 lds + ~128 sgpr  = 2176 clks)
++ */
+ 
+-  s_cmp_eq_u32 s0, 1                                // Bit0 is set, sgpr0 is set then clear VGPRS and LDS as FW set COMPUTE_USER_DATA_3
+-  s_cbranch_scc0  label_0023                        // Clean VGPRs and LDS if sgpr0 of wave is set, scc = (s3 == 1)
++  s_cmp_eq_u32 s0, 1                                /* Bit0 is set, sgpr0 is set then clear VGPRS and LDS as FW set COMPUTE_USER_DATA_3 */
++  s_cbranch_scc0  label_0023                        /* Clean VGPRs and LDS if sgpr0 of wave is set, scc = (s3 == 1) */
+   S_BARRIER
+ 
+   s_movk_i32    m0, 0x0000
+-  s_mov_b32     s2, 0x00000078  // Loop 128/8=16 times  (loop unrolled for performance)
+-  //
+-  // CLEAR VGPRs
+-  //
+-  s_set_gpr_idx_on  s2, 0x8    // enable Dest VGPR indexing
++  s_mov_b32     s2, 0x00000078  /* Loop 128/8=16 times  (loop unrolled for performance) */
++/*
++ * CLEAR VGPRs
++ */
++  s_set_gpr_idx_on  s2, 0x8    /* enable Dest VGPR indexing */
+ label_0005:
+   v_mov_b32     v0, 0
+   v_mov_b32     v1, 0
+@@ -75,24 +80,24 @@ label_0005:
+   s_set_gpr_idx_idx  s2
+   s_cbranch_scc0  label_0005
+   s_set_gpr_idx_off
+- 
+-  //
+-  //
+- 
+-  s_mov_b32     s2, 0x80000000                      // Bit31 is first_wave
+-  s_and_b32     s2, s2, s1                          // sgpr0 has tg_size (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is set
+-  s_cbranch_scc0  label_clean_sgpr_1                // Clean LDS if its first wave of ThreadGroup/WorkGroup
+-  // CLEAR LDS
+-  //
++
++  s_mov_b32     s2, 0x80000000                      /* Bit31 is first_wave */
++  s_and_b32     s2, s2, s1                          /* sgpr0 has tg_size (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is set */
++  s_cbranch_scc0  label_clean_sgpr_1                /* Clean LDS if its first wave of ThreadGroup/WorkGroup */
++/*
++ * CLEAR LDS
++ */
+   s_mov_b32 exec_lo, 0xffffffff
+   s_mov_b32 exec_hi, 0xffffffff
+-  v_mbcnt_lo_u32_b32  v1, exec_hi, 0          // Set V1 to thread-ID (0..63)
+-  v_mbcnt_hi_u32_b32  v1, exec_lo, v1         // Set V1 to thread-ID (0..63)
+-  v_mul_u32_u24  v1, 0x00000008, v1           // * 8, so each thread is a double-dword address (8byte)
+-  s_mov_b32     s2, 0x00000003f               // 64 loop iteraions
++  v_mbcnt_lo_u32_b32  v1, exec_hi, 0          /* Set V1 to thread-ID (0..63) */
++  v_mbcnt_hi_u32_b32  v1, exec_lo, v1         /* Set V1 to thread-ID (0..63) */
++  v_mul_u32_u24  v1, 0x00000008, v1           /* * 8, so each thread is a double-dword address (8byte) */
++  s_mov_b32     s2, 0x00000003f               /* 64 loop iterations */
+   s_mov_b32     m0, 0xffffffff
+-  // Clear all of LDS space
+-  // Each FirstWave of WorkGroup clears 64kbyte block
++/*
++ * Clear all of LDS space
++ * Each FirstWave of WorkGroup clears 64kbyte block
++ */
+  
+ label_001F:
+   ds_write2_b64  v1, v[2:3], v[2:3] offset1:32
+@@ -100,11 +105,11 @@ label_001F:
+   v_add_co_u32     v1, vcc, 0x00000400, v1
+   s_sub_u32     s2, s2, 1
+   s_cbranch_scc0  label_001F
+-  //
+-  // CLEAR SGPRs
+-  //
++/*
++ * CLEAR SGPRs
++ */
+ label_clean_sgpr_1:
+-  s_mov_b32     m0, 0x0000005c   // Loop 96/4=24 times  (loop unrolled for performance)
++  s_mov_b32     m0, 0x0000005c   /* Loop 96/4=24 times  (loop unrolled for performance) */
+   s_nop 0
+ label_sgpr_loop:
+   s_movreld_b32     s0, 0
+@@ -114,25 +119,25 @@ label_sgpr_loop:
+   s_sub_u32         m0, m0, 4
+   s_cbranch_scc0  label_sgpr_loop
+  
+-  //clear vcc, flat scratch
+-  s_mov_b32 flat_scratch_lo, 0   //clear  flat scratch lo SGPR 
+-  s_mov_b32 flat_scratch_hi, 0   //clear  flat scratch hi SGPR 
+-  s_mov_b64 vcc, 0               //clear vcc
+-  s_mov_b64 ttmp0, 0             //Clear ttmp0 and ttmp1 
+-  s_mov_b64 ttmp2, 0             //Clear ttmp2 and ttmp3 
+-  s_mov_b64 ttmp4, 0             //Clear ttmp4 and ttmp5 
+-  s_mov_b64 ttmp6, 0             //Clear ttmp6 and ttmp7 
+-  s_mov_b64 ttmp8, 0             //Clear ttmp8 and ttmp9 
+-  s_mov_b64 ttmp10, 0            //Clear ttmp10 and ttmp11 
+-  s_mov_b64 ttmp12, 0            //Clear ttmp12 and ttmp13 
+-  s_mov_b64 ttmp14, 0            //Clear ttmp14 and ttmp15 
++  /* clear vcc, flat scratch */
++  s_mov_b32 flat_scratch_lo, 0   /* clear flat scratch lo SGPR */
++  s_mov_b32 flat_scratch_hi, 0   /* clear flat scratch hi SGPR */
++  s_mov_b64 vcc, 0               /* clear vcc */
++  s_mov_b64 ttmp0, 0             /* Clear ttmp0 and ttmp1 */
++  s_mov_b64 ttmp2, 0             /* Clear ttmp2 and ttmp3 */
++  s_mov_b64 ttmp4, 0             /* Clear ttmp4 and ttmp5 */
++  s_mov_b64 ttmp6, 0             /* Clear ttmp6 and ttmp7 */
++  s_mov_b64 ttmp8, 0             /* Clear ttmp8 and ttmp9 */
++  s_mov_b64 ttmp10, 0            /* Clear ttmp10 and ttmp11 */
++  s_mov_b64 ttmp12, 0            /* Clear ttmp12 and ttmp13 */
++  s_mov_b64 ttmp14, 0            /* Clear ttmp14 and ttmp15 */
+ s_endpgm
+ 
+ label_0023:
+ 
+   s_sethalt 1
+ 
+-  s_mov_b32     m0, 0x0000005c   // Loop 96/4=24 times  (loop unrolled for performance)
++  s_mov_b32     m0, 0x0000005c   /* Loop 128/8=16 times  (loop unrolled for performance) */
+   s_nop 0
+ label_sgpr_loop1:
+ 
+@@ -143,10 +148,10 @@ label_sgpr_loop1:
+   s_sub_u32         m0, m0, 4
+   s_cbranch_scc0  label_sgpr_loop1
+  
+-  //clear vcc, flat scratch
+-  s_mov_b32 flat_scratch_lo, 0   //clear  flat scratch lo SGPR 
+-  s_mov_b32 flat_scratch_hi, 0   //clear  flat scratch hi SGPR 
+-  s_mov_b64 vcc, 0xee            //clear vcc
++  /* clear vcc, flat scratch */
++  s_mov_b32 flat_scratch_lo, 0   /* clear  flat scratch lo SGPR */
++  s_mov_b32 flat_scratch_hi, 0   /* clear  flat scratch hi SGPR */
++  s_mov_b64 vcc, 0xee            /* clear vcc */
+ 
+ s_endpgm
+ end  
+-- 
+2.34.1
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 5c938ff0bf48..cbac21df5c47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2461,6 +2461,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->  		drm_dev_exit(idx);
->  	}
->  
-> +	drain_workqueue(adev->mman.bdev.wq);
->  	amdgpu_direct_gma_fini(adev);
->  	amdgpu_vram_mgr_fini(adev);
->  	amdgpu_gtt_mgr_fini(adev);
