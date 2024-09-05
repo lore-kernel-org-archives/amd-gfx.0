@@ -4,47 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90EB3CE7A94
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C255CD98FE
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5EC110E93B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B881B10E939;
 	Thu,  5 Sep 2024 18:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wY1BaZq7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TzbEsBxu";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E636E10E718;
- Thu,  5 Sep 2024 07:40:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3BEEFA44304;
- Thu,  5 Sep 2024 07:40:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C745C4CEC4;
- Thu,  5 Sep 2024 07:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1725522033;
- bh=PZJmqlHpJ1uU+ASFJIpncqC9uV3uvVokLmZ+DOZ31vY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wY1BaZq7EaV2nxp/Ky4u1EjnAofwymLmYwxfNFMzbKe0jbHCKfdS8gsQnzSNvxLBw
- PumHeZzyspeIqGIDgjb4BCQ/0o2i9Hx1hQmo8m8P4UXCskEjO3NFFDypxbP6bOCSaO
- tx5sTpSbitonzYibe/kA3nVEGUcVkW8snJjYW0Ms=
-Date: Thu, 5 Sep 2024 09:40:30 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: sikkamukul <mukul.sikka@broadcom.com>
-Cc: stable@vger.kernel.org, evan.quan@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- Jun.Ma2@amd.com, kevinyang.wang@amd.com, sashal@kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ajay.kaher@broadcom.com,
- alexey.makhalov@broadcom.com, vasavi.sirnapalli@broadcom.com,
- Bob Zhou <bob.zhou@amd.com>, Tim Huang <Tim.Huang@amd.com>
-Subject: Re: [PATCH v5.15-v5.10] drm/amd/pm: Fix the null pointer dereference
- for vega10_hwmgr
-Message-ID: <2024090523-collide-colonize-d914@gregkh>
-References: <20240903045809.5025-1-mukul.sikka@broadcom.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC92E10E832;
+ Thu,  5 Sep 2024 09:33:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1725528829; x=1757064829;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pdljWs+jYa99JbSULneYMqlSrY4Ry24sHTLd/ITcgg8=;
+ b=TzbEsBxupMGGPqDEZYJrOD+VoM2IsK4E0cXvHjBUgDKgO1820Bv2ManY
+ 5dYtnE2wSW2wepj1E8cAc3+BDQFJashNPu5ZEBNtl2lWz8nw2RXmDuUJ0
+ iC/lwD22fkq87IA4E5AxzXxMve3l6mEqGEnvtc+NEx9mEnBqbDGEuUaP6
+ 6Les3YSX5zle/M7W7RjXytKo80LJ62eUhsFF4BghShQBkK5L41PUsKoCc
+ Y9OouUo30H7gPKFKVSYpE273s2gN4ygaswJxUXYXiIHMs7x3PPE0o++/H
+ CLxm7elGh44Kx+uw14qaXJv2nJDJzh6Jv+sDuZWg/MvyQnHj3Bg2JSeZd A==;
+X-CSE-ConnectionGUID: 4bmYqYVYTyeBSnG7DxAYIQ==
+X-CSE-MsgGUID: n8bovD74QNeT4icu3kMp6g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11185"; a="24391702"
+X-IronPort-AV: E=Sophos;i="6.10,204,1719903600"; d="scan'208";a="24391702"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2024 02:33:48 -0700
+X-CSE-ConnectionGUID: SMCT81NrTQa+BH5329+BIA==
+X-CSE-MsgGUID: Y1ciEvOxRXCXhpzHd4Ticg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,204,1719903600"; d="scan'208";a="96354370"
+Received: from unknown (HELO fedora..) ([10.245.245.247])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2024 02:33:45 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Zack Rusin <zack.rusin@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Sui Jingfeng <suijingfeng@loongson.cn>
+Subject: [PATCH 0/2] drm/ttm: Add an option to report graphics memory OOM
+Date: Thu,  5 Sep 2024 11:33:20 +0200
+Message-ID: <20240905093322.29786-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240903045809.5025-1-mukul.sikka@broadcom.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,22 +73,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 03, 2024 at 04:58:09AM +0000, sikkamukul wrote:
-> From: Bob Zhou <bob.zhou@amd.com>
-> 
-> [ Upstream commit 50151b7f1c79a09117837eb95b76c2de76841dab ]
-> 
-> Check return value and conduct null pointer handling to avoid null pointer dereference.
-> 
-> Signed-off-by: Bob Zhou <bob.zhou@amd.com>
-> Reviewed-by: Tim Huang <Tim.Huang@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Signed-off-by: Mukul Sikka <mukul.sikka@broadcom.com>
-> ---
->  .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 30 ++++++++++++++++---
->  1 file changed, 26 insertions(+), 4 deletions(-)
+Some graphics APIs differentiate between out-of-graphics-memory and
+out-of-host-memory (system memory). Add a device init flag to
+have -ENOSPC propagated from the resource managers instead of being
+converted to -ENOMEM, to aid driver stacks in determining what
+error code to return or whether corrective action can be taken at
+the driver level.
 
-Now queued up, thanks.
+The first patch deals with a ttm_device_init() interface change,
+The Second patch adds the actual functionality.
 
-greg k-h
+A follow-up will be posted for Xe once this is merged / backmerged.
+
+Thomas Hellström (2):
+  drm/ttm: Change ttm_device_init to use a struct instead of multiple
+    bools
+  drm/ttm: Add a device flag to propagate -ENOSPC on OOM
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 +++--
+ drivers/gpu/drm/i915/intel_region_ttm.c       |  3 ++-
+ drivers/gpu/drm/loongson/lsdc_ttm.c           |  5 +++-
+ drivers/gpu/drm/nouveau/nouveau_ttm.c         |  7 ++++--
+ drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c           |  6 +++--
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 ++++++------
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  3 ++-
+ drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 16 ++++++------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 20 ++++++---------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  6 ++---
+ drivers/gpu/drm/ttm/ttm_bo.c                  |  2 +-
+ drivers/gpu/drm/ttm/ttm_device.c              |  8 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +--
+ drivers/gpu/drm/xe/xe_device.c                |  3 ++-
+ include/drm/ttm/ttm_device.h                  | 25 ++++++++++++++++++-
+ 16 files changed, 82 insertions(+), 50 deletions(-)
+
+-- 
+2.46.0
+
