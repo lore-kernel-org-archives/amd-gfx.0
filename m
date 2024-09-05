@@ -4,67 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64FC1CD98FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C8ECE7A81
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC48E10E92F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED80110E934;
 	Thu,  5 Sep 2024 18:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=helen.koike@collabora.com header.b="TlCe6lmq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eCSeBAOv";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237AC10E069;
- Thu,  5 Sep 2024 12:09:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1725538195; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=D/w4JnohcWGuSzvPV1jBss22ym4yH1LY2VklBnK5FQj+CkgjgQWHO2sf9h5PV6daIfJZO7jTkc59bG2KyDbR68f3dJ13kkystVHt7HD4EVMlJFfgLjCP6xj7Wyhv/1ZUqYcnZZyf+KzlTJhoFAsLIZ9hIPhwEgkImVDwjW1yT8c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1725538195;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=TPz3fkAGX6/kIy/N80kk4GKw6qF7JrznaChVRP0hVtU=; 
- b=QxJfiIJkBJ4F+H8cWTtMFydhxjqGZE0QVEnqWhuL5vruDzC0hOosHpz4UD9Y+gg/lPHrVTidhn6YMoV18BzM/l9xoShF0LCyeDJWDwquV+uEFQaER+/ewddvKasruWgQ4WZQNR0wxDiVSJYi+WvIrieNClLeJiVHaTjy1qJd32E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=helen.koike@collabora.com;
- dmarc=pass header.from=<helen.koike@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1725538195; 
- s=zohomail; d=collabora.com; i=helen.koike@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=TPz3fkAGX6/kIy/N80kk4GKw6qF7JrznaChVRP0hVtU=;
- b=TlCe6lmqWvOUOIhGiJLUjaSEvHRfm159BH4l+GPcczitqhlGwMEI01SCi3bnJAuc
- +Pffe8n/ZMOt1VRlycJkgkPMpZUuflDva3E1RAm3pDdqjmNCas5AA3nwQRoSWEugWP9
- ydP1u9DYb8WgwNSO9n55M97iH7VBqosgy7uMvHVQ=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1725538193093866.1878987942056;
- Thu, 5 Sep 2024 05:09:53 -0700 (PDT)
-Date: Thu, 05 Sep 2024 09:09:53 -0300
-From: Helen Mae Koike Fornazier <helen.koike@collabora.com>
-To: "Vignesh Raman" <vignesh.raman@collabora.com>
-Cc: "dri-devel" <dri-devel@lists.freedesktop.org>,
- "daniels" <daniels@collabora.com>, "airlied" <airlied@gmail.com>,
- "daniel" <daniel@ffwll.ch>, "robdclark" <robdclark@gmail.com>,
- "guilherme.gallo" <guilherme.gallo@collabora.com>,
- "sergi.blanch.torne" <sergi.blanch.torne@collabora.com>,
- "deborah.brouwer" <deborah.brouwer@collabora.com>,
- "linux-mediatek" <linux-mediatek@lists.infradead.org>,
- "linux-amlogic" <linux-amlogic@lists.infradead.org>,
- "linux-rockchip" <linux-rockchip@lists.infradead.org>,
- "amd-gfx" <amd-gfx@lists.freedesktop.org>,
- "linux-arm-msm" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx" <intel-gfx@lists.freedesktop.org>,
- "virtualization" <virtualization@lists.linux.dev>,
- "linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <191c2174ea6.c21ecee31017726.6623374043771391596@collabora.com>
-In-Reply-To: <20240905093935.2780632-1-vignesh.raman@collabora.com>
-References: <20240905093935.2780632-1-vignesh.raman@collabora.com>
-Subject: Re: [PATCH v1] drm/ci: uprev IGT and deqp-runner
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1A110E82F;
+ Thu,  5 Sep 2024 09:33:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1725528831; x=1757064831;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=g8BYLGVmKjfbFruJ/sgTgVjablbA8cr1m5kkBDtmkMc=;
+ b=eCSeBAOvzJxi08r7sAlecZa4YYcBGHoQR8AVC2zfl9YDqWeCU/2pz2wn
+ 2/Cd8eM4AFGcqiwuBaeukr9iYTH/RvV9HklnDAsAIIsDSmjDGnodCN5SC
+ DpIjj0JXq+6u7shDz4f9p4x8rPMkCCZMgznMKoYQhEDwNigaZy0EmiunR
+ h05J4ODpACae2ne9RWLnZBXAyk4720aw3+HtZARI9hAYJzFzGFYQBMPPL
+ fXJiIMuT33rDOwu9mVHDlaOT4h6lTSXOBOR0pWQ+rqlRMfFE9ah+QSfLz
+ +kK2uGCtfUUILX2/V3dIVN/IvKhvXPC84ZnaQamoVFQZaz+T76NabtW4V w==;
+X-CSE-ConnectionGUID: YW/n5I0ZRb+yiGosE6U5DA==
+X-CSE-MsgGUID: FfE9pfqFSSOxUR3OMz120A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11185"; a="24391710"
+X-IronPort-AV: E=Sophos;i="6.10,204,1719903600"; d="scan'208";a="24391710"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2024 02:33:51 -0700
+X-CSE-ConnectionGUID: XjfI1brHQ+GlMCg4CHAHUg==
+X-CSE-MsgGUID: 589CIYsaQ7iHWZxIKJ3tKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,204,1719903600"; d="scan'208";a="96354383"
+Received: from unknown (HELO fedora..) ([10.245.245.247])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2024 02:33:48 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Zack Rusin <zack.rusin@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Sui Jingfeng <suijingfeng@loongson.cn>,
+ Matthew Brost <matthew.brost@intel.com>
+Subject: [PATCH 1/2] drm/ttm: Change ttm_device_init to use a struct instead
+ of multiple bools
+Date: Thu,  5 Sep 2024 11:33:21 +0200
+Message-ID: <20240905093322.29786-2-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240905093322.29786-1-thomas.hellstrom@linux.intel.com>
+References: <20240905093322.29786-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,812 +76,454 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The ttm_device_init funcition uses multiple bool arguments. That means
+readability in the caller becomes poor, and all callers need to change if
+yet another bool is added.
 
+Instead use a struct with multiple single-bit flags. This addresses both
+problems. Prefer it over using defines or enums with explicit bit shifts,
+since converting to and from these bit values uses logical operations or
+tests which are implicit with the struct usage, and ofc type-checking.
 
+This is in preparation of adding yet another bool flag parameter to the
+function.
 
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: spice-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: Zack Rusin <zack.rusin@broadcom.com>
+Cc: <bcm-kernel-feedback-list@broadcom.com>
+Cc: Sui Jingfeng <suijingfeng@loongson.cn>
+Cc: <intel-xe@lists.freedesktop.org>
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 ++++--
+ drivers/gpu/drm/i915/intel_region_ttm.c       |  3 ++-
+ drivers/gpu/drm/loongson/lsdc_ttm.c           |  5 ++++-
+ drivers/gpu/drm/nouveau/nouveau_ttm.c         |  7 +++++--
+ drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c           |  6 ++++--
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++++++--------
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  3 ++-
+ drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 16 ++++++++-------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 20 ++++++++-----------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  6 ++----
+ drivers/gpu/drm/ttm/ttm_device.c              |  7 +++----
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 ++--
+ drivers/gpu/drm/xe/xe_device.c                |  3 ++-
+ include/drm/ttm/ttm_device.h                  | 12 ++++++++++-
+ 15 files changed, 67 insertions(+), 49 deletions(-)
 
----- On Thu, 05 Sep 2024 06:39:32 -0300 Vignesh Raman  wrote ---
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index b8bc7fa8c375..9439fc12c17b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1853,8 +1853,10 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	r = ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->dev,
+ 			       adev_to_drm(adev)->anon_inode->i_mapping,
+ 			       adev_to_drm(adev)->vma_offset_manager,
+-			       adev->need_swiotlb,
+-			       dma_addressing_limited(adev->dev));
++			       (struct ttm_device_init_flags){
++				       .use_dma_alloc = adev->need_swiotlb,
++				       .use_dma32 = dma_addressing_limited(adev->dev)
++			       });
+ 	if (r) {
+ 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
+ 		return r;
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index 04525d92bec5..db34da63814c 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -34,7 +34,8 @@ int intel_region_ttm_device_init(struct drm_i915_private *dev_priv)
+ 
+ 	return ttm_device_init(&dev_priv->bdev, i915_ttm_driver(),
+ 			       drm->dev, drm->anon_inode->i_mapping,
+-			       drm->vma_offset_manager, false, false);
++			       drm->vma_offset_manager,
++			       (struct ttm_device_init_flags){});
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongson/lsdc_ttm.c
+index 2e42c6970c9f..c684f1636f3f 100644
+--- a/drivers/gpu/drm/loongson/lsdc_ttm.c
++++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+@@ -544,7 +544,10 @@ int lsdc_ttm_init(struct lsdc_device *ldev)
+ 
+ 	ret = ttm_device_init(&ldev->bdev, &lsdc_bo_driver, ddev->dev,
+ 			      ddev->anon_inode->i_mapping,
+-			      ddev->vma_offset_manager, false, true);
++			      ddev->vma_offset_manager,
++			      (struct ttm_device_init_flags){
++				      .use_dma32 = true
++			      });
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+index e244927eb5d4..5f89d2b40425 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
+@@ -302,8 +302,11 @@ nouveau_ttm_init(struct nouveau_drm *drm)
+ 	ret = ttm_device_init(&drm->ttm.bdev, &nouveau_bo_driver, drm->dev->dev,
+ 				  dev->anon_inode->i_mapping,
+ 				  dev->vma_offset_manager,
+-				  drm_need_swiotlb(drm->client.mmu.dmabits),
+-				  drm->client.mmu.dmabits <= 32);
++				  (struct ttm_device_init_flags){
++					  .use_dma_alloc =
++					  drm_need_swiotlb(drm->client.mmu.dmabits),
++					  .use_dma32 = (drm->client.mmu.dmabits <= 32)
++				  });
+ 	if (ret) {
+ 		NV_ERROR(drm, "error initialising bo driver, %d\n", ret);
+ 		return ret;
+diff --git a/drivers/gpu/drm/qxl/qxl_ttm.c b/drivers/gpu/drm/qxl/qxl_ttm.c
+index 765a144cea14..ced4c60c4650 100644
+--- a/drivers/gpu/drm/qxl/qxl_ttm.c
++++ b/drivers/gpu/drm/qxl/qxl_ttm.c
+@@ -196,7 +196,7 @@ int qxl_ttm_init(struct qxl_device *qdev)
+ 	r = ttm_device_init(&qdev->mman.bdev, &qxl_bo_driver, NULL,
+ 			    qdev->ddev.anon_inode->i_mapping,
+ 			    qdev->ddev.vma_offset_manager,
+-			    false, false);
++			    (struct ttm_device_init_flags){});
+ 	if (r) {
+ 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
+ 		return r;
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 69d0c12fa419..2915473e4956 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -684,8 +684,10 @@ int radeon_ttm_init(struct radeon_device *rdev)
+ 	r = ttm_device_init(&rdev->mman.bdev, &radeon_bo_driver, rdev->dev,
+ 			       rdev_to_drm(rdev)->anon_inode->i_mapping,
+ 			       rdev_to_drm(rdev)->vma_offset_manager,
+-			       rdev->need_swiotlb,
+-			       dma_addressing_limited(&rdev->pdev->dev));
++			       (struct ttm_device_init_flags){
++					.use_dma_alloc = rdev->need_swiotlb,
++					.use_dma32 = dma_addressing_limited(&rdev->pdev->dev)
++				});
+ 	if (r) {
+ 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
+ 		return r;
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+index f0a7eb62116c..8a2ab90c6e8f 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+@@ -251,7 +251,7 @@ static void ttm_bo_unreserve_basic(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -290,7 +290,7 @@ static void ttm_bo_unreserve_pinned(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -342,7 +342,7 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
+ 	resv = kunit_kzalloc(test, sizeof(*resv), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -394,7 +394,7 @@ static void ttm_bo_put_basic(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -437,7 +437,7 @@ static void ttm_bo_put_shared_resv(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -477,7 +477,7 @@ static void ttm_bo_pin_basic(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -512,7 +512,7 @@ static void ttm_bo_pin_unpin_resource(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+@@ -563,7 +563,7 @@ static void ttm_bo_multiple_pin_one_unpin(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+index 1adf18481ea0..c69b9707e6d2 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -1044,7 +1044,8 @@ static void ttm_bo_validate_busy_domain_evict(struct kunit *test)
+ 	 */
+ 	ttm_device_fini(priv->ttm_dev);
+ 
+-	err = ttm_device_kunit_init_bad_evict(test->priv, priv->ttm_dev, false, false);
++	err = ttm_device_kunit_init_bad_evict(test->priv, priv->ttm_dev,
++					      (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	ttm_mock_manager_init(priv->ttm_dev, mem_type, MANAGER_SIZE);
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_device_test.c b/drivers/gpu/drm/ttm/tests/ttm_device_test.c
+index 1621903818e5..9415c7b76e3b 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_device_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_device_test.c
+@@ -25,7 +25,7 @@ static void ttm_device_init_basic(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	KUNIT_EXPECT_PTR_EQ(test, ttm_dev->funcs, &ttm_dev_funcs);
+@@ -55,7 +55,8 @@ static void ttm_device_init_multiple(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_devs);
+ 
+ 	for (i = 0; i < num_dev; i++) {
+-		err = ttm_device_kunit_init(priv, &ttm_devs[i], false, false);
++		err = ttm_device_kunit_init(priv, &ttm_devs[i],
++					    (struct ttm_device_init_flags){});
+ 		KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 		KUNIT_EXPECT_PTR_EQ(test, ttm_devs[i].dev_mapping,
+@@ -81,7 +82,7 @@ static void ttm_device_fini_basic(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	man = ttm_manager_type(ttm_dev, TTM_PL_SYSTEM);
+@@ -109,7 +110,7 @@ static void ttm_device_init_no_vma_man(struct kunit *test)
+ 	vma_man = drm->vma_offset_manager;
+ 	drm->vma_offset_manager = NULL;
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev, false, false);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_EXPECT_EQ(test, err, -EINVAL);
+ 
+ 	/* Bring the manager back for a graceful cleanup */
+@@ -162,9 +163,10 @@ static void ttm_device_init_pools(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(priv, ttm_dev,
+-				    params->use_dma_alloc,
+-				    params->use_dma32);
++	err = ttm_device_kunit_init(priv, ttm_dev, (struct ttm_device_init_flags){
++			.use_dma_alloc = params->use_dma_alloc,
++			.use_dma32 = params->use_dma32
++		});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	pool = &ttm_dev->pool;
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+index b91c13f46225..24706fabb1c9 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+@@ -114,8 +114,7 @@ static void bad_evict_flags(struct ttm_buffer_object *bo,
+ 
+ static int ttm_device_kunit_init_with_funcs(struct ttm_test_devices *priv,
+ 					    struct ttm_device *ttm,
+-					    bool use_dma_alloc,
+-					    bool use_dma32,
++					    const struct ttm_device_init_flags flags,
+ 					    struct ttm_device_funcs *funcs)
+ {
+ 	struct drm_device *drm = priv->drm;
+@@ -124,7 +123,7 @@ static int ttm_device_kunit_init_with_funcs(struct ttm_test_devices *priv,
+ 	err = ttm_device_init(ttm, funcs, drm->dev,
+ 			      drm->anon_inode->i_mapping,
+ 			      drm->vma_offset_manager,
+-			      use_dma_alloc, use_dma32);
++			      flags);
+ 
+ 	return err;
+ }
+@@ -140,11 +139,9 @@ EXPORT_SYMBOL_GPL(ttm_dev_funcs);
+ 
+ int ttm_device_kunit_init(struct ttm_test_devices *priv,
+ 			  struct ttm_device *ttm,
+-			  bool use_dma_alloc,
+-			  bool use_dma32)
++			  const struct ttm_device_init_flags flags)
+ {
+-	return ttm_device_kunit_init_with_funcs(priv, ttm, use_dma_alloc,
+-						use_dma32, &ttm_dev_funcs);
++	return ttm_device_kunit_init_with_funcs(priv, ttm, flags, &ttm_dev_funcs);
+ }
+ EXPORT_SYMBOL_GPL(ttm_device_kunit_init);
+ 
+@@ -159,11 +156,10 @@ EXPORT_SYMBOL_GPL(ttm_dev_funcs_bad_evict);
+ 
+ int ttm_device_kunit_init_bad_evict(struct ttm_test_devices *priv,
+ 				    struct ttm_device *ttm,
+-				    bool use_dma_alloc,
+-				    bool use_dma32)
++				    const struct ttm_device_init_flags flags)
+ {
+-	return ttm_device_kunit_init_with_funcs(priv, ttm, use_dma_alloc,
+-						use_dma32, &ttm_dev_funcs_bad_evict);
++	return ttm_device_kunit_init_with_funcs(priv, ttm, flags,
++						&ttm_dev_funcs_bad_evict);
+ }
+ EXPORT_SYMBOL_GPL(ttm_device_kunit_init_bad_evict);
+ 
+@@ -249,7 +245,7 @@ struct ttm_test_devices *ttm_test_devices_all(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	err = ttm_device_kunit_init(devs, ttm_dev, false, false);
++	err = ttm_device_kunit_init(devs, ttm_dev, (struct ttm_device_init_flags){});
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	devs->ttm_dev = ttm_dev;
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h
+index c7da23232ffa..fbf0d3984f25 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h
++++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h
+@@ -28,12 +28,10 @@ struct ttm_test_devices {
+ /* Building blocks for test-specific init functions */
+ int ttm_device_kunit_init(struct ttm_test_devices *priv,
+ 			  struct ttm_device *ttm,
+-			  bool use_dma_alloc,
+-			  bool use_dma32);
++			  const struct ttm_device_init_flags flags);
+ int ttm_device_kunit_init_bad_evict(struct ttm_test_devices *priv,
+ 				    struct ttm_device *ttm,
+-				    bool use_dma_alloc,
+-				    bool use_dma32);
++				    const struct ttm_device_init_flags flags);
+ struct ttm_buffer_object *ttm_bo_kunit_init(struct kunit *test,
+ 					    struct ttm_test_devices *devs,
+ 					    size_t size,
+diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+index e7cc4954c1bc..0c85d10e5e0b 100644
+--- a/drivers/gpu/drm/ttm/ttm_device.c
++++ b/drivers/gpu/drm/ttm/ttm_device.c
+@@ -174,8 +174,7 @@ EXPORT_SYMBOL(ttm_device_swapout);
+  * @dev: The core kernel device pointer for DMA mappings and allocations.
+  * @mapping: The address space to use for this bo.
+  * @vma_manager: A pointer to a vma manager.
+- * @use_dma_alloc: If coherent DMA allocation API should be used.
+- * @use_dma32: If we should use GFP_DMA32 for device memory allocations.
++ * @flags: Flags governing the device behaviour.
+  *
+  * Initializes a struct ttm_device:
+  * Returns:
+@@ -184,7 +183,7 @@ EXPORT_SYMBOL(ttm_device_swapout);
+ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *funcs,
+ 		    struct device *dev, struct address_space *mapping,
+ 		    struct drm_vma_offset_manager *vma_manager,
+-		    bool use_dma_alloc, bool use_dma32)
++		    const struct ttm_device_init_flags flags)
+ {
+ 	struct ttm_global *glob = &ttm_glob;
+ 	int ret, nid;
+@@ -212,7 +211,7 @@ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *func
+ 	else
+ 		nid = NUMA_NO_NODE;
+ 
+-	ttm_pool_init(&bdev->pool, dev, nid, use_dma_alloc, use_dma32);
++	ttm_pool_init(&bdev->pool, dev, nid, flags.use_dma_alloc, flags.use_dma32);
+ 
+ 	bdev->vma_manager = vma_manager;
+ 	spin_lock_init(&bdev->lru_lock);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+index 50ad3105c16e..b05f34994658 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+@@ -1048,8 +1048,8 @@ static int vmw_driver_load(struct vmw_private *dev_priv, u32 pci_id)
+ 			      dev_priv->drm.dev,
+ 			      dev_priv->drm.anon_inode->i_mapping,
+ 			      dev_priv->drm.vma_offset_manager,
+-			      dev_priv->map_mode == vmw_dma_alloc_coherent,
+-			      false);
++			      (struct ttm_device_init_flags)
++			      {.use_dma_alloc = (dev_priv->map_mode == vmw_dma_alloc_coherent)});
+ 	if (unlikely(ret != 0)) {
+ 		drm_err(&dev_priv->drm,
+ 			"Failed initializing TTM buffer object driver.\n");
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index 1a0d7fdd094b..974fb3f88d4b 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -318,7 +318,8 @@ struct xe_device *xe_device_create(struct pci_dev *pdev,
+ 
+ 	err = ttm_device_init(&xe->ttm, &xe_ttm_funcs, xe->drm.dev,
+ 			      xe->drm.anon_inode->i_mapping,
+-			      xe->drm.vma_offset_manager, false, false);
++			      xe->drm.vma_offset_manager,
++			      (struct ttm_device_init_flags){});
+ 	if (WARN_ON(err))
+ 		goto err;
+ 
+diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
+index c22f30535c84..1534bd946c78 100644
+--- a/include/drm/ttm/ttm_device.h
++++ b/include/drm/ttm/ttm_device.h
+@@ -287,10 +287,20 @@ static inline void ttm_set_driver_manager(struct ttm_device *bdev, int type,
+ 	bdev->man_drv[type] = manager;
+ }
+ 
++/**
++ * struct ttm_device_init_flags - Flags for ttm device creation
++ */
++struct ttm_device_init_flags {
++	/** @use_dma_alloc: Whether coherent DMA allocation API should be used. */
++	u32 use_dma_alloc : 1;
++	/** @use_dma32: If we should use GFP_DMA32 for device memory allocations. */
++	u32 use_dma32 : 1;
++};
++
+ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *funcs,
+ 		    struct device *dev, struct address_space *mapping,
+ 		    struct drm_vma_offset_manager *vma_manager,
+-		    bool use_dma_alloc, bool use_dma32);
++		    const struct ttm_device_init_flags flags);
+ void ttm_device_fini(struct ttm_device *bdev);
+ void ttm_device_clear_dma_mappings(struct ttm_device *bdev);
+ 
+-- 
+2.46.0
 
- > Uprev IGT to the latest version and deqp-runner 
- > to v0.20.0. Also update expectation files. 
- >  
- > Signed-off-by: Vignesh Raman vignesh.raman@collabora.com> 
- > --- 
- >  
- > v1: 
- > - Flaky test report will be sent to maintainers after this 
- >  patch series is reviewed. 
- >  
- > --- 
- >  drivers/gpu/drm/ci/gitlab-ci.yml              |  4 +- 
- >  drivers/gpu/drm/ci/image-tags.yml             |  2 +- 
- >  .../gpu/drm/ci/xfails/amdgpu-stoney-fails.txt |  2 +- 
- >  .../drm/ci/xfails/amdgpu-stoney-flakes.txt    |  7 +++ 
- >  drivers/gpu/drm/ci/xfails/i915-amly-fails.txt |  2 +- 
- >  .../gpu/drm/ci/xfails/i915-amly-flakes.txt    |  7 +++ 
- >  drivers/gpu/drm/ci/xfails/i915-apl-fails.txt  |  1 - 
- >  drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt |  7 +++ 
- >  drivers/gpu/drm/ci/xfails/i915-cml-fails.txt  | 10 +--- 
- >  drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt | 14 +++++ 
- >  drivers/gpu/drm/ci/xfails/i915-glk-fails.txt  |  1 + 
- >  drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt  |  2 - 
- >  drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt  | 34 +++++++++-- 
- >  drivers/gpu/drm/ci/xfails/i915-whl-fails.txt  |  9 ++- 
- >  .../drm/ci/xfails/mediatek-mt8173-fails.txt   | 11 +--- 
- >  .../drm/ci/xfails/mediatek-mt8183-fails.txt   |  6 -- 
- >  .../gpu/drm/ci/xfails/meson-g12b-fails.txt    |  1 - 
- >  .../gpu/drm/ci/xfails/msm-apq8016-fails.txt   |  5 -- 
- >  .../gpu/drm/ci/xfails/msm-apq8096-fails.txt   |  5 -- 
- >  .../msm-sc7180-trogdor-kingoftown-fails.txt   | 27 --------- 
- >  .../msm-sc7180-trogdor-kingoftown-skips.txt   | 60 +++++++++++++++++++ 
- >  ...sm-sc7180-trogdor-lazor-limozeen-fails.txt | 27 --------- 
- >  .../gpu/drm/ci/xfails/msm-sdm845-fails.txt    |  7 +-- 
- >  .../gpu/drm/ci/xfails/msm-sdm845-flakes.txt   |  7 +++ 
- >  .../drm/ci/xfails/rockchip-rk3288-fails.txt   | 22 ++++--- 
- >  .../drm/ci/xfails/rockchip-rk3288-flakes.txt  | 28 +++++++++ 
- >  .../drm/ci/xfails/rockchip-rk3399-fails.txt   |  5 -- 
- >  .../drm/ci/xfails/rockchip-rk3399-flakes.txt  |  7 +++ 
- >  drivers/gpu/drm/ci/xfails/vkms-none-fails.txt | 21 ------- 
- >  29 files changed, 196 insertions(+), 145 deletions(-) 
- >  
- > diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml 
- > index eca47d4f816f..eba5aad4a012 100644 
- > --- a/drivers/gpu/drm/ci/gitlab-ci.yml 
- > +++ b/drivers/gpu/drm/ci/gitlab-ci.yml 
- > @@ -5,10 +5,10 @@ variables: 
- >  UPSTREAM_REPO: https://gitlab.freedesktop.org/drm/kernel.git 
- >  TARGET_BRANCH: drm-next 
- >  
- > -  IGT_VERSION: f13702b8e4e847c56da3ef6f0969065d686049c5 
- > +  IGT_VERSION: a73311079a5d8ac99eb25336a8369a2c3c6b519b 
- >  
- >  DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/mesa/deqp-runner.git 
- > -  DEQP_RUNNER_GIT_TAG: v0.15.0 
- > +  DEQP_RUNNER_GIT_TAG: v0.20.0 
- >  
- >  FDO_UPSTREAM_REPO: helen.fornazier/linux   # The repo where the git-archive daily runs 
- >  MESA_TEMPLATES_COMMIT: &ci-templates-commit d5aa3941aa03c2f716595116354fb81eb8012acb 
- > diff --git a/drivers/gpu/drm/ci/image-tags.yml b/drivers/gpu/drm/ci/image-tags.yml 
- > index 2c340d063a96..4825a5cf813b 100644 
- > --- a/drivers/gpu/drm/ci/image-tags.yml 
- > +++ b/drivers/gpu/drm/ci/image-tags.yml 
- > @@ -1,5 +1,5 @@ 
- >  variables: 
- > -   CONTAINER_TAG: "2024-08-07-mesa-uprev" 
- > +   CONTAINER_TAG: "2024-09-04-igt-deqp" 
- >  DEBIAN_X86_64_BUILD_BASE_IMAGE: "debian/x86_64_build-base" 
- >  DEBIAN_BASE_TAG: "${CONTAINER_TAG}" 
- >  
- > diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt 
- > index 8e2fed6d76a3..f44dbce3151a 100644 
- > --- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-fails.txt 
- > @@ -2,6 +2,7 @@ amdgpu/amd_abm@abm_enabled,Fail 
- >  amdgpu/amd_abm@abm_gradual,Fail 
- >  amdgpu/amd_abm@backlight_monotonic_abm,Fail 
- >  amdgpu/amd_abm@backlight_monotonic_basic,Fail 
- > +amdgpu/amd_abm@dpms_cycle,Fail 
- >  amdgpu/amd_assr@assr-links,Fail 
- >  amdgpu/amd_assr@assr-links-dpms,Fail 
- >  amdgpu/amd_mall@static-screen,Crash 
- > @@ -14,7 +15,6 @@ amdgpu/amd_plane@mpo-scale-p010,Fail 
- >  amdgpu/amd_plane@mpo-scale-rgb,Crash 
- >  amdgpu/amd_plane@mpo-swizzle-toggle,Fail 
- >  amdgpu/amd_uvd_dec@amdgpu_uvd_decode,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_addfb_basic@bad-pitch-65536,Fail 
- >  kms_addfb_basic@bo-too-small,Fail 
- >  kms_addfb_basic@too-high,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt 
- > index e4faa96fa000..bcd4e320b1ea 100644 
- > --- a/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/amdgpu-stoney-flakes.txt 
- > @@ -18,3 +18,10 @@ kms_async_flips@crc 
- >  # IGT Version: 1.28-g0df7b9b97 
- >  # Linux Version: 6.9.0-rc7 
- >  kms_plane@pixel-format-source-clamping 
- > + 
- > +# Board Name: hp-11A-G6-EE-grunt 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_async_flips@async-flip-with-page-flip-events 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt b/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt 
- > index 9b84f68a5122..0907cb0f6d9e 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-amly-fails.txt 
- > @@ -1,3 +1,4 @@ 
- > +core_setmaster@master-drop-set-shared-fd,Fail 
- >  core_setmaster@master-drop-set-user,Fail 
- >  core_setmaster_vs_auth,Fail 
- >  i915_module_load@load,Fail 
- > @@ -6,7 +7,6 @@ i915_module_load@reload-no-display,Fail 
- >  i915_module_load@resize-bar,Fail 
- >  i915_pm_rpm@gem-execbuf-stress,Timeout 
- >  i915_pm_rpm@module-reload,Fail 
- > -kms_ccs@crc-primary-rotation-180-yf-tiled-ccs,Timeout 
- >  kms_cursor_legacy@short-flip-before-cursor-atomic-transitions,Timeout 
- >  kms_fb_coherency@memset-crc,Crash 
- >  kms_flip@busy-flip,Timeout 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt 
- > index 581f0da4d0f2..e4a202630eba 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-amly-flakes.txt 
- > @@ -46,3 +46,10 @@ i915_hangman@engine-engine-hang 
- >  # IGT Version: 1.28-gf13702b8e 
- >  # Linux Version: 6.10.0-rc5 
- >  kms_pm_rpm@modeset-lpsp-stress 
- > + 
- > +# Board Name: asus-C433TA-AJ0005-rammus 
- > +# Bug Report: 
- > +# Failure Rate: 50 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_pm_rpm@drm-resources-equal 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt 
- > index e612281149aa..64772fedaed5 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-apl-fails.txt 
- > @@ -8,7 +8,6 @@ kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-upscaling,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-downscaling,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-ytile-to-64bpp-ytile-upscaling,Fail 
- > -kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-downscaling,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-ytileccs-to-64bpp-ytile-upscaling,Fail 
- >  kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-downscaling,Fail 
- >  kms_flip_scaled_crc@flip-64bpp-linear-to-16bpp-linear-upscaling,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt 
- > index 4663d4d13f35..91685b3401be 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-apl-flakes.txt 
- > @@ -4,3 +4,10 @@ 
- >  # IGT Version: 1.28-g0df7b9b97 
- >  # Linux Version: 6.9.0-rc7 
- >  kms_fb_coherency@memset-crc 
- > + 
- > +# Board Name: asus-C523NA-A20057-coral 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_universal_plane@cursor-fb-leak 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt b/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt 
- > index 2723e2832797..f352b719cf7d 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-cml-fails.txt 
- > @@ -1,5 +1,5 @@ 
- > +core_setmaster@master-drop-set-shared-fd,Fail 
- >  core_setmaster@master-drop-set-user,Fail 
- > -core_setmaster_vs_auth,Fail 
- >  i915_module_load@load,Fail 
- >  i915_module_load@reload,Fail 
- >  i915_module_load@reload-no-display,Fail 
- > @@ -9,10 +9,10 @@ i915_pipe_stress@stress-xrgb8888-ytiled,Fail 
- >  i915_pm_rpm@gem-execbuf-stress,Timeout 
- >  i915_pm_rpm@module-reload,Fail 
- >  i915_pm_rpm@system-suspend-execbuf,Timeout 
- > -kms_ccs@crc-primary-rotation-180-yf-tiled-ccs,Timeout 
- > +i915_pm_rps@engine-order,Fail 
- > +kms_big_fb@linear-16bpp-rotate-180,Timeout 
- >  kms_fb_coherency@memset-crc,Crash 
- >  kms_flip@busy-flip,Timeout 
- > -kms_flip@single-buffer-flip-vs-dpms-off-vs-modeset-interruptible,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-downscaling,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-linear-to-64bpp-linear-upscaling,Fail 
- >  kms_flip_scaled_crc@flip-32bpp-xtile-to-64bpp-xtile-downscaling,Fail 
- > @@ -40,14 +40,11 @@ kms_plane_alpha_blend@alpha-basic,Fail 
- >  kms_plane_alpha_blend@alpha-opaque-fb,Fail 
- >  kms_plane_alpha_blend@alpha-transparent-fb,Fail 
- >  kms_plane_alpha_blend@constant-alpha-max,Fail 
- > -kms_plane_scaling@plane-scaler-with-clipping-clamping-rotation,Timeout 
- >  kms_plane_scaling@planes-upscale-factor-0-25-downscale-factor-0-5,Timeout 
- >  kms_pm_rpm@modeset-stress-extra-wait,Timeout 
- >  kms_pm_rpm@universal-planes,Timeout 
- >  kms_pm_rpm@universal-planes-dpms,Timeout 
- > -kms_prop_blob@invalid-set-prop,Fail 
- >  kms_psr2_sf@cursor-plane-update-sf,Fail 
- > -kms_psr2_sf@fbc-plane-move-sf-dmg-area,Timeout 
- >  kms_psr2_sf@overlay-plane-update-continuous-sf,Fail 
- >  kms_psr2_sf@overlay-plane-update-sf-dmg-area,Fail 
- >  kms_psr2_sf@overlay-primary-update-sf-dmg-area,Fail 
- > @@ -55,7 +52,6 @@ kms_psr2_sf@plane-move-sf-dmg-area,Fail 
- >  kms_psr2_sf@primary-plane-update-sf-dmg-area,Fail 
- >  kms_psr2_sf@primary-plane-update-sf-dmg-area-big-fb,Fail 
- >  kms_psr2_su@page_flip-NV12,Fail 
- > -kms_psr2_su@page_flip-P010,Fail 
- >  kms_rotation_crc@primary-rotation-180,Timeout 
- >  kms_setmode@basic,Fail 
- >  kms_vblank@query-forked-hang,Timeout 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt b/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt 
- > index 58a6001abb28..9dac2b898f34 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-cml-flakes.txt 
- > @@ -11,3 +11,17 @@ kms_plane_alpha_blend@constant-alpha-min 
- >  # IGT Version: 1.28-gf13702b8e 
- >  # Linux Version: 6.10.0-rc5 
- >  kms_atomic_transition@plane-all-modeset-transition-internal-panels 
- > + 
- > +# Board Name: asus-C436FA-Flip-hatch 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_plane_alpha_blend@constant-alpha-min 
- > + 
- > +# Board Name: asus-C436FA-Flip-hatch 
- > +# Bug Report: 
- > +# Failure Rate: 50 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_async_flips@crc 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt b/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt 
- > index 4821c9adefd1..6eb64c672f7d 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-glk-fails.txt 
- > @@ -63,3 +63,4 @@ xe_module_load@load,Fail 
- >  xe_module_load@many-reload,Fail 
- >  xe_module_load@reload,Fail 
- >  xe_module_load@reload-no-display,Fail 
- > +core_setmaster@master-drop-set-shared-fd,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt 
- > index 1de04a3308c4..d4fba4f55ec1 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-kbl-fails.txt 
- > @@ -17,12 +17,10 @@ perf@i915-ref-count,Fail 
- >  perf_pmu@busy-accuracy-50,Fail 
- >  perf_pmu@module-unload,Fail 
- >  perf_pmu@rc6,Crash 
- > -prime_busy@after,Fail 
- >  sysfs_heartbeat_interval@long,Timeout 
- >  sysfs_heartbeat_interval@off,Timeout 
- >  sysfs_preempt_timeout@off,Timeout 
- >  sysfs_timeslice_duration@off,Timeout 
- > -testdisplay,Timeout 
- >  xe_module_load@force-load,Fail 
- >  xe_module_load@load,Fail 
- >  xe_module_load@many-reload,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt 
- > index e728ccc62326..461ef69ef08a 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-tgl-fails.txt 
- > @@ -1,40 +1,64 @@ 
- > +api_intel_allocator@fork-simple-stress-signal,Timeout 
- > +api_intel_allocator@open-vm,Timeout 
- >  api_intel_allocator@simple-allocator,Timeout 
- > +api_intel_bb@lot-of-buffers,Timeout 
- >  api_intel_bb@object-reloc-keep-cache,Timeout 
- >  api_intel_bb@offset-control,Timeout 
- > -core_auth@getclient-simple,Timeout 
- > -core_hotunplug@hotunbind-rebind,Timeout 
- > +api_intel_bb@render-ccs,Timeout 
- > +api_intel_bb@reset-bb,Timeout 
- > +core_auth@basic-auth,Timeout 
- > +core_hotunplug@hotrebind,Timeout 
- > +core_setmaster@master-drop-set-user,Fail 
- >  debugfs_test@read_all_entries_display_on,Timeout 
- > -drm_read@invalid-buffer,Timeout 
- > -drm_read@short-buffer-nonblock,Timeout 
- > +drm_read@empty-block,Timeout 
- > +dumb_buffer@create-clear,Timeout 
- > +dumb_buffer@invalid-bpp,Timeout 
- >  gen3_render_tiledx_blits,Timeout 
- >  gen7_exec_parse@basic-allocation,Timeout 
- > -gen7_exec_parse@batch-without-end,Timeout 
- >  gen9_exec_parse@batch-invalid-length,Timeout 
- >  gen9_exec_parse@bb-secure,Timeout 
- >  gen9_exec_parse@secure-batches,Timeout 
- >  gen9_exec_parse@shadow-peek,Timeout 
- >  gen9_exec_parse@unaligned-jump,Timeout 
- > +i915_getparams_basic@basic-subslice-total,Timeout 
- > +i915_hangman@gt-engine-hang,Timeout 
- >  i915_module_load@load,Fail 
- >  i915_module_load@reload,Fail 
- >  i915_module_load@reload-no-display,Fail 
- >  i915_module_load@resize-bar,Fail 
- > +i915_pciid,Timeout 
- > +i915_pipe_stress@stress-xrgb8888-ytiled,Timeout 
- > +i915_pm_rpm@gem-execbuf-stress,Timeout 
- > +i915_pm_rps@engine-order,Timeout 
- > +i915_pm_rps@thresholds-idle-park,Timeout 
- >  i915_query@engine-info,Timeout 
- >  i915_query@query-topology-kernel-writes,Timeout 
- >  i915_query@test-query-geometry-subslices,Timeout 
- >  kms_lease@lease-uevent,Fail 
- >  kms_rotation_crc@multiplane-rotation,Fail 
- >  perf@i915-ref-count,Fail 
- > +perf_pmu@busy,Timeout 
- >  perf_pmu@enable-race,Timeout 
- >  perf_pmu@event-wait,Timeout 
- > +perf_pmu@faulting-read,Timeout 
- >  perf_pmu@gt-awake,Timeout 
- >  perf_pmu@interrupts,Timeout 
- >  perf_pmu@module-unload,Fail 
- > +perf_pmu@most-busy-idle-check-all,Timeout 
- >  perf_pmu@rc6,Crash 
- > +perf_pmu@render-node-busy-idle,Fail 
- > +perf_pmu@semaphore-wait-idle,Timeout 
- > +prime_busy@after,Timeout 
- > +prime_mmap@test_aperture_limit,Timeout 
- >  prime_mmap@test_map_unmap,Timeout 
- >  prime_mmap@test_refcounting,Timeout 
- >  prime_self_import@basic-with_one_bo,Timeout 
- > +sriov_basic@enable-vfs-autoprobe-off,Timeout 
- > +syncobj_basic@bad-destroy,Timeout 
- >  syncobj_basic@bad-flags-fd-to-handle,Timeout 
- > +syncobj_basic@create-signaled,Timeout 
- >  syncobj_eventfd@invalid-bad-pad,Timeout 
- > +syncobj_eventfd@timeline-wait-before-signal,Timeout 
- >  syncobj_wait@invalid-multi-wait-unsubmitted-signaled,Timeout 
- >  syncobj_wait@invalid-signal-illegal-handle,Timeout 
- >  syncobj_wait@invalid-single-wait-all-unsubmitted,Timeout 
- > diff --git a/drivers/gpu/drm/ci/xfails/i915-whl-fails.txt b/drivers/gpu/drm/ci/xfails/i915-whl-fails.txt 
- > index 2adae2175501..0ce240e3aa07 100644 
- > --- a/drivers/gpu/drm/ci/xfails/i915-whl-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/i915-whl-fails.txt 
- > @@ -1,5 +1,5 @@ 
- > +core_setmaster@master-drop-set-shared-fd,Fail 
- >  core_setmaster@master-drop-set-user,Fail 
- > -core_setmaster_vs_auth,Fail 
- >  i915_module_load@load,Fail 
- >  i915_module_load@reload,Fail 
- >  i915_module_load@reload-no-display,Fail 
- > @@ -7,7 +7,8 @@ i915_module_load@resize-bar,Fail 
- >  i915_pm_rpm@gem-execbuf-stress,Timeout 
- >  i915_pm_rpm@module-reload,Fail 
- >  i915_pm_rpm@system-suspend-execbuf,Timeout 
- > -kms_ccs@crc-primary-rotation-180-yf-tiled-ccs,Timeout 
- > +i915_pm_rps@engine-order,Fail 
- > +kms_big_fb@linear-16bpp-rotate-180,Timeout 
- >  kms_cursor_legacy@short-flip-before-cursor-atomic-transitions,Timeout 
- >  kms_dirtyfb@default-dirtyfb-ioctl,Fail 
- >  kms_dirtyfb@fbc-dirtyfb-ioctl,Fail 
- > @@ -32,19 +33,17 @@ kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-downscaling,Fail 
- >  kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytile-upscaling,Fail 
- >  kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilegen12rcccs-upscaling,Fail 
- >  kms_flip_scaled_crc@flip-64bpp-ytile-to-32bpp-ytilercccs-downscaling,Fail 
- > -kms_frontbuffer_tracking@fbc-rgb565-draw-mmap-cpu,Timeout 
- >  kms_frontbuffer_tracking@fbc-tiling-linear,Fail 
- > +kms_frontbuffer_tracking@fbc-1p-indfb-fliptrack-mmap-gtt,Timeout 
- >  kms_lease@lease-uevent,Fail 
- >  kms_plane_alpha_blend@alpha-basic,Fail 
- >  kms_plane_alpha_blend@alpha-opaque-fb,Fail 
- >  kms_plane_alpha_blend@alpha-transparent-fb,Fail 
- >  kms_plane_alpha_blend@constant-alpha-max,Fail 
- > -kms_plane_scaling@plane-scaler-with-clipping-clamping-rotation,Timeout 
- >  kms_plane_scaling@planes-upscale-factor-0-25-downscale-factor-0-5,Timeout 
- >  kms_pm_rpm@modeset-stress-extra-wait,Timeout 
- >  kms_pm_rpm@universal-planes,Timeout 
- >  kms_pm_rpm@universal-planes-dpms,Timeout 
- > -kms_prop_blob@invalid-set-prop,Fail 
- >  kms_rotation_crc@primary-rotation-180,Timeout 
- >  kms_vblank@query-forked-hang,Timeout 
- >  perf@i915-ref-count,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8173-fails.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8173-fails.txt 
- > index a14349a1967f..8e0efc80d510 100644 
- > --- a/drivers/gpu/drm/ci/xfails/mediatek-mt8173-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8173-fails.txt 
- > @@ -1,8 +1,3 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- >  fbdev@eof,Fail 
- >  fbdev@read,Fail 
- >  kms_3d,Fail 
- > @@ -27,10 +22,6 @@ kms_cursor_legacy@cursor-vs-flip-atomic,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-legacy,Fail 
- >  kms_flip@flip-vs-modeset-vs-hang,Fail 
- >  kms_flip@flip-vs-panning-vs-hang,Fail 
- > -kms_flip@flip-vs-suspend,Fail 
- > -kms_flip@flip-vs-suspend-interruptible,Fail 
- >  kms_lease@lease-uevent,Fail 
- > -kms_properties@get_properties-sanity-atomic,Fail 
- > -kms_properties@plane-properties-atomic,Fail 
- > -kms_properties@plane-properties-legacy,Fail 
- >  kms_rmfb@close-fd,Fail 
- > +kms_flip@flip-vs-suspend-interruptible,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt 
- > index 8cb2cb67853d..845f852bb4a0 100644 
- > --- a/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/mediatek-mt8183-fails.txt 
- > @@ -1,10 +1,5 @@ 
- >  core_setmaster@master-drop-set-shared-fd,Fail 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- >  dumb_buffer@create-clear,Crash 
- > -dumb_buffer@invalid-bpp,Fail 
- >  fbdev@eof,Fail 
- >  fbdev@pan,Fail 
- >  fbdev@read,Fail 
- > @@ -18,5 +13,4 @@ kms_color@invalid-gamma-lut-sizes,Fail 
- >  kms_flip@flip-vs-panning-vs-hang,Fail 
- >  kms_flip@flip-vs-suspend,Fail 
- >  kms_lease@lease-uevent,Fail 
- > -kms_properties@plane-properties-atomic,Fail 
- >  kms_rmfb@close-fd,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt b/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt 
- > index 328967d3e23d..fc3745180683 100644 
- > --- a/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/meson-g12b-fails.txt 
- > @@ -1,4 +1,3 @@ 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_3d,Fail 
- >  kms_cursor_legacy@forked-bo,Fail 
- >  kms_cursor_legacy@forked-move,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt 
- > index 4ac46168eff3..066d24ee3e08 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt 
- > @@ -1,8 +1,3 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_3d,Fail 
- >  kms_cursor_legacy@torture-bo,Fail 
- >  kms_force_connector_basic@force-edid,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt 
- > index bd0653caf7a0..2893f98a6b97 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt 
- > @@ -1,7 +1,2 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_3d,Fail 
- >  kms_lease@lease-uevent,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt 
- > index d42004cd6977..6dbc2080347d 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt 
- > @@ -1,8 +1,3 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_color@ctm-0-25,Fail 
- >  kms_color@ctm-0-50,Fail 
- >  kms_color@ctm-0-75,Fail 
- > @@ -11,35 +6,13 @@ kms_color@ctm-green-to-red,Fail 
- >  kms_color@ctm-negative,Fail 
- >  kms_color@ctm-red-to-blue,Fail 
- >  kms_color@ctm-signed,Fail 
- > -kms_content_protection@atomic,Crash 
- > -kms_content_protection@atomic-dpms,Crash 
- > -kms_content_protection@content-type-change,Crash 
- > -kms_content_protection@lic-type-0,Crash 
- > -kms_content_protection@lic-type-1,Crash 
- > -kms_content_protection@srm,Crash 
- > -kms_content_protection@type1,Crash 
- > -kms_content_protection@uevent,Crash 
- > -kms_cursor_legacy@2x-cursor-vs-flip-atomic,Fail 
- > -kms_cursor_legacy@2x-cursor-vs-flip-legacy,Fail 
- > -kms_cursor_legacy@2x-flip-vs-cursor-atomic,Fail 
- > -kms_cursor_legacy@2x-flip-vs-cursor-legacy,Fail 
- > -kms_cursor_legacy@2x-long-cursor-vs-flip-atomic,Fail 
- > -kms_cursor_legacy@2x-long-cursor-vs-flip-legacy,Fail 
- > -kms_cursor_legacy@2x-long-flip-vs-cursor-atomic,Fail 
- > -kms_cursor_legacy@2x-long-flip-vs-cursor-legacy,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-toggle,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-varying-size,Fail 
- > -kms_display_modes@extended-mode-basic,Fail 
- > -kms_flip@2x-flip-vs-modeset-vs-hang,Fail 
- > -kms_flip@2x-flip-vs-panning-vs-hang,Fail 
- >  kms_flip@flip-vs-modeset-vs-hang,Fail 
- >  kms_flip@flip-vs-panning-vs-hang,Fail 
- >  kms_lease@lease-uevent,Fail 
- > -kms_multipipe_modeset@basic-max-pipe-crc-check,Fail 
- >  kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail 
- >  kms_plane_alpha_blend@alpha-7efc,Fail 
- >  kms_plane_alpha_blend@coverage-7efc,Fail 
- >  kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail 
- > -kms_plane_lowres@tiling-none,Fail 
- >  kms_rmfb@close-fd,Fail 
- > -kms_vblank@ts-continuation-dpms-rpm,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt 
- > index c2833eee1c4b..8f8d8da3068c 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-skips.txt 
- > @@ -23,3 +23,63 @@ kms_flip@2x-wf_vblank-ts-check 
- >  
- >  # Hangs the machine 
- >  kms_cursor_crc@cursor-random-max-size 
- > + 
- > +# Kernel panic 
- > +kms_setmode@invalid-clone-single-crtc-stealing 
- > +# [IGT] kms_setmode: executing 
- > +# [IGT] kms_setmode: starting subtest invalid-clone-single-crtc-stealing 
- > +# [IGT] kms_setmode: starting dynamic subtest pipe-A-eDP-1-DP-1 
- > +# Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178 
- > +# Mem abort info: 
- > +#   ESR = 0x0000000096000004 
- > +#   EC = 0x25: DABT (current EL), IL = 32 bits 
- > +#   SET = 0, FnV = 0 
- > +#   EA = 0, S1PTW = 0 
- > +#   FSC = 0x04: level 0 translation fault 
- > +# Data abort info: 
- > +#   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000 
- > +#   CM = 0, WnR = 0, TnD = 0, TagAccess = 0 
- > +#   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0 
- > +# user pgtable: 4k pages, 48-bit VAs, pgdp=000000024b2bb000 
- > +# [0000000000000178] pgd=0000000000000000, p4d=0000000000000000 
- > +# Internal error: Oops: 0000000096000004 [#1] PREEMPT SMP 
- > +# Modules linked in: 
- > +# CPU: 1 UID: 0 PID: 617 Comm: kms_setmode Not tainted 6.11.0-rc2-gee04e3109fb7 #1 
- > +# Hardware name: Google Kingoftown (DT) 
- > +# pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--) 
- > +# pc : drm_mode_is_420_only+0x24/0x40 
- > +# lr : drm_mode_is_420_only+0x20/0x40 
- > +# sp : ffff80008730b830 
- > +# x29: ffff80008730b830 x28: 0000000000000001 x27: ffff70b8c174b8b0 
- > +# x26: ffffb111a6a5ec60 x25: ffffb111a70ed178 x24: 0000000000000028 
- > +# x23: ffff70b8c4350480 x22: ffffb111a8e2c000 x21: ffff70b8c36eba80 
- > +# x20: ffffb111a7ce0e30 x19: 0000000000000178 x18: 0000000000000003 
- > +# x17: 000000040044ffff x16: 005000f2b5503510 x15: 0000000000000000 
- > +# x14: 0000000000040000 x13: 0000000000000000 x12: 0000000000000000 
- > +# x11: 0000000000000078 x10: 0000000000000000 x9 : ffffb111a8a23de8 
- > +# x8 : ffff80008730b828 x7 : 0000000000000000 x6 : 0000000000244140 
- > +# x5 : 00000000012e1fc0 x4 : 00000000000003e8 x3 : 0000000000000005 
- > +# x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000 
- > +# Call trace: 
- > +#  drm_mode_is_420_only+0x24/0x40 
- > +#  dpu_encoder_get_drm_fmt+0x20/0x44 
- > +#  dpu_encoder_phys_vid_enable+0x24/0x1f8 
- > +#  dpu_encoder_virt_atomic_enable+0xd4/0x234 
- > +#  drm_atomic_helper_commit_modeset_enables+0x188/0x26c 
- > +#  msm_atomic_commit_tail+0x1d8/0x688 
- > +#  commit_tail+0xa0/0x188 
- > +#  drm_atomic_helper_commit+0x190/0x1a4 
- > +#  drm_atomic_commit+0xb4/0xec 
- > +#  drm_atomic_helper_set_config+0xdc/0x114 
- > +#  drm_mode_setcrtc+0x420/0x808 
- > +#  drm_ioctl_kernel+0xbc/0x12c 
- > +#  drm_ioctl+0x230/0x4c0 
- > +#  __arm64_sys_ioctl+0xac/0xf0 
- > +#  invoke_syscall+0x48/0x110 
- > +#  el0_svc_common.constprop.0+0x40/0xe0 
- > +#  do_el0_svc+0x1c/0x28 
- > +#  el0_svc+0x4c/0x120 
- > +#  el0t_64_sync_handler+0x100/0x12c 
- > +#  el0t_64_sync+0x190/0x194 
- > +# Code: 91010273 aa0103e0 97ffad23 d3461c01 (f8617a61) 
- > +# ---[ end trace 0000000000000000 ]--- 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt 
- > index d42004cd6977..6dbc2080347d 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt 
- > @@ -1,8 +1,3 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_color@ctm-0-25,Fail 
- >  kms_color@ctm-0-50,Fail 
- >  kms_color@ctm-0-75,Fail 
- > @@ -11,35 +6,13 @@ kms_color@ctm-green-to-red,Fail 
- >  kms_color@ctm-negative,Fail 
- >  kms_color@ctm-red-to-blue,Fail 
- >  kms_color@ctm-signed,Fail 
- > -kms_content_protection@atomic,Crash 
- > -kms_content_protection@atomic-dpms,Crash 
- > -kms_content_protection@content-type-change,Crash 
- > -kms_content_protection@lic-type-0,Crash 
- > -kms_content_protection@lic-type-1,Crash 
- > -kms_content_protection@srm,Crash 
- > -kms_content_protection@type1,Crash 
- > -kms_content_protection@uevent,Crash 
- > -kms_cursor_legacy@2x-cursor-vs-flip-atomic,Fail 
- > -kms_cursor_legacy@2x-cursor-vs-flip-legacy,Fail 
- > -kms_cursor_legacy@2x-flip-vs-cursor-atomic,Fail 
- > -kms_cursor_legacy@2x-flip-vs-cursor-legacy,Fail 
- > -kms_cursor_legacy@2x-long-cursor-vs-flip-atomic,Fail 
- > -kms_cursor_legacy@2x-long-cursor-vs-flip-legacy,Fail 
- > -kms_cursor_legacy@2x-long-flip-vs-cursor-atomic,Fail 
- > -kms_cursor_legacy@2x-long-flip-vs-cursor-legacy,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-toggle,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-varying-size,Fail 
- > -kms_display_modes@extended-mode-basic,Fail 
- > -kms_flip@2x-flip-vs-modeset-vs-hang,Fail 
- > -kms_flip@2x-flip-vs-panning-vs-hang,Fail 
- >  kms_flip@flip-vs-modeset-vs-hang,Fail 
- >  kms_flip@flip-vs-panning-vs-hang,Fail 
- >  kms_lease@lease-uevent,Fail 
- > -kms_multipipe_modeset@basic-max-pipe-crc-check,Fail 
- >  kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail 
- >  kms_plane_alpha_blend@alpha-7efc,Fail 
- >  kms_plane_alpha_blend@coverage-7efc,Fail 
- >  kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail 
- > -kms_plane_lowres@tiling-none,Fail 
- >  kms_rmfb@close-fd,Fail 
- > -kms_vblank@ts-continuation-dpms-rpm,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt 
- > index 770a1c685fde..f7539aef95f2 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt 
- > @@ -1,8 +1,4 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- > +drm_read@invalid-buffer,Fail 
- >  kms_color@ctm-0-25,Fail 
- >  kms_color@ctm-0-50,Fail 
- >  kms_color@ctm-0-75,Fail 
- > @@ -11,6 +7,7 @@ kms_color@ctm-green-to-red,Fail 
- >  kms_color@ctm-negative,Fail 
- >  kms_color@ctm-red-to-blue,Fail 
- >  kms_color@ctm-signed,Fail 
- > +kms_content_protection@uevent,Crash 
- >  kms_cursor_legacy@basic-flip-before-cursor-atomic,Fail 
- >  kms_cursor_legacy@basic-flip-before-cursor-legacy,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-atomic,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt 
- > index 2aa96b1241c3..0052b2535bec 100644 
- > --- a/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt 
- > @@ -116,3 +116,10 @@ kms_cursor_legacy@flip-vs-cursor-toggle 
- >  # IGT Version: 1.28-gf13702b8e 
- >  # Linux Version: 6.10.0-rc5 
- >  msm/msm_shrink@copy-mmap-oom-8 
- > + 
- > +# Board Name: sdm845-cheza-r3 
- > +# Bug Report: 
- > +# Failure Rate: 50 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_lease@page-flip-implicit-plane 
- > diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt 
- > index ea7b2ceb95b9..90282dfa19f4 100644 
- > --- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-fails.txt 
- > @@ -1,18 +1,24 @@ 
- > -core_setmaster@master-drop-set-root,Crash 
- >  core_setmaster@master-drop-set-user,Crash 
- > -core_setmaster_vs_auth,Crash 
- > -device_reset@cold-reset-bound,Crash 
- > -device_reset@reset-bound,Crash 
- > -device_reset@unbind-cold-reset-rebind,Crash 
- > -device_reset@unbind-reset-rebind,Crash 
- >  dumb_buffer@create-clear,Crash 
- > -dumb_buffer@invalid-bpp,Crash 
- >  fbdev@pan,Crash 
- > +kms_bw@linear-tiling-2-displays-1920x1080p,Fail 
- >  kms_cursor_crc@cursor-onscreen-32x10,Crash 
- >  kms_cursor_crc@cursor-onscreen-32x32,Crash 
- > +kms_cursor_crc@cursor-onscreen-64x64,Crash 
- >  kms_cursor_crc@cursor-random-32x10,Crash 
- > +kms_cursor_crc@cursor-sliding-32x10,Crash 
- >  kms_cursor_crc@cursor-sliding-32x32,Crash 
- > +kms_cursor_crc@cursor-sliding-64x21,Crash 
- >  kms_cursor_legacy@basic-flip-before-cursor-atomic,Fail 
- >  kms_cursor_legacy@cursor-vs-flip-legacy,Fail 
- > +kms_cursor_legacy@flip-vs-cursor-crc-atomic,Crash 
- > +kms_flip@flip-vs-panning-vs-hang,Crash 
- > +kms_invalid_mode@int-max-clock,Crash 
- > +kms_lease@invalid-create-leases,Fail 
- > +kms_pipe_crc_basic@read-crc-frame-sequence,Crash 
- > +kms_plane@pixel-format,Crash 
- > +kms_plane@pixel-format-source-clamping,Crash 
- >  kms_prop_blob@invalid-set-prop,Crash 
- > -kms_prop_blob@invalid-set-prop-any,Crash 
- > +kms_properties@get_properties-sanity-atomic,Crash 
- > +kms_properties@get_properties-sanity-non-atomic,Crash 
- > +kms_rmfb@close-fd,Crash 
- > diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt 
- > index 7ede273aab20..7f731e4db250 100644 
- > --- a/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3288-flakes.txt 
- > @@ -4,3 +4,31 @@ 
- >  # IGT Version: 1.28-gf13702b8e 
- >  # Linux Version: 6.10.0-rc5 
- >  kms_cursor_legacy@flip-vs-cursor-atomic 
- > + 
- > +# Board Name: rk3288-veyron-jaq 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_cursor_crc@cursor-offscreen-32x10 
- > + 
- > +# Board Name: rk3288-veyron-jaq 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_cursor_edge_walk@64x64-left-edge 
- > + 
- > +# Board Name: rk3288-veyron-jaq 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_flip@plain-flip-ts-check 
- > + 
- > +# Board Name: rk3288-veyron-jaq 
- > +# Bug Report: 
- > +# Failure Rate: 100 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_cursor_crc@cursor-alpha-opaque 
- > diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt 
- > index 9309ff15e23a..10c454e48b8d 100644 
- > --- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-fails.txt 
- > @@ -1,9 +1,4 @@ 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- >  dumb_buffer@create-clear,Crash 
- > -dumb_buffer@invalid-bpp,Fail 
- >  kms_atomic_transition@modeset-transition,Fail 
- >  kms_atomic_transition@modeset-transition-fencing,Fail 
- >  kms_atomic_transition@plane-toggle-modeset-transition,Fail 
- > diff --git a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt 
- > index d98f6a17343c..85c18580372f 100644 
- > --- a/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/rockchip-rk3399-flakes.txt 
- > @@ -46,3 +46,10 @@ kms_setmode@basic 
- >  # IGT Version: 1.28-gf13702b8e 
- >  # Linux Version: 6.10.0-rc5 
- >  kms_bw@connected-linear-tiling-1-displays-2560x1440p 
- > + 
- > +# Board Name: rk3399-gru-kevin 
- > +# Bug Report: 
- > +# Failure Rate: 50 
- > +# IGT Version: 1.28-ga73311079 
- > +# Linux Version: 6.11.0-rc2 
- > +kms_flip@wf_vblank-ts-check 
- > diff --git a/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt b/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt 
- > index 5408110f4c60..71c02104a683 100644 
- > --- a/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt 
- > +++ b/drivers/gpu/drm/ci/xfails/vkms-none-fails.txt 
- > @@ -1,24 +1,3 @@ 
- > -core_hotunplug@hotrebind,Fail 
- > -core_hotunplug@hotrebind-lateclose,Fail 
- > -core_hotunplug@hotreplug,Fail 
- > -core_hotunplug@hotreplug-lateclose,Fail 
- > -core_hotunplug@hotunbind-rebind,Fail 
- > -core_hotunplug@hotunplug-rescan,Fail 
- > -core_hotunplug@unbind-rebind,Fail 
- > -core_hotunplug@unplug-rescan,Fail 
- > -device_reset@cold-reset-bound,Fail 
- > -device_reset@reset-bound,Fail 
- > -device_reset@unbind-cold-reset-rebind,Fail 
- > -device_reset@unbind-reset-rebind,Fail 
- > -dumb_buffer@invalid-bpp,Fail 
- > -kms_content_protection@atomic,Crash 
- > -kms_content_protection@atomic-dpms,Crash 
- > -kms_content_protection@content-type-change,Crash 
- > -kms_content_protection@lic-type-0,Crash 
- > -kms_content_protection@lic-type-1,Crash 
- > -kms_content_protection@srm,Crash 
- > -kms_content_protection@type1,Crash 
- > -kms_content_protection@uevent,Crash 
-
-
-Awesome!
-
-Acked-by: Helen Koike <helen.koike@collabora.com>
-
-Thanks
-Helen
-
-
- >  kms_cursor_crc@cursor-rapid-movement-128x128,Fail 
- >  kms_cursor_crc@cursor-rapid-movement-128x42,Fail 
- >  kms_cursor_crc@cursor-rapid-movement-256x256,Fail 
- > -- 
- > 2.43.0 
- >  
- > 
