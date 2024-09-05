@@ -4,75 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0492CE7A91
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 18:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37FB1CD5BB8
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 19:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5C9710E93A;
-	Thu,  5 Sep 2024 18:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2D7F10E93C;
+	Thu,  5 Sep 2024 19:05:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FdhXum30";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qv/p5bQR";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559AF10E670;
- Wed,  4 Sep 2024 00:49:03 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-374bb1a3addso2437399f8f.1; 
- Tue, 03 Sep 2024 17:49:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725410942; x=1726015742; darn=lists.freedesktop.org;
- h=user-agent:mime-version:message-id:cc:to:subject:date:from:from:to
- :cc:subject:date:message-id:reply-to;
- bh=MI2VD9V3HSMHAEsHid7UqFpfCx71vZJu73a+V6jxQIc=;
- b=FdhXum30B5GUlfi7KqySBvBDCAit0fAaUphGA9QDoHTj8U4b4N4jCJQh58ZOtyDXDK
- tJX/nn4RRQzDrBGVFEx8XE+5mnhQ00kug2anMwqz8a1JxNgW3KFLe22UxQgkF3w9Mpgd
- myTEjXxSNsYXbWI4TyccTPJiUH+SlaO7iK5yZxxEmO5jPZZhb1g89WL5uxsdvmzMSbGu
- vLRPQhcanfQa1qxI2hs66V90tO5G9J7Wt3YcdBGHxra6G/QwwiTNn7cNMgiYcEz+jt45
- gDjqF9yW8ny8gaKrNrj1cxn5WF2cjftz0jb3t9D2d2lm6cki6AsJlkSlAR4kWy61G5q8
- neEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725410942; x=1726015742;
- h=user-agent:mime-version:message-id:cc:to:subject:date:from
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MI2VD9V3HSMHAEsHid7UqFpfCx71vZJu73a+V6jxQIc=;
- b=X6Z0lKoa9xNPwytArtT2Nr7GInvY+TqR8yabv4ty9recjrpt6f49avfGQm4xRFARzg
- 9CqeeMgTzvHTBJ0Wig3AdTos5Wmh3Q5LOWiVrZp6HJFmG7CQaMdGnw1YjOwCF/a5bIiA
- gGFoK4arHfxJWP4Sunt+a7GtvpStyIzcqecfJHQOMlcJIBDjCmyva74li9XSvNr5zeVq
- X1dUdPFFczR1+zLUjJ0/CeRzRUOPtZF0rr7odNTzRNx0d5uf3KmIXVMJb8clAoba0LPY
- qmUZTjbcZzIaw//rQnmwZxbH+1P8FtLGAGVFt/tf5r5ZnS30+wiJxMMUQGAaaxtscVde
- qnSw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVDuBZtaWVIb8RsckjzxIufYmUz0IxtM3fgY4y7qAsUg+LpQqsw5TSi4zZl1hPOll3eAG60EUBc9kPn@lists.freedesktop.org,
- AJvYcCXQoMsWyK5VXahE621Gn5Qmzp8LcmUFKiS9Mwmb7RBI2qsdYEtneDqODqZrQCXr/5k83yRZ1cBV@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnumhBrL1iiGpmbe9nuImCBbY9zjgA5sZeeefq2Q+/toZJtHoP
- T2FiinOVVq4ETT/8Wqa39o0Na6PMyo6oKWZvj7r/jOTtj0JRrd+Z
-X-Google-Smtp-Source: AGHT+IF/dT9moCjMlTPpV1LF79HsX4lZi1lQZyE6VNTQ8vBAlwqecX7lrCGqmEOe3DjJR3wrDhVrhg==
-X-Received: by 2002:a5d:5269:0:b0:368:420e:b790 with SMTP id
- ffacd0b85a97d-376dd15a8cemr1591613f8f.14.1725410941339; 
- Tue, 03 Sep 2024 17:49:01 -0700 (PDT)
-Received: from [10.33.80.43] (mem-185.47.220.165.jmnet.cz. [185.47.220.165])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226c6a399sm6976144a12.8.2024.09.03.17.49.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Sep 2024 17:49:00 -0700 (PDT)
-From: Filip Hejsek <filip.hejsek@gmail.com>
-Date: Wed, 4 Sep 2024 00:50:56 +0200
-Subject: [PATCH] drm/amd/display: Fix debugfs dmub_fw_state read
-To: Harry Wentland <harry.wentland@amd.com>,
-    Leo Li <sunpeng.li@amd.com>,
-    Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
-    Alex Deucher <alexander.deucher@amd.com>,
-    "Christian König" <christian.koenig@amd.com>,
-    Xinhui Pan <Xinhui.Pan@amd.com>,
-    David Airlie <airlied@gmail.com>,
-    Daniel Vetter <daniel@ffwll.ch>,
-    amd-gfx@lists.freedesktop.org,
-    dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Message-ID: <d02c033c6f4411be31a9439f33de2c593b51d8fc.camel@gmail.com>
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49E8E10E936;
+ Thu,  5 Sep 2024 19:05:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z9sQQkboj0Civ8dwYXXTuZlzAB1D6AAWC5hxWbwEBrJn3AKW22AdSLeE6QpK2n888VUsUa28UITkOclT5nFMC7+K2fPuiWmZXMRr4iH5izpo5clWIptQwCd9VKvRC8beCSaP5cP1x2hdJDPj98nbgp66Mu26+HVlKRwt5JQ6MPe6SyoulOEvyDgHL2WmVvsRQnf3sIpkqVuYldkZYEmurpNhMQNUeoJkmRgaWIywBBu06/IlY8qel9cIpfuDHnxEu9dsPalwkViVtILsHhmhlZU4Ml8GkjbJ0jCilIO3N0xnLEoju59qLe2m9VVmMzyDFTQprh1H1KKsmv95PpOtIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K0u3eEGt1AaVVwlxcdG6d6ajvqdM3eN/K67csmaBecA=;
+ b=WWXjI4/aleX4n91DfN25Xn8E/W9oZbJj3OX8eLhtPbQoN1mzD36ar2klIfls+cqNWvvFog+MeK+fZGHbQ6oZJIKNOupLtJOXG4i3tV4x8bobJdyKNamS/nMrewSSahefLIOzeB2jP7DuIwg2nnGuh6FqKnvIALwlMl2ixQoaQnUZGaB3AyU4j0GBBWXhXHyZS5PBwMnLcWfad9LWjsfTVKkmk+AOqLaQ8vnZn9tvU/c9r0+WDpgOgTCW9b8ta5wSYeXYBPlE2UeyMMgmbq3KQVw9x6+07XAVle9IRhDMbQNjarvUNL4vdP1/7+YIQSLHCQ5Y+hw3FianH90Md0lYSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K0u3eEGt1AaVVwlxcdG6d6ajvqdM3eN/K67csmaBecA=;
+ b=Qv/p5bQRvkLD/N5mooIrdwXt1gvReSdpMWXhXGfGD7W4aIo8eNVmw0PC92E74qoiNDMdIiIvaNHHi7pnsORUNbQkIVXN8LcsxuSkJx7q1TSsW1l4xcQ0h/RNF5n4nInAwOLoLoz/KMMS1M51oitXhTonmGEgUoQogZ4Z2gC5Iew=
+Received: from SJ0P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::9)
+ by PH7PR12MB7844.namprd12.prod.outlook.com (2603:10b6:510:27b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.25; Thu, 5 Sep
+ 2024 19:05:50 +0000
+Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::92) by SJ0P220CA0004.outlook.office365.com
+ (2603:10b6:a03:41b::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27 via Frontend
+ Transport; Thu, 5 Sep 2024 19:05:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Thu, 5 Sep 2024 19:05:50 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Sep
+ 2024 14:05:48 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-fixes-6.11
+Date: Thu, 5 Sep 2024 15:05:33 -0400
+Message-ID: <20240905190533.854116-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Evolution 3.52.4 
-X-Mailman-Approved-At: Thu, 05 Sep 2024 18:49:02 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042A9:EE_|PH7PR12MB7844:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45e51a03-6dea-4cf6-4090-08dccdddc200
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ygKm4u1NxXWK8FhcGeMqzuDG0w5XAq0buEnTpx518ChnGPC4Dg6iRaPy4AxC?=
+ =?us-ascii?Q?Qm/9MhW3fRq61sMV+azGY+Zupeg6z4Q2kghNThAgZbY3hQcNUKEl/5mY3OXX?=
+ =?us-ascii?Q?BFrdN8oXuEqMQMLBa+c93TyID2vyqhwXvUq5aLsLO4zoWXstlBT+2Fgg5NM0?=
+ =?us-ascii?Q?rVMz9p1z1m/CksRhciTFNSQa41Tyd4vfOGK2SvbEEzM9KEFfMjSvq6fYVQCe?=
+ =?us-ascii?Q?AVC+x4wlKXGPzKbA439DLL3OdUx3EKdysSCbF9QFdyQLV7jWbYtt7hQL656k?=
+ =?us-ascii?Q?FqtD1RdLPtnfZzmmnmOzY1ex9c44KnwlUkzfEcQE5KdgKRfWqmKMQVziHu2c?=
+ =?us-ascii?Q?R+1LEfF85jqHiIQPhs/Ta7E++VhQm3dqVtNuKRhPOULC9UWdk2BfgLaSQgW7?=
+ =?us-ascii?Q?LwAkMnI05kTh8W1TtxXMGXbEOtWbIHJw7Iiu6TGWMwN2fCCX5Sm7Xd2US0jB?=
+ =?us-ascii?Q?l2wQAgEXDAv5IKj2UQcd3jDAozS2kCPa0edDJGq6UJRg5F0cIm+nFu2kAoML?=
+ =?us-ascii?Q?RxXUf9tkn1s4wcp7O7T1mpSap1dwMyOmYOXJ6aF1ZkxW1FL/a0E14gg9md0y?=
+ =?us-ascii?Q?yqbunAGLtdXjq2MciRXP1x15YvHCqA156yKuRPcmJX0Hvx4FpsrqKxrHLabC?=
+ =?us-ascii?Q?yImUhnYxevPtppuq4w/lm2zIeAR6f6I/LsVo8yrWqG6VCbmjH3+aqb0jZETe?=
+ =?us-ascii?Q?ywjuaJW17TTI3rtR5uA3yFY7DC1Gryk+j5gW6HngOHcj2lK7yfQnQgf7+CLA?=
+ =?us-ascii?Q?FDp0Tx/XEgWEodKZbv6V+u4HExO0VosP+Km6BDIyt8mIv4T09ysuiXZrupnk?=
+ =?us-ascii?Q?JSk0m6yoH5CWxT8REUhzAn6DmsAY4L+xheWfWoJD1BSldyCTCFI31qYng9rO?=
+ =?us-ascii?Q?rPqPDaeAJeuYWiWtsQ39ELl9k1UYCJMKx7bBPRAdBDQw3f0X/HhBh9Yk8+Y8?=
+ =?us-ascii?Q?pQA+xhBiakoSPs5yCHaQ3ZyDiqsGvXBQISlKGkjvJkJ49rY3FmYbnk8pmwWa?=
+ =?us-ascii?Q?vTyzug6PrWccVTIzMBZrHC0U8HyIlPmXgdpx0LaWgdnKhcGsHeQpCBSO+PlK?=
+ =?us-ascii?Q?evzE8jmoj02jJj2zsgJCaI+Qn470UagFwC5eydwp/0eHOqcQ141aoVFaUhwW?=
+ =?us-ascii?Q?4RMHKAaEG5FwxWLC5clvX1HmJpI7QDnf/rkDpzNcDKtQoY2hK4KEcs6QzpDI?=
+ =?us-ascii?Q?lMVFE3Tr5hdMPAX1kU+c6nbNPFCchXUkQuQ1Go1CcJj9ZuLrdUz4lC5F702V?=
+ =?us-ascii?Q?SReoZyr++7GcC2oMGnxKu+7TRJnM+BwoYNJDRgnCS0WCdta2thbQJj+LDYJ+?=
+ =?us-ascii?Q?8FHcZBew1tOzBoRCc6DSkzmoqTfTRLubow772W4x5eFLGZFxl8sQjlQgXs57?=
+ =?us-ascii?Q?BMT+JnPIQSaOLnfRmCBmn1aCljo9?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2024 19:05:50.4155 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45e51a03-6dea-4cf6-4090-08dccdddc200
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,34 +129,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the FW state is too large to fit in initial seq_file buffer,
-seq_write returns -1, which is subsequently returned from
-dmub_fw_state_show. This causes the read operation to fail.
+Hi Dave, Simona,
 
-Return instead always 0 and let the seq_file handling retry the read
-with a larger buffer if the initial buffer overflows.
+Fixes for 6.11.
 
-Fixes: 2364076772b1 ("drm/amd/display: Add DMUB firmware state debugfs")
-Signed-off-by: Filip Hejsek <filip.hejsek@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The following changes since commit 431c1646e1f86b949fa3685efc50b660a364c2b6:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index db56b0aa545..ecda44789b4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -958,7 +958,8 @@ static int dmub_fw_state_show(struct seq_file *m, void *data)
- 
- 	state_size = fb_info->fb[DMUB_WINDOW_6_FW_STATE].size;
- 
--	return seq_write(m, state_base, state_size);
-+	seq_write(m, state_base, state_size);
-+	return 0;
- }
- 
- /* replay_capability_show() - show eDP panel replay capability
+  Linux 6.11-rc6 (2024-09-01 19:46:02 +1200)
 
-base-commit: 96a5152075c0424e9bda551d00ab850c815e309c
--- 
-2.46.0
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.11-2024-09-05
+
+for you to fetch changes up to 1a8d845470941f1b6de1b392227530c097dc5e0c:
+
+  Revert "drm/amdgpu: align pp_power_profile_mode with kernel docs" (2024-09-05 14:46:39 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.11-2024-09-05:
+
+amdgpu:
+- IPS workaround
+- Fix compatibility with older MES firmware
+- Fix CPU spikes when clearing VRAM
+- Backlight fix
+- PMO fix
+- Revert SWSMU change to fix regression
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdgpu: always allocate cleared VRAM for GEM allocations
+      Revert "drm/amdgpu: align pp_power_profile_mode with kernel docs"
+
+Dillon Varone (1):
+      drm/amd/display: Block timing sync for different signals in PMO
+
+Jack Xiao (1):
+      drm/amdgpu/mes: add mes mapping legacy queue switch
+
+Leo Li (2):
+      drm/amd/display: Determine IPS mode by ASIC and PMFW versions
+      drm/amd/display: Lock DC and exit IPS when changing backlight
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |  1 +
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             | 49 +++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |  9 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 39 ++++++++++++++++-
+ .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |  3 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  6 ++-
+ 8 files changed, 89 insertions(+), 25 deletions(-)
