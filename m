@@ -4,74 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB05BCD5BAA
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 11:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB799CD4F58
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Sep 2024 12:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A1E310E865;
-	Thu,  5 Sep 2024 11:30:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79CA410E884;
+	Thu,  5 Sep 2024 12:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DTyHJiKd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iJSf46tk";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 142F510E865
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Sep 2024 11:30:37 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-42bac9469e8so5044995e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Sep 2024 04:30:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725535835; x=1726140635; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7AVALPtWG7QYelRuB15MSiA8IhdX2MVRD7rmn44MiTk=;
- b=DTyHJiKdvDu5LZbfYmxENx51m3xjgw5EGAZHHYNm0J9FnvFCfLr6vGSyjYabh6dph+
- rvY41rk2wyxEaOY30u2ztElfEn3XRWtlZ51u/j4Pal/P0xTWaY20iIa3Bg1LfAx6d5Cj
- tnJcX5f2uoqwfzkg/X+hRR/NQzIvKy3gl66CRs2x+VbbpF0vQYJRUxQdqG0TASCQ9sSn
- b8fraFz/pKh070CR5NwSVsv4WuRbpaXjr3Ot3Fj+sL55mTL+yElfjO+liWcpElDLQTzk
- GXMqAEZA9f6sPix/Wu3TswvjkJ9ndiMHWg6JCc+2MCdEz9venztV1aBT6G1AvKRiTncc
- 0P0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725535835; x=1726140635;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7AVALPtWG7QYelRuB15MSiA8IhdX2MVRD7rmn44MiTk=;
- b=nYYBBhxKwEQCedhIgYZqYY1Z+UB4X2IgCJbK3q5cEKiWywk22HmQhtX4oKnVu5p8pQ
- 7IJAJQGmuKiHPKlTk0yER8rQnXxuUT71O8cUY3jmwpDtt988aiL0t/zmZItKQWP+2VL7
- kEWS5l+cPl3RkJQW6e1OJWWsv8QwDmrJLGRX9g00OF7AuYun45JscU64TGltWWfzHvhv
- ijAZsQJLAhE3ePUICo8zAXpVjFaYE6GYW7BWq6/hQVDe5jyfORWEeu+4n90NwH9iz6z3
- ENGVbJzlLgUDuBzloEbfVOLuueEE1rkHhbbXAibex/8cne1r2E5G/QeWE0N/so2pz+s4
- hwDA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYhUWgQ+0Tlr8ymoQalGEqQgPzxH8wUKRcOlAQMc227HA98akAhvgJvdoF6f2MI/3nukOjxxAF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzeTFfjOqgC/yioqIUEU7ExAaM/dOW4l/VeBNQ+cBQqueveDSW4
- LcWCFiC63kXtE8b+CZgS7Jt+7CZ5/157JDFMMOvbcK5o7pnOPc0K
-X-Google-Smtp-Source: AGHT+IFaNwMGMU6S0cCy3z5lLQS30qCHEDV8KUNvzNJJAkGBXhbm4eV7K1DB/Q7a5sTJnssbwFQ3cA==
-X-Received: by 2002:a5d:4acc:0:b0:374:bcc7:b9bb with SMTP id
- ffacd0b85a97d-3776fa1e62bmr3922355f8f.35.1725535834318; 
- Thu, 05 Sep 2024 04:30:34 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42bb6df92f1sm231562475e9.25.2024.09.05.04.30.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 04:30:33 -0700 (PDT)
-Message-ID: <25ecc9b2-e957-444d-a0c3-3a125bcf50d2@gmail.com>
-Date: Thu, 5 Sep 2024 13:30:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] drm/amdgpu: Add few optimizations to userq fence
- driver
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com
-References: <20240830184322.1238767-1-Arunpravin.PaneerSelvam@amd.com>
- <20240830184322.1238767-6-Arunpravin.PaneerSelvam@amd.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C09710E140
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Sep 2024 12:38:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SVvsYT7R0d9Ff08eQyXPKCdnCgND3DBuWd061zDoYBWbluay2rdmqoMo6wpoIxBxv7uW0NowMSOn7Vblf1qcrIxE8mR7ul+xbobPJUokX43WQBHElxZ97fmhv+eUDyYvp4cIF5xnBNO+izsex8z5f4oyXZPQC1mO+Ybg9sXGm0b4crJ0cOKjezG3KrnM+0V97j7l/3TZhPpgp55tWZVS9mU9nJHiYg+Bj4pH8GnM47RAWlg0vM6NdzT5pviK3tTIr8J+nIkRUAdojgeFVmt4GYmZXjRWitqw6SN4fYijWDGn5HSAvvj4cE/7icXcvH4OQ98IfqgXTmRmDRm4vVciCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M/BopBWYiDO/s6MuXhhg34HEhTKTkR98SKO5O4n8rsk=;
+ b=q+0vGM6mEdMEyria85s5SktxZc0j3nLLnI3tHcTt8V+kIjhOfutEM6YF/lTkMSc6gzxJpEG1EOXs0q/btXi7TV+mKOmEr48DttLUc7Gr+xagh8yP9BkPaUXgMYnvXw6of6i9tnzahyRnM4u+xsI1WXxMvgl2OLgsK5vau66Eie49fSZF2yHwwOZ/HIPmHAu2fV/5n9xtAKquGOejVIGBvOuUqB3lyH4Li6Ib9Wu00W7VwdpZUWcPINHezFr+JU0Vmp1rpMZlRa/w5aoDuyFKrkZnAEMLFq9RIV32v1eWPXKpUihWugYY6KhSFAAu5045p7cAclZrWDDIzorWF6BSpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M/BopBWYiDO/s6MuXhhg34HEhTKTkR98SKO5O4n8rsk=;
+ b=iJSf46tkhyTBJ6DrCPlpk71PQB55ooU3s87zAnLU2CLwic0YNxzv29Kgs0j9lqJ8xPmLnIa6wnuKuPhmDixdnNGcwme787jWxtn7Qkki9ppvhpJTxqVQtJw0+TKFomwYvN5kXBOj7I+MLxY1lvJHMRx+JYGLEopL6S7mrUo77oI=
+Received: from CO6PR12MB5441.namprd12.prod.outlook.com (2603:10b6:303:13b::15)
+ by MW4PR12MB6731.namprd12.prod.outlook.com (2603:10b6:303:1eb::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27; Thu, 5 Sep
+ 2024 12:38:37 +0000
+Received: from CO6PR12MB5441.namprd12.prod.outlook.com
+ ([fe80::8937:4064:f4fa:2454]) by CO6PR12MB5441.namprd12.prod.outlook.com
+ ([fe80::8937:4064:f4fa:2454%3]) with mapi id 15.20.7918.024; Thu, 5 Sep 2024
+ 12:38:37 +0000
+From: "Andjelkovic, Dejan" <Dejan.Andjelkovic@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Prica, Nikola" <Nikola.Prica@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
+Thread-Topic: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
+Thread-Index: AQHa/3HC/oM5fdy9wUGTBgs8g1+KG7JJC32AgAAQR3A=
+Date: Thu, 5 Sep 2024 12:38:37 +0000
+Message-ID: <CO6PR12MB54412BC4A08D1335062D28C4E79D2@CO6PR12MB5441.namprd12.prod.outlook.com>
+References: <20240905085841.18189-1-Dejan.Andjelkovic@amd.com>
+ <c93d6652-08fd-40fb-a629-d52bec489ede@amd.com>
+In-Reply-To: <c93d6652-08fd-40fb-a629-d52bec489ede@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240830184322.1238767-6-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-09-05T12:38:37.534Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR12MB5441:EE_|MW4PR12MB6731:EE_
+x-ms-office365-filtering-correlation-id: f282b762-77bd-48fe-46ad-08dccda7a9ea
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?1F4WyyBHPl2GtHE6mwbuK+GmdzRaJN1E6jftbpnVFdt8vBo8ujpAObNgQ3na?=
+ =?us-ascii?Q?XmDCL+6gzeCw1whee6pbgQPCIsyv9ut/VLIeHS5MEddvqSCZDQJgwruG9QqQ?=
+ =?us-ascii?Q?BXrEMty8NR3Qq8iCAJlrW6iOUJBJmhcNP03wMMOBNanjV+kGk53xP6eTo1QV?=
+ =?us-ascii?Q?NhEXX2soXe54i43AMP6GjngiIASPdvPBGDNklhPKiF0GUUG2f0ympP9rtE0I?=
+ =?us-ascii?Q?GqlKZqWzK1kLFBMwqwNm2WtjQ5DzS/HUaflYWCFaulhvZuViUnn6a3jS5Aw1?=
+ =?us-ascii?Q?YTvhWfbUwDA0ynxiNWWHA38X6QfY5JZ6iK+ocWA75Lox5d5pL1p4bekS214g?=
+ =?us-ascii?Q?G5vfgceDK0D5SoR6yvTy1XME21zXlV+nMauWeRgcSaH8dmUlluUi/oRqdLUS?=
+ =?us-ascii?Q?0YxyPJvHy/L/+uFU+qpYfFJqUjNf2RXHn8j5x2hB3VWR0zGD/Z6siRwCvWw5?=
+ =?us-ascii?Q?P8WFLiMDv2IqU5Whve2mylgsuWrOxehBEh6PCpPGK7bOu9LraSE51YEKeLM6?=
+ =?us-ascii?Q?CXCN7UIWj6gSYicUPkeVAjMXoTCQzpbwQdEbOidVchTZjij8n6Fi1K7Dwyin?=
+ =?us-ascii?Q?g5p6a3twI6rNw2/ofcetsX6+EPakqGh8U3oRv7tb0tYKnULboXpb4FGF8NJK?=
+ =?us-ascii?Q?k4ooPfVOUUr326AjGtwQuSR8Q0LOkfz2PQLCTt86rKkRO8flIrqnhyN2LBBX?=
+ =?us-ascii?Q?oJtvHz9Rja3PaPDESyjJ4fV9YBvSyUAUatc23r1UiVqqkH1b/tOelNvTSo+P?=
+ =?us-ascii?Q?MjNwJSru9x9VOQTctSTvT12ytJz83VwT/6xDyjIIm+T/NV5JbuHIkRwUIW5N?=
+ =?us-ascii?Q?wy0OUUXIhhr0Acy3BSmJ+bhu/igt/9tk98FBZF4qfHyx2pYGttBO0Q7s0KNU?=
+ =?us-ascii?Q?Sz94KuwnEHwVVNvJm99Kxo12iLgGtIvES6PIXX/IDNUCzBEZhXxl5D1ICYSJ?=
+ =?us-ascii?Q?iNzrvb78uF7MKQ/Q1cx8NtVFbCYiSVUUX3Iiq7PNs+MUzFErkJqeQVXsUVyG?=
+ =?us-ascii?Q?caLU94f4j5zlf5fN17sC6Ln5HnLACXGunh4MOaCEz4CrvB+aNJw0XwrkXY0a?=
+ =?us-ascii?Q?AuP2hCHP/X/VR4nyZBpPjHaBWSGH78SqZgO+IyOSBX8hq6lUempLsDla5vPz?=
+ =?us-ascii?Q?HNpZb2Aa1yCta9YFkXSC+JsyB8SXOmwkTiKzSgtQCayreKzWpWMHKiOJbNEN?=
+ =?us-ascii?Q?Pvu42Fy/2iX00SGBwAfMCOyBRaheZj7rHH5JfWi+zSC2ZaEcNG8OS/zYQuIX?=
+ =?us-ascii?Q?ZqG73TCZ9AAFypf5/sE0fg7uct0uRfKBP+F6d3Iv4ZEIOe2xcowPFIyo0UHx?=
+ =?us-ascii?Q?ijcsMCmdnG4/AKqRfgKGC6ko8xKGCoHGcAlDrG1RL0MWIwLnajElrIZ9AJqG?=
+ =?us-ascii?Q?RUU3iPcXX+DDR8M5nk3AUfQgFMoVMEdz4vKV456361m5NIxlYg=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5441.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/cZFsKnqShYOelllFMtD8oeMPxq8BYZkrIG1v35NQFgO+gmCwzl3L6/bXjiB?=
+ =?us-ascii?Q?STYM4ILZMlzwDnTaBkzeI8jfEx2T/iviB8H1YJbHktivQVI9NLggUG7vBpFi?=
+ =?us-ascii?Q?rfKQNWbKY74kGk/6eBapXCqEgDuO5J3FXQhQPIMwK83tn2DkeQ+F4mfvYr/u?=
+ =?us-ascii?Q?mzlOtZ8NCl8kQpmC5Ly0ZPzkUAleYZto2oAAFxu27nByNVVInVOXWHCKzq1t?=
+ =?us-ascii?Q?avd+i+KorYZ7QuhoEOPcIrctkYOgtTVBFCNmvvOsh+vNQdU6i+8IqL7/+MNL?=
+ =?us-ascii?Q?iARw4egyBiFykdQ/4J0IWd6E1K7t2c6+VwFbzUwqB70+g0rabD0AgIPKD6nw?=
+ =?us-ascii?Q?S8z+d4aYLx0n4muiZmBgLWbIC+W7lPEXtUNvV1AXHKfnNPlSggbOY/41vVwB?=
+ =?us-ascii?Q?ESvlXCO2+TGVXo3sNUfBgOCnfRMtkk/eKvSjuRldEBc7vNnNKlpCftU48iGW?=
+ =?us-ascii?Q?ckWNwriSJ/IH3wApZkKxHvPtXOIQG+rfhjcTLF1zFbRpiPCL7/TUUyJZMe2P?=
+ =?us-ascii?Q?FR0Z2+d82nowTdoAXcpgZ+uvf8h5xKpZHisY/mDbJb/PAe4xDb/OYgibEtAq?=
+ =?us-ascii?Q?7Nx7qUveNu6u0qgdUjKpbrdh/AFB+5DEkaUN6pHai3ll3pRwC3i4RSi6i8+v?=
+ =?us-ascii?Q?D0mY76BzsYSi8g6/9Y0GlVncrBXp5/4FVnc/n9VzZGIlf+uzXIaSwI87Jblt?=
+ =?us-ascii?Q?XE3uRNnX+GUADXcQEIK6S9W7jcJWbIQg/YT0wLT2+XDzZbSLk8emH9DEoL7/?=
+ =?us-ascii?Q?aod0THGFCPjjGVQuYu1hMw/Lvs+87B/26iZ9xozoKe/ZwsgWRKWWCpdbmUUF?=
+ =?us-ascii?Q?ozvfFD7k/56nvTDngHnNlA0LnnembeUDCMYmz9dUsEKtFlC8eAvv+JzYuUV4?=
+ =?us-ascii?Q?UxuGnZlBf5mTFseg8KAV56zoq4JbsYGOVaf/rI8eutj3PKIiyx1uax79MzP+?=
+ =?us-ascii?Q?EPLBO9twhqWq4Ak3xpMXxas5QZnk9pwjdtBnFMF+gcg5eXGdCL6PYrPaehHB?=
+ =?us-ascii?Q?snEhmdOg6yspIH6w70C3vfZfgYZwf9A/A6ctKrNswHqBkJrIPikQYNiOY8LR?=
+ =?us-ascii?Q?K83Es/dGqTpLVkTtY/ytF8X+cqdSbVh2Tz27rhslnFpVk0S0kyNzkAImKvWZ?=
+ =?us-ascii?Q?b2qfoBh2f8QjDj1jInPEe7AcZO3wPyTxmBqdyVUfcxmQb70XVbv39jqXnTtl?=
+ =?us-ascii?Q?e6nxLvRvqWhZhhi8QXDlNrtFV73gBh8XPiVfeb7Zh9hD481XwOXyG8ybNuOi?=
+ =?us-ascii?Q?QtXxlO+zY+/zSKcHTsEDCSeSDk8Ah1zZ8jn3zVRk8udLy1dkmv5aQ85ZJqM9?=
+ =?us-ascii?Q?c5Sq2DqCYWj+XmgMBSk1pm9tabeGTidXQY51/TtGTIo+JFnsYpvkTFLwxgQT?=
+ =?us-ascii?Q?3NAZSiOYZuW2puaUpVIQPulB6j13+dsYSh+UlnP/cdIgVKQM5Bw/bEEmlrYq?=
+ =?us-ascii?Q?cgUBGDvrDfwGoOs2/nbUQ0BhxmTLoBy1PTbLwa2T/HQaUG39mYKQnSfDuLMa?=
+ =?us-ascii?Q?1WO2rpCdLJ3BXTosBVsfC6r5deJf36rJub0PbiBKDdJV81i3LCGp46UVNZFc?=
+ =?us-ascii?Q?70BQvotveED+pkPIkik=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CO6PR12MB54412BC4A08D1335062D28C4E79D2CO6PR12MB5441namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5441.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f282b762-77bd-48fe-46ad-08dccda7a9ea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2024 12:38:37.3363 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: J7N1S+7GzRz/Kd1UGVWJYS3zGQ/7vz6ubQXoHF3bOtGhJih+O/O/KjuiusS2tfgxhfxfiCZR8RLMZ0jZ3Y43pQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6731
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,291 +153,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.08.24 um 20:43 schrieb Arunpravin Paneer Selvam:
-> Add few optimizations to userq fence driver.
->
-> v1:(Christian):
->    - Remove unnecessary comments.
->    - In drm_exec_init call give num_bo_handles as last parameter it would
->      making allocation of the array more efficient
->    - Handle return value of __xa_store() and improve the error handling of
->      amdgpu_userq_fence_driver_alloc().
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  2 +-
->   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 64 ++++++++++++-------
->   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c |  6 +-
->   .../gpu/drm/amd/include/amdgpu_userqueue.h    |  2 +-
->   5 files changed, 48 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5ec6cb237c81..3c4568929d12 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3967,7 +3967,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	spin_lock_init(&adev->audio_endpt_idx_lock);
->   	spin_lock_init(&adev->mm_stats.lock);
->   
-> -	xa_init_flags(&adev->userq_xa, XA_FLAGS_LOCK_IRQ);
-> +	xa_init_flags(&adev->userq_xa, XA_FLAGS_ALLOC);
+--_000_CO6PR12MB54412BC4A08D1335062D28C4E79D2CO6PR12MB5441namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I don't think that this is correct. The XA is used from IRQ context.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
->   
->   	INIT_LIST_HEAD(&adev->shadow_list);
->   	mutex_init(&adev->shadow_list_lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index c6d201abf5ec..a30b8abe8a2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -76,7 +76,8 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
->   	fence_drv = kzalloc(sizeof(*fence_drv), GFP_KERNEL);
->   	if (!fence_drv) {
->   		DRM_ERROR("Failed to allocate memory for fence driver\n");
-> -		return -ENOMEM;
-> +		r = -ENOMEM;
-> +		goto free_fence_drv;
->   	}
->   
->   	/* Acquire seq64 memory */
-> @@ -84,7 +85,8 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
->   			       &fence_drv->cpu_addr);
->   	if (r) {
->   		kfree(fence_drv);
-> -		return -ENOMEM;
-> +		r = -ENOMEM;
-> +		goto free_seq64;
->   	}
->   
->   	memset(fence_drv->cpu_addr, 0, sizeof(u64));
-> @@ -94,18 +96,30 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
->   	spin_lock_init(&fence_drv->fence_list_lock);
->   
->   	fence_drv->adev = adev;
-> -	fence_drv->uq_fence_drv_xa_ref = &userq->uq_fence_drv_xa;
-> +	fence_drv->fence_drv_xa_ptr = &userq->fence_drv_xa;
->   	fence_drv->context = dma_fence_context_alloc(1);
->   	get_task_comm(fence_drv->timeline_name, current);
->   
->   	xa_lock_irqsave(&adev->userq_xa, flags);
-> -	__xa_store(&adev->userq_xa, userq->doorbell_index,
-> -		   fence_drv, GFP_KERNEL);
-> +	r = xa_err(__xa_store(&adev->userq_xa, userq->doorbell_index,
-> +			      fence_drv, GFP_KERNEL));
-> +	if (r)
-> +		goto xa_err;
-> +
->   	xa_unlock_irqrestore(&adev->userq_xa, flags);
+Hi there. We're running into a page fault issue that's very easily reproduc=
+ible on a SRIOV environment when using SDMA for page table updates. Going t=
+hrough mapping logs and trace files, it seems TLB flush is occurring premat=
+urely. Changing the usage to KERNEL completely stops the page fault from oc=
+curring with no performance impact, which was confirmed with extensive test=
+ing. Looking through amdgpu_vm_sdma.c, namely within amdgpu_vm_sdma_update =
+when waiting for PD/PT moves to be completed, fences are iterated with KERN=
+EL usage specified which are then added as a job dependency.
 
-You can move the xa_unlock before the error check here.
+Best regards,
+Dejan
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Thursday, September 5, 2024 1:17 PM
+To: Andjelkovic, Dejan <Dejan.Andjelkovic@amd.com>; amd-gfx@lists.freedeskt=
+op.org <amd-gfx@lists.freedesktop.org>
+Cc: Prica, Nikola <Nikola.Prica@amd.com>; Kuehling, Felix <Felix.Kuehling@a=
+md.com>; Deng, Emily <Emily.Deng@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
 
-And that looks like adding missing error handling and not just optimization.
+Am 05.09.24 um 10:58 schrieb Dejan Andjelkovic:
+> When using SDMA for PT updates, a TLB fence hooked to a buffer
+> objects dma resv object with usage declared as BOOKKEEP leaves a
+> chance for TLB flush to occur prematurely. This will lead to a page
+> fault. Raising the usage from BOOKKEEP to KERNEL removes this
+> possibility.
 
->   
->   	userq->fence_drv = fence_drv;
->   
->   	return 0;
-> +
-> +xa_err:
-> +	xa_unlock_irqrestore(&adev->userq_xa, flags);
-> +free_seq64:
-> +	amdgpu_seq64_free(adev, fence_drv->gpu_addr);
-> +free_fence_drv:
-> +	kfree(fence_drv);
-> +
-> +	return r;
->   }
->   
->   void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
-> @@ -149,7 +163,7 @@ void amdgpu_userq_fence_driver_destroy(struct kref *ref)
->   	struct amdgpu_device *adev = fence_drv->adev;
->   	struct amdgpu_userq_fence *fence, *tmp;
->   	struct xarray *xa = &adev->userq_xa;
-> -	unsigned long index;
-> +	unsigned long index, flags;
->   	struct dma_fence *f;
->   
->   	spin_lock(&fence_drv->fence_list_lock);
-> @@ -166,11 +180,11 @@ void amdgpu_userq_fence_driver_destroy(struct kref *ref)
->   	}
->   	spin_unlock(&fence_drv->fence_list_lock);
->   
-> -	xa_lock(xa);
-> +	xa_lock_irqsave(xa, flags);
->   	xa_for_each(xa, index, xa_fence_drv)
->   		if (xa_fence_drv == fence_drv)
->   			__xa_erase(xa, index);
-> -	xa_unlock(xa);
-> +	xa_unlock_irqrestore(xa, flags);
->   
->   	/* Free seq64 memory */
->   	amdgpu_seq64_free(adev, fence_drv->gpu_addr);
-> @@ -214,12 +228,12 @@ int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
->   	amdgpu_userq_fence_driver_get(fence_drv);
->   	dma_fence_get(fence);
->   
-> -	if (!xa_empty(&userq->uq_fence_drv_xa)) {
-> +	if (!xa_empty(&userq->fence_drv_xa)) {
->   		struct amdgpu_userq_fence_driver *stored_fence_drv;
->   		unsigned long index, count = 0;
->   		int i = 0;
->   
-> -		xa_for_each(&userq->uq_fence_drv_xa, index, stored_fence_drv)
-> +		xa_for_each(&userq->fence_drv_xa, index, stored_fence_drv)
->   			count++;
->   
->   		userq_fence->fence_drv_array =
-> @@ -229,9 +243,9 @@ int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
->   		userq_fence->fence_drv_array_count = count;
->   
->   		if (userq_fence->fence_drv_array) {
-> -			xa_for_each(&userq->uq_fence_drv_xa, index, stored_fence_drv) {
-> +			xa_for_each(&userq->fence_drv_xa, index, stored_fence_drv) {
->   				userq_fence->fence_drv_array[i] = stored_fence_drv;
-> -				xa_erase(&userq->uq_fence_drv_xa, index);
-> +				xa_erase(&userq->fence_drv_xa, index);
->   				i++;
->   			}
->   		}
-> @@ -377,14 +391,12 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   	int r, i, entry;
->   	u64 wptr;
->   
-> -	/* Array of syncobj handles */
->   	num_syncobj_handles = args->num_syncobj_handles;
->   	syncobj_handles = memdup_user(u64_to_user_ptr(args->syncobj_handles_array),
->   				      sizeof(u32) * num_syncobj_handles);
->   	if (IS_ERR(syncobj_handles))
->   		return PTR_ERR(syncobj_handles);
->   
-> -	/* Array of syncobj object handles */
->   	syncobj = kmalloc_array(num_syncobj_handles, sizeof(*syncobj), GFP_KERNEL);
->   	if (!syncobj) {
->   		r = -ENOMEM;
-> @@ -399,14 +411,12 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> -	/* Array of bo handles */
->   	num_bo_handles = args->num_bo_handles;
->   	bo_handles = memdup_user(u64_to_user_ptr(args->bo_handles_array),
->   				 sizeof(u32) * num_bo_handles);
->   	if (IS_ERR(bo_handles))
->   		goto put_syncobj_handles;
->   
-> -	/* Array of GEM object handles */
->   	gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
->   	if (!gobj) {
->   		r = -ENOMEM;
-> @@ -421,7 +431,9 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, num_bo_handles);
-> +
-> +	/* Lock all BOs with retry handling */
->   	drm_exec_until_all_locked(&exec) {
->   		r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 1);
->   		drm_exec_retry_on_contention(&exec);
-> @@ -526,7 +538,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   		goto free_timeline_handles;
->   	}
->   
-> -	/* Array of GEM object handles */
->   	gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
->   	if (!gobj) {
->   		r = -ENOMEM;
-> @@ -541,7 +552,9 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, num_bo_handles);
-> +
-> +	/* Lock all BOs with retry handling */
->   	drm_exec_until_all_locked(&exec) {
->   		r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 0);
->   		drm_exec_retry_on_contention(&exec);
-> @@ -703,9 +716,16 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   			 * Otherwise, we would gather those references until we don't
->   			 * have any more space left and crash.
->   			 */
-> -			if (fence_drv->uq_fence_drv_xa_ref) {
-> -				r = xa_alloc(fence_drv->uq_fence_drv_xa_ref, &index, fence_drv,
-> -					     xa_limit_32b, GFP_KERNEL);
-> +			if (fence_drv->fence_drv_xa_ptr) {
-> +				/*
-> +				 * Store the fence_drv reference into the corresponding
-> +				 * userq fence_drv_xa.
-> +				 */
+Well that's complete nonsense. The usage model is for implicit syncing
+and not even remotely related to TLB flushing.
 
-That comment looks superfluous to me.
+What exactly is the problem you run into?
 
-> +				r = xa_alloc(fence_drv->fence_drv_xa_ptr,
-> +					     &index,
-> +					     fence_drv,
-> +					     xa_limit_32b,
-> +					     GFP_KERNEL);
-
-Please keep the coding style as it was, this actually matches the kernel 
-coding style better.
-
+Regards,
 Christian.
 
->   				if (r)
->   					goto free_fences;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-> index f72424248cc5..89c82ba38b50 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-> @@ -54,7 +54,7 @@ struct amdgpu_userq_fence_driver {
->   	spinlock_t fence_list_lock;
->   	struct list_head fences;
->   	struct amdgpu_device *adev;
-> -	struct xarray *uq_fence_drv_xa_ref;
-> +	struct xarray *fence_drv_xa_ptr;
->   	char timeline_name[TASK_COMM_LEN];
->   };
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> index e7f7354e0c0e..9b24218f7ad2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -48,8 +48,8 @@ static void amdgpu_userq_walk_and_drop_fence_drv(struct xarray *xa)
->   static void
->   amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
->   {
-> -	amdgpu_userq_walk_and_drop_fence_drv(&userq->uq_fence_drv_xa);
-> -	xa_destroy(&userq->uq_fence_drv_xa);
-> +	amdgpu_userq_walk_and_drop_fence_drv(&userq->fence_drv_xa);
-> +	xa_destroy(&userq->fence_drv_xa);
->   	/* Drop the fence_drv reference held by user queue */
->   	amdgpu_userq_fence_driver_put(userq->fence_drv);
+>
+> Signed-off-by: Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index f93804902fd3..8efc2cf9bbb0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -928,7 +928,7 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *p=
+arams,
+>
+>                /* Makes sure no PD/PT is freed before the flush */
+>                dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
+> -                                DMA_RESV_USAGE_BOOKKEEP);
+> +                                DMA_RESV_USAGE_KERNEL);
+>        }
 >   }
-> @@ -348,7 +348,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->   	}
->   	queue->doorbell_index = index;
->   
-> -	xa_init_flags(&queue->uq_fence_drv_xa, XA_FLAGS_ALLOC);
-> +	xa_init_flags(&queue->fence_drv_xa, XA_FLAGS_ALLOC);
->   	r = amdgpu_userq_fence_driver_alloc(adev, queue);
->   	if (r) {
->   		DRM_ERROR("Failed to alloc fence driver\n");
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> index d035b5c2b14b..6eb094a54f4b 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -52,7 +52,7 @@ struct amdgpu_usermode_queue {
->   	struct amdgpu_userq_obj	db_obj;
->   	struct amdgpu_userq_obj fw_obj;
->   	struct amdgpu_userq_obj wptr_obj;
-> -	struct xarray		uq_fence_drv_xa;
-> +	struct xarray		fence_drv_xa;
->   	struct amdgpu_userq_fence_driver *fence_drv;
->   	struct dma_fence	*last_fence;
->   };
+>
 
+
+--_000_CO6PR12MB54412BC4A08D1335062D28C4E79D2CO6PR12MB5441namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Hi there. We're running into a page fault issue that's very easily reproduc=
+ible on a SRIOV environment when using SDMA for page table updates. Going t=
+hrough mapping logs and trace files, it seems TLB flush is occurring premat=
+urely. Changing the usage to KERNEL
+ completely stops the page fault from occurring with no performance impact,=
+ which was confirmed with extensive testing. Looking through amdgpu_vm_sdma=
+.c, namely within amdgpu_vm_sdma_update when waiting for PD/PT moves to be =
+completed, fences are iterated with
+ KERNEL usage specified which are then added as a job dependency.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Best regards,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Dejan</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> Thursday, September 5, 2024 1:17 PM<br>
+<b>To:</b> Andjelkovic, Dejan &lt;Dejan.Andjelkovic@amd.com&gt;; amd-gfx@li=
+sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Prica, Nikola &lt;Nikola.Prica@amd.com&gt;; Kuehling, Felix &lt;=
+Felix.Kuehling@amd.com&gt;; Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TL=
+B fence</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 05.09.24 um 10:58 schrieb Dejan Andjelkovic:<br=
+>
+&gt; When using SDMA for PT updates, a TLB fence hooked to a buffer<br>
+&gt; objects dma resv object with usage declared as BOOKKEEP leaves a<br>
+&gt; chance for TLB flush to occur prematurely. This will lead to a page<br=
+>
+&gt; fault. Raising the usage from BOOKKEEP to KERNEL removes this<br>
+&gt; possibility.<br>
+<br>
+Well that's complete nonsense. The usage model is for implicit syncing <br>
+and not even remotely related to TLB flushing.<br>
+<br>
+What exactly is the problem you run into?<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Signed-off-by: Dejan Andjelkovic &lt;Dejan.Andjelkovic@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-<br>
+&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm.c<br>
+&gt; index f93804902fd3..8efc2cf9bbb0 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; @@ -928,7 +928,7 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params=
+ *params,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* Makes sure no PD/PT is freed before the flush */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dma_resv_add_fence(vm-&gt;root.bo-&gt;tbo.base.resv, *f=
+ence,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DMA_RESV_USAGE_BOOKKEEP);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DMA_RESV_USAGE_KERNEL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CO6PR12MB54412BC4A08D1335062D28C4E79D2CO6PR12MB5441namp_--
