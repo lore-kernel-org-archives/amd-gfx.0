@@ -4,39 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3677BCE7AB8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCF5CE7AE4
 	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 07:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56EEE10E759;
-	Fri,  6 Sep 2024 07:37:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E5010E197;
+	Fri,  6 Sep 2024 07:37:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="oWna1yMQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OLnnHmQl";
 	dkim-atps=neutral
-Received: from out30-98.freemail.mail.aliyun.com
- (out30-98.freemail.mail.aliyun.com [115.124.30.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC6110E952;
- Fri,  6 Sep 2024 03:13:00 +0000 (UTC)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59DDC10E95E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Sep 2024 22:25:03 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6d6891012d5so12628607b3.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Sep 2024 15:25:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1725592378; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=bop3mJ2S2jY8OuL0/42nc9QWoYknK6bfWbRN3vylRk8=;
- b=oWna1yMQ3hqxS/MO8sQT9QzK03pFmmYD7cZmc1kkG7GavYVU8/8bDT+K2P1wmq+HF1KD1F4QCAVSmhMRyqo7A+tOlwPMZyduh5CWFWmy8cceN4gLOApDLMoNaWMcmShccLLojoKs4yRyyv85EAMzKYf1THYxK7QTM2W6L8CKQbA=
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0WENtavF_1725592366) by smtp.aliyun-inc.com;
- Fri, 06 Sep 2024 11:12:57 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH -next] drm/amdgpu/mes11: fix bad alignments
-Date: Fri,  6 Sep 2024 11:12:44 +0800
-Message-Id: <20240906031244.126285-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.32.0.3.g01195cf9f
+ d=gmail.com; s=20230601; t=1725575102; x=1726179902; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=zMkX07JSpF4ZTof1kwdmnFdYzjLU84vys3KyrWxvvas=;
+ b=OLnnHmQl2t/nETMW6J6c0boHLUQwqIFEnSZdfe8Ao+d0VxKZjHgsSyCq9zlKIkFbM7
+ fAAhpPhg0+fjnLqgFW4vu0H2RpCoj1aZMLM5tF7LthF+cBxRFF//liV/qKSXvW15WOPZ
+ dteDTCF2kLBU6w8dOzLB4wzpuE1QNssjV34z6EyvBaNwUZFTtGovc/pSxaiZDydv2eGy
+ hyO6S/KF7RYnOHrCI8opS9XQyuBN6gz7vvZpiAwubiL0VCqbpBWSg3EWQp7qcwmXyB+v
+ a+eqqqLg1hQikwBb5xdLjjeNPJ9hUN/1LJfnQOgrqcah8e8swnZ44JmAMLv/iXUsrHR6
+ h0+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725575102; x=1726179902;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zMkX07JSpF4ZTof1kwdmnFdYzjLU84vys3KyrWxvvas=;
+ b=ui0Yu3U7BF71l2ixHqU1cyFlnBFYqx8KRzueaSrfSyV61XBFVs0eVEhKQxM7Zjh/Aa
+ 8e0mygt+49PlmSaWla70PXd0tiNZc/y6z0qIENBWovFSWIMvFSvlJYgv3MBdCDiJBj3Y
+ qw1wwl9zq7d/20D+XOsEMfniyImBDgVeSPHM5fp40SU8sq5kuNDacnKVG48FAZmhhoul
+ gvaVAuun/Z5WD4Sei9H43P929z83uU78ba3MEspZaHFNWadGSMQdr1Ds85KWYcNTXdAy
+ ekpCkMDTR+R6ijZaWEx0oxLNCL/DJ4yNHM70eN5xe+SThbtRiMRkTmb2oo0UnnD7DS7N
+ X7YA==
+X-Gm-Message-State: AOJu0YzWp2wCsLcVqEf0ZTCH36/0q8OM+AfcJLpUMlFcLApUaEDGQBFJ
+ gUOMxF1mduz3nxF9ruJ+qtmKk6oV+trFPLgdQE4cZJny1of5ym2Wz6Ov+WIV1Gf0HDXlC4N0PXO
+ XpStIntokgKvo0TKhBLqhzLml3jtdaZLh
+X-Google-Smtp-Source: AGHT+IH3HJ73tX9qJmA9FwJdWus9tXtzICtsdrG/HVNJ9pw7oaH8Ur91rsnFLiE2nuEcJCKCXkNXULXnat1pFFkOrlE=
+X-Received: by 2002:a05:690c:82:b0:6c7:a120:e10f with SMTP id
+ 00721157ae682-6db452c394dmr6842367b3.29.1725575102034; Thu, 05 Sep 2024
+ 15:25:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: __- -__ <isapgswell@gmail.com>
+Date: Thu, 5 Sep 2024 19:26:08 -0300
+Message-ID: <CAN9WMdMfHkadFwrccv2ucnAjMn1u185=n14WmEFFLQqOiEw7aQ@mail.gmail.com>
+Subject: [INFO] multi-gpu scenario
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000fd7c8f062166c266"
 X-Mailman-Approved-At: Fri, 06 Sep 2024 07:37:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,30 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functional modification involved.
+--000000000000fd7c8f062166c266
+Content-Type: text/plain; charset="UTF-8"
 
-./drivers/gpu/drm/amd/amdgpu/mes_v11_0.c:418:3-9: code aligned with following code on line 419.
+Hi,
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=10742
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I am trying to a way we can have a desktop performance compared to
+windows/macos on linux where system is optimus-enhanced (nvidia) focused.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 0f055d1b1da6..ee91ff9e52a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -415,7 +415,7 @@ static int mes_v11_0_reset_queue_mmio(struct amdgpu_mes *mes, uint32_t queue_typ
- 		/* wait till dequeue take effects */
- 		for (i = 0; i < adev->usec_timeout; i++) {
- 			if (!(RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) & 1))
--			break;
-+				break;
- 			udelay(1);
- 		}
- 		if (i >= adev->usec_timeout) {
--- 
-2.32.0.3.g01195cf9f
+I have read about off-screen mesa. So ubuntu has gl_dispatcher strategy,
+why not make osmesa defaults and let gl_dispatcher take care of relative
+device (nvidia, amd, nvidia) when optimus-enhanced is in set.
 
+On-demand nvidia-prime profile runs Xorg nvidia's vram, ok?
+an alternative config says intel/nvidia as default opengl ...
+
+Maybe osmesa (off-screen mesa) default background, when optimus-enhanced is
+needed/set, should communicate gl_dispatcher and decision what device take
+control could be set. I think it is a good strategy together with envvars.
+
+We could have hybrid-profile (nvidia-prime on-demand) in addition to
+powersave (intel/amd) amd performance (nvidia-only)
+
+For testing i have set:
+LIBGL_ALWAYS_SOFTWARE=1
+GALLIUM_DRIVER=softpipe/llvmpipe
+
+And desktop lag was terrible
+
+Thx
+
+Luiz
+
+--000000000000fd7c8f062166c266
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi,<br></div><div><div><br></div><div>I am trying to =
+a way we can have a=20
+desktop performance compared to windows/macos on linux where system is=20
+optimus-enhanced (nvidia) focused.</div><div><br></div><div>I have read abo=
+ut <span style=3D"background-color:rgb(255,255,0)">off-screen mesa</span>. =
+So ubuntu has gl_dispatcher strategy, why not make <span style=3D"backgroun=
+d-color:rgb(255,255,0)">osmesa</span> defaults and let gl_dispatcher take c=
+are of relative device (nvidia, amd, nvidia) when optimus-enhanced is in se=
+t.</div><div><br></div><div>On-demand nvidia-prime profile runs Xorg nvidia=
+&#39;s vram, ok?</div><div>an alternative config says intel/nvidia as defau=
+lt opengl ...</div><div><br></div><div>Maybe
+ osmesa (off-screen mesa) default background, when optimus-enhanced is=20
+needed/set, should communicate gl_dispatcher and decision what device=20
+take control could be set. I think it is a good strategy together with=20
+envvars.<br></div><div><br></div><div>We could have hybrid-profile (nvidia-=
+prime on-demand) in addition to powersave (intel/amd) amd performance (nvid=
+ia-only)</div><div><br></div><div>For testing i have set:</div><div>LIBGL_A=
+LWAYS_SOFTWARE=3D1<br>GALLIUM_DRIVER=3Dsoftpipe/llvmpipe</div><div><br></di=
+v><div>And desktop lag was terrible<br></div><div><br></div><div>Thx</div><=
+div><br></div><div>Luiz</div></div></div>
+
+--000000000000fd7c8f062166c266--
