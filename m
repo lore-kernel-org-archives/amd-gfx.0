@@ -4,117 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 900ADE6FE3B
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 17:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 363FEE6FE3B
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 17:53:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD3C10E133;
-	Fri,  6 Sep 2024 17:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89EE910EAB9;
+	Fri,  6 Sep 2024 17:53:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DHXCp0Yh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="akI0XK+w";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A3BF10EAB5
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 17:47:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g/+ZKouzpTe1wsDfnWXtjmsNGFTGpuMuSkOBcDXqJMA3ob61qXxyso1rApzMIJtYO8/LamXU8y5XJI/NZ6RTmba49bfbOWPaJxnDAXi6L8HNiMIBQD70WJUVrvGGStllFJc2TV5nC08QECt9QJoZ+haI7CZokHeNSgUrQF+Dp+Zs/n0cKgNZn+6qanrVxVTbzkz1SHDEoSmOeyA0i7MjN9wGxnl/iNvy66u3F843SuxX0b5l+ON0WTsb/JYACMQSRggFekFuCUyxkcGWS6Kn1A5MvajMx2yzho4tKdrOoc/U20o5I+KLhB9YiM0icfW+JSen6i+4Sbj/TuUuS3S5FA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gVS3p2EN5yHh3uRBLlLiusT9iCUsEyRgDvBAusW7OY8=;
- b=TAKKuecTzddQIT5tthQKtPf0x0HJn5P35ULOQXsGRGvet8XcNShIubozjavYua6nLas9VNRXSSnkGW2b+C7yiRTqMq2xtjC3Y9eTj4eFpfcjpA+CCu4Kc1YpHAr75kwvU3zTzO+MzNve2xPIUHGLnkvNxj+Z+TkgSaaiLgGaqPBJMnzd+2iT3a9rQttbGUNAB/tElbEHYeg2+WsRRJoksa8i1GNVr8w/Iaas9j5ivkygxOEYP7shj3MYj2D4q4iJIlElJyG2yHm9ANePBAIq5n7Fkr0AS94NcdIWeZippppcs9x2WP0ir6eHDQO2XGTKSjR7JtcVXmPxZChtPI4plQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gVS3p2EN5yHh3uRBLlLiusT9iCUsEyRgDvBAusW7OY8=;
- b=DHXCp0YhSOvhggL1bc8kmLb6dXlq3ej1AENrCMAqsxi7uPDxFWsqYvwRbtasTb61lP9cUOnJqg6Gntm5iOc5yudvCKbcdhBodjKAR3GBclUWV6dBAJjpRsl+urC+R9GjJbek8bLqwyDd1aF8m95zB8MFNoK4BkXnaXZ14DrlyJc=
-Received: from SJ0PR05CA0092.namprd05.prod.outlook.com (2603:10b6:a03:334::7)
- by CH3PR12MB8188.namprd12.prod.outlook.com (2603:10b6:610:120::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.25; Fri, 6 Sep
- 2024 17:47:23 +0000
-Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
- (2603:10b6:a03:334:cafe::96) by SJ0PR05CA0092.outlook.office365.com
- (2603:10b6:a03:334::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.14 via Frontend
- Transport; Fri, 6 Sep 2024 17:47:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Fri, 6 Sep 2024 17:47:22 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Sep
- 2024 12:47:21 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] Revert "drm/amdgpu: Add flags to distinguish vf/pf/pt mode"
-Date: Fri, 6 Sep 2024 13:47:06 -0400
-Message-ID: <20240906174706.2551531-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.46.0
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F400F10EAB9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 17:53:54 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-7179723919cso139258b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Sep 2024 10:53:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725645234; x=1726250034; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=P7HSiYHFYtIYD3DFC2tu7ra533pBvEU3b7z7FlC/7L4=;
+ b=akI0XK+wV1c/ovsGaK5+E2Rfj+Q29lxY815daWvaRIZz2Y/7yKIw3dq7lvtt667+QH
+ 8IW49Jb5/ZJm3u5t/J8bjksIUjULfX9PRoi1GcMa/qFm2x9KoWkoqJfCvReC+ByPv/3R
+ /NeKphjqml0oJBgIo14KJdgpDSrP0bqGY/GsSmzBp/IrbxH4FUNfRrlqDJaa1W/Xaj3A
+ 6GZguPYfdiMhltN0RNdaUzeU7n0mHw8F3sQt/6AkAvqwPzqaoh0JYPJ+CEvEQLsCka7V
+ XtRytzFugQhz4hojB4diNmpYp70MJuelNfziRd9GU8XMpgcF5BLWK+H92WmV6sgJyRe4
+ vYMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725645234; x=1726250034;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=P7HSiYHFYtIYD3DFC2tu7ra533pBvEU3b7z7FlC/7L4=;
+ b=Pdic8mfu424DqZac2Y/Xt+tHHuda0OvMz2jPzeTXHQGo4g+o7o3XYB1zGOrD/iS6+U
+ 5QWkR1O6qym0gyuEEWLV3zqurtoNEGBLw80JGJextVjrOScKYM+cPJInHM3POsBwjduC
+ ePOI00Kw02Kn1cOXkWbkGR0nKnzxmd3pLye8oO/LPMHX9Fgm7MpJBqQgcF3hsMar+0WV
+ sqkBR0I5trqWX0+J1te1AcsSBWHC3AxFGbMy34/F+8t5Hyi7xEdRx6zqIJPxxPVyGvgS
+ uEgZ/4ZA0eZuAkSq6iwS8F4LlTuRBV9EY0KsnBrMSq21qEWHaqtjIZ3GMrf4pAeZNkBR
+ kNGA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWku37UPg4U/tRE0K9lz1cNMKiBd0473tc6LjhA8mwz0nbmzUgVIccGa62bcf6uGaZ2Zl3rGyZt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqWvpeoC7kA5/aFVil8/gnp1vXVB5137/FU+LiFRIV76Kf2sx8
+ CYAeF0VZeA6usJdB2yO1gf7SdK3ox1DRFQXxdk5eyCh1RDu8rSjVHr4g7HJtmm2NTVDVqAfB17N
+ FhRkCkN0X+Y8P+VKg1bx0f0gaeBtiNw==
+X-Google-Smtp-Source: AGHT+IFPAo7VaGnfPSoAQX5ULMTVhkqlXUYsJc8XSetMKkWwzvuD97FvNWY5v0lz9jmz5tpN38s7pW12wjCUW7cq8qU=
+X-Received: by 2002:a05:6a00:2d15:b0:70b:705f:dda7 with SMTP id
+ d2e1a72fcca58-718d5f64795mr2053273b3a.4.1725645234250; Fri, 06 Sep 2024
+ 10:53:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|CH3PR12MB8188:EE_
-X-MS-Office365-Filtering-Correlation-Id: a07623d2-e271-4e06-c37b-08dcce9bf679
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?faYDogpB4g6LkKmuCFLuo0sRDnfrvVXqKYCehZItLqV3BrqEKdVe02tHcsoX?=
- =?us-ascii?Q?6uU8KOAXOuwleyu+f4sd/FVkJHakOr6yT8kLAkkhh6QDa3qjBsunJ23b4Htp?=
- =?us-ascii?Q?BKWoP/7C/JyIYRu3hJcG8UiaLFTcRvvqBxqbLYnfkAJUhkcjrHiOJF+si64b?=
- =?us-ascii?Q?KqfAdGo5z2IX527nDcL7sEY4SqN5Zr3GJejYMwPYEsbgun1fKjWIK+EO99hb?=
- =?us-ascii?Q?RC3fO0JjUsvSGc0vhw1jQEXUR85UJRxb7tdsWMn22/rxXOoBnG6cT8P3wn2V?=
- =?us-ascii?Q?zJFZD2kN6FYvV1VVbWTVTA8f7iMGvwq2HYc+VzqHm7Bw5ruKkwOLTRFsJ1ms?=
- =?us-ascii?Q?DBzqSF+G8IIBLsJpOBzSvB8/vreDKVbaLSQTew3f45jzlfkow7cTmnty2ZZG?=
- =?us-ascii?Q?25keObWmhJJqcAHuLSuy1zB+AHTCNdHqpjOn8TWy6rQ6nlyyw2woxkWerfho?=
- =?us-ascii?Q?lWm3lmoXeIFs4il2xmnhh6s814zyu13aqpAzWLAUaCJxjCRLqYRf4nzRge3J?=
- =?us-ascii?Q?bzbSMjc1op4ImGIIsCKaQG88xWwr/cGD48FVByp9HGH86CGIzgSw0eYma2Fh?=
- =?us-ascii?Q?++pHiuXCaXje9m0Cdq47wGV1P4EhaUH8meAYi865gvcgBphrsYh/+6n/w9oI?=
- =?us-ascii?Q?TUI1r/sCQHIWbGMRuegcJzGP1VWFMumDYGdN+r0cNRU9t1PDxu8IVUc69dFk?=
- =?us-ascii?Q?8OjdyD/ajWa/dz3vXooA0jyA886sh9fF2ykfxdTBzdH6vvyfRjbWGCxsRsug?=
- =?us-ascii?Q?HVmpbc1iRm37sw4bwkW7lufPWH7JSHHoMfIYMn8ayqamnxGF3U36VJfstsVj?=
- =?us-ascii?Q?YTtw+fL2qtIdOPK/mhRYMWd2mgzk2Jb3K8mQpZhc7sIcPf5rKhRiUuSNA6BK?=
- =?us-ascii?Q?HaNdx5Cwyv8LJ9z7s5QpSFPsmIrtzy2ZSjmFZKvjShuzV9pM2VQEMXBoJCSx?=
- =?us-ascii?Q?MfCJZ8IZfcr6144WDQ1f8gTpqfj5+TIq0xDrJypjv9nYDxHfOg68VkZE797+?=
- =?us-ascii?Q?9FViS17jYV+600gvTs4Vn9gedswmGtQcAdYZghh2Q5HuWBvGwoN3OaoajetB?=
- =?us-ascii?Q?5Ly/eV4ANVspdTOgEWnP9lY+ttkb+kVR9oNGSnbM2VnAhHX+tYwSY0Xtku0D?=
- =?us-ascii?Q?0AyKFJuRDWcs48lUYIn0YVi2jrRHPXSS4lo5C8CG2xTMjR9GPsnHLSsHNWgN?=
- =?us-ascii?Q?2itMtZH9ng7I++1SSScb82Q4tz2QPjz7jKjKX/xULoeSau8HRBnA6qY5/eSL?=
- =?us-ascii?Q?vyKfQjefEtvuGsIfxVFljNcjVMrsLX5PiGWLSP879QMetag8A2HYa7QV0XKS?=
- =?us-ascii?Q?3nt8EjRAZtzqx6tFpVd75zqDDY/OUWmMQsOJiLqx6LcvfrqkDUzC/eJgSeiq?=
- =?us-ascii?Q?uCeeEsmhex5eQ2BB4J5rVl6xgzMN++Nh4MIOGakmhAgn5bzLLONex18Y/0Lu?=
- =?us-ascii?Q?apqckt7VbZD5rjLzUfHiEA7Lt4B8PRKo?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2024 17:47:22.8320 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a07623d2-e271-4e06-c37b-08dcce9bf679
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8188
+References: <20240829172645.1678920-1-alexander.deucher@amd.com>
+ <c52a3df8-dcad-4fc7-8051-b8a05e1b49f2@amd.com>
+ <CAAxE2A6HqOqx3jYkGDtHYd=NRSWY__+JYE6enF=skcpwYBtYhQ@mail.gmail.com>
+In-Reply-To: <CAAxE2A6HqOqx3jYkGDtHYd=NRSWY__+JYE6enF=skcpwYBtYhQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 6 Sep 2024 13:53:42 -0400
+Message-ID: <CADnq5_MqtR9govD=dyWt79Roit8n4danMNJVQYUo6Sg0TD=y3Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always allocate cleared VRAM for GEM
+ allocations
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Cc: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,75 +83,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit f03b874313cc9b5859596fe9c5b368387b6da771.
+On Fri, Sep 6, 2024 at 10:18=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
+.com> wrote:
+>
+> Can you also bump the DRM version, so that userspace knows when to
+> skip its own clear?
 
-This is unused so far and has not gone upstream yet, so remove
-it until the userspace side is ready.
+Sure, although going forward, it might be better to migrate to a
+generic flags query in the INFO ioctl so we can just check for various
+feature bits so we can backport functionality to older kernels more
+easily.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  9 ---------
- include/uapi/drm/amdgpu_drm.h           | 10 ----------
- 3 files changed, 1 insertion(+), 21 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index f7ed1e356d96..d90473aec942 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -117,10 +117,9 @@
-  * - 3.56.0 - Update IB start address and size alignment for decode and encode
-  * - 3.57.0 - Compute tunneling on GFX10+
-  * - 3.58.0 - Add GFX12 DCC support
-- * - 3.59.0 - Add AMDGPU_IDS_FLAGS_MODE_PF, AMDGPU_IDS_FLAGS_MODE_VF & AMDGPU_IDS_FLAGS_MODE_PT
-  */
- #define KMS_DRIVER_MAJOR	3
--#define KMS_DRIVER_MINOR	59
-+#define KMS_DRIVER_MINOR	58
- #define KMS_DRIVER_PATCHLEVEL	0
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index d9fde38f6ee2..96af9ff1acb6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -888,15 +888,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		if (adev->gfx.config.ta_cntl2_truncate_coord_mode)
- 			dev_info->ids_flags |= AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD;
- 
--		if (amdgpu_passthrough(adev))
--			dev_info->ids_flags |= (AMDGPU_IDS_FLAGS_MODE_PT <<
--						AMDGPU_IDS_FLAGS_MODE_SHIFT) &
--						AMDGPU_IDS_FLAGS_MODE_MASK;
--		else if (amdgpu_sriov_vf(adev))
--			dev_info->ids_flags |= (AMDGPU_IDS_FLAGS_MODE_VF <<
--						AMDGPU_IDS_FLAGS_MODE_SHIFT) &
--						AMDGPU_IDS_FLAGS_MODE_MASK;
--
- 		vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
- 		vm_size -= AMDGPU_VA_RESERVED_TOP;
- 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 3e488b0119eb..e44362e74fa1 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -756,16 +756,6 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
- #define AMDGPU_IDS_FLAGS_TMZ            0x4
- #define AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD 0x8
- 
--/*
-- *  Query h/w info: Flag identifying VF/PF/PT mode
-- *
-- */
--#define AMDGPU_IDS_FLAGS_MODE_MASK      0x300
--#define AMDGPU_IDS_FLAGS_MODE_SHIFT     0x8
--#define AMDGPU_IDS_FLAGS_MODE_PF        0x0
--#define AMDGPU_IDS_FLAGS_MODE_VF        0x1
--#define AMDGPU_IDS_FLAGS_MODE_PT        0x2
--
- /* indicate if acceleration can be working */
- #define AMDGPU_INFO_ACCEL_WORKING		0x00
- /* get the crtc_id from the mode object id? */
--- 
-2.46.0
-
+>
+> Also, clearing with SDMA takes up to 33 times more time (=3D is up to
+> 97% slower) than clearing with compute.
+>
+> Marek
+>
+> On Thu, Aug 29, 2024 at 2:23=E2=80=AFPM Paneer Selvam, Arunpravin
+> <arunpravin.paneerselvam@amd.com> wrote:
+> >
+> > this will fix performance issues,
+> > Acked-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> >
+> > On 8/29/2024 10:56 PM, Alex Deucher wrote:
+> >
+> > This adds allocation latency, but aligns better with user
+> > expectations.  The latency should improve with the drm buddy
+> > clearing patches that Arun has been working on.
+> >
+> > In addition this fixes the high CPU spikes seen when doing
+> > wipe on release.
+> >
+> > v2: always set AMDGPU_GEM_CREATE_VRAM_CLEARED (Christian)
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3528
+> > Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+> > Reviewed-by: Michel D=C3=A4nzer <mdaenzer@redhat.com> (v1)
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gem.c
+> > index 1f149c9e2177..8794661b0bfa 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > @@ -349,6 +349,9 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev,=
+ void *data,
+> >   return -EINVAL;
+> >   }
+> >
+> > + /* always clear VRAM */
+> > + flags |=3D AMDGPU_GEM_CREATE_VRAM_CLEARED;
+> > +
+> >   /* create a gem object to contain this object in */
+> >   if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
+> >      AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
+> >
+> >
