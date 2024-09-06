@@ -4,143 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76103CE7B19
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 14:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E741ACE7B1C
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 14:15:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D37BB10E056;
-	Fri,  6 Sep 2024 14:10:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3A310E083;
+	Fri,  6 Sep 2024 14:15:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lwzNK1cB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ceEAidPk";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62F9810E056
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 14:10:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cE2SjL9G2RbYXI8Z2o6+Y1wZCmcg+We/ow8ZCxYLfEbWTauK2OsuiBARcAdGSETU0C7Z2WTjsG8kLhNZNC6Uq+G0FsTKWR7XGsHbDLv9HnTZRpwXYZ1RdrU2LAO0px2M0cIMZ36feLQyYGqes63K+kWfLwgxmqSxLK58rUNP0gSE5sdbUHvOPKqrmp19ZUAerGJnhsEOq1GKqYkpw77Vi110ucm1bqd6FZy/y0RaMrQvzLuRBh5EQ/osmCQ7IxDm32L3zlWBUyw/XqtHzFjSpZeGGsQ6BdU/Ja0hXZ9V27ITzJhfG+Tx/+ClbhC8XtZhlVP2aKIyzE4dKWNebSNeLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aIvn+fHY+YZvMYRmLu/+cRYxDy/NDxSFe40zisY7X3c=;
- b=gO+4XaTApJc8Wu5Mo3fiS0MjVqKM6e8ohQzfrxDNM4mwN1EeuMIDa4rSdIBfF6g3+uVCZd+KEh0UWc/OvUY2TuylhWohbVShUbnFMKX/jxeLWYkFkrPGRGkSX1gWLPCxRfVek7i/OS/th0rAtzB2vn/YNoVPRrhisltf8ll5bvGbCCkNrSyvlzSkdq/qt80WDKU7WxyQ/MgP0IB+m2cPcCm1sC8DbOjTawSF8+yAiyLq1HsSaEK69VGY6/b8PKgeF8EUCA5UCBLIfz5DbS1F8Poc+rGhflcNuyAf66xsC3QGRz8xUOyU+QMeJfMCdlvNEmUBSX6Y2+nCS8VdF76UnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aIvn+fHY+YZvMYRmLu/+cRYxDy/NDxSFe40zisY7X3c=;
- b=lwzNK1cBV6XSRa3i+NkeJ0+NnPzxoLYDBA6/38sDFxWnr1A5RRGGboidfeIhJb1Ps8hM4PjhR0ktTvqPQP7EKPBE6mEHWWDIHaD0RMsgm65MDOeF/C9TM61l9tM0Jyn0neMNhsdA5AjzCOEeU6wd0juCXMJZkKn6lDP7Sbd4UYU=
-Received: from CO6PR12MB5441.namprd12.prod.outlook.com (2603:10b6:303:13b::15)
- by DM4PR12MB6376.namprd12.prod.outlook.com (2603:10b6:8:a0::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27; Fri, 6 Sep
- 2024 14:10:51 +0000
-Received: from CO6PR12MB5441.namprd12.prod.outlook.com
- ([fe80::8937:4064:f4fa:2454]) by CO6PR12MB5441.namprd12.prod.outlook.com
- ([fe80::8937:4064:f4fa:2454%3]) with mapi id 15.20.7918.024; Fri, 6 Sep 2024
- 14:10:51 +0000
-From: "Andjelkovic, Dejan" <Dejan.Andjelkovic@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Prica, Nikola" <Nikola.Prica@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
-Thread-Topic: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
-Thread-Index: AQHa/3HC/oM5fdy9wUGTBgs8g1+KG7JJC32AgAAQR3CAAAbYAIABdbXb
-Date: Fri, 6 Sep 2024 14:10:50 +0000
-Message-ID: <CO6PR12MB5441B3A86656FFD6D7EE9300E79E2@CO6PR12MB5441.namprd12.prod.outlook.com>
-References: <20240905085841.18189-1-Dejan.Andjelkovic@amd.com>
- <c93d6652-08fd-40fb-a629-d52bec489ede@amd.com>
- <CO6PR12MB54412BC4A08D1335062D28C4E79D2@CO6PR12MB5441.namprd12.prod.outlook.com>
- <b693de66-ecbb-4270-b52b-341a9c69cbe5@amd.com>
-In-Reply-To: <b693de66-ecbb-4270-b52b-341a9c69cbe5@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-09-06T14:10:50.424Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO6PR12MB5441:EE_|DM4PR12MB6376:EE_
-x-ms-office365-filtering-correlation-id: eb490318-a47c-42b5-5ca1-08dcce7db6a4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?MlGckiPBCyGz4IXJmop11BsLjjWp4lfR85pvu1eo9ygnTXeyKBWyCKHe0OxA?=
- =?us-ascii?Q?v1qHQ/RKuzWIideulABnhfIFxR8Y5zm+Jq9BHp6ObTDp5O59fwCMldF+LsDR?=
- =?us-ascii?Q?G4CT96G0Lw4gWjEJUsyl85Cb6QhD4uyej5MNI5LQq2fK45Ak4i0uIfNQrf4o?=
- =?us-ascii?Q?2gm1gWuq1v7t3TUsFOvQF0vVjkC+yt+mQZFXogvgCm2iZi6ZCGkdM7l7nuV+?=
- =?us-ascii?Q?w28X+zX7quhzoWtxaDU91ZwU0MhcL3NAwB/YJtYnbhvVwRfFOsO05x90vDSH?=
- =?us-ascii?Q?QD+3A5eSJ9/u9J9v3CTSTfOhdjRthCQaoGOa1SGltcOtV8Xnq6WcUxXDIomo?=
- =?us-ascii?Q?MaarokZWjJLNMSVyd2a5tRNJq0mODd3a9AnXcY+gV/8tPAPSovcRYDLEdwfn?=
- =?us-ascii?Q?z43iURqhQ6LLdZgcEr2e1zN7wsnFlyiEWygIhwf8n/CEJoyCrsIwSTihu1gx?=
- =?us-ascii?Q?EktdEw/2bizX4uGcxkw3efWVd53Ws6x7M45xKnWYGlW+clxGRvsK8FeHbrJq?=
- =?us-ascii?Q?CtpLV/XJ0i8dB2tz4WacjX85R8Q94kEZ7QnS017ncoJUbeVcWT+y24uQg9bc?=
- =?us-ascii?Q?KcJqdlGMYr6kU0DahNMzgqZl/oBOJ+V0RuWj0KuJzIfXYkS94R9uWW+3hfmy?=
- =?us-ascii?Q?3PQ2bs94qMEzQ8PrqdBJuMP6hanz+7dfAA9VeMUdr/ycLQmTrOMA/0ampYVz?=
- =?us-ascii?Q?rR1ne3QXUlMBgW1UEr05ha0h2jhhHsVpxgsrEHqi0CgMEzKdunkoLlas83uq?=
- =?us-ascii?Q?HUQ7niQQEVdyqeSF5LD8IWrG18Gk56NsFefDjvoGpZnw9OZQDVbetlYSmWcU?=
- =?us-ascii?Q?zBgKiFO+KejqF+HLguMJu/mJOwZ1tZkSbkUB3s5W94rfvSo3vf46HgA/bDGy?=
- =?us-ascii?Q?Vy3oAokBVjm4z1pR3v9MG9L7uFAHR/MSuvuomtc+ZDBAVAt4Yjp4srHtWehY?=
- =?us-ascii?Q?osWTJKYft/4+tfGDoR9RlAxoF6Kp2OExGeSim4Ohz7/nfts6mBxNREe+aEC+?=
- =?us-ascii?Q?GvqNKcOPDG/xQz0pRQHlUSlkFbhMUXhKURkA8ouMijBp2Rp4ad1rxJxSZ0Om?=
- =?us-ascii?Q?JheR+Zd3ZO6L8GD1SS5EB31/Y810Kt9jPUDB+MlDokgM5FphCX8+MA+Qi0gq?=
- =?us-ascii?Q?vJMTTF0NVE97+34mWCguGENPMF93GLGt4nbVoG5TAbJJXDONln47dtviDpMw?=
- =?us-ascii?Q?+XgTs0eILhStiTkEkO732hD6ZxDCPPUCsBoOOKcj7Ka1DO2fNM02N2kSYUPo?=
- =?us-ascii?Q?aabiWDWa030vOPmpr4OLWgRs19qrEzGYREcD6RAABDKzKfV51O31l3u0lUo1?=
- =?us-ascii?Q?RhrwFh4ZE3ANR2V7rNDF5u+GGJhzk4+JF3bwMMvIsJdd/NImJpVzgVkr3noP?=
- =?us-ascii?Q?3x3b8iqMia8HcnQK1SZ68sJZ8dS5jj4fVsZ18Ga8GDq2sJqnpg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5441.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?C8a93+3P1Tl5u9d3wmUdIGh0CDyJ4R1PJ5+MpiQD7IwC8FtT3a7OwKeQE1Xb?=
- =?us-ascii?Q?vNTYJh67jiAIKyoMGQZQvNBqGJp0Ob9Aj1RPnrB4KKwcnUYlJkd2y9AKPBAg?=
- =?us-ascii?Q?vgXvEzdiAQQgGYBLAL6+wDaJRE1+1DGxTYdx0xfykjHN0FbObOcL4v7SiCJJ?=
- =?us-ascii?Q?BHiIaC7W6rDSFJPnuWg9DbbVoWlCZnYLFPqX+dF+HrXbA4XMYQ6whTyB1Ari?=
- =?us-ascii?Q?cZmYcJZS5nGIOG6zc6WD2m1K+SJqvlVsUDLdLeC29mfS6yMhIe8gLdAq67bi?=
- =?us-ascii?Q?RBsHHsHjmzIp4pctSQAzAAQvZmmge8hJAgl6FUknRw2k/kV0nYo6FSqORrpm?=
- =?us-ascii?Q?OqyRgRSXaxe5SDUBn5Zccn9PWh0iS0F9s0b5OKY+UErWsqzwHvgmak4DXa5d?=
- =?us-ascii?Q?8bLhiTWaWpaQcUny8A/oCGBb8HudNiJvt4EM7jNJpwpMFzbf7dR/C6bT9x31?=
- =?us-ascii?Q?iHR7Yc8YrmBwZ3uQHIMC8wJgIiQzhSHpqjAD9HmnOLJWOtwy/cfeM8dxlnmS?=
- =?us-ascii?Q?YXWnYORuLdrLCHuRCmiopCwxgZeI/JbVOKXTYkCpUtijp47RP8wxth95S61t?=
- =?us-ascii?Q?OcvNTewArhQXOIRXQp8zvC9TdAT4sB/pd56bmZyTWN0Hnzlpn28yUUTNTXyG?=
- =?us-ascii?Q?SiCM1EIS5u6reDS7LOpjhw57H+7wNshgfsgTY8MwILykvjxjQR7HiAqgMz3K?=
- =?us-ascii?Q?AJHewReKELxHGelD2BcIpT/h9mfmJiJQ/lzIQ57IxqFdP3zRDgcnLzcWb8IW?=
- =?us-ascii?Q?0IdfSleWE783Pc9uY0QBGTWxbQgU08GSOrYPuxfK1p0fq7SfPaRK8kFm2CXn?=
- =?us-ascii?Q?luGV1uXZMYlBttV0YqJJpBobN41j6vSoMZtNofLfZAff36tJ7bD3Im9Oa82d?=
- =?us-ascii?Q?O+cSA+mG+a4Gwm9VWjaq1QoGmdgEAZlbee2eA8yNtgadJIxxR6PJsOtL1Wrx?=
- =?us-ascii?Q?lJMfOy5uuLOJQ6yH3jsoDexgKM9/ym7BA1ykBYcKMahTsgtiHme89l1x61+F?=
- =?us-ascii?Q?p61yHH/MfLHvWS9/e9u2I0EZ+HP3W64rOx6xu7ji6fcVpdym/neWDnrtqsKQ?=
- =?us-ascii?Q?ZP3mB1UHz0VQyD8MXCtKN9YhhKTDDDbKeK7vj7BZmuOWfXuP8jlCrUj/VVqE?=
- =?us-ascii?Q?7E2Y0F9IBxepA3FcIsbx4Hv7yCUJlYz8jmepCiKubgu6buk/7DKT/GBKEWVx?=
- =?us-ascii?Q?GI8R+CRbSTsY+csqgfVnBri2/zKY7GCcHYxdLtv1EmR7k7qN9GJjJXRTdKg6?=
- =?us-ascii?Q?/mmjTQ9WWzoDk7bRb4HXhTrnolHLQOZmsqGT77SgvIstDUZs5nUDUb0oFDyG?=
- =?us-ascii?Q?PZwqigFbclseeU+QqeuBlzmEv+vsyICB4c+gMqZFt05AinK15IR4mXi/8TEP?=
- =?us-ascii?Q?iRLQJCJrpyJBOad2hoTpxBLSIC1mJg6XdIncvz0W5YsK53rXtnPZj/mXN6Et?=
- =?us-ascii?Q?mxGXUByxTxJDlRtzuGZmQEWGvmjWw0K17o6lHB2iMuYm7c+gq6vBzYR+SHcw?=
- =?us-ascii?Q?W5N5MwWg+cIDMvqpWmHtwDqccRDVE9nsxH1dUKgp6e5cBrsI65Qstuuf3rjl?=
- =?us-ascii?Q?Qb+nIrvBJmcmZFnNNFw=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CO6PR12MB5441B3A86656FFD6D7EE9300E79E2CO6PR12MB5441namp_"
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B89D210E081
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 14:15:01 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-7c2595f5c35so234252a12.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Sep 2024 07:15:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725632101; x=1726236901; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Yxh6nldJ02vq41lsDeKfs154pd6Iu24ffo35BPFz9ME=;
+ b=ceEAidPkW+x2xBa/I9va3Kn1nCOIrOmsfCIzsaTE6MuDAccXIzM2SjadFDEl7eEkMx
+ L6ur5gPqeYhGAXLnMKq1+KIJSv8OZfMGgYc0itOLsPJZLSpjlLu+vRnV39gbvO8o9GU5
+ zOlAp2yuAw1zrLHeb+tzGSIPUicAxeKhcVbWOszIa+oU0ujz1iWYvIP2j6UY6/DEQWUg
+ h9mgBC0eoRNc3G8ENaPAydcjgU2qc0L0P+r+BN6n/cnfyvSK2V3d8wbqru2EbiXYw53G
+ BtNrS58CXBmVsr3/2yBrlKDzJ1LwcqR+n6WxmiquY6FN/FGQQkPLT0gFPZEV94BKqFkA
+ GcHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725632101; x=1726236901;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Yxh6nldJ02vq41lsDeKfs154pd6Iu24ffo35BPFz9ME=;
+ b=UqdYjSSxfwytaUhONqWSLffYPGY5XtTLu3ZRDd5zuO5k7Q9RzRG22/ZsJANMxvuIYC
+ ojtCBz1nD9EewZrg4j2DVFA66F9DzEMlHnSeyWc2rOFVHhOix/NRTKzSYv7v8cJ156bB
+ SpJnuUEL22w1GaHsu2NvHZWC6vCIpHAYCc7mSFmItmgD83iHZWKbInyvYsJ6hbZ/RJSJ
+ VDSjoIRsaqWmV9Ft8AdCeQzhFho3TxfOmtHyS7LPg/Uevi8gMggcqgJX7dxOfOgFJsDM
+ cFWUSQikxKZEL8c89P+gHXGtzXKNgDeVM7/nmuaf+KCsqAdWQHRx+yUdVK85C94vYtwi
+ ++Pg==
+X-Gm-Message-State: AOJu0YyZ8IUf22RVU9ButWyQS7kaBwu1XyfdaOoD5VssJcP6yV6uySKm
+ jLtcmoTZQ4AIHaLHsmuVjD9pPoifcV6gfOUSCjHU2f1L8E04o3qe1e47fKU72oaUCPurgCPzrTr
+ XhxIAinhEwoVRhAZ1K3tcjNP+m0Q=
+X-Google-Smtp-Source: AGHT+IG8BKzaRWiE/00cCGFym9oIgxCBPH7wKvxsJqygrw8Fe4qTvGHqKPAiSAjG8J0D0gbdQajYMuinpmtD40IzeTw=
+X-Received: by 2002:a17:902:ce8c:b0:206:9032:5a4 with SMTP id
+ d9443c01a7336-206f0605c3cmr16441015ad.7.1725632101003; Fri, 06 Sep 2024
+ 07:15:01 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5441.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb490318-a47c-42b5-5ca1-08dcce7db6a4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2024 14:10:50.9702 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uTJIWMH8ZB/6tMlGor1fdUt4JMHvrQrpVP8Mq1EMQnCQsrtRpUGBTkIsz9C3zVUtYxeveFUxZP3buNBEW0xS6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6376
+References: <20240906055331.1271124-1-jesse.zhang@amd.com>
+In-Reply-To: <20240906055331.1271124-1-jesse.zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 6 Sep 2024 10:14:49 -0400
+Message-ID: <CADnq5_PVCokP-xy3JsOyebDcB6McdA=vajLf2iYbdVmv4h8tZg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix resource leak in kriu rsetore queue
+To: jesse.zhang@amd.com
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Felix.Kuehling@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,289 +76,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CO6PR12MB5441B3A86656FFD6D7EE9300E79E2CO6PR12MB5441namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Typo in patch subject: kriu -> criu
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Alex
 
-I might have worded that poorly, I meant that it seems like TLB flush is ou=
-t of sync with the SDMA update, which leads to a page fault reliably. I don=
-'t feel it has anything to do with the implicit sync in itself. When TLB fe=
-nce is created it's added to the dma_resv of the vm's root buffer object wi=
-th BOOKKEEP usage specified, in order to make sure no PD/PT is freed before=
- the flush. But I don't think it's being added as a job dependency within t=
-he amdgpu_vm_sdma_update, we're adding all the fences found within the dma_=
-resv object with KERNEL usage specified. I may be missing something so I'd =
-love to hear what you think.
-
-Best regards,
-Dejan
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Thursday, September 5, 2024 2:40 PM
-To: Andjelkovic, Dejan <Dejan.Andjelkovic@amd.com>; amd-gfx@lists.freedeskt=
-op.org <amd-gfx@lists.freedesktop.org>
-Cc: Prica, Nikola <Nikola.Prica@amd.com>; Kuehling, Felix <Felix.Kuehling@a=
-md.com>; Deng, Emily <Emily.Deng@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
-
-Well that explanation doesn't seem to make much sense either.
-
-What do you mean with TLB flush is occurring prematurely?
-
-Regards,
-Christian.
-
-Am 05.09.24 um 14:38 schrieb Andjelkovic, Dejan:
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Hi there. We're running into a page fault issue that's very easily reproduc=
-ible on a SRIOV environment when using SDMA for page table updates. Going t=
-hrough mapping logs and trace files, it seems TLB flush is occurring premat=
-urely. Changing the usage to KERNEL completely stops the page fault from oc=
-curring with no performance impact, which was confirmed with extensive test=
-ing. Looking through amdgpu_vm_sdma.c, namely within amdgpu_vm_sdma_update =
-when waiting for PD/PT moves to be completed, fences are iterated with KERN=
-EL usage specified which are then added as a job dependency.
-
-Best regards,
-Dejan
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@=
-amd.com>
-Sent: Thursday, September 5, 2024 1:17 PM
-To: Andjelkovic, Dejan <Dejan.Andjelkovic@amd.com><mailto:Dejan.Andjelkovic=
-@amd.com>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.o=
-rg> <amd-gfx@lists.freedesktop.org><mailto:amd-gfx@lists.freedesktop.org>
-Cc: Prica, Nikola <Nikola.Prica@amd.com><mailto:Nikola.Prica@amd.com>; Kueh=
-ling, Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.com>; Deng, =
-Emily <Emily.Deng@amd.com><mailto:Emily.Deng@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TLB fence
-
-Am 05.09.24 um 10:58 schrieb Dejan Andjelkovic:
-> When using SDMA for PT updates, a TLB fence hooked to a buffer
-> objects dma resv object with usage declared as BOOKKEEP leaves a
-> chance for TLB flush to occur prematurely. This will lead to a page
-> fault. Raising the usage from BOOKKEEP to KERNEL removes this
-> possibility.
-
-Well that's complete nonsense. The usage model is for implicit syncing
-and not even remotely related to TLB flushing.
-
-What exactly is the problem you run into?
-
-Regards,
-Christian.
-
+On Fri, Sep 6, 2024 at 2:03=E2=80=AFAM <jesse.zhang@amd.com> wrote:
 >
-> Signed-off-by: Dejan Andjelkovic <Dejan.Andjelkovic@amd.com><mailto:Dejan=
-.Andjelkovic@amd.com>
+> From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+>
+> To avoid memory leaks, release q_extra_data when exiting the restore queu=
+e.
+>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index f93804902fd3..8efc2cf9bbb0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -928,7 +928,7 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *p=
-arams,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 20ea745729ee..b439d4d0bd84 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -1046,6 +1046,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+>                 pr_debug("Queue id %d was restored successfully\n", queue=
+_id);
 >
->                /* Makes sure no PD/PT is freed before the flush */
->                dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
-> -                                DMA_RESV_USAGE_BOOKKEEP);
-> +                                DMA_RESV_USAGE_KERNEL);
->        }
->   }
+>         kfree(q_data);
+> +       kfree(q_extra_data);
 >
-
-
-
---_000_CO6PR12MB5441B3A86656FFD6D7EE9300E79E2CO6PR12MB5441namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>         return ret;
+>  }
+> --
+> 2.25.1
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-I might have worded that poorly, I meant that it seems like TLB flush is ou=
-t of sync with the SDMA update, which leads to a page fault reliably. I don=
-'t feel it has anything to do with the implicit sync in itself. When TLB fe=
-nce is created it's added to the
- dma_resv of the vm's root buffer object with BOOKKEEP usage specified, in =
-order to make sure no PD/PT is freed before the flush. But I don't think it=
-'s being added as a job dependency within the amdgpu_vm_sdma_update, we're =
-adding all the fences found within
- the dma_resv object with KERNEL usage specified. I may be missing somethin=
-g so I'd love to hear what you think.<br>
-<br>
-Best regards,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Dejan</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Thursday, September 5, 2024 2:40 PM<br>
-<b>To:</b> Andjelkovic, Dejan &lt;Dejan.Andjelkovic@amd.com&gt;; amd-gfx@li=
-sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Prica, Nikola &lt;Nikola.Prica@amd.com&gt;; Kuehling, Felix &lt;=
-Felix.Kuehling@amd.com&gt;; Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TL=
-B fence</font>
-<div>&nbsp;</div>
-</div>
-<div>Well that explanation doesn't seem to make much sense either.<br>
-<br>
-What do you mean with TLB flush is occurring prematurely?<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-<div class=3D"x_moz-cite-prefix">Am 05.09.24 um 14:38 schrieb Andjelkovic, =
-Dejan:<br>
-</div>
-<blockquote type=3D"cite"><style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<p align=3D"Left" style=3D"font-family:Calibri; font-size:10pt; color:#0000=
-FF; margin:5pt; font-style:normal; font-weight:normal; text-decoration:none=
-">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"x_elementToProof" style=3D"font-family:Aptos,Aptos_EmbeddedFo=
-nt,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:=
-rgb(0,0,0)">
-Hi there. We're running into a page fault issue that's very easily reproduc=
-ible on a SRIOV environment when using SDMA for page table updates. Going t=
-hrough mapping logs and trace files, it seems TLB flush is occurring premat=
-urely. Changing the usage to KERNEL
- completely stops the page fault from occurring with no performance impact,=
- which was confirmed with extensive testing. Looking through amdgpu_vm_sdma=
-.c, namely within amdgpu_vm_sdma_update when waiting for PD/PT moves to be =
-completed, fences are iterated with
- KERNEL usage specified which are then added as a job dependency.</div>
-<div class=3D"x_elementToProof" style=3D"font-family:Aptos,Aptos_EmbeddedFo=
-nt,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:=
-rgb(0,0,0)">
-<br>
-</div>
-<div class=3D"x_elementToProof" style=3D"font-family:Aptos,Aptos_EmbeddedFo=
-nt,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:=
-rgb(0,0,0)">
-Best regards,</div>
-<div class=3D"x_elementToProof" style=3D"font-family:Aptos,Aptos_EmbeddedFo=
-nt,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:=
-rgb(0,0,0)">
-Dejan</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig@amd.co=
-m">&lt;Christian.Koenig@amd.com&gt;</a><br>
-<b>Sent:</b> Thursday, September 5, 2024 1:17 PM<br>
-<b>To:</b> Andjelkovic, Dejan <a class=3D"x_moz-txt-link-rfc2396E" href=3D"=
-mailto:Dejan.Andjelkovic@amd.com">
-&lt;Dejan.Andjelkovic@amd.com&gt;</a>; <a class=3D"x_moz-txt-link-abbreviat=
-ed" href=3D"mailto:amd-gfx@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a> <a class=3D"x_moz-txt-link-rfc2396E" href=
-=3D"mailto:amd-gfx@lists.freedesktop.org">
-&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-<b>Cc:</b> Prica, Nikola <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailt=
-o:Nikola.Prica@amd.com">
-&lt;Nikola.Prica@amd.com&gt;</a>; Kuehling, Felix <a class=3D"x_moz-txt-lin=
-k-rfc2396E" href=3D"mailto:Felix.Kuehling@amd.com">
-&lt;Felix.Kuehling@amd.com&gt;</a>; Deng, Emily <a class=3D"x_moz-txt-link-=
-rfc2396E" href=3D"mailto:Emily.Deng@amd.com">
-&lt;Emily.Deng@amd.com&gt;</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Raise dma resv usage for created TL=
-B fence</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Am 05.09.24 um 10:58 schrieb Dejan Andjelkovic:<=
-br>
-&gt; When using SDMA for PT updates, a TLB fence hooked to a buffer<br>
-&gt; objects dma resv object with usage declared as BOOKKEEP leaves a<br>
-&gt; chance for TLB flush to occur prematurely. This will lead to a page<br=
->
-&gt; fault. Raising the usage from BOOKKEEP to KERNEL removes this<br>
-&gt; possibility.<br>
-<br>
-Well that's complete nonsense. The usage model is for implicit syncing <br>
-and not even remotely related to TLB flushing.<br>
-<br>
-What exactly is the problem you run into?<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Dejan Andjelkovic <a class=3D"x_moz-txt-link-rfc2396E" =
-href=3D"mailto:Dejan.Andjelkovic@amd.com">
-&lt;Dejan.Andjelkovic@amd.com&gt;</a><br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-<br>
-&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm.c<br>
-&gt; index f93804902fd3..8efc2cf9bbb0 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; @@ -928,7 +928,7 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params=
- *params,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* Makes sure no PD/PT is freed before the flush */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; dma_resv_add_fence(vm-&gt;root.bo-&gt;tbo.base.resv, *f=
-ence,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DMA_RESV_USAGE_BOOKKEEP);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DMA_RESV_USAGE_KERNEL);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-<br>
-</div>
-</span></font></div>
-</div>
-</blockquote>
-<br>
-</div>
-</div>
-</body>
-</html>
-
---_000_CO6PR12MB5441B3A86656FFD6D7EE9300E79E2CO6PR12MB5441namp_--
