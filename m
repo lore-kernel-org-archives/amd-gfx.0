@@ -4,73 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6832CE7B1D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 15:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 327BCCE7B1E
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 15:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6287310EA86;
-	Fri,  6 Sep 2024 15:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7D4810EA89;
+	Fri,  6 Sep 2024 15:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fkpZZKHP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P2ybn9Cc";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD97710EA86;
- Fri,  6 Sep 2024 15:02:44 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-20530659f78so815465ad.1; 
- Fri, 06 Sep 2024 08:02:44 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CEED10EA89
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 15:04:54 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2056129a6d7so968865ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Sep 2024 08:04:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725634964; x=1726239764; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725635093; x=1726239893; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CF/y2A4EOD7AN3/RYLZIn961CP/eFEWOruxjVecjTmw=;
- b=fkpZZKHPfp2663Kd5t15YAjvUOT5Dstk6RQtjaCbmkI1pxGfoTI8Fs1Jxp2/8XDHTU
- ihA9H48/BB3qEufVQFPsoW9z+Xe2if8Rr+PB8PLTw0xjp3hXs8j2yQhqtxRIN48CUZNO
- ZhrT68TZZ+JE62RiJXUD70XPU0hldlmQ653ZvsDgdf+A4/ddHmJZIpNRakHj2y1QSEHX
- BLEfwLeEc2+7K/7pNG2exGhSvkYM1jiX1PaCNlAeiR7VWnSALpnxBpktbIBn/dkPA+fz
- S71Y3nk5JBFTZ2EAYRgIXxS2RE/6nDhdx2EinQlu2xM1suP0dKNtSMGGcoMLAb9wJ6WM
- 7y+Q==
+ bh=t/Gs4hKQucAoDlB4prDiA7wR1h8KOO+C8DI3qy19FeQ=;
+ b=P2ybn9CcZ+9XR/o1JmwUm6ybUIDFMjymx223zbkx4cmcrTDGNJCREf6vW+ZsvZXD1k
+ n5kJYSWktwSkmcegqAlIF2kz/tQk/Ifd4OrfOC6Gi1hTmg+y74/zTrxieocEKAKIDjzu
+ 1GNoLmCmA6M+nRHADHFLD84WSZx/91mjyq7DUcD379QwIRyAA6hPOXiW8RBDrCNxMh9M
+ jhe5/XZYozi2/zQYfqA9/PmSsdFyh2Clsh/qaEmvwJyW20rto6wN+X1Wd35UOS/bfNAt
+ e5GbHRQI2bXR7egEO/VDv+cQjby+KMrrmdHDcCIwkO8VTWIZfz95Yn/pvEP7cceSi9z+
+ xlDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725634964; x=1726239764;
+ d=1e100.net; s=20230601; t=1725635093; x=1726239893;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CF/y2A4EOD7AN3/RYLZIn961CP/eFEWOruxjVecjTmw=;
- b=GyfxZsl1fxr0bvd0DGyu4htTrozsPoYU8DV89OLyloyT28f9jCr6rsKBaZM0Gjd1vg
- 4hHzkCeWP6J/s7EP8ydbyigHNg1uwqOChGXByTF41EXZwim/J6Or4Bv2SUBuJxpFgzWi
- hHxro44rY4BdBK/3EOjtgaGE9HYVbtLl/N0V5MEVnW6KlJN7KqZ8f5YUCh3pUZ/WACrU
- PZuFr9vMouig3yfzfmF5qfg195yzb2ojfaiMxmlsM/eWKcTOhzJF/YltMecdtkl4uysX
- GIF2WEsaDLnBoPjoLuCRsRpvqPM9z9wfkXc8Nanb8pXU3RC/H2lmZHrw0DC3E0GpwSb4
- 2F+Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUg+OYGJp8dGohA8KyXTHWojIc/tAvNWHxuAqN48oTxL8XjiXbHHf+tCvZJaHRQe2zUILLcIUScIIPK@lists.freedesktop.org,
- AJvYcCUhB5dhlo1w7GC+HOM1Wjh+Irz6+8z963WKFDFnst/TP2MGjfxC3HgDdq4nELG8k/DJmhufKJi1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWU6orXyjfCvEFvBIfrKgVye0R4x6QLA/DOOEQtRI3XhlLFirf
- J7FetdfzYAVLD6IxN7Xz7Jj70lHHJAZTH3GMLgAjxFnauDOJwE7r+LbVDPzidjLLHD8Q/pBvLWr
- iisNRpZ27wVbjhMl0fYigeqaMi0E=
-X-Google-Smtp-Source: AGHT+IFUyTc2msw9pBuDinPebsrgH2WgTVb3aopL/b6zxirXk5TlrlJwgcDG34rx6p5wEwYoay4kl+oDdVtZtxl+tQk=
-X-Received: by 2002:a17:902:f0cb:b0:205:60f5:4c0 with SMTP id
- d9443c01a7336-206f0669d0emr15345825ad.9.1725634964083; Fri, 06 Sep 2024
- 08:02:44 -0700 (PDT)
+ bh=t/Gs4hKQucAoDlB4prDiA7wR1h8KOO+C8DI3qy19FeQ=;
+ b=TVyx0PPQEWbWxN28N95mOqwqW7PFJtyNw26dRXzT81v9orEWjQfOj0v0EFKSBz/+/Z
+ QiAVplOX2N92FAQmpCcrdJIt6c5ojB0WJBzYemifMhOBTCvPxFLPHziM2y2g0mMHavNQ
+ wB51AQVS5eSj3SK114IEni0ElMiKFsjIvX6R6L9r3GNLmMzKzeumuxuQnKuSiNH/U5Z8
+ bv4ctMnW1ykCKqfREPhpbnrccGOvKIxgR7+jgCyKHQtW0WFkZUD8PvtHn60SS6LFWKyF
+ FiLP4J7r3hQ7XdMFrrp1wRV5YPp7MqOU6fdvWP0jtXLv/jjP7W/b/lJdso1zsJpnDdGa
+ 6hNQ==
+X-Gm-Message-State: AOJu0Yzm9xi4Z90njGklvb9RjTwuEzME540323gLCGZwxTEoXa77hDGK
+ T4m4yvbECB0wW3KcxnLfQqJhVGZ/TZpPJiVR26FC9b9YyI2yoz0NRsSg01411beph2k2wG1eSIW
+ OZfoSx1o/EFXQxI8p7k5XQLR595w=
+X-Google-Smtp-Source: AGHT+IHl7CSrHwU6Y4Iv1fFlHzwRpmIw1XhnRns1hXqsg8zod/AWx2mGdTlxrgRxjoRQvB5sWkslXtkWiOp9VQcWshw=
+X-Received: by 2002:a17:902:f550:b0:206:ad19:c0f2 with SMTP id
+ d9443c01a7336-206f04cf0fdmr16444805ad.1.1725635093273; Fri, 06 Sep 2024
+ 08:04:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240903045809.5025-1-mukul.sikka@broadcom.com>
- <CADnq5_OVSD1DXgi_9f_H-uT7KSjMwz-FfhP=vRQvposSxv=BMw@mail.gmail.com>
- <CAG99D9Jss=h5aVLDq0tkDjfZgGUbrNV1gqwcw631RbwCiPVqNg@mail.gmail.com>
-In-Reply-To: <CAG99D9Jss=h5aVLDq0tkDjfZgGUbrNV1gqwcw631RbwCiPVqNg@mail.gmail.com>
+References: <20240905214016.501543-1-David.Wu3@amd.com>
+ <20240905214016.501543-2-David.Wu3@amd.com>
+In-Reply-To: <20240905214016.501543-2-David.Wu3@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 6 Sep 2024 11:02:32 -0400
-Message-ID: <CADnq5_NWX7u=S+jrC8YA6fJxN7GXpSN+kqsQieqphdOz2HT6EA@mail.gmail.com>
-Subject: Re: [PATCH v5.15-v5.10] drm/amd/pm: Fix the null pointer dereference
- for vega10_hwmgr
-To: Mukul Sikka <mukul.sikka@broadcom.com>
-Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org, evan.quan@amd.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie, 
- daniel@ffwll.ch, Jun.Ma2@amd.com, kevinyang.wang@amd.com, sashal@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, ajay.kaher@broadcom.com, 
- alexey.makhalov@broadcom.com, vasavi.sirnapalli@broadcom.com, 
- Bob Zhou <bob.zhou@amd.com>, Tim Huang <Tim.Huang@amd.com>
+Date: Fri, 6 Sep 2024 11:04:42 -0400
+Message-ID: <CADnq5_PJN+C1_F2C6UsO8mNwADLYhHFKC44SuMkh7cE5-sF_UQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/amdgpu: apply command submission parser for
+ JPEG v1
+To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ Christian.Koenig@amd.com, leo.liu@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,162 +78,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 6, 2024 at 4:50=E2=80=AFAM Mukul Sikka <mukul.sikka@broadcom.co=
-m> wrote:
->
-> On Fri, Sep 6, 2024 at 12:05=E2=80=AFAM Alex Deucher <alexdeucher@gmail.c=
-om> wrote:
-> >
-> > On Tue, Sep 3, 2024 at 5:53=E2=80=AFAM sikkamukul <mukul.sikka@broadcom=
+On Thu, Sep 5, 2024 at 5:40=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@amd=
 .com> wrote:
-> > >
-> > > From: Bob Zhou <bob.zhou@amd.com>
-> > >
-> > > [ Upstream commit 50151b7f1c79a09117837eb95b76c2de76841dab ]
-> > >
-> > > Check return value and conduct null pointer handling to avoid null po=
-inter dereference.
-> > >
-> > > Signed-off-by: Bob Zhou <bob.zhou@amd.com>
-> > > Reviewed-by: Tim Huang <Tim.Huang@amd.com>
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > Signed-off-by: Mukul Sikka <mukul.sikka@broadcom.com>
-> >
-> > Just out of curiosity, are you actually seeing an issue?  This and a
-> > lot of the other recent NULL check patches are just static checker
-> > fixes.  They don't actually fix a known issue.
-> >
-> No, according to the description of this patch and CVE-2024-43905.
-> It seems to be applicable to LTS.
-
-I don't know that this is really CVE material, but oh well.  I'm not
-sure if it's actually possible to hit this in practice.
-
-Alex
-
 >
-> - Mukul
+> Similar to jpeg_v2_dec_ring_parse_cs() but it has different
+> register ranges and a few other registers access.
 >
-> > > ---
-> > >  .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 30 ++++++++++++++++-=
---
-> > >  1 file changed, 26 insertions(+), 4 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/=
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> > > index 10678b519..304874cba 100644
-> > > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> > > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> > > @@ -3391,13 +3391,17 @@ static int vega10_find_dpm_states_clocks_in_d=
-pm_table(struct pp_hwmgr *hwmgr, co
-> > >         const struct vega10_power_state *vega10_ps =3D
-> > >                         cast_const_phw_vega10_power_state(states->pne=
-w_state);
-> > >         struct vega10_single_dpm_table *sclk_table =3D &(data->dpm_ta=
-ble.gfx_table);
-> > > -       uint32_t sclk =3D vega10_ps->performance_levels
-> > > -                       [vega10_ps->performance_level_count - 1].gfx_=
-clock;
-> > >         struct vega10_single_dpm_table *mclk_table =3D &(data->dpm_ta=
-ble.mem_table);
-> > > -       uint32_t mclk =3D vega10_ps->performance_levels
-> > > -                       [vega10_ps->performance_level_count - 1].mem_=
-clock;
-> > > +       uint32_t sclk, mclk;
-> > >         uint32_t i;
-> > >
-> > > +       if (vega10_ps =3D=3D NULL)
-> > > +               return -EINVAL;
-> > > +       sclk =3D vega10_ps->performance_levels
-> > > +                       [vega10_ps->performance_level_count - 1].gfx_=
-clock;
-> > > +       mclk =3D vega10_ps->performance_levels
-> > > +                       [vega10_ps->performance_level_count - 1].mem_=
-clock;
-> > > +
-> > >         for (i =3D 0; i < sclk_table->count; i++) {
-> > >                 if (sclk =3D=3D sclk_table->dpm_levels[i].value)
-> > >                         break;
-> > > @@ -3704,6 +3708,9 @@ static int vega10_generate_dpm_level_enable_mas=
-k(
-> > >                         cast_const_phw_vega10_power_state(states->pne=
-w_state);
-> > >         int i;
-> > >
-> > > +       if (vega10_ps =3D=3D NULL)
-> > > +               return -EINVAL;
-> > > +
-> > >         PP_ASSERT_WITH_CODE(!vega10_trim_dpm_states(hwmgr, vega10_ps)=
-,
-> > >                         "Attempt to Trim DPM States Failed!",
-> > >                         return -1);
-> > > @@ -4828,6 +4835,9 @@ static int vega10_check_states_equal(struct pp_=
-hwmgr *hwmgr,
-> > >
-> > >         psa =3D cast_const_phw_vega10_power_state(pstate1);
-> > >         psb =3D cast_const_phw_vega10_power_state(pstate2);
-> > > +       if (psa =3D=3D NULL || psb =3D=3D NULL)
-> > > +               return -EINVAL;
-> > > +
-> > >         /* If the two states don't even have the same number of perfo=
-rmance levels they cannot be the same state. */
-> > >         if (psa->performance_level_count !=3D psb->performance_level_=
-count) {
-> > >                 *equal =3D false;
-> > > @@ -4953,6 +4963,8 @@ static int vega10_set_sclk_od(struct pp_hwmgr *=
-hwmgr, uint32_t value)
-> > >                 return -EINVAL;
-> > >
-> > >         vega10_ps =3D cast_phw_vega10_power_state(&ps->hardware);
-> > > +       if (vega10_ps =3D=3D NULL)
-> > > +               return -EINVAL;
-> > >
-> > >         vega10_ps->performance_levels
-> > >         [vega10_ps->performance_level_count - 1].gfx_clock =3D
-> > > @@ -5004,6 +5016,8 @@ static int vega10_set_mclk_od(struct pp_hwmgr *=
-hwmgr, uint32_t value)
-> > >                 return -EINVAL;
-> > >
-> > >         vega10_ps =3D cast_phw_vega10_power_state(&ps->hardware);
-> > > +       if (vega10_ps =3D=3D NULL)
-> > > +               return -EINVAL;
-> > >
-> > >         vega10_ps->performance_levels
-> > >         [vega10_ps->performance_level_count - 1].mem_clock =3D
-> > > @@ -5239,6 +5253,9 @@ static void vega10_odn_update_power_state(struc=
-t pp_hwmgr *hwmgr)
-> > >                 return;
-> > >
-> > >         vega10_ps =3D cast_phw_vega10_power_state(&ps->hardware);
-> > > +       if (vega10_ps =3D=3D NULL)
-> > > +               return;
-> > > +
-> > >         max_level =3D vega10_ps->performance_level_count - 1;
-> > >
-> > >         if (vega10_ps->performance_levels[max_level].gfx_clock !=3D
-> > > @@ -5261,6 +5278,9 @@ static void vega10_odn_update_power_state(struc=
-t pp_hwmgr *hwmgr)
-> > >
-> > >         ps =3D (struct pp_power_state *)((unsigned long)(hwmgr->ps) +=
- hwmgr->ps_size * (hwmgr->num_ps - 1));
-> > >         vega10_ps =3D cast_phw_vega10_power_state(&ps->hardware);
-> > > +       if (vega10_ps =3D=3D NULL)
-> > > +               return;
-> > > +
-> > >         max_level =3D vega10_ps->performance_level_count - 1;
-> > >
-> > >         if (vega10_ps->performance_levels[max_level].gfx_clock !=3D
-> > > @@ -5451,6 +5471,8 @@ static int vega10_get_performance_level(struct =
-pp_hwmgr *hwmgr, const struct pp_
-> > >                 return -EINVAL;
-> > >
-> > >         ps =3D cast_const_phw_vega10_power_state(state);
-> > > +       if (ps =3D=3D NULL)
-> > > +               return -EINVAL;
-> > >
-> > >         i =3D index > ps->performance_level_count - 1 ?
-> > >                         ps->performance_level_count - 1 : index;
-> > > --
-> > > 2.39.4
-> > >
+> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c | 76 +++++++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h | 11 ++++
+>  2 files changed, 86 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd=
+/amdgpu/jpeg_v1_0.c
+> index 71f43a5c7f72..e8c0bd228ec7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+> @@ -23,6 +23,7 @@
+>
+>  #include "amdgpu.h"
+>  #include "amdgpu_jpeg.h"
+> +#include "amdgpu_cs.h"
+>  #include "soc15.h"
+>  #include "soc15d.h"
+>  #include "vcn_v1_0.h"
+> @@ -34,6 +35,9 @@
+>  static void jpeg_v1_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+>  static void jpeg_v1_0_set_irq_funcs(struct amdgpu_device *adev);
+>  static void jpeg_v1_0_ring_begin_use(struct amdgpu_ring *ring);
+> +static int jpeg_v1_dec_ring_parse_cs(struct amdgpu_cs_parser *parser,
+> +                                    struct amdgpu_job *job,
+> +                                    struct amdgpu_ib *ib);
+>
+>  static void jpeg_v1_0_decode_ring_patch_wreg(struct amdgpu_ring *ring, u=
+int32_t *ptr, uint32_t reg_offset, uint32_t val)
+>  {
+> @@ -300,7 +304,10 @@ static void jpeg_v1_0_decode_ring_emit_ib(struct amd=
+gpu_ring *ring,
+>
+>         amdgpu_ring_write(ring,
+>                 PACKETJ(SOC15_REG_OFFSET(JPEG, 0, mmUVD_LMI_JRBC_IB_VMID)=
+, 0, 0, PACKETJ_TYPE0));
+> -       amdgpu_ring_write(ring, (vmid | (vmid << 4)));
+> +       if (ring->funcs->parse_cs)
+> +               amdgpu_ring_write(ring, 0);
+> +       else
+> +               amdgpu_ring_write(ring, (vmid | (vmid << 4)));
+>
+>         amdgpu_ring_write(ring,
+>                 PACKETJ(SOC15_REG_OFFSET(JPEG, 0, mmUVD_LMI_JPEG_VMID), 0=
+, 0, PACKETJ_TYPE0));
+> @@ -554,6 +561,7 @@ static const struct amdgpu_ring_funcs jpeg_v1_0_decod=
+e_ring_vm_funcs =3D {
+>         .get_rptr =3D jpeg_v1_0_decode_ring_get_rptr,
+>         .get_wptr =3D jpeg_v1_0_decode_ring_get_wptr,
+>         .set_wptr =3D jpeg_v1_0_decode_ring_set_wptr,
+> +       .parse_cs =3D jpeg_v1_dec_ring_parse_cs,
+>         .emit_frame_size =3D
+>                 6 + 6 + /* hdp invalidate / flush */
+>                 SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
+> @@ -611,3 +619,69 @@ static void jpeg_v1_0_ring_begin_use(struct amdgpu_r=
+ing *ring)
+>
+>         vcn_v1_0_set_pg_for_begin_use(ring, set_clocks);
+>  }
+> +
+> +/**
+> + * jpeg_v1_dec_ring_parse_cs - command submission parser
+> + *
+> + * @parser: Command submission parser context
+> + * @job: the job to parse
+> + * @ib: the IB to parse
+> + *
+> + * Parse the command stream, return -EINVAL for invalid packet,
+> + * 0 otherwise
+> + */
+> +static int jpeg_v1_dec_ring_parse_cs(struct amdgpu_cs_parser *parser,
+> +                                    struct amdgpu_job *job,
+> +                                    struct amdgpu_ib *ib)
+> +{
+> +       uint32_t i, reg, res, cond, type;
+> +       int32_t ret =3D 0;
+> +       struct amdgpu_device *adev =3D parser->adev;
+> +
+> +       for (i =3D 0; i < ib->length_dw ; i +=3D 2) {
+> +               reg  =3D CP_PACKETJ_GET_REG(ib->ptr[i]);
+> +               res  =3D CP_PACKETJ_GET_RES(ib->ptr[i]);
+> +               cond =3D CP_PACKETJ_GET_COND(ib->ptr[i]);
+> +               type =3D CP_PACKETJ_GET_TYPE(ib->ptr[i]);
+> +
+> +               if (res || cond !=3D PACKETJ_CONDITION_CHECK0) /* only al=
+low 0 for now */
+> +                       return -EINVAL;
+> +
+> +               if (reg >=3D JPEG_V1_REG_RANGE_START && reg <=3D JPEG_V1_=
+REG_RANGE_END)
+> +                       continue;
+> +
+> +               switch (type) {
+> +               case PACKETJ_TYPE0:
+> +                       if (reg !=3D JPEG_V1_LMI_JPEG_WRITE_64BIT_BAR_HIG=
+H &&
+> +                           reg !=3D JPEG_V1_LMI_JPEG_WRITE_64BIT_BAR_LOW=
+ &&
+> +                           reg !=3D JPEG_V1_LMI_JPEG_READ_64BIT_BAR_HIGH=
+ &&
+> +                           reg !=3D JPEG_V1_LMI_JPEG_READ_64BIT_BAR_LOW =
+&&
+> +                           reg !=3D JPEG_V1_REG_CTX_INDEX &&
+> +                           reg !=3D JPEG_V1_REG_CTX_DATA) {
+> +                               ret =3D -EINVAL;
+> +                       }
+> +                       break;
+> +               case PACKETJ_TYPE1:
+> +                       if (reg !=3D JPEG_V1_REG_CTX_DATA)
+> +                               ret =3D -EINVAL;
+> +                       break;
+> +               case PACKETJ_TYPE3:
+> +                       if (reg !=3D JPEG_V1_REG_SOFT_RESET)
+> +                               ret =3D -EINVAL;
+> +                       break;
+> +               case PACKETJ_TYPE6:
+> +                       if (ib->ptr[i] !=3D CP_PACKETJ_NOP)
+> +                               ret =3D -EINVAL;
+> +                       break;
+> +               default:
+> +                       ret =3D -EINVAL;
+> +               }
+> +
+> +               if (ret) {
+> +                       dev_err(adev->dev, "Invalid packet [0x%08x]!\n", =
+ib->ptr[i]);
+> +                       break;
+> +               }
+> +       }
+> +
+> +       return ret;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h b/drivers/gpu/drm/amd=
+/amdgpu/jpeg_v1_0.h
+> index bbf33a6a3972..9654d22e0376 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h
+> @@ -29,4 +29,15 @@ int jpeg_v1_0_sw_init(void *handle);
+>  void jpeg_v1_0_sw_fini(void *handle);
+>  void jpeg_v1_0_start(struct amdgpu_device *adev, int mode);
+>
+> +#define JPEG_V1_REG_RANGE_START        0x8000
+> +#define JPEG_V1_REG_RANGE_END  0x803f
+> +
+> +#define JPEG_V1_LMI_JPEG_WRITE_64BIT_BAR_HIGH  0x8238
+> +#define JPEG_V1_LMI_JPEG_WRITE_64BIT_BAR_LOW   0x8239
+> +#define JPEG_V1_LMI_JPEG_READ_64BIT_BAR_HIGH   0x825a
+> +#define JPEG_V1_LMI_JPEG_READ_64BIT_BAR_LOW    0x825b
+> +#define JPEG_V1_REG_CTX_INDEX                  0x8328
+> +#define JPEG_V1_REG_CTX_DATA                   0x8329
+> +#define JPEG_V1_REG_SOFT_RESET                 0x83a0
+> +
+>  #endif /*__JPEG_V1_0_H__*/
+> --
+> 2.34.1
+>
