@@ -4,58 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCF5CE7AE4
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 07:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9138FCE7AB8
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 08:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90E5010E197;
-	Fri,  6 Sep 2024 07:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3960A10E998;
+	Fri,  6 Sep 2024 08:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OLnnHmQl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IMKIp7+4";
 	dkim-atps=neutral
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59DDC10E95E
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Sep 2024 22:25:03 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-6d6891012d5so12628607b3.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Sep 2024 15:25:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725575102; x=1726179902; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=zMkX07JSpF4ZTof1kwdmnFdYzjLU84vys3KyrWxvvas=;
- b=OLnnHmQl2t/nETMW6J6c0boHLUQwqIFEnSZdfe8Ao+d0VxKZjHgsSyCq9zlKIkFbM7
- fAAhpPhg0+fjnLqgFW4vu0H2RpCoj1aZMLM5tF7LthF+cBxRFF//liV/qKSXvW15WOPZ
- dteDTCF2kLBU6w8dOzLB4wzpuE1QNssjV34z6EyvBaNwUZFTtGovc/pSxaiZDydv2eGy
- hyO6S/KF7RYnOHrCI8opS9XQyuBN6gz7vvZpiAwubiL0VCqbpBWSg3EWQp7qcwmXyB+v
- a+eqqqLg1hQikwBb5xdLjjeNPJ9hUN/1LJfnQOgrqcah8e8swnZ44JmAMLv/iXUsrHR6
- h0+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725575102; x=1726179902;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zMkX07JSpF4ZTof1kwdmnFdYzjLU84vys3KyrWxvvas=;
- b=ui0Yu3U7BF71l2ixHqU1cyFlnBFYqx8KRzueaSrfSyV61XBFVs0eVEhKQxM7Zjh/Aa
- 8e0mygt+49PlmSaWla70PXd0tiNZc/y6z0qIENBWovFSWIMvFSvlJYgv3MBdCDiJBj3Y
- qw1wwl9zq7d/20D+XOsEMfniyImBDgVeSPHM5fp40SU8sq5kuNDacnKVG48FAZmhhoul
- gvaVAuun/Z5WD4Sei9H43P929z83uU78ba3MEspZaHFNWadGSMQdr1Ds85KWYcNTXdAy
- ekpCkMDTR+R6ijZaWEx0oxLNCL/DJ4yNHM70eN5xe+SThbtRiMRkTmb2oo0UnnD7DS7N
- X7YA==
-X-Gm-Message-State: AOJu0YzWp2wCsLcVqEf0ZTCH36/0q8OM+AfcJLpUMlFcLApUaEDGQBFJ
- gUOMxF1mduz3nxF9ruJ+qtmKk6oV+trFPLgdQE4cZJny1of5ym2Wz6Ov+WIV1Gf0HDXlC4N0PXO
- XpStIntokgKvo0TKhBLqhzLml3jtdaZLh
-X-Google-Smtp-Source: AGHT+IH3HJ73tX9qJmA9FwJdWus9tXtzICtsdrG/HVNJ9pw7oaH8Ur91rsnFLiE2nuEcJCKCXkNXULXnat1pFFkOrlE=
-X-Received: by 2002:a05:690c:82:b0:6c7:a120:e10f with SMTP id
- 00721157ae682-6db452c394dmr6842367b3.29.1725575102034; Thu, 05 Sep 2024
- 15:25:02 -0700 (PDT)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2050.outbound.protection.outlook.com [40.107.96.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3248410E998
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 08:13:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VX3c3xiHZpmrTv0PZ4zxadY5K+m0L8K/MMrdhJuCevLSXzKihZ8HHGMqgizavqH0Q7SkEy3rXsyBM1EQknnouC/aNgIrAoIM9KjNkmrXgzIrU0fw9QKz/jR+YJ/8X2eQh76QiSyXaeB8yNyGRa0vBTeYCChHI8pMug2MXFn6tJXGMjMDPUUUu1QtUdZt/7rAJEnH3YMnvj0bORFkCpjUpI8l8CdPD0PxJMSvUPte05em+e+a6GeXjAp445+3t/17IEpTfJjz8Wyr3TvzrQPve/fJwaRgNGnosBgothNpl2Hz4RlScImtDy9jyr4Byq+EShkiTXVjoQeIg3f8gP1uCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5B+LfOW4SVjV/Xcq7+WZB8AfxqXEH2Kgc72/YQ63n6o=;
+ b=Xkyd5TORHuGFQg1hUJBiUF+0uAQcjJ0+obXQ2AKc7USR9i6NLVo87flVGfUfpZYR7MWy87JAakfnqTq7O0x/WIyl6nMaAGxlPSakTTDUa0ciI1Xl4j+D6npejYjMfLUHDtRJnvtVN9DZuARK2ylFaU8SKl1u/Kb+mnEPs+s99VRkpR+5NFCoAtULn47ihJbko8Bgz5duWHCeEUCdJWPHrEUszyf6nQ0bWySsh5DwKRCzaottRKcIXs5t4g+h47zdIHmSWZ271q0ec8n5KaS3gTLtkVPRV1qIukzdRCw7A6EQiFU5qLR0iD8v/glMUp2jZ1BWAxfukWKW0BBXrZ6vxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5B+LfOW4SVjV/Xcq7+WZB8AfxqXEH2Kgc72/YQ63n6o=;
+ b=IMKIp7+4NY0+bMhsULZp26kW0ZPHYUDWWgKCN6Ne1x8CkrfeSnVO8DG3n6mJjMar+jUr3hJhdOzUyQH0PsRkWD5xqFKVIxkIPsziVv0E55XLeKn180omJMsCVm3aJlBT2n0v4eiIReaEp9X1wlrvLGgas4w75N3aTADbGnrE4pw=
+Received: from BN0PR03CA0054.namprd03.prod.outlook.com (2603:10b6:408:e7::29)
+ by DS0PR12MB7536.namprd12.prod.outlook.com (2603:10b6:8:11c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.17; Fri, 6 Sep
+ 2024 08:12:56 +0000
+Received: from BL6PEPF0001AB4A.namprd04.prod.outlook.com
+ (2603:10b6:408:e7:cafe::26) by BN0PR03CA0054.outlook.office365.com
+ (2603:10b6:408:e7::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.14 via Frontend
+ Transport; Fri, 6 Sep 2024 08:12:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4A.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Fri, 6 Sep 2024 08:12:55 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Sep
+ 2024 03:12:54 -0500
+Received: from hawzhang-System-Product-Next-Generation.amd.com
+ (10.180.168.240) by SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP
+ Server id 15.1.2507.39 via Frontend Transport; Fri, 6 Sep 2024 03:12:53 -0500
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdkfd: Select reset method for poison handling
+Date: Fri, 6 Sep 2024 16:12:51 +0800
+Message-ID: <20240906081251.31139-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-From: __- -__ <isapgswell@gmail.com>
-Date: Thu, 5 Sep 2024 19:26:08 -0300
-Message-ID: <CAN9WMdMfHkadFwrccv2ucnAjMn1u185=n14WmEFFLQqOiEw7aQ@mail.gmail.com>
-Subject: [INFO] multi-gpu scenario
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000fd7c8f062166c266"
-X-Mailman-Approved-At: Fri, 06 Sep 2024 07:37:13 +0000
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: Hawking.Zhang@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4A:EE_|DS0PR12MB7536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c868456-be21-4edc-ff2c-08dcce4bb62e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KXrAXXR9XWbEhkO+YK246lv7L3eZrfK8EbMAgAFJbA1PgsB2ZzU9WhG1xCq3?=
+ =?us-ascii?Q?cQBofwLzwi5SuuGGY759loxERam/ikxJqO+Usbbv9y6lvpRs5DbPyBgfX9lF?=
+ =?us-ascii?Q?+vxRkWYfAUN3uAhk6oES87uoHkZzx4QTrCts/OuTXNFQqMkiAOKOql6VLEEL?=
+ =?us-ascii?Q?zN3WafLwHagBtg8SDTeuWaTqJg/i/sEUZsFYqGiubciqU3ObD2QTsdwfK5LG?=
+ =?us-ascii?Q?QAkKK2Yr2axebh9BGLyFCQvBoF7bJSeQupzb9X2x+KejhxAWNzRq+364eeZU?=
+ =?us-ascii?Q?4ZqArrJD28LPSyHnXwF82p06b9I4MuPMWLNnWikT5fKOfoIL7MLw36WMmggn?=
+ =?us-ascii?Q?TKT32M/WgU0X/6UVT2meK/GWJV8kuUxImbFO78WfbMW+exSgzuznKvLEHspy?=
+ =?us-ascii?Q?TWDiEusBwWg8TgRDE9J6J/XarX6YjcUoYMwDPrSp8fER90uqAgfEn1ZerQSU?=
+ =?us-ascii?Q?D1DEPm/hhVCc3WHB7tQjn77u/00+UJ19Q6qOzqQg/7NsP4LZTQeTcvAYmRPS?=
+ =?us-ascii?Q?T+0GC2N40fbfhCxd9qpy1288prCOu9Kh0OiCouW8q6veiGHgTx0/stlWlBGM?=
+ =?us-ascii?Q?nEXFC2y/27aR1a6genLJ0lSh3AC6VrQAgcmtPcxbL7sfxPr2KF2CjZq/csL8?=
+ =?us-ascii?Q?05TLCEZJqP7U+vHcD/Y8j7HG+AxYCFF0vqVFYHxgj8JjTlqzAJfljc88ZKPp?=
+ =?us-ascii?Q?lB5rTz6oiJNdElUDjcAcXMfftDcsb75Gi2jgNBKRfclSBrnkytZxTPHW6zL8?=
+ =?us-ascii?Q?LPxeoq/K5dkR/iXhRpWSj3cLS8G7X4EBJaDi3zJiJNEV+NU1JY+PJUh3ulzu?=
+ =?us-ascii?Q?J2xUGiucOdDZ/RZLtlP9xiABc4lomqUFUALlcuJFp0svW/JgmJArxG74xmMK?=
+ =?us-ascii?Q?4IeM4BVkTExWuruvTik+8G84ozhZrgvzPGgr1IqEz9RPFCBQ2UCCU8KX29km?=
+ =?us-ascii?Q?9qTgdJPYxOLL65SjIzQLUWc5Rnc/+Z5JqxdVj2p4ph+pHf5EOjtug2l13T3O?=
+ =?us-ascii?Q?7aYM9lCJ1MVXSFt6P5FJfXgPSN26L6oeBAj5IZC0F20kbpbwPYhRmirKGQPS?=
+ =?us-ascii?Q?dzeCJTpq6OPc1EZcr2HqovvpG8tITNuvfkSluMNBmniqVcP+NyX+gOI5Dz/n?=
+ =?us-ascii?Q?kXfASo0eOVlyMv45H2gtrF4KblIQdQrUoXl0uX08kzsVmmdvAY1sQjxndpgo?=
+ =?us-ascii?Q?+yz4MjDKSS6j/HlBSxgdA92blGdeW7sravraL4Hr2My3EQpfQ88kW4zkEaJ6?=
+ =?us-ascii?Q?mOGavXhKX4+yQpYoFifWdyHfFn3uc+E2qg8I+mQXJOYSk/1c6qbAY60ddDKo?=
+ =?us-ascii?Q?TtW2KjjEqZhB+mOo26iAtaIU+9kjKv7w1e+rQNz4npwA43O/jE/U2io2CDLn?=
+ =?us-ascii?Q?YCJYF7SO79yeG07jZ5sEw25c60vmJS+DlF1NFg/7YTuI5+fA1rEIvqX5q7gP?=
+ =?us-ascii?Q?5Mrgf0siafZIdRUEZwZBaFB6XgMYjay+?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2024 08:12:55.3388 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c868456-be21-4edc-ff2c-08dcce4bb62e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7536
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,61 +130,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000fd7c8f062166c266
-Content-Type: text/plain; charset="UTF-8"
+Driver mode-2 is only supported by relative new
+smc firmware.
 
-Hi,
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 40 +++++++++++++++----
+ 1 file changed, 32 insertions(+), 8 deletions(-)
 
-I am trying to a way we can have a desktop performance compared to
-windows/macos on linux where system is optimus-enhanced (nvidia) focused.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index fecdbbab9894..d46a13156ee9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -167,11 +167,23 @@ static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
+ 	case SOC15_IH_CLIENTID_SE3SH:
+ 	case SOC15_IH_CLIENTID_UTCL2:
+ 		block = AMDGPU_RAS_BLOCK__GFX;
+-		if (amdgpu_ip_version(dev->adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
+-			amdgpu_ip_version(dev->adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4))
+-			reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+-		else
++		if (amdgpu_ip_version(dev->adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3)) {
++			/* driver mode-2 for gfx poison is only supported by
++			 * pmfw 0x00557300 and onwards */
++			if (dev->adev->pm.fw_version < 0x00557300)
++				reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
++			else
++				reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		} else if (amdgpu_ip_version(dev->adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4)) {
++			/* driver mode-2 for gfx poison is only supported by
++			 * pmfw 0x05550C00 and onwards */
++			if (dev->adev->pm.fw_version < 0x05550C00)
++				reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
++			else
++				reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		} else {
+ 			reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		}
+ 		break;
+ 	case SOC15_IH_CLIENTID_VMC:
+ 	case SOC15_IH_CLIENTID_VMC1:
+@@ -184,11 +196,23 @@ static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
+ 	case SOC15_IH_CLIENTID_SDMA3:
+ 	case SOC15_IH_CLIENTID_SDMA4:
+ 		block = AMDGPU_RAS_BLOCK__SDMA;
+-		if (amdgpu_ip_version(dev->adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
+-			amdgpu_ip_version(dev->adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4))
+-			reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+-		else
++		if (amdgpu_ip_version(dev->adev, SDMA0_HWIP, 0) == IP_VERSION(4, 4, 2)) {
++			/* driver mode-2 for gfx poison is only supported by
++			 * pmfw 0x00557300 and onwards */
++			if (dev->adev->pm.fw_version < 0x00557300)
++				reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
++			else
++				reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		} else if (amdgpu_ip_version(dev->adev, SDMA0_HWIP, 0) == IP_VERSION(4, 4, 5)) {
++			/* driver mode-2 for gfx poison is only supported by
++			 * pmfw 0x05550C00 and onwards */
++			if (dev->adev->pm.fw_version < 0x05550C00)
++				reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
++			else
++				reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		} else {
+ 			reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++		}
+ 		break;
+ 	default:
+ 		dev_warn(dev->adev->dev,
+-- 
+2.17.1
 
-I have read about off-screen mesa. So ubuntu has gl_dispatcher strategy,
-why not make osmesa defaults and let gl_dispatcher take care of relative
-device (nvidia, amd, nvidia) when optimus-enhanced is in set.
-
-On-demand nvidia-prime profile runs Xorg nvidia's vram, ok?
-an alternative config says intel/nvidia as default opengl ...
-
-Maybe osmesa (off-screen mesa) default background, when optimus-enhanced is
-needed/set, should communicate gl_dispatcher and decision what device take
-control could be set. I think it is a good strategy together with envvars.
-
-We could have hybrid-profile (nvidia-prime on-demand) in addition to
-powersave (intel/amd) amd performance (nvidia-only)
-
-For testing i have set:
-LIBGL_ALWAYS_SOFTWARE=1
-GALLIUM_DRIVER=softpipe/llvmpipe
-
-And desktop lag was terrible
-
-Thx
-
-Luiz
-
---000000000000fd7c8f062166c266
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi,<br></div><div><div><br></div><div>I am trying to =
-a way we can have a=20
-desktop performance compared to windows/macos on linux where system is=20
-optimus-enhanced (nvidia) focused.</div><div><br></div><div>I have read abo=
-ut <span style=3D"background-color:rgb(255,255,0)">off-screen mesa</span>. =
-So ubuntu has gl_dispatcher strategy, why not make <span style=3D"backgroun=
-d-color:rgb(255,255,0)">osmesa</span> defaults and let gl_dispatcher take c=
-are of relative device (nvidia, amd, nvidia) when optimus-enhanced is in se=
-t.</div><div><br></div><div>On-demand nvidia-prime profile runs Xorg nvidia=
-&#39;s vram, ok?</div><div>an alternative config says intel/nvidia as defau=
-lt opengl ...</div><div><br></div><div>Maybe
- osmesa (off-screen mesa) default background, when optimus-enhanced is=20
-needed/set, should communicate gl_dispatcher and decision what device=20
-take control could be set. I think it is a good strategy together with=20
-envvars.<br></div><div><br></div><div>We could have hybrid-profile (nvidia-=
-prime on-demand) in addition to powersave (intel/amd) amd performance (nvid=
-ia-only)</div><div><br></div><div>For testing i have set:</div><div>LIBGL_A=
-LWAYS_SOFTWARE=3D1<br>GALLIUM_DRIVER=3Dsoftpipe/llvmpipe</div><div><br></di=
-v><div>And desktop lag was terrible<br></div><div><br></div><div>Thx</div><=
-div><br></div><div>Luiz</div></div></div>
-
---000000000000fd7c8f062166c266--
