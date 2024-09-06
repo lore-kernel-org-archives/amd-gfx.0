@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7918E6FE43
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 18:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD462E6FE47
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 18:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF2F10EAC4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F28710EAC5;
 	Fri,  6 Sep 2024 18:06:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g6nfFjK9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TGmBBQMU";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9B310EAC0;
- Fri,  6 Sep 2024 18:06:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB3310EAC2;
+ Fri,  6 Sep 2024 18:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=+WIPXRwbeYe980Y2BQPwLdcVOViyRi/orFDevE7mMbU=; b=g6nfFjK9M0q8lJFLgiGlnxG+tR
- e3HkSryIy77327V1EgXP1xxVrxWvhP2lwOc1osCl8DpHk0AHIsjfhDeyL9fNSgbsJC8jsX3cV9Lzk
- RtZC2/2rnwkUXxsMdcFr8N4rxkdhW9tbu6zszFGtMoynarx0q9UI41oBIeV7VXyomYRtHY8VyvnJr
- sNdtxNbmyReqtA2FM51XesQpJg3CaJq4xZm3gn1uWrvlBrOTd9y6nDu5yhIcIPIr1wChAF4zlA0O+
- j9OIfLmX8QzzpALJdnVupKcZVz0WtKv6zhT5ibiOjbxfxjDb3VizXVI2vaV9JMCC1gKbO/CeiZiPd
- 0/jchk7A==;
+ bh=tF0Gxqih49lLW5OGzTjkp8Z2rb+rue64ejmqssXO1rk=; b=TGmBBQMU2mtq1tT+wPpD7P/+DM
+ K4gHKHBX0ltP3L6hmGRV7L+haMl/7d8K1DYzGMf+UCz6ZziCVJeoh2Qrr3OdjCfg/mhP+rBgScJNP
+ Fg8JYqPDQcF4c07MLmK8dMvvvqpLiGFwN97kliSgvC4ejYSZYHz7cHemtZyC5hFev5MMV1UmckGEq
+ AqulMr5Y60mzi4rRhAwK++L/Leh5xMXscbs8oYRGBJunnGKh9L7PcPvjcE9HZqKzH3kKcP8y8/ZNL
+ eCfQRmVlw1hNF/BfuGV3rYzi/QwZ1qVuSPfDxKKcjWgzBWduDirx0hg+DCZl7s4R1T++/v1CNYrht
+ WfwCN3pg==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1smdLk-00AW6F-Bj; Fri, 06 Sep 2024 20:06:23 +0200
+ id 1smdLl-00AW6L-Qa; Fri, 06 Sep 2024 20:06:25 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
-Subject: [RFC 0/4] DRM scheduler fixes, or not, or incorrect kind
-Date: Fri,  6 Sep 2024 19:06:14 +0100
-Message-ID: <20240906180618.12180-1-tursulin@igalia.com>
+ Luben Tuikov <ltuikov89@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org
+Subject: [RFC 2/4] drm/sched: Always wake up correct scheduler in
+ drm_sched_entity_push_job
+Date: Fri,  6 Sep 2024 19:06:16 +0100
+Message-ID: <20240906180618.12180-3-tursulin@igalia.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240906180618.12180-1-tursulin@igalia.com>
+References: <20240906180618.12180-1-tursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -62,37 +67,55 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-In a recent conversation with Christian there was a thought that
-drm_sched_entity_modify_sched() should start using the entity->rq_lock to be
-safe against job submission and simultaneous priority changes.
+Since drm_sched_entity_modify_sched() can modify the entities run queue
+lets make sure to only derefernce the pointer once so both adding and
+waking up are guaranteed to be consistent.
 
-The kerneldoc accompanying that function however is a bit unclear to me. For
-instance is amdgpu simply doing it wrongly by not serializing the two in the
-driver? Or is the comment referring to some other race condition than which is
-of concern in this series?
-
-To cut the long story short, first three patches try to fix this race in three
-places I *think* can manifest in different ways.
-
-Last patch is a trivial optimisation I spotted can be easily done.
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: b37aced31eb0 ("drm/scheduler: implement a function to modify sched list")
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Luben Tuikov <ltuikov89@gmail.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.7+
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Tvrtko Ursulin (4):
-  drm/sched: Add locking to drm_sched_entity_modify_sched
-  drm/sched: Always wake up correct scheduler in
-    drm_sched_entity_push_job
-  drm/sched: Always increment correct scheduler score
-  drm/sched: Optimise drm_sched_entity_push_job
-
- drivers/gpu/drm/scheduler/sched_entity.c | 17 ++++++++++++-----
- drivers/gpu/drm/scheduler/sched_main.c   | 21 ++++++++++++++-------
- include/drm/gpu_scheduler.h              |  1 +
- 3 files changed, 27 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index ae8be30472cd..62b07ef7630a 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -599,6 +599,8 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 
+ 	/* first job wakes up scheduler */
+ 	if (first) {
++		struct drm_sched_rq *rq;
++
+ 		/* Add the entity to the run queue */
+ 		spin_lock(&entity->rq_lock);
+ 		if (entity->stopped) {
+@@ -608,13 +610,15 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 			return;
+ 		}
+ 
+-		drm_sched_rq_add_entity(entity->rq, entity);
++		rq = entity->rq;
++
++		drm_sched_rq_add_entity(rq, entity);
+ 		spin_unlock(&entity->rq_lock);
+ 
+ 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+ 			drm_sched_rq_update_fifo(entity, submit_ts);
+ 
+-		drm_sched_wakeup(entity->rq->sched, entity);
++		drm_sched_wakeup(rq->sched, entity);
+ 	}
+ }
+ EXPORT_SYMBOL(drm_sched_entity_push_job);
 -- 
 2.46.0
 
