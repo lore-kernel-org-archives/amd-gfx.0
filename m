@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C388E6FE49
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 18:06:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD9CE6FE41
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 18:06:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E89BF10EACA;
-	Fri,  6 Sep 2024 18:06:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE8A10EAC2;
+	Fri,  6 Sep 2024 18:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GEVHNJJY";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HDWjHrzm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D03110EAC1;
- Fri,  6 Sep 2024 18:06:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA07C10EAC8;
+ Fri,  6 Sep 2024 18:06:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=LbRKQC2natDUa9uyMFRK4EkFcMdJKzCTr7qA14B0ZsM=; b=GEVHNJJY0gMk64Jjm2g93r+ABL
- xQW0QLOZUhxkSsVtr7zqVOLz+gUZGJG5K78vSFiC4oFCuXXxST1xDpv5sAtRmekoSHmDPP6PoKyza
- 0N8xfv2B/6G+UtgVdWgFt6W7hJL3HMu5FOb+j87l3FWv3rQd/z8leHjd3NWVOXJKb2mAm64LFORjp
- UlAVRoDuiPL63SgXcHoTz75nyNHmkE/OAWfbPAeYlQ8/BP0e467f3KiToYJSI7PnEjSKNwkB9JawR
- i/kgZYoVWUMrGv8/ero7/NIDV3+ski88WrffR6tvCECmZeUoeZYp7+LJ5pydArdVb3JKtVf+daSz1
- dS9kJaPw==;
+ bh=B6Je/GuKTuzWI/jSUdpsY+Trv/9UUu9HqiWNpGJQlBs=; b=HDWjHrzm/mtLsWX/5RjzHLym0D
+ ImJSMY5uvII+V7JavJQg6EZapNYm5FnTrbeA/W0lwWZAn5raU4x23MPiSIZPwQnyqMxdC93NCjifo
+ zl+ZlMytgLBp426UZx9EKu2HX5wvtr3tYaOwcWvKuUMYzY+ex99ILcyXKTm/rse0bShfdQBGHiG6R
+ lJasRPUfE6n5X+0Q+4eQdqtBJylS+cfXMHBa4Du16lV9pE0K3zQS3I+W+7Fo8MkoPEoqjawamN5ju
+ NY89j+iOJK1Q4KGNxtHIoMufCfecOH5iP+Zlg6+/3nXMoKPcrv1ydWr/wzEI/FCW7ihnWmbqZzwOT
+ Iow0CFvA==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1smdLl-00AW6J-2R; Fri, 06 Sep 2024 20:06:24 +0200
+ id 1smdM2-00AW7R-DO; Fri, 06 Sep 2024 20:06:41 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org
-Subject: [RFC 1/4] drm/sched: Add locking to drm_sched_entity_modify_sched
-Date: Fri,  6 Sep 2024 19:06:15 +0100
-Message-ID: <20240906180618.12180-2-tursulin@igalia.com>
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [RFC 0/2] drm/amdgpu: No need for dynamic DRM priority?
+Date: Fri,  6 Sep 2024 19:06:37 +0100
+Message-ID: <20240906180639.12218-1-tursulin@igalia.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240906180618.12180-1-tursulin@igalia.com>
-References: <20240906180618.12180-1-tursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -66,51 +61,43 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Without the locking amdgpu currently can race
-amdgpu_ctx_set_entity_priority() and drm_sched_job_arm(), leading to the
-latter accesing potentially inconsitent entity->sched_list and
-entity->num_sched_list pair.
+In a recent conversation with Christian there was a thought that dynamic DRM
+scheduling priority changes are not required, or even not desired (actively
+prevented?!), and can be ripped out.
 
-The comment on drm_sched_entity_modify_sched() however says:
+For more context, starting point for that conversation was me observing that
+they (dynamic changes) work relatively poorly - only if the entity is idle. As
+such I proposed to fix it, but Christian countered with a proposal to rip it out
+completely.
 
-"""
- * Note that this must be called under the same common lock for @entity as
- * drm_sched_job_arm() and drm_sched_entity_push_job(), or the driver needs to
- * guarantee through some other means that this is never called while new jobs
- * can be pushed to @entity.
-"""
+So for better or worse, that is what this RFC is about.
 
-It is unclear if that is referring to this race or something else.
+I can imagine something to regress, in theory at least, if there are clients
+which use priority override in a way where today it could work, and on engines
+with no hw priority support. In which case what would be somewhat spread over
+different run queues would now permanently be where it started.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: b37aced31eb0 ("drm/scheduler: implement a function to modify sched list")
+Advantage I guess is that removing it we can remove the misleading
+drm_sched_entity_set_priority() from the core. Misleading because I suspect it
+is quite difficult to figure out it has that "entity idle" behaviour (which
+comes from the drm_sched_entity_select_rq() implementation details).
+
+Another possibility is that people will hand wave away the concern priority
+change might never happen as hypothetical. That in practice there would be an
+idle point where it would trigger, and that for the rest we do not care.
+
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <ltuikov89@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.7+
----
- drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 58c8161289fe..ae8be30472cd 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -133,8 +133,10 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- {
- 	WARN_ON(!num_sched_list || !sched_list);
- 
-+	spin_lock(&entity->rq_lock);
- 	entity->sched_list = sched_list;
- 	entity->num_sched_list = num_sched_list;
-+	spin_unlock(&entity->rq_lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_modify_sched);
- 
+Tvrtko Ursulin (2):
+  drm/amdgpu: Remove dynamic DRM scheduling priority override
+  drm/sched: Remove drm_sched_entity_set_priority
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c  |  4 ----
+ drivers/gpu/drm/scheduler/sched_entity.c | 22 ++--------------------
+ include/drm/gpu_scheduler.h              |  2 --
+ 3 files changed, 2 insertions(+), 26 deletions(-)
+
 -- 
 2.46.0
 
