@@ -4,141 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EF4FE6FE33
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 17:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 900ADE6FE3B
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 17:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5FAE10E168;
-	Fri,  6 Sep 2024 17:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD3C10E133;
+	Fri,  6 Sep 2024 17:47:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uI7rwMOY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DHXCp0Yh";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8913B10E168
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 17:34:10 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A3BF10EAB5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 17:47:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I4HLrE6KcvJ/Ji25Paz2rXgZajymDhdXtvvpOaE1RM/h67PbGtD68lmEyERtc1OEvKl05m02NDzWGxgp7blbrddwybnZh+B2CKw3Eux58bO943wodH+O8OSK28mKPcZbqwx9Z2aWEG4gDhh5dMv/oqL2DjFoG4JdU5QFTrzUy67WlYmJjiE7LCMMCppWLw0F3gSCmAAy23LWduw4HcrNJ+yX0tczMBdmwGTOMBQvC1Gh2FHcRKGH6BYfG+Zt0OfOy9diQOTgYpU+b4GNm4vsY0Ld49+PWqYK1wJopSaiO5lGvRo+ePCfwPGMU3O0oBNwey5Foq8PvO4bJyVJBxPo5A==
+ b=g/+ZKouzpTe1wsDfnWXtjmsNGFTGpuMuSkOBcDXqJMA3ob61qXxyso1rApzMIJtYO8/LamXU8y5XJI/NZ6RTmba49bfbOWPaJxnDAXi6L8HNiMIBQD70WJUVrvGGStllFJc2TV5nC08QECt9QJoZ+haI7CZokHeNSgUrQF+Dp+Zs/n0cKgNZn+6qanrVxVTbzkz1SHDEoSmOeyA0i7MjN9wGxnl/iNvy66u3F843SuxX0b5l+ON0WTsb/JYACMQSRggFekFuCUyxkcGWS6Kn1A5MvajMx2yzho4tKdrOoc/U20o5I+KLhB9YiM0icfW+JSen6i+4Sbj/TuUuS3S5FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BvVa3CnJR80zk6YEDXdeKap9kjqqF9uB/uj8VqjFx1c=;
- b=HwAU6DEyqjD6oVzVBD9/BrsYWgdxQhUiOObzhbhU5r2D5FziL1QfjTJnRV672kzgYWJJXZ+Kla5/8+LF6/uFy8Q9hjmQ8ZljaJi0ypgJ3XkmCsvov4O/wm8exs4YsuxD7OOgTracjAzliobAK4gCwPnoYrYR9NUQVtLkJaS22iTr36lMwZbZww4KGeQ4BnLKZwUpQwH4VfpOfBndCQTVLAmMrtvDS3qk1eMF3AATlG8/Ot7OumTDU+kJf1RrUHpkB+Vxc3EbD6ZiDUUeBXyZsblLVBtJ3Vbg23LFofAOGdOgXdXtNtTHzcJO1w8WhLEY4gCDwHvz06Bh9rY4xslXQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=gVS3p2EN5yHh3uRBLlLiusT9iCUsEyRgDvBAusW7OY8=;
+ b=TAKKuecTzddQIT5tthQKtPf0x0HJn5P35ULOQXsGRGvet8XcNShIubozjavYua6nLas9VNRXSSnkGW2b+C7yiRTqMq2xtjC3Y9eTj4eFpfcjpA+CCu4Kc1YpHAr75kwvU3zTzO+MzNve2xPIUHGLnkvNxj+Z+TkgSaaiLgGaqPBJMnzd+2iT3a9rQttbGUNAB/tElbEHYeg2+WsRRJoksa8i1GNVr8w/Iaas9j5ivkygxOEYP7shj3MYj2D4q4iJIlElJyG2yHm9ANePBAIq5n7Fkr0AS94NcdIWeZippppcs9x2WP0ir6eHDQO2XGTKSjR7JtcVXmPxZChtPI4plQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BvVa3CnJR80zk6YEDXdeKap9kjqqF9uB/uj8VqjFx1c=;
- b=uI7rwMOYKDBvD1swFnGdE6B72KRM+PY7Clgxp9bRQueM8aGpGwsAUtzDa1JDQvkzRG3gDbOAqQ8KIj3HX0z7hlIFDYUvCtdL9zNSEimKaSgXdpxvVtcS/aYKDg4oV2dsQemsjEBKc35EQtcNGF2PRRRDWPkGtUxTLGRZOKnk+rg=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by SA1PR12MB6948.namprd12.prod.outlook.com (2603:10b6:806:24f::17)
+ bh=gVS3p2EN5yHh3uRBLlLiusT9iCUsEyRgDvBAusW7OY8=;
+ b=DHXCp0YhSOvhggL1bc8kmLb6dXlq3ej1AENrCMAqsxi7uPDxFWsqYvwRbtasTb61lP9cUOnJqg6Gntm5iOc5yudvCKbcdhBodjKAR3GBclUWV6dBAJjpRsl+urC+R9GjJbek8bLqwyDd1aF8m95zB8MFNoK4BkXnaXZ14DrlyJc=
+Received: from SJ0PR05CA0092.namprd05.prod.outlook.com (2603:10b6:a03:334::7)
+ by CH3PR12MB8188.namprd12.prod.outlook.com (2603:10b6:610:120::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27; Fri, 6 Sep
- 2024 17:34:06 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::b111:2482:eb49:3186]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::b111:2482:eb49:3186%5]) with mapi id 15.20.7918.024; Fri, 6 Sep 2024
- 17:34:06 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: update suspend status for aborting from
- deeper suspend
-Thread-Topic: [PATCH] drm/amdgpu: update suspend status for aborting from
- deeper suspend
-Thread-Index: AQHa/Q/9NyJRCdHMEUaj9C+X/ICUOLJI0mEAgAI4498=
-Date: Fri, 6 Sep 2024 17:34:06 +0000
-Message-ID: <BN9PR12MB5146FB172036F9601B38C3E6F79E2@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20240902081311.2918278-1-Prike.Liang@amd.com>
- <DS7PR12MB600580C6E52BE6734FD7F0F7FB9D2@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB600580C6E52BE6734FD7F0F7FB9D2@DS7PR12MB6005.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-09-06T17:34:05.544Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|SA1PR12MB6948:EE_
-x-ms-office365-filtering-correlation-id: 103a07ad-ab3d-4ae6-36ed-08dcce9a1b81
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?+V3IFXDfT29/20A+siQTeoM4TdFvPbBdqlPCSxJVtm1rjkH7zeAapQBeUtfY?=
- =?us-ascii?Q?lgPwnHUMrQnhdeGYuxsl36GdEfAQFgUP8/unh1jDM5CYVnG3GAnbut2Zk0Qu?=
- =?us-ascii?Q?9h32kYJZPB6Bti6m2+YVs7pNCnDUpQ/fJEqu4EH692a9xLGJ4lEnP67v7FEq?=
- =?us-ascii?Q?2ayzuUe4B+1upvBIOkvc8DwE50TS/aDEt6r5XqFzcS5zwXIabQEMbM9CshJU?=
- =?us-ascii?Q?2o41FAxVpMGwgB9BTIJePEwHLELckQXoJfsbGQC2XlN1hUvMq5gFGKopGxH5?=
- =?us-ascii?Q?Re3u67/iJFlL6nRMxRRVzM3yfXKP85GzSGxI80ZtpaoV/6pgdjnNeEpwM0Pp?=
- =?us-ascii?Q?LJm7Tw7tgLY07ebsimAj5NJ8k8hrqJ9dNGhy4Qgq476rSZAalN9EkKnP7eam?=
- =?us-ascii?Q?hgWan4ZjIabdTUHmX8SBQAlSTDFGKZ8DpeXlnH5NCfB0XwN0Q1Qk6ZAgp8KJ?=
- =?us-ascii?Q?xj3hn2e45xoxid88hgSZYuFTzzb1iOfRU/h8dUECl8yDh36OZrjCgRGj+2aM?=
- =?us-ascii?Q?Vitg6ZDOV//BUhvyt4Jm5VkBp76MHPIv7y8rs0EjKo6HKdGFjthVndcTqts6?=
- =?us-ascii?Q?yXi7Mpw1OyD37t3a3zE/x3RZmUHffSLw4+94oQTNk3ZmsnmAxiqaBcNmWd5y?=
- =?us-ascii?Q?cRuYlqPJYeSWoYW8ASHrflT1djhWccLHk63LtAEqE7q1YSLbVyRhUFvZcSdA?=
- =?us-ascii?Q?cwGaT+qJiM1oSa/1vkOXf8HL/f6HCCdp4IAV9BHBRvx8uIWosYWXHosJVVAu?=
- =?us-ascii?Q?OR2BJ+6LoprJUhEubHvNgSI3P8Nb8R7LplXZ8qQAUnrmlw5kim32G14akkm5?=
- =?us-ascii?Q?r8AjRk57A0wvaqCHCQkSEWb2NcM7//DMVjcTs6mFrwVx6KeeY+n64aahYo4E?=
- =?us-ascii?Q?MOZwugprzv8yq1qyW0IIPTsEnzpVGX198c/JHyciKStOjSWqsjSR9ioAK8sv?=
- =?us-ascii?Q?kPGhEG7VQYkhwQ/N2Bo0lkQZkTWBnIUmRBPtWfclJJuPYMpkD7oiSaWov/5E?=
- =?us-ascii?Q?qBJ3ZA1Wkw1sSoaDAqD2UCXJPvBsq+n+Pb7oQ4D9tz2dR4SdG/U/jUExpdIH?=
- =?us-ascii?Q?L9KWpGk8FKa3Cks4qtm9Gp91Y2fJovHqK0xpMWUK9h7UFULv+jL+e3TCBS5c?=
- =?us-ascii?Q?RYvkuuXIalGmPF6BEpBRVV+GSOvmtUmUIwVgLBpALpI/XaveQVrDb5/zrynT?=
- =?us-ascii?Q?Evz8vHnfH0FxeuOl6rFEjsj/BbaWf6SdgT0CrHluwZw6UaE9bB6atyr5wdSu?=
- =?us-ascii?Q?yADDZsjTISSOkpdGTj/GD+uJ8IEm9/2sQdPc9a/YJ09+X9CaXZTGby7UGKPw?=
- =?us-ascii?Q?Einkhn0yMmgYTytTLkBzRROytelu5tA5tumhsWLTHd2IvrU3+wjWKb+ciENo?=
- =?us-ascii?Q?HwtBO0ZYBUJGHUUeoKTypTz2rORfIJ7fre25rMCUGIGmhK2uPA=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?az9TNdHSXIE8Bo259yFdroM/XN63dV+Rz9KXm6nRhthq21BvPPsqu79sO0zb?=
- =?us-ascii?Q?aAEwQl76wdUSnbhyCQPYaEoJPwo94Nw+Y5W4De4Vz8r83UE8o8jI1wu9mt/y?=
- =?us-ascii?Q?2vG4mu4+UZiijQbYg0b58fIaU1zosk1j1zoEkgc9NVLH51x7INLkzhsgg+7h?=
- =?us-ascii?Q?q8pUlPeGAyfSzGXl9s/1TRQkU3ZHwqkqkyajasMJQYX3SrNXyRgdfi95L1ae?=
- =?us-ascii?Q?JEm80udtY0TtifFHy0951THzV3lK74iOOYohTOJ4f4fY19pLA4u4YK4YQkoV?=
- =?us-ascii?Q?RlWmtslIE0F+wDBT9GB8aoJ3ty3VzSXhe2MBF06E/NCjKLtKjURYAawlgP65?=
- =?us-ascii?Q?qqEkaymIxp1bk/ivnlX5VTlDiukKd2e47Q+Xs1wmyeIzE023sRwi7nxqHVbZ?=
- =?us-ascii?Q?ME45cenTIJeCoZ22JcU10BPSlpcw5EhMcgCbCz2Ipjn+D07s+JXUfOMHkCdx?=
- =?us-ascii?Q?npVLbbqo95lexcs6Iou0ZccoM/fI1/qfUEwxtrBo2dloP1QGL0NLImt5cEJ2?=
- =?us-ascii?Q?7w/PIV+cvvD4mKssdbnWtYciChZ7W320DlxHjV2Hp07aCZvIzy0Rzg84dF00?=
- =?us-ascii?Q?QQhfBkWFPDYuz87Nz2GEVJ5KEvEn87+cFyOAFfTLEJ2s8OP7330niQRpmMk2?=
- =?us-ascii?Q?HHrBKmPfjflJUMLZI0zhN8ACCfEcXqJ+xXEQQBewUCvkU2xgvk+V+vysD7q8?=
- =?us-ascii?Q?9BGg8W3WKxcgR3NKyefCSZoa301ZRmiBpDcJq1PwpnIlxC8lMzc3NfuL2+7R?=
- =?us-ascii?Q?ixpFhayVlmXYiq6csQjIj1F94m+XSzAjuc5Av2ma5PDoAeJ1mvnT+rzn4raV?=
- =?us-ascii?Q?SJ8KQsA/SwLEabEpyedbNds04Ami28P2ZHS8tIaynUDYt5qU/OF7L7IrX0EI?=
- =?us-ascii?Q?4qHRRkar0xnlBsgfIyn5QOGaLRCv5QnrdLxfoZVWe4GsFjs2TjNvIT0M2OB1?=
- =?us-ascii?Q?fmkBqjTzIIGIaTbDdNdYohZHwkuBW+2qV8rIwLc+Sa6ZzD/EhiOYgw297xiW?=
- =?us-ascii?Q?UDbeefL3yxkWFDd3PNzYBbA0O6cK+t40pSTBhSRTusiGEbeeZvweWkQBMjKK?=
- =?us-ascii?Q?zB08kvvXvvnZm7x+GMFrnRsVM4xHi8wXTGOQGgd1sJcH53bptKJcjrBNqcmh?=
- =?us-ascii?Q?mUdW01ClRPK+gHzp/M7uuUHP5JiMzW+kejT97qc9y1ehV6eDVEqWUclYquyl?=
- =?us-ascii?Q?fdYkoDYZ3uvtsG+d1qbmDDuvbOoH2AT/ZrCjWP0lbDejM42LqRA5LSzKEtjQ?=
- =?us-ascii?Q?YQO4WUhwrkiKZSYfmWfW+jkHU5NcqnS4etIMibqhpXI1jDHZ8eZ0piq/ncj6?=
- =?us-ascii?Q?XuH1PQmhSWot7ojkt26+NyiTIwma9CutinKSivgW4h7bbpMwXDnlPW2YUgSP?=
- =?us-ascii?Q?UM5Cu0YVQUTKTAeP4uBZdwwHvH+6CDsumjBGxlNqmwcFJKzprZ74NMpV71c/?=
- =?us-ascii?Q?WYJ2xpl7dMU4ICK8nTnBBDEyDGtU1KbB2zCTnS6Q5XgK1vak4r12cDdJnLN0?=
- =?us-ascii?Q?z8WL3uffADtACSzsyDDMq092dAuWQ7qc3F7yGP86pbHR4pc2u0bwjV5u3Fvj?=
- =?us-ascii?Q?ZJn19bZcf9m6OpKNOJ8=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5146FB172036F9601B38C3E6F79E2BN9PR12MB5146namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.25; Fri, 6 Sep
+ 2024 17:47:23 +0000
+Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
+ (2603:10b6:a03:334:cafe::96) by SJ0PR05CA0092.outlook.office365.com
+ (2603:10b6:a03:334::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.14 via Frontend
+ Transport; Fri, 6 Sep 2024 17:47:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Fri, 6 Sep 2024 17:47:22 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Sep
+ 2024 12:47:21 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] Revert "drm/amdgpu: Add flags to distinguish vf/pf/pt mode"
+Date: Fri, 6 Sep 2024 13:47:06 -0400
+Message-ID: <20240906174706.2551531-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|CH3PR12MB8188:EE_
+X-MS-Office365-Filtering-Correlation-Id: a07623d2-e271-4e06-c37b-08dcce9bf679
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?faYDogpB4g6LkKmuCFLuo0sRDnfrvVXqKYCehZItLqV3BrqEKdVe02tHcsoX?=
+ =?us-ascii?Q?6uU8KOAXOuwleyu+f4sd/FVkJHakOr6yT8kLAkkhh6QDa3qjBsunJ23b4Htp?=
+ =?us-ascii?Q?BKWoP/7C/JyIYRu3hJcG8UiaLFTcRvvqBxqbLYnfkAJUhkcjrHiOJF+si64b?=
+ =?us-ascii?Q?KqfAdGo5z2IX527nDcL7sEY4SqN5Zr3GJejYMwPYEsbgun1fKjWIK+EO99hb?=
+ =?us-ascii?Q?RC3fO0JjUsvSGc0vhw1jQEXUR85UJRxb7tdsWMn22/rxXOoBnG6cT8P3wn2V?=
+ =?us-ascii?Q?zJFZD2kN6FYvV1VVbWTVTA8f7iMGvwq2HYc+VzqHm7Bw5ruKkwOLTRFsJ1ms?=
+ =?us-ascii?Q?DBzqSF+G8IIBLsJpOBzSvB8/vreDKVbaLSQTew3f45jzlfkow7cTmnty2ZZG?=
+ =?us-ascii?Q?25keObWmhJJqcAHuLSuy1zB+AHTCNdHqpjOn8TWy6rQ6nlyyw2woxkWerfho?=
+ =?us-ascii?Q?lWm3lmoXeIFs4il2xmnhh6s814zyu13aqpAzWLAUaCJxjCRLqYRf4nzRge3J?=
+ =?us-ascii?Q?bzbSMjc1op4ImGIIsCKaQG88xWwr/cGD48FVByp9HGH86CGIzgSw0eYma2Fh?=
+ =?us-ascii?Q?++pHiuXCaXje9m0Cdq47wGV1P4EhaUH8meAYi865gvcgBphrsYh/+6n/w9oI?=
+ =?us-ascii?Q?TUI1r/sCQHIWbGMRuegcJzGP1VWFMumDYGdN+r0cNRU9t1PDxu8IVUc69dFk?=
+ =?us-ascii?Q?8OjdyD/ajWa/dz3vXooA0jyA886sh9fF2ykfxdTBzdH6vvyfRjbWGCxsRsug?=
+ =?us-ascii?Q?HVmpbc1iRm37sw4bwkW7lufPWH7JSHHoMfIYMn8ayqamnxGF3U36VJfstsVj?=
+ =?us-ascii?Q?YTtw+fL2qtIdOPK/mhRYMWd2mgzk2Jb3K8mQpZhc7sIcPf5rKhRiUuSNA6BK?=
+ =?us-ascii?Q?HaNdx5Cwyv8LJ9z7s5QpSFPsmIrtzy2ZSjmFZKvjShuzV9pM2VQEMXBoJCSx?=
+ =?us-ascii?Q?MfCJZ8IZfcr6144WDQ1f8gTpqfj5+TIq0xDrJypjv9nYDxHfOg68VkZE797+?=
+ =?us-ascii?Q?9FViS17jYV+600gvTs4Vn9gedswmGtQcAdYZghh2Q5HuWBvGwoN3OaoajetB?=
+ =?us-ascii?Q?5Ly/eV4ANVspdTOgEWnP9lY+ttkb+kVR9oNGSnbM2VnAhHX+tYwSY0Xtku0D?=
+ =?us-ascii?Q?0AyKFJuRDWcs48lUYIn0YVi2jrRHPXSS4lo5C8CG2xTMjR9GPsnHLSsHNWgN?=
+ =?us-ascii?Q?2itMtZH9ng7I++1SSScb82Q4tz2QPjz7jKjKX/xULoeSau8HRBnA6qY5/eSL?=
+ =?us-ascii?Q?vyKfQjefEtvuGsIfxVFljNcjVMrsLX5PiGWLSP879QMetag8A2HYa7QV0XKS?=
+ =?us-ascii?Q?3nt8EjRAZtzqx6tFpVd75zqDDY/OUWmMQsOJiLqx6LcvfrqkDUzC/eJgSeiq?=
+ =?us-ascii?Q?uCeeEsmhex5eQ2BB4J5rVl6xgzMN++Nh4MIOGakmhAgn5bzLLONex18Y/0Lu?=
+ =?us-ascii?Q?apqckt7VbZD5rjLzUfHiEA7Lt4B8PRKo?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 103a07ad-ab3d-4ae6-36ed-08dcce9a1b81
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Sep 2024 17:34:06.1493 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oj4eWD7hNRwafXAnqSaK04nqzEdBCuH0rVEM02rGulSTNYy2Fmky7u+fzWFQOSzTjzUAZ7i33BxV0dRNAnrbLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6948
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2024 17:47:22.8320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a07623d2-e271-4e06-c37b-08dcce9bf679
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8188
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,213 +129,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5146FB172036F9601B38C3E6F79E2BN9PR12MB5146namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This reverts commit f03b874313cc9b5859596fe9c5b368387b6da771.
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+This is unused so far and has not gone upstream yet, so remove
+it until the userspace side is ready.
 
-Can you elaborate on how this fails?  Seems like maybe we should just get r=
-id of adev->suspend_complete and just check the MP0 SOL register to determi=
-ne whether or not we need to reset the GPU on resume.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  9 ---------
+ include/uapi/drm/amdgpu_drm.h           | 10 ----------
+ 3 files changed, 1 insertion(+), 21 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index f7ed1e356d96..d90473aec942 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -117,10 +117,9 @@
+  * - 3.56.0 - Update IB start address and size alignment for decode and encode
+  * - 3.57.0 - Compute tunneling on GFX10+
+  * - 3.58.0 - Add GFX12 DCC support
+- * - 3.59.0 - Add AMDGPU_IDS_FLAGS_MODE_PF, AMDGPU_IDS_FLAGS_MODE_VF & AMDGPU_IDS_FLAGS_MODE_PT
+  */
+ #define KMS_DRIVER_MAJOR	3
+-#define KMS_DRIVER_MINOR	59
++#define KMS_DRIVER_MINOR	58
+ #define KMS_DRIVER_PATCHLEVEL	0
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index d9fde38f6ee2..96af9ff1acb6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -888,15 +888,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (adev->gfx.config.ta_cntl2_truncate_coord_mode)
+ 			dev_info->ids_flags |= AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD;
+ 
+-		if (amdgpu_passthrough(adev))
+-			dev_info->ids_flags |= (AMDGPU_IDS_FLAGS_MODE_PT <<
+-						AMDGPU_IDS_FLAGS_MODE_SHIFT) &
+-						AMDGPU_IDS_FLAGS_MODE_MASK;
+-		else if (amdgpu_sriov_vf(adev))
+-			dev_info->ids_flags |= (AMDGPU_IDS_FLAGS_MODE_VF <<
+-						AMDGPU_IDS_FLAGS_MODE_SHIFT) &
+-						AMDGPU_IDS_FLAGS_MODE_MASK;
+-
+ 		vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
+ 		vm_size -= AMDGPU_VA_RESERVED_TOP;
+ 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 3e488b0119eb..e44362e74fa1 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -756,16 +756,6 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+ #define AMDGPU_IDS_FLAGS_TMZ            0x4
+ #define AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD 0x8
+ 
+-/*
+- *  Query h/w info: Flag identifying VF/PF/PT mode
+- *
+- */
+-#define AMDGPU_IDS_FLAGS_MODE_MASK      0x300
+-#define AMDGPU_IDS_FLAGS_MODE_SHIFT     0x8
+-#define AMDGPU_IDS_FLAGS_MODE_PF        0x0
+-#define AMDGPU_IDS_FLAGS_MODE_VF        0x1
+-#define AMDGPU_IDS_FLAGS_MODE_PT        0x2
+-
+ /* indicate if acceleration can be working */
+ #define AMDGPU_INFO_ACCEL_WORKING		0x00
+ /* get the crtc_id from the mode object id? */
+-- 
+2.46.0
 
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com>
-Sent: Thursday, September 5, 2024 3:36 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: update suspend status for aborting from de=
-eper suspend
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-According to the ChromeOS team test, this patch can resolve the S3 suspend =
-abort from deeper sleep, which occurs when suspension aborts after calling =
-the noirq suspend and before executing the _S3 and turning off the power ra=
-il.
-
-Could this patch get a review or acknowledgment?
-
-Thanks,
-Prike
-
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang@amd.com>
-> Sent: Monday, September 2, 2024 4:13 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
-> <Prike.Liang@amd.com>
-> Subject: [PATCH] drm/amdgpu: update suspend status for aborting from
-> deeper suspend
->
-> There're some other suspend abort cases which can call the noirq suspend
-> except for executing _S3 method. In those cases need to process as
-> incomplete suspendsion.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 8d16dacdc172..cf701bb8fc79 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -587,11 +587,13 @@ static bool soc15_need_reset_on_resume(struct
-> amdgpu_device *adev)
->        * 2) S3 suspend abort and TOS already launched.
->        */
->       if (adev->flags & AMD_IS_APU && adev->in_s3 &&
-> -                     !adev->suspend_complete &&
-> -                     sol_reg)
-> +                     sol_reg) {
-> +             adev->suspend_complete =3D false;
->               return true;
-> -
-> -     return false;
-> +     } else {
-> +             adev->suspend_complete =3D true;
-> +             return false;
-> +     }
->  }
->
->  static int soc15_asic_reset(struct amdgpu_device *adev)
-> --
-> 2.34.1
-
-
---_000_BN9PR12MB5146FB172036F9601B38C3E6F79E2BN9PR12MB5146namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Can you elaborate on how this fails?&nbsp; Seems like maybe we should just =
-get rid of adev-&gt;suspend_complete and just check the MP0 SOL register to=
- determine whether or not we need to reset the GPU on resume.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Alex</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
-e.Liang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, September 5, 2024 3:36 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: update suspend status for aborting =
-from deeper suspend</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
-y - AMD Internal Distribution Only]<br>
-<br>
-According to the ChromeOS team test, this patch can resolve the S3 suspend =
-abort from deeper sleep, which occurs when suspension aborts after calling =
-the noirq suspend and before executing the _S3 and turning off the power ra=
-il.<br>
-<br>
-Could this patch get a review or acknowledgment?<br>
-<br>
-Thanks,<br>
-Prike<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
-&gt; Sent: Monday, September 2, 2024 4:13 PM<br>
-&gt; To: amd-gfx@lists.freedesktop.org<br>
-&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liang, Prike=
-<br>
-&gt; &lt;Prike.Liang@amd.com&gt;<br>
-&gt; Subject: [PATCH] drm/amdgpu: update suspend status for aborting from<b=
-r>
-&gt; deeper suspend<br>
-&gt;<br>
-&gt; There're some other suspend abort cases which can call the noirq suspe=
-nd<br>
-&gt; except for executing _S3 method. In those cases need to process as<br>
-&gt; incomplete suspendsion.<br>
-&gt;<br>
-&gt; Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c | 10 ++++++----<br>
-&gt;&nbsp; 1 file changed, 6 insertions(+), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; index 8d16dacdc172..cf701bb8fc79 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; @@ -587,11 +587,13 @@ static bool soc15_need_reset_on_resume(struct<br=
->
-&gt; amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * 2) S3 suspend abort and TO=
-S already launched.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;flags &amp; AMD_IS_AP=
-U &amp;&amp; adev-&gt;in_s3 &amp;&amp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !adev-&gt;suspend_compl=
-ete &amp;&amp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sol_reg)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sol_reg) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; adev-&gt;suspend_complete =3D false;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; return true;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; adev-&gt;suspend_complete =3D true;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return false;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt;&nbsp; static int soc15_asic_reset(struct amdgpu_device *adev)<br>
-&gt; --<br>
-&gt; 2.34.1<br>
-<br>
-</span></font></div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BN9PR12MB5146FB172036F9601B38C3E6F79E2BN9PR12MB5146namp_--
