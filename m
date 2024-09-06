@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4470DE6FE3D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 18:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F13E6FE41
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Sep 2024 18:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE4DE10EAD1;
-	Fri,  6 Sep 2024 18:13:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C12E10EAE1;
+	Fri,  6 Sep 2024 18:51:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k8R8R4lf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hOER9/GN";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC61E10EAD1;
- Fri,  6 Sep 2024 18:13:06 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2055a524017so2302745ad.1; 
- Fri, 06 Sep 2024 11:13:06 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8527710EAE3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Sep 2024 18:51:29 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-53658e2d828so189994e87.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Sep 2024 11:51:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725646386; x=1726251186; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725648687; x=1726253487; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jUzqVU8pKQuDKjf52S6dQCpWz0z0waevX8Zrg/GC9W0=;
- b=k8R8R4lfzr9Sb3ZejRVRttIrlIInOI3/dRwoD7P73hQBWnVhw55uIv/fp63KiAw3yK
- uR9/Z2nBuFDOhaOBJRN9o6QKj7gdP9xqcsuMGHwNhOXGV7T8GZI5eaBZ+2NNR/orDvYd
- uRGbcu27j0IC6bibUMGk4oqewHGJn621Qv5HEMAgncGO1qfqh0CCMlViqMRfIUdk2Y1l
- roJHRjzWUDqLim3kM0J3HN1uF+NJotO4VdkGfr0AqJdZtYHjZvULcZqA9iDlkmViIW7P
- ll2EzCeKCZR997ZSpwO9xJm599c4oNH/ypQdZRug2om0M9sEpd0+r+gJp7f2AIGWCgK5
- Ro+w==
+ bh=YRkzaF+INMGyNgh8kxikeSbP2MwJGClbp9spCWx4ZwQ=;
+ b=hOER9/GNKI2ofUeOcXDvVP8GNTYiUUJDX1OgnyhkmseCgJAGm0MmLRLV7iKbI+bdGm
+ MslQQ7CmmeG6enJgzw0PMtidZG7+tsvPiT2WiRrHMzWxnJ7MgToDcYzyzgVEcW2EOe70
+ JwE/QKGoLjB0L6l18rnwtaXxJEdLJS6ju/2cn3mxzG3TO/pTX+ygzsTHeOywS3xixqne
+ xi3qIRlIlFBm2XW9h+2GD+iSRuZQUnUt0/253Ukitq1CkCoRq54p65o/kVitIO2ZTV0Y
+ /q8AZGJeyO9jzaKGJ5ocFIoB1NzOy/ndgzi9b6q2VcV8RA4woXNeEp+r9fs93TlupqYp
+ Tgpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725646386; x=1726251186;
+ d=1e100.net; s=20230601; t=1725648687; x=1726253487;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jUzqVU8pKQuDKjf52S6dQCpWz0z0waevX8Zrg/GC9W0=;
- b=Dtxuqc/62M2pNRhxs9ZCohQguaqg+r5dKf/m/HrSWMx4Pp8EOsAaKieP1Qw7PIB23X
- XPtGLzc9MtVY2n+rSMNKJ4rJVnUPKkM3Il066fHXcirtqxH8avJSGcQEFO19SXOz8/wW
- tzO6XWDdETnLiU+EaEaGqB+n93XHm3npmevfckzK2pQx4QSesZnROxZTjY9NmMSmjAt5
- N+QvhRF2MBL3XsDEQzq6ROcBusRs8xN96dfGbthvUTx01SbjgGet2Dcc3xc+fBzhD+1d
- M35zazWTUz3Xo7eIzxwUKf8HRd1SZT1KPGGqazlXH9WYbNISkPdHqezEqaLyS/1w1Joa
- jYiw==
+ bh=YRkzaF+INMGyNgh8kxikeSbP2MwJGClbp9spCWx4ZwQ=;
+ b=dHRVGMtRN6gnMU9j/4rxRfIzmeSSgorSFHuDys7X1usYr0trtx7bBDPr55VFA199KM
+ x4JNdCC4ZLesv97jcobGOmixXXrWvtiB4eovpabqLZ3MeFu+M7AyGPJDc/7G9ObMnlL6
+ JguVUbIHhCA1G2IrqS1bpNOgFy/6abvkYF0NT4z3BZuFuZwHVpOqFjn4Ukt2PppNEkz7
+ p8VR0TD0qIZS3UGolWoCexrrNa932khcTvNimpkPF9P8B64EBSPpD3AJRSoBHNZc4cTn
+ YEo+FQS5w5NJmJlKcISIK+DWuJljwJo4ODExJLSbCZqEJOrGdFkngQsSH3ERdpyA8eVw
+ A72g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5PsvFebjrqT3mfMSh7xOk+YfpOrQIgnTdkd2zoR2fskl86wC7oOFMOTusBO/SruV6xHKvTTMJ@lists.freedesktop.org,
- AJvYcCXlrDFbTX5P7neEq6JPZOnCzzsvkV82O8tVIGfP0p9LOqdFjvZmmfz73DrqITVxvIl7yfPuBHJyfUTa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYw+WL8SqD6nwdj66l+OD0IWF6yOeWZ/wSIWNY4AcLh+CXlj5W
- VFos9lcwF4VqxyZh9lbgpMoY8x5oVlMltGLQwQ3LdcczktTndyF+8izKLVPk+yW558S7j2Rheui
- L5h/3j/DZd00OKwo9ZlhruT9KREQ=
-X-Google-Smtp-Source: AGHT+IHfe8dIRPqArpvxKNQUJnmVWK0vqGqXZ/qCAjrrwVnRJfbn74Pmzo/9+yTC4auz9khUJpVO90Dc1mUVnALjbT8=
-X-Received: by 2002:a17:902:e5c6:b0:206:b8b7:883 with SMTP id
- d9443c01a7336-206f04b2ef9mr19979045ad.1.1725646386058; Fri, 06 Sep 2024
- 11:13:06 -0700 (PDT)
+ AJvYcCVCTy2wAliH3alu2wX3dguCC0nz0RWJJKX7+xZI7S2j23ovFQNelqi/VHzFK5ArXL7LSzb2y5P8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwE3ljHUWo2pjfYnfzlL4QstfIkxSyy56oNtvzdwfeHxCJd//gA
+ 3qrxXzX1QnsHVnb9iut+DbdaWjZNNN8s93VNF+gb3imcdffQu0XU+rJQHRHP1bxeETJa4KR9SA1
+ MxpnJlB6mnOolstVNSZz4z2RGzV8IPA==
+X-Google-Smtp-Source: AGHT+IEpmIsGdb1w2p2DQJTo/LgAG0EDJ3Tp4hEz8QsUx3ziceH2DzFKyIfesw+2D19sKaaSagew10vZ47xhhHunINs=
+X-Received: by 2002:a05:6512:3ba4:b0:535:4144:d785 with SMTP id
+ 2adb3069b0e04-5365881cf56mr1291408e87.11.1725648687124; Fri, 06 Sep 2024
+ 11:51:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240813135712.82611-1-tursulin@igalia.com>
- <20240813135712.82611-2-tursulin@igalia.com>
- <CADnq5_Pv8B+nXkO3t05VLger+zwLN7PRDcB44K-=wXWo3CymhQ@mail.gmail.com>
- <8c732c8e-27d3-46f8-83fe-6b3edb835d95@igalia.com>
-In-Reply-To: <8c732c8e-27d3-46f8-83fe-6b3edb835d95@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 6 Sep 2024 14:12:54 -0400
-Message-ID: <CADnq5_NbC3NORJVCYifPDOP8Qt84RN=M0Cwa_LKpMKH8stRF9w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] Documentation/gpu: Document the situation with
- unqualified drm-memory-
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.keonig@amd.com>, 
- Rob Clark <robdclark@chromium.org>
+References: <20240829172645.1678920-1-alexander.deucher@amd.com>
+ <c52a3df8-dcad-4fc7-8051-b8a05e1b49f2@amd.com>
+ <CAAxE2A6HqOqx3jYkGDtHYd=NRSWY__+JYE6enF=skcpwYBtYhQ@mail.gmail.com>
+ <CADnq5_MqtR9govD=dyWt79Roit8n4danMNJVQYUo6Sg0TD=y3Q@mail.gmail.com>
+In-Reply-To: <CADnq5_MqtR9govD=dyWt79Roit8n4danMNJVQYUo6Sg0TD=y3Q@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Fri, 6 Sep 2024 14:50:50 -0400
+Message-ID: <CAAxE2A4DWxbRdVthZVLtGAkgggctXrj9x5G=b4Dn16u=tu0wEw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always allocate cleared VRAM for GEM
+ allocations
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,159 +84,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 4, 2024 at 4:36=E2=80=AFAM Tvrtko Ursulin <tvrtko.ursulin@igali=
-a.com> wrote:
+On Fri, Sep 6, 2024 at 1:53=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com>=
+ wrote:
 >
->
-> On 21/08/2024 21:47, Alex Deucher wrote:
-> > On Tue, Aug 13, 2024 at 9:57=E2=80=AFAM Tvrtko Ursulin <tursulin@igalia=
-.com> wrote:
-> >>
-> >> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> >>
-> >> Currently it is not well defined what is drm-memory- compared to other
-> >> categories.
-> >>
-> >> In practice the only driver which emits these keys is amdgpu and in th=
-em
-> >> exposes the current resident buffer object memory (including shared).
-> >>
-> >> To prevent any confusion, document that drm-memory- is deprecated and =
-an
-> >> alias for drm-resident-memory-.
-> >>
-> >> While at it also clarify that the reserved sub-string 'memory' refers =
-to
-> >> the memory region component, and also clarify the intended semantics o=
-f
-> >> other memory categories.
-> >>
-> >> v2:
-> >>   * Also mark drm-memory- as deprecated.
-> >>   * Add some more text describing memory categories. (Alex)
-> >>
-> >> v3:
-> >>   * Semantics of the amdgpu drm-memory is actually as drm-resident.
-> >>
-> >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> >> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >> Cc: Christian K=C3=B6nig <christian.keonig@amd.com>
-> >> Cc: Rob Clark <robdclark@chromium.org>
-> >> ---
-> >>   Documentation/gpu/drm-usage-stats.rst | 25 ++++++++++++++++++++++---
-> >>   1 file changed, 22 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu=
-/drm-usage-stats.rst
-> >> index a80f95ca1b2f..ff964c707754 100644
-> >> --- a/Documentation/gpu/drm-usage-stats.rst
-> >> +++ b/Documentation/gpu/drm-usage-stats.rst
-> >> @@ -144,7 +144,9 @@ Memory
-> >>
-> >>   Each possible memory type which can be used to store buffer objects =
-by the
-> >>   GPU in question shall be given a stable and unique name to be return=
-ed as the
-> >> -string here.  The name "memory" is reserved to refer to normal system=
- memory.
-> >> +string here.
-> >> +
-> >> +The region name "memory" is reserved to refer to normal system memory=
-.
-> >>
-> >>   Value shall reflect the amount of storage currently consumed by the =
-buffer
-> >>   objects belong to this client, in the respective memory region.
-> >> @@ -152,6 +154,9 @@ objects belong to this client, in the respective m=
-emory region.
-> >>   Default unit shall be bytes with optional unit specifiers of 'KiB' o=
-r 'MiB'
-> >>   indicating kibi- or mebi-bytes.
-> >>
-> >> +This key is deprecated and is an alias for drm-resident-<region>. Onl=
-y one of
-> >> +the two should be present in the output.
-> >> +
+> On Fri, Sep 6, 2024 at 10:18=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@gma=
+il.com> wrote:
 > >
-> > I'm not sure how best to handle this.  What should amdgpu do?  We have
-> > customers out in the field using these existing fields and then with
-> > patch 2, they go away.  Arguably we'd want both for backwards
-> > compatibility.
+> > Can you also bump the DRM version, so that userspace knows when to
+> > skip its own clear?
 >
-> Exactly, so it looks you maybe missed that 2/2 is not removing the
-> amdgpu "legacy" drm-memory-. It keeps outputting it and also duplicating
-> under drm-resident-. This is mentioned in the commit paragraph:
->
-> """
-> Legacy keys have been preserved, with the outlook of only potentially
-> removing only the drm-memory- when the time gets right.
-> """
->
-> Put differently, I don't think 2/2 should break the existing
-> tools/parsers. Only if they have hardcoded assumptions about the order
-> of keys perhaps?
+> Sure, although going forward, it might be better to migrate to a
+> generic flags query in the INFO ioctl so we can just check for various
+> feature bits so we can backport functionality to older kernels more
+> easily.
 
-You're right.  I totally missed that part.  The series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Happy to take the patches through my tree or patch 2 via mine and
-patch 1 via drm-misc.
+How it's exposed is up to you.
 
-Alex
-
->
-> Regards,
->
-> Tvrtko
->
-> >>   - drm-shared-<region>: <uint> [KiB|MiB]
-> >>
-> >>   The total size of buffers that are shared with another file (e.g., h=
-ave more
-> >> @@ -159,20 +164,34 @@ than a single handle).
-> >>
-> >>   - drm-total-<region>: <uint> [KiB|MiB]
-> >>
-> >> -The total size of buffers that including shared and private memory.
-> >> +The total size of all created buffers including shared and private me=
-mory. The
-> >> +backing store for the buffers does not have to be currently instantia=
-ted to be
-> >> +counted under this category.
-> >>
-> >>   - drm-resident-<region>: <uint> [KiB|MiB]
-> >>
-> >> -The total size of buffers that are resident in the specified region.
-> >> +The total size of buffers that are resident (have their backing store=
- present or
-> >> +instantiated) in the specified region.
-> >> +
-> >> +This is an alias for drm-memory-<region> and only one of the two shou=
-ld be
-> >> +present in the output.
-> >>
-> >>   - drm-purgeable-<region>: <uint> [KiB|MiB]
-> >>
-> >>   The total size of buffers that are purgeable.
-> >>
-> >> +For example drivers which implement a form of 'madvise' like function=
-ality can
-> >> +here count buffers which have instantiated backing store, but have be=
-en marked
-> >> +with an equivalent of MADV_DONTNEED.
-> >> +
-> >>   - drm-active-<region>: <uint> [KiB|MiB]
-> >>
-> >>   The total size of buffers that are active on one or more engines.
-> >>
-> >> +One practical example of this can be presence of unsignaled fences in=
- an GEM
-> >> +buffer reservation object. Therefore the active category is a subset =
-of
-> >> +resident.
-> >> +
-> >>   Implementation Details
-> >>   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>
-> >> --
-> >> 2.44.0
-> >>
+Marek
