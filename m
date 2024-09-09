@@ -4,52 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9A97ECE579
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAECFECE579
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:20:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E706A10E610;
-	Mon,  9 Sep 2024 17:19:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 780AB10E617;
+	Mon,  9 Sep 2024 17:20:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MnUJq8Qs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FV9Qhp6S";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06C5E10E5FA;
- Mon,  9 Sep 2024 17:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=74xG3FILrxMOop27FYAREcRZO1yaaMP//fUdVd3VxVQ=; b=MnUJq8QspAulp3u5fr1BZgQ32/
- /7gGTRlKRGghA9C9a2zRP6l3lau0rON3xQMzLUQ9JHApLy/MVvmTwTcubuo/ljXOmmxdkImKYTe39
- bCew5aO3G37AZQDD0u/QoNM4T8nmPT27DchTKCYecnz8CIfSh8MT/Yoax33J5P0JoyVIQ+jueF2eh
- zrdC914l1Qw0DYhszlBnyKk52sVlVtn/Skm+Vz6WriCeox/Jjn42jjYN5GrPOw5UwV2VooXOYWR6E
- qCMu0zeSbV1PNJXFsvGGAtn9W8ENLZOlmMpVNoCzmM9SYgRBT5QNK8ns7UVu9V32vVAQGrSMNQGQA
- wlWDNHow==;
-Received: from [90.241.98.187] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sni3G-00Bg5Y-6W; Mon, 09 Sep 2024 19:19:46 +0200
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>
-Subject: [PATCH 7/8] drm/sched: Re-group and rename the entity run-queue lock
-Date: Mon,  9 Sep 2024 18:19:36 +0100
-Message-ID: <20240909171937.51550-8-tursulin@igalia.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240909171937.51550-1-tursulin@igalia.com>
-References: <20240909171937.51550-1-tursulin@igalia.com>
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
+ [209.85.217.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F99D10E616
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 17:20:05 +0000 (UTC)
+Received: by mail-vs1-f50.google.com with SMTP id
+ ada2fe7eead31-49bbc25f49aso202149137.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Sep 2024 10:20:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725902404; x=1726507204; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FzZYYdOmSYtFA5YeBMtN9oGmezEQtfW/YA4KKrjPNPk=;
+ b=FV9Qhp6SAV0v3QrrTtlRBkUaFcgoDFu6GundSr/JByrvvBau+erJAe4m2It7VBWHBu
+ /Mugt/N+J3ifdNFDJ4tx1Z7XeoauSiI8UybgvUCWiKZR+nqAE7mh9b6RpNxJ7ZUkp4+z
+ DGi72RXWiXYqkSHSsdvJmrrdu6RCBnsZNvjnn8w9hDwkvveA3JBrbC1oiPkjEfOlmsdm
+ fuCQLsTrevfO087LeSUJp7j7+8xJzvfHhE5ZSqFgRAc8Bf0YhJv1QtcsfVi+eQ4YY/Uz
+ hyO6hFMeSEVyJmsU7ripkYHh2dms1izBHnAu1bANqa8+p3RnijKZ/bDZuB+nxnwghWgY
+ Lx2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725902404; x=1726507204;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FzZYYdOmSYtFA5YeBMtN9oGmezEQtfW/YA4KKrjPNPk=;
+ b=rJbPL+6Y/YXh/bn4vGdDDQoDgOu4dT5Z1BHG5cTW+QTy1/rtzQGEsFLhN2bDSNNh2b
+ Wy4cWpDWfmsFLsM3V3rCyNzTt44kQpZATJb+CqvHV6vIXcNPVSo0ob/Nkjyy4teGWdyl
+ DZrUIG1PI+ILGLMkIVldL6beaO2lF6aswDa8m+P81zHktuU/ry8cCGpUrmcSdBi+jCRG
+ hrBcZc2xO+X8MEgaRM1hS2NDgqbae3JQEu4fUVDlVgHSxgXvAH3gY7NXzSDQawpW1wGw
+ qPhw2/cz2eniDmsKK0miyvZZMMJIqwZc+jGYPVFq4Q3fB7pnM0OUlTcjmTnI2/HXgRh3
+ sX3g==
+X-Gm-Message-State: AOJu0YxyE/1wwLdKh8Bra6sIKmslodJgQC6sUjb3J3GYtS4TfE6G8Th8
+ Wc6nB9PByk8H2qOqPQkS1v+s3nqGkp5qLFUy26/iyUYycpB3cDzoITOKzRPVO/GM+7ESttT5sHn
+ m/9lmJ8ZwpGSzCPf1v2qHRnpJv7Y=
+X-Google-Smtp-Source: AGHT+IGmfXV/QM4ddjruXNKdrsaFbRlQ8y8Dh4vMpSL7xLgEhBgMFDl4Sj1B8GGSZP3IgZbIHNlrZiCI/E6dDSk3S8o=
+X-Received: by 2002:a05:6102:2ac6:b0:493:31f9:d14e with SMTP id
+ ada2fe7eead31-49bde1ba809mr6382945137.2.1725902403475; Mon, 09 Sep 2024
+ 10:20:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240906144638.2464367-1-alexander.deucher@amd.com>
+In-Reply-To: <20240906144638.2464367-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 9 Sep 2024 13:19:51 -0400
+Message-ID: <CADnq5_No2VCa67Yh8ZdehwOGcfoTE2WsRX4nHmqTHfoPw21H1g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/atomfirmware: Silence UBSAN warning
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,171 +75,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Ping?
 
-Christian suggested to rename the lock and improve the documentation of
-what it protects. And to also re-order the structure members so all
-protected by the lock are together in a block.
+Alex
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <ltuikov89@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <pstanner@redhat.com>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 24 ++++++++++++------------
- drivers/gpu/drm/scheduler/sched_main.c   |  6 +++---
- include/drm/gpu_scheduler.h              | 15 ++++++++-------
- 3 files changed, 23 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 2da677681291..b4c4f9923e0b 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -105,7 +105,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	/* We start in an idle state. */
- 	complete_all(&entity->entity_idle);
- 
--	spin_lock_init(&entity->rq_lock);
-+	spin_lock_init(&entity->lock);
- 	spsc_queue_init(&entity->job_queue);
- 
- 	atomic_set(&entity->fence_seq, 0);
-@@ -133,10 +133,10 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- {
- 	WARN_ON(!num_sched_list || !sched_list);
- 
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	entity->sched_list = sched_list;
- 	entity->num_sched_list = num_sched_list;
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_modify_sched);
- 
-@@ -244,10 +244,10 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	if (!entity->rq)
- 		return;
- 
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	entity->stopped = true;
- 	drm_sched_rq_remove_entity(entity->rq, entity);
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- 
- 	/* Make sure this entity is not used by the scheduler at the moment */
- 	wait_for_completion(&entity->entity_idle);
-@@ -396,9 +396,9 @@ static void drm_sched_entity_wakeup(struct dma_fence *f,
- void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
- 				   enum drm_sched_priority priority)
- {
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	entity->priority = priority;
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_set_priority);
- 
-@@ -555,14 +555,14 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (fence && !dma_fence_is_signaled(fence))
- 		return;
- 
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->priority] : NULL;
- 	if (rq != entity->rq) {
- 		drm_sched_rq_remove_entity(entity->rq, entity);
- 		entity->rq = rq;
- 	}
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- 
- 	if (entity->num_sched_list == 1)
- 		entity->sched_list = NULL;
-@@ -602,9 +602,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		struct drm_sched_rq *rq;
- 
- 		/* Add the entity to the run queue */
--		spin_lock(&entity->rq_lock);
-+		spin_lock(&entity->lock);
- 		if (entity->stopped) {
--			spin_unlock(&entity->rq_lock);
-+			spin_unlock(&entity->lock);
- 
- 			DRM_ERROR("Trying to push to a killed entity\n");
- 			return;
-@@ -619,7 +619,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
- 			drm_sched_rq_update_fifo_locked(entity, submit_ts);
- 
--		spin_unlock(&entity->rq_lock);
-+		spin_unlock(&entity->lock);
- 
- 		drm_sched_wakeup(sched, entity);
- 	}
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 54c5fe7a7d1d..937e7d1cfc49 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -165,7 +165,7 @@ static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *enti
- 
- void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts)
- {
--	lockdep_assert_held(&entity->rq_lock);
-+	lockdep_assert_held(&entity->lock);
- 
- 	spin_lock(&entity->rq->lock);
- 
-@@ -186,9 +186,9 @@ void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
- 	 * for entity from within concurrent drm_sched_entity_select_rq and the
- 	 * other to update the rb tree structure.
- 	 */
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	drm_sched_rq_update_fifo_locked(entity, ts);
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- }
- 
- /**
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index d4a3ba333568..5a1e4c803b90 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -96,6 +96,14 @@ struct drm_sched_entity {
- 	 */
- 	struct list_head		list;
- 
-+	/**
-+	 * @lock:
-+	 *
-+	 * Lock protecting the run-queue (@rq) to which this entity belongs,
-+	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
-+	 */
-+	spinlock_t			lock;
-+
- 	/**
- 	 * @rq:
- 	 *
-@@ -140,13 +148,6 @@ struct drm_sched_entity {
- 	 */
- 	enum drm_sched_priority         priority;
- 
--	/**
--	 * @rq_lock:
--	 *
--	 * Lock to modify the runqueue to which this entity belongs.
--	 */
--	spinlock_t			rq_lock;
--
- 	/**
- 	 * @job_queue: the list of jobs of this entity.
- 	 */
--- 
-2.46.0
-
+On Fri, Sep 6, 2024 at 12:43=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> Per the comments, these are variable sized arrays.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3613
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/include/atomfirmware.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
+/amd/include/atomfirmware.h
+> index 09cbc3afd6d8..b0fc22383e28 100644
+> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> @@ -1038,7 +1038,7 @@ struct display_object_info_table_v1_4
+>    uint16_t  supporteddevices;
+>    uint8_t   number_of_path;
+>    uint8_t   reserved;
+> -  struct    atom_display_object_path_v2 display_path[8];   //the real nu=
+mber of this included in the structure is calculated by using the (whole st=
+ructure size - the header size- number_of_path)/size of atom_display_object=
+_path
+> +  struct    atom_display_object_path_v2 display_path[];   //the real num=
+ber of this included in the structure is calculated by using the (whole str=
+ucture size - the header size- number_of_path)/size of atom_display_object_=
+path
+>  };
+>
+>  struct display_object_info_table_v1_5 {
+> @@ -1048,7 +1048,7 @@ struct display_object_info_table_v1_5 {
+>         uint8_t reserved;
+>         // the real number of this included in the structure is calculate=
+d by using the
+>         // (whole structure size - the header size- number_of_path)/size =
+of atom_display_object_path
+> -       struct atom_display_object_path_v3 display_path[8];
+> +       struct atom_display_object_path_v3 display_path[];
+>  };
+>
+>  /*
+> --
+> 2.46.0
+>
