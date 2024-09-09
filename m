@@ -4,78 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C842CECE579
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 272EDECE57A
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78C2410E37B;
-	Mon,  9 Sep 2024 11:33:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF0B10E37F;
+	Mon,  9 Sep 2024 11:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CKPNpCqw";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="B236oZAJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HlbI01R/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="B236oZAJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HlbI01R/";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3DE810E37B;
- Mon,  9 Sep 2024 11:33:07 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-42cacabd2e0so21273115e9.3; 
- Mon, 09 Sep 2024 04:33:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725881586; x=1726486386; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1DlM5K73/93Xqq3pXsHbZNFb988cXH9S9D9zFTKzhUY=;
- b=CKPNpCqwoslUIZx6KDFc9AhsS2bPhHKAOIFqXcH889AX7ehgVdAa4MMkF8nUzdDxPj
- l13hYhyC1MmUCfFmshrNsmzlgb6UZIBAnJOolvgU1v6o3nZcuKWANkZiRoC4/ErCFNu6
- TKnQzUPnzKH6UKxf3Np8GzIdJB9TJzJ38D/4R/nS440VpQfBLXP9NFsMKuf+hYgh2Mob
- /XLRN3MPVfs8ji3BYLqb8pR49yUXZOjOUHSRn73EkubAsflV+o67qLzZungkj7s8DEbE
- YfQ5fR+h8z59W+uqOpUexjA/PuHryiPQOH4/0pmqnjrN8S99jSeh4fN57HHMLkLiVDF1
- F2gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725881586; x=1726486386;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1DlM5K73/93Xqq3pXsHbZNFb988cXH9S9D9zFTKzhUY=;
- b=WST5304VWqApKUDWEcaquBcWa0wr/HvKFXELXJf41fur0od3gqVmsLssvVbyia2ORK
- +1VDxbk1IsxB6jHd7k8b/hjtEssRO2dYT5s8fvNFe/L+ND7kRiEyttS4AUanAY17tAhY
- ebC72UiDpXym+STu1jNLRa6s0gSuRZuGgk4cqDBEj8oqKSY16AR8M3XCrFqTiWHsCTy+
- lAqK/tsuagidvG4S4d5Zq7YNFZWWMKfkkHfwdviwE9peP+fp4+cLIXA4wSK8GG8HUeO1
- edtaE7xhAqkNW+aQIMFRKsFz4dqvfTbHXeUQZ9E55/VYS8BpORZmgIWKJZ04uB9cqN5X
- f25A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdtbF/Q3Csbvs+RChNQ8nKiRmI0hf/c7Wa/3VGcD5xWWyCNtA7Fw7jI+oFCQ+MwBepQ7WhERqs@lists.freedesktop.org,
- AJvYcCXhg6AJbxhjEPUFO0p1sVDwc+8UilDs07yAT21hM6ndqcWxj7+uMx68obn9RD7F2gA3WO6xakT9o26j@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yykp2a9m4LeW2xxZVCxjmhCT/6QE5xHBBdYTN36lo9PIe1G+54P
- qQDjrqqCmsI+i2P1cs+DbQCDQ4Mbg/C6bS70XsviO1eYQJIwoZG6
-X-Google-Smtp-Source: AGHT+IFL7lxb/ox29rfL6wtx5kb8CqIE8JwV0WeUoTZ68calHjSUsYxA+SMLZEeq7bv3mK/rTaBWRQ==
-X-Received: by 2002:a05:600c:3b83:b0:42c:b750:19f3 with SMTP id
- 5b1f17b1804b1-42cb7501f19mr22977905e9.0.1725881585147; 
- Mon, 09 Sep 2024 04:33:05 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42caeb21a5csm74450765e9.6.2024.09.09.04.33.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 04:33:04 -0700 (PDT)
-Message-ID: <4a85cf20-e0b5-4061-90d2-f85d84435f8e@gmail.com>
-Date: Mon, 9 Sep 2024 13:33:00 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3998810E380;
+ Mon,  9 Sep 2024 11:36:40 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C87E4219F4;
+ Mon,  9 Sep 2024 11:36:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1725881798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+NnhpHQ8n8MLjCCBEYOSozPtv2yh1Pm/vyP2JHeFHTY=;
+ b=B236oZAJ9Ctfy5WJIiECRTuHB5yiZ/Iig4XnWC43kIt3ewf6+8PjPg8w802XzqCNQLDiOC
+ lrB7Cv9mXCqNQZ6sz4AIa+qSwzS/mmDW4+rx0NB1S/2/w0F+AB1+Pz4cGcaLIelA4Kspft
+ bDoLbnOpI/vCoT7qqQ96lDll4c3TeW0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1725881798;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+NnhpHQ8n8MLjCCBEYOSozPtv2yh1Pm/vyP2JHeFHTY=;
+ b=HlbI01R/B3oO/vwakedoBXyHZa9zERCszFSSRdn833qSQ0GPj6dSDP5NBtZngQx0JV5ddT
+ tZI6cKPjiq5ym4AQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=B236oZAJ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="HlbI01R/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1725881798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+NnhpHQ8n8MLjCCBEYOSozPtv2yh1Pm/vyP2JHeFHTY=;
+ b=B236oZAJ9Ctfy5WJIiECRTuHB5yiZ/Iig4XnWC43kIt3ewf6+8PjPg8w802XzqCNQLDiOC
+ lrB7Cv9mXCqNQZ6sz4AIa+qSwzS/mmDW4+rx0NB1S/2/w0F+AB1+Pz4cGcaLIelA4Kspft
+ bDoLbnOpI/vCoT7qqQ96lDll4c3TeW0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1725881798;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+NnhpHQ8n8MLjCCBEYOSozPtv2yh1Pm/vyP2JHeFHTY=;
+ b=HlbI01R/B3oO/vwakedoBXyHZa9zERCszFSSRdn833qSQ0GPj6dSDP5NBtZngQx0JV5ddT
+ tZI6cKPjiq5ym4AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88E2813312;
+ Mon,  9 Sep 2024 11:36:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id UDwSIMbd3malNAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:36:38 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: simona@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v4 02/80] drm/fbdev-helper: Set and clear VGA switcheroo
+ client from fb_info
+Date: Mon,  9 Sep 2024 13:30:08 +0200
+Message-ID: <20240909113633.595465-3-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240909113633.595465-1-tzimmermann@suse.de>
+References: <20240909113633.595465-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 3/4] drm/sched: Always increment correct scheduler score
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Nirmoy Das <nirmoy.das@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org
-References: <20240906180618.12180-1-tursulin@igalia.com>
- <20240906180618.12180-4-tursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240906180618.12180-4-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: C87E4219F4
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email];
+ RCVD_TLS_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[9]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,50 +121,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.09.24 um 20:06 schrieb Tvrtko Ursulin:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->
-> Entities run queue can change during drm_sched_entity_push_job() so make
-> sure to update the score consistently.
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: d41a39dda140 ("drm/scheduler: improve job distribution with multiple queues")
+Call vga_switcheroo_client_fb_set() with the PCI device from the
+instance of struct fb_info. All fbdev clients now run these calls.
+For non-PCI devices or drivers without vga-switcheroo, this does
+nothing. For i915 and radeon, it allows these drivers to use a
+common fbdev client.
 
-Good catch, that might explain some of the odd behavior we have seen for 
-load balancing.
+The device is the same as the one stored in struct drm_client and
+struct drm_fb_helper, so there is no difference in behavior. Some
+NULL-pointer checks are being removed, where those pointers cannot
+be NULL.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+v4:
+- clarify call semantics for drm_fb_helper_unregister_info() (Javier)
 
-> Cc: Nirmoy Das <nirmoy.das@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Luben Tuikov <ltuikov89@gmail.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v5.9+
-> ---
->   drivers/gpu/drm/scheduler/sched_entity.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index 62b07ef7630a..2a910c1df072 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -586,7 +586,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->   	ktime_t submit_ts;
->   
->   	trace_drm_sched_job(sched_job, entity);
-> -	atomic_inc(entity->rq->sched->score);
->   	WRITE_ONCE(entity->last_user, current->group_leader);
->   
->   	/*
-> @@ -612,6 +611,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->   
->   		rq = entity->rq;
->   
-> +		atomic_inc(rq->sched->score);
->   		drm_sched_rq_add_entity(rq, entity);
->   		spin_unlock(&entity->rq_lock);
->   
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+---
+ drivers/gpu/drm/drm_fb_helper.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index af1fe79c701d..550fa69311cb 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -554,7 +554,7 @@ EXPORT_SYMBOL(drm_fb_helper_release_info);
+ 
+ /**
+  * drm_fb_helper_unregister_info - unregister fb_info framebuffer device
+- * @fb_helper: driver-allocated fbdev helper, can be NULL
++ * @fb_helper: driver-allocated fbdev helper, must not be NULL
+  *
+  * A wrapper around unregister_framebuffer, to release the fb_info
+  * framebuffer device. This must be called before releasing all resources for
+@@ -562,8 +562,12 @@ EXPORT_SYMBOL(drm_fb_helper_release_info);
+  */
+ void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
+ {
+-	if (fb_helper && fb_helper->info)
+-		unregister_framebuffer(fb_helper->info);
++	struct fb_info *info = fb_helper->info;
++	struct device *dev = info->device;
++
++	if (dev_is_pci(dev))
++		vga_switcheroo_client_fb_set(to_pci_dev(dev), NULL);
++	unregister_framebuffer(fb_helper->info);
+ }
+ EXPORT_SYMBOL(drm_fb_helper_unregister_info);
+ 
+@@ -1615,6 +1619,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ 	struct drm_client_dev *client = &fb_helper->client;
+ 	struct drm_device *dev = fb_helper->dev;
+ 	struct drm_fb_helper_surface_size sizes;
++	struct fb_info *info;
+ 	int ret;
+ 
+ 	ret = drm_fb_helper_find_sizes(fb_helper, &sizes);
+@@ -1632,9 +1637,11 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ 
+ 	strcpy(fb_helper->fb->comm, "[fbcon]");
+ 
++	info = fb_helper->info;
++
+ 	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
+-	if (dev_is_pci(dev->dev))
+-		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
++	if (dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
+ 
+ 	return 0;
+ }
+-- 
+2.46.0
 
