@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AC9EECE579
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D96ECE57A
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4A9510E54E;
-	Mon,  9 Sep 2024 12:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA58A10E561;
+	Mon,  9 Sep 2024 12:55:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="egxI6oqd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ef7eqMSl";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69DA410E551;
- Mon,  9 Sep 2024 12:37:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358F210E340;
+ Mon,  9 Sep 2024 09:13:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,37 +22,37 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Wb/yA7MmOMpJ7uPZGM++w1zIBXs2cTOoCfnoJjmbs9I=; b=egxI6oqdjYyEiKTN0QCEAPyP5o
- c2mlUZfzgM9Tt7qLd/RltkpG45b0TIQ7Qfb9oD1mr/JGbcSQ58B6zzEZpT6WWit8AwQycLg8DVpPj
- M4GJbBdLHLFEQLzjSFG0nHOFVwuekbsSDSIZ13qAdAkS7uYcVX0p2hs/D6U1UAPpY9IWLGkdhAEpJ
- gKkWtZHV/v0ijfxjdhcVBpSY2pHQ8jcMdlXslUrXkZkJ+jIEUbIe/q+oO6x6z0HaBXbkWZFiWo60e
- vOv7kmDfzUAvBmDSaIaqiJ+HzGqb68x8dL9teGjA/zHKvRCZcUk+omvnOXk8KN+2FUgk6iFiSB3RW
- JKNsXikQ==;
+ bh=UQorVFH+3/p6XhrJD9Gg39tlZOUc67E0HuFK3IMFSis=; b=ef7eqMSlq9FT8UyfetbDJXgb3f
+ N4vExWyTh3b+QUW28FwxYirERSCAFi5fuatwcelQjxpYwOvF6pbHwBA0cIGJHINnjH427i28Y1j2m
+ 0rkcu6VGHBQImyparPkC5txe9OtmbKUeev8cKg9N2R6ZkZx9b0YaKG/PUCxo42Rs0SS7Gv4K1oo27
+ 4rSPRqNmUIIekHZciuTiNcRu4fevcYnxQbppyoyvzobm2OjkWaFX80o7sCuPYC9gt0A7bRjJ4YYsg
+ 0jygnHW0EQgQnZDCZDfVldSkfISXn8Yen3FaAWqUmRkaxji7DuETLUtPiS5ZtyhlYhBxcOTMHY6N7
+ 0LDnl3PQ==;
 Received: from [90.241.98.187] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1snddo-00BXNo-0q; Mon, 09 Sep 2024 14:37:12 +0200
-Message-ID: <14ef37f4-b982-41c1-8121-80882917e9c0@igalia.com>
-Date: Mon, 9 Sep 2024 13:37:10 +0100
+ id 1snaSJ-00BQiz-P4; Mon, 09 Sep 2024 11:13:07 +0200
+Message-ID: <e3acac9f-021c-4113-898a-1c77e8216631@igalia.com>
+Date: Mon, 9 Sep 2024 10:13:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/4] drm/sched: Add locking to drm_sched_entity_modify_sched
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <pstanner@redhat.com>, Tvrtko Ursulin <tursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- stable@vger.kernel.org
-References: <20240906180618.12180-1-tursulin@igalia.com>
- <20240906180618.12180-2-tursulin@igalia.com>
- <8d763e5162ebc130a05da3cefbff148cdb6ce042.camel@redhat.com>
- <80e02cde-19e7-4fb6-a572-fb45a639a3b7@amd.com>
- <2356e3d66da3e5795295267e527042ab44f192c8.camel@redhat.com>
- <fb9556a1-b48d-49ed-9b9c-74b21fb76af4@amd.com>
+Subject: Re: [PATCH 1/2] Documentation/gpu: Document the situation with
+ unqualified drm-memory-
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Alex Deucher <alexander.deucher@amd.com>, Rob Clark
+ <robdclark@chromium.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+References: <20240813135712.82611-1-tursulin@igalia.com>
+ <20240813135712.82611-2-tursulin@igalia.com>
+ <CADnq5_Pv8B+nXkO3t05VLger+zwLN7PRDcB44K-=wXWo3CymhQ@mail.gmail.com>
+ <8c732c8e-27d3-46f8-83fe-6b3edb835d95@igalia.com>
+ <CADnq5_NbC3NORJVCYifPDOP8Qt84RN=M0Cwa_LKpMKH8stRF9w@mail.gmail.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <fb9556a1-b48d-49ed-9b9c-74b21fb76af4@amd.com>
+In-Reply-To: <CADnq5_NbC3NORJVCYifPDOP8Qt84RN=M0Cwa_LKpMKH8stRF9w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:55:48 +0000
@@ -71,145 +71,147 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 09/09/2024 13:18, Christian König wrote:
-> Am 09.09.24 um 14:13 schrieb Philipp Stanner:
->> On Mon, 2024-09-09 at 13:29 +0200, Christian König wrote:
->>> Am 09.09.24 um 11:44 schrieb Philipp Stanner:
->>>> On Fri, 2024-09-06 at 19:06 +0100, Tvrtko Ursulin wrote:
->>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>>
->>>>> Without the locking amdgpu currently can race
->>>>> amdgpu_ctx_set_entity_priority() and drm_sched_job_arm(),
->>>> I would explicitly say "amdgpu's amdgpu_ctx_set_entity_priority()
->>>> races
->>>> through drm_sched_entity_modify_sched() with drm_sched_job_arm()".
+On 06/09/2024 19:12, Alex Deucher wrote:
+> On Wed, Sep 4, 2024 at 4:36 AM Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>
+>>
+>> On 21/08/2024 21:47, Alex Deucher wrote:
+>>> On Tue, Aug 13, 2024 at 9:57 AM Tvrtko Ursulin <tursulin@igalia.com> wrote:
 >>>>
->>>> The actual issue then seems to be drm_sched_job_arm() calling
->>>> drm_sched_entity_select_rq(). I would mention that, too.
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 >>>>
+>>>> Currently it is not well defined what is drm-memory- compared to other
+>>>> categories.
 >>>>
->>>>> leading to the
->>>>> latter accesing potentially inconsitent entity->sched_list and
->>>>> entity->num_sched_list pair.
->>>>>
->>>>> The comment on drm_sched_entity_modify_sched() however says:
->>>>>
->>>>> """
->>>>>    * Note that this must be called under the same common lock for
->>>>> @entity as
->>>>>    * drm_sched_job_arm() and drm_sched_entity_push_job(), or the
->>>>> driver
->>>>> needs to
->>>>>    * guarantee through some other means that this is never called
->>>>> while
->>>>> new jobs
->>>>>    * can be pushed to @entity.
->>>>> """
->>>>>
->>>>> It is unclear if that is referring to this race or something
->>>>> else.
->>>> That comment is indeed a bit awkward. Both
->>>> drm_sched_entity_push_job()
->>>> and drm_sched_job_arm() take rq_lock. But
->>>> drm_sched_entity_modify_sched() doesn't.
+>>>> In practice the only driver which emits these keys is amdgpu and in them
+>>>> exposes the current resident buffer object memory (including shared).
 >>>>
->>>> The comment was written in 981b04d968561. Interestingly, in
->>>> drm_sched_entity_push_job(), this "common lock" is mentioned with
->>>> the
->>>> soft requirement word "should" and apparently is more about keeping
->>>> sequence numbers in order when inserting.
+>>>> To prevent any confusion, document that drm-memory- is deprecated and an
+>>>> alias for drm-resident-memory-.
 >>>>
->>>> I tend to think that the issue discovered by you is unrelated to
->>>> that
->>>> comment. But if no one can make sense of the comment, should it
->>>> maybe
->>>> be removed? Confusing comment is arguably worse than no comment
->>> Agree, we probably mixed up in 981b04d968561 that submission needs a
->>> common lock and that rq/priority needs to be protected by the
->>> rq_lock.
+>>>> While at it also clarify that the reserved sub-string 'memory' refers to
+>>>> the memory region component, and also clarify the intended semantics of
+>>>> other memory categories.
+>>>>
+>>>> v2:
+>>>>    * Also mark drm-memory- as deprecated.
+>>>>    * Add some more text describing memory categories. (Alex)
+>>>>
+>>>> v3:
+>>>>    * Semantics of the amdgpu drm-memory is actually as drm-resident.
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: Christian König <christian.keonig@amd.com>
+>>>> Cc: Rob Clark <robdclark@chromium.org>
+>>>> ---
+>>>>    Documentation/gpu/drm-usage-stats.rst | 25 ++++++++++++++++++++++---
+>>>>    1 file changed, 22 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+>>>> index a80f95ca1b2f..ff964c707754 100644
+>>>> --- a/Documentation/gpu/drm-usage-stats.rst
+>>>> +++ b/Documentation/gpu/drm-usage-stats.rst
+>>>> @@ -144,7 +144,9 @@ Memory
+>>>>
+>>>>    Each possible memory type which can be used to store buffer objects by the
+>>>>    GPU in question shall be given a stable and unique name to be returned as the
+>>>> -string here.  The name "memory" is reserved to refer to normal system memory.
+>>>> +string here.
+>>>> +
+>>>> +The region name "memory" is reserved to refer to normal system memory.
+>>>>
+>>>>    Value shall reflect the amount of storage currently consumed by the buffer
+>>>>    objects belong to this client, in the respective memory region.
+>>>> @@ -152,6 +154,9 @@ objects belong to this client, in the respective memory region.
+>>>>    Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>>>>    indicating kibi- or mebi-bytes.
+>>>>
+>>>> +This key is deprecated and is an alias for drm-resident-<region>. Only one of
+>>>> +the two should be present in the output.
+>>>> +
 >>>
->>> There is also the big FIXME in the drm_sched_entity documentation
->>> pointing out that this is most likely not implemented correctly.
->>>
->>> I suggest to move the rq, priority and rq_lock fields together in the
->>> drm_sched_entity structure and document that rq_lock is protecting
->>> the two.
->> That could also be a great opportunity for improving the lock naming:
+>>> I'm not sure how best to handle this.  What should amdgpu do?  We have
+>>> customers out in the field using these existing fields and then with
+>>> patch 2, they go away.  Arguably we'd want both for backwards
+>>> compatibility.
+>>
+>> Exactly, so it looks you maybe missed that 2/2 is not removing the
+>> amdgpu "legacy" drm-memory-. It keeps outputting it and also duplicating
+>> under drm-resident-. This is mentioned in the commit paragraph:
+>>
+>> """
+>> Legacy keys have been preserved, with the outlook of only potentially
+>> removing only the drm-memory- when the time gets right.
+>> """
+>>
+>> Put differently, I don't think 2/2 should break the existing
+>> tools/parsers. Only if they have hardcoded assumptions about the order
+>> of keys perhaps?
 > 
-> Well that comment made me laugh because I point out the same when the 
-> scheduler came out ~8years ago and nobody cared about it since then.
-> 
-> But yeah completely agree :)
+> You're right.  I totally missed that part.  The series is:
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Happy to take the patches through my tree or patch 2 via mine and
+> patch 1 via drm-misc.
 
-Maybe, but we need to keep in sight the fact some of these fixes may be 
-good to backport. In which case re-naming exercises are best left to follow.
+Thanks!
 
-Also..
-
->> void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t 
->> ts)
->> {
->>     /*
->>      * Both locks need to be grabbed, one to protect from entity->rq 
->> change
->>      * for entity from within concurrent drm_sched_entity_select_rq 
->> and the
->>      * other to update the rb tree structure.
->>      */
->>     spin_lock(&entity->rq_lock);
->>     spin_lock(&entity->rq->lock);
-
-.. I agree this is quite unredable and my initial reaction was a similar 
-ugh. However.. What names would you guys suggest and for what to make 
-this better and not lessen the logic of naming each individually?
+As to how to merge I don't have a strong preference. Adding Maxime and 
+Thomas to check if they would want to take 1/2 via drm-misc-next? But 
+IMO not splitting the patches between trees also kind of makes sense.
 
 Regards,
 
 Tvrtko
 
->> [...]
->>
->>
->> P.
->>
->>
->>> Then audit the code if all users of rq and priority actually hold the
->>> correct locks while reading and writing them.
->>>
->>> Regards,
->>> Christian.
->>>
->>>> P.
->>>>
->>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>> Fixes: b37aced31eb0 ("drm/scheduler: implement a function to
->>>>> modify
->>>>> sched list")
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
->>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>> Cc: David Airlie <airlied@gmail.com>
->>>>> Cc: Daniel Vetter <daniel@ffwll.ch>
->>>>> Cc: dri-devel@lists.freedesktop.org
->>>>> Cc: <stable@vger.kernel.org> # v5.7+
->>>>> ---
->>>>>    drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
->>>>>    1 file changed, 2 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
->>>>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>>>> index 58c8161289fe..ae8be30472cd 100644
->>>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>>> @@ -133,8 +133,10 @@ void drm_sched_entity_modify_sched(struct
->>>>> drm_sched_entity *entity,
->>>>>    {
->>>>>        WARN_ON(!num_sched_list || !sched_list);
->>>>> +    spin_lock(&entity->rq_lock);
->>>>>        entity->sched_list = sched_list;
->>>>>        entity->num_sched_list = num_sched_list;
->>>>> +    spin_unlock(&entity->rq_lock);
->>>>>    }
->>>>>    EXPORT_SYMBOL(drm_sched_entity_modify_sched);
 > 
+> Alex
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>>    - drm-shared-<region>: <uint> [KiB|MiB]
+>>>>
+>>>>    The total size of buffers that are shared with another file (e.g., have more
+>>>> @@ -159,20 +164,34 @@ than a single handle).
+>>>>
+>>>>    - drm-total-<region>: <uint> [KiB|MiB]
+>>>>
+>>>> -The total size of buffers that including shared and private memory.
+>>>> +The total size of all created buffers including shared and private memory. The
+>>>> +backing store for the buffers does not have to be currently instantiated to be
+>>>> +counted under this category.
+>>>>
+>>>>    - drm-resident-<region>: <uint> [KiB|MiB]
+>>>>
+>>>> -The total size of buffers that are resident in the specified region.
+>>>> +The total size of buffers that are resident (have their backing store present or
+>>>> +instantiated) in the specified region.
+>>>> +
+>>>> +This is an alias for drm-memory-<region> and only one of the two should be
+>>>> +present in the output.
+>>>>
+>>>>    - drm-purgeable-<region>: <uint> [KiB|MiB]
+>>>>
+>>>>    The total size of buffers that are purgeable.
+>>>>
+>>>> +For example drivers which implement a form of 'madvise' like functionality can
+>>>> +here count buffers which have instantiated backing store, but have been marked
+>>>> +with an equivalent of MADV_DONTNEED.
+>>>> +
+>>>>    - drm-active-<region>: <uint> [KiB|MiB]
+>>>>
+>>>>    The total size of buffers that are active on one or more engines.
+>>>>
+>>>> +One practical example of this can be presence of unsignaled fences in an GEM
+>>>> +buffer reservation object. Therefore the active category is a subset of
+>>>> +resident.
+>>>> +
+>>>>    Implementation Details
+>>>>    ======================
+>>>>
+>>>> --
+>>>> 2.44.0
+>>>>
