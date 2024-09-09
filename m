@@ -4,159 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5504DECE57E
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 13:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6966BECE57A
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 15:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC4610E590;
-	Mon,  9 Sep 2024 13:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C85E510E5B1;
+	Mon,  9 Sep 2024 15:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0idrbT7D";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HM2KYFB6";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2082.outbound.protection.outlook.com [40.107.101.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60B4710E593;
- Mon,  9 Sep 2024 13:50:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qfj+mRL7L+WKiDLi6CtcS0mrF/O4GMfVYIYziuizRJdDhOzjfbMzUzNaJI6wbJepGF2Yyud0LxOQ22JhcTv1SUDFtUNaD/abqef2V6EG1InClsEF9oDCDI+O31DPZmKl8i5vHTE5oUDugNxHBD1DCh8Khx0g4pw6S/w/Xi57OeohDYnnNnHEDnoe6llIzIj3r0x/0xrACN1MpqpI9qIlHNo9/JxnQjfRjxZZ5UHDAOqZaBoqtDWqctN8xsPKF1CrxN1AqUpC69AWyuHC94kC2E5jXCwhKKg0gdPlaBRZbNwmQFT0fwkmcYGMAuUIkLOOG1fXayGrkUOTtLaQjq6bgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M5gr1ociCIrMIB0R6NlDN1uV/xzRARrpcI67SVwn51s=;
- b=PmeoOU0zDBTEwm2/Z8tAMLK/Z4PYu+e0E6wB0IAH8iTBPcKCBXUaCwAvs4hwiZqeHqHrCZwUemn+Pv2YnDAjecXak5HZUD4u3i5MvS435ZvrKG7m/DYiffOkFaDYtksStHz8QiQiSniC9TyHMrjXbfhjajIezIiAsyLdmmuGWuBbHa2xP+NuuoKlZDYA8S6Se6Ld9OaQmTYzol+UU66fPCE5sogCEKyG45eeUGmmadZvEGg+faeb1mC/dbRdDeUbNQ8BpjUzt3uTflNdI90H4nN1v+XfUUPZ756h+bS02ZOG2gBfXnB0AOHxL1iw6iUheGv+RI2L1fHeViiwUNh6yQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M5gr1ociCIrMIB0R6NlDN1uV/xzRARrpcI67SVwn51s=;
- b=0idrbT7D6UYMcLJ7TdQR62o4OHKEw8NCrFVrDVVgohaU1oktotQ+jscIv3+hJsMuTIIMxfHjK2RTbiBHaSH05CdHdMGfNqSF/03w95TslnByaCM7f97RtUrknzQWBSAbz3O8IfbqNVa8zBGTVrY/PpMsSRp78/Hd0lntI95vcT4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV3PR12MB9119.namprd12.prod.outlook.com (2603:10b6:408:1a2::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.28; Mon, 9 Sep
- 2024 13:50:36 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7918.024; Mon, 9 Sep 2024
- 13:50:36 +0000
-Message-ID: <cfd39275-f167-4953-b7ad-f723281be9d8@amd.com>
-Date: Mon, 9 Sep 2024 15:50:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/4] drm/sched: Add locking to drm_sched_entity_modify_sched
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Philipp Stanner <pstanner@redhat.com>, Tvrtko Ursulin <tursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- stable@vger.kernel.org
-References: <20240906180618.12180-1-tursulin@igalia.com>
- <20240906180618.12180-2-tursulin@igalia.com>
- <8d763e5162ebc130a05da3cefbff148cdb6ce042.camel@redhat.com>
- <80e02cde-19e7-4fb6-a572-fb45a639a3b7@amd.com>
- <2356e3d66da3e5795295267e527042ab44f192c8.camel@redhat.com>
- <fb9556a1-b48d-49ed-9b9c-74b21fb76af4@amd.com>
- <14ef37f4-b982-41c1-8121-80882917e9c0@igalia.com>
- <d8944e6ad57e4efcd480d917a38f9cee9475d59c.camel@redhat.com>
- <1848b0fc-7031-46f2-b7f8-f7c086fb00ce@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <1848b0fc-7031-46f2-b7f8-f7c086fb00ce@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAF0A10E5B1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 15:23:36 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-20530659f78so1917975ad.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Sep 2024 08:23:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725895416; x=1726500216; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dzrMzoEu+Pc7HAkVJImJG0by2cEigP7KbLkJL8NXuWU=;
+ b=HM2KYFB6acwnND5kGf0+4Qb7UcEurOaSgFnFMoIqkQs5sjdumQks9HeRBgeYI2nvFf
+ M4uRAvvO1Rashuox8bWsQH4VEkmV2yGsod1hlY7YOM4yfsCeGklqM98P/XIQTcWpqcsY
+ pXSdN7K2+uA1TP2cgtmeH05XWZN9z+Pdf75VQ818SiVqVKc6WJu7EihhlsbhDLnd7URd
+ nCsEnZVQFh/HrwSYoVnJxBg1m8bvemtfNI8AYdGcjF1l/MgipvMpxnW6i00wP5c75daU
+ yGDdv0oVumyAFl+3qqx60lAIBI4yC0Vj64EP0mxvyvm8KFusWYF1yiEX2G5Pv0pKyRTF
+ Znmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725895416; x=1726500216;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dzrMzoEu+Pc7HAkVJImJG0by2cEigP7KbLkJL8NXuWU=;
+ b=MlB+eDNHeP2TkbSnw/vHfqCJuQG2EtRtExG9OrkX7qZfrn/ULdjrs9CFXEsWSWugOJ
+ xz1LR+NlcWmpsP17/ITfx3srSP3OjB7HaEJIx6/3U4rdPFISHB12TsnY5oROzjv+v9Km
+ sfOICZXX/HLY+jv6feRfZqto5s9FXuY1/apQfwadQCOhSRDUmPwlTIqu+nvz+XFSbG9Q
+ FMfldM5x6mtoRd5ki1eu9g5sq/tha8oJxzQ/HmvO5UMD+PCSyE1GiBC5iUAaWz296WwQ
+ THc5h9qSyhyylAc7HG1RtH819/ObMRhRTJQQGg+BCmkQu9RmoUp+CPtWaOu67gZ/A1Xg
+ VgCQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUZ3YFMcs3M+jDII4qAQV61L+Ac+rejIuQymTTaAeyq3TCddm+0Qyf7ijWr2BTDdCtky5U6ZZIs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtLKPetOxK9bDElHKtJfFkj81LgDST21pk6MAlMHACTg2J/c2r
+ 3S7QRZ37h0TJEDLqwtZczgp/ZAQhYBcTbVBII8uGl79ZWr6NGtpI9KtF7V3HHoWaN+jF4MqvxKI
+ 5R8ktmZ8KZPrzFD7gJF2+WcRWPcU=
+X-Google-Smtp-Source: AGHT+IGE8sZ7Wi+V1eL0Q4K2C04OVwMjjZxitHnjr5O6+rXDj9X2Uh2r8+vhwWCBgO0wvCLyGjxO8uvCy2dhbog65cs=
+X-Received: by 2002:a17:902:d2c2:b0:205:76c9:795d with SMTP id
+ d9443c01a7336-206f0605ebbmr56974885ad.6.1725895415839; Mon, 09 Sep 2024
+ 08:23:35 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV3PR12MB9119:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3510f12-3508-4e24-3d69-08dcd0d66193
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cmQySmw2QmJ5WnV5QlpBaDNoM0x4UlU3THQ5Z25GSi83OHpac2VxaXRNSUhL?=
- =?utf-8?B?aDFlTXdVL1Z2THg5M2VkejBrSjBwQVVIdEkydTExdzY2SGFOYzZFaWhVTE5Z?=
- =?utf-8?B?MElRYU05Mm9HSWNjY2ViZldmL0FNOG9JM3N2UkhDMVZTYy9lenRkdUwraFUx?=
- =?utf-8?B?MnV0ckJNQS8zbDhhRTVTdGFFMlRFZGFpb0dvN2YrVmVFdzFGSkQrRTlSaG5N?=
- =?utf-8?B?aVJZMDJoUkZVMG9iU1hzTDdZNlg2WTFlZlRBdFJKZDBVTEhCUlVzRkhzOEcx?=
- =?utf-8?B?MUJSandxNGljanMzUWRyQjZEU0ZJK3Q4NCtMZFBzYmttTERGSXZZRE5pUDZy?=
- =?utf-8?B?UGNqbFBjeW5wS3lwdGdIbTRHWGV5WkRNZlpHbXprR1NRZUxTU0tYY1ZYbCtT?=
- =?utf-8?B?ZGxSZGdEdHE3UDRBcC9zZkZkNS9tbzVtT1B5YTVKT2FYMFZ5UDRWQS9ITkpJ?=
- =?utf-8?B?QVVTbkNYTFhSNGEzYmtvV2E5Qy83RnkvN2FPZ3RSaGhqN2JHRExSazROWTVY?=
- =?utf-8?B?U0xXOUVtVTQzQnExdnVkL3ZEV3czY2NmemZCWitiQ3dGaUdLejVrUjh3QmFT?=
- =?utf-8?B?b1Y4NERNNktuYlVSd25UUTNOQTA3UGJ0cW5xejBMSkZNai93aEJKYUZKOXEy?=
- =?utf-8?B?WVpoNVlBbHlMSHpNNXpuenFJdUxaWjRicEhRZDM0UzhHOWFGYVVkZCtqcVI0?=
- =?utf-8?B?YWhLdlpWUkRnWDJmL0N6VjRDb1RqWE1wV3crcm9PYkhWbVRhRitnN1pDa2tR?=
- =?utf-8?B?eWw3WWp0WDA3eHNTWElRUmlLdkN0Q2JSU0FvM2NZSzFXVFVtYmMxQzY4aThV?=
- =?utf-8?B?ckhueDhia015VlpwSVdmQ0g4QTRraVRjUkdoQzN1ekU5K2pDVFdCdHZnWWJ3?=
- =?utf-8?B?WWE2TjBiOW5STVdxU01uY2N6V1A5TmxmeFhZZ28wS1ZtZmxESGZuQU50MGRR?=
- =?utf-8?B?aWxDRjhJM2Z5YWRjNzZuRGVHb1l6bzR2QlA3ak1jTUc0Q2ZidGNHeG83bGts?=
- =?utf-8?B?eFgzQ3lrMkkvVjAxdW9kaCtIK3FpZUpsc1RKQjd3cFg5WDAvR1gvTWRhd3Nt?=
- =?utf-8?B?RVUrOEx5aWNHaHVBY2xTYmxMbHJhN20zaVZGYjhyVGk4WVhFNVczUFpXaENh?=
- =?utf-8?B?UU1COVJBYldLeGUrdml1VFowVnFjcnYvSXA1a1ZsNFFTejE3THNMdUlpMFBi?=
- =?utf-8?B?RnZRMER0WVBLeHU5Y283TU5ENVFXRGJoYWpJTTVvbjhyRzF5bjFBTU9NekZu?=
- =?utf-8?B?UnhTQlUydFJDK3FpVGgvQWNVaGorc1puSDlpRHJKU3l1U2dsN2YzWTBnMzQ2?=
- =?utf-8?B?RUkvZ1FwNGRxSWp2UDZBY051YkpvTzEyNTNGYi85TERGSGppRElpWnVwa1lR?=
- =?utf-8?B?Z1V0blNVVkR0RnZPamZqYU1vQVJib2dXVWsxTitxWDlnK1JlVlJXbG1SUmFQ?=
- =?utf-8?B?dFQreWpMeVk4Tkd6bHVhcEZ4OXNQNkNYM2hoa0cxdXE4OE9Mb3RLU1Fpa0h0?=
- =?utf-8?B?ZzF2NXhva295VnJrQUhiY0JSc1c2dEUvUkNaaTdxRFVXRG1FVmQzUXZDQld2?=
- =?utf-8?B?REkrOFBtMmdiRDdWYzErZktDMkh6K1FhNHVUb3BoUXlxQnhEWTkxV2tKK3dH?=
- =?utf-8?B?ZStmbTBwNGUyMTRSSnIvWTIyYkxJM09kRjBHY1labXpGUE1hQ1ZnZTJ5Tkxk?=
- =?utf-8?B?YzUyd2lQbjVXWVJIY0o5ek1XdGxsb1JDL1ZSaDZXZlNyalZzcUlTQ2ppMnF1?=
- =?utf-8?B?dTJrQ2pqSThPN25GSVpXQlNncGZTZ0V6c3BQSmxOVWY1OFN6R0VQdUljbklC?=
- =?utf-8?B?RU4vbkFVQzUwN1E5VG1CZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OG9Nd2ZEZzlsdEMySC9pLzNHaUVQL1hWSWU2TFVwd1JKMUtDdHZOaXl3K2NS?=
- =?utf-8?B?OW9ZNzVvTnhCeGcydjFlMmtBTmx2c1ZxSyt0eDhiRFZZTjhsYnFiZFNLeXJa?=
- =?utf-8?B?NE1ETnU1ZkZQR2JpK2NUUVlNRURVeGhLWGU4dmFFbFg0cE5xQTFkQ2JMUmJK?=
- =?utf-8?B?dDdTZTk3N0ZyY2p1d1Mzck1QeE0zcm5HbVpxYUljTVBwQU4vT3c4blEwQzRG?=
- =?utf-8?B?MFJWMjBWRXlHVDVrTGRwUk9janJMSzlCZzFva3UzT3ZPa282c0VIZEw5MEpW?=
- =?utf-8?B?U2pkVk9qcGVyaVE3V3U5b2gwd01FclZCRklYVFFTR2svbWUyZGhBZjJBdWpH?=
- =?utf-8?B?QTFWSDQ3Mmcwb21sVjhtb3lEbkVmWVd0c04yZzJ0cHB6TmRSNTZrWTdWTm5X?=
- =?utf-8?B?dzRrUE4xb1R0OVpmUG9BeWErVWU0QVg5enRQZWJFcE9WZkdQYllkMmVvVXEv?=
- =?utf-8?B?VU9MWGV6VEc2RmxIcHJ4Q0tWWlNEcS9LYVppSVVaSDZHaURRRVhRZFFtY3dR?=
- =?utf-8?B?WUhBTFM2c3VhT3JjM2d5RFZpVkJyTGlvdEFzZFFHVHVQS2VtQnFTVnQ5WEkw?=
- =?utf-8?B?MDlkenZwLzlpQ0RDRDVId09PVjQxVlErdHcwU1RnL2R4VVJPZ05HS1dOSjBy?=
- =?utf-8?B?WitsOUY2c2J1R01BTHhvWkdMTFd6UTJoSEQ1THVPeHEyUG51UXZIcjgzdHBh?=
- =?utf-8?B?eE1GdThwL2J5SXhIN3JFaHZzUmR2aVU5K1A5ajU0Q2hXQ0paMXVGRDZtMGxH?=
- =?utf-8?B?dHVsK2M1WmUyNnpFVmgycHpKY0c5b1FVMU1vMUJhalE2THdHSGpuTm5xaUlt?=
- =?utf-8?B?V0hnWXFBVE51VldVdzlEZFhjVkEvSFpUeGtYV3RXVE56eW45Qi8xTXBxMlB6?=
- =?utf-8?B?RjBMa1M1Wjdpc1lhelZLNkRQb0Zwd2Rpa2VzZEZLNzhGQTEvemdmR2tYTnk5?=
- =?utf-8?B?Q3lNWG1tRURtemRQM214bGZUVDNQUmoycnI5UGZvUWd5OEFvQ2FtKzk1ZWcv?=
- =?utf-8?B?QW91dHU2Z05yTWRpb3F2am9OVkVnV3AxRWoxeW1yNUFKcERSSWszeURNeVp3?=
- =?utf-8?B?WXVEdHZYRHR2NUpObVBJaDN5Vm9pTnpKaFZCUGlZc3hKMnBYcHpwdjZ1VE52?=
- =?utf-8?B?YkJtY3puZHA3OE1VNFBTd0J6c2ptU05ZQ1V0UVZ1dEg4MWNvYjJkSEhMNm51?=
- =?utf-8?B?N0c5V29YWnpJbVZDT1R1R0UrWEhucFovZkZXUzV4bDhqbHora3kvTTBXc3VN?=
- =?utf-8?B?NnBmZ0tXcjNFMEo0VDhmWXlvWnlrSjRxQlZaYjl2c3g4Zjhzc0gzejNIZ2Q2?=
- =?utf-8?B?b3FQZWYxdUpSUk9qbTZjQWtOajVQZno4WjFFSzBUTVBPTU5PcHpONjEvQzUy?=
- =?utf-8?B?a3RtZ0hodEZrc3huL0x1dlI3bXVyYkU0RUcyUi9oUTdvdHJ4Ry85eVV2Ykx2?=
- =?utf-8?B?ZmlRSU9ZVHFlMDExU1NWelNoVERGanIzdFdvWWZ6SHpEVjBIc2RENkFiWnI1?=
- =?utf-8?B?U3ZyWUk1UDBDV3JWWGxHVVNkeVZ4UXQ4SVduM3lGSVJoQkhnL2FKSGYzUTJ2?=
- =?utf-8?B?cVZsdnZnUUs1UEZqYWQwYW54K1pIMTNWSFEvV1JjODdLdWNtcHBMNzR6dVg0?=
- =?utf-8?B?K0FaeElYWStXbGNPQ04wZUFjTmJnM085dFFUeVdQWXRQaGxhdS9Rb1dRU1RX?=
- =?utf-8?B?WHRjMDFBS0lDcUcreUxValU4SWwycFlrYzhKQ2JEd2YvM2s0NnJIT01JK0pm?=
- =?utf-8?B?TmtoZjFiaDNaejBSVUpRYVdHYWEydjNOT1h1R3VlbmtOdEZLaVc2cFk3WDVK?=
- =?utf-8?B?M1hlbkFUSU5FbUlzYWVYUUVIRHJuUXh4K01GWjM3NnBLeUVJNjZ4VGZidCtJ?=
- =?utf-8?B?WUdYaHdJdHk3Rzd0eGN3Vzk5TVhLSUYyQVFoTEJueGpvY3Z4cTlxMk84cit0?=
- =?utf-8?B?aitJaHBibnNsbHlCR1JGWVAzMU82aXE0TFB6WkNUWGJNSHhBeElTTzFQVU1i?=
- =?utf-8?B?eVdWMElCSmNjSlFpSFlabDhSZHRIWDMxckt4MVpWeENmSVpYeDNGK0JsZUNZ?=
- =?utf-8?B?VW9ML2hyNTN4OXo3VlRGbkhvTnMyTXNnRFFFTnlZWGJiVjB1Ky96MVh5TEFV?=
- =?utf-8?Q?LENg=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3510f12-3508-4e24-3d69-08dcd0d66193
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2024 13:50:36.1178 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jjhEkrh2oG714iHvScgzhnAbWydJvUSNpfXyDBagIJ8w4RJa7yo1lEdNv8P4Vrll
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9119
+References: <20240902081311.2918278-1-Prike.Liang@amd.com>
+ <DS7PR12MB600580C6E52BE6734FD7F0F7FB9D2@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <BN9PR12MB5146FB172036F9601B38C3E6F79E2@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <DS7PR12MB60057926E8C172D3EB5A332EFB992@DS7PR12MB6005.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB60057926E8C172D3EB5A332EFB992@DS7PR12MB6005.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 9 Sep 2024 11:23:24 -0400
+Message-ID: <CADnq5_M4R5-fFQPeMe6XxoovQdL-7z1zecnRDyr7pNXwe5=UOQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: update suspend status for aborting from
+ deeper suspend
+To: "Liang, Prike" <Prike.Liang@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,176 +82,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.09.24 um 15:27 schrieb Tvrtko Ursulin:
+On Mon, Sep 9, 2024 at 8:58=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> w=
+rote:
 >
-> On 09/09/2024 13:46, Philipp Stanner wrote:
->> On Mon, 2024-09-09 at 13:37 +0100, Tvrtko Ursulin wrote:
->>> [SNIP]
->>>>> That could also be a great opportunity for improving the lock
->>>>> naming:
->>>>
->>>> Well that comment made me laugh because I point out the same when
->>>> the
->>>> scheduler came out ~8years ago and nobody cared about it since
->>>> then.
->>>>
->>>> But yeah completely agree :)
->>>
->>> Maybe, but we need to keep in sight the fact some of these fixes may
->>> be
->>> good to backport. In which case re-naming exercises are best left to
->>> follow.
->>
->> My argument basically. It's good if fixes and other improvements are
->> separated, in general, unless there is a practical / good reason not
->> to.
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> Ah cool, I am happy to add follow up patches after the fixes.
+>
+> Previously, the S3 process aborted before calling the noirq suspend, and =
+this issue was successfully sorted by checking the suspend_complete flag. H=
+owever, there are now some S3 suspend cases, such as pm_test platform/core =
+mode, which abort the S3 process after the noirq suspend. In these cases of=
+ abort, the issue cannot be sorted out by setting the suspend_complete flag=
+ in the noirq suspend callback, and it=E2=80=99s fine to use the MP0 SOL re=
+gister directly to determine whether to reset the GPU on resume. However, o=
+n the GFX9 series, the driver still needs to rely on the suspend_complete f=
+lag to determine whether it needs to skip reprogramming the clear state reg=
+ister values during resume from suspend abort cases, so now it sounds that =
+the suspend_complete flag cannot be completely removed.
 
-+1
+Can we just set the suspend_complete flag based on the SOL register
+rather than based on what functions have been called?  Maybe as a
+future cleanup?  This logic seems fragile and I'm worried it will get
+accidently broken.  For now the patch is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+Alex
 
 >
->>> Also..
->>>
->>>>> void drm_sched_rq_update_fifo(struct drm_sched_entity *entity,
->>>>> ktime_t
->>>>> ts)
->>>>> {
->>>>>      /*
->>>>>       * Both locks need to be grabbed, one to protect from entity-
->>>>>> rq
->>>>> change
->>>>>       * for entity from within concurrent
->>>>> drm_sched_entity_select_rq
->>>>> and the
->>>>>       * other to update the rb tree structure.
->>>>>       */
->>>>>      spin_lock(&entity->rq_lock);
->>>>>      spin_lock(&entity->rq->lock);
->>>
->>> .. I agree this is quite unredable and my initial reaction was a
->>> similar
->>> ugh. However.. What names would you guys suggest and for what to make
->>> this better and not lessen the logic of naming each individually?
->>
->> According to the documentation, drm_sched_rq.lock does not protect the
->> entire runque, but "@lock: to modify the entities list."
->>
->> So I would keep drm_sched_entity.rq_lock as it is, because it indeed
->> protects the entire runqueue.
 >
-> Agreed on entity->rq_lock.
-
-I would just name that lock since it should be a protection of fields in 
-the drm_sched_entity structure.
-
-That those fields are the rq and priority member should not necessary 
-have an influence on the name of the lock protecting it.
-
-Only when we have multiple locks in the same structure then we need to 
-start giving them distinct names.
-
 >
->> And drm_sched_rq.lock could be named "entities_lock" or
->> "entities_list_lock" or something. That's debatable, but it should be
->> something that highlights that this lock is not for locking the entire
->> runque as the one in the entity apparently is.
+> Thanks,
 >
-> AFAICT it also protects rq->current_entity and rq->rb_tree_root in 
-> which case it is a bit more tricky. Only rq->sched is outside its 
-> scope. Hm. Maybe just re-arrange the struct to be like:
+> Prikec
 >
-> struct drm_sched_rq {
->     struct drm_gpu_scheduler    *sched;
 >
->     spinlock_t            lock;
->     /* Following members are protected by the @lock: */
->     struct list_head        entities;
->     struct drm_sched_entity        *current_entity;
->     struct rb_root_cached        rb_tree_root;
-> };
 >
-> I have no ideas for better naming. But this would be inline with 
-> Christian's suggestion for tidying the order in drm_sched_entity.
-
-+1
-
-Yeah I mean see the other structure we have in DRM and general Linux 
-kernel. The stuff that is static is usually grouped together since that 
-is good for cache locality and documentation at the same time.
-
+> From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Sent: Saturday, September 7, 2024 1:34 AM
+> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amdgpu: update suspend status for aborting from =
+deeper suspend
 >
-> I am also not sure what is the point of setting rq->current_entity in 
-> drm_sched_rq_select_entity_fifo().
-
-No idea either, Luben could answer that.
-
-Christian.
-
 >
-> Regards,
 >
-> Tvrtko
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
->>
->>
->> Cheers,
->> P.
->>
->>>
->>> Regards,
->>>
->>> Tvrtko
->>>
->>>>> [...]
->>>>>
->>>>>
->>>>> P.
->>>>>
->>>>>
->>>>>> Then audit the code if all users of rq and priority actually
->>>>>> hold the
->>>>>> correct locks while reading and writing them.
->>>>>>
->>>>>> Regards,
->>>>>> Christian.
->>>>>>
->>>>>>> P.
->>>>>>>
->>>>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>>>>> Fixes: b37aced31eb0 ("drm/scheduler: implement a function
->>>>>>>> to
->>>>>>>> modify
->>>>>>>> sched list")
->>>>>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>>>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
->>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>>>>> Cc: David Airlie <airlied@gmail.com>
->>>>>>>> Cc: Daniel Vetter <daniel@ffwll.ch>
->>>>>>>> Cc: dri-devel@lists.freedesktop.org
->>>>>>>> Cc: <stable@vger.kernel.org> # v5.7+
->>>>>>>> ---
->>>>>>>>     drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
->>>>>>>>     1 file changed, 2 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> index 58c8161289fe..ae8be30472cd 100644
->>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> @@ -133,8 +133,10 @@ void
->>>>>>>> drm_sched_entity_modify_sched(struct
->>>>>>>> drm_sched_entity *entity,
->>>>>>>>     {
->>>>>>>>         WARN_ON(!num_sched_list || !sched_list);
->>>>>>>> +    spin_lock(&entity->rq_lock);
->>>>>>>>         entity->sched_list = sched_list;
->>>>>>>>         entity->num_sched_list = num_sched_list;
->>>>>>>> +    spin_unlock(&entity->rq_lock);
->>>>>>>>     }
->>>>>>>>     EXPORT_SYMBOL(drm_sched_entity_modify_sched);
->>>>
->>>
->>
-
+>
+>
+> Can you elaborate on how this fails?  Seems like maybe we should just get=
+ rid of adev->suspend_complete and just check the MP0 SOL register to deter=
+mine whether or not we need to reset the GPU on resume.
+>
+>
+>
+> Alex
+>
+>
+>
+> ________________________________
+>
+> From: Liang, Prike <Prike.Liang@amd.com>
+> Sent: Thursday, September 5, 2024 3:36 AM
+> To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: RE: [PATCH] drm/amdgpu: update suspend status for aborting from =
+deeper suspend
+>
+>
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> According to the ChromeOS team test, this patch can resolve the S3 suspen=
+d abort from deeper sleep, which occurs when suspension aborts after callin=
+g the noirq suspend and before executing the _S3 and turning off the power =
+rail.
+>
+> Could this patch get a review or acknowledgment?
+>
+> Thanks,
+> Prike
+>
+> > -----Original Message-----
+> > From: Liang, Prike <Prike.Liang@amd.com>
+> > Sent: Monday, September 2, 2024 4:13 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike
+> > <Prike.Liang@amd.com>
+> > Subject: [PATCH] drm/amdgpu: update suspend status for aborting from
+> > deeper suspend
+> >
+> > There're some other suspend abort cases which can call the noirq suspen=
+d
+> > except for executing _S3 method. In those cases need to process as
+> > incomplete suspendsion.
+> >
+> > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/soc15.c | 10 ++++++----
+> >  1 file changed, 6 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > index 8d16dacdc172..cf701bb8fc79 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> > @@ -587,11 +587,13 @@ static bool soc15_need_reset_on_resume(struct
+> > amdgpu_device *adev)
+> >        * 2) S3 suspend abort and TOS already launched.
+> >        */
+> >       if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> > -                     !adev->suspend_complete &&
+> > -                     sol_reg)
+> > +                     sol_reg) {
+> > +             adev->suspend_complete =3D false;
+> >               return true;
+> > -
+> > -     return false;
+> > +     } else {
+> > +             adev->suspend_complete =3D true;
+> > +             return false;
+> > +     }
+> >  }
+> >
+> >  static int soc15_asic_reset(struct amdgpu_device *adev)
+> > --
+> > 2.34.1
