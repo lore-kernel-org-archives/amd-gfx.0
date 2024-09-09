@@ -4,63 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C780ECE579
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEF99ECE579
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:47:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A385210E519;
-	Mon,  9 Sep 2024 12:32:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B5C10E416;
+	Mon,  9 Sep 2024 12:47:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L8MuItam";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="CcGFdCAI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80CA210E51D;
- Mon,  9 Sep 2024 12:32:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1725885165; x=1757421165;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KHaICYJXR9iYmH086DbtJWq/Y7KA5lt5pMVA3G9kupU=;
- b=L8MuItamT4wKu3TG5wowcgWhINEbm/ziVr3bj2DWEPb81ZiJj4FwIYrT
- wwcKheWaK8kEh9u0RUpOeWw3TFfFgmjAKLgwAI9f1rOFKBUMMLt9fPM0q
- qSLBuoksCy3Eaa1zzf2sgDZ0bHwV6rJSz2GJp/oz0f94EDpxRv83Jugk+
- eSRLyGePXeiDkI+BpFcjKRs8N/mDzz1nS0YxwImvRTsVhxpUc7SyIDv1N
- pR6sRhqsFfSFhiijJ2UyVPO/L3jKTa74PGpN2EeXJ8IF6s8ztD6vJq7bE
- y5JL3KryKqNMthVBT+HM58lZxcHKetj70dw93zXnSgALA13J8o8dGjwC8 Q==;
-X-CSE-ConnectionGUID: a6GlD5baRiSk/ifdJmRUag==
-X-CSE-MsgGUID: Fg1M0jWsT9iL783bFq30pw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11189"; a="24126536"
-X-IronPort-AV: E=Sophos;i="6.10,214,1719903600"; d="scan'208";a="24126536"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2024 05:32:38 -0700
-X-CSE-ConnectionGUID: jzJe5r/pSx+W6AfbDHI/XQ==
-X-CSE-MsgGUID: TTrlGAapTvCZKONcnlwyrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,214,1719903600"; d="scan'208";a="104119170"
-Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.245.166.204])
- ([10.245.166.204])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2024 05:32:35 -0700
-Message-ID: <aeeccacb-f2c0-410b-ad63-6e39705dd77e@linux.intel.com>
-Date: Mon, 9 Sep 2024 14:32:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 3/4] drm/sched: Always increment correct scheduler score
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Nirmoy Das <nirmoy.das@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E757210E416
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 12:47:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1725886022;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ACM/uffDB/SuoxlLVt56Dj3zgOPDLmdwco9azNLGs6w=;
+ b=CcGFdCAIfi1VEBJphuLigu2AiNCrQTzSYjsMrNQiIY89BBBtVbk6QD0Bou7H8GgnZ4dxwv
+ DJEoVN81s1uGblNE7ijNmgoKRfmmr7t4i3xnZtODOmHlhX5NQK2VqFex4OCNhZqwMLWmWo
+ 0ZNDDMaKLwg2zGllwYQ2KSIn0Innsoc=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-418-m_MIj7RpPRagySs0h8Ah8Q-1; Mon, 09 Sep 2024 08:47:00 -0400
+X-MC-Unique: m_MIj7RpPRagySs0h8Ah8Q-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-42cb857fc7dso6360215e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Sep 2024 05:47:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725886019; x=1726490819;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ACM/uffDB/SuoxlLVt56Dj3zgOPDLmdwco9azNLGs6w=;
+ b=Qa1HynCUnkjORdA6fjFjvKNAvuFC73c/bO5fzF8ArKHZ9+cLVJmDAUl5yiupjJRmvh
+ klKJgvvAAguuEmpw/X4nfari1y1VDb9TUZd0o9lTPMWb+Wd7gglJJ/E/hFPVlkhyP1U9
+ tUro5RY0u75YGhStodyj/2+ZD44Y1avnG52s9YsdJF53/UrsjtLadakzOYaTn99ID/qo
+ GKL1LjTAbxJgz60idcg53pkethwJ1rdhGHSiJBAoisf9MxQYcICdbJWDDrTcQCCTSdZI
+ NnhiRdfx2tgOV2pUh8Ah5aLyT1QFka40v0qTEsTvTWru4QoKJODihDNXFFfbDHmhv1MY
+ K37g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWwHMlheRR0OaSST4ihRm1DGkU0WssLu/fK8Yhsl7u/1s0ni5tIxpchyBeEhJilvCJltwbxqQPt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNrONu6hl7/5e+3vghWBPQuZwA1OJiBft4KwwPJOFLu/1nWNgV
+ oom8atQA1jG3mT/GracdcXCG9Dh8FuA40lxTVrNi9TUMBofcKT91oLnbb9hJ/BAKp5nmbTnm51/
+ YEHnuuf+XWE62PgbNzljEtaNsS/JtfG/iRY6okCkykIOigxmEDG69c0SCpQ4mmfE=
+X-Received: by 2002:a05:600c:214d:b0:42c:a8d5:2df5 with SMTP id
+ 5b1f17b1804b1-42ca8d52ed6mr59816845e9.24.1725886019539; 
+ Mon, 09 Sep 2024 05:46:59 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHmxJnTJHVcfRJCmRClUFgKHaviWnUesTJlxfFJwqWOk8Syup77zQPDM2aGz8zSy2lq1hfWJA==
+X-Received: by 2002:a05:600c:214d:b0:42c:a8d5:2df5 with SMTP id
+ 5b1f17b1804b1-42ca8d52ed6mr59816685e9.24.1725886019035; 
+ Mon, 09 Sep 2024 05:46:59 -0700 (PDT)
+Received: from dhcp-64-8.muc.redhat.com (nat-pool-muc-t.redhat.com.
+ [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37895675c40sm5963080f8f.51.2024.09.09.05.46.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Sep 2024 05:46:58 -0700 (PDT)
+Message-ID: <d8944e6ad57e4efcd480d917a38f9cee9475d59c.camel@redhat.com>
+Subject: Re: [RFC 1/4] drm/sched: Add locking to drm_sched_entity_modify_sched
+From: Philipp Stanner <pstanner@redhat.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Tvrtko Ursulin <tursulin@igalia.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
+ <ltuikov89@gmail.com>,  Matthew Brost <matthew.brost@intel.com>, David
+ Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ stable@vger.kernel.org
+Date: Mon, 09 Sep 2024 14:46:57 +0200
+In-Reply-To: <14ef37f4-b982-41c1-8121-80882917e9c0@igalia.com>
 References: <20240906180618.12180-1-tursulin@igalia.com>
- <20240906180618.12180-4-tursulin@igalia.com>
-Content-Language: en-US
-From: Nirmoy Das <nirmoy.das@linux.intel.com>
-In-Reply-To: <20240906180618.12180-4-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <20240906180618.12180-2-tursulin@igalia.com>
+ <8d763e5162ebc130a05da3cefbff148cdb6ce042.camel@redhat.com>
+ <80e02cde-19e7-4fb6-a572-fb45a639a3b7@amd.com>
+ <2356e3d66da3e5795295267e527042ab44f192c8.camel@redhat.com>
+ <fb9556a1-b48d-49ed-9b9c-74b21fb76af4@amd.com>
+ <14ef37f4-b982-41c1-8121-80882917e9c0@igalia.com>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,45 +103,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, 2024-09-09 at 13:37 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 09/09/2024 13:18, Christian K=C3=B6nig wrote:
+> > Am 09.09.24 um 14:13 schrieb Philipp Stanner:
+> > > On Mon, 2024-09-09 at 13:29 +0200, Christian K=C3=B6nig wrote:
+> > > > Am 09.09.24 um 11:44 schrieb Philipp Stanner:
+> > > > > On Fri, 2024-09-06 at 19:06 +0100, Tvrtko Ursulin wrote:
+> > > > > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > >=20
+> > > > > > Without the locking amdgpu currently can race
+> > > > > > amdgpu_ctx_set_entity_priority() and drm_sched_job_arm(),
+> > > > > I would explicitly say "amdgpu's
+> > > > > amdgpu_ctx_set_entity_priority()
+> > > > > races
+> > > > > through drm_sched_entity_modify_sched() with
+> > > > > drm_sched_job_arm()".
+> > > > >=20
+> > > > > The actual issue then seems to be drm_sched_job_arm() calling
+> > > > > drm_sched_entity_select_rq(). I would mention that, too.
+> > > > >=20
+> > > > >=20
+> > > > > > leading to the
+> > > > > > latter accesing potentially inconsitent entity->sched_list
+> > > > > > and
+> > > > > > entity->num_sched_list pair.
+> > > > > >=20
+> > > > > > The comment on drm_sched_entity_modify_sched() however
+> > > > > > says:
+> > > > > >=20
+> > > > > > """
+> > > > > > =C2=A0=C2=A0=C2=A0* Note that this must be called under the sam=
+e common
+> > > > > > lock for
+> > > > > > @entity as
+> > > > > > =C2=A0=C2=A0=C2=A0* drm_sched_job_arm() and drm_sched_entity_pu=
+sh_job(),
+> > > > > > or the
+> > > > > > driver
+> > > > > > needs to
+> > > > > > =C2=A0=C2=A0=C2=A0* guarantee through some other means that thi=
+s is never
+> > > > > > called
+> > > > > > while
+> > > > > > new jobs
+> > > > > > =C2=A0=C2=A0=C2=A0* can be pushed to @entity.
+> > > > > > """
+> > > > > >=20
+> > > > > > It is unclear if that is referring to this race or
+> > > > > > something
+> > > > > > else.
+> > > > > That comment is indeed a bit awkward. Both
+> > > > > drm_sched_entity_push_job()
+> > > > > and drm_sched_job_arm() take rq_lock. But
+> > > > > drm_sched_entity_modify_sched() doesn't.
+> > > > >=20
+> > > > > The comment was written in 981b04d968561. Interestingly, in
+> > > > > drm_sched_entity_push_job(), this "common lock" is mentioned
+> > > > > with
+> > > > > the
+> > > > > soft requirement word "should" and apparently is more about
+> > > > > keeping
+> > > > > sequence numbers in order when inserting.
+> > > > >=20
+> > > > > I tend to think that the issue discovered by you is unrelated
+> > > > > to
+> > > > > that
+> > > > > comment. But if no one can make sense of the comment, should
+> > > > > it
+> > > > > maybe
+> > > > > be removed? Confusing comment is arguably worse than no
+> > > > > comment
+> > > > Agree, we probably mixed up in 981b04d968561 that submission
+> > > > needs a
+> > > > common lock and that rq/priority needs to be protected by the
+> > > > rq_lock.
+> > > >=20
+> > > > There is also the big FIXME in the drm_sched_entity
+> > > > documentation
+> > > > pointing out that this is most likely not implemented
+> > > > correctly.
+> > > >=20
+> > > > I suggest to move the rq, priority and rq_lock fields together
+> > > > in the
+> > > > drm_sched_entity structure and document that rq_lock is
+> > > > protecting
+> > > > the two.
+> > > That could also be a great opportunity for improving the lock
+> > > naming:
+> >=20
+> > Well that comment made me laugh because I point out the same when
+> > the=20
+> > scheduler came out ~8years ago and nobody cared about it since
+> > then.
+> >=20
+> > But yeah completely agree :)
+>=20
+> Maybe, but we need to keep in sight the fact some of these fixes may
+> be=20
+> good to backport. In which case re-naming exercises are best left to
+> follow.
 
-On 9/6/2024 8:06 PM, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->
-> Entities run queue can change during drm_sched_entity_push_job() so make
-> sure to update the score consistently.
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: d41a39dda140 ("drm/scheduler: improve job distribution with multiple queues")
-> Cc: Nirmoy Das <nirmoy.das@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Luben Tuikov <ltuikov89@gmail.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v5.9+
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
-> ---
->  drivers/gpu/drm/scheduler/sched_entity.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index 62b07ef7630a..2a910c1df072 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -586,7 +586,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->  	ktime_t submit_ts;
->  
->  	trace_drm_sched_job(sched_job, entity);
-> -	atomic_inc(entity->rq->sched->score);
->  	WRITE_ONCE(entity->last_user, current->group_leader);
->  
->  	/*
-> @@ -612,6 +611,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->  
->  		rq = entity->rq;
->  
-> +		atomic_inc(rq->sched->score);
->  		drm_sched_rq_add_entity(rq, entity);
->  		spin_unlock(&entity->rq_lock);
->  
+My argument basically. It's good if fixes and other improvements are
+separated, in general, unless there is a practical / good reason not
+to.
+
+>=20
+> Also..
+>=20
+> > > void drm_sched_rq_update_fifo(struct drm_sched_entity *entity,
+> > > ktime_t=20
+> > > ts)
+> > > {
+> > > =C2=A0=C2=A0=C2=A0=C2=A0/*
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 * Both locks need to be grabbed, one to prot=
+ect from entity-
+> > > >rq=20
+> > > change
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 * for entity from within concurrent
+> > > drm_sched_entity_select_rq=20
+> > > and the
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 * other to update the rb tree structure.
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > =C2=A0=C2=A0=C2=A0=C2=A0spin_lock(&entity->rq_lock);
+> > > =C2=A0=C2=A0=C2=A0=C2=A0spin_lock(&entity->rq->lock);
+>=20
+> .. I agree this is quite unredable and my initial reaction was a
+> similar=20
+> ugh. However.. What names would you guys suggest and for what to make
+> this better and not lessen the logic of naming each individually?
+
+According to the documentation, drm_sched_rq.lock does not protect the
+entire runque, but "@lock: to modify the entities list."
+
+So I would keep drm_sched_entity.rq_lock as it is, because it indeed
+protects the entire runqueue.
+
+And drm_sched_rq.lock could be named "entities_lock" or
+"entities_list_lock" or something. That's debatable, but it should be
+something that highlights that this lock is not for locking the entire
+runque as the one in the entity apparently is.
+
+
+Cheers,
+P.
+
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > > [...]
+> > >=20
+> > >=20
+> > > P.
+> > >=20
+> > >=20
+> > > > Then audit the code if all users of rq and priority actually
+> > > > hold the
+> > > > correct locks while reading and writing them.
+> > > >=20
+> > > > Regards,
+> > > > Christian.
+> > > >=20
+> > > > > P.
+> > > > >=20
+> > > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > > Fixes: b37aced31eb0 ("drm/scheduler: implement a function
+> > > > > > to
+> > > > > > modify
+> > > > > > sched list")
+> > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > Cc: Luben Tuikov <ltuikov89@gmail.com>
+> > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > > > Cc: David Airlie <airlied@gmail.com>
+> > > > > > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > > > > > Cc: dri-devel@lists.freedesktop.org
+> > > > > > Cc: <stable@vger.kernel.org> # v5.7+
+> > > > > > ---
+> > > > > > =C2=A0=C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 2 =
+++
+> > > > > > =C2=A0=C2=A0=C2=A01 file changed, 2 insertions(+)
+> > > > > >=20
+> > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > > b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > > index 58c8161289fe..ae8be30472cd 100644
+> > > > > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > > @@ -133,8 +133,10 @@ void
+> > > > > > drm_sched_entity_modify_sched(struct
+> > > > > > drm_sched_entity *entity,
+> > > > > > =C2=A0=C2=A0=C2=A0{
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARN_ON(!num_sched_list ||=
+ !sched_list);
+> > > > > > +=C2=A0=C2=A0=C2=A0 spin_lock(&entity->rq_lock);
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 entity->sched_list =3D sch=
+ed_list;
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 entity->num_sched_list =3D=
+ num_sched_list;
+> > > > > > +=C2=A0=C2=A0=C2=A0 spin_unlock(&entity->rq_lock);
+> > > > > > =C2=A0=C2=A0=C2=A0}
+> > > > > > =C2=A0=C2=A0=C2=A0EXPORT_SYMBOL(drm_sched_entity_modify_sched);
+> >=20
+>=20
+
