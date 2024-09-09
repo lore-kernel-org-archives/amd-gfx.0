@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08CDBECE584
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:19:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31330ECE585
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F75210E601;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEAC10E602;
 	Mon,  9 Sep 2024 17:19:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MKKSAhji";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TZlVX4pn";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B29A10E5F2;
- Mon,  9 Sep 2024 17:19:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1650610E5F9;
+ Mon,  9 Sep 2024 17:19:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,29 +22,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=jp3RmbG8f3OBw4Pi+42YfmplFO0xM+uDEGmft2k+eKY=; b=MKKSAhjifHokCovUhbanwzF+lp
- oExHIW73Z1PQ7O3LTdZ9je0oZc3cfWPVa5VWj6Iq0c8gUOX3VAh9zen9zPF+AkL+v5DuMkq7FQ6rf
- T2lvlB9dPr0wU7Y/UmLQqaJ15W4myO6jDtOZC4a7QkSa5WnvVSdQvA9pbn6952oaeRBj4rOR9rNSh
- ChLWe8PrQX6AcXfDdjlctD8Bnl7ZYYXvntRoHyqDDZ1ppEsobrFoRVgOVHfALpFguQilCP9enUtrF
- iCB7CisSjFhZxJ4LNMrtDgN2BHDmlOiC3jVWVbi4TbSzAUNpaQq9QQm3+J16JvCoo5VFFvhhwLSyV
- fP3Ji2zQ==;
+ bh=/+G/9TW6m/sQDRxQlSk0p/9/HPvAbDsfuKqAcxJEIIU=; b=TZlVX4pnGKYQS18eAAIwzIX3FR
+ Wm9LLtZdgyvB/1ajrve08MiGJYIHsCa6IZx0IWGSYpttd9y4o4OBsJ/tyHZY0nFcoX33kKOCe39WX
+ b1qBBEOW+I/HYyhbid8YtkiYfABoNIEV3p5gTVlTQu9qa1SEjfN6aZR4ZV/Tx0mbpXWXk6fePAY8A
+ s9qXueoVcKSBrF/+R0O9mZ9tlOq8cALMPRhVXORsWZZ/2Y4d1x5/cZZk+AoKjbmN3WtkrmJvZugJE
+ eQBHzl+wIc+rEz/27ycEsclTGTRBFhM6D2VLC0e4PgqPG0QfOysdmBmYmnfA4IOH+YC+fBegcLlbe
+ czbbQ0QA==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sni3F-00Bg5Q-Dj; Mon, 09 Sep 2024 19:19:45 +0200
+ id 1sni3D-00Bg4z-7w; Mon, 09 Sep 2024 19:19:43 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Nirmoy Das <nirmoy.das@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
  Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>
-Subject: [PATCH 6/8] drm/sched: Re-order struct drm_sched_rq members for
- clarity
-Date: Mon,  9 Sep 2024 18:19:35 +0100
-Message-ID: <20240909171937.51550-7-tursulin@igalia.com>
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org,
+ Nirmoy Das <nirmoy.das@intel.com>
+Subject: [PATCH 3/8] drm/sched: Always increment correct scheduler score
+Date: Mon,  9 Sep 2024 18:19:32 +0100
+Message-ID: <20240909171937.51550-4-tursulin@igalia.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909171937.51550-1-tursulin@igalia.com>
 References: <20240909171937.51550-1-tursulin@igalia.com>
@@ -67,50 +67,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Lets re-order the members to make it clear which are protected by the lock
-and at the same time document it via kerneldoc.
+Entities run queue can change during drm_sched_entity_push_job() so make
+sure to update the score consistently.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: d41a39dda140 ("drm/scheduler: improve job distribution with multiple queues")
+Cc: Nirmoy Das <nirmoy.das@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Luben Tuikov <ltuikov89@gmail.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <pstanner@redhat.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.9+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- include/drm/gpu_scheduler.h | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index a06753987d93..d4a3ba333568 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -243,10 +243,10 @@ struct drm_sched_entity {
- /**
-  * struct drm_sched_rq - queue of entities to be scheduled.
-  *
-- * @lock: to modify the entities list.
-  * @sched: the scheduler to which this rq belongs to.
-- * @entities: list of the entities to be scheduled.
-+ * @lock: protects the list, tree and current entity.
-  * @current_entity: the entity which is to be scheduled.
-+ * @entities: list of the entities to be scheduled.
-  * @rb_tree_root: root of time based priory queue of entities for FIFO scheduling
-  *
-  * Run queue is a set of entities scheduling command submissions for
-@@ -254,10 +254,12 @@ struct drm_sched_entity {
-  * the next entity to emit commands from.
-  */
- struct drm_sched_rq {
--	spinlock_t			lock;
- 	struct drm_gpu_scheduler	*sched;
--	struct list_head		entities;
-+
-+	spinlock_t			lock;
-+	/* Following members are protected by the @lock: */
- 	struct drm_sched_entity		*current_entity;
-+	struct list_head		entities;
- 	struct rb_root_cached		rb_tree_root;
- };
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 76e422548d40..6645a8524699 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -586,7 +586,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	ktime_t submit_ts;
+ 
+ 	trace_drm_sched_job(sched_job, entity);
+-	atomic_inc(entity->rq->sched->score);
+ 	WRITE_ONCE(entity->last_user, current->group_leader);
+ 
+ 	/*
+@@ -614,6 +613,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 		rq = entity->rq;
+ 		sched = rq->sched;
+ 
++		atomic_inc(sched->score);
+ 		drm_sched_rq_add_entity(rq, entity);
+ 		spin_unlock(&entity->rq_lock);
  
 -- 
 2.46.0
