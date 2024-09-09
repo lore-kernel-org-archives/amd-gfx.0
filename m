@@ -4,105 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 487BDECE585
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D033FECE57A
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8F610E4DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 952E210E4DF;
 	Mon,  9 Sep 2024 11:37:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="fJGPoC77";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g3WDqZKv";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fJGPoC77";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g3WDqZKv";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="V/YkE6uK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j81dm/zO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="V/YkE6uK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j81dm/zO";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 376D810E47C;
- Mon,  9 Sep 2024 11:37:08 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD61E10E3CE;
+ Mon,  9 Sep 2024 11:37:06 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CB0381FCDC;
- Mon,  9 Sep 2024 11:37:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 15EC51FC0D;
+ Mon,  9 Sep 2024 11:37:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725881826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1725881825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L9zvTCvwhtI6eA4MCS+mxXs10CqchZFooGASaUW3vCw=;
- b=fJGPoC77y269lz3jUzZWRodoo6WnHw5o5iCUQFd0zN+oTPqM/7JCxx9jqISaSO3JorIITc
- CG4IRDwti+DjskM6dCziEKFb/2hlPlu21svqpMxR37IbF8iSILCxsXp5VB9zXT+1BjiMmn
- P5zEk1q/lo8Ttw2Ku/semGy/6Tur7Ko=
+ bh=22vKnz4EBQjHoJLcI++BvjA5pMRrbj+fUzSXVB7HVGo=;
+ b=V/YkE6uKvqQ8cktNpINOAuJacYB+sa+ygKgxhNznAIE81L5Rutfa6WHh7zE9ZxxkeB0srG
+ R3WYamauHoMgLPLiNxY70rEeiWbQeMeadObwFJWj3ezfhYy+ugweyMfoYvvykzjTIQbN6s
+ OMC2EQI0ODv+N554ut50BEXGyJLs3SU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725881826;
+ s=susede2_ed25519; t=1725881825;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L9zvTCvwhtI6eA4MCS+mxXs10CqchZFooGASaUW3vCw=;
- b=g3WDqZKv/P+1RYoPHSr3CAH2ua7aK1mNin0+2gWjWoGKeSv4soz+qG38xkvJQllNRJqy+i
- juFzMwx46fQN/GCQ==
+ bh=22vKnz4EBQjHoJLcI++BvjA5pMRrbj+fUzSXVB7HVGo=;
+ b=j81dm/zOH8H3wCuibO7EO00a+IrQgDrUWSqLwnO/F4qJQIilOwI4AcWq2118+WIqfxArTT
+ +yCX9/c8obUfCxCQ==
 Authentication-Results: smtp-out2.suse.de;
-	none
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="V/YkE6uK";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="j81dm/zO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725881826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1725881825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L9zvTCvwhtI6eA4MCS+mxXs10CqchZFooGASaUW3vCw=;
- b=fJGPoC77y269lz3jUzZWRodoo6WnHw5o5iCUQFd0zN+oTPqM/7JCxx9jqISaSO3JorIITc
- CG4IRDwti+DjskM6dCziEKFb/2hlPlu21svqpMxR37IbF8iSILCxsXp5VB9zXT+1BjiMmn
- P5zEk1q/lo8Ttw2Ku/semGy/6Tur7Ko=
+ bh=22vKnz4EBQjHoJLcI++BvjA5pMRrbj+fUzSXVB7HVGo=;
+ b=V/YkE6uKvqQ8cktNpINOAuJacYB+sa+ygKgxhNznAIE81L5Rutfa6WHh7zE9ZxxkeB0srG
+ R3WYamauHoMgLPLiNxY70rEeiWbQeMeadObwFJWj3ezfhYy+ugweyMfoYvvykzjTIQbN6s
+ OMC2EQI0ODv+N554ut50BEXGyJLs3SU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725881826;
+ s=susede2_ed25519; t=1725881825;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=L9zvTCvwhtI6eA4MCS+mxXs10CqchZFooGASaUW3vCw=;
- b=g3WDqZKv/P+1RYoPHSr3CAH2ua7aK1mNin0+2gWjWoGKeSv4soz+qG38xkvJQllNRJqy+i
- juFzMwx46fQN/GCQ==
+ bh=22vKnz4EBQjHoJLcI++BvjA5pMRrbj+fUzSXVB7HVGo=;
+ b=j81dm/zOH8H3wCuibO7EO00a+IrQgDrUWSqLwnO/F4qJQIilOwI4AcWq2118+WIqfxArTT
+ +yCX9/c8obUfCxCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B6EA13312;
- Mon,  9 Sep 2024 11:37:06 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6EEC13A84;
+ Mon,  9 Sep 2024 11:37:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qPDMHOLd3malNAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:37:06 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id qFxJL+Dd3malNAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:37:04 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-Subject: [PATCH v4 78/80] drm/tegra: Run DRM default client setup
-Date: Mon,  9 Sep 2024 13:31:24 +0200
-Message-ID: <20240909113633.595465-79-tzimmermann@suse.de>
+ Russell King <linux@armlinux.org.uk>
+Subject: [PATCH v4 73/80] drm/armada: Run DRM default client setup
+Date: Mon,  9 Sep 2024 13:31:19 +0200
+Message-ID: <20240909113633.595465-74-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909113633.595465-1-tzimmermann@suse.de>
 References: <20240909113633.595465-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-1.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+X-Rspamd-Queue-Id: 15EC51FC0D
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[12];
- RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[]; TAGGED_RCPT(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,gmail.com,nvidia.com];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid];
+ RCVD_TLS_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[10]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- R_RATELIMIT(0.00)[to(RLbwen1niosrcqbxsafh1),to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,200 +130,214 @@ Call drm_client_setup() to run the kernel's default client setup
 for DRM. Set fbdev_probe in struct drm_driver, so that the client
 setup can start the common fbdev client.
 
-The tegra driver specifies a preferred color mode of 32. As this
+The armada driver specifies a preferred color mode of 32. As this
 is the default if no format has been given, leave it out entirely.
 
+v4:
+- revert an unrelated cleanup (Javier)
+
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Russell King <linux@armlinux.org.uk>
 Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/tegra/drm.c   |  5 +-
- drivers/gpu/drm/tegra/drm.h   | 12 +++--
- drivers/gpu/drm/tegra/fbdev.c | 98 +++--------------------------------
- 3 files changed, 19 insertions(+), 96 deletions(-)
+ drivers/gpu/drm/armada/armada_drm.h   |  11 ++-
+ drivers/gpu/drm/armada/armada_drv.c   |   4 +-
+ drivers/gpu/drm/armada/armada_fbdev.c | 113 ++------------------------
+ 3 files changed, 16 insertions(+), 112 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index d9f0728c3afd..6186524cf1a4 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -15,6 +15,7 @@
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_client_setup.h>
- #include <drm/drm_debugfs.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fourcc.h>
-@@ -891,6 +892,8 @@ static const struct drm_driver tegra_drm_driver = {
- 
- 	.dumb_create = tegra_bo_dumb_create,
- 
-+	TEGRA_FBDEV_DRIVER_OPS,
-+
- 	.ioctls = tegra_drm_ioctls,
- 	.num_ioctls = ARRAY_SIZE(tegra_drm_ioctls),
- 	.fops = &tegra_drm_fops,
-@@ -1268,7 +1271,7 @@ static int host1x_drm_probe(struct host1x_device *dev)
- 	if (err < 0)
- 		goto hub;
- 
--	tegra_fbdev_setup(drm);
-+	drm_client_setup(drm, NULL);
- 
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
-index 2f3781e04b0a..0b65e69f3a8a 100644
---- a/drivers/gpu/drm/tegra/drm.h
-+++ b/drivers/gpu/drm/tegra/drm.h
-@@ -25,6 +25,9 @@
- /* XXX move to include/uapi/drm/drm_fourcc.h? */
- #define DRM_FORMAT_MOD_NVIDIA_SECTOR_LAYOUT BIT_ULL(22)
- 
+diff --git a/drivers/gpu/drm/armada/armada_drm.h b/drivers/gpu/drm/armada/armada_drm.h
+index c303e8c7ff6c..3c0ff221a43b 100644
+--- a/drivers/gpu/drm/armada/armada_drm.h
++++ b/drivers/gpu/drm/armada/armada_drm.h
+@@ -16,6 +16,8 @@ struct armada_crtc;
+ struct armada_gem_object;
+ struct clk;
+ struct drm_display_mode;
 +struct drm_fb_helper;
 +struct drm_fb_helper_surface_size;
-+
- struct edid;
- struct reset_control;
  
-@@ -190,10 +193,13 @@ struct drm_framebuffer *tegra_fb_create(struct drm_device *drm,
- 					const struct drm_mode_fb_cmd2 *cmd);
+ static inline void
+ armada_updatel(uint32_t val, uint32_t mask, void __iomem *ptr)
+@@ -74,10 +76,13 @@ struct armada_private {
+ #define drm_to_armada_dev(dev) container_of(dev, struct armada_private, drm)
  
- #ifdef CONFIG_DRM_FBDEV_EMULATION
--void tegra_fbdev_setup(struct drm_device *drm);
-+int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
-+				   struct drm_fb_helper_surface_size *sizes);
-+#define TEGRA_FBDEV_DRIVER_OPS \
-+	.fbdev_probe = tegra_fbdev_driver_fbdev_probe
+ #if defined(CONFIG_DRM_FBDEV_EMULATION)
+-void armada_fbdev_setup(struct drm_device *dev);
++int armada_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
++				    struct drm_fb_helper_surface_size *sizes);
++#define ARMADA_FBDEV_DRIVER_OPS \
++	.fbdev_probe = armada_fbdev_driver_fbdev_probe
  #else
--static inline void tegra_fbdev_setup(struct drm_device *drm)
+-static inline void armada_fbdev_setup(struct drm_device *dev)
 -{ }
-+#define TEGRA_FBDEV_DRIVER_OPS \
++#define ARMADA_FBDEV_DRIVER_OPS \
 +	.fbdev_probe = NULL
  #endif
  
- extern struct platform_driver tegra_display_hub_driver;
-diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
-index db6eaac3d30e..cd9d798f8870 100644
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -66,8 +66,11 @@ static const struct fb_ops tegra_fb_ops = {
- 	.fb_destroy = tegra_fbdev_fb_destroy,
+ int armada_overlay_plane_create(struct drm_device *, unsigned long);
+diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+index e51ecc4f7ef4..3dc5f0499e4c 100644
+--- a/drivers/gpu/drm/armada/armada_drv.c
++++ b/drivers/gpu/drm/armada/armada_drv.c
+@@ -12,6 +12,7 @@
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_ioctl.h>
+ #include <drm/drm_managed.h>
+@@ -39,6 +40,7 @@ DEFINE_DRM_GEM_FOPS(armada_drm_fops);
+ static const struct drm_driver armada_drm_driver = {
+ 	.gem_prime_import	= armada_gem_prime_import,
+ 	.dumb_create		= armada_gem_dumb_create,
++	ARMADA_FBDEV_DRIVER_OPS,
+ 	.major			= 1,
+ 	.minor			= 0,
+ 	.name			= "armada-drm",
+@@ -137,7 +139,7 @@ static int armada_drm_bind(struct device *dev)
+ 	armada_drm_debugfs_init(priv->drm.primary);
+ #endif
+ 
+-	armada_fbdev_setup(&priv->drm);
++	drm_client_setup(&priv->drm, NULL);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
+index d223176912b6..6ee7ce04ee71 100644
+--- a/drivers/gpu/drm/armada/armada_fbdev.c
++++ b/drivers/gpu/drm/armada/armada_fbdev.c
+@@ -39,8 +39,10 @@ static const struct fb_ops armada_fb_ops = {
+ 	.fb_destroy	= armada_fbdev_fb_destroy,
  };
  
--static int tegra_fbdev_probe(struct drm_fb_helper *helper,
--			     struct drm_fb_helper_surface_size *sizes)
-+static const struct drm_fb_helper_funcs tegra_fbdev_helper_funcs = {
-+};
+-static int armada_fbdev_create(struct drm_fb_helper *fbh,
+-	struct drm_fb_helper_surface_size *sizes)
++static const struct drm_fb_helper_funcs armada_fbdev_helper_funcs;
 +
-+int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
-+				   struct drm_fb_helper_surface_size *sizes)
++int armada_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
++				    struct drm_fb_helper_surface_size *sizes)
  {
- 	struct tegra_drm *tegra = helper->dev->dev_private;
- 	struct drm_device *drm = helper->dev;
-@@ -112,6 +115,7 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 		return PTR_ERR(fb);
- 	}
+ 	struct drm_device *dev = fbh->dev;
+ 	struct drm_mode_fb_cmd2 mode;
+@@ -98,6 +100,7 @@ static int armada_fbdev_create(struct drm_fb_helper *fbh,
+ 	info->fix.smem_len = obj->obj.size;
+ 	info->screen_size = obj->obj.size;
+ 	info->screen_base = ptr;
++	fbh->funcs = &armada_fbdev_helper_funcs;
+ 	fbh->fb = &dfb->fb;
  
-+	helper->funcs = &tegra_fbdev_helper_funcs;
- 	helper->fb = fb;
- 	helper->info = info;
- 
-@@ -144,93 +148,3 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	drm_framebuffer_remove(fb);
- 	return err;
+ 	drm_fb_helper_fill_info(info, fbh, sizes);
+@@ -112,109 +115,3 @@ static int armada_fbdev_create(struct drm_fb_helper *fbh,
+ 	dfb->fb.funcs->destroy(&dfb->fb);
+ 	return ret;
  }
 -
--static const struct drm_fb_helper_funcs tegra_fb_helper_funcs = {
--	.fb_probe = tegra_fbdev_probe,
+-static int armada_fb_probe(struct drm_fb_helper *fbh,
+-	struct drm_fb_helper_surface_size *sizes)
+-{
+-	int ret = 0;
+-
+-	if (!fbh->fb) {
+-		ret = armada_fbdev_create(fbh, sizes);
+-		if (ret == 0)
+-			ret = 1;
+-	}
+-	return ret;
+-}
+-
+-static const struct drm_fb_helper_funcs armada_fb_helper_funcs = {
+-	.fb_probe	= armada_fb_probe,
 -};
 -
 -/*
-- * struct drm_client
+- * Fbdev client and struct drm_client_funcs
 - */
 -
--static void tegra_fbdev_client_unregister(struct drm_client_dev *client)
+-static void armada_fbdev_client_unregister(struct drm_client_dev *client)
 -{
--	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_fb_helper *fbh = drm_fb_helper_from_client(client);
 -
--	if (fb_helper->info) {
--		drm_fb_helper_unregister_info(fb_helper);
+-	if (fbh->info) {
+-		drm_fb_helper_unregister_info(fbh);
 -	} else {
--		drm_client_release(&fb_helper->client);
--		drm_fb_helper_unprepare(fb_helper);
--		kfree(fb_helper);
+-		drm_client_release(&fbh->client);
+-		drm_fb_helper_unprepare(fbh);
+-		kfree(fbh);
 -	}
 -}
 -
--static int tegra_fbdev_client_restore(struct drm_client_dev *client)
+-static int armada_fbdev_client_restore(struct drm_client_dev *client)
 -{
 -	drm_fb_helper_lastclose(client->dev);
 -
 -	return 0;
 -}
 -
--static int tegra_fbdev_client_hotplug(struct drm_client_dev *client)
+-static int armada_fbdev_client_hotplug(struct drm_client_dev *client)
 -{
--	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_fb_helper *fbh = drm_fb_helper_from_client(client);
 -	struct drm_device *dev = client->dev;
 -	int ret;
 -
 -	if (dev->fb_helper)
 -		return drm_fb_helper_hotplug_event(dev->fb_helper);
 -
--	ret = drm_fb_helper_init(dev, fb_helper);
+-	ret = drm_fb_helper_init(dev, fbh);
 -	if (ret)
 -		goto err_drm_err;
 -
 -	if (!drm_drv_uses_atomic_modeset(dev))
 -		drm_helper_disable_unused_functions(dev);
 -
--	ret = drm_fb_helper_initial_config(fb_helper);
+-	ret = drm_fb_helper_initial_config(fbh);
 -	if (ret)
 -		goto err_drm_fb_helper_fini;
 -
 -	return 0;
 -
 -err_drm_fb_helper_fini:
--	drm_fb_helper_fini(fb_helper);
+-	drm_fb_helper_fini(fbh);
 -err_drm_err:
--	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
+-	drm_err(dev, "armada: Failed to setup fbdev emulation (ret=%d)\n", ret);
 -	return ret;
 -}
 -
--static const struct drm_client_funcs tegra_fbdev_client_funcs = {
+-static const struct drm_client_funcs armada_fbdev_client_funcs = {
 -	.owner		= THIS_MODULE,
--	.unregister	= tegra_fbdev_client_unregister,
--	.restore	= tegra_fbdev_client_restore,
--	.hotplug	= tegra_fbdev_client_hotplug,
+-	.unregister	= armada_fbdev_client_unregister,
+-	.restore	= armada_fbdev_client_restore,
+-	.hotplug	= armada_fbdev_client_hotplug,
 -};
 -
--void tegra_fbdev_setup(struct drm_device *dev)
+-void armada_fbdev_setup(struct drm_device *dev)
 -{
--	struct drm_fb_helper *helper;
+-	struct drm_fb_helper *fbh;
 -	int ret;
 -
 -	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
 -	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
 -
--	helper = kzalloc(sizeof(*helper), GFP_KERNEL);
--	if (!helper)
+-	fbh = kzalloc(sizeof(*fbh), GFP_KERNEL);
+-	if (!fbh)
 -		return;
--	drm_fb_helper_prepare(dev, helper, 32, &tegra_fb_helper_funcs);
+-	drm_fb_helper_prepare(dev, fbh, 32, &armada_fb_helper_funcs);
 -
--	ret = drm_client_init(dev, &helper->client, "fbdev", &tegra_fbdev_client_funcs);
--	if (ret)
+-	ret = drm_client_init(dev, &fbh->client, "fbdev", &armada_fbdev_client_funcs);
+-	if (ret) {
+-		drm_err(dev, "Failed to register client: %d\n", ret);
 -		goto err_drm_client_init;
+-	}
 -
--	drm_client_register(&helper->client);
+-	drm_client_register(&fbh->client);
 -
 -	return;
 -
 -err_drm_client_init:
--	drm_fb_helper_unprepare(helper);
--	kfree(helper);
+-	drm_fb_helper_unprepare(fbh);
+-	kfree(fbh);
+-	return;
 -}
 -- 
 2.46.0
