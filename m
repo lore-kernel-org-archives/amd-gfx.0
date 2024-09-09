@@ -4,99 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F030CECE582
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Sep 2024 07:17:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C60ECE564
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Sep 2024 07:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D1C10E716;
-	Tue, 10 Sep 2024 07:17:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A2F810E71A;
+	Tue, 10 Sep 2024 07:17:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="UmuN7coi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E1LMAlfC";
 	dkim-atps=neutral
-Received: from smtp1.math.uni-bielefeld.de (smtp1.math.uni-bielefeld.de
- [129.70.45.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1243C10E66D;
- Mon,  9 Sep 2024 19:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=math.uni-bielefeld.de; s=default; t=1725910611;
- bh=mSQgJPqiylWbdaZR6PEX6uW04UWGMTefCiZptqVbuaQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UmuN7coihcW9EkGIwAvvPDfHChJ11ukWg7IbWd5vln0iklQBnnfxXBhvxX50kW1az
- Ac1SpUIDWOxYz/dbCuA5LHZhzxbPxF8lvicLkLqhtTyi0kJnY4wWqDvl/cyjbDcIKG
- 06ql32+PCixZ9F1Rs9Dsx402ddQBrssuuh63tc2CeXiRQnhRz/XT74beawJcYz5V+N
- j7d9ABFyQLG4m3KJ19tPFGqcMB+GGnPn7TtoP14PfgcYL1rvX3gwdUCg6oH9BoRUIC
- NSUkJP1Gdx2ZPfwNf6ZifLHxTmOh0RR/7X4/fouDm9pGMi/h4UUp4k/EhczzsJR+ZC
- HX8kvG9ysd9AQ==
-Received: from [192.168.0.106]
- (dslb-088-074-203-146.088.074.pools.vodafone-ip.de [88.74.203.146])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by smtp1.math.uni-bielefeld.de (Postfix) with ESMTPSA id 5C6972028F;
- Mon,  9 Sep 2024 21:36:50 +0200 (CEST)
-Message-ID: <80c80db1-1935-492c-94e4-8d5c1681c0db@math.uni-bielefeld.de>
-Date: Mon, 9 Sep 2024 21:36:44 +0200
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D8510E5FB;
+ Mon,  9 Sep 2024 22:41:35 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-374c84dcc64so3728170f8f.1; 
+ Mon, 09 Sep 2024 15:41:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725921694; x=1726526494; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Czccy5fQseI/IqoQS9L/TpwH/mxQYjj8nomGHBFfYmk=;
+ b=E1LMAlfCTE+JkYh4gnu9nHnIv4u9AL6+nExw2AAya/7NA+4yTXdDPvf/DfWxnp9i09
+ CIWO0hMJT9pUbxHGB4u6YJ9EBjDEpM9pLWevBS8JTnIzvgOFyBSFo3gw2vbze5CyrMQX
+ 43HyjPeO8fRfqkcigUBuwZDfZeo0j67q3C4WxzEmTjSW/p85bLPtaNqfoJ78AOoMrd6b
+ VtNcd2J0No9lJb45TyHlfyPuH4W2uPC3IHE7Y9SzG2z+FRqw3ivLc8ZE+GzRPRjlzGMR
+ gecS9kSmqPq6hUhw2sppmxMJ2JjAZOHIQ24l4gS5/fl+Lffc5xBvdGf8oZZ9t5E85Nz+
+ SCIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725921694; x=1726526494;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Czccy5fQseI/IqoQS9L/TpwH/mxQYjj8nomGHBFfYmk=;
+ b=CVtVxno4yUIxhj8H0UMlq/ASlLb3CcDGw94VB/oMIOrZxkEcI2ZrJbUplR5fq4Y3Tg
+ 9392nFWK9aVB1i+oND+HeJ2bo26vCQUWte9rWAMbxoTNW6P3Yu+2Z9jF4mHb8tVsgw+M
+ /8hxuE3DJUO1Wsmb6Ghs9+gNxlPkglnRYyFwwB6gXD1rPTwApne2cvCrUUvZ6UgkMMSG
+ gE92uCm+zwkQrR7PcOrkWJT4L+tZI8cAXjBKEW+snsXIbN4xOSXWoXK8dW3pPzUstQPQ
+ rJXfVSUJYPEAHllpI5bHbua5r7VXvmmbMu2zgnLiw8/HrRAoEWoo3rbV2Rnjd+eU8Dnt
+ XzMg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWnK1gYOWPLrUvlsPUXRVT4GqdZgE+eZfkrZqthlXCAb2Bajv3141YCCYNwNZAt7K+4r3q1hNOWkK0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAk9iLVv2Jbka9dcBjxnY/6S/hdWDDb1v543LDJ0laXkRrYnhS
+ hQq8oOqJnwoYBziWyuqIyvMEMrOvAy3095nPukySms/3cJ0ZPbjP
+X-Google-Smtp-Source: AGHT+IG66+N4aswIJh7BoLAZq9oScW41fFewcBVIDHfk1+X70Qo4RhWHc9z3rRKiXcZ0ip/VIixKQA==
+X-Received: by 2002:adf:9b89:0:b0:374:b363:2dea with SMTP id
+ ffacd0b85a97d-3789229bc11mr6426973f8f.10.1725921693172; 
+ Mon, 09 Sep 2024 15:41:33 -0700 (PDT)
+Received: from void.void ([141.226.14.150]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378956653c6sm7098887f8f.32.2024.09.09.15.41.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Sep 2024 15:41:32 -0700 (PDT)
+From: Andrew Kreimer <algonell@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Candice Li <candice.li@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ "Stanley . Yang" <Stanley.Yang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Andrew Kreimer <algonell@gmail.com>, Matthew Wilcox <willy@infradead.org>
+Subject: [PATCH] drm/amdgpu: Fix a typo
+Date: Tue, 10 Sep 2024 01:41:05 +0300
+Message-ID: <20240909224122.14780-1-algonell@gmail.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/amd: fix VRR race condition during IRQ handling
-To: Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: Christopher Snowhill <chris@kode54.net>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <cover.1725269643.git.tjakobi@math.uni-bielefeld.de>
- <D40Q9ZLDQIZF.3OERFS0AYREN0@kode54.net>
- <deb6d962-f24e-4769-b313-be3b0efb873b@math.uni-bielefeld.de>
- <CADnq5_PMnCUYsUq_SPS8woi20KxaW2+teMzhmmOyFJRaq3YVQQ@mail.gmail.com>
- <c2653b61-eca8-4209-9d50-771cf1a9fe35@amd.com>
-Content-Language: en-US
-From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-Autocrypt: addr=tjakobi@math.uni-bielefeld.de; keydata=
- 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
- JRHWPGCL3BhOxQ==
-In-Reply-To: <c2653b61-eca8-4209-9d50-771cf1a9fe35@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 10 Sep 2024 07:17:06 +0000
+X-Mailman-Approved-At: Tue, 10 Sep 2024 07:17:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,105 +87,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/9/24 19:18, Harry Wentland wrote:
+Fix a typo in comments.
 
->
-> On 2024-09-09 13:11, Alex Deucher wrote:
->> On Sun, Sep 8, 2024 at 7:23 AM Tobias Jakobi
->> <tjakobi@math.uni-bielefeld.de> wrote:
->>> On 9/8/24 09:35, Christopher Snowhill wrote:
->>>
->>>> On Mon Sep 2, 2024 at 2:40 AM PDT, tjakobi wrote:
->>>>> From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
->>>>>
->>>>> Hello,
->>>>>
->>>>> this fixes a nasty race condition in the set_drr() callbacks for DCN10
->>>>> and DCN35 that has existed now since quite some time, see this GitLab
->>>>> issue for reference.
->>>>>
->>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/3142
->>>>>
->>>>> The report just focuses von DCN10, but the same problem also exists in
->>>>> the DCN35 code.
->>>> Does the problem not exist in the following references to funcs->set_drr?
->>>>
->>>> drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c:      if (pipe_ctx->stream_res.tg->funcs->set_drr)
->>>> drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c:              pipe_ctx->stream_res.tg->funcs->set_drr(
->>>> drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c:              pipe_ctx[i]->stream_res.tg->funcs->set_drr(
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c:        if (pipe_ctx->stream_res.tg->funcs->set_drr)
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c:                pipe_ctx->stream_res.tg->funcs->set_drr(
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c:                if (pipe_ctx->stream_res.tg->funcs->set_drr)
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c:                        pipe_ctx->stream_res.tg->funcs->set_drr(
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c:        if (pipe_ctx->stream_res.tg->funcs->set_drr)
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c:                pipe_ctx->stream_res.tg->funcs->set_drr(
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c:      if (pipe_ctx->stream_res.tg->funcs->set_drr)
->>>> drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c:              pipe_ctx->stream_res.tg->funcs->set_drr(
->>> Maybe. But the big difference I see here, is that in this code there
->>> isn't even any kind of NULL check applied to tg. Or most of the members
->>> of *pipe_ctx. If there really is the same kind of problem here, then one
->>> would need to rewrite a bit more code to fix stuff.
->>>
->>> E.g. in the case of  dcn31_hwseq.c, the questionable code is in
->>> dcn31_reset_back_end_for_pipe(), which is static and only called from
->>> dcn31_reset_hw_ctx_wrap(). Which is assigned to the .reset_hw_ctx_wrap
->>> callback. And this specific callback, from what I can see, is only
->>> called from dce110_reset_hw_ctx_wrap(). Which is then assigned to the
->>> .apply_ctx_to_hw callback. The callback is only called from
->>> dc_commit_state_no_check(). That one is static again, and called from
->>> dc_commit_streams().
->>>
->>> I could trace this even further. My point is: I don't think this is
->>> called from any IRQ handler code. And given the depth and complexity of
->>> the callgraph, I have to admit, that, at least at this point, this is a
->>> bit over my head.
->>>
->>> Sure, I could now sprinkle a bunch of x != NULL in the code, but that
->>> would be merely voodoo. And I usually try to have a theoretical basis
->>> when I apply changes to code.
->>>
->>> Maybe if someone from the AMD display team could give some insight if
->>> there still is potentially vulnerable code in some of the instances that
->>> Christopher has posted, then I would gladly take a look.
->> @Wentland, Harry can you confirm this?
->>
-> As Tobias said, without extensive analysis and trace of the code in all
-> possible use-case it's hard to say there's no possible way the other
-> set_drr calls could potentially have a similar issue.
->
-> I think Tobias' analysis is sound and this fixes a number of issues, hence
-> my RB.
-In fact one user pointed out another potentially vulnerable callback:
-https://gitlab.freedesktop.org/drm/amd/-/issues/3142#note_2560109
+Reported-by: Matthew Wilcox <willy@infradead.org>
+Signed-off-by: Andrew Kreimer <algonell@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Which is set_drr() in dce110_hwseq.c -- from which we know that it's 
-called from IRQ handler code. Also the backtrace that he posted confirms 
-this. That code seems to be a bit older than the DCN10/DCN25 code, as it 
-lacks any kind of NULL-check. I have posted a patch that more or less 
-copies over the DCN10/35 code. Still waiting for conclusive feedback if 
-the patch does something.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index aab8077e5098..f28f6b4ba765 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -58,7 +58,7 @@
+ #define EEPROM_I2C_MADDR_4      0x40000
+ 
+ /*
+- * The 2 macros bellow represent the actual size in bytes that
++ * The 2 macros below represent the actual size in bytes that
+  * those entities occupy in the EEPROM memory.
+  * RAS_TABLE_RECORD_SIZE is different than sizeof(eeprom_table_record) which
+  * uses uint64 to store 6b fields such as retired_page.
+-- 
+2.46.0
 
-If it does, I'm going to post it to amd-gfx as well.
-
-With best wishes,
-Tobias
->
-> Harry
->
->> Alex
->>
->>> With best wishes,
->>> Tobias
->>>
->>>>> With best wishes,
->>>>> Tobias
->>>>>
->>>>> Tobias Jakobi (2):
->>>>>     drm/amd/display: Avoid race between dcn10_set_drr() and
->>>>>       dc_state_destruct()
->>>>>     drm/amd/display: Avoid race between dcn35_set_drr() and
->>>>>       dc_state_destruct()
->>>>>
->>>>>    .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 20 +++++++++++--------
->>>>>    .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 20 +++++++++++--------
->>>>>    2 files changed, 24 insertions(+), 16 deletions(-)
