@@ -4,61 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAECFECE579
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:20:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2DD9ECE577
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 780AB10E617;
-	Mon,  9 Sep 2024 17:20:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 998CE10E603;
+	Mon,  9 Sep 2024 17:25:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FV9Qhp6S";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X8VTHlW9";
 	dkim-atps=neutral
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
- [209.85.217.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F99D10E616
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 17:20:05 +0000 (UTC)
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-49bbc25f49aso202149137.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Sep 2024 10:20:05 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5BAF10E603;
+ Mon,  9 Sep 2024 17:25:25 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-502d09a9a7fso47980e0c.0; 
+ Mon, 09 Sep 2024 10:25:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725902404; x=1726507204; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1725902725; x=1726507525; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FzZYYdOmSYtFA5YeBMtN9oGmezEQtfW/YA4KKrjPNPk=;
- b=FV9Qhp6SAV0v3QrrTtlRBkUaFcgoDFu6GundSr/JByrvvBau+erJAe4m2It7VBWHBu
- /Mugt/N+J3ifdNFDJ4tx1Z7XeoauSiI8UybgvUCWiKZR+nqAE7mh9b6RpNxJ7ZUkp4+z
- DGi72RXWiXYqkSHSsdvJmrrdu6RCBnsZNvjnn8w9hDwkvveA3JBrbC1oiPkjEfOlmsdm
- fuCQLsTrevfO087LeSUJp7j7+8xJzvfHhE5ZSqFgRAc8Bf0YhJv1QtcsfVi+eQ4YY/Uz
- hyO6hFMeSEVyJmsU7ripkYHh2dms1izBHnAu1bANqa8+p3RnijKZ/bDZuB+nxnwghWgY
- Lx2g==
+ bh=V6HhkSoNUnMMq3D2hVDty/duRuGXfXAOcY5s6838TPc=;
+ b=X8VTHlW97n5isnr4o8597vrtNmNjnbSmn3TyYsbK/g+sy6rDjNCiBgJY6g+xyrT/jX
+ AB7IDQTUKwwLEiXntgQNXva44YdDFGmoB5/HsOYR4boyorlu9w3ZCyBSZ9o0M64Xmdms
+ WTV5MWxKJ5WAsBR03DJ3Ohlh2aug/rYmSOsqgUyCHMYyPBr90SGoo2TROsuEWVjxGC7J
+ b9OulxI5TCoYTP7VsZiG9zwwuBCGj4y0BHTYMk9vsa39K32xKRFXfK3A32PgRmtTJCYx
+ oY7uuapVuXFL/GHSt/uto/vGYxiPkQqKMdGvTBpLkSUXfyLrAjsndKb8joG9DQQP+ROl
+ 9QhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725902404; x=1726507204;
+ d=1e100.net; s=20230601; t=1725902725; x=1726507525;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FzZYYdOmSYtFA5YeBMtN9oGmezEQtfW/YA4KKrjPNPk=;
- b=rJbPL+6Y/YXh/bn4vGdDDQoDgOu4dT5Z1BHG5cTW+QTy1/rtzQGEsFLhN2bDSNNh2b
- Wy4cWpDWfmsFLsM3V3rCyNzTt44kQpZATJb+CqvHV6vIXcNPVSo0ob/Nkjyy4teGWdyl
- DZrUIG1PI+ILGLMkIVldL6beaO2lF6aswDa8m+P81zHktuU/ry8cCGpUrmcSdBi+jCRG
- hrBcZc2xO+X8MEgaRM1hS2NDgqbae3JQEu4fUVDlVgHSxgXvAH3gY7NXzSDQawpW1wGw
- qPhw2/cz2eniDmsKK0miyvZZMMJIqwZc+jGYPVFq4Q3fB7pnM0OUlTcjmTnI2/HXgRh3
- sX3g==
-X-Gm-Message-State: AOJu0YxyE/1wwLdKh8Bra6sIKmslodJgQC6sUjb3J3GYtS4TfE6G8Th8
- Wc6nB9PByk8H2qOqPQkS1v+s3nqGkp5qLFUy26/iyUYycpB3cDzoITOKzRPVO/GM+7ESttT5sHn
- m/9lmJ8ZwpGSzCPf1v2qHRnpJv7Y=
-X-Google-Smtp-Source: AGHT+IGmfXV/QM4ddjruXNKdrsaFbRlQ8y8Dh4vMpSL7xLgEhBgMFDl4Sj1B8GGSZP3IgZbIHNlrZiCI/E6dDSk3S8o=
-X-Received: by 2002:a05:6102:2ac6:b0:493:31f9:d14e with SMTP id
- ada2fe7eead31-49bde1ba809mr6382945137.2.1725902403475; Mon, 09 Sep 2024
- 10:20:03 -0700 (PDT)
+ bh=V6HhkSoNUnMMq3D2hVDty/duRuGXfXAOcY5s6838TPc=;
+ b=j38xtcAp1yaBap6RazQR9znsoN7gvUmFIWVMZCYJgVfuJDSEA2I8XwdAY66SP3O2KD
+ Twe0J/domfzZEM/vCw7gJIOypgtSCGP4treaiq8bceJwdmK61uEbrn672zLVNgqtjkwC
+ Zv2dYVduBu8bi8OhIYqpo+AVcU9XCrJTECn7Piscy3NG1Jk813doJ8smPiKTAYF2Vy25
+ yshdFavjx5fVnPXXafxEJqy95XKU/V/g+nBQwaJjy0k6tM5zrZDu1L0VsPXNDIj9lPnF
+ eDeTfdaok9PmohfHzeqTmcNN52rhNBbH8myutCnKY1D1tQuz2y1qgsYfw31guW+9ua1z
+ UV1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUqvShjsE0Gb9T0o6OMEQD2dAgmsrr3cIwzHLOLc/PUN0n3otBR0EoX3E3m0mHk3ETSwYxqa6ZuPXCH@lists.freedesktop.org,
+ AJvYcCVeWMfQi75eSqfprZpV2acpPqM/5gXiIr3L7hVMzINay88Oxd8iPZWYWG/r+4HD2LO4QC7eZJHG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwIn7ds0zh6Uq7vYCh+HuOsicZONW86gxQSbklM14Zpy4/qftGA
+ ejs02O7nvZzyFplGhfWXtDioxmF4x2KZvW2/yqBXPTxeS056lqko6zdBwiUGQsZSTDpQqVlFI63
+ x4DRDm1TpzF0IddXpPMPRpnpbUM3WGULF
+X-Google-Smtp-Source: AGHT+IE+92W3Wb5qGWWv0/BNzhYfbYBSNd1bpAERi4JgZtkLOBi8feyRz8JARPymwdvLFiYP5/0AF80SNFmwkpF82h8=
+X-Received: by 2002:a05:6122:6113:b0:501:2e0a:ed2a with SMTP id
+ 71dfb90a1353d-501e77976bemr6205128e0c.0.1725902724367; Mon, 09 Sep 2024
+ 10:25:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240906144638.2464367-1-alexander.deucher@amd.com>
-In-Reply-To: <20240906144638.2464367-1-alexander.deucher@amd.com>
+References: <20240909064000.1198047-1-make24@iscas.ac.cn>
+In-Reply-To: <20240909064000.1198047-1-make24@iscas.ac.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Sep 2024 13:19:51 -0400
-Message-ID: <CADnq5_No2VCa67Yh8ZdehwOGcfoTE2WsRX4nHmqTHfoPw21H1g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/atomfirmware: Silence UBSAN warning
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 9 Sep 2024 13:25:12 -0400
+Message-ID: <CADnq5_Ouci1bvRJh+1mDRxgazvL7C-rgg+BjeGyNT-qa=vHtyQ@mail.gmail.com>
+Subject: Re: [PATCH RESEND] drm/amd/display: Add null check before access
+ structs in dcn32_enable_phantom_plane
+To: Ma Ke <make24@iscas.ac.cn>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, alvin.lee2@amd.com, wenjing.liu@amd.com, 
+ roman.li@amd.com, dillon.varone@amd.com, moadhuri@amd.com, 
+ aurabindo.pillai@amd.com, akpm@linux-foundation.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,52 +85,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+On Mon, Sep 9, 2024 at 2:48=E2=80=AFAM Ma Ke <make24@iscas.ac.cn> wrote:
+>
+> In dcn32_enable_phantom_plane, we should better check null pointer before
+> accessing various structs.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 235c67634230 ("drm/amd/display: add DCN32/321 specific files for D=
+isplay Core")
+> Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+
+Thanks for the patch.  This is already fixed in:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/fdd5ecbbff751c3b9061d8e=
+bb08e5c96119915b4
 
 Alex
 
-On Fri, Sep 6, 2024 at 12:43=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
->
-> Per the comments, these are variable sized arrays.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3613
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/include/atomfirmware.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
-/amd/include/atomfirmware.h
-> index 09cbc3afd6d8..b0fc22383e28 100644
-> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> @@ -1038,7 +1038,7 @@ struct display_object_info_table_v1_4
->    uint16_t  supporteddevices;
->    uint8_t   number_of_path;
->    uint8_t   reserved;
-> -  struct    atom_display_object_path_v2 display_path[8];   //the real nu=
-mber of this included in the structure is calculated by using the (whole st=
-ructure size - the header size- number_of_path)/size of atom_display_object=
-_path
-> +  struct    atom_display_object_path_v2 display_path[];   //the real num=
-ber of this included in the structure is calculated by using the (whole str=
-ucture size - the header size- number_of_path)/size of atom_display_object_=
-path
->  };
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource=
+.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> index 969658313fd6..1d1b40d22f42 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> @@ -1650,6 +1650,8 @@ static void dcn32_enable_phantom_plane(struct dc *d=
+c,
+>                         phantom_plane =3D prev_phantom_plane;
+>                 else
+>                         phantom_plane =3D dc_state_create_phantom_plane(d=
+c, context, curr_pipe->plane_state);
+> +               if (!phantom_plane)
+> +                       return;
 >
->  struct display_object_info_table_v1_5 {
-> @@ -1048,7 +1048,7 @@ struct display_object_info_table_v1_5 {
->         uint8_t reserved;
->         // the real number of this included in the structure is calculate=
-d by using the
->         // (whole structure size - the header size- number_of_path)/size =
-of atom_display_object_path
-> -       struct atom_display_object_path_v3 display_path[8];
-> +       struct atom_display_object_path_v3 display_path[];
->  };
->
->  /*
+>                 memcpy(&phantom_plane->address, &curr_pipe->plane_state->=
+address, sizeof(phantom_plane->address));
+>                 memcpy(&phantom_plane->scaling_quality, &curr_pipe->plane=
+_state->scaling_quality,
 > --
-> 2.46.0
+> 2.25.1
 >
