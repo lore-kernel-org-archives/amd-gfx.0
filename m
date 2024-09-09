@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BD89ECE577
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08CDBECE584
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 17:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB7710E5FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F75210E601;
 	Mon,  9 Sep 2024 17:19:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OK6u8uU2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MKKSAhji";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C429E10E5FA;
- Mon,  9 Sep 2024 17:19:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B29A10E5F2;
+ Mon,  9 Sep 2024 17:19:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=fQEcoh0Bpgl66t5WQpbl9yODvIIRd1/ipJJ81MKGG6I=; b=OK6u8uU2ivBERnaxkaXjq+Cxbz
- HHcXDScxbKEkAvtdf/Wzh1lVYB2qARuFAvXm14+zAPkpUQj79YZXWAKn2I8jZxHHboRLMsaJrljzv
- hLrKoVC0g7Ul6Fya3bXkRChDuHEswYPPHx7RScpyAWgf6/kE+ceOvbxs5ozpHijTOSuJydBq8qNtn
- vLovnlJCZ/o0Ri7Bc0S7VX/F7YHwcT0maZlWpL6zJAEE3QCcL8qJzfqxgMKALz6vN12XUZKTudX0D
- YziwmWlCf8hmkllJKhfY6qcKlKLVKKz9dvyKJff62lF2592jYAvFTXKfXxijMd88XnUi6YdkZRNFP
- aIrMnPgA==;
+ bh=jp3RmbG8f3OBw4Pi+42YfmplFO0xM+uDEGmft2k+eKY=; b=MKKSAhjifHokCovUhbanwzF+lp
+ oExHIW73Z1PQ7O3LTdZ9je0oZc3cfWPVa5VWj6Iq0c8gUOX3VAh9zen9zPF+AkL+v5DuMkq7FQ6rf
+ T2lvlB9dPr0wU7Y/UmLQqaJ15W4myO6jDtOZC4a7QkSa5WnvVSdQvA9pbn6952oaeRBj4rOR9rNSh
+ ChLWe8PrQX6AcXfDdjlctD8Bnl7ZYYXvntRoHyqDDZ1ppEsobrFoRVgOVHfALpFguQilCP9enUtrF
+ iCB7CisSjFhZxJ4LNMrtDgN2BHDmlOiC3jVWVbi4TbSzAUNpaQq9QQm3+J16JvCoo5VFFvhhwLSyV
+ fP3Ji2zQ==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1sni3E-00Bg5C-0D; Mon, 09 Sep 2024 19:19:44 +0200
+ id 1sni3F-00Bg5Q-Dj; Mon, 09 Sep 2024 19:19:45 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -41,9 +41,10 @@ Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luben Tuikov <ltuikov89@gmail.com>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <pstanner@redhat.com>
-Subject: [PATCH 4/8] drm/sched: Optimise drm_sched_entity_push_job
-Date: Mon,  9 Sep 2024 18:19:33 +0100
-Message-ID: <20240909171937.51550-5-tursulin@igalia.com>
+Subject: [PATCH 6/8] drm/sched: Re-order struct drm_sched_rq members for
+ clarity
+Date: Mon,  9 Sep 2024 18:19:35 +0100
+Message-ID: <20240909171937.51550-7-tursulin@igalia.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909171937.51550-1-tursulin@igalia.com>
 References: <20240909171937.51550-1-tursulin@igalia.com>
@@ -66,8 +67,8 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-In FIFO mode We can avoid dropping the lock only to immediately re-acquire
-by adding a new drm_sched_rq_update_fifo_locked() helper.
+Lets re-order the members to make it clear which are protected by the lock
+and at the same time document it via kerneldoc.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -76,81 +77,41 @@ Cc: Luben Tuikov <ltuikov89@gmail.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <pstanner@redhat.com>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c |  5 +++--
- drivers/gpu/drm/scheduler/sched_main.c   | 21 ++++++++++++++-------
- include/drm/gpu_scheduler.h              |  1 +
- 3 files changed, 18 insertions(+), 9 deletions(-)
+ include/drm/gpu_scheduler.h | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 6645a8524699..2da677681291 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -615,10 +615,11 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 
- 		atomic_inc(sched->score);
- 		drm_sched_rq_add_entity(rq, entity);
--		spin_unlock(&entity->rq_lock);
- 
- 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
--			drm_sched_rq_update_fifo(entity, submit_ts);
-+			drm_sched_rq_update_fifo_locked(entity, submit_ts);
-+
-+		spin_unlock(&entity->rq_lock);
- 
- 		drm_sched_wakeup(sched, entity);
- 	}
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index ab53ab486fe6..10abbcefe9d8 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -163,14 +163,10 @@ static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *enti
- 	}
- }
- 
--void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
-+void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts)
- {
--	/*
--	 * Both locks need to be grabbed, one to protect from entity->rq change
--	 * for entity from within concurrent drm_sched_entity_select_rq and the
--	 * other to update the rb tree structure.
--	 */
--	spin_lock(&entity->rq_lock);
-+	lockdep_assert_held(&entity->rq_lock);
-+
- 	spin_lock(&entity->rq->lock);
- 
- 	drm_sched_rq_remove_fifo_locked(entity);
-@@ -181,6 +177,17 @@ void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
- 		      drm_sched_entity_compare_before);
- 
- 	spin_unlock(&entity->rq->lock);
-+}
-+
-+void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
-+{
-+	/*
-+	 * Both locks need to be grabbed, one to protect from entity->rq change
-+	 * for entity from within concurrent drm_sched_entity_select_rq and the
-+	 * other to update the rb tree structure.
-+	 */
-+	spin_lock(&entity->rq_lock);
-+	drm_sched_rq_update_fifo_locked(entity, ts);
- 	spin_unlock(&entity->rq_lock);
- }
- 
 diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index fe8edb917360..a06753987d93 100644
+index a06753987d93..d4a3ba333568 100644
 --- a/include/drm/gpu_scheduler.h
 +++ b/include/drm/gpu_scheduler.h
-@@ -594,6 +594,7 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- 				struct drm_sched_entity *entity);
+@@ -243,10 +243,10 @@ struct drm_sched_entity {
+ /**
+  * struct drm_sched_rq - queue of entities to be scheduled.
+  *
+- * @lock: to modify the entities list.
+  * @sched: the scheduler to which this rq belongs to.
+- * @entities: list of the entities to be scheduled.
++ * @lock: protects the list, tree and current entity.
+  * @current_entity: the entity which is to be scheduled.
++ * @entities: list of the entities to be scheduled.
+  * @rb_tree_root: root of time based priory queue of entities for FIFO scheduling
+  *
+  * Run queue is a set of entities scheduling command submissions for
+@@ -254,10 +254,12 @@ struct drm_sched_entity {
+  * the next entity to emit commands from.
+  */
+ struct drm_sched_rq {
+-	spinlock_t			lock;
+ 	struct drm_gpu_scheduler	*sched;
+-	struct list_head		entities;
++
++	spinlock_t			lock;
++	/* Following members are protected by the @lock: */
+ 	struct drm_sched_entity		*current_entity;
++	struct list_head		entities;
+ 	struct rb_root_cached		rb_tree_root;
+ };
  
- void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts);
-+void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts);
- 
- int drm_sched_entity_init(struct drm_sched_entity *entity,
- 			  enum drm_sched_priority priority,
 -- 
 2.46.0
 
