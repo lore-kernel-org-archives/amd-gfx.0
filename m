@@ -4,52 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CFC7ECE57A
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB9CDECE57E
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 12:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3FA610E513;
-	Mon,  9 Sep 2024 12:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA8410E551;
+	Mon,  9 Sep 2024 12:55:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RphJp/I7";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="mGTWZ2lA";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994DA10E351;
- Mon,  9 Sep 2024 09:20:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=/1h8BWkktXtDv4aCLL9t99+OTSOBbd0Kpw9GYJSdS/w=; b=RphJp/I70BS1S8olzWXAhmb7gU
- tQ8dUxctlF8w6UmWZaNUn3io6AbTbN6hACa7ib0MTgNs5O4HOTQccIiQQNQHhENhfH7oPpHiWIILO
- qC5Yj+zSt83+9QOMz73LRmSDOLHVIgEZlh1hFAJzW51GyjyN1F6kHJnjv4knmbCDIffLl4ZYAe8bv
- YNrX7wlCJXmCuj4zRvi4+aGKKrjlb8VRMJJqjXp++8Rh1QZPmCaO1Uyh5jS22gclUH+VKuGChCx7K
- CAAD99pB+rUbKrmuW21/36yQwwPz4Jx3qMvVFi6Z0SsEc2TUa6M1iEOKzWvHURurJ17hde/Mr2lnZ
- 4ttmWuhg==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1snaZg-00BQyk-Aj; Mon, 09 Sep 2024 11:20:44 +0200
-Message-ID: <80d8a180-75f8-4244-b25a-97ee38bf49d6@igalia.com>
-Date: Mon, 9 Sep 2024 10:20:43 +0100
+X-Greylist: delayed 338 seconds by postgrey-1.36 at gabe;
+ Mon, 09 Sep 2024 09:48:36 UTC
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A09CD10E2DB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 09:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1725875312; x=1726480112; i=markus.elfring@web.de;
+ bh=EBlqzeibcHmLE8jmEMvY/kGvwXFkAdrNBvVf/DUWlqQ=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
+ Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=mGTWZ2lAT3Cz97knji184OButhhh8T7EaaVgJBzlnXwP24XF8bSEJ3ACHJ4DrRlI
+ wTLNQyeNHd5J9xs1mxnXo1O9d4nVvcIBKQbTUiv1jX6Z7ySWnOEBtLT5jsLva9H9O
+ R/4GxnQnZf6bJZ/cdhKZ2C3WkbGNFEBWSscPnKyEVr2+qKFsmOO8wN77XpFsrVpgG
+ ai95A3bsYJV3Yo9GgeEBJy/Usn8MBZcnEHZ6AqTrrqY8Pxi1tgzDTl6LbScN2wH3a
+ 3BK9yOcDbQS0IPg23DmmZnga6KjVHTMKNu4kNMl9qk6nDsEvhj+9HJQFKlkRnqD0O
+ y6JcmGnGqGRkGHZ5cw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.91.95]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1M1aIB-1sl7o90LFL-00EbI9; Mon, 09
+ Sep 2024 11:42:26 +0200
+Message-ID: <d4136720-e6c8-490b-933a-4a884412b38a@web.de>
+Date: Mon, 9 Sep 2024 11:42:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/4] DRM scheduler fixes, or not, or incorrect kind
-To: Philipp Stanner <pstanner@redhat.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
- <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
-References: <20240906180618.12180-1-tursulin@igalia.com>
- <3d9450d3a7334da47b0d3dd7b902be7dd9051a2d.camel@redhat.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu: Move a variable assignment behind a null
+ pointer check in amdgpu_ras_interrupt_dispatch()
+From: Markus Elfring <Markus.Elfring@web.de>
+To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alan Liu <HaoPing.Liu@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
+ Candice Li <candice.li@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>, Eryk Brol <eryk.brol@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, hersen wu <hersenxs.wu@amd.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Jun Lei <jun.lei@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Ma Jun <Jun.Ma2@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Stanley Yang <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Tom Rix <trix@redhat.com>, Victor Zhao <Victor.Zhao@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Zhan Liu <zhan.liu@amd.com>
+Cc: cocci@inria.fr, LKML <linux-kernel@vger.kernel.org>
+References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
+ <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+ <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
+ <0d4b92ab-f7c2-4f18-f3c3-c0f82ba47fc8@web.de>
 Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <3d9450d3a7334da47b0d3dd7b902be7dd9051a2d.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <0d4b92ab-f7c2-4f18-f3c3-c0f82ba47fc8@web.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:0FinRSsoYLcUBzW5CselKtDxWi72MFZcC3KilliEKBsQUeKXYei
+ FR2I8NrqAgdIr7ze6KALJPaM7wknBcUXSmvlGyO7sm9JokMjRgJonKx2kUM2LDr2R2qlBew
+ oHpIeeJnmJltdTUQ2q2AREeQHxSuBS/F94J2yTpY+UIAZtqw2TB5gH2spYfpgruDPCjvV+f
+ dPM9jIAK7/z0nl5PCkokg==
+UI-OutboundReport: notjunk:1;M01:P0:v081iKJQ5t0=;cm0BhO+4njhDkdSzkpe66/R3MIF
+ FAFLs+4vMIubme43IUebzbR/N+6cIwGoff5BEPByZ3+UabH70PsjdoAi8A2+i+vfAz2/KAimM
+ KVOYfkyQtFQTWUpfZbbQ9B9vemDG5tGEOy5URS6YRpXnY/VWElvCBnE/cmB/MW1NcMCnXeOqQ
+ lJdBABkpaTjYzkVnL8KA5VdgrysXQZeEotIEsfaHin85lCE3+5gkS2qX2/gdHOJxnIhrcadD7
+ qc2Tir3gJFu6By9HdHmWVtZ2i16RgmXq876OtLbP7TCVzjQV2HE7CnZlnbzzuWmpr/WzS0Mfj
+ 3m15s03WXEJ2t5EKc0u5znD2bbFU0I9Jb4nIGt41bAHpOkeI0V81TRzP9TkiNT+cQrvuabzY+
+ n9tngkjxTVUXLqviDetXOsUbjOfyYnEjNn8hMJHVXZ5jGFDwEhTv8m14a9fzg6fsVo29q2+7I
+ dkfkE5XlCkGcamEPTR9b8ZSr/YHjPAVwgnhtAb+dvWEwFeEpJp54kciMaI9vRTs8g+I6TWoQv
+ NnMizh9ROQf3ZnGCTGqXspklUSU6ymkX/lawit+TrSDyCaBNZObP3P6NBCUd5ayVK66mtaksI
+ P++QtsZCE4zRrCBNwMhshyorhhJwr8bmccPK0pXIsV0h3UEGK5tb5W6MC8OupvOHBwT6mRNSe
+ AdLQQTrRPfjF2TOG328pRt9q3nN+j5l6KMJA3f1jLrLYPcm2VruTql0DJ5xbkxLOnHuY+vSY9
+ LDfjzl4hoCkUvqAe/QLmCiBbNj/VIYU3ThclTt+AMTaIVzmQOGRDT//mtUmp/Ajqmynzd9qCH
+ FK5N2EVs6WFYWpSI/EjRk3wA==
 X-Mailman-Approved-At: Mon, 09 Sep 2024 12:55:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,72 +106,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+> Date: Tue, 11 Apr 2023 10:52:48 +0200
+>
+> The address of a data structure member was determined before
+> a corresponding null pointer check in the implementation of
+> the function =E2=80=9Camdgpu_ras_interrupt_dispatch=E2=80=9D.
+>
+> Thus avoid the risk for undefined behaviour by moving the assignment
+> for the variable =E2=80=9Cdata=E2=80=9D behind the null pointer check.
+>
+> This issue was detected by using the Coccinelle software.
+>
+> Fixes: c030f2e4166c3f5597c7e7a70bcd9ab383695de4 ("drm/amdgpu: add amdgpu=
+_ras.c to support ras (v2)")
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ras.c
+> index 4069bce9479f..a920c7888d07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -1730,11 +1730,12 @@ int amdgpu_ras_interrupt_dispatch(struct amdgpu_=
+device *adev,
+>  		struct ras_dispatch_if *info)
+>  {
+>  	struct ras_manager *obj =3D amdgpu_ras_find_obj(adev, &info->head);
+> -	struct ras_ih_data *data =3D &obj->ih_data;
+> +	struct ras_ih_data *data;
+>
+>  	if (!obj)
+>  		return -EINVAL;
+>
+> +	data =3D &obj->ih_data;
+>  	if (data->inuse =3D=3D 0)
+>  		return 0;
+>
 
-On 09/09/2024 09:47, Philipp Stanner wrote:
-> Hi,
-> 
-> On Fri, 2024-09-06 at 19:06 +0100, Tvrtko Ursulin wrote:
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> In a recent conversation with Christian there was a thought that
->> drm_sched_entity_modify_sched() should start using the entity-
->>> rq_lock to be
->> safe against job submission and simultaneous priority changes.
-> 
-> There are also FIXMEs in gpu_scheduler.h that might be related.
+I would like to point out that another software adjustment got the desired
+development attention (on 2024-05-11).
 
-Yes there appears to be a good number of dodgy/unclear areas there.
-
->> The kerneldoc accompanying that function however is a bit unclear to
->> me. For
->> instance is amdgpu simply doing it wrongly by not serializing the two
->> in the
->> driver? Or is the comment referring to some other race condition than
->> which is
->> of concern in this series?
->>
->> To cut the long story short, first three patches try to fix this race
->> in three
->> places I *think* can manifest in different ways.
->>
->> Last patch is a trivial optimisation I spotted can be easily done.
-> 
-> I took a look and at least to me it doesn't appear to be that trivial,
-> mostly because it takes two locks.
-
-The code does take two locks, but the patch itself does not change any 
-of that. It just splits the locked helper out so re-locking is avoided.
-
-> Would you mind branching that out as a separate patch so that the
-> series would 100% address bugs?
-
-I wanted to start the series with fixes so backporting will work. If I 
-put the optimisation first then fixes will not trivially apply to older 
-kernels. Assuming they are correct of course.
+See also:
+Commit 4c11d30c95576937c6c35e6f29884761f2dddb43 ("drm/amdgpu:
+Fix the null pointer dereference to ras_manager")
 
 Regards,
-
-Tvrtko
-
-> 
-> P.	
-> 
->>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Luben Tuikov <ltuikov89@gmail.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->>
->> Tvrtko Ursulin (4):
->>    drm/sched: Add locking to drm_sched_entity_modify_sched
->>    drm/sched: Always wake up correct scheduler in
->>      drm_sched_entity_push_job
->>    drm/sched: Always increment correct scheduler score
->>    drm/sched: Optimise drm_sched_entity_push_job
->>
->>   drivers/gpu/drm/scheduler/sched_entity.c | 17 ++++++++++++-----
->>   drivers/gpu/drm/scheduler/sched_main.c   | 21 ++++++++++++++-------
->>   include/drm/gpu_scheduler.h              |  1 +
->>   3 files changed, 27 insertions(+), 12 deletions(-)
->>
-> 
+Markus
