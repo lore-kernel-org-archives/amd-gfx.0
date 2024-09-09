@@ -4,78 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE05ECE57A
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 13:41:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5504DECE57E
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 13:50:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C8BE10E583;
-	Mon,  9 Sep 2024 13:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEC4610E590;
+	Mon,  9 Sep 2024 13:50:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VtbNU9GL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0idrbT7D";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C59DD10E583
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Sep 2024 13:41:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1725889262;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Th3ZR3EL1plv5t9bnbhjvduRXVqLRDu6yA89xIZ+JNc=;
- b=VtbNU9GLvVXLrDeTWudyzEjsr+cj8B6zbByXSNSmsUxDY1lbCUvk3JUGfEJYTTxsuCArxV
- zmsqHIPFNXqKtQah3VvGxCHrW/GYXm/w4KF+Oun3fqaUvuMLu5hSJyzIEdvMh0HF59MXUT
- v6uiaeksF8AM/8FxjlpAH2fdeXgGrwU=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-624-e55_Qar7OtKUGnmjpVenRA-1; Mon, 09 Sep 2024 09:41:01 -0400
-X-MC-Unique: e55_Qar7OtKUGnmjpVenRA-1
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-374cd315c68so2653242f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Sep 2024 06:41:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725889260; x=1726494060;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kRT4RGVSoW78yOsC/Y7gv9msChIjfBCcI5oKX4lypl8=;
- b=rPxEwXycTEMZ+/BtP82ZWutSibt7nee3XYoeH+HA+QTmtQLMqqFOLKVgnH6+yqY1Td
- 1/6hNTEBhbUM4gPgYgBJp1wmDJpoPXf3XfwN2bsF2UQdz0pIwrnmxuM9LZRlS9SSih4L
- foSOV5ExjHm6k9ipbdznbm5xv2KAE3+K7s3svTFPAxkK8kMt5HebOXrSfqS9PXXvFu0V
- CD9TxB/cQMOeoWytD8iW+zWx6OVMwicns+p66JA2fIHpYRYLPwrliYBPAAUdBo8mlxd6
- mGYy2OTMMXmgWSMv53bmDrPZolD4BglwlKBcmZOlJCzP3m4aeoB7uX7M8w9FCtSXVBo8
- omyw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUBqvaRGA3oQLltGQFahHSZUPnKCqGyq4JmBPqI4MSWgM3+xM6Uxu75F0c5AE00BpYzMWq+eY6t@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvHqIHnmJ6J3owQOtcLjZAyRy31HbbiOFi5uV4XeKP/kxwmWoX
- f4fsSHIArzT12UC8gcrnPqXqM1f6sUdT+DGWFEMiPL2ihx4j3Cb8j/Sy61ZQql2HI58e9e+XHXY
- RhdTPrv5V34uhKTcHRwbkdyrfAMEXf4czJ1LphmCQMw1d+168nYvVWNS9LAqBfBw=
-X-Received: by 2002:adf:f38b:0:b0:374:c847:859 with SMTP id
- ffacd0b85a97d-37894a6b15dmr4073461f8f.54.1725889260407; 
- Mon, 09 Sep 2024 06:41:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGpHrLlqrLCC/C9OzpjJS85NonzndADR4+sBGv0pOLpgNEZxs4Hgk1jmN1WiQIH+0KN4RFJBg==
-X-Received: by 2002:adf:f38b:0:b0:374:c847:859 with SMTP id
- ffacd0b85a97d-37894a6b15dmr4073453f8f.54.1725889259813; 
- Mon, 09 Sep 2024 06:40:59 -0700 (PDT)
-Received: from dhcp-64-8.muc.redhat.com (nat-pool-muc-t.redhat.com.
- [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956654e8sm6085882f8f.41.2024.09.09.06.40.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 06:40:59 -0700 (PDT)
-Message-ID: <3d361fc62a43dde95ce31185470d3a153c648909.camel@redhat.com>
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2082.outbound.protection.outlook.com [40.107.101.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60B4710E593;
+ Mon,  9 Sep 2024 13:50:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qfj+mRL7L+WKiDLi6CtcS0mrF/O4GMfVYIYziuizRJdDhOzjfbMzUzNaJI6wbJepGF2Yyud0LxOQ22JhcTv1SUDFtUNaD/abqef2V6EG1InClsEF9oDCDI+O31DPZmKl8i5vHTE5oUDugNxHBD1DCh8Khx0g4pw6S/w/Xi57OeohDYnnNnHEDnoe6llIzIj3r0x/0xrACN1MpqpI9qIlHNo9/JxnQjfRjxZZ5UHDAOqZaBoqtDWqctN8xsPKF1CrxN1AqUpC69AWyuHC94kC2E5jXCwhKKg0gdPlaBRZbNwmQFT0fwkmcYGMAuUIkLOOG1fXayGrkUOTtLaQjq6bgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M5gr1ociCIrMIB0R6NlDN1uV/xzRARrpcI67SVwn51s=;
+ b=PmeoOU0zDBTEwm2/Z8tAMLK/Z4PYu+e0E6wB0IAH8iTBPcKCBXUaCwAvs4hwiZqeHqHrCZwUemn+Pv2YnDAjecXak5HZUD4u3i5MvS435ZvrKG7m/DYiffOkFaDYtksStHz8QiQiSniC9TyHMrjXbfhjajIezIiAsyLdmmuGWuBbHa2xP+NuuoKlZDYA8S6Se6Ld9OaQmTYzol+UU66fPCE5sogCEKyG45eeUGmmadZvEGg+faeb1mC/dbRdDeUbNQ8BpjUzt3uTflNdI90H4nN1v+XfUUPZ756h+bS02ZOG2gBfXnB0AOHxL1iw6iUheGv+RI2L1fHeViiwUNh6yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M5gr1ociCIrMIB0R6NlDN1uV/xzRARrpcI67SVwn51s=;
+ b=0idrbT7D6UYMcLJ7TdQR62o4OHKEw8NCrFVrDVVgohaU1oktotQ+jscIv3+hJsMuTIIMxfHjK2RTbiBHaSH05CdHdMGfNqSF/03w95TslnByaCM7f97RtUrknzQWBSAbz3O8IfbqNVa8zBGTVrY/PpMsSRp78/Hd0lntI95vcT4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV3PR12MB9119.namprd12.prod.outlook.com (2603:10b6:408:1a2::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.28; Mon, 9 Sep
+ 2024 13:50:36 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.7918.024; Mon, 9 Sep 2024
+ 13:50:36 +0000
+Message-ID: <cfd39275-f167-4953-b7ad-f723281be9d8@amd.com>
+Date: Mon, 9 Sep 2024 15:50:29 +0200
+User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC 1/4] drm/sched: Add locking to drm_sched_entity_modify_sched
-From: Philipp Stanner <pstanner@redhat.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Tvrtko Ursulin <tursulin@igalia.com>, 
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Philipp Stanner <pstanner@redhat.com>, Tvrtko Ursulin <tursulin@igalia.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
- <ltuikov89@gmail.com>,  Matthew Brost <matthew.brost@intel.com>, David
- Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  stable@vger.kernel.org
-Date: Mon, 09 Sep 2024 15:40:58 +0200
-In-Reply-To: <1848b0fc-7031-46f2-b7f8-f7c086fb00ce@igalia.com>
 References: <20240906180618.12180-1-tursulin@igalia.com>
  <20240906180618.12180-2-tursulin@igalia.com>
  <8d763e5162ebc130a05da3cefbff148cdb6ce042.camel@redhat.com>
@@ -85,12 +61,102 @@ References: <20240906180618.12180-1-tursulin@igalia.com>
  <14ef37f4-b982-41c1-8121-80882917e9c0@igalia.com>
  <d8944e6ad57e4efcd480d917a38f9cee9475d59c.camel@redhat.com>
  <1848b0fc-7031-46f2-b7f8-f7c086fb00ce@igalia.com>
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <1848b0fc-7031-46f2-b7f8-f7c086fb00ce@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV3PR12MB9119:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3510f12-3508-4e24-3d69-08dcd0d66193
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cmQySmw2QmJ5WnV5QlpBaDNoM0x4UlU3THQ5Z25GSi83OHpac2VxaXRNSUhL?=
+ =?utf-8?B?aDFlTXdVL1Z2THg5M2VkejBrSjBwQVVIdEkydTExdzY2SGFOYzZFaWhVTE5Z?=
+ =?utf-8?B?MElRYU05Mm9HSWNjY2ViZldmL0FNOG9JM3N2UkhDMVZTYy9lenRkdUwraFUx?=
+ =?utf-8?B?MnV0ckJNQS8zbDhhRTVTdGFFMlRFZGFpb0dvN2YrVmVFdzFGSkQrRTlSaG5N?=
+ =?utf-8?B?aVJZMDJoUkZVMG9iU1hzTDdZNlg2WTFlZlRBdFJKZDBVTEhCUlVzRkhzOEcx?=
+ =?utf-8?B?MUJSandxNGljanMzUWRyQjZEU0ZJK3Q4NCtMZFBzYmttTERGSXZZRE5pUDZy?=
+ =?utf-8?B?UGNqbFBjeW5wS3lwdGdIbTRHWGV5WkRNZlpHbXprR1NRZUxTU0tYY1ZYbCtT?=
+ =?utf-8?B?ZGxSZGdEdHE3UDRBcC9zZkZkNS9tbzVtT1B5YTVKT2FYMFZ5UDRWQS9ITkpJ?=
+ =?utf-8?B?QVVTbkNYTFhSNGEzYmtvV2E5Qy83RnkvN2FPZ3RSaGhqN2JHRExSazROWTVY?=
+ =?utf-8?B?U0xXOUVtVTQzQnExdnVkL3ZEV3czY2NmemZCWitiQ3dGaUdLejVrUjh3QmFT?=
+ =?utf-8?B?b1Y4NERNNktuYlVSd25UUTNOQTA3UGJ0cW5xejBMSkZNai93aEJKYUZKOXEy?=
+ =?utf-8?B?WVpoNVlBbHlMSHpNNXpuenFJdUxaWjRicEhRZDM0UzhHOWFGYVVkZCtqcVI0?=
+ =?utf-8?B?YWhLdlpWUkRnWDJmL0N6VjRDb1RqWE1wV3crcm9PYkhWbVRhRitnN1pDa2tR?=
+ =?utf-8?B?eWw3WWp0WDA3eHNTWElRUmlLdkN0Q2JSU0FvM2NZSzFXVFVtYmMxQzY4aThV?=
+ =?utf-8?B?ckhueDhia015VlpwSVdmQ0g4QTRraVRjUkdoQzN1ekU5K2pDVFdCdHZnWWJ3?=
+ =?utf-8?B?WWE2TjBiOW5STVdxU01uY2N6V1A5TmxmeFhZZ28wS1ZtZmxESGZuQU50MGRR?=
+ =?utf-8?B?aWxDRjhJM2Z5YWRjNzZuRGVHb1l6bzR2QlA3ak1jTUc0Q2ZidGNHeG83bGts?=
+ =?utf-8?B?eFgzQ3lrMkkvVjAxdW9kaCtIK3FpZUpsc1RKQjd3cFg5WDAvR1gvTWRhd3Nt?=
+ =?utf-8?B?RVUrOEx5aWNHaHVBY2xTYmxMbHJhN20zaVZGYjhyVGk4WVhFNVczUFpXaENh?=
+ =?utf-8?B?UU1COVJBYldLeGUrdml1VFowVnFjcnYvSXA1a1ZsNFFTejE3THNMdUlpMFBi?=
+ =?utf-8?B?RnZRMER0WVBLeHU5Y283TU5ENVFXRGJoYWpJTTVvbjhyRzF5bjFBTU9NekZu?=
+ =?utf-8?B?UnhTQlUydFJDK3FpVGgvQWNVaGorc1puSDlpRHJKU3l1U2dsN2YzWTBnMzQ2?=
+ =?utf-8?B?RUkvZ1FwNGRxSWp2UDZBY051YkpvTzEyNTNGYi85TERGSGppRElpWnVwa1lR?=
+ =?utf-8?B?Z1V0blNVVkR0RnZPamZqYU1vQVJib2dXVWsxTitxWDlnK1JlVlJXbG1SUmFQ?=
+ =?utf-8?B?dFQreWpMeVk4Tkd6bHVhcEZ4OXNQNkNYM2hoa0cxdXE4OE9Mb3RLU1Fpa0h0?=
+ =?utf-8?B?ZzF2NXhva295VnJrQUhiY0JSc1c2dEUvUkNaaTdxRFVXRG1FVmQzUXZDQld2?=
+ =?utf-8?B?REkrOFBtMmdiRDdWYzErZktDMkh6K1FhNHVUb3BoUXlxQnhEWTkxV2tKK3dH?=
+ =?utf-8?B?ZStmbTBwNGUyMTRSSnIvWTIyYkxJM09kRjBHY1labXpGUE1hQ1ZnZTJ5Tkxk?=
+ =?utf-8?B?YzUyd2lQbjVXWVJIY0o5ek1XdGxsb1JDL1ZSaDZXZlNyalZzcUlTQ2ppMnF1?=
+ =?utf-8?B?dTJrQ2pqSThPN25GSVpXQlNncGZTZ0V6c3BQSmxOVWY1OFN6R0VQdUljbklC?=
+ =?utf-8?B?RU4vbkFVQzUwN1E5VG1CZz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OG9Nd2ZEZzlsdEMySC9pLzNHaUVQL1hWSWU2TFVwd1JKMUtDdHZOaXl3K2NS?=
+ =?utf-8?B?OW9ZNzVvTnhCeGcydjFlMmtBTmx2c1ZxSyt0eDhiRFZZTjhsYnFiZFNLeXJa?=
+ =?utf-8?B?NE1ETnU1ZkZQR2JpK2NUUVlNRURVeGhLWGU4dmFFbFg0cE5xQTFkQ2JMUmJK?=
+ =?utf-8?B?dDdTZTk3N0ZyY2p1d1Mzck1QeE0zcm5HbVpxYUljTVBwQU4vT3c4blEwQzRG?=
+ =?utf-8?B?MFJWMjBWRXlHVDVrTGRwUk9janJMSzlCZzFva3UzT3ZPa282c0VIZEw5MEpW?=
+ =?utf-8?B?U2pkVk9qcGVyaVE3V3U5b2gwd01FclZCRklYVFFTR2svbWUyZGhBZjJBdWpH?=
+ =?utf-8?B?QTFWSDQ3Mmcwb21sVjhtb3lEbkVmWVd0c04yZzJ0cHB6TmRSNTZrWTdWTm5X?=
+ =?utf-8?B?dzRrUE4xb1R0OVpmUG9BeWErVWU0QVg5enRQZWJFcE9WZkdQYllkMmVvVXEv?=
+ =?utf-8?B?VU9MWGV6VEc2RmxIcHJ4Q0tWWlNEcS9LYVppSVVaSDZHaURRRVhRZFFtY3dR?=
+ =?utf-8?B?WUhBTFM2c3VhT3JjM2d5RFZpVkJyTGlvdEFzZFFHVHVQS2VtQnFTVnQ5WEkw?=
+ =?utf-8?B?MDlkenZwLzlpQ0RDRDVId09PVjQxVlErdHcwU1RnL2R4VVJPZ05HS1dOSjBy?=
+ =?utf-8?B?WitsOUY2c2J1R01BTHhvWkdMTFd6UTJoSEQ1THVPeHEyUG51UXZIcjgzdHBh?=
+ =?utf-8?B?eE1GdThwL2J5SXhIN3JFaHZzUmR2aVU5K1A5ajU0Q2hXQ0paMXVGRDZtMGxH?=
+ =?utf-8?B?dHVsK2M1WmUyNnpFVmgycHpKY0c5b1FVMU1vMUJhalE2THdHSGpuTm5xaUlt?=
+ =?utf-8?B?V0hnWXFBVE51VldVdzlEZFhjVkEvSFpUeGtYV3RXVE56eW45Qi8xTXBxMlB6?=
+ =?utf-8?B?RjBMa1M1Wjdpc1lhelZLNkRQb0Zwd2Rpa2VzZEZLNzhGQTEvemdmR2tYTnk5?=
+ =?utf-8?B?Q3lNWG1tRURtemRQM214bGZUVDNQUmoycnI5UGZvUWd5OEFvQ2FtKzk1ZWcv?=
+ =?utf-8?B?QW91dHU2Z05yTWRpb3F2am9OVkVnV3AxRWoxeW1yNUFKcERSSWszeURNeVp3?=
+ =?utf-8?B?WXVEdHZYRHR2NUpObVBJaDN5Vm9pTnpKaFZCUGlZc3hKMnBYcHpwdjZ1VE52?=
+ =?utf-8?B?YkJtY3puZHA3OE1VNFBTd0J6c2ptU05ZQ1V0UVZ1dEg4MWNvYjJkSEhMNm51?=
+ =?utf-8?B?N0c5V29YWnpJbVZDT1R1R0UrWEhucFovZkZXUzV4bDhqbHora3kvTTBXc3VN?=
+ =?utf-8?B?NnBmZ0tXcjNFMEo0VDhmWXlvWnlrSjRxQlZaYjl2c3g4Zjhzc0gzejNIZ2Q2?=
+ =?utf-8?B?b3FQZWYxdUpSUk9qbTZjQWtOajVQZno4WjFFSzBUTVBPTU5PcHpONjEvQzUy?=
+ =?utf-8?B?a3RtZ0hodEZrc3huL0x1dlI3bXVyYkU0RUcyUi9oUTdvdHJ4Ry85eVV2Ykx2?=
+ =?utf-8?B?ZmlRSU9ZVHFlMDExU1NWelNoVERGanIzdFdvWWZ6SHpEVjBIc2RENkFiWnI1?=
+ =?utf-8?B?U3ZyWUk1UDBDV3JWWGxHVVNkeVZ4UXQ4SVduM3lGSVJoQkhnL2FKSGYzUTJ2?=
+ =?utf-8?B?cVZsdnZnUUs1UEZqYWQwYW54K1pIMTNWSFEvV1JjODdLdWNtcHBMNzR6dVg0?=
+ =?utf-8?B?K0FaeElYWStXbGNPQ04wZUFjTmJnM085dFFUeVdQWXRQaGxhdS9Rb1dRU1RX?=
+ =?utf-8?B?WHRjMDFBS0lDcUcreUxValU4SWwycFlrYzhKQ2JEd2YvM2s0NnJIT01JK0pm?=
+ =?utf-8?B?TmtoZjFiaDNaejBSVUpRYVdHYWEydjNOT1h1R3VlbmtOdEZLaVc2cFk3WDVK?=
+ =?utf-8?B?M1hlbkFUSU5FbUlzYWVYUUVIRHJuUXh4K01GWjM3NnBLeUVJNjZ4VGZidCtJ?=
+ =?utf-8?B?WUdYaHdJdHk3Rzd0eGN3Vzk5TVhLSUYyQVFoTEJueGpvY3Z4cTlxMk84cit0?=
+ =?utf-8?B?aitJaHBibnNsbHlCR1JGWVAzMU82aXE0TFB6WkNUWGJNSHhBeElTTzFQVU1i?=
+ =?utf-8?B?eVdWMElCSmNjSlFpSFlabDhSZHRIWDMxckt4MVpWeENmSVpYeDNGK0JsZUNZ?=
+ =?utf-8?B?VW9ML2hyNTN4OXo3VlRGbkhvTnMyTXNnRFFFTnlZWGJiVjB1Ky96MVh5TEFV?=
+ =?utf-8?Q?LENg=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3510f12-3508-4e24-3d69-08dcd0d66193
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2024 13:50:36.1178 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jjhEkrh2oG714iHvScgzhnAbWydJvUSNpfXyDBagIJ8w4RJa7yo1lEdNv8P4Vrll
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9119
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,302 +171,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2024-09-09 at 14:27 +0100, Tvrtko Ursulin wrote:
->=20
+Am 09.09.24 um 15:27 schrieb Tvrtko Ursulin:
+>
 > On 09/09/2024 13:46, Philipp Stanner wrote:
-> > On Mon, 2024-09-09 at 13:37 +0100, Tvrtko Ursulin wrote:
-> > >=20
-> > > On 09/09/2024 13:18, Christian K=C3=B6nig wrote:
-> > > > Am 09.09.24 um 14:13 schrieb Philipp Stanner:
-> > > > > On Mon, 2024-09-09 at 13:29 +0200, Christian K=C3=B6nig wrote:
-> > > > > > Am 09.09.24 um 11:44 schrieb Philipp Stanner:
-> > > > > > > On Fri, 2024-09-06 at 19:06 +0100, Tvrtko Ursulin wrote:
-> > > > > > > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > > > > >=20
-> > > > > > > > Without the locking amdgpu currently can race
-> > > > > > > > amdgpu_ctx_set_entity_priority() and
-> > > > > > > > drm_sched_job_arm(),
-> > > > > > > I would explicitly say "amdgpu's
-> > > > > > > amdgpu_ctx_set_entity_priority()
-> > > > > > > races
-> > > > > > > through drm_sched_entity_modify_sched() with
-> > > > > > > drm_sched_job_arm()".
-> > > > > > >=20
-> > > > > > > The actual issue then seems to be drm_sched_job_arm()
-> > > > > > > calling
-> > > > > > > drm_sched_entity_select_rq(). I would mention that, too.
-> > > > > > >=20
-> > > > > > >=20
-> > > > > > > > leading to the
-> > > > > > > > latter accesing potentially inconsitent entity-
-> > > > > > > > >sched_list
-> > > > > > > > and
-> > > > > > > > entity->num_sched_list pair.
-> > > > > > > >=20
-> > > > > > > > The comment on drm_sched_entity_modify_sched() however
-> > > > > > > > says:
-> > > > > > > >=20
-> > > > > > > > """
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0* Note that this must be called und=
-er the same
-> > > > > > > > common
-> > > > > > > > lock for
-> > > > > > > > @entity as
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0* drm_sched_job_arm() and
-> > > > > > > > drm_sched_entity_push_job(),
-> > > > > > > > or the
-> > > > > > > > driver
-> > > > > > > > needs to
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0* guarantee through some other mean=
-s that this is
-> > > > > > > > never
-> > > > > > > > called
-> > > > > > > > while
-> > > > > > > > new jobs
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0* can be pushed to @entity.
-> > > > > > > > """
-> > > > > > > >=20
-> > > > > > > > It is unclear if that is referring to this race or
-> > > > > > > > something
-> > > > > > > > else.
-> > > > > > > That comment is indeed a bit awkward. Both
-> > > > > > > drm_sched_entity_push_job()
-> > > > > > > and drm_sched_job_arm() take rq_lock. But
-> > > > > > > drm_sched_entity_modify_sched() doesn't.
-> > > > > > >=20
-> > > > > > > The comment was written in 981b04d968561. Interestingly,
-> > > > > > > in
-> > > > > > > drm_sched_entity_push_job(), this "common lock" is
-> > > > > > > mentioned
-> > > > > > > with
-> > > > > > > the
-> > > > > > > soft requirement word "should" and apparently is more
-> > > > > > > about
-> > > > > > > keeping
-> > > > > > > sequence numbers in order when inserting.
-> > > > > > >=20
-> > > > > > > I tend to think that the issue discovered by you is
-> > > > > > > unrelated
-> > > > > > > to
-> > > > > > > that
-> > > > > > > comment. But if no one can make sense of the comment,
-> > > > > > > should
-> > > > > > > it
-> > > > > > > maybe
-> > > > > > > be removed? Confusing comment is arguably worse than no
-> > > > > > > comment
-> > > > > > Agree, we probably mixed up in 981b04d968561 that
-> > > > > > submission
-> > > > > > needs a
-> > > > > > common lock and that rq/priority needs to be protected by
-> > > > > > the
-> > > > > > rq_lock.
-> > > > > >=20
-> > > > > > There is also the big FIXME in the drm_sched_entity
-> > > > > > documentation
-> > > > > > pointing out that this is most likely not implemented
-> > > > > > correctly.
-> > > > > >=20
-> > > > > > I suggest to move the rq, priority and rq_lock fields
-> > > > > > together
-> > > > > > in the
-> > > > > > drm_sched_entity structure and document that rq_lock is
-> > > > > > protecting
-> > > > > > the two.
-> > > > > That could also be a great opportunity for improving the lock
-> > > > > naming:
-> > > >=20
-> > > > Well that comment made me laugh because I point out the same
-> > > > when
-> > > > the
-> > > > scheduler came out ~8years ago and nobody cared about it since
-> > > > then.
-> > > >=20
-> > > > But yeah completely agree :)
-> > >=20
-> > > Maybe, but we need to keep in sight the fact some of these fixes
-> > > may
-> > > be
-> > > good to backport. In which case re-naming exercises are best left
-> > > to
-> > > follow.
-> >=20
-> > My argument basically. It's good if fixes and other improvements
-> > are
-> > separated, in general, unless there is a practical / good reason
-> > not
-> > to.
->=20
+>> On Mon, 2024-09-09 at 13:37 +0100, Tvrtko Ursulin wrote:
+>>> [SNIP]
+>>>>> That could also be a great opportunity for improving the lock
+>>>>> naming:
+>>>>
+>>>> Well that comment made me laugh because I point out the same when
+>>>> the
+>>>> scheduler came out ~8years ago and nobody cared about it since
+>>>> then.
+>>>>
+>>>> But yeah completely agree :)
+>>>
+>>> Maybe, but we need to keep in sight the fact some of these fixes may
+>>> be
+>>> good to backport. In which case re-naming exercises are best left to
+>>> follow.
+>>
+>> My argument basically. It's good if fixes and other improvements are
+>> separated, in general, unless there is a practical / good reason not
+>> to.
+>
 > Ah cool, I am happy to add follow up patches after the fixes.
->=20
-> > > Also..
-> > >=20
-> > > > > void drm_sched_rq_update_fifo(struct drm_sched_entity
-> > > > > *entity,
-> > > > > ktime_t
-> > > > > ts)
-> > > > > {
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/*
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Both locks need to be grabbed, o=
-ne to protect from
-> > > > > entity-
-> > > > > > rq
-> > > > > change
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * for entity from within concurren=
-t
-> > > > > drm_sched_entity_select_rq
-> > > > > and the
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * other to update the rb tree stru=
-cture.
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0spin_lock(&entity->rq_lock);
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0spin_lock(&entity->rq->lock);
-> > >=20
-> > > .. I agree this is quite unredable and my initial reaction was a
-> > > similar
-> > > ugh. However.. What names would you guys suggest and for what to
-> > > make
-> > > this better and not lessen the logic of naming each individually?
-> >=20
-> > According to the documentation, drm_sched_rq.lock does not protect
-> > the
-> > entire runque, but "@lock: to modify the entities list."
-> >=20
-> > So I would keep drm_sched_entity.rq_lock as it is, because it
-> > indeed
-> > protects the entire runqueue.
->=20
+
++1
+
+>
+>>> Also..
+>>>
+>>>>> void drm_sched_rq_update_fifo(struct drm_sched_entity *entity,
+>>>>> ktime_t
+>>>>> ts)
+>>>>> {
+>>>>>      /*
+>>>>>       * Both locks need to be grabbed, one to protect from entity-
+>>>>>> rq
+>>>>> change
+>>>>>       * for entity from within concurrent
+>>>>> drm_sched_entity_select_rq
+>>>>> and the
+>>>>>       * other to update the rb tree structure.
+>>>>>       */
+>>>>>      spin_lock(&entity->rq_lock);
+>>>>>      spin_lock(&entity->rq->lock);
+>>>
+>>> .. I agree this is quite unredable and my initial reaction was a
+>>> similar
+>>> ugh. However.. What names would you guys suggest and for what to make
+>>> this better and not lessen the logic of naming each individually?
+>>
+>> According to the documentation, drm_sched_rq.lock does not protect the
+>> entire runque, but "@lock: to modify the entities list."
+>>
+>> So I would keep drm_sched_entity.rq_lock as it is, because it indeed
+>> protects the entire runqueue.
+>
 > Agreed on entity->rq_lock.
->=20
-> > And drm_sched_rq.lock could be named "entities_lock" or
-> > "entities_list_lock" or something. That's debatable, but it should
-> > be
-> > something that highlights that this lock is not for locking the
-> > entire
-> > runque as the one in the entity apparently is.
->=20
-> AFAICT it also protects rq->current_entity and rq->rb_tree_root in
-> which=20
-> case it is a bit more tricky.
 
-Then in any case we'll also have to update the documentation snippet I
-had quoted above.
+I would just name that lock since it should be a protection of fields in 
+the drm_sched_entity structure.
 
-btw. I'm not saying you have to do all of that; I'm also currently
-working on some additional scheduler documentation.
+That those fields are the rq and priority member should not necessary 
+have an influence on the name of the lock protecting it.
 
->  Only rq->sched is outside its scope. Hm.=20
-> Maybe just re-arrange the struct to be like:
->=20
+Only when we have multiple locks in the same structure then we need to 
+start giving them distinct names.
+
+>
+>> And drm_sched_rq.lock could be named "entities_lock" or
+>> "entities_list_lock" or something. That's debatable, but it should be
+>> something that highlights that this lock is not for locking the entire
+>> runque as the one in the entity apparently is.
+>
+> AFAICT it also protects rq->current_entity and rq->rb_tree_root in 
+> which case it is a bit more tricky. Only rq->sched is outside its 
+> scope. Hm. Maybe just re-arrange the struct to be like:
+>
 > struct drm_sched_rq {
-> =09struct drm_gpu_scheduler=09*sched;
->=20
-> =09spinlock_t=09=09=09lock;
-> =09/* Following members are protected by the @lock: */
-> =09struct list_head=09=09entities;
-> =09struct drm_sched_entity=09=09*current_entity;
-> =09struct rb_root_cached=09=09rb_tree_root;
+>     struct drm_gpu_scheduler    *sched;
+>
+>     spinlock_t            lock;
+>     /* Following members are protected by the @lock: */
+>     struct list_head        entities;
+>     struct drm_sched_entity        *current_entity;
+>     struct rb_root_cached        rb_tree_root;
 > };
->=20
-> I have no ideas for better naming.
-
-Hmmm. Difficult.
-
-Maybe rq_outer_lock <-> rq_inner_lock or "partial" and "whole".
-
-Explains why no one ever bothered renaming it.
-
->  But this would be inline with=20
+>
+> I have no ideas for better naming. But this would be inline with 
 > Christian's suggestion for tidying the order in drm_sched_entity.
->=20
-> I am also not sure what is the point of setting rq->current_entity in
+
++1
+
+Yeah I mean see the other structure we have in DRM and general Linux 
+kernel. The stuff that is static is usually grouped together since that 
+is good for cache locality and documentation at the same time.
+
+>
+> I am also not sure what is the point of setting rq->current_entity in 
 > drm_sched_rq_select_entity_fifo().
 
-It seems to me that current_entity is only used (read) in
-drm_sched_rq_remove_entity() and drm_sched_rq_select_entity_rr(). It=20
-seems to be only really useful for the RR function?
+No idea either, Luben could answer that.
 
-drm_sched_rq_select_entity_fifo() was added later, in 08fb97de03aa2,
-and it's very likely that the author oriented himself at the RR
-function. So it's possible it's actually not needed and was just copied
-by accident.
+Christian.
 
-
-P.
-
->=20
+>
 > Regards,
->=20
+>
 > Tvrtko
->=20
-> >=20
-> >=20
-> > Cheers,
-> > P.
-> >=20
-> > >=20
-> > > Regards,
-> > >=20
-> > > Tvrtko
-> > >=20
-> > > > > [...]
-> > > > >=20
-> > > > >=20
-> > > > > P.
-> > > > >=20
-> > > > >=20
-> > > > > > Then audit the code if all users of rq and priority
-> > > > > > actually
-> > > > > > hold the
-> > > > > > correct locks while reading and writing them.
-> > > > > >=20
-> > > > > > Regards,
-> > > > > > Christian.
-> > > > > >=20
-> > > > > > > P.
-> > > > > > >=20
-> > > > > > > > Signed-off-by: Tvrtko Ursulin
-> > > > > > > > <tvrtko.ursulin@igalia.com>
-> > > > > > > > Fixes: b37aced31eb0 ("drm/scheduler: implement a
-> > > > > > > > function
-> > > > > > > > to
-> > > > > > > > modify
-> > > > > > > > sched list")
-> > > > > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > > > > > > Cc: Luben Tuikov <ltuikov89@gmail.com>
-> > > > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > > > > > > Cc: David Airlie <airlied@gmail.com>
-> > > > > > > > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > > > > > > > Cc: dri-devel@lists.freedesktop.org
-> > > > > > > > Cc: <stable@vger.kernel.org> # v5.7+
-> > > > > > > > ---
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_ent=
-ity.c | 2 ++
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A01 file changed, 2 insertions(+)
-> > > > > > > >=20
-> > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
-> > > > > > > > b/drivers/gpu/drm/scheduler/sched_entity.c
-> > > > > > > > index 58c8161289fe..ae8be30472cd 100644
-> > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > > > > > > > @@ -133,8 +133,10 @@ void
-> > > > > > > > drm_sched_entity_modify_sched(struct
-> > > > > > > > drm_sched_entity *entity,
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0{
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARN_ON(!num_sch=
-ed_list || !sched_list);
-> > > > > > > > +=C2=A0=C2=A0=C2=A0 spin_lock(&entity->rq_lock);
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 entity->sched_li=
-st =3D sched_list;
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 entity->num_sche=
-d_list =3D num_sched_list;
-> > > > > > > > +=C2=A0=C2=A0=C2=A0 spin_unlock(&entity->rq_lock);
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0}
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0EXPORT_SYMBOL(drm_sched_entity_modi=
-fy_sched);
-> > > >=20
-> > >=20
-> >=20
->=20
+>
+>>
+>>
+>> Cheers,
+>> P.
+>>
+>>>
+>>> Regards,
+>>>
+>>> Tvrtko
+>>>
+>>>>> [...]
+>>>>>
+>>>>>
+>>>>> P.
+>>>>>
+>>>>>
+>>>>>> Then audit the code if all users of rq and priority actually
+>>>>>> hold the
+>>>>>> correct locks while reading and writing them.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>> P.
+>>>>>>>
+>>>>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>>>>> Fixes: b37aced31eb0 ("drm/scheduler: implement a function
+>>>>>>>> to
+>>>>>>>> modify
+>>>>>>>> sched list")
+>>>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
+>>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>>>>>> Cc: David Airlie <airlied@gmail.com>
+>>>>>>>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>>>>>>>> Cc: dri-devel@lists.freedesktop.org
+>>>>>>>> Cc: <stable@vger.kernel.org> # v5.7+
+>>>>>>>> ---
+>>>>>>>>     drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
+>>>>>>>>     1 file changed, 2 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>>>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>>>> index 58c8161289fe..ae8be30472cd 100644
+>>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>>>> @@ -133,8 +133,10 @@ void
+>>>>>>>> drm_sched_entity_modify_sched(struct
+>>>>>>>> drm_sched_entity *entity,
+>>>>>>>>     {
+>>>>>>>>         WARN_ON(!num_sched_list || !sched_list);
+>>>>>>>> +    spin_lock(&entity->rq_lock);
+>>>>>>>>         entity->sched_list = sched_list;
+>>>>>>>>         entity->num_sched_list = num_sched_list;
+>>>>>>>> +    spin_unlock(&entity->rq_lock);
+>>>>>>>>     }
+>>>>>>>>     EXPORT_SYMBOL(drm_sched_entity_modify_sched);
+>>>>
+>>>
+>>
 
