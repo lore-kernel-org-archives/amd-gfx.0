@@ -4,110 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5097BECE585
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B67DAECE579
 	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E14910E4E8;
-	Mon,  9 Sep 2024 11:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA0510E4E0;
+	Mon,  9 Sep 2024 11:37:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="KpfN0EVz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lG9oefzY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KpfN0EVz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lG9oefzY";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oS26gOE+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JnSU6yk/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oS26gOE+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JnSU6yk/";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1BC610E3BA;
- Mon,  9 Sep 2024 11:37:06 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 141C410E479;
+ Mon,  9 Sep 2024 11:37:08 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 76487219F4;
- Mon,  9 Sep 2024 11:37:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 745C61FCDB;
+ Mon,  9 Sep 2024 11:37:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725881825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1725881826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aI/m4UmGf1DhphyuV83tyozn+tU13zbPSNeGvTdKnhw=;
- b=KpfN0EVzLMTEaD315LRsnkLZobw0wbqJ/exIlAhW1lIlTFJuxbv6mUSoWQRM2svg4UcjCl
- hXPbIFs2b/CBUR84vHg2mSuf50WN4D1C3DnRwXD7nnsrxXhCAEzcd7WcxLZKIGFuvhmphY
- AtFqURSxIDC8EPq23+/evuAILPtF03o=
+ bh=TTJp/PEr8GYSlom01GbMOqmdOFgjEduol9YSkZ6FVJo=;
+ b=oS26gOE+tUAbkIBloadAOc3u1zLM+mH4+YYOXs7lq5A6kFi46sJTeibyAPLk6vHmBZxZgY
+ jaVj/sLgbRvlHtnOLvg1AJTsf/E7UK3kXBcsAune0X3leGJl84rjcbYa1DvtOteHeQuQ36
+ vV1RMRi/rKBeYEzNa5bVfZ3zhDoWwf0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725881825;
+ s=susede2_ed25519; t=1725881826;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aI/m4UmGf1DhphyuV83tyozn+tU13zbPSNeGvTdKnhw=;
- b=lG9oefzYifIxuabWpI75GMjgARurmyPNQqoPO3w1Qwn47TwfAS6TE++D3Epw8JMwVx89HL
- 00MjH4/LCysTB5Bg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KpfN0EVz;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lG9oefzY
+ bh=TTJp/PEr8GYSlom01GbMOqmdOFgjEduol9YSkZ6FVJo=;
+ b=JnSU6yk/lB52J2+5977L/VfycapqAxOg8ggNMO5HceksL6Q9PNIOhxLZRgT4E/4jUJAM0K
+ qfl54ueiQ2Lye6Dw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oS26gOE+;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="JnSU6yk/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725881825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1725881826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aI/m4UmGf1DhphyuV83tyozn+tU13zbPSNeGvTdKnhw=;
- b=KpfN0EVzLMTEaD315LRsnkLZobw0wbqJ/exIlAhW1lIlTFJuxbv6mUSoWQRM2svg4UcjCl
- hXPbIFs2b/CBUR84vHg2mSuf50WN4D1C3DnRwXD7nnsrxXhCAEzcd7WcxLZKIGFuvhmphY
- AtFqURSxIDC8EPq23+/evuAILPtF03o=
+ bh=TTJp/PEr8GYSlom01GbMOqmdOFgjEduol9YSkZ6FVJo=;
+ b=oS26gOE+tUAbkIBloadAOc3u1zLM+mH4+YYOXs7lq5A6kFi46sJTeibyAPLk6vHmBZxZgY
+ jaVj/sLgbRvlHtnOLvg1AJTsf/E7UK3kXBcsAune0X3leGJl84rjcbYa1DvtOteHeQuQ36
+ vV1RMRi/rKBeYEzNa5bVfZ3zhDoWwf0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725881825;
+ s=susede2_ed25519; t=1725881826;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aI/m4UmGf1DhphyuV83tyozn+tU13zbPSNeGvTdKnhw=;
- b=lG9oefzYifIxuabWpI75GMjgARurmyPNQqoPO3w1Qwn47TwfAS6TE++D3Epw8JMwVx89HL
- 00MjH4/LCysTB5Bg==
+ bh=TTJp/PEr8GYSlom01GbMOqmdOFgjEduol9YSkZ6FVJo=;
+ b=JnSU6yk/lB52J2+5977L/VfycapqAxOg8ggNMO5HceksL6Q9PNIOhxLZRgT4E/4jUJAM0K
+ qfl54ueiQ2Lye6Dw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C53F13312;
- Mon,  9 Sep 2024 11:37:05 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2785D13A84;
+ Mon,  9 Sep 2024 11:37:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cJKJBeHd3malNAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:37:05 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6HNkCOLd3malNAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:37:06 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>
-Subject: [PATCH v4 74/80] drm/exynos-drm: Run DRM default client setup
-Date: Mon,  9 Sep 2024 13:31:20 +0200
-Message-ID: <20240909113633.595465-75-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Subject: [PATCH v4 77/80] drm/radeon: Run DRM default client setup
+Date: Mon,  9 Sep 2024 13:31:23 +0200
+Message-ID: <20240909113633.595465-78-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909113633.595465-1-tzimmermann@suse.de>
 References: <20240909113633.595465-1-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 76487219F4
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[];
+X-Rspamd-Queue-Id: 745C61FCDB
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWELVE(0.00)[12]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
+ MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc),to(RLbwen1niosrcqbxsafh1)];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,amd.com:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,104 +131,122 @@ Call drm_client_setup() to run the kernel's default client setup
 for DRM. Set fbdev_probe in struct drm_driver, so that the client
 setup can start the common fbdev client.
 
-The exynos-drm driver specifies a preferred color mode of 32. As this
-is the default if no format has been given, leave it out entirely.
+The radeon driver specifies a preferred color mode depending on
+the available video memory, with a default of 32. Adapt this for
+the new client interface.
 
-v4:
-- revert an unrelated cleanup (Javier)
+v2:
+- style changes
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Inki Dae <inki.dae@samsung.com>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
-Cc: Kyungmin Park <kyungmin.park@samsung.com>
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/exynos/exynos_drm_drv.c   |  4 +-
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 99 ++---------------------
- drivers/gpu/drm/exynos/exynos_drm_fbdev.h | 15 ++--
- 3 files changed, 19 insertions(+), 99 deletions(-)
+ drivers/gpu/drm/radeon/radeon_drv.c   |  14 +++-
+ drivers/gpu/drm/radeon/radeon_fbdev.c | 114 ++------------------------
+ drivers/gpu/drm/radeon/radeon_mode.h  |  12 ++-
+ 3 files changed, 27 insertions(+), 113 deletions(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-index 7c59e1164a48..2a466d8179f4 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-@@ -15,6 +15,7 @@
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index f36aa71c57c7..eae79f02d254 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -38,8 +38,10 @@
+ #include <linux/pci.h>
  
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_aperture.h>
 +#include <drm/drm_client_setup.h>
  #include <drm/drm_drv.h>
  #include <drm/drm_file.h>
- #include <drm/drm_fourcc.h>
-@@ -111,6 +112,7 @@ static const struct drm_driver exynos_drm_driver = {
- 	.dumb_create		= exynos_drm_gem_dumb_create,
- 	.gem_prime_import	= exynos_drm_gem_prime_import,
- 	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
-+	EXYNOS_DRM_FBDEV_DRIVER_OPS,
- 	.ioctls			= exynos_ioctls,
- 	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
- 	.fops			= &exynos_drm_driver_fops,
-@@ -288,7 +290,7 @@ static int exynos_drm_bind(struct device *dev)
- 	if (ret < 0)
- 		goto err_cleanup_poll;
++#include <drm/drm_fourcc.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_ioctl.h>
+ #include <drm/drm_pciids.h>
+@@ -261,6 +263,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+ 	unsigned long flags = 0;
+ 	struct drm_device *ddev;
+ 	struct radeon_device *rdev;
++	const struct drm_format_info *format;
+ 	int ret;
  
--	exynos_drm_fbdev_setup(drm);
-+	drm_client_setup(drm, NULL);
+ 	if (!ent)
+@@ -324,7 +327,14 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+ 	if (ret)
+ 		goto err_agp;
  
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-index a379c8ca435a..9526a25e90ac 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-@@ -23,7 +23,6 @@
- #include "exynos_drm_fbdev.h"
- 
- #define MAX_CONNECTOR		4
--#define PREFERRED_BPP		32
- 
- static int exynos_drm_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
- {
-@@ -87,8 +86,11 @@ static int exynos_drm_fbdev_update(struct drm_fb_helper *helper,
- 	return 0;
- }
- 
--static int exynos_drm_fbdev_create(struct drm_fb_helper *helper,
--				    struct drm_fb_helper_surface_size *sizes)
-+static const struct drm_fb_helper_funcs exynos_drm_fbdev_helper_funcs = {
-+};
+-	radeon_fbdev_setup(ddev->dev_private);
++	if (rdev->mc.real_vram_size <= (8 * 1024 * 1024))
++		format = drm_format_info(DRM_FORMAT_C8);
++	else if (ASIC_IS_RN50(rdev) || rdev->mc.real_vram_size <= (32 * 1024 * 1024))
++		format = drm_format_info(DRM_FORMAT_RGB565);
++	else
++		format = NULL;
 +
-+int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
-+					struct drm_fb_helper_surface_size *sizes)
- {
- 	struct exynos_drm_gem *exynos_gem;
- 	struct drm_device *dev = helper->dev;
-@@ -120,6 +122,7 @@ static int exynos_drm_fbdev_create(struct drm_fb_helper *helper,
- 		ret = PTR_ERR(helper->fb);
- 		goto err_destroy_gem;
- 	}
-+	helper->funcs = &exynos_drm_fbdev_helper_funcs;
++	drm_client_setup(ddev, format);
  
- 	ret = exynos_drm_fbdev_update(helper, sizes, exynos_gem);
- 	if (ret < 0)
-@@ -134,93 +137,3 @@ static int exynos_drm_fbdev_create(struct drm_fb_helper *helper,
- 	exynos_drm_gem_destroy(exynos_gem);
+ 	return 0;
+ 
+@@ -590,6 +600,8 @@ static const struct drm_driver kms_driver = {
+ 
+ 	.gem_prime_import_sg_table = radeon_gem_prime_import_sg_table,
+ 
++	RADEON_FBDEV_DRIVER_OPS,
++
+ 	.name = DRIVER_NAME,
+ 	.desc = DRIVER_DESC,
+ 	.date = DRIVER_DATE,
+diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+index fb70de29545c..0aa20c8df546 100644
+--- a/drivers/gpu/drm/radeon/radeon_fbdev.c
++++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+@@ -198,12 +198,11 @@ static const struct fb_ops radeon_fbdev_fb_ops = {
+ 	.fb_destroy = radeon_fbdev_fb_destroy,
+ };
+ 
+-/*
+- * Fbdev helpers and struct drm_fb_helper_funcs
+- */
++static const struct drm_fb_helper_funcs radeon_fbdev_fb_helper_funcs = {
++};
+ 
+-static int radeon_fbdev_fb_helper_fb_probe(struct drm_fb_helper *fb_helper,
+-					   struct drm_fb_helper_surface_size *sizes)
++int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
++				    struct drm_fb_helper_surface_size *sizes)
+ {
+ 	struct radeon_device *rdev = fb_helper->dev->dev_private;
+ 	struct drm_mode_fb_cmd2 mode_cmd = { };
+@@ -243,6 +242,7 @@ static int radeon_fbdev_fb_helper_fb_probe(struct drm_fb_helper *fb_helper,
+ 	}
+ 
+ 	/* setup helper */
++	fb_helper->funcs = &radeon_fbdev_fb_helper_funcs;
+ 	fb_helper->fb = fb;
+ 
+ 	/* okay we have an object now allocate the framebuffer */
+@@ -288,110 +288,6 @@ static int radeon_fbdev_fb_helper_fb_probe(struct drm_fb_helper *fb_helper,
  	return ret;
  }
--
--static const struct drm_fb_helper_funcs exynos_drm_fb_helper_funcs = {
--	.fb_probe =	exynos_drm_fbdev_create,
+ 
+-static const struct drm_fb_helper_funcs radeon_fbdev_fb_helper_funcs = {
+-	.fb_probe = radeon_fbdev_fb_helper_fb_probe,
 -};
 -
 -/*
-- * struct drm_client
+- * Fbdev client and struct drm_client_funcs
 - */
 -
--static void exynos_drm_fbdev_client_unregister(struct drm_client_dev *client)
+-static void radeon_fbdev_client_unregister(struct drm_client_dev *client)
 -{
 -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+-	struct drm_device *dev = fb_helper->dev;
+-	struct radeon_device *rdev = dev->dev_private;
 -
 -	if (fb_helper->info) {
+-		vga_switcheroo_client_fb_set(rdev->pdev, NULL);
+-		drm_helper_force_disable_all(dev);
 -		drm_fb_helper_unregister_info(fb_helper);
 -	} else {
 -		drm_client_release(&fb_helper->client);
@@ -237,17 +255,19 @@ index a379c8ca435a..9526a25e90ac 100644
 -	}
 -}
 -
--static int exynos_drm_fbdev_client_restore(struct drm_client_dev *client)
+-static int radeon_fbdev_client_restore(struct drm_client_dev *client)
 -{
 -	drm_fb_helper_lastclose(client->dev);
+-	vga_switcheroo_process_delayed_switch();
 -
 -	return 0;
 -}
 -
--static int exynos_drm_fbdev_client_hotplug(struct drm_client_dev *client)
+-static int radeon_fbdev_client_hotplug(struct drm_client_dev *client)
 -{
 -	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
 -	struct drm_device *dev = client->dev;
+-	struct radeon_device *rdev = dev->dev_private;
 -	int ret;
 -
 -	if (dev->fb_helper)
@@ -264,38 +284,46 @@ index a379c8ca435a..9526a25e90ac 100644
 -	if (ret)
 -		goto err_drm_fb_helper_fini;
 -
+-	vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
+-
 -	return 0;
 -
 -err_drm_fb_helper_fini:
 -	drm_fb_helper_fini(fb_helper);
 -err_drm_err:
--	drm_err(dev, "Failed to setup fbdev emulation (ret=%d)\n", ret);
+-	drm_err(dev, "Failed to setup radeon fbdev emulation (ret=%d)\n", ret);
 -	return ret;
 -}
 -
--static const struct drm_client_funcs exynos_drm_fbdev_client_funcs = {
+-static const struct drm_client_funcs radeon_fbdev_client_funcs = {
 -	.owner		= THIS_MODULE,
--	.unregister	= exynos_drm_fbdev_client_unregister,
--	.restore	= exynos_drm_fbdev_client_restore,
--	.hotplug	= exynos_drm_fbdev_client_hotplug,
+-	.unregister	= radeon_fbdev_client_unregister,
+-	.restore	= radeon_fbdev_client_restore,
+-	.hotplug	= radeon_fbdev_client_hotplug,
 -};
 -
--void exynos_drm_fbdev_setup(struct drm_device *dev)
+-void radeon_fbdev_setup(struct radeon_device *rdev)
 -{
 -	struct drm_fb_helper *fb_helper;
+-	int bpp_sel = 32;
 -	int ret;
 -
--	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
--	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+-	if (rdev->mc.real_vram_size <= (8 * 1024 * 1024))
+-		bpp_sel = 8;
+-	else if (ASIC_IS_RN50(rdev) || rdev->mc.real_vram_size <= (32 * 1024 * 1024))
+-		bpp_sel = 16;
 -
 -	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
 -	if (!fb_helper)
 -		return;
--	drm_fb_helper_prepare(dev, fb_helper, PREFERRED_BPP, &exynos_drm_fb_helper_funcs);
+-	drm_fb_helper_prepare(rdev_to_drm(rdev), fb_helper, bpp_sel, &radeon_fbdev_fb_helper_funcs);
 -
--	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &exynos_drm_fbdev_client_funcs);
--	if (ret)
+-	ret = drm_client_init(rdev_to_drm(rdev), &fb_helper->client, "radeon-fbdev",
+-			      &radeon_fbdev_client_funcs);
+-	if (ret) {
+-		drm_err(rdev_to_drm(rdev), "Failed to register client: %d\n", ret);
 -		goto err_drm_client_init;
+-	}
 -
 -	drm_client_register(&fb_helper->client);
 -
@@ -305,33 +333,43 @@ index a379c8ca435a..9526a25e90ac 100644
 -	drm_fb_helper_unprepare(fb_helper);
 -	kfree(fb_helper);
 -}
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.h b/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
-index 1e1dea627cd9..02a9201abea3 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
-@@ -11,12 +11,17 @@
- #ifndef _EXYNOS_DRM_FBDEV_H_
- #define _EXYNOS_DRM_FBDEV_H_
+-
+ void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state)
+ {
+ 	if (rdev_to_drm(rdev)->fb_helper)
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 421c83fc70dc..12a1d99a1815 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -38,6 +38,9 @@
+ #include <linux/i2c.h>
+ #include <linux/i2c-algo-bit.h>
  
--#ifdef CONFIG_DRM_FBDEV_EMULATION
--void exynos_drm_fbdev_setup(struct drm_device *dev);
 +struct drm_fb_helper;
 +struct drm_fb_helper_surface_size;
 +
-+#if defined(CONFIG_DRM_FBDEV_EMULATION)
-+int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *fbh,
-+					struct drm_fb_helper_surface_size *sizes);
-+#define EXYNOS_DRM_FBDEV_DRIVER_OPS \
-+	.fbdev_probe = exynos_drm_fbdev_driver_fbdev_probe
- #else
--static inline void exynos_drm_fbdev_setup(struct drm_device *dev)
--{
--}
-+#define EXYNOS_DRM_FBDEV_DRIVER_OPS \
-+	.fbdev_probe = NULL
- #endif
+ struct edid;
+ struct drm_edid;
+ struct radeon_bo;
+@@ -935,12 +938,15 @@ void dce8_program_fmt(struct drm_encoder *encoder);
  
- #endif
+ /* fbdev layer */
+ #if defined(CONFIG_DRM_FBDEV_EMULATION)
+-void radeon_fbdev_setup(struct radeon_device *rdev);
++int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
++				    struct drm_fb_helper_surface_size *sizes);
++#define RADEON_FBDEV_DRIVER_OPS \
++	.fbdev_probe = radeon_fbdev_driver_fbdev_probe
+ void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state);
+ bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj);
+ #else
+-static inline void radeon_fbdev_setup(struct radeon_device *rdev)
+-{ }
++#define RADEON_FBDEV_DRIVER_OPS \
++	.fbdev_probe = NULL
+ static inline void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state)
+ { }
+ static inline bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
 -- 
 2.46.0
 
