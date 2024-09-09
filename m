@@ -4,82 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 281E6ECE57A
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBB3ECE586
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Sep 2024 11:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C01310E3C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B98010E3BE;
 	Mon,  9 Sep 2024 11:36:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ED5RoUKc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pPDw66Qy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ED5RoUKc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pPDw66Qy";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="gg2ik/Uq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZGllimAT";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gg2ik/Uq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZGllimAT";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0239910E3AB;
- Mon,  9 Sep 2024 11:36:44 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9921F10E389;
+ Mon,  9 Sep 2024 11:36:41 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A28EA219E1;
- Mon,  9 Sep 2024 11:36:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 44CF11FC0B;
+ Mon,  9 Sep 2024 11:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725881802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1725881800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PY/4uO50RJNQPCD8NhBR3IkObll3mkjAPYuh52ysUs0=;
- b=ED5RoUKcVvtE1hoqSfFYwXARGk0f8GiBPsylGnMUEEfia3etlZ1lqLu7cuTeJZ5srMCc66
- knckztqJRPNnRptesE8hoyEVwChSv6YeO5LVhDkYv8C2yCn++//egUgae+xzVFOFEHRMX/
- tmJQ3OagFVZ9AS22fSBOhXX30ARXfFs=
+ bh=AaJ1/nc7R9NDXVBcREwfyGg9ZWNpTqlnIX/7edKVWwY=;
+ b=gg2ik/Uq6eX1SBYM9e5kHzNSVOcX7iWEEO7jEvHYADaC38Bq5DocwTeKsKiCK61mMlkXVH
+ SwWr/Sw8zFuiWDF02Vv3TYhbScDti0iUj8cl8mqxKbFj9Hr0jLY9aXtcRyFzCrEsOcz1/f
+ Kk2pa0tZkdwxOtIR6dlBYebaXOhr+xM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725881802;
+ s=susede2_ed25519; t=1725881800;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PY/4uO50RJNQPCD8NhBR3IkObll3mkjAPYuh52ysUs0=;
- b=pPDw66QyasrEytOSoFQP/tU4+MaalSYqXlhB3gQnAB9ql2JSHya4u54HgmUUrVkP1BlIzx
- oO+Wwg5R8cWXKyDw==
-Authentication-Results: smtp-out1.suse.de;
+ bh=AaJ1/nc7R9NDXVBcREwfyGg9ZWNpTqlnIX/7edKVWwY=;
+ b=ZGllimATG78u1wX8yU6HD03Rs1Z2c2m2pDzQxu457+DbVr386LEwCV4x0ajwWWzvhidUHg
+ IkQQGfJfKv0GteCw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1725881802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1725881800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PY/4uO50RJNQPCD8NhBR3IkObll3mkjAPYuh52ysUs0=;
- b=ED5RoUKcVvtE1hoqSfFYwXARGk0f8GiBPsylGnMUEEfia3etlZ1lqLu7cuTeJZ5srMCc66
- knckztqJRPNnRptesE8hoyEVwChSv6YeO5LVhDkYv8C2yCn++//egUgae+xzVFOFEHRMX/
- tmJQ3OagFVZ9AS22fSBOhXX30ARXfFs=
+ bh=AaJ1/nc7R9NDXVBcREwfyGg9ZWNpTqlnIX/7edKVWwY=;
+ b=gg2ik/Uq6eX1SBYM9e5kHzNSVOcX7iWEEO7jEvHYADaC38Bq5DocwTeKsKiCK61mMlkXVH
+ SwWr/Sw8zFuiWDF02Vv3TYhbScDti0iUj8cl8mqxKbFj9Hr0jLY9aXtcRyFzCrEsOcz1/f
+ Kk2pa0tZkdwxOtIR6dlBYebaXOhr+xM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1725881802;
+ s=susede2_ed25519; t=1725881800;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PY/4uO50RJNQPCD8NhBR3IkObll3mkjAPYuh52ysUs0=;
- b=pPDw66QyasrEytOSoFQP/tU4+MaalSYqXlhB3gQnAB9ql2JSHya4u54HgmUUrVkP1BlIzx
- oO+Wwg5R8cWXKyDw==
+ bh=AaJ1/nc7R9NDXVBcREwfyGg9ZWNpTqlnIX/7edKVWwY=;
+ b=ZGllimATG78u1wX8yU6HD03Rs1Z2c2m2pDzQxu457+DbVr386LEwCV4x0ajwWWzvhidUHg
+ IkQQGfJfKv0GteCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F2F5913312;
- Mon,  9 Sep 2024 11:36:41 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 00B6E13A84;
+ Mon,  9 Sep 2024 11:36:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CKH5Ocnd3malNAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:36:41 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id QBVwOsfd3malNAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 09 Sep 2024 11:36:39 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com, javierm@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Stefan Agner <stefan@agner.ch>,
- Alison Wang <alison.wang@nxp.com>
-Subject: [PATCH v4 12/80] drm/fsl-dcu: Run DRM default client setup
-Date: Mon,  9 Sep 2024 13:30:18 +0200
-Message-ID: <20240909113633.595465-13-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>, Liviu Dudau <liviu.dudau@arm.com>
+Subject: [PATCH v4 07/80] drm/arm/komeda: Run DRM default client setup
+Date: Mon,  9 Sep 2024 13:30:13 +0200
+Message-ID: <20240909113633.595465-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240909113633.595465-1-tzimmermann@suse.de>
 References: <20240909113633.595465-1-tzimmermann@suse.de>
@@ -91,10 +90,10 @@ X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
  RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[11]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCPT_COUNT_SEVEN(0.00)[10]; FUZZY_BLOCKED(0.00)[rspamd.com];
  TO_DN_SOME(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]
@@ -112,47 +111,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Call drm_client_setup_with_color_mode() to run the kernel's default
-client setup for DRM. Set fbdev_probe in struct drm_driver, so that
-the client setup can start the common fbdev client.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
+
+The komeda driver specifies a preferred color mode of 32. As this
+is the default if no format has been given, leave it out entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Stefan Agner <stefan@agner.ch>
-Cc: Alison Wang <alison.wang@nxp.com>
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 4 ++--
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
-index ab6c0c6cd0e2..2b3f15f0dc56 100644
---- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
-+++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
-@@ -19,6 +19,7 @@
- #include <linux/regmap.h>
- 
- #include <drm/drm_atomic_helper.h>
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+index 55c3773befde..6d475bb34002 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+@@ -9,7 +9,7 @@
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+-#include <drm/drm_fbdev_dma.h>
 +#include <drm/drm_client_setup.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_dma.h>
- #include <drm/drm_gem_dma_helper.h>
-@@ -156,6 +157,7 @@ static const struct drm_driver fsl_dcu_drm_driver = {
- 	.load			= fsl_dcu_load,
- 	.unload			= fsl_dcu_unload,
- 	DRM_GEM_DMA_DRIVER_OPS,
-+	DRM_FBDEV_DMA_DRIVER_OPS,
- 	.fops			= &fsl_dcu_drm_fops,
- 	.name			= "fsl-dcu-drm",
- 	.desc			= "Freescale DCU DRM",
-@@ -333,7 +335,7 @@ static int fsl_dcu_drm_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		goto put;
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
+ #include "komeda_dev.h"
+@@ -84,7 +84,7 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ 	}
  
--	drm_fbdev_dma_setup(drm, legacyfb_depth);
-+	drm_client_setup_with_color_mode(drm, legacyfb_depth);
+ 	dev_set_drvdata(dev, mdrv);
+-	drm_fbdev_dma_setup(&mdrv->kms->base, 32);
++	drm_client_setup(&mdrv->kms->base, NULL);
  
  	return 0;
  
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+index e5eb5d672bcd..1e7b1fcb2848 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+@@ -9,6 +9,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_fbdev_dma.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_managed.h>
+@@ -58,6 +59,7 @@ static irqreturn_t komeda_kms_irq_handler(int irq, void *data)
+ static const struct drm_driver komeda_kms_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(komeda_gem_dma_dumb_create),
++	DRM_FBDEV_DMA_DRIVER_OPS,
+ 	.fops = &komeda_cma_fops,
+ 	.name = "komeda",
+ 	.desc = "Arm Komeda Display Processor driver",
 -- 
 2.46.0
 
