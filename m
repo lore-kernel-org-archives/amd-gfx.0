@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1371ECE564
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Sep 2024 09:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36E56ECE582
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Sep 2024 10:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34CB210E0CA;
-	Tue, 10 Sep 2024 09:57:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9FE410E76B;
+	Tue, 10 Sep 2024 10:05:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DhcTdOMk";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="AyfSk7fi";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 688EF10E0CA
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 09:57:06 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E06910E76F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 10:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1725962225;
+ s=mimecast20190719; t=1725962739;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5PiDJuasXThJ7vbj/ldyoca5Jl01N0InxFIbiVHzjY0=;
- b=DhcTdOMktYvFvtRZHPRVgpXneAHLmUX2ztHiZEDrHEw5+0hZdBMFOqSB4r8o0WRyYQID4U
- a4sGTLDW8IciR78/Ays3S7UfZy5fQrgStU0NvgAloQc+eiBlJU+iRK0VcfJxRKKwOJuEr+
- eN0gBGWRHWW7IglrRpXgOgxuagGzhd4=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=llCiz1wgiDOjZioOMdI2jOtnGvZR8jccEgYLQZWziXc=;
+ b=AyfSk7fiBJ5o76BOXC59PDNi2b1Wg641jvKw831zkl+xKUkcT3Lh1pNPD1m0A/nNxk9f6m
+ hySDlWDhuYhqXc84lgrI1sNxBgOzCWCRe0u/6tfz/k+eyE15o+SAMN+2BM+aomWV7Qybs/
+ lGwHWGjnZd3r29x52r7Iy/3tzqe51cU=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-651-7vBF9P-YOuilwOfQQfP1fg-1; Tue, 10 Sep 2024 05:57:04 -0400
-X-MC-Unique: 7vBF9P-YOuilwOfQQfP1fg-1
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-374c44e58a9so2821595f8f.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 02:57:03 -0700 (PDT)
+ us-mta-364-t6kT3N87ODK_FrjKnt1qXw-1; Tue, 10 Sep 2024 06:05:36 -0400
+X-MC-Unique: t6kT3N87ODK_FrjKnt1qXw-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-42cb22d396cso21777315e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 03:05:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725962223; x=1726567023;
+ d=1e100.net; s=20230601; t=1725962735; x=1726567535;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=6xmJDJHCrFEJG1w4322U2zHbVoLSbOK3ERE+KWCaag8=;
- b=FIWlaex2+5D7sWKDvusRElF8vaqAM/2vOZ0q2Agp7iOOXRy3cioqus2pyxOV5ohhDS
- NnMOPTRAX8StYiVsouPOIhxTmGVSc0Rs4Zv1IaKPZIu57P41Pm2BZLxgf6uugM5C3/AR
- Qhl9FfaRoDiUqQ2djxLtW8fZoJh/jUmjGD0q0ATgTM0cRjpBWwke326v104voyECyIdq
- C8LNyNhnFMCB73OKqRZKmIMzINL6YR+KUQneXnaeegkek0hB0OXRhBStdHy9GvGVW1F5
- qnF2PRN8v+JQHpiHLh68GnGezbGddbz6hOPKyYznlmAqPl3ZtMc2FOlG2GKNh82AUl2a
- z5uA==
+ bh=llCiz1wgiDOjZioOMdI2jOtnGvZR8jccEgYLQZWziXc=;
+ b=hnU5innb+LzHryOZKFOqPs6cSSHUD1ErWqqm4TLQAFrkPRTuekMmGZKrofPk3L0RY4
+ wu7nSg9LXjP1ofnM7Hsg7MD6kh4dTztljLxAoybNRYYOOva7psTF158ROqTvMFfyLOsF
+ tuNhQqiZJ0y1tQu3TqfS1fbwdiDfHpok0n4wwWv0ZIQhA6kZtWSZx1UBmGS4ETsUy4LQ
+ Du1ptiRE9eRd0goHwu32gUHm6X10UQb8RN5aCzljxTWkndd/LWVk+QShxiY89rjWd2t8
+ iETtlo/psK6HzIAxMT5UR1gVErI/XPhGG0Ry4X76Wjvj5LJ4h3ptJCCKeGIUR9XCGhwO
+ QJ7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWdfYJCrpxUALJjOzO2hRzL6tLs4Y5hV5AebxTcvTsQLwSRLrbRNt8MuCy518eQEBDVymIqGoWe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwmPv9RBvlRAQrvs+MLi7GFxRK90D/yyUW0ejVEXY4AOGzjXcN
- rJ6sQUtjL8bfycUN6JoL8d8+n45cTpSwuJ0GdMGD4Gc2rTUXMevCV6rJ3uWnXP3bvFCO/r05PIS
- 6Rk53ccSMP3mqqE4Lr818q7ohly5tEo+5EdkGVNygKZM8j+A+FJh8MPwUkkwDrFE=
-X-Received: by 2002:adf:a407:0:b0:374:c318:2188 with SMTP id
- ffacd0b85a97d-37889670950mr8629344f8f.42.1725962222728; 
- Tue, 10 Sep 2024 02:57:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFQFd5NJamzzjdq+dxtvPLXnw545coT4h9RSKBn5pqWHp/OzlFLx8WTZz6cV76JxVC0FLq4dg==
-X-Received: by 2002:adf:a407:0:b0:374:c318:2188 with SMTP id
- ffacd0b85a97d-37889670950mr8629320f8f.42.1725962222149; 
- Tue, 10 Sep 2024 02:57:02 -0700 (PDT)
+ AJvYcCWkHT4eVeGD7hxvQRKfA2nIntC0zDv8Laq285XBIDcK7Z9H4TcvfYd1XmGbO8lbP8s4hiN0+dBc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzg1aMI7eqJS4Csw4lnEvCvUisgcT5zH2dq6DBExrY1qzgI1vfK
+ fLPQmFbUM9caEMaSZZQQHRREmuCKIuooiz0LDfIjRDGE9kfi4mEUOQe5mGXqNnRoHNrKmu+6p4e
+ wp0MKW+34PJhEbPuvQh/zDOsTUKzIgYCDEU/LSfmIpjRJdd4bcKyC7xJKycazk5k=
+X-Received: by 2002:a05:600c:3b1d:b0:42c:b750:1a1e with SMTP id
+ 5b1f17b1804b1-42cb7501dc3mr50992165e9.0.1725962735380; 
+ Tue, 10 Sep 2024 03:05:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/HoxNOiNzwKYHD+D/SuZK8zhXeyBr4s97IDD/XgtIZJ9CESYvLArazuUWOfhXm3tFz2p2HQ==
+X-Received: by 2002:a05:600c:3b1d:b0:42c:b750:1a1e with SMTP id
+ 5b1f17b1804b1-42cb7501dc3mr50991895e9.0.1725962734865; 
+ Tue, 10 Sep 2024 03:05:34 -0700 (PDT)
 Received: from eisenberg.fritz.box ([2001:16b8:3dba:4b00:6ba1:ad1b:2dfb:e2a2])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378956dbf42sm8366725f8f.102.2024.09.10.02.57.01
+ 5b1f17b1804b1-42cc01a8ee7sm18218625e9.0.2024.09.10.03.05.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Sep 2024 02:57:01 -0700 (PDT)
-Message-ID: <0f3309f2fee746879a941e45e63a67facbc98f6d.camel@redhat.com>
-Subject: Re: [PATCH 5/8] drm/sched: Stop setting current entity in FIFO mode
+ Tue, 10 Sep 2024 03:05:33 -0700 (PDT)
+Message-ID: <9dd486a94717c51ec9dfcea648a98487b68a7385.camel@redhat.com>
+Subject: Re: [PATCH 6/8] drm/sched: Re-order struct drm_sched_rq members for
+ clarity
 From: Philipp Stanner <pstanner@redhat.com>
 To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org
@@ -72,10 +73,10 @@ Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian
  =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>, Luben Tuikov <ltuikov89@gmail.com>, Matthew
  Brost <matthew.brost@intel.com>
-Date: Tue, 10 Sep 2024 11:57:00 +0200
-In-Reply-To: <20240909171937.51550-6-tursulin@igalia.com>
+Date: Tue, 10 Sep 2024 12:05:32 +0200
+In-Reply-To: <20240909171937.51550-7-tursulin@igalia.com>
 References: <20240909171937.51550-1-tursulin@igalia.com>
- <20240909171937.51550-6-tursulin@igalia.com>
+ <20240909171937.51550-7-tursulin@igalia.com>
 User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
@@ -99,42 +100,81 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Mon, 2024-09-09 at 18:19 +0100, Tvrtko Ursulin wrote:
 > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 >=20
-> It does not seem there is a need to set the current entity in FIFO
-> mode
-> since ot only serves as being a "cursor" in round-robin mode. Even if
-> scheduling mode is changed at runtime the change in behaviour is
-> simply
-> to restart from the first entity, instead of continuing in RR mode
-> from
-> where FIFO left it, and that sounds completely fine.
+> Lets re-order the members to make it clear which are protected by the
+> lock
+> and at the same time document it via kerneldoc.
+
+I'd prefer if commit messages follow the idiomatic kernel style of that
+order:
+   1. Describe the current situation
+   2. State why it's bad or undesirable
+   3. (describe the solution)
+   4. Conclude commit message through sentences in imperative stating
+      what the commit does.
+
+In this case I would go for:
+"struct drm_sched_rq contains a spinlock that protects several struct
+members. The current documentation incorrectly states that this lock
+only guards the entities list. In truth, it guards that list, the
+rb_tree and the current entity.
+
+Document what the lock actually guards. Rearrange struct members so
+that this becomes even more visible."
+
 >=20
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-I went through the code and agree that this looks good.
-
-Reviewed-by: Philipp Stanner <pstanner@redhat.com>
-
 > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Luben Tuikov <ltuikov89@gmail.com>
 > Cc: Matthew Brost <matthew.brost@intel.com>
 > Cc: Philipp Stanner <pstanner@redhat.com>
 > ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
+> =C2=A0include/drm/gpu_scheduler.h | 10 ++++++----
+> =C2=A01 file changed, 6 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> b/drivers/gpu/drm/scheduler/sched_main.c
-> index 10abbcefe9d8..54c5fe7a7d1d 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -356,7 +356,6 @@ drm_sched_rq_select_entity_fifo(struct
-> drm_gpu_scheduler *sched,
-> =C2=A0=09=09=09=09return ERR_PTR(-ENOSPC);
-> =C2=A0=09=09=09}
+> diff --git a/include/drm/gpu_scheduler.h
+> b/include/drm/gpu_scheduler.h
+> index a06753987d93..d4a3ba333568 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -243,10 +243,10 @@ struct drm_sched_entity {
+> =C2=A0/**
+> =C2=A0 * struct drm_sched_rq - queue of entities to be scheduled.
+> =C2=A0 *
+> - * @lock: to modify the entities list.
+> =C2=A0 * @sched: the scheduler to which this rq belongs to.
+> - * @entities: list of the entities to be scheduled.
+> + * @lock: protects the list, tree and current entity.
+
+Would be more consistent with the below comment if you'd address them
+with their full name, aka "protects @entities, @rb_tree_root and
+@current_entity".
+
+
+Thanks,
+P.
+
+
+> =C2=A0 * @current_entity: the entity which is to be scheduled.
+> + * @entities: list of the entities to be scheduled.
+> =C2=A0 * @rb_tree_root: root of time based priory queue of entities for
+> FIFO scheduling
+> =C2=A0 *
+> =C2=A0 * Run queue is a set of entities scheduling command submissions fo=
+r
+> @@ -254,10 +254,12 @@ struct drm_sched_entity {
+> =C2=A0 * the next entity to emit commands from.
+> =C2=A0 */
+> =C2=A0struct drm_sched_rq {
+> - spinlock_t lock;
+> =C2=A0 struct drm_gpu_scheduler *sched;
+> - struct list_head entities;
+> +
+> + spinlock_t lock;
+> + /* Following members are protected by the @lock: */
+> =C2=A0 struct drm_sched_entity *current_entity;
+> + struct list_head entities;
+> =C2=A0 struct rb_root_cached rb_tree_root;
+> =C2=A0};
 > =C2=A0
-> -=09=09=09rq->current_entity =3D entity;
-> =C2=A0=09=09=09reinit_completion(&entity->entity_idle);
-> =C2=A0=09=09=09break;
-> =C2=A0=09=09}
 
