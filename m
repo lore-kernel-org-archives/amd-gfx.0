@@ -4,78 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35F1ECE58B
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Sep 2024 08:36:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8237ECE564
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Sep 2024 08:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFECC10E364;
-	Tue, 10 Sep 2024 08:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FED610E507;
+	Tue, 10 Sep 2024 08:37:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k7m1kSMI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="361pB6MF";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA14C89B66;
- Tue, 10 Sep 2024 08:36:51 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-42cae6bb895so28747975e9.1; 
- Tue, 10 Sep 2024 01:36:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725957410; x=1726562210; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cpN/WEheNIpLzBnzCua0NoFTpn2JTngrm5Tw9m8fBVI=;
- b=k7m1kSMIG3dbJXWqtTnDe92V8wItvnQQC1WOdudtwNy2Txz8DbpEscen0uDexJirXh
- ONd57acQkQr3SbA6JvoGq5olHnfkn3Me+jom5csmeXyXNnkZ4fmWV/o72Slm8V5DeGN8
- z/nn5n7IlCp7zi0XISZbziTC+30bjzKQjb1WmLd/PYpow2+MzkEy9jcpWQH0u569lOhG
- E2vHofS23OSczIP0vFx44TXCMei6OWXEucwY9PzgbiLXQLkrgmSAH4ytGNhK1CfVmBhg
- pCR30HgU4pdcX90Y3y2Jfmj4NwYt8PNKMpJofwjQ0sOWlY2WwAIAA1V4M9vv9oxxm9M6
- UEtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725957410; x=1726562210;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cpN/WEheNIpLzBnzCua0NoFTpn2JTngrm5Tw9m8fBVI=;
- b=vn5lqktPFiGvMfPUGxbU99Tvtld/5N7U0dwTmRW8bIFQ+NjLLDs+KQpBlzOlJA+tRc
- mHOVzJ0IP9GO3Jv2YJsaeXUCswVPVJLh6V8yRTfuZidNK7CN6oPCm9w+6+bLE20P9Tdu
- jmQxgmmKUwQxmPExUs+omfvzXffnzeOYgc3daKphY+SmVjxu8BTO83R9QrdBq9BgF9lW
- I4RRYodohpt9sH5c+T7YSxoOFQPcbQGPlKE2c8CVFnEGtcSlcdImFMJPg43Mdx5mLxnv
- 33V0JlLSjL0Uij8L9nOpkjld30kUzkDbySlYqtIKTrIQ1gN/Vb9ujahZpiMAFTof6djH
- vqwA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0EGyr/dLOhUF4XthUIpLPnIoMaasC1PMv03TE4Lb6akB3hx8/Xf5+khDrcLb+zaYcrGmDwAs7@lists.freedesktop.org,
- AJvYcCUH6dG82X+D52G/+2DPSOB1Mm5NdoHUxcJW6NjKUSfxY70F0rHpwu2+KaUnmzX88fWMkKcHq8mASKc4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+1HORxzkp/XnSyfV+8EXtMP4W8McO9bMBlewD/6POAE4Mp62T
- QN+0+xrFBkYUNSarYsv93RqbBAaFFkCCGT+1tB0aYFp39d6Zxzo7LPWWfxyH
-X-Google-Smtp-Source: AGHT+IGEza4KzA0SCbDz5rRJcUDsb5l7BHojgT+qSPYY8Q3ybsIpKHHCdGg9Zs6DpwzsmdXc7OMOWg==
-X-Received: by 2002:a05:600c:5128:b0:42c:b62c:9f36 with SMTP id
- 5b1f17b1804b1-42cb62ca18fmr50686715e9.5.1725957409281; 
- Tue, 10 Sep 2024 01:36:49 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42caeb8b7f1sm104254975e9.48.2024.09.10.01.36.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 01:36:48 -0700 (PDT)
-Message-ID: <ed9d9aed-eb04-4867-bb7a-9f37a60d5263@gmail.com>
-Date: Tue, 10 Sep 2024 10:36:47 +0200
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C132510E507
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Sep 2024 08:37:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S2qizwmOUUXz/cn4EJSTNEMJKv2D6z9nU9G99NSWKK0m+iV42nipObfGQFr7nMc0tEQjWlnZnsoMthVENjz5mFQeXBoY4JkdB6eFMNU6/vg4geLAKHJZXfoTuhKEy0ezO0jmOxpNJWwMk1zv7WmhLRTI+ryZCvKa1qPKTEJuV1tU/M/mP5gGIGPqAHL05HkU6UWqSCNkntXBWbvKEWG8ZPKPf3fnT0lrtvhbQI3aSUanADjO0OSX7z1nnSfqYQYeXYw/1cBoOpTiYE+vp+s6tOW7WsPpMiIw3nbcwnhGmbGajTIX1ptatmMPitcrS4n7ydM1vwfB2i0C6LghCwqL7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vtn7p3ELMT2ydBiSV7BRR6gOxxwxwVIbXvJrm/jeNZM=;
+ b=Rp1+P/4fhyOjNCVoUMqeAHIljuyVRcDTrwvKpF9jruhwYB7ASI/Zs3vzONOO99td1GZoql6yTEuILOh20mdqNuUq8B4FvAVd1HztBNCAs1YYIaqt/3sYLjJ6oDbIhBMW+ZShaoBhr1O84L3/ztSKf3sIdHwuIGDDJMTkI1vWD1s1rScGFAdQmbO8+8jvIrfR0eo4ALYIJDhi0ZzRG4Q2thSRTTeJJRxt41SBdrNirLVWXgR98oy739vLOyk7RlnWARe+og1o4xEAsunt/vvL4B5NdqObOcZwLwyxENH4jAbQO3YPnqcvb2scQB/38q3JmR8nMUOP/AaANgw8Ab//VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vtn7p3ELMT2ydBiSV7BRR6gOxxwxwVIbXvJrm/jeNZM=;
+ b=361pB6MFRjpyf5Sh6MJ2eeeItcInIElbmyqhYqUN75Ah3EkqFvAb58zJWzb6wUt1ch7rdIAQ6OEfsn4PsguNFf0k+xPlUin3DMISoNFZQmyw+ETfYYJ90g0ZQkkPgmvrbH7EaYl3XqkGd/cwTFLmdOcc6ZjDdOA38VNIbqQe+6Q=
+Received: from BN9PR03CA0946.namprd03.prod.outlook.com (2603:10b6:408:108::21)
+ by CY8PR12MB7241.namprd12.prod.outlook.com (2603:10b6:930:5a::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.17; Tue, 10 Sep
+ 2024 08:37:50 +0000
+Received: from BN3PEPF0000B06A.namprd21.prod.outlook.com
+ (2603:10b6:408:108:cafe::9c) by BN9PR03CA0946.outlook.office365.com
+ (2603:10b6:408:108::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.23 via Frontend
+ Transport; Tue, 10 Sep 2024 08:37:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN3PEPF0000B06A.mail.protection.outlook.com (10.167.243.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7982.0 via Frontend Transport; Tue, 10 Sep 2024 08:37:50 +0000
+Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Sep
+ 2024 03:37:48 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: disable GPU RAS bad page feature for specific ASIC
+Date: Tue, 10 Sep 2024 16:37:39 +0800
+Message-ID: <20240910083739.20813-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] drm/sched: Optimise drm_sched_entity_push_job
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
- <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>
-References: <20240909171937.51550-1-tursulin@igalia.com>
- <20240909171937.51550-5-tursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240909171937.51550-5-tursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06A:EE_|CY8PR12MB7241:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0910f6a-1968-4e29-d79a-08dcd173dae0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IeM9DkgsQkCXCP+b7cT+QYBxICH0sWf5Mei31S1bhOaFSkOUWzW8QG/bUNzK?=
+ =?us-ascii?Q?GriMs1fQW4kUrjzKOSQBdh12cyWzAAfq7had5Lkao2aJuJrxEYd7LUOCZxHu?=
+ =?us-ascii?Q?NGr3VFdwy49nduFZE4EQvXdGM46bJTg8ai+cQ/OXi7qIFByVJS6S3/+2ZFZ+?=
+ =?us-ascii?Q?YShdfK4wQXPWPgSArMW56mWnXJrMYdc+O70z3rMqB+5d58fOoTGseuyUH3KL?=
+ =?us-ascii?Q?YMPj3NKnplGnauuIEDUkPoAowDkQdd2YXVqZrjWLW77QY3YmpuHIAA+VommL?=
+ =?us-ascii?Q?EY19U988Z0bVulBAo2G2hOKmM2SiR6X66XCuxdMB9l1pmfRfJV4QiLjlwYAJ?=
+ =?us-ascii?Q?P1fyTCD+jmwXOq7avhIkb7pynMuEa3RXAAwR9IZVE6gTsqCrnnob3XTjQ6ja?=
+ =?us-ascii?Q?FMS0+soafMB2E7r+OaD+pxdHgjKYQ9N3YfPsu/hIQUgv8mP5w/1CyRtFsMY6?=
+ =?us-ascii?Q?rEo7NzDJ8AlT0FdPx+/R3uK5oT1L+CgFjpGYBx5sGiG082wkbDG+QZMWmTQO?=
+ =?us-ascii?Q?7vyTPDXleTsBv+M5ZNsVd8DoOG5y/NnpO8m49RPh1gCjEDn/b2DlDmBs4ukY?=
+ =?us-ascii?Q?so9wPpZDsU8Xf6Mcsxg6fBlQ8bwN/tWQFSgY/NjYOPLQPDVeGWGcZhwQZFNa?=
+ =?us-ascii?Q?tqFOa6iHBEivJs0JXFSo06yJAevWD5QFbGzSaB4s0f3T20t2PX9hKpTuuLmr?=
+ =?us-ascii?Q?AUZwfplu0sZetU03ZwJLiFEryHEn/GOhJJF4wIWh+OpoCRrmfHTFwZ/S+vvV?=
+ =?us-ascii?Q?ECoGAgCOlMf0scNbCYUlj9ZA0ITC7vBJ4Sh2OV2PqI0J3qOXCOPy/9vfBK34?=
+ =?us-ascii?Q?h/BbZtzBltIAdKh+8Epg5qkg7IlWUYcRaJaJaXUrnChfpHbOs1Yy8EqcKsl0?=
+ =?us-ascii?Q?gF4DR/twVnTzvdf/gPwDUCefUFeiO1P7/UF7fnkIBBI8Q6f89vfXwHrYQEH3?=
+ =?us-ascii?Q?3aLi0D6aTKAMBFDilavfqo36ro7tAQuxkD+D5nPTxTRdMshp74wXYsSg04L5?=
+ =?us-ascii?Q?1tX/M0l/t3NyirDx+4MG1YTJky5cbe38O9GWnoOaEGqIMcgK5LrJ/Ea7SJL1?=
+ =?us-ascii?Q?WhKe3Qry92zV58IQmFFMYeOkqtLij14XK0xM79qdYgSgbGrDyGjg2Uq2EVPm?=
+ =?us-ascii?Q?XVIOk//VDC5o/xKi31Qe6Olpvib0hF/EVj2nYC3hJaqdA7nhIxIt4vu1ASmW?=
+ =?us-ascii?Q?SAJR59d5qLb2SurNH/wfFkTCIs4fVAAqm0cvswQrqCPHJxNMRPnuRCP++NRp?=
+ =?us-ascii?Q?J8PkO0/OZjVP96nbZQWfgDR2X/viKUVfrPb+Q7ErMTLWIhPAKtGsAbQCiGqf?=
+ =?us-ascii?Q?GMKNIBR5ntcxOlEnxoqbj6LunJ8+1wwA1kTlyAJrRxh2onizwInp8+JW8TzM?=
+ =?us-ascii?Q?KTli38tlGBFq19svTrP8upujhshnTzTJHmAp6XadK3kWihop5iIgJETGy9oP?=
+ =?us-ascii?Q?hp+TAAHLK/w=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2024 08:37:50.2599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0910f6a-1968-4e29-d79a-08dcd173dae0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,100 +129,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The feature is not applicable to specific app platform.
 
+v2: update the disablement condition and commit description
+v3: move the setting to amdgpu_ras_check_supported
 
-Am 09.09.24 um 19:19 schrieb Tvrtko Ursulin:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->
-> In FIFO mode We can avoid dropping the lock only to immediately re-acquire
-> by adding a new drm_sched_rq_update_fifo_locked() helper.
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Luben Tuikov <ltuikov89@gmail.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <pstanner@redhat.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_entity.c |  5 +++--
->   drivers/gpu/drm/scheduler/sched_main.c   | 21 ++++++++++++++-------
->   include/drm/gpu_scheduler.h              |  1 +
->   3 files changed, 18 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index 6645a8524699..2da677681291 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -615,10 +615,11 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->   
->   		atomic_inc(sched->score);
->   		drm_sched_rq_add_entity(rq, entity);
-> -		spin_unlock(&entity->rq_lock);
->   
->   		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-> -			drm_sched_rq_update_fifo(entity, submit_ts);
-> +			drm_sched_rq_update_fifo_locked(entity, submit_ts);
-> +
-> +		spin_unlock(&entity->rq_lock);
->   
->   		drm_sched_wakeup(sched, entity);
->   	}
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index ab53ab486fe6..10abbcefe9d8 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -163,14 +163,10 @@ static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *enti
->   	}
->   }
->   
-> -void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
-> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts)
->   {
-> -	/*
-> -	 * Both locks need to be grabbed, one to protect from entity->rq change
-> -	 * for entity from within concurrent drm_sched_entity_select_rq and the
-> -	 * other to update the rb tree structure.
-> -	 */
-> -	spin_lock(&entity->rq_lock);
-> +	lockdep_assert_held(&entity->rq_lock);
-> +
->   	spin_lock(&entity->rq->lock);
->   
->   	drm_sched_rq_remove_fifo_locked(entity);
-> @@ -181,6 +177,17 @@ void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
->   		      drm_sched_entity_compare_before);
->   
->   	spin_unlock(&entity->rq->lock);
-> +}
-> +
-> +void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
-> +{
-> +	/*
-> +	 * Both locks need to be grabbed, one to protect from entity->rq change
-> +	 * for entity from within concurrent drm_sched_entity_select_rq and the
-> +	 * other to update the rb tree structure.
-> +	 */
-> +	spin_lock(&entity->rq_lock);
-> +	drm_sched_rq_update_fifo_locked(entity, ts);
->   	spin_unlock(&entity->rq_lock);
->   }
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-I wonder if we shouldn't change the only other occasion calling this to 
-grab the lock manually as well.
-
-Christian.
-
->   
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index fe8edb917360..a06753987d93 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -594,6 +594,7 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->   				struct drm_sched_entity *entity);
->   
->   void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts);
-> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts);
->   
->   int drm_sched_entity_init(struct drm_sched_entity *entity,
->   			  enum drm_sched_priority priority,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index dbfc41ddc3c7..ebe3e8f01fe2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3483,6 +3483,11 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
+ 
+ 	/* aca is disabled by default */
+ 	adev->aca.is_enabled = false;
++
++	/* bad page feature is not applicable to specific app platform */
++	if (adev->gmc.is_app_apu &&
++	    amdgpu_ip_version(adev, UMC_HWIP, 0) == IP_VERSION(12, 0, 0))
++		amdgpu_bad_page_threshold = 0;
+ }
+ 
+ static void amdgpu_ras_counte_dw(struct work_struct *work)
+-- 
+2.34.1
 
