@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5441CEE57C1
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 16:22:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F503EE57C0
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 16:22:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02FB910EA4C;
-	Wed, 11 Sep 2024 16:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD44910EA4E;
+	Wed, 11 Sep 2024 16:22:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JzmmEQBv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pzTK2Wa3";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 513DE10EA4B
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Sep 2024 16:22:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 688ED10EA4E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Sep 2024 16:22:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tOkVWr7wjXVQyavx5rJMsQXzJCDYkTxLnlkSUs8Xp8RQv/E4RYs99KHChyAeMC+/R/Mu8tmRwMQ+9tioWfG8y1ylKFR0YRDD0Re/llD6yNUgmfQSvLaEAauxq6Dq3mAozToacVh6AqFtE4Z8tgj+ow5eYqNkL8HOZJ3cekxM29u5QZzT/UHap54RNwWZzzw2JzS2DZYfYR+GGEXdA6iEsagJgBeygzvX6VtHVY84C63lcVp/vME72tCFiEmufdBkujxp/+w5M1tKKk3QBUudaQH/qHnoMs5j+yLDMCwK0zLyoSEZ6Vf9hf9DT0Gu6nqqF7dTgz0ebQMK6ZHBUrvO2A==
+ b=UlUEf9uK3YwE8oreAcII/GRFd5q79QMrBRq8pQSb0H1gui6UFYv4QpiT6SdcbnVTeDt2bmk5UQloANUC+v2KhG11E7WFK1R6utP0+K2SKkubC9/XLyhGVstTebyxSdV9PELIV+o5+RfnspsLiqxu69mAx57QYu00QMlbl+MTQyXdLbevT5ahuP70hgyphroleQ82BXoD732+eINYlo5y7BKYSBErdCypHV99vp20hOCwzZBzzvkk/4SLOv2JvWN4Iz+NNV7Om+hgMNRm4C+WQLCj8mKku/LS4THKmjkP5L7++ywB+n36N149NbPZ5ClHbUiKp6vitSCzRkALCBsXWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mUULoh064zAvzCPbF3ox8ZCoy6BwU8KeT4ZIyxWsx9g=;
- b=GiJJ0JlkbMJYiOWSEUS0sUXUu0/YbSQT/OHIbEmCM0w1vcK7ltvQN9pWyAM2jQ/e4BNXqjNJySmV9jdqrn+YotalqfS1B6SmaG+D6+osNtAty1R2x5D7EKsc3Dy6uK0pDlisj9HNCjm/ngEt2ybTxbG6eT6cAeN7aQF5bxlsLs30ChIyYziCqH8BlOQC7p8svhut6TECz8VoDn1oDEMcSp36qAYAqy9hNDMK+OBCADWLy5zJmBEy3ANoXJLyBGCd6gGwP3Rzzd/BwEKgK8a231BJNkZw/reKmfWXA7Bs9hHK6drF8x3+haGAGHs1yY9XUK/hayYOt7NRhKuvbY4Rug==
+ bh=BMoI2f85B8CqfVerMchRzaFEBpDfKwFyrRRj0IRHhXg=;
+ b=x155tWBpFNnKbGCKD6H9cmlJYef2+y9dHzEn+VHnALlejuArr6+Ye8d7ltGUYVM7vh2ouLjn6QmhNtny9KDtwdhw9xwd6xElMZcANjJQd8pwHuDbLo0hpWtXIkHMZBcMbYp4eagVMsdnE/F/XV6rwm7hLrut/K45QHmcAyWZ7QTmgAoZI3j8/OpFusPgjHEyqxX5uDPpKXjmR3L0LqkfggVc6GLTy1ho0XcKQwBQJyGvIFJXM7Nbl7wM3lYiPWodIN76LhhIHyuiAjr+scLATA49zJsp3J55wOeigPC7Bg2WpkfmhAjtZ3VYQ0TtDeTu5RRTDhBLEvj9ztarp/eZHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mUULoh064zAvzCPbF3ox8ZCoy6BwU8KeT4ZIyxWsx9g=;
- b=JzmmEQBv2tpTErEYx0vaiW7SDQDuw02diGwO7B3GMuWAV653FbMkCVy9LUHZ6o6WkPhsDn4FWEJaPym4zKfYGbbl3VHyV3UK4ZI0E9bFTDqmPbKSCgkjGcyLzqaJGRJar3s4W1C0hmcAK1yjSgZf4nBqjJRKHeDFz5aiMAYvIXw=
-Received: from MN2PR11CA0014.namprd11.prod.outlook.com (2603:10b6:208:23b::19)
- by MN2PR12MB4304.namprd12.prod.outlook.com (2603:10b6:208:1d0::12)
+ bh=BMoI2f85B8CqfVerMchRzaFEBpDfKwFyrRRj0IRHhXg=;
+ b=pzTK2Wa34tG2n+WViQ186hceZx3XV0Qly3E7d7gBecbWI2kt/b9sakKHNS5tHxvF/OcLB4K27HsfIb18cFJzB+O3v8drYhxX4p36/sRtWqrMpQmm2cwFnoKNMvt0X1Ogfbd94IW3j00i/Q+zCPa+kIngxnGIqAbZWFZmgdpchM0=
+Received: from MN2PR11CA0028.namprd11.prod.outlook.com (2603:10b6:208:23b::33)
+ by MN2PR12MB4376.namprd12.prod.outlook.com (2603:10b6:208:26c::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.25; Wed, 11 Sep
- 2024 16:22:05 +0000
+ 2024 16:22:19 +0000
 Received: from BL02EPF0002992E.namprd02.prod.outlook.com
- (2603:10b6:208:23b:cafe::5e) by MN2PR11CA0014.outlook.office365.com
- (2603:10b6:208:23b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.25 via Frontend
- Transport; Wed, 11 Sep 2024 16:22:05 +0000
+ (2603:10b6:208:23b:cafe::6f) by MN2PR11CA0028.outlook.office365.com
+ (2603:10b6:208:23b::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
+ Transport; Wed, 11 Sep 2024 16:22:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF0002992E.mail.protection.outlook.com (10.167.249.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Wed, 11 Sep 2024 16:22:05 +0000
+ 15.20.7918.13 via Frontend Transport; Wed, 11 Sep 2024 16:22:19 +0000
 Received: from shire.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Sep
- 2024 11:22:02 -0500
+ 2024 11:22:16 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,14 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Samson Tam <Samson.Tam@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- <stable@vger.kernel.org>, Jun Lei <jun.lei@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 02/23] drm/amd/display: Use SDR white level to calculate
- matrix coefficients
-Date: Wed, 11 Sep 2024 10:20:44 -0600
-Message-ID: <20240911162105.3567133-3-alex.hung@amd.com>
+ <daniel.wheeler@amd.com>, Ryan Seto <ryanseto@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 03/23] drm/amd/display: Implement new DPCD register handling
+Date: Wed, 11 Sep 2024 10:20:45 -0600
+Message-ID: <20240911162105.3567133-4-alex.hung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240911162105.3567133-1-alex.hung@amd.com>
 References: <20240911162105.3567133-1-alex.hung@amd.com>
@@ -82,51 +79,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992E:EE_|MN2PR12MB4304:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac7c545e-d607-424c-cc4d-08dcd27de064
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992E:EE_|MN2PR12MB4376:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f1b6e08-4fef-49c7-4a11-08dcd27de87a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6yUCN8NNVqTZD3c0NlPUMg6rtCQx5Thw/TSkLLajR8NZkzf+PxoG5Mv4E6VF?=
- =?us-ascii?Q?1K4FWUeIrn6K/3PSSWyuhQUqAqyIxh47JuMiBj/6onilOKrQnrGA5gEIiVmT?=
- =?us-ascii?Q?TwxNW9VyIzp5272OYKAT7OCwa+rPMnZbwLVlrj/lz+4RUwIuDn8iW22dHwfH?=
- =?us-ascii?Q?jv0nsFA1YDU8Uq7ydtyHI4oGlihbb3n+h0OOSrZUbHkV+UR1BMiXjItZAIPD?=
- =?us-ascii?Q?hMBA0QJumOx8p2kp2MgQ7Iz6knk8AchH7c7u6voOm5szodILHzeLLmqfcERS?=
- =?us-ascii?Q?CXPTujp8XSXQaaDdzJ3OhA1tmYz1Yu2j1itaIGc+dxoUkWAlSEeOaXQLReLe?=
- =?us-ascii?Q?dZbI6/gq9SeTO/C3UphPyABQIeSLGgpbW6NyOR8GNGCB3x5rcoEg3OuSAjRB?=
- =?us-ascii?Q?ZAyTtWQtRLBy+jkgB2Fz3T0xuO351dBcuHluUeYNW77qNt/vJjPSrAEd/p2N?=
- =?us-ascii?Q?9ots/FmZvhWNiYAO6Ej5eGsCdnoY4PmejeHUIu1W+sKw1Ldd8RSyjhLqyJaE?=
- =?us-ascii?Q?WH+kIsfGOaIkWqj+jyiW7XqiG9IsMP5KMQafBzJoEeeyVnoqhEnfuXJC/5d1?=
- =?us-ascii?Q?rZXbNj6p5eTRTPnySJPpVrebXHMuUh15WxhpWKHs4LB2M2qwk9K3EZuKxprP?=
- =?us-ascii?Q?BPleoT6WlJIF6JUveb0bePKzOGApmAnMcAF6lDRKe4kblw3hN+xUMnY6EDP1?=
- =?us-ascii?Q?OMw0+9XIHEcsVkibmK/m/PRrXmj2Wu9ncMq01iGCvGIoW+zdNdymNaggcg8s?=
- =?us-ascii?Q?uGgl09AEWx4A4r9uyBlww+wHiP8q4I6vTmLPFXthks4/q5boLl5MjZR/DD0A?=
- =?us-ascii?Q?HM4MfULn8aoPabXwDnwsQx200BcGkQGC2+Kh9UimDolWSU7/gTI9Ag4BsRN+?=
- =?us-ascii?Q?6qBkSyhLSvw7QMY4+4+/RX26QXSrtrbhwqA3qxrhDJ33XwMODftZeTmJRl0o?=
- =?us-ascii?Q?8S4CkN4sfszNe11L2qMpTeUVByTIS5/1nWF9BnMRdkH2Nw91tU9xzC3WrrtO?=
- =?us-ascii?Q?ZGqbHNUu1Ti8g7vOHBgJIum4AMKj1YSmuYpWfhWjbr7wH4k0moXvn/GEishP?=
- =?us-ascii?Q?yzJgo+YXaSPLS/6d3S4MFC/GWPssXKd7PIHnKGb7CJHpOsjnB8LQYl9SMiPw?=
- =?us-ascii?Q?28y2MQm54dWHN3E/p1ZKUBl69QsY/l5BivSXH/LiwsxXq3Ku7Dp5vdIA/Ora?=
- =?us-ascii?Q?YkFiX/UzAIBoAvKaZfWIxeEnv89b4KVhcLWJB0GXMLtJ30TKw5LIk3ewdTf4?=
- =?us-ascii?Q?/OoW5cFzNbb53G9pMV2Ql30rMYwZGb+ig52iE0xD/cX9rqRN3vInx30CyHuK?=
- =?us-ascii?Q?BluKwW4Zgz+MvzYP4SZuUZ02Pcobacda4LlDsxq54fFzv6/mDmJ5KRZVdt3h?=
- =?us-ascii?Q?kDsHdkCz+Xmbs7P1CuVjNrKcVrtifld8CmRl8D2xtgeAUvR0AyH1gTgKmP3G?=
- =?us-ascii?Q?BEBIre1p7aop0PTBFTXNhvZ9jBrFFWrK?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OwuIvSYFHpkfwqflhnerABM0JjhXlByzOu+PhGe/JBrrWWmu686Unrw2Uylt?=
+ =?us-ascii?Q?jSdYZd0a9N1ZsozxNsj2f3Sp/7e7HBTXXfcDrNnhWzwCj7orBXb2XTnf0+yd?=
+ =?us-ascii?Q?Q3+Evn3348ZJ+kzj7Nsf0CiPRRi17DfeZ9+gCeGv7RhOfrGbeYtCw1LC4QZg?=
+ =?us-ascii?Q?OYyhCaak3SCY2rhKs2WLF5DFw8SPi2ouQJEHvcXjHpLH7eWdMZU/Xmg34WPy?=
+ =?us-ascii?Q?7NAAmhhOsO9mfYVNmAemBX/li9Mym2TzeEeNk4wb3mebZ6UNbcXilF0Mq+ql?=
+ =?us-ascii?Q?uu55DqPR4mvQpEBEZ3qXohpcPD7t2kSCLjgkayCa1NoHwaHE7KGrFHzjTO2l?=
+ =?us-ascii?Q?cUtSN/pFZvj+zGTZml3lzRQn/oxrPcH1sYEVZYH9z9tZmg7B0MM3WtuX+BiQ?=
+ =?us-ascii?Q?JmAFbj/pN2H5OufEZt+DhH0nwtV8arTix37lXke1IYxrYQDiXC5z6DJKQ+Xf?=
+ =?us-ascii?Q?os2jp3lzhLeVeBeioIVnQySlIftDa9iS/F+GxHFDxVljJb/UoluLVXQf5iys?=
+ =?us-ascii?Q?Ky9DWsrbNT471/eeZdRCU4InuD5k6hTNLMMc1sVKFZX9lJBEbjp88s/IguXC?=
+ =?us-ascii?Q?r0HlzGrJorumUJMoNcbYRIgR9MdWB5F3keLNrhY8HUMswuXjDNxvkaHzMhHb?=
+ =?us-ascii?Q?Yin3zwx9V9+XlxeRMEC9mB3fPsmq9w2pUzGtdPM7/ebGl5X53Tt3sunMG5fj?=
+ =?us-ascii?Q?4V/gcrI/GNuVbYoS/mQwtyu2KlYawa9BhTogs2BjIpj4qIWmsMAOl43fKX/+?=
+ =?us-ascii?Q?4cOjgGlhcywkiv14UZoETkk8WVJ/VSqTU4ypCsjvr10rsmySR/AC5Yt20DxE?=
+ =?us-ascii?Q?fO8nxoEY8NT057yaCTZU3BrUx6mh4tbhWhx8M4S/QuHE3hEWgQOK9njPGWtf?=
+ =?us-ascii?Q?u2DCEGRfthYmfX2VsfmTC/jk7axIg5Dn8kLvcc2Bp1Veoxvvj/iKA4YyqOQ2?=
+ =?us-ascii?Q?SzPH2UHCSaH4unsTbRfCQjzaPnYz/QIjBOPZDuvOsFb01yvGKsxe008FCPio?=
+ =?us-ascii?Q?IspjMTfS2yJSaOvn8B5aSzO2LeEvwMf07bl3gMtKzs9NFJZK7bOt5m71WU6U?=
+ =?us-ascii?Q?XMFvPtiOTsCm33YIcaY/NodJ3c7mL+YeJ9kH0Rldub7TBLBeToQO3tn40all?=
+ =?us-ascii?Q?xQmIxRlbeVe+/nb/IG8duZU4NJY630NDJXEGPryLkglqzoFjs2RuHI7RlNgV?=
+ =?us-ascii?Q?lEFNFryJBmwlGCtY4qZSNDQbkVfpzUdrVYU8L1xS/UFec16jnOtSreoJTDRx?=
+ =?us-ascii?Q?kfFdBWTkNAIUTJ/oybOeQZUlQNLPiSdRrXQkMxMPkEbcamLsVaKPVQcblD0E?=
+ =?us-ascii?Q?Ec3mDjIN+yf+QF1eeiN+7aff0hbItOG/RoktqAX/7sE8JwAD/uDpa6rp4zkj?=
+ =?us-ascii?Q?6GcM+fh8MHuZdOvqSJ3OIGuFBwg9EEmCgRKPGf1dxPfRhUp4i0Xv0GL5Er/w?=
+ =?us-ascii?Q?8es2LEV/b+IqzejlavniJbq46SL0K46k?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2024 16:22:05.6433 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac7c545e-d607-424c-cc4d-08dcd27de064
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2024 16:22:19.2059 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f1b6e08-4fef-49c7-4a11-08dcd27de87a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4304
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4376
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,181 +138,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Ryan Seto <ryanseto@amd.com>
 
 [WHY]
-Certain profiles have higher HDR multiplier than SDR white level max
-which is not currently supported.
+There are some monitor timings that seem to be supported without
+DSC but actually require DSC to be displayed. A VESA SCR introduced
+a new max uncompressed pixel rate cap register that we can use to
+handle these edge cases.
 
 [HOW]
-Use SDR white level when calculating matrix coefficients for HDR RGB MPO
-path instead of HDR multiplier.
+SST: Read caps from link and invalidate timings that exceed the
+max limit but do not support DSC. Then check for options override
+when determining BPP.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+MST: Read caps from virtual DPCD peer device or daisy chained SST
+monitor and set validation set BPPs to max if pixel rate exceeds
+uncompressed limit. Validation set optimization continues as normal.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Ryan Seto <ryanseto@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c        | 12 ++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h             |  3 +++
- .../gpu/drm/amd/display/dc/dc_spl_translate.c   |  9 +--------
- drivers/gpu/drm/amd/display/dc/spl/dc_spl.c     | 17 +++++++++++------
- .../gpu/drm/amd/display/dc/spl/dc_spl_types.h   |  2 +-
- 5 files changed, 28 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h         | 12 ++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h              |  1 +
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c          | 10 +++++-----
+ .../gpu/drm/amd/display/dc/link/link_validation.c    |  7 +++++++
+ .../display/dc/link/protocols/link_dp_capability.c   |  5 +++++
+ 5 files changed, 30 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ae788154896c..243928b0a39f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2596,6 +2596,12 @@ static enum surface_update_type det_surface_update(const struct dc *dc,
- 			elevate_update_type(&overall_type, UPDATE_TYPE_MED);
- 		}
- 
-+	if (u->sdr_white_level_nits)
-+		if (u->sdr_white_level_nits != u->surface->sdr_white_level_nits) {
-+			update_flags->bits.sdr_white_level_nits = 1;
-+			elevate_update_type(&overall_type, UPDATE_TYPE_FULL);
-+		}
-+
- 	if (u->cm2_params) {
- 		if ((u->cm2_params->component_settings.shaper_3dlut_setting
- 					!= u->surface->mcm_shaper_3dlut_setting)
-@@ -2876,6 +2882,10 @@ static void copy_surface_update_to_plane(
- 		surface->hdr_mult =
- 				srf_update->hdr_mult;
- 
-+	if (srf_update->sdr_white_level_nits)
-+		surface->sdr_white_level_nits =
-+				srf_update->sdr_white_level_nits;
-+
- 	if (srf_update->blend_tf)
- 		memcpy(&surface->blend_tf, srf_update->blend_tf,
- 		sizeof(surface->blend_tf));
-@@ -4679,6 +4689,8 @@ static bool full_update_required(struct dc *dc,
- 				srf_updates[i].scaling_info ||
- 				(srf_updates[i].hdr_mult.value &&
- 				srf_updates[i].hdr_mult.value != srf_updates->surface->hdr_mult.value) ||
-+				(srf_updates[i].sdr_white_level_nits &&
-+				srf_updates[i].sdr_white_level_nits != srf_updates->surface->sdr_white_level_nits) ||
- 				srf_updates[i].in_transfer_func ||
- 				srf_updates[i].func_shaper ||
- 				srf_updates[i].lut3d_func ||
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4c94dd38be4b..dcf8a90e961d 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1269,6 +1269,7 @@ union surface_update_flags {
- 		uint32_t tmz_changed:1;
- 		uint32_t mcm_transfer_function_enable_change:1; /* disable or enable MCM transfer func */
- 		uint32_t full_update:1;
-+		uint32_t sdr_white_level_nits:1;
- 	} bits;
- 
- 	uint32_t raw;
-@@ -1351,6 +1352,7 @@ struct dc_plane_state {
- 	bool adaptive_sharpness_en;
- 	int sharpness_level;
- 	enum linear_light_scaling linear_light_scaling;
-+	unsigned int sdr_white_level_nits;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index 519c3df78ee5..41bd95e9177a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -969,6 +969,14 @@ union dp_sink_video_fallback_formats {
+ 	uint8_t raw;
  };
  
- struct dc_plane_info {
-@@ -1508,6 +1510,7 @@ struct dc_surface_update {
- 	 */
- 	struct dc_cm2_parameters *cm2_params;
- 	const struct dc_csc_transform *cursor_csc_color_matrix;
-+	unsigned int sdr_white_level_nits;
++union dpcd_max_uncompressed_pixel_rate_cap {
++	struct {
++		uint16_t max_uncompressed_pixel_rate_cap	:15;
++		uint16_t valid			:1;
++	} bits;
++	uint8_t raw[2];
++};
++
+ union dp_fec_capability1 {
+ 	struct {
+ 		uint8_t AGGREGATED_ERROR_COUNTERS_CAPABLE	:1;
+@@ -1170,6 +1178,7 @@ struct dpcd_caps {
+ 	struct dc_lttpr_caps lttpr_caps;
+ 	struct adaptive_sync_caps adaptive_sync_caps;
+ 	struct dpcd_usb4_dp_tunneling_info usb4_dp_tun_info;
++	union dpcd_max_uncompressed_pixel_rate_cap max_uncompressed_pixel_rate_cap;
+ 
+ 	union dp_128b_132b_supported_link_rates dp_128b_132b_supported_link_rates;
+ 	union dp_main_line_channel_coding_cap channel_coding_cap;
+@@ -1340,6 +1349,9 @@ struct dp_trace {
+ #ifndef DP_CABLE_ATTRIBUTES_UPDATED_BY_DPTX
+ #define DP_CABLE_ATTRIBUTES_UPDATED_BY_DPTX		0x110
+ #endif
++#ifndef DPCD_MAX_UNCOMPRESSED_PIXEL_RATE_CAP
++#define DPCD_MAX_UNCOMPRESSED_PIXEL_RATE_CAP    0x221c
++#endif
+ #ifndef DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE
+ #define DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE	0x50
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+index fe3078b8789e..2a5120ecf48b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+@@ -59,6 +59,7 @@ struct dc_dsc_config_options {
+ 	uint32_t max_target_bpp_limit_override_x16;
+ 	uint32_t slice_height_granularity;
+ 	uint32_t dsc_force_odm_hslice_override;
++	bool force_dsc_when_not_needed;
  };
  
- /*
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-index cd6de93eb91c..f711fc2e3e65 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-@@ -191,14 +191,7 @@ void translate_SPL_in_params_from_pipe_ctx(struct pipe_ctx *pipe_ctx, struct spl
- 	 */
- 	spl_in->is_fullscreen = dm_helpers_is_fullscreen(pipe_ctx->stream->ctx, pipe_ctx->stream);
- 	spl_in->is_hdr_on = dm_helpers_is_hdr_on(pipe_ctx->stream->ctx, pipe_ctx->stream);
--	spl_in->hdr_multx100 = 0;
--	if (spl_in->is_hdr_on) {
--		spl_in->hdr_multx100 = (uint32_t)dc_fixpt_floor(dc_fixpt_mul(plane_state->hdr_mult,
--			dc_fixpt_from_int(100)));
--		/* Disable sharpness for HDR Mult > 6.0 */
--		if (spl_in->hdr_multx100 > 600)
--			spl_in->adaptive_sharpness.enable = false;
--	}
-+	spl_in->sdr_white_level_nits = plane_state->sdr_white_level_nits;
+ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index a1727e5bf024..79c426425911 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -668,6 +668,7 @@ static bool decide_dsc_bandwidth_range(
+  */
+ static bool decide_dsc_target_bpp_x16(
+ 		const struct dc_dsc_policy *policy,
++		const struct dc_dsc_config_options *options,
+ 		const struct dsc_enc_caps *dsc_common_caps,
+ 		const int target_bandwidth_kbps,
+ 		const struct dc_crtc_timing *timing,
+@@ -682,7 +683,7 @@ static bool decide_dsc_target_bpp_x16(
+ 	if (decide_dsc_bandwidth_range(policy->min_target_bpp * 16, policy->max_target_bpp * 16,
+ 			num_slices_h, dsc_common_caps, timing, link_encoding, &range)) {
+ 		if (target_bandwidth_kbps >= range.stream_kbps) {
+-			if (policy->enable_dsc_when_not_needed)
++			if (policy->enable_dsc_when_not_needed || options->force_dsc_when_not_needed)
+ 				/* enable max bpp even dsc is not needed */
+ 				*target_bpp_x16 = range.max_target_bpp_x16;
+ 		} else if (target_bandwidth_kbps >= range.max_kbps) {
+@@ -1080,6 +1081,7 @@ static bool setup_dsc_config(
+ 	if (target_bandwidth_kbps > 0) {
+ 		is_dsc_possible = decide_dsc_target_bpp_x16(
+ 				&policy,
++				options,
+ 				&dsc_common_caps,
+ 				target_bandwidth_kbps,
+ 				timing,
+@@ -1235,10 +1237,7 @@ void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing,
+ 		policy->max_target_bpp = max_target_bpp_limit_override_x16 / 16;
+ 
+ 	/* enable DSC when not needed, default false */
+-	if (dsc_policy_enable_dsc_when_not_needed)
+-		policy->enable_dsc_when_not_needed = dsc_policy_enable_dsc_when_not_needed;
+-	else
+-		policy->enable_dsc_when_not_needed = false;
++	policy->enable_dsc_when_not_needed = dsc_policy_enable_dsc_when_not_needed;
  }
  
- /// @brief Translate SPL output parameters to pipe context
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-index 15f7eda903e6..a59aa6b59687 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-@@ -1155,14 +1155,19 @@ static void spl_set_dscl_prog_data(struct spl_in *spl_in, struct spl_scratch *sp
+ void dc_dsc_policy_set_max_target_bpp_limit(uint32_t limit)
+@@ -1267,4 +1266,5 @@ void dc_dsc_get_default_config_option(const struct dc *dc, struct dc_dsc_config_
+ 	options->dsc_force_odm_hslice_override = dc->debug.force_odm_combine;
+ 	options->max_target_bpp_limit_override_x16 = 0;
+ 	options->slice_height_granularity = 1;
++	options->force_dsc_when_not_needed = false;
  }
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_validation.c b/drivers/gpu/drm/amd/display/dc/link/link_validation.c
+index 1aed55b0ab6a..60f15a9ba7a5 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_validation.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_validation.c
+@@ -287,6 +287,13 @@ static bool dp_validate_mode_timing(
+ 	req_bw = dc_bandwidth_in_kbps_from_timing(timing, dc_link_get_highest_encoding_format(link));
+ 	max_bw = dp_link_bandwidth_kbps(link, link_setting);
  
- /* Calculate C0-C3 coefficients based on HDR_mult */
--static void spl_calculate_c0_c3_hdr(struct dscl_prog_data *dscl_prog_data, uint32_t hdr_multx100)
-+static void spl_calculate_c0_c3_hdr(struct dscl_prog_data *dscl_prog_data, uint32_t sdr_white_level_nits)
- {
- 	struct spl_fixed31_32 hdr_mult, c0_mult, c1_mult, c2_mult;
- 	struct spl_fixed31_32 c0_calc, c1_calc, c2_calc;
- 	struct spl_custom_float_format fmt;
-+	uint32_t hdr_multx100_int;
- 
--	SPL_ASSERT(hdr_multx100);
--	hdr_mult = spl_fixpt_from_fraction((long long)hdr_multx100, 100LL);
-+	if ((sdr_white_level_nits >= 80) && (sdr_white_level_nits <= 480))
-+		hdr_multx100_int = sdr_white_level_nits * 100 / 80;
-+	else
-+		hdr_multx100_int = 100; /* default for 80 nits otherwise */
++	bool is_max_uncompressed_pixel_rate_exceeded = link->dpcd_caps.max_uncompressed_pixel_rate_cap.bits.valid &&
++			timing->pix_clk_100hz > link->dpcd_caps.max_uncompressed_pixel_rate_cap.bits.max_uncompressed_pixel_rate_cap * 10000;
 +
-+	hdr_mult = spl_fixpt_from_fraction((long long)hdr_multx100_int, 100LL);
- 	c0_mult = spl_fixpt_from_fraction(2126LL, 10000LL);
- 	c1_mult = spl_fixpt_from_fraction(7152LL, 10000LL);
- 	c2_mult = spl_fixpt_from_fraction(722LL, 10000LL);
-@@ -1191,7 +1196,7 @@ static void spl_calculate_c0_c3_hdr(struct dscl_prog_data *dscl_prog_data, uint3
- static void spl_set_easf_data(struct spl_scratch *spl_scratch, struct spl_out *spl_out, bool enable_easf_v,
- 	bool enable_easf_h, enum linear_light_scaling lls_pref,
- 	enum spl_pixel_format format, enum system_setup setup,
--	uint32_t hdr_multx100)
-+	uint32_t sdr_white_level_nits)
- {
- 	struct dscl_prog_data *dscl_prog_data = spl_out->dscl_prog_data;
- 	if (enable_easf_v) {
-@@ -1499,7 +1504,7 @@ static void spl_set_easf_data(struct spl_scratch *spl_scratch, struct spl_out *s
- 		dscl_prog_data->easf_ltonl_en = 1;	// Linear input
- 		if ((setup == HDR_L) && (spl_is_rgb8(format))) {
- 			/* Calculate C0-C3 coefficients based on HDR multiplier */
--			spl_calculate_c0_c3_hdr(dscl_prog_data, hdr_multx100);
-+			spl_calculate_c0_c3_hdr(dscl_prog_data, sdr_white_level_nits);
- 		} else { // HDR_L ( DWM ) and SDR_L
- 			dscl_prog_data->easf_matrix_c0 =
- 				0x4EF7;	// fp1.5.10, C0 coefficient (LN_rec709:  0.2126 * (2^14)/125 = 27.86590720)
-@@ -1750,7 +1755,7 @@ bool spl_calculate_scaler_params(struct spl_in *spl_in, struct spl_out *spl_out)
++	if (is_max_uncompressed_pixel_rate_exceeded && !timing->flags.DSC) {
++		return false;
++	}
++
+ 	if (req_bw <= max_bw) {
+ 		/* remember the biggest mode here, during
+ 		 * initial link training (to get
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index 34a618a7278b..d78c8ec4de79 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -1942,6 +1942,11 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 			DC_LOG_DP2("\tFEC aggregated error counters are supported");
+ 	}
  
- 	// Set EASF
- 	spl_set_easf_data(&spl_scratch, spl_out, enable_easf_v, enable_easf_h, spl_in->lls_pref,
--		spl_in->basic_in.format, setup, spl_in->hdr_multx100);
-+		spl_in->basic_in.format, setup, spl_in->sdr_white_level_nits);
- 
- 	// Set iSHARP
- 	vratio = spl_fixpt_ceil(spl_scratch.scl_data.ratios.vert);
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-index 85b19ebe2c57..74f2a8c42f4f 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
-@@ -518,7 +518,7 @@ struct spl_in	{
- 	bool is_hdr_on;
- 	int h_active;
- 	int v_active;
--	int hdr_multx100;
-+	int sdr_white_level_nits;
- };
- // end of SPL inputs
++	core_link_read_dpcd(link,
++			DPCD_MAX_UNCOMPRESSED_PIXEL_RATE_CAP,
++			link->dpcd_caps.max_uncompressed_pixel_rate_cap.raw,
++			sizeof(link->dpcd_caps.max_uncompressed_pixel_rate_cap.raw));
++
+ 	retrieve_cable_id(link);
+ 	dpcd_write_cable_id_to_dprx(link);
  
 -- 
 2.34.1
