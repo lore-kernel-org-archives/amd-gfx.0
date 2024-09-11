@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83167EE57D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 21:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00C52EE57DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Sep 2024 21:36:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDCD310E0FB;
-	Wed, 11 Sep 2024 21:35:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C56610E922;
+	Wed, 11 Sep 2024 21:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d/FXt0OW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vs7D9C6/";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E50510E0D1;
- Wed, 11 Sep 2024 21:35:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B576210E922;
+ Wed, 11 Sep 2024 21:35:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id E756BA4011B;
- Wed, 11 Sep 2024 21:35:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9BF1C4CEC6;
- Wed, 11 Sep 2024 21:35:50 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 5541AA44650;
+ Wed, 11 Sep 2024 21:35:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991D2C4CEC6;
+ Wed, 11 Sep 2024 21:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1726090552;
- bh=W1WbbVUMPt9TR5vu4oa796VQg9w8H3WcxMnRFwNHkvY=;
- h=From:To:Cc:Subject:Date:From;
- b=d/FXt0OWSJlHjhgEdtjS530+NpzyuFkPYDkUtl0/6HRkGh06gHWfuiWIEFMJvqgUC
- +IMUMOHniPdhRyb8r5qMQZOepuSB16IwCclyXCQBBBa857pOLH4x7SLG2wr/rkMGDd
- 0MsaVTNN1jZgOaNqYN8cqfy2zHKxWBdMA22WKpNsuGu57Ftte8QiYE74iXq6L945aM
- GYeyHLxXcy0Q6lEhC/DeDZiMYN6HDOitCSebo0TmqWmJ8iN23JQS4rTQhECp6Q38d2
- IAWc24R186PkJ/QcG7efruiv6hF+lSJsnc+6AdOjrhoyxcFn49s17r3nRPx//0HeFN
- Huhkf0eHROrhw==
+ s=k20201202; t=1726090554;
+ bh=NQx4mqHS+mLTR+0LBNOQU6bmZLzqnc1wEp+jawVSYhU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Vs7D9C6/I8IRRJqOXIny4a0DdiQp3jmg6KoPVHNFPYTmeOND4Fx+zPuV5AjSxlCbm
+ fRcyVQSpQScLyEPJWHMJ0u6fXpwYfgXyR0y2s/ySViAPY0qjzTuATG8jorSz72G0fk
+ PBkL72KMGC66yrN9UWEkTM0C62FFrAjFxkq5elS39TUG9kJTIC4C52rEAubXoqFmgc
+ tPiMUpj+NrNhUIRnqJX7WgY0r7be09RKAolUiH2USZqDf2uOGrjUNpK0JPtyVPD4gl
+ 8JMxvExW3D1ak24NkAqU/FP5HBkU9sFZTY08zSN1ryE0S0WPcMspdvyzeSQmP6yACE
+ uehKoKMhCl6WA==
 From: Mario Limonciello <superm1@kernel.org>
 To: Alex Hung <alex.hung@amd.com>,
  Alexander Deucher <alexander.deucher@amd.com>,
@@ -38,10 +38,13 @@ Cc: kernel-dev@igalia.com, Mario Limonciello <mario.limonciello@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  harry.wentland@amd.com, sunpeng.li@amd.com,
  Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: [PATCH v6 00/10] drm/amd/display: Use drm_edid for more code
-Date: Wed, 11 Sep 2024 16:35:26 -0500
-Message-ID: <20240911213537.2338164-1-superm1@kernel.org>
+Subject: [PATCH v6 02/10] drm/amd/display: switch to setting physical address
+ directly
+Date: Wed, 11 Sep 2024 16:35:28 -0500
+Message-ID: <20240911213537.2338164-3-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240911213537.2338164-1-superm1@kernel.org>
+References: <20240911213537.2338164-1-superm1@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -58,52 +61,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Melissa Wen <mwen@igalia.com>
 
-This is the successor of Melissa's v5 series that was posted [1] as well
-as my series that was posted [2].
+Connectors have source physical address available in display
+info. Use drm_dp_cec_attach() to use it instead of parsing the EDID
+again.
 
-Melissa's patches are mostly unmodified from v5, but modified to apply on
-top of v6.11-rc7 instead.
-The same limitations she called out with amd-staging-drm-next missing
-symbols from the development release still apply. So applying this series
-will probably need to wait for that to be rebased.
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-As were both touching similar code for fetching the EDID, I've merged the
-pertinent parts of my series into this one in allowing the connector to
-fetch the EDID from _DDC if available for eDP as well.
-
-There are still some remaining uses of drm_edid_raw() but they touch pure
-DC code, so a wrapper or macro will probably be needed to convert them.
-This can be for follow ups later on.
-
-Link: https://lore.kernel.org/amd-gfx/20240807203207.2830-1-mwen@igalia.com/ [1] 
-Link: https://lore.kernel.org/dri-devel/20240214215756.6530-1-mario.limonciello@amd.com/ [2]
-Mario Limonciello (1):
-  drm/amd: Fetch the EDID from _DDC if available for eDP
-
-Melissa Wen (9):
-  drm/amd/display: switch amdgpu_dm_connector to use struct drm_edid
-  drm/amd/display: switch to setting physical address directly
-  drm/amd/display: always call connector_update when parsing
-    freesync_caps
-  drm/amd/display: remove redundant freesync parser for DP
-  drm/amd/display: use drm_edid_product_id for parsing EDID product info
-  drm/amd/display: parse display name from drm_eld
-  drm/amd/display: get SAD from drm_eld when parsing EDID caps
-  drm/amd/display: get SADB from drm_eld when parsing EDID caps
-  drm/amd/display: remove dc_edid handler from
-    dm_helpers_parse_edid_caps
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 215 +++++-------------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   4 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 173 +++++++++-----
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  34 +--
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   1 -
- .../drm/amd/display/dc/link/link_detection.c  |   6 +-
- drivers/gpu/drm/amd/include/amd_shared.h      |   1 +
- 7 files changed, 196 insertions(+), 238 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4927fdd45073..f19afa117f15 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3497,8 +3497,7 @@ void amdgpu_dm_update_connector_after_detect(
+ 		if (sink->dc_edid.length == 0) {
+ 			aconnector->drm_edid = NULL;
+ 			if (aconnector->dc_link->aux_mode) {
+-				drm_dp_cec_unset_edid(
+-					&aconnector->dm_dp_aux.aux);
++				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+ 			}
+ 		} else {
+ 			const struct edid *edid = (const struct edid *)sink->dc_edid.raw_edid;
+@@ -3507,7 +3506,8 @@ void amdgpu_dm_update_connector_after_detect(
+ 			drm_edid_connector_update(connector, aconnector->drm_edid);
+ 
+ 			if (aconnector->dc_link->aux_mode)
+-				drm_dp_cec_set_edid(&aconnector->dm_dp_aux.aux, edid);
++				drm_dp_cec_attach(&aconnector->dm_dp_aux.aux,
++						  connector->display_info.source_physical_address);
+ 		}
+ 
+ 		if (!aconnector->timing_requested) {
 -- 
 2.43.0
 
