@@ -4,54 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB78EE6456
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Sep 2024 07:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3E1EEB583
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Sep 2024 10:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C563210E083;
-	Thu, 12 Sep 2024 07:12:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C17310EB3E;
+	Thu, 12 Sep 2024 10:02:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="O72VYq8X";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2xwJ19k4";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9000D10E9E3;
- Wed, 11 Sep 2024 12:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=t9YYUJUHlb4NwISNyXkrBAzbBuhz3irHKe98SQVEFWU=; b=O72VYq8XpaSh04d+LAKg1X9gXg
- g6WJmO67CJi2ZfHHFPr0QdTA31DN6FanDw1Jm9XiNZtMVm80uQPdaG+iPYTluGvv5pauYy+/G4IoQ
- 86WKWf3i7KKjn327JxNgwEEEIovUUzpxqtUe7INFaJC2B4eNDqve2eUwjUaJXCAaHe1tDC3Auja93
- rEOShd5jsm0jTCjynqlV3WBDWckTBEWdxbI+IHPH8fqN62sbQPA/Jx+//UYaiqRnFRNJw4SEJgzFj
- Zvx1vKXeQrruejWXK8zvB1UsSm1m0ZmjMdyCoB9fzYsteGRiRJxxWnikPhDjohMgzOfXp5TBCmTEW
- ZRAJbZ0A==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1soMMr-00CR9g-0Z; Wed, 11 Sep 2024 14:22:41 +0200
-Message-ID: <60d30fe6-9485-4cbe-8b72-69b3214edd3f@igalia.com>
-Date: Wed, 11 Sep 2024 13:22:40 +0100
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE6B10EB3D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Sep 2024 10:02:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OnqFHMqou6h3EZ278Bef3gAd8/W+7ebvPbVvjBqhvdso6ZVjwriEdBeU/kgtXXIX7bxDlPEAj/WGg9drCoQNASXGyb1YCRaGN3TJRlrjPvE8H7ZYs5xy5Y8tgk8WlC6Bl27We+ibB7LQjQdo54NuS1fez17TcqUH/D9kLKgz9cqXR6TAMk5rL0numJ0crklRXvT+OIJ2KAQ+vtMO6q4g6vGjwct8aYW5RByGMj8Eme2z+FMGQcB0bSvi3CWbsnUrckTvZtLy2+54rbM6NTGP5z1rheDPxFf7effQOPoffX3FEsfEio0TVJq8B4AYEZqn7E7VszXUBMLmjDaHiwVs+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ttb3J6oUncoA7LWFiLhyj6ONXgLh3Y8Aa8CTTmKVVsg=;
+ b=wrTPid90VhanbEHWfKrXhJjgx88MjSJuQ0MgylZ7l1rctsW66mE7yuRxR/t7omhkWiqOQTopx2NXRPkd+Ssbqd5IAEddMSyjzNRyKrMOw4+kL6dkWFXH9cnl2Erji6FwhJ2x5+LLkshk8McOAD2ogDQAigZtcD5jOuNrLqQDn08SRUGxxv6juuM/rDiOOGo4muoKMKjux3H5b4aE4O1dfYJnqQI/sDtNmTDpQZQJsZQaRSwVt+kSquapf3cgo9/ySZYy5C6QZ8iykPaqkz/Azf7Jozxkv6DSTeEiptvf15NLNrj5X/Tm9wjntWuqVBKZEctTsVdGAWcPOhD3KsPMEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ttb3J6oUncoA7LWFiLhyj6ONXgLh3Y8Aa8CTTmKVVsg=;
+ b=2xwJ19k4CRWSKYae0VFaqnwM+mD04WBx9ihZxgqoW4xJMty9UgxD1elV+UxuXCVnKsITE2SbHH3dxuYKoOKTXFYGf7h2BKkOYsxTByqcDadJBrvQYbpADfz4N1kBxbafBBrrTNisPc75cVj/NgBpYLmud73UiYHdZNzPq6jXZmw=
+Received: from CH0PR03CA0183.namprd03.prod.outlook.com (2603:10b6:610:e4::8)
+ by SA1PR12MB5638.namprd12.prod.outlook.com (2603:10b6:806:229::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.25; Thu, 12 Sep
+ 2024 10:02:06 +0000
+Received: from CH3PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:610:e4:cafe::f3) by CH0PR03CA0183.outlook.office365.com
+ (2603:10b6:610:e4::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
+ Transport; Thu, 12 Sep 2024 10:02:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7982.0 via Frontend Transport; Thu, 12 Sep 2024 10:02:05 +0000
+Received: from lm-srdc-pc1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 12 Sep
+ 2024 05:02:03 -0500
+From: Le Ma <le.ma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>, Le Ma
+ <le.ma@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: add psp funcs callback to check if aux fw is
+ needed
+Date: Thu, 12 Sep 2024 18:01:41 +0800
+Message-ID: <20240912100142.599746-1-le.ma@amd.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] drm/sched: Further optimise drm_sched_entity_push_job
-To: Philipp Stanner <pstanner@redhat.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
- <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
-References: <20240909171937.51550-1-tursulin@igalia.com>
- <20240909171937.51550-9-tursulin@igalia.com>
- <5be10361b0b77f2eaf54c52367b5c4e3934443ab.camel@redhat.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <5be10361b0b77f2eaf54c52367b5c4e3934443ab.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 12 Sep 2024 07:12:08 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|SA1PR12MB5638:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61ea0843-25ec-4220-2b5b-08dcd311f52a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?55pLEFV6d/rRBRr3vOl7AxxFi3znwNKLP+RA6/woXRWFZK7pr7QPkxQvTOdf?=
+ =?us-ascii?Q?FNeCS2BdztPWmTakdMbxjA3IRqstjtWGfHsb/ssohj8I4ASoyDBsNR4hMKgS?=
+ =?us-ascii?Q?bA6KqGRb3bKCdg40HbnPZhPKjw9vuIO6qThQBJEG85d9x+txYS/D0yNoADf5?=
+ =?us-ascii?Q?ciYHnIQ00lxNSv/a01VtizthN/qi7IEy20L5VSpM4Nr3Q6kenYkXsHUJSm0Z?=
+ =?us-ascii?Q?PRxfI2qskjSk1f/tQU2AApxTNEPjfbLeyei3QX+ILSWk5BTLD8NZL6v1fLgu?=
+ =?us-ascii?Q?xpA7QFxw1nhDIPKLwRqIzCwV1N/yUwmDZFkg5EU5q1I6SxGMrGzWtQoBSENt?=
+ =?us-ascii?Q?gvAd4hqV5IXrOPVMMy2b2JJEMF+TvnIfYKYAp3rs9O8WitgDssORh7fg2amJ?=
+ =?us-ascii?Q?PMDoIoLLHmGbgh+lh4PmkwJ5ms3WjDzX8F7GmW/IElVx/mpFouAdPNQb/Iod?=
+ =?us-ascii?Q?4TpKeB8nWmvn7hdh1tjXV0Lcj4cetX1Je7yTLHZa0Vl5ncET//J0fo+RRTZW?=
+ =?us-ascii?Q?t8Xm967sMAyomdAD3QNHjKEAXK1n9LBf+Tn+ZAJARyxdTghmoJ1dGrCEtz6t?=
+ =?us-ascii?Q?1twdOCY+Qo+7zdPlrGvW8M9FgSoCECgCLkb+pcHA6Rw7W79Wn++3GI9qKN2T?=
+ =?us-ascii?Q?SyAGmmtfbp+g4JFrGztPbMLSQBjpyiHOlmtPVEn59li1VeeJX5hoJ9Zegxmj?=
+ =?us-ascii?Q?RIrF//toW4faW4Sbg8wVxFhsqh3JX3ZEblvNYqLn9fCD2QDPTPtTmKttLSYn?=
+ =?us-ascii?Q?KwR5LPnNRFz9zz9sjB99UEFuMxBi4/GAKYd4nhEICEvFyjDxOqlzvF1yDQ39?=
+ =?us-ascii?Q?BBkCt9TXPcKuk7tzbZFMGm+QR6lUzI9KgCJ8g3CAViSP8WaHyQIZTixRJ39r?=
+ =?us-ascii?Q?KGVElF8pmrl6dgZVS0tR+HAYH5iAxCkKrlOGRrcuKeFtMXGKjq+ER/YaL+Ww?=
+ =?us-ascii?Q?AqHI7FhaofwokbfkBEtoQombmAymx1/b81l8qoTQWvdi+79JSnKC6nx1EpHf?=
+ =?us-ascii?Q?VkkTjdclMliFChPhxN5wfQgydV6JIrXNRxouw3oWrh0keuoafj/i4iHfrmXF?=
+ =?us-ascii?Q?QsfzxPPf3aloiaxAJxoigoVHHNGX84hIsNK0FcmzFmXOUor+7+b2P1BKSpon?=
+ =?us-ascii?Q?ns5HlwWEVLqoZHHHuoJfz0uHXAejWsv1v6MGsjvDVATC5uYANVRZZSaWH3pb?=
+ =?us-ascii?Q?YKy+tSeIDBrcwlHkxCReG0dm0njVLlVjAjFsUeuApKFZEVUi18jv9SQulPcq?=
+ =?us-ascii?Q?VNGKIZiduAYRig69ovt64xRS9/mJ/06F/Gda6HMmsQlCc5Rv6iHipc07iX0+?=
+ =?us-ascii?Q?GNxQc/iqX7yWrIKbe0yGuUdCOKy9u0DnpX6i18fVcgqA3QDQpqNRDBtkS7zp?=
+ =?us-ascii?Q?n5QZDLXff9Jqi9M+wH/S7vVw5ytp+YgjjYQiYk1jV03zGUgnOQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2024 10:02:05.9916 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61ea0843-25ec-4220-2b5b-08dcd311f52a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5638
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,322 +130,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Query pmfw version to determine if aux sos fw needs to be loaded in psp v13.0.
 
-On 10/09/2024 11:25, Philipp Stanner wrote:
-> On Mon, 2024-09-09 at 18:19 +0100, Tvrtko Ursulin wrote:
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> Having removed one re-lock cycle on the entity->lock in a patch
->> titled
->> "drm/sched: Optimise drm_sched_entity_push_job", with only a tiny bit
->> larger refactoring we can do the same optimisation on the rq->lock
->> (Currently both drm_sched_rq_add_entity() and
->> drm_sched_rq_update_fifo_locked() take and release the same lock.)
->>
->> To achieve this we rename drm_sched_rq_add_entity() to
->> drm_sched_rq_add_entity_locked(), making it expect the rq->lock to be
->> held, and also add the same expectation to
->> drm_sched_rq_update_fifo_locked().
->>
->> For more stream-lining we also add the run-queue as an explicit
->> parameter
->> to drm_sched_rq_remove_fifo_locked() to avoid both callers and callee
->> having to dereference entity->rq.
-> 
-> Why is dereferencing it a problem?
+v2: refine callback to check if aux_fw loading is needed instead of
+    getting pmfw version barely
+v3: return the comparison directly
 
-As you have noticed below the API is a bit unsightly. Consider for 
-example this call chain:
+Signed-off-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c  | 17 +++++++++++++++++
+ 2 files changed, 21 insertions(+)
 
-drm_sched_entity_kill(entity)
-     drm_sched_rq_remove_entity(entity->rq, entity);
-         drm_sched_rq_remove_fifo_locked(entity);
-             struct drm_sched_rq *rq = entity->rq;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 74a96516c913..e8abbbcb4326 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -138,6 +138,7 @@ struct psp_funcs {
+ 	int (*vbflash_stat)(struct psp_context *psp);
+ 	int (*fatal_error_recovery_quirk)(struct psp_context *psp);
+ 	bool (*get_ras_capability)(struct psp_context *psp);
++	bool (*is_aux_sos_load_required)(struct psp_context *psp);
+ };
+ 
+ struct ta_funcs {
+@@ -464,6 +465,9 @@ struct amdgpu_psp_funcs {
+ 	((psp)->funcs->fatal_error_recovery_quirk ? \
+ 	(psp)->funcs->fatal_error_recovery_quirk((psp)) : 0)
+ 
++#define psp_is_aux_sos_load_required(psp) \
++	((psp)->funcs->is_aux_sos_load_required ? (psp)->funcs->is_aux_sos_load_required((psp)) : 0)
++
+ extern const struct amd_ip_funcs psp_ip_funcs;
+ 
+ extern const struct amdgpu_ip_block_version psp_v3_1_ip_block;
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index 1251ee38a676..51e470e8d67d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -81,6 +81,8 @@ MODULE_FIRMWARE("amdgpu/psp_14_0_4_ta.bin");
+ /* memory training timeout define */
+ #define MEM_TRAIN_SEND_MSG_TIMEOUT_US	3000000
+ 
++#define regMP1_PUB_SCRATCH0	0x3b10090
++
+ static int psp_v13_0_init_microcode(struct psp_context *psp)
+ {
+ 	struct amdgpu_device *adev = psp->adev;
+@@ -807,6 +809,20 @@ static bool psp_v13_0_get_ras_capability(struct psp_context *psp)
+ 	}
+ }
+ 
++static bool psp_v13_0_is_aux_sos_load_required(struct psp_context *psp)
++{
++	struct amdgpu_device *adev = psp->adev;
++	u32 pmfw_ver;
++
++	if (amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(13, 0, 6))
++		return false;
++
++	/* load 4e version of sos if pmfw version less than 85.115.0 */
++	pmfw_ver = RREG32(regMP1_PUB_SCRATCH0 / 4);
++
++	return (pmfw_ver < 0x557300);
++}
++
+ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.init_microcode = psp_v13_0_init_microcode,
+ 	.wait_for_bootloader = psp_v13_0_wait_for_bootloader_steady_state,
+@@ -830,6 +846,7 @@ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.vbflash_stat = psp_v13_0_vbflash_status,
+ 	.fatal_error_recovery_quirk = psp_v13_0_fatal_error_recovery_quirk,
+ 	.get_ras_capability = psp_v13_0_get_ras_capability,
++	.is_aux_sos_load_required = psp_v13_0_is_aux_sos_load_required,
+ };
+ 
+ void psp_v13_0_set_psp_funcs(struct psp_context *psp)
+-- 
+2.43.2
 
-A bit confused, no?
-
-I thought adding rq to remove_fifo_locked at least removes one back and 
-forth between the entity->rq and rq.
-
-And then if we cache the rq in a local variable, after having explicitly 
-taken the correct lock, we have this other call chain example:
-
-drm_sched_entity_push_job()
-...
-     rq = entity->rq;
-     spin_lock(rq->lock);
-
-     drm_sched_rq_add_entity_locked(rq, entity);
-     drm_sched_rq_update_fifo_locked(rq, entity, submit_ts);
-
-     spin_unlock(rq->lock);
-
-To me at least this reads more streamlined.
-
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Luben Tuikov <ltuikov89@gmail.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <pstanner@redhat.com>
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c |  7 ++--
->>   drivers/gpu/drm/scheduler/sched_main.c   | 41 +++++++++++++---------
->> --
->>   include/drm/gpu_scheduler.h              |  7 ++--
->>   3 files changed, 31 insertions(+), 24 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
->> b/drivers/gpu/drm/scheduler/sched_entity.c
->> index b4c4f9923e0b..2102c726d275 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -614,11 +614,14 @@ void drm_sched_entity_push_job(struct
->> drm_sched_job *sched_job)
->>   		sched = rq->sched;
->>   
->>   		atomic_inc(sched->score);
->> -		drm_sched_rq_add_entity(rq, entity);
->> +
->> +		spin_lock(&rq->lock);
->> +		drm_sched_rq_add_entity_locked(rq, entity);
->>   
->>   		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->> -			drm_sched_rq_update_fifo_locked(entity,
->> submit_ts);
->> +			drm_sched_rq_update_fifo_locked(entity, rq,
->> submit_ts);
->>   
->> +		spin_unlock(&rq->lock);
->>   		spin_unlock(&entity->lock);
->>   
->>   		drm_sched_wakeup(sched, entity);
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->> b/drivers/gpu/drm/scheduler/sched_main.c
->> index 937e7d1cfc49..1ccd2aed2d32 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -153,41 +153,44 @@ static __always_inline bool
->> drm_sched_entity_compare_before(struct rb_node *a,
->>   	return ktime_before(ent_a->oldest_job_waiting, ent_b-
->>> oldest_job_waiting);
->>   }
->>   
->> -static inline void drm_sched_rq_remove_fifo_locked(struct
->> drm_sched_entity *entity)
->> +static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity
->> *entity,
->> +					    struct drm_sched_rq *rq)
-> 
-> So here we'd add a new function parameter that still doesn't allow for
-> getting rid of 'entity' as a parameter.
-
-We can't get rid of the entity.
-
-Maaaybe instead we could get rid of the rq in the whole chain, I mean 
-from drm_sched_rq_add_entity and drm_sched_rq_remove_entity to start with.
-
-But then to remove double re-lock we still (like in this patch) need to 
-make the callers take the locks and rename the helpers with _locked 
-suffix. Otherwise it would be incosistent that a lock is taken outside 
-the helpers with no _locked suffix.
-
-I am not sure if that is better. All it achieves is remove the rq as 
-explicit parameter my making the callees dereference it from the entity.
-
-Worst part is all these helpers have drm_sched_rq_ prefix.. which to me 
-reads as "we operate on rq". So not passing in rq is confusing to start 
-with.
-
-Granted, some confusion still remains with my approach since ideally, to 
-those helpers, I wanted to add some asserts that rq == entity->rq...
-
-> The API gets larger that way and readers will immediately wonder why
-> sth is passed as a separate variable that could also be obtained
-> through the pointer.
-> 
->>   {
->> -	struct drm_sched_rq *rq = entity->rq;
->> -
->>   	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>   		rb_erase_cached(&entity->rb_tree_node, &rq-
->>> rb_tree_root);
->>   		RB_CLEAR_NODE(&entity->rb_tree_node);
->>   	}
->>   }
->>   
->> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->> *entity, ktime_t ts)
->> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->> *entity,
->> +				     struct drm_sched_rq *rq,
->> +				     ktime_t ts)
-> 
-> The function is still called _locked. That implies to the reader that
-> this function takes care of locking. But it doesn't anymore. Instead,
-> 
->>   {
->>   	lockdep_assert_held(&entity->lock);
->> +	lockdep_assert_held(&rq->lock);
->>   
->> -	spin_lock(&entity->rq->lock);
->> -
->> -	drm_sched_rq_remove_fifo_locked(entity);
->> +	drm_sched_rq_remove_fifo_locked(entity, rq);
->>   
->>   	entity->oldest_job_waiting = ts;
->>   
->> -	rb_add_cached(&entity->rb_tree_node, &entity->rq-
->>> rb_tree_root,
->> +	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
->>   		      drm_sched_entity_compare_before);
->> -
->> -	spin_unlock(&entity->rq->lock);
->>   }
->>   
->>   void drm_sched_rq_update_fifo(struct drm_sched_entity *entity,
->> ktime_t ts)
->>   {
->> +	struct drm_sched_rq *rq;
->> +
->>   	/*
->>   	 * Both locks need to be grabbed, one to protect from
->> entity->rq change
->>   	 * for entity from within concurrent
->> drm_sched_entity_select_rq and the
->>   	 * other to update the rb tree structure.
->>   	 */
->>   	spin_lock(&entity->lock);
->> -	drm_sched_rq_update_fifo_locked(entity, ts);
->> +	rq = entity->rq;
->> +	spin_lock(&rq->lock);
->> +	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->> +	spin_unlock(&rq->lock);
-> 
-> its caller, drm_sched_rq_update_fifo(), now takes care of the locking.
-> So if it all drm_sched_rq_update_fifo_locked() should be called
-> drm_sched_rq_update_fifo_unlocked().
-> 
-> If such a change is really being done, we have to go through the entire
-> scheduler and make sure that the suffix "_locked" is used consistently
-> throughout the scheduler. And even better, as consistent with the
-> kernel as possible.
-
-Use of _locked follows the existing pattern of 
-drm_sched_rq_remove_fifo_locked :shrug:
-
-Are you referring to drm_sched_start_timeout(_unlocked) which is the 
-opposite pattern? (Although a more recent addition.)
-
-The wider kernel also uses both patterns so don't know. Would be nice to 
-align in the scheduler but drm_sched_start_timeout is out of scope for 
-this series.
-
-> To be honest folks, I don't think this entire "optimization" patch is
-> that much of a good idea. The scheduler has real, big problems, such as
-> race conditions, memory leaks and lack of documentation.
-> 
-> I think we should for the forseeable future dedicate our attention
-> towards solving those problems, instead of optimizing things.
-> Especially if the optimization might decrease readability as with the
-> naming here.
-
-In principle I agree, but on the other hand lets first see if this patch 
-is really making things any worse, or is perhaps just maintaining the 
-status quo in the API elegance department, while at the same time 
-removing the quite lazy double re-lock from the main submission path.
-
-Regards,
-
-Tvrtko
-
-> 
-> P.
-> 
-> 
->>   	spin_unlock(&entity->lock);
->>   }
->>   
->> @@ -210,25 +213,23 @@ static void drm_sched_rq_init(struct
->> drm_gpu_scheduler *sched,
->>   }
->>   
->>   /**
->> - * drm_sched_rq_add_entity - add an entity
->> + * drm_sched_rq_add_entity_locked - add an entity
->>    *
->>    * @rq: scheduler run queue
->>    * @entity: scheduler entity
->>    *
->>    * Adds a scheduler entity to the run queue.
->>    */
->> -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->> -			     struct drm_sched_entity *entity)
->> +void drm_sched_rq_add_entity_locked(struct drm_sched_rq *rq,
->> +				    struct drm_sched_entity *entity)
->>   {
->> +	lockdep_assert_held(&rq->lock);
->> +
->>   	if (!list_empty(&entity->list))
->>   		return;
->>   
->> -	spin_lock(&rq->lock);
->> -
->>   	atomic_inc(rq->sched->score);
->>   	list_add_tail(&entity->list, &rq->entities);
->> -
->> -	spin_unlock(&rq->lock);
->>   }
->>   
->>   /**
->> @@ -242,6 +243,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq
->> *rq,
->>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>   				struct drm_sched_entity *entity)
->>   {
->> +	lockdep_assert_held(&entity->lock);
->> +
->>   	if (list_empty(&entity->list))
->>   		return;
->>   
->> @@ -254,7 +257,7 @@ void drm_sched_rq_remove_entity(struct
->> drm_sched_rq *rq,
->>   		rq->current_entity = NULL;
->>   
->>   	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->> -		drm_sched_rq_remove_fifo_locked(entity);
->> +		drm_sched_rq_remove_fifo_locked(entity, rq);
->>   
->>   	spin_unlock(&rq->lock);
->>   }
->> diff --git a/include/drm/gpu_scheduler.h
->> b/include/drm/gpu_scheduler.h
->> index 5a1e4c803b90..2ad33e2fe2d2 100644
->> --- a/include/drm/gpu_scheduler.h
->> +++ b/include/drm/gpu_scheduler.h
->> @@ -591,13 +591,14 @@ bool drm_sched_dependency_optimized(struct
->> dma_fence* fence,
->>   				    struct drm_sched_entity
->> *entity);
->>   void drm_sched_fault(struct drm_gpu_scheduler *sched);
->>   
->> -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->> -			     struct drm_sched_entity *entity);
->> +void drm_sched_rq_add_entity_locked(struct drm_sched_rq *rq,
->> +				    struct drm_sched_entity
->> *entity);
->>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>   				struct drm_sched_entity *entity);
->>   
->>   void drm_sched_rq_update_fifo(struct drm_sched_entity *entity,
->> ktime_t ts);
->> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->> *entity, ktime_t ts);
->> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->> *entity,
->> +				     struct drm_sched_rq *rq,
->> ktime_t ts);
->>   
->>   int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   			  enum drm_sched_priority priority,
-> 
