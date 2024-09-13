@@ -4,125 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C914FA3755
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 13:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F49FA3755
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 14:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1445810E268;
-	Fri, 13 Sep 2024 13:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B097F10E1A6;
+	Fri, 13 Sep 2024 14:27:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ehJSr1H9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7MC8GSc";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2063.outbound.protection.outlook.com [40.107.244.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9DF010E268;
- Fri, 13 Sep 2024 13:42:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y8nJkfi6BM+8hXB/E+B+WvdirOWX2XT58EUqV4a7y6EH/WiFeM478IZW3Rdw26EzNOhV22Rw+Og4bcH/QtrfQAytpMXJIru7GYLx1Lxf1zjckTJ20IpKzM/VCFb6ArZShSqwbXAMBAt9lfVTG+/e3xE+2O56KNqlZXDkCZvVoONts+aUDUGe0HrWh/9oNZW5NY9pITTwKet7CmMnIlFRiTZdpNllrs7R3/1YWTwGXW3H5ngG0fBfsZBQpAL+EdrYsTuPiWXs9zzj17F/3+/vbpxVtYRBRKIR95JBnRK8msLH2ArvOZFqA7OE7ahIUv+UJh+fB3JY8apR8Tlpa72S5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NhcFNSadJr9lEKEAIhgaVIhbb7CunWEh975aC3o0To0=;
- b=Uv82AAPNySsOTKwOlG8lE8vzubFD13g1tZPAwO73jt+dvQ/cK0i5kB1hwi33AsbnWyBIIjJfVAktU3T09rCyGXg5DDhqs4ytCWOeN5sn4VPvL8xDTJX48ITseqoNjHp6FK3ZvZeMX1F/BB32BEewqn14ZxP/lqqsSnQgvJEp1JxXNuwgQsXotwESlMoZlyLGbM3TPqqhEtfu4ucjwpg7w5l8+F/YhKXlt2NZZ8nGrp7KV9LGcaKcFJ7SZNK2BstlkPzXxb8PxNJyXaqzIM5Oe5BevTyzA6ka793h1ssT5k323iNLq4PyKkP+PWdscuSvQs4C6Vbvt3QLG/OQooC5Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NhcFNSadJr9lEKEAIhgaVIhbb7CunWEh975aC3o0To0=;
- b=ehJSr1H9ClWo9Q3nACB2SR7jvehYx5H+z1yPCEsGfFbuW4VV3CEbZkycq0nFcig5p74Iol43PZGK76TcvTMRVrmr4M/r+tJ1+qATvwOTEiHntcljNqFjrt9kxWAoZQwSIh0+mSW4KVcolybfh2Nc/8wUFn7/geSest/dbavJYPg=
-Received: from BLAPR03CA0065.namprd03.prod.outlook.com (2603:10b6:208:329::10)
- by DM6PR12MB4140.namprd12.prod.outlook.com (2603:10b6:5:221::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.21; Fri, 13 Sep
- 2024 13:41:59 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:208:329:cafe::52) by BLAPR03CA0065.outlook.office365.com
- (2603:10b6:208:329::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.27 via Frontend
- Transport; Fri, 13 Sep 2024 13:41:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7982.0 via Frontend Transport; Fri, 13 Sep 2024 13:41:58 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Sep
- 2024 08:41:57 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd, drm amd-drm-next-6.12
-Date: Fri, 13 Sep 2024 09:41:38 -0400
-Message-ID: <20240913134139.2861073-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.46.0
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D57410E1A6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Sep 2024 14:27:01 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-7c3d8105646so74416a12.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Sep 2024 07:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726237620; x=1726842420; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DRYnK7kRPhBjKpH4njc7mWYJza8ec7zdVFQSvzjPiI0=;
+ b=L7MC8GScm720JgitYiU2R51xnZkrTHhKy/r73ia3QGrEt3C5+ne0H3lqHGEikebVFW
+ eSKssOLNVYZm9zemq/CBoOdh78jIGEmRb1O3VONdHeRJxf+bFF5y9nug8NQKeWvkt1QM
+ JGBj3pBIQgNjTJ0Ze7kHhBB50qAQnCWF9i7ciZnxcOxU+8aGNdkK9jVApVgarVMDkhO3
+ Jx74LEpDned0dJyL/kAKf8kNysGOObteE2dAmUCX9hgbBDQtGVjXjXPDkhvTkRKV9qRU
+ QSTIxiv9TjlUXPtXShQXjyuXk7PzSb9u50bJ05JpBF49MyPZnsN/hSljUwGSb+zZ6xuL
+ T4nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726237620; x=1726842420;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DRYnK7kRPhBjKpH4njc7mWYJza8ec7zdVFQSvzjPiI0=;
+ b=O/KAqrLNaWR0RR+q7x9NsKhB37+nEyufSWg3Om4YdM86YMl3Z7QWZazUDfyowq9H+x
+ fjNhRchEvhE30NYDI87ChpHx2tOruJ6BC+I7PC5L52U2k5XXQnXJwn82xTiMii8B3IjJ
+ uesWkrT6luneqVhLB/1ek4Qyyd8CBZ0/oBqxOY+naAjmjiMLvViyg8gVgFTEUjM7QybM
+ tVZxMs9oxQygZyXdqK4O3CvxZUNwEnHo0OvK6IFUz9MQ97Wi/NwLjcQ+DmVlbLD1fbek
+ Zn56HFJbWOSM/QzE2E5qNm7fg/6rBl3VCs/pYzNymu4i4XlGgViDgpXWxiDFyyOSplEs
+ JrWQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXZ1JhAszDvu+QHFL88V1cUIkkAI9YMtR9hxevCYyw8uYftPOMheFTJ4lkAaCC//8RrJ26s6wOe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNQXWDm8IemOqRgis6Y6neeyi0dsQZIiE4k7m5bYgsXqdgWs/4
+ G845NCx4MNgHyjZqkHp/Xsolvx02bXEYK3cornYs3x6lOVxTkATVYc6tOacXgvo8R8X7XA6U7LA
+ w8qInJKubL9XRcJWgXHyfdMZaJ9/TYQ==
+X-Google-Smtp-Source: AGHT+IEpEdESQLToVrgNyKpBBvLUlcDgiX7JqnyKNYwmXDWAvnub3+L5IieKKmXjR20fvDy14QGGPP71lrx19Qs5WGY=
+X-Received: by 2002:a17:90b:104a:b0:2db:60b:3669 with SMTP id
+ 98e67ed59e1d1-2dba007c325mr3019249a91.8.1726237620232; Fri, 13 Sep 2024
+ 07:27:00 -0700 (PDT)
 MIME-Version: 1.0
+References: <20240913013837.311481-1-lingshan.zhu@amd.com>
+In-Reply-To: <20240913013837.311481-1-lingshan.zhu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 13 Sep 2024 10:26:48 -0400
+Message-ID: <CADnq5_MWQNOc8WDsnZMNVRtYY7enXYnQ-gGiKi-PgJG8JeyW6w@mail.gmail.com>
+Subject: Re: [PATCH] AMDGPU: init saw registers for mmhub v1.0
+To: Zhu Lingshan <lingshan.zhu@amd.com>
+Cc: alexander.deucher@amd.com, ray.huang@amd.com, 
+ amd-gfx@lists.freedesktop.org, Du Bin <bin.du@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DM6PR12MB4140:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3646d711-4660-4756-c972-08dcd3f9d6bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?K0x0cllsSEhDcm0wdWJYVHdFTTFQT09MeTVnWlhkODV6SnlKWE95WHl1emJR?=
- =?utf-8?B?SlFOeUZhWTNOZjFQbnhCb0J5SFNtN2RSdkZ6UDJVeGlRNlhrajRIeTRBOXRX?=
- =?utf-8?B?SStNUG5UU0NPdStDZVJqTmN3Y3BXU0tGNEZLdWcxbm9Cb2Q4T3ZMODdURVVM?=
- =?utf-8?B?VDMxV1grUUFTZExLYXAvMmhMZFc2WXNRUFdUaWRCSjk3cWhIWEFSRENNa0Iv?=
- =?utf-8?B?bmpJTlAvYU9lRk12QXN6TVJPaWh4OVVqZ3NzMVo5TVZjRFpEMUVuZ3pHcVEy?=
- =?utf-8?B?Q3hhbG5GcUszeCsxTjBlNlJCR0JnRFlyTkcwb25hL2ZOZXFpSXNXbCs1T3dU?=
- =?utf-8?B?S0RKYWZhclJxcEVKRVNOZ3dOdDhUYlNya0dVcEFxM2JMQTJmeXNGV2NPRXd3?=
- =?utf-8?B?WUExWDVGUXFjWWJXNE9HL2pvS1grSE1mcER3Z3FhN0ZuNS9LNUgwY0wvbU5Y?=
- =?utf-8?B?Wlpzakx5dURYRzBZdFBoUVJkbUNMQ2JTM05HQktpakVpSkk1cnRwRjJUUlYy?=
- =?utf-8?B?WWMyUXVTTW1Ja1pUOE1uZ09qM2tadmJwcUhOTzdlVmNpbkowOWVHa2tjRmV2?=
- =?utf-8?B?MTFnMi9yc0NDN3lrazZhdldQOXpYdSthaitRVnJmNXVpbnRUcDQxNDhYODRo?=
- =?utf-8?B?MC9uVTVtbHVtRDFLRnFRVE1PNWIxQXY5ZVlLa2Z0dUNNQTdRbGlwOHVjTUda?=
- =?utf-8?B?alptZUkwN2tSYU9sVVpodDlIQ0xqQnVWWUxrbWNPM3UxczloQVlkVG9nOFpO?=
- =?utf-8?B?eURLUk96V2JyUXJqQ1pmV3dLblNFUnNPS0dNR2ZPeklUOTJCcHJYbjNvSUtQ?=
- =?utf-8?B?dS9PcTBWaDBneGttL1RleTZjdHRiUVdXWHM4bGtzNVZLZGp3OVkxVzBlcTly?=
- =?utf-8?B?ZmFJZnNjUmQwSXJLOXdUYmMyaXhJdW9vY1UzSW0zWXVFRnhFc1poUVZwcHNu?=
- =?utf-8?B?a1RZaWJqTlVUVTViNDhXRlJyWngwajBDZGZMOXQ2NzBKZi90ZWJ6b09LdEll?=
- =?utf-8?B?SWw4bnhKaUxIRkFiRTdQeVpjSm9Zb0NwMm9hTk5tMS9lRDZOanV5TFRUVTlF?=
- =?utf-8?B?S3pRR3RCZEJVbDJWK3F4QkJNRk9YaGROWHdXbU5tWDU3WGsrZmdibWJvdzdT?=
- =?utf-8?B?T01tK3lGY0pFcFBLck8yQ3A4Y1I3Uk1GOC9kMFcvVXFGYXpoRUtNcjY3SUMz?=
- =?utf-8?B?ZjhjSTY0ejJZTkYxSzFQMzJhbGFBYWMweDFsT0ZkZW9UNk1iTXcxaHdHOUVJ?=
- =?utf-8?B?eFZXUWVMS2NWWkhBRVY0TnpiY3Z4RXBoOUZKZVVONlN6WFZ0YUpzdXBKY3FO?=
- =?utf-8?B?MXF4bWhtN1ZkUkJ4OEI0alB0V2lMRGx2ZmJyeUt1Y0pFOXM2WUJhOGVrRkZI?=
- =?utf-8?B?MEhpdElvMWxLYnJ3M3pZdW5yam92ZmFyTndGOUJuMHQvSkxvbWZNNDU0THNP?=
- =?utf-8?B?ZzEzeXRvd3JMS09DSVBaRHhqYk1FQzVHMURuRzI5d2NVc25POTI2QjBqTFRu?=
- =?utf-8?B?MmVIODEwZlBjTy9GYkRwY3p5UEZyU28xYmxaOG5DMThyeTYza0xxVUdTbFl3?=
- =?utf-8?B?cThCYXdwcTFvYVJ4VlBFcWhZY05wdC9yNEEya1ZzNitjbFZjUDJyMTFpSURp?=
- =?utf-8?B?MTNHREJqMEJkcVE1QTdnbkM3eDdWRFRxbFVlVk1aNXJJdEtkcmMzTVZuYjQ2?=
- =?utf-8?B?UVFJdVVuOWtHY09FTlV2ZFM0Sk81MzNpY24ycmdma1EzWU9CczZmR1lJQ1Nm?=
- =?utf-8?B?TnZPbkwvd1pDRjNPNmdyZ1VMdFNhaFJ2OS8zbE9pVnl5OEwxU1JtRDdmYi9r?=
- =?utf-8?B?MjZrSnJSNkVPMXdGcHpOQ2Jid1d1QnkzaTZ0R2poYmFJdlpiNko1cWZSL1VR?=
- =?utf-8?Q?HdSYE3hOVy/iq?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2024 13:41:58.2222 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3646d711-4660-4756-c972-08dcd3f9d6bd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4140
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,183 +78,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Thu, Sep 12, 2024 at 9:40=E2=80=AFPM Zhu Lingshan <lingshan.zhu@amd.com>=
+ wrote:
+>
+> This commits init registers in the Stand Along Walker
+> for mmhub v1.0, to support ISP use cases.
+>
+> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> Reported-and-Tested-by: Du Bin <bin.du@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c       | 48 +++++++++++++++++++
+>  .../include/asic_reg/mmhub/mmhub_1_0_offset.h | 23 +++++++++
+>  2 files changed, 71 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/am=
+d/amdgpu/mmhub_v1_0.c
+> index e3ddd22aa172..80864898b480 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> @@ -229,6 +229,52 @@ static void mmhub_v1_0_disable_identity_aperture(str=
+uct amdgpu_device *adev)
+>                      0);
+>  }
+>
+> +static void mmhub_v1_0_init_saw(struct amdgpu_device *adev)
+> +{
+> +       uint64_t pt_base =3D amdgpu_gmc_pd_addr(adev->gart.bo);
+> +       uint32_t tmp;
+> +
+> +       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32 *=
+/
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_=
+LO32,
+> +                           lower_32_bits(pt_base >> 12));
+> +
+> +       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32 *=
+/
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_=
+HI32,
+> +                           upper_32_bits(pt_base >> 12));
+> +
+> +       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32 =
+*/
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR=
+_LO32,
+> +                           (u32)(adev->gmc.gart_start >> 12));
+> +
+> +       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32 =
+*/
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR=
+_HI32,
+> +                           (u32)(adev->gmc.gart_start >> 44));
+> +
+> +       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32 */
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_L=
+O32,
+> +                           (u32)(adev->gmc.gart_end >> 12));
+> +
+> +       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32 */
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_H=
+I32,
+> +                           (u32)(adev->gmc.gart_end >> 44));
+> +
+> +       /* Program SAW CONTEXT0 CNTL */
+> +       tmp =3D RREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_CNTL);
+> +       tmp |=3D 1 << CONTEXT0_CNTL_ENABLE_OFFSET;
+> +       tmp &=3D ~(3 << CONTEXT0_CNTL_PAGE_TABLE_DEPTH_OFFSET);
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_CNTL, tmp);
+> +
+> +       /* Disable all Contexts except Context0 */
+> +       tmp =3D 0xfffe;
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXTS_DISABLE, tmp);
+> +
+> +       /* Program SAW CNTL4 */
+> +       tmp =3D RREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CNTL4);
+> +       tmp |=3D 1 << VMC_TAP_PDE_REQUEST_SNOOP_OFFSET;
+> +       tmp |=3D 1 << VMC_TAP_PTE_REQUEST_SNOOP_OFFSET;
+> +       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CNTL4, tmp);
+> +}
+> +
+>  static void mmhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_MMHUB0(0)];
+> @@ -283,6 +329,8 @@ static void mmhub_v1_0_setup_vmid_config(struct amdgp=
+u_device *adev)
+>                                     i * hub->ctx_addr_distance,
+>                                     upper_32_bits(adev->vm_manager.max_pf=
+n - 1));
+>         }
+> +
+> +       mmhub_v1_0_init_saw(adev);
 
-A few fixes for 6.12 and the drm dma-buf race fixes from Al Viro.
+Do these exist on all mmhub v1 based chips or just some specific ones?
+ I.e., is there any problem programming these for all chips that use
+mmhub v1?
 
-The following changes since commit 7a199557643e993d4e7357860624b8aa5d8f4340:
+Alex
 
-  Revert "drm/amdgpu: align pp_power_profile_mode with kernel docs" (2024-09-05 14:27:41 -0400)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.12-2024-09-13
-
-for you to fetch changes up to 0c8c5bdd7eaf291b6f727e98506fb68acee3a4cc:
-
-  drm/amd/display: Add all planes on CRTC to state for overlay cursor (2024-09-11 10:34:05 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-6.12-2024-09-13:
-
-amdgpu:
-- GPUVM sync fixes
-- kdoc fixes
-- Misc spelling mistakes
-- Add some raven GFXOFF quirks
-- Use clamp helper
-- DC fixes
-- JPEG fixes
-- Process isolation fix
-- Queue reset fix
-- W=1 cleanup
-- SMU14 fixes
-- JPEG fixes
-
-amdkfd:
-- Fetch cacheline info from IP discovery
-- Queue reset fix
-- RAS fix
-- Document SVM events
-- CRIU fixes
-- Race fix in dma-buf handling
-
-drm:
-- dma-buf fd race fixes
-
-----------------------------------------------------------------
-Al Viro (4):
-      drm: new helper: drm_gem_prime_handle_to_dmabuf()
-      drm/amdgpu: fix a race in kfd_mem_export_dmabuf()
-      drm/amdkfd: CRIU fixes
-      drm/amdgpu: get rid of bogus includes of fdtable.h
-
-Alex Deucher (1):
-      drm/amdgpu/atomfirmware: Silence UBSAN warning
-
-Christian König (2):
-      drm/amdgpu: re-work VM syncing
-      drm/amdgpu: revert "use CPU for page table update if SDMA is unavailable"
-
-Colin Ian King (1):
-      drm/amd/display: Fix spelling mistake "recompte" -> "recompute"
-
-Dan Carpenter (1):
-      drm/amdgpu/mes11: Indent an if statment
-
-David (Ming Qiang) Wu (2):
-      drm/amd/amdgpu: apply command submission parser for JPEG v2+
-      drm/amd/amdgpu: apply command submission parser for JPEG v1
-
-David Belanger (1):
-      drm/amdkfd: Add cache line size info
-
-Hawking Zhang (1):
-      drm/amdkfd: Select reset method for poison handling
-
-Jani Nikula (1):
-      drm/amdgpu: drop redundant W=1 warnings from Makefile
-
-Jesse Zhang (2):
-      drm/amdgpu: fix queue reset issue by mmio
-      drm/amdkfd: Fix resource leak in criu restore queue
-
-Jonathan Kim (1):
-      drm/amdkfd: fix missed queue reset on queue destroy
-
-Kenneth Feng (2):
-      drm/amd/pm: update the features set on smu v14.0.2/3
-      drm/amd/pm: fix the pp_dpm_pcie issue on smu v14.0.2/3
-
-Lang Yu (1):
-      drm/amdgpu: fix invalid fence handling in amdgpu_vm_tlb_flush
-
-Leo Li (2):
-      drm/amd/display: Do not reset planes based on crtc zpos_changed
-      drm/amd/display: Add all planes on CRTC to state for overlay cursor
-
-Li Zetao (2):
-      drm/amd: use clamp() in amdgpu_pll_get_fb_ref_div()
-      drm/amdgpu: use clamp() in amdgpu_vm_adjust_size()
-
-Lijo Lazar (1):
-      drm/amdgpu: Normalize reg offsets on JPEG v4.0.3
-
-Nicholas Susanto (1):
-      drm/amd/display: Refactor dccg35_get_other_enabled_symclk_fe
-
-Peng Liu (2):
-      drm/amdgpu: add raven1 gfxoff quirk
-      drm/amdgpu: enable gfxoff quirk on HP 705G4
-
-Philip Yang (1):
-      drm/amdkfd: Document and define SVM events message macro
-
-Qili Lu (1):
-      drm/amd/display: fix dccg root clock optimization related hang
-
-Ramesh Errabolu (1):
-      drm/amdgpu: Surface svm_default_granularity, a RW module parameter
-
-Srinivasan Shanmugam (5):
-      drm/amd/display: Add missing kdoc entry for 'bs_coeffs_updated' in dpp401_dscl_program_isharp
-      drm/amdgpu/: Add missing kdoc entry in amdgpu_vm_handle_fault function
-      drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader
-      drm/amd/display: Add kdoc entry for 'program_isharp_1dlut' in 'dpp401_dscl_program_isharp'
-      drm/amdgpu: Fix kdoc entry in 'amdgpu_vm_cpu_prepare'
-
-Tobias Jakobi (2):
-      drm/amd/display: Avoid race between dcn10_set_drr() and dc_state_destruct()
-      drm/amd/display: Avoid race between dcn35_set_drr() and dc_state_destruct()
-
- drivers/gpu/drm/amd/amdgpu/Makefile                |  18 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   1 +
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c    |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  12 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  17 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  35 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c            |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c          |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  99 +++++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  11 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c         |  10 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c        |  16 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |   4 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c             |  76 +++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h             |  11 +++
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |  63 ++++++++++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h             |   6 ++
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c             |   2 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c             |   1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.h             |   1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c           |  93 ++++---------------
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h           |   7 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c           |   1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           |   3 +-
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  64 +++++++++----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   8 +-
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   5 +-
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c    |  40 +++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   6 ++
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  45 +++++-----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  22 +++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  13 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |   2 +-
- .../gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c |  79 +++++++---------
- .../gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.h |   1 +
- .../amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c    |   2 +
- .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |  20 +++--
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |  24 +++--
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h       |   1 +
- drivers/gpu/drm/amd/include/atomfirmware.h         |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |  11 ++-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  12 +++
- drivers/gpu/drm/drm_prime.c                        |  84 ++++++++++-------
- include/drm/drm_prime.h                            |   3 +
- include/uapi/linux/kfd_ioctl.h                     | 100 ++++++++++++++++++---
- 50 files changed, 678 insertions(+), 366 deletions(-)
+>  }
+>
+>  static void mmhub_v1_0_program_invalidation(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.=
+h b/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h
+> index 2c3ce243861a..380e44230bda 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h
+> @@ -1232,6 +1232,29 @@
+>  #define mmMC_VM_MX_L1_PERFCOUNTER_HI                                    =
+                               0x059d
+>  #define mmMC_VM_MX_L1_PERFCOUNTER_HI_BASE_IDX                           =
+                               0
+>
+> +// Stand Alone Walker Registers
+> +#define VMC_TAP_PDE_REQUEST_SNOOP_OFFSET                                =
+                               8
+> +#define VMC_TAP_PTE_REQUEST_SNOOP_OFFSET                                =
+                               11
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32                  =
+                               0x0606
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32_BASE_IDX         =
+                               0
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32                  =
+                               0x0607
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32_BASE_IDX         =
+                               0
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32                 =
+                               0x0608
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32_BASE_IDX        =
+                               0
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32                 =
+                               0x0609
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32_BASE_IDX        =
+                               0
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32                   =
+                               0x060a
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32_BASE_IDX          =
+                               0
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32                   =
+                               0x060b
+> +#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32_BASE_IDX          =
+                               0
+> +#define mmVM_L2_SAW_CONTEXT0_CNTL                                       =
+                               0x0604
+> +#define mmVM_L2_SAW_CONTEXT0_CNTL_BASE_IDX                              =
+                               0
+> +#define CONTEXT0_CNTL_ENABLE_OFFSET                                     =
+                               0
+> +#define CONTEXT0_CNTL_PAGE_TABLE_DEPTH_OFFSET                           =
+                               1
+> +#define mmVM_L2_SAW_CONTEXTS_DISABLE                                    =
+                               0x060c
+> +#define mmVM_L2_SAW_CONTEXTS_DISABLE_BASE_IDX                           =
+                               0
+> +#define mmVM_L2_SAW_CNTL4                                               =
+                               0x0603
+> +#define mmVM_L2_SAW_CNTL4_BASE_IDX                                      =
+                               0
+>
+>  // addressBlock: mmhub_utcl2_atcl2dec
+>  // base address: 0x69900
+> --
+> 2.43.5
+>
