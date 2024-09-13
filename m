@@ -4,145 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5A76EEEC31
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 06:28:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 187BBEEEC39
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Sep 2024 07:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D426C10E983;
-	Fri, 13 Sep 2024 06:28:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C9510EC8E;
+	Fri, 13 Sep 2024 07:05:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="gWMxENFo";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="evM2f68H";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SJSTv8MO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pUDY8KUZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l7k2cNzi";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F23610E983;
- Fri, 13 Sep 2024 06:28:46 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A072D21A6D;
- Fri, 13 Sep 2024 06:28:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1726208924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FWCSUuSwEBVw/1X5plK41lIwK6V0FfAKM6yMG/RVw4E=;
- b=gWMxENFoPU98Xjx7UeZwVrLnxRwWDOGM0BZVtw3GkOYPbZihKK4aH9mW6kbsKxeL8KyLGy
- Zj5p3YXSGp5yUj8Ki8QQllYVgwmH0op6yWQbnl1TU7kortIzP5Ehth/sDRiGwXokOsNVT5
- XrSQWkBTJhYRdnX2zbDda/JlZYAmcWg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1726208924;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FWCSUuSwEBVw/1X5plK41lIwK6V0FfAKM6yMG/RVw4E=;
- b=evM2f68HIVHc9417OUU7AYJH5hNSR5l8qD07DtO7o0R2X2tln07mr+mC05Lz2AAdckZ5sv
- 8dRVnYyM6DiW8BDw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SJSTv8MO;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pUDY8KUZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1726208923; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FWCSUuSwEBVw/1X5plK41lIwK6V0FfAKM6yMG/RVw4E=;
- b=SJSTv8MOoUtCUCqjrnofh2+NEVYkTDAFy91QGnMyIVRFvd6XDhVaekSUBZUiFrMfSRIzSh
- vG6ybTzi2Zt0DYQDswrN084kWANxCc3TiqP2yb7M6P3W3Baw+rqnLZt86483LQa6PXh4IE
- PrU/gDJaYdwur6BVWF8jbUoNEYymRH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1726208923;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FWCSUuSwEBVw/1X5plK41lIwK6V0FfAKM6yMG/RVw4E=;
- b=pUDY8KUZ3v1z2FmZEav0f8IYok2JVSo/hjxAdKAvnyMOt7nMwj/jb9rDg5nVtyNZgxkcd4
- +U9acCobe7euGCAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C35413999;
- Fri, 13 Sep 2024 06:28:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id R9g7EZvb42ZhFwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 13 Sep 2024 06:28:43 +0000
-Message-ID: <a3b06bbe-4eaa-4d4c-95a0-76b63ff20aa2@suse.de>
-Date: Fri, 13 Sep 2024 08:28:42 +0200
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEFFC10EC82;
+ Fri, 13 Sep 2024 00:17:26 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5c412cab25cso399861a12.2; 
+ Thu, 12 Sep 2024 17:17:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726186645; x=1726791445; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=JegIvpvBzZyU49z2ta8sNcvR8rSAJQueYDB/CokoT3w=;
+ b=l7k2cNziyIw+a20KnOL6PEOwQiGXEhosaeY3rKjxlnJMaPyDEc5b9ut2txZELNEVZz
+ 5x/9hQs9Pb1aGBLaw+8rMfRA8DbdxyXuS+D44JmQS0uoEzwNkD4vikCescaMEHS00Rnv
+ Md+leVB9cECoBXNEsNbF4n8yMKqKEsAF9R3RS0Pw1R5W0Vt3B0qgf9R+BVYphDSYee47
+ JIaMIm55WBMKex8TFVw6oyYGPJJ4KCV2xpyMyR2a/pwcRsjlap9K/s3BMfRdxvMXGQJj
+ Tee4Xvkd+YoDvpYfHYK28In7iGnN4729ww8qgiqrFZK5fJrihDDEnm56xRM0kDah4UvP
+ 4Xlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726186645; x=1726791445;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JegIvpvBzZyU49z2ta8sNcvR8rSAJQueYDB/CokoT3w=;
+ b=BtyvcfeSokDpfztRNfkKuFsEkzj+D5CHbxlBYRd8VUvvYkMq4u0iKywD0XwTpyUeAY
+ 6aRmx894HhNjBwwaCOcVvADIWjpdi9UZoBXNrltGIr+fPsKhWaekVWf/bUnajJAHBF+1
+ wsQeaqDBgaKazmoViF3WHXGLMnTqqxByqViO86bJocbyxzpUlnS+ko5CzlP3AaGYM52f
+ EDkl4pksrkT46mxYloIgwVF714olg3izuoTbbubYCM3QDC4IHjtjjYLHAlGuVSNBsXhm
+ /9XvCSURlA8mbyn7PM0icLB//aSOtmAI6LXbzHQ2MA/QSMc2kA+p0dO0Jdj7yEfr8i8X
+ 00Vg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUPnGhLmLZQL/1PoHgKvVenLArQ8A8MY+CKsK6L3b+z5rBkbWe2RaeK3gkDGB7uumpb3itsf/0X@lists.freedesktop.org,
+ AJvYcCVBJHGHIPwQs3lHQDLtdkHdEvJ/dkiut0htF2JRUcOxsZ+cDkHLuBnWhjUuiKLD4wqZYJeS2VTKgsADloPPFA==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyE/+0koZd8boyUdzKQa00xaM+hrNGg5+7tbDJoX3SsO+znCkQI
+ M29FrsLT49tfdGbaKqjCBNKIruA2+p+MNMz5M4OQeq+9PeU06MrrYFCZ3ADx2R0q2AhaoS0+1xu
+ BDzCVoih1KzcADNYpS7eJtk1v8LY=
+X-Google-Smtp-Source: AGHT+IEg59yBEqN9I9waZxkwL7Hug633+u2vUNF8MlQ4TFC/ywlx6uhpKkCD9RCmkB5kZWTk6+GLludIlLLEyhWCxlc=
+X-Received: by 2002:a17:907:86a2:b0:a86:82e2:8c64 with SMTP id
+ a640c23a62f3a-a9047d35b2cmr44570366b.35.1726186644846; Thu, 12 Sep 2024
+ 17:17:24 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 71/80] drm/vmwgfx: Run DRM default client setup
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: simona@ffwll.ch, airlied@gmail.com, jfalempe@redhat.com,
- javierm@redhat.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-References: <20240909113633.595465-1-tzimmermann@suse.de>
- <20240909113633.595465-72-tzimmermann@suse.de>
- <CABQX2QP705HDDUNFCQ0SNkq2-_SaXPGG4KZOw5EhZU68Yu_nZQ@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABQX2QP705HDDUNFCQ0SNkq2-_SaXPGG4KZOw5EhZU68Yu_nZQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: A072D21A6D
-X-Spamd-Result: default: False [-6.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[ffwll.ch,gmail.com,redhat.com,lists.freedesktop.org,broadcom.com];
- MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[10]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim, suse.de:mid,
- broadcom.com:email, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+References: <CAFZQkGzLjCOSPvk0kYYXyJm8E6Szdw9PJUcUQzew-EBfQjzz_g@mail.gmail.com>
+ <20240910192419.302801-1-harry.wentland@amd.com>
+In-Reply-To: <20240910192419.302801-1-harry.wentland@amd.com>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Fri, 13 Sep 2024 02:17:11 +0200
+Message-ID: <CAFZQkGzSsbhHYWCzZqPcC2fw3Y4ZeM23qQr1k1aPsz2B3pfA7w@mail.gmail.com>
+Subject: Re: [PATCH] drm/colorop: get DATA blob ref at duplicate_state
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 13 Sep 2024 07:05:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,43 +79,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Hi Harry,
 
-Am 09.09.24 um 19:52 schrieb Zack Rusin:
-> On Mon, Sep 9, 2024 at 7:37 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Call drm_client_setup() to run the kernel's default client setup
->> for DRM. Set fbdev_probe in struct drm_driver, so that the client
->> setup can start the common fbdev client.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Zack Rusin <zack.rusin@broadcom.com>
->> Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
->> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> Quick note: I love what you did with drm client and drm fbdev. Thanks
-> a lot for that work!
+I applied this patch and the two issues I mentioned before are gone.
+I noticed a new problem though: Changes in the COLOR_PIPELINE value
+aren't always applied immediately. For testing I played an HDR video
+on an SDR screen with the work/zamundaaa/drm-colorop KWin branch, and
+made it fullscreen. When I do that, the video is reinterpreted as sRGB
+until the pipeline actually gets used at some later point in time, and
+when opening another app to interrupt direct scanout while the
+pipeline is being applied, the previous pipeline keeps being applied
+until it switches to bypass. It often applies the proper value when
+the cursor plane gets enabled or disabled, but that doesn't seem to be
+reliable and it sometimes happens without cursor changes.
+I checked with drm_info that KWin has actually set COLOR_PIPELINE to
+the pipeline or bypass, so I'm confident that this issue is on the
+kernel side.
 
-Thanks for the kind words. Noralf deserves his share of praise here, as 
-he first implemented the client code. And Javier went through *a lot* of 
-patches reviewing them.
+When the pipeline is actually applied, it works correctly (outside of
+some banding, but that's expected with the current state of the KWin
+branch).
 
-Once drm_client_setup() has been merged, I hope that there won't be any 
-such large patch series. The rest of the work should be internal rework 
-that doesn't touch the whole subsystem.
 
-Best regards
-Thomas
-
+Am Di., 10. Sept. 2024 um 21:24 Uhr schrieb Harry Wentland
+<harry.wentland@amd.com>:
 >
-> Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
 >
-> z
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
-
+> It was a stupid mistake on my part. The duplicate_state
+> function needs to take a reference to the blob.
+>
+> This should fix it. Please give it a try if you can.
+> I'll roll it into the patch that introduces the bug in
+> my v6.
+>
+> Harry
+>
+>  drivers/gpu/drm/drm_colorop.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index 86f7f084a73f..fd1cd934df48 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -401,6 +401,9 @@ static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colo
+>  {
+>         memcpy(state, colorop->state, sizeof(*state));
+>
+> +       if (state->data)
+> +               drm_property_blob_get(state->data);
+> +
+>         state->bypass = true;
+>  }
+>
+> --
+> 2.46.0
+>
