@@ -4,85 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01AB5C3ABB2
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 08:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE2FFC3ABB2
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 11:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF7D10E16B;
-	Mon, 16 Sep 2024 08:16:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3859E10E1DE;
+	Mon, 16 Sep 2024 11:50:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GuPWisE1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HjRm2IKv";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9211E10E097
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 08:16:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1726474592;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=X9SZPQqVNZ+LpnL44lBJE+Mp94qpYJOtqq8/bcvSdwQ=;
- b=GuPWisE1akap5vZ3vo5KtSeN43jqU+SsmcNykMZb0w5FQGauUmV/CG/4JPqhMnEadD3M9S
- zaEao3FX39zSg4P0xXhXYUPdkOzeW2uLPXBsqzJVc17Jh/NvjR2zsZbQDVjkwOWs6MdpuE
- 1Q5Euu5jYJbG/FRbpRVPovwwFnM8c7Y=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-78-339qyoE5NH6P4BDJ8rK6zg-1; Mon, 16 Sep 2024 04:16:28 -0400
-X-MC-Unique: 339qyoE5NH6P4BDJ8rK6zg-1
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-374c54e188dso2560739f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 01:16:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726474588; x=1727079388;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 051E510E045;
+ Mon, 16 Sep 2024 11:50:38 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-374c3eef39eso2630384f8f.0; 
+ Mon, 16 Sep 2024 04:50:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726487436; x=1727092236; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Ru+y90+/NDdm3ALQ4k8hpnsdZ4JCGl0gCU2htuaBc5Q=;
- b=xTRCIoFLikMybaP0V5TNw1v3O6kGYxc9DNWXuMMiFujFTuV74DEV83xNUc+YSn3AwJ
- EeAktly8nfyLffwoeI2XIzeqjCImXakmwZphSRxeZ1utM/3N5gd9jzJDnYpYizP2Zotw
- w6m5SCWj+f1obd65kAX31RAY9gHk8Q/goJhJuavBCtgFQIL1iDsqkZNNojzKuLoG3x3K
- y+hFzL8+Y7rcpnDQv4RSMaC1vsR7zQvzi2CEjtcdK/sOqnPgIj3m1IEB4R74iukYPsJl
- 6siM0M6tQYzm4VkXcEKIajns4gvad0S4IB3ek3xkyuhoGH1zpA7vmCv5/ADscB1YrFPd
- Gi/g==
+ bh=6jGRvXVMGdePQHhG3fO+IlX30rkXzl5Uut8rlTChYPk=;
+ b=HjRm2IKv1ByMH4OEUXb2XQAaF+Fh8hUBZkWZsNJGOfqsFNrhCgQ8VTDDcjlhmJrXVw
+ R1EVBh00jrAIkmm/2maV/nQPw96aGN+ICohJ0eEq836PIwiRI48jjBfVuR7zlgy0xevN
+ xD8ccFGJFymYckhO9ioDX9c5z7aQZzxQGVX1GccyzK7Xs4fMb9Ee+3HfZNeD0Pk8pERY
+ JJ85vSyc62We3p7IGxThUg3xBML0aXaEy1wYO+K60wxfQuBtF1Yn7FtbsY2fGX/A/AeF
+ Th3XCm8oC4lt8iLPCCkWYo0Rk6xsTrvG+gxSdqSgVoodUBkxfFQPamtF1vyZG+9T3dZj
+ UIJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726487436; x=1727092236;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6jGRvXVMGdePQHhG3fO+IlX30rkXzl5Uut8rlTChYPk=;
+ b=LwAfp7q+HVPr+I/tqOwZHuP7xJvumf1O0bTcqxi9cjkYlbGelUdcc4fwOQ5v/VJf93
+ RELiU9Q/1IgMkUArU7d8/qUHDKgrExkDDcvHID1wsy/cqNneWX+w4cobCBgtz0deiv6h
+ 9/GEwGPsI9zys1qSB/eifmd2UiEbyYHofK2dakIIH6snrxKlzro/uIFVTUeFFygenpGB
+ cvehkz3HSqvEF1jHsMXDgUwgl1Jtrgh22zxBeGUu+K/1eGM2fm+FExObAmS55r/UtogY
+ v/LGqr1Tsr3iv4uWWGmgGe6eJH7CcpUsFuBCfMiI2j/1wboj34V4oIGtwt8nN8ZflTA+
+ BgcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkQf30cjRjNyaWkbB1714HxO+GWjbAvw6+4XoQnpq3UQu+In/fjzIUO0mZ93/oqVQbdxL0SlqR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVLwIIvqbGURlJrFIGVMg8nwUd7iQsghzoKbmWGAttpwXNmAjJ
- psdd1iGIzaAs7rIryTCXqa79xeeAI8j6XW5ZaNcJQUjj+fNDrWPGYQzv/hkMU3HJIkFGdvMGAs2
- 8hvGUXOakDti1yacch1v2ZvTrYqidRChGlcL3mClw2k10w63RbEqoVzLyBag2UG4=
-X-Received: by 2002:adf:ef06:0:b0:374:c692:42e2 with SMTP id
- ffacd0b85a97d-378a8a0b8d9mr12166043f8f.9.1726474587638; 
- Mon, 16 Sep 2024 01:16:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG3Pe7vB4fkiiwscsyI8XJ1gc3S/ZG6W0I9i8O0mpHG4jkRbDMGA+yNv3NCd/yNP/wC1oUJXQ==
-X-Received: by 2002:adf:ef06:0:b0:374:c692:42e2 with SMTP id
- ffacd0b85a97d-378a8a0b8d9mr12166023f8f.9.1726474587085; 
- Mon, 16 Sep 2024 01:16:27 -0700 (PDT)
-Received: from eisenberg.fritz.box ([2001:16b8:3d97:9600:c4de:e8e2:392:1c61])
+ AJvYcCXHCGMlkvPAFtcVWgpekZUaPwEUdJ0q2qebqtd/mY3e5Hg74dRkjH6VyGVPyvutqEmWg+BO+liB6I4t@lists.freedesktop.org,
+ AJvYcCXXCniZZBIBXHG5kSmoiyaIx5O2SboLJf73ThBdHc4gFc9evjARGJR7mC541QnyZQXZ9RdXIWko@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwIjqwEDsi/GOfjRHGAE+Iuu1dUhtMDg+czxcQvOSLCuyEMOzWo
+ NUO6UaDIsiO/AAKvdSZDToWDpSeOkA7QIhsLevJ1jx8tKr0obVBr
+X-Google-Smtp-Source: AGHT+IGu2LuFR3m8+u+RM+tFl4Oaovk7CjDKfOsDhjAn5A8AsspZvgbhE5wJsq0qfRqGbNXhgeKSqQ==
+X-Received: by 2002:a5d:5747:0:b0:374:c4e2:3cad with SMTP id
+ ffacd0b85a97d-378c2d5b237mr7888045f8f.52.1726487435239; 
+ Mon, 16 Sep 2024 04:50:35 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378e73e81a5sm6503395f8f.34.2024.09.16.01.16.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Sep 2024 01:16:26 -0700 (PDT)
-Message-ID: <f193ac6e13c9069eacf3498e1df41c97577c58e4.camel@redhat.com>
-Subject: Re: [PATCH 6/8] drm/sched: Re-order struct drm_sched_rq members for
- clarity
-From: Philipp Stanner <pstanner@redhat.com>
-To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Luben Tuikov <ltuikov89@gmail.com>, Matthew
- Brost <matthew.brost@intel.com>
-Date: Mon, 16 Sep 2024 10:16:25 +0200
-In-Reply-To: <20240913160559.49054-7-tursulin@igalia.com>
-References: <20240913160559.49054-1-tursulin@igalia.com>
- <20240913160559.49054-7-tursulin@igalia.com>
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
+ ffacd0b85a97d-378e73f97d6sm7025317f8f.52.2024.09.16.04.50.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Sep 2024 04:50:34 -0700 (PDT)
+Message-ID: <e6fcc9c2-01ea-4cb1-9df3-b015227bdced@gmail.com>
+Date: Mon, 16 Sep 2024 13:50:31 +0200
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] drm/sched: Optimise drm_sched_entity_push_job
+To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <pstanner@redhat.com>
+References: <20240913160559.49054-1-tursulin@igalia.com>
+ <20240913160559.49054-5-tursulin@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240913160559.49054-5-tursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,83 +90,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2024-09-13 at 17:05 +0100, Tvrtko Ursulin wrote:
+Am 13.09.24 um 18:05 schrieb Tvrtko Ursulin:
 > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->=20
-> Current kerneldoc for struct drm_sched_rq incompletely documents what
-> fields are protected by the lock.
->=20
-> This is not good because it is misleading.
->=20
-> Lets fix it by listing all the elements which are protected by the
-> lock.
->=20
-> While at it, lets also re-order the members so all protected by the
-> lock
-> are in a single group.
->=20
+>
+> In FIFO mode We can avoid dropping the lock only to immediately re-acquire
+> by adding a new drm_sched_rq_update_fifo_locked() helper.
+>
 > v2:
-> =C2=A0* Refer variables by kerneldoc syntax, more verbose commit text.
-> (Philipp)
->=20
+>   * Remove drm_sched_rq_update_fifo() altogether. (Christian)
+>
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Luben Tuikov <ltuikov89@gmail.com>
 > Cc: Matthew Brost <matthew.brost@intel.com>
 > Cc: Philipp Stanner <pstanner@redhat.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Looks good, thx
-
-Reviewed-by: Philipp Stanner <pstanner@redhat.com>
-
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
-> =C2=A0include/drm/gpu_scheduler.h | 10 ++++++----
-> =C2=A01 file changed, 6 insertions(+), 4 deletions(-)
->=20
-> diff --git a/include/drm/gpu_scheduler.h
-> b/include/drm/gpu_scheduler.h
-> index 38465b78c7d5..2f58af00f792 100644
+>   drivers/gpu/drm/scheduler/sched_entity.c | 13 +++++++++----
+>   drivers/gpu/drm/scheduler/sched_main.c   |  6 +++---
+>   include/drm/gpu_scheduler.h              |  2 +-
+>   3 files changed, 13 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+> index 6645a8524699..aff79055643f 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -514,8 +514,12 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>   		struct drm_sched_job *next;
+>   
+>   		next = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
+> -		if (next)
+> -			drm_sched_rq_update_fifo(entity, next->submit_ts);
+> +		if (next) {
+> +			spin_lock(&entity->rq_lock);
+> +			drm_sched_rq_update_fifo_locked(entity,
+> +							next->submit_ts);
+> +			spin_unlock(&entity->rq_lock);
+> +		}
+>   	}
+>   
+>   	/* Jobs and entities might have different lifecycles. Since we're
+> @@ -615,10 +619,11 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>   
+>   		atomic_inc(sched->score);
+>   		drm_sched_rq_add_entity(rq, entity);
+> -		spin_unlock(&entity->rq_lock);
+>   
+>   		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+> -			drm_sched_rq_update_fifo(entity, submit_ts);
+> +			drm_sched_rq_update_fifo_locked(entity, submit_ts);
+> +
+> +		spin_unlock(&entity->rq_lock);
+>   
+>   		drm_sched_wakeup(sched, entity);
+>   	}
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index f093616fe53c..d0ee0ba75a86 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -163,14 +163,15 @@ static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *enti
+>   	}
+>   }
+>   
+> -void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
+> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts)
+>   {
+>   	/*
+>   	 * Both locks need to be grabbed, one to protect from entity->rq change
+>   	 * for entity from within concurrent drm_sched_entity_select_rq and the
+>   	 * other to update the rb tree structure.
+>   	 */
+> -	spin_lock(&entity->rq_lock);
+> +	lockdep_assert_held(&entity->rq_lock);
+> +
+>   	spin_lock(&entity->rq->lock);
+>   
+>   	drm_sched_rq_remove_fifo_locked(entity);
+> @@ -181,7 +182,6 @@ void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts)
+>   		      drm_sched_entity_compare_before);
+>   
+>   	spin_unlock(&entity->rq->lock);
+> -	spin_unlock(&entity->rq_lock);
+>   }
+>   
+>   /**
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index a8d19b10f9b8..38465b78c7d5 100644
 > --- a/include/drm/gpu_scheduler.h
 > +++ b/include/drm/gpu_scheduler.h
-> @@ -243,10 +243,10 @@ struct drm_sched_entity {
-> =C2=A0/**
-> =C2=A0 * struct drm_sched_rq - queue of entities to be scheduled.
-> =C2=A0 *
-> - * @lock: to modify the entities list.
-> =C2=A0 * @sched: the scheduler to which this rq belongs to.
-> - * @entities: list of the entities to be scheduled.
-> + * @lock: protects @entities, @rb_tree_root and @current_entity.
-
-nit: in case you'll provide a new version anyways you could consider
-sorting these three to be congruent with the lines below.
-
-Thank you!
-P.
-
-
-> =C2=A0 * @current_entity: the entity which is to be scheduled.
-> + * @entities: list of the entities to be scheduled.
-> =C2=A0 * @rb_tree_root: root of time based priory queue of entities for
-> FIFO scheduling
-> =C2=A0 *
-> =C2=A0 * Run queue is a set of entities scheduling command submissions fo=
-r
-> @@ -254,10 +254,12 @@ struct drm_sched_entity {
-> =C2=A0 * the next entity to emit commands from.
-> =C2=A0 */
-> =C2=A0struct drm_sched_rq {
-> -=09spinlock_t=09=09=09lock;
-> =C2=A0=09struct drm_gpu_scheduler=09*sched;
-> -=09struct list_head=09=09entities;
-> +
-> +=09spinlock_t=09=09=09lock;
-> +=09/* Following members are protected by the @lock: */
-> =C2=A0=09struct drm_sched_entity=09=09*current_entity;
-> +=09struct list_head=09=09entities;
-> =C2=A0=09struct rb_root_cached=09=09rb_tree_root;
-> =C2=A0};
-> =C2=A0
+> @@ -593,7 +593,7 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>   				struct drm_sched_entity *entity);
+>   
+> -void drm_sched_rq_update_fifo(struct drm_sched_entity *entity, ktime_t ts);
+> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts);
+>   
+>   int drm_sched_entity_init(struct drm_sched_entity *entity,
+>   			  enum drm_sched_priority priority,
 
