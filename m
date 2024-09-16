@@ -4,90 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9460EC3ABCE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55DBBC3ABD1
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 12:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4DD10E35C;
-	Mon, 16 Sep 2024 12:57:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 937BD10E362;
+	Mon, 16 Sep 2024 12:57:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=maxima.ru header.i=@maxima.ru header.b="gbV6jSE2";
+	dkim=pass (2048-bit key; secure) header.d=math.uni-bielefeld.de header.i=@math.uni-bielefeld.de header.b="cT3PlXSr";
 	dkim-atps=neutral
-X-Greylist: delayed 385 seconds by postgrey-1.36 at gabe;
- Mon, 16 Sep 2024 10:50:34 UTC
-Received: from ksmg02.maxima.ru (ksmg02.maxima.ru [81.200.124.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DFA110E27E;
- Mon, 16 Sep 2024 10:50:34 +0000 (UTC)
-Received: from ksmg02.maxima.ru (localhost [127.0.0.1])
- by ksmg02.maxima.ru (Postfix) with ESMTP id 0CE481E0004;
- Mon, 16 Sep 2024 13:44:04 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ksmg02.maxima.ru 0CE481E0004
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maxima.ru; s=sl;
- t=1726483444; bh=ThbJ6N0R8e00LokNP2VgWULnWOsZlMXMwlpzar1AU8c=;
- h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
- b=gbV6jSE2Ssz1pyhMQKepO3iiL6sbXccEtWhqWaybBv62a4g5UyV/wrB5Nk+9Tdn4g
- KdEi5+Pr6fiCD5v1DtC4vXjDIqYeUFHvnYrJSqW0BLPCuSqVxEi6d441IHuy66AHxX
- n0RL8gEqmniCAW6OjaydzYguaYXeFXOjqz8DrMVcm3xpxhDyI6De3ne2+98UGo3zbG
- 4Sj1251IHUb1ZP7uVAoKsGh23odgIrDL4wOpqy8ujwuckm/hxcRniZxDi0WWdRhcqj
- KHJ5S5p7kWH33JYtXnS4yDo18m+/+sH5Cbz9fp8DkTNrEhl2EqTjHdkhjdoqZRnQem
- D9/y0JR9ACMNw==
-Received: from ksmg02.maxima.ru (unknown [81.200.124.62])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "*.maxima.ru",
- Issuer "GlobalSign GCC R3 DV TLS CA 2020" (verified OK))
- by ksmg02.maxima.ru (Postfix) with ESMTPS;
- Mon, 16 Sep 2024 13:44:03 +0300 (MSK)
-Received: from GS-NOTE-190.mt.ru (10.0.247.10) by mmail-p-exch02.mt.ru
- (81.200.124.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.4; Mon, 16 Sep
- 2024 13:44:00 +0300
-From: Murad Masimov <m.masimov@maxima.ru>
-To: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Murad Masimov <m.masimov@maxima.ru>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Daniel Vetter
- <daniel@ffwll.ch>, Alvin Lee <alvin.lee2@amd.com>, Sasha Levin
- <sashal@kernel.org>, Chaitanya Dhere <chaitanya.dhere@amd.com>, Tom Chung
- <chiahsuan.chung@amd.com>, Sohaib Nadeem <sohaib.nadeem@amd.com>, Hersen Wu
- <hersenxs.wu@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Daniel
- Wheeler <daniel.wheeler@amd.com>, Rodrigo Siqueira
- <rodrigo.siqueira@amd.com>, Samson Tam <samson.tam@amd.com>
-Subject: [PATCH 6.1] drm/amd/display: Fix subvp+drr logic errors
-Date: Mon, 16 Sep 2024 13:43:23 +0300
-Message-ID: <20240916104325.1532-1-m.masimov@maxima.ru>
-X-Mailer: git-send-email 2.46.0.windows.1
+Received: from smtp1.math.uni-bielefeld.de (smtp1.math.uni-bielefeld.de
+ [129.70.45.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 237FC89F41;
+ Mon, 16 Sep 2024 12:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=math.uni-bielefeld.de; s=default; t=1726491291;
+ bh=LnO0JNIansUrMbzfXU5umY+44k8cAt6InLj0VkTrFiI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cT3PlXSryBRL9EQ8zlz5fe6oTOmA8d3RB6jVRdoASZLISrfqGDRfrgJBzHmm3HdBZ
+ Wg6bTo6MyVDChtBjdqwruSZAhNjV24lZGsvxx/0EJmzJNTZcx0UAc+E7pGJUPYXWWv
+ x3cYEYkfOSC4+n5XpyAxIibbOnT3SZkqAImg0NVObtptKi2u5AbyKSKKJDLKrk0uZI
+ 0gw+1HNPIXW8KUPGjdAALT8MVgQqlcFlRodrKiR+k0d2cm5XixfIeloBnsz9OCiPcy
+ k+shI8fKMfak1wmiSNEGPv0T0SPlkIAYUJMDUnnM8BYGjAlUwl/IEfpZ5WLygsd9IZ
+ sZrmsQJiHVFUw==
+Received: from localhost (dslb-088-074-203-146.088.074.pools.vodafone-ip.de
+ [88.74.203.146])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ by smtp1.math.uni-bielefeld.de (Postfix) with ESMTPSA id 9271720F3D;
+ Mon, 16 Sep 2024 14:54:51 +0200 (CEST)
+From: tjakobi@math.uni-bielefeld.de
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] drm/amd/display: handle nulled pipe context in DCE110's
+ set_drr()
+Date: Mon, 16 Sep 2024 14:54:05 +0200
+Message-ID: <24dcaa14eba59e211355d4798df02ccb64d460ba.1726490926.git.tjakobi@math.uni-bielefeld.de>
+X-Mailer: git-send-email 2.44.2
+In-Reply-To: <cover.1726490926.git.tjakobi@math.uni-bielefeld.de>
+References: <cover.1726490926.git.tjakobi@math.uni-bielefeld.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.247.10]
-X-ClientProxiedBy: mt-exch-01.mt.ru (91.220.120.210) To mmail-p-exch02.mt.ru
- (81.200.124.62)
-X-KSMG-Rule-ID: 7
-X-KSMG-Message-Action: clean
-X-KSMG-AntiSpam-Lua-Profiles: 187760 [Sep 16 2024]
-X-KSMG-AntiSpam-Version: 6.1.1.5
-X-KSMG-AntiSpam-Envelope-From: m.masimov@maxima.ru
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Auth: dmarc=none header.from=maxima.ru;
- spf=none smtp.mailfrom=maxima.ru; dkim=none
-X-KSMG-AntiSpam-Info: LuaCore: 34 0.3.34
- 8a1fac695d5606478feba790382a59668a4f0039, {rep_avail},
- {Tracking_from_domain_doesnt_match_to}, maxima.ru:7.1.1; 81.200.124.62:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; ksmg02.maxima.ru:7.1.1;
- 127.0.0.199:7.1.2, FromAlignment: s, ApMailHostAddress: 81.200.124.62, {DNS
- response errors}
-X-MS-Exchange-Organization-SCL: -1
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiPhishing: Clean
-X-KSMG-LinksScanning: Clean
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
- bases: 2024/09/16 05:22:00 #26594998
-X-KSMG-AntiVirus-Status: Clean, skipped
 X-Mailman-Approved-At: Mon, 16 Sep 2024 12:57:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,61 +68,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 
-commit 8a0f02b7beed7b2b768dbdf3b79960de68f460c5 upstream.
+As set_drr() is called from IRQ context, it can happen that the
+pipe context has been nulled by dc_state_destruct().
 
-[Why]
-There is some logic error where the wrong variable was used to check for
-OTG_MASTER and DPP_PIPE.
+Apply the same protection here that is already present for
+dcn35_set_drr() and dcn10_set_drr(). I.e. fetch the tg pointer
+first (to avoid a race with dc_state_destruct()), and then
+check the local copy before using it.
 
-[How]
-Add booleans to confirm that the expected pipes were found before
-validating schedulability.
-
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Reviewed-by: Samson Tam <samson.tam@amd.com>
-Reviewed-by: Chaitanya Dhere <chaitanya.dhere@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[m.masimov@maxima.ru: In order to adapt this patch to branch 6.1
-only changes related to finding the SubVP pipe were applied
-as in 6.1 drr_pipe is passed as a function argument.]
-Signed-off-by: Murad Masimov <m.masimov@maxima.ru>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3142
+Fixes: 06ad7e164256 ("drm/amd/display: Destroy DC context while keeping DML and DML2")
+Signed-off-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 21 ++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index 85e0d1c2a908..4b0719392d28 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -862,6 +862,7 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context, struc
- 	int16_t stretched_drr_us = 0;
- 	int16_t drr_stretched_vblank_us = 0;
- 	int16_t max_vblank_mallregion = 0;
-+	bool subvp_found = false;
- 
- 	// Find SubVP pipe
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-@@ -873,10 +874,15 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context, struc
- 			continue;
- 
- 		// Find the SubVP pipe
--		if (pipe->stream->mall_stream_config.type == SUBVP_MAIN)
-+		if (pipe->stream->mall_stream_config.type == SUBVP_MAIN) {
-+			subvp_found = true;
- 			break;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 0d3ea291eeee..666dfc6d192e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1970,13 +1970,20 @@ static void set_drr(struct pipe_ctx **pipe_ctx,
+ 	 * as well.
+ 	 */
+ 	for (i = 0; i < num_pipes; i++) {
+-		pipe_ctx[i]->stream_res.tg->funcs->set_drr(
+-			pipe_ctx[i]->stream_res.tg, &params);
+-
+-		if (adjust.v_total_max != 0 && adjust.v_total_min != 0)
+-			pipe_ctx[i]->stream_res.tg->funcs->set_static_screen_control(
+-					pipe_ctx[i]->stream_res.tg,
+-					event_triggers, num_frames);
++		/* dc_state_destruct() might null the stream resources, so fetch tg
++		 * here first to avoid a race condition. The lifetime of the pointee
++		 * itself (the timing_generator object) is not a problem here.
++		 */
++		struct timing_generator *tg = pipe_ctx[i]->stream_res.tg;
++
++		if ((tg != NULL) && tg->funcs) {
++			if (tg->funcs->set_drr)
++				tg->funcs->set_drr(tg, &params);
++			if (adjust.v_total_max != 0 && adjust.v_total_min != 0)
++				if (tg->funcs->set_static_screen_control)
++					tg->funcs->set_static_screen_control(
++						tg, event_triggers, num_frames);
 +		}
  	}
+ }
  
-+	if (!subvp_found)
-+		return false;
-+
- 	main_timing = &pipe->stream->timing;
- 	phantom_timing = &pipe->stream->mall_stream_config.paired_stream->timing;
- 	drr_timing = &drr_pipe->stream->timing;
 -- 
-2.39.2
+2.44.2
 
