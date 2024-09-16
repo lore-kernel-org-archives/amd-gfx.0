@@ -4,48 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F4B5C3ABD1
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 06:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01AB5C3ABB2
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Sep 2024 08:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3AC10E2E1;
-	Mon, 16 Sep 2024 06:55:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF7D10E16B;
+	Mon, 16 Sep 2024 08:16:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=rosa.ru header.i=@rosa.ru header.b="BUkaGEHp";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GuPWisE1";
 	dkim-atps=neutral
-X-Greylist: delayed 3603 seconds by postgrey-1.36 at gabe;
- Sun, 15 Sep 2024 18:41:01 UTC
-Received: from mail.rosa.ru (mail.rosa.ru [176.109.80.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F0C10E05A;
- Sun, 15 Sep 2024 18:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=rosa.ru;
- s=mail; bh=AWlzurw8TjVSJHL81PnGiT03F3c0KZ6Bu9J4LY1ExbA=;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From;
- b=BUkaGEHpVeR+imcr5SkWnflzoRg5liO3N7CvuAJEVGFMDlxP3VUuzrA5YLKmJF1OiJ/2ooQbAsr
- rtvjcZWfiWvJSqX2Gu5hJycCU3lIJmw/wotEe791xvLeZ+ixWC8ZW9tL2GJZkWgBWpcjOzpGLBjm4
- 7jgxOm+0pzLa25mzTOs=
-Received: from [194.9.26.89] (account m.arhipov@rosa.ru HELO
- localhost.localdomain) by mail.rosa.ru (CommuniGate Pro SMTP 6.4.1j)
- with ESMTPSA id 130329; Sun, 15 Sep 2024 20:40:54 +0300
-From: Mikhail Arkhipov <m.arhipov@rosa.ru>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Mikhail Arkhipov <m.arhipov@rosa.ru>, Jake Wang <haonan.wang2@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wenjing Liu <wenjing.liu@amd.com>,
- Swapnil Patel <swapnil.patel@amd.com>, Sasha Levin <sashal@kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- lvc-patches@linuxtesting.org
-Subject: [PATCH] drm/amd/display: Add NULL check for panel_cntl in
- dce110_edp_backlight_control
-Date: Sun, 15 Sep 2024 20:40:50 +0300
-Message-Id: <20240915174050.78956-1-m.arhipov@rosa.ru>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9211E10E097
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 08:16:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1726474592;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=X9SZPQqVNZ+LpnL44lBJE+Mp94qpYJOtqq8/bcvSdwQ=;
+ b=GuPWisE1akap5vZ3vo5KtSeN43jqU+SsmcNykMZb0w5FQGauUmV/CG/4JPqhMnEadD3M9S
+ zaEao3FX39zSg4P0xXhXYUPdkOzeW2uLPXBsqzJVc17Jh/NvjR2zsZbQDVjkwOWs6MdpuE
+ 1Q5Euu5jYJbG/FRbpRVPovwwFnM8c7Y=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-78-339qyoE5NH6P4BDJ8rK6zg-1; Mon, 16 Sep 2024 04:16:28 -0400
+X-MC-Unique: 339qyoE5NH6P4BDJ8rK6zg-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-374c54e188dso2560739f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Sep 2024 01:16:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726474588; x=1727079388;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Ru+y90+/NDdm3ALQ4k8hpnsdZ4JCGl0gCU2htuaBc5Q=;
+ b=xTRCIoFLikMybaP0V5TNw1v3O6kGYxc9DNWXuMMiFujFTuV74DEV83xNUc+YSn3AwJ
+ EeAktly8nfyLffwoeI2XIzeqjCImXakmwZphSRxeZ1utM/3N5gd9jzJDnYpYizP2Zotw
+ w6m5SCWj+f1obd65kAX31RAY9gHk8Q/goJhJuavBCtgFQIL1iDsqkZNNojzKuLoG3x3K
+ y+hFzL8+Y7rcpnDQv4RSMaC1vsR7zQvzi2CEjtcdK/sOqnPgIj3m1IEB4R74iukYPsJl
+ 6siM0M6tQYzm4VkXcEKIajns4gvad0S4IB3ek3xkyuhoGH1zpA7vmCv5/ADscB1YrFPd
+ Gi/g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVkQf30cjRjNyaWkbB1714HxO+GWjbAvw6+4XoQnpq3UQu+In/fjzIUO0mZ93/oqVQbdxL0SlqR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVLwIIvqbGURlJrFIGVMg8nwUd7iQsghzoKbmWGAttpwXNmAjJ
+ psdd1iGIzaAs7rIryTCXqa79xeeAI8j6XW5ZaNcJQUjj+fNDrWPGYQzv/hkMU3HJIkFGdvMGAs2
+ 8hvGUXOakDti1yacch1v2ZvTrYqidRChGlcL3mClw2k10w63RbEqoVzLyBag2UG4=
+X-Received: by 2002:adf:ef06:0:b0:374:c692:42e2 with SMTP id
+ ffacd0b85a97d-378a8a0b8d9mr12166043f8f.9.1726474587638; 
+ Mon, 16 Sep 2024 01:16:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG3Pe7vB4fkiiwscsyI8XJ1gc3S/ZG6W0I9i8O0mpHG4jkRbDMGA+yNv3NCd/yNP/wC1oUJXQ==
+X-Received: by 2002:adf:ef06:0:b0:374:c692:42e2 with SMTP id
+ ffacd0b85a97d-378a8a0b8d9mr12166023f8f.9.1726474587085; 
+ Mon, 16 Sep 2024 01:16:27 -0700 (PDT)
+Received: from eisenberg.fritz.box ([2001:16b8:3d97:9600:c4de:e8e2:392:1c61])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378e73e81a5sm6503395f8f.34.2024.09.16.01.16.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Sep 2024 01:16:26 -0700 (PDT)
+Message-ID: <f193ac6e13c9069eacf3498e1df41c97577c58e4.camel@redhat.com>
+Subject: Re: [PATCH 6/8] drm/sched: Re-order struct drm_sched_rq members for
+ clarity
+From: Philipp Stanner <pstanner@redhat.com>
+To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Luben Tuikov <ltuikov89@gmail.com>, Matthew
+ Brost <matthew.brost@intel.com>
+Date: Mon, 16 Sep 2024 10:16:25 +0200
+In-Reply-To: <20240913160559.49054-7-tursulin@igalia.com>
+References: <20240913160559.49054-1-tursulin@igalia.com>
+ <20240913160559.49054-7-tursulin@igalia.com>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 16 Sep 2024 06:55:58 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,92 +97,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If link->panel_cntl is NULL, the function dce110_edp_backlight_control
-attempts to dereference it at line 1019, leading to a potential NULL
-pointer dereference and a kernel crash.
+On Fri, 2024-09-13 at 17:05 +0100, Tvrtko Ursulin wrote:
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>=20
+> Current kerneldoc for struct drm_sched_rq incompletely documents what
+> fields are protected by the lock.
+>=20
+> This is not good because it is misleading.
+>=20
+> Lets fix it by listing all the elements which are protected by the
+> lock.
+>=20
+> While at it, lets also re-order the members so all protected by the
+> lock
+> are in a single group.
+>=20
+> v2:
+> =C2=A0* Refer variables by kerneldoc syntax, more verbose commit text.
+> (Philipp)
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Luben Tuikov <ltuikov89@gmail.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <pstanner@redhat.com>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-This bug can manifest when the eDP panel is not correctly configured
-or initialized during certain power or display state transitions,
-leaving link->panel_cntl unset or NULL. In such cases, the dereference
-of a NULL pointer can result in an immediate kernel panic or
-system instability.
+Looks good, thx
 
-Add a NULL check for link->panel_cntl before using it. Ensure that
-the function safely returns if link->panel_cntl is not properly set,
-preventing any attempts to dereference a NULL pointer and avoiding
-potential crashes.
+Reviewed-by: Philipp Stanner <pstanner@redhat.com>
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Fixes: 06ddcee49a35 ("drm/amd/display: Added multi instance support for panel control")
-Signed-off-by: Mikhail Arkhipov <m.arhipov@rosa.ru>
----
- .../display/dc/dce110/dce110_hw_sequencer.c   | 50 ++++++++++---------
- 1 file changed, 26 insertions(+), 24 deletions(-)
+> ---
+> =C2=A0include/drm/gpu_scheduler.h | 10 ++++++----
+> =C2=A01 file changed, 6 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/include/drm/gpu_scheduler.h
+> b/include/drm/gpu_scheduler.h
+> index 38465b78c7d5..2f58af00f792 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -243,10 +243,10 @@ struct drm_sched_entity {
+> =C2=A0/**
+> =C2=A0 * struct drm_sched_rq - queue of entities to be scheduled.
+> =C2=A0 *
+> - * @lock: to modify the entities list.
+> =C2=A0 * @sched: the scheduler to which this rq belongs to.
+> - * @entities: list of the entities to be scheduled.
+> + * @lock: protects @entities, @rb_tree_root and @current_entity.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 508f5fe26848..1269628a4014 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1016,32 +1016,34 @@ void dce110_edp_backlight_control(
- 	 */
- 	/* dc_service_sleep_in_milliseconds(50); */
- 		/*edp 1.2*/
--	panel_instance = link->panel_cntl->inst;
-+	if (link->panel_cntl) {
-+		panel_instance = link->panel_cntl->inst;
- 
--	if (cntl.action == TRANSMITTER_CONTROL_BACKLIGHT_ON) {
--		if (!link->dc->config.edp_no_power_sequencing)
--		/*
--		 * Sometimes, DP receiver chip power-controlled externally by an
--		 * Embedded Controller could be treated and used as eDP,
--		 * if it drives mobile display. In this case,
--		 * we shouldn't be doing power-sequencing, hence we can skip
--		 * waiting for T7-ready.
--		 */
--			edp_receiver_ready_T7(link);
--		else
--			DC_LOG_DC("edp_receiver_ready_T7 skipped\n");
--	}
-+		if (cntl.action == TRANSMITTER_CONTROL_BACKLIGHT_ON) {
-+			if (!link->dc->config.edp_no_power_sequencing)
-+				/*
-+				 * Sometimes, DP receiver chip power-controlled externally by an
-+				 * Embedded Controller could be treated and used as eDP,
-+				 * if it drives mobile display. In this case,
-+				 * we shouldn't be doing power-sequencing, hence we can skip
-+				 * waiting for T7-ready.
-+				 */
-+				edp_receiver_ready_T7(link);
-+			else
-+				DC_LOG_DC("edp_receiver_ready_T7 skipped\n");
-+		}
- 
--	if (ctx->dc->ctx->dmub_srv &&
--			ctx->dc->debug.dmub_command_table) {
--		if (cntl.action == TRANSMITTER_CONTROL_BACKLIGHT_ON)
--			ctx->dc_bios->funcs->enable_lvtma_control(ctx->dc_bios,
--					LVTMA_CONTROL_LCD_BLON,
--					panel_instance);
--		else
--			ctx->dc_bios->funcs->enable_lvtma_control(ctx->dc_bios,
--					LVTMA_CONTROL_LCD_BLOFF,
--					panel_instance);
-+		if (ctx->dc->ctx->dmub_srv &&
-+				ctx->dc->debug.dmub_command_table) {
-+			if (cntl.action == TRANSMITTER_CONTROL_BACKLIGHT_ON)
-+				ctx->dc_bios->funcs->enable_lvtma_control(ctx->dc_bios,
-+						LVTMA_CONTROL_LCD_BLON,
-+						panel_instance);
-+			else
-+				ctx->dc_bios->funcs->enable_lvtma_control(ctx->dc_bios,
-+						LVTMA_CONTROL_LCD_BLOFF,
-+						panel_instance);
-+		}
- 	}
- 
- 	link_transmitter_control(ctx->dc_bios, &cntl);
--- 
-2.39.3 (Apple Git-146)
+nit: in case you'll provide a new version anyways you could consider
+sorting these three to be congruent with the lines below.
+
+Thank you!
+P.
+
+
+> =C2=A0 * @current_entity: the entity which is to be scheduled.
+> + * @entities: list of the entities to be scheduled.
+> =C2=A0 * @rb_tree_root: root of time based priory queue of entities for
+> FIFO scheduling
+> =C2=A0 *
+> =C2=A0 * Run queue is a set of entities scheduling command submissions fo=
+r
+> @@ -254,10 +254,12 @@ struct drm_sched_entity {
+> =C2=A0 * the next entity to emit commands from.
+> =C2=A0 */
+> =C2=A0struct drm_sched_rq {
+> -=09spinlock_t=09=09=09lock;
+> =C2=A0=09struct drm_gpu_scheduler=09*sched;
+> -=09struct list_head=09=09entities;
+> +
+> +=09spinlock_t=09=09=09lock;
+> +=09/* Following members are protected by the @lock: */
+> =C2=A0=09struct drm_sched_entity=09=09*current_entity;
+> +=09struct list_head=09=09entities;
+> =C2=A0=09struct rb_root_cached=09=09rb_tree_root;
+> =C2=A0};
+> =C2=A0
 
