@@ -4,122 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A6BC35FFF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 13:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 068C1C021A7
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 13:21:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F33210E473;
-	Tue, 17 Sep 2024 13:14:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A856910E47E;
+	Tue, 17 Sep 2024 13:21:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qnnRlBTn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bTwHM0w3";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A92A410E473
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 13:13:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jwNG/0SiRwKWttil/LhDhFBJh7NE+jBVzr4iDsv+IF4PLOKRcJBmKsijRqXQc3kOFEzfpnSq+Mu+/DBKX4cXLyp+3zcmCOtDTBRlx7PY/zolDyUzMYGOKMNEX167y6Ua3CaNWfDhHStoBYo7M/SZkWyUo91ock2On6qB6kn7SCeZJI1HEe1EyFaKhnjcoTX4d4gCTxuBPSGrQRVU0r0TMf3X68EHOh+srcmOwBqQid/hC3FVTdhcfgEwvWsebKwHGOur5rbkEcsBiWEbt/JuLKLOdp8ZY2rrxma5V0soIvgPbB3gW2VQpsRCxmB0ueRIkdfC49CT6X71ROdG+jtqEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V8ixXGiiOdOKK/dvl14HstIEtlHhkRd+8kwbVG2nAc8=;
- b=Z7k9rA4cVrk/qx1QoNayD1BdyOBMMaGzFxa5mEXEGwAuyKBQ3JtjGBX7ErvN4W1cfgHJT7imKihg95MChQsutK57k5LOuOCpBucWhKR+muhxegwoKD8BfLmibX7+4ZHzLRp1e95wsmFvutQKeRyeKhd7nm5iPAvz8jNPoXDItfjAuOgwFgJi0R455/xjgjhs5PLVbQS2LuwcIkTO6C0kVY5bl0avgvJsZ7hymU9lWOUqHSp0AiiTgIB/CMXdWgCJBPBy4+jW8ZQBlB+OV8ztLkmSPCw2Z8jxSPfIsWj2Hd757KDirutysUeyp7mipKqgVtS0RhavAsWZ253LUKYegA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V8ixXGiiOdOKK/dvl14HstIEtlHhkRd+8kwbVG2nAc8=;
- b=qnnRlBTnp8Ht8GP8OCVNE/CIUKBppfe9bb8xP6RSlbybhqu9Mw220EY4NypTd9eiXzvd0KKBs7bCH4x8bp3hs05CgsNQFxEDgs+10Oc6QIL9hQJud4zkNLhyAom159TQIC5V/HO970cssKZ97KF4bI65ICbYcmQZts4xfSatfeo=
-Received: from DM6PR12CA0016.namprd12.prod.outlook.com (2603:10b6:5:1c0::29)
- by MN2PR12MB4440.namprd12.prod.outlook.com (2603:10b6:208:26e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.24; Tue, 17 Sep
- 2024 13:13:55 +0000
-Received: from CH3PEPF00000012.namprd21.prod.outlook.com
- (2603:10b6:5:1c0:cafe::da) by DM6PR12CA0016.outlook.office365.com
- (2603:10b6:5:1c0::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
- Transport; Tue, 17 Sep 2024 13:13:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF00000012.mail.protection.outlook.com (10.167.244.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.1 via Frontend Transport; Tue, 17 Sep 2024 13:13:54 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 17 Sep 2024 08:13:51 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Roman Li
- <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: [PATCH] drm/amd/display: Fix kdoc entry for 'tps' in
- dc_process_dmub_dpia_set_tps_notification
-Date: Tue, 17 Sep 2024 18:43:37 +0530
-Message-ID: <20240917131337.3362425-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AACA110E47D;
+ Tue, 17 Sep 2024 13:21:13 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2d88a8c66b7so503660a91.1; 
+ Tue, 17 Sep 2024 06:21:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726579273; x=1727184073; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=POFr2Bd6CmH5BZIMOjewYOxEcX6ZrAvV6FajAw0VAt4=;
+ b=bTwHM0w3wKaPUotRjnMVNDW2o+kfwVJvOSg1+TTUNBFsvtYRzQE8CBLaxpb5e14Nb1
+ YYqZskANvQtX8LnQQuGhQtGxvt9WTCfF+BTecWsTh8UoepAEk9tlnoZc8UqVkq2GAtmw
+ Z2okg0xeH2qJ6zD5wMYSCuZapIlRiHorvqJVMBTpqAxWxQc/97+vVRCYAgaD8x7qOMrI
+ 40guZvJ+osBvyK4318PHH6NG/tNN1HYITbR1vJwLfg+4sFAUlkhn3e0DAW/f+nQO2hja
+ Vxc04zF884bjwqW2TaGuqlmGJVtol/X9r2iacjJnnS5rjrOXclj6EPcOkpw7RVEMkmI1
+ QJVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726579273; x=1727184073;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=POFr2Bd6CmH5BZIMOjewYOxEcX6ZrAvV6FajAw0VAt4=;
+ b=Zwc+HDV+g8wnNWDD61H8BKWiw8LGcc59+7SRteWbm6QRXcocf35TkXPJQR530apTr0
+ MM7CqjFgY8U5T+vRHCMc/QpraTHA4cBfwY1fp3DT598zdeXD/EoymwzrPnYZclfME6t6
+ 1aHxkKMCX83uVn9c0BSOpzQpl01NcoUeCgiQAOTAobVim3nLT+Og8c4WGN2aj2q7Sc9W
+ 6Q6fh36AN5X2KyoONZ6TYu9/iX35dMVv2/mjx9Y+ie1K4bQf2kPGHhS2J7BBBOqhNC86
+ T0BoEuwMBdi9/u6JSRlklq0jnDkp1Y1HwqD0wOCXh4n8d09u9dsjyI7KVrF7lrBNf39h
+ wlzQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUUPWwQSueTFNqYncciueY22VF8Dvh9u0uM39tyGYZzPm0nUyjm21PMH5ckv5+4pNbnbz57/FxX+Wvq@lists.freedesktop.org,
+ AJvYcCUoj06cMilQYDFOx2+pzQSu9go7XvstzMw9S5ENCN+qjK47/zmCx6pBe4RNyv2YflkUjrDdmXfP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxs1G9QT0fidN8q33lIGQPn460WpwYxTZLbv+LpjoFwn6uerRCN
+ O99m+6gHXnPCSSNrvbKZjdbTcvjF5x9h2dVrDmskBvte482/gmp6xlS5UaXf07/UqYcOJlL2qVG
+ AgAwlILwCIVTcrU4dSFIt+LOPXR4=
+X-Google-Smtp-Source: AGHT+IHjNWh5CNBJRCGp31ma7fmz05XPtGvBsAlfXjTLm85sqM4sDr9JcsbaQU27QweMPt9f8e0Riu0kx4R0pJ654ng=
+X-Received: by 2002:a17:90a:2e8a:b0:2d8:ca39:5972 with SMTP id
+ 98e67ed59e1d1-2db9ff6cd70mr9076236a91.1.1726579273043; Tue, 17 Sep 2024
+ 06:21:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000012:EE_|MN2PR12MB4440:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2556c69c-8163-451d-036a-08dcd71a9516
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?rnlmAERvND+7pXbvBWRm+YvPS2/r6ZRqOe3Lq9ga88nysR7pk8gj3K+ZAH6I?=
- =?us-ascii?Q?FGSc2vTjkhZcrSP+ZKmh6qoe+iwQiG9dImp1ImTfQjqSR4GMYr+fULtflIb6?=
- =?us-ascii?Q?UECRlR7AKFRHdwsBGebfzSFsyavzPlYPeaZPVBriJjT4hxdR8kGX8H1nZakv?=
- =?us-ascii?Q?YG4D7nEeBpVpEsJLGqy5Ekhn/Sinln/3G8BImBO3ljLsVkrFcAPDScjeRR3b?=
- =?us-ascii?Q?ktfBKEpRu1QbmYiMcZoW7C0WB7tHdCtjM6eHlUGXtPAoSDrbla6oqrL4Z4Hw?=
- =?us-ascii?Q?rK2Aw8msLJHBwvGxuhb8LnYpc37TPZ7TX1rB94gD0AzCIVvpOvHNPFCuBeHj?=
- =?us-ascii?Q?GSLdmOYDJxhFIfCttjrXlEJSWwQyiB/g0gmEmRAKFm7tSQ0nBKXdYwZoxRRL?=
- =?us-ascii?Q?R4dyS9tjhVbykyFNM8+Cup/kVy8xv/Rm7jqDBUheMykrhK3v8I0/DoiwZIPt?=
- =?us-ascii?Q?R6JEByJUoLxijE3AAK69HZAEjSuHDXpv6ar6ZhQsT3cgF1K4WK/pBfBykQY4?=
- =?us-ascii?Q?YaVfpv17zoipc+9upROgBnW2W2AOxtor4ImaKu7v01NX1Kskd36jXeLdRAmo?=
- =?us-ascii?Q?+uXYOSvihLpP25ILgjNCThooOOgX8i1X+qX0aZQ0Oo5Ly+4YtlCK1t6PZS3g?=
- =?us-ascii?Q?YF4PNNRtbTb4L6ANh1Fa9Bj8eL52y1cWypAVjtFLZX6Z0h6k/NRAau7sbsbs?=
- =?us-ascii?Q?jzdW48da+5zW2BGTHjOBYy52yKgmMhznOM0EwItUGbEtzlaaBwmJScSx6PrH?=
- =?us-ascii?Q?f9pDREcAf3r65ZYGwbatc1dk+VHXUlSTI2lBNt/tlFFUx4LNCpnOr4LsO/Sa?=
- =?us-ascii?Q?4cQYGos+XhesZtQrJ7LTwzCM/nyFSV6aFsvMpd5AAlocdL0QJP4t0jcgFChT?=
- =?us-ascii?Q?mKt+5wy9zk49/yDkzpvziaWuw76J5yOfvftwwBgAYO8sk7pUU9vv2SdXbjLm?=
- =?us-ascii?Q?NcNlA2sNzInuB2aK9lZiHz+K8eFhmsG020WUbQNmkiHrUaTpQPdzTICPbHuc?=
- =?us-ascii?Q?eje6fpbpN8UWj1Px+RtHnrVlJDcaoImmYxVaxWXhm2EyMaYYI134jEwRYV8n?=
- =?us-ascii?Q?MtVAyxk3JxybABKhSfgRoPJTFyXKobvyhBwYLXvEWYEeVkMwXkJIAg3Gh5qX?=
- =?us-ascii?Q?Te66c4vguihvNzCjoYaISHvj0X6HC6nx2eSLtyMHngYeTuBkeItlG9j3QSMq?=
- =?us-ascii?Q?Fv8chctnbclZtK0Qnu2Axd1K+nD48PME1Ycw4Avtf/ZEjrFPGmPUvc5rf0OS?=
- =?us-ascii?Q?+l0hZWzn6IUdjtLDjP3CpDHuhXS8h8R+PDj39Gv+lmS5J7G/EL34MA9ha+Td?=
- =?us-ascii?Q?zBm4jLr1s2vHjjcJcHtoTcDve3kUuyiFR5W3BUnbVvcvTEdVqToCCJcuSjIr?=
- =?us-ascii?Q?sQvTttp3J3p7SC4dCTKNJIACJTAaqFD0q+xScdwnVdB/xTFIaecRaOLdf6J4?=
- =?us-ascii?Q?HAloyBNzyDGMymEO6VVelVVvumMUTynb?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2024 13:13:54.7949 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2556c69c-8163-451d-036a-08dcd71a9516
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000012.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4440
+References: <20240802071752.116541-1-yaolu@kylinos.cn>
+ <20240812060914.102614-1-yaolu@kylinos.cn>
+In-Reply-To: <20240812060914.102614-1-yaolu@kylinos.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Sep 2024 09:21:00 -0400
+Message-ID: <CADnq5_OcUgV9dgAynDCQnm9NS+QCvhBiHvxWnhWqi2qqhh=zXg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
+To: Lu Yao <yaolu@kylinos.cn>
+Cc: ckoenig.leichtzumerken@gmail.com, daniel@ffwll.ch, jfalempe@redhat.com, 
+ Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ srinivasan.shanmugam@amd.com, sunil.khatri@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,39 +83,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct the parameter descriptor for the function
-`dc_process_dmub_dpia_set_tps_notification` to match the actual
-parameters used.
+On Mon, Aug 12, 2024 at 2:10=E2=80=AFAM Lu Yao <yaolu@kylinos.cn> wrote:
+>
+> Add support for the drm_panic module, which displays a pretty user
+> friendly message on the screen when a Linux kernel panic occurs.
+>
+> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 
-Fixes the below with gcc W=1:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:5768: warning: Function parameter or struct member 'tps' not described in 'dc_process_dmub_dpia_set_tps_notification'
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:5768: warning: Excess function parameter 'ts' description in 'dc_process_dmub_dpia_set_tps_notification'
+Patch looks good to me.  Any chance you want to convert the other
+non-DC dce files (dce_v8_0.c, dce_v10_0.c, dce_v11_0.c) while you are
+at it?
 
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index a1652130e4be..5c39390ecbd5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -5760,7 +5760,7 @@ enum dc_status dc_process_dmub_set_mst_slots(const struct dc *dc,
-  *
-  * @dc: [in] dc structure
-  * @link_index: [in] link index
-- * @ts: [in] request tps
-+ * @tps: [in] request tps
-  *
-  * Submits set_tps_notification command to dmub via inbox message
-  */
--- 
-2.34.1
 
+> ---
+> Changes in v2:
+> 1. Drop include "drm_internal.h"
+> 2. Add disabling DC tiling ops.
+> Per suggestion from previous thread:
+> https://patchwork.freedesktop.org/patch/606879/?series=3D136832&rev=3D1
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 48 +++++++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index 05c0df97f01d..ba1b7a36caa3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -28,6 +28,7 @@
+>  #include <drm/drm_modeset_helper.h>
+>  #include <drm/drm_modeset_helper_vtables.h>
+>  #include <drm/drm_vblank.h>
+> +#include <drm/drm_panic.h>
+>
+>  #include "amdgpu.h"
+>  #include "amdgpu_pm.h"
+> @@ -2600,6 +2601,52 @@ static const struct drm_crtc_helper_funcs dce_v6_0=
+_crtc_helper_funcs =3D {
+>         .get_scanout_position =3D amdgpu_crtc_get_scanout_position,
+>  };
+>
+> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plan=
+e *plane,
+> +                                                        struct drm_scano=
+ut_buffer *sb)
+> +{
+> +       struct drm_framebuffer *fb;
+> +       struct amdgpu_bo *abo;
+> +       struct amdgpu_crtc *amdgpu_crtc;
+> +       struct amdgpu_device *adev;
+> +       uint32_t fb_format;
+> +
+> +       if (!plane->fb)
+> +               return -EINVAL;
+> +
+> +       fb =3D plane->fb;
+> +
+> +       abo =3D gem_to_amdgpu_bo(fb->obj[0]);
+> +       amdgpu_crtc =3D to_amdgpu_crtc(plane->crtc);
+> +       adev =3D drm_to_adev(fb->dev);
+> +
+> +       if (!abo->kmap.virtual &&
+> +           ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->k=
+map)) {
+> +               DRM_WARN("amdgpu bo map failed, panic won't be displayed\=
+n");
+> +               return -ENOMEM;
+> +       }
+> +
+> +       if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
+> +               iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual)=
+;
+> +       else
+> +               iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
+> +
+> +       sb->width =3D fb->width;
+> +       sb->height =3D fb->height;
+> +       sb->format =3D fb->format;
+> +       sb->pitch[0] =3D fb->pitches[0];
+> +
+> +       /* Disable DC tiling */
+> +       fb_format =3D RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
+> +       fb_format &=3D ~GRPH_ARRAY_MODE(0x7);
+> +       WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
+> +
+> +       return 0;
+> +}
+> +
+> +static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_he=
+lper_funcs =3D {
+> +       .get_scanout_buffer =3D dce_v6_0_drm_primary_plane_get_scanout_bu=
+ffer
+> +};
+> +
+>  static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
+>  {
+>         struct amdgpu_crtc *amdgpu_crtc;
+> @@ -2627,6 +2674,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device =
+*adev, int index)
+>         amdgpu_crtc->encoder =3D NULL;
+>         amdgpu_crtc->connector =3D NULL;
+>         drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_fun=
+cs);
+> +       drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_pri=
+mary_plane_helper_funcs);
+>
+>         return 0;
+>  }
+> --
+> 2.25.1
+>
