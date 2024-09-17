@@ -4,69 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 068C1C021A7
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 13:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AEDCC3601E
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 14:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A856910E47E;
-	Tue, 17 Sep 2024 13:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A6CA10E0BC;
+	Tue, 17 Sep 2024 14:18:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bTwHM0w3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IeYVlMhk";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AACA110E47D;
- Tue, 17 Sep 2024 13:21:13 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2d88a8c66b7so503660a91.1; 
- Tue, 17 Sep 2024 06:21:13 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB3810E0BC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 14:18:43 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2053f72319fso3200915ad.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 07:18:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726579273; x=1727184073; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1726582723; x=1727187523; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=POFr2Bd6CmH5BZIMOjewYOxEcX6ZrAvV6FajAw0VAt4=;
- b=bTwHM0w3wKaPUotRjnMVNDW2o+kfwVJvOSg1+TTUNBFsvtYRzQE8CBLaxpb5e14Nb1
- YYqZskANvQtX8LnQQuGhQtGxvt9WTCfF+BTecWsTh8UoepAEk9tlnoZc8UqVkq2GAtmw
- Z2okg0xeH2qJ6zD5wMYSCuZapIlRiHorvqJVMBTpqAxWxQc/97+vVRCYAgaD8x7qOMrI
- 40guZvJ+osBvyK4318PHH6NG/tNN1HYITbR1vJwLfg+4sFAUlkhn3e0DAW/f+nQO2hja
- Vxc04zF884bjwqW2TaGuqlmGJVtol/X9r2iacjJnnS5rjrOXclj6EPcOkpw7RVEMkmI1
- QJVg==
+ bh=a4WPr1pbAlZah0iiL5eeCFWmiEBgVs2YL/Ot/1IDXzo=;
+ b=IeYVlMhkRRG2fdLXtI1kR2sqAPdebtU+tmjk9pD06uFtuBVeQKmsgUqRCyf9+aAoYw
+ qqQFa922ycJYc0/9jM2TuycoY1GWrn5nk0RsK9sYFx/FIMWHBfxoDL4YXT/mgcpScIpb
+ hyGtTqj9WsUWAPxtY126plyoT/TZJqDVhs4RoEEPD9b22+zFJ9+cPfR4gGhyyVQkQ5tr
+ W2ta/qlAbA13iN97Ozj/90yI1s58B7ufxif7PVQPskQIhsfLfjLaebmDzWwxuCQz0Vp2
+ DaGr7tSJQ26vhKYtaFGBRyIJrjfjG1vEJHPwZPDGKSlqrCPq5ShgZy/WcqlArv4mR1QC
+ FGvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726579273; x=1727184073;
+ d=1e100.net; s=20230601; t=1726582723; x=1727187523;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=POFr2Bd6CmH5BZIMOjewYOxEcX6ZrAvV6FajAw0VAt4=;
- b=Zwc+HDV+g8wnNWDD61H8BKWiw8LGcc59+7SRteWbm6QRXcocf35TkXPJQR530apTr0
- MM7CqjFgY8U5T+vRHCMc/QpraTHA4cBfwY1fp3DT598zdeXD/EoymwzrPnYZclfME6t6
- 1aHxkKMCX83uVn9c0BSOpzQpl01NcoUeCgiQAOTAobVim3nLT+Og8c4WGN2aj2q7Sc9W
- 6Q6fh36AN5X2KyoONZ6TYu9/iX35dMVv2/mjx9Y+ie1K4bQf2kPGHhS2J7BBBOqhNC86
- T0BoEuwMBdi9/u6JSRlklq0jnDkp1Y1HwqD0wOCXh4n8d09u9dsjyI7KVrF7lrBNf39h
- wlzQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUPWwQSueTFNqYncciueY22VF8Dvh9u0uM39tyGYZzPm0nUyjm21PMH5ckv5+4pNbnbz57/FxX+Wvq@lists.freedesktop.org,
- AJvYcCUoj06cMilQYDFOx2+pzQSu9go7XvstzMw9S5ENCN+qjK47/zmCx6pBe4RNyv2YflkUjrDdmXfP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxs1G9QT0fidN8q33lIGQPn460WpwYxTZLbv+LpjoFwn6uerRCN
- O99m+6gHXnPCSSNrvbKZjdbTcvjF5x9h2dVrDmskBvte482/gmp6xlS5UaXf07/UqYcOJlL2qVG
- AgAwlILwCIVTcrU4dSFIt+LOPXR4=
-X-Google-Smtp-Source: AGHT+IHjNWh5CNBJRCGp31ma7fmz05XPtGvBsAlfXjTLm85sqM4sDr9JcsbaQU27QweMPt9f8e0Riu0kx4R0pJ654ng=
-X-Received: by 2002:a17:90a:2e8a:b0:2d8:ca39:5972 with SMTP id
- 98e67ed59e1d1-2db9ff6cd70mr9076236a91.1.1726579273043; Tue, 17 Sep 2024
- 06:21:13 -0700 (PDT)
+ bh=a4WPr1pbAlZah0iiL5eeCFWmiEBgVs2YL/Ot/1IDXzo=;
+ b=Qi42Ypgcy757wsSWdNUG9VMfI7DsIn/EWsgtR/DU5AtVrM0in1VOwWvQg5a4PyFyiH
+ ab8sVoavs6YSb1nOeMqAzSG7eArWVu0VJDYklUt5FlD+NvXpdEM4vRGCDNri9zWMk37Z
+ MqVx0PI+PiFzZYbWm0mN8fzziKpAWK9kr9fI/5nyQvVUOrNpZ99j+i0yihpfe1LiCEaN
+ YTY4FC/U5NozTXkdx0ErvieVn0URhkPATAGDHX1R3NJlmBaKY4kN+dVjXItTQlsuHw5/
+ IbTg4kTNLh16SDkm1cJ5ybbrrmwFRvl1FhaHeMNm3NDNdTJlzV91hFgrIes5pSXJlLqm
+ B9gQ==
+X-Gm-Message-State: AOJu0Yze6Nx0TfJmOusInYmrBDF3P9xHBbsQGNSBZTu1xk39J9SAxpa9
+ N/y46L/ZvtBCMt7gLz5g0L8BTAWOAQc0Z6y7Jw+qP6e1KzuPT4qF+WHa6nbZCMnwWy5XYh/Er1+
+ LVVDJAgyrONNhSaiRXeoV9MJ+1xY=
+X-Google-Smtp-Source: AGHT+IEa77OdkYXbyt6ZgKUa9tRWlYpDel2v8QHQHPcwfxq3FO6Erwh69f+dYsXy6bbNaaE9fX6NUzcFVCDBtirh8sw=
+X-Received: by 2002:a17:902:d4cb:b0:205:4415:c62f with SMTP id
+ d9443c01a7336-2076e318b03mr119942355ad.1.1726582723217; Tue, 17 Sep 2024
+ 07:18:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
- <20240812060914.102614-1-yaolu@kylinos.cn>
-In-Reply-To: <20240812060914.102614-1-yaolu@kylinos.cn>
+References: <0hK0BKCBLeH6gSnQwLZWrj2gi0Lr11FUnZN_O0S0Slx4jqvJ5SYYneohmweiegj2k-y4InxuAmdn1pEvcVrOcf00p6is32iKf21JZ-dC5As=@protonmail.com>
+In-Reply-To: <0hK0BKCBLeH6gSnQwLZWrj2gi0Lr11FUnZN_O0S0Slx4jqvJ5SYYneohmweiegj2k-y4InxuAmdn1pEvcVrOcf00p6is32iKf21JZ-dC5As=@protonmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Sep 2024 09:21:00 -0400
-Message-ID: <CADnq5_OcUgV9dgAynDCQnm9NS+QCvhBiHvxWnhWqi2qqhh=zXg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
-To: Lu Yao <yaolu@kylinos.cn>
-Cc: ckoenig.leichtzumerken@gmail.com, daniel@ffwll.ch, jfalempe@redhat.com, 
- Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- srinivasan.shanmugam@amd.com, sunil.khatri@amd.com
+Date: Tue, 17 Sep 2024 10:18:31 -0400
+Message-ID: <CADnq5_NDPJpieW0++z4MzthaUrY=SqEO_tZOQLNMrU2FRmRdgg@mail.gmail.com>
+Subject: Re: amdgpu driver probe error
+To: Athul Krishna <athul.krishna.kr@protonmail.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,115 +75,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 12, 2024 at 2:10=E2=80=AFAM Lu Yao <yaolu@kylinos.cn> wrote:
+On Sat, Sep 14, 2024 at 6:03=E2=80=AFAM Athul Krishna
+<athul.krishna.kr@protonmail.com> wrote:
 >
-> Add support for the drm_panic module, which displays a pretty user
-> friendly message on the screen when a Linux kernel panic occurs.
+> Device: ASUS Zephyrus G14 GA402RJ
+> CPU: AMD R7 6800HS
+> GPU: Radeon RX 6700S
+> Kernel: 6.10.8
 >
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+> Hello,
+>
+> I have encountered a problem with this specific device. So I'll explain t=
+he backstory a little bit.
+>
+> \_SB_.PCI0.GPP0.SWUS.SWDS.VGA_, this is the firmware path of the discrete=
+ GPU and \_SB_.PCI0.GPP0 is the hotplug bridge. An eject notification will =
+remove all the devices under \_SB_.PCI0.GPP0, i.e, SWUS and SWDS(PCI-PCI br=
+idges) and VGA_ will be gone. So will be their acpi_hotplug_context.
+>
+> So device check notification to VGA_, with the current implementation of =
+acpiphp module will not be handled. I have modified the code so that device=
+ check notification to VGA_ will runtime resume \_SB_.PCI0.GPP0(pci_pm_runt=
+ime_resume() callback), which then will enable interrupt to the bridge, and=
+ the rest will be handled by pciehp module.
+>
+> Here's my problem, when device_attach() is called on the GPU, it spews ou=
+t bunch of error. Most of the time I get:
+>
+> amdgpu 0000:03:00.0: amdgpu: SMU: response:0xFFFFFFFF for index:2 param:0=
+x00000000 message:GetSmuVersion?
+> amdgpu 0000:03:00.0: amdgpu: GPU mode1 reset failed
+> amdgpu 0000:03:00.0: amdgpu: asic reset on init failed
+> amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+>
+> very rarely:
+>
+> amdgpu 0000:03:00.0: amdgpu: PSP create ring failed!
+> amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+>
+> Any help would be really appreciated. I have attached the dmesg output.
 
-Patch looks good to me.  Any chance you want to convert the other
-non-DC dce files (dce_v8_0.c, dce_v10_0.c, dce_v11_0.c) while you are
-at it?
+I'm not sure I understand what you are trying to do.  The kernel can
+already put the device into runtime suspend (e.g., D3cold) when it's
+idle without using hotplug.  It looks like the dGPU is not properly
+powered on when the drivers tries to initialize the board after
+whatever you did.
 
 Alex
 
-
-> ---
-> Changes in v2:
-> 1. Drop include "drm_internal.h"
-> 2. Add disabling DC tiling ops.
-> Per suggestion from previous thread:
-> https://patchwork.freedesktop.org/patch/606879/?series=3D136832&rev=3D1
-> ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 48 +++++++++++++++++++++++++++
->  1 file changed, 48 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 05c0df97f01d..ba1b7a36caa3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -28,6 +28,7 @@
->  #include <drm/drm_modeset_helper.h>
->  #include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_vblank.h>
-> +#include <drm/drm_panic.h>
->
->  #include "amdgpu.h"
->  #include "amdgpu_pm.h"
-> @@ -2600,6 +2601,52 @@ static const struct drm_crtc_helper_funcs dce_v6_0=
-_crtc_helper_funcs =3D {
->         .get_scanout_position =3D amdgpu_crtc_get_scanout_position,
->  };
->
-> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plan=
-e *plane,
-> +                                                        struct drm_scano=
-ut_buffer *sb)
-> +{
-> +       struct drm_framebuffer *fb;
-> +       struct amdgpu_bo *abo;
-> +       struct amdgpu_crtc *amdgpu_crtc;
-> +       struct amdgpu_device *adev;
-> +       uint32_t fb_format;
-> +
-> +       if (!plane->fb)
-> +               return -EINVAL;
-> +
-> +       fb =3D plane->fb;
-> +
-> +       abo =3D gem_to_amdgpu_bo(fb->obj[0]);
-> +       amdgpu_crtc =3D to_amdgpu_crtc(plane->crtc);
-> +       adev =3D drm_to_adev(fb->dev);
-> +
-> +       if (!abo->kmap.virtual &&
-> +           ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->k=
-map)) {
-> +               DRM_WARN("amdgpu bo map failed, panic won't be displayed\=
-n");
-> +               return -ENOMEM;
-> +       }
-> +
-> +       if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-> +               iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual)=
-;
-> +       else
-> +               iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
-> +
-> +       sb->width =3D fb->width;
-> +       sb->height =3D fb->height;
-> +       sb->format =3D fb->format;
-> +       sb->pitch[0] =3D fb->pitches[0];
-> +
-> +       /* Disable DC tiling */
-> +       fb_format =3D RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
-> +       fb_format &=3D ~GRPH_ARRAY_MODE(0x7);
-> +       WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_he=
-lper_funcs =3D {
-> +       .get_scanout_buffer =3D dce_v6_0_drm_primary_plane_get_scanout_bu=
-ffer
-> +};
-> +
->  static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
->  {
->         struct amdgpu_crtc *amdgpu_crtc;
-> @@ -2627,6 +2674,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device =
-*adev, int index)
->         amdgpu_crtc->encoder =3D NULL;
->         amdgpu_crtc->connector =3D NULL;
->         drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_fun=
-cs);
-> +       drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_pri=
-mary_plane_helper_funcs);
->
->         return 0;
->  }
-> --
-> 2.25.1
->
+> Thanks,
+> Athul
