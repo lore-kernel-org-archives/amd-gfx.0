@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 129CEC36018
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 12:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68244C35FFF
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Sep 2024 12:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD66310E474;
-	Tue, 17 Sep 2024 12:26:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1804010E475;
+	Tue, 17 Sep 2024 12:31:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RMPkWa7+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EDkOVbNU";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38B710E46C
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 12:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1726575966;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=uEGssPI2MZgcV8pXcwA+wieYfiMi4q7bjaWYcO2wC20=;
- b=RMPkWa7+SlS30vBZU44RCNdYqofdUVe+gUYpMeiuDYDyWIDlQ7f2SvTGQy22/J91gwg2BE
- t99UAPKZcPS3P7n3QuGfScnMByjf38KfMms5ZPInGjZYCi5J9fxB4zfnv/z/SlJjjFW3Uo
- yDmQ7P8WeqTO7/zcSl3kem3GejFeUVs=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-286--4PI-6YYNnaHwbNY2oEnfQ-1; Tue, 17 Sep 2024 08:26:03 -0400
-X-MC-Unique: -4PI-6YYNnaHwbNY2oEnfQ-1
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-42cb080ab53so35318655e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 05:26:03 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9524910E172
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 12:31:02 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-42cb0f28bfbso47940305e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Sep 2024 05:31:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726576261; x=1727181061; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=1JiAb/6TBptFpZcnQvs/BPCkuJ1NHLZmRYUQESMzHGI=;
+ b=EDkOVbNU3IOuQdRG1NgcFhBHnTrf/MWheAdHoBmOIaw8l2Cj3lhOy7iknVEhxGX3yT
+ 6Ta20nhmaCnpxhuM/puRs+URpcQeBelqM8zMDiZGLc+3cWv6kAmRZSWwotRarB99LOyL
+ cSz+vgE3MRdiTaYu0lMD8Caga5LIiLVxv13YIwioOCgIAFz/k1D2OwL4+u8OQdCig8Db
+ a/aY42QxUjr56WT88y8xKVPqzUeuCX7nwsy/v+GMQrobdjbMROqRMoYLwpghoYUQSEPT
+ xzodfDmWw6Hxq468ycvNXuf407sOQbnKFXUbBs+M5w7F7/H3vkl2EjWu5/kGTBlpsHy0
+ gHog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726575960; x=1727180760;
+ d=1e100.net; s=20230601; t=1726576261; x=1727181061;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uEGssPI2MZgcV8pXcwA+wieYfiMi4q7bjaWYcO2wC20=;
- b=S0smSYuozhpWNkXO4Ct/6YpJ+kqCjPA7JBT9ynRrwQYerR1+iXFQZoNuW3mXgmbnlM
- Y47XVnY0l2qduYXtsVi1VQavD2OJpasgHWyRk+bHOxPNa14a7kQQhONuIlIiNZx+dGT5
- AWfJH1RnXvVkC8MpK6Iqgyh0atFnosT/8IJreloIrE83/79Jbe8fJ1MA2ARJiLv3IdEW
- eEH7+AO+Dhe5vObBil1Q8kSdB/Cy9k+QeJoMlYuwvI8xPSC6T8xhZlQSENzeEk4f4tEL
- JBnu3ztdfGvWDNOAzKQ3eCzoJYJgpSsbxSOX3aVUHbqfC6PLdyL0cBKBQu5TTdqcXBet
- oFTg==
+ bh=1JiAb/6TBptFpZcnQvs/BPCkuJ1NHLZmRYUQESMzHGI=;
+ b=DKtOoJtgW9aGcvm3V48VoHSiGQrtkWJ2/3kOFtaEr7a2bpUrFp1NrCxxQA7Z9TJDM0
+ 8MMGkffHdl32gEU3HAQHUX4oebDZkTAK7iWqTt+DASceJ3W58I1knllsxurfF8Xjb475
+ 4HHxxOw+ORwJsVZyxCd7Mplhfdekp0OAeOBgENTHL6fR5t+x7fIaQOkiH/UasT+TCAJL
+ IWqMjVKVVz/rdPPXXi3VnMqQbV5cgm46ieNbjCy1JBJ9iLda4AocfAz0FKPEwpRCxYJC
+ RJ4Tl4Gm9jW77tjm7XVGhu0IPtscJ5oZzMKKElOnFLrBYorLSZUzvTdJdenyO2v/AM4M
+ pCkw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWmAtXuv/Oj7qe4mCkJ3+iiSlpJE5IPz/8xiMh8EJ48k9x3H67I0kO+RJj7fYRVRyBjKvQWkAbV@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrgMlbG0U+nrHj+yV/uYcS5pbrKjnyPFlJ1S5HJo1ft5oE/JmI
- c8o7eUJzdToGJo/4mZWyUbrmXyi8/SxbZX/ailZXz/qc/D66VP+pVafAZ+NyMDnBKGiuCeH3Gqs
- WZvdxLpilVwgPLhW23TGe9QLDXCSop0KGAKUZpQtrORRo9/nnxNGyBiORtdDu9iw=
-X-Received: by 2002:a05:600c:1d23:b0:428:eb6:2e73 with SMTP id
- 5b1f17b1804b1-42cdb58db62mr145843785e9.29.1726575959889; 
- Tue, 17 Sep 2024 05:25:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF0jbwSBYytCdU+Bu8kjEc0nWinMC6KrvgTzoFbP+dxniCUqWXx6FRdolXeJwjqomLSh6+2sQ==
-X-Received: by 2002:a05:600c:1d23:b0:428:eb6:2e73 with SMTP id
- 5b1f17b1804b1-42cdb58db62mr145843575e9.29.1726575959357; 
- Tue, 17 Sep 2024 05:25:59 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:c:37e0:ced3:55bd:f454:e722?
- ([2a01:e0a:c:37e0:ced3:55bd:f454:e722])
+ AJvYcCU5C+9dzH2GIgiOQTxXSAt66hUQlG3MhvlIZv9zXk2r4VdWymstv+oI0TfkQYqfHT/BpV0ZlCR2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyjEVysHVXku8LwdthwekQ1afoOKn83O4qPdU7gC6pH4RXf4ur7
+ IwxT1bxLWDSgocgjllAQRV2AY7B4jIQoPnIMqN1XfMkC8SvkDaFW
+X-Google-Smtp-Source: AGHT+IHq4rnTlSN2/p2cjnhj1nn4oG4M+VcNgyqlQSImmqTI65pWGzPoeMnpuGu2vEMlXbI2YFkRBQ==
+X-Received: by 2002:a05:600c:35c4:b0:42c:b750:19f3 with SMTP id
+ 5b1f17b1804b1-42cdb444697mr131053835e9.0.1726576260760; 
+ Tue, 17 Sep 2024 05:31:00 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42da242185dsm101745305e9.33.2024.09.17.05.25.57
+ 5b1f17b1804b1-42d9b15c1d5sm136216285e9.21.2024.09.17.05.30.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Sep 2024 05:25:58 -0700 (PDT)
-Message-ID: <b1191ab8-a3c6-4873-9a96-58c8e47c9e0c@redhat.com>
-Date: Tue, 17 Sep 2024 14:25:57 +0200
+ Tue, 17 Sep 2024 05:31:00 -0700 (PDT)
+Message-ID: <8a6fc562-277b-4162-ad0d-3ee0f42a55c4@gmail.com>
+Date: Tue, 17 Sep 2024 14:30:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
-To: Lu Yao <yaolu@kylinos.cn>, alexdeucher@gmail.com,
- ckoenig.leichtzumerken@gmail.com, daniel@ffwll.ch
-Cc: Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- srinivasan.shanmugam@amd.com, sunil.khatri@amd.com
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
- <20240812060914.102614-1-yaolu@kylinos.cn>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20240812060914.102614-1-yaolu@kylinos.cn>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
+Subject: Re: [PATCH v11 24/28] drm/amdgpu: resume gfx userqueues
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Arvind Yadav <arvind.yadav@amd.com>
+References: <20240909200614.481-1-shashank.sharma@amd.com>
+ <20240909200614.481-20-shashank.sharma@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240909200614.481-20-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -98,104 +86,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/08/2024 08:09, Lu Yao wrote:
-> Add support for the drm_panic module, which displays a pretty user
-> friendly message on the screen when a Linux kernel panic occurs.
-
- From a drm_panic point of view, it looks good to me.
-I don't have the required hardware, so unfortunately I wasn't able to 
-test it.
-
-Best regards,
-
--- 
-
-Jocelyn
-
-
-> 
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+Am 09.09.24 um 22:06 schrieb Shashank Sharma:
+> This patch adds support for userqueue resume. What it typically does is
+> this:
+> - adds a new delayed work for resuming all the queues.
+> - schedules this delayed work from the suspend work.
+> - validates the BOs and replaces the eviction fence before resuming all
+>    the queues running under this instance of userq manager.
+>
+> V2: Addressed Christian's review comments:
+>      - declare local variables like ret at the bottom.
+>      - lock all the object first, then start attaching the new fence.
+>      - dont replace old eviction fence, just attach new eviction fence.
+>      - no error logs for drm_exec_lock failures
+>      - no need to reserve bos after drm_exec_locked
+>      - schedule the resume worker immediately (not after 100 ms)
+>      - check for NULL BO (Arvind)
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
 > ---
-> Changes in v2:
-> 1. Drop include "drm_internal.h"
-> 2. Add disabling DC tiling ops.
-> Per suggestion from previous thread:
-> https://patchwork.freedesktop.org/patch/606879/?series=136832&rev=1
-> ---
->   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 48 +++++++++++++++++++++++++++
->   1 file changed, 48 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index 05c0df97f01d..ba1b7a36caa3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -28,6 +28,7 @@
->   #include <drm/drm_modeset_helper.h>
->   #include <drm/drm_modeset_helper_vtables.h>
->   #include <drm/drm_vblank.h>
-> +#include <drm/drm_panic.h>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 120 ++++++++++++++++++
+>   .../gpu/drm/amd/include/amdgpu_userqueue.h    |   1 +
+>   2 files changed, 121 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> index 979174f80993..e7f7354e0c0e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -405,6 +405,122 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   	return r;
+>   }
 >   
->   #include "amdgpu.h"
->   #include "amdgpu_pm.h"
-> @@ -2600,6 +2601,52 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
->   	.get_scanout_position = amdgpu_crtc_get_scanout_position,
->   };
->   
-> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plane *plane,
-> +							 struct drm_scanout_buffer *sb)
+> +static int
+> +amdgpu_userqueue_resume_all(struct amdgpu_userq_mgr *uq_mgr)
 > +{
-> +	struct drm_framebuffer *fb;
-> +	struct amdgpu_bo *abo;
-> +	struct amdgpu_crtc *amdgpu_crtc;
-> +	struct amdgpu_device *adev;
-> +	uint32_t fb_format;
+> +	struct amdgpu_device *adev = uq_mgr->adev;
+> +	const struct amdgpu_userq_funcs *userq_funcs;
+> +	struct amdgpu_usermode_queue *queue;
+> +	int queue_id, ret;
 > +
-> +	if (!plane->fb)
-> +		return -EINVAL;
+> +	userq_funcs = adev->userq_funcs[AMDGPU_HW_IP_GFX];
 > +
-> +	fb = plane->fb;
-> +
-> +	abo = gem_to_amdgpu_bo(fb->obj[0]);
-> +	amdgpu_crtc = to_amdgpu_crtc(plane->crtc);
-> +	adev = drm_to_adev(fb->dev);
-> +
-> +	if (!abo->kmap.virtual &&
-> +	    ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
-> +		DRM_WARN("amdgpu bo map failed, panic won't be displayed\n");
-> +		return -ENOMEM;
+> +	/* Resume all the queues for this process */
+> +	idr_for_each_entry(&uq_mgr->userq_idr, queue, queue_id) {
+> +		ret = userq_funcs->resume(uq_mgr, queue);
+> +		if (ret)
+> +			DRM_ERROR("Failed to resume queue %d\n", queue_id);
 > +	}
 > +
-> +	if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-> +		iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
-> +	else
-> +		iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
-> +
-> +	sb->width = fb->width;
-> +	sb->height = fb->height;
-> +	sb->format = fb->format;
-> +	sb->pitch[0] = fb->pitches[0];
-> +
-> +	/* Disable DC tiling */
-> +	fb_format = RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
-> +	fb_format &= ~GRPH_ARRAY_MODE(0x7);
-> +	WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
-> +
-> +	return 0;
+> +	return ret;
 > +}
 > +
-> +static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_helper_funcs = {
-> +	.get_scanout_buffer = dce_v6_0_drm_primary_plane_get_scanout_buffer
-> +};
+> +static int
+> +amdgpu_userqueue_validate_bos(struct amdgpu_userq_mgr *uq_mgr)
+> +{
+> +	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
+> +	struct amdgpu_vm *vm = &fpriv->vm;
+> +	struct amdgpu_bo_va *bo_va, *tmp;
+> +	struct drm_exec exec;
+> +	struct amdgpu_bo *bo;
+> +	int ret;
 > +
->   static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
+> +	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
+> +	drm_exec_until_all_locked(&exec) {
+> +		ret = amdgpu_vm_lock_pd(vm, &exec, 2);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (unlikely(ret)) {
+> +			DRM_ERROR("Failed to lock PD\n");
+
+I would drop those error messages in the low level function.
+
+The most likely cause (except for contention) why locking a BO fails is 
+because we were interrupted, and for that we actually don't want to 
+print anything.
+
+Apart from that I really need to wrap my head around the VM code once 
+more, but that here should probably work for now.
+
+Regards,
+Christian.
+
+> +			goto unlock_all;
+> +		}
+> +
+> +		/* Lock the done list */
+> +		list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status) {
+> +			bo = bo_va->base.bo;
+> +			if (!bo)
+> +				continue;
+> +
+> +			ret = drm_exec_lock_obj(&exec, &bo->tbo.base);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (unlikely(ret))
+> +				goto unlock_all;
+> +		}
+> +
+> +		/* Lock the invalidated list */
+> +		list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
+> +			bo = bo_va->base.bo;
+> +			if (!bo)
+> +				continue;
+> +
+> +			ret = drm_exec_lock_obj(&exec, &bo->tbo.base);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (unlikely(ret))
+> +				goto unlock_all;
+> +		}
+> +	}
+> +
+> +	/* Now validate BOs */
+> +	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
+> +		bo = bo_va->base.bo;
+> +		if (!bo)
+> +			continue;
+> +
+> +		ret = amdgpu_userqueue_validate_vm_bo(NULL, bo);
+> +		if (ret) {
+> +			DRM_ERROR("Failed to validate BO\n");
+> +			goto unlock_all;
+> +		}
+> +	}
+> +
+> +	/* Handle the moved BOs */
+> +	ret = amdgpu_vm_handle_moved(uq_mgr->adev, vm, &exec.ticket);
+> +	if (ret) {
+> +		DRM_ERROR("Failed to handle moved BOs\n");
+> +		goto unlock_all;
+> +	}
+> +
+> +	ret = amdgpu_eviction_fence_replace_fence(fpriv);
+> +	if (ret)
+> +		DRM_ERROR("Failed to replace eviction fence\n");
+> +
+> +unlock_all:
+> +	drm_exec_fini(&exec);
+> +	return ret;
+> +}
+> +
+> +static void amdgpu_userqueue_resume_worker(struct work_struct *work)
+> +{
+> +	struct amdgpu_userq_mgr *uq_mgr = work_to_uq_mgr(work, resume_work.work);
+> +	int ret;
+> +
+> +	mutex_lock(&uq_mgr->userq_mutex);
+> +
+> +	ret = amdgpu_userqueue_validate_bos(uq_mgr);
+> +	if (ret) {
+> +		DRM_ERROR("Failed to validate BOs to restore\n");
+> +		goto unlock;
+> +	}
+> +
+> +	ret = amdgpu_userqueue_resume_all(uq_mgr);
+> +	if (ret) {
+> +		DRM_ERROR("Failed to resume all queues\n");
+> +		goto unlock;
+> +	}
+> +
+> +unlock:
+> +	mutex_unlock(&uq_mgr->userq_mutex);
+> +}
+> +
+>   static int
+>   amdgpu_userqueue_suspend_all(struct amdgpu_userq_mgr *uq_mgr)
 >   {
->   	struct amdgpu_crtc *amdgpu_crtc;
-> @@ -2627,6 +2674,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
->   	amdgpu_crtc->encoder = NULL;
->   	amdgpu_crtc->connector = NULL;
->   	drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_funcs);
-> +	drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_primary_plane_helper_funcs);
+> @@ -486,6 +602,9 @@ amdgpu_userqueue_suspend_worker(struct work_struct *work)
+>   	/* Cleanup old eviction fence entry */
+>   	amdgpu_eviction_fence_destroy(evf_mgr);
 >   
+> +	/* Schedule a work to restore userqueue */
+> +	schedule_delayed_work(&uq_mgr->resume_work, 0);
+> +
+>   unlock:
+>   	mutex_unlock(&uq_mgr->userq_mutex);
+>   }
+> @@ -508,6 +627,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_devi
+>   	/* This reference is required for suspend work */
+>   	fpriv->evf_mgr.ev_fence->uq_mgr = userq_mgr;
+>   	INIT_DELAYED_WORK(&userq_mgr->suspend_work, amdgpu_userqueue_suspend_worker);
+> +	INIT_DELAYED_WORK(&userq_mgr->resume_work, amdgpu_userqueue_resume_worker);
 >   	return 0;
 >   }
+>   
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> index 8b3b50fa8b5b..d035b5c2b14b 100644
+> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> @@ -76,6 +76,7 @@ struct amdgpu_userq_mgr {
+>   	struct amdgpu_device		*adev;
+>   
+>   	struct delayed_work		suspend_work;
+> +	struct delayed_work		resume_work;
+>   	int num_userqs;
+>   };
+>   
 
