@@ -4,52 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 320E9CCD182
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Sep 2024 07:18:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5997CCD181
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Sep 2024 07:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D64A610E535;
-	Wed, 18 Sep 2024 07:18:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B22D10E54E;
+	Wed, 18 Sep 2024 07:19:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TiUelxl7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rz/MvnPh";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9A2710E090;
- Wed, 18 Sep 2024 07:18:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 268B85C59B8;
- Wed, 18 Sep 2024 07:17:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4040C4CEC3;
- Wed, 18 Sep 2024 07:17:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1726643882;
- bh=Y9jbd4JWFQB6z2sA5iWC4S4FUg6AOW2guJLi3l2dohY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TiUelxl7xtEQ2ZWSMgLoBN5lh7gFpTd/whJLm9+KQWphDIDiHsBtPoFlPSjc0m9oi
- 3gYwcl34kVAMDQokyLDl3TH59bFq0k6vO4lo7fNB2QiAl5n9opSkkppaORbV9zRXpG
- RvhC19xj4RblcFkkXyWn7qhCjWEiU8lboen5aoJuGH6jNqRihAi1ikH+8g+63qxmnn
- cZJXdDCzUlX+2++Ce56lJlSFWjj4R9jtWupSoVRpOGBAsvh6uV5CwYM7crSYG0Er3E
- RaDdO1F5wVi8traFKW3k5cOaBcCRq0YJtGnAiqB3oGyHATztZsP0Bl1Zf/YBRaT51R
- /dqkUZi0MyX7w==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- evan.quan@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 3/3] drm/amd/pm: fix the pp_dpm_pcie issue on smu
- v14.0.2/3
-Date: Wed, 18 Sep 2024 02:36:11 -0400
-Message-ID: <20240918063614.238807-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240918063614.238807-1-sashal@kernel.org>
-References: <20240918063614.238807-1-sashal@kernel.org>
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E5410E009;
+ Tue, 17 Sep 2024 16:31:53 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2057835395aso67356375ad.3; 
+ Tue, 17 Sep 2024 09:31:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726590713; x=1727195513; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=d27QiDpZTEWMptlUUQTdMGUQ8QM0KhEAFxduxL82zGo=;
+ b=Rz/MvnPhnoTUMCTxAEWMGwBVxrJ7oWEsIYJdtehvWPsQtqlsqDJvadwnnpO8ikK66P
+ qauZBFsgZ90Dl+ZEkzb9HVxhQkzk4IWicjRuj4lf5fnVQbDplElJHVh1xIMRCTf8oTps
+ wsME5NysW4Gi6A3XDTPrc7opqQfxw7Xx9nIzVJtjcPwg7NdECO8DA5jB8inyqWSfNeh7
+ 2gNgUDTN/vdUpvCRML5rsR0BY5hh7dew7Xy+RlW5JbMtwDvrUqISkY+VSDB0W8Le4L+k
+ 3dI2iGA5E9yxQZhJTfW+sEFX/me9fqx0UaApqJl7IDjrPyMqEfLXP1P3VKi4ZsRvZA4X
+ bSpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726590713; x=1727195513;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=d27QiDpZTEWMptlUUQTdMGUQ8QM0KhEAFxduxL82zGo=;
+ b=YEFBqgyh1iic6LHDEDG1YubfQLVrv9ZiJrjOWzKQCA+n9JVscF4Psary1DGbhhc6TV
+ 89uxBorVV87PuukCydr8y3iG8fdWb/kTVV6aQ1s43abLVdVxt4larrpCPROmtGKwNw9S
+ ds4raQyPWOeZY3oSe4uuoueCyc8CaQDfw8vbklZEWPl3h+/TFICAQM9VXFZkKUm4Rye5
+ /r/7LMRv66avfYZvWeAgWTHmwvyJdcBPjNd0KEYsimEUWkUuiu4AR3aEQDc2omYxeWx3
+ +R/XdhLClvCcTVmnL/pEg/wq3uTTMz7nvOmonjo9KA5C79pbskb75xXG1KqWmR00fAsP
+ 9zWg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWQ2P060JepSDVJ/aysP1mrPn+t7cFnJmW0LLrKcksDy3038nKcj25gCh6TOa9Y8NjqdOOxRs0PJstq@lists.freedesktop.org,
+ AJvYcCWwLVRdoobSaRVySJhEWg/02ATvgCKacCvhcNv7iSEVITMkYwjfs+Hhn4gD9jaVaVpI4RUiGL4n@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxaDaBtdcZArfdrJT1PD05xeY1RyqCxHUxdi+s7lMTPlmsb6HgU
+ FNXuOjscBXdSOco0jr5XQ7KOH1rQ354HlaWhqcXeiKjh7AQIyR/s
+X-Google-Smtp-Source: AGHT+IFFlrNfeYfMhMuiPypYqGCnUQvsDDZj3HK01mH9YI++IePCMwELFaevFE/102AniKVZ+sAUMw==
+X-Received: by 2002:a17:902:d509:b0:202:28b1:9f34 with SMTP id
+ d9443c01a7336-2076e41cbcamr299882855ad.56.1726590713151; 
+ Tue, 17 Sep 2024 09:31:53 -0700 (PDT)
+Received: from dev.. ([129.41.59.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-207946dec8bsm51854065ad.163.2024.09.17.09.31.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Sep 2024 09:31:52 -0700 (PDT)
+From: Rohit Chavan <roheetchavan@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Rohit Chavan <roheetchavan@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix unnecessary cast warnings from checkpatch
+Date: Tue, 17 Sep 2024 22:01:19 +0530
+Message-Id: <20240917163119.890276-1-roheetchavan@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.10.10
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 18 Sep 2024 07:19:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +85,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
+This patch addresses warnings produced by the checkpatch script
+related to unnecessary casts that could potentially hide bugs.
 
-[ Upstream commit 7a0982523cf3ff00f35b210fc3405c528a2ce7af ]
+The specific warnings are as follows:
+- Warning at drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c:16
+- Warning at drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c:20
+- Warning at drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c:30
 
-fix the pp_dpm_pcie issue on smu v14.0.2/3 as below:
-0: 2.5GT/s, x4 250Mhz
-1: 8.0GT/s, x4 616Mhz *
-2: 8.0GT/s, x4 1143Mhz *
-the middle level can be removed since it is always skipped on
-smu v14.0.2/3
-
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit fedf6db3ea9dc5eda0b78cfbbb8f7a88b97e5b24)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Rohit Chavan <roheetchavan@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 06b65159f7b4..33c7740dd50a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -672,6 +672,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
- 		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
- 					skutable->LclkFreq[link_level];
- 		pcie_table->num_of_link_levels++;
-+
-+		if (link_level == 0)
-+			link_level++;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
+index 41ecf00ed196..3ab401729f9b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_wrapper.c
+@@ -13,11 +13,11 @@
  
- 	return 0;
+ static bool dml21_allocate_memory(struct dml2_context **dml_ctx)
+ {
+-	*dml_ctx = (struct dml2_context *)kzalloc(sizeof(struct dml2_context), GFP_KERNEL);
++	*dml_ctx = kzalloc(sizeof(struct dml2_context), GFP_KERNEL);
+ 	if (!(*dml_ctx))
+ 		return false;
+ 
+-	(*dml_ctx)->v21.dml_init.dml2_instance = (struct dml2_instance *)kzalloc(sizeof(struct dml2_instance), GFP_KERNEL);
++	(*dml_ctx)->v21.dml_init.dml2_instance = kzalloc(sizeof(struct dml2_instance), GFP_KERNEL);
+ 	if (!((*dml_ctx)->v21.dml_init.dml2_instance))
+ 		return false;
+ 
+@@ -27,7 +27,7 @@ static bool dml21_allocate_memory(struct dml2_context **dml_ctx)
+ 	(*dml_ctx)->v21.mode_support.display_config = &(*dml_ctx)->v21.display_config;
+ 	(*dml_ctx)->v21.mode_programming.display_config = (*dml_ctx)->v21.mode_support.display_config;
+ 
+-	(*dml_ctx)->v21.mode_programming.programming = (struct dml2_display_cfg_programming *)kzalloc(sizeof(struct dml2_display_cfg_programming), GFP_KERNEL);
++	(*dml_ctx)->v21.mode_programming.programming = kzalloc(sizeof(struct dml2_display_cfg_programming), GFP_KERNEL);
+ 	if (!((*dml_ctx)->v21.mode_programming.programming))
+ 		return false;
+ 
 -- 
-2.43.0
+2.34.1
 
