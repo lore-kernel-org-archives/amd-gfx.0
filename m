@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6063CDD55F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68307CDD55D
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Sep 2024 21:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1F4F10E650;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E90310E64D;
 	Wed, 18 Sep 2024 21:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eDzZu72x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OkBbL1zZ";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB8910E649;
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7077510E64B;
  Wed, 18 Sep 2024 21:39:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K0rwDRcRfg2EQ0esqNKRBdQJ3tT0Xhzcn1NiCgdSYTjOCD0pkGRI4RE1lk9emfNbi4UeeSqQ9bJ20MMypyZlCTFM39hWisxToUDMTfIvGB0MnK74X69b94y+/wRxF/A6wx+ifIAM7scdfsrYpHtJfI7LFTNBOof4y8IlhzaJAEewmeLPANjYh9SYT60iSav4QLcgymPlpIP9kSW3Bnx74SzteWLJv07C3S5663vXPVwC/HoGA9X0XCsvWHpYxYfWI9I3aggCsHkN+3tte89GG3j59Q2OEWAUwdVOD3BDqiMWfoTIe+ypAipSdfjGGY3/bdlzvUh+uRf0K8id9yi2HA==
+ b=Deo5dbLAF7PBy+IoHZg9cCQmTDVltX0Eb2x8I66kRax1OrvYHYCCzHgFWuzraoxb+/cwKh8772xnN+TUU9xIo1pDqlhAMYLH2BpdvOJhZorl7JmvCF1ZBMxTZViMPgQbZzuKVBVRCIY+mdwWunv4ctBuR2KaRz1gY17mngvjUPxzmSHWzLQzKLyi3QdXAIF7UE65FFVO+7wFENoiyGyTX/j83cDrShRbRQcCvC1o8bDUq+nSb5bGbZwogHX4J/K/5iI9kEKb3X6R6xE84DV9QlgBBryV3C6AnkE/tjQT1pjgldmYWr2birBRFRtwJ+CgDliJADhg5XP/fr5XErOugw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sUpa+M31uEDMLyE1wKLei4Z8fa0Z/4zm+HHxB6Q8Buc=;
- b=D70WySC342kW6jw4q3t/AveIa1vc7zthvetCVAmkuZIMmVY08I3A88hmI38KiE9wU2hOTx9aiISxbPC8RWj2RYY1ErRFcr3XkydANIsrso2UPXh5p2U+pSbTprdOToEqljdPfm6nANpTZCiVupZfaaNM8sbr5TVV2SBpPQMazJdk0LXYmPDWAvdINorERCSMbOhjk/L9rVUGHOi6wTXFN70JdwajCCAFz4Cs+JoIpxGzGvJ62lL/LqZg+nCkpZW1b8SFXpOUdEbhv0r/Sz43xCg8k12ZUcXRY+l93i9wIxquUBrWssaevIq60OvJB3emYOcdzmvWHFVM9I4x9zvgtg==
+ bh=Wj6o+E/7soH4P9TmjO3lsydetwUvXpTVWLPGVSsFZfM=;
+ b=Fiep5F2Pvl+Zvk6RO8X2LGo/Vs2DVnd/yCNs5tvmZpM5vDnuVdIxeKo4dsT047XnvxY5griLb9HKGqNUbYtuROw7FlY8RPKi6SL/eSpFsTME2+ishBIZzEBheajWmqTPZ5sm8yTAJqklabD4DruWaexvo/VJZJVz3rSxs4yo5QME8SsgZpldTyI7IYGtxa/+1SNNlpZzXhMLE1MrSuXBkBeeR/C/xrGTYZSfkkCUsorSiaI4u41s8b7sHVVJzF9uc9s+ihvZXHjPZozaS+FU1jVuAeRojcJyBMD/cI0531vzTkZikPEPSB/ViPxbZhGAQx2NS2BnfFs+8gvB8yV5Zw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sUpa+M31uEDMLyE1wKLei4Z8fa0Z/4zm+HHxB6Q8Buc=;
- b=eDzZu72xwdhW9b33DAZ1Hy7wFY72gRphoGdLvMki9P0gv6YIQwocFcDuwuq/djzHNfnpmL3Y+264VjETncLzYIJ8V2dFVMfIleZUqgrklsF+wL5aXLkKFyzXc4VhDwDD7PeiWbVzZKCmuHPDgiXumhyO8L9Xdaozk0kG8daHtKk=
-Received: from SN6PR01CA0030.prod.exchangelabs.com (2603:10b6:805:b6::43) by
- LV8PR12MB9418.namprd12.prod.outlook.com (2603:10b6:408:202::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.24; Wed, 18 Sep
- 2024 21:39:16 +0000
+ bh=Wj6o+E/7soH4P9TmjO3lsydetwUvXpTVWLPGVSsFZfM=;
+ b=OkBbL1zZ5sTMfw57iDKJLKQtjyvunRfdfgFv6vV0zbngHdDbCVAgoeeXPR2Jhdh923WonXdLLb84J38e7EPN16/I84SpaOtF8iv2L9zsM89NF4sMMm9G7w6LA3MIidOeel1nwghYAOKCyTnW+nptz4QsCZLSobBzNZrGB7pv4rI=
+Received: from SN6PR01CA0006.prod.exchangelabs.com (2603:10b6:805:b6::19) by
+ CH3PR12MB8509.namprd12.prod.outlook.com (2603:10b6:610:157::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7962.24; Wed, 18 Sep 2024 21:39:15 +0000
 Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
- (2603:10b6:805:b6:cafe::eb) by SN6PR01CA0030.outlook.office365.com
- (2603:10b6:805:b6::43) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:805:b6:cafe::1a) by SN6PR01CA0006.outlook.office365.com
+ (2603:10b6:805:b6::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.30 via Frontend
- Transport; Wed, 18 Sep 2024 21:39:16 +0000
+ Transport; Wed, 18 Sep 2024 21:39:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +49,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Wed, 18 Sep 2024 21:39:16 +0000
+ 15.20.7918.13 via Frontend Transport; Wed, 18 Sep 2024 21:39:15 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 18 Sep
- 2024 16:39:15 -0500
+ 2024 16:39:13 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: Alex Hung <alex.hung@amd.com>, Alexander Deucher
  <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>
@@ -62,9 +61,10 @@ CC: <kernel-dev@igalia.com>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
  <sunpeng.li@amd.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, "Mario
  Limonciello" <mario.limonciello@amd.com>
-Subject: [PATCH v7 06/10] drm/amd/display: parse display name from drm_eld
-Date: Wed, 18 Sep 2024 16:38:41 -0500
-Message-ID: <20240918213845.158293-7-mario.limonciello@amd.com>
+Subject: [PATCH v7 04/10] drm/amd/display: remove redundant freesync parser
+ for DP
+Date: Wed, 18 Sep 2024 16:38:39 -0500
+Message-ID: <20240918213845.158293-5-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240918213845.158293-1-mario.limonciello@amd.com>
 References: <20240918213845.158293-1-mario.limonciello@amd.com>
@@ -76,51 +76,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|LV8PR12MB9418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29a507e0-0cda-421c-0b7b-08dcd82a587e
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|CH3PR12MB8509:EE_
+X-MS-Office365-Filtering-Correlation-Id: f32f8fa2-5747-41b0-622e-08dcd82a57d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gBLGOmW9cyi9qub94r1LCktPzum2Ej/MCo6ISI1v8We8mwrryNNqQoa6V6vd?=
- =?us-ascii?Q?26N1o3cDM1HLLoeT1+Bkbvy47u+5dYZIMp5nsvZk9nk6DuDXZF5q37t+aBP9?=
- =?us-ascii?Q?BcuSj9/Vbd1eHfX3YSdfMtJ8EFZIb+P2/Hc5kunwBZmCUkb2LHUXIjLx94uZ?=
- =?us-ascii?Q?XQhL/RlMMGX8aDwdg4Nf5beceWiqLlkmhRg3UXK3wqUlPpbk5rldTOKKkIxn?=
- =?us-ascii?Q?jt3PGLmBhjNbrInA3R9V9pbGOzK+UV5kT8AGrqIIVQy5Q1b/od5k1IhI2SQN?=
- =?us-ascii?Q?oEG1OFQYP0wiSYm3TK3sIhROsiBmvgnR6TZVzONUw6KuR76SeNqyeN7zKgqH?=
- =?us-ascii?Q?B9pUd/N41IN1ZzidCOdbMps67m2hf72AVxn6zdScQUqL4862ayltnXy5BXQj?=
- =?us-ascii?Q?kM2AC5Fr32dQqhh8SvtgIzh+b0ex1zevmhya7o3Bxd7HvLxUl69NhJIjlW+d?=
- =?us-ascii?Q?aBku2abnRj4Hv7G7/J8cT7+PV1w6SmhwfhK2r8QbyOF9Gh/3OAGm7sFE8ITZ?=
- =?us-ascii?Q?xtn18VzSP0ijaM/zs1hNjvy+p/Slzg7wNceDgPODBYvJVb8k9zU13xLv4zDx?=
- =?us-ascii?Q?3D3dBthBi5wn9ASqN8CkRbE78hU/8mo8SlXJL8Jd9fY51ttTJB3CJlbjjNOm?=
- =?us-ascii?Q?b56paM5UyZhBd0IMGzcgcQUqu+qO9OaByfEw4SrRjiPKU1ikSOXBTe00tWY1?=
- =?us-ascii?Q?ShVPP7qqwHHlDEgJ4GHFIfxizegwBz15upCxKMyos7xMsDpjTT/S7YeYyjXx?=
- =?us-ascii?Q?HqcHCOUQgkGjj4wE/O5mjIcrx85BCQj3Sgnh1ORAWAh5QfcDWpO03w5rhDII?=
- =?us-ascii?Q?FsyAXk6D/Xf3hUKLnVwnxtNvMEUtcXqCqZkN6yWIgO0O8mzs20v2xd9ldDbL?=
- =?us-ascii?Q?Wiac3AXSo02QQ67cH3bnCMK4axp47sxxlF6vL5uO3aTZZEteInq3mzMsKw9+?=
- =?us-ascii?Q?PHvpWZz1Wn/6CblOiUHecja+y0Kjph52sehuBb3tnHoissx1BfCEHT2jeuMR?=
- =?us-ascii?Q?AtED5zQEDdDORLe9P3TF/BYZjpMe6j1ae1ewHXrBmKG8r2c1AFgSQkOM4ka/?=
- =?us-ascii?Q?OwGQw+wU8OleuobqDBAsaRpnGH7LyRv3+gdJmbgnwQ+vbbIwbHc02wFXhBKW?=
- =?us-ascii?Q?Ov8aKZN0B/nJod9NJ6+XNIJRLDDgmj5zEjodmlNQKoCQb9XjELqffw8WX3MI?=
- =?us-ascii?Q?SY/fF4AXjXlUUWfn4oNk3Fvc/HWPL7UnJgcPBk6fNB0//ten4QMMKaZUD9jV?=
- =?us-ascii?Q?aYobFgMOP2+HK0Am/ToxGnZjPAiS5det33sf11M2UOdb9PbNHyBkb/VCZPik?=
- =?us-ascii?Q?jpyaGKhFPSKFnGqMOws6OgWaKygUa3PGfcnwiJ0s/kpj5AfDAPEuFmpoQucD?=
- =?us-ascii?Q?8bdydEcAyrgLCFHm4KI+PyfaL1QFw6gNX+57e1LwgRgAL3fuVT3m+S4SVQtX?=
- =?us-ascii?Q?oWUrxr6N3Nb87ggF7nhe+Qwzmf3s4310?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8ZBzD3j+GBrZctnkpeBUhu1sgpIMzI9jN5NHS4mztlZpKvqfu7c/sY5y6j1R?=
+ =?us-ascii?Q?jf+NA3GiYo1VeNd+/Q5SxtQXwT37cHaQORdsFCbqB3FJlvSdvPl4l4bbjyEa?=
+ =?us-ascii?Q?OLt6mz3BY6A+uFA272Hu52+VGfl+lQMHiu6/EnzBP5hB5qDYsSV53PSzotKO?=
+ =?us-ascii?Q?Zqe2JZ9ZLuWiTPNvV8I1IJK28BWgTLc9AHLBpSPrvXMj9SMERmSbNKsanUeZ?=
+ =?us-ascii?Q?+HEdhX2nh0kCHGvegldTV1QXWwn3mamOVXBKFcX+RKhOsSo/eQezcJn9rcrJ?=
+ =?us-ascii?Q?EfRHg6wdvcPufoE1EnQMH7s0pXcqb8A3R4VUFr5npNjopKc7mO9H8ji1Yng1?=
+ =?us-ascii?Q?C/hwIM2qs02IaJdVORIV21vY+ZGjww933BlXqDELnk1v35aR4nWNWKhHv18S?=
+ =?us-ascii?Q?5nFlgAGp0gPNGb+KYyckPAT1cBdm/Bt/2DLIjxsR+Q5J691m+H3+0Tolm86P?=
+ =?us-ascii?Q?PA1ezA+RCfSj1MbtJefFDoC/1cRNsJevmHLfAkW5OUznqKUVWBcLo6qmuRjU?=
+ =?us-ascii?Q?Hsx9zFzxh+AvgbrugmFE1+WaoLOoLoPN0jAuPX8FBpn4JNNpD7qqsBRkEga5?=
+ =?us-ascii?Q?PKx+0T1XZbF2J5oCSfZ+sskkJRSURYZlZm5SuPWS2KcBJYddCmDD5YP2fiYv?=
+ =?us-ascii?Q?zY1aXVw7wF+a3D74WNNlRDrJwMI5VS+4DCloaUf1BvryrPEmt/q7+wwECkQJ?=
+ =?us-ascii?Q?VtuvC8ye83qtvHg6PJswtGFZscBzcv0B5RrFNg7Dkjc3sf0bquhb+CdLMQgL?=
+ =?us-ascii?Q?m8XxqnS8wzvKBygG8OsLzT+kvyfjzOKz1nMYyKNbscnz5Glfez3Yf5EFDIp1?=
+ =?us-ascii?Q?qh2TyAoQcVEFcHVoXkAaTH1v1oGVWSxXQJUOZeKDeeOa2kceLnW4xz06pIHd?=
+ =?us-ascii?Q?3KlfuOex6FieZBWhBBVU145EjVZieDcHKHTt0rBiHav+kHQPhczZS3GoQPqt?=
+ =?us-ascii?Q?Q7aNivUFwKkdOfdcoPIU/aXBPlqB/6gbso4lQ/HO19o+UlZmUj+7/iIgXiN+?=
+ =?us-ascii?Q?5pEUBYq0praNNG5v7FIjRDKNMv8CD+GlR0nN9ZOorE6FR6gcJAt/L18vhKqj?=
+ =?us-ascii?Q?D/DFPiYAizv3ft0Se1VLLCxFwUgoNSti7LGFLjTrvFhMwyjy1rT+sOe8ExBS?=
+ =?us-ascii?Q?Ykol/U85cUua7j4dZ6LMs77KuD4kw1higGh1CK4G5JqXv7ScCq5VuXsIPhXU?=
+ =?us-ascii?Q?nH2GvHrmtS7dNQOIFxOL8Gqn6pAyNiwUHt65lUv7QGAfFjPG0KhjfxidAR6K?=
+ =?us-ascii?Q?d82l8P83jcbShOd9r+W/v9qunZHG8Hat4cXrH2m5YVxraCDmtd6VBQ0EF3I7?=
+ =?us-ascii?Q?TUkmxLX7oRloQNPilxutZkb8KyQCOW+5lnDTFlJM3yo81tLreokVQzk0XO8x?=
+ =?us-ascii?Q?vbNRIdnHGszgdFAzzUHO0MxnloGvkyuQMkvHbzmrw+So4HMfdICr3/d0y+vF?=
+ =?us-ascii?Q?gt7/0RCfUA869xPGUVw0ggLIt8vhG+2j?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2024 21:39:16.3711 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29a507e0-0cda-421c-0b7b-08dcd82a587e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2024 21:39:15.2461 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f32f8fa2-5747-41b0-622e-08dcd82a57d2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C7.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9418
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8509
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,51 +137,126 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Melissa Wen <mwen@igalia.com>
 
-We don't need to parse dc_edid to get the display name since it's
-already set in drm_eld which in turn had it values updated when updating
-connector with the opaque drm_edid.
+When updating connector under drm_edid infrastructure, many calculations
+and validations are already done and become redundant inside AMD driver.
+Remove those driver-specific code in favor of the DRM common code.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
+Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 74 +------------------
+ 1 file changed, 4 insertions(+), 70 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index cf11ac4c1672..854e51c0b3fb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -32,7 +32,7 @@
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_fixed.h>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index efc1609ff26f..bd8fb9968c7c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -12064,9 +12064,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 				    const struct drm_edid *drm_edid)
+ {
+ 	int i = 0;
+-	const struct detailed_timing *timing;
+-	const struct detailed_non_pixel *data;
+-	const struct detailed_data_monitor_range *range;
+ 	struct amdgpu_dm_connector *amdgpu_dm_connector =
+ 			to_amdgpu_dm_connector(connector);
+ 	struct dm_connector_state *dm_con_state = NULL;
+@@ -12093,8 +12090,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 
+ 		amdgpu_dm_connector->min_vfreq = 0;
+ 		amdgpu_dm_connector->max_vfreq = 0;
+-		connector->display_info.monitor_range.min_vfreq = 0;
+-		connector->display_info.monitor_range.max_vfreq = 0;
+ 		freesync_capable = false;
+ 
+ 		goto update;
+@@ -12114,67 +12109,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 
+ 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+ 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
+-		bool edid_check_required = false;
 -
-+#include <drm/drm_eld.h>
- #include "dm_services.h"
- #include "amdgpu.h"
- #include "dc.h"
-@@ -78,6 +78,7 @@ static void apply_edid_quirks(struct drm_edid_product_id *product_id,
- 	}
- }
+-		if (amdgpu_dm_connector->dc_link &&
+-		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param) {
+-			if (edid->features & DRM_EDID_FEATURE_CONTINUOUS_FREQ) {
+-				amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
+-				amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
+-				if (amdgpu_dm_connector->max_vfreq -
+-				    amdgpu_dm_connector->min_vfreq > 10)
+-					freesync_capable = true;
+-			} else {
+-				edid_check_required = edid->version > 1 ||
+-						      (edid->version == 1 &&
+-						       edid->revision > 1);
+-			}
+-		}
+-
+-		if (edid_check_required) {
+-			for (i = 0; i < 4; i++) {
+-
+-				timing	= &edid->detailed_timings[i];
+-				data	= &timing->data.other_data;
+-				range	= &data->data.range;
+-				/*
+-				 * Check if monitor has continuous frequency mode
+-				 */
+-				if (data->type != EDID_DETAIL_MONITOR_RANGE)
+-					continue;
+-				/*
+-				 * Check for flag range limits only. If flag == 1 then
+-				 * no additional timing information provided.
+-				 * Default GTF, GTF Secondary curve and CVT are not
+-				 * supported
+-				 */
+-				if (range->flags != 1)
+-					continue;
+-
+-				connector->display_info.monitor_range.min_vfreq = range->min_vfreq;
+-				connector->display_info.monitor_range.max_vfreq = range->max_vfreq;
+-
+-				if (edid->revision >= 4) {
+-					if (data->pad2 & DRM_EDID_RANGE_OFFSET_MIN_VFREQ)
+-						connector->display_info.monitor_range.min_vfreq += 255;
+-					if (data->pad2 & DRM_EDID_RANGE_OFFSET_MAX_VFREQ)
+-						connector->display_info.monitor_range.max_vfreq += 255;
+-				}
+-
+-				amdgpu_dm_connector->min_vfreq =
+-					connector->display_info.monitor_range.min_vfreq;
+-				amdgpu_dm_connector->max_vfreq =
+-					connector->display_info.monitor_range.max_vfreq;
+-
+-				break;
+-			}
+-
+-			if (amdgpu_dm_connector->max_vfreq -
+-			    amdgpu_dm_connector->min_vfreq > 10) {
+-
+-				freesync_capable = true;
+-			}
+-		}
++		amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
++		amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
++		if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
++			freesync_capable = true;
+ 		parse_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
  
-+#define AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS 13
- /**
-  * dm_helpers_parse_edid_caps() - Parse edid caps
-  *
-@@ -119,9 +120,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	edid_caps->manufacture_week = product_id.week_of_manufacture;
- 	edid_caps->manufacture_year = product_id.year_of_manufacture;
- 
--	drm_edid_get_monitor_name(edid_buf,
--				  edid_caps->display_name,
--				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
-+	memset(edid_caps->display_name, 0, AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
-+	memcpy(edid_caps->display_name,
-+	       &connector->eld[DRM_ELD_MONITOR_NAME_STRING],
-+	       AMDGPU_ELD_DISPLAY_NAME_SIZE_IN_CHARS);
- 
- 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
- 
+ 		if (vsdb_info.replay_mode) {
+@@ -12182,13 +12120,9 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
+ 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
+ 		}
+-
+ 	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+ 		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+ 		if (i >= 0 && vsdb_info.freesync_supported) {
+-			timing  = &edid->detailed_timings[i];
+-			data    = &timing->data.other_data;
+-
+ 			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+ 			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+ 			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
 -- 
 2.34.1
 
