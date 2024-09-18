@@ -4,118 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A084CE8D4C
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 05:54:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D099ECE8D5D
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 08:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 986B510E0BE;
-	Thu, 19 Sep 2024 05:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85C6110E250;
+	Thu, 19 Sep 2024 08:11:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a0VtSJnk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9y4aR1r";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9530510E0BE
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Sep 2024 05:54:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HhF9RWiJR6mimgcv7jCj5MUEN29D3vyE2zoJ98j87FWVMcNMBxd6q5SQ+s2ePAemUS0GRjAmWMBVfz15IsRACBaQvz27Z0KnQ8/Vm4b+KYxcJOe/IaDrCC8zbjk/W3kuRPBwSwHu75JB+dmgyjhZa8971XgC6ICQTrALtuhPqjzGNcaeE0mSc1XYsLDJWsuvNG0aoJV2/bW13iLBycs68Au1WZW70fxv85R3H8KBJzC4Y6dPvy+dt3mT+ZvLN3eC8qWDhbJhzDMxp47KEpdCmnxga7rxMz6MrSgcKi5ms2kgbGY7X4Sit2ASAyW4sORjbhxYtJNXlqDVnAyqQjV+LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9vtW3EiqRLul/kvbcjoUlfJleYKVrFO3iiZCNyedBNs=;
- b=jBgnTCndtbyv2WGJXOJ8z8rEb8AH9rKzdiP/a4Sizs9MPU/urv/IHt9l0sA25nRaCpeluBybq/qOEr1q6epl9sHDR+Q0efAAf89qjhj908KPSTqxR6zicmX//g7j6uJh6srT3SfRhdh1zyy+k+79fbkO3LfwdB7QMHwcmdPeJ4TSg9rbeaQe4oBV+TnDTfmP+2SkcfqWgF2Ig/dok5wf0EeyvVt1pNxfVwYGxIXkMYvVAG7UVHjJwSjUJXK1jEAcS2c3C/com1lY8ZP/74wY9IntDVHa6WwEZNARNWDf9fSlaTg1uprslenS6oZZs3ncF6wokN5T0vYwksDKnlIB9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9vtW3EiqRLul/kvbcjoUlfJleYKVrFO3iiZCNyedBNs=;
- b=a0VtSJnkxthwyJwhcvsnR9HWh62qpaWyyhzPY1j4E4zPu44qlieCRbcbhJHCNDkcJwmtDgwsAZ9b6EpJ2Fm4rAbDsmxkqUDwObCSn/rcpg78l7RhLZiPKuEpcMVeuJNfaRdk3BCJ8yXZ6MBL/p72FuWVEpSnDkAfrYexxs5FqSQ=
-Received: from BL1PR13CA0433.namprd13.prod.outlook.com (2603:10b6:208:2c3::18)
- by DS7PR12MB8292.namprd12.prod.outlook.com (2603:10b6:8:e2::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.17; Thu, 19 Sep
- 2024 05:54:00 +0000
-Received: from BL02EPF0001A100.namprd03.prod.outlook.com
- (2603:10b6:208:2c3:cafe::fa) by BL1PR13CA0433.outlook.office365.com
- (2603:10b6:208:2c3::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
- Transport; Thu, 19 Sep 2024 05:54:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Thu, 19 Sep 2024 05:54:00 +0000
-Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Sep
- 2024 00:53:57 -0500
-From: ZhenGuo Yin <zhenguo.yin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <jingwen.chen@amd.com>, <lin.cao@amd.com>,
- ZhenGuo Yin <zhenguo.yin@amd.com>
-Subject: [PATCH] drm/amdgpu: skip coredump after job timeout in SRIOV
-Date: Thu, 19 Sep 2024 13:53:43 +0800
-Message-ID: <20240919055343.112601-1-zhenguo.yin@amd.com>
-X-Mailer: git-send-email 2.35.1
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
+ [209.85.222.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 037D910E633;
+ Wed, 18 Sep 2024 20:29:46 +0000 (UTC)
+Received: by mail-ua1-f49.google.com with SMTP id
+ a1e0cc1a2514c-846d536254fso37381241.1; 
+ Wed, 18 Sep 2024 13:29:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1726691385; x=1727296185; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Z0+Veg0ajsYwcOQjqw+fgqS5nYmrOd6UXKJLeJklo8Q=;
+ b=i9y4aR1ra/naOgldLWXzmTkow/K8N0nYHnqZAoDTwYfHVep/RF9pKD2SZQj8aYteuV
+ W5FJldjRwRVZw6rDYm+lbrBSq1cJlX5im7VTozCEnl/wMB4IFnMIy9sNbm2LigsfonlM
+ gKEAvFkjdYdU5ZqD3LPA/QTk0p6zW575CIm2R/fHNypu4jBbXyzU3K7VdoMUVIUkDjIB
+ bFv0fB2wagheI7gfmiYtul+7CNKuWw0KsN0XrGanyp+XTZxAMgWdGgh42yK9ppmXSaWR
+ WV7Gp3U7nrvEnlQXcCmY8P53rNMMt3jGQtbl5WchEBi/swDy7CRdUpm2kO3eRRAQt1SX
+ 3i6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726691385; x=1727296185;
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Z0+Veg0ajsYwcOQjqw+fgqS5nYmrOd6UXKJLeJklo8Q=;
+ b=PppNzx/5j8y1f+5Gt/uZ/jhp0RXJ7j315cHhdU799iICsk+O5v9eAfcLjc83ffqbx1
+ 2u1hku0ZT3K/zGYABTkC3ABrqubkWcr0vTXoSrTK1jz2I1VEOFEMIL1KMKVnUY02PjZG
+ m3kxAGYLTGrXH651SQOEIvVXmuQSlkCVQdc+iXK+s4krUsA/pADIdVUpyDymTGOWAHcf
+ 3TFscnv4wBnFDUoVCwAbOpadkjx1OapdQicBcdyH9KxyQjH2LxE0ZkQCobDpkzOxnOmi
+ eWstMvaplG0WOBN+/JP6+YExft6AIHz/8BipQNZqWy75hJuLYzIJOKju0iue+3BA+IMV
+ q8PQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWe1Z2wriKqKsEySevcql2gZGwXFsoGUMR5USyEOvfolSgT4FhY5KBhbpA2sA8TNH1KZGLvRGju@lists.freedesktop.org,
+ AJvYcCXovhfUP/JLS3eOD944NPCBeUDn9Asg/0BK0Lil7rgBWTAd/63joo04rergjcErdYSnCE/ecOkZT9h7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwesuncCbRg677bofEqjgiJ+nWvaSoLIJlwYCppe+V++7pvH5yP
+ +fnEYRdwIr2tEkLRofuiuU9U9Hswy3g4UobPFFtyJ9WB0h536yQPWObfyHnCptGuGOYE+4NWAEJ
+ ec/yMokDcfoOcEVgxUfA3V1Qb/GI=
+X-Google-Smtp-Source: AGHT+IEVrC+ErbrSJv9jeauTLrJtajhjtGNAO2ZDnBfXorHFZ062AREFhdCHG4ssi+Vfk/BSL/g1/dDRj/uTYjW9/78=
+X-Received: by 2002:a05:6102:38d1:b0:49b:f5ed:4bcb with SMTP id
+ ada2fe7eead31-49d4157db8cmr16663527137.24.1726691385640; Wed, 18 Sep 2024
+ 13:29:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|DS7PR12MB8292:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60b751c4-3c7f-47e2-5b3c-08dcd86f758d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?rz8CgBqDZtNddHEm3xeUu0cwPk6a5elpllZdJ1wuKnpsmQMIInAm+LhE36Wq?=
- =?us-ascii?Q?jk/tdyT1b6FhcZkAYxNZeoWI3y2nxU+6SGhRG7ne+8/XX32UAwMc3tvlqcyv?=
- =?us-ascii?Q?cdspodxQZHhYT3ZwDCb09F66K/g+uJoQuH00GUS/e+EN/QxhtBmsPLkuiKZY?=
- =?us-ascii?Q?pnzHLU/8Ceoxm4yCuNiOnp8hCX0/sLwv2QFK7Fvq5Nn3qSEFs/Cch8HaLQB3?=
- =?us-ascii?Q?jVZYIab7uLYnt3yoWFElVCllBEmC1rUiQlzGy0zb/E4AKF9dMN1Yo3ytV9Nk?=
- =?us-ascii?Q?IkQhS4nrkkqPPGcaVlyG8TKuCR+uCow2o1CdF0/EowcLBuNt1664Mp22s0xm?=
- =?us-ascii?Q?pTY0NyvqUdi/oskD6EfEW6f5kU4nDoggmVbKBWr184M3QlchktNKkBBqJa34?=
- =?us-ascii?Q?tesJmuc3YT6ZgkQzFV81NjLCSudFxnV2iwnIxCyzgIL0jUnEeLwmFKrlznk+?=
- =?us-ascii?Q?lyChqfXPvsTlyTFrdiApojw5UY2WOzSayY5szBwYgmLQx5rqjHQruqQAofnh?=
- =?us-ascii?Q?kyu84XL73N99U2BwD2Xr99TkjeFwF4py4fX1WfqpG0OvBbdoLzxFFDisY0g7?=
- =?us-ascii?Q?umkZKpDQvUbGCU3iQI8OxDgILvgR4oKTGfLavVjqtQGkVQzO2zeuCbuqGqEG?=
- =?us-ascii?Q?d57cFAO6iB5EQy54U4lYJp3vEcr71RAoWP2keSW7h8T3t+s8ok82/sYCsK+x?=
- =?us-ascii?Q?VzdFyAUlXgtV1+AibnPjpkByhF2DPMd4mlacsyjruIc5UI+4duRGRUMnI6w1?=
- =?us-ascii?Q?RPn6H4VuRFmAt588AmCMHSO4oGWbDEK7wTlg84abSgK+IS+MwIwbtfuFhhwr?=
- =?us-ascii?Q?gon6YAg/jkKeYVwuqLYBmXv/r9vve7Y2mjFKt88zdgOYF+0a3LX5yr6FRlp2?=
- =?us-ascii?Q?zeTdr5zOkp9obGtvwJZPt49kuiGSVuV8VDkec9BhXrJDec005RUe+RojlPEX?=
- =?us-ascii?Q?8o3n8nGNCoahUOO0bJlaLbNaMB/8rp/NkGzx0hXtJohD2T7l8p5ip88UONl2?=
- =?us-ascii?Q?B6+aWfbGrxKhGbLcPl3K9ISWDEwbGzhae2CJYs+kQTSJuQezrIr30BfF3rxM?=
- =?us-ascii?Q?dZ5qvLXEjbrz9RTM0+pNMRx1RqPfNLhhn09g2v0Q/h42hwzqFLjzEbEcp8PS?=
- =?us-ascii?Q?MjXSX59lPIYW2dUP2mGqSX+4COmcN9ztkXjsam5zOlmKoenef1JhnQJNH5Go?=
- =?us-ascii?Q?W9ttmh3970LQkSfzznwhWXSTuNdl4y8u0RiJbMEOiPBrCVYFVdnp479+VcXQ?=
- =?us-ascii?Q?VVyTdhaubiDMvZSXa+4098cjJ+3IGOEPTFHh6LSN6HJ6b2dB/y8xC+/hn+rE?=
- =?us-ascii?Q?KS23jB+DcAEwt/OgVJevHQSjkjJ3px5XVrh86On4sMhYLGgOo8C2rOxWnb+1?=
- =?us-ascii?Q?8zcUs9euP/sZLTrFx7yWHt8mCTAcyuQQ2TETgCHEw7e4dnjXsUnWS+Z3XjWq?=
- =?us-ascii?Q?dBaqwmx8294=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2024 05:54:00.2435 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60b751c4-3c7f-47e2-5b3c-08dcd86f758d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A100.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8292
+References: <CALjAwxidmwCT5ZwbZRhf9GwshYbzQZ4N8K3B8KGLi5DnRzj8wQ@mail.gmail.com>
+In-Reply-To: <CALjAwxidmwCT5ZwbZRhf9GwshYbzQZ4N8K3B8KGLi5DnRzj8wQ@mail.gmail.com>
+From: Sitsofe Wheeler <sitsofe@gmail.com>
+Date: Wed, 18 Sep 2024 21:29:19 +0100
+Message-ID: <CALjAwxiytz=FUy4Fu8j-hOa2BKXpYL0ZyjMHyOGRE0OdsfKDkA@mail.gmail.com>
+Subject: Re: Kernel hang when amdgpu driver is loaded on old radeon card
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 19 Sep 2024 08:11:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,32 +80,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VF FLR will be triggered by host driver before job timeout,
-hence the error status of GPU get cleared. Performing a
-coredump here is unnecessary.
+(CC'ing Hans de Goede who recently wrote a blog post
+(https://hansdegoede.dreamwidth.org/28552.html ) which sounds like the
+same issue I'm seeing)
 
-Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On Sun, 15 Sept 2024 at 21:30, Sitsofe Wheeler <sitsofe@gmail.com> wrote:
+>
+> Hello,
+>
+> (Apologies if I have CC'd the wrong people/places - I just went by
+> what get_maintainer.pl -f drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> said)
+>
+> I recently upgraded from Ubuntu 20.04 (5.15.0-119.129~20.04.1-generic
+> kernel) to Ubuntu 24.04 (6.8.0-44-generic kernel) and found that while
+> booting the kernel hangs for around 15 seconds just before the amdgpu
+> driver is loaded:
+>
+> [    4.459519] radeon 0000:01:05.0: [drm] Cannot find any crtc or sizes
+> [    4.460118] probe of 0000:01:05.0 returned 0 after 902266 usecs
+> [    4.460184] initcall radeon_module_init+0x0/0xff0 [radeon] returned
+> 0 after 902473 usecs
+> [    4.465797] calling  drm_buddy_module_init+0x0/0xff0 [drm_buddy] @ 122
+> [    4.465853] initcall drm_buddy_module_init+0x0/0xff0 [drm_buddy]
+> returned 0 after 29 usecs
+> [    4.469419] radeon 0000:01:05.0: [drm] Cannot find any crtc or sizes
+> [    4.473831] calling  drm_sched_fence_slab_init+0x0/0xff0 [gpu_sched] @ 122
+> [    4.473892] initcall drm_sched_fence_slab_init+0x0/0xff0
+> [gpu_sched] returned 0 after 31 usecs
+> [   18.724442] calling  amdgpu_init+0x0/0xff0 [amdgpu] @ 122
+> [   18.726303] [drm] amdgpu kernel modesetting enabled.
+> [   18.726576] amdgpu: Virtual CRAT table created for CPU
+> [   18.726609] amdgpu: Topology: Add CPU node
+> [   18.726787] initcall amdgpu_init+0x0/0xff0 [amdgpu] returned 0
+> after 528 usecs
+>
+> I've checked and the problem still exists in 6.11.0-061100rc7-generic
+> (which is close to vanilla upstream).
+>
+> The graphics card I have is:
+> 01:05.0 VGA compatible controller: Advanced Micro Devices, Inc.
+> [AMD/ATI] RS880M [Mobility Radeon HD 4225/4250] (prog-if 00 [VGA
+> controller])
+> 01:05.0 0300: 1002:9712 (prog-if 00 [VGA controller])
+> Subsystem: 103c:1609
+>
+> At first I thought the problem was related to the change
+> https://github.com/torvalds/linux/commit/eb4fd29afd4aa1c98d882800ceeee7d1f5262803
+> ("drm/amdgpu: bind to any 0x1002 PCI diplay [sic] class device") which
+> now means my card is claimed by two drivers (radeon and amdgpu). That
+> change complicated things because:
+> - The amdgpu module and its dependencies remain permanently present (which
+>   never used to happen)
+> - It took some time for me to realise that the amdgpu driver hadn't suddenly
+>   grown the ability to support this old card :-) There is a nice table on
+>   https://www.x.org/wiki/RadeonFeature/#decoderringforengineeringvsmarketingnames
+>   that shows it is part of the R600 family and
+>   https://www.x.org/wiki/RadeonFeature/#featurematrixforfreeradeondrivers shows
+>   that R600 is only supported by the radeon driver.
+>
+> However, testing a 5.16.20-051620-generic kernel showed that while the
+> amdgpu module is loaded, there is no 15 second hang... So far my
+> testing has the following results:
+> - 5.16.20-051620-generic - amdgpu loaded, no hang
+> - 5.18.19-051819-generic - amdgpu loaded, no hang
+> - 6.0.0-060000-generic - amdgpu loaded, hang
+> - 6.2.0-060200-generic - amdgpu loaded, hang
+> - 6.8.0-44-generic - amdgpu loaded, hang
+> - 6.11.0-061100rc7-generic - amdgpu loaded, hang
+>
+> To work around the problem I've taken to blacklisting amdgpu in
+> /etc/modprobe.d/ which makes the hang disappear.
+>
+> Does anyone else see this issue? Is there something better than my
+> current workaround? What do other drivers that want to bind to such a
+> large set of devices do? Further, while I'm already using
+> initcall_debug, is there any other kernel boot parameter to make
+> what's happening more visible?
+>
+> --
+> Sitsofe
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 381c886298bf..13a3604cf107 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -107,8 +107,11 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	/*
- 	 * Do the coredump immediately after a job timeout to get a very
- 	 * close dump/snapshot/representation of GPU's current error status
-+	 * Skip it for SRIOV, since VF FLR will be triggered by host driver
-+	 * before job timeout
- 	 */
--	amdgpu_job_core_dump(adev, job);
-+	if (!amdgpu_sriov_vf(adev))
-+		amdgpu_job_core_dump(adev, job);
- 
- 	if (amdgpu_gpu_recovery &&
- 	    amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
+
+
 -- 
-2.35.1
-
+Sitsofe
