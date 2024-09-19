@@ -4,61 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C0DCF395D
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 16:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D80BCF3962
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 17:30:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197BA10E096;
-	Thu, 19 Sep 2024 16:59:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D72210E733;
+	Thu, 19 Sep 2024 17:30:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HTaUHKif";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L3Qd1Xxn";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3E8E10E096
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Sep 2024 16:59:55 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2d871bd95ffso181577a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Sep 2024 09:59:55 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A2B10E012;
+ Thu, 19 Sep 2024 17:30:08 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2d87a57c06fso197950a91.2; 
+ Thu, 19 Sep 2024 10:30:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726765195; x=1727369995; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1726767008; x=1727371808; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rmt1OY81W09kX9Tc0DN4+79ATVDwgLije1EzCv1QHfY=;
- b=HTaUHKifJl3c1WVCxuqYeHEhSGj0zqxx4JXMuc8GVRhm5CzTQKYMA9CxxxkFkCXEhU
- M9JccSmGeD3y8nKBfCB4SQiJZQjVYEtoMy3hH2wgJM/aGe2Atu3KNguRfbazGJ56Eil8
- 49Ll2pBCj9BB5+yfmM1z/KQpeBQ4sl2UJKp5Cm0PRaxIneepvKegfsNg/whRB6tH11ry
- hdLy7zVu+oS7zA1iKRR8SdM5FESvSlQs6McXs5zAQlr3nY/ySwKTUGOc01U9wU/6k7Jq
- S/lfEIEKMLXnAybZnbeYxNcXmRo5/hjwN2Q42G9HAuatpZCqSI8sFGQbrQ3CNtJAw3X2
- qMAg==
+ bh=97+mEwR3fIOEA2ngQvBPBxiFuXvvJ137NHN/DSkniIw=;
+ b=L3Qd1XxnYoBhvRz+H3Xs29skga2cso97jqJEZobsvFPILdm60Zc3dP4VOYeQUrDGGe
+ l9H7j3n+qDfSmpv6GhpOGzIduo076rl0cM0BRaalCym2DzqvKKCQedgFtBaUpUrl4Hxt
+ hl7nRkKSutr3zEal14TlA3fpJSXe4Ns4hv8nW+AIX2AjrVuICV8QXRnX/LqZskFp+/7G
+ +qmFothrt3ZQyKoK1myRgEjyihppZizBZQY2pAJAO7wUjezKcD8A3+j9WYB3Xb+6WWrR
+ UTvL6Oy7+jL41gxXP55sSar4x+NZ0Y9eOAiyyoKbBlfjdvMdJMvHN8QNzzwJLlBN46tO
+ bqfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726765195; x=1727369995;
+ d=1e100.net; s=20230601; t=1726767008; x=1727371808;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rmt1OY81W09kX9Tc0DN4+79ATVDwgLije1EzCv1QHfY=;
- b=egTPDCO44uQxMA5DlmZ0PL2NdSwBLApXWMHKOut0FKd5S4Dlgw0hf8I4y9m+0bVf6l
- v/R+Ak4sBUuEO8vN6td/PIktDe/apc/0UY33tbwpVrmeLdV7VsSsgs+HmxAT5GcAZY1n
- YkvArmmd3/eruTqeUtfTr+MZBFW21omNS0jnPqrp4gh10LOP1/oh0cB/Mh3ABkAGZM/a
- b4A/+gdosTGP2snHuuIGh+O0b76AWp+e67+UlcZ4LEMTF5BDJrPxc3W8A619YA5PGMa2
- 986nlg0hEhiCVfrwAgqn8nPN+y0fq95lCqLlkQOozUr1WayEVfD6C3iBqCI7JdZ4AuK7
- FPjA==
-X-Gm-Message-State: AOJu0YzPMoPd5MjZHNxJsnXJgVHtdPykMlz6dD8q3q1vesrFCgF5P7hA
- b+jy3aWXW0QXoOMzFXvu8Bn6wCv4VQvAV6L9jWR3wcVy3063RivY8WFDdBLT5R9PAmfmVAnCmup
- kNadHZRp0L0zr7BLfLHFJWUqNBHz/Vg==
-X-Google-Smtp-Source: AGHT+IGEcW8FtAO2T6Fvj8qGxe4lBlMr6ZAt7bG8VqpnMePAuuaFgtKy9R4gkHXcgaPzcdc1n70SY5m9AlfBGEJ6Bd8=
-X-Received: by 2002:a17:90a:6443:b0:2db:60b:9be4 with SMTP id
- 98e67ed59e1d1-2dd7f72c223mr22928a91.7.1726765195181; Thu, 19 Sep 2024
- 09:59:55 -0700 (PDT)
+ bh=97+mEwR3fIOEA2ngQvBPBxiFuXvvJ137NHN/DSkniIw=;
+ b=Py+Aq/zU0aVHkNV/TJlQC+yC9/VIRk6Rj2KZoordSSzX36k7Ej9c0CQTZGbqX0YUVd
+ oQ2P7Ib6G19Hs++BbR7wrpJnunEj+DPCOSpalobXLe8jUe2dd1EQer/HtJSe2pV6dZrk
+ 7uItpnOZw3OxUdXTEUZPz+f1W/dF3LxIrdDv/Gy946amVQnEDn1IaM2DJ3Cp85pWl7T3
+ JHbjicZTerbeYoZFMfDSIdzDpSaEQwehNye8OStlUyhIpUWRn7sdc5J14a8dXRKQS7MB
+ n6GinMdT8wyVuNCAG+mnN+dTht/+Yq2wgf4Agz8SW50DXj1mYRpKjRlHcicjbiL1AJzS
+ DHIA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV76WIx1RkQNs41hTi52megkVtBCz250lEBC4HAKbscBUQRh0t2PXSg/U1fwXzqntWTSaBP5l0w@lists.freedesktop.org,
+ AJvYcCXyEuqO+wVrKgnEU741GCTfmSpL7ZuGmprIlytaMb8/ifNB2F71VwoXVjxUJgiUuLA5SPkMsM8ebR5I@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywu8FH4LFm2CdqbhnYbWekHCVnk9SPHDXbkBve1VsP3UvOkvggC
+ V7830Pw2EB5jE0obDpFT/QnRMuiF06TOUNySsRP+zKyLE6nDvFDX1DOOcFIfsPUcYpbM0LA9g5E
+ 22sDoOA0uBfb/UEhLNFixXF3np8FDRg==
+X-Google-Smtp-Source: AGHT+IHZHD7O5Q3IIaNCbthsMXB1XM/2SUTdorOHktn8dgmxh9KR9uYqDkj4H+Zz+V/6Tb/taiMxk3WOolKRRrpP214=
+X-Received: by 2002:a17:90a:bf10:b0:2db:60b:697d with SMTP id
+ 98e67ed59e1d1-2dd7f7621a7mr72492a91.7.1726767007812; Thu, 19 Sep 2024
+ 10:30:07 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240909200614.481-1-shashank.sharma@amd.com>
-In-Reply-To: <20240909200614.481-1-shashank.sharma@amd.com>
+References: <20240918213845.158293-1-mario.limonciello@amd.com>
+ <20240918213845.158293-11-mario.limonciello@amd.com>
+ <77b34bd2-3727-42bf-aa0a-4f24ad7232cd@amd.com>
+ <e879e296-9453-4a76-a879-52b33143261d@amd.com>
+In-Reply-To: <e879e296-9453-4a76-a879-52b33143261d@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 19 Sep 2024 12:59:42 -0400
-Message-ID: <CADnq5_OzaOWZ4tvN=13oXHc091kFUdtkhz9=R8-eknD1PMhYkw@mail.gmail.com>
-Subject: Re: [PATCH v11 00/28] AMDGPU usermode queues
-To: Shashank Sharma <shashank.sharma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Thu, 19 Sep 2024 13:29:56 -0400
+Message-ID: <CADnq5_P78bmWA+xWt0fq6=oSFt33K2TToEFDTx2CudTEuDuAoA@mail.gmail.com>
+Subject: Re: [PATCH v7 10/10] drm/amd/display: Fetch the EDID from _DDC if
+ available for eDP
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>,
+ Alexander Deucher <alexander.deucher@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, kernel-dev@igalia.com,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,127 +87,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 9, 2024 at 4:07=E2=80=AFPM Shashank Sharma <shashank.sharma@amd=
-.com> wrote:
+On Thu, Sep 19, 2024 at 12:06=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> This patch series introduces base code of AMDGPU usermode queues for gfx
-> workloads. Usermode queues is a method of GPU workload submission into th=
-e
-> graphics hardware without any interaction with kernel/DRM schedulers. In
-> this method, a userspace graphics application can create its own workqueu=
-e
-> and submit it directly in the GPU HW.
+> On 9/19/2024 11:03, Alex Hung wrote:
+> > A minor comment (see inline below).
+> >
+> > Otherwise
+> >
+> > Reviewed-by: Alex Hung <alex.hung@amd.com>
+> >
+> > On 2024-09-18 15:38, Mario Limonciello wrote:
+> >> Some manufacturers have intentionally put an EDID that differs from
+> >> the EDID on the internal panel on laptops.
+> >>
+> >> Attempt to fetch this EDID if it exists and prefer it over the EDID
+> >> that is provided by the panel. If a user prefers to use the EDID from
+> >> the panel, offer a DC debugging parameter that would disable this.
+> >>
+> >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >> ---
+> >>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 62 +++++++++++++++++=
++-
+> >>   drivers/gpu/drm/amd/include/amd_shared.h      |  5 ++
+> >>   2 files changed, 66 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> >> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> >> index 8f4be7a1ec45..05d3e00ecce0 100644
+> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> >> @@ -23,6 +23,8 @@
+> >>    *
+> >>    */
+> >> +#include <acpi/video.h>
+> >> +
+> >>   #include <linux/string.h>
+> >>   #include <linux/acpi.h>
+> >>   #include <linux/i2c.h>
+> >> @@ -874,6 +876,60 @@ bool dm_helpers_is_dp_sink_present(struct dc_link
+> >> *link)
+> >>       return dp_sink_present;
+> >>   }
+> >> +static int
+> >> +dm_helpers_probe_acpi_edid(void *data, u8 *buf, unsigned int block,
+> >> size_t len)
+> >> +{
+> >> +    struct drm_connector *connector =3D data;
+> >> +    struct acpi_device *acpidev =3D ACPI_COMPANION(connector->dev->de=
+v);
+> >> +    unsigned char start =3D block * EDID_LENGTH;
+> >> +    void *edid;
+> >> +    int r;
+> >> +
+> >> +    if (!acpidev)
+> >> +        return -ENODEV;
+> >> +
+> >> +    /* fetch the entire edid from BIOS */
+> >> +    r =3D acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &e=
+did);
+> >> +    if (r < 0) {
+> >> +        DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+> >> +        return r;
+> >> +    }
+> >> +    if (len > r || start > r || start + len > r) {
+> >> +        r =3D -EINVAL;
+> >> +        goto cleanup;
+> >> +    }
+> >> +
+> >> +    memcpy(buf, edid + start, len);
+> >> +    r =3D 0;
+> >> +
+> >> +cleanup:
+> >> +    kfree(edid);
+> >> +
+> >> +    return r;
+> >> +}
+> >> +
+> >> +static const struct drm_edid *
+> >> +dm_helpers_read_acpi_edid(struct amdgpu_dm_connector *aconnector)
+> >> +{
+> >> +    struct drm_connector *connector =3D &aconnector->base;
+> >> +
+> >> +    if (amdgpu_dc_debug_mask & DC_DISABLE_ACPI_EDID)
+> >> +        return NULL;
+> >> +
+> >> +    switch (connector->connector_type) {
+> >> +    case DRM_MODE_CONNECTOR_LVDS:
+> >> +    case DRM_MODE_CONNECTOR_eDP:
+> >> +        break;
+> >> +    default:
+> >> +        return NULL;
+> >> +    }
+> >> +
+> >> +    if (connector->force =3D=3D DRM_FORCE_OFF)
+> >> +        return NULL;
+> >> +
+> >> +    return drm_edid_read_custom(connector,
+> >> dm_helpers_probe_acpi_edid, connector);
+> >> +}
+> >> +
+> >>   enum dc_edid_status dm_helpers_read_local_edid(
+> >>           struct dc_context *ctx,
+> >>           struct dc_link *link,
+> >> @@ -896,7 +952,11 @@ enum dc_edid_status dm_helpers_read_local_edid(
+> >>        * do check sum and retry to make sure read correct edid.
+> >>        */
+> >>       do {
+> >> -        drm_edid =3D drm_edid_read_ddc(connector, ddc);
+> >> +        drm_edid =3D dm_helpers_read_acpi_edid(aconnector);
+> >> +        if (drm_edid)
+> >> +            DRM_DEBUG_KMS("Using ACPI provided EDID for %s\n",
+> >> connector->name);
+> >
+> > It is better to always output a message when ACPI's EDID is used withou=
+t
+> > enabling any debug options. How about DRM_INFO?
 >
-> The general idea of how Userqueues are supposed to work:
-> - The application creates the following GPU objetcs:
->   - A queue object to hold the workload packets.
->   - A read pointer object.
->   - A write pointer object.
->   - A doorbell page.
->   - Other supporting buffer objects as per target IP engine (shadow, GDS
->     etc, information available with AMDGPU_INFO_IOCTL)
+> Thanks, DRM_INFO makes sense for discoverability and will adjust it.
 
-the queue, rptr, wptr, and metadata buffers don't have to be separate
-buffers.  Userspace could suballocate them out of the same buffer.  We
-just need the virtual addresses.  However, we need to keep track of
-the GPU virtual addresses used by the user queue for these buffers and
-prevent them from being unmapped until the queue is destroyed, similar
-to what we do on the KFD side.  Otherwise, the user could unmap one of
-the buffers and submit work to the user queue which could cause it to
-hang.
+I'd suggest using dev_info() or one of the newer DRM macros so we know
+which device we are talking about if there are multiple GPUs in the
+system.
 
 Alex
 
-> - The application picks a 32-bit offset in the doorbell page for this
->   queue.
-> - The application uses the usermode_queue_create IOCTL introduced in
->   this patch, by passing the GPU addresses of these objects (read ptr,
->   write ptr, queue base address, shadow, gds) with doorbell object and
->   32-bit doorbell offset in the doorbell page.
-> - The kernel creates the queue and maps it in the HW.
-> - The application maps the GPU buffers in process address space.
-> - The application can start submitting the data in the queue as soon as
->   the kernel IOCTL returns.
-> - After filling the workload data in the queue, the app must write the
->   number of dwords added in the queue into the doorbell offset and the
->   WPTR buffer. The GPU will start fetching the data as soon as its done.
-> - This series adds usermode queue support for all three MES based IPs
->   (GFX, SDMA and Compute).
-> - This series also adds eviction fences to handle migration of the
->   userqueue mapped buffers by TTM.
-> - For synchronization of userqueues, we have added a secure semaphores
->   IOCTL which is getting reviewed separately here:
->   https://patchwork.freedesktop.org/patch/611971/
 >
-> libDRM UAPI changes for this series can be found here:
-> (This also contains an example test utility which demonstrates
-> the usage of userqueue UAPI)
-> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/287
->
-> MESA changes consuming this series can be seen in the MR here:
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/29010
->
-> Alex Deucher (1):
->   drm/amdgpu: UAPI for user queue management
->
-> Arvind Yadav (4):
->   drm/amdgpu: enable SDMA usermode queues
->   drm/amdgpu: Add input fence to sync bo unmap
->   drm/amdgpu: fix MES GFX mask
->   Revert "drm/amdgpu: don't allow userspace to create a doorbell BO"
->
-> Shashank Sharma (18):
->   drm/amdgpu: add usermode queue base code
->   drm/amdgpu: add new IOCTL for usermode queue
->   drm/amdgpu: add helpers to create userqueue object
->   drm/amdgpu: create MES-V11 usermode queue for GFX
->   drm/amdgpu: create context space for usermode queue
->   drm/amdgpu: map usermode queue into MES
->   drm/amdgpu: map wptr BO into GART
->   drm/amdgpu: generate doorbell index for userqueue
->   drm/amdgpu: cleanup leftover queues
->   drm/amdgpu: enable GFX-V11 userqueue support
->   drm/amdgpu: enable compute/gfx usermode queue
->   drm/amdgpu: update userqueue BOs and PDs
->   drm/amdgpu: add kernel config for gfx-userqueue
->   drm/amdgpu: add gfx eviction fence helpers
->   drm/amdgpu: add userqueue suspend/resume functions
->   drm/amdgpu: suspend gfx userqueues
->   drm/amdgpu: resume gfx userqueues
->   Revert "drm/amdgpu/gfx11: only enable CP GFX shadowing on SR-IOV"
->
->  drivers/gpu/drm/amd/amdgpu/Kconfig            |   8 +
->  drivers/gpu/drm/amd/amdgpu/Makefile           |  10 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  11 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  10 +
->  .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 297 ++++++++
->  .../drm/amd/amdgpu/amdgpu_eviction_fence.h    |  67 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  68 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  11 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |   3 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |   2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 713 ++++++++++++++++++
->  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  74 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 644 ++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  42 +-
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  16 +-
->  .../gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c  | 395 ++++++++++
->  .../gpu/drm/amd/amdgpu/mes_v11_0_userqueue.h  |  30 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   5 +
->  .../gpu/drm/amd/include/amdgpu_userqueue.h    | 100 +++
->  drivers/gpu/drm/amd/include/v11_structs.h     |   4 +-
->  include/uapi/drm/amdgpu_drm.h                 | 252 +++++++
->  22 files changed, 2722 insertions(+), 45 deletions(-)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/mes_v11_0_userqueue.h
->  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_userqueue.h
->
-> --
-> 2.45.1
+> >
+> >> +        else
+> >> +            drm_edid =3D drm_edid_read_ddc(connector, ddc);
+> >>           drm_edid_connector_update(connector, drm_edid);
+> >>           aconnector->drm_edid =3D drm_edid;
+> >> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h
+> >> b/drivers/gpu/drm/amd/include/amd_shared.h
+> >> index 3f91926a50e9..1ec7c5e5249e 100644
+> >> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> >> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> >> @@ -337,6 +337,11 @@ enum DC_DEBUG_MASK {
+> >>        * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the
+> >> time.
+> >>        */
+> >>       DC_FORCE_IPS_ENABLE =3D 0x4000,
+> >> +    /**
+> >> +     * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
+> >> +     * eDP display from ACPI _DDC method.
+> >> +     */
+> >> +    DC_DISABLE_ACPI_EDID =3D 0x8000,
+> >>   };
+> >>   enum amd_dpm_forced_level;
 >
