@@ -4,124 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A408FCDD55C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Sep 2024 21:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57357CE8D49
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 04:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDBC10E65E;
-	Wed, 18 Sep 2024 21:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEE2A10E095;
+	Thu, 19 Sep 2024 04:05:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BDpYdO0j";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GFA+K4mU";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2086.outbound.protection.outlook.com [40.107.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 073CD10E65E;
- Wed, 18 Sep 2024 21:39:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AEQCaTe96Ldvl8cOZfpe9nsejV0GpsOLRcpfnc+neLjLHhNxknwUxVxrEJt4RUbzSP0dX9lxyxhHe9qlUR0K5o4uEry149HB69G3tAuCILc+Jj+eM8GONnuvdrNRXsc5SpXV5sarpEBe1bQXDUNTh/DEU2x/niypKGC/kvU+avVCAgJsuLBVVkebGglifRFPduDKnsXSJ64329y3NPdl//GVSEL4iYYc9ksNFsgp1x83Wowu5auEPVEYQz/uetjrrZhxckOlxO2TfNkimSSy6Xh+IMVipAusLbCggwOynu3EguNIOLJO7OPXaNSwgfzb0W6z0tgbLS7RmLzUmMfbsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nY9lHuxmg6YhEaKekT6cpJgQoSawY6eDrtDkEPFHx3E=;
- b=k1YSZkG6fjmWKX71fV3IpSKvBSFxrWIcawLVoHZCsKkDsLGAaoKNHlWlf/eWdEi9IGwMMX40CVisHeq284xvxkwVZIvoW9YkL8RE1wzF/cz4hjBA8lsCTC1lIxDIl4cHEvVnCnWZy/8p86VugIG21Psai5w9DyfP4KwaWqtlG92HLH0HravwPk/oUPle56vtZGd0ODK1NCsmr32eybXVJ/IF5q2y27/LZPdnEKEzY5dXmi9sBpYYkhbFlnwxv6S04WGB1HQNzf16eWvmzucb9wwzW1b6sfKmzREeUaoR4IhxI8vsm3UXlJ69j83R4tQr3z+TAgHDDSaJWo6j/UJqgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nY9lHuxmg6YhEaKekT6cpJgQoSawY6eDrtDkEPFHx3E=;
- b=BDpYdO0jYz+peg1HPh/JhTdUwW9F49bfR9pVxl1jfqNiyWxb4Ep+IX7DN4tkELmGsS2JLO9XInLXFSa3Kwvgk9YzfkQfL2F8oyvHr9F3dkiWS9tneJZlqkvPuVOJL6mo+ow+7T44YXAD2EIPU0QU157DrhMTDlM2EIyj9jJezcY=
-Received: from SA1PR02CA0004.namprd02.prod.outlook.com (2603:10b6:806:2cf::8)
- by DM3PR12MB9434.namprd12.prod.outlook.com (2603:10b6:0:4b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.24; Wed, 18 Sep
- 2024 21:39:22 +0000
-Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
- (2603:10b6:806:2cf:cafe::e1) by SA1PR02CA0004.outlook.office365.com
- (2603:10b6:806:2cf::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.30 via Frontend
- Transport; Wed, 18 Sep 2024 21:39:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Wed, 18 Sep 2024 21:39:21 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 18 Sep
- 2024 16:39:19 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Alex Hung <alex.hung@amd.com>, Alexander Deucher
- <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>
-CC: <kernel-dev@igalia.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, "Mario
- Limonciello" <mario.limonciello@amd.com>
-Subject: [PATCH v7 10/10] drm/amd/display: Fetch the EDID from _DDC if
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5061F10E095;
+ Thu, 19 Sep 2024 04:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1726718712; x=1758254712;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=wTHnD7Gvi9qJW3/ug+em7TPU7wZwVhLkr75aYfMV7Rk=;
+ b=GFA+K4mUju5BuqRY/aAQLYrJs8D2KOZWaYf8LyrOyZtdmLZYzTo014Ol
+ kaelAlwSCVCIbW+3alb3D8EmFOUHjRefMdZUPUU43fWG9p0+MRRNUBBCJ
+ xho+N6/iL5FRTxjQd1mXo1/aHGl5EZXuc5ekZ4l0/xN8Oi2Oq77a3EdBN
+ O8u1S0VJ42GXgavtsurvrZ+/s/Wpx58bDmYrGcSTt2XM8X91ni+GHDhKh
+ X06/YwsVO4NYCf1WmcC5aKcSLLGkn7dlYbb51Wh7iGVAPg4zKbZKBDOHI
+ 4REU5wkaYGc6/qZsKGAqa0jbjUP/KAfHQgRfAcWs98ISp0PjOEz5CVpGG w==;
+X-CSE-ConnectionGUID: 9ZmQkEDtSceXtT1bQb11cQ==
+X-CSE-MsgGUID: tlnQr11qRB2oJ5jUBrFK0Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11199"; a="36244160"
+X-IronPort-AV: E=Sophos;i="6.10,240,1719903600"; d="scan'208";a="36244160"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2024 21:05:12 -0700
+X-CSE-ConnectionGUID: 5uXZqJYzTTmTcNytw/lJug==
+X-CSE-MsgGUID: pUI1d4+OTH6lOJ+7aFuhVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,240,1719903600"; d="scan'208";a="69401890"
+Received: from lkp-server01.sh.intel.com (HELO 53e96f405c61) ([10.239.97.150])
+ by fmviesa007.fm.intel.com with ESMTP; 18 Sep 2024 21:05:08 -0700
+Received: from kbuild by 53e96f405c61 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sr8Pi-000CsG-24;
+ Thu, 19 Sep 2024 04:05:06 +0000
+Date: Thu, 19 Sep 2024 12:05:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mario Limonciello <superm1@kernel.org>, Alex Hung <alex.hung@amd.com>,
+ Alexander Deucher <alexander.deucher@amd.com>,
+ Melissa Wen <mwen@igalia.com>
+Cc: oe-kbuild-all@lists.linux.dev, kernel-dev@igalia.com,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com,
+ Mark Pearson <mpearson-lenovo@squebb.ca>
+Subject: Re: [PATCH v6 10/10] drm/amd/display: Fetch the EDID from _DDC if
  available for eDP
-Date: Wed, 18 Sep 2024 16:38:45 -0500
-Message-ID: <20240918213845.158293-11-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240918213845.158293-1-mario.limonciello@amd.com>
-References: <20240918213845.158293-1-mario.limonciello@amd.com>
+Message-ID: <202409191128.4bvJysve-lkp@intel.com>
+References: <20240911213537.2338164-11-superm1@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|DM3PR12MB9434:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48020fb3-36de-414a-e0f2-08dcd82a5bd5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dqJ4152FIu8lD8aOmzzoVI2yELcznBqNTuva4B91/vLDhX18ePtFZEtsjJqT?=
- =?us-ascii?Q?ocoomiX3E0kyKv5AxspIsYO+nL21oM8JbTA5xwgxePLYsdqpyHzVRsomzYrU?=
- =?us-ascii?Q?m3jvY19V6/BR5vqANTCFPY9sQKcH/jAzdkc0mvLFCNcSl8jEo0582Hdt+xgV?=
- =?us-ascii?Q?idgHBGXcq59YuAAPdiKN20WseMbHl2ci3w/EIQRq0sC/ZC6KsE1qzNode3kN?=
- =?us-ascii?Q?zWDSESqS5DdyZPCMPRZUJbbHNBlHPgiLLuQWiymAl4ypFNmRDDDIA98Rd0Fl?=
- =?us-ascii?Q?aGvqZsGNEgUCh/8aQGX/sOOxwi5EJ7a2E3xMfyZGrSc/SFnUrqpkjnNICfHW?=
- =?us-ascii?Q?Hh+17UVCvztDUb2iV9icQ3ftTSokJsn2qWlzBcmFqol5LRG5ej9DirB6ZBAX?=
- =?us-ascii?Q?E6+xGim8ilZIlwHRhi2o/1QyA5Aty17dKphkv7ZA4iIc32HHfLZzQWwDSD7M?=
- =?us-ascii?Q?rsmiHqEO+NbeuV254n4FbSmiQcpc6O4huDIMQNDCxpqJBRmTrf02pXtTzLtd?=
- =?us-ascii?Q?HO2kbhcK3D8XbC6yYqLzFcdpCd2NRSRo3jGqvFzv2NQcHfYRYykMdANI21nl?=
- =?us-ascii?Q?KJEGLzyk1h6GV5yYqlg75HKsaoKEXODlFy2BvOXDqWkZSr2RQSKfx8qdOJ+p?=
- =?us-ascii?Q?5CkC+9QdlnjnJeMTCK3MX4U2EPy9xs5bTIx3ZsFIm64X+2kgtPg4HKOklG4q?=
- =?us-ascii?Q?U5EvzIJAAl4bpBKyYzYUvPgZ6zTIvNffRlF5h/JA4MIT9u4hrJCBLwpHWjrw?=
- =?us-ascii?Q?RPyr07GqIFvr8PL/rrwaRBheFtz8PdMgSsNCjNfd82zEGNzZRw52tEpAOQML?=
- =?us-ascii?Q?0p1xPNx0woUgMz4qhzFfpc5sW9pr5YVBRPAPLurEOJ3y1hKNGGKma2JRBhGk?=
- =?us-ascii?Q?2l9AJnPYRZ741NuBrir9puNkO35/6RT+AAQGfRndj8MXhuDINqcfYNH3dFFH?=
- =?us-ascii?Q?LqtaiV5LUJ1SypSVeZMJMvssksSZ8K56g/LF3xRaayTmjjwLrtCqSD0iSOFQ?=
- =?us-ascii?Q?XCDpHTdv5TWzHd8IUu4Lxdbx2sAyzcn4qfouP5s13RWZ8HXxSYpkVkfvw1g2?=
- =?us-ascii?Q?nuL6xDJXbf8p/DplX3YWztIzHMEAq8NtlXpdnURJ4AzYr3UvsbZtXhv4x6jw?=
- =?us-ascii?Q?byaejbZcrP6bsgUXo4gMHEkHAK7mT/tS2aAZPH6sWXcisE1jTW5Cmv0yTjdt?=
- =?us-ascii?Q?Ko+hGEte11C4i0IkCXVRgVfjWVH2Ccm2lkGHAmBwYsSs2I8XbkEDsADL1Hpg?=
- =?us-ascii?Q?sk/rh7NKLG7hmEXQSqBGTwFRajmJKoS/SJ2aygF7b+RAWJtxc1lwiox7LtyN?=
- =?us-ascii?Q?w5OiGPEhWIz9PU7iM9VKOKca741HZC0sJz02dvQArgTTgyKgyEJHlVjcj0GF?=
- =?us-ascii?Q?PRTwKeK/3BiqI5OOMblSsaxQjFPrLH0M2CqSCwpboMyedSnhOPtDnAWCAXML?=
- =?us-ascii?Q?nsQipyznaUcjq8+secStjyQBKeZn+NrE?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2024 21:39:21.9799 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48020fb3-36de-414a-e0f2-08dcd82a5bd5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9434
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240911213537.2338164-11-superm1@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,122 +75,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some manufacturers have intentionally put an EDID that differs from
-the EDID on the internal panel on laptops.
+Hi Mario,
 
-Attempt to fetch this EDID if it exists and prefer it over the EDID
-that is provided by the panel. If a user prefers to use the EDID from
-the panel, offer a DC debugging parameter that would disable this.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 62 ++++++++++++++++++-
- drivers/gpu/drm/amd/include/amd_shared.h      |  5 ++
- 2 files changed, 66 insertions(+), 1 deletion(-)
+[auto build test ERROR on amd-pstate/linux-next]
+[also build test ERROR on amd-pstate/bleeding-edge linus/master v6.11]
+[cannot apply to next-20240918]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 8f4be7a1ec45..05d3e00ecce0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -23,6 +23,8 @@
-  *
-  */
- 
-+#include <acpi/video.h>
-+
- #include <linux/string.h>
- #include <linux/acpi.h>
- #include <linux/i2c.h>
-@@ -874,6 +876,60 @@ bool dm_helpers_is_dp_sink_present(struct dc_link *link)
- 	return dp_sink_present;
- }
- 
-+static int
-+dm_helpers_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
-+{
-+	struct drm_connector *connector = data;
-+	struct acpi_device *acpidev = ACPI_COMPANION(connector->dev->dev);
-+	unsigned char start = block * EDID_LENGTH;
-+	void *edid;
-+	int r;
-+
-+	if (!acpidev)
-+		return -ENODEV;
-+
-+	/* fetch the entire edid from BIOS */
-+	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
-+	if (r < 0) {
-+		DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
-+		return r;
-+	}
-+	if (len > r || start > r || start + len > r) {
-+		r = -EINVAL;
-+		goto cleanup;
-+	}
-+
-+	memcpy(buf, edid + start, len);
-+	r = 0;
-+
-+cleanup:
-+	kfree(edid);
-+
-+	return r;
-+}
-+
-+static const struct drm_edid *
-+dm_helpers_read_acpi_edid(struct amdgpu_dm_connector *aconnector)
-+{
-+	struct drm_connector *connector = &aconnector->base;
-+
-+	if (amdgpu_dc_debug_mask & DC_DISABLE_ACPI_EDID)
-+		return NULL;
-+
-+	switch (connector->connector_type) {
-+	case DRM_MODE_CONNECTOR_LVDS:
-+	case DRM_MODE_CONNECTOR_eDP:
-+		break;
-+	default:
-+		return NULL;
-+	}
-+
-+	if (connector->force == DRM_FORCE_OFF)
-+		return NULL;
-+
-+	return drm_edid_read_custom(connector, dm_helpers_probe_acpi_edid, connector);
-+}
-+
- enum dc_edid_status dm_helpers_read_local_edid(
- 		struct dc_context *ctx,
- 		struct dc_link *link,
-@@ -896,7 +952,11 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 	 * do check sum and retry to make sure read correct edid.
- 	 */
- 	do {
--		drm_edid = drm_edid_read_ddc(connector, ddc);
-+		drm_edid = dm_helpers_read_acpi_edid(aconnector);
-+		if (drm_edid)
-+			DRM_DEBUG_KMS("Using ACPI provided EDID for %s\n", connector->name);
-+		else
-+			drm_edid = drm_edid_read_ddc(connector, ddc);
- 		drm_edid_connector_update(connector, drm_edid);
- 		aconnector->drm_edid = drm_edid;
- 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 3f91926a50e9..1ec7c5e5249e 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -337,6 +337,11 @@ enum DC_DEBUG_MASK {
- 	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
- 	 */
- 	DC_FORCE_IPS_ENABLE = 0x4000,
-+	/**
-+	 * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
-+	 * eDP display from ACPI _DDC method.
-+	 */
-+	DC_DISABLE_ACPI_EDID = 0x8000,
- };
- 
- enum amd_dpm_forced_level;
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/drm-amd-display-switch-amdgpu_dm_connector-to-use-struct-drm_edid/20240912-093827
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git linux-next
+patch link:    https://lore.kernel.org/r/20240911213537.2338164-11-superm1%40kernel.org
+patch subject: [PATCH v6 10/10] drm/amd/display: Fetch the EDID from _DDC if available for eDP
+config: arm64-randconfig-003-20240918 (https://download.01.org/0day-ci/archive/20240919/202409191128.4bvJysve-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 14.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240919/202409191128.4bvJysve-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202409191128.4bvJysve-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c: In function 'dm_helpers_probe_acpi_edid':
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:883:28: error: unused variable 'ddev' [-Werror=unused-variable]
+     883 |         struct drm_device *ddev = connector->dev;
+         |                            ^~~~
+   cc1: all warnings being treated as errors
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for FB_IOMEM_HELPERS
+   Depends on [n]: HAS_IOMEM [=y] && FB_CORE [=n]
+   Selected by [m]:
+   - DRM_XE_DISPLAY [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_XE [=m] && DRM_XE [=m]=m [=m]
+
+
+vim +/ddev +883 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c
+
+   878	
+   879	static int
+   880	dm_helpers_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+   881	{
+   882		struct drm_connector *connector = data;
+ > 883		struct drm_device *ddev = connector->dev;
+   884		struct acpi_device *acpidev = ACPI_COMPANION(ddev->dev);
+   885		unsigned char start = block * EDID_LENGTH;
+   886		void *edid;
+   887		int r;
+   888	
+   889		if (!acpidev)
+   890			return -ENODEV;
+   891	
+   892		/* fetch the entire edid from BIOS */
+   893		r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
+   894		if (r < 0) {
+   895			DRM_DEBUG_KMS("Failed to get EDID from ACPI: %d\n", r);
+   896			return r;
+   897		}
+   898		if (len > r || start > r || start + len > r) {
+   899			r = -EINVAL;
+   900			goto cleanup;
+   901		}
+   902	
+   903		memcpy(buf, edid + start, len);
+   904		r = 0;
+   905	
+   906	cleanup:
+   907		kfree(edid);
+   908	
+   909		return r;
+   910	}
+   911	
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
