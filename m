@@ -4,69 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D029CCF58E5
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 07:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CFD9CF58E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 07:23:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3BAC10E7CC;
-	Fri, 20 Sep 2024 07:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B8010E7B9;
+	Fri, 20 Sep 2024 07:23:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="nblTc9WX";
+	dkim=pass (2048-bit key; unprotected) header.d=internode.on.net header.i=@internode.on.net header.b="aBjBiQxO";
 	dkim-atps=neutral
-X-Greylist: delayed 28980 seconds by postgrey-1.36 at gabe;
- Fri, 20 Sep 2024 02:32:13 UTC
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 630F110E0DB
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 02:32:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1726799531;
- bh=2kyAqX0UmcnVQ2r2WsVJruwXGGrYUL0M/kI4rXDSr9A=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=nblTc9WXlIJZu+91reg6GY0YOUHF+DF2kqIxNRtv7giuWl0yNyKxHqXIc+LXY/fpT
- zIFdVrCczsq00E8G1yUmda9cIRY6g8xS+Z4Q0+jzjPc5Y45Rq3Fw2jE3aSjhwgktPu
- f20nyAlSUxbv93bk9ZQGYb3eZCAEqnQDKgdqyHlo=
-X-QQ-mid: bizesmtp91t1726799522tmx5q8zr
-X-QQ-Originating-IP: ffXfo76nqqY9lfia2Nzg/UbJJ73MBdFP5f3xCSUe0Dw=
-Received: from [10.20.53.22] ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 20 Sep 2024 10:31:59 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13317544603402082152
-Message-ID: <2573492DD1A88727+468e98e3-ead1-4232-9bc4-6eeef19d143d@uniontech.com>
-Date: Fri, 20 Sep 2024 10:31:59 +0800
+X-Greylist: delayed 7119 seconds by postgrey-1.36 at gabe;
+ Thu, 19 Sep 2024 18:55:27 UTC
+Received: from omr000.pc5.atmailcloud.com (omr000.pc5.atmailcloud.com
+ [103.150.252.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 831A710E76C;
+ Thu, 19 Sep 2024 18:55:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=internode.on.net; s=202309; h=MIME-Version:Message-ID:Date:Subject:To:From:
+ content-type; bh=CNvzFe9fGd98RlReCYS+NNkkhCDG6VKvF/0EOMmVuWw=; b=aBjBiQxONcG+
+ WStWCQNFMDyM5XL8L1jEzI2qqij749Gda8n53drz+derd8HA4XwjKNa1vC5DUQSy7cyHzmZZFGv/i
+ G+nnprzZT7RD0myzz/ZaRUj4YYxRhCBLVjgZZyFZH7sAmglhQi35Q18txbtpwAK2d1sga2+NtVtzS
+ cvf6N0YJ+WBlWG4v4QV8JyCDTRXH0LecxI/++lVRzLSvTsqUs+EBwPtRX2Zm+RnIrG47s2/xXCkbM
+ 7f9S5CEcTO7E09RwZmIP6KPW0RQrpHSGLZy77sAn0GMAh3vSQjJqElpc4FhJRUPPtZP1sMvxuFBXa
+ 1em9/3Q+IyV26dom6HPYbw==;
+Received: from CMR-KAKADU01.i-02175a00542f9bb7e
+ by OMR.i-011229ae50fa0cd71 with esmtps
+ (envelope-from <arthur.marsh@internode.on.net>)
+ id 1srKST-000000006NL-2t4y; Thu, 19 Sep 2024 16:56:45 +0000
+Received: from [203.173.7.72] (helo=localhost)
+ by CMR-KAKADU01.i-02175a00542f9bb7e with esmtpsa
+ (envelope-from <arthur.marsh@internode.on.net>)
+ id 1srKST-000000004vD-06HQ; Thu, 19 Sep 2024 16:56:45 +0000
+Received: from amarsh04 by localhost with local (Exim 4.98)
+ (envelope-from <arthur.marsh@internode.on.net>)
+ id 1srKSP-000000001Cq-1EPo; Fri, 20 Sep 2024 02:26:41 +0930
+From: Arthur Marsh <arthur.marsh@internode.on.net>
+To: wuhoipok@gmail.com
+Cc: Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, daniel@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ tzimmermann@suse.de, arthur.marsh@internode.on.net
+Subject: drm/radeon: remove load callback from kms_driver
+Date: Fri, 20 Sep 2024 02:26:40 +0930
+Message-ID: <20240919165641.4632-1-user@am64>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240630165949.117634-3-wuhoipok@gmail.com>
+References: <20240630165949.117634-3-wuhoipok@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] treewide: Correct the typo 'acccess'
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, vitaly.prosyak@amd.com,
- yifan1.zhang@amd.com, Tim.Huang@amd.com, jesse.zhang@amd.com,
- Prike.Liang@amd.com, Hawking.Zhang@amd.com, kevinyang.wang@amd.com,
- srinivasan.shanmugam@amd.com, Jiadong.Zhu@amd.com, tao.zhou1@amd.com,
- pavel@ucw.cz, lee@kernel.org, aren@peacevolution.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, le.ma@amd.com,
- Wenhui.Sheng@amd.com, jjhiblot@traphandler.com, guanwentao@uniontech.com,
- zhanjun@uniontech.com
-References: <4AB1F900B5D100C2+20240919182855.85840-1-wangyuli@uniontech.com>
- <f75fbe30-528e-404f-97e4-854d27d7a401@amd.com>
-Content-Language: en-US
-From: WangYuli <wangyuli@uniontech.com>
-Autocrypt: addr=wangyuli@uniontech.com; keydata=
- xjMEZoEsiBYJKwYBBAHaRw8BAQdAyDPzcbPnchbIhweThfNK1tg1imM+5kgDBJSKP+nX39DN
- IVdhbmdZdWxpIDx3YW5neXVsaUB1bmlvbnRlY2guY29tPsKJBBMWCAAxFiEEa1GMzYeuKPkg
- qDuvxdofMEb0C+4FAmaBLIgCGwMECwkIBwUVCAkKCwUWAgMBAAAKCRDF2h8wRvQL7g0UAQCH
- 3mrGM0HzOaARhBeA/Q3AIVfhS010a0MZmPTRGVfPbwD/SrncJwwPAL4GiLPEC4XssV6FPUAY
- 0rA68eNNI9cJLArOOARmgSyJEgorBgEEAZdVAQUBAQdA88W4CTLDD9fKwW9PB5yurCNdWNS7
- VTL0dvPDofBTjFYDAQgHwngEGBYIACAWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZoEsiQIb
- DAAKCRDF2h8wRvQL7sKvAP4mBvm7Zn1OUjFViwkma8IGRGosXAvMUFyOHVcl1RTgFQEAuJkU
- o9ERi7qS/hbUdUgtitI89efbY0TVetgDsyeQiwU=
-In-Reply-To: <f75fbe30-528e-404f-97e4-854d27d7a401@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------lf4Jms0gKlolG25Z0id6kYg1"
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
+Content-Transfer-Encoding: 8bit
+X-Atmail-Id: arthur.marsh@internode.on.net
+X-atmailcloud-spam-action: no action
+X-Cm-Analysis: v=2.4 cv=S/DfwpsP c=1 sm=1 tr=0 ts=66ec57cd
+ a=q73fGBFtUWUW5y4nvQjQTA==:117 a=q73fGBFtUWUW5y4nvQjQTA==:17
+ a=EaEq8P2WXUwA:10 a=x7bEGLp0ZPQA:10 a=pGLkceISAAAA:8 a=aIJAOKreiCTeCyBpU-sA:9
+X-Cm-Envelope: MS4xfHYppumKWIUnyI2Ju0M49vhnvlI5I58KLh4+FPPY2NoGJ2kbZEMp8UJ0GP5RcBj4Y7lrVRzdx8vKa/zkhB+xX2yttGtN9cY+gbgwMpCjdJRG9KUiZfoW
+ mgFQnH+Gory5lpvGZtlBfdI/y0NdXfFypS6yxqGrTmIK0ZplfmRYhuA0wyzStGh3shfYwSgojx+DgA==
+X-atmailcloud-route: unknown
 X-Mailman-Approved-At: Fri, 20 Sep 2024 07:23:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,97 +74,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------lf4Jms0gKlolG25Z0id6kYg1
-Content-Type: multipart/mixed; boundary="------------L1QVVc1ADqeZ4LsnZ9tF0ciV";
- protected-headers="v1"
-From: WangYuli <wangyuli@uniontech.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, vitaly.prosyak@amd.com,
- yifan1.zhang@amd.com, Tim.Huang@amd.com, jesse.zhang@amd.com,
- Prike.Liang@amd.com, Hawking.Zhang@amd.com, kevinyang.wang@amd.com,
- srinivasan.shanmugam@amd.com, Jiadong.Zhu@amd.com, tao.zhou1@amd.com,
- pavel@ucw.cz, lee@kernel.org, aren@peacevolution.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, le.ma@amd.com,
- Wenhui.Sheng@amd.com, jjhiblot@traphandler.com, guanwentao@uniontech.com,
- zhanjun@uniontech.com
-Message-ID: <468e98e3-ead1-4232-9bc4-6eeef19d143d@uniontech.com>
-Subject: Re: [PATCH] treewide: Correct the typo 'acccess'
-References: <4AB1F900B5D100C2+20240919182855.85840-1-wangyuli@uniontech.com>
- <f75fbe30-528e-404f-97e4-854d27d7a401@amd.com>
-In-Reply-To: <f75fbe30-528e-404f-97e4-854d27d7a401@amd.com>
+Recent kernels resulted in a blank screen, with Xorg.0.log reporting:
 
---------------L1QVVc1ADqeZ4LsnZ9tF0ciV
-Content-Type: multipart/mixed; boundary="------------yEsJV508YGyTPoNrV5tBjLo2"
+(II) [KMS] drm report modesetting isn't supported.
 
---------------yEsJV508YGyTPoNrV5tBjLo2
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Sometimes while bisecting the pc came to a complete lockup (magic Sysreq 
+unresponsive).
 
-5ZyoIDIwMjQvOS8yMCAwMzowMSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCg0KPg0KPg0K
-PiBBbSAxOS4wOS4yNCB1bSAyMDoyOCBzY2hyaWViIFdhbmdZdWxpOg0KPj4gVGhlcmUgYXJl
-IHNvbWUgc3BlbGxpbmcgbWlzdGFrZXMgb2YgJ2FjY2Nlc3MnIGluIGNvbW1lbnRzIHdoaWNo
-DQo+PiBzaG91bGQgYmUgaW5zdGVhZCBvZiAnYWNjZXNzJy4NCj4+DQo+PiBTaWduZWQtb2Zm
-LWJ5OiBXYW5nWXVsaSA8d2FuZ3l1bGlAdW5pb250ZWNoLmNvbT4NCj4+IC0tLQ0KPj4gwqAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMV8wLmPCoMKgIHwgMiArLQ0KPj4g
-wqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzRfMy5jwqAgfCAyICstDQo+
-PiDCoCBkcml2ZXJzL2xlZHMvcmdiL2xlZHMtZ3JvdXAtbXVsdGljb2xvci5jIHwgMiArLQ0K
-Pj4gwqAgMyBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0p
-DQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-MTFfMC5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjExXzAuYw0K
-Pj4gaW5kZXggZDNlOGJlODJhMTcyLi5mODQ3YTlmYzYxZTEgMTAwNjQ0DQo+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjExXzAuYw0KPj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMV8wLmMNCj4+IEBAIC0xODk0LDcgKzE4OTQs
-NyBAQCBzdGF0aWMgdm9pZCBnZnhfdjExXzBfaW5pdF9jb21wdXRlX3ZtaWQoc3RydWN0IA0K
-Pj4gYW1kZ3B1X2RldmljZSAqYWRldikNCj4+IMKgwqDCoMKgwqAgbXV0ZXhfdW5sb2NrKCZh
-ZGV2LT5zcmJtX211dGV4KTsNCj4+IMKgIMKgwqDCoMKgwqAgLyogSW5pdGlhbGl6ZSBhbGwg
-Y29tcHV0ZSBWTUlEcyB0byBoYXZlIG5vIEdEUywgR1dTLCBvciBPQQ0KPj4gLcKgwqDCoMKg
-wqDCoCBhY2NjZXNzLiBUaGVzZSBzaG91bGQgYmUgZW5hYmxlZCBieSBGVyBmb3IgdGFyZ2V0
-IFZNSURzLiAqLw0KPj4gK8KgwqDCoMKgwqDCoCBhY2Nlc3MuIFRoZXNlIHNob3VsZCBiZSBl
-bmFibGVkIGJ5IEZXIGZvciB0YXJnZXQgVk1JRHMuICovDQo+DQo+IFdoaWxlIGF0IGl0IGNv
-dWxkIHlvdSBmaXggdGhlIGNvbW1lbnQgc3R5bGUgaGVyZT8gRS5nLiB1c2UNCj4NCj4gLyoN
-Cj4gwqAqIFRleHQNCj4gwqAqIFRleHQNCj4gwqAqLw0KPg0KT0suDQoNCkxpbms6IA0KaHR0
-cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsL0YyNUExMzk3ODlFODdDM0UrMjAyNDA5MjAwMjI3
-NTUuMTE2MjQ5NS0xLXdhbmd5dWxpQHVuaW9udGVjaC5jb20vDQoNCldpdGggVGhvbWFzIFpp
-bW1lcm1hbm4ncyBBY2tlZC1ieS4NCg0KPiBUaGFua3MsDQo+IENocmlzdGlhbi4NCj4NCj4N
-ClRoYW5rcywNCi0tIA0KV2FuZ1l1bGkNCg==
---------------yEsJV508YGyTPoNrV5tBjLo2
-Content-Type: application/pgp-keys; name="OpenPGP_0xC5DA1F3046F40BEE.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xC5DA1F3046F40BEE.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+At the end of bisecting I had:
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+90985660ba488cd3428706e7d53d6c9cdbbf3101 is the first bad commit
+commit 90985660ba488cd3428706e7d53d6c9cdbbf3101
+Author: Wu Hoi Pok <wuhoipok@gmail.com>
+Date:   Sun Jun 30 12:59:18 2024 -0400
 
-xjMEZoEsiBYJKwYBBAHaRw8BAQdAyDPzcbPnchbIhweThfNK1tg1imM+5kgDBJSK
-P+nX39DNIVdhbmdZdWxpIDx3YW5neXVsaUB1bmlvbnRlY2guY29tPsKJBBMWCAAx
-FiEEa1GMzYeuKPkgqDuvxdofMEb0C+4FAmaBLIgCGwMECwkIBwUVCAkKCwUWAgMB
-AAAKCRDF2h8wRvQL7g0UAQCH3mrGM0HzOaARhBeA/Q3AIVfhS010a0MZmPTRGVfP
-bwD/SrncJwwPAL4GiLPEC4XssV6FPUAY0rA68eNNI9cJLArOOARmgSyJEgorBgEE
-AZdVAQUBAQdA88W4CTLDD9fKwW9PB5yurCNdWNS7VTL0dvPDofBTjFYDAQgHwngE
-GBYIACAWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZoEsiQIbDAAKCRDF2h8wRvQL
-7sKvAP4mBvm7Zn1OUjFViwkma8IGRGosXAvMUFyOHVcl1RTgFQEAuJkUo9ERi7qS
-/hbUdUgtitI89efbY0TVetgDsyeQiwU=3D
-=3DBlkq
------END PGP PUBLIC KEY BLOCK-----
+    drm/radeon: remove load callback from kms_driver
+    
+    The ".load" callback in "struct drm_driver" is deprecated. In order to remove
+    the callback, we have to manually call "radeon_driver_load_kms" instead.
 
---------------yEsJV508YGyTPoNrV5tBjLo2--
+This machine reports having:
 
---------------L1QVVc1ADqeZ4LsnZ9tF0ciV--
+AMD A10-6800K APU with Radeon HD Graphics
 
---------------lf4Jms0gKlolG25Z0id6kYg1
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+with the gpu appearing as 
 
------BEGIN PGP SIGNATURE-----
+Advanced Micro Devices [AMD/ATI] Richland [Radeon HD 8670D] 1002:990c
 
-wnsEABYIACMWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZuzenwUDAAAAAAAKCRDF2h8wRvQL7pDd
-AP98YmH2GuZSl7gSJJZM5828IoxW3uwXszr1jM3hyLEJeQEAjvQBiWBW1zciyNuTaRetGXNvZNCZ
-tkYIZHG6DDS/cAc=
-=PnZn
------END PGP SIGNATURE-----
+Regards,
 
---------------lf4Jms0gKlolG25Z0id6kYg1--
+Arthur Marsh.
