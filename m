@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDD7FCF3962
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 18:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C11DCF3964
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Sep 2024 18:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9040F10E758;
-	Thu, 19 Sep 2024 18:35:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE34410E75B;
+	Thu, 19 Sep 2024 18:35:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OazgNd9d";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IR0ToXNP";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559C310E758
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Sep 2024 18:35:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0992610E75B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Sep 2024 18:35:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sDjIzVFOcyf173+YAb7BppPPipZFzk/ieoxCNEM1CmsOOtbbjTKc5UrrNYdFcZYo95T8GuM80Y3YI0/DA1GejmNXLzoTkzZ5bO+vYKm8t3RXcHNaPC4Ytepd8Wj3WtB6RpxzlVClu3jUzmWIkNgzjwJNvKorj62RC33kIQ1xW8ISIW2NdfedCc80dsdEbcsPrkX3rtUApHqsix0yYVnmkmssI+155JdHRtLgUuu0r1WozAOmxy/qGeuoHCbxFNHh/B6+pdTcUiQQs5Zn585AK5sVhkqI+0durJyew0+koqLzTnPT/oAHW1V/6Ypwdy1RkIjfhdec1eyRiDcTEWm9Rw==
+ b=I7uS5q0DUENcqZpEM/0spgkPkQnekiS2RcKO8+SdcWuRyt1iPvHTCQNN2+KGcZsu7RoLMYJ9AihXh7CS3FFVldpr53iP57MUJU6S7XpWJ6pcFARCZbXmR+dMvgmkPm3ePaXiKgR2/MQGCod+hL/xQFBp5PdGnAwBY1PtshhYMmeakIzRspHCBD/uDIjOtNm0DIc/SfOMHR+P9vIVRVpGkfiIL8eoch9gxHaX08m/ay//RQotvnf5wTKow4m/a5xnUWHOZyDEKmFndSpDvotc0INv1dZP3LFQWVMGO/ullbnRd2OR/LxlIAwDNTarLWkvHChOPZ+zPoPPFMo69KbFSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v6SQNR4XkDtiV3b+K1Ww64Ny1UaIUWCM5y+Z1mfQiwQ=;
- b=RoUW6ZObRudHyxoQtkR8bEtVKEZFDg9/N5Ra3gtUyw7ZUfFRsVH5LMII4QdGXBt359jGDwVRAeeywwvsY9v0g4rn1T26lrykaFUmfqc3ZwK3vmZuaxhbu6+JrI91wCtu0oiAWOT+9pEesiPR2dNdp9axRJhKjUyl9yLK86g95+wRZbk7RR+vF+AdB4C7vFnO4c+6zWYmW/bn5KrNkBVrurEDCh/VcvZ27oq5zvWR3oXZUkTNwjmfNkhZgofMPMASWJCsvgQuFwKKmbJtCPNfVbkAEfucaBsIIi0RR5eqfkSGtKIR7i5JTAKLrGbgW15LGyON3/R9GFynZUR3DiaV0w==
+ bh=aeRCSru406pyWT3r5/WRwMXp7Lvs3Doye8Qf05brZuw=;
+ b=BPC7sff1Tkp6CKGX6n6oshiFHHfl2eKdELTp1zoACfRleCUg29CDpERp3AS1IcgGzWSK/MdyONvvsPBEPC2WzRudVuXuuUt3YLhskaD4aVUe/Z2b7BaIj8M9J6c38P6u8TujB58pOfbE/N8sSHKUKmYnQdxSDGWsirbrb3PURqLbQvO0UzmDa/8EQS9HxJidX23ijOvAElB/2C0KUkph2UlQQUdoMGa3OSQKL0peR3njR4S0tJyVIRXgVRthuDa56Z6SVUwJnc41J86fP0BWAtRM9SVaM3kiAwRornrvQNnnsDIdBmP1yH+8PUNFWjaACRvkcdxaEFVKdqRhv7yQ9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v6SQNR4XkDtiV3b+K1Ww64Ny1UaIUWCM5y+Z1mfQiwQ=;
- b=OazgNd9dQ6wBWhO/eiNyk43viookAYoQ0xtJKYNnQq1ITi7w0qh+fK7m3Hx1uSFTqNfOMPGwj7kZhpu/rf0cVRMzKTRQigk2yRZAJLshtCRZPut3TUTJ4E9rK4QRFQA0HAUdf4Cy371pNCuoUaw/ykN2c7EyHsLCX5oD0O9ARDk=
-Received: from BL1P223CA0007.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::12)
- by PH0PR12MB7485.namprd12.prod.outlook.com (2603:10b6:510:1e9::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.17; Thu, 19 Sep
- 2024 18:35:08 +0000
+ bh=aeRCSru406pyWT3r5/WRwMXp7Lvs3Doye8Qf05brZuw=;
+ b=IR0ToXNPgIwyTF3a6zA07zwwa0fCC+gcGLuw6j8QdJV94JSxU9CQh4pS4OIAtYJhMT60DFeWFE8L0xvDCEayepiGZYlGydxhqH7wl1Aj+zlZFF4tdNn5nD2IarwNxYrpxYZmVrrp6Uv/XRFg5EI+bdBBBqsYZU5jqeSnI+FCFuI=
+Received: from BL1P223CA0017.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::22)
+ by DS0PR12MB7851.namprd12.prod.outlook.com (2603:10b6:8:14a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.22; Thu, 19 Sep
+ 2024 18:35:09 +0000
 Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
- (2603:10b6:208:2c4:cafe::4) by BL1P223CA0007.outlook.office365.com
- (2603:10b6:208:2c4::12) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:2c4:cafe::41) by BL1P223CA0017.outlook.office365.com
+ (2603:10b6:208:2c4::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.30 via Frontend
- Transport; Thu, 19 Sep 2024 18:35:07 +0000
+ Transport; Thu, 19 Sep 2024 18:35:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,14 +50,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Thu, 19 Sep 2024 18:35:07 +0000
+ 15.20.7918.13 via Frontend Transport; Thu, 19 Sep 2024 18:35:09 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Sep
- 2024 13:35:03 -0500
+ 2024 13:35:04 -0500
 Received: from aaurabin-suse.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 19 Sep 2024 13:35:03 -0500
+ Transport; Thu, 19 Sep 2024 13:35:04 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,12 +66,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Joshua Aberback <joshua.aberback@amd.com>, "Dillon
- Varone" <dillon.varone@amd.com>
-Subject: [PATCH 17/21] drm/amd/display: Clip rect size changes should be full
- updates
-Date: Thu, 19 Sep 2024 14:33:35 -0400
-Message-ID: <20240919183435.1896209-18-aurabindo.pillai@amd.com>
+ <daniel.wheeler@amd.com>, Alex Hung <alex.hung@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ <stable@vger.kernel.org>
+Subject: [PATCH 18/21] drm/amd/display: Add HDR workaround for specific eDP
+Date: Thu, 19 Sep 2024 14:33:36 -0400
+Message-ID: <20240919183435.1896209-19-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240919183435.1896209-1-aurabindo.pillai@amd.com>
 References: <20240919183435.1896209-1-aurabindo.pillai@amd.com>
@@ -82,51 +82,49 @@ Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|PH0PR12MB7485:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3702a74f-dc64-4adf-f3a9-08dcd8d9c94f
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|DS0PR12MB7851:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4268a17-702e-47df-0cc6-08dcd8d9ca8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FGJyMczI/Ph6ibk7F2RhwWYeZYU+IUKaxsvGP22x61KZmaeHKgDt3uOS/kDB?=
- =?us-ascii?Q?EAkGOaOVJiJmEtEU2NBLln1MXs8LbRp2KUuCE3zBqmPqWVEEvHb/YdOFgJw+?=
- =?us-ascii?Q?b1ridYoK9j3l1TmriyMAXDalK+z2dBEieNHjge5hazOjx6/wPl7CLqxLfzfm?=
- =?us-ascii?Q?XI+WmiJiKzMTKlaJjFjrqA3hYrtZ5voY08sC/qxJa+AFRO4g6YDe404TSmfE?=
- =?us-ascii?Q?sCAjtG/nHveMEbdw/jBjMNXlzg1VfC6VvNkKvl88VK3yTR1uQmFU1WmUFvvG?=
- =?us-ascii?Q?u1MX1xaaiKskvlkQWvaoLAZsp82Z1qEPmPEs7WBZEN5RRfJb+1BaxukgGPgp?=
- =?us-ascii?Q?OoBCy21jVSW8XcT0tFRPya5VXhjDu5o5Q8yxWCybxxhGEQAemB0HWVNibVRo?=
- =?us-ascii?Q?zBr/fM3w17zee1hXjk5uoC23oqwurYvyInlndasgiN6Z5zEwPdmgqMiAJ8w/?=
- =?us-ascii?Q?fsObmJNm39clBQ8wmYEo9yag/sLKUCyem51HCSHssuHn3Ji7Wm0Z0q4N/5Ov?=
- =?us-ascii?Q?YjpSIGfZhxfLkfTqyNUAd2/8aRq7XfOBDtkPnIgqWDYWRFqDb00eS7B/sbTm?=
- =?us-ascii?Q?j2YJeiw6lIaONb3sC3h8DEcjNOfYOLPA7EeQgJ+tuhkN6ZmEt3hEmEq5wjo7?=
- =?us-ascii?Q?MpmoyonIbuSyh/KDkGlBXOhlgD8LoS8h1bsIy1EZoHFcY9p3fPCxk+/kuxg0?=
- =?us-ascii?Q?cJ36sznzma4kEDJHMplClbZkMODSETj4SJQzRdrUH0VPD79YmEkI9B2t6/bB?=
- =?us-ascii?Q?D1xZe6Kr6pdXPtxoocXukik2TDlNK44k1czYycR9o7pr8/0TJCV+zPZUdesT?=
- =?us-ascii?Q?dIOxrzFet/jNQTODME13wtk5b5rY37iTX1j/1O/86Wx4ECiISlS275Z3drKd?=
- =?us-ascii?Q?IWr/JU2fSktsGwyoNE/+C2+0nlGXHOC5G6SnpLr4Fd7/Vm/fjkeZvbyV+6EQ?=
- =?us-ascii?Q?k8Eeq6Gvfz03zlb3QukTCjlSW4E2IQqW+Su1JI3V0RkUk0up2AbpaZ/TQ3aW?=
- =?us-ascii?Q?hzi+5fpKov0S2KcrMxMbA2HHqPNd1GIm0lkM6JZJ8Se4uQG036nnPLYswMyD?=
- =?us-ascii?Q?w8Wsn52AMzqBDCumOzWC38n0AmtTNDaTCgFBLcfsvxeyEXRHwn2N0DTdnfkC?=
- =?us-ascii?Q?hdJM//0lN7Wp/l5gq7qkta5HafZ99q/7Jv/WFGvgwa3z25Uu8utwNDHEeNe8?=
- =?us-ascii?Q?WFqSnUC2WJw+bzkZRsuPQ0O5GgExEGmqr8ZLNCxIF9mcDRdRAoiZ8luwrpLj?=
- =?us-ascii?Q?ckiUc4R6+9xZ7cZ3ix+CtFMXsibqNhlVOA/hkhVMQfaKgi+X/hhuFMbLObi+?=
- =?us-ascii?Q?IAj29HQGHyCR/4wmvurLr+NxMvPyg0t/pXu2sswsiD42JHMB+EF87HIz7E8n?=
- =?us-ascii?Q?esQ1VypQTEcE+cuQsVdGjfghJ9ECwc8OjwGTmc4FhdXhE+fgl5/VSw1YS8rx?=
- =?us-ascii?Q?OpTFsJXYDtWNumrm0xymHmO1WSPqZBTU?=
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?f1X4AMypERCKIWfFCUk2+3u2C+5Oqrpm/AWvuqRGKDvDu7xCfvHGKGrIB0OL?=
+ =?us-ascii?Q?vHV7e8yeXjaPPN+dTKZlIfQ47mwgEB3YOaDWkdOQiyBOMaSnYlWy5Cz2ymCu?=
+ =?us-ascii?Q?pHbWPiuMi3wwY8aZCPTw6dwfC8afM277S8w/60XN7MvgUN2IS3gau3ijjxaS?=
+ =?us-ascii?Q?/A1mKgLf7vhkDLXgogem6E4wv12O9uQ2NrdiwMOcNsZ3JmidsCcm7ArDrrQ3?=
+ =?us-ascii?Q?xqlSFBAzvlc3JPlJFMobjn43xPQMsCRCb4vlnJFe4F91T4VUF9ahMksUXrpS?=
+ =?us-ascii?Q?P3q/0MTf9F0N6F3CqsBdqFTr9XOzaX96liI5HHn04QdZOR7jLnlxJaD2m2kh?=
+ =?us-ascii?Q?VPyBIdg58pX8+468hbJJEx70Fb08KC6sPsMHA/wepUu2gIZuDVhZzxa3gRhC?=
+ =?us-ascii?Q?+9MWMeQulR23BQ6CnveiQH5dXmTK3uD+YTmmbfXmshYmiA7qBkd0TKw5ZL8X?=
+ =?us-ascii?Q?0W8iSFkzljKWyO+Su1UJsSN+T2m9A2259e9a6FruPfQvjRhdqASuVwgDC8Og?=
+ =?us-ascii?Q?7jwFtPNtU0orRpK7rBRA9Hl+27w9j5IupHloI1+6yMckwzQk94ANNDoRsG6E?=
+ =?us-ascii?Q?4UfE7FrgAstAVEwOAlV8NjkkkhTt8N1yV1spSa90qPAiG1nDuyvaQrIOTtOp?=
+ =?us-ascii?Q?uvRgKQA6qc9Fu3UOfQCm+3pRN3rhQEWV033OCnT6B15GIW/tAXdAsvBzsoOV?=
+ =?us-ascii?Q?JVI2hrEPCMiqIg/UWmWhW313ZHK9ZYoaEEc2kv/ytm80LTLOsFHgS5b7Xwm7?=
+ =?us-ascii?Q?q7yNLbqQq5Cx6R5dO7eTHNxn/AiKn3aMxqsiy7nCjI23VjC7pu/rgjPeUTY4?=
+ =?us-ascii?Q?0ons5EfvwAEi3IJruaYiFEPFVFzBYDU2ts0WI9xfwBU+2YvDMjOhVlxsoZBh?=
+ =?us-ascii?Q?aOy4Tjd47vHb/kV2td4kQ0N6CQnAjOnaH5oFAgbxbNDHdZnVw2WIHfIAQPpZ?=
+ =?us-ascii?Q?FYvCJHKDb6qW2+1r9JQhphYzYPM2C2ROZvMQtit0J0DUdhMxp6XKJSmmPrOW?=
+ =?us-ascii?Q?7TABemT7mMzQmmVVFlvhw+lFFOo7jbptnFMj/rLWbXcsYK4fB36Kz13xWrwo?=
+ =?us-ascii?Q?wjM5WtKvwIfS/+pToiTCvkAgSEaVi1qBTkmONMIy1oR1HfHEpPyd3di8cWln?=
+ =?us-ascii?Q?Mm+EpmXZv2FzcBkEsJErDSH54a8mMAT/nMz4EN8vDCQ0aHYoak4b9cCe6ZNX?=
+ =?us-ascii?Q?r54PPXbArlhiMOgMtvuYXzYywOAdo1gOvwIwLKWjaGuU/nJ626lpjxgXURkM?=
+ =?us-ascii?Q?YnBUta3aKKpQpU0q0bG4MzwkYiFL0xsRZjqq+AZ1qnaof3Xl5YJFEcGQGg/6?=
+ =?us-ascii?Q?151Vlz+duvGXIgj6cyq8Ywjz?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2024 18:35:07.6105 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3702a74f-dc64-4adf-f3a9-08dcd8d9c94f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2024 18:35:09.6887 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4268a17-702e-47df-0cc6-08dcd8d9ca8d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B077.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7485
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7851
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,160 +139,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Aberback <joshua.aberback@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[Why]
-In cases where an MPO plane is being dragged around partially off-screen,
-it is possible to get a flip where the only scaling parameters to change
-are the clip rect size and position. Currently, clip rect size changes
-are considered medium updates, which can result in the clip rect being used
-for HW programming being larger than the clip rect that was used for the
-last DML validation. This can lead to mismatches in different parts of the
-pipe and can result in a p-state hang.
+[WHY & HOW]
+Some eDP panels suffer from flicking when HDR is enabled in KDE. This
+quirk works around it by skipping VSC that is incompatible with eDP
+panels.
 
-[How]
- - consider clip rect size changes scaling changes, therefore full updates
- - refactor get_scaling_info_update_type for clarity
- - remove clip_size_change update flag
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3151
 
-Clip rect size changes were previously demoted from full updates as an
-optimization when the MPO + ODM policy changed to always pre-allocate MPO
-pipes, but it created the issue described above. Personally testing this
-use case, the performance feels fine with full update spam, and we expect
-this is a fairly infrequent use case. If the performance needs to be
-optimized in the future, consider reworking the entire update type logic
-to run a DML pass and determine the update type based on what DML says
-will actually change.
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Joshua Aberback <joshua.aberback@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 45 ++++++++-----------
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 -
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  2 -
- 3 files changed, 19 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     | 11 ++++++++++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  4 ++++
+ drivers/gpu/drm/amd/display/dc/dc_types.h             |  1 +
+ 3 files changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index fbc2e1dfb610..5c9a88e834e6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2515,41 +2515,35 @@ static enum surface_update_type get_scaling_info_update_type(
- 	if (!u->scaling_info)
- 		return UPDATE_TYPE_FAST;
- 
--	if (u->scaling_info->dst_rect.width != u->surface->dst_rect.width
-+	if (u->scaling_info->src_rect.width != u->surface->src_rect.width
-+			|| u->scaling_info->src_rect.height != u->surface->src_rect.height
-+			|| u->scaling_info->dst_rect.width != u->surface->dst_rect.width
- 			|| u->scaling_info->dst_rect.height != u->surface->dst_rect.height
-+			|| u->scaling_info->clip_rect.width != u->surface->clip_rect.width
-+			|| u->scaling_info->clip_rect.height != u->surface->clip_rect.height
- 			|| u->scaling_info->scaling_quality.integer_scaling !=
--				u->surface->scaling_quality.integer_scaling
--			) {
-+					u->surface->scaling_quality.integer_scaling) {
- 		update_flags->bits.scaling_change = 1;
- 
-+		if (u->scaling_info->src_rect.width > u->surface->src_rect.width
-+				|| u->scaling_info->src_rect.height > u->surface->src_rect.height)
-+			/* Making src rect bigger requires a bandwidth change */
-+			update_flags->bits.clock_change = 1;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3fe7fe707a8a..3bf2db3b3059 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6735,12 +6735,21 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
+ 	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+ 	    stream->signal == SIGNAL_TYPE_EDP) {
++		const struct dc_edid_caps *edid_caps;
++		unsigned int disable_colorimetry = 0;
 +
- 		if ((u->scaling_info->dst_rect.width < u->surface->dst_rect.width
- 			|| u->scaling_info->dst_rect.height < u->surface->dst_rect.height)
- 				&& (u->scaling_info->dst_rect.width < u->surface->src_rect.width
- 					|| u->scaling_info->dst_rect.height < u->surface->src_rect.height))
- 			/* Making dst rect smaller requires a bandwidth change */
- 			update_flags->bits.bandwidth_change = 1;
--	}
--
--	if (u->scaling_info->src_rect.width != u->surface->src_rect.width
--		|| u->scaling_info->src_rect.height != u->surface->src_rect.height) {
++		if (aconnector->dc_sink) {
++			edid_caps = &aconnector->dc_sink->edid_caps;
++			disable_colorimetry = edid_caps->panel_patch.disable_colorimetry;
++		}
++
+ 		//
+ 		// should decide stream support vsc sdp colorimetry capability
+ 		// before building vsc info packet
+ 		//
+ 		stream->use_vsc_sdp_for_colorimetry = stream->link->dpcd_caps.dpcd_rev.raw >= 0x14 &&
+-						      stream->link->dpcd_caps.dprx_feature.bits.VSC_SDP_COLORIMETRY_SUPPORTED;
++						      stream->link->dpcd_caps.dprx_feature.bits.VSC_SDP_COLORIMETRY_SUPPORTED &&
++						      !disable_colorimetry;
  
--		update_flags->bits.scaling_change = 1;
--		if (u->scaling_info->src_rect.width > u->surface->src_rect.width
--				|| u->scaling_info->src_rect.height > u->surface->src_rect.height)
--			/* Making src rect bigger requires a bandwidth change */
--			update_flags->bits.clock_change = 1;
-+		if (u->scaling_info->src_rect.width > dc->caps.max_optimizable_video_width &&
-+			(u->scaling_info->clip_rect.width > u->surface->clip_rect.width ||
-+			 u->scaling_info->clip_rect.height > u->surface->clip_rect.height))
-+			 /* Changing clip size of a large surface may result in MPC slice count change */
-+			update_flags->bits.bandwidth_change = 1;
+ 		if (stream->out_transfer_func.tf == TRANSFER_FUNCTION_GAMMA22)
+ 			tf = TRANSFER_FUNC_GAMMA_22;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 39b82c73a0dd..b62b0406a6d1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -73,6 +73,10 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
+ 		DRM_DEBUG_DRIVER("Clearing DPCD 0x317 on monitor with panel id %X\n", panel_id);
+ 		edid_caps->panel_patch.remove_sink_ext_caps = true;
+ 		break;
++	case drm_edid_encode_panel_id('S', 'D', 'C', 0x4154):
++		DRM_DEBUG_DRIVER("Disabling VSC on monitor with panel id %X\n", panel_id);
++		edid_caps->panel_patch.disable_colorimetry = true;
++		break;
+ 	default:
+ 		return;
  	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 2bbafd1cdce4..b0b7102fdbc7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -178,6 +178,7 @@ struct dc_panel_patch {
+ 	unsigned int skip_avmute;
+ 	unsigned int mst_start_top_delay;
+ 	unsigned int remove_sink_ext_caps;
++	unsigned int disable_colorimetry;
+ 	uint8_t blankstream_before_otg_off;
+ };
  
--	if (u->scaling_info->src_rect.width > dc->caps.max_optimizable_video_width &&
--		(u->scaling_info->clip_rect.width > u->surface->clip_rect.width ||
--		 u->scaling_info->clip_rect.height > u->surface->clip_rect.height))
--		 /* Changing clip size of a large surface may result in MPC slice count change */
--		update_flags->bits.bandwidth_change = 1;
--
--	if (u->scaling_info->clip_rect.width != u->surface->clip_rect.width ||
--			u->scaling_info->clip_rect.height != u->surface->clip_rect.height)
--		update_flags->bits.clip_size_change = 1;
--
- 	if (u->scaling_info->src_rect.x != u->surface->src_rect.x
- 			|| u->scaling_info->src_rect.y != u->surface->src_rect.y
- 			|| u->scaling_info->clip_rect.x != u->surface->clip_rect.x
-@@ -2558,13 +2552,13 @@ static enum surface_update_type get_scaling_info_update_type(
- 			|| u->scaling_info->dst_rect.y != u->surface->dst_rect.y)
- 		update_flags->bits.position_change = 1;
- 
-+	/* process every update flag before returning */
- 	if (update_flags->bits.clock_change
- 			|| update_flags->bits.bandwidth_change
- 			|| update_flags->bits.scaling_change)
- 		return UPDATE_TYPE_FULL;
- 
--	if (update_flags->bits.position_change ||
--			update_flags->bits.clip_size_change)
-+	if (update_flags->bits.position_change)
- 		return UPDATE_TYPE_MED;
- 
- 	return UPDATE_TYPE_FAST;
-@@ -3263,8 +3257,7 @@ static bool update_planes_and_stream_state(struct dc *dc,
- 
- 		if (update_type != UPDATE_TYPE_MED)
- 			continue;
--		if (surface->update_flags.bits.clip_size_change ||
--				surface->update_flags.bits.position_change) {
-+		if (surface->update_flags.bits.position_change) {
- 			for (j = 0; j < dc->res_pool->pipe_count; j++) {
- 				struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d3b6a389fece..6d60f7597f88 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1254,7 +1254,6 @@ union surface_update_flags {
- 		uint32_t rotation_change:1;
- 		uint32_t swizzle_change:1;
- 		uint32_t scaling_change:1;
--		uint32_t clip_size_change: 1;
- 		uint32_t position_change:1;
- 		uint32_t in_transfer_func_change:1;
- 		uint32_t input_csc_change:1;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index b383ed8cb4d4..e89499536c46 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1732,7 +1732,6 @@ static void dcn20_update_dchubp_dpp(
- 	if (pipe_ctx->update_flags.bits.scaler ||
- 			plane_state->update_flags.bits.scaling_change ||
- 			plane_state->update_flags.bits.position_change ||
--			plane_state->update_flags.bits.clip_size_change ||
- 			plane_state->update_flags.bits.per_pixel_alpha_change ||
- 			pipe_ctx->stream->update_flags.bits.scaling) {
- 		pipe_ctx->plane_res.scl_data.lb_params.alpha_en = pipe_ctx->plane_state->per_pixel_alpha;
-@@ -1745,7 +1744,6 @@ static void dcn20_update_dchubp_dpp(
- 	if (pipe_ctx->update_flags.bits.viewport ||
- 			(context == dc->current_state && plane_state->update_flags.bits.position_change) ||
- 			(context == dc->current_state && plane_state->update_flags.bits.scaling_change) ||
--			(context == dc->current_state && plane_state->update_flags.bits.clip_size_change) ||
- 			(context == dc->current_state && pipe_ctx->stream->update_flags.bits.scaling)) {
- 
- 		hubp->funcs->mem_program_viewport(
 -- 
 2.46.0
 
