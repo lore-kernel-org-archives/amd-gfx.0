@@ -4,87 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7CB4CF9C51
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 15:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A806CF9C59
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 16:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC1410E842;
-	Fri, 20 Sep 2024 15:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4B5210E103;
+	Fri, 20 Sep 2024 16:14:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="CCfhKMJO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QcqCkx5I";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719D710E842
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 15:36:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1726846592;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XF81E5q3dcgpsAt6yPTalypggTyS/xoFs7GofpOnUp4=;
- b=CCfhKMJOoX6JAN1rxgmZV0KlK9BiRXbkZm6VnlvBWcap/o+lPAP0QD82MglPUHMD3TDlVJ
- BIE6Ubvsmn1AxGyCgViNQ/qTOm27nweOQWrJ8iPuISMdHvwmLLM+hPrEywkHPVnFCzj18q
- ngE67bQCBHnr3NdgJ1eDhKjDJc2WIgo=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-656-tGp9QoTUNDquFAVGE-tk7A-1; Fri, 20 Sep 2024 11:36:31 -0400
-X-MC-Unique: tGp9QoTUNDquFAVGE-tk7A-1
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-42cb2c9027dso16626815e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 08:36:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726846590; x=1727451390;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XF81E5q3dcgpsAt6yPTalypggTyS/xoFs7GofpOnUp4=;
- b=ZOQwglCrVy7Wh2lPnh6TrtJYgET4n/rJdd8g/y94tPzKP5WCvmn6/BqaMJZIQNnAtG
- oU4IdCVRFH1Ciuqy+w1bocLAlDlrz9A9wbWytWbsS5b5mZJ4za1wxEhLKgtV8qSGU8PK
- FScAdwRDieN17bHgwU/R1lNFklKov3kmzKO80iqjs+dR87uuEQ57Dfx4AaDd59UuN9VB
- My6eRLuYQymfwIhBYBbQKj9HX3puugCcVQ6ue7Yb/puByLnuXQdTEaKchqU4ZMF02R1n
- TlJGocvnh5zE4gu4OF6/qp5w3C7ROjyTV7+r6/BBBB7bxabFF4KJndueC962Wa6Jp5Mw
- O/5Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCValw4bMvOsQ0cwgqukkxoomMuFg3j/4UISYx+YtevKHnVfXWKAy974KSl/ojAkc5EskZ2nsZuS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHUN+UgY/UlvZsATHYMjyeK5EJJ6R1fCQSeYsHILf/9iMMPqPX
- IMgWd3lj3eVQkirXRerReWUuVosojJRdYc5tzasSfWPB1hk7Iljxdy8JRNlCvKnKblVoDPBN6uW
- yWFfYkscZolmkiB2msEYaDUeJ+6GFdsarfyvKbCI2KE22qWjItei1xAOYJ7ltV90=
-X-Received: by 2002:a05:600c:310a:b0:426:61e8:fb3b with SMTP id
- 5b1f17b1804b1-42e7ada4d19mr21185505e9.27.1726846589792; 
- Fri, 20 Sep 2024 08:36:29 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGbBnSe6ZeVzt8REAbM4EztjbArVr1o71yxuBniSzhuLu4B6LPEfV+k7lLYBVAZUTUqL6NisQ==
-X-Received: by 2002:a05:600c:310a:b0:426:61e8:fb3b with SMTP id
- 5b1f17b1804b1-42e7ada4d19mr21185365e9.27.1726846589389; 
- Fri, 20 Sep 2024 08:36:29 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:c:37e0:ced3:55bd:f454:e722?
- ([2a01:e0a:c:37e0:ced3:55bd:f454:e722])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378e73f9a22sm17878482f8f.61.2024.09.20.08.36.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 Sep 2024 08:36:28 -0700 (PDT)
-Message-ID: <16352ae0-7e61-440d-8c04-7ec912f9bf9a@redhat.com>
-Date: Fri, 20 Sep 2024 17:36:26 +0200
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA7BE10E103
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 16:14:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ud2e7NdT8HnMRoV0DB5NJcdbeOYmu+iSfjrZsy0Xvrax6D0O5vvxfuCgnZZWJ6Bs5jA/8WaRxNgfnEGF+MWl5iKE61/BVJT/WkiK3l+uaziJdFwvysxDkLajXdXdE9p1KBrLDcEPCvnA6kRic8EW69mfMcpoRE9hJXpOj6Su24+flJ950fGHTMAYAny6KcUymskJnQQxW8K/l/h6mprQINj0TtYwVfSXZxPehmqixJMrERa0etJnNK3pjr3oX8l3f+uFTfLZ3Jb06E9jSykiWTgbUEhcD7HEMAAwMsdB+z2lY6suV4aTWctjUVXdDZoVMX459midTgxQAwYpH2hmBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wj2hbcdgRYd5J2rrTNM3GhAgk3fiey34yqoRbFUyshw=;
+ b=PicSBnkFqlzclx+hX9Ll6hEyzrB2U7YFfNxTJOACYGhi9pBOLD3XesSlojAcXAv7SAK4Am7tZ6631TxGyJcHIO+3Tv7Dg6demcV/POpKzucmq4pFq6t5qpIw9IYYmLKnq18jUilGokPq6v4FlrOWzDFQ6d4s7K7Ltz/nV6QAP+hFVtOUixloEZ4204rupjBVgIhj4Zs/S6ivOuCWWOWi7PjZSWy3iWb101BoM405PLihsetdjs5D9UfNinJSWjK8OPMpQr3Kl7IDzv75kSG6PddfNjNIbd6q/3KtSd2ahJuQl0mzs4DwN1hB4CwgDvnk3ocuPTqIsjoc3XWAz+y0VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wj2hbcdgRYd5J2rrTNM3GhAgk3fiey34yqoRbFUyshw=;
+ b=QcqCkx5ISR0ig+/Mcd1mChdxkf+m5joM6EDwfl6GkEJFjQHXg3X9vNDeGVKvuAlr4sDdgl/e36OU7EjBZRu2eDfi4pfe97jrC6iEbcjkWk6EpC7ZgX6lisKAGaGe4PT4L+h1uPojGKcg9wxg8IO+dk3dg/d6sYkVWafwyEVBkLw=
+Received: from SN7PR04CA0237.namprd04.prod.outlook.com (2603:10b6:806:127::32)
+ by CY8PR12MB8265.namprd12.prod.outlook.com (2603:10b6:930:72::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.22; Fri, 20 Sep
+ 2024 16:14:36 +0000
+Received: from SN1PEPF00036F3C.namprd05.prod.outlook.com
+ (2603:10b6:806:127:cafe::28) by SN7PR04CA0237.outlook.office365.com
+ (2603:10b6:806:127::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.26 via Frontend
+ Transport; Fri, 20 Sep 2024 16:14:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00036F3C.mail.protection.outlook.com (10.167.248.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Fri, 20 Sep 2024 16:14:35 +0000
+Received: from ssomasek-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Sep
+ 2024 11:14:34 -0500
+From: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <sreekant.somasekharan@amd.com>
+Subject: [PATCH] drm/amdkfd: Add SDMA queue quantum support for GFX12
+Date: Fri, 20 Sep 2024 12:14:06 -0400
+Message-ID: <20240920161406.877600-1-sreekant.somasekharan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
-To: Alex Deucher <alexdeucher@gmail.com>, Lu Yao <yaolu@kylinos.cn>
-Cc: ckoenig.leichtzumerken@gmail.com, daniel@ffwll.ch, Xinhui.Pan@amd.com,
- airlied@gmail.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, srinivasan.shanmugam@amd.com,
- sunil.khatri@amd.com
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
- <20240812060914.102614-1-yaolu@kylinos.cn>
- <CADnq5_OcUgV9dgAynDCQnm9NS+QCvhBiHvxWnhWqi2qqhh=zXg@mail.gmail.com>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <CADnq5_OcUgV9dgAynDCQnm9NS+QCvhBiHvxWnhWqi2qqhh=zXg@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3C:EE_|CY8PR12MB8265:EE_
+X-MS-Office365-Filtering-Correlation-Id: e57af2cf-c294-4640-0514-08dcd98f51d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?73ayCpOPjkbWvEhjnNaDjbweZ+/qhkvziuEzcz/TiMnSCcVaoLWPDgmBZsmm?=
+ =?us-ascii?Q?HUzQpLMnsgeGuCGyCcS5YQYhKHiHtK5AayZBAzHxKcJ6L8t/jtytJhsCZNdN?=
+ =?us-ascii?Q?xOKpH9dHnLsSg/0VIEk361oFmTrD27+MSoBvwC66RuNQie0KaMzJn+ZIl9Fp?=
+ =?us-ascii?Q?KhlM8bRhdj9616fhO06b145fKBKT9wXQHtue8N58u1Qe/K9dKWsvU57hgAyv?=
+ =?us-ascii?Q?Edz8RQp8pY0orUlPVI3ZSzRfcojrxKfhyecobd59x1g1grWDH8hT1a5i6vMO?=
+ =?us-ascii?Q?XvCBXB8x+j33jyTMihzW7K+ML5ldA5W9PgPC+bNMqniN9tvdCRlVUhvJ26Z4?=
+ =?us-ascii?Q?3tqZ57jxYVA9f6h4C2qhXawknT0Pi8NSTSPbUgsIkDVislHgmr+wV2yoNviu?=
+ =?us-ascii?Q?8HUIVqXGeyB5mJb7KnOWO8CkqMmDakAHmRCNNbnWTORRU+0dd05CTrqpls1R?=
+ =?us-ascii?Q?sLfDnIjL4N2tp56MoKUqJbHKRGfoLF42gQAdFIJKpo4dEQuZGNSBQ11KMK0E?=
+ =?us-ascii?Q?jPmyZJShuH62CnG3Ag8H9sycIgPOvAGy2mhcIpsT1/oeomvNGoanEipyJqlK?=
+ =?us-ascii?Q?L9LzTVWZOY/2VLokZoFoYVS0liZKR9hxFZ/3xMiNA2vn2WvCDC+jqT3iIhKT?=
+ =?us-ascii?Q?o/CfT/K0I3abSnYt34FI79FCsZ7IeksDXK47gLb9qHRflZBO8Q9XGFSCZsm2?=
+ =?us-ascii?Q?0MPKNvFcGK9KRwZ9g2OP6+z/i9vNfzj8/VsHVOq+8Pf882NfDpNgVyHmbDx0?=
+ =?us-ascii?Q?iZTcAhVug0jeSO9jGg927GMfNA/CdIMc8WYVmEZkE4TlaP9SFTKGidTuqJ8r?=
+ =?us-ascii?Q?u2/ZcVf47BynEbHW9SjblBCGqUm7+TW25Tiyj1Vs8VYpVHKiniINHmgHLdz6?=
+ =?us-ascii?Q?YE1qadMHxXRGZTCAaSPFrB+Qxi9vNgg+Q9+XLSFtzKw3IAPZQCZ5Rzil4U6J?=
+ =?us-ascii?Q?CGkTcv6KY/Iqa06LwZJwPe5dj4fBKFc9tIA9R9bwffjSZ4eELDvfGXIm+CRm?=
+ =?us-ascii?Q?4K9CntXZwy07RGkMB1H5AuORKBfs2uHDRuTNQVmyFEO/dmH6vqqa6xgC9WZz?=
+ =?us-ascii?Q?RdR/3gYBRksknznarAD2oKSgrCgqEKJa1J/mLJV4atxtG6AXr4EEtcv3YUyc?=
+ =?us-ascii?Q?BvnDx8ed2SW44612sC2z3dTevA+58wImWJNYMTkgu59YO6EGtbAQfrHMPwIk?=
+ =?us-ascii?Q?flgc6Rqp+9tVvnWbDVOOBew0QJktELPf0mSzMqTO3FdXAHWCd2B3meaGZr1e?=
+ =?us-ascii?Q?R1oDnlSiGcGuEmmhFeyUQC/xgweboFbYZCt+M8gPDKYb73pJzsutqRx81Mmh?=
+ =?us-ascii?Q?BZNobA7SRMUTjyW6dEVdIuVhVvCdTWvevxB0fCYZvsOyjxYTaRumDQID7vSh?=
+ =?us-ascii?Q?+mdXyn0=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2024 16:14:35.4655 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e57af2cf-c294-4640-0514-08dcd98f51d0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F3C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,124 +128,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 17/09/2024 15:21, Alex Deucher wrote:
-> On Mon, Aug 12, 2024 at 2:10 AM Lu Yao <yaolu@kylinos.cn> wrote:
->>
->> Add support for the drm_panic module, which displays a pretty user
->> friendly message on the screen when a Linux kernel panic occurs.
->>
->> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> 
-> Patch looks good to me.  Any chance you want to convert the other
-> non-DC dce files (dce_v8_0.c, dce_v10_0.c, dce_v11_0.c) while you are
-> at it?
+program SDMAx_QUEUEx_SCHEDULE_CNTL for context switch due to
+quantum in KFD for GFX12.
 
-I've made a similar patch in amdgpu_dm_plane.c, and it works on a Radeon 
-pro w6400.
-But it only works when I'm in a VT terminal (so the framebuffer is 
-linear and CPU accessible).
-When under Gnome/Wayland, the flag AMDGPU_GEM_CREATE_NO_CPU_ACCESS is 
-set, so that means I can't vmap it ?
+Signed-off-by: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Also I don't know if there is a similar way to disable 
-tiling/compression on this hardware.
-
-Best regards,
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+index d163d92a692f..2b72d5b4949b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+@@ -341,6 +341,10 @@ static void update_mqd_sdma(struct mqd_manager *mm, void *mqd,
+ 	m->sdmax_rlcx_doorbell_offset =
+ 		q->doorbell_off << SDMA0_QUEUE0_DOORBELL_OFFSET__OFFSET__SHIFT;
+ 
++	m->sdmax_rlcx_sched_cntl = (amdgpu_sdma_phase_quantum
++		<< SDMA0_QUEUE0_SCHEDULE_CNTL__CONTEXT_QUANTUM__SHIFT)
++		 & SDMA0_QUEUE0_SCHEDULE_CNTL__CONTEXT_QUANTUM_MASK;
++
+ 	m->sdma_engine_id = q->sdma_engine_id;
+ 	m->sdma_queue_id = q->sdma_queue_id;
+ 
 -- 
-
-Jocelyn
-
-
-> 
-> Alex
-> 
-> 
->> ---
->> Changes in v2:
->> 1. Drop include "drm_internal.h"
->> 2. Add disabling DC tiling ops.
->> Per suggestion from previous thread:
->> https://patchwork.freedesktop.org/patch/606879/?series=136832&rev=1
->> ---
->>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 48 +++++++++++++++++++++++++++
->>   1 file changed, 48 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> index 05c0df97f01d..ba1b7a36caa3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
->> @@ -28,6 +28,7 @@
->>   #include <drm/drm_modeset_helper.h>
->>   #include <drm/drm_modeset_helper_vtables.h>
->>   #include <drm/drm_vblank.h>
->> +#include <drm/drm_panic.h>
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_pm.h"
->> @@ -2600,6 +2601,52 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
->>          .get_scanout_position = amdgpu_crtc_get_scanout_position,
->>   };
->>
->> +static int dce_v6_0_drm_primary_plane_get_scanout_buffer(struct drm_plane *plane,
->> +                                                        struct drm_scanout_buffer *sb)
->> +{
->> +       struct drm_framebuffer *fb;
->> +       struct amdgpu_bo *abo;
->> +       struct amdgpu_crtc *amdgpu_crtc;
->> +       struct amdgpu_device *adev;
->> +       uint32_t fb_format;
->> +
->> +       if (!plane->fb)
->> +               return -EINVAL;
->> +
->> +       fb = plane->fb;
->> +
->> +       abo = gem_to_amdgpu_bo(fb->obj[0]);
->> +       amdgpu_crtc = to_amdgpu_crtc(plane->crtc);
->> +       adev = drm_to_adev(fb->dev);
->> +
->> +       if (!abo->kmap.virtual &&
->> +           ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
->> +               DRM_WARN("amdgpu bo map failed, panic won't be displayed\n");
->> +               return -ENOMEM;
->> +       }
->> +
->> +       if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
->> +               iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
->> +       else
->> +               iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
->> +
->> +       sb->width = fb->width;
->> +       sb->height = fb->height;
->> +       sb->format = fb->format;
->> +       sb->pitch[0] = fb->pitches[0];
->> +
->> +       /* Disable DC tiling */
->> +       fb_format = RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
->> +       fb_format &= ~GRPH_ARRAY_MODE(0x7);
->> +       WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
->> +
->> +       return 0;
->> +}
->> +
->> +static const struct drm_plane_helper_funcs dce_v6_0_drm_primary_plane_helper_funcs = {
->> +       .get_scanout_buffer = dce_v6_0_drm_primary_plane_get_scanout_buffer
->> +};
->> +
->>   static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
->>   {
->>          struct amdgpu_crtc *amdgpu_crtc;
->> @@ -2627,6 +2674,7 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
->>          amdgpu_crtc->encoder = NULL;
->>          amdgpu_crtc->connector = NULL;
->>          drm_crtc_helper_add(&amdgpu_crtc->base, &dce_v6_0_crtc_helper_funcs);
->> +       drm_plane_helper_add(amdgpu_crtc->base.primary, &dce_v6_0_drm_primary_plane_helper_funcs);
->>
->>          return 0;
->>   }
->> --
->> 2.25.1
->>
-> 
+2.34.1
 
