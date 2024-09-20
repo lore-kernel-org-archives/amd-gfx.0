@@ -4,81 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB1DC7882F
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 12:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 954D3C78849
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 13:59:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBDE10E82B;
-	Fri, 20 Sep 2024 12:28:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B6C10E04D;
+	Fri, 20 Sep 2024 13:59:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZGvjFT3/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GnPN15iC";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B800010E82B
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 12:28:43 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-536562739baso1939022e87.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 05:28:43 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1C610E04D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 13:58:59 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5c27067b81aso2523832a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 06:58:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726835322; x=1727440122; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=KmyYTSzJGsL/YMovQsb/XKINA9qbOmIqA08DqAcjnQM=;
- b=ZGvjFT3/8nnbZrNc8s+fYOSwPBqCA4zAZdxHzKuVU1DjEpkmTyA5sqdhiq/kVZ+ZMu
- I9JwQv8HvNy0einWnX2dndpZgk8zDOhAgrUdj0XgnmxQoyVpQwUs2VN+xWPgsivqOw12
- xCNX4YxBJKXJ1SlVtOsqnrL9rmznjwA6lLcu11kro4u5frNlRg5Mzj/10t8rWIp2Jm8l
- YKhBfPwRr0QUNrajQitLPKBFHah8K4CT7EbBLNhITNfMz0pkpcKcPmwwxIemZUp1Jrik
- qfnuU7725HXL3SeucEWtckl+hOswEd3NHvB4yMZg5L5tppHOBk/zI+fUpbrmj5l/R3So
- B5fQ==
+ d=gmail.com; s=20230601; t=1726840738; x=1727445538; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=U9sRyxkp/SCwquYGmCpT7MSHvhE98Cx1iTp4lpdcDeo=;
+ b=GnPN15iC6OVm0AG4e9bDSOe+m6EQYG0JGvxh0spksNj1O4KHEyEW6BGW1KwHaqVN09
+ KWmAoju/CWIzsbuwqbgBbTkl9Kjr/3MuwaSVWGexFYyr6RxvuGNyy+g2c5qF15A2UHiY
+ lz4LQR7VnFhvEJ1AdDDaG+3lFEGAQI0OhuqJCuHaYi+Arg9PeCeRu0YRqO3qvyBBSOIG
+ lXXCEHxtzBp4M5ocOiBhwwhtd0pdy0J3fRJHDe8YZOfuS0ITjt4iAe05D9jWF4jRUJYl
+ OlRGcSb2WXMIAnbXMq1MYDjvQctGfHIHwzuhNi6cjESh6N7Xy7fnKCdbXERIrU5ivU79
+ iOKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726835322; x=1727440122;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KmyYTSzJGsL/YMovQsb/XKINA9qbOmIqA08DqAcjnQM=;
- b=GLh8dBnxlBGli+D3EyFt+og4a1ZLrgNMp4WQY8qUN6J/0h/XyR5EH2oFR1aoPgWJ/+
- vMj4QHJCgJFB/4+5EhG6hnLZCA9j5Oog+dKokcAOamW4A9yvNU3kY7z4E/9ZfRktozsL
- U8N9Wu7m/v8PIfXcaofCcR/MTtJx7Uxoc321f00uM7Y+84qEIx5ADwXg7Is41DTjN8Sg
- oWyZiQpF2lbDZWI+N+EkRASY2iiducLAFcMNcif+yLrcg0/HY4JPKCj6Gep7M2B67SMp
- GGVpNui7EzcA+Ku78kes31Bb/b448sD5x+Z0cbD0Q1eKcSeR6QYaNAOvO9ZVJue/TC4p
- 6uNw==
+ d=1e100.net; s=20230601; t=1726840738; x=1727445538;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=U9sRyxkp/SCwquYGmCpT7MSHvhE98Cx1iTp4lpdcDeo=;
+ b=lFtCwni6lLVuZOkVIJrZH0bw7KB5m2/sD6d0nOEVz1hPwu+oaq7eWXrwm8DepbCd5G
+ Fgzo+sEAXB3ep8BqK42F7rMa6ZZk5e3vm1CUV48G5LaD3EDcpm+TAIVjBxLkag6QvEHj
+ Up8EFXFLHpZ/8rGN+uJyYIWY9srF9iFIckzLAUSh7SXQA8Z2Z7pW9tu5RUR4gOfIJFGd
+ fMcEyCtzCOvY8quUjuaar7hrJknwMalproHQ5YJRdjv+l5YrqEMYewGVAs//aTlZYADL
+ LtVTzMzang5kM+ACjMFhkJtETp4dZaKsM758ZW9Rc2xKZl0I1jQnCr2tRk3tkXeP72QL
+ +mLw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWQrn6vEuyAgKdlfZWXxUMXSXDRUhiKKQiTV9cnqM+T8ETcHODG4ngInbCeUjlN6EtQFmgu0juW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyI0Ge95oN0zCBcwgrtzkYVBTlwCmAb4UpRPvy+vz+OPYliI6ga
- KHxRDRBjb9o17+6P6bHP2ARYuUJoyCRjnIrTRbfBv/j23nISQ9LcI49iQx0JiXM=
-X-Google-Smtp-Source: AGHT+IHqUCZSjDBGtSw+A8NmpVy9eKMCzlJUf0BJqZSjg4++cq0bIVZpdwJeTY8vMubkrtJMtyGRdA==
-X-Received: by 2002:a05:6512:304d:b0:535:6a75:8ac8 with SMTP id
- 2adb3069b0e04-536ac2e5e21mr1760442e87.23.1726835321653; 
- Fri, 20 Sep 2024 05:28:41 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ AJvYcCWGojl+quvz1pdyn7CQUyeGukvie7MJpaX4ZQPuPE9AXO4Q78kfCgE613wshganISokDQapzYoB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIX/9Dl9BTsg35zLbqN3Ym8nhqWjCx3xjAcCKPNdmfFshiB44v
+ +NnDXBmI8MvtD8KmvGKt/iIebJfCgCQRLWZmHcB4zLydeG6f/GkeGr36YpDS
+X-Google-Smtp-Source: AGHT+IH1tSFP2/ZVjUmepv68WknNDL5Z2vx66yxV6YEKLP5ELDFT9ph5GirIyG21wTBzQkEfmPy9Kg==
+X-Received: by 2002:a05:6402:5113:b0:5c2:6311:8445 with SMTP id
+ 4fb4d7f45d1cf-5c464a3855dmr1695988a12.2.1726840737451; 
+ Fri, 20 Sep 2024 06:58:57 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1586:1d00:e988:9fc2:6e17:c927])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53687096993sm2149440e87.140.2024.09.20.05.28.39
+ 4fb4d7f45d1cf-5c42bc88d02sm7222871a12.80.2024.09.20.06.58.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Sep 2024 05:28:40 -0700 (PDT)
-Date: Fri, 20 Sep 2024 15:28:38 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Simon Ser <contact@emersion.fr>, 
- Pekka Paalanen <ppaalanen@gmail.com>, daniel@ffwll.ch,
- Daniel Stone <daniel@fooishbar.org>, 
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Dave Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com, 
- Xaver Hugl <xaver.hugl@gmail.com>, Joshua Ashton <joshua@froggi.es>, 
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH RESEND v8 1/2] drm/atomic: Let drivers decide which
- planes to async flip
-Message-ID: <h2nyiovf5ixbqjrmtqcofmj6uwigcps7yjwfu67j3xdewnoj5x@fyu6ee7qjgk4>
-References: <20240806135300.114469-1-andrealmeid@igalia.com>
- <20240806135300.114469-2-andrealmeid@igalia.com>
+ Fri, 20 Sep 2024 06:58:56 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Alexander.Deucher@amd.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: deprecate guilty handling
+Date: Fri, 20 Sep 2024 15:58:55 +0200
+Message-Id: <20240920135855.11786-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240806135300.114469-2-andrealmeid@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,82 +80,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 06, 2024 at 10:52:59AM GMT, André Almeida wrote:
-> Currently, DRM atomic uAPI allows only primary planes to be flipped
-> asynchronously. However, each driver might be able to perform async
-> flips in other different plane types. To enable drivers to set their own
-> restrictions on which type of plane they can or cannot flip, use the
-> existing atomic_async_check() from struct drm_plane_helper_funcs to
-> enhance this flexibility, thus allowing different plane types to be able
-> to do async flips as well.
-> 
-> In order to prevent regressions and such, we keep the current policy: we
-> skip the driver check for the primary plane, because it is always
-> allowed to do async flips on it.
+The guilty handling tried to establish a second way of signaling problems with
+the GPU back to userspace. This caused quite a bunch of issue we had to work
+around, especially lifetime issues with the drm_sched_entity.
 
-Unfortunately this needs to be rebased on top of 929725bd7eb4
-("drm/atomic: allow no-op FB_ID updates for async flips"), but the
-approach looks good to me and it fits the existing API.
+Just drop the handling altogether and use the dma_fence based approach instead.
 
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
->  drivers/gpu/drm/drm_atomic_uapi.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index fc16fddee5c5..8568c2428670 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -27,8 +27,9 @@
->   * Daniel Vetter <daniel.vetter@ffwll.ch>
->   */
->  
-> -#include <drm/drm_atomic_uapi.h>
->  #include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_atomic_uapi.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_drv.h>
-> @@ -1059,6 +1060,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
->  		struct drm_plane *plane = obj_to_plane(obj);
->  		struct drm_plane_state *plane_state;
->  		struct drm_mode_config *config = &plane->dev->mode_config;
-> +		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
->  
->  		plane_state = drm_atomic_get_plane_state(state, plane);
->  		if (IS_ERR(plane_state)) {
-> @@ -1073,11 +1075,20 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
->  			break;
->  		}
->  
-> -		if (async_flip && plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY) {
-> -			drm_dbg_atomic(prop->dev,
-> -				       "[OBJECT:%d] Only primary planes can be changed during async flip\n",
-> -				       obj->id);
-> -			ret = -EINVAL;
-> +		if (async_flip) {
-> +			/* we always allow primary planes */
-> +			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
-> +				ret = -EINVAL;
-> +
-> +				if (plane_funcs && plane_funcs->atomic_async_check)
-> +					ret = plane_funcs->atomic_async_check(plane, state);
-> +
-> +				if (ret) {
-> +					drm_dbg_atomic(prop->dev,
-> +						       "[PLANE:%d] does not support async flips\n",
-> +							obj->id);
-> +				}
-> +			}
->  			break;
->  		}
->  
-> -- 
-> 2.46.0
-> 
+Signed-off-by: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  5 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 25 ++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 +-------
+ 4 files changed, 24 insertions(+), 16 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 1e475eb01417..5c8a6396d924 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -59,11 +59,6 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
+ 	if (!p->ctx)
+ 		return -EINVAL;
+ 
+-	if (atomic_read(&p->ctx->guilty)) {
+-		amdgpu_ctx_put(p->ctx);
+-		return -ECANCELED;
+-	}
+-
+ 	amdgpu_sync_create(&p->sync);
+ 	drm_exec_init(&p->exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+ 		      DRM_EXEC_IGNORE_DUPLICATES, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c43d1b6e5d66..39fe7cc6e34e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -250,7 +250,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+ 	}
+ 
+ 	r = drm_sched_entity_init(&entity->entity, drm_prio, scheds, num_scheds,
+-				  &ctx->guilty);
++				  NULL);
+ 	if (r)
+ 		goto error_free_entity;
+ 
+@@ -572,6 +572,27 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+ 
+ #define AMDGPU_RAS_COUNTE_DELAY_MS 3000
+ 
++static bool amdgpu_ctx_guilty(struct amdgpu_ctx *ctx)
++{
++	int i, j;
++
++	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++			struct amdgpu_ctx_entity *ctx_entity;
++
++			ctx_entity = ctx->entities[i][j];
++			if (ctx_entity)
++				continue;
++
++			if (drm_sched_entity_error(&ctx_entity->entity) ==
++			    -ETIME)
++				return true;
++		}
++	}
++
++	return false;
++}
++
+ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+ 			     struct amdgpu_fpriv *fpriv, uint32_t id,
+ 			     union drm_amdgpu_ctx_out *out)
+@@ -600,7 +621,7 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+ 	if (ctx->generation != amdgpu_vm_generation(adev, &fpriv->vm))
+ 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_VRAMLOST;
+ 
+-	if (atomic_read(&ctx->guilty))
++	if (amdgpu_ctx_guilty(ctx))
+ 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_GUILTY;
+ 
+ 	if (amdgpu_in_reset(adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 85376baaa92f..45569cce484e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -53,7 +53,6 @@ struct amdgpu_ctx {
+ 	bool				preamble_presented;
+ 	int32_t				init_priority;
+ 	int32_t				override_priority;
+-	atomic_t			guilty;
+ 	unsigned long			ras_counter_ce;
+ 	unsigned long			ras_counter_ue;
+ 	uint32_t			stable_pstate;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index df19271130c6..26f72b8afde9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5330,14 +5330,10 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
+ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 				 struct amdgpu_reset_context *reset_context)
+ {
+-	int i, r = 0;
+-	struct amdgpu_job *job = NULL;
+ 	struct amdgpu_device *tmp_adev = reset_context->reset_req_dev;
+ 	bool need_full_reset =
+ 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
+-
+-	if (reset_context->reset_req_dev == adev)
+-		job = reset_context->job;
++	int i, r;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		amdgpu_virt_pre_reset(adev);
+@@ -5362,9 +5358,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 
+ 	amdgpu_fence_driver_isr_toggle(adev, false);
+ 
+-	if (job && job->vm)
+-		drm_sched_increase_karma(&job->base);
+-
+ 	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
+ 	/* If reset handler not implemented, continue; otherwise return */
+ 	if (r == -EOPNOTSUPP)
 -- 
-With best wishes
-Dmitry
+2.34.1
+
