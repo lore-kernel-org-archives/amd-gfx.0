@@ -4,45 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67BD4CF9C75
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 07:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A645CF9C6F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 07:25:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5470210E398;
-	Mon, 23 Sep 2024 07:25:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB0C210E396;
+	Mon, 23 Sep 2024 07:25:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="HQvEo2ER";
+	dkim=pass (2048-bit key; unprotected) header.d=maxima.ru header.i=@maxima.ru header.b="sfrcMMTP";
 	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9034C10E354;
- Mon, 23 Sep 2024 01:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=55Nb5AnSiTpPJhse4SS8idw+5d/f+IiBGFBN3Nv8730=; b=HQvEo2ER4bfHmAEy
- 09EZG1516ULKSO4q2DZ1yqxtraHnmIqob7x18XJqHT8laCaba1d5XBG7n/iSBTZaP8UAoFVADESqJ
- 7Qs/qDxjbdYd7smmr9m4gsTAGdLqvAffYWbNgCTgWDdNhTXKBfRew7K1H6km+MXtbrzkRdeQfc4BD
- TXKJalG/+2jrKVBNPtiPqJyOkEdr6ojLG7FrksQy1imdtL7OJmPJQWn8kpMWe2sP2LZAWJwdLqB03
- T4j3SZHecJ9tZMBfDc8q/XdMeUpSdzeY4E/EExKEswF1zpHBKkdKsn1M3dYy50E103asO+nxsWb9c
- lk4Ei4M5jNb2miULMw==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1ssXoy-006k2k-02;
- Mon, 23 Sep 2024 01:25:00 +0000
-From: linux@treblig.org
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Xinhui.Pan@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 3/5] drm/amdgpu: Remove unused amdgpu_gmc_vram_cpu_pa
-Date: Mon, 23 Sep 2024 02:24:44 +0100
-Message-ID: <20240923012446.4965-4-linux@treblig.org>
+X-Greylist: delayed 338 seconds by postgrey-1.36 at gabe;
+ Fri, 20 Sep 2024 21:49:27 UTC
+Received: from ksmg01.maxima.ru (ksmg01.maxima.ru [81.200.124.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A915010E871;
+ Fri, 20 Sep 2024 21:49:27 +0000 (UTC)
+Received: from ksmg01.maxima.ru (localhost [127.0.0.1])
+ by ksmg01.maxima.ru (Postfix) with ESMTP id 97D58C0003;
+ Sat, 21 Sep 2024 00:43:45 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ksmg01.maxima.ru 97D58C0003
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maxima.ru; s=sl;
+ t=1726868625; bh=WC3ILFut2f0eUKoeHk92ph9UKGLO6mpEKbgxlt9i2W4=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+ b=sfrcMMTPsJ/3rdVLHfmRN2+ZOQIjISfUOe+lpW3tkctLsY3jM9dJ/NxZA8jf0hTq3
+ 501oL4PdUEk7uwUTWIlgKBAOfJGVtXgaUimRD76ccBED0L2j7BrzIKBrG3GelbYrRp
+ L72wLXLY6DFuWQOVtJl0ee2IRoq68yaE+mnm3uNhAjLAkFsA4Kv1zyhooru4ZTuRfx
+ JdqHeWW2MyZNONULoCElWbRk/aCbAp5vHZCLsbLA9Aj5yvcwX8+4Vhbace+4K63wXZ
+ euD8RUYn7bUUw7JiUVsHEkwWP6SVeN75EbF5vAdD9X6RwMvl2p8a10wbnNkO76c5er
+ U1fCLAvlNL6kw==
+Received: from ksmg01.maxima.ru (unknown [81.200.124.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.maxima.ru",
+ Issuer "GlobalSign GCC R3 DV TLS CA 2020" (verified OK))
+ by ksmg01.maxima.ru (Postfix) with ESMTPS;
+ Sat, 21 Sep 2024 00:43:45 +0300 (MSK)
+Received: from localhost.maximatelecom.ru (10.0.247.181) by
+ mmail-p-exch01.mt.ru (81.200.124.61) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.1544.4; Sat, 21 Sep 2024 00:43:41 +0300
+From: Vitaliy Shevtsov <v.shevtsov@maxima.ru>
+To: Harry Wentland <harry.wentland@amd.com>
+CC: Vitaliy Shevtsov <v.shevtsov@maxima.ru>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alvin Lee
+ <alvin.lee2@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Wayne Lin
+ <wayne.lin@amd.com>, Dillon Varone <dillon.varone@amd.com>, yi-lchen
+ <yi-lchen@amd.com>, Alex Hung <alex.hung@amd.com>, Chris Park
+ <chris.park@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Tom Chung
+ <chiahsuan.chung@amd.com>, George Shen <george.shen@amd.com>, Hamza Mahfooz
+ <hamza.mahfooz@amd.com>, Samson Tam <samson.tam@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/amd/display: fix typos in several function pointer checks
+Date: Sat, 21 Sep 2024 02:43:40 +0500
+Message-ID: <20240920214342.14792-1-v.shevtsov@maxima.ru>
 X-Mailer: git-send-email 2.46.1
-In-Reply-To: <20240923012446.4965-1-linux@treblig.org>
-References: <20240923012446.4965-1-linux@treblig.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.247.181]
+X-ClientProxiedBy: mt-exch-01.mt.ru (91.220.120.210) To mmail-p-exch01.mt.ru
+ (81.200.124.61)
+X-KSMG-Rule-ID: 7
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 187892 [Sep 20 2024]
+X-KSMG-AntiSpam-Version: 6.1.1.5
+X-KSMG-AntiSpam-Envelope-From: v.shevtsov@maxima.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dmarc=none header.from=maxima.ru;
+ spf=none smtp.mailfrom=maxima.ru; dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 34 0.3.34
+ 8a1fac695d5606478feba790382a59668a4f0039, {rep_avail},
+ {Tracking_from_domain_doesnt_match_to}, maxima.ru:7.1.1;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; ksmg01.maxima.ru:7.1.1;
+ 127.0.0.199:7.1.2;
+ 81.200.124.61:7.1.2, FromAlignment: s, ApMailHostAddress: 81.200.124.61, {DNS
+ response errors}
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/09/20 19:27:00 #26647840
+X-KSMG-AntiVirus-Status: Clean, skipped
 X-Mailman-Approved-At: Mon, 23 Sep 2024 07:25:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,54 +104,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+Fix several copypaste mistakes in *_disable_link_output() functions where
+an improper function pointer is checked before dereference.
 
-amdgpu_gmc_vram_cpu_pa has been unused since commit
-087451f372bf ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
+Found by Linux Verification Center (linuxtesting.org) with Svace.
 
-Remove it.
-
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+Signed-off-by: Vitaliy Shevtsov <v.shevtsov@maxima.ru>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 12 ------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 -
- 2 files changed, 13 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 17a19d49d30a..58b5c436ad15 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1065,18 +1065,6 @@ uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo)
- 	return amdgpu_gmc_vram_mc2pa(adev, amdgpu_bo_gpu_offset(bo));
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index d52ce58c6a98..c2364cb66d0b 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -3258,7 +3258,7 @@ void dce110_disable_link_output(struct dc_link *link,
+ 	 * from enable/disable link output and only call edp panel control
+ 	 * in enable_link_dp and disable_link_dp once.
+ 	 */
+-	if (dmcu != NULL && dmcu->funcs->lock_phy)
++	if (dmcu != NULL && dmcu->funcs->unlock_phy)
+ 		dmcu->funcs->unlock_phy(dmcu);
+ 	dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
  }
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+index 4e93eeedfc1b..5b6cf2a8e38d 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+@@ -478,7 +478,7 @@ void dcn314_disable_link_output(struct dc_link *link,
+ 	 * from enable/disable link output and only call edp panel control
+ 	 * in enable_link_dp and disable_link_dp once.
+ 	 */
+-	if (dmcu != NULL && dmcu->funcs->lock_phy)
++	if (dmcu != NULL && dmcu->funcs->unlock_phy)
+ 		dmcu->funcs->unlock_phy(dmcu);
+ 	dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
  
--/**
-- * amdgpu_gmc_vram_cpu_pa - calculate vram buffer object's physical address
-- * from CPU's view
-- *
-- * @adev: amdgpu_device pointer
-- * @bo: amdgpu buffer object
-- */
--uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo)
--{
--	return amdgpu_bo_gpu_offset(bo) - adev->gmc.vram_start + adev->gmc.aper_base;
--}
--
- int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
- {
- 	struct amdgpu_bo *vram_bo = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 4d951a1baefa..e0bed91dd5a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -447,7 +447,6 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev);
- void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev);
- uint64_t amdgpu_gmc_vram_mc2pa(struct amdgpu_device *adev, uint64_t mc_addr);
- uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
--uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo);
- int amdgpu_gmc_vram_checking(struct amdgpu_device *adev);
- int amdgpu_gmc_sysfs_init(struct amdgpu_device *adev);
- void amdgpu_gmc_sysfs_fini(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index a36e11606f90..84153682af1a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -1384,10 +1384,10 @@ void dcn32_disable_link_output(struct dc_link *link,
+ 	link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
+ 
+ 	if (signal == SIGNAL_TYPE_EDP &&
+-			link->dc->hwss.edp_backlight_control &&
++			link->dc->hwss.edp_power_control &&
+ 			!link->skip_implict_edp_power_control)
+ 		link->dc->hwss.edp_power_control(link, false);
+-	else if (dmcu != NULL && dmcu->funcs->lock_phy)
++	else if (dmcu != NULL && dmcu->funcs->unlock_phy)
+ 		dmcu->funcs->unlock_phy(dmcu);
+ 
+ 	dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
 -- 
 2.46.1
 
