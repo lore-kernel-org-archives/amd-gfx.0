@@ -4,156 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9FB9CF58D1
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 06:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A265BCF58D1
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Sep 2024 06:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 463DB10E7AC;
-	Fri, 20 Sep 2024 06:29:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 558DD10E7AB;
+	Fri, 20 Sep 2024 06:31:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5A7LsMpa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ncFkOCB+";
 	dkim-atps=neutral
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC6B10E7A9;
- Fri, 20 Sep 2024 06:29:01 +0000 (UTC)
+ (mail-dm6nam10on2079.outbound.protection.outlook.com [40.107.93.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA17310E7AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 06:31:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PGjbP/4mlrxS8y+ZDTmyPT+bGn6iWqSAk+EuvnQ/ITFTFRCf/b/1xyHbBVblFcOSHBpMW9jIOEv1FyG/EjKoxYQbsH2q47PhJTEbzHJhndINaFpzxMwX488v/geZEq1XVf6N6ijsUihRNXd0bAs4CMOPtc1lxFJUBoZzPAVaMmPpFlylwa2r91mQKdJHPTehrl2A/Qy+giQRD4m07lkVgQ134cLjGSG0mPyClkwk6nzkcS6pbmw8P2QWgW5uFkWZ+hELk0nvARNRYfKpI4+qgPvswqtLh9e/KQxSUQUyj8B/L5sHp1EpsAqMo5O1g1fAZQwjkSuJrX9SXVHJM377TA==
+ b=Zge2yrtJ0Obh4ThvFa+qxJwdE9DofvlaCYdlhrLcx0Dtim7U9zPrrGWzd92LITQpFCLuxg6A79nE2n36ld+TKhM3uMv4lNNUrQycQ6mDuuEpbcz+uxLzAT4trnaU+ngPJ/+9rLqjSfN4DzzeIdmJfOp5wL/BT+5hIDvjkXZ2sHeQExbp7pIC9Jdsj0Otv8Y4H/nPSUx6+3G8FZ0+Qf/3Os35DY6U71qns6OZKkoqJVGwv5c8Pot67gLm0htViDXAACb8pZX+wM3/2S/3w8aC9wG0GNSaDudiDRCHGQcFCoGWndVxi/iummZImIOM5DR1lLO9b8qBG5bcgkFXxxrLcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8uKg4vlU0H8aSWLs1pc+GTfeuHutGPJJZ4zetagCY8=;
- b=FBSyMJylWHD5Lfa2cIOtxAl1voRBLC9KpOd17l5TVdcS6EDKX9kfWOV4gO2w75pTKwHZYc9fW1tbRr9POa/wTmnea/SPdUCAC77dIU98Y3XkpdQXmGEAK1ibpjJV6opJqME8uWIS0sxUvHFshdP/EruhN3j7InEqqDdakmAGqgq+cj1oDvRavbi+ibUBcxRPPvDTIhbYVSoSdg+g1M7NhP9L1z5JR59xtqvX4/YnTyF4wnGM4dUggLSx1PupQSUtE25Y8gXnGZX95HnTm6xMgJhvTjmtpX5UQ/aSI/zWk/ERfw5wQoww7cps4EVkKp2LeM8zsqZaSIj0b55Lgu+kkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kpbbdfaecq44t17zrAhj1sJ9ekO2QQaEm1CAhdeuIh4=;
+ b=OR2ccdABJHk/+iCYWO9CdX527Chc8Z1wmXdvVXdbZnk0O33J9HKH7Ge3lQkZN0rGHfarbMh9ZKvDVK3CUCqH3PIC2j/qcSRM/xPkTzbsvF7pCCW3NTxtNevcr1FSzAdm+wUIDj3QW05HNA6sO45iA0gaTVnB6IRYjYtT2Pp/4QlXUvZcIxCnOtp4ULHt4RHqmjA7R8Kw18oJ9ndfOnYvHWVgYrHlrK1B2li6VH4RafzPMKOVMmPf7NVcEjMZ0iORviSkiLbYD5ZyHX6hfq9VXf6X/SftkOFRbzkO4wh2QIxhISf88ubbyIhBq4BKHqVT2404zLXuqrZMKyEtqAvjbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8uKg4vlU0H8aSWLs1pc+GTfeuHutGPJJZ4zetagCY8=;
- b=5A7LsMpacLJ/DeypSkr7tjTzw2MTWdBDxnHXkNTslFwjez5jV10ed6BaAk8wXcIkuiJfocwllDZomXW6nzUkhRNDAt933CcMi1ksPuQfBzKRHJins5hkNERzkByyg8jLeHfioYc+vKmcuZigSNURgCp+SKV1KMN/4+Yt8lsRKA8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BL3PR12MB6378.namprd12.prod.outlook.com (2603:10b6:208:3b1::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.17; Fri, 20 Sep
- 2024 06:28:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7982.012; Fri, 20 Sep 2024
- 06:28:58 +0000
-Message-ID: <ade271e8-2f6e-494b-979a-e53942b6b9a7@amd.com>
-Date: Fri, 20 Sep 2024 08:28:49 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix typo "acccess" and improve the comment
- style here
-To: WangYuli <wangyuli@uniontech.com>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, yifan1.zhang@amd.com, vitaly.prosyak@amd.com,
- Tim.Huang@amd.com, Prike.Liang@amd.com, jesse.zhang@amd.com,
- lijo.lazar@amd.com, Hawking.Zhang@amd.com, kevinyang.wang@amd.com,
- srinivasan.shanmugam@amd.com, victorchengchi.lu@amd.com,
- Jiadong.Zhu@amd.com, tao.zhou1@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, le.ma@amd.com, Wenhui.Sheng@amd.com,
- alexdeucher@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>
-References: <F25A139789E87C3E+20240920022755.1162495-1-wangyuli@uniontech.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <F25A139789E87C3E+20240920022755.1162495-1-wangyuli@uniontech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0168.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=kpbbdfaecq44t17zrAhj1sJ9ekO2QQaEm1CAhdeuIh4=;
+ b=ncFkOCB+47QrJgz6YJf/kLP/kEt/mTTrhVzqINanm130lwMKUvBnif0++45gdfGR+OpabcSa1itfmIWhbAsQ+5yBCpp+W+v2TpvE/IMYNfdOrBHMiNB1l1/d6x/WjgpYW4VoZXPkU8zfOoiGx0BKycKGOnfhRLe7zuaQGwbkhmE=
+Received: from MN2PR16CA0024.namprd16.prod.outlook.com (2603:10b6:208:134::37)
+ by DS0PR12MB8414.namprd12.prod.outlook.com (2603:10b6:8:fb::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7962.24; Fri, 20 Sep 2024 06:31:35 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:208:134:cafe::e2) by MN2PR16CA0024.outlook.office365.com
+ (2603:10b6:208:134::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.22 via Frontend
+ Transport; Fri, 20 Sep 2024 06:31:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Fri, 20 Sep 2024 06:31:34 +0000
+Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Fri, 20 Sep 2024 01:31:33 -0500
+From: <jiadong.zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Jiadong Zhu <Jiadong.Zhu@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu/sdma5: split out per instance resume function
+Date: Fri, 20 Sep 2024 14:31:09 +0800
+Message-ID: <20240920063112.370961-1-jiadong.zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL3PR12MB6378:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32d710df-97f9-47aa-6510-08dcd93d8246
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|DS0PR12MB8414:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91d3324c-19b4-46f6-42de-08dcd93ddfb0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|921020;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZzNDRjQ4WHdlL3N6dTNucm1TY3NEem5QTlVRV2laeUozRVhQOGdGV1FMTlc3?=
- =?utf-8?B?MFRIWUo2Yi9uMHE0Znl3T1FlbEdzZzE2N0U0dHBDYkRBME4vQXhybysrWDhm?=
- =?utf-8?B?NmFrb1ArOWw0alNTZEhvT0lZUEpTcDRhVmlIMUlGTC9FSHNKdVprQ1psQUtZ?=
- =?utf-8?B?K2hVSkF5aTNGY3JFWFB0aXkyZytjaytoMEZRSk5tcGNGKzBzTlA1UXVTZWVi?=
- =?utf-8?B?dkRsaXF4Q2ttVXRZVU8yZkp4blNrRzBnamVyellhdjZqa084WlYveWp2MWd4?=
- =?utf-8?B?N3FwRzFKVnBMNVd6Wm1KY3NGTHdaNDhMZ3RWdzI1SnhWRVFuM0w2UFIzdHVO?=
- =?utf-8?B?KzhKUjE1UktsazYwWDM0Sm11WFFUUmljUjllZ3hhSDJUZG1KRVF2bUp4c25w?=
- =?utf-8?B?Rjk3WFFLTUE4M2YraWZCKzJZNG1jR2pYa0hVRC9iMXFib1BXejBqWGVCeFlm?=
- =?utf-8?B?SnB3ZXAweXEzUU4xUFFJZEY3Tkd4WTNEQndqRk1HeW4zZXZnaUVDd3ZHQ3Ex?=
- =?utf-8?B?MllTTXJlMmlQM2ppUWVQZ2FKaXJVTEo4Y1g5a3RjaVlvWWYxNVV1YkFxNXJG?=
- =?utf-8?B?Nlp1dEFCbktqbDJTdjZMUXBLVG1rOHBJVnNpbm5BWmZUOWVJdzFMcTZvYUtB?=
- =?utf-8?B?ZmV6ajJXRi9jNmRabnlGdVQrT1pjWlFKNEkzYjRjYU92dEZQd3JRSjJEZ20w?=
- =?utf-8?B?RDY0aC82NlNmL3dFME0xK2lnWFpGU2JQN24wcXgvQTdyNWRyMmpSS1BSMnRU?=
- =?utf-8?B?R09tZFcxMXNKdlJodGl0TjU4THBQSzlTU0VZNUZJS1RPMkV1TjVDU2wxeG5l?=
- =?utf-8?B?ZFhsenFjWXpOcHgzVFpPTlFqcDE2MS8rUXROZnVDUHNHTzIxSllRckV3Lzdq?=
- =?utf-8?B?QW1OaGZJOExRSGdKejJvZVUxYzB3azg1TXNJQ3k1OEorMnhyN25OWlYyQzYw?=
- =?utf-8?B?aFQ3dnNRWHhTcWxhcGNHVkFRayt0M0tvMk55V09VQjY5eGxsMERna0VEUWll?=
- =?utf-8?B?SHdldjN3NStsazg4TS9Xc1RsSWwwYU5Ebi9sRjE3aHYzS08zbUphUGF2Nm45?=
- =?utf-8?B?bFkxSWkwbnJ6ZVJocVE5T1dRQjZQL3dTMWY3a2xJRmpZMDBNcWl6RmYwcnlL?=
- =?utf-8?B?SmZ1b1Y4NzV2T1pXRVloOXcyY2FRVFhucUFHMFpyQWpaSkZpZC91Q216Q2pB?=
- =?utf-8?B?VWtTVFhzaWR5ZnZTbDdELzBwMHlQSnRrUm9wcFkvbWgrVVFwc0FqcFBGMXZM?=
- =?utf-8?B?VGtLclUzVFJtd05LYW83UTZQNm5EZ21IbXJhNnAyUzlsZHdIS3BnczFVSThl?=
- =?utf-8?B?T29ITHZFUzhyQ1N1NkswRU9WaDhvSFVPZlUzUEh1WUxGWDBqdXlCRGJnQ0I4?=
- =?utf-8?B?QUNqMFN1SjlnNGVOT2hCSENuNGZaTlhrSkdhZ0o3WHpQdnF2NzJxWitrWHBG?=
- =?utf-8?B?eDZyR09TdGI2MHpVckg0OGNHVUgvYjdYNHlRelFFNDQxK1FSN3R0WUlnaTBX?=
- =?utf-8?B?T2NpWkZCeDdCZkVWOFUvZ0FxdHlHeXd6ZXcrZWhMSTVVVnVpVEFKL0h3Lzl0?=
- =?utf-8?B?UFR4b2Rma3oxaGRIV0s1VVlyZlBkMmJ1ckhvelNCS1E1ZENnRk5NU2c2MkxO?=
- =?utf-8?B?RHlqS1lVZWNVYkhtamNOU0M1eXlWOEtqV3RiV2g5V2tpRmxBRnNhY2F6Vk5O?=
- =?utf-8?B?VkNpd0NkRXlnRzdNZmxEVXBRZXZ1elVVWU5hUzM2MTAvcy94aFFwMzJuLzlW?=
- =?utf-8?B?eFBCVHJYaXIreGZ5dmt1RnlQWHI1MVA3bjdPMy9iMm5vN203cXdYazBtWENP?=
- =?utf-8?B?OVpHWExENytMSktwZWVQZFN3R2V3UkQyY3c3c3JTZEdpYjVXODZvOXNpQVVY?=
- =?utf-8?B?eXdJeWttSTdCRXJCTTJwRVF6bzhMR1pmcjk0Q2V2TlF5ZlE9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(921020); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2QzbzNyZHU4bVRHdkY0S3VXRWtYS3VrNnFHMnBHYXIrUjN4TG9EMFkxRTFT?=
- =?utf-8?B?ZE9UMWJqUlBOa2k4QkludktVYUVYN25WZndhd2ZWVG9ueitSNzhBQXlSUHRS?=
- =?utf-8?B?cVBHUE1aWnZuWTBUUmloNmE0cVlVV0lidzZuaExYZ2t3QjVYdDBHc0p3Z1k5?=
- =?utf-8?B?VHAvbEV0RGJMYW5BOGdPNUtYME9xemJEcE1nbkZDTUpkUnVNMnc2OS96dDRF?=
- =?utf-8?B?U05zcHA0MlZtTTd3cVNRQjdkSzM0L3IrS1o5TEoyTjcvWmxrNS9tV2REZkJu?=
- =?utf-8?B?NW5OU1lwWVMvVitkczI4RXdRbit2VGlxdkRJdUNyUzIyVnRkVjhPVWY3dmpt?=
- =?utf-8?B?cmM1OU9MM0xpNWRRd253OG9QWHUyOVV2QlF1U3ZvVlVpNGRzTDR6dnhiYlhS?=
- =?utf-8?B?cUxBYm4zSVJsd2ZSZzhvcmNaMkUvT2lvWDIzZWs3YkxLbHR4SHRpZzBtUUN2?=
- =?utf-8?B?Q0RET1hiWXlQa2J6eGpRZ0VKd0hoWjhMc0cvNG0waGhQcEtNL0VHY0U3UEJi?=
- =?utf-8?B?QjEyaHdaSjQwZDB4TWt1NkFMM1l0UTZ5U05Pc0xxR1p5Q0s2eEdpNktCeEhS?=
- =?utf-8?B?djBYMDdrTU1FNE1KbVFZSHkwbVBTTm15cm9XMVpCRDh1QmthaUltcVlvUTJ6?=
- =?utf-8?B?U3JXV3AzUjltNzVlM0tlM1I5U2l5a2tpMEp6Tzcyb2E1UFlKeXBEK1g1em9y?=
- =?utf-8?B?SGF1V1REWmMrSERtK29RcTE5MXVxeHlIZGVuVDVBSHowdU53bnkySVFMZTlC?=
- =?utf-8?B?ZEd0YkpzQnJuUnRNNHd1dmY4RzNxRER4K3VxQndHb2E1VVRld1JsUjZIR0Zo?=
- =?utf-8?B?VzNzd1RGdElEWTArTW9RVy8vOXI2MVVOcmJ3VWxPbkNtejl0NEVqam5sYWxJ?=
- =?utf-8?B?ZndhNnI1MTByQlBRNU03Q1RJYU9CVHhQTm5DR1RnWENwZWxvUnRGdkhBUy9k?=
- =?utf-8?B?djJ2SmZZS2xpeTZCZXZydGZzVmo3YmpjalRQZ0NwSjU3UytOcUVlVFYxTGp1?=
- =?utf-8?B?Wi9kR3E3bkE2SUwyMXdNdVpiN1dTMThFekdDQXZFOGxuM2M2ZUpyWGhtcWlw?=
- =?utf-8?B?UlBSVCsxQ2FhcGxaMTZId3dTQURwWGFvWG80MTlBUUxjRUpkZjJnbFg0dlV4?=
- =?utf-8?B?L3EvNldoTW5TMjZxa3J0SVpDNVhreXdwcGg0TFRHcytqRTdqdDMwQ2Y2K202?=
- =?utf-8?B?TklvNnpLTmdWQzlHM0k1L0VrRTBUUmRSQlhvOEt5ZzJ2a3NjY0xUNWROb1B3?=
- =?utf-8?B?WVY1cjdmc0lUWlpoYjFNcjV2RU1MUXF6aXVoNTFRcGlOdExwMHdWVVhPbTZH?=
- =?utf-8?B?MTNWREczc0lUZEpzQk5MMDJtWkx3QnVWWXhNUWF1dythTVNSbkxMRW5BSFNu?=
- =?utf-8?B?MExaeGRaZEhUVWpaMWcraVVjVVBKTzFNaCtnUzAzM1dPL1YyejhuM0ZBbUh1?=
- =?utf-8?B?eWxXTHQrSGR3cGRDMHRlTk03MW41Q1VPM3M5S09heE1xRW1RVnF5SXJNOXIz?=
- =?utf-8?B?dFRMWTJ2Y05PKzRNMUtVY3NFa0JGcWx3NzkwMzVyRS9zaC9kYXAzVVE4YTk5?=
- =?utf-8?B?YlBwTHVmVFI0anhwL0xaZkIzNFpGNnRkK0VPak5WLzVOYk5EdElBYzVpU09i?=
- =?utf-8?B?aVVGYnFvbTJ3aFRmS1BSTDlTTWN0UGxEOXBrKzN1TTRQMHdFbm1VQTBBb3pI?=
- =?utf-8?B?cTlrdnBIUWtad0JpNlduMGtBUHgzZ0JieHZrTzNIb3hQbmdYMStCZDc5NWpi?=
- =?utf-8?B?OEsveWY5em45cWtMbTF6d0RuWCtXQXBGOWp2ZUVFSkRxbklwYlRYdGtTOUQx?=
- =?utf-8?B?RjNHU0Z5NFRXT3UzcVFLRmVxamgrWFZUdm9rRHlmaWxwdFZDTExLWDhXaWRW?=
- =?utf-8?B?eGY4eTl2eGlUYXhMNmNBWDkvZndFaGFsRmJ3cEFXRlVIOUxwK0lnUnB2L040?=
- =?utf-8?B?VkNxZzM4QkpoL2FtTTNLTjljdThONU1pKzhvUzhia3hqSEljNXhmSmhwcy9U?=
- =?utf-8?B?WDN3bUFxK3lNRWlWRWMzZlBjczdxVWdVeHhDRzZwNkVqbmtjaVFMT2NSakpM?=
- =?utf-8?B?MkhIUllQVWNmeWh3Sk5IVkZHZkxpWHRwQkZYaU55ekVsWm5JWU9TVjVmejRT?=
- =?utf-8?Q?JqG0=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4FBR4qL5ww/wyRO7b2HVcOnpIyrynkmYj+NllqXw/wynYaRQDLN7CczgyLLy?=
+ =?us-ascii?Q?Udv/2twu8eV5ClUV8rTESN70r75zgHR+/OpGBm3I6YesCmkDHqQMw1MwKhpw?=
+ =?us-ascii?Q?81iGhlQtgpAPM26hhPEG41UzMc+VjX4zDZXC95zEFw+3j1jyHy6lAB/wmfSo?=
+ =?us-ascii?Q?8h8iY+AQLGeI4SrUCW/Aeo/c1KaGrc25dfpvJIJWa/s4ZuEl7XZWq/P+6Y4W?=
+ =?us-ascii?Q?FAsGnO7F2XH6Hf3uegjkg2rD6Fc9Ha51SqYfFNlSi/NB+DPv25WxFp0jbKK3?=
+ =?us-ascii?Q?Sw8tCL1eOR5dtMkr9TsqpUyTeL0P7y/hobmtvhxJrAEkjplPUYnSQ2ZHcDcR?=
+ =?us-ascii?Q?6xzocdJ8uSB0Hqn7M2mu16sIJxYPuRKF4tw21TTfT2Ycc9NhVq1sOzoNMgwA?=
+ =?us-ascii?Q?NvM1RGfdL3JYxMgzS08fPyM6k5P8lwyxHODUnRbwGULpTm/SDbXGU87Nru2e?=
+ =?us-ascii?Q?YbQ0hw672EdABlsJbdG8NDjire1tvCsHbHtNaMSDnSQhBU8WJSNv6R1yao37?=
+ =?us-ascii?Q?EvCUcW3G0WEtDTeGhtrbUmB9dz1XjiSVFuZUmEIdXbFZTWSWH6dzUByn5JqY?=
+ =?us-ascii?Q?4Hy0QW9crIpMGAZ7P7xdmOsTbW5RwKipqlo7lUK02RphX1i0WxHwpn805J9F?=
+ =?us-ascii?Q?ygRGVPzkUhTuryywdK1MQEtgD5hqukHv+IonQPMZeJIXkNeuO6ivoQFrNi9U?=
+ =?us-ascii?Q?qs0uoYCiWpGDNDetX6TQ7SPnRzIXW6BDAazeioSwN7fPowoV6XdoY2Ksc7af?=
+ =?us-ascii?Q?wb5b8m06Yu4bEh+pKWqQpth5DwqVRL3tJl4r9Vk4Ir0L+Ut/6f+lc0VsN/y+?=
+ =?us-ascii?Q?DhKhlLXFJAaQEFnhh7xFaBHmsTK0rX2NSM+tMW6mJhn2rS3QCF7C8dZdNOhl?=
+ =?us-ascii?Q?cecNp1wo5jfmkBYmP09ZOIOLJ9oO/qbrD8YnBfSO35VdayXiYZTLLMCSqNwd?=
+ =?us-ascii?Q?3w/c94IlkPgqXUw0zmsT0PLQGR7JmluHb+aQ2TIo4KhpEuFnI2bSW83nhW1g?=
+ =?us-ascii?Q?JKZccCU5mQpDcHmNZSkGnkvwBSb0Rtm8PixnxeMrNQ8TDNnJaUeBjt9mE7lQ?=
+ =?us-ascii?Q?y/+y7b5po0kBMozend6imFpE3QQOWGns2opNKGrh5Gvh86GGc5VpadbCHqUZ?=
+ =?us-ascii?Q?6+ee52XQ7MnO5PO8TKpHipo8cge/FNRLZDFvoQ0kXSMBWte30BJEQ/Abl4bb?=
+ =?us-ascii?Q?/exM5bGZxwQYQ1e/qQt9gWIS5MBbobTCBWDdFKsvTk9N0Wnl24ty80U84q6I?=
+ =?us-ascii?Q?WGakPA+P7MEOBe/KQ26fCAnCEUK6TLRZ+LznrnO+cKhc0Nim6dlv2wl3dHzc?=
+ =?us-ascii?Q?SkGw0XWUPFduiW6KQ2WjbiBpri2hnXWQCtAemxnkNQEVO7PNwI/TEyJT5E/E?=
+ =?us-ascii?Q?P8Uw0lI=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32d710df-97f9-47aa-6510-08dcd93d8246
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2024 06:28:58.4619 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2024 06:31:34.7464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91d3324c-19b4-46f6-42de-08dcd93ddfb0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OD8PwSCez8IFHvVL0JUEMp0qyRkuR/xdxR+wDXgXf6FQ+22bo6yIcwDGscdlRdWa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6378
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,61 +128,316 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.09.24 um 04:27 schrieb WangYuli:
-> There are some spelling mistakes of 'acccess' in comments which
-> should be instead of 'access'.
->
-> And the comment style should be like this:
->   /*
->    * Text
->    * Text
->    */
->
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Link: https://lore.kernel.org/all/f75fbe30-528e-404f-97e4-854d27d7a401@amd.com/
-> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Link: https://lore.kernel.org/all/0c768bf6-bc19-43de-a30b-ff5e3ddfd0b3@suse.de/
-> Signed-off-by: WangYuli <wangyuli@uniontech.com>
+From: Jiadong Zhu <Jiadong.Zhu@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Extract the resume sequence from sdma_v5_0_gfx_resume for
+starting/restarting an individual instance.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 6 ++++--
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 6 ++++--
->   2 files changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index d3e8be82a172..33fd2da49a2a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1893,8 +1893,10 @@ static void gfx_v11_0_init_compute_vmid(struct amdgpu_device *adev)
->   	soc21_grbm_select(adev, 0, 0, 0, 0);
->   	mutex_unlock(&adev->srbm_mutex);
->   
-> -	/* Initialize all compute VMIDs to have no GDS, GWS, or OA
-> -	   acccess. These should be enabled by FW for target VMIDs. */
-> +	/*
-> +	 * Initialize all compute VMIDs to have no GDS, GWS, or OA
-> +	 * access. These should be enabled by FW for target VMIDs.
-> +	 */
->   	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
->   		WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_BASE, 2 * i, 0);
->   		WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_SIZE, 2 * i, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 408e5600bb61..57b55b6d797d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -1247,8 +1247,10 @@ static void gfx_v9_4_3_xcc_init_compute_vmid(struct amdgpu_device *adev,
->   	soc15_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
->   	mutex_unlock(&adev->srbm_mutex);
->   
-> -	/* Initialize all compute VMIDs to have no GDS, GWS, or OA
-> -	   acccess. These should be enabled by FW for target VMIDs. */
-> +	/*
-> +	 * Initialize all compute VMIDs to have no GDS, GWS, or OA
-> +	 * access. These should be enabled by FW for target VMIDs.
-> +	 */
->   	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
->   		WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID0_BASE, 2 * i, 0);
->   		WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID0_SIZE, 2 * i, 0);
+Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 253 ++++++++++++++-----------
+ 1 file changed, 138 insertions(+), 115 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 3e48ea38385d..e813da1e48aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -705,14 +705,16 @@ static void sdma_v5_0_enable(struct amdgpu_device *adev, bool enable)
+ }
+ 
+ /**
+- * sdma_v5_0_gfx_resume - setup and start the async dma engines
++ * sdma_v5_0_gfx_resume_instance - start/restart a certain sdma engine
+  *
+  * @adev: amdgpu_device pointer
++ * @i: instance
++ * @restore: used to restore wptr when restart
+  *
+- * Set up the gfx DMA ring buffers and enable them (NAVI10).
+- * Returns 0 for success, error for failure.
++ * Set up the gfx DMA ring buffers and enable them. On restart, we will restore wptr and rptr.
++ * Return 0 for success.
+  */
+-static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
++static int sdma_v5_0_gfx_resume_instance(struct amdgpu_device *adev, int i, bool restore)
+ {
+ 	struct amdgpu_ring *ring;
+ 	u32 rb_cntl, ib_cntl;
+@@ -722,142 +724,163 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
+ 	u32 temp;
+ 	u32 wptr_poll_cntl;
+ 	u64 wptr_gpu_addr;
+-	int i, r;
+ 
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		ring = &adev->sdma.instance[i].ring;
++	ring = &adev->sdma.instance[i].ring;
+ 
+-		if (!amdgpu_sriov_vf(adev))
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL), 0);
++	if (!amdgpu_sriov_vf(adev))
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL), 0);
+ 
+-		/* Set ring buffer size in dwords */
+-		rb_bufsz = order_base_2(ring->ring_size / 4);
+-		rb_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SIZE, rb_bufsz);
++	/* Set ring buffer size in dwords */
++	rb_bufsz = order_base_2(ring->ring_size / 4);
++	rb_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SIZE, rb_bufsz);
+ #ifdef __BIG_ENDIAN
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SWAP_ENABLE, 1);
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL,
+-					RPTR_WRITEBACK_SWAP_ENABLE, 1);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SWAP_ENABLE, 1);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL,
++				RPTR_WRITEBACK_SWAP_ENABLE, 1);
+ #endif
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
+-
+-		/* Initialize the ring buffer's read and write pointers */
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
++
++	/* Initialize the ring buffer's read and write pointers */
++	if (restore) {
++		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR), lower_32_bits(ring->wptr << 2));
++		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_HI), upper_32_bits(ring->wptr << 2));
++		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR), lower_32_bits(ring->wptr << 2));
++		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI), upper_32_bits(ring->wptr << 2));
++	} else {
+ 		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR), 0);
+ 		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_HI), 0);
+ 		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR), 0);
+ 		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI), 0);
+-
+-		/* setup the wptr shadow polling */
+-		wptr_gpu_addr = ring->wptr_gpu_addr;
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_ADDR_LO),
+-		       lower_32_bits(wptr_gpu_addr));
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI),
+-		       upper_32_bits(wptr_gpu_addr));
+-		wptr_poll_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i,
+-							 mmSDMA0_GFX_RB_WPTR_POLL_CNTL));
+-		wptr_poll_cntl = REG_SET_FIELD(wptr_poll_cntl,
+-					       SDMA0_GFX_RB_WPTR_POLL_CNTL,
+-					       F32_POLL_ENABLE, 1);
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL),
+-		       wptr_poll_cntl);
+-
+-		/* set the wb address whether it's enabled or not */
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_ADDR_HI),
+-		       upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_ADDR_LO),
+-		       lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
+-
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
+-
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_BASE),
+-		       ring->gpu_addr >> 8);
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_BASE_HI),
+-		       ring->gpu_addr >> 40);
+-
++	}
++	/* setup the wptr shadow polling */
++	wptr_gpu_addr = ring->wptr_gpu_addr;
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_ADDR_LO),
++	       lower_32_bits(wptr_gpu_addr));
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI),
++	       upper_32_bits(wptr_gpu_addr));
++	wptr_poll_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i,
++						 mmSDMA0_GFX_RB_WPTR_POLL_CNTL));
++	wptr_poll_cntl = REG_SET_FIELD(wptr_poll_cntl,
++				       SDMA0_GFX_RB_WPTR_POLL_CNTL,
++				       F32_POLL_ENABLE, 1);
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL),
++	       wptr_poll_cntl);
++
++	/* set the wb address whether it's enabled or not */
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_ADDR_HI),
++	       upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_ADDR_LO),
++	       lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
++
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
++
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_BASE),
++	       ring->gpu_addr >> 8);
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_BASE_HI),
++	       ring->gpu_addr >> 40);
++
++	if (!restore)
+ 		ring->wptr = 0;
+ 
+-		/* before programing wptr to a less value, need set minor_ptr_update first */
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
++	/* before programing wptr to a less value, need set minor_ptr_update first */
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_MINOR_PTR_UPDATE), 1);
+ 
+-		if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write for wptr */
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
+-			       lower_32_bits(ring->wptr << 2));
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
+-			       upper_32_bits(ring->wptr << 2));
+-		}
++	if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write for wptr */
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR),
++		       lower_32_bits(ring->wptr << 2));
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_HI),
++		       upper_32_bits(ring->wptr << 2));
++	}
+ 
+-		doorbell = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
+-		doorbell_offset = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i,
+-						mmSDMA0_GFX_DOORBELL_OFFSET));
++	doorbell = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL));
++	doorbell_offset = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i,
++					mmSDMA0_GFX_DOORBELL_OFFSET));
+ 
+-		if (ring->use_doorbell) {
+-			doorbell = REG_SET_FIELD(doorbell, SDMA0_GFX_DOORBELL, ENABLE, 1);
+-			doorbell_offset = REG_SET_FIELD(doorbell_offset, SDMA0_GFX_DOORBELL_OFFSET,
+-					OFFSET, ring->doorbell_index);
+-		} else {
+-			doorbell = REG_SET_FIELD(doorbell, SDMA0_GFX_DOORBELL, ENABLE, 0);
+-		}
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL), doorbell);
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL_OFFSET),
+-		       doorbell_offset);
++	if (ring->use_doorbell) {
++		doorbell = REG_SET_FIELD(doorbell, SDMA0_GFX_DOORBELL, ENABLE, 1);
++		doorbell_offset = REG_SET_FIELD(doorbell_offset, SDMA0_GFX_DOORBELL_OFFSET,
++				OFFSET, ring->doorbell_index);
++	} else {
++		doorbell = REG_SET_FIELD(doorbell, SDMA0_GFX_DOORBELL, ENABLE, 0);
++	}
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL), doorbell);
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_DOORBELL_OFFSET),
++	       doorbell_offset);
+ 
+-		adev->nbio.funcs->sdma_doorbell_range(adev, i, ring->use_doorbell,
+-						      ring->doorbell_index, 20);
++	adev->nbio.funcs->sdma_doorbell_range(adev, i, ring->use_doorbell,
++					      ring->doorbell_index, 20);
+ 
+-		if (amdgpu_sriov_vf(adev))
+-			sdma_v5_0_ring_set_wptr(ring);
++	if (amdgpu_sriov_vf(adev))
++		sdma_v5_0_ring_set_wptr(ring);
+ 
+-		/* set minor_ptr_update to 0 after wptr programed */
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_MINOR_PTR_UPDATE), 0);
++	/* set minor_ptr_update to 0 after wptr programed */
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_MINOR_PTR_UPDATE), 0);
+ 
+-		if (!amdgpu_sriov_vf(adev)) {
+-			/* set utc l1 enable flag always to 1 */
+-			temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL));
+-			temp = REG_SET_FIELD(temp, SDMA0_CNTL, UTC_L1_ENABLE, 1);
+-
+-			/* enable MCBP */
+-			temp = REG_SET_FIELD(temp, SDMA0_CNTL, MIDCMD_PREEMPT_ENABLE, 1);
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL), temp);
+-
+-			/* Set up RESP_MODE to non-copy addresses */
+-			temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_CNTL));
+-			temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, RESP_MODE, 3);
+-			temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, REDO_DELAY, 9);
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_CNTL), temp);
+-
+-			/* program default cache read and write policy */
+-			temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_PAGE));
+-			/* clean read policy and write policy bits */
+-			temp &= 0xFF0FFF;
+-			temp |= ((CACHE_READ_POLICY_L2__DEFAULT << 12) | (CACHE_WRITE_POLICY_L2__DEFAULT << 14));
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_PAGE), temp);
+-		}
++	if (!amdgpu_sriov_vf(adev)) {
++		/* set utc l1 enable flag always to 1 */
++		temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL));
++		temp = REG_SET_FIELD(temp, SDMA0_CNTL, UTC_L1_ENABLE, 1);
++
++		/* enable MCBP */
++		temp = REG_SET_FIELD(temp, SDMA0_CNTL, MIDCMD_PREEMPT_ENABLE, 1);
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL), temp);
++
++		/* Set up RESP_MODE to non-copy addresses */
++		temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_CNTL));
++		temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, RESP_MODE, 3);
++		temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, REDO_DELAY, 9);
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_CNTL), temp);
++
++		/* program default cache read and write policy */
++		temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_PAGE));
++		/* clean read policy and write policy bits */
++		temp &= 0xFF0FFF;
++		temp |= ((CACHE_READ_POLICY_L2__DEFAULT << 12) | (CACHE_WRITE_POLICY_L2__DEFAULT << 14));
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_UTCL1_PAGE), temp);
++	}
+ 
+-		if (!amdgpu_sriov_vf(adev)) {
+-			/* unhalt engine */
+-			temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
+-			temp = REG_SET_FIELD(temp, SDMA0_F32_CNTL, HALT, 0);
+-			WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), temp);
+-		}
++	if (!amdgpu_sriov_vf(adev)) {
++		/* unhalt engine */
++		temp = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
++		temp = REG_SET_FIELD(temp, SDMA0_F32_CNTL, HALT, 0);
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), temp);
++	}
+ 
+-		/* enable DMA RB */
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 1);
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
++	/* enable DMA RB */
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 1);
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
+ 
+-		ib_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL));
+-		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 1);
++	ib_cntl = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL));
++	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 1);
+ #ifdef __BIG_ENDIAN
+-		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_SWAP_ENABLE, 1);
++	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_SWAP_ENABLE, 1);
+ #endif
+-		/* enable DMA IBs */
+-		WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL), ib_cntl);
++	/* enable DMA IBs */
++	WREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL), ib_cntl);
+ 
+-		if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
+-			sdma_v5_0_ctx_switch_enable(adev, true);
+-			sdma_v5_0_enable(adev, true);
+-		}
++	if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
++		sdma_v5_0_ctx_switch_enable(adev, true);
++		sdma_v5_0_enable(adev, true);
++	}
++
++	return amdgpu_ring_test_helper(ring);
++}
+ 
+-		r = amdgpu_ring_test_helper(ring);
++/**
++ * sdma_v5_0_gfx_resume - setup and start the async dma engines
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Set up the gfx DMA ring buffers and enable them (NAVI10).
++ * Returns 0 for success, error for failure.
++ */
++static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
++{
++	int i, r;
++
++	for (i = 0; i < adev->sdma.num_instances; i++) {
++		r = sdma_v5_0_gfx_resume_instance(adev, i, false);
+ 		if (r)
+ 			return r;
+ 	}
+-- 
+2.25.1
 
