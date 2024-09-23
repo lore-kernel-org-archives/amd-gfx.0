@@ -4,73 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D721CF9C6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 11:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1653ECF9C77
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 11:50:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF0D10E4BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC15910E890;
 	Tue, 24 Sep 2024 11:50:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UEX4yFAP";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="EL+aJu/q";
 	dkim-atps=neutral
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79EBE10E28E
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Sep 2024 16:49:02 +0000 (UTC)
-Received: by mail-vk1-f176.google.com with SMTP id
- 71dfb90a1353d-5010322c1c1so1390745e0c.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Sep 2024 09:49:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727110141; x=1727714941; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bP6mNa85r1fBTtVt4nmY2vTm3vDUYC2Hz0xY4IpddhM=;
- b=UEX4yFAPaLrmb02sJS0SMQT+r1ayD8GscrUpaNDmVCpv9tusfh4ts1B6f0RniL4up4
- JEntcU/P1omXYR7q9LqBB1Uk3XoAMzOy3962JJFEQlQt5nPYqzAG3Pzz/x1ovlqi63nd
- 15QmvMfB+E46pRRb/S3WukzsKDNw6pMqnVt2wGP3ddIeT+7wdYrpE6Lm8datgSjapoQb
- +g1qfDe4sIpCNJBlppQHLOXlQD7t+KlnD5MteHwcNEmABTd8PlKLFTDgI67uzsZA0nrE
- KQhvoZs2BRWhbkZirV06Vxi0Pyu1TkQnCGKW6SIqcc4D/YSjbWr8SLUlgsrYkyb6tRmb
- 0+vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727110141; x=1727714941;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bP6mNa85r1fBTtVt4nmY2vTm3vDUYC2Hz0xY4IpddhM=;
- b=u8wc/8jmS6FiIGiJZD5gsJgqVTiy+Yj4pjzOHZ+gYoBBj6CoO/xkEquk7Kszreki0u
- 42YHoevyK/eKa/jvxaJL2VLPPNmrTkhbwDdq6yf54qzPh1Zw3tjDKBFhBiCQhIhl9efQ
- MQWAgPBawlcla72EmffTChrk/XkSK+ppDU7mKQBJXhgo0vHcwluFhPtPkNUdF0vBQyAk
- /5eq34zAlplewu0pNDL8m4lzzZEWBmbORUr0IdpCVhAx9Nlkw5KiqCWGzKmZlZjFKPi8
- ooWl53x6IXV21ZGXEi55U0P6aFrlLbqD+FCPBa8/bjPUFUd7dAO577Ym8QLmFxUixzLr
- +cLg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXQ5Wo8hqcHeG0/v1Rdhe7fNs679dINtIRMWRgmNxP5Eow+qlo+bgfJr5CRsCLG4RryhnDmCoEw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxuEGhUC9/XeHUpBSicXPRn5qtSeJ4Uu7WsV+5/JMHjFjO+LzXT
- 0uqyq5I7crHvXDwebbU/01co+XWAe0bRM4kVgQYK694EM0y2SxAh8kkRoCyEE1bu8dqsbU3+9Rb
- lDjxIpDP0FIdkFYFjjMnrhqZTkUY=
-X-Google-Smtp-Source: AGHT+IFNbT1NF2ZQcW+60PCG7onE1QaUl53pcxG7e0IIKdZvJGsmqe0pqk5Ntqlfn++uEdKuwK2FU8cMfzHHbzHmNkg=
-X-Received: by 2002:a05:6122:891:b0:4f6:b094:80aa with SMTP id
- 71dfb90a1353d-503e418c86dmr7471693e0c.9.1727110141412; Mon, 23 Sep 2024
- 09:49:01 -0700 (PDT)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7AC410E052;
+ Mon, 23 Sep 2024 10:28:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1727087321; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=kSeY/uVy9Q/NOy7AZzavsILMyGym1pYpAkopE3w2QFnGlVHgGYtuY3WMiwh14Bs6X/ZXZ4BuZUaiasdQhh8MYadl7leKaxfOckYERi8N9CCeGZIpx2kbk9MF7d2AQWUjavoWdixNIelYp7/F3QbP6F14s+IuKENoyQdnvTgQJ14=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1727087321;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=0i8ek6TcMcQLviPJoeE7vqTentqVaHqTN7BCLGGSOJo=; 
+ b=XtWEB6DSzGIWfBQl2a6T1B2vEy4V/TEQeaFH9QhHjAxGbIxkrOhZNWx0C2URBbL6UGKqNQ0QcQpH+oqVbdfe509x6LQWu2kaI1jMM1aUsw2VJ6mcncSUwNabR0qY03r9hQJHawN90ztJP6ZPybBlZb8wBR7gl/NeAUHaE6IR2mw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727087321; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=0i8ek6TcMcQLviPJoeE7vqTentqVaHqTN7BCLGGSOJo=;
+ b=EL+aJu/qmibgtCr6wwqsF0JjaoOjCknlF2/KoNYIXhDoUGHfGA5TVADLuI1FeEHt
+ oVRwOia4vJo5hQgz/duhfP2gxZT3e/ywz94jqRuTFNShz0omxB+RhPOugIyRI6lF71i
+ zaWdJRLDIQ3TeV9/MxSqPwUo1MECjoyWo9Hip1aE=
+Received: by mx.zohomail.com with SMTPS id 1727087319068279.53647209704593;
+ Mon, 23 Sep 2024 03:28:39 -0700 (PDT)
+Message-ID: <75f56ed0-206a-4e81-9972-38c29a3e20be@collabora.com>
+Date: Mon, 23 Sep 2024 13:28:35 +0300
 MIME-Version: 1.0
-References: <20240920090959.30755-1-kdipendra88@gmail.com>
- <ac13994c-b77b-48f2-b2cf-20299f02c2e8@amd.com>
- <CAEKBCKMg0c5AW7YggDMR+Kg7OGq3dXApLK-=RTR71H0KHO73+g@mail.gmail.com>
- <ae062c07-dc09-4975-ad31-2f9d9ea435f9@amd.com>
- <CAEKBCKMNZOof8KP5upY45djTC9Bk9+AFHZyZVoid2eevTtjykA@mail.gmail.com>
- <17eb00ef-f3db-4d42-a3fd-cbe6813075e5@amd.com>
-In-Reply-To: <17eb00ef-f3db-4d42-a3fd-cbe6813075e5@amd.com>
-From: Dipendra Khadka <kdipendra88@gmail.com>
-Date: Mon, 23 Sep 2024 22:33:49 +0545
-Message-ID: <CAEKBCKNesZRZx-PafM5+dfuLSgOQb7_0h5DvTT+YcfBmvj1ovQ@mail.gmail.com>
-Subject: Re: [PATCH] Staging: drivers/gpu/drm/amd/amdgpu: Fix null pointer
- deference in amdkfd_fence_get_timeline_name
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, Xinhui.Pan@amd.com, 
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] drm: add DRM_SET_NAME ioctl
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ tursulin@igalia.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+References: <20240920090920.1342694-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240920090920.1342694-2-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20240920090920.1342694-2-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Tue, 24 Sep 2024 11:50:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,148 +69,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On 9/20/24 12:06, Pierre-Eric Pelloux-Prayer wrote:
+> Giving the opportunity to userspace to associate a free-form
+> name with a drm_file struct is helpful for tracking and debugging.
+> 
+> This is similar to the existing DMA_BUF_SET_NAME ioctl.
+> 
+> Access to name is protected by a mutex, and the 'clients' debugfs
+> file has been updated to print it.
+> 
+> Userspace MR to use this ioctl:
+>    https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1428
+> 
+> The string passed by userspace is filtered a bit, to avoid messing
+> output when it's going to be printed (in dmesg, fdinfo, etc):
+>   * all chars failing isgraph() are replaced by '-'
+>   * if a 0-length string is passed the name is cleared
+> 
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> ---
+>  drivers/gpu/drm/drm_debugfs.c | 12 ++++++---
+>  drivers/gpu/drm/drm_file.c    |  5 ++++
+>  drivers/gpu/drm/drm_ioctl.c   | 48 +++++++++++++++++++++++++++++++++++
+>  include/drm/drm_file.h        |  9 +++++++
+>  include/uapi/drm/drm.h        | 17 +++++++++++++
+>  5 files changed, 87 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+> index 6b239a24f1df..482e71160544 100644
+> --- a/drivers/gpu/drm/drm_debugfs.c
+> +++ b/drivers/gpu/drm/drm_debugfs.c
+> @@ -78,12 +78,13 @@ static int drm_clients_info(struct seq_file *m, void *data)
+>  	kuid_t uid;
+>  
+>  	seq_printf(m,
+> -		   "%20s %5s %3s master a %5s %10s\n",
+> +		   "%20s %5s %3s master a %5s %10s %20s\n",
+>  		   "command",
+>  		   "tgid",
+>  		   "dev",
+>  		   "uid",
+> -		   "magic");
+> +		   "magic",
+> +		   "name");
+>  
+>  	/* dev->filelist is sorted youngest first, but we want to present
+>  	 * oldest first (i.e. kernel, servers, clients), so walk backwardss.
+> @@ -94,19 +95,22 @@ static int drm_clients_info(struct seq_file *m, void *data)
+>  		struct task_struct *task;
+>  		struct pid *pid;
+>  
+> +		mutex_lock(&priv->name_lock);
+>  		rcu_read_lock(); /* Locks priv->pid and pid_task()->comm! */
+>  		pid = rcu_dereference(priv->pid);
+>  		task = pid_task(pid, PIDTYPE_TGID);
+>  		uid = task ? __task_cred(task)->euid : GLOBAL_ROOT_UID;
+> -		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u\n",
+> +		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u %20s\n",
+>  			   task ? task->comm : "<unknown>",
+>  			   pid_vnr(pid),
+>  			   priv->minor->index,
+>  			   is_current_master ? 'y' : 'n',
+>  			   priv->authenticated ? 'y' : 'n',
+>  			   from_kuid_munged(seq_user_ns(m), uid),
+> -			   priv->magic);
+> +			   priv->magic,
+> +			   priv->name ?: "");
 
-On Mon, 23 Sept 2024 at 18:57, Christian K=C3=B6nig <christian.koenig@amd.c=
-om> wrote:
->
-> Am 21.09.24 um 06:25 schrieb Dipendra Khadka:
-> > On Sat, 21 Sept 2024 at 00:43, Christian K=C3=B6nig <christian.koenig@a=
-md.com> wrote:
-> >> Am 20.09.24 um 18:31 schrieb Dipendra Khadka:
-> >>> On Fri, 20 Sept 2024 at 16:01, Christian K=C3=B6nig <christian.koenig=
-@amd.com> wrote:
-> >>>> Am 20.09.24 um 11:09 schrieb Dipendra Khadka:
-> >>>>> '''
-> >>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c:108:9: error: Null=
- pointer dereference: fence [nullPointer]
-> >>>>>     return fence->timeline_name;
-> >>>>>            ^
-> >>>>> '''
-> >>>>>
-> >>>>> The method to_amdgpu_amdkfd_fence can return NULL incase of empty f
-> >>>>> or f->ops !=3D &amdkfd_fence_ops.Hence, check has been added .
-> >>>>> If fence is null , then null is returned.
-> >>>> Well NAK, completely nonsense. Calling the function with a NULL fenc=
-e is
-> >>>> illegal.
-> >>> Thanks for enlightening me .
-> >> Well sorry to be so direct, but what the heck did you tried to do here=
-?
-> >>
-> > Hi Christian,
-> >
-> > cppcheck reported null pointer dereference in the line  " return
-> > fence->timeline_name;" in the function "static const char
-> > *amdkfd_fence_get_timeline_name(struct dma_fence *f)".
-> > In the function , we are getting the value of fence like this :
-> > "struct amdgpu_amdkfd_fence *fence =3D to_amdgpu_amdkfd_fence(f);"
-> >
-> > When I went through the function " to_amdgpu_amdkfd_fence" whose defini=
-tion is :
-> > '''
-> > struct amdgpu_amdkfd_fence *to_amdgpu_amdkfd_fence(struct dma_fence *f)
-> > {
-> > struct amdgpu_amdkfd_fence *fence;
-> >
-> > if (!f)
-> > return NULL;
-> >
-> > fence =3D container_of(f, struct amdgpu_amdkfd_fence, base);
-> > if (f->ops =3D=3D &amdkfd_fence_ops)
-> > return fence;
-> >
-> > return NULL;
-> > }
-> > '''
-> >
-> > Here, the function to_amdgpu_amdkfd_fence can return NULL when f is
-> > empty or f->ops !=3D &amdkfd_fence_ops .So the fence in function
-> > "amdkfd_fence_get_timeline_name" can be NULL.
-> > Hence , I thought dereferencing NULL fence like "return
-> > fence->timeline_name" may result in the runtime crashing. So, I
-> > proposed this fix. Sorry, I was not aware about the behaviour of the
-> > fence.
-> > I am interested in the development and tried to fix this .
->
-> Well it's in general a good idea that you looked into this, but you
-> should have put more thoughts into it.
->
-> That the fence can't be NULL is just implicit when you take a closer
-> look at the code.
->
-> amdkfd_fence_get_timeline_name() is only called through the pointer in
-> amdkfd_fence_ops. This makes the condition "f->ops =3D=3D &amdkfd_fence_o=
-ps"
-> always true inside the function.
->
+There should be a default name similar to task->comm, like "<undefined>"
+when not set. Perhaps also set name to task->comm by default.
 
-I am learning driver development and was not sure how it works. Now, I got =
-it.
+>  		rcu_read_unlock();
+> +		mutex_unlock(&priv->name_lock);
+>  	}
+>  	mutex_unlock(&dev->filelist_mutex);
+>  	return 0;
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 01fde94fe2a9..e9dd0e90a1f9 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -158,6 +158,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>  
+>  	spin_lock_init(&file->master_lookup_lock);
+>  	mutex_init(&file->event_read_lock);
+> +	mutex_init(&file->name_lock);
+>  
+>  	if (drm_core_check_feature(dev, DRIVER_GEM))
+>  		drm_gem_open(dev, file);
+> @@ -259,6 +260,10 @@ void drm_file_free(struct drm_file *file)
+>  	WARN_ON(!list_empty(&file->event_list));
+>  
+>  	put_pid(rcu_access_pointer(file->pid));
+> +
+> +	mutex_destroy(&file->name_lock);
+> +	kfree(file->name);
+> +
+>  	kfree(file);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 51f39912866f..46dadbd1bb35 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -540,6 +540,52 @@ int drm_version(struct drm_device *dev, void *data,
+>  	return err;
+>  }
+>  
+> +static int drm_set_name(struct drm_device *dev, void *data,
+> +			struct drm_file *file_priv)
+> +{
+> +	struct drm_set_name *name = data;
+> +	void __user *user_ptr;
+> +	char *new_name;
+> +	size_t i, len;
+> +
+> +	if (name->name_len > DRM_NAME_MAX_LEN)
+> +		return -EINVAL;
+> +
+> +	user_ptr = u64_to_user_ptr(name->name);
+> +
+> +	new_name = memdup_user_nul(user_ptr, name->name_len);
+> +	if (IS_ERR(new_name))
+> +		return PTR_ERR(new_name);
+> +
+> +	len = strlen(new_name);
 
-> The only other possibility is that the f parameter is NULL, but that in
-> turn is impossible because the function is called like
-> f->ops->get_timeline_name(f) and so the caller would have crashed even
-> before entering the function.
->
-> And finally you didn't looked at the documentation. The kerneldoc for
-> get_timeline_name clearly states that the callback is mandatory and
-> therefore can't return NULL.
->
-> So to sum it up you suggested something which is not only unnecessary,
-> but results in documented illegal behavior.
->
-> The C language unfortunately doesn't have the necessary annotation
-> possibilities that a function can't return a NULL string (at least as
-> far as I know). So cppcheck can't know any of this.
->
-> Please don't trust the automated tool to much and put a bit more time
-> into patches like this.
->
+strnlen
 
-Thank you so much for the insight and your time. I will make sure to
-see the kernel doc as well as try to think more.
+> +	if (len != name->name_len) {
+> +		kfree(new_name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/*
+> +	 * Filter out control char / spaces / new lines etc in the name
+> +	 * since it's going to be used in dmesg or fdinfo's output.
+> +	 */
+> +	for (i = 0; i < len; i++) {
+> +		if (!isgraph(new_name[i]))
+> +			new_name[i] = '-';
+> +	}
+> +
+> +	mutex_lock(&file_priv->name_lock);
+> +	kfree(file_priv->name);
+> +	if (len > 0) {
+> +		file_priv->name = new_name;
+> +	} else {
+> +		kfree(new_name);
+> +		file_priv->name = NULL;
+> +	}
+> +	mutex_unlock(&file_priv->name_lock);
+> +
+> +	return 0;
+> +}
+> +
+>  static int drm_ioctl_permit(u32 flags, struct drm_file *file_priv)
+>  {
+>  	/* ROOT_ONLY is only for CAP_SYS_ADMIN */
+> @@ -610,6 +656,8 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+>  	DRM_IOCTL_DEF(DRM_IOCTL_PRIME_HANDLE_TO_FD, drm_prime_handle_to_fd_ioctl, DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF(DRM_IOCTL_PRIME_FD_TO_HANDLE, drm_prime_fd_to_handle_ioctl, DRM_RENDER_ALLOW),
+>  
+> +	DRM_IOCTL_DEF(DRM_IOCTL_SET_NAME, drm_set_name, DRM_RENDER_ALLOW),
+> +
+>  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETPLANERESOURCES, drm_mode_getplane_res, 0),
+>  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETCRTC, drm_mode_getcrtc, 0),
+>  	DRM_IOCTL_DEF(DRM_IOCTL_MODE_SETCRTC, drm_mode_setcrtc, DRM_MASTER),
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 8c0030c77308..df26eee8f79c 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -388,6 +388,15 @@ struct drm_file {
+>  	 * Per-file buffer caches used by the PRIME buffer sharing code.
+>  	 */
+>  	struct drm_prime_file_private prime;
+> +
+> +	/**
+> +	 * @name:
+> +	 *
+> +	 * Userspace-provided name; useful for accounting and debugging.
+> +	 */
+> +	const char *name;
 
-Best Regards,
-Dipendra
+I'd make the "name" string static, i.e. char name[DRM_NAME_MAX_LEN + 1].
+That will prevent pointer deref troubles and no additional MM code
+bloating will be needed.
 
-> Regards,
-> Christian.
->
-> >
-> >> I mean that is broken on so many different levels that I can't
-> >> understand why somebody is suggesting something like that.
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>>> Regards,
-> >>>> Christian.
-> >>>>
-> >>>>> Signed-off-by: Dipendra Khadka <kdipendra88@gmail.com>
-> >>>>> ---
-> >>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 +++
-> >>>>>     1 file changed, 3 insertions(+)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> >>>>> index 1ef758ac5076..2313babcc944 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> >>>>> @@ -105,6 +105,9 @@ static const char *amdkfd_fence_get_timeline_na=
-me(struct dma_fence *f)
-> >>>>>     {
-> >>>>>         struct amdgpu_amdkfd_fence *fence =3D to_amdgpu_amdkfd_fenc=
-e(f);
-> >>>>>
-> >>>>> +     if (!fence)
-> >>>>> +             return NULL;
-> >>>>> +
-> >>>>>         return fence->timeline_name;
-> >>>>>     }
-> >>>>>
-> >>> Regards,
-> >>> Dipendra Khadka
-> > Regards,
-> > Dipendra Khadka
->
+> +	/** @name_lock: Protects @name. */
+> +	struct mutex name_lock;
+
+And then this lock isn't strictly needed anymore and can be removed if
+"name" string is static.
+
+>  };
+>  
+>  /**
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index 16122819edfe..f5e92e4f909b 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -1024,6 +1024,13 @@ struct drm_crtc_queue_sequence {
+>  	__u64 user_data;	/* user data passed to event */
+>  };
+>  
+> +#define DRM_NAME_MAX_LEN	64
+
+What about 63, to align data size to 64 bytes including the NULL byte.
+
+> +struct drm_set_name {
+
+drm_set_name sounds very generic, IMO. Maybe drm_context_set_name?
+
+> +	__u64 name_len;
+> +	__u64 name;
+> +};
+> +
+> +
+>  #if defined(__cplusplus)
+>  }
+>  #endif
+> @@ -1288,6 +1295,16 @@ extern "C" {
+>   */
+>  #define DRM_IOCTL_MODE_CLOSEFB		DRM_IOWR(0xD0, struct drm_mode_closefb)
+>  
+> +/**
+> + * DRM_IOCTL_SET_NAME - Attach a name to a drm_file
+> + *
+> + * This ioctl is similar to DMA_BUF_SET_NAME - it allows for easier tracking
+> + * and debugging.
+
+Don't refer to DMA_BUF_SET_NAME, explain what DRM_IOCTL_SET_NAME
+actually do. Tell that it sets the DRM context name and that chars are
+filtered.
+
+-- 
+Best regards,
+Dmitry
+
