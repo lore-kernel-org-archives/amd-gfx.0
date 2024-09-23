@@ -4,68 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D769BCF9C6F
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 07:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613CFCF9C73
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 07:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8133F10E365;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7BB10E391;
 	Mon, 23 Sep 2024 07:25:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DQ1mh+zW";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="CWOpYmeQ";
 	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23A9510E7F2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 09:10:09 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-71971d20ad9so1277111b3a.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Sep 2024 02:10:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726823408; x=1727428208; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QsjeiXcVbkhRS0S6mAuTlJso2qznjwKlAjYCJol6uhQ=;
- b=DQ1mh+zWLKM7LtzQ3P5VDq8CxzHyz/1nAo7onmWTT2yflqogWHHdJoH7CfSoRq8Re/
- ZAFvEqyGJK4oQ3oZ6xXaYPqk+spGymtf0J3WniATd2IYbq5ksrlOzpGASddCWOouih9t
- gXciVCgew1AOSCmRbDuq+8SVkwSEQUNbrFKsq2NhDO7E/cIj8eJpsv2pr4mwaTl7zHpl
- zOa/WRg+JglkAdGwuAmNK7u89cFDl5nCts9caiplHCQG8fyOV6X/sY2iVRVklJe7S4G1
- 5JtGfVIs1CnObfx7JJml4VmifSqtwB099kY/dUw8lVoaRvtPLxPR5t0aAusNbddvskrw
- I97Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726823408; x=1727428208;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QsjeiXcVbkhRS0S6mAuTlJso2qznjwKlAjYCJol6uhQ=;
- b=Nf6Az5aNL99sKb4mwTh0qwfY0oULk4O6HKAXkdlYlUFfn2iko+uZJxTDyBYPE2ZVBa
- z7QqZ5y3RrAyXXOXvhwqJ1rrLYlWxxYhBtqQNFg8SI3J6XcbI8Adzy4Ogjl6wyIJbos8
- RMoL6CSxS7cLhcoh/uyZZg1wR2oa+26baGP8mFRDI1occRm3AoQyPEpRK0dxU48Zj4d3
- EesY/fOMm9r0ftiQHe7apw0C/ozDnvX4iCYJp6oxXzRDZ4lsK7div2F3RAlCHgt4mc4i
- W4f5u+OjOAGs59S5CND3Bvg8OvTvuuDNPaqOx2zyGct16JuMP5BOdCo7HP1FTW30u72c
- Ao9Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVdl7h9pqiSOK+Q5okU1iAEbS2k21AtKGS+u91XjLGZ8NRt/lUrC9fxZoSlmEW3iaxKmdHtvvAu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOBPujs7mAajhOQTyo/XRkkf1C/DMyWN2wcK8ogl4HZQdqoDjx
- CvTueTY+ZiVcTyGtWqoUkSj68ztaip7YbhYrnssdmrb7QSVWUoFBy3PwocWa
-X-Google-Smtp-Source: AGHT+IH8FAN48dFcmR+m08J6jb/G83Ca1mUzCilqajUAhPNAMop9IubRUvCxd+x0whCenAuCu2S9Mw==
-X-Received: by 2002:a05:6a21:2d8c:b0:1d0:56b1:1aec with SMTP id
- adf61e73a8af0-1d30a9b4f69mr4170408637.35.1726823408509; 
- Fri, 20 Sep 2024 02:10:08 -0700 (PDT)
-Received: from ubuntu.worldlink.com.np ([27.34.65.246])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71944b7b181sm9455864b3a.112.2024.09.20.02.10.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Sep 2024 02:10:08 -0700 (PDT)
-From: Dipendra Khadka <kdipendra88@gmail.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Cc: Dipendra Khadka <kdipendra88@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] Staging: drivers/gpu/drm/amd/amdgpu: Fix null pointer
- deference in amdkfd_fence_get_timeline_name
-Date: Fri, 20 Sep 2024 09:09:57 +0000
-Message-ID: <20240920090959.30755-1-kdipendra88@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1F710E178;
+ Mon, 23 Sep 2024 01:24:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=Pt0WPR8fxCskuWATQR8jQ+bzmSIw/orFdDqhyOGiFD0=; b=CWOpYmeQmkYyShRe
+ 7wR9xNcMxD/jEYYqTyCIoduT1/egBW3Rdwwxi8Qiia7zmKl3IuvY9/XzXv+pSkfSnbN7lN/uCXmjT
+ jCfqyGtTo7LLMeUTjT1MLh1BxGWjQqU2quTGKZxsCdRqvvtA+5slcPbydmCHEopQs5lZsfffJCngx
+ W6t3wesWpqhN2eiAAbxwIiQsdZyF/B5C1ZUraPnXaOVia3F8CqzV+gn0bbT5d7nVqUgomcPeshjyW
+ 1Hd7liy4YErIJW0Irj9wCrEQbV/Mbgteg6kfljctfZ0K6Ok/7es89GNHl5sgneCSTd07zRT67KtM4
+ Uu274Nfmk2JD5s9CXg==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1ssXoq-006k2k-0B;
+ Mon, 23 Sep 2024 01:24:52 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	Xinhui.Pan@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH 0/5] AMDGPU deadcode
+Date: Mon, 23 Sep 2024 02:24:41 +0100
+Message-ID: <20240923012446.4965-1-linux@treblig.org>
+X-Mailer: git-send-email 2.46.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Sep 2024 07:25:17 +0000
@@ -83,35 +56,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-'''
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c:108:9: error: Null pointer dereference: fence [nullPointer]
- return fence->timeline_name;
-        ^
-'''
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-The method to_amdgpu_amdkfd_fence can return NULL incase of empty f
-or f->ops != &amdkfd_fence_ops.Hence, check has been added .
-If fence is null , then null is returned. 
+Hi,
+  This is a bunch of deadcode removal in amdgpu;
+some of the functions are ones which were previously
+used but haven't been for a while, others are functions
+that were added a few years ago and haven't ever been used.
 
-Signed-off-by: Dipendra Khadka <kdipendra88@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 +++
- 1 file changed, 3 insertions(+)
+  There are some others that I've not removed, which have
+been added in the last few years but not been used,
+I was worried maybe there are patches in someones tree
+about to use them (e.g. amdgpu_lsdma_copy_mem, amdgpu_mes_reg_wait,
+amdgpu_ras_unbind_aca, amdgpu_seq64_alloc, and
+amdgpu_xcp_prepare_resume) - I'd be happy to take those as
+well.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-index 1ef758ac5076..2313babcc944 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-@@ -105,6 +105,9 @@ static const char *amdkfd_fence_get_timeline_name(struct dma_fence *f)
- {
- 	struct amdgpu_amdkfd_fence *fence = to_amdgpu_amdkfd_fence(f);
- 
-+	if (!fence)
-+		return NULL;
-+
- 	return fence->timeline_name;
- }
- 
+  One other thing I wasn't sure of; I removed
+amdgpu_device_ip_is_idle
+which has been unused since about 2016, but does that make
+the 'is_idle' methods unused or is there something else that calls
+them?
+
+(Sent from this kernel booted on my RX550 GPU)
+
+Dave
+
+Dr. David Alan Gilbert (5):
+  drm/amdgpu: Remove unused amdgpu_device_ip_is_idle
+  drm/amdgpu: Remove unused amdgpu_atpx functions
+  drm/amdgpu: Remove unused amdgpu_gmc_vram_cpu_pa
+  drm/amdgpu: Remove unused amdgpu_gfx_bit_to_me_queue
+  drm/amdgpu: Remove unused amdgpu_i2c functions
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 10 --------
+ .../gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c  | 12 ---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 24 ------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 10 --------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  2 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 12 ---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       | 25 -------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.h       |  4 ---
+ 9 files changed, 100 deletions(-)
+
 -- 
-2.43.0
+2.46.1
 
