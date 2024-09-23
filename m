@@ -4,52 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100CBCF9C77
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 10:19:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 616F7CF9C6F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 11:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D93910E6C7;
-	Tue, 24 Sep 2024 10:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 017CD10E266;
+	Tue, 24 Sep 2024 11:50:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Q7opBJxm";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="WbJ7qRlx";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F6310E6B2;
- Tue, 24 Sep 2024 10:19:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=WRqPwnXMBUkDqEGYQNA46U59sn+HOzhBqExPSOI3zq0=; b=Q7opBJxmpDbHBV1kwrTE3vT+XY
- m6PFLDzBOI4kfxRd+hkkeA2GvHzTNjuTTM/b5IDyIzch28mHOYHqGSX0RJo0w71Cs9HX2Kb2w3Aj+
- UO6T2LdBG9Wly/1MNLDfGDpCwGDm8kWrAV98QuZauyUoMt2LTeqKmXfmPtE2zsirldct3JOHvmfUY
- 8XNUeXJ3SRToKeRXUfoi0Tn22LF8LOIHu7vitkZ2D1h4R7AHCpvE94x2MZnB9Xd8Bs4+dITd0ki2K
- v60sbv7RzxvaOHUHh8GUSt+HqWdsmwuZarmn0ug4t35dHKd3qTCCAlY1QeTeY2EIhrKaPtL00Jxma
- q3wz3DsA==;
-Received: from [90.241.98.187] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1st2de-000L2b-Qx; Tue, 24 Sep 2024 12:19:22 +0200
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>
-Subject: [PATCH 5/8] drm/sched: Stop setting current entity in FIFO mode
-Date: Tue, 24 Sep 2024 11:19:11 +0100
-Message-ID: <20240924101914.2713-6-tursulin@igalia.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240924101914.2713-1-tursulin@igalia.com>
-References: <20240924101914.2713-1-tursulin@igalia.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985A310E447;
+ Mon, 23 Sep 2024 18:09:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1727114947; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=kAKux5fgllw45BOzlVULkfs2QJa/V+gQ5/jg9sF93AsAlTNkbGAJeHqcKMa2jK2Wtq23q4tw8eiSszFAUVZpSHz/+OAG9tq7NUIG2Hk1C2x6Mvec/7HP3yHpbgYWl1BMGHGJbOosbHQTzK46LOhtEDtytX1Q3Kj2WeRbyoXo9pw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1727114947;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=EdqQTQvs/DgboR8BhAv/2/yJgVWleI3c8OJ/BDgwMRg=; 
+ b=BHt4rb8nO3SvQEWz9+B7DJ5Ergt2oMc8XLXgnD+rkxE7T61gt+kKwdtVvNG67++hl7ISEatNGhF+FP4vktcMXoSHooYLtH2xN0XBRXR5YUnr38YpV5LcDJyZFBchraim7CPRu9mcSkoHsWmU1JVQhgJQpdd8ieBqcgmrtcOs1aQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727114947; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=EdqQTQvs/DgboR8BhAv/2/yJgVWleI3c8OJ/BDgwMRg=;
+ b=WbJ7qRlxRHkRnCP2mLYHdmv4mP/HPO1ggQMH2NMOE3I7fnmLG3YHrxQKxCulYm2k
+ 0NhiNLgE1hDegeL8vUFbDpXoOUvWZb0w7rTQydhLgDmIH1q8IzbGUQFysPgvcLJKvOg
+ QOqgFaS1vVeRkJ+Rgur/GfAuJDVASvwHrVq5G3A4=
+Received: by mx.zohomail.com with SMTPS id 1727114946260891.2232292317875;
+ Mon, 23 Sep 2024 11:09:06 -0700 (PDT)
+Message-ID: <b1544f77-17c3-40ca-a0a5-c061d6528435@collabora.com>
+Date: Mon, 23 Sep 2024 21:09:02 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] drm: add DRM_SET_NAME ioctl
+To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ tursulin@igalia.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+References: <20240920090920.1342694-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240920090920.1342694-2-pierre-eric.pelloux-prayer@amd.com>
+ <75f56ed0-206a-4e81-9972-38c29a3e20be@collabora.com>
+ <d27cdff0-0432-4813-9948-752f6145bef7@damsy.net>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Language: en-US
+In-Reply-To: <d27cdff0-0432-4813-9948-752f6145bef7@damsy.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
+X-Mailman-Approved-At: Tue, 24 Sep 2024 11:50:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,38 +72,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+On 9/23/24 19:29, Pierre-Eric Pelloux-Prayer wrote:
+...
+>>> @@ -78,12 +78,13 @@ static int drm_clients_info(struct seq_file *m,
+>>> void *data)
+>>>       kuid_t uid;
+>>>         seq_printf(m,
+>>> -           "%20s %5s %3s master a %5s %10s\n",
+>>> +           "%20s %5s %3s master a %5s %10s %20s\n",
+>>>              "command",
+>>>              "tgid",
+>>>              "dev",
+>>>              "uid",
+>>> -           "magic");
+>>> +           "magic",
+>>> +           "name");
+>>>         /* dev->filelist is sorted youngest first, but we want to
+>>> present
+>>>        * oldest first (i.e. kernel, servers, clients), so walk
+>>> backwardss.
+>>> @@ -94,19 +95,22 @@ static int drm_clients_info(struct seq_file *m,
+>>> void *data)
+>>>           struct task_struct *task;
+>>>           struct pid *pid;
+>>>   +        mutex_lock(&priv->name_lock);
+>>>           rcu_read_lock(); /* Locks priv->pid and pid_task()->comm! */
+>>>           pid = rcu_dereference(priv->pid);
+>>>           task = pid_task(pid, PIDTYPE_TGID);
+>>>           uid = task ? __task_cred(task)->euid : GLOBAL_ROOT_UID;
+>>> -        seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u\n",
+>>> +        seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u %20s\n",
+>>>                  task ? task->comm : "<unknown>",
+>>>                  pid_vnr(pid),
+>>>                  priv->minor->index,
+>>>                  is_current_master ? 'y' : 'n',
+>>>                  priv->authenticated ? 'y' : 'n',
+>>>                  from_kuid_munged(seq_user_ns(m), uid),
+>>> -               priv->magic);
+>>> +               priv->magic,
+>>> +               priv->name ?: "");
+>>
+>> There should be a default name similar to task->comm, like "<undefined>"
+>> when not set. Perhaps also set name to task->comm by default.
+> 
+> Honestly I don't see much value in printing "<undefined>" or any other
+> default value (+ task->comm is already printed above).
 
-It does not seem there is a need to set the current entity in FIFO mode
-since ot only serves as being a "cursor" in round-robin mode. Even if
-scheduling mode is changed at runtime the change in behaviour is simply
-to restart from the first entity, instead of continuing in RR mode from
-where FIFO left it, and that sounds completely fine.
+For a machine-parsed string in userspace there should be a value,
+otherwise it won't be parseable if you'll add another parameter after
+the name, AFAICT.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <ltuikov89@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <pstanner@redhat.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Philipp Stanner <pstanner@redhat.com>
----
- drivers/gpu/drm/scheduler/sched_main.c | 1 -
- 1 file changed, 1 deletion(-)
+...
+>>>   +static int drm_set_name(struct drm_device *dev, void *data,
+>>> +            struct drm_file *file_priv)
+>>> +{
+>>> +    struct drm_set_name *name = data;
+>>> +    void __user *user_ptr;
+>>> +    char *new_name;
+>>> +    size_t i, len;
+>>> +
+>>> +    if (name->name_len > DRM_NAME_MAX_LEN)
+>>> +        return -EINVAL;
+>>> +
+>>> +    user_ptr = u64_to_user_ptr(name->name);
+>>> +
+>>> +    new_name = memdup_user_nul(user_ptr, name->name_len);
+>>> +    if (IS_ERR(new_name))
+>>> +        return PTR_ERR(new_name);
+>>> +
+>>> +    len = strlen(new_name);
+>>
+>> strnlen
+> 
+> memdup_user_nul returns a NUL-terminated string so I don't see much need
+> for using strnlen.
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index e312eb6ac85a..130b53f02bbf 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -349,7 +349,6 @@ drm_sched_rq_select_entity_fifo(struct drm_gpu_scheduler *sched,
- 				return ERR_PTR(-ENOSPC);
- 			}
- 
--			rq->current_entity = entity;
- 			reinit_completion(&entity->entity_idle);
- 			break;
- 		}
+Indeed
+
+...
+>>>   static int drm_ioctl_permit(u32 flags, struct drm_file *file_priv)
+>>>   {
+>>>       /* ROOT_ONLY is only for CAP_SYS_ADMIN */
+>>> @@ -610,6 +656,8 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+>>>       DRM_IOCTL_DEF(DRM_IOCTL_PRIME_HANDLE_TO_FD,
+>>> drm_prime_handle_to_fd_ioctl, DRM_RENDER_ALLOW),
+>>>       DRM_IOCTL_DEF(DRM_IOCTL_PRIME_FD_TO_HANDLE,
+>>> drm_prime_fd_to_handle_ioctl, DRM_RENDER_ALLOW),
+>>>   +    DRM_IOCTL_DEF(DRM_IOCTL_SET_NAME, drm_set_name,
+>>> DRM_RENDER_ALLOW),
+>>> +
+>>>       DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETPLANERESOURCES,
+>>> drm_mode_getplane_res, 0),
+>>>       DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETCRTC, drm_mode_getcrtc, 0),
+>>>       DRM_IOCTL_DEF(DRM_IOCTL_MODE_SETCRTC, drm_mode_setcrtc,
+>>> DRM_MASTER),
+>>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+>>> index 8c0030c77308..df26eee8f79c 100644
+>>> --- a/include/drm/drm_file.h
+>>> +++ b/include/drm/drm_file.h
+>>> @@ -388,6 +388,15 @@ struct drm_file {
+>>>        * Per-file buffer caches used by the PRIME buffer sharing code.
+>>>        */
+>>>       struct drm_prime_file_private prime;
+>>> +
+>>> +    /**
+>>> +     * @name:
+>>> +     *
+>>> +     * Userspace-provided name; useful for accounting and debugging.
+>>> +     */
+>>> +    const char *name;
+>>
+>> I'd make the "name" string static, i.e. char name[DRM_NAME_MAX_LEN + 1].
+>> That will prevent pointer deref troubles and no additional MM code
+>> bloating will be needed.
+>>
+> 
+> Sure, I can do that if others prefer this way too.
+
+Note that in the other email I suggested to use strndup_user(), that
+will remove the name-length limitation, but then the name var will
+remain to be a string pointer. To me best option would be to replicate
+how dma_buf_set_name works.
+
+>>> +    /** @name_lock: Protects @name. */
+>>> +    struct mutex name_lock;
+>>
+>> And then this lock isn't strictly needed anymore and can be removed if
+>> "name" string is static.
+> 
+> The locking also prevents concurrent modification.
+
+Right, locking still will be needed
+
+>>>   };
+>>>     /**
+>>> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+>>> index 16122819edfe..f5e92e4f909b 100644
+>>> --- a/include/uapi/drm/drm.h
+>>> +++ b/include/uapi/drm/drm.h
+>>> @@ -1024,6 +1024,13 @@ struct drm_crtc_queue_sequence {
+>>>       __u64 user_data;    /* user data passed to event */
+>>>   };
+>>>   +#define DRM_NAME_MAX_LEN    64
+>>
+>> What about 63, to align data size to 64 bytes including the NULL byte.
+> 
+> Same as "const char *name;" vs "char name[...]": I don't mind updating
+> the code as long as there's a consensus.
+> 
+>>
+>>> +struct drm_set_name {
+>>
+>> drm_set_name sounds very generic, IMO. Maybe drm_context_set_name?
+> 
+> drm_client_set_name?
+> (since other places use client, like drm_clients_info())
+
+drm_client_set_name sounds good
+
 -- 
-2.46.0
+Best regards,
+Dmitry
 
