@@ -4,139 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9687CF9C72
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 14:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D6EDCF9C6F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Sep 2024 16:38:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9826B10E25C;
-	Mon, 23 Sep 2024 14:58:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF61D10E274;
+	Mon, 23 Sep 2024 16:38:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bqr/jlwI";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="WBIgdZZa";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="inLhFFT8";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2063.outbound.protection.outlook.com [40.107.92.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5820710E25C
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Sep 2024 14:58:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kpLI9ww5xlvqfbpXTr7a4JiO3bK4G/FoPY1sWHqtcRyK/wIY0ESU4z/TouOpJIB4mwlsXMd8/QX3o2+vuvilgCz9m+tkYt6nknoV1/uk5/oScnpiPNF3eRYwB/eKaIcy87No7gi8sqykLTBbwqf84vovzN3i4j0RpB6IjDuutvJ0apc0MqkrXOFhih5dp2t1M9T9qthnNZueyWqZNZAPQZr2hhhbEMyChlSaQW1qXppVMQlrKbvvACrml/8WAMJ2d5IvOIiOTeb7sVFPUdrFfDJ8WdCwEScjW1xAOIAUuWKFpGGfFgS7Hgf/Xgt1I0iVAPWyqULKqrBYDTM5pV0Y5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rK1nkwMuxeoWyXr7UI8+UqighTDOKEdT4erkO8a8Otk=;
- b=MnJkbZrWiV214jrsQw7OeLMwcLIYnqU8UU/cf6G23yK+jBtMBlIDuYwazL99NHTbF1AJ8DzRLGpWL4S3A8lINsFXuQZFGcllNbpxyqOnUiVOCFh8uivGaIUG/2ReBeH2GNn/Y1xGpbrYemstSYQoUj/cvP/enYd3PI/WXFhBTV4ejoL0j/jgCCc4OZM6hpx9/q7U3YJP5lDNpPg08w4zhJcxiDWsECaI6tMy/WvFMQm+CP2uEdLh7mmuBn70jfrK4vp3BLnTi7n0W2U8CD9sGZh37CbrD9cR9oXCT6XTRuu0Rgu9pJDP2UPJ0OrMi/CuxbRi9xB0gaDzy+IkhBKZ+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rK1nkwMuxeoWyXr7UI8+UqighTDOKEdT4erkO8a8Otk=;
- b=Bqr/jlwIvASFGCHT3ahexAjOac93xYcy3yPX5HbsHRWwPOhYmf3y70Jwwww+mwCN5Spb0mvrncER1fs+a/sgGelpE+Rag/ZISxBxc2oN8eYPeOA0YcZCzljcX4ILqQ164qirFbQdulmCMwgPSKARWWEoxDc1RAczW6+LPHn5yhM=
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by DS7PR12MB8417.namprd12.prod.outlook.com (2603:10b6:8:eb::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Mon, 23 Sep
- 2024 14:58:43 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6%7]) with mapi id 15.20.7982.022; Mon, 23 Sep 2024
- 14:58:43 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdkfd: Fix CU occupancy for GFX 9.4.3
-Thread-Topic: [PATCH 2/2] drm/amdkfd: Fix CU occupancy for GFX 9.4.3
-Thread-Index: AQHbC6EeBT0nb3PE/k+JsyIQsnhl/LJleedQ
-Date: Mon, 23 Sep 2024 14:58:43 +0000
-Message-ID: <CY8PR12MB7099ABCC8BFD35576E86A1F18C6F2@CY8PR12MB7099.namprd12.prod.outlook.com>
-References: <20240920210715.64118-1-mukul.joshi@amd.com>
- <20240920210715.64118-2-mukul.joshi@amd.com>
-In-Reply-To: <20240920210715.64118-2-mukul.joshi@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c1f65293-a376-4f87-af56-0f828498e02c;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-09-23T14:55:08Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|DS7PR12MB8417:EE_
-x-ms-office365-filtering-correlation-id: 81f0607c-d917-456d-a0fa-08dcdbe03787
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?76HCLLhUGwTpPyQOxZ9xZQtpfeIdOEfeEI+Qh/zn4mMdyTzNYy96Utg8HuwG?=
- =?us-ascii?Q?Z0i9XQfNJcFrf0+hq2mdEt2oqsI8imY6u66nXnGGvPyR0K+ewYthfzQLiYcb?=
- =?us-ascii?Q?F8GXiVR/OErcS8ArEIAeSCjwLeXd52bYuhrRBccHZ6gySn4Y6WwjaIe+FXAs?=
- =?us-ascii?Q?ci4V8HKl5y/U9pukRJOFJIpN84/zV7NX41zr73TWRYuyzvV1OyGm/hVHubx/?=
- =?us-ascii?Q?dDkedAnjTUkhKiDX8qPrCdSqbM2uznhTrHza5nN43u0OGkboGvwzX5oAcRad?=
- =?us-ascii?Q?i2JctXw6CMiLqrGGH3m8tonhBheJRTHfD2R81kdE8k8EjRt/n79QEaeeyDTN?=
- =?us-ascii?Q?c0noTg9yhnF/ZmpqBbHwdFVQSq9gSkrQxPiR/GSRCs2HEAho39mSV6AWE/0Z?=
- =?us-ascii?Q?uZ8uyXZrQ0k57GPGrTA5h/2oxxox/Bxs9nXyJyCX6TCOiZqMOnzizw37OqdK?=
- =?us-ascii?Q?Eh/zIxi4T5rQeBoM8lEXyT/4I0WnpWa1ReA7ZR334FmZm6ghTDC2qzEbFxXr?=
- =?us-ascii?Q?Ad46JXORUNPcKbw1MKl5/KMKTevdpXTP/wdllWPfsDzAPdpRB08OQA2Q7qt1?=
- =?us-ascii?Q?EfSWS/d/JGbn5D18gZJoE11S3xiPGo/I4MR4Vyerj5t3UbIIAwvzpiFn8U9F?=
- =?us-ascii?Q?ftEpKwj5ZHbQwC1h0kQ7+/vHeqom3sLt13udFgMwmEYFvlTvZ9r+ETfv+UJJ?=
- =?us-ascii?Q?ubFCM6/7wHQYyTEBQml+iiHWCUYsvCLP8VVFRVDFdnY1+fgTr2ZSGJfDdBYs?=
- =?us-ascii?Q?Aq/SRC90sGEX2GEaQBeDptjnqwqvaQwi0X0Zc/8/yi2rGDsL6yPM9bOCfOOg?=
- =?us-ascii?Q?dmNxezVozudCrAu44RYz5B5KeKPbdMkeB1hCjzjhUj1ZevpnfixGd4JqnOJk?=
- =?us-ascii?Q?bVMucDOvLAEaC0tlgciESSN4aAe1EkByG1V7dKOqsGiCApPgpKFzgW+wtpdZ?=
- =?us-ascii?Q?IQNy4afSzXCUzwtkWvIJ9d3x2NTPLOUvC//AST3n5sasDREjr2AKzAgEYrLV?=
- =?us-ascii?Q?BW0QjzNbwCxAznq7BtxXEs0TQHjYRbNLw2XG1i0l3KF65bjF4cYuJc8/dzoq?=
- =?us-ascii?Q?RUF5mtl3ct2LavVwSO/M6zmAke0MfCiJ8YqeiWk2xa9fp2PrwP+r5xUSLF7v?=
- =?us-ascii?Q?RTvSdFhOIE5AdgxYL1EMVkvmhF9SgF1vH1y/A2yLh7XV3tyvg9M93dBxfCNq?=
- =?us-ascii?Q?yxWTruhPfrOJvEhsYDyqKzXuNDeYLcrChp4gukbmdnFmWoowlnxv5vRkrNJf?=
- =?us-ascii?Q?2VQcMNU5DPWN+YFtoQS60egzT+5DOs+xd5HEH5vLDql9Wynx6kh6kO98nzmR?=
- =?us-ascii?Q?hxmjkCSdVckNGKh2CnK6KvT7y4KuSqnhB8vQ1d/SZqHmGg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?b4xAS9WUZl+sgdT/YKLBIeZrYJUtiRgHAyqPA+pvgnkOIXiZgECHCabwE0MB?=
- =?us-ascii?Q?EcOPDYljU46r1111ayi6vbr0AhXzf1gtFyX1VrGSRmQHHlmQSPoBo2WWWrsE?=
- =?us-ascii?Q?RpDFM77GVCP8XDIdWakVHqDEXt+qA19FuYrm+48cf7+E2/tSYDcHLWSGiYmc?=
- =?us-ascii?Q?7tRfRkPt9AIYPzBuDBRwIsGH5ez/rPWNZFnXV2PIU98XGLGTyD9z9++6H6r8?=
- =?us-ascii?Q?VwkIEaL3+q/D25dgg/78AvgGrw1QMlprEO6MGYL2FHpyAonddQEbX2GEOcdS?=
- =?us-ascii?Q?7k8XlysWVzs8Tn3ZfkweJWlkxTIEzRNN7YF9pmgn19ruYUZ34PNKdtFOLy1D?=
- =?us-ascii?Q?+MPRTYNWnnLRW14ACX3nQtcBfV22uU2xGHHKz9peVbSMS15ugLtOFqjMMLrJ?=
- =?us-ascii?Q?KcGgfXZgkNoUzCbfKPBuk5wZcPi/mBe2n02F2SCK8L74WSc2LM8kslcYGjFc?=
- =?us-ascii?Q?CZWAIZnS+lt1dtT26/1lZsbsd4LD3TK9DUWJocNdXn/gUXub0QW76BnD5cC7?=
- =?us-ascii?Q?YvsSw3jkJCYLq1VqPyq13LQ3llKPp3cQ0cSqdpBtiIihQPzlCjoiIFRew8/m?=
- =?us-ascii?Q?Red7mcS9Xkswifpt0+5vvB0GShxk6L2B+DhLRHP9cn9wauGFFjtp/01cZU+k?=
- =?us-ascii?Q?mPk+FAc4xjjrjO37iTv2/SgatZaVSP1PY6Gf+MMBi9WkdWu60U42Nxvdbk8Q?=
- =?us-ascii?Q?P/3zyNKHeeTiyRY8RPQDjmF1wBA0ZIRyNEkNkVN7fPiUrArkyBIqBDNEFE53?=
- =?us-ascii?Q?JekOMNm+Vd6sTIdv4jRcqSjxUf0oXRYPgmL1xvVbm98UU+JNSg/AbVEl+4Yn?=
- =?us-ascii?Q?jt3VaLKQXsn2Rs7K5mDvIAONgMufgvGQPAg9pnkWI9QVQlt9BhcA1ncCjudw?=
- =?us-ascii?Q?cCn2Em0RJu3RHUado5I1Gfcdb+nWZYbb1PiWKmdk0NWn9CmWUbboTtA5Uxwj?=
- =?us-ascii?Q?1Rh/PZ0CHAqikI3WlfF5kHu47FLZpSTUcpxU+m5qgSlM5c86kwcP2a9IIhKr?=
- =?us-ascii?Q?djBqxiirXxKwqRellE341mj0O4DvkBaULUS2Z6JzcDg0HMt7jdPKTPsphtrX?=
- =?us-ascii?Q?Jisvs6PI3xSRm/rGUmW2LVlJGtnt3KEFfc6vtU20ZWqxsD8uinD6FHnsvHhp?=
- =?us-ascii?Q?uJ1PWa9iRyzJdlaDRvYtWNjIko8NY5kQIlz/zU1JBawnhQcFzlhnbx7lyyhD?=
- =?us-ascii?Q?v/cNqz/OW5iyGOJ9SEhu/5bt/IpM7vDMWBAwGoCGTv9pENq/JwXHw9zSYtmS?=
- =?us-ascii?Q?bU7nItdg9fEXb46sx6butgVp5bLAee1eA/pe/2g1+MiwzZ72iHzMh503/+yF?=
- =?us-ascii?Q?gWGw/uufI8/7O6K4GmwF+anDEKe0LsQyJ9zBohpv2JqD5E+kc3EOFRS7Z2Sr?=
- =?us-ascii?Q?wlnzPPTW+49l/2NlEdZGUO7j38xy5Mk+hDQhtmNonHtA1zMOIMr7H238tFDA?=
- =?us-ascii?Q?q6jMkr4HqCNCnQEC1VrJFD0rlDnd107KEoqJGUPGE/Uh7ad3f1F9W5ncEnMM?=
- =?us-ascii?Q?y2EfJovT4B6QjItGOfSNxcIVqE75rxGkUcjDMmvZo9z1XqhkUx41ttNJdTsM?=
- =?us-ascii?Q?s8bvfbOJY66W4h/lWjE=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 453 seconds by postgrey-1.36 at gabe;
+ Mon, 23 Sep 2024 16:38:44 UTC
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADA0310E274
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Sep 2024 16:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1727108955;
+ bh=6Xx6nnbu4e6zRlexfHH0RpS
+ 3RlwZoHt4BrmPLQ01Yi8=; b=WBIgdZZaZhktKt19iWWmiHyzIoNmqOPuhVEYPO2cicqAC0B6xM
+ 4jkECmzGmRTNx43n8vVcwAw0ijy7xodQz4GkhJwKdjTGJHI0A6Yf2slb/HwcHe+zUNACDMGzgAD
+ iOUlnsXjLRZeiUyJq5FXVRBkiUdu59/yVc8gGwKNxHeBsL79MXghaFT0zuyuXD151k2JIvexG6N
+ rlirwiffS6D5xUoldsRbWC/DdAyfI2uPMCau6/Z/XklyrdbZZlNHpjvuIybqSGElVo6Ilj3WPgM
+ jFwYAos6r2g+3Ex7y8djuU/btgixH8CimDJAhmMALX0lgaf6SwJsg99/lGAPfOKBUog==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1727108955; bh=6Xx6nnbu4e6zRlexfHH0RpS
+ 3RlwZoHt4BrmPLQ01Yi8=; b=inLhFFT86/Ib5+xuGyzHQmBEzHnk3m41fZm1xwqsqPqJTllSWC
+ xNQtAMTRg8KGpyoZFIEyoCLmy4u4EsDQ0SBA==;
+Message-ID: <d27cdff0-0432-4813-9948-752f6145bef7@damsy.net>
+Date: Mon, 23 Sep 2024 18:29:14 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81f0607c-d917-456d-a0fa-08dcdbe03787
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2024 14:58:43.0498 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6k5GfBp/UmKye86YDgn996ePVsm6SHlTigjZdEi9pIXEu8DioWgwy8UjfcCn4MesRhzN1KP7qfOciJs5uSwOUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8417
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] drm: add DRM_SET_NAME ioctl
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ tursulin@igalia.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+References: <20240920090920.1342694-1-pierre-eric.pelloux-prayer@amd.com>
+ <20240920090920.1342694-2-pierre-eric.pelloux-prayer@amd.com>
+ <75f56ed0-206a-4e81-9972-38c29a3e20be@collabora.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <75f56ed0-206a-4e81-9972-38c29a3e20be@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,137 +63,267 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi Dmitry,
 
-One comment below. With that addressed
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-
-
------Original Message-----
-From: Joshi, Mukul <Mukul.Joshi@amd.com>
-Sent: Friday, September 20, 2024 5:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Joshi, Mukul =
-<Mukul.Joshi@amd.com>
-Subject: [PATCH 2/2] drm/amdkfd: Fix CU occupancy for GFX 9.4.3
-
-Make CU occupancy calculations work on GFX 9.4.3 by
-updating the logic to handle multiple XCCs correctly.
-
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
-v1->v2:
-- Break into 2 patches, one for the generic change
-  and the other for GFX v9.4.3.
-- Incorporate Harish's comments.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 12 ++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c          | 10 +++++++++-
- 2 files changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index fe8a8e7e9a9a..e6bc808d9c59 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -963,14 +963,14 @@ static void get_wave_count(struct amdgpu_device *adev=
-, int queue_idx,
-         */
-        pipe_idx =3D queue_idx / adev->gfx.mec.num_queue_per_pipe;
-        queue_slot =3D queue_idx % adev->gfx.mec.num_queue_per_pipe;
--       soc15_grbm_select(adev, 1, pipe_idx, queue_slot, 0, inst);
--       reg_val =3D RREG32_SOC15_IP(GC, SOC15_REG_OFFSET(GC, inst,
-+       soc15_grbm_select(adev, 1, pipe_idx, queue_slot, 0, GET_INST(GC, in=
-st));
-+       reg_val =3D RREG32_SOC15_IP(GC, SOC15_REG_OFFSET(GC, GET_INST(GC, i=
-nst),
-                                  mmSPI_CSQ_WF_ACTIVE_COUNT_0) + queue_slot=
-);
-        wave_cnt =3D reg_val & SPI_CSQ_WF_ACTIVE_COUNT_0__COUNT_MASK;
-        if (wave_cnt !=3D 0) {
-                queue_cnt->wave_cnt +=3D wave_cnt;
-                queue_cnt->doorbell_off =3D
--                       (RREG32_SOC15(GC, inst, mmCP_HQD_PQ_DOORBELL_CONTRO=
-L) &
-+                       (RREG32_SOC15(GC, GET_INST(GC, inst), mmCP_HQD_PQ_D=
-OORBELL_CONTROL) &
-                         CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK) =
+Le 23/09/2024 à 12:28, Dmitry Osipenko a écrit :
+> On 9/20/24 12:06, Pierre-Eric Pelloux-Prayer wrote:
+>> Giving the opportunity to userspace to associate a free-form
+>> name with a drm_file struct is helpful for tracking and debugging.
 >>
-                         CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT=
-;
-        }
-@@ -1034,7 +1034,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device=
- *adev,
-        DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
+>> This is similar to the existing DMA_BUF_SET_NAME ioctl.
+>>
+>> Access to name is protected by a mutex, and the 'clients' debugfs
+>> file has been updated to print it.
+>>
+>> Userspace MR to use this ioctl:
+>>     https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1428
+>>
+>> The string passed by userspace is filtered a bit, to avoid messing
+>> output when it's going to be printed (in dmesg, fdinfo, etc):
+>>    * all chars failing isgraph() are replaced by '-'
+>>    * if a 0-length string is passed the name is cleared
+>>
+>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> ---
+>>   drivers/gpu/drm/drm_debugfs.c | 12 ++++++---
+>>   drivers/gpu/drm/drm_file.c    |  5 ++++
+>>   drivers/gpu/drm/drm_ioctl.c   | 48 +++++++++++++++++++++++++++++++++++
+>>   include/drm/drm_file.h        |  9 +++++++
+>>   include/uapi/drm/drm.h        | 17 +++++++++++++
+>>   5 files changed, 87 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+>> index 6b239a24f1df..482e71160544 100644
+>> --- a/drivers/gpu/drm/drm_debugfs.c
+>> +++ b/drivers/gpu/drm/drm_debugfs.c
+>> @@ -78,12 +78,13 @@ static int drm_clients_info(struct seq_file *m, void *data)
+>>   	kuid_t uid;
+>>   
+>>   	seq_printf(m,
+>> -		   "%20s %5s %3s master a %5s %10s\n",
+>> +		   "%20s %5s %3s master a %5s %10s %20s\n",
+>>   		   "command",
+>>   		   "tgid",
+>>   		   "dev",
+>>   		   "uid",
+>> -		   "magic");
+>> +		   "magic",
+>> +		   "name");
+>>   
+>>   	/* dev->filelist is sorted youngest first, but we want to present
+>>   	 * oldest first (i.e. kernel, servers, clients), so walk backwardss.
+>> @@ -94,19 +95,22 @@ static int drm_clients_info(struct seq_file *m, void *data)
+>>   		struct task_struct *task;
+>>   		struct pid *pid;
+>>   
+>> +		mutex_lock(&priv->name_lock);
+>>   		rcu_read_lock(); /* Locks priv->pid and pid_task()->comm! */
+>>   		pid = rcu_dereference(priv->pid);
+>>   		task = pid_task(pid, PIDTYPE_TGID);
+>>   		uid = task ? __task_cred(task)->euid : GLOBAL_ROOT_UID;
+>> -		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u\n",
+>> +		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u %20s\n",
+>>   			   task ? task->comm : "<unknown>",
+>>   			   pid_vnr(pid),
+>>   			   priv->minor->index,
+>>   			   is_current_master ? 'y' : 'n',
+>>   			   priv->authenticated ? 'y' : 'n',
+>>   			   from_kuid_munged(seq_user_ns(m), uid),
+>> -			   priv->magic);
+>> +			   priv->magic,
+>> +			   priv->name ?: "");
+> 
+> There should be a default name similar to task->comm, like "<undefined>"
+> when not set. Perhaps also set name to task->comm by default.
 
-        lock_spi_csq_mutexes(adev);
--       soc15_grbm_select(adev, 1, 0, 0, 0, inst);
-+       soc15_grbm_select(adev, 1, 0, 0, 0, GET_INST(GC, inst));
+Honestly I don't see much value in printing "<undefined>" or any other default value (+ task->comm 
+is already printed above).
 
-        /*
-         * Iterate through the shader engines and arrays of the device
-@@ -1047,7 +1047,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device=
- *adev,
-        se_cnt =3D adev->gfx.config.max_shader_engines;
-        for (se_idx =3D 0; se_idx < se_cnt; se_idx++) {
-                amdgpu_gfx_select_se_sh(adev, se_idx, 0, 0xffffffff, inst);
--               queue_map =3D RREG32_SOC15(GC, inst, mmSPI_CSQ_WF_ACTIVE_ST=
-ATUS);
-+               queue_map =3D RREG32_SOC15(GC, GET_INST(GC, inst), mmSPI_CS=
-Q_WF_ACTIVE_STATUS);
+> 
+>>   		rcu_read_unlock();
+>> +		mutex_unlock(&priv->name_lock);
+>>   	}
+>>   	mutex_unlock(&dev->filelist_mutex);
+>>   	return 0;
+>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>> index 01fde94fe2a9..e9dd0e90a1f9 100644
+>> --- a/drivers/gpu/drm/drm_file.c
+>> +++ b/drivers/gpu/drm/drm_file.c
+>> @@ -158,6 +158,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>>   
+>>   	spin_lock_init(&file->master_lookup_lock);
+>>   	mutex_init(&file->event_read_lock);
+>> +	mutex_init(&file->name_lock);
+>>   
+>>   	if (drm_core_check_feature(dev, DRIVER_GEM))
+>>   		drm_gem_open(dev, file);
+>> @@ -259,6 +260,10 @@ void drm_file_free(struct drm_file *file)
+>>   	WARN_ON(!list_empty(&file->event_list));
+>>   
+>>   	put_pid(rcu_access_pointer(file->pid));
+>> +
+>> +	mutex_destroy(&file->name_lock);
+>> +	kfree(file->name);
+>> +
+>>   	kfree(file);
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+>> index 51f39912866f..46dadbd1bb35 100644
+>> --- a/drivers/gpu/drm/drm_ioctl.c
+>> +++ b/drivers/gpu/drm/drm_ioctl.c
+>> @@ -540,6 +540,52 @@ int drm_version(struct drm_device *dev, void *data,
+>>   	return err;
+>>   }
+>>   
+>> +static int drm_set_name(struct drm_device *dev, void *data,
+>> +			struct drm_file *file_priv)
+>> +{
+>> +	struct drm_set_name *name = data;
+>> +	void __user *user_ptr;
+>> +	char *new_name;
+>> +	size_t i, len;
+>> +
+>> +	if (name->name_len > DRM_NAME_MAX_LEN)
+>> +		return -EINVAL;
+>> +
+>> +	user_ptr = u64_to_user_ptr(name->name);
+>> +
+>> +	new_name = memdup_user_nul(user_ptr, name->name_len);
+>> +	if (IS_ERR(new_name))
+>> +		return PTR_ERR(new_name);
+>> +
+>> +	len = strlen(new_name);
+> 
+> strnlen
 
-                /*
-                 * Assumption: queue map encodes following schema: four
-@@ -1072,7 +1072,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device=
- *adev,
-        }
+memdup_user_nul returns a NUL-terminated string so I don't see much need for using strnlen.
 
-        amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, i=
-nst);
--       soc15_grbm_select(adev, 0, 0, 0, 0, inst);
-+       soc15_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, inst));
-        unlock_spi_csq_mutexes(adev);
+> 
+>> +	if (len != name->name_len) {
+>> +		kfree(new_name);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Filter out control char / spaces / new lines etc in the name
+>> +	 * since it's going to be used in dmesg or fdinfo's output.
+>> +	 */
+>> +	for (i = 0; i < len; i++) {
+>> +		if (!isgraph(new_name[i]))
+>> +			new_name[i] = '-';
+>> +	}
+>> +
+>> +	mutex_lock(&file_priv->name_lock);
+>> +	kfree(file_priv->name);
+>> +	if (len > 0) {
+>> +		file_priv->name = new_name;
+>> +	} else {
+>> +		kfree(new_name);
+>> +		file_priv->name = NULL;
+>> +	}
+>> +	mutex_unlock(&file_priv->name_lock);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static int drm_ioctl_permit(u32 flags, struct drm_file *file_priv)
+>>   {
+>>   	/* ROOT_ONLY is only for CAP_SYS_ADMIN */
+>> @@ -610,6 +656,8 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
+>>   	DRM_IOCTL_DEF(DRM_IOCTL_PRIME_HANDLE_TO_FD, drm_prime_handle_to_fd_ioctl, DRM_RENDER_ALLOW),
+>>   	DRM_IOCTL_DEF(DRM_IOCTL_PRIME_FD_TO_HANDLE, drm_prime_fd_to_handle_ioctl, DRM_RENDER_ALLOW),
+>>   
+>> +	DRM_IOCTL_DEF(DRM_IOCTL_SET_NAME, drm_set_name, DRM_RENDER_ALLOW),
+>> +
+>>   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETPLANERESOURCES, drm_mode_getplane_res, 0),
+>>   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETCRTC, drm_mode_getcrtc, 0),
+>>   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_SETCRTC, drm_mode_setcrtc, DRM_MASTER),
+>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+>> index 8c0030c77308..df26eee8f79c 100644
+>> --- a/include/drm/drm_file.h
+>> +++ b/include/drm/drm_file.h
+>> @@ -388,6 +388,15 @@ struct drm_file {
+>>   	 * Per-file buffer caches used by the PRIME buffer sharing code.
+>>   	 */
+>>   	struct drm_prime_file_private prime;
+>> +
+>> +	/**
+>> +	 * @name:
+>> +	 *
+>> +	 * Userspace-provided name; useful for accounting and debugging.
+>> +	 */
+>> +	const char *name;
+> 
+> I'd make the "name" string static, i.e. char name[DRM_NAME_MAX_LEN + 1].
+> That will prevent pointer deref troubles and no additional MM code
+> bloating will be needed.
+> 
 
-        /* Update the output parameters and return */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_process.c
-index d73841268c9b..831e0e92bd23 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -292,8 +292,13 @@ static int kfd_get_cu_occupancy(struct attribute *attr=
-, char *buffer)
-        wave_cnt =3D 0;
-        max_waves_per_cu =3D 0;
+Sure, I can do that if others prefer this way too.
 
-+       /*
-+        * For GFX9.4.3, fetch the CU occupancy from the first XCC in the p=
-artition.
-+        * Later we multiply the wave count by number of XCCs in the partit=
-ion to get
-+        * the total wave counts across all XCCs in the partition.
-+        */
 
-Could you please elaborate little bit on this comment? So, here the assumpt=
-ion is that it is AQL queue with cooprative dispatch. The values will not b=
-e accurate for PM4 user queues.
+>> +	/** @name_lock: Protects @name. */
+>> +	struct mutex name_lock;
+> 
+> And then this lock isn't strictly needed anymore and can be removed if
+> "name" string is static.
 
-        dev->kfd2kgd->get_cu_occupancy(dev->adev, cu_occupancy,
--                       &max_waves_per_cu, 0);
-+                       &max_waves_per_cu, ffs(dev->xcc_mask) - 1);
+The locking also prevents concurrent modification.
 
-        for (i =3D 0; i < AMDGPU_MAX_QUEUES; i++) {
-                if (cu_occupancy[i].wave_cnt !=3D 0 &&
-@@ -302,6 +307,9 @@ static int kfd_get_cu_occupancy(struct attribute *attr,=
- char *buffer)
-                        wave_cnt +=3D cu_occupancy[i].wave_cnt;
-        }
+> 
+>>   };
+>>   
+>>   /**
+>> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+>> index 16122819edfe..f5e92e4f909b 100644
+>> --- a/include/uapi/drm/drm.h
+>> +++ b/include/uapi/drm/drm.h
+>> @@ -1024,6 +1024,13 @@ struct drm_crtc_queue_sequence {
+>>   	__u64 user_data;	/* user data passed to event */
+>>   };
+>>   
+>> +#define DRM_NAME_MAX_LEN	64
+> 
+> What about 63, to align data size to 64 bytes including the NULL byte.
 
-+       /* Update wave_cnt for the number of XCCs in the partition */
-+       wave_cnt *=3D NUM_XCC(dev->xcc_mask);
-+
-        /* Translate wave count to number of compute units */
-        cu_cnt =3D (wave_cnt + (max_waves_per_cu - 1)) / max_waves_per_cu;
-        return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
---
-2.35.1
+Same as "const char *name;" vs "char name[...]": I don't mind updating the code as long as there's a 
+consensus.
 
+> 
+>> +struct drm_set_name {
+> 
+> drm_set_name sounds very generic, IMO. Maybe drm_context_set_name?
+
+drm_client_set_name?
+(since other places use client, like drm_clients_info())
+
+
+> 
+>> +	__u64 name_len;
+>> +	__u64 name;
+>> +};
+>> +
+>> +
+>>   #if defined(__cplusplus)
+>>   }
+>>   #endif
+>> @@ -1288,6 +1295,16 @@ extern "C" {
+>>    */
+>>   #define DRM_IOCTL_MODE_CLOSEFB		DRM_IOWR(0xD0, struct drm_mode_closefb)
+>>   
+>> +/**
+>> + * DRM_IOCTL_SET_NAME - Attach a name to a drm_file
+>> + *
+>> + * This ioctl is similar to DMA_BUF_SET_NAME - it allows for easier tracking
+>> + * and debugging.
+> 
+> Don't refer to DMA_BUF_SET_NAME, explain what DRM_IOCTL_SET_NAME
+> actually do. Tell that it sets the DRM context name and that chars are
+> filtered.
+> 
+
+OK, I'll update based on your suggestion.
+
+Thanks,
+Pierre-Eric
