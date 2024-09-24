@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF2DFCF9C71
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 325DBCF9C71
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 08:05:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50EEF10E514;
-	Tue, 24 Sep 2024 07:23:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4CB10E62D;
+	Tue, 24 Sep 2024 08:05:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="wju51L12";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="KNm2fH+O";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CvuFzrI0";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F90310E512;
- Tue, 24 Sep 2024 07:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1727162516;
- bh=vzIaG3hTqalerPz4ZwHieTQ
- CNNZ6cWVtsw49zXQb3ps=; b=wju51L12TgxnDQCF3MqeuW0XzaiuTO4LTFvAeYKe44QgUoCeUt
- OGzD5Ch6MELgybjQIWoBNzeUjkXy/GvbXzQucATBLt0dAHCCTuCQFMVh1ouZlePYIYNVAMRgWJP
- szVRqz6SwlXxL+iPce8CPP9xBHH1rmWEkg9TMdB4vikurgseMtHLoTMOVpo59L/RuRYusxCjVc2
- kuwplmFzOg3rP6hqmzFHfMpmDSe0a9Oxq0ctwMSKh+BP1Af3cEG9Ww8wty7gUQt1M8XX6XafZ/z
- XctNbF23I0ovXXIWAK3bbyyCceGs0x1wFsBmaq6RV6qJH2QyVO3Ai8vMFIGOUkgFl2g==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1727162516; bh=vzIaG3hTqalerPz4ZwHieTQ
- CNNZ6cWVtsw49zXQb3ps=; b=KNm2fH+OuM146QaTv9QT6kkWRIixSqTqmQ/EXzHCkQqa2IshNK
- cb1S6n8nRFJe0QPFn3fn1qgZtUYe22XNjuCg==;
-Message-ID: <bbb89613-a895-4c69-a1a6-dd27a5d5e4d0@damsy.net>
-Date: Tue, 24 Sep 2024 09:21:56 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D29ED10E29C;
+ Tue, 24 Sep 2024 08:05:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1727165105;
+ bh=bkob+FdVbT5JvRwKp/3RFu5HC+yR0/AGxmQWAMBAfxw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CvuFzrI0AhizshttZzgCNh2wASf80PcmQTwldXXkfRp3FLPhvWPKcfrWEvbKo1Xfl
+ pYUdAvUXHnxCiRj+ansAs1Y/4qEBT2Zw5XVVCJNP0uIbVQ8vrmon7R8FFrcoXCUH6s
+ 9pJCTeDwuMeOV60sdTU3fT/wzcFnRngPhHowoQrpxGM+RtY4qCuVp/9cxh0gpJy1qA
+ vosjvZo289g0RSv045JmPKfysGhGUkc9uWvpxbNbbTk4ORi2A8gXcPDYXBJXyeGyMz
+ H+BP1y/ML/KeP7+lTIDUgycgFbxCGaC693LhuQAEtPJhFvvXYKON7YacpsDKrw3Ovw
+ 10HNVyTURjyPg==
+Received: from [192.168.50.250] (unknown [171.76.80.125])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D1CC17E1045;
+ Tue, 24 Sep 2024 10:05:02 +0200 (CEST)
+Message-ID: <58a9334d-26eb-4106-806a-59e5e728aed5@collabora.com>
+Date: Tue, 24 Sep 2024 13:35:00 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/6] drm/amdgpu: alloc and init vm::task_info from
- first submit
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- tursulin@igalia.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-References: <20240920090920.1342694-1-pierre-eric.pelloux-prayer@amd.com>
- <20240920090920.1342694-5-pierre-eric.pelloux-prayer@amd.com>
- <fd9ed75f-a235-4675-8635-19c6ae92f619@igalia.com>
+Subject: Re: [PATCH v1] docs/gpu: ci: update flake tests requirements
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
+ mripard@kernel.org, rodrigo.vivi@intel.com,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20240924022600.1441969-1-vignesh.raman@collabora.com>
+ <CAA8EJprUUUc0iDph-HPrW1anrdnzYju7+JERQdHbwxvznq=H4w@mail.gmail.com>
 Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <fd9ed75f-a235-4675-8635-19c6ae92f619@igalia.com>
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <CAA8EJprUUUc0iDph-HPrW1anrdnzYju7+JERQdHbwxvznq=H4w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,189 +68,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
-
-Le 23/09/2024 à 12:58, Tvrtko Ursulin a écrit :
-> 
-> On 20/09/2024 10:06, Pierre-Eric Pelloux-Prayer wrote:
->> This will allow to use flexible array to store the process name and
->> other information.
+On 24/09/24 11:46, Dmitry Baryshkov wrote:
+> On Tue, 24 Sept 2024 at 04:26, Vignesh Raman
+> <vignesh.raman@collabora.com> wrote:
 >>
->> This also means that process name will be determined once and for all,
->> instead of at each submit.
-> 
-> But the pid and others can still change? By design?
-
-pid and task_name can change, yes.
-tgid could be set once and for all I think.
-
-> 
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> Update the documentation to require linking to a relevant GitLab
+>> issue for each new flake entry instead of an email report. Added
+>> specific GitLab issue URLs for i915, xe and other drivers.
+>>
+>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15 +++++++++------
->>   1 file changed, 9 insertions(+), 6 deletions(-)
+>>   Documentation/gpu/automated_testing.rst | 15 ++++++++++-----
+>>   1 file changed, 10 insertions(+), 5 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index e20d19ae01b2..690676cab022 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -2331,7 +2331,7 @@ amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm)
->>   {
->>       struct amdgpu_task_info *ti = NULL;
->> -    if (vm) {
->> +    if (vm && vm->task_info) {
->>           ti = vm->task_info;
->>           kref_get(&vm->task_info->refcount);
->>       }
->> @@ -2372,8 +2372,12 @@ static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
->>    */
->>   void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
->>   {
->> -    if (!vm->task_info)
->> -        return;
->> +    if (!vm->task_info) {
->> +        if (amdgpu_vm_create_task_info(vm))
->> +            return;
+>> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
+>> index 2d5a28866afe..f73b8939dc3a 100644
+>> --- a/Documentation/gpu/automated_testing.rst
+>> +++ b/Documentation/gpu/automated_testing.rst
+>> @@ -67,20 +67,25 @@ Lists the tests that for a given driver on a specific hardware revision are
+>>   known to behave unreliably. These tests won't cause a job to fail regardless of
+>>   the result. They will still be run.
+>>
+>> -Each new flake entry must be associated with a link to the email reporting the
+>> -bug to the author of the affected driver, the board name or Device Tree name of
+>> -the board, the first kernel version affected, the IGT version used for tests,
+>> -and an approximation of the failure rate.
+>> +Each new flake entry must include a link to the relevant GitLab issue, the board
+>> +name or Device Tree name, the first kernel version affected, the IGT version used
+>> +for tests and an approximation of the failure rate.
+>>
+>>   They should be provided under the following format::
+>>
+>> -  # Bug Report: $LORE_OR_PATCHWORK_URL
+>> +  # Bug Report: $GITLAB_ISSUE
+>>     # Board Name: broken-board.dtb
+>>     # Linux Version: 6.6-rc1
+>>     # IGT Version: 1.28-gd2af13d9f
+>>     # Failure Rate: 100
+>>     flaky-test
+>>
+>> +The GitLab issue must include the logs and the pipeline link. Use the appropriate
+>> +link below to create an issue.
+>> +https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/ for i915 drivers
+>> +https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/ for xe drivers
+> 
+> drm/msm for msm driver, please. Otherwise we can easily miss such issues.
+
+Sure, will add it in v2. Thanks.
+
+> 
+>> +https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
 >> +
->> +        get_task_comm(vm->task_info->process_name, current->group_leader);
->> +    }
->>       if (vm->task_info->pid == current->pid)
+>>   drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
+>>   -----------------------------------------------------------
+>>
+>> --
+>> 2.43.0
+>>
 > 
-> This ends up relying on vm->task_info->pid being zero due kzalloc right?
+> 
 
-Yes.
-
-> 
->>           return;
->> @@ -2385,7 +2389,6 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
->>           return;
->>       vm->task_info->tgid = current->group_leader->pid;
->> -    get_task_comm(vm->task_info->process_name, current->group_leader);
->>   }
-> 
-> I wonder how many of the task_info fields you want to set once instead of per submission. Like a 
-> fully one shot like the below be what you want?
-
-As written above, process name, drm client name and pid (tgid) can be set once.
-Task name + tid are updated on submit.
-I've updated slightly this part, so v4 should hopefully be clearer.
-
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index a060c28f0877..da492223a8b5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2349,16 +2349,6 @@ amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid)
->               amdgpu_vm_get_vm_from_pasid(adev, pasid));
->   }
-> 
-> -static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
-> -{
-> -    vm->task_info = kzalloc(sizeof(struct amdgpu_task_info), GFP_KERNEL);
-> -    if (!vm->task_info)
-> -        return -ENOMEM;
-> -
-> -    kref_init(&vm->task_info->refcount);
-> -    return 0;
-> -}
-> -
->   /**
->    * amdgpu_vm_set_task_info - Sets VMs task info.
->    *
-> @@ -2366,20 +2356,28 @@ static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
->    */
->   void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
->   {
-> -    if (!vm->task_info)
-> -        return;
-> +    struct amdgpu_task_info *task_info = vm->task_info;
-> +
-> +    if (!task_info) {
-> +        task_info = kzalloc(sizeof(struct amdgpu_task_info),
-> +                    GFP_KERNEL);
-> +        if (!task_info)
-> +            return;
-> 
-> -    if (vm->task_info->pid == current->pid)
-> +        kref_init(&task_info->refcount);
-> +    } else {
->           return;
-> +    }
-> 
-> -    vm->task_info->pid = current->pid;
-> -    get_task_comm(vm->task_info->task_name, current);
-> +    task_info->pid = current->pid;
-> +    get_task_comm(task_info->task_name, current);
-> 
-> -    if (current->group_leader->mm != current->mm)
-> -        return;
-> +    if (current->group_leader->mm == current->mm) {
-> +        task_info->tgid = current->group_leader->pid;
-> +        get_task_comm(task_info->process_name, current->group_leader);
-> +    }
-> 
-> -    vm->task_info->tgid = current->group_leader->pid;
-> -    get_task_comm(vm->task_info->process_name, current->group_leader);
-> +    vm->task_info = task_info;
->   }
-> 
->   /**
-> 
-> End result is code like this:
-> 
-> void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
-> {
->      struct amdgpu_task_info *task_info = vm->task_info;
-> 
->      if (!task_info) {
->          task_info = kzalloc(sizeof(struct amdgpu_task_info),
->                      GFP_KERNEL);
->          if (!task_info)
->              return;
-> 
->          kref_init(&task_info->refcount);
->      } else {
->          return;
->      }
-> 
->      task_info->pid = current->pid;
->      get_task_comm(task_info->task_name, current);
-> 
->      if (current->group_leader->mm == current->mm) {
->          task_info->tgid = current->group_leader->pid;
->          get_task_comm(task_info->process_name, current->group_leader);
->      }
-> 
->      vm->task_info = task_info;
-> }
-> 
-> ?
-> 
->>   /**
->> @@ -2482,7 +2485,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>       if (r)
->>           goto error_free_root;
->> -    r = amdgpu_vm_create_task_info(vm);
->>       if (r)
->>           DRM_DEBUG("Failed to create task info for VM\n");
-> 
-> Two more lines to delete here.
-
-Done, thanks.
-
-Pierre-Eric
-
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->> @@ -2608,7 +2610,8 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->>       root = amdgpu_bo_ref(vm->root.bo);
->>       amdgpu_bo_reserve(root, true);
->> -    amdgpu_vm_put_task_info(vm->task_info);
->> +    if (vm->task_info)
->> +        amdgpu_vm_put_task_info(vm->task_info);
->>       amdgpu_vm_set_pasid(adev, vm, 0);
->>       dma_fence_wait(vm->last_unlocked, false);
->>       dma_fence_put(vm->last_unlocked);
+Regards,
+Vignesh
