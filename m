@@ -4,51 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CF04CF9C77
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 11:50:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6F08CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 12:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C0710E896;
-	Tue, 24 Sep 2024 11:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A2E10E89B;
+	Tue, 24 Sep 2024 12:02:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cdMSdOqD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c3wj/AUQ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5302610E3CA;
- Mon, 23 Sep 2024 10:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=O5/5DrhLxwvmvKmOMPdDPa0215jKu6v2IEO6LOqiQts=; b=cdMSdOqD/SYZ4JWO18T+DtdZOQ
- zLk6dDor483QRedN5m3rAuqLmrcesfDyb/oPD3N8QZVl9ausbk2JPXwi4K0AuGoKECsgZgbh8S4sE
- 0z1BfvwVlfsXqrrQZhEaFtsWgthmo+LwK9KjA5ba4fXZvjJSUYe5IvlfUmtj2+erKMGqbaeTQDpwb
- YuT1OVplJWbYrCKbEDmtn5l9qBbttxijR+4uldLgcUVWev2FR1YbIlg/lAXv9myLg77dTMcN2xCUb
- yB3ZS2EsgtDLPiUSiVIRAJMdEu4bmfJk+6zicHT8bZG3p23zf4d+6zK3pksrWmt80HVMBmb5mzDwF
- U1a2wm8g==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1ssfxY-00HTRv-JS; Mon, 23 Sep 2024 12:06:24 +0200
-Message-ID: <7e33063e-7b5c-464a-a572-9a7817a9b9b3@igalia.com>
-Date: Mon, 23 Sep 2024 11:06:23 +0100
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2C7A10E899;
+ Tue, 24 Sep 2024 12:02:55 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-42e5e1e6d37so54277295e9.3; 
+ Tue, 24 Sep 2024 05:02:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727179374; x=1727784174; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9tz/ENMphkPNUdL0iMpj9h5cj35+bQ5oXn4TtUlPa5c=;
+ b=c3wj/AUQ9Wiakh0unSDNS89/b8fIgmrfBlvN4+ftOcJ69iZpSEiItUomJ+u5/9t7RX
+ b3BKHnl5nlGZGzelIl0NuJnWqszkBQYRf7/BVMErUi3RZpxRDgpeZoInPFk5f9WV2tIE
+ mu+Fh6CfPQhfCNYEaqQrp7UWix2NCRlxcTSs1y05VXefmnjPmPEp4W8HslZe1oIxd3ot
+ /SMVFU7TfoV6QkDbJB6BYs9aeb5+wnijKDPHx4xQrOHwXWjyS0eWBKWQ913YWEy3mqsd
+ BzoCa559OEtO3vy01aY7/Q6bTVuM9XQLhyQxq3BWs991NotURr2Od4U81XIEiIpm7K1X
+ 7peQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727179374; x=1727784174;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9tz/ENMphkPNUdL0iMpj9h5cj35+bQ5oXn4TtUlPa5c=;
+ b=DSWmStPQ9jjJeBEFmw0kG61W7HMr9/3ne1MhPKvRvIYQA2xfrFxbw1S3q6iipvX1I8
+ kOn7hOpKvNSGWi3JWY/3Z7dOBsBFJpVCxy6j71h2RXzVwSuYZp5BOohT+uZhTiFIInTZ
+ vUDyGDaQdAvpx0JbvfjzjwK50dnLZoUK9rmHQQPGu3gXWn7dTIllLK+rgw6B6K6nNWsx
+ FVduz0fYLla9zvzL6NTq2U8N1PXBmx92u2gsREN/0eY9izMcbv48BZkVe8cL9HoJ4wy9
+ gjbrSi9Fy61sPMJGRJlUDx7PuF1wZnRzEVvmWhYTrjf/wTREJt+U8PenWjx5EJaRDuUd
+ /f4w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVGptVeh82I3f+4Da4jbYZA12qj3hKf1zHF2a5nJJVviYwwMrjkJEFLzCu23jSkFQMK4ZRyma1/@lists.freedesktop.org,
+ AJvYcCVYTjPPE6dOOeozGROWuDZnuesJ3XwUTp2V2t50GTvTAOOUoOXgwp7Z31+iZHvyefR0WUUf9+D2GQmm@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzP3dIjMZd1lDx0WJqKIA+Ulc/6gbt6UGkMhL9S4mFnLucgns2g
+ UL2gCMbOGOeUoqoNuxoQUmJ05RaHyljoXNryub5t2abHj5Qr13oT
+X-Google-Smtp-Source: AGHT+IEU0X+v3end7Dbn9ot6FH5hDjOG5AkwcYSbd+dGNIO9pGaPsg0OgJcY6MBO9PDdb8/cA0c5+A==
+X-Received: by 2002:a05:600c:15ca:b0:42e:93af:61c5 with SMTP id
+ 5b1f17b1804b1-42e93af61d2mr3561105e9.14.1727179373768; 
+ Tue, 24 Sep 2024 05:02:53 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42e902c66dcsm19957165e9.43.2024.09.24.05.02.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Sep 2024 05:02:53 -0700 (PDT)
+Message-ID: <657ad50f-5458-4477-a348-5869c0282e35@gmail.com>
+Date: Tue, 24 Sep 2024 14:02:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] drm: add DRM_SET_NAME ioctl
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- tursulin@igalia.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-References: <20240920090920.1342694-1-pierre-eric.pelloux-prayer@amd.com>
- <20240920090920.1342694-2-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20240920090920.1342694-2-pierre-eric.pelloux-prayer@amd.com>
+Subject: Re: [PATCH v2] drm/sched: Further optimise drm_sched_entity_push_job
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <pstanner@redhat.com>
+References: <20240913160559.49054-9-tursulin@igalia.com>
+ <20240916173007.118-1-tursulin@igalia.com>
+ <478b066b-af6c-43a2-9e0e-a19344893bc0@gmail.com>
+ <dfec609d-bbf8-4b6e-ad26-84e869694acc@igalia.com>
+ <2ad66742-f572-4edc-957c-fcbd8c5a5917@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <2ad66742-f572-4edc-957c-fcbd8c5a5917@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 24 Sep 2024 11:50:35 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,247 +93,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 24.09.24 um 11:58 schrieb Tvrtko Ursulin:
+>
+> On 24/09/2024 10:45, Tvrtko Ursulin wrote:
+>>
+>> On 24/09/2024 09:20, Christian König wrote:
+>>> Am 16.09.24 um 19:30 schrieb Tvrtko Ursulin:
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>
+>>>> Having removed one re-lock cycle on the entity->lock in a patch titled
+>>>> "drm/sched: Optimise drm_sched_entity_push_job", with only a tiny bit
+>>>> larger refactoring we can do the same optimisation on the rq->lock.
+>>>> (Currently both drm_sched_rq_add_entity() and
+>>>> drm_sched_rq_update_fifo_locked() take and release the same lock.)
+>>>>
+>>>> To achieve this we make drm_sched_rq_update_fifo_locked() and
+>>>> drm_sched_rq_add_entity() expect the rq->lock to be held.
+>>>>
+>>>> We also align drm_sched_rq_update_fifo_locked(),
+>>>> drm_sched_rq_add_entity() and
+>>>> drm_sched_rq_remove_fifo_locked() function signatures, by adding rq 
+>>>> as a
+>>>> parameter to the latter.
+>>>>
+>>>> v2:
+>>>>   * Fix after rebase of the series.
+>>>>   * Avoid naming incosistency between drm_sched_rq_add/remove. 
+>>>> (Christian)
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
+>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>> Cc: Philipp Stanner <pstanner@redhat.com>
+>>>
+>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>> Thanks!
+>>
+>> Are you okay to pull into drm-misc-next or we should do some more 
+>> testing on this?
+>>
+>> And/or should I resend the series once more in it's entirety so this 
+>> v2 is not a reply-to to the original?
+>
+> I have to respin for the drm_sched_wakeup fix that landed.
 
-On 20/09/2024 10:06, Pierre-Eric Pelloux-Prayer wrote:
-> Giving the opportunity to userspace to associate a free-form
-> name with a drm_file struct is helpful for tracking and debugging.
-> 
-> This is similar to the existing DMA_BUF_SET_NAME ioctl.
-> 
-> Access to name is protected by a mutex, and the 'clients' debugfs
-> file has been updated to print it.
-> 
-> Userspace MR to use this ioctl:
->     https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1428
-> 
-> The string passed by userspace is filtered a bit, to avoid messing
-> output when it's going to be printed (in dmesg, fdinfo, etc):
->    * all chars failing isgraph() are replaced by '-'
->    * if a 0-length string is passed the name is cleared
-> 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->   drivers/gpu/drm/drm_debugfs.c | 12 ++++++---
->   drivers/gpu/drm/drm_file.c    |  5 ++++
->   drivers/gpu/drm/drm_ioctl.c   | 48 +++++++++++++++++++++++++++++++++++
->   include/drm/drm_file.h        |  9 +++++++
->   include/uapi/drm/drm.h        | 17 +++++++++++++
->   5 files changed, 87 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-> index 6b239a24f1df..482e71160544 100644
-> --- a/drivers/gpu/drm/drm_debugfs.c
-> +++ b/drivers/gpu/drm/drm_debugfs.c
-> @@ -78,12 +78,13 @@ static int drm_clients_info(struct seq_file *m, void *data)
->   	kuid_t uid;
->   
->   	seq_printf(m,
-> -		   "%20s %5s %3s master a %5s %10s\n",
-> +		   "%20s %5s %3s master a %5s %10s %20s\n",
+When I should push the series to drm-misc-next then please send it to me 
+once more.
 
-Allow full DRM_NAME_MAX_LEN? Not sure, feels not very consequential 
-either way.
-
->   		   "command",
->   		   "tgid",
->   		   "dev",
->   		   "uid",
-> -		   "magic");
-> +		   "magic",
-> +		   "name");
->   
->   	/* dev->filelist is sorted youngest first, but we want to present
->   	 * oldest first (i.e. kernel, servers, clients), so walk backwardss.
-> @@ -94,19 +95,22 @@ static int drm_clients_info(struct seq_file *m, void *data)
->   		struct task_struct *task;
->   		struct pid *pid;
->   
-> +		mutex_lock(&priv->name_lock);
->   		rcu_read_lock(); /* Locks priv->pid and pid_task()->comm! */
->   		pid = rcu_dereference(priv->pid);
->   		task = pid_task(pid, PIDTYPE_TGID);
->   		uid = task ? __task_cred(task)->euid : GLOBAL_ROOT_UID;
-> -		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u\n",
-> +		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u %20s\n",
->   			   task ? task->comm : "<unknown>",
->   			   pid_vnr(pid),
->   			   priv->minor->index,
->   			   is_current_master ? 'y' : 'n',
->   			   priv->authenticated ? 'y' : 'n',
->   			   from_kuid_munged(seq_user_ns(m), uid),
-> -			   priv->magic);
-> +			   priv->magic,
-> +			   priv->name ?: "");
->   		rcu_read_unlock();
-> +		mutex_unlock(&priv->name_lock);
->   	}
->   	mutex_unlock(&dev->filelist_mutex);
->   	return 0;
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 01fde94fe2a9..e9dd0e90a1f9 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -158,6 +158,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
->   
->   	spin_lock_init(&file->master_lookup_lock);
->   	mutex_init(&file->event_read_lock);
-> +	mutex_init(&file->name_lock);
->   
->   	if (drm_core_check_feature(dev, DRIVER_GEM))
->   		drm_gem_open(dev, file);
-> @@ -259,6 +260,10 @@ void drm_file_free(struct drm_file *file)
->   	WARN_ON(!list_empty(&file->event_list));
->   
->   	put_pid(rcu_access_pointer(file->pid));
-> +
-> +	mutex_destroy(&file->name_lock);
-> +	kfree(file->name);
-> +
->   	kfree(file);
->   }
->   
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index 51f39912866f..46dadbd1bb35 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -540,6 +540,52 @@ int drm_version(struct drm_device *dev, void *data,
->   	return err;
->   }
->   
-> +static int drm_set_name(struct drm_device *dev, void *data,
-> +			struct drm_file *file_priv)
-> +{
-> +	struct drm_set_name *name = data;
-> +	void __user *user_ptr;
-> +	char *new_name;
-> +	size_t i, len;
-> +
-> +	if (name->name_len > DRM_NAME_MAX_LEN)
-> +		return -EINVAL;
-> +
-> +	user_ptr = u64_to_user_ptr(name->name);
-> +
-> +	new_name = memdup_user_nul(user_ptr, name->name_len);
-> +	if (IS_ERR(new_name))
-> +		return PTR_ERR(new_name);
-> +
-> +	len = strlen(new_name);
-> +
-> +	if (len != name->name_len) {
-> +		kfree(new_name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * Filter out control char / spaces / new lines etc in the name
-> +	 * since it's going to be used in dmesg or fdinfo's output.
-> +	 */
-> +	for (i = 0; i < len; i++) {
-> +		if (!isgraph(new_name[i]))
-> +			new_name[i] = '-';
-> +	}
-> +
-> +	mutex_lock(&file_priv->name_lock);
-> +	kfree(file_priv->name);
-> +	if (len > 0) {
-> +		file_priv->name = new_name;
-> +	} else {
-> +		kfree(new_name);
-> +		file_priv->name = NULL;
-> +	}
-> +	mutex_unlock(&file_priv->name_lock);
-> +
-> +	return 0;
-> +}
-> +
->   static int drm_ioctl_permit(u32 flags, struct drm_file *file_priv)
->   {
->   	/* ROOT_ONLY is only for CAP_SYS_ADMIN */
-> @@ -610,6 +656,8 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
->   	DRM_IOCTL_DEF(DRM_IOCTL_PRIME_HANDLE_TO_FD, drm_prime_handle_to_fd_ioctl, DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF(DRM_IOCTL_PRIME_FD_TO_HANDLE, drm_prime_fd_to_handle_ioctl, DRM_RENDER_ALLOW),
->   
-> +	DRM_IOCTL_DEF(DRM_IOCTL_SET_NAME, drm_set_name, DRM_RENDER_ALLOW),
-> +
->   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETPLANERESOURCES, drm_mode_getplane_res, 0),
->   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETCRTC, drm_mode_getcrtc, 0),
->   	DRM_IOCTL_DEF(DRM_IOCTL_MODE_SETCRTC, drm_mode_setcrtc, DRM_MASTER),
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 8c0030c77308..df26eee8f79c 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -388,6 +388,15 @@ struct drm_file {
->   	 * Per-file buffer caches used by the PRIME buffer sharing code.
->   	 */
->   	struct drm_prime_file_private prime;
-> +
-> +	/**
-> +	 * @name:
-> +	 *
-> +	 * Userspace-provided name; useful for accounting and debugging.
-> +	 */
-> +	const char *name;
-> +	/** @name_lock: Protects @name. */
-> +	struct mutex name_lock;
->   };
->   
->   /**
-> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-> index 16122819edfe..f5e92e4f909b 100644
-> --- a/include/uapi/drm/drm.h
-> +++ b/include/uapi/drm/drm.h
-> @@ -1024,6 +1024,13 @@ struct drm_crtc_queue_sequence {
->   	__u64 user_data;	/* user data passed to event */
->   };
->   
-> +#define DRM_NAME_MAX_LEN	64
-> +struct drm_set_name {
-> +	__u64 name_len;
-> +	__u64 name;
-> +};
-> +
-> +
->   #if defined(__cplusplus)
->   }
->   #endif
-> @@ -1288,6 +1295,16 @@ extern "C" {
->    */
->   #define DRM_IOCTL_MODE_CLOSEFB		DRM_IOWR(0xD0, struct drm_mode_closefb)
->   
-> +/**
-> + * DRM_IOCTL_SET_NAME - Attach a name to a drm_file
-> + *
-> + * This ioctl is similar to DMA_BUF_SET_NAME - it allows for easier tracking
-> + * and debugging.
-> + * The length of the name must <= DRM_NAME_MAX_LEN. All characters that are
-> + * non-printable or whitespaces will be replaced by -.
-> + */
-> +#define DRM_IOCTL_SET_NAME		DRM_IOWR(0xD1, struct drm_set_name)
-> +
-
-A comment, nice! :) Overal looks good to me.
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-I do however wish for more opinions (before merging) on whether strings 
-with invalid characters should perhaps instead be rejected. I don't 
-currently have a solid argument either way.
-
-Perhaps the only argument against silent transformation is if someone 
-sets some wild string, then greps for it somewhere, which would be a 
-false negative without the understanding of what kind of remapping 
-kernel does. It is weak but it is uapi so worth discussing every crazy 
-possibility I think.
-
-On the other hand it would create another annoying source of EINVAL. :shrug:
-
-Also, how are with with testing the DRM core features? Add something for 
-the uapi in IGT/tests/drm_client_name, or some such?
+On the other hand we should now have to maintainers for that.
 
 Regards,
+Christian.
 
-Tvrtko
+>
+> Regards,
+>
+> Tvrtko
+>
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>
+>>>> ---
+>>>>   drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
+>>>>   drivers/gpu/drm/scheduler/sched_main.c   | 29 
+>>>> ++++++++++++------------
+>>>>   include/drm/gpu_scheduler.h              |  3 ++-
+>>>>   3 files changed, 26 insertions(+), 18 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
+>>>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>>>> index d982cebc6bee..8ace1f1ea66b 100644
+>>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>>> @@ -515,9 +515,14 @@ struct drm_sched_job 
+>>>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>>>           next = 
+>>>> to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
+>>>>           if (next) {
+>>>> +            struct drm_sched_rq *rq;
+>>>> +
+>>>>               spin_lock(&entity->lock);
+>>>> -            drm_sched_rq_update_fifo_locked(entity,
+>>>> +            rq = entity->rq;
+>>>> +            spin_lock(&rq->lock);
+>>>> +            drm_sched_rq_update_fifo_locked(entity, rq,
+>>>>                               next->submit_ts);
+>>>> +            spin_unlock(&rq->lock);
+>>>>               spin_unlock(&entity->lock);
+>>>>           }
+>>>>       }
+>>>> @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct 
+>>>> drm_sched_job *sched_job)
+>>>>           sched = rq->sched;
+>>>>           atomic_inc(sched->score);
+>>>> +
+>>>> +        spin_lock(&rq->lock);
+>>>>           drm_sched_rq_add_entity(rq, entity);
+>>>>           if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>>> -            drm_sched_rq_update_fifo_locked(entity, submit_ts);
+>>>> +            drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
+>>>> +        spin_unlock(&rq->lock);
+>>>>           spin_unlock(&entity->lock);
+>>>>           drm_sched_wakeup(sched, entity);
+>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
+>>>> b/drivers/gpu/drm/scheduler/sched_main.c
+>>>> index 18a952f73ecb..5c83fb92bb89 100644
+>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>>> @@ -153,17 +153,18 @@ static __always_inline bool 
+>>>> drm_sched_entity_compare_before(struct rb_node *a,
+>>>>       return ktime_before(ent_a->oldest_job_waiting, 
+>>>> ent_b->oldest_job_waiting);
+>>>>   }
+>>>> -static inline void drm_sched_rq_remove_fifo_locked(struct 
+>>>> drm_sched_entity *entity)
+>>>> +static void drm_sched_rq_remove_fifo_locked(struct 
+>>>> drm_sched_entity *entity,
+>>>> +                        struct drm_sched_rq *rq)
+>>>>   {
+>>>> -    struct drm_sched_rq *rq = entity->rq;
+>>>> -
+>>>>       if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+>>>>           rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+>>>>           RB_CLEAR_NODE(&entity->rb_tree_node);
+>>>>       }
+>>>>   }
+>>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity 
+>>>> *entity, ktime_t ts)
+>>>> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>>> +                     struct drm_sched_rq *rq,
+>>>> +                     ktime_t ts)
+>>>>   {
+>>>>       /*
+>>>>        * Both locks need to be grabbed, one to protect from 
+>>>> entity->rq change
+>>>> @@ -171,17 +172,14 @@ void drm_sched_rq_update_fifo_locked(struct 
+>>>> drm_sched_entity *entity, ktime_t ts
+>>>>        * other to update the rb tree structure.
+>>>>        */
+>>>>       lockdep_assert_held(&entity->lock);
+>>>> +    lockdep_assert_held(&rq->lock);
+>>>> -    spin_lock(&entity->rq->lock);
+>>>> -
+>>>> -    drm_sched_rq_remove_fifo_locked(entity);
+>>>> +    drm_sched_rq_remove_fifo_locked(entity, rq);
+>>>>       entity->oldest_job_waiting = ts;
+>>>> -    rb_add_cached(&entity->rb_tree_node, &entity->rq->rb_tree_root,
+>>>> +    rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
+>>>>                 drm_sched_entity_compare_before);
+>>>> -
+>>>> -    spin_unlock(&entity->rq->lock);
+>>>>   }
+>>>>   /**
+>>>> @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct 
+>>>> drm_gpu_scheduler *sched,
+>>>>   void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>>>>                    struct drm_sched_entity *entity)
+>>>>   {
+>>>> +    lockdep_assert_held(&entity->lock);
+>>>> +    lockdep_assert_held(&rq->lock);
+>>>> +
+>>>>       if (!list_empty(&entity->list))
+>>>>           return;
+>>>> -    spin_lock(&rq->lock);
+>>>> -
+>>>>       atomic_inc(rq->sched->score);
+>>>>       list_add_tail(&entity->list, &rq->entities);
+>>>> -
+>>>> -    spin_unlock(&rq->lock);
+>>>>   }
+>>>>   /**
+>>>> @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct 
+>>>> drm_sched_rq *rq,
+>>>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>>>>                   struct drm_sched_entity *entity)
+>>>>   {
+>>>> +    lockdep_assert_held(&entity->lock);
+>>>> +
+>>>>       if (list_empty(&entity->list))
+>>>>           return;
+>>>> @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct 
+>>>> drm_sched_rq *rq,
+>>>>           rq->current_entity = NULL;
+>>>>       if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>>> -        drm_sched_rq_remove_fifo_locked(entity);
+>>>> +        drm_sched_rq_remove_fifo_locked(entity, rq);
+>>>>       spin_unlock(&rq->lock);
+>>>>   }
+>>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>>>> index 80198e6cf537..b21806d5a8eb 100644
+>>>> --- a/include/drm/gpu_scheduler.h
+>>>> +++ b/include/drm/gpu_scheduler.h
+>>>> @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct 
+>>>> drm_sched_rq *rq,
+>>>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>>>>                   struct drm_sched_entity *entity);
+>>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity 
+>>>> *entity, ktime_t ts);
+>>>> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>>> +                     struct drm_sched_rq *rq, ktime_t ts);
+>>>>   int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>>>                 enum drm_sched_priority priority,
+>>>
 
->   /*
->    * Device specific ioctls should only be in their respective headers
->    * The device specific ioctl range is from 0x40 to 0x9f.
