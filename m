@@ -4,121 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8545CF9C6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 14:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA02CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 14:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9972B10E6D4;
-	Tue, 24 Sep 2024 14:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A249B10E6EF;
+	Tue, 24 Sep 2024 14:20:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vTVIu/zq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XSC5iq9x";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2751710E705
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 14:16:22 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2063.outbound.protection.outlook.com [40.107.92.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5130210E6EF;
+ Tue, 24 Sep 2024 14:20:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N58LTv5GjbtDUHBuom2f6cEt9fJon0NWQ18WFKuC3Tm3qEoVT11hwl8lvDFdF6S5YzhsLLxUKwwoRqL4b+P84o2L+lACj44Cps1s8mCVIGJ+S0KebT6oe8pZBqyd3XJGQhfSDo1sE9MMYGQa0o+qlryEI0/9DyFnTmY6lJOhC+OK2vo1hAXzZvr/jpG9VU4kSXgRBzn5rZNKGjlTe4SpccxnybTbMdv4oXui4anPK5H3aCr9+WPlk+8rS4EpT+3x61e5f1p+v71ARqJd9u3OmOYo/KC4okPTId330jHNoLL+Y3sGT5tR/eByW2p3n34d/68gF4O7TlSDxgJR3hY0BA==
+ b=HHcl5cKtwuYaZ1T1KGtKfTX/fNqRMUpBbx9XtkIk2SUm9Aqec9TtmixzluSwJwa3845rl7XADhgkF0DgkHtFyhTgxAswB3eCzTMWN1KQN2sZ/sVs6DnomJeCDB5bE0KvaPjL6gsN0DKshtLNzvvKo4SRoMa6cge72CUTXarjUFoifQoH60g38YHZK0gHHYcA16MKzBsXygCrvOdyo2XZ2UKYpcz/I7MtjeXEZZ6VgVQyCANcCyj+5bF8/Xfsg75g++MIp9dcfYnR11GTKofxtg7jCwSrY6VI9ToPf4F5nqdEk8qpEzJlmMbWxtRYs4KCS7Xwfg0ElvwHbaVn9Qwwrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+cPukSLqqPD1Ke9nHYV4+FK2pTfH14j7N6RyDIxy4bk=;
- b=glc8/Y52bT/vEohTcSVimii1pswMnqskira3HXPJpJlZbSb1h82zKYBBYCPasL+/bkWssIscfPUFXBwC3haAQGMrX7noSzUhQ7z39auyUqHKNqJ/gXak7Mjd/BYn13a8IvG46IiUdwHEsx5a58S8aaFKbGZkwcZuXewEFjJmBvSGaYcjryrNEmc+90dQWLGqV8oiKlGoXHp+1wru3WV0j9bwmVGKsw7sXWB5A3tqhWsUg6V4hJq3gzaq77DB1wPJ3dnlDg2Zl9BgHgRkaNdVet0y8tCYVupPsPP3c6yqWBPsD8TL2NYKL60kJohCn0QkGglInzXZSrI1Fvqzil9V4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17)
- smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=n9lG8Sk1PJwY1ph/st5eLMFT2biorMZHgVrDr33w3kk=;
+ b=i0Ka9nTws1a/kkixTy1vl7RR1UtNX4D6sJjUZ7DfHphFWFAkXJ74fdBsYiqiNw/jFKTergt6xMzDCiGcpoZyMcDTa+fBodOMH6x4VJeDl02EShjHXIi/ZQXTmida3tPKcrENnG9JEQ7P+alEeqj0ucyFvNXFramuCZy/cW2tiqICOZbP51WcbcObO5Qcs3hCWmeakVNNjhQWCi5fw5FS/HeUtnzR+zCTu29Lwta7sbF0VhuUaAtV2BHEFAbP0nLHwwSFNb7qAPMMpTcB/cNInlQw4xwT+ZKNmZxQU40cFIwdxwt9Hfr3PHZZrvF7z8ZYCVfR7nBNfj2GoNpJQ9Q39A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+cPukSLqqPD1Ke9nHYV4+FK2pTfH14j7N6RyDIxy4bk=;
- b=vTVIu/zqPX7a2F2Nk5GivDTZwVgUvxIaBnog7GFM7zCbxcMgXVrfi6OE8yeb1Q8R/6mWP8l59QF2SZd/VTtKRFui/OdPt95eRBQ2bxTyNZLszT+SeT/tPbqydcNiJm1ZN9vgPW6r49f7GQ0fB4okPEwbuy+rOWmEBQciw/7PxGQ=
-Received: from PH7P220CA0121.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::10)
- by CY8PR12MB8194.namprd12.prod.outlook.com (2603:10b6:930:76::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.26; Tue, 24 Sep
- 2024 14:16:17 +0000
-Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
- (2603:10b6:510:327:cafe::4b) by PH7P220CA0121.outlook.office365.com
- (2603:10b6:510:327::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.17 via Frontend
- Transport; Tue, 24 Sep 2024 14:16:16 +0000
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.15 via Frontend Transport; Tue, 24 Sep 2024 14:16:15 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Sep
- 2024 09:16:12 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
-CC: <le.ma@amd.com>, <hawking.zhang@amd.com>, <shiwu.zhang@amd.com>,
- <Asad.Kamal@amd.com>, <charis.poag@amd.com>, <donald.cheung@amd.com>,
- <sepehr.khatir@amd.com>, <daniel.oliveira@amd.com>
-Subject: [PATCH v2 4/4] drm/amdgpu: Add supported partition mode node
-Date: Tue, 24 Sep 2024 22:15:49 +0800
-Message-ID: <20240924141549.244754-4-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240924141549.244754-1-asad.kamal@amd.com>
-References: <20240924141549.244754-1-asad.kamal@amd.com>
-MIME-Version: 1.0
+ bh=n9lG8Sk1PJwY1ph/st5eLMFT2biorMZHgVrDr33w3kk=;
+ b=XSC5iq9x1XL06TZrvO7y6ykuskTgxk1YynT30BQETm7t36lg22RZ+ig4j2o7NQxAk63eNimQ6iIcBLpwpgT/mpGekufgbZGAOQFmIa/C0wUQgkCvtDVaXKzr9//g+85rd47x58obaAyDVSBGCF3lvtsmfwreYaGq8rE7j6dpPnk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB8168.namprd12.prod.outlook.com (2603:10b6:a03:4e7::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Tue, 24 Sep
+ 2024 14:20:51 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7982.012; Tue, 24 Sep 2024
+ 14:20:51 +0000
+Message-ID: <2df3ce7d-9f3e-4530-88ad-d7376f1336d2@amd.com>
+Date: Tue, 24 Sep 2024 16:20:39 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] drm/sched: Always wake up correct scheduler in
+ drm_sched_entity_push_job
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Philipp Stanner <pstanner@redhat.com>, stable@vger.kernel.org
+References: <20240924101914.2713-1-tursulin@igalia.com>
+ <20240924101914.2713-3-tursulin@igalia.com>
+ <4dcce6db-cdb1-4378-8fea-8540ec7539ef@amd.com>
+ <1b56854b-5357-4efa-b31b-950eb85ee277@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <1b56854b-5357-4efa-b31b-950eb85ee277@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: BLAPR03CA0101.namprd03.prod.outlook.com
+ (2603:10b6:208:32a::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|CY8PR12MB8194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ae9174f-7afb-4355-b6c6-08dcdca373b8
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8168:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30fdc4ab-f4c9-4a3e-da40-08dcdca417d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JyJyX++LbzDL8STfplDv8YnZhGf9WXq7VKwXbPVW7sMRJk9xDH8a3+8Tn4Ir?=
- =?us-ascii?Q?hHD1cexmN3h3D5JG05Z/MhqXF3EMlP8lU9bULHrduORAHpNIwJ9jHXtGkjt0?=
- =?us-ascii?Q?/EM0YXbHyB8vdjukxCkaOdkoBTXGAUpSrQWvb3xPvCpXcx4hOwWdExj0WhbE?=
- =?us-ascii?Q?zA4syAuOojuU/BBOuzb86p9KyJa5PcowzQpMRmw2uFczPS9bPL5DqARni0nV?=
- =?us-ascii?Q?uCpYqaK2QGumWE0JXezdQepf5eJrqHagfDIoCGiPtxLHLysdpe+MZg4XEuWk?=
- =?us-ascii?Q?v0tbn6ppcNqMKKFoRx2vuDgEfNaZ+uIfW4/o4nixUVYmJ9gGIH64Y+dCixmX?=
- =?us-ascii?Q?1X83Jb/+k5YvoVdkrwLPQktFoEIV8AYf4ssBTa4m95mEgNby4cNtc6d7DUpV?=
- =?us-ascii?Q?7iK17soxrj8x0OuCA2btx3+7Goj7NoN1EQ5ObaPXtSwQIfSmfjzjhj5rxnAU?=
- =?us-ascii?Q?tc9bK1fkHrqTg98eajV8hesTaF9bcRn3xKOBemqCNmeExgild+cRvUwmBxrQ?=
- =?us-ascii?Q?lurLTHfXsK0FjQZBZN99NM1bIv/H6XUCJj6dTV0A8NdVB0if/3qCdVzga2Kr?=
- =?us-ascii?Q?vTfwFA+6hDmTMVFgdUIGPUIMn/HVYLACQtB6OpiTUiaSWTzMVbiF1/irRN+1?=
- =?us-ascii?Q?18TfFtP89fm77VVTvx26fh5pu6LI47MRnrmPs9AfwZetN0vtyEhyjAlOXRFC?=
- =?us-ascii?Q?khTrs1M34cBwMylKDY9gUjn5lImSVBITkQzquPgEuiM5asCycYd1WbXKwIwP?=
- =?us-ascii?Q?mlSc8WHj/5Ql6V45kFwk6/WCeK8xRUEZCXucJBugRK37cNnG49u1rbrh95GT?=
- =?us-ascii?Q?n7PK3t1p1pQkTGewnjFydE8YgWFb5BprJz0hF0Qv7fU7QgPOxrKnWSnB7cgN?=
- =?us-ascii?Q?AfFRNDuMtbpwSGujf/1cwLALWBtaziEO0/g6gwy4AL4wAiqa75LQr0JXjZe2?=
- =?us-ascii?Q?y4WAeLVLbEpdn9aLobCgh6Vm/hOVE5Hyc4wW87to+ljR0ILRvc83xV19GEXi?=
- =?us-ascii?Q?3+XqJhRbrhJMZ9pyW/9Ad++h7vGS2x22ysE/uevRWbkud2emz41xPiR/nQtt?=
- =?us-ascii?Q?HJs1UyhYUQNsGQwu2Tzfy//rTf9Rvt0grt1L1Tatk9/wJa7yLXohAeqa5ITG?=
- =?us-ascii?Q?4AEty2nsAsgBDHdPu/1XLIQoApz1OwNRy0citkQRB+5J7u6MJnb/moPRyV0t?=
- =?us-ascii?Q?ysb1/xlPKUc71o6dLI6GFTPuc1l5BAd27ikZJgjAdO+eRHzPF1+GVHI12W5u?=
- =?us-ascii?Q?X5/+pdMrwQMei7334hgSAyI06lklIIW+7nJ6X9E8kmf3qUf5WdJyiTXl+sH1?=
- =?us-ascii?Q?Mt0zx6PObbMOT9+PsClaqqq2g+txAV7BJv5igeyaQ1yC2qWsIxF/fkJUxvnf?=
- =?us-ascii?Q?feVO08oMSJHMf5SeSVVW0Fno9uOrJxEzqDpl/HlyiGa7uaViWH2GndOfdWPE?=
- =?us-ascii?Q?yQqdzXLGGPOLVnvE1yiq+dE0bWQeoMId?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dEx2YW9pS0lBL2lPbUhJUDBPMWMvT3Y2eGJKd1E5NitnR1l2Tm1ZVVJFOG9w?=
+ =?utf-8?B?VjJGRlVtU1VmOE1yNXJpSTdjcTRvNzNORFpveTA0d2JqdkFlZkppSDdJb204?=
+ =?utf-8?B?LzV2Q1pLcnZ3TkM1K05UYWU1SEFRaHdZUHk0ZDliSnFYZlhFU1IzTWo2NGxm?=
+ =?utf-8?B?MmJGMFRZSlMyc3lTR0FVTndBRytlVkRGU3Era3FDYU9kWWZVeWxXeTh5cVAv?=
+ =?utf-8?B?ZHJHSkJLTlR5QURNcEc4MWRVT2ZSZHhMcDErUkhCRnV0OTJtM2swM3NqMnhL?=
+ =?utf-8?B?Nms1VXVlcC9Rejc5ZzZJY0NDWXg5M3NPaFUyOW03aHVpTlY3UEFxRnJsSHg3?=
+ =?utf-8?B?clpQaHo4bzd4OS9vZ3JDVU82eVh3elk4MDFTYzcxYWI2Tm5RT0llOVNid0RP?=
+ =?utf-8?B?SVQ2UDBqT2hpVFVRVEhSU3B2UklXVzg4WWp6ZDBaZ2NYcTdHVFF1R2RhWXkz?=
+ =?utf-8?B?bm1jT2lsZVNPbzd4SVdXV0lvMTI5L0JLbmxKcUFwNTYrakZ6RTlHMVhXQ0R6?=
+ =?utf-8?B?MUpZSmxDbC9YTjJvVlJsODZrNHd1QnRFYjlrbmdkTzZRNmhKdW5NWFlVY0Nr?=
+ =?utf-8?B?dVFoVWNWUGYyR3Q3V0dZa2F0VXo0bzhPQVc4TnkxMjlZT2YrWjZOLzhZS1Vi?=
+ =?utf-8?B?WUptZnk1UGZ5ZWtKbjdoc1l6M3JsMEU5YmliakthN2o1MGNJRUNQWmF1eWhO?=
+ =?utf-8?B?UmVzaEFNYkNzVFJ3SWs2MjVSQnRvS3QvY3hlOXBTbEVvdGlVbWwxTlE0UmtC?=
+ =?utf-8?B?WjVMMkUwdlF6SU8wUWRCeTFGdEpTeXhKQ081RzRoOXpLelptTGVrQisvTEpX?=
+ =?utf-8?B?cnlMaDBweTBHaHdjQUkwN0FnYTArZUJBYW9tT1lqRE9EWjFLOU1hODRVS0Rw?=
+ =?utf-8?B?V3NSaEU0dTNZN3liQ1JKeUF6MG5yT2pPbEZhK3ltYUthdHByOElvWTRwM1Y3?=
+ =?utf-8?B?VEhaNmVOSS83Z3FkOGNlYnFreTRaSytkdUVvRlErMWVoVzZNRjVKSVJTWmR2?=
+ =?utf-8?B?Z2VUaENtYXg0djdVZDl6TFNETFUzRmZjRG1qaThoZlgxRUxOQUpnMjFEYUJX?=
+ =?utf-8?B?VktmWTBUcVZCTEpTZUloTjlKQ1lDWGM1L1J3SWFPUjAydlRHclRQMndOMGNY?=
+ =?utf-8?B?ckdpcGZ4MHFYSzgrSGwyUWZsbVNDOGlraE1lWXRlLzZVV2V5UUJ2RkNjQ1Ba?=
+ =?utf-8?B?QXVndGdFY0V5NXh1cTE3SkxJOHZ0d2hkT2VJL1BrSEx6SDUyVzRXZllONjlj?=
+ =?utf-8?B?NmdEaXhscmwvdms1ekJMUkRnQkN0aU9jOFgxcGhtaEdKaGRQYTZEY20vTUtM?=
+ =?utf-8?B?SXF2dTNUcXN2QnkySFhEWERIWkR0WHNsOENxb2dHMHNleGlEV3duZnIyVFBt?=
+ =?utf-8?B?MXZqdTNZYnZtclJyb2M4RTlUbERQWURWaStlaEFsQnhlV0ZHeXZEY2hPWTk0?=
+ =?utf-8?B?U3JNTEF4K2FmVDBma1FaZGhvODUvRG8xbkNlUkQ3b251NURuWFdoMzhZdFU3?=
+ =?utf-8?B?TldKNDBEM2RueE42R1N3aWtjMlNjQ1MzQXJzOGRkRzFESFo0M280SnRuUzB5?=
+ =?utf-8?B?YTlpcnR6ODZSNmxjbnpsNlh5SFhYaVlqcnNKUVhrRnNjTXRvd29yTm50UThC?=
+ =?utf-8?B?d1VSa3dESjgrLzhFZndoYzd2a3FnU1lVcDlyaW5PcHZSeFR5NkFyZ3NseDJN?=
+ =?utf-8?B?SlUzSE5ZZlJjVW9IejAxckN3bWp6Sk4xb0psb1NTbzZyeE04NXRIc2twZ1V2?=
+ =?utf-8?B?NzY5ME5PSXhFcHBvQ2Z3ZENTb2I4MjlJWDR2SjNkNHQ1cTQ0REdYYVFEQ3RH?=
+ =?utf-8?B?Y2YydW9CYzdHU2dPRFpuZz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nm1VK3plMDZIQ0RudTBUeFpWUmcxdUtRb2VPdGk3VUdNTUMvb3Q1QmU3REFn?=
+ =?utf-8?B?bVplaTltVm1Gb0dsNjNpZEVMUm1GRkN6cFpYMndlTFozNVQxYmx3eHBBM3Nm?=
+ =?utf-8?B?NFZvOU1XeHVIMktDTW80Zi81VnhtNW9HeWUveSs2V0xkTlBwSXRJQTBnK3Vl?=
+ =?utf-8?B?M0Rwb05UQ2xnOGZHZ05HMVg5K1ZmUzhWeE1xOUF1Q3pYK1dveEpaMEtVL1dO?=
+ =?utf-8?B?ay9rQmdTMWxaclpjbkJ3dTNsMjhhU1pDcU9CWGNkVXdLOWVYamFVN3BIbjdq?=
+ =?utf-8?B?dVY0SjRzV08zTG1kOFMrWHlqS2NtckpaZk50TDVkWHR3L2NKeU90SUh1amhr?=
+ =?utf-8?B?ZUhzUHc1NDBKUUxPQnhsUFBGV1N5Z05Eb01oeklrWVRvY25lMGsrRitVd0JK?=
+ =?utf-8?B?Z0RCQU5yQlhyWWJLYTBGQ2laRUxJTkZvVjZPbExsTmJEWTdHekVZaTJsOGFn?=
+ =?utf-8?B?dE1HZkZ6WWo1dWdFTy9ianRwaGdpZDFHa21BcUVOWERJZDBKVTRkVzRiQlRr?=
+ =?utf-8?B?NzdxQ21ZYzRiS3ZZOUR2QmFTb1VzbTNSeW4xQlUzTUk0SVFLbHUvWUlhNmor?=
+ =?utf-8?B?WTFrbWlzSE9jeXZ5U2xaZFBqZnpSWnlrTlViZVYwaGNEWk5xdFZXZFlmUjN3?=
+ =?utf-8?B?K1N6bXF4d3ZiaTBQRC9NMHJHdzBEeFR4cFBmcnI2RTJTd3cwSTdSbHI0R2xZ?=
+ =?utf-8?B?UnpjeU1FT3BrcDY3aExSTUdMVHFHZHhKcm8zS0J3NVdTekZDU0ZLc0pLeVVO?=
+ =?utf-8?B?RSt2YUk4Z291QzF2MlYxUm1sVEZ2bXRhbS95YW9hbm52TFY3dkJCR1NROWho?=
+ =?utf-8?B?MXl2ZWxYWWxwc0M1d0NZSHJKN09ud2VjV1EzNFNNUG5nZzNTcmRLdEhvQTRq?=
+ =?utf-8?B?UlA0MjZqOGIzd0dNeTMrcVhmSlQ0cXVyRTBMVFJYOEZlRXIwVUp2WjJxNDRO?=
+ =?utf-8?B?UUlUZVg1dnR4aWsyelN3MmJBR3I1WVRQQTFjWXRKdk9FRzlzVEdxcDBueE1k?=
+ =?utf-8?B?aDU5dmtKK3hVaUFid1IvSFA3UXJWTUVnVDRhV1RjcmZuL094bWpXdXQzZWFW?=
+ =?utf-8?B?WXp3MFJqanZ0VHFLSHpFdEwzbmxncXIyYUN3c213dGFabThrQTlJMG1xb0pu?=
+ =?utf-8?B?UGxHRWNwdHVzSi83WDhuK2NMT0xyV01mMXBaTzM1OFFjbUcvbnB5NWZRT2No?=
+ =?utf-8?B?WG9GT25sUG13UkZISXp0VktHcHkyN2hxVWtHMFZ5RmtscTJPb2luTG5IZUd0?=
+ =?utf-8?B?WVMzQSs4VmtZcEZBTGlKbVhVZE4xOFFDNktrVmhhTkZqbDBqS2hiNXg5ZW5M?=
+ =?utf-8?B?VEVoS2dEN0paZTVQWFlheUowZUZzU2s1R28vUzNOUE05a0dEd1h3R0FOR2s1?=
+ =?utf-8?B?aStEM2tmdXl4dy8vTHVyNlN2b2VHWTJuWFFVcENZUFlmcUZGRm1mdzlwb3lV?=
+ =?utf-8?B?K1Zxam8rdHUwN29DMExPSEFFLzF4cG5XSFM1M1J1RkwrNHc4VDBQOWl1WDJN?=
+ =?utf-8?B?bnhRUHVtZWFDUmVJcTkvM2d5czAvNDFGc3R4OFBLM1J2V0ZvT3JtZHcrT3h5?=
+ =?utf-8?B?bGErZ09vcDFoYkV5M1FmZi9TNWFtRUw0V1ZvWVU4L1JBczlpZHFYMmZ1ZHl1?=
+ =?utf-8?B?ak5FVEdUVmxScU90bWl0SG9IZlFkeEY2TjhMczNubk51MWt4dy9hRWJNYnls?=
+ =?utf-8?B?OUo1bjMzSFNwbWZTc2pPcE42anVPWHljclFlckIvdlhMaGJueWxMcFI1aXgv?=
+ =?utf-8?B?aWk1MGEybEU5NnNKeDVON242azV6M1QwYW9DS09sRFZPcUNRWDFVZ2RJQTY4?=
+ =?utf-8?B?OVBqZU1PbnRhWHljbFZZcm1yVE42ZDhqRzJ5dFhTbmU1ajkyU1dhTnUwa3RI?=
+ =?utf-8?B?MXZYa2JQYi9nU0JIYkQ4cFA1WFFiWEJFaUlMUEY3T2xtR285MXlSQVNPT3pP?=
+ =?utf-8?B?Uis1UmFFUHpoWW5wUDVjVDRGekJoeEZHL0pjNlkvdDZ0ZTFPKzdxWWcvTjlL?=
+ =?utf-8?B?QnJDNHRUS1JxN2NNbllLVUgxbUFRQjIxZU5ESzZTdVVEU2hEZE5pK1F6RDFt?=
+ =?utf-8?B?NVFDZWVBV2o1Yll0U1UvRXNEU2NsNk9tcjdGNUpVRzBFd2RGTTFqdUMrZ0FF?=
+ =?utf-8?Q?G0NI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 14:16:15.8251 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ae9174f-7afb-4355-b6c6-08dcdca373b8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30fdc4ab-f4c9-4a3e-da40-08dcdca417d5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 14:20:51.4032 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8194
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WU6hZysJyD78OZXpYPoudhzr0JHLbNXeb0hbWSmjzXntooHWVOSp3J1G6WI+xm2G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8168
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,106 +167,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add sysfs node to show supoorted partition modes across all NPS modes
+Am 24.09.24 um 16:12 schrieb Tvrtko Ursulin:
+>
+> On 24/09/2024 14:55, Christian König wrote:
+>> I've pushed the first to drm-misc-next, but that one here fails to 
+>> apply cleanly.
+>
+> This appears due 440d52b370b0 ("drm/sched: Fix dynamic job-flow 
+> control race") in drm-misc-fixes.
+>
+> In theory 1-3 from my series are fixes. Should they also go to 
+> drm-misc-fixes? I am not too familiar with the drm-misc flow.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 48 +++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 3 deletions(-)
+Ah shit, in that case you should have spitted the patches up into fixes 
+and next. Going to push the first 3 to fixes.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index fc4ab1d8c7c9..10daa6a15e5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -463,6 +463,14 @@ static struct attribute *xcp_cfg_res_sysfs_attrs[] = {
- 	&XCP_CFG_SYSFS_RES_ATTR_PTR(num_shared), NULL
- };
- 
-+static const char *xcp_desc[] = {
-+	[AMDGPU_SPX_PARTITION_MODE] = "SPX",
-+	[AMDGPU_DPX_PARTITION_MODE] = "DPX",
-+	[AMDGPU_TPX_PARTITION_MODE] = "TPX",
-+	[AMDGPU_QPX_PARTITION_MODE] = "QPX",
-+	[AMDGPU_CPX_PARTITION_MODE] = "CPX",
-+};
-+
- ATTRIBUTE_GROUPS(xcp_cfg_res_sysfs);
- 
- #define to_xcp_attr(x) \
-@@ -511,6 +519,27 @@ static int amdgpu_xcp_get_res_info(struct amdgpu_xcp_mgr *xcp_mgr,
- }
- 
- #define to_xcp_cfg(x) container_of(x, struct amdgpu_xcp_cfg, kobj)
-+static ssize_t supported_xcp_configs_show(struct kobject *kobj,
-+					  struct kobj_attribute *attr, char *buf)
-+{
-+	struct amdgpu_xcp_cfg *xcp_cfg = to_xcp_cfg(kobj);
-+	struct amdgpu_xcp_mgr *xcp_mgr = xcp_cfg->xcp_mgr;
-+	int size = 0, mode;
-+	char *sep = "";
-+
-+	if (!xcp_mgr || !xcp_mgr->supp_xcp_modes)
-+		return sysfs_emit(buf, "Not supported\n");
-+
-+	for_each_inst(mode, xcp_mgr->supp_xcp_modes) {
-+		size += sysfs_emit_at(buf, size, "%s%s", sep, xcp_desc[mode]);
-+		sep = ", ";
-+	}
-+
-+	size += sysfs_emit_at(buf, size, "\n");
-+
-+	return size;
-+}
-+
- static ssize_t xcp_config_show(struct kobject *kobj,
- 			       struct kobj_attribute *attr, char *buf)
- {
-@@ -564,6 +593,19 @@ static const struct kobj_type xcp_cfg_sysfs_ktype = {
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-+static struct kobj_attribute supp_part_sysfs_mode =
-+	__ATTR_RO(supported_xcp_configs);
-+
-+static const struct kobj_type supp_part_sysfs_ktype = {
-+	.sysfs_ops = &kobj_sysfs_ops,
-+};
-+
-+static const struct attribute *xcp_attrs[] = {
-+	&supp_part_sysfs_mode.attr,
-+	&xcp_cfg_sysfs_mode.attr,
-+	NULL,
-+};
-+
- void amdgpu_xcp_cfg_sysfs_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_xcp_res_details *xcp_res;
-@@ -583,7 +625,7 @@ void amdgpu_xcp_cfg_sysfs_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto err1;
- 
--	r = sysfs_create_file(&xcp_cfg->kobj, &xcp_cfg_sysfs_mode.attr);
-+	r = sysfs_create_files(&xcp_cfg->kobj, xcp_attrs);
- 	if (r)
- 		goto err1;
- 
-@@ -611,7 +653,7 @@ void amdgpu_xcp_cfg_sysfs_init(struct amdgpu_device *adev)
- 		kobject_put(&xcp_res->kobj);
- 	}
- 
--	sysfs_remove_file(&xcp_cfg->kobj, &xcp_cfg_sysfs_mode.attr);
-+	sysfs_remove_files(&xcp_cfg->kobj, xcp_attrs);
- err1:
- 	kobject_put(&xcp_cfg->kobj);
- }
-@@ -631,6 +673,6 @@ void amdgpu_xcp_cfg_sysfs_fini(struct amdgpu_device *adev)
- 		kobject_put(&xcp_res->kobj);
- 	}
- 
--	sysfs_remove_file(&xcp_cfg->kobj, &xcp_cfg_sysfs_mode.attr);
-+	sysfs_remove_files(&xcp_cfg->kobj, xcp_attrs);
- 	kobject_put(&xcp_cfg->kobj);
- }
--- 
-2.46.0
+> Or the series now needs to wait for some backmerge?
+
+Are the remaining 3 patches independent? If not then we need to wait for 
+a backmerge.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>
+> Tvrtko
+>
+>> Am 24.09.24 um 12:19 schrieb Tvrtko Ursulin:
+>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>
+>>> Since drm_sched_entity_modify_sched() can modify the entities run 
+>>> queue,
+>>> lets make sure to only dereference the pointer once so both adding and
+>>> waking up are guaranteed to be consistent.
+>>>
+>>> Alternative of moving the spin_unlock to after the wake up would for 
+>>> now
+>>> be more problematic since the same lock is taken inside
+>>> drm_sched_rq_update_fifo().
+>>>
+>>> v2:
+>>>   * Improve commit message. (Philipp)
+>>>   * Cache the scheduler pointer directly. (Christian)
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Fixes: b37aced31eb0 ("drm/scheduler: implement a function to modify 
+>>> sched list")
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
+>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>> Cc: David Airlie <airlied@gmail.com>
+>>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>>> Cc: Philipp Stanner <pstanner@redhat.com>
+>>> Cc: dri-devel@lists.freedesktop.org
+>>> Cc: <stable@vger.kernel.org> # v5.7+
+>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/scheduler/sched_entity.c | 10 ++++++++--
+>>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
+>>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> index 0e002c17fcb6..a75eede8bf8d 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> @@ -599,6 +599,9 @@ void drm_sched_entity_push_job(struct 
+>>> drm_sched_job *sched_job)
+>>>       /* first job wakes up scheduler */
+>>>       if (first) {
+>>> +        struct drm_gpu_scheduler *sched;
+>>> +        struct drm_sched_rq *rq;
+>>> +
+>>>           /* Add the entity to the run queue */
+>>>           spin_lock(&entity->rq_lock);
+>>>           if (entity->stopped) {
+>>> @@ -608,13 +611,16 @@ void drm_sched_entity_push_job(struct 
+>>> drm_sched_job *sched_job)
+>>>               return;
+>>>           }
+>>> -        drm_sched_rq_add_entity(entity->rq, entity);
+>>> +        rq = entity->rq;
+>>> +        sched = rq->sched;
+>>> +
+>>> +        drm_sched_rq_add_entity(rq, entity);
+>>>           spin_unlock(&entity->rq_lock);
+>>>           if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>>               drm_sched_rq_update_fifo(entity, submit_ts);
+>>> -        drm_sched_wakeup(entity->rq->sched);
+>>> +        drm_sched_wakeup(sched);
+>>>       }
+>>>   }
+>>>   EXPORT_SYMBOL(drm_sched_entity_push_job);
+>>
 
