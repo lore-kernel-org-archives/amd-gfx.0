@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B4DCCF9C77
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 13:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CAB0CF9C73
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 13:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2884910E027;
-	Tue, 24 Sep 2024 13:08:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 068B210E2B7;
+	Tue, 24 Sep 2024 13:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UvbVoKbL";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZmnCi8Cl";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 806ED10E656;
- Tue, 24 Sep 2024 08:43:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE2710E6A2;
+ Tue, 24 Sep 2024 09:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Rk+K3jqbr0P1e08zr94RcxwSQ3YO6CfYfsFLpNW0lO8=; b=UvbVoKbLOwhDO0LKufId4CUv10
- K763CMZkVFW0/4O8Tt2u4dOmqH64ZjInv3ISNijE4tiA1fFaNnI/P76sbg+J+njyEfz26jwsCijQo
- dPg9mJ5kn1yg2R7D/GLvx7dYqSnMEAkiWXOVR7Hi42egZ94TRhmqLYRjW1XKBt0eHjcFGBWH3PA4w
- rirKw4gvwG69XOvItVGHdmBrgrwW7CTsz2hQJUSWGcbSgQeSqIJRY3y2MdJFa+hQ86fuJzu4V1S08
- qvjBGNh5LEIWOnXwVUlSWhJ4G9cmryIQOea+xjJMnYbwX6kC9WCvJ2uT5G5hFPuv6gCqMzjoWhDOg
- HS4/HpGQ==;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=UyRVgi0sF2ngTDHFtL9RZotMSAn7l509mDDkAXRUuqw=; b=ZmnCi8ClzJSMeXrrpDuTph3ImR
+ 4TmjFbhpqtIcOxzKHDVMxeo7EUHZfxNID8p4OIt4ZCkmfPVR7cVyEvXd6ca5dEjTarDBpsUiTTuRX
+ KAFr+tnX4O62oSpUDgolFQBsGrww/In5mrY+nd/6T0nsDbieQFt2TxuJvJ7MY2FfXkwd2HZ9aMYwX
+ KphXRHIBinR6oxccCNChKzgQFQATQ7f9owfxWMT9Xw3hsSe5fro9IA4bv0OUIvV46oGdQO65uFEFY
+ 4eRV0yQDW1vx291gjFstseLnmsZsuPWh8EIGjSy7GU1AOjRdzzsCTOV1oj7Ij0foUoqCqg5E9M+ax
+ llE8ajjQ==;
 Received: from [90.241.98.187] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1st18S-000JAa-OQ; Tue, 24 Sep 2024 10:43:04 +0200
-Message-ID: <4898fa51-aac8-40ed-8d9d-9c019fc5add1@igalia.com>
-Date: Tue, 24 Sep 2024 09:43:03 +0100
+ id 1st2Jl-000KYE-MM; Tue, 24 Sep 2024 11:58:49 +0200
+Message-ID: <2ad66742-f572-4edc-957c-fcbd8c5a5917@igalia.com>
+Date: Tue, 24 Sep 2024 10:58:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/6] drm/amdgpu: delay the use of
- amdgpu_vm_set_task_info
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel@lists.freedesktop.org, tursulin@igalia.com,
- simona.vetter@ffwll.ch, robdclark@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20240920090920.1342694-1-pierre-eric.pelloux-prayer@amd.com>
- <20240920090920.1342694-4-pierre-eric.pelloux-prayer@amd.com>
- <121a41fe-6637-41ca-a21e-7bd01dc0f0bf@igalia.com>
- <ca494935-cf38-4bad-ab5c-2afdc9ce3d33@amd.com>
-Content-Language: en-GB
+Subject: Re: [PATCH v2] drm/sched: Further optimise drm_sched_entity_push_job
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <ca494935-cf38-4bad-ab5c-2afdc9ce3d33@amd.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <pstanner@redhat.com>
+References: <20240913160559.49054-9-tursulin@igalia.com>
+ <20240916173007.118-1-tursulin@igalia.com>
+ <478b066b-af6c-43a2-9e0e-a19344893bc0@gmail.com>
+ <dfec609d-bbf8-4b6e-ad26-84e869694acc@igalia.com>
+Content-Language: en-GB
+In-Reply-To: <dfec609d-bbf8-4b6e-ad26-84e869694acc@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 Sep 2024 13:08:08 +0000
@@ -68,62 +69,197 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 24/09/2024 09:23, Christian König wrote:
-> Am 23.09.24 um 12:25 schrieb Tvrtko Ursulin:
->>
->> On 20/09/2024 10:06, Pierre-Eric Pelloux-Prayer wrote:
->>> At this point the vm is locked so we safely modify it without risk of
->>> concurrent access.
->>
->> To which particular lock this is referring to and does this imply 
->> previous placement was unsafe?
+On 24/09/2024 10:45, Tvrtko Ursulin wrote:
 > 
-> We use the root PDs dma_resv object as VM lock to protect most field 
-> inside the VM structure, only a few are protected by an additional 
-> spinlock.
+> On 24/09/2024 09:20, Christian König wrote:
+>> Am 16.09.24 um 19:30 schrieb Tvrtko Ursulin:
+>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>
+>>> Having removed one re-lock cycle on the entity->lock in a patch titled
+>>> "drm/sched: Optimise drm_sched_entity_push_job", with only a tiny bit
+>>> larger refactoring we can do the same optimisation on the rq->lock.
+>>> (Currently both drm_sched_rq_add_entity() and
+>>> drm_sched_rq_update_fifo_locked() take and release the same lock.)
+>>>
+>>> To achieve this we make drm_sched_rq_update_fifo_locked() and
+>>> drm_sched_rq_add_entity() expect the rq->lock to be held.
+>>>
+>>> We also align drm_sched_rq_update_fifo_locked(),
+>>> drm_sched_rq_add_entity() and
+>>> drm_sched_rq_remove_fifo_locked() function signatures, by adding rq as a
+>>> parameter to the latter.
+>>>
+>>> v2:
+>>>   * Fix after rebase of the series.
+>>>   * Avoid naming incosistency between drm_sched_rq_add/remove. 
+>>> (Christian)
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
+>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>> Cc: Philipp Stanner <pstanner@redhat.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
 > 
-> And yes, previously it was possible that you got a mangled process/task 
-> name because no lock was protecting the task_info structure.
+> Thanks!
+> 
+> Are you okay to pull into drm-misc-next or we should do some more 
+> testing on this?
+> 
+> And/or should I resend the series once more in it's entirety so this v2 
+> is not a reply-to to the original?
 
-Got it, thanks Christian!
-
-In this case I only suggest to be more explicit in the commit message 
-and clearly say it is fixing an existing bug. Like it stands I wasn't 
-sure if it was that, or the movement was just enabling the changes which 
-come later in the series.
+I have to respin for the drm_sched_wakeup fix that landed.
 
 Regards,
 
 Tvrtko
 
->>> Signed-off-by: Pierre-Eric Pelloux-Prayer 
->>> <pierre-eric.pelloux-prayer@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 +++---
->>>   1 file changed, 3 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index 1e475eb01417..891128ecee6d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -309,9 +309,6 @@ static int amdgpu_cs_pass1(struct 
->>> amdgpu_cs_parser *p,
->>>           p->gang_leader->uf_addr = uf_offset;
->>>       kvfree(chunk_array);
->>>   -    /* Use this opportunity to fill in task info for the vm */
->>> -    amdgpu_vm_set_task_info(vm);
->>> -
->>>       return 0;
->>>     free_all_kdata:
->>> @@ -1180,6 +1177,9 @@ static int amdgpu_cs_vm_handling(struct 
->>> amdgpu_cs_parser *p)
->>>           job->vm_pd_addr = amdgpu_gmc_pd_addr(vm->root.bo);
->>>       }
->>>   +    /* Use this opportunity to fill in task info for the vm */
->>> +    amdgpu_vm_set_task_info(vm);
->>> +
->>>       if (adev->debug_vm) {
->>>           /* Invalidate all BOs to test for userspace bugs */
->>>           amdgpu_bo_list_for_each_entry(e, p->bo_list) {
 > 
+> Regards,
+> 
+> Tvrtko
+> 
+>>
+>>> ---
+>>>   drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
+>>>   drivers/gpu/drm/scheduler/sched_main.c   | 29 ++++++++++++------------
+>>>   include/drm/gpu_scheduler.h              |  3 ++-
+>>>   3 files changed, 26 insertions(+), 18 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
+>>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> index d982cebc6bee..8ace1f1ea66b 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>> @@ -515,9 +515,14 @@ struct drm_sched_job 
+>>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>>           next = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
+>>>           if (next) {
+>>> +            struct drm_sched_rq *rq;
+>>> +
+>>>               spin_lock(&entity->lock);
+>>> -            drm_sched_rq_update_fifo_locked(entity,
+>>> +            rq = entity->rq;
+>>> +            spin_lock(&rq->lock);
+>>> +            drm_sched_rq_update_fifo_locked(entity, rq,
+>>>                               next->submit_ts);
+>>> +            spin_unlock(&rq->lock);
+>>>               spin_unlock(&entity->lock);
+>>>           }
+>>>       }
+>>> @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct 
+>>> drm_sched_job *sched_job)
+>>>           sched = rq->sched;
+>>>           atomic_inc(sched->score);
+>>> +
+>>> +        spin_lock(&rq->lock);
+>>>           drm_sched_rq_add_entity(rq, entity);
+>>>           if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>> -            drm_sched_rq_update_fifo_locked(entity, submit_ts);
+>>> +            drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
+>>> +        spin_unlock(&rq->lock);
+>>>           spin_unlock(&entity->lock);
+>>>           drm_sched_wakeup(sched, entity);
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c 
+>>> b/drivers/gpu/drm/scheduler/sched_main.c
+>>> index 18a952f73ecb..5c83fb92bb89 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>> @@ -153,17 +153,18 @@ static __always_inline bool 
+>>> drm_sched_entity_compare_before(struct rb_node *a,
+>>>       return ktime_before(ent_a->oldest_job_waiting, 
+>>> ent_b->oldest_job_waiting);
+>>>   }
+>>> -static inline void drm_sched_rq_remove_fifo_locked(struct 
+>>> drm_sched_entity *entity)
+>>> +static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity 
+>>> *entity,
+>>> +                        struct drm_sched_rq *rq)
+>>>   {
+>>> -    struct drm_sched_rq *rq = entity->rq;
+>>> -
+>>>       if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+>>>           rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+>>>           RB_CLEAR_NODE(&entity->rb_tree_node);
+>>>       }
+>>>   }
+>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity 
+>>> *entity, ktime_t ts)
+>>> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>> +                     struct drm_sched_rq *rq,
+>>> +                     ktime_t ts)
+>>>   {
+>>>       /*
+>>>        * Both locks need to be grabbed, one to protect from 
+>>> entity->rq change
+>>> @@ -171,17 +172,14 @@ void drm_sched_rq_update_fifo_locked(struct 
+>>> drm_sched_entity *entity, ktime_t ts
+>>>        * other to update the rb tree structure.
+>>>        */
+>>>       lockdep_assert_held(&entity->lock);
+>>> +    lockdep_assert_held(&rq->lock);
+>>> -    spin_lock(&entity->rq->lock);
+>>> -
+>>> -    drm_sched_rq_remove_fifo_locked(entity);
+>>> +    drm_sched_rq_remove_fifo_locked(entity, rq);
+>>>       entity->oldest_job_waiting = ts;
+>>> -    rb_add_cached(&entity->rb_tree_node, &entity->rq->rb_tree_root,
+>>> +    rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
+>>>                 drm_sched_entity_compare_before);
+>>> -
+>>> -    spin_unlock(&entity->rq->lock);
+>>>   }
+>>>   /**
+>>> @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct 
+>>> drm_gpu_scheduler *sched,
+>>>   void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>>>                    struct drm_sched_entity *entity)
+>>>   {
+>>> +    lockdep_assert_held(&entity->lock);
+>>> +    lockdep_assert_held(&rq->lock);
+>>> +
+>>>       if (!list_empty(&entity->list))
+>>>           return;
+>>> -    spin_lock(&rq->lock);
+>>> -
+>>>       atomic_inc(rq->sched->score);
+>>>       list_add_tail(&entity->list, &rq->entities);
+>>> -
+>>> -    spin_unlock(&rq->lock);
+>>>   }
+>>>   /**
+>>> @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
+>>> *rq,
+>>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>>>                   struct drm_sched_entity *entity)
+>>>   {
+>>> +    lockdep_assert_held(&entity->lock);
+>>> +
+>>>       if (list_empty(&entity->list))
+>>>           return;
+>>> @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct 
+>>> drm_sched_rq *rq,
+>>>           rq->current_entity = NULL;
+>>>       if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>> -        drm_sched_rq_remove_fifo_locked(entity);
+>>> +        drm_sched_rq_remove_fifo_locked(entity, rq);
+>>>       spin_unlock(&rq->lock);
+>>>   }
+>>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>>> index 80198e6cf537..b21806d5a8eb 100644
+>>> --- a/include/drm/gpu_scheduler.h
+>>> +++ b/include/drm/gpu_scheduler.h
+>>> @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq 
+>>> *rq,
+>>>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>>>                   struct drm_sched_entity *entity);
+>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity 
+>>> *entity, ktime_t ts);
+>>> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>> +                     struct drm_sched_rq *rq, ktime_t ts);
+>>>   int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>>                 enum drm_sched_priority priority,
+>>
