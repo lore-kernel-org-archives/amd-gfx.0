@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45812C369A2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E74A5C369A4
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 07:14:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6C3E10E7A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7D7B10E7A7;
 	Wed, 25 Sep 2024 07:14:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l4kqvdIv";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="ZytR1qLv";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E23F510E1D3;
- Tue, 24 Sep 2024 14:54:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hqzfFKfOE83r0mhtOzr5x9iCJ5vFyFw8LoLOO1OI6j0=; b=l4kqvdIv4hP1vkGEi3d3HQfJvy
- 9a6NuxdX38Gnql9YzaIkNrgrnXp6PIIfwXCm5RAI8Pm/e7GWX4ss6XYhI7PsTTZxsFAZxefHiMa3q
- 6RgGVmQM4gpfiBhkofXn4kcSfGASRK/tuRo6m1S5akL7ufCCubK7A51pygdsy3dKZEI2rZUvmDShR
- AuVvm2lVT505oQWDtGeoLstZ/tierNeLM/Hu5TWvZRjlYfgWsno5Jl0HCalONG/lTq6gP2nZaL3WE
- QOoTXE11XAjIj/DF4dqWHRSn0MSZWrMHboRuy5TWLonu3HDC357o004WMBGx+xICYvi7hVzik9qPZ
- CrT3XlbA==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1st6w8-000Vby-S3; Tue, 24 Sep 2024 16:54:44 +0200
-Message-ID: <1a58293a-3406-4424-9617-0572e7b65e83@igalia.com>
-Date: Tue, 24 Sep 2024 15:54:43 +0100
+X-Greylist: delayed 2568 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Sep 2024 18:21:37 UTC
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B267C10E03F;
+ Tue, 24 Sep 2024 18:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=M9TUQDMRJDjlgh3owcxaD9H83PPUtYCIzP7lrrP0PJc=; b=ZytR1qLvSJw4TPdG
+ 3MEIVJSG6JNhRevjCYJ13W9cTHmyMiyixa3mti3+ChAs3IGIiyWFINWxzmre9X7zVvnyYg34COgiF
+ +bgQdYRLQV8H88GSh4IPkkydT/pK9gbQaCrlx3tbOwuYwwQ6+zt5X9NFHjUDi7/a/FCn0iH5Fg0wZ
+ 9jS9TPrffU18vdu5mggSEeMZxFeargFNx1xBYS7fV6GHMYV82xm2Ey3dVGvodSvl4vXcPAgjYEYX+
+ dqT0N3+GzREJUhtr3eg0NH67Bu14bnBcIOQgexeSc9uhOu6K+u5v0xrFqoXLp02F5bEGeA8nIIOYZ
+ Qq7+loQzyQgRZPw0EA==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1st9Ur-0072Lb-2d;
+ Tue, 24 Sep 2024 17:38:45 +0000
+Date: Tue, 24 Sep 2024 17:38:45 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] AMDGPU deadcode
+Message-ID: <ZvL5Jbw9RNCqjBS4@gallifrey>
+References: <20240923012446.4965-1-linux@treblig.org>
+ <CADnq5_PxBfpG6C80Wcm50wLzz=4eEKsscuZXiQ=ZsG8=gULhRA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] drm/sched: Always wake up correct scheduler in
- drm_sched_entity_push_job
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Philipp Stanner <pstanner@redhat.com>, stable@vger.kernel.org
-References: <20240924101914.2713-1-tursulin@igalia.com>
- <20240924101914.2713-3-tursulin@igalia.com>
- <4dcce6db-cdb1-4378-8fea-8540ec7539ef@amd.com>
- <1b56854b-5357-4efa-b31b-950eb85ee277@igalia.com>
- <2df3ce7d-9f3e-4530-88ad-d7376f1336d2@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <2df3ce7d-9f3e-4530-88ad-d7376f1336d2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_PxBfpG6C80Wcm50wLzz=4eEKsscuZXiQ=ZsG8=gULhRA@mail.gmail.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
+X-Uptime: 17:35:20 up 139 days,  4:49,  1 user,  load average: 0.01, 0.00, 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Wed, 25 Sep 2024 07:14:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,118 +63,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+* Alex Deucher (alexdeucher@gmail.com) wrote:
+> On Sun, Sep 22, 2024 at 9:43 PM <linux@treblig.org> wrote:
+> >
+> > From: "Dr. David Alan Gilbert" <linux@treblig.org>
+> >
+> > Hi,
+> >   This is a bunch of deadcode removal in amdgpu;
+> > some of the functions are ones which were previously
+> > used but haven't been for a while, others are functions
+> > that were added a few years ago and haven't ever been used.
+> >
+> >   There are some others that I've not removed, which have
+> > been added in the last few years but not been used,
+> > I was worried maybe there are patches in someones tree
+> > about to use them (e.g. amdgpu_lsdma_copy_mem, amdgpu_mes_reg_wait,
+> > amdgpu_ras_unbind_aca, amdgpu_seq64_alloc, and
+> > amdgpu_xcp_prepare_resume) - I'd be happy to take those as
+> > well.
 
-On 24/09/2024 15:20, Christian König wrote:
-> Am 24.09.24 um 16:12 schrieb Tvrtko Ursulin:
->>
->> On 24/09/2024 14:55, Christian König wrote:
->>> I've pushed the first to drm-misc-next, but that one here fails to 
->>> apply cleanly.
->>
->> This appears due 440d52b370b0 ("drm/sched: Fix dynamic job-flow 
->> control race") in drm-misc-fixes.
->>
->> In theory 1-3 from my series are fixes. Should they also go to 
->> drm-misc-fixes? I am not too familiar with the drm-misc flow.
+Hi Alex,
+  Thanks for taking the series, and the reply.
+
+> There are patches in flight that make use of at least some of these.
+> For example, the seq64 functions are used by the user queues patches
+> which are being reviewed now.  Feel free to send out patches though if
+> you are inclined.  If someone has plans to use something, they can
+> bring that up in the patch review.
+
+OK, I've made myself a note and will swing back at some point.
+
+> >   One other thing I wasn't sure of; I removed
+> > amdgpu_device_ip_is_idle
+> > which has been unused since about 2016, but does that make
+> > the 'is_idle' methods unused or is there something else that calls
+> > them?
 > 
-> Ah shit, in that case you should have spitted the patches up into fixes 
-> and next. Going to push the first 3 to fixes.
+> They've been used on and off in proposed patches over the years.  Some
+> of the IP specific code may call the IP specific is idle functions
+> directly rather than using the callbacks.
 
-Sorry my drm-intel ways of thinking (cherry picked fixes) are hard to 
-get rid of. Hence the series was structured as 1-3 fixes, 4-8 refactors etc.
+Do you think the 'is_idle' member itself should go?
 
-Now appears it is too late to pull out the first one from drm-misc-next.
->> Or the series now needs to wait for some backmerge?
+Dave
+
+> Alex
 > 
-> Are the remaining 3 patches independent? If not then we need to wait for 
-> a backmerge.
-
-These are independent:
-
-Fixes:
-
-  1/8 "drm/sched: Add locking to drm_sched_entity_modify_sched"
-
-Not fixes:
-
-  5/8 "drm/sched: Stop setting current entity in FIFO mode"
-  6/8 "drm/sched: Re-order struct drm_sched_rq members for clarity"
-
-While the rest touch at least some common areas.
-
-2/8 and 3/8 are also fixes.
-
-4/8, 7/8 and 8/8 not fixes but depend on 2/8 and 3/8.
-
-Regards,
-
-Tvrtko
-
->>> Am 24.09.24 um 12:19 schrieb Tvrtko Ursulin:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>
->>>> Since drm_sched_entity_modify_sched() can modify the entities run 
->>>> queue,
->>>> lets make sure to only dereference the pointer once so both adding and
->>>> waking up are guaranteed to be consistent.
->>>>
->>>> Alternative of moving the spin_unlock to after the wake up would for 
->>>> now
->>>> be more problematic since the same lock is taken inside
->>>> drm_sched_rq_update_fifo().
->>>>
->>>> v2:
->>>>   * Improve commit message. (Philipp)
->>>>   * Cache the scheduler pointer directly. (Christian)
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Fixes: b37aced31eb0 ("drm/scheduler: implement a function to modify 
->>>> sched list")
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>> Cc: Luben Tuikov <ltuikov89@gmail.com>
->>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>> Cc: David Airlie <airlied@gmail.com>
->>>> Cc: Daniel Vetter <daniel@ffwll.ch>
->>>> Cc: Philipp Stanner <pstanner@redhat.com>
->>>> Cc: dri-devel@lists.freedesktop.org
->>>> Cc: <stable@vger.kernel.org> # v5.7+
->>>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/scheduler/sched_entity.c | 10 ++++++++--
->>>>   1 file changed, 8 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
->>>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> index 0e002c17fcb6..a75eede8bf8d 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> @@ -599,6 +599,9 @@ void drm_sched_entity_push_job(struct 
->>>> drm_sched_job *sched_job)
->>>>       /* first job wakes up scheduler */
->>>>       if (first) {
->>>> +        struct drm_gpu_scheduler *sched;
->>>> +        struct drm_sched_rq *rq;
->>>> +
->>>>           /* Add the entity to the run queue */
->>>>           spin_lock(&entity->rq_lock);
->>>>           if (entity->stopped) {
->>>> @@ -608,13 +611,16 @@ void drm_sched_entity_push_job(struct 
->>>> drm_sched_job *sched_job)
->>>>               return;
->>>>           }
->>>> -        drm_sched_rq_add_entity(entity->rq, entity);
->>>> +        rq = entity->rq;
->>>> +        sched = rq->sched;
->>>> +
->>>> +        drm_sched_rq_add_entity(rq, entity);
->>>>           spin_unlock(&entity->rq_lock);
->>>>           if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>>>               drm_sched_rq_update_fifo(entity, submit_ts);
->>>> -        drm_sched_wakeup(entity->rq->sched);
->>>> +        drm_sched_wakeup(sched);
->>>>       }
->>>>   }
->>>>   EXPORT_SYMBOL(drm_sched_entity_push_job);
->>>
-> 
+> >
+> > (Sent from this kernel booted on my RX550 GPU)
+> >
+> > Dave
+> >
+> > Dr. David Alan Gilbert (5):
+> >   drm/amdgpu: Remove unused amdgpu_device_ip_is_idle
+> >   drm/amdgpu: Remove unused amdgpu_atpx functions
+> >   drm/amdgpu: Remove unused amdgpu_gmc_vram_cpu_pa
+> >   drm/amdgpu: Remove unused amdgpu_gfx_bit_to_me_queue
+> >   drm/amdgpu: Remove unused amdgpu_i2c functions
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 10 --------
+> >  .../gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c  | 12 ---------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 24 ------------------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 10 --------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  2 --
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 12 ---------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |  1 -
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       | 25 -------------------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.h       |  4 ---
+> >  9 files changed, 100 deletions(-)
+> >
+> > --
+> > 2.46.1
+> >
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
