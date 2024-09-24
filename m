@@ -4,75 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6F3CF9C6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 16:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C6F0CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 16:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB66010E719;
-	Tue, 24 Sep 2024 16:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBFF10E2B8;
+	Tue, 24 Sep 2024 16:17:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIcVYpXm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KW8zDAZP";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7229210E719;
- Tue, 24 Sep 2024 16:09:00 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-718ebb01fd2so1086278b3a.2; 
- Tue, 24 Sep 2024 09:09:00 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74DB510E2B8;
+ Tue, 24 Sep 2024 16:17:35 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2dee7861015so305474a91.2; 
+ Tue, 24 Sep 2024 09:17:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727194140; x=1727798940; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727194655; x=1727799455; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wWsuC1k58rgBxgEKQ95dKaFfehaSkHrV3qM3cnflsPg=;
- b=UIcVYpXmFcpXBJQfIArW3VirlZPmPZEL+C+Etoh4w9rLTpU0hkqwtXZFHbs6iIwkoq
- v1q/2t6p5YaMWErFxCaaB8PMP/N9BS14syBlx1of69E0/TkV/sc1XXNvSn1moZW1UCX4
- ZraZfrPiD/FVihtjN1DcBIYdGLW5HK32ZRfFQr/u34NnjfNlSCcXlUS/tBqEWNVts1lF
- +gAiCO3PGabbsv7lFsi20LmJaxWSki0zV9UPf8k7hcEqVZTgLAEAWwLyilXPmVz+a5Ox
- ILQYul9c+BzMw1ALdqesjj7tXZdbxD6F5inxUONRNqyQQcxCqd6FPZJ0jf9EQCIackJr
- ZITg==
+ bh=kssHnqH80Xc0+QcoY5MDsbuxwut+7UFnPYXFFQ2LW3w=;
+ b=KW8zDAZPj1JHicqMyDV0XFwFxM5LVgQhKXRw/YyrpPLEKrh9YB8rI4j4ZWmQTYhnkf
+ hKTW6hhJGp6653Fx/FVpN2dWL8lLMUegeV6aAzunOLtytfRUvfbxfaokCPMaP0fpiOdd
+ mxM2Yc8e2vtTfMUKSMhGATn88VA3ib4uCH4kq5u4MH4Pecik0v+TivYksMQnpcD8TRFQ
+ MUf3+QE/DIgySu42ePkWSLDVb2pzXru1BFlKAwcQSn7REZGKcXevwYUG4xYtwwsd5v0X
+ fUpN1b1gRKgWmYFHqzqYbFTdVruJYe5ssD7QeOJ4VOep5t1zBXe7RXocvB+SAUmcrwOR
+ Bzxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727194140; x=1727798940;
+ d=1e100.net; s=20230601; t=1727194655; x=1727799455;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wWsuC1k58rgBxgEKQ95dKaFfehaSkHrV3qM3cnflsPg=;
- b=r/hNwWebXRb+D/Culob+0vxOOVFOqJcSyaDyW10Q3CNvkrqIQfHhBuepWPm/eJyXAB
- GKQK3yja8yh7Pe047PJR7vsbUq1Gct0clqucdkf2Pv9q4JDsiY/ZFllN676Hz878Cfkt
- gYRIjilYJ6bTAbtYPyKMMwBbJyWLe8p8NAJQPFPlTM1hLCz4//2yIipPClYGUzuk9bgu
- +S9EHczvRX/1b7Di1bOPJFjyNpmo1JNTJXZlgiQjcLyXJ3dDZTfQyXx4POBeee18B3tm
- 8gXTeRRKgz/A3ao3UqoQFOwGmctHEArnXbFJtcqRmx0eG02t+IPwa2tzct0Uio8cnW7S
- JD5g==
+ bh=kssHnqH80Xc0+QcoY5MDsbuxwut+7UFnPYXFFQ2LW3w=;
+ b=BH8U8DfVEaOvJYC3a0hLT8VtAnRRMhadr2XU2rXLN+VwFFYybEl62oIAhsz1QEfkvt
+ Pk0MDDTp81QF4wesbmK7cLNs51S6zrkqtwi3HBJCngYGDWN4yA2J0lUVjJ1qFCrEmSu1
+ 9vBrxOIPkA9K0yEYwAYTMXgMiAZ1CSGv9JAdWVw4D9Iuq3Eqr/LMONzQJmZFLHGzIUKb
+ 6MKT++h/nGyHiYyA+LVD7iO2YTrpHq5fKaiWpIFJ2nh72rEztUbhy2cur7DC+jMf/RWU
+ WYlxw5uJwqZXhp92ziCsYjO0VLqlpcBC8elPNcHxeba2VP6Qh4KaRUkCF7dnyTMIvPtJ
+ UGNg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYijz/TKkvFpAgJfbCkyMhr5fKH43szJk61L9PXb1Afl8hJuqdHxO5H7HxSjb/DCYWNDENfxQSUxzt@lists.freedesktop.org,
- AJvYcCVxQ+0N5rwnT7tRS9joQJFzxhOIfIRMZUrhj1q6yA2YlIff94NhaA7CFPQW4A/VBO80sIgMxhAH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxjm1XSZZVBGRpw0VUMlUdSRBA7rpS8bGf1qB0GSJ6aj4aF8pCq
- EPJJfpZaNB/0DpQyTUJOyjB0txR2VtbV+9BV4Dh65uoxupqlqGya9OTBA2FruFuPg+8nKxfikA5
- 6t7A3StCTDKUgrXL61RR+xyxRvUY=
-X-Google-Smtp-Source: AGHT+IHOExPAGZCXFGmdvFYllAvrAWe+T33mgW0ydNW0IhFfuAjbsci12Zvgz4GCqe7jF+3muMjRPm97OHwCLHCD8KY=
-X-Received: by 2002:a05:6a00:1889:b0:714:2051:89ea with SMTP id
- d2e1a72fcca58-71afb5c86bcmr2053630b3a.1.1727194139706; Tue, 24 Sep 2024
- 09:08:59 -0700 (PDT)
+ AJvYcCUsY74Ktg3h3CZkX7tma9jZiaWO3Ryh/+sv6eVtGEkjTCrUXIeklgmVVqOP/ppqQhU8hiSsg7/j@lists.freedesktop.org,
+ AJvYcCXOwU4TBoF6rLevv24BjGIQNZyHqS3KwpPOKNtVqCwSPFL+R233Eklc4QP6VnU7O9pbgqDOVjMGnw3Q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0lho36UmCIaOwZoxcsFgg9IZS2N2210XPWaj0BeFdW0neaqiD
+ 9mvNaVQiQDSjOO1ByQSpgjaGGFvQ6KDIkrD2XJjZaw9l/nMjNpwVCfhy9bUuAk7S26UM2BzKpkS
+ MiXqMh+/kS+5mauw9khWz0yaJJsc=
+X-Google-Smtp-Source: AGHT+IEjr/ZA9arb2W1VbQpNXq7KzjZDWz97ypC8TzPzWYevu/QK1ETv4A5nORi+wHtGJbAGUWsP406zUHHotaNpYEo=
+X-Received: by 2002:a17:902:ec8b:b0:205:8820:fe1c with SMTP id
+ d9443c01a7336-208d83dff51mr99001215ad.5.1727194654872; Tue, 24 Sep 2024
+ 09:17:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <F25A139789E87C3E+20240920022755.1162495-1-wangyuli@uniontech.com>
- <ade271e8-2f6e-494b-979a-e53942b6b9a7@amd.com>
-In-Reply-To: <ade271e8-2f6e-494b-979a-e53942b6b9a7@amd.com>
+References: <20240920214342.14792-1-v.shevtsov@maxima.ru>
+In-Reply-To: <20240920214342.14792-1-v.shevtsov@maxima.ru>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Sep 2024 12:08:47 -0400
-Message-ID: <CADnq5_Pvq=W69KM08O4TOhG1fcQTO-KEE31KVqfsuOwJL9vv7w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix typo "acccess" and improve the comment
- style here
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: WangYuli <wangyuli@uniontech.com>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com, 
- yifan1.zhang@amd.com, vitaly.prosyak@amd.com, Tim.Huang@amd.com, 
- Prike.Liang@amd.com, jesse.zhang@amd.com, lijo.lazar@amd.com, 
- Hawking.Zhang@amd.com, kevinyang.wang@amd.com, srinivasan.shanmugam@amd.com, 
- victorchengchi.lu@amd.com, Jiadong.Zhu@amd.com, tao.zhou1@amd.com, 
+Date: Tue, 24 Sep 2024 12:17:23 -0400
+Message-ID: <CADnq5_OQShrB_RbYVVfFfQjTYZ=DfooH6B-BeMZ3DZt3OPxgMg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix typos in several function pointer
+ checks
+To: Vitaliy Shevtsov <v.shevtsov@maxima.ru>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <Charlene.Liu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, 
+ Dillon Varone <dillon.varone@amd.com>, yi-lchen <yi-lchen@amd.com>,
+ Alex Hung <alex.hung@amd.com>, 
+ Chris Park <chris.park@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, 
+ Tom Chung <chiahsuan.chung@amd.com>, George Shen <george.shen@amd.com>, 
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Samson Tam <samson.tam@amd.com>, 
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, le.ma@amd.com, Wenhui.Sheng@amd.com, 
- Thomas Zimmermann <tzimmermann@suse.de>
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,76 +95,74 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Fri, Sep 20, 2024 at 2:29=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Sat, Sep 21, 2024 at 3:48=E2=80=AFAM Vitaliy Shevtsov <v.shevtsov@maxima=
+.ru> wrote:
 >
-> Am 20.09.24 um 04:27 schrieb WangYuli:
-> > There are some spelling mistakes of 'acccess' in comments which
-> > should be instead of 'access'.
-> >
-> > And the comment style should be like this:
-> >   /*
-> >    * Text
-> >    * Text
-> >    */
-> >
-> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Link: https://lore.kernel.org/all/f75fbe30-528e-404f-97e4-854d27d7a401@=
-amd.com/
-> > Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > Link: https://lore.kernel.org/all/0c768bf6-bc19-43de-a30b-ff5e3ddfd0b3@=
-suse.de/
-> > Signed-off-by: WangYuli <wangyuli@uniontech.com>
+> Fix several copypaste mistakes in *_disable_link_output() functions where
+> an improper function pointer is checked before dereference.
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Found by Linux Verification Center (linuxtesting.org) with Svace.
 >
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 6 ++++--
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 6 ++++--
-> >   2 files changed, 8 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v11_0.c
-> > index d3e8be82a172..33fd2da49a2a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > @@ -1893,8 +1893,10 @@ static void gfx_v11_0_init_compute_vmid(struct a=
-mdgpu_device *adev)
-> >       soc21_grbm_select(adev, 0, 0, 0, 0);
-> >       mutex_unlock(&adev->srbm_mutex);
-> >
-> > -     /* Initialize all compute VMIDs to have no GDS, GWS, or OA
-> > -        acccess. These should be enabled by FW for target VMIDs. */
-> > +     /*
-> > +      * Initialize all compute VMIDs to have no GDS, GWS, or OA
-> > +      * access. These should be enabled by FW for target VMIDs.
-> > +      */
-> >       for (i =3D adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; =
-i++) {
-> >               WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_BASE, 2 * i, 0);
-> >               WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_SIZE, 2 * i, 0);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/=
-amd/amdgpu/gfx_v9_4_3.c
-> > index 408e5600bb61..57b55b6d797d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> > @@ -1247,8 +1247,10 @@ static void gfx_v9_4_3_xcc_init_compute_vmid(str=
-uct amdgpu_device *adev,
-> >       soc15_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
-> >       mutex_unlock(&adev->srbm_mutex);
-> >
-> > -     /* Initialize all compute VMIDs to have no GDS, GWS, or OA
-> > -        acccess. These should be enabled by FW for target VMIDs. */
-> > +     /*
-> > +      * Initialize all compute VMIDs to have no GDS, GWS, or OA
-> > +      * access. These should be enabled by FW for target VMIDs.
-> > +      */
-> >       for (i =3D adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; =
-i++) {
-> >               WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID=
-0_BASE, 2 * i, 0);
-> >               WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID=
-0_SIZE, 2 * i, 0);
+> Signed-off-by: Vitaliy Shevtsov <v.shevtsov@maxima.ru>
+> ---
+>  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 4 ++--
+>  3 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
+drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> index d52ce58c6a98..c2364cb66d0b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> @@ -3258,7 +3258,7 @@ void dce110_disable_link_output(struct dc_link *lin=
+k,
+>          * from enable/disable link output and only call edp panel contro=
+l
+>          * in enable_link_dp and disable_link_dp once.
+>          */
+> -       if (dmcu !=3D NULL && dmcu->funcs->lock_phy)
+> +       if (dmcu !=3D NULL && dmcu->funcs->unlock_phy)
+>                 dmcu->funcs->unlock_phy(dmcu);
+>         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
+R_DISABLE_LINK_PHY);
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/=
+drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+> index 4e93eeedfc1b..5b6cf2a8e38d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+> @@ -478,7 +478,7 @@ void dcn314_disable_link_output(struct dc_link *link,
+>          * from enable/disable link output and only call edp panel contro=
+l
+>          * in enable_link_dp and disable_link_dp once.
+>          */
+> -       if (dmcu !=3D NULL && dmcu->funcs->lock_phy)
+> +       if (dmcu !=3D NULL && dmcu->funcs->unlock_phy)
+>                 dmcu->funcs->unlock_phy(dmcu);
+>         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
+R_DISABLE_LINK_PHY);
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/dr=
+ivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> index a36e11606f90..84153682af1a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> @@ -1384,10 +1384,10 @@ void dcn32_disable_link_output(struct dc_link *li=
+nk,
+>         link->phy_state.symclk_state =3D SYMCLK_OFF_TX_OFF;
+>
+>         if (signal =3D=3D SIGNAL_TYPE_EDP &&
+> -                       link->dc->hwss.edp_backlight_control &&
+> +                       link->dc->hwss.edp_power_control &&
+>                         !link->skip_implict_edp_power_control)
+>                 link->dc->hwss.edp_power_control(link, false);
+> -       else if (dmcu !=3D NULL && dmcu->funcs->lock_phy)
+> +       else if (dmcu !=3D NULL && dmcu->funcs->unlock_phy)
+>                 dmcu->funcs->unlock_phy(dmcu);
+>
+>         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
+R_DISABLE_LINK_PHY);
+> --
+> 2.46.1
 >
