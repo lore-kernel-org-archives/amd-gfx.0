@@ -4,155 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA02CF9C6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 14:20:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04019CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 14:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A249B10E6EF;
-	Tue, 24 Sep 2024 14:20:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD95310E8C4;
+	Tue, 24 Sep 2024 14:22:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XSC5iq9x";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FjoEQ/DC";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2063.outbound.protection.outlook.com [40.107.92.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5130210E6EF;
- Tue, 24 Sep 2024 14:20:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HHcl5cKtwuYaZ1T1KGtKfTX/fNqRMUpBbx9XtkIk2SUm9Aqec9TtmixzluSwJwa3845rl7XADhgkF0DgkHtFyhTgxAswB3eCzTMWN1KQN2sZ/sVs6DnomJeCDB5bE0KvaPjL6gsN0DKshtLNzvvKo4SRoMa6cge72CUTXarjUFoifQoH60g38YHZK0gHHYcA16MKzBsXygCrvOdyo2XZ2UKYpcz/I7MtjeXEZZ6VgVQyCANcCyj+5bF8/Xfsg75g++MIp9dcfYnR11GTKofxtg7jCwSrY6VI9ToPf4F5nqdEk8qpEzJlmMbWxtRYs4KCS7Xwfg0ElvwHbaVn9Qwwrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n9lG8Sk1PJwY1ph/st5eLMFT2biorMZHgVrDr33w3kk=;
- b=i0Ka9nTws1a/kkixTy1vl7RR1UtNX4D6sJjUZ7DfHphFWFAkXJ74fdBsYiqiNw/jFKTergt6xMzDCiGcpoZyMcDTa+fBodOMH6x4VJeDl02EShjHXIi/ZQXTmida3tPKcrENnG9JEQ7P+alEeqj0ucyFvNXFramuCZy/cW2tiqICOZbP51WcbcObO5Qcs3hCWmeakVNNjhQWCi5fw5FS/HeUtnzR+zCTu29Lwta7sbF0VhuUaAtV2BHEFAbP0nLHwwSFNb7qAPMMpTcB/cNInlQw4xwT+ZKNmZxQU40cFIwdxwt9Hfr3PHZZrvF7z8ZYCVfR7nBNfj2GoNpJQ9Q39A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n9lG8Sk1PJwY1ph/st5eLMFT2biorMZHgVrDr33w3kk=;
- b=XSC5iq9x1XL06TZrvO7y6ykuskTgxk1YynT30BQETm7t36lg22RZ+ig4j2o7NQxAk63eNimQ6iIcBLpwpgT/mpGekufgbZGAOQFmIa/C0wUQgkCvtDVaXKzr9//g+85rd47x58obaAyDVSBGCF3lvtsmfwreYaGq8rE7j6dpPnk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB8168.namprd12.prod.outlook.com (2603:10b6:a03:4e7::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Tue, 24 Sep
- 2024 14:20:51 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7982.012; Tue, 24 Sep 2024
- 14:20:51 +0000
-Message-ID: <2df3ce7d-9f3e-4530-88ad-d7376f1336d2@amd.com>
-Date: Tue, 24 Sep 2024 16:20:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] drm/sched: Always wake up correct scheduler in
- drm_sched_entity_push_job
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Philipp Stanner <pstanner@redhat.com>, stable@vger.kernel.org
-References: <20240924101914.2713-1-tursulin@igalia.com>
- <20240924101914.2713-3-tursulin@igalia.com>
- <4dcce6db-cdb1-4378-8fea-8540ec7539ef@amd.com>
- <1b56854b-5357-4efa-b31b-950eb85ee277@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <1b56854b-5357-4efa-b31b-950eb85ee277@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0101.namprd03.prod.outlook.com
- (2603:10b6:208:32a::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1C410E8C2;
+ Tue, 24 Sep 2024 14:22:31 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-7db3e962c2aso453569a12.0; 
+ Tue, 24 Sep 2024 07:22:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727187751; x=1727792551; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7onTEOatE2DhoGMOCkJ+plPI3T3PYBmmSUdgwoaXgLk=;
+ b=FjoEQ/DC/UABFFiOi0kNc3Lqxu4bIRPdZefaT/kGDOh0waSNiS6x26ulGZfu9HrCVB
+ UeWI8uD0J764LfLLqHjtQcsQ3q9Xiz2/vtzOtxavt4JPEjoM3QSDOH89Eipza5PQ8Jw6
+ fyIjLPdcEXpP29IG620JXSS5iGoYiw0c0xA+Qay1oLmsCppcSWRfC0+8ztU+2TDGy3ZW
+ SQFDwGC719lFqYrBar//to2OV/vi82d2K56bmYnLK9T9O9aOYT4iyAFxLKRi48v3zUPm
+ 0nxmhJ0AnpTKe4YPClEzEN1BslV6syGeZUw5I+Ze7c+7L/TtQXPEregG1YUeOX1Myy6P
+ N7+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727187751; x=1727792551;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7onTEOatE2DhoGMOCkJ+plPI3T3PYBmmSUdgwoaXgLk=;
+ b=fzfZO6ThwpLkTGg4P1klF1m6Gkc/D9U2m3rXECPoPeWKX+SWwR4/0Kjins8ViC0a9y
+ BbZtQSyurgw1A1K4q9EqGWaJ+dX3ihb+HKuvzjmONLVwzJhuwXy3LdLDPruS2HqPQBLh
+ vZ0J6WwD0Xehcnfl2Tx3pBAvEEjjHzfkpHpzeowstwcqvrKIGcSGAc9KdGo+YPaRdgkT
+ 0J0aBY0RVmtfRvl6nn0Zhrz0C/36cuVf/JCZXxxivUqH7Yb2KIReQYnQX+jOsc7wjlpx
+ bvrweN6iT7N1iNMXZ8zVWwS+uwectHoVH6ER3YnXihiRpTqjoMcE9/KRmWyIXUsG9+ZY
+ FbTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWrFLjoBS2idbcgNUZaiLW4GaPkiLrRQKISrtHk2pHb+fm+650iki0v8hBf0cHvxwMIvnLXp3iyeSR5@lists.freedesktop.org,
+ AJvYcCWryNyOuAJ6Fbmzq3XW8ZQcOIs24QuMCowxOIlpp1GK5y/Fd6vTlA1wjPi55CX+YdIv3n8E2Soq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyk2kY2ccme5ern9PfSsgU6m6Uyt0M1yE/w4nDNfgG5nIb0x93Z
+ E7Ms49ggLeHaAYhTI4Jlc7mYOoLbEfDiOk+DWsjOUGitmZk01FFrW4su3mhnh/uGkH2+0gyRYfa
+ lGtyNUiSnfoHXOcfl6Tp+vzZqqZEIh3Iy
+X-Google-Smtp-Source: AGHT+IGiZrSClTjeDYK99K6RV8VI71KCcf0SL/reJlcJeKBFginuCdrBgo08tJeBlkA0Ztfbs8IzRAz9K49VhrdKqQs=
+X-Received: by 2002:a17:902:f681:b0:205:76f3:fc22 with SMTP id
+ d9443c01a7336-20aefd5b2cemr16238685ad.3.1727187750669; Tue, 24 Sep 2024
+ 07:22:30 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8168:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30fdc4ab-f4c9-4a3e-da40-08dcdca417d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dEx2YW9pS0lBL2lPbUhJUDBPMWMvT3Y2eGJKd1E5NitnR1l2Tm1ZVVJFOG9w?=
- =?utf-8?B?VjJGRlVtU1VmOE1yNXJpSTdjcTRvNzNORFpveTA0d2JqdkFlZkppSDdJb204?=
- =?utf-8?B?LzV2Q1pLcnZ3TkM1K05UYWU1SEFRaHdZUHk0ZDliSnFYZlhFU1IzTWo2NGxm?=
- =?utf-8?B?MmJGMFRZSlMyc3lTR0FVTndBRytlVkRGU3Era3FDYU9kWWZVeWxXeTh5cVAv?=
- =?utf-8?B?ZHJHSkJLTlR5QURNcEc4MWRVT2ZSZHhMcDErUkhCRnV0OTJtM2swM3NqMnhL?=
- =?utf-8?B?Nms1VXVlcC9Rejc5ZzZJY0NDWXg5M3NPaFUyOW03aHVpTlY3UEFxRnJsSHg3?=
- =?utf-8?B?clpQaHo4bzd4OS9vZ3JDVU82eVh3elk4MDFTYzcxYWI2Tm5RT0llOVNid0RP?=
- =?utf-8?B?SVQ2UDBqT2hpVFVRVEhSU3B2UklXVzg4WWp6ZDBaZ2NYcTdHVFF1R2RhWXkz?=
- =?utf-8?B?bm1jT2lsZVNPbzd4SVdXV0lvMTI5L0JLbmxKcUFwNTYrakZ6RTlHMVhXQ0R6?=
- =?utf-8?B?MUpZSmxDbC9YTjJvVlJsODZrNHd1QnRFYjlrbmdkTzZRNmhKdW5NWFlVY0Nr?=
- =?utf-8?B?dVFoVWNWUGYyR3Q3V0dZa2F0VXo0bzhPQVc4TnkxMjlZT2YrWjZOLzhZS1Vi?=
- =?utf-8?B?WUptZnk1UGZ5ZWtKbjdoc1l6M3JsMEU5YmliakthN2o1MGNJRUNQWmF1eWhO?=
- =?utf-8?B?UmVzaEFNYkNzVFJ3SWs2MjVSQnRvS3QvY3hlOXBTbEVvdGlVbWwxTlE0UmtC?=
- =?utf-8?B?WjVMMkUwdlF6SU8wUWRCeTFGdEpTeXhKQ081RzRoOXpLelptTGVrQisvTEpX?=
- =?utf-8?B?cnlMaDBweTBHaHdjQUkwN0FnYTArZUJBYW9tT1lqRE9EWjFLOU1hODRVS0Rw?=
- =?utf-8?B?V3NSaEU0dTNZN3liQ1JKeUF6MG5yT2pPbEZhK3ltYUthdHByOElvWTRwM1Y3?=
- =?utf-8?B?VEhaNmVOSS83Z3FkOGNlYnFreTRaSytkdUVvRlErMWVoVzZNRjVKSVJTWmR2?=
- =?utf-8?B?Z2VUaENtYXg0djdVZDl6TFNETFUzRmZjRG1qaThoZlgxRUxOQUpnMjFEYUJX?=
- =?utf-8?B?VktmWTBUcVZCTEpTZUloTjlKQ1lDWGM1L1J3SWFPUjAydlRHclRQMndOMGNY?=
- =?utf-8?B?ckdpcGZ4MHFYSzgrSGwyUWZsbVNDOGlraE1lWXRlLzZVV2V5UUJ2RkNjQ1Ba?=
- =?utf-8?B?QXVndGdFY0V5NXh1cTE3SkxJOHZ0d2hkT2VJL1BrSEx6SDUyVzRXZllONjlj?=
- =?utf-8?B?NmdEaXhscmwvdms1ekJMUkRnQkN0aU9jOFgxcGhtaEdKaGRQYTZEY20vTUtM?=
- =?utf-8?B?SXF2dTNUcXN2QnkySFhEWERIWkR0WHNsOENxb2dHMHNleGlEV3duZnIyVFBt?=
- =?utf-8?B?MXZqdTNZYnZtclJyb2M4RTlUbERQWURWaStlaEFsQnhlV0ZHeXZEY2hPWTk0?=
- =?utf-8?B?U3JNTEF4K2FmVDBma1FaZGhvODUvRG8xbkNlUkQ3b251NURuWFdoMzhZdFU3?=
- =?utf-8?B?TldKNDBEM2RueE42R1N3aWtjMlNjQ1MzQXJzOGRkRzFESFo0M280SnRuUzB5?=
- =?utf-8?B?YTlpcnR6ODZSNmxjbnpsNlh5SFhYaVlqcnNKUVhrRnNjTXRvd29yTm50UThC?=
- =?utf-8?B?d1VSa3dESjgrLzhFZndoYzd2a3FnU1lVcDlyaW5PcHZSeFR5NkFyZ3NseDJN?=
- =?utf-8?B?SlUzSE5ZZlJjVW9IejAxckN3bWp6Sk4xb0psb1NTbzZyeE04NXRIc2twZ1V2?=
- =?utf-8?B?NzY5ME5PSXhFcHBvQ2Z3ZENTb2I4MjlJWDR2SjNkNHQ1cTQ0REdYYVFEQ3RH?=
- =?utf-8?B?Y2YydW9CYzdHU2dPRFpuZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nm1VK3plMDZIQ0RudTBUeFpWUmcxdUtRb2VPdGk3VUdNTUMvb3Q1QmU3REFn?=
- =?utf-8?B?bVplaTltVm1Gb0dsNjNpZEVMUm1GRkN6cFpYMndlTFozNVQxYmx3eHBBM3Nm?=
- =?utf-8?B?NFZvOU1XeHVIMktDTW80Zi81VnhtNW9HeWUveSs2V0xkTlBwSXRJQTBnK3Vl?=
- =?utf-8?B?M0Rwb05UQ2xnOGZHZ05HMVg5K1ZmUzhWeE1xOUF1Q3pYK1dveEpaMEtVL1dO?=
- =?utf-8?B?ay9rQmdTMWxaclpjbkJ3dTNsMjhhU1pDcU9CWGNkVXdLOWVYamFVN3BIbjdq?=
- =?utf-8?B?dVY0SjRzV08zTG1kOFMrWHlqS2NtckpaZk50TDVkWHR3L2NKeU90SUh1amhr?=
- =?utf-8?B?ZUhzUHc1NDBKUUxPQnhsUFBGV1N5Z05Eb01oeklrWVRvY25lMGsrRitVd0JK?=
- =?utf-8?B?Z0RCQU5yQlhyWWJLYTBGQ2laRUxJTkZvVjZPbExsTmJEWTdHekVZaTJsOGFn?=
- =?utf-8?B?dE1HZkZ6WWo1dWdFTy9ianRwaGdpZDFHa21BcUVOWERJZDBKVTRkVzRiQlRr?=
- =?utf-8?B?NzdxQ21ZYzRiS3ZZOUR2QmFTb1VzbTNSeW4xQlUzTUk0SVFLbHUvWUlhNmor?=
- =?utf-8?B?WTFrbWlzSE9jeXZ5U2xaZFBqZnpSWnlrTlViZVYwaGNEWk5xdFZXZFlmUjN3?=
- =?utf-8?B?K1N6bXF4d3ZiaTBQRC9NMHJHdzBEeFR4cFBmcnI2RTJTd3cwSTdSbHI0R2xZ?=
- =?utf-8?B?UnpjeU1FT3BrcDY3aExSTUdMVHFHZHhKcm8zS0J3NVdTekZDU0ZLc0pLeVVO?=
- =?utf-8?B?RSt2YUk4Z291QzF2MlYxUm1sVEZ2bXRhbS95YW9hbm52TFY3dkJCR1NROWho?=
- =?utf-8?B?MXl2ZWxYWWxwc0M1d0NZSHJKN09ud2VjV1EzNFNNUG5nZzNTcmRLdEhvQTRq?=
- =?utf-8?B?UlA0MjZqOGIzd0dNeTMrcVhmSlQ0cXVyRTBMVFJYOEZlRXIwVUp2WjJxNDRO?=
- =?utf-8?B?UUlUZVg1dnR4aWsyelN3MmJBR3I1WVRQQTFjWXRKdk9FRzlzVEdxcDBueE1k?=
- =?utf-8?B?aDU5dmtKK3hVaUFid1IvSFA3UXJWTUVnVDRhV1RjcmZuL094bWpXdXQzZWFW?=
- =?utf-8?B?WXp3MFJqanZ0VHFLSHpFdEwzbmxncXIyYUN3c213dGFabThrQTlJMG1xb0pu?=
- =?utf-8?B?UGxHRWNwdHVzSi83WDhuK2NMT0xyV01mMXBaTzM1OFFjbUcvbnB5NWZRT2No?=
- =?utf-8?B?WG9GT25sUG13UkZISXp0VktHcHkyN2hxVWtHMFZ5RmtscTJPb2luTG5IZUd0?=
- =?utf-8?B?WVMzQSs4VmtZcEZBTGlKbVhVZE4xOFFDNktrVmhhTkZqbDBqS2hiNXg5ZW5M?=
- =?utf-8?B?VEVoS2dEN0paZTVQWFlheUowZUZzU2s1R28vUzNOUE05a0dEd1h3R0FOR2s1?=
- =?utf-8?B?aStEM2tmdXl4dy8vTHVyNlN2b2VHWTJuWFFVcENZUFlmcUZGRm1mdzlwb3lV?=
- =?utf-8?B?K1Zxam8rdHUwN29DMExPSEFFLzF4cG5XSFM1M1J1RkwrNHc4VDBQOWl1WDJN?=
- =?utf-8?B?bnhRUHVtZWFDUmVJcTkvM2d5czAvNDFGc3R4OFBLM1J2V0ZvT3JtZHcrT3h5?=
- =?utf-8?B?bGErZ09vcDFoYkV5M1FmZi9TNWFtRUw0V1ZvWVU4L1JBczlpZHFYMmZ1ZHl1?=
- =?utf-8?B?ak5FVEdUVmxScU90bWl0SG9IZlFkeEY2TjhMczNubk51MWt4dy9hRWJNYnls?=
- =?utf-8?B?OUo1bjMzSFNwbWZTc2pPcE42anVPWHljclFlckIvdlhMaGJueWxMcFI1aXgv?=
- =?utf-8?B?aWk1MGEybEU5NnNKeDVON242azV6M1QwYW9DS09sRFZPcUNRWDFVZ2RJQTY4?=
- =?utf-8?B?OVBqZU1PbnRhWHljbFZZcm1yVE42ZDhqRzJ5dFhTbmU1ajkyU1dhTnUwa3RI?=
- =?utf-8?B?MXZYa2JQYi9nU0JIYkQ4cFA1WFFiWEJFaUlMUEY3T2xtR285MXlSQVNPT3pP?=
- =?utf-8?B?Uis1UmFFUHpoWW5wUDVjVDRGekJoeEZHL0pjNlkvdDZ0ZTFPKzdxWWcvTjlL?=
- =?utf-8?B?QnJDNHRUS1JxN2NNbllLVUgxbUFRQjIxZU5ESzZTdVVEU2hEZE5pK1F6RDFt?=
- =?utf-8?B?NVFDZWVBV2o1Yll0U1UvRXNEU2NsNk9tcjdGNUpVRzBFd2RGTTFqdUMrZ0FF?=
- =?utf-8?Q?G0NI=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30fdc4ab-f4c9-4a3e-da40-08dcdca417d5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 14:20:51.4032 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WU6hZysJyD78OZXpYPoudhzr0JHLbNXeb0hbWSmjzXntooHWVOSp3J1G6WI+xm2G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8168
+References: <20240919165641.4632-1-user@am64> <20240924020824.6264-1-user@am64>
+ <8eb45005-c6fb-4baa-a44a-243958a3a1ba@suse.de>
+ <c960dc48-0a05-4cad-b86b-33ad59923bc3@suse.de>
+In-Reply-To: <c960dc48-0a05-4cad-b86b-33ad59923bc3@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 24 Sep 2024 10:22:18 -0400
+Message-ID: <CADnq5_OtdUvOUPpq1aUoxtgpt6a4h598019SNhe+9ZWUaANYqg@mail.gmail.com>
+Subject: Re: radeon ARUBA NULL pointer dereference
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Arthur Marsh <arthur.marsh@internode.on.net>, Xinhui.Pan@amd.com,
+ airlied@gmail.com, 
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, wuhoipok@gmail.com, iommu@lists.linux.dev, 
+ "the arch/x86 maintainers" <x86@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,99 +85,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 24.09.24 um 16:12 schrieb Tvrtko Ursulin:
+On Tue, Sep 24, 2024 at 8:43=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
 >
-> On 24/09/2024 14:55, Christian König wrote:
->> I've pushed the first to drm-misc-next, but that one here fails to 
->> apply cleanly.
 >
-> This appears due 440d52b370b0 ("drm/sched: Fix dynamic job-flow 
-> control race") in drm-misc-fixes.
 >
-> In theory 1-3 from my series are fixes. Should they also go to 
-> drm-misc-fixes? I am not too familiar with the drm-misc flow.
+> Am 24.09.24 um 14:20 schrieb Thomas Zimmermann:
+> > (cc: DMA and x86 folks)
+> >
+> > Hi
+> >
+> > Am 24.09.24 um 04:08 schrieb Arthur Marsh:
+> >> Using current Linus git head kernel, I was able to save the dmesg
+> >> output:
+> >>
+> >> [   17.218724] [drm] radeon kernel modesetting enabled.
+> >> [   17.218778] radeon 0000:00:01.0: vgaarb: deactivate vga console
+> >> [   17.219509] Console: switching to colour dummy device 80x25
+> >> [   17.219700] [drm] initializing kernel modesetting (ARUBA
+> >> 0x1002:0x990C 0x1002:0x0123 0x00).
+> >> [   17.219773] ATOM BIOS: 113
+> >> [   17.219838] radeon 0000:00:01.0: VRAM: 768M 0x0000000000000000 -
+> >> 0x000000002FFFFFFF (768M used)
+> >> [   17.219841] radeon 0000:00:01.0: GTT: 1024M 0x0000000030000000 -
+> >> 0x000000006FFFFFFF
+> >> [   17.219844] [drm] Detected VRAM RAM=3D768M, BAR=3D256M
+> >> [   17.219845] [drm] RAM width 64bits DDR
+> >> [   17.219851] BUG: kernel NULL pointer dereference, address:
+> >> 00000000000000a0
+> >
+> > This is 160 bytes behind NULL, which indicates a field within a struct.
+> >
+> >> [   17.219852] #PF: supervisor read access in kernel mode
+> >> [   17.219853] #PF: error_code(0x0000) - not-present page
+> >> [   17.219854] PGD 0 P4D 0
+> >> [   17.219856] Oops: Oops: 0000 [#1] PREEMPT_RT SMP NOPTI
+> >> [   17.219858] CPU: 0 UID: 0 PID: 451 Comm: udevd Not tainted 6.11.0+
+> >> #6121
+> >> [   17.219860] Hardware name: Gigabyte Technology Co., Ltd. To be
+> >> filled by O.E.M./F2A78M-HD2, BIOS F2 05/28/2014
+> >> [   17.219862] RIP: 0010:dma_get_required_mask+0x11/0x50
+> >> [   17.219868] Code: 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90
+> >> 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 48 8b 87 68 02 00 00 48 85
+> >> c0 74 11 <48> 8b 80 a0 00 00 00 48 85 c0 74 1f e9 ee ed 94 00 f6 87
+> >> 2c 03 00
+> >> [   17.219870] RSP: 0018:ffffa54bc13a7b00 EFLAGS: 00010202
+> >> [   17.219871] RAX: 0000000000000000 RBX: 000000ffffffffff RCX:
+> >> 0000000000000000
+> >> [   17.219872] RDX: 0000000000000000 RSI: 0000000000000027 RDI:
+> >> ffff976f44e720c8
+> >> [   17.219873] RBP: ffff976f44e720c8 R08: 00000000ffffefff R09:
+> >> ffffffffab2aab08
+> >> [   17.219874] R10: 00000000fffff000 R11: 0000000000000002 R12:
+> >> 0000000000000000
+> >> [   17.219875] R13: ffff976f48a4aa30 R14: 0000000000000000 R15:
+> >> 0000000000000028
+> >> [   17.219876] FS:  00007f59a070d840(0000) GS:ffff97726f800000(0000)
+> >> knlGS:0000000000000000
+> >> [   17.219878] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >> [   17.219879] CR2: 00000000000000a0 CR3: 00000001053b4000 CR4:
+> >> 00000000000406f0
+> >> [   17.219880] Call Trace:
+> >> [   17.219881]  <TASK>
+> >> [   17.219882]  ? __die_body.cold+0x19/0x1e
+> >> [   17.219885]  ? page_fault_oops+0xa8/0x230
+> >> [   17.219889]  ? search_module_extables+0x4f/0x90
+> >> [   17.219891]  ? fixup_exception+0x36/0x2f0
+> >> [   17.219894]  ? exc_page_fault+0x88/0x1b0
+> >> [   17.219897]  ? asm_exc_page_fault+0x22/0x30
+> >> [   17.219900]  ? dma_get_required_mask+0x11/0x50
 
-Ah shit, in that case you should have spitted the patches up into fixes 
-and next. Going to push the first 3 to fixes.
+Also reported here:
+https://gitlab.freedesktop.org/drm/amd/-/issues/3648
 
-> Or the series now needs to wait for some backmerge?
+Alex
 
-Are the remaining 3 patches independent? If not then we need to wait for 
-a backmerge.
-
-Regards,
-Christian.
-
+> >
+> > This is not in the radeon driver but the DMA code. I'd say it's at
+> > [1], as get_required_mask is 160 bytes within struct drm_map_ops. The
+> > call to get_arch_dma_ops() probably returns NULL.
 >
-> Regards,
+> And indeed, when I added
 >
-> Tvrtko
+>      pr_warn("dev dma ops: 0x%p\n", pdev->dev.dma_ops);
+>      pr_warn("arch dma ops: 0x%p\n", get_arch_dma_ops());
 >
->> Am 24.09.24 um 12:19 schrieb Tvrtko Ursulin:
->>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>
->>> Since drm_sched_entity_modify_sched() can modify the entities run 
->>> queue,
->>> lets make sure to only dereference the pointer once so both adding and
->>> waking up are guaranteed to be consistent.
->>>
->>> Alternative of moving the spin_unlock to after the wake up would for 
->>> now
->>> be more problematic since the same lock is taken inside
->>> drm_sched_rq_update_fifo().
->>>
->>> v2:
->>>   * Improve commit message. (Philipp)
->>>   * Cache the scheduler pointer directly. (Christian)
->>>
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> Fixes: b37aced31eb0 ("drm/scheduler: implement a function to modify 
->>> sched list")
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: Luben Tuikov <ltuikov89@gmail.com>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: David Airlie <airlied@gmail.com>
->>> Cc: Daniel Vetter <daniel@ffwll.ch>
->>> Cc: Philipp Stanner <pstanner@redhat.com>
->>> Cc: dri-devel@lists.freedesktop.org
->>> Cc: <stable@vger.kernel.org> # v5.7+
->>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>> ---
->>>   drivers/gpu/drm/scheduler/sched_entity.c | 10 ++++++++--
->>>   1 file changed, 8 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
->>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>> index 0e002c17fcb6..a75eede8bf8d 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -599,6 +599,9 @@ void drm_sched_entity_push_job(struct 
->>> drm_sched_job *sched_job)
->>>       /* first job wakes up scheduler */
->>>       if (first) {
->>> +        struct drm_gpu_scheduler *sched;
->>> +        struct drm_sched_rq *rq;
->>> +
->>>           /* Add the entity to the run queue */
->>>           spin_lock(&entity->rq_lock);
->>>           if (entity->stopped) {
->>> @@ -608,13 +611,16 @@ void drm_sched_entity_push_job(struct 
->>> drm_sched_job *sched_job)
->>>               return;
->>>           }
->>> -        drm_sched_rq_add_entity(entity->rq, entity);
->>> +        rq = entity->rq;
->>> +        sched = rq->sched;
->>> +
->>> +        drm_sched_rq_add_entity(rq, entity);
->>>           spin_unlock(&entity->rq_lock);
->>>           if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>>               drm_sched_rq_update_fifo(entity, submit_ts);
->>> -        drm_sched_wakeup(entity->rq->sched);
->>> +        drm_sched_wakeup(sched);
->>>       }
->>>   }
->>>   EXPORT_SYMBOL(drm_sched_entity_push_job);
->>
-
+> to radeon_pci_probe(), I got
+>
+> [   22.325657] dev dma ops: 0x0000000000000000
+> [   22.342921] arch dma ops: 0x0000000000000000
+>
+> as a result.
+>
+> Best regards
+> Thomas
+>
+> >
+> > Best regards
+> > Thomas
+> >
+> > [1]
+> > https://elixir.bootlin.com/linux/v6.11/source/kernel/dma/mapping.c#L523
+> > [2]
+> > https://elixir.bootlin.com/linux/v6.11/source/include/linux/dma-map-ops=
+.h#L98
+> >
+> >> [   17.219902] dma_addressing_limited+0x6c/0xb0
+> >> [   17.219905]  radeon_ttm_init+0x3f/0x210 [radeon]
+> >> [   17.219977]  cayman_init+0x97/0x290 [radeon]
+> >> [   17.220057]  radeon_device_init+0x5e9/0xb40 [radeon]
+> >> [   17.220115]  radeon_driver_load_kms+0xb0/0x260 [radeon]
+> >> [   17.220174]  radeon_pci_probe+0xff/0x170 [radeon]
+> >> [   17.220231]  pci_device_probe+0xbe/0x1a0
+> >> [   17.220234]  really_probe+0xde/0x350
+> >> [   17.220237]  ? pm_runtime_barrier+0x61/0xb0
+> >> [   17.220240]  ? __pfx___driver_attach+0x10/0x10
+> >> [   17.220242]  __driver_probe_device+0x78/0x110
+> >> [   17.220245]  driver_probe_device+0x2d/0xc0
+> >> [   17.220247]  __driver_attach+0xc9/0x1c0
+> >> [   17.220249]  bus_for_each_dev+0x6a/0xb0
+> >> [   17.220251]  ? migrate_enable+0xbf/0xf0
+> >> [   17.220254]  bus_add_driver+0x139/0x220
+> >> [   17.220256]  driver_register+0x6e/0xc0
+> >> [   17.220258]  ? __pfx_radeon_module_init+0x10/0x10 [radeon]
+> >> [   17.220315]  do_one_initcall+0x42/0x210
+> >> [   17.220318]  ? __kmalloc_cache_noprof+0x89/0x230
+> >> [   17.220321]  do_init_module+0x60/0x210
+> >> [   17.220324]  init_module_from_file+0x89/0xc0
+> >> [   17.220326]  __x64_sys_finit_module+0x142/0x390
+> >> [   17.220329]  do_syscall_64+0x47/0x110
+> >> [   17.220331]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> >> [   17.220334] RIP: 0033:0x7f59a0625279
+> >> [   17.220336] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00
+> >> 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24
+> >> 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 77 6b 0d 00 f7 d8 64
+> >> 89 01 48
+> >> [   17.220337] RSP: 002b:00007ffd15ee7df8 EFLAGS: 00000246 ORIG_RAX:
+> >> 0000000000000139
+> >> [   17.220339] RAX: ffffffffffffffda RBX: 00005578ae660840 RCX:
+> >> 00007f59a0625279
+> >> [   17.220340] RDX: 0000000000000000 RSI: 00005578ae677fc0 RDI:
+> >> 0000000000000011
+> >> [   17.220341] RBP: 0000000000000000 R08: 00007f59a06fcb20 R09:
+> >> 00005578ae640550
+> >> [   17.220342] R10: 0000000000000040 R11: 0000000000000246 R12:
+> >> 00005578ae677fc0
+> >> [   17.220342] R13: 0000000000020000 R14: 00005578ae651750 R15:
+> >> 0000000000000000
+> >> [   17.220344]  </TASK>
+> >> [   17.220345] Modules linked in: radeon(+) snd_hda_codec_hdmi
+> >> snd_seq_midi snd_seq_midi_event snd_seq snd_hda_intel
+> >> snd_intel_dspcfg snd_emu10k1 snd_hda_codec drm_ttm_helper ttm
+> >> snd_util_mem drm_suballoc_helper snd_ac97_codec snd_hda_core
+> >> drm_display_helper ac97_bus snd_rawmidi snd_hwdep snd_seq_device
+> >> snd_pcm drm_kms_helper edac_mce_amd sha512_ssse3 sha512_generic
+> >> k10temp sha256_ssse3 sha1_ssse3 drm aesni_intel snd_timer gf128mul
+> >> crypto_simd cryptd acpi_cpufreq evdev pcspkr serio_raw emu10k1_gp
+> >> gameport at24 regmap_i2c i2c_algo_bit snd video soundcore wmi button
+> >> sp5100_tco ext4 crc32c_generic crc16 mbcache jbd2 uas usb_storage
+> >> hid_generic usbhid hid sg sr_mod sd_mod cdrom ata_generic
+> >> firewire_ohci crc32_pclmul crc32c_intel firewire_core crc_itu_t
+> >> pata_atiixp i2c_piix4 i2c_smbus ahci r8169 libahci xhci_pci ohci_pci
+> >> realtek libata mdio_devres ehci_pci ohci_hcd xhci_hcd scsi_mod
+> >> ehci_hcd scsi_common usbcore libphy usb_common
+> >> [   17.220388] CR2: 00000000000000a0
+> >> [   17.220390] ---[ end trace 0000000000000000 ]---
+> >>
+> >> Happy to provide additional information and run tests.
+> >>
+> >> Regards,
+> >>
+> >> Arthur Marsh.
+> >
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
+>
