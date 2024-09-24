@@ -4,108 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E51CF9C7A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69ED3CF9C77
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:18:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08FF110E50E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD6610E52B;
 	Tue, 24 Sep 2024 07:17:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="HSit/TH3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jlihQpQZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HSit/TH3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jlihQpQZ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1jXxqCvf";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dkfSWkt8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1jXxqCvf";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dkfSWkt8";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 531F810E4FA;
- Tue, 24 Sep 2024 07:17:45 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26F810E4FA;
+ Tue, 24 Sep 2024 07:17:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 15DC921BA1;
- Tue, 24 Sep 2024 07:17:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7A3CC21BA5;
+ Tue, 24 Sep 2024 07:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HqNrlpJ3kXQOJQEapvLfO8p2H5VJnetZNXiydbeyFm4=;
- b=HSit/TH3UBwisZ4rTJw2WayFEnhbo5qA5mPvVV/0OUEIXVPCMMjOWaJPiE7xgi6WNtWVN5
- ZjHy9HfXuJ0XCeI5jS6Z8RqHbkNloQIqo/6WAOBEaVI3jRl0Zz36YXYcchbIsPIlLu/vP6
- EhbbxOpTUP9HfEgb9/UbHcvyk7srzAs=
+ bh=ZXIz+SceB1WEoUrR5sjPMDItZI6yJbyHzZHnUIsuYTw=;
+ b=1jXxqCvfSFl7xZjEs44HeQRlzjSMwh58xa4y/0e35S81LIbMgGaafHkvaMergVdyj6Zpf3
+ RxBBnndYdxN7ITrnCMOV+BhyUftA/h0R9bz68Z8t76tCFGFkn8Vzo6YRbiJKslZQvjzaxV
+ 0C6NC5Dk/gXt/aS5E/tCPyW5zDzXPNI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162264;
+ s=susede2_ed25519; t=1727162265;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HqNrlpJ3kXQOJQEapvLfO8p2H5VJnetZNXiydbeyFm4=;
- b=jlihQpQZjDNPE1Aq6atDCh9Vfxg0dbAZ3UJPCh1eaeDa3OoV/w1l422wG8YlDtC4MEBLXb
- 0BJ0G+bzqwjxCMAg==
+ bh=ZXIz+SceB1WEoUrR5sjPMDItZI6yJbyHzZHnUIsuYTw=;
+ b=dkfSWkt8kQs+XSLAR3piVSzP3H4yF4WUq1M0k0ecIsIU87kfq5BSuOwv0oTSrqnbXs5eTq
+ Z5CHlLy0Gi/56cAA==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="HSit/TH3";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jlihQpQZ
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HqNrlpJ3kXQOJQEapvLfO8p2H5VJnetZNXiydbeyFm4=;
- b=HSit/TH3UBwisZ4rTJw2WayFEnhbo5qA5mPvVV/0OUEIXVPCMMjOWaJPiE7xgi6WNtWVN5
- ZjHy9HfXuJ0XCeI5jS6Z8RqHbkNloQIqo/6WAOBEaVI3jRl0Zz36YXYcchbIsPIlLu/vP6
- EhbbxOpTUP9HfEgb9/UbHcvyk7srzAs=
+ bh=ZXIz+SceB1WEoUrR5sjPMDItZI6yJbyHzZHnUIsuYTw=;
+ b=1jXxqCvfSFl7xZjEs44HeQRlzjSMwh58xa4y/0e35S81LIbMgGaafHkvaMergVdyj6Zpf3
+ RxBBnndYdxN7ITrnCMOV+BhyUftA/h0R9bz68Z8t76tCFGFkn8Vzo6YRbiJKslZQvjzaxV
+ 0C6NC5Dk/gXt/aS5E/tCPyW5zDzXPNI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162264;
+ s=susede2_ed25519; t=1727162265;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HqNrlpJ3kXQOJQEapvLfO8p2H5VJnetZNXiydbeyFm4=;
- b=jlihQpQZjDNPE1Aq6atDCh9Vfxg0dbAZ3UJPCh1eaeDa3OoV/w1l422wG8YlDtC4MEBLXb
- 0BJ0G+bzqwjxCMAg==
+ bh=ZXIz+SceB1WEoUrR5sjPMDItZI6yJbyHzZHnUIsuYTw=;
+ b=dkfSWkt8kQs+XSLAR3piVSzP3H4yF4WUq1M0k0ecIsIU87kfq5BSuOwv0oTSrqnbXs5eTq
+ Z5CHlLy0Gi/56cAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D01E013AE2;
- Tue, 24 Sep 2024 07:17:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2CA2313AE2;
+ Tue, 24 Sep 2024 07:17:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0DmcMZdn8mb3YAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:43 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uGW1CZln8mb3YAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:45 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v5 17/80] drm/ili9341: Run DRM default client setup
-Date: Tue, 24 Sep 2024 09:12:15 +0200
-Message-ID: <20240924071734.98201-18-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v5 21/80] drm/imx/lcdc: Run DRM default client setup
+Date: Tue, 24 Sep 2024 09:12:19 +0200
+Message-ID: <20240924071734.98201-22-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240924071734.98201-1-tzimmermann@suse.de>
 References: <20240924071734.98201-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 15DC921BA1
-X-Spamd-Result: default: False [-5.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_MED(-2.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_COUNT_TWO(0.00)[2];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[13];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[];
  FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch];
+ R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,suse.de,kernel.org,pengutronix.de,gmail.com];
+ FROM_HAS_DN(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_SEVEN(0.00)[9];
- R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,47 +126,51 @@ v5:
 - select DRM_CLIENT_SELECTION
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Shawn Guo <shawnguo@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Fabio Estevam <festevam@gmail.com>
 Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/tiny/Kconfig   | 1 +
- drivers/gpu/drm/tiny/ili9341.c | 4 +++-
+ drivers/gpu/drm/imx/lcdc/Kconfig    | 1 +
+ drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 4 +++-
  2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-index b16bd3a2ebdf..337ac65390c6 100644
---- a/drivers/gpu/drm/tiny/Kconfig
-+++ b/drivers/gpu/drm/tiny/Kconfig
-@@ -139,6 +139,7 @@ config TINYDRM_ILI9225
- config TINYDRM_ILI9341
- 	tristate "DRM support for ILI9341 display panels"
- 	depends on DRM && SPI
-+	select DRM_CLIENT_SELECTION
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_DMA_HELPER
- 	select DRM_MIPI_DBI
-diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
-index 8bcada30af71..c1dfdfbbd30c 100644
---- a/drivers/gpu/drm/tiny/ili9341.c
-+++ b/drivers/gpu/drm/tiny/ili9341.c
-@@ -16,6 +16,7 @@
- #include <linux/spi/spi.h>
+diff --git a/drivers/gpu/drm/imx/lcdc/Kconfig b/drivers/gpu/drm/imx/lcdc/Kconfig
+index 9c28bb0f4662..75869489b0e6 100644
+--- a/drivers/gpu/drm/imx/lcdc/Kconfig
++++ b/drivers/gpu/drm/imx/lcdc/Kconfig
+@@ -1,6 +1,7 @@
+ config DRM_IMX_LCDC
+       tristate "Freescale i.MX LCDC displays"
+       depends on DRM && (ARCH_MXC || COMPILE_TEST)
++      select DRM_CLIENT_SELECTION
+       select DRM_GEM_DMA_HELPER
+       select DRM_KMS_HELPER
+       select DRM_DISPLAY_HELPER
+diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+index 36668455aee8..3215c4acd675 100644
+--- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
++++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+@@ -3,6 +3,7 @@
  
- #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
 +#include <drm/drm_client_setup.h>
+ #include <drm/drm_damage_helper.h>
  #include <drm/drm_drv.h>
  #include <drm/drm_fbdev_dma.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -150,6 +151,7 @@ static const struct drm_driver ili9341_driver = {
- 	.driver_features	= DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
- 	.fops			= &ili9341_fops,
+@@ -348,6 +349,7 @@ static struct drm_driver imx_lcdc_drm_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	.fops = &imx_lcdc_drm_fops,
  	DRM_GEM_DMA_DRIVER_OPS_VMAP,
 +	DRM_FBDEV_DMA_DRIVER_OPS,
- 	.debugfs_init		= mipi_dbi_debugfs_init,
- 	.name			= "ili9341",
- 	.desc			= "Ilitek ILI9341",
-@@ -218,7 +220,7 @@ static int ili9341_probe(struct spi_device *spi)
- 
- 	spi_set_drvdata(spi, drm);
+ 	.name = "imx-lcdc",
+ 	.desc = "i.MX LCDC driver",
+ 	.date = "20200716",
+@@ -501,7 +503,7 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Cannot register device\n");
  
 -	drm_fbdev_dma_setup(drm, 0);
 +	drm_client_setup(drm, NULL);
