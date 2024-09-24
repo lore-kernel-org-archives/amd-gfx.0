@@ -4,56 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 325DBCF9C71
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 08:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9AF6CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 08:20:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A4CB10E62D;
-	Tue, 24 Sep 2024 08:05:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D8E710E67E;
+	Tue, 24 Sep 2024 08:20:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CvuFzrI0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZNDsne2o";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D29ED10E29C;
- Tue, 24 Sep 2024 08:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1727165105;
- bh=bkob+FdVbT5JvRwKp/3RFu5HC+yR0/AGxmQWAMBAfxw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=CvuFzrI0AhizshttZzgCNh2wASf80PcmQTwldXXkfRp3FLPhvWPKcfrWEvbKo1Xfl
- pYUdAvUXHnxCiRj+ansAs1Y/4qEBT2Zw5XVVCJNP0uIbVQ8vrmon7R8FFrcoXCUH6s
- 9pJCTeDwuMeOV60sdTU3fT/wzcFnRngPhHowoQrpxGM+RtY4qCuVp/9cxh0gpJy1qA
- vosjvZo289g0RSv045JmPKfysGhGUkc9uWvpxbNbbTk4ORi2A8gXcPDYXBJXyeGyMz
- H+BP1y/ML/KeP7+lTIDUgycgFbxCGaC693LhuQAEtPJhFvvXYKON7YacpsDKrw3Ovw
- 10HNVyTURjyPg==
-Received: from [192.168.50.250] (unknown [171.76.80.125])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D1CC17E1045;
- Tue, 24 Sep 2024 10:05:02 +0200 (CEST)
-Message-ID: <58a9334d-26eb-4106-806a-59e5e728aed5@collabora.com>
-Date: Tue, 24 Sep 2024 13:35:00 +0530
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 642CF10E673;
+ Tue, 24 Sep 2024 08:20:30 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-3770320574aso3488701f8f.2; 
+ Tue, 24 Sep 2024 01:20:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727166028; x=1727770828; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=lAs0tQNVU81RZjY2m2CdbBUGrZw8dwtP0YvHoLvIJI8=;
+ b=ZNDsne2oVI30c+BK+GXYPSzPH606PiRqm+wABpJTkGKDtcvg8l/ejpXNhRtjtgd/oC
+ bZAVgUrNWCouZ0LJhvhBFeUdL1oAoOlpLXfOf1Rg1EtjSXh2AopANUTwenx/CH59bwk7
+ SSO+Xo37ALMJ7xe5RXfrHjLU/ZYgNJI5KHlybFuoqYLRdRavuA2WYiZ8K3dfaybFIPEl
+ lCNmSd7Z71k4OxlFcmX3S0Uu9JC9QThFqtH1Og1uUk2TL3zQFNQAg0Pvi6f+CEoH4DP9
+ t7hePRVeUwGNh4gixoEY1AcTEcRezxJQEWVVN3SQNaDy8f9ttF3jJM4xSOHQr3dGpq/w
+ MK0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727166028; x=1727770828;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lAs0tQNVU81RZjY2m2CdbBUGrZw8dwtP0YvHoLvIJI8=;
+ b=LEj5hDtuPrMecBRJct7ZHv0ydOFSYIUArPQn2D44uFimubU4FYOinSCsZSFRIXTKeO
+ eZb49fgOz5cTPPI+euL9SZmoTrTfNB8QyQUgv4WtQU4HGwWzsqlDlo1PM2kmAIUFx/9Q
+ Ky5Mom5dtEJDdgXOXfi5DLgvjki1/s56QIBN+8uuoWvlQ97jR+eDvjtUqUgLH90BRSym
+ xOOxIp44FkJqQj/kc9vI8fXcwzJt9K1w1c2c8p0NX5ZlWkjAqmD027gG7KaQ4cD5f9JJ
+ 0cEhBvdoNMnYvCD3p3QnsJK6OCSvyru3vs8rFd0CMTBy74BpPdpcWOrZJVKAaZwXvNWA
+ UGmg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXK3sMGTv8o0ing3txjYPOJ8GSYHq86JRfBV5VaenZn+mUzHKR1XhFWSIJdI2RtnFabNDGTy5fAF9U1@lists.freedesktop.org,
+ AJvYcCXxynSwkI2s0tGre5o0Oqa2pjsRf51Xa+l+L+8MjVwDBRyRwcwj3AvtE21lkkD8m22gc2pkJmr7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPnx2DMgAS4feMxxJ+S34aUT+ZF7xupC0Ni2mKitSiX9WQ820+
+ e8zrXjTVGgm1cnnAlND6qB0eqnIm12DqAixTH/k4HzniH3WzLVn0
+X-Google-Smtp-Source: AGHT+IGyjoBXga/f8OePC7IeD+AJNPVVchaM++LgEa4wmNZ36NPYY9eLILJY7Ik2hBQg0pz7ZJREkg==
+X-Received: by 2002:a05:6000:18c9:b0:374:c30c:3be with SMTP id
+ ffacd0b85a97d-37a43160c4dmr6852514f8f.30.1727166028275; 
+ Tue, 24 Sep 2024 01:20:28 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37cbc2c1f80sm909829f8f.44.2024.09.24.01.20.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Sep 2024 01:20:27 -0700 (PDT)
+Message-ID: <478b066b-af6c-43a2-9e0e-a19344893bc0@gmail.com>
+Date: Tue, 24 Sep 2024 10:20:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] docs/gpu: ci: update flake tests requirements
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
- helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
- robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
- mripard@kernel.org, rodrigo.vivi@intel.com,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20240924022600.1441969-1-vignesh.raman@collabora.com>
- <CAA8EJprUUUc0iDph-HPrW1anrdnzYju7+JERQdHbwxvznq=H4w@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/sched: Further optimise drm_sched_entity_push_job
+To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <pstanner@redhat.com>
+References: <20240913160559.49054-9-tursulin@igalia.com>
+ <20240916173007.118-1-tursulin@igalia.com>
 Content-Language: en-US
-From: Vignesh Raman <vignesh.raman@collabora.com>
-In-Reply-To: <CAA8EJprUUUc0iDph-HPrW1anrdnzYju7+JERQdHbwxvznq=H4w@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240916173007.118-1-tursulin@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,67 +90,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Am 16.09.24 um 19:30 schrieb Tvrtko Ursulin:
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>
+> Having removed one re-lock cycle on the entity->lock in a patch titled
+> "drm/sched: Optimise drm_sched_entity_push_job", with only a tiny bit
+> larger refactoring we can do the same optimisation on the rq->lock.
+> (Currently both drm_sched_rq_add_entity() and
+> drm_sched_rq_update_fifo_locked() take and release the same lock.)
+>
+> To achieve this we make drm_sched_rq_update_fifo_locked() and
+> drm_sched_rq_add_entity() expect the rq->lock to be held.
+>
+> We also align drm_sched_rq_update_fifo_locked(),
+> drm_sched_rq_add_entity() and
+> drm_sched_rq_remove_fifo_locked() function signatures, by adding rq as a
+> parameter to the latter.
+>
+> v2:
+>   * Fix after rebase of the series.
+>   * Avoid naming incosistency between drm_sched_rq_add/remove. (Christian)
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Luben Tuikov <ltuikov89@gmail.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <pstanner@redhat.com>
 
-On 24/09/24 11:46, Dmitry Baryshkov wrote:
-> On Tue, 24 Sept 2024 at 04:26, Vignesh Raman
-> <vignesh.raman@collabora.com> wrote:
->>
->> Update the documentation to require linking to a relevant GitLab
->> issue for each new flake entry instead of an email report. Added
->> specific GitLab issue URLs for i915, xe and other drivers.
->>
->> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
->> ---
->>   Documentation/gpu/automated_testing.rst | 15 ++++++++++-----
->>   1 file changed, 10 insertions(+), 5 deletions(-)
->>
->> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
->> index 2d5a28866afe..f73b8939dc3a 100644
->> --- a/Documentation/gpu/automated_testing.rst
->> +++ b/Documentation/gpu/automated_testing.rst
->> @@ -67,20 +67,25 @@ Lists the tests that for a given driver on a specific hardware revision are
->>   known to behave unreliably. These tests won't cause a job to fail regardless of
->>   the result. They will still be run.
->>
->> -Each new flake entry must be associated with a link to the email reporting the
->> -bug to the author of the affected driver, the board name or Device Tree name of
->> -the board, the first kernel version affected, the IGT version used for tests,
->> -and an approximation of the failure rate.
->> +Each new flake entry must include a link to the relevant GitLab issue, the board
->> +name or Device Tree name, the first kernel version affected, the IGT version used
->> +for tests and an approximation of the failure rate.
->>
->>   They should be provided under the following format::
->>
->> -  # Bug Report: $LORE_OR_PATCHWORK_URL
->> +  # Bug Report: $GITLAB_ISSUE
->>     # Board Name: broken-board.dtb
->>     # Linux Version: 6.6-rc1
->>     # IGT Version: 1.28-gd2af13d9f
->>     # Failure Rate: 100
->>     flaky-test
->>
->> +The GitLab issue must include the logs and the pipeline link. Use the appropriate
->> +link below to create an issue.
->> +https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/ for i915 drivers
->> +https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/ for xe drivers
-> 
-> drm/msm for msm driver, please. Otherwise we can easily miss such issues.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Sure, will add it in v2. Thanks.
+> ---
+>   drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
+>   drivers/gpu/drm/scheduler/sched_main.c   | 29 ++++++++++++------------
+>   include/drm/gpu_scheduler.h              |  3 ++-
+>   3 files changed, 26 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+> index d982cebc6bee..8ace1f1ea66b 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -515,9 +515,14 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>   
+>   		next = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
+>   		if (next) {
+> +			struct drm_sched_rq *rq;
+> +
+>   			spin_lock(&entity->lock);
+> -			drm_sched_rq_update_fifo_locked(entity,
+> +			rq = entity->rq;
+> +			spin_lock(&rq->lock);
+> +			drm_sched_rq_update_fifo_locked(entity, rq,
+>   							next->submit_ts);
+> +			spin_unlock(&rq->lock);
+>   			spin_unlock(&entity->lock);
+>   		}
+>   	}
+> @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>   		sched = rq->sched;
+>   
+>   		atomic_inc(sched->score);
+> +
+> +		spin_lock(&rq->lock);
+>   		drm_sched_rq_add_entity(rq, entity);
+>   
+>   		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+> -			drm_sched_rq_update_fifo_locked(entity, submit_ts);
+> +			drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
+>   
+> +		spin_unlock(&rq->lock);
+>   		spin_unlock(&entity->lock);
+>   
+>   		drm_sched_wakeup(sched, entity);
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index 18a952f73ecb..5c83fb92bb89 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -153,17 +153,18 @@ static __always_inline bool drm_sched_entity_compare_before(struct rb_node *a,
+>   	return ktime_before(ent_a->oldest_job_waiting, ent_b->oldest_job_waiting);
+>   }
+>   
+> -static inline void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity)
+> +static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+> +					    struct drm_sched_rq *rq)
+>   {
+> -	struct drm_sched_rq *rq = entity->rq;
+> -
+>   	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+>   		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+>   		RB_CLEAR_NODE(&entity->rb_tree_node);
+>   	}
+>   }
+>   
+> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts)
+> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+> +				     struct drm_sched_rq *rq,
+> +				     ktime_t ts)
+>   {
+>   	/*
+>   	 * Both locks need to be grabbed, one to protect from entity->rq change
+> @@ -171,17 +172,14 @@ void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts
+>   	 * other to update the rb tree structure.
+>   	 */
+>   	lockdep_assert_held(&entity->lock);
+> +	lockdep_assert_held(&rq->lock);
+>   
+> -	spin_lock(&entity->rq->lock);
+> -
+> -	drm_sched_rq_remove_fifo_locked(entity);
+> +	drm_sched_rq_remove_fifo_locked(entity, rq);
+>   
+>   	entity->oldest_job_waiting = ts;
+>   
+> -	rb_add_cached(&entity->rb_tree_node, &entity->rq->rb_tree_root,
+> +	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
+>   		      drm_sched_entity_compare_before);
+> -
+> -	spin_unlock(&entity->rq->lock);
+>   }
+>   
+>   /**
+> @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+>   void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>   			     struct drm_sched_entity *entity)
+>   {
+> +	lockdep_assert_held(&entity->lock);
+> +	lockdep_assert_held(&rq->lock);
+> +
+>   	if (!list_empty(&entity->list))
+>   		return;
+>   
+> -	spin_lock(&rq->lock);
+> -
+>   	atomic_inc(rq->sched->score);
+>   	list_add_tail(&entity->list, &rq->entities);
+> -
+> -	spin_unlock(&rq->lock);
+>   }
+>   
+>   /**
+> @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>   				struct drm_sched_entity *entity)
+>   {
+> +	lockdep_assert_held(&entity->lock);
+> +
+>   	if (list_empty(&entity->list))
+>   		return;
+>   
+> @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>   		rq->current_entity = NULL;
+>   
+>   	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+> -		drm_sched_rq_remove_fifo_locked(entity);
+> +		drm_sched_rq_remove_fifo_locked(entity, rq);
+>   
+>   	spin_unlock(&rq->lock);
+>   }
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 80198e6cf537..b21806d5a8eb 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>   void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>   				struct drm_sched_entity *entity);
+>   
+> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts);
+> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+> +				     struct drm_sched_rq *rq, ktime_t ts);
+>   
+>   int drm_sched_entity_init(struct drm_sched_entity *entity,
+>   			  enum drm_sched_priority priority,
 
-> 
->> +https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
->> +
->>   drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
->>   -----------------------------------------------------------
->>
->> --
->> 2.43.0
->>
-> 
-> 
-
-Regards,
-Vignesh
