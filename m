@@ -4,139 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A193CF9C6F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 13:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A18C2CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 13:55:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B52510E6EE;
-	Tue, 24 Sep 2024 13:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4081710E701;
+	Tue, 24 Sep 2024 13:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wYA1YAqD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gSXnDIGv";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C63CD10E6EE
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 13:51:12 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 153B210E701;
+ Tue, 24 Sep 2024 13:55:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kc0Hi805F65ObLkyOTch7i2k2LrB8eY+11OPT9rob0AI+GDOkL+ilvJ5xlghUNrO5mBFOmpsw/hcFgOOBn/kzAb466CPDW8rpcgZooKdpl2ZQjAJ4v9krAry4CpfBXGVHqjQBl57wgpxEth+KdqMrUPxYnHBlCKBvp+GFyAp0KW/unMDgVPLjrTegk77A7VAFH15lxslj41IUeu6rxZm/d57HU58hyfl+8iXp+gZxbcoj9xtK8dUxDNKaPJUcRFshBTSduMcdjiUKWij0nLF4O0H4koZQhr/Lj4ZsugEqVGEJm36tqGuM5dsntCalMv762KOfCPkPsYT9t8GbONa/w==
+ b=Rie0RwGHw0lGMRkdAOGNHxt8dbJtilqbevRYD/cFZnqzTqgLB7LLTSXhmJIVK720WS1LAd1LA4MukjzD9vUHZ0vmXzmrGkfwGj1bEHALchvCP+EoDp6v+RM6N6Pq9LXz+sWr2WHhbnljxjXcYcB6LbXrBFAcARNb0OxmLAdIzCyGQMT+EWy0lZaMH3YJHbq72AsVVAKRCkkbSObDILTFmyBs99lsEB/0GztB4XPrX0bTC3VycASQuaL8trGr2ZbmrIx3bA7X0afMofTkP9J59hX/W4o8E0KUmPto3ZLHTTOYSbk8yg1NDZRCWVn5MFT33bMMN1YKPMg5ogy7hsElfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jPPfrAjpuQjo+1WXB+BJW5lc1wD2fvaZRHUcWcnRKzg=;
- b=GvciQ76y7q6fJGZvFiOxZBtvHhpTFsJUW4mDqc4WpvGGKtE66yfh+lGRJOzhHYphobAVR4eEynCuzFn8vaJzjP5IM82re27Wwd5ThRjxErga4ci5ncM2r0AjNvJD9qqq7619S1rzYOfzCevQnldygBSnLdvMw1CfmZxg3r8KBJJ7Q7lxVHgokl+X5WnsTHZSNcl7+DtFR0gii4hfry2OyvZIT6Wm5HJZHXFxRBgBJcIQ8mTdeXDN2FUY7LgpJWZxhD5Nfi7qwhByqxJNFJEi7FfGcslbmjIFcSUTGbB7d/bvijwlanLsyo3PgCm2fBGw5heWxgSw3gmD5wKaUDHY2A==
+ bh=2gLXTgJPq3Ej0U5vzPNBDnkkUWK49Y4Z3croy8pzdmc=;
+ b=R35sVEwHw+zqLBgqWPTJpSbPfsT7XPpqLqACskyKX1BoiMB9pggvc6C+mKqByjHSjTgAGOGkFmpFveDDhl9pSmMP6r1vzeW+XNvNEPizI0N6Xtaqovemwj4QdRXrDiSIc0FaLshlGoAaDkqMereyYjnPmILQB/UKdlD7uZBVuKEk7hA+TsCpChh3XIgxKIWNFDQ5pavURekUD7sDgmcWaPni5SUiMoMBTCym+CibLwBUkKYG6En2r0ExhwwZRXD/yHj11e1lLZNH9Szcd6piClLcURlREWEjOW/UM4HmfT1bszprv6ipU7L8CBh9tjZN6CWKnWV682g538z/OlFc+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jPPfrAjpuQjo+1WXB+BJW5lc1wD2fvaZRHUcWcnRKzg=;
- b=wYA1YAqDvHxJhh0zwfzxIKWaaqzpyX8RBdCbM2UtI3osbGMc8voFHWdiyTntdO8/hE6Ewr5aSkmkbJ1JTU0rtc9XhaO0CmbCfHbEM7sc9F0RAkMPuE3467KCLB9o0RNZO9F9krBpg3VPqzCBJ0iBrX+p47kaVnLFc4OuMq8/G5U=
-Received: from DM4PR12MB5055.namprd12.prod.outlook.com (2603:10b6:5:39a::20)
- by BL3PR12MB6617.namprd12.prod.outlook.com (2603:10b6:208:38c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Tue, 24 Sep
- 2024 13:51:03 +0000
-Received: from DM4PR12MB5055.namprd12.prod.outlook.com
- ([fe80::2c56:65d9:9ce1:c415]) by DM4PR12MB5055.namprd12.prod.outlook.com
- ([fe80::2c56:65d9:9ce1:c415%7]) with mapi id 15.20.7982.022; Tue, 24 Sep 2024
- 13:51:03 +0000
-From: "Chander, Vignesh" <Vignesh.Chander@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Show current compute partition on VF
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Show current compute partition on VF
-Thread-Index: AQHbDkd0owTMtC/OgkqgeOp0FLImv7Jm9NMc
-Date: Tue, 24 Sep 2024 13:51:03 +0000
-Message-ID: <DM4PR12MB5055D49C8290B0F27DE15B9BEC682@DM4PR12MB5055.namprd12.prod.outlook.com>
-References: <20240924060250.2678600-1-lijo.lazar@amd.com>
- <20240924060250.2678600-2-lijo.lazar@amd.com>
-In-Reply-To: <20240924060250.2678600-2-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-09-24T13:50:18.8459720Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-x-ms-reactions: allow
-authentication-results: dkim=none (message not signed)
+ bh=2gLXTgJPq3Ej0U5vzPNBDnkkUWK49Y4Z3croy8pzdmc=;
+ b=gSXnDIGvvQM2GzU4gEiH6SZDLjlSTPlc1zqNryV6KZLxIPFxilV/wnfOn4gCT/fcfi9cAqvY9A14eF4EM1g5xl0+6aCYML/RYwfD7Iaj0C+xGpHnLBGlBsag+61bTv1LNMH7hnaEDLY+zRzKT4PmivGm9tYCfbIAPX0DPa4jRUk=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5055:EE_|BL3PR12MB6617:EE_
-x-ms-office365-filtering-correlation-id: bd2c02ec-2cec-4bc4-e8a3-08dcdc9fee2f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?R3RN+PaRZ1tuZfT/1q48bbucY3DYtsHBDaw+ksvEpEVMgiD07ql6/6iUjc5K?=
- =?us-ascii?Q?HTtsmUbQTjDaU8PmFq2WTz0a45qRHGlVZmCCNL2X6MGvqif6pL7Eyb9xGL7b?=
- =?us-ascii?Q?doLSayj6ujXVvd2xkZ/4ll/4IgPxOpY66CJH0PzH2M/5aIsrrqJ58X4yVTia?=
- =?us-ascii?Q?QCvgE2KDeWTcHUea8XlPp3lPcZEIJkfgcDXhxAWY/j1vDesQjoaSTEtc+1dy?=
- =?us-ascii?Q?ePf8DaAQOg3cTvVBBUMGgiaJjLOj7Y+bo8mPSI0NuPTpQlOlbb0f7l5hpHBW?=
- =?us-ascii?Q?iVDCE1F89o+1z58wX47+zwTZ9hUOX+JlT429DVGhs/H5QAbjlZDlMpUYpqfx?=
- =?us-ascii?Q?eGkw3wNtsm8qBbYTwIcujvxGbK0pOV6/8LXGv9mzw3kze6ZzePjoLpNqOMx2?=
- =?us-ascii?Q?N43dD0hAY/mYYQOZebSU/N2Ygl5WnpGisbydWjyLIY1kgoLpXtu8pW+OH8aG?=
- =?us-ascii?Q?2cVhPUmslOIxiKwjS+/5yjsH+TjFcTNBIhGWPbZqVecPs+yZABbxJ52H4k7g?=
- =?us-ascii?Q?/9BIkt4n/Man+7nELHT66cjHCFManT3SKuXS/+KlXc/Or4/YWfGfx2Tgo6dT?=
- =?us-ascii?Q?iNLpyxlC9oA5gc8XhOATSX7iWWUVFJhGcRaIXN5dtWxablWVoWnimPEJxcEl?=
- =?us-ascii?Q?QBEXsHMCY9cw3Vs+pIgwwjylJLsGk/UpI+S5zTidVc2TeB8eD7f0+tNyqFaV?=
- =?us-ascii?Q?v54fNetAnm7WS9RX3V6xZVMcYIAbBk3vLr2AMXP5Z11ZF2H6eHvg0utqxd2D?=
- =?us-ascii?Q?7C5ML6HgDtMcLfTGi31X5Xg8XuNGNqnJujssw5ByzWyl41PK/o5aPNu0S/IQ?=
- =?us-ascii?Q?jNEMA6Iey34T5TeXhTABhgvB/8ykY3iPptJB+dibO62/vWLf8TLKEEGFQD80?=
- =?us-ascii?Q?fSoHjpPcGtNTCCBK6Nu4GTZYEaFa0YmPYxQZ2JdkhyDNip1I+RwU9a1dfJX/?=
- =?us-ascii?Q?q6iOQBXSnBXuMay2lOgso5x+ZE5s+hG2X2p1YVbJccCfp30zq/AMHAnchWix?=
- =?us-ascii?Q?BbqZ/sNM+0B2zNqK1tvNiOhhfLUO03Bf1LzUQDV3ZttfkzMmmW7vnVwwxAhf?=
- =?us-ascii?Q?U5p8TMy3xF0FsBXwYv36eTiQW8bif2HZItmWgHuXPb4EkbXLcnv+4sJEIAnY?=
- =?us-ascii?Q?GNMqF+zkGLNp5VIXgHQVUwR6z22pW/lAHj1ONUbqoJpgAjfQytWrDhAAwhO/?=
- =?us-ascii?Q?Ewipl1YzcDPa8kBTWKsE5vJ/miAPOCruTjhtdEyOvUa2UU+OyVGZR8IK98O8?=
- =?us-ascii?Q?WDNMbpgtO8k65R5ew7rgorjzUl1ggLmVPgDBshv8b/zKz3GyDMEoQtQQWoh0?=
- =?us-ascii?Q?Pj00HcE6FCIdFA5bfTi5+F0DdxX0LwoX96itqLrNvzuxpg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5055.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8lNWH5ZQlWkOoE/0OmSMOotEKgKwuekT/hMBIrOOL0QZRarYGAIVf/xlwO5U?=
- =?us-ascii?Q?nJQozxuY2lEiJJfodCwVs4m+6wkz4Faii9S859B00PjSgF4PDEIHrobGNWa7?=
- =?us-ascii?Q?9J2d3pS5nMhVGo4OdbLEdlwTi1z0OidW8Sxf/gwxtzdoULS9FM7sItlmsEtu?=
- =?us-ascii?Q?xloSzLomd6KuL2HbmFY7oIiUZss0AF3VOEZB2QZhJ1MpNchAtQL05ObZ658W?=
- =?us-ascii?Q?g3Na69rAzDtw61g1D8L+zxRyKbRHkxJeXs93vtrrAE9xJclhE9jQ2fEn7pbv?=
- =?us-ascii?Q?bPo1DEaVbaEOfjNok5tW2ZiWlsEWIl1b115scevtuWiupji9onaaM4aCMrjx?=
- =?us-ascii?Q?Rtm2ShKyyb/fAq5rb+/Y+DaCw7JKXEcGMoqgGNKecrkNnVeIvue/Lf+wknuD?=
- =?us-ascii?Q?NUzHmUDUgK0xmP6HCXkMdRyGutBiDpRB5wIBf1oHqERGqwf3MO1C1Qnk3eRE?=
- =?us-ascii?Q?f2sIp+3aqmCcNdTxl2ofgDR5kIDD8eu3EnZYRkJXzvxkpCHM1nI53oxUgX0d?=
- =?us-ascii?Q?ZC4Ygyd9rikQhuYxLsMcicQcE5pyLPtMZK+RuJAtmAnGC7L9s40P9UIquLg+?=
- =?us-ascii?Q?fjEnzBOBYqCFmcH2l3u/E2bb5PUDREsz38IRpWtQy7D5ppSQTa9WGvFK8lch?=
- =?us-ascii?Q?pFrICK2Qch0VwGNnGr73NkqJ8qoLJXkmejCdKVwIVIoWRIflU59ZiDrAYV1Z?=
- =?us-ascii?Q?W30jZ9j1kOU4Q7o+G43egUF+hIiq9XJrCnOUASDOuV6EGEBoXq6US3gPUaaT?=
- =?us-ascii?Q?kUlRCcG0zQvFrrH/9xytLAgtETxgYAPeaSLRC4RqRZLb8BZ/dn/1Rl4wyNMX?=
- =?us-ascii?Q?lO7+ABmzHinWZvssb4K6XPusNfmRi6cI1Gxuxfgw0o5KGS5mWOcNpedmyRuK?=
- =?us-ascii?Q?JZ1Fb0ff4vBXPiKo0GeYwJDG+prxcA05JGeiK8RNwh5KVAeUFyrT36aKq0ag?=
- =?us-ascii?Q?WYJPF7CL9KdCd4njQDYm1lgjdpiYgHm4K4DOvX9nX5qxfCSo0gp4Yi9klMRW?=
- =?us-ascii?Q?n9y+sQ1PlTflVxzPpvJVhGFeP+d6GDE9CDFGZgqA21LmdPTyj0wO6WSGbrNK?=
- =?us-ascii?Q?i1utfk2ms7pwcyJZRNmEQxJbib8DohOagzqe81V5iLJXc+hhLZW/3iITi6+V?=
- =?us-ascii?Q?JUUl3+4Avlpq7yxuYZTyW17TxUN+QuqtN7D+eau7hAoe7pksOhjn5c3IEghw?=
- =?us-ascii?Q?+BPA29zbSDg7sm9Hmwy8nt2V7gLBBAqXgifG4A8n0dQsvpu3Tev0jAVuv8dV?=
- =?us-ascii?Q?lgKNwosVF+npdw6iE4p53vAOK3bgE4RmlW0RL+8Zdl8JiEyyTSPbQAFqzD0S?=
- =?us-ascii?Q?iRWoYoXZ4ilR7gD2WeHpzR5ePjR6RbN3SNRdmYHH4N+Z9LDVhRJ1zDK143dr?=
- =?us-ascii?Q?YB+Pb0zIVipm5HcWIo52cFy8M+viTT5JiBBQRGJvOn/vrsQsoehR5mfSH1s8?=
- =?us-ascii?Q?rOEosWpFmgxzqxXaauejG0EI4/jJicuPvVwntwMvpNCgNOPf/ZGE/TGkdTlW?=
- =?us-ascii?Q?kLw0ZxqEW4L1q5P+eXC14qTSVyV1zsiAr20cRl7gR5pTONFNcmfCFiwCQAly?=
- =?us-ascii?Q?jrX58t87hhBlUsDbLoaM1Q7r4b8NKhZvuKs3oX6G?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB5055D49C8290B0F27DE15B9BEC682DM4PR12MB5055namp_"
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB7603.namprd12.prod.outlook.com (2603:10b6:208:439::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Tue, 24 Sep
+ 2024 13:55:19 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.7982.012; Tue, 24 Sep 2024
+ 13:55:18 +0000
+Message-ID: <4dcce6db-cdb1-4378-8fea-8540ec7539ef@amd.com>
+Date: Tue, 24 Sep 2024 15:55:11 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] drm/sched: Always wake up correct scheduler in
+ drm_sched_entity_push_job
+To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Philipp Stanner <pstanner@redhat.com>, stable@vger.kernel.org
+References: <20240924101914.2713-1-tursulin@igalia.com>
+ <20240924101914.2713-3-tursulin@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240924101914.2713-3-tursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0046.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::23) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7603:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec48869d-ba33-4323-16aa-08dcdca08614
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UGl0dkliY3hXSDFPcC91VU00b0hML1VESjI0S3JiL2RCdUZiZXc0VXJUWlpj?=
+ =?utf-8?B?SVZmaFljR0o5ZGpTY2JuRGZGWi9Bcm55WEEvUnVONFd1ZCtpak5xM05SdWM5?=
+ =?utf-8?B?ajBoTjVJVHNwM1MvZDREZmVYT2RWbHNLaG9jQWlmSm12QllBOVphdnJ0YnAy?=
+ =?utf-8?B?MVU4Ly9hTWZhTXAydUNHR00rTmdJY0ZXNzBoZWtEbnQzQjJLS2VHWW96T2NV?=
+ =?utf-8?B?U1lUcEtEdkRibWZkTDltNUtPR2d6UGlUTDlHVU9jKzU0RWdWbFQ4RVZRTkpD?=
+ =?utf-8?B?aGZRSmNTbkJXVVpvM3JTR2FaVllzcXBxNk5KZHVhMjVFT3RRdUh3M1U5Snkr?=
+ =?utf-8?B?Uk1JUlNPdzVFK1cxandONFE5TldONzBxM1cvbWpLWllqTkErVTBZb2t1eG15?=
+ =?utf-8?B?d1B4UXFsM3hObTVDWEhnMlVtR1ZXdVRuQk5tVE1uTzZubEthYk4wREl0WWVR?=
+ =?utf-8?B?MzBOZzBlZUN1bURhR1JlOVV2azYzRXNjSTJBU1REMUg4UUppNWpTM05WUFBu?=
+ =?utf-8?B?bktPMHo5UUw0dkN6T2JJQi9vNHpHQUd2aktOTVJrODJRcW4vZWpXUUpGMWNm?=
+ =?utf-8?B?ZjNoMm5LaHFhc0hUZ2hLYytSdXV5KzZGMFY0YWRqNCtJbDBQczNnTytNeXg4?=
+ =?utf-8?B?Z3ZLSi9BVFZZZHp3SmRheTczSU9ySTdqeDNqNHRmem9tNFpIZFdHc2t4czN6?=
+ =?utf-8?B?MFdnSEJUUnpTYlNCSGZjdm1PZzR5L0duZVJVbGZkQXd0T0RlaDhlNmZ2OHoz?=
+ =?utf-8?B?aEhZdW0wV29mY3pKL0YrRFA4QXNGa0QwZVMyemgyT3ZPZmo3QkZuZEVvN3pv?=
+ =?utf-8?B?Yk1NaGlqaTQyVURCTFNtSXR3clhQaGx6M1l0Q2M0TUlVcGxLYmpVRVRwL3Vp?=
+ =?utf-8?B?b2gxUFRZM0MwNEZHUk1mcE0zTnpqd0pFNWpPbmcybEo1eGljL21MNEdXM0lI?=
+ =?utf-8?B?R3ViNEo0WTJwRTdJZXowbzRYNTJiRm14VTNiS1ZMRm4xb2g0VDUyb1E0Vkg1?=
+ =?utf-8?B?UFA0cmM0Z3NhazBkMlkwY29VYXdwdTgvWGFmYndKOVdrVW5pZGZHVk45QnpV?=
+ =?utf-8?B?RmRCMi9ObjBlaTZtT1ZoT1ZBb0x2UFkyRUZPekxrbmxLd3FxWXk4UTRFNk1p?=
+ =?utf-8?B?R0xOd2pUbDlrVDhUaDlBWWRSR3Z6TW9DZVVwOWc2eGJwREk4b3VZMDFVTVdt?=
+ =?utf-8?B?MlpsSmNvcmltelE4MXJ3MVcxbyswc0svdzlHVGJ0M05wKzltWFhYc3I5WkVo?=
+ =?utf-8?B?Wno3cE8zZ1ZpbkxuYWo1dnJRR2g2MDlxeFhnWUlzUDhtbWlKc05ReTNmejBU?=
+ =?utf-8?B?QmJnSmRuU2VIUUVZdll1L2NYNzRTaWNtZmYyS3dnVTBlNlhvTEVpU0Rlc2NE?=
+ =?utf-8?B?eENrbmU5YUVoMno3d3haYUpJRjNZbGJYQVZ2bGk5MW9MbzY2VXNuaWJHQlJD?=
+ =?utf-8?B?MDU3VXhIRVBweXBzQkhweFhkcW0zdWVZU2tRdE5wZWpSbis0Sk5HaWpxbWZU?=
+ =?utf-8?B?cHJXSlluenZsNWtwdS9KMi96Rzc0MDZHNDZtVi9pTkRKYVlZZTdOYldqT0NE?=
+ =?utf-8?B?Um1aNmxIaFJFSlZZS0Jjd245cHgvaEFzN2NvSWlnSnlGOEwrank4dFZjalZJ?=
+ =?utf-8?B?alIvYnFxMTg5TmFGNnpZTUlaYzhJQTgwNjVydXRZNGFvZjkzMU9uMExIVkZK?=
+ =?utf-8?B?UVliVTRkSlUzeHpqVlRDc3dNUzJIcmo4aXd3QjVEeUMyaUJ0N1hRVmxaM3Nm?=
+ =?utf-8?B?SjUyWDdmVW85Y2VDUGkzNDlCNXlrZUw0K0kyeGJtUUxNWTA3ZXZhSElGTFJV?=
+ =?utf-8?B?N1dZU2ZZMTZNeVpFd0p3UT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c25zaXNLUEdSL1Z0SHAwd0drUXhoRmp2SW5qN1J1QmFtbmp3OVd5WXVtSWY1?=
+ =?utf-8?B?Mk50Wk1WREQ1VDF5cFhIcUpiRDcvUXJvWGJPa2xNeDNjeUdJcktXaWNUYWlq?=
+ =?utf-8?B?Z2swUFV0WlRpbXIrUDZCUEF0VGNlTlVzWXRGNHdESVhueE9hY1hROFh1WVRH?=
+ =?utf-8?B?N2JwMFREMkJ2dGZBYkhhb2xDSWRtR0JOeXJCdlJOSklNVzY4ek9uYmtTdXlt?=
+ =?utf-8?B?ZzBvTTFubmFaU3R0YTM0Y21rNENqYWo1OGpjKzQ2ajczdEt4TjgyNmpraktG?=
+ =?utf-8?B?c25sRHJVQUY4N0IzdUZlanhZYytveG9uSHlSUktIbVNXWTNrWm83RTNoM1NT?=
+ =?utf-8?B?bDJBdndtSm5VSGU3Zy85RlpLc3FsY2tCeXBoVXgzNjV4SjZxam9yTzFmTkVW?=
+ =?utf-8?B?V0xESWNZMlF1MHA3Zmh4YjNOV3VWNlZrS0t2RmNNUW80QzlDQmU3dzR2ZjJw?=
+ =?utf-8?B?d3R6K0xFRENGSnRuM3VCd21CeDl1WDJCZWtWdXFDNFV2ZFZOTnBzd2tnai8r?=
+ =?utf-8?B?NVJzUG9TVndRSllML0RhUVhtck5XSlFoamtpa0JENUlIV3VPekdURW9vMVB6?=
+ =?utf-8?B?alg2UkFIMnZpTjNaS0RXeGo2bnBGekJ5WVZ3R3BUMFNBenJtQjhKdHZNLzN3?=
+ =?utf-8?B?UTZYbzIzeWx4Ymw4TXU1MEhwQ0NmcjZvRDluRVRweDl4U2ltVGZYcnJwekQ4?=
+ =?utf-8?B?UjhTTm13aGVVdUZQdG1NamFkbkZzcXFLdXR1Zi9BRDd5cmpVRXFBNnB4QVND?=
+ =?utf-8?B?dTJxalpLaENMQjBXYnhEbk9tRmNPc3VrVTE3dTREdFhmSmxMWElTR1BFenda?=
+ =?utf-8?B?U1preUVSb1Q2eVVKYnNkU2hUOU4wWWhCSVFjc3NXNWk4UHJlb0krREkvZS9U?=
+ =?utf-8?B?Ump6NFk0VmJ1RHhBeGJpTGRhNjJQdDB6ZHBWekJ5dkhwVFJBOHVsY3pTQ1RJ?=
+ =?utf-8?B?bHlnTHRnSUlvSlJoN0tkZTFpTmxMREJqN0xWcnZGMnN6UmthMnAyNzFtdlYz?=
+ =?utf-8?B?S0hweE04VnM5R1RGdnNKakh0R1lwRklLb0dVUktaU0N5VUVjdDZkN1hVS0hk?=
+ =?utf-8?B?dVZaM2FiL3ZiL2Frb0V1R3puazkzenQ3OXQyVG1RdllOY0hlS29TQm9RbXhw?=
+ =?utf-8?B?VUdiWmhkV1FaQlEvNlZQT3djRXliNmI5ZTJIZ2lrc291TnE5NEhGdktHempv?=
+ =?utf-8?B?cUc1VHZPeklvWndzK3NtdlpXS1hRc21YOEVmbzZtejQxbEJTQTQ4ekJnWWxK?=
+ =?utf-8?B?bGtSdHd1OVdyVUtsYmhod05zTURTOVluZm8xSFkyZUthbW1RVzhJVlBBaHJK?=
+ =?utf-8?B?TEJpRi9lL2ozdXkwME9NSUlUSWxIQmdyc1RZNDdYT2prQktaKzFWVlphQXZG?=
+ =?utf-8?B?aXcwVE40alRYcmlhNG5OR09jZXdTOW8xaTZEdGM0WWoxaDRGbEdJUjhoR0dT?=
+ =?utf-8?B?WWxGRHlBbkMyUndybzZoZVg2amtsZ1dhc21keDJnL2VORkZ2QnU2NlM5OEtz?=
+ =?utf-8?B?dHNKVit0eWE0aVFDdVhyRWg2c1MrUXB0ZUZ0RXV1d1JFTmF0NDM1cG9CRlpJ?=
+ =?utf-8?B?SWlvRFdaNzB2ck5Nd0YrR3pLQnVIUHZrMFAwWlBUSmcwZnk3L0d0UlB1K05j?=
+ =?utf-8?B?ZC9nOU1MTkRTMGp1elRWdWxhTVBoRVltV25EWG1XOW9Ud2VlY1RjTWpEa3Vq?=
+ =?utf-8?B?MTFlYUtjSUpsNTA2cGZyZkhueU5OR0krQmk3RVNKVDlXRzVvZkJCMEVWZEJR?=
+ =?utf-8?B?YWhFMUQyVWVUckNZLzdObVFoMXhZN0NGckVDMzdsRVU1TEg0MjlmRmdmajNr?=
+ =?utf-8?B?VGZpbHp3VTEvamdMU1ovSXVKaFBEQjBNV1Jpd0hZdWszZkZkdmEwR1JwdW9X?=
+ =?utf-8?B?c3UrMTdLaWZhYUNCMVVUbjROeDVsc0JtNWh1VFJSQlBrVkpod2hTK2I4YVBF?=
+ =?utf-8?B?cUtCWlBzd3RMOExOY1ZqUmZ5TXoxbXNkOFU1SWpidUpBdnBSWW5menR0bHEx?=
+ =?utf-8?B?TnhEc0JPNTJRb3h1UnZqNnZZYXI0cy9hclo3YkI5TDhJL0FkQVNsN3BrRmtB?=
+ =?utf-8?B?eGUrTmdtYmpaanJEUzBSTjczaHBpRGFubnZEclBEOUw1d1JEVDhISnpobWhi?=
+ =?utf-8?Q?FfPw6GsRsJJcSWAKJ/vviZCbd?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec48869d-ba33-4323-16aa-08dcdca08614
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5055.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd2c02ec-2cec-4bc4-e8a3-08dcdc9fee2f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2024 13:51:03.3440 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2yjiZy3qq1qIDHWIfiheFlzQcl5FquMZyFasYyq6d+Cn1X8yNa6iWF/2dDuDCOIJI7PI6ypBQswgME5A5UqddQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6617
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 13:55:18.4688 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: diL5oKAA3CYnV1Q5j7wuXkXqfL1rii5cS4blT/BSBt4JCABUEGNmwnkoGx72Q9ez
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,304 +165,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB5055D49C8290B0F27DE15B9BEC682DM4PR12MB5055namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+I've pushed the first to drm-misc-next, but that one here fails to apply 
+cleanly.
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Christian.
 
-Reviewed-by: Vignesh.Chander@amd.com
-Verified-by: Vignesh.Chander@amd.com
-
-________________________________
-From: Lijo Lazar <lijo.lazar@amd.com>
-Sent: Tuesday, September 24, 2024 2:02:50 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Chander, Vignesh <Vignesh.Chander@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Show current compute partition on VF
-
-Enable sysfs node for current compute partition mode on VFs also.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 29 +++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 12 ++++------
- 2 files changed, 31 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index 299c4461b606..fdc9656efdd3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1612,21 +1612,46 @@ static DEVICE_ATTR(available_compute_partition, 044=
-4,
-
- int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev)
- {
-+       struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
-+       bool xcp_switch_supported;
-         int r;
-
-+       if (!xcp_mgr)
-+               return 0;
-+
-+       xcp_switch_supported =3D
-+               (xcp_mgr->funcs && xcp_mgr->funcs->switch_partition_mode);
-+
-+       if (!xcp_switch_supported)
-+               dev_attr_current_compute_partition.attr.mode &=3D
-+                       ~(S_IWUSR | S_IWGRP | S_IWOTH);
-+
-         r =3D device_create_file(adev->dev, &dev_attr_current_compute_part=
-ition);
-         if (r)
-                 return r;
-
--       r =3D device_create_file(adev->dev, &dev_attr_available_compute_par=
-tition);
-+       if (xcp_switch_supported)
-+               r =3D device_create_file(adev->dev,
-+                                      &dev_attr_available_compute_partitio=
-n);
-
-         return r;
- }
-
- void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
- {
-+       struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
-+       bool xcp_switch_supported;
-+
-+       if (!xcp_mgr)
-+               return;
-+
-+       xcp_switch_supported =3D
-+               (xcp_mgr->funcs && xcp_mgr->funcs->switch_partition_mode);
-         device_remove_file(adev->dev, &dev_attr_current_compute_partition)=
-;
--       device_remove_file(adev->dev, &dev_attr_available_compute_partition=
-);
-+
-+       if (xcp_switch_supported)
-+               device_remove_file(adev->dev,
-+                                  &dev_attr_available_compute_partition);
- }
-
- int amdgpu_gfx_sysfs_isolation_shader_init(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index c100845409f7..52322ca754c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1165,12 +1165,9 @@ static int gfx_v9_4_3_sw_init(void *handle)
-         if (r)
-                 return r;
-
--
--       if (!amdgpu_sriov_vf(adev)) {
--               r =3D amdgpu_gfx_sysfs_init(adev);
--               if (r)
--                       return r;
--       }
-+       r =3D amdgpu_gfx_sysfs_init(adev);
-+       if (r)
-+               return r;
-
-         gfx_v9_4_3_alloc_ip_dump(adev);
-
-@@ -1201,8 +1198,7 @@ static int gfx_v9_4_3_sw_fini(void *handle)
-         gfx_v9_4_3_mec_fini(adev);
-         amdgpu_bo_unref(&adev->gfx.rlc.clear_state_obj);
-         gfx_v9_4_3_free_microcode(adev);
--       if (!amdgpu_sriov_vf(adev))
--               amdgpu_gfx_sysfs_fini(adev);
-+       amdgpu_gfx_sysfs_fini(adev);
-         amdgpu_gfx_sysfs_isolation_shader_fini(adev);
-
-         kfree(adev->gfx.ip_dump_core);
---
-2.25.1
-
-
---_000_DM4PR12MB5055D49C8290B0F27DE15B9BEC682DM4PR12MB5055namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Am 24.09.24 um 12:19 schrieb Tvrtko Ursulin:
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 >
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div dir=3D"auto">Reviewed-by: Vignesh.Chander@amd.com&nbsp;</div>
-<div dir=3D"auto">Verified-by: Vignesh.Chander@amd.com&nbsp;</div>
-<div><br>
-</div>
-<div id=3D"ms-outlook-mobile-signature" dir=3D"auto"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lijo Lazar &lt;lijo.l=
-azar@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, September 24, 2024 2:02:50 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; Chander, Vignesh &lt;Vignesh.Chander@am=
-d.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Show current compute partition on V=
-F</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Enable sysfs node for current compute partition mo=
-de on VFs also.<br>
-<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 29 +++++++++++++++++++++++-=
--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 12 ++++------<br>
-&nbsp;2 files changed, 31 insertions(+), 10 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c<br>
-index 299c4461b606..fdc9656efdd3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-@@ -1612,21 +1612,46 @@ static DEVICE_ATTR(available_compute_partition, 044=
-4,<br>
-&nbsp;<br>
-&nbsp;int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_xcp_mgr *xcp_mgr =3D ad=
-ev-&gt;xcp_mgr;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool xcp_switch_supported;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!xcp_mgr)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xcp_switch_supported =3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (xcp_mgr-&gt;funcs &amp;&amp; xcp_mgr-&gt;funcs-&gt;switch_parti=
-tion_mode);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!xcp_switch_supported)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_attr_current_compute_partition.attr.mode &amp;=3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~(S_IWUSR | S_IW=
-GRP | S_IWOTH);<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D device_create_file(a=
-dev-&gt;dev, &amp;dev_attr_current_compute_partition);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D device_create_file(adev-&gt;dev=
-, &amp;dev_attr_available_compute_partition);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (xcp_switch_supported)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D device_create_file(adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &=
-amp;dev_attr_available_compute_partition);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_xcp_mgr *xcp_mgr =3D ad=
-ev-&gt;xcp_mgr;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool xcp_switch_supported;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!xcp_mgr)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xcp_switch_supported =3D<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (xcp_mgr-&gt;funcs &amp;&amp; xcp_mgr-&gt;funcs-&gt;switch_parti=
-tion_mode);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&g=
-t;dev, &amp;dev_attr_current_compute_partition);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&gt;dev, &amp=
-;dev_attr_available_compute_partition);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (xcp_switch_supported)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; device_remove_file(adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;dev_attr_available_c=
-ompute_partition);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;int amdgpu_gfx_sysfs_isolation_shader_init(struct amdgpu_device *adev=
-)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c<br>
-index c100845409f7..52322ca754c5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-@@ -1165,12 +1165,9 @@ static int gfx_v9_4_3_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_gfx_sysfs_init(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (r)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gfx_sysfs_init(adev);<br=
+> Since drm_sched_entity_modify_sched() can modify the entities run queue,
+> lets make sure to only dereference the pointer once so both adding and
+> waking up are guaranteed to be consistent.
 >
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_4_3_alloc_ip_dump(a=
-dev);<br>
-&nbsp;<br>
-@@ -1201,8 +1198,7 @@ static int gfx_v9_4_3_sw_fini(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_4_3_mec_fini(adev);=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unref(&amp;adev-=
-&gt;gfx.rlc.clear_state_obj);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_4_3_free_microcode(=
-adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_gfx_sysfs_fini(adev);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_sysfs_fini(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_sysfs_isolation=
-_shader_fini(adev);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;gfx.ip_dump=
-_core);<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> Alternative of moving the spin_unlock to after the wake up would for now
+> be more problematic since the same lock is taken inside
+> drm_sched_rq_update_fifo().
+>
+> v2:
+>   * Improve commit message. (Philipp)
+>   * Cache the scheduler pointer directly. (Christian)
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Fixes: b37aced31eb0 ("drm/scheduler: implement a function to modify sched list")
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Luben Tuikov <ltuikov89@gmail.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Philipp Stanner <pstanner@redhat.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v5.7+
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/scheduler/sched_entity.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+> index 0e002c17fcb6..a75eede8bf8d 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -599,6 +599,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>   
+>   	/* first job wakes up scheduler */
+>   	if (first) {
+> +		struct drm_gpu_scheduler *sched;
+> +		struct drm_sched_rq *rq;
+> +
+>   		/* Add the entity to the run queue */
+>   		spin_lock(&entity->rq_lock);
+>   		if (entity->stopped) {
+> @@ -608,13 +611,16 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>   			return;
+>   		}
+>   
+> -		drm_sched_rq_add_entity(entity->rq, entity);
+> +		rq = entity->rq;
+> +		sched = rq->sched;
+> +
+> +		drm_sched_rq_add_entity(rq, entity);
+>   		spin_unlock(&entity->rq_lock);
+>   
+>   		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>   			drm_sched_rq_update_fifo(entity, submit_ts);
+>   
+> -		drm_sched_wakeup(entity->rq->sched);
+> +		drm_sched_wakeup(sched);
+>   	}
+>   }
+>   EXPORT_SYMBOL(drm_sched_entity_push_job);
 
---_000_DM4PR12MB5055D49C8290B0F27DE15B9BEC682DM4PR12MB5055namp_--
