@@ -4,79 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C6F0CF9C6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 16:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B85CCF9C72
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 17:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBFF10E2B8;
-	Tue, 24 Sep 2024 16:17:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 255AA10E8D1;
+	Tue, 24 Sep 2024 17:05:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KW8zDAZP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BIURoR3l";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74DB510E2B8;
- Tue, 24 Sep 2024 16:17:35 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2dee7861015so305474a91.2; 
- Tue, 24 Sep 2024 09:17:35 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9538710E8C3;
+ Tue, 24 Sep 2024 17:05:16 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2d8a4bad404so438401a91.1; 
+ Tue, 24 Sep 2024 10:05:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727194655; x=1727799455; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727197516; x=1727802316; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kssHnqH80Xc0+QcoY5MDsbuxwut+7UFnPYXFFQ2LW3w=;
- b=KW8zDAZPj1JHicqMyDV0XFwFxM5LVgQhKXRw/YyrpPLEKrh9YB8rI4j4ZWmQTYhnkf
- hKTW6hhJGp6653Fx/FVpN2dWL8lLMUegeV6aAzunOLtytfRUvfbxfaokCPMaP0fpiOdd
- mxM2Yc8e2vtTfMUKSMhGATn88VA3ib4uCH4kq5u4MH4Pecik0v+TivYksMQnpcD8TRFQ
- MUf3+QE/DIgySu42ePkWSLDVb2pzXru1BFlKAwcQSn7REZGKcXevwYUG4xYtwwsd5v0X
- fUpN1b1gRKgWmYFHqzqYbFTdVruJYe5ssD7QeOJ4VOep5t1zBXe7RXocvB+SAUmcrwOR
- Bzxg==
+ bh=Lccss7b+PPPdgDMWVV+dLTdvaIaRkSluice+dhJE7yM=;
+ b=BIURoR3liYgdJjNarYxJVRUCo/QAcObH1klRnRMnw2F/EMfjv3eBeLjD6EHZPx9e/4
+ 3mjEQFDBoMfkNkRtG5FUbq2NLfQqKzQJlwUeQOH9BM0JgUc6WGnf6YypDzWGL+b9Ssxh
+ 4I46OAaxmNEkXLVg5s6cXsEPv5svgWPyIPRxq9ytw0ocU5j9WJxrQYF4Huld5++O3jxO
+ y/e2+Trcsq769QI4XnCn6mq/gPk1wHj6EBK7cIy2D6iPvHyT9ido1GWeYyRs4uylNTry
+ ws0laklIbPD+lIxOOT8G6UzPDlfkX5Ik7yU6jeuQ9KafUGgXV65D9xxkQ5bdGcvjHFzz
+ OMxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727194655; x=1727799455;
+ d=1e100.net; s=20230601; t=1727197516; x=1727802316;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kssHnqH80Xc0+QcoY5MDsbuxwut+7UFnPYXFFQ2LW3w=;
- b=BH8U8DfVEaOvJYC3a0hLT8VtAnRRMhadr2XU2rXLN+VwFFYybEl62oIAhsz1QEfkvt
- Pk0MDDTp81QF4wesbmK7cLNs51S6zrkqtwi3HBJCngYGDWN4yA2J0lUVjJ1qFCrEmSu1
- 9vBrxOIPkA9K0yEYwAYTMXgMiAZ1CSGv9JAdWVw4D9Iuq3Eqr/LMONzQJmZFLHGzIUKb
- 6MKT++h/nGyHiYyA+LVD7iO2YTrpHq5fKaiWpIFJ2nh72rEztUbhy2cur7DC+jMf/RWU
- WYlxw5uJwqZXhp92ziCsYjO0VLqlpcBC8elPNcHxeba2VP6Qh4KaRUkCF7dnyTMIvPtJ
- UGNg==
+ bh=Lccss7b+PPPdgDMWVV+dLTdvaIaRkSluice+dhJE7yM=;
+ b=aIsuQ/thyw/XcQKloFYtBV57lmtNy/ms4pztZyX88o2cmhDod9vAi2HAMKwyVT0vZ9
+ T/dEUQWMAI9Ws8kxZVVDm6JzSqMtytgc+J84RztdzS4iHCbirt2WHG6PsNBEKVc7pQom
+ s3DUZr5nPvYQzpLX1w+jennsKgu/8c4DadYER4+T1Kk6WiVPL163cEMEiLCw2I8UYvVs
+ W9JTyIpWDZNm+jUDsnMzqObbqfhsR1JpgKDn86UqqibKZRu5hO1ouZinXh5sac2tkUGi
+ 7hjv7vaZWlLtNaX/YBLx1+I/+kYSyytQlU2ESrQJQ4Tu1Lu8OZKFaBLDE66pXT6Juwa0
+ rIEw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsY74Ktg3h3CZkX7tma9jZiaWO3Ryh/+sv6eVtGEkjTCrUXIeklgmVVqOP/ppqQhU8hiSsg7/j@lists.freedesktop.org,
- AJvYcCXOwU4TBoF6rLevv24BjGIQNZyHqS3KwpPOKNtVqCwSPFL+R233Eklc4QP6VnU7O9pbgqDOVjMGnw3Q@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0lho36UmCIaOwZoxcsFgg9IZS2N2210XPWaj0BeFdW0neaqiD
- 9mvNaVQiQDSjOO1ByQSpgjaGGFvQ6KDIkrD2XJjZaw9l/nMjNpwVCfhy9bUuAk7S26UM2BzKpkS
- MiXqMh+/kS+5mauw9khWz0yaJJsc=
-X-Google-Smtp-Source: AGHT+IEjr/ZA9arb2W1VbQpNXq7KzjZDWz97ypC8TzPzWYevu/QK1ETv4A5nORi+wHtGJbAGUWsP406zUHHotaNpYEo=
-X-Received: by 2002:a17:902:ec8b:b0:205:8820:fe1c with SMTP id
- d9443c01a7336-208d83dff51mr99001215ad.5.1727194654872; Tue, 24 Sep 2024
- 09:17:34 -0700 (PDT)
+ AJvYcCUh/cczT1C+UBMb/rjhvhKL3wJT+BCdlMFF9+C6jUjiBcliw0yM0BRuh2ckt7DS4+NCM7gW62g6@lists.freedesktop.org,
+ AJvYcCWoUeQgNIu3m1+bHmxlMhenire8xv/Ypd5w+1S08+7R6JKlX6APFX9n6WmDwynvMGbsy3nh51sYlnN+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxuYpVeDxpfCAKSMMciISm18AiXN5MiWRDGiAVts669JX03LFIq
+ Z/tPFmAcHpO2bMi7d2T4ubA37ovY5BZUxwckEY1YNUNnbem8bd2olgKJhQt7To8XuMy6e0yoP8p
+ E8pZrzutrwtypfrWLUIokKhlnW+U=
+X-Google-Smtp-Source: AGHT+IEm1M/263IJX2uy0cLLXAid7dgO/+hbup76IjqANE9iuRdSDZBYcCHLsVy8aY8VjxriJB40uwPp8Ry3nLtc5M0=
+X-Received: by 2002:a17:90a:e513:b0:2d8:8cfd:585d with SMTP id
+ 98e67ed59e1d1-2e05802da10mr1707599a91.2.1727197516117; Tue, 24 Sep 2024
+ 10:05:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240920214342.14792-1-v.shevtsov@maxima.ru>
-In-Reply-To: <20240920214342.14792-1-v.shevtsov@maxima.ru>
+References: <20240923012446.4965-1-linux@treblig.org>
+ <20240923012446.4965-6-linux@treblig.org>
+In-Reply-To: <20240923012446.4965-6-linux@treblig.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Sep 2024 12:17:23 -0400
-Message-ID: <CADnq5_OQShrB_RbYVVfFfQjTYZ=DfooH6B-BeMZ3DZt3OPxgMg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix typos in several function pointer
- checks
-To: Vitaliy Shevtsov <v.shevtsov@maxima.ru>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Alvin Lee <alvin.lee2@amd.com>, Charlene Liu <Charlene.Liu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, 
- Dillon Varone <dillon.varone@amd.com>, yi-lchen <yi-lchen@amd.com>,
- Alex Hung <alex.hung@amd.com>, 
- Chris Park <chris.park@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, 
- Tom Chung <chiahsuan.chung@amd.com>, George Shen <george.shen@amd.com>, 
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Samson Tam <samson.tam@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Date: Tue, 24 Sep 2024 13:05:04 -0400
+Message-ID: <CADnq5_PiB1eofAzdBvq8yxZypkv-JKutwqy7US9CQ4CV_R218w@mail.gmail.com>
+Subject: Re: [PATCH 5/5] drm/amdgpu: Remove unused amdgpu_i2c functions
+To: linux@treblig.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,76 +81,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied the series.  Thanks!
 
-On Sat, Sep 21, 2024 at 3:48=E2=80=AFAM Vitaliy Shevtsov <v.shevtsov@maxima=
-.ru> wrote:
+Alex
+
+On Sun, Sep 22, 2024 at 9:43=E2=80=AFPM <linux@treblig.org> wrote:
 >
-> Fix several copypaste mistakes in *_disable_link_output() functions where
-> an improper function pointer is checked before dereference.
+> From: "Dr. David Alan Gilbert" <linux@treblig.org>
 >
-> Found by Linux Verification Center (linuxtesting.org) with Svace.
+> amdgpu_i2c_add and amdgpu_i2c_init were added in 2015's commit
+> d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> but never used.
 >
-> Signed-off-by: Vitaliy Shevtsov <v.shevtsov@maxima.ru>
+> Remove them.
+>
+> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 > ---
->  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 4 ++--
->  3 files changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c | 25 -------------------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.h |  4 ----
+>  2 files changed, 29 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
-drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> index d52ce58c6a98..c2364cb66d0b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> @@ -3258,7 +3258,7 @@ void dce110_disable_link_output(struct dc_link *lin=
-k,
->          * from enable/disable link output and only call edp panel contro=
-l
->          * in enable_link_dp and disable_link_dp once.
->          */
-> -       if (dmcu !=3D NULL && dmcu->funcs->lock_phy)
-> +       if (dmcu !=3D NULL && dmcu->funcs->unlock_phy)
->                 dmcu->funcs->unlock_phy(dmcu);
->         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
-R_DISABLE_LINK_PHY);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_i2c.c
+> index 00d6211e0fbf..f0765ccde668 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+> @@ -225,15 +225,6 @@ void amdgpu_i2c_destroy(struct amdgpu_i2c_chan *i2c)
+>         kfree(i2c);
 >  }
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/=
-drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-> index 4e93eeedfc1b..5b6cf2a8e38d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-> @@ -478,7 +478,7 @@ void dcn314_disable_link_output(struct dc_link *link,
->          * from enable/disable link output and only call edp panel contro=
-l
->          * in enable_link_dp and disable_link_dp once.
->          */
-> -       if (dmcu !=3D NULL && dmcu->funcs->lock_phy)
-> +       if (dmcu !=3D NULL && dmcu->funcs->unlock_phy)
->                 dmcu->funcs->unlock_phy(dmcu);
->         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
-R_DISABLE_LINK_PHY);
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/dr=
-ivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-> index a36e11606f90..84153682af1a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-> @@ -1384,10 +1384,10 @@ void dcn32_disable_link_output(struct dc_link *li=
-nk,
->         link->phy_state.symclk_state =3D SYMCLK_OFF_TX_OFF;
+> -/* Add the default buses */
+> -void amdgpu_i2c_init(struct amdgpu_device *adev)
+> -{
+> -       if (amdgpu_hw_i2c)
+> -               DRM_INFO("hw_i2c forced on, you may experience display de=
+tection problems!\n");
+> -
+> -       amdgpu_atombios_i2c_init(adev);
+> -}
+> -
+>  /* remove all the buses */
+>  void amdgpu_i2c_fini(struct amdgpu_device *adev)
+>  {
+> @@ -247,22 +238,6 @@ void amdgpu_i2c_fini(struct amdgpu_device *adev)
+>         }
+>  }
 >
->         if (signal =3D=3D SIGNAL_TYPE_EDP &&
-> -                       link->dc->hwss.edp_backlight_control &&
-> +                       link->dc->hwss.edp_power_control &&
->                         !link->skip_implict_edp_power_control)
->                 link->dc->hwss.edp_power_control(link, false);
-> -       else if (dmcu !=3D NULL && dmcu->funcs->lock_phy)
-> +       else if (dmcu !=3D NULL && dmcu->funcs->unlock_phy)
->                 dmcu->funcs->unlock_phy(dmcu);
->
->         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
-R_DISABLE_LINK_PHY);
+> -/* Add additional buses */
+> -void amdgpu_i2c_add(struct amdgpu_device *adev,
+> -                   const struct amdgpu_i2c_bus_rec *rec,
+> -                   const char *name)
+> -{
+> -       struct drm_device *dev =3D adev_to_drm(adev);
+> -       int i;
+> -
+> -       for (i =3D 0; i < AMDGPU_MAX_I2C_BUS; i++) {
+> -               if (!adev->i2c_bus[i]) {
+> -                       adev->i2c_bus[i] =3D amdgpu_i2c_create(dev, rec, =
+name);
+> -                       return;
+> -               }
+> -       }
+> -}
+> -
+>  /* looks up bus based on id */
+>  struct amdgpu_i2c_chan *
+>  amdgpu_i2c_lookup(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_i2c.h
+> index 63c2ff7499e1..21e3d1dad0a1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.h
+> @@ -28,11 +28,7 @@ struct amdgpu_i2c_chan *amdgpu_i2c_create(struct drm_d=
+evice *dev,
+>                                           const struct amdgpu_i2c_bus_rec=
+ *rec,
+>                                           const char *name);
+>  void amdgpu_i2c_destroy(struct amdgpu_i2c_chan *i2c);
+> -void amdgpu_i2c_init(struct amdgpu_device *adev);
+>  void amdgpu_i2c_fini(struct amdgpu_device *adev);
+> -void amdgpu_i2c_add(struct amdgpu_device *adev,
+> -                   const struct amdgpu_i2c_bus_rec *rec,
+> -                   const char *name);
+>  struct amdgpu_i2c_chan *
+>  amdgpu_i2c_lookup(struct amdgpu_device *adev,
+>                   const struct amdgpu_i2c_bus_rec *i2c_bus);
 > --
 > 2.46.1
 >
