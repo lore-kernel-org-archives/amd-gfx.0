@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CAEECF9C7C
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2E86CF9C77
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 07:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5933C10E596;
-	Tue, 24 Sep 2024 07:18:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C9E10E59C;
+	Tue, 24 Sep 2024 07:18:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="HwEjY23W";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nnynBnTd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HwEjY23W";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nnynBnTd";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="OcV4d1oz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MLpSR6Lh";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OcV4d1oz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MLpSR6Lh";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63FA110E563;
- Tue, 24 Sep 2024 07:17:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E49B810E514;
+ Tue, 24 Sep 2024 07:17:58 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F27041FBF1;
- Tue, 24 Sep 2024 07:17:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7D90E1FC30;
+ Tue, 24 Sep 2024 07:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162274; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nwcjN+ZZPkWWHxf2Mc6XweRmnrscIn70wQt5gJG+ZxI=;
- b=HwEjY23WjWTsnhpf2cbWAsRIGyq2QLWQqFawQ1Gl8oBlHB2PZ+iT8EGVu9HURtM7xZTbav
- p9uW0gPrRFwk6cg9DeQma37a1tnB6lpJS64fkD1bY46Dv5O6XoeHVDZDhPzDVqOapRDv7p
- fz6YnV5KtNYMVQeuJKXASOrWAU7Kzn8=
+ bh=3USQ0CV3hIQSwm8aDLvO3rAAOZSpss6Gdb+PbBk3OQs=;
+ b=OcV4d1ozOV7sJ4IA/OLjLA6XIRkSgQG8DILUWeVcjDZjtKsEnXES/HoOjeqvH9J3n0I74i
+ YQIn3K/fQ707hfD+G9GV2nonEwivulEzt9SxuTHxXyWGRC6grE/rom5AHCqrGQzfhMezo6
+ rbHIlksVZdhCN1O5K5TueLnVbQPZnbU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162274;
+ s=susede2_ed25519; t=1727162277;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nwcjN+ZZPkWWHxf2Mc6XweRmnrscIn70wQt5gJG+ZxI=;
- b=nnynBnTdg55533QviBfvUXKCTiWgoHnsVMU7Hu36Ugv5cMahJm81x12RoQ50MB6cMxwiLv
- jdfb7ZBIzUBdNJCQ==
+ bh=3USQ0CV3hIQSwm8aDLvO3rAAOZSpss6Gdb+PbBk3OQs=;
+ b=MLpSR6LhCh2V4J21VKQZqwEugvAJendPiatYGzZAJGEC3vV8S1R5HNsCum+ZfoPh0hajhz
+ W2g5zPvt52hDBSAg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HwEjY23W;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=nnynBnTd
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=OcV4d1oz;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MLpSR6Lh
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727162274; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727162277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nwcjN+ZZPkWWHxf2Mc6XweRmnrscIn70wQt5gJG+ZxI=;
- b=HwEjY23WjWTsnhpf2cbWAsRIGyq2QLWQqFawQ1Gl8oBlHB2PZ+iT8EGVu9HURtM7xZTbav
- p9uW0gPrRFwk6cg9DeQma37a1tnB6lpJS64fkD1bY46Dv5O6XoeHVDZDhPzDVqOapRDv7p
- fz6YnV5KtNYMVQeuJKXASOrWAU7Kzn8=
+ bh=3USQ0CV3hIQSwm8aDLvO3rAAOZSpss6Gdb+PbBk3OQs=;
+ b=OcV4d1ozOV7sJ4IA/OLjLA6XIRkSgQG8DILUWeVcjDZjtKsEnXES/HoOjeqvH9J3n0I74i
+ YQIn3K/fQ707hfD+G9GV2nonEwivulEzt9SxuTHxXyWGRC6grE/rom5AHCqrGQzfhMezo6
+ rbHIlksVZdhCN1O5K5TueLnVbQPZnbU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727162274;
+ s=susede2_ed25519; t=1727162277;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nwcjN+ZZPkWWHxf2Mc6XweRmnrscIn70wQt5gJG+ZxI=;
- b=nnynBnTdg55533QviBfvUXKCTiWgoHnsVMU7Hu36Ugv5cMahJm81x12RoQ50MB6cMxwiLv
- jdfb7ZBIzUBdNJCQ==
+ bh=3USQ0CV3hIQSwm8aDLvO3rAAOZSpss6Gdb+PbBk3OQs=;
+ b=MLpSR6LhCh2V4J21VKQZqwEugvAJendPiatYGzZAJGEC3vV8S1R5HNsCum+ZfoPh0hajhz
+ W2g5zPvt52hDBSAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B59621386E;
- Tue, 24 Sep 2024 07:17:53 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37CF11386E;
+ Tue, 24 Sep 2024 07:17:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id IBYrK6Fn8mb3YAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:53 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gCRjDKVn8mb3YAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 07:17:57 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v5 48/80] drm/fbdev-dma: Remove obsolete setup function
-Date: Tue, 24 Sep 2024 09:12:46 +0200
-Message-ID: <20240924071734.98201-49-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@redhat.com>,
+ Sean Paul <sean@poorly.run>
+Subject: [PATCH v5 60/80] drm/udl: Run DRM default client setup
+Date: Tue, 24 Sep 2024 09:12:58 +0200
+Message-ID: <20240924071734.98201-61-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240924071734.98201-1-tzimmermann@suse.de>
 References: <20240924071734.98201-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: F27041FBF1
-X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 7D90E1FC30
 X-Spamd-Result: default: False [-5.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  DWL_DNSWL_MED(-2.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
  NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
@@ -101,11 +101,12 @@ X-Spamd-Result: default: False [-5.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_SEVEN(0.00)[9];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_SEVEN(0.00)[11];
  R_RATELIMIT(0.00)[to(RLbwen1niosrcqbxsafh1),to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
  FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,200 +121,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The old setup function drm_fbdev_dma_setup() is unused. Remove it and
-its internal callbacks. New drivers should call drm_client_setup()
-instead.
+Call drm_client_setup() to run the kernel's default client setup
+for DRM. Set fbdev_probe in struct drm_driver, so that the client
+setup can start the common fbdev client.
+
+v5:
+- select DRM_CLIENT_SELECTION
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/drm_fbdev_dma.c | 120 +-------------------------------
- include/drm/drm_fbdev_dma.h     |   7 --
- 2 files changed, 1 insertion(+), 126 deletions(-)
+ drivers/gpu/drm/udl/Kconfig   | 1 +
+ drivers/gpu/drm/udl/udl_drv.c | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
-index 9ce754ebe18e..2343af1b09bc 100644
---- a/drivers/gpu/drm/drm_fbdev_dma.c
-+++ b/drivers/gpu/drm/drm_fbdev_dma.c
-@@ -2,15 +2,13 @@
+diff --git a/drivers/gpu/drm/udl/Kconfig b/drivers/gpu/drm/udl/Kconfig
+index c744175c6992..d7a6abef7d78 100644
+--- a/drivers/gpu/drm/udl/Kconfig
++++ b/drivers/gpu/drm/udl/Kconfig
+@@ -5,6 +5,7 @@ config DRM_UDL
+ 	depends on USB
+ 	depends on USB_ARCH_HAS_HCD
+ 	depends on MMU
++	select DRM_CLIENT_SELECTION
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
+ 	help
+diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
+index 280a09a6e2ad..8d8ae40f945c 100644
+--- a/drivers/gpu/drm/udl/udl_drv.c
++++ b/drivers/gpu/drm/udl/udl_drv.c
+@@ -6,6 +6,7 @@
+ #include <linux/module.h>
  
- #include <linux/fb.h>
- 
--#include <drm/drm_crtc_helper.h>
  #include <drm/drm_drv.h>
-+#include <drm/drm_fbdev_dma.h>
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_dma_helper.h>
++#include <drm/drm_client_setup.h>
+ #include <drm/drm_fbdev_shmem.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem_shmem_helper.h>
+@@ -73,6 +74,7 @@ static const struct drm_driver driver = {
+ 	.fops = &udl_driver_fops,
+ 	DRM_GEM_SHMEM_DRIVER_OPS,
+ 	.gem_prime_import = udl_driver_gem_prime_import,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
  
--#include <drm/drm_fbdev_dma.h>
--
- /*
-  * struct fb_ops
-  */
-@@ -102,12 +100,6 @@ static const struct fb_ops drm_fbdev_dma_deferred_fb_ops = {
-  * struct drm_fb_helper
-  */
+ 	.name = DRIVER_NAME,
+ 	.desc = DRIVER_DESC,
+@@ -117,7 +119,7 @@ static int udl_usb_probe(struct usb_interface *interface,
  
--static int drm_fbdev_dma_helper_fb_probe(struct drm_fb_helper *fb_helper,
--					 struct drm_fb_helper_surface_size *sizes)
--{
--	return drm_fbdev_dma_driver_fbdev_probe(fb_helper, sizes);
--}
--
- static int drm_fbdev_dma_helper_fb_dirty(struct drm_fb_helper *helper,
- 					 struct drm_clip_rect *clip)
- {
-@@ -128,7 +120,6 @@ static int drm_fbdev_dma_helper_fb_dirty(struct drm_fb_helper *helper,
+ 	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
+ 
+-	drm_fbdev_shmem_setup(&udl->drm, 0);
++	drm_client_setup(&udl->drm, NULL);
+ 
+ 	return 0;
  }
- 
- static const struct drm_fb_helper_funcs drm_fbdev_dma_helper_funcs = {
--	.fb_probe = drm_fbdev_dma_helper_fb_probe,
- 	.fb_dirty = drm_fbdev_dma_helper_fb_dirty,
- };
- 
-@@ -246,112 +237,3 @@ int drm_fbdev_dma_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- 	return ret;
- }
- EXPORT_SYMBOL(drm_fbdev_dma_driver_fbdev_probe);
--
--/*
-- * struct drm_client_funcs
-- */
--
--static void drm_fbdev_dma_client_unregister(struct drm_client_dev *client)
--{
--	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
--
--	if (fb_helper->info) {
--		drm_fb_helper_unregister_info(fb_helper);
--	} else {
--		drm_client_release(&fb_helper->client);
--		drm_fb_helper_unprepare(fb_helper);
--		kfree(fb_helper);
--	}
--}
--
--static int drm_fbdev_dma_client_restore(struct drm_client_dev *client)
--{
--	drm_fb_helper_lastclose(client->dev);
--
--	return 0;
--}
--
--static int drm_fbdev_dma_client_hotplug(struct drm_client_dev *client)
--{
--	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
--	struct drm_device *dev = client->dev;
--	int ret;
--
--	if (dev->fb_helper)
--		return drm_fb_helper_hotplug_event(dev->fb_helper);
--
--	ret = drm_fb_helper_init(dev, fb_helper);
--	if (ret)
--		goto err_drm_err;
--
--	if (!drm_drv_uses_atomic_modeset(dev))
--		drm_helper_disable_unused_functions(dev);
--
--	ret = drm_fb_helper_initial_config(fb_helper);
--	if (ret)
--		goto err_drm_fb_helper_fini;
--
--	return 0;
--
--err_drm_fb_helper_fini:
--	drm_fb_helper_fini(fb_helper);
--err_drm_err:
--	drm_err(dev, "fbdev-dma: Failed to setup generic emulation (ret=%d)\n", ret);
--	return ret;
--}
--
--static const struct drm_client_funcs drm_fbdev_dma_client_funcs = {
--	.owner		= THIS_MODULE,
--	.unregister	= drm_fbdev_dma_client_unregister,
--	.restore	= drm_fbdev_dma_client_restore,
--	.hotplug	= drm_fbdev_dma_client_hotplug,
--};
--
--/**
-- * drm_fbdev_dma_setup() - Setup fbdev emulation for GEM DMA helpers
-- * @dev: DRM device
-- * @preferred_bpp: Preferred bits per pixel for the device.
-- *                 32 is used if this is zero.
-- *
-- * This function sets up fbdev emulation for GEM DMA drivers that support
-- * dumb buffers with a virtual address and that can be mmap'ed.
-- * drm_fbdev_dma_setup() shall be called after the DRM driver registered
-- * the new DRM device with drm_dev_register().
-- *
-- * Restore, hotplug events and teardown are all taken care of. Drivers that do
-- * suspend/resume need to call drm_fb_helper_set_suspend_unlocked() themselves.
-- * Simple drivers might use drm_mode_config_helper_suspend().
-- *
-- * This function is safe to call even when there are no connectors present.
-- * Setup will be retried on the next hotplug event.
-- *
-- * The fbdev is destroyed by drm_dev_unregister().
-- */
--void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp)
--{
--	struct drm_fb_helper *fb_helper;
--	int ret;
--
--	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
--	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
--
--	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
--	if (!fb_helper)
--		return;
--	drm_fb_helper_prepare(dev, fb_helper, preferred_bpp, &drm_fbdev_dma_helper_funcs);
--
--	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &drm_fbdev_dma_client_funcs);
--	if (ret) {
--		drm_err(dev, "Failed to register client: %d\n", ret);
--		goto err_drm_client_init;
--	}
--
--	drm_client_register(&fb_helper->client);
--
--	return;
--
--err_drm_client_init:
--	drm_fb_helper_unprepare(fb_helper);
--	kfree(fb_helper);
--}
--EXPORT_SYMBOL(drm_fbdev_dma_setup);
-diff --git a/include/drm/drm_fbdev_dma.h b/include/drm/drm_fbdev_dma.h
-index 6ae4de46497c..fb3f2a9aa01a 100644
---- a/include/drm/drm_fbdev_dma.h
-+++ b/include/drm/drm_fbdev_dma.h
-@@ -3,7 +3,6 @@
- #ifndef DRM_FBDEV_DMA_H
- #define DRM_FBDEV_DMA_H
- 
--struct drm_device;
- struct drm_fb_helper;
- struct drm_fb_helper_surface_size;
- 
-@@ -13,15 +12,9 @@ int drm_fbdev_dma_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- 
- #define DRM_FBDEV_DMA_DRIVER_OPS \
- 	.fbdev_probe = drm_fbdev_dma_driver_fbdev_probe
--
--void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp);
- #else
--static inline void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp)
--{ }
--
- #define DRM_FBDEV_DMA_DRIVER_OPS \
- 	.fbdev_probe = NULL
--
- #endif
- 
- #endif
 -- 
 2.46.0
 
