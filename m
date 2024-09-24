@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 538A7CF9C71
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 05:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B20CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 06:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067F710E4CE;
-	Tue, 24 Sep 2024 05:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83B6210E4D2;
+	Tue, 24 Sep 2024 06:03:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VSnVcthX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MJ9h3Wtv";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B2310E4D1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 05:57:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FF6910E4D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 06:03:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e2JD7uzY3bePQfs86vhdjBJAOiZVX95cNy18mrr4HORr/M4TjbVZ3x1aoc9qIMRt3iWXdlFflU1hZeijjwXPqMLcNzW8RvGjPGli73WVKAn0ElzzOzNayAJ8cHrfJxIKhFNaEqrCKdKt3PDvato1HKWxGpvbTCmoyu90oTfOHPRW8q4AIZQ68Oeb22aa87/zg0qKE0cryYYDl8RKkzsOIEMEWCvn24YiLi38HFpm8P7H0zJ0ncyBM8woubqYtx78RJ5qdvii4YCKr1pLJUpwJUHPMYe+TPWUyG1ZID2wfo+ifoYMVZczf5bszXbPTOI/q0f1h7sTSl97X4qXR1fUDw==
+ b=nRVxVD0Bcl66LgAuD9sULnan9CwONS+8ZoTotaXz9hGmSfI/ZgztpqYuN9O5J666HFFUdVQr22jgVpY4Oy1/E/1XkpMw5zMyqWCWgTrQo2Xe+enooGJ5M0+t+XuDo0xzKqma4YrqEmPbOMo0RdZJX5Ud7emVwfsWnw6B6leBTsnLqgv+UJwkB0QhcHj1WSd4vQO21H/V7AOVUKz88tLdqJ2jOW1RKuL8Ggy+FK/1jd52juaRkAIU8xHZtiI4ljSZbGh7qGwXQMB2iKmZnIBG/J2q4b/7BvmMlwA+chUa0Yum+uqa5cglVLh7QOxeeY7PdZVoz+AXhwjcsC+Zg5x91A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFSap/n6miAiRmcUo/R768WLwBVXGztbWjsY1A0ZZTQ=;
- b=G5tlzxrVsfe0eGkUs+ZP0MnoRuROE9CqOApI9moJ9HCxahXiCdBzetiPUGGKNRbPSRbn8Iw8rnYiixkwHoxM5/f8LgIwF+z07CiASKs0T5Y3BjmAtlYhey5O9dv0kHrSIdudhC+GixhMGmf2onUfTzMUJW4ZKWr+ZOnp5Hcln2b05IWc457rQ7Tofk9HX3crTr/V00Zg+GxBld3XRkr28APrBXoK9Ywzejhiero6RhnpwORrRm7sWzECfhClkF2WwF4SfkkQblhH3oOvQtPTBFEsT9ggZA4Skpikx7Q9NEhik3eAMa4fCug9onWIJuzPPmuBy4wrW54Fm2PlSkbWcw==
+ bh=syjV07dJ3JuLtnQBfiN5ZKchxHT1qq6XrVdhlvv0Ck4=;
+ b=ZrkTsYeqnRYlCrVVY9sNX4siK7iD3d+7JWQzYRvbdasCcevngJjmw6IWdsqELxVINRgd01/dArle3oFlDUQBvDnBRMVH+VMiqfS6b+5Xr2VP4xT1WMvIHMB9bywNfVMC5em+7waZrvKKkcZDrmq6Zrjovcy6DbF0VFNqyMEJcBYhF1uIcJxe9v6NNEbwQqo+/euuj8zW6Rz/2bWvekzuMJsv0E5zv0ywrI5BGRtwieZY7G2xLAWBXTcTQ9SO12vGF4IdxvyHLhEtYsMU4N/O/rxCSd/2WgJ4Rqexz2S4VSWo2HQJN4x+xQai8ZEggbfnrjbkPoGvUt0igu7JawmZpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFSap/n6miAiRmcUo/R768WLwBVXGztbWjsY1A0ZZTQ=;
- b=VSnVcthXB3rdaV+roYNB9IXs0e17euIq6Bp9ZBH0ZqMrDj2UnsqXjiFueEvmNzQLii8B0082ndQGu9HZc4Wf/N9O93jF6MQhZHX9tzDo/lAmJUhbN8bFAYXjBYfKUTQYOz3fxxbQs7xCpjH5gMJL5/b71aCyhIJTJAezdSsVOXo=
-Received: from DM6PR12CA0011.namprd12.prod.outlook.com (2603:10b6:5:1c0::24)
- by PH7PR12MB5656.namprd12.prod.outlook.com (2603:10b6:510:13b::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=syjV07dJ3JuLtnQBfiN5ZKchxHT1qq6XrVdhlvv0Ck4=;
+ b=MJ9h3WtvGVxLy4SxJf1EfPaJ3y+fvUZqu8792R0PqkiM4RNqrzX9eeJfi8RY7GqTlro7iMlHkSXvKZKzO6z4Kgk/3FIrL5xTHuU0UjPuLswp+Sb4YdApHCtXdrF0RjA5GQnptcDf3jtgG+zYphc8AkThuTTDKit/Q1jXjCuVg38=
+Received: from BN9PR03CA0770.namprd03.prod.outlook.com (2603:10b6:408:13a::25)
+ by IA1PR12MB6114.namprd12.prod.outlook.com (2603:10b6:208:3ea::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Tue, 24 Sep
- 2024 05:57:29 +0000
-Received: from DS3PEPF0000C37C.namprd04.prod.outlook.com
- (2603:10b6:5:1c0:cafe::f7) by DM6PR12CA0011.outlook.office365.com
- (2603:10b6:5:1c0::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.23 via Frontend
- Transport; Tue, 24 Sep 2024 05:57:29 +0000
+ 2024 06:03:11 +0000
+Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
+ (2603:10b6:408:13a:cafe::10) by BN9PR03CA0770.outlook.office365.com
+ (2603:10b6:408:13a::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25 via Frontend
+ Transport; Tue, 24 Sep 2024 06:03:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF0000C37C.mail.protection.outlook.com (10.167.23.6) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.15 via Frontend Transport; Tue, 24 Sep 2024 05:57:29 +0000
+ BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8005.15 via Frontend Transport; Tue, 24 Sep 2024 06:03:11 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Sep
- 2024 00:57:26 -0500
+ 2024 01:03:07 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Christian.Koenig@amd.com>, <rajneesh.bhardwaj@amd.com>,
- <Ramesh.Errabolu@amd.com>
-Subject: [PATCH 7/7] drm/amdgpu: Add NPS switch support for GC 9.4.3
-Date: Tue, 24 Sep 2024 11:26:52 +0530
-Message-ID: <20240924055652.2678433-8-lijo.lazar@amd.com>
+ <Vignesh.Chander@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: Fetch NPS mode for GCv9.4.3 VFs
+Date: Tue, 24 Sep 2024 11:32:49 +0530
+Message-ID: <20240924060250.2678600-1-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240924055652.2678433-1-lijo.lazar@amd.com>
-References: <20240924055652.2678433-1-lijo.lazar@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,51 +71,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37C:EE_|PH7PR12MB5656:EE_
-X-MS-Office365-Filtering-Correlation-Id: a84fb4f5-6425-47bf-55c5-08dcdc5dc635
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|IA1PR12MB6114:EE_
+X-MS-Office365-Filtering-Correlation-Id: 794c7879-cccc-491a-e0fe-08dcdc5e9216
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hiG+DoW/KaNx4FcXcolwQNoMZyvfdvM58HyFEnc1RwvnLF1UVqyfyFP1lCEh?=
- =?us-ascii?Q?LXM0OIt88LTLVirj2gvaQENQnoz80XRMwlOijcQXEPPOMTFueNTiOaSQVIUY?=
- =?us-ascii?Q?KHVIjDUhPocp+Xt5sdq7HBMpbaGhw9UtaJl52Df3k+VDotn6NA2YM10dZjyC?=
- =?us-ascii?Q?ib9t5j2n6Wxe2igAm4JBKeTdP7+QQWDfenQ6VtL/bgjfdrbYHm913XcCQWZb?=
- =?us-ascii?Q?zJAZJebmaUfwC4OrW5HO3N50aB89BBitl4pKBiwTNtVCVDeuYfhjTUm2txzS?=
- =?us-ascii?Q?IY5fjXbaOX+ztNkauasz9jCPnpbQfnskkSaJj0DfNYLgGd7Fsim8s6XKmHBB?=
- =?us-ascii?Q?i6KLb3h3m3h+gD5WnMkqlEYCTmds9kRTFUQF1prmGrr8J/+nDMpEGQZM46Qy?=
- =?us-ascii?Q?qX3q4NoSit2rwWVoyKUe/lXI0DMWi4ZSk1HJfMNwIVy678H8ZZ7zCUSXFe0G?=
- =?us-ascii?Q?+k2bZr41r8tTGXGO9YUJqq+2zCmyo6Kn6vVqNSn+4d/BaogLhfM3SKfgr5Rs?=
- =?us-ascii?Q?QsmyWpunguMH7byOOKTUoM5YYXczOmdenc058ancl8lTKwocu1rKp12187vw?=
- =?us-ascii?Q?oclohf1cQvYPIVqkfvDWLqp6zQeYBe4gFqOzB2ktFteIBM2oDI32ByFgmSQJ?=
- =?us-ascii?Q?0R8wLKmavVoTPlNmwKrvE2t1suEzckWPZZzIR/FIvzB4ONA4mdwJXdE8VNMP?=
- =?us-ascii?Q?KKbWZSjH9sRP3rn36dBnFTz0MiwuOC5hPNnqm/oe2EIC0tIApPDAHe8ceaY3?=
- =?us-ascii?Q?+VUXUHHMzUZLIAbYG6wuIM1p+XZuYt6f2S2jh5k18OHgJ4L+bEQvpYcin5Y2?=
- =?us-ascii?Q?HaHD24xxKCIuug6pvz8MBYrUSBgt2u4ZTT42ja3xWFORNb44l/UZ7LbbRVI1?=
- =?us-ascii?Q?GfAUCMcK2WIHMYDNS4i7i5nefVetv9f5jFAWrDWjh8onjgzbI8u5qWPNWeyP?=
- =?us-ascii?Q?7yjOIhc8QKiy56YBlsdXkBZZpW12GHCRv3BWgULcqpG7HKVv/DwBvae8mem1?=
- =?us-ascii?Q?2HJV9S93IbKX07D8c8qcNMqAQSTaxE6zoQosst2vf/S9Az4IVrQ8eb46c7xf?=
- =?us-ascii?Q?Thnz/zc5Hwms1MReKoCH0LygWChLHgdaL15jA4BUyAXXGCDhqff509VeD4Vb?=
- =?us-ascii?Q?CCb69sRBju0eT2SCbYFrFxUNKRyJEaM8wVFBmlOLtk3GLxByX4htVi/9ultL?=
- =?us-ascii?Q?5Kwp2yb8UYstH18TOgxXom1nOYOKPnLVcNQ1ulehQn47uPbN47l2xfUB4ZeS?=
- =?us-ascii?Q?tOZ3hXxJrtnQHxra/r4pVgfz8/HR6oRRNlprI0G2wK7gm3cWAnzWhdyIuICW?=
- =?us-ascii?Q?H9Va/OH2C3NDPP6PlYriDDS3GtP5O/67Y1WXDDZP7fMw0tEmgK9UJGO3dmBf?=
- =?us-ascii?Q?ixk/qCad81RstPZ7Vsa+bzNJn3nlyGGwmHn13H9+m1JUgG3XVt3a3Apix7a+?=
- =?us-ascii?Q?yRi3hwl004F6NdXPtDUTubQZD/JP94Ke?=
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3pN9eBC9nrDkOlNqD9pL6wI/IFEl/zhmrnZBVHD+fgSwf+i9O3FPnjKVH7yM?=
+ =?us-ascii?Q?evPRoKuihpocWdSDkxKwiF41n/6DSNCg8Ic+75zyDbZrTChEggLLszMB4qr6?=
+ =?us-ascii?Q?DZkAsx2LSQemT8VA80RW2prAWPHiX8UGYZ0J2TON3yEU03ihfSdk0+yJ3M4J?=
+ =?us-ascii?Q?X6IWS6zTl50ut9T1SaFh4ChNv226ZuNjSHbZiBfFmmiSs9dF7m9mneVtMSkX?=
+ =?us-ascii?Q?XPTrDk3dfhEmRrEbzhJvd2pCif6dU9n8qw1N+nBxqUkjoeYdLBu5KfIoX3/4?=
+ =?us-ascii?Q?r13E0JkKRsAuhelgd/7UrcXZgo6a6NWZHDrF551JCxfbitM0TwxsxO/szvbZ?=
+ =?us-ascii?Q?dX7Lpk15GAS5q2rnKyidxrvbda1l0qy8d1l2DcGQYtM2rmSqseCko2OuMoiD?=
+ =?us-ascii?Q?40gW5GFV1YS/1tMmhYA2iwtw3ev2IeAcuVqbmgg270MFSdLDZS5X0SVPRH21?=
+ =?us-ascii?Q?V+p9H2XHl1EldSqca3TShoqt7UKX/J/L2z3Le6NVwdUEAPzp+sds6Y7AnphB?=
+ =?us-ascii?Q?DgkBSGCmIIemcsxJMTE6+kmnXZzcx7kHI5CnvSxtCq2p95Dgr+VX+dMh8J33?=
+ =?us-ascii?Q?3PkFHp47xDKoz/bvrZ5lDEUqlBFS5ajZk4lsUsXD5gukwrVSMRI/hCLzaYCc?=
+ =?us-ascii?Q?vON2hTIA0yuzdwy/gRQsOGX86i++oD1f+AG8u8NcJkIJOJ5K2MWeP06Jg0yI?=
+ =?us-ascii?Q?RJrUochwNA3GutZjhX10YflKRDIg46Dv12eP2s5WRF/tO20Zc+gtelqkm8S2?=
+ =?us-ascii?Q?+DcBfl1nT5vMJj3fT2yGgLvELyYJi0l7YrtRFbvFPWEwuzYONwDVjVA7+Qsc?=
+ =?us-ascii?Q?bQf1dwC24jUcn4MrmB2F7ee0zxMCB0P24TQwZevMhDEJJJKyW/qZzqtqREv0?=
+ =?us-ascii?Q?VjNHcPXADyMSN3elcKASScHQuEE2kDCHlQBvTqcxvEtD8ONH8lMaJxEjr/Kc?=
+ =?us-ascii?Q?3CQ7+KcbsvV9cBbe1JFfJHq354/WjXecYPAe2/Zzagwp8euIMmNB2lUpDcPd?=
+ =?us-ascii?Q?4ZyPV6zJoBdrZ2B9VoKnCC/lmLWSYhEFhy3lkjox5o49rijxesIL1O2lrfPj?=
+ =?us-ascii?Q?Je5Ey0XcZ0IAgipeFlmMjqdR3gBpRAcM0lU1byIlhaNcacJwCWbs4UZaF1rX?=
+ =?us-ascii?Q?3xZVYzvPDybw+1CKtbQ0nn8KZPskBb1qSlFx+fSsLQMXjR3wFEOLVSyzOihg?=
+ =?us-ascii?Q?Xw09+Ef9/H5XavpoBzo2GM4miWDPwB7etUE0iUMH5dOnsLINtI8g/x+Yd6gM?=
+ =?us-ascii?Q?GYpWMunWh00Q7IHN1Y0g21yW8Myg+JT4YswFyEc51t8DKPPdlY297SSgsFnJ?=
+ =?us-ascii?Q?SLLp7NUY8DtfU7pmyxwtLDwrldnF0EK8JuzGq9NrwqWU3/LPKUC5eFNyHt02?=
+ =?us-ascii?Q?ICemu9VK4S4ZSKdMc1YU6fS/5Bvetv5OVK9kS7x/ttRqTA3rszknZXTFeQPz?=
+ =?us-ascii?Q?ChfQBnrJG9UHVn5O5pe7KoXhMM75PZzZ?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 05:57:29.4127 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a84fb4f5-6425-47bf-55c5-08dcdc5dc635
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 06:03:11.4527 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 794c7879-cccc-491a-e0fe-08dcdc5e9216
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5656
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6114
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,143 +130,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add dynamic NPS switch support for GC 9.4.3 variants. Only GC v9.4.3 and
-GC v9.4.4 currently support this. NPS switch is only supported if an SOC
-supports multiple NPS modes.
+Use the memory ranges published in discovery table to deduce NPS mode
+of GC v9.4.3 VFs.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 44 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c   | 12 +++++++
- 3 files changed, 57 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 30 +++++++++++++++++++++++--
+ 3 files changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index f61d117b0caf..79c2f807b9fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -101,6 +101,7 @@ struct amdgpu_nbio_funcs {
- 	int (*get_compute_partition_mode)(struct amdgpu_device *adev);
- 	u32 (*get_memory_partition_mode)(struct amdgpu_device *adev,
- 					 u32 *supp_modes);
-+	bool (*is_nps_switch_requested)(struct amdgpu_device *adev);
- 	u64 (*get_pcie_replay_count)(struct amdgpu_device *adev);
- 	void (*set_reg_remap)(struct amdgpu_device *adev);
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 011fe3a847d0..4d8d229ca457 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1256,14 +1256,14 @@ void amdgpu_gmc_sysfs_fini(struct amdgpu_device *adev)
+ 
+ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
+ 				 struct amdgpu_mem_partition_info *mem_ranges,
+-				 int exp_ranges)
++				 uint8_t *exp_ranges)
+ {
+ 	struct amdgpu_gmc_memrange *ranges;
+ 	int range_cnt, ret, i, j;
+ 	uint32_t nps_type;
+ 	bool refresh;
+ 
+-	if (!mem_ranges)
++	if (!mem_ranges || !exp_ranges)
+ 		return -EINVAL;
+ 
+ 	refresh = (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) &&
+@@ -1277,16 +1277,16 @@ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
+ 	/* TODO: For now, expect ranges and partition count to be the same.
+ 	 * Adjust if there are holes expected in any NPS domain.
+ 	 */
+-	if (range_cnt != exp_ranges) {
++	if (*exp_ranges && (range_cnt != *exp_ranges)) {
+ 		dev_warn(
+ 			adev->dev,
+ 			"NPS config mismatch - expected ranges: %d discovery - nps mode: %d, nps ranges: %d",
+-			exp_ranges, nps_type, range_cnt);
++			*exp_ranges, nps_type, range_cnt);
+ 		ret = -EINVAL;
+ 		goto err;
+ 	}
+ 
+-	for (i = 0; i < exp_ranges; ++i) {
++	for (i = 0; i < range_cnt; ++i) {
+ 		if (ranges[i].base_address >= ranges[i].limit_address) {
+ 			dev_warn(
+ 				adev->dev,
+@@ -1327,6 +1327,8 @@ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
+ 			ranges[i].limit_address - ranges[i].base_address + 1;
+ 	}
+ 
++	if (!*exp_ranges)
++		*exp_ranges = range_cnt;
+ err:
+ 	kfree(ranges);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index d4cd247fe574..94cb4f94f43d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -467,7 +467,7 @@ void amdgpu_gmc_sysfs_fini(struct amdgpu_device *adev);
+ 
+ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
+ 				 struct amdgpu_mem_partition_info *mem_ranges,
+-				 int exp_ranges);
++				 uint8_t *exp_ranges);
+ 
+ int amdgpu_gmc_request_memory_partition(struct amdgpu_device *adev,
+ 					int nps_mode);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index cafcb24449df..6a95402985ef 100644
+index 6a95402985ef..eb82d78c4512 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1395,6 +1395,17 @@ gmc_v9_0_query_memory_partition(struct amdgpu_device *adev)
+@@ -1386,11 +1386,30 @@ gmc_v9_0_get_memory_partition(struct amdgpu_device *adev, u32 *supp_modes)
+ 	return mode;
+ }
+ 
++static enum amdgpu_memory_partition
++gmc_v9_0_query_vf_memory_partition(struct amdgpu_device *adev)
++{
++	switch (adev->gmc.num_mem_partitions) {
++	case 0:
++		return UNKNOWN_MEMORY_PARTITION_MODE;
++	case 1:
++		return AMDGPU_NPS1_PARTITION_MODE;
++	case 2:
++		return AMDGPU_NPS2_PARTITION_MODE;
++	case 4:
++		return AMDGPU_NPS4_PARTITION_MODE;
++	default:
++		return AMDGPU_NPS1_PARTITION_MODE;
++	}
++
++	return AMDGPU_NPS1_PARTITION_MODE;
++}
++
+ static enum amdgpu_memory_partition
+ gmc_v9_0_query_memory_partition(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_sriov_vf(adev))
+-		return AMDGPU_NPS1_PARTITION_MODE;
++		return gmc_v9_0_query_vf_memory_partition(adev);
+ 
  	return gmc_v9_0_get_memory_partition(adev, NULL);
  }
+@@ -1935,6 +1954,8 @@ gmc_v9_0_init_sw_mem_ranges(struct amdgpu_device *adev,
  
-+static bool gmc_v9_0_need_reset_on_init(struct amdgpu_device *adev)
-+{
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->is_nps_switch_requested(adev)) {
-+		adev->gmc.reset_flags |= AMDGPU_GMC_INIT_RESET_NPS;
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
- 	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
-@@ -1406,6 +1417,8 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
- 	.get_vbios_fb_size = gmc_v9_0_get_vbios_fb_size,
- 	.query_mem_partition_mode = &gmc_v9_0_query_memory_partition,
-+	.request_mem_partition_mode = &amdgpu_gmc_request_memory_partition,
-+	.need_reset_on_init = &gmc_v9_0_need_reset_on_init,
- };
- 
- static void gmc_v9_0_set_gmc_funcs(struct amdgpu_device *adev)
-@@ -1545,6 +1558,28 @@ static void gmc_v9_0_set_xgmi_ras_funcs(struct amdgpu_device *adev)
- 		adev->gmc.xgmi.ras = &xgmi_ras;
- }
- 
-+static void gmc_v9_0_init_nps_details(struct amdgpu_device *adev)
-+{
-+	adev->gmc.supported_nps_modes = 0;
-+
-+	if (amdgpu_sriov_vf(adev) || (adev->flags & AMD_IS_APU))
-+		return;
-+
-+	/*TODO: Check PSP version also which supports NPS switch. Otherwise keep
-+	 * supported modes as 0.
-+	 */
-+	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-+	case IP_VERSION(9, 4, 3):
-+	case IP_VERSION(9, 4, 4):
-+		adev->gmc.supported_nps_modes =
-+			BIT(AMDGPU_NPS1_PARTITION_MODE) |
-+			BIT(AMDGPU_NPS4_PARTITION_MODE);
+ 	switch (mode) {
+ 	case UNKNOWN_MEMORY_PARTITION_MODE:
++		adev->gmc.num_mem_partitions = 0;
 +		break;
-+	default:
-+		break;
-+	}
-+}
-+
- static int gmc_v9_0_early_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -2165,6 +2200,7 @@ static int gmc_v9_0_sw_init(void *handle)
- 	if (r)
- 		return r;
+ 	case AMDGPU_NPS1_PARTITION_MODE:
+ 		adev->gmc.num_mem_partitions = 1;
+ 		break;
+@@ -1954,7 +1975,7 @@ gmc_v9_0_init_sw_mem_ranges(struct amdgpu_device *adev,
  
-+	gmc_v9_0_init_nps_details(adev);
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
-@@ -2440,6 +2476,14 @@ static int gmc_v9_0_resume(void *handle)
- 	int r;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	/* Use NPS range info, if populated */
+ 	r = amdgpu_gmc_get_nps_memranges(adev, mem_ranges,
+-					 adev->gmc.num_mem_partitions);
++					 &adev->gmc.num_mem_partitions);
+ 	if (!r) {
+ 		l = 0;
+ 		for (i = 1; i < adev->gmc.num_mem_partitions; ++i) {
+@@ -1964,6 +1985,11 @@ gmc_v9_0_init_sw_mem_ranges(struct amdgpu_device *adev,
+ 		}
  
-+	/* If a reset is done for NPS mode switch, read the memory range
-+	 * information again.
-+	 */
-+	if (adev->gmc.reset_flags & AMDGPU_GMC_INIT_RESET_NPS) {
-+		gmc_v9_0_init_sw_mem_ranges(adev, adev->gmc.mem_partitions);
-+		adev->gmc.reset_flags &= ~AMDGPU_GMC_INIT_RESET_NPS;
-+	}
-+
- 	r = gmc_v9_0_hw_init(adev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index d1bd79bbae53..8a0a63ac88d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -401,6 +401,17 @@ static int nbio_v7_9_get_compute_partition_mode(struct amdgpu_device *adev)
- 	return px;
- }
- 
-+static bool nbio_v7_9_is_nps_switch_requested(struct amdgpu_device *adev)
-+{
-+	u32 tmp;
-+
-+	tmp = RREG32_SOC15(NBIO, 0, regBIF_BX_PF0_PARTITION_MEM_STATUS);
-+	tmp = REG_GET_FIELD(tmp, BIF_BX_PF0_PARTITION_MEM_STATUS,
-+			    CHANGE_STATUE);
-+
-+	/* 0x8 - NPS switch requested */
-+	return (tmp == 0x8);
-+}
- static u32 nbio_v7_9_get_memory_partition_mode(struct amdgpu_device *adev,
- 					       u32 *supp_modes)
- {
-@@ -508,6 +519,7 @@ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
- 	.remap_hdp_registers = nbio_v7_9_remap_hdp_registers,
- 	.get_compute_partition_mode = nbio_v7_9_get_compute_partition_mode,
- 	.get_memory_partition_mode = nbio_v7_9_get_memory_partition_mode,
-+	.is_nps_switch_requested = nbio_v7_9_is_nps_switch_requested,
- 	.init_registers = nbio_v7_9_init_registers,
- 	.get_pcie_replay_count = nbio_v7_9_get_pcie_replay_count,
- 	.set_reg_remap = nbio_v7_9_set_reg_remap,
+ 	} else {
++		if (!adev->gmc.num_mem_partitions) {
++			dev_err(adev->dev,
++				"Not able to detect NPS mode, fall back to NPS1");
++			adev->gmc.num_mem_partitions = 1;
++		}
+ 		/* Fallback to sw based calculation */
+ 		size = (adev->gmc.real_vram_size + SZ_16M) >> AMDGPU_GPU_PAGE_SHIFT;
+ 		size /= adev->gmc.num_mem_partitions;
 -- 
 2.25.1
 
