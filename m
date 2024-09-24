@@ -4,61 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56E40CF9C6F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 15:45:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6F3CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 16:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F9310E06A;
-	Tue, 24 Sep 2024 15:45:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB66010E719;
+	Tue, 24 Sep 2024 16:09:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CgL9tIVw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIcVYpXm";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6462B10E06A
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 15:45:05 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2055548469aso2291745ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 08:45:05 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7229210E719;
+ Tue, 24 Sep 2024 16:09:00 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-718ebb01fd2so1086278b3a.2; 
+ Tue, 24 Sep 2024 09:09:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727192705; x=1727797505; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727194140; x=1727798940; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TvlCNBilCotHK3Lbb5u3TJU74Z7YKedVvFvrd9pu5oU=;
- b=CgL9tIVwy+843nk3hiOFioO9SQFQh/QoC9AEUQ2/84Xdx3Py4tGRASFNgCfEPJX4eJ
- eF1C+rOLIbp9Dk4QVsDLcVaqC5C1v4Mn/wR2nEjKzAIYoeB1uRe0RiDkjv4irkm0LXEd
- ME+VXkSCpvVXVnqbcrTa9I2nKQdQ7dN7H5Ai1wnEVqnOTdyuEZISquAXsuZ+jUK+HjHJ
- i4vAIuI11eu/fLL1fO2jFc4ijXGuXdWORdgNxaL9ADQ6N1RHG65+bz1J+y7ssrEMUN06
- C1sqNwGinIlV0kG7oyxFfKxUdyQtfwRk+dPvwVp70V6U+ZKSgpk5ufkdeT1HxUmh1D2G
- U6Hw==
+ bh=wWsuC1k58rgBxgEKQ95dKaFfehaSkHrV3qM3cnflsPg=;
+ b=UIcVYpXmFcpXBJQfIArW3VirlZPmPZEL+C+Etoh4w9rLTpU0hkqwtXZFHbs6iIwkoq
+ v1q/2t6p5YaMWErFxCaaB8PMP/N9BS14syBlx1of69E0/TkV/sc1XXNvSn1moZW1UCX4
+ ZraZfrPiD/FVihtjN1DcBIYdGLW5HK32ZRfFQr/u34NnjfNlSCcXlUS/tBqEWNVts1lF
+ +gAiCO3PGabbsv7lFsi20LmJaxWSki0zV9UPf8k7hcEqVZTgLAEAWwLyilXPmVz+a5Ox
+ ILQYul9c+BzMw1ALdqesjj7tXZdbxD6F5inxUONRNqyQQcxCqd6FPZJ0jf9EQCIackJr
+ ZITg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727192705; x=1727797505;
+ d=1e100.net; s=20230601; t=1727194140; x=1727798940;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TvlCNBilCotHK3Lbb5u3TJU74Z7YKedVvFvrd9pu5oU=;
- b=hOM5qm0baOJcZI/ZlzDXIIwnkdI/2AzX05nFvh+8NmZHLhjIMkfiW+fxDprzOvAUz2
- nhRqdD7TE/v9JTzDvGAkjjz+Sf9rM7ExjiK1qBpGCVgf8/jqCq4oGeOGTCC8noptbzWO
- +XDsTnFn7+gKoMVVKZ1D+AVPZS/GDh785so3wE6eYlFyZQWIexvOqYjFuAeqJ4ht/nsF
- tSq6lACP/IogxfrBGoUi4IXjCkJ8lKgzm8DL1rf41E+Hv1qSzz3mhv0B0lFmt+jrObNP
- 0IYWL3p2SkXRPxMulSY5ZNjc55lH+eEBLo9UR5ZgBr44GrLvTbQMm1bD1APi1S9EbyCM
- cSaQ==
-X-Gm-Message-State: AOJu0YxFsNbQbtu4tk0yxysVcREjtZRzfSjea2b2xQZ6w8T6/7qQaqrT
- NOj+2XKJuTCVyewjWJbQ0wOq1hc+BvVNg4GhLGCu1rytu09nojcLYZ4QXRP92zsubN3SXEx45EC
- DFXOpf7VhGDa71XHwUCCmhylKkJs=
-X-Google-Smtp-Source: AGHT+IFph1JhregwJCmK2s6h6iVZGGSu6eW/my4gqh8P4YAvp8MYmEMb4vNZwG+o4QBwgTZs2p4EzDy0WhQbBJs81uc=
-X-Received: by 2002:a17:902:f2c9:b0:207:d98:52ea with SMTP id
- d9443c01a7336-20aefee581amr17485495ad.12.1727192704851; Tue, 24 Sep 2024
- 08:45:04 -0700 (PDT)
+ bh=wWsuC1k58rgBxgEKQ95dKaFfehaSkHrV3qM3cnflsPg=;
+ b=r/hNwWebXRb+D/Culob+0vxOOVFOqJcSyaDyW10Q3CNvkrqIQfHhBuepWPm/eJyXAB
+ GKQK3yja8yh7Pe047PJR7vsbUq1Gct0clqucdkf2Pv9q4JDsiY/ZFllN676Hz878Cfkt
+ gYRIjilYJ6bTAbtYPyKMMwBbJyWLe8p8NAJQPFPlTM1hLCz4//2yIipPClYGUzuk9bgu
+ +S9EHczvRX/1b7Di1bOPJFjyNpmo1JNTJXZlgiQjcLyXJ3dDZTfQyXx4POBeee18B3tm
+ 8gXTeRRKgz/A3ao3UqoQFOwGmctHEArnXbFJtcqRmx0eG02t+IPwa2tzct0Uio8cnW7S
+ JD5g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYijz/TKkvFpAgJfbCkyMhr5fKH43szJk61L9PXb1Afl8hJuqdHxO5H7HxSjb/DCYWNDENfxQSUxzt@lists.freedesktop.org,
+ AJvYcCVxQ+0N5rwnT7tRS9joQJFzxhOIfIRMZUrhj1q6yA2YlIff94NhaA7CFPQW4A/VBO80sIgMxhAH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxjm1XSZZVBGRpw0VUMlUdSRBA7rpS8bGf1qB0GSJ6aj4aF8pCq
+ EPJJfpZaNB/0DpQyTUJOyjB0txR2VtbV+9BV4Dh65uoxupqlqGya9OTBA2FruFuPg+8nKxfikA5
+ 6t7A3StCTDKUgrXL61RR+xyxRvUY=
+X-Google-Smtp-Source: AGHT+IHOExPAGZCXFGmdvFYllAvrAWe+T33mgW0ydNW0IhFfuAjbsci12Zvgz4GCqe7jF+3muMjRPm97OHwCLHCD8KY=
+X-Received: by 2002:a05:6a00:1889:b0:714:2051:89ea with SMTP id
+ d2e1a72fcca58-71afb5c86bcmr2053630b3a.1.1727194139706; Tue, 24 Sep 2024
+ 09:08:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240920111304.436478-1-kenneth.feng@amd.com>
-In-Reply-To: <20240920111304.436478-1-kenneth.feng@amd.com>
+References: <F25A139789E87C3E+20240920022755.1162495-1-wangyuli@uniontech.com>
+ <ade271e8-2f6e-494b-979a-e53942b6b9a7@amd.com>
+In-Reply-To: <ade271e8-2f6e-494b-979a-e53942b6b9a7@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Sep 2024 11:44:53 -0400
-Message-ID: <CADnq5_M8sb-j7=TwZfA5SSLtwjOH69TNA0F1W5V0K7a+OShFcQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: update workload mask after the setting
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+Date: Tue, 24 Sep 2024 12:08:47 -0400
+Message-ID: <CADnq5_Pvq=W69KM08O4TOhG1fcQTO-KEE31KVqfsuOwJL9vv7w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix typo "acccess" and improve the comment
+ style here
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: WangYuli <wangyuli@uniontech.com>, alexander.deucher@amd.com,
+ Xinhui.Pan@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com, 
+ yifan1.zhang@amd.com, vitaly.prosyak@amd.com, Tim.Huang@amd.com, 
+ Prike.Liang@amd.com, jesse.zhang@amd.com, lijo.lazar@amd.com, 
+ Hawking.Zhang@amd.com, kevinyang.wang@amd.com, srinivasan.shanmugam@amd.com, 
+ victorchengchi.lu@amd.com, Jiadong.Zhu@amd.com, tao.zhou1@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, le.ma@amd.com, Wenhui.Sheng@amd.com, 
+ Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,89 +89,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 20, 2024 at 7:13=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.com>=
- wrote:
->
-> update workload mask after the setting, to fix:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/3625
->
+Applied.  Thanks!
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3625
+Alex
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 6 +++++-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 3 +++
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 6 +++++-
->  3 files changed, 13 insertions(+), 2 deletions(-)
+On Fri, Sep 20, 2024 at 2:29=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index a887ab945dfa..1d024b122b0c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2569,10 +2569,14 @@ static int smu_v13_0_0_set_power_profile_mode(str=
-uct smu_context *smu,
->                 }
->         }
+> Am 20.09.24 um 04:27 schrieb WangYuli:
+> > There are some spelling mistakes of 'acccess' in comments which
+> > should be instead of 'access'.
+> >
+> > And the comment style should be like this:
+> >   /*
+> >    * Text
+> >    * Text
+> >    */
+> >
+> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Link: https://lore.kernel.org/all/f75fbe30-528e-404f-97e4-854d27d7a401@=
+amd.com/
+> > Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > Link: https://lore.kernel.org/all/0c768bf6-bc19-43de-a30b-ff5e3ddfd0b3@=
+suse.de/
+> > Signed-off-by: WangYuli <wangyuli@uniontech.com>
 >
-> -       return smu_cmn_send_smc_msg_with_param(smu,
-> +       ret =3D smu_cmn_send_smc_msg_with_param(smu,
->                                                SMU_MSG_SetWorkloadMask,
->                                                workload_mask,
->                                                NULL);
-> +       if (!ret)
-> +               smu->workload_mask =3D workload_mask;
-> +
-> +       return ret;
->  }
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
->  static bool smu_v13_0_0_is_mode1_reset_supported(struct smu_context *smu=
-)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 7bc95c404377..b891a5e0a396 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -2501,8 +2501,11 @@ static int smu_v13_0_7_set_power_profile_mode(stru=
-ct smu_context *smu, long *inp
->                 return -EINVAL;
->         ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadM=
-ask,
->                                     1 << workload_type, NULL);
-> +
->         if (ret)
->                 dev_err(smu->adev->dev, "[%s] Failed to set work load mas=
-k!", __func__);
-> +       else
-> +               smu->workload_mask =3D (1 << workload_type);
->
->         return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 43820d7d2c54..5899d01fa73d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -1861,10 +1861,14 @@ static int smu_v14_0_2_set_power_profile_mode(str=
-uct smu_context *smu,
->         if (workload_type < 0)
->                 return -EINVAL;
->
-> -       return smu_cmn_send_smc_msg_with_param(smu,
-> +       ret =3D smu_cmn_send_smc_msg_with_param(smu,
->                                                SMU_MSG_SetWorkloadMask,
->                                                1 << workload_type,
->                                                NULL);
-> +       if (!ret)
-> +               smu->workload_mask =3D 1 << workload_type;
-> +
-> +       return ret;
->  }
->
->  static int smu_v14_0_2_baco_enter(struct smu_context *smu)
-> --
-> 2.34.1
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 6 ++++--
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 6 ++++--
+> >   2 files changed, 8 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v11_0.c
+> > index d3e8be82a172..33fd2da49a2a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -1893,8 +1893,10 @@ static void gfx_v11_0_init_compute_vmid(struct a=
+mdgpu_device *adev)
+> >       soc21_grbm_select(adev, 0, 0, 0, 0);
+> >       mutex_unlock(&adev->srbm_mutex);
+> >
+> > -     /* Initialize all compute VMIDs to have no GDS, GWS, or OA
+> > -        acccess. These should be enabled by FW for target VMIDs. */
+> > +     /*
+> > +      * Initialize all compute VMIDs to have no GDS, GWS, or OA
+> > +      * access. These should be enabled by FW for target VMIDs.
+> > +      */
+> >       for (i =3D adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; =
+i++) {
+> >               WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_BASE, 2 * i, 0);
+> >               WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_SIZE, 2 * i, 0);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/=
+amd/amdgpu/gfx_v9_4_3.c
+> > index 408e5600bb61..57b55b6d797d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> > @@ -1247,8 +1247,10 @@ static void gfx_v9_4_3_xcc_init_compute_vmid(str=
+uct amdgpu_device *adev,
+> >       soc15_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
+> >       mutex_unlock(&adev->srbm_mutex);
+> >
+> > -     /* Initialize all compute VMIDs to have no GDS, GWS, or OA
+> > -        acccess. These should be enabled by FW for target VMIDs. */
+> > +     /*
+> > +      * Initialize all compute VMIDs to have no GDS, GWS, or OA
+> > +      * access. These should be enabled by FW for target VMIDs.
+> > +      */
+> >       for (i =3D adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; =
+i++) {
+> >               WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID=
+0_BASE, 2 * i, 0);
+> >               WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID=
+0_SIZE, 2 * i, 0);
 >
