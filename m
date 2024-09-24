@@ -4,50 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC1DCF9C5B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 02:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABC5FCF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 03:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D9810E1F1;
-	Tue, 24 Sep 2024 02:26:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D3310E1B7;
+	Tue, 24 Sep 2024 03:42:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="I6FlfQQJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mQRH+yEC";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95CF210E1F1;
- Tue, 24 Sep 2024 02:26:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1727144777;
- bh=bVBlh+fY6Ig9uXlKnweewNbRdJcBCdmmmBM3MYgyfkc=;
- h=From:To:Cc:Subject:Date:From;
- b=I6FlfQQJLJgS0B4GYHreTcgkphmT0mtS/izy2z6fKSS7SM/YLiUDuQFlVGy/mj+BV
- LAJ5Z6OzVK7XlKTu8ty7d5B8lKWjrOvTfhYxuS2lGgxDMgwRhHeUh7zm+vBW/smVbC
- Lh9cVPMXsPLsFyyrDTIyHDkgs2vabkhVEfSxOnu4vKWN/Wk5xbz+iG7hP43duNJhhq
- RDxF4v0iGL0s4K00QMKKfxunJksIA+2M8LnIE854C+pIIKC3EfPWYcizvciDBHaP69
- s0b33b7a0NOtNEuAz5lPT4Chepeo/Zztl/y2h8GLSNs+QJry4OgRR2BW0VhQ/VipCC
- MEAHSNEfkemDA==
-Received: from localhost.localdomain (unknown [171.76.80.125])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1187A17E0EC1;
- Tue, 24 Sep 2024 04:26:13 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.koike@collabora.com, airlied@gmail.com,
- daniel@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
- dmitry.baryshkov@linaro.org, mripard@kernel.org, rodrigo.vivi@intel.com,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH v1] docs/gpu: ci: update flake tests requirements
-Date: Tue, 24 Sep 2024 07:55:58 +0530
-Message-ID: <20240924022600.1441969-1-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.43.0
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D814310E1B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 03:42:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VwQiY2nXn+QeoSYWVCTyk9xMm//CR0rXw31dcVtN8KwMfo++t1qX4uJgcZR9VyX/xXExTf6ERUKdRywCbWDRkYdFGDWUiiKYcInB99g71T5n9y8xwWBl6nOuldDxgpOZrNJuIlc/xED4Q7zt2mJjN5f9BqrdjvTqUUCfRTeID2uQs/zXikT7KGPZneqX5sAxo2fKybPBtega7FiDkmTnkkZ5huxbWcU31u/irKUAzPNM5Dj7O+GrBTJ4AyQ50Mt2XCbEhBF7/eUpPC+JuhSYy6cGgP+snPEdrfmc/KLrjS9XcMFqXNZ0JirZij5ZbrAGOBjXKbFkeMKD73YCSTz2ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7wET45GNja553kgurtQq2gNYWOJ6mSWBUsl7JPhDniA=;
+ b=BSxpEY8m/7VX1geYcyTKECdRPKSnH7IgN2RT1vJj/ttPj6Lrq02Hcd+1ZSggcFQR2oZPRCXkoByByYEluT6EF5Z/37G7+utfcqgIvAEBOhCFU6U+tLOCMQ124teY+iOnLufi4wWtAK6/jx2akLQdqzklciZyCKa9AaU6ut6yXyno4dx2G1ZA1f8/sQIZfuahN8EwZK+MVI/N9H0MzEvnyMw68AfVE8BXpsenxe0xuL1i4AoJk9UCmY+xhA4rW3LLXHzllYVWsn9ntPnJof2rMQd90bLkQmTkC4wCevhCHli9mibrWj7PPomEw0TRDL+/ZxMXzrhfwRdNQI4jUwfHMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7wET45GNja553kgurtQq2gNYWOJ6mSWBUsl7JPhDniA=;
+ b=mQRH+yECnFKFCkkDuRl4HjCjQL1hz3bsfgkgLnwUoqrdN9SuRuLFqP0L6uSG9RxcQ+GpjZys3glISaujPEwhr1YtFLGhhC9V7+jgxu/hvDUsMIYIEjIWVw4raWzrKfyQQxqW22E9QwshP184XcFKY39potUC1GWvZHRL1LAqGCs=
+Received: from SN1PR12CA0098.namprd12.prod.outlook.com (2603:10b6:802:21::33)
+ by IA0PR12MB8863.namprd12.prod.outlook.com (2603:10b6:208:488::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.27; Tue, 24 Sep
+ 2024 03:42:15 +0000
+Received: from SA2PEPF00003AE5.namprd02.prod.outlook.com
+ (2603:10b6:802:21:cafe::4a) by SN1PR12CA0098.outlook.office365.com
+ (2603:10b6:802:21::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.30 via Frontend
+ Transport; Tue, 24 Sep 2024 03:42:15 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003AE5.mail.protection.outlook.com (10.167.248.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Tue, 24 Sep 2024 03:42:13 +0000
+Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Sep
+ 2024 22:40:22 -0500
+From: ZhenGuo Yin <zhenguo.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <yifan.zha@amd.com>, ZhenGuo Yin
+ <zhenguo.yin@amd.com>
+Subject: [PATCH] drm/amd/powerplay: skip enable mgpu fan boost in SRIOV
+Date: Tue, 24 Sep 2024 11:40:12 +0800
+Message-ID: <20240924034012.237955-1-zhenguo.yin@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE5:EE_|IA0PR12MB8863:EE_
+X-MS-Office365-Filtering-Correlation-Id: 544a67d4-f6f3-4734-a0f0-08dcdc4ae0a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?86ghhj9CULR6SsxP6d7JY++Qwz50wE1d1Gwm0S4FAbjOvTys7Q1FNoBtPJAH?=
+ =?us-ascii?Q?bLfVmqiiwl3kgmJvabqGJTCCzkiEc9F0fJEmHzX45lCiT8CPAEArTDPjQzZ7?=
+ =?us-ascii?Q?xkOrNZ5CQNtIyItVEf8X5WOMxXm7hbofvkeSMLGfh3eFd8WlxuRE+sl2no0A?=
+ =?us-ascii?Q?N0S5RDGL6hJWoZdbSFgL8x0XT+cOCHYePRkPA8AFH9rtcc2otAJeUkSVpCMM?=
+ =?us-ascii?Q?L4PellNHyygeoF7SY5zS6e+zCNI2vc0anWrHye2T9R5JLU66uTApBvclMgqQ?=
+ =?us-ascii?Q?5sk+3tp/t27k7yFkyjPKO1YKFYlOqi/6jo0DcENGXVj45qmph7ol4aTlKmZV?=
+ =?us-ascii?Q?LxuJnicJunanahPMVIKnjX/Gmz71JoZNMyF6Xmc/PfN5dZQfVhEZfWjVrcqw?=
+ =?us-ascii?Q?Oehvwy1BmHxRrz4NgKpORMMiUA2aCGfi6b5Rsoy1ToDbl7bEGVtZtiuoi2k6?=
+ =?us-ascii?Q?r4GeaXPNmtxfbd+je5cQXiOO/1nea3JwE2R/ANnwSZOG9EkQXr3FTUbgYpQc?=
+ =?us-ascii?Q?+U+jrdZk5YJzI3FVH8PidmsxFRWd8jT0ep6ckKeZ0M9hVtdS3ZE4PR+RlBAz?=
+ =?us-ascii?Q?Ai+VqGZPl4x/MDKLygUO27Cb1ONpctFZvFgJOa0bNnhVSr1jBLwldhJJTdZG?=
+ =?us-ascii?Q?hqGuqvZt/APZg0htFIpREQRXkj3WNhv3M+TMf036y6AaLvWV7cDGeufTF2pG?=
+ =?us-ascii?Q?dzqe48sydBUvawD75p4jVmuwEl09yGrVMyBQuZMfT+zWMA0vduFuK98NDfV4?=
+ =?us-ascii?Q?whQUGZSm4ckWChhYBuL3k/y4UHSRAISFrFkojOrASH4xefevtxDmmSoeMQ4D?=
+ =?us-ascii?Q?kceV/X9q6wkYaS86ytQXcojGvB5OuYQ0a4yBfA184ClExenwWF8cb6g04u8X?=
+ =?us-ascii?Q?NWx2rKzxFxgEtiXaXDHUfC2ecDNc3zqWqoHwG8F+SiMOJP19N78gO9hFL8gP?=
+ =?us-ascii?Q?m4FqJzdNdKz8Xr5Wq/y/0IIE4Zmd8jv/bJTlgQRy8ALYlvPuQjWAbToJ9x94?=
+ =?us-ascii?Q?yd5EkLa8mnp7xdSZEQ2jDx02QoZs0+OgBsi+JpPOvgAhmnEiOsjy8yry8TB0?=
+ =?us-ascii?Q?j5TF8UBMrDz2fIVZHSD11BML8w56ovg5oOIKNNK1wezOehv1sOZV3KmG/6bD?=
+ =?us-ascii?Q?TamWS2XVKA6LUW5oaC9Hptmy5L5msdwWiS20NqVu5qwvzWZekfPm5nssp6gC?=
+ =?us-ascii?Q?nCM9lV9Y/W8KAvLUNVQR//vjCF8dfbOa5Q6CQnT2CWBF4IF5FnFqpbG6PomT?=
+ =?us-ascii?Q?ElbMqnaVtM7NGjaU9K8IZrLMS7sMt11TW1BvlZi4WtZm/J9IzLUfVbibWuLr?=
+ =?us-ascii?Q?mV29mbzk1+S1fHkFBCjlPvPo9DNBIMI0Pv/asBHfbt+6bGwEkWc8bL+036b0?=
+ =?us-ascii?Q?mf+er4SUi7CtDEx6eaPIF0ihLZXP?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 03:42:13.3315 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 544a67d4-f6f3-4734-a0f0-08dcdc4ae0a5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE5.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8863
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +129,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the documentation to require linking to a relevant GitLab
-issue for each new flake entry instead of an email report. Added
-specific GitLab issue URLs for i915, xe and other drivers.
+SMU_MSG_SetMGpuFanBoostLimitRpm is unsupported for VF,
+skip enabling mgpu fan boost in SRIOV.
 
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
 ---
- Documentation/gpu/automated_testing.rst | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
-index 2d5a28866afe..f73b8939dc3a 100644
---- a/Documentation/gpu/automated_testing.rst
-+++ b/Documentation/gpu/automated_testing.rst
-@@ -67,20 +67,25 @@ Lists the tests that for a given driver on a specific hardware revision are
- known to behave unreliably. These tests won't cause a job to fail regardless of
- the result. They will still be run.
- 
--Each new flake entry must be associated with a link to the email reporting the
--bug to the author of the affected driver, the board name or Device Tree name of
--the board, the first kernel version affected, the IGT version used for tests,
--and an approximation of the failure rate.
-+Each new flake entry must include a link to the relevant GitLab issue, the board
-+name or Device Tree name, the first kernel version affected, the IGT version used
-+for tests and an approximation of the failure rate.
- 
- They should be provided under the following format::
- 
--  # Bug Report: $LORE_OR_PATCHWORK_URL
-+  # Bug Report: $GITLAB_ISSUE
-   # Board Name: broken-board.dtb
-   # Linux Version: 6.6-rc1
-   # IGT Version: 1.28-gd2af13d9f
-   # Failure Rate: 100
-   flaky-test
- 
-+The GitLab issue must include the logs and the pipeline link. Use the appropriate
-+link below to create an issue.
-+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/ for i915 drivers
-+https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/ for xe drivers
-+https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
-+
- drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
- -----------------------------------------------------------
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index dee57f15719e..49f320fc974a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3178,7 +3178,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(void)
+ 	for (i = 0; i < mgpu_info.num_dgpu; i++) {
+ 		gpu_ins = &(mgpu_info.gpu_ins[i]);
+ 		adev = gpu_ins->adev;
+-		if (!(adev->flags & AMD_IS_APU) &&
++		if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev) &&
+ 		    !gpu_ins->mgpu_fan_enabled) {
+ 			ret = amdgpu_dpm_enable_mgpu_fan_boost(adev);
+ 			if (ret)
 -- 
-2.43.0
+2.35.1
 
