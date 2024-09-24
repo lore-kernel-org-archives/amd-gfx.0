@@ -4,146 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A81ACF9C73
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 12:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8CB9CF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 12:42:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBFEF10E8B4;
-	Tue, 24 Sep 2024 12:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 770A010E446;
+	Tue, 24 Sep 2024 12:42:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0zOBJuZ4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="jnr7kgX3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KgENYhyr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jnr7kgX3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KgENYhyr";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3658610E8B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 12:24:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LkM/m9Vs10qZS82fDeum2CqZIP/2CZz/hNtQ3TXi76937QVOg/57rG7vxRkpU1aLW/OgoPyPz9g6tqtQXGtVcaNVu8NPcvWbDi7Xp3P91huTmEf+Cyp+S2NhHzVkUoxHgGDFhmbkKa5P14+1IXAWB26XjG5dh9t2yDZowiJJzGW+IDWKSDqZt69i1ypakPrOVdDNVR77PoF3t/S5mrxKsone8/a3+kXhiWAv7sb+HOGuTSdwrU5vz39dkxnOYevmyuLqGeTmle60+pnp2YFDccnUiIQWIoBOKB+Ip+9ZFYi3c0Owfdz6LgdU2h2Tc6IokPerEt6bedXeABl1dytGCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4BBG3UldGzQR2+oYWda92sMRq96F+WYFEVD4RPXWEvw=;
- b=zKZU9eYm45SIrOBTSfj7nAsLBXHoh/y1JITlHs4ystSu0AHk575XZPyfSL+CUOGSZ9s8SVQpvAeaz9RHA6P/9ARBiLaTG6bSpkJ/crEBLuMhCtrovJEHGhgqNdyrDTBixubZnAryBgMbkV68iWhnq71rR35+O2Nuh7u0TeXZfjlJlEvUuhiWOGtIMxqZA5k5fGpXKmCJDhp5WWKpyk+Jm7TFqVxHZNMfRCCyCj33vT7oHgVSewy+eqcNKOWyJYTGfLS4h7EhRV++yZal29Yi1DXysm6JCbzKBUcIWtjrabgonaeK9vdW7FaRuuR+kRT8WTZC34wgoPbx3sAwfKgnGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4BBG3UldGzQR2+oYWda92sMRq96F+WYFEVD4RPXWEvw=;
- b=0zOBJuZ44xTzjQYqmzouh7DCIRg2XULmKPnx9KVe/ONtiWrD5NthsHeLJ0Bq7aYJb0dFOk2PjQli76CIn5wPvV6n56vuxAIU3wRobM4y/dWaT42zDekm6KjjBIa1YRw2ricn+PSVD7gdi2cCrLTcNTVoBUxCLz0QSV5hUplfmwc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by PH7PR12MB8015.namprd12.prod.outlook.com (2603:10b6:510:26a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Tue, 24 Sep
- 2024 12:24:49 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c%5]) with mapi id 15.20.7982.022; Tue, 24 Sep 2024
- 12:24:48 +0000
-Message-ID: <a9bff99d-6d93-46bd-a13f-43a145adf93d@amd.com>
-Date: Tue, 24 Sep 2024 17:54:41 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/powerplay: skip enable mgpu fan boost in SRIOV
-To: ZhenGuo Yin <zhenguo.yin@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, yifan.zha@amd.com
-References: <20240924034012.237955-1-zhenguo.yin@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20240924034012.237955-1-zhenguo.yin@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0015.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::15) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F212110E446;
+ Tue, 24 Sep 2024 12:42:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9BC7D1F79E;
+ Tue, 24 Sep 2024 12:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1727181776; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EI7qTn1RlYJ0W9mEO7GKHtI/jesQjHhGQ2xip/gkpjQ=;
+ b=jnr7kgX3d88132Jgy7uz1aF1sC6zmm4K42R1szqQmFoK1vLpNN2se2YmXGek0ltf8i8+em
+ gkqnYVp+hVkBf18Q76ipPDlXxrdLesFgr1sUGAVF3yfkVlS3l/v2SORFHYKqNuYHbL7KvO
+ 6UnhsjDLgxZKoy8KAKI3CefpCOSSh2U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1727181776;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EI7qTn1RlYJ0W9mEO7GKHtI/jesQjHhGQ2xip/gkpjQ=;
+ b=KgENYhyrPGdUk7/JUhzsrBY0TOS2pB27MAoCcIe0s3vE71650+XMQLBptcYpxEjOLBTwsK
+ RKc0LUzXgE84G3Aw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1727181776; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EI7qTn1RlYJ0W9mEO7GKHtI/jesQjHhGQ2xip/gkpjQ=;
+ b=jnr7kgX3d88132Jgy7uz1aF1sC6zmm4K42R1szqQmFoK1vLpNN2se2YmXGek0ltf8i8+em
+ gkqnYVp+hVkBf18Q76ipPDlXxrdLesFgr1sUGAVF3yfkVlS3l/v2SORFHYKqNuYHbL7KvO
+ 6UnhsjDLgxZKoy8KAKI3CefpCOSSh2U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1727181776;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=EI7qTn1RlYJ0W9mEO7GKHtI/jesQjHhGQ2xip/gkpjQ=;
+ b=KgENYhyrPGdUk7/JUhzsrBY0TOS2pB27MAoCcIe0s3vE71650+XMQLBptcYpxEjOLBTwsK
+ RKc0LUzXgE84G3Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C0EE1386E;
+ Tue, 24 Sep 2024 12:42:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id qxJIEdCz8mbhRwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Sep 2024 12:42:56 +0000
+Message-ID: <c960dc48-0a05-4cad-b86b-33ad59923bc3@suse.de>
+Date: Tue, 24 Sep 2024 14:42:55 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|PH7PR12MB8015:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1be9e91f-9f2a-4fae-3504-08dcdc93e1db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TTRDQlowa1hpTlptYW1LRjBicy9WUWlxN2JZNktpR2pKZlk3RW9LOTdzRXNa?=
- =?utf-8?B?SGt3cHBtTjJaa1RaOCt6Q29lcWpZZmh3VFpZNU5oSVVvbGZWZ0FkeExMaUpU?=
- =?utf-8?B?aGJTczVFZlNVVkJSRE5OaDllbkNUaHJEeEdldGttQ1pEc1cvREhKR1dtWW5q?=
- =?utf-8?B?ME5XL2YxVVgxY2dkOGlzci82TFduMTBYTnJQQkZKUThyNVl1NlJJMlc3dVNK?=
- =?utf-8?B?OS9oNEJPeVZOTTQwdnVkZmJkdVJ5SDRzMy9lZ05wK0U2azNHcjNpbDY3MUN0?=
- =?utf-8?B?SVRVclk0OXgxQktFWFB1RkgvZkVoaWtFN3hCSnYraGtLTU40NkV0bG1mY2wr?=
- =?utf-8?B?SEFTTWhBakdNSTZ6cUdGR0NhQjVzdHJYczNKeENwSGdIc2xKZ3pBNjJPTHNu?=
- =?utf-8?B?cm1QcEdncytwdTR2ZXA3a1UvNzMvSnFBM3R4aE1jL1ZmelROdXBOM0dIMzdp?=
- =?utf-8?B?a1U3U0dFODlHWWhMaUVrQUpjeWhQOXREREYydFNmSndhSGhNNkJGQXpWSHZU?=
- =?utf-8?B?Z01Ma0UvbWZBUmhqdzM1T294VjNtWVNIaXZVTEx0TllxN3QxcXNjMzE4WTZF?=
- =?utf-8?B?WS9kVm4wUk5LVTVXdGphL08zR0NSZjJFQlUxNEgzMHJNdUZPYnZ2MGg4TW5X?=
- =?utf-8?B?OVZSRUpwdm00Q1RQRjF3ZEpyY0Z5K2kxb1JZaXBMaVNhZEdtZFQ3V2NyT05y?=
- =?utf-8?B?cEFvQXhxdFB5M3JScjFiOSswNmJZOGNyVWllUTVCZUhUangyZThtaWFaUDdF?=
- =?utf-8?B?MWJVdGczb05XeUtMZkYvK3gwYVBPQTlmbjRERjRPQ1RCWjM1TDYzYjVBMklp?=
- =?utf-8?B?Z3IrejZDVXZCKzh0TFVja3pxTEZ2WjVKakd5Q3MwYzBmNGlKUGdrbjZaRmVH?=
- =?utf-8?B?MWxTMVFBRFNkSGRNZlJjNS9JL1kxVFJLaGoxZ3VtcW1JdUxJLy9LNlprUnp3?=
- =?utf-8?B?L2VNOGI2QXRxZk9HUTJaS1AyQnRyUy9rZ211YlVQZWFvOFFwN2xkNjZaR284?=
- =?utf-8?B?S1lMaFRLdm5pYlZCSlRKTTg1V2dhZ3BIVXgzNmlhSllySkRLV0ZyNnkwS25q?=
- =?utf-8?B?OUZXTHEySGpQNW5JZTE4YUVXSDM3My9iRlR5YVlQblVBazdmL3BweXdIL2Vw?=
- =?utf-8?B?Z01ueWdseGVZQzFMM2dyejVaMmNPS3JrZTNxWGZiRHV4K1IxdlR0SmJRVUNa?=
- =?utf-8?B?ZXZOUFA0K1ZYY1g0RHNQSDVrQnhpbzNkK2hYd2tacko1bWE1aDZQMzJ6MFBF?=
- =?utf-8?B?T0FXb2ordHRTcDhSTjlzTmhsSUNJenBXYXprcEN3Z08xanhPSWJodFVoVHB1?=
- =?utf-8?B?a2laYnlqNmpYeWhQWm1pbVdJZzM2UThwcnVPK2xTdU0zNk1WR0doZkltV1Yz?=
- =?utf-8?B?ODhCVGZpNEpSZGZGc1BwRGcxbjlOTEZCM2YydnlUVkhzVThNcmJrOUpiY0pH?=
- =?utf-8?B?eEZjQnZkOEdVRmlZU3d3UGdrbmRGQmRMMDYvOW5lZ1ZUdVA0ZnYrbDlRQUxz?=
- =?utf-8?B?QVRrSzIxdDdLQ0VkYXFHN3ZXMEQvdDU4bDQxL3lxcVhIOGhoUzZkN0x5N1dr?=
- =?utf-8?B?L3I4WlFDaVdGeXlabUoxYmJYZGR3cCtZWEo5YUlsS3Q3Z21HS2tZeXZkc2hk?=
- =?utf-8?B?UXkyZnUwVXBFQUtTTE1XMDJiU2JnQ0tkNmJ4b2tlWHltb2QreUwzeUtnTDF3?=
- =?utf-8?B?U3BudXdHUklhbXVJN1M4azZCMHdseUdsbFM0bWpTdEpNNnA5ZFoySmJaUlFT?=
- =?utf-8?B?alFHM3VRUU45RVIrL3gwRUtVZmtmYnVpMEJXSEd2eWpFNklOcjg4SnIzQjBy?=
- =?utf-8?B?NEdYckp3d3d5c05WQnNtZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnBPT29wRGtESlhna3dScHh2NU8xWGI1RXpVSmc5WmUyanZsNzhEaHJLVGs2?=
- =?utf-8?B?N3RkTldlVEVIc2lydHZvR2JCZHRiSURxUEFQeDlZRzRHVURXOW1TNXNtanpj?=
- =?utf-8?B?YUdHSDduaW1wdXhlRWtMMmtNbXk5ZDg3MkJXWE0wSDMyejh6ZUVCWDJUNjl0?=
- =?utf-8?B?SC9YMnZWSDRhZXJjVk04czNBc0x6WFJqa1gyVGhkYkJ1VzVuWWdaeUtFZzF2?=
- =?utf-8?B?Q3FZN2JGRElDcWxJVVgwOUwxVzNkNEJjTjNKQ3pHZnUyYUo0ek1XU3puMWRk?=
- =?utf-8?B?UnRaYk95UG4xNi9zdm5KalM3Y1Rzbk1SWWdta0Z1cUt6NnJhTVVuc05XcVpO?=
- =?utf-8?B?NDlXVXE4OEY4dlJUbit6NzNTQWs3eTJDdUFMNnB1ZWJSN3FvQ1MyWUhycVJB?=
- =?utf-8?B?S25RYXhnQ2htTXdzZlhXUmxUNlZhZzgvUVpTWTd0a0RyNnVVM0tXRjR4dnhE?=
- =?utf-8?B?bjc0bG1RYTY1MENsa3l1aXY5Q1JhNjQyTllmOTB0aUxMRGpTdjdNS01JTVFk?=
- =?utf-8?B?dG1hV2lDdnpOMTZXUGJNbnFNRVk3UExzUEcwTHQ1ZzEwL2V4ME9HSk1rNVky?=
- =?utf-8?B?cEpVbjQvTERxNVFhY0dIU2hzNUFoTDc5M09WVWZDRWtCeVBLeWNRV2ZKb05P?=
- =?utf-8?B?aFpRTHAzMGZUNzdyRVdkL040bHdTT092VC9zRWhocStiYWtKdG1Ybk50UUlh?=
- =?utf-8?B?YnJmeXpzZ1FQdVc1QVhpeGNPZzlpaElmcGpUbU42S0JNc0s2dnpaejFXMkR1?=
- =?utf-8?B?SEVLM0l6WVp4ZWZMTGFseC9SWDJVa2lDZVoyZ2ZLb0UwdVpIYWcrLzJRdlJl?=
- =?utf-8?B?eXZkaXVBaDcvWXRueFpDYS9kTkwxMHE2c2dzRDEvMzlrRDBPLzRHREdtZ1NB?=
- =?utf-8?B?TEZ4djZ4QXU5NHFkdW9wdFFxdThXak5ONGJ1akFLV3c4a0UvNEtBQUR5QTZ1?=
- =?utf-8?B?RjM3bTliWWpYa1VBOXFsQzVtd0Q1WHg1VXVqc0wwS2hPSDMyZVZtMzYvYnQy?=
- =?utf-8?B?V2w3VlgvYk1kOVVXajMzOVZXUVVmZHc3NEk2TkhjQVR4TGlweFdMcWVOT21O?=
- =?utf-8?B?a2RoOUhMby9QZGl6MUkxUnR0OGNZazlsbW5USWhiS2tWamxlbzJJMUhkYTk4?=
- =?utf-8?B?aDBJTCtNTGpDRVF6dW9pUkhSQkwycHdXVjdxbHlobGxXUVY2Y3IyL3BOYjVN?=
- =?utf-8?B?d1E1RXQxMXRmQisrbWIxRzJCcm94SnJ2Rmt1bStSNjV6dGcwS1lwV3YzejJh?=
- =?utf-8?B?YitYQnY3RHkzREIzRjd0RjFrbEZwNlBvaEJSeVRMd2U1SS9naTRWZUtSZmZ2?=
- =?utf-8?B?TGdYcUZ0dG5JcG5UcGtZNmdOZGZTcC9FcVI4Q0hkd2c0bkRIeUVxUDg2VHAy?=
- =?utf-8?B?M3l5NDk5WFljcDYrSDJnUEVHQU9yQXlCcEU1Ti81TnNsbGFDc053YlJpREhU?=
- =?utf-8?B?Wnh4UjZVc0FyaWJZTWlHS0ZpbmhWdHFHUUFtRmRpa1h1dHF6Um1aOEU5WjV1?=
- =?utf-8?B?ejMrN1RVZ3FWY3lCTHVzdTRObWhlZ1lqT2hVa0hHTWlPRFhibU0wdjZSRk9r?=
- =?utf-8?B?bmZ5YmZ3bGltMFQ5cGRrbGpGT2ZLcUtna05Fdm0wL1BTTWlGYzF1UHVFQnN6?=
- =?utf-8?B?WE9BcTBCT0Q4amhiZ0FleFRLUjJrVFc4a2I0RDAxZ0pGdzM4Q2pnS0dlVkxI?=
- =?utf-8?B?cFZGWHNvQTB5dFZSLytMUzFYS3VwM3phZEVCdjRjdUgwanJpOTIxcXlYdzhz?=
- =?utf-8?B?RkJ6UkNJV0V5VytGR2xRMFZSTXkrd20waTJ0UGVGd1VYc3JFaWVwTmZPejA5?=
- =?utf-8?B?WG03b1V2MkNmWDhkdmFZWXBXYThlRkVwRmFlWDJrMlphbjh1SFVoNW1waFhk?=
- =?utf-8?B?YmJPelJhQlI2WTZvQUhCTi9uVC9jclYvREFBUmZMNnVleDJXQXhIOTdFTlht?=
- =?utf-8?B?eWdoRWN1dFpHdWR2UFh1anNYMEN1dmc5ME00Zlo5V1JzdVlCK0E1R3R3L0Rx?=
- =?utf-8?B?ME4zMjR3UU52dEVnQU5yemJBa0szS2VvcnYxZ3U3VlZHaFRUMGxhMHhhNlhK?=
- =?utf-8?B?TG4yS3NYQ1pFODA3QVBXMGszQXpyR25pNHRuT282K3lRNXkxV0ZiVkJRQTVu?=
- =?utf-8?Q?IRM4=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1be9e91f-9f2a-4fae-3504-08dcdc93e1db
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 12:24:48.8935 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FA829Rhs9IP+/ysKIAzEek6Q48qdXFPuOpRCgqL4yMbBV+qBvs+Axa83i0EBrf0Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8015
+User-Agent: Mozilla Thunderbird
+Subject: Re: radeon ARUBA NULL pointer dereference
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Arthur Marsh <arthur.marsh@internode.on.net>
+Cc: Xinhui.Pan@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, daniel@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ wuhoipok@gmail.com, iommu@lists.linux.dev,
+ the arch/x86 maintainers <x86@kernel.org>
+References: <20240919165641.4632-1-user@am64> <20240924020824.6264-1-user@am64>
+ <8eb45005-c6fb-4baa-a44a-243958a3a1ba@suse.de>
+Content-Language: en-US
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <8eb45005-c6fb-4baa-a44a-243958a3a1ba@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,internode.on.net];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[12];
+ FREEMAIL_TO(0.00)[internode.on.net];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[amd.com,gmail.com,lists.freedesktop.org,ffwll.ch,vger.kernel.org,lists.linux.dev,kernel.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url,suse.de:mid]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,33 +145,173 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 9/24/2024 9:10 AM, ZhenGuo Yin wrote:
-> SMU_MSG_SetMGpuFanBoostLimitRpm is unsupported for VF,
-> skip enabling mgpu fan boost in SRIOV.
-> 
-> Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index dee57f15719e..49f320fc974a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3178,7 +3178,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(void)
->  	for (i = 0; i < mgpu_info.num_dgpu; i++) {
->  		gpu_ins = &(mgpu_info.gpu_ins[i]);
->  		adev = gpu_ins->adev;
-> -		if (!(adev->flags & AMD_IS_APU) &&
-> +		if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev) &&
->  		    !gpu_ins->mgpu_fan_enabled) {
->  			ret = amdgpu_dpm_enable_mgpu_fan_boost(adev);
+Am 24.09.24 um 14:20 schrieb Thomas Zimmermann:
+> (cc: DMA and x86 folks)
+>
+> Hi
+>
+> Am 24.09.24 um 04:08 schrieb Arthur Marsh:
+>> Using current Linus git head kernel, I was able to save the dmesg 
+>> output:
+>>
+>> [   17.218724] [drm] radeon kernel modesetting enabled.
+>> [   17.218778] radeon 0000:00:01.0: vgaarb: deactivate vga console
+>> [   17.219509] Console: switching to colour dummy device 80x25
+>> [   17.219700] [drm] initializing kernel modesetting (ARUBA 
+>> 0x1002:0x990C 0x1002:0x0123 0x00).
+>> [   17.219773] ATOM BIOS: 113
+>> [   17.219838] radeon 0000:00:01.0: VRAM: 768M 0x0000000000000000 - 
+>> 0x000000002FFFFFFF (768M used)
+>> [   17.219841] radeon 0000:00:01.0: GTT: 1024M 0x0000000030000000 - 
+>> 0x000000006FFFFFFF
+>> [   17.219844] [drm] Detected VRAM RAM=768M, BAR=256M
+>> [   17.219845] [drm] RAM width 64bits DDR
+>> [   17.219851] BUG: kernel NULL pointer dereference, address: 
+>> 00000000000000a0
+>
+> This is 160 bytes behind NULL, which indicates a field within a struct.
+>
+>> [   17.219852] #PF: supervisor read access in kernel mode
+>> [   17.219853] #PF: error_code(0x0000) - not-present page
+>> [   17.219854] PGD 0 P4D 0
+>> [   17.219856] Oops: Oops: 0000 [#1] PREEMPT_RT SMP NOPTI
+>> [   17.219858] CPU: 0 UID: 0 PID: 451 Comm: udevd Not tainted 6.11.0+ 
+>> #6121
+>> [   17.219860] Hardware name: Gigabyte Technology Co., Ltd. To be 
+>> filled by O.E.M./F2A78M-HD2, BIOS F2 05/28/2014
+>> [   17.219862] RIP: 0010:dma_get_required_mask+0x11/0x50
+>> [   17.219868] Code: 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 
+>> 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 48 8b 87 68 02 00 00 48 85 
+>> c0 74 11 <48> 8b 80 a0 00 00 00 48 85 c0 74 1f e9 ee ed 94 00 f6 87 
+>> 2c 03 00
+>> [   17.219870] RSP: 0018:ffffa54bc13a7b00 EFLAGS: 00010202
+>> [   17.219871] RAX: 0000000000000000 RBX: 000000ffffffffff RCX: 
+>> 0000000000000000
+>> [   17.219872] RDX: 0000000000000000 RSI: 0000000000000027 RDI: 
+>> ffff976f44e720c8
+>> [   17.219873] RBP: ffff976f44e720c8 R08: 00000000ffffefff R09: 
+>> ffffffffab2aab08
+>> [   17.219874] R10: 00000000fffff000 R11: 0000000000000002 R12: 
+>> 0000000000000000
+>> [   17.219875] R13: ffff976f48a4aa30 R14: 0000000000000000 R15: 
+>> 0000000000000028
+>> [   17.219876] FS:  00007f59a070d840(0000) GS:ffff97726f800000(0000) 
+>> knlGS:0000000000000000
+>> [   17.219878] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> [   17.219879] CR2: 00000000000000a0 CR3: 00000001053b4000 CR4: 
+>> 00000000000406f0
+>> [   17.219880] Call Trace:
+>> [   17.219881]  <TASK>
+>> [   17.219882]  ? __die_body.cold+0x19/0x1e
+>> [   17.219885]  ? page_fault_oops+0xa8/0x230
+>> [   17.219889]  ? search_module_extables+0x4f/0x90
+>> [   17.219891]  ? fixup_exception+0x36/0x2f0
+>> [   17.219894]  ? exc_page_fault+0x88/0x1b0
+>> [   17.219897]  ? asm_exc_page_fault+0x22/0x30
+>> [   17.219900]  ? dma_get_required_mask+0x11/0x50
+>
+> This is not in the radeon driver but the DMA code. I'd say it's at 
+> [1], as get_required_mask is 160 bytes within struct drm_map_ops. The 
+> call to get_arch_dma_ops() probably returns NULL.
 
-Better to move the fix inside amdgpu_dpm_enable_mgpu_fan_boost() so that
-any other call to this coming from some other piece of code also doesn't
-do anything for this.
+And indeed, when I added
 
-Thanks,
-Lijo
+     pr_warn("dev dma ops: 0x%p\n", pdev->dev.dma_ops);
+     pr_warn("arch dma ops: 0x%p\n", get_arch_dma_ops());
 
->  			if (ret)
+to radeon_pci_probe(), I got
+
+[   22.325657] dev dma ops: 0x0000000000000000
+[   22.342921] arch dma ops: 0x0000000000000000
+
+as a result.
+
+Best regards
+Thomas
+
+>
+> Best regards
+> Thomas
+>
+> [1] 
+> https://elixir.bootlin.com/linux/v6.11/source/kernel/dma/mapping.c#L523
+> [2] 
+> https://elixir.bootlin.com/linux/v6.11/source/include/linux/dma-map-ops.h#L98
+>
+>> [   17.219902] dma_addressing_limited+0x6c/0xb0
+>> [   17.219905]  radeon_ttm_init+0x3f/0x210 [radeon]
+>> [   17.219977]  cayman_init+0x97/0x290 [radeon]
+>> [   17.220057]  radeon_device_init+0x5e9/0xb40 [radeon]
+>> [   17.220115]  radeon_driver_load_kms+0xb0/0x260 [radeon]
+>> [   17.220174]  radeon_pci_probe+0xff/0x170 [radeon]
+>> [   17.220231]  pci_device_probe+0xbe/0x1a0
+>> [   17.220234]  really_probe+0xde/0x350
+>> [   17.220237]  ? pm_runtime_barrier+0x61/0xb0
+>> [   17.220240]  ? __pfx___driver_attach+0x10/0x10
+>> [   17.220242]  __driver_probe_device+0x78/0x110
+>> [   17.220245]  driver_probe_device+0x2d/0xc0
+>> [   17.220247]  __driver_attach+0xc9/0x1c0
+>> [   17.220249]  bus_for_each_dev+0x6a/0xb0
+>> [   17.220251]  ? migrate_enable+0xbf/0xf0
+>> [   17.220254]  bus_add_driver+0x139/0x220
+>> [   17.220256]  driver_register+0x6e/0xc0
+>> [   17.220258]  ? __pfx_radeon_module_init+0x10/0x10 [radeon]
+>> [   17.220315]  do_one_initcall+0x42/0x210
+>> [   17.220318]  ? __kmalloc_cache_noprof+0x89/0x230
+>> [   17.220321]  do_init_module+0x60/0x210
+>> [   17.220324]  init_module_from_file+0x89/0xc0
+>> [   17.220326]  __x64_sys_finit_module+0x142/0x390
+>> [   17.220329]  do_syscall_64+0x47/0x110
+>> [   17.220331]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>> [   17.220334] RIP: 0033:0x7f59a0625279
+>> [   17.220336] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 
+>> 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 
+>> 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 77 6b 0d 00 f7 d8 64 
+>> 89 01 48
+>> [   17.220337] RSP: 002b:00007ffd15ee7df8 EFLAGS: 00000246 ORIG_RAX: 
+>> 0000000000000139
+>> [   17.220339] RAX: ffffffffffffffda RBX: 00005578ae660840 RCX: 
+>> 00007f59a0625279
+>> [   17.220340] RDX: 0000000000000000 RSI: 00005578ae677fc0 RDI: 
+>> 0000000000000011
+>> [   17.220341] RBP: 0000000000000000 R08: 00007f59a06fcb20 R09: 
+>> 00005578ae640550
+>> [   17.220342] R10: 0000000000000040 R11: 0000000000000246 R12: 
+>> 00005578ae677fc0
+>> [   17.220342] R13: 0000000000020000 R14: 00005578ae651750 R15: 
+>> 0000000000000000
+>> [   17.220344]  </TASK>
+>> [   17.220345] Modules linked in: radeon(+) snd_hda_codec_hdmi 
+>> snd_seq_midi snd_seq_midi_event snd_seq snd_hda_intel 
+>> snd_intel_dspcfg snd_emu10k1 snd_hda_codec drm_ttm_helper ttm 
+>> snd_util_mem drm_suballoc_helper snd_ac97_codec snd_hda_core 
+>> drm_display_helper ac97_bus snd_rawmidi snd_hwdep snd_seq_device 
+>> snd_pcm drm_kms_helper edac_mce_amd sha512_ssse3 sha512_generic 
+>> k10temp sha256_ssse3 sha1_ssse3 drm aesni_intel snd_timer gf128mul 
+>> crypto_simd cryptd acpi_cpufreq evdev pcspkr serio_raw emu10k1_gp 
+>> gameport at24 regmap_i2c i2c_algo_bit snd video soundcore wmi button 
+>> sp5100_tco ext4 crc32c_generic crc16 mbcache jbd2 uas usb_storage 
+>> hid_generic usbhid hid sg sr_mod sd_mod cdrom ata_generic 
+>> firewire_ohci crc32_pclmul crc32c_intel firewire_core crc_itu_t 
+>> pata_atiixp i2c_piix4 i2c_smbus ahci r8169 libahci xhci_pci ohci_pci 
+>> realtek libata mdio_devres ehci_pci ohci_hcd xhci_hcd scsi_mod 
+>> ehci_hcd scsi_common usbcore libphy usb_common
+>> [   17.220388] CR2: 00000000000000a0
+>> [   17.220390] ---[ end trace 0000000000000000 ]---
+>>
+>> Happy to provide additional information and run tests.
+>>
+>> Regards,
+>>
+>> Arthur Marsh.
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
