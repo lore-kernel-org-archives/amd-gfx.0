@@ -4,31 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A0E0CF9C6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 12:57:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B7ACF9C6B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 13:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E719E10E1DC;
-	Tue, 24 Sep 2024 12:57:47 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECB9A10E1DC
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Sep 2024 12:57:46 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 48OCvejG833779; Tue, 24 Sep 2024 18:27:40 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48OCveWC833319;
- Tue, 24 Sep 2024 18:27:40 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH] drm/amdgpu: add amdgpu_device reference in ip block
-Date: Tue, 24 Sep 2024 18:27:39 +0530
-Message-Id: <20240924125739.831544-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07AD310E0AA;
+	Tue, 24 Sep 2024 13:08:09 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=kapsi.fi header.i=@kapsi.fi header.b="nPzvfNUc";
+	dkim-atps=neutral
+Received: from mail.kapsi.fi (mail-auth.kapsi.fi [91.232.154.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 188C110E680;
+ Tue, 24 Sep 2024 08:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kapsi.fi;
+ s=20161220; h=References:Cc:To:Subject:Message-ID:From:
+ Content-Transfer-Encoding:Content-Type:Date:MIME-Version:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=87iHZxSMNaCUUFc/DDhI2j23UOhCDyAlplvwWjyHbGU=; b=nPzvfNUcmIGJxFUuIVdfgc/+jT
+ aQELkk4dE/OywcoiWCYmIO1s+mhrvs1ao5bfiL4961szmqLdyffUg0V59clctqhRh5TJkqM9RhNjA
+ SwezbbExio27n1xOXiaotUln12OqbhYp3WP04aWSJmB6d6gln7uXxJ186qJLh8/kzOefuGK0YVnqM
+ os/ZivMryaZ/gpO1QHD8i5exlAXvDUok0cLOR9SeIvLxjqaPGBCzO1oL7PbOZilVs7ORbL5NODUr/
+ BYRxxMekg/MXFzVthYZcPnXgJidEyh6c78e8alUpawBzXfi1rYH34H1Pe8r1Rq8hptb0QgVYmOu83
+ W7X7n2mQ==;
+Received: from webng-gw.kapsi.fi ([91.232.154.200] helo=rainloop.kapsi.fi)
+ by mail.kapsi.fi with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <jyri.sarha@iki.fi>) id 1st0pN-002pi9-1m;
+ Tue, 24 Sep 2024 11:23:21 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 24 Sep 2024 08:23:19 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: jyri.sarha@iki.fi
+Message-ID: <96c32c7539b381cc59dc2b765fcda9395e7b7997@iki.fi>
+Subject: Re: [PATCH v5 42/80] drm/tilcdc: Run DRM default client setup
+To: "Thomas Zimmermann" <tzimmermann@suse.de>, javierm@redhat.com,
+ jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, "Jyri
+ Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>
+References: undefined <20240924071734.98201-1-tzimmermann@suse.de>
+X-SA-Exim-Connect-IP: 91.232.154.200
+X-SA-Exim-Mail-From: jyri.sarha@iki.fi
+X-SA-Exim-Scanned: No (on mail.kapsi.fi); SAEximRunCond expanded to false
+X-Mailman-Approved-At: Tue, 24 Sep 2024 13:08:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,41 +64,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To handle amdgpu_device reference for different GPUs
-we add it's reference in each ip block which can be
-used to differentiate between difference gpu devices.
+September 24, 2024 at 10:12 AM, "Thomas Zimmermann" <tzimmermann@suse.de =
+mailto:tzimmermann@suse.de?to=3D%22Thomas%20Zimmermann%22%20%3Ctzimmerman=
+n%40suse.de%3E > wrote:
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
- 2 files changed, 3 insertions(+)
+>=20
+>=20Call drm_client_setup_with_color_mode() to run the kernel's default
+> client setup for DRM. Set fbdev_probe in struct drm_driver, so that
+> the client setup can start the common fbdev client.
+>=20
+>=20v5:
+> - select DRM_CLIENT_SELECTION
+> v3:
+> - add DRM_FBDEV_DMA_DRIVER_OPS macro
+>=20
+>=20Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jyri Sarha <jyri.sarha@iki.fi>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+> ---
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 5b06c052ffbc..c83207a01763 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -391,6 +391,7 @@ struct amdgpu_ip_block_version {
- struct amdgpu_ip_block {
- 	struct amdgpu_ip_block_status status;
- 	const struct amdgpu_ip_block_version *version;
-+	struct amdgpu_device *adev;
- };
- 
- int amdgpu_device_ip_block_version_cmp(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index dee57f15719e..c4d4fbcfca7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2337,6 +2337,8 @@ int amdgpu_device_ip_block_add(struct amdgpu_device *adev,
- 	DRM_INFO("add ip block number %d <%s>\n", adev->num_ip_blocks,
- 		  ip_block_version->funcs->name);
- 
-+	adev->ip_blocks[adev->num_ip_blocks].adev = adev;
-+
- 	adev->ip_blocks[adev->num_ip_blocks++].version = ip_block_version;
- 
- 	return 0;
--- 
-2.34.1
 
+Acked-by: Jyri Sarha <jyri.sarha@iki.fi>
+
+
+> drivers/gpu/drm/tilcdc/Kconfig | 1 +
+> drivers/gpu/drm/tilcdc/tilcdc_drv.c | 5 ++++-
+> 2 files changed, 5 insertions(+), 1 deletion(-)
+>=20
+>=20diff --git a/drivers/gpu/drm/tilcdc/Kconfig b/drivers/gpu/drm/tilcdc/=
+Kconfig
+> index d3bd2d7a181e..24f9a245ba59 100644
+> --- a/drivers/gpu/drm/tilcdc/Kconfig
+> +++ b/drivers/gpu/drm/tilcdc/Kconfig
+> @@ -2,6 +2,7 @@
+> config DRM_TILCDC
+>  tristate "DRM Support for TI LCDC Display Controller"
+>  depends on DRM OF && ARM
+> + select DRM_CLIENT_SELECTION
+>  select DRM_KMS_HELPER
+>  select DRM_GEM_DMA_HELPER
+>  select DRM_BRIDGE
+> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilc=
+dc/tilcdc_drv.c
+> index cd5eefa06060..8c9f3705aa6c 100644
+> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+> @@ -14,6 +14,7 @@
+> #include <linux/pm_runtime.h>
+>=20
+>=20#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_client_setup.h>
+> #include <drm/drm_debugfs.h>
+> #include <drm/drm_drv.h>
+> #include <drm/drm_fbdev_dma.h>
+> @@ -374,7 +375,8 @@ static int tilcdc_init(const struct drm_driver *ddr=
+v, struct device *dev)
+>  goto init_failed;
+>  priv->is_registered =3D true;
+>=20
+>=20- drm_fbdev_dma_setup(ddev, bpp);
+> + drm_client_setup_with_color_mode(ddev, bpp);
+> +
+>  return 0;
+>=20
+>=20init_failed:
+> @@ -472,6 +474,7 @@ DEFINE_DRM_GEM_DMA_FOPS(fops);
+> static const struct drm_driver tilcdc_driver =3D {
+>  .driver_features =3D DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+>  DRM_GEM_DMA_DRIVER_OPS,
+> + DRM_FBDEV_DMA_DRIVER_OPS,
+> #ifdef CONFIG_DEBUG_FS
+>  .debugfs_init =3D tilcdc_debugfs_init,
+> #endif
+> --=20
+>=202.46.0
+>
