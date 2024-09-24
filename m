@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B138CF9C79
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 10:19:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB60CF9C77
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Sep 2024 10:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82E6D10E6B8;
-	Tue, 24 Sep 2024 10:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A321510E6B5;
+	Tue, 24 Sep 2024 10:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Q32mc3m7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sIqENFnU";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03A8D10E6B8;
- Tue, 24 Sep 2024 10:19:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3270F10E6B2;
+ Tue, 24 Sep 2024 10:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,28 +22,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=3lo6c/SaW7HVua7qjI5VULymGPvnjwEd2mLW6Aaj3Cg=; b=Q32mc3m73bv2eK94zIcvhc06vN
- SUsLIiSDkt9REym/mO5dEXms5r9NZf5/ZA9qCUTE6PoXN2dUHsXG++B0aijUeJBRHvVYgTF6bNlM3
- vU1UcEF6tu9RmmHnz0vahJGXwWjjOegHe0x94v8v7U62q6cYnHTU1Tdxhn8vc5V5rnCIQg62sU0k7
- 1/HUtUPR9a3P7d+E1UUN7w3OQEmINdpau6VEZ+4e09SrGVbzaboX/u6bSZaKPml9YkvnENYJvR9Oe
- EJo/iYDKCemcDgBCFIwH/uhVtzuvdqIfEmAoMcr7Pv0qSxvq4JgOGAGaETgoJSWJGNgp5MMhIow4s
- CApjsO7w==;
+ bh=OyMmvzjUjl7TCltO+c447day3rIITy8XklFX87gpXZA=; b=sIqENFnUawAYKJUqppcAXpdRqQ
+ 8KesAbGIcEYAejRByA/jAQelKPfI4FT1WOxmvytiy0QoJt33y2R1MuhGgPPdjJKJizZTEa0IRllg6
+ bOs0DuiX9/bV7btS8FSIz+AbWUv3Vu2nL1Wxt59z2ccPbEthdk+Qm2u3KBNtyL7st0/FQ/fsNAFIp
+ u8Yck+NtRGSQ1/8CTGH5r03V0xBB0JHmOtQxGcMhtXX4He3yVz4V2bFrNb9Nkgc3OIVEPxjJ9NpHB
+ R2y0mbyjcafnOeXl2l5PvP+8xSY54AFg0ttt5di+585knE2Ymm/GGyPUCGJ6Q1g92pCgEE0YXmruX
+ W6ObYvpA==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1st2dg-000L2s-8J; Tue, 24 Sep 2024 12:19:24 +0200
+ id 1st2dd-000L2O-BM; Tue, 24 Sep 2024 12:19:21 +0200
 From: Tvrtko Ursulin <tursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Nirmoy Das <nirmoy.das@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
  Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>
-Subject: [PATCH 7/8] drm/sched: Re-group and rename the entity run-queue lock
-Date: Tue, 24 Sep 2024 11:19:13 +0100
-Message-ID: <20240924101914.2713-8-tursulin@igalia.com>
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org,
+ Nirmoy Das <nirmoy.das@intel.com>
+Subject: [PATCH 3/8] drm/sched: Always increment correct scheduler score
+Date: Tue, 24 Sep 2024 11:19:09 +0100
+Message-ID: <20240924101914.2713-4-tursulin@igalia.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240924101914.2713-1-tursulin@igalia.com>
 References: <20240924101914.2713-1-tursulin@igalia.com>
@@ -66,171 +67,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Christian suggested to rename the lock and improve the documentation of
-what it protects. And to also re-order the structure members so all
-protected by the lock are together in a block.
+Entities run queue can change during drm_sched_entity_push_job() so make
+sure to update the score consistently.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: d41a39dda140 ("drm/scheduler: improve job distribution with multiple queues")
+Cc: Nirmoy Das <nirmoy.das@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Luben Tuikov <ltuikov89@gmail.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <pstanner@redhat.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.9+
 Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 28 ++++++++++++------------
- drivers/gpu/drm/scheduler/sched_main.c   |  2 +-
- include/drm/gpu_scheduler.h              | 15 +++++++------
- 3 files changed, 23 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 59f710afe992..5ebbba77e77d 100644
+index a75eede8bf8d..b2cf3e0c1838 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -105,7 +105,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	/* We start in an idle state. */
- 	complete_all(&entity->entity_idle);
+@@ -586,7 +586,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	ktime_t submit_ts;
  
--	spin_lock_init(&entity->rq_lock);
-+	spin_lock_init(&entity->lock);
- 	spsc_queue_init(&entity->job_queue);
+ 	trace_drm_sched_job(sched_job, entity);
+-	atomic_inc(entity->rq->sched->score);
+ 	WRITE_ONCE(entity->last_user, current->group_leader);
  
- 	atomic_set(&entity->fence_seq, 0);
-@@ -133,10 +133,10 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- {
- 	WARN_ON(!num_sched_list || !sched_list);
+ 	/*
+@@ -614,6 +613,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 		rq = entity->rq;
+ 		sched = rq->sched;
  
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	entity->sched_list = sched_list;
- 	entity->num_sched_list = num_sched_list;
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_modify_sched);
++		atomic_inc(sched->score);
+ 		drm_sched_rq_add_entity(rq, entity);
+ 		spin_unlock(&entity->rq_lock);
  
-@@ -244,10 +244,10 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	if (!entity->rq)
- 		return;
- 
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	entity->stopped = true;
- 	drm_sched_rq_remove_entity(entity->rq, entity);
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- 
- 	/* Make sure this entity is not used by the scheduler at the moment */
- 	wait_for_completion(&entity->entity_idle);
-@@ -396,9 +396,9 @@ static void drm_sched_entity_wakeup(struct dma_fence *f,
- void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
- 				   enum drm_sched_priority priority)
- {
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	entity->priority = priority;
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_set_priority);
- 
-@@ -515,10 +515,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 
- 		next = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
- 		if (next) {
--			spin_lock(&entity->rq_lock);
-+			spin_lock(&entity->lock);
- 			drm_sched_rq_update_fifo_locked(entity,
- 							next->submit_ts);
--			spin_unlock(&entity->rq_lock);
-+			spin_unlock(&entity->lock);
- 		}
- 	}
- 
-@@ -559,14 +559,14 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (fence && !dma_fence_is_signaled(fence))
- 		return;
- 
--	spin_lock(&entity->rq_lock);
-+	spin_lock(&entity->lock);
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->priority] : NULL;
- 	if (rq != entity->rq) {
- 		drm_sched_rq_remove_entity(entity->rq, entity);
- 		entity->rq = rq;
- 	}
--	spin_unlock(&entity->rq_lock);
-+	spin_unlock(&entity->lock);
- 
- 	if (entity->num_sched_list == 1)
- 		entity->sched_list = NULL;
-@@ -606,9 +606,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		struct drm_sched_rq *rq;
- 
- 		/* Add the entity to the run queue */
--		spin_lock(&entity->rq_lock);
-+		spin_lock(&entity->lock);
- 		if (entity->stopped) {
--			spin_unlock(&entity->rq_lock);
-+			spin_unlock(&entity->lock);
- 
- 			DRM_ERROR("Trying to push to a killed entity\n");
- 			return;
-@@ -623,7 +623,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
- 			drm_sched_rq_update_fifo_locked(entity, submit_ts);
- 
--		spin_unlock(&entity->rq_lock);
-+		spin_unlock(&entity->lock);
- 
- 		drm_sched_wakeup(sched);
- 	}
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 130b53f02bbf..5628a4c78242 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -170,7 +170,7 @@ void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity, ktime_t ts
- 	 * for entity from within concurrent drm_sched_entity_select_rq and the
- 	 * other to update the rb tree structure.
- 	 */
--	lockdep_assert_held(&entity->rq_lock);
-+	lockdep_assert_held(&entity->lock);
- 
- 	spin_lock(&entity->rq->lock);
- 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 33c60889e0a3..6db30fcb18dc 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -96,6 +96,14 @@ struct drm_sched_entity {
- 	 */
- 	struct list_head		list;
- 
-+	/**
-+	 * @lock:
-+	 *
-+	 * Lock protecting the run-queue (@rq) to which this entity belongs,
-+	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
-+	 */
-+	spinlock_t			lock;
-+
- 	/**
- 	 * @rq:
- 	 *
-@@ -140,13 +148,6 @@ struct drm_sched_entity {
- 	 */
- 	enum drm_sched_priority         priority;
- 
--	/**
--	 * @rq_lock:
--	 *
--	 * Lock to modify the runqueue to which this entity belongs.
--	 */
--	spinlock_t			rq_lock;
--
- 	/**
- 	 * @job_queue: the list of jobs of this entity.
- 	 */
 -- 
 2.46.0
 
