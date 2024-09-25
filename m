@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC70AC369D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:53:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4188C369D6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:04:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D0A10E992;
-	Wed, 25 Sep 2024 11:53:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6429810E820;
+	Wed, 25 Sep 2024 12:04:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xf8sPTYA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MTpy3FAL";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A4C10E992;
- Wed, 25 Sep 2024 11:53:00 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA3010E820;
+ Wed, 25 Sep 2024 12:04:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6653C5C0E74;
- Wed, 25 Sep 2024 11:52:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E958C4CEC3;
- Wed, 25 Sep 2024 11:52:57 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 0C127A44059;
+ Wed, 25 Sep 2024 12:03:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E6FC4CEC3;
+ Wed, 25 Sep 2024 12:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265180;
- bh=F5K3EUs7bmUksDI8jNzKhnbmoQAbhXS8dUA6E+dxQ0s=;
+ s=k20201202; t=1727265846;
+ bh=CeuhZ54SPCA7OustL06NX1Y0knAC9gHtd7U+QFgbm/M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Xf8sPTYABZENSvABmm+6crd4xPGBcCTXgfUX997M1chbXkT57p0aG3W2y16/iSeT9
- 6emaccNIOEGTQD0DyDoYfBGzmbPoxyiNQoEDY+R3DY336Xo//m6Edo5VK40umeeOlH
- hBvPmWIE7S1w3RT+BhqySMhkvUoe2xvD6CPG3JC0p2nm8Y0er1IpfeSU/0Eel5I6m0
- f6zGB5pqKa+0fcMpK8gEmZKZESDdOtsK6gwCjfzAadV5P4J1ON/541dA89OTf4NORB
- Fp1eD9Hnlqrm6sniUTDA7/ICYe+nueWKq5UsgmkTJu5eGZt5+Zo0JwNesxKl2ZISnm
- D8HirY2xQu7bQ==
+ b=MTpy3FALr+pfDW51oStbF7O2RYfZqUPwLPaxc+Ceeo+FB8FoAIU8z+ufkKtUvZlFI
+ VN4bn55v5pKv5AB2ixWcL5h+8BgikvFHyG8tafJcXYO2ymQZnkdJ1r0xzDCEPu+3E8
+ brtaKw4UnDElJw4O7N4I9wX1iEWD28NozulnToVPQ+fLqES3VatvLkpLVFL7gy/Gd3
+ mnXoMga9XZkMIfR4iT6or27AL1WUPW3obk2k/W817bOr8qUWtggDKPwjpyVSdijCgL
+ lY4mA4cd32URDEMyChSfsBwAMkKZBF4gGclGXlBaD940jiW+yL6FUWSKjtdOpQXPN3
+ qvtD9P7ad/YEw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Sasha Levin <sashal@kernel.org>,
+Cc: Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Jerry Zuo <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, sunil.khatri@amd.com, zhenguo.yin@amd.com,
- Jun.Ma2@amd.com, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, aurabindo.pillai@amd.com, hamza.mahfooz@amd.com,
+ wenjing.liu@amd.com, dillon.varone@amd.com, ivlipski@amd.com,
+ martin.leung@amd.com, moadhuri@amd.com, u202112078@hust.edu.cn,
+ bigeasy@linutronix.de, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 225/244] drm/amdgpu/gfx10: use rlc safe mode for
- soft recovery
-Date: Wed, 25 Sep 2024 07:27:26 -0400
-Message-ID: <20240925113641.1297102-225-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.10 113/197] drm/amd/display: Pass non-null to
+ dcn20_validate_apply_pipe_split_flags
+Date: Wed, 25 Sep 2024 07:52:12 -0400
+Message-ID: <20240925115823.1303019-113-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
-References: <20240925113641.1297102-1-sashal@kernel.org>
+In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
+References: <20240925115823.1303019-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.11
+X-stable-base: Linux 6.10.11
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,33 +69,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[ Upstream commit ead60e9c4e29c8574cae1be4fe3af1d9a978fb0f ]
+[ Upstream commit 5559598742fb4538e4c51c48ef70563c49c2af23 ]
 
-Protect the MMIO access with safe mode.
+[WHAT & HOW]
+"dcn20_validate_apply_pipe_split_flags" dereferences merge, and thus it
+cannot be a null pointer. Let's pass a valid pointer to avoid null
+dereference.
 
-Acked-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+This fixes 2 FORWARD_NULL issues reported by Coverity.
+
+Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c | 3 ++-
+ drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 5b41c6a44068c..1bb602c4f9b3f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -8889,7 +8889,9 @@ static void gfx_v10_0_ring_soft_recovery(struct amdgpu_ring *ring,
- 	value = REG_SET_FIELD(value, SQ_CMD, MODE, 0x01);
- 	value = REG_SET_FIELD(value, SQ_CMD, CHECK_VMID, 1);
- 	value = REG_SET_FIELD(value, SQ_CMD, VM_ID, vmid);
-+	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 	WREG32_SOC15(GC, 0, mmSQ_CMD, value);
-+	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+index 6b380e037e3f8..c0d1b41eb9004 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+@@ -2033,6 +2033,7 @@ bool dcn20_fast_validate_bw(
+ {
+ 	bool out = false;
+ 	int split[MAX_PIPES] = { 0 };
++	bool merge[MAX_PIPES] = { false };
+ 	int pipe_cnt, i, pipe_idx, vlevel;
  
- static void
+ 	ASSERT(pipes);
+@@ -2057,7 +2058,7 @@ bool dcn20_fast_validate_bw(
+ 	if (vlevel > context->bw_ctx.dml.soc.num_states)
+ 		goto validate_fail;
+ 
+-	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, NULL);
++	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, merge);
+ 
+ 	/*initialize pipe_just_split_from to invalid idx*/
+ 	for (i = 0; i < MAX_PIPES; i++)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
+index 8663cbc3d1cf5..347e6aaea582f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
+@@ -774,6 +774,7 @@ bool dcn21_fast_validate_bw(struct dc *dc,
+ {
+ 	bool out = false;
+ 	int split[MAX_PIPES] = { 0 };
++	bool merge[MAX_PIPES] = { false };
+ 	int pipe_cnt, i, pipe_idx, vlevel;
+ 
+ 	ASSERT(pipes);
+@@ -816,7 +817,7 @@ bool dcn21_fast_validate_bw(struct dc *dc,
+ 			goto validate_fail;
+ 	}
+ 
+-	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, NULL);
++	vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, merge);
+ 
+ 	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
 -- 
 2.43.0
 
