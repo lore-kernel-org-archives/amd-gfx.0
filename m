@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52933C369D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:52:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C788C369D5
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:52:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02F7910E983;
-	Wed, 25 Sep 2024 11:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B29510E988;
+	Wed, 25 Sep 2024 11:52:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R+nw9TSv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E4kQvtPI";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E94910E982;
- Wed, 25 Sep 2024 11:52:18 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8E5A10E987;
+ Wed, 25 Sep 2024 11:52:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8D879A4401D;
- Wed, 25 Sep 2024 11:52:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90714C4CEC3;
- Wed, 25 Sep 2024 11:52:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6307A5C5999;
+ Wed, 25 Sep 2024 11:52:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D366C4CECD;
+ Wed, 25 Sep 2024 11:52:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265137;
- bh=QUJl8+QxVVEFChsF4M2i+QQOHusoscWVS4IFxvOB8SA=;
+ s=k20201202; t=1727265144;
+ bh=T2V3YRkOq7vatkOQ+SUsy0VnQobjXyphXl1/z9YfLd8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R+nw9TSvvh4uMG+JIBlVxPiUo0UlqQ0ZnCqpvfvMRAB1kuzv8cXVm330eMbH0jxpO
- 7EOcYdcLMcGeLGFwxBtBXatU9Z/9FYmKMvcvJZCuw5eUWHJucBzxZP/6/G55LRDjgs
- zZhnMzv0cD6geuUfbI8SUAL7mcNoWoz+UpoJrml+jYJTyxIrtzPtQel3KWSwIvPelN
- obYKC70H7Qn4YaIyvjXt8AhCsz9f9RShoWHZqBlONsbTNjXXciO+hTcp3cbzYzkCHs
- bfLVeHWnGhszNEU4ViE8wrjQU51XpNTcdqqEchW5Q64MJCYoj+KHtbRqRaCjJxShzJ
- hb2c6HySfe6Xg==
+ b=E4kQvtPIaXW97WIRQRlFuE1xt6p0aSL5oil1WBeuXuz08dzbtv1tjc9UjqZzbIkFz
+ 5uqaZjKbDIq3j8OjZMM/y5FGY+22HCIbJ5n9SGQ2YZXPQzG5In4geB82uk9WGEbAQ3
+ UQFG5Ko8DFT0wk976EL4E7jmtYJ9mzGOxU80Vm6U+Krqk9cI7BjFXGLqhqAAuPusFP
+ geweOiherAq5lmVJhTXo18FiNyWGAMIVxCaJPP5zOWzSAQGVYMnfJ/GOT8aZ+gq7jw
+ QbMNFu5nXBD5ZiofKFuS7WKGAvuj+5N5C1fPIEXVsNteKzqzwknXLSWPueElgrKIvK
+ MWmHbUt30ydkQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, sunil.khatri@amd.com, yifan1.zhang@amd.com,
- Tim.Huang@amd.com, Jack.Xiao@amd.com, kevinyang.wang@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 214/244] drm/amdgpu/gfx11: enter safe mode before
- touching CP_INT_CNTL
-Date: Wed, 25 Sep 2024 07:27:15 -0400
-Message-ID: <20240925113641.1297102-214-sashal@kernel.org>
+Cc: Tim Huang <tim.huang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, kevinyang.wang@amd.com,
+ Jun.Ma2@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.11 216/244] drm/amd/pm: ensure the fw_info is not
+ null before using it
+Date: Wed, 25 Sep 2024 07:27:17 -0400
+Message-ID: <20240925113641.1297102-216-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
 References: <20240925113641.1297102-1-sashal@kernel.org>
@@ -65,41 +65,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Tim Huang <tim.huang@amd.com>
 
-[ Upstream commit b5be054c585110b2c5c1b180136800e8c41c7bb4 ]
+[ Upstream commit 186fb12e7a7b038c2710ceb2fb74068f1b5d55a4 ]
 
-Need to enter safe mode before touching GC MMIO.
+This resolves the dereference null return value warning
+reported by Coverity.
 
-Acked-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Signed-off-by: Tim Huang <tim.huang@amd.com>
+Reviewed-by: Jesse Zhang <jesse.zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 61e62d846900c..228124b389541 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -4707,6 +4707,8 @@ static int gfx_v11_0_soft_reset(void *handle)
- 	int r, i, j, k;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+index ca1c7ae8d146d..f06b29e33ba45 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+@@ -1183,6 +1183,8 @@ static int init_overdrive_limits(struct pp_hwmgr *hwmgr,
+ 	fw_info = smu_atom_get_data_table(hwmgr->adev,
+ 			 GetIndexIntoMasterTable(DATA, FirmwareInfo),
+ 			 &size, &frev, &crev);
++	PP_ASSERT_WITH_CODE(fw_info != NULL,
++			    "Missing firmware info!", return -EINVAL);
  
-+	gfx_v11_0_set_safe_mode(adev, 0);
-+
- 	tmp = RREG32_SOC15(GC, 0, regCP_INT_CNTL);
- 	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL, CMP_BUSY_INT_ENABLE, 0);
- 	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL, CNTX_BUSY_INT_ENABLE, 0);
-@@ -4714,8 +4716,6 @@ static int gfx_v11_0_soft_reset(void *handle)
- 	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL, GFX_IDLE_INT_ENABLE, 0);
- 	WREG32_SOC15(GC, 0, regCP_INT_CNTL, tmp);
- 
--	gfx_v11_0_set_safe_mode(adev, 0);
--
- 	mutex_lock(&adev->srbm_mutex);
- 	for (i = 0; i < adev->gfx.mec.num_mec; ++i) {
- 		for (j = 0; j < adev->gfx.mec.num_queue_per_pipe; j++) {
+ 	if ((fw_info->ucTableFormatRevision == 1)
+ 	    && (le16_to_cpu(fw_info->usStructureSize) >= sizeof(ATOM_FIRMWARE_INFO_V1_4)))
 -- 
 2.43.0
 
