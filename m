@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC2DC369D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8ABC369D6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:08:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D3A10E9D5;
-	Wed, 25 Sep 2024 12:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9907410E9D8;
+	Wed, 25 Sep 2024 12:08:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nOw6++lr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kk2TyWQQ";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90BDE10E9D3;
- Wed, 25 Sep 2024 12:07:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEE8C10E9D6;
+ Wed, 25 Sep 2024 12:08:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1F6295C5D9D;
- Wed, 25 Sep 2024 12:07:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88004C4CEC7;
- Wed, 25 Sep 2024 12:07:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7DA825C5D94;
+ Wed, 25 Sep 2024 12:07:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66A0C4CECD;
+ Wed, 25 Sep 2024 12:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727266065;
- bh=ZAiokJ1rYQAq2T1BpEz/PVCf2g0hGxKYM5qrlIA3tHM=;
+ s=k20201202; t=1727266081;
+ bh=W251M1MEdlO2mVgnNvOMmKjnzePsQ6NC+v4imxd93xQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nOw6++lrgpERC1wyeyCa57XSDO3uHrbOI5h3DBYecGjW2SaNmSPu7KWqvVZSAXEMq
- RXt9yOI4P4iTi5D9FCpvh1M0gzHVRE48/ypNTOpYpZQNwho8qnIESoqpexCUPgEpFt
- 4/hTVNrrg2wV4PesqYX5M1YtkixMxPARJb5hW0EtDyI0lUZaGmgR1QyDkYB7STphHR
- o1XPcOTrf/CHi9AmxLIKXreP6/XD49l+q17bbOgGC4e8n5qMvJgQGmQx/qZd7EPEne
- 6hFMeQe1R7PNTYGmN2UJEFwxyzOCZJZWAdOUHOjzQXMMsd5DdCoQ9uvtI+i+Tn1Zq4
- We4diyEcmHlXg==
+ b=Kk2TyWQQ9wveJmylPGcLwhShTtXhl3jfurwWNmr1quaedWaeeKUNtr1R2bPG1l3Qk
+ j3NIhVXC01oP1I+kJq8QD5oi9y81Ygz6tXfuDR/Vd4dOxsRBhdr7VfNMc5FI/JhOTt
+ +IkabZWHBO/ygiB1zxq3KpfORNzzht5E/8nSaZOnoQrHp7H3lFcXSwTVLJeHEmGxj/
+ 4AUr5SgH4Gc2Vc6NCNJpKVBR04DcdzqRDTSy/DSmnbfpxeK0UVSXC9FS/2EKEnvVTa
+ naNBz+oCtJfJ9G7anH3Gf8s3jf6SWNsaweB3WLR1vUaFaL53vNNL/0UcmzP8H5+8et
+ quchoGy9xIbhw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+Cc: Tim Huang <tim.huang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, ivlipski@amd.com, hamza.mahfooz@amd.com,
+ daniel@ffwll.ch, Hawking.Zhang@amd.com, Jack.Xiao@amd.com,
+ srinivasan.shanmugam@amd.com, mario.limonciello@amd.com,
+ Stanley.Yang@amd.com, tao.zhou1@amd.com, victorchengchi.lu@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 158/197] drm/amd/display: Initialize
- get_bytes_per_element's default to 1
-Date: Wed, 25 Sep 2024 07:52:57 -0400
-Message-ID: <20240925115823.1303019-158-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.10 165/197] drm/amdgpu: fix unchecked return value
+ warning for amdgpu_gfx
+Date: Wed, 25 Sep 2024 07:53:04 -0400
+Message-ID: <20240925115823.1303019-165-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
 References: <20240925115823.1303019-1-sashal@kernel.org>
@@ -67,53 +66,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Tim Huang <tim.huang@amd.com>
 
-[ Upstream commit 4067f4fa0423a89fb19a30b57231b384d77d2610 ]
+[ Upstream commit c0277b9d7c2ee9ee5dbc948548984f0fbb861301 ]
 
-Variables, used as denominators and maybe not assigned to other values,
-should not be 0. bytes_per_element_y & bytes_per_element_c are
-initialized by get_bytes_per_element() which should never return 0.
+This resolves the unchecded return value warning reported by Coverity.
 
-This fixes 10 DIVIDE_BY_ZERO issues reported by Coverity.
-
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Tim Huang <tim.huang@amd.com>
+Reviewed-by: Jesse Zhang <jesse.zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c | 2 +-
- .../gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-index 0fc9f3e3ffaef..f603486af6e30 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-@@ -78,7 +78,7 @@ static void calculate_ttu_cursor(struct display_mode_lib *mode_lib,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index e92bdc9a39d35..1935b211b527d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -816,8 +816,11 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
+ 	int r;
  
- static unsigned int get_bytes_per_element(enum source_format_class source_format, bool is_chroma)
- {
--	unsigned int ret_val = 0;
-+	unsigned int ret_val = 1;
+ 	if (amdgpu_ras_is_supported(adev, ras_block->block)) {
+-		if (!amdgpu_persistent_edc_harvesting_supported(adev))
+-			amdgpu_ras_reset_error_status(adev, AMDGPU_RAS_BLOCK__GFX);
++		if (!amdgpu_persistent_edc_harvesting_supported(adev)) {
++			r = amdgpu_ras_reset_error_status(adev, AMDGPU_RAS_BLOCK__GFX);
++			if (r)
++				return r;
++		}
  
- 	if (source_format == dm_444_16) {
- 		if (!is_chroma)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-index 618f4b682ab1b..9f28e4d3c664c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-@@ -53,7 +53,7 @@ static void calculate_ttu_cursor(
+ 		r = amdgpu_ras_block_late_init(adev, ras_block);
+ 		if (r)
+@@ -961,7 +964,10 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+ 		pr_err("critical bug! too many kiq readers\n");
+ 		goto failed_unlock;
+ 	}
+-	amdgpu_ring_alloc(ring, 32);
++	r = amdgpu_ring_alloc(ring, 32);
++	if (r)
++		goto failed_unlock;
++
+ 	amdgpu_ring_emit_rreg(ring, reg, reg_val_offs);
+ 	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+ 	if (r)
+@@ -1027,7 +1033,10 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
+ 	}
  
- static unsigned int get_bytes_per_element(enum source_format_class source_format, bool is_chroma)
- {
--	unsigned int ret_val = 0;
-+	unsigned int ret_val = 1;
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
+-	amdgpu_ring_alloc(ring, 32);
++	r = amdgpu_ring_alloc(ring, 32);
++	if (r)
++		goto failed_unlock;
++
+ 	amdgpu_ring_emit_wreg(ring, reg, v);
+ 	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+ 	if (r)
+@@ -1063,6 +1072,7 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
  
- 	if (source_format == dm_444_16) {
- 		if (!is_chroma)
+ failed_undo:
+ 	amdgpu_ring_undo(ring);
++failed_unlock:
+ 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+ failed_kiq_write:
+ 	dev_err(adev->dev, "failed to write reg:%x\n", reg);
 -- 
 2.43.0
 
