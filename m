@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C60E3C369D5
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B69D1C369D3
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:48:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A77510E944;
-	Wed, 25 Sep 2024 11:48:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682C410E947;
+	Wed, 25 Sep 2024 11:48:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AoQyoMVY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WTCZI32k";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C79EE10E943;
- Wed, 25 Sep 2024 11:48:08 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D732D10E946;
+ Wed, 25 Sep 2024 11:48:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 426DB5C5AF3;
- Wed, 25 Sep 2024 11:48:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DA4FC4CEC7;
- Wed, 25 Sep 2024 11:48:06 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id D8FF5A43FAF;
+ Wed, 25 Sep 2024 11:48:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59255C4CEC3;
+ Wed, 25 Sep 2024 11:48:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727264887;
- bh=ARkVUnORyoSpvvi/osT4jVUA26xo6uc7NC7M7vXNZhM=;
+ s=k20201202; t=1727264909;
+ bh=ziyUKEgpN1AStBIwgF5ydpi+eC9lKzD+DmohgRxNSIo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AoQyoMVYZNn4J39X69YkObNyaqMfPOCLP5uPuSmmStSD2WQcMQ72CW8FnZpaJ/Y6W
- 6A62kPGH0b9TGnzooWAQuzdJCBuL2G0QB9PAWJjUTZzX/0MJkCKSIvK89E2n08aXth
- /eudl/IinpxFqHi99QrMO+gf8iG2m/cKcBh0o8nwB4B4JIeMeWdVZYz3T4U8qYOoi0
- 3LOvprOoLNMSf8sBMTCQkQbVsWBhS4l5unRZNenreildNOQkF9GB9ihXt6QtV8piF0
- Z2a1U5gKO9RXio9ZdMKgp9IaZbPrDz+RVg2/mNCFFZ9Bl0H6eRKyLGIX+4ouUAC/9w
- k/hN2jtUm0srA==
+ b=WTCZI32kDq1uttG/7tOpZvd2de+RXt+DSI3ymzRVG65UICbAD36NB2nFDner5Jd6p
+ 4pCZH2wwvL3BDl3pltJJFG1ywU++G+80z2V+xtc7ppRnHXT/1FD+nhnXe6uFG9hvkG
+ mdrt/12GGKTo9kE4LnLH3fefYmt4MchEMebQANpg8PiZs8KcyUFLeKKtvCoKtosSPs
+ Uvlchqy0oIxZmgm9+tVGP7n24pbPMUaN3WcRyGNSPubA1AM65DSvmemvWv4VC4WNoB
+ laM/X8dBHivBiTyhgn28SLgO8fKj1SIkRhiF9freRjHFcnWawTt/ae32dbPs50Lgc3
+ 1A1YM913IfDnw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Jesse Zhang <jesse.zhang@amd.com>, Tim Huang <tim.huang@amd.com>,
+Cc: Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Jerry Zuo <jerry.zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, ivlipski@amd.com,
+ colin.i.king@gmail.com, aurabindo.pillai@amd.com,
+ jiapeng.chong@linux.alibaba.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 172/244] drm/amdkfd: Fix resource leak in criu
- restore queue
-Date: Wed, 25 Sep 2024 07:26:33 -0400
-Message-ID: <20240925113641.1297102-172-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.11 179/244] drm/amd/display: Initialize
+ denominators' default to 1
+Date: Wed, 25 Sep 2024 07:26:40 -0400
+Message-ID: <20240925113641.1297102-179-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
 References: <20240925113641.1297102-1-sashal@kernel.org>
@@ -64,33 +67,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <jesse.zhang@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[ Upstream commit aa47fe8d3595365a935921a90d00bc33ee374728 ]
+[ Upstream commit b995c0a6de6c74656a0c39cd57a0626351b13e3c ]
 
-To avoid memory leaks, release q_extra_data when exiting the restore queue.
-v2: Correct the proto (Alex)
+[WHAT & HOW]
+Variables used as denominators and maybe not assigned to other values,
+should not be 0. Change their default to 1 so they are never 0.
 
-Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-Reviewed-by: Tim Huang <tim.huang@amd.com>
+This fixes 10 DIVIDE_BY_ZERO issues reported by Coverity.
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c | 2 +-
+ .../display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c    | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 36f0460cbffe6..e0f19f3ae2207 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -988,6 +988,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 		pr_debug("Queue id %d was restored successfully\n", queue_id);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+index 7c56ad0f88122..e7019c95ba79e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+@@ -78,7 +78,7 @@ static void calculate_ttu_cursor(struct display_mode_lib *mode_lib,
  
- 	kfree(q_data);
-+	kfree(q_extra_data);
+ static unsigned int get_bytes_per_element(enum source_format_class source_format, bool is_chroma)
+ {
+-	unsigned int ret_val = 0;
++	unsigned int ret_val = 1;
  
- 	return ret;
- }
+ 	if (source_format == dm_444_16) {
+ 		if (!is_chroma)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+index dae13f202220e..d8bfc85e5dcd0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+@@ -39,7 +39,7 @@
+ 
+ static unsigned int get_bytes_per_element(enum source_format_class source_format, bool is_chroma)
+ {
+-	unsigned int ret_val = 0;
++	unsigned int ret_val = 1;
+ 
+ 	if (source_format == dm_444_16) {
+ 		if (!is_chroma)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+index 81f0a6f19f87b..679b200319034 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_shared.c
+@@ -9386,8 +9386,8 @@ static void CalculateVMGroupAndRequestTimes(
+ 	double TimePerVMRequestVBlank[],
+ 	double TimePerVMRequestFlip[])
+ {
+-	unsigned int num_group_per_lower_vm_stage = 0;
+-	unsigned int num_req_per_lower_vm_stage = 0;
++	unsigned int num_group_per_lower_vm_stage = 1;
++	unsigned int num_req_per_lower_vm_stage = 1;
+ 
+ #ifdef __DML_VBA_DEBUG__
+ 	dml2_printf("DML::%s: NumberOfActiveSurfaces = %u\n", __func__, NumberOfActiveSurfaces);
 -- 
 2.43.0
 
