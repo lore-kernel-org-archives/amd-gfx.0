@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B2E3C369D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C353C369D3
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 064D410E9A3;
-	Wed, 25 Sep 2024 12:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D104A10E9A9;
+	Wed, 25 Sep 2024 12:05:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ha7ma3XU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HWdK5nJR";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7C8910E9A3;
- Wed, 25 Sep 2024 12:05:01 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B12C10E9A9;
+ Wed, 25 Sep 2024 12:05:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6592E5C5B1F;
- Wed, 25 Sep 2024 12:04:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4118BC4CEC3;
- Wed, 25 Sep 2024 12:04:58 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 28F5FA440EC;
+ Wed, 25 Sep 2024 12:05:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B383C4CECE;
+ Wed, 25 Sep 2024 12:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265901;
- bh=c//5nxdTaX2TjLFHUwfqNFlchniex8lG7yZz3ZDyeKw=;
+ s=k20201202; t=1727265908;
+ bh=+wDXTxHikvoawVP0k03++IlOfhH0N07O8DRw4idg+r8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ha7ma3XUekciqRBkXnxR6KZrxh4U7Hp8KGts6gaA1ADIaNd2tF8+rLJU0woOLRRfU
- TcmxUP55A5rP/L2Yccbbeqfew4xi8FK2Wve+d0QfgiW/zSTJhbPCBJwlQdaSw4cIBV
- zBZKIBBJUvEMaQH+sKnGpt4Knhk+ir8l61FArKWnTjAZXO6oUauf3OwD/oiCDahqWP
- Py0s47i9y6BLLLlw2t4ZvU6eBI6dZstQ6Nw3Lk/2TQIch7rvKJJqOsIkPzIA/+jI5C
- iVPjNnT1WiIfqhxN+2dvPz/8YNETkeMw6J/l9aMHnl55zpD3snojEKgELIwlzH14MM
- Y5OJYzV0ShTqA==
+ b=HWdK5nJRuzXARqDIwungjkhD2Tx+s8RGCU0G6F9lhX68Z/qDFyChwnvu4nSlO0elu
+ +4q2sQoc/uTiL6OEYLfBMgEiWY+yiAD66TCKn9hXKmAcNeqOMhPYXEz4Jr5TLpPPZu
+ ET6gOctI2k0ywtKWUTCWJl/CV1rp1K4vJDrov4dKIzxVYwthpxbzxlRbezcc69VD1P
+ i+1zURfD2cugIwn1LGMuasnB6J7BiBSwlUAwXEBGcLmGEQgNdh7fTbZ96zoWe626fI
+ WX/+Eir2UYJKAfhhadVr0nX93J6huhL9wbNqqyzlbJzD8kYY6Br5fYKzxFWsZWzmIt
+ Q1CGzjanWq7xw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -41,13 +41,13 @@ Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  Hamza Mahfooz <hamza.mahfooz@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  sunpeng.li@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, alvin.lee2@amd.com, samson.tam@amd.com,
- dillon.varone@amd.com, wenjing.liu@amd.com, ilya.bakoulin@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, alvin.lee2@amd.com, wayne.lin@amd.com,
+ wenjing.liu@amd.com, sungjoon.kim@amd.com, dillon.varone@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 120/197] drm/amd/display: Add NULL check for
- clk_mgr in dcn32_init_hw
-Date: Wed, 25 Sep 2024 07:52:19 -0400
-Message-ID: <20240925115823.1303019-120-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.10 122/197] drm/amd/display: Add null check for
+ top_pipe_to_program in commit_planes_for_stream
+Date: Wed, 25 Sep 2024 07:52:21 -0400
+Message-ID: <20240925115823.1303019-122-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
 References: <20240925115823.1303019-1-sashal@kernel.org>
@@ -72,18 +72,17 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-[ Upstream commit c395fd47d1565bd67671f45cca281b3acc2c31ef ]
+[ Upstream commit 66d71a72539e173a9b00ca0b1852cbaa5f5bf1ad ]
 
-This commit addresses a potential null pointer dereference issue in the
-`dcn32_init_hw` function. The issue could occur when `dc->clk_mgr` is
-null.
+This commit addresses a null pointer dereference issue in the
+`commit_planes_for_stream` function at line 4140. The issue could occur
+when `top_pipe_to_program` is null.
 
-The fix adds a check to ensure `dc->clk_mgr` is not null before
-accessing its functions. This prevents a potential null pointer
-dereference.
+The fix adds a check to ensure `top_pipe_to_program` is not null before
+accessing its stream_res. This prevents a null pointer dereference.
 
 Reported by smatch:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn32/dcn32_hwseq.c:961 dcn32_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 782)
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:4140 commit_planes_for_stream() error: we previously assumed 'top_pipe_to_program' could be null (see line 3906)
 
 Cc: Tom Chung <chiahsuan.chung@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
@@ -93,40 +92,27 @@ Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index b8e884368dc6e..8759c14a63226 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -752,7 +752,7 @@ void dcn32_init_hw(struct dc *dc)
- 	uint32_t backlight = MAX_BACKLIGHT_LEVEL;
- 	uint32_t user_level = MAX_BACKLIGHT_LEVEL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index da237f718dbdd..3bd18e862945f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3970,7 +3970,8 @@ static void commit_planes_for_stream(struct dc *dc,
+ 	}
  
--	if (dc->clk_mgr && dc->clk_mgr->funcs->init_clocks)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->init_clocks)
- 		dc->clk_mgr->funcs->init_clocks(dc->clk_mgr);
- 
- 	// Initialize the dccg
-@@ -931,10 +931,11 @@ void dcn32_init_hw(struct dc *dc)
- 	if (!dcb->funcs->is_accelerated_mode(dcb) && dc->res_pool->hubbub->funcs->init_watermarks)
- 		dc->res_pool->hubbub->funcs->init_watermarks(dc->res_pool->hubbub);
- 
--	if (dc->clk_mgr->funcs->notify_wm_ranges)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->notify_wm_ranges)
- 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
- 
--	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->set_hard_max_memclk &&
-+	    !dc->clk_mgr->dc_mode_softmax_enabled)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
- 
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
+ 	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+-		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
++		if (top_pipe_to_program &&
++		    top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+ 			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
+ 				top_pipe_to_program->stream_res.tg,
+ 				CRTC_STATE_VACTIVE);
 -- 
 2.43.0
 
