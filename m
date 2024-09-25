@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36AEAC369D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16997C369D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:45:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF79410E80A;
-	Wed, 25 Sep 2024 11:45:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCD9210E810;
+	Wed, 25 Sep 2024 11:45:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SYVEVt2W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IrFtVreQ";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 234F810E804;
- Wed, 25 Sep 2024 11:45:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97A5F10E810;
+ Wed, 25 Sep 2024 11:45:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A5C2B5C5820;
- Wed, 25 Sep 2024 11:45:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A72C4CEC3;
- Wed, 25 Sep 2024 11:45:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 00B995C5846;
+ Wed, 25 Sep 2024 11:45:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2603C4CEC3;
+ Wed, 25 Sep 2024 11:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727264722;
- bh=ew1h9cN6vpzPHipXs8JejMfS/NjBHhTL7DFknsIRqyk=;
+ s=k20201202; t=1727264734;
+ bh=T/RYXTNcdf625+837vnX5Tx0RG5+gm65B1AM1KFfEYQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SYVEVt2W+5qg3cKQbXgHE+QqpJhCwCkAuf7iIUo78SJxIwOBGFzjsO+DlYoVp5bM9
- CFKXr8DfLnPWY+7QWxZyy0O9DUw3VtchNEuAP6bjRMlR/rZCfTdq3o9AZ+Fv8hCPz7
- tHu0t5/RzQDFrSkX+2GihYM9sdcuvudOHmagsKvjP7pAdKgXi6Z8KY/ufA+oSCYRov
- KR0ML7ZbJBTornQqIC/zNImEQCic8d1Z46m3I7M7G1hcbuxwzgkTqqZyrIa0WdHsZk
- 2WVER3Hg7dtSJxI09zfSI4r9xrikbZiAnocotO7PUjwlSzzduWbhaSlpt5QT7xcANV
- 64t39/e1UAOmQ==
+ b=IrFtVreQeZj+aBJCpSaIrpAmHIgmmQT+e9M4kXLh8XIC1yWy6k3fF5+gp1YS65l3y
+ 0sBHE9Rk2CeAQ8SXBN/g7eRZl4AKX3RBQe0ySZtGWPls+q2oR6mdACoF28rbbQ5YRH
+ 2VplvZZ0t3cp+aw41XboAIBdRJneONStM3swc0KkDgHPM6s0ODMxPPXM8AoiatqC8y
+ Uhxngxv4VGUEaMY9y0Mr9Pfn275NxDpc8DXBPrn1a7zrOw1NoUNDQOC9Mwjus9IOSj
+ nwmSlkzKazLcDiz5w0a5wmPRkBIeS50Ixea8q6MB5W8uxS6+dG83QZYewHoBm/BQqJ
+ z5kmO+6QRc2Pw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -41,13 +41,13 @@ Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  Hamza Mahfooz <hamza.mahfooz@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  sunpeng.li@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, alvin.lee2@amd.com, samson.tam@amd.com,
- wenjing.liu@amd.com, dillon.varone@amd.com, yi-lchen@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, alvin.lee2@amd.com, wayne.lin@amd.com,
+ wenjing.liu@amd.com, george.shen@amd.com, dillon.varone@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 140/244] drm/amd/display: Add NULL check for
- clk_mgr in dcn32_init_hw
-Date: Wed, 25 Sep 2024 07:26:01 -0400
-Message-ID: <20240925113641.1297102-140-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.11 142/244] drm/amd/display: Add null check for
+ pipe_ctx->plane_state in dcn20_program_pipe
+Date: Wed, 25 Sep 2024 07:26:03 -0400
+Message-ID: <20240925113641.1297102-142-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
 References: <20240925113641.1297102-1-sashal@kernel.org>
@@ -72,18 +72,17 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-[ Upstream commit c395fd47d1565bd67671f45cca281b3acc2c31ef ]
+[ Upstream commit 8e4ed3cf1642df0c4456443d865cff61a9598aa8 ]
 
-This commit addresses a potential null pointer dereference issue in the
-`dcn32_init_hw` function. The issue could occur when `dc->clk_mgr` is
-null.
+This commit addresses a null pointer dereference issue in the
+`dcn20_program_pipe` function. The issue could occur when
+`pipe_ctx->plane_state` is null.
 
-The fix adds a check to ensure `dc->clk_mgr` is not null before
-accessing its functions. This prevents a potential null pointer
-dereference.
+The fix adds a check to ensure `pipe_ctx->plane_state` is not null
+before accessing. This prevents a null pointer dereference.
 
 Reported by smatch:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn32/dcn32_hwseq.c:961 dcn32_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 782)
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn20/dcn20_hwseq.c:1925 dcn20_program_pipe() error: we previously assumed 'pipe_ctx->plane_state' could be null (see line 1877)
 
 Cc: Tom Chung <chiahsuan.chung@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
@@ -93,40 +92,75 @@ Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 30 ++++++++++++-------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index 05d8f81daa064..39fd3f58886c5 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -779,7 +779,7 @@ void dcn32_init_hw(struct dc *dc)
- 	uint32_t backlight = MAX_BACKLIGHT_LEVEL;
- 	uint32_t user_level = MAX_BACKLIGHT_LEVEL;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index 456e19e0d415c..17d1c195663a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -1921,22 +1921,29 @@ static void dcn20_program_pipe(
+ 				dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->hubp_regs.det_size);
+ 	}
  
--	if (dc->clk_mgr && dc->clk_mgr->funcs->init_clocks)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->init_clocks)
- 		dc->clk_mgr->funcs->init_clocks(dc->clk_mgr);
+-	if (pipe_ctx->update_flags.raw || pipe_ctx->plane_state->update_flags.raw || pipe_ctx->stream->update_flags.raw)
++	if (pipe_ctx->update_flags.raw ||
++	    (pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.raw) ||
++	    pipe_ctx->stream->update_flags.raw)
+ 		dcn20_update_dchubp_dpp(dc, pipe_ctx, context);
  
- 	// Initialize the dccg
-@@ -958,10 +958,11 @@ void dcn32_init_hw(struct dc *dc)
- 	if (!dcb->funcs->is_accelerated_mode(dcb) && dc->res_pool->hubbub->funcs->init_watermarks)
- 		dc->res_pool->hubbub->funcs->init_watermarks(dc->res_pool->hubbub);
+-	if (pipe_ctx->update_flags.bits.enable
+-			|| pipe_ctx->plane_state->update_flags.bits.hdr_mult)
++	if (pipe_ctx->update_flags.bits.enable ||
++	    (pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.bits.hdr_mult))
+ 		hws->funcs.set_hdr_multiplier(pipe_ctx);
  
--	if (dc->clk_mgr->funcs->notify_wm_ranges)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->notify_wm_ranges)
- 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
+ 	if (hws->funcs.populate_mcm_luts) {
+-		hws->funcs.populate_mcm_luts(dc, pipe_ctx, pipe_ctx->plane_state->mcm_luts,
+-				pipe_ctx->plane_state->lut_bank_a);
+-		pipe_ctx->plane_state->lut_bank_a = !pipe_ctx->plane_state->lut_bank_a;
++		if (pipe_ctx->plane_state) {
++			hws->funcs.populate_mcm_luts(dc, pipe_ctx, pipe_ctx->plane_state->mcm_luts,
++						     pipe_ctx->plane_state->lut_bank_a);
++			pipe_ctx->plane_state->lut_bank_a = !pipe_ctx->plane_state->lut_bank_a;
++		}
+ 	}
+ 	if (pipe_ctx->update_flags.bits.enable ||
+-	    pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-	    pipe_ctx->plane_state->update_flags.bits.gamma_change ||
+-	    pipe_ctx->plane_state->update_flags.bits.lut_3d)
++	    (pipe_ctx->plane_state &&
++	     pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change) ||
++	    (pipe_ctx->plane_state &&
++	     pipe_ctx->plane_state->update_flags.bits.gamma_change) ||
++	    (pipe_ctx->plane_state &&
++	     pipe_ctx->plane_state->update_flags.bits.lut_3d))
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
  
--	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
-+	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->set_hard_max_memclk &&
-+	    !dc->clk_mgr->dc_mode_softmax_enabled)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
+ 	/* dcn10_translate_regamma_to_hw_format takes 750us to finish
+@@ -1946,7 +1953,8 @@ static void dcn20_program_pipe(
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 			pipe_ctx->update_flags.bits.plane_changed ||
+ 			pipe_ctx->stream->update_flags.bits.out_tf ||
+-			pipe_ctx->plane_state->update_flags.bits.output_tf_change)
++			(pipe_ctx->plane_state &&
++			 pipe_ctx->plane_state->update_flags.bits.output_tf_change))
+ 		hws->funcs.set_output_transfer_func(dc, pipe_ctx, pipe_ctx->stream);
  
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
+ 	/* If the pipe has been enabled or has a different opp, we
+@@ -1970,7 +1978,7 @@ static void dcn20_program_pipe(
+ 	}
+ 
+ 	/* Set ABM pipe after other pipe configurations done */
+-	if (pipe_ctx->plane_state->visible) {
++	if ((pipe_ctx->plane_state && pipe_ctx->plane_state->visible)) {
+ 		if (pipe_ctx->stream_res.abm) {
+ 			dc->hwss.set_pipe(pipe_ctx);
+ 			pipe_ctx->stream_res.abm->funcs->set_abm_level(pipe_ctx->stream_res.abm,
 -- 
 2.43.0
 
