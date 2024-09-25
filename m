@@ -4,153 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204CECCF9E7
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 17:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E266CCF9E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 17:57:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F3F10E842;
-	Wed, 25 Sep 2024 17:55:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E503410E845;
+	Wed, 25 Sep 2024 17:57:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2xeDRUZy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jFatx0gk";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E95410E842;
- Wed, 25 Sep 2024 17:55:42 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1C2710E845
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 17:57:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YLZ+EFZjqDjMfeXmuFv8qAPnK/Ckf5erVJdQ70EoV4BBpEG5zlCsBCC4SfV7Pe0qZ3YEiEnX2RLPLXEHpFgdgXUBMWzbIvLTQXK79W/gi4k/DXV3Df3iFdI+IZIyb6fxnv/V/g4JHde5VNQd6tO5R//FT7vNBfd5kHaBpymD8Z+Cpu/pacmK2wsWKPOWRGLi/Pt+mNWHzbexF250c/9hBG9sPEXfh/zj+jZfQvJG5jESiaWMPSCgCw9d8Bar0QqdJCmTy4E5kV2YyZb3g71EehcIF7llyE/gAdu7/WHYzGvHgBvxXEuFmJhhyF2eY4jFuLgQJpPnFUApWP4qLWwBFQ==
+ b=EeOzs7OHcbDyTBHHQSkoPKw9bnTrudx/aHOzCQpScUC2HYHidM19mtYns5dbueSOrAY4ZlDbSBUjWHS/mthWez+dPRwu895b+J3GoOQoSF195d3SafP4+pTct0s4blvWV4er1kHpTY1ztGSBepSioLoymYnVV+GHlPcJ/vRVEvjBfSXC2m41CoQAbck3qSGnHRywGnENfpzGaGxlwE/fbxLr/HbeD/IOZImg8hz9OwOA+qOo1gxbf+QJB1UTaKUJmcSG2Z18ZhTqchHjs/Jd951Po55EB+AWKjdBfW0dw3fC0kOEl82Ad6cvSQe6IhQQQisYaU3mN5IP1IUA2Oysug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r1W5h5w0dQVSopYmI4jo8Fwvrt+UVg8wpAXGALOQuKs=;
- b=BXXal41c2izjNt99bYHpQTNX71VffzERgwnSp3J73mbf3jhOoq2NV8eirLLkHLZydvLQNT4oKTw/dFXN2dhTwsarRmS02iaOSOOaSLDEQmMHCdVxCfHxFCdbS6eJTAuPJqgDnLOqCAQN0t85egTlu5c1l6JPTio5YuyIQx+nvJpx56Mvk5F22cH801ccEbPpPYNGrQTEE9egpumRPAb1x072fpYfqNcgPfy3ZhWn9gc/dYtPvep3EdoKltrZlJEmHOfr+EUX78slzUyQEtVBIhmK2CvacmOuNVzfZN9AWI3fCSOykLG9rCSOf4cAEut4JvNMvfS6nWe1CJUoaOj1iQ==
+ bh=Vn9J96pYkTSARjE999oc0iENHK1AT1NeOzSWtUpCLjs=;
+ b=My+BUC/uOV8urTG4xMP0vd5GnHZY/GdOwdv/Q38mjYeCKEyoAMcGIHTdfOAsdvg8ZvBAfjndmXXiiQlnjDSAlQL4JZxFXVdXhQwuJEZNZiH0EUqX6eV1OKQJPG7YkjbVH7hQACu9unJGbD7GVuzeRXrApcROietCWaI/rzwgzK8X5Jpb0i8+VSu2NGdqIc2tRlom0pzYNDyjnP6TvhjWsdhoPB4N+RzopKQbTCwO8OrDXl7J7BE7Qi4BYZ3Mnq8qKTBZpO0QZxgVmelccYFe0j0DuAAVsSnBuR7DPfphZzvUKTgzCrTaaiL/+Dr0N0OhXEVeMF/8kGb5x/JESnzgCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r1W5h5w0dQVSopYmI4jo8Fwvrt+UVg8wpAXGALOQuKs=;
- b=2xeDRUZy/WqUDdfwd5JhAHjGJboXS2povJJL7B5shwvZwELLrj7E0TjnI5L7s3ApSIIciGCSZQ3oq4PpWOJt6KNfLyD+b07iuN9nwlv+B34y9Fle50VFYNRJXVLgygmil1BoEulJ92qzd1apsVbKjkaIRpqhBtkG47sBY6wEVPo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by MN0PR12MB5881.namprd12.prod.outlook.com (2603:10b6:208:379::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Wed, 25 Sep
- 2024 17:55:36 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%6]) with mapi id 15.20.7982.022; Wed, 25 Sep 2024
- 17:55:36 +0000
-Message-ID: <4bc60bb2-3c67-4418-ad79-316ea1ac0dc1@amd.com>
-Date: Wed, 25 Sep 2024 12:55:33 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/10] drm/amd/display: remove dc_edid handler from
- dm_helpers_parse_edid_caps
-To: Alex Hung <alex.hung@amd.com>,
- Alexander Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-References: <20240918213845.158293-1-mario.limonciello@amd.com>
- <20240918213845.158293-10-mario.limonciello@amd.com>
- <5bbaeac3-7916-4e75-9c92-b93e2cd78ff5@amd.com>
+ bh=Vn9J96pYkTSARjE999oc0iENHK1AT1NeOzSWtUpCLjs=;
+ b=jFatx0gkOfsRFF2WkGKX1MPl0nHZyb/V0Wk1QyGsFINLx6DRY5w+5JrcAnvgHoW61CBO2eXoi/QZ/4UpiLvvphQyjT6uLX6xoDd1CARz9z22/4H3xcNa4/CqMwPSiSz1Ltco64j3lA8VSP7+488CZoXHJ9V4bmreKYHsvJa09z4=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DM6PR12MB4204.namprd12.prod.outlook.com (2603:10b6:5:212::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.27; Wed, 25 Sep
+ 2024 17:57:40 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%3]) with mapi id 15.20.7982.022; Wed, 25 Sep 2024
+ 17:57:40 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Zhu, Lingshan" <Lingshan.Zhu@amd.com>
+CC: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Du, Bin" <Bin.Du@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: init saw registers for mmhub v1.0
+Thread-Topic: [PATCH 2/2] drm/amdgpu: init saw registers for mmhub v1.0
+Thread-Index: AQHbDvi4jia1DOrjyUmYEz+4Iq+7qbJoyskf
+Date: Wed, 25 Sep 2024 17:57:40 +0000
+Message-ID: <BL1PR12MB5144E7EF8E7F67F4D5F74217F7692@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20240925030951.603486-1-lingshan.zhu@amd.com>
+ <20240925030951.603486-3-lingshan.zhu@amd.com>
+In-Reply-To: <20240925030951.603486-3-lingshan.zhu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <5bbaeac3-7916-4e75-9c92-b93e2cd78ff5@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL0PR02CA0024.namprd02.prod.outlook.com
- (2603:10b6:207:3c::37) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-09-25T17:57:40.512Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM6PR12MB4204:EE_
+x-ms-office365-filtering-correlation-id: 650b8de2-d0d5-433d-c97d-08dcdd8b8c91
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?z8JkxXCmWMYsVJJL75WeAG+F/K4yfJSWPhh+ZgtqSpua8MZlTkqfpxaMa6wW?=
+ =?us-ascii?Q?d0jz99obdM2nqOEpGoWaP0vp+2s0uMa5yuV3c+eRTpPSGpRjef7+nikBEy8t?=
+ =?us-ascii?Q?wLwrSOthKJKBvwXRLES3RW/urWQPEg5aN+p6Q07MH8RBt/m0tVufeUSnxw4b?=
+ =?us-ascii?Q?1Q08wKQRcIV7geq15SVFH18fVb7tUDgDXsMtHzYcH2wCn1DQNsq+VsZvxGyI?=
+ =?us-ascii?Q?RwMAI4EGAm3kOXatw4zl1vqnh9sTPuMdBoB9AgZhwswMHZLnbnIrzat74EsO?=
+ =?us-ascii?Q?GcdFsqqdnIzXshM+nakUtJnTFphqTCjKcOnsI/0/GOgxzCj9OclrZhIAVHie?=
+ =?us-ascii?Q?IXQlRx7mQl3XetnPpZ84UJq8eZd6ADrYWCfGw1HDev5bELeaHkxm9TaPIXUL?=
+ =?us-ascii?Q?qPdv8rRaR5GYadp6oxoWuJ9uqTkFkPrcJ01+o/3VqmKQumCeRh8H934r0hoj?=
+ =?us-ascii?Q?AxGIwZaBs/o+rYhouFj/rLk+uiROZqRAG5EPy5+5cB7X0FlJWTs/PucFqFNK?=
+ =?us-ascii?Q?5PsU4Sewp5zs8TfN59xPQ16uGb6uWbbnHZQQirT8qoZLLZjS7ulFkTY+N4f3?=
+ =?us-ascii?Q?SfuffYrVLbB0m6nK5++A+60nSuModol5PjSKsHZl9PKKC9X7Nvp8G2feHCWo?=
+ =?us-ascii?Q?r/hi8BenjcUfQ7mxsYFXtp9He0TeVrFdJcDzJgQ1oaVaLPphQZRdSRpIo2MH?=
+ =?us-ascii?Q?Glj6J5WbUcI7+g2iQ81Fw4RlJAZksM3PTYxv1ZCEemMJUO4Or8HcPvYbT124?=
+ =?us-ascii?Q?Rg3LpgBCWSLAkpYbzs5IeLj8iVUw4XxFT0MHXUM9BwLstidfUfEzLXP0RGUG?=
+ =?us-ascii?Q?1t/s+rumeCoMTy3gQu5gTV2m9UV5z3up4dEuQhTRfhvMfT1xD7DfXnGPC9W2?=
+ =?us-ascii?Q?BkJIT24uU+odeezOdn0BBy49P1L02SFC/K0Oe8bs5RZoYqnHZgoc3jvVwcx9?=
+ =?us-ascii?Q?aO/wXfgH9stw3gRoSvaHPvAp1k2aHn5nS282JoGF2SN7rR2b89iLb2daP5jc?=
+ =?us-ascii?Q?7XWYHiy849HMI+7z6FDON6gMd5Xi49SZKLOYrVrVafKZFSSaNTd5XRd6eRBD?=
+ =?us-ascii?Q?jZkwxS6BrnCo3o2fBtNO42Ycou90rO3eLfU0+XIJ0Jc7P0S6h3MPnIn5GHh/?=
+ =?us-ascii?Q?rllL0iNypv1IIqPodl0HWR3O/V7HofSLYlPZh+lJNHNnEVc0UoIrRQOKKOzz?=
+ =?us-ascii?Q?a+P3TlLmfJ3xjnSKXFc9g+JDkMU8Dlosk4cZiRpDlKHQZki2HtmH4D7QNIYs?=
+ =?us-ascii?Q?muDOGyv8i1NRnbysuY8WK9tKT2bInAEbQ+x2XX/fxd7Qm0eaZoEYUXbXBdL4?=
+ =?us-ascii?Q?w7gRGWfP8bL0fUQDxK4iRDF4Rx/l+W3E4053KWB3VQ6vkPTIMMwa9AFXkzLH?=
+ =?us-ascii?Q?J6bs7n30h7P7r81sDyUt+j0ZBJYmL+Tw8jDsAnB7X5KxgAdK0Q=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rotUTUxzcruYz7/M5FMIXNc+aA4EDXcPNKCgX5liF/1uFB4bY1E0ELRYGpDk?=
+ =?us-ascii?Q?vfrsU3DyoHfdD2OppkEfU9YfV4I68/wPX0YmGudmdfl4DbP4moLFf+NgYo8S?=
+ =?us-ascii?Q?NZJQ2MmhB5sI4eVg/lyHSV/ULFZZff36soZZv2XN4XMgMmKJjV4O0s6n0LSn?=
+ =?us-ascii?Q?PO3RWsm2JsD4oVrMNBMTPTkysFKSl4kMsErWFZ2AVZwxK0itcuCW6rLHwkJT?=
+ =?us-ascii?Q?MDpIk1HmJGSL+hFuTZyr8913MJrCJwFaIiAxf6wxjbbwGcwCnjuhG5jE46Xw?=
+ =?us-ascii?Q?hSiQ4Pr0z4/taSqP/sbq60pTL9pRzGc0XHR09GLj9y/nzlJJUqwKa77ne2Mh?=
+ =?us-ascii?Q?eSrKsha9iz6uyNhETK5TUtqBci4YLTwVKxIQlK0X8v6ipxfmUIXS5osB13f0?=
+ =?us-ascii?Q?Rz3biw5Tyb9RYLbEZYbRfxhrU9ouB8yV9FDvHGdYJWXFDVgPZ9k3V0EUibsd?=
+ =?us-ascii?Q?0UinE0vVMLqnzgDawUS5AN+MLzhdiJBOoJgxmzh6TKQTbA4Rmx3UiNYdkXQz?=
+ =?us-ascii?Q?/QbyIg8P51BuPJl0/TfFndAw3OyBA4n143kLW3PmpclrlreLS+VAvtdL/pRm?=
+ =?us-ascii?Q?4pFM3m7yx+7F4HRb/XMiZa97ZsfbkF/GpYAYYqek+gET9cZ6hCHc3snRRbUj?=
+ =?us-ascii?Q?wAqgyHRdt2EXUhnQvs1olW4DmZA0kD0GdRB6K6O9Dzpo0V+JUat/2SvwZFci?=
+ =?us-ascii?Q?Yp97NORzRyykqbDD4D/brjZNfejmr8YYh4bFw66yALzcewMwlcmQSO886W3h?=
+ =?us-ascii?Q?GPLHlIYZHXZP6F6MYhX6Cd3wi8Aw8qEbHzg67r9ggh9/hkvrWI8pZWnfGtDL?=
+ =?us-ascii?Q?fL9VOJw8VTE67jCywtS2kGFwlltwqsq88oCAPZAS/zF0WWpKQs4qnTREVfUD?=
+ =?us-ascii?Q?XR1vD9KCYmufVDwSjJPRN5rE6dCWp/5QFIwPSZxEolBVUdgMwEm2K6wv5VLy?=
+ =?us-ascii?Q?dHZm1CrqLQGlE9yqy8LSY2ybisLFjj7HKGgQK3dZXsTGK9EEyfso/CE7MpEV?=
+ =?us-ascii?Q?ORZ8TR4XFSmbSbvy2Vxia9kLRdttvHFy/uGfAxxmSWk79jEuPjfVJ4YAY856?=
+ =?us-ascii?Q?Y/T1kSFTl6/vXRB20YNfWD1+mKwHE3WE0Sa0Y1xZKSVJP90d7QasTaIYE0tK?=
+ =?us-ascii?Q?YyUR0fXRP27D7CsDohpDBOrsbHwoKwhrRuZ3ptlPqtZUgmCgwbKMPYps8FEg?=
+ =?us-ascii?Q?dbIMoNYuwZmKnj1IO4xftwSxmmhxOSooQSlvFlJf4YJHvknARVO6tG6GfCa1?=
+ =?us-ascii?Q?SjUV8G0k4Upo1nbNMyRft8NmFIUPhuNmtQHPM6o0aXOsMNENK0982FpUihqF?=
+ =?us-ascii?Q?xNkBL2POnxOZmavZu6N3mwUvwaCp5fYA+gfTKva7U8fdselg11BsmuCpvlm5?=
+ =?us-ascii?Q?pYAnG877jl2KVfxniJ+OZjUqmF0PChH8n70JgYjrpZJJNEV4Jw+x1YxCSBxK?=
+ =?us-ascii?Q?jWzCTQnVueJQGVpY2cOGw59XJStT/iILA0NKj99hrxKiDMIPhrRgXmCjqp9Y?=
+ =?us-ascii?Q?ZCd/q4POupNgqnbL6z/izRShqNEivoJ90VgyLp09IC2XCuTsUa7AZvFHAiFn?=
+ =?us-ascii?Q?U2mhrY0krFZz6y9/9NM=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144E7EF8E7F67F4D5F74217F7692BL1PR12MB5144namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN0PR12MB5881:EE_
-X-MS-Office365-Filtering-Correlation-Id: d67085d5-360c-4653-6bfa-08dcdd8b4285
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?K1o5VVlpS3RwaVF3bVhkREtpRitrR0Y1WmZVU3RqejkzaDJUbW14VWhjNkps?=
- =?utf-8?B?YlhzQkhRczE5M0tHajBTRDhBMTkxY3ROd0NnTzBGeDNaZVVtdVFraWg2YVMx?=
- =?utf-8?B?ZXJwMUppZHAwV0pQV09OMUhqNXhDa1NXcUpmSXZkTnNCKzdCUkFFVlF2RDRM?=
- =?utf-8?B?UW5malRqcE14M01lckx2NFMrVGFSMFNVam1GcGt6NS8xbEZ0OE1uMm02blRw?=
- =?utf-8?B?QVdsS0VSVEZlWHBtVmRRS05YR0xjV1JFSUtBQ09PTXd5ZmZ2aFRlVHNBOWFh?=
- =?utf-8?B?NGg2RTJlMnBHMXVNVkxVcWxLbXlSWElUNFJmMFJrWjFwenZFUlhhakpDT2ww?=
- =?utf-8?B?RVpwSURjTjdQRTVuNFZuQ3lWSk4zVDFQTUtreWZXTEJNZnVrRFhUOWI4RGd1?=
- =?utf-8?B?ZDAzTmhBUlAwalRJVWlSRWpsRTA3TlRVbXdBQjdwM0Y5bjQzNzY5N0JweTRx?=
- =?utf-8?B?VStuS1dobkpWTWdhZXVLaGxkbUd2TnJnQS9oZFNpSjMvL1lvelBIWUNvcFNu?=
- =?utf-8?B?Nzh6ZDRoRDNaR2h2My9yUDhpV0ZrbFNBRWtCcGdJRE9jb2g0QmVDYXBHL0Vz?=
- =?utf-8?B?T0FJbVNibjBPSEdFVUdtRmQyWW43ZGl0WURNbGlhNlpENE5lKzNKL0NIVnRJ?=
- =?utf-8?B?QWkyM1RJMjNuNlErS1VPelo4VkduUlpsWFd5Z0tWQzY1TnNGMzVVRHNwSm85?=
- =?utf-8?B?YzNOWHVBcEo4ek9ybUpJNVhhQk9JMFIyc1NWdUZWcHFpWW9PWi9MMXRscXAr?=
- =?utf-8?B?MmpEa0JFcFhxVE1TcmdTRk92SUFnRFNBcTZaWkZLaGluVmF0ZmlpZkxJU2d4?=
- =?utf-8?B?MkdDU3NWTGFJYWN1NWE5YWpZY0xqM252TkJkNnN6b1M2YTlNdWNsZHFVZ3g2?=
- =?utf-8?B?NlhhV2RvZ04yZUw1RkxvWkhvV1NndU44WVNqbDhTTXQza3dIY2pkSkFGNk5j?=
- =?utf-8?B?Z3hNU0N3SVF0SzZPQ2NEUUVpWmpHMGcvbCtsSlpqcWVZVW5kZVFPZlRmNGgz?=
- =?utf-8?B?MDM5ZWRDUlNlQWhheldJVUF1VkZaU0RBTURjMGcwNHgrUnRYalFwRVp1ZEpY?=
- =?utf-8?B?SVVROWdqVFl1ZEtZb3BsOUhhTm5CYTJKTUUwSlN5K0syQkJsaUl1Q05iL0VH?=
- =?utf-8?B?QXFBdFc5c0JPTnFGRGlzcmhJeUJJL1NNOVYyOW8yNkVMRzBjUGJTWitma2o1?=
- =?utf-8?B?SEVvYzE1S2NzR1d3WEltdUJXdGc2ZFVSRis3Ym4waGtaMzdvUnJzaG5Sb2F4?=
- =?utf-8?B?cVVhUEpIdGJxdnp1cll6KytKKzU2WkwrVjBDYmRmVjZCTXhOVStGZmJta2wy?=
- =?utf-8?B?RUJKeEFVUElmNW0ybE9CTWlhczZUNE04YmY1REszbWlZdG9mTVpFN0p4M2Vh?=
- =?utf-8?B?KzRYTzRYYUxqZGNZaVhyejJPMXVhRUNQcDV6TmJ0Tk5QN1daQjR5dm1XV0tQ?=
- =?utf-8?B?QlErMmV4UVBHNzJkZzIxcWNIMmh4dVp0TVkwcm13R0g2WGNmQVJKUWxaeFhh?=
- =?utf-8?B?Z3hRa2wyVnZHY1picTRxa0tObDArdGNkcTdoMmY3ZExMSUVnam1YSzRuT1JU?=
- =?utf-8?B?WUpOQWZDM1lDRlQyc3YzVGIxZUtlTFgrbGhzY1FWMk90eGFiU052VU5CTENi?=
- =?utf-8?B?L09QbVk4NEJ3S0ZJK3BWSUpHVGMzVkEycE1kM05pT2JGRmRUMmR6VVVNaEZ5?=
- =?utf-8?B?eHJqc2dlL1dCYkNNbGtPbFVPM29PMDZuYm53M2Z1NEpzSTBTWHFpOXlhaTVG?=
- =?utf-8?B?cnoyUmsrMkM2S2dwbzIxRitDbG14ZVFSOExLUThpR0ZtWXhtVlUvTW8rZHQw?=
- =?utf-8?B?KzJiTWJmN1VIYlRHYjhwZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M1JXV2lyUzEydURwMEJoVHlyOWI1MDgrKzBjRXFjRXYwWmo0QkFMMERXWHQ5?=
- =?utf-8?B?Tms2TVFZbzFQaExNMlhrM3JHZE8rVzVyNWRGTXhWcmI2NlJpY0VrMklxTVhp?=
- =?utf-8?B?UWxGUmhDSkFTMmI3ZjlEeHpjVnlXMFA3aldGSW9paXl3VUo1N1NxNmlnNVI1?=
- =?utf-8?B?a0JhcThsZmRrTU9wRlRiYWViSXRlSGJNQlhySklvZk9IWEZBZjlpc2J3Zklo?=
- =?utf-8?B?bGN2amJxL3BhQ1BwVU5DY0ZDamZCYmxyM1NIU0kvVXpnSlNkWlN5bDZFaWZN?=
- =?utf-8?B?WUY5UTBHb24wdDk0Z0tvNDh5Rk1DVkNTTGo2anJXU0xoUWJOOEQ3dTNnRUtY?=
- =?utf-8?B?SGJ4bEJXckpGM0Q2MXdKemxZTk43WGdOMWZPdzhhOXlTdndqM1ZPZDR6bElB?=
- =?utf-8?B?V0t1SXFjdll6TmtQM3BYZDdFRzUzTVlKZG1kdmVHY29hYkd2cEpOYXY0UDY5?=
- =?utf-8?B?dGF3cHZpYWN3K2JmdERjR3dEbGUzenM4anBGYzJqbjQxWVFNbXJvRjVDdU9s?=
- =?utf-8?B?VWZodnR1ZzVDQVZXY2F2dWRRazVteU83Qk82dVFHVGUyREdKZ291am4xV1My?=
- =?utf-8?B?SXprVlVwTGRvWUJhc0l6d1Fjd3FKWXhOOUZ5Y2dtREJ4cW9pT0Vkb2pobi9w?=
- =?utf-8?B?Mm5IMHA1UlFGQjJZa3J6MThSWms5N3pnTy85a0J1T01xVmVwODkzekJkSTZX?=
- =?utf-8?B?UzZ4ZGwzV1JVek1FVUtaemwzemRsemtlV2h3cDVKK25ZMWoyaTJTZUlZSzBU?=
- =?utf-8?B?Rk5FSGxFZmkycnN0Q3pZYW5KTTN3MjV4M2pQS0FRejBWeU5UdnJucjVlZjhh?=
- =?utf-8?B?azY4Z0x3ZHAxUHNvdnVVdlVmVFdOZkJoZ2JBM3JTaXFxL3NrOEFuTHpVaGY3?=
- =?utf-8?B?by9pbDVPYytkUm1XSHpEaU1QS2lyUUQvcHhEcGk1eWFHVHZPSHgzSEowSDlN?=
- =?utf-8?B?TVAveE1JWkk1TVdPTU5xeHhQM3dLdDVrUTd1ZnZVT0t1UTh0Q1VBazlCelFT?=
- =?utf-8?B?M3RybnpMMmd3QW9EdGJOMFB1bWdCdXhoY3VwZlcrbU1TM09UcjNDRlBXRGQv?=
- =?utf-8?B?alZVM3hieWQvdmlTeU0zSVVaNmExdzB3cnVNcW9BTkdkcG1NYlhBa2ltUGV0?=
- =?utf-8?B?eC9zWDRUTURzcWVBV2hsSkFZNjF1UTlxRHVwVytFU1ppZ0owdDZPRy9Ud2lu?=
- =?utf-8?B?ZUtveDZwQmZobTQyMjh6d2ZYTTZETDNEL1JSVXdIc3d0dDJXZHRBTHdaYkxj?=
- =?utf-8?B?cFVtaUFDQ0JKUHVLalZ4dnA2Q2QvNlZxSFo5bmhFc0VteC9ZdGZraEQxYlQ5?=
- =?utf-8?B?WXFIVTBYYnM4WGJmeGRPWDBHRmoxSUxzbWhKU2lhelRiZzEzNG1BZG9CeWNF?=
- =?utf-8?B?RWw0aGZ1KzZNeW1hbGJEdy91WStxUjlPb1FURFB0N0lsamxxc25ZdzlQellU?=
- =?utf-8?B?bU1iWFNLWE1saVdhK0lTVkh4WDJWQlNNVG1WTXBFNHBlVlJEcm1YK3NVcW1s?=
- =?utf-8?B?engwUysrMFVBbmx5RlprNDdrOEU1eW9aK1prLzlsTXkwMzh3TVFEWDFPQ3JM?=
- =?utf-8?B?OGpneXBTUWxLNDh6L1kyK0ttUEEzbGYvNVdTYTAvODYwNVo5dkoyZVQxR2ox?=
- =?utf-8?B?bUhzYVg4RUxrWnNNaDAzWlFBUGlDRlp2YllLWXZvYVNqdWo5b1NaRFJVMjIr?=
- =?utf-8?B?M0ZjdHMzcFV5RCtwTkVBZnFVR2pFNVU5dWJUQzArd0tiMW1uZ2NIK0pyekRw?=
- =?utf-8?B?M1p2aXNLeE9idHNPendkb2ZadUF0NVk5a1lQUmZEVnZpVTJmRy9rVXVlYWY4?=
- =?utf-8?B?d1VDMnBZVWtLRmx4UUUwWWFwTHRTSEFvRUxUQW85dUNJeW1HbFpxSFRnMndP?=
- =?utf-8?B?YjFsbTliVjdBTERmOFUrL1M5eTlIRnorMVdVeGhvVm1NMkNyZGRUNDRBK2xJ?=
- =?utf-8?B?UnZ2S1pvWDBoU2RFMjhzakY0WlZMN0x6UEZDQkhuTERoM2wrUTl4SWpFRHAv?=
- =?utf-8?B?Rk1lK0d4Q001U2RKT0NGN2Rkd3RsUTZwVDhsZS83SWZlQ1F5UWZCczk1dGwy?=
- =?utf-8?B?MzlmUEh4ZG9tWFdvd0dKaU91RXlBTnNhQ3RnZXFIamMzdVcyRkdMcUxHWFRM?=
- =?utf-8?Q?rlBePFRpoIbbfwPtRKG9Yf3t7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d67085d5-360c-4653-6bfa-08dcdd8b4285
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 17:55:36.7089 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9BvA6piklz0KmL7DI9LdWsi+jISbZYcteCLQiww099eEJpIiNHi2tmka1IDNVLJ0z8gkNOsmAHZJzh4Adt8FsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5881
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 650b8de2-d0d5-433d-c97d-08dcdd8b8c91
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2024 17:57:40.8087 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: l4Gxw35RTjO58G2UAU1xFE0D0Wx4cKiStUi+W8ZDopDheW8HpeS3Np4peVf/u3steF0xTyM/umfHOdSaXo2PcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,172 +151,489 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Alex,
+--_000_BL1PR12MB5144E7EF8E7F67F4D5F74217F7692BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Unfortunately I can't reproduce the regression on the APU I tried. 
-However I do have a suspicion on a fix.
+[Public]
 
-Can you see if this helps?  If it does, we can squash it in.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
+Sent: Tuesday, September 24, 2024 11:09 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>
+Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>; Zhu, Lingshan <Lingshan.Zhu@amd.com>; Du, Bin <Bin.=
+Du@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: init saw registers for mmhub v1.0
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bf847ac55475..e75cd527d753 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7008,6 +7008,7 @@ static void amdgpu_dm_connector_destroy(struct 
-drm_connector *connector)
-                 kfree(aconnector->i2c);
+This commits init registers in the Stand Along Walker
+for mmhub v1.0, to support ISP use cases.
+
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+Reported-and-Tested-by: Du Bin <bin.du@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c       | 49 +++++++++++++++++++
+ .../include/asic_reg/mmhub/mmhub_1_0_offset.h | 23 +++++++++
+ 2 files changed, 72 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/=
+amdgpu/mmhub_v1_0.c
+index e3ddd22aa172..e9a6f33ca710 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -229,6 +229,52 @@ static void mmhub_v1_0_disable_identity_aperture(struc=
+t amdgpu_device *adev)
+                      0);
+ }
+
++static void mmhub_v1_0_init_saw(struct amdgpu_device *adev)
++{
++       uint64_t pt_base =3D amdgpu_gmc_pd_addr(adev->gart.bo);
++       uint32_t tmp;
++
++       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32 */
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO=
+32,
++                           lower_32_bits(pt_base >> 12));
++
++       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32 */
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI=
+32,
++                           upper_32_bits(pt_base >> 12));
++
++       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32 */
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_L=
+O32,
++                           (u32)(adev->gmc.gart_start >> 12));
++
++       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32 */
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_H=
+I32,
++                           (u32)(adev->gmc.gart_start >> 44));
++
++       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32 */
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO3=
+2,
++                           (u32)(adev->gmc.gart_end >> 12));
++
++       /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32 */
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI3=
+2,
++                           (u32)(adev->gmc.gart_end >> 44));
++
++       /* Program SAW CONTEXT0 CNTL */
++       tmp =3D RREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_CNTL);
++       tmp |=3D 1 << CONTEXT0_CNTL_ENABLE_OFFSET;
++       tmp &=3D ~(3 << CONTEXT0_CNTL_PAGE_TABLE_DEPTH_OFFSET);
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXT0_CNTL, tmp);
++
++       /* Disable all Contexts except Context0 */
++       tmp =3D 0xfffe;
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CONTEXTS_DISABLE, tmp);
++
++       /* Program SAW CNTL4 */
++       tmp =3D RREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CNTL4);
++       tmp |=3D 1 << VMC_TAP_PDE_REQUEST_SNOOP_OFFSET;
++       tmp |=3D 1 << VMC_TAP_PTE_REQUEST_SNOOP_OFFSET;
++       WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CNTL4, tmp);
++}
++
+ static void mmhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
+ {
+         struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_MMHUB0(0)];
+@@ -283,6 +329,9 @@ static void mmhub_v1_0_setup_vmid_config(struct amdgpu_=
+device *adev)
+                                     i * hub->ctx_addr_distance,
+                                     upper_32_bits(adev->vm_manager.max_pfn=
+ - 1));
          }
-         kfree(aconnector->dm_dp_aux.aux.name);
-+       drm_edid_free(aconnector->drm_edid);
++
++       if (amdgpu_ip_version(adev, ISP_HWIP, 0))
++               mmhub_v1_0_init_saw(adev);
+ }
 
-         kfree(connector);
-  }
+ static void mmhub_v1_0_program_invalidation(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h =
+b/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h
+index 2c3ce243861a..380e44230bda 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h
+@@ -1232,6 +1232,29 @@
+ #define mmMC_VM_MX_L1_PERFCOUNTER_HI                                      =
+                             0x059d
+ #define mmMC_VM_MX_L1_PERFCOUNTER_HI_BASE_IDX                             =
+                             0
 
-If that doesn't help, I did test dropping this patch and it doesn't 
-affect the last patch in the series, that one still works so I'm fine 
-with dropping it and we can follow up later.
++// Stand Alone Walker Registers
++#define VMC_TAP_PDE_REQUEST_SNOOP_OFFSET                                  =
+                             8
++#define VMC_TAP_PTE_REQUEST_SNOOP_OFFSET                                  =
+                             11
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32                    =
+                             0x0606
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32_BASE_IDX           =
+                             0
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32                    =
+                             0x0607
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32_BASE_IDX           =
+                             0
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32                   =
+                             0x0608
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32_BASE_IDX          =
+                             0
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32                   =
+                             0x0609
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32_BASE_IDX          =
+                             0
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32                     =
+                             0x060a
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32_BASE_IDX            =
+                             0
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32                     =
+                             0x060b
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32_BASE_IDX            =
+                             0
++#define mmVM_L2_SAW_CONTEXT0_CNTL                                         =
+                             0x0604
++#define mmVM_L2_SAW_CONTEXT0_CNTL_BASE_IDX                                =
+                             0
++#define CONTEXT0_CNTL_ENABLE_OFFSET                                       =
+                             0
++#define CONTEXT0_CNTL_PAGE_TABLE_DEPTH_OFFSET                             =
+                             1
++#define mmVM_L2_SAW_CONTEXTS_DISABLE                                      =
+                             0x060c
++#define mmVM_L2_SAW_CONTEXTS_DISABLE_BASE_IDX                             =
+                             0
++#define mmVM_L2_SAW_CNTL4                                                 =
+                             0x0603
++#define mmVM_L2_SAW_CNTL4_BASE_IDX                                        =
+                             0
 
-On 9/25/2024 12:06, Alex Hung wrote:
-> Mario and Melissa,
-> 
-> This patch causes a regrerssion on 7900 XTX in an IGT test: 
-> amd_mem_leak's connector-suspend-resume.
-> 
-> Is this patch necessary on this series or is it independent from other 
-> patches, i.e. can it be dropped from this series until fixed??
-> 
-> Cheers,
-> Alex Hung
-> 
-> On 9/18/24 15:38, Mario Limonciello wrote:
->> From: Melissa Wen <mwen@igalia.com>
->>
->> We can parse edid caps from drm_edid and drm_eld and any calls of
->> dm_helpers_parse_edid_caps is made in a state that we have drm_edid set
->> to amdgpu connector.
->>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +---
->>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 30 ++++++++-----------
->>   drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  1 -
->>   .../drm/amd/display/dc/link/link_detection.c  |  6 ++--
->>   4 files changed, 16 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/ 
->> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index bd8fb9968c7c..bf847ac55475 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -7123,10 +7123,7 @@ static void 
->> amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
->>           memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
->>           memmove(dc_em_sink->dc_edid.raw_edid, edid,
->>               (edid->extensions + 1) * EDID_LENGTH);
->> -        dm_helpers_parse_edid_caps(
->> -            dc_link,
->> -            &dc_em_sink->dc_edid,
->> -            &dc_em_sink->edid_caps);
->> +        dm_helpers_parse_edid_caps(dc_link, &dc_em_sink->edid_caps);
->>       }
->>   }
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c 
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> index d43ed3ea000b..8f4be7a1ec45 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> @@ -83,32 +83,24 @@ static void apply_edid_quirks(struct 
->> drm_edid_product_id *product_id,
->>    * dm_helpers_parse_edid_caps() - Parse edid caps
->>    *
->>    * @link: current detected link
->> - * @edid:    [in] pointer to edid
->>    * @edid_caps:    [in] pointer to edid caps
->>    *
->>    * Return: void
->>    */
->> -enum dc_edid_status dm_helpers_parse_edid_caps(
->> -        struct dc_link *link,
->> -        const struct dc_edid *edid,
->> -        struct dc_edid_caps *edid_caps)
->> +enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
->> +                           struct dc_edid_caps *edid_caps)
->>   {
->>       struct amdgpu_dm_connector *aconnector = link->priv;
->>       struct drm_connector *connector = &aconnector->base;
->>       const struct drm_edid *drm_edid = aconnector->drm_edid;
->>       struct drm_edid_product_id product_id;
->> -    struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : 
->> NULL;
->>       int sad_count;
->>       int i = 0;
->> -
->>       enum dc_edid_status result = EDID_OK;
->> -    if (!edid_caps || !edid)
->> +    if (!edid_caps || !drm_edid)
->>           return EDID_BAD_INPUT;
->> -    if (!drm_edid_is_valid(edid_buf))
->> -        result = EDID_BAD_CHECKSUM;
->> -
->>       drm_edid_get_product_id(drm_edid, &product_id);
->>       edid_caps->manufacturer_id = 
->> le16_to_cpu(product_id.manufacturer_name);
->> @@ -920,19 +912,23 @@ enum dc_edid_status dm_helpers_read_local_edid(
->>           if (!drm_edid)
->>               return EDID_NO_RESPONSE;
->> -        edid = drm_edid_raw(drm_edid); // FIXME: Get rid of 
->> drm_edid_raw()
->> +        /* FIXME: Get rid of drm_edid_raw()
->> +         * Raw edid is still needed for dm_helpers_dp_write_dpcd()
->> +         */
->> +        edid = drm_edid_raw(drm_edid);
->>           sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
->>           memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink- 
->> >dc_edid.length);
->>           edid_status = dm_helpers_parse_edid_caps(
->>                           link,
->> -                        &sink->dc_edid,
->>                           &sink->edid_caps);
->> -        /* We don't need the original edid anymore */
->> -        drm_edid_free(drm_edid);
->> -
->> -    } while (edid_status == EDID_BAD_CHECKSUM && --retry > 0);
->> +        if (edid_status != EDID_OK) {
->> +            /* We can discard the drm_edid and retry */
->> +            drm_edid_free(drm_edid);
->> +            drm_edid_connector_update(connector, drm_edid);
->> +        }
->> +    } while (edid_status != EDID_OK && --retry > 0);
->>       if (edid_status != EDID_OK)
->>           DRM_ERROR("EDID err: %d, on connector: %s",
->> diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/ 
->> gpu/drm/amd/display/dc/dm_helpers.h
->> index 2e4a46f1b499..4e1776b5f0d4 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
->> +++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
->> @@ -61,7 +61,6 @@ void dm_helpers_free_gpu_mem(
->>   enum dc_edid_status dm_helpers_parse_edid_caps(
->>       struct dc_link *link,
->> -    const struct dc_edid *edid,
->>       struct dc_edid_caps *edid_caps);
->> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/ 
->> drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> index d21ee9d12d26..94c911742dd3 100644
->> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> @@ -1413,10 +1413,8 @@ struct dc_sink *link_add_remote_sink(
->>               dc_sink))
->>           goto fail_add_sink;
->> -    edid_status = dm_helpers_parse_edid_caps(
->> -            link,
->> -            &dc_sink->dc_edid,
->> -            &dc_sink->edid_caps);
->> +    edid_status = dm_helpers_parse_edid_caps(link,
->> +                         &dc_sink->edid_caps);
->>       /*
->>        * Treat device as no EDID device if EDID
-> 
+ // addressBlock: mmhub_utcl2_atcl2dec
+ // base address: 0x69900
+--
+2.43.5
 
+
+--_000_BL1PR12MB5144E7EF8E7F67F4D5F74217F7692BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, Lingshan &lt;Lin=
+gshan.Zhu@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, September 24, 2024 11:09 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;; Zhu, Lingshan &lt;Lingshan.Zhu@a=
+md.com&gt;; Du, Bin &lt;Bin.Du@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: init saw registers for mmhub v1.0</=
+font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This commits init registers in the Stand Along Wal=
+ker<br>
+for mmhub v1.0, to support ISP use cases.<br>
+<br>
+Signed-off-by: Zhu Lingshan &lt;lingshan.zhu@amd.com&gt;<br>
+Reported-and-Tested-by: Du Bin &lt;bin.du@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; | 49 +++++++++++++++++++<br>
+&nbsp;.../include/asic_reg/mmhub/mmhub_1_0_offset.h | 23 +++++++++<br>
+&nbsp;2 files changed, 72 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/=
+amdgpu/mmhub_v1_0.c<br>
+index e3ddd22aa172..e9a6f33ca710 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+@@ -229,6 +229,52 @@ static void mmhub_v1_0_disable_identity_aperture(struc=
+t amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0);<br>
+&nbsp;}<br>
+&nbsp;<br>
++static void mmhub_v1_0_init_saw(struct amdgpu_device *adev)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t pt_base =3D amdgpu_gmc_pd_ad=
+dr(adev-&gt;gart.bo);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t tmp;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0=
+_PAGE_TABLE_BASE_ADDR_LO32 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_PAGE_TABLE_BASE_ADDR_LO32,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; lower_32_bits(pt_base &gt;&gt; 12));<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0=
+_PAGE_TABLE_BASE_ADDR_HI32 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_PAGE_TABLE_BASE_ADDR_HI32,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; upper_32_bits(pt_base &gt;&gt; 12));<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0=
+_PAGE_TABLE_START_ADDR_LO32 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_PAGE_TABLE_START_ADDR_LO32,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; (u32)(adev-&gt;gmc.gart_start &gt;&gt; 12));<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0=
+_PAGE_TABLE_START_ADDR_HI32 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_PAGE_TABLE_START_ADDR_HI32,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; (u32)(adev-&gt;gmc.gart_start &gt;&gt; 44));<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0=
+_PAGE_TABLE_END_ADDR_LO32 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_PAGE_TABLE_END_ADDR_LO32,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; (u32)(adev-&gt;gmc.gart_end &gt;&gt; 12));<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VM_9_X_REGISTER_VM_L2_SAW_CONTEXT0=
+_PAGE_TABLE_END_ADDR_HI32 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_PAGE_TABLE_END_ADDR_HI32,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; (u32)(adev-&gt;gmc.gart_end &gt;&gt; 44));<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Program SAW CONTEXT0 CNTL */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(MMHUB, 0, mmVM_L=
+2_SAW_CONTEXT0_CNTL);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 1 &lt;&lt; CONTEXT0_CNTL_ENA=
+BLE_OFFSET;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D ~(3 &lt;&lt; CONTEXT0_CN=
+TL_PAGE_TABLE_DEPTH_OFFSET);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXT0_CNTL, tmp);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Disable all Contexts except Contex=
+t0 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D 0xfffe;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CO=
+NTEXTS_DISABLE, tmp);<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Program SAW CNTL4 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(MMHUB, 0, mmVM_L=
+2_SAW_CNTL4);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 1 &lt;&lt; VMC_TAP_PDE_REQUE=
+ST_SNOOP_OFFSET;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 1 &lt;&lt; VMC_TAP_PTE_REQUE=
+ST_SNOOP_OFFSET;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_L2_SAW_CN=
+TL4, tmp);<br>
++}<br>
++<br>
+&nbsp;static void mmhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)<=
+br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vmhub *hub =
+=3D &amp;adev-&gt;vmhub[AMDGPU_MMHUB0(0)];<br>
+@@ -283,6 +329,9 @@ static void mmhub_v1_0_setup_vmid_config(struct amdgpu_=
+device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i * hub-=
+&gt;ctx_addr_distance,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32=
+_bits(adev-&gt;vm_manager.max_pfn - 1));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ip_version(adev, ISP_HWIP,=
+ 0))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mmhub_v1_0_init_saw(adev);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static void mmhub_v1_0_program_invalidation(struct amdgpu_device *ade=
+v)<br>
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h =
+b/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h<br>
+index 2c3ce243861a..380e44230bda 100644<br>
+--- a/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h<br>
++++ b/drivers/gpu/drm/amd/include/asic_reg/mmhub/mmhub_1_0_offset.h<br>
+@@ -1232,6 +1232,29 @@<br>
+&nbsp;#define mmMC_VM_MX_L1_PERFCOUNTER_HI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x059d<br>
+&nbsp;#define mmMC_VM_MX_L1_PERFCOUNTER_HI_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; 0<br>
+&nbsp;<br>
++// Stand Alone Walker Registers<br>
++#define VMC_TAP_PDE_REQUEST_SNOOP_OFFSET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8<br>
++#define VMC_TAP_PTE_REQUEST_SNOOP_OFFSET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0606<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32_BASE_IDX&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0=
+<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0607<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32_BASE_IDX&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0=
+<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0608<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_LO32_BASE_IDX&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0609<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_START_ADDR_HI32_BASE_IDX&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x060a<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_LO32_BASE_IDX&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 0<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x060b<br>
++#define mmVM_L2_SAW_CONTEXT0_PAGE_TABLE_END_ADDR_HI32_BASE_IDX&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 0<br>
++#define mmVM_L2_SAW_CONTEXT0_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0=
+x0604<br>
++#define mmVM_L2_SAW_CONTEXT0_CNTL_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
++#define CONTEXT0_CNTL_ENABLE_OFFSET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
++#define CONTEXT0_CNTL_PAGE_TABLE_DEPTH_OFFSET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 1<br>
++#define mmVM_L2_SAW_CONTEXTS_DISABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x060c<br>
++#define mmVM_L2_SAW_CONTEXTS_DISABLE_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0<br>
++#define mmVM_L2_SAW_CNTL4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0603<br>
++#define mmVM_L2_SAW_CNTL4_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
+&nbsp;<br>
+&nbsp;// addressBlock: mmhub_utcl2_atcl2dec<br>
+&nbsp;// base address: 0x69900<br>
+-- <br>
+2.43.5<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144E7EF8E7F67F4D5F74217F7692BL1PR12MB5144namp_--
