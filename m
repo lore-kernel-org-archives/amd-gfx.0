@@ -4,48 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B04ECCF9E6
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 15:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2FD1CCF9E6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 15:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B430710E122;
-	Wed, 25 Sep 2024 15:43:43 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rDKkAfhN";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54EDB10E122;
- Wed, 25 Sep 2024 15:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=1gZCCExOJ8BLuVIACQp6NZYsnDxOnwhLvgUxXVihlYE=; b=rDKkAfhNx83p4ILiehc8uXAq4C
- AaESzC7uqmsOlQJq4J4UiuU1KuQ4MpTRBRc5NIUL3jL9d0+xpCTJZIb2uW7T+GCh9xOKkuGTuJfrW
- y3XhHxy8mUpEqfaMI4TuD8wIzsHoy59VWEoCYMnSN9U4LwxV8d2BATRMOitRfF4WVMBxld7ngTJm7
- u+Y6mrgkA0BuFkVEE3N6oTv2/zC4p+ijZdsQL3kRFrQr0bqB39ZIbIJlgc8/TpaizWjC6Yz3cwX+b
- uLSln+aWj7Hq9DTrqUTJ1yJb/do5AHRxl2Oo21tO+ux5ZbtvN3l3HLazgh/w8OMXoMK6ZfU5sKEoH
- JcGHAjog==;
-Received: from [189.6.17.125] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1stUB0-000y8P-R1; Wed, 25 Sep 2024 17:43:39 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amd/display: add warnings for MAX_SURFACES mismatch
-Date: Wed, 25 Sep 2024 12:37:19 -0300
-Message-ID: <20240925154324.348774-3-mwen@igalia.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240925154324.348774-1-mwen@igalia.com>
-References: <20240925154324.348774-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85FD310E263;
+	Wed, 25 Sep 2024 15:46:51 +0000 (UTC)
+X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Sep 2024 15:46:50 UTC
+Received: from mail.bix.bg (mail.bix.bg [193.105.196.21])
+ by gabe.freedesktop.org (Postfix) with SMTP id 6069810E263
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 15:46:50 +0000 (UTC)
+Received: (qmail 14488 invoked from network); 25 Sep 2024 15:40:08 -0000
+Received: from d2.declera.com (212.116.131.122)
+ by indigo.declera.com with SMTP; 25 Sep 2024 15:40:08 -0000
+Message-ID: <9c91d15357e30fb41af9f54fe85da5bb7d0d79a3.camel@declera.com>
+Subject: 6.12-rc0/regression/bisected  - 9c081c11c621 drm/amdgpu: Reorder to
+ read EFI exported ROM first - breaks connector enumeration and discovery
+From: Yanko Kaneti <yaneti@declera.com>
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org
+Date: Wed, 25 Sep 2024 18:40:08 +0300
+In-Reply-To: <20240812044942.1670218-1-lijo.lazar@amd.com>
+References: <20240812044942.1670218-1-lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.0 (3.54.0-1.fc42) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +45,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So that, in the future, when the max number of planes and streams
-increases, they might be synced with the number of surfaces to prevent
-array-index-out-of-bounds issues.
+Hello,
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+This commit in mainline (9c081c11c621) breaks connector enumeration and
+discovery for me here so my  PC->HDMI-to-DP->monitor stops showing
+anything after amdgpu starts.   Fedora rawhide 6.12 pre rc0 kernels.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 6d12def3e8b3..95db2b1cc91a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3098,6 +3098,13 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
- 	for (k = 0; k < dc_state->stream_count; k++) {
- 		bundle->stream_update.stream = dc_state->streams[k];
- 
-+		if (MAX_SURFACES < dc_state->stream_status->plane_count) {
-+			drm_warn(dm->ddev, "Not enough dc_surface_update for the "
-+					   "number of planes. Please increase "
-+					   "MAX_SURFACES inline to MAX_PLANES.\n");
-+			continue;
-+		}
-+
- 		for (m = 0; m < dc_state->stream_status->plane_count; m++) {
- 			bundle->surface_updates[m].surface =
- 				dc_state->stream_status->plane_states[m];
-@@ -8923,6 +8930,13 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		if (!dc_plane)
- 			continue;
- 
-+		if (MAX_SURFACES < planes_count) {
-+			drm_warn(dev, "Not enough dc_surface_update for the "
-+				      "number of planes. Please increase "
-+				      "MAX_SURFACES inline to MAX_PLANES.\n");
-+			continue;
-+		}
-+
- 		bundle->surface_updates[planes_count].surface = dc_plane;
- 		if (new_pcrtc_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
-@@ -9874,6 +9888,12 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 
- 		WARN_ON(!status->plane_count);
- 
-+		if (MAX_SURFACES < status->plane_count) {
-+			drm_warn(dev, "Not enough dc_surface_update for the "
-+				      "number of planes. Please increase "
-+				      "MAX_SURFACES inline to MAX_PLANES.\n");
-+			continue;
-+		}
- 		/*
- 		 * TODO: DC refuses to perform stream updates without a dc_surface_update.
- 		 * Here we create an empty update on each plane.
--- 
-2.45.2
+There is some
+  ...
+  amdgpu 0000:0e:00.0: amdgpu: Fetched VBIOS from platform
+  amdgpu: ATOM BIOS: 13-CEZANNE-019
+  ...
+  ... UBSAN splat ....
+  kernel: UBSAN: array-index-out-of-bounds in drivers/gpu/drm/amd/amdgpu/..=
+/display/dc/resource/dcn21/dcn21_resource.c:1312:29
+  ....
+  kernel: [drm:amdgpu_dm_init [amdgpu]] *ERROR* KMS: Failed to detect conne=
+ctor
+ =20
+
+Reverting the commit on top of mainline restores the video situation to
+normal. Without the UBSAN splat showing up.
+
+  amdgpu 0000:0e:00.0: amdgpu: Fetched VBIOS from ROM BAR
+  amdgpu: ATOM BIOS: 13-CEZANNE-019
+  ...=20
+ =20
+
+  Ryzen 7 5700G  IGP
+  Advanced Micro Devices, Inc. [AMD/ATI] Cezanne [Radeon Vega Series / Rade=
+on Vega Mobile Series] [1002:1638] (rev c8) (prog-if 00 [VGA controller])
+  Fairly old Gigabyte MB , but with BIOS from March this year.
+
+Regards
+- Yanko
+
+On Mon, 2024-08-12 at 10:19 +0530, Lijo Lazar wrote:
+> On EFI BIOSes, PCI ROM may be exported through EFI_PCI_IO_PROTOCOL and
+> expansion ROM BARs may not be enabled. Choose to read from EFI exported
+> ROM data before reading PCI Expansion ROM BAR.
+>=20
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_bios.c
+> index 618e469e3622..42e64bce661e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -431,6 +431,11 @@ bool amdgpu_get_bios(struct amdgpu_device *adev)
+>  		goto success;
+>  	}
+> =20
+> +	if (amdgpu_read_platform_bios(adev)) {
+> +		dev_info(adev->dev, "Fetched VBIOS from platform\n");
+> +		goto success;
+> +	}
+> +
+>  	if (amdgpu_read_bios(adev)) {
+>  		dev_info(adev->dev, "Fetched VBIOS from ROM BAR\n");
+>  		goto success;
+> @@ -446,11 +451,6 @@ bool amdgpu_get_bios(struct amdgpu_device *adev)
+>  		goto success;
+>  	}
+> =20
+> -	if (amdgpu_read_platform_bios(adev)) {
+> -		dev_info(adev->dev, "Fetched VBIOS from platform\n");
+> -		goto success;
+> -	}
+> -
+>  	dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>  	return false;
+> =20
 
