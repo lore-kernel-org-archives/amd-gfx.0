@@ -4,150 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07238CCF9E7
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 17:06:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E593ACCF9E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 17:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9936010E839;
-	Wed, 25 Sep 2024 17:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE4310E24E;
+	Wed, 25 Sep 2024 17:16:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aFu+oHK2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LYwlVLzr";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4E5310E845;
- Wed, 25 Sep 2024 17:06:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jempwdXzC2YrkKQaGZ+XMisX2BEo9pVNVOFElRJiFmJjyGG90BOBB4cxgZqJU03lrjC4R7WCFWkZpOeBumEKj2KDTmIf8TlQtKLsHesO7EtFvNC6puIQ+Y5xBWU2uZyTKRl1U9tySVhtnjv4Y2oa5du+HEAU0fUsvF5WPM9z9Dpr4+lhZCQQapo9OW7LsPRQY093I2GgF7vW/dwNp7W5iF862634VSH2qssc6Zl9Elcl7kxPVUdFN8weO/J/APbQttcLnI/3KmTomcXsQo/+dqlVkygfdfltZV26eDbds8lLjiPe0Lru0TYNwBr5CRJdcJH7GK/DvTNLSAt1JZl3jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efAz41krnawzq8VJCvVUXARLT8D9K/g3rG+aD1I8gYU=;
- b=comPsrA/R4tJiPSATDnWfvy8yPgO46OWMkFPQOd1AXkZIke2CSjKj7ZuLO1c3PeBGU5RIQfm1hRmiD5ihYnJJrP2iqFODvvV5fHFNzhSP9o6b+INZnj7/Qrer7c5NMgY6GM3WdOg2bXVZcx89STIBy6HAbO7tmc3CTS5b9iSkeWibnPTF9su1NhDNeypdrmm5/Pb3IC8C4F2h9PLrInSF8zNPhwrhgjTSUg29OM/fPiA7mwFVD+FsbBjGyzQmQC9k1n/hIusyVEZIs+OJYb3eiaEY0RBioLD9WkCjBlQdPX5S3q0aW8LSRwHT8xM0TKLwkBDG51dUBkwX+PoTORC2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efAz41krnawzq8VJCvVUXARLT8D9K/g3rG+aD1I8gYU=;
- b=aFu+oHK2MwblU9VfEoP9Ic+ObddA6ARqgmiToPM2uDfEW+dBcwfCUXjUCSol5iG9XvGlEpuHW8Ua9t5+FZ9d/bIRAP3PGyPprWEsGFo4cRBuFQ11Fbj50by7tMU7fu6awf1VMSba89WO8NL1HLG+JzQj7Scl//ImWETG2V08x8M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8495.namprd12.prod.outlook.com (2603:10b6:208:44d::9)
- by IA1PR12MB7519.namprd12.prod.outlook.com (2603:10b6:208:418::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.27; Wed, 25 Sep
- 2024 17:06:40 +0000
-Received: from IA1PR12MB8495.namprd12.prod.outlook.com
- ([fe80::97d3:87e9:1c4c:c692]) by IA1PR12MB8495.namprd12.prod.outlook.com
- ([fe80::97d3:87e9:1c4c:c692%6]) with mapi id 15.20.7982.022; Wed, 25 Sep 2024
- 17:06:40 +0000
-Message-ID: <5bbaeac3-7916-4e75-9c92-b93e2cd78ff5@amd.com>
-Date: Wed, 25 Sep 2024 11:06:37 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/10] drm/amd/display: remove dc_edid handler from
- dm_helpers_parse_edid_caps
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alexander Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-References: <20240918213845.158293-1-mario.limonciello@amd.com>
- <20240918213845.158293-10-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20240918213845.158293-10-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fe::14) To IA1PR12MB8495.namprd12.prod.outlook.com
- (2603:10b6:208:44d::9)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F316710E24E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 17:16:56 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2db6b13c6a0so20252a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 10:16:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727284616; x=1727889416; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6qxC/EH0/WqElNWjgvkNRHtcX3ifISpVqT4zcfCKu8I=;
+ b=LYwlVLzrh02MR44MFf6CnubVnj7y0XsSWVdskv+dNt46aajI/rLuV11zNhnzmVfYXk
+ ohVgE+SpcjgF4uFA0h4QmLjpIsNhBTMD50musZOPN3NKaKeLNQYWY5djvBzjRsvLT4wq
+ QkMIQWuQWrDCX3JYtmxxRTFPaIziHRKY3fkaZZj6t5OW2dkoN/DvyCNSUX5UTTFT5RcI
+ H3I7yFpAXt9rbldJAEqhD3hkqYUk6gioWlJNKqp5ioxU48qK7RMJBMtoFb2Y8kT45d0P
+ El7clZKFGVW7Qudk4xeIh6VQ5yYmgT52H1xReAfhxRy/Pe3CbFGcUGJvpnUM3RLw/EWO
+ Ae0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727284616; x=1727889416;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6qxC/EH0/WqElNWjgvkNRHtcX3ifISpVqT4zcfCKu8I=;
+ b=d5Yf2QqEFK1TFc1Qkb3Dyl2BAmXsLHt6SbxEyc9ROJTzxTTZjpXwFNc1BeUv5xR60l
+ 6LJgQbDSkSDjB1Ut7CXeZdSQwYjSpMpweV8xY8VX9habCXpWNRDRql9UhaO9IJkE9MwS
+ u4sljwiwMtlHNLkRkwrT63r5P0Uaq7cyR4vJ8gMlz8gnT6jKdjuj6+L4QIC88xdTOJtb
+ UgHN/OIzbcp/sjpMhlqtTh6+ms3pvxBuEiNfXKVXObk7KLRqW9BIlj68tF5YNqC5Rb0O
+ DOd8UsWDI+NXLoZXv9BANvsR/rPmvBtVgogZiHD5Z1kk6oDcpgrSRvp6pwl0HBxhYWFr
+ rEEA==
+X-Gm-Message-State: AOJu0Yy5e9tily0MG2EPrIKGJDIrMCHEHvQMbBamKvUhUFkJc75J4B7Y
+ vluJc2aKp7Z9ur8floOazum9VVIv4HFYpkZtlyW8eOxRrU0Av7R7cLCjfJ6pRZnX/jpm10sD2Xt
+ a72LVHuU9yrOTN4mvv1L+8k9vOS8=
+X-Google-Smtp-Source: AGHT+IE5Pe8dT4NR5qcVrgKyQWpHqeBiqxL4w526t07YV9YOJ+1LX6nk/EmYbptJ7tCES3XxoY5qj9O2rJOT32NHrIk=
+X-Received: by 2002:a17:90b:124d:b0:2ca:7e67:d11e with SMTP id
+ 98e67ed59e1d1-2e06ae26b15mr1704830a91.2.1727284616246; Wed, 25 Sep 2024
+ 10:16:56 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8495:EE_|IA1PR12MB7519:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c3240e0-2cec-46e4-408b-08dcdd846c22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aFFoTE91RXNSVFZrem9VUlY1NG5iclFCbVN5S3BURGorYUdFS3N6cGFrN3hz?=
- =?utf-8?B?bU1BMnJtdG9IaDFDWk5jVlJuZStJbng3Wk56MldTdWZIMndKVGtaczB0SVFw?=
- =?utf-8?B?UmZjbm1tYTA5MmNMR0hycTd5TjlHS1VqNElnTExBZWd0NUo5QzMzanFJZEVs?=
- =?utf-8?B?ajNnaUdRelRBOGJDOGNUL200bWowN1R2S3BoU0MyUnVpc0lYMFlJMCs4cmxu?=
- =?utf-8?B?K0Q0OW1sK1R1czhsSnFlYkdENy90YkhnME92Nk80TVBZWlNJT0lNbmRNNC8v?=
- =?utf-8?B?V0M3WnZYS041OFBjVm1KeFB2N2cvY3dmL05pMkNzVWpqQXYveVJxdVU3MUF6?=
- =?utf-8?B?Y3lYM1FxWDBNcFN6bTQzRXZ6K2VONDY0U2ZVSXIvRlZmbjJOcUlkbkZxaDlo?=
- =?utf-8?B?SFBOQmdUNWNhcGhXNDVySWtWZzBtTVpVS0t6WlF2bFJYRjRTRy92dUZZdklo?=
- =?utf-8?B?amE5d0ZxM29WSTNzcDJUdUpCYzhKa1A0QkZPb1gzVTJIci9DNFVJMm9RRmtm?=
- =?utf-8?B?dEgxdnlONkFMb0tDNTB6TUFjTlBqY05EaHZJUG1nVkZMU0RucUJqVW51bDNK?=
- =?utf-8?B?MmZKRDJpNDJQU3RBTnpnM3d1Ukxja3llaVhSNkhyOXR4Y2gzMCtrOUhxZGJa?=
- =?utf-8?B?N2hqYjN0N3o1N0Z6bExhd2JKRk5DdkxpdXNEOVh6S3laSSthNXBnWGdzM3U1?=
- =?utf-8?B?ZEpZU1UwZ0JvZnFXbTZRTlk3MFpvL29PQ09uUjhhUFNzd0xyOUd3aWNSSTVu?=
- =?utf-8?B?WURMQTZTM2RwRzltZmZBVFBuOWkyRmIrRitQWUcwRkc4OUhkRkg0M2M0Q3Fi?=
- =?utf-8?B?aDRrbU41Wm9FZVZFZUt5WnFRV0k1dHJhanZGMlNNMWloT0F1QkRCWUFGTG1E?=
- =?utf-8?B?ajNUV1lKeUtOUDlQdXM2am5kS09DSVgzcXk4NU1jbzE1T0dVN3A5MDAwVUpP?=
- =?utf-8?B?TFRhd1Zjd1NIMjh5T2hzOGV0K1ZWNXA2MmtCTmZHVDd4dk9za3RBWU1pOWpt?=
- =?utf-8?B?QnBIMVZJeGwvYjV5TlZpeWdpcCtFbDhoNUhYVG9hZng2UHRwblM5djY4VmNi?=
- =?utf-8?B?UXBocTdNNk1tQ3ZzcjVWbFNmZzZHOHZTYlorWTNudDlYM3ZOcEhETFI2SXdk?=
- =?utf-8?B?Y1VLQllVNzEvZ3hLZVk4MkNTakROTmJzNjhnVWdMK2hmVVFmSGVTVk14WFZx?=
- =?utf-8?B?ekpid2FRMy84M3R3ei9hekhCbjNaZitXdk1kT0dRak44cU1kRFU3c0k1V0li?=
- =?utf-8?B?cXVqcXZiclRqSWRvNG9td2lDQTZ4Wldjb1NRUU9pNHZNMzBMY1dnbDhSN3Vx?=
- =?utf-8?B?aCtRT3lCUDhoNUJtbnZCMkd2WVZTYVpDNTRjd1R3QXNBZ2w2bGxJN2JONFFn?=
- =?utf-8?B?QU0wS2owNjcxOTdCN0F0VExuNWJ2MVFFRUJJekVCMXozNWFqTUxtUkIxT1Iz?=
- =?utf-8?B?ODduc1NYdUwwNFJVTHJWTm51QWh6b3ZYZnhFdzdVa0lSZmUwSFB0QWkveHlI?=
- =?utf-8?B?dVlsRGpadjNiWFVLOTBoSmJVWkRxTkk1QlB3dFEwd1JENHpVMlRGWTYvN1dk?=
- =?utf-8?B?aWRNTWo1Zk5iUkhYaXp0d3o4NjlCeXg1UHcwVWxtcjlVaE5rVnAzUDNOK3Bx?=
- =?utf-8?B?OHZrUGEzUkN4TnVyQVh6Q253YU9LY05ycEc2dkxNL1IrRzA1eU9MYWNXZEEy?=
- =?utf-8?B?RDRPVnpOMHN0bmFQN3pGQ01pZ2dBalExSXpzbGtHTUVSRTVBNFdIVHpRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8495.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0tlWXNjUzRkdU5kN05XQVlDYmFoKzNTZStiaVpKRE5US3lXQ2t4VDlZa2U5?=
- =?utf-8?B?VHBZQnhITzg2YUp3cHVLdmRod3BNWERWcGJXZVRjWURPZXVmNzJYVUVGK1Bs?=
- =?utf-8?B?Z3FPQno2eDAxaGk1L1o5bXVVL0VYQ1dQVzFLZ21MZUZWQk41N05zZ0NheVFZ?=
- =?utf-8?B?ci90TU1WRGcxbmppK2pIcmNmNWowSzhIOW5DV3pqZGlvTUk4WDRzU3dwdmF6?=
- =?utf-8?B?MURBUzhZUEIwSmN6cUxqb1ZrRnVOZVdWMzIvM3R5WFhlVTg4bXRSaWc0cFIy?=
- =?utf-8?B?aXduYnFKaDUzVjBFNlY1bnJHdkVEYWw4VklSS0VyZkNreXd5Njk2T29Yb3FZ?=
- =?utf-8?B?bllEUlU4b0h2ZGRCTS9BMFhMcngwcy9qbmNwdXduaDJSdFRyTmIzOVhpRkNO?=
- =?utf-8?B?VmpsTTJjZmpGbHdQWmRFTmQ3MitXVVVpWTYxS2h6R05ZWWJ5SWlzN3Y3T092?=
- =?utf-8?B?Y0hkNEgyQnByVFhmZmhGaU1ndGFna0M5SWE5Vy9yc0VjMERNajlYdUg4WXNE?=
- =?utf-8?B?OS9WbHRZWUNJK2oraDBsUkJKWDhPOUF5K1ZWWlljaHhqY0k2NktEWDRCL1JR?=
- =?utf-8?B?blBSU2hwSjVSeU5kdXhRKzY4V05ZMXEyVW1xQ21nVDhqKzNyK1dDdEQ3TGt3?=
- =?utf-8?B?aTNCdEI3cW5QR3pnV2c2WnN0ZWZZczVkb3NFSU9wRUp2S3ZnTWJVbGEzRG9W?=
- =?utf-8?B?TGNSRjVFbWtvRkk2ejA2bjN2L0Z1Rngwb3ZPcXF5SzNpWEpYZVdHQXh1T1JO?=
- =?utf-8?B?T29iVlFVbzBTUVJDVkhLb3I3WFh3MWVzOU8wZmZqaFlWZkVqMWdtVlNXVFVp?=
- =?utf-8?B?SGtFOTdHaWhmVmZ4SjJURC9rQ3dob3RFK09xOEpoN3Z5dlZTMSsxUWRKYm9w?=
- =?utf-8?B?VWpBclNYNG9ydzRHbCtoTHRJQ00wSGJ1WTh2RDBlMm1pYWVsQkY3ejBmZlRY?=
- =?utf-8?B?TVAwODBncFBsVnlEK2R4cmxvZ3NISUxVYVBXS2VUUzNKc2U2OXNIYXd6MXY5?=
- =?utf-8?B?bFFnYVRLUStLckN5YW4vOHpXa2t6N2FvYUMzd2htN3ZDb2hVUDE2VFVic1J4?=
- =?utf-8?B?R2d1WVAyZFRxWmt3OUw4MngrbkFVaFVsWGlyZG1Fd0gwdDRvT3RGWHpZOE5U?=
- =?utf-8?B?dWJRV1MwNVNIVWNVMXlQeElYb2YwUHZhZm9SSHdEem1hT0x4bS9CcGt2dnVh?=
- =?utf-8?B?Z2VPa1NoRU9LQTY2ak5hWTI3d2Q2dWRjRjIyQzJPM2lVN2I0blVBd21xZWdy?=
- =?utf-8?B?OFRVWnRwZ1c2bEpDd3cwbFc5Y014Yi9uWmwwYW1ESzdvVzlkWTlwQnR1Z1dI?=
- =?utf-8?B?Vk1lV2RLb1djTjVpdno4MGRxTENmN2tINlJIUysva1pqRFN5Ykx0czF3Sjg5?=
- =?utf-8?B?NjIwNWpvWmhnbHQva0EybmxWdTJCQkdUVVVyS04zSnFvck94NVVFNG1sRnlF?=
- =?utf-8?B?bzlaTlAxVDVVQnJ6SXJqbkdxRUlsMnR1R2tGMzlXSncyeVJQeXI4TGg4b2kx?=
- =?utf-8?B?VzJUTUNvS1M4cDFBZWxLSzRDdU5seEUwRUw2Y2IwU3RVL0VPK29SUUNhbUov?=
- =?utf-8?B?d3BpOHVlMkxvZ0VGZmhISUNMR3F1dnpVTmRCMm9YOEVjM2dqTUxBcExDazll?=
- =?utf-8?B?V2pSMkUvay8wTWhia25kRXVPM0FBU05yZnVRYlNvVHlvVGVNMU1VQXYvRnhk?=
- =?utf-8?B?VzNobG52RVF4bHc5UU1jM00xOW10MG8zd0RwNjFDZ1pBcllsMFJJN2JXL20z?=
- =?utf-8?B?dGtNTDJTQkNTVmNKdUVDVG4wbEVmZndwQmlidmZBeFluNS9QNThGT1p2bVlz?=
- =?utf-8?B?dFJBcWtBdXNGQzNaRlVidExRL0ZhRmJjeWd3RlduYTQzK1dkZ0U2UXlPNXhN?=
- =?utf-8?B?azVvck9YdlJraUk0bTY5WWllMEhMUm1CMFRrS0FaRnJ0KzJqaEJtQVRmWGNC?=
- =?utf-8?B?NDliTHlGOFZ5Ky9FUWJFTjExNTJGR2N6d092emYwSDhuVFZoSXVwM3dkQzJs?=
- =?utf-8?B?WU5FU3ZSRlpzK2dBUTRPbEZpRkRHL2lxcHhSTkJXWHhqcVpTZGRNMElwV05j?=
- =?utf-8?B?bk1TRFhFUDZobCtDYkpIZlNDOWI1VGxpNHhVYkE4Z0pZK3o1Q00rMUZ6ci9F?=
- =?utf-8?Q?tytsYyFZhrfh6hKvhprxFJfBk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c3240e0-2cec-46e4-408b-08dcdd846c22
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8495.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 17:06:40.0514 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 97h1j+kRjzPAq+jHnoKGZf9Kb19knvecH16POJ4bRV+07B/clXKyjWXXtD4NEimH1flo9a9NTe5h0o7DQcNlVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7519
+References: <20240923081931.2126969-1-yifan1.zhang@amd.com>
+ <CADnq5_Nm_OdBNbDR+J_w4v2yK4_yH5GxVdRwinJsgZBys69Lgg@mail.gmail.com>
+ <CY5PR12MB63693340F3FFE996395FFA97C1682@CY5PR12MB6369.namprd12.prod.outlook.com>
+In-Reply-To: <CY5PR12MB63693340F3FFE996395FFA97C1682@CY5PR12MB6369.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 25 Sep 2024 13:16:44 -0400
+Message-ID: <CADnq5_PT+A_+3_WnofKF3_4kLB6u=fPFSow5Nc-e8Hbrrg6OGw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: simplify vram alloc logic since 2GB
+ limitation removed
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Yang,
+ Philip" <Philip.Yang@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,147 +79,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mario and Melissa,
+On Tue, Sep 24, 2024 at 10:22=E2=80=AFAM Zhang, Yifan <Yifan1.Zhang@amd.com=
+> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> 2GB limitation in VRAM allocation is removed in below patch. My patch is =
+a follow up refine for this. The remaing_size calculation was to address th=
+e 2GB limitation in contiguous VRAM allocation, and no longer needed after =
+the limitation is removed.
+>
 
-This patch causes a regrerssion on 7900 XTX in an IGT test: 
-amd_mem_leak's connector-suspend-resume.
+Thanks.  Would be good to add a reference to this commit in the commit
+message so it's clear what you are talking about and also provide a
+bit more of a description about why this can be cleaned up (like you
+did above).  One other comment below as well.
 
-Is this patch necessary on this series or is it independent from other 
-patches, i.e. can it be dropped from this series until fixed??
 
-Cheers,
-Alex Hung
+> commit b2dba064c9bdd18c7dd39066d25453af28451dbf
+> Author: Philip Yang <Philip.Yang@amd.com>
+> Date:   Fri Apr 19 16:27:00 2024 -0400
+>
+>     drm/amdgpu: Handle sg size limit for contiguous allocation
+>
+>     Define macro AMDGPU_MAX_SG_SEGMENT_SIZE 2GB, because struct scatterli=
+st
+>     length is unsigned int, and some users of it cast to a signed int, so
+>     every segment of sg table is limited to size 2GB maximum.
+>
+>     For contiguous VRAM allocation, don't limit the max buddy block size =
+in
+>     order to get contiguous VRAM memory. To workaround the sg table segme=
+nt
+>     size limit, allocate multiple segments if contiguous size is bigger t=
+han
+>     AMDGPU_MAX_SG_SEGMENT_SIZE.
+>
+>     Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>     Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+>
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Tuesday, September 24, 2024 10:07 PM
+> To: Zhang, Yifan <Yifan1.Zhang@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; Yang, Philip <Philip.Yang@amd.com>; Ku=
+ehling, Felix <Felix.Kuehling@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: simplify vram alloc logic since 2GB limi=
+tation removed
+>
+> On Mon, Sep 23, 2024 at 4:28=E2=80=AFAM Yifan Zhang <yifan1.zhang@amd.com=
+> wrote:
+> >
+> > Make vram alloc loop simpler after 2GB limitation removed.
+>
+> Can you provide more context?  What 2GB limitation are you referring to?
+>
+> Alex
+>
+> >
+> > Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 15 +++++----------
+> >  1 file changed, 5 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > index 7d26a962f811..3d129fd61fa7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > @@ -455,7 +455,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_=
+manager *man,
+> >         struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(tbo);
+> >         u64 vis_usage =3D 0, max_bytes, min_block_size;
+> >         struct amdgpu_vram_mgr_resource *vres;
+> > -       u64 size, remaining_size, lpfn, fpfn;
+> > +       u64 size, lpfn, fpfn;
+> >         unsigned int adjust_dcc_size =3D 0;
+> >         struct drm_buddy *mm =3D &mgr->mm;
+> >         struct drm_buddy_block *block; @@ -516,25 +516,23 @@ static
+> > int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
+> >             adev->gmc.gmc_funcs->get_dcc_alignment)
+> >                 adjust_dcc_size =3D amdgpu_gmc_get_dcc_alignment(adev);
+> >
+> > -       remaining_size =3D (u64)vres->base.size;
+> > +       size =3D (u64)vres->base.size;
+> >         if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS && adjust_dcc=
+_size) {
+> >                 unsigned int dcc_size;
+> >
+> >                 dcc_size =3D roundup_pow_of_two(vres->base.size + adjus=
+t_dcc_size);
+> > -               remaining_size =3D (u64)dcc_size;
+> > +               size =3D (u64)dcc_size;
+> >
+> >                 vres->flags |=3D DRM_BUDDY_TRIM_DISABLE;
+> >         }
+> >
+> >         mutex_lock(&mgr->lock);
+> > -       while (remaining_size) {
+> > +       while (true) {
 
-On 9/18/24 15:38, Mario Limonciello wrote:
-> From: Melissa Wen <mwen@igalia.com>
-> 
-> We can parse edid caps from drm_edid and drm_eld and any calls of
-> dm_helpers_parse_edid_caps is made in a state that we have drm_edid set
-> to amdgpu connector.
-> 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +---
->   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 30 ++++++++-----------
->   drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  1 -
->   .../drm/amd/display/dc/link/link_detection.c  |  6 ++--
->   4 files changed, 16 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bd8fb9968c7c..bf847ac55475 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -7123,10 +7123,7 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
->   		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
->   		memmove(dc_em_sink->dc_edid.raw_edid, edid,
->   			(edid->extensions + 1) * EDID_LENGTH);
-> -		dm_helpers_parse_edid_caps(
-> -			dc_link,
-> -			&dc_em_sink->dc_edid,
-> -			&dc_em_sink->edid_caps);
-> +		dm_helpers_parse_edid_caps(dc_link, &dc_em_sink->edid_caps);
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index d43ed3ea000b..8f4be7a1ec45 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -83,32 +83,24 @@ static void apply_edid_quirks(struct drm_edid_product_id *product_id,
->    * dm_helpers_parse_edid_caps() - Parse edid caps
->    *
->    * @link: current detected link
-> - * @edid:	[in] pointer to edid
->    * @edid_caps:	[in] pointer to edid caps
->    *
->    * Return: void
->    */
-> -enum dc_edid_status dm_helpers_parse_edid_caps(
-> -		struct dc_link *link,
-> -		const struct dc_edid *edid,
-> -		struct dc_edid_caps *edid_caps)
-> +enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
-> +					       struct dc_edid_caps *edid_caps)
->   {
->   	struct amdgpu_dm_connector *aconnector = link->priv;
->   	struct drm_connector *connector = &aconnector->base;
->   	const struct drm_edid *drm_edid = aconnector->drm_edid;
->   	struct drm_edid_product_id product_id;
-> -	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
->   	int sad_count;
->   	int i = 0;
-> -
->   	enum dc_edid_status result = EDID_OK;
->   
-> -	if (!edid_caps || !edid)
-> +	if (!edid_caps || !drm_edid)
->   		return EDID_BAD_INPUT;
->   
-> -	if (!drm_edid_is_valid(edid_buf))
-> -		result = EDID_BAD_CHECKSUM;
-> -
->   	drm_edid_get_product_id(drm_edid, &product_id);
->   
->   	edid_caps->manufacturer_id = le16_to_cpu(product_id.manufacturer_name);
-> @@ -920,19 +912,23 @@ enum dc_edid_status dm_helpers_read_local_edid(
->   		if (!drm_edid)
->   			return EDID_NO_RESPONSE;
->   
-> -		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
-> +		/* FIXME: Get rid of drm_edid_raw()
-> +		 * Raw edid is still needed for dm_helpers_dp_write_dpcd()
-> +		 */
-> +		edid = drm_edid_raw(drm_edid);
->   		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
->   		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
->   
->   		edid_status = dm_helpers_parse_edid_caps(
->   						link,
-> -						&sink->dc_edid,
->   						&sink->edid_caps);
->   
-> -		/* We don't need the original edid anymore */
-> -		drm_edid_free(drm_edid);
-> -
-> -	} while (edid_status == EDID_BAD_CHECKSUM && --retry > 0);
-> +		if (edid_status != EDID_OK) {
-> +			/* We can discard the drm_edid and retry */
-> +			drm_edid_free(drm_edid);
-> +			drm_edid_connector_update(connector, drm_edid);
-> +		}
-> +	} while (edid_status != EDID_OK && --retry > 0);
->   
->   	if (edid_status != EDID_OK)
->   		DRM_ERROR("EDID err: %d, on connector: %s",
-> diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-> index 2e4a46f1b499..4e1776b5f0d4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-> @@ -61,7 +61,6 @@ void dm_helpers_free_gpu_mem(
->   
->   enum dc_edid_status dm_helpers_parse_edid_caps(
->   	struct dc_link *link,
-> -	const struct dc_edid *edid,
->   	struct dc_edid_caps *edid_caps);
->   
->   
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index d21ee9d12d26..94c911742dd3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -1413,10 +1413,8 @@ struct dc_sink *link_add_remote_sink(
->   			dc_sink))
->   		goto fail_add_sink;
->   
-> -	edid_status = dm_helpers_parse_edid_caps(
-> -			link,
-> -			&dc_sink->dc_edid,
-> -			&dc_sink->edid_caps);
-> +	edid_status = dm_helpers_parse_edid_caps(link,
-> +						 &dc_sink->edid_caps);
->   
->   	/*
->   	 * Treat device as no EDID device if EDID
+I think you can also drop this while loop now too.
 
+Alex
+
+> >                 if (tbo->page_alignment)
+> >                         min_block_size =3D (u64)tbo->page_alignment << =
+PAGE_SHIFT;
+> >                 else
+> >                         min_block_size =3D mgr->default_page_size;
+> >
+> > -               size =3D remaining_size;
+> > -
+> >                 if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS && ad=
+just_dcc_size)
+> >                         min_block_size =3D size;
+> >                 else if ((size >=3D (u64)pages_per_block << PAGE_SHIFT)
+> > && @@ -562,10 +560,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resou=
+rce_manager *man,
+> >                 if (unlikely(r))
+> >                         goto error_free_blocks;
+> >
+> > -               if (size > remaining_size)
+> > -                       remaining_size =3D 0;
+> > -               else
+> > -                       remaining_size -=3D size;
+> > +               break;
+> >         }
+> >         mutex_unlock(&mgr->lock);
+> >
+> > --
+> > 2.43.0
+> >
