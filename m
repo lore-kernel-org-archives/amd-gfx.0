@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201AEC369A9
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 07:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D55FC369A9
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 07:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A87B010E7B6;
-	Wed, 25 Sep 2024 07:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA3F10E7B9;
+	Wed, 25 Sep 2024 07:57:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FvgEe4mU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3FfJcISx";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2074.outbound.protection.outlook.com [40.107.244.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D9AC10E7B6
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 07:57:15 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2745710E7B7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Sep 2024 07:57:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TOoASFGmzj7Yq6Tho83Gt/SR/cfbvp6GuUH3DHaQ0CM1k8HewznJHzyURwxwxtXSCAxDnNyIapGNUQcgSlpFk8GVofdQOPMlAkNuxVmA4ZQthfDD+Lv79ZET6nwLWifok5CzN58BDRP+PkBfoO6cBSKGR/5fzIz1Nl64oUwbOH7mLJwx78Rmh9nodwtZq+TuImJWdga6B1fOaBYeibkF89ti9SMRArPTzBPfG+Wp49yKJvhnbNPwSxn0F+yUQqbehfOQZkugnWrA4TNOGodrGLPPKcyhon571f79yYf+zJYm+Nid5Ss3KaIrE3uEHgGG5GXq1kNewv88skIOERWERw==
+ b=J2GvImx8QpIVyroMwlQRcZMl/8svuQQpO3nfrQ3RKPYZaz9RssMXiI9TonjVVlJFy+veE/82JY5tjPWVG1/QCN+rE2D6EYi+lhaX+Wd2sLdS1PPtfbBjrcXQgzATaGkdybs+xlsQNX2/+sP6qZ/UHa8zFgUTe8Sff4iXUh4LDhEG0JcOos+si7bTzTobDm101Y6G0410PNTX9rAAtgCwWyHaoqz+6tL3HSDrX+EKujAvQV2dgvvdnRyk1sJddM7YPYalzXAFzz6VvKhLJ71TM4+RLBvWp4p74l0csaw2bspIBEdTNtyDni+ryA3yQNOSx4uD+KJLDEdbQvvszThd8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SFqh55pS08zpSIDpQkSCrtEMUy7KL/ibzxNvhIJnbgg=;
- b=Ko9q7yf5EJXiB/xL8hQigTIxWZdiBLtsHcCF3zL2Qp6GNaaUsmc1AE3g6bVMTAuGUa1zzpTS+6gwFmHlboG8ukvQ6wHO2p5VKB13ZZUyebThPUokDa5ZL9hBT0oB+9HSYEx3oM3gdWc/gugs7J5I1FV7tJsS9paFkVjZfEYHS9IjzIpOg98UcCcWd/2Ti1pXwLjN12sZWwvT2afvLwjeT1vCGTvdyIQHcXBwbm2XkXDQRCc/iUecbXpBMqXrZH/MFU6F1VjfAjNuJBmGDdJIDCsdCNWwgkpOQSRrlCDcXL1J68J2L1497P3qZn2HVVYJKQi56MRBnleJKTqoA2JuMg==
+ bh=UKwbJbhbhxZUq89bJLa31EcZWq+rxZdKsmguv1bmsKA=;
+ b=Nht4rL26HHqw32UvSi7Pqh3UfaO81zRI4wrocyf/+v7OxtSW52H6Le1utW+vgt7JKFa3mGV8MbEX0eu3WxQoXqNgtKGqGs6hVAsf6O++sfV8hwjOI+n4gm+HwLTxdytE34boe8f4jUAOuanz8SVg6JDoGAileClDftm5dLg14YGRhoBCHswtA4Q+O1slhPDhRZAolz8fbApFnf3j08any2b/i1hWuA2of4kcrL68F7qaTWfRjnqbVWNYB2JrvSV1kvW2IIPs1tI+Ky4//EiCdYXMtR1WOHkPIj8Rep7ajpTRRaHKicxTe6EOmc52nC9YcrfQGT0wtbDxtxX5PQ588w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SFqh55pS08zpSIDpQkSCrtEMUy7KL/ibzxNvhIJnbgg=;
- b=FvgEe4mUhpmcT27bJFRXJJey9WrsuTsG642FHDXThOJvGQw30X3KlNE7TC89rIonjcXS7N6Mlt4i88V9jO3QrGo8fmg7OrhiLy4YqozoIifCiv0ep7MB3L6FCGFj0i7d6diyehmyKNTgjkA1wdYJ23L2Byi6HCSlh30CpNhtwuM=
-Received: from BYAPR07CA0030.namprd07.prod.outlook.com (2603:10b6:a02:bc::43)
- by SA0PR12MB4383.namprd12.prod.outlook.com (2603:10b6:806:94::12)
+ bh=UKwbJbhbhxZUq89bJLa31EcZWq+rxZdKsmguv1bmsKA=;
+ b=3FfJcISxmfTsS44Jt9WN5REb35GBaWIKhRW6nQKUmKFxyTi51hPqe5+snqI6JsrWbiML6J7+x9NMevrcjg/VuErNjOr/JXFdsFLX+owOoJm3FDgUAb6ROVrip+MY6AyoejqYRK2/v9C+9rDXuL/WTt+B7HRXUMGKEjkETZFV+Vs=
+Received: from SJ0PR05CA0036.namprd05.prod.outlook.com (2603:10b6:a03:33f::11)
+ by LV3PR12MB9440.namprd12.prod.outlook.com (2603:10b6:408:215::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Wed, 25 Sep
- 2024 07:57:08 +0000
-Received: from SJ1PEPF000023CE.namprd02.prod.outlook.com
- (2603:10b6:a02:bc:cafe::51) by BYAPR07CA0030.outlook.office365.com
- (2603:10b6:a02:bc::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.27 via Frontend
- Transport; Wed, 25 Sep 2024 07:57:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Wed, 25 Sep
+ 2024 07:57:14 +0000
+Received: from SJ1PEPF000023D0.namprd02.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::c) by SJ0PR05CA0036.outlook.office365.com
+ (2603:10b6:a03:33f::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.15 via Frontend
+ Transport; Wed, 25 Sep 2024 07:57:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023CE.mail.protection.outlook.com (10.167.244.10) with Microsoft
+ SJ1PEPF000023D0.mail.protection.outlook.com (10.167.244.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.15 via Frontend Transport; Wed, 25 Sep 2024 07:57:07 +0000
+ 15.20.8005.15 via Frontend Transport; Wed, 25 Sep 2024 07:57:13 +0000
 Received: from patedamande.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Sep
- 2024 02:57:01 -0500
+ 2024 02:57:03 -0500
 From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
  <kenneth.feng@amd.com>, <mario.limonciello@amd.com>
 CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH v1 6/9] drm/amd/pm: stop extra checks for runtime pm state
-Date: Wed, 25 Sep 2024 09:54:30 +0200
-Message-ID: <20240925075607.23929-7-pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v1 7/9] drm/amd/pm: add sysfs attribute access wrappers
+Date: Wed, 25 Sep 2024 09:54:31 +0200
+Message-ID: <20240925075607.23929-8-pierre-eric.pelloux-prayer@amd.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240925075607.23929-1-pierre-eric.pelloux-prayer@amd.com>
 References: <20240925075607.23929-1-pierre-eric.pelloux-prayer@amd.com>
@@ -73,51 +73,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CE:EE_|SA0PR12MB4383:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ea45ca8-e5d8-4cea-daba-08dcdd37a740
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D0:EE_|LV3PR12MB9440:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7210c67c-cbf9-48d1-1178-08dcdd37aadf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?i253GuNscAJNu+YpHJ7dq1XgbzH35OMnm1wbP5L5zXKv83xVPTV3kxVPAN6q?=
- =?us-ascii?Q?cIMtZvsSdAbvK/ReAsF+ySv6MG3YIam1glyLhslQljFqXfwNgAStXPYj767u?=
- =?us-ascii?Q?pDiN1QKBev6OFDDKbADH/bQNXXPmNrH7fpTYfZA3GVKrnVOAxs6tyJh7gJPY?=
- =?us-ascii?Q?8vt7QrirJBTjiOdafvc8JmT6RSIfiFOtsFkkOG9x4oiexc11nKSY33x+J5UF?=
- =?us-ascii?Q?amjgIsZFgqXKT5eTA7/LdpaRk3pV5m3ZKei4RkQsa9nMKGRjUTS7lOtxyT6I?=
- =?us-ascii?Q?nbIjvFGT7f2u1mHbak3zz8f0CyF9qv44Krasj5d/JUkLnHk/72F5SjNF3NQ2?=
- =?us-ascii?Q?p57xyOb4/iYjSEkDZUuJrHTnkDV5E5e4IjOXJdzRTzBjiibwMsFWidriXjEA?=
- =?us-ascii?Q?xosFRTydsSzgeWlikGuFbbIYhJ1n5ziDvEcCCVdlT20VREWNsTZ/1P+MNCsX?=
- =?us-ascii?Q?y9WnaAa406dJ7J1PvdxEDedgtf27De9dOvA94dSpdwwcBRL+LbjURxL0eY+v?=
- =?us-ascii?Q?EQ/WDIUJh3CDWD/MGi7lH4WUfqTOOEb8pZ4AxlAoJ0bCfz0wvNatnOwIJFBp?=
- =?us-ascii?Q?IIlUgZryIoF3BbSySRtdr5yexqNQUDOw1qyZ5m3pLIwr7fu8f1Zo7Ne6OTNX?=
- =?us-ascii?Q?AorX6nWExNeDPXU6gxvd9BFWsdP2nOlf5fK+GK1rM4y+fvtHiUCPURxjEkVg?=
- =?us-ascii?Q?hQgvlxQTgk44kIO/YBEejHoS0OEja4Liok5vXpshFENoOS/Si12YO71n4P6G?=
- =?us-ascii?Q?kXLVDkWjer72u4tkeIlXFNz9U6Y1mdb0Mpt+e/DSvzzKtDTOXTo4/iAvSdq9?=
- =?us-ascii?Q?06HJ2QDUekRh+NRT+r8oE7oxVnG25/m9x8tHxz1i63sXKdL7yNsbyQxiaYh1?=
- =?us-ascii?Q?+dq36vpS0Qaa2JuhABvJJ3eX+RDChE8CbGWr1J6olRzjdEo9z7HXJa8ft+NL?=
- =?us-ascii?Q?9mZlRky77Qya+1YsLFAM0zVoCoyiGPIiFrMy8RwIavzyTTsdx9miMYdkOAX5?=
- =?us-ascii?Q?qcjYCw/ujvoJRogOACNGwSYAL3Q7OW33vLoj6f2I4uN7uDio0rcpmKgIPQPO?=
- =?us-ascii?Q?AoY+escaKt0L4nC8YmFFwJq9+ofclxrK/vkxwqkQ4E69TCoSIFTUlDFZZ8TR?=
- =?us-ascii?Q?pPOycT79JOuK3I/keMeJSH8FnXNz80eaLfo1BSVM7QFNDOd+jk4HENLAE1GP?=
- =?us-ascii?Q?+tdFr+tY9EPXKmRbAf7vqY/8XeUOmFmHVShnTou88QCvFABKOENvnQEWplGo?=
- =?us-ascii?Q?+W6uIuwwIeYdcC4m2pf133zKrDPhZJsdz9kruvzF/xay9mbZjVAzheKqmwLb?=
- =?us-ascii?Q?RMAV7CKiSmYl+ywQUxvRoTgs8d9uv3iZG8qREwg9oIJcy/9sP+CGYifu+E6F?=
- =?us-ascii?Q?1sTVP1v68Mou/QBeJJ2qPJkxsvltTuKec0Qgi94MOKWzgyY2WtwEiUJso04s?=
- =?us-ascii?Q?EWvVD78b3LaSuvWsP7dHhERMhYh4GcbO?=
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ceF8ZT0GwBUwyZH7xvYjbbyBrGexzKJaUhL2aBE/A13Y542yEJ1e3fryd3hd?=
+ =?us-ascii?Q?LaF0SwSypjDqlLPqsH8RWgyS3K9IMoDgqbQKUuDkjE6wadUp3UnCWksWuLqs?=
+ =?us-ascii?Q?FsSxGqAuTJoCuDCAVQB1Ixyo4X+dR9ViZAXE576Bz6WW50/Slh/29gWOuoXx?=
+ =?us-ascii?Q?5uxPVG0qncm1XUGUNceivHaJ1RmRLhatiTKIRQrPsyK/Yy87w+pOc9xTIUT5?=
+ =?us-ascii?Q?bdnzhZf/zLUxf/9lGiAt6/bsRRoJ8Eqff6TFRe5O/4ku+O6xw/Zed+Si4KNW?=
+ =?us-ascii?Q?GonhmML2D6pBhdJNQRhcQeazOFmf34sS8aWxC3KpM3+vNUDwXqN/3rgL3TVD?=
+ =?us-ascii?Q?ut8LQmYcwToYk9NiFby7o9y+mDRPL54mGSxxdPvyKbQt0C3kUj0NwbK6t6aX?=
+ =?us-ascii?Q?/CrhQ4t2pp3QBAPvkH3AHxCYcGq1d9C+ZGbueQ3s5VefmJ/tGrSag4wuVVrN?=
+ =?us-ascii?Q?OSESvncTYvzFM2ovyPW6TKamwwYg57rouK1R0M5rhDSk2uGSbvWMAoD85A8U?=
+ =?us-ascii?Q?RbtHqpA70aSkMqYuRhRlyk7SBUhBh93vH/md/1NG8bbpwExenczhie64OMzL?=
+ =?us-ascii?Q?A2Z87wXszJuKGrbSgcUCmqBEOnvkGTPym7yeFpkWkDLNFcKIrRmXFQTfoEdl?=
+ =?us-ascii?Q?fLE1RvHeZiYl4esypjBc8q17LnVY2pWfAUdNVSp654V1tqyiLgIEOLCQSd0W?=
+ =?us-ascii?Q?dcq3/hwo1PUy1anDcW6tIWUYKdCUGh9XUHSI4ihb0JH/DF0t8RxP+dAXk7zu?=
+ =?us-ascii?Q?2MRF7gLJ1P8ETPxtzqiuucgovQwYLRbowVhlHpGbTBRFadGmSG96Lv1LHm/T?=
+ =?us-ascii?Q?pDNz6wASJcDz8QiDhfp3eyUnPgz1/Zh1iHlN130NUqBzFliUyx0FrWV4iMVf?=
+ =?us-ascii?Q?zv894goi7TbuiQSJEW97Q4DHXhMpaWQfeteldhuibrah/NcU62S0kYDSTYYQ?=
+ =?us-ascii?Q?MGcnqCqqaewNNjfU5zQM0sHi2qYlG772oACCZTWKr/q/qPQJMt3vnrK5sVjD?=
+ =?us-ascii?Q?HrRil1r7P3ZMvjqZIj78sy7iIaXaFxQkfcDOJlOt2fVZlc7bPGIik2CkL7RQ?=
+ =?us-ascii?Q?D5v4Z96ZOJH9AWRyhPwgjYENY5g1gAxB0Km4fhtZp/8ZFaxGrT7+yMeudEw9?=
+ =?us-ascii?Q?zwOna0pQtR1tNLKh4yQSz4aIDvgESiypo8McQ5TOnDxD1tUAkZxTeXdXFu/T?=
+ =?us-ascii?Q?A1yKqqmfOVokJ4q6U9d3N0HbUP6Bwh2ULOlve1S/z3wdyfH5HM0p0HTL3mic?=
+ =?us-ascii?Q?AJ6LfxmJMn0VKRPMjOabhC/pk1xyuLoHMoBv/DZ8wPmcrDlL6APeoEb+jxmt?=
+ =?us-ascii?Q?zTmUjn6sjm8NtEFUNBRjNm+Sa5997wByqIOdsfFGJd3E1yT4JzsBC4JrqaQH?=
+ =?us-ascii?Q?AUYWMAAer63ImVEFeRyJQWbHDyRpaL0G2iXpNnUDW+Ex6YFOVHEZqkAPYxyp?=
+ =?us-ascii?Q?YUd9nqUO3XV14skCs+fRRoaLaNiyNWc4?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 07:57:07.7190 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ea45ca8-e5d8-4cea-daba-08dcdd37a740
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 07:57:13.8047 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7210c67c-cbf9-48d1-1178-08dcdd37aadf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CE.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4383
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,229 +132,875 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pm_runtime_get_if_in_use already checks if the GPU is active,
-so there's no need for manually checking runtimepm status:
+All attributes do the same thing wrt to runtime power management,
+so we can consolidate the handling in 2 wrappers.
 
-   if (adev->in_suspend && !adev->in_runpm)
-      return -EPERM;
+For some setters this will change the behavior slightly, as rpm
+is now done before arguments validation - so the device will be
+resumed even if the arguments passed in are incorrect.
 
 Tested-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 46 ------------------------------
- 1 file changed, 46 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c     | 399 ++++---------------------
+ drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h |  16 +-
+ 2 files changed, 78 insertions(+), 337 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index f1f339b75380..13be5e017a01 100644
+index 13be5e017a01..1bac174e6d09 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -142,8 +142,6 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
+@@ -97,6 +97,61 @@ const char * const amdgpu_pp_profile_name[] = {
+ 	"UNCAPPED",
+ };
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
++static ssize_t amdgpu_pp_attr_show_wrapper(struct device *dev,
++					   struct device_attribute *attr,
++					   char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct amdgpu_device_attr *aattr;
++	ssize_t r;
++	int ret;
++
++	if (amdgpu_in_reset(adev))
++		return -EPERM;
++	ret = pm_runtime_get_if_active(dev, true);
++	if (ret <= 0)
++		return ret ?: -EPERM;
++
++	aattr = to_amdgpu_device_attr(attr);
++
++	r = aattr->attr_show(dev, attr, buf);
++
++	pm_runtime_put_autosuspend(dev);
++
++	return r;
++}
++
++static ssize_t amdgpu_pp_attr_store_wrapper(struct device *dev,
++					    struct device_attribute *attr,
++					    const char *buf,
++					    size_t count)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct amdgpu_device_attr *aattr;
++	ssize_t r;
++	int ret;
++
++	if (amdgpu_in_reset(adev))
++		return -EPERM;
++	if (adev->in_suspend && !adev->in_runpm)
++		return -EPERM;
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret < 0)
++		return ret;
++
++	aattr = to_amdgpu_device_attr(attr);
++
++	r = aattr->attr_store(dev, attr, buf, count);
++
++	pm_runtime_mark_last_busy(dev);
++	pm_runtime_put_autosuspend(dev);
++
++	return r;
++}
++
++
+ /**
+  * DOC: power_dpm_state
+  *
+@@ -138,19 +193,9 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	enum amd_pm_state_type pm;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+ 
+ 	amdgpu_dpm_get_current_power_state(adev, &pm);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return sysfs_emit(buf, "%s\n",
+ 			  (pm == POWER_STATE_TYPE_BATTERY) ? "battery" :
+ 			  (pm == POWER_STATE_TYPE_BALANCED) ? "balanced" : "performance");
+@@ -164,12 +209,6 @@ static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	enum amd_pm_state_type  state;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -265,8 +263,6 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+ 	if (strncmp("battery", buf, strlen("battery")) == 0)
+ 		state = POWER_STATE_TYPE_BATTERY;
+@@ -180,15 +219,8 @@ static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
+ 	else
+ 		return -EINVAL;
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	amdgpu_dpm_set_power_state(adev, state);
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ }
+ 
+@@ -259,19 +291,9 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	enum amd_dpm_forced_level level = 0xff;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+ 
+ 	level = amdgpu_dpm_get_performance_level(adev);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return sysfs_emit(buf, "%s\n",
+ 			  (level == AMD_DPM_FORCED_LEVEL_AUTO) ? "auto" :
+ 			  (level == AMD_DPM_FORCED_LEVEL_LOW) ? "low" :
+@@ -293,12 +315,6 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	enum amd_dpm_forced_level level;
+-	int ret = 0;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -361,8 +357,6 @@ static ssize_t amdgpu_get_pp_num_states(struct device *dev,
+ 	if (strncmp("low", buf, strlen("low")) == 0) {
+ 		level = AMD_DPM_FORCED_LEVEL_LOW;
+@@ -324,14 +340,8 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 		return -EINVAL;
+ 	}
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+ 	if (amdgpu_dpm_force_performance_level(adev, level)) {
+-		pm_runtime_mark_last_busy(ddev->dev);
+-		pm_runtime_put_autosuspend(ddev->dev);
+ 		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 		return -EINVAL;
+ 	}
+@@ -339,9 +349,6 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 	adev->pm.stable_pstate_ctx = NULL;
+ 	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ }
+ 
+@@ -353,20 +360,11 @@ static ssize_t amdgpu_get_pp_num_states(struct device *dev,
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	struct pp_states_info data;
+ 	uint32_t i;
+-	int buf_len, ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	int buf_len;
+ 
+ 	if (amdgpu_dpm_get_pp_num_states(adev, &data))
+ 		memset(&data, 0, sizeof(data));
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	buf_len = sysfs_emit(buf, "states: %d\n", data.nums);
+ 	for (i = 0; i < data.nums; i++)
+ 		buf_len += sysfs_emit_at(buf, buf_len, "%d %s\n", i,
+@@ -386,21 +384,12 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	struct pp_states_info data = {0};
+ 	enum amd_pm_state_type pm = 0;
+-	int i = 0, ret = 0;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	int i, ret;
+ 
+ 	amdgpu_dpm_get_current_power_state(adev, &pm);
+ 
+ 	ret = amdgpu_dpm_get_pp_num_states(adev, &data);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (ret)
+ 		return ret;
+ 
+@@ -422,11 +411,6 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	if (adev->pm.pp_force_state_enabled)
+ 		return amdgpu_get_pp_cur_state(dev, attr, buf);
+ 	else
+@@ -445,11 +429,6 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 	unsigned long idx;
+ 	int ret;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -396,8 +390,6 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	adev->pm.pp_force_state_enabled = false;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -523,8 +515,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 	if (strlen(buf) == 1)
+@@ -461,10 +440,6 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+ 	idx = array_index_nospec(idx, ARRAY_SIZE(data.states));
+ 
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = amdgpu_dpm_get_pp_num_states(adev, &data);
+ 	if (ret)
+ 		goto err_out;
+@@ -482,14 +457,9 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 		adev->pm.pp_force_state_enabled = true;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ 
+ err_out:
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+ 	return ret;
+ }
+ 
+@@ -511,19 +481,10 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	char *table = NULL;
+-	int size, ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	int size;
+ 
+ 	size = amdgpu_dpm_get_pp_table(adev, &table);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (size <= 0)
+ 		return size;
+ 
+@@ -542,22 +503,10 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	int ret = 0;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
++	int ret;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -837,8 +827,6 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 	ret = amdgpu_dpm_set_pp_table(adev, buf, count);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (ret)
+ 		return ret;
+ 
+@@ -725,11 +674,6 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 	const char delimiter[3] = {' ', '\n', '\0'};
+ 	uint32_t type;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	if (count > 127 || count == 0)
+ 		return -EINVAL;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -927,8 +915,6 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
+@@ -775,10 +719,6 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 			tmp_str++;
+ 	}
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	if (amdgpu_dpm_set_fine_grain_clk_vol(adev,
+ 					      type,
+ 					      parameter,
+@@ -796,14 +736,9 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 			goto err_out;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ 
+ err_out:
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+ 	return -EINVAL;
+ }
+ 
+@@ -825,13 +760,6 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 	};
+ 	uint clk_index;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+-
+ 	for (clk_index = 0 ; clk_index < 6 ; clk_index++) {
+ 		ret = amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index], buf, &size);
+ 		if (ret)
+@@ -849,8 +777,6 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 	if (size == 0)
+ 		size = sysfs_emit(buf, "\n");
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return size;
+ }
+ 
+@@ -880,24 +806,12 @@ static ssize_t amdgpu_set_pp_features(struct device *dev,
+ 	uint64_t featuremask;
+ 	int ret;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	ret = kstrtou64(buf, 0, &featuremask);
+ 	if (ret)
+ 		return -EINVAL;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -993,8 +979,6 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = amdgpu_dpm_set_ppfeature_status(adev, featuremask);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (ret)
+ 		return -EINVAL;
+ 
+@@ -911,21 +825,11 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	ssize_t size;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+ 
+ 	size = amdgpu_dpm_get_ppfeature_status(adev, buf);
+ 	if (size <= 0)
+ 		size = sysfs_emit(buf, "\n");
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return size;
+ }
+ 
+@@ -975,14 +879,7 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	int size = 0;
+-	int ret = 0;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	int ret;
+ 
+ 	ret = amdgpu_dpm_emit_clock_levels(adev, type, buf, &size);
+ 	if (ret == -ENOENT)
+@@ -991,8 +888,6 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
+ 	if (size == 0)
+ 		size = sysfs_emit(buf, "\n");
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return size;
+ }
+ 
+@@ -1041,24 +936,12 @@ static ssize_t amdgpu_set_pp_dpm_clock(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -1242,8 +1226,6 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = amdgpu_dpm_force_clock_level(adev, type, mask);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (ret)
+ 		return -EINVAL;
+ 
+@@ -1221,20 +1104,10 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	uint32_t value = 0;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	uint32_t value;
+ 
+ 	value = amdgpu_dpm_get_sclk_od(adev);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return sysfs_emit(buf, "%d\n", value);
+ }
+ 
+@@ -1248,25 +1121,13 @@ static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
+ 	int ret;
+ 	long int value;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	ret = kstrtol(buf, 0, &value);
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -1299,8 +1281,6 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
+ 	if (ret)
+ 		return -EINVAL;
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	amdgpu_dpm_set_sclk_od(adev, (uint32_t)value);
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ }
+ 
+@@ -1276,20 +1137,10 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	uint32_t value = 0;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	uint32_t value;
+ 
+ 	value = amdgpu_dpm_get_mclk_od(adev);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return sysfs_emit(buf, "%d\n", value);
+ }
+ 
+@@ -1303,25 +1154,13 @@ static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
+ 	int ret;
+ 	long int value;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	ret = kstrtol(buf, 0, &value);
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -1376,8 +1356,6 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
+ 	if (ret)
+ 		return -EINVAL;
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	amdgpu_dpm_set_mclk_od(adev, (uint32_t)value);
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ }
+ 
+@@ -1352,21 +1191,11 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	ssize_t size;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+ 
+ 	size = amdgpu_dpm_get_power_profile_mode(adev, buf);
+ 	if (size <= 0)
+ 		size = sysfs_emit(buf, "\n");
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return size;
+ }
+ 
+@@ -1388,11 +1217,6 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+ 	long int profile_mode = 0;
+ 	const char delimiter[3] = {' ', '\n', '\0'};
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	tmp[0] = *(buf);
+ 	tmp[1] = '\0';
+ 	ret = kstrtol(tmp, 0, &profile_mode);
+@@ -1419,15 +1243,8 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+ 	}
+ 	parameter[parameter_size] = profile_mode;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -1464,8 +1442,6 @@ static int amdgpu_hwmon_get_sensor_generic(struct amdgpu_device *adev,
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = amdgpu_dpm_set_power_profile_mode(adev, parameter, parameter_size);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (!ret)
+ 		return count;
  
- 	r = pm_runtime_get_if_active(adev->dev, true);
- 	if (r <= 0)
-@@ -1574,8 +1550,6 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
+@@ -1546,10 +1363,6 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	uint64_t count0 = 0, count1 = 0;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
 -		return -EPERM;
  
  	if (adev->flags & AMD_IS_APU)
  		return -ENODATA;
-@@ -1784,8 +1758,6 @@ static ssize_t amdgpu_get_pm_metrics(struct device *dev,
+@@ -1557,14 +1370,8 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
+ 	if (!adev->asic_funcs->get_pcie_usage)
+ 		return -ENODATA;
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+-
+ 	amdgpu_asic_get_pcie_usage(adev, &count0, &count1);
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return sysfs_emit(buf, "%llu %llu %i\n",
+ 			  count0, count1, pcie_get_mps(adev->pdev));
+ }
+@@ -1586,11 +1393,6 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	if (adev->unique_id)
+ 		return sysfs_emit(buf, "%016llx\n", adev->unique_id);
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -1822,8 +1794,6 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
+@@ -1685,18 +1487,12 @@ static ssize_t amdgpu_get_apu_thermal_cap(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+-
+ 	ret = amdgpu_dpm_get_apu_thermal_limit(adev, &limit);
+ 	if (!ret)
+ 		size = sysfs_emit(buf, "%u\n", limit);
+ 	else
+ 		size = sysfs_emit(buf, "failed to get thermal limit\n");
+ 
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return size;
+ }
+ 
+@@ -1719,21 +1515,12 @@ static ssize_t amdgpu_set_apu_thermal_cap(struct device *dev,
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = amdgpu_dpm_set_apu_thermal_limit(adev, value);
+ 	if (ret) {
+-		pm_runtime_mark_last_busy(ddev->dev);
+-		pm_runtime_put_autosuspend(ddev->dev);
+ 		dev_err(dev, "failed to update thermal limit\n");
+ 		return ret;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return count;
+ }
+ 
+@@ -1753,21 +1540,8 @@ static ssize_t amdgpu_get_pm_metrics(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	ssize_t size = 0;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
+ 
+-	size = amdgpu_dpm_get_pm_metrics(adev, buf, PAGE_SIZE);
+-
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+-	return size;
++	return amdgpu_dpm_get_pm_metrics(adev, buf, PAGE_SIZE);
+ }
+ 
+ /**
+@@ -1789,15 +1563,7 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	void *gpu_metrics;
+-	ssize_t size = 0;
+-	int ret;
+-
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
+-
+-	ret = pm_runtime_get_if_active(ddev->dev, true);
+-	if (ret <= 0)
+-		return ret ?: -EPERM;
++	ssize_t size;
+ 
+ 	size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
+ 	if (size <= 0)
+@@ -1809,8 +1575,6 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
+ 	memcpy(buf, gpu_metrics, size);
+ 
+ out:
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	return size;
+ }
+ 
+@@ -1900,23 +1664,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
+ 					  struct device_attribute *attr,
+ 					  const char *buf, size_t count)
+ {
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	int r = 0;
++	int r;
+ 	int bias = 0;
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+-	r = pm_runtime_resume_and_get(ddev->dev);
+-	if (r < 0)
+-		return r;
+-
+ 	r = kstrtoint(buf, 10, &bias);
+ 	if (r)
+-		goto out;
++		return r;
  
- 	ret = pm_runtime_get_if_active(ddev->dev, true);
- 	if (ret <= 0)
-@@ -2697,8 +2667,6 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
+ 	if (bias > AMDGPU_SMARTSHIFT_MAX_BIAS)
+ 		bias = AMDGPU_SMARTSHIFT_MAX_BIAS;
+@@ -1928,9 +1681,6 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+ 	/* TODO: update bias level with SMU message */
+ 
+-out:
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+ 	return r;
+ }
+ 
+@@ -2184,11 +1934,6 @@ static ssize_t amdgpu_get_pm_policy_attr(struct device *dev,
+ 	policy_attr =
+ 		container_of(attr, struct amdgpu_pm_policy_attr, dev_attr);
+ 
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	return amdgpu_dpm_get_pm_policy_info(adev, policy_attr->id, buf);
+ }
  
- 	ret = pm_runtime_get_if_active(adev->dev, true);
- 	if (ret <= 0)
-@@ -2825,8 +2793,6 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
+@@ -2205,11 +1950,6 @@ static ssize_t amdgpu_set_pm_policy_attr(struct device *dev,
+ 	char *tmp, *param;
+ 	long val;
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
+-	if (amdgpu_in_reset(adev))
+-		return -EPERM;
 -	if (adev->in_suspend && !adev->in_runpm)
 -		return -EPERM;
+-
+ 	count = min(count, sizeof(tmp_buf));
+ 	memcpy(tmp_buf, buf, count);
+ 	tmp_buf[count - 1] = '\0';
+@@ -2235,15 +1975,8 @@ static ssize_t amdgpu_set_pm_policy_attr(struct device *dev,
+ 	policy_attr =
+ 		container_of(attr, struct amdgpu_pm_policy_attr, dev_attr);
  
- 	err = pm_runtime_get_if_active(adev->dev, true);
- 	if (err <= 0)
-@@ -2852,8 +2818,6 @@ static ssize_t amdgpu_hwmon_get_fan1_input(struct device *dev,
+-	ret = pm_runtime_resume_and_get(ddev->dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = amdgpu_dpm_set_pm_policy(adev, policy_attr->id, val);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
+-	pm_runtime_mark_last_busy(ddev->dev);
+-	pm_runtime_put_autosuspend(ddev->dev);
+-
+ 	if (ret)
+ 		return ret;
  
- 	err = pm_runtime_get_if_active(adev->dev, true);
- 	if (err <= 0)
-@@ -2913,8 +2877,6 @@ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+index c12ced32f780..bf4e27b28330 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
+@@ -88,6 +88,10 @@ struct amdgpu_device_attr {
+ 	int (*attr_update)(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
+ 			   uint32_t mask, enum amdgpu_device_attr_states *states);
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
++	ssize_t (*attr_show)(struct device *dev, struct device_attribute *attr,
++			     char *buf);
++	ssize_t (*attr_store)(struct device *dev, struct device_attribute *attr,
++			      const char *buf, size_t count);
+ };
  
- 	err = pm_runtime_get_if_active(adev->dev, true);
- 	if (err <= 0)
-@@ -2983,8 +2945,6 @@ static ssize_t amdgpu_hwmon_get_fan1_enable(struct device *dev,
+ struct amdgpu_device_attr_entry {
+@@ -98,10 +102,14 @@ struct amdgpu_device_attr_entry {
+ #define to_amdgpu_device_attr(_dev_attr) \
+ 	container_of(_dev_attr, struct amdgpu_device_attr, dev_attr)
  
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
+-#define __AMDGPU_DEVICE_ATTR(_name, _mode, _show, _store, _flags, ...)	\
+-	{ .dev_attr = __ATTR(_name, _mode, _show, _store),		\
+-	  .attr_id = device_attr_id__##_name,				\
+-	  .flags = _flags,						\
++#define __AMDGPU_DEVICE_ATTR(_name, _mode, _show, _store, _flags, ...)		\
++	{ .dev_attr = __ATTR(_name, _mode,					\
++			     amdgpu_pp_attr_show_wrapper,			\
++			     _store ? amdgpu_pp_attr_store_wrapper : NULL),	\
++	  .attr_id = device_attr_id__##_name,					\
++	  .flags = _flags,							\
++	  .attr_show = _show,							\
++	  .attr_store = _store,							\
+ 	  ##__VA_ARGS__, }
  
- 	ret = pm_runtime_get_if_active(adev->dev, true);
- 	if (ret <= 0)
-@@ -3149,8 +3109,6 @@ static ssize_t amdgpu_hwmon_show_power_cap_generic(struct device *dev,
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
- 
- 	r = pm_runtime_get_if_active(adev->dev, true);
- 	if (r <= 0)
-@@ -3682,8 +3640,6 @@ static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
- 
- 	ret = pm_runtime_get_if_active(adev->dev, true);
- 	if (ret <= 0)
-@@ -4649,8 +4605,6 @@ static int amdgpu_debugfs_pm_info_show(struct seq_file *m, void *unused)
- 
- 	if (amdgpu_in_reset(adev))
- 		return -EPERM;
--	if (adev->in_suspend && !adev->in_runpm)
--		return -EPERM;
- 
- 	r = pm_runtime_resume_and_get(dev->dev);
- 	if (r < 0)
+ #define AMDGPU_DEVICE_ATTR(_name, _mode, _flags, ...)			\
 -- 
 2.40.1
 
