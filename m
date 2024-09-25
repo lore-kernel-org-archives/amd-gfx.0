@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D91C369D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB254C369D3
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE4C110E965;
-	Wed, 25 Sep 2024 11:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800FA10E969;
+	Wed, 25 Sep 2024 11:50:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Iszu7F+E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KyUZdst3";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C3B10E965;
- Wed, 25 Sep 2024 11:50:08 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05BAE10E969;
+ Wed, 25 Sep 2024 11:50:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 061CA5C24E1;
- Wed, 25 Sep 2024 11:50:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44F23C4CEC3;
- Wed, 25 Sep 2024 11:50:05 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id E4B21A43FD3;
+ Wed, 25 Sep 2024 11:50:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4726C4CEC3;
+ Wed, 25 Sep 2024 11:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265007;
- bh=VJBmzmVZjguK9yZxJVmRm4Om2UlXipfP5VwcfOCKubQ=;
+ s=k20201202; t=1727265014;
+ bh=lw4Lfqx1k+k9pvCiV4drdU+7jyHe71CV9Nn//3wN524=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Iszu7F+E9Kj2LV+ozRPIoGfJV9gVIYDqewFlDYCGwXR5w6a8ScIs7yMZgEqX1Mun+
- CMX55XdOtl8AuhOpGjCHen0uQejqGsyK3S4eH2j8KpwPsM01glFQ5aCSW1KW1wTDlr
- d6TNWCJhbsBJcxAlX8tptzoqzB+HoU+Dh5bqxjFfKNCx84Xee4SsrL9mx3d2KmAkIs
- +M/3BtQJM5csFGgE9xpI2WeU/Rycd9paDDoCYiCADHvcEBk4P3DmSdJW3ZHWHtVAYM
- IpAbS4uAn75AFfvF5ujJh8isHevTFKb1MeZlWeaYxLlZAEGjdepHySPKyV8/Uyh4Ki
- LuRv93GiP9yqg==
+ b=KyUZdst3q49QeF7uhuCh5MQygSpfbZpnEDXmoiGdZm/Qwcbqvd5kVBGx6aCQAXQE3
+ 3GNBsrmnWHJydvr72C0/7l9YulZ9h30XpWXyxyHV3hZ3xm4Kd2znqzDhlkzFdvVvPe
+ GB7kekZOrMGJWFZ8wGgaqNtWNK0tVkIYdbb13rCAfZxXsUezHkN1jFNz2AY3vmR5ap
+ qbdhL5l0svFkqa6zg3ocWp3HGvzRVgcL41XEthzzU+xIUO/BDI9WryS8dq9+RLIJR6
+ u+pTvQgaej1gzZpSfwNysrukDg/N79Pft2TyUCp5YMYp0Y8xk5l6B/j8iAlzn0VURz
+ 8XJbOGbVDb3wQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+Cc: Alex Hung <alex.hung@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, alvin.lee2@amd.com, wenjing.liu@amd.com,
- sungjoon.kim@amd.com, aurabindo.pillai@amd.com, dillon.varone@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 193/244] drm/amd/display: Check stream_status
- before it is used
-Date: Wed, 25 Sep 2024 07:26:54 -0400
-Message-ID: <20240925113641.1297102-193-sashal@kernel.org>
+ daniel@ffwll.ch, roman.li@amd.com, hersenxs.wu@amd.com,
+ george.shen@amd.com, stylon.wang@amd.com, allen.pan@amd.com,
+ meenakshikumar.somasundaram@amd.com, michael.strauss@amd.com,
+ aric.cyr@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.11 194/244] drm/amd/display: Avoid overflow
+ assignment in link_dp_cts
+Date: Wed, 25 Sep 2024 07:26:55 -0400
+Message-ID: <20240925113641.1297102-194-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
 References: <20240925113641.1297102-1-sashal@kernel.org>
@@ -69,37 +72,67 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-[ Upstream commit 58a8ee96f84d2c21abb85ad8c22d2bbdf59bd7a9 ]
+[ Upstream commit a15268787b79fd183dd526cc16bec9af4f4e49a1 ]
 
-[WHAT & HOW]
-dc_state_get_stream_status can return null, and therefore null must be
-checked before stream_status is used.
+sampling_rate is an uint8_t but is assigned an unsigned int, and thus it
+can overflow. As a result, sampling_rate is changed to uint32_t.
 
-This fixes 1 NULL_RETURNS issue reported by Coverity.
+Similarly, LINK_QUAL_PATTERN_SET has a size of 2 bits, and it should
+only be assigned to a value less or equal than 4.
+
+This fixes 2 INTEGER_OVERFLOW issues reported by Coverity.
 
 Signed-off-by: Alex Hung <alex.hung@amd.com>
-Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h                  | 2 +-
+ drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c | 3 ++-
+ drivers/gpu/drm/amd/display/include/dpcd_defs.h               | 1 +
+ 3 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 81fab62ef38eb..9e05d77453ac3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3739,7 +3739,7 @@ static void commit_planes_for_stream_fast(struct dc *dc,
- 				surface_count,
- 				stream,
- 				context);
--	} else {
-+	} else if (stream_status) {
- 		build_dmub_cmd_list(dc,
- 				srf_updates,
- 				surface_count,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index 519c3df78ee5b..95c275bf649bd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -727,7 +727,7 @@ struct dp_audio_test_data_flags {
+ struct dp_audio_test_data {
+ 
+ 	struct dp_audio_test_data_flags flags;
+-	uint8_t sampling_rate;
++	uint32_t sampling_rate;
+ 	uint8_t channel_count;
+ 	uint8_t pattern_type;
+ 	uint8_t pattern_period[8];
+diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+index df3781081da7a..32d5a4b143333 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
++++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+@@ -775,7 +775,8 @@ bool dp_set_test_pattern(
+ 			core_link_read_dpcd(link, DP_TRAINING_PATTERN_SET,
+ 					    &training_pattern.raw,
+ 					    sizeof(training_pattern));
+-			training_pattern.v1_3.LINK_QUAL_PATTERN_SET = pattern;
++			if (pattern <= PHY_TEST_PATTERN_END_DP11)
++				training_pattern.v1_3.LINK_QUAL_PATTERN_SET = pattern;
+ 			core_link_write_dpcd(link, DP_TRAINING_PATTERN_SET,
+ 					     &training_pattern.raw,
+ 					     sizeof(training_pattern));
+diff --git a/drivers/gpu/drm/amd/display/include/dpcd_defs.h b/drivers/gpu/drm/amd/display/include/dpcd_defs.h
+index aee5170f5fb23..c246235e4afec 100644
+--- a/drivers/gpu/drm/amd/display/include/dpcd_defs.h
++++ b/drivers/gpu/drm/amd/display/include/dpcd_defs.h
+@@ -76,6 +76,7 @@ enum dpcd_phy_test_patterns {
+ 	PHY_TEST_PATTERN_D10_2,
+ 	PHY_TEST_PATTERN_SYMBOL_ERROR,
+ 	PHY_TEST_PATTERN_PRBS7,
++	PHY_TEST_PATTERN_END_DP11 = PHY_TEST_PATTERN_PRBS7,
+ 	PHY_TEST_PATTERN_80BIT_CUSTOM,/* For DP1.2 only */
+ 	PHY_TEST_PATTERN_CP2520_1,
+ 	PHY_TEST_PATTERN_CP2520_2,
 -- 
 2.43.0
 
