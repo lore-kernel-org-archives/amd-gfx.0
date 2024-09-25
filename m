@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB408C369D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:50:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D3F2C369D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 11:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A98510E968;
-	Wed, 25 Sep 2024 11:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B83910E96C;
+	Wed, 25 Sep 2024 11:51:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="p8xV0SMZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q+AlX7bZ";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F5410E967;
- Wed, 25 Sep 2024 11:50:21 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5261110E96C;
+ Wed, 25 Sep 2024 11:51:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 273865C1082;
- Wed, 25 Sep 2024 11:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E665C4CEC7;
- Wed, 25 Sep 2024 11:50:18 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6C751A43FAF;
+ Wed, 25 Sep 2024 11:50:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51B0C4CEC3;
+ Wed, 25 Sep 2024 11:50:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265020;
- bh=ORA76I4VbywASKgwmUaT2DVqaDGu/gExIJzUOFwg13g=;
+ s=k20201202; t=1727265063;
+ bh=IRYTNB+jCbKqwSnAW5SlGOXSdtMMgG6Ioqz+djcTV14=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p8xV0SMZYtoAnnWvfIcoomzPRtmkpN4AeJnstQqV/yn8+widRLnKrmirlA5XafdWm
- O+Nf4p41SNT8ttG/nBkCAzcCLjeSB6ziPPR2jsRciyOx8CpQQwL9aF4tXy6XdKtu0k
- jjW1V33iZpF7xfINcp9d59wZTBbhyYhnkoEC63YgjTmt+R6NuytVGzxZeXTqigi5Tz
- nkCepwgC1H00y1jTaghiAE8YA4CcUWI6uUiXNQml95m/cfKkqrqZ4Rc4O6s6+ipakd
- V78V7z9YiNJvuQ++2K/HiaHFNGIpmRwaCWq1s+Mm06hpKJjAGwEK0KeIYFLErOm5NM
- 5vHa9JF+jJckA==
+ b=Q+AlX7bZBxHz0UBvVqVa9EpwTsyq3r3og5uAtujHM6TCNBt2y8RTkl2UAYeKMthjz
+ OutW4B32GmB5o/X2wGRvk81ZSxWk/n/6t49wzDw2CGu9+vymdJj5CezF+h8Syo5uG2
+ RNjjSrwwbgklm++3LeunjuieBCaB2ED9jOqdCU6U0jNBO+bi4tk6qrE9oHVVlIltUk
+ GFZH0bdCmu4nlMUMZh8jllAZIveG6bD48i2MSfVr4p5hY23B2QZJtDw2sxPaNYdySE
+ l8PHFeJHcTQqvXD6MikNKB9HB35m3Kl+NJi73O0Bk9x7JuR7HLVqTSW2ubbGQCvKxy
+ 83XD/qOo3a0Bw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+Cc: Dillon Varone <dillon.varone@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, ivlipski@amd.com, hamza.mahfooz@amd.com,
+ daniel@ffwll.ch, alex.hung@amd.com, aurabindo.pillai@amd.com,
+ daniel.sa@amd.com, chaitanya.dhere@amd.com, roman.li@amd.com,
+ jun.lei@amd.com, wenjing.liu@amd.com, joshua.aberback@amd.com,
+ nicholas.kazlauskas@amd.com, Qingqing.Zhuo@amd.com, gateeger@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 195/244] drm/amd/display: Initialize
- get_bytes_per_element's default to 1
-Date: Wed, 25 Sep 2024 07:26:56 -0400
-Message-ID: <20240925113641.1297102-195-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.11 202/244] drm/amd/display: Force enable 3DLUT DMA
+ check for dcn401 in DML
+Date: Wed, 25 Sep 2024 07:27:03 -0400
+Message-ID: <20240925113641.1297102-202-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
 References: <20240925113641.1297102-1-sashal@kernel.org>
@@ -67,53 +69,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Dillon Varone <dillon.varone@amd.com>
 
-[ Upstream commit 4067f4fa0423a89fb19a30b57231b384d77d2610 ]
+[ Upstream commit b8dc6ca028d9a39196a3a066b9ef2d4a5eca475d ]
 
-Variables, used as denominators and maybe not assigned to other values,
-should not be 0. bytes_per_element_y & bytes_per_element_c are
-initialized by get_bytes_per_element() which should never return 0.
+[WHY]
+Currently TR0 (trip 0) is not properly budgeting for urgent latency in
+DML2.1. This results in overly aggressive prefetch schedules that are
+vulnerable to request return jitter, resulting in severe underflow at
+the start of the frame.
 
-This fixes 10 DIVIDE_BY_ZERO issues reported by Coverity.
+[HOW]
+Forcing 3DLUT DMA check to enable causes urgent latency to be budgeted
+properly into the prefetch schedule, avoiding the vulnerability.
 
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c | 2 +-
- .../gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .../amd/display/dc/dml2/dml21/dml21_translation_helper.c    | 6 ++++--
+ drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h          | 1 +
+ .../drm/amd/display/dc/resource/dcn401/dcn401_resource.c    | 1 +
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-index 3d95bfa5aca23..ae52510417280 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
-@@ -78,7 +78,7 @@ static void calculate_ttu_cursor(struct display_mode_lib *mode_lib,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
+index 06387b8b0aee5..825b3bfc0bed5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
+@@ -827,6 +827,7 @@ static void populate_dml21_plane_config_from_plane_state(struct dml2_context *dm
  
- static unsigned int get_bytes_per_element(enum source_format_class source_format, bool is_chroma)
- {
--	unsigned int ret_val = 0;
-+	unsigned int ret_val = 1;
+ 	if (plane_state->mcm_luts.lut3d_data.lut3d_src == DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM) {
+ 		plane->tdlut.setup_for_tdlut = true;
++
+ 		switch (plane_state->mcm_luts.lut3d_data.gpu_mem_params.layout) {
+ 		case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_RGB:
+ 		case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_BGR:
+@@ -836,6 +837,7 @@ static void populate_dml21_plane_config_from_plane_state(struct dml2_context *dm
+ 			plane->tdlut.tdlut_addressing_mode = dml2_tdlut_simple_linear;
+ 			break;
+ 		}
++
+ 		switch (plane_state->mcm_luts.lut3d_data.gpu_mem_params.size) {
+ 		case DC_CM2_GPU_MEM_SIZE_171717:
+ 			plane->tdlut.tdlut_width_mode = dml2_tdlut_width_17_cube;
+@@ -844,8 +846,8 @@ static void populate_dml21_plane_config_from_plane_state(struct dml2_context *dm
+ 			//plane->tdlut.tdlut_width_mode = dml2_tdlut_width_flatten; // dml2_tdlut_width_flatten undefined
+ 			break;
+ 		}
+-	} else
+-		plane->tdlut.setup_for_tdlut = false;
++	}
++	plane->tdlut.setup_for_tdlut |= dml_ctx->config.force_tdlut_enable;
  
- 	if (source_format == dm_444_16) {
- 		if (!is_chroma)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-index 98502a4f05672..9e1c18b90805d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-@@ -53,7 +53,7 @@ static void calculate_ttu_cursor(
+ 	plane->dynamic_meta_data.enable = false;
+ 	plane->dynamic_meta_data.lines_before_active_required = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
+index 023325e8f6e22..0f944fcfd5a5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.h
+@@ -236,6 +236,7 @@ struct dml2_configuration_options {
  
- static unsigned int get_bytes_per_element(enum source_format_class source_format, bool is_chroma)
- {
--	unsigned int ret_val = 0;
-+	unsigned int ret_val = 1;
+ 	bool use_clock_dc_limits;
+ 	bool gpuvm_enable;
++	bool force_tdlut_enable;
+ 	struct dml2_soc_bb *bb_from_dmub;
+ };
  
- 	if (source_format == dm_444_16) {
- 		if (!is_chroma)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 3e76732ac0dca..ec676d269d33f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -2099,6 +2099,7 @@ static bool dcn401_resource_construct(
+ 	dc->dml2_options.use_native_soc_bb_construction = true;
+ 	dc->dml2_options.minimize_dispclk_using_odm = true;
+ 	dc->dml2_options.map_dc_pipes_with_callbacks = true;
++	dc->dml2_options.force_tdlut_enable = true;
+ 
+ 	resource_init_common_dml2_callbacks(dc, &dc->dml2_options);
+ 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch = &dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
 -- 
 2.43.0
 
