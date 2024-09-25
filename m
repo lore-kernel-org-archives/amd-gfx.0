@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF2ADC369D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:06:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E49FC369D3
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8562810E9BA;
-	Wed, 25 Sep 2024 12:06:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4635710E9BC;
+	Wed, 25 Sep 2024 12:06:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JiAgALf/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K26F6Yt7";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29DF010E9B9;
- Wed, 25 Sep 2024 12:06:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4FF210E9BC;
+ Wed, 25 Sep 2024 12:06:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5B656A44109;
- Wed, 25 Sep 2024 12:06:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A297C4CEC7;
- Wed, 25 Sep 2024 12:06:12 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id E1922A44107;
+ Wed, 25 Sep 2024 12:06:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1BD4C4CEC7;
+ Wed, 25 Sep 2024 12:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265974;
- bh=HKyQQwQXqC934qpnYwhQK2yV8yYAIvsvzhH8wsD/nrU=;
+ s=k20201202; t=1727265995;
+ bh=R0kmDpRDwTEs05FuFvg4811FdfzPzdJ0EYwzIMG7mzo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JiAgALf/YKRpld4puIQYU0f/TRAhU79lW99o+dGSvLLEE421qpDWCwpMZP4OP/sLi
- ilLMYS9Odhyc3AOR5hFiFgmus2MiQXMnbISpTEEdjHk5ewTI6LPSKbgBUEbTzltcNP
- MqDKDLlFXA0/6nUaFEh4ZRvAaUOKTUyRAnc0ivS0i0EuVa/BNcp5qDRb+tnMWuqQn7
- tcdq3J4ip2rfW1IRF4HLMblqUfzUzed/0lu9L5mYzP4PMlmPZhe9B3jFeRZgDi4U1e
- spRdmxfUJMoGHZq3Hz2+UHcq6Ngl3TqvVM26+3ObME0JyE7JP5QvSQaaGINPQ0abLR
- TyUSLvxT9Hvvw==
+ b=K26F6Yt7tJP1p46SkOWM2qEb8us9rMac7Uve11bXV9M+9JQbQTPEoJjWrENrnOBik
+ vAMU14BL83RQwO6+dbhTohDkLRqrs9TVF1dyq21lQOyA9ugtTz5wlQ0NOxfzLEvuv5
+ Bq5UcPqLSNdU8c0XASVaxB3fAsYAho7W/Un/abE/VHuFQkdxItt7hlPpeo0o2T4Cph
+ qVUDywaPAIGofrCf89RhCCw7QOwFjCT4/2Nxvufj8nDswwcsx79IxqYvMlwSV5pwiA
+ 6n4YtM3ddP8SHs2u8Oxh9wXGKba+xfqKfDMuzAl+TyGInvquTY7AoKW9/powrjdFvi
+ TUresH8wnNrHA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 134/197] drm/amdgpu: add list empty check to
- avoid null pointer issue
-Date: Wed, 25 Sep 2024 07:52:33 -0400
-Message-ID: <20240925115823.1303019-134-sashal@kernel.org>
+Cc: Peng Liu <liupeng01@kylinos.cn>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ sunil.khatri@amd.com, Prike.Liang@amd.com, Tim.Huang@amd.com,
+ kevinyang.wang@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.10 142/197] drm/amdgpu: add raven1 gfxoff quirk
+Date: Wed, 25 Sep 2024 07:52:41 -0400
+Message-ID: <20240925115823.1303019-142-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
 References: <20240925115823.1303019-1-sashal@kernel.org>
@@ -64,59 +64,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yang Wang <kevinyang.wang@amd.com>
+From: Peng Liu <liupeng01@kylinos.cn>
 
-[ Upstream commit 4416377ae1fdc41a90b665943152ccd7ff61d3c5 ]
+[ Upstream commit 0126c0ae11e8b52ecfde9d1b174ee2f32d6c3a5d ]
 
-Add list empty check to avoid null pointer issues in some corner cases.
-- list_for_each_entry_safe()
+Fix screen corruption with openkylin.
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Link: https://bbs.openkylin.top/t/topic/171497
+Signed-off-by: Peng Liu <liupeng01@kylinos.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index 9baee7c246b6d..a513819b72311 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -80,6 +80,9 @@ static void aca_banks_release(struct aca_banks *banks)
- {
- 	struct aca_bank_node *node, *tmp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 3c8c5abf35abd..c86a6363b2c3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1172,6 +1172,8 @@ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+ 	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+ 	/* Apple MacBook Pro (15-inch, 2019) Radeon Pro Vega 20 4 GB */
+ 	{ 0x1002, 0x69af, 0x106b, 0x019a, 0xc0 },
++	/* https://bbs.openkylin.top/t/topic/171497 */
++	{ 0x1002, 0x15d8, 0x19e5, 0x3e14, 0xc2 },
+ 	{ 0, 0, 0, 0, 0 },
+ };
  
-+	if (list_empty(&banks->list))
-+		return;
-+
- 	list_for_each_entry_safe(node, tmp, &banks->list, node) {
- 		list_del(&node->node);
- 		kvfree(node);
-@@ -562,9 +565,13 @@ static void aca_error_fini(struct aca_error *aerr)
- 	struct aca_bank_error *bank_error, *tmp;
- 
- 	mutex_lock(&aerr->lock);
-+	if (list_empty(&aerr->list))
-+		goto out_unlock;
-+
- 	list_for_each_entry_safe(bank_error, tmp, &aerr->list, node)
- 		aca_bank_error_remove(aerr, bank_error);
- 
-+out_unlock:
- 	mutex_destroy(&aerr->lock);
- }
- 
-@@ -680,6 +687,9 @@ static void aca_manager_fini(struct aca_handle_manager *mgr)
- {
- 	struct aca_handle *handle, *tmp;
- 
-+	if (list_empty(&mgr->list))
-+		return;
-+
- 	list_for_each_entry_safe(handle, tmp, &mgr->list, node)
- 		amdgpu_aca_remove_handle(handle);
- }
 -- 
 2.43.0
 
