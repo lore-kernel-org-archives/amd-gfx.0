@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AE4BC369D6
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DED5DC369D6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:15:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCC110E806;
-	Wed, 25 Sep 2024 12:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A49010E813;
+	Wed, 25 Sep 2024 12:15:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IKWh6fwQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bu5KZTdf";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 936D310E9E3;
- Wed, 25 Sep 2024 12:08:50 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 372E510E811;
+ Wed, 25 Sep 2024 12:15:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id A8F72A44189;
- Wed, 25 Sep 2024 12:08:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6880AC4CEC3;
- Wed, 25 Sep 2024 12:08:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id AD8A25C546D;
+ Wed, 25 Sep 2024 12:15:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6368EC4CECD;
+ Wed, 25 Sep 2024 12:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727266129;
- bh=LC8pAFstEtE61gtgjCCenRyq0lLhQld7aNIfNo1FJsw=;
+ s=k20201202; t=1727266525;
+ bh=CYajmbx9prw2S0Ak/5/EIouMep9LYASd91oKa/eiWcI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IKWh6fwQmWKdOZPeYn8th/oy/7V6qDQRPlB/0LC2uo152HzFRfQnkOXyC11qxgz34
- 6W6VX7/5Zc2upFBjjTd4Z8vy0ZBb6HH0tq2IthgFzbz9VIi7gdyANsYH/OhgjpoUnV
- 41HkzcKZyg3gYFydoxP2H2PsaYcU/JH1khSSspIrUB6x1iaCbWV5TglI4cctoESDOp
- klOnSelxo6rJFrNQ/yQdkdMforeSexMsuGe0UVoIuyAjiisrh+GlWTH8aPXI+J0E8e
- 9caFFJxwAAw6P5Aji1Y8OeqJbGs3YB9k7pcOWtd81RzN8hLSHIoD1+4fJKs6g58+ef
- 04ggHTmIdYjvA==
+ b=bu5KZTdfJ3ZZ+u0QbhLBOtxjjbg8xd/QmIR39bk+VfSAyNDw+lG7mRKoahoPnIsz5
+ 7qCI6/bpLhwlBCZ/cI5PiRL2oj27/OSXlaPUZku2b9SZWnTewk9bYYDxRgXq19sRS1
+ IiURgiDL4wvtKUTkpe7FrczwBMTAX5hoUwexyHrDhffiWixiUvt+FY4LMA0qw7ZLbC
+ rdBJN58SAl+VdHCTt1AeAnUh77adL6Tu0viQEAVjtuolvPN7bYp021ZowiBM8HPlj+
+ YlGKoDurrynSHn1LtzxdzD8cO/XMqevr5OBeJzgZKZai+KxbxpdiUkGXnSjQb6GL6H
+ zB8EAZ/nk80/g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, sunil.khatri@amd.com, zhenguo.yin@amd.com,
- kevinyang.wang@amd.com, Jun.Ma2@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 181/197] drm/amdgpu/gfx10: use rlc safe mode for
- soft recovery
-Date: Wed, 25 Sep 2024 07:53:20 -0400
-Message-ID: <20240925115823.1303019-181-sashal@kernel.org>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ felix.kuehling@amd.com, robdclark@chromium.org,
+ srinivasan.shanmugam@amd.com, David.Wu3@amd.com, YuanShang.Mao@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.6 085/139] drm/amdgpu: disallow multiple BO_HANDLES
+ chunks in one submit
+Date: Wed, 25 Sep 2024 08:08:25 -0400
+Message-ID: <20240925121137.1307574-85-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
-References: <20240925115823.1303019-1-sashal@kernel.org>
+In-Reply-To: <20240925121137.1307574-1-sashal@kernel.org>
+References: <20240925121137.1307574-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.10.11
+X-stable-base: Linux 6.6.52
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,33 +67,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-[ Upstream commit ead60e9c4e29c8574cae1be4fe3af1d9a978fb0f ]
+[ Upstream commit fec5f8e8c6bcf83ed7a392801d7b44c5ecfc1e82 ]
 
-Protect the MMIO access with safe mode.
+Before this commit, only submits with both a BO_HANDLES chunk and a
+'bo_list_handle' would be rejected (by amdgpu_cs_parser_bos).
 
-Acked-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+But if UMD sent multiple BO_HANDLES, what would happen is:
+* only the last one would be really used
+* all the others would leak memory as amdgpu_cs_p1_bo_handles would
+  overwrite the previous p->bo_list value
+
+This commit rejects submissions with multiple BO_HANDLES chunks to
+match the implementation of the parser.
+
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 536287ddd2ec1..6204336750c6a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -8897,7 +8897,9 @@ static void gfx_v10_0_ring_soft_recovery(struct amdgpu_ring *ring,
- 	value = REG_SET_FIELD(value, SQ_CMD, MODE, 0x01);
- 	value = REG_SET_FIELD(value, SQ_CMD, CHECK_VMID, 1);
- 	value = REG_SET_FIELD(value, SQ_CMD, VM_ID, vmid);
-+	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 	WREG32_SOC15(GC, 0, mmSQ_CMD, value);
-+	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index e361dc37a0890..7abcd618e70bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -263,6 +263,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 			if (size < sizeof(struct drm_amdgpu_bo_list_in))
+ 				goto free_partial_kdata;
  
- static void
++			/* Only a single BO list is allowed to simplify handling. */
++			if (p->bo_list)
++				ret = -EINVAL;
++
+ 			ret = amdgpu_cs_p1_bo_handles(p, p->chunks[i].kdata);
+ 			if (ret)
+ 				goto free_partial_kdata;
 -- 
 2.43.0
 
