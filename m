@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D625C369D6
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF17C369D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Sep 2024 12:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A80F10E9EE;
-	Wed, 25 Sep 2024 12:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D28110E9F9;
+	Wed, 25 Sep 2024 12:16:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X0DsF3jh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XXjouGJL";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4724710E9EB;
- Wed, 25 Sep 2024 12:15:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5571010EA05;
+ Wed, 25 Sep 2024 12:16:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 56323A4419D;
- Wed, 25 Sep 2024 12:15:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85704C4CEC7;
- Wed, 25 Sep 2024 12:15:54 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 8595DA4419C;
+ Wed, 25 Sep 2024 12:16:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACBEC4CEC3;
+ Wed, 25 Sep 2024 12:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727266557;
- bh=ePsu3+jRcuhuaf2No/fiYjynmBLhiI2hseUO1XFg+9Y=;
+ s=k20201202; t=1727266577;
+ bh=QR3qXIAiA8bTXbySF8/3erA7jA6YWIXgBvAIy6m3HTs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X0DsF3jhbaEgE3Cu9AVno6xjAzvz4JD1I3Te5H5vD3S9qsxMVMwjbo/pgPfnhKAfY
- u60hnRlqBjkeexrjo3viKcblWHzUAjaFLxkog2ZtzkLLlCQKDJtgZhfcJ5FK8BTBE5
- glkCnPSzMrhQjv3o2Qy0OxfAcD/KKeYqRLq+fduVUK0agnzx/vPkQlSnfOYMXBgtQ+
- kd0Su8+18Nxf8zcAgRdtF+EGkmOBeTcAbYoopr5s7E5xqc4922xEOrer684h+EmsMj
- Wu2BZ24Et3tc+IaAsqxNAAt+DqyQRG5FXVrZ59ID6U89xQueihSFETc690eMD/aEoO
- JtMugDfKT3CPQ==
+ b=XXjouGJLfH2oNTfFCmtzmI2cCRhyN6IPY90IaMlxDW8HS+GPEcqHYFWz1R7p3m3pG
+ fmIn/SwL2yPPXVpIR32gU0HwiDouTCeBnb7Zf7xIv+e2g4LxvqI6QcvGszO8q2/ChY
+ ahZe2y3SuknXLlNphDIiCs7TlMkmU7EwGrYiP9VI2qnHrEItQNyzr61RzXZwWPDcRJ
+ sAF/g+os0ftk/e6ttDQ65PVHxe4ibYxzi9Ph2l8RByKoLWmdtoNGOrvplFDe+E5PaS
+ yzeNUVXIpy5Ad+GL56yzaCnP+MqI0Vl3smFgIJchbNNTcCJLrgzkaKxKgz3mAqwW9V
+ 5cMk8xAYh+fxA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Tim Huang <tim.huang@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Roman Li <roman.li@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, lewis.huang@amd.com, hamza.mahfooz@amd.com,
- alex.hung@amd.com, chiahsuan.chung@amd.com, srinivasan.shanmugam@amd.com,
+Cc: Peng Liu <liupeng01@kylinos.cn>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ sunil.khatri@amd.com, Prike.Liang@amd.com, Tim.Huang@amd.com,
+ kevinyang.wang@amd.com, pierre-eric.pelloux-prayer@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 094/139] drm/amd/display: fix double free issue
- during amdgpu module unload
-Date: Wed, 25 Sep 2024 08:08:34 -0400
-Message-ID: <20240925121137.1307574-94-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 101/139] drm/amdgpu: add raven1 gfxoff quirk
+Date: Wed, 25 Sep 2024 08:08:41 -0400
+Message-ID: <20240925121137.1307574-101-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925121137.1307574-1-sashal@kernel.org>
 References: <20240925121137.1307574-1-sashal@kernel.org>
@@ -67,77 +64,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tim Huang <tim.huang@amd.com>
+From: Peng Liu <liupeng01@kylinos.cn>
 
-[ Upstream commit 20b5a8f9f4670a8503aa9fa95ca632e77c6bf55d ]
+[ Upstream commit 0126c0ae11e8b52ecfde9d1b174ee2f32d6c3a5d ]
 
-Flexible endpoints use DIGs from available inflexible endpoints,
-so only the encoders of inflexible links need to be freed.
-Otherwise, a double free issue may occur when unloading the
-amdgpu module.
+Fix screen corruption with openkylin.
 
-[  279.190523] RIP: 0010:__slab_free+0x152/0x2f0
-[  279.190577] Call Trace:
-[  279.190580]  <TASK>
-[  279.190582]  ? show_regs+0x69/0x80
-[  279.190590]  ? die+0x3b/0x90
-[  279.190595]  ? do_trap+0xc8/0xe0
-[  279.190601]  ? do_error_trap+0x73/0xa0
-[  279.190605]  ? __slab_free+0x152/0x2f0
-[  279.190609]  ? exc_invalid_op+0x56/0x70
-[  279.190616]  ? __slab_free+0x152/0x2f0
-[  279.190642]  ? asm_exc_invalid_op+0x1f/0x30
-[  279.190648]  ? dcn10_link_encoder_destroy+0x19/0x30 [amdgpu]
-[  279.191096]  ? __slab_free+0x152/0x2f0
-[  279.191102]  ? dcn10_link_encoder_destroy+0x19/0x30 [amdgpu]
-[  279.191469]  kfree+0x260/0x2b0
-[  279.191474]  dcn10_link_encoder_destroy+0x19/0x30 [amdgpu]
-[  279.191821]  link_destroy+0xd7/0x130 [amdgpu]
-[  279.192248]  dc_destruct+0x90/0x270 [amdgpu]
-[  279.192666]  dc_destroy+0x19/0x40 [amdgpu]
-[  279.193020]  amdgpu_dm_fini+0x16e/0x200 [amdgpu]
-[  279.193432]  dm_hw_fini+0x26/0x40 [amdgpu]
-[  279.193795]  amdgpu_device_fini_hw+0x24c/0x400 [amdgpu]
-[  279.194108]  amdgpu_driver_unload_kms+0x4f/0x70 [amdgpu]
-[  279.194436]  amdgpu_pci_remove+0x40/0x80 [amdgpu]
-[  279.194632]  pci_device_remove+0x3a/0xa0
-[  279.194638]  device_remove+0x40/0x70
-[  279.194642]  device_release_driver_internal+0x1ad/0x210
-[  279.194647]  driver_detach+0x4e/0xa0
-[  279.194650]  bus_remove_driver+0x6f/0xf0
-[  279.194653]  driver_unregister+0x33/0x60
-[  279.194657]  pci_unregister_driver+0x44/0x90
-[  279.194662]  amdgpu_exit+0x19/0x1f0 [amdgpu]
-[  279.194939]  __do_sys_delete_module.isra.0+0x198/0x2f0
-[  279.194946]  __x64_sys_delete_module+0x16/0x20
-[  279.194950]  do_syscall_64+0x58/0x120
-[  279.194954]  entry_SYSCALL_64_after_hwframe+0x6e/0x76
-[  279.194980]  </TASK>
-
-Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Tim Huang <tim.huang@amd.com>
-Reviewed-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Link: https://bbs.openkylin.top/t/topic/171497
+Signed-off-by: Peng Liu <liupeng01@kylinos.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/link/link_factory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index 33bb96f770b86..eb7c9f226af5c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -403,7 +403,7 @@ static void link_destruct(struct dc_link *link)
- 	if (link->panel_cntl)
- 		link->panel_cntl->funcs->destroy(&link->panel_cntl);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 8168836a08d2e..c28e7ff6ede26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1172,6 +1172,8 @@ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+ 	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+ 	/* Apple MacBook Pro (15-inch, 2019) Radeon Pro Vega 20 4 GB */
+ 	{ 0x1002, 0x69af, 0x106b, 0x019a, 0xc0 },
++	/* https://bbs.openkylin.top/t/topic/171497 */
++	{ 0x1002, 0x15d8, 0x19e5, 0x3e14, 0xc2 },
+ 	{ 0, 0, 0, 0, 0 },
+ };
  
--	if (link->link_enc) {
-+	if (link->link_enc && !link->is_dig_mapping_flexible) {
- 		/* Update link encoder resource tracking variables. These are used for
- 		 * the dynamic assignment of link encoders to streams. Virtual links
- 		 * are not assigned encoder resources on creation.
 -- 
 2.43.0
 
