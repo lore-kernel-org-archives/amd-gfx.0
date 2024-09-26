@@ -4,49 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC180CCF9E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 09:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD65CCFA13
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 09:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ACF210EB26;
-	Thu, 26 Sep 2024 09:19:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62ACE10EB30;
+	Thu, 26 Sep 2024 09:27:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="dzGOauyr";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="FWiwhp6X";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HwwpAYvS";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA1A510EB26
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 09:19:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1727342342;
- bh=NHJo3yrkAkJkodRaCWFm+a6
- nKZIDiYNZi4xzn8l70Bo=; b=dzGOauyrk0BDK9taMOern2tXYAS0fDRq4cCiCAaSiACZAKxqrD
- iLp9eWghwp++g7K1EZYgY+hy3L9vItA46+jzOMtAPKsyl221U08SYEPKHlIwMNhJSYvIvohjEHT
- s9hMf/OD3FRquR+eV2foVJg+IyCEq4VkXtCQi6mcGh52+I7mbVD/KHNVNzAXjufupbDUH28yDwn
- rYpT9MEOQf18NuGly/J9fJt1oKcAJ70wG2ozsS92Pi9h301UmPF88hFEqS5/ExI8N+nekDlOC6O
- R/FnzD6NFsfhl51Fdgkumcwb1A+yR7PZ8ZmqOynqVkl/lSESiNisPcbM9j1uudkg1Mg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1727342342; bh=NHJo3yrkAkJkodRaCWFm+a6
- nKZIDiYNZi4xzn8l70Bo=; b=FWiwhp6XGo7B88BhN5PFLwPFznJsXaIysaA+fzdZsub4rPTZ3L
- /1iZBSb2tcuQICGZjTAHbKHJ+oBhpu2E5tBA==;
-Message-ID: <51a14be4-a6f5-470f-a28c-f098bd90d6f0@damsy.net>
-Date: Thu, 26 Sep 2024 11:19:02 +0200
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D8010EB2E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 09:27:07 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-42cba6cdf32so7073655e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 02:27:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727342825; x=1727947625; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9I71L5Axw1xS2wjA5ESgMJMMMc1ovnX0oydojFwMydQ=;
+ b=HwwpAYvSsYU67NrYd+zTxlTLg2kPD1M7/SFvuGhtxhIOm6qNlHpKn/B1rpF2Y/HNW8
+ TwvQqlxBrSp/w5eMwoNvYUJwAyUSyGblqbdg2oFAyxNFWATAaxaTQ4Zoq2rjvmodaDIQ
+ FyMb3SwYjDtcx2f9TZovJnH8KDYlCHaZimtHYRHt18ZxLCXHMSgFN+3ARBCmQoN2IyYS
+ B8OC0sCxxM3j6tH38BGVBAa8FcLRDvBaDJneiOikljkQvwlCHoVUKnrolV8Wmv9GEUIv
+ PGNNNIxMOPjj2DeHuIxNxie4ijH1/85XlkewYtYHMpNfX7kEmz/YhVnQ/hjpsffjBMfD
+ nE8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727342825; x=1727947625;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9I71L5Axw1xS2wjA5ESgMJMMMc1ovnX0oydojFwMydQ=;
+ b=X87SaNss0d0umQA+y1AOwBIkAdVHYVYnPnVRXG+qq/34NuR4q2WzjSAgHtA+/TJqG8
+ 25JY/IlHN9p1IFQRPwQA7azXjQrnMq0ZVTCUWcnrNH1TkWEQ1KRQr08ziMgHW0dM8baC
+ z5vdEdo6XNqhnGZc28A3nHAiY24tsMCABaAWBSv7InYSsGNWjahUm0EDhmy/67hQ2mOx
+ KDrjYZThx/DVIohhpuuxCwfIQw6+M8VR6mmq3kBrUuZQ1ZTp2n2uVcHe0b51Du1WiYeL
+ WuPjMquVY+cqvde2gFAJyK5r5PnsdhN/w6h6I3a7PtNWR4J8ZrAUmhwAEWqWxkMhiLw1
+ nt2w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXA6WO68F1jZjavEonHQ8Yk6YH+W4jPC7MPE74ueJI2AX6wMglcs8mhunm9QP9o59PPMzAjyE2G@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwE1qCYooaq3i+OEDRSq2WxXCYa7dEdiW6FjzlkoavBVVAar29Y
+ +kwoU/8ueSMWzFzy3Y0kYGQwJeKaUJGAYOtkmeAKQaC/cv+8vACD
+X-Google-Smtp-Source: AGHT+IEbFbOoEDzQC1Lwta/texQGigjE5cOkXz1xakwCDNvCHn4I89UQRE8w3ARXQwgP1gCJvp1OIw==
+X-Received: by 2002:a05:600c:1d28:b0:42c:cd7c:a196 with SMTP id
+ 5b1f17b1804b1-42e9611d114mr45691385e9.17.1727342825113; 
+ Thu, 26 Sep 2024 02:27:05 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42e96a16582sm41605125e9.33.2024.09.26.02.27.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Sep 2024 02:27:04 -0700 (PDT)
+Message-ID: <3fe2c80e-565f-448c-9b7c-9e69fe175ab8@gmail.com>
+Date: Thu, 26 Sep 2024 11:27:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 4/9] drm/amd/pm: don't update runpm last_usage on
- debugfs getter
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- kenneth.feng@amd.com, mario.limonciello@amd.com
-References: <20240925075607.23929-1-pierre-eric.pelloux-prayer@amd.com>
- <20240925075607.23929-5-pierre-eric.pelloux-prayer@amd.com>
- <72c141b5-f531-4b70-8776-776a2f9acdd3@amd.com>
+Subject: Re: [PATCH v2 01/08] drm/amdgpu: Implement userqueue signal/wait IOCTL
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com
+References: <20240925195928.142001-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <72c141b5-f531-4b70-8776-776a2f9acdd3@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240925195928.142001-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,244 +84,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 25.09.24 um 21:59 schrieb Arunpravin Paneer Selvam:
+> [SNIP]
+> +int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+> +			    struct drm_file *filp)
+> +{
+> +	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+> +	struct drm_amdgpu_userq_wait *wait_info = data;
+> +	u32 *syncobj_handles, *bo_handles;
+> +	struct dma_fence **fences = NULL;
+> +	u32 num_syncobj, num_bo_handles;
+> +	struct drm_gem_object **gobj;
+> +	struct drm_exec exec;
+> +	int r, i, entry, cnt;
+> +	u64 num_fences = 0;
+> +
+> +	num_bo_handles = wait_info->num_bo_handles;
+> +	bo_handles = memdup_user(u64_to_user_ptr(wait_info->bo_handles_array),
+> +				 sizeof(u32) * num_bo_handles);
+> +	if (IS_ERR(bo_handles))
+> +		return PTR_ERR(bo_handles);
+> +
+> +	num_syncobj = wait_info->num_syncobj_handles;
+> +	syncobj_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_handles_array),
+> +				      sizeof(u32) * num_syncobj);
+> +	if (IS_ERR(syncobj_handles)) {
+> +		r = PTR_ERR(syncobj_handles);
+> +		goto free_bo_handles;
+> +	}
+> +
+> +	/* Array of GEM object handles */
+> +	gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
+> +	if (!gobj) {
+> +		r = -ENOMEM;
+> +		goto free_syncobj_handles;
+> +	}
+> +
+> +	for (entry = 0; entry < num_bo_handles; entry++) {
+> +		gobj[entry] = drm_gem_object_lookup(filp, bo_handles[entry]);
+> +		if (!gobj[entry]) {
+> +			r = -ENOENT;
+> +			goto put_gobj;
+> +		}
+> +	}
+> +
+> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +	drm_exec_until_all_locked(&exec) {
+> +		r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 0);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (r) {
+> +			drm_exec_fini(&exec);
+> +			goto put_gobj;
+> +		}
+> +	}
+> +
+> +	if (!wait_info->num_fences) {
+> +		/* Count syncobj's fence */
+> +		for (i = 0; i < num_syncobj; i++) {
+> +			struct dma_fence *fence;
+> +
+> +			r = drm_syncobj_find_fence(filp, syncobj_handles[i],
+> +						   0, 0, &fence);
+> +			dma_fence_put(fence);
+> +
+> +			if (r || !fence)
+> +				continue;
+> +
+> +			num_fences++;
+> +		}
+> +
+> +		/* Count GEM objects fence */
+> +		for (i = 0; i < num_bo_handles; i++) {
+> +			struct dma_resv_iter resv_cursor;
+> +			struct dma_fence *fence;
+> +
+> +			dma_resv_for_each_fence(&resv_cursor, gobj[i]->resv,
+> +						dma_resv_usage_rw(wait_info->bo_wait_flags &
+> +						AMDGPU_USERQ_BO_WRITE), fence)
+> +				num_fences++;
 
+We should probably adjust the UAPI here once more.
 
-Le 26/09/2024 à 10:55, Lazar, Lijo a écrit :
-> 
-> 
-> On 9/25/2024 1:24 PM, Pierre-Eric Pelloux-Prayer wrote:
->> Reading pm values from the GPU shouldn't prevent it to be suspended
->> by resetting the last active timestamp (eg: if an background app
->> monitors GPU sensors every second, it would prevent the autosuspend
->> sequence to trigger).
->>
->> Tested-by: Mario Limonciello <mario.limonciello@amd.com>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 26 --------------------------
->>   1 file changed, 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> index 042a4dd1bd6a..c8f34b1a4d8e 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> @@ -151,7 +151,6 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
->>   
->>   	amdgpu_dpm_get_current_power_state(adev, &pm);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return sysfs_emit(buf, "%s\n",
->> @@ -275,7 +274,6 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
->>   
->>   	level = amdgpu_dpm_get_performance_level(adev);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return sysfs_emit(buf, "%s\n",
->> @@ -373,7 +371,6 @@ static ssize_t amdgpu_get_pp_num_states(struct device *dev,
->>   	if (amdgpu_dpm_get_pp_num_states(adev, &data))
->>   		memset(&data, 0, sizeof(data));
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	buf_len = sysfs_emit(buf, "states: %d\n", data.nums);
->> @@ -410,7 +407,6 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
->>   
->>   	ret = amdgpu_dpm_get_pp_num_states(adev, &data);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	if (ret)
->> @@ -536,7 +532,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
->>   
->>   	size = amdgpu_dpm_get_pp_table(adev, &table);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	if (size <= 0)
->> @@ -866,7 +861,6 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
->>   	if (size == 0)
->>   		size = sysfs_emit(buf, "\n");
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -944,7 +938,6 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
->>   	if (size <= 0)
->>   		size = sysfs_emit(buf, "\n");
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -1014,7 +1007,6 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
->>   	if (size == 0)
->>   		size = sysfs_emit(buf, "\n");
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -1259,7 +1251,6 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
->>   
->>   	value = amdgpu_dpm_get_sclk_od(adev);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return sysfs_emit(buf, "%d\n", value);
->> @@ -1317,7 +1308,6 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
->>   
->>   	value = amdgpu_dpm_get_mclk_od(adev);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return sysfs_emit(buf, "%d\n", value);
->> @@ -1397,7 +1387,6 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
->>   	if (size <= 0)
->>   		size = sysfs_emit(buf, "\n");
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -1485,7 +1474,6 @@ static int amdgpu_hwmon_get_sensor_generic(struct amdgpu_device *adev,
->>   	/* get the sensor value */
->>   	r = amdgpu_dpm_read_sensor(adev, sensor, query, &size);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	return r;
->> @@ -1601,7 +1589,6 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
->>   
->>   	amdgpu_asic_get_pcie_usage(adev, &count0, &count1);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return sysfs_emit(buf, "%llu %llu %i\n",
->> @@ -1734,7 +1721,6 @@ static ssize_t amdgpu_get_apu_thermal_cap(struct device *dev,
->>   	else
->>   		size = sysfs_emit(buf, "failed to get thermal limit\n");
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -1807,7 +1793,6 @@ static ssize_t amdgpu_get_pm_metrics(struct device *dev,
->>   
->>   	size = amdgpu_dpm_get_pm_metrics(adev, buf, PAGE_SIZE);
->>   
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -1854,7 +1839,6 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
->>   	memcpy(buf, gpu_metrics, size);
->>   
->>   out:
->> -	pm_runtime_mark_last_busy(ddev->dev);
->>   	pm_runtime_put_autosuspend(ddev->dev);
->>   
->>   	return size;
->> @@ -2722,7 +2706,6 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
->>   
->>   	ret = amdgpu_dpm_get_fan_control_mode(adev, &pwm_mode);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (ret)
->> @@ -2851,7 +2834,6 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
->>   
->>   	err = amdgpu_dpm_get_fan_speed_pwm(adev, &speed);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (err)
->> @@ -2879,7 +2861,6 @@ static ssize_t amdgpu_hwmon_get_fan1_input(struct device *dev,
->>   
->>   	err = amdgpu_dpm_get_fan_speed_rpm(adev, &speed);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (err)
->> @@ -2941,7 +2922,6 @@ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
->>   
->>   	err = amdgpu_dpm_get_fan_speed_rpm(adev, &rpm);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (err)
->> @@ -3012,7 +2992,6 @@ static ssize_t amdgpu_hwmon_get_fan1_enable(struct device *dev,
->>   
->>   	ret = amdgpu_dpm_get_fan_control_mode(adev, &pwm_mode);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (ret)
->> @@ -3053,7 +3032,6 @@ static ssize_t amdgpu_hwmon_set_fan1_enable(struct device *dev,
->>   
->>   	err = amdgpu_dpm_set_fan_control_mode(adev, pwm_mode);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> 
-> Monitoring not affecting runtime PM is valid reasoning for get
-> operations, but not so much for set operations.
+The problem is that we only provide the AMDGPU_USERQ_BO_WRITE for the 
+whole IOCTL instead of per BO.
 
-Good catch: only the getter functions should be modified by this commit.
-I'll fix it.
+So the best approach would probably be to drop the AMDGPU_USERQ_BO_WRITE 
+flag and split up the array of BOs into readers and writers.
 
-Pierre-Eric
+Can you work on that Arun? Shouldn't be more than a bit typing exercise.
 
+Thanks,
+Christian.
 
-> Thanks,
-> Lijo
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (err)
->> @@ -3186,7 +3164,6 @@ static ssize_t amdgpu_hwmon_show_power_cap_generic(struct device *dev,
->>   	else
->>   		size = sysfs_emit(buf, "\n");
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	return size;
->> @@ -3269,7 +3246,6 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
->>   
->>   	err = amdgpu_dpm_set_power_limit(adev, value);
->>   
->> -	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>   
->>   	if (err)
->> @@ -3717,7 +3693,6 @@ static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
->>   	if (size == 0)
->>   		size = sysfs_emit(buf, "\n");
->>   
->> -	pm_runtime_mark_last_busy(adev->dev);
->>   	pm_runtime_put_autosuspend(adev->dev);
->>   
->>   	return size;
->> @@ -4694,7 +4669,6 @@ static int amdgpu_debugfs_pm_info_show(struct seq_file *m, void *unused)
->>   	seq_printf(m, "\n");
->>   
->>   out:
->> -	pm_runtime_mark_last_busy(dev->dev);
->>   	pm_runtime_put_autosuspend(dev->dev);
->>   
->>   	return r;
