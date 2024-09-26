@@ -4,145 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A499CEBF7F
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 07:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4D66CEBF7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 07:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA8910EC31;
-	Fri, 27 Sep 2024 07:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81A8F10EC38;
+	Fri, 27 Sep 2024 07:38:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4vIHcOpV";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DhKI+3Ix";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2049.outbound.protection.outlook.com [40.107.100.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE4BB10EC31
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 07:38:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NVUuVrZeS1Q3q4AczC0OpBLlidwcrj3nihMdp3gRGHrUHAhgNDfuBW22n3IjkeAlvm2oQtMeiTSR4DVbH/KyW/g5s8CvlsluW3QKRAdf7jGHQSCxUJvR1LvH/ySyY1faNKQeHbTMJ/+IJtGXfHszn01D59w0TOzubFin9qva4OMAo6MUkcs9Eeq8uh2msL3vnuP1KCkMtQDtp3yPyTArUuQq04laWH5odGys0koelUFlQP6uIrfogPpn0R5Cty5RFlYHPkK6yBFTzsQgbDTc3f4NslXt18BKMSDWWuvj7oOhTosisnz2hhBjB6yFR4JinsoQ/tHJzEQrGwXwUKBtUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nWn54pqH/+CzNRWClUaHa0AA79ggEli/lXwOThHCF9I=;
- b=tUwdx852Rhuej6KD69A/YresO14oL3yeFj7jSvWbloGmvkBInBGy8hBBgaVf7asjkH9i+E+0IuXoau2WOb4qLj+07vC2KUX14IQPM54UnszAN9DZynqiyU/Nr9diyBfgl4pgJ9vWq6RQK/drLtl2GqbnhyKoO7kfLEpKpDPybY9zB8o4CREAov2EsKW7MZbKR1ObrUhO0Dg/DBDx195epGX2wwp/aQhKz3rchSVKzf4G1dp12LCPgV5ejEatVtC+6QIME4d5JZE0q8CUv3zc+LMIh5/a44cawvQKJDcfI/qxTBsq7NV+0qAtIHkIjt3/J/II6wqqmTyS67z/cRlJ4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nWn54pqH/+CzNRWClUaHa0AA79ggEli/lXwOThHCF9I=;
- b=4vIHcOpVlRQVCZ5+OfFlgqB5/rltmIu55wKc7Y9CXaADgbWurdQS1HJLP8ixMmKi6q6O/jzH2uHFSGrDBBtmgyPs1s+s053pa+PvhAyd3WWcincexFM+Gjg981806ytjieo3UTLx9JzPdBn6eJSQM5Vb0CB/fRqbd0+krn3JS4k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB4152.namprd12.prod.outlook.com (2603:10b6:610:a7::8)
- by PH7PR12MB8154.namprd12.prod.outlook.com (2603:10b6:510:2b9::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.22; Fri, 27 Sep
- 2024 07:38:04 +0000
-Received: from CH2PR12MB4152.namprd12.prod.outlook.com
- ([fe80::8c7e:a1a7:74ac:29a8]) by CH2PR12MB4152.namprd12.prod.outlook.com
- ([fe80::8c7e:a1a7:74ac:29a8%6]) with mapi id 15.20.7982.018; Fri, 27 Sep 2024
- 07:38:04 +0000
-Subject: Re: [PATCH v2 0/7] Add support for dynamic NPS switch
-To: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Vignesh.Chander@amd.com
-References: <20240927045305.2718867-1-lijo.lazar@amd.com>
-From: "Xu, Feifei" <feifxu@amd.com>
-Message-ID: <57ccbda8-8182-7ead-b1c8-186a65e3627b@amd.com>
-Date: Fri, 27 Sep 2024 15:37:57 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <20240927045305.2718867-1-lijo.lazar@amd.com>
-Content-Type: multipart/alternative;
- boundary="------------FD1F34CAA94D763771F837F2"
-Content-Language: en-US
-X-ClientProxiedBy: TY2PR06CA0015.apcprd06.prod.outlook.com
- (2603:1096:404:42::27) To CH2PR12MB4152.namprd12.prod.outlook.com
- (2603:10b6:610:a7::8)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA6FB10EB41;
+ Thu, 26 Sep 2024 13:28:18 +0000 (UTC)
+Received: from [192.168.88.20] (91-156-87-48.elisa-laajakaista.fi
+ [91.156.87.48])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C9AA2169;
+ Thu, 26 Sep 2024 15:26:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1727357209;
+ bh=VyvCCdwoCQ4Lzb7ohJQPcoY0VfQjDbrkwtkur0zexOc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DhKI+3IxWChNSev/1/JEyv7qhpEdl+JQq29YIjAeXszy2UeSVOWzeAPmQ+/GKlt0Y
+ 3QzHRaBEhPwBK8Nu8wYGDuTNKOwx9YNC/3B2SOCGvC8fgJen4b0XnlDUA/JLONFQZo
+ GXWFvkLCxTWJh20RpLAvY3CfGSwRtqT72Cv2gEls=
+Message-ID: <890a574e-caa0-47af-af09-ab2a1f695bbf@ideasonboard.com>
+Date: Thu, 26 Sep 2024 16:28:13 +0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4152:EE_|PH7PR12MB8154:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd241beb-9b77-4f71-f379-08dcdec7523d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Vk5yd2ttOUV6MVBSSlJxZ211VHhLRThxSml1NlNOTGNMajFyVkNaQTNyUkFs?=
- =?utf-8?B?SHJLT3lKRkg5N1ZFQTBCUUpEbGx3NnlVejlLWDFiZXRNVVhRTUJHWVNrdHEv?=
- =?utf-8?B?bkVCUXRRL00waDJUUk8reUQzZXRUbHUrUWVEeWNVQkVCWnBFd015L0VnL1ZO?=
- =?utf-8?B?VEl1R0RtY1lqRVhFK2xCclRaeEN0WUE3R1c3cDQyLy9MMjRDejVmeVVVVmJi?=
- =?utf-8?B?WjV2ZHJjK0txRFo3ajhYa0x3U1BqTEo4dEsrV0djc2NRN0VMT01VWngwOGhn?=
- =?utf-8?B?UThkN2xlZllKMTlObFBad0VzYTh6d1BWSTkwajE5RGlzVHVpczdwZVdmVnQy?=
- =?utf-8?B?aURFQTRpS0ZIdU8rYXBrV3dRRXBZVDNqeTRYSHg1bW1sRTFZdXFFQTFSUzNM?=
- =?utf-8?B?Smk4RHNYSnNwZmFNUi9MT0ZzTVpnUStDOWRGYlZUSXdzdkFLZGk0MnZvQ2Jy?=
- =?utf-8?B?bFcyVlRjWGkreGFON0VNMGR0N1JuMlBZNG9KNWdDdC92OG55K0IwRHJYa1dX?=
- =?utf-8?B?OEx1TG90b2ZxREtNZmVLdXR6R0FJUHhzYWlWZHdtRU5Jd2RGR3FCdHdydm8z?=
- =?utf-8?B?Y2JrWHVFM3lSOWlhcmZrSzN2N0RPdzkwamo4bnJSM1c2eCtOajJ1TmlkY1pO?=
- =?utf-8?B?akZhbzdlK2lPTzJ3TXlzNUxJOFA1MFJwWlMxeSs2eHM3SDlGblZNYjBTYWNu?=
- =?utf-8?B?WGkzVG1jNjBSL1EwUlordGc4WVF4cFVNSTE3c1Y5Mm8xSlczeUFpNnBqNzdo?=
- =?utf-8?B?ZlFIQkhQM0pwUGduV3RWSWNzeE9IMjZkdVBMZFgwQm9wQSt3YURQZ1M2bjRh?=
- =?utf-8?B?ZDRyeDN3bXU4UnNzcitCblBBaWpjRVkvN2hSbzAweHBVK1NmS1hXeEhZNlUr?=
- =?utf-8?B?YXNSVDZJK3U1WXMrVE4wemNFRFI5Si8zUGlPem1zdklnNXFwYnB3UzU2aXdt?=
- =?utf-8?B?c2RoU244R0Y3Nnc3Mk5uck15dUtXR3FrWm9XaUkxNmIxVWR6QjNKa1dHOFVw?=
- =?utf-8?B?S01veDkvVjBOSUNOVDl3N2ZJTnVwYVdteXZqTmt4NSt5OXBPTDd6S0hjVm5W?=
- =?utf-8?B?Wk9rTDY2SkZvTmd3OTdSSXdqZUNqaDBxNUUvZitMU0NZTHBwYkw5QU4wRDNi?=
- =?utf-8?B?eDRmV0I5ZGl6L3N4bDVGQ1NuVG00RXNtMGpsM1VOVzIvajF6NUt2OEJDUkRN?=
- =?utf-8?B?RExXT29pK2xmSVNKbVFVK3VBTWI1R3NPc1FteDVqYk5WaVdWdE1EZ1IvVVd3?=
- =?utf-8?B?WXRDSVNwWXJuZ2k5MFdRdWZMZEdtZHFpdHRhMDVFYUJBZG1FcnF3R1FtSVla?=
- =?utf-8?B?VEpqM2ttTjJNY3VxSnJFVStlYTlMaitJamVQc0tmS0ZOZkkvbUdiNVFBVW9q?=
- =?utf-8?B?YWlQMHczQ2VEbWEvNUIzT09FdXdRdU5zU3JhcFlqN2dOUlVpMWliR0JVVW10?=
- =?utf-8?B?ZVM4eC9WcUdtRnVkQkNTYTMyTGNMZXlDZmlLYWZ5OC9mZWNUbHV2UVIrSnE3?=
- =?utf-8?B?bEd6cENtTFdFeWgzRlJPZS95NytJVEhoY25wYjFjVi9vUE9ESmRnWUxPVGx1?=
- =?utf-8?B?ZG1ac01PL0hpMWlUaTJab00rZThvL0tEN3dTY1BFOG94cWlSRmdwR3NEVkMy?=
- =?utf-8?B?a3ZjV2p3SGdENENLMHVzanVEaVZTNXdEdFhTRW5CdUUxNCtmZkRzcW1oOEFX?=
- =?utf-8?B?Y3pReko3bW8xTzVrZE0rWWFLUjR5YUhFMjk3bHhJY3BFQW45a2g1aDdnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZExvNE14SHRuVDBBTEJFWkZ6Um1VRWRWTDlDWi9Qc0JCTjhvTEhEVnJWTGtG?=
- =?utf-8?B?MjdIbVVwNGN4S2VGNkpaTjUrWWpKWTJvN3VrTFowb3NTaHpwVWR5UlR2aTU2?=
- =?utf-8?B?dnEyRjJlamJXMDBJQ1lCQ29uNy9oUjgrcElQb1ViK1Y2YU9ZL2cxNVRvb0dj?=
- =?utf-8?B?bVRpVXF6K1BTMEdWb3g2NzFFL2FMNjh6MTlZYzlQcUpSQkx5ZW0yT2VzdE13?=
- =?utf-8?B?V1dPZm5yR21XTkRmU3FsU2J2KzEzcGRYNjVlbHdacjlVT3ZpdUxhdFBJeW5B?=
- =?utf-8?B?bk1qckFGM0Z6N2IxcGQwWnZHVDhLaksxNmQvemJPNm9JUzlieUR5OW0yb1Zv?=
- =?utf-8?B?ZWZIL0xVYU10bllOaC8vaC9FdFNGS0d4K2FWZk9nWGpVL1dFdkdkOEExc1hG?=
- =?utf-8?B?cksvMGNBeTFUeHVBcU1OZmQ0Y3hucE0yOTVPOEt0QUpRQzdHREsrZHhqdE1U?=
- =?utf-8?B?K3IyZXFTeDFocDRxTCtrNlAzTkh1RG1TT0JGc29CK1l2SEVvSjdPNmlyd0ZP?=
- =?utf-8?B?TldYeEw0L1pwazNIdTRhYklMSjRYMXhGMGt1aWloWlhJeVhJVkY5UkkxdDNL?=
- =?utf-8?B?VS9CUFRYcEFyam5Qb3YwUEwyMGhGdEFuME9zc1R4YU85bFhXalEzajBDYXZ5?=
- =?utf-8?B?N2EyQU4yMk5tM1hJTExrcjE1cCsxN0hudTlwanFTZUdmNFN1aU5iZGV4dkE4?=
- =?utf-8?B?bjFmVU9QT1QzOUltVGxLRUdnK1E4TkFvb0Nwb0tKVndRb3o2aHpOOHFkMFM4?=
- =?utf-8?B?cWFITUJWOUlQYWZqUG1ncjlVcmRZaERBMFFPd2J1YTIxSWZMM3kyM0UzZVFj?=
- =?utf-8?B?YzdDR2lIVjNmUk5xc3ducXRSYis4TXdSS1l5UnpOZ3dpbnNFaHE1L1BjLzNa?=
- =?utf-8?B?UzlVZnlLSGVRM1lMR2MzTXIyZi9XMFN3akY1REtPeEpYRzJSd3dMRXk5OC9D?=
- =?utf-8?B?UUo4VTh2SVAxb1MwU2o1UkQ2bk81aldqV3lzU0hJVHFOcWxZUS8vR3kxSVFL?=
- =?utf-8?B?Znl3WERoZ0tuMjFzOXhEMVR2VjAvMCswOUNnUlBFai9TNC9EVmJZVk9ldzlw?=
- =?utf-8?B?VGtHbDhqWU80TXlaTEl1ajdVMnpkbDJJL005dStVdlVXcmdkaVVZek1Db0k5?=
- =?utf-8?B?MytlTEtsZ3hKY0JOVVlJYUFuNXgzSlI5QllicEJaNTNydFZwTjVCcmlLVjVh?=
- =?utf-8?B?QXpJN1VrMUJMVTV5YW44ZDNUNXUvRWpmb2NoNVozR0Vpa0hMMURrSUVlVU5r?=
- =?utf-8?B?MUVsb1prZGVjeUdsZkJjYnBBR2U4dC9iT2MzNmpJYlYzWHExQ3F5OERROEFG?=
- =?utf-8?B?UlhGckR4aHRHRi9MTGc2YWZtNHRIaW12cEtZdzBmVjNaTElpN2ZGVUI1d0w0?=
- =?utf-8?B?N0ZCTnJ2TDlMek9Kdmp5U28rNVFhRTN6dFZJcFhSaTl3c0VBVVFMM1JYYlV2?=
- =?utf-8?B?bklBN1gvSUo2cEpMUmd2VjFBTnE2Z2wydUM2VGtVLzBVOFhNdmk3ZGJoUXdT?=
- =?utf-8?B?Z1JPYTdBZHlKV2hNOElaK3ZvS0lDek5lTlBwRXdzUDQyNFlINk5oYU85cTlH?=
- =?utf-8?B?NnRvVjJKaHhnMFFQTWFOSE55RkpXbGtZWWtZcmlTUW1GclhsOWdOZVhka2xW?=
- =?utf-8?B?VVZmZEszV3JaWUF4SVJzMWx5MXdvYTBEYjh6eit0MUNtb2VHbDFnR1VjQVpo?=
- =?utf-8?B?T0pLUC95Q1lqZUxQUUFpZjFveWx0ejFvaFg5Tkp2TkFNM0s1WDI2R01Kb1E2?=
- =?utf-8?B?TUtlc2s4OTArNkI0WjhYVWpyYlVlcFdyWnlSbWNNNFQyRG1mbHZYUDY4QVAv?=
- =?utf-8?B?bTZ1WnkzRDJNMW5oTzI0dTBaKzZqb2FCNGxNQjVHQWhmd1g5RXQ1aFZwMk95?=
- =?utf-8?B?bi91djBwY21EL3VlazZiWFE1N21obEV2dW0rLzhQay82b1lBeDdzN0ZFdDd3?=
- =?utf-8?B?SHcycHFVeS9Ta0Q1UlJMcE1janpqUE9vRWJ0VkZ2dGNIaTY5MkwvZ0t6NDN2?=
- =?utf-8?B?WDhVSG12WVdvdGZKZlAxYS9oZ3FBaXdkMWVWdmdPTnY0VUU1SWU1YzVNTk9i?=
- =?utf-8?B?ekdOQjFvdnZMRG5UcEFKZFRsSmhGWVRJZGNZS25SdHd3QnBEa0wxZ0ZUTjJU?=
- =?utf-8?Q?XqEmKT9jLzxy/S74ZaqCnK6eY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd241beb-9b77-4f71-f379-08dcdec7523d
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4152.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2024 07:38:04.3133 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fum76YfoPmLydWMaeI95gqlnfWnR/2sJkoR739zVjPaBbiCFuPdrQIvBP3MDSneQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8154
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 47/80] drm/xlnx: Run DRM default client setup
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+References: <20240924071734.98201-1-tzimmermann@suse.de>
+ <20240924071734.98201-48-tzimmermann@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20240924071734.98201-48-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 27 Sep 2024 07:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,136 +104,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------FD1F34CAA94D763771F837F2
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Series is Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
-
-On 9/27/2024 12:52 PM, Lijo Lazar wrote:
-> This series adds supports for dynamic NPS switch on GC v9.4.3/9.4.4 SOC
-> variants.
->
-> In order to do dynamic NPS switch a sysfs interface is provided to request a new
-> NPS mode. If the device is part of a hive, all hive devices are required to be
-> in the same NPS mode. Hence a hive device request is saved in a hive variable.
-> For individual device, it's saved in a gmc block variable.
->
-> In order to do a NPS mode switch, the workflow is -
->
-> 1) User places a requests through sysfs node.
-> 2) User unloads the driver
-> 3) During unload, driver checks for any pending NPS switch request. If any
-> request is pending, it places the request to PSP FW.
-> 4) For a hive, request is placed in one-go for all devices in the hive. If
-> one of the requests fails, a request is placed again to revert to current NPS
-> mode on the successful devices.
-> 5) User reloads the driver.
-> 6) On reload, driver checks if NPS switch is pending and initiates a mode-1
-> reset.
-> 7) During resume after a reset, NPS ranges are read again from discovery table.
-> 8) Driver detects the new NPS mode and makes a compatible compute partition mode
-> switch if required.
->
+On 24/09/2024 10:12, Thomas Zimmermann wrote:
+> Call drm_client_setup_with_fourcc() to run the kernel's default client
+> setup for DRM. Set fbdev_probe in struct drm_driver, so that the client
+> setup can start the common fbdev client.
+> 
+> v5:
+> - select DRM_CLIENT_SELECTION
 > v2:
-> 	Move NPS request check ahead of TOS reload requirement check (Feifei)
->
-> Lijo Lazar (7):
->    drm/amdgpu: Add option to refresh NPS data
->    drm/amdgpu: Add PSP interface for NPS switch
->    drm/amdgpu: Add gmc interface to request NPS mode
->    drm/amdgpu: Add sysfs interfaces for NPS mode
->    drm/amdgpu: Place NPS mode request on unload
->    drm/amdgpu: Check gmc requirement for reset on init
->    drm/amdgpu: Add NPS switch support for GC 9.4.3
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  68 +++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |   2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 190 ++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |  19 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h      |   1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  25 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      |  39 ++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h      |   5 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  44 ++++
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |  12 ++
->   drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h       |  14 +-
->   drivers/gpu/drm/amd/amdgpu/soc15.c            |   2 +
->   14 files changed, 387 insertions(+), 36 deletions(-)
->
+> - use drm_client_setup_with_fourcc()
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: Michal Simek <michal.simek@amd.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> ---
+>   drivers/gpu/drm/xlnx/Kconfig      | 1 +
+>   drivers/gpu/drm/xlnx/zynqmp_kms.c | 4 +++-
+>   2 files changed, 4 insertions(+), 1 deletion(-)
+> 
 
---------------FD1F34CAA94D763771F837F2
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Tested on zynqmp zcu106.
 
-<html data-lt-installed="true"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body style="padding-bottom: 1px;">
-    <p>Series is Reviewed-by: Feifei Xu <a class="moz-txt-link-rfc2396E" href="mailto:Feifei.Xu@amd.com">&lt;Feifei.Xu@amd.com&gt;</a><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/27/2024 12:52 PM, Lijo Lazar
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20240927045305.2718867-1-lijo.lazar@amd.com">
-      <pre class="moz-quote-pre" wrap="">This series adds supports for dynamic NPS switch on GC v9.4.3/9.4.4 SOC
-variants. 
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-In order to do dynamic NPS switch a sysfs interface is provided to request a new
-NPS mode. If the device is part of a hive, all hive devices are required to be
-in the same NPS mode. Hence a hive device request is saved in a hive variable.
-For individual device, it's saved in a gmc block variable.
+  Tomi
 
-In order to do a NPS mode switch, the workflow is -
+> diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
+> index 626e5ac4c33d..4197f44e202f 100644
+> --- a/drivers/gpu/drm/xlnx/Kconfig
+> +++ b/drivers/gpu/drm/xlnx/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_ZYNQMP_DPSUB
+>   	depends on PHY_XILINX_ZYNQMP
+>   	depends on XILINX_ZYNQMP_DPDMA
+>   	select DMA_ENGINE
+> +	select DRM_CLIENT_SELECTION
+>   	select DRM_DISPLAY_DP_HELPER
+>   	select DRM_DISPLAY_HELPER
+>   	select DRM_BRIDGE_CONNECTOR
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
+> index bd1368df7870..2452c2f09161 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
+> @@ -14,6 +14,7 @@
+>   #include <drm/drm_blend.h>
+>   #include <drm/drm_bridge.h>
+>   #include <drm/drm_bridge_connector.h>
+> +#include <drm/drm_client_setup.h>
+>   #include <drm/drm_connector.h>
+>   #include <drm/drm_crtc.h>
+>   #include <drm/drm_device.h>
+> @@ -402,6 +403,7 @@ static const struct drm_driver zynqmp_dpsub_drm_driver = {
+>   					  DRIVER_ATOMIC,
+>   
+>   	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
+> +	DRM_FBDEV_DMA_DRIVER_OPS,
+>   
+>   	.fops				= &zynqmp_dpsub_drm_fops,
+>   
+> @@ -523,7 +525,7 @@ int zynqmp_dpsub_drm_init(struct zynqmp_dpsub *dpsub)
+>   		goto err_poll_fini;
+>   
+>   	/* Initialize fbdev generic emulation. */
+> -	drm_fbdev_dma_setup(drm, 24);
+> +	drm_client_setup_with_fourcc(drm, DRM_FORMAT_RGB888);
+>   
+>   	return 0;
+>   
 
-1) User places a requests through sysfs node.
-2) User unloads the driver
-3) During unload, driver checks for any pending NPS switch request. If any
-request is pending, it places the request to PSP FW. 
-4) For a hive, request is placed in one-go for all devices in the hive. If
-one of the requests fails, a request is placed again to revert to current NPS
-mode on the successful devices.
-5) User reloads the driver.
-6) On reload, driver checks if NPS switch is pending and initiates a mode-1
-reset.
-7) During resume after a reset, NPS ranges are read again from discovery table.
-8) Driver detects the new NPS mode and makes a compatible compute partition mode
-switch if required.
-
-v2:
-	Move NPS request check ahead of TOS reload requirement check (Feifei)
-
-Lijo Lazar (7):
-  drm/amdgpu: Add option to refresh NPS data
-  drm/amdgpu: Add PSP interface for NPS switch
-  drm/amdgpu: Add gmc interface to request NPS mode
-  drm/amdgpu: Add sysfs interfaces for NPS mode
-  drm/amdgpu: Place NPS mode request on unload
-  drm/amdgpu: Check gmc requirement for reset on init
-  drm/amdgpu: Add NPS switch support for GC 9.4.3
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  68 +++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 190 ++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |  19 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h      |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  25 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      |  39 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h      |   5 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  44 ++++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |  12 ++
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h       |  14 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c            |   2 +
- 14 files changed, 387 insertions(+), 36 deletions(-)
-
-</pre>
-    </blockquote>
-  </body>
-  <lt-container></lt-container>
-</html>
-
---------------FD1F34CAA94D763771F837F2--
