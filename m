@@ -4,54 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 876C4CEBF82
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 07:38:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEB8CEBF7F
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 07:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7388D10EC37;
-	Fri, 27 Sep 2024 07:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8772D10EC3C;
+	Fri, 27 Sep 2024 07:38:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="c78g9rRl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nfqw8VxT";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA61310EB54;
- Thu, 26 Sep 2024 13:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9HfsQLk2e7WRVLH89AxiE7id9QffjB/l/nsauErf5bQ=; b=c78g9rRlXUhK9UsVUzwA9NqX9L
- o+nReP0r2c1dKdY1YotSlpaWuzj8UHsew9LBmoedZqHejh+KsJxYWWQnttrtuoaHqVhvnwnklgTQ1
- mn20VZJrkw/Ah/eC5gqU2Y47Kkq020DqknrFR8Xjqbm3S7vrIiooFFYEAavLNabecYFbeRomLpFte
- qg7bpN/p06UVUxOHPMKAg1OK78nvGftzyFhpfSmrBgLSpVwxdLuo/vvcXxfF6uq5AJTC0zQQDl9+v
- cO0FVhRPTLycWesYxKFMjAsO9rqdYr9aS+eKDpcZRClm8KWEdcaf92UqnIPWHIg/6P+kMNTYewoGN
- ZFVJhxRA==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1stopr-001LKr-F1; Thu, 26 Sep 2024 15:47:11 +0200
-Message-ID: <ebdbf13b-8c3a-48b5-b142-8712e62d01d3@igalia.com>
-Date: Thu, 26 Sep 2024 14:47:10 +0100
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A20610E08A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 20:12:07 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-718ef6a26dbso83532b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 13:12:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727381527; x=1727986327; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GLjykJsQ4x+5Lb+HzZJC+oFplo4HI/PY7cWne//Og58=;
+ b=nfqw8VxT4pbikcF/X3kYsuhhYBZh9VCNtWlKp4gkMmQI4jKIEQC1Tk70GMM1NXtP1X
+ S9MNJqEVG00Ubw7a9/rVKwscIRYzKYo9oA5Qf90waMklDCSGfsJy6EkyfmWqoA6D2e4C
+ hE4MTvF8cUjfg/B0Pg+Ceq+QBDF9Lc0i4m3m2aLj+Q0Tov1p8/H1ryxWwqMWoI459cgw
+ uQ1BiLLhu/Uw0XUetzGi/jjGWA6T9tbqKYWW6pmQjUyEy4MaMImcKAELhHbc7wLffkhL
+ J0IsPiS361fsliYpPfwxm9E8GP8uq2LU5mXjT75pgX9/5meuIcWEdeK+QGMwjpsmlFz7
+ 7jJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727381527; x=1727986327;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GLjykJsQ4x+5Lb+HzZJC+oFplo4HI/PY7cWne//Og58=;
+ b=uTj4fXuNcr1LhPU422VaWPdZMB52zKrH7ml0cPhKCMI5bfB/UtqCX1yP2zTm0Jhvie
+ fuoOREEtlIc8QNuqH/gCtzJ53qebvIQes6m7ryGxMAtzuYe2WT6e27Z0Gl1xRsW+OmqJ
+ 0TW6EUj9BfsiGTj+XDeKXpt5x3B4Z7lIpss/DzGYt4PRIj93sjKJkDtvpBDmsiJLgpjW
+ w3uV4FZ8y5Mh8fhWBrouPZWdZ7tWLbmu4LS2dmHFWbe9iU7xzQOYgdwEEnCZIr0vhwyp
+ z4/JRNXc1n9qyFtA3vKdhCYMMj/QToBgigj9KH+60+ptAY5Zn0Ejp9GP0pp15obYItro
+ iXHw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVbjUjmKsWoWNXCAxC0AKbkMaoJoxj+mwesA4B+JOXmn0nCxzQzLB8aGjSeZXG8qhVIBxWAtV0z@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyucFLoxAbW/OZka0IXI6iM5OxtD3Oiopo8j9wDSNkBRLuo8xud
+ sT3jxEnBSFZNRZuy5JQxzBnnXcEGO0q5vasNS5GP2b55PrPd6ythNRrUFtg9r7YTl/QfVUYKCx3
+ WrL0m9vgpbPZE3DTpQ89IQHDEiZFcFA==
+X-Google-Smtp-Source: AGHT+IE/IJfwDQ93njiEdLb9vY4qoADGRjIha8sywi6gaMWQbv/J78aOv+nqNxTQRSv6vgWN8h76GwJhFBJw+8PE3Oo=
+X-Received: by 2002:a05:6a20:918c:b0:1cf:35db:2c3c with SMTP id
+ adf61e73a8af0-1d4fa60e601mr530568637.3.1727381526564; Thu, 26 Sep 2024
+ 13:12:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/sched: Further optimise drm_sched_entity_push_job
-To: Philipp Stanner <pstanner@redhat.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
-References: <20240913160559.49054-9-tursulin@igalia.com>
- <20240916173007.118-1-tursulin@igalia.com>
- <1650ecb9-ac8a-4199-8693-77c73a95bbbd@igalia.com>
- <a5dd98b71891ea0392d61e24cde8b35051035780.camel@redhat.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <a5dd98b71891ea0392d61e24cde8b35051035780.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20240925075607.420409-1-Frank.Min@amd.com>
+ <SN7PR12MB6932EB1636FC06F28B4E133BE9692@SN7PR12MB6932.namprd12.prod.outlook.com>
+ <SN7PR12MB6932ED618E4FF7B1FBB6A5ECE96A2@SN7PR12MB6932.namprd12.prod.outlook.com>
+In-Reply-To: <SN7PR12MB6932ED618E4FF7B1FBB6A5ECE96A2@SN7PR12MB6932.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 26 Sep 2024 16:11:54 -0400
+Message-ID: <CADnq5_NhUS+P6oMGfRBJ-K2U6vGgprtzr9ycrZ1E6B_h2qmtSw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix PTE copy corruption for sdma 7
+To: "Min, Frank" <Frank.Min@amd.com>
+Cc: brahma_sw_dev <brahma_sw_dev@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Olsak,
+ Marek" <Marek.Olsak@amd.com>, 
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Gao, Likun" <Likun.Gao@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 27 Sep 2024 07:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,269 +85,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Sep 26, 2024 at 4:43=E2=80=AFAM Min, Frank <Frank.Min@amd.com> wrot=
+e:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> From: Frank Min <Frank.Min@amd.com>
+>
+> Without setting dcc bit, there is ramdon PTE copy corruption on sdma 7.
+>
+> so add this bit and update the packet format accordingly.
+>
+> Signed-off-by: Frank Min <Frank.Min@amd.com>
 
-On 26/09/2024 09:15, Philipp Stanner wrote:
-> On Mon, 2024-09-23 at 15:35 +0100, Tvrtko Ursulin wrote:
->>
->> Ping Christian and Philipp - reasonably happy with v2? I think it's
->> the
->> only unreviewed patch from the series.
-> 
-> Howdy,
-> 
-> sry for the delay, I had been traveling.
-> 
-> I have a few nits below regarding the commit message. Besides, I'm OK
-> with that, thx for your work :)
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-No worries.
-
->> On 16/09/2024 18:30, Tvrtko Ursulin wrote:
->>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>
->>> Having removed one re-lock cycle on the entity->lock in a patch
->>> titled
->>> "drm/sched: Optimise drm_sched_entity_push_job",
->>> with only a tiny bit
->>> larger refactoring we can do the same optimisation
-> 
-> Well, the commit message does not state which optimization that is. One
-> would have to look for the previous patch, which you apparently cannot
-> provide a commit ID for yet because it's not in Big Boss's branch.
-
-With added emphasis:
-
-"Having _removed one re-lock cycle_ on the entity-lock..."
-
-"...do the same optimisation on the rq->lock."
-
-How it is not clear?
-
-> In this case I am for including a sentence about what is being
-> optimized also because
-> 
->>> on the rq->lock.
->>> (Currently both drm_sched_rq_add_entity() and
->>> drm_sched_rq_update_fifo_locked() take and release the same lock.)
->>>
->>> To achieve this we make drm_sched_rq_update_fifo_locked() and
-> 
-> it's not clear what the "this" that's being achieved is.
-
-"This" is the optimisation previous paragraph talks about.
-
-What/why followed by how.
-
-I honestly think this part of the commit text is good enough.
-
->>> drm_sched_rq_add_entity() expect the rq->lock to be held.
->>>
->>> We also align drm_sched_rq_update_fifo_locked(),
->>> drm_sched_rq_add_entity() and
->>> drm_sched_rq_remove_fifo_locked() function signatures, by adding rq
->>> as a
->>> parameter to the latter.
->>>
->>> v2:
->>>    * Fix after rebase of the series.
->>>    * Avoid naming incosistency between drm_sched_rq_add/remove.
->>> (Christian)
->>>
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> Reviewed-by: Philipp Stanner <pstanner@redhat.com>
-
-Thank you!
-
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: Luben Tuikov <ltuikov89@gmail.com>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: Philipp Stanner <pstanner@redhat.com>
->>> ---
->>>    drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
->>>    drivers/gpu/drm/scheduler/sched_main.c   | 29 ++++++++++++-------
->>> -----
->>>    include/drm/gpu_scheduler.h              |  3 ++-
->>>    3 files changed, 26 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
->>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>> index d982cebc6bee..8ace1f1ea66b 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -515,9 +515,14 @@ struct drm_sched_job
->>> *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>    
->>>    		next = to_drm_sched_job(spsc_queue_peek(&entity-
->>>> job_queue));
->>>    		if (next) {
->>> +			struct drm_sched_rq *rq;
->>> +
->>>    			spin_lock(&entity->lock);
->>> -			drm_sched_rq_update_fifo_locked(entity,
->>> +			rq = entity->rq;
->>> +			spin_lock(&rq->lock);
->>> +			drm_sched_rq_update_fifo_locked(entity,
->>> rq,
->>>    							next-
->>>> submit_ts);
->>> +			spin_unlock(&rq->lock);
->>>    			spin_unlock(&entity->lock);
->>>    		}
->>>    	}
->>> @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct
->>> drm_sched_job *sched_job)
->>>    		sched = rq->sched;
->>>    
->>>    		atomic_inc(sched->score);
->>> +
->>> +		spin_lock(&rq->lock);
->>>    		drm_sched_rq_add_entity(rq, entity);
->>>    
->>>    		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> -			drm_sched_rq_update_fifo_locked(entity,
->>> submit_ts);
->>> +			drm_sched_rq_update_fifo_locked(entity,
->>> rq, submit_ts);
->>>    
->>> +		spin_unlock(&rq->lock);
->>>    		spin_unlock(&entity->lock);
->>>    
->>>    		drm_sched_wakeup(sched, entity);
->>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>> b/drivers/gpu/drm/scheduler/sched_main.c
->>> index 18a952f73ecb..5c83fb92bb89 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>> @@ -153,17 +153,18 @@ static __always_inline bool
->>> drm_sched_entity_compare_before(struct rb_node *a,
->>>    	return ktime_before(ent_a->oldest_job_waiting, ent_b-
->>>> oldest_job_waiting);
->>>    }
->>>    
->>> -static inline void drm_sched_rq_remove_fifo_locked(struct
->>> drm_sched_entity *entity)
->>> +static void drm_sched_rq_remove_fifo_locked(struct
-> 
-> I think the commit message should contain a short sentence about why
-> you removed the inline.
-> 
-> AKA "As we're at it, remove the inline function specifier from
-> drm_sched_rq_remove_fifo_locked() because XYZ"
-
-Fair play on this one, should have mentioned it. Probably just removed 
-the inline by habit while touching the function signature. Under the 
-"compiler knows better" mantra.
-
-Regards,
-
-Tvrtko
-
->>> drm_sched_entity *entity,
->>> +					    struct drm_sched_rq
->>> *rq)
->>>    {
->>> -	struct drm_sched_rq *rq = entity->rq;
->>> -
->>>    	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>>    		rb_erase_cached(&entity->rb_tree_node, &rq-
->>>> rb_tree_root);
->>>    		RB_CLEAR_NODE(&entity->rb_tree_node);
->>>    	}
->>>    }
->>>    
->>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->>> *entity, ktime_t ts)
->>> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->>> *entity,
->>> +				     struct drm_sched_rq *rq,
->>> +				     ktime_t ts)
->>>    {
->>>    	/*
->>>    	 * Both locks need to be grabbed, one to protect from
->>> entity->rq change
->>> @@ -171,17 +172,14 @@ void drm_sched_rq_update_fifo_locked(struct
->>> drm_sched_entity *entity, ktime_t ts
->>>    	 * other to update the rb tree structure.
->>>    	 */
->>>    	lockdep_assert_held(&entity->lock);
->>> +	lockdep_assert_held(&rq->lock);
->>>    
->>> -	spin_lock(&entity->rq->lock);
->>> -
->>> -	drm_sched_rq_remove_fifo_locked(entity);
->>> +	drm_sched_rq_remove_fifo_locked(entity, rq);
->>>    
->>>    	entity->oldest_job_waiting = ts;
->>>    
->>> -	rb_add_cached(&entity->rb_tree_node, &entity->rq-
->>>> rb_tree_root,
->>> +	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
->>>    		      drm_sched_entity_compare_before);
->>> -
->>> -	spin_unlock(&entity->rq->lock);
->>>    }
->>>    
->>>    /**
->>> @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct
->>> drm_gpu_scheduler *sched,
->>>    void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
->>>    			     struct drm_sched_entity *entity)
->>>    {
->>> +	lockdep_assert_held(&entity->lock);
->>> +	lockdep_assert_held(&rq->lock);
->>> +
->>>    	if (!list_empty(&entity->list))
->>>    		return;
->>>    
->>> -	spin_lock(&rq->lock);
->>> -
->>>    	atomic_inc(rq->sched->score);
->>>    	list_add_tail(&entity->list, &rq->entities);
->>> -
->>> -	spin_unlock(&rq->lock);
->>>    }
->>>    
->>>    /**
->>> @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct
->>> drm_sched_rq *rq,
->>>    void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>    				struct drm_sched_entity *entity)
->>>    {
->>> +	lockdep_assert_held(&entity->lock);
->>> +
->>>    	if (list_empty(&entity->list))
->>>    		return;
->>>    
->>> @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct
->>> drm_sched_rq *rq,
->>>    		rq->current_entity = NULL;
->>>    
->>>    	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->>> -		drm_sched_rq_remove_fifo_locked(entity);
->>> +		drm_sched_rq_remove_fifo_locked(entity, rq);
->>>    
->>>    	spin_unlock(&rq->lock);
->>>    }
->>> diff --git a/include/drm/gpu_scheduler.h
->>> b/include/drm/gpu_scheduler.h
->>> index 80198e6cf537..b21806d5a8eb 100644
->>> --- a/include/drm/gpu_scheduler.h
->>> +++ b/include/drm/gpu_scheduler.h
->>> @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct
->>> drm_sched_rq *rq,
->>>    void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
->>>    				struct drm_sched_entity *entity);
->>>    
->>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->>> *entity, ktime_t ts);
->>> +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
->>> *entity,
->>> +				     struct drm_sched_rq *rq,
->>> ktime_t ts);
->>>    
->>>    int drm_sched_entity_init(struct drm_sched_entity *entity,
->>>    			  enum drm_sched_priority priority,
->>
-> 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v7_0.c
+> index cfd8e183ad50..a8763496aed3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> @@ -1080,13 +1080,16 @@ static void sdma_v7_0_vm_copy_pte(struct amdgpu_i=
+b *ib,
+>         unsigned bytes =3D count * 8;
+>
+>         ib->ptr[ib->length_dw++] =3D SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_=
+OP_COPY) |
+> -               SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_COPY_LINEAR=
+);
+> +               SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_COPY_LINEAR=
+) |
+> +               SDMA_PKT_COPY_LINEAR_HEADER_CPV(1);
+> +
+>         ib->ptr[ib->length_dw++] =3D bytes - 1;
+>         ib->ptr[ib->length_dw++] =3D 0; /* src/dst endian swap */
+>         ib->ptr[ib->length_dw++] =3D lower_32_bits(src);
+>         ib->ptr[ib->length_dw++] =3D upper_32_bits(src);
+>         ib->ptr[ib->length_dw++] =3D lower_32_bits(pe);
+>         ib->ptr[ib->length_dw++] =3D upper_32_bits(pe);
+> +       ib->ptr[ib->length_dw++] =3D 0;
+>
+>  }
+>
+> @@ -1744,7 +1747,7 @@ static void sdma_v7_0_set_buffer_funcs(struct amdgp=
+u_device *adev)  }
+>
+>  static const struct amdgpu_vm_pte_funcs sdma_v7_0_vm_pte_funcs =3D {
+> -       .copy_pte_num_dw =3D 7,
+> +       .copy_pte_num_dw =3D 8,
+>         .copy_pte =3D sdma_v7_0_vm_copy_pte,
+>         .write_pte =3D sdma_v7_0_vm_write_pte,
+>         .set_pte_pde =3D sdma_v7_0_vm_set_pte_pde,
+> --
+> 2.43.0
+>
+>
