@@ -4,50 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 220FACCFA07
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 07:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C815BCCFA18
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 07:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B66CF10EAA4;
-	Thu, 26 Sep 2024 07:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 327F810EACD;
+	Thu, 26 Sep 2024 07:26:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="a6qG1sYP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M2HjjNSy";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AAB910EAA4;
- Thu, 26 Sep 2024 07:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1727334447;
- bh=KnAJPqBaS5mXano/IWPtVY1GwRK9RukKLmDCVvuE62k=;
- h=From:To:Cc:Subject:Date:From;
- b=a6qG1sYPRZwPWN61Ga0JUd2JAOsqgmxztWRWL7bQyRnlvitHYMF1KaYiokMoe90QL
- y0Z3W5WTVkarVdSfrD0gilBztAbMN9+Nl2XmUon16zfnlqbH3MMB6MEo6gwyN1chMZ
- Ws24NLwZgR0HaoUXMSRR9ZlxGDiUgHCb7Trje6ira3SDxES3YSw1Xp46P3aIhJ4atB
- bvQwTNUASavoZB4mXLO1zjyG8zshAZLVTm0Y2vAFT0NQFWuMOwyu394ObkzfiDPWs2
- HnpyVWilPmTXyapS5PY6PZNtVpy2So9ybSPpNinWx92FjggJnEEd6mokyHEC1mm2Tn
- pMtK3XWjBoW/A==
-Received: from localhost.localdomain (unknown [171.76.80.165])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 69E9F17E0FDC;
- Thu, 26 Sep 2024 09:07:24 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.koike@collabora.com, airlied@gmail.com,
- daniel@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, deborah.brouwer@collabora.com,
- dmitry.baryshkov@linaro.org, mripard@kernel.org, rodrigo.vivi@intel.com,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-rockchip@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58C1610EAAB;
+ Thu, 26 Sep 2024 07:26:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8E2945C5DD1;
+ Thu, 26 Sep 2024 07:26:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8D4C4CEC5;
+ Thu, 26 Sep 2024 07:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1727335590;
+ bh=ePa5u/BcnZ/dATlftydtRiE5hN7gmuT0GTtjNoDiKEg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M2HjjNSyNaWEZ1yenHHEyui1RPMh8RJVBscCwUg+TXnkGbJouUPm2CIehBM3+Co6X
+ VedGYDOORpYZqCXP1lA+ySO90Fwuu1ocnuaf/2z42w+C0bfF8oHdF9o/oTkHsVlwdt
+ Bf9nj/u01qIShO0iWrBh8GkbROFRYw53rMgHLuBCyUdr+dM6Ch0H1hEOVk1h39MPXE
+ 7xLZP3vgb0rUT9712TiCXty9H7+EMJJ4XbeTqBu35iZX4CcMVSvlhmQeFt1qvfMBRR
+ ugPSGU54cl34WqVGyPrygkOEOE89m5ePQQ98JoI1Rvhy/0rPTMoiMuolGmKpad2Y37
+ nywPery26f36Q==
+Date: Thu, 26 Sep 2024 09:26:27 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com, 
+ helen.koike@collabora.com, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, 
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ deborah.brouwer@collabora.com, 
+ dmitry.baryshkov@linaro.org, rodrigo.vivi@intel.com,
+ linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, 
  virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] docs/gpu: ci: update flake tests requirements
-Date: Thu, 26 Sep 2024 12:36:49 +0530
-Message-ID: <20240926070653.1773597-1-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v2] docs/gpu: ci: update flake tests requirements
+Message-ID: <20240926-athletic-gregarious-markhor-cc78ac@houat>
+References: <20240926070653.1773597-1-vignesh.raman@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="xmj2ly46kzbkkxma"
+Content-Disposition: inline
+In-Reply-To: <20240926070653.1773597-1-vignesh.raman@collabora.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +66,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the documentation to require linking to a relevant GitLab
-issue for each new flake entry instead of an email report. Added
-specific GitLab issue URLs for i915, xe and other drivers.
 
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
----
+--xmj2ly46kzbkkxma
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-v2:
-- Add gitlab issue link for msm driver.
+On Thu, Sep 26, 2024 at 12:36:49PM GMT, Vignesh Raman wrote:
+> Update the documentation to require linking to a relevant GitLab
+> issue for each new flake entry instead of an email report. Added
+> specific GitLab issue URLs for i915, xe and other drivers.
+>=20
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+> ---
+>=20
+> v2:
+> - Add gitlab issue link for msm driver.
+>=20
+> ---
+>  Documentation/gpu/automated_testing.rst | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/=
+automated_testing.rst
+> index 2d5a28866afe..f918fe56f2b0 100644
+> --- a/Documentation/gpu/automated_testing.rst
+> +++ b/Documentation/gpu/automated_testing.rst
+> @@ -67,20 +67,26 @@ Lists the tests that for a given driver on a specific=
+ hardware revision are
+>  known to behave unreliably. These tests won't cause a job to fail regard=
+less of
+>  the result. They will still be run.
+> =20
+> -Each new flake entry must be associated with a link to the email reporti=
+ng the
+> -bug to the author of the affected driver, the board name or Device Tree =
+name of
+> -the board, the first kernel version affected, the IGT version used for t=
+ests,
+> -and an approximation of the failure rate.
+> +Each new flake entry must include a link to the relevant GitLab issue, t=
+he board
+> +name or Device Tree name, the first kernel version affected, the IGT ver=
+sion used
+> +for tests and an approximation of the failure rate.
+> =20
+>  They should be provided under the following format::
+> =20
+> -  # Bug Report: $LORE_OR_PATCHWORK_URL
+> +  # Bug Report: $GITLAB_ISSUE
+>    # Board Name: broken-board.dtb
+>    # Linux Version: 6.6-rc1
+>    # IGT Version: 1.28-gd2af13d9f
+>    # Failure Rate: 100
+>    flaky-test
+> =20
+> +The GitLab issue must include the logs and the pipeline link. Use the ap=
+propriate
+> +link below to create an issue.
+> +https://gitlab.freedesktop.org/drm/i915/kernel/-/issues for i915 driver
+> +https://gitlab.freedesktop.org/drm/xe/kernel/-/issues for xe driver
+> +https://gitlab.freedesktop.org/drm/msm/-/issues for msm driver
+> +https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
+> +
 
----
- Documentation/gpu/automated_testing.rst | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+I can't comment for the others, but drm-misc at least still requires
+reporting issues by mail, so, no, sorry, we can't switch to gitlab only
+for now.
 
-diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
-index 2d5a28866afe..f918fe56f2b0 100644
---- a/Documentation/gpu/automated_testing.rst
-+++ b/Documentation/gpu/automated_testing.rst
-@@ -67,20 +67,26 @@ Lists the tests that for a given driver on a specific hardware revision are
- known to behave unreliably. These tests won't cause a job to fail regardless of
- the result. They will still be run.
- 
--Each new flake entry must be associated with a link to the email reporting the
--bug to the author of the affected driver, the board name or Device Tree name of
--the board, the first kernel version affected, the IGT version used for tests,
--and an approximation of the failure rate.
-+Each new flake entry must include a link to the relevant GitLab issue, the board
-+name or Device Tree name, the first kernel version affected, the IGT version used
-+for tests and an approximation of the failure rate.
- 
- They should be provided under the following format::
- 
--  # Bug Report: $LORE_OR_PATCHWORK_URL
-+  # Bug Report: $GITLAB_ISSUE
-   # Board Name: broken-board.dtb
-   # Linux Version: 6.6-rc1
-   # IGT Version: 1.28-gd2af13d9f
-   # Failure Rate: 100
-   flaky-test
- 
-+The GitLab issue must include the logs and the pipeline link. Use the appropriate
-+link below to create an issue.
-+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues for i915 driver
-+https://gitlab.freedesktop.org/drm/xe/kernel/-/issues for xe driver
-+https://gitlab.freedesktop.org/drm/msm/-/issues for msm driver
-+https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
-+
- drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
- -----------------------------------------------------------
- 
--- 
-2.43.0
+Maxime
 
+--xmj2ly46kzbkkxma
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZvUMowAKCRAnX84Zoj2+
+dmrwAXwJooR80dwdvsWLwVqq5T8Tn9xQ8jXG5egqf3JJs5K3KqLQK01ARZoz96es
+RPNQmi8BgI1h2/qRTFQd2zqn7QgKcGKOtkv4Yc4dQqncavbg/HkcoYrbjgDyP6za
+D5kG4mEAOg==
+=hh9h
+-----END PGP SIGNATURE-----
+
+--xmj2ly46kzbkkxma--
