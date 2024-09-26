@@ -4,43 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4D66CEBF7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDC77CEBF7F
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 07:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81A8F10EC38;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7385E10EC36;
 	Fri, 27 Sep 2024 07:38:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DhKI+3Ix";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cATg3Fyt";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA6FB10EB41;
- Thu, 26 Sep 2024 13:28:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B63710EB1C;
+ Thu, 26 Sep 2024 13:07:33 +0000 (UTC)
 Received: from [192.168.88.20] (91-156-87-48.elisa-laajakaista.fi
  [91.156.87.48])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C9AA2169;
- Thu, 26 Sep 2024 15:26:48 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id AAA97169;
+ Thu, 26 Sep 2024 15:06:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1727357209;
- bh=VyvCCdwoCQ4Lzb7ohJQPcoY0VfQjDbrkwtkur0zexOc=;
+ s=mail; t=1727355964;
+ bh=8a9h+HewWsIu+jebXIBna58bL29KBDj60dbTvMIoS9A=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DhKI+3IxWChNSev/1/JEyv7qhpEdl+JQq29YIjAeXszy2UeSVOWzeAPmQ+/GKlt0Y
- 3QzHRaBEhPwBK8Nu8wYGDuTNKOwx9YNC/3B2SOCGvC8fgJen4b0XnlDUA/JLONFQZo
- GXWFvkLCxTWJh20RpLAvY3CfGSwRtqT72Cv2gEls=
-Message-ID: <890a574e-caa0-47af-af09-ab2a1f695bbf@ideasonboard.com>
-Date: Thu, 26 Sep 2024 16:28:13 +0300
+ b=cATg3FytRRUWRoqGTCzT1bhxmPGFH/AoRoAmQRxSkGfol0CUoO0E2yBVGccdzDeU/
+ +ddXW1E1XblonqfHLIAUH84eN2H+0zEwk13XxFYGrkr+bPIxfeZ5KY8fI40Q0vjHpB
+ hq392NP0cNGA01tAQ9KgSSHbLk8TfSoZBmIdr1Hk=
+Message-ID: <029f0567-f9df-402c-ae42-3bf27c060986@ideasonboard.com>
+Date: Thu, 26 Sep 2024 16:07:29 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 47/80] drm/xlnx: Run DRM default client setup
+Subject: Re: [PATCH v5 79/80] drm/omapdrm: Remove struct drm_fb_helper from
+ struct omap_fbdev.
 To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
  jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
 References: <20240924071734.98201-1-tzimmermann@suse.de>
- <20240924071734.98201-48-tzimmermann@suse.de>
+ <20240924071734.98201-80-tzimmermann@suse.de>
 Content-Language: en-US
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
@@ -86,7 +84,7 @@ Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
  ueeIlwJl5CpT5l8RpoZXEOVtXYn8zzOJ7oGZYINRV9Pf8qKGLf3Dft7zKBP832I3PQjeok7F
  yjt+9S+KgSFSHP3Pa4E7lsSdWhSlHYNdG/czhoUkSCN09C0rEK93wxACx3vtxPLjXu6RptBw
  3dRq7n+mQChEB1am0BueV1JZaBboIL0AGlSJkm23kw==
-In-Reply-To: <20240924071734.98201-48-tzimmermann@suse.de>
+In-Reply-To: <20240924071734.98201-80-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 27 Sep 2024 07:38:42 +0000
@@ -104,72 +102,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 24/09/2024 10:12, Thomas Zimmermann wrote:
-> Call drm_client_setup_with_fourcc() to run the kernel's default client
-> setup for DRM. Set fbdev_probe in struct drm_driver, so that the client
-> setup can start the common fbdev client.
+Hi,
+
+On 24/09/2024 10:13, Thomas Zimmermann wrote:
+> Store instances of drm_fb_helper and struct omap_fbdev separately.
+> This will allow omapdrm to use the common fbdev client, which allocates
+> its own instance of struct drm_fb_helper.
 > 
-> v5:
-> - select DRM_CLIENT_SELECTION
-> v2:
-> - use drm_client_setup_with_fourcc()
+> There is at most one instance of each per DRM device, so both can be
+> referenced directly from the omap and DRM device structures. A later
+> patchset might rework the common fbdev client to allow for storing
+> both, drm_fb_helper and omap_fbdev, together in the same place.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 > Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Cc: Michal Simek <michal.simek@amd.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 > ---
->   drivers/gpu/drm/xlnx/Kconfig      | 1 +
->   drivers/gpu/drm/xlnx/zynqmp_kms.c | 4 +++-
->   2 files changed, 4 insertions(+), 1 deletion(-)
-> 
+>   drivers/gpu/drm/omapdrm/omap_drv.h   |  3 ++
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c | 42 +++++++++++++++-------------
+>   2 files changed, 26 insertions(+), 19 deletions(-)
 
-Tested on zynqmp zcu106.
+The ywrap seems to be broken, but it's broken without this series too. 
+With some quick hacks I managed to get the omapdrm's panning function 
+called, and it works the same way with or without this series.
+
+Tested on DRA76 EVM.
 
 Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
+For reference, in case someone is interested fixing omapdrm's ywrap code:
+
+- get_fb() doesn't work. I don't understand the point of the function. 
+It compares fbi->fix.id and MODULE_NAME, and the "fbi->fix.id" has 
+changed along the years so the check no longer works. Afaik, the whole 
+function is not needed, and we can just use fbi->par.
+
+- omap_fbdev_pan_display() doesn't seem to get called when the console 
+scrolls. I can get it called with an userspace app that does some y 
+panning. Maybe FBINFO_HWACCEL_YWRAP is not supported anymore?
+
   Tomi
 
-> diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
-> index 626e5ac4c33d..4197f44e202f 100644
-> --- a/drivers/gpu/drm/xlnx/Kconfig
-> +++ b/drivers/gpu/drm/xlnx/Kconfig
-> @@ -6,6 +6,7 @@ config DRM_ZYNQMP_DPSUB
->   	depends on PHY_XILINX_ZYNQMP
->   	depends on XILINX_ZYNQMP_DPDMA
->   	select DMA_ENGINE
-> +	select DRM_CLIENT_SELECTION
->   	select DRM_DISPLAY_DP_HELPER
->   	select DRM_DISPLAY_HELPER
->   	select DRM_BRIDGE_CONNECTOR
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-> index bd1368df7870..2452c2f09161 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-> @@ -14,6 +14,7 @@
->   #include <drm/drm_blend.h>
->   #include <drm/drm_bridge.h>
->   #include <drm/drm_bridge_connector.h>
-> +#include <drm/drm_client_setup.h>
->   #include <drm/drm_connector.h>
->   #include <drm/drm_crtc.h>
->   #include <drm/drm_device.h>
-> @@ -402,6 +403,7 @@ static const struct drm_driver zynqmp_dpsub_drm_driver = {
->   					  DRIVER_ATOMIC,
+> diff --git a/drivers/gpu/drm/omapdrm/omap_drv.h b/drivers/gpu/drm/omapdrm/omap_drv.h
+> index 4c7217b35f6b..d903568fd8cc 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_drv.h
+> +++ b/drivers/gpu/drm/omapdrm/omap_drv.h
+> @@ -32,6 +32,7 @@
+>   #define MODULE_NAME     "omapdrm"
 >   
->   	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
-> +	DRM_FBDEV_DMA_DRIVER_OPS,
+>   struct omap_drm_usergart;
+> +struct omap_fbdev;
 >   
->   	.fops				= &zynqmp_dpsub_drm_fops,
+>   struct omap_drm_pipeline {
+>   	struct drm_crtc *crtc;
+> @@ -97,6 +98,8 @@ struct omap_drm_private {
 >   
-> @@ -523,7 +525,7 @@ int zynqmp_dpsub_drm_init(struct zynqmp_dpsub *dpsub)
->   		goto err_poll_fini;
+>   	/* memory bandwidth limit if it is needed on the platform */
+>   	unsigned int max_bandwidth;
+> +
+> +	struct omap_fbdev *fbdev;
+>   };
 >   
->   	/* Initialize fbdev generic emulation. */
-> -	drm_fbdev_dma_setup(drm, 24);
-> +	drm_client_setup_with_fourcc(drm, DRM_FORMAT_RGB888);
+>   
+> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> index 523be34682ca..044e80403c3b 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> @@ -13,6 +13,7 @@
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_framebuffer.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_managed.h>
+>   #include <drm/drm_util.h>
+>   
+>   #include "omap_drv.h"
+> @@ -26,10 +27,8 @@ module_param_named(ywrap, ywrap_enabled, bool, 0644);
+>    * fbdev funcs, to implement legacy fbdev interface on top of drm driver
+>    */
+>   
+> -#define to_omap_fbdev(x) container_of(x, struct omap_fbdev, base)
+> -
+>   struct omap_fbdev {
+> -	struct drm_fb_helper base;
+> +	struct drm_device *dev;
+>   	bool ywrap_enabled;
+>   
+>   	/* for deferred dmm roll when getting called in atomic ctx */
+> @@ -41,7 +40,7 @@ static struct drm_fb_helper *get_fb(struct fb_info *fbi);
+>   static void pan_worker(struct work_struct *work)
+>   {
+>   	struct omap_fbdev *fbdev = container_of(work, struct omap_fbdev, work);
+> -	struct drm_fb_helper *helper = &fbdev->base;
+> +	struct drm_fb_helper *helper = fbdev->dev->fb_helper;
+>   	struct fb_info *fbi = helper->info;
+>   	struct drm_gem_object *bo = drm_gem_fb_get_obj(helper->fb, 0);
+>   	int npages;
+> @@ -55,24 +54,25 @@ FB_GEN_DEFAULT_DEFERRED_DMAMEM_OPS(omap_fbdev,
+>   				   drm_fb_helper_damage_range,
+>   				   drm_fb_helper_damage_area)
+>   
+> -static int omap_fbdev_pan_display(struct fb_var_screeninfo *var,
+> -		struct fb_info *fbi)
+> +static int omap_fbdev_pan_display(struct fb_var_screeninfo *var, struct fb_info *fbi)
+>   {
+>   	struct drm_fb_helper *helper = get_fb(fbi);
+> -	struct omap_fbdev *fbdev = to_omap_fbdev(helper);
+> +	struct omap_drm_private *priv;
+> +	struct omap_fbdev *fbdev;
+>   
+>   	if (!helper)
+>   		goto fallback;
+>   
+> +	priv = helper->dev->dev_private;
+> +	fbdev = priv->fbdev;
+> +
+>   	if (!fbdev->ywrap_enabled)
+>   		goto fallback;
+>   
+> -	if (drm_can_sleep()) {
+> +	if (drm_can_sleep())
+>   		pan_worker(&fbdev->work);
+> -	} else {
+> -		struct omap_drm_private *priv = helper->dev->dev_private;
+> +	else
+>   		queue_work(priv->wq, &fbdev->work);
+> -	}
 >   
 >   	return 0;
 >   
+> @@ -92,7 +92,6 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+>   	struct drm_fb_helper *helper = info->par;
+>   	struct drm_framebuffer *fb = helper->fb;
+>   	struct drm_gem_object *bo = drm_gem_fb_get_obj(fb, 0);
+> -	struct omap_fbdev *fbdev = to_omap_fbdev(helper);
+>   
+>   	DBG();
+>   
+> @@ -104,7 +103,7 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+>   
+>   	drm_client_release(&helper->client);
+>   	drm_fb_helper_unprepare(helper);
+> -	kfree(fbdev);
+> +	kfree(helper);
+>   }
+>   
+>   /*
+> @@ -128,9 +127,9 @@ static const struct fb_ops omap_fb_ops = {
+>   static int omap_fbdev_create(struct drm_fb_helper *helper,
+>   		struct drm_fb_helper_surface_size *sizes)
+>   {
+> -	struct omap_fbdev *fbdev = to_omap_fbdev(helper);
+>   	struct drm_device *dev = helper->dev;
+>   	struct omap_drm_private *priv = dev->dev_private;
+> +	struct omap_fbdev *fbdev = priv->fbdev;
+>   	struct drm_framebuffer *fb = NULL;
+>   	union omap_gem_size gsize;
+>   	struct fb_info *fbi = NULL;
+> @@ -338,6 +337,7 @@ static const struct drm_client_funcs omap_fbdev_client_funcs = {
+>   
+>   void omap_fbdev_setup(struct drm_device *dev)
+>   {
+> +	struct omap_drm_private *priv = dev->dev_private;
+>   	struct omap_fbdev *fbdev;
+>   	struct drm_fb_helper *helper;
+>   	int ret;
+> @@ -345,24 +345,28 @@ void omap_fbdev_setup(struct drm_device *dev)
+>   	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
+>   	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
+>   
+> -	fbdev = kzalloc(sizeof(*fbdev), GFP_KERNEL);
+> +	fbdev = drmm_kzalloc(dev, sizeof(*fbdev), GFP_KERNEL);
+>   	if (!fbdev)
+>   		return;
+> -	helper = &fbdev->base;
+> +	fbdev->dev = dev;
+> +	INIT_WORK(&fbdev->work, pan_worker);
+> +
+> +	priv->fbdev = fbdev;
+>   
+> +	helper = kzalloc(sizeof(*helper), GFP_KERNEL);
+> +	if (!helper)
+> +		return;
+>   	drm_fb_helper_prepare(dev, helper, 32, &omap_fb_helper_funcs);
+>   
+>   	ret = drm_client_init(dev, &helper->client, "fbdev", &omap_fbdev_client_funcs);
+>   	if (ret)
+>   		goto err_drm_client_init;
+>   
+> -	INIT_WORK(&fbdev->work, pan_worker);
+> -
+>   	drm_client_register(&helper->client);
+>   
+>   	return;
+>   
+>   err_drm_client_init:
+>   	drm_fb_helper_unprepare(helper);
+> -	kfree(fbdev);
+> +	kfree(helper);
+>   }
 
