@@ -4,119 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D442CCF9E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 07:48:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA16CCF9E9
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 08:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE1410EADD;
-	Thu, 26 Sep 2024 07:48:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 064D710E042;
+	Thu, 26 Sep 2024 08:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nTcjrZQJ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NzyIBgt8";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F27CA10EADE
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 07:48:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KZ+/FwI5dVNuE2yYK9dI/UrVmEvLTlzXdLNcKLoItl+P/M3dvnWqwtvap5tGn+TV3VcPbegoaqZ4FjceW60iw21bAPhIHpLxVG19N4ET1LA45+B1o0EzDKMX2/iJsJlNaAEz9e09GWnVXvXIk97cRxmU1rA31YBwlODQ7uvvFGe0dMXNjIJc6b/A+WaaS/Wo+3wb8Wd87goztyTBHordzaSKsZUd45BrtoNd3BqDRd3ovkR4LYAX9cbnGEZLq3SYOgXDoFP4mopvCjBQMhG94C49fvgMJzVbYKNwKl2JiYz1ovdmBgHPv/rOrkbe5P8L371siz51HUsA27YQ9qIHUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+hIqOvL0ly6defDlhojshD6UT3HPJwh7kZChxsxsZtk=;
- b=d3YRcPCqN8ImHUTVoTzNr2NXT4sE1QGzaK3nBKKjNC/OShIpBN8xcAGI1svNQw7snIeieO1yxDhCOA+zvMqRFvkosspPuNwe5fItEYD6zqjn3DddovW9shXhvr2uYXqcn2pDYEwaRqhIMfa6iKFqmqBdbsOlJdssW4Yh53AF2UVT2bJR/qwkINIbQoKfRznRV0jptT0s2tQGrpcVGiXVlhJs9qj6dFRCAGFiAX0ztmrCxUm1ajN4C/Ttex+IBBWEvrJQbZjH4DgNhHR/Dtiq49TcXGqwhKQx7anwhYg7Qmku8aLZjpDbon9HAK+x2epKNb09OZWxcRTgc1bbl1gffg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+hIqOvL0ly6defDlhojshD6UT3HPJwh7kZChxsxsZtk=;
- b=nTcjrZQJkr6DBhhYsBEzSmr2JSsnf9Zku1ofGcA4SACa9bpI+siQg2ncMLF2TNc8ZOEWlgEYHL36PHDYFQEieWyTeWIvzr2G+5kEOxohDRy5n2lkkQe8XzV7j4tkDzePiN2RHOKxDTZy3oySgsJyNtaWFog2biY3SGMhbbCS0pQ=
-Received: from BN7PR06CA0071.namprd06.prod.outlook.com (2603:10b6:408:34::48)
- by CYXPR12MB9337.namprd12.prod.outlook.com (2603:10b6:930:d8::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.26; Thu, 26 Sep
- 2024 07:48:20 +0000
-Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
- (2603:10b6:408:34:cafe::8f) by BN7PR06CA0071.outlook.office365.com
- (2603:10b6:408:34::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.20 via Frontend
- Transport; Thu, 26 Sep 2024 07:48:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.15 via Frontend Transport; Thu, 26 Sep 2024 07:48:19 +0000
-Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 26 Sep 2024 02:48:00 -0500
-From: <jiadong.zhu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Jiadong Zhu <Jiadong.Zhu@amd.com>
-Subject: [PATCH v2 4/4] drm/amdgpu/sdma5.2: implement ring reset callback for
- sdma5.2
-Date: Thu, 26 Sep 2024 15:45:36 +0800
-Message-ID: <20240926074536.22211-4-jiadong.zhu@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240926074536.22211-1-jiadong.zhu@amd.com>
-References: <20240926074536.22211-1-jiadong.zhu@amd.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE7A010E042
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 08:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1727338562;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jkE98gTtDfNr5GfMuftp4G9EJP69laL9HOqoZTWYEH4=;
+ b=NzyIBgt8LxKeBm7PkwFy0UF+ciwZquoVTjRA0D46byz16J8XLZ+IzyF9vlMIH0VOUXAIX9
+ V00UFsu6e/7Hsil39nmLoJdBTe6fBsTtEUj1a5IPaC8+gVSm5Xu2O2qhmcpCZzuQVHj6bM
+ fongz5g5FTdpHpwOWbmPjEPIoBdQ4dw=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-657-6HkrhnVqP9iHyOmhVlY1Vg-1; Thu, 26 Sep 2024 04:16:01 -0400
+X-MC-Unique: 6HkrhnVqP9iHyOmhVlY1Vg-1
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-42cb9e14ab6so4408145e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 01:16:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727338560; x=1727943360;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Q+PB1bX63yvpVUwHd1p8kcnlGkK65hhrsf8Uv72pc7E=;
+ b=uHfQAfpmqyRbKBcFScgs4Nz6quJ4bZH/A8+9WThxRh1LcJF+G2e1uHHURflJg6nl/i
+ Gttvv1KTiEw+crUr8ZqKKberY38aVk2q7L+2iDUR8wJm7ydiazBx0cq4eaxYbq73j6aO
+ UYmRAL2dUZpiSszOZ2HfsBUyw6NhYjhHOnN93A5OrVsuf4kfRe2AUfRVb+2EKNQ/DUpU
+ LKfWxYs+58oBxDZyTcdFDO+T4qHi2IfmVD7AkB19q+RxgerB5NaNKit/CXALetM0IDi3
+ yiqpqptbWFxERNwEmsogDMk/FVWWyAagkxLD4DEwC6lZTlCDZhm6ekBnA1pfrruxdDga
+ Aonw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWusLR/GMeyCDgjqX7KpcagNUg/0CoIdUEx3pbDYdCCXvWEHLSPERWfMPWKpTqjNmWRv+zeeUl7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxuopOzTI2pqHVwg8pLB9FspZbgB0WrxdXhCIJEQapAV5pnOBBT
+ ph7TMyaGju9hiuLZR19WBDmTNC3qXj61goktb7MRBEUVC1gL8ep3Vd7ZP7DZB7Ka92LadWxD/L/
+ oZZwyLIXhQakNiGTD6+sTPOT+Q+wdXLVwNkQRkGliVWRBMr6uWJZCrui7QTv9cTk=
+X-Received: by 2002:a05:600c:1d28:b0:42c:cd7c:a196 with SMTP id
+ 5b1f17b1804b1-42e9611d114mr43907395e9.17.1727338559961; 
+ Thu, 26 Sep 2024 01:15:59 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEwymqbtplHXtGKps6e8X68XchcCU8AuujFE6kob4eddrzwCgTX6kD4e43/wdKG6NNCah1n6g==
+X-Received: by 2002:a05:600c:1d28:b0:42c:cd7c:a196 with SMTP id
+ 5b1f17b1804b1-42e9611d114mr43907165e9.17.1727338559472; 
+ Thu, 26 Sep 2024 01:15:59 -0700 (PDT)
+Received: from eisenberg.fritz.box ([2001:16b8:3dee:bc00:37ec:5f5c:23da:fb5f])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42e969ddb64sm40042255e9.8.2024.09.26.01.15.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Sep 2024 01:15:59 -0700 (PDT)
+Message-ID: <a5dd98b71891ea0392d61e24cde8b35051035780.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/sched: Further optimise drm_sched_entity_push_job
+From: Philipp Stanner <pstanner@redhat.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Tvrtko Ursulin
+ <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Luben
+ Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
+Date: Thu, 26 Sep 2024 10:15:58 +0200
+In-Reply-To: <1650ecb9-ac8a-4199-8693-77c73a95bbbd@igalia.com>
+References: <20240913160559.49054-9-tursulin@igalia.com>
+ <20240916173007.118-1-tursulin@igalia.com>
+ <1650ecb9-ac8a-4199-8693-77c73a95bbbd@igalia.com>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|CYXPR12MB9337:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd86e810-31a8-4a8b-b51f-08dcddff96e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?f+YY3E6pOtQGf5AcY6FQ8ez5UwHHPp8PGjhEZQTBQb6H7UowTPwR/BNJxwn9?=
- =?us-ascii?Q?DuwT4/GgPqQIqIej9Pq/uxy9gtsIJpADW/2Rk44J/rFbdXYEdOlnzvZ2srAc?=
- =?us-ascii?Q?7ijWpdyQXorLdr4/6QhE8c/I1Xbd+aW7u7Cnkg6y5IiJRq5WC+yPOQzxdmt/?=
- =?us-ascii?Q?nZ0cWrI+sfuBTy3ErWo+63kCitOISK41nnJ+TPm9+stFoSgi+PzIRpx/00IL?=
- =?us-ascii?Q?7t0c3FeLvas2UHBygQp34srHF2gDZchLSbrUWxQblmDdE862CYd4IYEwdJgD?=
- =?us-ascii?Q?pvA3kHfef1QaA/3s1JzYtV5/bu3CfVlJ3s/4HD/NgqDSwgl5qmuIZySd5xlH?=
- =?us-ascii?Q?o1S9+UqwLZPDn0LH9D0XL7jsHvV7VTIXuJym8sRa7z2epX0Pw6sf9pi+2Ecu?=
- =?us-ascii?Q?mWoDVG769uCRS+b+PWHuTNtgtIH4QztXWNPU5POzDvWV8Io9Pq15HIPh2/Q4?=
- =?us-ascii?Q?1vYkFF2kZhF8dxhmblEhj2nFqVi5tjlOuxMBE9W3fActYFWknD8jV6gX90Gp?=
- =?us-ascii?Q?sJxm2mfV4HVugnJMPQ7C2d4pGwPvOIn/ijhTVvKxOP96vWBtzBSQH+AMI6Vg?=
- =?us-ascii?Q?PzsDCEMkFc1Mg2HMttSp1Op+l0J/aNhdVFmCVyyaOW3LSyTsTEw82rRBqd6O?=
- =?us-ascii?Q?5HzQ7LIc69GQxpEcniC6cdnVX9DzaK2+D+a09aQ8npwlQm3GFRBxFH1EX6d2?=
- =?us-ascii?Q?I7WfUKSkUroKdFIUP47ENoo8RC+rCpIAoCVtK845E1ge1b/GP5VH0Sm/0vN1?=
- =?us-ascii?Q?hLH6sbu8bEnABoUFx3pUThz6UA3O5rqE2a7GHNAGeAdcythxq+74lPc8bh9U?=
- =?us-ascii?Q?bibJzO4oKt6etv/UQdc9Y9oPO650S1zru90ajNGxWX3spoC7JgzBKtWAe1qJ?=
- =?us-ascii?Q?03fKNYF4MDVUhY6aM9YMPnJ4m+nM24k2LjN4y/QyWWLrr2eqGr1xWhGo4Wwl?=
- =?us-ascii?Q?i04tpr5NnGY8X4vdSi/GLZgu93C3ENKUDSscWqr44znDehSuv0OBFpknsJ5w?=
- =?us-ascii?Q?EqTh2P0EFcvcbCxbDKp+QQ2U0nLwiMFD/dUq5m3yk/eJA9xnhjA5rA8psAS7?=
- =?us-ascii?Q?/6Ah8lc0TfyCzohklYzsXMWEKnGyi6wNsyrgVThrhLhxoEb/nFVFVLIDA2Ca?=
- =?us-ascii?Q?dZoqoieigh76qwQ0RC9VUO22WKIicdbIlc/B6uowOwKGqstbe/61nnVCy/EW?=
- =?us-ascii?Q?4Q3kLYHwhLzoqZlarDQAOcy8K5GQrlw9hRHqiicO0yfGDQ9YmEIlOOOw39Zx?=
- =?us-ascii?Q?AF26mhOPMSLwPl6fCwvAMlWXW/SiMtP8Wm/F6GqXXY/HUjejKdt23RogEHjt?=
- =?us-ascii?Q?ZxmKGjyNYtGNWLgv7CxtSgwBcFGJ2T1FD8cv9i7T54U4YzW5QDjdFOM09+xi?=
- =?us-ascii?Q?3yIqZH/XrHaB0PXCahxrUg1fkmeq?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2024 07:48:19.7243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd86e810-31a8-4a8b-b51f-08dcddff96e6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B077.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9337
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,126 +97,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+On Mon, 2024-09-23 at 15:35 +0100, Tvrtko Ursulin wrote:
+>=20
+> Ping Christian and Philipp - reasonably happy with v2? I think it's
+> the=20
+> only unreviewed patch from the series.
 
-Implement sdma queue reset callback via MMIO.
+Howdy,
 
-v2: enter/exit safemode for mmio queue reset.
+sry for the delay, I had been traveling.
 
-Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 91 ++++++++++++++++++++++++++
- 1 file changed, 91 insertions(+)
+I have a few nits below regarding the commit message. Besides, I'm OK
+with that, thx for your work :)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 37534c6f431f..8e8f8be01539 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1424,6 +1424,96 @@ static int sdma_v5_2_wait_for_idle(void *handle)
- 	return -ETIMEDOUT;
- }
- 
-+static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	int i, j, r;
-+	u32 rb_cntl, ib_cntl, f32_cntl, freeze, cntl, preempt, soft_reset, stat1_reg;
-+
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		if (ring == &adev->sdma.instance[i].ring)
-+			break;
-+	}
-+
-+	if (i == adev->sdma.num_instances) {
-+		DRM_ERROR("sdma instance not found\n");
-+		return -EINVAL;
-+	}
-+
-+	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
-+
-+	/* stop queue */
-+	ib_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL));
-+	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 0);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_IB_CNTL), ib_cntl);
-+
-+	rb_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL));
-+	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_CNTL), rb_cntl);
-+
-+	/*engine stop SDMA1_F32_CNTL.HALT to 1 and SDMAx_FREEZE freeze bit to 1 */
-+	freeze = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
-+	freeze = REG_SET_FIELD(freeze, SDMA0_FREEZE, FREEZE, 1);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE), freeze);
-+
-+	for (j = 0; j < adev->usec_timeout; j++) {
-+		freeze = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
-+
-+		if (REG_GET_FIELD(freeze, SDMA0_FREEZE, FROZEN) & 1)
-+			break;
-+		udelay(1);
-+	}
-+
-+
-+	if (j == adev->usec_timeout) {
-+		stat1_reg = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_STATUS1_REG));
-+		if ((stat1_reg & 0x3FF) != 0x3FF) {
-+			DRM_ERROR("cannot soft reset as sdma not idle\n");
-+			r = -ETIMEDOUT;
-+			goto err0;
-+		}
-+	}
-+
-+	f32_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
-+	f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL), f32_cntl);
-+
-+	cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
-+	cntl = REG_SET_FIELD(cntl, SDMA0_CNTL, UTC_L1_ENABLE, 0);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), cntl);
-+
-+	/* soft reset SDMA_GFX_PREEMPT.IB_PREEMPT = 0 mmGRBM_SOFT_RESET.SOFT_RESET_SDMA0/1 = 1 */
-+	preempt = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_PREEMPT));
-+	preempt = REG_SET_FIELD(preempt, SDMA0_GFX_PREEMPT, IB_PREEMPT, 0);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_PREEMPT), preempt);
-+
-+	soft_reset = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-+	soft_reset |= 1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << i;
-+
-+
-+	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
-+
-+	udelay(50);
-+
-+	soft_reset &= ~(1 << GRBM_SOFT_RESET__SOFT_RESET_SDMA0__SHIFT << i);
-+
-+	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, soft_reset);
-+
-+	/* unfreeze and unhalt */
-+	freeze = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE));
-+	freeze = REG_SET_FIELD(freeze, SDMA0_FREEZE, FREEZE, 0);
-+	WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_FREEZE), freeze);
-+
-+	r = sdma_v5_2_gfx_resume_instance(adev, i, true);
-+
-+err0:
-+	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-+	return r;
-+}
-+
- static int sdma_v5_2_ring_preempt_ib(struct amdgpu_ring *ring)
- {
- 	int i, r = 0;
-@@ -1859,6 +1949,7 @@ static const struct amdgpu_ring_funcs sdma_v5_2_ring_funcs = {
- 	.emit_reg_write_reg_wait = sdma_v5_2_ring_emit_reg_write_reg_wait,
- 	.init_cond_exec = sdma_v5_2_ring_init_cond_exec,
- 	.preempt_ib = sdma_v5_2_ring_preempt_ib,
-+	.reset = sdma_v5_2_reset_queue,
- };
- 
- static void sdma_v5_2_set_ring_funcs(struct amdgpu_device *adev)
--- 
-2.25.1
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> On 16/09/2024 18:30, Tvrtko Ursulin wrote:
+> > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> >=20
+> > Having removed one re-lock cycle on the entity->lock in a patch
+> > titled
+> > "drm/sched: Optimise drm_sched_entity_push_job",=C2=A0
+> > with only a tiny bit
+> > larger refactoring we can do the same optimisation=C2=A0
+
+Well, the commit message does not state which optimization that is. One
+would have to look for the previous patch, which you apparently cannot
+provide a commit ID for yet because it's not in Big Boss's branch.
+
+In this case I am for including a sentence about what is being
+optimized also because
+
+> > on the rq->lock.
+> > (Currently both drm_sched_rq_add_entity() and
+> > drm_sched_rq_update_fifo_locked() take and release the same lock.)
+> >=20
+> > To achieve this we make drm_sched_rq_update_fifo_locked() and
+
+it's not clear what the "this" that's being achieved is.
+
+> > drm_sched_rq_add_entity() expect the rq->lock to be held.
+> >=20
+> > We also align drm_sched_rq_update_fifo_locked(),
+> > drm_sched_rq_add_entity() and
+> > drm_sched_rq_remove_fifo_locked() function signatures, by adding rq
+> > as a
+> > parameter to the latter.
+> >=20
+> > v2:
+> > =C2=A0 * Fix after rebase of the series.
+> > =C2=A0 * Avoid naming incosistency between drm_sched_rq_add/remove.
+> > (Christian)
+> >=20
+> > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Reviewed-by: Philipp Stanner <pstanner@redhat.com>
+
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Luben Tuikov <ltuikov89@gmail.com>
+> > Cc: Matthew Brost <matthew.brost@intel.com>
+> > Cc: Philipp Stanner <pstanner@redhat.com>
+> > ---
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
+> > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0 | 29 ++++++++=
+++++-------
+> > -----
+> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> > =C2=A0 3 files changed, 26 insertions(+), 18 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+> > b/drivers/gpu/drm/scheduler/sched_entity.c
+> > index d982cebc6bee..8ace1f1ea66b 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > @@ -515,9 +515,14 @@ struct drm_sched_job
+> > *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09=09next =3D to_drm_sched_job(spsc_queue_peek(&entity-
+> > >job_queue));
+> > =C2=A0=C2=A0=09=09if (next) {
+> > +=09=09=09struct drm_sched_rq *rq;
+> > +
+> > =C2=A0=C2=A0=09=09=09spin_lock(&entity->lock);
+> > -=09=09=09drm_sched_rq_update_fifo_locked(entity,
+> > +=09=09=09rq =3D entity->rq;
+> > +=09=09=09spin_lock(&rq->lock);
+> > +=09=09=09drm_sched_rq_update_fifo_locked(entity,
+> > rq,
+> > =C2=A0=C2=A0=09=09=09=09=09=09=09next-
+> > >submit_ts);
+> > +=09=09=09spin_unlock(&rq->lock);
+> > =C2=A0=C2=A0=09=09=09spin_unlock(&entity->lock);
+> > =C2=A0=C2=A0=09=09}
+> > =C2=A0=C2=A0=09}
+> > @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct
+> > drm_sched_job *sched_job)
+> > =C2=A0=C2=A0=09=09sched =3D rq->sched;
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09=09atomic_inc(sched->score);
+> > +
+> > +=09=09spin_lock(&rq->lock);
+> > =C2=A0=C2=A0=09=09drm_sched_rq_add_entity(rq, entity);
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09=09if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
+> > -=09=09=09drm_sched_rq_update_fifo_locked(entity,
+> > submit_ts);
+> > +=09=09=09drm_sched_rq_update_fifo_locked(entity,
+> > rq, submit_ts);
+> > =C2=A0=20
+> > +=09=09spin_unlock(&rq->lock);
+> > =C2=A0=C2=A0=09=09spin_unlock(&entity->lock);
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09=09drm_sched_wakeup(sched, entity);
+> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > b/drivers/gpu/drm/scheduler/sched_main.c
+> > index 18a952f73ecb..5c83fb92bb89 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > @@ -153,17 +153,18 @@ static __always_inline bool
+> > drm_sched_entity_compare_before(struct rb_node *a,
+> > =C2=A0=C2=A0=09return ktime_before(ent_a->oldest_job_waiting, ent_b-
+> > >oldest_job_waiting);
+> > =C2=A0 }
+> > =C2=A0=20
+> > -static inline void drm_sched_rq_remove_fifo_locked(struct
+> > drm_sched_entity *entity)
+> > +static void drm_sched_rq_remove_fifo_locked(struct
+
+I think the commit message should contain a short sentence about why
+you removed the inline.
+
+AKA "As we're at it, remove the inline function specifier from
+drm_sched_rq_remove_fifo_locked() because XYZ"
+
+
+P.
+
+> > drm_sched_entity *entity,
+> > +=09=09=09=09=09=C2=A0=C2=A0=C2=A0 struct drm_sched_rq
+> > *rq)
+> > =C2=A0 {
+> > -=09struct drm_sched_rq *rq =3D entity->rq;
+> > -
+> > =C2=A0=C2=A0=09if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> > =C2=A0=C2=A0=09=09rb_erase_cached(&entity->rb_tree_node, &rq-
+> > >rb_tree_root);
+> > =C2=A0=C2=A0=09=09RB_CLEAR_NODE(&entity->rb_tree_node);
+> > =C2=A0=C2=A0=09}
+> > =C2=A0 }
+> > =C2=A0=20
+> > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > *entity, ktime_t ts)
+> > +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > *entity,
+> > +=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
+> > +=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 ktime_t ts)
+> > =C2=A0 {
+> > =C2=A0=C2=A0=09/*
+> > =C2=A0=C2=A0=09 * Both locks need to be grabbed, one to protect from
+> > entity->rq change
+> > @@ -171,17 +172,14 @@ void drm_sched_rq_update_fifo_locked(struct
+> > drm_sched_entity *entity, ktime_t ts
+> > =C2=A0=C2=A0=09 * other to update the rb tree structure.
+> > =C2=A0=C2=A0=09 */
+> > =C2=A0=C2=A0=09lockdep_assert_held(&entity->lock);
+> > +=09lockdep_assert_held(&rq->lock);
+> > =C2=A0=20
+> > -=09spin_lock(&entity->rq->lock);
+> > -
+> > -=09drm_sched_rq_remove_fifo_locked(entity);
+> > +=09drm_sched_rq_remove_fifo_locked(entity, rq);
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09entity->oldest_job_waiting =3D ts;
+> > =C2=A0=20
+> > -=09rb_add_cached(&entity->rb_tree_node, &entity->rq-
+> > >rb_tree_root,
+> > +=09rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
+> > =C2=A0=C2=A0=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_entity_compa=
+re_before);
+> > -
+> > -=09spin_unlock(&entity->rq->lock);
+> > =C2=A0 }
+> > =C2=A0=20
+> > =C2=A0 /**
+> > @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct
+> > drm_gpu_scheduler *sched,
+> > =C2=A0 void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+> > =C2=A0=C2=A0=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *=
+entity)
+> > =C2=A0 {
+> > +=09lockdep_assert_held(&entity->lock);
+> > +=09lockdep_assert_held(&rq->lock);
+> > +
+> > =C2=A0=C2=A0=09if (!list_empty(&entity->list))
+> > =C2=A0=C2=A0=09=09return;
+> > =C2=A0=20
+> > -=09spin_lock(&rq->lock);
+> > -
+> > =C2=A0=C2=A0=09atomic_inc(rq->sched->score);
+> > =C2=A0=C2=A0=09list_add_tail(&entity->list, &rq->entities);
+> > -
+> > -=09spin_unlock(&rq->lock);
+> > =C2=A0 }
+> > =C2=A0=20
+> > =C2=A0 /**
+> > @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct
+> > drm_sched_rq *rq,
+> > =C2=A0 void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+> > =C2=A0=C2=A0=09=09=09=09struct drm_sched_entity *entity)
+> > =C2=A0 {
+> > +=09lockdep_assert_held(&entity->lock);
+> > +
+> > =C2=A0=C2=A0=09if (list_empty(&entity->list))
+> > =C2=A0=C2=A0=09=09return;
+> > =C2=A0=20
+> > @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct
+> > drm_sched_rq *rq,
+> > =C2=A0=C2=A0=09=09rq->current_entity =3D NULL;
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
+> > -=09=09drm_sched_rq_remove_fifo_locked(entity);
+> > +=09=09drm_sched_rq_remove_fifo_locked(entity, rq);
+> > =C2=A0=20
+> > =C2=A0=C2=A0=09spin_unlock(&rq->lock);
+> > =C2=A0 }
+> > diff --git a/include/drm/gpu_scheduler.h
+> > b/include/drm/gpu_scheduler.h
+> > index 80198e6cf537..b21806d5a8eb 100644
+> > --- a/include/drm/gpu_scheduler.h
+> > +++ b/include/drm/gpu_scheduler.h
+> > @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct
+> > drm_sched_rq *rq,
+> > =C2=A0 void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+> > =C2=A0=C2=A0=09=09=09=09struct drm_sched_entity *entity);
+> > =C2=A0=20
+> > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > *entity, ktime_t ts);
+> > +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > *entity,
+> > +=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
+> > ktime_t ts);
+> > =C2=A0=20
+> > =C2=A0 int drm_sched_entity_init(struct drm_sched_entity *entity,
+> > =C2=A0=C2=A0=09=09=09=C2=A0 enum drm_sched_priority priority,
+>=20
 
