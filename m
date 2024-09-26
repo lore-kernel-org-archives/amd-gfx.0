@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49474CF58C8
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 12:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35CD5CF58C8
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 12:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F13E410E03D;
-	Thu, 26 Sep 2024 12:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4C7A10E315;
+	Thu, 26 Sep 2024 12:32:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MC7sZO/7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oef+/Hx8";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1DAC10E03D
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 12:29:54 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-42cae102702so7765425e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 05:29:54 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8856810E315
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 12:32:53 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-37ccfada422so373823f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 05:32:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727353793; x=1727958593; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727353972; x=1727958772; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=X3Pj+K5ZcDexa6hoEG2gdhqy7vYSui5lNIhmobH1CrA=;
- b=MC7sZO/7kJsMyEdSXCeOqu0WFNdgNI+1/kOjXH4agQW3rDuRr202qokJOYccigbfOX
- pImlHHsVAYe4nbH+trNUi7mg/ojMy0S7TB8/ZttQaBOpfjcJYHT/isYWEjxYyGe1l7FA
- /0k0cA3zxw1oOjc9pLEId5o8X92Dwrr6dRH+Qs150PTB/JyKeUXQkXKVn9aEfibbiFn6
- rpNo8YoX08FpgCkFtb5b8pKdE7jjiHiljFW8S+3YJxi9SAFK1mSg1hs8BgC4nUybtxML
- EepnKynTFH+TqYFLF9RLSnRMrqy3T0yqlM5SlQKQ/JNsZ5k+wRu3FTIP3HP//qI8iNiv
- HWoA==
+ bh=VT/k1O56pz6Fr0oE9HA29Kyof9pT15go0AwqjiY4gao=;
+ b=Oef+/Hx8bqG3cAEbcsSFFO9V1PKDD8w4BVapmHWVriJ5va8w4ijLOxsZ9wCf4imixw
+ YgpTH620WB+4lhaFs8szcNDH1b13QfdNj7L6kYZADaOPnZaxdsbjw/+aS9uWf3QMKk+r
+ E53xZfPCpSR/VF9m99Nf+HYqD1Jss+rpYnBb2FNnow9YHEk4GSMkObns7r2loyP7zfVK
+ UMnjdoolvXdfn5EBBgKDCUJEJTNTj6ilcS8yXTICCnfXm10POGM7phlsrmY2St8nqfBa
+ H8L4kpq9hLu2RLxozsiPGP1jDfmViWsTD+dIrzOeMcXnN6PTtSi7viAyXbMsK3tC/8FZ
+ bRxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727353793; x=1727958593;
+ d=1e100.net; s=20230601; t=1727353972; x=1727958772;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=X3Pj+K5ZcDexa6hoEG2gdhqy7vYSui5lNIhmobH1CrA=;
- b=NnKb5YmGj+VqZHv7118278TxQw3Nb0POM06qzGWZ+oF5UDG6slAAaE6R+hKv9eJ3fB
- fN2pmV7Wqi08a7wZ6yb5RhN90vgqfMvwC6I75AmdfuKAroV6XektBgxWfhEydqd7CYIu
- Uh4WElEZ5FFH2VBkUE2lFiUq9lLqr/ZWGUX67aRJotn70JWMnoSI6kLdbqdsG3/AQUeM
- JMb3uII3pbaZrIqd1s9KtmxETpIqjjsE8JLGMCw3bzZSLLOZm6VyfSI9GYfq0Ce5/l9N
- /c0AABvFz3WWUsLcOUDJiOX2lknAdxtCIytvCTUYgIMZn2ytvQlFZI1GU1NIV4a+7cbG
- w07Q==
+ bh=VT/k1O56pz6Fr0oE9HA29Kyof9pT15go0AwqjiY4gao=;
+ b=oEeoPGQY7PrqjVM0as0KcrBq7n+R8r3NBU28iBcm+cSC1FGtpaDlAHC+K2cLaA6LyJ
+ aI+Zr+AzkkUMICeOsebnV5jKpmHxnKA5PhpSmiYl6IeEc3YRPJ4gb0585nTTW49LFGc0
+ q7bO9dr8FClMqrmdVKS2DF2tnQyA/hOJisj+rQivUKMYM6U908bp/gI4DCfxCl43b8Q4
+ kdcWwRRTyz9XTbNK8v9CHzp/eFB18SPEz5eEn07YRyKvkSnG1pwiwlJOdFAcbBt59+Ib
+ t2XAXHREZWpW+8OhGHpr5Bh7W45vs+AzGWeZ1rcK2ggX+xFexK/Q+p7FZ7tvoAwOJqh7
+ 6PHg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8E2aiq0uBF+IJWcZVWZJj0Y2zeLXbzvn7zdjWuJ7ZosC6MWDYbozRTylsUJLyQlkfa70t/XFl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6MsGskq5sGRw8aBQjdpE0KGU1KXJmFKfK7PTsbL+M6jHN3C7H
- dX/l/tfNWAjl8UXU7Yls+4geftYdYzunLnvR3fGc7Ubc0qDu/9nEkPTF9jHj
-X-Google-Smtp-Source: AGHT+IHRxv5AgYiFD56qdblFUjOI7TYwtAIaF7yRjEZAHEIXL6k+5hchERT5sVRRsrAHR3fXA5A60w==
-X-Received: by 2002:a05:600c:468d:b0:426:5ef5:bcb1 with SMTP id
- 5b1f17b1804b1-42e96102f17mr35507785e9.6.1727353793019; 
- Thu, 26 Sep 2024 05:29:53 -0700 (PDT)
+ AJvYcCWQEuByZXm33hdn6nFiQKooMDAp8y4/smydkz14iGNPy5TvXLOdNwaLhp6Y2MBVLB7s5zVIbWHe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywKXbMBWf5l7rUX8WZ9m0tlPpifw/Vnn8HKjC0ClHX3tJjX9mx
+ x50fFyOMTK5I3Q4e8SiBnzT2R3RpMkT3h+5bUCJU5TMTIBblOxGm9Ykab5ps
+X-Google-Smtp-Source: AGHT+IFfkpeHU7Puaz4Y0KLJrr8hMBXw5WmfELu1b8dYactzJ/IEXeopS5St827nWBJaQ+pihyE2ig==
+X-Received: by 2002:a05:6000:1449:b0:37c:d179:2f73 with SMTP id
+ ffacd0b85a97d-37cd17930acmr1290469f8f.13.1727353971349; 
+ Thu, 26 Sep 2024 05:32:51 -0700 (PDT)
 Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a52915sm46183665e9.39.2024.09.26.05.29.51
+ 5b1f17b1804b1-42e969f1a76sm45764385e9.12.2024.09.26.05.32.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 05:29:52 -0700 (PDT)
-Message-ID: <feedcd2d-eccb-47fe-9d58-b660b286bf7c@gmail.com>
-Date: Thu, 26 Sep 2024 14:29:48 +0200
+ Thu, 26 Sep 2024 05:32:50 -0700 (PDT)
+Message-ID: <64119b68-12d0-4bc3-890e-edf809cb68df@gmail.com>
+Date: Thu, 26 Sep 2024 14:32:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/08] drm/amdgpu: Add the missing error handling for
- xa_store() call
+Subject: Re: [PATCH v2 08/08] drm/amdgpu: add vm root BO lock before accessing
+ the vm
 To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
  amd-gfx@lists.freedesktop.org
 Cc: christian.koenig@amd.com, alexander.deucher@amd.com
 References: <20240925195928.142001-1-Arunpravin.PaneerSelvam@amd.com>
- <20240925195928.142001-7-Arunpravin.PaneerSelvam@amd.com>
+ <20240925195928.142001-8-Arunpravin.PaneerSelvam@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240925195928.142001-7-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20240925195928.142001-8-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,33 +87,83 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 25.09.24 um 21:59 schrieb Arunpravin Paneer Selvam:
-> Add the missing error handling for xa_store() call in the function
-> amdgpu_userq_fence_driver_alloc().
+> Add a vm root BO lock before accessing the userqueue VM.
 >
 > Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
+>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 19 +++++++++++--------
+>   1 file changed, 11 insertions(+), 8 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index f3576c31428c..43429661f62d 100644
+> index 43429661f62d..52722b738316 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -101,9 +101,11 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
->   	get_task_comm(fence_drv->timeline_name, current);
+> @@ -320,7 +320,6 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
+>   /**
+>    * amdgpu_userq_fence_read_wptr - Read the userq wptr value
+>    *
+> - * @filp: drm file private data structure
+>    * @queue: user mode queue structure pointer
+>    * @wptr: write pointer value
+>    *
+> @@ -330,23 +329,27 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
+>    *
+>    * Returns wptr value on success, error on failure.
+>    */
+> -static int amdgpu_userq_fence_read_wptr(struct drm_file *filp,
+> -					struct amdgpu_usermode_queue *queue,
+> +static int amdgpu_userq_fence_read_wptr(struct amdgpu_usermode_queue *queue,
+>   					u64 *wptr)
+>   {
+> -	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+>   	struct amdgpu_bo_va_mapping *mapping;
+> -	struct amdgpu_vm *vm = &fpriv->vm;
+>   	struct amdgpu_bo *bo;
+>   	u64 addr, *ptr;
+>   	int r;
 >   
->   	xa_lock_irqsave(&adev->userq_xa, flags);
-> -	__xa_store(&adev->userq_xa, userq->doorbell_index,
-> -		   fence_drv, GFP_KERNEL);
-> +	r = xa_err(__xa_store(&adev->userq_xa, userq->doorbell_index,
-> +			      fence_drv, GFP_KERNEL));
->   	xa_unlock_irqrestore(&adev->userq_xa, flags);
+> +	r = amdgpu_bo_reserve(queue->vm->root.bo, false);
 > +	if (r)
-> +		goto free_seq64;
+> +		return r;
+> +
+>   	addr = queue->userq_prop->wptr_gpu_addr;
+>   	addr &= AMDGPU_GMC_HOLE_MASK;
 >   
->   	userq->fence_drv = fence_drv;
+> -	mapping = amdgpu_vm_bo_lookup_mapping(vm, addr >> PAGE_SHIFT);
+> -	if (!mapping)
+> +	mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, addr >> PAGE_SHIFT);
+> +	amdgpu_bo_unreserve(queue->vm->root.bo);
+
+You need to keep the VM locked until you are done with the mapping. 
+Otherwise the mapping could be released at any time.
+
+Regards,
+Christian.
+
+> +	if (!mapping) {
+> +		DRM_ERROR("Failed to lookup amdgpu_bo_va_mapping\n");
+>   		return -EINVAL;
+> +	}
+>   
+>   	bo = mapping->bo_va->base.bo;
+
+If you only need the BO then grab a temporary BO reference here, drop 
+the VM lock and acquire the BO.
+
+When you are done with everything just drop the BO lock and then the 
+temporary BO reference.
+
+Regards,
+Christian.
+
+>   	r = amdgpu_bo_reserve(bo, true);
+> @@ -448,7 +451,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>   		goto exec_fini;
+>   	}
+>   
+> -	r = amdgpu_userq_fence_read_wptr(filp, queue, &wptr);
+> +	r = amdgpu_userq_fence_read_wptr(queue, &wptr);
+>   	if (r)
+>   		goto exec_fini;
 >   
 
