@@ -4,79 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA16CCF9E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 08:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD23CCF9E9
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 08:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 064D710E042;
-	Thu, 26 Sep 2024 08:16:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25D710EB07;
+	Thu, 26 Sep 2024 08:18:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NzyIBgt8";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FxWS3k+z";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE7A010E042
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 08:16:03 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D570910EB07
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 08:18:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1727338562;
+ s=mimecast20190719; t=1727338691;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jkE98gTtDfNr5GfMuftp4G9EJP69laL9HOqoZTWYEH4=;
- b=NzyIBgt8LxKeBm7PkwFy0UF+ciwZquoVTjRA0D46byz16J8XLZ+IzyF9vlMIH0VOUXAIX9
- V00UFsu6e/7Hsil39nmLoJdBTe6fBsTtEUj1a5IPaC8+gVSm5Xu2O2qhmcpCZzuQVHj6bM
- fongz5g5FTdpHpwOWbmPjEPIoBdQ4dw=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ve5Ra3/aIru4oDwkyvdf3f2MzOAHWwI1r+VGHG3bK8o=;
+ b=FxWS3k+zNN6of9verLfk52tvFAp52qyTqqQW4cSrz2q6PLrI4YYNRa0WpoECSaElK70VmC
+ p0ICQzDd9fyZRENXssKMKrbept3T07xTd8Jh3vJzn3vn5zxwFSc4PYHHtzn3aNG6+q03gX
+ iXp46KMPkoUHVPB0QtLSmB5sgku29pQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-657-6HkrhnVqP9iHyOmhVlY1Vg-1; Thu, 26 Sep 2024 04:16:01 -0400
-X-MC-Unique: 6HkrhnVqP9iHyOmhVlY1Vg-1
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-42cb9e14ab6so4408145e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 01:16:01 -0700 (PDT)
+ us-mta-46-cyIYPkr4PU-pho9DQr80AQ-1; Thu, 26 Sep 2024 04:18:09 -0400
+X-MC-Unique: cyIYPkr4PU-pho9DQr80AQ-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-37ccd0cf138so382823f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 01:18:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727338560; x=1727943360;
+ d=1e100.net; s=20230601; t=1727338688; x=1727943488;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Q+PB1bX63yvpVUwHd1p8kcnlGkK65hhrsf8Uv72pc7E=;
- b=uHfQAfpmqyRbKBcFScgs4Nz6quJ4bZH/A8+9WThxRh1LcJF+G2e1uHHURflJg6nl/i
- Gttvv1KTiEw+crUr8ZqKKberY38aVk2q7L+2iDUR8wJm7ydiazBx0cq4eaxYbq73j6aO
- UYmRAL2dUZpiSszOZ2HfsBUyw6NhYjhHOnN93A5OrVsuf4kfRe2AUfRVb+2EKNQ/DUpU
- LKfWxYs+58oBxDZyTcdFDO+T4qHi2IfmVD7AkB19q+RxgerB5NaNKit/CXALetM0IDi3
- yiqpqptbWFxERNwEmsogDMk/FVWWyAagkxLD4DEwC6lZTlCDZhm6ekBnA1pfrruxdDga
- Aonw==
+ bh=DccLXcOI6pFlXQmAjJQoc7QpiZio5D6THMmCqnyD/aU=;
+ b=BAUYeX4ipkcNE+EipMjWc9vLgUNeKpPBXh642fAUuGfjvVikuw2PKiStho1/dUAwiN
+ iJ64wGvRdjGKk+dk75zqKy6H6kWxYiNzDvn4aJlnpenv/vUKdvfdaVfcHdgZSXNZNjes
+ 1UT/4JdiS2OBmd/MoFjqz0nQckIpwJ9ZSak+HgKiHoFF2Gcved2LPvnXoBU6RvtIOnzT
+ rVhnaHYq521l5TJp7d8ttJ93nPr+YKb45IOPWhVs3jHVroHWcJFR4cPGM5iqe+4mp9UJ
+ cS5LW8soTiAbetScQOeQdA3lYVJ5JdiRE/tu7A1TZjBZKpTAiS0DHvjUrVybj2NlyN/Y
+ cikQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWusLR/GMeyCDgjqX7KpcagNUg/0CoIdUEx3pbDYdCCXvWEHLSPERWfMPWKpTqjNmWRv+zeeUl7@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxuopOzTI2pqHVwg8pLB9FspZbgB0WrxdXhCIJEQapAV5pnOBBT
- ph7TMyaGju9hiuLZR19WBDmTNC3qXj61goktb7MRBEUVC1gL8ep3Vd7ZP7DZB7Ka92LadWxD/L/
- oZZwyLIXhQakNiGTD6+sTPOT+Q+wdXLVwNkQRkGliVWRBMr6uWJZCrui7QTv9cTk=
-X-Received: by 2002:a05:600c:1d28:b0:42c:cd7c:a196 with SMTP id
- 5b1f17b1804b1-42e9611d114mr43907395e9.17.1727338559961; 
- Thu, 26 Sep 2024 01:15:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEwymqbtplHXtGKps6e8X68XchcCU8AuujFE6kob4eddrzwCgTX6kD4e43/wdKG6NNCah1n6g==
-X-Received: by 2002:a05:600c:1d28:b0:42c:cd7c:a196 with SMTP id
- 5b1f17b1804b1-42e9611d114mr43907165e9.17.1727338559472; 
- Thu, 26 Sep 2024 01:15:59 -0700 (PDT)
+ AJvYcCURbbot14XCivo0raTq15tkqi4ygwIpB5PJvO379lrDrJJIX/T7B9dN52X+SaymH89r2aOM42wE@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwyIBBYsTfrCd191tjGEK1m2qzA9l8/Vz8jgrKBhAMsg4UyVoKB
+ MLxrcJLknHuzF56TF5MmERSwVDTdDCpTDFwRRGR4k/NA+6XXw2sJXI+Pz7mjq7umy3YOa5q97nP
+ i1fmR/9gBTzk238IFBHrbTJMJGeJ32F1ISXUSxWzYV9E2VLnx6uEekI8zs65zjcF1e2sBdqX+aQ
+ ==
+X-Received: by 2002:a05:6000:2a88:b0:37c:c4c0:9b78 with SMTP id
+ ffacd0b85a97d-37cc4c09c4dmr5734536f8f.48.1727338688257; 
+ Thu, 26 Sep 2024 01:18:08 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHdUvNFDNgjJN1IFB145tpazQRP9PYmVvXgM4aUuxRMfCIEIlADqiOxqvItdNypVUy4tY4wOA==
+X-Received: by 2002:a05:6000:2a88:b0:37c:c4c0:9b78 with SMTP id
+ ffacd0b85a97d-37cc4c09c4dmr5734489f8f.48.1727338687736; 
+ Thu, 26 Sep 2024 01:18:07 -0700 (PDT)
 Received: from eisenberg.fritz.box ([2001:16b8:3dee:bc00:37ec:5f5c:23da:fb5f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e969ddb64sm40042255e9.8.2024.09.26.01.15.58
+ ffacd0b85a97d-37cbc2c139esm5772591f8f.27.2024.09.26.01.18.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 01:15:59 -0700 (PDT)
-Message-ID: <a5dd98b71891ea0392d61e24cde8b35051035780.camel@redhat.com>
+ Thu, 26 Sep 2024 01:18:07 -0700 (PDT)
+Message-ID: <9ce9169b453a5cce8e276b88defb1995a6006a15.camel@redhat.com>
 Subject: Re: [PATCH v2] drm/sched: Further optimise drm_sched_entity_push_job
 From: Philipp Stanner <pstanner@redhat.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Tvrtko Ursulin
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Tvrtko Ursulin
  <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
  <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Luben
  Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>
-Date: Thu, 26 Sep 2024 10:15:58 +0200
-In-Reply-To: <1650ecb9-ac8a-4199-8693-77c73a95bbbd@igalia.com>
+Date: Thu, 26 Sep 2024 10:18:06 +0200
+In-Reply-To: <657ad50f-5458-4477-a348-5869c0282e35@gmail.com>
 References: <20240913160559.49054-9-tursulin@igalia.com>
  <20240916173007.118-1-tursulin@igalia.com>
- <1650ecb9-ac8a-4199-8693-77c73a95bbbd@igalia.com>
+ <478b066b-af6c-43a2-9e0e-a19344893bc0@gmail.com>
+ <dfec609d-bbf8-4b6e-ad26-84e869694acc@igalia.com>
+ <2ad66742-f572-4edc-957c-fcbd8c5a5917@igalia.com>
+ <657ad50f-5458-4477-a348-5869c0282e35@gmail.com>
 User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
@@ -97,253 +102,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2024-09-23 at 15:35 +0100, Tvrtko Ursulin wrote:
+On Tue, 2024-09-24 at 14:02 +0200, Christian K=C3=B6nig wrote:
+> Am 24.09.24 um 11:58 schrieb Tvrtko Ursulin:
+> >=20
+> > On 24/09/2024 10:45, Tvrtko Ursulin wrote:
+> > >=20
+> > > On 24/09/2024 09:20, Christian K=C3=B6nig wrote:
+> > > > Am 16.09.24 um 19:30 schrieb Tvrtko Ursulin:
+> > > > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > >=20
+> > > > > Having removed one re-lock cycle on the entity->lock in a
+> > > > > patch titled
+> > > > > "drm/sched: Optimise drm_sched_entity_push_job", with only a
+> > > > > tiny bit
+> > > > > larger refactoring we can do the same optimisation on the rq-
+> > > > > >lock.
+> > > > > (Currently both drm_sched_rq_add_entity() and
+> > > > > drm_sched_rq_update_fifo_locked() take and release the same
+> > > > > lock.)
+> > > > >=20
+> > > > > To achieve this we make drm_sched_rq_update_fifo_locked() and
+> > > > > drm_sched_rq_add_entity() expect the rq->lock to be held.
+> > > > >=20
+> > > > > We also align drm_sched_rq_update_fifo_locked(),
+> > > > > drm_sched_rq_add_entity() and
+> > > > > drm_sched_rq_remove_fifo_locked() function signatures, by
+> > > > > adding rq=20
+> > > > > as a
+> > > > > parameter to the latter.
+> > > > >=20
+> > > > > v2:
+> > > > > =C2=A0 * Fix after rebase of the series.
+> > > > > =C2=A0 * Avoid naming incosistency between
+> > > > > drm_sched_rq_add/remove.=20
+> > > > > (Christian)
+> > > > >=20
+> > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > Cc: Luben Tuikov <ltuikov89@gmail.com>
+> > > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > > Cc: Philipp Stanner <pstanner@redhat.com>
+> > > >=20
+> > > > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > >=20
+> > > Thanks!
+> > >=20
+> > > Are you okay to pull into drm-misc-next or we should do some more
+> > > testing on this?
+> > >=20
+> > > And/or should I resend the series once more in it's entirety so
+> > > this=20
+> > > v2 is not a reply-to to the original?
+> >=20
+> > I have to respin for the drm_sched_wakeup fix that landed.
 >=20
-> Ping Christian and Philipp - reasonably happy with v2? I think it's
-> the=20
-> only unreviewed patch from the series.
+> When I should push the series to drm-misc-next then please send it to
+> me=20
+> once more.
+>=20
+> On the other hand we should now have to maintainers for that.
 
-Howdy,
+Yup, will pick up this responsibilities soonish. Danilo and I have been
+on conference recently and I'm out of office soon for a bit, but you
+can expect me / us to take over that work soonish in early autumn.
 
-sry for the delay, I had been traveling.
-
-I have a few nits below regarding the commit message. Besides, I'm OK
-with that, thx for your work :)
+Regards,
+P.
 
 >=20
 > Regards,
+> Christian.
 >=20
-> Tvrtko
->=20
-> On 16/09/2024 18:30, Tvrtko Ursulin wrote:
-> > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 > >=20
-> > Having removed one re-lock cycle on the entity->lock in a patch
-> > titled
-> > "drm/sched: Optimise drm_sched_entity_push_job",=C2=A0
-> > with only a tiny bit
-> > larger refactoring we can do the same optimisation=C2=A0
-
-Well, the commit message does not state which optimization that is. One
-would have to look for the previous patch, which you apparently cannot
-provide a commit ID for yet because it's not in Big Boss's branch.
-
-In this case I am for including a sentence about what is being
-optimized also because
-
-> > on the rq->lock.
-> > (Currently both drm_sched_rq_add_entity() and
-> > drm_sched_rq_update_fifo_locked() take and release the same lock.)
+> > Regards,
 > >=20
-> > To achieve this we make drm_sched_rq_update_fifo_locked() and
-
-it's not clear what the "this" that's being achieved is.
-
-> > drm_sched_rq_add_entity() expect the rq->lock to be held.
+> > Tvrtko
 > >=20
-> > We also align drm_sched_rq_update_fifo_locked(),
-> > drm_sched_rq_add_entity() and
-> > drm_sched_rq_remove_fifo_locked() function signatures, by adding rq
-> > as a
-> > parameter to the latter.
-> >=20
-> > v2:
-> > =C2=A0 * Fix after rebase of the series.
-> > =C2=A0 * Avoid naming incosistency between drm_sched_rq_add/remove.
-> > (Christian)
-> >=20
-> > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Reviewed-by: Philipp Stanner <pstanner@redhat.com>
-
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Luben Tuikov <ltuikov89@gmail.com>
-> > Cc: Matthew Brost <matthew.brost@intel.com>
-> > Cc: Philipp Stanner <pstanner@redhat.com>
-> > ---
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0 | 29 ++++++++=
-++++-------
-> > -----
-> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
-> > =C2=A0 3 files changed, 26 insertions(+), 18 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
-> > b/drivers/gpu/drm/scheduler/sched_entity.c
-> > index d982cebc6bee..8ace1f1ea66b 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> > @@ -515,9 +515,14 @@ struct drm_sched_job
-> > *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09=09next =3D to_drm_sched_job(spsc_queue_peek(&entity-
-> > >job_queue));
-> > =C2=A0=C2=A0=09=09if (next) {
-> > +=09=09=09struct drm_sched_rq *rq;
-> > +
-> > =C2=A0=C2=A0=09=09=09spin_lock(&entity->lock);
-> > -=09=09=09drm_sched_rq_update_fifo_locked(entity,
-> > +=09=09=09rq =3D entity->rq;
-> > +=09=09=09spin_lock(&rq->lock);
-> > +=09=09=09drm_sched_rq_update_fifo_locked(entity,
-> > rq,
-> > =C2=A0=C2=A0=09=09=09=09=09=09=09next-
-> > >submit_ts);
-> > +=09=09=09spin_unlock(&rq->lock);
-> > =C2=A0=C2=A0=09=09=09spin_unlock(&entity->lock);
-> > =C2=A0=C2=A0=09=09}
-> > =C2=A0=C2=A0=09}
-> > @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct
-> > drm_sched_job *sched_job)
-> > =C2=A0=C2=A0=09=09sched =3D rq->sched;
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09=09atomic_inc(sched->score);
-> > +
-> > +=09=09spin_lock(&rq->lock);
-> > =C2=A0=C2=A0=09=09drm_sched_rq_add_entity(rq, entity);
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09=09if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> > -=09=09=09drm_sched_rq_update_fifo_locked(entity,
-> > submit_ts);
-> > +=09=09=09drm_sched_rq_update_fifo_locked(entity,
-> > rq, submit_ts);
-> > =C2=A0=20
-> > +=09=09spin_unlock(&rq->lock);
-> > =C2=A0=C2=A0=09=09spin_unlock(&entity->lock);
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09=09drm_sched_wakeup(sched, entity);
-> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
-> > b/drivers/gpu/drm/scheduler/sched_main.c
-> > index 18a952f73ecb..5c83fb92bb89 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > @@ -153,17 +153,18 @@ static __always_inline bool
-> > drm_sched_entity_compare_before(struct rb_node *a,
-> > =C2=A0=C2=A0=09return ktime_before(ent_a->oldest_job_waiting, ent_b-
-> > >oldest_job_waiting);
-> > =C2=A0 }
-> > =C2=A0=20
-> > -static inline void drm_sched_rq_remove_fifo_locked(struct
-> > drm_sched_entity *entity)
-> > +static void drm_sched_rq_remove_fifo_locked(struct
-
-I think the commit message should contain a short sentence about why
-you removed the inline.
-
-AKA "As we're at it, remove the inline function specifier from
-drm_sched_rq_remove_fifo_locked() because XYZ"
-
-
-P.
-
-> > drm_sched_entity *entity,
-> > +=09=09=09=09=09=C2=A0=C2=A0=C2=A0 struct drm_sched_rq
-> > *rq)
-> > =C2=A0 {
-> > -=09struct drm_sched_rq *rq =3D entity->rq;
-> > -
-> > =C2=A0=C2=A0=09if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> > =C2=A0=C2=A0=09=09rb_erase_cached(&entity->rb_tree_node, &rq-
-> > >rb_tree_root);
-> > =C2=A0=C2=A0=09=09RB_CLEAR_NODE(&entity->rb_tree_node);
-> > =C2=A0=C2=A0=09}
-> > =C2=A0 }
-> > =C2=A0=20
-> > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
-> > *entity, ktime_t ts)
-> > +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
-> > *entity,
-> > +=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
-> > +=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 ktime_t ts)
-> > =C2=A0 {
-> > =C2=A0=C2=A0=09/*
-> > =C2=A0=C2=A0=09 * Both locks need to be grabbed, one to protect from
-> > entity->rq change
-> > @@ -171,17 +172,14 @@ void drm_sched_rq_update_fifo_locked(struct
-> > drm_sched_entity *entity, ktime_t ts
-> > =C2=A0=C2=A0=09 * other to update the rb tree structure.
-> > =C2=A0=C2=A0=09 */
-> > =C2=A0=C2=A0=09lockdep_assert_held(&entity->lock);
-> > +=09lockdep_assert_held(&rq->lock);
-> > =C2=A0=20
-> > -=09spin_lock(&entity->rq->lock);
-> > -
-> > -=09drm_sched_rq_remove_fifo_locked(entity);
-> > +=09drm_sched_rq_remove_fifo_locked(entity, rq);
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09entity->oldest_job_waiting =3D ts;
-> > =C2=A0=20
-> > -=09rb_add_cached(&entity->rb_tree_node, &entity->rq-
-> > >rb_tree_root,
-> > +=09rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
-> > =C2=A0=C2=A0=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_entity_compa=
-re_before);
-> > -
-> > -=09spin_unlock(&entity->rq->lock);
-> > =C2=A0 }
-> > =C2=A0=20
-> > =C2=A0 /**
-> > @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct
-> > drm_gpu_scheduler *sched,
-> > =C2=A0 void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
-> > =C2=A0=C2=A0=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *=
-entity)
-> > =C2=A0 {
-> > +=09lockdep_assert_held(&entity->lock);
-> > +=09lockdep_assert_held(&rq->lock);
-> > +
-> > =C2=A0=C2=A0=09if (!list_empty(&entity->list))
-> > =C2=A0=C2=A0=09=09return;
-> > =C2=A0=20
-> > -=09spin_lock(&rq->lock);
-> > -
-> > =C2=A0=C2=A0=09atomic_inc(rq->sched->score);
-> > =C2=A0=C2=A0=09list_add_tail(&entity->list, &rq->entities);
-> > -
-> > -=09spin_unlock(&rq->lock);
-> > =C2=A0 }
-> > =C2=A0=20
-> > =C2=A0 /**
-> > @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct
-> > drm_sched_rq *rq,
-> > =C2=A0 void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
-> > =C2=A0=C2=A0=09=09=09=09struct drm_sched_entity *entity)
-> > =C2=A0 {
-> > +=09lockdep_assert_held(&entity->lock);
-> > +
-> > =C2=A0=C2=A0=09if (list_empty(&entity->list))
-> > =C2=A0=C2=A0=09=09return;
-> > =C2=A0=20
-> > @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct
-> > drm_sched_rq *rq,
-> > =C2=A0=C2=A0=09=09rq->current_entity =3D NULL;
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> > -=09=09drm_sched_rq_remove_fifo_locked(entity);
-> > +=09=09drm_sched_rq_remove_fifo_locked(entity, rq);
-> > =C2=A0=20
-> > =C2=A0=C2=A0=09spin_unlock(&rq->lock);
-> > =C2=A0 }
-> > diff --git a/include/drm/gpu_scheduler.h
-> > b/include/drm/gpu_scheduler.h
-> > index 80198e6cf537..b21806d5a8eb 100644
-> > --- a/include/drm/gpu_scheduler.h
-> > +++ b/include/drm/gpu_scheduler.h
-> > @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct
-> > drm_sched_rq *rq,
-> > =C2=A0 void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
-> > =C2=A0=C2=A0=09=09=09=09struct drm_sched_entity *entity);
-> > =C2=A0=20
-> > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
-> > *entity, ktime_t ts);
-> > +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
-> > *entity,
-> > +=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq,
-> > ktime_t ts);
-> > =C2=A0=20
-> > =C2=A0 int drm_sched_entity_init(struct drm_sched_entity *entity,
-> > =C2=A0=C2=A0=09=09=09=C2=A0 enum drm_sched_priority priority,
+> > >=20
+> > > Regards,
+> > >=20
+> > > Tvrtko
+> > >=20
+> > > >=20
+> > > > > ---
+> > > > > =C2=A0 drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++--
+> > > > > =C2=A0 drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0 | 29=20
+> > > > > ++++++++++++------------
+> > > > > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> > > > > =C2=A0 3 files changed, 26 insertions(+), 18 deletions(-)
+> > > > >=20
+> > > > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c=20
+> > > > > b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > index d982cebc6bee..8ace1f1ea66b 100644
+> > > > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > > > @@ -515,9 +515,14 @@ struct drm_sched_job=20
+> > > > > *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 next =3D=
+=20
+> > > > > to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (next) =
+{
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 struct drm_sched_rq *rq;
+> > > > > +
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 spin_lock(&entity->lock);
+> > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 drm_sched_rq_update_fifo_locked(entity,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 rq =3D entity->rq;
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 spin_lock(&rq->lock);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 drm_sched_rq_update_fifo_locked(entity, rq,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 next->submit_ts);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 spin_unlock(&rq->lock);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 spin_unlock(&entity->lock);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > @@ -618,11 +623,14 @@ void drm_sched_entity_push_job(struct=20
+> > > > > drm_sched_job *sched_job)
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sched =3D =
+rq->sched;
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic_inc=
+(sched->score);
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&rq->lock);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_=
+rq_add_entity(rq, entity);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (drm_sc=
+hed_policy =3D=3D DRM_SCHED_POLICY_FIFO)
+> > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 drm_sched_rq_update_fifo_locked(entity,
+> > > > > submit_ts);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 drm_sched_rq_update_fifo_locked(entity, rq,
+> > > > > submit_ts);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&rq->lock=
+);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unloc=
+k(&entity->lock);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_=
+wakeup(sched, entity);
+> > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c=20
+> > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > index 18a952f73ecb..5c83fb92bb89 100644
+> > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > @@ -153,17 +153,18 @@ static __always_inline bool=20
+> > > > > drm_sched_entity_compare_before(struct rb_node *a,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ktime_before(ent_a->oldest_=
+job_waiting,=20
+> > > > > ent_b->oldest_job_waiting);
+> > > > > =C2=A0 }
+> > > > > -static inline void drm_sched_rq_remove_fifo_locked(struct=20
+> > > > > drm_sched_entity *entity)
+> > > > > +static void drm_sched_rq_remove_fifo_locked(struct=20
+> > > > > drm_sched_entity *entity,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ struct drm_sched_rq *rq)
+> > > > > =C2=A0 {
+> > > > > -=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq =3D entity->rq;
+> > > > > -
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!RB_EMPTY_NODE(&entity->rb_tre=
+e_node)) {
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rb_erase_c=
+ached(&entity->rb_tree_node, &rq-
+> > > > > >rb_tree_root);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RB_CLEAR_N=
+ODE(&entity->rb_tree_node);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > =C2=A0 }
+> > > > > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > > > > *entity, ktime_t ts)
+> > > > > +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > > > > *entity,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_=
+rq *rq,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ktime_t ts)
+> > > > > =C2=A0 {
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Both locks need to be grab=
+bed, one to protect from=20
+> > > > > entity->rq change
+> > > > > @@ -171,17 +172,14 @@ void
+> > > > > drm_sched_rq_update_fifo_locked(struct=20
+> > > > > drm_sched_entity *entity, ktime_t ts
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * other to update the rb tre=
+e structure.
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lockdep_assert_held(&entity->lock)=
+;
+> > > > > +=C2=A0=C2=A0=C2=A0 lockdep_assert_held(&rq->lock);
+> > > > > -=C2=A0=C2=A0=C2=A0 spin_lock(&entity->rq->lock);
+> > > > > -
+> > > > > -=C2=A0=C2=A0=C2=A0 drm_sched_rq_remove_fifo_locked(entity);
+> > > > > +=C2=A0=C2=A0=C2=A0 drm_sched_rq_remove_fifo_locked(entity, rq);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 entity->oldest_job_waiting =3D ts;
+> > > > > -=C2=A0=C2=A0=C2=A0 rb_add_cached(&entity->rb_tree_node, &entity-=
+>rq-
+> > > > > >rb_tree_root,
+> > > > > +=C2=A0=C2=A0=C2=A0 rb_add_cached(&entity->rb_tree_node, &rq->rb_=
+tree_root,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_entity_compare_before);
+> > > > > -
+> > > > > -=C2=A0=C2=A0=C2=A0 spin_unlock(&entity->rq->lock);
+> > > > > =C2=A0 }
+> > > > > =C2=A0 /**
+> > > > > @@ -213,15 +211,14 @@ static void drm_sched_rq_init(struct=20
+> > > > > drm_gpu_scheduler *sched,
+> > > > > =C2=A0 void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *enti=
+ty)
+> > > > > =C2=A0 {
+> > > > > +=C2=A0=C2=A0=C2=A0 lockdep_assert_held(&entity->lock);
+> > > > > +=C2=A0=C2=A0=C2=A0 lockdep_assert_held(&rq->lock);
+> > > > > +
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!list_empty(&entity->list))
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> > > > > -=C2=A0=C2=A0=C2=A0 spin_lock(&rq->lock);
+> > > > > -
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic_inc(rq->sched->score);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_add_tail(&entity->list, &rq->=
+entities);
+> > > > > -
+> > > > > -=C2=A0=C2=A0=C2=A0 spin_unlock(&rq->lock);
+> > > > > =C2=A0 }
+> > > > > =C2=A0 /**
+> > > > > @@ -235,6 +232,8 @@ void drm_sched_rq_add_entity(struct=20
+> > > > > drm_sched_rq *rq,
+> > > > > =C2=A0 void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *entity)
+> > > > > =C2=A0 {
+> > > > > +=C2=A0=C2=A0=C2=A0 lockdep_assert_held(&entity->lock);
+> > > > > +
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (list_empty(&entity->list))
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> > > > > @@ -247,7 +246,7 @@ void drm_sched_rq_remove_entity(struct=20
+> > > > > drm_sched_rq *rq,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rq->curren=
+t_entity =3D NULL;
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (drm_sched_policy =3D=3D DRM_SC=
+HED_POLICY_FIFO)
+> > > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_rq_remove_f=
+ifo_locked(entity);
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_rq_remove_f=
+ifo_locked(entity, rq);
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&rq->lock);
+> > > > > =C2=A0 }
+> > > > > diff --git a/include/drm/gpu_scheduler.h
+> > > > > b/include/drm/gpu_scheduler.h
+> > > > > index 80198e6cf537..b21806d5a8eb 100644
+> > > > > --- a/include/drm/gpu_scheduler.h
+> > > > > +++ b/include/drm/gpu_scheduler.h
+> > > > > @@ -596,7 +596,8 @@ void drm_sched_rq_add_entity(struct=20
+> > > > > drm_sched_rq *rq,
+> > > > > =C2=A0 void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_entity *entity);
+> > > > > -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > > > > *entity, ktime_t ts);
+> > > > > +void drm_sched_rq_update_fifo_locked(struct drm_sched_entity
+> > > > > *entity,
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_sched_=
+rq *rq, ktime_t ts);
+> > > > > =C2=A0 int drm_sched_entity_init(struct drm_sched_entity *entity,
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum drm_sched_priority priority,
+> > > >=20
 >=20
 
