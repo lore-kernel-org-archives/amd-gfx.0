@@ -4,153 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1018DCDE031
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 19:21:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED1DECF9C5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 23:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB2D310EA74;
-	Thu, 26 Sep 2024 19:21:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 256E710EBDD;
+	Thu, 26 Sep 2024 23:01:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y+lnoxOe";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="L1VGlq0y";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2792E10EA74;
- Thu, 26 Sep 2024 19:21:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U6B/Vf8SzFfeb7pRhTCxCPLE1HER96OS/ZmmF0/mMGPU2w4y0E2B5OSGULIew+f4vVXM4YM4sasEiHtn57hbrsrWqqCJrbb8woaEFc1h8DisEf75cjGAGET82J9D5TefWSqm5WQwatQ+IUPnvdei+u0LAy2SF9118rkrm84wnZykRWLgGUMXZMbQ37aSA8CIdkZV1VOkfKlPynez6kVciAt1mgBiIOEGb7rndXaiNvYMNxV8hp6ctA5AUJqoSk7p7wCHQnGH4mvFQxnuZJU++W/DIien54nFZTmgs9hVhwQpjMulMExbS36n7t5HGl/s+NIdwwkb2kBEzaysUAyHhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lV0eZoIVGYtLKEpQKqB/0s6h1H+QQyH6pjGTDpss+v8=;
- b=V+CNrUXs6hloVB5xdqksxTbhFuijkNLVhQfszcRsqG/B+2p8ZIzrRw7+jxdltpoICmCL+BonmUa1+onrtXHxB6Qggn8orH+wXoJuZL2FSvhMCTDOhm1VG5/cCdJeqfLDk7MDTUmlmqQOxXE1tUb8jy37EusB5PigU0iHgeXqwlgUd+855KdhPacdNnvTZZkary/ZDd1SnyIkrcBZfKGdw+85Q7UCQNCniIQd+UB6OT9zBTzbemZ1wgt7UWZjBnnbKeR5U6ntcVJqJLwamZWfGY2e3uI35t/qMtpk+mMR0ATogvt2KunA1wkxIZjjC7kz+wGu2TWQgCztKUyYbXWKHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lV0eZoIVGYtLKEpQKqB/0s6h1H+QQyH6pjGTDpss+v8=;
- b=Y+lnoxOenfyJPP5PrWRhmj/qxun4AelfPWiVAr6pI3bTj32vIsoMQVk64s7LLlMl9VrDVqH4Wftpwxp6c6N6lk6XsJgM5hp7D7TaSDSvHbmaQsAfG8PS3mfUqJzfuBumKTaeA11UbPes9Na36GMUh9j3jokdrwOFgbA3Ge/VzKQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB8486.namprd12.prod.outlook.com (2603:10b6:610:18a::10)
- by IA1PR12MB6284.namprd12.prod.outlook.com (2603:10b6:208:3e4::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Thu, 26 Sep
- 2024 19:21:16 +0000
-Received: from CH0PR12MB8486.namprd12.prod.outlook.com
- ([fe80::cfe7:2803:1f0b:a8b4]) by CH0PR12MB8486.namprd12.prod.outlook.com
- ([fe80::cfe7:2803:1f0b:a8b4%4]) with mapi id 15.20.7982.022; Thu, 26 Sep 2024
- 19:21:16 +0000
-Message-ID: <61459cdf-a96d-4849-8667-097f33e36d86@amd.com>
-Date: Thu, 26 Sep 2024 13:21:09 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 07/10] drm/amd/display: get SAD from drm_eld when
- parsing EDID caps
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alexander Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Broadworth, Mark" <Mark.Broadworth@amd.com>,
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-References: <20240918213845.158293-1-mario.limonciello@amd.com>
- <20240918213845.158293-8-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20240918213845.158293-8-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0107.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::20) To CH0PR12MB8486.namprd12.prod.outlook.com
- (2603:10b6:610:18a::10)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7B610E34A;
+ Thu, 26 Sep 2024 23:01:46 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48QG9mG7026541;
+ Thu, 26 Sep 2024 23:01:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bDhnhxaLSsQjl7xe4xa9yaUsNXJSZfAHaDNanf+MtVA=; b=L1VGlq0yeiNIwbWD
+ rauKzq2Npx92dXPG2lryye+al+tOxfhhN9iKJfacVJR0/J9ZOC2Ca7DN7ICbUYt1
+ fd4qRogLR3EGLww/vfyLSqOejT9EajrE2A4iisWpTarlDlidDX0maKIrT5eDLFVz
+ EHFs9NRc8SDF9/aJpM/CMuI2RRDpbY+x/l8hBLB0nNXc2BZR04bDnvfaknKCBwIL
+ RTt//+k6m9HJrAjlWIWNfwSTRTNP5kig2z1sIvdnOBZ5IYeHPKhgBbRgtouVydox
+ jyH5jDY0utWXZKkcxK+lhUtyxGRpLtfKMn8Mqb16HuZ5klrQkfH5H3FPgK/g6reY
+ 2ac6hg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41sn5c151y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Sep 2024 23:01:30 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48QN1TuF007471
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Sep 2024 23:01:29 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 26 Sep
+ 2024 16:01:27 -0700
+Message-ID: <e9f38fe1-10fb-49ad-b209-0e2786ec6f94@quicinc.com>
+Date: Thu, 26 Sep 2024 16:01:27 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8486:EE_|IA1PR12MB6284:EE_
-X-MS-Office365-Filtering-Correlation-Id: 799653b3-53df-41ba-9b2c-08dcde606454
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dUg1WnFyWFJneG5kZ0xoeHpsRVhXYS82cmVvSWFranV3WDAvM2VPL0xFd0hm?=
- =?utf-8?B?WDRwM1dSU2ZzaGpFbHc4eFI5b1I5ZUx0OUdCQVpPelBCUUJEck5BK3dBSCtW?=
- =?utf-8?B?RUl2RTZtbEJCbFBucG1BektmeDJKdUwyaE81WUZ1YzdIb1BiUDlIcWloY3dU?=
- =?utf-8?B?VUhqV200VWxZVVpWNENuSkF3eC9nYnlOcFVyOGJRbDFxV25hK1V0OUVSVzJF?=
- =?utf-8?B?Mk9IamRtK05mQkFiejFnZTB1a1BUYWdQN0Z3bHU5OXBzK3VrNy9CM3R5eUdX?=
- =?utf-8?B?UVU0dlZMM0FLVTZyTmxlOWlnTEN1K0sxNmRZdFAyZmV6YmFtdmxBN0NnLzE0?=
- =?utf-8?B?R3YwWTJGdmN4eVlndUI3cldpQWtoTWQzWnZNTDhpS2dsN21JcXJRZGl0R3FQ?=
- =?utf-8?B?U2F4Q0ZQSnA2dVhFdHlTUjNLSUZrallvYzEwWlVLL0RYUVpsSkxjc1d5Ymlq?=
- =?utf-8?B?SG9aZmN4Ymo3eEtEM2VncEJMZzNtT1lSZzRQVmJpUkhJc1FwZ0tJMXhUMmp1?=
- =?utf-8?B?dTNZOEJuQ29saVFubzRyQ0UrRDVyRjNJMExGdERvY2NwZndGbytOZEZoR3NJ?=
- =?utf-8?B?QVN2Vk00cllDMDFvczMrWGI4anZHL3lsZ1ZEK3FaRklHa3hKU3JGV1V3ZzZ5?=
- =?utf-8?B?V09pd1RhU0tVaUNUbWd3aEVWcUJ3SCtRNnlucHI5cFNOTm40bVkzNmNrT1B3?=
- =?utf-8?B?U0E0NHhxMXEyUkRacGlOMzEwMVFFWGZHcFVqUW1UbGtiMndLNFJHalQwb1Ru?=
- =?utf-8?B?aU9WTFVnY3l1cnBMMnpRSFJDaklHbElRNEhQZXlDcEZGc3pIN1FLOGQxTTI3?=
- =?utf-8?B?cGdlTHdKY0ptalE3OVlCT3dPOHVhSWxVQ0phSGx0MUVKaHVzTk9RZTZEZ2F2?=
- =?utf-8?B?cWNmZGdOWldaODREUzUyMExncmRBT1R4aHd6dXNsVGIvdENlbEw1bWYzMTlJ?=
- =?utf-8?B?QzFZcXVJejBmWGVoZW4rbDZSc2gxWDA4SXJabS9VUlE0cENqMXRIMWR2MFkz?=
- =?utf-8?B?cFk1eE93YU1ETkJRNFltOVhaZG8yR3IvOU9ScFFDN3hUSnJGRHlwUmgvSkRJ?=
- =?utf-8?B?aXlCOU4wdmJIVmM4dmVMZHU3dHdCSDBlcmFKOUxsYUhmaFNFaU9hVTNHbUhv?=
- =?utf-8?B?cy9XQXVjZDV3Mm9GNy9TYnJvYU9iYWRYQTQzakZDUHNaTlYrOG5SNUVsT0Iz?=
- =?utf-8?B?cEpML0ZZK3FOZnlOVzN5ZW5VV2lTaHBaL1c4eEt5dXB1NW1odktHSlBsdHcx?=
- =?utf-8?B?S0NJc2pYUy8wQS9vMWdiRk5VM2xFeFJjRk9yb0w4Q1VjSmlLZ2hSTm8xZmFH?=
- =?utf-8?B?SmtVRlZMckZjQTdRNjM5WUVINW41V3dFdWlEMitBc01yZzR4QzI0NjFOYVZa?=
- =?utf-8?B?R3EzNHE1YzdhaDBVUjRJclMxdUtYN2MwZlpzMVgveHMvVzhjdG9XUHY5U1gr?=
- =?utf-8?B?WTlObkNyUHJUU2dzdWViREdIdm9zUllCWGZadGVpOXJjalVaM3V0Z2xvOEFK?=
- =?utf-8?B?RkVoVDY0aVFVYzBRK0I2c2U5OTJ0K1NRL1YxbVVidjR2c25sT1NwQ1U2REZ4?=
- =?utf-8?B?eXFybGcxT0pLaDJ1T2k1bnNIK0l6MWlaN2ZDaUJRM0M0R2xlTGlDZU55Wmhn?=
- =?utf-8?B?Wk15UE00QTh6K054d3pBR2o2d1c5TW00VUg3WlZjMGlqSVlUTEFvK3hiNXZG?=
- =?utf-8?B?TDhWN1VQSnhmOE1kcXpnK0lES2lSYlRJa1hmS0I0RTRtTWlVR2ZjK2t2cTdm?=
- =?utf-8?B?YXBRK244aytvUjFCZEt1OUlQSEROdHlGVCttRWhaMzFQQnV4L2Q2VmRRMFBY?=
- =?utf-8?B?T0JZcXc5QWNUKzQyYisrQT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB8486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0I3dmZCMkVMenE3V3JZZXQxSlJaOVFESlc0cW9iM2d4OUt3NkhiN2VQZGs2?=
- =?utf-8?B?Ynlyb1RIWVRkdTc2WU9KNFI0WEtuMWt6NHFwbmtTWmxmaFFSc01rMVZqektx?=
- =?utf-8?B?bTNBREFDQkRUMHdmeUNoRDQ5UFRyNTgyL1RGbzZkRGJwOERPUzhDNUh4ditB?=
- =?utf-8?B?MU9ZOHpRU0JYZGlaSllEUmhNdlVIZDh4d2svM1VLZXJiSzNtd1drQm5lYVFG?=
- =?utf-8?B?b2JGVGdIdUtuU3c3VWZTUjNHa0I5aTVodEZRa3g5NlJ4ek5lUW9ib3RoMGxV?=
- =?utf-8?B?UU95VTNHSktwSVhFckdPT1F0WTdpN09QSHJveUFvclNCUDQvdDFCYzlNTSt1?=
- =?utf-8?B?T0xjK1UrQnlNdEwyVE4reS9JOXd6REhqUVFiNkE2WVdKOVZJK3dMNzN1eGVF?=
- =?utf-8?B?QjBFQ2pEK0N5bDdKZkVtQ1FyY3I1SXEzTjZxVEgxNGRGREhwUDhNTkg3TkhT?=
- =?utf-8?B?RURTdG5OcXozZnFNa3Bnc2lTVG90TzJQTnBKSUJ0a1NGOVVSNUt3Z05hcVBx?=
- =?utf-8?B?aXZTZHJqYjNCRlFFcUkzTklRWng0TmpHMFcyWXBoVkJ2RTl3QXR5aCt1N202?=
- =?utf-8?B?UDNqNjlHSTE2U1A4akNCeGhmbDdPMkl2a29lVC9Bbk1KcDlGRjYxeEhnWlQx?=
- =?utf-8?B?UUMwN0hsT0dCa0lONjhwSCtJeENFRk4vME4zZ3RzQm1oK2QvdW5QWHFOZklP?=
- =?utf-8?B?b2NiekI5Z2o3ajRCVXVVN3N2T3ZKUk9abm9lbXBWYlNBSXVoZUJEUzVDbFBJ?=
- =?utf-8?B?ekUyYmpwaDY5b2RUUzJQNDBYZjhyY2xTMXZLNVlJTG9uYmFHcUhZQ2pmdUNG?=
- =?utf-8?B?N0JaL3RnZWdsYlVaY2kvbDJ1aDRZQkk1SVUvcSt0MEludUh2K3RyNlpjY0Mw?=
- =?utf-8?B?dHhhZnFBWC9qNEs0bG1hOGNreVRtMVg5dlRiUnprOTVJNG5uZmRqcUtXTUwr?=
- =?utf-8?B?UGorZXAvOWNHMk5TYVRZbTJSVTJZcytZMTFWLzlzOXhmVytQaklyUnpoVTV5?=
- =?utf-8?B?QU9NQkJ5cGJ1Q0QrVS8vU1dEZHJIdEVYTkFFZDZaWjNYNXhWRjlrUHNpcTl6?=
- =?utf-8?B?SkxrZ2U3cE93dkxRaFIxQ21ISGpnNTAyWlFzM2VObVBSMmpQZjRSTHFlTEdX?=
- =?utf-8?B?QkZ1RTFrUFRFVGoreGdwcWtoZ3pvL1ZRYkpvZEMyZGhERUFjRkRGTkQydEpV?=
- =?utf-8?B?STdneFJJV2I3RHpkc2xvdkxHMDNKNXdEWVl1eHFvNGd5TlBMSzBabTVkaE1F?=
- =?utf-8?B?bi9vOHdpdGw5bHJFZGkyYURWM3k4Qi9XbHQzdGloUHdRUVVBTnFFRWE5VllG?=
- =?utf-8?B?QzRMeTlIYUxLcEkvVjdONjIvcXdqRnNvODNlNXJxdmQ2NU1zS3BvTE1vb25k?=
- =?utf-8?B?VHF3bTlwQ3UvYWRIVi9IN3g5UElxMzE4Nk94SmRMUDRwZXRlekhTOUhGT21G?=
- =?utf-8?B?bVFtU081VnAzT1BpbjVkQXhPODJxZkY3SE50R0U3VkVBb0lGWjVvU3F6WGox?=
- =?utf-8?B?RUY0bS9id2xvNGowV3BSSStKTEpyQ0VFZ09DYUdNbHdLY0V2a0llSFhRQWJQ?=
- =?utf-8?B?UHRTOHZCcTRpMUxrK3hkc1lSdmdZUkR4TitaWEh2d3oxSHhmVE93VzdWc0s4?=
- =?utf-8?B?Qjhybk50UGtDWUoxdzcyZC9BNzk0WnZkOW53VHlLRkNjSXZITmx2VWRVYTlD?=
- =?utf-8?B?T2l5TVphOUNKcFNESGF5L21GSE4wRGtQa1N6aDhaYkNOTXNZVlUwZGxGL2lF?=
- =?utf-8?B?bTJRUGk2eUZDTkZjZERWVDFWeUo4YnVkK2FPbWlqWlo5eGptKzVaaHRuRUlW?=
- =?utf-8?B?NHA1aVU2Rk9Da1N6c0FZdDlwa3pUeEJqSzh2UkcxbXVQT2Rjdk1hVVV2V2c4?=
- =?utf-8?B?T2dDL1AwL3JaUThRaG9vTXZiZzlyQkFnaklObDYrcEQxdEtjSWpvbEV3UEdx?=
- =?utf-8?B?L25XbDc0Snhtdm5WSzJ4L3J4emxtQUVnN1I0R1ErQ0MzTkZXOUduU2RKWUdC?=
- =?utf-8?B?ZjJ0dnhkL0ExbkVMUFc2YTRLNDlZbHFra1ZPVE9zclVRMGVSRWhrY1BrNUJB?=
- =?utf-8?B?bm1PRFFJSU5ZWE5HTWZUK096WXZLQURhd0lGVDVWS0VtTXU5UWJkbEU5V1k4?=
- =?utf-8?Q?6es/hSx2u2L/nTViWlwYBcOwN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 799653b3-53df-41ba-9b2c-08dcde606454
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2024 19:21:16.2690 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6l0vamSbhmwbEwmd9BKyPiJpY5g5eZWEQS2P+zM2RTV7JQ5lp1PBR2+C3+8fbRd7IBrUGexWRky+bKSQV1HxFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6284
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs/gpu: ci: update flake tests requirements
+To: Vignesh Raman <vignesh.raman@collabora.com>,
+ <dri-devel@lists.freedesktop.org>
+CC: <daniels@collabora.com>, <helen.koike@collabora.com>, <airlied@gmail.com>, 
+ <daniel@ffwll.ch>, <robdclark@gmail.com>,
+ <guilherme.gallo@collabora.com>, <sergi.blanch.torne@collabora.com>,
+ <deborah.brouwer@collabora.com>, <dmitry.baryshkov@linaro.org>,
+ <mripard@kernel.org>, <rodrigo.vivi@intel.com>,
+ <linux-mediatek@lists.infradead.org>, <linux-amlogic@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <amd-gfx@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
+ <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+References: <20240926070653.1773597-1-vignesh.raman@collabora.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240926070653.1773597-1-vignesh.raman@collabora.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: pSkChFDu4ef4NamDTDMy0qtaNpRfUdmK
+X-Proofpoint-GUID: pSkChFDu4ef4NamDTDMy0qtaNpRfUdmK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 mlxlogscore=999
+ spamscore=0 mlxscore=0 priorityscore=1501 bulkscore=0 phishscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409260160
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,78 +96,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mario and Melissa,
-
-Another regression identified on this patch - DP Display is not listed 
-as an audio device after this patch is applied.
-
-Cheers,
-Alex Hung
 
 
-On 9/18/24 15:38, Mario Limonciello wrote:
-> From: Melissa Wen <mwen@igalia.com>
+On 9/26/2024 12:06 AM, Vignesh Raman wrote:
+> Update the documentation to require linking to a relevant GitLab
+> issue for each new flake entry instead of an email report. Added
+> specific GitLab issue URLs for i915, xe and other drivers.
 > 
-> drm_edid_connector_update() updates display info, filling ELD with audio
-> info from Short-Audio Descriptors in the last step of
-> update_dislay_info(). Our goal is stopping using raw edid, so we can
-> extract SAD from drm_eld instead of access raw edid to get audio caps.
-> 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
 > ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 20 +++++++++----------
->   1 file changed, 10 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 854e51c0b3fb..e0326127fd9a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -98,9 +98,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
->   	const struct drm_edid *drm_edid = aconnector->drm_edid;
->   	struct drm_edid_product_id product_id;
->   	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
-> -	struct cea_sad *sads;
-> -	int sad_count = -1;
-> -	int sadb_count = -1;
-> +	int sad_count, sadb_count;
->   	int i = 0;
->   	uint8_t *sadb = NULL;
+> v2:
+> - Add gitlab issue link for msm driver.
+> 
+> ---
+>   Documentation/gpu/automated_testing.rst | 16 +++++++++++-----
+>   1 file changed, 11 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
+> index 2d5a28866afe..f918fe56f2b0 100644
+> --- a/Documentation/gpu/automated_testing.rst
+> +++ b/Documentation/gpu/automated_testing.rst
+> @@ -67,20 +67,26 @@ Lists the tests that for a given driver on a specific hardware revision are
+>   known to behave unreliably. These tests won't cause a job to fail regardless of
+>   the result. They will still be run.
 >   
-> @@ -129,18 +127,21 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+> -Each new flake entry must be associated with a link to the email reporting the
+> -bug to the author of the affected driver, the board name or Device Tree name of
+> -the board, the first kernel version affected, the IGT version used for tests,
+> -and an approximation of the failure rate.
+> +Each new flake entry must include a link to the relevant GitLab issue, the board
+> +name or Device Tree name, the first kernel version affected, the IGT version used
+> +for tests and an approximation of the failure rate.
 >   
->   	apply_edid_quirks(&product_id, edid_caps);
+>   They should be provided under the following format::
 >   
-> -	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
-> +	sad_count = drm_eld_sad_count(connector->eld);
->   	if (sad_count <= 0)
->   		return result;
+> -  # Bug Report: $LORE_OR_PATCHWORK_URL
+> +  # Bug Report: $GITLAB_ISSUE
+>     # Board Name: broken-board.dtb
+>     # Linux Version: 6.6-rc1
+>     # IGT Version: 1.28-gd2af13d9f
+>     # Failure Rate: 100
+>     flaky-test
 >   
->   	edid_caps->audio_mode_count = min(sad_count, DC_MAX_AUDIO_DESC_COUNT);
->   	for (i = 0; i < edid_caps->audio_mode_count; ++i) {
-> -		struct cea_sad *sad = &sads[i];
-> +		struct cea_sad sad;
->   
-> -		edid_caps->audio_modes[i].format_code = sad->format;
-> -		edid_caps->audio_modes[i].channel_count = sad->channels + 1;
-> -		edid_caps->audio_modes[i].sample_rate = sad->freq;
-> -		edid_caps->audio_modes[i].sample_size = sad->byte2;
-> +		if (drm_eld_sad_get(connector->eld, i, &sad) < 0)
-> +			continue;
+> +The GitLab issue must include the logs and the pipeline link. Use the appropriate
+> +link below to create an issue.
+> +https://gitlab.freedesktop.org/drm/i915/kernel/-/issues for i915 driver
+> +https://gitlab.freedesktop.org/drm/xe/kernel/-/issues for xe driver
+> +https://gitlab.freedesktop.org/drm/msm/-/issues for msm driver
+> +https://gitlab.freedesktop.org/drm/misc/kernel/-/issues for other drivers
 > +
-> +		edid_caps->audio_modes[i].format_code = sad.format;
-> +		edid_caps->audio_modes[i].channel_count = sad.channels + 1;
-> +		edid_caps->audio_modes[i].sample_rate = sad.freq;
-> +		edid_caps->audio_modes[i].sample_size = sad.byte2;
->   	}
->   
->   	sadb_count = drm_edid_to_speaker_allocation((struct edid *) edid->raw_edid, &sadb);
-> @@ -155,7 +156,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
->   	else
->   		edid_caps->speaker_flags = DEFAULT_SPEAKER_LOCATION;
->   
-> -	kfree(sads);
->   	kfree(sadb);
->   
->   	return result;
 
+Acked for MSM.
+
+Thanks
+
+Abhinav
+>   drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
+>   -----------------------------------------------------------
+>   
