@@ -4,74 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35CD5CF58C8
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 12:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC21CDE003
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 13:04:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4C7A10E315;
-	Thu, 26 Sep 2024 12:32:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8194310EAB6;
+	Thu, 26 Sep 2024 13:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oef+/Hx8";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tua5LlFg";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8856810E315
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 12:32:53 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-37ccfada422so373823f8f.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 05:32:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727353972; x=1727958772; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VT/k1O56pz6Fr0oE9HA29Kyof9pT15go0AwqjiY4gao=;
- b=Oef+/Hx8bqG3cAEbcsSFFO9V1PKDD8w4BVapmHWVriJ5va8w4ijLOxsZ9wCf4imixw
- YgpTH620WB+4lhaFs8szcNDH1b13QfdNj7L6kYZADaOPnZaxdsbjw/+aS9uWf3QMKk+r
- E53xZfPCpSR/VF9m99Nf+HYqD1Jss+rpYnBb2FNnow9YHEk4GSMkObns7r2loyP7zfVK
- UMnjdoolvXdfn5EBBgKDCUJEJTNTj6ilcS8yXTICCnfXm10POGM7phlsrmY2St8nqfBa
- H8L4kpq9hLu2RLxozsiPGP1jDfmViWsTD+dIrzOeMcXnN6PTtSi7viAyXbMsK3tC/8FZ
- bRxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727353972; x=1727958772;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VT/k1O56pz6Fr0oE9HA29Kyof9pT15go0AwqjiY4gao=;
- b=oEeoPGQY7PrqjVM0as0KcrBq7n+R8r3NBU28iBcm+cSC1FGtpaDlAHC+K2cLaA6LyJ
- aI+Zr+AzkkUMICeOsebnV5jKpmHxnKA5PhpSmiYl6IeEc3YRPJ4gb0585nTTW49LFGc0
- q7bO9dr8FClMqrmdVKS2DF2tnQyA/hOJisj+rQivUKMYM6U908bp/gI4DCfxCl43b8Q4
- kdcWwRRTyz9XTbNK8v9CHzp/eFB18SPEz5eEn07YRyKvkSnG1pwiwlJOdFAcbBt59+Ib
- t2XAXHREZWpW+8OhGHpr5Bh7W45vs+AzGWeZ1rcK2ggX+xFexK/Q+p7FZ7tvoAwOJqh7
- 6PHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWQEuByZXm33hdn6nFiQKooMDAp8y4/smydkz14iGNPy5TvXLOdNwaLhp6Y2MBVLB7s5zVIbWHe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywKXbMBWf5l7rUX8WZ9m0tlPpifw/Vnn8HKjC0ClHX3tJjX9mx
- x50fFyOMTK5I3Q4e8SiBnzT2R3RpMkT3h+5bUCJU5TMTIBblOxGm9Ykab5ps
-X-Google-Smtp-Source: AGHT+IFfkpeHU7Puaz4Y0KLJrr8hMBXw5WmfELu1b8dYactzJ/IEXeopS5St827nWBJaQ+pihyE2ig==
-X-Received: by 2002:a05:6000:1449:b0:37c:d179:2f73 with SMTP id
- ffacd0b85a97d-37cd17930acmr1290469f8f.13.1727353971349; 
- Thu, 26 Sep 2024 05:32:51 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e969f1a76sm45764385e9.12.2024.09.26.05.32.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 05:32:50 -0700 (PDT)
-Message-ID: <64119b68-12d0-4bc3-890e-edf809cb68df@gmail.com>
-Date: Thu, 26 Sep 2024 14:32:47 +0200
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A8C410E321;
+ Thu, 26 Sep 2024 12:12:02 +0000 (UTC)
+Received: from [192.168.88.20] (91-156-87-48.elisa-laajakaista.fi
+ [91.156.87.48])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 60C94169;
+ Thu, 26 Sep 2024 14:10:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1727352632;
+ bh=ty/0EEPC1HNSViP1lPC3UwHwPR61YYvHhV7K8pEYIzQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=tua5LlFgxkHqh4iJv12/XIrHTo5cnc+bbtYq/DBm62SlinWiJW4+JkBJqunE3Zt9+
+ +RVA+rs3OgteZBAE9Bd4q4RA8gPlGMlRn5Lh9PgiQiOizj3BXYLASpCb+1vKluwGHc
+ TUMQJ6SfFudglcZ5uVtK5hOlGKsWCPI13OH5B6Lo=
+Message-ID: <eb5b4f6e-88dd-4322-a10c-608db6abfe14@ideasonboard.com>
+Date: Thu, 26 Sep 2024 15:11:56 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/08] drm/amdgpu: add vm root BO lock before accessing
- the vm
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com
-References: <20240925195928.142001-1-Arunpravin.PaneerSelvam@amd.com>
- <20240925195928.142001-8-Arunpravin.PaneerSelvam@amd.com>
+Subject: Re: [PATCH v5 41/80] drm/tidss: Run DRM default client setup
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ Jyri Sarha <jyri.sarha@iki.fi>
+References: <20240924071734.98201-1-tzimmermann@suse.de>
+ <20240924071734.98201-42-tzimmermann@suse.de>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20240925195928.142001-8-Arunpravin.PaneerSelvam@amd.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20240924071734.98201-42-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 26 Sep 2024 13:04:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,84 +102,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.09.24 um 21:59 schrieb Arunpravin Paneer Selvam:
-> Add a vm root BO lock before accessing the userqueue VM.
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On 24/09/2024 10:12, Thomas Zimmermann wrote:
+> Call drm_client_setup() to run the kernel's default client setup
+> for DRM. Set fbdev_probe in struct drm_driver, so that the client
+> setup can start the common fbdev client.
+> 
+> The tidss driver specifies a preferred color mode of 32. As this
+> is the default if no format has been given, leave it out entirely.
+> 
+> v5:
+> - select DRM_CLIENT_SELECTION
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jyri Sarha <jyri.sarha@iki.fi>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 > ---
->   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 19 +++++++++++--------
->   1 file changed, 11 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 43429661f62d..52722b738316 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -320,7 +320,6 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
->   /**
->    * amdgpu_userq_fence_read_wptr - Read the userq wptr value
->    *
-> - * @filp: drm file private data structure
->    * @queue: user mode queue structure pointer
->    * @wptr: write pointer value
->    *
-> @@ -330,23 +329,27 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
->    *
->    * Returns wptr value on success, error on failure.
->    */
-> -static int amdgpu_userq_fence_read_wptr(struct drm_file *filp,
-> -					struct amdgpu_usermode_queue *queue,
-> +static int amdgpu_userq_fence_read_wptr(struct amdgpu_usermode_queue *queue,
->   					u64 *wptr)
->   {
-> -	struct amdgpu_fpriv *fpriv = filp->driver_priv;
->   	struct amdgpu_bo_va_mapping *mapping;
-> -	struct amdgpu_vm *vm = &fpriv->vm;
->   	struct amdgpu_bo *bo;
->   	u64 addr, *ptr;
->   	int r;
+>   drivers/gpu/drm/tidss/Kconfig     | 1 +
+>   drivers/gpu/drm/tidss/tidss_drv.c | 4 +++-
+>   2 files changed, 4 insertions(+), 1 deletion(-)
+
+Tested on AM62 SK.
+
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+  Tomi
+
+> diff --git a/drivers/gpu/drm/tidss/Kconfig b/drivers/gpu/drm/tidss/Kconfig
+> index 2385c56493b9..31ad582b7602 100644
+> --- a/drivers/gpu/drm/tidss/Kconfig
+> +++ b/drivers/gpu/drm/tidss/Kconfig
+> @@ -2,6 +2,7 @@ config DRM_TIDSS
+>   	tristate "DRM Support for TI Keystone"
+>   	depends on DRM && OF
+>   	depends on ARM || ARM64 || COMPILE_TEST
+> +	select DRM_CLIENT_SELECTION
+>   	select DRM_KMS_HELPER
+>   	select DRM_DISPLAY_HELPER
+>   	select DRM_BRIDGE_CONNECTOR
+> diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+> index d15f836dca95..2428b9aaa003 100644
+> --- a/drivers/gpu/drm/tidss/tidss_drv.c
+> +++ b/drivers/gpu/drm/tidss/tidss_drv.c
+> @@ -11,6 +11,7 @@
 >   
-> +	r = amdgpu_bo_reserve(queue->vm->root.bo, false);
-> +	if (r)
-> +		return r;
-> +
->   	addr = queue->userq_prop->wptr_gpu_addr;
->   	addr &= AMDGPU_GMC_HOLE_MASK;
->   
-> -	mapping = amdgpu_vm_bo_lookup_mapping(vm, addr >> PAGE_SHIFT);
-> -	if (!mapping)
-> +	mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, addr >> PAGE_SHIFT);
-> +	amdgpu_bo_unreserve(queue->vm->root.bo);
-
-You need to keep the VM locked until you are done with the mapping. 
-Otherwise the mapping could be released at any time.
-
-Regards,
-Christian.
-
-> +	if (!mapping) {
-> +		DRM_ERROR("Failed to lookup amdgpu_bo_va_mapping\n");
->   		return -EINVAL;
-> +	}
->   
->   	bo = mapping->bo_va->base.bo;
-
-If you only need the BO then grab a temporary BO reference here, drop 
-the VM lock and acquire the BO.
-
-When you are done with everything just drop the BO lock and then the 
-temporary BO reference.
-
-Regards,
-Christian.
-
->   	r = amdgpu_bo_reserve(bo, true);
-> @@ -448,7 +451,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   		goto exec_fini;
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_client_setup.h>
+>   #include <drm/drm_crtc.h>
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_fbdev_dma.h>
+> @@ -109,6 +110,7 @@ static const struct drm_driver tidss_driver = {
+>   	.fops			= &tidss_fops,
+>   	.release		= tidss_release,
+>   	DRM_GEM_DMA_DRIVER_OPS_VMAP,
+> +	DRM_FBDEV_DMA_DRIVER_OPS,
+>   	.name			= "tidss",
+>   	.desc			= "TI Keystone DSS",
+>   	.date			= "20180215",
+> @@ -186,7 +188,7 @@ static int tidss_probe(struct platform_device *pdev)
+>   		goto err_irq_uninstall;
 >   	}
 >   
-> -	r = amdgpu_userq_fence_read_wptr(filp, queue, &wptr);
-> +	r = amdgpu_userq_fence_read_wptr(queue, &wptr);
->   	if (r)
->   		goto exec_fini;
+> -	drm_fbdev_dma_setup(ddev, 32);
+> +	drm_client_setup(ddev, NULL);
+>   
+>   	dev_dbg(dev, "%s done\n", __func__);
 >   
 
