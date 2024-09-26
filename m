@@ -4,55 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05ED0CCFA13
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 10:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46097CCFA13
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Sep 2024 11:06:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F73A10E154;
-	Thu, 26 Sep 2024 10:48:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBE4E10E173;
+	Thu, 26 Sep 2024 11:06:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pcshl02z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="haFyMT1C";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 339D110E02D;
- Thu, 26 Sep 2024 10:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AbgU+rlUVl4u4E+b3tRAQ+gcbi8/sA49xnExKiVBBYo=; b=pcshl02zWba28YeGJyz7xY+iAR
- 1xPRTK2iRIozqzY5vZBVzDSpeynoATVSW8Dd7fHUjnMtDjGvGYBG8LdTDfUpWmHP6AFXIHRA66TZc
- RawBBm5WTRw0ZlnPb9rkgICFr3+FKIUphgxsvrNFHvUS8A0LUUL4WXatdyDfKK0jcJdArnm/wNJB6
- e6vvz5kN45yIGejjP6F8j0m0KQ+jVDnIwwcLkGgSfwr9TNkDKLFH0bic8mlXz2cvuDLjBvFPVUtXh
- slyl9IIH+DvJ60Tn2p/2zOrWM2cIu/gfslRyraEXvJ2UsmpAWFP/g6ty+RdlNEXToXWNduouyDlPg
- xo2znbOA==;
-Received: from [189.6.17.125] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1stm3B-001HtO-0w; Thu, 26 Sep 2024 12:48:45 +0200
-Message-ID: <cde9d9c6-8da3-4629-8363-fc4c4f6a622c@igalia.com>
-Date: Thu, 26 Sep 2024 07:48:37 -0300
-MIME-Version: 1.0
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 093CE10E173
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Sep 2024 11:06:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zcp2uglDS9ixmgnKSB1pSEqu50XnYmCFj7jmgPu+mMOL1dqDR+07vj9nsBGbbpsE4m/zLvbUjPCL8dacN6m1Z9wRvk7RbwEP2iYGVvE7ueAFvAcTN2zIBDQYGjc1gN2a98oBkR75KYu4hNk/dZTqcdfZJOp4DL9vI5XggX9P3fYAEPbGwfjfTenoI6ZJan/KzzDXIkcPO5xwsHeQXba9PeX2LKyJIlOoO0kWWtOcgzw2TkSECKJgphp9r9bwSnVYxXUS0lOgAJ57SwZd8Mn+8beFDDjd/QGueGRygm1G6Bwo7Sj5iXwLzR71DtvJ968LOmKyMj6RB8CtF9NxE4W5nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=siiSoKDtaP2tT8iP0LVOfZEw2kupFpb0v9xK6EdW7B0=;
+ b=GXjOMwWKnpyK031P7obluclZXybUP8bDc2sEr3gQAEnH7DL+mDhGvfTchqCO4RykoUmu+IfL/Nzaj8OFD8rTFjMpJIdMvme4VvBwnqGe0SmRG5O8rPEKGAjkr/dye5eOcKLrnt3t6CcXW7E2pqeQckuYHD7xR1ozoy+Wb5vjBRsfpH5UsDvSN2tp4ySXWKywlq5LsjlrVif5RVzS+KgTcVSXWstZ9bN2M57FgF5m7NUAGu0muNrK/fuPKE31tGUuXB7xFT9bWBF7W8JHuHoNW7RdoyCWxHenqKweIZJludvrfdBA4BQTwv/hJn1GOBUgHKegKeEjwWaWb3T2PCAKYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=siiSoKDtaP2tT8iP0LVOfZEw2kupFpb0v9xK6EdW7B0=;
+ b=haFyMT1C2FwLeQoPE6OXCZAEiM1473DZRiHkQq/2WUUFBQTanNeLnIz1RJT29BGGJt+BOBHL1xKaDr6+D4XQJyPcTV1BT+HN1hGTqL8Fh1sr2tP0gYzcZMrwgy2EPi8LAgtgZF9OngnX/0XZiMBxj0UTS8bHVMjhvtP1C31fGr0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ SJ2PR12MB8033.namprd12.prod.outlook.com (2603:10b6:a03:4c7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Thu, 26 Sep
+ 2024 11:06:17 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.7982.022; Thu, 26 Sep 2024
+ 11:06:17 +0000
+Message-ID: <815cb8d5-0808-4322-9d15-0c6b402e64bf@amd.com>
+Date: Thu, 26 Sep 2024 16:36:10 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/10] drm/amd/display: remove dc_edid handler from
- dm_helpers_parse_edid_caps
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Alexander Deucher <alexander.deucher@amd.com>
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-References: <20240918213845.158293-1-mario.limonciello@amd.com>
- <20240918213845.158293-10-mario.limonciello@amd.com>
- <5bbaeac3-7916-4e75-9c92-b93e2cd78ff5@amd.com>
- <4bc60bb2-3c67-4418-ad79-316ea1ac0dc1@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix vbios fetching for SR-IOV
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20240925182011.1194698-1-alexander.deucher@amd.com>
 Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <4bc60bb2-3c67-4418-ad79-316ea1ac0dc1@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20240925182011.1194698-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0067.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:99::7) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SJ2PR12MB8033:EE_
+X-MS-Office365-Filtering-Correlation-Id: 057ec005-9566-4df8-71a5-08dcde1b3e3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cVZIaWJCU2hTOVcwQ3l0QlpKK1V1MHBiWkxlYUdTdldqalp5UkdWakdYci9n?=
+ =?utf-8?B?T0M5Q1JYVEhDN1FkWjhjK3F6cmpIcEtQc0J4TTNGdmxFZzNveCt2R0ZwaGRs?=
+ =?utf-8?B?b3kxQkxiNXFmV2tPc29BRmdLc3VxWFA1R0R0QkZ4MmpVTlhtblZMaU14eXhm?=
+ =?utf-8?B?VkY3a2FqdVcrMXBQNFRhYytvVVpaaHV0N090NUNzVkYrY01WQlA3R2l2SjR6?=
+ =?utf-8?B?bGthUVIxMG9WQjhrd3R6aThMakNrQjNnVGhocDBRZk5ON1U5TWhTbThjY0ls?=
+ =?utf-8?B?U2UzR1JKSHpRTmdjOFYvaFJ2ZjBoaTlGYmhMTlZ5TnFBZHgxbW8wcnhWNzln?=
+ =?utf-8?B?ZzVSSndOSVVkaHdXd2RGR1d0Y1hPQUNtS0RaR0hjNVZSbXBpcFZmNFdtSTBo?=
+ =?utf-8?B?YUZSNXFrOWRZMGM5L0JjN0FSV1plejFXWlZKeCs5dnFrbUdRRjlVeFV0c2ZU?=
+ =?utf-8?B?b0FTTXZMQWpselNvelJRQmdCbExnMjdJd3ZYRDR0QlJZNTEwTUVIVDhHUG02?=
+ =?utf-8?B?cTdlMUQwR1RCV1JKOC93MEhlMk1FNisvcmZBQXFGdnN5emVrZXY2elhnQnNH?=
+ =?utf-8?B?VFlPOTc1U1JVYnhmYkJ5b3ZGNFFpOGVnSnBBNlhuQWtha0FoWlRDRzFNV2U0?=
+ =?utf-8?B?VHJEY08zWkJqVTBEQXZWbkdhMGhMMjBWMktWYkJwaHh4eERudDhHLy9zMFdD?=
+ =?utf-8?B?Y1I1M1RGVXdzNDJmYWNxRnh2cFlvN1ZTd1IvRGU2bWx4alJ2QXo4elMzT2Va?=
+ =?utf-8?B?aG0zZmRudXE5SnArQWVrK1pmOTVpTEtRc010VlM1bXdRQkNVQmd5NkJ1Q0hj?=
+ =?utf-8?B?dHBIYU5YUDd2aVdOMVhTelkwaEp4c2tnVHErNUJLcDZ0U2o1SS9ZOUdTa2dm?=
+ =?utf-8?B?cEFQMHdyWGN0WkM4SVZ3ckwrWVNUdFR0RWVIWTNab1RwZS9Zdjc5d0RmZ3pu?=
+ =?utf-8?B?S3RwYXNBb0R0UXNpUHEvbVhuN2t4bmE3b0p6NVI4N2taTEJZbVhkOVIzU09r?=
+ =?utf-8?B?TEpsSWIzNUxHVEsxcm1Td3FaVFJuMEN1dDY0QTBWemE5Yk4rMzFYT1Z0QS82?=
+ =?utf-8?B?VkhTNUFOL1d3Rmt3Qi9nMWl5ektsdWZWRjNKVEJydUg0OWVLN3l4cjNzckVj?=
+ =?utf-8?B?VXhra1ZENU9lTWFPOEtYTHIrMlJBV3I1OG4zakRxc2pwbUhwY1lrZmN3ZUZE?=
+ =?utf-8?B?QTRlTko0TThveXZGTFBNcTZpREx4dkFWWTNLWS9Hd0pEN1lnYkhNZ1d2ZDhr?=
+ =?utf-8?B?dUdJMTZQMzgzYlE2MTMxNG9KYTQ2WElKUGs3WFFmQ2d1MUExZEV1dk9SVFE3?=
+ =?utf-8?B?MXdteHNLcS92SWJuS0RkelhNNE1hcGVvYWtvOFgzYXJtbTlpMUo3bFl4Y1ZN?=
+ =?utf-8?B?RHVkdUlZOFNDSFVBZXA1bzhBLzdoUUFZNFNyRWRhcXltUHJUeUduRWx2ODFu?=
+ =?utf-8?B?cTk3U1VsblhTQXUxbmtJMnV6KzBGbFdaVldvb0hHanJEaW56M0RSRCs2WHBU?=
+ =?utf-8?B?bDlPZmxxVGlSQ0hCbTk0am1la3N6U0Y0eVBpSzJXVi9RaFdhTC8yakNXMGt0?=
+ =?utf-8?B?RXNvdXVwTVhUTStHWVRqOXpFN2RybjNmNndXSEd2c3pJcmU1MUhNVEhXVlJJ?=
+ =?utf-8?B?bnJuS2pJYzYwZFZ0ZFJIeWJ5eFJyN3I0NHpvd0xmWldZblBMbU10aTV4WGZB?=
+ =?utf-8?B?ZkI4M1lMRUZPNURXQmt1V1grTHFOM2ZZc0xVamtJS290anpUaXYvYVlUbGlm?=
+ =?utf-8?B?MnlIZDMyZVY3b2k5dEFkZlBVekpISXlFVnk0VGI5djFjVEhhSDVYNVF3SzVO?=
+ =?utf-8?B?aTdITCtmdmo4ZWptWTBuZz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RG80NzFnbnc3TERFaHhVRXBFQ040N0x3UmJaRnpVNWoyMG9ZeU8yMHJsV0lH?=
+ =?utf-8?B?L0Q2ZFFBSnFJTDRmUWNaeSthejJpR2FTRTgrNktCd2oxUkRIWDVsTmtHNVBB?=
+ =?utf-8?B?RE5HRVZ0bzgrNWh0MWJqWFVwbjVCT01nSzBMOHlnV3dWMWI0aWZyZ2RPTG5K?=
+ =?utf-8?B?ZkthVmMyT2pEWHRsQWplSkRVNWU0eTU1eUh1YnpsWFoxdy81TVRJMGMzcksv?=
+ =?utf-8?B?eXdsWUVyczZHcnM5T1hBeEpMNFJtNEdmODNwWkZyTFdKa21ER1d2NFV0M3dQ?=
+ =?utf-8?B?OU5iWnZ0L05HZlBZSVRmckNvczBWcW9idGpYQjlLWGo4bHRUa2ZXcVhwcFVl?=
+ =?utf-8?B?SmZwZ0lUZ2xkL2JNYU1QODh5c3NRYkFTVHBtTGs2M2tSRU82VmtVdWZpOVRh?=
+ =?utf-8?B?dnRDV1JuaUk5NnN4VjU5akVyVm9CRW5pcFNpTGZKOSsvajNYYVBZWEVmWXRY?=
+ =?utf-8?B?SjZxNlJRUGwvYnRxKzIraTdpeGJqNG1scE1rcXVhc3lPWmFlc25xN3BUREJ3?=
+ =?utf-8?B?anRCRTdobUo1RlZzMmVoNG0ydWpPam56YklhRUl6L292MHJxR3hMVHBhNmRh?=
+ =?utf-8?B?dW9GYUJRWTUvM0p2QldsbC8xZWdCck1KY2F6YjN3UnpINlpsSEtxVUZhMVpK?=
+ =?utf-8?B?MXN0S2VjdjloeVE0aGFyWEFpWTBaazVJdkdUbTdjREIxMkNmNUNhaFJITmJD?=
+ =?utf-8?B?V05ESzdVbWRKYmZsRWhoNTFmc1pmalZFb0s1WElUQ1JySHZtM1lkRXVoU01q?=
+ =?utf-8?B?b05rTCtrRlkxVVFJSXZMYTAxVmpJUXI1c2F0bUQ4VXhwMS82MWJSUzdxdEl2?=
+ =?utf-8?B?eXFITURKNTQ4WDU0VmdWOGFpdVJ5MitLaHdjTFZGRC9qQ0dhQWVGN25yNWI0?=
+ =?utf-8?B?VzUweUtTRFlTLzRnVGc4MktmVHNrL3hMS1FqZitiRG9PSCsyMG96aDA2V1Jq?=
+ =?utf-8?B?T3FaeWlSOEtiRkExcmdqcHN4ZTlnSDNBMGx4NFRKcTBYeWhTQ3RiQnk2cVRx?=
+ =?utf-8?B?NS80L1hJUFczZHk5NUp5VXFZUFphSHMxUDNFbWszb3JpY3JESjZ4UUVQby9Y?=
+ =?utf-8?B?MzdPZk5RbXV5MjlJWlNXQkh6M1YwTGJmMzZFZUp1WnRUSzJVRzk3VEx1VE41?=
+ =?utf-8?B?dGJBOStRK2daT1YvdEozcHAzbTRPVytiSnU2dWxaK09GSWNrTTBaTGFaajdF?=
+ =?utf-8?B?QmhvMkQ3WDFSZnprcE5Tekh0bUJSVkl4dE5YRW0vaW5yODBWVFNVNmJzMXNX?=
+ =?utf-8?B?d3NhVEtYSUVkYmFGK1NkeVZGcFZWc0NsZVI4Q1l2NEFTa1hhb1JFSXV2UUts?=
+ =?utf-8?B?c1BoSGRoMklza0w1eVh0RzdZU0NQZDNtQzNtelFSY3dzb1paSTZxdzRHeWwr?=
+ =?utf-8?B?VmswRG16NjJVMGpmdHNwRVBheHZKK0YrdkhBMkQwanhxV2F6UlBTN3hud2pV?=
+ =?utf-8?B?akNoSHo5b3Z2cVZwelVONGxuNklnd25uMkdJOExoNW1qMW12L2RITDhxZzIx?=
+ =?utf-8?B?b1FZcG45dkpyTy8vVXl5clg2bjJDQkF6dmRoNXo3dmRGOWs4Z3YwMlZPTmhG?=
+ =?utf-8?B?ZUF5OW1FWmhkOFJxWVo3aVMybW1UWk5NRi8yLzkzaHBNQTVyQXRnNFJpWitC?=
+ =?utf-8?B?ZzNpVlpQc2NHdlZzNDFmU1lEVHpMV0w0MEhXTzExS2FCak9Gb3NOL1Bsditq?=
+ =?utf-8?B?MmpJdjBnWlVaRXBvK2NBb2huNXoxVE4yYlVsQW9zSThNc2JhMnJUNHZJa3VI?=
+ =?utf-8?B?cGhPTDFCNzFwc1JHdS9ZSktnQ29jcjE4a1ZwRTRNUmFkQ0NoTjNLekhiTWE0?=
+ =?utf-8?B?blVQY0ZEbUo5K0xiR1NNSG8rdU5sdC9yMW1oY1dLUi9PcndCZmw0OVk2bWhy?=
+ =?utf-8?B?VzN2eVhvZkgxRGc3QWgvSDFIbm9WM1YyK29TTGsyTEhnVWVlaUc4aU5wNGtX?=
+ =?utf-8?B?UEo4UUdBNFBtd3JzOUZHZ053YU9rbWNCQUVVUGdLN1h1KzBhUjMzelcxd3VB?=
+ =?utf-8?B?S2NOWEpTSkRPTGJrUmwrQU5wcmsxWFpWb0VpdGIweVlrUUp6dFRSVTdBenE3?=
+ =?utf-8?B?dEZVMUEwTUZUc3NUSys5OUFTaUdxenBvcFFCc1p5aXZzbytCUzBwdjcvZzcr?=
+ =?utf-8?Q?YSjTxUCwsM0dNNcu7JQtavXRY?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 057ec005-9566-4df8-71a5-08dcde1b3e3c
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2024 11:06:17.2798 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: q1MJ4r4HG5wlV2SuPFZZ/JtkAFT35K9KmYWTWjfWVg/jsdi/0Gbm6nCLaOJmVBeo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8033
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,179 +159,58 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
+On 9/25/2024 11:50 PM, Alex Deucher wrote:
+> SR-IOV fetches the vbios from VRAM in some cases.
+> Re-enable the VRAM path for dGPUs and rename the function
+> to make it clear that it is not IGP specific.
+> 
+> Fixes: 042658d17a54 ("drm/amdgpu: clean up vbios fetching code")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> index 46bf623919d7c..45affc02548c1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -87,8 +87,9 @@ static bool check_atom_bios(uint8_t *bios, size_t size)
+>   * part of the system bios.  On boot, the system bios puts a
+>   * copy of the igp rom at the start of vram if a discrete card is
+>   * present.
+> + * For SR-IOV, the vbios image is also put in VRAM in the VF.
+>   */
+> -static bool igp_read_bios_from_vram(struct amdgpu_device *adev)
+> +static bool amdgpu_read_bios_from_vram(struct amdgpu_device *adev)
+>  {
+>  	uint8_t __iomem *bios;
+>  	resource_size_t vram_base;
+> @@ -414,7 +415,7 @@ static bool amdgpu_get_bios_apu(struct amdgpu_device *adev)
+>  		goto success;
+>  	}
+>  
+> -	if (igp_read_bios_from_vram(adev)) {
+> +	if (amdgpu_read_bios_from_vram(adev)) {
+>  		dev_info(adev->dev, "Fetched VBIOS from VRAM BAR\n");
+>  		goto success;
+>  	}
+> @@ -448,6 +449,12 @@ static bool amdgpu_get_bios_dgpu(struct amdgpu_device *adev)
+>  		goto success;
+>  	}
+>  
+> +	/* this is required for SR-IOV */
+> +	if (amdgpu_read_bios_from_vram(adev)) {
 
-On 25/09/2024 14:55, Mario Limonciello wrote:
-> Alex,
->
-> Unfortunately I can't reproduce the regression on the APU I tried. 
-> However I do have a suspicion on a fix.
->
-> Can you see if this helps?  If it does, we can squash it in.
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bf847ac55475..e75cd527d753 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -7008,6 +7008,7 @@ static void amdgpu_dm_connector_destroy(struct 
-> drm_connector *connector)
->                 kfree(aconnector->i2c);
->         }
->         kfree(aconnector->dm_dp_aux.aux.name);
-> +       drm_edid_free(aconnector->drm_edid);
->
->         kfree(connector);
->  }
->
-> If that doesn't help, I did test dropping this patch and it doesn't 
-> affect the last patch in the series, that one still works so I'm fine 
-> with dropping it and we can follow up later.
-yes, I agree with Mario's proposal.
->
-> On 9/25/2024 12:06, Alex Hung wrote:
->> Mario and Melissa,
->>
->> This patch causes a regrerssion on 7900 XTX in an IGT test: 
->> amd_mem_leak's connector-suspend-resume.
->>
->> Is this patch necessary on this series or is it independent from 
->> other patches, i.e. can it be dropped from this series until fixed??
->>
->> Cheers,
->> Alex Hung
->>
->> On 9/18/24 15:38, Mario Limonciello wrote:
->>> From: Melissa Wen <mwen@igalia.com>
->>>
->>> We can parse edid caps from drm_edid and drm_eld and any calls of
->>> dm_helpers_parse_edid_caps is made in a state that we have drm_edid set
->>> to amdgpu connector.
->>>
->>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +---
->>>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 30 
->>> ++++++++-----------
->>>   drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  1 -
->>>   .../drm/amd/display/dc/link/link_detection.c  |  6 ++--
->>>   4 files changed, 16 insertions(+), 26 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/ 
->>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index bd8fb9968c7c..bf847ac55475 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -7123,10 +7123,7 @@ static void 
->>> amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
->>>           memset(&dc_em_sink->edid_caps, 0, sizeof(struct 
->>> dc_edid_caps));
->>>           memmove(dc_em_sink->dc_edid.raw_edid, edid,
->>>               (edid->extensions + 1) * EDID_LENGTH);
->>> -        dm_helpers_parse_edid_caps(
->>> -            dc_link,
->>> -            &dc_em_sink->dc_edid,
->>> -            &dc_em_sink->edid_caps);
->>> +        dm_helpers_parse_edid_caps(dc_link, &dc_em_sink->edid_caps);
->>>       }
->>>   }
->>> diff --git 
->>> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c 
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->>> index d43ed3ea000b..8f4be7a1ec45 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->>> @@ -83,32 +83,24 @@ static void apply_edid_quirks(struct 
->>> drm_edid_product_id *product_id,
->>>    * dm_helpers_parse_edid_caps() - Parse edid caps
->>>    *
->>>    * @link: current detected link
->>> - * @edid:    [in] pointer to edid
->>>    * @edid_caps:    [in] pointer to edid caps
->>>    *
->>>    * Return: void
->>>    */
->>> -enum dc_edid_status dm_helpers_parse_edid_caps(
->>> -        struct dc_link *link,
->>> -        const struct dc_edid *edid,
->>> -        struct dc_edid_caps *edid_caps)
->>> +enum dc_edid_status dm_helpers_parse_edid_caps(struct dc_link *link,
->>> +                           struct dc_edid_caps *edid_caps)
->>>   {
->>>       struct amdgpu_dm_connector *aconnector = link->priv;
->>>       struct drm_connector *connector = &aconnector->base;
->>>       const struct drm_edid *drm_edid = aconnector->drm_edid;
->>>       struct drm_edid_product_id product_id;
->>> -    struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : 
->>> NULL;
->>>       int sad_count;
->>>       int i = 0;
->>> -
->>>       enum dc_edid_status result = EDID_OK;
->>> -    if (!edid_caps || !edid)
->>> +    if (!edid_caps || !drm_edid)
->>>           return EDID_BAD_INPUT;
->>> -    if (!drm_edid_is_valid(edid_buf))
->>> -        result = EDID_BAD_CHECKSUM;
->>> -
->>>       drm_edid_get_product_id(drm_edid, &product_id);
->>>       edid_caps->manufacturer_id = 
->>> le16_to_cpu(product_id.manufacturer_name);
->>> @@ -920,19 +912,23 @@ enum dc_edid_status dm_helpers_read_local_edid(
->>>           if (!drm_edid)
->>>               return EDID_NO_RESPONSE;
->>> -        edid = drm_edid_raw(drm_edid); // FIXME: Get rid of 
->>> drm_edid_raw()
->>> +        /* FIXME: Get rid of drm_edid_raw()
->>> +         * Raw edid is still needed for dm_helpers_dp_write_dpcd()
->>> +         */
->>> +        edid = drm_edid_raw(drm_edid);
->>>           sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
->>>           memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink- 
->>> >dc_edid.length);
->>>           edid_status = dm_helpers_parse_edid_caps(
->>>                           link,
->>> -                        &sink->dc_edid,
->>>                           &sink->edid_caps);
->>> -        /* We don't need the original edid anymore */
->>> -        drm_edid_free(drm_edid);
->>> -
->>> -    } while (edid_status == EDID_BAD_CHECKSUM && --retry > 0);
->>> +        if (edid_status != EDID_OK) {
->>> +            /* We can discard the drm_edid and retry */
->>> +            drm_edid_free(drm_edid);
->>> +            drm_edid_connector_update(connector, drm_edid);
->>> +        }
->>> +    } while (edid_status != EDID_OK && --retry > 0);
->>>       if (edid_status != EDID_OK)
->>>           DRM_ERROR("EDID err: %d, on connector: %s",
->>> diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/ 
->>> gpu/drm/amd/display/dc/dm_helpers.h
->>> index 2e4a46f1b499..4e1776b5f0d4 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
->>> +++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
->>> @@ -61,7 +61,6 @@ void dm_helpers_free_gpu_mem(
->>>   enum dc_edid_status dm_helpers_parse_edid_caps(
->>>       struct dc_link *link,
->>> -    const struct dc_edid *edid,
->>>       struct dc_edid_caps *edid_caps);
->>> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/ 
->>> drivers/gpu/drm/amd/display/dc/link/link_detection.c
->>> index d21ee9d12d26..94c911742dd3 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->>> @@ -1413,10 +1413,8 @@ struct dc_sink *link_add_remote_sink(
->>>               dc_sink))
->>>           goto fail_add_sink;
->>> -    edid_status = dm_helpers_parse_edid_caps(
->>> -            link,
->>> -            &dc_sink->dc_edid,
->>> -            &dc_sink->edid_caps);
->>> +    edid_status = dm_helpers_parse_edid_caps(link,
->>> +                         &dc_sink->edid_caps);
->>>       /*
->>>        * Treat device as no EDID device if EDID
->>
->
+If this is only expected for VFs, then it's better to add
+amdgpu_sriov_vf(adev) check for this call.
 
+Thanks,
+Lijo
+
+> +		dev_info(adev->dev, "Fetched VBIOS from VRAM BAR\n");
+> +		goto success;
+> +	}
+> +
+>  	if (amdgpu_read_platform_bios(adev)) {
+>  		dev_info(adev->dev, "Fetched VBIOS from platform\n");
+>  		goto success;
