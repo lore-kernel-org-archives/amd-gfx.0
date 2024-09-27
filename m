@@ -4,81 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36ABFCDD1C2
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 14:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71565CDD1BF
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 14:43:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6210710ECC0;
-	Fri, 27 Sep 2024 14:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2D0510ECC5;
+	Fri, 27 Sep 2024 14:43:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CgncASGU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/UdvqZZ/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CgncASGU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/UdvqZZ/";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="MV2Ifoaw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aQAGsg4g";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MV2Ifoaw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aQAGsg4g";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9D910ECA3;
- Fri, 27 Sep 2024 14:42:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCD2610ECAC;
+ Fri, 27 Sep 2024 14:42:57 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 437E11F82E;
- Fri, 27 Sep 2024 14:42:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A87E91F8BA;
+ Fri, 27 Sep 2024 14:42:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727448177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727448176; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CabPTOmDep4GJzSJBh0ShrFUMXAfTBzSf6TaoXgMRMg=;
- b=CgncASGUVXBB5r7Sub94G5s0u6JzdHHr4waLNB/4O8jgIF3YahTNanUw8qzXS9KslWNV8J
- bL0hTnF0hKAxO2lQGf9uTw4zSVSwaSnub5/5HnwsD7Dw/uBFlpJfh2Kz7ZZd+UK+27plma
- AFpddwzosSSX45bj5DrMzjPwaCBCD9U=
+ bh=B4OCIYiN4ccyCD7/ESu/s8M4InenUlojjcH4vnQVYx8=;
+ b=MV2IfoawUCrEAevDUpu88cxvV75nhBY1LxIBI/eXBLRbxMNqzkk+o/dZnAuP5LTKvbQR73
+ b8IIezyAk0st4HSeHMbcMlhteyl/E5ixmWyzML3zgvdvUge4J1Zj2lWQeuNKo6hFs/Hcw7
+ C+Kc2zYRsNPCfl3vyesShC2cHLYx69M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727448177;
+ s=susede2_ed25519; t=1727448176;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CabPTOmDep4GJzSJBh0ShrFUMXAfTBzSf6TaoXgMRMg=;
- b=/UdvqZZ/ohCNcOL+Fen0Aespwe2tyIdLcRxjlX94z/Qx5HKQvwrzWwtemABKgHlQu6XMB1
- ymuPdn6N8nKhMkCg==
+ bh=B4OCIYiN4ccyCD7/ESu/s8M4InenUlojjcH4vnQVYx8=;
+ b=aQAGsg4gxr6CrVoPQ7wgINSCjYAX6E6sGp8Z57Hg1YiH9ck8ol0G+5DuQ1lrQrYvgE8IgR
+ xbz3xgMTUqptDEBQ==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727448177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727448176; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CabPTOmDep4GJzSJBh0ShrFUMXAfTBzSf6TaoXgMRMg=;
- b=CgncASGUVXBB5r7Sub94G5s0u6JzdHHr4waLNB/4O8jgIF3YahTNanUw8qzXS9KslWNV8J
- bL0hTnF0hKAxO2lQGf9uTw4zSVSwaSnub5/5HnwsD7Dw/uBFlpJfh2Kz7ZZd+UK+27plma
- AFpddwzosSSX45bj5DrMzjPwaCBCD9U=
+ bh=B4OCIYiN4ccyCD7/ESu/s8M4InenUlojjcH4vnQVYx8=;
+ b=MV2IfoawUCrEAevDUpu88cxvV75nhBY1LxIBI/eXBLRbxMNqzkk+o/dZnAuP5LTKvbQR73
+ b8IIezyAk0st4HSeHMbcMlhteyl/E5ixmWyzML3zgvdvUge4J1Zj2lWQeuNKo6hFs/Hcw7
+ C+Kc2zYRsNPCfl3vyesShC2cHLYx69M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727448177;
+ s=susede2_ed25519; t=1727448176;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CabPTOmDep4GJzSJBh0ShrFUMXAfTBzSf6TaoXgMRMg=;
- b=/UdvqZZ/ohCNcOL+Fen0Aespwe2tyIdLcRxjlX94z/Qx5HKQvwrzWwtemABKgHlQu6XMB1
- ymuPdn6N8nKhMkCg==
+ bh=B4OCIYiN4ccyCD7/ESu/s8M4InenUlojjcH4vnQVYx8=;
+ b=aQAGsg4gxr6CrVoPQ7wgINSCjYAX6E6sGp8Z57Hg1YiH9ck8ol0G+5DuQ1lrQrYvgE8IgR
+ xbz3xgMTUqptDEBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 01CA01386E;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D7F01386E;
  Fri, 27 Sep 2024 14:42:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0EG4OnDE9mYFKwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KCKRFXDE9mYFKwAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Fri, 27 Sep 2024 14:42:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 4/5] drm: Select fbdev helpers for modules that require them
-Date: Fri, 27 Sep 2024 16:37:29 +0200
-Message-ID: <20240927144252.31813-5-tzimmermann@suse.de>
+Subject: [PATCH 2/5] drm/xe: Select DRM_CLIENT_SELECTION
+Date: Fri, 27 Sep 2024 16:37:27 +0200
+Message-ID: <20240927144252.31813-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240927144252.31813-1-tzimmermann@suse.de>
 References: <20240927144252.31813-1-tzimmermann@suse.de>
@@ -113,43 +113,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fbdev emulation for SHMEM and TTM requires helpers from the fbdev
-subsystem. Select them from the modules that use them instead of the
-core DRM module.
+The Kconfig token DRM_CLIENT_SELECTION will make DRM clients
+available to drivers. Select it from xe.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 1df4e627e3d3..88b2ba55fe16 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -11,7 +11,6 @@ menuconfig DRM
- 	select DRM_PANEL_ORIENTATION_QUIRKS
- 	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
- 	select FB_CORE if DRM_FBDEV_EMULATION
--	select FB_SYSMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
- 	select HDMI
- 	select I2C
- 	select DMA_SHARED_BUFFER
-@@ -332,6 +331,7 @@ config DRM_TTM_HELPER
- 	tristate
- 	depends on DRM
- 	select DRM_TTM
-+	select FB_SYSMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
- 	help
- 	  Helpers for ttm-based gem objects
- 
-@@ -345,6 +345,7 @@ config DRM_GEM_DMA_HELPER
- config DRM_GEM_SHMEM_HELPER
- 	tristate
- 	depends on DRM && MMU
-+	select FB_SYSMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
- 	help
- 	  Choose this if you need the GEM shmem helper functions
- 
+diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+index ebd0879e04d4..bac96c0dd66e 100644
+--- a/drivers/gpu/drm/xe/Kconfig
++++ b/drivers/gpu/drm/xe/Kconfig
+@@ -8,6 +8,7 @@ config DRM_XE
+ 	select SHMEM
+ 	select TMPFS
+ 	select DRM_BUDDY
++	select DRM_CLIENT_SELECTION
+ 	select DRM_EXEC
+ 	select DRM_KMS_HELPER
+ 	select DRM_KUNIT_TEST_HELPERS if DRM_XE_KUNIT_TEST != n
 -- 
 2.46.0
 
