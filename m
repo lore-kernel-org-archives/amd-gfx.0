@@ -4,103 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC43CDD1BB
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 14:43:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07912CDD1BF
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 14:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B63310ECAD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A102210ECB6;
 	Fri, 27 Sep 2024 14:42:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="b5BQyM51";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="x1r/99Vm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YhFYXl54";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="v0bec0/c";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="X4pUG402";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tVvCkPHE";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="X4pUG402";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tVvCkPHE";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4249A10EC99;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD9D610EC99;
  Fri, 27 Sep 2024 14:42:58 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EF3BD21B53;
- Fri, 27 Sep 2024 14:42:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8B9C921BA2;
+ Fri, 27 Sep 2024 14:42:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1727448177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bHq4RY6ojtJsieBz5NENn6TMgvt2r6L3WBIUlvUSJ2o=;
- b=b5BQyM51xsi5w5ByBN+yjTF14/NJ517xvRPB423GAo+uhPXiCcVmGyOM7AoOLxCgez0ldT
- jy5YO63Yuzh5E15aS2x8N8b54elHUkYzfsEt2G5kWNU9ZpmJO08EjF6JZRblbwmJi3OGK/
- fo1TeCpoDZCV4SHFlI1/dMJDbk79zYk=
+ bh=0sVILQyXL2mQzYvh/bRPpgD1yEGQWs6mwcVVJ+Fy3FM=;
+ b=X4pUG4029t4qyMfuQTduGc0YS5TMC5cIhjbEBFlZ7Oc+7/zFJ6GVLEYOYQN82fT3kdSZQl
+ iJfl4eqOVniy/9U/wOr86nQrVaZgTo3rYc/tQDz+X9hzYvtlz44HppqKGGRxGKrwxQ8qsC
+ dCzeRgCpXa7TTUbRW9UMrbHbP9k2kns=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1727448177;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bHq4RY6ojtJsieBz5NENn6TMgvt2r6L3WBIUlvUSJ2o=;
- b=x1r/99Vm5HX6AoLO0ExZBbvaZekKatHbkLvP//Y9GSmCcswemCvf094Nz/eaQCIhxuxQXP
- Y20+/JwUHD/3MDAg==
+ bh=0sVILQyXL2mQzYvh/bRPpgD1yEGQWs6mwcVVJ+Fy3FM=;
+ b=tVvCkPHEpcYjVOmkdvnZjso0uBd+3RXFkFkfFE/i0nIA+j7n3z5KW5xInJvISn5cWSywcp
+ ouI2ZYYLjoJF4MCw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727448176; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1727448177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bHq4RY6ojtJsieBz5NENn6TMgvt2r6L3WBIUlvUSJ2o=;
- b=YhFYXl54lDaI8LHSSsTq3GlF45f9suSyZHGZG3U5XuyBTZ2CPNg8OxKBf0Wo+BeOQRSL0g
- t9n9UAVNyM3mr412TYRbP68g2Wha+wC0VDApx49iiFzLNaMuY1WMRIEJnH86EYJFq7A2LL
- eZ9BEqRrM8vKlYnXvpkiVwAqrsmzoQc=
+ bh=0sVILQyXL2mQzYvh/bRPpgD1yEGQWs6mwcVVJ+Fy3FM=;
+ b=X4pUG4029t4qyMfuQTduGc0YS5TMC5cIhjbEBFlZ7Oc+7/zFJ6GVLEYOYQN82fT3kdSZQl
+ iJfl4eqOVniy/9U/wOr86nQrVaZgTo3rYc/tQDz+X9hzYvtlz44HppqKGGRxGKrwxQ8qsC
+ dCzeRgCpXa7TTUbRW9UMrbHbP9k2kns=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727448176;
+ s=susede2_ed25519; t=1727448177;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bHq4RY6ojtJsieBz5NENn6TMgvt2r6L3WBIUlvUSJ2o=;
- b=v0bec0/c8+vdeUnyd7K74uKDX49EA2pmaB14mCX76tAEDQ3EW+PQ1a559PidMkkRgt7J8s
- MyC1cPpRMOveZiAw==
+ bh=0sVILQyXL2mQzYvh/bRPpgD1yEGQWs6mwcVVJ+Fy3FM=;
+ b=tVvCkPHEpcYjVOmkdvnZjso0uBd+3RXFkFkfFE/i0nIA+j7n3z5KW5xInJvISn5cWSywcp
+ ouI2ZYYLjoJF4MCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B03BF13AA0;
- Fri, 27 Sep 2024 14:42:56 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A75C13AA0;
+ Fri, 27 Sep 2024 14:42:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id IBa0KXDE9mYFKwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 27 Sep 2024 14:42:56 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SOruEHHE9mYFKwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 27 Sep 2024 14:42:57 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 3/5] drm: Move client-device functions in to drm_client_dev.c
-Date: Fri, 27 Sep 2024 16:37:28 +0200
-Message-ID: <20240927144252.31813-4-tzimmermann@suse.de>
+Subject: [PATCH 5/5] drm: Add client-lib module
+Date: Fri, 27 Sep 2024 16:37:30 +0200
+Message-ID: <20240927144252.31813-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20240927144252.31813-1-tzimmermann@suse.de>
 References: <20240927144252.31813-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-7.30 / 50.00]; REPLY(-4.00)[];
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
  BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FROM_EQ_ENVFROM(0.00)[];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_SEVEN(0.00)[9];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[9]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
  R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
- suse.de:mid]
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,329 +113,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A number of DRM-client functions serve as entry points from device
-operations to client code. Move them info a separate file, so that
-the other client functions can be moved into a different module.
+Add drm_client_lib.ko to contain most of the client code. Move the
+existing client for fbdev emulation into the new module. Protect the
+new module behind CONFIG_DRM_CLIENT.
+
+The Kconfig rules separate the DRM drivers from the DRM clients. A
+driver can opt into the default clients, but the user configures
+each client individually. To do so, DRM drivers still select
+DRM_CLIENT_SELECTION. The option is now a tristate that further
+selects all dependencies of the enabled DRM clients. There's
+a menu option for each client. Enabling at least one client also
+selects DRM_CLIENT_SETUP, so that drivers call drm_client_setup().
+New DRM clients should depend on DRM_CLIENT_SELECTION.
+
+The KMS-helper module now exports handful of symbols needed by the
+DRM client library.
+
+There are existing kernel options in drm_fb_helper.o, so leave this
+file in the KMS-helper module for now.
+
+Amdgpu has an internal DRM client, so it has to select DRM_CLIENT by
+itself unconditionally.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- Documentation/gpu/drm-client.rst |   3 +
- drivers/gpu/drm/Makefile         |   1 +
- drivers/gpu/drm/drm_client.c     | 121 ---------------------------
- drivers/gpu/drm/drm_client_dev.c | 138 +++++++++++++++++++++++++++++++
- 4 files changed, 142 insertions(+), 121 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_client_dev.c
+ drivers/gpu/drm/Kconfig            | 31 ++++++++++++++++++++++++------
+ drivers/gpu/drm/Makefile           | 19 +++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/Kconfig |  1 +
+ drivers/gpu/drm/drm_client.c       |  3 +++
+ drivers/gpu/drm/drm_dumb_buffers.c |  2 ++
+ drivers/gpu/drm/drm_file.c         |  2 ++
+ drivers/gpu/drm/drm_framebuffer.c  |  2 ++
+ drivers/gpu/drm/drm_gem.c          |  2 ++
+ 8 files changed, 51 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/gpu/drm-client.rst b/Documentation/gpu/drm-client.rst
-index 58b5a1d1219d..6d8142f159a1 100644
---- a/Documentation/gpu/drm-client.rst
-+++ b/Documentation/gpu/drm-client.rst
-@@ -13,3 +13,6 @@ Kernel clients
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 88b2ba55fe16..379fccf3a6ea 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -9,8 +9,6 @@ menuconfig DRM
+ 	tristate "Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)"
+ 	depends on (AGP || AGP=n) && !EMULATED_CMPXCHG && HAS_DMA
+ 	select DRM_PANEL_ORIENTATION_QUIRKS
+-	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
+-	select FB_CORE if DRM_FBDEV_EMULATION
+ 	select HDMI
+ 	select I2C
+ 	select DMA_SHARED_BUFFER
+@@ -209,21 +207,40 @@ config DRM_DEBUG_MODESET_LOCK
  
- .. kernel-doc:: drivers/gpu/drm/drm_client_modeset.c
-    :export:
+ 	  If in doubt, say "N".
+ 
++config DRM_CLIENT
++	tristate
++	depends on DRM
++	help
++	  Enables the DRM client-lib module. DRM drivers that need
++	  struct drm_client_dev and its interfaces should select this
++	  option. Drivers that support the default clients should
++	  select DRM_CLIENT_SELECTION instead.
 +
-+.. kernel-doc:: drivers/gpu/drm/drm_client_dev.c
-+   :export:
+ config DRM_CLIENT_SELECTION
+-	bool
++	tristate
+ 	depends on DRM
+-	select DRM_CLIENT_SETUP if DRM_FBDEV_EMULATION
++	select DRM_CLIENT if DRM_FBDEV_EMULATION
++	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
++	select FB_CORE if DRM_FBDEV_EMULATION
+ 	help
+ 	  Drivers that support in-kernel DRM clients have to select this
+-	  option.
++	  option. It selects all modules and components according to the
++	  enabled clients.
+ 
+ config DRM_CLIENT_SETUP
+ 	bool
+ 	depends on DRM_CLIENT_SELECTION
++	help
++	  Enables the DRM client selection. DRM drivers that support the
++	  default clients should select DRM_CLIENT_SELECTION instead.
++
++menu "Supported DRM clients"
++	depends on DRM_CLIENT_SELECTION
+ 
+ config DRM_FBDEV_EMULATION
+ 	bool "Enable legacy fbdev support for your modesetting driver"
+-	depends on DRM
++	depends on DRM_CLIENT_SELECTION
++	select DRM_CLIENT_SETUP
+ 	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
+ 	default FB
+ 	help
+@@ -262,6 +279,8 @@ config DRM_FBDEV_LEAK_PHYS_SMEM
+ 	  If in doubt, say "N" or spread the word to your closed source
+ 	  library vendor.
+ 
++endmenu
++
+ config DRM_LOAD_EDID_FIRMWARE
+ 	bool "Allow to specify an EDID data set instead of probing for it"
+ 	depends on DRM
 diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 3894f43f6d47..c50443756457 100644
+index c50443756457..419208b97f57 100644
 --- a/drivers/gpu/drm/Makefile
 +++ b/drivers/gpu/drm/Makefile
-@@ -42,6 +42,7 @@ drm-y := \
+@@ -41,9 +41,7 @@ drm-y := \
+ 	drm_blend.o \
  	drm_bridge.o \
  	drm_cache.o \
- 	drm_client.o \
-+	drm_client_dev.o \
- 	drm_client_modeset.o \
+-	drm_client.o \
+ 	drm_client_dev.o \
+-	drm_client_modeset.o \
  	drm_color_mgmt.o \
  	drm_connector.o \
+ 	drm_crtc.o \
+@@ -144,14 +142,25 @@ drm_kms_helper-y := \
+ 	drm_probe_helper.o \
+ 	drm_self_refresh_helper.o \
+ 	drm_simple_kms_helper.o
+-drm_kms_helper-$(CONFIG_DRM_CLIENT_SETUP) += \
+-	drm_client_setup.o
+ drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
+ drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) += \
+-	drm_fbdev_client.o \
+ 	drm_fb_helper.o
++drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
+ obj-$(CONFIG_DRM_KMS_HELPER) += drm_kms_helper.o
+ 
++#
++# DRM clients
++#
++
++drm_client_lib-y := \
++	drm_client.o \
++	drm_client_modeset.o
++drm_client_lib-$(CONFIG_DRM_CLIENT_SETUP) += \
++	drm_client_setup.o
++drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) += \
++	drm_fbdev_client.o
++obj-$(CONFIG_DRM_CLIENT) += drm_client_lib.o
++
+ #
+ # Drivers and the rest
+ #
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 680a94c361ba..41fa3377d9cf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -5,6 +5,7 @@ config DRM_AMDGPU
+ 	depends on DRM && PCI && MMU
+ 	depends on !UML
+ 	select FW_LOADER
++	select DRM_CLIENT
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_DISPLAY_DP_HELPER
+ 	select DRM_DISPLAY_DSC_HELPER
 diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
-index bfedcbf516db..549b28a5918c 100644
+index 549b28a5918c..864ee96e48cf 100644
 --- a/drivers/gpu/drm/drm_client.c
 +++ b/drivers/gpu/drm/drm_client.c
-@@ -10,7 +10,6 @@
- #include <linux/slab.h>
- 
- #include <drm/drm_client.h>
--#include <drm/drm_debugfs.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -172,99 +171,6 @@ void drm_client_release(struct drm_client_dev *client)
- }
- EXPORT_SYMBOL(drm_client_release);
- 
--/**
-- * drm_client_dev_unregister - Unregister clients
-- * @dev: DRM device
-- *
-- * This function releases all clients by calling each client's
-- * &drm_client_funcs.unregister callback. The callback function
-- * is responsibe for releaseing all resources including the client
-- * itself.
-- *
-- * The helper drm_dev_unregister() calls this function. Drivers
-- * that use it don't need to call this function themselves.
-- */
--void drm_client_dev_unregister(struct drm_device *dev)
--{
--	struct drm_client_dev *client, *tmp;
--
--	if (!drm_core_check_feature(dev, DRIVER_MODESET))
--		return;
--
--	mutex_lock(&dev->clientlist_mutex);
--	list_for_each_entry_safe(client, tmp, &dev->clientlist, list) {
--		list_del(&client->list);
--		if (client->funcs && client->funcs->unregister) {
--			client->funcs->unregister(client);
--		} else {
--			drm_client_release(client);
--			kfree(client);
--		}
--	}
--	mutex_unlock(&dev->clientlist_mutex);
--}
--EXPORT_SYMBOL(drm_client_dev_unregister);
--
--/**
-- * drm_client_dev_hotplug - Send hotplug event to clients
-- * @dev: DRM device
-- *
-- * This function calls the &drm_client_funcs.hotplug callback on the attached clients.
-- *
-- * drm_kms_helper_hotplug_event() calls this function, so drivers that use it
-- * don't need to call this function themselves.
-- */
--void drm_client_dev_hotplug(struct drm_device *dev)
--{
--	struct drm_client_dev *client;
--	int ret;
--
--	if (!drm_core_check_feature(dev, DRIVER_MODESET))
--		return;
--
--	if (!dev->mode_config.num_connector) {
--		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
--		return;
--	}
--
--	mutex_lock(&dev->clientlist_mutex);
--	list_for_each_entry(client, &dev->clientlist, list) {
--		if (!client->funcs || !client->funcs->hotplug)
--			continue;
--
--		if (client->hotplug_failed)
--			continue;
--
--		ret = client->funcs->hotplug(client);
--		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
--		if (ret)
--			client->hotplug_failed = true;
--	}
--	mutex_unlock(&dev->clientlist_mutex);
--}
--EXPORT_SYMBOL(drm_client_dev_hotplug);
--
--void drm_client_dev_restore(struct drm_device *dev)
--{
--	struct drm_client_dev *client;
--	int ret;
--
--	if (!drm_core_check_feature(dev, DRIVER_MODESET))
--		return;
--
--	mutex_lock(&dev->clientlist_mutex);
--	list_for_each_entry(client, &dev->clientlist, list) {
--		if (!client->funcs || !client->funcs->restore)
--			continue;
--
--		ret = client->funcs->restore(client);
--		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
--		if (!ret) /* The first one to return zero gets the privilege to restore */
--			break;
--	}
--	mutex_unlock(&dev->clientlist_mutex);
--}
--
- static void drm_client_buffer_delete(struct drm_client_buffer *buffer)
- {
- 	if (buffer->gem) {
-@@ -584,30 +490,3 @@ int drm_client_framebuffer_flush(struct drm_client_buffer *buffer, struct drm_re
+@@ -490,3 +490,6 @@ int drm_client_framebuffer_flush(struct drm_client_buffer *buffer, struct drm_re
  					0, 0, NULL, 0);
  }
  EXPORT_SYMBOL(drm_client_framebuffer_flush);
--
--#ifdef CONFIG_DEBUG_FS
--static int drm_client_debugfs_internal_clients(struct seq_file *m, void *data)
--{
--	struct drm_debugfs_entry *entry = m->private;
--	struct drm_device *dev = entry->dev;
--	struct drm_printer p = drm_seq_file_printer(m);
--	struct drm_client_dev *client;
--
--	mutex_lock(&dev->clientlist_mutex);
--	list_for_each_entry(client, &dev->clientlist, list)
--		drm_printf(&p, "%s\n", client->name);
--	mutex_unlock(&dev->clientlist_mutex);
--
--	return 0;
--}
--
--static const struct drm_debugfs_info drm_client_debugfs_list[] = {
--	{ "internal_clients", drm_client_debugfs_internal_clients, 0 },
--};
--
--void drm_client_debugfs_init(struct drm_device *dev)
--{
--	drm_debugfs_add_files(dev, drm_client_debugfs_list,
--			      ARRAY_SIZE(drm_client_debugfs_list));
--}
--#endif
-diff --git a/drivers/gpu/drm/drm_client_dev.c b/drivers/gpu/drm/drm_client_dev.c
-new file mode 100644
-index 000000000000..3e41fd1f0771
---- /dev/null
-+++ b/drivers/gpu/drm/drm_client_dev.c
-@@ -0,0 +1,138 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+/*
-+ * Copyright 2018 Noralf Trønnes
-+ */
 +
-+#include <linux/list.h>
-+#include <linux/mutex.h>
-+#include <linux/seq_file.h>
-+
-+#include <drm/drm_client.h>
-+#include <drm/drm_debugfs.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_print.h>
-+
-+/**
-+ * DOC: overview
-+ *
-+ * This library provides support for clients running in the kernel like fbdev and bootsplash.
-+ *
-+ * GEM drivers which provide a GEM based dumb buffer with a virtual address are supported.
-+ */
-+
-+/**
-+ * drm_client_dev_unregister - Unregister clients
-+ * @dev: DRM device
-+ *
-+ * This function releases all clients by calling each client's
-+ * &drm_client_funcs.unregister callback. The callback function
-+ * is responsibe for releaseing all resources including the client
-+ * itself.
-+ *
-+ * The helper drm_dev_unregister() calls this function. Drivers
-+ * that use it don't need to call this function themselves.
-+ */
-+void drm_client_dev_unregister(struct drm_device *dev)
-+{
-+	struct drm_client_dev *client, *tmp;
-+
-+	if (!drm_core_check_feature(dev, DRIVER_MODESET))
-+		return;
-+
-+	mutex_lock(&dev->clientlist_mutex);
-+	list_for_each_entry_safe(client, tmp, &dev->clientlist, list) {
-+		list_del(&client->list);
-+		if (client->funcs && !drm_WARN_ON(dev, !client->funcs->unregister))
-+			client->funcs->unregister(client);
-+	}
-+	mutex_unlock(&dev->clientlist_mutex);
-+}
-+EXPORT_SYMBOL(drm_client_dev_unregister);
-+
-+/**
-+ * drm_client_dev_hotplug - Send hotplug event to clients
-+ * @dev: DRM device
-+ *
-+ * This function calls the &drm_client_funcs.hotplug callback on the attached clients.
-+ *
-+ * drm_kms_helper_hotplug_event() calls this function, so drivers that use it
-+ * don't need to call this function themselves.
-+ */
-+void drm_client_dev_hotplug(struct drm_device *dev)
-+{
-+	struct drm_client_dev *client;
-+	int ret;
-+
-+	if (!drm_core_check_feature(dev, DRIVER_MODESET))
-+		return;
-+
-+	if (!dev->mode_config.num_connector) {
-+		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
-+		return;
-+	}
-+
-+	mutex_lock(&dev->clientlist_mutex);
-+	list_for_each_entry(client, &dev->clientlist, list) {
-+		if (!client->funcs || !client->funcs->hotplug)
-+			continue;
-+
-+		if (client->hotplug_failed)
-+			continue;
-+
-+		ret = client->funcs->hotplug(client);
-+		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
-+		if (ret)
-+			client->hotplug_failed = true;
-+	}
-+	mutex_unlock(&dev->clientlist_mutex);
-+}
-+EXPORT_SYMBOL(drm_client_dev_hotplug);
-+
-+void drm_client_dev_restore(struct drm_device *dev)
-+{
-+	struct drm_client_dev *client;
-+	int ret;
-+
-+	if (!drm_core_check_feature(dev, DRIVER_MODESET))
-+		return;
-+
-+	mutex_lock(&dev->clientlist_mutex);
-+	list_for_each_entry(client, &dev->clientlist, list) {
-+		if (!client->funcs || !client->funcs->restore)
-+			continue;
-+
-+		ret = client->funcs->restore(client);
-+		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
-+		if (!ret) /* The first one to return zero gets the privilege to restore */
-+			break;
-+	}
-+	mutex_unlock(&dev->clientlist_mutex);
-+}
-+
-+#ifdef CONFIG_DEBUG_FS
-+static int drm_client_debugfs_internal_clients(struct seq_file *m, void *data)
-+{
-+	struct drm_debugfs_entry *entry = m->private;
-+	struct drm_device *dev = entry->dev;
-+	struct drm_printer p = drm_seq_file_printer(m);
-+	struct drm_client_dev *client;
-+
-+	mutex_lock(&dev->clientlist_mutex);
-+	list_for_each_entry(client, &dev->clientlist, list)
-+		drm_printf(&p, "%s\n", client->name);
-+	mutex_unlock(&dev->clientlist_mutex);
-+
-+	return 0;
-+}
-+
-+static const struct drm_debugfs_info drm_client_debugfs_list[] = {
-+	{ "internal_clients", drm_client_debugfs_internal_clients, 0 },
-+};
-+
-+void drm_client_debugfs_init(struct drm_device *dev)
-+{
-+	drm_debugfs_add_files(dev, drm_client_debugfs_list,
-+			      ARRAY_SIZE(drm_client_debugfs_list));
-+}
-+#endif
++MODULE_DESCRIPTION("In-kernel DRM clients");
++MODULE_LICENSE("GPL and additional rights");
+diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
+index 70032bba1c97..7ed8f05a8d5c 100644
+--- a/drivers/gpu/drm/drm_dumb_buffers.c
++++ b/drivers/gpu/drm/drm_dumb_buffers.c
+@@ -95,6 +95,7 @@ int drm_mode_create_dumb(struct drm_device *dev,
+ 
+ 	return dev->driver->dumb_create(file_priv, dev, args);
+ }
++EXPORT_SYMBOL(drm_mode_create_dumb);
+ 
+ int drm_mode_create_dumb_ioctl(struct drm_device *dev,
+ 			       void *data, struct drm_file *file_priv)
+@@ -141,6 +142,7 @@ int drm_mode_destroy_dumb(struct drm_device *dev, u32 handle,
+ 
+ 	return drm_gem_handle_delete(file_priv, handle);
+ }
++EXPORT_SYMBOL(drm_mode_destroy_dumb);
+ 
+ int drm_mode_destroy_dumb_ioctl(struct drm_device *dev,
+ 				void *data, struct drm_file *file_priv)
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index 01fde94fe2a9..dd847b574457 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -186,6 +186,7 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+ 
+ 	return ERR_PTR(ret);
+ }
++EXPORT_SYMBOL(drm_file_alloc);
+ 
+ static void drm_events_release(struct drm_file *file_priv)
+ {
+@@ -261,6 +262,7 @@ void drm_file_free(struct drm_file *file)
+ 	put_pid(rcu_access_pointer(file->pid));
+ 	kfree(file);
+ }
++EXPORT_SYMBOL(drm_file_free);
+ 
+ static void drm_close_helper(struct file *filp)
+ {
+diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
+index 47e6e8577b62..761262529416 100644
+--- a/drivers/gpu/drm/drm_framebuffer.c
++++ b/drivers/gpu/drm/drm_framebuffer.c
+@@ -349,6 +349,7 @@ int drm_mode_addfb2(struct drm_device *dev,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL(drm_mode_addfb2);
+ 
+ int drm_mode_addfb2_ioctl(struct drm_device *dev,
+ 			  void *data, struct drm_file *file_priv)
+@@ -473,6 +474,7 @@ int drm_mode_rmfb(struct drm_device *dev, u32 fb_id,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL(drm_mode_rmfb);
+ 
+ int drm_mode_rmfb_ioctl(struct drm_device *dev,
+ 			void *data, struct drm_file *file_priv)
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index ee811764c3df..07ae82e35517 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1191,12 +1191,14 @@ int drm_gem_pin_locked(struct drm_gem_object *obj)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL(drm_gem_pin_locked);
+ 
+ void drm_gem_unpin_locked(struct drm_gem_object *obj)
+ {
+ 	if (obj->funcs->unpin)
+ 		obj->funcs->unpin(obj);
+ }
++EXPORT_SYMBOL(drm_gem_unpin_locked);
+ 
+ int drm_gem_pin(struct drm_gem_object *obj)
+ {
 -- 
 2.46.0
 
