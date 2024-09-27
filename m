@@ -4,70 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03571CDD1AE
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 13:58:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F19BCDD1B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 14:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 957E410EC50;
-	Fri, 27 Sep 2024 13:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2938810EC82;
+	Fri, 27 Sep 2024 14:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hALFaWx+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c6IOD6E8";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC8010EC50
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 13:58:24 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-42cb60aff1eso20181705e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 06:58:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727445502; x=1728050302; darn=lists.freedesktop.org;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=vBG55DtLM+k3AKMBndxK+DDPcAHKa+D+xR1oisNkB4c=;
- b=hALFaWx+eSKCMv0uULaZdJvZW5OVo+/gsYADBGiuxSEE9QyYg3F3FNICpdpbPZzOYA
- 3D+HqJ7ri723QSQPCpPWOHdoFtSpOAGeTyGCHs8bwHR0Mz0W3p3mt+lCd2LRM1MHoZaX
- PAjMIRJZutuB7bwiX8WLpJlBOeuDjCcm3WTUO0rPg8o27SeZ4o9r8X66liD9RBJmDhoh
- XSR1ZJCSeDkrfLjRpWN2P70q16Hj+1+ojgHhhjaJhb7/y52eYOsHIXNiJoT3+rMYJuoc
- L77+Bt5UloWsilJJmcpN3FtV2Ue49H6YCpuXLP2gH9nhbShgm9XUsA4mjuIIfwNjir/C
- 8fbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727445502; x=1728050302;
- h=in-reply-to:from:content-language:references:to:subject:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=vBG55DtLM+k3AKMBndxK+DDPcAHKa+D+xR1oisNkB4c=;
- b=pq/H+iQw5S6D58e2QvPJ7Xep012iPMuWml20KDJpr11jW2Jokyn1Vy5j4tqRBsgRgd
- bL5qBOwoO7hRlMynldMwJRctHfyqqJb8tAGfxZyLpi44mL9vN8GTfrzPlgYV9/JSkDf8
- or8SvTt1DpRUz9tg+BsRC8/08MBx6OQmXArZDV/bK/A3qG1+CrQrQggR0Sck3qr6LeNJ
- D/dfuEJovzemn4ZL5APKw+WaBVvfPKQoFI6eY2u6RqAFOXvbSsdUjvDt5rXU+zB6T3DH
- kKqgdkrs1jaX1SeI1FUZtlHJz9AQ8GgYORywVbX4w8lO9JoUb7fT5JNbV9pBaQymbqeX
- 9KYA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWAsSYkbeg26kDU88o9WFtputOTRtoNdurz+mMk3z4DgOyAZeEVeQgLvg4E1Ywd6t+midiqlc7W@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUegWtf22hpd77XE05R6tMT5Zp/dukhhBdLvCRzmSRVfMPJKbj
- XzdahQSlMjZfaSa/toKNeHPVVI9vg8dHXUPg40W2A6kS1Nge0Jev
-X-Google-Smtp-Source: AGHT+IGD1xQEyQ8xxKs8ycCkGNCG+4o9iVXZlJPIJ/Nuq8w7/MuEG0tX8MRrwi/Fm86/Gh67856Y0w==
-X-Received: by 2002:a05:600c:1e01:b0:42c:b1a4:c3ef with SMTP id
- 5b1f17b1804b1-42f5849cd7fmr25941345e9.33.1727445502215; 
- Fri, 27 Sep 2024 06:58:22 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37cd564d292sm2633537f8f.22.2024.09.27.06.58.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Sep 2024 06:58:21 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------P0XDeal60f0VGskJC4abJCeW"
-Message-ID: <f1b10af8-b4dd-481b-88f2-ddebc3309d43@gmail.com>
-Date: Fri, 27 Sep 2024 15:58:20 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E9E310EC82;
+ Fri, 27 Sep 2024 14:36:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1727447769; x=1758983769;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=+MOLFSiYjZsUhdChu6i3KQMH0AkFHGPbMGhNEsWmCM8=;
+ b=c6IOD6E8ws0m8MuR0AnZ8pvUomTBDPc5VBJT0H0aDcTcCQ8f0aUtiuFA
+ 09jUUKIH0TW3MOYcdLCD6vpDBBwYRO7d7FYrQySF0EGecYARwAaACkgQU
+ DYdP5FARcFsywJ6ryNxm+w3xK7VRFyyK/wzrpH+i65qwT5E9x3gCMMstN
+ E6/nVS8/Iz+cIl5Bbi6qTD+v3XDz4JEyTPl+i+jF29eCNO8NDApoq8SEa
+ k9FTS4zaXLh8uPOzDF8GrOBZHnFk+NGGyga/ahYCFfXf7LRR/s5lqriLx
+ w51C4TT8EPU8I3bKa4dAb0Hyl4Jd/ZqzADdSiGObqIKYfd+n9EfnQVIEN A==;
+X-CSE-ConnectionGUID: eI1GioaDRDKSvCZZs0Jkuw==
+X-CSE-MsgGUID: vs7gRdIfQvySw4e9JgF/WA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11208"; a="49121276"
+X-IronPort-AV: E=Sophos;i="6.11,158,1725346800"; d="scan'208";a="49121276"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2024 07:36:09 -0700
+X-CSE-ConnectionGUID: 4qFHJUCnRWaJKFzUy/nLug==
+X-CSE-MsgGUID: S9xR4EEjTWixrzneASOlpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,158,1725346800"; d="scan'208";a="72854594"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orviesa006.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 27 Sep 2024 07:36:08 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Fri, 27 Sep 2024 07:36:08 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Fri, 27 Sep 2024 07:36:08 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.100)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Fri, 27 Sep 2024 07:36:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g25fbL+6xZy6y0ehKSei6J25jULH0OaUAucMA0uBm6DXH7hQp9xb/PwU03F6VHu+0kOo5apAJuWkXavOsKGdrm4m6gbJaik+0jTSTKU+/GCf9BOHMImaRAFt+JO41sJwNSHNLqYBMep1eAgwK31V35lhH7unBE/LDyyAXDrJRsaSXOUTAGRb7ncx108UJFxhC2rXDsLo9f/DRMG1KpjE41e5t6gqngNhmJPei3uhm5rAecpJ2GzThxtRrp+tjFgvfrg5fUHUn7mUFuKekFJ+0JMvC2OaKFg+ShG27iDclniHX610LXTpxUPubuTZqLCENXYxTOd3IhNtjnqYh+gwog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vXs66BDXVmpsLSerwooIMLhmKohkA6pAXuF0WkNkKLc=;
+ b=XLCnAeOZhzpmBjFXIwZITgqHfGN5ikuxNNn3zDwYzlFYu566yqycZ6/wx9Puf02t+BQUg6dAv4n6bH9qu1zzhDdPNBq3SBvIin9d55RZYCatLWqhGwuYANpEzJ5sLSEaXOgg+f3enV6ffFaZSHRzxhQM48OEurqz7yOU8z9R/4ysinkvaqzxK/qIrDrClaizv9o7kmqCwbO3j4cOw335hXuCyEhZzn1nbA0p2AVEFz5sfaq6kKHc20qAxVeyuHf7nY0hoPNqM2n/VLMAB5pEewySVJYZhOCQWQejZfxP9OnrcFHVKz5VbiOTWC3hVDIPiHtZishhjGYcm9hJ4U1E9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SN6PR11MB2864.namprd11.prod.outlook.com (2603:10b6:805:63::26)
+ by PH8PR11MB6925.namprd11.prod.outlook.com (2603:10b6:510:227::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.22; Fri, 27 Sep
+ 2024 14:36:05 +0000
+Received: from SN6PR11MB2864.namprd11.prod.outlook.com
+ ([fe80::c58f:66d9:46c0:d83d]) by SN6PR11MB2864.namprd11.prod.outlook.com
+ ([fe80::c58f:66d9:46c0:d83d%6]) with mapi id 15.20.7982.016; Fri, 27 Sep 2024
+ 14:36:05 +0000
+Date: Fri, 27 Sep 2024 10:35:58 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Vignesh Raman <vignesh.raman@collabora.com>
+CC: <dri-devel@lists.freedesktop.org>, <daniels@collabora.com>,
+ <helen.koike@collabora.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <robdclark@gmail.com>, <guilherme.gallo@collabora.com>,
+ <sergi.blanch.torne@collabora.com>, <deborah.brouwer@collabora.com>,
+ <dmitry.baryshkov@linaro.org>, <mripard@kernel.org>,
+ <quic_abhinavk@quicinc.com>, <linux-mediatek@lists.infradead.org>,
+ <linux-amlogic@lists.infradead.org>, <linux-rockchip@lists.infradead.org>,
+ <amd-gfx@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <intel-gfx@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] docs/gpu: ci: update flake tests requirements
+Message-ID: <ZvbCzqvyeTI_j2cD@intel.com>
+References: <20240927052416.1833889-1-vignesh.raman@collabora.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240927052416.1833889-1-vignesh.raman@collabora.com>
+X-ClientProxiedBy: MW4P222CA0030.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:303:114::35) To SN6PR11MB2864.namprd11.prod.outlook.com
+ (2603:10b6:805:63::26)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: AMD Radeon out of memory causes system instability.
-To: James Lawrence <james@egdaemon.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <BE0aVjD8pNALcbd-ZS-4Nc00rErCRqNVp1QYdltXo8SnW5W844fHbukefLZeZYqPxp1-GhcSSMLI6IfQqR4vfKd3NJVWAO20cCsOIfUptLo=@egdaemon.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <BE0aVjD8pNALcbd-ZS-4Nc00rErCRqNVp1QYdltXo8SnW5W844fHbukefLZeZYqPxp1-GhcSSMLI6IfQqR4vfKd3NJVWAO20cCsOIfUptLo=@egdaemon.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR11MB2864:EE_|PH8PR11MB6925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 320fe305-71d4-4ea8-cb10-08dcdf01b751
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ElrEf6GuiOyrEsbiu+RLqnOJJupxGbN04rSe1jrloJEtK8c4a4ji/UDr94G3?=
+ =?us-ascii?Q?F7P6jyPvYFrpjpnxppHKsdBTIjWV2LlUNmWo4tgRPacpomqqCi3epropdlHV?=
+ =?us-ascii?Q?scVvjVsHP6mHY/GEdHrYcXMJQVUUp31aK3TlCKBvqVfcnd2KqM8tgqMx9chN?=
+ =?us-ascii?Q?jaIXdLW6haoH1T7BIE4RGfrtHlMWk88UKtXyz+5twEhfYrKvXzGoFfz1SS05?=
+ =?us-ascii?Q?Q2nnUX+HRhW0TCX8Et4hGBm94j/lPnr3kJBjUyxKLjDChToxqa552p1Ked/F?=
+ =?us-ascii?Q?89gEK7OMe7fhTwmGIJUVz5FwmkFpTZ4Rq4CKJkSNuGxACYrZN/Ll1DvcyjOk?=
+ =?us-ascii?Q?ajEXu0tU4RoQKQtcqo8zSyM3BApALXf/zxeF9BFnN5y+/32Qp4AAd1gN9OPe?=
+ =?us-ascii?Q?fQDk1cFl8ek8ygE4qv9htZ81U1q8nJdH1CWuz+nO+VwaDkMRQemfRUXRcLEZ?=
+ =?us-ascii?Q?wf7A1LlRQwgeib0wEBshCwPsmp3tIsC54GnshRsrgVlbMf0EW5KC4gEp+aak?=
+ =?us-ascii?Q?IKz/XHRKgZiOxZ7bOUKsHyNgvc6rAfD0rLwmFMLXOe16K4ykuOUPTNj9tJgu?=
+ =?us-ascii?Q?1XGnx5Dtj8S/J5OkKD9MHK94sUctuzj9zRfA8OywaB1c0aJV/wmcPPtaIRwp?=
+ =?us-ascii?Q?oSZVwq1B6LpQog+sPMKcUmvpTPETtp4gpeXPv8BK16DQqmttx00Zii1k1tg4?=
+ =?us-ascii?Q?R3GV2Pub/vgiqigsoNlyWMKs/aAi+xUvoUPZTEqCnu+dlPrKPM18QQyxyL27?=
+ =?us-ascii?Q?i3K4Lmxx8r4one44EFo83HgMXt8Ytfy/wzYtIp+vgIQrjhv+9wIU7N1Cvw0Z?=
+ =?us-ascii?Q?eLhUSO38tqXnbgMv8wJloFobT7yGZRfn0NryT7qlALzdWGP0DboiKfwKy9u2?=
+ =?us-ascii?Q?wPPpnZKQZUEI3XR2L06LzsZkCQwieX8ISCg7BOTKBQRt2XV5q7rded/mFSJm?=
+ =?us-ascii?Q?JZNzSM5sQrpVosQ/bC7Qim4lYkFfBDgBt0W2L+0Ars1HV5LlNr8rIZMkzY0y?=
+ =?us-ascii?Q?cCf4ja1XSSediPPZNzA6Wtby7SK51nwCf3TaaQk8DaHOoZjFKCDuc5fxuA4k?=
+ =?us-ascii?Q?Hpkvzdf6fj7UOhSOxPC56oxdlrU8HuXzSo9nF5NCWvE2pmWErznH5xkn+4k1?=
+ =?us-ascii?Q?oulDcbTqM3v1JmEb1CSrB4gPK+ZDnnSrBUUBKTUKwFiWD3QGQ6PPGjlAC0GL?=
+ =?us-ascii?Q?FFz8xnoCWwPxvSUfq/Zj2dlleL28lkJ6JIKLcbSODJtEHijX9laGJ4M36gM?=
+ =?us-ascii?Q?=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR11MB2864.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?l5WVllZvSimEdc1+0M/NtfM4OG2EpFFEeyoIigLRBCrMm/PVcDwqEHiOrCdh?=
+ =?us-ascii?Q?Wbw5q7Rh3JgpyRedTixLuk0XrWzA+j9hifqTpsX2goKFJxnprqmQwz1lr080?=
+ =?us-ascii?Q?s6GJf84E+qdVwb9n4uSZGI5klVeM4i/hk38EVy3H8YyOvS6NFzy/dWBZXmJP?=
+ =?us-ascii?Q?aYxxD6/v12ictdxfg62DYsR5Qux4WrbRC/67Ak3OZQSQcWaQ/yWzcPc/eky1?=
+ =?us-ascii?Q?Mfms/v4qTi8LeqL4RjRCvTG0fWKph5AV3/qWtRx7Dr0WTK73Ad9V6wsJY3JR?=
+ =?us-ascii?Q?6Vwtu0lwLP+slAoljVpFXLVQEzp3QO+mxjs5S5eSoJnSIblrzlEYPbLjgeie?=
+ =?us-ascii?Q?5JGhhyCH2BWthyZBjEtqEcC6IYRUpRBzM3abxWOolVawEoSg5NMLjn5Zgb4e?=
+ =?us-ascii?Q?rbwzrBgZXO6Y95Z7Y/qxq8NoTGktZXgzysPsDb4dkRAST2wwvVjCbyEpegFu?=
+ =?us-ascii?Q?UQAbsppoor3m8//72RuUL2ReU492T9DXQM9eQ2IWW9bdJWhZHbkDRB59xVCF?=
+ =?us-ascii?Q?gtlCBQkVOsoxHFGifgNwiFzDY0XwnVbj1KDvF/io3sxbGCMYOwEAzyGO1lpY?=
+ =?us-ascii?Q?vtPyjY3tETlhKmMMjd2zQ+FEfPHMRuQVIfRbpkL3LT1rWY3qJHVQZ7cMQSja?=
+ =?us-ascii?Q?2Jo5nrdkZJ6FTXMgPpUNu/QoW/XP/41duMVp1xZngsGttPWrTre5JUuEJgWE?=
+ =?us-ascii?Q?ore2w+MfESNw17cyxf9hp8Qer/PJ7m+HxAFwWQxfo67vF0xPyzplevzQvqFR?=
+ =?us-ascii?Q?TLG7GoL94ZS9z4dpVfua6SHxWr43JBXmNU9ZZHbIgqBCp4ZDtLlhutbleOT3?=
+ =?us-ascii?Q?0cUhE40dSdZC5nrJUUvJ+wRm/uo05WGvEooIM0y0wW1WX+obqtnLcyvGJfli?=
+ =?us-ascii?Q?mxhSQMORZPqTH8N+qnVp57DCV4L8HH+l91MDuxSnMqQhxnH1JWqz6DOZZUe7?=
+ =?us-ascii?Q?wXEpwoORTjLyitocbGBuymzdKXejhGeCmT64I+Uvxm4NjNmvFASLepC0H8yu?=
+ =?us-ascii?Q?Ve3dOMJ/v6/RkC4ajwutXWhF0oPp4qFJtISsreHiWd7D1VQ/o73RuzP6uA84?=
+ =?us-ascii?Q?M4Als5GL6XUOIozETpqv6HTFyYte+ZJ8t1UTBMDdadnfADs9YC68xDz4BCUo?=
+ =?us-ascii?Q?yFo12dJ7qeICxLXWWDC4t0Ze67TM4iK9HQ68rod90DXFz9JdVDAUySiqc2ZL?=
+ =?us-ascii?Q?mWBIwY9klkzHqd6C499mBNF8xO8hYDZUh3RbPZOHgnzUW97o4Ezpn4RVnpdU?=
+ =?us-ascii?Q?+Uj4YOGNeGFAzZFibLwRSlYo/XGdCvgNydm/R4rnrRCN7pTG7Odtc8M8JroS?=
+ =?us-ascii?Q?vR+bHyIfvTR1nu+m9gFoq/0vLGqk1hdAzdeBTgocg009FHuYwUKAN2QY69dw?=
+ =?us-ascii?Q?87WkMspWs5aAY2lA50JKO+gP6UU4RdqbdbjEjSydotPgUwINd4khso9Kvd10?=
+ =?us-ascii?Q?K0/DT6GAZGMRT5XpUJyjW47LCV0LvKPvnAHwglsYx8dNbiuJdEON/OxGO0BC?=
+ =?us-ascii?Q?XAuEfXonfMhpj01KE/koJWIcPXdE6zjDlcJCud+Pc5Z+xN6wDeLTNF2BigAS?=
+ =?us-ascii?Q?LGWt7xQ7KZB6qGahXjPBW2exbqUUWMU/1bqTuCngWqIteLnZjab1rQq2Xylh?=
+ =?us-ascii?Q?4Q=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 320fe305-71d4-4ea8-cb10-08dcdf01b751
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR11MB2864.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2024 14:36:04.9841 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: u8hEmvkmOJ5ZG7CtX27kwSHNlSKUWTqLyV4tAUcYPhK053DbbHH+EotzyB9wy6qExV5gvNYHKvGd7NabQqyZHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6925
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,189 +181,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------P0XDeal60f0VGskJC4abJCeW
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Fri, Sep 27, 2024 at 10:54:14AM +0530, Vignesh Raman wrote:
+> Update the documentation to specify linking to a relevant GitLab
+> issue or email report for each new flake entry. Added specific
+> GitLab issue urls for i915, msm and amdgpu driver.
+> 
+> Acked-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # msm
+> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+> ---
+> 
+> v2:
+> - Add gitlab issue link for msm driver.
+> 
+> v3:
+> - Update docs to specify we use email reporting or GitLab issues for flake entries.
+> 
+> ---
+>  Documentation/gpu/automated_testing.rst | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst
+> index 2d5a28866afe..03769b4a17cf 100644
+> --- a/Documentation/gpu/automated_testing.rst
+> +++ b/Documentation/gpu/automated_testing.rst
+> @@ -68,19 +68,24 @@ known to behave unreliably. These tests won't cause a job to fail regardless of
+>  the result. They will still be run.
+>  
+>  Each new flake entry must be associated with a link to the email reporting the
+> -bug to the author of the affected driver, the board name or Device Tree name of
+> -the board, the first kernel version affected, the IGT version used for tests,
+> -and an approximation of the failure rate.
+> +bug to the author of the affected driver or the relevant GitLab issue. The entry
+> +must also include the board name or Device Tree name, the first kernel version
+> +affected, the IGT version used for tests, and an approximation of the failure rate.
+>  
+>  They should be provided under the following format::
+>  
+> -  # Bug Report: $LORE_OR_PATCHWORK_URL
+> +  # Bug Report: $LORE_URL_OR_GITLAB_ISSUE
+>    # Board Name: broken-board.dtb
+>    # Linux Version: 6.6-rc1
+>    # IGT Version: 1.28-gd2af13d9f
+>    # Failure Rate: 100
+>    flaky-test
+>  
+> +Use the appropriate link below to create a GitLab issue:
+> +amdgpu driver: https://gitlab.freedesktop.org/drm/amd/-/issues
+> +i915 driver: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues
 
-Am 05.08.24 um 08:02 schrieb James Lawrence:
-> Apologies if I'm hitting the wrong mailing list. long time user, first 
-> time reporter and all that.
+Probably good to add:
 
-Sorry for the delayed reply  Without a maintainer in CC such requests 
-are usually overlooked on the mailing list.
+xe driver: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues
 
->
-> recently my system has been suffering from instability with the 
-> graphics system. essentially some application on my system is causing 
-> oom for graphics memory.
-> normally I'd just expect a hard crash of the application in such a 
-> scenario. instead the system enters a spin loop of command submissions,
-> slows down dramatically generally resulting in the system freezing up.
->
-> There are a couple issues I'd like to point out with the current 
-> situation I'm experiencing:
->
->   * most importantly the error message doesn't provide any useful
->     information for tracing the source of the issue. no pid, or other
->     diagnostic information.
->   * its very noisy when trying to debug. I can occasionally drop my
->     system to a separate TTY and the message just spams the entire
->     screen. making it impossible to interact with my system even if I
->     wanted to load up debugging tools to analyze the situation.
->
->
-> given the error message I believe this line is the source of the log 
-> statement.
-> |[drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Not enough memory for command 
-> submission!|​
-> https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c#L1431
->
-> Generally I'm wondering if there is anything that can be done to 
-> improve the experience for end users in such a scenario.
->
-> Ideally the system would nuke the misbehaving process similar to how 
-> ram ooms are handled.
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-If you see this message you should get the OOM killer running along with it.
-
-If you don't see this then you probably run into a BUG or something like 
-that.
-
-What kernel version are you using and what did you do to trigger that?
-
-Regards,
-Christian.
-
-
->
-> but at a minimum I'd like to be able to figure out how to back track 
-> this to the misbehaving process. any help in this regard would be 
-> appreciated.
->
->
-> Sent with Proton Mail <https://proton.me/> secure email.
-
---------------P0XDeal60f0VGskJC4abJCeW
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 05.08.24 um 08:02 schrieb James Lawrence:<br>
-    <blockquote type="cite"
-cite="mid:BE0aVjD8pNALcbd-ZS-4Nc00rErCRqNVp1QYdltXo8SnW5W844fHbukefLZeZYqPxp1-GhcSSMLI6IfQqR4vfKd3NJVWAO20cCsOIfUptLo=@egdaemon.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">Apologies
-        if I'm hitting the wrong mailing list. long time user, first
-        time reporter and all that.</div>
-    </blockquote>
-    <br>
-    Sorry for the delayed reply  Without a maintainer in CC such
-    requests are usually overlooked on the mailing list.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:BE0aVjD8pNALcbd-ZS-4Nc00rErCRqNVp1QYdltXo8SnW5W844fHbukefLZeZYqPxp1-GhcSSMLI6IfQqR4vfKd3NJVWAO20cCsOIfUptLo=@egdaemon.com">
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">recently
-        my system has been suffering from instability with the graphics
-        system. essentially some application on my system is causing oom
-        for graphics memory.</div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">normally
-        I'd just expect a hard crash of the application in such a
-        scenario. instead the system enters a spin loop of command
-        submissions,</div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">slows
-        down dramatically generally resulting in the system freezing up.<br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">There
-        are a couple issues I'd like to point out with the current
-        situation I'm experiencing:</div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">
-        <ul
-data-editing-info="{&quot;orderedStyleType&quot;:1,&quot;unorderedStyleType&quot;:2}">
-          <li style="list-style-type: &quot;- &quot;;"><span>most
-              importantly the error message doesn't provide any useful
-              information for tracing the source of the issue. no pid,
-              or other diagnostic information.</span></li>
-          <li style="list-style-type: &quot;- &quot;;"><span>its very
-              noisy when trying to debug. I can occasionally drop my
-              system to a separate TTY and the message just spams the
-              entire screen. making it impossible to interact with my
-              system even if I wanted to load up debugging tools to
-              analyze the situation.</span></li>
-        </ul>
-        <div><br>
-        </div>
-        <div>given the error message I believe this line is the source
-          of the log statement.<br>
-        </div>
-        <div><code>[drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Not enough
-            memory for command submission!</code>​<br>
-        </div>
-        <div><span><a target="_blank" rel="noreferrer nofollow noopener"
-href="https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c#L1431"
-              moz-do-not-send="true" class="moz-txt-link-freetext">https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c#L1431</a></span><br>
-        </div>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">Generally
-        I'm wondering if there is anything that can be done to improve
-        the experience for end users in such a scenario.</div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">Ideally
-        the system would nuke the misbehaving process similar to how ram
-        ooms are handled.</div>
-    </blockquote>
-    <br>
-    If you see this message you should get the OOM killer running along
-    with it.<br>
-    <br>
-    If you don't see this then you probably run into a BUG or something
-    like that.<br>
-    <br>
-    What kernel version are you using and what did you do to trigger
-    that?<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <br>
-    <blockquote type="cite"
-cite="mid:BE0aVjD8pNALcbd-ZS-4Nc00rErCRqNVp1QYdltXo8SnW5W844fHbukefLZeZYqPxp1-GhcSSMLI6IfQqR4vfKd3NJVWAO20cCsOIfUptLo=@egdaemon.com">
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;">but
-        at a minimum I'd like to be able to figure out how to back track
-        this to the misbehaving process. any help in this regard would
-        be appreciated.<br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div style="font-family: Arial, sans-serif; font-size: 14px;"><br>
-      </div>
-      <div class="protonmail_signature_block"
-        style="font-family: Arial, sans-serif; font-size: 14px;">
-        <div
-class="protonmail_signature_block-user protonmail_signature_block-empty">
-        </div>
-        <div class="protonmail_signature_block-proton"> Sent with <a
-            target="_blank" href="https://proton.me/"
-            rel="noopener noreferrer" moz-do-not-send="true">Proton Mail</a>
-          secure email. </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------P0XDeal60f0VGskJC4abJCeW--
+> +msm driver: https://gitlab.freedesktop.org/drm/msm/-/issues
+> +
+>  drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt
+>  -----------------------------------------------------------
+>  
+> -- 
+> 2.43.0
+> 
