@@ -4,58 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC7ACF6497
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D2C2CF64A1
 	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 07:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF92410E39E;
-	Mon, 30 Sep 2024 07:11:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="G6uZGtpz";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C1010E120;
- Sat, 28 Sep 2024 12:34:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1727526857; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Jidp+v56GHpQ90d6jE42qovl/DPZDzyJY7TTyUYckqojZHA0zSaXjpcRcrNAURMcRiPs3Oa7BWrqs0j4HL8XFZEvKuhY7gBIsaTQlykpCoTG5BxZad6dALB4DyTm98nDlKeKaf14fIPoPEq4HVyeTBoAefMHLnv79Tp1qWzBmJc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1727526857;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=uFDG71r06/1KgUI9hwQET+t7IyxOBPeVXQbnAZX+teM=; 
- b=lCHDtTZMSDE6q00ay0GXurCYDKOD+eumqSIjsf3DZSJweU7VqHLpF6JCq8W8oNiKYJNLu+dHEPtpoYcCJ0vL/4UbaT9GPsabIJs06WV0/puD1CrF0SCa5OMtPVXpq4O2Kfyuxthg3JwgEdnRZ7NLEMzhbV/8LTU0ENPSK+pP9DU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727526857; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=uFDG71r06/1KgUI9hwQET+t7IyxOBPeVXQbnAZX+teM=;
- b=G6uZGtpzNI1n5VfMrO2vVwAgcFY+NDG5pesmtkqevYGdvZEm2OI+UyzrA9efuNG0
- IMZwr7K3Uc2UHgeJKuyurErv8m9bTarAbTJntQwN12Kf2zSa2v1Pi9XVsXq6MDOVR3l
- /2I/mpfIV6GfsuUuoGEAP6FFsPKNXpmb73qjmHUI=
-Received: by mx.zohomail.com with SMTPS id 1727526855212827.5193517713183;
- Sat, 28 Sep 2024 05:34:15 -0700 (PDT)
-Message-ID: <e44c75a8-9747-424e-a1e5-e43d7ad43c2f@collabora.com>
-Date: Sat, 28 Sep 2024 15:34:11 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1355D10E39F;
+	Mon, 30 Sep 2024 07:11:24 +0000 (UTC)
+X-Greylist: delayed 417 seconds by postgrey-1.36 at gabe;
+ Fri, 27 Sep 2024 15:21:45 UTC
+Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F206210ECCD;
+ Fri, 27 Sep 2024 15:21:45 +0000 (UTC)
+Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 54A76102397;
+ Fri, 27 Sep 2024 18:14:43 +0300 (MSK)
+Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [176.16.4.50])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 4BDC0102396;
+ Fri, 27 Sep 2024 18:13:58 +0300 (MSK)
+Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.63.223])
+ by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 48RFDvUI004638;
+ Fri, 27 Sep 2024 18:13:57 +0300
+From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+Subject: [PATCH] drm/radeon/r600_cs: Fix possible int overflow in
+ r600_packet3_check()
+Date: Fri, 27 Sep 2024 18:07:19 +0300
+Message-Id: <20240927150719.1432625-1-Igor.A.Artemiev@mcst.ru>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/6] DRM_SET_CLIENT_NAME ioctl
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel@lists.freedesktop.org, tursulin@igalia.com,
- simona.vetter@ffwll.ch, robdclark@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20240927084848.263718-1-pierre-eric.pelloux-prayer@amd.com>
- <33c18e28-de1d-4c1d-8dc9-4be69552dc23@amd.com> <87ikuhzcad.fsf@intel.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <87ikuhzcad.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+ bases: 20111107 #2745587, check: 20240927 notchecked
+X-AV-Checked: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 30 Sep 2024 07:11:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,34 +56,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/27/24 12:16, Jani Nikula wrote:
-> On Fri, 27 Sep 2024, Christian König <christian.koenig@amd.com> wrote:
->> Am 27.09.24 um 10:48 schrieb Pierre-Eric Pelloux-Prayer:
->>> v4 changelog:
->>> * DRM_SET_NAME -> DRM_SET_CLIENT_NAME (Dmitry)
->>> * reject names that would mess up with formatting (Sima),
->>>    and use a stricter filter (isgraph allowed extended ASCII
->>>    which weren't looking great)
->>> * documentation edits, minor fixups (Dmitry, Trvtko)
->>> * clarified commit message of commit 3/6 (Trvtko)
->>> * reworked amdgpu_vm_set_task_info a bit in 4/6 (Trvtko)
->>
->> If nobody has any more additional comments on this I'm going to pick it 
->> up and merge it through drm-misc-next by the end of today.
-> 
-> AFAICT the userspace is not reviewed and ready for merging [1].
-> 
-> BR,
-> Jani.
-> 
-> 
-> [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1428
+It is possible, although unlikely, that an integer overflow will occur 
+when the result of radeon_get_ib_value() is shifted to the left.
 
-Userspace has been discussed in the past. I'll merge virglrenderer MR
-once Pierre will update it based on this v4 and after the kernel patch
-will land to misc-next.
+Avoid it by casting one of the operands to larger data type (u64).
 
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
+
+Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+---
+ drivers/gpu/drm/radeon/r600_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+index 1b2d31c4d77c..ac77d1246b94 100644
+--- a/drivers/gpu/drm/radeon/r600_cs.c
++++ b/drivers/gpu/drm/radeon/r600_cs.c
+@@ -2104,7 +2104,7 @@ static int r600_packet3_check(struct radeon_cs_parser *p,
+ 				return -EINVAL;
+ 			}
+ 
+-			offset = radeon_get_ib_value(p, idx+1) << 8;
++			offset = (u64)radeon_get_ib_value(p, idx+1) << 8;
+ 			if (offset != track->vgt_strmout_bo_offset[idx_value]) {
+ 				DRM_ERROR("bad STRMOUT_BASE_UPDATE, bo offset does not match: 0x%llx, 0x%x\n",
+ 					  offset, track->vgt_strmout_bo_offset[idx_value]);
 -- 
-Best regards,
-Dmitry
+2.39.2
 
