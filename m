@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DDDCEBF8E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 09:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 863F4CEBF8D
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 09:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4339910ECAA;
-	Fri, 27 Sep 2024 09:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 109C310ECA9;
+	Fri, 27 Sep 2024 09:57:57 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFF4110ECA3
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 09:57:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7F910ECAA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 09:57:55 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 48R9voj02191297; Fri, 27 Sep 2024 15:27:50 +0530
+ 48R9voqC2191272; Fri, 27 Sep 2024 15:27:50 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48R9vo0U2191296;
- Fri, 27 Sep 2024 15:27:50 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48R9vnnN2191271;
+ Fri, 27 Sep 2024 15:27:49 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Boyuan Zhang <boyuan.zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 5/5] drm/amdgpu: update the handle ptr in early_fini
-Date: Fri, 27 Sep 2024 15:27:44 +0530
-Message-Id: <20240927095744.2191253-6-sunil.khatri@amd.com>
+Subject: [PATCH v1 0/5] Update the *handle with ip_block ptr
+Date: Fri, 27 Sep 2024 15:27:39 +0530
+Message-Id: <20240927095744.2191253-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240927095744.2191253-1-sunil.khatri@amd.com>
-References: <20240927095744.2191253-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,58 +43,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the *handle to amdgpu_ip_block ptr for all
-functions pointers of early_fini.
+Update for function ptrs early_init, late_init, sw_init, sw_fini,
+early_fini
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- drivers/gpu/drm/amd/include/amd_shared.h          | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0c3d31e4d314..e54a04171a2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3307,7 +3307,7 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
- 		if (!adev->ip_blocks[i].version->funcs->early_fini)
- 			continue;
- 
--		r = adev->ip_blocks[i].version->funcs->early_fini((void *)adev);
-+		r = adev->ip_blocks[i].version->funcs->early_fini(&adev->ip_blocks[i]);
- 		if (r) {
- 			DRM_DEBUG("early_fini of IP block <%s> failed %d\n",
- 				  adev->ip_blocks[i].version->funcs->name, r);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3f44227b7d4b..bc694e214533 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2108,9 +2108,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	return -EINVAL;
- }
- 
--static int amdgpu_dm_early_fini(void *handle)
-+static int amdgpu_dm_early_fini(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	amdgpu_dm_audio_fini(adev);
- 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 4a10a804f130..980a6a740689 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -383,7 +383,7 @@ struct amd_ip_funcs {
- 	int (*late_init)(struct amdgpu_ip_block *ip_block);
- 	int (*sw_init)(struct amdgpu_ip_block *ip_block);
- 	int (*sw_fini)(struct amdgpu_ip_block *ip_block);
--	int (*early_fini)(void *handle);
-+	int (*early_fini)(struct amdgpu_ip_block *ip_block);
- 	int (*hw_init)(void *handle);
- 	int (*hw_fini)(void *handle);
- 	void (*late_fini)(void *handle);
+
+Sunil Khatri (5):
+  drm/amdgpu: update the handle ptr in early_init
+  drm/amdgpu: update the handle ptr in late_init
+  drm/amdgpu: update the handle ptr in sw_init
+  drm/amdgpu: update the handle ptr in sw_fini
+  drm/amdgpu: update the handle ptr in early_fini
+
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       | 10 ++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 14 +++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  9 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  8 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/cik.c              |  8 +++----
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c           | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c            | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 22 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c       | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h        |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/nv.c               | 14 ++++++------
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/si.c               |  8 +++----
+ drivers/gpu/drm/amd/amdgpu/si_dma.c           | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/si_ih.c            | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c            | 16 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/soc21.c            | 14 ++++++------
+ drivers/gpu/drm/amd/amdgpu/soc24.c            | 14 ++++++------
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         | 18 +++++++--------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c        | 12 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vi.c               | 14 ++++++------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 +++++++++----------
+ drivers/gpu/drm/amd/include/amd_shared.h      | 10 ++++-----
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    | 17 +++++++-------
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 16 +++++++-------
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 17 +++++++-------
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 18 +++++++--------
+ 90 files changed, 579 insertions(+), 578 deletions(-)
+
 -- 
 2.34.1
 
