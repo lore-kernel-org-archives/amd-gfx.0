@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DBBCDD1BC
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 15:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4750BCDD1B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Sep 2024 15:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC27510ECCB;
-	Fri, 27 Sep 2024 15:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66F410ECCC;
+	Fri, 27 Sep 2024 15:01:11 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A00910EC93
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 15:01:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D413C10EC93
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Sep 2024 15:01:07 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 48RF11U22232736; Fri, 27 Sep 2024 20:31:01 +0530
+ 48RF11FZ2232726; Fri, 27 Sep 2024 20:31:01 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48RF11xJ2232735;
- Fri, 27 Sep 2024 20:31:01 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48RF10eF2232725;
+ Fri, 27 Sep 2024 20:31:00 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Boyuan Zhang <boyuan.zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 3/5] drm/amdgpu: update the handle ptr in sw_init
-Date: Fri, 27 Sep 2024 20:30:57 +0530
-Message-Id: <20240927150059.2232708-3-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/5] drm/amdgpu: update the handle ptr in early_init
+Date: Fri, 27 Sep 2024 20:30:55 +0530
+Message-Id: <20240927150059.2232708-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240927150059.2232708-1-sunil.khatri@amd.com>
-References: <20240927150059.2232708-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,1574 +43,1513 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-update the *handle to amdgpu_ip_block ptr for all
-functions pointers of sw_init.
+update the handle ptr to amdgpu_ip_block ptr
+for all functions pointers on early_init.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c           | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c          | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/cik.c                  | 2 +-
- drivers/gpu/drm/amd/amdgpu/cik_ih.c               | 4 ++--
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/cz_ih.c                | 4 ++--
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/iceland_ih.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c              | 4 ++--
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c              | 4 ++--
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c              | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h            | 2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c          | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c          | 4 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c          | 4 ++--
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/nv.c                   | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c          | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/si.c                   | 2 +-
- drivers/gpu/drm/amd/amdgpu/si_dma.c               | 4 ++--
- drivers/gpu/drm/amd/amdgpu/si_ih.c                | 4 ++--
- drivers/gpu/drm/amd/amdgpu/soc15.c                | 4 ++--
- drivers/gpu/drm/amd/amdgpu/soc21.c                | 4 ++--
- drivers/gpu/drm/amd/amdgpu/soc24.c                | 4 ++--
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c             | 6 +++---
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c             | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vi.c                   | 4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- drivers/gpu/drm/amd/include/amd_shared.h          | 2 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c        | 5 ++---
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c        | 4 ++--
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 4 ++--
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c         | 4 ++--
- 87 files changed, 169 insertions(+), 170 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 24 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  5 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/cik.c              |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c           |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/si.c               |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/si_dma.c           |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/si_ih.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/soc21.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vi.c               |  4 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++---
+ drivers/gpu/drm/amd/include/amd_shared.h      |  2 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 ++--
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  4 ++--
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  5 ++--
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  4 ++--
+ 86 files changed, 182 insertions(+), 182 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index c4ca59875679..1680453e21c9 100644
+index bf6c4a0d0525..c4ca59875679 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -98,9 +98,9 @@ enum {
- 	ACP_TILE_DSP2,
- };
+@@ -585,7 +585,7 @@ static int acp_resume(void *handle)
+ 	return 0;
+ }
  
--static int acp_sw_init(void *handle)
-+static int acp_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	adev->acp.parent = adev->dev;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e6e98b189072..7c96d7ba8aed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2851,7 +2851,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	for (i = 0; i < adev->num_ip_blocks; i++) {
- 		if (!adev->ip_blocks[i].status.valid)
- 			continue;
--		r = adev->ip_blocks[i].version->funcs->sw_init((void *)adev);
-+		r = adev->ip_blocks[i].version->funcs->sw_init(&adev->ip_blocks[i]);
- 		if (r) {
- 			DRM_ERROR("sw_init of IP block <%s> failed %d\n",
- 				  adev->ip_blocks[i].version->funcs->name, r);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-index 7c1f17dc6b4b..02675728823d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-@@ -33,7 +33,7 @@
- #include "isp_v4_1_0.h"
- #include "isp_v4_1_1.h"
- 
--static int isp_sw_init(void *handle)
-+static int isp_sw_init(struct amdgpu_ip_block *ip_block)
+-static int acp_early_init(void *handle)
++static int acp_early_init(struct amdgpu_ip_block *ip_block)
  {
  	return 0;
  }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0e95c0dafb04..5aeea2aed323 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2611,25 +2611,25 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 
+ 	total = true;
+ 	for (i = 0; i < adev->num_ip_blocks; i++) {
++		ip_block = &adev->ip_blocks[i];
++
+ 		if ((amdgpu_ip_block_mask & (1 << i)) == 0) {
+ 			DRM_WARN("disabled ip block: %d <%s>\n",
+ 				  i, adev->ip_blocks[i].version->funcs->name);
+ 			adev->ip_blocks[i].status.valid = false;
+-		} else {
+-			if (adev->ip_blocks[i].version->funcs->early_init) {
+-				r = adev->ip_blocks[i].version->funcs->early_init((void *)adev);
+-				if (r == -ENOENT) {
+-					adev->ip_blocks[i].status.valid = false;
+-				} else if (r) {
+-					DRM_ERROR("early_init of IP block <%s> failed %d\n",
+-						  adev->ip_blocks[i].version->funcs->name, r);
+-					total = false;
+-				} else {
+-					adev->ip_blocks[i].status.valid = true;
+-				}
++		} else if (ip_block->version->funcs->early_init) {
++			r = ip_block->version->funcs->early_init(ip_block);
++			if (r == -ENOENT) {
++				adev->ip_blocks[i].status.valid = false;
++			} else if (r) {
++				DRM_ERROR("early_init of IP block <%s> failed %d\n",
++					  adev->ip_blocks[i].version->funcs->name, r);
++				total = false;
+ 			} else {
+ 				adev->ip_blocks[i].status.valid = true;
+ 			}
++		} else {
++			adev->ip_blocks[i].status.valid = true;
+ 		}
+ 		/* get the vbios after the asic_funcs are set up */
+ 		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+index 4766e99dd98f..7c1f17dc6b4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+@@ -122,9 +122,10 @@ static int isp_load_fw_by_psp(struct amdgpu_device *adev)
+ 	return r;
+ }
+ 
+-static int isp_early_init(void *handle)
++static int isp_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++	struct amdgpu_device *adev = ip_block->adev;
+ 	struct amdgpu_isp *isp = &adev->isp;
+ 
+ 	switch (amdgpu_ip_version(adev, ISP_HWIP, 0)) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 8f07dad9e449..b61abc4ee0af 100644
+index 944dad9ad29f..8f07dad9e449 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -421,9 +421,9 @@ static bool psp_get_runtime_db_entry(struct amdgpu_device *adev,
+@@ -159,9 +159,9 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
  	return ret;
  }
  
--static int psp_sw_init(void *handle)
-+static int psp_sw_init(struct amdgpu_ip_block *ip_block)
+-static int psp_early_init(void *handle)
++static int psp_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  	struct psp_context *psp = &adev->psp;
- 	int ret;
- 	struct psp_runtime_boot_cfg_entry boot_cfg_entry;
+ 
+ 	psp->autoload_supported = true;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-index 74b1ec10be2c..d53dcee94652 100644
+index 6162582d0aa2..d7e377341367 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-@@ -794,9 +794,9 @@ static int umsch_mm_late_init(struct amdgpu_ip_block *ip_block)
- 	return umsch_mm_test(adev);
+@@ -765,9 +765,9 @@ static int umsch_mm_init(struct amdgpu_device *adev)
  }
  
--static int umsch_mm_sw_init(void *handle)
-+static int umsch_mm_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+-static int umsch_mm_early_init(void *handle)
++static int umsch_mm_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
  
- 	r = umsch_mm_init(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index d4c2afafbb73..b7857bf25b5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -493,10 +493,10 @@ const struct drm_mode_config_funcs amdgpu_vkms_mode_funcs = {
- 	.atomic_commit = drm_atomic_helper_commit,
- };
- 
--static int amdgpu_vkms_sw_init(void *handle)
-+static int amdgpu_vkms_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int r, i;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	adev->amdgpu_vkms_output = kcalloc(adev->mode_info.num_crtc,
- 		sizeof(struct amdgpu_vkms_output), GFP_KERNEL);
+ 	switch (amdgpu_ip_version(adev, VCN_HWIP, 0)) {
+ 	case IP_VERSION(4, 0, 5):
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-index c9c4e8c7dc9f..73f2ada42826 100644
+index 5acd20ff5979..c9c4e8c7dc9f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-@@ -356,9 +356,9 @@ static int vpe_common_init(struct amdgpu_vpe *vpe)
+@@ -295,9 +295,9 @@ int amdgpu_vpe_ring_fini(struct amdgpu_vpe *vpe)
  	return 0;
  }
  
--static int vpe_sw_init(void *handle)
-+static int vpe_sw_init(struct amdgpu_ip_block *ip_block)
+-static int vpe_early_init(void *handle)
++static int vpe_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  	struct amdgpu_vpe *vpe = &adev->vpe;
- 	int ret;
  
+ 	switch (amdgpu_ip_version(adev, VPE_HWIP, 0)) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index 0a0114de11b4..7753932de1a3 100644
+index cf1d5d462b67..0a0114de11b4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/cik.c
 +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -2124,7 +2124,7 @@ static int cik_common_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+@@ -1985,9 +1985,9 @@ static const struct amdgpu_asic_funcs cik_asic_funcs =
+ 	.query_video_codecs = &cik_query_video_codecs,
+ };
  
--static int cik_common_sw_init(void *handle)
-+static int cik_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int cik_common_early_init(void *handle)
++static int cik_common_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	return 0;
- }
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	adev->smc_rreg = &cik_smc_rreg;
+ 	adev->smc_wreg = &cik_smc_wreg;
 diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-index 5ccd7e2ebf67..e52d378489d0 100644
+index 576baa9dbb0e..5ccd7e2ebf67 100644
 --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
 +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-@@ -297,10 +297,10 @@ static int cik_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -283,9 +283,9 @@ static void cik_ih_set_rptr(struct amdgpu_device *adev,
+ 	WREG32(mmIH_RB_RPTR, ih->rptr);
  }
  
--static int cik_ih_sw_init(void *handle)
-+static int cik_ih_sw_init(struct amdgpu_ip_block *ip_block)
+-static int cik_ih_early_init(void *handle)
++static int cik_ih_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	int ret;
  
- 	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 64 * 1024, false);
- 	if (r)
+ 	ret = amdgpu_irq_add_domain(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index 3565dbcf7e38..ce5a52eb6877 100644
+index 952737de9411..3565dbcf7e38 100644
 --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -937,10 +937,10 @@ static int cik_sdma_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -918,9 +918,9 @@ static void cik_enable_sdma_mgls(struct amdgpu_device *adev,
+ 	}
  }
  
--static int cik_sdma_sw_init(void *handle)
-+static int cik_sdma_sw_init(struct amdgpu_ip_block *ip_block)
+-static int cik_sdma_early_init(void *handle)
++static int cik_sdma_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r, i;
+ 	int r;
  
- 	/* SDMA trap event */
+ 	adev->sdma.num_instances = SDMA_MAX_INSTANCE;
 diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-index bbc50a8e3bc4..dd3e04e7bea4 100644
+index 072643787384..bbc50a8e3bc4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
 +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-@@ -288,10 +288,10 @@ static int cz_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -274,9 +274,9 @@ static void cz_ih_set_rptr(struct amdgpu_device *adev,
+ 	WREG32(mmIH_RB_RPTR, ih->rptr);
  }
  
--static int cz_ih_sw_init(void *handle)
-+static int cz_ih_sw_init(struct amdgpu_ip_block *ip_block)
+-static int cz_ih_early_init(void *handle)
++static int cz_ih_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	int ret;
  
- 	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 64 * 1024, false);
- 	if (r)
+ 	ret = amdgpu_irq_add_domain(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index a7a48ad98698..75d92de74d22 100644
+index 70c1399f738d..a7a48ad98698 100644
 --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2765,10 +2765,10 @@ static int dce_v10_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -2738,9 +2738,9 @@ static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
  	return 0;
  }
  
--static int dce_v10_0_sw_init(void *handle)
-+static int dce_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int dce_v10_0_early_init(void *handle)
++static int dce_v10_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	for (i = 0; i < adev->mode_info.num_crtc; i++) {
- 		r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, i + 1, &adev->crtc_irq);
+ 	adev->audio_endpt_rreg = &dce_v10_0_audio_endpt_rreg;
+ 	adev->audio_endpt_wreg = &dce_v10_0_audio_endpt_wreg;
 diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index 0b8017a9b925..12b0c1499d1e 100644
+index f154c24499c8..0b8017a9b925 100644
 --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -2891,10 +2891,10 @@ static int dce_v11_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -2851,9 +2851,9 @@ static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
  	return 0;
  }
  
--static int dce_v11_0_sw_init(void *handle)
-+static int dce_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int dce_v11_0_early_init(void *handle)
++static int dce_v11_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	for (i = 0; i < adev->mode_info.num_crtc; i++) {
- 		r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, i + 1, &adev->crtc_irq);
+ 	adev->audio_endpt_rreg = &dce_v11_0_audio_endpt_rreg;
+ 	adev->audio_endpt_wreg = &dce_v11_0_audio_endpt_wreg;
 diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 2c074d35bb13..8367f35279d4 100644
+index a7fcb135827f..2c074d35bb13 100644
 --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2664,11 +2664,11 @@ static int dce_v6_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -2633,9 +2633,9 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
  	return 0;
  }
  
--static int dce_v6_0_sw_init(void *handle)
-+static int dce_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int dce_v6_0_early_init(void *handle)
++static int dce_v6_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, i;
- 	bool ret;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	for (i = 0; i < adev->mode_info.num_crtc; i++) {
- 		r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, i + 1, &adev->crtc_irq);
+ 	adev->audio_endpt_rreg = &dce_v6_0_audio_endpt_rreg;
+ 	adev->audio_endpt_wreg = &dce_v6_0_audio_endpt_wreg;
 diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index 71197d58c92d..aa463daf6834 100644
+index 77ac3f114d24..71197d58c92d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2680,10 +2680,10 @@ static int dce_v8_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -2644,9 +2644,9 @@ static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
  	return 0;
  }
  
--static int dce_v8_0_sw_init(void *handle)
-+static int dce_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int dce_v8_0_early_init(void *handle)
++static int dce_v8_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	for (i = 0; i < adev->mode_info.num_crtc; i++) {
- 		r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, i + 1, &adev->crtc_irq);
+ 	adev->audio_endpt_rreg = &dce_v8_0_audio_endpt_rreg;
+ 	adev->audio_endpt_wreg = &dce_v8_0_audio_endpt_wreg;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 8008dbd24967..e7a251044208 100644
+index 4b889a2acb10..3d0969a7ba69 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4683,11 +4683,11 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	}
+@@ -7678,9 +7678,9 @@ static void gfx_v10_0_ring_emit_gds_switch(struct amdgpu_ring *ring,
+ 				    (1 << (oa_size + oa_base)) - (1 << oa_base));
  }
  
--static int gfx_v10_0_sw_init(void *handle)
-+static int gfx_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v10_0_early_init(void *handle)
++static int gfx_v10_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int i, j, k, r, ring_id = 0;
- 	int xcc_id = 0;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(10, 1, 10):
+ 	adev->gfx.funcs = &gfx_v10_0_gfx_funcs;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index a1718c52ed18..c92f47704b0b 100644
+index 3f29b36323a1..690cd7b173f7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1536,11 +1536,11 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	}
+@@ -4997,9 +4997,9 @@ static void gfx_v11_0_ring_emit_gds_switch(struct amdgpu_ring *ring,
+ 				    (1 << (oa_size + oa_base)) - (1 << oa_base));
  }
  
--static int gfx_v11_0_sw_init(void *handle)
-+static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v11_0_early_init(void *handle)
++static int gfx_v11_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int i, j, k, r, ring_id = 0;
- 	int xcc_id = 0;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(11, 0, 0):
+ 	adev->gfx.funcs = &gfx_v11_0_gfx_funcs;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index e3951a548726..8a1a615c7011 100644
+index 3044436436c8..6423b20e9156 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -1319,12 +1319,12 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	}
+@@ -3695,9 +3695,9 @@ static uint64_t gfx_v12_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ 	return clock;
  }
  
--static int gfx_v12_0_sw_init(void *handle)
-+static int gfx_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v12_0_early_init(void *handle)
++static int gfx_v12_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int i, j, k, r, ring_id = 0;
- 	unsigned num_compute_rings;
- 	int xcc_id = 0;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(12, 0, 0):
+ 	adev->gfx.funcs = &gfx_v12_0_gfx_funcs;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index cc9f9b10b435..ecb53c6c488c 100644
+index 564f0b9336b6..cc9f9b10b435 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -3039,10 +3039,10 @@ static int gfx_v6_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+@@ -3023,9 +3023,9 @@ static const struct amdgpu_rlc_funcs gfx_v6_0_rlc_funcs = {
+ 	.start = gfx_v6_0_rlc_start
+ };
  
--static int gfx_v6_0_sw_init(void *handle)
-+static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v6_0_early_init(void *handle)
++static int gfx_v6_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int i, r;
  
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 181, &adev->gfx.eop_irq);
+ 	adev->gfx.xcc_mask = 1;
+ 	adev->gfx.num_gfx_rings = GFX6_NUM_GFX_RINGS;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 73404f24667f..286ee8b5a51e 100644
+index f146806c4633..3babf5b5a9dd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4343,10 +4343,10 @@ static int gfx_v7_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 	return 0;
- }
+@@ -4134,9 +4134,9 @@ static const struct amdgpu_rlc_funcs gfx_v7_0_rlc_funcs = {
+ 	.update_spm_vmid = gfx_v7_0_update_spm_vmid
+ };
  
--static int gfx_v7_0_sw_init(void *handle)
-+static int gfx_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v7_0_early_init(void *handle)
++static int gfx_v7_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int i, j, k, r, ring_id;
  
- 	switch (adev->asic_type) {
+ 	adev->gfx.xcc_mask = 1;
+ 	adev->gfx.num_gfx_rings = GFX7_NUM_GFX_RINGS;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 9778b89c7125..ff5124947cbe 100644
+index bc8295812cc8..e80e071f193c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1894,12 +1894,12 @@ static int gfx_v8_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+@@ -5254,9 +5254,9 @@ static const struct amdgpu_gfx_funcs gfx_v8_0_gfx_funcs = {
+ 	.select_me_pipe_q = &gfx_v8_0_select_me_pipe_q
+ };
  
- static void gfx_v8_0_sq_irq_work_func(struct work_struct *work);
- 
--static int gfx_v8_0_sw_init(void *handle)
-+static int gfx_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v8_0_early_init(void *handle)
++static int gfx_v8_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int i, j, k, r, ring_id;
- 	int xcc_id = 0;
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	switch (adev->asic_type) {
- 	case CHIP_TONGA:
+ 	adev->gfx.xcc_mask = 1;
+ 	adev->gfx.num_gfx_rings = GFX8_NUM_GFX_RINGS;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 5ae2b63c375c..d8dac3145fc6 100644
+index f9f2410ee7d1..8c98511144b2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2198,12 +2198,12 @@ static void gfx_v9_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	}
+@@ -4766,9 +4766,9 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 	return r;
  }
  
--static int gfx_v9_0_sw_init(void *handle)
-+static int gfx_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v9_0_early_init(void *handle)
++static int gfx_v9_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int i, j, k, r, ring_id;
- 	int xcc_id = 0;
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	unsigned int hw_prio;
  
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+ 	adev->gfx.funcs = &gfx_v9_0_gfx_funcs;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 511bfa7a8bab..e103d68a0c10 100644
+index eabe0cf6191c..0dee2102d759 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1049,10 +1049,10 @@ static void gfx_v9_4_3_alloc_ip_dump(struct amdgpu_device *adev)
- 	}
+@@ -2511,9 +2511,9 @@ static void gfx_v9_4_3_ring_emit_gds_switch(struct amdgpu_ring *ring,
+ 				   (1 << (oa_size + oa_base)) - (1 << oa_base));
  }
  
--static int gfx_v9_4_3_sw_init(void *handle)
-+static int gfx_v9_4_3_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gfx_v9_4_3_early_init(void *handle)
++static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int i, j, k, r, ring_id, xcc_id, num_xcc;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(9, 4, 3):
+ 	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
+ 					  AMDGPU_MAX_COMPUTE_RINGS);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index ceb870d2ef13..f10b9eae860e 100644
+index 9784a2892185..f54f9bb89bca 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -769,10 +769,10 @@ static int gmc_v10_0_gart_init(struct amdgpu_device *adev)
- 	return amdgpu_gart_table_vram_alloc(adev);
+@@ -630,9 +630,9 @@ static void gmc_v10_0_set_gfxhub_funcs(struct amdgpu_device *adev)
  }
  
--static int gmc_v10_0_sw_init(void *handle)
-+static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+-static int gmc_v10_0_early_init(void *handle)
++static int gmc_v10_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	adev->gfxhub.funcs->init(adev);
- 
+ 	gmc_v10_0_set_mmhub_funcs(adev);
+ 	gmc_v10_0_set_gfxhub_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 653b2e70b983..55eed13f717c 100644
+index 2797fd84432b..32dec30722ac 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -729,10 +729,10 @@ static int gmc_v11_0_gart_init(struct amdgpu_device *adev)
- 	return amdgpu_gart_table_vram_alloc(adev);
+@@ -601,9 +601,9 @@ static void gmc_v11_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+ 	}
  }
  
--static int gmc_v11_0_sw_init(void *handle)
-+static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gmc_v11_0_early_init(void *handle)
++static int gmc_v11_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	adev->mmhub.funcs->init(adev);
- 
+ 	gmc_v11_0_set_gfxhub_funcs(adev);
+ 	gmc_v11_0_set_mmhub_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 3e126ebe7a8d..6a0bd663909d 100644
+index edcb5351f8cc..e0d3d865a59a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -731,10 +731,10 @@ static int gmc_v12_0_gart_init(struct amdgpu_device *adev)
- 	return amdgpu_gart_table_vram_alloc(adev);
+@@ -604,9 +604,9 @@ static void gmc_v12_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+ 	}
  }
  
--static int gmc_v12_0_sw_init(void *handle)
-+static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gmc_v12_0_early_init(void *handle)
++static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	adev->mmhub.funcs->init(adev);
- 
+ 	gmc_v12_0_set_gfxhub_funcs(adev);
+ 	gmc_v12_0_set_mmhub_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 321d3828cb11..a3561b20c9e4 100644
+index d36725666b54..3a524319f31e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -799,10 +799,10 @@ static unsigned int gmc_v6_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	return size;
+@@ -762,9 +762,9 @@ static int gmc_v6_0_convert_vram_type(int mc_seq_vram_type)
+ 	}
  }
  
--static int gmc_v6_0_sw_init(void *handle)
-+static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gmc_v6_0_early_init(void *handle)
++static int gmc_v6_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 
+ 	gmc_v6_0_set_gmc_funcs(adev);
+ 	gmc_v6_0_set_irq_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 993e2db4eb13..2621dc45c799 100644
+index 994432fb57ea..489b3c2ab660 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -968,10 +968,10 @@ static unsigned int gmc_v7_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	return size;
+@@ -921,9 +921,9 @@ static int gmc_v7_0_convert_vram_type(int mc_seq_vram_type)
+ 	}
  }
  
--static int gmc_v7_0_sw_init(void *handle)
-+static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gmc_v7_0_early_init(void *handle)
++static int gmc_v7_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 
+ 	gmc_v7_0_set_gmc_funcs(adev);
+ 	gmc_v7_0_set_irq_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 784289ca27e0..b4ab1f23e245 100644
+index 86488c052f82..d564b1d8c828 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1076,10 +1076,10 @@ static unsigned int gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+@@ -1027,9 +1027,9 @@ static int gmc_v8_0_convert_vram_type(int mc_seq_vram_type)
+ 	}
+ }
  
- #define mmMC_SEQ_MISC0_FIJI 0xA71
- 
--static int gmc_v8_0_sw_init(void *handle)
-+static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gmc_v8_0_early_init(void *handle)
++static int gmc_v8_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 
+ 	gmc_v8_0_set_gmc_funcs(adev);
+ 	gmc_v8_0_set_irq_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 73b6bf1b1432..e39fe297daf1 100644
+index cafcb24449df..f274acdc49bc 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1987,10 +1987,10 @@ static void gmc_v9_4_3_init_vram_info(struct amdgpu_device *adev)
- 	adev->gmc.vram_width = 128 * 64;
+@@ -1545,9 +1545,9 @@ static void gmc_v9_0_set_xgmi_ras_funcs(struct amdgpu_device *adev)
+ 		adev->gmc.xgmi.ras = &xgmi_ras;
  }
  
--static int gmc_v9_0_sw_init(void *handle)
-+static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int gmc_v9_0_early_init(void *handle)
++static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0, dma_addr_bits;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	unsigned long inst_mask = adev->aid_mask;
  
- 	adev->gfxhub.funcs->init(adev);
+ 	/*
+ 	 * 9.4.0, 9.4.1 and 9.4.3 don't have XGMI defined
 diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-index 87b29600cf1f..a893b37067e5 100644
+index 07984f7c3ae7..87b29600cf1f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
 +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-@@ -287,10 +287,10 @@ static int iceland_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -273,9 +273,9 @@ static void iceland_ih_set_rptr(struct amdgpu_device *adev,
+ 	WREG32(mmIH_RB_RPTR, ih->rptr);
  }
  
--static int iceland_ih_sw_init(void *handle)
-+static int iceland_ih_sw_init(struct amdgpu_ip_block *ip_block)
+-static int iceland_ih_early_init(void *handle)
++static int iceland_ih_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	int ret;
  
- 	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 64 * 1024, false);
- 	if (r)
+ 	ret = amdgpu_irq_add_domain(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index fa6c7e5fbbe3..0422dbf8b8be 100644
+index 18a761d6ef33..fa6c7e5fbbe3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -568,10 +568,10 @@ static int ih_v6_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -559,9 +559,9 @@ static void ih_v6_0_set_self_irq_funcs(struct amdgpu_device *adev)
+ 	adev->irq.self_irq.funcs = &ih_v6_0_self_irq_funcs;
  }
  
--static int ih_v6_0_sw_init(void *handle)
-+static int ih_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int ih_v6_0_early_init(void *handle)
++static int ih_v6_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	bool use_bus_addr;
  
- 	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_IH, 0,
+ 	ih_v6_0_set_interrupt_funcs(adev);
+ 	ih_v6_0_set_self_irq_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-index ebe23630e8f6..6dddc8c7d623 100644
+index 2e0469feca1e..ebe23630e8f6 100644
 --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-@@ -547,10 +547,10 @@ static int ih_v6_1_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -532,9 +532,9 @@ static void ih_v6_1_set_self_irq_funcs(struct amdgpu_device *adev)
+ 	adev->irq.self_irq.funcs = &ih_v6_1_self_irq_funcs;
  }
  
--static int ih_v6_1_sw_init(void *handle)
-+static int ih_v6_1_sw_init(struct amdgpu_ip_block *ip_block)
+-static int ih_v6_1_early_init(void *handle)
++static int ih_v6_1_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	bool use_bus_addr;
+ 	int ret;
  
- 	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_IH, 0,
+ 	ret = amdgpu_irq_add_domain(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-index 1619f0ba4d1b..727b40822226 100644
+index 6852081fcff2..1619f0ba4d1b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-@@ -537,10 +537,10 @@ static int ih_v7_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -528,9 +528,9 @@ static void ih_v7_0_set_self_irq_funcs(struct amdgpu_device *adev)
+ 	adev->irq.self_irq.funcs = &ih_v7_0_self_irq_funcs;
  }
  
--static int ih_v7_0_sw_init(void *handle)
-+static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int ih_v7_0_early_init(void *handle)
++static int ih_v7_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	bool use_bus_addr;
  
- 	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_IH, 0,
+ 	ih_v7_0_set_interrupt_funcs(adev);
+ 	ih_v7_0_set_self_irq_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-index 8effd6dc65d4..24ac589f200a 100644
+index 6e0e88076224..8effd6dc65d4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-@@ -481,9 +481,9 @@ int jpeg_v1_0_early_init(struct amdgpu_ip_block *ip_block)
-  * @handle: amdgpu_device pointer
+@@ -462,9 +462,9 @@ static int jpeg_v1_0_process_interrupt(struct amdgpu_device *adev,
   *
+  * Set ring and irq function pointers
   */
--int jpeg_v1_0_sw_init(void *handle)
-+int jpeg_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+-int jpeg_v1_0_early_init(void *handle)
++int jpeg_v1_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r;
  
+ 	adev->jpeg.num_jpeg_inst = 1;
+ 	adev->jpeg.num_jpeg_rings = 1;
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h
-index 791de235cd8b..d978422ddbd7 100644
+index 9654d22e0376..791de235cd8b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.h
-@@ -25,7 +25,7 @@
+@@ -24,7 +24,7 @@
+ #ifndef __JPEG_V1_0_H__
  #define __JPEG_V1_0_H__
  
- int jpeg_v1_0_early_init(struct amdgpu_ip_block *ip_block);
--int jpeg_v1_0_sw_init(void *handle);
-+int jpeg_v1_0_sw_init(struct amdgpu_ip_block *ip_block);
+-int jpeg_v1_0_early_init(void *handle);
++int jpeg_v1_0_early_init(struct amdgpu_ip_block *ip_block);
+ int jpeg_v1_0_sw_init(void *handle);
  void jpeg_v1_0_sw_fini(void *handle);
  void jpeg_v1_0_start(struct amdgpu_device *adev, int mode);
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index 341c551dad8b..9975f9332ee6 100644
+index 41c0f8750dc1..341c551dad8b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -65,9 +65,9 @@ static int jpeg_v2_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -45,9 +45,9 @@ static int jpeg_v2_0_set_powergating_state(void *handle,
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v2_0_sw_init(void *handle)
-+static int jpeg_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v2_0_early_init(void *handle)
++static int jpeg_v2_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r;
  
+ 	adev->jpeg.num_jpeg_inst = 1;
+ 	adev->jpeg.num_jpeg_rings = 1;
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index ec0fa685e127..6af7193eabad 100644
+index eedb9a829d95..ec0fa685e127 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -85,11 +85,11 @@ static int jpeg_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+@@ -54,9 +54,9 @@ static int amdgpu_ih_clientid_jpeg[] = {
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v2_5_sw_init(void *handle)
-+static int jpeg_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v2_5_early_init(void *handle)
++static int jpeg_v2_5_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int i, r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	u32 harvest;
+ 	int i;
  
- 	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
- 		if (adev->jpeg.harvest_config & (1 << i))
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index dd00daa1d7ed..4d9e432e11d9 100644
+index b1e7fd25afbc..dd00daa1d7ed 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -79,9 +79,9 @@ static int jpeg_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -46,9 +46,9 @@ static int jpeg_v3_0_set_powergating_state(void *handle,
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v3_0_sw_init(void *handle)
-+static int jpeg_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v3_0_early_init(void *handle)
++static int jpeg_v3_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r;
+ 
+ 	u32 harvest;
  
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-index b147e0eba31d..555953774ee8 100644
+index 6c5c1a68a9b7..b147e0eba31d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -74,9 +74,9 @@ static int jpeg_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -52,9 +52,9 @@ static void jpeg_v4_0_dec_ring_set_wptr(struct amdgpu_ring *ring);
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v4_0_sw_init(void *handle)
-+static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v4_0_early_init(void *handle)
++static int jpeg_v4_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r;
  
+ 
+ 	adev->jpeg.num_jpeg_inst = 1;
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index 903c47e9e8eb..3155b54ac84d 100644
+index baf86c0e5274..903c47e9e8eb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -92,9 +92,9 @@ static int jpeg_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+@@ -72,9 +72,9 @@ static inline bool jpeg_v4_0_3_normalizn_reqd(struct amdgpu_device *adev)
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v4_0_3_sw_init(void *handle)
-+static int jpeg_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v4_0_3_early_init(void *handle)
++static int jpeg_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int i, j, r, jpeg_inst;
+ 
+ 	adev->jpeg.num_jpeg_rings = AMDGPU_MAX_JPEG_RINGS;
  
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-index 48ab3e0a62d2..59fa78136122 100644
+index 44eeed445ea9..48ab3e0a62d2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-@@ -98,9 +98,9 @@ static int jpeg_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
+@@ -65,9 +65,9 @@ static int amdgpu_ih_clientid_jpeg[] = {
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v4_0_5_sw_init(void *handle)
-+static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v4_0_5_early_init(void *handle)
++static int jpeg_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r, i;
  
+ 	switch (amdgpu_ip_version(adev, UVD_HWIP, 0)) {
+ 	case IP_VERSION(4, 0, 5):
 diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-index 61288104060d..ce4cf8f32ea2 100644
+index d662aa841f97..61288104060d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-@@ -66,9 +66,9 @@ static int jpeg_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -46,9 +46,9 @@ static int jpeg_v5_0_0_set_powergating_state(void *handle,
   *
-  * Load firmware and sw initialization
+  * Set ring and irq function pointers
   */
--static int jpeg_v5_0_0_sw_init(void *handle)
-+static int jpeg_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int jpeg_v5_0_0_early_init(void *handle)
++static int jpeg_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r;
  
+ 	adev->jpeg.num_jpeg_inst = 1;
+ 	adev->jpeg.num_jpeg_rings = 1;
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 62da96fd7e8a..81d9443b443c 100644
+index e2b3f859a1c0..d476cf771bbe 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1361,9 +1361,9 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_device *adev,
- 	return 0;
+@@ -1653,9 +1653,9 @@ static int mes_v11_0_resume(void *handle)
+ 	return amdgpu_mes_resume(adev);
  }
  
--static int mes_v11_0_sw_init(void *handle)
-+static int mes_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int mes_v11_0_early_init(void *handle)
++static int mes_v11_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  	int pipe, r;
  
- 	adev->mes.funcs = &mes_v11_0_funcs;
+ 	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index ae6afe3cfc9f..da7cfa1c5da2 100644
+index 8d27421689c9..a490d0e2c2cb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -1326,9 +1326,9 @@ static int mes_v12_0_mqd_sw_init(struct amdgpu_device *adev,
- 	return 0;
+@@ -1617,9 +1617,9 @@ static int mes_v12_0_resume(void *handle)
+ 	return amdgpu_mes_resume(adev);
  }
  
--static int mes_v12_0_sw_init(void *handle)
-+static int mes_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int mes_v12_0_early_init(void *handle)
++static int mes_v12_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  	int pipe, r;
  
- 	adev->mes.funcs = &mes_v12_0_funcs;
+ 	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 17aab897f86b..f9452e65730e 100644
+index b281462093f1..17aab897f86b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
 +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -551,10 +551,10 @@ static int navi10_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -542,9 +542,9 @@ static void navi10_ih_set_self_irq_funcs(struct amdgpu_device *adev)
+ 	adev->irq.self_irq.funcs = &navi10_ih_self_irq_funcs;
  }
  
--static int navi10_ih_sw_init(void *handle)
-+static int navi10_ih_sw_init(struct amdgpu_ip_block *ip_block)
+-static int navi10_ih_early_init(void *handle)
++static int navi10_ih_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	bool use_bus_addr;
  
- 	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_IH, 0,
+ 	navi10_ih_set_interrupt_funcs(adev);
+ 	navi10_ih_set_self_irq_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index f102063dc83c..99e462d06401 100644
+index 4938e6b340e9..63a3c725ceb9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -973,9 +973,9 @@ static int nv_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+@@ -634,9 +634,9 @@ static const struct amdgpu_asic_funcs nv_asic_funcs = {
+ 	.query_video_codecs = &nv_query_video_codecs,
+ };
  
--static int nv_common_sw_init(void *handle)
-+static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int nv_common_early_init(void *handle)
++static int nv_common_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_nv_mailbox_add_irq_id(adev);
+ 	adev->nbio.funcs->set_reg_remap(adev);
+ 	adev->smc_rreg = NULL;
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 5b8198558869..01d8d1ec83e7 100644
+index 725392522267..5b8198558869 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -826,11 +826,11 @@ static int sdma_v2_4_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -807,9 +807,9 @@ static void sdma_v2_4_ring_emit_wreg(struct amdgpu_ring *ring,
+ 	amdgpu_ring_write(ring, val);
  }
  
--static int sdma_v2_4_sw_init(void *handle)
-+static int sdma_v2_4_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v2_4_early_init(void *handle)
++static int sdma_v2_4_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	int r;
  
- 	/* SDMA trap event */
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, VISLANDS30_IV_SRCID_SDMA_TRAP,
+ 	adev->sdma.num_instances = SDMA_MAX_INSTANCE;
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 37275b38bca8..ffffe9faa5c8 100644
+index e65194fe94af..37275b38bca8 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -1106,11 +1106,11 @@ static int sdma_v3_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -1080,9 +1080,9 @@ static void sdma_v3_0_ring_emit_wreg(struct amdgpu_ring *ring,
+ 	amdgpu_ring_write(ring, val);
  }
  
--static int sdma_v3_0_sw_init(void *handle)
-+static int sdma_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v3_0_early_init(void *handle)
++static int sdma_v3_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	int r;
  
- 	/* SDMA trap event */
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, VISLANDS30_IV_SRCID_SDMA_TRAP,
+ 	switch (adev->asic_type) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index acf00311547d..8f0d2f1b7cc0 100644
+index f17ce2d53b92..cb5f84104717 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1792,11 +1792,11 @@ static int sdma_v4_0_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -1751,9 +1751,9 @@ static bool sdma_v4_0_fw_support_paging_queue(struct amdgpu_device *adev)
+ 	}
  }
  
--static int sdma_v4_0_sw_init(void *handle)
-+static int sdma_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v4_0_early_init(void *handle)
++static int sdma_v4_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	uint32_t reg_count = ARRAY_SIZE(sdma_reg_list_4_0);
- 	uint32_t *ptr;
+ 	int r;
  
+ 	r = sdma_v4_0_init_microcode(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 45a1fa0c2c94..4f2a7cdda2bb 100644
+index d577b973d0a4..c7c4456586cc 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1332,11 +1332,11 @@ static int sdma_v4_4_2_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -1290,9 +1290,9 @@ static bool sdma_v4_4_2_fw_support_paging_queue(struct amdgpu_device *adev)
+ 	}
  }
  
--static int sdma_v4_4_2_sw_init(void *handle)
-+static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v4_4_2_early_init(void *handle)
++static int sdma_v4_4_2_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	u32 aid_id;
- 	uint32_t reg_count = ARRAY_SIZE(sdma_reg_list_4_4_2);
- 	uint32_t *ptr;
+ 	int r;
+ 
+ 	r = sdma_v4_4_2_init_microcode(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index e2b5ffb1f724..91b477d7af6e 100644
+index d3d2c8bf9000..e2b5ffb1f724 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1408,11 +1408,11 @@ static int sdma_v5_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -1389,9 +1389,9 @@ static void sdma_v5_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *ring,
+ 	amdgpu_ring_emit_reg_wait(ring, reg1, mask, mask);
  }
  
- 
--static int sdma_v5_0_sw_init(void *handle)
-+static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v5_0_early_init(void *handle)
++static int sdma_v5_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	uint32_t reg_count = ARRAY_SIZE(sdma_reg_list_5_0);
- 	uint32_t *ptr;
+ 	int r;
  
+ 	r = sdma_v5_0_init_microcode(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index e3ee1e2d8d55..ca11f694dcef 100644
+index 8761b54050ca..e3ee1e2d8d55 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1268,11 +1268,11 @@ static unsigned sdma_v5_2_seq_to_trap_id(int seq_num)
- 	return -EINVAL;
+@@ -1216,9 +1216,9 @@ static void sdma_v5_2_ring_emit_reg_write_reg_wait(struct amdgpu_ring *ring,
+ 	amdgpu_ring_emit_reg_wait(ring, reg1, mask, mask);
  }
  
--static int sdma_v5_2_sw_init(void *handle)
-+static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v5_2_early_init(void *handle)
++static int sdma_v5_2_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	uint32_t reg_count = ARRAY_SIZE(sdma_reg_list_5_2);
- 	uint32_t *ptr;
+ 	int r;
  
+ 	r = amdgpu_sdma_init_microcode(adev, 0, true);
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index 5b549e00143e..ee09478e21e2 100644
+index 5eafc81e82f9..5b549e00143e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -1313,11 +1313,11 @@ static int sdma_v6_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -1294,9 +1294,9 @@ static void sdma_v6_0_set_ras_funcs(struct amdgpu_device *adev)
+ 	}
  }
  
--static int sdma_v6_0_sw_init(void *handle)
-+static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v6_0_early_init(void *handle)
++static int sdma_v6_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	uint32_t reg_count = ARRAY_SIZE(sdma_reg_list_6_0);
- 	uint32_t *ptr;
+ 	int r;
  
+ 	r = amdgpu_sdma_init_microcode(adev, 0, true);
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index 90baf9a20b22..13b055f6f835 100644
+index 8509769db9c0..90baf9a20b22 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -1273,11 +1273,11 @@ static int sdma_v7_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -1253,9 +1253,9 @@ static void sdma_v7_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *ring,
+ 	amdgpu_ring_emit_reg_wait(ring, reg1, mask, mask);
  }
  
--static int sdma_v7_0_sw_init(void *handle)
-+static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int sdma_v7_0_early_init(void *handle)
++static int sdma_v7_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	uint32_t reg_count = ARRAY_SIZE(sdma_reg_list_7_0);
- 	uint32_t *ptr;
+ 	int r;
  
+ 	r = amdgpu_sdma_init_microcode(adev, 0, true);
 diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 93c68abf447a..65571a8606ab 100644
+index 85235470e872..93c68abf447a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/si.c
 +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -2148,7 +2148,7 @@ static int si_common_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -2022,9 +2022,9 @@ static uint32_t si_get_rev_id(struct amdgpu_device *adev)
+ 		>> CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT;
  }
  
--static int si_common_sw_init(void *handle)
-+static int si_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int si_common_early_init(void *handle)
++static int si_common_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	return 0;
- }
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	adev->smc_rreg = &si_smc_rreg;
+ 	adev->smc_wreg = &si_smc_wreg;
 diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-index 791d492e991d..2ed3e3538d64 100644
+index 11db5b755832..791d492e991d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-@@ -471,11 +471,11 @@ static int si_dma_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -457,9 +457,9 @@ static void si_dma_ring_emit_wreg(struct amdgpu_ring *ring,
+ 	amdgpu_ring_write(ring, val);
  }
  
--static int si_dma_sw_init(void *handle)
-+static int si_dma_sw_init(struct amdgpu_ip_block *ip_block)
+-static int si_dma_early_init(void *handle)
++static int si_dma_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	/* DMA0 trap event */
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 224,
+ 	adev->sdma.num_instances = 2;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-index bd2ae8255498..c9d1565e1466 100644
+index 5237395e4fab..bd2ae8255498 100644
 --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
 +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-@@ -165,10 +165,10 @@ static int si_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -156,9 +156,9 @@ static void si_ih_set_rptr(struct amdgpu_device *adev,
+ 	WREG32(IH_RB_RPTR, ih->rptr);
  }
  
--static int si_ih_sw_init(void *handle)
-+static int si_ih_sw_init(struct amdgpu_ip_block *ip_block)
+-static int si_ih_early_init(void *handle)
++static int si_ih_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 64 * 1024, false);
- 	if (r)
+ 	si_ih_set_interrupt_funcs(adev);
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 1a24634a100c..57e40ab5edcd 100644
+index 619933f252aa..e1161027ec3b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1217,9 +1217,9 @@ static int soc15_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+@@ -933,9 +933,9 @@ static const struct amdgpu_asic_funcs aqua_vanjaram_asic_funcs =
+ 	.get_reg_state = &aqua_vanjaram_get_reg_state,
+ };
  
--static int soc15_common_sw_init(void *handle)
-+static int soc15_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int soc15_common_early_init(void *handle)
++static int soc15_common_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_ai_mailbox_add_irq_id(adev);
+ 	adev->nbio.funcs->set_reg_remap(adev);
+ 	adev->smc_rreg = NULL;
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index bc420ff85174..600b375883af 100644
+index d30ad7d56def..c9e88cd4349a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -832,9 +832,9 @@ static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+@@ -556,9 +556,9 @@ static const struct amdgpu_asic_funcs soc21_asic_funcs = {
+ 	.update_umd_stable_pstate = &soc21_update_umd_stable_pstate,
+ };
  
--static int soc21_common_sw_init(void *handle)
-+static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int soc21_common_early_init(void *handle)
++static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_nv_mailbox_add_irq_id(adev);
+ 	adev->nbio.funcs->set_reg_remap(adev);
+ 	adev->smc_rreg = NULL;
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index 12ed243a2df8..14370fda5a29 100644
+index fd4c3d4f8387..3dcb3d953509 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -455,9 +455,9 @@ static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+@@ -363,9 +363,9 @@ static const struct amdgpu_asic_funcs soc24_asic_funcs = {
+ 	.update_umd_stable_pstate = &soc24_update_umd_stable_pstate,
+ };
  
--static int soc24_common_sw_init(void *handle)
-+static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int soc24_common_early_init(void *handle)
++static int soc24_common_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_nv_mailbox_add_irq_id(adev);
+ 	adev->nbio.funcs->set_reg_remap(adev);
+ 	adev->smc_rreg = NULL;
 diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-index ae27dac94117..873a5b20ffe2 100644
+index 24d49d813607..ae27dac94117 100644
 --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
 +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-@@ -297,10 +297,10 @@ static int tonga_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -283,9 +283,9 @@ static void tonga_ih_set_rptr(struct amdgpu_device *adev,
+ 	}
  }
  
--static int tonga_ih_sw_init(void *handle)
-+static int tonga_ih_sw_init(struct amdgpu_ip_block *ip_block)
+-static int tonga_ih_early_init(void *handle)
++static int tonga_ih_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	int r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	int ret;
  
- 	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 64 * 1024, true);
- 	if (r)
+ 	ret = amdgpu_irq_add_domain(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-index d5e2b9639238..5258a9aa96a0 100644
+index 805d6662c88b..d5e2b9639238 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-@@ -542,10 +542,10 @@ static int uvd_v3_1_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -531,9 +531,9 @@ static void uvd_v3_1_set_irq_funcs(struct amdgpu_device *adev)
  }
  
--static int uvd_v3_1_sw_init(void *handle)
-+static int uvd_v3_1_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+-static int uvd_v3_1_early_init(void *handle)
++static int uvd_v3_1_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
- 	void *ptr;
- 	uint32_t ucode_len;
+ 	adev->uvd.num_uvd_inst = 1;
+ 
+ 	uvd_v3_1_set_ring_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-index 5c46174dabbf..5fb5870efe86 100644
+index 3f19c606f4de..5c46174dabbf 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-@@ -101,10 +101,10 @@ static int uvd_v4_2_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -90,9 +90,9 @@ static void uvd_v4_2_ring_set_wptr(struct amdgpu_ring *ring)
+ 	WREG32(mmUVD_RBC_RB_WPTR, lower_32_bits(ring->wptr));
  }
  
--static int uvd_v4_2_sw_init(void *handle)
-+static int uvd_v4_2_sw_init(struct amdgpu_ip_block *ip_block)
+-static int uvd_v4_2_early_init(void *handle)
++static int uvd_v4_2_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
+ 	adev->uvd.num_uvd_inst = 1;
  
- 	/* UVD TRAP */
+ 	uvd_v4_2_set_ring_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-index fd4acb1300f9..c5e740afeb71 100644
+index efd903c21d48..fd4acb1300f9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-@@ -99,10 +99,10 @@ static int uvd_v5_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -88,9 +88,9 @@ static void uvd_v5_0_ring_set_wptr(struct amdgpu_ring *ring)
+ 	WREG32(mmUVD_RBC_RB_WPTR, lower_32_bits(ring->wptr));
  }
  
--static int uvd_v5_0_sw_init(void *handle)
-+static int uvd_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int uvd_v5_0_early_init(void *handle)
++static int uvd_v5_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
+ 	adev->uvd.num_uvd_inst = 1;
  
- 	/* UVD TRAP */
+ 	uvd_v5_0_set_ring_funcs(adev);
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index e05e81d6fbd4..350853a29586 100644
+index 495de5068455..e05e81d6fbd4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -375,11 +375,11 @@ static int uvd_v6_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -354,9 +354,9 @@ static int uvd_v6_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	return r;
  }
  
--static int uvd_v6_0_sw_init(void *handle)
-+static int uvd_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int uvd_v6_0_early_init(void *handle)
++static int uvd_v6_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int i, r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
+ 	adev->uvd.num_uvd_inst = 1;
  
- 	/* UVD TRAP */
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, VISLANDS30_IV_SRCID_UVD_SYSTEM_MESSAGE, &adev->uvd.inst->irq);
+ 	if (!(adev->flags & AMD_IS_APU) &&
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index 15b8f6211bb5..842e6a77866a 100644
+index 6068b784dc69..15b8f6211bb5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -395,12 +395,12 @@ static int uvd_v7_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -361,9 +361,9 @@ static int uvd_v7_0_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	return r;
  }
  
--static int uvd_v7_0_sw_init(void *handle)
-+static int uvd_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int uvd_v7_0_early_init(void *handle)
++static int uvd_v7_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 
- 	int i, j, r;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	for (j = 0; j < adev->uvd.num_uvd_inst; j++) {
- 		if (adev->uvd.harvest_config & (1 << j))
+ 	if (adev->asic_type == CHIP_VEGA20) {
+ 		u32 harvest;
 diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-index 97ce06228a91..50bc883a325c 100644
+index 66fada199bda..97ce06228a91 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-@@ -410,11 +410,11 @@ static int vce_v2_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -398,9 +398,9 @@ static void vce_v2_0_enable_mgcg(struct amdgpu_device *adev, bool enable,
+ 	}
  }
  
--static int vce_v2_0_sw_init(void *handle)
-+static int vce_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int vce_v2_0_early_init(void *handle)
++static int vce_v2_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int r, i;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	/* VCE */
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 167, &adev->vce.irq);
+ 	adev->vce.num_rings = 2;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 31ca855a950a..de3946953fda 100644
+index 4bfba2931b08..31ca855a950a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -415,9 +415,9 @@ static int vce_v3_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+@@ -396,9 +396,9 @@ static unsigned vce_v3_0_get_harvest_config(struct amdgpu_device *adev)
+ 	}
  }
  
--static int vce_v3_0_sw_init(void *handle)
-+static int vce_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int vce_v3_0_early_init(void *handle)
++static int vce_v3_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int r, i;
+ 
+ 	adev->vce.harvest_config = vce_v3_0_get_harvest_config(adev);
  
 diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index 14ead62ec57d..8a85cd2bab2c 100644
+index 0748bf44c880..14ead62ec57d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -422,9 +422,9 @@ static int vce_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+@@ -407,9 +407,9 @@ static int vce_v4_0_stop(struct amdgpu_device *adev)
  	return 0;
  }
  
--static int vce_v4_0_sw_init(void *handle)
-+static int vce_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int vce_v4_0_early_init(void *handle)
++static int vce_v4_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
  
- 	unsigned size;
+ 	if (amdgpu_sriov_vf(adev)) /* currently only VCN0 support SRIOV */
+ 		adev->vce.num_rings = 1;
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 451622184838..785371d2017b 100644
+index 21e0962e53c2..451622184838 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -122,13 +122,13 @@ static int vcn_v1_0_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
+@@ -100,9 +100,9 @@ static void vcn_v1_0_ring_begin_use(struct amdgpu_ring *ring);
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
   */
--static int vcn_v1_0_sw_init(void *handle)
-+static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+-static int vcn_v1_0_early_init(void *handle)
++static int vcn_v1_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	struct amdgpu_ring *ring;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_1_0);
- 	uint32_t *ptr;
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	/* VCN DEC TRAP */
- 	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
-@@ -197,7 +197,7 @@ static int vcn_v1_0_sw_init(void *handle)
- 		amdgpu_vcn_fwlog_init(adev->vcn.inst);
- 	}
+ 	adev->vcn.num_enc_rings = 2;
  
--	r = jpeg_v1_0_sw_init(handle);
-+	r = jpeg_v1_0_sw_init(ip_block);
+@@ -110,7 +110,7 @@ static int vcn_v1_0_early_init(void *handle)
+ 	vcn_v1_0_set_enc_ring_funcs(adev);
+ 	vcn_v1_0_set_irq_funcs(adev);
  
- 	/* Allocate memory for VCN IP Dump buffer */
- 	ptr = kcalloc(adev->vcn.num_vcn_inst * reg_count, sizeof(uint32_t), GFP_KERNEL);
+-	jpeg_v1_0_early_init(handle);
++	jpeg_v1_0_early_init(ip_block);
+ 
+ 	return amdgpu_vcn_early_init(adev);
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 18383e7a13ce..6b5a83d6a696 100644
+index b6d41d531ef9..18383e7a13ce 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -128,13 +128,13 @@ static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
+@@ -105,9 +105,9 @@ static int vcn_v2_0_start_sriov(struct amdgpu_device *adev);
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
   */
--static int vcn_v2_0_sw_init(void *handle)
-+static int vcn_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_ring *ring;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_0);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	volatile struct amdgpu_fw_shared *fw_shared;
- 
- 	/* VCN DEC TRAP */
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 0ba7bc052447..cebc000e6e1f 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -155,13 +155,13 @@ static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
-  */
--static int vcn_v2_5_sw_init(void *handle)
-+static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_ring *ring;
- 	int i, j, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_5);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	for (j = 0; j < adev->vcn.num_vcn_inst; j++) {
- 		if (adev->vcn.harvest_config & (1 << j))
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 7204e3630052..361acbb23556 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -157,14 +157,14 @@ static int vcn_v3_0_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
-  */
--static int vcn_v3_0_sw_init(void *handle)
-+static int vcn_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_ring *ring;
- 	int i, j, r;
- 	int vcn_doorbell_index = 0;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	r = amdgpu_vcn_sw_init(adev);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index cfebd1255b75..41d86957ee65 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -168,10 +168,10 @@ static int vcn_v4_0_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
-  *
-  * Load firmware and sw initialization
-  */
--static int vcn_v4_0_sw_init(void *handle)
-+static int vcn_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_ring *ring;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0);
- 	uint32_t *ptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index d64f4735ebf3..fa4eaed28a71 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -123,9 +123,9 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
-  */
--static int vcn_v4_0_3_sw_init(void *handle)
-+static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring;
- 	int i, r, vcn_inst;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_3);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index d13f07faae8a..c7ec93e00c18 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -128,10 +128,10 @@ static int vcn_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
-  */
--static int vcn_v4_0_5_sw_init(void *handle)
-+static int vcn_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_ring *ring;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
- 	uint32_t *ptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index d9c92df3843f..3807e8ff1426 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -112,10 +112,10 @@ static int vcn_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
-  *
-  * Load firmware and sw initialization
-  */
--static int vcn_v5_0_0_sw_init(void *handle)
-+static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_ring *ring;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_5_0);
- 	uint32_t *ptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-index 5b0c81d510e7..ef21a0915290 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -481,9 +481,9 @@ static int vega10_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
--static int vega10_ih_sw_init(void *handle)
-+static int vega10_ih_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
- 
- 	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_IH, 0,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index dec7279c8106..b9e97820af35 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -535,9 +535,9 @@ static int vega20_ih_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
--static int vega20_ih_sw_init(void *handle)
-+static int vega20_ih_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	bool use_bus_addr = true;
- 	int r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index ababcb7bc834..91b17bcba41c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1689,9 +1689,9 @@ static int vi_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
--static int vi_common_sw_init(void *handle)
-+static int vi_common_sw_init(struct amdgpu_ip_block *ip_block)
+-static int vcn_v2_0_early_init(void *handle)
++static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
  	if (amdgpu_sriov_vf(adev))
- 		xgpu_vi_mailbox_add_irq_id(adev);
+ 		adev->vcn.num_enc_rings = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 6be770a060ef..0ba7bc052447 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -115,9 +115,9 @@ static int amdgpu_ih_clientid_vcns[] = {
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+  */
+-static int vcn_v2_5_early_init(void *handle)
++static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		adev->vcn.num_vcn_inst = 2;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 0c2d698ca046..7204e3630052 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -121,9 +121,9 @@ static void vcn_v3_0_enc_ring_set_wptr(struct amdgpu_ring *ring);
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+  */
+-static int vcn_v3_0_early_init(void *handle)
++static int vcn_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		adev->vcn.num_vcn_inst = VCN_INSTANCES_SIENNA_CICHLID;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index d3aa1a5b2529..cfebd1255b75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -111,9 +111,9 @@ static void vcn_v4_0_set_ras_funcs(struct amdgpu_device *adev);
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+  */
+-static int vcn_v4_0_early_init(void *handle)
++static int vcn_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 	int i;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index ca5ac917f07d..d64f4735ebf3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -102,9 +102,9 @@ static void vcn_v4_0_3_enable_ras(struct amdgpu_device *adev,
+  *
+  * Set ring and irq function pointers
+  */
+-static int vcn_v4_0_3_early_init(void *handle)
++static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	/* re-use enc ring as unified ring */
+ 	adev->vcn.num_enc_rings = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 0d8aa5a0904b..d13f07faae8a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -109,9 +109,9 @@ static void vcn_v4_0_5_unified_ring_set_wptr(struct amdgpu_ring *ring);
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+  */
+-static int vcn_v4_0_5_early_init(void *handle)
++static int vcn_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	/* re-use enc ring as unified ring */
+ 	adev->vcn.num_enc_rings = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index 8a2e217ae5c9..d9c92df3843f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -92,9 +92,9 @@ static void vcn_v5_0_0_unified_ring_set_wptr(struct amdgpu_ring *ring);
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+  */
+-static int vcn_v5_0_0_early_init(void *handle)
++static int vcn_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	/* re-use enc ring as unified ring */
+ 	adev->vcn.num_enc_rings = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index bf68e18e3824..5b0c81d510e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -472,9 +472,9 @@ static void vega10_ih_set_self_irq_funcs(struct amdgpu_device *adev)
+ 	adev->irq.self_irq.funcs = &vega10_ih_self_irq_funcs;
+ }
+ 
+-static int vega10_ih_early_init(void *handle)
++static int vega10_ih_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	vega10_ih_set_interrupt_funcs(adev);
+ 	vega10_ih_set_self_irq_funcs(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index ac439f0565e3..dec7279c8106 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -526,9 +526,9 @@ static void vega20_ih_set_self_irq_funcs(struct amdgpu_device *adev)
+ 	adev->irq.self_irq.funcs = &vega20_ih_self_irq_funcs;
+ }
+ 
+-static int vega20_ih_early_init(void *handle)
++static int vega20_ih_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	vega20_ih_set_interrupt_funcs(adev);
+ 	vega20_ih_set_self_irq_funcs(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index d39c670f6220..c9ee4491ba64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1455,9 +1455,9 @@ static const struct amdgpu_asic_funcs vi_asic_funcs =
+ #define CZ_REV_BRISTOL(rev)	 \
+ 	((rev >= 0xC8 && rev <= 0xCE) || (rev >= 0xE1 && rev <= 0xE6))
+ 
+-static int vi_common_early_init(void *handle)
++static int vi_common_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	if (adev->flags & AMD_IS_APU) {
+ 		adev->smc_rreg = &cz_smc_rreg;
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f3b11f600670..96416c15bc88 100644
+index f0828de1386e..6972a8e2e0f2 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2502,9 +2502,9 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 	return 0;
+@@ -962,7 +962,7 @@ static int dm_set_powergating_state(void *handle,
  }
  
--static int dm_sw_init(void *handle)
-+static int dm_sw_init(struct amdgpu_ip_block *ip_block)
+ /* Prototypes of private functions */
+-static int dm_early_init(void *handle);
++static int dm_early_init(struct amdgpu_ip_block *ip_block);
+ 
+ /* Allocate memory for FBC compressed data  */
+ static void amdgpu_dm_fbc_init(struct drm_connector *connector)
+@@ -5249,9 +5249,9 @@ static int dm_init_microcode(struct amdgpu_device *adev)
+ 	return r;
+ }
+ 
+-static int dm_early_init(void *handle)
++static int dm_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
- 
- 	adev->dm.cgs_device = amdgpu_cgs_create_device(adev);
+ 	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+ 	struct atom_context *ctx = mode_info->atom_context;
+ 	int index = GetIndexIntoMasterTable(DATA, Object_Header);
 diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 8d486b018441..2f956a09465d 100644
+index 9b02ab1c2048..67d75ac339bf 100644
 --- a/drivers/gpu/drm/amd/include/amd_shared.h
 +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -381,7 +381,7 @@ struct amd_ip_funcs {
+@@ -379,7 +379,7 @@ struct amdgpu_ip_block;
+ 
+ struct amd_ip_funcs {
  	char *name;
- 	int (*early_init)(struct amdgpu_ip_block *ip_block);
- 	int (*late_init)(struct amdgpu_ip_block *ip_block);
--	int (*sw_init)(void *handle);
-+	int (*sw_init)(struct amdgpu_ip_block *ip_block);
+-	int (*early_init)(void *handle);
++	int (*early_init)(struct amdgpu_ip_block *ip_block);
+ 	int (*late_init)(void *handle);
+ 	int (*sw_init)(void *handle);
  	int (*sw_fini)(void *handle);
- 	int (*early_fini)(void *handle);
- 	int (*hw_init)(void *handle);
 diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index adb44b5a9e42..6147d319b7ce 100644
+index e8b6989a40f3..ff71af96eb1a 100644
 --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
 +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -2979,11 +2979,10 @@ static int kv_dpm_late_init(struct amdgpu_ip_block *ip_block)
+@@ -2954,9 +2954,9 @@ static int kv_dpm_get_temp(void *handle)
+ 	return actual_temp;
+ }
+ 
+-static int kv_dpm_early_init(void *handle)
++static int kv_dpm_early_init(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	adev->powerplay.pp_funcs = &kv_dpm_funcs;
+ 	adev->powerplay.pp_handle = adev;
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 43028e776c93..5aa4eca21708 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7930,10 +7930,10 @@ static void si_dpm_print_power_state(void *handle,
+ 	amdgpu_dpm_print_ps_status(adev, rps);
+ }
+ 
+-static int si_dpm_early_init(void *handle)
++static int si_dpm_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	adev->powerplay.pp_funcs = &si_dpm_funcs;
+ 	adev->powerplay.pp_handle = adev;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index a71c6117d7e5..2af325b9fc19 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -75,11 +75,10 @@ static void amd_powerplay_destroy(struct amdgpu_device *adev)
+ 	hwmgr = NULL;
+ }
+ 
+-static int pp_early_init(void *handle)
++static int pp_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	int ret;
+-	struct amdgpu_device *adev = handle;
+-
++	struct amdgpu_device *adev = ip_block->adev;
+ 	ret = amd_powerplay_create(adev);
+ 
+ 	if (ret != 0)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 4a6b4ad97f06..ba09dde79499 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -742,9 +742,9 @@ static int smu_set_funcs(struct amdgpu_device *adev)
  	return 0;
  }
  
--static int kv_dpm_sw_init(void *handle)
-+static int kv_dpm_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int ret;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--
-+	struct amdgpu_device *adev = ip_block->adev;
- 	ret = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 230,
- 				&adev->pm.dpm.thermal.irq);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index 51cdaf040020..00efed4b117d 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -7718,10 +7718,10 @@ static int si_dpm_init_microcode(struct amdgpu_device *adev)
- 	return err;
- }
- 
--static int si_dpm_sw_init(void *handle)
-+static int si_dpm_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int ret;
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	ret = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 230, &adev->pm.dpm.thermal.irq);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 903c19b4af20..deec428a5d81 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -130,9 +130,9 @@ static void pp_swctf_delayed_work_handler(struct work_struct *work)
- 	orderly_poweroff(true);
- }
- 
--static int pp_sw_init(void *handle)
-+static int pp_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
- 	int ret = 0;
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index a1cd8c90a1ec..def59fbcbd55 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1235,9 +1235,9 @@ static void smu_init_xgmi_plpd_mode(struct smu_context *smu)
- 	}
- }
- 
--static int smu_sw_init(void *handle)
-+static int smu_sw_init(struct amdgpu_ip_block *ip_block)
+-static int smu_early_init(void *handle)
++static int smu_early_init(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
- 	struct smu_context *smu = adev->powerplay.pp_handle;
- 	int ret;
+ 	struct smu_context *smu;
+ 	int r;
  
 -- 
 2.34.1
