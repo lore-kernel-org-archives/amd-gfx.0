@@ -4,34 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6972FCF649E
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 07:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC7ACF6497
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 07:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9FCB10E39D;
-	Mon, 30 Sep 2024 07:11:21 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 869CD10E138;
- Sun, 29 Sep 2024 07:51:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 966185C1045;
- Sun, 29 Sep 2024 07:51:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09DD6C4CEC5;
- Sun, 29 Sep 2024 07:51:18 +0000 (UTC)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH] Revert "drm/radeon: use GEM references instead of TTMs"
-Date: Sun, 29 Sep 2024 15:50:58 +0800
-Message-ID: <20240929075058.3542013-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.43.5
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF92410E39E;
+	Mon, 30 Sep 2024 07:11:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="G6uZGtpz";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82C1010E120;
+ Sat, 28 Sep 2024 12:34:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1727526857; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Jidp+v56GHpQ90d6jE42qovl/DPZDzyJY7TTyUYckqojZHA0zSaXjpcRcrNAURMcRiPs3Oa7BWrqs0j4HL8XFZEvKuhY7gBIsaTQlykpCoTG5BxZad6dALB4DyTm98nDlKeKaf14fIPoPEq4HVyeTBoAefMHLnv79Tp1qWzBmJc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1727526857;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=uFDG71r06/1KgUI9hwQET+t7IyxOBPeVXQbnAZX+teM=; 
+ b=lCHDtTZMSDE6q00ay0GXurCYDKOD+eumqSIjsf3DZSJweU7VqHLpF6JCq8W8oNiKYJNLu+dHEPtpoYcCJ0vL/4UbaT9GPsabIJs06WV0/puD1CrF0SCa5OMtPVXpq4O2Kfyuxthg3JwgEdnRZ7NLEMzhbV/8LTU0ENPSK+pP9DU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727526857; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=uFDG71r06/1KgUI9hwQET+t7IyxOBPeVXQbnAZX+teM=;
+ b=G6uZGtpzNI1n5VfMrO2vVwAgcFY+NDG5pesmtkqevYGdvZEm2OI+UyzrA9efuNG0
+ IMZwr7K3Uc2UHgeJKuyurErv8m9bTarAbTJntQwN12Kf2zSa2v1Pi9XVsXq6MDOVR3l
+ /2I/mpfIV6GfsuUuoGEAP6FFsPKNXpmb73qjmHUI=
+Received: by mx.zohomail.com with SMTPS id 1727526855212827.5193517713183;
+ Sat, 28 Sep 2024 05:34:15 -0700 (PDT)
+Message-ID: <e44c75a8-9747-424e-a1e5-e43d7ad43c2f@collabora.com>
+Date: Sat, 28 Sep 2024 15:34:11 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/6] DRM_SET_CLIENT_NAME ioctl
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, tursulin@igalia.com,
+ simona.vetter@ffwll.ch, robdclark@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+References: <20240927084848.263718-1-pierre-eric.pelloux-prayer@amd.com>
+ <33c18e28-de1d-4c1d-8dc9-4be69552dc23@amd.com> <87ikuhzcad.fsf@intel.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <87ikuhzcad.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Mon, 30 Sep 2024 07:11:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,105 +71,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit fd69ef05029f9beb7b031ef96e7a36970806a670.
+On 9/27/24 12:16, Jani Nikula wrote:
+> On Fri, 27 Sep 2024, Christian König <christian.koenig@amd.com> wrote:
+>> Am 27.09.24 um 10:48 schrieb Pierre-Eric Pelloux-Prayer:
+>>> v4 changelog:
+>>> * DRM_SET_NAME -> DRM_SET_CLIENT_NAME (Dmitry)
+>>> * reject names that would mess up with formatting (Sima),
+>>>    and use a stricter filter (isgraph allowed extended ASCII
+>>>    which weren't looking great)
+>>> * documentation edits, minor fixups (Dmitry, Trvtko)
+>>> * clarified commit message of commit 3/6 (Trvtko)
+>>> * reworked amdgpu_vm_set_task_info a bit in 4/6 (Trvtko)
+>>
+>> If nobody has any more additional comments on this I'm going to pick it 
+>> up and merge it through drm-misc-next by the end of today.
+> 
+> AFAICT the userspace is not reviewed and ready for merging [1].
+> 
+> BR,
+> Jani.
+> 
+> 
+> [1] https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1428
 
-The original patch causes NULL pointer references:
+Userspace has been discussed in the past. I'll merge virglrenderer MR
+once Pierre will update it based on this v4 and after the kernel patch
+will land to misc-next.
 
-[   21.620856] CPU 3 Unable to handle kernel paging request at virtual address 0000000000000000, era == 9000000004bf61d8, ra == 9000000004bf61d4
-[   21.717958] Oops[#1]:
-[   21.803205] CPU: 3 UID: 0 PID: 706 Comm: Xorg Not tainted 6.11.0+ #1708
-[   21.894451] Hardware name: Loongson Loongson-3A5000-7A1000-1w-CRB/Loongson-LS3A5000-7A1000-1w-CRB, BIOS vUDK2018-LoongArch-V2.0.0-prebeta9 10/21/2022
-[   21.996576] pc 9000000004bf61d8 ra 9000000004bf61d4 tp 9000000110560000 sp 9000000110563d40
-[   22.094731] a0 000000000000002d a1 9000000000580788 a2 9000000000584d78 a3 9000000005678f40
-[   22.193513] a4 9000000005678f38 a5 9000000110563b70 a6 0000000000000001 a7 0000000000000001
-[   22.291993] t0 0000000000000000 t1 78315f0d31fceafb t2 0000000000000000 t3 00000000000003c4
-[   22.389868] t4 9000000101d65840 t5 0000000000000003 t6 0000000000000003 t7 ffffffffffffffff
-[   22.488326] t8 0000000000000001 u0 9000000120c31e20 s9 9000000110563ec0 s0 90000001107e0868
-[   22.587345] s1 ffff80000230c000 s2 9000000120c31e48 s3 9000000120c31e00 s4 90000001063b0000
-[   22.685908] s5 9000000120c31e20 s6 0000000000000122 s7 0000000000000100 s8 000055555c079570
-[   22.785169]    ra: 9000000004bf61d4 drm_gem_object_free+0x24/0x70
-[   22.881896]   ERA: 9000000004bf61d8 drm_gem_object_free+0x28/0x70
-[   22.978212]  CRMD: 000000b0 (PLV0 -IE -DA +PG DACF=CC DACM=CC -WE)
-[   23.076423]  PRMD: 00000004 (PPLV0 +PIE -PWE)
-[   23.153679] [drm] amdgpu kernel modesetting enabled.
-[   23.173074]  EUEN: 00000000 (-FPE -SXE -ASXE -BTE)
-[   23.365633]  ECFG: 00071c1d (LIE=0,2-4,10-12 VS=7)
-[   23.459680] ESTAT: 00010000 [PIL] (IS= ECode=1 EsubCode=0)
-[   23.554473]  BADV: 0000000000000000
-[   23.646222]  PRID: 0014c010 (Loongson-64bit, Loongson-3A5000)
-[   23.740356] Modules linked in: amdgpu rfkill nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct drm_exec amdxcps
-[   23.973584] Process Xorg (pid: 706, threadinfo=000000005fc343eb, task=000000007bdfdf49)
-[   24.080528] Stack : 9000000120d86000 ffff8000021bb1c0 0000000000000000 ffff8000022a6bcc
-[   24.188191]         0000000000000122 9000000120c31d08 900000010e04a400 9000000120c31e00
-[   24.295420]         90000001063b0008 9000000120c31c00 90000001063b0000 ffff80000219c54c
-[   24.402622]         00000000000000b4 90000001063b0170 90000001063b0008 9000000120c31c00
-[   24.509242]         9000000120c31ce0 90000000043966f8 000055555c0922c0 000055555c082ac0
-[   24.615887]         000055555597b000 0000000000000000 90000001034af840 90000001063f7928
-[   24.723086]         90000001063b00d0 9000000120c31c00 90000001063b0008 9000000004396844
-[   24.830582]         90000001017901a0 90000001017901a0 900000010e7e6718 00000000000a001b
-[   24.937455]         90000001228b86c0 9000000003ad5904 000055555c082da0 0000000000000000
-[   25.043806]         000055555c082ac0 90000001228b86c0 0000000000000000 9000000003acfb58
-[   25.149701]         ...
-[   25.248708] Call Trace:
-[   25.248710] [<9000000004bf61d8>] drm_gem_object_free+0x28/0x70
-[   25.447554] [<ffff8000021bb1bc>] radeon_bo_unref+0x3c/0x60 [radeon]
-[   25.549201] [<ffff8000022a6bc8>] radeon_vm_fini+0x188/0x2c0 [radeon]
-[   25.650751] [<ffff80000219c548>] radeon_driver_postclose_kms+0x188/0x1e0 [radeon]
-[   25.753856] [<90000000043966f4>] drm_file_free+0x214/0x2a0
-[   25.854893] [<9000000004396840>] drm_release+0xc0/0x160
-[   25.954337] [<9000000003ad5900>] __fput+0x100/0x340
-[   26.052437] [<9000000003acfb54>] sys_close+0x34/0xa0
-[   26.148701] [<9000000004c04170>] do_syscall+0xb0/0x160
-
-The root cause is obj->funcs is NULL in drm_gem_object_free(). Only
-fbdev bo is created by radeon_gem_object_create() and has valid 'funcs'.
-
-Maybe there is a better way to fix this bug, but since amdgpu driver
-also use ttm helpers in amdgpu_bo_ref()/amdgpu_bo_unref() now, I think
-it is also reasonable to just revert the original commit.
----
- drivers/gpu/drm/radeon/radeon_gem.c    | 2 +-
- drivers/gpu/drm/radeon/radeon_object.c | 7 +++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 9735f4968b86..210e8d43bb23 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -88,7 +88,7 @@ static void radeon_gem_object_free(struct drm_gem_object *gobj)
- 
- 	if (robj) {
- 		radeon_mn_unregister(robj);
--		ttm_bo_put(&robj->tbo);
-+		radeon_bo_unref(&robj);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-index d0e4b43d155c..450ff7daa46c 100644
---- a/drivers/gpu/drm/radeon/radeon_object.c
-+++ b/drivers/gpu/drm/radeon/radeon_object.c
-@@ -256,15 +256,18 @@ struct radeon_bo *radeon_bo_ref(struct radeon_bo *bo)
- 	if (bo == NULL)
- 		return NULL;
- 
--	drm_gem_object_get(&bo->tbo.base);
-+	ttm_bo_get(&bo->tbo);
- 	return bo;
- }
- 
- void radeon_bo_unref(struct radeon_bo **bo)
- {
-+	struct ttm_buffer_object *tbo;
-+
- 	if ((*bo) == NULL)
- 		return;
--	drm_gem_object_put(&(*bo)->tbo.base);
-+	tbo = &((*bo)->tbo);
-+	ttm_bo_put(tbo);
- 	*bo = NULL;
- }
- 
 -- 
-2.43.5
+Best regards,
+Dmitry
 
