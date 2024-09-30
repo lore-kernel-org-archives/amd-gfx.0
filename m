@@ -4,152 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E19CF6497
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 11:23:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C250CCF64A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 11:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FCB210E3EA;
-	Mon, 30 Sep 2024 11:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B549510E3F9;
+	Mon, 30 Sep 2024 11:46:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jDEkddyq";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fXAXB9TA";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9716810E034;
- Mon, 30 Sep 2024 11:23:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cY4NvUvSqEhyYYodEarD14yJzcxVcWygPJ8U048sIrMyl20Kt3bGMicaTAHOKMLTOighR0JT2BSLnBsRfdM+/M4+p2S3d+gXIvGzoIgS3IJAFKlvHa56BC62v4tI9kLxRYZT+aUZwqxzSavXzxtvegkgewhom4rxqYRWrttc4RgBXYH149rV692gMrEWOOI6sUHXwhfRIhlG9lfoIusXwkfOY3RB9V+PINgwF6kP57pkXdIHhvBw4hUkwKd1/WzeCAO4h4iWYUHmdW4zRw+DLMDATKbpJ6V6igDqE0G0AV12uzEevHv/EhFS1oKJP1rFMX1WVqyURQ9fy59vKucOgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ofXuHOkIyyRkwpwyu+/fd4c9p3xLi4Nhn6lHp+ukhYs=;
- b=SzRCOaexuKKiRAwp1R4vXLVRtZ2mdoLob/ZF5Nq9educAgnSrc5edGfIocavjGRQ+pWC1qv4ZNvq+NVny4KP60UiVfXZ1EZRbu2Ca89gq4j25tLE2HOlGNsv/rJsSD/wP+F0GDjgijSoVg0hi8jyei3TXqqRxtOGysyiZDjQ0wne3N+AMIguHZ3zHACtfjv2rUrg/GDbphUDPW9KWQtkxveo1SvbXnNhhfLuTS6Rj1SEFOSJmvBRqyDgJfT/lZxVDqyj8CYkgzmz5dkDFnxJnLDoriOBqQ07sgf8d4Rlr0wcNQKVyDfcXvk9dGMYNkdemd4EKKlNeesa++SHyNS01A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ofXuHOkIyyRkwpwyu+/fd4c9p3xLi4Nhn6lHp+ukhYs=;
- b=jDEkddyqtCLDBvFgD89aLJCc8v9mn/VbMFOe2fp/Tjw3w64VqsVYBzWnmtc+XQ3piMAj1Wf8zcdmMIBYTQ38EzIc/coQZOaSHuR7Lmf53VdrTwczZWr/gIWHynLn2V5KQHvLSpBc0qd8niihjYPl8RmJjYaBZAlefLN8vRF6DW0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB8311.namprd12.prod.outlook.com (2603:10b6:208:3fa::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Mon, 30 Sep
- 2024 11:22:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
- 11:22:57 +0000
-Message-ID: <ea6868b2-ea0e-42ad-8351-c02553691b74@amd.com>
-Date: Mon, 30 Sep 2024 13:22:52 +0200
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C2610E405
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 11:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1727696792;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=9dflzTnD9vkyLsgpnVQZfCLOfINJ0d45UnhsxkoL0jE=;
+ b=fXAXB9TAjFJoYy83uA+olz9gDp/PFHmDY8Xxb5PyoeWpK1kJJTO0cfZdqoJYby7ZpZ+5qh
+ G2o8XJBoqUt3HMse3gYCJrbFAKyDg0fRep37Ew3UZuNGe7H6oDIbVWBrrmX7/pGtrriJf0
+ T7dHL0MhwkBbn2bvuwVH3Ph39GmqhPY=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-624-SUZqZV4LNVmw1_zWje3Q9Q-1; Mon, 30 Sep 2024 07:46:30 -0400
+X-MC-Unique: SUZqZV4LNVmw1_zWje3Q9Q-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-37cd2044558so1804877f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 04:46:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727696789; x=1728301589;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9dflzTnD9vkyLsgpnVQZfCLOfINJ0d45UnhsxkoL0jE=;
+ b=PyD4Gjfdt6a42MsuPUMC21BezSz1khHieJTJiXEkhbfm3E7cI5oiPokv5BAGTe/Lx+
+ lnDbsJysQM/XP8cybspeZ3YEyyaxJug+FRRoWfWNwRD2Pkngg7YgexhdXLqR1Po814n1
+ COZRzbkkumiyZgvd1TCtEjX74Xa7FmvX3jTM328eO+EVnMpCa90r+aJxJ2F0OHDrP8nz
+ mSofVCmg5M6CtgrZJnBubaGSSS5JWKmOMNt9nb5RCo9dvbVH46DHBEbBT0UVXQ8qN9/o
+ jcPUxwMUCQH7PWJU521OvGcxh4l2hM6icPFeVfOJLgO3CuoCBqQvcpKNwN1Ak0fE1cf+
+ 2ZBQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWY5qYQXR1OeDNSVugbIpq/KRRzvd7DQ6GnpWTGUWvv12uPFi7O9fALVFusyo8RKwMuPS1imbXC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkAaFFbItxjj9HQwiE3infRmjjfqwH/JN/TxxwUU2NFdlVBrr4
+ E1AKHjVcHOR7t3WMHQLKjj+HJRZwx8wjQYhr8JQ9/YExfZBPj4E8RHV+Rtk44QdU4LgOXAC7U/F
+ aYARsiara2oqXGh2V3S0nAEsJ0BQJlicx19gZ3Spef+IEmEEZ/6e4d1+XJaBdVK8=
+X-Received: by 2002:a5d:4449:0:b0:37c:cbca:fd82 with SMTP id
+ ffacd0b85a97d-37cd5a6bf37mr8142564f8f.1.1727696789124; 
+ Mon, 30 Sep 2024 04:46:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGCLLMP4eWziJje4qLxBniM/1l717DjN4rYkRrUfLNGvZq4irAlFPPhs47tndfAyLGLqSxLgA==
+X-Received: by 2002:a5d:4449:0:b0:37c:cbca:fd82 with SMTP id
+ ffacd0b85a97d-37cd5a6bf37mr8142547f8f.1.1727696788699; 
+ Mon, 30 Sep 2024 04:46:28 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:c:37e0:ced3:55bd:f454:e722?
+ ([2a01:e0a:c:37e0:ced3:55bd:f454:e722])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37cd565e767sm8897572f8f.38.2024.09.30.04.46.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Sep 2024 04:46:28 -0700 (PDT)
+Message-ID: <9c025c92-36f2-4358-af24-b699bfa84b43@redhat.com>
+Date: Mon, 30 Sep 2024 13:46:27 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 29/35] drivers/gpu/drm: Reorganize kerneldoc parameter
- names
-To: Julia Lawall <Julia.Lawall@inria.fr>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: kernel-janitors@vger.kernel.org, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240930112121.95324-1-Julia.Lawall@inria.fr>
- <20240930112121.95324-30-Julia.Lawall@inria.fr>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240930112121.95324-30-Julia.Lawall@inria.fr>
+Subject: Re: [PATCH 0/5] drm: Introduce DRM client library
+To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
+ airlied@gmail.com, javierm@redhat.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <20240927144252.31813-1-tzimmermann@suse.de>
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <20240927144252.31813-1-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB8311:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5835edfe-217b-4818-c338-08dce1423c4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UTVrVW9jMFVZYVpveXJpdjd5ck9idk83MnhGMlZMM3hqekgrQkdCUFBiVWV6?=
- =?utf-8?B?ZXVZaGc3RkVpNlFwcFVXOFVtVzZIcVh2SjJWdmJXS0lOS1hzb0MvVEFGWEFm?=
- =?utf-8?B?NTgwSU5zcldnUmZGb0JjOElNYktLRjZ0bGUwY3VQSFRBRWZwd2QxcExUT05M?=
- =?utf-8?B?Q1lKVEVIMStzbVlPSisvQ2tiMFJ1MTZlM1dSOHFTdlRibzQxbkN2MnRkaEtY?=
- =?utf-8?B?UW5RNml5dFIxN0hsK0FqSlpGRG5waklHQ28zV2o5Y1lOQ2FITGdoaEljTXZB?=
- =?utf-8?B?anBjbTl3OHdSQ1ZPS1NQenBVMi9teWliTnJqS1FWYlZZajRhNjJ4UHNDTXZN?=
- =?utf-8?B?aEJTOGcwSVQya1lGdFYwcW1NK05NdTFjVlBkdXR6UXhQWVBPSmh3dFlUeFZS?=
- =?utf-8?B?bDJzMlFzQmxzY01MM0c5WjZkeUw5dHhzbW5rTkJONjg4ZGM1cVEwSGU5RStS?=
- =?utf-8?B?MWY5Wlc4ejNROWV1YjNqNk82eGRRbVY1U1I4VHRiVWZMbXF5a1ZBUnpxVEpK?=
- =?utf-8?B?bXNjM1JodGJ6RFRuR0RkVisvSjRqMlZwSnltVktEUEUwSzZPYTFnNzdoYjBp?=
- =?utf-8?B?VTNweStKZHU1M0trVEM1TWZ5TklBM1pKci9aeUdzRkFPZ0ExYldRYnhXTUZB?=
- =?utf-8?B?VlpOMzVFNTlHVTVRMXdZMTJWb3BhRVl1UWNLQngrOXJXMC9yQm1VN3BXZE5t?=
- =?utf-8?B?cDVsTC8vanBOZkpqU3ZOTHZTZW9xV3djRy8xVGs4aTE2QTlNbWxWR2p4ekY1?=
- =?utf-8?B?V0tJTTBLdWV4dkJwazRONEZNNW1DbGNOMjhMTDNkd0NGeHpSeXFFN25jL21J?=
- =?utf-8?B?Y2lCb05QZE5XQXpoUFlPdTNWSmVkNFhTM2pWOG9kNFZPZWI2WnlmK05Nb3Rn?=
- =?utf-8?B?Um0renkwYmtLMzhIZFRRQXc2TFpOT3B0dWFFVGIzTTducWZQU0MrZjZXVFdo?=
- =?utf-8?B?T05Udms2Y3I2c0tmT0QvME9NOThGQll0b20rOWY4enY3cHpXNm4wR0RaV25l?=
- =?utf-8?B?bjROajdSb2J3N0lTUDNpcW5PVVh2S2Q2MTFUUFpCMHBab29rT1pieWxHd3d1?=
- =?utf-8?B?RHh6ODhOSWJYSUNML04yOXhtNTh2Q2F2S1B6SG4xY211dVNaODJIRytXMnVZ?=
- =?utf-8?B?NWhBd1RxRGhlSENzUmR2UjhpV0Q5T3RtMTFyMVUzcEMwd09KSEs3SlJqR3hu?=
- =?utf-8?B?Q3haSkZ3QkxHSk5pLzVIeEQ2c2FhSUtMalJ6ZFI5K3dOVTk3aHV4djYwNHlH?=
- =?utf-8?B?VzY5MnB0YW9uMjd4TXVWZE44RzNVSXdWMGtYWXlHTU4zTitrSW1QaWlKaUJ1?=
- =?utf-8?B?cCtIZmFGS1FpaTVGTFpSV3Z5SkdBazFVSkFKN1RYZzYxMml6dlhESVhUdUxl?=
- =?utf-8?B?N29Qc05EZlhDMWNITnE3QU1VYm10ZFJIWWlIRFlyVFVtbVpnWi9WNVFJei9n?=
- =?utf-8?B?Z3Y0ODFRemQvVG1RUDdWRVN2MU8yUjFwQkpwQzB2ZEVOVDVpb0RUL1RibXJG?=
- =?utf-8?B?MmtCTTF4dEc1eHFhR3IvZDVXY3pUR2dHdFJSdWx6RlVERk1hR09CNlY3eFBP?=
- =?utf-8?B?WFAvMDNxRGhVUTRwVXV3UHJKZjVxenEvY2hBbDRObTNTT3c2TVBSUlExYW8x?=
- =?utf-8?B?dDZjaUtZaHVJTHZaUnR1bS9CYmFycDJIcmdTYXNZTzRDVVVHSnhtdzdYZEcx?=
- =?utf-8?B?UjZPcXl1UnZjUG9seVJabHNWbk1MUldpaDNsQnlEZDhpQzZmdFRDM2k0YWNN?=
- =?utf-8?B?ZGpvVVNMdDhXdXY5MkNlTU9LOWd0TGxCZXFWTnUyb1R3Y0ZiY2w3bkxkbjcx?=
- =?utf-8?B?WEt3Z3F6YXZJM3JHK3NRdz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aE10UWhPajJnQVcwZ2hMQjRUczNuWlYxQ1E5ZnVCQ1FOVVVvRE1Ta1IwWCsx?=
- =?utf-8?B?dUwyR3ZiMW1ha2VMSnZRUy9jeEtPTG94SVhoNllJeFFqeE1rMW44QXBVN0J4?=
- =?utf-8?B?V3RYWG4yOWZnNldxcjZMeHJmU2JYQTcrVDNBbW5DS3k1MEJEc2sxZ2FMRTNR?=
- =?utf-8?B?c3JLT3N3YUxERzhyZldsL1dGQTZiUjZWTFpVTXJrdzd6M0dCQ1FMZC82a08w?=
- =?utf-8?B?QkNlaVBocU40ejhQR2tyd3AxeSs3Y0pjQ1d1WUpEUzVPbEpLZWI0a3RJVzlU?=
- =?utf-8?B?eVlTVTlUTzRjNU1wTzJrSUN4NHNVMGxYcHBZVkpCQk5lT0xTU2VBTWljMnpB?=
- =?utf-8?B?aHJVdkdvTFJUOWZrdXVya0pNNTBaSHQyWjEyTXVWVTJMRFNWbkM5dzdtR2dS?=
- =?utf-8?B?d1cvUW5iZEJUdEQ4dXVXWWRwc3krR1lYVFRaenVUMDFaZUVLdHFzL2I1NC9u?=
- =?utf-8?B?ZkZVU0lxS21heDBuQVlUbDVZMlJpM3JhRjFDeFc0RXVFWkN0eFkrUURmLzl6?=
- =?utf-8?B?NWV6bWFUQ2txZExxSDZJeEJQelhpVFAveDBoSVZFZDN4Z0Zmb1RrZDYyZVR3?=
- =?utf-8?B?eGRFQ1BxdXVPc2pXd09KU1hlY0g0RG5VNW1JcjlsNlU5WkdLeVNqZ05kaW5L?=
- =?utf-8?B?SmI3QTR3NnVjOGUzYy9FU0ZPZE1rN3JWZzhSb2dMQWI0K3J1aDBQMk9qZFpN?=
- =?utf-8?B?Q0NualU4T3FEa05iT1h3dEx6V3BkcUZMUUdnaTMwQ3U2Ny81Uis5L1ZOODdU?=
- =?utf-8?B?NjY1YmJlelliMnFEeTlFSCsxeGdkOEhld3JmK0FhMFhJcHpEem9LRFRJOGJO?=
- =?utf-8?B?emk1K2Vwcm15TTkzcEgxd2V2bW0yT0dGOWJSemlDb2o5d3F4blpuOTI2STd5?=
- =?utf-8?B?QTB0MzcvaWw2ZnQxVnNsc0RwOUZodkZ4OURMaWJxNnlXUnBYTjdua3lTRlpF?=
- =?utf-8?B?VXp5eTM1ZlZ4NGdhZzBoMlloa3h6MDZwUnNxWDRvcmxCSFZBWjFuRkFiQ1Zp?=
- =?utf-8?B?V3FMMmFjL0wvd1NNVTJzb0RuaXBGTkk5WjNTRDh5ZzRQYXJOOWthb0RLSURJ?=
- =?utf-8?B?cjNhWGJEWlcwdFNKQUtXaEVwQTlicnNUb2grN0xNeTlKa1ltZHlZNUtZOVJ6?=
- =?utf-8?B?Q3hRY3pLc290TW5OeW55b3h5azhkaVNzVmp1aDBIa2RLVS9LcE5xRVUxRVJB?=
- =?utf-8?B?SXdndzZTc1lPNGk3anNaUWJLbWJxdmE4azZMOWQ0cUE3TThYUHZWamQyenBJ?=
- =?utf-8?B?RS8zaGJZSUdoVWEvUGZyYUgwQUIyM2NLMmpxMUlmdVg1SXpLemRIdHV5K0RI?=
- =?utf-8?B?NGliV29JV282OTkrM0JvbWdpQzA1Y2tESlNuM1RrNm1PdkVyU3FpMngxeXB5?=
- =?utf-8?B?dldiSGV1a3h2SDhzMWxMVE5NN24yNDFPRHVVNUczdHNCbCtleTdLU3dJSG9Z?=
- =?utf-8?B?NUxpdy9MTXkyd1RoV3FsY0FsbEdmZlhpY2tCcTlVVzVmOVRUV0R0T0FsOXZ4?=
- =?utf-8?B?UGVwMFR6QWJqZUM1alhiOW9YZmNaRzF5bm5IaUNKemtPNWhuTFdtb1dTaHk1?=
- =?utf-8?B?aHVTNXdpM0prNnhmVW44Smgwa0RDVGNCVDlaeGdFM1liVHJSK1pXbkIvRUhp?=
- =?utf-8?B?NjhiaTd0eUJqa2M3ZjNiWUdZb2FQR2t1SFB0RDFrUndlM1hMWmljbE05N3dM?=
- =?utf-8?B?MXpsRHNJNzFlTHhZZ3dBejJveXYvU1VUdnAyRnBBcjRyMFhaUnZkc3VaZFpl?=
- =?utf-8?B?cEEvek5WTGFHNHdXUmdkb0pDakMrQ1BiSVpWZGRWcEhBUmduN21zSHF6WFg3?=
- =?utf-8?B?MldkSG5DM3BPTmdBN2xOL2Y0THlNRVcwV2tTTUg4clFnb0xsMlZ2MVlPNFJM?=
- =?utf-8?B?bklKWnJpVjVmQXlEUnlpMGtVRUd4Nml0dEZmN1ZxRE1uOXdZWHk2eWNnb1R2?=
- =?utf-8?B?ZEdZZTU4dzNTZVBwNzljWWU4YUI1UmlBeTdxU0xWbTI0a2hOcVovNVB4WW1F?=
- =?utf-8?B?YVlqZGxYd3JLOHlZdEpoTEwxdHZ1UndaOTZCVTFHV0diVXVDa24wM3BsUXlC?=
- =?utf-8?B?c2pqeTF5K3VNUEpuaUM2bGJMRStuRmNGT0xVbmVqVERITU0zYllCOXNKY3h6?=
- =?utf-8?Q?D3W4=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5835edfe-217b-4818-c338-08dce1423c4e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 11:22:57.6622 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: duy2J8xJLsUC7cC1N6s5nB4Si/h5VEVXDCscBrHU+zKCNFr8IledAHQlwb3VH65X
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8311
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,54 +95,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.09.24 um 13:21 schrieb Julia Lawall:
-> Reorganize kerneldoc parameter names to match the parameter
-> order in the function header.
+On 27/09/2024 16:37, Thomas Zimmermann wrote:
+> With the next DRM client coming soon (drm_log) and most of DRM's
+> fbdev emulation consolidated in a few places, it's time to provide
+> a single place for the clients.
+> 
+> The new module drm_client_lib.ko stores most of the common client
+> code. It's designed such that drivers can opt into client support,
+> but the presence of the client module depends on the user's kernel
+> configuration. Without selected clients, no client module will be
+> build.
 
-Please split that up by driver, apart from that looks good to me.
+Thanks for this work, I've rebased drm_log on top of this, and it works 
+great.
 
-Christian.
+My only nitpick is I would prefer it to be called drm_client.ko, to be a 
+little shorter. So that the kernel parameter to change the default 
+client can be "drm_client.default=fbdev".
 
->
-> Problems identified using Coccinelle.
->
-> Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
->
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |    2 +-
->   drivers/gpu/drm/radeon/radeon_ib.c     |    2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 6005280f5f38..ad4fdd4d4d82 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2773,11 +2773,11 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->    * amdgpu_vm_handle_fault - graceful handling of VM faults.
->    * @adev: amdgpu device pointer
->    * @pasid: PASID of the VM
-> - * @ts: Timestamp of the fault
->    * @vmid: VMID, only used for GFX 9.4.3.
->    * @node_id: Node_id received in IH cookie. Only applicable for
->    *           GFX 9.4.3.
->    * @addr: Address of the fault
-> + * @ts: Timestamp of the fault
->    * @write_fault: true is write fault, false is read fault
->    *
->    * Try to gracefully handle a VM fault. Return true if the fault was handled and
-> diff --git a/drivers/gpu/drm/radeon/radeon_ib.c b/drivers/gpu/drm/radeon/radeon_ib.c
-> index 1aa41cc3f991..8611a27dfb3d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ib.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ib.c
-> @@ -49,8 +49,8 @@ static void radeon_debugfs_sa_init(struct radeon_device *rdev);
->    *
->    * @rdev: radeon_device pointer
->    * @ring: ring index the IB is associated with
-> - * @vm: requested vm
->    * @ib: IB object returned
-> + * @vm: requested vm
->    * @size: requested IB size
->    *
->    * Request an IB (all asics).  IBs are allocated using the
->
+Best regards,
+
+-- 
+
+Jocelyn
+
+> 
+> Thomas Zimmermann (5):
+>    drm/i915: Select DRM_CLIENT_SELECTION
+>    drm/xe: Select DRM_CLIENT_SELECTION
+>    drm: Move client-device functions in to drm_client_dev.c
+>    drm: Select fbdev helpers for modules that require them
+>    drm: Add client-lib module
+> 
+>   Documentation/gpu/drm-client.rst   |   3 +
+>   drivers/gpu/drm/Kconfig            |  34 +++++--
+>   drivers/gpu/drm/Makefile           |  20 +++--
+>   drivers/gpu/drm/amd/amdgpu/Kconfig |   1 +
+>   drivers/gpu/drm/drm_client.c       | 122 +------------------------
+>   drivers/gpu/drm/drm_client_dev.c   | 138 +++++++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_dumb_buffers.c |   2 +
+>   drivers/gpu/drm/drm_file.c         |   2 +
+>   drivers/gpu/drm/drm_framebuffer.c  |   2 +
+>   drivers/gpu/drm/drm_gem.c          |   2 +
+>   drivers/gpu/drm/i915/Kconfig       |   1 +
+>   drivers/gpu/drm/xe/Kconfig         |   1 +
+>   12 files changed, 196 insertions(+), 132 deletions(-)
+>   create mode 100644 drivers/gpu/drm/drm_client_dev.c
+> 
 
