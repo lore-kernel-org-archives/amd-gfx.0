@@ -4,149 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89152CF64A9
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 12:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4B95CF64B3
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B0F410E443;
-	Mon, 30 Sep 2024 12:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6879310E44D;
+	Mon, 30 Sep 2024 13:07:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AnXOiUrx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DcSXDtCS";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2069.outbound.protection.outlook.com [40.107.101.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1025210E06F
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 12:54:50 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D0D510E45A;
+ Mon, 30 Sep 2024 13:07:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TReEMcMc8R0WwaJGV6DwZM0F5RMVzh8HnoreyRvYeBN3VbzHNsCjyjnl5q2O3XoX7ECQBBz1eImC5QRtae0KONyCvo1HkaesXdIeaNOxnKcWwKb2uJRHhQ0hCp1oM+JiOkoY6Wl9AqYkg69pRdIUkzgt1uYQmfrJKEmNAF8SWPmpgsMOX/fig4jVYG6jnqDBZ0qx/xbgaB/rPL6zj0BvRKIbKHVWRpIetWMM8maBsDf4OWJ9mgqh9p+8yg06Pt8jOeN4+KLnlwkG7dyX5D12hqD0acTVVfkbS7s+NUFB4W1tMjQ4faRkbR61qhujF3xhAfygZc/UIkoEtVZL+fc0aQ==
+ b=Dn1KQfje/TlnBGJyhv9H0pecN7/92XMsEbu325s5v15UZBc7+z5+2P1Tv5oZmitbSKWJRw/K8AKytUVbzMw/PhKDsEk3CKcFX4nz7gxc/CNd4j7LG9g8iZkq+ipuEOwZ8f9yLR7txEDipetApLHiuXYrboMraj2A++2JuFAeHD7Z7nb1u/hxlWjycXdmbJx8NmvdyeYyP8XE1c7tRRPDnLkJl7buJAZUIOq4NOhQuJzKz8JYMbluCJWdnhbml58DDX4OFqCYR8N2Sx4jHznXSPhYCdRBBWjLShlU62nTDx0za0hGwLosBf5qwxUZyaio2mEh2+jNoJJ8YBnCR9M2FQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nX9usrmkV295l02q2Y2E2IMsOR/WjKl8efqYam5G0yE=;
- b=cAeiThdsVYpbgXBX0zn+2bFqkTR+bFnSWp6wsfPrIVgUrg+EfuAfI2V+uczZq3UWH/ehAC8VnH8LIBrLNSyEI+usXhTfBf1EwAPOxB3A6MTmb4k+bQ3IWP7X19xsFxROaJGJlXEOS7j3bhiDDQWx0hDowlGyuOdfPGfphvdE0wTAsgvePreQkJyC1QlTAVJDAQfuzyVzSrW2TqiksehjR5a8YqkprQ7ApeAzEKx1vzgmLc4QQhq3lnl06qlLpyxSvzlLGdN9An9QO1FZq6rC0C3UEALAnxalmPFes9ojtIeMIJ6Jxmq/Q+1YarOCpdfRGOfbpfSLs3q80PL5zN7VPQ==
+ bh=hVzTEzS/G0ACA4Fye2BK1OMK3K6vJ9PnMRaI8xzQqE0=;
+ b=GHNtJhiGiYwvX/aYOpvjugOGTDrbBGFCLbnwYv4xpTV1KOw2YHztrxO/m9YvId1O1VQ1ZMEJHatFJUC7vBQIhLeMni4rWnPyd8zLekxK+O6xD3+l0La/j7804oU4IiiTUslfl4O68UlBzY8DtXvbmX2dqUj+C0P9eSKx4drS76L5NZTInarkS/KKAIHTGCaxHFE6EkcqVn4ZVmRy/rXVDz9H2NuJ5mlG/WbwkwmceXcH7Qv4iByTSYhGmlkTJyVU5y4WCGAwdmlcjX/+pELWGCoOhSRNfrpKVM+1Y7lhCjQ+YBi2+hExEuWAmuP0K5+VPjXZ2sA9LbmaQU/c22YIEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nX9usrmkV295l02q2Y2E2IMsOR/WjKl8efqYam5G0yE=;
- b=AnXOiUrxQmDG0eB3Vamh5dPnnIuRMPby1qosLFmXFbRct8acKD5g3IvCDWa1gdJARpHYqjVDoi4s4FE13iFztHwQOb+10RPLxz3u3XuNVZ9ajF/1gUebZxCIUQeeNV/QSGUNHnxObxpRKfUkQVadsKrLjzd/nGkSdt7HHQx7JDw=
+ bh=hVzTEzS/G0ACA4Fye2BK1OMK3K6vJ9PnMRaI8xzQqE0=;
+ b=DcSXDtCSYA6txLwSmihFk50GTar1Vg829wz9r3kM0+jLM6B/EWAHnnwTVlZyqa4nqUJ+S9Ynhnae/dTqVkVOyqOyq65GE3ltIAbYgfEsVMekvQQO0F3Q0H1pgC/ebYfifVTv1BTQwuI90YTHR2uqAaC7JLfsRHsjaKCtizg3ERQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB8499.namprd12.prod.outlook.com (2603:10b6:8:181::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Mon, 30 Sep
- 2024 12:54:42 +0000
+ by SN7PR12MB6814.namprd12.prod.outlook.com (2603:10b6:806:266::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.22; Mon, 30 Sep
+ 2024 13:07:17 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
- 12:54:42 +0000
-Message-ID: <fca0ff9a-fe54-4dd1-96d0-56f5734583e4@amd.com>
-Date: Mon, 30 Sep 2024 14:54:38 +0200
+ 13:07:17 +0000
+Message-ID: <cf135523-92ca-4d41-9acf-e979c9769ad9@amd.com>
+Date: Mon, 30 Sep 2024 15:07:11 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/09] drm/amdgpu: Add separate array of read and write
- for BO handles
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20240930115906.191060-1-Arunpravin.PaneerSelvam@amd.com>
- <20240930115906.191060-9-Arunpravin.PaneerSelvam@amd.com>
+Subject: Re: [PATCH 3/8] drm/sched: Always increment correct scheduler score
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luben Tuikov <ltuikov89@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, stable@vger.kernel.org,
+ Nirmoy Das <nirmoy.das@intel.com>
+References: <20240913160559.49054-1-tursulin@igalia.com>
+ <20240913160559.49054-4-tursulin@igalia.com>
+ <8392475d-489e-4aa3-b6c2-7cd15b86dab2@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240930115906.191060-9-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <8392475d-489e-4aa3-b6c2-7cd15b86dab2@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0181.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0320.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::9) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB8499:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea74c0c2-3445-4f2c-3363-08dce14f0d83
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9881cf4f-02b7-43b9-86e0-08dce150cf3d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZzJKTHNnQ0o1SDUxYUdlY0F5cHFBVElnQjZsVllHVmJ5NUhUNVl3dmxMeWtn?=
- =?utf-8?B?UHdvSHlqZjRqZmlpQXVhUzBPZ1JlWDJNYWthdE0rV1FjM2xBNXpZcVQxdXZH?=
- =?utf-8?B?dld2bURTczhXb3NzQ21HNEVneWZkTVplaDRiLzAyT2JySmgzQmNOSU1rWGph?=
- =?utf-8?B?WHZLZ3p0enZjUkJOWGRoa3NsMWFSU2JwVlg1WkJFOEhGZlB6dkVKZW96dXFx?=
- =?utf-8?B?eTk3UnJJWk80REJzNjRZRXU1My9xMHRaOTIyNUNYRXF0NHZQR2VodGU4ay9I?=
- =?utf-8?B?MGl5c1ZoT1p0QTA2WkxHZkEzWjQxeXJ5d3VFdGxQbjVYRkFRcXk0Z0VrUEEx?=
- =?utf-8?B?N0ptUkVId2R4N3YzVEtiQmEvZ0JvZTJ1bjE0Z2FoUWdSZHpxajNNN3hKUHJq?=
- =?utf-8?B?VGYyaWFIaVlGNXVJNnVFTGZwVzBsMFZUN0J0a25jSHhxQjRaM1F3WURiRkFn?=
- =?utf-8?B?bmp1aUVTS2RtWmgzVlhmYlJkd1NDb2UvKy9QeUIxS2tpM0puTXpvV25saDJt?=
- =?utf-8?B?dFB5aFcvNmF2Q2hHekZ2L1pzbWcyazV1enJKT3RvVDloVGNVbU5qbDYvQUM3?=
- =?utf-8?B?SU9lVklHMHd4dEhuSmJ6OEMzN1VHL1IzQ0ZFNlJ1QjZCUGFGT2tZR3E1ejdN?=
- =?utf-8?B?MnpMNWVRcUYvSTV1TzEvTitzMFJBVjlPK21DVnRJYzJFckV3L2tFcUJzN2Fo?=
- =?utf-8?B?QXAxSGtMWGd5L08wNmRxSFBMUFMrMmF5SGxZdFdHcEtYZGpCVS9RR3VFMCtS?=
- =?utf-8?B?TmNmTkxYeXdZZEtUTk5QZjZ1aFNjcXE4THZTTFhyREFmRHBuZWVHWHlmN0p4?=
- =?utf-8?B?WFdidkV1aURTRTFtMzE0c2ZVSjFYaEV1VVNzZmdrejhVZlo3WGVaVzdLT2J4?=
- =?utf-8?B?NDJ4Y1dHYzA3ZXBnVG9zNjNETGtNWDdmMWJaU3JueFNiVTNwRVhwdVRmcTht?=
- =?utf-8?B?WThrZnp4VU12ZVVsb0F4bE9jUWhUdDNidWtGdDFPMXEwMGxSRHVZUjZ0Tm44?=
- =?utf-8?B?a2MwTnFHc0ZOaDUyTWlVQWNqQmRMT2F1VkhwN0Y3SjFVMU41TnBVa0toeklR?=
- =?utf-8?B?bXJudWVlMHdibFRNSVBSYWl2cmpvUW9KQ2ZsK1IxTWs4aW92eHBKM1djdWNs?=
- =?utf-8?B?dlpYeG44OU9VUmRDU1hDR2JTak9wMmIrSFI4aFlEc2JQVndzTVJVOWtHeXd6?=
- =?utf-8?B?UmsvUjJCU1psZDM0enBmVklUVHFLY2pJMlBnenNZMklaTDlGcVVzWXlKYnpC?=
- =?utf-8?B?aUY5TElHMmhsQjN1MlIxK3V3RDM5ekRScnBCRnNPMTVxb1BFa0VsRlF1Slhv?=
- =?utf-8?B?VkpGSC8vZFdjaWpFdzRvN01VTnUxekNxZ1NRVVFabVFseFJ6ZVdXVFMzRy9T?=
- =?utf-8?B?UnI3TGNYMnlIdjIvZTlWU0FrdWhNb0k3SjhFODdzNm5YV1ZpZGZPZlJYK0Z0?=
- =?utf-8?B?T3NpUmxxZlR5SHFENGlJZDlSVXBnUFBwMUt4UncrMHd0VUZBYm1tOGlPNmx1?=
- =?utf-8?B?cUYrbDh2WmYrOTZaWG1NVjZVN05YdzZuYldacU1BelZjVStpMlFEbmhSalV2?=
- =?utf-8?B?aksybjZsOUM5Si9hZnR3eXRWMGpvUno3YWgvNUpaVHFSRmNTa0RkTlB6NEdU?=
- =?utf-8?B?TktSc1hxUDN2UndoVjZjK1BzRnZtTzhyVGxtYVA5alZ4ZXdZcURCazFXaDhP?=
- =?utf-8?B?Y2djUXo4a0tzcFJhNVV0bUFHQTZoOXQ5NVBYSHRKV1p3UjJkakI2T1dYUmVu?=
- =?utf-8?B?TFZOWmRkWjEvcUJxdkIrcnRhdURwTlNXZFF2VENQUUsvVk03OGhaVEF1aCs2?=
- =?utf-8?B?dGlSN3B1SkdURWd3V214UT09?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U21ORWt1ekM3ekNTcEh5NFMvc1NmaW1BR00rWmlPTUJHaU5jMHhnNVU4eUps?=
+ =?utf-8?B?N1dMMzlWOTd0SkFuS2FTVHRoek1FNmJ6cDVNWVFOMUdMcUhMemVLMFNDOG5y?=
+ =?utf-8?B?MTQ2YmFWVjE4OHdNaXprNUx1akUxVTRXZWdBeUxDaFEvMUpsQjc2dktvMktI?=
+ =?utf-8?B?d2RFVldWZkRPM2FjUVhqZlNmNXNJRFkzM1Z0eTcrK2dhZlRRb2trUXJLTmJj?=
+ =?utf-8?B?eGhZK2haa3ppUGVrOWc5S0c2dkNPN1ozRGJ2d09nc1ZuQlJWOGhEc05kOFo3?=
+ =?utf-8?B?NDJRazB2QXNrZjZJelVJb1UwVVBjczZFK3pTb3BKbG5NVWZRNFhqY29YMk8x?=
+ =?utf-8?B?UTMwNnBVMHVGQ28vRUY5TWtGOE00MVFWb09rbCtmdzdZWEpZOFRwdlhJTTZJ?=
+ =?utf-8?B?d3ZwWVl0Vlo3bEZtLzhUdk9GTHphdHlVSzh4OVJwRGcyQ3U0WTRKZkN6Y3E0?=
+ =?utf-8?B?cThEZkxmckNYRkh6VGEvT2RiNVp3eVFxWlRRdlhoTDhKRVBNcnFmSEtDL0xI?=
+ =?utf-8?B?WEU3QS93bXA3M0tjSnZYUTdlQ3ZmY0JtU2F1ZGtJMjV1VFJwVlU5NFNDcnp2?=
+ =?utf-8?B?MlhTQm5OaG9OWWYzZDBSbnY0RU5yTVlmRUFXaENlbnYwbC95aWIvaHk4MXRr?=
+ =?utf-8?B?UmZGVWZXNkVnTnRhOHdTWWt3a0NmbkZ1ZXNoWm54dHMwYzEyZXI4RHA5NCsz?=
+ =?utf-8?B?alJOcHRRdzlvWUluSmZxN2Q2K0JwUktzWlIrNldaditKRFNJOXAwekxOeSts?=
+ =?utf-8?B?WDRLL213bEwzVVdXMkFvNCsvWkhUUWY3T2twajRyT2s5VmFQV2R3R25UVUh0?=
+ =?utf-8?B?Z0VxRkxFdUtLYTNGeWpKWjg3Smo0N2g4U1JFMHY1TlVLdHhFckNKRnpGdERL?=
+ =?utf-8?B?TXdhc2t4UW1CVjAvYm93S20yRzl0N2FJMUlBQk4va3dJVWU1ZEl1MTcwV0pZ?=
+ =?utf-8?B?YlFIM1lmTTRnd3lVcVZBMDh1OWhhRDUxZjdQcjAwOGZ2K0R5THM4ZHd5UUVx?=
+ =?utf-8?B?b2JMRFJPYzNCdTVLVEYvUVNwTEI3TGQzNzQxSzZJbWYyOUdLemhkbnp6WUFJ?=
+ =?utf-8?B?SjZhUm5yN0xneEFxeERodm5LL2xleXhuajZ5OTBOMXdJVnZCcXJBdU9RcEk2?=
+ =?utf-8?B?bjU1MFNkZGNHTEQ5TzV0SUhGNWRqL1gxTFVBaEY2bmJmbWFJVjZDUHd3Rkt3?=
+ =?utf-8?B?aEM0OWhONTBrUWRWUU83T1FyMUN1eGtZREVSTk9mNEtuMkJ2dFJRQ3d2R0dH?=
+ =?utf-8?B?YzE1N2VJQ3d6alNicjVhSU1DUWNhaXRYWEY1ZGJSaWpDM0dLQWVHSUxTcHZ1?=
+ =?utf-8?B?V2Q5aHpFaGJQalZuNjRYVER5MG9lbEE3RnhvMmNIMG8vbjNGQSt0blZPa21D?=
+ =?utf-8?B?U09RL3lhSlBuL1pmTDJyTy9jNTVsaFZKb3NVRnZmd1g3OXM0MjdrMDE5cHdm?=
+ =?utf-8?B?K0dsNkJyNUhMQmtCM0RVVksraVpOYXBhQyt5ZXFCMWswMUQwdjBTTENzVDFm?=
+ =?utf-8?B?RzFHcVgrTEtHZmtQbHV2aHorSU5GZjMzNXFneE5hQlZ2Q3AxMDVxYmd6NDNl?=
+ =?utf-8?B?alJFQ0wwcGIrZGxZeUNQbzJnQkw2M2ZVVEVGb1lwcHhNckRyQ2VlVFB0WDgr?=
+ =?utf-8?B?QTg4L3ozdHpYTkVtbnRvbS83bXBTR0pzZFVMM1ZDNVZ4T2YwWkVXcU9BR0FS?=
+ =?utf-8?B?bkJxSDMxYXZOOHZOWVhUN0lPV1V2TnpiSlNNVVBzM3JzN2o0QVFiVGRMblZv?=
+ =?utf-8?B?eDFEcXorZldCNlpRTTVtY0VPWHpFcmhHZ1FFUlpNc0pWWEJrUzFEdUlEbUxr?=
+ =?utf-8?B?L05JVUYvM3kvQThQbGJTUT09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzhVa0FlaEhMbUhlWHZscVdkeTdZeThHVzI2ZDlXTDQyTkJMZkZ0Vy9iWGpr?=
- =?utf-8?B?ckZ6Ymw3L3lLTUtlbElVcEdUSjFZVTJwcXBTVGNaYXE3SUlFbU0zR01kbnRm?=
- =?utf-8?B?ZklwT0JicGl6aVk2TFlBV040emxMNFNFUE5rQWNIM3lzQ2ZkMXluZHo2RFFa?=
- =?utf-8?B?R1UvUHE4L3ZzeHQ0TzhXSmNLa3JHaVlyQXo2L2JFdncyOHRqNWxBUkZXV3BH?=
- =?utf-8?B?OGxNK3pIaW1SZnMyTmh0V2xlcTBEU3BLYnhsQWJKSlk1RERVbi9VSHNwaEJk?=
- =?utf-8?B?My8xWmtScEV5dC90d0NETC9GaUhLcUJFZmtIT2lOYzV4SG1uWXZJNzhKa2sv?=
- =?utf-8?B?bDNCbXNJbHBoclh3NlBtSnJiYnlwWjN0M2Fsb3hQTU9TVzBPQUdJcm56TlJJ?=
- =?utf-8?B?U3lTdSt5cm5vSG5FaEZKeDRRSnB0TXZIL2t1WTJKb1FYTFhGRkp3ck1JVEo1?=
- =?utf-8?B?c0ZxQkh5ZnpOMU5COUwySzNOdVlkLzZWSGppY2QrZkNYMmx3bGNyYmc5M2N2?=
- =?utf-8?B?YnNPZ0cwVmRzVXJkRXhLQVJtYUxNTjdsd1hZbWo1ZVhja3p0aUpzMzhRdndE?=
- =?utf-8?B?b01wWml6YWdUcTdCbk94bXhRcTJqdDVaY3dzbjhvYW5vdkJmZWNCR2ZHZXd4?=
- =?utf-8?B?Ym1JRkhKQ1lIVWt3OHJNYm5UVnNldmR2b3p1Y2Q0dW1nZThhUm43R0QyY2Yr?=
- =?utf-8?B?ZGFaNFB4YmtDc1A1Y0xUdEc3OHFsaTZiWHhhVDVlRVg5bDN1Wm9WbFVWTSs2?=
- =?utf-8?B?WEtVOUpRUWNXT0RSZ1F6aW9YRnpVK1NBSHV0YkRxdk1YdHRLYnRFZTJsWGU4?=
- =?utf-8?B?cGo1Qk04b2grQXQ3cU5hcytybTFrcTNLQUJ1LzZtdGtLdEhTSkpWV2laRG4y?=
- =?utf-8?B?WjFydFNwSnQ5M29EMkVEMWo2R1BYYk02Zi8vVHpXQjZBSW9WL2hlN21LOG5l?=
- =?utf-8?B?VE1TRDh4RzVqVkZZajhidGFjZGlFWXJEVmQ2YmhkR0RNYVJCbkRSZ2dlSEVu?=
- =?utf-8?B?VVkwUm5QTk9vc1d4TThzU0tPcVVqRk9HUXY1Qkd0ZVUzYzQrNlF2NXRwejFS?=
- =?utf-8?B?dzEyT2l2cStjbDh1MWxTKzdKQ2hmQWZPOXZCSWM2dGlhVmxiSytVVlBHN3cw?=
- =?utf-8?B?OGphQmhpSjIzL2VoRUtGSkJzeU5uaG1wUktZN0IzOWg0RXpENXdzdnBrekJN?=
- =?utf-8?B?REhaTEJDWlZOQ2RLVUhjZERKdytQaWJtN2J1QXNic2ZlUnRQK1VoL25OQ2hL?=
- =?utf-8?B?VTRoYUlEMHlYM0VzU01hQzZuNWYwc3k3Z0srM2JkQ0tlKzk4cHJ1VGhjSUlS?=
- =?utf-8?B?ZlhSVDdSNXorb09ORzF1Zk0rK0hIa2g4NndNUlpEVW1YYXhHYWFob1Z3c3JV?=
- =?utf-8?B?VCtKZzNsQ3ZPNTRxTXcwL0RKSEdrNGhsalVINUR0cmN3TkthaXFHSVlUWVVD?=
- =?utf-8?B?ZlAvMmRycHpCanZFYkJOZ0FsbXN6SWJUTFJtQ2VVanFrM013RklFcURWTTVm?=
- =?utf-8?B?VzdJNEszZmtvTGtTQ1Y3c3l0SkdqcWVicGtYK1NhRk53QkRZdktsdmZJVGZQ?=
- =?utf-8?B?UERRdlAranFmRytPK2E2MkwxQ2tRa3hmK1RwVXY0d0Vya0VRSkVldFYyNmNv?=
- =?utf-8?B?MGtob3JsMWJpM1BUVUx3UW41Yk8zYXUxUDA1dUMyaXNORU16cWtFTzNlUll6?=
- =?utf-8?B?WHRRajhmL2I2dmFHRkhYUXVTZ3k4eGJFd2ZzT0JETVVFcDJKTVBmZWIwU1JP?=
- =?utf-8?B?WDduTUFFVUI1aHFNdDE3M25pRno5VThIYW5yWEVYTFRPT2hjTEh6VjNFcnVj?=
- =?utf-8?B?S3ZVNXlpYkd4bm9HazhRdnYrRndZcFN2WUUwVEQvc3h3UVJoNWdnQzdPV0VD?=
- =?utf-8?B?T2pkdmI1VjBEZUgySHAwdysrN3BoRHkwMHZtODdxRmcwTGxMazV6blpUSFRr?=
- =?utf-8?B?WlB1NzJKcUVvcWF6Mk1KZ0JJdEE0YXpuSSszdWl6SDlIMlhhQ29jamU3Rjhp?=
- =?utf-8?B?MDNMRWd3OEFMOW5YMW9QSmNSaFF1RzdFQTZoM01GU1NlQkp3NG9yNWtkNzRv?=
- =?utf-8?B?RDBOUHdOSkpsQ21jNlBVMjhuMTg3YVBBczhlSjNaRUl3dVpIeXlPeGlhRldv?=
- =?utf-8?Q?6Pvw=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVA4RjJzY3ppbjVMakxDcDBTV1hPS2ZuZmdnVWo0ODFDVXRqbHdZOWVEbFpC?=
+ =?utf-8?B?OXpJWk50dWZNeW00YVkxZDFPNnBseW9hY2M1TjZlNWFFZ3J5WWhpT04vYzhT?=
+ =?utf-8?B?N2JoU2tPbzV4ZlVOTm5tY1cwL3ZVdU9SNWQ4d0hyNmFmeGN1dW5xUi85WXNj?=
+ =?utf-8?B?RW5nV3phblU3S1Njbk1WRmNsZmw1QXFTVEplOHlXaHd4S1JZbWFadkpQbVNz?=
+ =?utf-8?B?dGsvSEp3OEh0L2xGbjRodkJTTHdmOE0rcktFVkdrbkdtM1RNa1oranZ5VjNN?=
+ =?utf-8?B?eUUySVVSdUc5Y2UydVJYaHY3Q0ZZdE4yYzMzUUtVdWIxbVE3dzlEdG1kYm00?=
+ =?utf-8?B?aTdCVFp5MlZ0bHVkWFRyUzlMREt0ZlJ0WnR4QVd3QVdYQTlhQnlDSGRVVjVr?=
+ =?utf-8?B?amI1MlJmL2ZyaitUUVhaR3BNQzhPTGNpVW5STkFIM2VJalpqZWpobHZUT0Ey?=
+ =?utf-8?B?WEovek0wRDg2OTFCYU5EZE5lSHh5WGYxeXc1QjJ5QXV4aHBCeHZzaVRNS2Ra?=
+ =?utf-8?B?eml0b0k3UnYwM0k0M3Y0RUZtREFtMW96eXlqOTZ6L1c3NjZkVUN0NUhWL0lx?=
+ =?utf-8?B?RWY5b2VGWmkyMWxMV1JTY1UzUUJVQjQ1QmtvZjZQOWpwVXR3am9hVlVva1VF?=
+ =?utf-8?B?SnZmQmpjd2pYR2pqdzhlaU4vQ3NDOTlRQjc5OWFOVG5JQ2RQM2puMFUxaVBr?=
+ =?utf-8?B?R1JQWUUvVnRmQWdSVU5YSVVja3h3VENRSTN4VGZmSkcwN1RVVWVuaEhId0kz?=
+ =?utf-8?B?RXBKNWwrZkFCTnlyb0h0eC9BdDNIQzhBMEVMb3IzNndPVUNFQTVmYmtvQkND?=
+ =?utf-8?B?NE5kNGZiaHVlN1c1MjJQRjl0ZmhzVDB2TEJsWE4rVHdjbzErSzJOQmh4Z3Vm?=
+ =?utf-8?B?aFpPZWtlTEpSbkdUaVFIdG9yeGdLZkdBRENQbjlQL0o1SDl4TWVURU1PeUtl?=
+ =?utf-8?B?OEFKSTl4VE14V09tU0w5ZnFtcGIzcTAvYnV1ZjhveHkzVWZ4VWhYN3RPZE9a?=
+ =?utf-8?B?VWxKaHg0T1RlZUdSWGZJampqV0RPVWgvNXlSdEl6YW40SGEwWHRTTGpIYXEv?=
+ =?utf-8?B?NmRkb0RlSXRVaHZsVksyejVRSEFSOFZ3STQwVjBkeDIvMkN0L0UxS0Q4V0M4?=
+ =?utf-8?B?M0s3V0NuM3FFbnNmU0l3SzliMVQ4TWdnQngrRytmZHFhUGVvbDV5RlRPQVNK?=
+ =?utf-8?B?a3BWTU1ZSEEzaU9WSDgvS20vUm9uTzdpY2FPOFdNWUFvc3FlUEtiY1ZpcEM0?=
+ =?utf-8?B?T091ZnBiQzNpbEFPUDl1Smw5WUFxcTE0YkF3SW8ydTBMNnhQS2s5aDNtYjZ6?=
+ =?utf-8?B?dFExeGg0T2RSTGtEZmg1MnpRZDhxS2QvODMzV24xb3ZPdzdEbnNreUtIbVlr?=
+ =?utf-8?B?NDJiNWJxQXBsMk9wUEpmYVljeXhqRkRVTWl1bTg3dkxTRlFBUXVmbU8vdlVu?=
+ =?utf-8?B?d25sbm05NXNHNVZjbmFRZXNRWjZYTGxSQllhaGtUUUphdUN0M3JLT2EzK2I2?=
+ =?utf-8?B?Rk5JbzZ3ak9QUG11REVkNk0waU41VWdhYVZsU0pSUytNdGdGNG1NZHFFQXhE?=
+ =?utf-8?B?MGg2QVd4a2tqVEl5ZnJYZ2x3UldTRnJZQStPaVJ6eUtuelZqTW1hR2NYNzRj?=
+ =?utf-8?B?cFB4ZWdFQnZtSXBKUDJEeHp2TCtkNUQ5TWlsTGtEMjh4c1RZY1ZKMjVwWm5S?=
+ =?utf-8?B?dmx4ZnZJWDFuQWNndUFuS21Wc0lhK3k0YS9aQW8vWXR6Y3lSVUNINkNBOTBy?=
+ =?utf-8?B?SXZyclNCc2liTndsWEJoTUtxMlZWNUNOclFGNUhQelJIcHQvZ2ZjT0xFeVcw?=
+ =?utf-8?B?UURFUlUxdEV5WkozQ0RPMWZLTWVpdnBkdlVwdG4zVnNNK1RmTGJZWEVlSEJU?=
+ =?utf-8?B?MStSVVZRSVYwTmNMMUg1NjRQN2QrdEx3NzRCNDkzNGpXeER4eGhEWml3eHFa?=
+ =?utf-8?B?UTZyZElOU1B1bngzMGh4OXY1RWRVSlhMNTZKS2hlN3ZtQ3ViS29TUkNZajJ4?=
+ =?utf-8?B?czZFRmdRUUp0RmZqdzZzWEhTZjl4L0c0YmZ5Z3h5bTc3VkRVNUpNakNHUEhx?=
+ =?utf-8?B?WjM5RDJXc09WRGpicUlJWEFJaTZuUUpvLzdNV0loejg4UGZmT1ZsWHEreEht?=
+ =?utf-8?Q?kgEI=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea74c0c2-3445-4f2c-3363-08dce14f0d83
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9881cf4f-02b7-43b9-86e0-08dce150cf3d
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 12:54:42.7697 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 13:07:17.2497 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2L/PQGPpek7gHbezNhBybLfldatSNPnwhNFLy003ZCNOgt/TzjgbrbutC+s0ZPSB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8499
+X-MS-Exchange-CrossTenant-UserPrincipalName: wMDCUur9oTYUMY+iXZf5W00BY54rMGGXVYGiCs8tS9f9MolK+/xAhqe6R15jgw6b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6814
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,481 +165,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.09.24 um 13:59 schrieb Arunpravin Paneer Selvam:
-> Drop AMDGPU_USERQ_BO_WRITE as this should not be a global option
-> of the IOCTL, It should be option per buffer. Hence adding separate
-> array for read and write BO handles.
+Am 30.09.24 um 15:01 schrieb Tvrtko Ursulin:
 >
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-
-Still some potential to de-duplicate code, but for now it should work.
-
-Acked-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 238 +++++++++++++-----
->   include/uapi/drm/amdgpu_drm.h                 |  48 ++--
->   2 files changed, 206 insertions(+), 80 deletions(-)
+> On 13/09/2024 17:05, Tvrtko Ursulin wrote:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>
+>> Entities run queue can change during drm_sched_entity_push_job() so make
+>> sure to update the score consistently.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Fixes: d41a39dda140 ("drm/scheduler: improve job distribution with 
+>> multiple queues")
+>> Cc: Nirmoy Das <nirmoy.das@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Luben Tuikov <ltuikov89@gmail.com>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: <stable@vger.kernel.org> # v5.9+
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>> Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
+>> b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index 76e422548d40..6645a8524699 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -586,7 +586,6 @@ void drm_sched_entity_push_job(struct 
+>> drm_sched_job *sched_job)
+>>       ktime_t submit_ts;
+>>         trace_drm_sched_job(sched_job, entity);
+>> -    atomic_inc(entity->rq->sched->score);
+>>       WRITE_ONCE(entity->last_user, current->group_leader);
+>>         /*
+>> @@ -614,6 +613,7 @@ void drm_sched_entity_push_job(struct 
+>> drm_sched_job *sched_job)
+>>           rq = entity->rq;
+>>           sched = rq->sched;
+>>   +        atomic_inc(sched->score);
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 0725f28f3484..aa794f342036 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -386,12 +386,14 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   	struct amdgpu_fpriv *fpriv = filp->driver_priv;
->   	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
->   	struct drm_amdgpu_userq_signal *args = data;
-> +	struct drm_gem_object **gobj_write = NULL;
-> +	struct drm_gem_object **gobj_read = NULL;
->   	struct amdgpu_usermode_queue *queue;
-> -	struct drm_gem_object **gobj = NULL;
->   	struct drm_syncobj **syncobj = NULL;
-> +	u32 *bo_handles_write, num_write_bo_handles;
->   	u32 *syncobj_handles, num_syncobj_handles;
-> -	u32 *bo_handles, num_bo_handles;
-> -	int r, i, entry, boentry;
-> +	u32 *bo_handles_read, num_read_bo_handles;
-> +	int r, i, entry, rentry, wentry;
->   	struct dma_fence *fence;
->   	struct drm_exec exec;
->   	u64 wptr;
-> @@ -417,32 +419,59 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> -	num_bo_handles = args->num_bo_handles;
-> -	bo_handles = memdup_user(u64_to_user_ptr(args->bo_handles_array),
-> -				 sizeof(u32) * num_bo_handles);
-> -	if (IS_ERR(bo_handles))
-> +	num_read_bo_handles = args->num_read_bo_handles;
-> +	bo_handles_read = memdup_user(u64_to_user_ptr(args->bo_handles_read_array),
-> +				      sizeof(u32) * num_read_bo_handles);
-> +	if (IS_ERR(bo_handles_read))
->   		goto free_syncobj;
->   
-> -	/* Array of pointers to the GEM objects */
-> -	gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
-> -	if (!gobj) {
-> +	/* Array of pointers to the GEM read objects */
-> +	gobj_read = kmalloc_array(num_read_bo_handles, sizeof(*gobj_read), GFP_KERNEL);
-> +	if (!gobj_read) {
->   		r = -ENOMEM;
-> -		goto free_bo_handles;
-> +		goto free_bo_handles_read;
->   	}
->   
-> -	for (boentry = 0; boentry < num_bo_handles; boentry++) {
-> -		gobj[boentry] = drm_gem_object_lookup(filp, bo_handles[boentry]);
-> -		if (!gobj[boentry]) {
-> +	for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
-> +		gobj_read[rentry] = drm_gem_object_lookup(filp, bo_handles_read[rentry]);
-> +		if (!gobj_read[rentry]) {
->   			r = -ENOENT;
-> -			goto put_gobj;
-> +			goto put_gobj_read;
->   		}
->   	}
->   
-> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, num_bo_handles);
-> +	num_write_bo_handles = args->num_write_bo_handles;
-> +	bo_handles_write = memdup_user(u64_to_user_ptr(args->bo_handles_write_array),
-> +				       sizeof(u32) * num_write_bo_handles);
-> +	if (IS_ERR(bo_handles_write))
-> +		goto put_gobj_read;
-> +
-> +	/* Array of pointers to the GEM write objects */
-> +	gobj_write = kmalloc_array(num_write_bo_handles, sizeof(*gobj_write), GFP_KERNEL);
-> +	if (!gobj_write) {
-> +		r = -ENOMEM;
-> +		goto free_bo_handles_write;
-> +	}
-> +
-> +	for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
-> +		gobj_write[wentry] = drm_gem_object_lookup(filp, bo_handles_write[wentry]);
-> +		if (!gobj_write[wentry]) {
-> +			r = -ENOENT;
-> +			goto put_gobj_write;
-> +		}
-> +	}
-> +
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
-> +		      (num_read_bo_handles + num_write_bo_handles));
->   
->   	/* Lock all BOs with retry handling */
->   	drm_exec_until_all_locked(&exec) {
-> -		r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 1);
-> +		r = drm_exec_prepare_array(&exec, gobj_read, num_read_bo_handles, 1);
-> +		drm_exec_retry_on_contention(&exec);
-> +		if (r)
-> +			goto exec_fini;
-> +
-> +		r = drm_exec_prepare_array(&exec, gobj_write, num_write_bo_handles, 1);
->   		drm_exec_retry_on_contention(&exec);
->   		if (r)
->   			goto exec_fini;
-> @@ -468,13 +497,20 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   	dma_fence_put(queue->last_fence);
->   	queue->last_fence = dma_fence_get(fence);
->   
-> -	for (i = 0; i < num_bo_handles; i++) {
-> -		if (!gobj || !gobj[i]->resv)
-> +	for (i = 0; i < num_read_bo_handles; i++) {
-> +		if (!gobj_read || !gobj_read[i]->resv)
->   			continue;
->   
-> -		dma_resv_add_fence(gobj[i]->resv, fence,
-> -				   dma_resv_usage_rw(args->bo_flags &
-> -				   AMDGPU_USERQ_BO_WRITE));
-> +		dma_resv_add_fence(gobj_read[i]->resv, fence,
-> +				   DMA_RESV_USAGE_READ);
-> +	}
-> +
-> +	for (i = 0; i < num_write_bo_handles; i++) {
-> +		if (!gobj_write || !gobj_write[i]->resv)
-> +			continue;
-> +
-> +		dma_resv_add_fence(gobj_read[i]->resv, fence,
-> +				   DMA_RESV_USAGE_WRITE);
->   	}
->   
->   	/* Add the created fence to syncobj/BO's */
-> @@ -486,12 +522,18 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   
->   exec_fini:
->   	drm_exec_fini(&exec);
-> -put_gobj:
-> -	while (boentry-- > 0)
-> -		drm_gem_object_put(gobj[boentry]);
-> -	kfree(gobj);
-> -free_bo_handles:
-> -	kfree(bo_handles);
-> +put_gobj_write:
-> +	while (wentry-- > 0)
-> +		drm_gem_object_put(gobj_write[wentry]);
-> +	kfree(gobj_write);
-> +free_bo_handles_write:
-> +	kfree(bo_handles_write);
-> +put_gobj_read:
-> +	while (rentry-- > 0)
-> +		drm_gem_object_put(gobj_read[rentry]);
-> +	kfree(gobj_read);
-> +free_bo_handles_read:
-> +	kfree(bo_handles_read);
->   free_syncobj:
->   	while (entry-- > 0)
->   		if (syncobj[entry])
-> @@ -506,28 +548,35 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   			    struct drm_file *filp)
->   {
-> -	u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles;
-> -	u32 num_syncobj, num_bo_handles, num_points;
-> +	u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles_read, *bo_handles_write;
-> +	u32 num_syncobj, num_read_bo_handles, num_write_bo_handles, num_points;
->   	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
->   	struct drm_amdgpu_userq_wait *wait_info = data;
-> +	struct drm_gem_object **gobj_write;
-> +	struct drm_gem_object **gobj_read;
->   	struct dma_fence **fences = NULL;
-> -	struct drm_gem_object **gobj;
-> +	int r, i, rentry, wentry, cnt;
->   	struct drm_exec exec;
-> -	int r, i, entry, cnt;
->   	u64 num_fences = 0;
->   
-> -	num_bo_handles = wait_info->num_bo_handles;
-> -	bo_handles = memdup_user(u64_to_user_ptr(wait_info->bo_handles_array),
-> -				 sizeof(u32) * num_bo_handles);
-> -	if (IS_ERR(bo_handles))
-> -		return PTR_ERR(bo_handles);
-> +	num_read_bo_handles = wait_info->num_read_bo_handles;
-> +	bo_handles_read = memdup_user(u64_to_user_ptr(wait_info->bo_handles_read_array),
-> +				      sizeof(u32) * num_read_bo_handles);
-> +	if (IS_ERR(bo_handles_read))
-> +		return PTR_ERR(bo_handles_read);
-> +
-> +	num_write_bo_handles = wait_info->num_write_bo_handles;
-> +	bo_handles_write = memdup_user(u64_to_user_ptr(wait_info->bo_handles_write_array),
-> +				       sizeof(u32) * num_write_bo_handles);
-> +	if (IS_ERR(bo_handles_write))
-> +		goto free_bo_handles_read;
->   
->   	num_syncobj = wait_info->num_syncobj_handles;
->   	syncobj_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_handles_array),
->   				      sizeof(u32) * num_syncobj);
->   	if (IS_ERR(syncobj_handles)) {
->   		r = PTR_ERR(syncobj_handles);
-> -		goto free_bo_handles;
-> +		goto free_bo_handles_write;
->   	}
->   
->   	num_points = wait_info->num_points;
-> @@ -545,29 +594,51 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   		goto free_timeline_handles;
->   	}
->   
-> -	gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
-> -	if (!gobj) {
-> +	gobj_read = kmalloc_array(num_read_bo_handles, sizeof(*gobj_read), GFP_KERNEL);
-> +	if (!gobj_read) {
->   		r = -ENOMEM;
->   		goto free_timeline_points;
->   	}
->   
-> -	for (entry = 0; entry < num_bo_handles; entry++) {
-> -		gobj[entry] = drm_gem_object_lookup(filp, bo_handles[entry]);
-> -		if (!gobj[entry]) {
-> +	for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
-> +		gobj_read[rentry] = drm_gem_object_lookup(filp, bo_handles_read[rentry]);
-> +		if (!gobj_read[rentry]) {
-> +			r = -ENOENT;
-> +			goto put_gobj_read;
-> +		}
-> +	}
-> +
-> +	gobj_write = kmalloc_array(num_write_bo_handles, sizeof(*gobj_write), GFP_KERNEL);
-> +	if (!gobj_write) {
-> +		r = -ENOMEM;
-> +		goto put_gobj_read;
-> +	}
-> +
-> +	for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
-> +		gobj_write[wentry] = drm_gem_object_lookup(filp, bo_handles_write[wentry]);
-> +		if (!gobj_write[wentry]) {
->   			r = -ENOENT;
-> -			goto put_gobj;
-> +			goto put_gobj_write;
->   		}
->   	}
->   
-> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, num_bo_handles);
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
-> +		      (num_read_bo_handles + num_write_bo_handles));
->   
->   	/* Lock all BOs with retry handling */
->   	drm_exec_until_all_locked(&exec) {
-> -		r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 0);
-> +		r = drm_exec_prepare_array(&exec, gobj_read, num_read_bo_handles, 0);
-> +		drm_exec_retry_on_contention(&exec);
-> +		if (r) {
-> +			drm_exec_fini(&exec);
-> +			goto put_gobj_write;
-> +		}
-> +
-> +		r = drm_exec_prepare_array(&exec, gobj_write, num_write_bo_handles, 0);
->   		drm_exec_retry_on_contention(&exec);
->   		if (r) {
->   			drm_exec_fini(&exec);
-> -			goto put_gobj;
-> +			goto put_gobj_write;
->   		}
->   	}
->   
-> @@ -611,13 +682,21 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   		}
->   
->   		/* Count GEM objects fence */
-> -		for (i = 0; i < num_bo_handles; i++) {
-> +		for (i = 0; i < num_read_bo_handles; i++) {
->   			struct dma_resv_iter resv_cursor;
->   			struct dma_fence *fence;
->   
-> -			dma_resv_for_each_fence(&resv_cursor, gobj[i]->resv,
-> -						dma_resv_usage_rw(wait_info->bo_wait_flags &
-> -						AMDGPU_USERQ_BO_WRITE), fence)
-> +			dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
-> +						DMA_RESV_USAGE_READ, fence)
-> +				num_fences++;
-> +		}
-> +
-> +		for (i = 0; i < num_write_bo_handles; i++) {
-> +			struct dma_resv_iter resv_cursor;
-> +			struct dma_fence *fence;
-> +
-> +			dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
-> +						DMA_RESV_USAGE_WRITE, fence)
->   				num_fences++;
->   		}
->   
-> @@ -643,14 +722,30 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   			goto free_fence_info;
->   		}
->   
-> -		/* Retrieve GEM objects fence */
-> -		for (i = 0; i < num_bo_handles; i++) {
-> +		/* Retrieve GEM read objects fence */
-> +		for (i = 0; i < num_read_bo_handles; i++) {
->   			struct dma_resv_iter resv_cursor;
->   			struct dma_fence *fence;
->   
-> -			dma_resv_for_each_fence(&resv_cursor, gobj[i]->resv,
-> -						dma_resv_usage_rw(wait_info->bo_wait_flags &
-> -						AMDGPU_USERQ_BO_WRITE), fence) {
-> +			dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
-> +						DMA_RESV_USAGE_READ, fence) {
-> +				if (WARN_ON_ONCE(num_fences >= wait_info->num_fences)) {
-> +					r = -EINVAL;
-> +					goto free_fences;
-> +				}
-> +
-> +				fences[num_fences++] = fence;
-> +				dma_fence_get(fence);
-> +			}
-> +		}
-> +
-> +		/* Retrieve GEM write objects fence */
-> +		for (i = 0; i < num_write_bo_handles; i++) {
-> +			struct dma_resv_iter resv_cursor;
-> +			struct dma_fence *fence;
-> +
-> +			dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
-> +						DMA_RESV_USAGE_WRITE, fence) {
->   				if (WARN_ON_ONCE(num_fences >= wait_info->num_fences)) {
->   					r = -EINVAL;
->   					goto free_fences;
-> @@ -771,14 +866,19 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   	}
->   
->   	drm_exec_fini(&exec);
-> -	for (i = 0; i < num_bo_handles; i++)
-> -		drm_gem_object_put(gobj[i]);
-> -	kfree(gobj);
-> +	for (i = 0; i < num_read_bo_handles; i++)
-> +		drm_gem_object_put(gobj_read[i]);
-> +	kfree(gobj_read);
-> +
-> +	for (i = 0; i < num_write_bo_handles; i++)
-> +		drm_gem_object_put(gobj_write[i]);
-> +	kfree(gobj_write);
->   
->   	kfree(timeline_points);
->   	kfree(timeline_handles);
->   	kfree(syncobj_handles);
-> -	kfree(bo_handles);
-> +	kfree(bo_handles_write);
-> +	kfree(bo_handles_read);
->   
->   	return 0;
->   
-> @@ -790,18 +890,24 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->   	kfree(fence_info);
->   exec_fini:
->   	drm_exec_fini(&exec);
-> -put_gobj:
-> -	while (entry-- > 0)
-> -		drm_gem_object_put(gobj[entry]);
-> -	kfree(gobj);
-> +put_gobj_write:
-> +	while (wentry-- > 0)
-> +		drm_gem_object_put(gobj_write[wentry]);
-> +	kfree(gobj_write);
-> +put_gobj_read:
-> +	while (rentry-- > 0)
-> +		drm_gem_object_put(gobj_read[rentry]);
-> +	kfree(gobj_read);
->   free_timeline_points:
->   	kfree(timeline_points);
->   free_timeline_handles:
->   	kfree(timeline_handles);
->   free_syncobj_handles:
->   	kfree(syncobj_handles);
-> -free_bo_handles:
-> -	kfree(bo_handles);
-> +free_bo_handles_write:
-> +	kfree(bo_handles_write);
-> +free_bo_handles_read:
-> +	kfree(bo_handles_read);
->   
->   	return r;
->   }
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index eeb345ddbf57..8d21e765094b 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -443,9 +443,6 @@ struct drm_amdgpu_userq_mqd_compute_gfx_v11 {
->   	__u64   eop_va;
->   };
->   
-> -/* dma_resv usage flag */
-> -#define AMDGPU_USERQ_BO_WRITE	1
-> -
->   /* userq signal/wait ioctl */
->   struct drm_amdgpu_userq_signal {
->   	/**
-> @@ -475,20 +472,32 @@ struct drm_amdgpu_userq_signal {
->   	 */
->   	__u64	syncobj_point;
->   	/**
-> -	 * @bo_handles_array: An array of GEM BO handles used by the userq fence creation
-> -	 * IOCTL to install the created dma_fence object which can be utilized by
-> +	 * @bo_handles_read_array: An array of GEM read BO handles used by the userq fence
-> +	 * creation IOCTL to install the created dma_fence object which can be utilized by
-> +	 * userspace to synchronize the BO usage between user processes.
-> +	 */
-> +	__u64	bo_handles_read_array;
-> +	/**
-> +	 * @bo_handles_write_array: An array of GEM write BO handles used by the userq fence
-> +	 * creation IOCTL to install the created dma_fence object which can be utilized by
->   	 * userspace to synchronize the BO usage between user processes.
->   	 */
-> -	__u64	bo_handles_array;
-> +	__u64	bo_handles_write_array;
-> +	/**
-> +	 * @num_read_bo_handles: A count that represents the number of GEM read BO handles in
-> +	 * @bo_handles_read_array.
-> +	 */
-> +	__u32	num_read_bo_handles;
->   	/**
-> -	 * @num_bo_handles: A count that represents the number of GEM BO handles in
-> -	 * @bo_handles_array.
-> +	 * @num_write_bo_handles: A count that represents the number of GEM write BO handles in
-> +	 * @bo_handles_write_array.
->   	 */
-> -	__u32	num_bo_handles;
-> +	__u32	num_write_bo_handles;
->   	/**
->   	 * @bo_flags: flags to indicate BOs synchronize for READ or WRITE
->   	 */
->   	__u32	bo_flags;
-> +	__u32	pad;
->   };
->   
->   struct drm_amdgpu_userq_fence_info {
-> @@ -542,20 +551,31 @@ struct drm_amdgpu_userq_wait {
->   	 */
->   	__u64	syncobj_timeline_points;
->   	/**
-> -	 * @bo_handles_array: An array of GEM BO handles defined to fetch the fence
-> +	 * @bo_handles_read_array: An array of GEM read BO handles defined to fetch the fence
->   	 * wait information of every BO handles in the array.
->   	 */
-> -	__u64	bo_handles_array;
-> +	__u64	bo_handles_read_array;
-> +	/**
-> +	 * @bo_handles_write_array: An array of GEM write BO handles defined to fetch the fence
-> +	 * wait information of every BO handles in the array.
-> +	 */
-> +	__u64	bo_handles_write_array;
->   	/**
->   	 * @num_syncobj_handles: A count that represents the number of syncobj handles in
->   	 * @syncobj_handles_array.
->   	 */
->   	__u32	num_syncobj_handles;
->   	/**
-> -	 * @num_bo_handles: A count that represents the number of GEM BO handles in
-> -	 * @bo_handles_array.
-> +	 * @num_read_bo_handles: A count that represents the number of GEM BO handles in
-> +	 * @bo_handles_read_array.
-> +	 */
-> +	__u32	num_read_bo_handles;
-> +	/**
-> +	 * @num_write_bo_handles: A count that represents the number of GEM BO handles in
-> +	 * @bo_handles_write_array.
->   	 */
-> -	__u32	num_bo_handles;
-> +	__u32	num_write_bo_handles;
-> +	__u32	pad;
->   	/**
->   	 * @userq_fence_info: An array of fence information (va and value) pair of each
->   	 * objects stored in @syncobj_handles_array and @bo_handles_array.
+> Ugh this is wrong. :(
+>
+> I was working on some further consolidation and realised this.
+>
+> It will create an imbalance in score since score is currently supposed 
+> to be accounted twice:
+>
+>  1. +/- 1 for each entity (de-)queued
+>  2. +/- 1 for each job queued/completed
+>
+> By moving it into the "if (first) branch" it unbalances it.
+>
+> But it is still true the original placement is racy. It looks like 
+> what is required is an unconditional entity->lock section after 
+> spsc_queue_push. AFAICT that's the only way to be sure entity->rq is 
+> set for the submission at hand.
+>
+> Question also is, why +/- score in entity add/remove and not just for 
+> jobs?
+>
+> In the meantime patch will need to get reverted.
+
+Ok going to revert that.
+
+I also just realized that we don't need to change anything. The rq can't 
+change as soon as there is a job armed for it.
+
+So having the increment right before pushing the armed job to the entity 
+was actually correct in the first place.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>
+> Tvrtko
+>
+>>           drm_sched_rq_add_entity(rq, entity);
+>>           spin_unlock(&entity->rq_lock);
 
