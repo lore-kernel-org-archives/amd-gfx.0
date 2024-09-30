@@ -4,132 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E17CF649D
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 06:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA2FCF6491
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 06:42:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0449110E2D0;
-	Mon, 30 Sep 2024 06:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27DC610E030;
+	Mon, 30 Sep 2024 06:42:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="aUCOPNiy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ka3+uIWF";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PZpT+Kbp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wU3vrRfH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fFVpm5Cu";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D25210E2CE;
- Mon, 30 Sep 2024 06:19:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DF7AE219B9;
- Mon, 30 Sep 2024 06:19:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727677156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WRi9Z5ZiysvObqQa2swCamqMpfPUqEta7MgFDBf0WDA=;
- b=aUCOPNiyb2lvz/enmPydf1Hb+o2wycScbnEJMPuwkjuXU6MQacbg4ys8+gZAX7KkQYdLi0
- lOuew5Ce8m3HEINbO7mHxt4WF3QiRIYc4GhKTPuN+55vlX8G+e7UkjwJlPyUZP61Hr6/8s
- dxas+sghtjuGpt/w9zvlaIze8/rYqCU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727677156;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WRi9Z5ZiysvObqQa2swCamqMpfPUqEta7MgFDBf0WDA=;
- b=Ka3+uIWFMxOOvArDw4Ht0O+khN0+BlMdJCO/xqCmMgszzOCAQSOdgxLDpTXEmtsGmjEcjJ
- 8jG6ngBrVFcxCeAw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PZpT+Kbp;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wU3vrRfH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727677155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WRi9Z5ZiysvObqQa2swCamqMpfPUqEta7MgFDBf0WDA=;
- b=PZpT+KbpViKwtny0dDfP5ufHDEjpThWDpduRnA0e2LHWvYDi1FjXeOQOKHufttpNVmDuK/
- 7JU2KkwnB1zJh0qUc6dgDORv16jVVkg0x/+kPwos0X3oIO5TTgv2B+b+yZmAb3nwa7tm7K
- fZ/cAY10ztlxDg229f3Wbyj3Ml5LSYo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727677155;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WRi9Z5ZiysvObqQa2swCamqMpfPUqEta7MgFDBf0WDA=;
- b=wU3vrRfH4ugIuY0HWA1y1wc4JVbrEAXFIAAi5dJ4Czs3M1HDQQBQx88JUHKLgu0npx+TAh
- q4VWlaNJoHSfKxDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 819B413A8B;
- Mon, 30 Sep 2024 06:19:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 89fVG+NC+maLbgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 30 Sep 2024 06:19:15 +0000
-Message-ID: <e88b9f07-6eb6-4da5-ba92-a5e7c7fb712e@suse.de>
-Date: Mon, 30 Sep 2024 08:19:14 +0200
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060.outbound.protection.outlook.com [40.107.243.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C267510E030
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 06:42:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F8hGJZpC99c3s+p05O9vt6PgZDBovvBFkzbK7fSAsmo3ESD6kjNQqgx0p1b23aDMv/5qd0qc8QnPeXvMKNWoWsyZxJIyrzyF5jpU7Vufq4/lmpeW3dVemUI5yIM4OOUdtiNncc1k9cegpFlVM7F4AfdayThXt8943gFs32Shy3ImkhwsuNle40n3FryGcUJr/pl7Q53JWor/z207hFHSrG7viSyrQJSggjuifjMJH2CrZX71ynnc8sKdvfLJjba/09CB2kaVMwaGrkGt3RHQ1o3CHGCw9cG55D5K8i+qvAHy57xpGlzqeYx6k5ziQ7atdoY4hj4zQPCQ7nc7aUh2NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tH67b4YMQvZE8tdmavpB7azEOkSttNa5CCAahYC9y8Y=;
+ b=YoF1sLEMUmO/jzuDgkAlDhpDVWj0fEErupxWlDW932S2nEmc+ZVe7fZdC+4Vb2Z8c0Sxo0FcZ6v6XpadxpZk34UgPDtPuZjCcPlY0UgkUkgUNDYM8mNZPqEYIBJWq8mPPLuBqTB2EIj2DWY3NgptzvvDPehx2zGH8nOTPIlDeSKMiJa0rPSN7n185xDBEEWpBupGktOhfP72wIxGWRiRhcvhA4XxeAnLve1twDzg2kLzSg0qaeKHtVvriHK+fx1QL5g/Pn5LKm7D+BcC+i0Ud6TYLkyMlJuoE46tvZJp8kl2SLWOtV3oY5aEghx2fBbxHuiRU0pq3Sbnez7lTSgpvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tH67b4YMQvZE8tdmavpB7azEOkSttNa5CCAahYC9y8Y=;
+ b=fFVpm5CuYhtKlKheYrDrJze86r5pDUJOdd/ubCkhnGnSvY0Kp3h9PfpqUZpgSJboJUnpqxqDX0/jwN0MHhYMY9+jLFOnw4aHUxKzC9agdH/JzWL4EBTOEVScyzxhWqt+IN8MuTu3NcKWbyWbllzM4n4PeEIq/vOpR/XVqs+2Epc=
+Received: from SJ0PR05CA0150.namprd05.prod.outlook.com (2603:10b6:a03:33d::35)
+ by MW4PR12MB7288.namprd12.prod.outlook.com (2603:10b6:303:223::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Mon, 30 Sep
+ 2024 06:42:18 +0000
+Received: from SJ1PEPF00002320.namprd03.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::7) by SJ0PR05CA0150.outlook.office365.com
+ (2603:10b6:a03:33d::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.13 via Frontend
+ Transport; Mon, 30 Sep 2024 06:42:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002320.mail.protection.outlook.com (10.167.242.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8026.11 via Frontend Transport; Mon, 30 Sep 2024 06:42:18 +0000
+Received: from lang-maple.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 30 Sep
+ 2024 01:35:41 -0500
+From: Lang Yu <lang.yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Felix Kuehling <Felix.Kuehling@amd.com>, Lang Yu <lang.yu@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>
+Subject: [PATCH v2] drm/amdkfd: Fix an eviction fence leak
+Date: Mon, 30 Sep 2024 02:35:12 -0400
+Message-ID: <20240930063512.22516-1-lang.yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm: Introduce DRM client library
-To: Felix Kuehling <felix.kuehling@amd.com>, simona@ffwll.ch,
- airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-References: <20240927144252.31813-1-tzimmermann@suse.de>
- <53d17411-f906-4a83-a44c-d8de22f11cbc@amd.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <53d17411-f906-4a83-a44c-d8de22f11cbc@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: DF7AE219B9
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCPT_COUNT_SEVEN(0.00)[9];
- FREEMAIL_TO(0.00)[amd.com,ffwll.ch,gmail.com,redhat.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002320:EE_|MW4PR12MB7288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83431944-9b43-4aad-ed7d-08dce11b0757
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eim+niE9Fx8khWL4Z3mEfp13OAnYrW2be2Fk6DwRWg5wi0/bZsS6bBiUAnAr?=
+ =?us-ascii?Q?nwJpX8ffmj9IQ3geDPXoGCN9RiPQk/ZZ3R2R7nrg1N41aUXybY7rY+96iMUT?=
+ =?us-ascii?Q?ksi/N7CZA/sV70uXPTUI6Mc9sMaO84Q4P/xv+AcSgPoKoBPpro0S2Lk8bJqt?=
+ =?us-ascii?Q?1+p3YKe61hJ69qRNii4SNjj5PGPc+o/69pcnG4mR8zW1dydgqLAkTiTUtZ5Q?=
+ =?us-ascii?Q?qLMoTstoNBCFf+m8lRzVEhW7iBNwQKExbkgAz7/8biRbAs1D0l0q73ywxR+U?=
+ =?us-ascii?Q?RdzbcjWAAI9i/UVSc40KpCf1NP3j9HHYuEn2CDwBUDswfgZnaLE6H76MUUqg?=
+ =?us-ascii?Q?PDhyR9iECmFBWhEsJcufRvZJ5kC4V6OnZVGpyvFROOxkn63oA8g1u+XFUFKt?=
+ =?us-ascii?Q?nfHL4eD4h2DdLCMKCWJbaFwuEROjPP0lMex+Uxdr7TbLWE3ZTFJg35TZUlsS?=
+ =?us-ascii?Q?2ZZZ3BOHG6BxGcS+CmglVCN1vOu4O8gSq+eoFrrGKBpPcpeXeZnPrLKkhb2F?=
+ =?us-ascii?Q?dK84SLmIjNE7zB6buGLrrK3odhIvhFtmjjnviNF6noWvtQv9k3l+dSErQ1wR?=
+ =?us-ascii?Q?4ej/CSbaVkWx8ha0POeoaXRXmQsGaGowQEWQ1CZOju/r5dX5TcSjd1/S2EYU?=
+ =?us-ascii?Q?lzqRVy57ZaVaBP9B5C5t7nPMEweIOk78xSxikv11HZ88+YLwZTJC7WZVGZc2?=
+ =?us-ascii?Q?/Ek2cxeY+gqPZmtzvkXHQtKbiyIImTJ0qcvDgZt7zHVM0bIlxPZlLapUF08N?=
+ =?us-ascii?Q?mCOqtJ1poVOyXTLxxfzJqXYidE9yzXAoAoPMKuXnf9DFN0yPCZXd+0kxvPqy?=
+ =?us-ascii?Q?5Az8yzs8IzO/g7cprrLRk4L+zWo1krSW5/P7r2Kp9OjUQSHboxAG+R11ylsr?=
+ =?us-ascii?Q?PhE822r/bqDZ0LJniioD+LzdsmVxt58XwTuRevvn7evbWN9KwX7LePbDBsT2?=
+ =?us-ascii?Q?WW/XiEPKDHIyOlSE5FXriqV2GDmFTkl6ugyM8g3yPS2LUMTZv8KCGc1G3dHz?=
+ =?us-ascii?Q?oBf/TlShx6tgQ9fEcSPukmX4sne7fCiNtFxF1w/5reRvewViBc8DQ3rk9q3n?=
+ =?us-ascii?Q?9PB5UlZsaHe+wRZotWksB9ZlW2eoD7PM/sYPBMQ2gGvhEk+mEN7rgF7RXNnr?=
+ =?us-ascii?Q?jdx39t0+2lY0o/98gimVh8bmVTStuytWJEkKMyMxShtOeVb5VwLcXr6mhR4X?=
+ =?us-ascii?Q?uPsVCNgcQgKAh7qzuJwhehoxZs911giTVeVsFVvRIeceWxu15hZhEXcFo6NN?=
+ =?us-ascii?Q?1vq2E54kEWpBnLOLP4ufIXVPVasq6a9BFSsBTGgHzTS9sDh9BnoXXPVNQ5u9?=
+ =?us-ascii?Q?EZcnL5ul2Tuv7VqF851OyOHlJb+QrsMFk+KBwjEvlZF13B+K41W1XpZ3lVaZ?=
+ =?us-ascii?Q?AvzeRps=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 06:42:18.1931 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83431944-9b43-4aad-ed7d-08dce11b0757
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002320.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,70 +129,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Only creating a new reference for each process instead of each VM.
 
-Am 27.09.24 um 21:27 schrieb Felix Kuehling:
->
-> On 2024-09-27 10:37, Thomas Zimmermann wrote:
->> With the next DRM client coming soon (drm_log) and most of DRM's
->> fbdev emulation consolidated in a few places, it's time to provide
->> a single place for the clients.
->>
->> The new module drm_client_lib.ko stores most of the common client
->> code. It's designed such that drivers can opt into client support,
->> but the presence of the client module depends on the user's kernel
->> configuration. Without selected clients, no client module will be
->> build.
->>
->> Thomas Zimmermann (5):
->>    drm/i915: Select DRM_CLIENT_SELECTION
->>    drm/xe: Select DRM_CLIENT_SELECTION
->
-> BTW, we are using drm_client in amdgpu, as well: 
-> https://elixir.bootlin.com/linux/v6.11/source/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c#L155
+Fixes: 9a1c1339abf9 ("drm/amdkfd: Run restore_workers on freezable WQs")
 
-Right. Patch 5 selects DRM_CLIENT in the driver's Kconfig item. This 
-will prove the plain drm_client code without any of the shared 
-implementations (fbdev, log, etc). Unless the user enabled such an 
-implementation, of course.
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Lang Yu <lang.yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 7 +++++--
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-I've tried several combinations of =y and =m settings of these options 
-and found this to be working well.
-
-Best regards
-Thomas
-
->
-> Regards,
->   Felix
->
->
->>    drm: Move client-device functions in to drm_client_dev.c
->>    drm: Select fbdev helpers for modules that require them
->>    drm: Add client-lib module
->>
->>   Documentation/gpu/drm-client.rst   |   3 +
->>   drivers/gpu/drm/Kconfig            |  34 +++++--
->>   drivers/gpu/drm/Makefile           |  20 +++--
->>   drivers/gpu/drm/amd/amdgpu/Kconfig |   1 +
->>   drivers/gpu/drm/drm_client.c       | 122 +------------------------
->>   drivers/gpu/drm/drm_client_dev.c   | 138 +++++++++++++++++++++++++++++
->>   drivers/gpu/drm/drm_dumb_buffers.c |   2 +
->>   drivers/gpu/drm/drm_file.c         |   2 +
->>   drivers/gpu/drm/drm_framebuffer.c  |   2 +
->>   drivers/gpu/drm/drm_gem.c          |   2 +
->>   drivers/gpu/drm/i915/Kconfig       |   1 +
->>   drivers/gpu/drm/xe/Kconfig         |   1 +
->>   12 files changed, 196 insertions(+), 132 deletions(-)
->>   create mode 100644 drivers/gpu/drm/drm_client_dev.c
->>
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index ce5ca304dba9..fa572ba7f9fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1439,8 +1439,8 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
+ 	list_add_tail(&vm->vm_list_node,
+ 			&(vm->process_info->vm_list_head));
+ 	vm->process_info->n_vms++;
+-
+-	*ef = dma_fence_get(&vm->process_info->eviction_fence->base);
++	if (ef)
++		*ef = dma_fence_get(&vm->process_info->eviction_fence->base);
+ 	mutex_unlock(&vm->process_info->lock);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index d07acf1b2f93..d665ecdcd12f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1702,12 +1702,15 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+ 
+ 	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(dev->adev, avm,
+ 						     &p->kgd_process_info,
+-						     &ef);
++						     p->ef ? NULL : &ef);
+ 	if (ret) {
+ 		dev_err(dev->adev->dev, "Failed to create process VM object\n");
+ 		return ret;
+ 	}
+-	RCU_INIT_POINTER(p->ef, ef);
++
++	if (!p->ef)
++		RCU_INIT_POINTER(p->ef, ef);
++
+ 	pdd->drm_priv = drm_file->private_data;
+ 
+ 	ret = kfd_process_device_reserve_ib_mem(pdd);
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.25.1
 
