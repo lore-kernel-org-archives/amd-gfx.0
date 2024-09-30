@@ -4,149 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26FE4CF649D
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 10:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53048CF6497
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 10:28:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C201A10E094;
-	Mon, 30 Sep 2024 10:24:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7C210E2F1;
+	Mon, 30 Sep 2024 10:28:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iTrSFqUc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OrRdeXrn";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF10F10E094
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 10:24:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FpKH1qB0FxUlL4CwPLqtKwHKm8skdJIunO5BNUG/RJw3H7w2uiMM/GAC/xTvXEp3KhAEPsgeUszWTKPhjwZwnX4Z9CdSiXOYruDwRqRab2VJq7KjJooF30Zjx0Pj7QQSxRinqPu5Nar6icyifiuABREs3+j/Sf2HEYc/+G6/Vn2gxuF6D8lB8M8dIJbOUo98zlUMssIOYGpeIck4hphnlsZlN1qDzCjOvsjzbfxUaRWZzWXsUCUR9ntkcGigG9z/PcfnUe5g0HlSfN4tNLyFOZkYQrZja+JQLkma+H3YxIupofQDF0OO0LIn1uOA5/3mWCra00QEQhF0n0n6dyTE8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G3Ur90GJebZn5uEn7JugFNkSio9egmHVx802NJoYDfA=;
- b=bM4H55aFKlVxHjn7jJtgAwIEE5vUCaipLvyRzmv7lBvIPG5gDjNzsuXsdg+vOLjQmoXmf+PqTNwgc+2h+CbtFad8y+vkDJfaIVXdXmnuxgV/Cn7oKIAwW4mwZ5g9K977YVMawe4iVSDRtSo5CQmoaRAi7iKEgO8+TgH7y6XD5Wtp4ZrtmE4M3inzXwthC1xfIPR1fMUgRs0MeFBvGjHimY1ljSvbMhnV3EHz0ir7ZmFW/nwC0XslSLoAvmmGPdbHLtxoJlXG3dHf/3p0tEjXhu0FpwcDmQZ5quyQx3UiETPl9a6KxXi38u7gC8h0QhxTmU9Uy0lJ5VlfIqoQQ610BA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G3Ur90GJebZn5uEn7JugFNkSio9egmHVx802NJoYDfA=;
- b=iTrSFqUcigaPdn+y+vwCk2UFluWQyTE4qYXoynBBf5hlB5V8GrhTXJZYp22bqAYtaalkgphOxmzumPgxj2PW91gs+nWcxwtFT9dbVLpdZazc+e0bdTnTWKtfrkh84+1VEZ3/9vacrN9Jwcl0fdMO5Ega4S6Mg7cBwVapqt2C6Ks=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV2PR12MB5776.namprd12.prod.outlook.com (2603:10b6:408:178::10)
- by SA1PR12MB8721.namprd12.prod.outlook.com (2603:10b6:806:38d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Mon, 30 Sep
- 2024 10:24:23 +0000
-Received: from LV2PR12MB5776.namprd12.prod.outlook.com
- ([fe80::6628:31a5:4bbe:ffec]) by LV2PR12MB5776.namprd12.prod.outlook.com
- ([fe80::6628:31a5:4bbe:ffec%4]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
- 10:24:22 +0000
-Subject: Re: [PATCH v2 1/5] drm/amdgpu: update the handle ptr in early_init
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC1610E2F1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 10:28:40 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-42cd74c0d16so38775595e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 03:28:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727692119; x=1728296919; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7K208D53BCa8C1kc8EqeLKoPiXf3LKW+BHCYH/2hERQ=;
+ b=OrRdeXrnAHYV2gdW8MGZEXYLw/cXjKh6JBji0dGkrUnzrXwqPz992EsW8CU2L46A9U
+ A6/vE8Tllz/lpku1+J3ZG4N58eXsnaiWfVOZem9lAEF07BZUkv0z7Sr4AQb2gBjyI3w5
+ EdcPeRlYf771uZKQ2LgYzwixSmpnucWHRWuTZY/U0yMa01t09f8aWUUYCVeRVnlR8TQT
+ gFMYIkmi7aPUd9jEYM1fOtX9A7uwo/pwoL8CgV4FC1lhFvMw/s/ZRlWesPV3grFRGhf5
+ H0vWGiSYgl/4ZrBlXAAIdcN/vRSqB9pCkMDzM89mEBDxcEYjwQagxQmEM7uY5nzutbgI
+ HBkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727692119; x=1728296919;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7K208D53BCa8C1kc8EqeLKoPiXf3LKW+BHCYH/2hERQ=;
+ b=L8J/+ilhMEyGCOz3RkSAk6Q7oMH6Gl/hmSL7Z2lRt1lKqVBW2jdVWY+JV4bcJehRYp
+ kE0NFcDx91BH35OBBbUfK1YM0Lopu4l6rH+UOpKsG96t5qxD10qb5t5Ub5evjSFe6XyJ
+ oi5lJ3Fv1Zb9LAr+5YL7O+ivlQsE7iy/QRwf2bWFYJwW5gGGIskiy9hz006fk1w2Pwj7
+ A2QCbxu7j3dpGAD8zkEGljDLpOL/YNE6JJguESj2/O3Ts99IQR8oy2LmLbDqHjn/Zthj
+ Uvcj2mRzSE7dqpLBlkhdcSxXqeckLkdL0dCmlBLYdutPAIsU9tYxsr/Aqh4dlsn4sNWA
+ eiog==
+X-Gm-Message-State: AOJu0YxOZ7qqU5Zxht8detV+ghFaVssS4rwmyw1FQXJ6qZqdSHS9tJdo
+ LxTgdU5n96lArJUhquFWye3SzMJGTwUpxxmWh29hqu/XBtgqpe0/
+X-Google-Smtp-Source: AGHT+IFohqdgzcJgLUIM9ZERl8bGos5heORu9baPUMvFixYwYtT/JWfgYlaGXq7Km+KEUDWoGfvtMA==
+X-Received: by 2002:adf:fc09:0:b0:371:a844:d326 with SMTP id
+ ffacd0b85a97d-37cd5b10634mr5978270f8f.43.1727692118297; 
+ Mon, 30 Sep 2024 03:28:38 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37cd565e427sm8665727f8f.35.2024.09.30.03.28.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Sep 2024 03:28:37 -0700 (PDT)
+Message-ID: <402ae9d1-1ed3-4f7a-aaac-f21d2765bed0@gmail.com>
+Date: Mon, 30 Sep 2024 12:28:36 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] drm/amdgpu: update the handle ptr in late_init
+To: Sunil Khatri <sunil.khatri@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Boyuan Zhang <boyuan.zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 References: <20240927150059.2232708-1-sunil.khatri@amd.com>
- <643c9ea6-e5e5-4399-a658-7b401946de5b@gmail.com>
-From: "Khatri, Sunil" <sunil.khatri@amd.com>
-Message-ID: <e9892b9c-795b-ab83-4b0d-bf4006a10a80@amd.com>
-Date: Mon, 30 Sep 2024 15:54:02 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <643c9ea6-e5e5-4399-a658-7b401946de5b@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <20240927150059.2232708-2-sunil.khatri@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: PN3PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::17) To LV2PR12MB5776.namprd12.prod.outlook.com
- (2603:10b6:408:178::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5776:EE_|SA1PR12MB8721:EE_
-X-MS-Office365-Filtering-Correlation-Id: da888d0f-7e69-4bf9-caf0-08dce13a0d0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Qk94TFZtT3ljSHFQR3dLaTAxTFJHdDNjaFdzL0xuTjM2dVVpOTRTWWNPd0xo?=
- =?utf-8?B?dFpaaTdUbW5rWmhWU0xRT3g4NDR4cFVQMENOYi9yQWhVRnNZRUNaN2tLdUhq?=
- =?utf-8?B?NEhHNXdyMFY2dXliTnVtN1lhMGd5cnhGR3IwWGhkZVd6YjlxbEhWWUdDdnd0?=
- =?utf-8?B?dFZ5c0tsRXk5MENzU0pSZC9YM2NHRXRwNkZPSlh1ZklZK3JKZTdVNUhVTG0v?=
- =?utf-8?B?VUlKcEhxWFBkOWs4c0Q2TmxvalR2WDJyWUNnUjlBeUN2M1U2WWpRSzNSMUY0?=
- =?utf-8?B?NHVabDRzZ1FicmcrOXQraHhNbXhtMm1TVE5hOElMcFJQNmFLM2cvKzdCYVUy?=
- =?utf-8?B?QW5pcVZ0WC9FWG5uQXFaOWlmUlArRW05eEI5Y1NaNXU2ZHZrZ1ZPM1FvZ2Fl?=
- =?utf-8?B?c1NpVjlpTEU3alZraDVpSzJjVkFWNURISklSbHhqcE96ZVZ4aDN3STExZ3Rs?=
- =?utf-8?B?MERNaXhNdVI0REt3YjNoRWxVczhzcDhwNFRHNUdsQXhYUmJmNVZoRW1Xdm44?=
- =?utf-8?B?cGxvdFQ4L1N0ajQwWGdXVnlKK2lPcHB6eGVyOXhiYkY0Q2d2cTdDc1pka1Ns?=
- =?utf-8?B?VzFHeE5sc3M5WVA3UVBuRVpSdmlDZU5DK2huamlSbUFiUC9adzVrUFg2Wkxp?=
- =?utf-8?B?Z3JsNU9DaW1LL3ltcU4rWW5yY2JjWlNoa2R6OUE1YUpWMytaQ3g4WXNWbEJM?=
- =?utf-8?B?Mjg0S0ZJcGtZSjZVTHFWQm91MnFaYlh0ekExVHhJdVpYalhXU2FtRGVydmZq?=
- =?utf-8?B?Y0d6aUgrUHgzSUVOUE1jc3BYQWRDRW1aWlVFNDFKb3RRSHE5V1J4U0tsR1NB?=
- =?utf-8?B?YmhjRGoyTjY1V2dEdzVkbEVLUldWdzNVZDN5TitNa0VMTElxZ3B2RFp5cm1O?=
- =?utf-8?B?TTVBdEY2MzEyZkl6Q2pYSUNMZnhBZ3FLTi9jOEgrcGFCM1I0Zi9aVXRYQ2Qy?=
- =?utf-8?B?VXZzcXFXTkduQ1dyZ2RpSGMvelBpWnAvZHgybnhWL1FqR0hoOThtc0JPbWJO?=
- =?utf-8?B?d2JWSklMTlpDNnVSNmV4cnduQkkwaS9SODhXYkdTUGxUWVZFeDRpME5mZVF6?=
- =?utf-8?B?RWV3N3BoS1k3bERmNXhYZ3RaTzlNZWNFYk5KYy9kbXo1VDBNQ2ZmUytoaU5P?=
- =?utf-8?B?aEUybllOSXdxL1VrbTcyN0ZmQ2lsQUx4U0ZwSmFzOHE0OERlUWg3Q3ZmVFFX?=
- =?utf-8?B?dTBqVzlOc0VOdHNKcm1ML1QwZkZrdGtlSnhWVjRXYVJlcGJndEI0NlNwV3l6?=
- =?utf-8?B?aDE3aGFwWU1SbUVpQjg0MUt4ZHdFRkRSd1pYNXRnUHlwblEzR3N4blhGUXQw?=
- =?utf-8?B?WWlMUC9lQjhHdTV3VWt2N3lCMVdIeXhvZU0zc0xTdVpBcWlVOERNT1RjT2p5?=
- =?utf-8?B?K3NjMW9KQmIzd244VFhmT2dGN0RVbGoxRVg2c0RBS0lYSURIMkpCT1Z3N3FV?=
- =?utf-8?B?cFhYVDFtRzdITVFweW91aWl6TlkrUGxwT2w1enQyMDF5bTltc1VOTUpjVWhm?=
- =?utf-8?B?NnRxZmlBUE55ZFdNYkkxNytRWCtDb2JtbmhhUkEzQ2dpNnMwMUNkbVJVUkhL?=
- =?utf-8?B?MlhsM2FmY1RNaWxFMTR0aEJvKzRRbUJlTDNIZmd6NVc0TjhuL2x6cXVLd0xF?=
- =?utf-8?B?ZWVMbnFxNGVVODhzTzFDS0lmSFdwRTNTbllmRG5xdnllRk1ELzAzaXZsZUxh?=
- =?utf-8?B?bU5ZMGRGWUtJUVgyZGMvWFJmSDNJT0xJTHR5M0ZiOERBVDRCaVh4aXpnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5776.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUhBR2dJU2d0SmlTcUxTd005R2xvd2x2bXFac3d6V2k5VXpacDcvNnZ3dk9a?=
- =?utf-8?B?WWpBdWFSWUx2T3hhNFh5QW1MUXVpYkI5SmRCaWhQbTVqR1N6MWY0REduck1W?=
- =?utf-8?B?bUh5YzRnbnpiWTR3b09Eem1lMmdMdklkU1FZR0E1ZDlOc2RyZTFRdno3QTFB?=
- =?utf-8?B?TXFMK0RKOVprVWxNUWJXWWxIN1dEeXJGd01wRis5Y0JjcDh2VFdDQlRDRnp0?=
- =?utf-8?B?WjNyYWVOSHNzYncxNE5iV2xZYVBFK2MrM0hmLzRzTktTM3VERmFqS1FMaElP?=
- =?utf-8?B?aTFQTVdWOGdnNlBtMkxBRUQwdmVjclJnTC9tWnNkMEN6SUdPUXE2eUVXZFlB?=
- =?utf-8?B?d0hqaGw0M1RCRE5YdzdvVlZPS2JBRHhGY282RGtOSjZtT2RjQUpRUnVKVFdm?=
- =?utf-8?B?WnNPbU5FUXkxL2NNbFo4STNMbm5Lb3FBVlM4dHhQQU4zZElXdHNZNGhlT2xF?=
- =?utf-8?B?UEV3QjhsWDl0ZUJRZk1LeTJZR0ZHcmhuWForOWM4bEVHaU9MakV3alkvaURz?=
- =?utf-8?B?R1pmR0t1VzVSQkFreGNNY2RUajhsc00xZXRZdW9tc2ZhTFBFQlBnQ0dOM2gv?=
- =?utf-8?B?Tk9ZRDRBUDZWV2x2TjN6RnJGbDVYUEFMeE5KVytQV0UvQjhNYjVNR2tUWU81?=
- =?utf-8?B?UTcvdGl5U3NrQ0NnamlzeDJMTHpTZ2FzZXE0YThIKytiK0dXaXRCKy9EVGFn?=
- =?utf-8?B?QWN6WVBwb2ZMZ3FqN3AwTldnUXQxWU5sTlRTdzJBMHNWSngrbmVpYXp6a3c2?=
- =?utf-8?B?a1h6Wks0ejB4dXFRL3c2SC9ZdlJtNnZWdUJ1QlVndWh4OUpqaEltbEdISXFl?=
- =?utf-8?B?emh5cU9oRkFSaWt4ZXV3Vkc4MDdoNFIvaWQ2THZZUzVhQlJlU0N0MVNIREtP?=
- =?utf-8?B?RkRENGx5YllqYkRBbTU3eFZLOUVjRndBNmhQR0ZBZWVITFo5M1FpaHhLNVRl?=
- =?utf-8?B?NTM3eitrYTMxb3JrWjdSZ0kvQjRZNU9PZ3RlTm9td1FPVjdqTjcxRm84ZDFj?=
- =?utf-8?B?QWlWV0hLclNSN3hKWTRCMFVUaTRaVVdSMW5pVWRHOWVuQmdWVHJXNnJaY0V4?=
- =?utf-8?B?L2VKNC84ZHpEb1NONHhMWFNTU1kwNjhQYWR5aFMremVjSnBxLzFKQ2VxTS9B?=
- =?utf-8?B?QTBsK280WGMzMTNYSmJBSlN3UkxjUUxwMGlIY1p2RWpQeGNkb2QwNFZqTE1G?=
- =?utf-8?B?L0laTjNWNy9wdStJeTcrQ3E5dTZma3ExLzFhcksxeXVHelJnUVdxZllyYWFm?=
- =?utf-8?B?UWdtTDRPak1KVmdPMElZNFRRZXBsQjg3ZUh5aHlnaEVMeithRXF0czl4SUtG?=
- =?utf-8?B?YXU2bHM0Y0pLclZ3cTBYMzRtbkNhbXJTVmhNRURSbHFqOXpZTElpV0RxK3ln?=
- =?utf-8?B?NFRCM2d6MlZ1ODR5WW5IRk5sRFE1R0NXNTE5NlBUS0VFdXhOeWgrcjZoQ2Ri?=
- =?utf-8?B?UVE0ay85ZTcraktoRTBRTEhjV21sTG9LeGIrMWdKV1M0cXVmckVhTnRSdjVu?=
- =?utf-8?B?bGQzY2xrUmFnTUhHY1h1SkdudUlJMm91RU1HbDBVMzluVGY5bCtGZ3ZtUFBB?=
- =?utf-8?B?ZGpMQUVIdXc1eXltTmI5T2dHVnZ3WkUwVEU2bnpEZmgzcitFODVVNFNxWVcy?=
- =?utf-8?B?enZGcFBLQVVDUUZjL3plMm50UWZQUnlzZzc5WTlHa2R6RHg3ejI3WXEycWYw?=
- =?utf-8?B?WE92S3RLdTJrL2FpZzBwN0I4VlhwZldpaGNOdVNZb0FNYlZNMXJSYnV0M1h0?=
- =?utf-8?B?dC9jWjJ5cUpIMjhJTGM2QXUyeXVvZm5iWW5sVzRIWUZJclFsbWwxdXNkY0pw?=
- =?utf-8?B?enFXczFROXp3VU9Ic3FYQVprdHF5c3BHSmpIc2FjMlFjaUEyd0VleEdYLytE?=
- =?utf-8?B?L3M4NCt2Z1U2dkZxZUthOVdwVkM3c29mREN2K1FnK01IanVzV1FjQ3RhbTEz?=
- =?utf-8?B?VzRTM0h0M1d3NFg4MUtEM3J6NHdySUx6OTNZQ1JPZG1keG91YmNBa2dabnZZ?=
- =?utf-8?B?V1Nheit1NHFNcjgxbWxrTERrMmtUZkJkWFRJcTlFTlczU1lpRDBDZ3QzVWNl?=
- =?utf-8?B?MDdndXArOHlDMkVvZk9mTWk4dnhnN3J2WlZzdFJlSW90UkU5ekF1M00xbHJa?=
- =?utf-8?Q?aCLmnqT57OLB0zHhRp0fQZ3PT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da888d0f-7e69-4bf9-caf0-08dce13a0d0d
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5776.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 10:24:22.8098 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f04z0Dx9AobaXbkYADQhoySawYGZby19OhgnxSHDxsZizDxIUDMDxca3AAcwvcTPSnMnsD7njEFWK6Fo+P7q1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8721
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20240927150059.2232708-2-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,13 +85,614 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sure Christian.
+Am 27.09.24 um 17:00 schrieb Sunil Khatri:
+> Update the ptr handle to amdgpu_ip_block ptr in all
+> the functions of late_init function ptr.
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 
-Changes related to dummy functions i was planning to remove in a 
-separate patch as there are many empty functions.
-Also related to using the local variable ip_block also i am planning to 
-take in one separate commit as it impacts all the functions where these 
-changes are being done.
+Apart from a few minor comments on patch #1 the whole series is 
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-On 9/30/2024 3:49 PM, Christian König wrote:
-> Reviewed-by: Christian König <christian.koenig@amd.com>
+Regards,
+Christian.
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/aldebaran.c            |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c      |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c             |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c             |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c             | 10 +++++-----
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c           |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c             |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c             |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c             |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c             |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/nv.c                   |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c            |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c          |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c       |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c         |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/soc15.c                |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/soc21.c                |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/soc24.c                |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vi.c                   |  4 ++--
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++--
+>   drivers/gpu/drm/amd/include/amd_shared.h          |  2 +-
+>   drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c        |  4 ++--
+>   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c        |  4 ++--
+>   drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  4 ++--
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c         |  6 +++---
+>   34 files changed, 67 insertions(+), 67 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> index 98fb0ba4f9cb..574aeca993e8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> @@ -304,7 +304,7 @@ static int aldebaran_mode2_restore_ip(struct amdgpu_device *adev)
+>   
+>   		if (adev->ip_blocks[i].version->funcs->late_init) {
+>   			r = adev->ip_blocks[i].version->funcs->late_init(
+> -				(void *)adev);
+> +				&adev->ip_blocks[i]);
+>   			if (r) {
+>   				dev_err(adev->dev,
+>   					"late_init of IP block <%s> failed %d after reset\n",
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5aeea2aed323..e6e98b189072 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3196,7 +3196,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+>   		if (!adev->ip_blocks[i].status.hw)
+>   			continue;
+>   		if (adev->ip_blocks[i].version->funcs->late_init) {
+> -			r = adev->ip_blocks[i].version->funcs->late_init((void *)adev);
+> +			r = adev->ip_blocks[i].version->funcs->late_init(&adev->ip_blocks[i]);
+>   			if (r) {
+>   				DRM_ERROR("late_init of IP block <%s> failed %d\n",
+>   					  adev->ip_blocks[i].version->funcs->name, r);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> index d7e377341367..74b1ec10be2c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> @@ -784,9 +784,9 @@ static int umsch_mm_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int umsch_mm_late_init(void *handle)
+> +static int umsch_mm_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_in_reset(adev) || adev->in_s0ix || adev->in_suspend)
+>   		return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 3d0969a7ba69..8008dbd24967 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -7722,9 +7722,9 @@ static int gfx_v10_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return gfx_v10_0_init_microcode(adev);
+>   }
+>   
+> -static int gfx_v10_0_late_init(void *handle)
+> +static int gfx_v10_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 690cd7b173f7..a1718c52ed18 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -5020,9 +5020,9 @@ static int gfx_v11_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return gfx_v11_0_init_microcode(adev);
+>   }
+>   
+> -static int gfx_v11_0_late_init(void *handle)
+> +static int gfx_v11_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index 6423b20e9156..e3951a548726 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -3717,9 +3717,9 @@ static int gfx_v12_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return gfx_v12_0_init_microcode(adev);
+>   }
+>   
+> -static int gfx_v12_0_late_init(void *handle)
+> +static int gfx_v12_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 3babf5b5a9dd..73404f24667f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -4151,9 +4151,9 @@ static int gfx_v7_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gfx_v7_0_late_init(void *handle)
+> +static int gfx_v7_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index e80e071f193c..9778b89c7125 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -5271,9 +5271,9 @@ static int gfx_v8_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gfx_v8_0_late_init(void *handle)
+> +static int gfx_v8_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 8c98511144b2..5ae2b63c375c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -4792,9 +4792,9 @@ static int gfx_v9_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return gfx_v9_0_init_microcode(adev);
+>   }
+>   
+> -static int gfx_v9_0_ecc_late_init(void *handle)
+> +static int gfx_v9_0_ecc_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	/*
+> @@ -4826,9 +4826,9 @@ static int gfx_v9_0_ecc_late_init(void *handle)
+>   	return 0;
+>   }
+>   
+> -static int gfx_v9_0_late_init(void *handle)
+> +static int gfx_v9_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> @@ -4843,7 +4843,7 @@ static int gfx_v9_0_late_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	r = gfx_v9_0_ecc_late_init(handle);
+> +	r = gfx_v9_0_ecc_late_init(ip_block);
+>   	if (r)
+>   		return r;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> index 0dee2102d759..511bfa7a8bab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -2529,9 +2529,9 @@ static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
+>   	return gfx_v9_4_3_init_microcode(adev);
+>   }
+>   
+> -static int gfx_v9_4_3_late_init(void *handle)
+> +static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index f54f9bb89bca..ceb870d2ef13 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -651,9 +651,9 @@ static int gmc_v10_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v10_0_late_init(void *handle)
+> +static int gmc_v10_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 32dec30722ac..653b2e70b983 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -622,9 +622,9 @@ static int gmc_v11_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v11_0_late_init(void *handle)
+> +static int gmc_v11_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> index e0d3d865a59a..3e126ebe7a8d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -624,9 +624,9 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v12_0_late_init(void *handle)
+> +static int gmc_v12_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> index 3a524319f31e..321d3828cb11 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -772,9 +772,9 @@ static int gmc_v6_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v6_0_late_init(void *handle)
+> +static int gmc_v6_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_vm_fault_stop != AMDGPU_VM_FAULT_STOP_ALWAYS)
+>   		return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index 489b3c2ab660..993e2db4eb13 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -940,9 +940,9 @@ static int gmc_v7_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v7_0_late_init(void *handle)
+> +static int gmc_v7_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_vm_fault_stop != AMDGPU_VM_FAULT_STOP_ALWAYS)
+>   		return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index d564b1d8c828..784289ca27e0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -1046,9 +1046,9 @@ static int gmc_v8_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v8_0_late_init(void *handle)
+> +static int gmc_v8_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_vm_fault_stop != AMDGPU_VM_FAULT_STOP_ALWAYS)
+>   		return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index f274acdc49bc..73b6bf1b1432 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1601,9 +1601,9 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int gmc_v9_0_late_init(void *handle)
+> +static int gmc_v9_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	int r;
+>   
+>   	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index d476cf771bbe..62da96fd7e8a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -1669,9 +1669,9 @@ static int mes_v11_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int mes_v11_0_late_init(void *handle)
+> +static int mes_v11_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	/* it's only intended for use in mes_self_test case, not for s0ix and reset */
+>   	if (!amdgpu_in_reset(adev) && !adev->in_s0ix && !adev->in_suspend &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> index a490d0e2c2cb..ae6afe3cfc9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -1631,9 +1631,9 @@ static int mes_v12_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int mes_v12_0_late_init(void *handle)
+> +static int mes_v12_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	/* it's only intended for use in mes_self_test case, not for s0ix and reset */
+>   	if (!amdgpu_in_reset(adev) && !adev->in_s0ix && !adev->in_suspend)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index 63a3c725ceb9..f102063dc83c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -944,9 +944,9 @@ static int nv_common_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int nv_common_late_init(void *handle)
+> +static int nv_common_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_sriov_vf(adev)) {
+>   		xgpu_nv_mailbox_get_irq(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index cb5f84104717..acf00311547d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -1780,9 +1780,9 @@ static int sdma_v4_0_process_ras_data_cb(struct amdgpu_device *adev,
+>   		void *err_data,
+>   		struct amdgpu_iv_entry *entry);
+>   
+> -static int sdma_v4_0_late_init(void *handle)
+> +static int sdma_v4_0_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	sdma_v4_0_setup_ulv(adev);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> index c7c4456586cc..45a1fa0c2c94 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -1318,9 +1318,9 @@ static int sdma_v4_4_2_process_ras_data_cb(struct amdgpu_device *adev,
+>   		struct amdgpu_iv_entry *entry);
+>   #endif
+>   
+> -static int sdma_v4_4_2_late_init(void *handle)
+> +static int sdma_v4_4_2_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   #if 0
+>   	struct ras_ih_if ih_info = {
+>   		.cb = sdma_v4_4_2_process_ras_data_cb,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+> index 481217c32d85..bda786d6caca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+> @@ -213,7 +213,7 @@ static int sienna_cichlid_mode2_restore_ip(struct amdgpu_device *adev)
+>   
+>   		if (adev->ip_blocks[i].version->funcs->late_init) {
+>   			r = adev->ip_blocks[i].version->funcs->late_init(
+> -				(void *)adev);
+> +				&adev->ip_blocks[i]);
+>   			if (r) {
+>   				dev_err(adev->dev,
+>   					"late_init of IP block <%s> failed %d after reset\n",
+> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+> index 0af648931df5..e0c051818b5b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+> @@ -208,7 +208,7 @@ static int smu_v13_0_10_mode2_restore_ip(struct amdgpu_device *adev)
+>   
+>   		if (adev->ip_blocks[i].version->funcs->late_init) {
+>   			r = adev->ip_blocks[i].version->funcs->late_init(
+> -				(void *)adev);
+> +				&adev->ip_blocks[i]);
+>   			if (r) {
+>   				dev_err(adev->dev,
+>   					"late_init of IP block <%s> failed %d after reset\n",
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index e1161027ec3b..1a24634a100c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -1202,9 +1202,9 @@ static int soc15_common_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int soc15_common_late_init(void *handle)
+> +static int soc15_common_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_sriov_vf(adev))
+>   		xgpu_ai_mailbox_get_irq(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index c9e88cd4349a..bc420ff85174 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -794,9 +794,9 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int soc21_common_late_init(void *handle)
+> +static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_sriov_vf(adev)) {
+>   		xgpu_nv_mailbox_get_irq(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> index 3dcb3d953509..12ed243a2df8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> @@ -440,9 +440,9 @@ static int soc24_common_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int soc24_common_late_init(void *handle)
+> +static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_sriov_vf(adev))
+>   		xgpu_nv_mailbox_get_irq(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index c9ee4491ba64..ababcb7bc834 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1679,9 +1679,9 @@ static int vi_common_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int vi_common_late_init(void *handle)
+> +static int vi_common_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (amdgpu_sriov_vf(adev))
+>   		xgpu_vi_mailbox_get_irq(adev);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 6972a8e2e0f2..f3b11f600670 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2591,9 +2591,9 @@ static int detect_mst_link_for_all_connectors(struct drm_device *dev)
+>   	return ret;
+>   }
+>   
+> -static int dm_late_init(void *handle)
+> +static int dm_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	struct dmcu_iram_parameters params;
+>   	unsigned int linear_lut[16];
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index 67d75ac339bf..8d486b018441 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -380,7 +380,7 @@ struct amdgpu_ip_block;
+>   struct amd_ip_funcs {
+>   	char *name;
+>   	int (*early_init)(struct amdgpu_ip_block *ip_block);
+> -	int (*late_init)(void *handle);
+> +	int (*late_init)(struct amdgpu_ip_block *ip_block);
+>   	int (*sw_init)(void *handle);
+>   	int (*sw_fini)(void *handle);
+>   	int (*early_fini)(void *handle);
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> index ff71af96eb1a..adb44b5a9e42 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+> @@ -2965,10 +2965,10 @@ static int kv_dpm_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> -static int kv_dpm_late_init(void *handle)
+> +static int kv_dpm_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+>   	/* powerdown unused blocks for now */
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (!adev->pm.dpm_enabled)
+>   		return 0;
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> index 5aa4eca21708..51cdaf040020 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> @@ -7621,10 +7621,10 @@ static int si_dpm_process_interrupt(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> -static int si_dpm_late_init(void *handle)
+> +static int si_dpm_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+>   	int ret;
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   
+>   	if (!adev->pm.dpm_enabled)
+>   		return 0;
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> index 2af325b9fc19..903c19b4af20 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> @@ -216,9 +216,9 @@ static void pp_reserve_vram_for_smu(struct amdgpu_device *adev)
+>   	}
+>   }
+>   
+> -static int pp_late_init(void *handle)
+> +static int pp_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
+>   
+>   	if (hwmgr && hwmgr->pm_en)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index ba09dde79499..a1cd8c90a1ec 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -826,9 +826,9 @@ static int smu_apply_default_config_table_settings(struct smu_context *smu)
+>   	return smu_set_config_table(smu, &adev->pm.config_table);
+>   }
+>   
+> -static int smu_late_init(void *handle)
+> +static int smu_late_init(struct amdgpu_ip_block *ip_block)
+>   {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	struct smu_context *smu = adev->powerplay.pp_handle;
+>   	int ret = 0;
+>   
+> @@ -2063,7 +2063,7 @@ static int smu_reset(struct smu_context *smu)
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = smu_late_init(adev);
+> +	ret = smu_late_init(&adev->ip_blocks[AMD_IP_BLOCK_TYPE_SMC]);
+>   	if (ret)
+>   		return ret;
+>   
+
