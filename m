@@ -4,119 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C8F7CF6495
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Sep 2024 10:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2CCCF6491
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 04:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3DFD10E1C6;
-	Sun, 29 Sep 2024 10:49:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51C5610E02C;
+	Mon, 30 Sep 2024 04:24:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KBmIRBhb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XZRth+ba";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6D610E144
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Sep 2024 10:49:23 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2F510E02C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 04:24:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xwcg5Ee6V/u6XzbUNFWeV3kO6auVmoQ/02X3HeXf3lI1QIlAWFQOFGPMJST0BvnQ6BMaRNsg23tc3cMhn4QMZnKQBMYEbPfewGNeqwZEpZTTRrJ0enzmuXG02OxSW2Nb8lHIDEu18UcXjtcG2860A4JwibMC8d1DlSx5KnVNt0SfJ6nckLKpEFZhU1ABlp9EOwNMDa9ff733+rBqjoa0Vv5aqxlmYe3xr85ch0HIbxwS8HTNOFogcNU7yuRIr9PildBLoeoxW2de2aKv45hm5jZ8vV2l1WfY+W6SDwAfDDsP/IBZU/Ef4rZOIS0G96cslAB3kz3RaTMMjrf9jhDLtQ==
+ b=zSRM3zYSBvC+6YubFQwOhjMR5Q/kT5YZktsoT4XHxkoMzYcjkEd1PHSHL5LTNvTHuK4NUyfTUFFMq2uz8KQVDmt8Fr2SStCDSjnShDU9wVGE7JAO2kVBP35hDFlg23IjPdWkdw6QSUR0rlDq83ktDLqqp9GCbKGUOuA4f1Cd150DTlG3YHv906g5/KPyRgchK6bL9TER9+mhErWT6o+qWwocJb9Szm3234Jg6sH4Krgrr8AcSDOxLjaWbLvmwURZOCmJXjAijR/sZInp2cDl3LwM1QEq16y9fUFIToCK9xRK8slvBE2ByUfxAmQ5kixP8YtC3Ef8Zywz954Z9P10bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eFQAe14+388YhhEZ5WqkpGGeOmEsJNrdi6lCg07XT1o=;
- b=Nl6aa/dG+97LMt2y8Tl+qReoJOAr/liJlWTFLOConr06Rm+vmZpPQjiFl7i/VSGA7rEU6cQzfMxvbr4C+qPJXF7WBjHYc0MLfVCNOzaYlcEaQrBFAra9WwEe59LJcXRphwzn9fz/MOHP2ZtaHZVwY0SOfvrQ9jbmuTH/zRYJfF3NxOvBfJsgiNSgF16cYzIjk7RhBfqTE1paBybehvbZfLuIeNKErYK3kPIzOSTZhngYuO8In26z/3Z3LPJBzQqO/jqvfnoFKz34LXznPJF22eTyUn5ipsyLXlsSOBlX6TS4CJhkomTfQB/QZqT4UYjcHIuw4jmFfpLkCGrWoepYGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=ljc3qSCPKl0yxiLcjzJSIxSMhftwn6Cq91j8pz6s5Do=;
+ b=CDXqxUgWsY4TQTIEyR1cqO33kD+kavLsaaLCdaJsvM1ZRu1dNrrsMYCvhQZz4rIPULIBa33sYuPo05zLlG4x8jjgEz04a/ekPLcKLmbhGOsF8gJ/3w6MpS9n1dAZApbpyIbyqCRkZ2O4AZq0qdsTpM2RgeYljzFvdkg1Y9sziY9IMdscCzGNr4G98LaoEAVBCa+nkobr4Kj484GZxK9z6kqoGBzIV0wL+bV5rfu5d4fDjewjddryWNd93cMrTsvv1MQ8Z8Osf+TALrCGq2zDNLnL4VXsW/JiL7MswlVdJ+WPx/rbbo15v7FCbVCKaP/J9qR+4Gxtbf/04VqaMi3Fkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eFQAe14+388YhhEZ5WqkpGGeOmEsJNrdi6lCg07XT1o=;
- b=KBmIRBhbl09O5mjrmHZoRP5qacC6DXPxLrD4IloYujLPocy1YYfmSeisJowDCVvBvHDCYkJOuKaemdPue2sBywJJZsRfgvR9n0pDakr6ZlVIzMmxfAH69yBbpUT+7Sxx3S0L83uCZXKj2E+66ESCa+WUZEIKNDY6p0VWNfjgRRk=
-Received: from SA1P222CA0170.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c3::26)
- by PH7PR12MB6561.namprd12.prod.outlook.com (2603:10b6:510:213::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Sun, 29 Sep
- 2024 10:49:16 +0000
-Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
- (2603:10b6:806:3c3:cafe::4f) by SA1P222CA0170.outlook.office365.com
- (2603:10b6:806:3c3::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26 via Frontend
- Transport; Sun, 29 Sep 2024 10:49:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8026.11 via Frontend Transport; Sun, 29 Sep 2024 10:49:16 +0000
-Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Sun, 29 Sep 2024 05:49:14 -0500
-From: <jiadong.zhu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Jiadong Zhu <Jiadong.Zhu@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu/sdma4.4.2: implement ring reset callback for
- sdma4.4.2
-Date: Sun, 29 Sep 2024 18:48:56 +0800
-Message-ID: <20240929104856.46010-3-jiadong.zhu@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240929104856.46010-1-jiadong.zhu@amd.com>
+ bh=ljc3qSCPKl0yxiLcjzJSIxSMhftwn6Cq91j8pz6s5Do=;
+ b=XZRth+bag6nf6mQd06s4BkieIYYFhRSTFgGCd1bKhqHt95LutOl1j2EZ3HhDdEtxx+bWMmzlhET6RtYswzLMNbMh/N8UT21hv7jUgzMFNT17r/G3G7kFSnMhHA66RTeKbJTxnRBRwP4CLYBGpoP68/Ez8EzHata278Bk1CinzSU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ DS0PR12MB8576.namprd12.prod.outlook.com (2603:10b6:8:165::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8005.26; Mon, 30 Sep 2024 04:24:20 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
+ 04:24:19 +0000
+Message-ID: <3d0fa6e4-a211-4956-b119-1275e48ab131@amd.com>
+Date: Mon, 30 Sep 2024 09:54:12 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drm/amd/pm: implement dpm sdma reset function
+To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
 References: <20240929104856.46010-1-jiadong.zhu@amd.com>
+ <20240929104856.46010-2-jiadong.zhu@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20240929104856.46010-2-jiadong.zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0060.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::17) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|PH7PR12MB6561:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69c4e270-5eba-4a75-1885-08dce0745d14
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DS0PR12MB8576:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0544fc1a-37f2-4edd-161b-08dce107c09e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?QKxFsYIjhamO6fXt1buoG8HyHbDiYTUozsCES0ZVcYMtiLqNqlEZ8XdFyJzY?=
- =?us-ascii?Q?XcruLZ4bxwtdcMdQXLS+tMbtLQZTs+8v0hidNhECmZ3Yw98BJlGxl9H2foCd?=
- =?us-ascii?Q?hohoeG+czaqMPB7Ye6E+yrECwCLx6aMDicb6mTOePLlsptS1C3k095sZucxx?=
- =?us-ascii?Q?63g97vhpNB93vtFCZDXNb4SseGp1Gx6TphWQp/z9F7gnNQdSHQdO/rbyD1oN?=
- =?us-ascii?Q?QqR9n2DlYvAlBBDfVEMjXQCal4kJFzXZWkyk2n5/QseIRTf5mh+CFpl8xslS?=
- =?us-ascii?Q?W2wtv9atvKVxHHLxLT76Z60su43IrPg4SIz/RHkTL9T/SLDRVU87BpHfLs16?=
- =?us-ascii?Q?I/3GsSzF1XZizaBvDkXucmyZn0NlEWVyVBftUsoGvQvUL5akvid65d4lc+Gk?=
- =?us-ascii?Q?zyUFKBP8mYTwaeR4yr4qV0AjcRdZ+W5mwTZXrmkA+f++LGXgGtvhLBIqiwSi?=
- =?us-ascii?Q?2Y1VG1HSMjgBl7dqQXNm1vvcYbBDrTs1/xDoVZjZ2wansB6nAWn+d3DIrO0y?=
- =?us-ascii?Q?hJNbXWZvRKCEZyrdcKUr/9ATZdBA2PkX+ybb8nwJWOfujhPrC/y/y7fxA9xc?=
- =?us-ascii?Q?aR0NP43jZ+o/64y1IiwVgZouYE1CkFmvqatymPRYMx3gqHdVFfWW6wCchWcl?=
- =?us-ascii?Q?BNQsif6p0VM+Pg9+vExdJ4gi9rnm4OncXFfChByN19GJopQLK8vXkYMOId9W?=
- =?us-ascii?Q?Kv3AEW51msBNnBhgTutb7tEL5KBnf5tJ4+AI9WiWJDvGiI8gNzt/DtkekQad?=
- =?us-ascii?Q?E2yzq+XMCyqmLHj5nicAkwCpmFZo1B7a+PwqkLUlawXqd19oRNsHsTpNws5t?=
- =?us-ascii?Q?WtGrR5MyYk6atRMs9gNbQ6CsAZPjib1LAqWFK9FtQiRe6cCgBm8Kfd8E/wNv?=
- =?us-ascii?Q?2b9vUyRXbyiiSE/LHISpUHcLsJ4QsYZr8GZj1qlyUqihZOnGX4FTMHdNWP5o?=
- =?us-ascii?Q?BDyV89hoNv6nzBEalpgJjdPu8CfXNL8vEEsBcYbZ/1xBC8ywrgoPWBt3KTmF?=
- =?us-ascii?Q?7dvwkrUX+QWzB3xu65Bokqy+3VdPASc1DtaY4AtQL+1OONxryLRg4R2tvMTb?=
- =?us-ascii?Q?tqdctT6cqRZ8kTpuGCCfxNDDjZXhLO4X0EA+SGAFb7cADO1P93wZHakgSCgr?=
- =?us-ascii?Q?+tcDN1SEigctNm6e0ZWeDGLRJ92ZKqj3i6mrRrph5VAdbPn3lHhlhCrTNR/L?=
- =?us-ascii?Q?8BKL3pGb+ing3tZhORHz/6xYyNUAnEwY3ElYOckrDlIjhyzrfiAJX/cBGpBb?=
- =?us-ascii?Q?Xg897XxhhLGUGsjola3/OZaCCSHsb6nmo4mh5OJKKXE53PMSNYHDOuMnhu5X?=
- =?us-ascii?Q?l7brDPewcPhYIwJr83JgqaKi0sBm5Xyj3u+ULFzRHtRsBZIKRsXt4gPffRSN?=
- =?us-ascii?Q?TPfqeK/moIoL2A/lCrtlY4mZaClf?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SmVlSGtkNGdZUXJwSWtabXdsc3ByMzJia21JSjU3eE5kVldTYmdFN1BWZ0du?=
+ =?utf-8?B?dzZMR21tWW9qWDNDWXV5OThlTVNDZnhhcXArbTNDTkFjNXp2KzNzbVkxYzRn?=
+ =?utf-8?B?b0Q5VFF2V3B1b1N3c1I0MXpaVVhKTVhVbGplNkJnZ2tUemlLREl1dEc2OWVD?=
+ =?utf-8?B?T3d6RW95NzUxbXBWNGliRnQwdjZwNUdnc1JGNTNONURBNUx0WnVHK2pWdGFP?=
+ =?utf-8?B?OW8xY014bmRkOWFDWlNFck90aGpVa3dzN0ZJbVMzRTJZMytFL09qZkxaUzRo?=
+ =?utf-8?B?RXBlNlBsSE1PNGV4M3JTc1BQMkdsS09OZ2hhaEdVVU12UE9XVFppVVZFMyth?=
+ =?utf-8?B?NHNrKzlwOGdWeTQ5ZFE5WDdXdWs4bXdQaFlraTNaTlRUL0FpTlc3RXhST3Rl?=
+ =?utf-8?B?ZThnVDZON3JhSTBOcUZpVkpadnZkb05IUmhHdXoxQlV4WElUQTZ4S1JYalBH?=
+ =?utf-8?B?Y3VFT0xSK1hSZjVqaU03UExoUzNha3NlSzI2T2VORU0ybi81REdoMDgvODhY?=
+ =?utf-8?B?eXZWZDlWWkU0bjBHalZKeTBrWnhwcUc1S0ZjdXR0cTJKRnBXejRuQ2NGc2V6?=
+ =?utf-8?B?SnVDUEQzWTV6THgrZkJEVm9ub3NJMXV1V3hueG9rOGdQeHVjZ2xhSWl1OHd1?=
+ =?utf-8?B?b2E4Wm5oNTdNWUNLUGN0dlIzQjRyamRkdDVHMUhGcU13K3VXMUs4cjZWK1ND?=
+ =?utf-8?B?V21sRDFEelp2UmFFMDJjd3ZQT1drUTZjVlFQV09DSkFyeHpUVEQveDNCUFpo?=
+ =?utf-8?B?QzdHOEhMK0hRbTZjL2dQZDhaNVk2dk53QnZQaGE2MDR3ZWV5cUVwd0pTT0RW?=
+ =?utf-8?B?aml0SWxNdlpqanZLc1lTb3BEWGZTalVFUkYzQW9oSU1SdkJIY0M5ZHdrdU5F?=
+ =?utf-8?B?WVFwRy9uWTVuZ0pldWxoc0tGdUs4MEhLQTJaNlA4YXdjaVlCSDNoRXdaam5V?=
+ =?utf-8?B?RHY0ZVZ6L2h6cVdGeTJYTDFMYmhNWTJSenp4Rk05Mk5QZTlpVkxGcER6bjB2?=
+ =?utf-8?B?WVZEczI1NWV6TGpJTWFSenNQTjJ5aWJTZkVlamJnYXcvV1RINW9DNUxNbjFI?=
+ =?utf-8?B?WjUyem9MN3Y3UnhaQnJSelM1VkhMR3BEdVZLcWRGeFhVU1F3cDNwbE1MdE1a?=
+ =?utf-8?B?RWRLQlAxSDRNTW1BdCtBVEFoOHlZdFFHUUdCaVp1NHlIM2t2N0JtV1JGOTFp?=
+ =?utf-8?B?YzJqY2dWeUVGcW9aa3NUQnllaUFpZ1B3MkN4RkJrNDZBSEdOaC9reU1DMzdx?=
+ =?utf-8?B?NGZhSlNOYVFvWDR1Uno3L1UvSldRQUhQa0R5SzVCVEM4cnRmWHhFM1luWUla?=
+ =?utf-8?B?MksyUFo3TUJWZkQ1UGNqSCsrVWM2dUZQNUMxMlZ5OWQyZHF4WjNNSk1qNzh5?=
+ =?utf-8?B?eEtnUmpYS3JQYkloN2N2ZHAyU0QyUWpoUlhqS3NmdHZuWTEwclRxbGxFSkcx?=
+ =?utf-8?B?Tjc4OVpCY2t6R2ZlODdjZnBFOFdHOE5YRktmMWR5dk4wRWl2dU1nQ011cTU5?=
+ =?utf-8?B?Q0pGYVJ6ZVd6Ym1aU08yWDkwVUhRN3BCSEwwYy9rUGtnQmFGc2FhWEdRWS82?=
+ =?utf-8?B?UUg1Q0xYdWZRdnluUWl2VHpZU1VSNythVGs2ZXZYNmdxczhNRldlUHU0NzlQ?=
+ =?utf-8?B?WlFDUGd1ZWU2ejFLUkpKVEsrWW1GTzB0OUpweTBqL0NmTmdjRnVDc3V0Z1J5?=
+ =?utf-8?B?a1huUnVHQ2NEdllWd1h2Zmg4NHRVdzBMLzFGM2JVK09wK3pmQ3p1eFBZczBP?=
+ =?utf-8?B?T3ROYjEvV25FMzRVV1gyOTNnR1BWaEdiaFF5YXlPYktVOCt5aGMzdXN4VkNW?=
+ =?utf-8?B?d2FROXVPblhuUVJkdlRiQT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjR5TFlYZUxtMENVZmU3cXdJSyttVXJvZjROSVF2R3pxdklyamFiTVVlWmxI?=
+ =?utf-8?B?Qlp3MjhKS2RYd29iZmh3cVJ1Z2ROSGxTWTkxN3BGS2tBSDExRERtZENwQ2sr?=
+ =?utf-8?B?Q0cxQnJpM0t0SDRMN1p2WWxjOEFDUXJPS0JtTnorN3pMdUpLaG1YN2xhTEVL?=
+ =?utf-8?B?cGF0d3BMZmdCZ1ZtRTlhVXZJcDRNbDNLdG9yaC9ia3YxcWhTYkpCKzVWbnJt?=
+ =?utf-8?B?ZUFSSUZTVGp0YUlUODZTQVdlZzMyV2dSU29CQ1VZRGNqTkQ1QlRxZnNqdlFr?=
+ =?utf-8?B?V3ppeWdUZHBvQVA2M2lBcXhGdEFPRG5xdmtrSSthVmNOVEdBZGZxTmdadTB0?=
+ =?utf-8?B?NzFsRWlkcExzOGpxZjhmMDAvVDJMVnRvOFVxbmpnQWgxUU1vbStrNVFEeTlr?=
+ =?utf-8?B?WG9JWEloZFlXOWJTck5XWllnaXlGQ0dkaWJ2Mm1JcklxamhEdlpzUnlaUFJv?=
+ =?utf-8?B?ckJPc2hKOGgyTmV1bUNIQ1NmYlpJdkdNeVpxbTlwYmxRcG8zNU83NXZpNG9o?=
+ =?utf-8?B?enZqM28rSWxkTE1jaEdaVVdjVWRWNzNkRUxQN1NPV2ZXWlJON3NQcmRZT3BZ?=
+ =?utf-8?B?RmtrM3AzSzRBUXpCclpHUUlhZEROYVNuSy9oeEM5ZHBDZFZzbmhES212QzZS?=
+ =?utf-8?B?S0g4YVRHcGkycGtMb2JxY2FVaXRYemZtbVhJUkVnTSt0TFR1TFo3STdHejl5?=
+ =?utf-8?B?TzVJcGoxVitsb0lrR0V3ZkEvTitaU0VoMTJaQmg0alBRQjVWZXFxQVU1R2V5?=
+ =?utf-8?B?Rk01dnMxNGp3aTVtRHJPZzJrQThuMmJVZUUyTmpnZWZoVFQ4WHZ2bUd3dGVI?=
+ =?utf-8?B?bFp2dS82QkdQT2s1Tk90aTI4TmNzNXlFSVRvenVDcWF1MmEzdFBlRjBYZXY0?=
+ =?utf-8?B?SFZEb1g5VzBZalUyL1JXcHU4RFQ5MHYyZ3RDYW92WVZsRDF3UlhiaURPRmxu?=
+ =?utf-8?B?d01WWEU0SFlrNjFqQmF5SktmSzVNOUwxbDhwK1QxRFV1bnN2TjFsdkpQd20v?=
+ =?utf-8?B?aHVpQXhYQjhnaTVUY1dQYzFuSVVPeGlIaWJkbThMdVNwZ0ZBbG1ld1dyazlj?=
+ =?utf-8?B?L2F6OFowTnlEVThWcVgwMjgvSkliTGJLWUJJbHJEcUdqZ1phNUpFL1J0THJE?=
+ =?utf-8?B?d01VUGZ0bzdkRWJBMzczdDYvdlpkbjZVVTFsTms3Q0NjNEFVLzZ2Y0dUU0FW?=
+ =?utf-8?B?dUtwZmhtcVA3RmYydmt4bkFJbDRrWGpFcVRQKytuY0xCM1g5bWx3NUNlUEJF?=
+ =?utf-8?B?aVphT1lMS3ZuSk4yaFpLWWVsQXQ5UEZtR2pReEJZdU1DSUs2ZjloUTdkSXVB?=
+ =?utf-8?B?WkkzUVBHMVlhM0dNUS9mckZaTExnNVZOOGl2V003MWhtVGxETk9Ba3krd3Z1?=
+ =?utf-8?B?akh5cUdVU2lvbXFDN2ZhaU5MYThrejZDcWU3T1VTZnVsN2xvbWNPSUtqTlIw?=
+ =?utf-8?B?RTAzUzJ0TURFVzNWZlBkQXRiNzk3MUl0T2p4RXZrVlVnUnBraEkvMDNWN1l4?=
+ =?utf-8?B?b1NMeTRkQUF5dkJuYk9BWDUrQjVBL0I1V0ZCTGR4VmNpRW1HTkJhSU9QTVZT?=
+ =?utf-8?B?NEllL2E5WitWR2J3ZUtiNEkrNmZydXN3UVlmTlFaVXpKNjk1M001VG1jQ0ZD?=
+ =?utf-8?B?U2RJQVByRkg3WDF5dTRuK0JUazVRVjNPdlRzdzVzOERZNnNZdW9JOUtETmZi?=
+ =?utf-8?B?c1kxU285MmdzR3ZaVlhmNGQ2MUtkbzNycm1GQ1JrcGZTenRUckZWV2E2b0lS?=
+ =?utf-8?B?YWsyYlh4TURRaTRDNG9KQkdlSENIOEtBd2pPbFd6bXRkOWMzWHU2WkpjbUpx?=
+ =?utf-8?B?eWZlNGZTbHAwNTVPY041emg0bEowNDFxczJEbDJFczhXTE5UcVFxQ3VoSWFN?=
+ =?utf-8?B?Znl2KzhyQ3pWd2NLZFBxUlFlZ2R4S1UrMHdwakJHSWxhbGpFNDJrK216NkRa?=
+ =?utf-8?B?eFZFQTN2VndYdHBpd0JMcG5mcUpMUHJLM2VBRzF2ZFVHQTU2UkhoM0kzRDNo?=
+ =?utf-8?B?SUVOSUJ3Tlh0Vk96ekcxTjc5UGZXYkhUYVZ6MHlpMlY3Y3kwTkp5M2I1QTJT?=
+ =?utf-8?B?elQ4VXJTZGtwUDg2QUJTZkxlRDJIeE8rek1ZZ1puUGdWcnVNeGpUQlQzTDZk?=
+ =?utf-8?Q?ZFb3tulb65th3NJVpl97g9+vr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2024 10:49:16.1256 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69c4e270-5eba-4a75-1885-08dce0745d14
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0544fc1a-37f2-4edd-161b-08dce107c09e
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 04:24:19.5463 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6561
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aL1jgydYotwy3CLB6YS0wzu7h6RCJXDaPEdNiWb2Ys6Uj6UwE7CF9YsCWoZXp8JE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8576
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,222 +159,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jiadong Zhu <Jiadong.Zhu@amd.com>
 
-Implement sdma queue reset callback via SMU interface.
 
-Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 137 ++++++++++++++++++++---
- 1 file changed, 123 insertions(+), 14 deletions(-)
+On 9/29/2024 4:18 PM, jiadong.zhu@amd.com wrote:
+> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+> 
+> Implement sdma soft reset by sending MSG_ResetSDMA on smu 13.0.6.
+> 
+> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c              | 15 +++++++++++++++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h          |  1 +
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        | 10 ++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h    |  6 ++++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h     |  3 ++-
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 16 ++++++++++++++++
+>  6 files changed, 50 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> index 9dc82f4d7c93..9e7a652d119b 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -700,6 +700,21 @@ int amdgpu_dpm_send_rma_reason(struct amdgpu_device *adev)
+>  	return ret;
+>  }
+>  
+> +int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask)
+> +{
+> +	struct smu_context *smu = adev->powerplay.pp_handle;
+> +	int ret;
+> +
+> +	if (!is_support_sw_smu(adev))
+> +		return -EOPNOTSUPP;
+> +
+> +	mutex_lock(&adev->pm.mutex);
+> +	ret = smu_reset_sdma(smu, inst_mask);
+> +	mutex_unlock(&adev->pm.mutex);
+> +
+> +	return ret;
+> +}
+> +
+>  int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
+>  				  enum pp_clock_type type,
+>  				  uint32_t *min,
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> index f5bf41f21c41..41fb6ef984bf 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -597,5 +597,6 @@ int amdgpu_dpm_set_pm_policy(struct amdgpu_device *adev, int policy_type,
+>  			     int policy_level);
+>  ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev,
+>  				      enum pp_pm_policy p_type, char *buf);
+> +int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask);
+>  
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 4a6b4ad97f06..590d004046ef 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -3820,3 +3820,13 @@ int smu_send_rma_reason(struct smu_context *smu)
+>  
+>  	return ret;
+>  }
+> +
+> +int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
+> +{
+> +	int ret = 0;
+> +
+> +	if (smu->ppt_funcs && smu->ppt_funcs->reset_sdma)
+> +		ret = smu->ppt_funcs->reset_sdma(smu, inst_mask);
+> +
+> +	return ret;
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index b44a185d07e8..5487d9d84a4d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -1371,6 +1371,11 @@ struct pptable_funcs {
+>  	 */
+>  	int (*send_rma_reason)(struct smu_context *smu);
+>  
+> +	/**
+> +	 * @reset_sdma: message SMU to soft reset sdma instance.
+> +	 */
+> +	int (*reset_sdma)(struct smu_context *smu, uint32_t inst_mask);
+> +
+>  	/**
+>  	 * @get_ecc_table:  message SMU to get ECC INFO table.
+>  	 */
+> @@ -1630,6 +1635,7 @@ void amdgpu_smu_stb_debug_fs_init(struct amdgpu_device *adev);
+>  int smu_send_hbm_bad_pages_num(struct smu_context *smu, uint32_t size);
+>  int smu_send_hbm_bad_channel_flag(struct smu_context *smu, uint32_t size);
+>  int smu_send_rma_reason(struct smu_context *smu);
+> +int smu_reset_sdma(struct smu_context *smu, uint32_t inst_mask);
+>  int smu_set_pm_policy(struct smu_context *smu, enum pp_pm_policy p_type,
+>  		      int level);
+>  ssize_t smu_get_pm_policy_info(struct smu_context *smu,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> index e71a721c12b9..855eb57c734d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> @@ -275,7 +275,8 @@
+>  	__SMU_DUMMY_MAP(RmaDueToBadPageThreshold), \
+>  	__SMU_DUMMY_MAP(SelectPstatePolicy), \
+>  	__SMU_DUMMY_MAP(MALLPowerController), \
+> -	__SMU_DUMMY_MAP(MALLPowerState),
+> +	__SMU_DUMMY_MAP(MALLPowerState), \
+> +	__SMU_DUMMY_MAP(ResetSDMA),
+>  
+>  #undef __SMU_DUMMY_MAP
+>  #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 52f3c537bb3f..6ca9bc6660cb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -182,6 +182,7 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COU
+>  	MSG_MAP(SelectPLPDMode,                      PPSMC_MSG_SelectPLPDMode,                  0),
+>  	MSG_MAP(RmaDueToBadPageThreshold,            PPSMC_MSG_RmaDueToBadPageThreshold,        0),
+>  	MSG_MAP(SelectPstatePolicy,                  PPSMC_MSG_SelectPstatePolicy,              0),
+> +	MSG_MAP(ResetSDMA,                           PPSMC_MSG_ResetSDMA,                       0),
+>  };
+>  
+>  // clang-format on
+> @@ -2697,6 +2698,20 @@ static int smu_v13_0_6_send_rma_reason(struct smu_context *smu)
+>  	return ret;
+>  }
+>  
+> +static int smu_v13_0_6_reset_sdma(struct smu_context *smu, uint32_t inst_mask)
+> +{
+> +	int ret = 0;
+> +
+> +	ret = smu_cmn_send_smc_msg_with_param(smu,
+> +					      SMU_MSG_ResetSDMA, inst_mask, NULL);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index c77889040760..9485f1a1986c 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -667,11 +667,12 @@ static uint32_t sdma_v4_4_2_rb_cntl(struct amdgpu_ring *ring, uint32_t rb_cntl)
-  *
-  * @adev: amdgpu_device pointer
-  * @i: instance to resume
-+ * @restore: used to restore wptr when restart
-  *
-  * Set up the gfx DMA ring buffers and enable them.
-  * Returns 0 for success, error for failure.
-  */
--static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i)
-+static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, bool restore)
- {
- 	struct amdgpu_ring *ring = &adev->sdma.instance[i].ring;
- 	u32 rb_cntl, ib_cntl, wptr_poll_cntl;
-@@ -698,16 +699,24 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i)
- 	WREG32_SDMA(i, regSDMA_GFX_RB_BASE, ring->gpu_addr >> 8);
- 	WREG32_SDMA(i, regSDMA_GFX_RB_BASE_HI, ring->gpu_addr >> 40);
- 
--	ring->wptr = 0;
-+	if (!restore)
-+		ring->wptr = 0;
- 
- 	/* before programing wptr to a less value, need set minor_ptr_update first */
- 	WREG32_SDMA(i, regSDMA_GFX_MINOR_PTR_UPDATE, 1);
- 
- 	/* Initialize the ring buffer's read and write pointers */
--	WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
--	WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
--	WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, 0);
--	WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, 0);
-+	if (restore) {
-+		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(ring->wptr << 2));
-+		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(ring->wptr << 2));
-+		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(ring->wptr << 2));
-+		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(ring->wptr << 2));
-+	} else {
-+		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
-+		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
-+		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, 0);
-+		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, 0);
-+	}
- 
- 	doorbell = RREG32_SDMA(i, regSDMA_GFX_DOORBELL);
- 	doorbell_offset = RREG32_SDMA(i, regSDMA_GFX_DOORBELL_OFFSET);
-@@ -759,7 +768,7 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i)
-  * Set up the page DMA ring buffers and enable them.
-  * Returns 0 for success, error for failure.
-  */
--static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i)
-+static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i, bool restore)
- {
- 	struct amdgpu_ring *ring = &adev->sdma.instance[i].page;
- 	u32 rb_cntl, ib_cntl, wptr_poll_cntl;
-@@ -775,10 +784,17 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i)
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_CNTL, rb_cntl);
- 
- 	/* Initialize the ring buffer's read and write pointers */
--	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
--	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
--	WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, 0);
--	WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, 0);
-+	if (restore) {
-+		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(ring->wptr << 2));
-+		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(ring->wptr << 2));
-+		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(ring->wptr << 2));
-+		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(ring->wptr << 2));
-+	} else {
-+		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
-+		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
-+		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, 0);
-+		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, 0);
-+	}
- 
- 	/* set the wb address whether it's enabled or not */
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_ADDR_HI,
-@@ -792,7 +808,8 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i)
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_BASE, ring->gpu_addr >> 8);
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_BASE_HI, ring->gpu_addr >> 40);
- 
--	ring->wptr = 0;
-+	if (!restore)
-+		ring->wptr = 0;
- 
- 	/* before programing wptr to a less value, need set minor_ptr_update first */
- 	WREG32_SDMA(i, regSDMA_PAGE_MINOR_PTR_UPDATE, 1);
-@@ -946,9 +963,9 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
- 		uint32_t temp;
- 
- 		WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 0);
--		sdma_v4_4_2_gfx_resume(adev, i);
-+		sdma_v4_4_2_gfx_resume(adev, i, false);
- 		if (adev->sdma.has_page_queue)
--			sdma_v4_4_2_page_resume(adev, i);
-+			sdma_v4_4_2_page_resume(adev, i, false);
- 
- 		/* set utc l1 enable flag always to 1 */
- 		temp = RREG32_SDMA(i, regSDMA_CNTL);
-@@ -1566,6 +1583,97 @@ static int sdma_v4_4_2_soft_reset(void *handle)
- 	return 0;
- }
- 
-+static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring, unsigned int vmid)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	int i, j, r;
-+	u32 rb_cntl, ib_cntl, cntl, preempt;
-+
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		if (ring == &adev->sdma.instance[i].ring)
-+			break;
-+	}
-+
-+	if (i == adev->sdma.num_instances) {
-+		DRM_ERROR("sdma instance not found\n");
-+		return -EINVAL;
-+	}
-+
-+	/* 2 instances on each xcc, inst0, 1 on xcc0 */
-+	amdgpu_gfx_rlc_enter_safe_mode(adev, i >> 1);
-+
-+	/* stop queue */
-+	ib_cntl = RREG32_SDMA(i, regSDMA_GFX_IB_CNTL);
-+	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA_GFX_IB_CNTL, IB_ENABLE, 0);
-+	WREG32_SDMA(i, regSDMA_GFX_IB_CNTL, ib_cntl);
-+
-+	rb_cntl = RREG32_SDMA(i, regSDMA_GFX_RB_CNTL);
-+	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA_GFX_RB_CNTL, RB_ENABLE, 0);
-+	WREG32_SDMA(i, regSDMA_GFX_RB_CNTL, rb_cntl);
-+
-+	if (adev->sdma.has_page_queue) {
-+		ib_cntl = RREG32_SDMA(i, regSDMA_PAGE_IB_CNTL);
-+		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA_PAGE_IB_CNTL, IB_ENABLE, 0);
-+		WREG32_SDMA(i, regSDMA_PAGE_IB_CNTL, ib_cntl);
-+
-+		rb_cntl = RREG32_SDMA(i, regSDMA_PAGE_RB_CNTL);
-+		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA_PAGE_RB_CNTL, RB_ENABLE, 0);
-+		WREG32_SDMA(i, regSDMA_PAGE_RB_CNTL, rb_cntl);
-+	}
-+
-+	/* soft reset SDMA_GFX_PREEMPT.IB_PREEMPT = 0*/
-+	preempt = RREG32_SDMA(i, regSDMA_GFX_PREEMPT);
-+	preempt = REG_SET_FIELD(preempt, SDMA_GFX_PREEMPT, IB_PREEMPT, 0);
-+	WREG32_SDMA(i, regSDMA_GFX_PREEMPT, preempt);
-+
-+	r = amdgpu_dpm_reset_sdma(adev, 1 << i);
-+	if (r) {
-+		DRM_ERROR("amdgpu_dpm_reset_sdma failed(%d).\n", r);
-+		goto err0;
-+	}
-+
-+	udelay(50);
-+
-+	for (j = 0; j < adev->usec_timeout; j++) {
-+		if (!REG_GET_FIELD(RREG32_SDMA(i, regSDMA_F32_CNTL), SDMA_F32_CNTL, HALT))
-+			break;
-+		udelay(1);
-+	}
-+
-+	if (j == adev->usec_timeout) {
-+		DRM_ERROR("waiting for unhalt failed.\n");
-+		r = -ETIMEDOUT;
-+		goto err0;
-+	}
-+
-+	/* queue start*/
-+	cntl = RREG32_SDMA(i, regSDMA_CNTL);
-+	cntl = REG_SET_FIELD(cntl, SDMA_CNTL, UTC_L1_ENABLE, 1);
-+	WREG32_SDMA(i, regSDMA_CNTL, cntl);
-+
-+	sdma_v4_4_2_gfx_resume(adev, i, true);
-+	r = amdgpu_ring_test_helper(ring);
-+	if (r) {
-+		DRM_ERROR("sdma gfx resume failed(%d).\n", r);
-+		return r;
-+	}
-+	if (adev->sdma.has_page_queue) {
-+		sdma_v4_4_2_page_resume(adev, i, true);
-+		r = amdgpu_ring_test_helper(&adev->sdma.instance[i].page);
-+		if (r)
-+			DRM_ERROR("sdma page resume failed ret=%d.\n", r);
-+	}
-+
-+err0:
-+	/* 2 instances on each xcc */
-+	amdgpu_gfx_rlc_exit_safe_mode(adev, i >> 1);
-+	return r;
-+}
-+
-+
- static int sdma_v4_4_2_set_trap_irq_state(struct amdgpu_device *adev,
- 					struct amdgpu_irq_src *source,
- 					unsigned type,
-@@ -1948,6 +2056,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_ring_funcs = {
- 	.emit_wreg = sdma_v4_4_2_ring_emit_wreg,
- 	.emit_reg_wait = sdma_v4_4_2_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
-+	.reset = sdma_v4_4_2_reset_queue,
- };
- 
- static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
--- 
-2.25.1
+This will need a check of FW version and IP version. Not all FWs support
+reset and this file also handles other SMU 13.0.x IP versions.
 
+If not, the below message will always show up even if unsupported which
+could be misleading.
+
+Thanks,
+Lijo
+
+> +	if (ret)
+> +		dev_err(smu->adev->dev,
+> +			"[%s] failed to send ResetSDMA event to SMU\n",
+> +			__func__);
+> +
+> +	return ret;
+> +}
+> +
+>  static int mca_smu_set_debug_mode(struct amdgpu_device *adev, bool enable)
+>  {
+>  	struct smu_context *smu = adev->powerplay.pp_handle;
+> @@ -3342,6 +3357,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
+>  	.i2c_fini = smu_v13_0_6_i2c_control_fini,
+>  	.send_hbm_bad_pages_num = smu_v13_0_6_smu_send_hbm_bad_page_num,
+>  	.send_rma_reason = smu_v13_0_6_send_rma_reason,
+> +	.reset_sdma = smu_v13_0_6_reset_sdma,
+>  };
+>  
+>  void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu)
