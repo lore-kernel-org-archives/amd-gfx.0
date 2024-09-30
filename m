@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633DFCE8346
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B0FCE8348
 	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F050610E4D3;
-	Mon, 30 Sep 2024 13:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A29710E4D4;
+	Mon, 30 Sep 2024 13:31:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=inria.fr header.i=@inria.fr header.b="PAA80FOo";
+	dkim=pass (1024-bit key; unprotected) header.d=inria.fr header.i=@inria.fr header.b="uATNerqt";
 	dkim-atps=neutral
-Received: from mail2-relais-roc.national.inria.fr
- (mail2-relais-roc.national.inria.fr [192.134.164.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E641510E3ED;
- Mon, 30 Sep 2024 11:28:39 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 624DA10E3F3;
+ Mon, 30 Sep 2024 11:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DCwLONkEbR0xPXHT3eB5whDcOasFFMralMKDZkTIBGU=;
- b=PAA80FOoS5mya7bjQIahocaVMwdVHFBLs4n6EpvQxzH9JvSmuiy8c5V5
- KnVqWbQOSBE3CzUsjW+aZ+HShKSTXLjsfQ/nNNCUdIiu/g9onQ/uZTt7Z
- JEqv1/BLn5I5P8ionr70AqtNzPTIb14CgTH9wnOt7xcnrSzdSeBY6+xeB 8=;
-Authentication-Results: mail2-relais-roc.national.inria.fr;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=nhq8/UPreno8caLcXe4CSQDb5B0HGw0ef8Ii7H+AOns=;
+ b=uATNerqtbMuhMDz3jvGZ7blwoQ6xty8ok7dX0EA6QjFkHpi/p7829+C0
+ 5XU/J5iEhvFrpkcpzn+jpyDke3Ax5/CI8sD90g24LHmCUKLWUE3mZMcom
+ uFcuGhvkNuSV9mbPMq58iK5OjyTrH+AVAK51hnXz6GP6/GjTJ4QkR5aDU I=;
+Authentication-Results: mail3-relais-sop.national.inria.fr;
  dkim=none (message not signed) header.i=none;
- spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
+ spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr;
  dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.11,165,1725314400"; d="scan'208";a="185956902"
-Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
- by mail2-relais-roc.national.inria.fr with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2024 13:21:27 +0200
-From: Julia Lawall <Julia.Lawall@inria.fr>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: kernel-janitors@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+X-IronPort-AV: E=Sophos;i="6.11,165,1725314400"; d="scan'208";a="97769838"
+Received: from dt-lawall.paris.inria.fr ([128.93.67.65])
+ by mail3-relais-sop.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2024 13:38:20 +0200
+Date: Mon, 30 Sep 2024 13:38:19 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+cc: Alex Deucher <alexander.deucher@amd.com>, kernel-janitors@vger.kernel.org, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 25/35] drm/amd/display: Reorganize kerneldoc parameter names
-Date: Mon, 30 Sep 2024 13:21:11 +0200
-Message-Id: <20240930112121.95324-26-Julia.Lawall@inria.fr>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20240930112121.95324-1-Julia.Lawall@inria.fr>
+Subject: Re: [PATCH 29/35] drivers/gpu/drm: Reorganize kerneldoc parameter
+ names
+In-Reply-To: <ea6868b2-ea0e-42ad-8351-c02553691b74@amd.com>
+Message-ID: <a15de05b-131f-503b-b8b5-62c4c69b87a4@inria.fr>
 References: <20240930112121.95324-1-Julia.Lawall@inria.fr>
+ <20240930112121.95324-30-Julia.Lawall@inria.fr>
+ <ea6868b2-ea0e-42ad-8351-c02553691b74@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1881777891-1727696300=:3991"
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:31:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,29 +62,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reorganize kerneldoc parameter names to match the parameter
-order in the function header.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Problems identified using Coccinelle.
+--8323329-1881777891-1727696300=:3991
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
 
----
- drivers/gpu/drm/amd/display/dc/core/dc.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 5c39390ecbd5..417fe508c57f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -621,8 +621,8 @@ dc_stream_forward_crc_window(struct dc_stream_state *stream,
-  * dc_stream_configure_crc() - Configure CRC capture for the given stream.
-  * @dc: DC Object
-  * @stream: The stream to configure CRC on.
-- * @enable: Enable CRC if true, disable otherwise.
-  * @crc_window: CRC window (x/y start/end) information
-+ * @enable: Enable CRC if true, disable otherwise.
-  * @continuous: Capture CRC on every frame if true. Otherwise, only capture
-  *              once.
-  *
+On Mon, 30 Sep 2024, Christian König wrote:
 
+> Am 30.09.24 um 13:21 schrieb Julia Lawall:
+> > Reorganize kerneldoc parameter names to match the parameter
+> > order in the function header.
+>
+> Please split that up by driver, apart from that looks good to me.
+
+Thanks for the feedback.  I will wait a bit for any other feedback and the
+resend.
+
+julia
+
+>
+> Christian.
+>
+> >
+> > Problems identified using Coccinelle.
+> >
+> > Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+> >
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |    2 +-
+> >   drivers/gpu/drm/radeon/radeon_ib.c     |    2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index 6005280f5f38..ad4fdd4d4d82 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -2773,11 +2773,11 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void
+> > *data, struct drm_file *filp)
+> >    * amdgpu_vm_handle_fault - graceful handling of VM faults.
+> >    * @adev: amdgpu device pointer
+> >    * @pasid: PASID of the VM
+> > - * @ts: Timestamp of the fault
+> >    * @vmid: VMID, only used for GFX 9.4.3.
+> >    * @node_id: Node_id received in IH cookie. Only applicable for
+> >    *           GFX 9.4.3.
+> >    * @addr: Address of the fault
+> > + * @ts: Timestamp of the fault
+> >    * @write_fault: true is write fault, false is read fault
+> >    *
+> >    * Try to gracefully handle a VM fault. Return true if the fault was
+> > handled and
+> > diff --git a/drivers/gpu/drm/radeon/radeon_ib.c
+> > b/drivers/gpu/drm/radeon/radeon_ib.c
+> > index 1aa41cc3f991..8611a27dfb3d 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_ib.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_ib.c
+> > @@ -49,8 +49,8 @@ static void radeon_debugfs_sa_init(struct radeon_device
+> > *rdev);
+> >    *
+> >    * @rdev: radeon_device pointer
+> >    * @ring: ring index the IB is associated with
+> > - * @vm: requested vm
+> >    * @ib: IB object returned
+> > + * @vm: requested vm
+> >    * @size: requested IB size
+> >    *
+> >    * Request an IB (all asics).  IBs are allocated using the
+> >
+>
+>
+--8323329-1881777891-1727696300=:3991--
