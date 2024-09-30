@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3867DCE8343
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC709CE8347
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 13:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0BA210E4DC;
-	Mon, 30 Sep 2024 13:31:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD7310E4E1;
+	Mon, 30 Sep 2024 13:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Hp0JZAmD";
+	dkim=pass (1024-bit key; unprotected) header.d=inria.fr header.i=@inria.fr header.b="Hsrz8pTW";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE5F10E3D6;
- Mon, 30 Sep 2024 09:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7Q5w8gEsZA4ne/753oq1P+zP4DXCpP3lG8+l7lPuoLA=; b=Hp0JZAmDiQIINtbLW6y2yaRMdV
- nNeMYLUmqbZgP+gqE78mw3kfXvnJyYIUaKsmLP7VuozHYbajFHr8v2+cGfJuidqPmEMTWCPY2OjS4
- v/HAQkR1U3FZV0T2ewEZv0BbVyQXfkwKoMAKOP/n/EPRaOhVfgjyaTMGgASHulKyUJpSXRwzg2kgT
- H0O8bMLIwRJ7HRTpQF+KTERBl7dXBybgyxq8bY5OoEwRX+z97m31RLA2oARPDgDjsGpyMqB6LeRXo
- He5TYm/MlAR8aUGhTjnEcvdAmM2C+nUd5F9xofXP3/S5bjEP/KLFtMZsr12jva87faFJZsE4VPWMo
- 0ngbPeZA==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1svCeA-002mam-Oo; Mon, 30 Sep 2024 11:24:50 +0200
-Message-ID: <ef541212-0799-4891-8632-baf86fa88df6@igalia.com>
-Date: Mon, 30 Sep 2024 10:24:49 +0100
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 425F110E3F0;
+ Mon, 30 Sep 2024 11:28:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=5wdreZebx+hIO6b8UfY5M+z6lqJsf400rN74nypioAc=;
+ b=Hsrz8pTWfcdNzv0+3GMzM3AMEtjhgim/041sggmI8xlBA9h5Ax8l1xOv
+ 9XzgANw4gEAMNoZ1eaUCUgxLU3y2wB37FPzbI0VOFRwDV8V2ehYRiu2OR
+ WjVmNHTF+diHPu0LQ/3qcOkEmR6o3Q7vF3j0XmzxV343BjTn5bi1Kza4i Q=;
+Authentication-Results: mail2-relais-roc.national.inria.fr;
+ dkim=none (message not signed) header.i=none;
+ spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
+ dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.11,165,1725314400"; d="scan'208";a="185956909"
+Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
+ by mail2-relais-roc.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2024 13:21:28 +0200
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: kernel-janitors@vger.kernel.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 29/35] drivers/gpu/drm: Reorganize kerneldoc parameter names
+Date: Mon, 30 Sep 2024 13:21:15 +0200
+Message-Id: <20240930112121.95324-30-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20240930112121.95324-1-Julia.Lawall@inria.fr>
+References: <20240930112121.95324-1-Julia.Lawall@inria.fr>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] drm/amdgpu: use drm_file::name in
- task_info::process_desc
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- tursulin@igalia.com, simona.vetter@ffwll.ch, robdclark@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- dmitry.osipenko@collabora.com
-References: <20240927084848.263718-1-pierre-eric.pelloux-prayer@amd.com>
- <20240927084848.263718-7-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20240927084848.263718-7-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 30 Sep 2024 13:31:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,183 +61,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Reorganize kerneldoc parameter names to match the parameter
+order in the function header.
 
-On 27/09/2024 09:48, Pierre-Eric Pelloux-Prayer wrote:
-> If a drm_file name is set append it to the process name.
-> 
-> This information is useful with the virtio/native-context driver: this
-> allows the guest applications identifier to visible in amdgpu's output.
-> 
-> The output in amdgpu_vm_info/amdgpu_gem_info looks like this:
->     pid:12255	Process:glxgears/test-set-fd-name ----------
-> 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  1 +
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 26 +++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  3 +++
->   6 files changed, 29 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index f9d119448442..ad909173e419 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -299,6 +299,7 @@ int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
->   				     struct amdgpu_vm *avm, u32 pasid);
->   int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->   					struct amdgpu_vm *avm,
-> +					struct drm_file *filp,
->   					void **process_info,
->   					struct dma_fence **ef);
->   void amdgpu_amdkfd_gpuvm_release_process_vm(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 6d5fd371d5ce..172882af6705 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1558,6 +1558,7 @@ int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
->   
->   int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->   					   struct amdgpu_vm *avm,
-> +					   struct drm_file *filp,
->   					   void **process_info,
->   					   struct dma_fence **ef)
->   {
-> @@ -1577,7 +1578,7 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->   	if (ret)
->   		return ret;
->   
-> -	amdgpu_vm_set_task_info(avm);
-> +	amdgpu_vm_set_task_info(avm, filp);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 891128ecee6d..5d43e24906d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1178,7 +1178,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
->   	}
->   
->   	/* Use this opportunity to fill in task info for the vm */
-> -	amdgpu_vm_set_task_info(vm);
-> +	amdgpu_vm_set_task_info(vm, p->filp);
->   
->   	if (adev->debug_vm) {
->   		/* Invalidate all BOs to test for userspace bugs */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index cec0a5cffcc8..f6e2be6d4e9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2355,25 +2355,40 @@ amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid)
->   			amdgpu_vm_get_vm_from_pasid(adev, pasid));
->   }
->   
-> -static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
-> +static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm, struct drm_file *filp)
->   {
->   	char process_name[TASK_COMM_LEN];
-> -	int desc_len;
-> +	size_t desc_len;
+Problems identified using Coccinelle.
 
-Nit - would be nicer to avoid the churn from patch to patch by starting 
-with the correct type in the previous patch.
+Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
 
->   
->   	get_task_comm(process_name, current->group_leader);
->   	desc_len = strlen(process_name);
->   
-> +	mutex_lock(&filp->client_name_lock);
-> +	if (filp->client_name)
-> +		desc_len += 1 + strlen(filp->client_name);
-> +
->   	vm->task_info = kzalloc(
->   		struct_size(vm->task_info, process_desc, desc_len + 1),
->   		GFP_KERNEL);
->   
-> -	if (!vm->task_info)
-> +	if (!vm->task_info) {
-> +		mutex_unlock(&filp->client_name_lock);
->   		return -ENOMEM;
-> +	}
->   
->   	/* Set process attributes now. */
->   	vm->task_info->tgid = current->group_leader->pid;
->   	strscpy(vm->task_info->process_desc, process_name, desc_len + 1);
->   
-> +	if (filp->client_name) {
-> +		size_t p_len = strlen(process_name);
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |    2 +-
+ drivers/gpu/drm/radeon/radeon_ib.c     |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Another nit is that you are taking this strlen twice. Maybe cache it in 
-a top level local so it looks cleaner.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 6005280f5f38..ad4fdd4d4d82 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2773,11 +2773,11 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+  * amdgpu_vm_handle_fault - graceful handling of VM faults.
+  * @adev: amdgpu device pointer
+  * @pasid: PASID of the VM
+- * @ts: Timestamp of the fault
+  * @vmid: VMID, only used for GFX 9.4.3.
+  * @node_id: Node_id received in IH cookie. Only applicable for
+  *           GFX 9.4.3.
+  * @addr: Address of the fault
++ * @ts: Timestamp of the fault
+  * @write_fault: true is write fault, false is read fault
+  *
+  * Try to gracefully handle a VM fault. Return true if the fault was handled and
+diff --git a/drivers/gpu/drm/radeon/radeon_ib.c b/drivers/gpu/drm/radeon/radeon_ib.c
+index 1aa41cc3f991..8611a27dfb3d 100644
+--- a/drivers/gpu/drm/radeon/radeon_ib.c
++++ b/drivers/gpu/drm/radeon/radeon_ib.c
+@@ -49,8 +49,8 @@ static void radeon_debugfs_sa_init(struct radeon_device *rdev);
+  *
+  * @rdev: radeon_device pointer
+  * @ring: ring index the IB is associated with
+- * @vm: requested vm
+  * @ib: IB object returned
++ * @vm: requested vm
+  * @size: requested IB size
+  *
+  * Request an IB (all asics).  IBs are allocated using the
 
-But those are just nits to make the series look more polished. 
-Fundamentals look fine to me so up to you if you want to respin or not.
-
-Regards,
-
-Tvrtko
-
-> +
-> +		vm->task_info->process_desc[p_len] = '/';
-> +		strscpy(&vm->task_info->process_desc[p_len + 1],
-> +			filp->client_name, (desc_len + 1) - (p_len + 1));
-> +	}
-> +	mutex_unlock(&filp->client_name_lock);
-> +
->   	kref_init(&vm->task_info->refcount);
->   	return 0;
->   }
-> @@ -2382,11 +2397,12 @@ static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
->    * amdgpu_vm_set_task_info - Sets VMs task info.
->    *
->    * @vm: vm for which to set the info
-> + * @filp: drm_file instance
->    */
-> -void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
-> +void amdgpu_vm_set_task_info(struct amdgpu_vm *vm, struct drm_file *filp)
->   {
->   	if (!vm->task_info) {
-> -		if (amdgpu_vm_create_task_info(vm))
-> +		if (amdgpu_vm_create_task_info(vm, filp))
->   			return;
->   	} else if (vm->task_info->pid == current->pid) {
->   		return;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 44da250217be..8df3dece54c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -561,7 +561,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   			    u32 vmid, u32 node_id, uint64_t addr, uint64_t ts,
->   			    bool write_fault);
->   
-> -void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
-> +void amdgpu_vm_set_task_info(struct amdgpu_vm *vm, struct drm_file *filp);
->   
->   void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
->   				struct amdgpu_vm *vm);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index a902950cc060..e473fe433d3f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1654,6 +1654,7 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
->   			       struct file *drm_file)
->   {
->   	struct amdgpu_fpriv *drv_priv;
-> +	struct drm_file *filp;
->   	struct amdgpu_vm *avm;
->   	struct kfd_process *p;
->   	struct dma_fence *ef;
-> @@ -1673,8 +1674,10 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
->   
->   	p = pdd->process;
->   	dev = pdd->dev;
-> +	filp = drm_file->private_data;
->   
->   	ret = amdgpu_amdkfd_gpuvm_acquire_process_vm(dev->adev, avm,
-> +						     filp,
->   						     &p->kgd_process_info,
->   						     &ef);
->   	if (ret) {
