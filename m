@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B202BCE834B
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 14:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D492CE834D
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Sep 2024 14:32:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BAA610E534;
-	Mon, 30 Sep 2024 14:32:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39F2710E51A;
+	Mon, 30 Sep 2024 14:32:54 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 445B010E51C
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 14:32:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7642110E524
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Sep 2024 14:32:47 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 48UEWF5V2682342; Mon, 30 Sep 2024 20:02:15 +0530
+ 48UEWF052682332; Mon, 30 Sep 2024 20:02:15 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48UEWFCM2682341;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 48UEWFmp2682331;
  Mon, 30 Sep 2024 20:02:15 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Boyuan Zhang <boyuan.zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 05/12] drm/amdgpu: update the handle ptr in pre_soft_reset
-Date: Mon, 30 Sep 2024 20:00:12 +0530
-Message-Id: <20240930143019.2682202-6-sunil.khatri@amd.com>
+Subject: [PATCH 03/12] drm/amdgpu: update the handle ptr in prepare_suspend
+Date: Mon, 30 Sep 2024 20:00:10 +0530
+Message-Id: <20240930143019.2682202-4-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240930143019.2682202-1-sunil.khatri@amd.com>
 References: <20240930143019.2682202-1-sunil.khatri@amd.com>
@@ -46,176 +46,125 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Update the *handle to amdgpu_ip_block ptr for all
-functions pointers of pre_soft_reset.
+functions pointers of prepare_suspend.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c      | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c      | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c      | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c      | 4 ++--
  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c      | 4 ++--
  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c      | 4 ++--
  drivers/gpu/drm/amd/include/amd_shared.h   | 2 +-
- 10 files changed, 18 insertions(+), 18 deletions(-)
+ 7 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 595a10b23b3f..dfba53afe8d1 100644
+index 9eb07bdbdea8..98083efd35e5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4979,7 +4979,7 @@ static int amdgpu_device_ip_pre_soft_reset(struct amdgpu_device *adev)
+@@ -4745,7 +4745,7 @@ int amdgpu_device_prepare(struct drm_device *dev)
  			continue;
- 		if (adev->ip_blocks[i].status.hang &&
- 		    adev->ip_blocks[i].version->funcs->pre_soft_reset) {
--			r = adev->ip_blocks[i].version->funcs->pre_soft_reset(adev);
-+			r = adev->ip_blocks[i].version->funcs->pre_soft_reset(&adev->ip_blocks[i]);
- 			if (r)
- 				return r;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index d14a3412a0ff..9a15bf5e6b93 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -4983,9 +4983,9 @@ static bool gfx_v8_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
+ 		if (!adev->ip_blocks[i].version->funcs->prepare_suspend)
+ 			continue;
+-		r = adev->ip_blocks[i].version->funcs->prepare_suspend((void *)adev);
++		r = adev->ip_blocks[i].version->funcs->prepare_suspend(&adev->ip_blocks[i]);
+ 		if (r)
+ 			goto unprepare;
  	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+index f5804cdfca45..c33b86f24a17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -704,9 +704,9 @@ static int uvd_v3_1_hw_fini(void *handle)
+ 	return 0;
  }
  
--static int gfx_v8_0_pre_soft_reset(void *handle)
-+static int gfx_v8_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	u32 grbm_soft_reset = 0;
- 
- 	if ((!adev->gfx.grbm_soft_reset) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 0d300f5c9411..f579c710d3d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1316,9 +1316,9 @@ static bool gmc_v8_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
- 	return false;
- }
- 
--static int gmc_v8_0_pre_soft_reset(void *handle)
-+static int gmc_v8_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
+-static int uvd_v3_1_prepare_suspend(void *handle)
++static int uvd_v3_1_prepare_suspend(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (!adev->gmc.srbm_soft_reset)
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 7e2a523bbe1f..e7f4f7138df0 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -1252,9 +1252,9 @@ static bool sdma_v3_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
- 	}
+ 	return amdgpu_uvd_prepare_suspend(adev);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+index 522aec5f8e26..de9e6222d495 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -218,9 +218,9 @@ static int uvd_v4_2_hw_fini(void *handle)
+ 	return 0;
  }
  
--static int sdma_v3_0_pre_soft_reset(void *handle)
-+static int sdma_v3_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 	u32 srbm_soft_reset = 0;
- 
- 	if (!adev->sdma.srbm_soft_reset)
-diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-index 573a2e194bb5..7cdf6a10607f 100644
---- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-@@ -405,9 +405,9 @@ static bool tonga_ih_check_soft_reset(struct amdgpu_ip_block *ip_block)
- 	}
- }
- 
--static int tonga_ih_pre_soft_reset(void *handle)
-+static int tonga_ih_pre_soft_reset(struct amdgpu_ip_block *ip_block)
+-static int uvd_v4_2_prepare_suspend(void *handle)
++static int uvd_v4_2_prepare_suspend(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (!adev->irq.srbm_soft_reset)
- 		return 0;
+ 	return amdgpu_uvd_prepare_suspend(adev);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index 407014149eaf..f9bdbd148383 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -216,9 +216,9 @@ static int uvd_v5_0_hw_fini(void *handle)
+ 	return 0;
+ }
+ 
+-static int uvd_v5_0_prepare_suspend(void *handle)
++static int uvd_v5_0_prepare_suspend(struct amdgpu_ip_block *ip_block)
+ {
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	return amdgpu_uvd_prepare_suspend(adev);
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index 7364cecca81a..9e6043f57805 100644
+index 68601bb4ce44..642b8db993b3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -1184,9 +1184,9 @@ static bool uvd_v6_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
- 	}
+@@ -540,9 +540,9 @@ static int uvd_v6_0_hw_fini(void *handle)
+ 	return 0;
  }
  
--static int uvd_v6_0_pre_soft_reset(void *handle)
-+static int uvd_v6_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
+-static int uvd_v6_0_prepare_suspend(void *handle)
++static int uvd_v6_0_prepare_suspend(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (!adev->uvd.inst->srbm_soft_reset)
- 		return 0;
+ 	return amdgpu_uvd_prepare_suspend(adev);
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index 52d613b4cd84..eebdf7b2d633 100644
+index 93d37cfdd805..aef7ca1435f2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -1506,9 +1506,9 @@ static bool uvd_v7_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
- 	}
- }
- 
--static int uvd_v7_0_pre_soft_reset(void *handle)
-+static int uvd_v7_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	if (!adev->uvd.inst[ring->me].srbm_soft_reset)
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 6a8f555ffc61..6b7916c72193 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -699,9 +699,9 @@ static int vce_v3_0_soft_reset(void *handle)
+@@ -608,9 +608,9 @@ static int uvd_v7_0_hw_fini(void *handle)
  	return 0;
  }
  
--static int vce_v3_0_pre_soft_reset(void *handle)
-+static int vce_v3_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
+-static int uvd_v7_0_prepare_suspend(void *handle)
++static int uvd_v7_0_prepare_suspend(struct amdgpu_ip_block *ip_block)
  {
 -	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 +	struct amdgpu_device *adev = ip_block->adev;
  
- 	if (!adev->vce.srbm_soft_reset)
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index c89ae2d87b02..83b7ce5e764f 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -793,9 +793,9 @@ static int vce_v4_0_soft_reset(void *handle)
- 	return 0;
+ 	return amdgpu_uvd_prepare_suspend(adev);
  }
- 
--static int vce_v4_0_pre_soft_reset(void *handle)
-+static int vce_v4_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	struct amdgpu_device *adev = ip_block->adev;
- 
- 	if (!adev->vce.srbm_soft_reset)
- 		return 0;
 diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 1130dac8d173..15cd8288b9ac 100644
+index 615f880d3e80..1939c0dcdd1d 100644
 --- a/drivers/gpu/drm/amd/include/amd_shared.h
 +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -393,7 +393,7 @@ struct amd_ip_funcs {
+@@ -387,7 +387,7 @@ struct amd_ip_funcs {
+ 	int (*hw_init)(void *handle);
+ 	int (*hw_fini)(void *handle);
+ 	void (*late_fini)(struct amdgpu_ip_block *ip_block);
+-	int (*prepare_suspend)(void *handle);
++	int (*prepare_suspend)(struct amdgpu_ip_block *ip_block);
+ 	int (*suspend)(void *handle);
+ 	int (*resume)(void *handle);
  	bool (*is_idle)(void *handle);
- 	int (*wait_for_idle)(void *handle);
- 	bool (*check_soft_reset)(struct amdgpu_ip_block *ip_block);
--	int (*pre_soft_reset)(void *handle);
-+	int (*pre_soft_reset)(struct amdgpu_ip_block *ip_block);
- 	int (*soft_reset)(void *handle);
- 	int (*post_soft_reset)(void *handle);
- 	int (*set_clockgating_state)(void *handle,
 -- 
 2.34.1
 
