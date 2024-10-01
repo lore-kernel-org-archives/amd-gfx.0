@@ -4,91 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 282E6CE7D1B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Oct 2024 12:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3E1CEB2D0
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Oct 2024 13:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85D0110E317;
-	Tue,  1 Oct 2024 12:43:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB43B10E044;
+	Tue,  1 Oct 2024 13:19:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="c8W37A3o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AQT7jYAd";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A8B10E0A6
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Oct 2024 12:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1727786585;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KZZwkLCrIjRhjwyetK5HgYU6fwijbH3MWN7r4wKk24Q=;
- b=c8W37A3oELmjdnn8OUaqG1AX4h6GoQOK/reyc8TrEmwFBjWVpP1FAmIh+Go7tSbZCWyNVh
- BrC38mpytBAHyOVdIQnQYteqenmvFEdf/luQjhspSJIMvzCA2RzEQMwI2UwO0Uyt3QgJD4
- u8Rt7gweWA+uDOhA1df+v7YkcB0TCAw=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-286-UlYHG33UMsaT4ICg2encFQ-1; Tue, 01 Oct 2024 08:43:04 -0400
-X-MC-Unique: UlYHG33UMsaT4ICg2encFQ-1
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-42cb471a230so41821585e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Oct 2024 05:43:04 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5055E10E620
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Oct 2024 13:19:26 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2e0b46df34eso745804a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Oct 2024 06:19:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727788766; x=1728393566; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mXiXIWwgmR0UfmkFz9FwQzFMESqlLTZEekI6B5j9d5s=;
+ b=AQT7jYAdX9EUbxSn4nE+7v/87hh120U6BLaa03gnqGN0YB77rMb57Mzl0+q/gV3M9D
+ 2/j0nyQhqziORI3NKaAiRzZrwI56G3zhsUz8L0TbNHPWK4asmu+MN3LsWvwyXnD5RKmr
+ bktzws0MARwCu16a1JipztQ3GoTffLdLitD8E3mer1lXQDgC4GmYRwNMqpKwcdp2AOeu
+ EE4YEVHLplSpjeJWS8yVQVcrxZSmYyLZb8GJJhVnM/qN0A6hJxFn34c0Z2umLPSdgCQl
+ XWycIQ5z3uj3FzIKmH1pSsjMqFHQuzZ5J4Qsu52Bbl4EDmaSxVL+YKqDH1oT/PMh2YX2
+ V0jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727786583; x=1728391383;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KZZwkLCrIjRhjwyetK5HgYU6fwijbH3MWN7r4wKk24Q=;
- b=hpKPZCPkyLIMV/FhOvfsUom7PPX0Flz+Lqdq4rR0xaIm1z8ENn61Ryr4fqJdfD3DxL
- aW1PovwUYBv7E+RcZUWHSiYYjw3Y/uYQttd9FNUZKAezRq3JGMd42d64o+5vAY5U7bUb
- dQAgPpH1royP85di6tIrG7kXE9M4Kk6bnDPfPFu9JpIMTmlQcz6QzX0qYL3G7u1z50t+
- v19nP9bjImSjvDZnIiGa4n07O0SnTwJweFEYRtqIrSsSx4/Xk10HMbBf6TCZzb7UN2KF
- CWJOZDrtHQjX5VDXwVBJdlTgFiBy7r1taxEtXmTQ+okK3p9NzuPgUihlhCGq5LBb9rZ/
- novw==
+ d=1e100.net; s=20230601; t=1727788766; x=1728393566;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mXiXIWwgmR0UfmkFz9FwQzFMESqlLTZEekI6B5j9d5s=;
+ b=NIKRTsxruxkzv61hCaHg5NMfNg0AggDD7yCwG6PdBgmHf/8cN/JPp3E4+j2YLmL5Fa
+ iisk9lTpyBh9BXvK4iDfP4VvpUtTq/W51du8nlvUE0NWkUEkfxhzfUtzajkolelq6Hbk
+ ddsWjMc1A0is2iNBXftrudQj+CsNBalZNB7iTpRcwaqvc8B0oN2ZMTLHokzmg9ashYUD
+ tSpnehier9Bt5vinwZO2IUNDO8AW4IcLRygAt67VSwTQrdcprnuS5AC91L+j6noyO8TC
+ Z8wSb02Vvv1SnnvE7afKwoaLKfNO3EKpu3ozLXbW5ap8TfvWQ9BhZ2zPphH87RjYHmRp
+ 6JKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVMLev/2oDYmkdLgEdkD9Y/m5YIUAVdsKvYShdsUGbuywdKJnQUwI/KdFMEKf7Seax1QiaEdnlx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzZAKJhEcmkMFk1zuqTc9qAomu3j8/SVsLUqZXaquI6CsIYUxDi
- 7ZxLJbJ2Y1An6Cm3/jycw92mG+Rbt028SQnkWpnoiZSRSShNFr2D70tnJTffJu+YvvI0Hb3LT/u
- FXQYkH7XNK3IGLGviMKiFzMfDmCJBJ72dDhYO775x+y1vWgzgxrZ4tmM0/dV8J60=
-X-Received: by 2002:a05:600c:1d25:b0:426:5416:67e0 with SMTP id
- 5b1f17b1804b1-42f584a20f0mr124885965e9.31.1727786583153; 
- Tue, 01 Oct 2024 05:43:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHogCrKXi/LLAK0Yw/SyE+LUwqB53YlzciFZKHfFpK4j+UOGuKZEYk3OW+MVNbB7x8klnkLJg==
-X-Received: by 2002:a05:600c:1d25:b0:426:5416:67e0 with SMTP id
- 5b1f17b1804b1-42f584a20f0mr124885715e9.31.1727786582790; 
- Tue, 01 Oct 2024 05:43:02 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:c:37e0:ced3:55bd:f454:e722?
- ([2a01:e0a:c:37e0:ced3:55bd:f454:e722])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e96a36292sm179550505e9.32.2024.10.01.05.43.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 05:43:02 -0700 (PDT)
-Message-ID: <9f86a94a-02da-496d-81cd-5a2306520c6d@redhat.com>
-Date: Tue, 1 Oct 2024 14:43:01 +0200
+ AJvYcCWUAlgriDU7uJnfDUK1Ea+GINk8W+RZ30cXQ7S5JuThD1AW4UBdW5I5Twy5sbD3bA+qptIKYuAb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyrl4aXqBNcorE2eiRY81wS5vg3aomiahDR8+ohMQUX4gPvX6KQ
+ FtMz5AiluBx1DORxx5OzdKO3NTGskiUI6bR3qvBBz+KP0AwXhK0e49aNfQ1xUqpkT/7n4IaxqcZ
+ cWvtwfF+fhkmxgjioJTGemxWhKvU=
+X-Google-Smtp-Source: AGHT+IEmWCaMTr25cM8kV4jqwmHIiN2Dhczo4uoIMhMQguhRTriR+KjemXPpW3xTGHMkWnbULIeT2pUlUvZBsJAumXs=
+X-Received: by 2002:a17:90b:128b:b0:2db:60b:697e with SMTP id
+ 98e67ed59e1d1-2e0e70f2160mr6270753a91.8.1727788765715; Tue, 01 Oct 2024
+ 06:19:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: add dce6 drm_panic support
-From: Jocelyn Falempe <jfalempe@redhat.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Lu Yao <yaolu@kylinos.cn>, ckoenig.leichtzumerken@gmail.com,
- daniel@ffwll.ch, Xinhui.Pan@amd.com, airlied@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, srinivasan.shanmugam@amd.com,
- sunil.khatri@amd.com
-References: <20240802071752.116541-1-yaolu@kylinos.cn>
- <20240812060914.102614-1-yaolu@kylinos.cn>
- <CADnq5_OcUgV9dgAynDCQnm9NS+QCvhBiHvxWnhWqi2qqhh=zXg@mail.gmail.com>
- <16352ae0-7e61-440d-8c04-7ec912f9bf9a@redhat.com>
- <CADnq5_O7njHcvu0ejvVPPKF7szsbEQ8oFfHr9GTyD+zAe2EJ8g@mail.gmail.com>
- <8a1afe12-4d59-4cbd-aede-fce22f8fb979@redhat.com>
-In-Reply-To: <8a1afe12-4d59-4cbd-aede-fce22f8fb979@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <2024081247-until-audacious-6383@gregkh>
+ <07bbc66f-5689-405d-9232-87ba59d2f421@amd.com>
+ <CADnq5_MXBZ_WykSMv-GtHZv60aNzvLFVBOvze09o6da3-4-dTQ@mail.gmail.com>
+ <2024081558-filtrate-stuffed-db5b@gregkh>
+ <CADnq5_OFxhxrm-cAfhB8DzdmEcMq_HbkU52vbynqoS1_L0rhzg@mail.gmail.com>
+ <2024082439-extending-dramatize-09ca@gregkh>
+ <CADnq5_OeJ7LD0DvXjXmr-dV2ciEhfiEEEZsZn3w1MKnOvL=KUA@mail.gmail.com>
+ <2024090447-boozy-judiciary-849b@gregkh>
+ <CADnq5_MZ8s=jcCt_-=D2huPA=X3f5PWNjMhr88xoiKc_JFwQtw@mail.gmail.com>
+ <2024100112-flounder-paralysis-eb25@gregkh>
+In-Reply-To: <2024100112-flounder-paralysis-eb25@gregkh>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Oct 2024 09:19:13 -0400
+Message-ID: <CADnq5_OKw-N6sXuX7hvfE7Agb5HStBjGxwjS-2x3AbghWyqMEg@mail.gmail.com>
+Subject: Re: AMD drm patch workflow is broken for stable trees
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,74 +87,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 25/09/2024 10:33, Jocelyn Falempe wrote:
-> On 24/09/2024 16:02, Alex Deucher wrote:
->> On Fri, Sep 20, 2024 at 11:36 AM Jocelyn Falempe <jfalempe@redhat.com> 
->> wrote:
->>>
->>> On 17/09/2024 15:21, Alex Deucher wrote:
->>>> On Mon, Aug 12, 2024 at 2:10 AM Lu Yao <yaolu@kylinos.cn> wrote:
->>>>>
->>>>> Add support for the drm_panic module, which displays a pretty user
->>>>> friendly message on the screen when a Linux kernel panic occurs.
->>>>>
->>>>> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
->>>>
->>>> Patch looks good to me.  Any chance you want to convert the other
->>>> non-DC dce files (dce_v8_0.c, dce_v10_0.c, dce_v11_0.c) while you are
->>>> at it?
->>>
->>> I've made a similar patch in amdgpu_dm_plane.c, and it works on a Radeon
->>> pro w6400.
->>> But it only works when I'm in a VT terminal (so the framebuffer is
->>> linear and CPU accessible).
->>> When under Gnome/Wayland, the flag AMDGPU_GEM_CREATE_NO_CPU_ACCESS is
->>> set, so that means I can't vmap it ?
->>
->> It just means that the application does not need CPU access.  Whether
->> or not the CPU can access the buffer or not depends on the size of the
->> PCI BAR.  E.g., if the driver or bios has resized the PCI BAR, then
->> the CPU can access the entire BAR, but if not you are generally
->> limited to the first 256M of framebuffer.
-> 
-> I tried to use ttm_bo_kmap() anyway, it returns a valid virtual address, 
-> but writing to it has no effect on the display.
->>
->>>
->>> Also I don't know if there is a similar way to disable
->>> tiling/compression on this hardware.
->>
->> UNP_GRPH_CONTROL on chips with DCE display hardware and
->> DCSURF_ADDR_CONFIG and DCSURF_TILING_CONFIG on DCN display hardware.
+On Tue, Oct 1, 2024 at 6:04=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org>=
+ wrote:
+>
+> On Mon, Sep 30, 2024 at 10:10:25AM -0400, Alex Deucher wrote:
+> > Resending now that rc1 is out.  These should be ignored for stable.
+> >
+> > 8151a6c13111 drm/amd/display: Skip Recompute DSC Params if no Stream on=
+ Link
+> > fbfb5f034225 drm/amdgpu: fix contiguous handling for IB parsing v2
+> > ec0d7abbb0d4 drm/amd/display: Fix Potential Null Dereference
+> > 332315885d3c drm/amd/display: Remove ASSERT if significance is zero in
+> > math_ceil2
+> > 295d91cbc700 drm/amd/display: Check for NULL pointer
+> > 6472de66c0aa drm/amd/amdgpu: Fix uninitialized variable warnings
+> > 93381e6b6180 drm/amdgpu: fix a possible null pointer dereference
+> > 7a38efeee6b5 drm/radeon: fix null pointer dereference in radeon_add_com=
+mon_modes
+>
+> Thanks, that helped a lot.
+>
+> However the following two commits did not apply, is that because they
+> are already in the tree or do they need someone to properly backport them=
+?
+>
+> c2ed7002c061 ("drm/amd/display: Use SDR white level to calculate matrix c=
+oefficients")
+> b74571a83fd3 ("drm/amd/display: Use full update for swizzle mode change")
 
-I've now a working Prototype on a Radeon pro W6400.
+Looks like they will need backports.
 
-Here is what I do to disable tiling:
+Alex
 
-REG_UPDATE(DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, 0);
-REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, DC_SW_LINEAR);
-
-REG_UPDATE_6(DCSURF_SURFACE_CONTROL,
-		PRIMARY_SURFACE_DCC_EN, 0,
-		PRIMARY_SURFACE_DCC_IND_BLK, 0,
-		PRIMARY_SURFACE_DCC_IND_BLK_C, 0,
-		SECONDARY_SURFACE_DCC_EN, 0,
-		SECONDARY_SURFACE_DCC_IND_BLK, 0,
-		SECONDARY_SURFACE_DCC_IND_BLK_C, 0);
-
-I also need to call this, to refresh the display:
-
-hubp->funcs->hubp_program_surface_flip_and_addr(hubp, 
-&dc_plane_state->address, dc_plane_state->flip_immediate);
-
-And I use a modified version of amdgpu_ttm_access_memory() to write to 
-the framebuffer.
-
-I will send a patch when I've time to make a clean version.
-
-Best regards,
-
--- 
-
-Jocelyn
-
+>
+> thanks,
+>
+> greg k-h
