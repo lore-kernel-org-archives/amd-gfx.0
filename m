@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAAECF319D
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 07:59:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A995BCF31AD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 09:26:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A766B10E6B7;
-	Wed,  2 Oct 2024 07:59:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=jalseth.me header.i=@jalseth.me header.b="QDemoljx";
-	dkim-atps=neutral
-X-Greylist: delayed 391 seconds by postgrey-1.36 at gabe;
- Wed, 02 Oct 2024 04:21:00 UTC
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C617D10E66B
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Oct 2024 04:21:00 +0000 (UTC)
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
- by mail.w14.tutanota.de (Postfix) with ESMTP id 33D6827EABC9;
- Wed,  2 Oct 2024 06:14:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727842467; 
- s=s1; d=jalseth.me;
- h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:Sender;
- bh=04dtn4ZDwIqsqhEPk6iyeO6ZVVl5bUeLfG9I/mTQhng=;
- b=QDemoljxGg5csc7c5MgSwlj/En1ahPp9MdSWmc6BY9EDIiSd218AxwrKFKUnIs3k
- GuA7+MvjGOlkMrzAMtmVPrVLmDcnvO81ZsJWLfJOvAVuQugerMSExpqHJhmAFQEEEr6
- PBcp+Y5l+Wm1dPjOll3SLM+iXjAj2VMuyR3vf13gDs4qfbm4WAcpg2KtJfu5LTYq3Rc
- MPpoLd44SK7rZQZBi6pBOhKeyj5HC4bJxVd0rbtoleq6IQAccI7AC0V1hqiNYqxExf5
- Xr/rBCCbRzfDWKdWXTEJq0MGjJrPH+vfB0lorTACGLIGZihMrshn8cKPdDfwJJzJbPR
- tQiiMZhQ8g==
-Date: Wed, 2 Oct 2024 06:14:27 +0200 (CEST)
-From: James Alseth <james@jalseth.me>
-To: Christian Koenig <christian.koenig@amd.com>
-Cc: Xinhui Pan <xinhui.pan@amd.com>,
- Alexander Deucher <alexander.deucher@amd.com>,
- Amd Gfx <amd-gfx@lists.freedesktop.org>,
- Regressions <regressions@lists.linux.dev>,
- Sigmaepsilon92 <sigmaepsilon92@gmail.com>
-Message-ID: <O8AQvEr--B-9@jalseth.me>
-Subject: Re: 7840U amdgpu MMVM_L2_PROTECTION_FAULT_STATUS
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4A710E6D4;
+	Wed,  2 Oct 2024 09:26:28 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161C210E6D4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Oct 2024 09:26:25 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 4929QKSF116996; Wed, 2 Oct 2024 14:56:20 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4929QKAS116995;
+ Wed, 2 Oct 2024 14:56:20 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Boyuan Zhang <boyuan.zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH] drm/amdgpu: fix html doc generation warning
+Date: Wed,  2 Oct 2024 14:56:18 +0530
+Message-Id: <20241002092618.116982-1-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 02 Oct 2024 07:59:18 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,11 +43,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Fix the html doc warning due to mix up of the
+forward declaration of struct amdgpu_ip_block.
 
-I have a new laptop with a 7840U and am running into the same problem on kernel 6.10.11 and 6.11.0. My symptoms are slightly different, in that video played through Firefox works for some period before eventually having a GPU crash. This can be anywhere from seconds to 10+ minutes, though I don't think it has ever passed 20min of playback.
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/include/amd_shared.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Please let me know what info I can provide to help with root cause analysis. 
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index d892273fdb10..f98b3a544477 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -28,6 +28,8 @@
+ 
+ 
+ #define AMD_MAX_USEC_TIMEOUT		1000000  /* 1000 ms */
++struct amdgpu_ip_block;
++
+ 
+ /*
+  * Chip flags
+@@ -375,8 +377,6 @@ enum amd_dpm_forced_level;
+  * making calls to hooks from each IP block. This list is ordered to ensure
+  * that the driver initializes the IP blocks in a safe sequence.
+  */
+-struct amdgpu_ip_block;
+-
+ struct amd_ip_funcs {
+ 	char *name;
+ 	int (*early_init)(struct amdgpu_ip_block *ip_block);
+-- 
+2.34.1
 
-Regards,
-James
