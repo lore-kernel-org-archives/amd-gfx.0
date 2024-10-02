@@ -4,74 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62528CF6D28
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:34:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17B32CF6D2D
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADB7D10E358;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED8610E71B;
 	Wed,  2 Oct 2024 13:34:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zb9fx+m5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ipdT19hv";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1854110E6B3;
- Wed,  2 Oct 2024 07:51:28 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5366fd6fdf1so7788774e87.0; 
- Wed, 02 Oct 2024 00:51:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727855486; x=1728460286; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=k9nyVJGqZi2kIbcsm5pwHQqNkD1Y8pHSN+TEVYc1BR0=;
- b=Zb9fx+m5mK2FqDKNcjK/VYbRAYQm0RnrIVBaUo5RYf5av2a2K83x9NhO0diUAXfNB/
- x7oDvhL2XxiphTNxXPER0lftd/MZThAaHz7vbbZ0HChLvndMeL2hNN9Z6AHTZwyrJKv9
- 8NJ3IiT8NaBVs0XzLVoFo5XyxjhAwLKMFVCbNeFZ4+2C/YjMjVkDUTWAX5+Iz8GuOjwo
- 65aAhA1Ly3aOMg1DcaWHPblhF30KYd+kLWk4cdA8FQh+4dquvWemwImUt6Hpud97SNLU
- 5O0QZqVaBwMrDzokxEYieHUk08XuH9zg/2NdjpQDpKyxOsA+qgtg5v1dIDVI2btwRn28
- HUTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727855486; x=1728460286;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=k9nyVJGqZi2kIbcsm5pwHQqNkD1Y8pHSN+TEVYc1BR0=;
- b=gMtrD1O3U+3bVQCh9gbTbSvxFnTso8D5AFQ6CQEjaoKEU+Qzb+BdpVCr0S6NpheyZy
- iIMwTQbU3aM+CZdNXus4luhgr7aujNvhIvm6s5hVqq/hDRB55w0R8L45RBoGwXf6HnCD
- izc02jNYxh5R1MJRofMKgaBrTBvckoT4Hy7Vl3VAXvcv+dHf5XDX764ExwiOoJ7qSEZx
- YE1FQKWJYqV1d2NSVwi42QRxUSygujSoHSZfV3REl3Jttc3wh71UHg+//0SKpFS+0Cf6
- /RomanqGuT0Gtonuu+EzB1L/ENsxTpQO0KwC5xQ2cUvjMvaDkkmeGaWm78rIHpXwPNo/
- LGhg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUVCocZSvYjSTe5XaUcogb4aAFUKrh6Y8GBZ9aclyCMIDJup0x1ZZc3aZZVT8n+mfzO35zlMqci@lists.freedesktop.org,
- AJvYcCWwdzkzaE6RsIBNlkL2R2SmVUnRQq/Yt1a3Fj4BScSBXPcKBav/CyquSBRVDMkwBZp5mWbmynNFfacb@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcWTNmjHtBB9d7BSwbMCViQTWMWxMVxP5kO6wPRQbCzsng+smb
- EYCzQTI+0WrVP9BvIl+/3nGL3ZlLp7D6LxxkB/zDBaH3CfXoIn1s
-X-Google-Smtp-Source: AGHT+IF8mtYU+7zcM/iYB2WyeVNCQnN+7leXQiXAba6EuIP/+NC+OtPnfMj3ik00ilaWb/QudUriHQ==
-X-Received: by 2002:a05:6512:ad2:b0:52e:f2a6:8e1a with SMTP id
- 2adb3069b0e04-539a0680758mr1016050e87.29.1727855485537; 
- Wed, 02 Oct 2024 00:51:25 -0700 (PDT)
-Received: from localhost
- (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c277c056sm821081666b.33.2024.10.02.00.51.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 00:51:25 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C11E10E204;
+ Wed,  2 Oct 2024 12:24:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1727871883; x=1759407883;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=S73w0Dupi7vDTH7lqcJXtf7MvEjQ2efkpDxP9sz4ekM=;
+ b=ipdT19hvmyxN10YavN7qQBw6OvSR+Pn9f01UfWMsmY+8wQouNtfcd8rZ
+ AhKGSrmv5p4CX9AmOCeDhBbCsYdO5kZCXxRYXDAXxJEXyVOT5jOpbetX9
+ j0UvDCab4zhFtDnEb4IhD9M+D4nHsrr/2Sm2BNc5inkXmFN8yoimVBS+7
+ Ph1Hb5ZSjS/qSK8fCPNqB0NKoexsgwKwEDRpX2m7I3QlQzHHZFSNanpli
+ TDTKDhYXunHdrfG4iAdChlztgwIyg8F1nT9YvKRKdMxeSX4TAt0MGUHVe
+ 3s7bNWW5Q8R6pQTLsQVlRh0nkPmVs7W7WZMofHYIG550tyX2V58sXmHCy g==;
+X-CSE-ConnectionGUID: 8+ja7SVOR1iPFFSxY2lnQw==
+X-CSE-MsgGUID: xajXIug1Q66Vn68P9S4zdg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11213"; a="30735377"
+X-IronPort-AV: E=Sophos;i="6.11,171,1725346800"; d="scan'208";a="30735377"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2024 05:24:43 -0700
+X-CSE-ConnectionGUID: aXzl/KrASwC3xlNNtsn1DA==
+X-CSE-MsgGUID: 0YP0m1IZRxCW9/L/ZZTVGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,171,1725346800"; d="scan'208";a="74221149"
+Received: from oandoniu-mobl3.ger.corp.intel.com (HELO fedora..)
+ ([10.245.244.67])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2024 05:24:41 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/amdgpu: Fix spelling mistake "initializtion" ->
- "initialization"
-Date: Wed,  2 Oct 2024 08:51:24 +0100
-Message-Id: <20241002075124.833394-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.39.5
+ Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Sui Jingfeng <suijingfeng@loongson.cn>
+Subject: [PATCH v2 0/2] drm/ttm: Add an option to report graphics memory OOM 
+Date: Wed,  2 Oct 2024 14:24:20 +0200
+Message-ID: <20241002122422.287276-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 02 Oct 2024 13:34:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,26 +75,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in a dev_err message. Fix it.
+Some graphics APIs differentiate between out-of-graphics-memory and
+out-of-host-memory (system memory). Add a device init flag to
+have -ENOSPC propagated from the resource managers instead of being
+converted to -ENOMEM, to aid driver stacks in determining what
+error code to return or whether corrective action can be taken at
+the driver level.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The first patch deals with a ttm_device_init() interface change,
+The Second patch adds the actual functionality.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index b17e63c98a99..733e69e90c5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -1533,7 +1533,7 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
- 		r = amdgpu_ras_init_badpage_info(tmp_adev);
- 		if (r && r != -EHWPOISON)
- 			dev_err(tmp_adev->dev,
--				"error during bad page data initializtion");
-+				"error during bad page data initialization");
- 	}
- }
- 
+A follow-up will be posted for Xe once this is merged / backmerged.
+
+Thomas Hellström (2):
+  drm/ttm: Change ttm_device_init to use a struct instead of multiple
+    bools
+  drm/ttm: Add a device flag to propagate -ENOSPC on OOM
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 +++--
+ drivers/gpu/drm/drm_gem_vram_helper.c         |  7 +++---
+ drivers/gpu/drm/i915/intel_region_ttm.c       |  3 ++-
+ drivers/gpu/drm/loongson/lsdc_ttm.c           |  5 +++-
+ drivers/gpu/drm/nouveau/nouveau_ttm.c         |  7 ++++--
+ drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c           |  6 +++--
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 ++++++------
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  3 ++-
+ drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 16 ++++++------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 20 ++++++---------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  6 ++---
+ drivers/gpu/drm/ttm/ttm_bo.c                  |  2 +-
+ drivers/gpu/drm/ttm/ttm_device.c              |  8 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +--
+ drivers/gpu/drm/xe/xe_device.c                |  3 ++-
+ include/drm/ttm/ttm_device.h                  | 25 ++++++++++++++++++-
+ 17 files changed, 86 insertions(+), 53 deletions(-)
+
 -- 
-2.39.5
+2.46.0
 
