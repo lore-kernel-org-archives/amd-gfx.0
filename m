@@ -4,64 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01FDBCF6D25
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A05FCF6D26
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF3910E053;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47F410E34C;
 	Wed,  2 Oct 2024 13:34:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fzInPKDT";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6AE810E710;
- Wed,  2 Oct 2024 12:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1727871890; x=1759407890;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DZ29/FJS9eeMPI/4e/YxqSnsah4g9bujTt1F49R/VRs=;
- b=fzInPKDT2ZhnG3KJ30KtJFmDjiGLs9VI30Jm0dlp/691N7MDbAf269ZL
- 9CtpF5Nd90sxA8l+ZBcBNBJavvPvznXP9iDuSG3vts0l5MoEZDMimsf3I
- JzGZPoHr/s0KHIZ4eDkmOhT/u1NSH+E7u5Yyh2tHXss0fwxDHgAmT+5Xy
- 8xSfKCOuz6a9AilwzdDbydUOTNgyirNilRBRjRcDfAsi7he6YsEYzsbsd
- BBHLuljobdVeogt8m1+03bevqqHHpM1ehmeHC6phSlY1Cz0Rc8qOVoBjJ
- nvGkNETAtSJ9lC+uMk4kRi579Wad0Ych7ELKb+HzNzqhn08IpGkP6kp3I Q==;
-X-CSE-ConnectionGUID: lj2bYFbJQpCybA3jLI65QA==
-X-CSE-MsgGUID: swbhSkBESuKSyuHQ4H5lVw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11213"; a="30735392"
-X-IronPort-AV: E=Sophos;i="6.11,171,1725346800"; d="scan'208";a="30735392"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2024 05:24:50 -0700
-X-CSE-ConnectionGUID: 3oLe0nFxSOmegdcffyD2Lg==
-X-CSE-MsgGUID: eGUx6d2wQBaKYzPlDBUFLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,171,1725346800"; d="scan'208";a="74221164"
-Received: from oandoniu-mobl3.ger.corp.intel.com (HELO fedora..)
- ([10.245.244.67])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2024 05:24:47 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2836210E344;
+ Wed,  2 Oct 2024 13:09:31 +0000 (UTC)
+Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 36BCF102392;
+ Wed,  2 Oct 2024 16:09:28 +0300 (MSK)
+Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [176.16.4.50])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 2FC2C102391;
+ Wed,  2 Oct 2024 16:08:38 +0300 (MSK)
+Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.63.223])
+ by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 492D8bmF023602;
+ Wed, 2 Oct 2024 16:08:37 +0300
+From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Zack Rusin <zack.rusin@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Sui Jingfeng <suijingfeng@loongson.cn>
-Subject: [PATCH v2 2/2] drm/ttm: Add a device flag to propagate -ENOSPC on OOM
-Date: Wed,  2 Oct 2024 14:24:22 +0200
-Message-ID: <20241002122422.287276-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20241002122422.287276-1-thomas.hellstrom@linux.intel.com>
-References: <20241002122422.287276-1-thomas.hellstrom@linux.intel.com>
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: [PATCH v2] drm/amd/pm: check return value of amdgpu_irq_add_id()
+Date: Wed,  2 Oct 2024 16:01:49 +0300
+Message-Id: <20241002130149.1607979-1-Igor.A.Artemiev@mcst.ru>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <7b3ea9a6-575e-4fe5-98d9-6e53803188fa@amd.com>
+References: 
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+ bases: 20111107 #2745587, check: 20241002 notchecked
+X-AV-Checked: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Wed, 02 Oct 2024 13:34:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,78 +56,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some graphics APIs differentiate between out-of-graphics-memory and
-out-of-host-memory (system memory). Add a device init flag to
-have -ENOSPC propagated from the resource managers instead of being
-converted to -ENOMEM, to aid driver stacks in determining what
-error code to return or whether corrective action can be taken at
-the driver level.
+amdgpu_irq_ad_id() may fail and the irq handlers will not be registered.
+This patch adds error code check.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
+
+Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c     |  2 +-
- drivers/gpu/drm/ttm/ttm_device.c |  1 +
- include/drm/ttm/ttm_device.h     | 13 +++++++++++++
- 3 files changed, 15 insertions(+), 1 deletion(-)
+v2: Remove the cast to struct amdgpu_device as Christian König 
+<christian.koenig@amd.com> suggested.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 320592435252..c4bec2ad301b 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -835,7 +835,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+ .../drm/amd/pm/powerplay/hwmgr/smu_helper.c   | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
+index 79a566f3564a..50a3085c00aa 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
+@@ -647,28 +647,41 @@ int smu9_register_irq_handlers(struct pp_hwmgr *hwmgr)
+ {
+ 	struct amdgpu_irq_src *source =
+ 		kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
++	int ret;
  
- 	/* For backward compatibility with userspace */
- 	if (ret == -ENOSPC)
--		return -ENOMEM;
-+		return bo->bdev->propagate_enospc ? ret : -ENOMEM;
+ 	if (!source)
+ 		return -ENOMEM;
  
- 	/*
- 	 * We might need to add a TTM.
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index 0c85d10e5e0b..aee9d52d745b 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -203,6 +203,7 @@ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *func
- 	}
+ 	source->funcs = &smu9_irq_funcs;
  
- 	bdev->funcs = funcs;
-+	bdev->propagate_enospc = flags.propagate_enospc;
- 
- 	ttm_sys_man_init(bdev);
- 
-diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
-index 1534bd946c78..f9da78bbd925 100644
---- a/include/drm/ttm/ttm_device.h
-+++ b/include/drm/ttm/ttm_device.h
-@@ -266,6 +266,13 @@ struct ttm_device {
- 	 * @wq: Work queue structure for the delayed delete workqueue.
- 	 */
- 	struct workqueue_struct *wq;
+-	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
++	ret = amdgpu_irq_add_id(hwmgr->adev,
+ 			SOC15_IH_CLIENTID_THM,
+ 			THM_9_0__SRCID__THM_DIG_THERM_L2H,
+ 			source);
+-	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
++	if (ret)
++		goto err;
 +
-+	/**
-+	 * @propagate_enospc: Whether -ENOSPC should be propagated to the caller after
-+	 * graphics memory allocation failure. If false, this will be converted to
-+	 * -ENOMEM, which is the default behaviour.
-+	 */
-+	bool propagate_enospc;
- };
++	ret = amdgpu_irq_add_id(hwmgr->adev,
+ 			SOC15_IH_CLIENTID_THM,
+ 			THM_9_0__SRCID__THM_DIG_THERM_H2L,
+ 			source);
++	if (ret)
++		goto err;
  
- int ttm_global_swapout(struct ttm_operation_ctx *ctx, gfp_t gfp_flags);
-@@ -295,6 +302,12 @@ struct ttm_device_init_flags {
- 	u32 use_dma_alloc : 1;
- 	/** @use_dma32: If we should use GFP_DMA32 for device memory allocations. */
- 	u32 use_dma32 : 1;
-+	/**
-+	 * @propagate_enospc: Whether -ENOSPC should be propagated to the caller after
-+	 * graphics memory allocation failure. If false, this will be converted to
-+	 * -ENOMEM, which is the default behaviour.
-+	 */
-+	u32 propagate_enospc : 1;
- };
+ 	/* Register CTF(GPIO_19) interrupt */
+-	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
++	ret = amdgpu_irq_add_id(hwmgr->adev,
+ 			SOC15_IH_CLIENTID_ROM_SMUIO,
+ 			SMUIO_9_0__SRCID__SMUIO_GPIO19,
+ 			source);
++	if (ret)
++		goto err;
  
- int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *funcs,
+ 	return 0;
++
++err:
++	kfree(source);
++
++	return ret;
+ }
+ 
+ void *smu_atom_get_data_table(void *dev, uint32_t table, uint16_t *size,
 -- 
-2.46.0
+2.39.2
 
