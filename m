@@ -4,111 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B6D6CF6D3D
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:13:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A152CF6D3C
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 104D710E73D;
-	Wed,  2 Oct 2024 13:13:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 596B310E734;
+	Wed,  2 Oct 2024 13:13:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="pXKYg3Vs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mL6Ek96K";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sSEObPvk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8+a8GFai";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hW8w9sFP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UzZnTlRp";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hW8w9sFP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UzZnTlRp";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58DE510E72E;
- Wed,  2 Oct 2024 13:13:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3E3710E71E;
+ Wed,  2 Oct 2024 13:13:13 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E45C021C68;
- Wed,  2 Oct 2024 13:13:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8DCD91FD56;
+ Wed,  2 Oct 2024 13:13:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727874794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727874792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KtOoTi2Jkxhz7dyzOEGf0fnikaCMvA+qBc+jw1fPK20=;
- b=pXKYg3Vsr9XXKcmuNzAlsUqA0qo2jU77hJcX3aGXi1FRts5NZ3KhmhzSYTGPlipYhczwIp
- ZACb3pvfLxQyP1t0ThIYSHA9J6Ea6fz2BRPtCPAzGxue/udFAC3hWeKHkZ6QZLLag+4J5w
- f5mj5lfOz8Io1iBBSC/ApQQdG4EE0QM=
+ bh=iCW7tuuzAnsCME1Hx9B6Kx1mMyjUEzvYpSBWlxqTuO4=;
+ b=hW8w9sFPF2ljwAB3PEFMPR6vlnYjQtY06zNCiuRLue52/iWh790uDMvLxN6U/ZgBhlq2uN
+ XyQ/YC7McqYcpzgNjMK4JNgMIO4DpMuv1Zb7AFOloIJtBcAxIq9LYuP1tE7FD0PVW0WL3X
+ yZdo0A2OJvOvXFYNIYNzDCcflgAaVSQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727874794;
+ s=susede2_ed25519; t=1727874792;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KtOoTi2Jkxhz7dyzOEGf0fnikaCMvA+qBc+jw1fPK20=;
- b=mL6Ek96KH5Lq3gJz/Xmga6nC7s5tTfCL5oLP+DjaEXfCZIydWLhGAMCyla4WvFw6D84yKS
- iwkSR7xv0qTD3NAQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sSEObPvk;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=8+a8GFai
+ bh=iCW7tuuzAnsCME1Hx9B6Kx1mMyjUEzvYpSBWlxqTuO4=;
+ b=UzZnTlRpi6H0VZGYSSsafvj3BE8rewxb6Xopx5JWF1twv12DJWixOV9oidJA/adJaJ/6BW
+ FfkstU0jqmcNMuBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1727874793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1727874792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KtOoTi2Jkxhz7dyzOEGf0fnikaCMvA+qBc+jw1fPK20=;
- b=sSEObPvktN+112YNk/J+kQNQ7kKBrzngb2BvL1w74vZ6hVqfHb7nWeLfTuMkcBfVnPsS10
- /iuoe18GlgTOG1gfZUvLlWlzGRpTJ8DkW9NGXOSXMCuj1OQRCNkpQcoVBQEmkZuhmz0ps3
- tWF9t1H5+Y02xYrqrLCa71DtyZyGox8=
+ bh=iCW7tuuzAnsCME1Hx9B6Kx1mMyjUEzvYpSBWlxqTuO4=;
+ b=hW8w9sFPF2ljwAB3PEFMPR6vlnYjQtY06zNCiuRLue52/iWh790uDMvLxN6U/ZgBhlq2uN
+ XyQ/YC7McqYcpzgNjMK4JNgMIO4DpMuv1Zb7AFOloIJtBcAxIq9LYuP1tE7FD0PVW0WL3X
+ yZdo0A2OJvOvXFYNIYNzDCcflgAaVSQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1727874793;
+ s=susede2_ed25519; t=1727874792;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KtOoTi2Jkxhz7dyzOEGf0fnikaCMvA+qBc+jw1fPK20=;
- b=8+a8GFaiA9ntpxXujSzfPOqu1Cx0MBfLagEBB2t36QPoJT348Qlf7jFGsaH753QL40UQo1
- 0ecCyQsSpHaWWmDQ==
+ bh=iCW7tuuzAnsCME1Hx9B6Kx1mMyjUEzvYpSBWlxqTuO4=;
+ b=UzZnTlRpi6H0VZGYSSsafvj3BE8rewxb6Xopx5JWF1twv12DJWixOV9oidJA/adJaJ/6BW
+ FfkstU0jqmcNMuBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 939EE13A91;
- Wed,  2 Oct 2024 13:13:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26FDF13A91;
+ Wed,  2 Oct 2024 13:13:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id aKDFIulG/Wa/GAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Oct 2024 13:13:13 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MBE0COhG/Wa/GAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 02 Oct 2024 13:13:12 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-Subject: [PATCH v2 09/11] drm/radeon: Suspend and resume clients with client
- helpers
-Date: Wed,  2 Oct 2024 15:04:35 +0200
-Message-ID: <20241002131306.288618-10-tzimmermann@suse.de>
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>
+Subject: [PATCH v2 05/11] drm/client: Move client event handlers to
+ drm_client_event.c
+Date: Wed,  2 Oct 2024 15:04:31 +0200
+Message-ID: <20241002131306.288618-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20241002131306.288618-1-tzimmermann@suse.de>
 References: <20241002131306.288618-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: E45C021C68
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,redhat.com];
- MIME_TRACE(0.00)[0:+]; FUZZY_BLOCKED(0.00)[rspamd.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,134 +117,444 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace calls to drm_fb_helper_set_suspend() with calls to the client
-functions drm_client_dev_suspend() and drm_client_dev_resume(). Any
-registered in-kernel client will now receive suspend and resume events.
+A number of DRM-client functions serve as entry points from device
+operations to client code. Moving them info a separate file will later
+allow for a more fine-grained kernel configuration. For most of the
+users it is sufficient to include <drm/drm_client_event.h> instead of
+the full driver-side interface in <drm/drm_client.h>
+
+v2:
+- rename new files to drm_client_event.{c,h}
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Karol Herbst <kherbst@redhat.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@redhat.com>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 19 ++++++++++---------
- drivers/gpu/drm/radeon/radeon_fbdev.c  |  6 ------
- drivers/gpu/drm/radeon/radeon_mode.h   |  3 ---
- 3 files changed, 10 insertions(+), 18 deletions(-)
+ Documentation/gpu/drm-client.rst              |   3 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ drivers/gpu/drm/drm_client.c                  | 121 ----------------
+ drivers/gpu/drm/drm_client_event.c            | 135 ++++++++++++++++++
+ drivers/gpu/drm/drm_drv.c                     |   2 +-
+ drivers/gpu/drm/drm_file.c                    |   2 +-
+ drivers/gpu/drm/drm_probe_helper.c            |   2 +-
+ .../drm/i915/display/intel_display_driver.c   |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_vga.c         |   2 +-
+ include/drm/drm_client.h                      |   4 -
+ include/drm/drm_client_event.h                |  12 ++
+ 11 files changed, 156 insertions(+), 130 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_client_event.c
+ create mode 100644 include/drm/drm_client_event.h
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 554b236c2328..6f071e61f764 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -35,6 +35,7 @@
- #include <linux/vgaarb.h>
+diff --git a/Documentation/gpu/drm-client.rst b/Documentation/gpu/drm-client.rst
+index 58b5a1d1219d..cbcfe30de777 100644
+--- a/Documentation/gpu/drm-client.rst
++++ b/Documentation/gpu/drm-client.rst
+@@ -13,3 +13,6 @@ Kernel clients
  
- #include <drm/drm_cache.h>
-+#include <drm/drm_client_event.h>
- #include <drm/drm_crtc_helper.h>
+ .. kernel-doc:: drivers/gpu/drm/drm_client_modeset.c
+    :export:
++
++.. kernel-doc:: drivers/gpu/drm/drm_client_event.c
++   :export:
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 3894f43f6d47..6b7d168ca790 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -42,6 +42,7 @@ drm-y := \
+ 	drm_bridge.o \
+ 	drm_cache.o \
+ 	drm_client.o \
++	drm_client_event.o \
+ 	drm_client_modeset.o \
+ 	drm_color_mgmt.o \
+ 	drm_connector.o \
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index bfedcbf516db..549b28a5918c 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -10,7 +10,6 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/drm_client.h>
+-#include <drm/drm_debugfs.h>
  #include <drm/drm_device.h>
+ #include <drm/drm_drv.h>
  #include <drm/drm_file.h>
-@@ -1542,7 +1543,7 @@ void radeon_device_fini(struct radeon_device *rdev)
-  * Called at driver suspend.
-  */
- int radeon_suspend_kms(struct drm_device *dev, bool suspend,
--		       bool fbcon, bool freeze)
-+		       bool notify_clients, bool freeze)
- {
- 	struct radeon_device *rdev;
- 	struct pci_dev *pdev;
-@@ -1634,9 +1635,9 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 		pci_set_power_state(pdev, PCI_D3hot);
- 	}
- 
--	if (fbcon) {
-+	if (notify_clients) {
- 		console_lock();
--		radeon_fbdev_set_suspend(rdev, 1);
-+		drm_client_dev_suspend(dev, true);
- 		console_unlock();
- 	}
- 	return 0;
-@@ -1649,7 +1650,7 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
-  * Returns 0 for success or an error on failure.
-  * Called at driver resume.
-  */
--int radeon_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
-+int radeon_resume_kms(struct drm_device *dev, bool resume, bool notify_clients)
- {
- 	struct drm_connector *connector;
- 	struct radeon_device *rdev = dev->dev_private;
-@@ -1660,14 +1661,14 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
- 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
- 		return 0;
- 
--	if (fbcon) {
-+	if (notify_clients) {
- 		console_lock();
- 	}
- 	if (resume) {
- 		pci_set_power_state(pdev, PCI_D0);
- 		pci_restore_state(pdev);
- 		if (pci_enable_device(pdev)) {
--			if (fbcon)
-+			if (notify_clients)
- 				console_unlock();
- 			return -1;
- 		}
-@@ -1730,7 +1731,7 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
- 	/* reset hpd state */
- 	radeon_hpd_init(rdev);
- 	/* blat the mode back in */
--	if (fbcon) {
-+	if (notify_clients) {
- 		drm_helper_resume_force_mode(dev);
- 		/* turn on display hw */
- 		drm_modeset_lock_all(dev);
-@@ -1746,8 +1747,8 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
- 	if ((rdev->pm.pm_method == PM_METHOD_DPM) && rdev->pm.dpm_enabled)
- 		radeon_pm_compute_clocks(rdev);
- 
--	if (fbcon) {
--		radeon_fbdev_set_suspend(rdev, 0);
-+	if (notify_clients) {
-+		drm_client_dev_resume(dev, true);
- 		console_unlock();
- 	}
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-index 0aa20c8df546..d4a58bd679db 100644
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -288,12 +288,6 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- 	return ret;
+@@ -172,99 +171,6 @@ void drm_client_release(struct drm_client_dev *client)
  }
+ EXPORT_SYMBOL(drm_client_release);
  
--void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state)
+-/**
+- * drm_client_dev_unregister - Unregister clients
+- * @dev: DRM device
+- *
+- * This function releases all clients by calling each client's
+- * &drm_client_funcs.unregister callback. The callback function
+- * is responsibe for releaseing all resources including the client
+- * itself.
+- *
+- * The helper drm_dev_unregister() calls this function. Drivers
+- * that use it don't need to call this function themselves.
+- */
+-void drm_client_dev_unregister(struct drm_device *dev)
 -{
--	if (rdev_to_drm(rdev)->fb_helper)
--		drm_fb_helper_set_suspend(rdev_to_drm(rdev)->fb_helper, state);
+-	struct drm_client_dev *client, *tmp;
+-
+-	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+-		return;
+-
+-	mutex_lock(&dev->clientlist_mutex);
+-	list_for_each_entry_safe(client, tmp, &dev->clientlist, list) {
+-		list_del(&client->list);
+-		if (client->funcs && client->funcs->unregister) {
+-			client->funcs->unregister(client);
+-		} else {
+-			drm_client_release(client);
+-			kfree(client);
+-		}
+-	}
+-	mutex_unlock(&dev->clientlist_mutex);
+-}
+-EXPORT_SYMBOL(drm_client_dev_unregister);
+-
+-/**
+- * drm_client_dev_hotplug - Send hotplug event to clients
+- * @dev: DRM device
+- *
+- * This function calls the &drm_client_funcs.hotplug callback on the attached clients.
+- *
+- * drm_kms_helper_hotplug_event() calls this function, so drivers that use it
+- * don't need to call this function themselves.
+- */
+-void drm_client_dev_hotplug(struct drm_device *dev)
+-{
+-	struct drm_client_dev *client;
+-	int ret;
+-
+-	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+-		return;
+-
+-	if (!dev->mode_config.num_connector) {
+-		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
+-		return;
+-	}
+-
+-	mutex_lock(&dev->clientlist_mutex);
+-	list_for_each_entry(client, &dev->clientlist, list) {
+-		if (!client->funcs || !client->funcs->hotplug)
+-			continue;
+-
+-		if (client->hotplug_failed)
+-			continue;
+-
+-		ret = client->funcs->hotplug(client);
+-		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
+-		if (ret)
+-			client->hotplug_failed = true;
+-	}
+-	mutex_unlock(&dev->clientlist_mutex);
+-}
+-EXPORT_SYMBOL(drm_client_dev_hotplug);
+-
+-void drm_client_dev_restore(struct drm_device *dev)
+-{
+-	struct drm_client_dev *client;
+-	int ret;
+-
+-	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+-		return;
+-
+-	mutex_lock(&dev->clientlist_mutex);
+-	list_for_each_entry(client, &dev->clientlist, list) {
+-		if (!client->funcs || !client->funcs->restore)
+-			continue;
+-
+-		ret = client->funcs->restore(client);
+-		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
+-		if (!ret) /* The first one to return zero gets the privilege to restore */
+-			break;
+-	}
+-	mutex_unlock(&dev->clientlist_mutex);
 -}
 -
- bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
+ static void drm_client_buffer_delete(struct drm_client_buffer *buffer)
  {
- 	struct drm_fb_helper *fb_helper = rdev_to_drm(rdev)->fb_helper;
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 12a1d99a1815..4063d3801e81 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -942,13 +942,10 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- 				    struct drm_fb_helper_surface_size *sizes);
- #define RADEON_FBDEV_DRIVER_OPS \
- 	.fbdev_probe = radeon_fbdev_driver_fbdev_probe
--void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state);
- bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj);
- #else
- #define RADEON_FBDEV_DRIVER_OPS \
- 	.fbdev_probe = NULL
--static inline void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state)
--{ }
- static inline bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
- {
- 	return false;
+ 	if (buffer->gem) {
+@@ -584,30 +490,3 @@ int drm_client_framebuffer_flush(struct drm_client_buffer *buffer, struct drm_re
+ 					0, 0, NULL, 0);
+ }
+ EXPORT_SYMBOL(drm_client_framebuffer_flush);
+-
+-#ifdef CONFIG_DEBUG_FS
+-static int drm_client_debugfs_internal_clients(struct seq_file *m, void *data)
+-{
+-	struct drm_debugfs_entry *entry = m->private;
+-	struct drm_device *dev = entry->dev;
+-	struct drm_printer p = drm_seq_file_printer(m);
+-	struct drm_client_dev *client;
+-
+-	mutex_lock(&dev->clientlist_mutex);
+-	list_for_each_entry(client, &dev->clientlist, list)
+-		drm_printf(&p, "%s\n", client->name);
+-	mutex_unlock(&dev->clientlist_mutex);
+-
+-	return 0;
+-}
+-
+-static const struct drm_debugfs_info drm_client_debugfs_list[] = {
+-	{ "internal_clients", drm_client_debugfs_internal_clients, 0 },
+-};
+-
+-void drm_client_debugfs_init(struct drm_device *dev)
+-{
+-	drm_debugfs_add_files(dev, drm_client_debugfs_list,
+-			      ARRAY_SIZE(drm_client_debugfs_list));
+-}
+-#endif
+diff --git a/drivers/gpu/drm/drm_client_event.c b/drivers/gpu/drm/drm_client_event.c
+new file mode 100644
+index 000000000000..d13d44320c5c
+--- /dev/null
++++ b/drivers/gpu/drm/drm_client_event.c
+@@ -0,0 +1,135 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++/*
++ * Copyright 2018 Noralf Trønnes
++ */
++
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/seq_file.h>
++
++#include <drm/drm_client.h>
++#include <drm/drm_client_event.h>
++#include <drm/drm_debugfs.h>
++#include <drm/drm_device.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_print.h>
++
++/**
++ * drm_client_dev_unregister - Unregister clients
++ * @dev: DRM device
++ *
++ * This function releases all clients by calling each client's
++ * &drm_client_funcs.unregister callback. The callback function
++ * is responsibe for releaseing all resources including the client
++ * itself.
++ *
++ * The helper drm_dev_unregister() calls this function. Drivers
++ * that use it don't need to call this function themselves.
++ */
++void drm_client_dev_unregister(struct drm_device *dev)
++{
++	struct drm_client_dev *client, *tmp;
++
++	if (!drm_core_check_feature(dev, DRIVER_MODESET))
++		return;
++
++	mutex_lock(&dev->clientlist_mutex);
++	list_for_each_entry_safe(client, tmp, &dev->clientlist, list) {
++		list_del(&client->list);
++		if (client->funcs && client->funcs->unregister) {
++			client->funcs->unregister(client);
++		} else {
++			drm_client_release(client);
++			kfree(client);
++		}
++	}
++	mutex_unlock(&dev->clientlist_mutex);
++}
++EXPORT_SYMBOL(drm_client_dev_unregister);
++
++/**
++ * drm_client_dev_hotplug - Send hotplug event to clients
++ * @dev: DRM device
++ *
++ * This function calls the &drm_client_funcs.hotplug callback on the attached clients.
++ *
++ * drm_kms_helper_hotplug_event() calls this function, so drivers that use it
++ * don't need to call this function themselves.
++ */
++void drm_client_dev_hotplug(struct drm_device *dev)
++{
++	struct drm_client_dev *client;
++	int ret;
++
++	if (!drm_core_check_feature(dev, DRIVER_MODESET))
++		return;
++
++	if (!dev->mode_config.num_connector) {
++		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
++		return;
++	}
++
++	mutex_lock(&dev->clientlist_mutex);
++	list_for_each_entry(client, &dev->clientlist, list) {
++		if (!client->funcs || !client->funcs->hotplug)
++			continue;
++
++		if (client->hotplug_failed)
++			continue;
++
++		ret = client->funcs->hotplug(client);
++		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
++		if (ret)
++			client->hotplug_failed = true;
++	}
++	mutex_unlock(&dev->clientlist_mutex);
++}
++EXPORT_SYMBOL(drm_client_dev_hotplug);
++
++void drm_client_dev_restore(struct drm_device *dev)
++{
++	struct drm_client_dev *client;
++	int ret;
++
++	if (!drm_core_check_feature(dev, DRIVER_MODESET))
++		return;
++
++	mutex_lock(&dev->clientlist_mutex);
++	list_for_each_entry(client, &dev->clientlist, list) {
++		if (!client->funcs || !client->funcs->restore)
++			continue;
++
++		ret = client->funcs->restore(client);
++		drm_dbg_kms(dev, "%s: ret=%d\n", client->name, ret);
++		if (!ret) /* The first one to return zero gets the privilege to restore */
++			break;
++	}
++	mutex_unlock(&dev->clientlist_mutex);
++}
++
++#ifdef CONFIG_DEBUG_FS
++static int drm_client_debugfs_internal_clients(struct seq_file *m, void *data)
++{
++	struct drm_debugfs_entry *entry = m->private;
++	struct drm_device *dev = entry->dev;
++	struct drm_printer p = drm_seq_file_printer(m);
++	struct drm_client_dev *client;
++
++	mutex_lock(&dev->clientlist_mutex);
++	list_for_each_entry(client, &dev->clientlist, list)
++		drm_printf(&p, "%s\n", client->name);
++	mutex_unlock(&dev->clientlist_mutex);
++
++	return 0;
++}
++
++static const struct drm_debugfs_info drm_client_debugfs_list[] = {
++	{ "internal_clients", drm_client_debugfs_internal_clients, 0 },
++};
++
++void drm_client_debugfs_init(struct drm_device *dev)
++{
++	drm_debugfs_add_files(dev, drm_client_debugfs_list,
++			      ARRAY_SIZE(drm_client_debugfs_list));
++}
++#endif
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index ac30b0ec9d93..c2c172eb25df 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -38,7 +38,7 @@
+ 
+ #include <drm/drm_accel.h>
+ #include <drm/drm_cache.h>
+-#include <drm/drm_client.h>
++#include <drm/drm_client_event.h>
+ #include <drm/drm_color_mgmt.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index ad1dc638c83b..7415abb7faca 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -40,7 +40,7 @@
+ #include <linux/slab.h>
+ #include <linux/vga_switcheroo.h>
+ 
+-#include <drm/drm_client.h>
++#include <drm/drm_client_event.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+index 92f21764246f..96b266b37ba4 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -33,7 +33,7 @@
+ #include <linux/moduleparam.h>
+ 
+ #include <drm/drm_bridge.h>
+-#include <drm/drm_client.h>
++#include <drm/drm_client_event.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fourcc.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index c106fb2dd20b..673f9b965494 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -11,7 +11,7 @@
+ #include <acpi/video.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_atomic_helper.h>
+-#include <drm/drm_client.h>
++#include <drm/drm_client_event.h>
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
+index ab4e11dc0b8a..a6c375a24154 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_vga.c
++++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
+@@ -2,7 +2,7 @@
+ #include <linux/vgaarb.h>
+ #include <linux/vga_switcheroo.h>
+ 
+-#include <drm/drm_fb_helper.h>
++#include <drm/drm_client_event.h>
+ 
+ #include "nouveau_drv.h"
+ #include "nouveau_acpi.h"
+diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
+index bc0e66f9c425..dfd5afcc9463 100644
+--- a/include/drm/drm_client.h
++++ b/include/drm/drm_client.h
+@@ -121,10 +121,6 @@ int drm_client_init(struct drm_device *dev, struct drm_client_dev *client,
+ void drm_client_release(struct drm_client_dev *client);
+ void drm_client_register(struct drm_client_dev *client);
+ 
+-void drm_client_dev_unregister(struct drm_device *dev);
+-void drm_client_dev_hotplug(struct drm_device *dev);
+-void drm_client_dev_restore(struct drm_device *dev);
+-
+ /**
+  * struct drm_client_buffer - DRM client buffer
+  */
+diff --git a/include/drm/drm_client_event.h b/include/drm/drm_client_event.h
+new file mode 100644
+index 000000000000..2c8915241120
+--- /dev/null
++++ b/include/drm/drm_client_event.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++
++#ifndef _DRM_CLIENT_EVENT_H_
++#define _DRM_CLIENT_EVENT_H_
++
++struct drm_device;
++
++void drm_client_dev_unregister(struct drm_device *dev);
++void drm_client_dev_hotplug(struct drm_device *dev);
++void drm_client_dev_restore(struct drm_device *dev);
++
++#endif
 -- 
 2.46.0
 
