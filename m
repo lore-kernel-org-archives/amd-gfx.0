@@ -4,116 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E521CF6D2C
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E712CCF6D28
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 14:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACC0310E769;
-	Wed,  2 Oct 2024 13:58:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ki1tLMiV";
-	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2072.outbound.protection.outlook.com [40.107.102.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00B4610E769;
- Wed,  2 Oct 2024 13:58:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NVPENNX2uQN84ed6t1EQvM8GyJGsornE65hFRjm66vMM25/tR7uArlwVSP6UN/fdURehCwyejJ5MZngGnS0Q+l2dx1KiwxYKJQibDKvOTLUvQ7B0kP58UBNZpC5XGPr/1+Lu9VMcv8VumJu4LKTt0qh6m8+y2NUO16fFGc/Zg62MFX1y+CX05FjGvGmBinGf2u/91Q65ieejcAiJDaVH0oX0+r26arpLsQYYzzvcfso0llsPfD9emaOApTwkY4A5bvoTy1NI4R0HodrYR++W05PO8o/llpIfz7Gjt8BMdaZq06XE7nzGoQjkyjbiLRHS9gICBT8SggGfJ6gApgs4fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6kF3v67WenitCe/nHoSl+miP0b2nD2wR746B1HuS+aM=;
- b=FL1P7urWGbjna9HWVdiQkMDcE4e37HdMGFAsesNQyiJc+6+w9pbWkg+jk7U8ftR/AKlHfFxRP/krj81QZZIbzDQcHW4++3ozU7NKygR/EH7kRcamoLWZO+Zz3ChC6jYQss20hPRJq2UPUAm+Y1CzBwUNbTLNngHgMdtCUg7HrlbccBFCUmb+BU338WuxEhWHvDsy/aJIpMGiihHphEd77fi0867wtRM8S4FNdONe9/A7YIOQJrXBhWXIbQ5kZKqlWz16VUjLDOf6jnu1B1WfB/8Gh86I3G6z+jS96NEqxV4Vt+bctKD8aULofOveBQM6E6y1P7rgeusHTU+xZyopSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6kF3v67WenitCe/nHoSl+miP0b2nD2wR746B1HuS+aM=;
- b=ki1tLMiVwiSq2/Hm2dyIYKgO8e7sSHTwqis654llYSFgDCfEwKI+CxIIWL5PTpbGv1XkGHZnI6cuirm6TFzEGMRqcTD6BJ8lK2sHYFl8X0aSZTuvazy9SV2cWWB7MHMnenQlUfL2zZtNE2JBajHecWY2Pq8wZwvXZzrwFSVV19Q=
-Received: from BN9PR03CA0492.namprd03.prod.outlook.com (2603:10b6:408:130::17)
- by PH0PR12MB7931.namprd12.prod.outlook.com (2603:10b6:510:289::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Wed, 2 Oct
- 2024 13:58:47 +0000
-Received: from BL02EPF0001A108.namprd05.prod.outlook.com
- (2603:10b6:408:130:cafe::e2) by BN9PR03CA0492.outlook.office365.com
- (2603:10b6:408:130::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.17 via Frontend
- Transport; Wed, 2 Oct 2024 13:58:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A108.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8026.11 via Frontend Transport; Wed, 2 Oct 2024 13:58:47 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Oct
- 2024 08:58:46 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-6.12
-Date: Wed, 2 Oct 2024 09:58:31 -0400
-Message-ID: <20241002135831.2510790-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.46.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8D910E74A;
+	Wed,  2 Oct 2024 14:00:32 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE1610E74A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Oct 2024 14:00:31 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 492E0FKL162337; Wed, 2 Oct 2024 19:30:15 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 492E0F60162336;
+ Wed, 2 Oct 2024 19:30:15 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Boyuan Zhang <boyuan.zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>,
+ kernel test robot <lkp@intel.com>
+Subject: [PATCH] drm/amdgpu: change the comment from handle to ip_block
+Date: Wed,  2 Oct 2024 19:30:13 +0530
+Message-Id: <20241002140013.162323-1-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A108:EE_|PH0PR12MB7931:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a7f8658-8367-471a-154e-08dce2ea55f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OgU3UFqhQJrnPZVirdvpK2lczbpRfN/23l7SwcTwCy7qvCDv/iYtOlaFIJe/?=
- =?us-ascii?Q?dYC/RRwzI+xklUJ2NchSg9AJOGmj+GW4vhKe5lzL3qJFSQ8EQbxjF9PpPDRw?=
- =?us-ascii?Q?6kPgdN4V5DP1ONZa5YGNAkWKgZggfFp0akjWJ/8xAFqJjh5H9SVl//mK2MiT?=
- =?us-ascii?Q?OF70Y1e1CplWtTqZAxXC1KbdKRRX77FSsw4bXh7MJH8j2El3O2nc8ChL4gdZ?=
- =?us-ascii?Q?nQugVTKMT/Mycs1AXi0MRpriJ4iiEeH8GM7qMEGyV3jYakArvK+S7XVXWgqh?=
- =?us-ascii?Q?4O9DrM0P5Ore5NL2b/IWSBJ+GicgIK8gBwKEu1QCkhNl7R++0eMQTTMIpvMo?=
- =?us-ascii?Q?xJSKB6Y93ggbB8PJg/NOovW5VX+iNEjAslo/m9TbkqZWE+DiAED7FzyG954N?=
- =?us-ascii?Q?ldC0e5Dr3h38v36EzPa8JSYwlo9pp8Hlp6C+nlp+52UHqsTwGRZs1uKYoCdI?=
- =?us-ascii?Q?OtBpBYZJ9NbsPuk9QBYAQlH/ujr7rHP7LQA/QZ5MzUbsyAOmgbY3FBwRZp+x?=
- =?us-ascii?Q?OQ6CKTIM6K2KJOQJeLrp4hzOxbm8DVTJg++zjBWiATDrcrupekYKRGEePSGg?=
- =?us-ascii?Q?vTwwL8wTYN/Uos5xMvOS/pj2Dp0Kdm3CM3b10SEuqPm1K0I8pEMRYB0kKB0U?=
- =?us-ascii?Q?SKgwV6StZrAtln93kOyh0K9mCiu/w7GQ2kP8F4FyEWSYC+j0+YpLGAZX5Q8a?=
- =?us-ascii?Q?P/Ry7/ZNEOv1srxc3FN5e1CqXhRg36bd+S/oR0ArBxzfeYaFGcnCurQw8Kxq?=
- =?us-ascii?Q?ZpJMyiMVKtON8vh/qSDQRLTbFsgmX2Fl12LwJcPM1FR0coAOEn1SWxiBdAoA?=
- =?us-ascii?Q?HPdEgWMQR4vwB80wAZSHI8UFy17d86f6ChxJrH+CkB3Gkiil71/JKnoH7kjh?=
- =?us-ascii?Q?4y0DDnYIKdOk3ZMu2FPiyX97ptKNYbv+FWAv1wCmheraemnoyd2t0gA0i5eU?=
- =?us-ascii?Q?jzqbnwXLD0NtCQhUM6JXX1hvcc5ecpfO4GSazmF9srV0ZKCg5dJAPjLN49eK?=
- =?us-ascii?Q?PZwRr+i4Ev96cN2vU/1K7mL5Ev/hL4pXRQO62wQwsSUJmoWDF0A98CDxMo9n?=
- =?us-ascii?Q?5Atf8jhu3VefYHMOQ1Nwy/EVZmWr59aDMNWlQzoTlp0LAm6dPgpHdSUVzTxu?=
- =?us-ascii?Q?oXQL3G+5PGHNrQnjvTadvQLXqOQv81F86m4PaMqIrH0nAHWwJczBKRxQhjju?=
- =?us-ascii?Q?xPxrXuJoiUjZbmkUFP/4nLS5B6ZWJEdkIFrW5cXT0zvwpZ+5OF+kA1y33SX5?=
- =?us-ascii?Q?+n+Om62Qa9A8AetZAmm7wQkqvq/7VwJ9B941FaZD5xL+T0QnST6ET/uk3gW1?=
- =?us-ascii?Q?wOvj/UeK2tKBXT83kt54WW+f?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2024 13:58:47.1754 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a7f8658-8367-471a-154e-08dce2ea55f9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A108.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7931
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,56 +44,1289 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+htmldoc geenration depend upon the input arguments etc
+to generate the document. After update of handle to
+ip_block then update needs in comments too to fix the
+warnings.
 
-Fixes for 6.12.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202410021904.YyGjlpk9-lkp@intel.com
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c          |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c          |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c           |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c           | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c           | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c           | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c           | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c         | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c         | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c         | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c            | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c            | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c            | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c            | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c            | 16 ++++++++--------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c          | 16 ++++++++--------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c          | 16 ++++++++--------
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c          | 16 ++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  4 ++--
+ 24 files changed, 128 insertions(+), 128 deletions(-)
 
-The following changes since commit d7d2688bf4ea58734d73e18edcbf4684b1496d30:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index cf2d55c2fd98..8e0725198dae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -219,7 +219,7 @@ static const struct dmi_system_id acp_quirk_table[] = {
+ /**
+  * acp_hw_init - start and test ACP block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -497,7 +497,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * acp_hw_fini - stop the hardware block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int acp_hw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+index 5a919dae8d8e..416e8b3fad79 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+@@ -46,7 +46,7 @@ static int isp_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * isp_hw_init - start and test isp block
+  *
+- * @handle: handle for amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int isp_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -69,7 +69,7 @@ static int isp_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * isp_hw_fini - stop the hardware block
+  *
+- * @handle: handle for amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int isp_hw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+index 33da094f1a7d..03b8b7cd5229 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+@@ -458,7 +458,7 @@ static int jpeg_v1_0_process_interrupt(struct amdgpu_device *adev,
+ /**
+  * jpeg_v1_0_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -478,7 +478,7 @@ int jpeg_v1_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v1_0_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ int jpeg_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+@@ -509,7 +509,7 @@ int jpeg_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v1_0_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG free up sw allocation
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index ec3d341fef61..6762b5c64ccb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -41,7 +41,7 @@ static int jpeg_v2_0_set_powergating_state(void *handle,
+ /**
+  * jpeg_v2_0_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -61,7 +61,7 @@ static int jpeg_v2_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_0_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -104,7 +104,7 @@ static int jpeg_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_0_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -125,7 +125,7 @@ static int jpeg_v2_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_0_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -142,7 +142,7 @@ static int jpeg_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -162,7 +162,7 @@ static int jpeg_v2_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_0_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -182,7 +182,7 @@ static int jpeg_v2_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_0_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+index 37cf415b6b41..4b8c801f204d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+@@ -50,7 +50,7 @@ static int amdgpu_ih_clientid_jpeg[] = {
+ /**
+  * jpeg_v2_5_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -81,7 +81,7 @@ static int jpeg_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_5_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -153,7 +153,7 @@ static int jpeg_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_5_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -174,7 +174,7 @@ static int jpeg_v2_5_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_5_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v2_5_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -202,7 +202,7 @@ static int jpeg_v2_5_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_5_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -231,7 +231,7 @@ static int jpeg_v2_5_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_5_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -251,7 +251,7 @@ static int jpeg_v2_5_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v2_5_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+index 2fa866a3e39d..7996209818b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+@@ -42,7 +42,7 @@ static int jpeg_v3_0_set_powergating_state(void *handle,
+ /**
+  * jpeg_v3_0_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -75,7 +75,7 @@ static int jpeg_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v3_0_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -118,7 +118,7 @@ static int jpeg_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v3_0_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -139,7 +139,7 @@ static int jpeg_v3_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v3_0_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -156,7 +156,7 @@ static int jpeg_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v3_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -176,7 +176,7 @@ static int jpeg_v3_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v3_0_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -196,7 +196,7 @@ static int jpeg_v3_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v3_0_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+index 3cef4124b171..20e1fe89c463 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+@@ -48,7 +48,7 @@ static void jpeg_v4_0_dec_ring_set_wptr(struct amdgpu_ring *ring);
+ /**
+  * jpeg_v4_0_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -70,7 +70,7 @@ static int jpeg_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -130,7 +130,7 @@ static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -151,7 +151,7 @@ static int jpeg_v4_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -187,7 +187,7 @@ static int jpeg_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -210,7 +210,7 @@ static int jpeg_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -230,7 +230,7 @@ static int jpeg_v4_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index cf6efe6db8b2..2a53537db135 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -68,7 +68,7 @@ static inline bool jpeg_v4_0_3_normalizn_reqd(struct amdgpu_device *adev)
+ /**
+  * jpeg_v4_0_3_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -88,7 +88,7 @@ static int jpeg_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_3_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -165,7 +165,7 @@ static int jpeg_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_3_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -299,7 +299,7 @@ static int jpeg_v4_0_3_start_sriov(struct amdgpu_device *adev)
+ /**
+  * jpeg_v4_0_3_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v4_0_3_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -358,7 +358,7 @@ static int jpeg_v4_0_3_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_3_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -380,7 +380,7 @@ static int jpeg_v4_0_3_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_3_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -400,7 +400,7 @@ static int jpeg_v4_0_3_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_3_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index 2f9749b00eaf..ef2d4237925b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -61,7 +61,7 @@ static int amdgpu_ih_clientid_jpeg[] = {
+ /**
+  * jpeg_v4_0_5_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -94,7 +94,7 @@ static int jpeg_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_5_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -159,7 +159,7 @@ static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_5_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -180,7 +180,7 @@ static int jpeg_v4_0_5_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_5_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v4_0_5_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -210,7 +210,7 @@ static int jpeg_v4_0_5_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_5_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -237,7 +237,7 @@ static int jpeg_v4_0_5_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_5_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -257,7 +257,7 @@ static int jpeg_v4_0_5_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v4_0_5_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+index a9a0b3f250de..7954a6fae464 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+@@ -42,7 +42,7 @@ static int jpeg_v5_0_0_set_powergating_state(void *handle,
+ /**
+  * jpeg_v5_0_0_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -62,7 +62,7 @@ static int jpeg_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v5_0_0_sw_init - sw init for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -106,7 +106,7 @@ static int jpeg_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v5_0_0_sw_fini - sw fini for JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * JPEG suspend and free up sw allocation
+  */
+@@ -127,7 +127,7 @@ static int jpeg_v5_0_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v5_0_0_hw_init - start and test JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  */
+ static int jpeg_v5_0_0_hw_init(struct amdgpu_ip_block *ip_block)
+@@ -153,7 +153,7 @@ static int jpeg_v5_0_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v5_0_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the JPEG block, mark ring as not ready any more
+  */
+@@ -173,7 +173,7 @@ static int jpeg_v5_0_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v5_0_0_suspend - suspend JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend JPEG block
+  */
+@@ -193,7 +193,7 @@ static int jpeg_v5_0_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * jpeg_v5_0_0_resume - resume JPEG block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init JPEG block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+index c5540c30d1bb..3011b5853fb4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -621,7 +621,7 @@ static void uvd_v3_1_enable_mgcg(struct amdgpu_device *adev,
+ /**
+  * uvd_v3_1_hw_init - start and test UVD block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -688,7 +688,7 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v3_1_hw_fini - stop the hardware block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the UVD block, mark ring as not ready any more
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+index 02e2dda63828..4852a2ab128f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -147,7 +147,7 @@ static void uvd_v4_2_enable_mgcg(struct amdgpu_device *adev,
+ /**
+  * uvd_v4_2_hw_init - start and test UVD block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -202,7 +202,7 @@ static int uvd_v4_2_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v4_2_hw_fini - stop the hardware block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the UVD block, mark ring as not ready any more
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index d84b49064138..a24b210c79ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -143,7 +143,7 @@ static int uvd_v5_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v5_0_hw_init - start and test UVD block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -200,7 +200,7 @@ static int uvd_v5_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v5_0_hw_fini - stop the hardware block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the UVD block, mark ring as not ready any more
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+index d14b1769f74c..b4eeeebfe095 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -455,7 +455,7 @@ static int uvd_v6_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v6_0_hw_init - start and test UVD block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -524,7 +524,7 @@ static int uvd_v6_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v6_0_hw_fini - stop the hardware block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the UVD block, mark ring as not ready any more
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+index 52ce3ac38215..55fa858328f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -510,7 +510,7 @@ static int uvd_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v7_0_hw_init - start and test UVD block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -588,7 +588,7 @@ static int uvd_v7_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * uvd_v7_0_hw_fini - stop the hardware block
+  *
+- * @handle: handle used to pass amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the UVD block, mark ring as not ready any more
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index c069c6d89e38..129c759772c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -95,7 +95,7 @@ static void vcn_v1_0_ring_begin_use(struct amdgpu_ring *ring);
+ /**
+  * vcn_v1_0_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -118,7 +118,7 @@ static int vcn_v1_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v1_0_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -213,7 +213,7 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v1_0_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -238,7 +238,7 @@ static int vcn_v1_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v1_0_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -268,7 +268,7 @@ static int vcn_v1_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v1_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -290,7 +290,7 @@ static int vcn_v1_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v1_0_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -318,7 +318,7 @@ static int vcn_v1_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v1_0_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index c104c47301c7..19bbd49f760e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -100,7 +100,7 @@ static int vcn_v2_0_start_sriov(struct amdgpu_device *adev);
+ /**
+  * vcn_v2_0_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -124,7 +124,7 @@ static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_0_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -237,7 +237,7 @@ static int vcn_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_0_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -268,7 +268,7 @@ static int vcn_v2_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_0_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -305,7 +305,7 @@ static int vcn_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -326,7 +326,7 @@ static int vcn_v2_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_0_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -346,7 +346,7 @@ static int vcn_v2_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_0_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index e76e1168d6f8..30420ead7fc4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -110,7 +110,7 @@ static int amdgpu_ih_clientid_vcns[] = {
+ /**
+  * vcn_v2_5_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -151,7 +151,7 @@ static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_5_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -295,7 +295,7 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_5_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -333,7 +333,7 @@ static int vcn_v2_5_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_5_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -381,7 +381,7 @@ static int vcn_v2_5_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_5_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -411,7 +411,7 @@ static int vcn_v2_5_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_5_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -431,7 +431,7 @@ static int vcn_v2_5_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v2_5_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 51ea9a83204f..13632c22d2f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -116,7 +116,7 @@ static void vcn_v3_0_enc_ring_set_wptr(struct amdgpu_ring *ring);
+ /**
+  * vcn_v3_0_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -153,7 +153,7 @@ static int vcn_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v3_0_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -299,7 +299,7 @@ static int vcn_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v3_0_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -338,7 +338,7 @@ static int vcn_v3_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v3_0_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -413,7 +413,7 @@ static int vcn_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v3_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -443,7 +443,7 @@ static int vcn_v3_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v3_0_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -463,7 +463,7 @@ static int vcn_v3_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v3_0_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index e33cc611f215..e7b7a8150ea7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -106,7 +106,7 @@ static void vcn_v4_0_set_ras_funcs(struct amdgpu_device *adev);
+ /**
+  * vcn_v4_0_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -164,7 +164,7 @@ static int vcn_v4_0_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
+ /**
+  * vcn_v4_0_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -253,7 +253,7 @@ static int vcn_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -294,7 +294,7 @@ static int vcn_v4_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -341,7 +341,7 @@ static int vcn_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -372,7 +372,7 @@ static int vcn_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -392,7 +392,7 @@ static int vcn_v4_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+@@ -1973,7 +1973,7 @@ static bool vcn_v4_0_is_idle(void *handle)
+ /**
+  * vcn_v4_0_wait_for_idle - wait for VCN block idle
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Wait for VCN block idle
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index f02699a92e50..6dcae398b2dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -98,7 +98,7 @@ static void vcn_v4_0_3_enable_ras(struct amdgpu_device *adev,
+ /**
+  * vcn_v4_0_3_early_init - set function pointers
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  */
+@@ -119,7 +119,7 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_3_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -212,7 +212,7 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_3_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -249,7 +249,7 @@ static int vcn_v4_0_3_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_3_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -308,7 +308,7 @@ static int vcn_v4_0_3_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_3_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -327,7 +327,7 @@ static int vcn_v4_0_3_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_3_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -347,7 +347,7 @@ static int vcn_v4_0_3_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_3_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+@@ -1565,7 +1565,7 @@ static bool vcn_v4_0_3_is_idle(void *handle)
+ /**
+  * vcn_v4_0_3_wait_for_idle - wait for VCN block idle
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Wait for VCN block idle
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 6d277ee27f46..edb9cd8390b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -104,7 +104,7 @@ static void vcn_v4_0_5_unified_ring_set_wptr(struct amdgpu_ring *ring);
+ /**
+  * vcn_v4_0_5_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -124,7 +124,7 @@ static int vcn_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -220,7 +220,7 @@ static int vcn_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -261,7 +261,7 @@ static int vcn_v4_0_5_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -291,7 +291,7 @@ static int vcn_v4_0_5_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -320,7 +320,7 @@ static int vcn_v4_0_5_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -340,7 +340,7 @@ static int vcn_v4_0_5_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+@@ -1467,7 +1467,7 @@ static bool vcn_v4_0_5_is_idle(void *handle)
+ /**
+  * vcn_v4_0_5_wait_for_idle - wait for VCN block idle
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Wait for VCN block idle
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index 89e813b7ba5d..89bf29fa6f8d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -87,7 +87,7 @@ static void vcn_v5_0_0_unified_ring_set_wptr(struct amdgpu_ring *ring);
+ /**
+  * vcn_v5_0_0_early_init - set function pointers and load microcode
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Set ring and irq function pointers
+  * Load microcode from filesystem
+@@ -108,7 +108,7 @@ static int vcn_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_sw_init - sw init for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Load firmware and sw initialization
+  */
+@@ -187,7 +187,7 @@ static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_sw_fini - sw fini for VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * VCN suspend and free up sw allocation
+  */
+@@ -225,7 +225,7 @@ static int vcn_v5_0_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_hw_init - start and test VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the hardware, boot up the VCPU and do some testing
+  */
+@@ -255,7 +255,7 @@ static int vcn_v5_0_0_hw_init(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_hw_fini - stop the hardware block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Stop the VCN block, mark ring as not ready any more
+  */
+@@ -284,7 +284,7 @@ static int vcn_v5_0_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_suspend - suspend VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * HW fini and suspend VCN block
+  */
+@@ -304,7 +304,7 @@ static int vcn_v5_0_0_suspend(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_resume - resume VCN block
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Resume firmware and hw init VCN block
+  */
+@@ -1194,7 +1194,7 @@ static bool vcn_v5_0_0_is_idle(void *handle)
+ /**
+  * vcn_v5_0_0_wait_for_idle - wait for VCN block idle
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Wait for VCN block idle
+  */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 576a7404cf10..7616d7a509b9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2790,7 +2790,7 @@ static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device *adev)
+ 
+ /**
+  * dm_hw_init() - Initialize DC device
+- * @handle: The base driver device containing the amdgpu_dm device.
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Initialize the &struct amdgpu_display_manager device. This involves calling
+  * the initializers of each DM component, then populating the struct with them.
+@@ -2824,7 +2824,7 @@ static int dm_hw_init(struct amdgpu_ip_block *ip_block)
+ 
+ /**
+  * dm_hw_fini() - Teardown DC device
+- * @handle: The base driver device containing the amdgpu_dm device.
++ * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
+  *
+  * Teardown components within &struct amdgpu_display_manager that require
+  * cleanup. This involves cleaning up the DRM device, DC, and any modules that
+-- 
+2.34.1
 
-  drm/amd/pm: update workload mask after the setting (2024-09-26 17:05:10 -0400)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.12-2024-10-02
-
-for you to fetch changes up to 52d4e3fb3d340447dcdac0e14ff21a764f326907:
-
-  drm/amd/display: Fix system hang while resume with TBT monitor (2024-10-01 18:13:19 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.12-2024-10-02:
-
-amdgpu:
-- DML2 fix
-- DSC fix
-- Dispclk fix
-- eDP HDR fix
-- IPS fix
-- TBT fix
-
-----------------------------------------------------------------
-Alex Hung (1):
-      drm/amd/display: Add HDR workaround for specific eDP
-
-Charlene Liu (1):
-      drm/amd/display: avoid set dispclk to 0
-
-Fangzhi Zuo (1):
-      drm/amd/display: Restore Optimized pbn Value if Failed to Disable DSC
-
-Leo Li (1):
-      drm/amd/display: Enable idle workqueue for more IPS modes
-
-Tom Chung (1):
-      drm/amd/display: Fix system hang while resume with TBT monitor
-
-Yihan Zhu (1):
-      drm/amd/display: update DML2 policy EnhancedPrefetchScheduleAccelerationFinal DCN35
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 20 ++++++++++++++++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    |  4 ++++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 17 +++++++++++++----
- drivers/gpu/drm/amd/display/dc/dc_types.h            |  1 +
- drivers/gpu/drm/amd/display/dc/dml2/dml2_policy.c    |  1 -
- .../amd/display/dc/resource/dcn351/dcn351_resource.c |  1 +
- 6 files changed, 37 insertions(+), 7 deletions(-)
