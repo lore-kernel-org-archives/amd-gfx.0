@@ -4,43 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A05FCF6D26
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62528CF6D28
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Oct 2024 13:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B47F410E34C;
-	Wed,  2 Oct 2024 13:34:49 +0000 (UTC)
-Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2836210E344;
- Wed,  2 Oct 2024 13:09:31 +0000 (UTC)
-Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
- by tretyak2.mcst.ru (Postfix) with ESMTP id 36BCF102392;
- Wed,  2 Oct 2024 16:09:28 +0300 (MSK)
-Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [176.16.4.50])
- by tretyak2.mcst.ru (Postfix) with ESMTP id 2FC2C102391;
- Wed,  2 Oct 2024 16:08:38 +0300 (MSK)
-Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.63.223])
- by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 492D8bmF023602;
- Wed, 2 Oct 2024 16:08:37 +0300
-From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADB7D10E358;
+	Wed,  2 Oct 2024 13:34:50 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zb9fx+m5";
+	dkim-atps=neutral
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1854110E6B3;
+ Wed,  2 Oct 2024 07:51:28 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5366fd6fdf1so7788774e87.0; 
+ Wed, 02 Oct 2024 00:51:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727855486; x=1728460286; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=k9nyVJGqZi2kIbcsm5pwHQqNkD1Y8pHSN+TEVYc1BR0=;
+ b=Zb9fx+m5mK2FqDKNcjK/VYbRAYQm0RnrIVBaUo5RYf5av2a2K83x9NhO0diUAXfNB/
+ x7oDvhL2XxiphTNxXPER0lftd/MZThAaHz7vbbZ0HChLvndMeL2hNN9Z6AHTZwyrJKv9
+ 8NJ3IiT8NaBVs0XzLVoFo5XyxjhAwLKMFVCbNeFZ4+2C/YjMjVkDUTWAX5+Iz8GuOjwo
+ 65aAhA1Ly3aOMg1DcaWHPblhF30KYd+kLWk4cdA8FQh+4dquvWemwImUt6Hpud97SNLU
+ 5O0QZqVaBwMrDzokxEYieHUk08XuH9zg/2NdjpQDpKyxOsA+qgtg5v1dIDVI2btwRn28
+ HUTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727855486; x=1728460286;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=k9nyVJGqZi2kIbcsm5pwHQqNkD1Y8pHSN+TEVYc1BR0=;
+ b=gMtrD1O3U+3bVQCh9gbTbSvxFnTso8D5AFQ6CQEjaoKEU+Qzb+BdpVCr0S6NpheyZy
+ iIMwTQbU3aM+CZdNXus4luhgr7aujNvhIvm6s5hVqq/hDRB55w0R8L45RBoGwXf6HnCD
+ izc02jNYxh5R1MJRofMKgaBrTBvckoT4Hy7Vl3VAXvcv+dHf5XDX764ExwiOoJ7qSEZx
+ YE1FQKWJYqV1d2NSVwi42QRxUSygujSoHSZfV3REl3Jttc3wh71UHg+//0SKpFS+0Cf6
+ /RomanqGuT0Gtonuu+EzB1L/ENsxTpQO0KwC5xQ2cUvjMvaDkkmeGaWm78rIHpXwPNo/
+ LGhg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVCocZSvYjSTe5XaUcogb4aAFUKrh6Y8GBZ9aclyCMIDJup0x1ZZc3aZZVT8n+mfzO35zlMqci@lists.freedesktop.org,
+ AJvYcCWwdzkzaE6RsIBNlkL2R2SmVUnRQq/Yt1a3Fj4BScSBXPcKBav/CyquSBRVDMkwBZp5mWbmynNFfacb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcWTNmjHtBB9d7BSwbMCViQTWMWxMVxP5kO6wPRQbCzsng+smb
+ EYCzQTI+0WrVP9BvIl+/3nGL3ZlLp7D6LxxkB/zDBaH3CfXoIn1s
+X-Google-Smtp-Source: AGHT+IF8mtYU+7zcM/iYB2WyeVNCQnN+7leXQiXAba6EuIP/+NC+OtPnfMj3ik00ilaWb/QudUriHQ==
+X-Received: by 2002:a05:6512:ad2:b0:52e:f2a6:8e1a with SMTP id
+ 2adb3069b0e04-539a0680758mr1016050e87.29.1727855485537; 
+ Wed, 02 Oct 2024 00:51:25 -0700 (PDT)
+Received: from localhost
+ (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c277c056sm821081666b.33.2024.10.02.00.51.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Oct 2024 00:51:25 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: [PATCH v2] drm/amd/pm: check return value of amdgpu_irq_add_id()
-Date: Wed,  2 Oct 2024 16:01:49 +0300
-Message-Id: <20241002130149.1607979-1-Igor.A.Artemiev@mcst.ru>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <7b3ea9a6-575e-4fe5-98d9-6e53803188fa@amd.com>
-References: 
+ Simona Vetter <simona@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amdgpu: Fix spelling mistake "initializtion" ->
+ "initialization"
+Date: Wed,  2 Oct 2024 08:51:24 +0100
+Message-Id: <20241002075124.833394-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
- bases: 20111107 #2745587, check: 20241002 notchecked
-X-AV-Checked: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Wed, 02 Oct 2024 13:34:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,69 +88,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_irq_ad_id() may fail and the irq handlers will not be registered.
-This patch adds error code check.
+There is a spelling mistake in a dev_err message. Fix it.
 
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
-
-Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
-v2: Remove the cast to struct amdgpu_device as Christian König 
-<christian.koenig@amd.com> suggested.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- .../drm/amd/pm/powerplay/hwmgr/smu_helper.c   | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-index 79a566f3564a..50a3085c00aa 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-@@ -647,28 +647,41 @@ int smu9_register_irq_handlers(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_irq_src *source =
- 		kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
-+	int ret;
- 
- 	if (!source)
- 		return -ENOMEM;
- 
- 	source->funcs = &smu9_irq_funcs;
- 
--	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+	ret = amdgpu_irq_add_id(hwmgr->adev,
- 			SOC15_IH_CLIENTID_THM,
- 			THM_9_0__SRCID__THM_DIG_THERM_L2H,
- 			source);
--	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+	if (ret)
-+		goto err;
-+
-+	ret = amdgpu_irq_add_id(hwmgr->adev,
- 			SOC15_IH_CLIENTID_THM,
- 			THM_9_0__SRCID__THM_DIG_THERM_H2L,
- 			source);
-+	if (ret)
-+		goto err;
- 
- 	/* Register CTF(GPIO_19) interrupt */
--	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+	ret = amdgpu_irq_add_id(hwmgr->adev,
- 			SOC15_IH_CLIENTID_ROM_SMUIO,
- 			SMUIO_9_0__SRCID__SMUIO_GPIO19,
- 			source);
-+	if (ret)
-+		goto err;
- 
- 	return 0;
-+
-+err:
-+	kfree(source);
-+
-+	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index b17e63c98a99..733e69e90c5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1533,7 +1533,7 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
+ 		r = amdgpu_ras_init_badpage_info(tmp_adev);
+ 		if (r && r != -EHWPOISON)
+ 			dev_err(tmp_adev->dev,
+-				"error during bad page data initializtion");
++				"error during bad page data initialization");
+ 	}
  }
  
- void *smu_atom_get_data_table(void *dev, uint32_t table, uint16_t *size,
 -- 
-2.39.2
+2.39.5
 
