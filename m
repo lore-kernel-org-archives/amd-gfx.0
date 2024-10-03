@@ -4,83 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02D0DCF34B0
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 15:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B88CF34B0
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 15:50:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE5010E139;
-	Thu,  3 Oct 2024 15:45:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5DCC10E886;
+	Thu,  3 Oct 2024 15:50:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TICrwrFP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k/gEipf4";
 	dkim-atps=neutral
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9F1410E139;
- Thu,  3 Oct 2024 15:45:16 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 6E6A6E0002;
- Thu,  3 Oct 2024 15:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1727970315;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KEG391uPbET+smFrjuUd3Gbf+SfD/X5R0PGVdaNVyDQ=;
- b=TICrwrFPqNQr0FkllJojskNhDNyxJBBjJ7p1KfIigSpe1yz5eAAGd2ZrO2BidvC6/A+Qom
- NZAd/9RJSz1RiDd3lLdtADp5nqX9bQyWNoBMaYmxSJhOSDe0T0fZ3BzR0Se1uCIXgHLatP
- 0EnPqF616SrgdCpZaDlShmBrP13ZbIXW9Bj7Oi5IuZvb8HSqOh6m1SReSPJmtquU99Yk9c
- wA7Vpopy8iwsQYMzzsZgtNT4idP5iRQdLFv3pdXkbJyEmdQQR3dqplUNNyYzH1sATd/MpW
- BCY3lPJp+f+t7R9s2mNyuYyLKxVcwMtVAupvHPO8B9IX4HLM2IwIi9MsvKSHrQ==
-Date: Thu, 3 Oct 2024 17:45:10 +0200
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>,
- Inki Dae <inki.dae@samsung.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Hans de Goede <hdegoede@redhat.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] drm: Move crtc->{x, y, mode, enabled} to legacy
- sub-structure
-Message-ID: <Zv68Bj8UTNvRSmFj@louis-chauvet-laptop>
-Mail-Followup-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?=
- <ville.syrjala@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Liviu Dudau <liviu.dudau@arm.com>,
- Russell King <linux@armlinux.org.uk>,
- Inki Dae <inki.dae@samsung.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Hans de Goede <hdegoede@redhat.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
- <20241002182200.15363-3-ville.syrjala@linux.intel.com>
- <Zv6QF2EmIcogtlLA@louis-chauvet-laptop>
- <Zv6gSGMXZZARf3oV@intel.com>
- <Zv6zN7Go_XG44P2-@louis-chauvet-laptop>
- <Zv64RktMPv2rpCZf@intel.com>
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2DAB10E886;
+ Thu,  3 Oct 2024 15:50:48 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2e0c2e42b75so188886a91.1; 
+ Thu, 03 Oct 2024 08:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727970648; x=1728575448; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mtxb42Q1qe9YfoINf5NVixHUoVaN2GEgv6CoMOeI4wo=;
+ b=k/gEipf4UJyjWJ8Q/05Gnxn+dta3fPEaqrOLeNNOKjCV9+Zn3lutGcIBOvizlPvRF4
+ TxTe7CRxxYSrr8iZsa4q9ySRcrmKDPhfuqwANMftOGg+/gQhwP0uk5k8BV33QFRzP3tQ
+ 8CAJqmFp92wgv/ILhw2P7OZGbZE8sszNBWt/j0eYCBjdgbyeCjnxh5Op4Mx5WMVXTt5B
+ GZ7Rq+HopPAn6n8tyJ3mmiCHzwiVFjTQPDpfyOib12B6GVm5nu3LlKK6K2KmPo37+SkX
+ ka1iMOkOeThpFnLSKf2pcXfHKupxPT2GHFjOSqiO41vQHEMjk1pVTeCjaRKTPx6fwjo3
+ Z1wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727970648; x=1728575448;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mtxb42Q1qe9YfoINf5NVixHUoVaN2GEgv6CoMOeI4wo=;
+ b=jf7AAOQQpjVYhTbjI+m3fZ+BlwhejGFBNMDZfHbKL4efbf9eJpPYezvMqeEORFif95
+ i5pWJd3kSI/nt4VZn59WlAOyvZXjQzs4M1hH4qWIQdlfGYtQPnFmAqAS1AcFSxb2IkP6
+ AM1DcgtcGAlUM9N2WD0kzuFEANt9PiYh2JVymzE3cAXSJBCNUokIl9MxsOJe3DVpviiN
+ kK3dNIJfD9VpLbVVgIZBKTgni/cZEb071+aDHiBA3lkrMaGZlEZ369sMd1oBWU0dYqFN
+ lES3FGNXtcxW9sWPH0MFuOlv5WXa/pQL4odJqMJ40c88WclUw21mmN3bBSDwZqpkN0fF
+ XOGg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWD+zMWs4xWoBaOOweXI7IhjoElTUYcptDOpHv8QH2DvxB9uE/J9B/eN6znfz1xydrVg+v+t6p2I3q/@lists.freedesktop.org,
+ AJvYcCXrOfe9HJP4eKK7d8orU6TrBe8mIWzIEPA26BdIGfSwsHiZ1Qp0LATYxxFnm0j1ZFV6bM/WtI8M@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YygovzvGdhrANfsA5ElIk/22Y/ZITSGjCgpuJgMqoNIMcwWgLML
+ ooQE3bXL9kbRwdUvZvX4JWhnEzuwJeN0zHkG/BSb3LzSp9Laedv9NF/iowhcxHYXntZek9uoaf9
+ txnHhIEQ/AGzAYLBtIg2evH1VrTQ=
+X-Google-Smtp-Source: AGHT+IERCnPM4MQcQ2AN8Pl0VihX0SJfs1pDf/Gnb8YhO0xYeHdvEeK5QCNZBFF6yBg0SncKfgH13EW7JwU9L/mU2zw=
+X-Received: by 2002:a17:90a:ec0d:b0:2e0:9147:7dc1 with SMTP id
+ 98e67ed59e1d1-2e184993a92mr3552688a91.6.1727970648102; Thu, 03 Oct 2024
+ 08:50:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Zv64RktMPv2rpCZf@intel.com>
-X-GND-Sasl: louis.chauvet@bootlin.com
+References: <20241003143640.14932-1-hdegoede@redhat.com>
+In-Reply-To: <20241003143640.14932-1-hdegoede@redhat.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 3 Oct 2024 11:50:35 -0400
+Message-ID: <CADnq5_O3oaA1r7911kfx-zohYEvGCBw1eDTXrX2+RH+XuGnnXw@mail.gmail.com>
+Subject: Re: [PATCH 6.12 regression fix 0/2] drm/radeon regression fixes
+To: Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,75 +81,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Le 03/10/24 - 18:29, Ville Syrjälä a écrit :
-> On Thu, Oct 03, 2024 at 05:07:35PM +0200, Louis Chauvet wrote:
-> > 
-> > > > > diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-> > > > > index a40295c18b48..780681ea77e4 100644
-> > > > > --- a/drivers/gpu/drm/vkms/vkms_crtc.c
-> > > > > +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-> > > > > @@ -64,7 +64,7 @@ static int vkms_enable_vblank(struct drm_crtc *crtc)
-> > > > >  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
-> > > > >  	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
-> > > > >  
-> > > > > -	drm_calc_timestamping_constants(crtc, &crtc->mode);
-> > > > > +	drm_calc_timestamping_constants(crtc, &crtc->legacy.mode);
-> > > > 
-> > > > 	drm_calc_timestamping_constants(crtc, &crtc->state->mode);
-> > > 
-> > > This one doesn't look safe. You want to call that during your atomic
-> > > commit already.
-> > > 
-> > 
-> > This was already not safe with the previous implementation? Or it is only 
-> > unsafe because now I use state->mode instead of legacy.mode?
-> 
-> Yeah, if you want to look at obj->state then you need the corresponding
-> lock.
-> 
-> obj->state is also not necessarily the correct state you want because
-> a parallel commit could have already swapped in a new state but the
-> hardware is still on the old state.
-> 
-> Basically 99.9% of code should never even look at obj->state, and
-> instead should always use the for_each_new_<obj>_in_state()
-> and drm_atomic_get_new_<obj>_state() stuff. Currently that is a
-> pipe dream though because a lot of drivers haven't been fixed to
-> do things properly. If we ever manage to fix everything then we
-> could remove the stall hacks from drm_atomic_helper_swap_state()
-> and allow a commit pipeline of arbitrary length.
+Wu Hoi Pok and Christian have fixes pending for these.
+
+Alex
+
+On Thu, Oct 3, 2024 at 10:53=E2=80=AFAM Hans de Goede <hdegoede@redhat.com>=
+ wrote:
 >
-> > 
-> > After inspecting the code, I think I don't need to call it as:
-> > 
-> > In `vkms_atomic_commit_tail` (used in 
-> > `@vkms_mode_config_helpers.atomic_commit_tail`), we call 
-> > `drm_atomic_helper_commit_modeset_disables`, which call 
-> > `drm_atomic_helper_calc_timestamping_constants` which call 
-> > `drm_calc_timestamping_constants` for every CRTC.
-> 
-> Slightly odd place for it, but I think that's just because it was
-> originally part of drm_atomic_helper_update_legacy_modeset_state()
-> and I didn't bother looking for a better home for it when I split
-> it out. But seems like it should work fine as is.
-
-I just send a patch for this! Thanks for your help!
-
-[1]:https://lore.kernel.org/all/20241003-remove-legacy-v1-1-0b7db1f1a1a6@bootlin.com/
- 
-> > 
-> > I tested kms_vblank, all of them are SUCCESS/SKIP, do you know other tests 
-> > that can trigger bugs?
-> 
-> You would explicitly have to race commits against vblank_enable.
-> Could of course sprinkle sleep()s around to widen the race window
-> if you're really keen to hit it.
-> 
-> -- 
-> Ville Syrjälä
-> Intel
-
--- 
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> Hi All,
+>
+> My main workstation still uses a good old R7 250E card. After dogfooding
+> 6.12-rc1 my system would first hang at boot and after fixing that GDM wou=
+ld
+> not show.
+>
+> After identifying the problematic commits I have gone for the easy soluti=
+on
+> of reverting both, which was straight forward in both cases.
+>
+> Both patches have a stacktrace in their commit message and I'm willing to
+> try other ways of fixing things.
+>
+> Regards,
+>
+> Hans
+>
+>
+> Hans de Goede (2):
+>   drm/radeon: Revert: "remove load callback from kms_driver"
+>   drm/radeon: Revert: "use GEM references instead of TTMs"
+>
+>  drivers/gpu/drm/radeon/radeon_drv.c    | 5 +----
+>  drivers/gpu/drm/radeon/radeon_gem.c    | 2 +-
+>  drivers/gpu/drm/radeon/radeon_object.c | 7 +++++--
+>  3 files changed, 7 insertions(+), 7 deletions(-)
+>
+> --
+> 2.46.2
+>
