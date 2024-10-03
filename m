@@ -4,128 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F373FCFA746
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 03:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD9E7CFA74C
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 07:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86FF410E193;
-	Fri,  4 Oct 2024 03:45:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C95310E846;
+	Fri,  4 Oct 2024 07:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wQpBOAYq";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bgOnL8bW";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5108810E104
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 03:45:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uf3BNG+NohuBB8AQnA43L1kVum7IiOF3EV2XYDki4xbnn9zQArbuJpmQvGzCkdaLzFXHLBVa9IxSH9/qVMZ3NAH4xEnfFu+/9NmTTajJHf5d3CAHydyom8rgmuI6qgWf26aiClPz0rT2x0QB2hzVaOxhzDb0zj++58rx+p3Agaj+wE012ayjEtg3pxqHaY5it0stkhzdLd4mIuUXIt3E9Ni1UzpSVB6T+cjv+x5+OvyFtlwn6zKhzX3Gb5Y0DcY1Q2LPRgs8831AJ2Itdd/EQ0ZefL2+v0VdGGmBn5kiGGokHhNSNO8NjAxnXqSNYGwgHYoPXOfn20CKU89fm2mtRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j19Bcl/vKw+Qn1b+DxHcKS8swBenDygdPy+ckzrNZGc=;
- b=lpZghNb4fidTFJ25JM23DcOL69tshZNKnihEcndzhV5EDuJnNXJQgOSmKXJBYK3Z4mZ9LHPmuRlxx5JQwabhB2tCS59CTzJzxwitmkwi0ODJCTJPr0qCWpX1jDIHCS8+IwnmPqCHy+jL2t2moA7vjVibiD3Bja+VzKqKw4H1DwGgXCBlTOPZ6r4iCeTOxbcZswrYossKsXURSRUCTZtYK4a3hyOS77cTDpNwyZZdqjpj7ItMUuLOXvMMr8vs1JdnUW7THg+pcdiOhm9T9rcbkgCCp9TR9Accb29eyceWbwiuhGxTLHcsKccE8OBH8Wt/1mMkU7FaZmBTmodpnEfxIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j19Bcl/vKw+Qn1b+DxHcKS8swBenDygdPy+ckzrNZGc=;
- b=wQpBOAYqZCFPzl9yVVYT7pTP/wCTsyZN9FHlNSwSWaLungBHLinNF7dWdX24PePshmEbzpTkwVZY+zoGQqUY9SX8q1UKY/bfB9HhhQ3nzdsBjKWR0dyxG+lp6XuudoUgTGP5ucQ4uAwfmeJ8z6veVbTYHvZ6ie7Ausw+34bxyxs=
-Received: from BYAPR05CA0041.namprd05.prod.outlook.com (2603:10b6:a03:74::18)
- by SA3PR12MB8438.namprd12.prod.outlook.com (2603:10b6:806:2f6::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Fri, 4 Oct
- 2024 03:45:24 +0000
-Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
- (2603:10b6:a03:74:cafe::d3) by BYAPR05CA0041.outlook.office365.com
- (2603:10b6:a03:74::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.10 via Frontend
- Transport; Fri, 4 Oct 2024 03:45:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.2 via Frontend Transport; Fri, 4 Oct 2024 03:45:23 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 3 Oct 2024 22:45:20 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Mukul Joshi <mukul.joshi@amd.com>, "Harish
- Kasiviswanathan" <Harish.Kasiviswanathan@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>
-Subject: [PATCH] drm/amdkfd: Use dynamic allocation for CU occupancy array in
- 'kfd_get_cu_occupancy()'
-Date: Fri, 4 Oct 2024 09:15:05 +0530
-Message-ID: <20241004034505.3759692-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D99310E078;
+ Thu,  3 Oct 2024 13:12:04 +0000 (UTC)
+Received: from [192.168.88.20] (91-156-87-48.elisa-laajakaista.fi
+ [91.156.87.48])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 20062593;
+ Thu,  3 Oct 2024 15:10:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1727961029;
+ bh=tplxAmF4PFVVUhtYrM26ew2n9imTSDe1och2jI6SSB0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=bgOnL8bWv5Qxe0ZVgDQvuLT41kypPTSecAUUYQmoBRKLIYmj4x/OyetiqCE9zvlWg
+ tYjWPoxcFV4X8YOq60rbS1L4CZ+aQ1dER7/a6+RrAcO5vkSHx3dUgCG7IBCfmrt2UL
+ bp2mlwe4thU4mI+nxp0Dn31uvNeIZaNGTby3Dx7Q=
+Message-ID: <fbf0b1fb-afe7-47be-9016-eadac5492c1a@ideasonboard.com>
+Date: Thu, 3 Oct 2024 16:11:59 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 79/80] drm/omapdrm: Remove struct drm_fb_helper from
+ struct omap_fbdev.
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ jfalempe@redhat.com, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
+References: <20240924071734.98201-1-tzimmermann@suse.de>
+ <20240924071734.98201-80-tzimmermann@suse.de>
+ <029f0567-f9df-402c-ae42-3bf27c060986@ideasonboard.com>
+ <8fb2df6b-4708-4eac-aa18-d7825d0410a6@suse.de>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <8fb2df6b-4708-4eac-aa18-d7825d0410a6@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|SA3PR12MB8438:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5226434-8601-4427-d8a9-08dce426fa36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OEVHM1p1ZFFQa3E3eU5MM05CM2hqeWZuMUFqUU54TUgzVitBUDk1QlN3SVJH?=
- =?utf-8?B?Vml2aU50OHlmNHIxZjFjWWtNR1B2V0t4Vm9hSzJEWlJEOGRVUGQ2ek1IYnpR?=
- =?utf-8?B?U2RQVGJVUXQ1OE4vVTVnVlV4N1hHR3lINXhkUXlMYzlZSUxWUklrQ2pLQmJT?=
- =?utf-8?B?TWs5MForMlpZbURpZUQvWFcxWHpoTXNvbkhTNjZ5WnMxcFpZck0vdUlwbURM?=
- =?utf-8?B?YnlBN1JMQU52azRZS0psWkUwbXlqS25JdEhzeEc2RmwwNFBpMVc1elVxbjIw?=
- =?utf-8?B?MGt4d28wOWVmNzZFY2RFS2VKSHMrY3cyZ0Z2YTVvZnlvMUk1WGJkU0hHR2k1?=
- =?utf-8?B?eTN6V3ptemw0b2tmaytsZXc1UFNQY2E2Y1hadFh5UERpY2Y5bStPY2tyZUlG?=
- =?utf-8?B?OVpmOXBaaEIwYXJrek1KdFIxWllHL0p5TFYzKzVrYWlQWUtHN2NHM3dqNnVV?=
- =?utf-8?B?WlZvV1hndmNsbHAyMlhnYmtEWjRROE1wN2QwRGdNL0N5SGIrdVIzOTRMdkw5?=
- =?utf-8?B?WDQvTEJ0TWJDKzBVY1V1eEtCVFBkbzRZbnhIOG1IMWYvZURTVEVjNFdiL3Zs?=
- =?utf-8?B?Uk4xWUkvUnViM2M2Z0JtV1VncXQrUjRsNm1hb01kbTk4eGEwenlvaWU5UWI1?=
- =?utf-8?B?Sk1EVmlYeXRseVhQaTk4elBlTUhwajJhZ1lab3R4MjdsMkkrd2g5dGkzckVo?=
- =?utf-8?B?ZGc4R3hsOGtFcVhHb0VhdndCeEhCVUpSZEZ5eFNnWXFIQ1RrY0czenppdFVj?=
- =?utf-8?B?VUFheWw1MEQ4N0xBRDJwMFpoaCtrR0FPSkJITDkzeFd4YTlRaEI2Z0QvYmRV?=
- =?utf-8?B?QWVJa2VvTGFGcGJHd2R1dWVOYzlONWdXV0xBQ05tdEVIbTJZVkpHbEtGS3pi?=
- =?utf-8?B?VVRVakt2VkNZSTRWSkVUd2ZkcXUvVDR2THhNTjVRUkx5RzJDMDkrTEp4VFBj?=
- =?utf-8?B?c2NtcVJCbVRHK2dqQ0hBZklqdHA0VHVlUUlVL1MyOFkxWldOTkhabEZmOGN6?=
- =?utf-8?B?MWg1MGVUVnVWcmh5ZzV1b0puU1FmS0t2cFV4NnlQaG5PZWQwMTdBR3hxR3BO?=
- =?utf-8?B?a1hoYnlPRlBxNWlnSHFOV2ExMEVlUDBmZ3dSQjF0dTdIWDRvSUR2SWtUNFRU?=
- =?utf-8?B?eEZYelc3bldqV005QzVsWVNpYUYyWks1N3NJY29zSXNwbDQrRVFIbnFPZmtt?=
- =?utf-8?B?VHVQMHNEZXZLRWVKVStwTmlRWnlQMWFIa2hCNVl4dmFmbmYxU1FqRmhzanMv?=
- =?utf-8?B?SWorcUM4YUErbGZaTlJETzJEV0ZEL1lPdjh4ejNnNmpVRjA4NjFVSC9MQW1s?=
- =?utf-8?B?REZCUUN3MmE2c09kV242eVd1ZTNhUnBtNlF6ZS9SVXZVMUlMYVVqdE53NmFJ?=
- =?utf-8?B?dGRpVFErbUx1YU50a1YvQU1hV1RCTzBZWTB6eVNkQ21oaUpGdjlMdlZteUtX?=
- =?utf-8?B?SXQ4My9KNjRsSjdBQlAxTlNBakJZS1VoT0dObzJ5TS9uODB4YVdEZWdhNDEv?=
- =?utf-8?B?R1VDTGFWcmtER0kxWHZPbThpSldheEExSm5LY2RlR2YxVm9nRVp5dmNPOGRw?=
- =?utf-8?B?eFV6K2JocDVyTUpPeG54VXFIaHZONG5qb0JkbjJkNmRFaE1ObTRXaDdFRWUy?=
- =?utf-8?B?aGpvRG1yRVpFbEgvMk1JaGhuL1B3ckV3dmFPT0dETkdKY2JyYTdwdW5sNTlV?=
- =?utf-8?B?OFQvb1NtZExqaWN6cVNtTXAwQ1k1cEZGMTVGMERZb0R3cms2NEFlazdTUWdy?=
- =?utf-8?B?Yi9VUVhRN1VMa1JYOWtIQm8rYW9QQTQrUnA1c3l2L2pGN3h0K2pOR3N3WTVp?=
- =?utf-8?B?OTIyb2dqVVArL2NSbk9ndz09?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2024 03:45:23.5837 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5226434-8601-4427-d8a9-08dce426fa36
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D7.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8438
+X-Mailman-Approved-At: Fri, 04 Oct 2024 07:28:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,66 +104,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The `kfd_get_cu_occupancy` function previously declared a large
-`cu_occupancy` array as a local variable, which could lead to stack
-overflows due to excessive stack usage. This commit replaces the static
-array allocation with dynamic memory allocation using `kmalloc_array`,
-thereby reducing the stack size.
+Hi,
 
-This change avoids the risk of stack overflows in kernel space,  in
-scenarios where `AMDGPU_MAX_QUEUES` is large. The  allocated memory is
-freed using `kfree` before the function returns  to prevent memory
-leaks.
+On 27/09/2024 17:46, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 26.09.24 um 15:07 schrieb Tomi Valkeinen:
+>> Hi,
+>>
+>> On 24/09/2024 10:13, Thomas Zimmermann wrote:
+>>> Store instances of drm_fb_helper and struct omap_fbdev separately.
+>>> This will allow omapdrm to use the common fbdev client, which allocates
+>>> its own instance of struct drm_fb_helper.
+>>>
+>>> There is at most one instance of each per DRM device, so both can be
+>>> referenced directly from the omap and DRM device structures. A later
+>>> patchset might rework the common fbdev client to allow for storing
+>>> both, drm_fb_helper and omap_fbdev, together in the same place.
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>>> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+>>> ---
+>>>   drivers/gpu/drm/omapdrm/omap_drv.h   |  3 ++
+>>>   drivers/gpu/drm/omapdrm/omap_fbdev.c | 42 +++++++++++++++-------------
+>>>   2 files changed, 26 insertions(+), 19 deletions(-)
+>>
+>> The ywrap seems to be broken, but it's broken without this series too. 
+>> With some quick hacks I managed to get the omapdrm's panning function 
+>> called, and it works the same way with or without this series.
+>>
+>> Tested on DRA76 EVM.
+>>
+>> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>>
+>> For reference, in case someone is interested fixing omapdrm's ywrap code:
+>>
+>> - get_fb() doesn't work. I don't understand the point of the function. 
+>> It compares fbi->fix.id and MODULE_NAME, and the "fbi->fix.id" has 
+>> changed along the years so the check no longer works. Afaik, the whole 
+>> function is not needed, and we can just use fbi->par.
+>>
+>> - omap_fbdev_pan_display() doesn't seem to get called when the console 
+>> scrolls. I can get it called with an userspace app that does some y 
+>> panning. Maybe FBINFO_HWACCEL_YWRAP is not supported anymore?
+> 
+> If ywrap doesn't work and no one complained, can we remove it? The rest 
+> of the code is equivalent to drm_fbdev_dma.c, so we could remove omap's 
+> implementation entirely.
 
-Fixes the below with gcc W=1:
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c: In function ‘kfd_get_cu_occupancy’:
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:322:1: warning: the frame size of 1056 bytes is larger than 1024 bytes [-Wframe-larger-than=]
-  322 | }
-      | ^
+Personally I'm fine with dropping it, but I have to say the console 
+scrolling looked reaaaally slow without it. I'll try to find the time to 
+at least figure out when it broke. Maybe it was a recent thing, and thus 
+no one has complained.
 
-Fixes: 6fc91266b798 ("drm/amdkfd: Update logic for CU occupancy calculations")
-Cc: Mukul Joshi <mukul.joshi@amd.com>
-Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index d665ecdcd12f..33109d9f6eed 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -271,10 +271,13 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
- 	struct kfd_process *proc = NULL;
- 	struct kfd_process_device *pdd = NULL;
- 	int i;
--	struct kfd_cu_occupancy cu_occupancy[AMDGPU_MAX_QUEUES];
-+	struct kfd_cu_occupancy *cu_occupancy;
- 	u32 queue_format;
-+	int bytes_written;
- 
--	memset(cu_occupancy, 0x0, sizeof(cu_occupancy));
-+	cu_occupancy = kmalloc_array(AMDGPU_MAX_QUEUES, sizeof(*cu_occupancy), GFP_KERNEL);
-+	if (!cu_occupancy)
-+		return -ENOMEM;
- 
- 	pdd = container_of(attr, struct kfd_process_device, attr_cu_occupancy);
- 	dev = pdd->dev;
-@@ -318,7 +321,10 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
- 
- 	/* Translate wave count to number of compute units */
- 	cu_cnt = (wave_cnt + (max_waves_per_cu - 1)) / max_waves_per_cu;
--	return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
-+	bytes_written = snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
-+
-+	kfree(cu_occupancy);
-+	return bytes_written;
- }
- 
- static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
--- 
-2.34.1
+  Tomi
 
