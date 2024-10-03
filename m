@@ -4,74 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A336FCF34B0
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 15:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B34FBCF34B0
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 16:29:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D81A10E88E;
-	Thu,  3 Oct 2024 15:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49B7D10E1AE;
+	Thu,  3 Oct 2024 16:29:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QAZOw1tr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u6daKmPk";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A57D610E21E;
- Thu,  3 Oct 2024 15:54:42 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2e0ad414718so188310a91.2; 
- Thu, 03 Oct 2024 08:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727970882; x=1728575682; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0yGeUrKYFIPCVFsOqzylmOrv3kBoBBc0wc9fqVx2R8I=;
- b=QAZOw1trSZSMpPOgFmf/X5OYpSXzrQZhlYCTX9d2EBlnlHk+Ldae6dx+H3bDOM10IH
- 3MqwboJn8kfS/WBtR/5xlvkFzZRSzLcYZifi/XlkS9FWru8PBEGJJr5xY7PzMuMris8W
- rw3vJPWSXkyqc7FXIfqNlg5uHwqxyE59ErXyFj67Z8J+X/nTr++N0ZtDYgOOL6noQaqW
- T53m1lCf2iJ2qXYKElm+RsTe+0Vz6q2vkxFtQVknCFfZf+tZhJGKpbIIemJjGNZJuJVi
- s7zJcD4ctCRAlOVcvUkJoYLY7okd2P6GFh+tib1RjJv8mVxL2HhlDBUeoKq3TM35UQWZ
- PTKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727970882; x=1728575682;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0yGeUrKYFIPCVFsOqzylmOrv3kBoBBc0wc9fqVx2R8I=;
- b=hWpn5B0HlkyZo0FIv/hqYutjDvseqoYQdhbpMZlpKpp6VCKOEv3d4ynTpE3rGqZzy+
- iemkRD3zv5ZxHKI7IWBWZwMcE0MYCEwApy1riaIKsm59gcOiwbI99ZMQ0ihDLZErQ1av
- +szg/yVfHc88YpoGlpn7yOtZyaIVrksooPd3/DWkl1xgD/wu/G7Sb/E8gNQawWQbr24J
- WblLvcSxmhoqxWiyFRoS/ffUshbTrR2Nvwr8m3Eh46+RXugfMWGWif2BdosU0ua6O+PV
- 7reIMUn8cBhCt0Kz+vU6/paXHzMQrruIuT5ZD+ZTaASNyK79GU4A8uH4Uzzru3OMSS/w
- gSkg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVZTYR8HagdNAyymoHQzxXL59HPRUKkt6AEMDyQWKchoZRzsum3mA1O4UuDVDYNAYtArluJOfkI@lists.freedesktop.org,
- AJvYcCVtEk3nRW20CqaUX1D+NcCw2RiS3xGNOjnL6Iw4TTnYohc9oPqsycqaypkrx3rk8F/hBpEmNamjAyjM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnaSAijwWw0TJKlEQiVQPl1UNVtMPTW3ZI9TQ+kpG8J0lGcIgp
- Bpmb4qpcIl78+7dAuBC7jd44LcqYGG0uorczeAHMdyVp2KBot/BLU7nDnlWmPUT4GklvKGJNOEK
- 5OThdAmqYMcyvckQBD66XO9Mn2Yk=
-X-Google-Smtp-Source: AGHT+IH+eTjTi91vp6di708DRWo+fli07tV+SgXGhpx5vBaiOKNM8nEPU0iifLJQbB3mv3n732aR5ljw2ZJKiemM5cM=
-X-Received: by 2002:a17:90b:3c6:b0:2da:a6d4:fd5d with SMTP id
- 98e67ed59e1d1-2e184527f84mr3469685a91.1.1727970882126; Thu, 03 Oct 2024
- 08:54:42 -0700 (PDT)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA1AD10E1AE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 16:29:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ywYsPAozbfwTKkOruU/DYao0Vzz5XAJz7elg+jPZzXieoPRcsOlYYIm2KgSB315/qVKcU2L646LvbEvGG8omjF/YQDAtaI7urc0M9L7OtMAfM2OAs/INF5xk9gasSqmD1g/KWAFMa65vwJ/nRZs6haMzOspTbMSteZUnhYGSIy/cP5SCrs4Nat0Jq9RMsm/qHT9LHgg2IOd9kZrTlQ6BSfCw6ld5CPtjh90gE4M8ugr7IPh10n46gUQ16KTRyBAYqPaxHAZEbLNFqKDhtQSqXiRMzqQVbhhJv6Zw21dhtII+kK+SHYShE/VSQ1muUEezDcml/iPhtgxznBwVgL+CSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bSZd8t/CGOqbkElYlXa8mYq0GbzVkb2jZfWHzyNg5nc=;
+ b=EkebHC1mdSrFAQU5xwI6t13OKcTMJWrOeqjyOoogc7NDIpSFa0LCby73cWoVwiW84aJcBK4hdnTjjpwz9tH+bjqPW5Sohs2AKppyjw2EyMUD4o9q0fIjjwHzcRLkdpisTDBQBa62M0rLdWHq0SNbjezALd+TSkbaVJYJuy/oAeZCiv4BWXNL3NTsdz+wnBURoK2joutd+wgtIXrV2oK7ZLZw4qFw4yhreYNqqhB0DREl5HBfLeRrhyNFfQo0EmgYlK00t7BngjC4oNNN2mQS0Jop0tDevby+5Y2peUmQYPZbF3Tz6XiBh77uLCjcqN6QTeoccIuvoUxw/ELv/kxoaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bSZd8t/CGOqbkElYlXa8mYq0GbzVkb2jZfWHzyNg5nc=;
+ b=u6daKmPk+wcJXAqdrt4uRo43eyP88y1dc22fXbqrivGXvg0yaVulj+e72e/ie9Z93VzX0xK0STbd26z+XazRl0RUld15TQIXv9I99gdSS5Z35xE0C2FHZoejl99DSGXMpGNph9dqZUKnFCPGiWZb2beLjrh149icuQu4x+0v9MQ=
+Received: from BN9PR03CA0642.namprd03.prod.outlook.com (2603:10b6:408:13b::17)
+ by DM4PR12MB6255.namprd12.prod.outlook.com (2603:10b6:8:a4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.16; Thu, 3 Oct
+ 2024 16:29:33 +0000
+Received: from BN1PEPF00006000.namprd05.prod.outlook.com
+ (2603:10b6:408:13b:cafe::9c) by BN9PR03CA0642.outlook.office365.com
+ (2603:10b6:408:13b::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.17 via Frontend
+ Transport; Thu, 3 Oct 2024 16:29:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 16:29:33 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Oct
+ 2024 11:29:32 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <mukul.joshi@amd.com>, <jonathan.kim@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>
+Subject: [PATCH] drm/amdkfd: Copy wave state only for compute queue
+Date: Thu, 3 Oct 2024 12:29:18 -0400
+Message-ID: <20241003162918.26745-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-References: <20241003060650.18454-1-wuhoipok@gmail.com>
-In-Reply-To: <20241003060650.18454-1-wuhoipok@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Oct 2024 11:54:30 -0400
-Message-ID: <CADnq5_PA37NQ52-Y8r6JEtXDRwPehzM5+cxysiZgVks4AkivjQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: add late_register for connector
-To: Wu Hoi Pok <wuhoipok@gmail.com>, Hans de Goede <hdegoede@redhat.com>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>, 
- Christian Zigotzky <chzigotzky@xenosoft.de>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|DM4PR12MB6255:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d396666-0ce3-4b0b-5f0b-08dce3c8904f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nFRyOc1BLwfhzFDSjYUIkpkgnc0DhGakqfIvHWbC4N4/Rzu2db2F45PLavAr?=
+ =?us-ascii?Q?ChX0k9XMUMpseKMysgWG4wSdjGpmBbzJEV7a0QDAfnqXEqXV2JSzUy0MblU1?=
+ =?us-ascii?Q?p8VjUite6Gwz6gq5Y/CdklhuSvbzALrXGMZtVfS1CcScyAXvGvucs8qwBJEF?=
+ =?us-ascii?Q?xFhAcHY3kXynZ15bWpllzTMU0eHrDc7RsTh3U9wbYEnoExKEP6r2300uELlT?=
+ =?us-ascii?Q?BYRPguy4fKdKRT+jVpKIadqKcL3PCijFp4E1X5KNoHbDoNvnR/R2cmEzEB2i?=
+ =?us-ascii?Q?/yL4Bjvr5WKaTiopsCKZAtBbEc8qydZqp4EFrCaHBkGnm+i0+SuEdnJP35gz?=
+ =?us-ascii?Q?rwoKEKxkNOs9cTckYrwGwkLS+cTyt8SuJ5TZhQqugHqbIcEeEAPl80sWftfZ?=
+ =?us-ascii?Q?RTPHhAxW7X6F9xXfazBCmV1ktM+3ouK/8K9JwOOb0mfejc0dkkTYvwGIvYqP?=
+ =?us-ascii?Q?KselpsQUz9QtAyd/zYB6ZvnH1abyEhc+ZxMg+R+mK6JoTFKlLMnSWWxFN3tv?=
+ =?us-ascii?Q?K3OCxQMw8xIlsC2Ab16maGLXNOPFeI/8kU+CwK7mhdlV1FGGExDoackfoYq/?=
+ =?us-ascii?Q?0bSPGr5g/koIDd64sCQSYbrKCzwrDoN0qoAyTMjSpWCKoTLEIoIxckSFKKFG?=
+ =?us-ascii?Q?IUWcwh+ApOcq1FUxj7HAM05ImK7dQWh+p5Zxz5B3/JoFr7qLtk9jivnJ+xHx?=
+ =?us-ascii?Q?kRDa7EyPzTNZZu+y79f3KloCFXORgBYl+AggtVJfj/ZtvJ7ueudr0C2+dSao?=
+ =?us-ascii?Q?JF4KRHlBiNyiyFMSdpmRoEy+qbjpT2N7aliDvpx0KPMd7UEr7Ju3McVy751v?=
+ =?us-ascii?Q?KM6QB1XcXuSV1BsbSqBdF2wFAXjkyZCB3MKG5GqQS6xrxYcQZkomeYHjpnNU?=
+ =?us-ascii?Q?3MZjHSg7GD5BuEbztmfIXPjv8K/reLeZ/58Eaitl5u/tYvVMxqGHzJxIGC2p?=
+ =?us-ascii?Q?VT85SyhBR7nFjVbY99ljGZZSlRIdLHBuG69GnN+kM/3ywFauu2ojLxoqm/lf?=
+ =?us-ascii?Q?RCQWAzSwfjw2qwXH54hKnXV0rPuoSZELAe6x0l90KjXK+J6cQCsVwHV/HkQI?=
+ =?us-ascii?Q?3XhpJxOexz8hK3mTgskvDlLGBmVG4GsnKZCnifWcUCLiSM4x1tnFBkoIwmxA?=
+ =?us-ascii?Q?CqpozW6w40C++3oUxyekb2LJwU6EY2tM3/svpYkJ8yZm4O0ZxRH05URk6li9?=
+ =?us-ascii?Q?V3Lk707h1n/Z8fUOwROTF4ucuQWQ7jrYwt+ksq/E6JAybjgSgrGMKPcvB+Uj?=
+ =?us-ascii?Q?UQEMKvg9oeO9GOXzR+AcjwCXaQUt4ujJEIWhxW659Z8qpb4TTL3/myRC7ERo?=
+ =?us-ascii?Q?zAQFYLr3ycreG83x5LBOAq6H6oWl8c/htWkmVPo5U2pDeRSBXs6sTsmuS9jx?=
+ =?us-ascii?Q?CQRNTkA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 16:29:33.3071 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d396666-0ce3-4b0b-5f0b-08dce3c8904f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6255
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,120 +129,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Hans
+get_wave_state is not defined for sdma queue, copy_context_work_handler
+calls it for sdma queue will crash.
 
-On Thu, Oct 3, 2024 at 2:33=E2=80=AFAM Wu Hoi Pok <wuhoipok@gmail.com> wrot=
-e:
->
-> This is a fix patch not tested yet,
-> for a bug I introduce in previous rework of radeon driver.
-> The bug is a null dereference in 'aux.dev', which is the
-> 'device' not registered, resulting in kernel panic. By having
-> 'late_register', the connector should be registered after
-> 'drm_dev_register' automatically.
->
-> Please help testing thank you.
->
-> Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
-> ---
->  drivers/gpu/drm/radeon/atombios_dp.c       |  9 ++-------
->  drivers/gpu/drm/radeon/radeon_connectors.c | 17 +++++++++++++++++
->  2 files changed, 19 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeo=
-n/atombios_dp.c
-> index fca8b08535a5..6328627b7c34 100644
-> --- a/drivers/gpu/drm/radeon/atombios_dp.c
-> +++ b/drivers/gpu/drm/radeon/atombios_dp.c
-> @@ -228,10 +228,8 @@ void radeon_dp_aux_init(struct radeon_connector *rad=
-eon_connector)
->  {
->         struct drm_device *dev =3D radeon_connector->base.dev;
->         struct radeon_device *rdev =3D dev->dev_private;
-> -       int ret;
->
->         radeon_connector->ddc_bus->rec.hpd =3D radeon_connector->hpd.hpd;
-> -       radeon_connector->ddc_bus->aux.dev =3D radeon_connector->base.kde=
-v;
->         radeon_connector->ddc_bus->aux.drm_dev =3D radeon_connector->base=
-.dev;
->         if (ASIC_IS_DCE5(rdev)) {
->                 if (radeon_auxch)
-> @@ -242,11 +240,8 @@ void radeon_dp_aux_init(struct radeon_connector *rad=
-eon_connector)
->                 radeon_connector->ddc_bus->aux.transfer =3D radeon_dp_aux=
-_transfer_atom;
->         }
->
-> -       ret =3D drm_dp_aux_register(&radeon_connector->ddc_bus->aux);
-> -       if (!ret)
-> -               radeon_connector->ddc_bus->has_aux =3D true;
-> -
-> -       WARN(ret, "drm_dp_aux_register() failed with error %d\n", ret);
-> +       drm_dp_aux_init(&radeon_connector->ddc_bus->aux);
-> +       radeon_connector->ddc_bus->has_aux =3D true;
->  }
->
->  /***** general DP utility functions *****/
-> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
-/radeon/radeon_connectors.c
-> index 528a8f3677c2..f9c73c55f04f 100644
-> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
-> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-> @@ -1786,6 +1786,20 @@ static enum drm_mode_status radeon_dp_mode_valid(s=
-truct drm_connector *connector
->         return MODE_OK;
->  }
->
-> +static int
-> +radeon_connector_late_register(struct drm_connector *connector)
-> +{
-> +       struct radeon_connector *radeon_connector =3D to_radeon_connector=
-(connector);
-> +       int r =3D 0;
-> +
-> +       if (radeon_connector->ddc_bus->has_aux) {
-> +               radeon_connector->ddc_bus->aux.dev =3D radeon_connector->=
-base.kdev;
-> +               r =3D drm_dp_aux_register(&radeon_connector->ddc_bus->aux=
-);
-> +       }
-> +
-> +       return r;
-> +}
-> +
->  static const struct drm_connector_helper_funcs radeon_dp_connector_helpe=
-r_funcs =3D {
->         .get_modes =3D radeon_dp_get_modes,
->         .mode_valid =3D radeon_dp_mode_valid,
-> @@ -1800,6 +1814,7 @@ static const struct drm_connector_funcs radeon_dp_c=
-onnector_funcs =3D {
->         .early_unregister =3D radeon_connector_unregister,
->         .destroy =3D radeon_connector_destroy,
->         .force =3D radeon_dvi_force,
-> +       .late_register =3D radeon_connector_late_register,
->  };
->
->  static const struct drm_connector_funcs radeon_edp_connector_funcs =3D {
-> @@ -1810,6 +1825,7 @@ static const struct drm_connector_funcs radeon_edp_=
-connector_funcs =3D {
->         .early_unregister =3D radeon_connector_unregister,
->         .destroy =3D radeon_connector_destroy,
->         .force =3D radeon_dvi_force,
-> +       .late_register =3D radeon_connector_late_register,
->  };
->
->  static const struct drm_connector_funcs radeon_lvds_bridge_connector_fun=
-cs =3D {
-> @@ -1820,6 +1836,7 @@ static const struct drm_connector_funcs radeon_lvds=
-_bridge_connector_funcs =3D {
->         .early_unregister =3D radeon_connector_unregister,
->         .destroy =3D radeon_connector_destroy,
->         .force =3D radeon_dvi_force,
-> +       .late_register =3D radeon_connector_late_register,
->  };
->
->  void
-> --
-> 2.46.2
->
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 648f40091aa3..b2b16a812e73 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -3173,7 +3173,7 @@ struct copy_context_work_handler_workarea {
+ 	struct kfd_process *p;
+ };
+ 
+-static void copy_context_work_handler (struct work_struct *work)
++static void copy_context_work_handler(struct work_struct *work)
+ {
+ 	struct copy_context_work_handler_workarea *workarea;
+ 	struct mqd_manager *mqd_mgr;
+@@ -3200,6 +3200,9 @@ static void copy_context_work_handler (struct work_struct *work)
+ 		struct qcm_process_device *qpd = &pdd->qpd;
+ 
+ 		list_for_each_entry(q, &qpd->queues_list, list) {
++			if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE)
++				continue;
++
+ 			mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_CP];
+ 
+ 			/* We ignore the return value from get_wave_state
+-- 
+2.43.2
+
