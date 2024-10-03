@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A810CF856B
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 08:13:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AED3CF8551
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 08:13:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 003C810E7C8;
-	Thu,  3 Oct 2024 08:13:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBE4210E7CB;
+	Thu,  3 Oct 2024 08:13:17 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3863E10E7CB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BDBA10E7C8
  for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 08:13:15 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 4938DBDa235273; Thu, 3 Oct 2024 13:43:11 +0530
+ 4938DAvM235268; Thu, 3 Oct 2024 13:43:10 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4938DB2I235272;
- Thu, 3 Oct 2024 13:43:11 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4938DAkn235267;
+ Thu, 3 Oct 2024 13:43:10 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: no need to log error in multi ring write
-Date: Thu,  3 Oct 2024 13:43:06 +0530
-Message-Id: <20241003081306.235253-2-sunil.khatri@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: move error log from ring write to commit
+Date: Thu,  3 Oct 2024 13:43:05 +0530
+Message-Id: <20241003081306.235253-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241003081306.235253-1-sunil.khatri@amd.com>
-References: <20241003081306.235253-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -46,29 +44,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No need to log error in multi ring write as its taken
-care during ring commit.
+Move the error message from ring write as an optimization
+to avoid printing that message on every write instead
+print once during commit if it exceeds write the allocated
+size i.e ring->count_dw.
+
+Also we do not want to log the error message in between a
+ring write and complete the write as its mostly not harmful
+as it will overwrite stale data only as GPU read from ring
+is faster than CPU write to ring.
+
+This also remove the size of amdgpu.ko module by around
+600Kb as write is very often used function.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 2 --
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 690976665cf6..05b3480ecec7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -141,6 +141,9 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+ {
+ 	uint32_t count;
+ 
++	if (ring->count_dw <= 0)
++		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
++
+ 	/* We pad to match fetch size */
+ 	count = ring->funcs->align_mask + 1 -
+ 		(ring->wptr & ring->funcs->align_mask);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index af8824e8da49..574336d6714a 100644
+index f93f51002201..af8824e8da49 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -388,9 +388,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 	unsigned occupied, chunk1, chunk2;
- 	void *dst;
+@@ -377,8 +377,6 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
  
--	if (unlikely(ring->count_dw < count_dw))
+ static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+ {
+-	if (ring->count_dw <= 0)
 -		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
--
- 	occupied = ring->wptr & ring->buf_mask;
- 	dst = (void *)&ring->ring[occupied];
- 	chunk1 = ring->buf_mask + 1 - occupied;
+ 	ring->ring[ring->wptr++ & ring->buf_mask] = v;
+ 	ring->wptr &= ring->ptr_mask;
+ 	ring->count_dw--;
 -- 
 2.34.1
 
