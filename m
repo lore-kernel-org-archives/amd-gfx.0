@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AED3CF8551
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 08:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 843A0CF856D
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 08:29:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBE4210E7CB;
-	Thu,  3 Oct 2024 08:13:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C72210E36E;
+	Thu,  3 Oct 2024 08:29:01 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BDBA10E7C8
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 08:13:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF1110E01F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 08:28:59 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 4938DAvM235268; Thu, 3 Oct 2024 13:43:10 +0530
+ 4938SsJn236515; Thu, 3 Oct 2024 13:58:54 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4938DAkn235267;
- Thu, 3 Oct 2024 13:43:10 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4938SswZ236514;
+ Thu, 3 Oct 2024 13:58:54 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: move error log from ring write to commit
-Date: Thu,  3 Oct 2024 13:43:05 +0530
-Message-Id: <20241003081306.235253-1-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/2] drm/amdgpu: move error log from ring write to commit
+Date: Thu,  3 Oct 2024 13:58:52 +0530
+Message-Id: <20241003082853.236479-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -54,8 +54,9 @@ ring write and complete the write as its mostly not harmful
 as it will overwrite stale data only as GPU read from ring
 is faster than CPU write to ring.
 
-This also remove the size of amdgpu.ko module by around
-600Kb as write is very often used function.
+This reduces the size of amdgpu.ko module by around
+600 Kb as write is very often used function and hence
+the print.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 Suggested-by: Christian König <christian.koenig@amd.com>
