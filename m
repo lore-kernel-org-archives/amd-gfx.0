@@ -4,122 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC153CF34C5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74716CF34C3
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 20:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F280610E928;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E969010E927;
 	Thu,  3 Oct 2024 20:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WIn1ma+1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B0wWRlKa";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC93F10E926;
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8D610E923;
  Thu,  3 Oct 2024 20:01:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J7LiLUOBJf4254YcYJjPSj87ms2oPdUE/dBqieo/J+nbEoVKGvpU0dn0NSvORIJ/xdB5eZthg70NCJ8lf7ncGuKXhQJbfnp2kclLBLJCMJqBGU/HDfS54tFCWF5mp2lG7suRfOx88+147OnnndQh8suMMf4wYPKpSv4AY26Fc4byIiUxXytzOZDcB/8Z52Mvx/rfpaXof1eTEZ+5RrAqE10pj3iyjAw1lJe5O4fopEbcgI7PTxiAtqw6GUnqqj1nEsTgZF0s8b6UFtRJZrdOL3zLXLoYEVBz1agcmlniJV6Hm1fB0GXxDmIIapjraiVvU8jCjG2WuCG8/9UjTxSecw==
+ b=DoqlyLFyoRqQ5Q7vxZv8WRegAd0pBDosoFiz711HcounGS+c3W3zwkoD5mREPoSlSYXHelA7S1Zi7Ob0Uj4Ydq5MGIZFDSU4tVc153RW78OUcsvrrk76MYyvqCkEntElxaHecmX2+E8E41vTg3dK++VG4VvG6PFZJ+yFP2wuk0zt2urm5zPx4rpsM2Fr19URrjgTPCOTumr64H8dGdotagSAYpDWLMCuL+hq8UEEjFyTB24/cXMheMcWNhq6sFtdYapnH/PZBCoVRk2MUMQCIyv4JWk33OmXllrLQDSzZvXzsL64dv7WkmS0GxeEUTDjYyz2pX9SicPSlWdSK6ac+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LM9COioS+jk5xCSfeg/XvtNzNkQ1CrWMeHhNWPN+39M=;
- b=EHyPDXb3Wy9YxXfENNFnshr8kr3mtbyifN9/eXN0J5eNkEW57MpR5OVAXA9xbNaTPfrWSBIG9djiLjUUR/G7Zwm9+zSjXV+yk4ZC3ZNwk8teTiONLwGHRZc1BI9aGLPEEfnpURu6aKTIBygJxCZv2+bmoOjxvMdHZJcZi064vYC494mORCQRYa9YS8uiSeUKE6H3IzeHKI+vg+464o8ZwpVlibSlK6HQ4YNFNfQ36Uos71VjqQqCwfRX9IKpGEmQPsBAOzFqXgCXhSCZzEDjYqw2b1/bzgqp0197RE65x7j7AoEiwBDA26LC1BTdo2cAAUivqgC+kX7JnvYwJVgx6A==
+ bh=E2NpIC/Ipt9KmCnnub4j76k9mrYakJOISNF5+8dhRIU=;
+ b=HRrKDYXigArsXgQIt+zOVEuA27YaIH8hpGIzLL/AwbZKMimIh5tR+56ioQDcnT3uqSrAF1yjFpWIRmZ6FbQ8CeSN3NwYU55OV+joDDGGt+pU+3qkn1jdyEQnzH3UyT7TrLn3Bsj7E+a2lpsUtZviRHYFRq4UO+IY7/9cgLb3zVHwktvRFD2rskBfR8BDB3YwqtMGlqiw3X54phxb5T9pEnOj3K2VjfYM1RbTO/7rsrV2mw/a+sTHRJaYvfJ43asvr1VeC5kPFV3izPC83ugCsUCfqpDaveEqTLsugxpetTWWZ2OS+/BqlrS4TzsVIVgcXCXB7+FRwuPgZF5ICcuslg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LM9COioS+jk5xCSfeg/XvtNzNkQ1CrWMeHhNWPN+39M=;
- b=WIn1ma+1MHEv0vlE3Se2lV2k9JBYbvcl3MQvnagXpAwajOqeHGXl5CJKI3oUNitdGGS4GO5CJ5QHGBAdhCcDdeK0FiWKwTg5ziCG2yOxVAIeYISxVs/W/oTcS/efqRPSa9hcZL23AN1cz2wi91x13wc85FnKlhfTnWiUON3brVY=
-Received: from CH2PR14CA0032.namprd14.prod.outlook.com (2603:10b6:610:56::12)
- by SN7PR12MB7883.namprd12.prod.outlook.com (2603:10b6:806:32b::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=E2NpIC/Ipt9KmCnnub4j76k9mrYakJOISNF5+8dhRIU=;
+ b=B0wWRlKa+B3yIBaSvTymcFhWiaWnSTDr6Jc6+3CHsyldDI6BHNUL4lhvQCy3BuPfKZ5P5X7Y5ou/hIUQ+XFC9mmvhQfh/Mz7BtU1FI1RxFuMiqhsDfB0B350Z7DEY7/HkFu/IjRYzvsjp0/3Jvl5YLdeQXpf/PrR/GakNuvp/9g=
+Received: from CH0PR03CA0243.namprd03.prod.outlook.com (2603:10b6:610:e5::8)
+ by DS7PR12MB8249.namprd12.prod.outlook.com (2603:10b6:8:ea::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.16; Thu, 3 Oct
- 2024 20:01:44 +0000
-Received: from DS2PEPF0000343E.namprd02.prod.outlook.com
- (2603:10b6:610:56:cafe::e9) by CH2PR14CA0032.outlook.office365.com
- (2603:10b6:610:56::12) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 20:01:43 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:e5:cafe::2b) by CH0PR03CA0243.outlook.office365.com
+ (2603:10b6:610:e5::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18 via Frontend
- Transport; Thu, 3 Oct 2024 20:01:44 +0000
+ Transport; Thu, 3 Oct 2024 20:01:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343E.mail.protection.outlook.com (10.167.18.41) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 20:01:43 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Oct
- 2024 15:01:41 -0500
+ 2024 15:01:39 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 3 Oct 2024 15:01:41 -0500
+ Transport; Thu, 3 Oct 2024 15:01:39 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, Harry Wentland
  <harry.wentland@amd.com>
-Subject: [PATCH v6 16/44] drm/colorop: Introduce
- DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-Date: Thu, 3 Oct 2024 16:00:58 -0400
-Message-ID: <20241003200129.1732122-17-harry.wentland@amd.com>
+Subject: [PATCH v6 12/44] drm/plane: Add COLOR PIPELINE property
+Date: Thu, 3 Oct 2024 16:00:54 -0400
+Message-ID: <20241003200129.1732122-13-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.46.2
 In-Reply-To: <20241003200129.1732122-1-harry.wentland@amd.com>
 References: <20241003200129.1732122-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: harry.wentland@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: harry.wentland@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343E:EE_|SN7PR12MB7883:EE_
-X-MS-Office365-Filtering-Correlation-Id: acfaedce-fd4b-4fe3-d033-08dce3e63454
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|DS7PR12MB8249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 431e4d25-7fea-40a3-78f7-08dce3e6340e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DoDrfNAJvGnzws9Gcu1Vy7l47i+SBNEWywK2BkIw8snx4n/LOMaH6r0HVnwD?=
- =?us-ascii?Q?XavdwoxfjrhIeq0r2PkJVaOIxsTm3IW1EGAgLBAh7jGhL+fAWWY+dzh5PoT5?=
- =?us-ascii?Q?Uo811nHt5oN5uoz/5IR4Ac+7iYo76I2+0s0IigcokYfIjrXY2iiEjyKoJyU+?=
- =?us-ascii?Q?G3ZIZletn0D7eXXxunc+kIKk9+zQGcVeKyipn6cHOfdgtllePdLc8qBxetbB?=
- =?us-ascii?Q?P5RwajsQF7QHqzRxE74T1Ma0R+QxyFuqc0CNv8wzTtJdyoXRTqkjBgTI0nMl?=
- =?us-ascii?Q?KMI2kp57cT4ZzpoOg4IUgXkjooAAZICoxeGM8zXDjvbrMPMHQF86TGIQMntL?=
- =?us-ascii?Q?3SpX/GF5SVo7Ye+2Hx/KHVFbYbWg/0zwoi2hA2Kngol0DUiQg4eQqeAGzavP?=
- =?us-ascii?Q?xD9+7ub4gA1nwY5T6K5O5h4UlqUKNql1QdILJl0aNEZiWnH69ilGKbenPYDE?=
- =?us-ascii?Q?crxPgwcOC7mli2nn1k/pTUCqzC8Uy+x6qyCWmS4TZXIJYA9Q2s0l/uxOjt5/?=
- =?us-ascii?Q?ViVm0X7RT3235+ybdLNUHRyHPKhho7mWxjHISVSVVl/Zm/K2KjQJR+wYATqO?=
- =?us-ascii?Q?BZ2Z3C2+yzAQceHaKnhyy8FYGkvyUXDgo0EOVJVr4Zr2fbu/sFoFp5m1hXc4?=
- =?us-ascii?Q?O4pvJU3w2fF0Gf2biSURiGpghCQ/Ynb+2SPR8iw/GYzw7OTE2jLv8FONi/1m?=
- =?us-ascii?Q?x3FitOpAu/qaTKKwwy7A3lBzXaLDGsx4YkO506uw16BPukVAzmj2tS/VeFuY?=
- =?us-ascii?Q?L2INJCfAtOdqP1uyHP6Fq/i4AgKEw4tp8+i08iGcLXeU2RIEQcqGPA3pzuYI?=
- =?us-ascii?Q?idhyxnEx+4PaijYDfYOv5ZeREPRuyf2FcytcNNmEvdp3/wrupkVa3ic83GTB?=
- =?us-ascii?Q?/DjlJrZDW4u0N4eJZVyWKmeapoJbqkmo3ovBQEzct+762didBub+/d/HgbWq?=
- =?us-ascii?Q?DWxDGP10xkY7iCuoP65Ky/PaWFVqLtH2tn3XjMnb/AQ2awlly4Y3WNPxO9P1?=
- =?us-ascii?Q?/rPOtSZ4uNgjVdZmc37mz+DsC7n9dZVOYNtgGKZNrgpcQAdUdrDXq5RSOi9k?=
- =?us-ascii?Q?Huk+MJ1t0seBgMZjAp9DN+wz2z3EM7xkvNvNdVaU8s5xr7rkOUcpBbtF4aZO?=
- =?us-ascii?Q?695uY+WSHaUKLNAsJXR+FH0gmTDqzVlp3t5/2e6ZAVCmuT7BwHStrsmZnlff?=
- =?us-ascii?Q?GL0ZKoFSJQIW4W/law97p7Yn8osAA/U7cVxxVyWt1q3tc9WAa4r/1d6O8dgc?=
- =?us-ascii?Q?8fuNkq0wcBvxSPqCw7wK73OuvZQqOeVn8iTHpaBCHBkj6vWlUm0bHLfPzkzh?=
- =?us-ascii?Q?s5gHwQ9xYJ9asMzqsPrVR+ZZ2taaBTiT6FeA7srwYOPzRmS4H+Wwus3U2/BI?=
- =?us-ascii?Q?NuikDjJjzoKceHYzgebkVdDWdoP+?=
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yl/MOaw7sm7V9yKmPyjCr+l9B1BUaYUMFAOCOb8PpIY/IntYLEd0xjbsVW9n?=
+ =?us-ascii?Q?CvBQ7Q3xsG0ba3ZQUmQeW4WVk5pnI9BS2OtJp3OJlXiF9gzfVXw6+h2nPfju?=
+ =?us-ascii?Q?p47jE8vCfThMffH0TVXa8b+yPXixyKGath8sKK0JPBQAZzcnmkdPWqKdjJBX?=
+ =?us-ascii?Q?kVlOvIhs5Sn2btRz1BN+ndY8mzR4s371ts+WMbpF2P7mz9LjyTmz3SumJk4o?=
+ =?us-ascii?Q?0LGRWJk0LETEYr2NS5R3UfnKlSzI/tY/+zz5HOypArSxAfrOlOTZjIrDbYEG?=
+ =?us-ascii?Q?ngQJFL1o/MtOB9z09veQIda0UVAhAD5ZNjVLtxjOTUNjB32jTJMxFtsyGdDn?=
+ =?us-ascii?Q?TD4YC6fcygkiAvMR6QBV0YZ+vMfjPPsSNWQNuG3F756bFMFcaoD+78JfKnLy?=
+ =?us-ascii?Q?wkSPLCRJQC7UKe0H7M4Y/qi+ypILMyPWgyfyd/NZmpkaFWS3MW50QT6fultf?=
+ =?us-ascii?Q?IFy4bYvTG52/EYHoaEMOkj9DVROmCL1YGvxkgSbb6VbmUWUHy7zl6Fj/gko/?=
+ =?us-ascii?Q?3nZyJ0g/kk9cWZ8ue+nJot8k5Wk0E/AUqleLIwt+1iDdIpnKZmJrNmSCDnqt?=
+ =?us-ascii?Q?DzjHw4Jmaixcd7BRpp913qaayjy8WPhApZ4Kp+sIcBB+eLnzGNhDHOW19K5z?=
+ =?us-ascii?Q?zzWPzHgv3VD+V3YIyhpKMvrJFFqPAJrJwNbJOMNW3L1qQbLuQlSsePlnwOp+?=
+ =?us-ascii?Q?XTJ6UH2FwT+r8bxG0NUs5zJAL6h4qJAA4mBY/Rb2KvK39qHPSVGgYAEip4Nm?=
+ =?us-ascii?Q?x9Uv+1nzqxB3gU3gbcOl0hRAwEBI+AooF689QfbSOMM192x4xXjoUdijSfZJ?=
+ =?us-ascii?Q?+zuRYl10sV40bEjePIevnqTenJqxAv/IHEY1YFDZgIvUso3F270TXDpZPaiy?=
+ =?us-ascii?Q?mGC0tVG6iQSViv1CJFk734MG14q4Bs4CGUhfaRLwewC6waP20VIea+EjGlxK?=
+ =?us-ascii?Q?r9R/88C337AKya2omV9OCU/dxo14iopTS2IdC0SrgV95lMeTHhMk5l+6VZ+G?=
+ =?us-ascii?Q?LSw+vjgOkqQ7npQcCrcRVdFXw9hhIyTS6mkDOaehIiF9YSfDI5gxxPFonlvi?=
+ =?us-ascii?Q?9YFpPJaiDoHzzxjChp1HE4SXeLRDYZjkmqZB5PevzDyoLO3MTMWuqPlJzmOp?=
+ =?us-ascii?Q?QKDDk4H76Xp3cGy9a0kpdsb0HMcUwGSCFhWqaU9rMZHOGylcFqi9+/2n9GOx?=
+ =?us-ascii?Q?e4FbOVUtNSnWLvLDHfmQu4De17z4uoe9/hWQrPec5+gj/p97AtboeXdkNy6i?=
+ =?us-ascii?Q?rMOKu1QKQcxm7Imewek+biHnWRr1jFKJgEE+Ya0GWyRTH7khElPFdYAeTplz?=
+ =?us-ascii?Q?6soXCMwE/AGqzlsDMYZWnCBhEyokPIhSloABJTpYu0ovRwrEAKTbhWZoTh8k?=
+ =?us-ascii?Q?tGiPA4yFJsSyyqxDAm/4ggkIGhCs?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 20:01:43.8474 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: acfaedce-fd4b-4fe3-d033-08dce3e63454
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 20:01:43.3708 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 431e4d25-7fea-40a3-78f7-08dce3e6340e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343E.namprd02.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7883
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,137 +133,289 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the pre-blending color pipeline we
-can no longer have color operations that don't have a clear
-position in the color pipeline. We deprecate all existing
-plane properties. For upstream drivers those are:
- - COLOR_ENCODING
- - COLOR_RANGE
+We're adding a new enum COLOR PIPELINE property. This
+property will have entries for each COLOR PIPELINE by
+referencing the DRM object ID of the first drm_colorop
+of the pipeline. 0 disables the entire COLOR PIPELINE.
 
-Drivers are expected to ignore these properties when
-programming the HW.
-
-Setting of the COLOR_PIPELINE plane property or drm_colorop
-properties is only allowed for userspace that sets this
-client cap.
+Userspace can use this to discover the available color
+pipelines, as well as set the desired one. The color
+pipelines are programmed via properties on the actual
+drm_colorop objects.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
 
-v5:
- - Fix kernel docs
-
 v4:
- - Don't block setting of COLOR_RANGE and COLOR_ENCODING
-   when client cap is set
+ - Add pipeline property creation helper (Pekka)
+ - Fix function comment for
+   drm_atomic_set_colorop_for_plane (Pekka)
+ - Always create Bypass pipeline (Pekka)
+ - Add missing function declaration (Chaitanya Kumar Borah)
 
- drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++++-
- drivers/gpu/drm/drm_ioctl.c       |  7 +++++++
- include/drm/drm_file.h            |  7 +++++++
- include/uapi/drm/drm.h            | 16 ++++++++++++++++
- 4 files changed, 42 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic.c              | 46 ++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c |  5 +++
+ drivers/gpu/drm/drm_atomic_uapi.c         | 42 ++++++++++++++++++
+ drivers/gpu/drm/drm_plane.c               | 52 +++++++++++++++++++++++
+ include/drm/drm_atomic.h                  |  3 ++
+ include/drm/drm_atomic_uapi.h             |  2 +
+ include/drm/drm_plane.h                   | 11 +++++
+ 7 files changed, 161 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index c927aa65d286..a9a95431c31f 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -570,6 +570,12 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 	} else if (property == plane->color_range_property) {
- 		state->color_range = val;
- 	} else if (property == plane->color_pipeline_property) {
-+		if (!file_priv->plane_color_pipeline) {
-+			drm_dbg_atomic(dev,
-+				       "Setting COLOR_PIPELINE plane property not permitted unless DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE is set\n");
-+			return -EINVAL;
-+		}
-+
- 		/* find DRM colorop object */
- 		struct drm_colorop *colorop = NULL;
- 		colorop = drm_colorop_find(dev, file_priv, val);
-@@ -1179,6 +1185,12 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 		break;
- 	}
- 	case DRM_MODE_OBJECT_COLOROP: {
-+		if (!file_priv->plane_color_pipeline) {
-+			drm_dbg_atomic(prop->dev,
-+				       "[OBJECT:%d] is a colorop but DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE not set\n",
-+				       obj->id);
-+			ret = -EINVAL;
-+		}
- 		struct drm_colorop *colorop = obj_to_colorop(obj);
- 		struct drm_colorop_state *colorop_state;
-
-@@ -1191,7 +1203,6 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
- 		ret = drm_atomic_colorop_set_property(colorop,
- 				colorop_state, file_priv,
- 				prop, prop_value);
--
- 		break;
- 	}
- 	default:
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 51f39912866f..6b5021b68e35 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -373,6 +373,13 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 			return -EINVAL;
- 		file_priv->supports_virtualized_cursor_plane = req->value;
- 		break;
-+	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-+		if (!file_priv->atomic)
-+			return -EINVAL;
-+		if (req->value > 1)
-+			return -EINVAL;
-+		file_priv->plane_color_pipeline = req->value;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 8c0030c77308..6d9a1578c7dc 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -206,6 +206,13 @@ struct drm_file {
- 	 */
- 	bool writeback_connectors;
-
-+	/**
-+	 * @plane_color_pipeline:
-+	 *
-+	 * True if client understands plane color pipelines
-+	 */
-+	bool plane_color_pipeline;
-+
- 	/**
- 	 * @was_master:
- 	 *
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index 16122819edfe..a2fc85ecdea1 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -875,6 +875,22 @@ struct drm_get_cap {
-  */
- #define DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT	6
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 0f4eba51ee4b..12e787e73c63 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1460,6 +1460,52 @@ drm_atomic_add_affected_planes(struct drm_atomic_state *state,
+ }
+ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
 
 +/**
-+ * DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
++ * drm_atomic_add_affected_colorops - add colorops for plane
++ * @state: atomic state
++ * @plane: DRM plane
 + *
-+ * If set to 1 the DRM core will allow setting the COLOR_PIPELINE
-+ * property on a &drm_plane, as well as drm_colorop properties.
++ * This function walks the current configuration and adds all colorops
++ * currently used by @plane to the atomic configuration @state. This is useful
++ * when an atomic commit also needs to check all currently enabled colorop on
++ * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
++ * to avoid special code to force-enable all colorops.
 + *
-+ * Drivers will ignore these drm_plane properties:
-+ *  - COLOR_ENCODING
-+ *  - COLOR_RANGE
++ * Since acquiring a colorop state will always also acquire the w/w mutex of the
++ * current plane for that colorop (if there is any) adding all the colorop states for
++ * a plane will not reduce parallelism of atomic updates.
 + *
-+ * The client must enable &DRM_CLIENT_CAP_ATOMIC first.
-+ *
-+ * This capability is currently in development.
++ * Returns:
++ * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
++ * then the w/w mutex code has detected a deadlock and the entire atomic
++ * sequence must be restarted. All other errors are fatal.
 + */
-+#define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
++int
++drm_atomic_add_affected_colorops(struct drm_atomic_state *state,
++				 struct drm_plane *plane)
++{
++	struct drm_colorop *colorop;
++	struct drm_colorop_state *colorop_state;
 +
- /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
- struct drm_set_client_cap {
- 	__u64 capability;
++	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
++
++	drm_dbg_atomic(plane->dev,
++		       "Adding all current colorops for [plane:%d:%s] to %p\n",
++		       plane->base.id, plane->name, state);
++
++	drm_for_each_colorop(colorop, plane->dev) {
++		if (colorop->plane != plane)
++			continue;
++
++		colorop_state = drm_atomic_get_colorop_state(state, colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_atomic_add_affected_colorops);
++
+ /**
+  * drm_atomic_check_only - check whether a given config would work
+  * @state: atomic configuration to check
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 519228eb1095..d1dd082b1286 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -267,6 +267,11 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+ 			plane_state->color_range = val;
+ 	}
+
++	if (plane->color_pipeline_property) {
++		/* default is always NULL, i.e., bypass */
++		plane_state->color_pipeline = NULL;
++	}
++
+ 	if (plane->zpos_property) {
+ 		if (!drm_object_property_get_default_value(&plane->base,
+ 							   plane->zpos_property,
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 8a038e04be58..c927aa65d286 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -256,6 +256,36 @@ drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+ }
+ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
+
++
++/**
++ * drm_atomic_set_colorop_for_plane - set colorop for plane
++ * @plane_state: atomic state object for the plane
++ * @colorop: colorop to use for the plane
++ *
++ * Helper function to select the color pipeline on a plane by setting
++ * it to the first drm_colorop element of the pipeline.
++ */
++void
++drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
++				 struct drm_colorop *colorop)
++{
++	struct drm_plane *plane = plane_state->plane;
++
++	if (colorop)
++		drm_dbg_atomic(plane->dev,
++			       "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
++			       colorop->base.id, plane->base.id, plane->name,
++			       plane_state);
++	else
++		drm_dbg_atomic(plane->dev,
++			       "Set [NOCOLOROP] for [PLANE:%d:%s] state %p\n",
++			       plane->base.id, plane->name, plane_state);
++
++	plane_state->color_pipeline = colorop;
++}
++EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
++
++
+ /**
+  * drm_atomic_set_crtc_for_connector - set CRTC for connector
+  * @conn_state: atomic state object for the connector
+@@ -539,6 +569,16 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+ 		state->color_encoding = val;
+ 	} else if (property == plane->color_range_property) {
+ 		state->color_range = val;
++	} else if (property == plane->color_pipeline_property) {
++		/* find DRM colorop object */
++		struct drm_colorop *colorop = NULL;
++		colorop = drm_colorop_find(dev, file_priv, val);
++
++		if (val && !colorop)
++			return -EACCES;
++
++		/* set it on drm_plane_state */
++		drm_atomic_set_colorop_for_plane(state, colorop);
+ 	} else if (property == config->prop_fb_damage_clips) {
+ 		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->fb_damage_clips,
+@@ -621,6 +661,8 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
+ 		*val = state->color_encoding;
+ 	} else if (property == plane->color_range_property) {
+ 		*val = state->color_range;
++	} else if (property == plane->color_pipeline_property) {
++		*val = (state->color_pipeline) ? state->color_pipeline->base.id : 0;
+ 	} else if (property == config->prop_fb_damage_clips) {
+ 		*val = (state->fb_damage_clips) ?
+ 			state->fb_damage_clips->base.id : 0;
+diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+index a28b22fdd7a4..e3a85a27fa7a 100644
+--- a/drivers/gpu/drm/drm_plane.c
++++ b/drivers/gpu/drm/drm_plane.c
+@@ -1793,3 +1793,55 @@ int drm_plane_add_size_hints_property(struct drm_plane *plane,
+ 	return 0;
+ }
+ EXPORT_SYMBOL(drm_plane_add_size_hints_property);
++
++#define MAX_COLOR_PIPELINES 5
++
++/**
++ * drm_plane_create_color_pipeline_property - create a new color pipeline
++ * property
++ *
++ * @plane: drm plane
++ * @pipelines: list of pipelines
++ * @num_pipelines: number of pipelines
++ *
++ * Create the COLOR_PIPELINE plane property to specific color pipelines on
++ * the plane.
++ *
++ * RETURNS:
++ * Zero for success or -errno
++ */
++int drm_plane_create_color_pipeline_property(struct drm_plane *plane,
++					     struct drm_prop_enum_list *pipelines,
++					     int num_pipelines)
++{
++	struct drm_prop_enum_list all_pipelines[MAX_COLOR_PIPELINES];
++	int len = 0;
++	int i;
++	struct drm_property *prop;
++
++	if (num_pipelines > (MAX_COLOR_PIPELINES - 1))
++		return -EINVAL;
++
++	/* Create default Bypass color pipeline */
++	all_pipelines[len].type = 0;
++	all_pipelines[len].name = "Bypass";
++	len++;
++
++	/* Add all other color pipelines */
++	for (i = 0; i < num_pipelines; i++, len++) {
++		all_pipelines[len].type = pipelines[i].type;
++		all_pipelines[len].name = pipelines[i].name;
++	}
++
++	prop = drm_property_create_enum(plane->dev, DRM_MODE_PROP_ATOMIC,
++					"COLOR_PIPELINE",
++					all_pipelines, len);
++	if (IS_ERR(prop))
++		return PTR_ERR(prop);
++
++	drm_object_attach_property(&plane->base, prop, 0);
++	plane->color_pipeline_property = prop;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_plane_create_color_pipeline_property);
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 8e2af84a0b01..a2e7ac463eef 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -852,6 +852,9 @@ drm_atomic_add_affected_connectors(struct drm_atomic_state *state,
+ int __must_check
+ drm_atomic_add_affected_planes(struct drm_atomic_state *state,
+ 			       struct drm_crtc *crtc);
++int __must_check
++drm_atomic_add_affected_colorops(struct drm_atomic_state *state,
++				 struct drm_plane *plane);
+
+ int __must_check drm_atomic_check_only(struct drm_atomic_state *state);
+ int __must_check drm_atomic_commit(struct drm_atomic_state *state);
+diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
+index 70a115d523cd..436315523326 100644
+--- a/include/drm/drm_atomic_uapi.h
++++ b/include/drm/drm_atomic_uapi.h
+@@ -50,6 +50,8 @@ drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
+ 			      struct drm_crtc *crtc);
+ void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+ 				 struct drm_framebuffer *fb);
++void drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
++				      struct drm_colorop *colorop);
+ int __must_check
+ drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+ 				  struct drm_crtc *crtc);
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 2a9b902623c0..8a769c6a8251 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -774,6 +774,14 @@ struct drm_plane {
+ 	 */
+ 	struct drm_property *color_range_property;
+
++	/**
++	 * @color_pipeline_property:
++	 *
++	 * Optional "COLOR_PIPELINE" enum property for specifying
++	 * a color pipeline to use on the plane.
++	 */
++	struct drm_property *color_pipeline_property;
++
+ 	/**
+ 	 * @scaling_filter_property: property to apply a particular filter while
+ 	 * scaling.
+@@ -997,4 +1005,7 @@ int drm_plane_add_size_hints_property(struct drm_plane *plane,
+ 				      const struct drm_plane_size_hint *hints,
+ 				      int num_hints);
+
++int drm_plane_create_color_pipeline_property(struct drm_plane *plane,
++					     struct drm_prop_enum_list *pipelines,
++					     int num_pipelines);
+ #endif
 --
 2.46.2
 
