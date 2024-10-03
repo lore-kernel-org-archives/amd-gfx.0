@@ -4,70 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F609CFA74F
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 07:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC03DCFA751
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 07:28:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1AA10E875;
-	Fri,  4 Oct 2024 07:28:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F8E10E8CC;
+	Fri,  4 Oct 2024 07:28:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=helen.koike@collabora.com header.b="EdVEHlGX";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gnL/5goY";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA74A10E195;
- Thu,  3 Oct 2024 14:09:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1727964567; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PxzjsxdZoHLLEWUXBUtJIbx9FvlzyWRBvnpXUEH8ZVkpiZfTLPGvy/XA4HWYH3GdXWX+Fz+Ry4cIzMuHahHXJgKCenG8jEWyZTKZyolivk+j54T4ML2Pv/4qbGoKaFOfbRo6H73BvIGULY1NSAmuOjbDWWcC+iPHvUooV3igJ74=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1727964567;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1OHhhNZ+OELPUq/O9d/iIoYUAyuuf7NZlomVKgtomd4=; 
- b=ZQ39KtJe+AupNLqYeceIQqzdxeoBXyc7+0+sM3kEHQadskrnS4I2nYcJIKzFZ6S6tT88hqj7BNMI3YkvxswsQoVqav0d37uWoeLGPwvWWGLRC3KyNnFYhzpPcv2naDvBK0ZmHLei4vv1jQtS+gO8XV4X2dxwr8Y1s6xchvBbZfw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=helen.koike@collabora.com;
- dmarc=pass header.from=<helen.koike@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727964566; 
- s=zohomail; d=collabora.com; i=helen.koike@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=1OHhhNZ+OELPUq/O9d/iIoYUAyuuf7NZlomVKgtomd4=;
- b=EdVEHlGXFsAxJN+19yf//ol9ieQSDoRqLCvgjjIZOMKb7c74NYzeDUO6lVicMw25
- TfSDEhx15h+ibwLHoPb6jl72/1Bqu4PAePPAaebr6aFNNBGM+9Bf1cQHGBqxtcl9Rre
- 77I8HB53JN/onRr797LMXBEI+94fzCMDmNvIoeyc=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1727964564611390.8472928612191;
- Thu, 3 Oct 2024 07:09:24 -0700 (PDT)
-Date: Thu, 03 Oct 2024 11:09:24 -0300
-From: Helen Mae Koike Fornazier <helen.koike@collabora.com>
-To: "Vignesh Raman" <vignesh.raman@collabora.com>
-Cc: "dri-devel" <dri-devel@lists.freedesktop.org>,
- "daniels" <daniels@collabora.com>, "airlied" <airlied@gmail.com>,
- "daniel" <daniel@ffwll.ch>, "robdclark" <robdclark@gmail.com>,
- "guilherme.gallo" <guilherme.gallo@collabora.com>,
- "sergi.blanch.torne" <sergi.blanch.torne@collabora.com>,
- "deborah.brouwer" <deborah.brouwer@collabora.com>,
- "dmitry.baryshkov" <dmitry.baryshkov@linaro.org>,
- "mripard" <mripard@kernel.org>, "rodrigo.vivi" <rodrigo.vivi@intel.com>,
- "quic_abhinavk" <quic_abhinavk@quicinc.com>,
- "linux-mediatek" <linux-mediatek@lists.infradead.org>,
- "linux-amlogic" <linux-amlogic@lists.infradead.org>,
- "linux-rockchip" <linux-rockchip@lists.infradead.org>,
- "amd-gfx" <amd-gfx@lists.freedesktop.org>,
- "linux-arm-msm" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx" <intel-gfx@lists.freedesktop.org>,
- "virtualization" <virtualization@lists.linux.dev>,
- "linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <19252b6cc3e.e564b8892647525.6443730088827538481@collabora.com>
-In-Reply-To: <20240930095255.2071586-1-vignesh.raman@collabora.com>
-References: <20240930095255.2071586-1-vignesh.raman@collabora.com>
-Subject: Re: [PATCH v4] docs/gpu: ci: update flake tests requirements
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 812DD10E866
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 14:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1727966215;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=wmHFhHvTlhZbjis5SO5ISW//g3PYc+wkhvmntwtXl9Q=;
+ b=gnL/5goYZmHFftVsDmkFAH+2X+Lk1FXiEcL7VKyrtYN5SIxHHSTc5YReaM1UJMpTZvHUPD
+ 5jUGBq7Ujpypdw/ErzqAhtLK+I9e0Lid3rfSpButvN4z3NTHgFkqzli3rfex/OhnZYBYAt
+ GQDbyobnXc/D2Q5M3DMMmDmPiz+gYAk=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-wpHKGQw2PlyF44wM2ErNwA-1; Thu,
+ 03 Oct 2024 10:36:52 -0400
+X-MC-Unique: wpHKGQw2PlyF44wM2ErNwA-1
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1A6591925389; Thu,  3 Oct 2024 14:36:49 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.192.112])
+ by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id B811C195605F; Thu,  3 Oct 2024 14:36:46 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: Hans de Goede <hdegoede@redhat.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 6.12 regression fix 0/2] drm/radeon regression fixes
+Date: Thu,  3 Oct 2024 16:36:38 +0200
+Message-ID: <20241003143640.14932-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Fri, 04 Oct 2024 07:28:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,77 +71,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi All,
+
+My main workstation still uses a good old R7 250E card. After dogfooding
+6.12-rc1 my system would first hang at boot and after fixing that GDM would
+not show.
+
+After identifying the problematic commits I have gone for the easy solution
+of reverting both, which was straight forward in both cases.
+
+Both patches have a stacktrace in their commit message and I'm willing to
+try other ways of fixing things.
+
+Regards,
+
+Hans
 
 
+Hans de Goede (2):
+  drm/radeon: Revert: "remove load callback from kms_driver"
+  drm/radeon: Revert: "use GEM references instead of TTMs"
 
+ drivers/gpu/drm/radeon/radeon_drv.c    | 5 +----
+ drivers/gpu/drm/radeon/radeon_gem.c    | 2 +-
+ drivers/gpu/drm/radeon/radeon_object.c | 7 +++++--
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
----- On Mon, 30 Sep 2024 06:52:47 -0300 Vignesh Raman  wrote ---
+-- 
+2.46.2
 
- > Update the documentation to specify linking to a relevant GitLab 
- > issue or email report for each new flake entry. Added specific 
- > GitLab issue urls for amdgpu, i915, msm and xe driver. 
- >  
- > Acked-by: Maxime Ripard mripard@kernel.org> 
- > Acked-by: Rodrigo Vivi rodrigo.vivi@intel.com> #intel and xe 
- > Acked-by: Abhinav Kumar quic_abhinavk@quicinc.com> # msm 
- > Acked-by: Dmitry Baryshkov dmitry.baryshkov@linaro.org> # msm 
- > Signed-off-by: Vignesh Raman vignesh.raman@collabora.com> 
-
-Applied to drm-misc-next
-Thanks!
-
-Helen
-
- > --- 
- >  
- > v2: 
- > - Add gitlab issue link for msm driver. 
- >  
- > v3: 
- > - Update docs to specify we use email reporting or GitLab issues for flake entries. 
- >  
- > v4: 
- > - Add gitlab issue link for xe driver. 
- >  
- > --- 
- >  Documentation/gpu/automated_testing.rst | 14 ++++++++++---- 
- >  1 file changed, 10 insertions(+), 4 deletions(-) 
- >  
- > diff --git a/Documentation/gpu/automated_testing.rst b/Documentation/gpu/automated_testing.rst 
- > index 2d5a28866afe..6d7c6086034d 100644 
- > --- a/Documentation/gpu/automated_testing.rst 
- > +++ b/Documentation/gpu/automated_testing.rst 
- > @@ -68,19 +68,25 @@ known to behave unreliably. These tests won't cause a job to fail regardless of 
- >  the result. They will still be run. 
- >  
- >  Each new flake entry must be associated with a link to the email reporting the 
- > -bug to the author of the affected driver, the board name or Device Tree name of 
- > -the board, the first kernel version affected, the IGT version used for tests, 
- > -and an approximation of the failure rate. 
- > +bug to the author of the affected driver or the relevant GitLab issue. The entry 
- > +must also include the board name or Device Tree name, the first kernel version 
- > +affected, the IGT version used for tests, and an approximation of the failure rate. 
- >  
- >  They should be provided under the following format:: 
- >  
- > -  # Bug Report: $LORE_OR_PATCHWORK_URL 
- > +  # Bug Report: $LORE_URL_OR_GITLAB_ISSUE 
- >  # Board Name: broken-board.dtb 
- >  # Linux Version: 6.6-rc1 
- >  # IGT Version: 1.28-gd2af13d9f 
- >  # Failure Rate: 100 
- >  flaky-test 
- >  
- > +Use the appropriate link below to create a GitLab issue: 
- > +amdgpu driver: https://gitlab.freedesktop.org/drm/amd/-/issues 
- > +i915 driver: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues 
- > +msm driver: https://gitlab.freedesktop.org/drm/msm/-/issues 
- > +xe driver: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues 
- > + 
- >  drivers/gpu/drm/ci/${DRIVER_NAME}-${HW_REVISION}-skips.txt 
- >  ----------------------------------------------------------- 
- >  
- > -- 
- > 2.43.0 
- >  
- > 
