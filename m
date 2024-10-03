@@ -4,147 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 079C2CF34C3
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 21:07:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99768CF34AD
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 21:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1D110E261;
-	Thu,  3 Oct 2024 21:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BAC310E25C;
+	Thu,  3 Oct 2024 21:11:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r8/wKvI6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ztzV/rRT";
 	dkim-atps=neutral
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4662010E261
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 21:07:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5ABC10E25C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 21:11:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uNQNWOuJ15ERqZjn2Z0pSPmn487M1E63Q4NUMr8B05vOERuBA3WSL976+tntdskEv6bAZ5i46ktfmhp0ACqyyck+NBFU6QYnDbCaeL/r49W1Ju9LA1nJaxAHQjJAGsmCyYExzWfexXsK6l/Xa9PNNYSPaZIjoNNEhLBM/24WuMGax1PVtAOhdtNMj76/rti3i/bBrPJSJQkl/B21ua4RY6UvY5Gs6Sh9RS2gaP9s/vtvPnTSnJCvedb8dQ23Hbt76JRuS1u+Ur7Wwuc383Vsj7cbx+cL1vYz20s/O7nwXvrMMS/o3aDs6YAyrHQ4xbQBtU/DINlsDgpg98IRitjkKQ==
+ b=BZuFdoihRHJ62I5vNPjlzayBBpnNFbvYwl2lkXCnWfn1xXLbMtxMjOF+T9yMo/OrwwqiJ1pCHhXSwpRo0v31W2oC+1w1WitnIYs1XySmi5fGmPRkEoZvI9NlaSwM4bqk7wc4sQWf7WtY/uGxNute29NP3noaDcGqGjxrENHxBf0Pi9q1Tlj47uyQ2BWVvK8IneecoMBN8SZcQ0fFNYoysoqD4vHaiBbpuUSfFjKY8zoXZBgPOhNXd/he/wo3gGIWmLpEtHuA3XePxOrwv3WRHx+STsfDG5ILxx5d6ovQjey2TE+0J025q+BvrzjXccmZn4sRKzC9RmfRd18gLjsqwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QHSy6SdhNa+2znOYvOxVK5h8+7zBAHRqFum+w5sh4Ow=;
- b=xpS7RXzI/kPcfot328kjunSLK1lfo79e5GICHP0WlAVIcq2b/awzjqUqpqnmFGIFUrtvVlrcGBowIqQC2cj7XMJykv9eefuWyPuEUKaFFmQESQ3K9y1/03myC+wsJc2lhgckdvLSRQAh75yYmJM2np2UcjXNi/2EfJARAnBn3CR+pJqjN6kO7OSrPTMuaOkFEerLkGp+u6HBh6+eQOXJqRzsLoQ4eUw7eUJnV/SilV36D5vP1jY10ZuURBGgME+HIA4KldaMdjqwOhE4Mm6NKVvOc70KQzdWdSpSHn13+8zct2i3JQEmalHy0Sfb23WRkLqAJ+1/WXj4Tkpz5uqUBg==
+ bh=sN0i52+5HSkyMaF9D7LG9TmjYtk3DD/INQI8K7B3DuE=;
+ b=QAjGlfqSmitmTPUC/5tm/IaENRsytplpsXYRbxAKJVm8O1/i8B98iP5ANx5h3g3mCHBcaBy+wZ/LrAYN8yIaAjQL4m9dXysmaJYMrXirH3q4rpHlQkusDIRFkCRkhMdSb+hkISboPPK1m7vnEFc0+o3lvklxSafXhC9pP5BNRN2PPTIxYi8EfncGPdVlrfRCeUbps2w472j03kP4biVGuf4YF1+3MT3zu9blWYbosnLO4gd8AgqzmrIBXmBlx1/L88xbyLZLYNvsCK2/zo+W6XW7t9Oo6VyEf6ajpeR8WlTLC52iNjufGVcFDISI5QTSkNdHi2f+6+342tYKWJn0PQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QHSy6SdhNa+2znOYvOxVK5h8+7zBAHRqFum+w5sh4Ow=;
- b=r8/wKvI6oGe58yP0FPSQU7Ucw4kHxnLHXuTWcRF9ku8meAVibQAoB7Yef/lQVRZQYGebCliYsEBVHo0vXBqUpemYlgQ0joTUTPmEzve0Zf2RGt/KBThLKVIQ+6ev7Lz6YU5aPkUEOzyueGYLPTMuosg0tMY821yDMSJ7Wgpk6MI=
+ bh=sN0i52+5HSkyMaF9D7LG9TmjYtk3DD/INQI8K7B3DuE=;
+ b=ztzV/rRTV794g/Jj8cqqBJDTZakIatUXtxi1gGa8JxigCOgDXUzotbddMUAM7y/IxB1mTdGJoMoeujFrBS+V+TzrCC1Fv47PJl2ephTMn56Q3KS0SmW2YgypyA47DifkjKQ0LeIPQISudyWpZAh69XrY0xWjsTEFv0ozUfP7LBE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB6037.namprd12.prod.outlook.com (2603:10b6:8:b0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.16; Thu, 3 Oct
- 2024 21:07:21 +0000
+ by CYYPR12MB8938.namprd12.prod.outlook.com (2603:10b6:930:c7::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18; Thu, 3 Oct
+ 2024 21:11:44 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81%2]) with mapi id 15.20.8026.017; Thu, 3 Oct 2024
- 21:07:21 +0000
-Message-ID: <5c53e22d-cecd-4a81-962d-31535dd199d1@amd.com>
-Date: Thu, 3 Oct 2024 17:07:19 -0400
+ 21:11:44 +0000
+Message-ID: <63ed9ee7-a4a1-4912-9ef7-743879941ced@amd.com>
+Date: Thu, 3 Oct 2024 17:11:42 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Add kfd driver function to support hot
- plug/unplug amdgpu devices
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/amdkfd: not restore userptr buffer if kfd process
+ has been removed
+To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: philip.yang@amd.com
-References: <20241001223836.129671-1-xiaogang.chen@amd.com>
- <b5b5b926-72fa-4092-a815-8dabce9d1c74@amd.com>
- <fae065a5-d5e2-4c2e-8700-295f236d793d@amd.com>
+References: <20241003205526.35748-1-xiaogang.chen@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <fae065a5-d5e2-4c2e-8700-295f236d793d@amd.com>
+In-Reply-To: <20241003205526.35748-1-xiaogang.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0185.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8b::15) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBP288CA0013.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6a::9) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB6037:EE_
-X-MS-Office365-Filtering-Correlation-Id: b40b58e9-d056-4913-cfaf-08dce3ef5f16
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CYYPR12MB8938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d23cc69-a3a3-4f02-fe1b-08dce3effc0f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Ym9vUEt4ZGNBNklBNnZTcDdqOUFoZHgrQ3JnT2ZMdkZkNHdOeUtzbGtxT3dq?=
- =?utf-8?B?N0xIRmd0SHR2R1lXeTNaeXYrM3Fqa3lRT0JyYnp5ZldaUGNOZ1ZmL1B5TldW?=
- =?utf-8?B?VGY5VVltK21JMGR4Vis2N3NnVnlxcU5UbUtjb2VOcDU3VnBPQXJ1R0FrNTN0?=
- =?utf-8?B?SGtOZGNUVEx1TC90ZXZoZHpiNjFnbytPY0lCa3M4Z2ZuQ3VVL0VyTkprK01F?=
- =?utf-8?B?TCtjREU5TkR3RU51QXRKUlpHZFNQKzdEK3BBOWhldjFaYndBQTNCdGJwbDVO?=
- =?utf-8?B?VTdMdGFITDlmaVNRTWpXTmZoUTkzazlkMjBDQ3RETllRNzVwaHoxUmRSOVN0?=
- =?utf-8?B?anNKL3NkTTJKM3A4d1BzSkx5ZVlpSkhibmtEWG9Iek83WGtkWkdLUmtGNFJP?=
- =?utf-8?B?UUpnVGpod3lZRHFKU2dDWUdobHJDWmU2QitlMmtNN2x5UWxubUFWazY3eE92?=
- =?utf-8?B?Z3VoeXBwZE1wZ3NnS0JIaFp0VXM3MFBMd0llSm43TUpra2R3NHdTcjM2ZGpx?=
- =?utf-8?B?WDlHSXhobWxHeG41bGJYcldTdTBSS1o3MWpCOVB4Qmhrb2RFY3hYOVB1ZVZo?=
- =?utf-8?B?VUVOdm0yUitFdGtVOTVLRFFBc1NMU1BLMEFuTHF1OFN5akh2UnpRU1NJY0dQ?=
- =?utf-8?B?V0RnTjkrdTl6NElOMWlZYVREZm5DMkhrZ05UY1gzVVYyckVhNUw5Zm9YME1n?=
- =?utf-8?B?MVJmSXo0M2tlOGhiNW9iMDVmWGtLZFYxV1RaNmM0T01BLy9LbjBIRzFUUm1P?=
- =?utf-8?B?dEt0RFdnVFVqRi94YTRmTDVmTjdOdkNCNE5aUWRwWkJCREV0c2g1QWN3a1Zv?=
- =?utf-8?B?bVh3TmU0L2o5ZzFaRVVXS3VLMm9ZeldUWTN3NElYY254T3pyam1NZFZTSS9M?=
- =?utf-8?B?aDg5bnF1VDhlUG1HOFdjNmh3VXZoaVdhSS9wOGE3OWFQeUhKWEhoRGZMM2l2?=
- =?utf-8?B?U1E1VXlXMWpiYzJWdm1YeHZ0ZE10Q0p0NmFIZEtwa3o0Nms0QWVITzVQL2hT?=
- =?utf-8?B?U1FxVWhpRm13SHJJeHluWEtpZ0h2cWg2MXNhZUc3N3lIeXFEcjQ4Z0dISGxT?=
- =?utf-8?B?VkRUcFZnWGFiNXJWUlZsMFkwR1RGUzBtYks3dmw0MTJFK3hIKzVRL3VlQUVh?=
- =?utf-8?B?MmlNVVNEcG1zb1RvbWhWYmxSTi9tSG9Qc3dWcU1aLzFJc2dlbDlXTXI2bGlH?=
- =?utf-8?B?YVo5TXViUU1vWUMwRkVRZlYvYzZnZkVocG1zT3ZrdXBQcmdJeldSUzduQ3ls?=
- =?utf-8?B?UlNicFZnNDN1ck0ydVBGVTE1SndVL1BWSE9NQWxob1IxZFAzc0xBRHkzenQy?=
- =?utf-8?B?VThWMW55aHRpSFZMRjRXdkxsekE4eTY2MWpHcXNFTGJUM3QyWkdqSGVFRnBz?=
- =?utf-8?B?Q2o5Y2RQNU9LRVZSY09oZENjUWlJTkpLMXJGUktuUi9QMGJkUkt3TlUrS2t0?=
- =?utf-8?B?WFlleHhHZEtIaTU1b1ZHOUxNeVZTUHZCMUVRVzlrSWdQdHBxV1FaV2U0TEVt?=
- =?utf-8?B?RlNJdDkyQXdmUUhoUG9Qb2VoNHNSU0JCUU5MZnh0Wnltd28vek52Wnc3R3VX?=
- =?utf-8?B?K0dxR3ZDSUxWMmN6YXFiQjEySFI5ZmN4RmZ1WEtLUFVmYnM1bzRBYzI4UlhI?=
- =?utf-8?Q?IwrlirzsDdnHgXd20wXSIH74A28V1p1ciCvRuzjj8VVI=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U3FKZHIvbUhqd1F3dFBCSXJmWHZlQVM0TUlUQWN2UHFjeHBlZDdnQnJlWDRJ?=
+ =?utf-8?B?TjE1VHNJeFpwbmk2TURQMWtFc2lSdE5tVDZOUllUZFR4N0FtZFVCcUxPNnNL?=
+ =?utf-8?B?dmt2eDBCWHZBVm1BZ1FyVGFacFh5SEgvQ1RveGI0bkwwYzFlaGo1b2dHSFpl?=
+ =?utf-8?B?QTQycll4S0lIbXJ4bk0vOHk0V1BzL2xDclNpVHBWRG9nV3BiYUVVTDBhbFF3?=
+ =?utf-8?B?dENVQ3psMmM0eGVKL3laamVQVEpzL1IzQjVSVW40ZWpNbk42L1NCS0RCdnBB?=
+ =?utf-8?B?SVBXNVhwV0FvRVlJSjJpb3B6S2ZrOC9vVnRhK0hWV3lySThBaXR4azV5QjdT?=
+ =?utf-8?B?MHFrUWg0MTFKVUZiaWJBTlJsSitzUkcrcTBtK3F0T1JSZzZQbGphL2k3cmts?=
+ =?utf-8?B?VllPRWdNY0NDV2lZd3VzTFdjNk84QVdaWWpkTEZkam5VREJ0SzNHZ1hRRm9v?=
+ =?utf-8?B?cktpS05wbVkrblBFdXJtNW1mQkgzaFJUdVNRUTIwK3RjZzVTcGdNQjhJYVB0?=
+ =?utf-8?B?QVNIYkRSem1FQzd1cjBXVURpL2ZZVzRDb2VEWUw3NC9zNzdWVGc5WXlqcVZS?=
+ =?utf-8?B?QnRqSHZnREo3UW9RTDhaZys3eHlqdzJWOE5SazRsbjI5OUk1NVBiVjU0M1I3?=
+ =?utf-8?B?UFdIbGFPSXhyMVNBTStyeGE4Q3JTdmluY1ZXdEdnSXI3UHVPZnl6RjJYV1h1?=
+ =?utf-8?B?QnA4MHV0aEs3cDR1dzNzOVdEUG16emRUeTlrM1J5M1d0QWpoRW5RL3h2eG1t?=
+ =?utf-8?B?bjJGdDRNT1lmZk1CR0RnMGc5cXYwN1dmTmYwTDJXc25FOVBDekFlcjh2ZnJ1?=
+ =?utf-8?B?dC9NUDRobEEyVHpWS2poUVAxRFBNY004OUhhdGVVTW1XOEo1LzRvNjZPYUVB?=
+ =?utf-8?B?VDlpYXFRdUlIdy9IcXplTXFRb0tJendINU9WVy9LeGlmQ1k2VnFDK2FlZUZh?=
+ =?utf-8?B?dmNHd0FIUTB2SW51ZHczOFlvNEZZMFVueHA2MTlHMXQwWldLQTFrcUd3aWdY?=
+ =?utf-8?B?T0YzVXdqRGxvRURqRFhsd29mcTRhQVMzRGVkU2lFaHR3dVBhVkMwdmhrbnF2?=
+ =?utf-8?B?SWN1RDBtdE8zRnQ2dmZaVXV3WkJPb0xXSGdmMGtFNzIyVGljTDBXNlhpNUFw?=
+ =?utf-8?B?K05yR3dITnc0bmo2Uk9jS0JlN0NEUSt3ang2SFRGN3RsOUJUZm0wOGhwaE8z?=
+ =?utf-8?B?eThMZFUxMFlIN0krMFRZOHIrZXlNSTExcG5FdVBhdDRJYXBSWHRhWEdpSzNB?=
+ =?utf-8?B?VnBidy9OSUUwM1VIZVYvMER1WFNtNEZScDhoaXZtRVlpbkFidDNCQ3MrTHht?=
+ =?utf-8?B?RlBqR3FRVTFmd3ZwYjcwZE85SDR0MDQ5dUtTdmVHM1k3blhCVVh0U29CRFVx?=
+ =?utf-8?B?OTZvOTIwT3RnK2t6UU80OHVobzloYXlRR0x3UjRFSVNCb0dubmIrbmlob1JV?=
+ =?utf-8?B?ZHRqbGNkQmtnekVPd1A4WFZmTmxpUDkwVmdqZFRkZ29HT3BTRGdWd1hDbUpU?=
+ =?utf-8?B?aEQ2SG1SZkYxcitsa2RIVUZoMFZ2bllXaDNCWlp2Uld0cEpFcjlIR21mSUhx?=
+ =?utf-8?B?aUdUMGtKYXd6Q2V6VWFTTzI4ZmFETHRDZk10bFlNM29IWG1wZTZvUWozMEpG?=
+ =?utf-8?B?WDZ0QVpkZGdrL1NTaW1GYmwyaTBld1dmU0pCVmZJR015ZnVQYzR1WSt5K3FJ?=
+ =?utf-8?B?TFRLbFZTMFIzZ3Zxa1VGTFZHZ3h0UENHa1l2emtOeFUweTAyelhBZjl3PT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTdxdldUeUJVZ1FHeTVKMGpBUVVoQ3VCNUtmblZoanQ5TDBrazZXZFpSWGFS?=
- =?utf-8?B?eHpyMjJWdjFEc0RNbmZENUNzWkkzcDZUS3lrMy9lYWpuV3Rma1QxMVBPVFlN?=
- =?utf-8?B?ai8xaHMrcVovbFJWVE0vOThUVzRGdCtZNERpVHJvNU4zMkNqb0U4U0pSaCsv?=
- =?utf-8?B?SFJCRkcvbStrOGR6MUZKMzBuZytMRS9LcnpYUzU0WGFhMTBRaUFhbmRPNUsv?=
- =?utf-8?B?SG05NGU5MXprYnZFVEdCOEg1czNmYnJPbXdqeVVzdFF3RTlLNytaZ01IcHk0?=
- =?utf-8?B?WHdEVGFGakJCVGovT1RJRStHUnR2ZWpZalgzRTdkR2xyaGlsTEpjL3FFMGtT?=
- =?utf-8?B?WUljRy9XWFJRME1MbmJRU0g0OXp3Sk9LcWpiVHVZaTQva1h4d05DaTdJemx5?=
- =?utf-8?B?YktkNUdQSlZjWDlic2lsRUl3MkhlQXBPVmNPek9MN05sOWZlUGVnellWWXZv?=
- =?utf-8?B?UUhiTk9OV2NSaFAzbnoyUUlmUkZaZGtqZlpFOG1TZ2hWY0NVQnpiZmJrUW1j?=
- =?utf-8?B?Z3UvSGlrYW1NY3J6WnVjRzVmU0cvcGxoek9LaWxwNzhaajl2dnkyN05WWGFr?=
- =?utf-8?B?OXFzdWJ0SXo1SWFWVDdiTkxVUXFYaHk0OFhIL2xKamxQNEhwOHY5UlVHb3FI?=
- =?utf-8?B?OERiQ2dvQzRRcVpCWUwzMWxHbU53NmhncmxxdEp5SjdQemZFYUo0aTBKYVBW?=
- =?utf-8?B?WXZTQzRTQzBYSHhLUjRPK29DRHBNUEFwMUtiZUV6aWE3dk9TWkozUjRkZk5m?=
- =?utf-8?B?bkZLWmMzS2ppYTBHUHZ0ODRmQTJuRGpGeTgxYmlFZERkanl4YTlJR3g2SXBr?=
- =?utf-8?B?WDR2ckdUNW9aR0lzd2t4blQrVU1qaWZXeDNQakVSVVZYdW53eGE5KzRPZ0ND?=
- =?utf-8?B?eG9LdG5yWTJsNXVGQjRUTU8vN1ZPK044UVlnSkV6UzJwYk9JdXRINWZRYmVi?=
- =?utf-8?B?Zm1Ub1draFJZeUJkM0hWZ1lIOVpYWXZXL0J4V0pxNkVyZ0VqazZ5TDhWTUI2?=
- =?utf-8?B?KzQ5dFFGTi96NStCVHdmMnI4MXZIT2ttTkdGREpCa1JIU0tIdkhQN1lhYnBt?=
- =?utf-8?B?OHNRYktVajE2MlNVRksvK3lza3UrMDNjUytPQUJoeUJBV1dlekQ1cm52UDA5?=
- =?utf-8?B?d1NVUElJL3hpV3NiMFhEYzBHSE9KVnRVUytBYU5vSGFzNzl5NDVzOWhHMktZ?=
- =?utf-8?B?dmpacTh6elMwVmMwOWh0V0tocE1UbUFUVlBXL0wvVmF0bmR1NFU4T05Gb081?=
- =?utf-8?B?L1dwR1NWbmp2dlhYczVZanByNC9UL2FRT3FheFJzaXNrc3JwMEk3MisxeUNw?=
- =?utf-8?B?dHI4dHZoeTIxdkxNb3JmMkZUQStwY2FEMVU5dldDRWpERHZFVmh1TWVwK0po?=
- =?utf-8?B?MlB2ZVgzYU5Zam5FWllZeDNuM3VoZm9NTDMzelc4M2RMcUs1ZXRtN3ZDdENs?=
- =?utf-8?B?L3JHekZBNzNIMU5MN0ZiWnNETFoyMVA2UWZTSThMVm51dzJDMjgzT3BuNDNS?=
- =?utf-8?B?eGgveFRCdnBXOVd5elB1d2svdWtQTVExenpRVHlUZUYvU3pTaHhJaXFZSUJj?=
- =?utf-8?B?dVJiSjdHbHUvT0NSODVtOEIvaDFaNlB6Qmt0RkZ3YTlZTi9kRG1VMFFEK2lz?=
- =?utf-8?B?MlVjNEk4dmhRZm9SM0plQzFZRVpKVzZZeDdwc3F1THhodU1ZeXU3WHhmZy9r?=
- =?utf-8?B?MVZFTXlZUGwwd2loMnYvN243SmpnL0cxRkhqOWFIR0FRWVZGU3ZKUlh6L25v?=
- =?utf-8?B?Z2NuckUyWklna0NrL3c5NFY1OWhGaERqYlVFdklObnM4N0YxV1RubWFDVVBE?=
- =?utf-8?B?ZU0zNFVaRjRiTWVRQlpTZ1plZzhiOTJ1U2pNbHdSNDkvQmpydkZDdUd1NHA3?=
- =?utf-8?B?NElKaENMSWFydjNjZVo4aUpjUFNON2JLRVJEQzVtU25nWnpjcmJsL3NqRFhG?=
- =?utf-8?B?WlpvNXhqcVppZi9zem83dEtNeTY4dFpsc0hYbmIvQTI3TTlMZ1FSZ1Y5YTVB?=
- =?utf-8?B?aTl1SW5CMFdqSmNraHRMcUdQWkJVaDVyZU1JLzRxVnQvUmZ1R1l6T1JwNmtQ?=
- =?utf-8?B?ZFhNL1JQWFYvdGhBTTFIUFpIWmxFRTJYU252ZnpDeXJ6bm5DcGJUTDhwbWs2?=
- =?utf-8?Q?BTEO8cdiNryVsmC06pqjcUpAc?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGRiNG1IVXV6Ynk5RnZkMXRJSXF3UWlOdi9kMkRuN1EyZU9BRU0zUXREMDFH?=
+ =?utf-8?B?ellweVMwMXhHRURHdllaMXNNNFNyem5TV2R2RmNIbG52UXFKRFZhK1VHOG8w?=
+ =?utf-8?B?bUZ6NzhaQnFkYTFKdWZBNXpwNW5VVmx6bEtCdjVnVE9HQ0FCQTF6YVZsZ3N6?=
+ =?utf-8?B?dDc1c0h6VzM2VTZUcGQrZUlFN1QyblN2cnZqU2pJcXBZVm55Um9KK0hJTXNr?=
+ =?utf-8?B?K1ZTN1ZONGZVYVhURlJpV056OHZGaUdwa2F4cXlLUEZHa2NZc0dDYVdTUlBh?=
+ =?utf-8?B?cWZXUk1BTDZ0T2VtZ3BhR0tXc0NMNzVkdWUrNUxuNGZrOWRxa2NKRDd4R3da?=
+ =?utf-8?B?QTM3RHV0N1o5T0FJVEVLdkZPMGxuUzhnVnRqeGMwZ0J5L0dRMTcrSDQ4eHY4?=
+ =?utf-8?B?bXVQNStXM2FDY0F4YXN0MWdKN3FKbjB4VFN5L01VaTQ0eU95Y3pvRnljTEJ3?=
+ =?utf-8?B?UVRaQ3Y3b3NZYVNmZGdTN3JXdEFEeHBuRENYSXB0ODk5RkQzYkhIWGxTeVg2?=
+ =?utf-8?B?d2ExaEZIcmtMK0UvWCtxazRscGIvTVgwcEhsbUdKeXhVMC9QdUJOTk9lb01H?=
+ =?utf-8?B?SmhvZHFCWVd3NFA4d1pYaTBHQWg3UmUzVVNSOUtTRk9Vdm41ZU5veFBsbHNk?=
+ =?utf-8?B?Zmx3dUxTRWU1aVNLYzA4VGlpK1BuNzNaK095ajFrWndiblhFa09UUFdQYW9F?=
+ =?utf-8?B?K1FCZFEwNnBTN0dGV2FSbUpNWFFDK0U2aXZ2ei8rczl3b3dtRkNYdlNiWkN3?=
+ =?utf-8?B?Y2xVT2dwemlhL1I3VzBXYU9ZajMvUjczSTVUTGFQNmN4TUF2TWYvc3gwK0Rz?=
+ =?utf-8?B?U09SZUhUbThJQXRFWlc2TTJEV2R5Zlc5QjkyTGVseHkwY1laQUxBWC9vQmM4?=
+ =?utf-8?B?TmdZR3Z4TU4wdnAvRkFEUmFJTE1TQktrRUJVTkJPNnRBa081NHdGMGZLeldC?=
+ =?utf-8?B?QjJsajdvMnZFVTVJUE85UVFDTzNaTVBjZENMcmJKRFJ3SDN5U09mdkxPVWF5?=
+ =?utf-8?B?b09iTTh1UVZwQ1BPNUVVTzFKaFBBVEFqTVRBdnBOUlFmWXV0VVNWY0pBakJ4?=
+ =?utf-8?B?R01YVUthaVJyTElWcFZvQ1BYUmhmMXNuZTUrWGJhVHg1M3RVeFFQWTdkUldi?=
+ =?utf-8?B?Vi8xWkdIL1o5ZzMxUzF2ekhSVmNtbHBCQjc1c1IvVHA0R0d5QUxkQ3R6aTlN?=
+ =?utf-8?B?NlJpeWM0UXJvMDhlT2VISGVDeFBQK25VZVdnVGh6WG00N2xhTElmcWhucHpH?=
+ =?utf-8?B?R1BKNkxMWENOWGk2dEFLNnVKMFRuNUZLbTlzZWEwZDNUVWJReFNhUjlaY1Nj?=
+ =?utf-8?B?ejlFY0hrTy9EUUd1Z0pxaHROUlV4NG45SG1EZlFWanljU2ZVWnhid1ZOOXhp?=
+ =?utf-8?B?cFdxVCt3cENrTHJqOWVvUk85d0dvS3hCSDk0SlFCc1FNamlXcUFMeCtsMWwy?=
+ =?utf-8?B?b1ZpMitnRE1SOEw2VDc1SlBnWTk2Qk8rOEYzem5VNjk1Z1Jndm92YnpNbHdV?=
+ =?utf-8?B?anFDbGFrNGl4SUNra2M5VGFnRzZKZnZ0cTN2dDlUUVVJVU9WWFhRT2diTWdv?=
+ =?utf-8?B?SVBMeUgyK2hmajU3N08yckdtMGNFeWZlSnBOSlVXanpaZWZPMkxwdU55MlJ3?=
+ =?utf-8?B?eXg0dDhwSGVRRGxSVEtWdjhQd2NwU0cxaHdodHFrZ3A1Vm8rbVdCTFI4Zmp0?=
+ =?utf-8?B?ZG1qZVJPakh0a0x6dE5ES05xNTg0YnZvQXM1aHVwVmIycFpJQkNwczVDUHA1?=
+ =?utf-8?B?Ny9MYnpwYlh3cm1ENTlkRkJ5ZW1URnRRMjBJcUl5Z2F6dDIvTE0rNlYwQU1K?=
+ =?utf-8?B?bnlYWjY3dWwvMDR2S0JnSVgxSkYzVGxPMTFMaDJPRW0vQXROMktyNGhuRjc4?=
+ =?utf-8?B?V2dqZzJvT3V2QmgwbUp5WVpNWGFUb0N2UHAweXZUQjNHRkcyaHlFK3VMQjht?=
+ =?utf-8?B?bldmZHFtdXFMYmdobmpiQWo1d3AxcDdZWjZ6MGprQ3NxcnFrZXBaczJxUVJw?=
+ =?utf-8?B?OWliSnRlUkVZbkdIL3hIbzI2RjZRbGp1UWJKWEh0WDI4RHgyL2U4TGVTY3Vi?=
+ =?utf-8?B?VjJNU2xHQWFja1Zid2tOR3NCOHJ6Qzg5cEtjc1BsWmR3Zk5EZ00zTXNzemZT?=
+ =?utf-8?Q?bDQ2gbDkwA8bWUzQn0FNjYk4o?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b40b58e9-d056-4913-cfaf-08dce3ef5f16
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d23cc69-a3a3-4f02-fe1b-08dce3effc0f
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 21:07:21.3151 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 21:11:44.6580 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GVfz1HcLkDto+YPSdTKQq7Nv5eoIQ7uV8efFnAI2CMsQWxqjRxb0SSflp+Ks+Qyddp4u0RYAmPmFXU79LKhyXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6037
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0tS3x4Mo0mYCn9VQ4HaRADaPBVE3R4yTnSy332Qa5Uqo6qDHZNLKm4Woa8m01IXFVQnXhbtVVFLcEW3bBH1dFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8938
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,550 +159,44 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2024-10-03 11:07, Chen, Xiaogang wrote:
+On 2024-10-03 16:55, Xiaogang.Chen wrote:
+> From: Xiaogang Chen <xiaogang.chen@amd.com>
 >
-> On 10/2/2024 1:56 PM, Felix Kuehling wrote:
->>
->> On 2024-10-01 18:38, Xiaogang.Chen wrote:
->>> From: Xiaogang Chen <xiaogang.chen@amd.com>
->>>
->>> This patch allows kfd driver function correctly when AMD gpu devices 
->>> got
->>> plug/unplug at run time.
->>>
->>> When an AMD gpu device got unplug kfd driver gracefully terminates 
->>> existing kfd
->>> processes after stops all queues, sends SIGTERM to user process. 
->>> After that user
->>> space can use remaining AMD gpu devices as usual. When all AMD gpu 
->>> devices got
->>> removed kfd driver will not response new requests.
->>>
->>> Unplugged AMD gpu devices can be re-plugged. kfd driver will use 
->>> added devices
->>> to function as usual.
->>>
->>> The purpose of this patch is having kfd driver behavior as expected 
->>> during
->>> AMD gpu device plug/unplug.
->>>
->>> Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  5 ++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 12 ++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
->>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 77 
->>> ++++++++++++++++++++++
->>>   drivers/gpu/drm/amd/amdkfd/kfd_events.c    | 30 +++++++++
->>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  3 +
->>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 29 ++++++--
->>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c  | 22 +++++++
->>>   8 files changed, 175 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->>> index b545940e512b..f91a581dbbbb 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->>> @@ -248,6 +248,11 @@ void amdgpu_amdkfd_interrupt(struct 
->>> amdgpu_device *adev,
->>>           kgd2kfd_interrupt(adev->kfd.dev, ih_ring_entry);
->>>   }
->>>   +void amdgpu_amdkfd_teardown_processes(void)
->>> +{
->>> +       kgd2kfd_teardown_processes();
->>> +}
->>> +
->>>   void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool run_pm)
->>>   {
->>>       if (adev->kfd.dev)
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->>> index 7e0a22072536..93f54c930017 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
->>> @@ -152,6 +152,7 @@ struct amdkfd_process_info {
->>>     int amdgpu_amdkfd_init(void);
->>>   void amdgpu_amdkfd_fini(void);
->>> +void amdgpu_amdkfd_teardown_processes(void);
->>>     void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool 
->>> run_pm);
->>>   int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool run_pm);
->>> @@ -431,6 +432,8 @@ int kgd2kfd_check_and_lock_kfd(void);
->>>   void kgd2kfd_unlock_kfd(void);
->>>   int kgd2kfd_start_sched(struct kfd_dev *kfd, uint32_t node_id);
->>>   int kgd2kfd_stop_sched(struct kfd_dev *kfd, uint32_t node_id);
->>> +void kgd2kfd_lock_kfd(void);
->>> +void kgd2kfd_teardown_processes(void);
->>>   #else
->>>   static inline int kgd2kfd_init(void)
->>>   {
->>> @@ -511,5 +514,14 @@ static inline int kgd2kfd_stop_sched(struct 
->>> kfd_dev *kfd, uint32_t node_id)
->>>   {
->>>       return 0;
->>>   }
->>> +
->>> +void kgd2kfd_lock_kfd(void)
->>> +{
->>> +}
->>> +
->>> +void kgd2kfd_teardown_processes(void)
->>> +{
->>> +}
->>> +
->>>   #endif
->>>   #endif /* AMDGPU_AMDKFD_H_INCLUDED */
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index 1e47655e02c6..2c34813583b1 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -3315,7 +3315,7 @@ static int amdgpu_device_ip_fini_early(struct 
->>> amdgpu_device *adev)
->>>       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->>>       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
->>>   -    amdgpu_amdkfd_suspend(adev, false);
->>> +    amdgpu_amdkfd_teardown_processes();
->>>         /* Workaroud for ASICs need to disable SMC first */
->>>       amdgpu_device_smu_fini_early(adev);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>> index fad1c8f2bc83..149ab49ea307 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>> @@ -930,6 +930,9 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
->>>       }
->>>         kfree(kfd);
->>> +
->>> +    /* after remove a kfd device unlock kfd driver */
->>> +    kgd2kfd_unlock_kfd();
->>>   }
->>>     int kgd2kfd_pre_reset(struct kfd_dev *kfd,
->>> @@ -1439,6 +1442,14 @@ int kgd2kfd_check_and_lock_kfd(void)
->>>       return 0;
->>>   }
->>>   +/* unconditionally lock kfd, pair with kgd2kfd_unlock_kfd */
->>> +void kgd2kfd_lock_kfd(void)
->>> +{
->>> +       mutex_lock(&kfd_processes_mutex);
->>> +       ++kfd_locked;
->>> +       mutex_unlock(&kfd_processes_mutex);
->>> +}
->>> +
->>>   void kgd2kfd_unlock_kfd(void)
->>>   {
->>>       mutex_lock(&kfd_processes_mutex);
->>> @@ -1485,6 +1496,72 @@ int kgd2kfd_stop_sched(struct kfd_dev *kfd, 
->>> uint32_t node_id)
->>>       return node->dqm->ops.halt(node->dqm);
->>>   }
->>>   +/* check if there is any kfd process in system */
->>> +static bool kgd2kfd_check_idle(void)
->>> +{
->>> +    lockdep_assert_held(&kfd_processes_mutex);
->>> +
->>> +    /* kfd_processes_table is not empty */
->>> +    if (!hash_empty(kfd_processes_table))
->>> +        return false;
->>> +
->>> +    /* kfd_processes_table is empty
->>> +     * check if all processes are terminated
->>> +     */
->>> +    return !kfd_has_kfd_process();
->>> +}
->>> +
->>> +/* gracefully tear down all existing kfd processes */
->>> +void kgd2kfd_teardown_processes(void)
->>> +{
->>> +    struct kfd_process *p;
->>> +    struct kfd_node *dev;
->>> +    unsigned int temp;
->>> +    uint8_t idx = 0;
->>> +
->>> +    /* unconditionally lock kfd driver to not allow create new kfd 
->>> process
->>> +     * will unlock kfd driver at kgd2kfd_device_exit
->>> +     */
->>> +    kgd2kfd_lock_kfd();
->>> +
->>> +    mutex_lock(&kfd_processes_mutex);
->>> +
->>> +    /* if there is no kfd process just return */
->>> +    if (kgd2kfd_check_idle()){
->>
->> Missing space before {
->>
->>
->>> + mutex_unlock(&kfd_processes_mutex);
->>> +        return;
->>
->> This skips the dqm->ops.stop call. That probably makes it difficult 
->> to keep ops.stop/op.start calls balanced.
+> When kfd process has been terminated not restore userptr buffer after mmu notifier invalidates a range.
 >
-> Thanks for reviewing.
+> Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 12 ++++++++----
+>   1 file changed, 8 insertions(+), 4 deletions(-)
 >
-> The kgd2kfd_check_idle checks if any kfd process exist in system. When 
-> a kfd process has been terminated its queues are 
-> terminated(dqm->ops.process_termination) and uninit by pqm_uninit. So 
-> no need to stop queues on a device when system does not have any kfd 
-> process. Here I stop queues on a devices when system still has kfd 
-> process at following code.
->
->>
->>
->>> +    }
->>> +
->>> +    /* stop all queues from all kfd nodes */
->>> +    while (kfd_topology_enum_kfd_devices(idx, &dev) == 0) {
->>> +        if (dev && !kfd_devcgroup_check_permission(dev))
->>
->> This check only makes sense in the context of a specific process. As 
->> far as can tell, this function doesn't run in a process context. It 
->> needs to consider all devices.
->
-> This added function kgd2kfd_teardown_processes is called at pci_driver 
-> function remove(amdgpu_pci_remove) chain:
->
-> static struct pci_driver amdgpu_kms_pci_driver = {
->
-> ....
->
-> .remove = amdgpu_pci_remove,
->
-> .....
->
-> };
->
-> From include/linux/pci.h
->
-> * @remove:    The remove() function gets called whenever a device
->  *        being handled by this driver is removed (either during
->  *        deregistration of the driver or when it's manually
->  *        pulled out of a hot-pluggable slot).
->  *        The remove function always gets called from process
->  *        context, so it can sleep.
->
-> The while loop( while (kfd_topology_enum_kfd_devices(idx, &dev) == 0)) 
-> iterate all current gpu devices at system.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index ce5ca304dba9..1df0926b63b3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -2524,11 +2524,15 @@ int amdgpu_amdkfd_evict_userptr(struct mmu_interval_notifier *mni,
+>   		/* First eviction, stop the queues */
+>   		r = kgd2kfd_quiesce_mm(mni->mm,
+>   				       KFD_QUEUE_EVICTION_TRIGGER_USERPTR);
+> -		if (r)
+> +
+> +		if (r && r != -ESRCH)
+>   			pr_err("Failed to quiesce KFD\n");
+> -		queue_delayed_work(system_freezable_wq,
+> -			&process_info->restore_userptr_work,
+> -			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
+> +
+> +		if (!r || r != -ESRCH) {
 
-So the kfd_devcgroup_check_permission check makes no sense here.
-
-
->
->>
->>
->>> + dev->dqm->ops.stop(dev->dqm);
->>
->> Where is the corresponding ops.start call that resumes execution on 
->> GPUs that were not unplugged?
-> As explaining following I stop all queues at system when a gpu devices 
-> got unplug.
-
-But you need to call dqm->ops.start somewhere. Otherwise the scheduler 
-remains disabled and you will never start any user mode queues again.
-
-
->>
->>
->>> +
->>> +        idx++;
->>> +    }
->>> +
->>> +    /* signal user space processes their kfd processes terminated */
->>> +    idx = srcu_read_lock(&kfd_processes_srcu);
->>> +    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes)
->>> +            kfd_signal_process_terminate_event(p);
->>
->> I would have expected that that you evict the process queues here, 
->> similar to what happens after a GPU reset. Otherwise a process could 
->> just ignore the termination event and keep working. Maybe there is 
->> potential to reuse some of the GPU pre/post-reset code paths here.
->>
->> Using the GPU reset code paths would also allow you to kill only 
->> processes that were using the unplugged GPU. Currently you kill all 
->> processes.
->>
-> My thought on "gpu unplug" is to terminate all kfd processes on system 
-> and their queues. The following call kfd_cleanup_processes() does 
-> that. When a user process open kfd node we create its context on each 
-> gpu device. When a gpu device got removed we do not know if this user 
-> process's works on other gpu can function well without the removed 
-> gpu, so I terminate all kfd processes.
-
-A process that was created in a CGroup that doesn't contain all devices 
-could continue running. Basically it only has PDDs for the GPUs it can 
-actually use. I think we take that into consideration during GPU reset.
-
-
->
-> I think GPU reset is different that after gpu reset we hope the gpu 
-> will be back. The gpu reset does not kill kfd process, it stop all 
-> queues on this device(kgd2kfd_pre_reset) and re-start at 
-> kgd2kfd_post_reset. For "gpu unplug" gpu has been removed, we do not 
-> know it will be back or different gpu will be added, so I terminate 
-> and clean kfd processes and their queues.
-
-It leaves the queues of the affected processes evicted. So those 
-processes will no longer be able to use the GPUs. Maybe this is not 
-sufficient for unplugged GPUs. E.g. the page tables no longer exist, so 
-you cannot use any of the memory management APIs, even on the CPU. In 
-that case maybe killing the process is the right thing. But then SIGTERM 
-may not be enough because it can be ignored by the process. Maybe we 
-need other checks in the ioctls to prevent any ioctl calls after a GPU 
-has been unplugged.
-
-
->
-> I think it is the main concern for this patch: when a gpu device got 
-> hot-unplug, should we terminate all kfd processes and their resources?
->
-> After gpu unplug the new kfd node open will use all remaining gpus.
->
->>
->>> +
->>> +    srcu_read_unlock(&kfd_processes_srcu, idx);
->>> +
->>> +    mutex_unlock(&kfd_processes_mutex);
->>> +
->>> +    kfd_cleanup_processes();
->>> +
->>> +    mutex_lock(&kfd_processes_mutex);
->>> +
->>> +    /* wait all kfd processes terminated */
->>> +    while (!kgd2kfd_check_idle())
->>> +        cond_resched();
->>> +
->>> +    mutex_unlock(&kfd_processes_mutex);
->>> +
->>> +    return;
->>> +}
->>> +
->>>   #if defined(CONFIG_DEBUG_FS)
->>>     /* This function will send a package to HIQ to hang the HWS
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> index ea3792249209..911080bac6d5 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> @@ -1355,3 +1355,33 @@ void kfd_signal_poison_consumed_event(struct 
->>> kfd_node *dev, u32 pasid)
->>>         kfd_unref_process(p);
->>>   }
->>> +
->>> +/* signal KFD_EVENT_TYPE_SIGNAL events from process p
->>> + * send signal SIGTERM to correspondent user space process
->>> + */
->>> +void kfd_signal_process_terminate_event(struct kfd_process *p)
->>> +{
->>> +    struct kfd_event *ev;
->>> +    uint32_t id;
->>> +
->>> +    rcu_read_lock();
->>> +
->>> +    /* iterate from id 1 for KFD_EVENT_TYPE_SIGNAL events */
->>> +    id = 1;
->>> +    idr_for_each_entry_continue(&p->event_idr, ev, id)
->>> +    if (ev->type == KFD_EVENT_TYPE_SIGNAL) {
->>> +        spin_lock(&ev->lock);
->>> +        set_event(ev);
->>> +        spin_unlock(&ev->lock);
->>> +    }
->>
->> I'm not sure what's the point of sending a KFD event that needs to be 
->> processed by the runtime, if you're immediately following it up with 
->> a SIGTERM.
->>
-> It follows the idea above that I want terminate kfd processes after a 
-> gpu got removed. Set all events from this process in case user process 
-> waits on them, then send SIGTERM to user process to indicate I want 
-> this user process terminate since a gpu device got removed at run time 
-> we cannot guarantee it will function well.
-
-Oh, I misunderstood this. You're not sending an event to tell user mode 
-about the unplug. You're just signalling all events to stop user mode 
-processes from waiting. That should not be necessary. SIGTERM should 
-interrupt any sleeping system calls (assuming they use the proper 
-interruptible wait APIs).
-
-But SIGTERM can be ignored by the process. Maybe we should use a 
-different signal, e.g. SIGBUS? Is there precedent in the graphics driver 
-for sending signals to user mode after a hot-unplug?
-
-
->
->
->>
->>> +
->>> +    /* Send SIGTERM to p->lead_thread */
->>> +    dev_warn(kfd_device,
->>> +            "Sending SIGTERM to process %d (pasid 0x%x)",
->>> +            p->lead_thread->pid, p->pasid);
->>> +
->>> +    send_sig(SIGTERM, p->lead_thread, 0);
->>> +
->>> +    rcu_read_unlock();
->>> +}
->>> +
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index 6a5bf88cc232..141ff6511fe3 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -1036,6 +1036,7 @@ struct kfd_process *kfd_create_process(struct 
->>> task_struct *thread);
->>>   struct kfd_process *kfd_get_process(const struct task_struct *task);
->>>   struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid);
->>>   struct kfd_process *kfd_lookup_process_by_mm(const struct 
->>> mm_struct *mm);
->>> +bool kfd_has_kfd_process(void);
->>>     int kfd_process_gpuidx_from_gpuid(struct kfd_process *p, 
->>> uint32_t gpu_id);
->>>   int kfd_process_gpuid_from_node(struct kfd_process *p, struct 
->>> kfd_node *node,
->>> @@ -1161,6 +1162,7 @@ static inline struct kfd_node 
->>> *kfd_node_by_irq_ids(struct amdgpu_device *adev,
->>>   }
->>>   int kfd_topology_enum_kfd_devices(uint8_t idx, struct kfd_node 
->>> **kdev);
->>>   int kfd_numa_node_to_apic_id(int numa_node_id);
->>> +uint32_t kfd_gpu_node_num(void);
->>>     /* Interrupts */
->>>   #define    KFD_IRQ_FENCE_CLIENTID    0xff
->>> @@ -1493,6 +1495,7 @@ void kfd_signal_vm_fault_event(struct kfd_node 
->>> *dev, u32 pasid,
->>>   void kfd_signal_reset_event(struct kfd_node *dev);
->>>     void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 
->>> pasid);
->>> +void kfd_signal_process_terminate_event(struct kfd_process *p);
->>>     static inline void kfd_flush_tlb(struct kfd_process_device *pdd,
->>>                    enum TLB_FLUSH_TYPE type)
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> index d07acf1b2f93..aac46edcaa67 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> @@ -844,8 +844,14 @@ struct kfd_process *kfd_create_process(struct 
->>> task_struct *thread)
->>>        */
->>>       mutex_lock(&kfd_processes_mutex);
->>>   +    if (kfd_gpu_node_num() <= 0) {
->>> +        pr_warn("no KFD gpu node! Cannot create process");
->>> +        process = ERR_PTR(-EINVAL);
->>> +        goto out;
->>> +    }
->>> +
->>>       if (kfd_is_locked()) {
->>> -        pr_debug("KFD is locked! Cannot create process");
->>> +        pr_warn("KFD is locked! Cannot create process");
->>
->> This is going to result in spurious warning messages that tend to 
->> mislead people. If this is expected in the normal course of operation 
->> of the driver, it should not be a warning.
->
-> Maybe change to pr_info? here want user see that kfd node open fail is 
-> due to kfd driver got locked or all gpu devices got removed.
-
-Why? User mode should just retry and the user shouldn't need to worry 
-about it. It's the same with GPU resets. Maybe we need to change this to 
-return -EAGAIN to tell user mode that they can retry.
+This condition is always true.
 
 Regards,
    Felix
 
 
->
-> Thanks
->
-> Xiaogang
->
->>
->>
->>>           process = ERR_PTR(-EINVAL);
->>>           goto out;
->>>       }
->>> @@ -1155,16 +1161,18 @@ static void kfd_process_wq_release(struct 
->>> work_struct *work)
->>>        */
->>>       synchronize_rcu();
->>>       ef = rcu_access_pointer(p->ef);
->>> -    dma_fence_signal(ef);
->>>   -    kfd_process_remove_sysfs(p);
->>> +    if (ef) {
->>
->> This check is unnecessary. Both dma_fence_signal and dma_fence_put 
->> can deal with NULL pointers gracefully. I'm not sure the reordering 
->> of function calls here serves any practical purpose. If anything, 
->> it's problematic that you're updating p->ef in a non-atomic way here. 
->> Ideally the fence should be destroyed when all its users have gone 
->> away. The current place after ..._destroy_pdds seems safer in that 
->> respect.
->>
->> Regards,
->>   Felix
->>
->>
->>> +        dma_fence_signal(ef);
->>> +        dma_fence_put(ef);
->>> +        p->ef = NULL;
->>> +    }
->>>         kfd_process_kunmap_signal_bo(p);
->>>       kfd_process_free_outstanding_kfd_bos(p);
->>>       svm_range_list_fini(p);
->>>         kfd_process_destroy_pdds(p);
->>> -    dma_fence_put(ef);
->>>         kfd_event_free_process(p);
->>>   @@ -1173,9 +1181,22 @@ static void kfd_process_wq_release(struct 
->>> work_struct *work)
->>>         put_task_struct(p->lead_thread);
->>>   +    /* the last step is removing process entries under /sys
->>> +     * to indicate the process has been terminated.
->>> +     */
->>> +    kfd_process_remove_sysfs(p);
->>> +
->>>       kfree(p);
->>>   }
->>>   +/* check there is entry under procfs.kobj */
->>> +bool kfd_has_kfd_process(void)
->>> +{
->>> +    WARN_ON_ONCE(kref_read(&procfs.kobj->kref) == 0);
->>> +
->>> +    return procfs.kobj->sd && procfs.kobj->sd->dir.subdirs;
->>> +}
->>> +
->>>   static void kfd_process_ref_release(struct kref *ref)
->>>   {
->>>       struct kfd_process *p = container_of(ref, struct kfd_process, 
->>> ref);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>> index 3871591c9aec..7809ed0dbc95 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>> @@ -2336,6 +2336,28 @@ int kfd_numa_node_to_apic_id(int numa_node_id)
->>>       return kfd_cpumask_to_apic_id(cpumask_of_node(numa_node_id));
->>>   }
->>>   +/* kfd_gpu_node_num - Return kfd gpu node number at system */
->>> +uint32_t kfd_gpu_node_num(void)
->>> +{
->>> +    struct kfd_node *dev;
->>> +    uint8_t gpu_num  = 0;
->>> +    uint8_t id  = 0;
->>> +
->>> +    while (kfd_topology_enum_kfd_devices(id, &dev) == 0) {
->>> +        if (!dev || kfd_devcgroup_check_permission(dev)) {
->>> +            /* Skip non GPU devices and devices to which the
->>> +             * current process have no access to
->>> +             */
->>> +            id++;
->>> +            continue;
->>> +        }
->>> +        id++;
->>> +        gpu_num++;
->>> +    }
->>> +
->>> +    return gpu_num;
->>> +}
->>> +
->>>   #if defined(CONFIG_DEBUG_FS)
->>>     int kfd_debugfs_hqds_by_device(struct seq_file *m, void *data)
+> +			queue_delayed_work(system_freezable_wq,
+> +				&process_info->restore_userptr_work,
+> +				msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
+> +		}
+>   	}
+>   	mutex_unlock(&process_info->notifier_lock);
+>   
