@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80FA7CF34D6
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 23:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64260CF34D5
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 23:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE2110E1A4;
-	Thu,  3 Oct 2024 23:35:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 140AD10E26F;
+	Thu,  3 Oct 2024 23:35:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D3BRN5y8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WsuN3+l6";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A84110E1A4
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 23:35:41 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2068.outbound.protection.outlook.com [40.107.223.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3049C10E26F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 23:35:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eZjUcRNMZxF3eibkIkQQBXcPSQjZYGOLZa9RiqfjTH2dxbknyM+/gycItEhPLc7sn0/1f6ZMb7jx+KVYKufb5pYE1hdUFGJb6GWX+zaYcDedNdOVs/1kKk6NclU8zsSJkEsvHNUvoRM8RgZpJlJO5NDbifc8F0muYF+qyaRvNSCDK0ALSl9Jq1aQJ2etltZH+/agUEqBr5Dvk6qN6PH5b7l7GrWl3Iflo+6k6WjbshA4cS3zngupX5hmCAkQT8LUWnBKMRHB2QwcBJtWkJ6JMl5OIuf8mTHjMzs11zh4RtAFibpoSnHPrUakGC7tFMB5wF8Pk9WlspjcSxTZA4pHjw==
+ b=u+Ox+H3BdYpvLxUf14bEbVz2zSSP20VZAwuxaXMiC2lhrQadzpUvl5Qw6N626JNEYgQOuPOfLdXikR4LOP/MGkotPHtei7k5a08kALWCmFpLFChvkYUPq6yv8Kllv2SbL4I13L+W98Ejs7n/svTksqKTGuOApPiTxQHHYxfnyXGhWzovxQS3oDbI7bIVQLt6xDMGLhR3pbpgZr+AloLOaqxfdvorul6Jxlv+K1QAfl+cxMjELhSlUthnghL35xErp49ekupQ9kFoainByzdsUVrgYZU8rPDwCxDZ21kSVuCHxcSlZzbwOv5iDCQljr6oVYE8hRMKd6IJRGOmHtNaxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=16a26dZBUBzY1tiudRi51v1Hxnti0quEPgsQSBKkPu4=;
- b=IhM8FB3IALCLKKL/Z+0UKS4fHfevj9GJkw707rMffYR+Mw+ifddYpMvnbESi5UMfb+kJMvZ/L5ONbneHvfM7d94mrrVgPhBJVUlq3sksGWkeIJEkaoOk4+mf+QPNoVyUcHqKTVsH21eLk2VZ6GvY8K12/KDJ4XW+cG1CEqax3tFjXCc/Yw9Xr8znCnJOLb/7BE5lgMdQzUDnfBIRUxVT6tBVDHrhUf/pLSNSTe8+P0zZd5tTTEkXYL6WiOiz2Rugb6RO5gtB+YR0eaBx8XLRHQjHqmuzapcRBr6pjRfECszZGQLelKUxqyuA/BFZWUTGN/68uf98sSD16VfoqwdnsQ==
+ bh=cIrlzAjfQZdy5idwqOCMl1jJQ1n+4svJTRklSQ2F4Hc=;
+ b=Y+9tRCprSlgP3aGx/TPCANubNOXpUPJb9yHk21jf1UUI98hD83gTC+rsOUexXqkDiLGsu48ic27D0mwvf7r8UUUHW9n8iI3EQw4QyaHsbyGjVVNEUq/w+jXB/WzbU/qJrv8zEM4lIlaUt91IBJVkKN6x0Iv9xq2vXBVHowIgKOjCHVH2ZRn0hrTc0xay5Xyk/Qt7NxM5bZr2DhiMvsqVjT1TGtH2NbGRgJTRjIGyVTa0Wc3fqWY5lyz5I7O6vT1h56kAEi1zgke987/39Uaj2jJGTAUgWmRydCkQcq/LzCidXZc6sbChdxFSuxm8S3xFo+X9IN1u+f+1LGcpQdLqWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=16a26dZBUBzY1tiudRi51v1Hxnti0quEPgsQSBKkPu4=;
- b=D3BRN5y8eNDdrxZ+7ETGx4vNupT85g4AbuS2ruCmkOEiQ48fPpICodTELsGiGPVIN/YD7FNHvYGtVbPE3/OX903XHBSuBIto8HYLRjiwbNkZ5KHWi9dE0Fwq4awp32IiYfp/wtPU3jVoBjpcasJHKLEC+/la7DaOQzAQLd+s5B0=
-Received: from PH7P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::12)
- by CYXPR12MB9279.namprd12.prod.outlook.com (2603:10b6:930:d5::7) with
+ bh=cIrlzAjfQZdy5idwqOCMl1jJQ1n+4svJTRklSQ2F4Hc=;
+ b=WsuN3+l65MnXtSGzUvdjGNOrxZXDvB5Mw6j+rQNJXnDd7nSVivReOwunfZPUGMghGw7JU9zaRTlArpH6xTTto0NsJ5TGfqK7EpOe9yM14I91jIrMVsnSWkyKdHOBDezrpRt/yxqn6RqOIjl+tGT0Esc16B/Jdj9WuRFjzvjta2M=
+Received: from BYAPR06CA0036.namprd06.prod.outlook.com (2603:10b6:a03:d4::49)
+ by DS0PR12MB8198.namprd12.prod.outlook.com (2603:10b6:8:f2::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.23; Thu, 3 Oct
- 2024 23:35:37 +0000
-Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
- (2603:10b6:510:32a:cafe::cb) by PH7P221CA0029.outlook.office365.com
- (2603:10b6:510:32a::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18 via Frontend
- Transport; Thu, 3 Oct 2024 23:35:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18; Thu, 3 Oct
+ 2024 23:35:42 +0000
+Received: from CY4PEPF0000EE35.namprd05.prod.outlook.com
+ (2603:10b6:a03:d4:cafe::a2) by BYAPR06CA0036.outlook.office365.com
+ (2603:10b6:a03:d4::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.17 via Frontend
+ Transport; Thu, 3 Oct 2024 23:35:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ CY4PEPF0000EE35.mail.protection.outlook.com (10.167.242.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 23:35:37 +0000
+ 15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 23:35:42 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Oct
- 2024 18:35:35 -0500
+ 2024 18:35:40 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,15 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH 00/26] DC Patches October 3rd, 2024
-Date: Thu, 3 Oct 2024 17:33:18 -0600
-Message-ID: <20241003233509.210919-1-Rodrigo.Siqueira@amd.com>
+ <daniel.wheeler@amd.com>, Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 03/26] drm/amd/display: Flip All Planes Under OTG Master When
+ Flip Immediate
+Date: Thu, 3 Oct 2024 17:33:21 -0600
+Message-ID: <20241003233509.210919-4-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20241003233509.210919-1-Rodrigo.Siqueira@amd.com>
+References: <20241003233509.210919-1-Rodrigo.Siqueira@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -76,50 +80,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
  (10.181.40.144)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|CYXPR12MB9279:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1862a34-785a-41cb-76ef-08dce40415b5
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE35:EE_|DS0PR12MB8198:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49c5b77b-8c00-4623-a577-08dce404189e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|376014|36860700013|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cD8Miiy325nykfakWpzvdEVDeK9jC5RNRDWcVORQK4/WPH3D6+8dzdYX32KY?=
- =?us-ascii?Q?6k7BJ/0k6zN4DecWfDOU2Ihk6ZxOJOOULCLn1D9MfWsB0KzUFInPbbM39BNl?=
- =?us-ascii?Q?VUr+69+h7jKowWLVohFTbCiDyzHqG/JHI+jJDjIwRU97zh+U6v2G00RxuR68?=
- =?us-ascii?Q?zD8MnXrdlHWysfTXGAHdEy+x2jXt/HvF89GMgx336CbKguRVKU2qCcv/3CHq?=
- =?us-ascii?Q?CaTzvc3NoHwb/zhwSHPaSHfoL/0mYTagw6izbJwY7UHLTxuM+Sv23CkW7O0a?=
- =?us-ascii?Q?m+y/Ra+Zbcn9ej5jdsB5NrJcgT5+Dtk/jgK26IoRD6A8sNPbJxwR9gAh2EWO?=
- =?us-ascii?Q?pn+ckQL43FLQMeQ2aifgY2pjZ8LW8Ja2cqtR32dmcgA9sYc08W+VfaJLgw7I?=
- =?us-ascii?Q?eriTnPuJhkaYY2kB3y+J3WIYSeajEc6Dwr2vMHw/1tF0Nw+GjMD8m4FZphq/?=
- =?us-ascii?Q?OTLaU7Zb2e17AIk4/nYz6hhAa3/Cci2Ono8yJgDUH6/WtihQyXwMk2GmfRie?=
- =?us-ascii?Q?3CEaeSgKTrY83FOKJDgs46QnXXWrPNhgQsNbbKdbuAR8J70kiHsfMdBW3qBX?=
- =?us-ascii?Q?Cj0k94lTZB9Sw6gkDaCrHagEvwv8iSxqVOiYgSo8i1nLQuUd33knYtOyL8AG?=
- =?us-ascii?Q?Y96u1qF9ar3YdVVBP4IJKS0NR5mvGnowxhbCswc2LwRRl0YsC8Rpn4ReWBPI?=
- =?us-ascii?Q?gPPRUGPSMFoAtV5uNJ3Iy1BCz1J42ZgFcb5kO0T19SljdfDu1nTzFfcXGL+5?=
- =?us-ascii?Q?MZMFXL3Dy2thc5Rrw8r+IG3uVWSB+NXfRmXQjvuFqY2poU77b/0kiESmLGkK?=
- =?us-ascii?Q?6JJ2RLT/8CEQXT10J3rG4ZuTbZXcg4JZnNeQzVLrEum3IjWruB9j8MSm5pRK?=
- =?us-ascii?Q?E2QT8j5fiyI4cLSnv38DtJhTLbi5dNQvOXzlniqLe/KRnUs75DiZ2yoeEMQH?=
- =?us-ascii?Q?cYqMUEHVyiAI/WVXiBGcod+cYY2JWG0t3tDV0cwbp4osbE2T2Kipyf4wW3fF?=
- =?us-ascii?Q?b/PLPdi1UF0NdgG1DT4a+u4a6gdMrkcD6k+LkKUtArzDwbIb0vNZoV/4klDA?=
- =?us-ascii?Q?SUEJEygBZh0zfDk+x/gGZqA+Wg4b8AVUckceksfoZgtYLba69sWX+YQmyoDG?=
- =?us-ascii?Q?cfgbWMzCbZ2gM97EF+H+y1yZ7ul4h9u1/cY2Hkqyi4ikXbjMZCC6CahS5c9b?=
- =?us-ascii?Q?gZJCVqTnqJp37h6ZWifU7SBjr6g3X7MDPyO6AbtJp2joWCSxWZ9EfA/b/TTw?=
- =?us-ascii?Q?o/84kqFLitycpi2ODByk4aKJJ7auJJ1TUqacgRtWSQCoG8uMAVbCwqEDa5B3?=
- =?us-ascii?Q?H0+BAFPGzjTvhStU67F1Zmb4D6b3bErUeZermQX/+5XbbN1u9kcI7AYhIG6/?=
- =?us-ascii?Q?AejBcD4MZ4lrOzaMS/AlkkRJT2D5?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fM0/z6vTXZekItWtNrqYHM4ylVXef3uAiBXNBNdj92tpriWu/fw5EZEi+P6C?=
+ =?us-ascii?Q?vZt6FqtzvgMQu1ZFJRQYl6YJ3xBkm6dIFBFdhG/AFcISbKQE+5CX7agSL+1n?=
+ =?us-ascii?Q?FemCN0Wo+Ul2upZVZlerRtFcwybf9tApz7hD3CI8jABSO6TeSKYa1KpXBMoc?=
+ =?us-ascii?Q?+q7p6axF3z69teErLkKD3WIPaL0p+IKfQ9R/20pWOhwMvqRqQ/+K7hCu+yTA?=
+ =?us-ascii?Q?C0aCm6TzfOSpPwMgulpAjd665kATz9c18WgUDwBXg2Va7SMw5YMbwTptMV9b?=
+ =?us-ascii?Q?BKx3kD/75yiPTwNpdzKRLgGDs+z+jWJfw/d2SKvJkc6QuaXnAtq7KcnsEdKy?=
+ =?us-ascii?Q?tuA3/Flb8L40QGSnVJJwRvs4oHn3aydKH6/T4CfnVZ5kvQOSums18c8pUJr+?=
+ =?us-ascii?Q?nixbaPR/XSvJC9e4D6fZU3p0q4q8Zg+MU6DjC4ILyVaPGr6vXDujuhVBxuwR?=
+ =?us-ascii?Q?Ujs4tvddJS+7dXuhDWr2cjl/arfBT0keiMGR3toTsvTX4/v2k+0uNGb6ouOu?=
+ =?us-ascii?Q?E4ReaPsmUxYXtwGp32Zi5M/n6nCtjzrdP4OMTaps7CyVn9fCu/Qm4FLW9Q28?=
+ =?us-ascii?Q?wFUPm2b7c1jQGPiAdIstnb4YnT30kXFUKaCVHbxj2ikvOWI0hQFjdVyQ2vk5?=
+ =?us-ascii?Q?dz2ClKrGUBgr/8SXf+8+Q+XG4nEFcRnkxFPNpUSTsvaXD38BcWaufJk7ENxL?=
+ =?us-ascii?Q?rgjqEdAG40vzmnBZA/ECXSzLvj3X8laP2cp8iEdxFUWgA5V1IvQfvmAtn1SD?=
+ =?us-ascii?Q?TE4W0C4Q5NZJKvoS5UFempuztsIBeCv0T+0cO0U9/6J5H0GRaCh2n7JvyXyg?=
+ =?us-ascii?Q?6vxFvnPJ0hvlXWg2/yJGLyE6ts/dLQ+K6tTmFJzVt+qRVQoQK9Y4Hb0IpO+T?=
+ =?us-ascii?Q?n9iG5QWDqcUE8b6EL2ho/XOtZkT1GKYFX0VLB3MlBF/L9hPkqMwWF9tfbGsO?=
+ =?us-ascii?Q?mknmlFeIJKXrxMgX9YO9JJTTJeoBFxQpuoHw8TiS3zTsWdnt76TzXgAJM2WH?=
+ =?us-ascii?Q?2X1s4fw91CGfXA9lp5sgaZrlr5g6f9qVXbhISJMGukuJpcIOj3N4nt3+Y3o4?=
+ =?us-ascii?Q?6nXQ26+GwoBXm9iRiulxoqFYym5l9hvudmhVP1qhIdQfml9SLQk/JmKCi8q4?=
+ =?us-ascii?Q?IwVGxUl/8aYqJsBTs4Ggd4xz4u3pM3+Sqf9BwjCCQeTbefsIvvj3uY+xWMi/?=
+ =?us-ascii?Q?Zh0pZb7mFsCYm/LuxQ9qxR/B3BcJzX8VUbyQYkpDs2CpKTh/AiSafcqB7k+M?=
+ =?us-ascii?Q?idkG2pNiEeYibr1pfBmj6FNarWoRgrGQ2BRvwjmQ1o4qm8aI+koLJ77Q/8iS?=
+ =?us-ascii?Q?Dr6fwqAGYKmuljFzQIuKK348sOR4byNx1Xu71kT2XI6+XXdTLZ3tLkq0lbO3?=
+ =?us-ascii?Q?f1KWSCtHW2+NuPMOTz0ph6tjc2fc?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 23:35:37.3265 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1862a34-785a-41cb-76ef-08dce40415b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 23:35:42.2101 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49c5b77b-8c00-4623-a577-08dce404189e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE35.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9279
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8198
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,128 +138,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we
-highlight:
+From: Austin Zheng <Austin.Zheng@amd.com>
 
-- Improvements to seamless boot.
-- Adjustments for DSC dock.
-- DML improvements
-- DMCUB fixes for D0/D3 and new register offset.
-- Code cleanup.
+[Why]
+The MPO plane will receive a flip but
+desktop plane may not receive a flip when GSL is enabled.
+As a result, system will be stuck waiting for a flip that was never sent.
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+[How]
+Set update address update flag of all flip_immediate planes
+if there are multiple planes.
 
-Alex Hung (2):
-  drm/amd/display: Remove unnecessary assignments
-  drm/amd/display: Remove redundant assignments
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 33 ++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-Aric Cyr (1):
-  drm/amd/display: 3.2.304
-
-Aurabindo Pillai (1):
-  drm/amd/display: fix a memleak issue when driver is removed
-
-Austin Zheng (6):
-  drm/amd/display: Unify blank_phantom and blank_pixel_data
-  drm/amd/display: Flip All Planes Under OTG Master When Flip Immediate
-  drm/amd/display: Revert commit Update Interface to Check UCLK DPM
-  drm/amd/display: Allow Latency Increase For Last Strategy
-  drm/amd/display: Move Link Encoder Assignment Out Of
-    dc_global_validate
-  drm/amd/display: Update Interface to Check UCLK DPM
-
-Charlene Liu (1):
-  drm/amd/display: update sr_exit latency for z8
-
-Dillon Varone (1):
-  drm/amd/display: Remove programming outstanding updates for dcn35
-
-Fangzhi Zuo (1):
-  drm/amd/display: Skip Invalid Streams from DSC Policy
-
-Fudongwang (2):
-  drm/amd/display: skip disable CRTC in seemless bootup case
-  drm/amd/display: force TBT4 dock dsc on
-
-JinZe.Xu (1):
-  drm/amd/display: Noitfy DMCUB of D0/D3 state in hardware init
-
-Josip Pavic (1):
-  drm/amd/display: Clear update flags after update has been applied
-
-Kaitlyn Tse (2):
-  drm/amd/display: Initialize replay_config var
-  drm/amd/display: Initialize new backlight_level_params structure
-
-Peterson (1):
-  drm/amd/display: Fix low black values by increasing error
-
-Roman Li (1):
-  drm/amd/display: Align static screen idle worker with IPX mode
-
-Sridevi Arvindekar (1):
-  drm/amd/display: Assign socclk in dml
-
-Taimur Hassan (1):
-  drm/amd/display: Add DMUB debug offset
-
-Yihan Zhu (1):
-  drm/amd/display: calculate final viewport before TAP optimization
-
-Zhongwei (1):
-  drm/amd/display: Fix garbage or black screen when resetting otg
-
-po-tchen (1):
-  drm/amd/display: Display lost signal on playing video
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  32 +++++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  13 +--
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  13 ++-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 103 ++++++++++++++----
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  57 ++++------
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |   4 +
- .../amd/display/dc/dcn10/dcn10_cm_common.c    |  25 ++---
- .../amd/display/dc/dcn30/dcn30_cm_common.c    |  25 ++---
- .../dc/dio/dcn314/dcn314_dio_stream_encoder.c |  10 ++
- .../dc/dml/dcn20/display_mode_vba_20.c        |   3 -
- .../dc/dml/dcn20/display_mode_vba_20v2.c      |   3 -
- .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |   4 -
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   |   4 -
- .../dc/dml/dcn21/display_mode_vba_21.c        |   3 -
- .../dc/dml/dcn21/display_rq_dlg_calc_21.c     |   4 -
- .../dc/dml/dcn30/display_mode_vba_30.c        |   3 -
- .../dc/dml/dcn30/display_rq_dlg_calc_30.c     |   4 -
- .../dc/dml/dcn31/display_mode_vba_31.c        |   3 -
- .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |   4 -
- .../dc/dml/dcn314/display_mode_vba_314.c      |   3 -
- .../dc/dml/dcn314/display_rq_dlg_calc_314.c   |   4 -
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |   3 -
- .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |   4 +-
- .../dc/dml2/dml21/dml21_translation_helper.c  |   1 +
- .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   2 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   5 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.h |   3 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  15 +--
- .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   |   7 +-
- .../amd/display/dc/hwss/dcn21/dcn21_hwseq.h   |   3 +-
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |  20 +++-
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  46 --------
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.h   |   5 -
- .../amd/display/dc/hwss/dcn32/dcn32_init.c    |   1 -
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   1 -
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   1 -
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   1 -
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |   8 +-
- .../drm/amd/display/dc/link/link_detection.c  |  12 ++
- .../dc/link/protocols/link_dp_capability.c    |   7 ++
- .../link/protocols/link_edp_panel_control.c   |  11 +-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   5 +
- .../amd/display/modules/freesync/freesync.c   |  17 ++-
- 46 files changed, 269 insertions(+), 239 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index f4a5accf1db9..48057ac22cbd 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2661,6 +2661,29 @@ static enum surface_update_type det_surface_update(const struct dc *dc,
+ 	return overall_type;
+ }
+ 
++/* May need to flip the desktop plane in cases where MPO plane receives a flip but desktop plane doesn't
++ * while both planes are flip_immediate
++ */
++static void force_immediate_gsl_plane_flip(struct dc *dc, struct dc_surface_update *updates, int surface_count)
++{
++	bool has_flip_immediate_plane = false;
++	int i;
++
++	for (i = 0; i < surface_count; i++) {
++		if (updates[i].surface->flip_immediate) {
++			has_flip_immediate_plane = true;
++			break;
++		}
++	}
++
++	if (has_flip_immediate_plane && surface_count > 1) {
++		for (i = 0; i < surface_count; i++) {
++			if (updates[i].surface->flip_immediate)
++				updates[i].surface->update_flags.bits.addr_update = 1;
++		}
++	}
++}
++
+ static enum surface_update_type check_update_surfaces_for_stream(
+ 		struct dc *dc,
+ 		struct dc_surface_update *updates,
+@@ -3177,6 +3200,11 @@ static bool update_planes_and_stream_state(struct dc *dc,
+ 	context = dc->current_state;
+ 	update_type = dc_check_update_surfaces_for_stream(
+ 			dc, srf_updates, surface_count, stream_update, stream_status);
++	/* It is possible to receive a flip for one plane while there are multiple flip_immediate planes in the same stream.
++	 * E.g. Desktop and MPO plane are flip_immediate but only the MPO plane received a flip
++	 * Force the other flip_immediate planes to flip so GSL doesn't wait for a flip that won't come.
++	 */
++	force_immediate_gsl_plane_flip(dc, srf_updates, surface_count);
+ 	if (update_type == UPDATE_TYPE_FULL)
+ 		backup_planes_and_stream_state(&dc->scratch.current_state, stream);
+ 
+@@ -4807,6 +4835,11 @@ static bool update_planes_and_stream_v1(struct dc *dc,
+ 
+ 	update_type = dc_check_update_surfaces_for_stream(
+ 				dc, srf_updates, surface_count, stream_update, stream_status);
++	/* It is possible to receive a flip for one plane while there are multiple flip_immediate planes in the same stream.
++	 * E.g. Desktop and MPO plane are flip_immediate but only the MPO plane received a flip
++	 * Force the other flip_immediate planes to flip so GSL doesn't wait for a flip that won't come.
++	 */
++	force_immediate_gsl_plane_flip(dc, srf_updates, surface_count);
+ 
+ 	if (update_type >= UPDATE_TYPE_FULL) {
+ 
 -- 
 2.45.2
 
