@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26665CF34C1
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 20:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A1BCF34C4
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Oct 2024 20:03:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69A8F10E95F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E002910E974;
 	Thu,  3 Oct 2024 20:02:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rures5rm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SaA1Bmyz";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5DD910E965;
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2061.outbound.protection.outlook.com [40.107.102.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1E6410E96A;
  Thu,  3 Oct 2024 20:01:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ezj+TvVVWtGZGTO13e+CYVF95EY/XTRCIEpi/mPhP6quIf0tbMk+wmNAxefB+Wl3zfybqYuh8o3vEA0AdW85hctM3I9H5rwF3lNO9wsDQ1XskKFB81beNrrjhWoKCkI8kGkBuMEX4vPKPxYKKHkRK93NchzvyEhC+3pRcZSRSwAzQqPjkn5r7EgQnfmfpZLXYxaMkTZTJ+PlxzRToUGYM4X952YI6Xu/glA05qTng2V+ZaX1xD/94X2cZcvmeDNOcTgIWdrQdNFJKHIDBhAt7O5WL33+Hvihy4cHetfch9gvodOuzcX2uISigBkDz9fpYZ2g/hTPU6cCLIoLOsB+NQ==
+ b=Q7pejosnBPRJH2N1NigkFvocYBfPZ55RNnWRmZU8Zpoi4LYM6fUJRebBui+Nlyn0BsgBdINUYKwICGF7n0Qo5aILVEjeGRDVYwLJ+X1GiVcJzfdoUYxw54AMUIksb0qTKTz8zyjpbWVVtywCTdyGfrhH+IpfJoLDzAUUtCrXiqCgH9zgPN6+NHTtolCCyBZzsXVVjGSrDTul3Lo6wKusuOwH8Twh5BuUe5a63ZqooUyUpPTuB3Knb4S76hsv5oWrnzt/ht1NU0P4XTlJHNpweLkwSfSmHEawxmeWv5jToioGhX+GyxeGV7ghBXwHXLTZHQamovBlNiglJerDeYGKzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ylhan1TVFO+eSv9JAnQM9kdnsm/e4LzzQyOa165W2Ig=;
- b=M/NJQ3SkAqv8vQ6IyToHL5l6iJqw0pKl2XPCwy5ryIyqtXMVUoqmiHsoRuLlWRVdKzUvJ7upS+i5K4vHnYA7koAta7lX7M/39ZYblRC3bComF4vnEM6ZNKMTavKStLsQlhZeoQIe+b97UCgi+31NCIM+At6kGNfrcFKWGQa62M+MLg3zX+TLn4jenMQuAbkbl+DMLQjirt+KGXwG0K5COvHJZVjGKlfVmj1NHf71VR3VQoqlvMdhKNt9Uqy4v6DEOi7cs4jXuHE5g5CO1peQb9wl9+92fs9cbYLohhBEMlC7Si9iKqhb+EtwBSFAbRUA+LLk8W1/7ke71ZoOU4ahbg==
+ bh=4hw1GKGgKPkaqx8yCzUsAzoFjN3EEGBKKXelolZ+urQ=;
+ b=Gm2kFpncV96ruHwUvcwvinVyfsB6l7U+OpmB1Lrqj6TDGSQd8+HCpK4+MwHHM+RsND6mnztjSCyAobILvnA9+huDmGzzujC/fK5NMERsOz5tI3YL+KIi2DdZrfIMMp1RM0IOMOvllOS5NuGKyD54IIFzL0RBREyiJC6ZTcgCLr8mrV8/+Y4RGD2QPLmUyfNesor3TZwApCEGqbcjkYvBnWYs9ciFS4aNZSuwLMr6uFuoba31OFwVjG8dLiHUwas92NZHP7lWvo4eGYsvjzFmU7yCJuM2ZSEUXqibZ5thDgg7YN2Anw/ckLEl7MSQr62NhA81xEO0ALyqzmOKnXJKFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ylhan1TVFO+eSv9JAnQM9kdnsm/e4LzzQyOa165W2Ig=;
- b=Rures5rmkV3irdJPXaqmGj1PMxJmNC4lP/mnIjz7EqcEH/kMbT5Ve/tiqoaNSSAc50fFWS8W5Yzq5Gnb3SfQbu8SqKu9Kf+B/j0P7o2aNpR9QI8HhcxS/xldBqF7YyU6ZagOgcH0FNMf7PrImLGEswh/ncbVenjxjyuGqO5ycHI=
-Received: from DM6PR04CA0003.namprd04.prod.outlook.com (2603:10b6:5:334::8) by
- DM4PR12MB6009.namprd12.prod.outlook.com (2603:10b6:8:69::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8026.16; Thu, 3 Oct 2024 20:01:56 +0000
+ bh=4hw1GKGgKPkaqx8yCzUsAzoFjN3EEGBKKXelolZ+urQ=;
+ b=SaA1BmyzK5qhYOyLvzC0l+9WELNzlotqYr86zXy3DtbRGEMB/WZXdwBo97teQwNM+F3m/VRzSPssLO7TJN/DRXGBIG+dujKw+8P/EQMlmuDz4/4ixStgng0PXcVHUdyS87nfBnOibGL2fFetizZ/uXYAr7e82SFPge81nFKiAms=
+Received: from DM6PR04CA0017.namprd04.prod.outlook.com (2603:10b6:5:334::22)
+ by CY8PR12MB7193.namprd12.prod.outlook.com (2603:10b6:930:5b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.27; Thu, 3 Oct
+ 2024 20:01:54 +0000
 Received: from DS2PEPF0000343D.namprd02.prod.outlook.com
- (2603:10b6:5:334:cafe::6f) by DM6PR04CA0003.outlook.office365.com
- (2603:10b6:5:334::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18 via Frontend
- Transport; Thu, 3 Oct 2024 20:01:56 +0000
+ (2603:10b6:5:334:cafe::18) by DM6PR04CA0017.outlook.office365.com
+ (2603:10b6:5:334::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.17 via Frontend
+ Transport; Thu, 3 Oct 2024 20:01:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF0000343D.mail.protection.outlook.com (10.167.18.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 20:01:55 +0000
+ 15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 20:01:54 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Oct
- 2024 15:01:54 -0500
+ 2024 15:01:52 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 3 Oct 2024 15:01:53 -0500
+ Transport; Thu, 3 Oct 2024 15:01:52 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: <wayland-devel@lists.freedesktop.org>, Alex Hung <alex.hung@amd.com>,
  Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v6 36/44] drm/amd/display: add 3x4 matrix colorop
-Date: Thu, 3 Oct 2024 16:01:18 -0400
-Message-ID: <20241003200129.1732122-37-harry.wentland@amd.com>
+Subject: [PATCH v6 34/44] drm/colorop: Add 1D Curve Custom LUT type
+Date: Thu, 3 Oct 2024 16:01:16 -0400
+Message-ID: <20241003200129.1732122-35-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.46.2
 In-Reply-To: <20241003200129.1732122-1-harry.wentland@amd.com>
 References: <20241003200129.1732122-1-harry.wentland@amd.com>
@@ -75,50 +75,50 @@ Received-SPF: None (SATLEXMB04.amd.com: harry.wentland@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343D:EE_|DM4PR12MB6009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 510f1706-2708-4e21-f7a1-08dce3e63b83
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343D:EE_|CY8PR12MB7193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76e8e255-158a-4c8c-2774-08dce3e63ad1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jA4pbgP3dCm3WqwTUvYv9O6EWrcM5mrkE709xIXaA1TEW1nfk5GXEN+HS3AY?=
- =?us-ascii?Q?BJTEUMSpz5dJM32c/xGnP0H+9c9/trneEajyouJXkuXVU2V3RtK7PRnbcor2?=
- =?us-ascii?Q?Vge/OjgxPilL6egPF4Aht2Fxoc7LxwYlsmBkACPYN1l+C6BMeukOz34i759G?=
- =?us-ascii?Q?nR2dkT1osRx0nN7w0wOnm4kPTNl/WG4/kAXwUWavuSN1n8GSAJ86kntD5Jdt?=
- =?us-ascii?Q?sMj4GRK8imO6uUsNA2Y8c//tfneOckQ0vF0G5YNKXwO2nuy7JU8GVTzOjEiX?=
- =?us-ascii?Q?lmjzBXa9gAQ9b2/5j6knVVTVU+EDPmQHwDaGvdWcLKuNoUSAbZs9C3wX+8s1?=
- =?us-ascii?Q?FzDSugTQucoXWFNjdEnlaAwLW66VcG4RK7DEhxkVFrgBQGP223Z1On/y4m7H?=
- =?us-ascii?Q?gz5dg5+aBcymjhwLaxbHmyCnNDvCN57AVgLwLR7BXnmyWZNHXTt4t7/0T659?=
- =?us-ascii?Q?Vc/qjVFpNgj4nPUAtOgix0yIBkWcGBU75GsuuQALqEltr+UnM6G5uTa6eyRh?=
- =?us-ascii?Q?ugOsKdYoIkVx6eAaQ1JGNAqnMbvmPFtftqpnYp8CiKDDxmfqJINng99RZLNJ?=
- =?us-ascii?Q?V5tB7XOQU+Lp8YvFgowQDDezGEvym6TbSi88BaGGw4OTzmYawVHqaZ20Kw9Y?=
- =?us-ascii?Q?j5qI/DmaFxDHEUlmNnlqMRnA0pXYf1oAZFo1LkK1pN1NlVxVrAU9HFymV7nq?=
- =?us-ascii?Q?u5HyAxlEQBTGtyQXje8HvR90RN4mZ48zjIckilE8QpTgDRY+LTfnJ8ErRU+6?=
- =?us-ascii?Q?Bo0oTXV8RNH6y6jvUNfk5GDzbJU/0KruRUJCO4h2PTBdIVYvVXC8aaatnosO?=
- =?us-ascii?Q?Cuukfz9Dd6XnE4ovCXMgQrefrVm5rJyIbhTdEVa3snkRknKjfh8eSYguB+HD?=
- =?us-ascii?Q?JEx6WyJwj9zRRfK3KYOGvqYV4KxT0h1t+hVmsqm402IWflGShxqdxsPQ4nGt?=
- =?us-ascii?Q?JNkAxZUxAYauaQN+GncAxa2pxZc0/3Ll0R5HhvXoEvmuE6X5gOe6MmlcjD2g?=
- =?us-ascii?Q?Fc2ZQZMU1vy6p5NFFXIn5Bs1xCDvR/pVoassM1zmXvI4JVqnZCYSxgStM5/Y?=
- =?us-ascii?Q?3bob5LNNZuS04VAaEM0Ix3nirjMvTQeqTCrPv0R9uIF7co0gYWgBZsL7ADZi?=
- =?us-ascii?Q?LvbDjQ1S6rJsVL/ltKU6lXzO5xtyCGMhxvdhX7nFdkEke3gw8Ux9Es0PUiDV?=
- =?us-ascii?Q?bLhhc4ytNRocVDEThQVZ6flxOfRrTgcjr578xQ9vIZH/lj7SWNPSPYtqlqhF?=
- =?us-ascii?Q?A7igxKg6dr1zDagp5jOofZbMvNJxZ0+ECyyvvDiHTxRr2t28jRrfCaFcsLrD?=
- =?us-ascii?Q?UUXGMIJq26/jh/KDfa1R9BGY7bA+Af0i9ROQeZlY0fl1io+QOZKCP4+b0+6+?=
- =?us-ascii?Q?Ozn8PlJhjWSgNkdgMnxg9KWbQYKR?=
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?XlIjgfuR9TPHPoM2tZaxE2I+AYcXOz4x1yfDzckbXYh2BXCoMrRcsYuluQ23?=
+ =?us-ascii?Q?8Z6eaUzRL1ZdLDxeOvSlApqUa1gMCsoCKvlZLrGePA2GIrr+neg5PUmrZKxF?=
+ =?us-ascii?Q?T9IWmXmlg5eDNkB9LIz7MfnMSdBjsOhrzM5blAcC919+zyo2nKPTTD41Lu+A?=
+ =?us-ascii?Q?fZfY3vbFDdErl/ZXTV2BBZaa1xEaE2R3J4CawYRKEbNfVqCFGAiB5avcmQji?=
+ =?us-ascii?Q?BX5Nb6Yaadq/7OrBK4T0VnEaA32i30F70Zd+86k7m7TNYwN32Q/JrgeXpKcA?=
+ =?us-ascii?Q?sy33RBkHPjJ41SF0KX4YTWKdWTC6Q/mB01/tQQZnPouHGgcqrQOTzMWbhujZ?=
+ =?us-ascii?Q?NEd06Otj6bvT36o3hvuNtqmiQPmhbH+c71sJIz6AHORmOxc25s2jzrvjJt1G?=
+ =?us-ascii?Q?UuFO/h6tgyY+xYIRsqR7jowKh8ZewWb6PDQuIbO+F02I7xIYrArGD4jJuO7O?=
+ =?us-ascii?Q?Qtg715k/Dxv3jwdrS2PU24VxoDM0+o3L+zaqieOmCwYOGtB1cooo5uMGE51G?=
+ =?us-ascii?Q?JAV9GSCQhqujVCDBNjRtMuRzwWVk5QyurS2Qhy+XoR8y7qDJwyxNbmgCHa5S?=
+ =?us-ascii?Q?B5OQas+oMSVIGwKWOlF8YJrk+uNYYO+UOLwDAUrcgRIQcrEaGbfhupOTY+e/?=
+ =?us-ascii?Q?lsRIJn4Xewhc0IC0PmXhyojqFvCL741LELqOYHxJEl5+YPtvw8j0b7V8TzJs?=
+ =?us-ascii?Q?0jSIKnnqXzLdPBb0iA72v/DKR1PewV/wLLfChJvCLHt3gIuwiiU5BFlG4xJW?=
+ =?us-ascii?Q?Hmdm/NZEO2glj+uJ7fRO6soMLSFig2GyryZWIAVv6VjeSvBd0SoyBfgCTkdn?=
+ =?us-ascii?Q?207Gx1GsRvL6A0PxwXXVmp9H6YPq8XMac22opMCtvcxpeRP5qvE4eFaxk5pY?=
+ =?us-ascii?Q?RCr8jetNoKjOCN/Iem8Ti7DAtheiDTbVvtt2gS6RIYVEOzD40dJzcg6RqwMP?=
+ =?us-ascii?Q?FZLxBCoc+jMZQ1i2E0Vbgjt7RMNKhaHwwkJnPSg3kcqO5yolk0ygfrYPNP/t?=
+ =?us-ascii?Q?zFrMU+YANXLrkTG2W5MBNVojLYod/reWPdGlmj9UWSTJ9kVauv+8vNjWYDm+?=
+ =?us-ascii?Q?51+f3U9OrOKTZ1mWxhsjT8IUIoyU5Q3Oi3Ekn/qBz6LqNU4nCIoGra7RpZv7?=
+ =?us-ascii?Q?ZgziqzkiHkHfcqxLfa3JAavEG7JyKzuJEq2zncFwQH34GRwClcUfwyCgB8Kd?=
+ =?us-ascii?Q?mLcQ7j6gQ+IP3BCjE5gvf4V+ipqeqsdDpuYa5joQ26ZY4tRDt/xU5dcQGSdF?=
+ =?us-ascii?Q?CPSyPu84AaiZuhFzSCKKCQX9dpljdwPd6xY9zpm7Efle6TZ+PUj55FrYgqeY?=
+ =?us-ascii?Q?igm37owXQ4Blk1neIol/Ezut9VgIpQNpFkHnnkaaNTq22fepF+gbPUF+CTiD?=
+ =?us-ascii?Q?KMEoXUNBKRsMn3zqTM44rPqTrn6x?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 20:01:55.9317 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 510f1706-2708-4e21-f7a1-08dce3e63b83
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 20:01:54.7286 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76e8e255-158a-4c8c-2774-08dce3e63ad1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6009
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,129 +135,211 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-This adds support for a 3x4 color transformation matrix.
+We've previously introduced DRM_COLOROP_1D_CURVE for
+pre-defined 1D curves. But we also have HW that supports
+custom curves and userspace needs the ability to pass
+custom curves, aka LUTs.
 
-With this change the following IGT tests pass:
-kms_colorop --run plane-XR30-XR30-ctm_3x4_50_desat
-kms_colorop --run plane-XR30-XR30-ctm_3x4_overdrive
-kms_colorop --run plane-XR30-XR30-ctm_3x4_oversaturate
-kms_colorop --run plane-XR30-XR30-ctm_3x4_bt709_enc
-kms_colorop --run plane-XR30-XR30-ctm_3x4_bt709_dec
+This patch introduces a new colorop type, called
+DRM_COLOROP_1D_LUT that provides a SIZE property which
+is used by a driver to advertise the supported SIZE
+of the LUT, as well as a DATA property which userspace
+uses to set the LUT.
 
-The color pipeline now consists of the following colorops:
-1. 1D curve colorop
-2. 3x4 CTM
-3. 1D curve colorop
-4. 1D LUT
-5. 1D curve colorop
-6. 1D LUT
+DATA and size function in the same way as current drm_crtc
+GAMMA and DEGAMMA LUTs.
 
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Co-developed-by: Harry Wentland <harry.wentland@amd.com>
 ---
 
-v6:
- - fix warnings in dbg prints
+v5:
+ - Add kernel doc
+ - Define SIZE in similar manner to GAMMA_SIZE on drm_crtc (Melissa)
 
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 50 +++++++++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 16 ++++++
- 2 files changed, 66 insertions(+)
+ drivers/gpu/drm/drm_atomic.c      |  4 +++
+ drivers/gpu/drm/drm_atomic_uapi.c |  5 ++++
+ drivers/gpu/drm/drm_colorop.c     | 47 +++++++++++++++++++++++++++++--
+ include/drm/drm_colorop.h         | 16 +++++++++++
+ include/uapi/drm/drm_mode.h       |  9 ++++++
+ 5 files changed, 79 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 10c7a37262ec..9861e2608d16 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1212,6 +1212,45 @@ __set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
- 	return __set_colorop_in_tf_1d_curve(dc_plane_state, colorop_state);
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index c58663327e6b..f06b1d5a61ed 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -793,6 +793,10 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ 		drm_printf(p, "\tcurve_1d_type=%s\n",
+ 			   drm_get_colorop_curve_1d_type_name(state->curve_1d_type));
+ 		break;
++	case DRM_COLOROP_1D_LUT:
++		drm_printf(p, "\tsize=%d\n", state->size);
++		drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
++		break;
+ 	case DRM_COLOROP_CTM_3X4:
+ 		drm_printf(p, "\tdata blob id=%d\n", state->data ? state->data->base.id : 0);
+ 		break;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index fafbaa73b95f..2b7368b337a4 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -700,6 +700,9 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
+ 	bool replaced = false;
+
+ 	switch (colorop->type) {
++	case DRM_COLOROP_1D_LUT:
++		size = state->size * sizeof(struct drm_color_lut);
++		break;
+ 	case DRM_COLOROP_CTM_3X4:
+ 		size = sizeof(struct drm_color_ctm_3x4);
+ 		break;
+@@ -749,6 +752,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ 		*val = state->bypass;
+ 	} else if (property == colorop->curve_1d_type_property) {
+ 		*val = state->curve_1d_type;
++	} else if (property == colorop->size_property) {
++		*val = state->size;
+ 	} else if (property == colorop->data_property) {
+ 		*val = (state->data) ? state->data->base.id : 0;
+ 	} else {
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index d6af7910ffc0..1d3fef74a30e 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -63,6 +63,7 @@
+
+ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
+ 	{ DRM_COLOROP_1D_CURVE, "1D Curve" },
++	{ DRM_COLOROP_1D_LUT, "1D Curve Custom LUT" },
+ 	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"}
+ };
+
+@@ -218,12 +219,53 @@ static int drm_colorop_create_data_prop(struct drm_device *dev, struct drm_color
+
+ 	colorop->data_property = prop;
+ 	drm_object_attach_property(&colorop->base,
+-					colorop->data_property,
+-					0);
++				   colorop->data_property,
++				   0);
+
+ 	return 0;
  }
 
-+static int
-+__set_dm_plane_colorop_3x4_matrix(struct drm_plane_state *plane_state,
-+				  struct dc_plane_state *dc_plane_state,
-+				  struct drm_colorop *colorop)
++/**
++ * drm_colorop_curve_1d_lut_init - Initialize a DRM_COLOROP_1D_LUT
++ *
++ * @dev: DRM device
++ * @colorop: The drm_colorop object to initialize
++ * @plane: The associated drm_plane
++ * @lut_size: LUT size supported by driver
++ * @return zero on success, -E value on failure
++ */
++int drm_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_colorop *colorop,
++				  struct drm_plane *plane, uint32_t lut_size)
 +{
-+	struct drm_colorop *old_colorop;
-+	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_atomic_state *state = plane_state->state;
-+	const struct drm_device *dev = colorop->dev;
-+	const struct drm_property_blob *blob;
-+	struct drm_color_ctm_3x4 *ctm = NULL;
-+	int i = 0;
++	struct drm_property *prop;
++	int ret;
 +
-+	/* 3x4 matrix */
-+	old_colorop = colorop;
-+	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-+		if (new_colorop_state->colorop == old_colorop &&
-+		    new_colorop_state->colorop->type == DRM_COLOROP_CTM_3X4) {
-+			colorop_state = new_colorop_state;
-+			break;
-+		}
-+	}
-+
-+	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_CTM_3X4) {
-+		drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
-+		blob = colorop_state->data;
-+		if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
-+			ctm = blob ? (struct drm_color_ctm_3x4 *) blob->data : NULL;
-+			__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-+			dc_plane_state->gamut_remap_matrix.enable_remap = true;
-+			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-+		} else
-+			drm_warn(dev, "blob->length (%lu) isn't equal to drm_color_ctm_3x4 (%lu)\n",
-+				 blob->length, sizeof(struct drm_color_ctm_3x4));
-+	}
-+
-+	return 0;
-+}
-+
- static int
- __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 			      struct dc_plane_state *dc_plane_state,
-@@ -1411,6 +1450,17 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
- 	if (ret)
- 		return ret;
-
-+	/* 3x4 matrix */
-+	colorop = colorop->next;
-+	if (!colorop) {
-+		drm_dbg(dev, "no 3x4 matrix colorop found\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = __set_dm_plane_colorop_3x4_matrix(plane_state, dc_plane_state, colorop);
++	ret = drm_colorop_init(dev, colorop, plane, DRM_COLOROP_1D_LUT);
 +	if (ret)
 +		return ret;
 +
- 	/* 1D Curve & LUT - SHAPER TF & LUT */
- 	colorop = colorop->next;
- 	if (!colorop) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index d2423b98da15..9152f0a771ef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -75,6 +75,22 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
-
- 	i++;
-
-+	/* 3x4 matrix */
-+	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
-+	if (!ops[i]) {
-+		DRM_ERROR("KMS: Failed to allocate colorop\n");
-+		ret = -ENOMEM;
-+		goto cleanup;
-+	}
++	/* initialize 1D LUT only attribute */
++	/* LUT size */
++	prop = drm_property_create_range(dev, DRM_MODE_PROP_IMMUTABLE, "SIZE",
++					 0, UINT_MAX);
++	if (!prop)
++		return -ENOMEM;
 +
-+	ret = drm_colorop_ctm_3x4_init(dev, ops[i], plane);
++	colorop->size_property = prop;
++	drm_object_attach_property(&colorop->base, colorop->size_property, lut_size);
++
++	/* data */
++	ret = drm_colorop_create_data_prop(dev, colorop);
 +	if (ret)
-+		goto cleanup;
++		return ret;
 +
-+	drm_colorop_set_next_property(ops[i-1], ops[i]);
++	drm_colorop_reset(colorop);
++	colorop->state->size = lut_size;
 +
-+	i++;
++	return 0;
++}
++EXPORT_SYMBOL(drm_colorop_curve_1d_lut_init);
 +
- 	/* 1D curve - SHAPER TF */
- 	ops[i] = kzalloc(sizeof(struct drm_colorop), GFP_KERNEL);
- 	if (!ops[i]) {
+ int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
+ 			     struct drm_plane *plane)
+ {
+@@ -332,6 +374,7 @@ void drm_colorop_reset(struct drm_colorop *colorop)
+
+ static const char * const colorop_type_name[] = {
+ 	[DRM_COLOROP_1D_CURVE] = "1D Curve",
++	[DRM_COLOROP_1D_LUT] = "1D Curve Custom LUT",
+ 	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix"
+ };
+
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index ca3a480db787..32973ad99f8c 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -133,6 +133,13 @@ struct drm_colorop_state {
+ 	 */
+ 	enum drm_colorop_curve_1d_type curve_1d_type;
+
++	/**
++	 * @size:
++	 *
++	 * Number of entries of the custom LUT. This should be read-only.
++	 */
++	uint32_t size;
++
+ 	/**
+ 	 * @data:
+ 	 *
+@@ -245,6 +252,13 @@ struct drm_colorop {
+ 	 */
+ 	struct drm_property *curve_1d_type_property;
+
++	/**
++	 * @size_property:
++	 *
++	 * Size property for custom LUT from userspace.
++	 */
++	struct drm_property *size_property;
++
+ 	/**
+ 	 * @data_property:
+ 	 *
+@@ -291,6 +305,8 @@ static inline struct drm_colorop *drm_colorop_find(struct drm_device *dev,
+
+ int drm_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *colorop,
+ 			      struct drm_plane *plane, u64 supported_tfs);
++int drm_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_colorop *colorop,
++				  struct drm_plane *plane, uint32_t lut_size);
+ int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
+ 			     struct drm_plane *plane);
+
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index 6fc1ce24800a..40cc5c661cff 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -888,6 +888,15 @@ enum drm_colorop_type {
+ 	 */
+ 	DRM_COLOROP_1D_CURVE,
+
++	/**
++	 * @DRM_COLOROP_1D_LUT:
++	 *
++	 * A simple 1D LUT of uniformly spaced &drm_color_lut entries,
++	 * packed into a blob via the DATA property. The driver's expected
++	 * LUT size is advertised via the SIZE property.
++	 */
++	DRM_COLOROP_1D_LUT,
++
+ 	/**
+ 	 * @DRM_COLOROP_CTM_3X4:
+ 	 *
 --
 2.46.2
 
