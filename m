@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CCB0CFA753
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 07:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45CD2CFA756
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 07:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE77010E8AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C13E710E8AE;
 	Fri,  4 Oct 2024 07:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="f6DMs9mc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W2BcBRvY";
 	dkim-atps=neutral
-X-Greylist: delayed 616 seconds by postgrey-1.36 at gabe;
- Thu, 03 Oct 2024 13:49:14 UTC
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A43310E844;
- Thu,  3 Oct 2024 13:49:14 +0000 (UTC)
-Received: from fpc (unknown [10.10.165.16])
- by mail.ispras.ru (Postfix) with ESMTPSA id 3F68540A1DCA;
- Thu,  3 Oct 2024 13:38:55 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 3F68540A1DCA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1727962735;
- bh=KOWqdSYd0HRIuG/HzcyDAFKhPmaylzN0roNXviZpNtw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=f6DMs9mcJlTEHUqLTs5QPEMUO7gN0VYHvdDmd/FxOybqbeRUBvUpIagjui8SOv9vZ
- 0DYyc/90v8TpSAxjE75gy5VUGqVGVkNcXu27F6n8d+RR/5hbeGUDOBvskxjKGnxgh9
- zYDYpR5pfyt4HfkQWc7/PPrL62IBlNdpvRVbgIJk=
-Date: Thu, 3 Oct 2024 16:38:46 +0300
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- lvc-project@linuxtesting.org, Xinhui Pan <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [lvc-project] [PATCH v2] drm/amd/pm: check return value of
- amdgpu_irq_add_id()
-Message-ID: <20241003-271275e284694a8c82dac508-pchelkin@ispras.ru>
-References: <7b3ea9a6-575e-4fe5-98d9-6e53803188fa@amd.com>
- <20241002130149.1607979-1-Igor.A.Artemiev@mcst.ru>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83B3B10E35C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Oct 2024 08:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wP1JycnOb11Eam3t9qyAt4OWDNYGwMHR56M0aRSc7NU=; b=W2BcBRvYXismH897lM9JmH7Jm0
+ tSfg/LCSQgJ6rHSn0d07ZN7aOWDLjdFWfsg3nzz1LY0//6yAp9yfokP4P6vnVlIU5L1dJeF/mwaCx
+ Qw7u/+mkjjuhgFCXn2BFvuYpt8ZxJBGPuQFwMb6vpUO7T1yQQaYk+olq8nNYz+GDLojRWBU3DO6W2
+ f2uJyVmdBniF+mlFdf0/qx+Gb+M5pHjwmFTwCaZdXUyJFo1KXxaEB5IjJUqTyMO4dJYTaC1qGWRFC
+ /T6hzG5jkGTbaV1tee5Jwpow8ycPAEv+pfaLiqtYEjI0mbawsyryRCdduvomPlnBvEapYlfdNFdly
+ AsEh8/1Q==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1swH5S-004Eq3-Ps; Thu, 03 Oct 2024 10:21:26 +0200
+Message-ID: <3e1ad979-a11e-43bd-8488-52712b58cec1@igalia.com>
+Date: Thu, 3 Oct 2024 09:21:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/amdgpu: Remove the while loop from
+ amdgpu_job_prepare_job
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
+References: <20240924095145.2281-1-tursulin@igalia.com>
+ <20240924095145.2281-3-tursulin@igalia.com>
+ <6a7005b4-6af3-48e3-be65-353ffb5961f5@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <6a7005b4-6af3-48e3-be65-353ffb5961f5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241002130149.1607979-1-Igor.A.Artemiev@mcst.ru>
 X-Mailman-Approved-At: Fri, 04 Oct 2024 07:28:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,92 +64,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 02. Oct 16:01, Igor Artemiev wrote:
-> amdgpu_irq_ad_id() may fail and the irq handlers will not be registered.
-> This patch adds error code check.
+
+On 24/09/2024 13:06, Christian König wrote:
+> Am 24.09.24 um 11:51 schrieb Tvrtko Ursulin:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>
+>> While loop makes it sound like amdgpu_vmid_grab() potentially needs to be
+>> called multiple times to produce a fence, while in reality all code paths
+>> either return an error, assign a valid job->vmid or assign a vmid which
+>> will be valid once the returned fence signals.
+>>
+>> Therefore we can remove the loop to make it clear the call does not need
+>> to be repeated.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
 > 
-> Found by Linux Verification Center (linuxtesting.org) with static
-> analysis tool SVACE.
+> Oh yeah that's a leftover from when we still had the dependency handling 
+> inside all this.
 > 
-> Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-> ---
-> v2: Remove the cast to struct amdgpu_device as Christian König 
-> <christian.koenig@amd.com> suggested.
+> Reviewed-by: Christian König <christian.koenig@amd.com> for the whole 
+> series.
+
+Thanks - CC Alex if you could merge the trivial series please?
+
+Regards,
+
+Tvrtko
+
+>> ---
+>> I stared for a good while, going back and forth, and couldn't see that 
+>> the
+>> while loop is needed. But maybe I missed something?
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>> index d11cb0ad8c49..85f10b59d09c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>> @@ -356,7 +356,7 @@ amdgpu_job_prepare_job(struct drm_sched_job 
+>> *sched_job,
+>>       if (job->gang_submit)
+>>           fence = amdgpu_device_switch_gang(ring->adev, 
+>> job->gang_submit);
+>> -    while (!fence && job->vm && !job->vmid) {
+>> +    if (!fence && job->vm && !job->vmid) {
+>>           r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
+>>           if (r) {
+>>               dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
 > 
->  .../drm/amd/pm/powerplay/hwmgr/smu_helper.c   | 19 ++++++++++++++++---
->  1 file changed, 16 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-> index 79a566f3564a..50a3085c00aa 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c
-> @@ -647,28 +647,41 @@ int smu9_register_irq_handlers(struct pp_hwmgr *hwmgr)
->  {
->  	struct amdgpu_irq_src *source =
->  		kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
-> +	int ret;
->  
->  	if (!source)
->  		return -ENOMEM;
->  
->  	source->funcs = &smu9_irq_funcs;
->  
-> -	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-> +	ret = amdgpu_irq_add_id(hwmgr->adev,
->  			SOC15_IH_CLIENTID_THM,
->  			THM_9_0__SRCID__THM_DIG_THERM_L2H,
->  			source);
-> -	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret = amdgpu_irq_add_id(hwmgr->adev,
->  			SOC15_IH_CLIENTID_THM,
->  			THM_9_0__SRCID__THM_DIG_THERM_H2L,
->  			source);
-> +	if (ret)
-> +		goto err;
->  
->  	/* Register CTF(GPIO_19) interrupt */
-> -	amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-> +	ret = amdgpu_irq_add_id(hwmgr->adev,
->  			SOC15_IH_CLIENTID_ROM_SMUIO,
->  			SMUIO_9_0__SRCID__SMUIO_GPIO19,
->  			source);
-> +	if (ret)
-> +		goto err;
->  
->  	return 0;
-> +
-> +err:
-> +	kfree(source);
-
-Oh, the calltrace looks like:
-
-hwmgr_sw_init()
-  phm_register_irq_handlers()
-    ->register_irq_handlers()
-    smu9_register_irq_handlers()
-
-And the return value of phm_register_irq_handlers() is not processed and
-the error is not reported anywhere, so I guess there is a risk of
-use-after-free: the source pointer may have been already registered by
-some of amdgpu_irq_add_id() calls before the error occured.
-
-The similar code exists in smu7_register_irq_handlers(), maybe should be
-fixed as well.
-
-Alex, is https://gitlab.freedesktop.org/agd5f/linux a public repo this
-patch should go in? I'd suggest to drop the patch and ask Igor to do a
-complete fix or, if dropping is not possible now, fix it by another patch.
-For the latter one I can do this myself but it would be nice to refer to
-the current patch via a git hash (it's probably not published yet in your
-repo).
-
-> +
-> +	return ret;
->  }
->  
->  void *smu_atom_get_data_table(void *dev, uint32_t table, uint16_t *size,
-> -- 
-> 2.39.2
