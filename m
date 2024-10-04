@@ -4,73 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48FA9CFA775
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 14:01:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8481CFA775
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 14:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE7F010EA12;
-	Fri,  4 Oct 2024 14:01:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B50110EA18;
+	Fri,  4 Oct 2024 14:15:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dQfGJPCs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CpGGMI+3";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D98510EA12;
- Fri,  4 Oct 2024 14:01:12 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2e07d87adc2so307790a91.3; 
- Fri, 04 Oct 2024 07:01:12 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F3810EA18
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 14:15:55 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-20b582aaf08so906925ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 04 Oct 2024 07:15:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728050471; x=1728655271; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1728051355; x=1728656155; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KMwn901ZRLoRHXVyYDozCoh9nimOdyplKHDEtmswe7U=;
- b=dQfGJPCsdU5ZOb/YI70f4q+YRWWYfz5SVmXbppGbgxpQorePOek2XKsF3V2CUD/mtU
- cFjW99WRezZ/egk5bSvXS3Csz8PNZCn1z9CwNvtS+K39P3W+2Sje+glBIVYci7OgrOBv
- afd/OB1a4TfJuyINPVtpkJ9sYvLIO2Y8b9rhyIUzghBQaMElbhJb1vAfiU8U1rtT4E4Q
- auNBWYWuWQA4N/Owx/IU2/mUE1OPYKn7bxdpVPN6Mxt+ZAWATS+NOxlAHixm+DEnfVLG
- 1uw0Lx1cfM3D7AQC717MsJvCFYV5D0m+cR52QjZ4XXTW4QR54fsiUyKsp8APzkpahKBq
- I+Aw==
+ bh=kOCuourpoGxjm5B8AWYrWNltnKQ6Qz2CZAcPjQq7ZYI=;
+ b=CpGGMI+36KTuSkF4QM853IP6CnQRhV9o9O/IfGyjeKIZlyuY4ZGuC4XkDSp+fThWTE
+ pd0qHcZN5cnOKGpeA29SAeY9mh7BG/B1V0VwH+B8Sx3BVPZXq8wg7U8mgX/e/n2Q/3ZK
+ SJFlujmG8lqxfH7SIe7vdA62TNFZrY1SU4Qk8jnCJDH2eHH2Rz5VqZw859Wd4BmvkXzC
+ GfmJ8MX0hspy3+wAThJy/nV5kI2+sm6pO4k5ERMAKkJLq3wknG6Tx2AysvdvWwtOMXIF
+ XQqjS4yQ+zswlz+4i+wwT3le5WNG8bNjNN+QQ4U7edkHVWLBrL8g5jbC98Kqa3LETB6S
+ 4XrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728050471; x=1728655271;
+ d=1e100.net; s=20230601; t=1728051355; x=1728656155;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KMwn901ZRLoRHXVyYDozCoh9nimOdyplKHDEtmswe7U=;
- b=aRuNqq0jN52bo+vQEh3FXjeVYnKrNce36cQzdYSsdZSnGoY79qJut2rM3NEWAU4krC
- znfUT/GunKD8lUOyI2TCC1aZgF7wyzXlm+MzrnSYBg6hxKC0MKSqirxRvEx9PCipZfnS
- SqRD/ZiL4Ww1V97+0Hco8MyfTVZt5mbfCbkL67pNCfkskz/+qBkUhgk6OYni7Byj295W
- +F8h13MqJ72em18KkjYYIx9LjOu4pwHEKu/4zJuWO1NDcNbLZa9d1B+XfC3HUB6NL9GM
- lTeA7o4GzIA+sDTnt/MKk2MNTZJjmWin961EbwVTeNxYcrJb10faVOHmz8r57b1d7fXI
- 9d7w==
+ bh=kOCuourpoGxjm5B8AWYrWNltnKQ6Qz2CZAcPjQq7ZYI=;
+ b=OWg6+5RWyPzMHQI4BRDytvK8CtxU6Ch+++NH8QAZ13QQwY/GPsoa0Rq7uMbLzeQMx3
+ M6tmjHib/2gnQSRME//aUMplrrVjhGjbUrPxdsqjVS6ZYsN6QI94CG1aIjkwg6QyRm37
+ W+gDz6ci2kI+cI4aKpSvIjWx+99H3gAPjTTDLcWyhgl6DCZqW42fjabNMjPys4KuRqE9
+ sEOxrshm9G2ro+WUTbUJ4+TgWLhLiwoKk8Y4YUUrBE+VidkHJ0YD/P53lJs8bYyaX8+J
+ yyEV6M3bqNg7fOGM1cv90Ch6LNQnRjGKCC4ggJpGSc25OLufh5GCGJraQ/XspELZBb7y
+ kYFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW0F9P6s3u0zW2ZoF908EGfRZ9EGzkm/eGkCRCPVZhBZifxdzQSfak1GuQlVtRc+odGgtFSBM7hEI8v@lists.freedesktop.org,
- AJvYcCXTW4mypefh3greFSWnbeLzKJ8foFAG5k3NL33hfgs+uKWxGXgRTnAJE8mbUOml+UOdAG21dbeR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcO3q6NkMepmcRzxkHAUR+RnT+27kbdYgR+z3xKdFeXHAWliDc
- v656Tn0f1L8SVOkhnHlvIUEWH82+/J2mhigkxZ0C5H5vPRQZ9dbafrqelWcjINeEBXCG6QX8Ey+
- 8WRv7jMXxwKrlgMXaKe2vcEzBFNc0jnwJ
-X-Google-Smtp-Source: AGHT+IEJ1tRqM5NLWvzkRdlOsKIDAq7K9+lPQKlj31f3AEwobSgsbCs+ky8e9auMeCNS8p7/tSoWstvR8FyH9iCmeAs=
-X-Received: by 2002:a17:90a:c88:b0:2e0:9d3f:4292 with SMTP id
- 98e67ed59e1d1-2e1e62117bemr1411095a91.1.1728050471300; Fri, 04 Oct 2024
- 07:01:11 -0700 (PDT)
+ AJvYcCU01I3tUMXs477+ZXAdYDCo8bEXBGJZti/bYnVs6/mpLW9Nj8hmsB+bdpF0JfE5d4/UFnhubf9i@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwFbBnT2lf5ynmcP6eptjjtykDRcxjhDmIJEDtGDUW/srJaF6yF
+ BID2xkzxEOOeKpW9D/5cENhZ5IKtnqeMnDDCZy98lzFavy/mYe6RG5MgHi4dcm+JOrk/iCH5blv
+ tDglhWELq5yJenBsmi+ldBagzo/k=
+X-Google-Smtp-Source: AGHT+IHRDWa6IqnSA2gXgHPitGNm1bmNiVoKsWUiIkpkgmkklg1AB4oNQkolg8JKkg/GnudFZ8zLbNf+9fPmpZUsBEI=
+X-Received: by 2002:a17:90a:e291:b0:2d3:b598:8daa with SMTP id
+ 98e67ed59e1d1-2e1e631b1a8mr1453982a91.4.1728051355232; Fri, 04 Oct 2024
+ 07:15:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241004010601.3387-1-wuhoipok@gmail.com>
-In-Reply-To: <20241004010601.3387-1-wuhoipok@gmail.com>
+References: <20240924095145.2281-1-tursulin@igalia.com>
+ <20240924095145.2281-3-tursulin@igalia.com>
+ <6a7005b4-6af3-48e3-be65-353ffb5961f5@amd.com>
+ <3e1ad979-a11e-43bd-8488-52712b58cec1@igalia.com>
+In-Reply-To: <3e1ad979-a11e-43bd-8488-52712b58cec1@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Oct 2024 10:00:59 -0400
-Message-ID: <CADnq5_Nt=8Lx6KOXHf0DHmqo2O7dYKDTfGCz-w_Hv+__=BqP9w@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/radeon: add late_register for connector
-To: Wu Hoi Pok <wuhoipok@gmail.com>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>, 
- Christian Zigotzky <chzigotzky@xenosoft.de>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
+Date: Fri, 4 Oct 2024 10:15:43 -0400
+Message-ID: <CADnq5_MgTQxMwmoB2_XDFGqwma7=mqKhUPnhcRJ5YJrGk2wSFQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Remove the while loop from
+ amdgpu_job_prepare_job
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,122 +83,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 3, 2024 at 9:18=E2=80=AFPM Wu Hoi Pok <wuhoipok@gmail.com> wrot=
-e:
->
-> The patch is to solve null dereference in 'aux.dev', which is
-> introduced in recent radeon rework. By having 'late_register',
-> the connector should be registered after 'drm_dev_register'
-> automatically, where in before it is the opposite.
->
-> Fixes: 90985660ba48 ("drm/radeon: remove load callback from kms_driver")
-> Tested-by: Hans de Goede <hdegoede@redhat.com>
-> Suggested-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-> Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
-
 Applied.  Thanks!
 
 Alex
 
-> ---
->  drivers/gpu/drm/radeon/atombios_dp.c       |  9 ++-------
->  drivers/gpu/drm/radeon/radeon_connectors.c | 17 +++++++++++++++++
->  2 files changed, 19 insertions(+), 7 deletions(-)
+On Fri, Oct 4, 2024 at 3:28=E2=80=AFAM Tvrtko Ursulin <tvrtko.ursulin@igali=
+a.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeo=
-n/atombios_dp.c
-> index fca8b08535a5..6328627b7c34 100644
-> --- a/drivers/gpu/drm/radeon/atombios_dp.c
-> +++ b/drivers/gpu/drm/radeon/atombios_dp.c
-> @@ -228,10 +228,8 @@ void radeon_dp_aux_init(struct radeon_connector *rad=
-eon_connector)
->  {
->         struct drm_device *dev =3D radeon_connector->base.dev;
->         struct radeon_device *rdev =3D dev->dev_private;
-> -       int ret;
 >
->         radeon_connector->ddc_bus->rec.hpd =3D radeon_connector->hpd.hpd;
-> -       radeon_connector->ddc_bus->aux.dev =3D radeon_connector->base.kde=
-v;
->         radeon_connector->ddc_bus->aux.drm_dev =3D radeon_connector->base=
-.dev;
->         if (ASIC_IS_DCE5(rdev)) {
->                 if (radeon_auxch)
-> @@ -242,11 +240,8 @@ void radeon_dp_aux_init(struct radeon_connector *rad=
-eon_connector)
->                 radeon_connector->ddc_bus->aux.transfer =3D radeon_dp_aux=
-_transfer_atom;
->         }
+> On 24/09/2024 13:06, Christian K=C3=B6nig wrote:
+> > Am 24.09.24 um 11:51 schrieb Tvrtko Ursulin:
+> >> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> >>
+> >> While loop makes it sound like amdgpu_vmid_grab() potentially needs to=
+ be
+> >> called multiple times to produce a fence, while in reality all code pa=
+ths
+> >> either return an error, assign a valid job->vmid or assign a vmid whic=
+h
+> >> will be valid once the returned fence signals.
+> >>
+> >> Therefore we can remove the loop to make it clear the call does not ne=
+ed
+> >> to be repeated.
+> >>
+> >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> >> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >
+> > Oh yeah that's a leftover from when we still had the dependency handlin=
+g
+> > inside all this.
+> >
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the wh=
+ole
+> > series.
 >
-> -       ret =3D drm_dp_aux_register(&radeon_connector->ddc_bus->aux);
-> -       if (!ret)
-> -               radeon_connector->ddc_bus->has_aux =3D true;
-> -
-> -       WARN(ret, "drm_dp_aux_register() failed with error %d\n", ret);
-> +       drm_dp_aux_init(&radeon_connector->ddc_bus->aux);
-> +       radeon_connector->ddc_bus->has_aux =3D true;
->  }
+> Thanks - CC Alex if you could merge the trivial series please?
 >
->  /***** general DP utility functions *****/
-> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
-/radeon/radeon_connectors.c
-> index 528a8f3677c2..f9c73c55f04f 100644
-> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
-> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-> @@ -1786,6 +1786,20 @@ static enum drm_mode_status radeon_dp_mode_valid(s=
-truct drm_connector *connector
->         return MODE_OK;
->  }
+> Regards,
 >
-> +static int
-> +radeon_connector_late_register(struct drm_connector *connector)
-> +{
-> +       struct radeon_connector *radeon_connector =3D to_radeon_connector=
-(connector);
-> +       int r =3D 0;
-> +
-> +       if (radeon_connector->ddc_bus->has_aux) {
-> +               radeon_connector->ddc_bus->aux.dev =3D radeon_connector->=
-base.kdev;
-> +               r =3D drm_dp_aux_register(&radeon_connector->ddc_bus->aux=
+> Tvrtko
+>
+> >> ---
+> >> I stared for a good while, going back and forth, and couldn't see that
+> >> the
+> >> while loop is needed. But maybe I missed something?
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> index d11cb0ad8c49..85f10b59d09c 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >> @@ -356,7 +356,7 @@ amdgpu_job_prepare_job(struct drm_sched_job
+> >> *sched_job,
+> >>       if (job->gang_submit)
+> >>           fence =3D amdgpu_device_switch_gang(ring->adev,
+> >> job->gang_submit);
+> >> -    while (!fence && job->vm && !job->vmid) {
+> >> +    if (!fence && job->vm && !job->vmid) {
+> >>           r =3D amdgpu_vmid_grab(job->vm, ring, job, &fence);
+> >>           if (r) {
+> >>               dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r=
 );
-> +       }
-> +
-> +       return r;
-> +}
-> +
->  static const struct drm_connector_helper_funcs radeon_dp_connector_helpe=
-r_funcs =3D {
->         .get_modes =3D radeon_dp_get_modes,
->         .mode_valid =3D radeon_dp_mode_valid,
-> @@ -1800,6 +1814,7 @@ static const struct drm_connector_funcs radeon_dp_c=
-onnector_funcs =3D {
->         .early_unregister =3D radeon_connector_unregister,
->         .destroy =3D radeon_connector_destroy,
->         .force =3D radeon_dvi_force,
-> +       .late_register =3D radeon_connector_late_register,
->  };
->
->  static const struct drm_connector_funcs radeon_edp_connector_funcs =3D {
-> @@ -1810,6 +1825,7 @@ static const struct drm_connector_funcs radeon_edp_=
-connector_funcs =3D {
->         .early_unregister =3D radeon_connector_unregister,
->         .destroy =3D radeon_connector_destroy,
->         .force =3D radeon_dvi_force,
-> +       .late_register =3D radeon_connector_late_register,
->  };
->
->  static const struct drm_connector_funcs radeon_lvds_bridge_connector_fun=
-cs =3D {
-> @@ -1820,6 +1836,7 @@ static const struct drm_connector_funcs radeon_lvds=
-_bridge_connector_funcs =3D {
->         .early_unregister =3D radeon_connector_unregister,
->         .destroy =3D radeon_connector_destroy,
->         .force =3D radeon_dvi_force,
-> +       .late_register =3D radeon_connector_late_register,
->  };
->
->  void
-> --
-> 2.46.2
->
+> >
